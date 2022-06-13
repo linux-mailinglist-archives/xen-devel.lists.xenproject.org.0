@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 810B1548540
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jun 2022 14:36:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.348202.574503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C542548545
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jun 2022 14:46:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.348230.574520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o0jJB-0005wf-6r; Mon, 13 Jun 2022 12:36:41 +0000
+	id 1o0jRZ-0008AX-8v; Mon, 13 Jun 2022 12:45:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 348202.574503; Mon, 13 Jun 2022 12:36:41 +0000
+Received: by outflank-mailman (output) from mailman id 348230.574520; Mon, 13 Jun 2022 12:45:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o0jJB-0005tW-3R; Mon, 13 Jun 2022 12:36:41 +0000
-Received: by outflank-mailman (input) for mailman id 348202;
- Mon, 13 Jun 2022 12:36:15 +0000
+	id 1o0jRZ-00087H-5y; Mon, 13 Jun 2022 12:45:21 +0000
+Received: by outflank-mailman (input) for mailman id 348230;
+ Mon, 13 Jun 2022 12:39:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x+EV=WU=atomide.com=tony@srs-se1.protection.inumbo.net>)
- id 1o0jIl-0005pV-CX
- for xen-devel@lists.xenproject.org; Mon, 13 Jun 2022 12:36:15 +0000
+ id 1o0jLZ-0007Gg-EB
+ for xen-devel@lists.xenproject.org; Mon, 13 Jun 2022 12:39:09 +0000
 Received: from muru.com (muru.com [72.249.23.125])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 69911010-eb15-11ec-bd2c-47488cf2e6aa;
- Mon, 13 Jun 2022 14:36:14 +0200 (CEST)
+ id d103bdb5-eb15-11ec-bd2c-47488cf2e6aa;
+ Mon, 13 Jun 2022 14:39:07 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id 87B6681D6;
- Mon, 13 Jun 2022 12:31:31 +0000 (UTC)
+ by muru.com (Postfix) with ESMTPS id AC04B82CC;
+ Mon, 13 Jun 2022 12:34:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,8 +39,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69911010-eb15-11ec-bd2c-47488cf2e6aa
-Date: Mon, 13 Jun 2022 15:36:11 +0300
+X-Inumbo-ID: d103bdb5-eb15-11ec-bd2c-47488cf2e6aa
+Date: Mon, 13 Jun 2022 15:39:05 +0300
 From: Tony Lindgren <tony@atomide.com>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
@@ -98,23 +98,142 @@ Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
 	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
 	rcu@vger.kernel.org
-Subject: Re: [PATCH 33/36] cpuidle,omap3: Use WFI for omap3_pm_idle()
-Message-ID: <YqcvO0xSmlEVMef3@atomide.com>
+Subject: [PATCH 34.5/36] cpuidle,omap4: Push RCU-idle into
+ omap4_enter_lowpower()
+Message-ID: <Yqcv6crSNKuSWoTu@atomide.com>
 References: <20220608142723.103523089@infradead.org>
- <20220608144518.010587032@infradead.org>
+ <20220608144518.073801916@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220608144518.010587032@infradead.org>
+In-Reply-To: <20220608144518.073801916@infradead.org>
 
-* Peter Zijlstra <peterz@infradead.org> [220608 14:52]:
-> arch_cpu_idle() is a very simple idle interface and exposes only a
-> single idle state and is expected to not require RCU and not do any
-> tracing/instrumentation.
-> 
-> As such, omap_sram_idle() is not a valid implementation. Replace it
-> with the simple (shallow) omap3_do_wfi() call. Leaving the more
-> complicated idle states for the cpuidle driver.
+OMAP4 uses full SoC suspend modes as idle states, as such it needs the
+whole power-domain and clock-domain code from the idle path.
 
-Acked-by: Tony Lindgren <tony@atomide.com>
+All that code is not suitable to run with RCU disabled, as such push
+RCU-idle deeper still.
+
+Signed-off-by: Tony Lindgren <tony@atomide.com>
+---
+
+Peter here's one more for your series, looks like this is needed to avoid
+warnings similar to what you did for omap3.
+
+---
+ arch/arm/mach-omap2/common.h              |  6 ++++--
+ arch/arm/mach-omap2/cpuidle44xx.c         |  8 ++------
+ arch/arm/mach-omap2/omap-mpuss-lowpower.c | 12 +++++++++++-
+ arch/arm/mach-omap2/pm44xx.c              |  2 +-
+ 4 files changed, 18 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm/mach-omap2/common.h b/arch/arm/mach-omap2/common.h
+--- a/arch/arm/mach-omap2/common.h
++++ b/arch/arm/mach-omap2/common.h
+@@ -284,11 +284,13 @@ extern u32 omap4_get_cpu1_ns_pa_addr(void);
+ 
+ #if defined(CONFIG_SMP) && defined(CONFIG_PM)
+ extern int omap4_mpuss_init(void);
+-extern int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state);
++extern int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state,
++				bool rcuidle);
+ extern int omap4_hotplug_cpu(unsigned int cpu, unsigned int power_state);
+ #else
+ static inline int omap4_enter_lowpower(unsigned int cpu,
+-					unsigned int power_state)
++					unsigned int power_state,
++					bool rcuidle)
+ {
+ 	cpu_do_idle();
+ 	return 0;
+diff --git a/arch/arm/mach-omap2/cpuidle44xx.c b/arch/arm/mach-omap2/cpuidle44xx.c
+--- a/arch/arm/mach-omap2/cpuidle44xx.c
++++ b/arch/arm/mach-omap2/cpuidle44xx.c
+@@ -105,9 +105,7 @@ static int omap_enter_idle_smp(struct cpuidle_device *dev,
+ 	}
+ 	raw_spin_unlock_irqrestore(&mpu_lock, flag);
+ 
+-	cpuidle_rcu_enter();
+-	omap4_enter_lowpower(dev->cpu, cx->cpu_state);
+-	cpuidle_rcu_exit();
++	omap4_enter_lowpower(dev->cpu, cx->cpu_state, true);
+ 
+ 	raw_spin_lock_irqsave(&mpu_lock, flag);
+ 	if (cx->mpu_state_vote == num_online_cpus())
+@@ -186,10 +184,8 @@ static int omap_enter_idle_coupled(struct cpuidle_device *dev,
+ 		}
+ 	}
+ 
+-	cpuidle_rcu_enter();
+-	omap4_enter_lowpower(dev->cpu, cx->cpu_state);
++	omap4_enter_lowpower(dev->cpu, cx->cpu_state, true);
+ 	cpu_done[dev->cpu] = true;
+-	cpuidle_rcu_exit();
+ 
+ 	/* Wakeup CPU1 only if it is not offlined */
+ 	if (dev->cpu == 0 && cpumask_test_cpu(1, cpu_online_mask)) {
+diff --git a/arch/arm/mach-omap2/omap-mpuss-lowpower.c b/arch/arm/mach-omap2/omap-mpuss-lowpower.c
+--- a/arch/arm/mach-omap2/omap-mpuss-lowpower.c
++++ b/arch/arm/mach-omap2/omap-mpuss-lowpower.c
+@@ -33,6 +33,7 @@
+  * and first to wake-up when MPUSS low power states are excercised
+  */
+ 
++#include <linux/cpuidle.h>
+ #include <linux/kernel.h>
+ #include <linux/io.h>
+ #include <linux/errno.h>
+@@ -214,6 +215,7 @@ static void __init save_l2x0_context(void)
+  * of OMAP4 MPUSS subsystem
+  * @cpu : CPU ID
+  * @power_state: Low power state.
++ * @rcuidle: RCU needs to be idled
+  *
+  * MPUSS states for the context save:
+  * save_state =
+@@ -222,7 +224,8 @@ static void __init save_l2x0_context(void)
+  *	2 - CPUx L1 and logic lost + GIC lost: MPUSS OSWR
+  *	3 - CPUx L1 and logic lost + GIC + L2 lost: DEVICE OFF
+  */
+-int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state)
++int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state,
++			 bool rcuidle)
+ {
+ 	struct omap4_cpu_pm_info *pm_info = &per_cpu(omap4_pm_info, cpu);
+ 	unsigned int save_state = 0, cpu_logic_state = PWRDM_POWER_RET;
+@@ -268,6 +271,10 @@ int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state)
+ 	cpu_clear_prev_logic_pwrst(cpu);
+ 	pwrdm_set_next_pwrst(pm_info->pwrdm, power_state);
+ 	pwrdm_set_logic_retst(pm_info->pwrdm, cpu_logic_state);
++
++	if (rcuidle)
++		cpuidle_rcu_enter();
++
+ 	set_cpu_wakeup_addr(cpu, __pa_symbol(omap_pm_ops.resume));
+ 	omap_pm_ops.scu_prepare(cpu, power_state);
+ 	l2x0_pwrst_prepare(cpu, save_state);
+@@ -283,6 +290,9 @@ int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state)
+ 	if (IS_PM44XX_ERRATUM(PM_OMAP4_ROM_SMP_BOOT_ERRATUM_GICD) && cpu)
+ 		gic_dist_enable();
+ 
++	if (rcuidle)
++		cpuidle_rcu_exit();
++
+ 	/*
+ 	 * Restore the CPUx power state to ON otherwise CPUx
+ 	 * power domain can transitions to programmed low power
+diff --git a/arch/arm/mach-omap2/pm44xx.c b/arch/arm/mach-omap2/pm44xx.c
+--- a/arch/arm/mach-omap2/pm44xx.c
++++ b/arch/arm/mach-omap2/pm44xx.c
+@@ -76,7 +76,7 @@ static int omap4_pm_suspend(void)
+ 	 * domain CSWR is not supported by hardware.
+ 	 * More details can be found in OMAP4430 TRM section 4.3.4.2.
+ 	 */
+-	omap4_enter_lowpower(cpu_id, cpu_suspend_state);
++	omap4_enter_lowpower(cpu_id, cpu_suspend_state, false);
+ 
+ 	/* Restore next powerdomain state */
+ 	list_for_each_entry(pwrst, &pwrst_list, node) {
+-- 
+2.36.1
 
