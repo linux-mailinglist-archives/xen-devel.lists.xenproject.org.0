@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B040954854F
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jun 2022 14:53:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.348245.574545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2573D54854B
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jun 2022 14:53:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.348244.574537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o0jZP-0001YD-NX; Mon, 13 Jun 2022 12:53:27 +0000
+	id 1o0jZP-0001TA-DB; Mon, 13 Jun 2022 12:53:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 348245.574545; Mon, 13 Jun 2022 12:53:27 +0000
+Received: by outflank-mailman (output) from mailman id 348244.574537; Mon, 13 Jun 2022 12:53:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o0jZP-0001SY-I0; Mon, 13 Jun 2022 12:53:27 +0000
-Received: by outflank-mailman (input) for mailman id 348245;
+	id 1o0jZP-0001M8-8s; Mon, 13 Jun 2022 12:53:27 +0000
+Received: by outflank-mailman (input) for mailman id 348244;
  Mon, 13 Jun 2022 12:53:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E7/M=WU=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1o0jZN-0001I4-Uy
+ id 1o0jZO-0001JY-13
  for xen-devel@lists.xenproject.org; Mon, 13 Jun 2022 12:53:26 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id cf612d85-eb17-11ec-bd2c-47488cf2e6aa;
- Mon, 13 Jun 2022 14:53:24 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id d008da88-eb17-11ec-8901-93a377f238d6;
+ Mon, 13 Jun 2022 14:53:25 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AA11A1042;
- Mon, 13 Jun 2022 05:53:23 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 903221480;
+ Mon, 13 Jun 2022 05:53:24 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E523A3F792;
- Mon, 13 Jun 2022 05:53:22 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C9FB73F792;
+ Mon, 13 Jun 2022 05:53:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,239 +43,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf612d85-eb17-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: d008da88-eb17-11ec-8901-93a377f238d6
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 1/4] xen/arm: Sync sysregs and cpuinfo with Linux 5.18-rc3
-Date: Mon, 13 Jun 2022 13:53:11 +0100
-Message-Id: <b7b2a48eb1f8ed7f1a00e87189160accfc0d9625.1655124548.git.bertrand.marquis@arm.com>
+Subject: [PATCH v3 2/4] xen/arm: Add sb instruction support
+Date: Mon, 13 Jun 2022 13:53:12 +0100
+Message-Id: <7fa3bf8fc27bac120e28092c8c4081d1e58f0b79.1655124548.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1655124548.git.bertrand.marquis@arm.com>
 References: <cover.1655124548.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Sync existing ID registers sanitization with the status of Linux kernel
-version 5.18-rc3 and add sanitization of ISAR2 registers.
+This patch is adding sb instruction support when it is supported by a
+CPU on arm64.
+A new cpu feature capability system is introduced to enable alternative
+code using sb instruction when it is supported by the processor. This is
+decided based on the isa64 system register value and use a new hardware
+capability ARM_HAS_SB.
 
-Sync sysregs.h bit shift defintions with the status of Linux kernel
-version 5.18-rc3.
+The sb instruction is encoded using its hexadecimal value to avoid
+recursive macro and support old compilers not having support for sb
+instruction.
 
-Changes in this patch are splitted in a number of patches in Linux
-kernel and, as the previous synchronisation point was not clear, the
-changes are done in one patch with a status possible to compare easily
-by diffing Xen files to Linux kernel files.
+Arm32 instruction support is added but it is not enabled at the moment
+due to the lack of hardware supporting it.
 
-Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git b2d229d4ddb1
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-Changes in v3
-- add Stefano r-b
-Changes in v2
-- move changes in cpufeature.h in an independent patch
-- add proper origin tag in the commit
-- rework the commit message
+Changes in v3:
+- rename ARM64_HAS_SB to ARM_HAS_SB
+- define sb before including per arch macros
+Changes in v2:
+- fix commit message
+- add comment to explain the extra nop
+- add support for arm32 and move macro back to arm generic header
+- fix macro comment indentation
+- introduce cpu feature system instead of using errata
 ---
- xen/arch/arm/arm64/cpufeature.c          | 18 +++++-
- xen/arch/arm/include/asm/arm64/sysregs.h | 76 ++++++++++++++++++++----
- 2 files changed, 80 insertions(+), 14 deletions(-)
+ xen/arch/arm/cpufeature.c             | 28 +++++++++++++++++++++++++++
+ xen/arch/arm/include/asm/cpufeature.h |  6 +++++-
+ xen/arch/arm/include/asm/macros.h     | 19 +++++++++++++++++-
+ xen/arch/arm/setup.c                  |  3 +++
+ xen/arch/arm/smpboot.c                |  1 +
+ 5 files changed, 55 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
-index 6e5d30dc7b..d9039d37b2 100644
---- a/xen/arch/arm/arm64/cpufeature.c
-+++ b/xen/arch/arm/arm64/cpufeature.c
-@@ -143,6 +143,16 @@ static const struct arm64_ftr_bits ftr_id_aa64isar1[] = {
- 	ARM64_FTR_END,
- };
+diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+index a58965f7b9..62d5e1770a 100644
+--- a/xen/arch/arm/cpufeature.c
++++ b/xen/arch/arm/cpufeature.c
+@@ -26,6 +26,24 @@ DECLARE_BITMAP(cpu_hwcaps, ARM_NCAPS);
  
-+static const struct arm64_ftr_bits ftr_id_aa64isar2[] = {
-+	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_HIGHER_SAFE, ID_AA64ISAR2_CLEARBHB_SHIFT, 4, 0),
-+	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
-+		       FTR_STRICT, FTR_EXACT, ID_AA64ISAR2_APA3_SHIFT, 4, 0),
-+	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
-+		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR2_GPA3_SHIFT, 4, 0),
-+	ARM64_FTR_BITS(FTR_VISIBLE, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64ISAR2_RPRES_SHIFT, 4, 0),
-+	ARM64_FTR_END,
+ struct cpuinfo_arm __read_mostly guest_cpuinfo;
+ 
++#ifdef CONFIG_ARM_64
++static bool has_sb_instruction(const struct arm_cpu_capabilities *entry)
++{
++    return system_cpuinfo.isa64.sb;
++}
++#endif
++
++static const struct arm_cpu_capabilities arm_features[] = {
++#ifdef CONFIG_ARM_64
++    {
++        .desc = "Speculation barrier instruction (SB)",
++        .capability = ARM_HAS_SB,
++        .matches = has_sb_instruction,
++    },
++#endif
++    {},
 +};
 +
- static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_CSV3_SHIFT, 4, 0),
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_CSV2_SHIFT, 4, 0),
-@@ -158,8 +168,8 @@ static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
- 	S_ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_FP_SHIFT, 4, ID_AA64PFR0_FP_NI),
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL3_SHIFT, 4, 0),
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL2_SHIFT, 4, 0),
--	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_SHIFT, 4, ID_AA64PFR0_EL1_64BIT_ONLY),
--	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL0_SHIFT, 4, ID_AA64PFR0_EL0_64BIT_ONLY),
-+	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_SHIFT, 4, ID_AA64PFR0_ELx_64BIT_ONLY),
-+	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL0_SHIFT, 4, ID_AA64PFR0_ELx_64BIT_ONLY),
- 	ARM64_FTR_END,
- };
+ void update_cpu_capabilities(const struct arm_cpu_capabilities *caps,
+                              const char *info)
+ {
+@@ -70,6 +88,16 @@ void __init enable_cpu_capabilities(const struct arm_cpu_capabilities *caps)
+     }
+ }
  
-@@ -197,7 +207,7 @@ static const struct arm64_ftr_bits ftr_id_aa64zfr0[] = {
- };
- 
- static const struct arm64_ftr_bits ftr_id_aa64mmfr0[] = {
--	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_ECV_SHIFT, 4, 0),
-+	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_ECV_SHIFT, 4, 0),
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_FGT_SHIFT, 4, 0),
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_EXS_SHIFT, 4, 0),
- 	/*
-@@ -243,6 +253,7 @@ static const struct arm64_ftr_bits ftr_id_aa64mmfr0[] = {
- };
- 
- static const struct arm64_ftr_bits ftr_id_aa64mmfr1[] = {
-+	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_AFP_SHIFT, 4, 0),
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_ETS_SHIFT, 4, 0),
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_TWED_SHIFT, 4, 0),
- 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_XNX_SHIFT, 4, 0),
-@@ -588,6 +599,7 @@ void update_system_features(const struct cpuinfo_arm *new)
- 
- 	SANITIZE_ID_REG(isa64, 0, aa64isar0);
- 	SANITIZE_ID_REG(isa64, 1, aa64isar1);
-+	SANITIZE_ID_REG(isa64, 2, aa64isar2);
- 
- 	SANITIZE_ID_REG(zfr64, 0, aa64zfr0);
- 
-diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
-index eac08ed33f..54670084c3 100644
---- a/xen/arch/arm/include/asm/arm64/sysregs.h
-+++ b/xen/arch/arm/include/asm/arm64/sysregs.h
-@@ -144,6 +144,30 @@
- 
- /* id_aa64isar2 */
- #define ID_AA64ISAR2_CLEARBHB_SHIFT 28
-+#define ID_AA64ISAR2_APA3_SHIFT     12
-+#define ID_AA64ISAR2_GPA3_SHIFT     8
-+#define ID_AA64ISAR2_RPRES_SHIFT    4
-+#define ID_AA64ISAR2_WFXT_SHIFT     0
++void check_local_cpu_features(void)
++{
++    update_cpu_capabilities(arm_features, "enabled support for");
++}
 +
-+#define ID_AA64ISAR2_RPRES_8BIT     0x0
-+#define ID_AA64ISAR2_RPRES_12BIT    0x1
-+/*
-+ * Value 0x1 has been removed from the architecture, and is
-+ * reserved, but has not yet been removed from the ARM ARM
-+ * as of ARM DDI 0487G.b.
-+ */
-+#define ID_AA64ISAR2_WFXT_NI        0x0
-+#define ID_AA64ISAR2_WFXT_SUPPORTED 0x2
++void __init enable_cpu_features(void)
++{
++    enable_cpu_capabilities(arm_features);
++}
 +
-+#define ID_AA64ISAR2_APA3_NI                  0x0
-+#define ID_AA64ISAR2_APA3_ARCHITECTED         0x1
-+#define ID_AA64ISAR2_APA3_ARCH_EPAC           0x2
-+#define ID_AA64ISAR2_APA3_ARCH_EPAC2          0x3
-+#define ID_AA64ISAR2_APA3_ARCH_EPAC2_FPAC     0x4
-+#define ID_AA64ISAR2_APA3_ARCH_EPAC2_FPAC_CMB 0x5
+ /*
+  * Run through the enabled capabilities and enable() them on the calling CPU.
+  * If enabling of any capability fails the error is returned. After enabling a
+diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
+index f7368766c0..24c01d2b9d 100644
+--- a/xen/arch/arm/include/asm/cpufeature.h
++++ b/xen/arch/arm/include/asm/cpufeature.h
+@@ -67,8 +67,9 @@
+ #define ARM_WORKAROUND_BHB_LOOP_24 13
+ #define ARM_WORKAROUND_BHB_LOOP_32 14
+ #define ARM_WORKAROUND_BHB_SMCC_3 15
++#define ARM_HAS_SB 16
+ 
+-#define ARM_NCAPS           16
++#define ARM_NCAPS           17
+ 
+ #ifndef __ASSEMBLY__
+ 
+@@ -78,6 +79,9 @@
+ 
+ extern DECLARE_BITMAP(cpu_hwcaps, ARM_NCAPS);
+ 
++void check_local_cpu_features(void);
++void enable_cpu_features(void);
 +
-+#define ID_AA64ISAR2_GPA3_NI             0x0
-+#define ID_AA64ISAR2_GPA3_ARCHITECTED    0x1
+ static inline bool cpus_have_cap(unsigned int num)
+ {
+     if ( num >= ARM_NCAPS )
+diff --git a/xen/arch/arm/include/asm/macros.h b/xen/arch/arm/include/asm/macros.h
+index 1aa373760f..dc791245df 100644
+--- a/xen/arch/arm/include/asm/macros.h
++++ b/xen/arch/arm/include/asm/macros.h
+@@ -5,13 +5,30 @@
+ # error "This file should only be included in assembly file"
+ #endif
  
- /* id_aa64pfr0 */
- #define ID_AA64PFR0_CSV3_SHIFT       60
-@@ -165,14 +189,13 @@
- #define ID_AA64PFR0_AMU              0x1
- #define ID_AA64PFR0_SVE              0x1
- #define ID_AA64PFR0_RAS_V1           0x1
-+#define ID_AA64PFR0_RAS_V1P1         0x2
- #define ID_AA64PFR0_FP_NI            0xf
- #define ID_AA64PFR0_FP_SUPPORTED     0x0
- #define ID_AA64PFR0_ASIMD_NI         0xf
- #define ID_AA64PFR0_ASIMD_SUPPORTED  0x0
--#define ID_AA64PFR0_EL1_64BIT_ONLY   0x1
--#define ID_AA64PFR0_EL1_32BIT_64BIT  0x2
--#define ID_AA64PFR0_EL0_64BIT_ONLY   0x1
--#define ID_AA64PFR0_EL0_32BIT_64BIT  0x2
-+#define ID_AA64PFR0_ELx_64BIT_ONLY   0x1
-+#define ID_AA64PFR0_ELx_32BIT_64BIT  0x2
- 
- /* id_aa64pfr1 */
- #define ID_AA64PFR1_MPAMFRAC_SHIFT   16
-@@ -189,6 +212,7 @@
- #define ID_AA64PFR1_MTE_NI           0x0
- #define ID_AA64PFR1_MTE_EL0          0x1
- #define ID_AA64PFR1_MTE              0x2
-+#define ID_AA64PFR1_MTE_ASYMM        0x3
- 
- /* id_aa64zfr0 */
- #define ID_AA64ZFR0_F64MM_SHIFT      56
-@@ -228,17 +252,37 @@
- #define ID_AA64MMFR0_ASID_SHIFT      4
- #define ID_AA64MMFR0_PARANGE_SHIFT   0
- 
--#define ID_AA64MMFR0_TGRAN4_NI         0xf
--#define ID_AA64MMFR0_TGRAN4_SUPPORTED  0x0
--#define ID_AA64MMFR0_TGRAN64_NI        0xf
--#define ID_AA64MMFR0_TGRAN64_SUPPORTED 0x0
--#define ID_AA64MMFR0_TGRAN16_NI        0x0
--#define ID_AA64MMFR0_TGRAN16_SUPPORTED 0x1
-+#define ID_AA64MMFR0_ASID_8          0x0
-+#define ID_AA64MMFR0_ASID_16         0x2
++#include <asm/alternative.h>
 +
-+#define ID_AA64MMFR0_TGRAN4_NI             0xf
-+#define ID_AA64MMFR0_TGRAN4_SUPPORTED_MIN  0x0
-+#define ID_AA64MMFR0_TGRAN4_SUPPORTED_MAX  0x7
-+#define ID_AA64MMFR0_TGRAN64_NI            0xf
-+#define ID_AA64MMFR0_TGRAN64_SUPPORTED_MIN 0x0
-+#define ID_AA64MMFR0_TGRAN64_SUPPORTED_MAX 0x7
-+#define ID_AA64MMFR0_TGRAN16_NI            0x0
-+#define ID_AA64MMFR0_TGRAN16_SUPPORTED_MIN 0x1
-+#define ID_AA64MMFR0_TGRAN16_SUPPORTED_MAX 0xf
+     /*
+      * Speculative barrier
+-     * XXX: Add support for the 'sb' instruction
+      */
+     .macro sb
++alternative_if_not ARM_HAS_SB
+     dsb nsh
+     isb
++alternative_else
++    /*
++     * SB encoding in hexadecimal to prevent recursive macro.
++     * extra nop is required to keep same number of instructions on both sides
++     * of the alternative.
++     */
++#if defined(CONFIG_ARM_32)
++    .inst 0xf57ff070
++#elif defined(CONFIG_ARM_64)
++    .inst 0xd50330ff
++#else
++#   error "missing sb encoding for ARM variant"
++#endif
++    nop
++alternative_endif
+     .endm
+ 
+ #if defined (CONFIG_ARM_32)
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 6016471d37..577c54e6fb 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -964,6 +964,8 @@ void __init start_xen(unsigned long boot_phys_offset,
+      */
+     check_local_cpu_errata();
+ 
++    check_local_cpu_features();
 +
-+#define ID_AA64MMFR0_PARANGE_32        0x0
-+#define ID_AA64MMFR0_PARANGE_36        0x1
-+#define ID_AA64MMFR0_PARANGE_40        0x2
-+#define ID_AA64MMFR0_PARANGE_42        0x3
-+#define ID_AA64MMFR0_PARANGE_44        0x4
- #define ID_AA64MMFR0_PARANGE_48        0x5
- #define ID_AA64MMFR0_PARANGE_52        0x6
+     init_xen_time();
  
-+#define ARM64_MIN_PARANGE_BITS     32
-+
-+#define ID_AA64MMFR0_TGRAN_2_SUPPORTED_DEFAULT 0x0
-+#define ID_AA64MMFR0_TGRAN_2_SUPPORTED_NONE    0x1
-+#define ID_AA64MMFR0_TGRAN_2_SUPPORTED_MIN     0x2
-+#define ID_AA64MMFR0_TGRAN_2_SUPPORTED_MAX     0x7
-+
- /* id_aa64mmfr1 */
- #define ID_AA64MMFR1_ECBHB_SHIFT     60
-+#define ID_AA64MMFR1_AFP_SHIFT       44
- #define ID_AA64MMFR1_ETS_SHIFT       36
- #define ID_AA64MMFR1_TWED_SHIFT      32
- #define ID_AA64MMFR1_XNX_SHIFT       28
-@@ -271,6 +315,9 @@
- #define ID_AA64MMFR2_CNP_SHIFT       0
+     gic_init();
+@@ -1033,6 +1035,7 @@ void __init start_xen(unsigned long boot_phys_offset,
+      */
+     apply_alternatives_all();
+     enable_errata_workarounds();
++    enable_cpu_features();
  
- /* id_aa64dfr0 */
-+#define ID_AA64DFR0_MTPMU_SHIFT      48
-+#define ID_AA64DFR0_TRBE_SHIFT       44
-+#define ID_AA64DFR0_TRACE_FILT_SHIFT 40
- #define ID_AA64DFR0_DOUBLELOCK_SHIFT 36
- #define ID_AA64DFR0_PMSVER_SHIFT     32
- #define ID_AA64DFR0_CTX_CMPS_SHIFT   28
-@@ -284,11 +331,18 @@
- #define ID_AA64DFR0_PMUVER_8_1       0x4
- #define ID_AA64DFR0_PMUVER_8_4       0x5
- #define ID_AA64DFR0_PMUVER_8_5       0x6
-+#define ID_AA64DFR0_PMUVER_8_7       0x7
- #define ID_AA64DFR0_PMUVER_IMP_DEF   0xf
+     /* Create initial domain 0. */
+     if ( !is_dom0less_mode() )
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index 22fede6600..3f62f3a44f 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -395,6 +395,7 @@ void start_secondary(void)
+     local_abort_enable();
  
-+#define ID_AA64DFR0_PMSVER_8_2      0x1
-+#define ID_AA64DFR0_PMSVER_8_3      0x2
-+
- #define ID_DFR0_PERFMON_SHIFT        24
+     check_local_cpu_errata();
++    check_local_cpu_features();
  
--#define ID_DFR0_PERFMON_8_1          0x4
-+#define ID_DFR0_PERFMON_8_0         0x3
-+#define ID_DFR0_PERFMON_8_1         0x4
-+#define ID_DFR0_PERFMON_8_4         0x5
-+#define ID_DFR0_PERFMON_8_5         0x6
+     printk(XENLOG_DEBUG "CPU %u booted.\n", smp_processor_id());
  
- #define ID_ISAR4_SWP_FRAC_SHIFT        28
- #define ID_ISAR4_PSR_M_SHIFT           24
 -- 
 2.25.1
 
