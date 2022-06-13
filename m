@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20C8E54828E
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jun 2022 10:56:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.347859.574205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE94D5481F9
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jun 2022 10:46:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.347861.574180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o0fs0-0007hT-25; Mon, 13 Jun 2022 08:56:24 +0000
+	id 1o0fi7-0005oJ-Bc; Mon, 13 Jun 2022 08:46:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 347859.574205; Mon, 13 Jun 2022 08:56:24 +0000
+Received: by outflank-mailman (output) from mailman id 347861.574180; Mon, 13 Jun 2022 08:46:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o0frz-0007ee-Qh; Mon, 13 Jun 2022 08:56:23 +0000
-Received: by outflank-mailman (input) for mailman id 347859;
- Mon, 13 Jun 2022 08:45:20 +0000
+	id 1o0fi7-0005mA-8L; Mon, 13 Jun 2022 08:46:11 +0000
+Received: by outflank-mailman (input) for mailman id 347861;
+ Mon, 13 Jun 2022 08:46:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f0g7=WU=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1o0fhH-0005l2-Op
- for xen-devel@lists.xenproject.org; Mon, 13 Jun 2022 08:45:20 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ <SRS0=xNfa=WU=redhat.com=berrange@srs-se1.protection.inumbo.net>)
+ id 1o0fi5-0005m4-Vk
+ for xen-devel@lists.xenproject.org; Mon, 13 Jun 2022 08:46:10 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 267d3740-eaf5-11ec-8901-93a377f238d6;
- Mon, 13 Jun 2022 10:45:18 +0200 (CEST)
-Received: from dhcp-077-249-017-003.chello.nl ([77.249.17.3]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o0fgN-007Vf8-Ah; Mon, 13 Jun 2022 08:44:23 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id D73DB302D9E;
- Mon, 13 Jun 2022 10:44:22 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id BB85B200C72F2; Mon, 13 Jun 2022 10:44:22 +0200 (CEST)
+ id 42a4a149-eaf5-11ec-8901-93a377f238d6;
+ Mon, 13 Jun 2022 10:46:05 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-634-9IpHJqSjOBatvPQxcG8MFA-1; Mon, 13 Jun 2022 04:46:00 -0400
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0207D3801FE1;
+ Mon, 13 Jun 2022 08:45:41 +0000 (UTC)
+Received: from redhat.com (unknown [10.33.36.124])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B8F5475005;
+ Mon, 13 Jun 2022 08:45:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,119 +50,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 267d3740-eaf5-11ec-8901-93a377f238d6
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=pN3d4KEFcv2ptnSv0mvCj6MvUML0g63O/kngZ8T7P5U=; b=jHY41velXm5OfTDUZVWOgGoGBS
-	3XcfJnIs2Kw4MnQzhXHXXp0NuTvYgWNNcy9H8ZMc64VSaMQLttlBqVnSkycnBSdvSyy0Jak2Oc/oh
-	vvGayo0C9yY99bqhrLdUZmtWJXcMrqnljzCxzdeOwv7I5/kT19cRmZ3SrWtebHTgXMFdZAZxKh/LD
-	FLvZqYIpmAvjq1lnM+gSi7696QvqdD2nf0hqYc6h4USx92PA9LVEoUSL3WQM5ig7zhrj1+/gECYeb
-	R1xWNHwwSLm1F21Q9Cu7wJn7J1PofxmN5bqxHgiOokEGCrOE72TMA7ta7eHf7Pxf1c+Q+Jc6wUzzF
-	Why4PJmw==;
-Date: Mon, 13 Jun 2022 10:44:22 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Jacob Pan <jacob.jun.pan@linux.intel.com>
-Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
-	vgupta@kernel.org, linux@armlinux.org.uk, ulli.kroll@googlemail.com,
-	linus.walleij@linaro.org, shawnguo@kernel.org,
-	Sascha Hauer <s.hauer@pengutronix.de>, kernel@pengutronix.de,
-	festevam@gmail.com, linux-imx@nxp.com, tony@atomide.com,
-	khilman@kernel.org, catalin.marinas@arm.com, will@kernel.org,
-	guoren@kernel.org, bcain@quicinc.com, chenhuacai@kernel.org,
-	kernel@xen0n.name, geert@linux-m68k.org, sammy@sammy.net,
-	monstr@monstr.eu, tsbogend@alpha.franken.de, dinguyen@kernel.org,
-	jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com, James.Bottomley@hansenpartnership.com,
-	deller@gmx.de, mpe@ellerman.id.au, benh@kernel.crashing.org,
-	paulus@samba.org, paul.walmsley@sifive.com, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, hca@linux.ibm.com, gor@linux.ibm.com,
-	agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
-	svens@linux.ibm.com, ysato@users.sourceforge.jp, dalias@libc.org,
-	davem@davemloft.net, richard@nod.at,
-	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net,
-	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	acme@kernel.org, mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-	namhyung@kernel.org, jgross@suse.com, srivatsa@csail.mit.edu,
-	amakhalov@vmware.com, pv-drivers@vmware.com,
-	boris.ostrovsky@oracle.com, chris@zankel.net, jcmvbkbc@gmail.com,
-	rafael@kernel.org, lenb@kernel.org, pavel@ucw.cz,
-	gregkh@linuxfoundation.org, mturquette@baylibre.com,
-	sboyd@kernel.org, daniel.lezcano@linaro.org, lpieralisi@kernel.org,
-	sudeep.holla@arm.com, agross@kernel.org, bjorn.andersson@linaro.org,
-	anup@brainfault.org, thierry.reding@gmail.com, jonathanh@nvidia.com,
-	Arnd Bergmann <arnd@arndb.de>, yury.norov@gmail.com,
-	andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk,
-	rostedt@goodmis.org, pmladek@suse.com, senozhatsky@chromium.org,
-	john.ogness@linutronix.de, paulmck@kernel.org, frederic@kernel.org,
-	quic_neeraju@quicinc.com, josh@joshtriplett.org,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	joel@joelfernandes.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	bsegall@google.com, mgorman@suse.de, bristot@redhat.com,
-	vschneid@redhat.com, jpoimboe@kernel.org,
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-snps-arc@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
-	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, openrisc@lists.librecores.org,
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
-	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
-	rcu@vger.kernel.org
-Subject: Re: [PATCH 04/36] cpuidle,intel_idle: Fix CPUIDLE_FLAG_IRQ_ENABLE
-Message-ID: <Yqb45vclY2KVL0wZ@hirez.programming.kicks-ass.net>
-References: <20220608142723.103523089@infradead.org>
- <20220608144516.172460444@infradead.org>
- <20220609164921.5e61711d@jacob-builder>
+X-Inumbo-ID: 42a4a149-eaf5-11ec-8901-93a377f238d6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1655109964;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OsmIb8JBjamYO7HSXD7lvz9oKqmWR9je1VCbD+9sYo8=;
+	b=PUsT9hswdjnCMad4zVSgK+RQvxWv30of/H2q7cuQsVr7INAXwLISt8J1bhSUoRtzMiQBl8
+	wC4Uif4O3bv58YYFmbC8nBJAHRQJRS3ScH7SI1X6tzMsx493r/LX5RcaQdQ2ustghqPTeo
+	CHxiZVxs0/TO2MxmqnZct/Ku0gH1Ccc=
+X-MC-Unique: 9IpHJqSjOBatvPQxcG8MFA-1
+Date: Mon, 13 Jun 2022 09:45:35 +0100
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Volker =?utf-8?Q?R=C3=BCmelin?= <vr_qemu@t-online.de>
+Cc: Richard Henderson <richard.henderson@linaro.org>,
+	Gerd Hoffmann <kraxel@redhat.com>, qemu-devel@nongnu.org,
+	"Canokeys.org" <contact@canokeys.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Akihiko Odaki <akihiko.odaki@gmail.com>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	"Hongren (Zenithal) Zheng" <i@zenithal.me>,
+	xen-devel@lists.xenproject.org,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>
+Subject: Re: [PULL 00/17] Kraxel 20220610 patches
+Message-ID: <Yqb5L31cG/0cVM5B@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+References: <20220610092043.1874654-1-kraxel@redhat.com>
+ <adec1cff-54f1-e2bf-8092-945601aeb912@linaro.org>
+ <60c72935-85ce-4e24-43a5-119f6428b916@t-online.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20220609164921.5e61711d@jacob-builder>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <60c72935-85ce-4e24-43a5-119f6428b916@t-online.de>
+User-Agent: Mutt/2.2.1 (2022-02-19)
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 
-On Thu, Jun 09, 2022 at 04:49:21PM -0700, Jacob Pan wrote:
-> Hi Peter,
+On Sat, Jun 11, 2022 at 06:34:28PM +0200, Volker Rümelin wrote:
+> Am 10.06.22 um 22:16 schrieb Richard Henderson:
+> > On 6/10/22 02:20, Gerd Hoffmann wrote:
+> > > The following changes since commit
+> > > 9cc1bf1ebca550f8d90f967ccd2b6d2e00e81387:
+> > > 
+> > >    Merge tag 'pull-xen-20220609' of
+> > > https://xenbits.xen.org/git-http/people/aperard/qemu-dm into staging
+> > > (2022-06-09 08:25:17 -0700)
+> > > 
+> > > are available in the Git repository at:
+> > > 
+> > >    git://git.kraxel.org/qemu tags/kraxel-20220610-pull-request
+> > > 
+> > > for you to fetch changes up to 02319a4d67d3f19039127b8dc9ca9478b6d6ccd8:
+> > > 
+> > >    virtio-gpu: Respect UI refresh rate for EDID (2022-06-10 11:11:44
+> > > +0200)
+> > > 
+> > > ----------------------------------------------------------------
+> > > usb: add CanoKey device, fixes for ehci + redir
+> > > ui: fixes for gtk and cocoa, move keymaps, rework refresh rate
+> > > virtio-gpu: scanout flush fix
+> > 
+> > This introduces regressions:
+> > 
+> > https://gitlab.com/qemu-project/qemu/-/jobs/2576157660
+> > https://gitlab.com/qemu-project/qemu/-/jobs/2576151565
+> > https://gitlab.com/qemu-project/qemu/-/jobs/2576154539
+> > https://gitlab.com/qemu-project/qemu/-/jobs/2575867208
+> > 
+> > 
+> >  (27/43)
+> > tests/avocado/vnc.py:Vnc.test_change_password_requires_a_password:
+> > ERROR: ConnectError: Failed to establish session: EOFError\n Exit code:
+> > 1\n    Command: ./qemu-system-x86_64 -display none -vga none -chardev socket,id=mon,path=/var/tmp/avo_qemu_sock_4nrz0r37/qemu-2912538-7f732e94e0f0-monitor.sock
+> > -mon chardev=mon,mode=control -node... (0.09 s)
+> >  (28/43) tests/avocado/vnc.py:Vnc.test_change_password:  ERROR:
+> > ConnectError: Failed to establish session: EOFError\n    Exit code:
+> > 1\n    Command: ./qemu-system-x86_64 -display none -vga none -chardev socket,id=mon,path=/var/tmp/avo_qemu_sock_yhpzy5c3/qemu-2912543-7f732e94b438-monitor.sock
+> > -mon chardev=mon,mode=control -node... (0.09 s)
+> >  (29/43)
+> > tests/avocado/vnc.py:Vnc.test_change_password_requires_a_password:
+> > ERROR: ConnectError: Failed to establish session: EOFError\n Exit code:
+> > 1\n    Command: ./qemu-system-x86_64 -display none -vga none -chardev socket,id=mon,path=/var/tmp/avo_qemu_sock_tk3pfmt2/qemu-2912548-7f732e93d7b8-monitor.sock
+> > -mon chardev=mon,mode=control -node... (0.09 s)
+> > 
+> > 
+> > r~
+> > 
 > 
-> On Wed, 08 Jun 2022 16:27:27 +0200, Peter Zijlstra <peterz@infradead.org>
-> wrote:
-> 
-> > Commit c227233ad64c ("intel_idle: enable interrupts before C1 on
-> > Xeons") wrecked intel_idle in two ways:
-> > 
-> >  - must not have tracing in idle functions
-> >  - must return with IRQs disabled
-> > 
-> > Additionally, it added a branch for no good reason.
-> > 
-> > Fixes: c227233ad64c ("intel_idle: enable interrupts before C1 on Xeons")
-> > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> > ---
-> >  drivers/idle/intel_idle.c |   48
-> > +++++++++++++++++++++++++++++++++++----------- 1 file changed, 37
-> > insertions(+), 11 deletions(-)
-> > 
-> > --- a/drivers/idle/intel_idle.c
-> > +++ b/drivers/idle/intel_idle.c
-> > @@ -129,21 +137,37 @@ static unsigned int mwait_substates __in
-> >   *
-> >   * Must be called under local_irq_disable().
-> >   */
-> nit: this comment is no long true, right?
+> This is caused by [PATCH 14/17] ui: move 'pc-bios/keymaps' to 'ui/keymaps'.
+> After this patch QEMU no longer finds it's keymaps if started directly from
+> the build directory.
 
-It still is, all the idle routines are called with interrupts disabled,
-but must also exit with interrupts disabled.
+I just sent Gerd an update version which adds a symlink from the source
+tree to the build dir to solve this problem, along with updated commit
+message to reflect this need
 
-If the idle method requires interrupts to be enabled, it must be sure to
-disable them again before returning. Given all the RCU/tracing concerns
-it must use raw_local_irq_*() for this though.
+With regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+
 
