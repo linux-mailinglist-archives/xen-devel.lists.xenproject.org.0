@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 443DC54C085
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 06:06:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349283.575753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4316B54C087
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 06:06:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349285.575760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1KHr-0007hJ-6x; Wed, 15 Jun 2022 04:05:47 +0000
+	id 1o1KHs-0007pT-1y; Wed, 15 Jun 2022 04:05:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349283.575753; Wed, 15 Jun 2022 04:05:47 +0000
+Received: by outflank-mailman (output) from mailman id 349285.575760; Wed, 15 Jun 2022 04:05:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1KHq-0007dj-Tf; Wed, 15 Jun 2022 04:05:46 +0000
-Received: by outflank-mailman (input) for mailman id 349283;
- Tue, 14 Jun 2022 16:41:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o1KHr-0007h5-IO; Wed, 15 Jun 2022 04:05:47 +0000
+Received: by outflank-mailman (input) for mailman id 349285;
+ Tue, 14 Jun 2022 16:43:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TaZI=WV=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1o19bz-0008Et-Vf
- for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 16:41:52 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1c9c598-ec00-11ec-a26a-b96bd03d9e80;
- Tue, 14 Jun 2022 18:41:50 +0200 (CEST)
+ id 1o19dT-0008GB-OI
+ for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 16:43:24 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 190b62ce-ec01-11ec-bd2c-47488cf2e6aa;
+ Tue, 14 Jun 2022 18:43:21 +0200 (CEST)
 Received: from dhcp-077-249-017-003.chello.nl ([77.249.17.3]
  helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o19b8-000KNd-ML; Tue, 14 Jun 2022 16:40:58 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1o19cN-007uQt-Hy; Tue, 14 Jun 2022 16:42:16 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id C5DF9300372;
- Tue, 14 Jun 2022 18:40:53 +0200 (CEST)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 2279B3002BE;
+ Tue, 14 Jun 2022 18:42:15 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id A4FD82868A9BF; Tue, 14 Jun 2022 18:40:53 +0200 (CEST)
+ id 123E028B3F62D; Tue, 14 Jun 2022 18:42:15 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1c9c598-ec00-11ec-a26a-b96bd03d9e80
+X-Inumbo-ID: 190b62ce-ec01-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=rwYFO4jRp4ZmBbbpQ/dlmC/s4443nixCio2KC7D4yLw=; b=V4CcOtoya4fx7a+TewbwfbMpHX
-	S0U58dFbvhEs4+z6vlti2b1yaN2nHZdtpLUhV6b26DfB0W9QaiXCJNgWY1iLqP6JemwxKD8If1zXi
-	Dc58dnvyG/zHW9b8hYkgX3+ltwbe4kfS6mygL93PVj25PQUAkTI43bgkav/UP2phwqaLH6Jmg4htB
-	+7dwsqbHSMo9jJy12dA4V5J1yPFkpBzcClSfYYGQs5HHmF9AKeJnyxvwMhdlvB0wf7ej1fwQvbSdj
-	+cGoUoQpbmvkdPfLd6lFQZf+8q0srIdNcxJPdxc0YJaBq/7VVmZ25B5dD+OpzZBdLGRfiZRDfHRqR
-	AHE5YJ2g==;
-Date: Tue, 14 Jun 2022 18:40:53 +0200
+	bh=47+tWvYfTyzzIcAfKg2dikUAXvzTciJT7x9ArpBU0cQ=; b=WhjpnYz1DKB/ghxhQBYKZr1QWz
+	84Rt1GI0YXBpWpQ+Rpq7OdaNTLjSPvHCVKLFiVIOCLsRCFy4DqvtOiDgSLHRe8OVkGLFTex3SSmV8
+	GohZ4ojxrTeP3ET5b4IFii7FfH5UbRGPxexOa+//wX1ieayjZ2GRIBUTTRmWuqKFS+bMiVDFKRSHa
+	IV/MEvx0ElZNGt7kUqMr8NdHhRUFOmSCcqPcU9jSeSr7SVt4T0z3jKsQ6pCYU45ZyxeCj6DorIHXj
+	CZmBSb2KSbTYN4gQwzBcOOqwVgJL0yEm9Ud5o0YTPtfXZ0pRZucUs+sMUdTCsznw5yKZXiWmZw8aF
+	sEV0aFJg==;
+Date: Tue, 14 Jun 2022 18:42:14 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Mark Rutland <mark.rutland@arm.com>
 Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
@@ -119,40 +119,57 @@ Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
 	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
 	rcu@vger.kernel.org
-Subject: Re: [PATCH 14/36] cpuidle: Fix rcu_idle_*() usage
-Message-ID: <Yqi6Fd38ZCsDUnQG@hirez.programming.kicks-ass.net>
+Subject: Re: [PATCH 15/36] cpuidle,cpu_pm: Remove RCU fiddling from
+ cpu_pm_{enter,exit}()
+Message-ID: <Yqi6Zp+DTm22dLB9@hirez.programming.kicks-ass.net>
 References: <20220608142723.103523089@infradead.org>
- <20220608144516.808451191@infradead.org>
- <YqiB6YpVqq4wuDtO@FVFF77S0Q05N>
+ <20220608144516.871305980@infradead.org>
+ <YqiznJL7qB9uSQ9c@FVFF77S0Q05N>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YqiB6YpVqq4wuDtO@FVFF77S0Q05N>
+In-Reply-To: <YqiznJL7qB9uSQ9c@FVFF77S0Q05N>
 
-On Tue, Jun 14, 2022 at 01:41:13PM +0100, Mark Rutland wrote:
-> On Wed, Jun 08, 2022 at 04:27:37PM +0200, Peter Zijlstra wrote:
-> > --- a/kernel/time/tick-broadcast.c
-> > +++ b/kernel/time/tick-broadcast.c
-> > @@ -622,9 +622,13 @@ struct cpumask *tick_get_broadcast_onesh
-> >   * to avoid a deep idle transition as we are about to get the
-> >   * broadcast IPI right away.
-> >   */
-> > -int tick_check_broadcast_expired(void)
-> > +noinstr int tick_check_broadcast_expired(void)
-> >  {
-> > +#ifdef _ASM_GENERIC_BITOPS_INSTRUMENTED_NON_ATOMIC_H
-> > +	return arch_test_bit(smp_processor_id(), cpumask_bits(tick_broadcast_force_mask));
-> > +#else
-> >  	return cpumask_test_cpu(smp_processor_id(), tick_broadcast_force_mask);
-> > +#endif
-> >  }
+On Tue, Jun 14, 2022 at 05:13:16PM +0100, Mark Rutland wrote:
+> On Wed, Jun 08, 2022 at 04:27:38PM +0200, Peter Zijlstra wrote:
+> > All callers should still have RCU enabled.
 > 
-> This is somewhat not-ideal. :/
+> IIUC with that true we should be able to drop the RCU_NONIDLE() from
+> drivers/perf/arm_pmu.c, as we only needed that for an invocation via a pm
+> notifier.
+> 
+> I should be able to give that a spin on some hardware.
+> 
+> > 
+> > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> > ---
+> >  kernel/cpu_pm.c |    9 ---------
+> >  1 file changed, 9 deletions(-)
+> > 
+> > --- a/kernel/cpu_pm.c
+> > +++ b/kernel/cpu_pm.c
+> > @@ -30,16 +30,9 @@ static int cpu_pm_notify(enum cpu_pm_eve
+> >  {
+> >  	int ret;
+> >  
+> > -	/*
+> > -	 * This introduces a RCU read critical section, which could be
+> > -	 * disfunctional in cpu idle. Copy RCU_NONIDLE code to let RCU know
+> > -	 * this.
+> > -	 */
+> > -	rcu_irq_enter_irqson();
+> >  	rcu_read_lock();
+> >  	ret = raw_notifier_call_chain(&cpu_pm_notifier.chain, event, NULL);
+> >  	rcu_read_unlock();
+> > -	rcu_irq_exit_irqson();
+> 
+> To make this easier to debug, is it worth adding an assertion that RCU is
+> watching here? e.g.
+> 
+> 	RCU_LOCKDEP_WARN(!rcu_is_watching(),
+> 			 "cpu_pm_notify() used illegally from EQS");
+> 
 
-I'll say.
-
-> Could we unconditionally do the arch_test_bit() variant, with a comment, or
-> does that not exist in some cases?
-
-Loads of build errors ensued, which is how I ended up with this mess ...
+My understanding is that rcu_read_lock() implies something along those
+lines when PROVE_RCU.
 
