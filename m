@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7570754B438
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jun 2022 17:10:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349132.575314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06DA854B445
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jun 2022 17:12:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349141.575324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o18B6-0005Hv-6B; Tue, 14 Jun 2022 15:10:00 +0000
+	id 1o18DS-0006km-Hs; Tue, 14 Jun 2022 15:12:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349132.575314; Tue, 14 Jun 2022 15:10:00 +0000
+Received: by outflank-mailman (output) from mailman id 349141.575324; Tue, 14 Jun 2022 15:12:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o18B6-0005Fm-28; Tue, 14 Jun 2022 15:10:00 +0000
-Received: by outflank-mailman (input) for mailman id 349132;
- Tue, 14 Jun 2022 15:09:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qNKJ=WV=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o18B4-0005Fg-IE
- for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 15:09:58 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d529e29-ebf4-11ec-bd2c-47488cf2e6aa;
- Tue, 14 Jun 2022 17:09:57 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A6C4E21B69;
- Tue, 14 Jun 2022 15:09:56 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4E0A01361C;
- Tue, 14 Jun 2022 15:09:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id n/z8EMSkqGJGVwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 14 Jun 2022 15:09:56 +0000
+	id 1o18DS-0006i4-F1; Tue, 14 Jun 2022 15:12:26 +0000
+Received: by outflank-mailman (input) for mailman id 349141;
+ Tue, 14 Jun 2022 15:12:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2Dja=WV=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
+ id 1o18DQ-0006hy-AY
+ for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 15:12:24 +0000
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [2607:f8b0:4864:20::1029])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 639a4456-ebf4-11ec-a26a-b96bd03d9e80;
+ Tue, 14 Jun 2022 17:12:22 +0200 (CEST)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ gc3-20020a17090b310300b001e33092c737so9318983pjb.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jun 2022 08:12:22 -0700 (PDT)
+Received: from [192.168.159.227] ([50.208.55.229])
+ by smtp.gmail.com with ESMTPSA id
+ y9-20020a170902864900b00168c1668a49sm7368707plt.85.2022.06.14.08.11.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Jun 2022 08:12:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,161 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d529e29-ebf4-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1655219396; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TBuTSA8mQ0jvxTP5qnDkR0bwrd8FxfdNziVlcfJYYno=;
-	b=O1UBCoRPk4dvMZPflj5RmgChdsLFUHirjfqT7qIfr/YxFKzsZpYH4JaoGpv5LJ5mOZM1Ti
-	I5vSvZ1F4ZcEZc4FfE8HVPbaB9G5b2ytQIbMXelR34pxj1mB6jbSTZ7TdwDPM4rGMxQk1l
-	SHKq3LZprlSAA9UF0cqWaDNc7cIfrZs=
-Message-ID: <fb0eadee-1d45-f414-eda4-a87f01eeb57a@suse.com>
-Date: Tue, 14 Jun 2022 17:09:55 +0200
+X-Inumbo-ID: 639a4456-ebf4-11ec-a26a-b96bd03d9e80
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=YM2YngzMkaGIWHpkf6M7ADa9V1hMmADYOG1MXNhlzWE=;
+        b=Hua16gKf/ZBdAKXYPXFTnxhFrivxJk4e10lo8ixeYNmksvupoHrmXJ2RGnzwEJq9iv
+         kBa31EaF9odSqcB9dv9APd67sxav2GhXvynfpLM6KVmzCrzPlM35sYCDPOfdKsc8+d/D
+         my1JQ0/AMOCSnpUjDjjYrWiNTuNXuxbGtaEpanQNHqAsSfl/85olI3ai83sD21BSd0xn
+         NV14E/MWURYOtWYbmQPtZyQXRECtXIv+zkG5/YC6EVzSXvEHSjw0Hn7kyRCtBDmDkn5F
+         e/I+I/ofG/P/cmMt2Ekj5q0ZZSMAlnh1BBUogdRk3TRiDOpWzu2Dsh8lpQGinhxeit/C
+         s2mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=YM2YngzMkaGIWHpkf6M7ADa9V1hMmADYOG1MXNhlzWE=;
+        b=ZmkMAVOQpDYuwm24hZWpwCzagdsIAqCDmZvJPTJXcHetHIm19N4J8ZklO5IJiAtHlz
+         WEu7xdLHLpK3dl0f9wmIeQOwCkInBKxKUsOVRQjrb/k8SLvUEon7Xtz91GaKeRzVz+3l
+         lT0ajpIHa3XstwphGMqW//m4PXrlKT/F69wesuueiS1DDuWtkznNNhE0D8a2+yb7qt4o
+         rtpWg4s4R4WPu079Syb3S3vlv4zkSV0WX+w9XSyG8C38iR4XgBUDKTsy79+OcMqdTBPi
+         wGmA+Xr6yOFnKEjrBXgXwsh02GekijVK/g08/7DkD6vbWLh3o2TPKyUa105h1wNJlstb
+         AU9w==
+X-Gm-Message-State: AJIora//g5TT0oYX0l734U/QwxSyr950j6BJT9uEkc3GK25ljj3f2MWZ
+	y7gSOEz5bt0xiN/gSdXU0O1Nrw==
+X-Google-Smtp-Source: AGRyM1tjRZAqa5I7tdwTBMIp6PN2CGs2N7UY/5qPMrgEvGZ2f/pTTPIaidozXKlXn7LAd1/g8WZySA==
+X-Received: by 2002:a17:90a:6849:b0:1ea:d05a:223a with SMTP id e9-20020a17090a684900b001ead05a223amr823789pjm.173.1655219541080;
+        Tue, 14 Jun 2022 08:12:21 -0700 (PDT)
+Message-ID: <ba496d86-3883-c7e2-9e06-76b62e111aa5@linaro.org>
+Date: Tue, 14 Jun 2022 08:11:43 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH 1/2] x86/pat: fix x86_has_pat_wp()
+ Thunderbird/91.9.1
+Subject: Re: [PULL 00/15] Kraxel 20220614 patches
 Content-Language: en-US
-To: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- Borislav Petkov <bp@alien8.de>
-Cc: jbeulich@suse.com, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>
-References: <20220503132207.17234-1-jgross@suse.com>
- <20220503132207.17234-2-jgross@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220503132207.17234-2-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------eun63RK740ZvvNDN34swS1W9"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------eun63RK740ZvvNDN34swS1W9
-Content-Type: multipart/mixed; boundary="------------yoJ6DkuojrwCMWyBgW7a1PaZ";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- Borislav Petkov <bp@alien8.de>
-Cc: jbeulich@suse.com, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <fb0eadee-1d45-f414-eda4-a87f01eeb57a@suse.com>
-Subject: Re: [PATCH 1/2] x86/pat: fix x86_has_pat_wp()
-References: <20220503132207.17234-1-jgross@suse.com>
- <20220503132207.17234-2-jgross@suse.com>
-In-Reply-To: <20220503132207.17234-2-jgross@suse.com>
-
---------------yoJ6DkuojrwCMWyBgW7a1PaZ
-Content-Type: multipart/mixed; boundary="------------fRcA0gQMkBVZfOGxtlWXbzS3"
-
---------------fRcA0gQMkBVZfOGxtlWXbzS3
+To: Gerd Hoffmann <kraxel@redhat.com>, qemu-devel@nongnu.org
+Cc: Akihiko Odaki <akihiko.odaki@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
+ "Hongren (Zenithal) Zheng" <i@zenithal.me>,
+ "Michael S. Tsirkin" <mst@redhat.com>, "Canokeys.org"
+ <contact@canokeys.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20220614121610.508356-1-kraxel@redhat.com>
+From: Richard Henderson <richard.henderson@linaro.org>
+In-Reply-To: <20220614121610.508356-1-kraxel@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMDMuMDUuMjIgMTU6MjIsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IHg4Nl9oYXNfcGF0
-X3dwKCkgaXMgdXNpbmcgYSB3cm9uZyB0ZXN0LCBhcyBpdCByZWxpZXMgb24gdGhlIG5vcm1h
-bA0KPiBQQVQgY29uZmlndXJhdGlvbiB1c2VkIGJ5IHRoZSBrZXJuZWwuIEluIGNhc2UgdGhl
-IFBBVCBNU1IgaGFzIGJlZW4NCj4gc2V0dXAgYnkgYW5vdGhlciBlbnRpdHkgKGUuZy4gQklP
-UyBvciBYZW4gaHlwZXJ2aXNvcikgaXQgbWlnaHQgcmV0dXJuDQo+IGZhbHNlIGV2ZW4gaWYg
-dGhlIFBBVCBjb25maWd1cmF0aW9uIGlzIGFsbG93aW5nIFdQIG1hcHBpbmdzLg0KPiANCj4g
-Rml4ZXM6IDFmNmY2NTVlMDFhZCAoIng4Ni9tbTogQWRkIGEgeDg2X2hhc19wYXRfd3AoKSBo
-ZWxwZXIiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5j
-b20+DQo+IC0tLQ0KPiAgIGFyY2gveDg2L21tL2luaXQuYyB8IDMgKystDQo+ICAgMSBmaWxl
-IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAt
-LWdpdCBhL2FyY2gveDg2L21tL2luaXQuYyBiL2FyY2gveDg2L21tL2luaXQuYw0KPiBpbmRl
-eCBkOGNmY2UyMjEyNzUuLjcxZTE4MmViY2VkMyAxMDA2NDQNCj4gLS0tIGEvYXJjaC94ODYv
-bW0vaW5pdC5jDQo+ICsrKyBiL2FyY2gveDg2L21tL2luaXQuYw0KPiBAQCAtODAsNyArODAs
-OCBAQCBzdGF0aWMgdWludDhfdCBfX3B0ZTJjYWNoZW1vZGVfdGJsWzhdID0gew0KPiAgIC8q
-IENoZWNrIHRoYXQgdGhlIHdyaXRlLXByb3RlY3QgUEFUIGVudHJ5IGlzIHNldCBmb3Igd3Jp
-dGUtcHJvdGVjdCAqLw0KPiAgIGJvb2wgeDg2X2hhc19wYXRfd3Aodm9pZCkNCj4gICB7DQo+
-IC0JcmV0dXJuIF9fcHRlMmNhY2hlbW9kZV90YmxbX1BBR0VfQ0FDSEVfTU9ERV9XUF0gPT0g
-X1BBR0VfQ0FDSEVfTU9ERV9XUDsNCj4gKwlyZXR1cm4gX19wdGUyY2FjaGVtb2RlX3RibFtf
-X2NhY2hlbW9kZTJwdGVfdGJsW19QQUdFX0NBQ0hFX01PREVfV1BdXSA9PQ0KPiArCSAgICAg
-ICBfUEFHRV9DQUNIRV9NT0RFX1dQOw0KPiAgIH0NCj4gICANCj4gICBlbnVtIHBhZ2VfY2Fj
-aGVfbW9kZSBwZ3Byb3QyY2FjaGVtb2RlKHBncHJvdF90IHBncHJvdCkNCg0KeDg2IG1haW50
-YWluZXJzLCBwbGVhc2UgY29uc2lkZXIgdGFraW5nIHRoaXMgcGF0Y2gsIGFzIGl0IGlzIGZp
-eGluZw0KYSByZWFsIGJ1Zy4gUGF0Y2ggMiBvZiB0aGlzIHNlcmllcyBjYW4gYmUgZHJvcHBl
-ZCBJTU8uDQoNCg0KSnVlcmdlbg0K
---------------fRcA0gQMkBVZfOGxtlWXbzS3
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+On 6/14/22 05:15, Gerd Hoffmann wrote:
+> The following changes since commit debd0753663bc89c86f5462a53268f2e3f680f60:
+> 
+>    Merge tag 'pull-testing-next-140622-1' of https://github.com/stsquad/qemu into staging (2022-06-13 21:10:57 -0700)
+> 
+> are available in the Git repository at:
+> 
+>    git://git.kraxel.org/qemu tags/kraxel-20220614-pull-request
+> 
+> for you to fetch changes up to b95b56311a0890da0c9f7fc624529c3d7f8dbce0:
+> 
+>    virtio-gpu: Respect UI refresh rate for EDID (2022-06-14 10:34:37 +0200)
+> 
+> ----------------------------------------------------------------
+> usb: add CanoKey device, fixes for ehci + redir
+> ui: fixes for gtk and cocoa, rework refresh rate
+> virtio-gpu: scanout flush fix
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Applied, thanks.  Please update https://wiki.qemu.org/ChangeLog/7.1 as appropriate.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
 
---------------fRcA0gQMkBVZfOGxtlWXbzS3--
+r~
 
---------------yoJ6DkuojrwCMWyBgW7a1PaZ--
 
---------------eun63RK740ZvvNDN34swS1W9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> 
+> ----------------------------------------------------------------
+> 
+> Akihiko Odaki (4):
+>    ui/cocoa: Fix poweroff request code
+>    ui/console: Do not return a value with ui_info
+>    ui: Deliver refresh rate via QemuUIInfo
+>    virtio-gpu: Respect UI refresh rate for EDID
+> 
+> Arnout Engelen (1):
+>    hw/usb/hcd-ehci: fix writeback order
+> 
+> Dongwon Kim (1):
+>    virtio-gpu: update done only on the scanout associated with rect
+> 
+> Hongren (Zenithal) Zheng (6):
+>    hw/usb: Add CanoKey Implementation
+>    hw/usb/canokey: Add trace events
+>    meson: Add CanoKey
+>    docs: Add CanoKey documentation
+>    docs/system/devices/usb: Add CanoKey to USB devices examples
+>    MAINTAINERS: add myself as CanoKey maintainer
+> 
+> Joelle van Dyne (1):
+>    usbredir: avoid queuing hello packet on snapshot restore
+> 
+> Volker Rümelin (2):
+>    ui/gtk-gl-area: implement GL context destruction
+>    ui/gtk-gl-area: create the requested GL context version
+> 
+>   meson_options.txt                |   2 +
+>   hw/usb/canokey.h                 |  69 +++++++
+>   include/hw/virtio/virtio-gpu.h   |   1 +
+>   include/ui/console.h             |   4 +-
+>   include/ui/gtk.h                 |   2 +-
+>   hw/display/virtio-gpu-base.c     |   7 +-
+>   hw/display/virtio-gpu.c          |   4 +
+>   hw/display/virtio-vga.c          |   5 +-
+>   hw/display/xenfb.c               |  14 +-
+>   hw/usb/canokey.c                 | 313 +++++++++++++++++++++++++++++++
+>   hw/usb/hcd-ehci.c                |   5 +-
+>   hw/usb/redirect.c                |   3 +-
+>   hw/vfio/display.c                |   8 +-
+>   ui/console.c                     |   6 -
+>   ui/gtk-egl.c                     |   4 +-
+>   ui/gtk-gl-area.c                 |  42 ++++-
+>   ui/gtk.c                         |  45 +++--
+>   MAINTAINERS                      |   8 +
+>   docs/system/device-emulation.rst |   1 +
+>   docs/system/devices/canokey.rst  | 168 +++++++++++++++++
+>   docs/system/devices/usb.rst      |   4 +
+>   hw/usb/Kconfig                   |   5 +
+>   hw/usb/meson.build               |   5 +
+>   hw/usb/trace-events              |  16 ++
+>   meson.build                      |   6 +
+>   scripts/meson-buildoptions.sh    |   3 +
+>   ui/cocoa.m                       |   6 +-
+>   ui/trace-events                  |   2 +
+>   28 files changed, 707 insertions(+), 51 deletions(-)
+>   create mode 100644 hw/usb/canokey.h
+>   create mode 100644 hw/usb/canokey.c
+>   create mode 100644 docs/system/devices/canokey.rst
+> 
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKopMMFAwAAAAAACgkQsN6d1ii/Ey/V
-awf/awBnKJ5Bfc9Aiile6ImR6gl2yoG9pBgK3XGsRukjf+iVwjGGMEKxsWINeQ1SJctM+m8+BtQ6
-XgipkOTUXLmGpFJztKUr+RyFj47wxb27YZGIAg2hxE+WK2IGNaGFDY0ksb351HHaTTDt6+SrvemO
-YsEQ84/QsrzqWeC3+YgF3/rQZ/FdI3uZ3CzZOxC+xBGnFydhrPFMWRIjO3BqW5TTupTEgjFq0Irb
-HvMi+RmoKrODIIzeeBYO379U11HQ+aEq5Dv9RqgVFrSINnPobAZCaB3n6tZl2LedsD4+dx27oD37
-A9uzcajGcLtIMSxdvfd+9veNCh3ABcjWuUHWnyIwUQ==
-=jzA7
------END PGP SIGNATURE-----
-
---------------eun63RK740ZvvNDN34swS1W9--
 
