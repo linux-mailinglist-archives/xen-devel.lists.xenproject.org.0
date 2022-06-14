@@ -2,35 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD2354C07D
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 06:06:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349280.575694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 443DC54C085
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 06:06:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349283.575753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1KHk-0005t2-CS; Wed, 15 Jun 2022 04:05:40 +0000
+	id 1o1KHr-0007hJ-6x; Wed, 15 Jun 2022 04:05:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349280.575694; Wed, 15 Jun 2022 04:05:40 +0000
+Received: by outflank-mailman (output) from mailman id 349283.575753; Wed, 15 Jun 2022 04:05:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1KHj-0005lJ-UP; Wed, 15 Jun 2022 04:05:39 +0000
-Received: by outflank-mailman (input) for mailman id 349280;
- Tue, 14 Jun 2022 16:28:26 +0000
+	id 1o1KHq-0007dj-Tf; Wed, 15 Jun 2022 04:05:46 +0000
+Received: by outflank-mailman (input) for mailman id 349283;
+ Tue, 14 Jun 2022 16:41:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qq/B=WV=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
- id 1o19P0-0005jd-DX
- for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 16:28:26 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 03226e8a-ebff-11ec-a26a-b96bd03d9e80;
- Tue, 14 Jun 2022 18:28:24 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D221916F3;
- Tue, 14 Jun 2022 09:28:23 -0700 (PDT)
-Received: from FVFF77S0Q05N (unknown [10.57.41.154])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EEF753F66F;
- Tue, 14 Jun 2022 09:28:05 -0700 (PDT)
+ <SRS0=TaZI=WV=infradead.org=peterz@srs-se1.protection.inumbo.net>)
+ id 1o19bz-0008Et-Vf
+ for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 16:41:52 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e1c9c598-ec00-11ec-a26a-b96bd03d9e80;
+ Tue, 14 Jun 2022 18:41:50 +0200 (CEST)
+Received: from dhcp-077-249-017-003.chello.nl ([77.249.17.3]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1o19b8-000KNd-ML; Tue, 14 Jun 2022 16:40:58 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id C5DF9300372;
+ Tue, 14 Jun 2022 18:40:53 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id A4FD82868A9BF; Tue, 14 Jun 2022 18:40:53 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,10 +50,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03226e8a-ebff-11ec-a26a-b96bd03d9e80
-Date: Tue, 14 Jun 2022 17:28:02 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Peter Zijlstra <peterz@infradead.org>
+X-Inumbo-ID: e1c9c598-ec00-11ec-a26a-b96bd03d9e80
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=rwYFO4jRp4ZmBbbpQ/dlmC/s4443nixCio2KC7D4yLw=; b=V4CcOtoya4fx7a+TewbwfbMpHX
+	S0U58dFbvhEs4+z6vlti2b1yaN2nHZdtpLUhV6b26DfB0W9QaiXCJNgWY1iLqP6JemwxKD8If1zXi
+	Dc58dnvyG/zHW9b8hYkgX3+ltwbe4kfS6mygL93PVj25PQUAkTI43bgkav/UP2phwqaLH6Jmg4htB
+	+7dwsqbHSMo9jJy12dA4V5J1yPFkpBzcClSfYYGQs5HHmF9AKeJnyxvwMhdlvB0wf7ej1fwQvbSdj
+	+cGoUoQpbmvkdPfLd6lFQZf+8q0srIdNcxJPdxc0YJaBq/7VVmZ25B5dD+OpzZBdLGRfiZRDfHRqR
+	AHE5YJ2g==;
+Date: Tue, 14 Jun 2022 18:40:53 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Mark Rutland <mark.rutland@arm.com>
 Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
 	vgupta@kernel.org, linux@armlinux.org.uk, ulli.kroll@googlemail.com,
 	linus.walleij@linaro.org, shawnguo@kernel.org,
@@ -56,7 +74,7 @@ Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
 	kernel@xen0n.name, geert@linux-m68k.org, sammy@sammy.net,
 	monstr@monstr.eu, tsbogend@alpha.franken.de, dinguyen@kernel.org,
 	jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com, James.Bottomley@HansenPartnership.com,
+	shorne@gmail.com, James.Bottomley@hansenpartnership.com,
 	deller@gmx.de, mpe@ellerman.id.au, benh@kernel.crashing.org,
 	paulus@samba.org, paul.walmsley@sifive.com, palmer@dabbelt.com,
 	aou@eecs.berkeley.edu, hca@linux.ibm.com, gor@linux.ibm.com,
@@ -101,68 +119,40 @@ Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
 	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
 	rcu@vger.kernel.org
-Subject: Re: [PATCH 25/36] time/tick-broadcast: Remove RCU_NONIDLE usage
-Message-ID: <Yqi3EmHbuvf3ItMI@FVFF77S0Q05N>
+Subject: Re: [PATCH 14/36] cpuidle: Fix rcu_idle_*() usage
+Message-ID: <Yqi6Fd38ZCsDUnQG@hirez.programming.kicks-ass.net>
 References: <20220608142723.103523089@infradead.org>
- <20220608144517.507286638@infradead.org>
+ <20220608144516.808451191@infradead.org>
+ <YqiB6YpVqq4wuDtO@FVFF77S0Q05N>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220608144517.507286638@infradead.org>
+In-Reply-To: <YqiB6YpVqq4wuDtO@FVFF77S0Q05N>
 
-On Wed, Jun 08, 2022 at 04:27:48PM +0200, Peter Zijlstra wrote:
-> No callers left that have already disabled RCU.
+On Tue, Jun 14, 2022 at 01:41:13PM +0100, Mark Rutland wrote:
+> On Wed, Jun 08, 2022 at 04:27:37PM +0200, Peter Zijlstra wrote:
+> > --- a/kernel/time/tick-broadcast.c
+> > +++ b/kernel/time/tick-broadcast.c
+> > @@ -622,9 +622,13 @@ struct cpumask *tick_get_broadcast_onesh
+> >   * to avoid a deep idle transition as we are about to get the
+> >   * broadcast IPI right away.
+> >   */
+> > -int tick_check_broadcast_expired(void)
+> > +noinstr int tick_check_broadcast_expired(void)
+> >  {
+> > +#ifdef _ASM_GENERIC_BITOPS_INSTRUMENTED_NON_ATOMIC_H
+> > +	return arch_test_bit(smp_processor_id(), cpumask_bits(tick_broadcast_force_mask));
+> > +#else
+> >  	return cpumask_test_cpu(smp_processor_id(), tick_broadcast_force_mask);
+> > +#endif
+> >  }
 > 
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> This is somewhat not-ideal. :/
 
-Acked-by: Mark Rutland <mark.rutland@arm.com>
+I'll say.
 
-Mark.
+> Could we unconditionally do the arch_test_bit() variant, with a comment, or
+> does that not exist in some cases?
 
-> ---
->  kernel/time/tick-broadcast-hrtimer.c |   29 ++++++++++++-----------------
->  1 file changed, 12 insertions(+), 17 deletions(-)
-> 
-> --- a/kernel/time/tick-broadcast-hrtimer.c
-> +++ b/kernel/time/tick-broadcast-hrtimer.c
-> @@ -56,25 +56,20 @@ static int bc_set_next(ktime_t expires,
->  	 * hrtimer callback function is currently running, then
->  	 * hrtimer_start() cannot move it and the timer stays on the CPU on
->  	 * which it is assigned at the moment.
-> +	 */
-> +	hrtimer_start(&bctimer, expires, HRTIMER_MODE_ABS_PINNED_HARD);
-> +	/*
-> +	 * The core tick broadcast mode expects bc->bound_on to be set
-> +	 * correctly to prevent a CPU which has the broadcast hrtimer
-> +	 * armed from going deep idle.
->  	 *
-> -	 * As this can be called from idle code, the hrtimer_start()
-> -	 * invocation has to be wrapped with RCU_NONIDLE() as
-> -	 * hrtimer_start() can call into tracing.
-> +	 * As tick_broadcast_lock is held, nothing can change the cpu
-> +	 * base which was just established in hrtimer_start() above. So
-> +	 * the below access is safe even without holding the hrtimer
-> +	 * base lock.
->  	 */
-> -	RCU_NONIDLE( {
-> -		hrtimer_start(&bctimer, expires, HRTIMER_MODE_ABS_PINNED_HARD);
-> -		/*
-> -		 * The core tick broadcast mode expects bc->bound_on to be set
-> -		 * correctly to prevent a CPU which has the broadcast hrtimer
-> -		 * armed from going deep idle.
-> -		 *
-> -		 * As tick_broadcast_lock is held, nothing can change the cpu
-> -		 * base which was just established in hrtimer_start() above. So
-> -		 * the below access is safe even without holding the hrtimer
-> -		 * base lock.
-> -		 */
-> -		bc->bound_on = bctimer.base->cpu_base->cpu;
-> -	} );
-> +	bc->bound_on = bctimer.base->cpu_base->cpu;
-> +
->  	return 0;
->  }
->  
-> 
-> 
+Loads of build errors ensued, which is how I ended up with this mess ...
 
