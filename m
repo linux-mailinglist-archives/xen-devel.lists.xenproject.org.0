@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 921B554C07F
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 06:06:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349222.575664 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A9F554C081
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 06:06:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349224.575673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1KHi-0005RG-NT; Wed, 15 Jun 2022 04:05:38 +0000
+	id 1o1KHj-0005Un-5k; Wed, 15 Jun 2022 04:05:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349222.575664; Wed, 15 Jun 2022 04:05:38 +0000
+Received: by outflank-mailman (output) from mailman id 349224.575673; Wed, 15 Jun 2022 04:05:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1KHi-0005Op-Kc; Wed, 15 Jun 2022 04:05:38 +0000
-Received: by outflank-mailman (input) for mailman id 349222;
- Tue, 14 Jun 2022 16:13:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o1KHi-0005RV-SZ; Wed, 15 Jun 2022 04:05:38 +0000
+Received: by outflank-mailman (input) for mailman id 349224;
+ Tue, 14 Jun 2022 16:15:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Qq/B=WV=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
- id 1o19Am-0001O4-Ch
- for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 16:13:44 +0000
+ id 1o19CN-0001PE-8Z
+ for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 16:15:23 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id f3301dd3-ebfc-11ec-a26a-b96bd03d9e80;
- Tue, 14 Jun 2022 18:13:39 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 2f79d453-ebfd-11ec-bd2c-47488cf2e6aa;
+ Tue, 14 Jun 2022 18:15:21 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0D6151684;
- Tue, 14 Jun 2022 09:13:38 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9F0F61692;
+ Tue, 14 Jun 2022 09:15:19 -0700 (PDT)
 Received: from FVFF77S0Q05N (unknown [10.57.41.154])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4946B3F66F;
- Tue, 14 Jun 2022 09:13:20 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D37FC3F66F;
+ Tue, 14 Jun 2022 09:15:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,8 +42,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3301dd3-ebfc-11ec-a26a-b96bd03d9e80
-Date: Tue, 14 Jun 2022 17:13:16 +0100
+X-Inumbo-ID: 2f79d453-ebfd-11ec-bd2c-47488cf2e6aa
+Date: Tue, 14 Jun 2022 17:14:57 +0100
 From: Mark Rutland <mark.rutland@arm.com>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
@@ -101,76 +101,60 @@ Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
 	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
 	rcu@vger.kernel.org
-Subject: Re: [PATCH 15/36] cpuidle,cpu_pm: Remove RCU fiddling from
- cpu_pm_{enter,exit}()
-Message-ID: <YqiznJL7qB9uSQ9c@FVFF77S0Q05N>
+Subject: Re: [PATCH 16/36] rcu: Fix rcu_idle_exit()
+Message-ID: <Yqi0AVZmI5GyVpNa@FVFF77S0Q05N>
 References: <20220608142723.103523089@infradead.org>
- <20220608144516.871305980@infradead.org>
+ <20220608144516.935970247@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220608144516.871305980@infradead.org>
+In-Reply-To: <20220608144516.935970247@infradead.org>
 
-On Wed, Jun 08, 2022 at 04:27:38PM +0200, Peter Zijlstra wrote:
-> All callers should still have RCU enabled.
-
-IIUC with that true we should be able to drop the RCU_NONIDLE() from
-drivers/perf/arm_pmu.c, as we only needed that for an invocation via a pm
-notifier.
-
-I should be able to give that a spin on some hardware.
-
+On Wed, Jun 08, 2022 at 04:27:39PM +0200, Peter Zijlstra wrote:
+> Current rcu_idle_exit() is terminally broken because it uses
+> local_irq_{save,restore}(), which are traced which uses RCU.
+> 
+> However, now that all the callers are sure to have IRQs disabled, we
+> can remove these calls.
 > 
 > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> ---
->  kernel/cpu_pm.c |    9 ---------
->  1 file changed, 9 deletions(-)
-> 
-> --- a/kernel/cpu_pm.c
-> +++ b/kernel/cpu_pm.c
-> @@ -30,16 +30,9 @@ static int cpu_pm_notify(enum cpu_pm_eve
->  {
->  	int ret;
->  
-> -	/*
-> -	 * This introduces a RCU read critical section, which could be
-> -	 * disfunctional in cpu idle. Copy RCU_NONIDLE code to let RCU know
-> -	 * this.
-> -	 */
-> -	rcu_irq_enter_irqson();
->  	rcu_read_lock();
->  	ret = raw_notifier_call_chain(&cpu_pm_notifier.chain, event, NULL);
->  	rcu_read_unlock();
-> -	rcu_irq_exit_irqson();
+> Acked-by: Paul E. McKenney <paulmck@kernel.org>
 
-To make this easier to debug, is it worth adding an assertion that RCU is
-watching here? e.g.
+Acked-by: Mark Rutland <mark.rutland@arm.com>
 
-	RCU_LOCKDEP_WARN(!rcu_is_watching(),
-			 "cpu_pm_notify() used illegally from EQS");
-
->  
->  	return notifier_to_errno(ret);
->  }
-> @@ -49,11 +42,9 @@ static int cpu_pm_notify_robust(enum cpu
->  	unsigned long flags;
->  	int ret;
->  
-> -	rcu_irq_enter_irqson();
->  	raw_spin_lock_irqsave(&cpu_pm_notifier.lock, flags);
->  	ret = raw_notifier_call_chain_robust(&cpu_pm_notifier.chain, event_up, event_down, NULL);
->  	raw_spin_unlock_irqrestore(&cpu_pm_notifier.lock, flags);
-> -	rcu_irq_exit_irqson();
-
-
-... and likewise here?
-
-Thanks,
 Mark.
 
->  
->  	return notifier_to_errno(ret);
+> ---
+>  kernel/rcu/tree.c |    9 +++------
+>  1 file changed, 3 insertions(+), 6 deletions(-)
+> 
+> --- a/kernel/rcu/tree.c
+> +++ b/kernel/rcu/tree.c
+> @@ -659,7 +659,7 @@ static noinstr void rcu_eqs_enter(bool u
+>   * If you add or remove a call to rcu_idle_enter(), be sure to test with
+>   * CONFIG_RCU_EQS_DEBUG=y.
+>   */
+> -void rcu_idle_enter(void)
+> +void noinstr rcu_idle_enter(void)
+>  {
+>  	lockdep_assert_irqs_disabled();
+>  	rcu_eqs_enter(false);
+> @@ -896,13 +896,10 @@ static void noinstr rcu_eqs_exit(bool us
+>   * If you add or remove a call to rcu_idle_exit(), be sure to test with
+>   * CONFIG_RCU_EQS_DEBUG=y.
+>   */
+> -void rcu_idle_exit(void)
+> +void noinstr rcu_idle_exit(void)
+>  {
+> -	unsigned long flags;
+> -
+> -	local_irq_save(flags);
+> +	lockdep_assert_irqs_disabled();
+>  	rcu_eqs_exit(false);
+> -	local_irq_restore(flags);
 >  }
+>  EXPORT_SYMBOL_GPL(rcu_idle_exit);
+>  
 > 
 > 
 
