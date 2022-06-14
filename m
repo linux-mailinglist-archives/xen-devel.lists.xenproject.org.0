@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4857D54B3E9
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jun 2022 16:53:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349057.575303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7570754B438
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jun 2022 17:10:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349132.575314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o17uj-0003X4-O0; Tue, 14 Jun 2022 14:53:05 +0000
+	id 1o18B6-0005Hv-6B; Tue, 14 Jun 2022 15:10:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349057.575303; Tue, 14 Jun 2022 14:53:05 +0000
+Received: by outflank-mailman (output) from mailman id 349132.575314; Tue, 14 Jun 2022 15:10:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o17uj-0003U8-Kk; Tue, 14 Jun 2022 14:53:05 +0000
-Received: by outflank-mailman (input) for mailman id 349057;
- Tue, 14 Jun 2022 14:37:52 +0000
+	id 1o18B6-0005Fm-28; Tue, 14 Jun 2022 15:10:00 +0000
+Received: by outflank-mailman (input) for mailman id 349132;
+ Tue, 14 Jun 2022 15:09:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=70GO=WV=goodmis.org=rostedt@kernel.org>)
- id 1o17fz-0000lT-VZ
- for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 14:37:52 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (envelope-from <SRS0=qNKJ=WV=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o18B4-0005Fg-IE
+ for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 15:09:58 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9015bdba-ebef-11ec-bd2c-47488cf2e6aa;
- Tue, 14 Jun 2022 16:37:49 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id 0d529e29-ebf4-11ec-bd2c-47488cf2e6aa;
+ Tue, 14 Jun 2022 17:09:57 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2E406B81865;
- Tue, 14 Jun 2022 14:37:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D478C3411C;
- Tue, 14 Jun 2022 14:37:34 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A6C4E21B69;
+ Tue, 14 Jun 2022 15:09:56 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4E0A01361C;
+ Tue, 14 Jun 2022 15:09:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id n/z8EMSkqGJGVwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 14 Jun 2022 15:09:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,89 +51,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9015bdba-ebef-11ec-bd2c-47488cf2e6aa
-Date: Tue, 14 Jun 2022 10:37:32 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Peter Zijlstra
- <peterz@infradead.org>, ink@jurassic.park.msu.ru, mattst88@gmail.com,
- vgupta@kernel.org, linux@armlinux.org.uk, ulli.kroll@googlemail.com,
- linus.walleij@linaro.org, shawnguo@kernel.org, Sascha Hauer
- <s.hauer@pengutronix.de>, kernel@pengutronix.de, festevam@gmail.com,
- linux-imx@nxp.com, tony@atomide.com, khilman@kernel.org,
- catalin.marinas@arm.com, will@kernel.org, guoren@kernel.org,
- bcain@quicinc.com, chenhuacai@kernel.org, kernel@xen0n.name,
- geert@linux-m68k.org, sammy@sammy.net, monstr@monstr.eu,
- tsbogend@alpha.franken.de, dinguyen@kernel.org, jonas@southpole.se,
- stefan.kristiansson@saunalahti.fi, shorne@gmail.com,
- James.Bottomley@hansenpartnership.com, deller@gmx.de, mpe@ellerman.id.au,
- benh@kernel.crashing.org, paulus@samba.org, paul.walmsley@sifive.com,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, hca@linux.ibm.com,
- gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
- svens@linux.ibm.com, ysato@users.sourceforge.jp, dalias@libc.org,
- davem@davemloft.net, richard@nod.at, anton.ivanov@cambridgegreys.com,
- johannes@sipsolutions.net, tglx@linutronix.de, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- acme@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
- jolsa@kernel.org, namhyung@kernel.org, jgross@suse.com,
- srivatsa@csail.mit.edu, amakhalov@vmware.com, pv-drivers@vmware.com,
- boris.ostrovsky@oracle.com, chris@zankel.net, jcmvbkbc@gmail.com,
- rafael@kernel.org, lenb@kernel.org, pavel@ucw.cz,
- gregkh@linuxfoundation.org, mturquette@baylibre.com, sboyd@kernel.org,
- daniel.lezcano@linaro.org, lpieralisi@kernel.org, sudeep.holla@arm.com,
- agross@kernel.org, bjorn.andersson@linaro.org, anup@brainfault.org,
- thierry.reding@gmail.com, jonathanh@nvidia.com,
- jacob.jun.pan@linux.intel.com, Arnd Bergmann <arnd@arndb.de>,
- yury.norov@gmail.com, andriy.shevchenko@linux.intel.com,
- linux@rasmusvillemoes.dk, john.ogness@linutronix.de, paulmck@kernel.org,
- frederic@kernel.org, quic_neeraju@quicinc.com, josh@joshtriplett.org,
- mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
- joel@joelfernandes.org, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
- bristot@redhat.com, vschneid@redhat.com, jpoimboe@kernel.org,
- linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-omap@vger.kernel.org, linux-csky@vger.kernel.org,
- linux-hexagon@vger.kernel.org, linux-ia64@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org,
- openrisc@lists.librecores.org, linux-parisc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
- linux-perf-users@vger.kernel.org,
- virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org,
- linux-xtensa@linux-xtensa.org, linux-acpi@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-arch@vger.kernel.org, rcu@vger.kernel.org
-Subject: Re: [PATCH 24/36] printk: Remove trace_.*_rcuidle() usage
-Message-ID: <20220614103732.489ba62b@gandalf.local.home>
-In-Reply-To: <YqHvXFdIJfvUDI6e@alley>
-References: <20220608142723.103523089@infradead.org>
-	<20220608144517.444659212@infradead.org>
-	<YqG6URbihTNCk9YR@alley>
-	<YqHFHB6qqv5wiR8t@worktop.programming.kicks-ass.net>
-	<CA+_sPaoJGrXhNPCs2dKf2J7u07y1xYrRFZBUtkKwzK9GqcHSuQ@mail.gmail.com>
-	<YqHvXFdIJfvUDI6e@alley>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+X-Inumbo-ID: 0d529e29-ebf4-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1655219396; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TBuTSA8mQ0jvxTP5qnDkR0bwrd8FxfdNziVlcfJYYno=;
+	b=O1UBCoRPk4dvMZPflj5RmgChdsLFUHirjfqT7qIfr/YxFKzsZpYH4JaoGpv5LJ5mOZM1Ti
+	I5vSvZ1F4ZcEZc4FfE8HVPbaB9G5b2ytQIbMXelR34pxj1mB6jbSTZ7TdwDPM4rGMxQk1l
+	SHKq3LZprlSAA9UF0cqWaDNc7cIfrZs=
+Message-ID: <fb0eadee-1d45-f414-eda4-a87f01eeb57a@suse.com>
+Date: Tue, 14 Jun 2022 17:09:55 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH 1/2] x86/pat: fix x86_has_pat_wp()
+Content-Language: en-US
+To: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Borislav Petkov <bp@alien8.de>
+Cc: jbeulich@suse.com, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>
+References: <20220503132207.17234-1-jgross@suse.com>
+ <20220503132207.17234-2-jgross@suse.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20220503132207.17234-2-jgross@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------eun63RK740ZvvNDN34swS1W9"
 
-On Thu, 9 Jun 2022 15:02:20 +0200
-Petr Mladek <pmladek@suse.com> wrote:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------eun63RK740ZvvNDN34swS1W9
+Content-Type: multipart/mixed; boundary="------------yoJ6DkuojrwCMWyBgW7a1PaZ";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Borislav Petkov <bp@alien8.de>
+Cc: jbeulich@suse.com, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <fb0eadee-1d45-f414-eda4-a87f01eeb57a@suse.com>
+Subject: Re: [PATCH 1/2] x86/pat: fix x86_has_pat_wp()
+References: <20220503132207.17234-1-jgross@suse.com>
+ <20220503132207.17234-2-jgross@suse.com>
+In-Reply-To: <20220503132207.17234-2-jgross@suse.com>
 
-> > I'm somewhat curious whether we can actually remove that trace event.  
-> 
-> Good question.
-> 
-> Well, I think that it might be useful. It allows to see trace and
-> printk messages together.
+--------------yoJ6DkuojrwCMWyBgW7a1PaZ
+Content-Type: multipart/mixed; boundary="------------fRcA0gQMkBVZfOGxtlWXbzS3"
 
-Yes people still use it. I was just asked about it at Kernel Recipes. That
-is, someone wanted printk mixed in with the tracing, and I told them about
-this event (which they didn't know about but was happy to hear that it
-existed).
+--------------fRcA0gQMkBVZfOGxtlWXbzS3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
--- Steve
+T24gMDMuMDUuMjIgMTU6MjIsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IHg4Nl9oYXNfcGF0
+X3dwKCkgaXMgdXNpbmcgYSB3cm9uZyB0ZXN0LCBhcyBpdCByZWxpZXMgb24gdGhlIG5vcm1h
+bA0KPiBQQVQgY29uZmlndXJhdGlvbiB1c2VkIGJ5IHRoZSBrZXJuZWwuIEluIGNhc2UgdGhl
+IFBBVCBNU1IgaGFzIGJlZW4NCj4gc2V0dXAgYnkgYW5vdGhlciBlbnRpdHkgKGUuZy4gQklP
+UyBvciBYZW4gaHlwZXJ2aXNvcikgaXQgbWlnaHQgcmV0dXJuDQo+IGZhbHNlIGV2ZW4gaWYg
+dGhlIFBBVCBjb25maWd1cmF0aW9uIGlzIGFsbG93aW5nIFdQIG1hcHBpbmdzLg0KPiANCj4g
+Rml4ZXM6IDFmNmY2NTVlMDFhZCAoIng4Ni9tbTogQWRkIGEgeDg2X2hhc19wYXRfd3AoKSBo
+ZWxwZXIiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5j
+b20+DQo+IC0tLQ0KPiAgIGFyY2gveDg2L21tL2luaXQuYyB8IDMgKystDQo+ICAgMSBmaWxl
+IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAt
+LWdpdCBhL2FyY2gveDg2L21tL2luaXQuYyBiL2FyY2gveDg2L21tL2luaXQuYw0KPiBpbmRl
+eCBkOGNmY2UyMjEyNzUuLjcxZTE4MmViY2VkMyAxMDA2NDQNCj4gLS0tIGEvYXJjaC94ODYv
+bW0vaW5pdC5jDQo+ICsrKyBiL2FyY2gveDg2L21tL2luaXQuYw0KPiBAQCAtODAsNyArODAs
+OCBAQCBzdGF0aWMgdWludDhfdCBfX3B0ZTJjYWNoZW1vZGVfdGJsWzhdID0gew0KPiAgIC8q
+IENoZWNrIHRoYXQgdGhlIHdyaXRlLXByb3RlY3QgUEFUIGVudHJ5IGlzIHNldCBmb3Igd3Jp
+dGUtcHJvdGVjdCAqLw0KPiAgIGJvb2wgeDg2X2hhc19wYXRfd3Aodm9pZCkNCj4gICB7DQo+
+IC0JcmV0dXJuIF9fcHRlMmNhY2hlbW9kZV90YmxbX1BBR0VfQ0FDSEVfTU9ERV9XUF0gPT0g
+X1BBR0VfQ0FDSEVfTU9ERV9XUDsNCj4gKwlyZXR1cm4gX19wdGUyY2FjaGVtb2RlX3RibFtf
+X2NhY2hlbW9kZTJwdGVfdGJsW19QQUdFX0NBQ0hFX01PREVfV1BdXSA9PQ0KPiArCSAgICAg
+ICBfUEFHRV9DQUNIRV9NT0RFX1dQOw0KPiAgIH0NCj4gICANCj4gICBlbnVtIHBhZ2VfY2Fj
+aGVfbW9kZSBwZ3Byb3QyY2FjaGVtb2RlKHBncHJvdF90IHBncHJvdCkNCg0KeDg2IG1haW50
+YWluZXJzLCBwbGVhc2UgY29uc2lkZXIgdGFraW5nIHRoaXMgcGF0Y2gsIGFzIGl0IGlzIGZp
+eGluZw0KYSByZWFsIGJ1Zy4gUGF0Y2ggMiBvZiB0aGlzIHNlcmllcyBjYW4gYmUgZHJvcHBl
+ZCBJTU8uDQoNCg0KSnVlcmdlbg0K
+--------------fRcA0gQMkBVZfOGxtlWXbzS3
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------fRcA0gQMkBVZfOGxtlWXbzS3--
+
+--------------yoJ6DkuojrwCMWyBgW7a1PaZ--
+
+--------------eun63RK740ZvvNDN34swS1W9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKopMMFAwAAAAAACgkQsN6d1ii/Ey/V
+awf/awBnKJ5Bfc9Aiile6ImR6gl2yoG9pBgK3XGsRukjf+iVwjGGMEKxsWINeQ1SJctM+m8+BtQ6
+XgipkOTUXLmGpFJztKUr+RyFj47wxb27YZGIAg2hxE+WK2IGNaGFDY0ksb351HHaTTDt6+SrvemO
+YsEQ84/QsrzqWeC3+YgF3/rQZ/FdI3uZ3CzZOxC+xBGnFydhrPFMWRIjO3BqW5TTupTEgjFq0Irb
+HvMi+RmoKrODIIzeeBYO379U11HQ+aEq5Dv9RqgVFrSINnPobAZCaB3n6tZl2LedsD4+dx27oD37
+A9uzcajGcLtIMSxdvfd+9veNCh3ABcjWuUHWnyIwUQ==
+=jzA7
+-----END PGP SIGNATURE-----
+
+--------------eun63RK740ZvvNDN34swS1W9--
 
