@@ -2,43 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCDAB54ADB9
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jun 2022 11:52:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.348763.574949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B777E54AEF6
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jun 2022 13:03:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.348781.574960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o13DA-0005Wt-Pv; Tue, 14 Jun 2022 09:51:48 +0000
+	id 1o14Jo-0004of-SR; Tue, 14 Jun 2022 11:02:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 348763.574949; Tue, 14 Jun 2022 09:51:48 +0000
+Received: by outflank-mailman (output) from mailman id 348781.574960; Tue, 14 Jun 2022 11:02:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o13DA-0005UX-N6; Tue, 14 Jun 2022 09:51:48 +0000
-Received: by outflank-mailman (input) for mailman id 348763;
- Tue, 14 Jun 2022 09:51:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o14Jo-0004mJ-PR; Tue, 14 Jun 2022 11:02:44 +0000
+Received: by outflank-mailman (input) for mailman id 348781;
+ Tue, 14 Jun 2022 11:02:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mIWA=WV=redhat.com=berrange@srs-se1.protection.inumbo.net>)
- id 1o13D9-0005UR-6U
- for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 09:51:47 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 996bea62-ebc7-11ec-bd2c-47488cf2e6aa;
- Tue, 14 Jun 2022 11:51:45 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-426-pSbqAgPoOEKx6fcCh6x3dg-1; Tue, 14 Jun 2022 05:51:43 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A45431C0513E;
- Tue, 14 Jun 2022 09:51:42 +0000 (UTC)
-Received: from redhat.com (unknown [10.33.36.137])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9568D1415103;
- Tue, 14 Jun 2022 09:51:40 +0000 (UTC)
+ <SRS0=5YSJ=WV=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1o14Jn-0004mD-TP
+ for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 11:02:43 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 824bd0ca-ebd1-11ec-8901-93a377f238d6;
+ Tue, 14 Jun 2022 13:02:41 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C13A1424;
+ Tue, 14 Jun 2022 04:02:40 -0700 (PDT)
+Received: from [10.57.11.30] (unknown [10.57.11.30])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 30E6F3F73B;
+ Tue, 14 Jun 2022 04:02:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,93 +42,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 996bea62-ebc7-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1655200304;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=kPsIb46gmdhHq2vvvdI5Q6gA7nrPKFn2iUBOa2L/v9k=;
-	b=JdGwGX3wmWkEsK5DMsVayZ5GIMNHNcGkiuWvOOktQ2CpoEvj3SNeQ7agLv2AbxUJIP3Z82
-	ZlSWeTAGnJe3slmnETXWVtzl5ipEqUBlGGF4Yf6Z1cZlgsFUgn/yYUNZolmVyjNMD3gnOg
-	2X9RAsL5N0zoGgdFj0sQtoXLd8WPbWs=
-X-MC-Unique: pSbqAgPoOEKx6fcCh6x3dg-1
-Date: Tue, 14 Jun 2022 10:51:38 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, qemu-devel@nongnu.org,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	xen-devel@lists.xenproject.org,
-	Akihiko Odaki <akihiko.odaki@gmail.com>,
-	"Hongren (Zenithal) Zheng" <i@zenithal.me>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"Canokeys.org" <contact@canokeys.org>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
-	Paul Durrant <paul@xen.org>,
-	Anthony Perard <anthony.perard@citrix.com>
-Subject: Re: [PULL 00/16] Kraxel 20220613 patches
-Message-ID: <YqhaKi8K2EATpAlN@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20220613113655.3693872-1-kraxel@redhat.com>
- <37f8f623-bb1c-899b-5801-79acd6185c6d@linaro.org>
- <20220614094038.g2g6lzeviypcnqrb@sirius.home.kraxel.org>
+X-Inumbo-ID: 824bd0ca-ebd1-11ec-8901-93a377f238d6
+Message-ID: <f60bd88a-90bc-60a9-be72-aa533315c55f@arm.com>
+Date: Tue, 14 Jun 2022 13:02:27 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220614094038.g2g6lzeviypcnqrb@sirius.home.kraxel.org>
-User-Agent: Mutt/2.2.1 (2022-02-19)
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH] xen/arm: smpboot: Allocate the CPU sibling/core maps
+ while preparing the CPU
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220614094119.94720-1-julien@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
+In-Reply-To: <20220614094119.94720-1-julien@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 14, 2022 at 11:40:38AM +0200, Gerd Hoffmann wrote:
-> On Mon, Jun 13, 2022 at 08:52:21AM -0700, Richard Henderson wrote:
-> > On 6/13/22 04:36, Gerd Hoffmann wrote:
-> > > The following changes since commit dcb40541ebca7ec98a14d461593b3cd7282b4fac:
-> > > 
-> > >    Merge tag 'mips-20220611' of https://github.com/philmd/qemu into staging (2022-06-11 21:13:27 -0700)
-> > > 
-> > > are available in the Git repository at:
-> > > 
-> > >    git://git.kraxel.org/qemu tags/kraxel-20220613-pull-request
-> > > 
-> > > for you to fetch changes up to 23b87f7a3a13e93e248eef8a4b7257548855a620:
-> > > 
-> > >    ui: move 'pc-bios/keymaps' to 'ui/keymaps' (2022-06-13 10:59:25 +0200)
-> > > 
-> > > ----------------------------------------------------------------
-> > > usb: add CanoKey device, fixes for ehci + redir
-> > > ui: fixes for gtk and cocoa, move keymaps (v2), rework refresh rate
-> > > virtio-gpu: scanout flush fix
-> > 
-> > This doesn't even configure:
-> > 
-> > ../src/ui/keymaps/meson.build:55:4: ERROR: File ar does not exist.
+Hi Julien,
+
+On 14.06.2022 11:41, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Hmm, build worked here and CI passed too.
+> Commit 5047cd1d5dea "xen/common: Use enhanced ASSERT_ALLOC_CONTEXT in
+> xmalloc()" extended the checks in _xmalloc() to catch any use of the
+> helpers from context with interrupts disabled.
 > 
-> I think this is one of those cases where the build directory must be
-> deleted because one subdirectory is replaced by a compatibility
-> symlink.
+> Unfortunately, the rule is not followed when allocating the CPU
+> sibling/core maps.
+> 
+> (XEN) Xen call trace:
+> (XEN)    [<00238a5c>] _xmalloc+0xfc/0x314 (PC)
+> (XEN)    [<00000000>] 00000000 (LR)
+> (XEN)    [<00238c8c>] _xzalloc+0x18/0x4c
+> (XEN)    [<00288cb4>] smpboot.c#setup_cpu_sibling_map+0x38/0x138
+> (XEN)    [<00289024>] start_secondary+0x1b4/0x270
+> (XEN)    [<40010170>] 40010170
+> (XEN)
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 2:
+> (XEN) Assertion '!in_irq() && (local_irq_is_enabled() || num_online_cpus() <= 1)' failed at common/xmalloc_tlsf.c:601
+> (XEN) ****************************************
+> 
+> This is happening because zalloc_cpumask_var() may allocate memory
+> if NR_CPUS is > 2 * sizeof(unsigned long).
+> 
+> Avoid the problem by allocate the per-CPU IRQs while preparing the
+> CPU.
+Shouldn't this be "by allocating the CPU sibling/core maps while ..."
+to reflect the commit title and to distinguish between this change and the IRQ one?
 
-Except 'configure' deals with that, as it explicitly rm -rf's the
-symlink target:
+> 
+> This also has the benefit to remove a panic() in the secondary CPU
+> code.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> ---
+>  xen/arch/arm/smpboot.c | 25 ++++++++++++++++++++-----
+>  1 file changed, 20 insertions(+), 5 deletions(-)
+> 
+> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+> index 4888bcd78a5a..2b0c92cd369b 100644
+> --- a/xen/arch/arm/smpboot.c
+> +++ b/xen/arch/arm/smpboot.c
+> @@ -79,15 +79,17 @@ DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_core_mask);
+>  static bool __read_mostly opt_hmp_unsafe = false;
+>  boolean_param("hmp-unsafe", opt_hmp_unsafe);
+>  
+> -static void setup_cpu_sibling_map(int cpu)
+> +static int setup_cpu_sibling_map(int cpu)
+>  {
+>      if ( !zalloc_cpumask_var(&per_cpu(cpu_sibling_mask, cpu)) ||
+>           !zalloc_cpumask_var(&per_cpu(cpu_core_mask, cpu)) )
+> -        panic("No memory for CPU sibling/core maps\n");
+> +        return -ENOMEM;
+>  
+>      /* A CPU is a sibling with itself and is always on its own core. */
+>      cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
+>      cpumask_set_cpu(cpu, per_cpu(cpu_core_mask, cpu));
+> +
+> +    return 0;
+>  }
+>  
+>  static void remove_cpu_sibling_map(int cpu)
+> @@ -292,9 +294,14 @@ smp_get_max_cpus (void)
+>  void __init
+>  smp_prepare_cpus(void)
+>  {
+> +    int rc;
+Here you are leaving rc uninitialized (which is ok) but ...
 
-symlink() {
-  rm -rf "$2"
-  mkdir -p "$(dirname "$2")"
-  ln -s "$1" "$2"
-}
+> +
+>      cpumask_copy(&cpu_present_map, &cpu_possible_map);
+>  
+> -    setup_cpu_sibling_map(0);
+> +    rc = setup_cpu_sibling_map(0);
+> +    if ( rc )
+> +        panic("Unable to allocate CPU sibling/core maps\n");
+> +
+>  }
+>  
+>  /* Boot the current CPU */
+> @@ -361,8 +368,6 @@ void start_secondary(void)
+>  
+>      set_current(idle_vcpu[cpuid]);
+>  
+> -    setup_cpu_sibling_map(cpuid);
+> -
+>      /* Run local notifiers */
+>      notify_cpu_starting(cpuid);
+>      /*
+> @@ -530,9 +535,19 @@ static int cpu_smpboot_callback(struct notifier_block *nfb,
+>                                  void *hcpu)
+>  {
+>      unsigned int cpu = (unsigned long)hcpu;
+> +    unsigned int rc = 0;
+... here you are setting rc to 0 even though it will be reassigned.
+Furthermore, if rc is used only in case of CPU_UP_PREPARE, why not moving the definition there?
 
+>  
+>      switch ( action )
+>      {
+> +    case CPU_UP_PREPARE:
+> +        rc = setup_cpu_sibling_map(cpu);
+> +        if ( rc )
+> +            printk(XENLOG_ERR
+> +                   "Unable to allocate CPU sibling/core map  for CPU%u\n",
+Too many spaces between 'map' and 'for'.
 
-so i'm pretty confused as to what's going wrong here still
+> +                   cpu);
+> +
+> +        break;
+> +
+>      case CPU_DEAD:
+>          remove_cpu_sibling_map(cpu);
+>          break;
 
-
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
-
+Cheers,
+Michal
 
