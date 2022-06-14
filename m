@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EB5854B063
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jun 2022 14:18:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.348912.575194 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3075E54B167
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jun 2022 14:42:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349021.575239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o15V9-0006Zh-VX; Tue, 14 Jun 2022 12:18:31 +0000
+	id 1o15sD-0004d7-VI; Tue, 14 Jun 2022 12:42:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 348912.575194; Tue, 14 Jun 2022 12:18:31 +0000
+Received: by outflank-mailman (output) from mailman id 349021.575239; Tue, 14 Jun 2022 12:42:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o15V9-0006XQ-Rz; Tue, 14 Jun 2022 12:18:31 +0000
-Received: by outflank-mailman (input) for mailman id 348912;
- Tue, 14 Jun 2022 12:18:30 +0000
+	id 1o15sD-0004a8-R5; Tue, 14 Jun 2022 12:42:21 +0000
+Received: by outflank-mailman (input) for mailman id 349021;
+ Tue, 14 Jun 2022 12:41:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Hf0K=WV=redhat.com=kraxel@srs-se1.protection.inumbo.net>)
- id 1o15Tw-0008Ek-G8
- for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 12:17:16 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2e5e89e-ebdb-11ec-bd2c-47488cf2e6aa;
- Tue, 14 Jun 2022 14:16:58 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-211-09Nq8XZROquC41wzMebuLw-1; Tue, 14 Jun 2022 08:16:54 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 961E02999B20;
- Tue, 14 Jun 2022 12:16:53 +0000 (UTC)
-Received: from sirius.home.kraxel.org (unknown [10.39.192.40])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 614741415103;
- Tue, 14 Jun 2022 12:16:53 +0000 (UTC)
-Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
- id 282B41800084; Tue, 14 Jun 2022 14:16:52 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qq/B=WV=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
+ id 1o15rW-0004ZM-Vs
+ for xen-devel@lists.xenproject.org; Tue, 14 Jun 2022 12:41:38 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 54555853-ebdf-11ec-bd2c-47488cf2e6aa;
+ Tue, 14 Jun 2022 14:41:37 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78E001650;
+ Tue, 14 Jun 2022 05:41:35 -0700 (PDT)
+Received: from FVFF77S0Q05N (unknown [10.57.41.154])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9CDCF3F73B;
+ Tue, 14 Jun 2022 05:41:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,76 +42,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2e5e89e-ebdb-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1655209017;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nXD25YF84dW7uBlFN8SkZqBu0jvpmi2aaYUiV48m/S4=;
-	b=Rk2hD5gvCICUCQZEBspg0O4SFwR6aSrjU9kVRqjjBUlZ3cvM1VbUC8yti1tNWQAVgwX8Un
-	P8oP3kh4LJW/98O1Qp5xzUS9zQOMo+iPHmXeW96E9fxKf5lvqcTxrU2PsoTPEmjXDMRXwZ
-	SELKFBnVtHPcmaK1ZquNstDIsqyG8hk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1655209017;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nXD25YF84dW7uBlFN8SkZqBu0jvpmi2aaYUiV48m/S4=;
-	b=Rk2hD5gvCICUCQZEBspg0O4SFwR6aSrjU9kVRqjjBUlZ3cvM1VbUC8yti1tNWQAVgwX8Un
-	P8oP3kh4LJW/98O1Qp5xzUS9zQOMo+iPHmXeW96E9fxKf5lvqcTxrU2PsoTPEmjXDMRXwZ
-	SELKFBnVtHPcmaK1ZquNstDIsqyG8hk=
-X-MC-Unique: 09Nq8XZROquC41wzMebuLw-1
-Date: Tue, 14 Jun 2022 14:16:52 +0200
-From: Gerd Hoffmann <kraxel@redhat.com>
-To: Richard Henderson <richard.henderson@linaro.org>
-Cc: qemu-devel@nongnu.org, "Michael S. Tsirkin" <mst@redhat.com>,
-	xen-devel@lists.xenproject.org,
-	Akihiko Odaki <akihiko.odaki@gmail.com>,
-	"Hongren (Zenithal) Zheng" <i@zenithal.me>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"Canokeys.org" <contact@canokeys.org>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
-	Paul Durrant <paul@xen.org>,
-	Anthony Perard <anthony.perard@citrix.com>
-Subject: Re: [PULL 00/16] Kraxel 20220613 patches
-Message-ID: <20220614121652.6rzwet6cvhupamkv@sirius.home.kraxel.org>
-References: <20220613113655.3693872-1-kraxel@redhat.com>
- <37f8f623-bb1c-899b-5801-79acd6185c6d@linaro.org>
+X-Inumbo-ID: 54555853-ebdf-11ec-bd2c-47488cf2e6aa
+Date: Tue, 14 Jun 2022 13:41:13 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
+	vgupta@kernel.org, linux@armlinux.org.uk, ulli.kroll@googlemail.com,
+	linus.walleij@linaro.org, shawnguo@kernel.org,
+	Sascha Hauer <s.hauer@pengutronix.de>, kernel@pengutronix.de,
+	festevam@gmail.com, linux-imx@nxp.com, tony@atomide.com,
+	khilman@kernel.org, catalin.marinas@arm.com, will@kernel.org,
+	guoren@kernel.org, bcain@quicinc.com, chenhuacai@kernel.org,
+	kernel@xen0n.name, geert@linux-m68k.org, sammy@sammy.net,
+	monstr@monstr.eu, tsbogend@alpha.franken.de, dinguyen@kernel.org,
+	jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com, James.Bottomley@HansenPartnership.com,
+	deller@gmx.de, mpe@ellerman.id.au, benh@kernel.crashing.org,
+	paulus@samba.org, paul.walmsley@sifive.com, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, hca@linux.ibm.com, gor@linux.ibm.com,
+	agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+	svens@linux.ibm.com, ysato@users.sourceforge.jp, dalias@libc.org,
+	davem@davemloft.net, richard@nod.at,
+	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net,
+	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	acme@kernel.org, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, namhyung@kernel.org, jgross@suse.com,
+	srivatsa@csail.mit.edu, amakhalov@vmware.com, pv-drivers@vmware.com,
+	boris.ostrovsky@oracle.com, chris@zankel.net, jcmvbkbc@gmail.com,
+	rafael@kernel.org, lenb@kernel.org, pavel@ucw.cz,
+	gregkh@linuxfoundation.org, mturquette@baylibre.com,
+	sboyd@kernel.org, daniel.lezcano@linaro.org, lpieralisi@kernel.org,
+	sudeep.holla@arm.com, agross@kernel.org, bjorn.andersson@linaro.org,
+	anup@brainfault.org, thierry.reding@gmail.com, jonathanh@nvidia.com,
+	jacob.jun.pan@linux.intel.com, Arnd Bergmann <arnd@arndb.de>,
+	yury.norov@gmail.com, andriy.shevchenko@linux.intel.com,
+	linux@rasmusvillemoes.dk, rostedt@goodmis.org, pmladek@suse.com,
+	senozhatsky@chromium.org, john.ogness@linutronix.de,
+	paulmck@kernel.org, frederic@kernel.org, quic_neeraju@quicinc.com,
+	josh@joshtriplett.org, mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com, joel@joelfernandes.org,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
+	bristot@redhat.com, vschneid@redhat.com, jpoimboe@kernel.org,
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-snps-arc@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, openrisc@lists.librecores.org,
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
+	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
+	rcu@vger.kernel.org
+Subject: Re: [PATCH 14/36] cpuidle: Fix rcu_idle_*() usage
+Message-ID: <YqiB6YpVqq4wuDtO@FVFF77S0Q05N>
+References: <20220608142723.103523089@infradead.org>
+ <20220608144516.808451191@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <37f8f623-bb1c-899b-5801-79acd6185c6d@linaro.org>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+In-Reply-To: <20220608144516.808451191@infradead.org>
 
-On Mon, Jun 13, 2022 at 08:52:21AM -0700, Richard Henderson wrote:
-> On 6/13/22 04:36, Gerd Hoffmann wrote:
-> > The following changes since commit dcb40541ebca7ec98a14d461593b3cd7282b4fac:
-> > 
-> >    Merge tag 'mips-20220611' of https://github.com/philmd/qemu into staging (2022-06-11 21:13:27 -0700)
-> > 
-> > are available in the Git repository at:
-> > 
-> >    git://git.kraxel.org/qemu tags/kraxel-20220613-pull-request
-> > 
-> > for you to fetch changes up to 23b87f7a3a13e93e248eef8a4b7257548855a620:
-> > 
-> >    ui: move 'pc-bios/keymaps' to 'ui/keymaps' (2022-06-13 10:59:25 +0200)
-> > 
-> > ----------------------------------------------------------------
-> > usb: add CanoKey device, fixes for ehci + redir
-> > ui: fixes for gtk and cocoa, move keymaps (v2), rework refresh rate
-> > virtio-gpu: scanout flush fix
-> 
-> This doesn't even configure:
-> 
-> ../src/ui/keymaps/meson.build:55:4: ERROR: File ar does not exist.
+On Wed, Jun 08, 2022 at 04:27:37PM +0200, Peter Zijlstra wrote:
+> --- a/kernel/time/tick-broadcast.c
+> +++ b/kernel/time/tick-broadcast.c
+> @@ -622,9 +622,13 @@ struct cpumask *tick_get_broadcast_onesh
+>   * to avoid a deep idle transition as we are about to get the
+>   * broadcast IPI right away.
+>   */
+> -int tick_check_broadcast_expired(void)
+> +noinstr int tick_check_broadcast_expired(void)
+>  {
+> +#ifdef _ASM_GENERIC_BITOPS_INSTRUMENTED_NON_ATOMIC_H
+> +	return arch_test_bit(smp_processor_id(), cpumask_bits(tick_broadcast_force_mask));
+> +#else
+>  	return cpumask_test_cpu(smp_processor_id(), tick_broadcast_force_mask);
+> +#endif
+>  }
 
-dropped keymaps patch for now, new version sent.
+This is somewhat not-ideal. :/
 
-take care,
-  Gerd
+Could we unconditionally do the arch_test_bit() variant, with a comment, or
+does that not exist in some cases?
 
+Thanks,
+Mark.
 
