@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1BD954C3F6
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 10:49:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349765.575925 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F68054C49A
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 11:26:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349777.575936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1Ohc-0007g2-Bc; Wed, 15 Jun 2022 08:48:40 +0000
+	id 1o1PHE-00041q-8p; Wed, 15 Jun 2022 09:25:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349765.575925; Wed, 15 Jun 2022 08:48:40 +0000
+Received: by outflank-mailman (output) from mailman id 349777.575936; Wed, 15 Jun 2022 09:25:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1Ohc-0007dh-8O; Wed, 15 Jun 2022 08:48:40 +0000
-Received: by outflank-mailman (input) for mailman id 349765;
- Wed, 15 Jun 2022 08:48:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5J6g=WW=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o1Oha-0007dI-P4
- for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 08:48:38 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2345795-ec87-11ec-bd2c-47488cf2e6aa;
- Wed, 15 Jun 2022 10:48:37 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A97B721C37;
- Wed, 15 Jun 2022 08:48:36 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 703CF13A35;
- Wed, 15 Jun 2022 08:48:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vL3yGeScqWJaLQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 15 Jun 2022 08:48:36 +0000
+	id 1o1PHE-0003yy-5f; Wed, 15 Jun 2022 09:25:28 +0000
+Received: by outflank-mailman (input) for mailman id 349777;
+ Wed, 15 Jun 2022 09:25:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lpwu=WW=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1o1PHD-0003ys-6h
+ for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 09:25:27 +0000
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [2607:f8b0:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 15422b2d-ec8d-11ec-ab14-113154c10af9;
+ Wed, 15 Jun 2022 11:25:25 +0200 (CEST)
+Received: by mail-pg1-x534.google.com with SMTP id 184so10827402pga.12
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jun 2022 02:25:24 -0700 (PDT)
+Received: from localhost ([122.162.234.2]) by smtp.gmail.com with ESMTPSA id
+ v2-20020a17090a778200b001ea90dada74sm1231965pjk.12.2022.06.15.02.25.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jun 2022 02:25:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,154 +43,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2345795-ec87-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1655282916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=iIBkW7Vwr7SXxDUNu3qaCisr7ig2aybwnHdNAbRTR4E=;
-	b=htosqkbsQ1Cd4ZgHAGpw3up4szZoT77TjUmHY/iCSCLPrwGrVG8o905OCfwtFbYrBTkZp5
-	Kd9h+RB5YxM+NXcBIe0ztc9PUF6a0CSkOVYW3jpSTMG0/CCRVUpkMiilgaiMNaAbZ86VNo
-	NL2/VDfud72k6e7+qCMEUC+swXeC1jE=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
+X-Inumbo-ID: 15422b2d-ec8d-11ec-ab14-113154c10af9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=QD1mf5DnBqcLEVOFoiWBRR1QBiCXzXfoEa1RUQMHEbg=;
+        b=gmVSCn46TlF8cm8ao3weZQ1dQ+919xti8x+JNTqvEbhjNEFZdvPMGRwZbobjNM3xbf
+         uC1/HxtqLlOGh00UA96fBXAz35WiunpTXGZzV5kQH/ocYMckFGEggHTjUPX+MI/pZmOc
+         0Nyfs4DBuxMJLPDFXQUFccwTvxRzbEGEEK+TKSrcCe+eTJmjpPY47aruJ1kRn/cku3kK
+         luPIiVacfBtMMAvwPdeNm4mBL5eFXYP++g0eRxmGW7FuPJI23ZPCpYI5ypPiJCZkOwWa
+         9BR0ntAlHQ+6Q4rk86UEoZfkZ/Qds91d142Z3ertz6dMEcCU9As+k+oOuPVQSa+tI6ap
+         YaWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=QD1mf5DnBqcLEVOFoiWBRR1QBiCXzXfoEa1RUQMHEbg=;
+        b=6UVpNskCEcY7TO04sT2FJ0dBT1w9SFxTSpxab/IPAakWujHHBgiusySQC0ccDzTno/
+         wtEz1dSXdeRQ23VIEeiS9rzJABygCaZcr9frmrJSK2WjGK6lDX+1bKExtjX44POTPlqq
+         4k/xa/SeMd2ddejxGr167Xf9djKUm+vAOShpFIT69FU85JCNemNulnptNwXU5ITojcRS
+         X/OroUCfddYv4PYVxMNJGtGZcPt33ndyDdodUEzC2YVMT8rsPmCbWApIOvjhokp5s5kF
+         PiwMClBgsdtdXIUmMDHD9fCkrqMz2y+JakTE6EWpryDDwaPReLa6sj4oUQDiriXUO2iV
+         Ff9A==
+X-Gm-Message-State: AOAM532ICMVyGJ7bygDeg6uEAmE+ACkpcekQ8zrGWIeo4rnhplq32lLh
+	Z0ZH5s2QZqI8oT3wd1o8mMnlcw==
+X-Google-Smtp-Source: ABdhPJy/EMp63lY79wavrcwsuOIlryAFSfAtHCajQFGqGhcTul+yPCkHJc1P94NUfLJmE8bfCaxLrA==
+X-Received: by 2002:a63:6c4a:0:b0:3fe:2813:b1d with SMTP id h71-20020a636c4a000000b003fe28130b1dmr8063133pgc.613.1655285122694;
+        Wed, 15 Jun 2022 02:25:22 -0700 (PDT)
+Date: Wed, 15 Jun 2022 14:55:19 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH] xen: don't require virtio with grants for non-PV guests
-Date: Wed, 15 Jun 2022 10:48:35 +0200
-Message-Id: <20220615084835.27113-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+Subject: Re: [PATCH] xen: don't require virtio with grants for non-PV guests
+Message-ID: <20220615092519.5677clabobheziet@vireshk-i7>
+References: <20220615084835.27113-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220615084835.27113-1-jgross@suse.com>
 
-Commit fa1f57421e0b ("xen/virtio: Enable restricted memory access using
-Xen grant mappings") introduced a new requirement for using virtio
-devices: the backend now needs to support the VIRTIO_F_ACCESS_PLATFORM
-feature.
+On 15-06-22, 10:48, Juergen Gross wrote:
+> Commit fa1f57421e0b ("xen/virtio: Enable restricted memory access using
+> Xen grant mappings") introduced a new requirement for using virtio
+> devices: the backend now needs to support the VIRTIO_F_ACCESS_PLATFORM
+> feature.
+> 
+> This is an undue requirement for non-PV guests, as those can be operated
+> with existing backends without any problem, as long as those backends
+> are running in dom0.
+> 
+> Per default allow virtio devices without grant support for non-PV
+> guests.
+> 
+> The setting can be overridden by using the new "xen_virtio_grant"
+> command line parameter.
+> 
+> Add a new config item to always force use of grants for virtio.
+> 
+> Fixes: fa1f57421e0b ("xen/virtio: Enable restricted memory access using Xen grant mappings")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  .../admin-guide/kernel-parameters.txt         |  6 +++++
+>  drivers/xen/Kconfig                           |  9 ++++++++
+>  drivers/xen/grant-dma-ops.c                   | 22 +++++++++++++++++++
+>  include/xen/xen.h                             | 12 +++++-----
+>  4 files changed, 42 insertions(+), 7 deletions(-)
 
-This is an undue requirement for non-PV guests, as those can be operated
-with existing backends without any problem, as long as those backends
-are running in dom0.
+Thanks for the quick fix.
 
-Per default allow virtio devices without grant support for non-PV
-guests.
+With CONFIG_DEBUG_SECTION_MISMATCH=y, this generates a warning.
 
-The setting can be overridden by using the new "xen_virtio_grant"
-command line parameter.
+WARNING: modpost: vmlinux.o(.text+0x7a8270): Section mismatch in reference from the function xen_set_restricted_virtio_memory_access() to the variable .init.data:xen_virtio_grants
+The function xen_set_restricted_virtio_memory_access() references
+the variable __initdata xen_virtio_grants.
+This is often because xen_set_restricted_virtio_memory_access lacks a __initdata
+annotation or the annotation of xen_virtio_grants is wrong.
 
-Add a new config item to always force use of grants for virtio.
+This can be fixed by:
 
-Fixes: fa1f57421e0b ("xen/virtio: Enable restricted memory access using Xen grant mappings")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- .../admin-guide/kernel-parameters.txt         |  6 +++++
- drivers/xen/Kconfig                           |  9 ++++++++
- drivers/xen/grant-dma-ops.c                   | 22 +++++++++++++++++++
- include/xen/xen.h                             | 12 +++++-----
- 4 files changed, 42 insertions(+), 7 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 8090130b544b..7960480c6fe4 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6695,6 +6695,12 @@
- 			improve timer resolution at the expense of processing
- 			more timer interrupts.
- 
-+	xen_virtio_grant= [XEN]
-+			Control whether virtio devices are required to use
-+			grants when running as a Xen guest. The default is
-+			"yes" for PV guests or when the kernel has been built
-+			with CONFIG_XEN_VIRTIO_FORCE_GRANT set.
-+
- 	xen.balloon_boot_timeout= [XEN]
- 			The time (in seconds) to wait before giving up to boot
- 			in case initial ballooning fails to free enough memory.
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index bfd5f4f706bc..a65bd92121a5 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -355,4 +355,13 @@ config XEN_VIRTIO
- 
- 	  If in doubt, say n.
- 
-+config XEN_VIRTIO_FORCE_GRANT
-+	bool "Require Xen virtio support to use grants"
-+	depends on XEN_VIRTIO
-+	help
-+	  Require virtio for Xen guests to use grant mappings.
-+	  This will avoid the need to give the backend the right to map all
-+	  of the guest memory. This will need support on the backend side
-+	  (e.g. qemu or kernel, depending on the virtio device types used).
-+
- endmenu
 diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-index fc0142484001..d1fae789dfad 100644
+index d1fae789dfad..1099097b4515 100644
 --- a/drivers/xen/grant-dma-ops.c
 +++ b/drivers/xen/grant-dma-ops.c
-@@ -11,6 +11,7 @@
- #include <linux/dma-map-ops.h>
- #include <linux/of.h>
- #include <linux/pfn.h>
-+#include <linux/platform-feature.h>
- #include <linux/xarray.h>
- #include <xen/xen.h>
- #include <xen/xen-ops.h>
-@@ -27,6 +28,27 @@ static DEFINE_XARRAY(xen_grant_dma_devices);
- 
- #define XEN_GRANT_DMA_ADDR_OFF	(1ULL << 63)
- 
-+static bool __initdata xen_virtio_grants;
-+static bool __initdata xen_virtio_grants_set;
-+static __init int parse_use_grants(char *arg)
-+{
-+	if (!strcmp(arg, "yes"))
-+		xen_virtio_grants = true;
-+	else if (!strcmp(arg, "no"))
-+		xen_virtio_grants = false;
-+	xen_virtio_grants_set = true;
-+
-+	return 0;
-+}
-+early_param("xen_virtio_grant", parse_use_grants);
-+
-+void xen_set_restricted_virtio_memory_access(void)
-+{
-+	if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_virtio_grants ||
-+	    (!xen_virtio_grants_set && xen_pv_domain()))
-+		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
-+}
-+
- static inline dma_addr_t grant_to_dma(grant_ref_t grant)
- {
- 	return XEN_GRANT_DMA_ADDR_OFF | ((dma_addr_t)grant << PAGE_SHIFT);
-diff --git a/include/xen/xen.h b/include/xen/xen.h
-index 0780a81e140d..e0b1d534366f 100644
---- a/include/xen/xen.h
-+++ b/include/xen/xen.h
-@@ -52,13 +52,11 @@ bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
- extern u64 xen_saved_max_mem_size;
- #endif
- 
--#include <linux/platform-feature.h>
--
--static inline void xen_set_restricted_virtio_memory_access(void)
--{
--	if (IS_ENABLED(CONFIG_XEN_VIRTIO) && xen_domain())
--		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
--}
-+#ifdef CONFIG_XEN_GRANT_DMA_OPS
-+void xen_set_restricted_virtio_memory_access(void);
-+#else
-+static inline void xen_set_restricted_virtio_memory_access(void) { }
-+#endif
- 
- #ifdef CONFIG_XEN_UNPOPULATED_ALLOC
- int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
--- 
-2.35.3
+@@ -42,7 +42,7 @@ static __init int parse_use_grants(char *arg)
+ }
+ early_param("xen_virtio_grant", parse_use_grants);
 
+-void xen_set_restricted_virtio_memory_access(void)
++void __init xen_set_restricted_virtio_memory_access(void)
+ {
+        if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_virtio_grants ||
+            (!xen_virtio_grants_set && xen_pv_domain()))
+
+With that:
+
+Tested-by: Viresh Kumar <viresh.kumar@linaro.org>
+
+-- 
+viresh
 
