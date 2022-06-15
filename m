@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 214F654CDAA
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 17:58:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.350232.576503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DE6454CEBB
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 18:33:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.350241.576526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1VPb-0004l1-Ta; Wed, 15 Jun 2022 15:58:31 +0000
+	id 1o1Vwx-00021l-10; Wed, 15 Jun 2022 16:32:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 350232.576503; Wed, 15 Jun 2022 15:58:31 +0000
+Received: by outflank-mailman (output) from mailman id 350241.576526; Wed, 15 Jun 2022 16:32:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1VPb-0004ig-Q2; Wed, 15 Jun 2022 15:58:31 +0000
-Received: by outflank-mailman (input) for mailman id 350232;
- Wed, 15 Jun 2022 15:58:30 +0000
+	id 1o1Vww-0001yd-T3; Wed, 15 Jun 2022 16:32:58 +0000
+Received: by outflank-mailman (input) for mailman id 350241;
+ Wed, 15 Jun 2022 16:32:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3iFn=WW=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1o1VPa-0004ia-Ho
- for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 15:58:30 +0000
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [2607:f8b0:4864:20::633])
+ <SRS0=Wv+x=WW=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1o1Vww-0001yX-1M
+ for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 16:32:58 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fee0492c-ecc3-11ec-bd2c-47488cf2e6aa;
- Wed, 15 Jun 2022 17:58:29 +0200 (CEST)
-Received: by mail-pl1-x633.google.com with SMTP id m14so382359plg.5
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jun 2022 08:58:28 -0700 (PDT)
-Received: from jade ([192.77.111.2]) by smtp.gmail.com with ESMTPSA id
- cd6-20020a056a00420600b0050dc7628162sm9969540pfb.60.2022.06.15.08.58.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Jun 2022 08:58:26 -0700 (PDT)
+ id cf9f8e40-ecc8-11ec-bd2c-47488cf2e6aa;
+ Wed, 15 Jun 2022 18:32:56 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id h23so13909929ljl.3
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jun 2022 09:32:56 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ y17-20020a2eb011000000b0025a0ca6a0e5sm317893ljk.61.2022.06.15.09.32.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Jun 2022 09:32:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,253 +44,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fee0492c-ecc3-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: cf9f8e40-ecc8-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=I6BYRgU3q9RK9f3Cs7vh5L6Mmszj6062pUG1lzgw5+Y=;
-        b=pECjFpfpC2YRL43a/Cn7KbUP4Rs8fjf2Uu9zEzw7jnPpFQ801zLKKBWaP5V04Z0htR
-         zoIb8yp6rK24sBmOW02NpE1YhN5lJzLzSl0clm8hQtJr2cCMA3of2SycUF685Hy6dYYV
-         GCg/2wUyG0oaHPKDhIKPsXV9bBn03Y/NB5fSgbezassoRFUehr8wHcUMIQOndv+OaBQC
-         NZ9j+KAhZYQXX0QWhzMLgYQC21FnGmD09kAbRLDWXdEQYwLvuo3+4y2j27UehdVXuSL4
-         GbI2TYeiu976/gzpS1+0ZjKK2616ZDEZKuxPW31/yWpYqYCBh6BOw5XaTpeVRScTKGJd
-         erPw==
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=ZF8th8mGWf3SuaAuDD6LprpEpz3Ht4Qh6Ya1fy8DFtc=;
+        b=VyhBwthrTIxACGj1/BPHJ/qXWdEw9lDb2CCrSvCFVeXhRBE0CqHpJYDVkHZn3AdjEs
+         UgSTGxbvXp/IRCck8Xe3aw24YT7otKdobFo4UiY+fzzoRuFBdMtyNmXu8QsOgvPGWlqO
+         oU4DshzigiTvNb8Or1L64azvGCOlpKEF9BhLnSh26jVCtq8VprvjmIVpAxABQZS51ueT
+         xt014P2IYnUZiI8QDhPyw2Rcc8UCTgKoZzp1WxY6I8HWIxjkkZoQ3rAMfxZTvYgoiI9E
+         CVkAzjm2VJOHQ5pqyBVqtysnykILA5dGfN2OOyMdOCW3QqH3OVI284lqeFru6RHzu5CG
+         6/kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=I6BYRgU3q9RK9f3Cs7vh5L6Mmszj6062pUG1lzgw5+Y=;
-        b=whs5eVxmKuVWbGqu+9+LXVzN8rTX5XzDftzEQMFOf5NZCuvBz+jJIUXo0fBVqOwwEX
-         NrLBdC5y0rhfHlafVlx0BB8d9nwgFzUAzQlThjdgMZSRkxRXPdcwSKVix4nQ6M6WiOWG
-         Sn9pBS2sk9FaBE02RTF182RTxWPPmJijZiTgaT1RpvGE4t7JH76aylt4cm7WVW/ppzZU
-         bQESK+TmyST2dLtkuFeWaJCF1AU0oEg1SOSyyg77ckibAz005keNYnKNrX4fhL4bjrwP
-         te/yK12lSl0Aq0E+caShcVotkVtHRB3W1vBAhma6gTnZE4cLNSXWriZz31mAdHas6vb6
-         LGeA==
-X-Gm-Message-State: AJIora/NwyRHj5cDnOeIaNpTrfV5dWkoqAcBgYSun9RhW1u6tmYFGBZD
-	H03pJ8k9eNVEi/N84Z2wY3/ziA==
-X-Google-Smtp-Source: AGRyM1sZhpanY+Dgu9nrkmVZhzhQ3qEuGv4/xO5jk+ujdgq4Q2JwebqEugJF3Y94xtEDKne4DQHNzw==
-X-Received: by 2002:a17:903:408c:b0:163:e526:4397 with SMTP id z12-20020a170903408c00b00163e5264397mr472170plc.80.1655308707329;
-        Wed, 15 Jun 2022 08:58:27 -0700 (PDT)
-Date: Wed, 15 Jun 2022 08:58:25 -0700
-From: Jens Wiklander <jens.wiklander@linaro.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 1/2] xen/arm: smccc: add support for SMCCCv1.2
- extended input/output registers
-Message-ID: <20220615155825.GA30639@jade>
-References: <20220609061812.422130-1-jens.wiklander@linaro.org>
- <20220609061812.422130-2-jens.wiklander@linaro.org>
- <alpine.DEB.2.22.394.2206101733020.756493@ubuntu-linux-20-04-desktop>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=ZF8th8mGWf3SuaAuDD6LprpEpz3Ht4Qh6Ya1fy8DFtc=;
+        b=LOxJO8mGECJSHNnQvHLE1P6fGB5jLwNtK+PUV6b7qrud40LbAvPgBySDg7b8a/gS2k
+         HOsGGep30vWiqVQ5tc12/iRTmP6uXh+sHX8gL7b6gI4asrRkw6Fz/fQErF0mQsJY8aT7
+         Jqtq0p4w2HaA50fb/MDWUvEahCLy4/vKY64Cyua7exqGsHWQEBG5l7c5N4+yKRk27fiF
+         jIO2VUCtaJkOuSpWIq3X3JZJCtu8hoOhFLyEyir/k5bRrnavQkO/eeyFlil/dj4IbduR
+         Ql7xccZ4EGzswELClZDPnpti/HwtHzZTcv0/+8ueMkTa4Oe1x4Ez6XEZZ60aNREuigeB
+         02PA==
+X-Gm-Message-State: AJIora9Yks4L9B57965+QAJ/qzoeOjg0wpfU0nrPhQgay6bBIeVmMbKW
+	6Zse+7RFEy1WAn+iUaOZAKY=
+X-Google-Smtp-Source: AGRyM1uYaDstOGREn7Fl41IHuyNWbMc0681CW2heauSwQ+7Oq/iWA8aY9j/MyJHR+8NxDek5cttl9w==
+X-Received: by 2002:a05:651c:b09:b0:25a:44fd:41f with SMTP id b9-20020a05651c0b0900b0025a44fd041fmr318733ljr.366.1655310776113;
+        Wed, 15 Jun 2022 09:32:56 -0700 (PDT)
+Subject: Re: [PATCH V10 1/3] libxl: Add support for Virtio disk configuration
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+ <rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <1655143522-14356-1-git-send-email-olekstysh@gmail.com>
+ <1655143522-14356-2-git-send-email-olekstysh@gmail.com>
+ <YqnrerEAFXJUCRL1@perard.uk.xensource.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <21798651-1254-0c17-5379-224b52a92566@gmail.com>
+Date: Wed, 15 Jun 2022 19:32:54 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2206101733020.756493@ubuntu-linux-20-04-desktop>
+In-Reply-To: <YqnrerEAFXJUCRL1@perard.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On Fri, Jun 10, 2022 at 05:41:33PM -0700, Stefano Stabellini wrote:
-> On Thu, 9 Jun 2022, Jens Wiklander wrote:
-> > SMCCC v1.2 AArch64 allows x0-x17 to be used as both parameter registers
-> > and result registers for the SMC and HVC instructions.
-> > 
-> > Arm Firmware Framework for Armv8-A specification makes use of x0-x7 as
-> > parameter and result registers.
-> > 
-> > Let us add new interface to support this extended set of input/output
-> > registers.
-> > 
-> > This is based on 3fdc0cb59d97 ("arm64: smccc: Add support for SMCCCv1.2
-> > extended input/output registers") by Sudeep Holla from the Linux kernel
-> > 
-> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> > ---
-> >  xen/arch/arm/arm64/smc.S         | 43 ++++++++++++++++++++++++++++++++
-> >  xen/arch/arm/include/asm/smccc.h | 42 +++++++++++++++++++++++++++++++
-> >  xen/arch/arm/vsmc.c              |  2 +-
-> >  3 files changed, 86 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/xen/arch/arm/arm64/smc.S b/xen/arch/arm/arm64/smc.S
-> > index 91bae62dd4d2..1570bc8eb9d4 100644
-> > --- a/xen/arch/arm/arm64/smc.S
-> > +++ b/xen/arch/arm/arm64/smc.S
-> > @@ -27,3 +27,46 @@ ENTRY(__arm_smccc_1_0_smc)
-> >          stp     x2, x3, [x4, #SMCCC_RES_a2]
-> >  1:
-> >          ret
-> > +
-> > +
-> > +/*
-> > + * void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
-> > + *                        struct arm_smccc_1_2_regs *res)
-> > + */
-> > +ENTRY(arm_smccc_1_2_smc)
-> > +    /* Save `res` and free a GPR that won't be clobbered */
-> > +    stp     x1, x19, [sp, #-16]!
-> > +
-> > +    /* Ensure `args` won't be clobbered while loading regs in next step */
-> > +    mov	x19, x0
-> > +
-> > +    /* Load the registers x0 - x17 from the struct arm_smccc_1_2_regs */
-> > +    ldp	x0, x1, [x19, #0]
-> > +    ldp	x2, x3, [x19, #16]
-> > +    ldp	x4, x5, [x19, #32]
-> > +    ldp	x6, x7, [x19, #48]
-> > +    ldp	x8, x9, [x19, #64]
-> > +    ldp	x10, x11, [x19, #80]
-> > +    ldp	x12, x13, [x19, #96]
-> > +    ldp	x14, x15, [x19, #112]
-> > +    ldp	x16, x17, [x19, #128]
-> > +
-> > +    smc #0
-> > +
-> > +    /* Load the `res` from the stack */
-> > +    ldr	x19, [sp]
-> > +
-> > +    /* Store the registers x0 - x17 into the result structure */
-> > +    stp	x0, x1, [x19, #0]
-> > +    stp	x2, x3, [x19, #16]
-> > +    stp	x4, x5, [x19, #32]
-> > +    stp	x6, x7, [x19, #48]
-> > +    stp	x8, x9, [x19, #64]
-> > +    stp	x10, x11, [x19, #80]
-> > +    stp	x12, x13, [x19, #96]
-> > +    stp	x14, x15, [x19, #112]
-> > +    stp	x16, x17, [x19, #128]
-> 
-> I noticed that in the original commit the offsets are declared as
-> ARM_SMCCC_1_2_REGS_X0_OFFS, etc. In Xen we could add them to
-> xen/arch/arm/arm64/asm-offsets.c given that they are only used in asm.
-> 
-> That said, there isn't a huge value in declaring them given that they
-> are always read and written in order and there is nothing else in the
-> struct, so I am fine either way.
-> 
-> I am also happy to have them declared if other maintainers prefer it
-> that way.
 
-OK, I'll update with asm-offsets.c since Julien asked for that too.
+On 15.06.22 17:23, Anthony PERARD wrote:
 
-> 
-> 
-> > +    /* Restore original x19 */
-> > +    ldp     xzr, x19, [sp], #16
-> > +    ret
-> > diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
-> > index b3dbeecc90ad..316adf968e74 100644
-> > --- a/xen/arch/arm/include/asm/smccc.h
-> > +++ b/xen/arch/arm/include/asm/smccc.h
-> > @@ -33,6 +33,7 @@
-> >  
-> >  #define ARM_SMCCC_VERSION_1_0   SMCCC_VERSION(1, 0)
-> >  #define ARM_SMCCC_VERSION_1_1   SMCCC_VERSION(1, 1)
-> > +#define ARM_SMCCC_VERSION_1_2   SMCCC_VERSION(1, 2)
-> >  
-> >  /*
-> >   * This file provides common defines for ARM SMC Calling Convention as
-> > @@ -217,6 +218,7 @@ struct arm_smccc_res {
-> >  #ifdef CONFIG_ARM_32
-> >  #define arm_smccc_1_0_smc(...) arm_smccc_1_1_smc(__VA_ARGS__)
-> >  #define arm_smccc_smc(...) arm_smccc_1_1_smc(__VA_ARGS__)
-> > +
-> >  #else
-> 
-> Spurious change
-> 
-> 
-> >  void __arm_smccc_1_0_smc(register_t a0, register_t a1, register_t a2,
-> > @@ -265,8 +267,48 @@ void __arm_smccc_1_0_smc(register_t a0, register_t a1, register_t a2,
-> >          else                                                    \
-> >              arm_smccc_1_0_smc(__VA_ARGS__);                     \
-> >      } while ( 0 )
-> > +
-> > +/**
-> > + * struct arm_smccc_1_2_regs - Arguments for or Results from SMC call
-> > + * @a0-a17 argument values from registers 0 to 17
-> > + */
-> > +struct arm_smccc_1_2_regs {
-> > +    unsigned long a0;
-> > +    unsigned long a1;
-> > +    unsigned long a2;
-> > +    unsigned long a3;
-> > +    unsigned long a4;
-> > +    unsigned long a5;
-> > +    unsigned long a6;
-> > +    unsigned long a7;
-> > +    unsigned long a8;
-> > +    unsigned long a9;
-> > +    unsigned long a10;
-> > +    unsigned long a11;
-> > +    unsigned long a12;
-> > +    unsigned long a13;
-> > +    unsigned long a14;
-> > +    unsigned long a15;
-> > +    unsigned long a16;
-> > +    unsigned long a17;
-> > +};
-> >  #endif /* CONFIG_ARM_64 */
-> >  
-> > +/**
-> > + * arm_smccc_1_2_smc() - make SMC calls
-> > + * @args: arguments passed via struct arm_smccc_1_2_regs
-> > + * @res: result values via struct arm_smccc_1_2_regs
-> > + *
-> > + * This function is used to make SMC calls following SMC Calling Convention
-> > + * v1.2 or above. The content of the supplied param are copied from the
-> > + * structure to registers prior to the SMC instruction. The return values
-> > + * are updated with the content from registers on return from the SMC
-> > + * instruction.
-> > + */
-> > +void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
-> > +                       struct arm_smccc_1_2_regs *res);
-> > +
-> 
-> As arm_smccc_1_2_smc is not implemented in ARM32 it is better to place
-> the declaration inside the #ifdef CONFIG_ARM_64.
+Hello Anthony
 
-I'll fix.
+> On Mon, Jun 13, 2022 at 09:05:20PM +0300, Oleksandr Tyshchenko wrote:
+>> diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
+>> index a5ca778..673b0d6 100644
+>> --- a/tools/libs/light/libxl_disk.c
+>> +++ b/tools/libs/light/libxl_disk.c
+>> @@ -575,6 +660,41 @@ cleanup:
+>>       return rc;
+>>   }
+>>   
+>> +static int libxl__device_disk_get_path(libxl__gc *gc, uint32_t domid,
+>> +                                       char **path)
+>> +{
+>> +    const char *xen_dir, *virtio_dir;
+>> +    char *xen_path, *virtio_path;
+>> +    int rc;
+>> +
+>> +    /* default path */
+>> +    xen_path = GCSPRINTF("%s/device/%s",
+>> +                         libxl__xs_libxl_path(gc, domid),
+>> +                         libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VBD));
+>> +
+>> +    rc = libxl__xs_read_checked(gc, XBT_NULL, xen_path, &xen_dir);
+>> +    if (rc)
+>> +        return rc;
+>> +
+>> +    virtio_path = GCSPRINTF("%s/device/%s",
+>> +                            libxl__xs_libxl_path(gc, domid),
+>> +                            libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VIRTIO_DISK));
+>> +
+>> +    rc = libxl__xs_read_checked(gc, XBT_NULL, virtio_path, &virtio_dir);
+>> +    if (rc)
+>> +        return rc;
+>> +
+>> +    if (xen_dir && virtio_dir) {
+>> +        LOGD(ERROR, domid, "Invalid configuration, both xen and virtio paths are present");
+>> +        return ERROR_INVAL;
+>> +    } else if (virtio_dir)
+>> +        *path = virtio_path;
+>> +    else
+>> +        *path = xen_path;
+> Small coding style issue, could you use blocks {} on all part of the
+> if...else, since you are using them on one of the block? This is
+> described in tools/libs/light/CODING_STYLE (5. Block structure).
 
-> 
-> 
-> >  #endif /* __ASSEMBLY__ */
-> >  
-> >  /*
-> > diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
-> > index 676740ef1520..6f90c08a6304 100644
-> > --- a/xen/arch/arm/vsmc.c
-> > +++ b/xen/arch/arm/vsmc.c
-> > @@ -93,7 +93,7 @@ static bool handle_arch(struct cpu_user_regs *regs)
-> >      switch ( fid )
-> >      {
-> >      case ARM_SMCCC_VERSION_FID:
-> > -        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_1);
-> > +        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_2);
-> >          return true;
->   
-> This is going to be a problem for ARM32 given that ARM_SMCCC_VERSION_1_2
-> is unimplemented on ARM32. If there is an ARM32 implementation in Linux
-> for ARM_SMCCC_VERSION_1_2 you might as well import it too.
-> 
-> Otherwise we'll have to abstract it away, e.g.:
-> 
-> #ifdef CONFIG_ARM_64
-> #define ARM_VSMCCC_VERSION ARM_SMCCC_VERSION_1_2
-> #else
-> #define ARM_VSMCCC_VERSION ARM_SMCCC_VERSION_1_1
-> #endif
+yes, will do
 
-I couldn't find an ARM32 implementation for ARM_SMCCC_VERSION_1_2. But
-I'm not sure it's needed at this point. From what I've understood r4-17
-are either preserved or updated by the function ID in question. So
-claiming ARM_SMCCC_VERSION_1_2 shouldn't break anything. The FF-A
-functions will mostly update r4-r7, but we don't use FF-A with ARM32
-yet. I'l update with you're proposal if that's what you prefer.
 
-Thanks,
-Jens
+>
+>> diff --git a/tools/xl/xl_block.c b/tools/xl/xl_block.c
+>> index 70eed43..f2b0ff5 100644
+>> --- a/tools/xl/xl_block.c
+>> +++ b/tools/xl/xl_block.c
+>> @@ -50,6 +50,11 @@ int main_blockattach(int argc, char **argv)
+>>           return 0;
+>>       }
+>>   
+>> +    if (disk.specification != LIBXL_DISK_SPECIFICATION_XEN) {
+>> +        fprintf(stderr, "block-attach is only supported for specification xen\n");
+> This check prevents a previously working `block-attach` command line
+> from working.
+>
+>      # xl -Tvvv block-attach 0 /dev/vg/guest_disk,raw,hda
+>      block-attach is only supported for specification xen
+>
+> At least, that works by adding ",specification=xen", but it should work
+> without it as "xen" is the default (from the man page).
 
-> 
-> >      case ARM_SMCCC_ARCH_FEATURES_FID:
-> > -- 
-> > 2.31.1
-> > 
+yes, you are right. thank you for pointing this out.
+
+
+>
+> Maybe the check is done too soon, or maybe a better place to do it would
+> be in libxl.
+>
+> libxl__device_disk_setdefault() is called much later, while executing
+> libxl_device_disk_add(), so `xl` can't use the default been done there
+> to "disk.specification".
+
+I got it.
+
+
+>
+> `xl block-attach` calls libxl_device_disk_add() which I think is only
+> called for hotplug of disk. If I recall correctly, libxl__add_disks() is
+> called instead at guest creation. So maybe it is possible to do
+> something in libxl_device_disk_add(), but that a function defined by a
+> macro, and the macro is using the same libxl__device_disk_add() that
+> libxl_device_disk_add(). On the other hand, there is a "hotplug"
+> parameter to libxl__device_disk_setdefault(), maybe that could be use?
+
+Thank you for digging into the details here.
+
+If I understood correctly your suggestion we simply can drop checks in 
+main_blockattach() (and likely main_blockdetach() ?) and add it to 
+libxl__device_disk_setdefault().
+
+
+diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
+index 9e82adb..96ace09 100644
+--- a/tools/libs/light/libxl_disk.c
++++ b/tools/libs/light/libxl_disk.c
+@@ -182,6 +182,11 @@ static int libxl__device_disk_setdefault(libxl__gc 
+*gc, uint32_t domid,
+          disk->transport = LIBXL_DISK_TRANSPORT_MMIO;
+      }
+
++    if (hotplug && disk->specification != LIBXL_DISK_SPECIFICATION_XEN) {
++        LOGD(ERROR, domid, "Hotplug is only supported for specification 
+xen");
++        return ERROR_FAIL;
++    }
++
+      /* Force Qdisk backend for CDROM devices of guests with a device 
+model. */
+      if (disk->is_cdrom != 0 &&
+          libxl__domain_type(gc, domid) == LIBXL_DOMAIN_TYPE_HVM) {
+
+
+Is my understanding correct?
+
+
+I have checked, it works:
+
+root@generic-armv8-xt-dom0:~# xl block-attach DomU /dev/loop0,raw,xvda3
+[  762.062874] xen-blkback: backend/vbd/3/51715: using 4 queues, 
+protocol 1 (arm-abi)
+
+
+root@generic-armv8-xt-dom0:~# xl block-attach DomU 
+/dev/loop0,raw,xvda3,specification=virtio
+libxl: error: libxl_disk.c:186:libxl__device_disk_setdefault: Domain 
+3:Hotplug is only supported for specification xen
+libxl: error: libxl_device.c:1468:device_addrm_aocomplete: unable to add 
+device
+
+>
+>
+> Cheers,
+>
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
