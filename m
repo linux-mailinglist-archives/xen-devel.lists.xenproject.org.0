@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB5A854D56A
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 01:40:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.350332.576635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E8854D56E
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 01:41:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.350341.576647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1cbe-0006aH-SR; Wed, 15 Jun 2022 23:39:26 +0000
+	id 1o1cd6-0007uJ-9Q; Wed, 15 Jun 2022 23:40:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 350332.576635; Wed, 15 Jun 2022 23:39:26 +0000
+Received: by outflank-mailman (output) from mailman id 350341.576647; Wed, 15 Jun 2022 23:40:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1cbe-0006Xv-PF; Wed, 15 Jun 2022 23:39:26 +0000
-Received: by outflank-mailman (input) for mailman id 350332;
- Wed, 15 Jun 2022 23:39:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o1cbd-0006Xl-P6; Wed, 15 Jun 2022 23:39:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o1cbd-0005M1-MT; Wed, 15 Jun 2022 23:39:25 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o1cbd-00041o-2K; Wed, 15 Jun 2022 23:39:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1o1cbd-0001gA-1m; Wed, 15 Jun 2022 23:39:25 +0000
+	id 1o1cd6-0007r7-4X; Wed, 15 Jun 2022 23:40:56 +0000
+Received: by outflank-mailman (input) for mailman id 350341;
+ Wed, 15 Jun 2022 23:40:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8oGR=WW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1o1cd5-0007qv-6r
+ for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 23:40:55 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97dcbcfe-ed04-11ec-ab14-113154c10af9;
+ Thu, 16 Jun 2022 01:40:53 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 028EA619C5;
+ Wed, 15 Jun 2022 23:40:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE0AC3411A;
+ Wed, 15 Jun 2022 23:40:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,268 +44,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=94r654B5SXC3yi/sKZCS6EPoLwX0VjdN17vwo0vPpDA=; b=P+eDd4xQ6y6VzKFbnuFX4/Gd+4
-	KHarY0bA0JmqMYZ4yBXjDCIHxkblK1uFhDw3vrD0tZvsU1LvMDF2/iTPRSDAFJGZm5u62eCVjbYSC
-	ms5p/H3P3v1EQpscMp+iBqPWzdNf+7nT6uLDHsYoodw6A1hBCOJaa9Dk6/uZFQoGC8es=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171180-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 97dcbcfe-ed04-11ec-ab14-113154c10af9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1655336451;
+	bh=oSj2REQ5qGLGBBrSe5qR+g1EGWydDN+7KvkPWe4Dyo4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=LUW1bMXvrBoJoj1dB2FuYZFam/bHc7Ly+IxnWxq6Eb8tkpXlgcaemVUcTi8TY4Mj6
+	 uHZLAofAPPPATkiVmcMgvzpBt62ULG6W6WGlXSJGSocKm3EFl3Z8hx0RCnMvyecbzY
+	 WLLEW+JmY1nObyduCjwaVJfMU8rdhhVpDjLZzvIU4VvLwXf8/ZlyeF1dtohOyzFKSu
+	 y8zUBntYlUWGr/91mAzroQtwqdOzKbJoEawyIF/BwKQoECNk0wFztH29gRlL7r4aN8
+	 oOZ6g0VIMBXuP+1EKhMpG4IYmehNZyQ2KnPhCGHeYpGcIPz9M6QPoCSvKLbOoywOEW
+	 VU8wLej/gSrQQ==
+Date: Wed, 15 Jun 2022 16:40:42 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Juergen Gross <jgross@suse.com>
+cc: xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH] xen: don't require virtio with grants for non-PV
+ guests
+In-Reply-To: <20220615084835.27113-1-jgross@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2206151336230.2430546@ubuntu-linux-20-04-desktop>
+References: <20220615084835.27113-1-jgross@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [qemu-upstream-unstable test] 171180: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    qemu-upstream-unstable:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
-    qemu-upstream-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    qemu-upstream-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=9a5e4bc76058766962ab3ff13f42c1d39a8e08d3
-X-Osstest-Versions-That:
-    qemuu=a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 15 Jun 2022 23:39:25 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 171180 qemu-upstream-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171180/
+On Wed, 15 Jun 2022, Juergen Gross wrote:
+> Commit fa1f57421e0b ("xen/virtio: Enable restricted memory access using
+> Xen grant mappings") introduced a new requirement for using virtio
+> devices: the backend now needs to support the VIRTIO_F_ACCESS_PLATFORM
+> feature.
+> 
+> This is an undue requirement for non-PV guests, as those can be operated
+> with existing backends without any problem, as long as those backends
+> are running in dom0.
+> 
+> Per default allow virtio devices without grant support for non-PV
+> guests.
+> 
+> The setting can be overridden by using the new "xen_virtio_grant"
+> command line parameter.
+> 
+> Add a new config item to always force use of grants for virtio.
+> 
+> Fixes: fa1f57421e0b ("xen/virtio: Enable restricted memory access using Xen grant mappings")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  .../admin-guide/kernel-parameters.txt         |  6 +++++
+>  drivers/xen/Kconfig                           |  9 ++++++++
+>  drivers/xen/grant-dma-ops.c                   | 22 +++++++++++++++++++
+>  include/xen/xen.h                             | 12 +++++-----
+>  4 files changed, 42 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 8090130b544b..7960480c6fe4 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -6695,6 +6695,12 @@
+>  			improve timer resolution at the expense of processing
+>  			more timer interrupts.
+>  
+> +	xen_virtio_grant= [XEN]
+> +			Control whether virtio devices are required to use
+> +			grants when running as a Xen guest. The default is
+> +			"yes" for PV guests or when the kernel has been built
+> +			with CONFIG_XEN_VIRTIO_FORCE_GRANT set.
+> +
+>  	xen.balloon_boot_timeout= [XEN]
+>  			The time (in seconds) to wait before giving up to boot
+>  			in case initial ballooning fails to free enough memory.
+> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
+> index bfd5f4f706bc..a65bd92121a5 100644
+> --- a/drivers/xen/Kconfig
+> +++ b/drivers/xen/Kconfig
+> @@ -355,4 +355,13 @@ config XEN_VIRTIO
+>  
+>  	  If in doubt, say n.
+>  
+> +config XEN_VIRTIO_FORCE_GRANT
+> +	bool "Require Xen virtio support to use grants"
+> +	depends on XEN_VIRTIO
+> +	help
+> +	  Require virtio for Xen guests to use grant mappings.
+> +	  This will avoid the need to give the backend the right to map all
+> +	  of the guest memory. This will need support on the backend side
+> +	  (e.g. qemu or kernel, depending on the virtio device types used).
+> +
+>  endmenu
+> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+> index fc0142484001..d1fae789dfad 100644
+> --- a/drivers/xen/grant-dma-ops.c
+> +++ b/drivers/xen/grant-dma-ops.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/dma-map-ops.h>
+>  #include <linux/of.h>
+>  #include <linux/pfn.h>
+> +#include <linux/platform-feature.h>
+>  #include <linux/xarray.h>
+>  #include <xen/xen.h>
+>  #include <xen/xen-ops.h>
+> @@ -27,6 +28,27 @@ static DEFINE_XARRAY(xen_grant_dma_devices);
+>  
+>  #define XEN_GRANT_DMA_ADDR_OFF	(1ULL << 63)
+>  
+> +static bool __initdata xen_virtio_grants;
+> +static bool __initdata xen_virtio_grants_set;
+> +static __init int parse_use_grants(char *arg)
+> +{
+> +	if (!strcmp(arg, "yes"))
+> +		xen_virtio_grants = true;
+> +	else if (!strcmp(arg, "no"))
+> +		xen_virtio_grants = false;
+> +	xen_virtio_grants_set = true;
+> +
+> +	return 0;
+> +}
+> +early_param("xen_virtio_grant", parse_use_grants);
+> +
+> +void xen_set_restricted_virtio_memory_access(void)
+> +{
+> +	if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_virtio_grants ||
+> +	    (!xen_virtio_grants_set && xen_pv_domain()))
+> +		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
+> +}
 
-Failures :-/ but no regressions.
+I agree with Christoph on this.
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds    18 guest-start/debian.repeat fail REGR. vs. 167674
+On ARM all guests are HVM guests. Unless I am reading this wrongly, with
+this check, the user needs to pass the xen_virtio_grant command line
+option or add CONFIG_XEN_VIRTIO_FORCE_GRANT to the build to use virtio
+with grants. Instead, it should be automatic.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 167674
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 167674
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 167674
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 167674
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 167674
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 167674
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 167674
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 167674
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+I am not against adding new command line or compile-time options. But
+on ARM we already have all the information we need in device tree with
+"iommus" and "xen,grant-dma". We don't need anything more.
 
-version targeted for testing:
- qemuu                9a5e4bc76058766962ab3ff13f42c1d39a8e08d3
-baseline version:
- qemuu                a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42
+On ARM if "xen,grant-dma" is present we need to enable
+PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS, otherwise we don't.
 
-Last test of basis   167674  2022-01-12 10:40:11 Z  154 days
-Testing same since   171180  2022-06-15 14:08:39 Z    0 days    1 attempts
+So I think it should be something like the appended (untested):
 
-------------------------------------------------------------
-420 people touched revisions under test,
-not listing them all
+- on ARM we call xen_set_restricted_virtio_memory_access if
+  xen,grant-dma is present in device tree
+- on x86 ideally we would have something like xen,grant-dma in a Xen
+  ACPI table, but for now:
+    - always restrict for PV guests (no change)
+    - only restrict for HVM guests if a new cmdline option is passed
+    - so the command line option is only for Xen x86 HVM guests
+    - no need for another build-time option
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/qemu-xen.git
-   a68d6d311c..9a5e4bc760  9a5e4bc76058766962ab3ff13f42c1d39a8e08d3 -> master
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 2522b11e593f..cdd13d08f836 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -6730,6 +6730,10 @@
+ 			improve timer resolution at the expense of processing
+ 			more timer interrupts.
+ 
++	xen_virtio_grant= [X86,XEN]
++			Control whether virtio devices are required to use
++			grants when running as a Xen HVM guest.
++
+ 	xen.balloon_boot_timeout= [XEN]
+ 			The time (in seconds) to wait before giving up to boot
+ 			in case initial ballooning fails to free enough memory.
+diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+index 1f9c3ba32833..07eb69f9e7df 100644
+--- a/arch/arm/xen/enlighten.c
++++ b/arch/arm/xen/enlighten.c
+@@ -443,8 +443,6 @@ static int __init xen_guest_init(void)
+ 	if (!xen_domain())
+ 		return 0;
+ 
+-	xen_set_restricted_virtio_memory_access();
+-
+ 	if (!acpi_disabled)
+ 		xen_acpi_guest_init();
+ 	else
+diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
+index 8b71b1dd7639..66b1d9d3d950 100644
+--- a/arch/x86/xen/enlighten_hvm.c
++++ b/arch/x86/xen/enlighten_hvm.c
+@@ -189,13 +189,27 @@ static int xen_cpu_dead_hvm(unsigned int cpu)
+ }
+ 
+ static bool no_vector_callback __initdata;
++static bool __initdata xen_virtio_grants;
++static bool __initdata xen_virtio_grants_set;
++static __init int parse_use_grants(char *arg)
++{
++	if (!strcmp(arg, "yes"))
++		xen_virtio_grants = true;
++	else if (!strcmp(arg, "no"))
++		xen_virtio_grants = false;
++	xen_virtio_grants_set = true;
++
++	return 0;
++}
++early_param("xen_virtio_grant", parse_use_grants);
+ 
+ static void __init xen_hvm_guest_init(void)
+ {
+ 	if (xen_pv_domain())
+ 		return;
+ 
+-	xen_set_restricted_virtio_memory_access();
++	if (xen_virtio_grant)
++		xen_set_restricted_virtio_memory_access();
+ 
+ 	init_hvm_pv_info();
+ 
+diff --git a/drivers/xen/grant-dma-iommu.c b/drivers/xen/grant-dma-iommu.c
+index 16b8bc0c0b33..b43a8906ef64 100644
+--- a/drivers/xen/grant-dma-iommu.c
++++ b/drivers/xen/grant-dma-iommu.c
+@@ -40,6 +40,7 @@ static int grant_dma_iommu_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	platform_set_drvdata(pdev, mmu);
++	xen_set_restricted_virtio_memory_access();
+ 
+ 	return 0;
+ }
 
