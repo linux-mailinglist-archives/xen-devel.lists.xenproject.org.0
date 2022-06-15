@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 980BD54C62A
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 12:31:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349952.576178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9347554C63B
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 12:32:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349974.576200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1QJ8-00081W-34; Wed, 15 Jun 2022 10:31:30 +0000
+	id 1o1QJt-00011P-NH; Wed, 15 Jun 2022 10:32:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349952.576178; Wed, 15 Jun 2022 10:31:30 +0000
+Received: by outflank-mailman (output) from mailman id 349974.576200; Wed, 15 Jun 2022 10:32:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1QJ7-0007yS-UY; Wed, 15 Jun 2022 10:31:29 +0000
-Received: by outflank-mailman (input) for mailman id 349952;
- Wed, 15 Jun 2022 10:31:28 +0000
+	id 1o1QJt-0000yi-Ja; Wed, 15 Jun 2022 10:32:17 +0000
+Received: by outflank-mailman (input) for mailman id 349974;
+ Wed, 15 Jun 2022 10:32:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=56zs=WW=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o1QJ6-0007gz-G4
- for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 10:31:28 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on062b.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::62b])
+ id 1o1QJr-0007gz-H5
+ for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 10:32:15 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0618.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::618])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4eb47bed-ec96-11ec-bd2c-47488cf2e6aa;
- Wed, 15 Jun 2022 12:31:25 +0200 (CEST)
+ id 6ba1654c-ec96-11ec-bd2c-47488cf2e6aa;
+ Wed, 15 Jun 2022 12:32:14 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
  by DB8PR04MB6876.eurprd04.prod.outlook.com (2603:10a6:10:116::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.20; Wed, 15 Jun
- 2022 10:31:11 +0000
+ 2022 10:32:11 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5332.020; Wed, 15 Jun 2022
- 10:31:11 +0000
+ 10:32:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,29 +47,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4eb47bed-ec96-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 6ba1654c-ec96-11ec-bd2c-47488cf2e6aa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EvwiM6N8HVmwTxiIQoHRpvSK8v76sNx61DemjfPJXfGBkHPlwOY7r+TQFnQMjrwGA8+H+l6O15fHtM/atjvoknZs6QFC1cj9sM2SWsN+LRDsrTR+xa8AYf1whTZ6PopL2+xSpYmlL2VJLrwQkTIUkLK7wD3shomNMQV/EYlaPrScn1iMt6dFOit6ILiL5LiugkgIyTbN7IqNxEO0TKiiiGc9dl8t+0iV3xSpmVsM+0Xv8YVgINl+qUEhlcLqOE9COLX+ttiD9JJlUCkT1CObChAL/wdcnYlAKsDOv8fmaX/KmncPPDHIoWHopGLjFwJIqRpUyomw70EdE6DlET28Rw==
+ b=TJ0rTOC+f4B3CdqJG9fMbRrb4NlZOgLt4fJVGvS/8tALv5WBOLckar0s7RPU7Vv0F4IAqh5JPawMbDPCDFDTQLswbTyp5zaklgVUkpx8rW/l3Acwd4ML88DXTLaRFlfNOo5i72QaSXoGFhSSNXuVseAldKzwtGMnt5fobuToNwEzKiXKP1z1oJZ99CPtRoY3lMXXrT7v2gNAcwpzDIrEWKAeqljzGEUJK4kyUF6DAYdw9fr8I+yRi5jTg66N2MH5dPABeoOOew8KXL2gRNcOQC1d9KnwIyCRsdT9SyA53btnjH7NOKVD1waHDGKxZmpPaeJAXH0MZeymUvvUl5aCxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=72avtIJigMrJ/t9S9LNVdKFGNIXvlVkWO5c2zIOjy7c=;
- b=ZqTHbFdGBDATJ5lryi3tsw/74ur0CLsmgtOjdhth2+LIUNTjH3mj3VwoUBkKvKVSMxkpNecCMc6NdqqrxqTda49qGygkReGgVaDDfxUTSOtDUDIxmw2NA3w9NFYdRjo+xS4aKyOQk0bVyZzUL8R71s0Q7G1POINrQqwTs3jSLlrjXYI9fFflqdDsn/bwR4Ws+A8o6pOdvjS0Pz6qADhZ5PSs/KlGA/0OGvNePGY/0QVpYB/C4JE7mGSTUeGLZVFRYmst6jlT0DJOvS+TdLrFBgAmh7jo/5KdVA9Qv+0RrciJladYkHtV1JmPz2MRgiSMTowhjFFRW6sljyUODBZ59A==
+ bh=X1FAw4SWHwB87fUYBwv+opycuFCEYYEsmXkhPZ7XIIk=;
+ b=Oy/svtfaSI/DHRRqzUdPXM84mWdl/5Sn8xdVfpLIwoPoEfQoH47gd059aleVQjEOibogKylLRLvo2wHaThSHYlAvO4rZ3tx1PDoADwPNP+y6NiWrfEykJWJAZm5w62RDdbRU2hox6BLmCu7Sa3IEACbYzYyoZQkQJhuHpa04vR2+tx9XgFPdWxG5aHhPa1JFkc8XYY8AiL78bo5/C/q+gQcJpsaC/ih4zF9Ep3CpK8bBgPit5uqwWgFUWoJzGMDjPuj76YwkBT8nBYmisjuCSEF8h0sxxXjhVOzSGGkotHjfz5nubL3EtsyzJ8lv9Dfzuu4lED1VQkSAhOiMInsFYQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=72avtIJigMrJ/t9S9LNVdKFGNIXvlVkWO5c2zIOjy7c=;
- b=Ho20m5UqcMFYc8glAAesLdknesp4AZFzPE9puhuR8GWOicdhA9zSwk0ENheOhGnzQsAqpJnEff5viSMSuKCQq9MRsQd0v2GO2mi/rOhawwqR71kJI37o0cq0vvkLgfaFQVD/nwt2ocT6NzGmEoYos9lrV6y82jYSWd7GaynWOG2j9TIlSOzTsANboFFSOYa2XYMRf2szlWrArlFqhG4zUQZLA8xYhXbcAL2N/2ganBg3UDfw3fYN7CsIJSK284ocpypMCDJAN4rfipUjBE56ssviOBzMNj33V6eb0PIQvCs25S+U5ONAY1uyIXJ8oA/IqKdwCBV50/IRmEo5PJ0N9Q==
+ bh=X1FAw4SWHwB87fUYBwv+opycuFCEYYEsmXkhPZ7XIIk=;
+ b=yAozt7Acu9RsWWisV+PraYciwWtbSqD6xGjiTirNoGo2/2yrJVVwHFkfo1zM0B8nva8luUt+8zY6wi2sMqbX1FFzCsbyRneXn6x7kQEKwtg+i2kSJi8vGmKKNrtsLAQjsunS9D5bCv6ziKMh6MbBefqzJ8IxHweOKyDCa5PcVpeu4Xq6A9fhJLDTJwBiN4/k+EHk1HIOq4eKomAAmFne90PCMs+7+f3Cw1SdlY72cl0iyqG1R8o5DGC6j1r6fuNPcqgCWcmrE/4oyAQIM6c5pdUz2xnQp17itN2d16hOJTOFD17Z6bXmaqQOww4UnCYkcL/1E+Zegpk3ekOrXMEi1g==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2f99e91d-6a91-f860-45d0-9c8b67c9b2b8@suse.com>
-Date: Wed, 15 Jun 2022 12:31:09 +0200
+Message-ID: <a64d46c5-53ca-299e-a7f7-7f66f6ae871f@suse.com>
+Date: Wed, 15 Jun 2022 12:32:09 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Subject: [PATCH 10/11] x86emul: handle AVX512-FP16 conversion to/from (packed)
- int{32,64} insns
+Subject: [PATCH 11/11] x86emul: AVX512-FP16 testing
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -78,325 +77,566 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 References: <9ba3aaa7-56ce-b051-f1c4-874276e493e1@suse.com>
 In-Reply-To: <9ba3aaa7-56ce-b051-f1c4-874276e493e1@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0177.eurprd06.prod.outlook.com
- (2603:10a6:20b:45c::34) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS8PR04CA0035.eurprd04.prod.outlook.com
+ (2603:10a6:20b:312::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b40be030-3b1c-45f7-64ee-08da4eba2a96
+X-MS-Office365-Filtering-Correlation-Id: a3512278-6146-4765-2c15-08da4eba4e2e
 X-MS-TrafficTypeDiagnostic: DB8PR04MB6876:EE_
 X-Microsoft-Antispam-PRVS:
-	<DB8PR04MB6876ACC5098E76DCD0B4879FB3AD9@DB8PR04MB6876.eurprd04.prod.outlook.com>
+	<DB8PR04MB687645F6DE53A08A9760EBE1B3AD9@DB8PR04MB6876.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	HpyGpaQG1k86byOWZpbOIUF7cv4TuO/y5yO2L0RMSKuaP0wjCvGnjrGhtvk/g8utz9EhGBOInDbxNVVvU50YEpjpONi2b4M86gLKyaeyuNdVmKi5TrRVWxFzzUszGeSBbaLo+ipTm9G1aHHPp23160EPehX5xHUhJM2HHWycqZ3BTTfpYHEea50BHi01QqbTJUuIBMSMg+w4Orqpio43Bk+ZqDDT20NnJft4mUWiiwOywH3Y8HNIrSbeyyYQqYPGwIXzlJm4uPWc+b3AH04vo3nHyFshDShsEWOF8JnKD3xECbJlpyToa+agqkIVtktOEnHj6OXUe8wFGcBaz0VQ9dSaz++25vA3FRNerPChlY6/UktbpQVobbD97r3sC/8wAPgxyIXOdKTaXjuY9326t2EC0Wf7C3F7kvnH7zuA+5YmV8BlYjr6v2e0yZ1a0sBZy2MxyhekrIdXbAyBhi9L1sDDWQ/Kty1q6LcRA5DiFY75uQI1gT+GbLVmZ0f6r9z6eGocj2S2kXuWtXk8bV85Z88LDypTEocwK8/oF4UL99yrkD360NjNyUueZW2XqavERcerGK5t92l+60zWb/eddMVm7CDA0X5i4exGPYVxSQ47SOyIFZ3m1GAsWGsRLBMFXkm90NCEf6H8t/jAg+b8JPsEALV7ZvmMYUz9O5O7i8MtKZWL9hI6wPx1vGC5QX2wVal+SXqxiBzlC952bQXJqynggp0FEl0tJYjv2IVF8/4=
+	Y8oDrGhWSSkuQ0t/WYAcr4DclOpTCk+PRAkI0nygqMr67Ytm5ktI8XkuJUgPmkGoIqp/w4eNOuNrjKPQH2+dOm/HGwB0BLIOrAkkPxM2/gYG4/23X8UoPdIqdbEsWDjOaK935LCyMQSJSf5MjsZ96yX12BC/MI9sRQu0IHLbTScYLfQrNlGgE2t5WP7qTXDcIZLPIjd2IJP66d9/AqxY9C3G97Iuexd4ODu2bhzrKPHVS4bPKhewJ7CV1BOMbRPfT59/eWJ1rjRzHsDIQdLy46igdXXpDlPk9BkCq2WdqJpfZzQlKziaJP20HtGAQsklaT1FoyYkyNMo0SzwpCXgs8vCOpJgRxV1hhmcdRnLKlpiFoqG9xXVhgobd9og7x4wjGMkfQXNP++CjnOcZA54MWB802t5B3pvJZ96KiOTpgdIiI6z7E3F2b65HCheMtY70pNP6OKFVgfVWKvAhgkDY2hCAOLzkyOfJedctW0srVNdfoQ/BK5JRkY7GQMbWZ7KvXVZyYdaL9pp+VkPlfHReOzJSFDMugYteM0LYCiNHfjRqKe1Dy9ildvB3GL591ql0oHOQ8TaGTiFbnWo1xnyc6ZjvjzJldlN0gh4kf1A1klgocZZ2iEMNuZCuxTxHth6i40hLLolgUw2em8gM+aE40lucIEAzBPVrp97dU8Hs2q+DWKKy2EYb/w75/6JhGtIYEuqZWh31DUavtEWYTFXdN/sPFElRV5MuvS5JcVFhHg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(6512007)(66556008)(26005)(54906003)(5660300002)(6506007)(316002)(186003)(2906002)(31686004)(36756003)(508600001)(6486002)(8936002)(66946007)(86362001)(4326008)(8676002)(6916009)(66476007)(38100700002)(31696002)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(83380400001)(6512007)(66556008)(26005)(54906003)(5660300002)(6506007)(316002)(186003)(2906002)(31686004)(36756003)(30864003)(508600001)(6486002)(8936002)(66946007)(86362001)(4326008)(8676002)(6916009)(66476007)(38100700002)(31696002)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U2xwcURieWxDajd4L21PZlA3SklNQjJKUDFQZmJCbURnZ3AxZGNrTUJERGQx?=
- =?utf-8?B?VElhbW03NzVMME5VN0UrRUpqNkFjTFo0M1czaUQyMk50dVRDak5HWlNBU0p1?=
- =?utf-8?B?Q0o3Z3ZBaFRvWnZaTUZNbEtGaWtrdU92OURtMjgzVHRYcE1NWTdlMWdZNWNQ?=
- =?utf-8?B?VkpIZTI2NzNja2VEU2hRZ3VoTGh6R01ibHpFd3NMOTZ2Y3BSK1luKy9leUlY?=
- =?utf-8?B?ZmxvRklSdU44UzRXeENsYjFLdlBiL2FGWFF6c05tcVhHUmxkanA1ekFoQW44?=
- =?utf-8?B?b2RLRHJITUJvZU1FSHgybWJ5aERid0FmS0pDQWlDVTA3cXE2YTE5NlhXZndS?=
- =?utf-8?B?OVNPaDVqYklnamZreTdKYUlCRXd4a0twMkNhYlNkQTRnL0JVKzRBcDBNdXgw?=
- =?utf-8?B?dS8vdVpSajRtcDJDTWhDYWJhTlFhS0JxQ1h2ZGxYakVDcUdsRXJ5cWtmN3Bu?=
- =?utf-8?B?M3A4SlVhdDN5eUVhc2N4M1JOR0NFUkxRWDJUSjRmTW5WVU14OXMzbXFKU1Zq?=
- =?utf-8?B?YWt1TlpmaXNoaW1PUWxnNElDTWJ5dTF6Z1MrQm9qbFk0MGhCOFhUalU2cUZV?=
- =?utf-8?B?YWE3UDgybTdEUWxyQy9jNlJOMlZ5R0RXbXZkYy8wd3AyaWdDbHlYZ2h1S1ZQ?=
- =?utf-8?B?UHAwbW1PdFBNSmNEZVJCcFBhdkxJZEFZTG12WEp1NS9YalNhSUZUSUZqVHNi?=
- =?utf-8?B?NStYdGFRS0NPTURTTlpZOHE3UGJnWkJhZE5HdFludW9velhXQi85bCtNUkE1?=
- =?utf-8?B?UHJYRUJ5SXZDVHdrZmd4a1E2RVBCTURBTWljbGdwVGc3bjZ4QVg0QmFQSzY4?=
- =?utf-8?B?K2lFZzd6R0hLREM1TWRJOTZwOFdRclpqRTdzbXFJVVVaQndLejFUUFBJeGNR?=
- =?utf-8?B?R2JmeXZUVGVuQ1ZJY01oWk1wb01kbmxKMXNJdDVyNXlsYTRWZ1JxVXE4cktl?=
- =?utf-8?B?M29SQW1kNTR2UFZ4MVpWejU3VTNPcXZpaG5UNUlFVzFLVm9hbk5pKzc2NHdJ?=
- =?utf-8?B?ZE9kQ1pLUVZYOVhRYlAzY0JESDhUODJ0cERNaVRjNHlITmlOclJZYzBMekUv?=
- =?utf-8?B?TGRETWVucTBQSVQ2TTFVbUlvM203azM0MjNnS2NoaTlDWDI3bW9TS0laaThi?=
- =?utf-8?B?aUpzZUFPeXZkMUtwd0ZTaENGQ0RpOG5Md1R1d3ZTY3dtSHdjSzF0TlZOd09Y?=
- =?utf-8?B?QXhzbld2Z1B4dExpTlovdFpScVpST1ZuY01ySDREcEpodHdoWVFKWXVmQ0Fm?=
- =?utf-8?B?QVN3aVFMZDdNbTRmSWlyMlZxYXdOYTBzOHRNTE5ZNGFjRW0zT3B5LzNlaWtv?=
- =?utf-8?B?MHdySjZYQi9lVmRHenpHZVh1Y2Zwc3VZUXFDaUJsSDlYWCtTMVNpYVF3alJh?=
- =?utf-8?B?dCtlNk9INXpOTXVZbG1jVTByaEdjRlhZa0tYL2M3bExaZjVIclZWQjJPUERW?=
- =?utf-8?B?TFpjL013S0tjSEwvZTY1ZVh1NDBKKzAxYkIxRHk1UU9JZlY0RUtWOWlWejNS?=
- =?utf-8?B?VkVqZXVyWENldFIxSTNmWTFUc3gyNHI3a29DQWMyenNOeDhpbUVPRU1PeGZF?=
- =?utf-8?B?Y1NJYmFMaE1lQ0p0K0xjSHhacnRJK1NSVjREZk4zMHZNQnVPNDdXWm1BZkts?=
- =?utf-8?B?bUprTWVGUjJKMEJWcFduTllhZUM4OS8rNUtGL21sNkVsWkwxelVNaXN1eHUy?=
- =?utf-8?B?azJDQlBoMTJ0MWVzUEk4dHdPVGZaR3VSTllFOExKU0RpZE9lRURjR2I2V2k4?=
- =?utf-8?B?NjVhTlZheENiMy9NaDIvTFVLZjFaQStPMEZvWGJmRFdaN0YwRjgrdEhzSHpr?=
- =?utf-8?B?Qm9UOUprNU9QNXNHay8xTUhJRzVWc0tyUGNBdmE4WHQ5N2swYVYrZ3V1Yzl4?=
- =?utf-8?B?ZUN4YS9ZVlBGQ0VYWTlWM2dJVkp6RWZLQnczSy9HQXZtTzEzV29uS0FlZEp4?=
- =?utf-8?B?QzVMR1IrSHBSZnlCUTNJZ2E1Wm1vbXNIZjlmQmNwZGF1dGZJaENVZmpwL2pS?=
- =?utf-8?B?ZEtmSWpQcXlCRHNEOWwwbmVKTDBadGZ6amF0d1ZXaCt6eVYrUEdJV20xN1do?=
- =?utf-8?B?L0tjQkY3akgzQ290eWxwMllSZEdmTElYc2c3UmlWNUxyL0Yzdm5hSXJsN1hC?=
- =?utf-8?B?SGd0ME14bTNvRnZVdG1GQzFYMTQ3eGJPc0JUQ2lhOU9tcE5Jdmc0R3l1TC9I?=
- =?utf-8?B?dkdnNkl1Y2duaDViak9XMVdibUZodDdtSlJqQ1RCQkpuZG1wYk9ybGNHTTlS?=
- =?utf-8?B?clh3SUtWbkY3cy9RUnlOSjkyRlRsbFRBcm1NLzlYeTM3MFp0QjUzRWttQ1JJ?=
- =?utf-8?B?Y0JnenUrWFo3Q1VuV1BwSVNSc3B3aXg3R3BQMThoM21obERXWEp3UT09?=
+	=?utf-8?B?bUdPQ1dKcW5OSStGN1BYdy9wd0F4UGg3cGxJN0JUU0QrenBTejlNQWxtaEpU?=
+ =?utf-8?B?WU5UdGNtUmsyZUNBaWVocG5ZdkdlTEY4cFZVTzFLcE5tZW5TbGNSU2dXcXB1?=
+ =?utf-8?B?N3RxQkhYZ0NFQytmVXc3TW44Uk5mdXdvdExmT3dZRmRBaUVJMG9CSi95cjVh?=
+ =?utf-8?B?TEMxVTVQdnpRdU5GaXdQeTJNZzh0ZGYyRFc2NTQrSUcwQ3g3c1hKd1BGQUZI?=
+ =?utf-8?B?L1hZQ001YnhFQ3FRNitEcWVtYm9jZzhqNDFOa1JUTWRWUEZlUWJtRm9PTncx?=
+ =?utf-8?B?R2ZyZHd6NEhkTUxKZllzeDdpN05KTkgvRmdsQVNYUHliVWFBK1AvMVlJaUFI?=
+ =?utf-8?B?OGdkdzBNeHNjWjgxM3dMeldOYUFUdEFBZHpta0RRUU1rTEREYXRmdkZsRklL?=
+ =?utf-8?B?cVAzcWdQTHZiUHNqR3lTQ25US21SUHl2WHd3SitvdXRReGRBTmM1WFhVanJ5?=
+ =?utf-8?B?UkpaZVNMWWxXRmhLNHdTMm53alh2Sy9zeldwQW0xZEpMM0dVdUJxdVBabnNr?=
+ =?utf-8?B?Wjh2OXpTa01JUko4aWpxYS9HZE5jK08rcFVTU1FDTzRxbitNVzRCeEsyZXR0?=
+ =?utf-8?B?emZBalVPMVVXZnFQeEZzNVZSbVBXQTJ0WjVJV1poSFRlV1d4RStHSUhtUTRO?=
+ =?utf-8?B?MnFzanZ0azBZWUMvQnNrd0N3ODBnN05ubEc0YlB0THpydFZHV3FWdHZrK1JD?=
+ =?utf-8?B?dEtHTnJmSytZYXgzVWhFS2xwazNjdmR4V0tPS1N6Yit4d3FHRkpKbXlmTkJn?=
+ =?utf-8?B?dFYrbGVDaWVSRmF1NzhBdE1sRFJybngvclQyY0hSeGZ6NnJpSVVqSTFyWXMz?=
+ =?utf-8?B?UXRDa0x3TlErWkZFa2tRUG9sUzBuYlhBK09RN09hbmgyU09PbTZyMGt2SGVP?=
+ =?utf-8?B?Q3hzQXA5Tm10ay9ZM0MyaXJWVW9GNzhrRWNXVk8rMlNJQTZKOGVkeHBpS2F5?=
+ =?utf-8?B?SnVVZTROTkZMS01SU05oeHdVbi9Pb1ZPQWJ3SjJlQW1KWGZjRWZhL0Y0MmRM?=
+ =?utf-8?B?dUhMSnlyMGdBLzFIMFhMVVpSNnZKb2JKQzlVanFGdkJrVjJlMWdOL0pOUU5p?=
+ =?utf-8?B?NEo0UG9LMW96TTlMVWVZMVNMRi9QaERVNHpvcERBMDBDanpFa0lQRkludW1w?=
+ =?utf-8?B?VWdISkl3dURRaE05NjBPSnVXMDhvek5hNkZ2RG5qSEUwZktjNGdwRUZsbUhT?=
+ =?utf-8?B?WUtIZ2JxcFhWK1AzN2IyQitFMzBOa0ZHQzM4RTlPL2taVDJqZVpkRVJDWFNF?=
+ =?utf-8?B?Y1p2VnlXb3Y3QXdvNlVLKzA2L2hTYmZUajE0RDB3d2l1NktwWkt5ZTdlVEhD?=
+ =?utf-8?B?ejNqZTVwZldyOGh0UHhCSjQrbXBVekJ3ekpNYS9XZ2x1Z2RRRnRzSndmbThk?=
+ =?utf-8?B?ZnlvdnY0aTM2NlRjb1RZMlJMSC9ETHI3bWpnZ0piY2NaS1VCZ2J6YnNTQ08v?=
+ =?utf-8?B?U05IakNQeU05RHdWbTFUbUw5ZXRCMW5FRGdLOVZmTW9VaCtEWDBTc09tVkYv?=
+ =?utf-8?B?MTZoOWVSRlNSVks3b1hva0JrYS9rZWlVcmVETjFUSlB3djdxem5Hcnh2em83?=
+ =?utf-8?B?ZVI5ZVVzVzB4Ylg4MkxSZVB6a1NmWGRpaWVzTzVWZnF5NjBWbUgzN2FjR2JE?=
+ =?utf-8?B?TzRobXkweWpLZUFSYWt0WjdkZGVUQzNsNFAzcjZKamJBclQ0YVNGU2RqN2M0?=
+ =?utf-8?B?d3JGamYrblYzUi9RZGZDRFByU3VSa0FZbXZLRUtJV0UwVXNoK3RRVGovK01l?=
+ =?utf-8?B?U1VOaG8rcEVxOUh6SnA5dGlTcG1qSFlsMWh3TElMOFJNdkR6V2MxTi9YYWxU?=
+ =?utf-8?B?QmtvOXpzWjZCMk11TG9ZRlpKcUhKeXJWdlRuY0FwbzBUeURSd3NYc0VHR2tC?=
+ =?utf-8?B?UDRJVlVkdW1ZdGk4M1FWelFWRkFaMkV6c3oyMU05MXVaS2JHYTlMMVRsdGRF?=
+ =?utf-8?B?QlZwaEhOei8wZkk4QWZud1pHazdzZHBrZms1czdOUS9NVGtQTlF4Vzh2OUFp?=
+ =?utf-8?B?bzIrd095WGQzMGhnVEIzemtNTXFPc0R1VjJRcmtMMlhPb0tzNk55bmxYZmdV?=
+ =?utf-8?B?U0tTbHdjZ1NSQ1pzSFlFYjE1WEh5eGZuMUtoZXNaeldyYUx2RXl1OXppQUc3?=
+ =?utf-8?B?ckx3S1JUbEtoekx1b1FJWUJXQWwybzBPSkdvL1JPUzlVcTNYaHJlNGo5clFQ?=
+ =?utf-8?B?dkQzQlUyNlYwZ3RLOHp5KzJYNTQvNmdUY2M3ZU10NDFuNUl4SWVBTUdDalNM?=
+ =?utf-8?B?UUxJOXZ2ZU56Q1g0R3NwQklxdnVKc1FNNWtyY3E2OGtUU3cvTE1XRGNWNXFW?=
+ =?utf-8?B?eU45Z1JieVNUS3haU0Y1WnR5V0I0Q0hqanE4YVBrbkJrelNXWFdTdz09?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b40be030-3b1c-45f7-64ee-08da4eba2a96
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3512278-6146-4765-2c15-08da4eba4e2e
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2022 10:31:11.4229
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2022 10:32:11.0441
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AxjTwJ6iXyCayFDYrKJR/1HEXoLcFjwEzpiP6JQgZ1cc+U0FDlgWs2M6jc/orN6mnBP2aCEqAXcEvswPRO2fHg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: F+7O1iNwpQyUlVvdfqxLvBzCyCaMnjP4MiruGEMHI9cgcp27rYS5QNLUB2CivGA4dEFTdh4t3l0JiNjjwAQrJg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6876
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Naming of some of the builtins isn't fully consistent with that of
+pre-existing ones, so there's a need for a new BR2() wrapper macro.
 
---- a/tools/tests/x86_emulator/evex-disp8.c
-+++ b/tools/tests/x86_emulator/evex-disp8.c
-@@ -612,18 +612,36 @@ static const struct test avx512_fp16_all
-     INSN(cmpph,           , 0f3a, c2,    vl, fp16, vl),
-     INSN(cmpsh,         f3, 0f3a, c2,    el, fp16, el),
-     INSN(comish,          , map5, 2f,    el, fp16, el),
-+    INSN(cvtdq2ph,        , map5, 5b,    vl,    d, vl),
-     INSN(cvtpd2ph,      66, map5, 5a,    vl,    q, vl),
-+    INSN(cvtph2dq,      66, map5, 5b,  vl_2, fp16, vl),
-     INSN(cvtph2pd,        , map5, 5a,  vl_4, fp16, vl),
-     INSN(cvtph2psx,     66, map6, 13,  vl_2, fp16, vl),
-+    INSN(cvtph2qq,      66, map5, 7b,  vl_4, fp16, vl),
-+    INSN(cvtph2udq,       , map5, 79,  vl_2, fp16, vl),
-+    INSN(cvtph2uqq,     66, map5, 79,  vl_4, fp16, vl),
-     INSN(cvtph2uw,        , map5, 7d,    vl, fp16, vl),
-     INSN(cvtph2w,       66, map5, 7d,    vl, fp16, vl),
-     INSN(cvtps2phx,     66, map5, 1d,    vl,    d, vl),
-+    INSN(cvtqq2ph,        , map5, 5b,    vl,    q, vl),
-     INSN(cvtsd2sh,      f2, map5, 5a,    el,    q, el),
-     INSN(cvtsh2sd,      f3, map5, 5a,    el, fp16, el),
-+    INSN(cvtsh2si,      f3, map5, 2d,    el, fp16, el),
-     INSN(cvtsh2ss,        , map6, 13,    el, fp16, el),
-+    INSN(cvtsh2usi,     f3, map5, 79,    el, fp16, el),
-+    INSN(cvtsi2sh,      f3, map5, 2a,    el, dq64, el),
-     INSN(cvtss2sh,        , map5, 1d,    el,    d, el),
-+    INSN(cvttph2dq,     f3, map5, 5b,  vl_2, fp16, vl),
-+    INSN(cvttph2qq,     66, map5, 7a,  vl_4, fp16, vl),
-+    INSN(cvttph2udq,      , map5, 78,  vl_2, fp16, vl),
-+    INSN(cvttph2uqq,    66, map5, 78,  vl_4, fp16, vl),
-     INSN(cvttph2uw,       , map5, 7c,    vl, fp16, vl),
-     INSN(cvttph2w,      66, map5, 7c,    vl, fp16, vl),
-+    INSN(cvttsh2si,     f3, map5, 2c,    el, fp16, el),
-+    INSN(cvttsh2usi,    f3, map5, 78,    el, fp16, el),
-+    INSN(cvtudq2ph,     f2, map5, 7a,    vl,    d, vl),
-+    INSN(cvtuqq2ph,     f2, map5, 7a,    vl,    q, vl),
-+    INSN(cvtusi2sh,     f3, map5, 7b,    el, dq64, el),
-     INSN(cvtuw2ph,      f2, map5, 7d,    vl, fp16, vl),
-     INSN(cvtw2ph,       f3, map5, 7d,    vl, fp16, vl),
-     INSN(divph,           , map5, 5e,    vl, fp16, vl),
---- a/tools/tests/x86_emulator/predicates.c
-+++ b/tools/tests/x86_emulator/predicates.c
-@@ -2033,6 +2033,9 @@ static const struct evex {
-     { { 0x11 }, 2, T, W, pfx_f3, W0, LIG }, /* vmovsh */
-     { { 0x1d }, 2, T, R, pfx_66, W0, Ln }, /* vcvtps2phx */
-     { { 0x1d }, 2, T, R, pfx_no, W0, LIG }, /* vcvtss2sh */
-+    { { 0x2a }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvtsi2sh */
-+    { { 0x2c }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvttsh2si */
-+    { { 0x2d }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvtsh2si */
-     { { 0x2e }, 2, T, R, pfx_no, W0, LIG }, /* vucomish */
-     { { 0x2f }, 2, T, R, pfx_no, W0, LIG }, /* vcomish */
-     { { 0x51 }, 2, T, R, pfx_no, W0, Ln }, /* vsqrtph */
-@@ -2045,6 +2048,10 @@ static const struct evex {
-     { { 0x5a }, 2, T, R, pfx_66, W1, Ln }, /* vcvtpd2ph */
-     { { 0x5a }, 2, T, R, pfx_f3, W0, LIG }, /* vcvtsh2sd */
-     { { 0x5a }, 2, T, R, pfx_f2, W1, LIG }, /* vcvtsd2sh */
-+    { { 0x5b }, 2, T, R, pfx_no, W0, Ln }, /* vcvtdq2ph */
-+    { { 0x5b }, 2, T, R, pfx_no, W1, Ln }, /* vcvtqq2ph */
-+    { { 0x5b }, 2, T, R, pfx_66, W0, Ln }, /* vcvtph2dq */
-+    { { 0x5b }, 2, T, R, pfx_f3, W0, Ln }, /* vcvttph2dq */
-     { { 0x5c }, 2, T, R, pfx_no, W0, Ln }, /* vsubph */
-     { { 0x5c }, 2, T, R, pfx_f3, W0, LIG }, /* vsubsh */
-     { { 0x5d }, 2, T, R, pfx_no, W0, Ln }, /* vminph */
-@@ -2054,6 +2061,17 @@ static const struct evex {
-     { { 0x5f }, 2, T, R, pfx_no, W0, Ln }, /* vmaxph */
-     { { 0x5f }, 2, T, R, pfx_f3, W0, LIG }, /* vmaxsh */
-     { { 0x6e }, 2, T, R, pfx_66, WIG, L0 }, /* vmovw */
-+    { { 0x78 }, 2, T, R, pfx_no, W0, Ln }, /* vcvttph2udq */
-+    { { 0x78 }, 2, T, R, pfx_66, W0, Ln }, /* vcvttph2uqq */
-+    { { 0x78 }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvttsh2usi */
-+    { { 0x79 }, 2, T, R, pfx_no, W0, Ln }, /* vcvtph2udq */
-+    { { 0x79 }, 2, T, R, pfx_66, W0, Ln }, /* vcvtph2uqq */
-+    { { 0x79 }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvtsh2usi */
-+    { { 0x7a }, 2, T, R, pfx_66, W0, Ln }, /* vcvttph2qq */
-+    { { 0x7a }, 2, T, R, pfx_f2, W0, Ln }, /* vcvtudq2ph */
-+    { { 0x7a }, 2, T, R, pfx_f2, W1, Ln }, /* vcvtuqq2ph */
-+    { { 0x7b }, 2, T, R, pfx_66, W0, Ln }, /* vcvtph2qq */
-+    { { 0x7b }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvtusi2sh */
-     { { 0x7c }, 2, T, R, pfx_no, W0, Ln }, /* vcvttph2uw */
-     { { 0x7c }, 2, T, R, pfx_66, W0, Ln }, /* vcvttph2w */
-     { { 0x7d }, 2, T, R, pfx_no, W0, Ln }, /* vcvtph2uw */
---- a/xen/arch/x86/x86_emulate/decode.c
-+++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -1489,12 +1489,25 @@ int x86emul_decode(struct x86_emulate_st
-                     s->simd_size = simd_scalar_vexw;
-                 break;
+With the tests providing some proof of proper functioning of the
+emulator code also enable use of the feature by guests, as there's no
+other infrastructure involved in enabling this ISA extension.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+SDE: -spr or -future
+---
+In the course of putting together the FMA part of the test I've noticed
+that we no longer test scalar FMA insns (FMA, FMA4, AVX512F), due to gcc
+no longer recognizing the pattern in version 9 or later. See gcc bug
+105965, which apparently has already gained a fix for version 13. (Using
+intrinsics for scalar operations is prohibitive, as they have full-
+vector parameters.) I'm taking this as one of several reasons why here
+I'm not even trying to make the compiler spot the complex FMA patterns,
+using a mixture of intrinsics and inline assembly instead.
+
+--- a/tools/tests/x86_emulator/Makefile
++++ b/tools/tests/x86_emulator/Makefile
+@@ -16,7 +16,7 @@ vpath %.c $(XEN_ROOT)/xen/lib/x86
  
-+            case 0x2a: /* vcvtsi2sh */
-+                break;
-+
-+            case 0x2c: case 0x2d: /* vcvt{,t}sh2si */
-+                if ( s->evex.pfx == vex_f3 )
-+                    s->fp16 = true;
-+                break;
-+
-             case 0x2e: case 0x2f: /* v{,u}comish */
-                 if ( !s->evex.pfx )
-                     s->fp16 = true;
-                 s->simd_size = simd_none;
-                 break;
+ CFLAGS += $(CFLAGS_xeninclude)
  
-+            case 0x5b: /* vcvt{d,q}q2ph, vcvt{,t}ph2dq */
-+                if ( s->evex.pfx && s->evex.pfx != vex_f2 )
-+                    s->fp16 = true;
-+                break;
-+
-             case 0x6e: /* vmovw r/m16, xmm */
-                 d = (d & ~SrcMask) | SrcMem16;
-                 /* fall through */
-@@ -1504,6 +1517,17 @@ int x86emul_decode(struct x86_emulate_st
-                 s->simd_size = simd_none;
-                 break;
+-SIMD := 3dnow sse sse2 sse4 avx avx2 xop avx512f avx512bw avx512dq avx512er avx512vbmi
++SIMD := 3dnow sse sse2 sse4 avx avx2 xop avx512f avx512bw avx512dq avx512er avx512vbmi avx512fp16
+ FMA := fma4 fma
+ SG := avx2-sg avx512f-sg avx512vl-sg
+ AES := ssse3-aes avx-aes avx2-vaes avx512bw-vaes
+@@ -91,6 +91,9 @@ avx512vbmi-vecs := $(avx512bw-vecs)
+ avx512vbmi-ints := $(avx512bw-ints)
+ avx512vbmi-flts := $(avx512bw-flts)
+ avx512vbmi2-vecs := $(avx512bw-vecs)
++avx512fp16-vecs := $(avx512bw-vecs)
++avx512fp16-ints :=
++avx512fp16-flts := 2
  
-+            case 0x78: case 0x79: /* vcvt{,t}ph2u{d,q}q, vcvt{,t}sh2usi */
-+                if ( s->evex.pfx != vex_f2 )
-+                    s->fp16 = true;
-+                break;
-+
-+            case 0x7a: /* vcvttph2qq, vcvtu{d,q}q2ph */
-+            case 0x7b: /* vcvtph2qq, vcvtusi2sh */
-+                if ( s->evex.pfx == vex_66 )
-+                    s->fp16 = true;
-+                break;
-+
-             case 0x7c: /* vcvttph2{,u}w */
-             case 0x7d: /* vcvtph2{,u}w / vcvt{,u}w2ph */
-                 d = DstReg | SrcMem | TwoOp;
-@@ -1515,10 +1539,34 @@ int x86emul_decode(struct x86_emulate_st
+ avx512f-opmask-vecs := 2
+ avx512dq-opmask-vecs := 1 2
+@@ -246,7 +249,7 @@ $(addsuffix .c,$(GF)):
  
-             switch ( b )
-             {
-+            case 0x78:
-+            case 0x79:
-+                /* vcvt{,t}ph2u{d,q}q need special casing */
-+                if ( s->evex.pfx <= vex_66 )
-+                {
-+                    if ( !s->evex.brs )
-+                        disp8scale -= 1 + (s->evex.pfx == vex_66);
-+                    break;
-+                }
-+                /* vcvt{,t}sh2usi needs special casing: fall through */
-+            case 0x2c: case 0x2d: /* vcvt{,t}sh2si need special casing */
-+                disp8scale = 1;
-+                break;
-+
-             case 0x5a: /* vcvtph2pd needs special casing */
-                 if ( !s->evex.pfx && !s->evex.brs )
-                     disp8scale -= 2;
-                 break;
-+
-+            case 0x5b: /* vcvt{,t}ph2dq need special casing */
-+                if ( s->evex.pfx && !s->evex.brs )
-+                    --disp8scale;
-+                break;
-+
-+            case 0x7a: case 0x7b: /* vcvt{,t}ph2qq need special casing */
-+                if ( s->evex.pfx == vex_66 && !s->evex.brs )
-+                    disp8scale = s->evex.brs ? 1 : 2 + s->evex.lr;
-+                break;
-             }
+ $(addsuffix .h,$(SIMD) $(FMA) $(SG) $(AES) $(CLMUL) $(SHA) $(GF)): simd.h
  
-             break;
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -3581,6 +3581,12 @@ x86_emulate(
-         state->simd_size = simd_none;
-         goto simd_0f_rm;
+-xop.h avx512f.h: simd-fma.c
++xop.h avx512f.h avx512fp16.h: simd-fma.c
  
-+#ifndef X86EMUL_NO_SIMD
+ endif # 32-bit override
+ 
+--- a/tools/tests/x86_emulator/simd.c
++++ b/tools/tests/x86_emulator/simd.c
+@@ -20,6 +20,14 @@ ENTRY(simd_test);
+     asm ( "vcmpsd $0, %1, %2, %0"  : "=k" (r_) : "m" (x_), "v" (y_) ); \
+     r_ == 1; \
+ })
++# elif VEC_SIZE == 2
++#  define eq(x, y) ({ \
++    _Float16 x_ = (x)[0]; \
++    _Float16 __attribute__((vector_size(16))) y_ = { (y)[0] }; \
++    unsigned int r_; \
++    asm ( "vcmpsh $0, %1, %2, %0"  : "=k" (r_) : "m" (x_), "v" (y_) ); \
++    r_ == 1; \
++})
+ # elif FLOAT_SIZE == 4
+ /*
+  * gcc's (up to at least 8.2) __builtin_ia32_cmpps256_mask() has an anomaly in
+@@ -31,6 +39,8 @@ ENTRY(simd_test);
+ #  define eq(x, y) ((BR(cmpps, _mask, x, y, 0, -1) & ALL_TRUE) == ALL_TRUE)
+ # elif FLOAT_SIZE == 8
+ #  define eq(x, y) (BR(cmppd, _mask, x, y, 0, -1) == ALL_TRUE)
++# elif FLOAT_SIZE == 2
++#  define eq(x, y) (B(cmpph, _mask, x, y, 0, -1) == ALL_TRUE)
+ # elif (INT_SIZE == 1 || UINT_SIZE == 1) && defined(__AVX512BW__)
+ #  define eq(x, y) (B(pcmpeqb, _mask, (vqi_t)(x), (vqi_t)(y), -1) == ALL_TRUE)
+ # elif (INT_SIZE == 2 || UINT_SIZE == 2) && defined(__AVX512BW__)
+@@ -116,6 +126,14 @@ static inline bool _to_bool(byte_vec_t b
+     asm ( "vcvtusi2sd%z1 %1, %0, %0" : "=v" (t_) : "m" (u_) ); \
+     (vec_t){ t_[0] }; \
+ })
++#  elif FLOAT_SIZE == 2
++#   define to_u_int(type, x) ({ \
++    unsigned type u_; \
++    _Float16 __attribute__((vector_size(16))) t_; \
++    asm ( "vcvtsh2usi %1, %0" : "=r" (u_) : "m" ((x)[0]) ); \
++    asm ( "vcvtusi2sh%z1 %1, %0, %0" : "=v" (t_) : "m" (u_) ); \
++    (vec_t){ t_[0] }; \
++})
+ #  endif
+ #  define to_uint(x) to_u_int(int, x)
+ #  ifdef __x86_64__
+@@ -153,6 +171,43 @@ static inline bool _to_bool(byte_vec_t b
+ #   define to_wint(x) BR(cvtqq2pd, _mask, BR(cvtpd2qq, _mask, x, (vdi_t)undef(), ~0), undef(), ~0)
+ #   define to_uwint(x) BR(cvtuqq2pd, _mask, BR(cvtpd2uqq, _mask, x, (vdi_t)undef(), ~0), undef(), ~0)
+ #  endif
++# elif FLOAT_SIZE == 2
++#  define to_int(x) BR2(vcvtw2ph, _mask, BR2(vcvtph2w, _mask, x, (vhi_t)undef(), ~0), undef(), ~0)
++#  define to_uint(x) BR2(vcvtuw2ph, _mask, BR2(vcvtph2uw, _mask, x, (vhi_t)undef(), ~0), undef(), ~0)
++#  if VEC_SIZE == 16
++#   define low_half(x) (x)
++#   define high_half(x) ((vec_t)B_(movhlps, , (vsf_t)undef(), (vsf_t)(x)))
++#   define insert_half(x, y, p) ((vec_t)((p) ? B_(movlhps, , (vsf_t)(x), (vsf_t)(y)) \
++                                             : B_(shufps, , (vsf_t)(y), (vsf_t)(x), 0b11100100)))
++#  elif VEC_SIZE == 32
++#   define _half(x, lh) ((vhf_half_t)B(extracti32x4_, _mask, (vsi_t)(x), lh, (vsi_half_t){}, ~0))
++#   define low_half(x)  _half(x, 0)
++#   define high_half(x) _half(x, 1)
++#   define insert_half(x, y, p) \
++    ((vec_t)B(inserti32x4_, _mask, (vsi_t)(x), (vsi_half_t)(y), p, (vsi_t)undef(), ~0))
++#  elif VEC_SIZE == 64
++#   define _half(x, lh) \
++    ((vhf_half_t)__builtin_ia32_extracti64x4_mask((vdi_t)(x), lh, (vdi_half_t){}, ~0))
++#   define low_half(x)  _half(x, 0)
++#   define high_half(x) _half(x, 1)
++#   define insert_half(x, y, p) \
++    ((vec_t)__builtin_ia32_inserti64x4_mask((vdi_t)(x), (vdi_half_t)(y), p, (vdi_t)undef(), ~0))
++#  endif
++#  define to_w_int(x, s) ({ \
++    vhf_half_t t_ = low_half(x); \
++    vsi_t lo_, hi_; \
++    touch(t_); \
++    lo_ = BR2(vcvtph2 ## s ## dq, _mask, t_, (vsi_t)undef(), ~0); \
++    t_ = high_half(x); \
++    touch(t_); \
++    hi_ = BR2(vcvtph2 ## s ## dq, _mask, t_, (vsi_t)undef(), ~0); \
++    touch(lo_); touch(hi_); \
++    insert_half(insert_half(undef(), \
++                            BR2(vcvt ## s ## dq2ph, _mask, lo_, (vhf_half_t){}, ~0), 0), \
++                BR2(vcvt ## s ## dq2ph, _mask, hi_, (vhf_half_t){}, ~0), 1); \
++})
++#  define to_wint(x) to_w_int(x, )
++#  define to_uwint(x) to_w_int(x, u)
+ # endif
+ #elif VEC_SIZE == 16 && defined(__SSE2__)
+ # if FLOAT_SIZE == 4
+@@ -240,10 +295,18 @@ static inline vec_t movlhps(vec_t x, vec
+ #  define scale(x, y) scalar_2op(x, y, "vscalefsd %[in2], %[in1], %[out]")
+ #  define sqrt(x) scalar_1op(x, "vsqrtsd %[in], %[out], %[out]")
+ #  define trunc(x) scalar_1op(x, "vrndscalesd $0b1011, %[in], %[out], %[out]")
++# elif FLOAT_SIZE == 2
++#  define getexp(x) scalar_1op(x, "vgetexpsh %[in], %[out], %[out]")
++#  define getmant(x) scalar_1op(x, "vgetmantsh $0, %[in], %[out], %[out]")
++#  define recip(x) scalar_1op(x, "vrcpsh %[in], %[out], %[out]")
++#  define rsqrt(x) scalar_1op(x, "vrsqrtsh %[in], %[out], %[out]")
++#  define scale(x, y) scalar_2op(x, y, "vscalefsh %[in2], %[in1], %[out]")
++#  define sqrt(x) scalar_1op(x, "vsqrtsh %[in], %[out], %[out]")
++#  define trunc(x) scalar_1op(x, "vrndscalesh $0b1011, %[in], %[out], %[out]")
+ # endif
+ #elif defined(FLOAT_SIZE) && defined(__AVX512F__) && \
+       (VEC_SIZE == 64 || defined(__AVX512VL__))
+-# if ELEM_COUNT == 8 /* vextractf{32,64}x4 */ || \
++# if (ELEM_COUNT == 8 && ELEM_SIZE >= 4) /* vextractf{32,64}x4 */ || \
+      (ELEM_COUNT == 16 && ELEM_SIZE == 4 && defined(__AVX512DQ__)) /* vextractf32x8 */ || \
+      (ELEM_COUNT == 4 && ELEM_SIZE == 8 && defined(__AVX512DQ__)) /* vextractf64x2 */
+ #  define _half(x, lh) ({ \
+@@ -398,6 +461,21 @@ static inline vec_t movlhps(vec_t x, vec
+                          VEC_SIZE == 32 ? 0b01 : 0b00011011, undef(), ~0), \
+                        0b01010101, undef(), ~0)
+ #  endif
++# elif FLOAT_SIZE == 2
++#  define frac(x) BR2(reduceph, _mask, x, 0b00001011, undef(), ~0)
++#  define getexp(x) BR(getexpph, _mask, x, undef(), ~0)
++#  define getmant(x) BR(getmantph, _mask, x, 0, undef(), ~0)
++#  define max(x, y) BR2(maxph, _mask, x, y, undef(), ~0)
++#  define min(x, y) BR2(minph, _mask, x, y, undef(), ~0)
++#  define scale(x, y) BR2(scalefph, _mask, x, y, undef(), ~0)
++#  define recip(x) B(rcpph, _mask, x, undef(), ~0)
++#  define rsqrt(x) B(rsqrtph, _mask, x, undef(), ~0)
++#  define shrink1(x) BR2(vcvtps2phx, _mask, (vsf_t)(x), (vhf_half_t){}, ~0)
++#  define shrink2(x) BR2(vcvtpd2ph, _mask, (vdf_t)(x), (vhf_quarter_t){}, ~0)
++#  define sqrt(x) BR2(sqrtph, _mask, x, undef(), ~0)
++#  define trunc(x) BR2(rndscaleph, _mask, x, 0b1011, undef(), ~0)
++#  define widen1(x) ((vec_t)BR2(vcvtph2psx, _mask, x, (vsf_t)undef(), ~0))
++#  define widen2(x) ((vec_t)BR2(vcvtph2pd, _mask, x, (vdf_t)undef(), ~0))
+ # endif
+ #elif FLOAT_SIZE == 4 && defined(__SSE__)
+ # if VEC_SIZE == 32 && defined(__AVX__)
+@@ -920,6 +998,16 @@ static inline vec_t movlhps(vec_t x, vec
+ #  define dup_lo(x) B(movddup, _mask, x, undef(), ~0)
+ # endif
+ #endif
++#if FLOAT_SIZE == 2 && ELEM_COUNT > 1
++# define dup_hi(x) ((vec_t)B(pshufhw, _mask, \
++                             B(pshuflw, _mask, (vhi_t)(x), 0b11110101, \
++                               (vhi_t)undef(), ~0), \
++                             0b11110101, (vhi_t)undef(), ~0))
++# define dup_lo(x) ((vec_t)B(pshufhw, _mask, \
++                             B(pshuflw, _mask, (vhi_t)(x), 0b10100000, \
++                               (vhi_t)undef(), ~0), \
++                             0b10100000, (vhi_t)undef(), ~0))
++#endif
+ #if VEC_SIZE == 16 && defined(__SSSE3__) && !defined(__AVX512VL__)
+ # if INT_SIZE == 1
+ #  define abs(x) ((vec_t)__builtin_ia32_pabsb128((vqi_t)(x)))
+--- a/tools/tests/x86_emulator/simd.h
++++ b/tools/tests/x86_emulator/simd.h
+@@ -53,6 +53,9 @@ float
+ # elif FLOAT_SIZE == 8
+ #  define MODE DF
+ #  define ELEM_SFX "d"
++# elif FLOAT_SIZE == 2
++#  define MODE HF
++#  define ELEM_SFX "h"
+ # endif
+ #endif
+ #ifndef VEC_SIZE
+@@ -67,7 +70,10 @@ typedef unsigned int __attribute__((mode
+ /* Various builtins want plain char / int / long long vector types ... */
+ typedef char __attribute__((vector_size(VEC_SIZE))) vqi_t;
+ typedef short __attribute__((vector_size(VEC_SIZE))) vhi_t;
++#if VEC_SIZE >= 4
+ typedef int __attribute__((vector_size(VEC_SIZE))) vsi_t;
++typedef float __attribute__((vector_size(VEC_SIZE))) vsf_t;
++#endif
+ #if VEC_SIZE >= 8
+ typedef long long __attribute__((vector_size(VEC_SIZE))) vdi_t;
+ typedef double __attribute__((vector_size(VEC_SIZE))) vdf_t;
+@@ -96,6 +102,9 @@ typedef char __attribute__((vector_size(
+ typedef short __attribute__((vector_size(HALF_SIZE))) vhi_half_t;
+ typedef int __attribute__((vector_size(HALF_SIZE))) vsi_half_t;
+ typedef long long __attribute__((vector_size(HALF_SIZE))) vdi_half_t;
++#ifdef __AVX512FP16__
++typedef _Float16 __attribute__((vector_size(HALF_SIZE))) vhf_half_t;
++#endif
+ typedef float __attribute__((vector_size(HALF_SIZE))) vsf_half_t;
+ # endif
+ 
+@@ -110,6 +119,9 @@ typedef char __attribute__((vector_size(
+ typedef short __attribute__((vector_size(QUARTER_SIZE))) vhi_quarter_t;
+ typedef int __attribute__((vector_size(QUARTER_SIZE))) vsi_quarter_t;
+ typedef long long __attribute__((vector_size(QUARTER_SIZE))) vdi_quarter_t;
++#ifdef __AVX512FP16__
++typedef _Float16 __attribute__((vector_size(QUARTER_SIZE))) vhf_quarter_t;
++#endif
+ # endif
+ 
+ # if ELEM_COUNT >= 8
+@@ -163,6 +175,7 @@ DECL_OCTET(half);
+ #elif VEC_SIZE == 64
+ # define B(n, s, a...)   __builtin_ia32_ ## n ## 512 ## s(a)
+ # define BR(n, s, a...)  __builtin_ia32_ ## n ## 512 ## s(a, 4)
++# define BR2(n, s, a...) __builtin_ia32_ ## n ## 512 ## s ## _round(a, 4)
+ #endif
+ #ifndef B_
+ # define B_ B
+@@ -171,6 +184,9 @@ DECL_OCTET(half);
+ # define BR B
+ # define BR_ B_
+ #endif
++#ifndef BR2
++# define BR2 BR
++#endif
+ #ifndef BR_
+ # define BR_ BR
+ #endif
+--- a/tools/tests/x86_emulator/simd-fma.c
++++ b/tools/tests/x86_emulator/simd-fma.c
+@@ -28,6 +28,8 @@ ENTRY(fma_test);
+ #  define fmaddsub(x, y, z) BR(vfmaddsubps, _mask, x, y, z, ~0)
+ # elif FLOAT_SIZE == 8
+ #  define fmaddsub(x, y, z) BR(vfmaddsubpd, _mask, x, y, z, ~0)
++# elif FLOAT_SIZE == 2
++#  define fmaddsub(x, y, z) BR(vfmaddsubph, _mask, x, y, z, ~0)
+ # endif
+ #elif VEC_SIZE == 16
+ # if FLOAT_SIZE == 4
+@@ -70,6 +72,75 @@ ENTRY(fma_test);
+ # endif
+ #endif
+ 
++#ifdef __AVX512FP16__
++# define I (1.if16)
++# if VEC_SIZE > FLOAT_SIZE
++#  define CELEM_COUNT (ELEM_COUNT / 2)
++static const unsigned int conj_mask = 0x80000000;
++#  define conj(z) ({ \
++    vec_t r_; \
++    asm ( "vpxord %2%{1to%c3%}, %1, %0" \
++          : "=v" (r_) \
++          : "v" (z), "m" (conj_mask), "i" (CELEM_COUNT) ); \
++    r_; \
++})
++#  define _cmul_vv(a, b, c)  BR2(vf##c##mulcph, , a, b)
++#  define _cmul_vs(a, b, c) ({ \
++    vec_t r_; \
++    _Complex _Float16 b_ = (b); \
++    asm ( "vf"#c"mulcph %2%{1to%c3%}, %1, %0" \
++          : "=v" (r_) \
++          : "v" (a), "m" (b_), "i" (CELEM_COUNT) ); \
++    r_; \
++})
++#  define cmadd_vv(a, b, c) BR2(vfmaddcph, , a, b, c)
++#  define cmadd_vs(a, b, c) ({ \
++    _Complex _Float16 b_ = (b); \
++    vec_t r_; \
++    asm ( "vfmaddcph %2%{1to%c3%}, %1, %0" \
++          : "=v" (r_) \
++          : "v" (a), "m" (b_), "i" (CELEM_COUNT), "0" (c) ); \
++    r_; \
++})
++# else
++#  define CELEM_COUNT 1
++typedef _Float16 __attribute__((vector_size(4))) cvec_t;
++#  define conj(z) ({ \
++    cvec_t r_; \
++    asm ( "xor $0x80000000, %0" : "=rm" (r_) : "0" (z) ); \
++    r_; \
++})
++#  define _cmul_vv(a, b, c) ({ \
++    cvec_t r_; \
++    /* "=&x" to force destination to be different from both sources */ \
++    asm ( "vf"#c"mulcsh %2, %1, %0" : "=&x" (r_) : "x" (a), "m" (b) ); \
++    r_; \
++})
++#  define _cmul_vs(a, b, c) ({ \
++    _Complex _Float16 b_ = (b); \
++    cvec_t r_; \
++    /* "=&x" to force destination to be different from both sources */ \
++    asm ( "vf"#c"mulcsh %2, %1, %0" : "=&x" (r_) : "x" (a), "m" (b_) ); \
++    r_; \
++})
++#  define cmadd_vv(a, b, c) ({ \
++    cvec_t r_ = (c); \
++    asm ( "vfmaddcsh %2, %1, %0" : "+x" (r_) : "x" (a), "m" (b) ); \
++    r_; \
++})
++#  define cmadd_vs(a, b, c) ({ \
++    _Complex _Float16 b_ = (b); \
++    cvec_t r_ = (c); \
++    asm ( "vfmaddcsh %2, %1, %0" : "+x" (r_) : "x" (a), "m" (b_) ); \
++    r_; \
++})
++# endif
++# define cmul_vv(a, b) _cmul_vv(a, b, )
++# define cmulc_vv(a, b) _cmul_vv(a, b, c)
++# define cmul_vs(a, b) _cmul_vs(a, b, )
++# define cmulc_vs(a, b) _cmul_vs(a, b, c)
++#endif
 +
-+    case X86EMUL_OPC_EVEX_F3(5, 0x2a):      /* vcvtsi2sh r/m,xmm,xmm */
-+    case X86EMUL_OPC_EVEX_F3(5, 0x7b):      /* vcvtusi2sh r/m,xmm,xmm */
-+        host_and_vcpu_must_have(avx512_fp16);
-+        /* fall through */
-     CASE_SIMD_SCALAR_FP(_EVEX, 0x0f, 0x2a): /* vcvtsi2s{s,d} r/m,xmm,xmm */
-     CASE_SIMD_SCALAR_FP(_EVEX, 0x0f, 0x7b): /* vcvtusi2s{s,d} r/m,xmm,xmm */
-         generate_exception_if(evex.opmsk || (ea.type != OP_REG && evex.brs),
-@@ -3659,7 +3665,9 @@ x86_emulate(
-             opc[1] = 0x01;
+ int fma_test(void)
+ {
+     unsigned int i;
+@@ -156,5 +227,99 @@ int fma_test(void)
+     touch(inv);
+ #endif
  
-             rc = ops->read(ea.mem.seg, ea.mem.off, mmvalp,
--                           vex.pfx & VEX_PREFIX_DOUBLE_MASK ? 8 : 4, ctxt);
-+                           vex.pfx & VEX_PREFIX_DOUBLE_MASK
-+                           ? 8 : 2 << !state->fp16,
-+                           ctxt);
-             if ( rc != X86EMUL_OKAY )
-                 goto done;
-         }
-@@ -3689,6 +3697,12 @@ x86_emulate(
-         state->simd_size = simd_none;
-         break;
- 
-+    case X86EMUL_OPC_EVEX_F3(5, 0x2c):      /* vcvttsh2si xmm/mem,reg */
-+    case X86EMUL_OPC_EVEX_F3(5, 0x2d):      /* vcvtsh2si xmm/mem,reg */
-+    case X86EMUL_OPC_EVEX_F3(5, 0x78):      /* vcvttsh2usi xmm/mem,reg */
-+    case X86EMUL_OPC_EVEX_F3(5, 0x79):      /* vcvtsh2usi xmm/mem,reg */
-+        host_and_vcpu_must_have(avx512_fp16);
-+        /* fall through */
-     CASE_SIMD_SCALAR_FP(_EVEX, 0x0f, 0x2c): /* vcvtts{s,d}2si xmm/mem,reg */
-     CASE_SIMD_SCALAR_FP(_EVEX, 0x0f, 0x2d): /* vcvts{s,d}2si xmm/mem,reg */
-     CASE_SIMD_SCALAR_FP(_EVEX, 0x0f, 0x78): /* vcvtts{s,d}2usi xmm/mem,reg */
-@@ -3760,8 +3774,6 @@ x86_emulate(
-         ASSERT(!state->simd_size);
-         break;
- 
--#ifndef X86EMUL_NO_SIMD
--
-     case X86EMUL_OPC_EVEX(5, 0x2e): /* vucomish xmm/m16,xmm */
-     case X86EMUL_OPC_EVEX(5, 0x2f): /* vcomish xmm/m16,xmm */
-         host_and_vcpu_must_have(avx512_fp16);
-@@ -7789,6 +7801,38 @@ x86_emulate(
-                          2 * evex.w);
-         goto avx512f_all_fp;
- 
-+    case X86EMUL_OPC_EVEX   (5, 0x5b): /* vcvtdq2ph [xyz]mm/mem,[xy]mm{k} */
-+                                       /* vcvtqq2ph [xyz]mm/mem,xmm{k} */
-+    case X86EMUL_OPC_EVEX_F2(5, 0x7a): /* vcvtudq2ph [xyz]mm/mem,[xy]mm{k} */
-+                                       /* vcvtuqq2ph [xyz]mm/mem,xmm{k} */
-+        host_and_vcpu_must_have(avx512_fp16);
-+        if ( ea.type != OP_REG || !evex.brs )
-+            avx512_vlen_check(false);
-+        op_bytes = 16 << evex.lr;
-+        goto simd_zmm;
++#ifdef CELEM_COUNT
 +
-+    case X86EMUL_OPC_EVEX_66(5, 0x5b): /* vcvtph2dq [xy]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_F3(5, 0x5b): /* vcvttph2dq [xy]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX   (5, 0x78): /* vcvttph2udq [xy]mm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX   (5, 0x79): /* vcvtph2udq [xy]mm/mem,[xyz]mm{k} */
-+        host_and_vcpu_must_have(avx512_fp16);
-+        generate_exception_if(evex.w, EXC_UD);
-+        if ( ea.type != OP_REG || !evex.brs )
-+            avx512_vlen_check(false);
-+        op_bytes = 8 << evex.lr;
-+        goto simd_zmm;
++# if VEC_SIZE > FLOAT_SIZE
++#  define cvec_t vec_t
++#  define ceq eq
++# else
++  {
++    /* Cannot re-use the function-scope variables (for being too small). */
++    cvec_t x, y, z, src = { 1, 2 }, inv = { 2, 1 }, one = { 1, 1 };
++#  define ceq(x, y) ({ \
++    unsigned int r_; \
++    asm ( "vcmpph $0, %1, %2, %0"  : "=k" (r_) : "x" (x), "x" (y) ); \
++    (r_ & 3) == 3; \
++})
++# endif
 +
-+    case X86EMUL_OPC_EVEX_66(5, 0x78): /* vcvttph2uqq xmm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x79): /* vcvtph2uqq xmm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x7a): /* vcvttph2qq xmm/mem,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_66(5, 0x7b): /* vcvtph2qq xmm/mem,[xyz]mm{k} */
-+        host_and_vcpu_must_have(avx512_fp16);
-+        generate_exception_if(evex.w, EXC_UD);
-+        if ( ea.type != OP_REG || !evex.brs )
-+            avx512_vlen_check(false);
-+        op_bytes = 4 << (evex.w + evex.lr);
-+        goto simd_zmm;
++    /* (a * i)² == -a² */
++    x = cmul_vs(src, I);
++    y = cmul_vv(x, x);
++    x = -src;
++    touch(src);
++    z = cmul_vv(x, src);
++    if ( !ceq(y, z) ) return __LINE__;
 +
-     case X86EMUL_OPC_EVEX   (5, 0x7c): /* vcvttph2uw [xyz]mm/mem,[xyz]mm{k} */
-     case X86EMUL_OPC_EVEX_66(5, 0x7c): /* vcvttph2w [xyz]mm/mem,[xyz]mm{k} */
-     case X86EMUL_OPC_EVEX   (5, 0x7d): /* vcvtph2uw [xyz]mm/mem,[xyz]mm{k} */
++    /* conj(a * b) == conj(a) * conj(b) */
++    touch(src);
++    x = conj(src);
++    touch(inv);
++    y = cmulc_vv(x, inv);
++    touch(src);
++    touch(inv);
++    z = conj(cmul_vv(src, inv));
++    if ( !ceq(y, z) ) return __LINE__;
++
++    /* a * conj(a) == |a|² */
++    touch(src);
++    y = src;
++    touch(src);
++    x = cmulc_vv(y, src);
++    y *= y;
++    for ( i = 0; i < ELEM_COUNT; i += 2 )
++    {
++        if ( x[i] != y[i] + y[i + 1] ) return __LINE__;
++        if ( x[i + 1] ) return __LINE__;
++    }
++
++    /* a * b == b * a + 0 */
++    touch(src);
++    touch(inv);
++    x = cmul_vv(src, inv);
++    touch(src);
++    touch(inv);
++    y = cmadd_vv(inv, src, (cvec_t){});
++    if ( !ceq(x, y) ) return __LINE__;
++
++    /* a * 1 + b == b * 1 + a */
++    touch(src);
++    touch(inv);
++    x = cmadd_vs(src, 1, inv);
++    for ( i = 0; i < ELEM_COUNT; i += 2 )
++    {
++        z[i] = 1;
++        z[i + 1] = 0;
++    }
++    touch(z);
++    y = cmadd_vv(inv, z, src);
++    if ( !ceq(x, y) ) return __LINE__;
++
++    /* (a + b) * c == a * c + b * c */
++    touch(one);
++    touch(inv);
++    x = cmul_vv(src + one, inv);
++    touch(inv);
++    y = cmul_vv(one, inv);
++    touch(inv);
++    z = cmadd_vv(src, inv, y);
++    if ( !ceq(x, z) ) return __LINE__;
++
++    /* a * i + conj(a) == (Re(a) - Im(a)) * (1 + i) */
++    x = cmadd_vs(src, I, conj(src));
++    for ( i = 0; i < ELEM_COUNT; i += 2 )
++    {
++        typeof(x[0]) val = src[i] - src[i + 1];
++
++        if ( x[i] != val ) return __LINE__;
++        if ( x[i + 1] != val ) return __LINE__;
++    }
++
++# if VEC_SIZE == FLOAT_SIZE
++  }
++# endif
++
++#endif /* CELEM_COUNT */
++
+     return 0;
+ }
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -43,6 +43,7 @@ asm ( ".pushsection .test, \"ax\", @prog
+ #include "avx512er.h"
+ #include "avx512vbmi.h"
+ #include "avx512vbmi2-vpclmulqdq.h"
++#include "avx512fp16.h"
+ 
+ #define verbose false /* Switch to true for far more logging. */
+ 
+@@ -249,6 +250,16 @@ static bool simd_check_avx512bw_gf_vl(vo
+     return cpu_has_gfni && cpu_has_avx512vl;
+ }
+ 
++static bool simd_check_avx512fp16(void)
++{
++    return cpu_has_avx512_fp16;
++}
++
++static bool simd_check_avx512fp16_vl(void)
++{
++    return cpu_has_avx512_fp16 && cpu_has_avx512vl;
++}
++
+ static void simd_set_regs(struct cpu_user_regs *regs)
+ {
+     if ( cpu_has_mmx )
+@@ -510,6 +521,10 @@ static const struct {
+     AVX512VL(_VBMI+VL u16x8, avx512vbmi,    16u2),
+     AVX512VL(_VBMI+VL s16x16, avx512vbmi,   32i2),
+     AVX512VL(_VBMI+VL u16x16, avx512vbmi,   32u2),
++    SIMD(AVX512_FP16 f16 scal,avx512fp16,     f2),
++    SIMD(AVX512_FP16 f16x32, avx512fp16,    64f2),
++    AVX512VL(_FP16+VL f16x8, avx512fp16,    16f2),
++    AVX512VL(_FP16+VL f16x16,avx512fp16,    32f2),
+     SIMD(SHA,                sse4_sha,        16),
+     SIMD(AVX+SHA,             avx_sha,        16),
+     AVX512VL(VL+SHA,      avx512f_sha,        16),
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -281,7 +281,7 @@ XEN_CPUFEATURE(TSX_FORCE_ABORT, 9*32+13)
+ XEN_CPUFEATURE(SERIALIZE,     9*32+14) /*A  SERIALIZE insn */
+ XEN_CPUFEATURE(TSXLDTRK,      9*32+16) /*a  TSX load tracking suspend/resume insns */
+ XEN_CPUFEATURE(CET_IBT,       9*32+20) /*   CET - Indirect Branch Tracking */
+-XEN_CPUFEATURE(AVX512_FP16,   9*32+23) /*   AVX512 FP16 instructions */
++XEN_CPUFEATURE(AVX512_FP16,   9*32+23) /*A  AVX512 FP16 instructions */
+ XEN_CPUFEATURE(IBRSB,         9*32+26) /*A  IBRS and IBPB support (used by Intel) */
+ XEN_CPUFEATURE(STIBP,         9*32+27) /*A  STIBP */
+ XEN_CPUFEATURE(L1D_FLUSH,     9*32+28) /*S  MSR_FLUSH_CMD and L1D flush. */
 
 
