@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DE6454CEBB
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 18:33:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.350241.576526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BFA354CEE0
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 18:40:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.350249.576537 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1Vwx-00021l-10; Wed, 15 Jun 2022 16:32:59 +0000
+	id 1o1W3s-0003j0-PF; Wed, 15 Jun 2022 16:40:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 350241.576526; Wed, 15 Jun 2022 16:32:58 +0000
+Received: by outflank-mailman (output) from mailman id 350249.576537; Wed, 15 Jun 2022 16:40:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1Vww-0001yd-T3; Wed, 15 Jun 2022 16:32:58 +0000
-Received: by outflank-mailman (input) for mailman id 350241;
- Wed, 15 Jun 2022 16:32:58 +0000
+	id 1o1W3s-0003hE-LA; Wed, 15 Jun 2022 16:40:08 +0000
+Received: by outflank-mailman (input) for mailman id 350249;
+ Wed, 15 Jun 2022 16:40:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Wv+x=WW=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1o1Vww-0001yX-1M
- for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 16:32:58 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ id 1o1W3r-0003ZH-8C
+ for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 16:40:07 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cf9f8e40-ecc8-11ec-bd2c-47488cf2e6aa;
- Wed, 15 Jun 2022 18:32:56 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id h23so13909929ljl.3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jun 2022 09:32:56 -0700 (PDT)
+ id cfaa7022-ecc9-11ec-bd2c-47488cf2e6aa;
+ Wed, 15 Jun 2022 18:40:05 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id c4so19760442lfj.12
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jun 2022 09:40:06 -0700 (PDT)
 Received: from [192.168.1.7] ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- y17-20020a2eb011000000b0025a0ca6a0e5sm317893ljk.61.2022.06.15.09.32.55
+ u18-20020ac25192000000b0047255d211cesm1851391lfi.253.2022.06.15.09.40.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jun 2022 09:32:55 -0700 (PDT)
+ Wed, 15 Jun 2022 09:40:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,202 +44,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf9f8e40-ecc8-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: cfaa7022-ecc9-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=ZF8th8mGWf3SuaAuDD6LprpEpz3Ht4Qh6Ya1fy8DFtc=;
-        b=VyhBwthrTIxACGj1/BPHJ/qXWdEw9lDb2CCrSvCFVeXhRBE0CqHpJYDVkHZn3AdjEs
-         UgSTGxbvXp/IRCck8Xe3aw24YT7otKdobFo4UiY+fzzoRuFBdMtyNmXu8QsOgvPGWlqO
-         oU4DshzigiTvNb8Or1L64azvGCOlpKEF9BhLnSh26jVCtq8VprvjmIVpAxABQZS51ueT
-         xt014P2IYnUZiI8QDhPyw2Rcc8UCTgKoZzp1WxY6I8HWIxjkkZoQ3rAMfxZTvYgoiI9E
-         CVkAzjm2VJOHQ5pqyBVqtysnykILA5dGfN2OOyMdOCW3QqH3OVI284lqeFru6RHzu5CG
-         6/kQ==
+        bh=MWANSzdRAOWKpopzWH4swQNo/XxRIXruJcTbdkHnuFo=;
+        b=nqDPazFgESVPMchw5t1IyLKwSYffE31zuhyigqZoR0u6mWJ5lr0NxjOUBK3WHo8rAt
+         lw5lYUMeqvkvM9wee5LNtZMFA/ozRR3JKfgcdoEJWd+n/a/C311MNCxlBSHydx8/VWxX
+         eQ536sW66FtzcgyR57uRiUXDmqBfUk2qp/lxdnpk66AVQ590RbOxzfvnh8i9xccgOQjl
+         +BeoWeUL0P4hTo632fmXGZJcrMwwsv27jGNv9nju398+9CI2baFqkzNnOat0Kx65Adom
+         xpAnieakVJxYSAjEBMjHxXnxSskdIWPSl4dbTXZnihYWYkeX6+LKOUWgw0+v9tEb8+jI
+         sS4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=ZF8th8mGWf3SuaAuDD6LprpEpz3Ht4Qh6Ya1fy8DFtc=;
-        b=LOxJO8mGECJSHNnQvHLE1P6fGB5jLwNtK+PUV6b7qrud40LbAvPgBySDg7b8a/gS2k
-         HOsGGep30vWiqVQ5tc12/iRTmP6uXh+sHX8gL7b6gI4asrRkw6Fz/fQErF0mQsJY8aT7
-         Jqtq0p4w2HaA50fb/MDWUvEahCLy4/vKY64Cyua7exqGsHWQEBG5l7c5N4+yKRk27fiF
-         jIO2VUCtaJkOuSpWIq3X3JZJCtu8hoOhFLyEyir/k5bRrnavQkO/eeyFlil/dj4IbduR
-         Ql7xccZ4EGzswELClZDPnpti/HwtHzZTcv0/+8ueMkTa4Oe1x4Ez6XEZZ60aNREuigeB
-         02PA==
-X-Gm-Message-State: AJIora9Yks4L9B57965+QAJ/qzoeOjg0wpfU0nrPhQgay6bBIeVmMbKW
-	6Zse+7RFEy1WAn+iUaOZAKY=
-X-Google-Smtp-Source: AGRyM1uYaDstOGREn7Fl41IHuyNWbMc0681CW2heauSwQ+7Oq/iWA8aY9j/MyJHR+8NxDek5cttl9w==
-X-Received: by 2002:a05:651c:b09:b0:25a:44fd:41f with SMTP id b9-20020a05651c0b0900b0025a44fd041fmr318733ljr.366.1655310776113;
-        Wed, 15 Jun 2022 09:32:56 -0700 (PDT)
-Subject: Re: [PATCH V10 1/3] libxl: Add support for Virtio disk configuration
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
- <rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <1655143522-14356-1-git-send-email-olekstysh@gmail.com>
- <1655143522-14356-2-git-send-email-olekstysh@gmail.com>
- <YqnrerEAFXJUCRL1@perard.uk.xensource.com>
+        bh=MWANSzdRAOWKpopzWH4swQNo/XxRIXruJcTbdkHnuFo=;
+        b=gk5kejkrlMCEZ0ft3qLIaDTJaLg5rvrxqHC3O6bdvowc5kJfaS0pvBLgB4QbcjbnOD
+         9Frvj1NUqL5V8D7dGLt9MF6RpbdWLPlAj860yCAkiL9VLEBkFcPPJyfXsGRoheydbk58
+         K1Gkrx93i6/RUP80IiqGrAwcak45jwEZgOHQ3rdwAW/rde7EiDB5qbMEtLkCFEGZN2a5
+         fy6a3YeHo4vrIKkCR/IP7mBkA9Io5sRfD0jQhK0x3Sg6ReKJtg/z/DIzOWVPGizZHfv/
+         Zcasght2bTChaXGGnCp98G3SzT6jfeHm0/taby1WwR3abcXWwz4X54gBi1D0W7J0u4/m
+         NuhA==
+X-Gm-Message-State: AJIora+8pC8gTURaIJsfgOQxzKKJ6trE2ZheLrbiQZ3F43jwqFateSW3
+	MdzemdVHqzPW08Fts6H9MkQ=
+X-Google-Smtp-Source: AGRyM1tajAVsOPq2QGMUHcUpNqZOlXppdM2bBQzKlxoCKdKoIfE+blT5jZUZrimz0oNBnRyTWdWwVw==
+X-Received: by 2002:a05:6512:3484:b0:47d:451e:3d53 with SMTP id v4-20020a056512348400b0047d451e3d53mr235059lfr.144.1655311205711;
+        Wed, 15 Jun 2022 09:40:05 -0700 (PDT)
+Subject: Re: [RFC PATCH 2/2] xen/grant-table: Use unpopulated DMAable pages
+ instead of real RAM ones
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>
+References: <1652810658-27810-1-git-send-email-olekstysh@gmail.com>
+ <1652810658-27810-3-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.22.394.2206031348230.2783803@ubuntu-linux-20-04-desktop>
+ <7f886dfb-2b42-bc70-d55f-14ecd8144e3e@gmail.com>
+ <alpine.DEB.2.22.394.2206101644210.756493@ubuntu-linux-20-04-desktop>
+ <1266f8cb-bbd6-d952-3108-89665ce76fec@gmail.com>
+ <alpine.DEB.2.22.394.2206141748150.1837490@ubuntu-linux-20-04-desktop>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <21798651-1254-0c17-5379-224b52a92566@gmail.com>
-Date: Wed, 15 Jun 2022 19:32:54 +0300
+Message-ID: <9f1e4568-1cfd-e967-e54c-735bad1ea211@gmail.com>
+Date: Wed, 15 Jun 2022 19:40:04 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <YqnrerEAFXJUCRL1@perard.uk.xensource.com>
+In-Reply-To: <alpine.DEB.2.22.394.2206141748150.1837490@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 
 
-On 15.06.22 17:23, Anthony PERARD wrote:
+On 15.06.22 03:51, Stefano Stabellini wrote:
 
-Hello Anthony
+Hello Stefano
 
-> On Mon, Jun 13, 2022 at 09:05:20PM +0300, Oleksandr Tyshchenko wrote:
->> diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
->> index a5ca778..673b0d6 100644
->> --- a/tools/libs/light/libxl_disk.c
->> +++ b/tools/libs/light/libxl_disk.c
->> @@ -575,6 +660,41 @@ cleanup:
->>       return rc;
->>   }
->>   
->> +static int libxl__device_disk_get_path(libxl__gc *gc, uint32_t domid,
->> +                                       char **path)
->> +{
->> +    const char *xen_dir, *virtio_dir;
->> +    char *xen_path, *virtio_path;
->> +    int rc;
+> On Tue, 14 Jun 2022, Oleksandr wrote:
+>> On 11.06.22 02:55, Stefano Stabellini wrote:
+>>
+>> Hello Stefano
+>>
+>>> On Thu, 9 Jun 2022, Oleksandr wrote:
+>>>> On 04.06.22 00:19, Stefano Stabellini wrote:
+>>>> Hello Stefano
+>>>>
+>>>> Thank you for having a look and sorry for the late response.
+>>>>
+>>>>> On Tue, 17 May 2022, Oleksandr Tyshchenko wrote:
+>>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>>
+>>>>>> Depends on CONFIG_XEN_UNPOPULATED_ALLOC. If enabled then unpopulated
+>>>>>> DMAable (contiguous) pages will be allocated for grant mapping into
+>>>>>> instead of ballooning out real RAM pages.
+>>>>>>
+>>>>>> TODO: Fallback to real RAM pages if xen_alloc_unpopulated_dma_pages()
+>>>>>> fails.
+>>>>>>
+>>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>> ---
+>>>>>>     drivers/xen/grant-table.c | 27 +++++++++++++++++++++++++++
+>>>>>>     1 file changed, 27 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+>>>>>> index 8ccccac..2bb4392 100644
+>>>>>> --- a/drivers/xen/grant-table.c
+>>>>>> +++ b/drivers/xen/grant-table.c
+>>>>>> @@ -864,6 +864,25 @@ EXPORT_SYMBOL_GPL(gnttab_free_pages);
+>>>>>>      */
+>>>>>>     int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
+>>>>>>     {
+>>>>>> +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+>>>>>> +	int ret;
+>>>>> This is an alternative implementation of the same function.
+>>>> Currently, yes.
+>>>>
+>>>>
+>>>>>     If we are
+>>>>> going to use #ifdef, then I would #ifdef the entire function, rather
+>>>>> than just the body. Otherwise within the function body we can use
+>>>>> IS_ENABLED.
+>>>> Good point. Note, there is one missing thing in current patch which is
+>>>> described in TODO.
+>>>>
+>>>> "Fallback to real RAM pages if xen_alloc_unpopulated_dma_pages() fails."
+>>>> So I
+>>>> will likely use IS_ENABLED within the function body.
+>>>>
+>>>> If CONFIG_XEN_UNPOPULATED_ALLOC is enabled then gnttab_dma_alloc_pages()
+>>>> will
+>>>> try to call xen_alloc_unpopulated_dma_pages() the first and if fails then
+>>>> fallback to allocate RAM pages and balloon them out.
+>>>>
+>>>> One moment is not entirely clear to me. If we use fallback in
+>>>> gnttab_dma_alloc_pages() then we must use fallback in
+>>>> gnttab_dma_free_pages()
+>>>> as well, we cannot use xen_free_unpopulated_dma_pages() for real RAM
+>>>> pages.
+>>>> The question is how to pass this information to the
+>>>> gnttab_dma_free_pages()?
+>>>> The first idea which comes to mind is to add a flag to struct
+>>>> gnttab_dma_alloc_args...
+>>>    You can check if the page is within the mhp_range range or part of
+>>> iomem_resource? If not, you can free it as a normal page.
+>>>
+>>> If we do this, then the fallback is better implemented in
+>>> unpopulated-alloc.c because that is the one that is aware about
+>>> page addresses.
+>>
+>> I got your idea and agree this can work technically. Or if we finally decide
+>> to use the second option (use "dma_pool" for all) in the first patch
+>> "[RFC PATCH 1/2] xen/unpopulated-alloc: Introduce helpers for DMA allocations"
+>> then we will likely be able to check whether a page in question
+>> is within a "dma_pool" using gen_pool_has_addr().
+>>
+>> I am still wondering, can we avoid the fallback implementation in
+>> unpopulated-alloc.c.
+>> Because for that purpose we will need to pull more code into
+>> unpopulated-alloc.c (to be more precise, almost everything which
+>> gnttab_dma_free_pages() already has except gnttab_pages_clear_private()) and
+>> pass more arguments to xen_free_unpopulated_dma_pages(). Also I might mistake,
+>> but having a fallback split between grant-table.c (to allocate RAM pages in
+>> gnttab_dma_alloc_pages()) and unpopulated-alloc.c (to free RAM pages in
+>> xen_free_unpopulated_dma_pages()) would look a bit weird.
+>>
+>> I see two possible options for the fallback implementation in grant-table.c:
+>> 1. (less preferable) by introducing new flag in struct gnttab_dma_alloc_args
+>> 2. (more preferable) by guessing unpopulated (non real RAM) page using
+>> is_zone_device_page(), etc
+>>
+>>
+>> For example, with the second option the resulting code will look quite simple
+>> (only build tested):
+>>
+>> diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+>> index 738029d..3bda71f 100644
+>> --- a/drivers/xen/grant-table.c
+>> +++ b/drivers/xen/grant-table.c
+>> @@ -1047,6 +1047,23 @@ int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args
+>> *args)
+>>          size_t size;
+>>          int i, ret;
+>>
+>> +       if (IS_ENABLED(CONFIG_XEN_UNPOPULATED_ALLOC)) {
+>> +               ret = xen_alloc_unpopulated_dma_pages(args->dev,
+>> args->nr_pages,
+>> +                               args->pages);
+>> +               if (ret < 0)
+>> +                       goto fallback;
 >> +
->> +    /* default path */
->> +    xen_path = GCSPRINTF("%s/device/%s",
->> +                         libxl__xs_libxl_path(gc, domid),
->> +                         libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VBD));
+>> +               ret = gnttab_pages_set_private(args->nr_pages, args->pages);
+>> +               if (ret < 0)
+>> +                       goto fail;
 >> +
->> +    rc = libxl__xs_read_checked(gc, XBT_NULL, xen_path, &xen_dir);
->> +    if (rc)
->> +        return rc;
+>> +               args->vaddr = page_to_virt(args->pages[0]);
+>> +               args->dev_bus_addr = page_to_phys(args->pages[0]);
 >> +
->> +    virtio_path = GCSPRINTF("%s/device/%s",
->> +                            libxl__xs_libxl_path(gc, domid),
->> +                            libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VIRTIO_DISK));
+>> +               return ret;
+>> +       }
 >> +
->> +    rc = libxl__xs_read_checked(gc, XBT_NULL, virtio_path, &virtio_dir);
->> +    if (rc)
->> +        return rc;
+>> +fallback:
+>>          size = args->nr_pages << PAGE_SHIFT;
+>>          if (args->coherent)
+>>                  args->vaddr = dma_alloc_coherent(args->dev, size,
+>> @@ -1103,6 +1120,12 @@ int gnttab_dma_free_pages(struct gnttab_dma_alloc_args
+>> *args)
+>>
+>>          gnttab_pages_clear_private(args->nr_pages, args->pages);
+>>
+>> +       if (IS_ENABLED(CONFIG_XEN_UNPOPULATED_ALLOC) &&
+>> +                       is_zone_device_page(args->pages[0])) {
+>> +               xen_free_unpopulated_dma_pages(args->dev, args->nr_pages,
+>> args->pages);
+>> +               return 0;
+>> +       }
 >> +
->> +    if (xen_dir && virtio_dir) {
->> +        LOGD(ERROR, domid, "Invalid configuration, both xen and virtio paths are present");
->> +        return ERROR_INVAL;
->> +    } else if (virtio_dir)
->> +        *path = virtio_path;
->> +    else
->> +        *path = xen_path;
-> Small coding style issue, could you use blocks {} on all part of the
-> if...else, since you are using them on one of the block? This is
-> described in tools/libs/light/CODING_STYLE (5. Block structure).
+>>          for (i = 0; i < args->nr_pages; i++)
+>>                  args->frames[i] = page_to_xen_pfn(args->pages[i]);
+>>
+>>
+>> What do you think?
+>   
+> I have another idea. Why don't we introduce a function implemented in
+> drivers/xen/unpopulated-alloc.c called is_xen_unpopulated_page() and
+> call it from here? is_xen_unpopulated_page can be implemented by using
+> gen_pool_has_addr.
 
-yes, will do
-
-
->
->> diff --git a/tools/xl/xl_block.c b/tools/xl/xl_block.c
->> index 70eed43..f2b0ff5 100644
->> --- a/tools/xl/xl_block.c
->> +++ b/tools/xl/xl_block.c
->> @@ -50,6 +50,11 @@ int main_blockattach(int argc, char **argv)
->>           return 0;
->>       }
->>   
->> +    if (disk.specification != LIBXL_DISK_SPECIFICATION_XEN) {
->> +        fprintf(stderr, "block-attach is only supported for specification xen\n");
-> This check prevents a previously working `block-attach` command line
-> from working.
->
->      # xl -Tvvv block-attach 0 /dev/vg/guest_disk,raw,hda
->      block-attach is only supported for specification xen
->
-> At least, that works by adding ",specification=xen", but it should work
-> without it as "xen" is the default (from the man page).
-
-yes, you are right. thank you for pointing this out.
+I like the idea, will do
 
 
->
-> Maybe the check is done too soon, or maybe a better place to do it would
-> be in libxl.
->
-> libxl__device_disk_setdefault() is called much later, while executing
-> libxl_device_disk_add(), so `xl` can't use the default been done there
-> to "disk.specification".
-
-I got it.
-
-
->
-> `xl block-attach` calls libxl_device_disk_add() which I think is only
-> called for hotplug of disk. If I recall correctly, libxl__add_disks() is
-> called instead at guest creation. So maybe it is possible to do
-> something in libxl_device_disk_add(), but that a function defined by a
-> macro, and the macro is using the same libxl__device_disk_add() that
-> libxl_device_disk_add(). On the other hand, there is a "hotplug"
-> parameter to libxl__device_disk_setdefault(), maybe that could be use?
-
-Thank you for digging into the details here.
-
-If I understood correctly your suggestion we simply can drop checks in 
-main_blockattach() (and likely main_blockdetach() ?) and add it to 
-libxl__device_disk_setdefault().
-
-
-diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
-index 9e82adb..96ace09 100644
---- a/tools/libs/light/libxl_disk.c
-+++ b/tools/libs/light/libxl_disk.c
-@@ -182,6 +182,11 @@ static int libxl__device_disk_setdefault(libxl__gc 
-*gc, uint32_t domid,
-          disk->transport = LIBXL_DISK_TRANSPORT_MMIO;
-      }
-
-+    if (hotplug && disk->specification != LIBXL_DISK_SPECIFICATION_XEN) {
-+        LOGD(ERROR, domid, "Hotplug is only supported for specification 
-xen");
-+        return ERROR_FAIL;
-+    }
-+
-      /* Force Qdisk backend for CDROM devices of guests with a device 
-model. */
-      if (disk->is_cdrom != 0 &&
-          libxl__domain_type(gc, domid) == LIBXL_DOMAIN_TYPE_HVM) {
-
-
-Is my understanding correct?
-
-
-I have checked, it works:
-
-root@generic-armv8-xt-dom0:~# xl block-attach DomU /dev/loop0,raw,xvda3
-[  762.062874] xen-blkback: backend/vbd/3/51715: using 4 queues, 
-protocol 1 (arm-abi)
-
-
-root@generic-armv8-xt-dom0:~# xl block-attach DomU 
-/dev/loop0,raw,xvda3,specification=virtio
-libxl: error: libxl_disk.c:186:libxl__device_disk_setdefault: Domain 
-3:Hotplug is only supported for specification xen
-libxl: error: libxl_device.c:1468:device_addrm_aocomplete: unable to add 
-device
-
->
->
-> Cheers,
->
 -- 
 Regards,
 
