@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB22554C8BE
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 14:42:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.350089.576312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A51954C93E
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 14:54:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.350097.576323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1SKl-0005ka-9f; Wed, 15 Jun 2022 12:41:19 +0000
+	id 1o1SX0-0007Vz-DO; Wed, 15 Jun 2022 12:53:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 350089.576312; Wed, 15 Jun 2022 12:41:19 +0000
+Received: by outflank-mailman (output) from mailman id 350097.576323; Wed, 15 Jun 2022 12:53:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1SKl-0005iM-6w; Wed, 15 Jun 2022 12:41:19 +0000
-Received: by outflank-mailman (input) for mailman id 350089;
- Wed, 15 Jun 2022 12:41:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wv+x=WW=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1o1SKk-0005iG-4V
- for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 12:41:18 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 726cea9e-eca8-11ec-ab14-113154c10af9;
- Wed, 15 Jun 2022 14:41:16 +0200 (CEST)
-Received: by mail-lj1-x235.google.com with SMTP id m25so13093858lji.11
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jun 2022 05:41:16 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- z7-20020a056512370700b00478ee6a58c1sm1792986lfr.172.2022.06.15.05.41.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jun 2022 05:41:15 -0700 (PDT)
+	id 1o1SX0-0007Tg-Ag; Wed, 15 Jun 2022 12:53:58 +0000
+Received: by outflank-mailman (input) for mailman id 350097;
+ Wed, 15 Jun 2022 12:53:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5J6g=WW=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o1SWz-0007Ta-2y
+ for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 12:53:57 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 373cac93-ecaa-11ec-bd2c-47488cf2e6aa;
+ Wed, 15 Jun 2022 14:53:55 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6956C1F88E;
+ Wed, 15 Jun 2022 12:53:55 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3061913A35;
+ Wed, 15 Jun 2022 12:53:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id IB41CmPWqWLzFgAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 15 Jun 2022 12:53:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,137 +51,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 726cea9e-eca8-11ec-ab14-113154c10af9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=w6mEqtJ4r74TnNlMvfbdu8cIIS/gk/ZwzqlOU40cLcI=;
-        b=Ns/Yffi5uouREXNrVzUrM90jbm7q7a2tY0STxq349YuYuatUrOEBk8sVaJgw4JgFzo
-         m3glrH2cCTIhO6ZUxBDytyLucbRmwnxuO9OF73Okk2xJIwVPmcuL4eRsWi8GAG+rOt+X
-         wYsB+HoBLOQDXKB2n00M6RF/44SSgpydn90oAe70A3HAMQgn8YQJyddKkRRXY0yCwRms
-         Y/f7AztfyYwWlnyGBi1qNE7Vv6QWj60WshXfVFpzAP86iowhQknaTsfhLH+7k+OEiFHQ
-         HIDbzY4fr3FB5pNomH/QMszBG8vOl9G0YIULNPbZseUJicWUZkfH45XPqhCC5mrS411f
-         e+jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=w6mEqtJ4r74TnNlMvfbdu8cIIS/gk/ZwzqlOU40cLcI=;
-        b=Xe/dBP2ajH5hmVuNnrq1cncvoDIf6kiiQ0kFGoN1lktlePTu6ULVMK9OscaftRjG0f
-         gYz47QQNOOcpg2cRn2zbXlqLST2xqmQWuPoruZdCNBVDPpvAtjSSC2VYB2BZ8yFDDW49
-         lqgc8wO5aCzvEpYlOJwYBO1zQNQGxWR9W3Q6ljmlcnrUNTPRH66rc/cm4sm+Gz/A69oW
-         epB0muEmIOYRNLkyxHBGkkCka03Z2wGvqHJILlht8NAswj04xTzIlgSXu3Qi/okBvKe3
-         Omrc2F0avH7k2sR2w5Z1nPOGi5pIMfT7aIN3WJX1wHcPoSs+paso4683kDVe1lCs2FPm
-         mINw==
-X-Gm-Message-State: AJIora/1M1HR/H/KiZgc6VaQEgmXY19IvxiP5+ryGWH6fR+qFnVXuncu
-	qPaP6wKkQ2oGoNXqkx7TlPc=
-X-Google-Smtp-Source: AGRyM1vMQ3DAgxFkhCIcxZL1gvzuqNwRkvB4KnPM+GPQG7YK1lhJpUD9P+MxaOzfLYZ1FVgmhRljvw==
-X-Received: by 2002:a05:651c:981:b0:253:b87e:ba6c with SMTP id b1-20020a05651c098100b00253b87eba6cmr5354225ljq.530.1655296875504;
-        Wed, 15 Jun 2022 05:41:15 -0700 (PDT)
-Subject: Re: [PATCH V4 0/8] virtio: Solution to restrict memory access under
- Xen using xen-grant DMA-mapping layer
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: xen-devel@lists.xenproject.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- virtualization@lists.linux-foundation.org, x86@kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Christoph Hellwig
- <hch@infradead.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Henry Wang <Henry.Wang@arm.com>, Kaly Xin <Kaly.Xin@arm.com>,
- Jiamei Xie <Jiamei.Xie@arm.com>, =?UTF-8?Q?Alex_Benn=c3=a9e?=
- <alex.bennee@linaro.org>, Vincent Guittot <vincent.guittot@linaro.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <1654197833-25362-1-git-send-email-olekstysh@gmail.com>
- <CAOh2x=kxpdisV+tqcYOoZGSKA8YjPMej+7u19Jpa1jmVcZCaxA@mail.gmail.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <52b1389b-348d-2433-f80c-fab22194dac2@gmail.com>
-Date: Wed, 15 Jun 2022 15:41:13 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 373cac93-ecaa-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1655297635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PLZICg7uteGrNkus+TkltCr/ZYre6VfA0dO/FQY4hBw=;
+	b=p+YUDTvyU1YaKkaZw0bO9m/mkJG6yTT5UQ8s2qYt7VfrHo5y0N6yJd5AlmCyxpCFa5W0ki
+	zztrz/qRxcccaMvVVuTlgx8PZZ/Bi8HnqZjITC2X5UCQ//IeXslo6hT2R/T3SQ91CnH4lM
+	15mWzbHHC1chKY4HQubgTCBa5gsTJ1s=
+Message-ID: <ab0653bc-7728-e24c-5d83-78cee135528c@suse.com>
+Date: Wed, 15 Jun 2022 14:53:54 +0200
 MIME-Version: 1.0
-In-Reply-To: <CAOh2x=kxpdisV+tqcYOoZGSKA8YjPMej+7u19Jpa1jmVcZCaxA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
 Content-Language: en-US
+To: Christoph Hellwig <hch@infradead.org>
+Cc: xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <20220615084835.27113-1-jgross@suse.com>
+ <YqnBZhiLOHnoalbC@infradead.org>
+ <9b9785f5-085b-0882-177f-d8418c366beb@suse.com>
+ <YqnCZ+EKZeZ5AEnr@infradead.org>
+ <c5a521e0-26b1-b1d6-7f7d-00aa9b4b1e0e@suse.com>
+ <YqnIWCXxsGzkfQp7@infradead.org>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] xen: don't require virtio with grants for non-PV guests
+In-Reply-To: <YqnIWCXxsGzkfQp7@infradead.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------bCUY8BhvhKPVYA0Vkiaf5GOk"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------bCUY8BhvhKPVYA0Vkiaf5GOk
+Content-Type: multipart/mixed; boundary="------------bJYoAtcPkRBUuSODuR5n1ait";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Message-ID: <ab0653bc-7728-e24c-5d83-78cee135528c@suse.com>
+Subject: Re: [PATCH] xen: don't require virtio with grants for non-PV guests
+References: <20220615084835.27113-1-jgross@suse.com>
+ <YqnBZhiLOHnoalbC@infradead.org>
+ <9b9785f5-085b-0882-177f-d8418c366beb@suse.com>
+ <YqnCZ+EKZeZ5AEnr@infradead.org>
+ <c5a521e0-26b1-b1d6-7f7d-00aa9b4b1e0e@suse.com>
+ <YqnIWCXxsGzkfQp7@infradead.org>
+In-Reply-To: <YqnIWCXxsGzkfQp7@infradead.org>
 
-On 15.06.22 09:23, Viresh Kumar wrote:
-> Hi Oleksandr,
+--------------bJYoAtcPkRBUuSODuR5n1ait
+Content-Type: multipart/mixed; boundary="------------kckpb9DKnPpfXEBq0EuR6m7l"
 
+--------------kckpb9DKnPpfXEBq0EuR6m7l
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Hello Viresh
+T24gMTUuMDYuMjIgMTM6NTQsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOg0KPiBPbiBXZWQs
+IEp1biAxNSwgMjAyMiBhdCAwMTozOTowMVBNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3Rl
+Og0KPj4gTm8sIGl0IGRvZXNuJ3QuIEknbSB3b3JraW5nIG9uIGEgcWVtdSBwYXRjaCBzZXJp
+ZXMgZW5hYmxpbmcgdGhlIHFlbXUNCj4+IGJhc2VkIGJhY2tlbmRzIHRvIHN1cHBvcnQgZ3Jh
+bnRzIHdpdGggdmlydGlvLiBUaGUgY29kZSBpcyB3b3JraW5nIGZpbmUNCj4+IG9uIHg4Niwg
+dG9vIChhcGFydCBmcm9tIHRoZSBmYWN0IHRoYXQgdGhlIGJhY2tlbmRzIGFyZW4ndCByZWFk
+eSB5ZXQpLg0KPiANCj4gVGhlIGNvZGUgcmlnaHQgbm93IGluIG1haW5saW5lIG9ubHkgZXZl
+ciBzZXRzIHRoZSBvcHMgZm9yIERNQS4gIFNvDQo+IEkgY2FuJ3Qgc2VlIGhvdyB5b3UgY291
+bGQgbWFrZSBpdCB3b3JrLg0KDQpBaCwgeW91IGFyZSByaWdodC4gSSB3YXMgdXNpbmcgYSBn
+dWVzdCB3aXRoIGFuIG9sZGVyIHZlcnNpb24gb2YgdGhlIHNlcmllcy4NClNvcnJ5IGZvciB0
+aGUgbm9pc2UuDQoNCg0KSnVlcmdlbg0K
+--------------kckpb9DKnPpfXEBq0EuR6m7l
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
->
-> On Mon, Jun 6, 2022 at 10:16 AM Oleksandr Tyshchenko
-> <olekstysh@gmail.com> wrote:
->> The high level idea is to create new Xen’s grant table based DMA-mapping layer for the guest Linux whose main
->> purpose is to provide a special 64-bit DMA address which is formed by using the grant reference (for a page
->> to be shared with the backend) with offset and setting the highest address bit (this is for the backend to
->> be able to distinguish grant ref based DMA address from normal GPA). For this to work we need the ability
->> to allocate contiguous (consecutive) grant references for multi-page allocations. And the backend then needs
->> to offer VIRTIO_F_ACCESS_PLATFORM and VIRTIO_F_VERSION_1 feature bits (it must support virtio-mmio modern
->> transport for 64-bit addresses in the virtqueue).
-> I was trying your series, from Linus's tree now and started seeing
-> boot failures,
-> failed to mount rootfs. And the reason probably is these messages:
->
-> [ 1.222498] virtio_scsi virtio1: device must provide VIRTIO_F_ACCESS_PLATFORM
-> [ 1.316334] virtio_net virtio0: device must provide VIRTIO_F_ACCESS_PLATFORM
->
-> I understand from your email that the backends need to offer
-> VIRTIO_F_ACCESS_PLATFORM flag now, but should this requirement be a
-> bit soft ? I mean shouldn't we allow both types of backends to run with the same
-> kernel, ones that offer this feature and others that don't ? The ones that don't
-> offer the feature, should continue to work like they used to, i.e.
-> without the restricted
-> memory access feature.
-> I am testing Xen currently with help of Qemu  over my x86 desktop and
-> these backends
-> (scsi and net) are part of QEMU itself I think, and I don't really
-> want to go and make the
-> change there.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------kckpb9DKnPpfXEBq0EuR6m7l--
 
-Thank you for testing on x86.
+--------------bJYoAtcPkRBUuSODuR5n1ait--
 
+--------------bCUY8BhvhKPVYA0Vkiaf5GOk
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-I assume your guest type in HVM. Within current series the 
-PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS is set for *all* type of Xen 
-guests if CONFIG_XEN_VIRTIO is enabled.
+-----BEGIN PGP SIGNATURE-----
 
-I have to admit that from the very beginning it could be possible to 
-configure for PV and HVM guests separately [1] because the usage of 
-grant mappings for virtio is mandatory for paravirtualized guest, but 
-not strictly necessary for the fully virtualized guests (if the backends 
-are in Dom0). But it was decided to drop these extra options (including 
-XEN_HVM_VIRTIO_GRANT) and leave only single one CONFIG_XEN_VIRTIO.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKp1mIFAwAAAAAACgkQsN6d1ii/Ey+J
+FAgAhuZtO01u/6KCQl0hcc36qfENJd+p4klPGlJisL+gbDez8fKGAGOGaXpG8HpoaLmbevtFLh5V
+m3czisUFvhjMNlW4if4JtMNMCAtopicTLUCzGEjDdA9fzPv4/e7jNoXj4/XibNeJE9Cc5+W5Z5HV
+CX4j6vTmMgdpDOBHdaDlfXQc8sdib6dHqUbnmEqKQzXXj65ihWbIPuzZ5k7PNkB8opNuBWAX64m4
+I9PIggUJvEVBxWcNP+Tu7diz5AKOvoBjZopkfv/PSQQJ0YvXldKtLp+nL5BABw2yCb8Ey8JdJ+1J
+TRoUWqYc8PNe3H8pkmjOigIIvieWWHSsJIOtr9XRxg==
+=lckF
+-----END PGP SIGNATURE-----
 
-I see that Juergen has already pushed a fix.
-
-Sorry for the inconvenience.
-
-
-
-[1] 
-https://lore.kernel.org/xen-devel/1649963973-22879-3-git-send-email-olekstysh@gmail.com/
-
-
->
-> Thanks.
->
-> --
-> Viresh
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+--------------bCUY8BhvhKPVYA0Vkiaf5GOk--
 
