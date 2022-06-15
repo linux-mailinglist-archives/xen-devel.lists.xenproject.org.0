@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6037554C53C
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 11:59:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349813.575979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B579754C540
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 11:59:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349816.575991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1Pnb-0001Vh-Rh; Wed, 15 Jun 2022 09:58:55 +0000
+	id 1o1Po0-00022Y-DB; Wed, 15 Jun 2022 09:59:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349813.575979; Wed, 15 Jun 2022 09:58:55 +0000
+Received: by outflank-mailman (output) from mailman id 349816.575991; Wed, 15 Jun 2022 09:59:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1Pnb-0001Tb-OQ; Wed, 15 Jun 2022 09:58:55 +0000
-Received: by outflank-mailman (input) for mailman id 349813;
- Wed, 15 Jun 2022 09:58:55 +0000
+	id 1o1Po0-0001zA-9M; Wed, 15 Jun 2022 09:59:20 +0000
+Received: by outflank-mailman (input) for mailman id 349816;
+ Wed, 15 Jun 2022 09:59:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=56zs=WW=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o1Pna-0001TN-NN
- for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 09:58:55 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2060c.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::60c])
+ id 1o1Pnx-0001TN-RP
+ for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 09:59:18 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20619.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::619])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1daba6b-ec91-11ec-ab14-113154c10af9;
- Wed, 15 Jun 2022 11:58:51 +0200 (CEST)
+ id d0b07690-ec91-11ec-ab14-113154c10af9;
+ Wed, 15 Jun 2022 11:59:16 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB7PR04MB4298.eurprd04.prod.outlook.com (2603:10a6:5:17::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Wed, 15 Jun
- 2022 09:58:47 +0000
+ by AM9PR04MB8922.eurprd04.prod.outlook.com (2603:10a6:20b:409::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.22; Wed, 15 Jun
+ 2022 09:59:14 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5332.020; Wed, 15 Jun 2022
- 09:58:47 +0000
+ 09:59:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,28 +47,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1daba6b-ec91-11ec-ab14-113154c10af9
+X-Inumbo-ID: d0b07690-ec91-11ec-ab14-113154c10af9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WExqJqpMkVjwnRekNtmxgtQxc9xNnxHCGT/yXmNYP5sqIHiAldW9dg7yEKQEJRJ3dtqs3vMTPKmIIqfUxm+hVaMd/Xm1hfh/d3pYhfO5DyLkuE/Y56CYfx75t1r+9C7kvfFiqqvuewmbeVIxlPwoTJm4nb2ANApGF6yj5VjvgpWzzy8pM/TVUMpWwrqwpaf6Gjw4Pjo0fQmekX2jjU2rQFG9nVUEFm8F3K2kkPeQ+xT3CKGIRvqxL3YArrY3dWvHYiRgoDMQm2Pww5NhAOhwb/04bTxuLB3cbdrFANRtiiEhzMyXm1aKnxSqzQ5VeDYyDGxzW1HMKN1HelNTTK+TgA==
+ b=AGSnWntplEyz5VbWQ8crUJaYqdsFeDyBB+LTfkwwyOvpL5xWytyALWkNNzFvR6GLkgyQ5+UvNe4FDhmZR5SkonqKjA0FRpuYVkb2018l5qfJlwDtXxSPFGmxxdovSz6+YUkLBTTAeiabGb8kHxLvilF0041FkQmIFLl0bMkwFF9J4hnyszue2ei8wLCGNVgjDIy4aFF2ZqpM/nMw8ReGJ68bN4k9wLUcWI5qBja8mgYAyifQadYAi5RLdYTiClTbLTao8zjQFfqGzsgtKuALHl5w1bjDJOuMJHiIC5nltk7hyqpuncxyDcWoLmMxYRHNtPStKXchYfe2GWHMpIvOAg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WI43HshyVfkehmcEm8x8RCVyx8U9QvkUor1Lh6s7XuE=;
- b=f3MuB7Oomhlddy/cNCMSO+aFhzG1/nOakmGEl+rGs8p7OjAFH1BuVpICuyNZ4vnW587rJmurw4tnYPgXUMCL3hUk8mWrJOEtkSBANll+5uyCVpn0IYqPM9Zoz3cASe3KVVcvZDnfQjq42BQd78TXhek720+bnHkw/gDq0wkUIgoW6WUdTeXKqh4JiXRJoewrnJjkjLmc2QkGybrPyoZDDw1QiheD2AdGETa+7/N25k6MNTVkMh/re8MwGh10r7s79ZPjINp5v1NNzfCVP1WPB80sU0+Sr49/Fj8SfoK524qqQo6BPdPx+pHnXXVkwZkiCg7LOdqr15zVqPcmR+KWLg==
+ bh=5ToDF/3dheRx2o50QmgkQ6+WXvu2iMMOjScLXSCyS8s=;
+ b=AFmu0OiwQguPP+1euH3FdZ9g/taOh46d5hSamVDA/lPhs6F9jxRhXildlmc+ipIirNeMOAiog3j0/GuwOyKwNVjPMaOshOlWi0FPE8DPaLSe73jTI2D13QMkArQ9++c3kha5SyJ2ADpiQjabb25OqLQ3t21DViEYYVmNZZPJv84+JQHbLB8XTpLlNW3NrvTfSzX5fPhz9gvpbT3rAjSOAmrciBNo37+19aKzCywxPTUpI0LdMC6fjsJguaI0urTeVzTZJzmHRqxI2QQE4D/NeE5lAFkXdLz47ER5IBP93JPgbaqSTE68IK9JTuXHYgiDwyQtz6SwXGo9vNretFHQcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WI43HshyVfkehmcEm8x8RCVyx8U9QvkUor1Lh6s7XuE=;
- b=bZPK/3jF+HPnTMrF4SHqFWFTzK5wf6xhj1ewBSnWvFkFlIWJth6x7kH9FO73owFMy5stLUu4FWA6QZFlpdUhGdQgUgDSC6UDO6V0VZTcKPjaLzhrumdO1ltUvl5pP3qFQX2v8EwosDvUyZYzyWUNqi/VixZWx7ZBAevogMesf8t5bOkkV24BF6Ab/k4n7hz8AImuEYP/fOoFyxVwSrguGbiS5icbSfPmLoyQkqr+hgv2ROQvE/8R3JekBZk0r3A57+hQpy9ZAJJ0HJNi1N1PsZDJunssSK3IVO2/VpbPK/q2FfbISdMjsVlwHx6GlCE6DGIZEyVqoGRnF5WbQ3eGCg==
+ bh=5ToDF/3dheRx2o50QmgkQ6+WXvu2iMMOjScLXSCyS8s=;
+ b=T4uIjw7KWCkBfZ1ZIjGzs+qeH/YXnL3nyofrYoQj8sx3CQp/D24NrRMu62uV83r3K+Px8spZkzDk1KgsfB1/j5Q262/s6z0W7Ns9eItNU7mZr3+kfxfiXEdUCkkyg9uXycZDnxaq1vCuA/ai8ClQgqvEDRNX7uf/skGvLGWEuHDeyqKf9CDlTVxTkrhu6vBIN4Qqm1+Eb2XOK0wl+3teuJddk7PitFXvxNdKDGOu9sCWMU7DzRxQlWgylZl9FePqF1CByuvpH9KDmhJO/QUrr4FLKN/bsIWT7YChJZDOUjlbNR9U/TjL3yhami1QsgGP/MamGDMceRpQGBaXEfdPaQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c8ecf582-2c1c-ca41-f289-b6a6a080061c@suse.com>
-Date: Wed, 15 Jun 2022 11:58:46 +0200
+Message-ID: <91dbe849-ea99-4134-4cda-55f23a801055@suse.com>
+Date: Wed, 15 Jun 2022 11:59:12 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Subject: [PATCH v2 1/8] x86emul: split off opcode 0f01 handling
+Subject: [PATCH v2 2/8] x86emul: split off opcode 0fae handling
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -78,74 +78,74 @@ References: <7f5287ad-8442-6c53-d513-f9a8345c4857@suse.com>
 In-Reply-To: <7f5287ad-8442-6c53-d513-f9a8345c4857@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0183.eurprd04.prod.outlook.com
- (2603:10a6:20b:2f3::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR06CA0249.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45f::22) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ffd05215-d701-4374-0e86-08da4eb5a422
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4298:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e010640-0f4c-4e02-7738-08da4eb5b3c2
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8922:EE_
 X-Microsoft-Antispam-PRVS:
-	<DB7PR04MB42984947B9D8E2302668E3FFB3AD9@DB7PR04MB4298.eurprd04.prod.outlook.com>
+	<AM9PR04MB8922EC901A2B5DC732026969B3AD9@AM9PR04MB8922.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	X05yqCfysAVJXKv0RphYsIp/w54+m+urqrCIcLXj44tCZbzuIyRtoJDP3dMEenBvG/NjXb6KqX4LvXI9cDsKeev/IRuamD2YkqTejrwaaN0QJfipnTZco3/uSs50/b7kcK35RW8omlf7GHmW3Vk8Ul/KaxeUjo+ggTwwK6sDqcn2A2oNNxlNXckkI6DPkYFHhG7OqMalxmN4ad8WsOOVXkTzhsDwRhCBGii7Ht/LSEiioMmaB+u57/AtOkIGaxaau8I+WAd1lLGbrnEwp4wae/2s43a3jZgKOmWesX1gCG76BiBk5pO4DrHerOIpt8uf0xfRij4F5eugVAZUV5V84LPBxwYM8c6Qlia51LqPnb25NX5W460kE2B8uiCQ0yn/v07ahXm1Zd1Cbj/lk/EH+Pymxw10kM3uRZa4v9mJNPxMLUDX58LMSEEFi+HOc8cGZ0fwsp1fJBBXS+O6e1OFYk48zreeE/CHSq7mKdvu1a/tbwg0qW2mSsqBQ5uB45gjxkEii9UsXezyp3L4RWo6pLEt/OlJqZcxeweDOpx0VtWAU7fGSzqGGhWviM9Wl6mHkJmk0CxEqahHT1cTnL3e3yAeg3763Gy2ng7XQem8U4ZcdOkF6xFi8NZFcQ+P68q+ltDh+b4NnoLXubp4k9qHz1++sfRhINlZRc2PHLgeFMCVMYau4K14x7TkbON5/v7fGLYktVlRD2KK+ym+MN9ogSINIuh9NYGTOIUaax95prUP2jmMUGEsno2emfxt0XmLxGC2NDIy5gDnPUBvda5kfBGx/0k5XFimJTPpQfImCLr+EKK6HS2Ti9MC6Gq24TiZt+clt8hqA4/36IYdf4b5Qw==
+	2ggE465PCl9ZR8Rh7i0HXMVYhi7VyJqdaJeK+DEhVycePGLUCXWjeDjtyh/Ulu4CTY+jPFbWYGzyhCLq/3DkuOS7M4LUuU/G1roksbNvjyTlMVvTH3O3z9lHNc9dIn25vCSzycxEqPdVlq9VxjJES2Yb1mbPZxldIBIgbQWyM+HHazrJg57oNKiFzPEJ/PREr6Jz2BY4sCkrD8E6utndj2ewV5E6V7Ii0fAPIhIFM18xs0StQRO+MdkyuD3XTnI6JUzCn/ZP1mv1nm5p0G4iHNYrw/HsoPK5cH/X1khIkUV07swy28W9ZmTVqJHcOpCkHBg0tGO7sHgaFLGNaHzir16cDHWM85vMnQGrkshVXW/HyI1XKM/rftrVv3OvUh1CzRMrh4D9/fJxJZpBxzrDZruromhhjmfXAmdZkVWrvCcbAe6/S9FuC1cjlYpVPRvm+XWsHhhRoKUYJzm8EyzsFaiwGx4Dc4WiPr13yaBGI2/fiozNwhQWdaexjd6oHa7tyXZqeYYHVDQycydGyBIggwMCCRHme3OmyrhJM91q2ngSjd0WwUKlPkW2Yl45uc6P2MxJczKNHRpRc2F6mNVqmgy3rIihAW2bdJ0vrx8aHo7CzYOtkNk41KCEbzZsL2t3cDEjHQ/uYN/d6Q0QVWJTwS+oCc2MDH7fnGkdcZfdX7vQ7Qo5Bu7EJ2GrkM7HolUepSMrFbJCXc9GP2jT2bdNkqj05PiQcJtJWLQf/uC7DjsBg4N3CkTtL/QmCs7kCel4YZdayl/ZirecX5mlowHyIXUrHknunoBUFTB/8rNqwkfJgEmCAA8jdp+hSStTRYT7SXvjmjYgug9UIenBC8FppQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(66574015)(36756003)(54906003)(31686004)(186003)(6916009)(30864003)(83380400001)(5660300002)(2906002)(316002)(6512007)(2616005)(66946007)(66476007)(66556008)(4326008)(8936002)(508600001)(8676002)(86362001)(31696002)(26005)(6486002)(6506007)(38100700002)(2004002)(45980500001)(43740500002)(579004)(559001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(83380400001)(186003)(2616005)(31686004)(36756003)(38100700002)(2906002)(6512007)(316002)(6486002)(5660300002)(86362001)(6506007)(66556008)(26005)(6916009)(508600001)(8676002)(66946007)(4326008)(8936002)(66476007)(31696002)(54906003)(30864003)(2004002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MXlKbG9jenZncEEyRTN6OHRKRENYWVlRMUlJd1hFT24vRnNQWjk4bXlHV2Zy?=
- =?utf-8?B?VzVlN1JDNHVlLzdnTU9Pc2FacXlQcEtuS3RBU2IwZDlzVXE2SWRvVkltUUtl?=
- =?utf-8?B?Qjg1VmZBWWJJRzBSTXZMbFZ5TjBNUjBBbmg3aExVNW4wSTZhNElQSk55blU1?=
- =?utf-8?B?Rk1PT2VRZ0ZBMEJ4UXBxYW9JYUxWTDdnTHlnQ2Mrc2tNQTdqMDIrZ1B3ZHJL?=
- =?utf-8?B?REpEMEc5UGI0Q0RNV3VQazhhS2c5cjVlVzRqdWpLd202TmQ1Sm5XRnQxMGNy?=
- =?utf-8?B?eFhoU21Fb3RjZWJldkdDOHp0YjBBbWpQaEtkRzVVRnBhcXV2bDNtREVNRnpr?=
- =?utf-8?B?SzlwNWNjMkhCQTlUb21pa21hcFcwL0prUXBicEwxOXZYaWljTnlMSmJlT0U5?=
- =?utf-8?B?MlI4WDRFWFVrM1FCcTNRWS93WS9oNEkzb2JFZmo0UDFtaXRtSzB5UVdtL1Fr?=
- =?utf-8?B?b3dLNi9MazZnSWJwNWdFTzBLSTVBWmxrNE9McjFYNlFPVGhIaTM2MjhSdEdZ?=
- =?utf-8?B?dEpsWnBSLzF0YURHeUl0ZlZ3Q3AwWmJ5SEpyZnFMR3pFUEw5UVJlZlowQjVP?=
- =?utf-8?B?OEhCRVZwS295b2V5YWhQVGsrVWgwc0d5MFFVUitvTURBdjBobUpRYVFORjZv?=
- =?utf-8?B?VzV5OVBqZWMvU1FiZkh0c05oSTB4TGtnQktzaGtPeTA2VXJTaUdnaDJicnNI?=
- =?utf-8?B?Z1NPUGZqaStOa2VCQkFyc0tqcWtUVHlsM0htY292OFVCQk1FYlpBTXV2NFUy?=
- =?utf-8?B?Z0lhRDJNTzFXaHprT1hiemNsYXpaZndKQWdBVnBYV1VZd09JQXBWd0huTUc0?=
- =?utf-8?B?MFBNOVRUWm1sa1JoOVFuWEloWjJZYW1vT1Y1UDR1VUNoKzdsODFQUXcxN01B?=
- =?utf-8?B?OG8xRmpsZXBhMmdoTW41UTg5U2RaRVErRWZnQXhpVUw3S3BRRzN6M2pkNWxn?=
- =?utf-8?B?UFhYRDQzWEpIcExpcFNVOVNXaUxEdGlENDI5VmhsNERmRzBxd0l3MUdSNDhk?=
- =?utf-8?B?Y04wZ1ZjY3R0T3FtSi9yNFltOXI3OXBoL1lFSnJ0M1JPNHRjQmtTenZsZHpS?=
- =?utf-8?B?MVZwTWd6TzI3R2hTNXl1anZxeTE5OVZHWXpScjFZckVZbGczWUwrZzBZb3pJ?=
- =?utf-8?B?d2dpZjhkU3piaGowRnBQT3ZWUk01T0VaOEtjRXlPYWVuQ0RPYUIwMDhuQmxO?=
- =?utf-8?B?QXErZGx0RklabzBWNTVySXJ6Rm5mRDNPMGZKaDZOdkttVDNhZ29rMFZ5dml6?=
- =?utf-8?B?UjJFQm15a3ZIZVlvbm5Hc21yZzZDSDZ6QitXRXpESEsxUjFjZkpNR0xIcW5T?=
- =?utf-8?B?L1kzQ1Ntbnc4bFk5SmcxWlhkREFIenZEWjNDQWU2MXNRRUdmL1cwbXJvZGZU?=
- =?utf-8?B?Y3NKU1crTzdyYlg4WEFSRFB6YkFpTWJRY3Z6aTBiYVhjSmNnMklBaTNFc2hx?=
- =?utf-8?B?QzlMTjhBc1RRT2ZUVXNaZGVsZWRKQXMrbHZMSTBIU3dCdXJBYnZJZzNRSUxE?=
- =?utf-8?B?ZGxXV3N1U2xVNXRpVlhESzR6djZTS2Rpb1FndDZEOEthL2tQbjA4RjkwZUNj?=
- =?utf-8?B?NlVTUUNobVQ5RUU3VGh0S3BuaFFjMVdDYTh1T25ZOTVYMGV3VlJybjFGdXQ3?=
- =?utf-8?B?elBYU0svY1luZ1prdEU0NHAyWms1UnNYN3R5MkxqSmpzOVY4cHdwWVo0eWo3?=
- =?utf-8?B?OUNJY3BHcWw0VWFWcE53V0FNZzJzRDJEcy9VZjZ2c1hTc09mV0xBS1dZb3hG?=
- =?utf-8?B?S3llOXVOS1EwZHRIVXZZS3p5Y0hhRGNZQ0dWenJyMUV1WUZDelNLTHF5Nk0z?=
- =?utf-8?B?NUlML2ZIZThXcDZYMnZFNk0rclZDWDE4Ti9RVklCVXphSHYyS3B6L3FxbDJo?=
- =?utf-8?B?TkxpNFNoajBaL0lKTlZrZmp0MUczT3FKMFRtSUUyY1BXSjBmRk5JZmJtYnMy?=
- =?utf-8?B?UkpUSzFUZmppWFN3b3F5NVFQVUpRaDlxUzlGSEluTW5WM2RmVTluUHBJS2Zn?=
- =?utf-8?B?YXErN3RtVUpKM056NXh6RjZOMVJWbzVUN3NFKzFTL0lwdTFLSGtabTFWdzR5?=
- =?utf-8?B?b0VVUVdJcVRMNXJKeGk5TzR5MnR5RVp2N2tEc0RlUXJ3QU52UjNubDlZUHBW?=
- =?utf-8?B?VVpPM2g4clkrTzIyd1UwRjV4QlYvZy90OGxpRFB2b2NZa3YvZERrTmRoS1Fx?=
- =?utf-8?B?OTRzRDJGOXVDQURnWlFSM3lqV2F1MFVqdEdTQ0NzZTBNQlYwSWN3aUFFcUhu?=
- =?utf-8?B?dVV3c3dvTVBUditVcTFtSE1vTnFiRndEQ0hhc2dBUW9VdFhzYTR1TjN3VU9V?=
- =?utf-8?B?eTNqa3FGQTArUk9mclgxamo3R2ovbXNKOFlpVTdySTcvUEI4dkt3QT09?=
+	=?utf-8?B?SkZJbFN2dzRUbk1uYmVMejUrbEY1aWhtNWxKWnJvS0RMOHZiMVo5TlUxWlRS?=
+ =?utf-8?B?Rm5WQmRIOE9DY1RPVkZwcGlHeTFDUlI3d0hhSmlYdVJkS1NxMlJicU1RWWRi?=
+ =?utf-8?B?TzR0ZEY3WGhxeDR1VGhOYmNydkhIcEV1eXJmOC9iY0ZaNWFSY0NLSGcyZ29a?=
+ =?utf-8?B?eDF4cUN6MkFEYUNTTzJ4bDJXNElBeHNlRzFWVDRDZTVvL3ZmSkQvZGpKSm9D?=
+ =?utf-8?B?LzRHRHZialRCNWZpaGJodmJZV1p2SFFQQXFJNDBqTE5wWi9NaFg0U2l0TEUv?=
+ =?utf-8?B?ZHB2bWYraWpFR2RFMlZMbFo4ZlNSWmpLZm8xU2EwZ1BPV2YwTW5YVEphbG5l?=
+ =?utf-8?B?UmJUSy9YS296QmdBRGttazV3aWRQa1RSdjVPK1poRFVYb3RGL09ER3NjSkhX?=
+ =?utf-8?B?eHJNNU95UXFvUFp4akFxYlhPMy9WSndqWndYSXNQRVg4ZFdSVElwY0RqRDdR?=
+ =?utf-8?B?dWNFOUc3d0Y4T0lkeEQ0WWN5bGZ1aUJXYkJubFhnZHZoL3J1WitJMXNCTlo1?=
+ =?utf-8?B?c0d6NUpYN3duYWF4T3JPM2lsd2s1ZE9hU3UzMG0ybXNrOFo5YkswZUdUSm42?=
+ =?utf-8?B?S1M3UHBGZjdlaHEremkxSzU3bjhLb2w0U1N0MWpBUzFLN0IwUVcvcTVuUTJL?=
+ =?utf-8?B?eWNDZWNhR0p5WXZoY28vZnJDTkdJSWVKMHFwTlBLdVRWYVFYWlREK1hGT3BE?=
+ =?utf-8?B?WGFBNmVvaDM0UThyK3BJaG1naDdEeUpqOGJXano3SmF6b3Erd3lid2MzNVhI?=
+ =?utf-8?B?RVVYcEF5Q1IrQ3hPNVJpa2RZV0V6NVZSWFd6dlRKZ2tKQmVDNW8yOGExamFa?=
+ =?utf-8?B?T0d3NDREeDg5SDBVNHUxbHArcmk3V002ZlR4eHNXSjF1UmVIejZqTE5RcjVP?=
+ =?utf-8?B?WnR6a3JKeCtJbzhSamx1SnNna1hOY3YyVTJTSGJRSWNDU1dZQmk1S3lHQ2dB?=
+ =?utf-8?B?MTFTVWZuemFrOGM5RWNIaE5TN1U2SXJRSGpsUVk2QUFLY2tSMTJ6SzBNQXov?=
+ =?utf-8?B?RGI0WlFFTTZ1KzQxU282KzJlZEd6QndYVzhCUG5qaDNzSzZrNFBmd2xSRmVL?=
+ =?utf-8?B?YnRGWkIyYk9UdE15WnRJa2dzRi9HSFlpRTFZL0ZqVGt0MGVHNmN3VVRDeGgx?=
+ =?utf-8?B?cjJEU2JDdFQ1WEltWUtMUm5CRjRoWmN5NHkweFRJdmtiQ0VCQklZeUx4bytX?=
+ =?utf-8?B?SS92MjJmbklQTHluMERxNXh6NXFUKy9pOEFtVFR3L2lac2k2bTVuZnBVS3RY?=
+ =?utf-8?B?YVZxUVkyd0E4M3EzV1hKRHRSL1ZjTGtWaFZJS05JbUlydXJwUUlYd1RVWVMx?=
+ =?utf-8?B?Ni9ONVE5dHB4NXNiU3ZXTERxUlJXRmF5YkJVOWQ2RHJnLzNlWS92UlJaa3ls?=
+ =?utf-8?B?S1FKN1FINUF4aG1aRVV4RVZTYSt2dXh1UUduUTd2K0R0R1JTQkZWdHBPSjhR?=
+ =?utf-8?B?N0Q0ODBJSmVITzc0YjBHY25icmFNZys1ZE1DTWJ2RWxpSWtTZkthVmRuS2Ja?=
+ =?utf-8?B?T3JpT21nV29ac3RkN1V5bUU4ajBrd3B5L3dwbVlMNWgyZEpmTGxIaEwrWmtQ?=
+ =?utf-8?B?Z0puTDBYS1lzMksyNm10NnQ2QndLV3BlZ0pmSUF0eVFZU3pXU3YzSWUrb1Fl?=
+ =?utf-8?B?ZHEwWVR3RERqSXA2NjhUYkMzRUVVdEdEMFJKcklMNUtEMkc5TC9iVGgvL204?=
+ =?utf-8?B?N212ajBiRXliRXE3ais4a2ZoL3kzdmsyaCtLUWFONVJLT1QyMXpFUTJ4RjJi?=
+ =?utf-8?B?VHNyYWJqY2xBK3kxQTQzT24vTmh0VFR1WXVYKzdBSEVUV3VzcjVqUjVOVEVy?=
+ =?utf-8?B?R0cxK29uaVdRWFppeUZqZ2hLbmZ5U05yQVdFK0JXYjNsTUpKeDhBem4wTnky?=
+ =?utf-8?B?V0tsUjV2VTBYQ29jRndrYXRsdWVhMm5aSElaYzluYk5JaExPdzkwMEhPY1ox?=
+ =?utf-8?B?SGZJbGU1Ly9nVitjZHZvbXZ2TVllZW1uRTZiWnd0dFByODlQblUrc2pvYmhh?=
+ =?utf-8?B?WDk2MmxsUzFhZWVOanhSYnFFR3U2T0JNR3p0YkYraExuTys4SW94Q1ZVcGw0?=
+ =?utf-8?B?anJXK1hHdXJSNEFUQUowNGc1K3NMcnVqQXNPcHJzL2VTbitmdUk4blpMNnQr?=
+ =?utf-8?B?bTFyL0kwTEdZeVJNeFFoY2NVRm9WRE50dk9QZGpoVjFqckg1NmFzWW1EallW?=
+ =?utf-8?B?MXpZKzJKRG50MThsVlZScDVtZFJxaE5XaWREcytzY3VnTS96UWRpZFFHanNy?=
+ =?utf-8?B?eDBoUVl5cGtDZUorWjhVZFhjNS9IVGQyRUFjMVZHdDcrQ2hkUDZ1RnRGbHg4?=
+ =?utf-8?B?bCtzUVFTd1QvZzlNNmc3OFFhRzEwVjRQN2llTzZIMEF4YlBkMzM2Zz09?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffd05215-d701-4374-0e86-08da4eb5a422
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e010640-0f4c-4e02-7738-08da4eb5b3c2
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2022 09:58:47.7963
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2022 09:59:13.9822
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ppR0wZv/kXfP4NqyU3x3rBKwicI1S0fKnJJAOb7B/Y2nkDT318rez2SEoEnkXkyZl1tEFAfS+gVDT1GWGrbMnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4298
+X-MS-Exchange-CrossTenant-UserPrincipalName: yYvNqjxtqcp1SHDEmi7zO6nNzdk9o2ZQE2hEJ7qPOVzRJWS5jFmUyfeSUd1+yc7ZY/QIQn7fcOv2YXTp7GVH+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8922
 
 There's a fair amount of sub-cases (with some yet to be implemented), so
 a separate function seems warranted.
@@ -155,185 +155,36 @@ by X86_EXC_* (such that EXC_* don't need to move as well; we want these
 to be phased out anyway).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Re-base.
 
 --- a/tools/fuzz/x86_instruction_emulator/Makefile
 +++ b/tools/fuzz/x86_instruction_emulator/Makefile
-@@ -11,10 +11,13 @@ endif
- # Add libx86 to the build
- vpath %.c $(XEN_ROOT)/xen/lib/x86
- 
-+.PHONY: x86_emulate
- x86_emulate:
--	[ -L $@ ] || ln -sf $(XEN_ROOT)/xen/arch/x86/$@
-+	mkdir -p $@
-+	ln -sf $(XEN_ROOT)/xen/arch/x86/$@/*.[ch] $@/
- 
--x86_emulate/%: x86_emulate ;
-+x86_emulate/%.c: x86_emulate ;
-+x86_emulate/%.h: x86_emulate ;
- 
- x86-emulate.c x86-emulate.h wrappers.c: %:
- 	[ -L $* ] || ln -sf $(XEN_ROOT)/tools/tests/x86_emulator/$*
-@@ -31,18 +34,27 @@ x86.h := $(addprefix $(XEN_ROOT)/tools/i
-                      cpuid.h cpuid-autogen.h)
+@@ -35,7 +35,7 @@ x86.h := $(addprefix $(XEN_ROOT)/tools/i
  x86_emulate.h := x86-emulate.h x86_emulate/x86_emulate.h $(x86.h)
  
-+OBJS := fuzz-emul.o x86-emulate.o
-+OBJS += x86_emulate/0f01.o
-+
+ OBJS := fuzz-emul.o x86-emulate.o
+-OBJS += x86_emulate/0f01.o
++OBJS += x86_emulate/0f01.o x86_emulate/0fae.o
+ 
  # x86-emulate.c will be implicit for both
--x86-emulate.o x86-emulate-cov.o: x86_emulate/x86_emulate.c $(x86_emulate.h)
-+x86-emulate.o x86-emulate-cov.o: x86_emulate/x86_emulate.c $(x86_emulate.h) x86_emulate/private.h
- 
- fuzz-emul.o fuzz-emulate-cov.o cpuid.o wrappers.o: $(x86_emulate.h)
- 
--x86-insn-fuzzer.a: fuzz-emul.o x86-emulate.o cpuid.o
-+$(filter x86_emulate/%.o,$(OBJS)): x86_emulate/%.o: x86_emulate/%.c x86_emulate/private.h $(x86_emulate.h)
-+	$(CC) $(CPPFLAGS) $(CFLAGS) $(CFLAGS_$*.o) -c -o $@ $< $(APPEND_CFLAGS)
-+
-+$(patsubst %.o,%-cov.o,$(filter x86_emulate/%.o,$(OBJS))): x86_emulate/%-cov.o: x86_emulate/%.c x86_emulate/private.h $(x86_emulate.h)
-+	$(CC) $(CPPFLAGS) $(CFLAGS) $(CFLAGS_$*.o) $(GCOV_FLAGS) -c -o $@ $< $(APPEND_CFLAGS)
-+
-+x86-insn-fuzzer.a: $(OBJS) cpuid.o
- 	$(AR) rc $@ $^
- 
--afl-harness: afl-harness.o fuzz-emul.o x86-emulate.o cpuid.o wrappers.o
-+afl-harness: afl-harness.o $(OBJS) cpuid.o wrappers.o
- 	$(CC) $(CFLAGS) $^ -o $@
- 
--afl-harness-cov: afl-harness-cov.o fuzz-emul-cov.o x86-emulate-cov.o cpuid.o wrappers.o
-+afl-harness-cov: afl-harness-cov.o $(patsubst %.o,%-cov.o,$(OBJS)) cpuid.o wrappers.o
- 	$(CC) $(CFLAGS) $(GCOV_FLAGS) $^ -o $@
- 
- # Common targets
+ x86-emulate.o x86-emulate-cov.o: x86_emulate/x86_emulate.c $(x86_emulate.h) x86_emulate/private.h
 --- a/tools/tests/x86_emulator/Makefile
 +++ b/tools/tests/x86_emulator/Makefile
-@@ -29,7 +29,7 @@ OPMASK := avx512f avx512dq avx512bw
- 
- ifeq ($(origin XEN_COMPILE_ARCH),override)
- 
--HOSTCFLAGS += -m32
-+HOSTCFLAGS += -m32 -I..
- 
- else
- 
-@@ -250,7 +250,10 @@ xop.h avx512f.h: simd-fma.c
- 
+@@ -251,7 +251,7 @@ xop.h avx512f.h: simd-fma.c
  endif # 32-bit override
  
--$(TARGET): x86-emulate.o cpuid.o test_x86_emulator.o evex-disp8.o predicates.o wrappers.o
-+OBJS := x86-emulate.o cpuid.o test_x86_emulator.o evex-disp8.o predicates.o wrappers.o
-+OBJS += x86_emulate/0f01.o
-+
-+$(TARGET): $(OBJS)
+ OBJS := x86-emulate.o cpuid.o test_x86_emulator.o evex-disp8.o predicates.o wrappers.o
+-OBJS += x86_emulate/0f01.o
++OBJS += x86_emulate/0f01.o x86_emulate/0fae.o
+ 
+ $(TARGET): $(OBJS)
  	$(HOSTCC) $(HOSTCFLAGS) -o $@ $^
- 
- .PHONY: clean
-@@ -274,8 +277,10 @@ else
- run32 clean32: %32: %
- endif
- 
-+.PHONY: x86_emulate
- x86_emulate:
--	[ -L $@ ] || ln -sf $(XEN_ROOT)/xen/arch/x86/$@
-+	mkdir -p $@
-+	ln -sf $(XEN_ROOT)/xen/arch/x86/$@/*.[ch] $@/
- 
- x86_emulate/%: x86_emulate ;
- 
-@@ -287,13 +292,13 @@ x86.h := $(addprefix $(XEN_ROOT)/tools/i
-                      x86-vendors.h x86-defns.h msr-index.h) \
-          $(addprefix $(XEN_ROOT)/tools/include/xen/lib/x86/, \
-                      cpuid.h cpuid-autogen.h)
--x86_emulate.h := x86-emulate.h x86_emulate/x86_emulate.h $(x86.h)
-+x86_emulate.h := x86-emulate.h x86_emulate/x86_emulate.h x86_emulate/private.h $(x86.h)
- 
--x86-emulate.o cpuid.o test_x86_emulator.o evex-disp8.o predicates.o wrappers.o: %.o: %.c $(x86_emulate.h)
-+$(OBJS): %.o: %.c $(x86_emulate.h)
- 	$(HOSTCC) $(HOSTCFLAGS) -c -g -o $@ $<
- 
- x86-emulate.o: x86_emulate/x86_emulate.c
--x86-emulate.o: HOSTCFLAGS += -D__XEN_TOOLS__
-+x86-emulate.o x86_emulate/%.o: HOSTCFLAGS += -D__XEN_TOOLS__
- 
- # In order for our custom .type assembler directives to reliably land after
- # gcc's, we need to keep it from re-ordering top-level constructs.
---- a/tools/tests/x86_emulator/x86-emulate.c
-+++ b/tools/tests/x86_emulator/x86-emulate.c
-@@ -22,11 +22,9 @@
- 
- /* For generic assembly code: use macros to define operation/operand sizes. */
- #ifdef __i386__
--# define r(name)       e ## name
- # define __OS          "l"  /* Operation Suffix */
- # define __OP          "e"  /* Operand Prefix */
- #else
--# define r(name)       r ## name
- # define __OS          "q"  /* Operation Suffix */
- # define __OP          "r"  /* Operand Prefix */
- #endif
-@@ -265,12 +263,12 @@ void emul_test_put_fpu(
- 
- static uint32_t pkru;
- 
--static unsigned int rdpkru(void)
-+unsigned int rdpkru(void)
- {
-     return pkru;
- }
- 
--static void wrpkru(unsigned int val)
-+void wrpkru(unsigned int val)
- {
-     pkru = val;
- }
---- a/tools/tests/x86_emulator/x86-emulate.h
-+++ b/tools/tests/x86_emulator/x86-emulate.h
-@@ -1,3 +1,6 @@
-+#ifndef X86_EMULATE_H
-+#define X86_EMULATE_H
-+
- #include <assert.h>
- #include <stdbool.h>
- #include <stddef.h>
-@@ -129,6 +132,9 @@ static inline bool xcr0_mask(uint64_t ma
-     return cpu_has_xsave && ((xgetbv(0) & mask) == mask);
- }
- 
-+unsigned int rdpkru(void);
-+void wrpkru(unsigned int val);
-+
- #define cache_line_size() (cp.basic.clflush_size * 8)
- #define cpu_has_fpu        cp.basic.fpu
- #define cpu_has_mmx        cp.basic.mmx
-@@ -206,3 +212,5 @@ void emul_test_put_fpu(
-     struct x86_emulate_ctxt *ctxt,
-     enum x86_emulate_fpu_type backout,
-     const struct x86_emul_fpu_aux *aux);
-+
-+#endif /* X86_EMULATE_H */
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -9,6 +9,7 @@ obj-y += mm/
- obj-$(CONFIG_XENOPROF) += oprofile/
- obj-$(CONFIG_PV) += pv/
- obj-y += x86_64/
-+obj-y += x86_emulate/
- 
- alternative-y := alternative.init.o
- alternative-$(CONFIG_LIVEPATCH) :=
 --- /dev/null
-+++ b/xen/arch/x86/x86_emulate/0f01.c
-@@ -0,0 +1,349 @@
++++ b/xen/arch/x86/x86_emulate/0fae.c
+@@ -0,0 +1,222 @@
 +/******************************************************************************
-+ * 0f01.c - helper for x86_emulate.c
++ * 0fae.c - helper for x86_emulate.c
 + *
 + * Generic x86 (32-bit and 64-bit) instruction decoder and emulator.
-+ *
-+ * Copyright (c) 2005-2007 Keir Fraser
-+ * Copyright (c) 2005-2007 XenSource Inc.
 + *
 + * This program is free software; you can redistribute it and/or modify
 + * it under the terms of the GNU General Public License as published by
@@ -351,324 +202,200 @@ v2: Re-base.
 +
 +#include "private.h"
 +
-+#define ad_bytes (s->ad_bytes) /* for truncate_ea() */
++#if defined(__XEN__) && \
++    (!defined(X86EMUL_NO_FPU) || !defined(X86EMUL_NO_MMX) || \
++     !defined(X86EMUL_NO_SIMD))
++# include <asm/xstate.h>
++#endif
 +
-+int x86emul_0f01(struct x86_emulate_state *s,
++int x86emul_0fae(struct x86_emulate_state *s,
 +                 struct cpu_user_regs *regs,
 +                 struct operand *dst,
++                 const struct operand *src,
 +                 struct x86_emulate_ctxt *ctxt,
-+                 const struct x86_emulate_ops *ops)
++                 const struct x86_emulate_ops *ops,
++                 enum x86_emulate_fpu_type *fpu_type)
++#define fpu_type (*fpu_type) /* for get_fpu() */
 +{
-+    enum x86_segment seg = (s->modrm_reg & 1) ? x86_seg_idtr : x86_seg_gdtr;
++    unsigned long cr4;
 +    int rc;
 +
-+    switch ( s->modrm )
++    if ( !s->vex.opcx && (!s->vex.pfx || s->vex.pfx == vex_66) )
 +    {
-+        unsigned long base, limit, cr0, cr0w, cr4;
-+        struct segment_register sreg;
-+        uint64_t msr_val;
-+
-+    case 0xca: /* clac */
-+    case 0xcb: /* stac */
-+        vcpu_must_have(smap);
-+        generate_exception_if(s->vex.pfx || !mode_ring0(), X86_EXC_UD);
-+
-+        regs->eflags &= ~X86_EFLAGS_AC;
-+        if ( s->modrm == 0xcb )
-+            regs->eflags |= X86_EFLAGS_AC;
-+        break;
-+
-+    case 0xd0: /* xgetbv */
-+        generate_exception_if(s->vex.pfx, X86_EXC_UD);
-+        if ( !ops->read_cr || !ops->read_xcr ||
-+             ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
-+            cr4 = 0;
-+        generate_exception_if(!(cr4 & X86_CR4_OSXSAVE), X86_EXC_UD);
-+        rc = ops->read_xcr(regs->ecx, &msr_val, ctxt);
-+        if ( rc != X86EMUL_OKAY )
-+            goto done;
-+        regs->r(ax) = (uint32_t)msr_val;
-+        regs->r(dx) = msr_val >> 32;
-+        break;
-+
-+    case 0xd1: /* xsetbv */
-+        generate_exception_if(s->vex.pfx, X86_EXC_UD);
-+        if ( !ops->read_cr || !ops->write_xcr ||
-+             ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
-+            cr4 = 0;
-+        generate_exception_if(!(cr4 & X86_CR4_OSXSAVE), X86_EXC_UD);
-+        generate_exception_if(!mode_ring0(), X86_EXC_GP, 0);
-+        rc = ops->write_xcr(regs->ecx,
-+                            regs->eax | ((uint64_t)regs->edx << 32), ctxt);
-+        if ( rc != X86EMUL_OKAY )
-+            goto done;
-+        break;
-+
-+    case 0xd4: /* vmfunc */
-+        generate_exception_if(s->vex.pfx, X86_EXC_UD);
-+        fail_if(!ops->vmfunc);
-+        if ( (rc = ops->vmfunc(ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+        break;
-+
-+    case 0xd5: /* xend */
-+        generate_exception_if(s->vex.pfx, X86_EXC_UD);
-+        generate_exception_if(!vcpu_has_rtm(), X86_EXC_UD);
-+        generate_exception_if(vcpu_has_rtm(), X86_EXC_GP, 0);
-+        break;
-+
-+    case 0xd6: /* xtest */
-+        generate_exception_if(s->vex.pfx, X86_EXC_UD);
-+        generate_exception_if(!vcpu_has_rtm() && !vcpu_has_hle(),
-+                              X86_EXC_UD);
-+        /* Neither HLE nor RTM can be active when we get here. */
-+        regs->eflags |= X86_EFLAGS_ZF;
-+        break;
-+
-+    case 0xdf: /* invlpga */
-+        fail_if(!ops->read_msr);
-+        if ( (rc = ops->read_msr(MSR_EFER,
-+                                 &msr_val, ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+        /* Finding SVME set implies vcpu_has_svm(). */
-+        generate_exception_if(!(msr_val & EFER_SVME) ||
-+                              !in_protmode(ctxt, ops), X86_EXC_UD);
-+        generate_exception_if(!mode_ring0(), X86_EXC_GP, 0);
-+        fail_if(!ops->tlb_op);
-+        if ( (rc = ops->tlb_op(x86emul_invlpga, truncate_ea(regs->r(ax)),
-+                               regs->ecx, ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+        break;
-+
-+    case 0xe8:
-+        switch ( s->vex.pfx )
++        switch ( s->modrm_reg & 7 )
 +        {
-+        case vex_none: /* serialize */
-+            host_and_vcpu_must_have(serialize);
-+            asm volatile ( ".byte 0x0f, 0x01, 0xe8" );
-+            break;
-+        case vex_f2: /* xsusldtrk */
-+            vcpu_must_have(tsxldtrk);
-+            /*
-+             * We're never in a transactional region when coming here
-+             * - nothing else to do.
-+             */
-+            break;
-+        default:
-+            return X86EMUL_UNIMPLEMENTED;
-+        }
-+        break;
-+
-+    case 0xe9:
-+        switch ( s->vex.pfx )
-+        {
-+        case vex_f2: /* xresldtrk */
-+            vcpu_must_have(tsxldtrk);
-+            /*
-+             * We're never in a transactional region when coming here
-+             * - nothing else to do.
-+             */
-+            break;
-+        default:
-+            return X86EMUL_UNIMPLEMENTED;
-+        }
-+        break;
-+
-+    case 0xee:
-+        switch ( s->vex.pfx )
-+        {
-+        case vex_none: /* rdpkru */
-+            if ( !ops->read_cr ||
-+                 ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
-+                cr4 = 0;
-+            generate_exception_if(!(cr4 & X86_CR4_PKE), X86_EXC_UD);
-+            generate_exception_if(regs->ecx, X86_EXC_GP, 0);
-+            regs->r(ax) = rdpkru();
-+            regs->r(dx) = 0;
-+            break;
-+        default:
-+            return X86EMUL_UNIMPLEMENTED;
-+        }
-+        break;
-+
-+    case 0xef:
-+        switch ( s->vex.pfx )
-+        {
-+        case vex_none: /* wrpkru */
-+            if ( !ops->read_cr ||
-+                 ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
-+                cr4 = 0;
-+            generate_exception_if(!(cr4 & X86_CR4_PKE), X86_EXC_UD);
-+            generate_exception_if(regs->ecx | regs->edx, X86_EXC_GP, 0);
-+            wrpkru(regs->eax);
-+            break;
-+        default:
-+            return X86EMUL_UNIMPLEMENTED;
-+        }
-+        break;
-+
-+    case 0xf8: /* swapgs */
-+        generate_exception_if(!mode_64bit(), X86_EXC_UD);
-+        generate_exception_if(!mode_ring0(), X86_EXC_GP, 0);
-+        fail_if(!ops->read_segment || !ops->read_msr ||
-+                !ops->write_segment || !ops->write_msr);
-+        if ( (rc = ops->read_segment(x86_seg_gs, &sreg,
-+                                     ctxt)) != X86EMUL_OKAY ||
-+             (rc = ops->read_msr(MSR_SHADOW_GS_BASE, &msr_val,
-+                                 ctxt)) != X86EMUL_OKAY ||
-+             (rc = ops->write_msr(MSR_SHADOW_GS_BASE, sreg.base,
-+                                  ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+        sreg.base = msr_val;
-+        if ( (rc = ops->write_segment(x86_seg_gs, &sreg,
-+                                      ctxt)) != X86EMUL_OKAY )
-+        {
-+            /* Best effort unwind (i.e. no error checking). */
-+            ops->write_msr(MSR_SHADOW_GS_BASE, msr_val, ctxt);
-+            goto done;
-+        }
-+        break;
-+
-+    case 0xf9: /* rdtscp */
-+        fail_if(ops->read_msr == NULL);
-+        if ( (rc = ops->read_msr(MSR_TSC_AUX,
-+                                 &msr_val, ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+        regs->r(cx) = (uint32_t)msr_val;
-+        return X86EMUL_rdtsc;
-+
-+    case 0xfc: /* clzero */
-+    {
-+        unsigned long zero = 0;
-+
-+        vcpu_must_have(clzero);
-+
-+        base = ad_bytes == 8 ? regs->r(ax) :
-+               ad_bytes == 4 ? regs->eax : regs->ax;
-+        limit = ctxt->cpuid->basic.clflush_size * 8;
-+        generate_exception_if(limit < sizeof(long) ||
-+                              (limit & (limit - 1)), X86_EXC_UD);
-+        base &= ~(limit - 1);
-+        if ( ops->rep_stos )
-+        {
-+            unsigned long nr_reps = limit / sizeof(zero);
-+
-+            rc = ops->rep_stos(&zero, s->ea.mem.seg, base, sizeof(zero),
-+                               &nr_reps, ctxt);
-+            if ( rc == X86EMUL_OKAY )
++#if !defined(X86EMUL_NO_FPU) || !defined(X86EMUL_NO_MMX) || \
++    !defined(X86EMUL_NO_SIMD)
++        case 0: /* fxsave */
++        case 1: /* fxrstor */
++            generate_exception_if(s->vex.pfx, X86_EXC_UD);
++            vcpu_must_have(fxsr);
++            generate_exception_if(s->ea.type != OP_MEM, X86_EXC_UD);
++            generate_exception_if(!is_aligned(s->ea.mem.seg, s->ea.mem.off, 16,
++                                              ctxt, ops),
++                                  X86_EXC_GP, 0);
++            fail_if(!ops->blk);
++            s->op_bytes =
++#ifdef __x86_64__
++                !mode_64bit() ? offsetof(struct x86_fxsr, xmm[8]) :
++#endif
++                sizeof(struct x86_fxsr);
++            if ( amd_like(ctxt) )
 +            {
-+                base += nr_reps * sizeof(zero);
-+                limit -= nr_reps * sizeof(zero);
++                uint64_t msr_val;
++
++                /* Assume "normal" operation in case of missing hooks. */
++                if ( !ops->read_cr ||
++                     ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
++                    cr4 = X86_CR4_OSFXSR;
++                if ( !ops->read_msr ||
++                     ops->read_msr(MSR_EFER, &msr_val, ctxt) != X86EMUL_OKAY )
++                    msr_val = 0;
++                if ( !(cr4 & X86_CR4_OSFXSR) ||
++                     (mode_64bit() && mode_ring0() && (msr_val & EFER_FFXSE)) )
++                    s->op_bytes = offsetof(struct x86_fxsr, xmm[0]);
 +            }
-+            else if ( rc != X86EMUL_UNHANDLEABLE )
++            /*
++             * This could also be X86EMUL_FPU_mmx, but it shouldn't be
++             * X86EMUL_FPU_xmm, as we don't want CR4.OSFXSR checked.
++             */
++            get_fpu(X86EMUL_FPU_fpu);
++            s->fpu_ctrl = true;
++            s->blk = s->modrm_reg & 1 ? blk_fxrstor : blk_fxsave;
++            if ( (rc = ops->blk(s->ea.mem.seg, s->ea.mem.off, NULL,
++                                sizeof(struct x86_fxsr), &regs->eflags,
++                                s, ctxt)) != X86EMUL_OKAY )
 +                goto done;
-+        }
-+        fail_if(limit && !ops->write);
-+        while ( limit )
-+        {
-+            rc = ops->write(s->ea.mem.seg, base, &zero, sizeof(zero), ctxt);
-+            if ( rc != X86EMUL_OKAY )
++            break;
++#endif /* X86EMUL_NO_{FPU,MMX,SIMD} */
++
++#ifndef X86EMUL_NO_SIMD
++        case 2: /* ldmxcsr */
++            generate_exception_if(s->vex.pfx, X86_EXC_UD);
++            vcpu_must_have(sse);
++        ldmxcsr:
++            generate_exception_if(src->type != OP_MEM, X86_EXC_UD);
++            get_fpu(s->vex.opcx ? X86EMUL_FPU_ymm : X86EMUL_FPU_xmm);
++            generate_exception_if(src->val & ~mxcsr_mask, X86_EXC_GP, 0);
++            asm volatile ( "ldmxcsr %0" :: "m" (src->val) );
++            break;
++
++        case 3: /* stmxcsr */
++            generate_exception_if(s->vex.pfx, X86_EXC_UD);
++            vcpu_must_have(sse);
++        stmxcsr:
++            generate_exception_if(dst->type != OP_MEM, X86_EXC_UD);
++            get_fpu(s->vex.opcx ? X86EMUL_FPU_ymm : X86EMUL_FPU_xmm);
++            asm volatile ( "stmxcsr %0" : "=m" (dst->val) );
++            break;
++#endif /* X86EMUL_NO_SIMD */
++
++        case 5: /* lfence */
++            fail_if(s->modrm_mod != 3);
++            generate_exception_if(s->vex.pfx, X86_EXC_UD);
++            vcpu_must_have(sse2);
++            asm volatile ( "lfence" ::: "memory" );
++            break;
++        case 6:
++            if ( s->modrm_mod == 3 ) /* mfence */
++            {
++                generate_exception_if(s->vex.pfx, X86_EXC_UD);
++                vcpu_must_have(sse2);
++                asm volatile ( "mfence" ::: "memory" );
++                break;
++            }
++            /* else clwb */
++            fail_if(!s->vex.pfx);
++            vcpu_must_have(clwb);
++            fail_if(!ops->cache_op);
++            if ( (rc = ops->cache_op(x86emul_clwb, s->ea.mem.seg, s->ea.mem.off,
++                                     ctxt)) != X86EMUL_OKAY )
 +                goto done;
-+            base += sizeof(zero);
-+            limit -= sizeof(zero);
++            break;
++        case 7:
++            if ( s->modrm_mod == 3 ) /* sfence */
++            {
++                generate_exception_if(s->vex.pfx, X86_EXC_UD);
++                vcpu_must_have(mmxext);
++                asm volatile ( "sfence" ::: "memory" );
++                break;
++            }
++            /* else clflush{,opt} */
++            if ( !s->vex.pfx )
++                vcpu_must_have(clflush);
++            else
++                vcpu_must_have(clflushopt);
++            fail_if(!ops->cache_op);
++            if ( (rc = ops->cache_op(s->vex.pfx ? x86emul_clflushopt
++                                                : x86emul_clflush,
++                                     s->ea.mem.seg, s->ea.mem.off,
++                                     ctxt)) != X86EMUL_OKAY )
++                goto done;
++            break;
++        default:
++            return X86EMUL_UNIMPLEMENTED;
 +        }
-+        break;
 +    }
-+
-+#define _GRP7(mod, reg) \
-+        (((mod) << 6) | ((reg) << 3)) ... (((mod) << 6) | ((reg) << 3) | 7)
-+#define GRP7_MEM(reg) _GRP7(0, reg): case _GRP7(1, reg): case _GRP7(2, reg)
-+#define GRP7_ALL(reg) GRP7_MEM(reg): case _GRP7(3, reg)
-+
-+    case GRP7_MEM(0): /* sgdt */
-+    case GRP7_MEM(1): /* sidt */
-+        ASSERT(s->ea.type == OP_MEM);
-+        generate_exception_if(umip_active(ctxt, ops), X86_EXC_GP, 0);
-+        fail_if(!ops->read_segment || !ops->write);
-+        if ( (rc = ops->read_segment(seg, &sreg, ctxt)) )
-+            goto done;
-+        if ( mode_64bit() )
-+            s->op_bytes = 8;
-+        else if ( s->op_bytes == 2 )
++#ifndef X86EMUL_NO_SIMD
++    else if ( s->vex.opcx && !s->vex.pfx )
++    {
++        switch ( s->modrm_reg & 7 )
 +        {
-+            sreg.base &= 0xffffff;
-+            s->op_bytes = 4;
++        case 2: /* vldmxcsr */
++            generate_exception_if(s->vex.l || s->vex.reg != 0xf, X86_EXC_UD);
++            vcpu_must_have(avx);
++            goto ldmxcsr;
++        case 3: /* vstmxcsr */
++            generate_exception_if(s->vex.l || s->vex.reg != 0xf, X86_EXC_UD);
++            vcpu_must_have(avx);
++            goto stmxcsr;
 +        }
-+        if ( (rc = ops->write(s->ea.mem.seg, s->ea.mem.off, &sreg.limit,
-+                              2, ctxt)) != X86EMUL_OKAY ||
-+             (rc = ops->write(s->ea.mem.seg, truncate_ea(s->ea.mem.off + 2),
-+                              &sreg.base, s->op_bytes, ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+        break;
++        return X86EMUL_UNRECOGNIZED;
++    }
++#endif /* !X86EMUL_NO_SIMD */
++    else if ( !s->vex.opcx && s->vex.pfx == vex_f3 )
++    {
++        enum x86_segment seg;
++        struct segment_register sreg;
 +
-+    case GRP7_MEM(2): /* lgdt */
-+    case GRP7_MEM(3): /* lidt */
-+        ASSERT(s->ea.type == OP_MEM);
-+        generate_exception_if(!mode_ring0(), X86_EXC_GP, 0);
-+        fail_if(ops->write_segment == NULL);
-+        memset(&sreg, 0, sizeof(sreg));
-+        if ( (rc = read_ulong(s->ea.mem.seg, s->ea.mem.off,
-+                              &limit, 2, ctxt, ops)) ||
-+             (rc = read_ulong(s->ea.mem.seg, truncate_ea(s->ea.mem.off + 2),
-+                              &base, mode_64bit() ? 8 : 4, ctxt, ops)) )
++        fail_if(s->modrm_mod != 3);
++        generate_exception_if((s->modrm_reg & 4) || !mode_64bit(), X86_EXC_UD);
++        fail_if(!ops->read_cr);
++        if ( (rc = ops->read_cr(4, &cr4, ctxt)) != X86EMUL_OKAY )
 +            goto done;
-+        generate_exception_if(!is_canonical_address(base), X86_EXC_GP, 0);
-+        sreg.base = base;
-+        sreg.limit = limit;
-+        if ( !mode_64bit() && s->op_bytes == 2 )
-+            sreg.base &= 0xffffff;
-+        if ( (rc = ops->write_segment(seg, &sreg, ctxt)) )
++        generate_exception_if(!(cr4 & X86_CR4_FSGSBASE), X86_EXC_UD);
++        seg = s->modrm_reg & 1 ? x86_seg_gs : x86_seg_fs;
++        fail_if(!ops->read_segment);
++        if ( (rc = ops->read_segment(seg, &sreg, ctxt)) != X86EMUL_OKAY )
 +            goto done;
-+        break;
-+
-+    case GRP7_ALL(4): /* smsw */
-+        generate_exception_if(umip_active(ctxt, ops), X86_EXC_GP, 0);
-+        if ( s->ea.type == OP_MEM )
++        dst->reg = decode_gpr(regs, s->modrm_rm);
++        if ( !(s->modrm_reg & 2) )
 +        {
-+            fail_if(!ops->write);
-+            s->desc |= Mov; /* force writeback */
-+            s->ea.bytes = 2;
++            /* rd{f,g}sbase */
++            dst->type = OP_REG;
++            dst->bytes = (s->op_bytes == 8) ? 8 : 4;
++            dst->val = sreg.base;
 +        }
 +        else
-+            s->ea.bytes = s->op_bytes;
-+        *dst = s->ea;
-+        fail_if(ops->read_cr == NULL);
-+        if ( (rc = ops->read_cr(0, &dst->val, ctxt)) )
-+            goto done;
-+        break;
-+
-+    case GRP7_ALL(6): /* lmsw */
-+        fail_if(ops->read_cr == NULL);
-+        fail_if(ops->write_cr == NULL);
-+        generate_exception_if(!mode_ring0(), X86_EXC_GP, 0);
-+        if ( (rc = ops->read_cr(0, &cr0, ctxt)) )
-+            goto done;
-+        if ( s->ea.type == OP_REG )
-+            cr0w = *s->ea.reg;
-+        else if ( (rc = read_ulong(s->ea.mem.seg, s->ea.mem.off,
-+                                   &cr0w, 2, ctxt, ops)) )
-+            goto done;
-+        /* LMSW can: (1) set bits 0-3; (2) clear bits 1-3. */
-+        cr0 = (cr0 & ~0xe) | (cr0w & 0xf);
-+        if ( (rc = ops->write_cr(0, cr0, ctxt)) )
-+            goto done;
-+        break;
-+
-+    case GRP7_MEM(7): /* invlpg */
-+        ASSERT(s->ea.type == OP_MEM);
-+        generate_exception_if(!mode_ring0(), X86_EXC_GP, 0);
-+        fail_if(!ops->tlb_op);
-+        if ( (rc = ops->tlb_op(x86emul_invlpg, s->ea.mem.off, s->ea.mem.seg,
-+                               ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+        break;
-+
-+#undef GRP7_ALL
-+#undef GRP7_MEM
-+#undef _GRP7
-+
-+    default:
-+        return X86EMUL_UNIMPLEMENTED;
++        {
++            /* wr{f,g}sbase */
++            if ( s->op_bytes == 8 )
++            {
++                sreg.base = *dst->reg;
++                generate_exception_if(!is_canonical_address(sreg.base),
++                                      X86_EXC_GP, 0);
++            }
++            else
++                sreg.base = (uint32_t)*dst->reg;
++            fail_if(!ops->write_segment);
++            if ( (rc = ops->write_segment(seg, &sreg, ctxt)) != X86EMUL_OKAY )
++                goto done;
++        }
++    }
++    else
++    {
++        ASSERT_UNREACHABLE();
++        return X86EMUL_UNRECOGNIZED;
 +    }
 +
 +    rc = X86EMUL_OKAY;
@@ -676,1526 +403,436 @@ v2: Re-base.
 + done:
 +    return rc;
 +}
---- /dev/null
+--- a/xen/arch/x86/x86_emulate/Makefile
 +++ b/xen/arch/x86/x86_emulate/Makefile
-@@ -0,0 +1 @@
-+obj-y += 0f01.o
---- /dev/null
+@@ -1 +1,2 @@
+ obj-y += 0f01.o
++obj-y += 0fae.o
+--- a/xen/arch/x86/x86_emulate/private.h
 +++ b/xen/arch/x86/x86_emulate/private.h
-@@ -0,0 +1,531 @@
-+/******************************************************************************
-+ * private.h - interface between x86_emulate.c and its helpers
-+ *
-+ * Copyright (c) 2005-2007 Keir Fraser
-+ * Copyright (c) 2005-2007 XenSource Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU General Public License
-+ * along with this program; If not, see <http://www.gnu.org/licenses/>.
-+ */
-+
-+#ifdef __XEN__
-+
-+# include <xen/kernel.h>
-+# include <asm/msr-index.h>
-+# include <asm/x86_emulate.h>
-+
-+# ifndef CONFIG_HVM
-+#  define X86EMUL_NO_FPU
-+#  define X86EMUL_NO_MMX
-+#  define X86EMUL_NO_SIMD
-+# endif
-+
-+#else /* !__XEN__ */
-+# include "x86-emulate.h"
-+#endif
-+
-+#ifdef __i386__
-+# define mode_64bit() false
-+# define r(name) e ## name
-+#else
-+# define mode_64bit() (ctxt->addr_size == 64)
-+# define r(name) r ## name
-+#endif
-+
-+/* Operand sizes: 8-bit operands or specified/overridden size. */
-+#define ByteOp      (1<<0) /* 8-bit operands. */
-+/* Destination operand type. */
-+#define DstNone     (0<<1) /* No destination operand. */
-+#define DstImplicit (0<<1) /* Destination operand is implicit in the opcode. */
-+#define DstBitBase  (1<<1) /* Memory operand, bit string. */
-+#define DstReg      (2<<1) /* Register operand. */
-+#define DstEax      DstReg /* Register EAX (aka DstReg with no ModRM) */
-+#define DstMem      (3<<1) /* Memory operand. */
-+#define DstMask     (3<<1)
-+/* Source operand type. */
-+#define SrcNone     (0<<3) /* No source operand. */
-+#define SrcImplicit (0<<3) /* Source operand is implicit in the opcode. */
-+#define SrcReg      (1<<3) /* Register operand. */
-+#define SrcEax      SrcReg /* Register EAX (aka SrcReg with no ModRM) */
-+#define SrcMem      (2<<3) /* Memory operand. */
-+#define SrcMem16    (3<<3) /* Memory operand (16-bit). */
-+#define SrcImm      (4<<3) /* Immediate operand. */
-+#define SrcImmByte  (5<<3) /* 8-bit sign-extended immediate operand. */
-+#define SrcImm16    (6<<3) /* 16-bit zero-extended immediate operand. */
-+#define SrcMask     (7<<3)
-+/* Generic ModRM decode. */
-+#define ModRM       (1<<6)
-+/* vSIB addressing mode (0f38 extension opcodes only), aliasing ModRM. */
-+#define vSIB        (1<<6)
-+/* Destination is only written; never read. */
-+#define Mov         (1<<7)
-+/* VEX/EVEX (SIMD only): 2nd source operand unused (must be all ones) */
-+#define TwoOp       Mov
-+/* All operands are implicit in the opcode. */
-+#define ImplicitOps (DstImplicit|SrcImplicit)
-+
-+typedef uint8_t opcode_desc_t;
-+
-+/* Type, address-of, and value of an instruction's operand. */
-+struct operand {
-+    enum { OP_REG, OP_MEM, OP_IMM, OP_NONE } type;
-+    unsigned int bytes;
-+
-+    /* Operand value. */
-+    unsigned long val;
-+
-+    /* Original operand value. */
-+    unsigned long orig_val;
-+
-+    /* OP_REG: Pointer to register field. */
-+    unsigned long *reg;
-+
-+    /* OP_MEM: Segment and offset. */
+@@ -308,6 +308,29 @@ struct x86_emulate_state {
+ #endif
+ };
+ 
++struct x86_fxsr {
++    uint16_t fcw;
++    uint16_t fsw;
++    uint8_t ftw, :8;
++    uint16_t fop;
++    union {
++        struct {
++            uint32_t offs;
++            uint16_t sel, :16;
++        };
++        uint64_t addr;
++    } fip, fdp;
++    uint32_t mxcsr;
++    uint32_t mxcsr_mask;
 +    struct {
-+        enum x86_segment seg;
-+        unsigned long    off;
-+    } mem;
++        uint8_t data[10];
++        uint16_t :16, :16, :16;
++    } fpreg[8];
++    uint64_t __attribute__ ((aligned(16))) xmm[16][2];
++    uint64_t rsvd[6];
++    uint64_t avl[6];
 +};
 +
-+#define REX_PREFIX 0x40
-+#define REX_B 0x01
-+#define REX_X 0x02
-+#define REX_R 0x04
-+#define REX_W 0x08
-+
-+enum simd_opsize {
-+    simd_none,
-+
-+    /*
-+     * Ordinary packed integers:
-+     * - 64 bits without prefix 66 (MMX)
-+     * - 128 bits with prefix 66 (SSEn)
-+     * - 128/256/512 bits depending on VEX.L/EVEX.LR (AVX+)
-+     */
-+    simd_packed_int,
-+
-+    /*
-+     * Ordinary packed/scalar floating point:
-+     * - 128 bits without prefix or with prefix 66 (SSEn)
-+     * - 128/256/512 bits depending on VEX.L/EVEX.LR (AVX+)
-+     * - 32 bits with prefix F3 (scalar single)
-+     * - 64 bits with prefix F2 (scalar doubgle)
-+     */
-+    simd_any_fp,
-+
-+    /*
-+     * Packed floating point:
-+     * - 128 bits without prefix or with prefix 66 (SSEn)
-+     * - 128/256/512 bits depending on VEX.L/EVEX.LR (AVX+)
-+     */
-+    simd_packed_fp,
-+
-+    /*
-+     * Single precision packed/scalar floating point:
-+     * - 128 bits without prefix (SSEn)
-+     * - 128/256/512 bits depending on VEX.L/EVEX.LR (AVX+)
-+     * - 32 bits with prefix F3 (scalar)
-+     */
-+    simd_single_fp,
-+
-+    /*
-+     * Scalar floating point:
-+     * - 32 bits with low opcode bit clear (scalar single)
-+     * - 64 bits with low opcode bit set (scalar double)
-+     */
-+    simd_scalar_opc,
-+
-+    /*
-+     * Scalar floating point:
-+     * - 32/64 bits depending on VEX.W/EVEX.W
-+     */
-+    simd_scalar_vexw,
-+
-+    /*
-+     * 128 bits of integer or floating point data, with no further
-+     * formatting information, or with it encoded by EVEX.W.
-+     */
-+    simd_128,
-+
-+    /*
-+     * 256 bits of integer or floating point data, with formatting
-+     * encoded by EVEX.W.
-+     */
-+    simd_256,
-+
-+    /* Operand size encoded in non-standard way. */
-+    simd_other
-+};
-+typedef uint8_t simd_opsize_t;
-+
-+#define vex_none 0
-+
-+enum vex_opcx {
-+    vex_0f = vex_none + 1,
-+    vex_0f38,
-+    vex_0f3a,
-+};
-+
-+enum vex_pfx {
-+    vex_66 = vex_none + 1,
-+    vex_f3,
-+    vex_f2
-+};
-+
-+union vex {
-+    uint8_t raw[2];
-+    struct {             /* SDM names */
-+        uint8_t opcx:5;  /* mmmmm */
-+        uint8_t b:1;     /* B */
-+        uint8_t x:1;     /* X */
-+        uint8_t r:1;     /* R */
-+        uint8_t pfx:2;   /* pp */
-+        uint8_t l:1;     /* L */
-+        uint8_t reg:4;   /* vvvv */
-+        uint8_t w:1;     /* W */
-+    };
-+};
-+
-+union evex {
-+    uint8_t raw[3];
-+    struct {             /* SDM names */
-+        uint8_t opcx:2;  /* mm */
-+        uint8_t mbz:2;
-+        uint8_t R:1;     /* R' */
-+        uint8_t b:1;     /* B */
-+        uint8_t x:1;     /* X */
-+        uint8_t r:1;     /* R */
-+        uint8_t pfx:2;   /* pp */
-+        uint8_t mbs:1;
-+        uint8_t reg:4;   /* vvvv */
-+        uint8_t w:1;     /* W */
-+        uint8_t opmsk:3; /* aaa */
-+        uint8_t RX:1;    /* V' */
-+        uint8_t brs:1;   /* b */
-+        uint8_t lr:2;    /* L'L */
-+        uint8_t z:1;     /* z */
-+    };
-+};
-+
-+struct x86_emulate_state {
-+    unsigned int op_bytes, ad_bytes;
-+
-+    enum {
-+        ext_none = vex_none,
-+        ext_0f   = vex_0f,
-+        ext_0f38 = vex_0f38,
-+        ext_0f3a = vex_0f3a,
-+        /*
-+         * For XOP use values such that the respective instruction field
-+         * can be used without adjustment.
-+         */
-+        ext_8f08 = 8,
-+        ext_8f09,
-+        ext_8f0a,
-+    } ext;
-+    enum {
-+        rmw_NONE,
-+        rmw_adc,
-+        rmw_add,
-+        rmw_and,
-+        rmw_btc,
-+        rmw_btr,
-+        rmw_bts,
-+        rmw_dec,
-+        rmw_inc,
-+        rmw_neg,
-+        rmw_not,
-+        rmw_or,
-+        rmw_rcl,
-+        rmw_rcr,
-+        rmw_rol,
-+        rmw_ror,
-+        rmw_sar,
-+        rmw_sbb,
-+        rmw_shl,
-+        rmw_shld,
-+        rmw_shr,
-+        rmw_shrd,
-+        rmw_sub,
-+        rmw_xadd,
-+        rmw_xchg,
-+        rmw_xor,
-+    } rmw;
-+    enum {
-+        blk_NONE,
-+        blk_enqcmd,
-+#ifndef X86EMUL_NO_FPU
-+        blk_fld, /* FLDENV, FRSTOR */
-+        blk_fst, /* FNSTENV, FNSAVE */
-+#endif
-+#if !defined(X86EMUL_NO_FPU) || !defined(X86EMUL_NO_MMX) || \
-+    !defined(X86EMUL_NO_SIMD)
-+        blk_fxrstor,
-+        blk_fxsave,
-+#endif
-+        blk_movdir,
-+    } blk;
-+    uint8_t modrm, modrm_mod, modrm_reg, modrm_rm;
-+    uint8_t sib_index, sib_scale;
-+    uint8_t rex_prefix;
-+    bool lock_prefix;
-+    bool not_64bit; /* Instruction not available in 64bit. */
-+    bool fpu_ctrl;  /* Instruction is an FPU control one. */
-+    opcode_desc_t desc;
-+    union vex vex;
-+    union evex evex;
-+    enum simd_opsize simd_size;
-+
-+    /*
-+     * Data operand effective address (usually computed from ModRM).
-+     * Default is a memory operand relative to segment DS.
-+     */
-+    struct operand ea;
-+
-+    /* Immediate operand values, if any. Use otherwise unused fields. */
-+#define imm1 ea.val
-+#define imm2 ea.orig_val
-+
-+    unsigned long ip;
-+    struct cpu_user_regs *regs;
-+
-+#ifndef NDEBUG
-+    /*
-+     * Track caller of x86_decode_insn() to spot missing as well as
-+     * premature calls to x86_emulate_free_state().
-+     */
-+    void *caller;
-+#endif
-+};
-+
-+/*
-+ * Externally visible return codes from x86_emulate() are non-negative.
-+ * Use negative values for internal state change indicators from helpers
-+ * to the main function.
-+ */
-+#define X86EMUL_rdtsc        (-1)
-+
-+/*
-+ * These EFLAGS bits are restored from saved value during emulation, and
-+ * any changes are written back to the saved value after emulation.
-+ */
-+#define EFLAGS_MASK (X86_EFLAGS_OF | X86_EFLAGS_SF | X86_EFLAGS_ZF | \
-+                     X86_EFLAGS_AF | X86_EFLAGS_PF | X86_EFLAGS_CF)
-+
-+/*
-+ * These EFLAGS bits are modifiable (by POPF and IRET), possibly subject
-+ * to further CPL and IOPL constraints.
-+ */
-+#define EFLAGS_MODIFIABLE (X86_EFLAGS_ID | X86_EFLAGS_AC | X86_EFLAGS_RF | \
-+                           X86_EFLAGS_NT | X86_EFLAGS_IOPL | X86_EFLAGS_DF | \
-+                           X86_EFLAGS_IF | X86_EFLAGS_TF | EFLAGS_MASK)
-+
-+#define truncate_word(ea, byte_width)           \
-+({  unsigned long __ea = (ea);                  \
-+    unsigned int _width = (byte_width);         \
-+    ((_width == sizeof(unsigned long)) ? __ea : \
-+     (__ea & ((1UL << (_width << 3)) - 1)));    \
-+})
-+#define truncate_ea(ea) truncate_word((ea), ad_bytes)
-+
-+#define fail_if(p)                                      \
-+do {                                                    \
-+    rc = (p) ? X86EMUL_UNHANDLEABLE : X86EMUL_OKAY;     \
-+    if ( rc ) goto done;                                \
-+} while (0)
-+
-+#define EXPECT(p)                                       \
-+do {                                                    \
-+    if ( unlikely(!(p)) )                               \
-+    {                                                   \
-+        ASSERT_UNREACHABLE();                           \
-+        goto unhandleable;                              \
-+    }                                                   \
-+} while (0)
-+
-+static inline int mkec(uint8_t e, int32_t ec, ...)
-+{
-+    return (e < 32 && ((1u << e) & X86_EXC_HAVE_EC)) ? ec : X86_EVENT_NO_EC;
-+}
-+
-+#define generate_exception_if(p, e, ec...)                                \
-+({  if ( (p) ) {                                                          \
-+        x86_emul_hw_exception(e, mkec(e, ##ec, 0), ctxt);                 \
-+        rc = X86EMUL_EXCEPTION;                                           \
-+        goto done;                                                        \
-+    }                                                                     \
-+})
-+
-+#define generate_exception(e, ec...) generate_exception_if(true, e, ##ec)
-+
+ /*
+  * Externally visible return codes from x86_emulate() are non-negative.
+  * Use negative values for internal state change indicators from helpers
+@@ -397,6 +420,18 @@ in_protmode(
+     (_cpl == 0);                                \
+ })
+ 
 +static inline bool
-+in_realmode(
-+    struct x86_emulate_ctxt *ctxt,
-+    const struct x86_emulate_ops *ops)
++_amd_like(const struct cpuid_policy *cp)
 +{
-+    unsigned long cr0;
-+    int rc;
-+
-+    if ( ops->read_cr == NULL )
-+        return 0;
-+
-+    rc = ops->read_cr(0, &cr0, ctxt);
-+    return (!rc && !(cr0 & X86_CR0_PE));
++    return cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON);
 +}
 +
 +static inline bool
-+in_protmode(
-+    struct x86_emulate_ctxt *ctxt,
-+    const struct x86_emulate_ops *ops)
++amd_like(const struct x86_emulate_ctxt *ctxt)
 +{
-+    return !(in_realmode(ctxt, ops) || (ctxt->regs->eflags & X86_EFLAGS_VM));
++    return _amd_like(ctxt->cpuid);
 +}
 +
-+#define mode_ring0() ({                         \
-+    int _cpl = x86emul_get_cpl(ctxt, ops);      \
-+    fail_if(_cpl < 0);                          \
-+    (_cpl == 0);                                \
-+})
-+
-+#define vcpu_has_fpu()         (ctxt->cpuid->basic.fpu)
-+#define vcpu_has_sep()         (ctxt->cpuid->basic.sep)
-+#define vcpu_has_cx8()         (ctxt->cpuid->basic.cx8)
-+#define vcpu_has_cmov()        (ctxt->cpuid->basic.cmov)
-+#define vcpu_has_clflush()     (ctxt->cpuid->basic.clflush)
-+#define vcpu_has_mmx()         (ctxt->cpuid->basic.mmx)
-+#define vcpu_has_fxsr()        (ctxt->cpuid->basic.fxsr)
-+#define vcpu_has_sse()         (ctxt->cpuid->basic.sse)
-+#define vcpu_has_sse2()        (ctxt->cpuid->basic.sse2)
-+#define vcpu_has_sse3()        (ctxt->cpuid->basic.sse3)
-+#define vcpu_has_pclmulqdq()   (ctxt->cpuid->basic.pclmulqdq)
-+#define vcpu_has_ssse3()       (ctxt->cpuid->basic.ssse3)
-+#define vcpu_has_fma()         (ctxt->cpuid->basic.fma)
-+#define vcpu_has_cx16()        (ctxt->cpuid->basic.cx16)
-+#define vcpu_has_sse4_1()      (ctxt->cpuid->basic.sse4_1)
-+#define vcpu_has_sse4_2()      (ctxt->cpuid->basic.sse4_2)
-+#define vcpu_has_movbe()       (ctxt->cpuid->basic.movbe)
-+#define vcpu_has_popcnt()      (ctxt->cpuid->basic.popcnt)
-+#define vcpu_has_aesni()       (ctxt->cpuid->basic.aesni)
-+#define vcpu_has_avx()         (ctxt->cpuid->basic.avx)
-+#define vcpu_has_f16c()        (ctxt->cpuid->basic.f16c)
-+#define vcpu_has_rdrand()      (ctxt->cpuid->basic.rdrand)
-+
-+#define vcpu_has_mmxext()      (ctxt->cpuid->extd.mmxext || vcpu_has_sse())
-+#define vcpu_has_3dnow_ext()   (ctxt->cpuid->extd._3dnowext)
-+#define vcpu_has_3dnow()       (ctxt->cpuid->extd._3dnow)
-+#define vcpu_has_lahf_lm()     (ctxt->cpuid->extd.lahf_lm)
-+#define vcpu_has_cr8_legacy()  (ctxt->cpuid->extd.cr8_legacy)
-+#define vcpu_has_lzcnt()       (ctxt->cpuid->extd.abm)
-+#define vcpu_has_sse4a()       (ctxt->cpuid->extd.sse4a)
-+#define vcpu_has_misalignsse() (ctxt->cpuid->extd.misalignsse)
-+#define vcpu_has_xop()         (ctxt->cpuid->extd.xop)
-+#define vcpu_has_fma4()        (ctxt->cpuid->extd.fma4)
-+#define vcpu_has_tbm()         (ctxt->cpuid->extd.tbm)
-+#define vcpu_has_clzero()      (ctxt->cpuid->extd.clzero)
-+#define vcpu_has_wbnoinvd()    (ctxt->cpuid->extd.wbnoinvd)
-+
-+#define vcpu_has_bmi1()        (ctxt->cpuid->feat.bmi1)
-+#define vcpu_has_hle()         (ctxt->cpuid->feat.hle)
-+#define vcpu_has_avx2()        (ctxt->cpuid->feat.avx2)
-+#define vcpu_has_bmi2()        (ctxt->cpuid->feat.bmi2)
-+#define vcpu_has_invpcid()     (ctxt->cpuid->feat.invpcid)
-+#define vcpu_has_rtm()         (ctxt->cpuid->feat.rtm)
-+#define vcpu_has_mpx()         (ctxt->cpuid->feat.mpx)
-+#define vcpu_has_avx512f()     (ctxt->cpuid->feat.avx512f)
-+#define vcpu_has_avx512dq()    (ctxt->cpuid->feat.avx512dq)
-+#define vcpu_has_rdseed()      (ctxt->cpuid->feat.rdseed)
-+#define vcpu_has_adx()         (ctxt->cpuid->feat.adx)
-+#define vcpu_has_smap()        (ctxt->cpuid->feat.smap)
-+#define vcpu_has_avx512_ifma() (ctxt->cpuid->feat.avx512_ifma)
-+#define vcpu_has_clflushopt()  (ctxt->cpuid->feat.clflushopt)
-+#define vcpu_has_clwb()        (ctxt->cpuid->feat.clwb)
-+#define vcpu_has_avx512pf()    (ctxt->cpuid->feat.avx512pf)
-+#define vcpu_has_avx512er()    (ctxt->cpuid->feat.avx512er)
-+#define vcpu_has_avx512cd()    (ctxt->cpuid->feat.avx512cd)
-+#define vcpu_has_sha()         (ctxt->cpuid->feat.sha)
-+#define vcpu_has_avx512bw()    (ctxt->cpuid->feat.avx512bw)
-+#define vcpu_has_avx512vl()    (ctxt->cpuid->feat.avx512vl)
-+#define vcpu_has_avx512_vbmi() (ctxt->cpuid->feat.avx512_vbmi)
-+#define vcpu_has_avx512_vbmi2() (ctxt->cpuid->feat.avx512_vbmi2)
-+#define vcpu_has_gfni()        (ctxt->cpuid->feat.gfni)
-+#define vcpu_has_vaes()        (ctxt->cpuid->feat.vaes)
-+#define vcpu_has_vpclmulqdq()  (ctxt->cpuid->feat.vpclmulqdq)
-+#define vcpu_has_avx512_vnni() (ctxt->cpuid->feat.avx512_vnni)
-+#define vcpu_has_avx512_bitalg() (ctxt->cpuid->feat.avx512_bitalg)
-+#define vcpu_has_avx512_vpopcntdq() (ctxt->cpuid->feat.avx512_vpopcntdq)
-+#define vcpu_has_rdpid()       (ctxt->cpuid->feat.rdpid)
-+#define vcpu_has_movdiri()     (ctxt->cpuid->feat.movdiri)
-+#define vcpu_has_movdir64b()   (ctxt->cpuid->feat.movdir64b)
-+#define vcpu_has_enqcmd()      (ctxt->cpuid->feat.enqcmd)
-+#define vcpu_has_avx512_4vnniw() (ctxt->cpuid->feat.avx512_4vnniw)
-+#define vcpu_has_avx512_4fmaps() (ctxt->cpuid->feat.avx512_4fmaps)
-+#define vcpu_has_avx512_vp2intersect() (ctxt->cpuid->feat.avx512_vp2intersect)
-+#define vcpu_has_serialize()   (ctxt->cpuid->feat.serialize)
-+#define vcpu_has_tsxldtrk()    (ctxt->cpuid->feat.tsxldtrk)
-+#define vcpu_has_avx_vnni()    (ctxt->cpuid->feat.avx_vnni)
-+#define vcpu_has_avx512_bf16() (ctxt->cpuid->feat.avx512_bf16)
-+
-+#define vcpu_must_have(feat) \
-+    generate_exception_if(!vcpu_has_##feat(), X86_EXC_UD)
-+
-+#ifdef __XEN__
-+/*
-+ * Note the difference between vcpu_must_have(<feature>) and
-+ * host_and_vcpu_must_have(<feature>): The latter needs to be used when
-+ * emulation code is using the same instruction class for carrying out
-+ * the actual operation.
-+ */
-+# define host_and_vcpu_must_have(feat) ({ \
-+    generate_exception_if(!cpu_has_##feat, X86_EXC_UD); \
-+    vcpu_must_have(feat); \
-+})
-+#else
-+/*
-+ * For the test harness both are fine to be used interchangeably, i.e.
-+ * features known to always be available (e.g. SSE/SSE2) to (64-bit) Xen
-+ * may be checked for by just vcpu_must_have().
-+ */
-+# define host_and_vcpu_must_have(feat) vcpu_must_have(feat)
-+#endif
-+
-+int x86emul_get_cpl(struct x86_emulate_ctxt *ctxt,
+ #define vcpu_has_fpu()         (ctxt->cpuid->basic.fpu)
+ #define vcpu_has_sep()         (ctxt->cpuid->basic.sep)
+ #define vcpu_has_cx8()         (ctxt->cpuid->basic.cx8)
+@@ -501,11 +536,52 @@ in_protmode(
+ int x86emul_get_cpl(struct x86_emulate_ctxt *ctxt,
+                     const struct x86_emulate_ops *ops);
+ 
++int x86emul_get_fpu(enum x86_emulate_fpu_type type,
++                    struct x86_emulate_ctxt *ctxt,
 +                    const struct x86_emulate_ops *ops);
 +
-+int x86emul_0f01(struct x86_emulate_state *s,
++#define get_fpu(type)                                           \
++do {                                                            \
++    rc = x86emul_get_fpu(fpu_type = (type), ctxt, ops);         \
++    if ( rc ) goto done;                                        \
++} while (0)
++
+ int x86emul_0f01(struct x86_emulate_state *s,
+                  struct cpu_user_regs *regs,
+                  struct operand *dst,
+                  struct x86_emulate_ctxt *ctxt,
+                  const struct x86_emulate_ops *ops);
++int x86emul_0fae(struct x86_emulate_state *s,
 +                 struct cpu_user_regs *regs,
 +                 struct operand *dst,
++                 const struct operand *src,
 +                 struct x86_emulate_ctxt *ctxt,
-+                 const struct x86_emulate_ops *ops);
++                 const struct x86_emulate_ops *ops,
++                 enum x86_emulate_fpu_type *fpu_type);
 +
-+static inline bool umip_active(struct x86_emulate_ctxt *ctxt,
-+                               const struct x86_emulate_ops *ops)
++static inline bool is_aligned(enum x86_segment seg, unsigned long offs,
++                              unsigned int size, struct x86_emulate_ctxt *ctxt,
++                              const struct x86_emulate_ops *ops)
 +{
-+    unsigned long cr4;
++    struct segment_register reg;
 +
-+    /* Intentionally not using mode_ring0() here to avoid its fail_if(). */
-+    return x86emul_get_cpl(ctxt, ops) > 0 &&
-+           ops->read_cr && ops->read_cr(4, &cr4, ctxt) == X86EMUL_OKAY &&
-+           (cr4 & X86_CR4_UMIP);
-+}
++    /* Expecting powers of two only. */
++    ASSERT(!(size & (size - 1)));
 +
-+/* Compatibility function: read guest memory, zero-extend result to a ulong. */
-+static inline int read_ulong(enum x86_segment seg,
-+                             unsigned long offset,
-+                             unsigned long *val,
-+                             unsigned int bytes,
-+                             struct x86_emulate_ctxt *ctxt,
-+                             const struct x86_emulate_ops *ops)
-+{
-+    *val = 0;
-+    return ops->read(seg, offset, val, bytes, ctxt);
++    if ( mode_64bit() && seg < x86_seg_fs )
++        memset(&reg, 0, sizeof(reg));
++    else
++    {
++        /* No alignment checking when we have no way to read segment data. */
++        if ( !ops->read_segment )
++            return true;
++
++        if ( ops->read_segment(seg, &reg, ctxt) != X86EMUL_OKAY )
++            return false;
++    }
++
++    return !((reg.base + offs) & (size - 1));
 +}
+ 
+ static inline bool umip_active(struct x86_emulate_ctxt *ctxt,
+                                const struct x86_emulate_ops *ops)
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -20,39 +20,7 @@
-  * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
+@@ -695,29 +695,6 @@ typedef union {
+     uint32_t data32[16];
+ } mmval_t;
  
--/* Operand sizes: 8-bit operands or specified/overridden size. */
--#define ByteOp      (1<<0) /* 8-bit operands. */
--/* Destination operand type. */
--#define DstNone     (0<<1) /* No destination operand. */
--#define DstImplicit (0<<1) /* Destination operand is implicit in the opcode. */
--#define DstBitBase  (1<<1) /* Memory operand, bit string. */
--#define DstReg      (2<<1) /* Register operand. */
--#define DstEax      DstReg /* Register EAX (aka DstReg with no ModRM) */
--#define DstMem      (3<<1) /* Memory operand. */
--#define DstMask     (3<<1)
--/* Source operand type. */
--#define SrcNone     (0<<3) /* No source operand. */
--#define SrcImplicit (0<<3) /* Source operand is implicit in the opcode. */
--#define SrcReg      (1<<3) /* Register operand. */
--#define SrcEax      SrcReg /* Register EAX (aka SrcReg with no ModRM) */
--#define SrcMem      (2<<3) /* Memory operand. */
--#define SrcMem16    (3<<3) /* Memory operand (16-bit). */
--#define SrcImm      (4<<3) /* Immediate operand. */
--#define SrcImmByte  (5<<3) /* 8-bit sign-extended immediate operand. */
--#define SrcImm16    (6<<3) /* 16-bit zero-extended immediate operand. */
--#define SrcMask     (7<<3)
--/* Generic ModRM decode. */
--#define ModRM       (1<<6)
--/* vSIB addressing mode (0f38 extension opcodes only), aliasing ModRM. */
--#define vSIB        (1<<6)
--/* Destination is only written; never read. */
--#define Mov         (1<<7)
--/* VEX/EVEX (SIMD only): 2nd source operand unused (must be all ones) */
--#define TwoOp       Mov
--/* All operands are implicit in the opcode. */
--#define ImplicitOps (DstImplicit|SrcImplicit)
--
--typedef uint8_t opcode_desc_t;
-+#include "private.h"
- 
- static const opcode_desc_t opcode_table[256] = {
-     /* 0x00 - 0x07 */
-@@ -184,71 +152,6 @@ static const opcode_desc_t opcode_table[
-     ImplicitOps, ImplicitOps, ByteOp|DstMem|SrcNone|ModRM, DstMem|SrcNone|ModRM
- };
- 
--enum simd_opsize {
--    simd_none,
--
--    /*
--     * Ordinary packed integers:
--     * - 64 bits without prefix 66 (MMX)
--     * - 128 bits with prefix 66 (SSEn)
--     * - 128/256/512 bits depending on VEX.L/EVEX.LR (AVX+)
--     */
--    simd_packed_int,
--
--    /*
--     * Ordinary packed/scalar floating point:
--     * - 128 bits without prefix or with prefix 66 (SSEn)
--     * - 128/256/512 bits depending on VEX.L/EVEX.LR (AVX+)
--     * - 32 bits with prefix F3 (scalar single)
--     * - 64 bits with prefix F2 (scalar doubgle)
--     */
--    simd_any_fp,
--
--    /*
--     * Packed floating point:
--     * - 128 bits without prefix or with prefix 66 (SSEn)
--     * - 128/256/512 bits depending on VEX.L/EVEX.LR (AVX+)
--     */
--    simd_packed_fp,
--
--    /*
--     * Single precision packed/scalar floating point:
--     * - 128 bits without prefix (SSEn)
--     * - 128/256/512 bits depending on VEX.L/EVEX.LR (AVX+)
--     * - 32 bits with prefix F3 (scalar)
--     */
--    simd_single_fp,
--
--    /*
--     * Scalar floating point:
--     * - 32 bits with low opcode bit clear (scalar single)
--     * - 64 bits with low opcode bit set (scalar double)
--     */
--    simd_scalar_opc,
--
--    /*
--     * Scalar floating point:
--     * - 32/64 bits depending on VEX.W/EVEX.W
--     */
--    simd_scalar_vexw,
--
--    /*
--     * 128 bits of integer or floating point data, with no further
--     * formatting information, or with it encoded by EVEX.W.
--     */
--    simd_128,
--
--    /*
--     * 256 bits of integer or floating point data, with formatting
--     * encoded by EVEX.W.
--     */
--    simd_256,
--
--    /* Operand size encoded in non-standard way. */
--    simd_other
--};
--typedef uint8_t simd_opsize_t;
--
- enum disp8scale {
-     /* Values 0 ... 4 are explicit sizes. */
-     d8s_bw = 5,
-@@ -670,45 +573,11 @@ static const struct ext8f09_table {
-     [0xe1 ... 0xe3] = { .simd_size = simd_packed_int, .two_op = 1 },
- };
- 
--#define REX_PREFIX 0x40
--#define REX_B 0x01
--#define REX_X 0x02
--#define REX_R 0x04
--#define REX_W 0x08
--
--#define vex_none 0
--
--enum vex_opcx {
--    vex_0f = vex_none + 1,
--    vex_0f38,
--    vex_0f3a,
--};
--
--enum vex_pfx {
--    vex_66 = vex_none + 1,
--    vex_f3,
--    vex_f2
--};
--
- #define VEX_PREFIX_DOUBLE_MASK 0x1
- #define VEX_PREFIX_SCALAR_MASK 0x2
- 
- static const uint8_t sse_prefix[] = { 0x66, 0xf3, 0xf2 };
- 
--union vex {
--    uint8_t raw[2];
--    struct {             /* SDM names */
--        uint8_t opcx:5;  /* mmmmm */
--        uint8_t b:1;     /* B */
--        uint8_t x:1;     /* X */
--        uint8_t r:1;     /* R */
--        uint8_t pfx:2;   /* pp */
--        uint8_t l:1;     /* L */
--        uint8_t reg:4;   /* vvvv */
--        uint8_t w:1;     /* W */
--    };
--};
--
- #ifdef __x86_64__
- # define PFX2 REX_PREFIX
- #else
-@@ -748,27 +617,6 @@ union vex {
-     } \
- } while (0)
- 
--union evex {
--    uint8_t raw[3];
--    struct {             /* SDM names */
--        uint8_t opcx:2;  /* mm */
--        uint8_t mbz:2;
--        uint8_t R:1;     /* R' */
--        uint8_t b:1;     /* B */
--        uint8_t x:1;     /* X */
--        uint8_t r:1;     /* R */
--        uint8_t pfx:2;   /* pp */
--        uint8_t mbs:1;
--        uint8_t reg:4;   /* vvvv */
--        uint8_t w:1;     /* W */
--        uint8_t opmsk:3; /* aaa */
--        uint8_t RX:1;    /* V' */
--        uint8_t brs:1;   /* b */
--        uint8_t lr:2;    /* L'L */
--        uint8_t z:1;     /* z */
--    };
--};
--
- #define EVEX_PFX_BYTES 4
- #define init_evex(stub) ({ \
-     uint8_t *buf_ = get_stub(stub); \
-@@ -789,118 +637,6 @@ union evex {
- #define repe_prefix()  (vex.pfx == vex_f3)
- #define repne_prefix() (vex.pfx == vex_f2)
- 
--/* Type, address-of, and value of an instruction's operand. */
--struct operand {
--    enum { OP_REG, OP_MEM, OP_IMM, OP_NONE } type;
--    unsigned int bytes;
--
--    /* Operand value. */
--    unsigned long val;
--
--    /* Original operand value. */
--    unsigned long orig_val;
--
--    /* OP_REG: Pointer to register field. */
--    unsigned long *reg;
--
--    /* OP_MEM: Segment and offset. */
+-struct x86_fxsr {
+-    uint16_t fcw;
+-    uint16_t fsw;
+-    uint8_t ftw, :8;
+-    uint16_t fop;
+-    union {
+-        struct {
+-            uint32_t offs;
+-            uint16_t sel, :16;
+-        };
+-        uint64_t addr;
+-    } fip, fdp;
+-    uint32_t mxcsr;
+-    uint32_t mxcsr_mask;
 -    struct {
--        enum x86_segment seg;
--        unsigned long    off;
--    } mem;
+-        uint8_t data[10];
+-        uint16_t :16, :16, :16;
+-    } fpreg[8];
+-    uint64_t __attribute__ ((aligned(16))) xmm[16][2];
+-    uint64_t rsvd[6];
+-    uint64_t avl[6];
 -};
 -
--struct x86_emulate_state {
--    unsigned int op_bytes, ad_bytes;
--
--    enum {
--        ext_none = vex_none,
--        ext_0f   = vex_0f,
--        ext_0f38 = vex_0f38,
--        ext_0f3a = vex_0f3a,
--        /*
--         * For XOP use values such that the respective instruction field
--         * can be used without adjustment.
--         */
--        ext_8f08 = 8,
--        ext_8f09,
--        ext_8f0a,
--    } ext;
--    enum {
--        rmw_NONE,
--        rmw_adc,
--        rmw_add,
--        rmw_and,
--        rmw_btc,
--        rmw_btr,
--        rmw_bts,
--        rmw_dec,
--        rmw_inc,
--        rmw_neg,
--        rmw_not,
--        rmw_or,
--        rmw_rcl,
--        rmw_rcr,
--        rmw_rol,
--        rmw_ror,
--        rmw_sar,
--        rmw_sbb,
--        rmw_shl,
--        rmw_shld,
--        rmw_shr,
--        rmw_shrd,
--        rmw_sub,
--        rmw_xadd,
--        rmw_xchg,
--        rmw_xor,
--    } rmw;
--    enum {
--        blk_NONE,
--        blk_enqcmd,
--#ifndef X86EMUL_NO_FPU
--        blk_fld, /* FLDENV, FRSTOR */
--        blk_fst, /* FNSTENV, FNSAVE */
--#endif
--#if !defined(X86EMUL_NO_FPU) || !defined(X86EMUL_NO_MMX) || \
--    !defined(X86EMUL_NO_SIMD)
--        blk_fxrstor,
--        blk_fxsave,
--#endif
--        blk_movdir,
--    } blk;
--    uint8_t modrm, modrm_mod, modrm_reg, modrm_rm;
--    uint8_t sib_index, sib_scale;
--    uint8_t rex_prefix;
--    bool lock_prefix;
--    bool not_64bit; /* Instruction not available in 64bit. */
--    bool fpu_ctrl;  /* Instruction is an FPU control one. */
--    opcode_desc_t desc;
--    union vex vex;
--    union evex evex;
--    enum simd_opsize simd_size;
--
--    /*
--     * Data operand effective address (usually computed from ModRM).
--     * Default is a memory operand relative to segment DS.
--     */
--    struct operand ea;
--
--    /* Immediate operand values, if any. Use otherwise unused fields. */
--#define imm1 ea.val
--#define imm2 ea.orig_val
--
--    unsigned long ip;
--    struct cpu_user_regs *regs;
--
--#ifndef NDEBUG
--    /*
--     * Track caller of x86_decode_insn() to spot missing as well as
--     * premature calls to x86_emulate_free_state().
--     */
--    void *caller;
--#endif
--};
--
- #ifdef __x86_64__
- #define PTR_POISON ((void *)0x8086000000008086UL) /* non-canonical */
- #else
-@@ -1049,21 +785,6 @@ struct x86_fxsr {
- #define _BYTES_PER_LONG "4"
- #endif
- 
--/*
-- * These EFLAGS bits are restored from saved value during emulation, and
-- * any changes are written back to the saved value after emulation.
-- */
--#define EFLAGS_MASK (X86_EFLAGS_OF | X86_EFLAGS_SF | X86_EFLAGS_ZF | \
--                     X86_EFLAGS_AF | X86_EFLAGS_PF | X86_EFLAGS_CF)
--
--/*
-- * These EFLAGS bits are modifiable (by POPF and IRET), possibly subject
-- * to further CPL and IOPL constraints.
-- */
--#define EFLAGS_MODIFIABLE (X86_EFLAGS_ID | X86_EFLAGS_AC | X86_EFLAGS_RF | \
--                           X86_EFLAGS_NT | X86_EFLAGS_IOPL | X86_EFLAGS_DF | \
--                           X86_EFLAGS_IF | X86_EFLAGS_TF | EFLAGS_MASK)
--
- /* Before executing instruction: restore necessary bits in EFLAGS. */
- #define _PRE_EFLAGS(_sav, _msk, _tmp)                           \
- /* EFLAGS = (_sav & _msk) | (EFLAGS & ~_msk); _sav &= ~_msk; */ \
-@@ -1223,36 +944,6 @@ do{ asm volatile (
- #define __emulate_1op_8byte(op, dst, eflags, extra...)
- #endif /* __i386__ */
- 
--#define fail_if(p)                                      \
--do {                                                    \
--    rc = (p) ? X86EMUL_UNHANDLEABLE : X86EMUL_OKAY;     \
--    if ( rc ) goto done;                                \
--} while (0)
--
--#define EXPECT(p)                                       \
--do {                                                    \
--    if ( unlikely(!(p)) )                               \
--    {                                                   \
--        ASSERT_UNREACHABLE();                           \
--        goto unhandleable;                              \
--    }                                                   \
--} while (0)
--
--static inline int mkec(uint8_t e, int32_t ec, ...)
--{
--    return (e < 32 && ((1u << e) & EXC_HAS_EC)) ? ec : X86_EVENT_NO_EC;
--}
--
--#define generate_exception_if(p, e, ec...)                                \
--({  if ( (p) ) {                                                          \
--        x86_emul_hw_exception(e, mkec(e, ##ec, 0), ctxt);                 \
--        rc = X86EMUL_EXCEPTION;                                           \
--        goto done;                                                        \
--    }                                                                     \
--})
--
--#define generate_exception(e, ec...) generate_exception_if(true, e, ##ec)
--
- #ifdef __XEN__
- # define invoke_stub(pre, post, constraints...) do {                    \
-     stub_exn.info = (union stub_exception_token) { .raw = ~0 };         \
-@@ -1301,20 +992,6 @@ static inline int mkec(uint8_t e, int32_
- })
- #define insn_fetch_type(_type) ((_type)insn_fetch_bytes(sizeof(_type)))
- 
--#define truncate_word(ea, byte_width)           \
--({  unsigned long __ea = (ea);                  \
--    unsigned int _width = (byte_width);         \
--    ((_width == sizeof(unsigned long)) ? __ea : \
--     (__ea & ((1UL << (_width << 3)) - 1)));    \
--})
--#define truncate_ea(ea) truncate_word((ea), ad_bytes)
--
--#ifdef __x86_64__
--# define mode_64bit() (ctxt->addr_size == 64)
--#else
--# define mode_64bit() false
--#endif
--
  /*
-  * Given byte has even parity (even number of 1s)? SDM Vol. 1 Sec. 3.4.3.1,
-  * "Status Flags": EFLAGS.PF reflects parity of least-sig. byte of result only.
-@@ -1655,19 +1332,6 @@ static void __put_rep_prefix(
-     ea__;                                                                 \
+  * While proper alignment gets specified above, this doesn't get honored by
+  * the compiler for automatic variables. Use this helper to instantiate a
+@@ -1063,7 +1040,7 @@ do {
+     ops->write_segment(x86_seg_cs, cs, ctxt);                           \
  })
  
--/* Compatibility function: read guest memory, zero-extend result to a ulong. */
--static int read_ulong(
--        enum x86_segment seg,
--        unsigned long offset,
--        unsigned long *val,
--        unsigned int bytes,
--        struct x86_emulate_ctxt *ctxt,
--        const struct x86_emulate_ops *ops)
--{
--    *val = 0;
--    return ops->read(seg, offset, val, bytes, ctxt);
--}
--
- /*
-  * Unsigned multiplication with double-word result.
-  * IN:  Multiplicand=m[0], Multiplier=m[1]
-@@ -1792,10 +1456,8 @@ test_cc(
-     return (!!rc ^ (condition & 1));
- }
- 
--static int
--get_cpl(
--    struct x86_emulate_ctxt *ctxt,
--    const struct x86_emulate_ops  *ops)
-+int x86emul_get_cpl(struct x86_emulate_ctxt *ctxt,
-+                    const struct x86_emulate_ops *ops)
- {
-     struct segment_register reg;
- 
-@@ -1814,17 +1476,12 @@ _mode_iopl(
+-static int _get_fpu(
++int x86emul_get_fpu(
+     enum x86_emulate_fpu_type type,
      struct x86_emulate_ctxt *ctxt,
-     const struct x86_emulate_ops  *ops)
- {
--    int cpl = get_cpl(ctxt, ops);
-+    int cpl = x86emul_get_cpl(ctxt, ops);
-     if ( cpl == -1 )
-         return -1;
-     return cpl <= MASK_EXTR(ctxt->regs->eflags, X86_EFLAGS_IOPL);
+     const struct x86_emulate_ops *ops)
+@@ -1102,7 +1079,7 @@ static int _get_fpu(
+         break;
+     }
+ 
+-    rc = ops->get_fpu(type, ctxt);
++    rc = (ops->get_fpu)(type, ctxt);
+ 
+     if ( rc == X86EMUL_OKAY )
+     {
+@@ -1146,12 +1123,6 @@ static int _get_fpu(
+     return rc;
  }
  
--#define mode_ring0() ({                         \
--    int _cpl = get_cpl(ctxt, ops);              \
--    fail_if(_cpl < 0);                          \
--    (_cpl == 0);                                \
--})
- #define mode_iopl() ({                          \
-     int _iopl = _mode_iopl(ctxt, ops);          \
-     fail_if(_iopl < 0);                         \
-@@ -1832,7 +1489,7 @@ _mode_iopl(
- })
- #define mode_vif() ({                                        \
-     cr4 = 0;                                                 \
--    if ( ops->read_cr && get_cpl(ctxt, ops) == 3 )           \
-+    if ( ops->read_cr && x86emul_get_cpl(ctxt, ops) == 3 )   \
-     {                                                        \
-         rc = ops->read_cr(4, &cr4, ctxt);                    \
-         if ( rc != X86EMUL_OKAY ) goto done;                 \
-@@ -1900,29 +1557,6 @@ static int ioport_access_check(
+-#define get_fpu(type)                                           \
+-do {                                                            \
+-    rc = _get_fpu(fpu_type = (type), ctxt, ops);                \
+-    if ( rc ) goto done;                                        \
+-} while (0)
+-
+ static void put_fpu(
+     enum x86_emulate_fpu_type type,
+     bool failed_late,
+@@ -1556,18 +1527,6 @@ static int ioport_access_check(
+     return rc;
  }
  
- static bool
--in_realmode(
--    struct x86_emulate_ctxt *ctxt,
--    const struct x86_emulate_ops  *ops)
+-static bool
+-_amd_like(const struct cpuid_policy *cp)
 -{
--    unsigned long cr0;
--    int rc;
--
--    if ( ops->read_cr == NULL )
--        return 0;
--
--    rc = ops->read_cr(0, &cr0, ctxt);
--    return (!rc && !(cr0 & X86_CR0_PE));
+-    return cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON);
 -}
 -
 -static bool
--in_protmode(
--    struct x86_emulate_ctxt *ctxt,
--    const struct x86_emulate_ops  *ops)
+-amd_like(const struct x86_emulate_ctxt *ctxt)
 -{
--    return !(in_realmode(ctxt, ops) || (ctxt->regs->eflags & X86_EFLAGS_VM));
+-    return _amd_like(ctxt->cpuid);
 -}
--
--static bool
- _amd_like(const struct cpuid_policy *cp)
- {
-     return cp->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON);
-@@ -1934,107 +1568,6 @@ amd_like(const struct x86_emulate_ctxt *
-     return _amd_like(ctxt->cpuid);
- }
- 
--#define vcpu_has_fpu()         (ctxt->cpuid->basic.fpu)
--#define vcpu_has_sep()         (ctxt->cpuid->basic.sep)
--#define vcpu_has_cx8()         (ctxt->cpuid->basic.cx8)
--#define vcpu_has_cmov()        (ctxt->cpuid->basic.cmov)
--#define vcpu_has_clflush()     (ctxt->cpuid->basic.clflush)
--#define vcpu_has_mmx()         (ctxt->cpuid->basic.mmx)
--#define vcpu_has_fxsr()        (ctxt->cpuid->basic.fxsr)
--#define vcpu_has_sse()         (ctxt->cpuid->basic.sse)
--#define vcpu_has_sse2()        (ctxt->cpuid->basic.sse2)
--#define vcpu_has_sse3()        (ctxt->cpuid->basic.sse3)
--#define vcpu_has_pclmulqdq()   (ctxt->cpuid->basic.pclmulqdq)
--#define vcpu_has_ssse3()       (ctxt->cpuid->basic.ssse3)
--#define vcpu_has_fma()         (ctxt->cpuid->basic.fma)
--#define vcpu_has_cx16()        (ctxt->cpuid->basic.cx16)
--#define vcpu_has_sse4_1()      (ctxt->cpuid->basic.sse4_1)
--#define vcpu_has_sse4_2()      (ctxt->cpuid->basic.sse4_2)
--#define vcpu_has_movbe()       (ctxt->cpuid->basic.movbe)
--#define vcpu_has_popcnt()      (ctxt->cpuid->basic.popcnt)
--#define vcpu_has_aesni()       (ctxt->cpuid->basic.aesni)
--#define vcpu_has_avx()         (ctxt->cpuid->basic.avx)
--#define vcpu_has_f16c()        (ctxt->cpuid->basic.f16c)
--#define vcpu_has_rdrand()      (ctxt->cpuid->basic.rdrand)
--
--#define vcpu_has_mmxext()      (ctxt->cpuid->extd.mmxext || vcpu_has_sse())
--#define vcpu_has_3dnow_ext()   (ctxt->cpuid->extd._3dnowext)
--#define vcpu_has_3dnow()       (ctxt->cpuid->extd._3dnow)
--#define vcpu_has_lahf_lm()     (ctxt->cpuid->extd.lahf_lm)
--#define vcpu_has_cr8_legacy()  (ctxt->cpuid->extd.cr8_legacy)
--#define vcpu_has_lzcnt()       (ctxt->cpuid->extd.abm)
--#define vcpu_has_sse4a()       (ctxt->cpuid->extd.sse4a)
--#define vcpu_has_misalignsse() (ctxt->cpuid->extd.misalignsse)
--#define vcpu_has_xop()         (ctxt->cpuid->extd.xop)
--#define vcpu_has_fma4()        (ctxt->cpuid->extd.fma4)
--#define vcpu_has_tbm()         (ctxt->cpuid->extd.tbm)
--#define vcpu_has_clzero()      (ctxt->cpuid->extd.clzero)
--#define vcpu_has_wbnoinvd()    (ctxt->cpuid->extd.wbnoinvd)
--
--#define vcpu_has_bmi1()        (ctxt->cpuid->feat.bmi1)
--#define vcpu_has_hle()         (ctxt->cpuid->feat.hle)
--#define vcpu_has_avx2()        (ctxt->cpuid->feat.avx2)
--#define vcpu_has_bmi2()        (ctxt->cpuid->feat.bmi2)
--#define vcpu_has_invpcid()     (ctxt->cpuid->feat.invpcid)
--#define vcpu_has_rtm()         (ctxt->cpuid->feat.rtm)
--#define vcpu_has_mpx()         (ctxt->cpuid->feat.mpx)
--#define vcpu_has_avx512f()     (ctxt->cpuid->feat.avx512f)
--#define vcpu_has_avx512dq()    (ctxt->cpuid->feat.avx512dq)
--#define vcpu_has_rdseed()      (ctxt->cpuid->feat.rdseed)
--#define vcpu_has_adx()         (ctxt->cpuid->feat.adx)
--#define vcpu_has_smap()        (ctxt->cpuid->feat.smap)
--#define vcpu_has_avx512_ifma() (ctxt->cpuid->feat.avx512_ifma)
--#define vcpu_has_clflushopt()  (ctxt->cpuid->feat.clflushopt)
--#define vcpu_has_clwb()        (ctxt->cpuid->feat.clwb)
--#define vcpu_has_avx512pf()    (ctxt->cpuid->feat.avx512pf)
--#define vcpu_has_avx512er()    (ctxt->cpuid->feat.avx512er)
--#define vcpu_has_avx512cd()    (ctxt->cpuid->feat.avx512cd)
--#define vcpu_has_sha()         (ctxt->cpuid->feat.sha)
--#define vcpu_has_avx512bw()    (ctxt->cpuid->feat.avx512bw)
--#define vcpu_has_avx512vl()    (ctxt->cpuid->feat.avx512vl)
--#define vcpu_has_avx512_vbmi() (ctxt->cpuid->feat.avx512_vbmi)
--#define vcpu_has_avx512_vbmi2() (ctxt->cpuid->feat.avx512_vbmi2)
--#define vcpu_has_gfni()        (ctxt->cpuid->feat.gfni)
--#define vcpu_has_vaes()        (ctxt->cpuid->feat.vaes)
--#define vcpu_has_vpclmulqdq()  (ctxt->cpuid->feat.vpclmulqdq)
--#define vcpu_has_avx512_vnni() (ctxt->cpuid->feat.avx512_vnni)
--#define vcpu_has_avx512_bitalg() (ctxt->cpuid->feat.avx512_bitalg)
--#define vcpu_has_avx512_vpopcntdq() (ctxt->cpuid->feat.avx512_vpopcntdq)
--#define vcpu_has_rdpid()       (ctxt->cpuid->feat.rdpid)
--#define vcpu_has_movdiri()     (ctxt->cpuid->feat.movdiri)
--#define vcpu_has_movdir64b()   (ctxt->cpuid->feat.movdir64b)
--#define vcpu_has_enqcmd()      (ctxt->cpuid->feat.enqcmd)
--#define vcpu_has_avx512_4vnniw() (ctxt->cpuid->feat.avx512_4vnniw)
--#define vcpu_has_avx512_4fmaps() (ctxt->cpuid->feat.avx512_4fmaps)
--#define vcpu_has_avx512_vp2intersect() (ctxt->cpuid->feat.avx512_vp2intersect)
--#define vcpu_has_serialize()   (ctxt->cpuid->feat.serialize)
--#define vcpu_has_tsxldtrk()    (ctxt->cpuid->feat.tsxldtrk)
--#define vcpu_has_avx_vnni()    (ctxt->cpuid->feat.avx_vnni)
--#define vcpu_has_avx512_bf16() (ctxt->cpuid->feat.avx512_bf16)
--
--#define vcpu_must_have(feat) \
--    generate_exception_if(!vcpu_has_##feat(), EXC_UD)
--
--#ifdef __XEN__
--/*
-- * Note the difference between vcpu_must_have(<feature>) and
-- * host_and_vcpu_must_have(<feature>): The latter needs to be used when
-- * emulation code is using the same instruction class for carrying out
-- * the actual operation.
-- */
--#define host_and_vcpu_must_have(feat) ({ \
--    generate_exception_if(!cpu_has_##feat, EXC_UD); \
--    vcpu_must_have(feat); \
--})
--#else
--/*
-- * For the test harness both are fine to be used interchangeably, i.e.
-- * features known to always be available (e.g. SSE/SSE2) to (64-bit) Xen
-- * may be checked for by just vcpu_must_have().
-- */
--#define host_and_vcpu_must_have(feat) vcpu_must_have(feat)
--#endif
 -
  /* Initialise output state in x86_emulate_ctxt */
  static void init_context(struct x86_emulate_ctxt *ctxt)
  {
-@@ -2081,7 +1614,7 @@ protmode_load_seg(
-     enum x86_segment sel_seg = (sel & 4) ? x86_seg_ldtr : x86_seg_gdtr;
-     struct { uint32_t a, b; } desc, desc_hi = {};
-     uint8_t dpl, rpl;
--    int cpl = get_cpl(ctxt, ops);
-+    int cpl = x86emul_get_cpl(ctxt, ops);
-     uint32_t a_flag = 0x100;
-     int rc, fault_type = EXC_GP;
+@@ -1980,30 +1939,6 @@ static unsigned int decode_disp8scale(en
+     } \
+ } while ( false )
  
-@@ -2481,17 +2014,6 @@ static bool is_branch_step(struct x86_em
-            (debugctl & IA32_DEBUGCTLMSR_BTF);
- }
- 
--static bool umip_active(struct x86_emulate_ctxt *ctxt,
--                        const struct x86_emulate_ops *ops)
+-static bool is_aligned(enum x86_segment seg, unsigned long offs,
+-                       unsigned int size, struct x86_emulate_ctxt *ctxt,
+-                       const struct x86_emulate_ops *ops)
 -{
--    unsigned long cr4;
+-    struct segment_register reg;
 -
--    /* Intentionally not using mode_ring0() here to avoid its fail_if(). */
--    return get_cpl(ctxt, ops) > 0 &&
--           ops->read_cr && ops->read_cr(4, &cr4, ctxt) == X86EMUL_OKAY &&
--           (cr4 & X86_CR4_UMIP);
+-    /* Expecting powers of two only. */
+-    ASSERT(!(size & (size - 1)));
+-
+-    if ( mode_64bit() && seg < x86_seg_fs )
+-        memset(&reg, 0, sizeof(reg));
+-    else
+-    {
+-        /* No alignment checking when we have no way to read segment data. */
+-        if ( !ops->read_segment )
+-            return true;
+-
+-        if ( ops->read_segment(seg, &reg, ctxt) != X86EMUL_OKAY )
+-            return false;
+-    }
+-
+-    return !((reg.base + offs) & (size - 1));
 -}
 -
- static void adjust_bnd(struct x86_emulate_ctxt *ctxt,
-                        const struct x86_emulate_ops *ops, enum vex_pfx pfx)
+ static bool is_branch_step(struct x86_emulate_ctxt *ctxt,
+                            const struct x86_emulate_ops *ops)
  {
-@@ -5703,317 +5225,8 @@ x86_emulate(
+@@ -3346,7 +3281,8 @@ x86_emulate(
+ #ifndef X86EMUL_NO_SIMD
+     /* With a memory operand, fetch the mask register in use (if any). */
+     if ( ea.type == OP_MEM && evex.opmsk &&
+-         _get_fpu(fpu_type = X86EMUL_FPU_opmask, ctxt, ops) == X86EMUL_OKAY )
++         x86emul_get_fpu(fpu_type = X86EMUL_FPU_opmask,
++                         ctxt, ops) == X86EMUL_OKAY )
+     {
+         uint8_t *stb = get_stub(stub);
+ 
+@@ -3369,7 +3305,7 @@ x86_emulate(
+ 
+     if ( fpu_type == X86EMUL_FPU_opmask )
+     {
+-        /* Squash (side) effects of the _get_fpu() above. */
++        /* Squash (side) effects of the x86emul_get_fpu() above. */
+         x86_emul_reset_event(ctxt);
+         put_fpu(X86EMUL_FPU_opmask, false, state, ctxt, ops);
+         fpu_type = X86EMUL_FPU_none;
+@@ -7433,173 +7369,14 @@ x86_emulate(
+             emulate_2op_SrcV_nobyte("bts", src, dst, _regs.eflags);
          break;
  
-     case X86EMUL_OPC(0x0f, 0x01): /* Grp7 */
--    {
--        unsigned long base, limit, cr0, cr0w;
--
--        seg = (modrm_reg & 1) ? x86_seg_idtr : x86_seg_gdtr;
--
--        switch( modrm )
+-    case X86EMUL_OPC(0x0f, 0xae): case X86EMUL_OPC_66(0x0f, 0xae): /* Grp15 */
+-        switch ( modrm_reg & 7 )
 -        {
--        case 0xca: /* clac */
--        case 0xcb: /* stac */
--            vcpu_must_have(smap);
--            generate_exception_if(vex.pfx || !mode_ring0(), EXC_UD);
--
--            _regs.eflags &= ~X86_EFLAGS_AC;
--            if ( modrm == 0xcb )
--                _regs.eflags |= X86_EFLAGS_AC;
--            break;
--
--        case 0xd0: /* xgetbv */
+-#if !defined(X86EMUL_NO_FPU) || !defined(X86EMUL_NO_MMX) || \
+-    !defined(X86EMUL_NO_SIMD)
+-        case 0: /* fxsave */
+-        case 1: /* fxrstor */
 -            generate_exception_if(vex.pfx, EXC_UD);
--            if ( !ops->read_cr || !ops->read_xcr ||
--                 ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
--                cr4 = 0;
--            generate_exception_if(!(cr4 & X86_CR4_OSXSAVE), EXC_UD);
--            rc = ops->read_xcr(_regs.ecx, &msr_val, ctxt);
--            if ( rc != X86EMUL_OKAY )
--                goto done;
--            _regs.r(ax) = (uint32_t)msr_val;
--            _regs.r(dx) = msr_val >> 32;
--            break;
--
--        case 0xd1: /* xsetbv */
--            generate_exception_if(vex.pfx, EXC_UD);
--            if ( !ops->read_cr || !ops->write_xcr ||
--                 ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
--                cr4 = 0;
--            generate_exception_if(!(cr4 & X86_CR4_OSXSAVE), EXC_UD);
--            generate_exception_if(!mode_ring0(), EXC_GP, 0);
--            rc = ops->write_xcr(_regs.ecx,
--                                _regs.eax | ((uint64_t)_regs.edx << 32), ctxt);
--            if ( rc != X86EMUL_OKAY )
--                goto done;
--            break;
--
--        case 0xd4: /* vmfunc */
--            generate_exception_if(vex.pfx, EXC_UD);
--            fail_if(!ops->vmfunc);
--            if ( (rc = ops->vmfunc(ctxt)) != X86EMUL_OKAY )
--                goto done;
--            break;
--
--        case 0xd5: /* xend */
--            generate_exception_if(vex.pfx, EXC_UD);
--            generate_exception_if(!vcpu_has_rtm(), EXC_UD);
--            generate_exception_if(vcpu_has_rtm(), EXC_GP, 0);
--            break;
--
--        case 0xd6: /* xtest */
--            generate_exception_if(vex.pfx, EXC_UD);
--            generate_exception_if(!vcpu_has_rtm() && !vcpu_has_hle(),
--                                  EXC_UD);
--            /* Neither HLE nor RTM can be active when we get here. */
--            _regs.eflags |= X86_EFLAGS_ZF;
--            break;
--
--        case 0xdf: /* invlpga */
--            fail_if(!ops->read_msr);
--            if ( (rc = ops->read_msr(MSR_EFER,
--                                     &msr_val, ctxt)) != X86EMUL_OKAY )
--                goto done;
--            /* Finding SVME set implies vcpu_has_svm(). */
--            generate_exception_if(!(msr_val & EFER_SVME) ||
--                                  !in_protmode(ctxt, ops), EXC_UD);
--            generate_exception_if(!mode_ring0(), EXC_GP, 0);
--            fail_if(!ops->tlb_op);
--            if ( (rc = ops->tlb_op(x86emul_invlpga, truncate_ea(_regs.r(ax)),
--                                   _regs.ecx, ctxt)) != X86EMUL_OKAY )
--                goto done;
--            break;
--
--        case 0xe8:
--            switch ( vex.pfx )
+-            vcpu_must_have(fxsr);
+-            generate_exception_if(ea.type != OP_MEM, EXC_UD);
+-            generate_exception_if(!is_aligned(ea.mem.seg, ea.mem.off, 16,
+-                                              ctxt, ops),
+-                                  EXC_GP, 0);
+-            fail_if(!ops->blk);
+-            op_bytes =
+-#ifdef __x86_64__
+-                !mode_64bit() ? offsetof(struct x86_fxsr, xmm[8]) :
+-#endif
+-                sizeof(struct x86_fxsr);
+-            if ( amd_like(ctxt) )
 -            {
--            case vex_none: /* serialize */
--                host_and_vcpu_must_have(serialize);
--                asm volatile ( ".byte 0x0f, 0x01, 0xe8" );
--                break;
--            case vex_f2: /* xsusldtrk */
--                vcpu_must_have(tsxldtrk);
--                /*
--                 * We're never in a transactional region when coming here
--                 * - nothing else to do.
--                 */
--                break;
--            default:
--                goto unimplemented_insn;
--            }
--            break;
--
--        case 0xe9:
--            switch ( vex.pfx )
--            {
--            case vex_f2: /* xresldtrk */
--                vcpu_must_have(tsxldtrk);
--                /*
--                 * We're never in a transactional region when coming here
--                 * - nothing else to do.
--                 */
--                break;
--            default:
--                goto unimplemented_insn;
--            }
--            break;
--
--        case 0xee:
--            switch ( vex.pfx )
--            {
--            case vex_none: /* rdpkru */
+-                /* Assume "normal" operation in case of missing hooks. */
 -                if ( !ops->read_cr ||
 -                     ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
--                    cr4 = 0;
--                generate_exception_if(!(cr4 & X86_CR4_PKE), EXC_UD);
--                generate_exception_if(_regs.ecx, EXC_GP, 0);
--                _regs.r(ax) = rdpkru();
--                _regs.r(dx) = 0;
+-                    cr4 = X86_CR4_OSFXSR;
+-                if ( !ops->read_msr ||
+-                     ops->read_msr(MSR_EFER, &msr_val, ctxt) != X86EMUL_OKAY )
+-                    msr_val = 0;
+-                if ( !(cr4 & X86_CR4_OSFXSR) ||
+-                     (mode_64bit() && mode_ring0() && (msr_val & EFER_FFXSE)) )
+-                    op_bytes = offsetof(struct x86_fxsr, xmm[0]);
+-            }
+-            /*
+-             * This could also be X86EMUL_FPU_mmx, but it shouldn't be
+-             * X86EMUL_FPU_xmm, as we don't want CR4.OSFXSR checked.
+-             */
+-            get_fpu(X86EMUL_FPU_fpu);
+-            state->fpu_ctrl = true;
+-            state->blk = modrm_reg & 1 ? blk_fxrstor : blk_fxsave;
+-            if ( (rc = ops->blk(ea.mem.seg, ea.mem.off, NULL,
+-                                sizeof(struct x86_fxsr), &_regs.eflags,
+-                                state, ctxt)) != X86EMUL_OKAY )
+-                goto done;
+-            break;
+-#endif /* X86EMUL_NO_{FPU,MMX,SIMD} */
+-
+-#ifndef X86EMUL_NO_SIMD
+-        case 2: /* ldmxcsr */
+-            generate_exception_if(vex.pfx, EXC_UD);
+-            vcpu_must_have(sse);
+-        ldmxcsr:
+-            generate_exception_if(src.type != OP_MEM, EXC_UD);
+-            get_fpu(vex.opcx ? X86EMUL_FPU_ymm : X86EMUL_FPU_xmm);
+-            generate_exception_if(src.val & ~mxcsr_mask, EXC_GP, 0);
+-            asm volatile ( "ldmxcsr %0" :: "m" (src.val) );
+-            break;
+-
+-        case 3: /* stmxcsr */
+-            generate_exception_if(vex.pfx, EXC_UD);
+-            vcpu_must_have(sse);
+-        stmxcsr:
+-            generate_exception_if(dst.type != OP_MEM, EXC_UD);
+-            get_fpu(vex.opcx ? X86EMUL_FPU_ymm : X86EMUL_FPU_xmm);
+-            asm volatile ( "stmxcsr %0" : "=m" (dst.val) );
+-            break;
+-#endif /* X86EMUL_NO_SIMD */
+-
+-        case 5: /* lfence */
+-            fail_if(modrm_mod != 3);
+-            generate_exception_if(vex.pfx, EXC_UD);
+-            vcpu_must_have(sse2);
+-            asm volatile ( "lfence" ::: "memory" );
+-            break;
+-        case 6:
+-            if ( modrm_mod == 3 ) /* mfence */
+-            {
+-                generate_exception_if(vex.pfx, EXC_UD);
+-                vcpu_must_have(sse2);
+-                asm volatile ( "mfence" ::: "memory" );
 -                break;
--            default:
--                goto unimplemented_insn;
 -            }
+-            /* else clwb */
+-            fail_if(!vex.pfx);
+-            vcpu_must_have(clwb);
+-            fail_if(!ops->cache_op);
+-            if ( (rc = ops->cache_op(x86emul_clwb, ea.mem.seg, ea.mem.off,
+-                                     ctxt)) != X86EMUL_OKAY )
+-                goto done;
 -            break;
--
--        case 0xef:
--            switch ( vex.pfx )
+-        case 7:
+-            if ( modrm_mod == 3 ) /* sfence */
 -            {
--            case vex_none: /* wrpkru */
--                if ( !ops->read_cr ||
--                     ops->read_cr(4, &cr4, ctxt) != X86EMUL_OKAY )
--                    cr4 = 0;
--                generate_exception_if(!(cr4 & X86_CR4_PKE), EXC_UD);
--                generate_exception_if(_regs.ecx | _regs.edx, EXC_GP, 0);
--                wrpkru(_regs.eax);
+-                generate_exception_if(vex.pfx, EXC_UD);
+-                vcpu_must_have(mmxext);
+-                asm volatile ( "sfence" ::: "memory" );
 -                break;
--            default:
--                goto unimplemented_insn;
 -            }
--            break;
--
--        case 0xf8: /* swapgs */
--            generate_exception_if(!mode_64bit(), EXC_UD);
--            generate_exception_if(!mode_ring0(), EXC_GP, 0);
--            fail_if(!ops->read_segment || !ops->read_msr ||
--                    !ops->write_segment || !ops->write_msr);
--            if ( (rc = ops->read_segment(x86_seg_gs, &sreg,
--                                         ctxt)) != X86EMUL_OKAY ||
--                 (rc = ops->read_msr(MSR_SHADOW_GS_BASE, &msr_val,
--                                     ctxt)) != X86EMUL_OKAY ||
--                 (rc = ops->write_msr(MSR_SHADOW_GS_BASE, sreg.base,
--                                      ctxt)) != X86EMUL_OKAY )
--                goto done;
--            sreg.base = msr_val;
--            if ( (rc = ops->write_segment(x86_seg_gs, &sreg,
--                                          ctxt)) != X86EMUL_OKAY )
--            {
--                /* Best effort unwind (i.e. no error checking). */
--                ops->write_msr(MSR_SHADOW_GS_BASE, msr_val, ctxt);
--                goto done;
--            }
--            break;
--
--        case 0xf9: /* rdtscp */
--            fail_if(ops->read_msr == NULL);
--            if ( (rc = ops->read_msr(MSR_TSC_AUX,
--                                     &msr_val, ctxt)) != X86EMUL_OKAY )
--                goto done;
--            _regs.r(cx) = (uint32_t)msr_val;
--            goto rdtsc;
--
--        case 0xfc: /* clzero */
--        {
--            unsigned long zero = 0;
--
--            vcpu_must_have(clzero);
--
--            base = ad_bytes == 8 ? _regs.r(ax) :
--                   ad_bytes == 4 ? _regs.eax : _regs.ax;
--            limit = ctxt->cpuid->basic.clflush_size * 8;
--            generate_exception_if(limit < sizeof(long) ||
--                                  (limit & (limit - 1)), EXC_UD);
--            base &= ~(limit - 1);
--            if ( ops->rep_stos )
--            {
--                unsigned long nr_reps = limit / sizeof(zero);
--
--                rc = ops->rep_stos(&zero, ea.mem.seg, base, sizeof(zero),
--                                   &nr_reps, ctxt);
--                if ( rc == X86EMUL_OKAY )
--                {
--                    base += nr_reps * sizeof(zero);
--                    limit -= nr_reps * sizeof(zero);
--                }
--                else if ( rc != X86EMUL_UNHANDLEABLE )
--                    goto done;
--            }
--            fail_if(limit && !ops->write);
--            while ( limit )
--            {
--                rc = ops->write(ea.mem.seg, base, &zero, sizeof(zero), ctxt);
--                if ( rc != X86EMUL_OKAY )
--                    goto done;
--                base += sizeof(zero);
--                limit -= sizeof(zero);
--            }
--            break;
--        }
--
--#define _GRP7(mod, reg) \
--            (((mod) << 6) | ((reg) << 3)) ... (((mod) << 6) | ((reg) << 3) | 7)
--#define GRP7_MEM(reg) _GRP7(0, reg): case _GRP7(1, reg): case _GRP7(2, reg)
--#define GRP7_ALL(reg) GRP7_MEM(reg): case _GRP7(3, reg)
--
--        case GRP7_MEM(0): /* sgdt */
--        case GRP7_MEM(1): /* sidt */
--            ASSERT(ea.type == OP_MEM);
--            generate_exception_if(umip_active(ctxt, ops), EXC_GP, 0);
--            fail_if(!ops->read_segment || !ops->write);
--            if ( (rc = ops->read_segment(seg, &sreg, ctxt)) )
--                goto done;
--            if ( mode_64bit() )
--                op_bytes = 8;
--            else if ( op_bytes == 2 )
--            {
--                sreg.base &= 0xffffff;
--                op_bytes = 4;
--            }
--            if ( (rc = ops->write(ea.mem.seg, ea.mem.off, &sreg.limit,
--                                  2, ctxt)) != X86EMUL_OKAY ||
--                 (rc = ops->write(ea.mem.seg, truncate_ea(ea.mem.off + 2),
--                                  &sreg.base, op_bytes, ctxt)) != X86EMUL_OKAY )
--                goto done;
--            break;
--
--        case GRP7_MEM(2): /* lgdt */
--        case GRP7_MEM(3): /* lidt */
--            ASSERT(ea.type == OP_MEM);
--            generate_exception_if(!mode_ring0(), EXC_GP, 0);
--            fail_if(ops->write_segment == NULL);
--            memset(&sreg, 0, sizeof(sreg));
--            if ( (rc = read_ulong(ea.mem.seg, ea.mem.off,
--                                  &limit, 2, ctxt, ops)) ||
--                 (rc = read_ulong(ea.mem.seg, truncate_ea(ea.mem.off + 2),
--                                  &base, mode_64bit() ? 8 : 4, ctxt, ops)) )
--                goto done;
--            generate_exception_if(!is_canonical_address(base), EXC_GP, 0);
--            sreg.base = base;
--            sreg.limit = limit;
--            if ( !mode_64bit() && op_bytes == 2 )
--                sreg.base &= 0xffffff;
--            if ( (rc = ops->write_segment(seg, &sreg, ctxt)) )
--                goto done;
--            break;
--
--        case GRP7_ALL(4): /* smsw */
--            generate_exception_if(umip_active(ctxt, ops), EXC_GP, 0);
--            if ( ea.type == OP_MEM )
--            {
--                fail_if(!ops->write);
--                d |= Mov; /* force writeback */
--                ea.bytes = 2;
--            }
+-            /* else clflush{,opt} */
+-            if ( !vex.pfx )
+-                vcpu_must_have(clflush);
 -            else
--                ea.bytes = op_bytes;
--            dst = ea;
--            fail_if(ops->read_cr == NULL);
--            if ( (rc = ops->read_cr(0, &dst.val, ctxt)) )
+-                vcpu_must_have(clflushopt);
+-            fail_if(!ops->cache_op);
+-            if ( (rc = ops->cache_op(vex.pfx ? x86emul_clflushopt
+-                                             : x86emul_clflush,
+-                                     ea.mem.seg, ea.mem.off,
+-                                     ctxt)) != X86EMUL_OKAY )
 -                goto done;
 -            break;
--
--        case GRP7_ALL(6): /* lmsw */
--            fail_if(ops->read_cr == NULL);
--            fail_if(ops->write_cr == NULL);
--            generate_exception_if(!mode_ring0(), EXC_GP, 0);
--            if ( (rc = ops->read_cr(0, &cr0, ctxt)) )
--                goto done;
--            if ( ea.type == OP_REG )
--                cr0w = *ea.reg;
--            else if ( (rc = read_ulong(ea.mem.seg, ea.mem.off,
--                                       &cr0w, 2, ctxt, ops)) )
--                goto done;
--            /* LMSW can: (1) set bits 0-3; (2) clear bits 1-3. */
--            cr0 = (cr0 & ~0xe) | (cr0w & 0xf);
--            if ( (rc = ops->write_cr(0, cr0, ctxt)) )
--                goto done;
--            break;
--
--        case GRP7_MEM(7): /* invlpg */
--            ASSERT(ea.type == OP_MEM);
--            generate_exception_if(!mode_ring0(), EXC_GP, 0);
--            fail_if(!ops->tlb_op);
--            if ( (rc = ops->tlb_op(x86emul_invlpg, ea.mem.off, ea.mem.seg,
--                                   ctxt)) != X86EMUL_OKAY )
--                goto done;
--            break;
--
--#undef GRP7_ALL
--#undef GRP7_MEM
--#undef _GRP7
--
 -        default:
 -            goto unimplemented_insn;
 -        }
 -        break;
--    }
-+        rc = x86emul_0f01(state, &_regs, &dst, ctxt, ops);
+-
++    case X86EMUL_OPC(0x0f, 0xae): /* Grp15 */
++    case X86EMUL_OPC_66(0x0f, 0xae):
++    case X86EMUL_OPC_F3(0x0f, 0xae):
+ #ifndef X86EMUL_NO_SIMD
+-
+-    case X86EMUL_OPC_VEX(0x0f, 0xae): /* Grp15 */
+-        switch ( modrm_reg & 7 )
+-        {
+-        case 2: /* vldmxcsr */
+-            generate_exception_if(vex.l || vex.reg != 0xf, EXC_UD);
+-            vcpu_must_have(avx);
+-            goto ldmxcsr;
+-        case 3: /* vstmxcsr */
+-            generate_exception_if(vex.l || vex.reg != 0xf, EXC_UD);
+-            vcpu_must_have(avx);
+-            goto stmxcsr;
+-        }
+-        goto unrecognized_insn;
+-
+-#endif /* !X86EMUL_NO_SIMD */
+-
+-    case X86EMUL_OPC_F3(0x0f, 0xae): /* Grp15 */
+-        fail_if(modrm_mod != 3);
+-        generate_exception_if((modrm_reg & 4) || !mode_64bit(), EXC_UD);
+-        fail_if(!ops->read_cr);
+-        if ( (rc = ops->read_cr(4, &cr4, ctxt)) != X86EMUL_OKAY )
+-            goto done;
+-        generate_exception_if(!(cr4 & X86_CR4_FSGSBASE), EXC_UD);
+-        seg = modrm_reg & 1 ? x86_seg_gs : x86_seg_fs;
+-        fail_if(!ops->read_segment);
+-        if ( (rc = ops->read_segment(seg, &sreg, ctxt)) != X86EMUL_OKAY )
+-            goto done;
+-        dst.reg = decode_gpr(&_regs, modrm_rm);
+-        if ( !(modrm_reg & 2) )
+-        {
+-            /* rd{f,g}sbase */
+-            dst.type = OP_REG;
+-            dst.bytes = (op_bytes == 8) ? 8 : 4;
+-            dst.val = sreg.base;
+-        }
+-        else
+-        {
+-            /* wr{f,g}sbase */
+-            if ( op_bytes == 8 )
+-            {
+-                sreg.base = *dst.reg;
+-                generate_exception_if(!is_canonical_address(sreg.base),
+-                                      EXC_GP, 0);
+-            }
+-            else
+-                sreg.base = (uint32_t)*dst.reg;
+-            fail_if(!ops->write_segment);
+-            if ( (rc = ops->write_segment(seg, &sreg, ctxt)) != X86EMUL_OKAY )
+-                goto done;
+-        }
+-        break;
++    case X86EMUL_OPC_VEX(0x0f, 0xae):
++#endif
++        rc = x86emul_0fae(state, &_regs, &dst, &src, ctxt, ops, &fpu_type);
 +        goto dispatch_from_helper;
  
-     case X86EMUL_OPC(0x0f, 0x02): /* lar */
-         generate_exception_if(!in_protmode(ctxt, ops), EXC_UD);
-@@ -11332,6 +10545,24 @@ x86_emulate(
-     unrecognized_insn:
-         rc = X86EMUL_UNRECOGNIZED;
+     case X86EMUL_OPC(0x0f, 0xaf): /* imul */
+         emulate_2op_SrcV_srcmem("imul", src, dst, _regs.eflags);
+@@ -10539,7 +10316,7 @@ x86_emulate(
+         goto unrecognized_insn;
+ 
+     default:
+-    unimplemented_insn:
++    unimplemented_insn: __maybe_unused;
+         rc = X86EMUL_UNIMPLEMENTED;
          goto done;
-+
-+    dispatch_from_helper:
-+        if ( rc == X86EMUL_OKAY )
-+            break;
-+
-+        switch ( rc )
-+        {
-+        case X86EMUL_rdtsc:
-+            goto rdtsc;
-+        }
-+
-+        /* Internally used state change indicators may not make it here. */
-+        if ( rc < 0 )
-+        {
-+            ASSERT_UNREACHABLE();
-+            rc = X86EMUL_UNHANDLEABLE;
-+        }
-+        goto done;
-     }
- 
-     if ( state->rmw )
---- a/xen/arch/x86/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate.c
-@@ -24,8 +24,6 @@
- #undef cpuid
- #undef wbinvd
- 
--#define r(name) r ## name
--
- #define cpu_has_amd_erratum(nr) \
-         cpu_has_amd_erratum(&current_cpu_data, AMD_ERRATUM_##nr)
- 
-@@ -54,12 +52,6 @@
- 
- #define FXSAVE_AREA current->arch.fpu_ctxt
- 
--#ifndef CONFIG_HVM
--# define X86EMUL_NO_FPU
--# define X86EMUL_NO_MMX
--# define X86EMUL_NO_SIMD
--#endif
--
- #include "x86_emulate/x86_emulate.c"
- 
- int cf_check x86emul_read_xcr(
+     unrecognized_insn:
 
 
