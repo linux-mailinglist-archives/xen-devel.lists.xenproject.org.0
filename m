@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2915A54C351
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 10:15:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.349743.575894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1BD954C3F6
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jun 2022 10:49:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.349765.575925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1OAz-0003CS-Az; Wed, 15 Jun 2022 08:14:57 +0000
+	id 1o1Ohc-0007g2-Bc; Wed, 15 Jun 2022 08:48:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 349743.575894; Wed, 15 Jun 2022 08:14:57 +0000
+Received: by outflank-mailman (output) from mailman id 349765.575925; Wed, 15 Jun 2022 08:48:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1OAz-0003Ag-7G; Wed, 15 Jun 2022 08:14:57 +0000
-Received: by outflank-mailman (input) for mailman id 349743;
- Wed, 15 Jun 2022 08:14:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1o1Ohc-0007dh-8O; Wed, 15 Jun 2022 08:48:40 +0000
+Received: by outflank-mailman (input) for mailman id 349765;
+ Wed, 15 Jun 2022 08:48:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o1OAx-0003AQ-Ag; Wed, 15 Jun 2022 08:14:55 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o1OAx-0003u9-7X; Wed, 15 Jun 2022 08:14:55 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o1OAw-0008EX-Mf; Wed, 15 Jun 2022 08:14:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1o1OAw-00010t-MB; Wed, 15 Jun 2022 08:14:54 +0000
+ (envelope-from <SRS0=5J6g=WW=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o1Oha-0007dI-P4
+ for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 08:48:38 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f2345795-ec87-11ec-bd2c-47488cf2e6aa;
+ Wed, 15 Jun 2022 10:48:37 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A97B721C37;
+ Wed, 15 Jun 2022 08:48:36 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 703CF13A35;
+ Wed, 15 Jun 2022 08:48:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id vL3yGeScqWJaLQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 15 Jun 2022 08:48:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,279 +51,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Ku0hGiZ5P9LyqeyQ7M+8mICLD+9x6DeX3OC5mq4R7Zs=; b=LVAloyJmZ+IE4qk7HkhLf50qZV
-	3dLIUDg9SjJeMBVFTllRyWo7PxCjtjbGV/29BJVkH9X0yBHbGgm7hoQ40VPkqAIjVqaN54VUZLqpr
-	5pzMzDrJZ67Z0rQCPulEh5rclTEJy0UPEMy3fZi38rLQijwLgk4/EXUb+yvDa5TrVaRM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171168-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f2345795-ec87-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1655282916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=iIBkW7Vwr7SXxDUNu3qaCisr7ig2aybwnHdNAbRTR4E=;
+	b=htosqkbsQ1Cd4ZgHAGpw3up4szZoT77TjUmHY/iCSCLPrwGrVG8o905OCfwtFbYrBTkZp5
+	Kd9h+RB5YxM+NXcBIe0ztc9PUF6a0CSkOVYW3jpSTMG0/CCRVUpkMiilgaiMNaAbZ86VNo
+	NL2/VDfud72k6e7+qCMEUC+swXeC1jE=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH] xen: don't require virtio with grants for non-PV guests
+Date: Wed, 15 Jun 2022 10:48:35 +0200
+Message-Id: <20220615084835.27113-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Subject: [linux-linus test] 171168: regressions - trouble: broken/fail/pass
-X-Osstest-Failures:
-    linux-linus:test-arm64-arm64-libvirt-raw:<job status>:broken:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:host-install(5):broken:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=018ab4fabddd94f1c96f3b59e180691b9e88d5d8
-X-Osstest-Versions-That:
-    linux=d6ecaa0024485effd065124fe774de2e22095f2d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 15 Jun 2022 08:14:54 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 171168 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171168/
+Commit fa1f57421e0b ("xen/virtio: Enable restricted memory access using
+Xen grant mappings") introduced a new requirement for using virtio
+devices: the backend now needs to support the VIRTIO_F_ACCESS_PLATFORM
+feature.
 
-Regressions :-(
+This is an undue requirement for non-PV guests, as those can be operated
+with existing backends without any problem, as long as those backends
+are running in dom0.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-libvirt-raw    <job status>                 broken
- test-arm64-arm64-libvirt-raw  5 host-install(5)        broken REGR. vs. 170714
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 170714
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 170714
- test-amd64-amd64-xl           8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 170714
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 170714
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 170714
- test-amd64-amd64-xl-multivcpu  8 xen-boot                fail REGR. vs. 170714
- test-amd64-amd64-xl-vhd       8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 170714
- test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 170714
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 170714
- test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 170714
- test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 170714
- test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 170714
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 170714
- test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 170714
- test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 170714
- test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 170714
- test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-xl-credit1   8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-xl-xsm       8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-xl-qemuu-ovmf-amd64  8 xen-boot         fail REGR. vs. 170714
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 170714
+Per default allow virtio devices without grant support for non-PV
+guests.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 170714
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 170714
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 170714
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 170714
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 170714
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 170714
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 170714
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+The setting can be overridden by using the new "xen_virtio_grant"
+command line parameter.
 
-version targeted for testing:
- linux                018ab4fabddd94f1c96f3b59e180691b9e88d5d8
-baseline version:
- linux                d6ecaa0024485effd065124fe774de2e22095f2d
+Add a new config item to always force use of grants for virtio.
 
-Last test of basis   170714  2022-05-24 03:27:44 Z   22 days
-Failing since        170716  2022-05-24 11:12:06 Z   21 days   53 attempts
-Testing same since   171168  2022-06-14 22:12:35 Z    0 days    1 attempts
+Fixes: fa1f57421e0b ("xen/virtio: Enable restricted memory access using Xen grant mappings")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ .../admin-guide/kernel-parameters.txt         |  6 +++++
+ drivers/xen/Kconfig                           |  9 ++++++++
+ drivers/xen/grant-dma-ops.c                   | 22 +++++++++++++++++++
+ include/xen/xen.h                             | 12 +++++-----
+ 4 files changed, 42 insertions(+), 7 deletions(-)
 
-------------------------------------------------------------
-2348 people touched revisions under test,
-not listing them all
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 8090130b544b..7960480c6fe4 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -6695,6 +6695,12 @@
+ 			improve timer resolution at the expense of processing
+ 			more timer interrupts.
+ 
++	xen_virtio_grant= [XEN]
++			Control whether virtio devices are required to use
++			grants when running as a Xen guest. The default is
++			"yes" for PV guests or when the kernel has been built
++			with CONFIG_XEN_VIRTIO_FORCE_GRANT set.
++
+ 	xen.balloon_boot_timeout= [XEN]
+ 			The time (in seconds) to wait before giving up to boot
+ 			in case initial ballooning fails to free enough memory.
+diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
+index bfd5f4f706bc..a65bd92121a5 100644
+--- a/drivers/xen/Kconfig
++++ b/drivers/xen/Kconfig
+@@ -355,4 +355,13 @@ config XEN_VIRTIO
+ 
+ 	  If in doubt, say n.
+ 
++config XEN_VIRTIO_FORCE_GRANT
++	bool "Require Xen virtio support to use grants"
++	depends on XEN_VIRTIO
++	help
++	  Require virtio for Xen guests to use grant mappings.
++	  This will avoid the need to give the backend the right to map all
++	  of the guest memory. This will need support on the backend side
++	  (e.g. qemu or kernel, depending on the virtio device types used).
++
+ endmenu
+diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+index fc0142484001..d1fae789dfad 100644
+--- a/drivers/xen/grant-dma-ops.c
++++ b/drivers/xen/grant-dma-ops.c
+@@ -11,6 +11,7 @@
+ #include <linux/dma-map-ops.h>
+ #include <linux/of.h>
+ #include <linux/pfn.h>
++#include <linux/platform-feature.h>
+ #include <linux/xarray.h>
+ #include <xen/xen.h>
+ #include <xen/xen-ops.h>
+@@ -27,6 +28,27 @@ static DEFINE_XARRAY(xen_grant_dma_devices);
+ 
+ #define XEN_GRANT_DMA_ADDR_OFF	(1ULL << 63)
+ 
++static bool __initdata xen_virtio_grants;
++static bool __initdata xen_virtio_grants_set;
++static __init int parse_use_grants(char *arg)
++{
++	if (!strcmp(arg, "yes"))
++		xen_virtio_grants = true;
++	else if (!strcmp(arg, "no"))
++		xen_virtio_grants = false;
++	xen_virtio_grants_set = true;
++
++	return 0;
++}
++early_param("xen_virtio_grant", parse_use_grants);
++
++void xen_set_restricted_virtio_memory_access(void)
++{
++	if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_virtio_grants ||
++	    (!xen_virtio_grants_set && xen_pv_domain()))
++		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
++}
++
+ static inline dma_addr_t grant_to_dma(grant_ref_t grant)
+ {
+ 	return XEN_GRANT_DMA_ADDR_OFF | ((dma_addr_t)grant << PAGE_SHIFT);
+diff --git a/include/xen/xen.h b/include/xen/xen.h
+index 0780a81e140d..e0b1d534366f 100644
+--- a/include/xen/xen.h
++++ b/include/xen/xen.h
+@@ -52,13 +52,11 @@ bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
+ extern u64 xen_saved_max_mem_size;
+ #endif
+ 
+-#include <linux/platform-feature.h>
+-
+-static inline void xen_set_restricted_virtio_memory_access(void)
+-{
+-	if (IS_ENABLED(CONFIG_XEN_VIRTIO) && xen_domain())
+-		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
+-}
++#ifdef CONFIG_XEN_GRANT_DMA_OPS
++void xen_set_restricted_virtio_memory_access(void);
++#else
++static inline void xen_set_restricted_virtio_memory_access(void) { }
++#endif
+ 
+ #ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+ int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+-- 
+2.35.3
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         pass    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                fail    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     fail    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 broken  
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                fail    
- test-amd64-amd64-xl-vhd                                      fail    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job test-arm64-arm64-libvirt-raw broken
-broken-step test-arm64-arm64-libvirt-raw host-install(5)
-
-Not pushing.
-
-(No revision log; it would be 277190 lines long.)
 
