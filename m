@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B63554DA5F
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 08:15:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.350427.576774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EEC454DBB5
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 09:32:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.350437.576792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1imm-0006LP-2g; Thu, 16 Jun 2022 06:15:20 +0000
+	id 1o1jyn-0007Gx-RJ; Thu, 16 Jun 2022 07:31:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 350427.576774; Thu, 16 Jun 2022 06:15:20 +0000
+Received: by outflank-mailman (output) from mailman id 350437.576792; Thu, 16 Jun 2022 07:31:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1iml-0006JU-W7; Thu, 16 Jun 2022 06:15:19 +0000
-Received: by outflank-mailman (input) for mailman id 350427;
- Thu, 16 Jun 2022 06:15:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7YVi=WX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o1imk-0006JO-OK
- for xen-devel@lists.xenproject.org; Thu, 16 Jun 2022 06:15:18 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b0fa0b5d-ed3b-11ec-bd2c-47488cf2e6aa;
- Thu, 16 Jun 2022 08:15:17 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C3C6121C58;
- Thu, 16 Jun 2022 06:15:16 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 856451344E;
- Thu, 16 Jun 2022 06:15:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id pP0KH3TKqmLcUQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 16 Jun 2022 06:15:16 +0000
+	id 1o1jyn-0007Dw-NO; Thu, 16 Jun 2022 07:31:49 +0000
+Received: by outflank-mailman (input) for mailman id 350437;
+ Thu, 16 Jun 2022 07:31:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d4NK=WX=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1o1jyl-0007Dq-Pr
+ for xen-devel@lists.xenproject.org; Thu, 16 Jun 2022 07:31:47 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5f21ba70-ed46-11ec-ab14-113154c10af9;
+ Thu, 16 Jun 2022 09:31:44 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id g25so1112423ejh.9
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Jun 2022 00:31:44 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ w7-20020a056402070700b0042db87b5ff4sm1148344edx.88.2022.06.16.00.31.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Jun 2022 00:31:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,164 +44,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0fa0b5d-ed3b-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1655360116; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YFF3k13LUKCiKrPq8kWk/hdM4VqGuJLIJy2t17i2Wfw=;
-	b=AuBDIqVKHouwIEK7lqLR/FqjbC6FsLU78nEeq5YxXQOA8bIlpBeo/vxmC0zoH53AnazNEA
-	/vTqSGjIy3mhHQNDb1TIVUxThona4DuuAqralDNxPb8C44JcdHyXZ4BLV7qAC2OrIMJWeY
-	ZTuGrYvEJuI/08t0yGGIK2AxcH0OhfE=
-Message-ID: <50b72415-2e7d-b25e-0022-539d9fe91d41@suse.com>
-Date: Thu, 16 Jun 2022 08:15:16 +0200
+X-Inumbo-ID: 5f21ba70-ed46-11ec-ab14-113154c10af9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=WR22BROo7BpVfHELY0/whUHHBl6+EosORE6LfOKACTA=;
+        b=OUIhC3rE3NvkmStO46Q/ciAcnSAFfmmzP6mMCl8KhOx5/114KZw66r2dI7lB2gyO+U
+         YXT28KvwmSKXDzmCe05V3bq/L/Y3f1XBHYAeP0y9oPsvzE+Mnc4nYi5nB4TbP4MKMtc8
+         f5xaaw1QHZbVpoaEsehgITiq6iJ32F2JFZpoVZv0Il+WXqz/Z1am1BBJCmjmfYUBoTDS
+         0SE7jkh/BYXhmawMxmwZRlMvKX2CV2izN1hK6D41/1IWf4fexcBZIGsNiexb9hsvtGTn
+         KrLgdQrobJGLY+RnrU8RhvBYod40AWOcexwODDHmhFMrC9QzPjK69+a8RzJnqacf6K1U
+         R4KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=WR22BROo7BpVfHELY0/whUHHBl6+EosORE6LfOKACTA=;
+        b=aDJVqUvK++b4FeSiNhFg4ezGJ4nmEjuLZqfGNKiPVs9hF8iXXuhAxmSwD0BzxB9qPq
+         SRuiebN2bzDd+03Ae6obHtnItkntc71CSV266ju7lHl2c2FYAFKwAPjr7AtbALHl9zd7
+         jPHMkobzJpJ2WJtbHa8FXCmxW9urGdLbbkbPp+XfpnNuvNfcsgiwYHq5rtl/tdIT7xFm
+         kcRa4dEwjau5/81sgH2y7V9UA+FizvQS/iTgJjh6P8c75HAwECzx0jGj695Gur6gpDth
+         Ohx8Le3ejZTOdZfzOdqFPQPF8SUBfrXya7+E1DWWyr8TPORdfRhZubPHEzT+TZkz/gzk
+         Pyvg==
+X-Gm-Message-State: AJIora98owbTWNMT8mWbPEerR3yguKDyYOXvmAHdbnQ4roIgRcJefHNG
+	6xSAq0SJyVKZ8tWCJULa+rk=
+X-Google-Smtp-Source: AGRyM1s0/RHY2CxHyvPWA7qPtKPg63zpTc3tJxhXGQ31GmKyrOyZ12y3foJKnNWNWxsUEbgH4HVK6g==
+X-Received: by 2002:a17:907:1694:b0:716:14a4:fba with SMTP id hc20-20020a170907169400b0071614a40fbamr3319578ejc.290.1655364703764;
+        Thu, 16 Jun 2022 00:31:43 -0700 (PDT)
+Subject: Re: [PATCH v2] xen: don't require virtio with grants for non-PV
+ guests
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ viresh.kumar@linaro.org, hch@infradead.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <20220616053715.3166-1-jgross@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <573c2d9f-8df0-0e0f-2f57-e8ea85e403b4@gmail.com>
+Date: Thu, 16 Jun 2022 10:31:42 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
+In-Reply-To: <20220616053715.3166-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-To: Christoph Hellwig <hch@infradead.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- viresh.kumar@linaro.org, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20220616053715.3166-1-jgross@suse.com>
- <YqrHlNOiRxxc8xcq@infradead.org>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2] xen: don't require virtio with grants for non-PV
- guests
-In-Reply-To: <YqrHlNOiRxxc8xcq@infradead.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------cIwu0mbjmosd8QbJsqimG8rf"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------cIwu0mbjmosd8QbJsqimG8rf
-Content-Type: multipart/mixed; boundary="------------J2Rq30FEtUnvERcW8kC0PDn0";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- viresh.kumar@linaro.org, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Message-ID: <50b72415-2e7d-b25e-0022-539d9fe91d41@suse.com>
-Subject: Re: [PATCH v2] xen: don't require virtio with grants for non-PV
- guests
-References: <20220616053715.3166-1-jgross@suse.com>
- <YqrHlNOiRxxc8xcq@infradead.org>
-In-Reply-To: <YqrHlNOiRxxc8xcq@infradead.org>
 
---------------J2Rq30FEtUnvERcW8kC0PDn0
-Content-Type: multipart/mixed; boundary="------------NdIsUxjRwVmXlsOvTsrEHUWr"
+On 16.06.22 08:37, Juergen Gross wrote:
 
---------------NdIsUxjRwVmXlsOvTsrEHUWr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
 
-T24gMTYuMDYuMjIgMDg6MDMsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOg0KPiBPbiBUaHUs
-IEp1biAxNiwgMjAyMiBhdCAwNzozNzoxNUFNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3Rl
-Og0KPj4gQ29tbWl0IGZhMWY1NzQyMWUwYiAoInhlbi92aXJ0aW86IEVuYWJsZSByZXN0cmlj
-dGVkIG1lbW9yeSBhY2Nlc3MgdXNpbmcNCj4+IFhlbiBncmFudCBtYXBwaW5ncyIpIGludHJv
-ZHVjZWQgYSBuZXcgcmVxdWlyZW1lbnQgZm9yIHVzaW5nIHZpcnRpbw0KPj4gZGV2aWNlczog
-dGhlIGJhY2tlbmQgbm93IG5lZWRzIHRvIHN1cHBvcnQgdGhlIFZJUlRJT19GX0FDQ0VTU19Q
-TEFURk9STQ0KPj4gZmVhdHVyZS4NCj4+DQo+PiBUaGlzIGlzIGFuIHVuZHVlIHJlcXVpcmVt
-ZW50IGZvciBub24tUFYgZ3Vlc3RzLCBhcyB0aG9zZSBjYW4gYmUgb3BlcmF0ZWQNCj4+IHdp
-dGggZXhpc3RpbmcgYmFja2VuZHMgd2l0aG91dCBhbnkgcHJvYmxlbSwgYXMgbG9uZyBhcyB0
-aG9zZSBiYWNrZW5kcw0KPj4gYXJlIHJ1bm5pbmcgaW4gZG9tMC4NCj4+DQo+PiBQZXIgZGVm
-YXVsdCBhbGxvdyB2aXJ0aW8gZGV2aWNlcyB3aXRob3V0IGdyYW50IHN1cHBvcnQgZm9yIG5v
-bi1QVg0KPj4gZ3Vlc3RzLg0KPj4NCj4+IEFkZCBhIG5ldyBjb25maWcgaXRlbSB0byBhbHdh
-eXMgZm9yY2UgdXNlIG9mIGdyYW50cyBmb3IgdmlydGlvLg0KPiANCj4gV2hhdCDDjSdkIHJl
-YWxseSBleHBlY3QgaGVyZSBpcyB0byBvbmx5IHNldCB0aGUgbGltaXRhdGlvbnMgZm9yIHRo
-ZQ0KPiBhY3R1YWwgZ3JhbnQtYmFzZWQgZGV2aWMuICBVbmZvcnR1bmF0ZWx5DQo+IFBMQVRG
-T1JNX1ZJUlRJT19SRVNUUklDVEVEX01FTV9BQ0NFU1MgaXMgZ2xvYmFsIGluc3RlYWQgb2Yg
-cGVyLWRldmljZSwNCg0KSSB0aGluayB0aGUgZ2xvYmFsIHNldHRpbmcgaXMgZmluZSwgYXMg
-aXQgc2VydmVzIGEgc3BlY2lmaWMgcHVycG9zZToNCmRvbid0IGFsbG93IEFOWSB2aXJ0aW8g
-ZGV2aWNlcyB3aXRob3V0IHRoZSBzcGVjaWFsIGhhbmRsaW5nIChsaWtlIHRoZQ0KLzM5MCBQ
-ViBjYXNlLCBTRVYsIFREWCwgb3IgWGVuIFBWLWd1ZXN0cykuIFRob3NlIGNhc2VzIGNhbid0
-IHNlbnNpYmx5DQp3b3JrIHdpdGhvdXQgdGhlIHNwZWNpYWwgRE1BIG9wcy4NCg0KSW4gY2Fz
-ZSB0aGUgc3BlY2lhbCBETUEgb3BzIGFyZSBqdXN0IGEgIm5pY2UgdG8gaGF2ZSIgbGlrZSBm
-b3IgWGVuIEhWTQ0KZ3Vlc3RzLCBQTEFURk9STV9WSVJUSU9fUkVTVFJJQ1RFRF9NRU1fQUND
-RVNTIHdvbid0IGJlIHNldC4NCg0KQW5kIGlmIHNvbWVvbmUgd2FudHMgYSBndWVzdCBvbmx5
-IHRvIHVzZSBncmFudCBiYXNlZCB2aXJ0aW8gZGV2aWNlcywNCnRoZSBndWVzdCBrZXJuZWwg
-Y2FuIGJlIGJ1aWx0IHdpdGggQ09ORklHX1hFTl9WSVJUSU9fRk9SQ0VfR1JBTlQgKGUuZy4N
-CmluIGNhc2UgdGhlIGJhY2tlbmRzIGFyZSBydW5uaW5nIGluIHNvbWUgbGVzcyBwcml2aWxl
-Z2VkIGVudmlyb25tZW50DQphbmQgdGh1cyBjYW4ndCBtYXAgYXJiaXRyYXJ5IGd1ZXN0IG1l
-bW9yeSBwYWdlcykuDQoNCg0KSnVlcmdlbg0K
---------------NdIsUxjRwVmXlsOvTsrEHUWr
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hello Juergen
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> Commit fa1f57421e0b ("xen/virtio: Enable restricted memory access using
+> Xen grant mappings") introduced a new requirement for using virtio
+> devices: the backend now needs to support the VIRTIO_F_ACCESS_PLATFORM
+> feature.
+>
+> This is an undue requirement for non-PV guests, as those can be operated
+> with existing backends without any problem, as long as those backends
+> are running in dom0.
+>
+> Per default allow virtio devices without grant support for non-PV
+> guests.
+>
+> Add a new config item to always force use of grants for virtio.
+>
+> Fixes: fa1f57421e0b ("xen/virtio: Enable restricted memory access using Xen grant mappings")
+> Reported-by: Viresh Kumar <viresh.kumar@linaro.org>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - remove command line parameter (Christoph Hellwig)
+> ---
+>   drivers/xen/Kconfig | 9 +++++++++
+>   include/xen/xen.h   | 2 +-
+>   2 files changed, 10 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
+> index bfd5f4f706bc..a65bd92121a5 100644
+> --- a/drivers/xen/Kconfig
+> +++ b/drivers/xen/Kconfig
+> @@ -355,4 +355,13 @@ config XEN_VIRTIO
+>   
+>   	  If in doubt, say n.
+>   
+> +config XEN_VIRTIO_FORCE_GRANT
+> +	bool "Require Xen virtio support to use grants"
+> +	depends on XEN_VIRTIO
+> +	help
+> +	  Require virtio for Xen guests to use grant mappings.
+> +	  This will avoid the need to give the backend the right to map all
+> +	  of the guest memory. This will need support on the backend side
+> +	  (e.g. qemu or kernel, depending on the virtio device types used).
+> +
+>   endmenu
+> diff --git a/include/xen/xen.h b/include/xen/xen.h
+> index 0780a81e140d..4d4188f20337 100644
+> --- a/include/xen/xen.h
+> +++ b/include/xen/xen.h
+> @@ -56,7 +56,7 @@ extern u64 xen_saved_max_mem_size;
+>   
+>   static inline void xen_set_restricted_virtio_memory_access(void)
+>   {
+> -	if (IS_ENABLED(CONFIG_XEN_VIRTIO) && xen_domain())
+> +	if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_pv_domain())
+>   		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
 
---------------NdIsUxjRwVmXlsOvTsrEHUWr--
+Looks like, the flag will be *always* set for paravirtualized guests 
+even if CONFIG_XEN_VIRTIO disabled.
 
---------------J2Rq30FEtUnvERcW8kC0PDn0--
+Maybe we should clarify the check?
 
---------------cIwu0mbjmosd8QbJsqimG8rf
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || 
+IS_ENABLED(CONFIG_XEN_VIRTIO) && xen_pv_domain())
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKqynQFAwAAAAAACgkQsN6d1ii/Ey+m
-/Af+Me+q12n9oI6lTeU8OHRs26Qw8RWbpRpvU1UN411+ZPsDSQDIskyhXMFatSSg2OBQ4aL638I6
-kzH/SkxM5n6z2ckLvxym3Hgdd8BJ/VI4ih3zBcRJNaQeKf9tIFcBWUzAMda8OFKiKOKPBoQWGe6L
-HiC5ckXiK/i4p/U1exxWzNwQmnvE83wAO8+YjF94R1vxlBPlSou6ceRlAhSdNsK9EBDDPk4YSktX
-DCz3X4sqrzAh53qCpWgxWgs+jg9MeP3bdACBOPnzdg08CMApUZ1+pOIFS2B1zqQSZmFKiM4+YgjE
-AzJ8pjry/nnoC7+MNmWGNcFeDI7TDtFmbkfFoO766w==
-=NX7Z
------END PGP SIGNATURE-----
+     platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
 
---------------cIwu0mbjmosd8QbJsqimG8rf--
+
+>   }
+>   
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
