@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6BD54DA26
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 08:04:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.350416.576764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B63554DA5F
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 08:15:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.350427.576774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1iax-0004cl-0D; Thu, 16 Jun 2022 06:03:07 +0000
+	id 1o1imm-0006LP-2g; Thu, 16 Jun 2022 06:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 350416.576764; Thu, 16 Jun 2022 06:03:06 +0000
+Received: by outflank-mailman (output) from mailman id 350427.576774; Thu, 16 Jun 2022 06:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1iaw-0004Zv-Sz; Thu, 16 Jun 2022 06:03:06 +0000
-Received: by outflank-mailman (input) for mailman id 350416;
- Thu, 16 Jun 2022 06:03:05 +0000
+	id 1o1iml-0006JU-W7; Thu, 16 Jun 2022 06:15:19 +0000
+Received: by outflank-mailman (input) for mailman id 350427;
+ Thu, 16 Jun 2022 06:15:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZtRg=WX=bombadil.srs.infradead.org=BATV+c9d26d7972d0db0217a7+6871+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1o1iau-0004Zp-J7
- for xen-devel@lists.xenproject.org; Thu, 16 Jun 2022 06:03:05 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:3::133])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7YVi=WX=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o1imk-0006JO-OK
+ for xen-devel@lists.xenproject.org; Thu, 16 Jun 2022 06:15:18 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa8191a8-ed39-11ec-bd2c-47488cf2e6aa;
- Thu, 16 Jun 2022 08:03:02 +0200 (CEST)
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1o1iaq-000fho-44; Thu, 16 Jun 2022 06:03:00 +0000
+ id b0fa0b5d-ed3b-11ec-bd2c-47488cf2e6aa;
+ Thu, 16 Jun 2022 08:15:17 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C3C6121C58;
+ Thu, 16 Jun 2022 06:15:16 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 856451344E;
+ Thu, 16 Jun 2022 06:15:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id pP0KH3TKqmLcUQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 16 Jun 2022 06:15:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,133 +51,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa8191a8-ed39-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Transfer-Encoding
-	:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=iOBMPze3s2Lts4x7hCuI3brE8gqb/oK3vC99y6kJxTs=; b=FAJ6hHlfYq4a8A6nEmnUqy7YFQ
-	H6/hQfIR6XVi3ZDAKoGfGTCP9dXBPMyzxG4Lsa0dRw/WjSE0HqqXy2alHlxN+uDU0JHEIsw+2JXvC
-	b6kwpx1G1peN6Il1mC6O3gBJp5q8UWXHLbsyWvbj51yVdVpKRLOP82DAY66mybij8zNOC+uzjTlTy
-	q7VP7rb3smIlUDJg8oqBQL3nhYJe12nt0DoK1OlYM+9g3TTif1VAm2XvNGh41lCUbfmhpYUZbDuSC
-	51k4GsSN3PmkQnngV8M9IYsuldfh1KvfxBW2ks3xs7mDwA5shOfORFQA4WXu99U0joY+rxSv1Vawd
-	M6XM+gjQ==;
-Date: Wed, 15 Jun 2022 23:03:00 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Juergen Gross <jgross@suse.com>
+X-Inumbo-ID: b0fa0b5d-ed3b-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1655360116; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YFF3k13LUKCiKrPq8kWk/hdM4VqGuJLIJy2t17i2Wfw=;
+	b=AuBDIqVKHouwIEK7lqLR/FqjbC6FsLU78nEeq5YxXQOA8bIlpBeo/vxmC0zoH53AnazNEA
+	/vTqSGjIy3mhHQNDb1TIVUxThona4DuuAqralDNxPb8C44JcdHyXZ4BLV7qAC2OrIMJWeY
+	ZTuGrYvEJuI/08t0yGGIK2AxcH0OhfE=
+Message-ID: <50b72415-2e7d-b25e-0022-539d9fe91d41@suse.com>
+Date: Thu, 16 Jun 2022 08:15:16 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-US
+To: Christoph Hellwig <hch@infradead.org>
 Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	viresh.kumar@linaro.org, hch@infradead.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+ viresh.kumar@linaro.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <20220616053715.3166-1-jgross@suse.com>
+ <YqrHlNOiRxxc8xcq@infradead.org>
+From: Juergen Gross <jgross@suse.com>
 Subject: Re: [PATCH v2] xen: don't require virtio with grants for non-PV
  guests
-Message-ID: <YqrHlNOiRxxc8xcq@infradead.org>
+In-Reply-To: <YqrHlNOiRxxc8xcq@infradead.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------cIwu0mbjmosd8QbJsqimG8rf"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------cIwu0mbjmosd8QbJsqimG8rf
+Content-Type: multipart/mixed; boundary="------------J2Rq30FEtUnvERcW8kC0PDn0";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ viresh.kumar@linaro.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Message-ID: <50b72415-2e7d-b25e-0022-539d9fe91d41@suse.com>
+Subject: Re: [PATCH v2] xen: don't require virtio with grants for non-PV
+ guests
 References: <20220616053715.3166-1-jgross@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220616053715.3166-1-jgross@suse.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+ <YqrHlNOiRxxc8xcq@infradead.org>
+In-Reply-To: <YqrHlNOiRxxc8xcq@infradead.org>
 
-On Thu, Jun 16, 2022 at 07:37:15AM +0200, Juergen Gross wrote:
-> Commit fa1f57421e0b ("xen/virtio: Enable restricted memory access using
-> Xen grant mappings") introduced a new requirement for using virtio
-> devices: the backend now needs to support the VIRTIO_F_ACCESS_PLATFORM
-> feature.
-> 
-> This is an undue requirement for non-PV guests, as those can be operated
-> with existing backends without any problem, as long as those backends
-> are running in dom0.
-> 
-> Per default allow virtio devices without grant support for non-PV
-> guests.
-> 
-> Add a new config item to always force use of grants for virtio.
+--------------J2Rq30FEtUnvERcW8kC0PDn0
+Content-Type: multipart/mixed; boundary="------------NdIsUxjRwVmXlsOvTsrEHUWr"
 
-What Í'd really expect here is to only set the limitations for the
-actual grant-based devic.  Unfortunately
-PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS is global instead of per-device,
-but this is what coms closest to that intention without major
-refactoring:
+--------------NdIsUxjRwVmXlsOvTsrEHUWr
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index 1f9c3ba328333..07eb69f9e7df3 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -443,8 +443,6 @@ static int __init xen_guest_init(void)
- 	if (!xen_domain())
- 		return 0;
- 
--	xen_set_restricted_virtio_memory_access();
--
- 	if (!acpi_disabled)
- 		xen_acpi_guest_init();
- 	else
-diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-index 8b71b1dd76396..517a9d8d8f94d 100644
---- a/arch/x86/xen/enlighten_hvm.c
-+++ b/arch/x86/xen/enlighten_hvm.c
-@@ -195,8 +195,6 @@ static void __init xen_hvm_guest_init(void)
- 	if (xen_pv_domain())
- 		return;
- 
--	xen_set_restricted_virtio_memory_access();
--
- 	init_hvm_pv_info();
- 
- 	reserve_shared_info();
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index e3297b15701c6..f33a4421e7cd6 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -109,8 +109,6 @@ static DEFINE_PER_CPU(struct tls_descs, shadow_tls_desc);
- 
- static void __init xen_pv_init_platform(void)
- {
--	xen_set_restricted_virtio_memory_access();
--
- 	populate_extra_pte(fix_to_virt(FIX_PARAVIRT_BOOTMAP));
- 
- 	set_fixmap(FIX_PARAVIRT_BOOTMAP, xen_start_info->shared_info);
-diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-index fc01424840017..f9bbacb5b5456 100644
---- a/drivers/xen/grant-dma-ops.c
-+++ b/drivers/xen/grant-dma-ops.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/module.h>
-+#include <linux/platform-feature.h>
- #include <linux/dma-map-ops.h>
- #include <linux/of.h>
- #include <linux/pfn.h>
-@@ -333,6 +334,8 @@ void xen_grant_setup_dma_ops(struct device *dev)
- 		goto err;
- 	}
- 
-+	/* XXX: this really should be per-device instead of blobal */
-+	platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
- 	dev->dma_ops = &xen_grant_dma_ops;
- 
- 	return;
-diff --git a/include/xen/xen.h b/include/xen/xen.h
-index 0780a81e140de..a99bab8175234 100644
---- a/include/xen/xen.h
-+++ b/include/xen/xen.h
-@@ -52,14 +52,6 @@ bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
- extern u64 xen_saved_max_mem_size;
- #endif
- 
--#include <linux/platform-feature.h>
--
--static inline void xen_set_restricted_virtio_memory_access(void)
--{
--	if (IS_ENABLED(CONFIG_XEN_VIRTIO) && xen_domain())
--		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
--}
--
- #ifdef CONFIG_XEN_UNPOPULATED_ALLOC
- int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
- void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+T24gMTYuMDYuMjIgMDg6MDMsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOg0KPiBPbiBUaHUs
+IEp1biAxNiwgMjAyMiBhdCAwNzozNzoxNUFNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3Rl
+Og0KPj4gQ29tbWl0IGZhMWY1NzQyMWUwYiAoInhlbi92aXJ0aW86IEVuYWJsZSByZXN0cmlj
+dGVkIG1lbW9yeSBhY2Nlc3MgdXNpbmcNCj4+IFhlbiBncmFudCBtYXBwaW5ncyIpIGludHJv
+ZHVjZWQgYSBuZXcgcmVxdWlyZW1lbnQgZm9yIHVzaW5nIHZpcnRpbw0KPj4gZGV2aWNlczog
+dGhlIGJhY2tlbmQgbm93IG5lZWRzIHRvIHN1cHBvcnQgdGhlIFZJUlRJT19GX0FDQ0VTU19Q
+TEFURk9STQ0KPj4gZmVhdHVyZS4NCj4+DQo+PiBUaGlzIGlzIGFuIHVuZHVlIHJlcXVpcmVt
+ZW50IGZvciBub24tUFYgZ3Vlc3RzLCBhcyB0aG9zZSBjYW4gYmUgb3BlcmF0ZWQNCj4+IHdp
+dGggZXhpc3RpbmcgYmFja2VuZHMgd2l0aG91dCBhbnkgcHJvYmxlbSwgYXMgbG9uZyBhcyB0
+aG9zZSBiYWNrZW5kcw0KPj4gYXJlIHJ1bm5pbmcgaW4gZG9tMC4NCj4+DQo+PiBQZXIgZGVm
+YXVsdCBhbGxvdyB2aXJ0aW8gZGV2aWNlcyB3aXRob3V0IGdyYW50IHN1cHBvcnQgZm9yIG5v
+bi1QVg0KPj4gZ3Vlc3RzLg0KPj4NCj4+IEFkZCBhIG5ldyBjb25maWcgaXRlbSB0byBhbHdh
+eXMgZm9yY2UgdXNlIG9mIGdyYW50cyBmb3IgdmlydGlvLg0KPiANCj4gV2hhdCDDjSdkIHJl
+YWxseSBleHBlY3QgaGVyZSBpcyB0byBvbmx5IHNldCB0aGUgbGltaXRhdGlvbnMgZm9yIHRo
+ZQ0KPiBhY3R1YWwgZ3JhbnQtYmFzZWQgZGV2aWMuICBVbmZvcnR1bmF0ZWx5DQo+IFBMQVRG
+T1JNX1ZJUlRJT19SRVNUUklDVEVEX01FTV9BQ0NFU1MgaXMgZ2xvYmFsIGluc3RlYWQgb2Yg
+cGVyLWRldmljZSwNCg0KSSB0aGluayB0aGUgZ2xvYmFsIHNldHRpbmcgaXMgZmluZSwgYXMg
+aXQgc2VydmVzIGEgc3BlY2lmaWMgcHVycG9zZToNCmRvbid0IGFsbG93IEFOWSB2aXJ0aW8g
+ZGV2aWNlcyB3aXRob3V0IHRoZSBzcGVjaWFsIGhhbmRsaW5nIChsaWtlIHRoZQ0KLzM5MCBQ
+ViBjYXNlLCBTRVYsIFREWCwgb3IgWGVuIFBWLWd1ZXN0cykuIFRob3NlIGNhc2VzIGNhbid0
+IHNlbnNpYmx5DQp3b3JrIHdpdGhvdXQgdGhlIHNwZWNpYWwgRE1BIG9wcy4NCg0KSW4gY2Fz
+ZSB0aGUgc3BlY2lhbCBETUEgb3BzIGFyZSBqdXN0IGEgIm5pY2UgdG8gaGF2ZSIgbGlrZSBm
+b3IgWGVuIEhWTQ0KZ3Vlc3RzLCBQTEFURk9STV9WSVJUSU9fUkVTVFJJQ1RFRF9NRU1fQUND
+RVNTIHdvbid0IGJlIHNldC4NCg0KQW5kIGlmIHNvbWVvbmUgd2FudHMgYSBndWVzdCBvbmx5
+IHRvIHVzZSBncmFudCBiYXNlZCB2aXJ0aW8gZGV2aWNlcywNCnRoZSBndWVzdCBrZXJuZWwg
+Y2FuIGJlIGJ1aWx0IHdpdGggQ09ORklHX1hFTl9WSVJUSU9fRk9SQ0VfR1JBTlQgKGUuZy4N
+CmluIGNhc2UgdGhlIGJhY2tlbmRzIGFyZSBydW5uaW5nIGluIHNvbWUgbGVzcyBwcml2aWxl
+Z2VkIGVudmlyb25tZW50DQphbmQgdGh1cyBjYW4ndCBtYXAgYXJiaXRyYXJ5IGd1ZXN0IG1l
+bW9yeSBwYWdlcykuDQoNCg0KSnVlcmdlbg0K
+--------------NdIsUxjRwVmXlsOvTsrEHUWr
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------NdIsUxjRwVmXlsOvTsrEHUWr--
+
+--------------J2Rq30FEtUnvERcW8kC0PDn0--
+
+--------------cIwu0mbjmosd8QbJsqimG8rf
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKqynQFAwAAAAAACgkQsN6d1ii/Ey+m
+/Af+Me+q12n9oI6lTeU8OHRs26Qw8RWbpRpvU1UN411+ZPsDSQDIskyhXMFatSSg2OBQ4aL638I6
+kzH/SkxM5n6z2ckLvxym3Hgdd8BJ/VI4ih3zBcRJNaQeKf9tIFcBWUzAMda8OFKiKOKPBoQWGe6L
+HiC5ckXiK/i4p/U1exxWzNwQmnvE83wAO8+YjF94R1vxlBPlSou6ceRlAhSdNsK9EBDDPk4YSktX
+DCz3X4sqrzAh53qCpWgxWgs+jg9MeP3bdACBOPnzdg08CMApUZ1+pOIFS2B1zqQSZmFKiM4+YgjE
+AzJ8pjry/nnoC7+MNmWGNcFeDI7TDtFmbkfFoO766w==
+=NX7Z
+-----END PGP SIGNATURE-----
+
+--------------cIwu0mbjmosd8QbJsqimG8rf--
 
