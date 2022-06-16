@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4E8854D56E
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 01:41:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.350341.576647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E5A954D5CB
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 02:09:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.350351.576658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1cd6-0007uJ-9Q; Wed, 15 Jun 2022 23:40:56 +0000
+	id 1o1d4R-0003QY-LM; Thu, 16 Jun 2022 00:09:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 350341.576647; Wed, 15 Jun 2022 23:40:56 +0000
+Received: by outflank-mailman (output) from mailman id 350351.576658; Thu, 16 Jun 2022 00:09:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1cd6-0007r7-4X; Wed, 15 Jun 2022 23:40:56 +0000
-Received: by outflank-mailman (input) for mailman id 350341;
- Wed, 15 Jun 2022 23:40:55 +0000
+	id 1o1d4R-0003OB-I3; Thu, 16 Jun 2022 00:09:11 +0000
+Received: by outflank-mailman (input) for mailman id 350351;
+ Thu, 16 Jun 2022 00:09:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8oGR=WW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o1cd5-0007qv-6r
- for xen-devel@lists.xenproject.org; Wed, 15 Jun 2022 23:40:55 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ <SRS0=hdZ4=WX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1o1d4Q-0003O5-0w
+ for xen-devel@lists.xenproject.org; Thu, 16 Jun 2022 00:09:10 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 97dcbcfe-ed04-11ec-ab14-113154c10af9;
- Thu, 16 Jun 2022 01:40:53 +0200 (CEST)
+ id 8aca1a37-ed08-11ec-ab14-113154c10af9;
+ Thu, 16 Jun 2022 02:09:08 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 028EA619C5;
- Wed, 15 Jun 2022 23:40:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE0AC3411A;
- Wed, 15 Jun 2022 23:40:51 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CCE6DB821FC;
+ Thu, 16 Jun 2022 00:09:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551FAC3411F;
+ Thu, 16 Jun 2022 00:09:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,229 +43,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97dcbcfe-ed04-11ec-ab14-113154c10af9
+X-Inumbo-ID: 8aca1a37-ed08-11ec-ab14-113154c10af9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1655336451;
-	bh=oSj2REQ5qGLGBBrSe5qR+g1EGWydDN+7KvkPWe4Dyo4=;
+	s=k20201202; t=1655338145;
+	bh=jJISYR6NRFQwSY8+RR9lGNRnt7g65v9vRC0lxptbg0c=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LUW1bMXvrBoJoj1dB2FuYZFam/bHc7Ly+IxnWxq6Eb8tkpXlgcaemVUcTi8TY4Mj6
-	 uHZLAofAPPPATkiVmcMgvzpBt62ULG6W6WGlXSJGSocKm3EFl3Z8hx0RCnMvyecbzY
-	 WLLEW+JmY1nObyduCjwaVJfMU8rdhhVpDjLZzvIU4VvLwXf8/ZlyeF1dtohOyzFKSu
-	 y8zUBntYlUWGr/91mAzroQtwqdOzKbJoEawyIF/BwKQoECNk0wFztH29gRlL7r4aN8
-	 oOZ6g0VIMBXuP+1EKhMpG4IYmehNZyQ2KnPhCGHeYpGcIPz9M6QPoCSvKLbOoywOEW
-	 VU8wLej/gSrQQ==
-Date: Wed, 15 Jun 2022 16:40:42 -0700 (PDT)
+	b=YIQB3ko9rNTn4jxLzmpHRcocUWHPMbAv8y5LTEMWW0pwzfRAmylxQexP8CU+CD7UR
+	 FZJbIYfStAF9QG9PprZVTVS8gqC4L12WHVo2S2PXfC2l73S7XdZvQDEPlf6LTSpZei
+	 mU9ujRJzSSq+sE4e1z38CZhmbK9WMPOILzdr+yT2XrLEULyQ7Ve2ostd+3yKX0T0nv
+	 Bl0vFma/V0PVKSRc2NLJlkw9TcoH3maE67bBn9FhpncVqFfqT3LCeWW2/xi0MC6Ccd
+	 8diAnK/7og7g5GLe3VJHT0Igjf7mRznKdYxZbneRq2jvpu25YsRfU0d97N33c1NNJR
+	 wG24CNMMXxzGA==
+Date: Wed, 15 Jun 2022 17:09:04 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Juergen Gross <jgross@suse.com>
-cc: xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH] xen: don't require virtio with grants for non-PV
- guests
-In-Reply-To: <20220615084835.27113-1-jgross@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2206151336230.2430546@ubuntu-linux-20-04-desktop>
-References: <20220615084835.27113-1-jgross@suse.com>
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Jens Wiklander <jens.wiklander@linaro.org>, xen-devel@lists.xenproject.org, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 1/2] xen/arm: smccc: add support for SMCCCv1.2 extended
+ input/output registers
+In-Reply-To: <9c39d8dc-4a74-297c-45fd-4e261fe9ef90@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2206151355000.2430546@ubuntu-linux-20-04-desktop>
+References: <20220609061812.422130-1-jens.wiklander@linaro.org> <20220609061812.422130-2-jens.wiklander@linaro.org> <alpine.DEB.2.22.394.2206101733020.756493@ubuntu-linux-20-04-desktop> <9c39d8dc-4a74-297c-45fd-4e261fe9ef90@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 15 Jun 2022, Juergen Gross wrote:
-> Commit fa1f57421e0b ("xen/virtio: Enable restricted memory access using
-> Xen grant mappings") introduced a new requirement for using virtio
-> devices: the backend now needs to support the VIRTIO_F_ACCESS_PLATFORM
-> feature.
+On Wed, 15 Jun 2022, Julien Grall wrote:
+> On 11/06/2022 01:41, Stefano Stabellini wrote:
+> > >   #endif /* __ASSEMBLY__ */
+> > >     /*
+> > > diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
+> > > index 676740ef1520..6f90c08a6304 100644
+> > > --- a/xen/arch/arm/vsmc.c
+> > > +++ b/xen/arch/arm/vsmc.c
+> > > @@ -93,7 +93,7 @@ static bool handle_arch(struct cpu_user_regs *regs)
+> > >       switch ( fid )
+> > >       {
+> > >       case ARM_SMCCC_VERSION_FID:
+> > > -        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_1);
+> > > +        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_2);
+> > >           return true;
+> >    This is going to be a problem for ARM32 given that ARM_SMCCC_VERSION_1_2
+> > is unimplemented on ARM32. If there is an ARM32 implementation in Linux
+> > for ARM_SMCCC_VERSION_1_2 you might as well import it too.
+> > 
+> > Otherwise we'll have to abstract it away, e.g.:
+> > 
+> > #ifdef CONFIG_ARM_64
+> > #define ARM_VSMCCC_VERSION ARM_SMCCC_VERSION_1_2
+> > #else
+> > #define ARM_VSMCCC_VERSION ARM_SMCCC_VERSION_1_1
+> > #endif
 > 
-> This is an undue requirement for non-PV guests, as those can be operated
-> with existing backends without any problem, as long as those backends
-> are running in dom0.
+> I don't understand why you want to tie the virtual and host SMCCC version.
 > 
-> Per default allow virtio devices without grant support for non-PV
-> guests.
+> In theory, it would be possible for us to implement a subsystem to fully
+> emulate, lets say, FFA. We would to tell the VM that we are v1.2 compliant but
+> we would not need the helper as no calls would be forwarded.
 > 
-> The setting can be overridden by using the new "xen_virtio_grant"
-> command line parameter.
-> 
-> Add a new config item to always force use of grants for virtio.
-> 
-> Fixes: fa1f57421e0b ("xen/virtio: Enable restricted memory access using Xen grant mappings")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  .../admin-guide/kernel-parameters.txt         |  6 +++++
->  drivers/xen/Kconfig                           |  9 ++++++++
->  drivers/xen/grant-dma-ops.c                   | 22 +++++++++++++++++++
->  include/xen/xen.h                             | 12 +++++-----
->  4 files changed, 42 insertions(+), 7 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 8090130b544b..7960480c6fe4 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -6695,6 +6695,12 @@
->  			improve timer resolution at the expense of processing
->  			more timer interrupts.
->  
-> +	xen_virtio_grant= [XEN]
-> +			Control whether virtio devices are required to use
-> +			grants when running as a Xen guest. The default is
-> +			"yes" for PV guests or when the kernel has been built
-> +			with CONFIG_XEN_VIRTIO_FORCE_GRANT set.
-> +
->  	xen.balloon_boot_timeout= [XEN]
->  			The time (in seconds) to wait before giving up to boot
->  			in case initial ballooning fails to free enough memory.
-> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-> index bfd5f4f706bc..a65bd92121a5 100644
-> --- a/drivers/xen/Kconfig
-> +++ b/drivers/xen/Kconfig
-> @@ -355,4 +355,13 @@ config XEN_VIRTIO
->  
->  	  If in doubt, say n.
->  
-> +config XEN_VIRTIO_FORCE_GRANT
-> +	bool "Require Xen virtio support to use grants"
-> +	depends on XEN_VIRTIO
-> +	help
-> +	  Require virtio for Xen guests to use grant mappings.
-> +	  This will avoid the need to give the backend the right to map all
-> +	  of the guest memory. This will need support on the backend side
-> +	  (e.g. qemu or kernel, depending on the virtio device types used).
-> +
->  endmenu
-> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-> index fc0142484001..d1fae789dfad 100644
-> --- a/drivers/xen/grant-dma-ops.c
-> +++ b/drivers/xen/grant-dma-ops.c
-> @@ -11,6 +11,7 @@
->  #include <linux/dma-map-ops.h>
->  #include <linux/of.h>
->  #include <linux/pfn.h>
-> +#include <linux/platform-feature.h>
->  #include <linux/xarray.h>
->  #include <xen/xen.h>
->  #include <xen/xen-ops.h>
-> @@ -27,6 +28,27 @@ static DEFINE_XARRAY(xen_grant_dma_devices);
->  
->  #define XEN_GRANT_DMA_ADDR_OFF	(1ULL << 63)
->  
-> +static bool __initdata xen_virtio_grants;
-> +static bool __initdata xen_virtio_grants_set;
-> +static __init int parse_use_grants(char *arg)
-> +{
-> +	if (!strcmp(arg, "yes"))
-> +		xen_virtio_grants = true;
-> +	else if (!strcmp(arg, "no"))
-> +		xen_virtio_grants = false;
-> +	xen_virtio_grants_set = true;
-> +
-> +	return 0;
-> +}
-> +early_param("xen_virtio_grant", parse_use_grants);
-> +
-> +void xen_set_restricted_virtio_memory_access(void)
-> +{
-> +	if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_virtio_grants ||
-> +	    (!xen_virtio_grants_set && xen_pv_domain()))
-> +		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
-> +}
+> When a 32-bit guest is running on Xen Arm64, we are going to say that SMCCC
+> v1.2 will be available. This is not much different from running a 32-bit guest
+> on 32-bit hardware.
 
-I agree with Christoph on this.
+In a few places (especially platform specific code, such as Xilinx EEMI)
+the guest SMC call traps in Xen, then Xen repeats the same SMC call to
+the firmware.
 
-On ARM all guests are HVM guests. Unless I am reading this wrongly, with
-this check, the user needs to pass the xen_virtio_grant command line
-option or add CONFIG_XEN_VIRTIO_FORCE_GRANT to the build to use virtio
-with grants. Instead, it should be automatic.
+I realize this is not a good reason to keep virtual SMCCC 1.1 because
+the firmware could support SMCCC 1.0 or older. Some argument conversions
+are to be expected.  In reality I have been working with SMCCC 1.1
+virtual and SMCCC 1.1 firmware for a long time so the problem didn't
+exist, and I didn't really think it through :-)
 
-I am not against adding new command line or compile-time options. But
-on ARM we already have all the information we need in device tree with
-"iommus" and "xen,grant-dma". We don't need anything more.
 
-On ARM if "xen,grant-dma" is present we need to enable
-PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS, otherwise we don't.
+> So I think we should expose 1.2 unless we think there is a
+> problem in the Xen 32-bit specific code.
 
-So I think it should be something like the appended (untested):
-
-- on ARM we call xen_set_restricted_virtio_memory_access if
-  xen,grant-dma is present in device tree
-- on x86 ideally we would have something like xen,grant-dma in a Xen
-  ACPI table, but for now:
-    - always restrict for PV guests (no change)
-    - only restrict for HVM guests if a new cmdline option is passed
-    - so the command line option is only for Xen x86 HVM guests
-    - no need for another build-time option
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 2522b11e593f..cdd13d08f836 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6730,6 +6730,10 @@
- 			improve timer resolution at the expense of processing
- 			more timer interrupts.
- 
-+	xen_virtio_grant= [X86,XEN]
-+			Control whether virtio devices are required to use
-+			grants when running as a Xen HVM guest.
-+
- 	xen.balloon_boot_timeout= [XEN]
- 			The time (in seconds) to wait before giving up to boot
- 			in case initial ballooning fails to free enough memory.
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index 1f9c3ba32833..07eb69f9e7df 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -443,8 +443,6 @@ static int __init xen_guest_init(void)
- 	if (!xen_domain())
- 		return 0;
- 
--	xen_set_restricted_virtio_memory_access();
--
- 	if (!acpi_disabled)
- 		xen_acpi_guest_init();
- 	else
-diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-index 8b71b1dd7639..66b1d9d3d950 100644
---- a/arch/x86/xen/enlighten_hvm.c
-+++ b/arch/x86/xen/enlighten_hvm.c
-@@ -189,13 +189,27 @@ static int xen_cpu_dead_hvm(unsigned int cpu)
- }
- 
- static bool no_vector_callback __initdata;
-+static bool __initdata xen_virtio_grants;
-+static bool __initdata xen_virtio_grants_set;
-+static __init int parse_use_grants(char *arg)
-+{
-+	if (!strcmp(arg, "yes"))
-+		xen_virtio_grants = true;
-+	else if (!strcmp(arg, "no"))
-+		xen_virtio_grants = false;
-+	xen_virtio_grants_set = true;
-+
-+	return 0;
-+}
-+early_param("xen_virtio_grant", parse_use_grants);
- 
- static void __init xen_hvm_guest_init(void)
- {
- 	if (xen_pv_domain())
- 		return;
- 
--	xen_set_restricted_virtio_memory_access();
-+	if (xen_virtio_grant)
-+		xen_set_restricted_virtio_memory_access();
- 
- 	init_hvm_pv_info();
- 
-diff --git a/drivers/xen/grant-dma-iommu.c b/drivers/xen/grant-dma-iommu.c
-index 16b8bc0c0b33..b43a8906ef64 100644
---- a/drivers/xen/grant-dma-iommu.c
-+++ b/drivers/xen/grant-dma-iommu.c
-@@ -40,6 +40,7 @@ static int grant_dma_iommu_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	platform_set_drvdata(pdev, mmu);
-+	xen_set_restricted_virtio_memory_access();
- 
- 	return 0;
- }
+Yeah, I am OK with that.
 
