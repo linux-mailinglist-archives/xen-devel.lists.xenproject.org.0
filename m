@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5813954E201
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 15:33:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.350619.577064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46D0E54E2F9
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jun 2022 16:07:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.350629.577083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1pbt-0007Hm-7Z; Thu, 16 Jun 2022 13:32:33 +0000
+	id 1o1q93-0002wi-2p; Thu, 16 Jun 2022 14:06:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 350619.577064; Thu, 16 Jun 2022 13:32:33 +0000
+Received: by outflank-mailman (output) from mailman id 350629.577083; Thu, 16 Jun 2022 14:06:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o1pbt-0007F1-4t; Thu, 16 Jun 2022 13:32:33 +0000
-Received: by outflank-mailman (input) for mailman id 350619;
- Thu, 16 Jun 2022 13:32:31 +0000
+	id 1o1q92-0002uS-W8; Thu, 16 Jun 2022 14:06:48 +0000
+Received: by outflank-mailman (input) for mailman id 350629;
+ Thu, 16 Jun 2022 13:57:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yWHJ=WX=citrix.com=prvs=15945cc1a=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1o1pbr-0007Ev-Ed
- for xen-devel@lists.xenproject.org; Thu, 16 Jun 2022 13:32:31 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c40e3721-ed78-11ec-bd2c-47488cf2e6aa;
- Thu, 16 Jun 2022 15:32:30 +0200 (CEST)
+ <SRS0=/+X/=WX=gmail.com=dmitry.semenets@srs-se1.protection.inumbo.net>)
+ id 1o1pzw-0001j4-Um
+ for xen-devel@lists.xenproject.org; Thu, 16 Jun 2022 13:57:24 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f578ffc-ed7c-11ec-bd2c-47488cf2e6aa;
+ Thu, 16 Jun 2022 15:57:23 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id p18so2378446lfr.1
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Jun 2022 06:57:23 -0700 (PDT)
+Received: from localhost.localdomain ([91.219.254.75])
+ by smtp.gmail.com with ESMTPSA id
+ a14-20020a19e30e000000b0047255d2119csm247998lfh.203.2022.06.16.06.57.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Jun 2022 06:57:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,93 +44,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c40e3721-ed78-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1655386350;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SC4qIvbuwA7oS8jkKI4cMaKo4B/88ao12Qc7MfCExZA=;
-  b=U8FFvxkg2RLXpFBlen++E36OWHWSyZjamUzEI4sbhIMPrdWArb8RNFdt
-   V4ZXxTiqpxX5kfwM9ctYyQvZisRcXpPAu1uSbAHMfE7ZOtq1BsPz8yvxU
-   L6mjCMhTJm5XEqVFJ0JuDD6BprS1PRideG8IuETU3V66sqo6cBKwDGTDG
-   E=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 73754237
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:rzyrgKLIrRnDWjqUFE+RCpUlxSXFcZb7ZxGr2PjKsXjdYENS1GQDn
- 2obCzqAbP2MN2v2c4h3YIW/o00CusCGn95iSQZlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokf0/0vrav67xZVF/fngqoDUUYYoAQgsA14+IMsdoUg7wbRh3Nc22YLR7z6l4
- rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
- s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- PVWkMSvSygxBJHrn7waSEBfFAZ4P4QTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBMDtIIMYvGAm1TzDBOwqaZvCX7/L9ZlT2zJYasVmQq2BO
- pZDMmUHgBLoJB9SZmcLAbUEhqSBgXv1YgNnshWFqv9ii4TU5FMoi+W8WDbPQfSGTNtYtlyVr
- WXH+yL+GB5yHN6VxCeB83msrvTShi69U4UXfJW66/prjVu71mEVThoMWjOTrP20jEf4RtxeL
- lAP9zQnha8o/UevQ5/2WBjQiGWfohcWVt5UEus7wAKA0KzZ50CeHGdsZiFFQMwrsokxXzNC/
- k+EmZblCCJitJWRSGmB7fGEoDWqIy8XIGQeIygeQmMt4db5p5oopgnSVdslG6mw5vXuEDTtz
- jTMsCg/jbwOidIj2qOguFTWhDTqoYLGJjPZ/S2OADjjtFkgItf4Ocr4sjA38MqsMq65VXzZo
- 3org/Kiy+dWCorUkyuqRuckSeTBC+m+DNHMvbJ+N8B/qmn3oiH5I9w4DCJWfxkwbJtdEdP9S
- AqK4F4KuscOVJe/RfUvC79dHfjG2kQJ+T7NcvnPJuRDbZFqHONs1HE/PBXAt4wBfaVFrE3eB
- Xt4WZz1ZZriIf47pAdavs9EuVPR+ggwxHnIWbfwxAm93LyVaRa9EOlYbQDXPrhkvfrb+205F
- uqz0OPTk31ivBDWOHGLoeb/03hRRZTEOXwGg5MOLbPSSuaXMGogF+XQ0dscRmCRpIwMzr2g1
- ijkAidwkQOj7VWaeVTiQi0yM9vHAMcgxU/XyARxZD5ELVB4Ot3xhEreHrNqFYQaGBtLl6IkF
- 6JYJZveXZyiiF3volwgUHU0l6Q6HDzDuO5EF3PNjOQXF3K4ezH0xw==
-IronPort-HdrOrdr: A9a23:8Rawra85c3rmc2V73y9uk+DaI+orL9Y04lQ7vn2YSXRuE/Bws/
- re+8jztCWE7Ar5N0tNpTntAsa9qDbnhPhICOoqTNKftWvdyQiVxehZhOOIqVDd8m/Fh4xgPM
- 9bAtFD4bbLbWSS4/yV3DWF
-X-IronPort-AV: E=Sophos;i="5.92,305,1650945600"; 
-   d="scan'208";a="73754237"
-Date: Thu, 16 Jun 2022 14:32:22 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, "Christian
- Lindig" <christian.lindig@citrix.com>, Samuel Thibault
-	<samuel.thibault@ens-lyon.org>, Juergen Gross <jgross@suse.com>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Roger Pau =?iso-8859-1?Q?Monn=E9?=
-	<roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>, David Scott
-	<dave@recoil.org>, Elena Ufimtseva <elena.ufimtseva@oracle.com>, Julien Grall
-	<julien@xen.org>
-Subject: Re: [XEN PATCH v2 00/29] Toolstack build system improvement, toward
- non-recursive makefiles
-Message-ID: <Yqsw5mmC8KHVbtrb@perard.uk.xensource.com>
-References: <20220225151321.44126-1-anthony.perard@citrix.com>
+X-Inumbo-ID: 3f578ffc-ed7c-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ANBsMVrpOfPHJzpBSaRzY2rH8VlpLm1cTHGBO/4dLYw=;
+        b=o8QT9fCMAbLqvgsY43URvSBp8El0higCNMiWpPwvSAndk98VIzqw8MboBtu27S/BoO
+         EPeruhLLIp48iFMAkh3AnuRrJWhBsyor/Vbmb3UjQS7DWSsUXDFjIQ19Aq0yCNwiSnLV
+         CGrQhjJ08zzvGykyvjh+vhycUXAJ9OpVeCtHPr/LWWPJBhqOZbucrwBE35FrsissMpsL
+         Vr5sRCi72/tnWm4vZFanhAHYiUKLYxGRxTf7xMsbuQjuKZsut79i0IbnPnBGPZIRf8Xm
+         NiU3zCXGjNYMMpsz7TZhjpQ1qBK3w/IK9dHFr+1MEJRU6OwFL0OEGbgUjec1TloasWQ6
+         l8vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ANBsMVrpOfPHJzpBSaRzY2rH8VlpLm1cTHGBO/4dLYw=;
+        b=6vQrGzttFDOckb1etzURf7yW57oSVOLE/13EqwKb8PE3WbAKgy/sqmbvNq/MVF+9vG
+         yT2lsBGi6UASuAYRW4WTUuqfe3KN09E8B01MLpEI/YbZZlYC2tREkzdT248MaJ/BDPV2
+         LeE6b25ix7KGQZccQs1id0sqdrn+qXsCLaxQWuU0YkysQ43ZiSvnhfXyCmqSp7uJkXbw
+         TJ15mSpmfZpdcE7WToT/AmtPh6dqV9pd/FK8uyzUQmqdBDE+9S4XmTRgmM/zZGPAJRWR
+         yDDhRW5Sp7/g1i6xgEPzE7tBf4sCp0kuGysXlXsX6ZGLlk2vvgICuPpqXvmmxDcNvY7C
+         RZ7A==
+X-Gm-Message-State: AJIora/PPhrgzAm+3xSiM8Rk8ow1keav1RNOpY21kkl24Su1jxTb/JQz
+	ukAgNJEtWOJ8JQM3DZ5t5VIbCW1hMetfXw==
+X-Google-Smtp-Source: AGRyM1tfcSG6v/Y1mxyIKgQusuV7BJdQ9SFFJInnpvCu/6k9QEXdec/CjffsGBXxXPGZOS/jrDvAxQ==
+X-Received: by 2002:a05:6512:3408:b0:479:5933:fb7 with SMTP id i8-20020a056512340800b0047959330fb7mr2735242lfr.300.1655387842753;
+        Thu, 16 Jun 2022 06:57:22 -0700 (PDT)
+From: dmitry.semenets@gmail.com
+To: xen-devel@lists.xenproject.org
+Cc: Dmytro Semenets <dmytro_semenets@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Subject: [PATCH] xen: Don't call panic if ARM TF cpu off returns DENIED
+Date: Thu, 16 Jun 2022 16:55:41 +0300
+Message-Id: <20220616135541.3333760-1-dmitry.semenets@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220225151321.44126-1-anthony.perard@citrix.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Dmytro Semenets <dmytro_semenets@epam.com>
 
-There's quite a few patch in this series that are reviewed and could be
-committed. The one reviewed don't depends on the other ones.
+According to PSCI specification ARM TF can return DENIED on CPU OFF.
+This patch brings the hypervisor into compliance with the PSCI
+specification.
+Refer to "Arm Power State Coordination Interface (DEN0022D.b)"
+section 5.5.2
 
-The list I've gathered that I think are reviewed properly are:
+Signed-off-by: Dmytro Semenets <dmytro_semenets@epam.com>
+Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+---
+ xen/arch/arm/psci.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-11: tools/xenstore: Cleanup makefile
-14: libs: rename LDUSELIBS to LDLIBS and use it instead of APPEND_LDFLAGS
-15: libs: Remove need for *installlocal targets
-16: libs,tools/include: Clean "clean" targets
-17: libs: Rename $(SRCS-y) to $(OBJS-y)
-18: libs/guest: rename ELF_OBJS to LIBELF_OBJS
-19: libs/guest: rework CFLAGS
-20: libs/store: use of -iquote instead of -I
-21: libs/stat: Fix and rework python-bindings build
-22: libs/stat: Fix and rework perl-binding build
-24: stubdom: introduce xenlibs.mk
-25: tools/libs: create Makefile.common to be used by stubdom build system
-26: tools/xenstore: introduce Makefile.common to be used by stubdom
-27: stubdom: build xenstore*-stubdom using new Makefile.common
-28: stubdom: xenlibs linkfarm, ignore non-regular files
-29: tools/ocaml: fix build dependency target
-
-(I didn't a run with them on our gitlab ci, and no build issue.)
-
-Thanks,
-
+diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
+index 0c90c2305c..55787fde58 100644
+--- a/xen/arch/arm/psci.c
++++ b/xen/arch/arm/psci.c
+@@ -63,8 +63,9 @@ void call_psci_cpu_off(void)
+ 
+         /* If successfull the PSCI cpu_off call doesn't return */
+         arm_smccc_smc(PSCI_0_2_FN32_CPU_OFF, &res);
+-        panic("PSCI cpu off failed for CPU%d err=%d\n", smp_processor_id(),
+-              PSCI_RET(res));
++        if ( PSCI_RET(res) != PSCI_DENIED )
++            panic("PSCI cpu off failed for CPU%d err=%d\n", smp_processor_id(),
++                PSCI_RET(res));
+     }
+ }
+ 
 -- 
-Anthony PERARD
+2.25.1
+
 
