@@ -2,42 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907BF54FDED
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jun 2022 21:55:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.351560.578229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 058B354FE76
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jun 2022 22:40:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.351570.578243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o2I3c-0005Kr-Ib; Fri, 17 Jun 2022 19:55:04 +0000
+	id 1o2IkV-0002Zm-41; Fri, 17 Jun 2022 20:39:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 351560.578229; Fri, 17 Jun 2022 19:55:04 +0000
+Received: by outflank-mailman (output) from mailman id 351570.578243; Fri, 17 Jun 2022 20:39:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o2I3c-0005HN-EW; Fri, 17 Jun 2022 19:55:04 +0000
-Received: by outflank-mailman (input) for mailman id 351560;
- Fri, 17 Jun 2022 19:55:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vvnF=WY=citrix.com=prvs=160c9be11=George.Dunlap@srs-se1.protection.inumbo.net>)
- id 1o2I3a-0005HF-C6
- for xen-devel@lists.xenproject.org; Fri, 17 Jun 2022 19:55:02 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5e16cc28-ee77-11ec-bd2d-47488cf2e6aa;
- Fri, 17 Jun 2022 21:55:00 +0200 (CEST)
-Received: from mail-dm6nam12lp2170.outbound.protection.outlook.com (HELO
- NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.170])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 17 Jun 2022 15:54:34 -0400
-Received: from PH0PR03MB5669.namprd03.prod.outlook.com (2603:10b6:510:33::16)
- by PH0PR03MB5703.namprd03.prod.outlook.com (2603:10b6:510:30::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Fri, 17 Jun
- 2022 19:54:33 +0000
-Received: from PH0PR03MB5669.namprd03.prod.outlook.com
- ([fe80::b402:44ba:be8:2308]) by PH0PR03MB5669.namprd03.prod.outlook.com
- ([fe80::b402:44ba:be8:2308%4]) with mapi id 15.20.5353.014; Fri, 17 Jun 2022
- 19:54:32 +0000
+	id 1o2IkV-0002Xg-0G; Fri, 17 Jun 2022 20:39:23 +0000
+Received: by outflank-mailman (input) for mailman id 351570;
+ Fri, 17 Jun 2022 20:39:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JiXX=WY=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1o2IkT-0002Xa-Mf
+ for xen-devel@lists.xenproject.org; Fri, 17 Jun 2022 20:39:22 +0000
+Received: from sonic317-20.consmr.mail.gq1.yahoo.com
+ (sonic317-20.consmr.mail.gq1.yahoo.com [98.137.66.146])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8dd9e7b6-ee7d-11ec-b725-ed86ccbb4733;
+ Fri, 17 Jun 2022 22:39:18 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic317.consmr.mail.gq1.yahoo.com with HTTP; Fri, 17 Jun 2022 20:39:15 +0000
+Received: by hermes--canary-production-bf1-8bb76d6cf-cdgdn (Yahoo Inc. Hermes
+ SMTP Server) with ESMTPA ID da0b3df65b30f311b738c9ef19c10b95; 
+ Fri, 17 Jun 2022 20:39:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,327 +42,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e16cc28-ee77-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1655495700;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:mime-version;
-  bh=IvsHZBL13OEveEHs+f3HEeTY34U1bMHTRvnFtFiSfqc=;
-  b=eBJmbFNCvohhBh4kZ68PBHQQCz3x4sHF/YCzntY9fhtY0Rfc4fVft0WF
-   EPnp40Jh9THjZKWvPV390l0UN5ksGVNiT+VbANxgwEJ9Z/em6S7IU8dOs
-   gXuu0hBeefsAVXbPTnq9WQ8D8Ka6bFY6k2H/WabHLk01OSHLKQmlFzaKT
-   U=;
-X-IronPort-RemoteIP: 104.47.59.170
-X-IronPort-MID: 73222233
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:zOfsUakz1jpVN5gWD8ReVrzo5gzKJkRdPkR7XQ2eYbSJt16W5oA//
- 9YtKSrfbaHbJie3LscnK96GQXl27cLSnNM3TQBoqy8xQnkRoJCVVYnHfxb7Y3qcc5DPFR04s
- 5tCZ4CdfJ0/FCGA90z3a+W9pCIl3P7STLTyWbacakidKeMcpAIJ0HqPzMZl0t4AbaGFPj6wV
- fPOT+z3MQb/1mN4aTMdt/KNoUwztv3+6G1H5gVgPPlGsQfTy3BEUJ5HKa+PdHapGYM88sxW5
- grgIBNV2kuDon/B3/v8yu6TnnUiG+KUZU7U4pZvc/DKbiJq/0Te6Y5mcqtGAatro2/RxYopl
- owT7cDYpToBZcUgpsxMC3G0LAkmVUF20Oevza+X6JH7I+XuKhMA8t02ZK0EFdRwFtVfWAmiw
- ccwOjEVBi1vssrtqF6NpkuAsex4RCXjFNt3VniNVlg1B95+KXzIa/2iCdO1QF7cLy2BdBrTT
- 5NxVNZhUPjPSzZRA21HEpE1pcuHnkT2a2NhsnSX/INitgA/zCQpuFTsGPz8X4XQAOlwwAOfr
- G+A+HnlCBYHMtDZ0SCC7n+nmu7Im2X8RZ4WE7q7sPVthTV/xERKUEFQCQT9/Kj/0xHmMz5cA
- xV8Fi4GgqU17kOmCPXgWRmxuFaPvwIGWsoWGOo/gO2I4vWPuVzDXDNfJtJHQOQjsM9tb2Y06
- gSytc7HDGVfqJquZ0vIo994qhv3Y0D5N1QqYCYYTAIe7sfquogbgRfGT9IlG6mw5vXlFDe1z
- z2UoSwWg7QIkdVNx6i95UrAgT+nut7OVAFdzgDeQmOs9UVnbZSsT5Kh9VXAq/haRK6bRFScu
- HkPm+CF8fsDS5qKkUSlQvgJHbyvz+aINnvbm1EHN4I66z2n9nqnfIZRyDJzPkFkNoADYzCBS
- FDXkRNc4tlUJnTCRaN5ao2+CsMuzID7CM/oEPvTa7JzjoNZcQaG+GRiYBCW1mW0ykw0y/hgY
- dGcbNqmCmscBeJ/1j2qSuwB0LgtgCcj2WfUQpO9xBOiuVaDWEOopX4+GAPmRogEAGms+205L
- /432xO29ihi
-IronPort-HdrOrdr: A9a23:D0qmLq2Bfc2mPlMZEo0emgqjBR5yeYIsimQD101hICG9Lfb0qy
- n+pp4mPEHP4wr5AEtQ4uxpOMG7MBDhHO1OkPMs1NaZLUTbUQ6TQL2KgrGSpAEIdxeeygcZ79
- YZT0EcMqy9MbEZt7ed3ODQKb9Jr7e6GeKT9J7jJhxWPGNXgtRbnmNE43GgYyhLrWd9ZaYRJd
- 653I5qtjCgcXMYYoCQHX8eRdXOoNXNidbPfQMGLwRP0njBsRqYrJrBVzSI1BYXVD1ChZ0493
- LergD/7qK/99mm1x7n0XPJ5Zg+oqqh9jIDPr3NtiEmEESvtu+aXvUlZ1REhkFwnAib0idorD
- ALmWZmAy080QKWQoj/m2qR5+Cp6kdT15al8y7WvZKrm72GeBsqT8VGno5XaR3f9g4pu8x9yr
- tC2yaDu4NQFg6oplW02zBZPysa6XZcjEBS59L7tUYvGLf2qYUh37A37QdQCtMNDSj64IcoHK
- 1nC9zd/u9fdRefY2rCtmdizdSwVjBrdy32CHQqq4iQyXxbjXp5x0wXyIgWmWoB7os0T91B6/
- 7fOqplmblSRosdbL57Bu0GXcyrY1a9Ci7kISaXOxDqBasHM3XCp9r+56g0/vijfNgSwJ47iP
- 36ISRlXK4JCjbT4OG1re12G0r2MRSAtBzWu7Jjzok8vKHgT7z2NiDGQEwykqKb0oAiPvE=
-X-IronPort-AV: E=Sophos;i="5.92,306,1650945600"; 
-   d="asc'?scan'208";a="73222233"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Too1Imf7yeV3TLF1KydySpCfWSHDWszPM9iTMBc/xCbxpXAWer6ZLxha+zuLj7Z2SrnQn/tWWuVlMvQA01rsRAGSHnmAHYtUDawHITPAyij9NOOSK7BUD7CZiYwPplShabZ12rf0F+W0QHZ3axMVtAbkD9aWTkN7qKnkNvuiJmuLux8/LPpZh3IqbTRxQR0qRVwfef1A3hMWbkRaac5FGMneZ/a+CpypSFiMOlXFtiguwx/3gsrETjOQsdZvONJzr3uOa4Ry09UwYrpgSCPb9/pMq20VzzXN+m1emTnz/T/t91Y3kL/0YJOB5aPBooNqxqExhbfeVd6/hQyY/XomYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8Axys3FCOi8XwWU+7Riro6JD9DbxQNYpWH34M95p3o8=;
- b=bCyZwnRvG3q6pHV5oq4AJHts+b/uYKxVa3b/rhlkpH8oTVUgE9SjQU75uVv4OE/xoTbvtMVLgntkT7uTFlDCgHoxGU1zDT26SNA4JSaC06g/e4l8QpmwAwT6dvMfZijD42TPvcnq4ka7GRgzFBa/3BxfUWH4gSYdXt/9FBk+Ges0+l5VE7cMAgOYuxKgZIVb583xZaaNXa++g6XK6uTns0V+8pglmv17NXZQYDjNl00SMu0TU65q41K2lfnFmgjqoeAUYV2ItDcnBax8vVatp/LqJ9evDZeUhR1Sf2vC2j6qjQjNN7FtC5EnKymwQqbCcU6/c9gTDEJyrDfb3XX3zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Axys3FCOi8XwWU+7Riro6JD9DbxQNYpWH34M95p3o8=;
- b=K0+H3LrxkUKqrBmKr5DvBZ3S/o2NeP9+s0+XJJ5l61MI5NutfZfGQI+/zvUDWFP4y0E2dwPWKBtTVstES/XYZjN/DudcdxbmrACrqAXoAIFBAvCOxkiFMDXtDiwJ0MxKF2Laf6kATL+rfpjvhY+KAHjo4jsu5Gs1xgdeeeuKMTU=
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
-CC: xen-devel <xen-devel@lists.xenproject.org>, Matias Ezequiel Vara Larsen
-	<matias.vara@vates.fr>, Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Dario Faggioli
-	<dfaggioli@suse.com>, Anthony Perard <anthony.perard@citrix.com>
-Subject: Re: [RFC PATCH 0/2] Add a new acquire resource to query vcpu
- statistics
-Thread-Topic: [RFC PATCH 0/2] Add a new acquire resource to query vcpu
- statistics
-Thread-Index: AQHYafskDxt9xTUpi0SpWmJ0NCtB9K1UNB8A
-Date: Fri, 17 Jun 2022 19:54:32 +0000
-Message-ID: <EEFF4C8C-F26D-47CF-8E5D-5E62BB6579BC@citrix.com>
-References: <cover.1652797713.git.matias.vara@vates.fr>
-In-Reply-To: <cover.1652797713.git.matias.vara@vates.fr>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.100.31)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c560b9de-e001-4cdb-99bf-08da509b32c9
-x-ms-traffictypediagnostic: PH0PR03MB5703:EE_
-x-microsoft-antispam-prvs:
- <PH0PR03MB5703EE4DDDF1DF9F2C81645F99AF9@PH0PR03MB5703.namprd03.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 6l+76oCglL6JWumXTUEeYiUTnYvCJ6IdK+gbLRT2ULfxPEPvygjd1zbprrk/i6ClDS76aKng2xBdjEJl+N7XPMbzEOfZA6Ns1T7e1TTWsnNm2OVnGuUjCHDfD3UPgicKQ8hQ3ua78Gz9Dr3x5h8F2q4nl9K9zlvkxgzr8RoZ1Na8NiDR8CiYBoZo4qdGJgE6/T0T5LcwjhCPi+PfGQUneAeKLfOlLhRH7sIOcyUQNu0lVzKrTHvxT5H1zp5pTCogkqAA3/z2FtCVwV0mai8/GSSaJiSa8LYxRDybWeCEffBVeiKMOLVqkcro5F2CGq2u4poI3gWmjtCmmX6L1DqYZK6un64Mx4AY4E1kAfjqt+HaRQAnLZU6g/P5b/tORC/MEB30RxIk9FIZyt/RiM92BxzV9mEXmzUhzWYs6DtFjEmJLVgyn9zByK7tuJqaRhqYZ1sLFqeO8IfobD6BlCS/9eKbQEqPmJULetN8mnf0KJNeC6TCPr2AIe8mNOK7KaV0Bq+V0YriCnPJjTNjxfXyFceewBKGqtkXJJeXaiveZp6fbZowug6tQDBmL21ylOJVdS+rAARkccVZwFPXTyJFq+iESJWP+5JZt0KVfKjm91SQqV+qAAo0IvuYgBbHb2nbQ/fi29qCBQ7mzCe2Vf3sDcpybpPfyW6F2wlIe+V8/1MTZr6vqK1hfLIMmDHlH2PxGEJPWEX+iniQR2dku360FVnO90jgKISb6ow6ZelVP+lcmiegHj0mhUqGtqfUb8I9WRj6L8ButgLODNd8474g4hptKDRfLh3C7rY9zoWWIJ+jQFUK9wri31DCQtW/TWa3ge6vaI3/7F9HIlEk05/k8A==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(366004)(33656002)(8676002)(36756003)(8936002)(38070700005)(4326008)(91956017)(498600001)(66476007)(64756008)(66556008)(66946007)(71200400001)(966005)(66446008)(6486002)(316002)(5660300002)(2906002)(54906003)(76116006)(53546011)(6506007)(2616005)(26005)(6916009)(107886003)(82960400001)(186003)(38100700002)(122000001)(99936003)(83380400001)(6512007)(86362001)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RjZpSVpSbXV1UnlUV1EwUHJNSkFZbEFJa0JlOVJCTU40c05Bb3ZCZ2Y4U3lQ?=
- =?utf-8?B?ckpyY3c5MjZuL3RJQmNaZFlVcnhPRmErUlZwTGpYL1AzRGJQWS9BYzVMUWpP?=
- =?utf-8?B?NkRydVZHVmNGUkF0WjVtSG8ySjVRbC8vZUE3K3pHYVlOU3A0U0ZLVDlnVmlh?=
- =?utf-8?B?R1ZWN2t4WEtDdFVxQmpISzFBVFRnRUFHY2NpcTlub2lLZXhjdFRqUTVLTkd1?=
- =?utf-8?B?Y3RIa1NKajdMYXdQNENHYzFLYkpIM2ZLekZKNGd4ZXoxaFBHU08zQm80MTY5?=
- =?utf-8?B?SkdNQVpHMVQ3NHNZV0YwcFlXcHk2Z3RnVlNvZVEzSzBheXFoL242Q0FlU0Iy?=
- =?utf-8?B?dSthMVZQclduNnlHSXlSaFRmR1BmR2ptRDJtNXBBR1VuNGd1YTBRanR1eEdK?=
- =?utf-8?B?WXoraE1sNW1VSm9xV2pKWkFjYkwweVQyeUsvcXRlK1F6K0dHZWo3a01KUnYz?=
- =?utf-8?B?SWJpK2VRQWc5ZmV4N3FyMmxWNEpPNC9qaW56VjVBaHZ1N0RPbVQwVUQ0Vm9G?=
- =?utf-8?B?alFYWXFrdGJ5T09hU1BGdGRmQ2NKTTZsYW1uUkZOclV0YW5tY1M2a2ZlS1ZM?=
- =?utf-8?B?RWlWRWR2YldEaEtxVk9lZ09VQ21ZUU90Qld5MGVVSGNxSisvb3F5TlQ4MWNn?=
- =?utf-8?B?M284YnAzVjNZRTFiUnF1QlYydmRoQjF4eEFMdnByeFZ4c2pJKzZwZFRXM3c1?=
- =?utf-8?B?N1o0M3drdG03aW9LcnRDZ0dJajAyUnFPRHhycEkrdkc5b2JEOWMwM3ZLTldu?=
- =?utf-8?B?L3lDZVFGRG94NEIvUlVUYUlmc0FWMUJ1a3BMdlVMM0QwMEJnTzYvWTVZekc0?=
- =?utf-8?B?bkhOVHBUaUpzemV2bUM3T3JsdFJBNktveUFqOGdzaC9Ialh6TXNvdDRGVUFF?=
- =?utf-8?B?V3BrWEtpZzBURUFpQmJLMm5NUkhCYksvODZLQTEyTU1mNEhINlpvK3hKcjFT?=
- =?utf-8?B?NUY3bnJFUWgyMVVuZnR3MGVKeDNaK25oUjZnM0tpQ1lyeWJ3Tk1hRWhXTk9S?=
- =?utf-8?B?SVZPOGtHa09SYkp1azI4UzJUVWFxNncvaUY5RlZSNU5TQlc0MFRwRlRtajFv?=
- =?utf-8?B?VXRybm5yaFdaWGRMOUhIeHFkbHBDRmdzVkNnN3dnS0xZbkhWbFpUR01LN3Rz?=
- =?utf-8?B?SjA5UlRkM2ZKaVRNTVRPbmRkODdPWlVkUTVnQTlycHNoY2dtNTFDQ2ZEL3Nz?=
- =?utf-8?B?V3l2cWJyVWZNNW8yUW1WVEp6OEx1dyt5d3l0QzI4bjc5TzNacWVSS3EybFB4?=
- =?utf-8?B?ME0xZUdLWDZsK0ppb2MyZ2VrS3M1dlpENWZ4RU9KY3Nmem04NUlFdGsvYW9E?=
- =?utf-8?B?NittcjN1SmxmWjdEd0dkTFlvdmFpdkdHUEhzOWpoSGxoVzJHZmxYY3pvOFhu?=
- =?utf-8?B?T2FsNDg0andtaHhBWFpJYWZSVGpXWTlWNWg1Z0oxNFFUVVI5K3BBb2FJa0ZS?=
- =?utf-8?B?Mmo1bWJ5VjZUZHdBM1pjb3FwY2NtUnhmRnR6RzUyU1N2b0l5Qm51RzZQd1Vz?=
- =?utf-8?B?emJPZUxGSUgrblFpVEJjWkpFZE83bTh6Zi9WMFFNQ3VlV2hpMEV1L3g5MS9u?=
- =?utf-8?B?OWhCTDZJUjdxbkRjcTEzTmJRK1FvY0dqWTFoRFQ3SzJ4cHlrTkc5WWF2MTJT?=
- =?utf-8?B?aHNYNmN4djM4MHdzZ1p5aXhBQ0ZaMFpIaGVmS0FhcVJDb1RHdWJSWnQ4OEYy?=
- =?utf-8?B?MnNxcXJ3SHZNV0RhTnZYZHprS2x5V3YwUTZlSVE5QS9Icmc5REFvZ3I1TDJt?=
- =?utf-8?B?dmZPY05aSFYxS04rTGovK1pQQ1ZBRlBvRG1xU1NyUEVPT3dtQmYxc1BKbTcy?=
- =?utf-8?B?UW5RREF5cFZhVlF6MGxiODlJSS9EVnhXc0FnY04xbkFIajhudWZGUzJIOVQ2?=
- =?utf-8?B?QTZCQ3pPNW50dEFUcmxkbkhQd21GVTRxM01hSnN4ejVSeTlsMnVabjlmdEd2?=
- =?utf-8?B?d1Nqb25CWVNEWDcyR3Z0R3ZwSWdnbWltL0VKZnQ4T201YjJNVlZzamhZQXZS?=
- =?utf-8?B?QVBoa3dxMnpiWnBwMld0SU01em9lUEhRT2puQndjZGI5TVFjVWtoaTlub0s3?=
- =?utf-8?B?N3dOYnYvNDRqYUVrZ0llUDBqM3I2ME1rYmloZ1pOcW1neFJOa1BIa1kvTnc2?=
- =?utf-8?B?VDZhOUVCUVh1eGdJQkJ3dkppTVFTSEF5alNLQXYyRlAxMmRya1M5b0hlSDV5?=
- =?utf-8?B?RWtOaHFJNWxyRUhTWHRsQkRBL2VVUjE3VWg5dmlOd1c0Wm9oblhqb3Bxb2xV?=
- =?utf-8?B?TXd3UGs1MC9BU3dtUDc4STg4djhIbGkzZng3V1BqMlMxT2ZsdStQU2Z2OWZs?=
- =?utf-8?B?NHlVV0IwcHpDNGFzdVNUZFdIOUQ1QlErUHdET1pzZyt5azhaMThpWTgzQjln?=
- =?utf-8?Q?A2W8JG99ajGCczDA=3D?=
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_03802B3E-EEA0-4C22-99C1-23D0DD9F3FC1";
-	protocol="application/pgp-signature";
-	micalg=pgp-sha256
+X-Inumbo-ID: 8dd9e7b6-ee7d-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1655498355; bh=rpIu/ci3eeyDIgBM0G1EcULgjyumv2YVl8OTfqaLwtc=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=XvWzLNYrbCQI37VPGreA9eO3psuargN16FA+mZwcnrZImep4U9tV2kv7NRxJVKEuo1Kxvd5LU7OBZ/fBX+UBfLbI94lDGf645d+a0TiaBR57UCkIehSi8XgvjBVITJUfWPbXJ/U65FND62BaKJ8f/Ccv7Vq5/wje9RdPRmelRuxbseaJCf2fkQhdRFSjICMoBlnj6C29M8UDTTTKcaNVVKcEPGuZpbYslSl4nkoQ31Mun7OZNbp/E3uP7tTdRtj3r/IHMlt14fbOk3/ppNpY/2HVzI+9CeO2AbGALhQJx0+24vDG99utf50Mw3ffcWOR9zCEo+8dlxhoE2M84zwq8g==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1655498355; bh=NfOaH88yQj52FHpR1I4wUzavux55HfNzXePk9vQSWI6=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=CSfHMBLBFPdyVHvc9W03Lf3g5iLVgFzJpzMzRuLMgn8ameqvoXpouXtlE6fayYiMhurTdfVxZY6ZjTkcQIBfomgg6DLeaHHob4Qq4lkBfyJu/Nr1qRsywahSaHPa4pmEYOkpQQDpBXkrt/rge1NlKpXkvG1vo/rZfR4ozFl9fabNYJRAd/XtdLZRNnUwtlBGE2xbBXQY5yb6Z81tmHgBYL4YKlUryP5Fceo79UGXJ6PYcXPamST80zbz549rI4G0ly4/4YHRFxbMPzGhpOQyK+bX+Rp72YlkWQ0g7B/ffMlb2NxReOUO/LOD51aQb/jTc0i17D6yFzHVNV2xKecnAQ==
+X-YMail-OSG: nlvO3rcVM1mn74oyZahPB0uBfU.777Rf5bWI53_mT7Rd6_jUS.GG8i0FEUJaZR5
+ EX3wA43O2POI.fH45CuVE0zYQik5ZRtd5S2SAjDBugNkkc9Ph5zry3d38ppPagRsL9PpyJmoXiy6
+ KuPjFT2g1mBbpvBafmlMbYqFFbFEC7W17Rds734FdlMG1V9myiy5mfMKGV8uhyK1h6DJUHc3jgW2
+ UcUmY9yDaUq6N0ajB5EkfQUN1xpi8Q0xZ1jSUpaJGoZnN5ZbodsGzVnmAomKP9UbS5nakP.DoNNC
+ ETyb9Z6Ur2gw2HDs.rB7eoELsinkqGmiq9.5Fjm5uCYAkgzUXmk0rL5SNvO4ICelX.4lGZp2_LOd
+ 6PDn3QwpwWuoeutS.i6UKkV_wms62TIMmnTvV0q46D4661DSr9v3ukTBMjkWzosQrC0epRtyNrKR
+ vGGGouKvr7FChhns8qcMg3RLrep_qIgCAWf7EWN3mnjaF8ZPUBG3NkkWvJj6g_l8V4xkMfIWVQfC
+ _ZcCpXk7UF4bk1W6jdeIUqQDidUAwWLNkquP6uavT90DZs1e5WTbo5guDz7REaFL5YTn0NyRgwud
+ k46AAh2PRmvEhxtJ59it1g6M5x_qFCzjuZt5WZ2AECfvUsNtQGeMSvcOFtA79DuAWA_EfjFI0QXd
+ pj7xZ8HkPzX5mut4I2Qg3psF.zUJT_GZykSJEwTO4vrDtCyefJNyDQW83b.C_sz1itS9_MZtwQjv
+ OazqkaUW8KiCaugodvPu8zMDlPzfx7WYhUSzARNPjuscJCx37m9AjkJ67mW3bdaJRu33SmpZ11yB
+ DouxeGFd1liXct7mZvkCMndDN6JuS02gqwJv0W2ntJdB7oIXAiSZlGwxvJvEQ1L5Y92DjVgzyMLN
+ E2MuC9QMM_u8j4a9e6FrSVyL04njNEesoaLjPyv73sEjKRUrPHp7o_79nqKPj77KPb5HPO7mB_iT
+ AjcgpMDfANZRSGVeWbNK2ntZBeQxJdttwWVNaHgsCIizKkB1A8fhMVwE8c480HwyhUo.w5uNHneE
+ 0p5i6C_SDLJOA9.t4AleY4BhusERYVRvpuUo0P5Ri43GweeN7G7yob1divEruUceG6a7HrridseX
+ nZPZx8HBbHh7ewTpPScF5qKrsrtWjWa2EQuEslf2SVv5iwd_lgldvYHBo3izaoBneUHi_56SA5VU
+ npI74aMUkfntJyaqYgCBT1IsmEweTP62Uok.aVr1KBRkoDRBs84TCGU8s8grWcNMmn48gOJ2FHPH
+ Td1JwjBhUhEHF2iUhheba4SLjb7hZ6WfK4S1yka9ZByp5h2016uhfPmtMYR70SSE9nN.qDq90AEa
+ Riw3KuM_QXzyGgdADPCuZclK1dhFlvFPPzwBoZpS9UzmVILSX0APLG6eUSUIMuPB8AuI42aJA8MX
+ zwLyxtH4TYa5DfbKw7NwkD.a_rjQsR3bs_.BxZ2IniLxlFB9se.98h9hSgXv1dGrti_QmWF.4fLg
+ Vm0_it8yAn4fveiJC7evEoJN4eGjeWJxmtKn9Iu0HbrzJxABlKNyOgwAtb4yR8wtU9azKtLYZUph
+ 4LGrJaQ_CBNT9SLpF2MVEAS.HAOj4rGX94DgrSY.7QZ1fp29.orwkhgwU4RhnEx8jPnHU7r9CY61
+ 3kVbA2XvrSGe5GFiBFntL5h5dGZ4zcq1egEgd6XqzV2SrPin0TINv6EvyMkGZbLttLtmexobtxX0
+ 2Ta.exA.mASmLE6aFhT5JLpiTSjyHGcnCGpUtUqvRd8Oe_bb9fGJXys5tTlzwiSdSSxsdD4sTPv0
+ i0SU.8TAPmQCXM7kwKo3zvrkoiUEJfgOHybkfY995t1T8TZxsY2OHUQKDdfmFXBvmuTmwXw_g9v0
+ _k3vON36cZsUejrjAlGUbwptc8TVwvcY_i5ZdKDdVSovMBNY6ocCDpLcwq2JxeGoMZYMy2XCmh2Y
+ f_rBfeRPkliFF7qzd0tJXq80WcFSVGx3vRiJD3rB9dHxS0pS5TQ5UIpNMxDdy6Fo98IcUarEgfWo
+ 8JKz4H3vqHyxouz2MMaxytUlg1yA31uwsT_5.PEsD0AGKMXZ0zh8IAxlN7caJ7jHNGcVPI.ysBsH
+ fGwjQfH_hkpT2nosZ5uMcAPujI78tOdFDBnJJPp8Pwt6V_8wBbeO5gElF7KQdJCRWkJ0GFS_D5WB
+ Eyqiug6TTEw0tZ9RJ6mqkTVTtPV0taw8k5hWBIpkjoCgHpRvXJm8Udsns_EBaRbYhCoiVi3M3k.6
+ FmSfAVM3PvlV6f3JMHxsd2bY-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <7be7002d-8a6e-b6fb-f926-b8b4cdb0c404@netscape.net>
+Date: Fri, 17 Jun 2022 16:39:09 -0400
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c560b9de-e001-4cdb-99bf-08da509b32c9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2022 19:54:32.7947
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2DgxksVEI8rJ6Cz8JuVPIB0FFu1l9jNH6ium92OJQjf7vDKzLQi2Mx2Jw+lStc+MuBF1rJ0P6CVYEG2hT+7JLm2itinFxCwJCwphiwE6wrE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5703
-
---Apple-Mail=_03802B3E-EEA0-4C22-99C1-23D0DD9F3FC1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
-
-
-
-> On 17 May 2022, at 15:33, Matias Ezequiel Vara Larsen =
-<matiasevara@gmail.com> wrote:
->=20
-> Hello all,
->=20
-> The purpose of this RFC is to get feedback about a new acquire =
-resource that
-> exposes vcpu statistics for a given domain. The current mechanism to =
-get those
-> statistics is by querying the hypervisor. This mechanism relies on a =
-hypercall
-> and holds the domctl spinlock during its execution. When a pv tool =
-like xcp-rrdd
-> periodically samples these counters, it ends up affecting other paths =
-that share
-> that spinlock. By using acquire resources, the pv tool only requires a =
-few
-> hypercalls to set the shared memory region and samples are got without =
-issuing
-> any other hypercall. The original idea has been suggested by Andrew =
-Cooper to
-> which I have been discussing about how to implement the current PoC. =
-You can
-> find the RFC patch series at [1]. The series is rebased on top of =
-stable-4.15.
->=20
-> I am currently a bit blocked on 1) what to expose and 2) how to expose =
-it. For
-> 1), I decided to expose what xcp-rrdd is querying, e.g., =
-XEN_DOMCTL_getvcpuinfo.
-> More precisely, xcp-rrd gets runstate.time[RUNSTATE_running]. This is =
-a uint64_t
-> counter. However, the time spent in other states may be interesting =
-too.
-> Regarding 2), I am not sure if simply using an array of uint64_t is =
-enough or if
-> a different interface should be exposed. The remaining question is =
-when to get
-> new values. For the moment, I am updating this counter during
-> vcpu_runstate_change().
->=20
-> The current series includes a simple pv tool that shows how this new =
-interface is
-> used. This tool maps the counter and periodically samples it.
->=20
-> Any feedback/help would be appreciated.
-
-Hey Matias,
-
-Sorry it=E2=80=99s taken so long to get back to you.  My day-to-day job =
-has shifted away from technical things to community management; this has =
-been on my radar but I never made time to dig into it.
-
-There are some missing details I=E2=80=99ve had to try to piece together =
-about the situation, so let me sketch things out a bit further and see =
-if I understand the situation:
-
-* xcp-rrd currently wants (at minimum) to record =
-runstate.time[RUNSTATE_running] for each vcpu.  Currently that means =
-calling XEN_DOMCTL_getvcpuinfo, which has to hold a single global =
-domctl_lock (!) for the entire hypercall; and of course must be iterated =
-over every vcpu in the system for every update.
-
-* VCPUOP_get_runstate_info copies out a vcpu_runstate_info struct, which =
-contains information on the other runstates.  Additionally, =
-VCPUOP_register_runstate_memory_area already does something similar to =
-what you want: it passes a virtual address to Xen, which Xen maps, and =
-copies information about the various vcpus into (in =
-update_runstate_area()).
-
-* However, the above assumes a domain of =E2=80=9Ccurrent->domain=E2=80=9D=
-: That is a domain can call VCPUOP_get_runstate_info on one of its own =
-vcpus, but dom0 cannot call it to get information about the vcpus of =
-other domains.
-
-* Additionally, VCPUOP_register_runstate_memory_area registers by =
-*virtual address*; this is actually problematic even for guest kernels =
-looking at their own vcpus; but would be completely inappropriate for a =
-dom0 userspace application, which is what you=E2=80=99re looking at.
-
-Your solution is to expose things via the xenforeignmemory interface =
-instead, modelled after the vmtrace_buf functionality.
-
-Does that all sound right?
-
-I think at a high level that=E2=80=99s probably the right way to go.
-
-As you say, my default would be to expose similar information as =
-VCPUOP_get_runstate_info.  I=E2=80=99d even consider just using =
-vcpu_runstate_info_t.
-
-The other option would be to try to make the page a more general =
-=E2=80=9Cforeign vcpu info=E2=80=9D page, which we could expand with =
-more information as we find it useful.
-
-In this patch, you=E2=80=99re allocating 4k *per vcpu on the entire =
-system* to hold a single 64-bit value; even if you decide to use =
-vcpu_runstate_info_t, there=E2=80=99s still quite a large wastage.  =
-Would it make sense rather to have this pass back an array of MFNs =
-designed to be mapped contiguously, with the vcpus listed as an array? =
-This seems to be what XENMEM_resource_ioreq_server does.
-
-The advantage of making the structure extensible is that we wouldn=E2=80=99=
-t need to add another interface, and potentially another full page, if =
-we wanted to add more functionality that we wanted to export.  On the =
-other hand, every new functionality that we add may require adding code =
-to copy things into it; making it so that such code is added bit by bit =
-as it=E2=80=99s requested might be better.
-
-I have some more comments I=E2=80=99ll give on the 1/2 patch.
-
- -George
-
-
-
-
-
-
->=20
-> Thanks, Matias.
->=20
-> [1] https://github.com/MatiasVara/xen/tree/feature_stats
->=20
-> Matias Ezequiel Vara Larsen (2):
->  xen/memory : Add stats_table resource type
->  tools/misc: Add xen-stats tool
->=20
-> tools/misc/Makefile         |  5 +++
-> tools/misc/xen-stats.c      | 83 +++++++++++++++++++++++++++++++++++++
-> xen/common/domain.c         | 42 +++++++++++++++++++
-> xen/common/memory.c         | 29 +++++++++++++
-> xen/common/sched/core.c     |  5 +++
-> xen/include/public/memory.h |  1 +
-> xen/include/xen/sched.h     |  5 +++
-> 7 files changed, 170 insertions(+)
-> create mode 100644 tools/misc/xen-stats.c
->=20
-> --
-> 2.25.1
->=20
-
-
---Apple-Mail=_03802B3E-EEA0-4C22-99C1-23D0DD9F3FC1
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access
+ to Intel IGD opregion
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Jason Andryuk <jandryuk@gmail.com>, Andrew Cooper <amc96@srcf.net>,
+ xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
+References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
+ <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
+ <YkSQIoYhomhNKpYR@perard.uk.xensource.com>
+ <408e5e07-453c-f377-a5b0-c421d002aec5@srcf.net>
+ <46a8585e-2a2a-4d12-f221-e57bd157dec6@netscape.net>
+ <CAKf6xpths4SX4wq-j4VhnXZnx0DW=468z3=9FYHso=Wy1i_Rsg@mail.gmail.com>
+ <da62d06d-fd18-a313-9e69-2a4581e97c1a@netscape.net>
+ <CAKf6xptZ9g79MphwYPAGq6ATBtCrW+pCd5+NYJPdFniW+tFzPg@mail.gmail.com>
+ <ea5c1606-04d3-c847-643e-d242d8f6ba06@netscape.net>
+ <YqyFoPJ8Bv9EnO5N@perard.uk.xensource.com>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+In-Reply-To: <YqyFoPJ8Bv9EnO5N@perard.uk.xensource.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP
+X-Mailer: WebService/1.1.20280 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
------BEGIN PGP SIGNATURE-----
+On 6/17/22 9:46 AM, Anthony PERARD wrote:
+> On Thu, Mar 31, 2022 at 03:44:33PM -0400, Chuck Zmudzinski wrote:
+>> On 3/31/22 10:19 AM, Jason Andryuk wrote:
+>>> On Thu, Mar 31, 2022 at 10:05 AM Chuck Zmudzinski <brchuckz@netscape.net> wrote:
+>>>> That still doesn't answer my question - will the Qemu upstream
+>>>> accept the patches that move the hypercalls to the toolstack? If
+>>>> not, we have to live with what we have now, which is that the
+>>>> hypercalls are done in Qemu.
+>>> [...]
+>> I know of another reason to check the Qemu upstream version,
+>> and that is dealing with deprecated / removed device model
+>> options that xl.cfg still uses. I looked at that a few years ago
+>> with regard to the deprecated 'usbdevice tablet' Qemu option,
+>> but I did not see anything in libxl to distinguish Qemu versions
+>> except for upstream vs. traditional. AFAICT, detecting traditional
+>> vs. upstream Qemu depends solely on the device_model_version
+>> xl.cfg setting. So it might be useful for libxl to add the capability
+>> to detect the upstream Qemu version or at least create an xl.cfg
+>> setting to inform libxl about the Qemu version.
+> Hi,
+>
+> There's already some code to deal with QEMU's version (QEMU = upstream
+> Qemu) in libxl, but this code is dealing with an already running QEMU.
+> When libxl interact with QEMU through QMP, to setup some more devices,
+> QEMU also advertise it's version, which we can use on follow up qmp
+> commands.
+>
+> I think adding passthrough pci devices is all done via QMP, so we can
+> potentially move an hypercall from QEMU to libxl, and tell libxl that
+> depending on which version of QEMU is talking to, it needs or not do the
+> hypercall. Also, we could probably add a parameter so that QEMU know if
+> it have to do the hypercall or not, and thus newer version of QEMU could
+> also deal with older version of libxl.
+>
+> (There's maybe some example like that in both QEMU and libxl, when doing
+> live migration, dm_state_save_to_fdset() in libxl as a pointer)
+>
+> Cheers,
+>
 
-iQEzBAEBCAAdFiEEj3+7SZ4EDefWZFyCshXHp8eEG+0FAmKs2/AACgkQshXHp8eE
-G+1BHgf9FLZncxfDyyUCcd6iZqcG+/Hse/3pjRVdO425HQHuVzrsxfQ684mDHCN/
-0VnNIhK413ME0Ih4npbyLI/xAQsKMiVZwntEfm0ndGXI9mKcn38njE5C64L/pnkV
-w5zbDql+FXzWqzSNUrgtCPa35f2wc9nPQ2FrQBpQr+0dIPHqBZvefPNY83/toIqp
-Z1zfqnG5hDwZAZg96jpTdZJbM9Mo6KFWN4LmIGiXm4yBRa2dow2Kyb+0OPFTscpl
-VVyoN27Xww9hS7Up1Erc9EC4I0oTQXBV7Qmyz4zvVKobM0PpoeGr5bj63dkT3mP9
-37pJa5rcp7jEAPIsOdN5ar0dSQ8Cgg==
-=puLY
------END PGP SIGNATURE-----
+Hi Anthony,
 
---Apple-Mail=_03802B3E-EEA0-4C22-99C1-23D0DD9F3FC1--
+Thanks for this information, it is useful because I plan to work on
+improved Xen / Qemu interactions to better support features
+such as running the device model in a stub domain, in which case
+it is probably better to do some hypercalls in libxl or maybe in
+hvmloader that are currently done in Qemu.
+
+I also would like to see Xen HVM using Q35 instead of i440fx
+emulation which also requires improved Xen / Qemu interactions.
+I know of the patch set for Q35 emulation that was proposed back
+in 2018, but I have not tried anything like that yet. That looks like
+a complex problem. Has there been any more recent work in that
+area? I couldn't find much recent work on that by searching the
+Internet. I have quite a bit to learn before I can make contributions
+to support Q35 as a replacement for i440fx, but I plan to slowly
+work on it. Any suggestions anyone has are welcome.
+
+Best Regards,
+
+Chuck
 
