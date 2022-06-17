@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF17D54F679
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jun 2022 13:12:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.351319.577937 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF2C54F687
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jun 2022 13:16:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.351327.577950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o29tj-00035r-Cq; Fri, 17 Jun 2022 11:12:19 +0000
+	id 1o29x8-0003gz-UB; Fri, 17 Jun 2022 11:15:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 351319.577937; Fri, 17 Jun 2022 11:12:19 +0000
+Received: by outflank-mailman (output) from mailman id 351327.577950; Fri, 17 Jun 2022 11:15:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o29tj-00033C-A0; Fri, 17 Jun 2022 11:12:19 +0000
-Received: by outflank-mailman (input) for mailman id 351319;
- Fri, 17 Jun 2022 11:12:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o29th-000336-Ez
- for xen-devel@lists.xenproject.org; Fri, 17 Jun 2022 11:12:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o29te-000115-4o; Fri, 17 Jun 2022 11:12:14 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=[192.168.0.58])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o29td-0006Bd-TH; Fri, 17 Jun 2022 11:12:14 +0000
+	id 1o29x8-0003eK-Pr; Fri, 17 Jun 2022 11:15:50 +0000
+Received: by outflank-mailman (input) for mailman id 351327;
+ Fri, 17 Jun 2022 11:15:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XzG5=WY=gmail.com=mykyta.poturai@srs-se1.protection.inumbo.net>)
+ id 1o29x6-0003eE-OD
+ for xen-devel@lists.xenproject.org; Fri, 17 Jun 2022 11:15:48 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d668b18e-ee2e-11ec-b725-ed86ccbb4733;
+ Fri, 17 Jun 2022 13:15:47 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ m32-20020a05600c3b2000b0039756bb41f2so2226657wms.3
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Jun 2022 04:15:47 -0700 (PDT)
+Received: from localhost.localdomain (93.75.52.3.lut.volia.net. [93.75.52.3])
+ by smtp.gmail.com with ESMTPSA id
+ c130-20020a1c3588000000b0039c798b2dc5sm8916790wma.8.2022.06.17.04.15.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Jun 2022 04:15:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,168 +45,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=DWlmvQWn5M+xdNlJjkcI7Mh1FGa8W6Sqj4MhjphrdT0=; b=SHcqf6jd9R5FLrMMXNpMGpqZxE
-	8mox2Dnv1k0PftmDT6sBbXW7FBYjF2Gye19P40CIcn6WCZB+bfqEGazwOwXhRd82ZSbfZx/tOa+PA
-	w2HOKolv4I0PRCqNlCr8zpJ5hQHjZ56YU4QOCzNlWJBRmxY8fBhO86vVCgCT2VejOdWU=;
-Message-ID: <f260703d-4651-f9e9-3713-9e85a51b1d70@xen.org>
-Date: Fri, 17 Jun 2022 12:12:11 +0100
+X-Inumbo-ID: d668b18e-ee2e-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=J1e/KU6OMq50U31RovHeE60PE1VWI/UwnSnAHJHKnsI=;
+        b=AVw+QeA+wDP5Mm7Xu9KAd/7gIohZeyU54lCJjD4oCvPiRYBgR2z/kn2iQ+PmyN8jDI
+         mLRwSi3bK3ZlyoRsiBCru1qH8offOAn857LGmor5gaKDsp9UlxHmt1CCXaKQa/YI4xqN
+         DxKksRzLMO2Sn6QCGXFwOiqsM6oT2e4AAgXI6Z8pzxIbo/Iu3bsRQkFCSiNma4OCKBE8
+         huTYVuzY5dpN062SPhMl2iUpp28jTbWyhA7V25D2K8nGXzUww2o5GMJWHrzFbUTU+jOy
+         ElJcf4BxPL2tT2XML+WHuUtTC1qwyJksFt6esrBWbzXq2NHiyMZa5ViECV5pFma1AL0m
+         fFWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=J1e/KU6OMq50U31RovHeE60PE1VWI/UwnSnAHJHKnsI=;
+        b=qieZh3C4FfvEXpVoK24oodNpvqfhLAYUMqA4jrOGdMwuYnTspjbzjJCtN/7/BM4BAO
+         St8v8Atktf1ofLSDHK0V9WWE02pDRGxs69wDAOPl2s7AmC36WsYVIExw76L5ukTn0FOL
+         k9V5Vu5j0BJP6dU8bJFQ5Av2YcqW/MoLIKQIWqZDL0M/uBD62cNSieGkXenQiYABX01W
+         cC2Wtj7THx5Y3ZiZnuXqFIwgG2L558/h0zusd0bDz28SwQtrM/SQzYXe0x2fI04WzD0s
+         BZW0YO9ImAEf0dhcU953Bk73k8yl644HQGlAs5slYU34+Ml+MyCHXBKRMmuJxUp9dafP
+         B32A==
+X-Gm-Message-State: AJIora+P3Gy1txDfu8NewDuhuzlHT0HGAWSuMeBlpLVs2GG+qKZQNhGu
+	RiqndCYvKbeDQwrVIFezrjg=
+X-Google-Smtp-Source: AGRyM1tsQ7yfIic8PadfBShaFR23UPpDPEKz7X6C3Us1CHpmAXomoJFowkCkaFGNshPEWCzFilx1KQ==
+X-Received: by 2002:a05:600c:4fc6:b0:39c:9417:a8bf with SMTP id o6-20020a05600c4fc600b0039c9417a8bfmr9577803wmq.26.1655464547039;
+        Fri, 17 Jun 2022 04:15:47 -0700 (PDT)
+From: Mykyta Poturai <mykyta.poturai@gmail.com>
+X-Google-Original-From: Mykyta Poturai <mykyta_poturai@epam.com>
+To: rahul.singh@arm.com
+Cc: Bertrand.Marquis@arm.com,
+	Volodymyr_Babchuk@epam.com,
+	julien@xen.org,
+	mykyta.poturai@gmail.com,
+	sstabellini@kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/arm: smmuv1: remove iommu group when deassign a device
+Date: Fri, 17 Jun 2022 14:15:44 +0300
+Message-Id: <20220617111544.205861-1-mykyta_poturai@epam.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <029EEEE1-69E1-42A9-90D3-BEC18CD5B7BC@arm.com>
+References: <029EEEE1-69E1-42A9-90D3-BEC18CD5B7BC@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [PATCH] xen: Don't call panic if ARM TF cpu off returns DENIED
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "dmitry.semenets@gmail.com" <dmitry.semenets@gmail.com>,
- Dmytro Semenets <Dmytro_Semenets@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20220616135541.3333760-1-dmitry.semenets@gmail.com>
- <cf7660da-0bde-865e-7c22-a2e21e31fae5@xen.org> <87wndgh2og.fsf@epam.com>
- <67f56cdd-531b-72fc-1257-214d078f6bb6@xen.org> <87pmj7hczg.fsf@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <87pmj7hczg.fsf@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
-
-On 17/06/2022 10:10, Volodymyr Babchuk wrote:
-> Julien Grall <julien@xen.org> writes:
+> Hi Mykyta,
 > 
->> On 16/06/2022 19:40, Volodymyr Babchuk wrote:
->>> Hi Julien,
->>
->> Hi Volodymyr,
->>
->>> Julien Grall <julien@xen.org> writes:
->>>
->>>> Hi,
->>>>
->>>> On 16/06/2022 14:55, dmitry.semenets@gmail.com wrote:
->>>>> From: Dmytro Semenets <dmytro_semenets@epam.com>
->>>>> According to PSCI specification ARM TF can return DENIED on CPU OFF.
->>>>
->>>> I am confused. The spec is talking about Trusted OS and not
->>>> firmware. The docummentation is also not specific to ARM Trusted
->>>> Firmware. So did you mean "Trusted OS"?
->>> It should be "firmware", I believe.
->>
->> Hmmm... I couldn't find a reference in the spec suggesting that
->> CPU_OFF could return DENIED because of the firmware. Do you have a
->> pointer to the spec?
+>> On 16 Jun 2022, at 8:48 am, Mykyta Poturai <mykyta.poturai@gmail.com> wrote:
+>> 
+>> Hi Julien, Rahul
+>> I've encountered a similar problem with IMX8 GPU recently. It wasn't probing
+>> properly after the domain reboot.  After some digging, I came to the same
+>> solution as Rahul and found this thread. I also encountered the occasional
+>> "Unexpected global fault, this could be serious" error message when destroying
+>> a domain with an actively-working GPU.
+>> 
+>>> Hmmmm.... Looking at the code, arm_smmu_alloc_smes() doesn't seem to use
+>>> the domain information. So why would it need to be done every time it is assigned?
+>> Indeed after removing the arm_smmu_master_free_smes() call, both reboot and global
+>> fault issues are gone. If I understand correctly, device removing is not yet
+>> supported, so I can't find a proper place for the arm_smmu_master_free_smes() call.
+>> Should we remove the function completely or just left it commented for later or
+>> something else?
+>> 
+>> Rahul, are you still working on this or could I send my patch?
 > 
-> Ah, looks like we are talking about different things. Indeed, CPU_OFF
-> can return DENIED only because of Trusted OS. But entity that *returns*
-> the error to a caller is a firmware.
-
-Right, the interesting part is *why* DENIED is returned not *who* 
-returns it.
->>>>> Refer to "Arm Power State Coordination Interface (DEN0022D.b)"
->>>>> section 5.5.2
->>>>
->>>> Reading both 5.5.2 and 5.9.1 together, DENIED would be returned when
->>>> the trusted OS can only run on one core.
->>>>
->>>> Some of the trusted OS are migratable. So I think we should first
->>>> attempt to migrate the CPU. Then if it doesn't work, we should prevent
->>>> the CPU to go offline.
->>>>
->>>> That said, upstream doesn't support cpu offlining (I don't know for
->>>> your use case). In case of shutdown, it is not necessary to offline
->>>> the CPU, so we could avoid to call CPU_OFF on all CPUs but
->>>> one. Something like:
->>>>
->>> This is even better approach yes. But you mentioned CPU_OFF. Did you
->>> mean SYSTEM_RESET?
->>
->> By CPU_OFF I was referring to the fact that Xen will issue the call
->> all CPUs but one. The remaining CPU will issue the command to
->> reset/shutdown the system.
->>
+> Yes, I have this on my to-do list but I was busy with other work and it got delayed. 
 > 
-> I just want to clarify: change that you suggested removes call to
-> stop_cpu() in halt_this_cpu(). So no CPU_OFF will be sent at all.
-
-I was describing the existing behavior.
-
+> I created another solution for this issue, in which we don’t need to call arm_smmu_master_free_smes() 
+> in arm_smmu_detach_dev() but we can configure the s2cr value to type fault in detach function.
 > 
-> All CPUs except one will spin in
+> Will call new function arm_smmu_domain_remove_master() in detach function that will revert the changes done 
+> by arm_smmu_domain_add_master()  in attach function.
 > 
->      while ( 1 )
->          wfi();
+> I don’t have any board to test the patch. If it is okay, Could you please test the patch and let me know the result.
 > 
-> while last cpu will issue SYSTEM_OFF or SYSTEM_RESET.
+> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+> index 69511683b4..da3adf8e7f 100644
+> --- a/xen/drivers/passthrough/arm/smmu.c
+> +++ b/xen/drivers/passthrough/arm/smmu.c
+> @@ -1598,21 +1598,6 @@ out_err:
+>         return ret;
+>  }
+>  
+> -static void arm_smmu_master_free_smes(struct arm_smmu_master_cfg *cfg)
+> -{
+> -    struct arm_smmu_device *smmu = cfg->smmu;
+> -       int i, idx;
+> -       struct iommu_fwspec *fwspec = arm_smmu_get_fwspec(cfg);
+> -
+> -       spin_lock(&smmu->stream_map_lock);
+> -       for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
+> -               if (arm_smmu_free_sme(smmu, idx))
+> -                       arm_smmu_write_sme(smmu, idx);
+> -               cfg->smendx[i] = INVALID_SMENDX;
+> -       }
+> -       spin_unlock(&smmu->stream_map_lock);
+> -}
+> -
+>  static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
+>                                       struct arm_smmu_master_cfg *cfg)
+>  {
+> @@ -1635,6 +1620,20 @@ static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
+>         return 0;
+>  }
+>  
+> +static void arm_smmu_domain_remove_master(struct arm_smmu_domain *smmu_domain,
+> +                                     struct arm_smmu_master_cfg *cfg)
+> +{
+> +       struct arm_smmu_device *smmu = smmu_domain->smmu;
+> +       struct arm_smmu_s2cr *s2cr = smmu->s2crs;
+> +       struct iommu_fwspec *fwspec = arm_smmu_get_fwspec(cfg);
+> +       int i, idx;
+> +
+> +       for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
+> +               s2cr[idx] = s2cr_init_val;
+> +               arm_smmu_write_s2cr(smmu, idx);
+> +       }
+> +}
+> +
+>  static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
+>  {
+>         int ret;
+> @@ -1684,10 +1683,11 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
+>  
+>  static void arm_smmu_detach_dev(struct iommu_domain *domain, struct device *dev)
+>  {
+> +       struct arm_smmu_domain *smmu_domain = domain->priv;
+>         struct arm_smmu_master_cfg *cfg = find_smmu_master_cfg(dev);
+>  
+>         if (cfg)
+> -               arm_smmu_master_free_smes(cfg);
+> +               return arm_smmu_domain_remove_master(smmu_domain, cfg);
+>  
+>  }
 > 
-> Is this correct?
+> Regards,
+> Rahul
 
-Yes.
+Hello Rahul,
 
-> 
->>>>    void machine_halt(void)
->>>> @@ -21,10 +23,6 @@ void machine_halt(void)
->>>>        smp_call_function(halt_this_cpu, NULL, 0);
->>>>        local_irq_disable();
->>>>
->>>> -    /* Wait at most another 10ms for all other CPUs to go offline. */
->>>> -    while ( (num_online_cpus() > 1) && (timeout-- > 0) )
->>>> -        mdelay(1);
->>>> -
->>>>        /* This is mainly for PSCI-0.2, which does not return if success. */
->>>>        call_psci_system_off();
->>>>
->>>>> Signed-off-by: Dmytro Semenets <dmytro_semenets@epam.com>
->>>>> Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->>>>
->>>> I don't recall to see patch on the ML recently for this. So is this an
->>>> internal review?
->>> Yeah, sorry about that. Dmytro is a new member in our team and he is
->>> not
->>> yet familiar with differences in internal reviews and reviews in ML.
->>
->> No worries. I usually classify internal review anything that was done
->> privately. This looks to be a public review, althought not on
->> xen-devel.
->>
->> I understand that not all some of the patches are still in PoC stage
->> and doing the review on your github is a good idea. But for those are
->> meant to be for upstream (e.g. bug fixes, small patches), I would
->> suggest to do the review on xen-devel directly.
-> 
-> It not always clear if patch is eligible for upstream. At first we
-> thought that problem is platform-specific and we weren't sure that we
-> will find a proper upstreamable fix. 
+For me, this patch fixed the issue with the GPU not probing after domain reboot.
+But not fixed the "Unexpected Global fault" that occasionally happens when destroying
+the domain with an actively working GPU. Although, I am not sure if this issue
+is relevant here.
 
-You can guess but not be sure until you send it to upstrema :). In fact,...
-
-> Probably you saw that PR's name
-> quite differs from final patch. This is because initial solution was
-> completely different from final one.
-
-... even before looking at your PR, this was the first solution I had in 
-mind. I am still pondering whether this could be the best approach 
-because I have the suspicion there might be some platform out relying on 
-receiving the shutdown request on CPU0.
-
-Anyway, this is so far just theorical, my proposal should solve your 
-problem.
-
-On a separate topic, the community is aiming to support a wide range of 
-platforms out-of-the-box. I think platform-specific patches are 
-acceptable so long they are self-contained (to some extend. I.e if you 
-ask to support Xen on RPI3 then I would still probably argue against :)) 
-or have a limited impact to the rest of the users (this is why we have 
-alternative in Xen).
-
-My point here is your initial solution may have been the preferred 
-approach for upstream. So if you involve the community early, you are 
-reducing the risk to have to backtrack and/or spend extra time in the 
-wrong directions.
-
-Cheers,
-
--- 
-Julien Grall
+Regards,
+Mykyta
 
