@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40BEE54F2FE
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jun 2022 10:32:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.351117.577630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 032A554F339
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jun 2022 10:41:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.351142.577706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o27Oe-0008Hm-SK; Fri, 17 Jun 2022 08:32:04 +0000
+	id 1o27XP-0002Fh-G6; Fri, 17 Jun 2022 08:41:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 351117.577630; Fri, 17 Jun 2022 08:32:04 +0000
+Received: by outflank-mailman (output) from mailman id 351142.577706; Fri, 17 Jun 2022 08:41:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o27Oe-0008FQ-P4; Fri, 17 Jun 2022 08:32:04 +0000
-Received: by outflank-mailman (input) for mailman id 351117;
- Fri, 17 Jun 2022 08:32:03 +0000
+	id 1o27XP-0002DP-Cn; Fri, 17 Jun 2022 08:41:07 +0000
+Received: by outflank-mailman (input) for mailman id 351142;
+ Fri, 17 Jun 2022 08:41:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o27Od-0008FK-Ey
- for xen-devel@lists.xenproject.org; Fri, 17 Jun 2022 08:32:03 +0000
+ (envelope-from <julien@xen.org>) id 1o27XO-0002DJ-9A
+ for xen-devel@lists.xenproject.org; Fri, 17 Jun 2022 08:41:06 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1o27Od-0006SH-31; Fri, 17 Jun 2022 08:32:03 +0000
+ id 1o27XO-0006eR-2U; Fri, 17 Jun 2022 08:41:06 +0000
 Received: from 54-240-197-232.amazon.com ([54.240.197.232]
  helo=[192.168.0.243]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1o27Oc-0006Bc-Rn; Fri, 17 Jun 2022 08:32:02 +0000
+ id 1o27XN-0006rx-QY; Fri, 17 Jun 2022 08:41:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,92 +42,59 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=7wPxoulyscd6uNYV9TCtejy04qLXHbPs2WjcheNYt7s=; b=jpZWVw2KOGdqWEKFHhk7kIm5Tq
-	powNX8lRAeV7Ofk9Hqih6PP1iTTAkYk4jXUokvOQOGhoTiG0gyjVwdR5ihF33x5bTdd8wDn7rqDbl
-	kvrG7dqKjnjzFH30ASFDcPkg7/EzWoUotOnYnKGkG6Pl5nEtunmFggGfjJXpoSYAlOX8=;
-Message-ID: <6faaa38d-63af-d962-e8de-4accb5b73ab4@xen.org>
-Date: Fri, 17 Jun 2022 09:32:00 +0100
+	bh=sB1mRVl4Rk1sygilJ5jg9sG+Sz6Ndm72XR3K4BeEsyQ=; b=mt2gdbCOjqg8eEJCm4tzaUxk7V
+	zUGTnDlTadPZ9dr/UIKeZc7WcKZfTwRRaMjRLl6RsoU78+tcRDS+EU1XcE/KBIghRNFKgcWQy1bAz
+	eD0c1zrf1kO72XECL5aJ6JbIilyynARlXvJ/WNJnGjwt2Hv4zcTiGUQJB1aP60Y3MQVA=;
+Message-ID: <8c03895e-4134-53c5-2248-e8afe4be7b25@xen.org>
+Date: Fri, 17 Jun 2022 09:41:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [PATCH] xen/arm: avoid vtimer flip-flop transition in context
- switch
-To: Wei Chen <Wei.Chen@arm.com>,
+Subject: Re: [PATCH v3 1/9] xen/arm: Print a 64-bit number in hex from early
+ uart
+To: Henry Wang <Henry.Wang@arm.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220615013909.283887-1-wei.chen@arm.com>
- <c48bb719-8cc6-ea8d-291d-4e09d42f93c2@xen.org>
- <PAXPR08MB7420FDB50DA7265956A3B0BC9EAD9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jiamei Xie <Jiamei.Xie@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Julien Grall <jgrall@amazon.com>
+References: <20220511014639.197825-1-wei.chen@arm.com>
+ <20220511014639.197825-2-wei.chen@arm.com>
+ <46f6a909-2f77-021c-a069-6a8f827e53fc@xen.org>
+ <AS8PR08MB79912A6797514E583095CBFC92AF9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <PAXPR08MB7420FDB50DA7265956A3B0BC9EAD9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+In-Reply-To: <AS8PR08MB79912A6797514E583095CBFC92AF9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 
 
-On 15/06/2022 11:36, Wei Chen wrote:
+On 17/06/2022 04:27, Henry Wang wrote:
 > Hi Julien,
 
-Hi Wei,
+Hi Henry,
 
 >> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: 2022年6月15日 17:47
->> To: Wei Chen <Wei.Chen@arm.com>; xen-devel@lists.xenproject.org
->> Cc: nd <nd@arm.com>; Stefano Stabellini <sstabellini@kernel.org>; Bertrand
->> Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
->> <Volodymyr_Babchuk@epam.com>
->> Subject: Re: [PATCH] xen/arm: avoid vtimer flip-flop transition in context
->> switch
->>>
->>> So in this patch, we adjust the formula to use "offset - boot_count"
->>> first, and then use the result to plus cval. This will avoid the
->>> uint64_t overflow.
+>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
+>> Julien Grall
 >>
->> Technically, the overflow is still present because the (offset -
->> boot_count) is a non-zero value *and* cval is a 64-bit value.
+>> Hi,
 >>
+>> I have committed this patch.
+>>
+>> Patch #3 looks to be suitably acked but I am not sure whether it can be
+>> committed before #2. So I didn't commit it.
+>>
+>> Please let me know if it can be.
 > 
-> Yes, GuestOS can issue any valid 64-bit value for their usage.
-> 
->> So I think the equation below should be reworked to...
->>
->>>
->>> Signed-off-by: Wei Chen <wei.chen@arm.com>
->>> ---
->>>    xen/arch/arm/vtimer.c | 5 +++--
->>>    1 file changed, 3 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/vtimer.c b/xen/arch/arm/vtimer.c
->>> index 5bb5970f58..86e63303c8 100644
->>> --- a/xen/arch/arm/vtimer.c
->>> +++ b/xen/arch/arm/vtimer.c
->>> @@ -144,8 +144,9 @@ void virt_timer_save(struct vcpu *v)
->>>        if ( (v->arch.virt_timer.ctl & CNTx_CTL_ENABLE) &&
->>>             !(v->arch.virt_timer.ctl & CNTx_CTL_MASK))
->>>        {
->>> -        set_timer(&v->arch.virt_timer.timer, ticks_to_ns(v-
->>> arch.virt_timer.cval +
->>> -                  v->domain->arch.virt_timer_base.offset - boot_count));
->>> +        set_timer(&v->arch.virt_timer.timer,
->>> +                  ticks_to_ns(v->domain->arch.virt_timer_base.offset -
->>> +                              boot_count + v->arch.virt_timer.cval));
->>
->> ... something like:
->>
->> ticks_to_ns(offset - boot_count) + ticks_to_ns(cval);
->>
->> The first part of the equation should always be the same. So it could be
->> stored in struct domain.
->>
-> 
-> If you think there is still some values to continue this patch, I will
-> address this comment : )
+> IIUC, the latest series (v6) [1] is properly acked and reviewed for the whole
+> series, so I think v6 of this series is ready to be merged. Sending this as a
+> gentle reminder :)
 
-I think there are. This can be easily triggered by a vCPU setting a 
-large cval.
+Thanks for the reminder. My comment above was specifically referring to 
+patches in v3. If the patches are from a new version, can I suggest to 
+ping on the exact version?
 
 Cheers,
 
