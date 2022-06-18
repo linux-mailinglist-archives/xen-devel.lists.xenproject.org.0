@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1667550462
-	for <lists+xen-devel@lfdr.de>; Sat, 18 Jun 2022 14:14:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.351815.578567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBB32550464
+	for <lists+xen-devel@lfdr.de>; Sat, 18 Jun 2022 14:14:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.351829.578586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o2XKm-0007Od-Ak; Sat, 18 Jun 2022 12:13:48 +0000
+	id 1o2XLC-000870-O9; Sat, 18 Jun 2022 12:14:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 351815.578567; Sat, 18 Jun 2022 12:13:48 +0000
+Received: by outflank-mailman (output) from mailman id 351829.578586; Sat, 18 Jun 2022 12:14:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o2XKm-0007Lg-7V; Sat, 18 Jun 2022 12:13:48 +0000
-Received: by outflank-mailman (input) for mailman id 351815;
- Sat, 18 Jun 2022 12:13:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o2XLC-000834-Kd; Sat, 18 Jun 2022 12:14:14 +0000
+Received: by outflank-mailman (input) for mailman id 351829;
+ Sat, 18 Jun 2022 12:14:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qCNw=WZ=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
- id 1o2XKk-0006z2-EE
- for xen-devel@lists.xenproject.org; Sat, 18 Jun 2022 12:13:46 +0000
-Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19b8cc89-ef00-11ec-bd2d-47488cf2e6aa;
- Sat, 18 Jun 2022 14:13:45 +0200 (CEST)
+ id 1o2XLA-0007p5-MM
+ for xen-devel@lists.xenproject.org; Sat, 18 Jun 2022 12:14:12 +0000
+Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28f3e525-ef00-11ec-b725-ed86ccbb4733;
+ Sat, 18 Jun 2022 14:14:11 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by sonata.ens-lyon.org (Postfix) with ESMTP id 1FE0D20157;
- Sat, 18 Jun 2022 14:13:45 +0200 (CEST)
+ by sonata.ens-lyon.org (Postfix) with ESMTP id F36A220157;
+ Sat, 18 Jun 2022 14:14:09 +0200 (CEST)
 Received: from sonata.ens-lyon.org ([127.0.0.1])
  by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id yy_byW0nzfZw; Sat, 18 Jun 2022 14:13:45 +0200 (CEST)
+ with ESMTP id YauqhsVtHHYl; Sat, 18 Jun 2022 14:14:09 +0200 (CEST)
 Received: from begin (cerbere11.aquilenet.fr [185.233.102.190])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by sonata.ens-lyon.org (Postfix) with ESMTPSA id 039CC20154;
- Sat, 18 Jun 2022 14:13:45 +0200 (CEST)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id DE9D220154;
+ Sat, 18 Jun 2022 14:14:09 +0200 (CEST)
 Received: from samy by begin with local (Exim 4.95)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1o2XKi-00BaWW-97;
- Sat, 18 Jun 2022 14:13:44 +0200
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1o2XL7-00BaWi-S0;
+ Sat, 18 Jun 2022 14:14:09 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,147 +51,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19b8cc89-ef00-11ec-bd2d-47488cf2e6aa
-Date: Sat, 18 Jun 2022 14:13:44 +0200
+X-Inumbo-ID: 28f3e525-ef00-11ec-b725-ed86ccbb4733
+Date: Sat, 18 Jun 2022 14:14:09 +0200
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 To: Juergen Gross <jgross@suse.com>
 Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
 	wl@xen.org
-Subject: Re: [PATCH 1/3] mini-os: take newest version of
- arch-x86/hvm/start_info.h
-Message-ID: <20220618121344.3nsrtgwvmdhnfvlq@begin>
+Subject: Re: [PATCH 2/3] mini-os: prefer memory map via start_info for PVH
+Message-ID: <20220618121409.mopy5vqf3z7gpjed@begin>
 Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
 	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org, wl@xen.org
 References: <20220618104816.11527-1-jgross@suse.com>
- <20220618104816.11527-2-jgross@suse.com>
+ <20220618104816.11527-3-jgross@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220618104816.11527-2-jgross@suse.com>
+In-Reply-To: <20220618104816.11527-3-jgross@suse.com>
 Organization: I am not organized
 User-Agent: NeoMutt/20170609 (1.8.3)
 
-Juergen Gross, le sam. 18 juin 2022 12:48:14 +0200, a ecrit:
-> Update include/xen/arch-x86/hvm/start_info.h to the newest version
-> from the Xen tree.
+Juergen Gross, le sam. 18 juin 2022 12:48:15 +0200, a ecrit:
+> Since some time now a guest started in PVH mode will get the memory
+> map from Xen via the start_info structure.
+> 
+> Modify the PVH initialization to prefer this memory map over the one
+> obtained via hypercall, as this will allow to add information to the
+> memory map for a new kernel when supporting kexec.
+> 
+> In case the start_info structure doesn't contain memory map information
+> fall back to the hypercall.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
 > ---
->  include/xen/arch-x86/hvm/start_info.h | 63 ++++++++++++++++++++++++++-
->  1 file changed, 62 insertions(+), 1 deletion(-)
+>  arch/x86/mm.c  |  6 ++++++
+>  e820.c         | 25 +++++++++++++++++++++++++
+>  include/e820.h |  4 ++++
+>  3 files changed, 35 insertions(+)
 > 
-> diff --git a/include/xen/arch-x86/hvm/start_info.h b/include/xen/arch-x86/hvm/start_info.h
-> index 64841597..50af9ea2 100644
-> --- a/include/xen/arch-x86/hvm/start_info.h
-> +++ b/include/xen/arch-x86/hvm/start_info.h
-> @@ -33,7 +33,7 @@
->   *    | magic          | Contains the magic value XEN_HVM_START_MAGIC_VALUE
->   *    |                | ("xEn3" with the 0x80 bit of the "E" set).
->   *  4 +----------------+
-> - *    | version        | Version of this structure. Current version is 0. New
-> + *    | version        | Version of this structure. Current version is 1. New
->   *    |                | versions are guaranteed to be backwards-compatible.
->   *  8 +----------------+
->   *    | flags          | SIF_xxx flags.
-> @@ -48,6 +48,15 @@
->   * 32 +----------------+
->   *    | rsdp_paddr     | Physical address of the RSDP ACPI data structure.
->   * 40 +----------------+
-> + *    | memmap_paddr   | Physical address of the (optional) memory map. Only
-> + *    |                | present in version 1 and newer of the structure.
-> + * 48 +----------------+
-> + *    | memmap_entries | Number of entries in the memory map table. Zero
-> + *    |                | if there is no memory map being provided. Only
-> + *    |                | present in version 1 and newer of the structure.
-> + * 52 +----------------+
-> + *    | reserved       | Version 1 and newer only.
-> + * 56 +----------------+
->   *
->   * The layout of each entry in the module structure is the following:
->   *
-> @@ -62,13 +71,51 @@
->   *    | reserved       |
->   * 32 +----------------+
->   *
-> + * The layout of each entry in the memory map table is as follows:
-> + *
-> + *  0 +----------------+
-> + *    | addr           | Base address
-> + *  8 +----------------+
-> + *    | size           | Size of mapping in bytes
-> + * 16 +----------------+
-> + *    | type           | Type of mapping as defined between the hypervisor
-> + *    |                | and guest. See XEN_HVM_MEMMAP_TYPE_* values below.
-> + * 20 +----------------|
-> + *    | reserved       |
-> + * 24 +----------------+
-> + *
->   * The address and sizes are always a 64bit little endian unsigned integer.
->   *
->   * NB: Xen on x86 will always try to place all the data below the 4GiB
->   * boundary.
-> + *
-> + * Version numbers of the hvm_start_info structure have evolved like this:
-> + *
-> + * Version 0:  Initial implementation.
-> + *
-> + * Version 1:  Added the memmap_paddr/memmap_entries fields (plus 4 bytes of
-> + *             padding) to the end of the hvm_start_info struct. These new
-> + *             fields can be used to pass a memory map to the guest. The
-> + *             memory map is optional and so guests that understand version 1
-> + *             of the structure must check that memmap_entries is non-zero
-> + *             before trying to read the memory map.
->   */
->  #define XEN_HVM_START_MAGIC_VALUE 0x336ec578
+> diff --git a/arch/x86/mm.c b/arch/x86/mm.c
+> index 220c0b4d..41fcee67 100644
+> --- a/arch/x86/mm.c
+> +++ b/arch/x86/mm.c
+> @@ -45,6 +45,7 @@
+>  #include <mini-os/xmalloc.h>
+>  #include <mini-os/e820.h>
+>  #include <xen/memory.h>
+> +#include <xen/arch-x86/hvm/start_info.h>
 >  
-> +/*
-> + * The values used in the type field of the memory map table entries are
-> + * defined below and match the Address Range Types as defined in the "System
-> + * Address Map Interfaces" section of the ACPI Specification. Please refer to
-> + * section 15 in version 6.2 of the ACPI spec: http://uefi.org/specifications
-> + */
-> +#define XEN_HVM_MEMMAP_TYPE_RAM       1
-> +#define XEN_HVM_MEMMAP_TYPE_RESERVED  2
-> +#define XEN_HVM_MEMMAP_TYPE_ACPI      3
-> +#define XEN_HVM_MEMMAP_TYPE_NVS       4
-> +#define XEN_HVM_MEMMAP_TYPE_UNUSABLE  5
-> +#define XEN_HVM_MEMMAP_TYPE_DISABLED  6
-> +#define XEN_HVM_MEMMAP_TYPE_PMEM      7
+>  #ifdef MM_DEBUG
+>  #define DEBUG(_f, _a...) \
+> @@ -108,6 +109,11 @@ void arch_mm_preinit(void *p)
+>  {
+>      long ret;
+>      domid_t domid = DOMID_SELF;
+> +    struct hvm_start_info *hsi = p;
 > +
->  /*
->   * C representation of the x86/HVM start info layout.
->   *
-> @@ -86,6 +133,13 @@ struct hvm_start_info {
->      uint64_t cmdline_paddr;     /* Physical address of the command line.     */
->      uint64_t rsdp_paddr;        /* Physical address of the RSDP ACPI data    */
->                                  /* structure.                                */
-> +    /* All following fields only present in version 1 and newer */
-> +    uint64_t memmap_paddr;      /* Physical address of an array of           */
-> +                                /* hvm_memmap_table_entry.                   */
-> +    uint32_t memmap_entries;    /* Number of entries in the memmap table.    */
-> +                                /* Value will be zero if there is no memory  */
-> +                                /* map being provided.                       */
-> +    uint32_t reserved;          /* Must be zero.                             */
+> +    if ( hsi->version >= 1 && hsi->memmap_entries > 0 )
+> +        e820_init_memmap((struct hvm_memmap_table_entry *)(unsigned long)
+> +                         hsi->memmap_paddr, hsi->memmap_entries);
+>  
+>      pt_base = page_table_base;
+>      first_free_pfn = PFN_UP(to_phys(&_end));
+> diff --git a/e820.c b/e820.c
+> index 991ed382..ad91e00b 100644
+> --- a/e820.c
+> +++ b/e820.c
+> @@ -54,6 +54,7 @@ static char *e820_types[E820_TYPES] = {
+>      [E820_ACPI]     = "ACPI",
+>      [E820_NVS]      = "NVS",
+>      [E820_UNUSABLE] = "Unusable",
+> +    [E820_DISABLED] = "Disabled",
+>      [E820_PMEM]     = "PMEM"
 >  };
 >  
->  struct hvm_modlist_entry {
-> @@ -95,4 +149,11 @@ struct hvm_modlist_entry {
->      uint64_t reserved;
->  };
+> @@ -259,6 +260,30 @@ static void e820_get_memmap(void)
+>      e820_sanitize();
+>  }
 >  
-> +struct hvm_memmap_table_entry {
-> +    uint64_t addr;              /* Base address of the memory region         */
-> +    uint64_t size;              /* Size of the memory region in bytes        */
-> +    uint32_t type;              /* Mapping type                              */
-> +    uint32_t reserved;          /* Must be zero for Version 1.               */
-> +};
+> +void e820_init_memmap(struct hvm_memmap_table_entry *entry, unsigned int num)
+> +{
+> +    unsigned int i;
 > +
->  #endif /* __XEN_PUBLIC_ARCH_X86_HVM_START_INFO_H__ */
+> +    BUILD_BUG_ON(XEN_HVM_MEMMAP_TYPE_RAM != E820_RAM);
+> +    BUILD_BUG_ON(XEN_HVM_MEMMAP_TYPE_RESERVED != E820_RESERVED);
+> +    BUILD_BUG_ON(XEN_HVM_MEMMAP_TYPE_ACPI != E820_ACPI);
+> +    BUILD_BUG_ON(XEN_HVM_MEMMAP_TYPE_NVS != E820_NVS);
+> +    BUILD_BUG_ON(XEN_HVM_MEMMAP_TYPE_UNUSABLE != E820_UNUSABLE);
+> +    BUILD_BUG_ON(XEN_HVM_MEMMAP_TYPE_DISABLED != E820_DISABLED);
+> +    BUILD_BUG_ON(XEN_HVM_MEMMAP_TYPE_PMEM != E820_PMEM);
+> +
+> +    for ( i = 0; i < num; i++ )
+> +    {
+> +        e820_map[i].addr = entry[i].addr;
+> +        e820_map[i].size = entry[i].size;
+> +        e820_map[i].type = entry[i].type;
+> +    }
+> +
+> +    e820_entries = num;
+> +
+> +    e820_sanitize();
+> +}
+> +
+>  void arch_print_memmap(void)
+>  {
+>      int i;
+> diff --git a/include/e820.h b/include/e820.h
+> index aaf2f2ca..5438a7c8 100644
+> --- a/include/e820.h
+> +++ b/include/e820.h
+> @@ -26,6 +26,8 @@
+>  
+>  #if defined(__arm__) || defined(__aarch64__) || defined(CONFIG_PARAVIRT)
+>  #define CONFIG_E820_TRIVIAL
+> +#else
+> +#include <xen/arch-x86/hvm/start_info.h>
+>  #endif
+>  
+>  /* PC BIOS standard E820 types and structure. */
+> @@ -34,6 +36,7 @@
+>  #define E820_ACPI         3
+>  #define E820_NVS          4
+>  #define E820_UNUSABLE     5
+> +#define E820_DISABLED     6
+>  #define E820_PMEM         7
+>  #define E820_TYPES        8
+>  
+> @@ -54,6 +57,7 @@ unsigned long e820_get_max_contig_pages(unsigned long pfn, unsigned long pages);
+>  #ifndef CONFIG_E820_TRIVIAL
+>  unsigned long e820_get_reserved_pfns(int pages);
+>  void e820_put_reserved_pfns(unsigned long start_pfn, int pages);
+> +void e820_init_memmap(struct hvm_memmap_table_entry *entry, unsigned int num);
+>  #endif
+>  
+>  #endif /*__E820_HEADER*/
 > -- 
 > 2.35.3
 > 
