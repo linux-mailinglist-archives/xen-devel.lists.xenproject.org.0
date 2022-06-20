@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 232725511A1
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 09:38:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.352540.579418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D5A35511A2
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 09:39:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.352534.579377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3Bzk-00051R-Lz; Mon, 20 Jun 2022 07:38:48 +0000
+	id 1o3Bzf-0003zT-GK; Mon, 20 Jun 2022 07:38:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 352540.579418; Mon, 20 Jun 2022 07:38:48 +0000
+Received: by outflank-mailman (output) from mailman id 352534.579377; Mon, 20 Jun 2022 07:38:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3Bzk-0004n7-B1; Mon, 20 Jun 2022 07:38:48 +0000
-Received: by outflank-mailman (input) for mailman id 352540;
- Mon, 20 Jun 2022 07:38:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o3Bzf-0003sA-71; Mon, 20 Jun 2022 07:38:43 +0000
+Received: by outflank-mailman (input) for mailman id 352534;
+ Mon, 20 Jun 2022 07:38:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Hycu=W3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o3Bzg-0002ZD-CV
- for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 07:38:44 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fcb15982-f06b-11ec-b725-ed86ccbb4733;
- Mon, 20 Jun 2022 09:38:33 +0200 (CEST)
+ id 1o3Bzc-0002ZE-KP
+ for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 07:38:40 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fd465502-f06b-11ec-bd2d-47488cf2e6aa;
+ Mon, 20 Jun 2022 09:38:34 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2193721BCE;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5B6ED1F972;
  Mon, 20 Jun 2022 07:38:34 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E52F6134CA;
- Mon, 20 Jun 2022 07:38:33 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 292A1134CA;
+ Mon, 20 Jun 2022 07:38:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OEubNvkjsGI3DAAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 20 Jun 2022 07:38:33 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id AKiuCPojsGI3DAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 20 Jun 2022 07:38:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,290 +51,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcb15982-f06b-11ec-b725-ed86ccbb4733
+X-Inumbo-ID: fd465502-f06b-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1655710714; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=F2usykdrZz/ETCDtrSzcODBAgM6yVFNOOYprC5PICS8=;
-	b=sSC6tQ1TwuIm9F1IbZobt/BlZYlWRWpysSxHKvHzavFfCHHIa5nFk1ZdZElY8a3WwNwMRA
-	y9ZrzB/r5gPVTVtZ8kKydPNmy8Ic/jBpOArgr7WXEI28MTsM1sqy5oup9ByadnXzGCtIh0
-	ynmiF7xExpf2uig1Lusce6y7AOxIUqA=
+	bh=Ij/l8vGwMUP3sj1l6oCVo+3lGirXIhChnHnYSjdN7M4=;
+	b=iF7oXWL274QxV6P/YGQuE7yJf2FZ0UXUVsAp/+MPXoFykVPZWfIApaoD94IxzdB9eHBASW
+	njBlkkiQQWfD4VEiQqxiOKMA4qCWqPyyhvost8/ERAPHX38leEth0ndXibttvUX81T0hpY
+	deQXWgsSL9uNG4oH4OkMlGZriS7IVLY=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	wl@xen.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 6/8] mini-os: eliminate console directory
-Date: Mon, 20 Jun 2022 09:38:18 +0200
-Message-Id: <20220620073820.9336-7-jgross@suse.com>
+Subject: [PATCH 7/8] mini-os: apply coding style to console.c
+Date: Mon, 20 Jun 2022 09:38:19 +0200
+Message-Id: <20220620073820.9336-8-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20220620073820.9336-1-jgross@suse.com>
 References: <20220620073820.9336-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Merge the two remaining source files in the console directory into
-a single one and move it to the main directory.
+Make console.c coding style compliant.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- Makefile                            |   4 +-
- console/xencons_ring.c => console.c | 171 ++++++++++++++++++++++++++-
- console/console.c                   | 177 ----------------------------
- 3 files changed, 170 insertions(+), 182 deletions(-)
- rename console/xencons_ring.c => console.c (51%)
- delete mode 100644 console/console.c
+ console.c | 280 ++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 145 insertions(+), 135 deletions(-)
 
-diff --git a/Makefile b/Makefile
-index 509d927b..f3acdd2f 100644
---- a/Makefile
-+++ b/Makefile
-@@ -41,6 +41,7 @@ src-$(CONFIG_CONSFRONT) += consfront.c
- src-$(CONFIG_TPMFRONT) += tpmfront.c
- src-$(CONFIG_TPM_TIS) += tpm_tis.c
- src-$(CONFIG_TPMBACK) += tpmback.c
-+src-y += console.c
- src-y += daytime.c
- src-y += e820.c
- src-y += events.c
-@@ -69,9 +70,6 @@ src-y += lib/sys.c
- src-y += lib/xmalloc.c
- src-$(CONFIG_LIBXS) += lib/xs.c
- 
--src-y += console/console.c
--src-y += console/xencons_ring.c
--
- # The common mini-os objects to build.
- APP_OBJS :=
- OBJS := $(patsubst %.c,$(OBJ_DIR)/%.o,$(src-y))
-diff --git a/console/xencons_ring.c b/console.c
-similarity index 51%
-rename from console/xencons_ring.c
-rename to console.c
-index 495f0a19..29277eac 100644
---- a/console/xencons_ring.c
+diff --git a/console.c b/console.c
+index 29277eac..5d205c7d 100644
+--- a/console.c
 +++ b/console.c
-@@ -1,3 +1,39 @@
-+/* 
-+ ****************************************************************************
-+ * (C) 2006 - Grzegorz Milos - Cambridge University
-+ ****************************************************************************
-+ *
-+ *        File: console.c
-+ *      Author: Grzegorz Milos
-+ *     Changes: 
-+ *              
-+ *        Date: Mar 2006
-+ * 
-+ * Environment: Xen Minimal OS
-+ * Description: Console interface.
-+ *
-+ * Handles console I/O. Defines printk.
-+ *
-+ ****************************************************************************
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to
-+ * deal in the Software without restriction, including without limitation the
-+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-+ * sell copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ * 
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ * 
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
-+ * DEALINGS IN THE SOFTWARE.
-+ */
-+ 
- #include <mini-os/types.h>
- #include <mini-os/wait.h>
- #include <mini-os/mm.h>
-@@ -7,12 +43,143 @@
- #include <mini-os/lib.h>
- #include <mini-os/console.h>
- #include <mini-os/xenbus.h>
-+#include <mini-os/xmalloc.h>
-+#include <mini-os/gnttab.h>
- #include <xen/io/console.h>
- #include <xen/io/protocols.h>
- #include <xen/io/ring.h>
- #include <xen/hvm/params.h>
--#include <mini-os/xmalloc.h>
--#include <mini-os/gnttab.h>
-+
-+/* If console not initialised the printk will be sent to xen serial line 
-+   NOTE: you need to enable verbose in xen/Rules.mk for it to work. */
-+static struct consfront_dev* xen_console = NULL;
-+static int console_initialised = 0;
-+
-+__attribute__((weak)) void console_input(char * buf, unsigned len)
-+{
-+    if(len > 0)
-+    {
-+        /* Just repeat what's written */
-+        buf[len] = '\0';
-+        printk("%s", buf);
-+        
-+        if(buf[len-1] == '\r')
-+            printk("\nNo console input handler.\n");
-+    }
-+}
-+
-+#ifndef HAVE_LIBC
-+void xencons_rx(char *buf, unsigned len, struct pt_regs *regs)
-+{
-+    console_input(buf, len);
-+}
-+
-+void xencons_tx(void)
-+{
-+    /* Do nothing, handled by _rx */
-+}
-+#endif
-+
-+
-+void console_print(struct consfront_dev *dev, const char *data, int length)
-+{
-+    char *curr_char, saved_char;
-+    char copied_str[length+1];
-+    char *copied_ptr;
-+    int part_len;
-+    int (*ring_send_fn)(struct consfront_dev *dev, const char *data, unsigned length);
-+
-+    if(!console_initialised)
-+        ring_send_fn = xencons_ring_send_no_notify;
-+    else
-+        ring_send_fn = xencons_ring_send;
-+
-+    if (dev && dev->is_raw) {
-+        ring_send_fn(dev, data, length);
-+        return;
-+    }
-+
-+    copied_ptr = copied_str;
-+    memcpy(copied_ptr, data, length);
-+    for(curr_char = copied_ptr; curr_char < copied_ptr+length-1; curr_char++)
-+    {
-+        if(*curr_char == '\n')
-+        {
-+            *curr_char = '\r';
-+            saved_char = *(curr_char+1);
-+            *(curr_char+1) = '\n';
-+            part_len = curr_char - copied_ptr + 2;
-+            ring_send_fn(dev, copied_ptr, part_len);
-+            *(curr_char+1) = saved_char;
-+            copied_ptr = curr_char+1;
-+            length -= part_len - 1;
-+        }
-+    }
-+
-+    if (copied_ptr[length-1] == '\n') {
-+        copied_ptr[length-1] = '\r';
-+        copied_ptr[length] = '\n';
-+        length++;
-+    }
-+    
-+    ring_send_fn(dev, copied_ptr, length);
-+}
-+
-+void print(int direct, const char *fmt, va_list args)
-+{
-+    static char __print_buf[1024];
-+    
-+    (void)vsnprintf(__print_buf, sizeof(__print_buf), fmt, args);
-+
-+    if(direct)
-+    {
-+        (void)HYPERVISOR_console_io(CONSOLEIO_write, strlen(__print_buf), __print_buf);
-+        return;
-+    } else {
-+#ifndef CONFIG_USE_XEN_CONSOLE
-+    if(!console_initialised)
-+#endif    
-+            (void)HYPERVISOR_console_io(CONSOLEIO_write, strlen(__print_buf), __print_buf);
-+        
-+        console_print(NULL, __print_buf, strlen(__print_buf));
-+    }
-+}
-+
-+void printk(const char *fmt, ...)
-+{
-+    va_list       args;
-+    va_start(args, fmt);
-+    print(0, fmt, args);
-+    va_end(args);        
-+}
-+
-+void xprintk(const char *fmt, ...)
-+{
-+    va_list       args;
-+    va_start(args, fmt);
-+    print(1, fmt, args);
-+    va_end(args);        
-+}
-+void init_console(void)
-+{   
-+    printk("Initialising console ... ");
-+    xen_console = xencons_ring_init();
-+    console_initialised = 1;
-+    /* This is also required to notify the daemon */
-+    printk("done.\n");
-+}
-+
-+void suspend_console(void)
-+{
-+    console_initialised = 0;
-+    xencons_ring_fini(xen_console);
-+}
-+
-+void resume_console(void)
-+{
-+    xencons_ring_resume(xen_console);
-+    console_initialised = 1;
-+}
- 
- DECLARE_WAIT_QUEUE_HEAD(console_queue);
- 
-diff --git a/console/console.c b/console/console.c
-deleted file mode 100644
-index 68c8435e..00000000
---- a/console/console.c
-+++ /dev/null
-@@ -1,177 +0,0 @@
+@@ -1,14 +1,14 @@
 -/* 
-- ****************************************************************************
-- * (C) 2006 - Grzegorz Milos - Cambridge University
-- ****************************************************************************
-- *
-- *        File: console.h
-- *      Author: Grzegorz Milos
++/*
+  ****************************************************************************
+  * (C) 2006 - Grzegorz Milos - Cambridge University
+  ****************************************************************************
+  *
+  *        File: console.c
+  *      Author: Grzegorz Milos
 - *     Changes: 
 - *              
-- *        Date: Mar 2006
++ *     Changes:
++ *
+  *        Date: Mar 2006
 - * 
-- * Environment: Xen Minimal OS
-- * Description: Console interface.
-- *
-- * Handles console I/O. Defines printk.
-- *
-- ****************************************************************************
-- * Permission is hereby granted, free of charge, to any person obtaining a copy
-- * of this software and associated documentation files (the "Software"), to
-- * deal in the Software without restriction, including without limitation the
-- * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-- * sell copies of the Software, and to permit persons to whom the Software is
-- * furnished to do so, subject to the following conditions:
++ *
+  * Environment: Xen Minimal OS
+  * Description: Console interface.
+  *
+@@ -21,19 +21,19 @@
+  * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  * sell copies of the Software, and to permit persons to whom the Software is
+  * furnished to do so, subject to the following conditions:
 - * 
-- * The above copyright notice and this permission notice shall be included in
-- * all copies or substantial portions of the Software.
++ *
+  * The above copyright notice and this permission notice shall be included in
+  * all copies or substantial portions of the Software.
 - * 
 - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
 - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
@@ -342,105 +121,131 @@ index 68c8435e..00000000
 - * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
 - * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
 - * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
-- * DEALINGS IN THE SOFTWARE.
-- */
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  * DEALINGS IN THE SOFTWARE.
+  */
 - 
--#include <mini-os/types.h>
--#include <mini-os/wait.h>
--#include <mini-os/mm.h>
--#include <mini-os/hypervisor.h>
--#include <mini-os/events.h>
--#include <mini-os/os.h>
--#include <mini-os/lib.h>
--#include <mini-os/xenbus.h>
--#include <xen/io/console.h>
--
--
++
+ #include <mini-os/types.h>
+ #include <mini-os/wait.h>
+ #include <mini-os/mm.h>
+@@ -50,26 +50,24 @@
+ #include <xen/io/ring.h>
+ #include <xen/hvm/params.h>
+ 
 -/* If console not initialised the printk will be sent to xen serial line 
 -   NOTE: you need to enable verbose in xen/Rules.mk for it to work. */
--static struct consfront_dev* xen_console = NULL;
--static int console_initialised = 0;
--
+ static struct consfront_dev* xen_console = NULL;
+ static int console_initialised = 0;
+ 
 -__attribute__((weak)) void console_input(char * buf, unsigned len)
--{
++__attribute__((weak)) void console_input(char *buf, unsigned int len)
+ {
 -    if(len > 0)
--    {
--        /* Just repeat what's written */
--        buf[len] = '\0';
--        printk("%s", buf);
++    if ( len > 0 )
+     {
+         /* Just repeat what's written */
+         buf[len] = '\0';
+         printk("%s", buf);
 -        
 -        if(buf[len-1] == '\r')
--            printk("\nNo console input handler.\n");
--    }
--}
--
--#ifndef HAVE_LIBC
++
++        if ( buf[len - 1] == '\r' )
+             printk("\nNo console input handler.\n");
+     }
+ }
+ 
+ #ifndef HAVE_LIBC
 -void xencons_rx(char *buf, unsigned len, struct pt_regs *regs)
--{
--    console_input(buf, len);
--}
++void xencons_rx(char *buf, unsigned int len, struct pt_regs *regs)
+ {
+     console_input(buf, len);
+ }
+@@ -80,88 +78,94 @@ void xencons_tx(void)
+ }
+ #endif
+ 
 -
--void xencons_tx(void)
--{
--    /* Do nothing, handled by _rx */
--}
--#endif
--
--
--void console_print(struct consfront_dev *dev, const char *data, int length)
--{
--    char *curr_char, saved_char;
--    char copied_str[length+1];
--    char *copied_ptr;
--    int part_len;
+ void console_print(struct consfront_dev *dev, const char *data, int length)
+ {
+     char *curr_char, saved_char;
+     char copied_str[length+1];
+     char *copied_ptr;
+     int part_len;
 -    int (*ring_send_fn)(struct consfront_dev *dev, const char *data, unsigned length);
--
++    int (*ring_send_fn)(struct consfront_dev *dev, const char *data,
++                        unsigned int length);
+ 
 -    if(!console_initialised)
--        ring_send_fn = xencons_ring_send_no_notify;
--    else
--        ring_send_fn = xencons_ring_send;
--
++    if ( !console_initialised )
+         ring_send_fn = xencons_ring_send_no_notify;
+     else
+         ring_send_fn = xencons_ring_send;
+ 
 -    if (dev && dev->is_raw) {
--        ring_send_fn(dev, data, length);
--        return;
--    }
--
--    copied_ptr = copied_str;
--    memcpy(copied_ptr, data, length);
++    if ( dev && dev->is_raw )
++    {
+         ring_send_fn(dev, data, length);
+         return;
+     }
+ 
+     copied_ptr = copied_str;
+     memcpy(copied_ptr, data, length);
 -    for(curr_char = copied_ptr; curr_char < copied_ptr+length-1; curr_char++)
--    {
++    for ( curr_char = copied_ptr; curr_char < copied_ptr + length - 1;
++          curr_char++ )
+     {
 -        if(*curr_char == '\n')
--        {
--            *curr_char = '\r';
++        if ( *curr_char == '\n' )
+         {
+             *curr_char = '\r';
 -            saved_char = *(curr_char+1);
 -            *(curr_char+1) = '\n';
--            part_len = curr_char - copied_ptr + 2;
--            ring_send_fn(dev, copied_ptr, part_len);
++            saved_char = *(curr_char + 1);
++            *(curr_char + 1) = '\n';
+             part_len = curr_char - copied_ptr + 2;
+             ring_send_fn(dev, copied_ptr, part_len);
 -            *(curr_char+1) = saved_char;
 -            copied_ptr = curr_char+1;
--            length -= part_len - 1;
--        }
--    }
--
++            *(curr_char + 1) = saved_char;
++            copied_ptr = curr_char + 1;
+             length -= part_len - 1;
+         }
+     }
+ 
 -    if (copied_ptr[length-1] == '\n') {
 -        copied_ptr[length-1] = '\r';
--        copied_ptr[length] = '\n';
--        length++;
--    }
++    if ( copied_ptr[length - 1] == '\n')
++    {
++        copied_ptr[length - 1] = '\r';
+         copied_ptr[length] = '\n';
+         length++;
+     }
 -    
--    ring_send_fn(dev, copied_ptr, length);
--}
--
--void print(int direct, const char *fmt, va_list args)
--{
--    static char __print_buf[1024];
++
+     ring_send_fn(dev, copied_ptr, length);
+ }
+ 
+ void print(int direct, const char *fmt, va_list args)
+ {
+     static char __print_buf[1024];
 -    
--    (void)vsnprintf(__print_buf, sizeof(__print_buf), fmt, args);
--
++
+     (void)vsnprintf(__print_buf, sizeof(__print_buf), fmt, args);
+ 
 -    if(direct)
--    {
++    if ( direct )
+     {
 -        (void)HYPERVISOR_console_io(CONSOLEIO_write, strlen(__print_buf), __print_buf);
--        return;
++        (void)HYPERVISOR_console_io(CONSOLEIO_write, strlen(__print_buf),
++                                    __print_buf);
+         return;
 -    } else {
 -#ifndef CONFIG_USE_XEN_CONSOLE
 -    if(!console_initialised)
@@ -448,44 +253,325 @@ index 68c8435e..00000000
 -            (void)HYPERVISOR_console_io(CONSOLEIO_write, strlen(__print_buf), __print_buf);
 -        
 -        console_print(NULL, __print_buf, strlen(__print_buf));
--    }
--}
--
--void printk(const char *fmt, ...)
--{
+     }
++#ifndef CONFIG_USE_XEN_CONSOLE
++    if ( !console_initialised )
++#endif
++        (void)HYPERVISOR_console_io(CONSOLEIO_write, strlen(__print_buf),
++                                    __print_buf);
++
++    console_print(NULL, __print_buf, strlen(__print_buf));
+ }
+ 
+ void printk(const char *fmt, ...)
+ {
 -    va_list       args;
--    va_start(args, fmt);
--    print(0, fmt, args);
++    va_list args;
++
+     va_start(args, fmt);
+     print(0, fmt, args);
 -    va_end(args);        
--}
--
--void xprintk(const char *fmt, ...)
--{
++    va_end(args);
+ }
+ 
+ void xprintk(const char *fmt, ...)
+ {
 -    va_list       args;
--    va_start(args, fmt);
--    print(1, fmt, args);
++    va_list args;
++
+     va_start(args, fmt);
+     print(1, fmt, args);
 -    va_end(args);        
--}
--void init_console(void)
++    va_end(args);
+ }
+ void init_console(void)
 -{   
--    printk("Initialising console ... ");
--    xen_console = xencons_ring_init();
--    console_initialised = 1;
--    /* This is also required to notify the daemon */
--    printk("done.\n");
--}
++{
+     printk("Initialising console ... ");
+     xen_console = xencons_ring_init();
+     console_initialised = 1;
+@@ -186,7 +190,7 @@ DECLARE_WAIT_QUEUE_HEAD(console_queue);
+ static struct xencons_interface *console_ring;
+ uint32_t console_evtchn;
+ 
+-static struct consfront_dev* resume_xen_console(struct consfront_dev* dev);
++static struct consfront_dev* resume_xen_console(struct consfront_dev *dev);
+ 
+ #ifdef CONFIG_PARAVIRT
+ void get_console(void *p)
+@@ -201,11 +205,11 @@ void get_console(void *p)
+ {
+     uint64_t v = -1;
+ 
+-    if (hvm_get_parameter(HVM_PARAM_CONSOLE_EVTCHN, &v))
++    if ( hvm_get_parameter(HVM_PARAM_CONSOLE_EVTCHN, &v) )
+         BUG();
+     console_evtchn = v;
+ 
+-    if (hvm_get_parameter(HVM_PARAM_CONSOLE_PFN, &v))
++    if ( hvm_get_parameter(HVM_PARAM_CONSOLE_PFN, &v) )
+         BUG();
+     console_ring = (struct xencons_interface *)map_frame_virt(v);
+ }
+@@ -214,7 +218,7 @@ void get_console(void *p)
+ static inline void notify_daemon(struct consfront_dev *dev)
+ {
+     /* Use evtchn: this is called early, before irq is set up. */
+-    if (!dev)
++    if ( !dev )
+         notify_remote_via_evtchn(console_evtchn);
+     else
+         notify_remote_via_evtchn(dev->evtchn);
+@@ -223,36 +227,38 @@ static inline void notify_daemon(struct consfront_dev *dev)
+ static inline struct xencons_interface *xencons_interface(void)
+ {
+     return console_evtchn ? console_ring : NULL;
+-} 
+- 
+-int xencons_ring_send_no_notify(struct consfront_dev *dev, const char *data, unsigned len)
+-{	
++}
++
++int xencons_ring_send_no_notify(struct consfront_dev *dev, const char *data,
++                                unsigned int len)
++{
+     int sent = 0;
+-	struct xencons_interface *intf;
+-	XENCONS_RING_IDX cons, prod;
 -
--void suspend_console(void)
--{
--    console_initialised = 0;
--    xencons_ring_fini(xen_console);
--}
+-	if (!dev)
+-            intf = xencons_interface();
+-        else
+-            intf = dev->ring;
+-        if (!intf)
+-            return sent;
 -
--void resume_console(void)
--{
--    xencons_ring_resume(xen_console);
--    console_initialised = 1;
--}
+-	cons = intf->out_cons;
+-	prod = intf->out_prod;
+-	mb();
+-	BUG_ON((prod - cons) > sizeof(intf->out));
+-
+-	while ((sent < len) && ((prod - cons) < sizeof(intf->out)))
+-		intf->out[MASK_XENCONS_IDX(prod++, intf->out)] = data[sent++];
+-
+-	wmb();
+-	intf->out_prod = prod;
+-    
++    struct xencons_interface *intf;
++    XENCONS_RING_IDX cons, prod;
++
++    if ( !dev )
++        intf = xencons_interface();
++    else
++        intf = dev->ring;
++    if ( !intf )
++        return sent;
++
++    cons = intf->out_cons;
++    prod = intf->out_prod;
++    mb();
++    BUG_ON((prod - cons) > sizeof(intf->out));
++
++    while ( (sent < len) && ((prod - cons) < sizeof(intf->out)) )
++        intf->out[MASK_XENCONS_IDX(prod++, intf->out)] = data[sent++];
++
++    wmb();
++    intf->out_prod = prod;
++
+     return sent;
+ }
+ 
+-int xencons_ring_send(struct consfront_dev *dev, const char *data, unsigned len)
++int xencons_ring_send(struct consfront_dev *dev, const char *data,
++                      unsigned int len)
+ {
+     int sent;
+ 
+@@ -264,83 +270,85 @@ int xencons_ring_send(struct consfront_dev *dev, const char *data, unsigned len)
+ 
+ void console_handle_input(evtchn_port_t port, struct pt_regs *regs, void *data)
+ {
+-	struct consfront_dev *dev = (struct consfront_dev *) data;
++    struct consfront_dev *dev = (struct consfront_dev *) data;
+ #ifdef HAVE_LIBC
+-        struct file *file = dev ? get_file_from_fd(dev->fd) : NULL;
++    struct file *file = dev ? get_file_from_fd(dev->fd) : NULL;
+ 
+-        if ( file )
+-            file->read = true;
++    if ( file )
++        file->read = true;
+ 
+-        wake_up(&console_queue);
++    wake_up(&console_queue);
+ #else
+-	struct xencons_interface *intf = xencons_interface();
+-	XENCONS_RING_IDX cons, prod;
++    struct xencons_interface *intf = xencons_interface();
++    XENCONS_RING_IDX cons, prod;
+ 
+-	cons = intf->in_cons;
+-	prod = intf->in_prod;
+-	mb();
+-	BUG_ON((prod - cons) > sizeof(intf->in));
++    cons = intf->in_cons;
++    prod = intf->in_prod;
++    mb();
++    BUG_ON((prod - cons) > sizeof(intf->in));
+ 
+-	while (cons != prod) {
+-		xencons_rx(intf->in+MASK_XENCONS_IDX(cons,intf->in), 1, regs);
+-		cons++;
+-	}
++    while ( cons != prod )
++    {
++        xencons_rx(intf->in + MASK_XENCONS_IDX(cons, intf->in), 1, regs);
++        cons++;
++    }
+ 
+-	mb();
+-	intf->in_cons = cons;
++    mb();
++    intf->in_cons = cons;
+ 
+-	notify_daemon(dev);
++    notify_daemon(dev);
+ 
+-	xencons_tx();
++    xencons_tx();
+ #endif
+ }
+ 
+ #ifdef HAVE_LIBC
+ int xencons_ring_avail(struct consfront_dev *dev)
+ {
+-	struct xencons_interface *intf;
+-	XENCONS_RING_IDX cons, prod;
++    struct xencons_interface *intf;
++    XENCONS_RING_IDX cons, prod;
+ 
+-        if (!dev)
+-            intf = xencons_interface();
+-        else
+-            intf = dev->ring;
++    if ( !dev )
++        intf = xencons_interface();
++    else
++        intf = dev->ring;
+ 
+-	cons = intf->in_cons;
+-	prod = intf->in_prod;
+-	mb();
+-	BUG_ON((prod - cons) > sizeof(intf->in));
++    cons = intf->in_cons;
++    prod = intf->in_prod;
++    mb();
++    BUG_ON((prod - cons) > sizeof(intf->in));
+ 
+-        return prod - cons;
++    return prod - cons;
+ }
+ 
+-int xencons_ring_recv(struct consfront_dev *dev, char *data, unsigned len)
++int xencons_ring_recv(struct consfront_dev *dev, char *data, unsigned int len)
+ {
+-	struct xencons_interface *intf;
+-	XENCONS_RING_IDX cons, prod;
+-        unsigned filled = 0;
++    struct xencons_interface *intf;
++    XENCONS_RING_IDX cons, prod;
++    unsigned int filled = 0;
+ 
+-        if (!dev)
+-            intf = xencons_interface();
+-        else
+-            intf = dev->ring;
++    if ( !dev )
++        intf = xencons_interface();
++    else
++        intf = dev->ring;
+ 
+-	cons = intf->in_cons;
+-	prod = intf->in_prod;
+-	mb();
+-	BUG_ON((prod - cons) > sizeof(intf->in));
++    cons = intf->in_cons;
++    prod = intf->in_prod;
++    mb();
++    BUG_ON((prod - cons) > sizeof(intf->in));
+ 
+-        while (filled < len && cons + filled != prod) {
+-                data[filled] = *(intf->in + MASK_XENCONS_IDX(cons + filled, intf->in));
+-                filled++;
+-	}
++    while ( filled < len && cons + filled != prod )
++    {
++        data[filled] = *(intf->in + MASK_XENCONS_IDX(cons + filled, intf->in));
++        filled++;
++    }
+ 
+-	mb();
+-        intf->in_cons = cons + filled;
++    mb();
++    intf->in_cons = cons + filled;
+ 
+-	notify_daemon(dev);
++    notify_daemon(dev);
+ 
+-        return filled;
++    return filled;
+ }
+ #endif
+ 
+@@ -348,7 +356,7 @@ struct consfront_dev *xencons_ring_init(void)
+ {
+     struct consfront_dev *dev;
+ 
+-    if (!console_evtchn)
++    if ( !console_evtchn )
+         return 0;
+ 
+     dev = malloc(sizeof(struct consfront_dev));
+@@ -365,7 +373,7 @@ struct consfront_dev *xencons_ring_init(void)
+     return resume_xen_console(dev);
+ }
+ 
+-static struct consfront_dev* resume_xen_console(struct consfront_dev* dev)
++static struct consfront_dev *resume_xen_console(struct consfront_dev *dev)
+ {
+     int err;
+ 
+@@ -373,7 +381,8 @@ static struct consfront_dev* resume_xen_console(struct consfront_dev* dev)
+     dev->ring = xencons_interface();
+ 
+     err = bind_evtchn(dev->evtchn, console_handle_input, dev);
+-    if (err <= 0) {
++    if ( err <= 0 )
++    {
+         printk("XEN console request chn bind failed %i\n", err);
+         free(dev);
+         return NULL;
+@@ -386,15 +395,16 @@ static struct consfront_dev* resume_xen_console(struct consfront_dev* dev)
+     return dev;
+ }
+ 
+-void xencons_ring_fini(struct consfront_dev* dev)
++void xencons_ring_fini(struct consfront_dev *dev)
+ {
+-    if (dev)
++    if ( dev )
+         mask_evtchn(dev->evtchn);
+ }
+ 
+-void xencons_ring_resume(struct consfront_dev* dev)
++void xencons_ring_resume(struct consfront_dev *dev)
+ {
+-    if (dev) {
++    if ( dev )
++    {
+ #if CONFIG_PARAVIRT
+         get_console(&start_info);
+ #else
 -- 
 2.35.3
 
