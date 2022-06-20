@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAAB0550EA3
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 04:45:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.352205.578991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C497550EAA
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 04:45:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.352212.579003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o37Pb-0007SM-72; Mon, 20 Jun 2022 02:45:11 +0000
+	id 1o37Pg-0007yo-G7; Mon, 20 Jun 2022 02:45:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 352205.578991; Mon, 20 Jun 2022 02:45:11 +0000
+Received: by outflank-mailman (output) from mailman id 352212.579003; Mon, 20 Jun 2022 02:45:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o37Pb-0007Ok-2a; Mon, 20 Jun 2022 02:45:11 +0000
-Received: by outflank-mailman (input) for mailman id 352205;
- Mon, 20 Jun 2022 02:45:09 +0000
+	id 1o37Pg-0007vv-Bs; Mon, 20 Jun 2022 02:45:16 +0000
+Received: by outflank-mailman (input) for mailman id 352212;
+ Mon, 20 Jun 2022 02:45:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dqE0=W3=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1o37PZ-0005AM-02
- for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 02:45:09 +0000
+ id 1o37Pf-0005AM-4e
+ for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 02:45:15 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id feeef90b-f042-11ec-b725-ed86ccbb4733;
- Mon, 20 Jun 2022 04:45:08 +0200 (CEST)
+ id 011ba567-f043-11ec-b725-ed86ccbb4733;
+ Mon, 20 Jun 2022 04:45:11 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 880601042;
- Sun, 19 Jun 2022 19:45:07 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A3AA1042;
+ Sun, 19 Jun 2022 19:45:11 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 385883F7D7;
- Sun, 19 Jun 2022 19:45:03 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E456F3F7D7;
+ Sun, 19 Jun 2022 19:45:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: feeef90b-f042-11ec-b725-ed86ccbb4733
+X-Inumbo-ID: 011ba567-f043-11ec-b725-ed86ccbb4733
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
@@ -55,135 +55,199 @@ Cc: wei.chen@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
 	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v7 8/9] xen: introduce prepare_staticmem_pages
-Date: Mon, 20 Jun 2022 10:44:07 +0800
-Message-Id: <20220620024408.203797-9-Penny.Zheng@arm.com>
+Subject: [PATCH v7 9/9] xen: retrieve reserved pages on populate_physmap
+Date: Mon, 20 Jun 2022 10:44:08 +0800
+Message-Id: <20220620024408.203797-10-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220620024408.203797-1-Penny.Zheng@arm.com>
 References: <20220620024408.203797-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Later, we want to use acquire_domstatic_pages() for populating memory
-for static domain on runtime, however, there are a lot of pointless work
-(checking mfn_valid(), scrubbing the free part, cleaning the cache...)
-considering we know the page is valid and belong to the guest.
-
-This commit splits acquire_staticmem_pages() in two parts, and
-introduces prepare_staticmem_pages to bypass all "pointless work".
+When a static domain populates memory through populate_physmap at runtime,
+it shall retrieve reserved pages from resv_page_list to make sure that
+guest RAM is still restricted in statically configured memory regions.
+This commit also introduces a new helper acquire_reserved_page to make it work.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 v7 changes:
-- no change
+- remove the lock, since we add the page to rsv_page_list after it has
+been totally freed.
 ---
 v6 changes:
-- adapt to PGC_static
+- drop the lock before returning
 ---
 v5 changes:
-- new commit
+- extract common codes for assigning pages into a helper assign_domstatic_pages
+- refine commit message
+- remove stub function acquire_reserved_page
+- Alloc/free of memory can happen concurrently. So access to rsv_page_list
+needs to be protected with a spinlock
 ---
- xen/common/page_alloc.c | 61 ++++++++++++++++++++++++-----------------
- 1 file changed, 36 insertions(+), 25 deletions(-)
+v4 changes：
+- miss dropping __init in acquire_domstatic_pages
+- add the page back to the reserved list in case of error
+- remove redundant printk
+- refine log message and make it warn level
+---
+v3 changes:
+- move is_domain_using_staticmem to the common header file
+- remove #ifdef CONFIG_STATIC_MEMORY-ary
+- remove meaningless page_to_mfn(page) in error log
+---
+v2 changes:
+- introduce acquire_reserved_page to retrieve reserved pages from
+resv_page_list
+- forbid non-zero-order requests in populate_physmap
+- let is_domain_static return ((void)(d), false) on x86
+---
+ xen/common/memory.c     | 23 ++++++++++++++
+ xen/common/page_alloc.c | 68 ++++++++++++++++++++++++++++++-----------
+ xen/include/xen/mm.h    |  1 +
+ 3 files changed, 75 insertions(+), 17 deletions(-)
 
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index f2d009843a..cb330ce877 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -245,6 +245,29 @@ static void populate_physmap(struct memop_args *a)
+ 
+                 mfn = _mfn(gpfn);
+             }
++            else if ( is_domain_using_staticmem(d) )
++            {
++                /*
++                 * No easy way to guarantee the retrieved pages are contiguous,
++                 * so forbid non-zero-order requests here.
++                 */
++                if ( a->extent_order != 0 )
++                {
++                    gdprintk(XENLOG_WARNING,
++                             "Cannot allocate static order-%u pages for static %pd\n",
++                             a->extent_order, d);
++                    goto out;
++                }
++
++                mfn = acquire_reserved_page(d, a->memflags);
++                if ( mfn_eq(mfn, INVALID_MFN) )
++                {
++                    gdprintk(XENLOG_WARNING,
++                             "%pd: failed to retrieve a reserved page\n",
++                             d);
++                    goto out;
++                }
++            }
+             else
+             {
+                 page = alloc_domheap_pages(d, a->extent_order, a->memflags);
 diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 7d223087c0..fee396a92d 100644
+index fee396a92d..74628889ea 100644
 --- a/xen/common/page_alloc.c
 +++ b/xen/common/page_alloc.c
-@@ -2673,26 +2673,13 @@ void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
+@@ -2673,9 +2673,8 @@ void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
      spin_unlock(&heap_lock);
  }
  
--/*
-- * Acquire nr_mfns contiguous reserved pages, starting at #smfn, of
-- * static memory.
-- * This function needs to be reworked if used outside of boot.
-- */
--static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
--                                                         unsigned long nr_mfns,
--                                                         unsigned int memflags)
-+static bool __init prepare_staticmem_pages(struct page_info *pg,
-+                                           unsigned long nr_mfns,
-+                                           unsigned int memflags)
+-static bool __init prepare_staticmem_pages(struct page_info *pg,
+-                                           unsigned long nr_mfns,
+-                                           unsigned int memflags)
++static bool prepare_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
++                                    unsigned int memflags)
  {
      bool need_tlbflush = false;
      uint32_t tlbflush_timestamp = 0;
-     unsigned long i;
+@@ -2756,21 +2755,9 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
+     return pg;
+ }
+ 
+-/*
+- * Acquire nr_mfns contiguous pages, starting at #smfn, of static memory,
+- * then assign them to one specific domain #d.
+- */
+-int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
+-                                   unsigned int nr_mfns, unsigned int memflags)
++static int assign_domstatic_pages(struct domain *d, struct page_info *pg,
++                                  unsigned int nr_mfns, unsigned int memflags)
+ {
 -    struct page_info *pg;
 -
--    ASSERT(nr_mfns);
--    for ( i = 0; i < nr_mfns; i++ )
--        if ( !mfn_valid(mfn_add(smfn, i)) )
--            return NULL;
+-    ASSERT_ALLOC_CONTEXT();
 -
--    pg = mfn_to_page(smfn);
+-    pg = acquire_staticmem_pages(smfn, nr_mfns, memflags);
+-    if ( !pg )
+-        return -ENOENT;
+-
+     if ( !d || (memflags & (MEMF_no_owner | MEMF_no_refcount)) )
+     {
+         /*
+@@ -2789,6 +2776,53 @@ int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
  
-     spin_lock(&heap_lock);
- 
-@@ -2703,7 +2690,7 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
-         {
-             printk(XENLOG_ERR
-                    "pg[%lu] Static MFN %"PRI_mfn" c=%#lx t=%#x\n",
--                   i, mfn_x(smfn) + i,
-+                   i, mfn_x(page_to_mfn(pg)) + i,
-                    pg[i].count_info, pg[i].tlbflush_timestamp);
-             goto out_err;
-         }
-@@ -2727,6 +2714,38 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
-     if ( need_tlbflush )
-         filtered_flush_tlb_mask(tlbflush_timestamp);
- 
-+    return true;
+     return 0;
+ }
 +
-+ out_err:
-+    while ( i-- )
-+        pg[i].count_info = PGC_static | PGC_state_free;
++/*
++ * Acquire nr_mfns contiguous pages, starting at #smfn, of static memory,
++ * then assign them to one specific domain #d.
++ */
++int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
++                                   unsigned int nr_mfns, unsigned int memflags)
++{
++    struct page_info *pg;
 +
-+    spin_unlock(&heap_lock);
++    ASSERT_ALLOC_CONTEXT();
 +
-+    return false;
++    pg = acquire_staticmem_pages(smfn, nr_mfns, memflags);
++    if ( !pg )
++        return -ENOENT;
++
++    if ( assign_domstatic_pages(d, pg, nr_mfns, memflags) )
++        return -EINVAL;
++
++    return 0;
 +}
 +
 +/*
-+ * Acquire nr_mfns contiguous reserved pages, starting at #smfn, of
-+ * static memory.
-+ * This function needs to be reworked if used outside of boot.
++ * Acquire a page from reserved page list(resv_page_list), when populating
++ * memory for static domain on runtime.
 + */
-+static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
-+                                                         unsigned long nr_mfns,
-+                                                         unsigned int memflags)
++mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags)
 +{
-+    unsigned long i;
-+    struct page_info *pg;
++    struct page_info *page;
 +
-+    ASSERT(nr_mfns);
-+    for ( i = 0; i < nr_mfns; i++ )
-+        if ( !mfn_valid(mfn_add(smfn, i)) )
-+            return NULL;
++    /* Acquire a page from reserved page list(resv_page_list). */
++    page = page_list_remove_head(&d->resv_page_list);
++    if ( unlikely(!page) )
++        return INVALID_MFN;
 +
-+    pg = mfn_to_page(smfn);
-+    if ( !prepare_staticmem_pages(pg, nr_mfns, memflags) )
-+        return NULL;
++    if ( !prepare_staticmem_pages(page, 1, memflags) )
++        goto fail;
 +
-     /*
-      * Ensure cache and RAM are consistent for platforms where the guest
-      * can control its own visibility of/through the cache.
-@@ -2735,14 +2754,6 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
-         flush_page_to_ram(mfn_x(smfn) + i, !(memflags & MEMF_no_icache_flush));
- 
-     return pg;
--
-- out_err:
--    while ( i-- )
--        pg[i].count_info = PGC_static | PGC_state_free;
--
--    spin_unlock(&heap_lock);
--
--    return NULL;
- }
++    if ( assign_domstatic_pages(d, page, 1, memflags) )
++        goto fail;
++
++    return page_to_mfn(page);
++
++ fail:
++    page_list_add_tail(page, &d->resv_page_list);
++    return INVALID_MFN;
++}
+ #endif
  
  /*
+diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+index 68a647ceae..e6803fd8a2 100644
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -99,6 +99,7 @@ int acquire_domstatic_pages(struct domain *d, mfn_t smfn, unsigned int nr_mfns,
+ #else
+ #define put_static_pages(d, page, order) ((void)(d), (void)(page), (void)(order))
+ #endif
++mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags);
+ 
+ /* Map machine page range in Xen virtual address space. */
+ int map_pages_to_xen(
 -- 
 2.25.1
 
