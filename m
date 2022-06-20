@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F1E655211D
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 17:35:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.352819.579692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 656AF55218C
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 17:49:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.352828.579702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3JQM-0006eP-56; Mon, 20 Jun 2022 15:34:46 +0000
+	id 1o3JeC-0008De-FO; Mon, 20 Jun 2022 15:49:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 352819.579692; Mon, 20 Jun 2022 15:34:46 +0000
+Received: by outflank-mailman (output) from mailman id 352828.579702; Mon, 20 Jun 2022 15:49:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3JQM-0006ax-2H; Mon, 20 Jun 2022 15:34:46 +0000
-Received: by outflank-mailman (input) for mailman id 352819;
- Mon, 20 Jun 2022 15:34:44 +0000
+	id 1o3JeC-0008Ak-BS; Mon, 20 Jun 2022 15:49:04 +0000
+Received: by outflank-mailman (input) for mailman id 352828;
+ Mon, 20 Jun 2022 15:49:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Hycu=W3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o3JQK-0006ar-NU
- for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 15:34:44 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hWFk=W3=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1o3JeB-0008Ae-0j
+ for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 15:49:03 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81e66a4c-f0ae-11ec-bd2d-47488cf2e6aa;
- Mon, 20 Jun 2022 17:34:43 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 69BD121A37;
- Mon, 20 Jun 2022 15:34:43 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1145513638;
- Mon, 20 Jun 2022 15:34:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id a+HBApOTsGJ3fwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 20 Jun 2022 15:34:43 +0000
+ id 81716efb-f0b0-11ec-bd2d-47488cf2e6aa;
+ Mon, 20 Jun 2022 17:49:01 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id c4so17892101lfj.12
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Jun 2022 08:49:01 -0700 (PDT)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ m9-20020a2e9349000000b0024f3d1dae94sm1690149ljh.28.2022.06.20.08.48.59
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 20 Jun 2022 08:49:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,157 +44,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81e66a4c-f0ae-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1655739283; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ACoOTC2stnarzxryygTxid+tfZOlr5PbEG8RRUFLwi8=;
-	b=H3a/JMLM1Dr5ocBo4uC4Ohfb/QWojMoWb6FZRQfCFMKGr9SBY4x6Jp9IT9avM7jfOYh9tE
-	cthAzt5hRvfOCtsBsMiSzNg6hslRkSWmp4FPU0XDZXD4IxhDaqG9pWYBnJZ8GJlYu2djbq
-	M77Z4uBU6VoCGZp5x0uWx6hCbp9rUH0=
-Message-ID: <ddb0cc0d-cefc-4f33-23f8-3a94c7c51a49@suse.com>
-Date: Mon, 20 Jun 2022 17:34:42 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH 1/2] x86/pat: fix x86_has_pat_wp()
-Content-Language: en-US
-To: Dave Hansen <dave.hansen@intel.com>, Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, jbeulich@suse.com,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- "H. Peter Anvin" <hpa@zytor.com>
-References: <20220503132207.17234-1-jgross@suse.com>
- <20220503132207.17234-2-jgross@suse.com> <YrBLU2C5cJoalnax@zn.tnic>
- <1cfde4bf-241f-d94c-ffd7-2a11cf9aa1f2@suse.com>
- <63ccccac-2aa7-8850-9cd3-a8b7b89e1872@intel.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <63ccccac-2aa7-8850-9cd3-a8b7b89e1872@intel.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0we9pLFkJBVTNxTMON0yDeQD"
+X-Inumbo-ID: 81716efb-f0b0-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id;
+        bh=BxFmrRIa+vekezXU2ndkJI53IFxQQRuwCL2hgCyh3rI=;
+        b=EE5uYpfUwbW+yhCsitbDozwmKkNg4mpG4ZQahK3XlYeTGhDYoqvVpHCoT5xzpURTcc
+         cjNo0lfLdmeVJ5IQ69SU5T0l5SyOsyTVRZ/JsJgYtYepPqmK4x7OlqRlJs6A+dxXh09z
+         TyqSN8Ltk0iX1VNgQ3wwi4LxxDz9REMLqH6/vXtkx6JVA0buOi5ldRHYWRVIGBavD/oT
+         b8au3yNt/IwMuIePkU8N12rbDfxXhc9SDjRLMjVsdttQ2o7IWrpQ6oW1nDpitO/31dHU
+         cYm9lqncdKbu0sq+m+mFIPb1hRuVEeWq3M4mVzMtBEQ9S3WQW6hoqAGucaMBRHAv9N8q
+         VRjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=BxFmrRIa+vekezXU2ndkJI53IFxQQRuwCL2hgCyh3rI=;
+        b=LioC+CWrqYcQgoxErWyFYCjsEPZVjR8CJrrdhOzjFY/RlLtVwZDRteGk3F3Gr15qJ4
+         re9VjFOPR+1kaUNANoLdrHorcldX8Odqtc8j1hY5OdBQyiq/fCM5TU8RZ7glFYtgbWgV
+         q1bGhKPiQqNnju/5FFX/oEAQ3mTnUPU88j/bhnpVk1La2loeJv/JLDlefATpDnqxej9T
+         s6mkxmdHV7KmhUYQfsGSMT7KBkI5CN1JOWekn6sZIhiESStyBQ5sHXTgxxewA48Og22Q
+         ioCTNpJwgDdbT+y3nrb5um2iqPAr4cTisGtF/2VK2ahtsE+xTM2Ad0A+It870l1d25y8
+         b6tA==
+X-Gm-Message-State: AJIora/vqpzbO6NyrDR61BDkXdZ14quDif9eFhAiElY9Mw8his6IYdhU
+	lloRjWVDeToh7fioBUVbpoCszeH3n1E=
+X-Google-Smtp-Source: AGRyM1sqdWC3IbkXi29u50LPbXr7CiOhdvbGy2bBIGNkubnWBbrYqutLjzCLlsUENGqK/CS2NF49dA==
+X-Received: by 2002:a05:6512:228c:b0:479:2fa9:6773 with SMTP id f12-20020a056512228c00b004792fa96773mr13621418lfu.413.1655740140978;
+        Mon, 20 Jun 2022 08:49:00 -0700 (PDT)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>
+Subject: [PATCH V1 0/2] Ability to allocate contiguous (was DMAable) pages using unpopulated-alloc
+Date: Mon, 20 Jun 2022 18:48:54 +0300
+Message-Id: <1655740136-3974-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0we9pLFkJBVTNxTMON0yDeQD
-Content-Type: multipart/mixed; boundary="------------iPeeSZwKgEsGXEdaV0RlhR0A";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Dave Hansen <dave.hansen@intel.com>, Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, jbeulich@suse.com,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <ddb0cc0d-cefc-4f33-23f8-3a94c7c51a49@suse.com>
-Subject: Re: [PATCH 1/2] x86/pat: fix x86_has_pat_wp()
-References: <20220503132207.17234-1-jgross@suse.com>
- <20220503132207.17234-2-jgross@suse.com> <YrBLU2C5cJoalnax@zn.tnic>
- <1cfde4bf-241f-d94c-ffd7-2a11cf9aa1f2@suse.com>
- <63ccccac-2aa7-8850-9cd3-a8b7b89e1872@intel.com>
-In-Reply-To: <63ccccac-2aa7-8850-9cd3-a8b7b89e1872@intel.com>
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
---------------iPeeSZwKgEsGXEdaV0RlhR0A
-Content-Type: multipart/mixed; boundary="------------Ik6WguhLVV1z6SqwyzSmNVps"
+Hello all.
 
---------------Ik6WguhLVV1z6SqwyzSmNVps
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+You can find previous discussion at [1].
 
-T24gMjAuMDYuMjIgMTc6MjcsIERhdmUgSGFuc2VuIHdyb3RlOg0KPiBPbiA2LzIwLzIyIDAz
-OjQxLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4+IEJ1dCBJJ20gb25seSBndWVzc2luZyAt
-IHRoaXMgbmVlZHMgYSAqbG90KiBtb3JlIGVsYWJvcmF0aW9uIGFuZA0KPj4+IGV4cGxhbmF0
-aW9uIHdoeSBleGFjdGx5IHRoaXMgaXMgbmVlZGVkLg0KPj4NCj4+IEkgd2lsbCBjb3JyZWN0
-IHRoZSBjb2RlIGFuZCB1cGRhdGUgdGhlIGNvbW1pdCBtZXNzYWdlLg0KPiANCj4gSXQgd291
-bGQgYWxzbyBiZSBncmVhdCB0byBjb3ZlciB0aGUgZW5kLXVzZXItdmlzaWJsZSBpbXBhY3Qg
-b2YgdGhlIGJ1Zw0KPiBhbmQgdGhlIGZpeC4gIEl0IF9sb29rc18gbGlrZSBpdCB3aWxsIHBy
-b2JhYmx5IG9ubHkgYWZmZWN0IGFuIFNFVg0KPiBzeXN0ZW0ncyBhYmlsaXR5IHRvIHJlYWQg
-c29tZSBFRkkgZGF0YS4gIFRoYXQgd2lsbCBwcmVzdW1hYmx5IGJlIHByZXR0eQ0KPiBiYWQg
-YmVjYXVzZSBpdCBlbmRzIHVwIHJlYWRpbmcgZnJvbSBhbiBlbmNyeXB0ZWQgbWFwcGluZyBp
-bnN0ZWFkIG9mIGENCj4gZGVjcnlwdGVkIG9uZS4NCg0KWGVuIGRvZXNuJ3Qgc3VwcG9ydCBT
-RVYgZ3Vlc3RzIHlldC4gU28gdGhlIG9ubHkgY2F2ZWF0IGhlcmUgd291bGQgYmUgRUZJDQpz
-ZXR0aW5nIHVwIFBBVCBieSBpdHNlbGYuDQoNCk5vdCBzdXJlIHRoaXMgaXMgcmVhbGx5IGEg
-cmVhbCB3b3JsZCBpc3N1ZS4NCg0KDQpKdWVyZ2VuDQo=
---------------Ik6WguhLVV1z6SqwyzSmNVps
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+The purpose of this patch series is to get feedback about supporting the allocation
+of contiguous pages by Linux's unpopulated-alloc.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+The unpopulated-alloc feature has been enabled on Arm since the extended-regions support
+reached upstream. With that (if, of course, we run new Xen version and Xen was able to
+allocate extended regions), we don't allocate the real RAM pages from host memory and balloon
+them out (in order to obtain physical memory space to map the guest pages into) anymore, we use
+the unpopulated pages instead. And it seems that all users I have played with on Arm (I mean,
+Xen PV and virtio backends) are happy with the pages provided by xen_alloc_unpopulated_pages().
+It is worth mentioning that these pages are not contiguous, but this wasn't an issue so far.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+There is one place, where we still steal RAM pages if user-space Xen PV backend tries
+to establish grant mapping with a need to be backed by a DMA buffer for the sake of zero-copy
+(see dma_alloc*() usage in gnttab_dma_alloc_pages()).
 
---------------Ik6WguhLVV1z6SqwyzSmNVps--
+And, if I am not mistaken (there might be pitfalls which I am not aware of), we could avoid
+wasting real RAM pages in that particular case also by adding an ability to allocate
+unpopulated contiguous pages (which are guaranteed to be contiguous in IPA).
+The benefit is quite clear here:
+1. Avoid wasting real RAM pages (reducing the amount of CMA memory usable) for allocating
+   physical memory space to map the granted buffer into (which can be big enough if
+   we deal with Xen PV Display driver using multiple Full HD buffers)
+2. Avoid superpage shattering in Xen P2M when establishing stage-2 mapping for that
+   granted buffer
+3. Avoid extra operations needed for the granted buffer to be properly mapped and
+   unmapped such as ballooning in/out real RAM pages
+   
+The corresponding series is located at [2]. In my Arm64 based environment the series works good.
+Only build tested on x86.
 
---------------iPeeSZwKgEsGXEdaV0RlhR0A--
+Any feedback/help would be highly appreciated.
 
---------------0we9pLFkJBVTNxTMON0yDeQD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+[1] https://lore.kernel.org/xen-devel/1652810658-27810-1-git-send-email-olekstysh@gmail.com/
+[2] https://github.com/otyshchenko1/linux/commits/unpopulated-cma1
 
------BEGIN PGP SIGNATURE-----
+Oleksandr Tyshchenko (2):
+  xen/unpopulated-alloc: Introduce helpers for contiguous allocations
+  xen/grant-table: Use unpopulated contiguous pages instead of real RAM
+    ones
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKwk5IFAwAAAAAACgkQsN6d1ii/Ey8c
-oAf/Tm/GXq1f93iDng9MUWcolmpgjyI+fikteB4dq/37A/h/SsPHjcq5sNH3u1wDAOBPGmG0VCjt
-1o6GeZZTPbTwbhKzScy5GZEMRvxVi3CtLc4DTNnJdENnYFAraKRftqEX82hBkqWBiW8OxpT7yl7m
-bW+zbuE76dGSxAs8uw9jjTjK+f82NVtBpOR2qluCpnoGvOY7MOS3NW6Jeoj6NaITJmosY+iBQa8h
-1yMY307n1KqB3Djz4Lwv/sISeS6uxroVIs0aCieke/7lmbnCl48zYL+24kSFWZ17j05LuJNwKYLN
-X9Xu8Y9X5Afhs4A5zxjwlrLbF1MWtNIXlExtJ+McgQ==
-=OupB
------END PGP SIGNATURE-----
+ drivers/xen/grant-table.c       |  24 +++++
+ drivers/xen/unpopulated-alloc.c | 188 +++++++++++++++++++++++++++++-----------
+ include/xen/xen.h               |  20 +++++
+ 3 files changed, 182 insertions(+), 50 deletions(-)
 
---------------0we9pLFkJBVTNxTMON0yDeQD--
+-- 
+2.7.4
+
 
