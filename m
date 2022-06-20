@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E0CF551974
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 15:05:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.352793.579654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14268551AAE
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 15:23:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.352802.579669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3H63-00083Q-UZ; Mon, 20 Jun 2022 13:05:39 +0000
+	id 1o3HME-00022b-F1; Mon, 20 Jun 2022 13:22:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 352793.579654; Mon, 20 Jun 2022 13:05:39 +0000
+Received: by outflank-mailman (output) from mailman id 352802.579669; Mon, 20 Jun 2022 13:22:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3H63-00081E-RB; Mon, 20 Jun 2022 13:05:39 +0000
-Received: by outflank-mailman (input) for mailman id 352793;
- Mon, 20 Jun 2022 13:05:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t3Ah=W3=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1o3H61-000818-WB
- for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 13:05:38 +0000
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [2607:f8b0:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac9939ff-f099-11ec-b725-ed86ccbb4733;
- Mon, 20 Jun 2022 15:05:36 +0200 (CEST)
-Received: by mail-pf1-x434.google.com with SMTP id 128so3171396pfv.12
- for <xen-devel@lists.xenproject.org>; Mon, 20 Jun 2022 06:05:36 -0700 (PDT)
+	id 1o3HME-00020Q-B8; Mon, 20 Jun 2022 13:22:22 +0000
+Received: by outflank-mailman (input) for mailman id 352802;
+ Mon, 20 Jun 2022 13:22:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Hcs/=W3=alien8.de=bp@srs-se1.protection.inumbo.net>)
+ id 1o3HMC-00020K-2K
+ for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 13:22:20 +0000
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 01885a76-f09c-11ec-bd2d-47488cf2e6aa;
+ Mon, 20 Jun 2022 15:22:17 +0200 (CEST)
+Received: from zn.tnic (p200300ea974657f0329c23fffea6a903.dip0.t-ipconnect.de
+ [IPv6:2003:ea:9746:57f0:329c:23ff:fea6:a903])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E81721EC0657;
+ Mon, 20 Jun 2022 15:22:12 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,87 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac9939ff-f099-11ec-b725-ed86ccbb4733
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=5XCq3aw9mDW4vLXTuAFW7Gl3EWmIsDOrQpN5UmWv+fQ=;
-        b=Ca8jZKgHlF+F7xawEGDXXVybMDyfFxCJfWeGe5rrwwK+Rr/qm6/8/qwL3VW1LiU64p
-         AcKMG7+nf5bJxilwQH5VyjMsQwtFSDhsXeVw854pfdR5VsA5RgAuXoqiVWRKT2m1GH9Z
-         ooA3NrC3nbLhKXvBQYIoZD9zkv1QZpWwynStcbJZB20ypW+VqmIUmGdIpS/RuL6udzRw
-         aEXqLR4Tpb7tVMv53/KziPMeSL5AQYuRn4p9+SjUlnaNIRMhrr9qO7JduaUMRtfMKoCt
-         ftixJOFPZn4qTX2u33HAEpvsG3CLLjZFgc33VphqNWdtGIhEN/nbgOxrXHO4ioXDnd4v
-         3r7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=5XCq3aw9mDW4vLXTuAFW7Gl3EWmIsDOrQpN5UmWv+fQ=;
-        b=TM3WObaYekd+CrTFIQR8ufpP8Uisxn0hxEaLPrqlM3hwrovPlYwOFeto4tw9B9XnW5
-         bzrz2btN7idV5rfPtgdj0zfjFB1phCKs4bdNu7+MHjytFh7w1W5+y4dYPFEoG9LDCVUo
-         y2zfuQ3Zg7NI4nMIYntqvx2aRiMD3/EjtaspVS8zQedUA3oIvJIC+ERwi4/0rPGzDmyN
-         H+9VapoY3xhKSnvVcG+Zsd5cul/cKFg4Zlqzyf60HOcgGn5NHnrAUfo+vtWNo/U5SYva
-         khDBkItTFsCc3Acwi6nSGE2Oq1lt2TNBBs6zAR+/Mer+4Vs76d+v/jyyTww4Mtgn6wQa
-         u4Ng==
-X-Gm-Message-State: AJIora+881xyzcHll63rGGLzqfBz9nCeXZvQD5Vfli/RenYsPxwkvKKR
-	q07LhmsTckA6i2fps/bhdvQMNLIlXylIKIyMttfZkFhlBxI=
-X-Google-Smtp-Source: AGRyM1uXBgvYNGyYYiJ7P+RDvneEFsseZqD3e1M3vKtyVOasZKg0d1N4yYI9FygAGJMznCH2nFrZKHs8oifoCavKCk8=
-X-Received: by 2002:a05:6a00:18a9:b0:51b:f63b:6f7c with SMTP id
- x41-20020a056a0018a900b0051bf63b6f7cmr24394513pfh.49.1655730335169; Mon, 20
- Jun 2022 06:05:35 -0700 (PDT)
+X-Inumbo-ID: 01885a76-f09c-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+	t=1655731333;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+	bh=LrGpaF007OQqZrjEUL4cOEK+6b5ptHcd1OgrPbOBhQc=;
+	b=kWLHioT5UQlaSJoVi5j86oOVwPwb26iLxGk6Lbs+ei26Nq/TNiLbkDhLvIBEcM1dDW7PwE
+	REHLuI7rtdbxYZJ11zXspxBMbDlwr0roQw/RaMWMbPlZlmUydz0+9GqupSWNQ5iHJDtzLd
+	ZDKnGzQwg1BILxQITGEggBx6lvjZ+IE=
+Date: Mon, 20 Jun 2022 15:22:08 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Juergen Gross <jgross@suse.com>, Tom Lendacky <thomas.lendacky@amd.com>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH v2] x86/pat: fix x86_has_pat_wp()
+Message-ID: <YrB0gNtIfCwV+xnE@zn.tnic>
+References: <20220620113441.23961-1-jgross@suse.com>
 MIME-Version: 1.0
-References: <20220609061812.422130-1-jens.wiklander@linaro.org>
- <20220609061812.422130-3-jens.wiklander@linaro.org> <874k0nhvsq.fsf@epam.com>
- <20220616223728.GA71444@jade> <94122e8d-224d-2632-27ad-d56d3a24b367@xen.org>
-In-Reply-To: <94122e8d-224d-2632-27ad-d56d3a24b367@xen.org>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Mon, 20 Jun 2022 15:05:24 +0200
-Message-ID: <CAHUa44E7takcNtXtLxmrMdDV+hO=86uBpJz7tjp_W26x1mGB-Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] xen/arm: add FF-A mediator
-To: Julien Grall <julien@xen.org>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20220620113441.23961-1-jgross@suse.com>
 
-Hi Julien,
++ Tom.
 
-On Fri, Jun 17, 2022 at 10:16 AM Julien Grall <julien@xen.org> wrote:
->
-> Hi Jens,
->
-> On 16/06/2022 23:37, Jens Wiklander wrote:
-> > On Tue, Jun 14, 2022 at 07:47:18PM +0000, Volodymyr Babchuk wrote:
-> >>
-> >> Hello Jens,
-> >>
-> >> Sorry for late review, I was busy with internal projects.
-> >>
-> >> This is preliminary review. I gave up at scatter-gather operations. Need
-> >> more time to review them properly.
-> >
-> > No problem, thanks for taking the time.
-> >
-> >>
-> >> One thing that bothers me is that Xen is non-preemptive and there are
-> >> plenty potentially long-running operations.
-> >
-> > There's room to deal with that in the FF-A specification. These scatter
-> > gather operation are quite complicated so I started with the minimum. We
-> > can as a future optimization address the problem with long running
-> > operations.
->
-> I would be OK to defer this work. However, I think this should be
-> written down as Xen community will not be able to security support until
-> we resolved the known places where a vCPU may hog pCPU longer than
-> necessary.
->
-> This reminds me that this series doesn't add a support statement for the
-> new subsystem in SUPPORT.md. AFAICT, this should be tech preview for now.
+On Mon, Jun 20, 2022 at 01:34:41PM +0200, Juergen Gross wrote:
+> x86_has_pat_wp() is using a wrong test, as it relies on the normal
+> PAT configuration used by the kernel. In case the PAT MSR has been
+> setup by another entity (e.g. BIOS or Xen hypervisor) it might return
+> false even if the PAT configuration is allowing WP mappings.
 
-I'll add an entry for this.
+... because Xen doesn't allow writing the PAT MSR. Please explain
+exactly what happens because we will forget.
 
-Thanks,
-Jens
+> The correct way to test for WP support is:
+> 
+> 1. Get the PTE protection bits needed to select WP mode by reading
+>    __cachemode2pte_tbl[_PAGE_CACHE_MODE_WP] (depending on the PAT MSR
+>    setting this might return protection bits for a stronger mode, e.g.
+>    UC-)
+> 2. Translate those bits back into the real cache mode selected by those
+>    PTE bits by reading __pte2cachemode_tbl[__pte2cm_idx(prot)]
+> 3. Test for the cache mode to be _PAGE_CACHE_MODE_WP
+
+Yes, this is a good explanation albeit a bit too verbose. You can stick
+a shorter version of it as a comment over the function so that we don't
+have to swap it all back in next time.
+
+> Fixes: 1f6f655e01ad ("x86/mm: Add a x86_has_pat_wp() helper")
+
+If anything, this should be:
+
+f88a68facd9a ("x86/mm: Extend early_memremap() support with additional attrs")
+
+Also, I'm thinking CC:stable here.
+
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - fix indexing into __pte2cachemode_tbl[]
+
+Yes, in any case, I see it now. The key aspect being in the comment
+above it:
+
+ *   Index into __pte2cachemode_tbl[] are the caching attribute bits of the pte
+ *   (_PAGE_PWT, _PAGE_PCD, _PAGE_PAT) at index bit positions 0, 1, 2.
+
+which is how one should index into that array.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
