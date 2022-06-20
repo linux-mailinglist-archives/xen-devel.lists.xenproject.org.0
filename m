@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14268551AAE
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 15:23:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.352802.579669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 381D55520E1
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 17:29:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.352811.579679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3HME-00022b-F1; Mon, 20 Jun 2022 13:22:22 +0000
+	id 1o3JJb-0005C5-CR; Mon, 20 Jun 2022 15:27:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 352802.579669; Mon, 20 Jun 2022 13:22:22 +0000
+Received: by outflank-mailman (output) from mailman id 352811.579679; Mon, 20 Jun 2022 15:27:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3HME-00020Q-B8; Mon, 20 Jun 2022 13:22:22 +0000
-Received: by outflank-mailman (input) for mailman id 352802;
- Mon, 20 Jun 2022 13:22:20 +0000
+	id 1o3JJb-00059j-9H; Mon, 20 Jun 2022 15:27:47 +0000
+Received: by outflank-mailman (input) for mailman id 352811;
+ Mon, 20 Jun 2022 15:27:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Hcs/=W3=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1o3HMC-00020K-2K
- for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 13:22:20 +0000
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=f0pT=W3=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
+ id 1o3JJZ-00059d-Jd
+ for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 15:27:46 +0000
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 01885a76-f09c-11ec-bd2d-47488cf2e6aa;
- Mon, 20 Jun 2022 15:22:17 +0200 (CEST)
-Received: from zn.tnic (p200300ea974657f0329c23fffea6a903.dip0.t-ipconnect.de
- [IPv6:2003:ea:9746:57f0:329c:23ff:fea6:a903])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E81721EC0657;
- Mon, 20 Jun 2022 15:22:12 +0200 (CEST)
+ id 83dd4510-f0ad-11ec-bd2d-47488cf2e6aa;
+ Mon, 20 Jun 2022 17:27:40 +0200 (CEST)
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2022 08:27:36 -0700
+Received: from echeresh-mobl1.amr.corp.intel.com (HELO [10.209.15.145])
+ ([10.209.15.145])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2022 08:27:36 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +43,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01885a76-f09c-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1655731333;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
-	bh=LrGpaF007OQqZrjEUL4cOEK+6b5ptHcd1OgrPbOBhQc=;
-	b=kWLHioT5UQlaSJoVi5j86oOVwPwb26iLxGk6Lbs+ei26Nq/TNiLbkDhLvIBEcM1dDW7PwE
-	REHLuI7rtdbxYZJ11zXspxBMbDlwr0roQw/RaMWMbPlZlmUydz0+9GqupSWNQ5iHJDtzLd
-	ZDKnGzQwg1BILxQITGEggBx6lvjZ+IE=
-Date: Mon, 20 Jun 2022 15:22:08 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Juergen Gross <jgross@suse.com>, Tom Lendacky <thomas.lendacky@amd.com>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH v2] x86/pat: fix x86_has_pat_wp()
-Message-ID: <YrB0gNtIfCwV+xnE@zn.tnic>
-References: <20220620113441.23961-1-jgross@suse.com>
+X-Inumbo-ID: 83dd4510-f0ad-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1655738860; x=1687274860;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=8giL0qZv3yIElRFo4fVuIKMG5Tx+3XAwog7jJ8DWOI8=;
+  b=fsMA6M5O2EmDaq5pGmmWI/nwriHtxrXSQO9VZlCo8PJXaFm+qUu00HPL
+   Ctu5NI79TH+QTJmPzriPmA+Cg9uq+8K3xfVBmpQPKk/AXqiUNj0FZ/NM1
+   x4KnD7thqXc/M+5rOpi2+DB9fV6sbKt08q7I0ciI/qJw9bgLXGS9uKCYt
+   D3Ssg3tf9njp1y5RYR1uLQi5rgz0V29yNXMWxGWsX5bKNWmIuGsB2lLJt
+   nduTqXVLHwv8knJXS2VDAf83ET7KRO/ad4kAoKxKlL/mV6v+2/SS3x5DF
+   pKFnFpDU6ujlMwc2ZjrGuVy4XR1Za6XTnRnvjLnZvgQetT3/qxO2WYlfN
+   Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10384"; a="343915119"
+X-IronPort-AV: E=Sophos;i="5.92,207,1650956400"; 
+   d="scan'208";a="343915119"
+X-IronPort-AV: E=Sophos;i="5.92,207,1650956400"; 
+   d="scan'208";a="561998169"
+Message-ID: <63ccccac-2aa7-8850-9cd3-a8b7b89e1872@intel.com>
+Date: Mon, 20 Jun 2022 08:27:33 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220620113441.23961-1-jgross@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 1/2] x86/pat: fix x86_has_pat_wp()
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, Borislav Petkov <bp@alien8.de>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, jbeulich@suse.com,
+ Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
+ <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ "H. Peter Anvin" <hpa@zytor.com>
+References: <20220503132207.17234-1-jgross@suse.com>
+ <20220503132207.17234-2-jgross@suse.com> <YrBLU2C5cJoalnax@zn.tnic>
+ <1cfde4bf-241f-d94c-ffd7-2a11cf9aa1f2@suse.com>
+From: Dave Hansen <dave.hansen@intel.com>
+In-Reply-To: <1cfde4bf-241f-d94c-ffd7-2a11cf9aa1f2@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-+ Tom.
-
-On Mon, Jun 20, 2022 at 01:34:41PM +0200, Juergen Gross wrote:
-> x86_has_pat_wp() is using a wrong test, as it relies on the normal
-> PAT configuration used by the kernel. In case the PAT MSR has been
-> setup by another entity (e.g. BIOS or Xen hypervisor) it might return
-> false even if the PAT configuration is allowing WP mappings.
-
-... because Xen doesn't allow writing the PAT MSR. Please explain
-exactly what happens because we will forget.
-
-> The correct way to test for WP support is:
+On 6/20/22 03:41, Juergen Gross wrote:
+>> But I'm only guessing - this needs a *lot* more elaboration and
+>> explanation why exactly this is needed.
 > 
-> 1. Get the PTE protection bits needed to select WP mode by reading
->    __cachemode2pte_tbl[_PAGE_CACHE_MODE_WP] (depending on the PAT MSR
->    setting this might return protection bits for a stronger mode, e.g.
->    UC-)
-> 2. Translate those bits back into the real cache mode selected by those
->    PTE bits by reading __pte2cachemode_tbl[__pte2cm_idx(prot)]
-> 3. Test for the cache mode to be _PAGE_CACHE_MODE_WP
+> I will correct the code and update the commit message.
 
-Yes, this is a good explanation albeit a bit too verbose. You can stick
-a shorter version of it as a comment over the function so that we don't
-have to swap it all back in next time.
+It would also be great to cover the end-user-visible impact of the bug
+and the fix.  It _looks_ like it will probably only affect an SEV
+system's ability to read some EFI data.  That will presumably be pretty
+bad because it ends up reading from an encrypted mapping instead of a
+decrypted one.
 
-> Fixes: 1f6f655e01ad ("x86/mm: Add a x86_has_pat_wp() helper")
+The
 
-If anything, this should be:
+	pr_warn("failed to early memremap...
 
-f88a68facd9a ("x86/mm: Extend early_memremap() support with additional attrs")
+is (counterintuitively) what is wanted here.
 
-Also, I'm thinking CC:stable here.
-
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V2:
-> - fix indexing into __pte2cachemode_tbl[]
-
-Yes, in any case, I see it now. The key aspect being in the comment
-above it:
-
- *   Index into __pte2cachemode_tbl[] are the caching attribute bits of the pte
- *   (_PAGE_PWT, _PAGE_PCD, _PAGE_PAT) at index bit positions 0, 1, 2.
-
-which is how one should index into that array.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Right?
 
