@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FAD9550FA9
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 07:19:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.352363.579123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9DC1550FAB
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jun 2022 07:22:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.352382.579134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o39oN-0005P3-QF; Mon, 20 Jun 2022 05:18:55 +0000
+	id 1o39rk-0006u2-Ev; Mon, 20 Jun 2022 05:22:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 352363.579123; Mon, 20 Jun 2022 05:18:55 +0000
+Received: by outflank-mailman (output) from mailman id 352382.579134; Mon, 20 Jun 2022 05:22:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o39oN-0005NF-NO; Mon, 20 Jun 2022 05:18:55 +0000
-Received: by outflank-mailman (input) for mailman id 352363;
- Mon, 20 Jun 2022 05:18:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o39rk-0006s3-By; Mon, 20 Jun 2022 05:22:24 +0000
+Received: by outflank-mailman (input) for mailman id 352382;
+ Mon, 20 Jun 2022 05:22:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dqE0=W3=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1o39he-0000ky-5M
- for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 05:11:58 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 814c9547-f057-11ec-bd2d-47488cf2e6aa;
- Mon, 20 Jun 2022 07:11:56 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 401141042;
- Sun, 19 Jun 2022 22:11:56 -0700 (PDT)
-Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
- [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8C2D03F7D7;
- Sun, 19 Jun 2022 22:11:53 -0700 (PDT)
+ <SRS0=6bZF=W3=leemhuis.info=regressions@srs-se1.protection.inumbo.net>)
+ id 1o39ri-0006rx-7c
+ for xen-devel@lists.xenproject.org; Mon, 20 Jun 2022 05:22:22 +0000
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [2a01:488:42:1000:50ed:8234::])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f5579259-f058-11ec-b725-ed86ccbb4733;
+ Mon, 20 Jun 2022 07:22:20 +0200 (CEST)
+Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1o39re-0008H9-Uu; Mon, 20 Jun 2022 07:22:19 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,90 +41,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 814c9547-f057-11ec-bd2d-47488cf2e6aa
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com,
-	Penny Zheng <penny.zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v5 8/8] xen/arm: enable statically shared memory on Dom0
-Date: Mon, 20 Jun 2022 13:11:14 +0800
-Message-Id: <20220620051114.210118-9-Penny.Zheng@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220620051114.210118-1-Penny.Zheng@arm.com>
-References: <20220620051114.210118-1-Penny.Zheng@arm.com>
+X-Inumbo-ID: f5579259-f058-11ec-b725-ed86ccbb4733
+Message-ID: <effc0c6a-9e4d-b503-e4ba-6c8d2da72699@leemhuis.info>
+Date: Mon, 20 Jun 2022 07:22:18 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH 1/2] x86/pat: fix x86_has_pat_wp()
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Borislav Petkov <bp@alien8.de>
+Cc: jbeulich@suse.com, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>
+References: <20220503132207.17234-1-jgross@suse.com>
+ <20220503132207.17234-2-jgross@suse.com>
+ <fb0eadee-1d45-f414-eda4-a87f01eeb57a@suse.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+In-Reply-To: <fb0eadee-1d45-f414-eda4-a87f01eeb57a@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-bounce-key: webpack.hosteurope.de;regressions@leemhuis.info;1655702540;0c7ec7dc;
+X-HE-SMSGID: 1o39re-0008H9-Uu
 
-From: Penny Zheng <penny.zheng@arm.com>
+On 14.06.22 17:09, Juergen Gross wrote:
+> On 03.05.22 15:22, Juergen Gross wrote:
+>> x86_has_pat_wp() is using a wrong test, as it relies on the normal
+>> PAT configuration used by the kernel. In case the PAT MSR has been
+>> setup by another entity (e.g. BIOS or Xen hypervisor) it might return
+>> false even if the PAT configuration is allowing WP mappings.
+>>
+>> Fixes: 1f6f655e01ad ("x86/mm: Add a x86_has_pat_wp() helper")
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>   arch/x86/mm/init.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/x86/mm/init.c b/arch/x86/mm/init.c
+>> index d8cfce221275..71e182ebced3 100644
+>> --- a/arch/x86/mm/init.c
+>> +++ b/arch/x86/mm/init.c
+>> @@ -80,7 +80,8 @@ static uint8_t __pte2cachemode_tbl[8] = {
+>>   /* Check that the write-protect PAT entry is set for write-protect */
+>>   bool x86_has_pat_wp(void)
+>>   {
+>> -    return __pte2cachemode_tbl[_PAGE_CACHE_MODE_WP] ==
+>> _PAGE_CACHE_MODE_WP;
+>> +    return
+>> __pte2cachemode_tbl[__cachemode2pte_tbl[_PAGE_CACHE_MODE_WP]] ==
+>> +           _PAGE_CACHE_MODE_WP;
+>>   }
+>>     enum page_cache_mode pgprot2cachemode(pgprot_t pgprot)
+> 
+> x86 maintainers, please consider taking this patch, as it is fixing
+> a real bug. Patch 2 of this series can be dropped IMO.
 
-To add statically shared memory nodes in Dom0, user shall put according
-static shared memory configuration under /chosen node.
+Juergen, can you help me out here please. Patch 2 afaics was supposed to
+fix this regression I'm tracking:
+https://lore.kernel.org/regressions/YnHK1Z3o99eMXsVK@mail-itl/
 
-This commit adds shm-processing function process_shm in construct_dom0
-to enable statically shared memory on Dom0.
+Is Patch 1 alone enough to fix it? Or is there a different fix for it?
+Or is there some other solution to finally fix that regressions that
+ideally should have been fixed weeks ago already?
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
-v5 change:
-- no change
----
-v4 change:
-- no change
----
-v3 change:
-- no change
----
-v2 change:
-- no change
----
- xen/arch/arm/domain_build.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 4d62440a0e..b57c60f411 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2658,6 +2658,11 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
-             if ( res )
-                 return res;
-         }
-+
-+        res = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells,
-+                                    &kinfo->shm_mem);
-+        if ( res )
-+            return res;
-     }
- 
-     res = fdt_end_node(kinfo->fdt);
-@@ -3730,6 +3735,9 @@ static int __init construct_dom0(struct domain *d)
- {
-     struct kernel_info kinfo = {};
-     int rc;
-+#ifdef CONFIG_STATIC_SHM
-+    const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
-+#endif
- 
-     /* Sanity! */
-     BUG_ON(d->domain_id != 0);
-@@ -3764,6 +3772,12 @@ static int __init construct_dom0(struct domain *d)
-     allocate_memory_11(d, &kinfo);
-     find_gnttab_region(d, &kinfo);
- 
-+#ifdef CONFIG_STATIC_SHM
-+    rc = process_shm(d, &kinfo, chosen);
-+    if ( rc < 0 )
-+        return rc;
-+#endif
-+
-     /* Map extra GIC MMIO, irqs and other hw stuffs to dom0. */
-     rc = gic_map_hwdom_extra_mappings(d);
-     if ( rc < 0 )
--- 
-2.25.1
-
+P.S.: As the Linux kernel's regression tracker I deal with a lot of
+reports and sometimes miss something important when writing mails like
+this. If that's the case here, don't hesitate to tell me in a public
+reply, it's in everyone's interest to set the public record straight.
 
