@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C5C4552F68
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jun 2022 12:06:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353149.580056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06437552F7A
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jun 2022 12:12:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353158.580068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3alK-0000Cf-FW; Tue, 21 Jun 2022 10:05:34 +0000
+	id 1o3arV-0001go-73; Tue, 21 Jun 2022 10:11:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353149.580056; Tue, 21 Jun 2022 10:05:34 +0000
+Received: by outflank-mailman (output) from mailman id 353158.580068; Tue, 21 Jun 2022 10:11:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3alK-0000AZ-CM; Tue, 21 Jun 2022 10:05:34 +0000
-Received: by outflank-mailman (input) for mailman id 353149;
- Tue, 21 Jun 2022 10:05:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o3arV-0001dm-3j; Tue, 21 Jun 2022 10:11:57 +0000
+Received: by outflank-mailman (input) for mailman id 353158;
+ Tue, 21 Jun 2022 10:11:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kiuJ=W4=gmail.com=dmitry.semenets@srs-se1.protection.inumbo.net>)
- id 1o3alI-0000AR-FX
- for xen-devel@lists.xenproject.org; Tue, 21 Jun 2022 10:05:32 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aee7d78f-f149-11ec-b725-ed86ccbb4733;
- Tue, 21 Jun 2022 12:05:31 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id cf14so8871405edb.8
- for <xen-devel@lists.xenproject.org>; Tue, 21 Jun 2022 03:05:31 -0700 (PDT)
+ <SRS0=/KMk=W4=citrix.com=prvs=16408edfd=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1o3arT-0001dg-8N
+ for xen-devel@lists.xenproject.org; Tue, 21 Jun 2022 10:11:55 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9158e4a7-f14a-11ec-bd2d-47488cf2e6aa;
+ Tue, 21 Jun 2022 12:11:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,154 +36,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aee7d78f-f149-11ec-b725-ed86ccbb4733
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=PJC2Yr++Ft5B3thwtCw9JLqY/FSgfHiF5Q1iuBYB6EM=;
-        b=ma+c6YIug7mb0eXLsx8RXJmc498OwQG3Z3SP5PIGNzNg9pkTlQICnleBczwiPtRYaU
-         6sT4J51xDP2Mdkek9hl4pyPq8TXgQJ2g8KsrQGmVGQXvUDKecXHpp7vfVfL0JbDGZeLk
-         4wqGqasD3RzduGUmopyujo2qlF8Z8dyzjSC4smyHIQFSHE1UIkzf3Zpa9quYR8n5ov21
-         Ex9e4O2BEdqB1zrxBuH3BJXqI2xVfk3vsLFvfHPWNBBDA7nx0+5vO54hN3hc8CqD4NXO
-         G4Id8iwKCC303IXmNQA3r8UIKiTc0ZLulFar60ywwjJiwYSG9QKfJIa/B1S5yeK948CQ
-         FZOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=PJC2Yr++Ft5B3thwtCw9JLqY/FSgfHiF5Q1iuBYB6EM=;
-        b=Q+kJ5wi1KTAzcCLXuKFLcOI2e7u8f9uqdL8JRwSh0GGrSFD1pqzYavNVeVfd2HPXY7
-         NOeZmWcVfKVUSSu5iWQFjqUx0wLZA9JeajG8KbgOh4UeG+vRg4opsXqqi/peTCZbaCfE
-         7dwHIFs5Q2LX0jIsLH5CXd4Z152DZz8PwlfVUbf+Mpy3/eSmAsG0xFeIm7C4Z2gdi2gO
-         bthiqwonaXT/GbLJqp2/eDERtx8O/LNeJC1LfrM1YAVU2DB5XHN05rSqTiRJVfP61xfY
-         hTMnsBsZ2/Brk7DfUrE1FhoPYMuEwsRltrW985V0F+ez5EVlRCCCfMIcpJf0Tj+ZHJlg
-         yRFQ==
-X-Gm-Message-State: AJIora9cmbHYmE3EElV2ATIXBjCP8o10s1AXMmywGw0kYPvcfkeOiiU7
-	AzoGcnyz3mZ+e7S9cy4SftbWfAtZKvO1scTKw+0/yg6l4mg8Ag==
-X-Google-Smtp-Source: AGRyM1vnyxFLLD2h9Ib9OArObxWsnOWoY4y2KpmSBUyPXcla/92yTcopS6T0gzfDpDaflG3+yewJFdSRuj8/Q46pT3M=
-X-Received: by 2002:a05:6402:2687:b0:430:328f:e46b with SMTP id
- w7-20020a056402268700b00430328fe46bmr34467662edd.33.1655805930661; Tue, 21
- Jun 2022 03:05:30 -0700 (PDT)
+X-Inumbo-ID: 9158e4a7-f14a-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1655806312;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=7MDJa/m5qjvzvr9hb3TI3e/TXp0vIhk0EimgAI5h7z8=;
+  b=ETp6PaeArAqyl4x2MnlgpnGyN5b1a0Kf5RfwETpd2wyMNwY/esh2DsLR
+   MYSxyqIixRX7e5LVPzBIA0XcdF1SzsQB6HbMMzWCC9YnR++TNGH+mNnEN
+   6Q5MZP0y+22F6c/uCR6ZU+5zJoGm+p8TVQ7iKZ5By57X+2YUEzOYrSw0w
+   0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 74055919
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:y0fO/6mIC9K4DnBqOedlZcHo5gyTJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIcWTqCPPuCNmvwfYt+Pt63/R4PvMXVzYQwTFM5/ylnQiMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EgLd9IR2NYy24DnWVrV4
+ LsenuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYWV4rZv3+gv8haj4bITBEG/BA4I2bCC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
+ RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3s3d8zTbfHLA+TIrKWani7t5ExjYgwMtJGJ4yY
+ uJGNWIyMUWZMnWjPH8uN5URh+2OtkW4fhJ7twiVmq8czTXcmVkZPL/Fb4OOJ43iqd9utkSFo
+ mPL+UzpDxdcM8aQoRKe6W6ljOLLmSL9WaoRGae++/osh0ecrkQMDDUGWF39puO24mauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O8c38h2Xw6zYpSOQHHEZTyVpYcYj8sQxQFQC1
+ FWEgtfoDjxHq6CORDSW8bL8kN+pEXFLdylYP3ZCFFZbpYm4yG0usv7RZsY6EvblvMfuJQjXg
+ AKblg5jga0h0edegs1X4mv7byKQSonhF1Bou1qIAzL7sWuVd6b+OdX2tAGzAeJoad/AEwLf5
+ CVsd922trhmMH2bqMCarAzh9pmN7u3NDjDTiEUH83IJp2X0oC7LkWy9DVhDyKZV3iUsI2aBj
+ Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMUsK1LfpH40PB/Pt4wIrKTLufhnU
+ ap3jO72VSpKYUiZ5GHeqxghPU8DmXllmDK7qWHTxBW7y7uODEOopUM+GALWNIgRtfrcyC2Mq
+ oY3H5bbkH13DbyhChQ7BKZOdDjm21BgXcCowyGWH8beSjdb9JYJUaSOmul+IdI7wsy4VI7gp
+ xmAZ6OR83Kn7VWvFOlAQioLhG/HNXqnkU8GAA==
+IronPort-HdrOrdr: A9a23:sXKYbK7YFtBS4KbPawPXwPDXdLJyesId70hD6qhwISY6TiX+rb
+ HJoB17726NtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
+ 0QCpSWY+eQMbEVt6nHCXGDYrQd/OU=
+X-IronPort-AV: E=Sophos;i="5.92,209,1650945600"; 
+   d="scan'208";a="74055919"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+Subject: [XEN PATCH v2.1 1/4] build,include: rework shell script for headers++.chk
+Date: Tue, 21 Jun 2022 11:11:28 +0100
+Message-ID: <20220621101128.50543-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220614162248.40278-1-anthony.perard@citrix.com>
+References: <20220614162248.40278-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
-References: <20220616135541.3333760-1-dmitry.semenets@gmail.com>
- <cf7660da-0bde-865e-7c22-a2e21e31fae5@xen.org> <87wndgh2og.fsf@epam.com>
- <67f56cdd-531b-72fc-1257-214d078f6bb6@xen.org> <87pmj7hczg.fsf@epam.com>
- <f260703d-4651-f9e9-3713-9e85a51b1d70@xen.org> <CACM97VUukaWoegmNvF4F+tf2tHCyPcjG41CSjjz72V2+Cte4Ew@mail.gmail.com>
- <49ace8c9-8fd6-57a2-e0c8-cfba04c9e151@xen.org> <CACM97VV5MO0vmqG01pR7dXg1xU3jptOvjt4S+KS27zD+E66fPw@mail.gmail.com>
- <371f195b-291e-e5e0-9e1d-1b2d2fa55a7d@xen.org>
-In-Reply-To: <371f195b-291e-e5e0-9e1d-1b2d2fa55a7d@xen.org>
-From: Dmytro Semenets <dmitry.semenets@gmail.com>
-Date: Tue, 21 Jun 2022 13:05:19 +0300
-Message-ID: <CACM97VXqAh4ApnkC_1wuDx38njbNxRwGrrfJhHqKV2x3R1svmA@mail.gmail.com>
-Subject: Re: [PATCH] xen: Don't call panic if ARM TF cpu off returns DENIED
-To: Julien Grall <julien@xen.org>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Dmytro Semenets <Dmytro_Semenets@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Julien,
->
-> Hi Dmytro,
->
-> >>>>
-> >>>> Hi,
-> >>>>
-> >>>> On 17/06/2022 10:10, Volodymyr Babchuk wrote:
-> >>>>> Julien Grall <julien@xen.org> writes:
-> >>>>>
-> >>>>>> On 16/06/2022 19:40, Volodymyr Babchuk wrote:
-> >>>>>>> Hi Julien,
-> >>>>>>
-> >>>>>> Hi Volodymyr,
-> >>>>>>
-> >>>>>>> Julien Grall <julien@xen.org> writes:
-> >>>>>>>
-> >>>>>>>> Hi,
-> >>>>>>>>
-> >>>>>>>> On 16/06/2022 14:55, dmitry.semenets@gmail.com wrote:
-> >>>>>>>>> From: Dmytro Semenets <dmytro_semenets@epam.com>
-> >>>>>>>>> According to PSCI specification ARM TF can return DENIED on CPU OFF.
-> >>>>>>>>
-> >>>>>>>> I am confused. The spec is talking about Trusted OS and not
-> >>>>>>>> firmware. The docummentation is also not specific to ARM Trusted
-> >>>>>>>> Firmware. So did you mean "Trusted OS"?
-> >>>>>>> It should be "firmware", I believe.
-> >>>>>>
-> >>>>>> Hmmm... I couldn't find a reference in the spec suggesting that
-> >>>>>> CPU_OFF could return DENIED because of the firmware. Do you have a
-> >>>>>> pointer to the spec?
-> >>>>>
-> >>>>> Ah, looks like we are talking about different things. Indeed, CPU_OFF
-> >>>>> can return DENIED only because of Trusted OS. But entity that *returns*
-> >>>>> the error to a caller is a firmware.
-> >>>>
-> >>>> Right, the interesting part is *why* DENIED is returned not *who*
-> >>>> returns it.
-> >>> ARM TF returns DENIED *only* for the platform I have.
-> >>> We have a dissonance between spec and xen implementation because
-> >>> DENIED returned by
-> >>> ARM TF or Thrusted OS or whatever is not a reason for panic.
-> >>
-> >> I agree that's not a reason for panic. However, knowing the reason does
-> >> help to figure out the correct approach.
-> >>
-> >> For instance, one could have suggest to migrate the trusted OS to
-> >> another pCPU. But this would not have worked for you because the DENIED
-> >> is not about that.
-> >>
-> >>> And we
-> >>> have issues with this.
-> >>> If machine_restart() behaviour is more or less correct  (sometimes
-> >>> reports about panic but restarts the machine)
-> >>
-> >> Right...
-> >>
-> >>> but machine_halt() doesn't work at al
-> >> ... this should also be the case here because machine_halt() could also
-> >> be called from cpu0. So I am a bit confused why you are saying it never
-> >> works.
-> > If machine_halt() called on a CPU other than CPU0 it caused panic and reboot.
-> > If it called on a CPU0 it also caused panic but after system power off
-> > and reboot
-> > is not issued. In this state you can still call the xen console. But
-> > you can't reboot the system.
->
-> I am lost. In a previous e-mail you said that PSCI CPU_OFF would return
-> DENIED on CPU0. IOW, I understood that for other CPUs, it would succeed.
-I'm sorry I confused You.
-Yes it causes panic and prints it will be rebooted but actual reboot
-doesn't happen.
+The command line generated for headers++.chk by make is quite long,
+and in some environment it is too long. This issue have been seen in
+Yocto build environment.
 
->
-> But here, you are tell me the opposite:
->
-> "If it called on a CPU0 it also caused panic but after system power off
->   and reboot".
->
-> If machine_halt() is called from CPU0, then CPU_OFF should not be called
-> on CPU0. So where is that panic coming from?
->
-> >>
-> >>> Transit execution to CPU0 for my understanding is a workaround and
-> >>> this approach will fix
-> >>> machine_restart() function but will not fix machine_halt().
-> >>
-> >> I would say it is a more specific case of what the spec suggests (see
-> >> below). But it should fix both machine_restart() and machine_halt()
-> >> because the last CPU running will be CPU0. So Xen would call SYSTEM_*
-> >> rather than CPU_OF. So I don't understand why you think it will fix one
-> >> but not the other.
-> > Looks like this is specific for my HW case. SYSTEM_OFF doesn't stop
-> > the whole system.
->
-> Hmmm... All the other CPUs should be off (or spinning with interrupt
-> disabled), so are you saying that SYSTEM_OFF return?
-Yes. SYSTEM_OFF returns on my HW. This is reason when CPU_OFF for CPU0 happens.
->
-> Cheers,
->
-> --
-> Julien Grall
+Error messages:
+    make[9]: execvp: /bin/sh: Argument list too long
+    make[9]: *** [include/Makefile:181: include/headers++.chk] Error 127
+
+Rework so that we do the foreach loop in shell rather that make to
+reduce the command line size by a lot. We also need a way to get
+headers prerequisite for some public headers so we use a switch "case"
+in shell to be able to do some simple pattern matching. Variables
+alone in POSIX shell don't allow to work with associative array or
+variables with "/".
+
+Also rework headers99.chk as it has a similar implementation, even if
+with only two headers to check the command line isn't too long at the
+moment.
+
+Reported-by: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Fixes: 28e13c7f43 ("build: xen/include: use if_changed")
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+
+Notes:
+    v3:
+    - add one more pattern to avoid a possible empty body for "case"
+    - use $() instead of `` to execute get_prereq()
+    - also convert headers99_chk
+    - convert some 'tab' to 'space', have only 1 tab at start of line
+    
+    v2:
+    - fix typo in commit message
+    - fix out-of-tree build
+    
+    v1:
+    - was sent as a reply to v1 of the series
+
+ xen/include/Makefile | 37 +++++++++++++++++++++++++++++--------
+ 1 file changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/xen/include/Makefile b/xen/include/Makefile
+index 617599df7e..510f65c92a 100644
+--- a/xen/include/Makefile
++++ b/xen/include/Makefile
+@@ -141,13 +141,24 @@ cmd_header_chk = \
+ quiet_cmd_headers99_chk = CHK     $@
+ define cmd_headers99_chk
+ 	rm -f $@.new; \
+-	$(foreach i, $(filter %.h,$^),                                        \
+-	    echo "#include "\"$(i)\"                                          \
++	get_prereq() {                                                        \
++	    case $$1 in                                                       \
++	    $(foreach i, $(filter %.h,$^),                                    \
++	    $(if $($(patsubst $(srctree)/%,%,$(i))-prereq),                   \
++	        $(i)$(close)                                                  \
++	        echo "$(foreach j, $($(patsubst $(srctree)/%,%,$(i))-prereq), \
++	                -include $(j).h)";;))                                 \
++	    *) ;;                                                             \
++	    esac;                                                             \
++	};                                                                    \
++	for i in $(filter %.h,$^); do                                         \
++	    echo "#include "\"$$i\"                                           \
+ 	    | $(CC) -x c -std=c99 -Wall -Werror                               \
+ 	      -include stdint.h                                               \
+-	      $(foreach j, $($(patsubst $(srctree)/%,%,$i)-prereq), -include $(j).h) \
++	      $$(get_prereq $$i)                                              \
+ 	      -S -o /dev/null -                                               \
+-	    || exit $$?; echo $(i) >> $@.new;) \
++	    || exit $$?; echo $$i >> $@.new;                                  \
++	done;                                                                 \
+ 	mv $@.new $@
+ endef
+ 
+@@ -158,13 +169,23 @@ define cmd_headerscxx_chk
+ 	    touch $@.new;                                                     \
+ 	    exit 0;                                                           \
+ 	fi;                                                                   \
+-	$(foreach i, $(filter %.h,$^),                                        \
+-	    echo "#include "\"$(i)\"                                          \
++	get_prereq() {                                                        \
++	    case $$1 in                                                       \
++	    $(foreach i, $(filter %.h,$^),                                    \
++	    $(if $($(patsubst $(srctree)/%,%,$(i))-prereq),                   \
++	        $(i)$(close)                                                  \
++	        echo "$(foreach j, $($(patsubst $(srctree)/%,%,$(i))-prereq), \
++	                -include c$(j))";;))                                  \
++	    *) ;;                                                             \
++	    esac;                                                             \
++	};                                                                    \
++	for i in $(filter %.h,$^); do                                         \
++	    echo "#include "\"$$i\"                                           \
+ 	    | $(CXX) -x c++ -std=gnu++98 -Wall -Werror -D__XEN_TOOLS__        \
+ 	      -include stdint.h -include $(srcdir)/public/xen.h               \
+-	      $(foreach j, $($(patsubst $(srctree)/%,%,$i)-prereq), -include c$(j)) \
++	      $$(get_prereq $$i)                                              \
+ 	      -S -o /dev/null -                                               \
+-	    || exit $$?; echo $(i) >> $@.new;) \
++	    || exit $$?; echo $$i >> $@.new; done;                            \
+ 	mv $@.new $@
+ endef
+ 
+-- 
+Anthony PERARD
+
 
