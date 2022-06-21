@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06437552F7A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jun 2022 12:12:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353158.580068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5FE552F81
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jun 2022 12:15:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353165.580079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3arV-0001go-73; Tue, 21 Jun 2022 10:11:57 +0000
+	id 1o3av5-0002M8-Rd; Tue, 21 Jun 2022 10:15:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353158.580068; Tue, 21 Jun 2022 10:11:57 +0000
+Received: by outflank-mailman (output) from mailman id 353165.580079; Tue, 21 Jun 2022 10:15:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3arV-0001dm-3j; Tue, 21 Jun 2022 10:11:57 +0000
-Received: by outflank-mailman (input) for mailman id 353158;
- Tue, 21 Jun 2022 10:11:55 +0000
+	id 1o3av5-0002Ii-OC; Tue, 21 Jun 2022 10:15:39 +0000
+Received: by outflank-mailman (input) for mailman id 353165;
+ Tue, 21 Jun 2022 10:15:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/KMk=W4=citrix.com=prvs=16408edfd=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1o3arT-0001dg-8N
- for xen-devel@lists.xenproject.org; Tue, 21 Jun 2022 10:11:55 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9158e4a7-f14a-11ec-bd2d-47488cf2e6aa;
- Tue, 21 Jun 2022 12:11:52 +0200 (CEST)
+ id 1o3av5-0002Ic-3r
+ for xen-devel@lists.xenproject.org; Tue, 21 Jun 2022 10:15:39 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1762ccc9-f14b-11ec-bd2d-47488cf2e6aa;
+ Tue, 21 Jun 2022 12:15:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,166 +36,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9158e4a7-f14a-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 1762ccc9-f14b-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1655806312;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=7MDJa/m5qjvzvr9hb3TI3e/TXp0vIhk0EimgAI5h7z8=;
-  b=ETp6PaeArAqyl4x2MnlgpnGyN5b1a0Kf5RfwETpd2wyMNwY/esh2DsLR
-   MYSxyqIixRX7e5LVPzBIA0XcdF1SzsQB6HbMMzWCC9YnR++TNGH+mNnEN
-   6Q5MZP0y+22F6c/uCR6ZU+5zJoGm+p8TVQ7iKZ5By57X+2YUEzOYrSw0w
-   0=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1655806537;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QcSpgKS225JamIFv9EzQROZ047pLLv+YqmxHeJjalYQ=;
+  b=GWG1+YoGZ8yADSDmscGvmX0/K8Zx8eP/cI5g0AvxWxNdGjbpBLeUuvHt
+   lVqdD7a5SRyLGH/ZiOMwOs2YbcIMqhzhfQxCtdAx71bBWialjBHxdZdF2
+   sNdWqSw6PhV86ivxQe9MQZJII5C3tJNQZW19OiWlOWyyhjUA0OWDV6Zaa
+   E=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 74055919
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 74479126
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:y0fO/6mIC9K4DnBqOedlZcHo5gyTJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIcWTqCPPuCNmvwfYt+Pt63/R4PvMXVzYQwTFM5/ylnQiMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EgLd9IR2NYy24DnWVrV4
- LsenuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
- v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
- NtxWZOYWV4rZv3+gv8haj4bITBEG/BA4I2bCC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
- RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3s3d8zTbfHLA+TIrKWani7t5ExjYgwMtJGJ4yY
- uJGNWIyMUWZMnWjPH8uN5URh+2OtkW4fhJ7twiVmq8czTXcmVkZPL/Fb4OOJ43iqd9utkSFo
- mPL+UzpDxdcM8aQoRKe6W6ljOLLmSL9WaoRGae++/osh0ecrkQMDDUGWF39puO24mauVtQaJ
- 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O8c38h2Xw6zYpSOQHHEZTyVpYcYj8sQxQFQC1
- FWEgtfoDjxHq6CORDSW8bL8kN+pEXFLdylYP3ZCFFZbpYm4yG0usv7RZsY6EvblvMfuJQjXg
- AKblg5jga0h0edegs1X4mv7byKQSonhF1Bou1qIAzL7sWuVd6b+OdX2tAGzAeJoad/AEwLf5
- CVsd922trhmMH2bqMCarAzh9pmN7u3NDjDTiEUH83IJp2X0oC7LkWy9DVhDyKZV3iUsI2aBj
- Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMUsK1LfpH40PB/Pt4wIrKTLufhnU
- ap3jO72VSpKYUiZ5GHeqxghPU8DmXllmDK7qWHTxBW7y7uODEOopUM+GALWNIgRtfrcyC2Mq
- oY3H5bbkH13DbyhChQ7BKZOdDjm21BgXcCowyGWH8beSjdb9JYJUaSOmul+IdI7wsy4VI7gp
- xmAZ6OR83Kn7VWvFOlAQioLhG/HNXqnkU8GAA==
-IronPort-HdrOrdr: A9a23:sXKYbK7YFtBS4KbPawPXwPDXdLJyesId70hD6qhwISY6TiX+rb
- HJoB17726NtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
- 0QCpSWY+eQMbEVt6nHCXGDYrQd/OU=
+IronPort-Data: A9a23:Cy6BZa5aSvgBW2sqn/pT8QxRtCLHchMFZxGqfqrLsTDasY5as4F+v
+ jQdWD/Xb/yDYGXweN9+bN+yo0hUv8WEndBqSQNuryhkHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw03qPp8Zj2tQy2YbjWlvU0
+ T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
+ 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
+ umhurThd1gmF7LVmdgaXkRUTx9iZJdL27b+dC3XXcy7lyUqclPpyvRqSko3IZcZ6qB8BmQmG
+ f4wcW5XKErZ3qTvnez9GrIEascLdaEHOKsWvG1gyjfIS+4rW5nZT43B5MNC3Sd2jcdLdRrbT
+ 5VFNWU+NU6eC/FJEnwRWMoVsuuKvEvUcwII73iwmq0bvGeGmWSd15CyaYGIK7RmX/59h0udu
+ yfa5WXnAxgeHNqYzzWD7zSrnOCntTjgRIsYGbm89/hrqF6e3GoeDFsRT1TTieGwl0qWS99Zb
+ UsO9UIGp7I59FGgTcvVVhq85nWDu3Y0QtdVDqg25R+AzoLS5ACWAHVCSSROAPQ2uclzSTE02
+ 1uhm9LyGScpoLCTUWia9LqfsXW1Iyd9EIMZTXZaF01fuYCl+dxtyEKUJjp+LEKrpozLRj7Z3
+ CmLkC8z2rlPs9JS7aiY9GmS1lpAuaP1oh4JChT/Bzz4s1wmOd77OORE+nCAs68ecd/xok2p+
+ SFdxpPAtL1m4YSlznTlfQkbIF2+Cx9p2hX4iEUnIZQu/i/FF5WLLdEJu2EWyKuE3685ld7Vj
+ Kz741o5CGd7ZifCUEOOS9vZ5z4W5abhD8/5cfvfc8BDZJN8HCfeonwzOhPIhz+3yRlz+U3aB
+ Xt8WZ/0ZUv29Iw9lGbmLwvj+eRDKt8CKZP7GsmgkkXPPUu2b3+JU7YVWGazghQCxPrc+m39q
+ o8HX+PTkkU3eLCvOUH/rN9MRW3m2FBmXPgaXeQMLr7dSuencUl8Y8LsLUQJIdc6xP4KzLmWo
+ xlQmCZwkTLCuJEOEi3SAlgLVV8ldcwnxZ7nFUTA5WqV5kU=
+IronPort-HdrOrdr: A9a23:7qOdMqH/+cPYMaaRpLqE6MeALOsnbusQ8zAXP0AYc3Jom+ij5q
+ STdZUgpHrJYVkqNU3I9ertBEDEewK6yXcX2/hyAV7BZmnbUQKTRekIh7cKgQeQeBEWntQts5
+ uIGJIeNDSfNzdHsfo=
 X-IronPort-AV: E=Sophos;i="5.92,209,1650945600"; 
-   d="scan'208";a="74055919"
+   d="scan'208";a="74479126"
+Date: Tue, 21 Jun 2022 11:15:05 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-Subject: [XEN PATCH v2.1 1/4] build,include: rework shell script for headers++.chk
-Date: Tue, 21 Jun 2022 11:11:28 +0100
-Message-ID: <20220621101128.50543-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220614162248.40278-1-anthony.perard@citrix.com>
-References: <20220614162248.40278-1-anthony.perard@citrix.com>
+To: Chuck Zmudzinski <brchuckz@aol.com>
+CC: <qemu-devel@nongnu.org>, <xen-devel@lists.xenproject.org>,
+	<qemu-trivial@nongnu.org>, Stefano Stabellini <sstabellini@kernel.org>, Paul
+ Durrant <paul@xen.org>
+Subject: Re: [PATCH v2] xen/pass-through: don't create needless register group
+Message-ID: <YrGaKdx+af+7g2HY@perard.uk.xensource.com>
+References: <4d4b58473beb0565876687e9d8a53b76a7cf3fbb.1655490576.git.brchuckz.ref@aol.com>
+ <4d4b58473beb0565876687e9d8a53b76a7cf3fbb.1655490576.git.brchuckz@aol.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <4d4b58473beb0565876687e9d8a53b76a7cf3fbb.1655490576.git.brchuckz@aol.com>
 
-The command line generated for headers++.chk by make is quite long,
-and in some environment it is too long. This issue have been seen in
-Yocto build environment.
+On Fri, Jun 17, 2022 at 03:13:33PM -0400, Chuck Zmudzinski wrote:
+> Currently we are creating a register group for the Intel IGD OpRegion
+> for every device we pass through, but the XEN_PCI_INTEL_OPREGION
+> register group is only valid for an Intel IGD. Add a check to make
+> sure the device is an Intel IGD and a check that the administrator has
+> enabled gfx_passthru in the xl domain configuration. Require both checks
+> to be true before creating the register group. Use the existing
+> is_igd_vga_passthrough() function to check for a graphics device from
+> any vendor and that the administrator enabled gfx_passthru in the xl
+> domain configuration, but further require that the vendor be Intel,
+> because only Intel IGD devices have an Intel OpRegion. These are the
+> same checks hvmloader and libxl do to determine if the Intel OpRegion
+> needs to be mapped into the guest's memory. Also, move the comment
+> about trapping 0xfc for the Intel OpRegion where it belongs after
+> applying this patch.
+> 
+> Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
 
-Error messages:
-    make[9]: execvp: /bin/sh: Argument list too long
-    make[9]: *** [include/Makefile:181: include/headers++.chk] Error 127
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Rework so that we do the foreach loop in shell rather that make to
-reduce the command line size by a lot. We also need a way to get
-headers prerequisite for some public headers so we use a switch "case"
-in shell to be able to do some simple pattern matching. Variables
-alone in POSIX shell don't allow to work with associative array or
-variables with "/".
+Thanks,
 
-Also rework headers99.chk as it has a similar implementation, even if
-with only two headers to check the command line isn't too long at the
-moment.
-
-Reported-by: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Fixes: 28e13c7f43 ("build: xen/include: use if_changed")
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
-
-Notes:
-    v3:
-    - add one more pattern to avoid a possible empty body for "case"
-    - use $() instead of `` to execute get_prereq()
-    - also convert headers99_chk
-    - convert some 'tab' to 'space', have only 1 tab at start of line
-    
-    v2:
-    - fix typo in commit message
-    - fix out-of-tree build
-    
-    v1:
-    - was sent as a reply to v1 of the series
-
- xen/include/Makefile | 37 +++++++++++++++++++++++++++++--------
- 1 file changed, 29 insertions(+), 8 deletions(-)
-
-diff --git a/xen/include/Makefile b/xen/include/Makefile
-index 617599df7e..510f65c92a 100644
---- a/xen/include/Makefile
-+++ b/xen/include/Makefile
-@@ -141,13 +141,24 @@ cmd_header_chk = \
- quiet_cmd_headers99_chk = CHK     $@
- define cmd_headers99_chk
- 	rm -f $@.new; \
--	$(foreach i, $(filter %.h,$^),                                        \
--	    echo "#include "\"$(i)\"                                          \
-+	get_prereq() {                                                        \
-+	    case $$1 in                                                       \
-+	    $(foreach i, $(filter %.h,$^),                                    \
-+	    $(if $($(patsubst $(srctree)/%,%,$(i))-prereq),                   \
-+	        $(i)$(close)                                                  \
-+	        echo "$(foreach j, $($(patsubst $(srctree)/%,%,$(i))-prereq), \
-+	                -include $(j).h)";;))                                 \
-+	    *) ;;                                                             \
-+	    esac;                                                             \
-+	};                                                                    \
-+	for i in $(filter %.h,$^); do                                         \
-+	    echo "#include "\"$$i\"                                           \
- 	    | $(CC) -x c -std=c99 -Wall -Werror                               \
- 	      -include stdint.h                                               \
--	      $(foreach j, $($(patsubst $(srctree)/%,%,$i)-prereq), -include $(j).h) \
-+	      $$(get_prereq $$i)                                              \
- 	      -S -o /dev/null -                                               \
--	    || exit $$?; echo $(i) >> $@.new;) \
-+	    || exit $$?; echo $$i >> $@.new;                                  \
-+	done;                                                                 \
- 	mv $@.new $@
- endef
- 
-@@ -158,13 +169,23 @@ define cmd_headerscxx_chk
- 	    touch $@.new;                                                     \
- 	    exit 0;                                                           \
- 	fi;                                                                   \
--	$(foreach i, $(filter %.h,$^),                                        \
--	    echo "#include "\"$(i)\"                                          \
-+	get_prereq() {                                                        \
-+	    case $$1 in                                                       \
-+	    $(foreach i, $(filter %.h,$^),                                    \
-+	    $(if $($(patsubst $(srctree)/%,%,$(i))-prereq),                   \
-+	        $(i)$(close)                                                  \
-+	        echo "$(foreach j, $($(patsubst $(srctree)/%,%,$(i))-prereq), \
-+	                -include c$(j))";;))                                  \
-+	    *) ;;                                                             \
-+	    esac;                                                             \
-+	};                                                                    \
-+	for i in $(filter %.h,$^); do                                         \
-+	    echo "#include "\"$$i\"                                           \
- 	    | $(CXX) -x c++ -std=gnu++98 -Wall -Werror -D__XEN_TOOLS__        \
- 	      -include stdint.h -include $(srcdir)/public/xen.h               \
--	      $(foreach j, $($(patsubst $(srctree)/%,%,$i)-prereq), -include c$(j)) \
-+	      $$(get_prereq $$i)                                              \
- 	      -S -o /dev/null -                                               \
--	    || exit $$?; echo $(i) >> $@.new;) \
-+	    || exit $$?; echo $$i >> $@.new; done;                            \
- 	mv $@.new $@
- endef
- 
 -- 
 Anthony PERARD
-
 
