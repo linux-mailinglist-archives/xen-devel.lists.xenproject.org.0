@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B08855531A5
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jun 2022 14:08:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353211.580127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6919B5531C4
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jun 2022 14:15:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353221.580139 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3cfK-0006Pi-AW; Tue, 21 Jun 2022 12:07:30 +0000
+	id 1o3cn1-0007rj-3f; Tue, 21 Jun 2022 12:15:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353211.580127; Tue, 21 Jun 2022 12:07:30 +0000
+Received: by outflank-mailman (output) from mailman id 353221.580139; Tue, 21 Jun 2022 12:15:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3cfK-0006Mw-6Z; Tue, 21 Jun 2022 12:07:30 +0000
-Received: by outflank-mailman (input) for mailman id 353211;
- Tue, 21 Jun 2022 12:07:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o3cfI-0006Mq-83
- for xen-devel@lists.xenproject.org; Tue, 21 Jun 2022 12:07:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o3cfH-0003fb-IE; Tue, 21 Jun 2022 12:07:27 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=[192.168.3.84])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o3cfH-0006jO-BE; Tue, 21 Jun 2022 12:07:27 +0000
+	id 1o3cn1-0007oH-07; Tue, 21 Jun 2022 12:15:27 +0000
+Received: by outflank-mailman (input) for mailman id 353221;
+ Tue, 21 Jun 2022 12:15:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=L66N=W4=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1o3cmz-0007oB-AJ
+ for xen-devel@lists.xenproject.org; Tue, 21 Jun 2022 12:15:25 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id d331485f-f15b-11ec-b725-ed86ccbb4733;
+ Tue, 21 Jun 2022 14:15:23 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 891FC165C;
+ Tue, 21 Jun 2022 05:15:22 -0700 (PDT)
+Received: from [10.57.35.142] (unknown [10.57.35.142])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE25E3F534;
+ Tue, 21 Jun 2022 05:15:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,22 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jKcHp4lsTX841vtWizLuHWuO/Yak1LeyMQO4I+k8GdY=; b=yB1Tc9HKqLxDkmLho+bwsKXpt6
-	Q6Ajg+jK1S1IHFyulURd7PqCOZlF+hioby2mYxK2WaEGQocXuK/XBUxNOAuLhnwt4dfLuBhsyCpw3
-	dsD/E8gL3A43+s+2lrKdxRDRzPW1BV78Ki/rVwhtGX48ALC/sXF6LkL2nAowDDdQInbk=;
-Message-ID: <b8f05e22-c30d-d4b2-b725-9db91ee7a09d@xen.org>
-Date: Tue, 21 Jun 2022 13:07:24 +0100
+X-Inumbo-ID: d331485f-f15b-11ec-b725-ed86ccbb4733
+Message-ID: <c3232cf1-eec1-36a5-ab62-170a1a40a960@arm.com>
+Date: Tue, 21 Jun 2022 14:15:06 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
 Subject: Re: XTF-on-ARM: Bugs
+Content-Language: en-US
 To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
  xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <Michal.Orzel@arm.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Christopher Clark <christopher.w.clark@gmail.com>,
@@ -62,18 +60,16 @@ To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
  Roger Pau Monne <roger.pau@citrix.com>,
  George Dunlap <George.Dunlap@citrix.com>
 References: <7f490d75-153d-7e1d-b3c0-5418ff7fdf8f@citrix.com>
-From: Julien Grall <julien@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
 In-Reply-To: <7f490d75-153d-7e1d-b3c0-5418ff7fdf8f@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+Hi Andrew,
 
-
-On 21/06/2022 12:27, Andrew Cooper wrote:
+On 21.06.2022 13:27, Andrew Cooper wrote:
 > Hello,
-
-Hi,
-
+> 
 > I tried to have a half hour respite from security and push forward with XTF-on-ARM, but the result was a mess.
 > 
 > https://github.com/andyhhp/xtf/commit/bc86e2d271f2107da9b1c9bc55a050dbdf07c6c6 is the absolute bare minimum stub VM, which has a zImage{32,64} header, sets up the stack, makes one CONSOLEIO_write hypercall, and then a clean SCHEDOP_shutdown.
@@ -81,19 +77,8 @@ Hi,
 > There are some bugs:
 > 
 > 1) kernel_zimage32_probe() rejects relocatable binaries, but if I skip the check it works fine.
-
-Hmmmm... which check are you referring to?
-
 > 
-> Furthermore, kernel_zimage64_probe() ignores the header and assumes the binary is relocatable.
-
-Are you referring to bit 3 "Kernel physical placement"?
-
-> Both probe functions fail to check the endianness marker.
-
-AFAIU the header is little endian. So it is not clear to me why we 
-should check the endianess marker?
-
+> Furthermore, kernel_zimage64_probe() ignores the header and assumes the binary is relocatable.  Both probe functions fail to check the endianness marker.
 > 
 > 2) I'm using qemu-system-arm 4.2.1 (Debian 1:4.2-3ubuntu6.21), with some parameters cribbed from the Gitlab CI smoke test, but ctxt_switch_to() exploded with undef on:
 > 
@@ -101,10 +86,6 @@ should check the endianess marker?
 > WRITE_CP32(n->arch.jmcr, JMCR);
 > 
 > I'm not sure what these are (beyond Jazelle conf register), but I commented them out and it made further progress.  I have no idea if this is a Xen bug, qemu bug, or user error, but something is clearly wrong here.
-
-I suspect the QEMU version is a bit too old to support 32-bit 
-virtualization. Can you try a newer one?
-
 > 
 > 3) For test-arm64-stub, I get this:
 > 
@@ -118,21 +99,13 @@ virtualization. Can you try a newer one?
 > Hello from ARM64
 > (XEN) *** CONSOLEIO_write done
 > (XEN) arch/arm/traps.c:2054:d0v0 HSR=0x000000939f0045 pc=0x00000050000098 gva=0x80002ffc gpa=0x00000080002ffc
-
-Looking at the log above, GPA belong to neither the kernel, extended 
-region or DTB.
-
 > qemu-system-aarch64: terminating on signal 2
 > 
 > i.e. the CONSOLEIO_write hypercall completes successfully, but a trap occurs before the SCHEDOP_shutdown completes.  The full (tiny) binaries are attached, but it seems to be faulting on:
 > 
->      40000098:    b81fcc3f     str    wzr, [x1, #-4]!
+>     40000098:    b81fcc3f     str    wzr, [x1, #-4]!
 > 
 > which (I think) is the store of 0 to the stack for the schedop shutdown reason.
-
-AFAICT the stack is meant to be right next after the kernel. However, 
-the fault above suggest that the value is not even close.
-
 > 
 > 4) For test-arm32-stub under either the 32bit or 64bit Xen, I get:
 > 
@@ -140,39 +113,29 @@ the fault above suggest that the value is not even close.
 > (XEN) *** Got CONSOLEIO_write (18 bytes)
 > (XEN) *** got fault
 > (XEN) *** Got SCHEDOP_shutdown, 0
-
-Where are those messages coming from?
-
 > (XEN) Hardware Dom0 halted: halting machine
 > 
 > which is weird.  The CONSOLEIO_write fails to read the passed pointer, despite appearing to have a ip-relative load to find the string, while the SCHEDOP_shutdown passes its parameter fine (it's a stack relative load).
-
- From a brief look, your code is still running with MMU off and Cache 
-"off" (on armv8, it is more a bypass "cache" rather than off).
-
-This means that you ought to be a lot more careful when reading/writing 
-value to avoid reading any stall data.
-
+> 
+> 
 > Other observations:
 > 
 > * There is no documented vCPU starting state.
-
-See 
-https://github.com/torvalds/linux/blob/master/Documentation/arm64/booting.rst.
-
 > * Qemu is infinitely easier to to use (i.e. no messing with dtb/etc) as -kernel xen -initrd test-$foo with a oneliner change to the dtb parsing to treat ramdisk and no kernel as the dom0 kernel.  Maybe a better change would be to modify qemu to understand multiple -kernel's.
 > * Xen can't load ELFs.
+> 
+> Some of these bugs might be mine, but at a minimum 1 is a bug in Xen and needs fixing.  Any ideas?
+> 
+> ~Andrew
 
-The support was dropped in 2018 because it was bogus and not used:
+FWICT Xen does not support booting ELF images so I'm not sure why do you want to use relocatable binaries.
 
-https://lists.xenproject.org/archives/html/xen-devel/2018-06/msg00242.html
+Apart from that I'd suggest to use my patches that are tested and work fine to prevent working on the same thing.
+FWICS you are based on some old patches from v1 while the new pull request is already there since March:
+https://github.com/andyhhp/xtf/pull/6
 
-Personally, I think that zImage/Image is simple enough that 
-re-introducing ELF is not worth it. But I would be OK to consider 
-patches if you feel like writing them.
+This PR contains fixes for findings reported by Julien and Christopher during v1 review.
 
 Cheers,
-
--- 
-Julien Grall
+Michal
 
