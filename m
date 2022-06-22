@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E74555426
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 21:25:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.354291.581358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A798E55546E
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 21:29:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.354300.581371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o45xT-000845-N2; Wed, 22 Jun 2022 19:24:11 +0000
+	id 1o462c-0000JM-BN; Wed, 22 Jun 2022 19:29:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 354291.581358; Wed, 22 Jun 2022 19:24:11 +0000
+Received: by outflank-mailman (output) from mailman id 354300.581371; Wed, 22 Jun 2022 19:29:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o45xT-00082I-K5; Wed, 22 Jun 2022 19:24:11 +0000
-Received: by outflank-mailman (input) for mailman id 354291;
- Wed, 22 Jun 2022 19:24:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o462c-0000HH-8P; Wed, 22 Jun 2022 19:29:30 +0000
+Received: by outflank-mailman (input) for mailman id 354300;
+ Wed, 22 Jun 2022 19:29:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/BDV=W5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o45xS-00082C-2I
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 19:24:10 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2d7c335-f260-11ec-bd2d-47488cf2e6aa;
- Wed, 22 Jun 2022 21:24:08 +0200 (CEST)
+ id 1o462a-0000HB-Kr
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 19:29:28 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0fa7205-f261-11ec-b725-ed86ccbb4733;
+ Wed, 22 Jun 2022 21:29:27 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3070DB81F2A;
- Wed, 22 Jun 2022 19:24:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484D7C34114;
- Wed, 22 Jun 2022 19:24:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5D81B603E0;
+ Wed, 22 Jun 2022 19:29:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFFDCC34114;
+ Wed, 22 Jun 2022 19:29:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,96 +43,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2d7c335-f260-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: a0fa7205-f261-11ec-b725-ed86ccbb4733
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1655925846;
-	bh=WWkDom5U0fFW2T5yf+nx5KbkERxvChYw4S75KNRbsg8=;
+	s=k20201202; t=1655926166;
+	bh=lEXS5xvDudB/17pOBtKnSM5CJJDIEZjJvjb4/t/prBA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=qdnWUYBK3GDaDHms+YmDm72clarUCcfnHkQwoVbmQbWbjWsi7TDd3vMoluReO1r6G
-	 P/zOjHAQR+OKmdcwCzW4CO5frXpQ6IdplZUrqjPzl2AjI9rhzNtT+7D/eEVZxCAl0+
-	 +sY0DbflpWRxUdGQFeYk5eKgxplj1J6/OsQNgrm2HMZz5hlgA1Ck/YrfbWmkPRFpGT
-	 Y8zjmVWLHGfw46tPX2W9jm7PPzr3wsxptdu68Ss4Gi/XiGj4COzn5pzHkgpqnmViQm
-	 kcbreUOtO4o14pNa+mWQ8w6TZYNZ/AzDgPc5RreDJWt6dJF2YrtpE+9jDQuC5/7528
-	 U+T+yv0KfZa1w==
-Date: Wed, 22 Jun 2022 12:23:29 -0700 (PDT)
+	b=rKgMyXRbNUwrlSxfOtRFbAvdpuoIAphO7cvxMbWuH/7P2ZxThPpnPFasqs2Tso613
+	 QG3QqDbm+UMvE6APWnJs2N/9FfYEOycVIfFnQ7eIv7Jc6yal0a3td4rTIDI3U6tQ4A
+	 u0mDVnfd1rjxIBoKx9JFM3OVOqfAtL/taVoXJUrBIK6FRKUUvlHdBf8g+Yor8O4uDL
+	 YOgPuzrXHCmiK4FmQfl3Zn14Cnf33lb/e2ZmU2GObLTmGYB4J3LWfMM5QtX2ea5qP0
+	 nZs9SCxjGuTMHpxzUB+uGdXy2/QqOZKPXJDxSsUmEeTinhGTMBmxU/29Nm0S/5znuz
+	 gL5pp/56mNK/w==
+Date: Wed, 22 Jun 2022 12:29:25 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: roberto.bagnara@bugseng.com
-cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Michal Orzel <Michal.Orzel@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-    Juergen Gross <jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>, 
-    Daniel De Graaf <dgdegra@tycho.nsa.gov>, jbeulich@suse.com, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 0/9] MISRA C 2012 8.1 rule fixes
-In-Reply-To: <7a8d70e3-c331-426d-fe96-77bd65caade7@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2206221212510.2157383@ubuntu-linux-20-04-desktop>
-References: <20220620070245.77979-1-michal.orzel@arm.com> <dd016e82-2480-0e1e-6286-18b2f677dd65@suse.com> <74ec2158-3d19-3b2c-1e8c-fb5b30267658@arm.com> <d91bb4ea-41be-225e-e2fe-1b03aa06c677@suse.com> <C45BA6EE-6294-4C6F-ADC4-3DE7C8DA866F@arm.com>
- <68d7fb35-e4c5-e5d2-13a8-9ee1369e8dbe@suse.com> <BE80A241-7983-425F-9212-0957E29AA5C7@arm.com> <7a8d70e3-c331-426d-fe96-77bd65caade7@suse.com>
+To: Xenia Ragiadakou <burzalodowa@gmail.com>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 2/3] xen/lib: list-sort: Fix MISRA C 2012 Rule 8.4
+ violation
+In-Reply-To: <20220622151514.545850-2-burzalodowa@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2206221229180.2157383@ubuntu-linux-20-04-desktop>
+References: <20220622151514.545850-1-burzalodowa@gmail.com> <20220622151514.545850-2-burzalodowa@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-+Roberto
+On Wed, 22 Jun 2022, Xenia Ragiadakou wrote:
+> Include header <xen/list_sort.h> so that the declaration of the function
+> list_sort(), which has external linkage, is visible before the function
+> definition.
+> 
+> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Hi Roberto,
-
-A quick question about Rule 8.1.
-
-
-Michal sent a patch series to fix Xen against Rule 8.1 (here is a link
-if you are interested: https://marc.info/?l=xen-devel&m=165570851227125)
-
-Although we all generally agree that the changes are a good thing, there
-was a question about the rule itself. Specifically, is the following
-actually a violation?
-
-  unsigned x;
-
-
-Looking through the examples in the MISRA document I can see various
-instances of more confusing and obvious violations such as:
-
-  const x;
-  extern x;
-
-but no examples of using "unsigned" without "int". Do you know if it is
-considered a violation?
-
-
-Thanks!
-
-Cheers,
-
-Stefano
-
-
-
-On Wed, 22 Jun 2022, Jan Beulich wrote:
-> >>>>> On 22.06.2022 12:25, Jan Beulich wrote:
-> >>>>>> On 20.06.2022 09:02, Michal Orzel wrote:
-> >>>>>>> This series fixes all the findings for MISRA C 2012 8.1 rule, reported by
-> >>>>>>> cppcheck 2.7 with misra addon, for Arm (arm32/arm64 - target allyesconfig).
-> >>>>>>> Fixing this rule comes down to replacing implicit 'unsigned' with explicit
-> >>>>>>> 'unsigned int' type as there are no other violations being part of that rule
-> >>>>>>> in the Xen codebase.
-> >>>>>>
-> >>>>>> I'm puzzled, I have to admit. While I agree with all the examples in the
-> >>>>>> doc, I notice that there's no instance of "signed" or "unsigned" there.
-> >>>>>> Which matches my understanding that "unsigned" and "signed" on their own
-> >>>>>> (just like "long") are proper types, and hence the omission of "int"
-> >>>>>> there is not an "omission of an explicit type".
-
-[...]
-
-> >>>> Neither the name of the variable nor the comment clarify that this is about
-> >>>> the specific case of "unsigned". As said there's also the fact that they
-> >>>> don't appear to point out the lack of "int" when seeing plain "long" (or
-> >>>> "long long"). I fully agree that "extern x;" or "const y;" lack explicit
-> >>>> "int".
+> ---
+>  xen/lib/list-sort.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/xen/lib/list-sort.c b/xen/lib/list-sort.c
+> index f8d8bbf281..de1af2ef8b 100644
+> --- a/xen/lib/list-sort.c
+> +++ b/xen/lib/list-sort.c
+> @@ -16,6 +16,7 @@
+>   */
+>  
+>  #include <xen/list.h>
+> +#include <xen/list_sort.h>
+>  
+>  #define MAX_LIST_LENGTH_BITS 20
+>  
+> -- 
+> 2.34.1
+> 
 
