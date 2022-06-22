@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CD86554563
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 12:50:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353767.580748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD768554572
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 12:57:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353775.580759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3xwT-0004xQ-Bo; Wed, 22 Jun 2022 10:50:37 +0000
+	id 1o3y2z-0005dA-2l; Wed, 22 Jun 2022 10:57:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353767.580748; Wed, 22 Jun 2022 10:50:37 +0000
+Received: by outflank-mailman (output) from mailman id 353775.580759; Wed, 22 Jun 2022 10:57:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3xwT-0004uC-7z; Wed, 22 Jun 2022 10:50:37 +0000
-Received: by outflank-mailman (input) for mailman id 353767;
- Wed, 22 Jun 2022 10:50:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o3xwR-0004u6-Ed
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 10:50:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o3xwQ-0002LN-Rp; Wed, 22 Jun 2022 10:50:34 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=[192.168.1.223]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o3xwQ-0006uI-JP; Wed, 22 Jun 2022 10:50:34 +0000
+	id 1o3y2y-0005Zm-VU; Wed, 22 Jun 2022 10:57:20 +0000
+Received: by outflank-mailman (input) for mailman id 353775;
+ Wed, 22 Jun 2022 10:57:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4/ZK=W5=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1o3y2x-0005Zg-0f
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 10:57:19 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 14729281-f21a-11ec-bd2d-47488cf2e6aa;
+ Wed, 22 Jun 2022 12:57:17 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 856C613D5;
+ Wed, 22 Jun 2022 03:57:16 -0700 (PDT)
+Received: from [10.57.38.102] (unknown [10.57.38.102])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B0D983F66F;
+ Wed, 22 Jun 2022 03:57:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,85 +42,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nuy1yoEAqeQbX72UFuD3RfXVTgc0Gd3KeE9tCI6/97g=; b=ozSI14P16AQdsBmeqdWd8Sz9d/
-	LPdND0rrYN3IujQXPY2KI8vG+HB9EY0J0bkLFw27WxnNMDBbEBuXlSEo1yQoxa6newz+fgOi1Iug3
-	/aDAxmy6fzpMcORJEy4J78AQeZZy/vs4UulsutiXgcQDWpNDjDgG+4FDNnDNJCJs7ULE=;
-Message-ID: <e32a84bf-ad49-da95-4a19-61872c2ff7e0@xen.org>
-Date: Wed, 22 Jun 2022 11:50:32 +0100
+X-Inumbo-ID: 14729281-f21a-11ec-bd2d-47488cf2e6aa
+Message-ID: <8c1a2037-1bdc-cdb8-7c57-5e84448cc1d0@arm.com>
+Date: Wed, 22 Jun 2022 12:56:59 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: Tentative fix for dom0 boot problem
-To: Juergen Gross <jgross@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <d465abfb-6d44-0739-9959-3e3311dd671c@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <d465abfb-6d44-0739-9959-3e3311dd671c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 5/9] include/public: Use explicitly specified types
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220620070245.77979-1-michal.orzel@arm.com>
+ <20220620070245.77979-6-michal.orzel@arm.com>
+ <386e765e-8bb8-32a0-9170-11db3978a17a@suse.com>
+From: Michal Orzel <michal.orzel@arm.com>
+In-Reply-To: <386e765e-8bb8-32a0-9170-11db3978a17a@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 
 
-On 22/06/2022 11:45, Juergen Gross wrote:
-> Julien,
+On 22.06.2022 12:16, Jan Beulich wrote:
+> On 20.06.2022 09:02, Michal Orzel wrote:
+>> --- a/xen/include/public/physdev.h
+>> +++ b/xen/include/public/physdev.h
+>> @@ -211,8 +211,8 @@ struct physdev_manage_pci_ext {
+>>      /* IN */
+>>      uint8_t bus;
+>>      uint8_t devfn;
+>> -    unsigned is_extfn;
+>> -    unsigned is_virtfn;
+>> +    unsigned int is_extfn;
+>> +    unsigned int is_virtfn;
+> 
+> It is wrong for us to use unsigned (or unsigned int) here and in sysctl.h.
+> It should be uint32_t instead, and I think this is a great opportunity to
+> correct that mistake.
+> 
+That is perfectly fine for me to do.
 
-Hi Juergen,
-
-> could you please test the attached patches?
-
-I am getting the following error:
-
-(XEN) d0v0 Unhandled: vec 14, #PF[0003]
-(XEN) Pagetable walk from ffffffff84001000:
-(XEN)  L4[0x1ff] = 000000046c004067 0000000000004004
-(XEN)  L3[0x1fe] = 000000046c003067 0000000000004003
-(XEN)  L2[0x020] = 000000046c024067 0000000000004024
-(XEN)  L1[0x001] = 001000046c001025 0000000000004001
-(XEN) domain_crash_sync called from entry.S: fault at ffff82d040325906 
-x86_64/entry.S#create_bounce_frame+0x15d/0x177
-(XEN) Domain 0 (vcpu#0) crashed on cpu#1:
-(XEN) ----[ Xen-4.17-unstable  x86_64  debug=y  Tainted:   C    ]----
-(XEN) CPU:    1
-(XEN) RIP:    e033:[<ffffffff832a3481>]
-(XEN) RFLAGS: 0000000000000206   EM: 1   CONTEXT: pv guest (d0v0)
-(XEN) rax: 0000000000000000   rbx: ffffffff84000000   rcx: 000000000002b000
-(XEN) rdx: ffffffff84000000   rsi: ffffffff84000000   rdi: ffffffff84001000
-(XEN) rbp: 0000000000000000   rsp: ffffffff82a03e60   r8:  0000000000000000
-(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
-(XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000000000
-(XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 00000000003426e0
-(XEN) cr3: 000000046c001000   cr2: ffffffff84001000
-(XEN) fsb: 0000000000000000   gsb: ffffffff83271000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
-(XEN) Guest stack trace from rsp=ffffffff82a03e60:
-(XEN)    000000000002b000 0000000000000000 0000000000000003 ffffffff832a3481
-(XEN)    000000010000e030 0000000000010006 ffffffff82a03ea8 000000000000e02b
-(XEN)    0000000000000000 ffffffff832ae884 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 ffffffff832a317f 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN) Hardware Dom0 crashed: rebooting machine in 5 seconds.
+> Jan
 
 Cheers,
-
--- 
-Julien Grall
+Michal
 
