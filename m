@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 985C05544E2
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 11:33:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353646.580601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 008735544E6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 11:39:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353655.580612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3wjt-0006is-RN; Wed, 22 Jun 2022 09:33:33 +0000
+	id 1o3woy-0007Lz-EU; Wed, 22 Jun 2022 09:38:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353646.580601; Wed, 22 Jun 2022 09:33:33 +0000
+Received: by outflank-mailman (output) from mailman id 353655.580612; Wed, 22 Jun 2022 09:38:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3wjt-0006g9-OK; Wed, 22 Jun 2022 09:33:33 +0000
-Received: by outflank-mailman (input) for mailman id 353646;
- Wed, 22 Jun 2022 09:33:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o3woy-0007KD-BE; Wed, 22 Jun 2022 09:38:48 +0000
+Received: by outflank-mailman (input) for mailman id 353655;
+ Wed, 22 Jun 2022 09:38:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kzGk=W5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o3wjs-0006g3-VO
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 09:33:33 +0000
+ id 1o3wox-0007K7-Bt
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 09:38:47 +0000
 Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60056.outbound.protection.outlook.com [40.107.6.56])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 610fb2aa-f20e-11ec-bd2d-47488cf2e6aa;
- Wed, 22 Jun 2022 11:33:31 +0200 (CEST)
+ (mail-eopbgr60062.outbound.protection.outlook.com [40.107.6.62])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1c9103d5-f20f-11ec-b725-ed86ccbb4733;
+ Wed, 22 Jun 2022 11:38:46 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8404.eurprd04.prod.outlook.com (2603:10a6:20b:3f8::7)
+ by VI1PR0401MB2464.eurprd04.prod.outlook.com (2603:10a6:800:56::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.22; Wed, 22 Jun
- 2022 09:33:29 +0000
+ 2022 09:38:43 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5353.022; Wed, 22 Jun 2022
- 09:33:29 +0000
+ 09:38:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,271 +46,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 610fb2aa-f20e-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 1c9103d5-f20f-11ec-b725-ed86ccbb4733
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jpTyFv9btR6prjPX722b1LmlcdpoEF9E+ylZHz10AHYodWrpRDH1TvKNcojBjUFmvJYpH+1iKIQbj06QZd1aqWLAQ2hjJuE0VJ+HulJZxzdNVzQlkgKkh2AD0gYkomoyUR21mpPZ/omeHXcc5czvcmbMjI7P/BfkqDmCKm/BCSnJJRVjLjlt2DWvmmqXJ5uwEP8NyzrTgl97BNW1/hPzwhFH41J0u/6E1JWMoR5UUo9ejztJtpI+ZZp4vKh6Wq7488p8jmhFeI4rKHgLnEJNiKepr5Jo6gl2i/E94C3c/T/IYnoj3C079Vod6Z9j1VWYG/xktHpegFePzF1nDgryvQ==
+ b=MIH4CSFOq2wkK1oL7sx2Vnnhyb2BRgu9gnaD7+JOu8pOZxTtDSYu1SLCMieGQ0rwuD/ULBE0uGMHgx7veCPYd/oB8+3rCskZU+NUjSkwh0cApmiznGl2XWWmCnSIj7vY8T/yxaP+cuzpvg2ZxHHdIXzT8avAo5ggRP3ND1cDqSAofk3gypdeqmqJQQ+Oot17ed+DMi7IpFHmqiatDB0TarUXA+MxgGI7zzuqNEW9s82mJx6p59kRhud7mNwlm3tG6vtsZUBpcrd1jpTDHkVx0yrT6sHYrofskvMJxAVGgbCUpezKpL8SBxUtrcENDgi4CxxyI75s7TLdUuxtt5SrTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E7hcPWWqIcNONf0hEvR1CNAcoSuKNK50b00DDrGVezQ=;
- b=SBWntLCQ3PfBR+P9ACX2WhtvHU7wLJ7TGwTPUB16VlXgAXDVc2k4wYl1HczT3nPqH6Fh2jJSGdP8NtyjYTAhRFs5H7ZX0JzXmvV2zBclQU0rShoa5SW+k/MIXcLYcj+Gc+klvd/65zpWLnIwSeR2T/+ewuT6m8Ep0R1ZPsW4j5SAGThAuXP/YYC4HyJATbNF0Dx53zGP3t4Kr7Ybp5wQnix6iwlTYLxPzvUKqwtlnNvIrRVoJLVrWSjKmIQCJTnxzrUGNkqJogVH6K9uGewYGUnoRH//l+hnfWamGZwv7AxcRti6rIBHXB5bpfTwAlv3O8uHp1UVrr+Zd9wDdXrkJw==
+ bh=z97VoGKtP0qMWqKzSvy2pGvISlSUGeKNm1XcEf0GUyQ=;
+ b=bBmJBFfv8eVAr8eplFkYxFUUxdbgcmHrJmGcd8zw3sznzQbBxhiC2fgRgj8dhTv2YHi4Fq3n1rwJ7EfBGUbG3uFIln4VnLzztcvtR7wV1XIA9g2QUcAGFweUsYA1hxjW8txIll2ZmDp/OhjuKXmk96k5/PQd3FJ3OnT5KZgoCOK1vXNOgRgI+ia07vXECBpaOEMWppIvuI8EDylb3tu4EM6BxU71+opsNguO0e0tNVwxJ++vG0UR9dJxdg+yqf/dPwOkHwe1bze4SIfx3Xo0Avb0CRH3LwnITput+Bmdl5XiTIrjlTapemxGPhZFmyAweDo2DJAmtgXL4t3K5k4PqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E7hcPWWqIcNONf0hEvR1CNAcoSuKNK50b00DDrGVezQ=;
- b=R2/Loonskxy4Xct9EW56Q4iWtVv9WDI7gu0eers+RygFYpdlulfAKNJTaUd1KRmcKa+PwUTyD+9ty9v+7c7N1glhttQitgKRBn87j8kJyCap/YegHM26/UTnom5EdrHOSZPr2KkU/pkeLuxa2PyAEW7zimEyPavkfoTZmZl++Px658sv7ag+LrTjCfJORNNzmZm8kcIf5lUvHsAUIj4UasJWesIG8NX/bxHp3FKFLcZgukeCpgwenQ5ZCYFjTd3oPnrC9fym9QwrN+m12/xHX0l0z1lSKtydY0La5Bo2FFW6N+/u5heJy2mbxM4f2xSxOKN5nrZ/VjD1fEFFfjElYw==
+ bh=z97VoGKtP0qMWqKzSvy2pGvISlSUGeKNm1XcEf0GUyQ=;
+ b=Rl7aIU7jwqVEy0izta9X8ZBwGW7jVntQ/fhmx+hIgBam1e3PtLznawIWvpeGw1i+EclS3T2327Ch+ne4B4w2izajA3N478fUjgEBpuF7raxJx28PvaymYOrUKGYxZguFIbMKalI39uU+mokMGMPvcEZirpJxvrT42oIwZHvwTN1WsMkFhqr4rea/tmeIGjqeWsb00B3mfWE3QZB5RRvRSIqFYMehWOE7LfpYqdS9WZdJQD0delpzPXGxg6mlooitw58ebUe0pg1Xn4YLqxcTpFLUlm3rtNiLssvWJfqPGFmT4YL/9xXJsdA7bU3NkTO6u0pXk+JbleuaGq5nTGM6ZQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <af4f325c-367d-4b05-fe96-b102b7f7e554@suse.com>
-Date: Wed, 22 Jun 2022 11:33:32 +0200
+Message-ID: <1309d21d-795e-5c2c-0e94-06cf5205e2ff@suse.com>
+Date: Wed, 22 Jun 2022 11:38:46 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Subject: Re: [PATCH] xen/console: do not drop serial output from the hardware
- domain
+Subject: Re: disabling mercurial repositories
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <YqcuTUJUgXcO3iYE@Air-de-Roger>
- <f0f87e99-282b-6df7-7e57-3a6c73029519@suse.com>
- <YqgwNu3QSpPcZjnU@Air-de-Roger>
- <69d85d88-4ec1-987c-151f-0d433021fe34@suse.com>
- <YqhHtetipYTG8tuc@Air-de-Roger>
- <72c94980-cbcd-d3b3-7aad-c9db58d9c4a2@suse.com>
- <YqhXFKMlIvkQzVoT@Air-de-Roger>
- <291bb0ee-06d7-af25-79bb-e099c7ff2fe1@suse.com>
- <YqsUfH763oSchRdW@Air-de-Roger>
- <8ee15e94-f4a9-69f2-4c57-2e0cc9df8746@suse.com>
- <YrLcLpsd8hOcMOGI@Air-de-Roger>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+Cc: "committers@xenproject.org" <committers@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <YrHMSJg6Rx9ULvr6@Air-de-Roger>
+ <aaea6105-e83d-feba-edf3-3d7e26b90769@suse.com>
+ <10a33bef-bcef-9ec4-5171-a579019a69f1@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YrLcLpsd8hOcMOGI@Air-de-Roger>
+In-Reply-To: <10a33bef-bcef-9ec4-5171-a579019a69f1@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6PR04CA0045.eurprd04.prod.outlook.com
- (2603:10a6:20b:f0::22) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR06CA0271.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45a::25) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2829f0d3-1143-4771-cd17-08da5432442f
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8404:EE_
+X-MS-Office365-Filtering-Correlation-Id: e66cd668-4fca-4df2-81ef-08da5432ff3d
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2464:EE_
 X-Microsoft-Antispam-PRVS:
-	<AS8PR04MB84048F90896DCD0FE51B0ED3B3B29@AS8PR04MB8404.eurprd04.prod.outlook.com>
+	<VI1PR0401MB246489051A23B9D0B634B8B5B3B29@VI1PR0401MB2464.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	NU/oPnlHOqXEyi0cfHmQ5f0V3BquWZlCvo+IsjJyueEVBIwQJV/j6G3vh6yK03J8UU1cIxphBRMPEi4Pc69uw76EFKEibft+q7yQ8jqQKx5t7aNv2JFciv8TkmZH/cALUxH1HhfWl9mS7ly2sfuxS61EDv0O8VtrkmPQEhz+425EJZQBpt6f2nt82VyRHKr5BeV5Vj+8O5xqWKzYsoFlkUASYngWlt35iq0XatU1GN6/diIJMq9MERbzlkKaXrkrU/A2bqOOpVxIZo0AZqOhjfIGrtEeBGTZsNUQGT+413M1wwqhjooa76XTw1vDXYHcuP92Gz9cnL2vF++DN/zM+EOWJmO2qKhDeCNQWDkVb06IUUhcxllJzub818Duq0MotiLaNDipUVEg1kk9i5ZUjnit9YH2BahZB5QMf7J02LGv6orHOOh7eUnBbFm0UEe5gt6HVtjNvYoR/63XczYe+8d4J72Ido+Y3OjHEUHuJo1TU9QC2hwbWS3chlvcEMpYm/aZvi67h+oePmYGjwft8Kv3bWLpnZ+Nb806ftul+PKxRNyqeO8EF6Of9bmH/UlFZ8qZLWSQIp7OWvUSqD3OrfSKh4AjbeG1FWcDq95qiuOmg5AdWt58Nyot1otnJtUCsHJb12H5deDw3To3IunVrSfDFNJlSSF83odMpVwdsrmJCqBDYn8RnnQfE562C8ol3l4HBgxhCrp98WZcPmZWJ5prfMS+5MKqPFA2jP4LDaFDciaV9La+xXiVAHahlqyGsJYseIea3ZY2L4YZzwpnHmqazZjHpE9JGnII+0NWOWI=
+	M5plyy2YI/J+NoCCejLqlErC35gHR4A0SgZGstMiMqd3PDrbo/HRTUYa6vMD87EBql+y1566V8/tUi2Ujxe2SM+Aj5dCQJ5i18Q7gEGYlYPk/7NAOSDxkQqYSRUaOeehcN3kJlT0xumZ0obnCaUPaJ0OTIMPPXzKlJQcyxk7YfLsj6aaLVC9n+o15MD5ynHIIO16BlzesVZ4ftmgQq3odS4J32XhfHLy/r/I2+tRJXprxXJknEdqdbmuhllMkLm4uugQ2vzPLZZXP8APdqQW8J3r8GOkSZW4F6Gsr77p2xPf1wyQQvN+jODxHRXAL99L7z35DwGCivVO6QQnb6JDrkSuUrNCCO4Sq2yyWRMF5+56ImHTSZGX49CXCzXxHQ8Ptrw2OWITJKkS59RxL70JuS7U4YcfcgTblijEv0rPkCoO5+0xyhTsCphMI3OtHChmIjkb7lC+QFPPlzmhs7E1Ipnz9Si3fL6Qu4Ae0+cnQIi0XYAsW0zUZurUri/KboBM75b9mW/Z6pwSvNQlXQD9/H2CASDiazlZNRoloMg+I4uAo8QwDY5Bmjt/DshhPWljwyRHbNY/0a+RDwTVaLzqvDDgqHiawUvuUzG4rNK3t08H1umi57amMI4k82Ji+GlU0/tQ+NxgoiUdN210TTnCRh42QqQv0VL8vXaF6i4QWIGsUnK4ShGTaDv9UKi38TKRZFkdWef1rOIrc0OTa0peOO8OvsJgzGqiF+DYj4BnQaHI1IzNtFtLllyiY+PWirzXj2E6P/BbedxdvtKl+6tZ19q+evXS/mSMwpf2d19BAu4=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(346002)(366004)(376002)(136003)(39860400002)(396003)(26005)(6486002)(6512007)(53546011)(478600001)(6506007)(6666004)(38100700002)(186003)(41300700001)(66946007)(4326008)(5660300002)(66476007)(66556008)(31686004)(8676002)(2906002)(2616005)(316002)(6916009)(83380400001)(36756003)(8936002)(54906003)(86362001)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(396003)(376002)(39860400002)(136003)(346002)(6506007)(41300700001)(3480700007)(53546011)(38100700002)(36756003)(6512007)(26005)(2616005)(2906002)(31686004)(8936002)(5660300002)(83380400001)(31696002)(4326008)(6486002)(66476007)(478600001)(8676002)(66946007)(186003)(86362001)(7116003)(110136005)(66556008)(54906003)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R2g0QXdTWUQ5TFN1ZG52bENVMzRUV2ozSkVVVU9MYWxzQ2s1ajJzMndaQ1V2?=
- =?utf-8?B?d2pQQjJWVG9oVVRjWGpqcnpSZ1lmL2NkZnppLzROdklLU1Vyam1uZ2ZvVWF0?=
- =?utf-8?B?VFJJSzRmOENFZnFscXFNWUY5RzArQWFrWUxIb0xSdXBjMjA5bkZneERYMy9a?=
- =?utf-8?B?T1diZ0dadlJOTHhCUVZYSDF5d0JGbHQ5cmgyaDdqVk5xZDhsT0l6dTRxZFNo?=
- =?utf-8?B?MEkzSTExYnEyQTBEUTd0MFlHVnVsL3ZpYzZ1M3p2RnQ0eUt5aWVuM0lHRTFs?=
- =?utf-8?B?a2I4MU9ySXpnZGw4YjdsNFBab0J6cWFQOHFOMWdhR0RWWHJRdWRvaUFTenpF?=
- =?utf-8?B?YzZaQ1hqRVdCcXVYTjVkak81WWVZTzZKbGhMN0tCQjRtcUZKb1JmQ0hjcEtT?=
- =?utf-8?B?UUkwYXNkbmphTkthMFhrZml0OS9WRHdwbXI4c01vYkVaR1ZIYXZCem9NQnRR?=
- =?utf-8?B?dmRtamVmN3EzS3pyQ2MwQ2lKT1hLWDl2cFBRVnVvcERjMTBtelpQWTcyOU9F?=
- =?utf-8?B?Vk9XYkJoS0sxemxQMUs3WnhKZFR3QjhmVTVLQUg5RnpJTnNTa1RFQ3Q0ZmRZ?=
- =?utf-8?B?VzJpWmhLU2Ixd2xNaHNjenFERWNtaC9yTG1RZTNxeTB0cUl3MTk1eERETnYx?=
- =?utf-8?B?WStqNGc1SWZpRnhUYWUyM3E1WkJrVUNaMnZ4T051dkROM2puY0NPWW92aS95?=
- =?utf-8?B?d1NNcmlPakRobUQ3OUxOQTNEUUtQZ3FJSGdMdDNwY01CS241QnpMWmhEKy9n?=
- =?utf-8?B?bXM4RGFhVk4wVGxIQTd1OUdpRnJqM3VTdnlKalhFNFZEcWhLRzJMdmtFaWpm?=
- =?utf-8?B?bUdmeWQxa1htM09XUzYxa0M1L05sajRleUwrbllFekg1TmtCUHlnUjRDbWJP?=
- =?utf-8?B?Sm5LUWdpMldrckZyZDdnWXJNN0pOcGdoYjcvT1FMUEMzbC9VRmhqTjRMQXFx?=
- =?utf-8?B?Mk1Ga3pwNVd4K2V0cWJUbVVyRHFUYlhRc3NKaVFDQm9LMDJ5Tml6Rm9QVWtY?=
- =?utf-8?B?d3EwYUxseGJpU0RuTFo1VHpKdFBWRGdwOTlHbHZqa3Q5YUJHQVh2Z0l5ZnFX?=
- =?utf-8?B?enp3S3J0Z3B5M1ZwZ3dhTGdmRjdtcDg2KytFQy8zaDVueThvMi9peUpaMUMr?=
- =?utf-8?B?RnhZS1FBdGhSM21hcGNQdU1lajgwcWs4Y0hQZDNVSkZ2ektFczFLR1BxTXBr?=
- =?utf-8?B?UUxoN0J3Z0hDQXRadU5SLzlVOVlLUjRCZ0o0Y0VlN05xeThhZmNuMHRjWTMr?=
- =?utf-8?B?RTk0cnZucitiWEF4eEg2L1RnSkFaTFBrdVdUT3I0T1hVbk5xM2dCQnE5TFNy?=
- =?utf-8?B?QndGaHBQUkg5aFZuM3RKYWFjRU51VXNzSkgxVW5XbHpUS0c5TEh0bEh3cDFJ?=
- =?utf-8?B?aW5DMlBmdi9GWVUveHhNRGFMV0ZRYlA0ZVR3VjAyTkk3Mk5CbmRPaC9OSkMv?=
- =?utf-8?B?dERMSW1zTkk5a0taUkl4Rmh4cmNSNWN4UUh4Sk1ENkNIK0Y3WEs2UzB5KzlV?=
- =?utf-8?B?eVBWK2lqdE5hRHdHcDRLU1EwUmZHV1NNUTQ4Y2dSZmFOLzBKSFk2TjZhb1Qy?=
- =?utf-8?B?YVN4bFJ1OFR3NitvbzFZR0IzNmZtUFhVZE5WbVNmaGxKVnlIUXVLRy9keVRG?=
- =?utf-8?B?NGI0UGNGc1ZBK0k2ajIzd2lOeVIzNlBSUlE5U1Z5bzFBNE9DMmtNQkk2Tkcy?=
- =?utf-8?B?cW5obWlldzhIMXJYZ3VSdmc1K21YZFJuQTRMMkU0Y0xuOWRxNjJsYlNyTHhN?=
- =?utf-8?B?WWFPRmFheUliTFE0VDdVR3Z3WURDekN5dllzVkZybGJMazhXem1JZEF1TVk5?=
- =?utf-8?B?dHN5Ujl4SVBBbE43STJLWGpVaFA2ZEM3d05WaDR6S0J1cTZjUEF2bG40anhE?=
- =?utf-8?B?dVRoSTYyRHhPRVU1Z0JneWpBb282b0ZadFAzUG1iYmloUFMwU3dkSmgrNjlW?=
- =?utf-8?B?Q2xsQThZdWdMekxpa2lPZHNmRU1pRUpKbUVBWTdjazNjVnpEdFcrVnNPUkZV?=
- =?utf-8?B?QjdkSmVYdHp3VWlpci9SVHZaWlV2MzlEM3RzeXhDdWd0MzkyWnp0RTVZS292?=
- =?utf-8?B?RWZ2Q2lMbTFtZ1QzYlVBM2tDNjVaVHpVVUQwMVh6aVJGS1B3ZnlZUWpuYXlY?=
- =?utf-8?B?SXpJREFXRjJUUmdING1Tc1ZZdnFLQ3hEWHhYdlpoNmtVeXhWdXlXbnNoNWhm?=
- =?utf-8?B?N1NzN3JSU0Nnb1U5bTVRTXR5bTFTTmo2VGIzRXd3OWNNeWo3MTMvQTJWZ2Zr?=
- =?utf-8?B?VXNOeHlUYm9YVnBqbXJRZlRwcmwxQ291Q2l2c3E2TkRCRGgyT1d4dkpVdktx?=
- =?utf-8?B?cGw1Q3J5SVM2TnhDWnF3MGFjTnRJY1UyVlluQ2xieTVIY0FYTlhEZz09?=
+	=?utf-8?B?ZzNRVmhlYm9wRFRiVitGMTlIanRTbW9vRzlXRkFSNlo4b1ZIeG1UcmQyY2Q4?=
+ =?utf-8?B?dmEwMXNmcDRJeEZPbnZyMDlMTTVKemFRU2ljbzRTYmxVby9raWpycGF5ZmE1?=
+ =?utf-8?B?QTFIcFAvT0FBQzJMU3hJNWUrNnYralkvMFJ4S3RZbm5LSEwzRTdEb3p3ZFEr?=
+ =?utf-8?B?OG1xRFUwNzlWak1NbDN0QjcyMER6N2dEQlZNYWlqaDBVemplU01qSWRhUWRa?=
+ =?utf-8?B?a3hodDQwbEdXYXExaWdFbWVaS25kNE1jSmlScCtGWVFOME94ZFF1UFFQN0h5?=
+ =?utf-8?B?QzNRNnBzZnNxR1RoQmo5d2VOMlo1MFRLVVY5WTNKVmhPZEd2WExhRDBVaTNB?=
+ =?utf-8?B?R0oxakZNcDFBN2pSaEdvNEV1VytxVFRUSWpkR1VIdklnWlo5dWJkZ1laQTFN?=
+ =?utf-8?B?TmE0dG1ZcWpMdGFiM2VveDBXUjBsQW85RjM2Y3RhdU9WUUFTeFdKNFB1Sk0r?=
+ =?utf-8?B?VFE1NkVvWndKOUpLZWNZMDRoWVMyU1pLbkNZT1R1akdjYW1LdXQxd3NNdkF3?=
+ =?utf-8?B?b3RxVjRaNTF2aGdXdkZUTCs5MkVIczlDZy9ERXVKME1wRGY3TlFGVDBESmVM?=
+ =?utf-8?B?dmtRSUxzVWtrbU5sNEFaQzVpU1lQV0dTWkJwODNKUS9Mc2dxdjVJRytuYnF5?=
+ =?utf-8?B?R2JvRkgzT28xQ0VGZG1tMHNibnM0aW1NK1hib3BYSURTV3BSN0dlUUx0aDlx?=
+ =?utf-8?B?Y2VEaXY3cGo1UzlBcTFkc1BZbW0yZlkwL2hzcG45dEd5U0IxeitZVWwydjh4?=
+ =?utf-8?B?OWVycU9Id29YL2g0S3hMcVNDK3hMUDR2amNIbTBQWlVQRGd4Q1ZHV0UyMjhI?=
+ =?utf-8?B?KzdGYTRQL1NWT3NGTjlhSHBRUm10MzNmUEJ6b3J2OWFVRWJyRW5kNXFFNzVw?=
+ =?utf-8?B?dkpOUkNRb3Q0MHoyL1k2cjdKM0pqOTUwQll3WTZaVWh0R2VjaTh4MXZpa2Zl?=
+ =?utf-8?B?QWpPSWZhYWZsZUdOUzdyUXRzTk5SK0pCaDB5SEo0VzJiWklIQjBkK01zZjFm?=
+ =?utf-8?B?SGl2RXJPSnVzUEEybG1tVjBSSTNlaENSRGU2LzJ0dWtWRjZORlNwSUJGTS90?=
+ =?utf-8?B?cElrb3lRbmE4QlVRYmhLMnp0Zk05VHlBeHFJTGhwV2tJajNaMjR6TCtaeDJr?=
+ =?utf-8?B?d0JCTVp5RmhsSmk2WjJJWU5QSXZ2NS9GS1lKMTk3aE1sSU5lR095STZQMXEv?=
+ =?utf-8?B?UlZtcm1RREhTdDJ4cHRhek8yYnI0ZHhSWEYwcm9SL0pac0EwVmR3TEdKNCtE?=
+ =?utf-8?B?Sk40NmdJOEtVVzY5WFlDMytwVHJjc2xVVGpkNFZuTGZqdkdaQnpaUjhSSTZv?=
+ =?utf-8?B?TkdidTVkVTNwS1BJcVM2QWFjZUhoN1ZycWp5MXJPK3RmWEErOHR6b0ZBeXRh?=
+ =?utf-8?B?TmZ6YlJOaEFhbjN2MkFIOE5Ocnc5OXpMUmw3SWNFcEE4M1FWb3BpYWs5eXdD?=
+ =?utf-8?B?Nm1scy81bkZUTmF0Z3Eyb3Fha3RRbmxyYi83UHhYdW1XTjU5a3NlMUdnc2pD?=
+ =?utf-8?B?a21Cak1FWDhUR25QZGFxUHMyQm5yWlNRODJ5NTE4VE9XMDU5bHpEemNwT1RF?=
+ =?utf-8?B?MEtBaHJ2bHB0Ky9hOXRQandER0hDa3AzV2lxa0d5c2h4L2lSTHo5MzdMdDF3?=
+ =?utf-8?B?eVRBTXJBK284UGw0TU45dGs3cHMrdHd3UEgrV0lmZzkrRWxBaVBwdk0rU0RT?=
+ =?utf-8?B?ajMyU2dXQkpNalI2MmpYZXRNaXM4L25iY1kyVWhVc2xPRUM2UE5EVGhlaWEx?=
+ =?utf-8?B?SXhHdlJOVjhEV2hxR3VGelVKQkpsd3VGZmNBbWhCcnJETFJaMWx2VldPY04w?=
+ =?utf-8?B?ckJYZ1Z6cGN2a3ZOU0ZWNzVpdFJoNnNxV3VHT2hFTmxMcGNQRHpETkJYLzc0?=
+ =?utf-8?B?TnFzNzUwRHJuTVJZbkVWTmM3dHdaYXRZajNWMm5xeEhpOEdZbjFhQ2tYcUox?=
+ =?utf-8?B?SU9XR05KajBZYmRVZ3cyM3J5QTQzcjJRUkZ6aFhETGNMMjNhMHkzQTJqdmxC?=
+ =?utf-8?B?ZkJoODh4b2hLdVVDeldieTdack9Sc3g0UjNSRzNqMjA2ck9QYUM4UmlNT2xQ?=
+ =?utf-8?B?V2hzS3A0MXFqWE1jTjNudHlrcXZCaUUvaDJFdFNndnFPM1Nra2Y0YXErc050?=
+ =?utf-8?B?ZXdMdUtXbnl3SXg3STVzczVJc1RCWjQ5QlhtbWdkRG1TY1NHd29GU3hRY1FJ?=
+ =?utf-8?B?WnlvdmRZREV3Q3BhNVBINVduTnd1Y3hUeFdpOGRiUFYyMnA5bDFUTjFBZUJp?=
+ =?utf-8?B?K1NDSWxUSCt5Ukt3NithY3dvdTdMVCtFN1I4d2xWLzRJTmYvQ2NNSmpVdTNp?=
+ =?utf-8?B?c1B3cHdPWVVJTjlpNmtEOXpGNlhwczFRQUU4SWt0c0Nwd3FGYXdNUT09?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2829f0d3-1143-4771-cd17-08da5432442f
+X-MS-Exchange-CrossTenant-Network-Message-Id: e66cd668-4fca-4df2-81ef-08da5432ff3d
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 09:33:29.6990
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 09:38:43.5384
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V0GLk1UZA35HUYO+FOM4tPW28/7pB+JTTHN70+L8Qqo39wkxHfEXEtSMttncq5Cw5hQWujy4imzTcl8ylO0fhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8404
+X-MS-Exchange-CrossTenant-UserPrincipalName: gVOLHbXZ/sD4DDXGTS80A+yjstO6FbvZGcW19hvPjwd1mInXbIGqwKjHt638VPuQ0qpYP+BPqrDnb4WWJxzt/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2464
 
-On 22.06.2022 11:09, Roger Pau Monné wrote:
-> On Wed, Jun 22, 2022 at 10:04:19AM +0200, Jan Beulich wrote:
->> On 16.06.2022 13:31, Roger Pau Monné wrote:
->>> On Tue, Jun 14, 2022 at 11:45:54AM +0200, Jan Beulich wrote:
->>>> On 14.06.2022 11:38, Roger Pau Monné wrote:
->>>>> On Tue, Jun 14, 2022 at 11:13:07AM +0200, Jan Beulich wrote:
->>>>>> On 14.06.2022 10:32, Roger Pau Monné wrote:
->>>>>>> On Tue, Jun 14, 2022 at 10:10:03AM +0200, Jan Beulich wrote:
->>>>>>>> On 14.06.2022 08:52, Roger Pau Monné wrote:
->>>>>>>>> On Mon, Jun 13, 2022 at 03:56:54PM +0200, Jan Beulich wrote:
->>>>>>>>>> On 13.06.2022 14:32, Roger Pau Monné wrote:
->>>>>>>>>>> On Mon, Jun 13, 2022 at 11:18:49AM +0200, Jan Beulich wrote:
->>>>>>>>>>>> On 13.06.2022 11:04, Roger Pau Monné wrote:
->>>>>>>>>>>>> On Mon, Jun 13, 2022 at 10:29:43AM +0200, Jan Beulich wrote:
->>>>>>>>>>>>>> On 13.06.2022 10:21, Roger Pau Monné wrote:
->>>>>>>>>>>>>>> On Mon, Jun 13, 2022 at 09:30:06AM +0200, Jan Beulich wrote:
->>>>>>>>>>>>>>>> On 10.06.2022 17:06, Roger Pau Monne wrote:
->>>>>>>>>>>>>>>>> Prevent dropping console output from the hardware domain, since it's
->>>>>>>>>>>>>>>>> likely important to have all the output if the boot fails without
->>>>>>>>>>>>>>>>> having to resort to sync_console (which also affects the output from
->>>>>>>>>>>>>>>>> other guests).
->>>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>>> Do so by pairing the console_serial_puts() with
->>>>>>>>>>>>>>>>> serial_{start,end}_log_everything(), so that no output is dropped.
->>>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>> While I can see the goal, why would Dom0 output be (effectively) more
->>>>>>>>>>>>>>>> important than Xen's own one (which isn't "forced")? And with this
->>>>>>>>>>>>>>>> aiming at boot output only, wouldn't you want to stop the overriding
->>>>>>>>>>>>>>>> once boot has completed (of which, if I'm not mistaken, we don't
->>>>>>>>>>>>>>>> really have any signal coming from Dom0)? And even during boot I'm
->>>>>>>>>>>>>>>> not convinced we'd want to let through everything, but perhaps just
->>>>>>>>>>>>>>>> Dom0's kernel messages?
->>>>>>>>>>>>>>>
->>>>>>>>>>>>>>> I normally use sync_console on all the boxes I'm doing dev work, so
->>>>>>>>>>>>>>> this request is something that come up internally.
->>>>>>>>>>>>>>>
->>>>>>>>>>>>>>> Didn't realize Xen output wasn't forced, since we already have rate
->>>>>>>>>>>>>>> limiting based on log levels I was assuming that non-ratelimited
->>>>>>>>>>>>>>> messages wouldn't be dropped.  But yes, I agree that Xen (non-guest
->>>>>>>>>>>>>>> triggered) output shouldn't be rate limited either.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Which would raise the question of why we have log levels for non-guest
->>>>>>>>>>>>>> messages.
->>>>>>>>>>>>>
->>>>>>>>>>>>> Hm, maybe I'm confused, but I don't see a direct relation between log
->>>>>>>>>>>>> levels and rate limiting.  If I set log level to WARNING I would
->>>>>>>>>>>>> expect to not loose _any_ non-guest log messages with level WARNING or
->>>>>>>>>>>>> above.  It's still useful to have log levels for non-guest messages,
->>>>>>>>>>>>> since user might want to filter out DEBUG non-guest messages for
->>>>>>>>>>>>> example.
->>>>>>>>>>>>
->>>>>>>>>>>> It was me who was confused, because of the two log-everything variants
->>>>>>>>>>>> we have (console and serial). You're right that your change is unrelated
->>>>>>>>>>>> to log levels. However, when there are e.g. many warnings or when an
->>>>>>>>>>>> admin has lowered the log level, what you (would) do is effectively
->>>>>>>>>>>> force sync_console mode transiently (for a subset of messages, but
->>>>>>>>>>>> that's secondary, especially because the "forced" output would still
->>>>>>>>>>>> be waiting for earlier output to make it out).
->>>>>>>>>>>
->>>>>>>>>>> Right, it would have to wait for any previous output on the buffer to
->>>>>>>>>>> go out first.  In any case we can guarantee that no more output will
->>>>>>>>>>> be added to the buffer while Xen waits for it to be flushed.
->>>>>>>>>>>
->>>>>>>>>>> So for the hardware domain it might make sense to wait for the TX
->>>>>>>>>>> buffers to be half empty (the current tx_quench logic) by preempting
->>>>>>>>>>> the hypercall.  That however could cause issues if guests manage to
->>>>>>>>>>> keep filling the buffer while the hardware domain is being preempted.
->>>>>>>>>>>
->>>>>>>>>>> Alternatively we could always reserve half of the buffer for the
->>>>>>>>>>> hardware domain, and allow it to be preempted while waiting for space
->>>>>>>>>>> (since it's guaranteed non hardware domains won't be able to steal the
->>>>>>>>>>> allocation from the hardware domain).
->>>>>>>>>>
->>>>>>>>>> Getting complicated it seems. I have to admit that I wonder whether we
->>>>>>>>>> wouldn't be better off leaving the current logic as is.
->>>>>>>>>
->>>>>>>>> Another possible solution (more like a band aid) is to increase the
->>>>>>>>> buffer size from 4 pages to 8 or 16.  That would likely allow to cope
->>>>>>>>> fine with the high throughput of boot messages.
->>>>>>>>
->>>>>>>> You mean the buffer whose size is controlled by serial_tx_buffer?
->>>>>>>
->>>>>>> Yes.
->>>>>>>
->>>>>>>> On
->>>>>>>> large systems one may want to simply make use of the command line
->>>>>>>> option then; I don't think the built-in default needs changing. Or
->>>>>>>> if so, then perhaps not statically at build time, but taking into
->>>>>>>> account system properties (like CPU count).
->>>>>>>
->>>>>>> So how about we use:
->>>>>>>
->>>>>>> min(16384, ROUNDUP(1024 * num_possible_cpus(), 4096))
->>>>>>
->>>>>> That would _reduce_ size on small systems, wouldn't it? Originally
->>>>>> you were after increasing the default size. But if you had meant
->>>>>> max(), then I'd fear on very large systems this may grow a little
->>>>>> too large.
->>>>>
->>>>> See previous followup about my mistake of using min() instead of
->>>>> max().
->>>>>
->>>>> On a system with 512 CPUs that would be 512KB, I don't think that's a
->>>>> lot of memory, specially taking into account that a system with 512
->>>>> CPUs should have a matching amount of memory I would expect.
->>>>>
->>>>> It's true however that I very much doubt we would fill a 512K buffer,
->>>>> so limiting to 64K might be a sensible starting point?
->>>>
->>>> Yeah, 64k could be a value to compromise on. What total size of
->>>> output have you observed to trigger the making of this patch? Xen
->>>> alone doesn't even manage to fill 16k on most of my systems ...
+On 22.06.2022 10:47, Andrew Cooper wrote:
+> On 22/06/2022 09:41, Jan Beulich wrote:
+>> On 21.06.2022 15:48, Roger Pau Monné wrote:
+>>> Last week we had a bit of an emergency when a web crawler started
+>>> indexing all our mercurial repositories on xenbits, as caused the load
+>>> on xenbits to go beyond what it can handle.
 >>>
->>> I've tried on one of the affected systems now, it's a 8 CPU Kaby Lake
->>> at 3,5GHz, and manages to fill the buffer while booting Linux.
+>>> As a temporary solution we decided to remove access to mercurial
+>>> repositories, but the contents there are AFAIK only for historical
+>>> repositories, so we might consider completely removing access to
+>>> mercurial repositories.  This would however require migrating any
+>>> repository we care about to git.
 >>>
->>> My proposed formula won't fix this use case, so what about just
->>> bumping the buffer to 32K by default, which does fix it?
->>
->> As said, suitably explained I could also agree with going to 64k. The
->> question though is in how far 32k, 64k, or ...
->>
->>> Or alternatively use the proposed formula, but adjust the buffer to be
->>> between [32K,64K].
->>
->> ... this formula would cover a wide range of contemporary systems.
->> Without such I can't really see what good a bump would do, as then
->> many people may still find themselves in need of using the command
->> line option to put in place a larger buffer.
+>>> I would like an opinion from committers as well as the broad community
+>>> whether shutting down mercurial repositories and migrating whatever we
+>>> care about is appropriate.  Otherwise we will need to implement some
+>>> throttling to mercurial accesses in order to avoid overloading
+>>> xenbits.
+>> While I wouldn't strictly mind its shutting off or the disabling of
+>> hgweb as was suggested in a reply, either would mean to me personally
+>> that it wouldn't be easy enough anymore to warrant trying to hunt
+>> down the origin of certain Linux side aspects in the 2.6.18-xen tree.
+>> Admittedly me doing so has become increasingly rare over time ...
 > 
-> I'm afraid I don't know how to make progress with this.
-> 
-> The current value is clearly too low for at least one of my systems.
-> I don't think it's feasible for me to propose a value or formula that
-> I can confirm will be suitable for all systems, hence I would suggest
-> increasing the buffer value to 32K as that does fix the problem on
-> that specific system (without claiming it's a value that would suit
-> all setups).
-> 
-> I agree that many people could still find themselves in the need of
-> using the command line option, but I can assure that new buffer value
-> would fix the issue on at least one system, which should be enough as
-> a justification.
+> We could convert that into a git repo (probably a branch on an existing
+> Linux.git to save most of the conversion work) and make it available via
+> gitweb if it's still useful?
 
-I'm afraid I view this differently. Dealing with individual systems is
-imo not a reason to change a default, when there is a command line
-option to adjust the value in question. And when, at the same time,
-the higher default might cause waste of resources on at least on other
-system. As said before, I'm not going to object to bumping to 32k or
-even 64k, provided this has wider benefit and limited downsides. But
-with a justification of "this fixes one system" I'm not going to ack
-(but also not nak) such a change.
+If such a conversion would go cleanly enough, why not.
 
 Jan
 
