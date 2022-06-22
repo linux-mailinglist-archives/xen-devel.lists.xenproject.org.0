@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809CD554E9D
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 17:05:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.354088.581116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78F9D554EE0
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 17:15:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.354107.581142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o41v1-0005Jn-8b; Wed, 22 Jun 2022 15:05:23 +0000
+	id 1o424s-0007UB-NP; Wed, 22 Jun 2022 15:15:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 354088.581116; Wed, 22 Jun 2022 15:05:23 +0000
+Received: by outflank-mailman (output) from mailman id 354107.581142; Wed, 22 Jun 2022 15:15:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o41v1-0005GW-4d; Wed, 22 Jun 2022 15:05:23 +0000
-Received: by outflank-mailman (input) for mailman id 354088;
- Wed, 22 Jun 2022 15:05:20 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o41uy-0005GQ-Rk
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 15:05:20 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o41uy-0006sJ-8S; Wed, 22 Jun 2022 15:05:20 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=[192.168.1.223]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o41uy-0002yF-1P; Wed, 22 Jun 2022 15:05:20 +0000
+	id 1o424s-0007Qj-KM; Wed, 22 Jun 2022 15:15:34 +0000
+Received: by outflank-mailman (input) for mailman id 354107;
+ Wed, 22 Jun 2022 15:15:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=P1Wy=W5=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1o424q-0007QM-M1
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 15:15:32 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 28160e9e-f23e-11ec-bd2d-47488cf2e6aa;
+ Wed, 22 Jun 2022 17:15:31 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id g27so17227019wrb.10
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Jun 2022 08:15:31 -0700 (PDT)
+Received: from uni.. (adsl-190.37.6.169.tellas.gr. [37.6.169.190])
+ by smtp.googlemail.com with ESMTPSA id
+ p11-20020a05600c418b00b00397342e3830sm5069392wmh.0.2022.06.22.08.15.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Jun 2022 08:15:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,100 +44,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=BFCMwyrNPp2qFe9FX3HCPNNL5Vv2AAfhhxTeX/ShkmI=; b=B77U3qPZF7i/8twLir5wK0ZuRg
-	MDUE5YPwGC7bWb6JoT9O18DECLB7KFOn0hG716ObwrPkhiHTlyyzXNsEUGgKrvO3eAWauq8VSEGnh
-	CW3rASEo2giW1LRHrfzoKD7T5gy4XYdeIJ4Mrfc9YtBEgdElmdqNbULgEWK3I9Mqp37k=;
-Message-ID: <b64a7980-e51b-417b-4929-94a020c81438@xen.org>
-Date: Wed, 22 Jun 2022 16:05:17 +0100
+X-Inumbo-ID: 28160e9e-f23e-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=j2rncxPDfJaPpuQwqHGVJi9q+yld7nhIqqPjjzXvlAA=;
+        b=Y6WXWKq6JB6Ih24FFqZpi407L/j+ynMtcODAEudGQsyhpQ4xZs9LcxDArl6nu7KJxD
+         cu4V8cHJnMIcqPwlc4faz88K1cKtgBNdKLT4qN4kBVFzKOmTqeQnahP5HtDvMOQ/z4xY
+         SYIb1z28tcbZv8AQduxuR6hfKhH575RTnEJ7BRvccnJAt68xzY5MrwjIPdgvEax0g+83
+         dTUv5uMwl6DcgLd/+mNaFJBwYVfPaiLfGY+dyZnoOhi2BBTW4b+bg97rWjRBFBq8VJ6/
+         S3qjU2d/pMZcWqGCHw5E0yS3QoBNQM0RzaupdZJGovHKuti0yoSsf3/dS0xZmYTaO3Y0
+         RvjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=j2rncxPDfJaPpuQwqHGVJi9q+yld7nhIqqPjjzXvlAA=;
+        b=niqsYCexZyT8igB3ksvahpbkPvRsYVHeJBlIg+G5ylkVsAGbCJMndluD4nOAeHq5Qh
+         WTOkR/4Bpvy5ZXMW+MpgETRrAOk5i+bqi4DGP9FS2I9gxSSmodYVpUB4eBnxaeXb4II9
+         PQLzAx15eZ6aV9E6l84R5C0m7p6hwBO+7Dyww+EubFdiieOKw1ZNpT/tjIZELziBE/0/
+         kJjXr02GmnY9ITjA4oE1f1IIrjij+zTh7RTWHCRWYhXUA1QbnChsN05avhUlYxPLLFWG
+         MA1OY/6mFZrrd9pJcXtxxTPrz9WQMgrJQyIyUk9dF3yvJA2IwyIIF/S9BKHPNuewe7kp
+         86bw==
+X-Gm-Message-State: AJIora9885cN78tFNODW0vxR88ziLDGzXm07s4aJVNYybUEbcFWIHwa+
+	3etEn6HZ36JO8idGMYPY+SVZYzbv2FA=
+X-Google-Smtp-Source: AGRyM1vvsdHVyLPFKyjsqyqU9fnen8tkjJvCIEEEYnvOfof3J2aQnIhmRBcGX1tPRtkNxwShGY2+1w==
+X-Received: by 2002:a5d:504f:0:b0:21b:a39f:7e6f with SMTP id h15-20020a5d504f000000b0021ba39f7e6fmr1366617wrt.129.1655910930953;
+        Wed, 22 Jun 2022 08:15:30 -0700 (PDT)
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH 1/3] xen/arm: shutdown: Fix MISRA C 2012 Rule 8.4 violation
+Date: Wed, 22 Jun 2022 18:15:12 +0300
+Message-Id: <20220622151514.545850-1-burzalodowa@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [PATCH 5/8] xen/evtchn: don't close the static event channel.
-To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <cover.1655903088.git.rahul.singh@arm.com>
- <91656930b5bfd49e40ff5a9d060d7643e6311f4f.1655903088.git.rahul.singh@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <91656930b5bfd49e40ff5a9d060d7643e6311f4f.1655903088.git.rahul.singh@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Include header <xen/shutdown.h> so that the declarations of the functions
+machine_halt() and machine_restart(), which have external linkage, are visible
+before the function definitions.
 
-On 22/06/2022 15:38, Rahul Singh wrote:
-> Guest can request the Xen to close the event channels. Ignore the
-> request from guest to close the static channels as static event channels
-> should not be closed.
+Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+---
+ xen/arch/arm/shutdown.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Why do you want to prevent the guest to close static ports? The problem 
-I can see is...
-
-[...]
-
-> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-> index 84f0055a5a..cedc98ccaf 100644
-> --- a/xen/common/event_channel.c
-> +++ b/xen/common/event_channel.c
-> @@ -294,7 +294,8 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
->    * If port is zero get the next free port and allocate. If port is non-zero
->    * allocate the specified port.
->    */
-> -int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, evtchn_port_t port)
-> +int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, evtchn_port_t port,
-> +                         bool is_static)
->   {
->       struct evtchn *chn;
->       struct domain *d;
-> @@ -330,6 +331,7 @@ int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, evtchn_port_t port)
->       evtchn_write_lock(chn);
->   
->       chn->state = ECS_UNBOUND;
-> +    chn->is_static = is_static;
->       if ( (chn->u.unbound.remote_domid = alloc->remote_dom) == DOMID_SELF )
->           chn->u.unbound.remote_domid = current->domain->domain_id;
->       evtchn_port_init(d, chn);
-> @@ -368,7 +370,7 @@ static void double_evtchn_unlock(struct evtchn *lchn, struct evtchn *rchn)
->    * allocate the specified lport.
->    */
->   int evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind, struct domain *ld,
-> -                            evtchn_port_t lport)
-> +                            evtchn_port_t lport, bool is_static)
->   {
->       struct evtchn *lchn, *rchn;
->       struct domain *rd;
-> @@ -423,6 +425,7 @@ int evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind, struct domain *ld,
->       lchn->u.interdomain.remote_dom  = rd;
->       lchn->u.interdomain.remote_port = rport;
->       lchn->state                     = ECS_INTERDOMAIN;
-> +    lchn->is_static                 = is_static;
->       evtchn_port_init(ld, lchn);
->       
->       rchn->u.interdomain.remote_dom  = ld;
-> @@ -659,6 +662,9 @@ int evtchn_close(struct domain *d1, int port1, bool guest)
->           rc = -EINVAL;
->           goto out;
->       }
-> +    /* Guest cannot close a static event channel. */
-> +    if ( chn1->is_static && guest )
-> +        goto out;
-
-... at least the interdomain structure store pointer to the domain. I am 
-a bit concerned that we would end up to leave dangling pointers (such as 
-chn->u.interdomain.remote_domain) as evtchn_close() is also used while 
-destroying the domain.
-
-Also, AFAICT Xen will return 0 (i.e. success) to the caller. I think 
-this is a mistake because we didn't close the port as requested.
-
-Cheers,
-
+diff --git a/xen/arch/arm/shutdown.c b/xen/arch/arm/shutdown.c
+index 3dc6819d56..5550f50f61 100644
+--- a/xen/arch/arm/shutdown.c
++++ b/xen/arch/arm/shutdown.c
+@@ -2,6 +2,7 @@
+ #include <xen/cpu.h>
+ #include <xen/delay.h>
+ #include <xen/lib.h>
++#include <xen/shutdown.h>
+ #include <xen/smp.h>
+ #include <asm/platform.h>
+ #include <asm/psci.h>
 -- 
-Julien Grall
+2.34.1
+
 
