@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9769A5544BE
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 11:00:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353581.580523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29035544C1
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 11:03:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353589.580535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3wDN-0007KG-Bd; Wed, 22 Jun 2022 08:59:57 +0000
+	id 1o3wGo-0000JP-S5; Wed, 22 Jun 2022 09:03:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353581.580523; Wed, 22 Jun 2022 08:59:57 +0000
+Received: by outflank-mailman (output) from mailman id 353589.580535; Wed, 22 Jun 2022 09:03:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3wDN-0007Gw-8n; Wed, 22 Jun 2022 08:59:57 +0000
-Received: by outflank-mailman (input) for mailman id 353581;
- Wed, 22 Jun 2022 08:59:56 +0000
+	id 1o3wGo-0000G5-Om; Wed, 22 Jun 2022 09:03:30 +0000
+Received: by outflank-mailman (input) for mailman id 353589;
+ Wed, 22 Jun 2022 09:03:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kzGk=W5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o3wDL-0007Gq-Sj
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 08:59:56 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70087.outbound.protection.outlook.com [40.107.7.87])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sIgH=W5=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1o3wGn-0000Fj-Kp
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 09:03:29 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ad46ea0d-f209-11ec-b725-ed86ccbb4733;
- Wed, 22 Jun 2022 10:59:51 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8851.eurprd04.prod.outlook.com (2603:10a6:20b:42e::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.22; Wed, 22 Jun
- 2022 08:59:48 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5353.022; Wed, 22 Jun 2022
- 08:59:48 +0000
+ id 2e596dc4-f20a-11ec-b725-ed86ccbb4733;
+ Wed, 22 Jun 2022 11:03:28 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id w20so26610113lfa.11
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Jun 2022 02:03:28 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ j5-20020a056512344500b0047f81438160sm547727lfr.112.2022.06.22.02.03.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Jun 2022 02:03:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,133 +44,336 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad46ea0d-f209-11ec-b725-ed86ccbb4733
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dlg7K0R+NqwjEUa0jik9ZZ7vz9vsWoOWKLI336HZnwbeGLiWCvdJS/6xySRu9T/uWIrKXu0HACV+IGQ7Cb0OGpf4zUh6SccrSML4G3Oi0vBhne0pOYoMq4e8imUsAYLRQVpQvjDLSoIrk/WDDJmvFm584B4lVPRuKVNf5U0EaU1HvHwuKpHaP7+uAggjxda/4VD9VS++0GnHGbCjN/k1+GXwVHmTZ5Sz2KOkTwgO5WwA3C7VSLYAOUbnoemvav0exaX6cOflgMB/+hKo++K9QYGP+jqpLRcWwIxzJCCfXHSphpn5iXDofPy43AhPHvJnZTsEEtH16K4DGWK2/m70qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8wUJM8J/QKOFelvYOIxKZZT3Bd4+jlhw35Xmbg0vNTU=;
- b=eAbVCJlColhfC7GbQ0bzXma+BUwTJ8IOUM2djmXhl1v6+mz+mv1UqEmNpucEFPpIHhpck307vCLh+4GnnSXvBAlnDEdpVYRVtlhLoNbe03XYAJA1IIQIEJIPdQ/RCBWdj7ES16UekZBmIKyD83AvJ2s6Y/BdvlPzbVmEop4t7jdskI/KoJ3+kS0EZMfQS0Bqjn2QXZDXi4z7y4rlRCFXuegSq8Wz5114jCbtCQhWkSshPGRzlQa2bsGxvUSRtqWOL9H+K6PxUkvnsskzYjKLMk1GzIIPXGho0p3zk2EnVzruzZL8ct3oglY/wiVehXVChKula1QVc1xYwS+5YGQN1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8wUJM8J/QKOFelvYOIxKZZT3Bd4+jlhw35Xmbg0vNTU=;
- b=vGe9pcQoec8ZVacPydpI4W71JDF2QpNPUXxOJ8eilgKW1ryS9LynCtfLU+QW1fyO/6fqpjUZrqxwtxZdVFMPY9HboQ33rBizTH/IWnDFqUp04vI8/z+/4GuBJcyLtb6XHHb4a4hyyGNR1gqy6NLyL0WO2BgXgEVJuei85n6ZXxrzsdFyr3mL65tqlDE4VPnH/NN4O2cdxc8kgw9KSp8pfPt9CB49vO/sS18u9/1h7YArjlUVZlaO4DLhy8Egepa9kHv/cODm98tO58XsDLv62Wzm934+UTEZzIOxTVJuctlnACbpdfz0RCzhB1S4gpp8aH0+A5yYk8SNpHUHi+rPSg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <5b788e1a-d872-e318-1be5-8640fe887b9d@suse.com>
-Date: Wed, 22 Jun 2022 10:59:50 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [RFC PATCH 1/2] xen/memory : Add stats_table resource type
-Content-Language: en-US
-To: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
-Cc: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
-References: <cover.1652797713.git.matias.vara@vates.fr>
- <d0afb6657b1e78df4857ad7bcc875982e9c022b4.1652797713.git.matias.vara@vates.fr>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <d0afb6657b1e78df4857ad7bcc875982e9c022b4.1652797713.git.matias.vara@vates.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0362.eurprd06.prod.outlook.com
- (2603:10a6:20b:460::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 2e596dc4-f20a-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=4UKmOtPuqR9ZV79ZF3RUEUPJlPzQswRYnZS88Bovo1w=;
+        b=nTUI5zRn9XS6bFDBR+nn0BgevUpzBla/1rPpk2D8wbRjchNnEZ4dQCt+Ds9Qr53GdN
+         aEtiOHS0r65exrhiuv5b2y8mPrUXKMFgPwGujno39obnVBN9gt+8aIyrnztYaRq3Fbui
+         JzzEUZwXoq4VsEp6JMDLpt+udclYKzaUjh/v+7ocMGsGRKGfxQuC4Fdu3Ls0KDfOmVmk
+         +QVTKT/p5bKbotHeUqjvhGo0ISegQdJeKSK25gt4IaFFQg2ZEqBN9pqu+m/5h8sK6LQ2
+         6N/qDT6zFeg/hN3960avfIIQiZrarFaQ9vZCrw+Yb1Iq3o6SygQNayDuyUdLwUUxww1U
+         1N+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=4UKmOtPuqR9ZV79ZF3RUEUPJlPzQswRYnZS88Bovo1w=;
+        b=Tl/XCacLIxzUbFs7C73ap1iK7EoxgEzauzRysVVJCH5ANEoiVn/msCBBWwoyBwjz2D
+         tqxg3whRBfMVpVQvtgA9sla5KglmcxXV35ZuDdSm9c2LxJd0TShI/4TrqbZG/TQzhJx4
+         txPprmUovbvhzdwtOXig4Mzp21kPjNG8L9+L93r9uizlE7fqYj1xXcIqb+BIJ5g+Mx09
+         8taWVlyK1hDLNsKMRF5zfwfcU986XEbOJ+fc51KIPt6Q77ogXtX/bp17rSYv0ELKK6aR
+         3Ch+CaxvK7kfUds58DO3rp0C39IsI7DtCQt/DpK/iGHLKFAnIlilLZMqQqQropq4tdd+
+         uL7A==
+X-Gm-Message-State: AJIora+m8Q8m3kTPwR9FmfnjmxFjoSFV1dpZNfn2JBWR+Rt1C8oaNYcM
+	mNgEcXUUkZ03x1eXr2uAvD4=
+X-Google-Smtp-Source: AGRyM1sukuX1vlem6ZPvfyVXPKMVb8vOqm4ADCvt+D12LzgOZZdGRu1UVCFtQUeaa8AXFbgvr2AMNg==
+X-Received: by 2002:a05:6512:3f6:b0:47f:6dff:dab9 with SMTP id n22-20020a05651203f600b0047f6dffdab9mr1563227lfq.645.1655888607690;
+        Wed, 22 Jun 2022 02:03:27 -0700 (PDT)
+Subject: Re: [PATCH v3 3/3] xen: don't require virtio with grants for non-PV
+ guests
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ linux-arm-kernel@lists.infradead.org, Viresh Kumar <viresh.kumar@linaro.org>
+References: <20220622063838.8854-1-jgross@suse.com>
+ <20220622063838.8854-4-jgross@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <a8ce8ad3-aa3b-ea87-34cf-6532a272e9d8@gmail.com>
+Date: Wed, 22 Jun 2022 12:03:25 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b7b09417-6db9-4261-057e-08da542d8f99
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8851:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<AS8PR04MB885101606C6B5DEDADE865AAB3B29@AS8PR04MB8851.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rGEuA7kBHJ33uuEosQXjw9xhtrTE2/JB/NTXQ1j7sqii8NnaMP27fcNPz903x2y4H3FIFDUIWiP+lw2EzbfSxax8nI4+a4WuKXg1LXVZxlFUZ0FyN38lVodrHNSsZVaRqdiecutGIt5TiwcFb+SKYjdCxXICZ/OIftI8e/n/B+aHCx4J9HvNApRBtOloHCjXfwYzDzR/oJYQx5By15WB/4Avk+KVwCV1lgZYuNe5yf6lOXonbfxxB8p+XJjjKdjRcb+xY98vgIBCu8pPW7Z4VAhH1OkPYCzYNM1pZBW+Qbny5DZ7keMCe2KdNrX3yakTP/jkRxpHriJPWt4loay2SoDhuC2AU51X8j//YdSjCdmUvJQ5WY6LCmBRjIJOTDngu1HhGkZj6ysMxkONLQA1vKpn1NsRkKVH5lrYXOS5JI2M6mGCi/3N12upcrybWQwUdQFuGc5qfLX69Gy7r9m7jvmw+Ckr/yq1AcSL4yt4FOXRLcIcDVZlql5EVtz84dnZm9wNxn2oSBjoynPmrOmphcDNrKsiHxZFZfgfAQEKpCMNhyZdzFajl3L0nQbX2293owGLRcBZE6ozIvoffOV7dYSogoM/E91XWW/v0/Ho80mpCADtgIxZ634VxJa9qvfZHvOZrtTLzknEFz+zvz2MuskZc9e+/3hwHaNPZSnkkd/6unBIxbn1MqB/MjeLA3ArY2UktX3azyqEWLFLBMjIvbDxGcVqwOL/Iq4hyAjvmhVwRCWTFtSFOumg21vAB+qefVKQYZ6Qp1ayd9O/AaETyfrFJ6zzLtnqoa0dq02KvRIJzsHkbwLm+jLz+hZWH/o7qrnK+oPGxqmkbvJQapUzag==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(346002)(39860400002)(366004)(376002)(136003)(53546011)(26005)(6506007)(66476007)(6512007)(2906002)(2616005)(36756003)(6666004)(38100700002)(41300700001)(5660300002)(8936002)(66556008)(31696002)(6486002)(66946007)(31686004)(83380400001)(478600001)(186003)(8676002)(54906003)(6916009)(316002)(4326008)(86362001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUx6bjVveVczbFN0eUVNSWpla2RjQTVodFpMUlBXRUlOczVBSmhwTWtpcUwy?=
- =?utf-8?B?TE9vZlNpaHZGdEgrZERKRmpCM09GQTBJQWdkNHE0eUdhOE9JOS9NVjdSSDJv?=
- =?utf-8?B?eEROb2J1b3lZam1zNTdRV3pwb29BcTNGUmFHZU8vZlhiZ3VaK1ptMGkyY1Fn?=
- =?utf-8?B?bkJpc1lydDN4dCtQbWRGZzRqVDUzODZmdW45dFBPdm9DZUlRekZLZUxQSjlY?=
- =?utf-8?B?a29wemNCNUZpYWdkOFFzN0s5cjJwcmZyNDVDa24yNWdUMUIrdkZyK1dJUW9p?=
- =?utf-8?B?d1FoSUJCbGVIeG1EWHRaTml4ZmFYUldZdW9hQWxYbWZ4SlR4QmY4V2IzVmFF?=
- =?utf-8?B?SFJNQU1FOHRodFFmTWtiblFpcGVTVjFPZHk3T0p0aG1yM2Y3SEllR0N4QVF0?=
- =?utf-8?B?dUFERjZMUE9teHM1Wm9FNFZ0SHZ2VVdyN25tRGJvVTBWRk13YXFuQWRkbkt6?=
- =?utf-8?B?bGc0eHFGTnRadlVia1lLWStlc3R2QnZtUEVzOGs3a3ZteE9RdHlTNE95UXk5?=
- =?utf-8?B?Q1EzMXFhdCtDd0FjSkhubnQ4Q0p0VWZaWm5qcUNxQ0pQUDltWWlBdng5UDh5?=
- =?utf-8?B?Rk9TOENqdkp5WXNpeVNCRTN0QUczRjNLajRMd2pKaHNNbTlZZjNpcThnQkxB?=
- =?utf-8?B?MjBMOWFCSkMvdnV6SEc5emdSUjJPb2k0VGNaZ2QxVHd3UFlYRGR5NlQ3QVRX?=
- =?utf-8?B?citZTXdGWms5WlFrVCt2djJ0QWdSOW54aUVzQ3BqYXlEQjFLN2RnRGxScGhD?=
- =?utf-8?B?YWV5b1hSa0VBZzJVREg3MWwzVG43VHVrUEdhcGNPaFlrUGFaL0lFWm5SaVg3?=
- =?utf-8?B?YTR0UklNUEF0SG4xK2tSRjdJcUtHcHJsVFpFdlkwWDNXbldPR1FpTnVJdDMy?=
- =?utf-8?B?VittQmEzUkgrZlNHOHhZWE01cEJ6a3J5SFhjbDFDUmhlb1IrWnJvcndSaDBm?=
- =?utf-8?B?L0Npc2tkZ3ptR2s1QzllWU1XWkprUURFWmR5cFhkeGJVaFptNE1SYnJqMkhY?=
- =?utf-8?B?Zk5UMUhpZTZBMVM0TFh4QmFhSjd5cnp3Zjg1RlFWU1NKT3pobzlsWjJ0MGxV?=
- =?utf-8?B?a0JFaXlMTWdDSHM2Z0ZycEpLZk8ySlVJaXA4Um4wRkliTEkrbUJCK0dxVnFu?=
- =?utf-8?B?MHRhQUtKODZIODREM1pJbzFlTmVtTzJmM3JnaFR4cjA0eGxxRENYY29STlcw?=
- =?utf-8?B?a3g5M1V0WXhsR0lPSHMxMk9KdDhKemwwbVZtNVdqWXNxdXoyVW11UGRZQ3RQ?=
- =?utf-8?B?ZXQ3QUd2TUNJV0tCK3FDMWxQVUhnUzRqMG9DTG1xUk1obkpNM1FvajFQRTY0?=
- =?utf-8?B?VEVlYWc4NFhBdHF3QkE0VktLZjZ5OU5FYjE3NXV5R2l4MTkzYWRZaEhtcmt1?=
- =?utf-8?B?R28yM2oyNjQ2U0h2dGwyeE40MDNIV00zTUNjaG5hQzRUb0svLy94Y0NIanhO?=
- =?utf-8?B?K3FSVWFHdGgyZ0N2a2NvS0Y0OXk5WFRicmJhU1hTa21BRHlJaWdjaURXYktU?=
- =?utf-8?B?Zm1na1Q3OU91MnJ4RVk2S2poYk9ieVpwbThhcW1aUEJXbG5UUnB1T3JCTnRX?=
- =?utf-8?B?UmR2bTNtQkxlcEZoekNMTU0yWitkYlVIZnV2NWJHbjN1MnRvV0k4bWVqM2FB?=
- =?utf-8?B?eHdxZFBlZ3RzUCtFZ3hJa0QxV1poOUtnU2JpNDdDUGEreVNQc3dWZGxCaGY5?=
- =?utf-8?B?bVhjOTZ1NFd1a1h3ZWFxTk5VemxXNDdHUHhGRVRKcTBPZk9HUldzS3lsbU9W?=
- =?utf-8?B?dFg5WWRtYUVFWldNdTdIRnluUm1kRTkyd29OTUdrZCs2S3JIdmx6aHBveTNW?=
- =?utf-8?B?NG1uWGNHL1BnalQ3Z2VaMXNodHZBZDFPN252UGVCSEVpTWtCT0pkc3pMVjNT?=
- =?utf-8?B?SjEwaTFadHZUNVhYZG9MalJuT0Vib0VmcGovdzdPNW9uck1YNytCL3JzbGp0?=
- =?utf-8?B?R0Q0ZC9CSnFhR09xSDNScG9kc2ZuV2l3dXhDVXRzRUcxVzkvWkFleXhIUDl3?=
- =?utf-8?B?T3FUWFl6ek9JSGpkZVU0R1RTbllvOGlyeUgwbEdFV0lmSWphSDh1ajc3VkFm?=
- =?utf-8?B?T2VMampId2VVQkIvZENocm05L0poVkVYeG1STDY4YmkrVXdTYVR4TThoTkpy?=
- =?utf-8?B?TDFqY0sraE9yM2poTHVNNDhBNTEySWdUcmdkcnluRXZoaFYwcDNmOVo2aFBZ?=
- =?utf-8?B?cGtHM201d3NTQmQxWitUR3dRakpPRzR0YkJhcWJ1bEowYnBaNnZ5a0wwamd3?=
- =?utf-8?B?T0plMVl4K0lTcEEyR1JFR2xZdUxNbFFQN1I5RHFWZWdTY2dMUnNGOFU2ektQ?=
- =?utf-8?B?M1pjbW5IWHhUTFh3SjNZb0FpUmw4UWROOEYrRlVxNWVIUkQrRDQzdz09?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7b09417-6db9-4261-057e-08da542d8f99
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2022 08:59:48.7340
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /UlmdXPGlKeJXwokXCIOGjILTA4xh0lEMZU+OJa6FoVUVyxuIfIV9CYzcy9bg0HPAM+uoXXg0Sg1ynWxIGVmKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8851
+In-Reply-To: <20220622063838.8854-4-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On 17.05.2022 16:33, Matias Ezequiel Vara Larsen wrote:
-> @@ -287,6 +288,10 @@ static inline void vcpu_runstate_change(
->      }
->  
->      v->runstate.state = new_state;
+
+On 22.06.22 09:38, Juergen Gross wrote:
+
+Hello Juergen
+
+> Commit fa1f57421e0b ("xen/virtio: Enable restricted memory access using
+> Xen grant mappings") introduced a new requirement for using virtio
+> devices: the backend now needs to support the VIRTIO_F_ACCESS_PLATFORM
+> feature.
+>
+> This is an undue requirement for non-PV guests, as those can be operated
+> with existing backends without any problem, as long as those backends
+> are running in dom0.
+>
+> Per default allow virtio devices without grant support for non-PV
+> guests.
+>
+> On Arm require VIRTIO_F_ACCESS_PLATFORM for devices having been listed
+> in the device tree to use grants.
+>
+> Add a new config item to always force use of grants for virtio.
+>
+> Fixes: fa1f57421e0b ("xen/virtio: Enable restricted memory access using Xen grant mappings")
+> Reported-by: Viresh Kumar <viresh.kumar@linaro.org>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - remove command line parameter (Christoph Hellwig)
+> V3:
+> - rebase to callback method
+
+
+Patch looks good, just one NIT ...
+
+
+> ---
+>   arch/arm/xen/enlighten.c     |  4 +++-
+>   arch/x86/xen/enlighten_hvm.c |  4 +++-
+>   arch/x86/xen/enlighten_pv.c  |  5 ++++-
+>   drivers/xen/Kconfig          |  9 +++++++++
+>   drivers/xen/grant-dma-ops.c  | 10 ++++++++++
+>   include/xen/xen-ops.h        |  6 ++++++
+>   include/xen/xen.h            |  8 --------
+>   7 files changed, 35 insertions(+), 11 deletions(-)
+>
+> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+> index 1f9c3ba32833..93c8ccbf2982 100644
+> --- a/arch/arm/xen/enlighten.c
+> +++ b/arch/arm/xen/enlighten.c
+> @@ -34,6 +34,7 @@
+>   #include <linux/timekeeping.h>
+>   #include <linux/timekeeper_internal.h>
+>   #include <linux/acpi.h>
+> +#include <linux/virtio_anchor.h>
+>   
+>   #include <linux/mm.h>
+>   
+> @@ -443,7 +444,8 @@ static int __init xen_guest_init(void)
+>   	if (!xen_domain())
+>   		return 0;
+>   
+> -	xen_set_restricted_virtio_memory_access();
+> +	if (IS_ENABLED(CONFIG_XEN_VIRTIO))
+> +		virtio_set_mem_acc_cb(xen_virtio_mem_acc);
+>   
+>   	if (!acpi_disabled)
+>   		xen_acpi_guest_init();
+> diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
+> index 8b71b1dd7639..28762f800596 100644
+> --- a/arch/x86/xen/enlighten_hvm.c
+> +++ b/arch/x86/xen/enlighten_hvm.c
+> @@ -4,6 +4,7 @@
+>   #include <linux/cpu.h>
+>   #include <linux/kexec.h>
+>   #include <linux/memblock.h>
+> +#include <linux/virtio_anchor.h>
+>   
+>   #include <xen/features.h>
+>   #include <xen/events.h>
+> @@ -195,7 +196,8 @@ static void __init xen_hvm_guest_init(void)
+>   	if (xen_pv_domain())
+>   		return;
+>   
+> -	xen_set_restricted_virtio_memory_access();
+> +	if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT))
+> +		virtio_set_mem_acc_cb(virtio_require_restricted_mem_acc);
+>   
+>   	init_hvm_pv_info();
+>   
+> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+> index e3297b15701c..5aaae8a77f55 100644
+> --- a/arch/x86/xen/enlighten_pv.c
+> +++ b/arch/x86/xen/enlighten_pv.c
+> @@ -31,6 +31,7 @@
+>   #include <linux/gfp.h>
+>   #include <linux/edd.h>
+>   #include <linux/reboot.h>
+> +#include <linux/virtio_anchor.h>
+>   
+>   #include <xen/xen.h>
+>   #include <xen/events.h>
+> @@ -109,7 +110,9 @@ static DEFINE_PER_CPU(struct tls_descs, shadow_tls_desc);
+>   
+>   static void __init xen_pv_init_platform(void)
+>   {
+> -	xen_set_restricted_virtio_memory_access();
+> +	/* PV guests can't operate virtio devices without grants. */
+> +	if (IS_ENABLED(CONFIG_XEN_VIRTIO))
+> +		virtio_set_mem_acc_cb(virtio_require_restricted_mem_acc);
+>   
+>   	populate_extra_pte(fix_to_virt(FIX_PARAVIRT_BOOTMAP));
+>   
+> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
+> index bfd5f4f706bc..a65bd92121a5 100644
+> --- a/drivers/xen/Kconfig
+> +++ b/drivers/xen/Kconfig
+> @@ -355,4 +355,13 @@ config XEN_VIRTIO
+>   
+>   	  If in doubt, say n.
+>   
+> +config XEN_VIRTIO_FORCE_GRANT
+> +	bool "Require Xen virtio support to use grants"
+> +	depends on XEN_VIRTIO
+> +	help
+> +	  Require virtio for Xen guests to use grant mappings.
+> +	  This will avoid the need to give the backend the right to map all
+> +	  of the guest memory. This will need support on the backend side
+> +	  (e.g. qemu or kernel, depending on the virtio device types used).
 > +
-> +    // WIP: use a different interface
-> +    runstate = (uint64_t*)v->stats.va;
-> +    memcpy(runstate, &v->runstate.time[0], sizeof(v->runstate.time[0]));
->  }
+>   endmenu
+> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+> index fc0142484001..8973fc1e9ccc 100644
+> --- a/drivers/xen/grant-dma-ops.c
+> +++ b/drivers/xen/grant-dma-ops.c
+> @@ -12,6 +12,8 @@
+>   #include <linux/of.h>
+>   #include <linux/pfn.h>
+>   #include <linux/xarray.h>
+> +#include <linux/virtio_anchor.h>
+> +#include <linux/virtio.h>
+>   #include <xen/xen.h>
+>   #include <xen/xen-ops.h>
+>   #include <xen/grant_table.h>
+> @@ -287,6 +289,14 @@ bool xen_is_grant_dma_device(struct device *dev)
+>   	return has_iommu;
+>   }
+>   
+> +bool xen_virtio_mem_acc(struct virtio_device *dev)
+> +{
+> +	if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT))
+> +		return true;
+> +
+> +	return xen_is_grant_dma_device(dev->dev.parent);
+> +}
 
-One remark on top of what George has said: By exposing this information the
-way you do, you allow updating and reading of it to be fully asynchronous.
-That way a consumer may fetch inconsistent (partially updated) state (and
-this would be even more so when further fields would be added). For the
-data to be useful, you need to add a mechanism for consumers to know when
-an update is in progress, so they can wait and then retry. You'll find a
-number of instances of such in the code base.
 
-In general I also have to admit that I'm not sure the exposed data really
-qualifies as a "resource", and hence I'm not really convinced of your use
-of the resource mapping interface as a vehicle.
+    ... I am thinking would it be better to move this to xen/xen-ops.h 
+as grant-dma-ops.c is generic (not only for virtio, although the virtio 
+is the first use-case)
 
-Jan
+
+diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+index 8973fc1..fc01424 100644
+--- a/drivers/xen/grant-dma-ops.c
++++ b/drivers/xen/grant-dma-ops.c
+@@ -12,8 +12,6 @@
+  #include <linux/of.h>
+  #include <linux/pfn.h>
+  #include <linux/xarray.h>
+-#include <linux/virtio_anchor.h>
+-#include <linux/virtio.h>
+  #include <xen/xen.h>
+  #include <xen/xen-ops.h>
+  #include <xen/grant_table.h>
+@@ -289,14 +287,6 @@ bool xen_is_grant_dma_device(struct device *dev)
+         return has_iommu;
+  }
+
+-bool xen_virtio_mem_acc(struct virtio_device *dev)
+-{
+-       if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT))
+-               return true;
+-
+-       return xen_is_grant_dma_device(dev->dev.parent);
+-}
+-
+  void xen_grant_setup_dma_ops(struct device *dev)
+  {
+         struct xen_grant_dma_data *data;
+diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
+index 98c399a..a9ae51b 100644
+--- a/include/xen/xen-ops.h
++++ b/include/xen/xen-ops.h
+@@ -6,6 +6,7 @@
+  #include <linux/notifier.h>
+  #include <linux/efi.h>
+  #include <linux/virtio_anchor.h>
++#include <linux/virtio.h>
+  #include <xen/features.h>
+  #include <asm/xen/interface.h>
+  #include <xen/interface/vcpu.h>
+@@ -218,7 +219,13 @@ static inline void xen_preemptible_hcall_end(void) { }
+  #ifdef CONFIG_XEN_GRANT_DMA_OPS
+  void xen_grant_setup_dma_ops(struct device *dev);
+  bool xen_is_grant_dma_device(struct device *dev);
+-bool xen_virtio_mem_acc(struct virtio_device *dev);
++static inline bool xen_virtio_mem_acc(struct virtio_device *dev)
++{
++       if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT))
++               return true;
++
++       return xen_is_grant_dma_device(dev->dev.parent);
++}
+  #else
+  static inline void xen_grant_setup_dma_ops(struct device *dev)
+  {
+
+
+> +
+>   void xen_grant_setup_dma_ops(struct device *dev)
+>   {
+>   	struct xen_grant_dma_data *data;
+> diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
+> index 80546960f8b7..98c399a960a3 100644
+> --- a/include/xen/xen-ops.h
+> +++ b/include/xen/xen-ops.h
+> @@ -5,6 +5,7 @@
+>   #include <linux/percpu.h>
+>   #include <linux/notifier.h>
+>   #include <linux/efi.h>
+> +#include <linux/virtio_anchor.h>
+>   #include <xen/features.h>
+>   #include <asm/xen/interface.h>
+>   #include <xen/interface/vcpu.h>
+> @@ -217,6 +218,7 @@ static inline void xen_preemptible_hcall_end(void) { }
+>   #ifdef CONFIG_XEN_GRANT_DMA_OPS
+>   void xen_grant_setup_dma_ops(struct device *dev);
+>   bool xen_is_grant_dma_device(struct device *dev);
+> +bool xen_virtio_mem_acc(struct virtio_device *dev);
+>   #else
+>   static inline void xen_grant_setup_dma_ops(struct device *dev)
+>   {
+> @@ -225,6 +227,10 @@ static inline bool xen_is_grant_dma_device(struct device *dev)
+>   {
+>   	return false;
+>   }
+> +static inline bool xen_virtio_mem_acc(struct virtio_device *dev)
+> +{
+> +	return false;
+> +}
+>   #endif /* CONFIG_XEN_GRANT_DMA_OPS */
+>   
+>   #endif /* INCLUDE_XEN_OPS_H */
+> diff --git a/include/xen/xen.h b/include/xen/xen.h
+> index ac5a144c6a65..a99bab817523 100644
+> --- a/include/xen/xen.h
+> +++ b/include/xen/xen.h
+> @@ -52,14 +52,6 @@ bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
+>   extern u64 xen_saved_max_mem_size;
+>   #endif
+>   
+> -#include <linux/virtio_anchor.h>
+> -
+> -static inline void xen_set_restricted_virtio_memory_access(void)
+> -{
+> -	if (IS_ENABLED(CONFIG_XEN_VIRTIO) && xen_domain())
+> -		virtio_set_mem_acc_cb(virtio_require_restricted_mem_acc);
+> -}
+> -
+>   #ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+>   int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+>   void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
