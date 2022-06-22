@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FEAF5545DC
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 13:50:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353814.580803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFAEE554850
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 14:14:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353824.580814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3yru-00047J-TU; Wed, 22 Jun 2022 11:49:58 +0000
+	id 1o3zEw-0007PD-2c; Wed, 22 Jun 2022 12:13:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353814.580803; Wed, 22 Jun 2022 11:49:58 +0000
+Received: by outflank-mailman (output) from mailman id 353824.580814; Wed, 22 Jun 2022 12:13:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3yru-00043t-QJ; Wed, 22 Jun 2022 11:49:58 +0000
-Received: by outflank-mailman (input) for mailman id 353814;
- Wed, 22 Jun 2022 11:49:57 +0000
+	id 1o3zEv-0007MY-Vx; Wed, 22 Jun 2022 12:13:45 +0000
+Received: by outflank-mailman (input) for mailman id 353824;
+ Wed, 22 Jun 2022 12:13:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vZBD=W5=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1o3yrs-00043n-VO
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 11:49:57 +0000
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [2607:f8b0:4864:20::42c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zPYt=W5=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o3zEu-0007MS-RL
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 12:13:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6eba794a-f221-11ec-b725-ed86ccbb4733;
- Wed, 22 Jun 2022 13:49:55 +0200 (CEST)
-Received: by mail-pf1-x42c.google.com with SMTP id d17so6900706pfq.9
- for <xen-devel@lists.xenproject.org>; Wed, 22 Jun 2022 04:49:55 -0700 (PDT)
-Received: from localhost ([122.172.201.58]) by smtp.gmail.com with ESMTPSA id
- u1-20020a1709026e0100b0016160b3331bsm12552122plk.305.2022.06.22.04.49.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jun 2022 04:49:53 -0700 (PDT)
+ id c1b0dca7-f224-11ec-b725-ed86ccbb4733;
+ Wed, 22 Jun 2022 14:13:42 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 747661FD03;
+ Wed, 22 Jun 2022 12:13:42 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 42D3013A5D;
+ Wed, 22 Jun 2022 12:13:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id iA4EDnYHs2JxBwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 22 Jun 2022 12:13:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,121 +51,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6eba794a-f221-11ec-b725-ed86ccbb4733
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=xTtCO1zrt/IGUKd4FRnY6oWVk5z9FJ/JSc1j6sCiUd4=;
-        b=n5TklPf8OeFgLiLBfco2InMdTPlWlmwKj5N5N7es/9LDV7HGfdKe5FC9RvttX7ADH9
-         qmXqHUui9kUyhud5UjS1aG17dAs4wbZtG2edYPezh7AGoGtwChAEw/40WM+6qLp1zrZy
-         4V0AWIjWsFUvIuG1JjhL2n4J4CsXaxLuvrF0yxRAw5xYFMumsYxkOTamEOserwOg53Y2
-         gfTZhxspGroOMjPYKgshBe5W6NDaLB+O1QdpD6eaE5CtKKStMfe6VvdPO6TXMjq+ldDK
-         B+1InY3GWc///NG7bl8sV7GxMNdoZxVTH2KoHO2dZ1op7RolOWjELYhcKYhPN7mUKFJu
-         +pVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=xTtCO1zrt/IGUKd4FRnY6oWVk5z9FJ/JSc1j6sCiUd4=;
-        b=FlUti1XdTXs6cQgb/VStJAyIkx2C24ErDLrYvlle+lNL49kZMs8dKq4TZWA/n/qBLo
-         rbPNK9IoCeOkSrQBPXwzqAIsDdwVPZaAKkJpauW9orI5x5P+Ewh1ANVNaAv2JAyinsB1
-         6MZWa8/AC8e5eA4ChGxKsRRpwKX40WuianffwDE5V+ElXvDYwhIi2daTgnmSLJsiTGdo
-         gmnTjc5h0fQ2hz9Scg1NxffoyrzFhbNRW19u+cN/+JVE1NbYcNcWxK4+pUDUB9w1tqxo
-         cd4aInJ2X9Zhfw+LOcQo26ts2G0fj3o3H6WBMi2W0Mg/PZVaB8SqnnonR/wSlUr3UImN
-         3n1g==
-X-Gm-Message-State: AJIora8iG1S3gBK5DowzoMs3lPQ3SyfBv1K1DadbuBbwSSHp/OIGgIUJ
-	AhdJCeCtq9rRgfafIQC0vAswCA==
-X-Google-Smtp-Source: AGRyM1v0xeMpziioxlHN7hWY+tq/O/X29xdzMLfqoO7AXopXKS/bsLPcaM754GBBxwsXfe2/KGqE5Q==
-X-Received: by 2002:aa7:9a11:0:b0:525:2412:920a with SMTP id w17-20020aa79a11000000b005252412920amr15308016pfj.66.1655898594110;
-        Wed, 22 Jun 2022 04:49:54 -0700 (PDT)
-Date: Wed, 22 Jun 2022 17:19:50 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Stratos Mailing List <stratos-dev@op-lists.linaro.org>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Mike Holmes <mike.holmes@linaro.org>, Wei Liu <wl@xen.org>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: Virtio on Xen with Rust
-Message-ID: <20220622114950.lpidph5ugvozhbu5@vireshk-i7>
-References: <20220414091538.jijj4lbrkjiby6el@vireshk-i7>
- <CAPD2p-ks4ZxWB8YT0pmX1sF_Mu2H+n_SyvdzE8LwVP_k_+Biog@mail.gmail.com>
+X-Inumbo-ID: c1b0dca7-f224-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1655900022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Nyz5d+Nfti6ATwCcKW/q97KnzMJtSbCcqDsc1SjYCpo=;
+	b=XvpRQe6MZnEPaTJj/QI8pXk5tRINNyXNHyE47OIwPrMC5cFG2eOA7NjxfD4kPtTG282/2M
+	yA32C6JfdI5/YLt2dN9N5alEw/c3dh6CnwID5sFXEpjBGI/V5lHNlvDNHl2toyE5Huzi0u
+	I8JZlLbPI7fCIcrgz4FFQNEkiiWazHo=
+Message-ID: <bc8899d7-0300-8640-57d9-52c2a1bf599c@suse.com>
+Date: Wed, 22 Jun 2022 14:13:41 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPD2p-ks4ZxWB8YT0pmX1sF_Mu2H+n_SyvdzE8LwVP_k_+Biog@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <d465abfb-6d44-0739-9959-3e3311dd671c@suse.com>
+ <e32a84bf-ad49-da95-4a19-61872c2ff7e0@xen.org>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: Tentative fix for dom0 boot problem
+In-Reply-To: <e32a84bf-ad49-da95-4a19-61872c2ff7e0@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------L0WbjTE05TTpPXqsbwm0Ut7e"
 
-On 28-04-22, 16:52, Oleksandr Tyshchenko wrote:
-> FYI, currently we are working on one feature to restrict memory access
-> using Xen grant mappings based on xen-grant DMA-mapping layer for Linux [1].
-> And there is a working PoC on Arm based on an updated virtio-disk. As for
-> libraries, there is a new dependency on "xengnttab" library. In comparison
-> with Xen foreign mappings model (xenforeignmemory),
-> the Xen grant mappings model is a good fit into the Xen security model,
-> this is a safe mechanism to share pages between guests.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------L0WbjTE05TTpPXqsbwm0Ut7e
+Content-Type: multipart/mixed; boundary="------------7o6Slg9VvQkxA3AwnxNLmKTP";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <bc8899d7-0300-8640-57d9-52c2a1bf599c@suse.com>
+Subject: Re: Tentative fix for dom0 boot problem
+References: <d465abfb-6d44-0739-9959-3e3311dd671c@suse.com>
+ <e32a84bf-ad49-da95-4a19-61872c2ff7e0@xen.org>
+In-Reply-To: <e32a84bf-ad49-da95-4a19-61872c2ff7e0@xen.org>
 
-Hi Oleksandr,
+--------------7o6Slg9VvQkxA3AwnxNLmKTP
+Content-Type: multipart/mixed; boundary="------------2l6dvOFPu0Bx0QNLZKxZGb0k"
 
-I started getting this stuff into our work and have few questions.
+--------------2l6dvOFPu0Bx0QNLZKxZGb0k
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-- IIUC, with this feature the guest will allow the host to access only certain
-  parts of the guest memory, which is exactly what we want as well. I looked at
-  the updated code in virtio-disk and you currently don't allow the grant table
-  mappings along with MAP_IN_ADVANCE, is there any particular reason for that ?
+T24gMjIuMDYuMjIgMTI6NTAsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gDQo+IA0KPiBPbiAy
+Mi8wNi8yMDIyIDExOjQ1LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gSnVsaWVuLA0KPiAN
+Cj4gSGkgSnVlcmdlbiwNCj4gDQo+PiBjb3VsZCB5b3UgcGxlYXNlIHRlc3QgdGhlIGF0dGFj
+aGVkIHBhdGNoZXM/DQo+IA0KPiBJIGFtIGdldHRpbmcgdGhlIGZvbGxvd2luZyBlcnJvcjoN
+Cj4gDQo+IChYRU4pIGQwdjAgVW5oYW5kbGVkOiB2ZWMgMTQsICNQRlswMDAzXQ0KPiAoWEVO
+KSBQYWdldGFibGUgd2FsayBmcm9tIGZmZmZmZmZmODQwMDEwMDA6DQo+IChYRU4pwqAgTDRb
+MHgxZmZdID0gMDAwMDAwMDQ2YzAwNDA2NyAwMDAwMDAwMDAwMDA0MDA0DQo+IChYRU4pwqAg
+TDNbMHgxZmVdID0gMDAwMDAwMDQ2YzAwMzA2NyAwMDAwMDAwMDAwMDA0MDAzDQo+IChYRU4p
+wqAgTDJbMHgwMjBdID0gMDAwMDAwMDQ2YzAyNDA2NyAwMDAwMDAwMDAwMDA0MDI0DQo+IChY
+RU4pwqAgTDFbMHgwMDFdID0gMDAxMDAwMDQ2YzAwMTAyNSAwMDAwMDAwMDAwMDA0MDAxDQoN
+CkhtbSwgZnJvbSB0aGlzIGRhdGEgSSBndWVzcyB0aGlzIHdhcyBhIHdyaXRlIHRvIGEgcGFn
+ZSB0YWJsZS4NCg0KPiAoWEVOKSBkb21haW5fY3Jhc2hfc3luYyBjYWxsZWQgZnJvbSBlbnRy
+eS5TOiBmYXVsdCBhdCBmZmZmODJkMDQwMzI1OTA2IA0KPiB4ODZfNjQvZW50cnkuUyNjcmVh
+dGVfYm91bmNlX2ZyYW1lKzB4MTVkLzB4MTc3DQo+IChYRU4pIERvbWFpbiAwICh2Y3B1IzAp
+IGNyYXNoZWQgb24gY3B1IzE6DQo+IChYRU4pIC0tLS1bIFhlbi00LjE3LXVuc3RhYmxlwqAg
+eDg2XzY0wqAgZGVidWc9ecKgIFRhaW50ZWQ6wqDCoCBDwqDCoMKgIF0tLS0tDQo+IChYRU4p
+IENQVTrCoMKgwqAgMQ0KPiAoWEVOKSBSSVA6wqDCoMKgIGUwMzM6WzxmZmZmZmZmZjgzMmEz
+NDgxPl0NCg0KQ2FuIHlvdSBwbGVhc2UgZmluZCBvdXQgdGhlIGFzc29jaWF0ZWQgc3RhdGVt
+ZW50Pw0KDQo+IChYRU4pIFJGTEFHUzogMDAwMDAwMDAwMDAwMDIwNsKgwqAgRU06IDHCoMKg
+IENPTlRFWFQ6IHB2IGd1ZXN0IChkMHYwKQ0KPiAoWEVOKSByYXg6IDAwMDAwMDAwMDAwMDAw
+MDDCoMKgIHJieDogZmZmZmZmZmY4NDAwMDAwMMKgwqAgcmN4OiAwMDAwMDAwMDAwMDJiMDAw
+DQo+IChYRU4pIHJkeDogZmZmZmZmZmY4NDAwMDAwMMKgwqAgcnNpOiBmZmZmZmZmZjg0MDAw
+MDAwwqDCoCByZGk6IGZmZmZmZmZmODQwMDEwMDANCj4gKFhFTikgcmJwOiAwMDAwMDAwMDAw
+MDAwMDAwwqDCoCByc3A6IGZmZmZmZmZmODJhMDNlNjDCoMKgIHI4OsKgIDAwMDAwMDAwMDAw
+MDAwMDANCj4gKFhFTikgcjk6wqAgMDAwMDAwMDAwMDAwMDAwMMKgwqAgcjEwOiAwMDAwMDAw
+MDAwMDAwMDAwwqDCoCByMTE6IDAwMDAwMDAwMDAwMDAwMDANCj4gKFhFTikgcjEyOiAwMDAw
+MDAwMDAwMDAwMDAwwqDCoCByMTM6IDAwMDAwMDAwMDAwMDAwMDDCoMKgIHIxNDogMDAwMDAw
+MDAwMDAwMDAwMA0KPiAoWEVOKSByMTU6IDAwMDAwMDAwMDAwMDAwMDDCoMKgIGNyMDogMDAw
+MDAwMDA4MDA1MDAzM8KgwqAgY3I0OiAwMDAwMDAwMDAwMzQyNmUwDQo+IChYRU4pIGNyMzog
+MDAwMDAwMDQ2YzAwMTAwMMKgwqAgY3IyOiBmZmZmZmZmZjg0MDAxMDAwDQo+IChYRU4pIGZz
+YjogMDAwMDAwMDAwMDAwMDAwMMKgwqAgZ3NiOiBmZmZmZmZmZjgzMjcxMDAwwqDCoCBnc3M6
+IDAwMDAwMDAwMDAwMDAwMDANCj4gKFhFTikgZHM6IDAwMDDCoMKgIGVzOiAwMDAwwqDCoCBm
+czogMDAwMMKgwqAgZ3M6IDAwMDDCoMKgIHNzOiBlMDJiwqDCoCBjczogZTAzMw0KPiAoWEVO
+KSBHdWVzdCBzdGFjayB0cmFjZSBmcm9tIHJzcD1mZmZmZmZmZjgyYTAzZTYwOg0KPiAoWEVO
+KcKgwqDCoCAwMDAwMDAwMDAwMDJiMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAw
+MDAwMyBmZmZmZmZmZjgzMmEzNDgxDQo+IChYRU4pwqDCoMKgIDAwMDAwMDAxMDAwMGUwMzAg
+MDAwMDAwMDAwMDAxMDAwNiBmZmZmZmZmZjgyYTAzZWE4IDAwMDAwMDAwMDAwMGUwMmINCj4g
+KFhFTinCoMKgwqAgMDAwMDAwMDAwMDAwMDAwMCBmZmZmZmZmZjgzMmFlODg0IDAwMDAwMDAw
+MDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMA0KPiAoWEVOKcKgwqDCoCAwMDAwMDAwMDAwMDAw
+MDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAw
+DQo+IChYRU4pwqDCoMKgIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAw
+MDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDANCj4gKFhFTinCoMKgwqAgMDAwMDAwMDAw
+MDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAw
+MDAwMA0KPiAoWEVOKcKgwqDCoCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAg
+MDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwDQo+IChYRU4pwqDCoMKgIDAwMDAw
+MDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCBmZmZmZmZmZjgzMmEzMTdmIDAwMDAwMDAw
+MDAwMDAwMDANCg0KRnVydGhlciBhbmFseXNpcyBtaWdodCBiZSBlYXNpZXIgaWYgeW91IGNh
+biBzdXBwbHkgZnVuY3Rpb24gKyBkaXNwbGFjZW1lbnQgZm9yDQphbnkgdGV4dCBzZWdtZW50
+IGFkZHJlc3NlcyBvbiB0aGUgc3RhY2suDQoNCkJUVywgSSBjb3VsZCBib290IHRoZSBrZXJu
+ZWwgd2l0aCBteSBwYXRjaGVzIGFzIERvbTAgd2l0aG91dCBhbnkgcHJvYmxlbS4gT1RPSA0K
+aXQgYm9vdGVkIGV2ZW4gd2l0aG91dCB0aGUgcGF0Y2hlcy4gOi0pDQoNCg0KSnVlcmdlbg0K
 
-- I understand that you currently map on the go, the virqueue descriptor rings
-  and then the protocol specific addresses later on, once virtio requests are
-  received from the guest.
+--------------2l6dvOFPu0Bx0QNLZKxZGb0k
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-  But in our case, Vhost user with Rust based hypervisor agnostic backend, the
-  vhost master side can send a number of memory regions for the slave (backend)
-  to map and the backend won't try to map anything apart from that. The
-  virtqueue descriptor rings are available at this point and can be sent, but
-  not the protocol specific addresses, which are available only when a virtio
-  request comes.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-- And so we would like to map everything in advance, and access only the parts
-  which we need to, assuming that the guest would just allow those (as the
-  addresses are shared by the guest itself).
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-- Will that just work with the current stuff ?
+--------------2l6dvOFPu0Bx0QNLZKxZGb0k--
 
-- In Linux's drivers/xen/gntdev.c, we have:
+--------------7o6Slg9VvQkxA3AwnxNLmKTP--
 
-  static unsigned int limit = 64*1024;
+--------------L0WbjTE05TTpPXqsbwm0Ut7e
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-  which translates to 256MB I think, i.e. the max amount of memory we can map at
-  once. Will making this 128*1024 allow me to map 512 MB for example in a single
-  call ? Any other changes required ?
+-----BEGIN PGP SIGNATURE-----
 
-- When I tried that, I got few errors which I am still not able to fix:
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKzB3UFAwAAAAAACgkQsN6d1ii/Ey/N
+xQgAg7PauOQo/Oz56BZRiiz9fw5N19MVdonS9gkBAxsFHxBz0014y+NE4Aj9w/TrOxjeBuwk/V1v
+BrsqYctmzudl1XdntkohHbPY0plS3WJSEy3uVGCFvJWMI+VlALzPAXULGEvoQ6ixEpQmW09enpBN
+kOTsrL9DYkcAz6AfE2FTUFENvHcHPtnzB14J6SmaiDSrwgr2f5lZDYVod4uS7nTm/ZH2jAhp+C1M
+O96npf5bNa/38xrCHyxTjl4JL8Cvgi4U511a3QWfvCo3ACROpsBWsbUB/PGxCQRTXIj2RRTHDV94
+ELOOB+CPxQ673LvxozjXpTTGpL7XHtrxgte00eBThg==
+=BmQY
+-----END PGP SIGNATURE-----
 
-  The IOCTL_GNTDEV_MAP_GRANT_REF ioctl passed but there were failures after
-  that:
-
-  (XEN) common/grant_table.c:1055:d0v2 Bad ref 0x40000 for d1
-  (XEN) common/grant_table.c:1055:d0v2 Bad ref 0x40001 for d1
-
-  ...
-
-  (XEN) common/grant_table.c:1055:d0v2 Bad ref 0x5fffd for d1
-  (XEN) common/grant_table.c:1055:d0v2 Bad ref 0x5fffe for d1
-  (XEN) common/grant_table.c:1055:d0v2 Bad ref 0x5ffff for d1
-  gnttab: error: mmap failed: Invalid argument
-
-
-I am working on Linus's origin/master along with the initial patch from Juergen,
-picked your Xen patch for iommu node.
-
-I am still at initial stages to properly test this stuff, just wanted to share
-the progress to help myself save some of the time debugging this :)
-
-Thanks.
-
--- 
-viresh
+--------------L0WbjTE05TTpPXqsbwm0Ut7e--
 
