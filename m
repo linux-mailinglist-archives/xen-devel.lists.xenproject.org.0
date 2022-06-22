@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 366E3554ACE
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 15:20:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353871.580869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635A8554B91
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 15:43:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353887.580884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o40H9-000871-7x; Wed, 22 Jun 2022 13:20:07 +0000
+	id 1o40cq-0002JH-4T; Wed, 22 Jun 2022 13:42:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353871.580869; Wed, 22 Jun 2022 13:20:07 +0000
+Received: by outflank-mailman (output) from mailman id 353887.580884; Wed, 22 Jun 2022 13:42:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o40H9-00082j-45; Wed, 22 Jun 2022 13:20:07 +0000
-Received: by outflank-mailman (input) for mailman id 353871;
- Wed, 22 Jun 2022 13:20:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o40H7-0007uz-E0
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 13:20:05 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o40H7-0004vT-4G; Wed, 22 Jun 2022 13:20:05 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=[192.168.1.223]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o40H6-0005ms-UO; Wed, 22 Jun 2022 13:20:05 +0000
+	id 1o40cq-0002HK-1H; Wed, 22 Jun 2022 13:42:32 +0000
+Received: by outflank-mailman (input) for mailman id 353887;
+ Wed, 22 Jun 2022 13:42:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4T0g=W5=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1o40co-0002HE-Nb
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 13:42:30 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 28cd1c9c-f231-11ec-bd2d-47488cf2e6aa;
+ Wed, 22 Jun 2022 15:42:29 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id g12so13348463ljk.11
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Jun 2022 06:42:29 -0700 (PDT)
+Received: from jade.urgonet (h-79-136-84-253.A175.priv.bahnhof.se.
+ [79.136.84.253]) by smtp.gmail.com with ESMTPSA id
+ p5-20020ac24ec5000000b0047f666011e4sm1523292lfr.26.2022.06.22.06.42.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Jun 2022 06:42:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,122 +44,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=re9m33pb8PdlVNWNCIbk86qkedpewIxKyzmz4q5PK3Y=; b=nsVG5gGoF8vOj2y2m7CZkdwLZy
-	kjBKRoqwO3NgxD06ESf82Ebk2P923LYGRVhacxguYE3UVom8sakPxvFP9C0njjUVlJWQuFM8WH66/
-	cHJCv4IsDCAm9OXVm0Dx7I7H3tusR+ACTVqFb4cvlf/Za6N5YCC/tVWbiDJmTgByV89g=;
-Message-ID: <a9566b42-2360-4d3f-5272-8f69368d50f2@xen.org>
-Date: Wed, 22 Jun 2022 14:20:03 +0100
+X-Inumbo-ID: 28cd1c9c-f231-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=vhgjqfIBUtzNmowELx4pok3t4Jd74q2jodj8xtz+2fI=;
+        b=T+f69ZQ9IFhNkNCoU0TfgfWaA1dETBQEixxLa9e/jpEpbfpNt066Y2DnFwBlx3Yxh8
+         vZ+ySqWtYbOgg7lXtQ/6vdyoRkp6b2J9QFwG5A1sE4HzW7DOm255fcV7zlk1rAIRHWsc
+         vimBdgsOQwCVNr18JSnRLaqVf90KSfoKIrrIDBc7OrwtHUv/vX+na5LKMYAuwuBTonaC
+         IiCZOMXU5HHsJIflcw+K5H1YnvbP3AUTQgQAELset0Id4RrL695dz3uy5tpneTBVKS6x
+         uGrxcWnEW3bLfZzPkwdHBHMPXjsb6TwR21BOUrWoWO3LhYHl/L7y9ZiT5XEtZnMrBg5N
+         OVGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=vhgjqfIBUtzNmowELx4pok3t4Jd74q2jodj8xtz+2fI=;
+        b=64PKWzJ6OLRpm+Po0yGQfBKoANlLx0XhFXjYxOC8NH+ipdiR0VeGNqLmHZ5fsUQEGM
+         Tx+zybb5CiHqrd2f++4jzQXhiMNIg0a/eAciUG9lpB37NtYU20jJyq9m00vnvp/t0QVp
+         ZK+F5rZVsOFlUO5M4aZTuiRvRqKWSpsSXjleLt7K2WpspqAaA5qsReo6CPwLld26ULRO
+         lXoeSGpAgjXueeZqH7CFdUVpxdKij1hPACCgpyHaL/3iUJBImlz7bu4EKJxOkMvajQt4
+         9mizsanYXZ7HR9d5nubFDgHMFFlf/0Wbs7aYXM4px94ZtlHxn1Z7WQS4ozFZHtW9zyUK
+         xQow==
+X-Gm-Message-State: AJIora+q48vJImE/hGBO6AV0Ciu0vl3+dKWr5edF3lhjEQZ1h2Ob4aHF
+	8cKSwJZKSgJIw4Ngh31T7dFFPs+Q/rwDuw==
+X-Google-Smtp-Source: AGRyM1srHY5Xlsv6oPCz6ZMknz3XrKlsMD05vaIjs29V9Ovi2QkH7JPCX2VekXaEwzELdBGKyts3UQ==
+X-Received: by 2002:a2e:6f03:0:b0:25a:74b7:3a59 with SMTP id k3-20020a2e6f03000000b0025a74b73a59mr1920791ljc.390.1655905348518;
+        Wed, 22 Jun 2022 06:42:28 -0700 (PDT)
+From: Jens Wiklander <jens.wiklander@linaro.org>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand.Marquis@arm.com,
+	Jens Wiklander <jens.wiklander@linaro.org>
+Subject: [PATCH v4 0/2] Xen FF-A mediator
+Date: Wed, 22 Jun 2022 15:42:17 +0200
+Message-Id: <20220622134219.1596613-1-jens.wiklander@linaro.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: Tentative fix for dom0 boot problem
-To: Juergen Gross <jgross@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <d465abfb-6d44-0739-9959-3e3311dd671c@suse.com>
- <e32a84bf-ad49-da95-4a19-61872c2ff7e0@xen.org>
- <bc8899d7-0300-8640-57d9-52c2a1bf599c@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <bc8899d7-0300-8640-57d9-52c2a1bf599c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Juergen,
+Hi,
 
-On 22/06/2022 13:13, Juergen Gross wrote:
-> On 22.06.22 12:50, Julien Grall wrote:
->>
->>
->> On 22/06/2022 11:45, Juergen Gross wrote:
->>> Julien,
->>
->> Hi Juergen,
->>
->>> could you please test the attached patches?
->>
->> I am getting the following error:
->>
->> (XEN) d0v0 Unhandled: vec 14, #PF[0003]
->> (XEN) Pagetable walk from ffffffff84001000:
->> (XEN)  L4[0x1ff] = 000000046c004067 0000000000004004
->> (XEN)  L3[0x1fe] = 000000046c003067 0000000000004003
->> (XEN)  L2[0x020] = 000000046c024067 0000000000004024
->> (XEN)  L1[0x001] = 001000046c001025 0000000000004001
-> 
-> Hmm, from this data I guess this was a write to a page table.
-> 
->> (XEN) domain_crash_sync called from entry.S: fault at ffff82d040325906 
->> x86_64/entry.S#create_bounce_frame+0x15d/0x177
->> (XEN) Domain 0 (vcpu#0) crashed on cpu#1:
->> (XEN) ----[ Xen-4.17-unstable  x86_64  debug=y  Tainted:   C    ]----
->> (XEN) CPU:    1
->> (XEN) RIP:    e033:[<ffffffff832a3481>]
-> 
-> Can you please find out the associated statement?
+This patch sets add a FF-A [1] mediator modeled after the TEE mediator
+already present in Xen. The FF-A mediator implements the subset of the FF-A
+1.1 specification needed to communicate with OP-TEE using FF-A as transport
+mechanism instead of SMC/HVC as with the TEE mediator. It allows a similar
+design in OP-TEE as with the TEE mediator where OP-TEE presents one virtual
+partition of itself to each guest in Xen.
 
-arch/x86/kernel/head64.c:433
+The FF-A mediator is generic in the sense it has nothing OP-TEE specific
+except that only the subset needed for OP-TEE is implemented so far. The
+hooks needed to inform OP-TEE that a guest is created or destroyed is part
+of the FF-A specification.
 
-This is the memset() for __brk_base.
+It should be possible to extend the FF-A mediator to implement a larger
+portion of the FF-A 1.1 specification without breaking with the way OP-TEE
+is communicated with here. So it should be possible to support any TEE or
+Secure Partition using FF-A as transport with this mediator.
 
-> 
->> (XEN) RFLAGS: 0000000000000206   EM: 1   CONTEXT: pv guest (d0v0)
->> (XEN) rax: 0000000000000000   rbx: ffffffff84000000   rcx: 
->> 000000000002b000
->> (XEN) rdx: ffffffff84000000   rsi: ffffffff84000000   rdi: 
->> ffffffff84001000
->> (XEN) rbp: 0000000000000000   rsp: ffffffff82a03e60   r8:  
->> 0000000000000000
->> (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 
->> 0000000000000000
->> (XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 
->> 0000000000000000
->> (XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 
->> 00000000003426e0
->> (XEN) cr3: 000000046c001000   cr2: ffffffff84001000
->> (XEN) fsb: 0000000000000000   gsb: ffffffff83271000   gss: 
->> 0000000000000000
->> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
->> (XEN) Guest stack trace from rsp=ffffffff82a03e60:
->> (XEN)    000000000002b000 0000000000000000 0000000000000003 
->> ffffffff832a3481
->> (XEN)    000000010000e030 0000000000010006 ffffffff82a03ea8 
->> 000000000000e02b
->> (XEN)    0000000000000000 ffffffff832ae884 0000000000000000 
->> 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 
->> 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 
->> 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 
->> 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 
->> 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 ffffffff832a317f 
->> 0000000000000000
-> 
-> Further analysis might be easier if you can supply function + 
-> displacement for
-> any text segment addresses on the stack.
+[1] https://developer.arm.com/documentation/den0077/latest
 
-ffffffff832ae884: arch/x86/include/asm/text-patching.h:112
-ffffffff832a317f: arch/x86/kernel/head64.c:325
+Thanks,
+Jens
 
-> 
-> BTW, I could boot the kernel with my patches as Dom0 without any 
-> problem. OTOH
-> it booted even without the patches. :-)
+v2->v3:
+* Generates offsets into struct arm_smccc_1_2_regs with asm-offsets.c in
+  order to avoid hard coded offsets in the assembly function
+  arm_smccc_1_2_smc()
+* Adds an entry in SUPPORT.md on the FF-A status
+* Adds a configuration variable "ffa_enabled" to tell if FF-A should be
+  enabled for a particular domu guest
+* Moves the ffa_frag_list for fragmented memory share requests into
+  struct ffa_ctx instead to keep it per guest in order to avoid mixups
+  and simplify locking
+* Adds a spinlock to struct ffa_ctx for per guest locking
+* Addressing style issues and suggestions
+* Uses FFA_FEATURES to check that all the needed features are available
+  before initializing the mediator
+* Rebased on staging as of 2022-06-20
 
-So I have tried with two different compilers (GCC 7.3.1 and GCC 10.2.1) 
-and hit the same error. This would suggest this is related to my 
-.config. You can find it in [1] if you want to reproduce it yourself.
+v1->v2:
+* Rebased on staging to resolve some merge conflicts as requested
 
-Cheers,
+Jens Wiklander (2):
+  xen/arm: smccc: add support for SMCCCv1.2 extended input/output
+    registers
+  xen/arm: add FF-A mediator
 
-[1] https://pastebin.com/xityGDN9
+ SUPPORT.md                        |    7 +
+ tools/libs/light/libxl_arm.c      |    3 +
+ tools/libs/light/libxl_types.idl  |    1 +
+ tools/xl/xl_parse.c               |    3 +
+ xen/arch/arm/Kconfig              |   11 +
+ xen/arch/arm/Makefile             |    1 +
+ xen/arch/arm/arm64/asm-offsets.c  |    9 +
+ xen/arch/arm/arm64/smc.S          |   43 +
+ xen/arch/arm/domain.c             |   10 +
+ xen/arch/arm/domain_build.c       |    1 +
+ xen/arch/arm/ffa.c                | 1683 +++++++++++++++++++++++++++++
+ xen/arch/arm/include/asm/domain.h |    4 +
+ xen/arch/arm/include/asm/ffa.h    |   71 ++
+ xen/arch/arm/include/asm/smccc.h  |   40 +
+ xen/arch/arm/vsmc.c               |   19 +-
+ xen/include/public/arch-arm.h     |    2 +
+ 16 files changed, 1904 insertions(+), 4 deletions(-)
+ create mode 100644 xen/arch/arm/ffa.c
+ create mode 100644 xen/arch/arm/include/asm/ffa.h
 
 -- 
-Julien Grall
+2.31.1
+
 
