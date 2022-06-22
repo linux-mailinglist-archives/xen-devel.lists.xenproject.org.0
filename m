@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A82553F5B
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 02:09:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353394.580323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02C2A553F5C
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 02:12:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353402.580333 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3nvp-0007Xe-MA; Wed, 22 Jun 2022 00:09:17 +0000
+	id 1o3nz7-0000UY-59; Wed, 22 Jun 2022 00:12:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353394.580323; Wed, 22 Jun 2022 00:09:17 +0000
+Received: by outflank-mailman (output) from mailman id 353402.580333; Wed, 22 Jun 2022 00:12:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3nvp-0007UZ-IK; Wed, 22 Jun 2022 00:09:17 +0000
-Received: by outflank-mailman (input) for mailman id 353394;
- Wed, 22 Jun 2022 00:09:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o3nz7-0000SN-23; Wed, 22 Jun 2022 00:12:41 +0000
+Received: by outflank-mailman (input) for mailman id 353402;
+ Wed, 22 Jun 2022 00:12:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/BDV=W5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o3nvo-0007UT-7a
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 00:09:16 +0000
+ id 1o3nz5-0000SH-Pz
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 00:12:39 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c4ac433-f1bf-11ec-bd2d-47488cf2e6aa;
- Wed, 22 Jun 2022 02:09:14 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 05a6349d-f1c0-11ec-b725-ed86ccbb4733;
+ Wed, 22 Jun 2022 02:12:38 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 15941617B7;
- Wed, 22 Jun 2022 00:09:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D857C3411C;
- Wed, 22 Jun 2022 00:09:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EB13B61779;
+ Wed, 22 Jun 2022 00:12:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240A8C3411C;
+ Wed, 22 Jun 2022 00:12:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c4ac433-f1bf-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 05a6349d-f1c0-11ec-b725-ed86ccbb4733
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1655856552;
-	bh=jaHk90M96jXcHuKs9BQl+3bER0XQNMlvET5rYb7Ihnc=;
+	s=k20201202; t=1655856756;
+	bh=mBFskbB8TiU8xRYMwmKbJYtZ2QdaEzC4sErsujEwie4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VDTSPG5+RA40IDGhckWyUmcEqRBwmcMaGTwHYLhYLqREKHfYaTsGnZ5WOsm3BSY5B
-	 kKGXvitclxZpz1iUtF3cy/J12OYEzpbzEFvcOjkDl9vM1wRWToeAGAdGXRrANgyyiZ
-	 VZhpgIzQ8tEhSW3arIwPRpxqZ494G01fJl2o5wHO3p94BCwKWWc6lesHrFRsgcDlp/
-	 T5MT2CKBzGKXXG0p0C/SEx9ysk8hmGdthf2hjjHc7QLa1/fyUMAZZK169E8LHLn9mM
-	 JKTuFBW76Vaj/gnSl1aY93GrZdxLgecU2bvpRuvrm+BwosVWo+a7QszCdlbdv1ukDi
-	 vqqmk/HB3O54w==
-Date: Tue, 21 Jun 2022 17:09:11 -0700 (PDT)
+	b=W49BTjBttx7UO+01zUGRyTTU2BTAWpT26I7y4hUORosHG6ejNqM5hEAzFpHs7LOFy
+	 oTZ5mFJPIhK6L1UndGNCPQuLZkrQUXkMLI8R1mIodhwqa7nptIHUU6/+llXJDhvht9
+	 kpT0j8pnx4z4b+YX856iku18ftUqdMIU1DxNSZPBPtxEHeQWJqEUfjGQAVVUG1aGn9
+	 Sy9GEXiiLOUAi4F4NMaJzPxTPsEj5SGGrkTufbf8+wK7XGTaVOIk1jse8OCpq3as8V
+	 o9C8jzQv8cl3uuAkYLWNlSlZ/kx0XSBcVcKIZErfkf7Nbwtavpq39QRKJMK400/E2Q
+	 G1uVZwvWTAEfA==
+Date: Tue, 21 Jun 2022 17:12:35 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Xenia Ragiadakou <burzalodowa@gmail.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
     viryaos-discuss@lists.sourceforge.net
-Subject: Re: [ImageBuilder] [PATCH 1/2] uboot-script-gen: Skip dom0 instead
- of exiting if DOM0_KERNEL is not set
-In-Reply-To: <20220619124316.378365-1-burzalodowa@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2206211709020.788376@ubuntu-linux-20-04-desktop>
-References: <20220619124316.378365-1-burzalodowa@gmail.com>
+Subject: Re: [ImageBuilder] [PATCH 2/2] uboot-script-gen: Enable direct
+ mapping of statically allocated memory
+In-Reply-To: <20220619124316.378365-2-burzalodowa@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2206211712260.788376@ubuntu-linux-20-04-desktop>
+References: <20220619124316.378365-1-burzalodowa@gmail.com> <20220619124316.378365-2-burzalodowa@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Sun, 19 Jun 2022, Xenia Ragiadakou wrote:
-> When the parameter DOM0_KERNEL is not specified and NUM_DOMUS is not 0,
-> instead of failing the script, just skip any dom0 specific setup.
-> This way the script can be used to boot XEN in dom0less mode.
+> Direct mapping for dom0less VMs is disabled by default in XEN and can be
+> enabled through the 'direct-map' property.
+> Add a new config parameter DOMU_DIRECT_MAP to be able to enable or disable
+> direct mapping, i.e set to 1 for enabling and to 0 for disabling.
+> This parameter is optional. Direct mapping is enabled by default for all
+> dom0less VMs with static allocation.
+> 
+> The property 'direct-map' is a boolean property. Boolean properties are true
+> if present and false if missing.
+> Add a new data_type 'bool' in function dt_set() to setup a boolean property.
 > 
 > Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 
@@ -81,116 +88,82 @@ Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  scripts/uboot-script-gen | 60 ++++++++++++++++++++++++++++------------
->  1 file changed, 43 insertions(+), 17 deletions(-)
+>  README.md                |  4 ++++
+>  scripts/uboot-script-gen | 18 ++++++++++++++++++
+>  2 files changed, 22 insertions(+)
 > 
+> diff --git a/README.md b/README.md
+> index c52e4b9..17ff206 100644
+> --- a/README.md
+> +++ b/README.md
+> @@ -168,6 +168,10 @@ Where:
+>    if specified, indicates the host physical address regions
+>    [baseaddr, baseaddr + size) to be reserved to the VM for static allocation.
+>  
+> +- DOMU_DIRECT_MAP[number] can be set to 1 or 0.
+> +  If set to 1, the VM is direct mapped. The default is 1.
+> +  This is only applicable when DOMU_STATIC_MEM is specified.
+> +
+>  - LINUX is optional but specifies the Linux kernel for when Xen is NOT
+>    used.  To enable this set any LINUX\_\* variables and do NOT set the
+>    XEN variable.
 > diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-> index 455b4c0..bdc8a6b 100755
+> index bdc8a6b..e85c6ec 100755
 > --- a/scripts/uboot-script-gen
 > +++ b/scripts/uboot-script-gen
-> @@ -168,10 +168,15 @@ function xen_device_tree_editing()
->      dt_set "/chosen" "#address-cells" "hex" "0x2"
->      dt_set "/chosen" "#size-cells" "hex" "0x2"
->      dt_set "/chosen" "xen,xen-bootargs" "str" "$XEN_CMD"
-> -    dt_mknode "/chosen" "dom0"
-> -    dt_set "/chosen/dom0" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
-> -    dt_set "/chosen/dom0" "reg" "hex" "0x0 $dom0_kernel_addr 0x0 $(printf "0x%x" $dom0_kernel_size)"
-> -    dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
-> +
-> +    if test "$DOM0_KERNEL"
-> +    then
-> +        dt_mknode "/chosen" "dom0"
-> +        dt_set "/chosen/dom0" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
-> +        dt_set "/chosen/dom0" "reg" "hex" "0x0 $dom0_kernel_addr 0x0 $(printf "0x%x" $dom0_kernel_size)"
-> +        dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
-> +    fi
-> +
->      if test "$DOM0_RAMDISK" && test $ramdisk_addr != "-"
->      then
->          dt_mknode "/chosen" "dom0-ramdisk"
-> @@ -203,7 +208,10 @@ function xen_device_tree_editing()
+> @@ -27,6 +27,7 @@ function dt_mknode()
+>  #   hex
+>  #   str
+>  #   str_a
+> +#   bool
+>  function dt_set()
+>  {
+>      local path=$1
+> @@ -49,6 +50,12 @@ function dt_set()
+>                  array+=" \"$element\""
+>              done
+>              echo "fdt set $path $var $array" >> $UBOOT_SOURCE
+> +        elif test $data_type = "bool"
+> +        then
+> +            if test "$data" -eq 1
+> +            then
+> +                echo "fdt set $path $var" >> $UBOOT_SOURCE
+> +            fi
+>          else
+>              echo "fdt set $path $var \"$data\"" >> $UBOOT_SOURCE
+>          fi
+> @@ -65,6 +72,12 @@ function dt_set()
+>          elif test $data_type = "str_a"
+>          then
+>              fdtput $FDTEDIT -p -t s $path $var $data
+> +        elif test $data_type = "bool"
+> +        then
+> +            if test "$data" -eq 1
+> +            then
+> +                fdtput $FDTEDIT -p $path $var
+> +            fi
+>          else
+>              fdtput $FDTEDIT -p -t s $path $var "$data"
+>          fi
+> @@ -206,6 +219,7 @@ function xen_device_tree_editing()
+>          if test "${DOMU_STATIC_MEM[$i]}"
+>          then
 >              add_device_tree_static_mem "/chosen/domU$i" "${DOMU_STATIC_MEM[$i]}"
+> +            dt_set "/chosen/domU$i" "direct-map" "bool" "${DOMU_DIRECT_MAP[$i]}"
 >          fi
 >          dt_set "/chosen/domU$i" "vpl011" "hex" "0x1"
-> -        dt_set "/chosen/domU$i" "xen,enhanced" "str" "enabled"
-> +        if test "$DOM0_KERNEL"
-> +        then
-> +            dt_set "/chosen/domU$i" "xen,enhanced" "str" "enabled"
-> +        fi
->  
->          if test "${DOMU_COLORS[$i]}"
+>          if test "$DOM0_KERNEL"
+> @@ -470,6 +484,10 @@ function xen_config()
 >          then
-> @@ -433,6 +441,19 @@ function xen_config()
->              DOM0_CMD="$DOM0_CMD root=$root_dev"
+>              DOMU_CMD[$i]="console=ttyAMA0"
 >          fi
->      fi
-> +    if test -z "$DOM0_KERNEL"
-> +    then
-> +        if test "$NUM_DOMUS" -eq "0"
+> +        if test -z "${DOMU_DIRECT_MAP[$i]}"
 > +        then
-> +            echo "Neither dom0 or domUs are specified, exiting."
-> +            exit 1
+> +             DOMU_DIRECT_MAP[$i]=1
 > +        fi
-> +        echo "Dom0 kernel is not specified, continue with dom0less setup."
-> +        unset DOM0_RAMDISK
-> +        # Remove dom0 specific parameters from the XEN command line.
-> +        local params=($XEN_CMD)
-> +        XEN_CMD="${params[@]/dom0*/}"
-> +    fi
->      i=0
->      while test $i -lt $NUM_DOMUS
->      do
-> @@ -490,11 +511,13 @@ generate_uboot_images()
->  
->  xen_file_loading()
->  {
-> -    check_compressed_file_type $DOM0_KERNEL "executable"
-> -    dom0_kernel_addr=$memaddr
-> -    load_file $DOM0_KERNEL "dom0_linux"
-> -    dom0_kernel_size=$filesize
-> -
-> +    if test "$DOM0_KERNEL"
-> +    then
-> +        check_compressed_file_type $DOM0_KERNEL "executable"
-> +        dom0_kernel_addr=$memaddr
-> +        load_file $DOM0_KERNEL "dom0_linux"
-> +        dom0_kernel_size=$filesize
-> +    fi
->      if test "$DOM0_RAMDISK"
->      then
->          check_compressed_file_type $DOM0_RAMDISK "cpio archive"
-> @@ -597,14 +620,16 @@ bitstream_load_and_config()
->  
->  create_its_file_xen()
->  {
-> -    if test "$ramdisk_addr" != "-"
-> +    if test "$DOM0_KERNEL"
->      then
-> -        load_files="\"dom0_linux\", \"dom0_ramdisk\""
-> -    else
-> -        load_files="\"dom0_linux\""
-> -    fi
-> -    # xen below
-> -    cat >> "$its_file" <<- EOF
-> +        if test "$ramdisk_addr" != "-"
-> +        then
-> +            load_files="\"dom0_linux\", \"dom0_ramdisk\""
-> +        else
-> +            load_files="\"dom0_linux\""
-> +        fi
-> +        # xen below
-> +        cat >> "$its_file" <<- EOF
->          dom0_linux {
->              description = "dom0 linux kernel binary";
->              data = /incbin/("$DOM0_KERNEL");
-> @@ -616,6 +641,7 @@ create_its_file_xen()
->              $fit_algo
->          };
->  	EOF
-> +    fi
->      # domUs
->      i=0
->      while test $i -lt $NUM_DOMUS
+>          i=$(( $i + 1 ))
+>      done
+>  }
 > -- 
 > 2.34.1
 > 
