@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D3A2554002
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 03:24:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.353422.580356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1421C55408B
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jun 2022 04:29:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.353432.580366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3p6D-0006JC-Sy; Wed, 22 Jun 2022 01:24:05 +0000
+	id 1o3q5y-0004M3-Lq; Wed, 22 Jun 2022 02:27:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 353422.580356; Wed, 22 Jun 2022 01:24:05 +0000
+Received: by outflank-mailman (output) from mailman id 353432.580366; Wed, 22 Jun 2022 02:27:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o3p6D-0006GR-Q0; Wed, 22 Jun 2022 01:24:05 +0000
-Received: by outflank-mailman (input) for mailman id 353422;
- Wed, 22 Jun 2022 01:24:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o3q5y-0004JM-Hp; Wed, 22 Jun 2022 02:27:54 +0000
+Received: by outflank-mailman (input) for mailman id 353432;
+ Wed, 22 Jun 2022 02:27:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KR9/=W5=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1o3p6B-0006GL-F0
- for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 01:24:03 +0000
+ id 1o3q5x-0004JG-4R
+ for xen-devel@lists.xenproject.org; Wed, 22 Jun 2022 02:27:53 +0000
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fce85ed1-f1c9-11ec-bd2d-47488cf2e6aa;
- Wed, 22 Jun 2022 03:24:01 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3453F5C0172;
- Tue, 21 Jun 2022 21:23:57 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 21 Jun 2022 21:23:57 -0400
+ [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e858b309-f1d2-11ec-b725-ed86ccbb4733;
+ Wed, 22 Jun 2022 04:27:49 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3190B5C00E2;
+ Tue, 21 Jun 2022 22:27:48 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Tue, 21 Jun 2022 22:27:48 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 21 Jun 2022 21:23:56 -0400 (EDT)
+ 21 Jun 2022 22:27:46 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,279 +43,419 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fce85ed1-f1c9-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: e858b309-f1d2-11ec-b725-ed86ccbb4733
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1655861037; x=1655947437; bh=y7SHRRSIRDbqIJG7VRoehYFyw4aX5XSOFLk
-	h/fPAzBk=; b=Y0qqXqntAutVJCe1lmwsqYy+8HFFvSEDwpnxRauOVxZV6bl0R62
-	iXplt//uBCMZyozPNZn37R8TVEP4gcJ9/PzlO1avv0iUwQJkm1bAbztznk/BW+c/
-	tWcyX3/njNgytOemJ5NKVtHQuDh2GRxpb1UcxVPht1TRDv3SZkKXXlZ/eLAUxafu
-	TIVjlrm5Q+xhTDrbpgrC6ycVQXUWm8MWQKCvHwwRqYO9jDV/wb/4AxmTEDTj6WuB
-	XFfgsDoty0QxV/GIuAWfLdSyKXaVUrZLQ7eaDEfVVsnn8XyBy/G3yIqGGEtAsA4g
-	9hLSE8nLUnnQ4BXmQclBgxC3RHriSZI2tDg==
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm2; t=1655864868; x=
+	1655951268; bh=GcU2tFZp/9iFH/MJo6UjIxw9Kv+4l3HrP6DKPjWQj3w=; b=a
+	l0Emb6cXDROwzCXUToGQnhRpoR1/J6dwLUF3/5kSptwCsV24PLJHfHf4noNGsoMD
+	JwtgENxeuX6dDMf6GnxJ7bpfEog/4/nDObMTHVZ6ZxgnlwpCESdeoCQNiExqEPPQ
+	UQWnpUmGenU/sVjMRC5pTFQtw7elwbJNxgU1PsaO5Ce6QmTVl1NIMBKckri3YIXR
+	OMO0qSupcgbb5CbzxmoM3UNOwAyZUyfGwwLsKPakFb6ldWgdb7VQ0ORTQMcdM3Ql
+	gVgVtAZzxdTIJxMKZkq14N91q7/ZxjzBBTfRch4iLaFJzCj40FHaOLevOvPC4zBi
+	JVKKWbUmIOCcqBFEH4+NA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1655861037; x=1655947437; bh=y7SHRRSIRDbqI
-	JG7VRoehYFyw4aX5XSOFLkh/fPAzBk=; b=rWBDBfNeruRQfDp1HiPQeEfy4Z1vP
-	pJ31Pj2ohAIfFUqGuLjF1rND5P6PI4vk5LS0RbpK/sflSrx0d7o4Y6sECbTaObHM
-	72d3c1JipKqRgpoEuwDslCJCP+CHPrdUpPs8UjAZFruMceU/FIbpRRFAy4bx4ODy
-	I68aMPgEyOxQAUPGMCwUmHCvhqJN4zSNR9eElu9s4EJv694Uk1BLDABF4Nb9N3XM
-	S0AFUvofw7oJyAUkwoIg5nDMMg8MlxBmCjnqaiuRwm96Tu0t4PvVTspooRHLEOnf
-	NbOqPJPsSl5Lh0dJmQnWZsLsa+dsIfpRDDiUv63xl2vpIMzoP8ORzv2BQ==
-X-ME-Sender: <xms:LG-yYrCky2D3OWthiT3XFGE-YiY0y1_vU-nm9lt9mZ_qlyQqIVovUQ>
-    <xme:LG-yYhhb4eYIpM5K0-99QCDiSflVfmKlnjeOww_lWngWkVnlMWJNzGs-Du_y4pYTt
-    5jQKKN9U06YWLY>
-X-ME-Received: <xmr:LG-yYmmxS4dom-FcTiI7sGWdpHNb9M5A7r2kFPGfgUTGC4cDKpH2THe-FPnWS3NWit5FlArybHRN>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudefgedggeejucetufdoteggodetrfdotf
+	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1655864868; x=1655951268; bh=GcU2tFZp/9iFH/MJo6UjIxw9Kv+4l3HrP6D
+	KPjWQj3w=; b=feJyVyQ1s+P9ZzcklTIilzR38/QFuvFFfj64g2AKSCgB4pFB2bn
+	A+JeCCPEaHVj2YhxKlEmB7tep0LiPX44gqnAJ1/+UB1tc3/lY59Vp2Aje9aU688u
+	Q/EgHFkMMIGZB442wEKYsC9qZqRktQZ0ISoTz9rnnimLoSVW6azwhBzLcJgUcGIB
+	nH5a0wMYQu4XsC7m9Ebv9peS8QujYT5YTvqVRcrxP1DK0DSgCJVRhGKGAdHS9pCi
+	BZPsmHqnbtKls+kNTj5XsXdATI2Nt8grY+wJlS8valcIx/VO6zdgawV+eVtz4gMb
+	JzZciDk+eqWeJ4iiYvuOD22jbsGinqsp4Tg==
+X-ME-Sender: <xms:I36yYj_vxrerhtOWOwWG46djUE3yh-7SReOl8tos0DHbmF7bciObQg>
+    <xme:I36yYvuTsHJk1V6jJtbdPuqD0pGXWL_wm6reglIpAmf4Wt3J88ny7zEMvOulXOr1v
+    msuWvc9BlGKyug>
+X-ME-Received: <xmr:I36yYhDc5ob-l71sJ6Ep1b7GklCoB5-PAmuyPqTgC36tIePaXduQ5UM7ouIsi16Eo3L1AluuXty5>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudefgedgieduucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeffvghmihcu
-    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeekieeljeeutefgieejfffglefhieet
-    veffleefudefjeegleejvdelvdefueffveenucffohhmrghinhepkhgvrhhnvghlrdhorh
-    hgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggv
-    mhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:LW-yYtxLTnxmIzhG5IT7lfCRdlA72TfHqxunph3FS4h1q-Y7O2Lyqw>
-    <xmx:LW-yYgS5kTjSOs7KT8S4shdOtfWfIeqa5equ1rLTnQipnQeZN4M-UQ>
-    <xmx:LW-yYgb724olnXg5n82nuD0HadK1tkayQWo01ORV29wfv7W7EO1uGg>
-    <xmx:LW-yYp4ybHdvX2ClISNDpOdiES5x4Q5gFX7QrWogLtD-Js1pZ6NAFQ>
+    cujfgurhephffvvefufffkofgggfestdekredtredttdenucfhrhhomhepffgvmhhiucfo
+    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomheqnecuggftrfgrthhtvghrnhepieejgedufeeukeeijedukefgueekvdeg
+    iedtudefhfdtffehffeuveefvdfglefgnecuffhomhgrihhnpehgihhthhhusgdrtghomh
+    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguvghm
+    ihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:I36yYvd-pd361OCqBHhIaxJQP1JsJPDj2YoC4whetfLpwQQSXZMbuw>
+    <xmx:I36yYoO9gInvnQXHTiyvzV1GhbbGbDWdACX-I0C46BMLqxwLfe9RXg>
+    <xmx:I36yYhn_vgVL3gBf6nn9oevYwyF6WQ7JmbdyoMkWQ5M1nzp8NJ93oQ>
+    <xmx:JH6yYkCiWutpEP6hBtUCK6K6sMOsaQDo4foIUszzrfwSO359kFb2Fw>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	David Vrabel <david.vrabel@citrix.com>,
+	Jennifer Herbert <jennifer.herbert@citrix.com>
 Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v7] Preserve the EFI System Resource Table for dom0
-Date: Tue, 21 Jun 2022 21:23:39 -0400
-Message-Id: <7b2f97eda968d6db368c605ff0350d732554c39b.1655860720.git.demi@invisiblethingslab.com>
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4] xen/gntdev: Avoid blocking in unmap_grant_pages()
+Date: Tue, 21 Jun 2022 22:27:26 -0400
+Message-Id: <20220622022726.2538-1-demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The EFI System Resource Table (ESRT) is necessary for fwupd to identify
-firmware updates to install.  According to the UEFI specification §23.4,
-the ESRT shall be stored in memory of type EfiBootServicesData.  However,
-memory of type EfiBootServicesData is considered general-purpose memory
-by Xen, so the ESRT needs to be moved somewhere where Xen will not
-overwrite it.  Copy the ESRT to memory of type EfiRuntimeServicesData,
-which Xen will not reuse.  dom0 can use the ESRT if (and only if) it is
-in memory of type EfiRuntimeServicesData.
+unmap_grant_pages() currently waits for the pages to no longer be used.
+In https://github.com/QubesOS/qubes-issues/issues/7481, this lead to a
+deadlock against i915: i915 was waiting for gntdev's MMU notifier to
+finish, while gntdev was waiting for i915 to free its pages.  I also
+believe this is responsible for various deadlocks I have experienced in
+the past.
 
-Earlier versions of this patch reserved the memory in which the ESRT was
-located.  This created awkward alignment problems, and required either
-splitting the E820 table or wasting memory.  It also would have required
-a new platform op for dom0 to use to indicate if the ESRT is reserved.
-By copying the ESRT into EfiRuntimeServicesData memory, the E820 table
-does not need to be modified, and dom0 can just check the type of the
-memory region containing the ESRT.  The copy is only done if the ESRT is
-not already in EfiRuntimeServicesData memory, avoiding memory leaks on
-repeated kexec.
+Avoid these problems by making unmap_grant_pages async.  This requires
+making it return void, as any errors will not be available when the
+function returns.  Fortunately, the only use of the return value is a
+WARN_ON(), which can be replaced by a WARN_ON when the error is
+detected.  Additionally, a failed call will not prevent further calls
+from being made, but this is harmless.
 
-See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-itl/T/
-for details.
+Because unmap_grant_pages is now async, the grant handle will be sent to
+INVALID_GRANT_HANDLE too late to prevent multiple unmaps of the same
+handle.  Instead, a separate bool array is allocated for this purpose.
+This wastes memory, but stuffing this information in padding bytes is
+too fragile.  Furthermore, it is necessary to grab a reference to the
+map before making the asynchronous call, and release the reference when
+the call returns.
 
+It is also necessary to guard against reentrancy in gntdev_map_put(),
+and to handle the case where userspace tries to map a mapping whose
+contents have not all been freed yet.
+
+Fixes: 745282256c75 ("xen/gntdev: safely unmap grants in case they are still in use")
+Cc: stable@vger.kernel.org
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
- xen/common/efi/boot.c | 133 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 133 insertions(+)
+ drivers/xen/gntdev-common.h |   7 ++
+ drivers/xen/gntdev.c        | 157 ++++++++++++++++++++++++------------
+ 2 files changed, 113 insertions(+), 51 deletions(-)
 
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index a25e1d29f1..593962c42c 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -39,6 +39,26 @@
-   { 0x605dab50, 0xe046, 0x4300, {0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x8b, 0x23} }
- #define APPLE_PROPERTIES_PROTOCOL_GUID \
-   { 0x91bd12fe, 0xf6c3, 0x44fb, { 0xa5, 0xb7, 0x51, 0x22, 0xab, 0x30, 0x3a, 0xe0} }
-+#define EFI_SYSTEM_RESOURCE_TABLE_GUID    \
-+  { 0xb122a263, 0x3661, 0x4f68, {0x99, 0x29, 0x78, 0xf8, 0xb0, 0xd6, 0x21, 0x80} }
-+#define EFI_SYSTEM_RESOURCE_TABLE_FIRMWARE_RESOURCE_VERSION 1
-+
-+typedef struct {
-+    EFI_GUID FwClass;
-+    UINT32 FwType;
-+    UINT32 FwVersion;
-+    UINT32 LowestSupportedFwVersion;
-+    UINT32 CapsuleFlags;
-+    UINT32 LastAttemptVersion;
-+    UINT32 LastAttemptStatus;
-+} EFI_SYSTEM_RESOURCE_ENTRY;
-+
-+typedef struct {
-+    UINT32 FwResourceCount;
-+    UINT32 FwResourceCountMax;
-+    UINT64 FwResourceVersion;
-+    EFI_SYSTEM_RESOURCE_ENTRY Entries[];
-+} EFI_SYSTEM_RESOURCE_TABLE;
+diff --git a/drivers/xen/gntdev-common.h b/drivers/xen/gntdev-common.h
+index 20d7d059dadb..40ef379c28ab 100644
+--- a/drivers/xen/gntdev-common.h
++++ b/drivers/xen/gntdev-common.h
+@@ -16,6 +16,7 @@
+ #include <linux/mmu_notifier.h>
+ #include <linux/types.h>
+ #include <xen/interface/event_channel.h>
++#include <xen/grant_table.h>
  
- typedef EFI_STATUS
- (/* _not_ EFIAPI */ *EFI_SHIM_LOCK_VERIFY) (
-@@ -567,6 +587,41 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
- }
- #endif
+ struct gntdev_dmabuf_priv;
  
-+static UINTN __initdata esrt = EFI_INVALID_TABLE_ADDR;
-+
-+static size_t __init get_esrt_size(const EFI_MEMORY_DESCRIPTOR *desc)
-+{
-+    size_t available_len, len;
-+    const UINTN physical_start = desc->PhysicalStart;
-+    const EFI_SYSTEM_RESOURCE_TABLE *esrt_ptr;
-+
-+    len = desc->NumberOfPages << EFI_PAGE_SHIFT;
-+    if ( esrt == EFI_INVALID_TABLE_ADDR )
-+        return 0;
-+    if ( physical_start > esrt || esrt - physical_start >= len )
-+        return 0;
-+    /*
-+     * The specification requires EfiBootServicesData, but accept
-+     * EfiRuntimeServicesData, which is a more logical choice.
-+     */
-+    if ( (desc->Type != EfiRuntimeServicesData) &&
-+         (desc->Type != EfiBootServicesData) )
-+        return 0;
-+    available_len = len - (esrt - physical_start);
-+    if ( available_len <= offsetof(EFI_SYSTEM_RESOURCE_TABLE, Entries) )
-+        return 0;
-+    available_len -= offsetof(EFI_SYSTEM_RESOURCE_TABLE, Entries);
-+    esrt_ptr = (const EFI_SYSTEM_RESOURCE_TABLE *)esrt;
-+    if ( (esrt_ptr->FwResourceVersion !=
-+          EFI_SYSTEM_RESOURCE_TABLE_FIRMWARE_RESOURCE_VERSION) ||
-+         !esrt_ptr->FwResourceCount )
-+        return 0;
-+    if ( esrt_ptr->FwResourceCount > available_len / sizeof(esrt_ptr->Entries[0]) )
-+        return 0;
-+
-+    return esrt_ptr->FwResourceCount * sizeof(esrt_ptr->Entries[0]);
-+}
-+
- /*
-  * Include architecture specific implementation here, which references the
-  * static globals defined above.
-@@ -845,6 +900,8 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop,
-     return gop_mode;
- }
+@@ -56,6 +57,7 @@ struct gntdev_grant_map {
+ 	struct gnttab_unmap_grant_ref *unmap_ops;
+ 	struct gnttab_map_grant_ref   *kmap_ops;
+ 	struct gnttab_unmap_grant_ref *kunmap_ops;
++	bool *being_removed;
+ 	struct page **pages;
+ 	unsigned long pages_vm_start;
  
-+static EFI_GUID __initdata esrt_guid = EFI_SYSTEM_RESOURCE_TABLE_GUID;
-+
- static void __init efi_tables(void)
- {
-     unsigned int i;
-@@ -868,6 +925,8 @@ static void __init efi_tables(void)
-             efi.smbios = (unsigned long)efi_ct[i].VendorTable;
-         if ( match_guid(&smbios3_guid, &efi_ct[i].VendorGuid) )
-             efi.smbios3 = (unsigned long)efi_ct[i].VendorTable;
-+        if ( match_guid(&esrt_guid, &efi_ct[i].VendorGuid) )
-+            esrt = (UINTN)efi_ct[i].VendorTable;
-     }
- 
- #ifndef CONFIG_ARM /* TODO - disabled until implemented on ARM */
-@@ -1051,6 +1110,62 @@ static void __init efi_set_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop, UINTN gop
- #define INVALID_VIRTUAL_ADDRESS (0xBAAADUL << \
-                                  (EFI_PAGE_SHIFT + BITS_PER_LONG - 32))
- 
-+static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
-+{
-+    EFI_STATUS status;
-+    UINTN info_size = 0, map_key;
-+    unsigned int i;
-+    void *memory_map = NULL;
-+
-+    for (;;) {
-+        status = efi_bs->GetMemoryMap(&info_size, memory_map, &map_key,
-+                                      &efi_mdesc_size, &mdesc_ver);
-+        if ( status == EFI_SUCCESS && memory_map != NULL )
-+            break;
-+        if ( status == EFI_BUFFER_TOO_SMALL || memory_map == NULL ) {
-+            info_size *= 2;
-+            if ( memory_map != NULL )
-+                efi_bs->FreePool(memory_map);
-+            status = efi_bs->AllocatePool(EfiLoaderData, info_size, &memory_map);
-+            if ( status == EFI_SUCCESS )
-+                continue;
-+        }
-+        return;
-+    }
-+
-+    /* Try to obtain the ESRT.  Errors are not fatal. */
-+    for ( i = 0; i < info_size; i += efi_mdesc_size )
-+    {
-+        /*
-+         * ESRT needs to be moved to memory of type EfiRuntimeServicesData
-+         * so that the memory it is in will not be used for other purposes.
-+         */
-+        void *new_esrt = NULL;
-+        size_t esrt_size = get_esrt_size(efi_memmap + i);
-+
-+        if ( !esrt_size )
-+            continue;
-+        if ( ((EFI_MEMORY_DESCRIPTOR *)(efi_memmap + i))->Type ==
-+             EfiRuntimeServicesData )
-+            return; /* ESRT already safe from reuse */
-+        status = efi_bs->AllocatePool(EfiRuntimeServicesData, esrt_size,
-+                                      &new_esrt);
-+        if ( status == EFI_SUCCESS && new_esrt )
-+        {
-+            memcpy(new_esrt, (void *)esrt, esrt_size);
-+            status = efi_bs->InstallConfigurationTable(&esrt_guid, new_esrt);
-+            if ( status != EFI_SUCCESS )
-+            {
-+                PrintErr(L"Cannot install new ESRT\r\n");
-+                efi_bs->FreePool(new_esrt);
-+            }
-+        }
-+        else
-+            PrintErr(L"Cannot allocate memory for ESRT\r\n");
-+        break;
-+    }
-+}
-+
- static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
- {
-     EFI_STATUS status;
-@@ -1067,6 +1182,13 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *Syste
-     if ( !efi_memmap )
-         blexit(L"Unable to allocate memory for EFI memory map");
- 
-+    status = SystemTable->BootServices->GetMemoryMap(&efi_memmap_size,
-+                                                     efi_memmap, &map_key,
-+                                                     &efi_mdesc_size,
-+                                                     &mdesc_ver);
-+    if ( EFI_ERROR(status) )
-+        PrintErrMesg(L"Cannot obtain memory map", status);
-+
-     for ( retry = false; ; retry = true )
-     {
-         efi_memmap_size = info_size;
-@@ -1413,6 +1535,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
-     if ( gop )
-         efi_set_gop_mode(gop, gop_mode);
- 
-+    efi_relocate_esrt(SystemTable);
-+
-     efi_exit_boot(ImageHandle, SystemTable);
- 
-     efi_arch_post_exit_boot(); /* Doesn't return. */
-@@ -1753,3 +1877,12 @@ void __init efi_init_memory(void)
-     unmap_domain_page(efi_l4t);
- }
+@@ -73,6 +75,11 @@ struct gntdev_grant_map {
+ 	/* Needed to avoid allocation in gnttab_dma_free_pages(). */
+ 	xen_pfn_t *frames;
  #endif
 +
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
++	/* Number of live grants */
++	atomic_t live_grants;
++	/* Needed to avoid allocation in __unmap_grant_pages */
++	struct gntab_unmap_queue_data unmap_data;
+ };
+ 
+ struct gntdev_grant_map *gntdev_alloc_map(struct gntdev_priv *priv, int count,
+diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+index 59ffea800079..4b56c39f766d 100644
+--- a/drivers/xen/gntdev.c
++++ b/drivers/xen/gntdev.c
+@@ -35,6 +35,7 @@
+ #include <linux/slab.h>
+ #include <linux/highmem.h>
+ #include <linux/refcount.h>
++#include <linux/workqueue.h>
+ 
+ #include <xen/xen.h>
+ #include <xen/grant_table.h>
+@@ -60,10 +61,11 @@ module_param(limit, uint, 0644);
+ MODULE_PARM_DESC(limit,
+ 	"Maximum number of grants that may be mapped by one mapping request");
+ 
++/* True in PV mode, false otherwise */
+ static int use_ptemod;
+ 
+-static int unmap_grant_pages(struct gntdev_grant_map *map,
+-			     int offset, int pages);
++static void unmap_grant_pages(struct gntdev_grant_map *map,
++			      int offset, int pages);
+ 
+ static struct miscdevice gntdev_miscdev;
+ 
+@@ -120,6 +122,7 @@ static void gntdev_free_map(struct gntdev_grant_map *map)
+ 	kvfree(map->unmap_ops);
+ 	kvfree(map->kmap_ops);
+ 	kvfree(map->kunmap_ops);
++	kvfree(map->being_removed);
+ 	kfree(map);
+ }
+ 
+@@ -140,10 +143,13 @@ struct gntdev_grant_map *gntdev_alloc_map(struct gntdev_priv *priv, int count,
+ 	add->unmap_ops = kvmalloc_array(count, sizeof(add->unmap_ops[0]),
+ 					GFP_KERNEL);
+ 	add->pages     = kvcalloc(count, sizeof(add->pages[0]), GFP_KERNEL);
++	add->being_removed =
++		kvcalloc(count, sizeof(add->being_removed[0]), GFP_KERNEL);
+ 	if (NULL == add->grants    ||
+ 	    NULL == add->map_ops   ||
+ 	    NULL == add->unmap_ops ||
+-	    NULL == add->pages)
++	    NULL == add->pages     ||
++	    NULL == add->being_removed)
+ 		goto err;
+ 	if (use_ptemod) {
+ 		add->kmap_ops   = kvmalloc_array(count, sizeof(add->kmap_ops[0]),
+@@ -250,9 +256,36 @@ void gntdev_put_map(struct gntdev_priv *priv, struct gntdev_grant_map *map)
+ 	if (!refcount_dec_and_test(&map->users))
+ 		return;
+ 
+-	if (map->pages && !use_ptemod)
++	if (map->pages && !use_ptemod) {
++		/*
++		 * Increment the reference count.  This ensures that the
++		 * subsequent call to unmap_grant_pages() will not wind up
++		 * re-entering itself.  It *can* wind up calling
++		 * gntdev_put_map() recursively, but such calls will be with a
++		 * reference count greater than 1, so they will return before
++		 * this code is reached.  The recursion depth is thus limited to
++		 * 1.  Do NOT use refcount_inc() here, as it will detect that
++		 * the reference count is zero and WARN().
++		 */
++		refcount_set(&map->users, 1);
++
++		/*
++		 * Unmap the grants.  This may or may not be asynchronous, so it
++		 * is possible that the reference count is 1 on return, but it
++		 * could also be greater than 1.
++		 */
+ 		unmap_grant_pages(map, 0, map->count);
+ 
++		/* Check if the memory now needs to be freed */
++		if (!refcount_dec_and_test(&map->users))
++			return;
++
++		/*
++		 * All pages have been returned to the hypervisor, so free the
++		 * map.
++		 */
++	}
++
+ 	if (map->notify.flags & UNMAP_NOTIFY_SEND_EVENT) {
+ 		notify_remote_via_evtchn(map->notify.event);
+ 		evtchn_put(map->notify.event);
+@@ -283,6 +316,7 @@ static int find_grant_ptes(pte_t *pte, unsigned long addr, void *data)
+ 
+ int gntdev_map_grant_pages(struct gntdev_grant_map *map)
+ {
++	size_t alloced = 0;
+ 	int i, err = 0;
+ 
+ 	if (!use_ptemod) {
+@@ -331,97 +365,116 @@ int gntdev_map_grant_pages(struct gntdev_grant_map *map)
+ 			map->count);
+ 
+ 	for (i = 0; i < map->count; i++) {
+-		if (map->map_ops[i].status == GNTST_okay)
++		if (map->map_ops[i].status == GNTST_okay) {
+ 			map->unmap_ops[i].handle = map->map_ops[i].handle;
+-		else if (!err)
++			if (!use_ptemod)
++				alloced++;
++		} else if (!err)
+ 			err = -EINVAL;
+ 
+ 		if (map->flags & GNTMAP_device_map)
+ 			map->unmap_ops[i].dev_bus_addr = map->map_ops[i].dev_bus_addr;
+ 
+ 		if (use_ptemod) {
+-			if (map->kmap_ops[i].status == GNTST_okay)
++			if (map->kmap_ops[i].status == GNTST_okay) {
++				if (map->map_ops[i].status == GNTST_okay)
++					alloced++;
+ 				map->kunmap_ops[i].handle = map->kmap_ops[i].handle;
+-			else if (!err)
++			} else if (!err)
+ 				err = -EINVAL;
+ 		}
+ 	}
++	atomic_add(alloced, &map->live_grants);
+ 	return err;
+ }
+ 
+-static int __unmap_grant_pages(struct gntdev_grant_map *map, int offset,
+-			       int pages)
++static void __unmap_grant_pages_done(int result,
++		struct gntab_unmap_queue_data *data)
+ {
+-	int i, err = 0;
+-	struct gntab_unmap_queue_data unmap_data;
+-
+-	if (map->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
+-		int pgno = (map->notify.addr >> PAGE_SHIFT);
+-		if (pgno >= offset && pgno < offset + pages) {
+-			/* No need for kmap, pages are in lowmem */
+-			uint8_t *tmp = pfn_to_kaddr(page_to_pfn(map->pages[pgno]));
+-			tmp[map->notify.addr & (PAGE_SIZE-1)] = 0;
+-			map->notify.flags &= ~UNMAP_NOTIFY_CLEAR_BYTE;
+-		}
+-	}
+-
+-	unmap_data.unmap_ops = map->unmap_ops + offset;
+-	unmap_data.kunmap_ops = use_ptemod ? map->kunmap_ops + offset : NULL;
+-	unmap_data.pages = map->pages + offset;
+-	unmap_data.count = pages;
+-
+-	err = gnttab_unmap_refs_sync(&unmap_data);
+-	if (err)
+-		return err;
++	unsigned int i;
++	struct gntdev_grant_map *map = data->data;
++	unsigned int offset = data->unmap_ops - map->unmap_ops;
+ 
+-	for (i = 0; i < pages; i++) {
+-		if (map->unmap_ops[offset+i].status)
+-			err = -EINVAL;
++	for (i = 0; i < data->count; i++) {
++		WARN_ON(map->unmap_ops[offset+i].status);
+ 		pr_debug("unmap handle=%d st=%d\n",
+ 			map->unmap_ops[offset+i].handle,
+ 			map->unmap_ops[offset+i].status);
+ 		map->unmap_ops[offset+i].handle = INVALID_GRANT_HANDLE;
+ 		if (use_ptemod) {
+-			if (map->kunmap_ops[offset+i].status)
+-				err = -EINVAL;
++			WARN_ON(map->kunmap_ops[offset+i].status);
+ 			pr_debug("kunmap handle=%u st=%d\n",
+ 				 map->kunmap_ops[offset+i].handle,
+ 				 map->kunmap_ops[offset+i].status);
+ 			map->kunmap_ops[offset+i].handle = INVALID_GRANT_HANDLE;
+ 		}
+ 	}
+-	return err;
++	/*
++	 * Decrease the live-grant counter.  This must happen after the loop to
++	 * prevent premature reuse of the grants by gnttab_mmap().
++	 */
++	atomic_sub(data->count, &map->live_grants);
++
++	/* Release reference taken by __unmap_grant_pages */
++	gntdev_put_map(NULL, map);
++}
++
++static void __unmap_grant_pages(struct gntdev_grant_map *map, int offset,
++			       int pages)
++{
++	if (map->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
++		int pgno = (map->notify.addr >> PAGE_SHIFT);
++
++		if (pgno >= offset && pgno < offset + pages) {
++			/* No need for kmap, pages are in lowmem */
++			uint8_t *tmp = pfn_to_kaddr(page_to_pfn(map->pages[pgno]));
++
++			tmp[map->notify.addr & (PAGE_SIZE-1)] = 0;
++			map->notify.flags &= ~UNMAP_NOTIFY_CLEAR_BYTE;
++		}
++	}
++
++	map->unmap_data.unmap_ops = map->unmap_ops + offset;
++	map->unmap_data.kunmap_ops = use_ptemod ? map->kunmap_ops + offset : NULL;
++	map->unmap_data.pages = map->pages + offset;
++	map->unmap_data.count = pages;
++	map->unmap_data.done = __unmap_grant_pages_done;
++	map->unmap_data.data = map;
++	refcount_inc(&map->users); /* to keep map alive during async call below */
++
++	gnttab_unmap_refs_async(&map->unmap_data);
+ }
+ 
+-static int unmap_grant_pages(struct gntdev_grant_map *map, int offset,
+-			     int pages)
++static void unmap_grant_pages(struct gntdev_grant_map *map, int offset,
++			      int pages)
+ {
+-	int range, err = 0;
++	int range;
++
++	if (atomic_read(&map->live_grants) == 0)
++		return; /* Nothing to do */
+ 
+ 	pr_debug("unmap %d+%d [%d+%d]\n", map->index, map->count, offset, pages);
+ 
+ 	/* It is possible the requested range will have a "hole" where we
+ 	 * already unmapped some of the grants. Only unmap valid ranges.
+ 	 */
+-	while (pages && !err) {
+-		while (pages &&
+-		       map->unmap_ops[offset].handle == INVALID_GRANT_HANDLE) {
++	while (pages) {
++		while (pages && map->being_removed[offset]) {
+ 			offset++;
+ 			pages--;
+ 		}
+ 		range = 0;
+ 		while (range < pages) {
+-			if (map->unmap_ops[offset + range].handle ==
+-			    INVALID_GRANT_HANDLE)
++			if (map->being_removed[offset + range])
+ 				break;
++			map->being_removed[offset + range] = true;
+ 			range++;
+ 		}
+-		err = __unmap_grant_pages(map, offset, range);
++		if (range)
++			__unmap_grant_pages(map, offset, range);
+ 		offset += range;
+ 		pages -= range;
+ 	}
+-
+-	return err;
+ }
+ 
+ /* ------------------------------------------------------------------ */
+@@ -473,7 +526,6 @@ static bool gntdev_invalidate(struct mmu_interval_notifier *mn,
+ 	struct gntdev_grant_map *map =
+ 		container_of(mn, struct gntdev_grant_map, notifier);
+ 	unsigned long mstart, mend;
+-	int err;
+ 
+ 	if (!mmu_notifier_range_blockable(range))
+ 		return false;
+@@ -494,10 +546,9 @@ static bool gntdev_invalidate(struct mmu_interval_notifier *mn,
+ 			map->index, map->count,
+ 			map->vma->vm_start, map->vma->vm_end,
+ 			range->start, range->end, mstart, mend);
+-	err = unmap_grant_pages(map,
++	unmap_grant_pages(map,
+ 				(mstart - map->vma->vm_start) >> PAGE_SHIFT,
+ 				(mend - mstart) >> PAGE_SHIFT);
+-	WARN_ON(err);
+ 
+ 	return true;
+ }
+@@ -985,6 +1036,10 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
+ 		goto unlock_out;
+ 	if (use_ptemod && map->vma)
+ 		goto unlock_out;
++	if (atomic_read(&map->live_grants)) {
++		err = -EAGAIN;
++		goto unlock_out;
++	}
+ 	refcount_inc(&map->users);
+ 
+ 	vma->vm_ops = &gntdev_vmops;
 -- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+2.36.1
+
 
