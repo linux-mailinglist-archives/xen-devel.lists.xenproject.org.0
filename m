@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FDB3557814
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 12:46:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.354821.582131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D99F05578A7
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 13:24:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.354831.582145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4KLH-0004p0-5I; Thu, 23 Jun 2022 10:45:43 +0000
+	id 1o4Kwc-0000fC-5f; Thu, 23 Jun 2022 11:24:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 354821.582131; Thu, 23 Jun 2022 10:45:43 +0000
+Received: by outflank-mailman (output) from mailman id 354831.582145; Thu, 23 Jun 2022 11:24:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4KLH-0004mF-0Z; Thu, 23 Jun 2022 10:45:43 +0000
-Received: by outflank-mailman (input) for mailman id 354821;
- Thu, 23 Jun 2022 10:45:41 +0000
+	id 1o4Kwc-0000cz-2v; Thu, 23 Jun 2022 11:24:18 +0000
+Received: by outflank-mailman (input) for mailman id 354831;
+ Thu, 23 Jun 2022 11:24:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o4KLF-0004m5-Im; Thu, 23 Jun 2022 10:45:41 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1o4Kwa-0000ct-O6
+ for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 11:24:16 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o4KLF-0002qp-AU; Thu, 23 Jun 2022 10:45:41 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o4KLF-00029n-2P; Thu, 23 Jun 2022 10:45:41 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1o4KLF-0005ax-1z; Thu, 23 Jun 2022 10:45:41 +0000
+ (envelope-from <julien@xen.org>)
+ id 1o4Kwa-0003UT-JK; Thu, 23 Jun 2022 11:24:16 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o4Kwa-0001It-A7; Thu, 23 Jun 2022 11:24:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +40,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=3X5PC/8gBXBvJnmskpnTfdDAoizPDVqSKDqwnUAaErc=; b=6aMcERfqlJFcjR4bWDw22aLF5D
-	WSVmUq3viGGkS3g9BT2EF9rL47O9sFN0C/3rlSi6x8Gl7FQWVwJchG1rn1FmglQKp58o+itt7BTAU
-	QO6LUUS3CtEV+FMbXD6U3ls38tIPK7BacwMofLhAgjTCaJtA1hE+H1Ux+SA+T0S0Vabw=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=48pd6qT6ElSdCjI12mEb8x+anpsLHh/bkyVkl9bWtvE=; b=S/QWtA
+	Pd932QAyJKv2pvGMz5HdLQm+zyKJzWxCuubDwmIHDP/2X472orvJO4sfQlVoEQb7019+m0E8Ci7hy
+	YyHnZx8gp1GCLvgHLC1wZUDC6V7jdCoWqw6OJgl/PmI7x3wYVdMxGmyYagPNt1Ku/nS+bwFzYIQHl
+	LXLinF78L00=;
+From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171325-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH] tools/xenstored: Harden corrupt()
+Date: Thu, 23 Jun 2022 12:24:07 +0100
+Message-Id: <20220623112407.13604-1-julien@xen.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 171325: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=61ac7919a6a38a24d26fd1b57a2511beb0724e99
-X-Osstest-Versions-That:
-    xen=65f684b728f779e170335e9e0cbbf82f7e1c7e5b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 Jun 2022 10:45:41 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 171325 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171325/
+From: Julien Grall <jgrall@amazon.com>
 
-Failures :-/ but no regressions.
+At the moment, corrupt() is neither checking for allocation failure
+nor freeing the allocated memory.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Harden the code by printing ENOMEM if the allocation failed and
+free 'str' after the last use.
 
-version targeted for testing:
- xen                  61ac7919a6a38a24d26fd1b57a2511beb0724e99
-baseline version:
- xen                  65f684b728f779e170335e9e0cbbf82f7e1c7e5b
+This is not considered to be a security issue because corrupt() should
+only be called when Xenstored thinks the database is corrupted. Note
+that the trigger (i.e. a guest reliably provoking the call) would be
+a security issue.
 
-Last test of basis   171314  2022-06-22 18:01:50 Z    0 days
-Testing same since   171325  2022-06-23 08:01:47 Z    0 days    1 attempts
+Fixes: 06d17943f0cd ("Added a basic integrity checker, and some basic ability to recover from store")
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+---
+ tools/xenstore/xenstored_core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Michal Orzel <michal.orzel@arm.com>
-  Samuel Thibault <samuel.thibault@ens-lyon.org>
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index fa733e714e9a..b6279bdfe229 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -2065,7 +2065,11 @@ void corrupt(struct connection *conn, const char *fmt, ...)
+ 	va_end(arglist);
+ 
+ 	log("corruption detected by connection %i: err %s: %s",
+-	    conn ? (int)conn->id : -1, strerror(saved_errno), str);
++	    conn ? (int)conn->id : -1, strerror(saved_errno),
++	    str ? str : "ENOMEM");
++
++	if (str)
++		talloc_free(str);
+ 
+ 	check_store();
+ }
+-- 
+2.32.0
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   65f684b728..61ac7919a6  61ac7919a6a38a24d26fd1b57a2511beb0724e99 -> smoke
 
