@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CC32558853
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 21:05:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355179.582696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C9F558A8D
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 23:15:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355187.582713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4S95-0005RZ-S3; Thu, 23 Jun 2022 19:05:39 +0000
+	id 1o4UA2-00005h-6c; Thu, 23 Jun 2022 21:14:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355179.582696; Thu, 23 Jun 2022 19:05:39 +0000
+Received: by outflank-mailman (output) from mailman id 355187.582713; Thu, 23 Jun 2022 21:14:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4S95-0005PY-Ot; Thu, 23 Jun 2022 19:05:39 +0000
-Received: by outflank-mailman (input) for mailman id 355179;
- Thu, 23 Jun 2022 19:05:38 +0000
+	id 1o4UA2-0008VA-2l; Thu, 23 Jun 2022 21:14:46 +0000
+Received: by outflank-mailman (input) for mailman id 355187;
+ Thu, 23 Jun 2022 21:14:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VLWc=W6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o4S94-0005PS-EV
- for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 19:05:38 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=lCxP=W6=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
+ id 1o4UA0-0008V4-Uy
+ for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 21:14:44 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75a43b5e-f327-11ec-bd2d-47488cf2e6aa;
- Thu, 23 Jun 2022 21:05:36 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 11D5760DE4;
- Thu, 23 Jun 2022 19:05:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B7EC341C6;
- Thu, 23 Jun 2022 19:05:32 +0000 (UTC)
+ id 7fc18343-f339-11ec-bd2d-47488cf2e6aa;
+ Thu, 23 Jun 2022 23:14:42 +0200 (CEST)
+Received: from [192.168.1.14] (unknown [151.63.34.150])
+ by support.bugseng.com (Postfix) with ESMTPSA id DBBE44EE0778;
+ Thu, 23 Jun 2022 23:14:40 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,98 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75a43b5e-f327-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1656011133;
-	bh=DlaG4hikWmV5GgEEhFKLTExjiONKayjhelSAZ9OX0mg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=MeGFBC/IDQs/gYGFQsyiAGqtObMQqYr659vAvp7nny88g0w7tOHjkssgIytGXPc+C
-	 xk6osWSsynJdCPNVUy3c8sd7YAyJvimq3VMu7tS1Xj03W2wLYi6jVds/QFyMUbToL1
-	 jn1MHFro7tUU6qPXZgvsp6G+DEQGbDW9Pns/DN9RGeghRpK1mqajA/Izr9aLVrZMyA
-	 bWITtmWyjKB2/6ZtvSB67uae4qBwgd87RPSQFE/31njvIvzH8kgGrlP/xuZnTtYpTC
-	 CKOkpnK0zDQC2CmKsMNnQTIP7qBnTvvu/+Ou3PCI4rVxCXVed0ukDnnKnuE4Qik8aI
-	 4/IYy8dsocBSA==
-Date: Thu, 23 Jun 2022 12:05:32 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3] xen: Add MISRA support to cppcheck make rule
-In-Reply-To: <99E7CA0A-B87F-40D3-BE15-AA344AFB9855@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2206231204400.2410338@ubuntu-linux-20-04-desktop>
-References: <82a29dff7a0da97cc6ad9d247a97372bcf71f17c.1654850751.git.bertrand.marquis@arm.com> <alpine.DEB.2.22.394.2206211658480.788376@ubuntu-linux-20-04-desktop> <FE2CD795-09AC-4AD0-8F08-8320FE7122C5@arm.com> <alpine.DEB.2.22.394.2206221445520.2352613@ubuntu-linux-20-04-desktop>
- <99E7CA0A-B87F-40D3-BE15-AA344AFB9855@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 7fc18343-f339-11ec-bd2d-47488cf2e6aa
+Message-ID: <9f315162-f88f-9d96-04a6-480313cd83f1@bugseng.com>
+Date: Thu, 23 Jun 2022 23:14:40 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
+ Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
+Subject: Re: [PATCH 0/9] MISRA C 2012 8.1 rule fixes
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <Michal.Orzel@arm.com>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Juergen Gross <jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20220620070245.77979-1-michal.orzel@arm.com>
+ <dd016e82-2480-0e1e-6286-18b2f677dd65@suse.com>
+ <74ec2158-3d19-3b2c-1e8c-fb5b30267658@arm.com>
+ <d91bb4ea-41be-225e-e2fe-1b03aa06c677@suse.com>
+ <C45BA6EE-6294-4C6F-ADC4-3DE7C8DA866F@arm.com>
+ <68d7fb35-e4c5-e5d2-13a8-9ee1369e8dbe@suse.com>
+ <BE80A241-7983-425F-9212-0957E29AA5C7@arm.com>
+ <7a8d70e3-c331-426d-fe96-77bd65caade7@suse.com>
+ <alpine.DEB.2.22.394.2206221212510.2157383@ubuntu-linux-20-04-desktop>
+ <8610703e-fd15-bba1-3bb1-cfe038f9b11c@bugseng.com>
+ <3e86d233-7c9a-cd80-a744-c4bdd42ac85c@suse.com>
+From: Roberto Bagnara <roberto.bagnara@bugseng.com>
+In-Reply-To: <3e86d233-7c9a-cd80-a744-c4bdd42ac85c@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, 23 Jun 2022, Bertrand Marquis wrote:
-> > On 22 Jun 2022, at 22:52, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > 
-> > On Wed, 22 Jun 2022, Bertrand Marquis wrote:
-> >> Hi Stefano,
-> >> 
-> >>> On 22 Jun 2022, at 01:00, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> >>> 
-> >>> On Fri, 10 Jun 2022, Bertrand Marquis wrote:
-> >>>> cppcheck MISRA addon can be used to check for non compliance to some of
-> >>>> the MISRA standard rules.
-> >>>> 
-> >>>> Add a CPPCHECK_MISRA variable that can be set to "y" using make command
-> >>>> line to generate a cppcheck report including cppcheck misra checks.
-> >>>> 
-> >>>> When MISRA checking is enabled, a file with a text description suitable
-> >>>> for cppcheck misra addon is generated out of Xen documentation file
-> >>>> which lists the rules followed by Xen (docs/misra/rules.rst).
-> >>>> 
-> >>>> By default MISRA checking is turned off.
-> >>>> 
-> >>>> While adding cppcheck-misra files to gitignore, also fix the missing /
-> >>>> for htmlreport gitignore
-> >>>> 
-> >>>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >>> 
-> >>> Hi Bertrand,
-> >>> 
-> >>> I tried this patch and I am a bit confused by the output
-> >>> cppcheck-misra.txt file that I get (appended.)
-> >>> 
-> >>> I can see that there are all the rules from docs/misra/rules.rst as it
-> >>> should be together with the one line summary, but there are also a bunch
-> >>> of additional rules not present in docs/misra/rules.rst. Starting from
-> >>> Rule 1.1 all the way to Rule 21.21. Is the expected?
-> >> 
-> >> To make cppcheck happy I need to give a text for all rules so the python script is generating a dummy sentence for not declared Misra rules to prevent cppcheck warnings. To make it simpler I just did it for 1 to 22 for main and sub numbers.
-> >> 
-> >> So yes this is expected.
-> > 
-> > No problem about the dummy text sentence. My question was why are all
-> > those additional rules listed?
-> > 
-> > If you see below, the first few rules from 2.1 to 20.14 are coming from
-> > docs/misra/rules.rst. Why are the other rules afterward from 1.1 to
-> > 21.21 listed and where are they coming from?
-> 
-> Those are dummy entries generated by the python script.
-> 
-> > 
-> > Is it because all rules need to be listed? And the ones that are enabled
-> > are marked as "Required"?
-> 
-> If a rule is not listed in the file, cppcheck will give a warning.
-> 
-> > 
-> > I take we couldn't just avoid listing the other rules (the ones not in
-> > docs/misra/rules.rst)?
-> 
-> I can but each cppcheck command will output a warning for each rule which has no description in the generated file.
 
-No, that makes sense. It is to silence a warning. Maybe explain this in
-the commit message and add my
+Hi Jan.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+I know I will sound pedantic ;-)  but an important fact about
+the MISRA standards is that reading the headline alone is almost
+never enough.  In the specific of (advisory) Directive 4.6,
+the Rationale says, among other things:
+
+     It might be desirable not to apply this guideline when
+     interfacing with The Standard Library or code outside
+     the project’s control.
+
+For this reason, size_t is typically set as an exception in the
+tool configuration.  To properly deal with the many Standard Library
+functions returning int, one can use a typedef named something
+like "lib_int_t" to write, e.g.,
+
+   const lib_int_t r = strncmp(...);
+
+The lib_int_t typedef can be used with a suitable tool configuration,
+just as I mentioned one would do with size_t.
+Kind regards,
+
+    Roberto
+
+On 23/06/22 09:51, Jan Beulich wrote:
+> On 23.06.2022 09:37, Roberto Bagnara wrote:
+>> Rule 8.1 only applies to C90 code, as all the violating instances are
+>> syntax errors in C99 and later versions of the language.  So,
+>> the following line does not contain a violation of Rule 8.1:
+>>
+>>       unsigned x;
+>>
+>> It does contain a violation of Directive 4.6, though, whose correct
+>> handling depends on the intention (uint32_t, uin64_t, size_t, ...).
+> 
+> Interesting - this goes straight against a rule we have set in
+> ./CODING_STYLE. I'm also puzzled by you including size_t in your list
+> of examples, when the spec doesn't. The sole "goal" of the directive
+> (which is advisory only anyway) is to be able to determine allocation
+> size. size_t size, however, varies as much as short, int, long, etc
+> do.
+> 
+> Jan
 
