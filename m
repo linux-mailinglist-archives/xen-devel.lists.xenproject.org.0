@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77F13558AEA
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 23:46:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355201.582734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B53A3558B25
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 00:08:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355208.582746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4UeI-0005Yq-Ru; Thu, 23 Jun 2022 21:46:02 +0000
+	id 1o4Uz1-0000Xh-Jy; Thu, 23 Jun 2022 22:07:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355201.582734; Thu, 23 Jun 2022 21:46:02 +0000
+Received: by outflank-mailman (output) from mailman id 355208.582746; Thu, 23 Jun 2022 22:07:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4UeI-0005VZ-Ok; Thu, 23 Jun 2022 21:46:02 +0000
-Received: by outflank-mailman (input) for mailman id 355201;
- Thu, 23 Jun 2022 21:46:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o4UeH-0005VT-Mw
- for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 21:46:01 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o4UeF-0006e0-J7; Thu, 23 Jun 2022 21:45:59 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o4UeF-0003If-Cx; Thu, 23 Jun 2022 21:45:59 +0000
+	id 1o4Uz1-0000Vw-GB; Thu, 23 Jun 2022 22:07:27 +0000
+Received: by outflank-mailman (input) for mailman id 355208;
+ Thu, 23 Jun 2022 22:07:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VLWc=W6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1o4Uyz-0000Vq-SC
+ for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 22:07:25 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dc0cc03e-f340-11ec-bd2d-47488cf2e6aa;
+ Fri, 24 Jun 2022 00:07:24 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2326961EA4;
+ Thu, 23 Jun 2022 22:07:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080B3C341C0;
+ Thu, 23 Jun 2022 22:07:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,145 +43,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=AacVPjNeEi7EN173UT+U8R06OOBWooAOgGR2mpo/RO8=; b=OCVhhaRKjjNFHZbFpmuVLEM7rj
-	fVYS5GyllYXXtq57MYJJr94b5gmUs7/G6IED4fafN9NP7TZxK4lkWVJBmCUsFIstPyX5cXIsoRIBb
-	oJNr71q72AKSNxvQ32Hi7ke/sCvGMwz6qBbLjuyydFjJmCb9+4c2VNQJ6uC3T2u7lC7Q=;
-Message-ID: <b8f364cc-ef22-75bb-8362-c44698d318ff@xen.org>
-Date: Thu, 23 Jun 2022 22:45:57 +0100
+X-Inumbo-ID: dc0cc03e-f340-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1656022042;
+	bh=LlUv5RLzDJ+mvV5i38k8rTDG/sLFJ6pidfM/gtiGwmc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=luTI+TugVIJOXOmUGGsTq1BBnIBPVbewgC7bPJq/IiviJunuM7SouMt0kPZRu0VsI
+	 tvipyY+Jkhed3qR63KJvsugaQ6KeXrkizfVLuCDr5M9B8V5ydUnZzlz6zChQIsgNpg
+	 t0y0tCnAeYJ6YtBK38TrSje7/+0iLLdqX+MKaUTLoslQm85uLubHnS1PrDSVfnRLiZ
+	 5zsD4XODxojNac/f2uahfrv07Z0aBaTRQ7orwU9RC0DoEHTk/Ob9vUjmNuXCbOee7Q
+	 PoQpvgGfWJz0oXIA6qmtnglBBi1DPudghMdcjRi8nZpzhWtb0I+gfA/Zg8T7gXQrs4
+	 2epE76b7e86Pg==
+Date: Thu, 23 Jun 2022 15:07:21 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: dmitry.semenets@gmail.com
+cc: xen-devel@lists.xenproject.org, Dmytro Semenets <dmytro_semenets@epam.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen: arm: Don't use stop_cpu() in halt_this_cpu()
+In-Reply-To: <20220623074428.226719-1-dmitry.semenets@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2206231457250.2410338@ubuntu-linux-20-04-desktop>
+References: <20220623074428.226719-1-dmitry.semenets@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <20220523194953.70636-1-julien@xen.org>
- <F2040FC0-C040-46F5-8DD0-79EE0E1B3A1E@arm.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] xen/arm: Remove most of the *_VIRT_END defines
-In-Reply-To: <F2040FC0-C040-46F5-8DD0-79EE0E1B3A1E@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Bertrand,
-
-On 24/05/2022 09:05, Bertrand Marquis wrote:
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>
->> ----
->>
->> I noticed that a few functions in Xen expect [start, end[. This is risky
->> as we may end up with end < start if the region is defined right at the
->> top of the address space.
->>
->> I haven't yet tackle this issue. But I would at least like to get rid
->> of *_VIRT_END.
->> ---
->> xen/arch/arm/include/asm/config.h | 18 ++++++++----------
->> xen/arch/arm/livepatch.c          |  2 +-
->> xen/arch/arm/mm.c                 | 13 ++++++++-----
->> 3 files changed, 17 insertions(+), 16 deletions(-)
->>
->> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
->> index 3e2a55a91058..66db618b34e7 100644
->> --- a/xen/arch/arm/include/asm/config.h
->> +++ b/xen/arch/arm/include/asm/config.h
->> @@ -111,12 +111,11 @@
->> #define FIXMAP_ADDR(n)        (_AT(vaddr_t,0x00400000) + (n) * PAGE_SIZE)
->>
->> #define BOOT_FDT_VIRT_START    _AT(vaddr_t,0x00600000)
->> -#define BOOT_FDT_SLOT_SIZE     MB(4)
->> -#define BOOT_FDT_VIRT_END      (BOOT_FDT_VIRT_START + BOOT_FDT_SLOT_SIZE)
->> +#define BOOT_FDT_VIRT_SIZE     _AT(vaddr_t, MB(4))
->>
->> #ifdef CONFIG_LIVEPATCH
->> #define LIVEPATCH_VMAP_START   _AT(vaddr_t,0x00a00000)
->> -#define LIVEPATCH_VMAP_END     (LIVEPATCH_VMAP_START + MB(2))
->> +#define LIVEPATCH_VMAP_SIZE    _AT(vaddr_t, MB(2))
->> #endif
->>
->> #define HYPERVISOR_VIRT_START  XEN_VIRT_START
->> @@ -132,18 +131,18 @@
->> #define FRAMETABLE_VIRT_END    (FRAMETABLE_VIRT_START + FRAMETABLE_SIZE - 1)
->>
->> #define VMAP_VIRT_START        _AT(vaddr_t,0x10000000)
->> +#define VMAP_VIRT_SIZE         _AT(vaddr_t, GB(1) - MB(256))
+On Thu, 23 Jun 2022, dmitry.semenets@gmail.com wrote:
+> From: Dmytro Semenets <dmytro_semenets@epam.com>
 > 
-> This looks a bit odd, any reason not to use MB(768) ?
-
-This is to match how we define FRAMETABLE_SIZE. It is a lot easier to 
-figure out how the size was found and match the comment:
-
-  256M -   1G   VMAP: ioremap and early_ioremap use this virtual address
-                      space
-
-> If not then there might be something worse explaining with a comment here.
-
-This is really a matter of taste here. I don't think it has to be 
-explained in the commit message.
-
-[...]
-
->> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
->> index be37176a4725..0607c65f95cd 100644
->> --- a/xen/arch/arm/mm.c
->> +++ b/xen/arch/arm/mm.c
->> @@ -128,9 +128,11 @@ static DEFINE_PAGE_TABLE(xen_first);
->> /* xen_pgtable == root of the trie (zeroeth level on 64-bit, first on 32-bit) */
->> static DEFINE_PER_CPU(lpae_t *, xen_pgtable);
->> #define THIS_CPU_PGTABLE this_cpu(xen_pgtable)
->> -/* xen_dommap == pages used by map_domain_page, these pages contain
->> +/*
->> + * xen_dommap == pages used by map_domain_page, these pages contain
->>   * the second level pagetables which map the domheap region
->> - * DOMHEAP_VIRT_START...DOMHEAP_VIRT_END in 2MB chunks. */
->> + * starting at DOMHEAP_VIRT_START in 2MB chunks.
->> + */
+> When shutting down (or rebooting) the platform, Xen will call stop_cpu()
+> on all the CPUs but one. The last CPU will then request the system to
+> shutdown/restart.
 > 
-> Please just mention that you also fixed a comment coding style in the commit message.
-
-Sure.
-
+> On platform using PSCI, stop_cpu() will call PSCI CPU off. Per the spec
+> (section 5.5.2 DEN0022D.b), the call could return DENIED if the Trusted
+> OS is resident on the CPU that is about to be turned off.
 > 
->> static DEFINE_PER_CPU(lpae_t *, xen_dommap);
->> /* Root of the trie for cpu0, other CPU's PTs are dynamically allocated */
->> static DEFINE_PAGE_TABLE(cpu0_pgtable);
->> @@ -476,7 +478,7 @@ mfn_t domain_page_map_to_mfn(const void *ptr)
->>      int slot = (va - DOMHEAP_VIRT_START) >> SECOND_SHIFT;
->>      unsigned long offset = (va>>THIRD_SHIFT) & XEN_PT_LPAE_ENTRY_MASK;
->>
->> -    if ( va >= VMAP_VIRT_START && va < VMAP_VIRT_END )
->> +    if ( (va >= VMAP_VIRT_START) && ((VMAP_VIRT_START - va) < VMAP_VIRT_SIZE) )
->>          return virt_to_mfn(va);
->>
->>      ASSERT(slot >= 0 && slot < DOMHEAP_ENTRIES);
->> @@ -570,7 +572,8 @@ void __init remove_early_mappings(void)
->>      int rc;
->>
->>      /* destroy the _PAGE_BLOCK mapping */
->> -    rc = modify_xen_mappings(BOOT_FDT_VIRT_START, BOOT_FDT_VIRT_END,
->> +    rc = modify_xen_mappings(BOOT_FDT_VIRT_START,
->> +                             BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE,
->>                               _PAGE_BLOCK);
->>      BUG_ON(rc);
->> }
->> @@ -850,7 +853,7 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
->>
->> void *__init arch_vmap_virt_end(void)
->> {
->> -    return (void *)VMAP_VIRT_END;
->> +    return (void *)(VMAP_VIRT_START + VMAP_VIRT_SIZE);
->> }
->>
->> /*
+> As Xen doesn't migrate off the trusted OS (which BTW may not be
+> migratable), it would be possible to hit the panic().
+> 
+> In the ideal situation, Xen should migrate the trusted OS or make sure
+> the CPU off is not called. However, when shutting down (or rebooting)
+> the platform, it is pointless to try to turn off all the CPUs (per
+> section 5.10.2, it is only required to put the core in a known state).
+> 
+> So solve the problem by open-coding stop_cpu() in halt_this_cpu() and
+> not call PSCI CPU off.
+> 
+> Signed-off-by: Dmytro Semenets <dmytro_semenets@epam.com>
+> ---
+>  xen/arch/arm/shutdown.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/shutdown.c b/xen/arch/arm/shutdown.c
+> index 3dc6819d56..a9aea19e8e 100644
+> --- a/xen/arch/arm/shutdown.c
+> +++ b/xen/arch/arm/shutdown.c
+> @@ -8,7 +8,12 @@
+>  
+>  static void noreturn halt_this_cpu(void *arg)
+>  {
+> -    stop_cpu();
+> +    local_irq_disable();
+> +    /* Make sure the write happens before we sleep forever */
+> +    dsb(sy);
+> +    isb();
+> +    while ( 1 )
+> +        wfi();
+>  }
 
-Cheers,
 
--- 
-Julien Grall
+stop_cpu has already a wfi loop just after the psci call:
+
+    call_psci_cpu_off();
+
+    while ( 1 )
+        wfi();
+
+
+So wouldn't it be better to remove the panic from the implementation of
+call_psci_cpu_off?
+
+The reason I am saying this is that stop_cpu is called in a number of
+places beyond halt_this_cpu and as far as I can tell any of them could
+trigger the panic. (I admit they are unlikely places but still.)
+
+
+Also the PSCI spec explicitely mention CPU_OFF as a way to place CPUs in
+a "known state" and doesn't offer any other examples. So although what
+you wrote in the commit message is correct, using CPU_OFF seems to be
+the less error prone way (in the sense of triggering firmware errors) to
+place CPUs in a known state.
+
+So I would simply remove the panic from call_psci_cpu_off, so that we
+try CPU_OFF first, and if it doesn't work, we use the WFI loop as
+backup. Also we get to fix all the other callers of stop_cpu this way.
 
