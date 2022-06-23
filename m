@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78E51557C8B
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 15:09:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.354996.582414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5370A557C9B
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 15:11:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355003.582424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4MaZ-0001NA-CE; Thu, 23 Jun 2022 13:09:39 +0000
+	id 1o4Mbt-0002hE-Oi; Thu, 23 Jun 2022 13:11:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 354996.582414; Thu, 23 Jun 2022 13:09:39 +0000
+Received: by outflank-mailman (output) from mailman id 355003.582424; Thu, 23 Jun 2022 13:11:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4MaZ-0001Ji-8j; Thu, 23 Jun 2022 13:09:39 +0000
-Received: by outflank-mailman (input) for mailman id 354996;
- Thu, 23 Jun 2022 13:09:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ht1C=W6=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1o4MaX-0001JY-Np
- for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 13:09:37 +0000
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [2607:f8b0:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ba849139-f2f5-11ec-b725-ed86ccbb4733;
- Thu, 23 Jun 2022 15:09:36 +0200 (CEST)
-Received: by mail-pl1-x636.google.com with SMTP id m2so10864298plx.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Jun 2022 06:09:36 -0700 (PDT)
+	id 1o4Mbt-0002fQ-KX; Thu, 23 Jun 2022 13:11:01 +0000
+Received: by outflank-mailman (input) for mailman id 355003;
+ Thu, 23 Jun 2022 13:11:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CRa/=W6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1o4Mbs-0002fI-SW
+ for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 13:11:00 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-eopbgr150072.outbound.protection.outlook.com [40.107.15.72])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ecaa2ec2-f2f5-11ec-bd2d-47488cf2e6aa;
+ Thu, 23 Jun 2022 15:10:59 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM8PR04MB7396.eurprd04.prod.outlook.com (2603:10a6:20b:1da::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.16; Thu, 23 Jun
+ 2022 13:10:57 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5353.022; Thu, 23 Jun 2022
+ 13:10:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,270 +46,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba849139-f2f5-11ec-b725-ed86ccbb4733
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=8ZpsnAi80ADwSdHbB9vVM+jLuyC83SXa1tFmJtVfbe4=;
-        b=fpdKsfBQLliRSMz5lKSS/dqP1O2KD4Pp6k8CH9WHVKpO801XloQf7MNpRRsv4WWzFB
-         ZSXg4hWnF9rq3jNDPqRBYtUhyrOzhcOg1SaOAIQ632opfP8DO9kFeZRnyvSKpmS87uLg
-         YBSvD3UGaDSqNMmzt8+ZmgWuth82P8IfF5FuCU4RS/ikBwkpggyzkR8AywbKuvV35asP
-         q79j9EbFs29YsxpZzYgSoj9HyphteUG1nVMRfBhd3NEfvqQwMKc+CbRQgsMaM/BSZAGd
-         kOEKDop0DV2a+N0eBjBE2NUBpR2GGVY/S9aRo7OtoNvi0A6iI64n5r8QexL2mAm9xCIb
-         joxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=8ZpsnAi80ADwSdHbB9vVM+jLuyC83SXa1tFmJtVfbe4=;
-        b=0w6Mf9ML5+EKqn10Vo8UaTjuVN2V1OHaT/5KUt5xu6Wi/H8c9yUeo5b/iVu6ugcTAi
-         R4wEjlBtKgGZE8P6Tm3lmcFP3ixUroxCWYplZSsds3GXIeG/9TAspJPSz5V5BHIgIkOd
-         Jjoxw8w8Ojq5lxCCqamWesHHQifBbukH0TY38+2Sn3Zpum1QYSttzja60wNQAFiz6h1R
-         Q9Ctf0WlVk9lhqsLnN/7plLPrTw0Sp9+nwzTX654DrLoAxrCkuhsM7fwF57rxSC0qtzE
-         1E4wJVcYnPnyZhPFSklz7VMXoZWGpwn1l1wNB+cJ7/B0Pe6Zz5TyI1BYnTPNyxjUzhV1
-         nL0Q==
-X-Gm-Message-State: AJIora/IaAhV4h46fFKI4gsIKh9RlwRD2wb1wj0vPOdq47Pep87IiXEE
-	cjHl76hQDCVD32Z277roUcRhIIT6YmIp539S6S4=
-X-Google-Smtp-Source: AGRyM1umc+jYrRjqwAPBwtDTi5dQZ6aiWvqjxRi5w6Al/riZWF+BzoEB3goj2Ep9Y2GMpEvum2/w9bnsjcIlS1PGHpU=
-X-Received: by 2002:a17:903:247:b0:168:ecca:444 with SMTP id
- j7-20020a170903024700b00168ecca0444mr38327200plh.121.1655989774507; Thu, 23
- Jun 2022 06:09:34 -0700 (PDT)
+X-Inumbo-ID: ecaa2ec2-f2f5-11ec-bd2d-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PuA5kfUUCXfyToYuDvGmsQXA0Y7sD2xsUoTPKvzyrND8PtYmfgzloy/RnZlgbkRHT8OPMflufX7uSkDpm8OfmKPDMYtQDROEevPZrJPz7t5XmoSOxUKS2H0vglKyvr1720AxhMn57ewlea5JrHYp6Tf1Hqw/sfignL8RgRhHCLF0nOZX2beSCjVJJvDe/jokXuNn6kKukoE7i6+96E4YcEE5+IXrOuCFbIzC2QYOL5HvlaiHXGTqRkA7kDBMHKh3MZOeRCJeNhrhqR6teEDBt8ZIl6wX6DD7JQQPrlOl2M0QKqTXXa7OHUMTH3FU/O9Xa3nr15atTi4gPdqcfMhyCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ciq/mpICNyOEXmFvjm4x0WcGyDt0FHAi/Cs6ANCUgNE=;
+ b=MviDKhFSNMV44Eb4/8YlQLWbQ1KbSyRyUUROLdZYPNw1syChqc3hW16RNrBcnQ6sYy6phnUBtV02xIMFkyQZjpNwc6/qBvcaO8lfE/vWugScOUOMT6AImtxNhDEPvnVtpaN44Hg6kgYSFtmPEjmIy30zM1NXlGqJoUvxqichHIA/WuCx2B5Xxxyv4Bj7BAWjjiXqZwu8BdIFl9/CvCWjboOBVXLJr4r0TnmOj8CHhlGTaCWXEey+y95UaLkgR3tFoRJO65lL8oy2WfQwSgyX4l8ntwJSNLlj3in7TAXOsimlsFevQL8t/DbF9krM0D9b6qEkp/t3A/Q7KXl4wmD4vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ciq/mpICNyOEXmFvjm4x0WcGyDt0FHAi/Cs6ANCUgNE=;
+ b=cMPPSoRtUGs3Rk1BGchjUYtLGBdtOmuoDtnJwkI+uGzLLQlOnGapnolzGhDO/PEO0siRuEELZcKXqsPB5OCOniiZy2ZMiwHVHQGR7JRTKVCFKPp1/NKgjPyBN7mV+tMSeAiXl1u7Bw6Xh3T5Vph+KDJQ2Goxawo5h4mGOohtA1ngjyZsLDeccWvryKgg+ajvcB50DQ1c62UPDQ9EimLptODiz1+Gmf/G+zZF5zW3zaPf9eRbD34hFensXF8RnL1Pcj8dnQ60zFDSaGRaCRSgVsDxqJXeKLBYNttaqhKvU6TdmD+Z7tIABsJVtyMxxK77UsE9g8a1HPBzyETddKQ6Sw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <7f241ed2-41ff-c0cf-0aad-ad52440305bb@suse.com>
+Date: Thu, 23 Jun 2022 15:10:55 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH] tools/xenstored: Harden corrupt()
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Juergen Gross <jgross@suse.com>
+References: <20220623112407.13604-1-julien@xen.org>
+ <d0de3b7b-fdb4-716c-227d-5fee024d8fd9@suse.com>
+ <de0ae18f-b0b7-c63c-ed03-d0260dfc4c1d@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <de0ae18f-b0b7-c63c-ed03-d0260dfc4c1d@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR04CA0049.eurprd04.prod.outlook.com
+ (2603:10a6:20b:46a::34) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-References: <62903b8e-6c20-600e-8283-5a3e3b853a18@gmail.com>
- <1655482471-16850-1-git-send-email-olekstysh@gmail.com> <YrQ/VrfzScUVK+PK@perard.uk.xensource.com>
-In-Reply-To: <YrQ/VrfzScUVK+PK@perard.uk.xensource.com>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Thu, 23 Jun 2022 16:09:23 +0300
-Message-ID: <CAPD2p-=AewSzyvxVwxdNAvrVbRoUdrSu-ZnCjE0A9ZY8UZoDnQ@mail.gmail.com>
-Subject: Re: [PATCH V10.1 1/3] libxl: Add support for Virtio disk configuration
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>, 
-	George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, 
-	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Content-Type: multipart/alternative; boundary="00000000000042e49305e21d2a0a"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 04253c5e-2bdc-4285-7610-08da5519cf5d
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7396:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-Microsoft-Antispam-PRVS:
+	<AM8PR04MB7396E6D80835EF469A9B54C3B3B59@AM8PR04MB7396.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	oo6cMXOo+Lo2rf/KAJb7fWsr0ryBkjyVz4WVYrHL7Dl7FSWtlS1DcmV/46j7A0cBX6wMTBCNGA9X80ZBnnOiJNWFXhvmYOyacbDhHRhe6oc+NfhBsdIuirmeuE34nOzeGWqU3BTpmam07yRcXbVCzd2AyR2hadoMwdodAUyyR9PVLcX2Vxy1rlYlM3rIb5yRGCkmZHqAO0A8ZL7SbOHBddbD/r4lrwWNBg/i61wWt8BXWabunucW/TURd7q/clsyS8Fvy9VHo20IaYhVYzraTIV6T6gGc/XpCCTuiJToOedEQ5kNaV6NtwfNVQ5YRnUa8Unk4kq9/l3xuZiArBhmDudm5s3RJ3aSZlLy9dMfHXFqQQC+bVrvGrWKMngGQ3bQ2R9WbccD982Y7Mk+H7HVnOGtfkomHZ8mjOCb/oxbemZ8o3SKsL/Nf1fp2rE0FwShvEe/3A+bvoLqcGu1D7ofKeQIs3cv85pAb+JtE/7mSj2pg/AthuPL2VJU94rHcKL/OxxonfR67S/stLLytgzDPFqK41zF1STaNhcgEem6xAp42qWU6423jNkHF0wMhmzcGF5I7t1MQgnIo3nmmPuMk1Ux7Jt+2fCeFYDvIy2JxHq2LLmETjbhXDctJDooufDvAt3G1p7xPVPZYacUt+Bzu9Xn+qzUOL4mJH/yf159x6qEwooCUHwP0awwj/oja2a2rhBDPqA5Eb8Reu90Wj0TJs4wQJiZ6HtIvhyprgO2E3xTb3pnQP32ujvn4ZfODXb8LpSFE5OrLPCxs9BForKrTVttba9lcnwCjKAGxq8X1Us=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(346002)(396003)(366004)(376002)(136003)(39860400002)(38100700002)(86362001)(4326008)(31696002)(83380400001)(8936002)(5660300002)(8676002)(26005)(66556008)(2906002)(66946007)(66476007)(2616005)(107886003)(6916009)(186003)(316002)(6506007)(31686004)(6512007)(478600001)(6486002)(54906003)(41300700001)(53546011)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NGs1eDg5ODJxdDYvMm5Yb2VxMndKUFZkM3BDcUN3TXZXcTh2a2Z4bFZudTY1?=
+ =?utf-8?B?SkJjVWpvNjlXbTEwRkpwYlNyN010SHBqRFhtUXdZUm9nYUQ1ZWpYNmZqMEti?=
+ =?utf-8?B?WU8xdURsMnA2QXdVQ2ltZU4zeEFkSzJidlBTYTJCTloxNElsYlRhdVg0R3dM?=
+ =?utf-8?B?VUhOdU5KcGc3U1BGZS95K3IyWWJpdG1INURUcDh2RVNuaGIxejNCRWVZcVpW?=
+ =?utf-8?B?OUludXNac25lVFVyMWdJZ2twcUVTWVZCdU56KzdPMjcwZGdXZmlKQk45VWE1?=
+ =?utf-8?B?VkJnWUIrei9zTHFQQzVrUURrdy9wdGZ2QVFJVmg0azdTSnFiYzJiZWw2aGto?=
+ =?utf-8?B?MUtCd05aZU1qWW5JZWtra2RBUDBFTEZyK2pMbnN3OEcxNzQ3dTlDb01nS3B4?=
+ =?utf-8?B?VEY1bkZ3MThxeER2QTRHY1ljYlFBK2JrZGxEWHNBbDJ2MXZyVENLL2UxMHZ6?=
+ =?utf-8?B?RXROZUpsWWFkUS9IeVlSMW9tNkZCTDVqOVhjNmdsZVVBUjJackZjUzM3NGxQ?=
+ =?utf-8?B?ZGhOTTBWck92a3d3dUxlUHhJSm5peWpTRWd5aThUVnpXdlpUUHRPb3pqVXdT?=
+ =?utf-8?B?VEp4VTZvem1tdDlHUllzeVpsVkNsdXJ1Tm4wRXl0UFVkQnI2S01jSGRyUWZh?=
+ =?utf-8?B?VUxxSWlkY09IVVRiRDRrU01jL0sxQTdESzBFYWdOVlcrWkVFRlpoVXlZTU9X?=
+ =?utf-8?B?ZE1GdFgxKzJPZE1kUXE5aHFNc1M1VWNrNURyNkpYVVlsNTUvSVF2K3AzYjRZ?=
+ =?utf-8?B?WnptRjEzWHFGRGMzUC8xSW02d2dKZGVCMkFxZDVsdVhsQnVlMUtmUGk3Si91?=
+ =?utf-8?B?Y1VTVDJDTjVQcTBhOGNRanZQdjM0RDJjeDl5b0dWSWdmVlV4MjJUVjJvMDNJ?=
+ =?utf-8?B?VUxWdWxzbGdvZFhPNDVDSHBTbk5YNEkxSFRSa3dRRlZPb1hpa2FsVTVGSFYv?=
+ =?utf-8?B?eHJucVNGQldtL3NHSjYzeEtMNkx6eW1sRWQ5RkxBZmdDWFkyQnFjTGE3MURV?=
+ =?utf-8?B?TWJSRllET2g0TlJ0YXAwS3pwN2dKUDVMTzlpMmhtTmJITlFPcml6YWJCTWF5?=
+ =?utf-8?B?RjUwaFgrYjAvSkUzajZTQzAxUUI2c0FPYVc1QjVFRDBScnB0Y29vVkFLWUFs?=
+ =?utf-8?B?NWVGVTZZOVQ4aWl6bGdSUEhBOHBMSWdRU2JIMXlSd1dDQ2llM1N0WTBzeWhz?=
+ =?utf-8?B?T1dCYjhPdjQ0U1g2ajc3MW1SK1lZdXFnV0RkMTU5ZmxNanlXb1dMYzhwTTY3?=
+ =?utf-8?B?VVd5YmRsN0thNjN5N0F0ZFpjbS9EOXJpRXdvREs4aHVWaEw0NG1ScWdqS3dD?=
+ =?utf-8?B?OGNucEkxK0lFUitER3FhOVNBVDI3UEdsZS9yaTQzR29GYVBPaFpKcDhjVFVU?=
+ =?utf-8?B?QWthUmVmQ1BmMGxsSkwyZXFIcU5mT3YxZzJQZDZjYVJEVFpIT09vSS84eldk?=
+ =?utf-8?B?TU9JTEowa0Rrc2tjNm40U2phM3lVWkhrZVpHRldtTkt4NG8zOEpXVU5LMjdy?=
+ =?utf-8?B?aG1HY1NVVmNVcmpraGlrRmltSzA0VW15OFlENUZHR1BwT0lCUHhCbm1RZXVO?=
+ =?utf-8?B?T2xUR1RLVFNIc3k1NUlqNWRtZ09GUFd6WEVDNzI2Wk13bHNERnE1ci9Bb2Mx?=
+ =?utf-8?B?RDRSSmU4UjBYWGswN0lVdDk2TE05MGpwRmR1b0x4R1FTaW9peUpNMmJIOFZ1?=
+ =?utf-8?B?RWFnNVFSekN4WWxINngvYjRUcEZtZ0srVmc3WSswOEhjZVJFa0hVajZBYlY2?=
+ =?utf-8?B?aWRPMmRKUHZWekpsclUxT1ZDVVl3eTR1QzhsRGpSUFE0R3F5WFFuc01ZR3JY?=
+ =?utf-8?B?RUpQQjVsM2txZTBLMk9ic2NwaHFYd3hvL3BWQjJydEIvaVhFaVZ0ZFkvdmpt?=
+ =?utf-8?B?S2NiTFlyd3Axa1lUZjNRUGJ6d1k5VHoxMDJxTGY5MTNJMVJJUVpiQm5VcjVJ?=
+ =?utf-8?B?MitLZmhvQjFETjU0RlBKNk8rY05TK2V0NTdNQlVhanNIVG54b0xrZC9YUGhl?=
+ =?utf-8?B?b0JQYjZPT1BLSkhWQzk3WG1pVjZ3Y1RyVTNsWjlwd3Uyd1V6ai9oenZMSmZK?=
+ =?utf-8?B?VFE3NUJCK1RTc29HSkRkNWNySDkzVHVJNWVod3hpNW9jZWtqUllvQXp2QTJL?=
+ =?utf-8?Q?JWq2dna5xt6KO2bl6QHOP28xu?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04253c5e-2bdc-4285-7610-08da5519cf5d
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2022 13:10:56.9304
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sTwxE6hOEGkULZ49MPb/J3vLnba1zoWQ8COY62P3JMXxYIQazamK+ID4Ecloy9qw60lE80Vcc30OTQOVoYTJqA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7396
 
---00000000000042e49305e21d2a0a
-Content-Type: text/plain; charset="UTF-8"
+On 23.06.2022 15:03, Julien Grall wrote:
+> 
+> 
+> On 23/06/2022 13:59, Jan Beulich wrote:
+>> On 23.06.2022 13:24, Julien Grall wrote:
+>>> From: Julien Grall <jgrall@amazon.com>
+>>>
+>>> At the moment, corrupt() is neither checking for allocation failure
+>>> nor freeing the allocated memory.
+>>>
+>>> Harden the code by printing ENOMEM if the allocation failed and
+>>> free 'str' after the last use.
+>>>
+>>> This is not considered to be a security issue because corrupt() should
+>>> only be called when Xenstored thinks the database is corrupted. Note
+>>> that the trigger (i.e. a guest reliably provoking the call) would be
+>>> a security issue.
+>>>
+>>> Fixes: 06d17943f0cd ("Added a basic integrity checker, and some basic ability to recover from store")
+>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>
+>> Is this something which would want queuing for backport?
+> 
+> I would say yes. There are a couple of more Xenstored patches I would 
+> consider for backporting:
+> 
+> fe9be76d880b tools/xenstore: fix error handling of check_store()
+> b977929d3646 tools/xenstore: fix hashtable_expand() zeroing new area
+> 
+> Who is taking care of tools backport nowadays?
 
-Hello Anthony
+I'm trying to, as long as they apply cleanly enough. But I'd prefer if
+rather sooner then later I could offload this again. And I'm not
+actively looking to spot backporting candidates there (unlike for the
+hypervisor, excluding Arm).
 
-[sorry for the possible format issues]
-
-On Thu, Jun 23, 2022 at 1:24 PM Anthony PERARD <anthony.perard@citrix.com>
-wrote:
-
-> On Fri, Jun 17, 2022 at 07:14:31PM +0300, Oleksandr Tyshchenko wrote:
-> > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> >
-> > This patch adds basic support for configuring and assisting virtio-mmio
-> > based virtio-disk backend (emulator) which is intended to run out of
-> > Qemu and could be run in any domain.
-> > Although the Virtio block device is quite different from traditional
-> > Xen PV block device (vbd) from the toolstack's point of view:
-> >  - as the frontend is virtio-blk which is not a Xenbus driver, nothing
-> >    written to Xenstore are fetched by the frontend currently ("vdev"
-> >    is not passed to the frontend). But this might need to be revised
-> >    in future, so frontend data might be written to Xenstore in order to
-> >    support hotplugging virtio devices or passing the backend domain id
-> >    on arch where the device-tree is not available.
-> >  - the ring-ref/event-channel are not used for the backend<->frontend
-> >    communication, the proposed IPC for Virtio is IOREQ/DM
-> > it is still a "block device" and ought to be integrated in existing
-> > "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
-> > logic to deal with Virtio devices as well.
-> >
-> > For the immediate purpose and an ability to extend that support for
-> > other use-cases in future (Qemu, virtio-pci, etc) perform the following
-> > actions:
-> > - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect
-> >   that in the configuration
-> > - Introduce new disk "specification" and "transport" fields to struct
-> >   libxl_device_disk. Both are written to the Xenstore. The transport
-> >   field is only used for the specification "virtio" and it assumes
-> >   only "mmio" value for now.
-> > - Introduce new "specification" option with "xen" communication
-> >   protocol being default value.
-> > - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
-> >   one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
-> >
-> > An example of domain configuration for Virtio disk:
-> > disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other,
-> specification=virtio']
-> >
-> > Nothing has changed for default Xen disk configuration.
-> >
-> > Please note, this patch is not enough for virtio-disk to work
-> > on Xen (Arm), as for every Virtio device (including disk) we need
-> > to allocate Virtio MMIO params (IRQ and memory region) and pass
-> > them to the backend, also update Guest device-tree. The subsequent
-> > patch will add these missing bits. For the current patch,
-> > the default "irq" and "base" are just written to the Xenstore.
-> > This is not an ideal splitting, but this way we avoid breaking
-> > the bisectability.
-> >
-> > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > ---
-> > Changes V10 -> V10.1:
-> >    - fix small coding style issue in libxl__device_disk_get_path()
-> >    - drop specification check in main_blockattach() and add
-> >      required check in libxl__device_disk_setdefault()
-> >    - update specification check in main_blockdetach()
->
-> For this v10.1: Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
->
-
-
-perfect, thanks!
-
-
->
-> BTW, the subject of this updated patch still state "v10" instead of
-> "v10.1", hopefully committers can pick the right version.
->
-
-
-Oh, sorry, I was thinking to use "v10.1", but I wasn't sure that commit
-with updated subject would properly appear in the current thread if being
-sent using git send-email --in-reply-to))
-
-
->
-> Cheers,
->
-> --
-> Anthony PERARD
->
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
---00000000000042e49305e21d2a0a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello=C2=A0Anthony</div><div><br></div><div>[sorry fo=
-r the possible format issues]</div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Thu, Jun 23, 2022 at 1:24 PM Anthony PERAR=
-D &lt;<a href=3D"mailto:anthony.perard@citrix.com" target=3D"_blank">anthon=
-y.perard@citrix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">On Fri, Jun 17, 2022 at 07:14:31PM +0300, Oleksandr Tysh=
-chenko wrote:<br>
-&gt; From: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksandr_tyshchenko@=
-epam.com" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;<br>
-&gt; <br>
-&gt; This patch adds basic support for configuring and assisting virtio-mmi=
-o<br>
-&gt; based virtio-disk backend (emulator) which is intended to run out of<b=
-r>
-&gt; Qemu and could be run in any domain.<br>
-&gt; Although the Virtio block device is quite different from traditional<b=
-r>
-&gt; Xen PV block device (vbd) from the toolstack&#39;s point of view:<br>
-&gt;=C2=A0 - as the frontend is virtio-blk which is not a Xenbus driver, no=
-thing<br>
-&gt;=C2=A0 =C2=A0 written to Xenstore are fetched by the frontend currently=
- (&quot;vdev&quot;<br>
-&gt;=C2=A0 =C2=A0 is not passed to the frontend). But this might need to be=
- revised<br>
-&gt;=C2=A0 =C2=A0 in future, so frontend data might be written to Xenstore =
-in order to<br>
-&gt;=C2=A0 =C2=A0 support hotplugging virtio devices or passing the backend=
- domain id<br>
-&gt;=C2=A0 =C2=A0 on arch where the device-tree is not available.<br>
-&gt;=C2=A0 - the ring-ref/event-channel are not used for the backend&lt;-&g=
-t;frontend<br>
-&gt;=C2=A0 =C2=A0 communication, the proposed IPC for Virtio is IOREQ/DM<br=
->
-&gt; it is still a &quot;block device&quot; and ought to be integrated in e=
-xisting<br>
-&gt; &quot;disk&quot; handling. So, re-use (and adapt) &quot;disk&quot; par=
-sing/configuration<br>
-&gt; logic to deal with Virtio devices as well.<br>
-&gt; <br>
-&gt; For the immediate purpose and an ability to extend that support for<br=
->
-&gt; other use-cases in future (Qemu, virtio-pci, etc) perform the followin=
-g<br>
-&gt; actions:<br>
-&gt; - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect<br>
-&gt;=C2=A0 =C2=A0that in the configuration<br>
-&gt; - Introduce new disk &quot;specification&quot; and &quot;transport&quo=
-t; fields to struct<br>
-&gt;=C2=A0 =C2=A0libxl_device_disk. Both are written to the Xenstore. The t=
-ransport<br>
-&gt;=C2=A0 =C2=A0field is only used for the specification &quot;virtio&quot=
-; and it assumes<br>
-&gt;=C2=A0 =C2=A0only &quot;mmio&quot; value for now.<br>
-&gt; - Introduce new &quot;specification&quot; option with &quot;xen&quot; =
-communication<br>
-&gt;=C2=A0 =C2=A0protocol being default value.<br>
-&gt; - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current<br>
-&gt;=C2=A0 =C2=A0one (LIBXL__DEVICE_KIND_VBD) doesn&#39;t fit into Virtio d=
-isk model<br>
-&gt; <br>
-&gt; An example of domain configuration for Virtio disk:<br>
-&gt; disk =3D [ &#39;phy:/dev/mmcblk0p3, xvda1, backendtype=3Dother, specif=
-ication=3Dvirtio&#39;]<br>
-&gt; <br>
-&gt; Nothing has changed for default Xen disk configuration.<br>
-&gt; <br>
-&gt; Please note, this patch is not enough for virtio-disk to work<br>
-&gt; on Xen (Arm), as for every Virtio device (including disk) we need<br>
-&gt; to allocate Virtio MMIO params (IRQ and memory region) and pass<br>
-&gt; them to the backend, also update Guest device-tree. The subsequent<br>
-&gt; patch will add these missing bits. For the current patch,<br>
-&gt; the default &quot;irq&quot; and &quot;base&quot; are just written to t=
-he Xenstore.<br>
-&gt; This is not an ideal splitting, but this way we avoid breaking<br>
-&gt; the bisectability.<br>
-&gt; <br>
-&gt; Signed-off-by: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksandr_ty=
-shchenko@epam.com" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;<=
-br>
-&gt; ---<br>
-&gt; Changes V10 -&gt; V10.1:<br>
-&gt;=C2=A0 =C2=A0 - fix small coding style issue in libxl__device_disk_get_=
-path()<br>
-&gt;=C2=A0 =C2=A0 - drop specification check in main_blockattach() and add<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 required check in libxl__device_disk_setdefault()<=
-br>
-&gt;=C2=A0 =C2=A0 - update specification check in main_blockdetach()<br>
-<br>
-For this v10.1: Reviewed-by: Anthony PERARD &lt;<a href=3D"mailto:anthony.p=
-erard@citrix.com" target=3D"_blank">anthony.perard@citrix.com</a>&gt;<br></=
-blockquote><div>=C2=A0</div><div><br></div><div>perfect, thanks!</div><div>=
-=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-BTW, the subject of this updated patch still state &quot;v10&quot; instead =
-of<br>
-&quot;v10.1&quot;, hopefully committers can pick the right version.<br></bl=
-ockquote><div>=C2=A0</div><div><br></div><div>Oh, sorry, I was thinking to =
-use=C2=A0&quot;v10.1&quot;, but I wasn&#39;t sure that commit with updated =
-subject would properly appear in the current thread if being sent using git=
- send-email --in-reply-to))=C2=A0 =C2=A0=C2=A0</div><div>=C2=A0</div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Cheers,<br>
-<br>
--- <br>
-Anthony PERARD<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
-><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><span style=
-=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=3D"colo=
-r:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font></span>=
-</div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=3D"backg=
-round-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenko</font><=
-/span></div></div></div></div></div></div></div></div>
-
---00000000000042e49305e21d2a0a--
+Jan
 
