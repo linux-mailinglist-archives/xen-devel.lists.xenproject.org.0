@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B811557C7A
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 15:07:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.354991.582401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E51557C8B
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Jun 2022 15:09:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.354996.582414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4MYT-0000mO-Uh; Thu, 23 Jun 2022 13:07:29 +0000
+	id 1o4MaZ-0001NA-CE; Thu, 23 Jun 2022 13:09:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 354991.582401; Thu, 23 Jun 2022 13:07:29 +0000
+Received: by outflank-mailman (output) from mailman id 354996.582414; Thu, 23 Jun 2022 13:09:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4MYT-0000kT-Ra; Thu, 23 Jun 2022 13:07:29 +0000
-Received: by outflank-mailman (input) for mailman id 354991;
- Thu, 23 Jun 2022 13:07:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j28/=W6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o4MYR-0000kN-RD
- for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 13:07:27 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6df1ac75-f2f5-11ec-bd2d-47488cf2e6aa;
- Thu, 23 Jun 2022 15:07:26 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8471E1F998;
- Thu, 23 Jun 2022 13:07:26 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1F67C13461;
- Thu, 23 Jun 2022 13:07:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qJEtBo5ltGLlHgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 23 Jun 2022 13:07:26 +0000
+	id 1o4MaZ-0001Ji-8j; Thu, 23 Jun 2022 13:09:39 +0000
+Received: by outflank-mailman (input) for mailman id 354996;
+ Thu, 23 Jun 2022 13:09:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ht1C=W6=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1o4MaX-0001JY-Np
+ for xen-devel@lists.xenproject.org; Thu, 23 Jun 2022 13:09:37 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ba849139-f2f5-11ec-b725-ed86ccbb4733;
+ Thu, 23 Jun 2022 15:09:36 +0200 (CEST)
+Received: by mail-pl1-x636.google.com with SMTP id m2so10864298plx.3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jun 2022 06:09:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,183 +39,270 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6df1ac75-f2f5-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1655989646; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AJnpuwxN/FLeBtqA4SLXcqXAP5iBoZPO1+utrcEpndA=;
-	b=HSB/H6Mp44vXYIMdrDPH1JIj3WR+EHHYSlcnSFQzUqMuCesy5BIXfxC+ncHlwchSbVgNcG
-	eaNMurm86pGEJFRyrPljePnrR42Km8Jb3D57hx1fG19q90437jgo/7gs/HX126xTdjRzCl
-	7R0Xy1BJz8q+VAjtA1mC25IjypVujgo=
-Message-ID: <4abe4863-3e24-70bb-5a6d-619f1de30a14@suse.com>
-Date: Thu, 23 Jun 2022 15:07:25 +0200
+X-Inumbo-ID: ba849139-f2f5-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=8ZpsnAi80ADwSdHbB9vVM+jLuyC83SXa1tFmJtVfbe4=;
+        b=fpdKsfBQLliRSMz5lKSS/dqP1O2KD4Pp6k8CH9WHVKpO801XloQf7MNpRRsv4WWzFB
+         ZSXg4hWnF9rq3jNDPqRBYtUhyrOzhcOg1SaOAIQ632opfP8DO9kFeZRnyvSKpmS87uLg
+         YBSvD3UGaDSqNMmzt8+ZmgWuth82P8IfF5FuCU4RS/ikBwkpggyzkR8AywbKuvV35asP
+         q79j9EbFs29YsxpZzYgSoj9HyphteUG1nVMRfBhd3NEfvqQwMKc+CbRQgsMaM/BSZAGd
+         kOEKDop0DV2a+N0eBjBE2NUBpR2GGVY/S9aRo7OtoNvi0A6iI64n5r8QexL2mAm9xCIb
+         joxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=8ZpsnAi80ADwSdHbB9vVM+jLuyC83SXa1tFmJtVfbe4=;
+        b=0w6Mf9ML5+EKqn10Vo8UaTjuVN2V1OHaT/5KUt5xu6Wi/H8c9yUeo5b/iVu6ugcTAi
+         R4wEjlBtKgGZE8P6Tm3lmcFP3ixUroxCWYplZSsds3GXIeG/9TAspJPSz5V5BHIgIkOd
+         Jjoxw8w8Ojq5lxCCqamWesHHQifBbukH0TY38+2Sn3Zpum1QYSttzja60wNQAFiz6h1R
+         Q9Ctf0WlVk9lhqsLnN/7plLPrTw0Sp9+nwzTX654DrLoAxrCkuhsM7fwF57rxSC0qtzE
+         1E4wJVcYnPnyZhPFSklz7VMXoZWGpwn1l1wNB+cJ7/B0Pe6Zz5TyI1BYnTPNyxjUzhV1
+         nL0Q==
+X-Gm-Message-State: AJIora/IaAhV4h46fFKI4gsIKh9RlwRD2wb1wj0vPOdq47Pep87IiXEE
+	cjHl76hQDCVD32Z277roUcRhIIT6YmIp539S6S4=
+X-Google-Smtp-Source: AGRyM1umc+jYrRjqwAPBwtDTi5dQZ6aiWvqjxRi5w6Al/riZWF+BzoEB3goj2Ep9Y2GMpEvum2/w9bnsjcIlS1PGHpU=
+X-Received: by 2002:a17:903:247:b0:168:ecca:444 with SMTP id
+ j7-20020a170903024700b00168ecca0444mr38327200plh.121.1655989774507; Thu, 23
+ Jun 2022 06:09:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v6 0/9] xen: drop hypercall function tables
-To: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Christopher Clark <christopher.w.clark@gmail.com>,
- Dario Faggioli <dfaggioli@suse.com>, Daniel De Graaf
- <dgdegra@tycho.nsa.gov>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20220324140139.5899-1-jgross@suse.com>
- <06edd55a-86f2-52e3-e275-ee928a956fdf@suse.com>
- <8baf689f-2a20-cf07-6878-9f9459063a25@suse.com>
- <db7f5c3e-894a-1700-e0a4-5893bd70c205@suse.com>
-Content-Language: en-US
-In-Reply-To: <db7f5c3e-894a-1700-e0a4-5893bd70c205@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------t0X2MtyaTQWCihLZQQ9pIgn0"
+References: <62903b8e-6c20-600e-8283-5a3e3b853a18@gmail.com>
+ <1655482471-16850-1-git-send-email-olekstysh@gmail.com> <YrQ/VrfzScUVK+PK@perard.uk.xensource.com>
+In-Reply-To: <YrQ/VrfzScUVK+PK@perard.uk.xensource.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Thu, 23 Jun 2022 16:09:23 +0300
+Message-ID: <CAPD2p-=AewSzyvxVwxdNAvrVbRoUdrSu-ZnCjE0A9ZY8UZoDnQ@mail.gmail.com>
+Subject: Re: [PATCH V10.1 1/3] libxl: Add support for Virtio disk configuration
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>, 
+	George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+Content-Type: multipart/alternative; boundary="00000000000042e49305e21d2a0a"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------t0X2MtyaTQWCihLZQQ9pIgn0
-Content-Type: multipart/mixed; boundary="------------pqKygV3Bj0X4PXsIN9plUa8L";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Christopher Clark <christopher.w.clark@gmail.com>,
- Dario Faggioli <dfaggioli@suse.com>, Daniel De Graaf
- <dgdegra@tycho.nsa.gov>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Message-ID: <4abe4863-3e24-70bb-5a6d-619f1de30a14@suse.com>
-Subject: Re: [PATCH v6 0/9] xen: drop hypercall function tables
-References: <20220324140139.5899-1-jgross@suse.com>
- <06edd55a-86f2-52e3-e275-ee928a956fdf@suse.com>
- <8baf689f-2a20-cf07-6878-9f9459063a25@suse.com>
- <db7f5c3e-894a-1700-e0a4-5893bd70c205@suse.com>
-In-Reply-To: <db7f5c3e-894a-1700-e0a4-5893bd70c205@suse.com>
+--00000000000042e49305e21d2a0a
+Content-Type: text/plain; charset="UTF-8"
 
---------------pqKygV3Bj0X4PXsIN9plUa8L
-Content-Type: multipart/mixed; boundary="------------VDZ5cCZUPPjk90TnYMTVITFu"
+Hello Anthony
 
---------------VDZ5cCZUPPjk90TnYMTVITFu
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+[sorry for the possible format issues]
 
-T24gMTguMDUuMjIgMTE6NDUsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IE9uIDA0LjA1LjIy
-IDA5OjUzLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMTkuMDQuMjIgMTA6MDEsIEp1
-ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+Pj4gT24gMjQuMDMuMjIgMTU6MDEsIEp1ZXJnZW4gR3Jv
-c3Mgd3JvdGU6DQo+Pj4+IEluIG9yZGVyIHRvIGF2b2lkIGluZGlyZWN0IGZ1bmN0aW9uIGNh
-bGxzIG9uIHRoZSBoeXBlcmNhbGwgcGF0aCBhcw0KPj4+PiBtdWNoIGFzIHBvc3NpYmxlIHRo
-aXMgc2VyaWVzIGlzIHJlbW92aW5nIHRoZSBoeXBlcmNhbGwgZnVuY3Rpb24gdGFibGVzDQo+
-Pj4+IGFuZCBpcyByZXBsYWNpbmcgdGhlIGh5cGVyY2FsbCBoYW5kbGVyIGNhbGxzIHZpYSB0
-aGUgZnVuY3Rpb24gYXJyYXkNCj4+Pj4gYnkgYXV0b21hdGljYWxseSBnZW5lcmF0ZWQgY2Fs
-bCBtYWNyb3MuDQo+Pj4+DQo+Pj4+IEFub3RoZXIgYnktcHJvZHVjdCBvZiBnZW5lcmF0aW5n
-IHRoZSBjYWxsIG1hY3JvcyBpcyB0aGUgYXV0b21hdGljDQo+Pj4+IGdlbmVyYXRpbmcgb2Yg
-dGhlIGh5cGVyY2FsbCBoYW5kbGVyIHByb3RvdHlwZXMgZnJvbSB0aGUgc2FtZSBkYXRhIGJh
-c2UNCj4+Pj4gd2hpY2ggaXMgdXNlZCB0byBnZW5lcmF0ZSB0aGUgbWFjcm9zLg0KPj4+Pg0K
-Pj4+PiBUaGlzIGhhcyB0aGUgYWRkaXRpb25hbCBhZHZhbnRhZ2Ugb2YgdXNpbmcgdHlwZSBz
-YWZlIGNhbGxzIG9mIHRoZQ0KPj4+PiBoYW5kbGVycyBhbmQgdG8gZW5zdXJlIHJlbGF0ZWQg
-aGFuZGxlciAoZS5nLiBQViBhbmQgSFZNIG9uZXMpIHNoYXJlDQo+Pj4+IHRoZSBzYW1lIHBy
-b3RvdHlwZXMuDQo+Pj4+DQo+Pj4+IEEgdmVyeSBicmllZiBwZXJmb3JtYW5jZSB0ZXN0IChw
-YXJhbGxlbCBidWlsZCBvZiB0aGUgWGVuIGh5cGVydmlzb3INCj4+Pj4gaW4gYSA2IHZjcHUg
-Z3Vlc3QpIHNob3dlZCBhIHZlcnkgc2xpbSBpbXByb3ZlbWVudCAobGVzcyB0aGFuIDElKSBv
-Zg0KPj4+PiB0aGUgcGVyZm9ybWFuY2Ugd2l0aCB0aGUgcGF0Y2hlcyBhcHBsaWVkLiBUaGUg
-dGVzdCB3YXMgcGVyZm9ybWVkIHVzaW5nDQo+Pj4+IGEgUFYgYW5kIGEgUFZIIGd1ZXN0Lg0K
-Pj4+DQo+Pj4gQSBnZW50bGUgcGluZyByZWdhcmRpbmcgdGhpcyBzZXJpZXMuDQo+Pj4NCj4+
-PiBJIHRoaW5rIHBhdGNoIDEgc3RpbGwgbGFja3MgYW4gQWNrIGZyb20geDg2IHNpZGUuIE90
-aGVyIHRoYW4gdGhhdA0KPj4+IHBhdGNoZXMgMSwgMiBhbmQgNCBzaG91bGQgYmUgZmluZSB0
-byBnbyBpbiwgYXMgdGhleSBhcmUgY2xlYW51cHMgd2hpY2gNCj4+PiBhcmUgZmluZSBvbiB0
-aGVpciBvd24gSU1ITy4NCj4+Pg0KPj4+IEFuZHJldywgeW91IHdhbnRlZCB0byBnZXQgc29t
-ZSBwZXJmb3JtYW5jZSBudW1iZXJzIG9mIHRoZSBzZXJpZXMgdXNpbmcNCj4+PiB0aGUgQ2l0
-cml4IHRlc3QgZW52aXJvbm1lbnQuIEFueSBuZXdzIG9uIHRoZSBwcm9ncmVzcyBoZXJlPw0K
-Pj4NCj4+IEFuZCBhbm90aGVyIHBpbmcuDQo+Pg0KPj4gQW5kcmV3LCBjb3VsZCB5b3UgcGxl
-YXNlIGdpdmUgc29tZSBmZWVkYmFjayByZWdhcmRpbmcgcGVyZm9ybWFuY2UNCj4+IHRlc3Rp
-bmcgcHJvZ3Jlc3M/DQo+IA0KPiBUaGlzIGlzIGJlY29taW5nIHJpZGljdWxvdXMuIEFuZHJl
-dywgSSBrbm93IHlvdSBhcmUgYnVzeSwgYnV0IG5vdCByZWFjdGluZw0KPiBhdCBhbGwgdG8g
-ZXhwbGljaXQgcXVlc3Rpb25zIGlzIGtpbmQgb2YgYW5ub3lpbmcuDQoNCiAgIF9fX18gX19f
-IF8gICBfICBfX19fDQp8ICBfIFxfIF98IFwgfCB8LyBfX198DQp8IHxfKSB8IHx8ICBcfCB8
-IHwgIF8NCnwgIF9fL3wgfHwgfFwgIHwgfF98IHwNCnxffCAgfF9fX3xffCBcX3xcX19fX3wN
-Cg0KDQpKdWVyZ2VuDQo=
---------------VDZ5cCZUPPjk90TnYMTVITFu
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+On Thu, Jun 23, 2022 at 1:24 PM Anthony PERARD <anthony.perard@citrix.com>
+wrote:
+
+> On Fri, Jun 17, 2022 at 07:14:31PM +0300, Oleksandr Tyshchenko wrote:
+> > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >
+> > This patch adds basic support for configuring and assisting virtio-mmio
+> > based virtio-disk backend (emulator) which is intended to run out of
+> > Qemu and could be run in any domain.
+> > Although the Virtio block device is quite different from traditional
+> > Xen PV block device (vbd) from the toolstack's point of view:
+> >  - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+> >    written to Xenstore are fetched by the frontend currently ("vdev"
+> >    is not passed to the frontend). But this might need to be revised
+> >    in future, so frontend data might be written to Xenstore in order to
+> >    support hotplugging virtio devices or passing the backend domain id
+> >    on arch where the device-tree is not available.
+> >  - the ring-ref/event-channel are not used for the backend<->frontend
+> >    communication, the proposed IPC for Virtio is IOREQ/DM
+> > it is still a "block device" and ought to be integrated in existing
+> > "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+> > logic to deal with Virtio devices as well.
+> >
+> > For the immediate purpose and an ability to extend that support for
+> > other use-cases in future (Qemu, virtio-pci, etc) perform the following
+> > actions:
+> > - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect
+> >   that in the configuration
+> > - Introduce new disk "specification" and "transport" fields to struct
+> >   libxl_device_disk. Both are written to the Xenstore. The transport
+> >   field is only used for the specification "virtio" and it assumes
+> >   only "mmio" value for now.
+> > - Introduce new "specification" option with "xen" communication
+> >   protocol being default value.
+> > - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+> >   one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
+> >
+> > An example of domain configuration for Virtio disk:
+> > disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other,
+> specification=virtio']
+> >
+> > Nothing has changed for default Xen disk configuration.
+> >
+> > Please note, this patch is not enough for virtio-disk to work
+> > on Xen (Arm), as for every Virtio device (including disk) we need
+> > to allocate Virtio MMIO params (IRQ and memory region) and pass
+> > them to the backend, also update Guest device-tree. The subsequent
+> > patch will add these missing bits. For the current patch,
+> > the default "irq" and "base" are just written to the Xenstore.
+> > This is not an ideal splitting, but this way we avoid breaking
+> > the bisectability.
+> >
+> > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > ---
+> > Changes V10 -> V10.1:
+> >    - fix small coding style issue in libxl__device_disk_get_path()
+> >    - drop specification check in main_blockattach() and add
+> >      required check in libxl__device_disk_setdefault()
+> >    - update specification check in main_blockdetach()
+>
+> For this v10.1: Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+>
+
+
+perfect, thanks!
+
+
+>
+> BTW, the subject of this updated patch still state "v10" instead of
+> "v10.1", hopefully committers can pick the right version.
+>
+
+
+Oh, sorry, I was thinking to use "v10.1", but I wasn't sure that commit
+with updated subject would properly appear in the current thread if being
+sent using git send-email --in-reply-to))
+
+
+>
+> Cheers,
+>
+> --
+> Anthony PERARD
+>
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
+--00000000000042e49305e21d2a0a
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+<div dir=3D"ltr"><div>Hello=C2=A0Anthony</div><div><br></div><div>[sorry fo=
+r the possible format issues]</div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Thu, Jun 23, 2022 at 1:24 PM Anthony PERAR=
+D &lt;<a href=3D"mailto:anthony.perard@citrix.com" target=3D"_blank">anthon=
+y.perard@citrix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
+;padding-left:1ex">On Fri, Jun 17, 2022 at 07:14:31PM +0300, Oleksandr Tysh=
+chenko wrote:<br>
+&gt; From: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksandr_tyshchenko@=
+epam.com" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;<br>
+&gt; <br>
+&gt; This patch adds basic support for configuring and assisting virtio-mmi=
+o<br>
+&gt; based virtio-disk backend (emulator) which is intended to run out of<b=
+r>
+&gt; Qemu and could be run in any domain.<br>
+&gt; Although the Virtio block device is quite different from traditional<b=
+r>
+&gt; Xen PV block device (vbd) from the toolstack&#39;s point of view:<br>
+&gt;=C2=A0 - as the frontend is virtio-blk which is not a Xenbus driver, no=
+thing<br>
+&gt;=C2=A0 =C2=A0 written to Xenstore are fetched by the frontend currently=
+ (&quot;vdev&quot;<br>
+&gt;=C2=A0 =C2=A0 is not passed to the frontend). But this might need to be=
+ revised<br>
+&gt;=C2=A0 =C2=A0 in future, so frontend data might be written to Xenstore =
+in order to<br>
+&gt;=C2=A0 =C2=A0 support hotplugging virtio devices or passing the backend=
+ domain id<br>
+&gt;=C2=A0 =C2=A0 on arch where the device-tree is not available.<br>
+&gt;=C2=A0 - the ring-ref/event-channel are not used for the backend&lt;-&g=
+t;frontend<br>
+&gt;=C2=A0 =C2=A0 communication, the proposed IPC for Virtio is IOREQ/DM<br=
+>
+&gt; it is still a &quot;block device&quot; and ought to be integrated in e=
+xisting<br>
+&gt; &quot;disk&quot; handling. So, re-use (and adapt) &quot;disk&quot; par=
+sing/configuration<br>
+&gt; logic to deal with Virtio devices as well.<br>
+&gt; <br>
+&gt; For the immediate purpose and an ability to extend that support for<br=
+>
+&gt; other use-cases in future (Qemu, virtio-pci, etc) perform the followin=
+g<br>
+&gt; actions:<br>
+&gt; - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect<br>
+&gt;=C2=A0 =C2=A0that in the configuration<br>
+&gt; - Introduce new disk &quot;specification&quot; and &quot;transport&quo=
+t; fields to struct<br>
+&gt;=C2=A0 =C2=A0libxl_device_disk. Both are written to the Xenstore. The t=
+ransport<br>
+&gt;=C2=A0 =C2=A0field is only used for the specification &quot;virtio&quot=
+; and it assumes<br>
+&gt;=C2=A0 =C2=A0only &quot;mmio&quot; value for now.<br>
+&gt; - Introduce new &quot;specification&quot; option with &quot;xen&quot; =
+communication<br>
+&gt;=C2=A0 =C2=A0protocol being default value.<br>
+&gt; - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current<br>
+&gt;=C2=A0 =C2=A0one (LIBXL__DEVICE_KIND_VBD) doesn&#39;t fit into Virtio d=
+isk model<br>
+&gt; <br>
+&gt; An example of domain configuration for Virtio disk:<br>
+&gt; disk =3D [ &#39;phy:/dev/mmcblk0p3, xvda1, backendtype=3Dother, specif=
+ication=3Dvirtio&#39;]<br>
+&gt; <br>
+&gt; Nothing has changed for default Xen disk configuration.<br>
+&gt; <br>
+&gt; Please note, this patch is not enough for virtio-disk to work<br>
+&gt; on Xen (Arm), as for every Virtio device (including disk) we need<br>
+&gt; to allocate Virtio MMIO params (IRQ and memory region) and pass<br>
+&gt; them to the backend, also update Guest device-tree. The subsequent<br>
+&gt; patch will add these missing bits. For the current patch,<br>
+&gt; the default &quot;irq&quot; and &quot;base&quot; are just written to t=
+he Xenstore.<br>
+&gt; This is not an ideal splitting, but this way we avoid breaking<br>
+&gt; the bisectability.<br>
+&gt; <br>
+&gt; Signed-off-by: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksandr_ty=
+shchenko@epam.com" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;<=
+br>
+&gt; ---<br>
+&gt; Changes V10 -&gt; V10.1:<br>
+&gt;=C2=A0 =C2=A0 - fix small coding style issue in libxl__device_disk_get_=
+path()<br>
+&gt;=C2=A0 =C2=A0 - drop specification check in main_blockattach() and add<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 required check in libxl__device_disk_setdefault()<=
+br>
+&gt;=C2=A0 =C2=A0 - update specification check in main_blockdetach()<br>
+<br>
+For this v10.1: Reviewed-by: Anthony PERARD &lt;<a href=3D"mailto:anthony.p=
+erard@citrix.com" target=3D"_blank">anthony.perard@citrix.com</a>&gt;<br></=
+blockquote><div>=C2=A0</div><div><br></div><div>perfect, thanks!</div><div>=
+=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+BTW, the subject of this updated patch still state &quot;v10&quot; instead =
+of<br>
+&quot;v10.1&quot;, hopefully committers can pick the right version.<br></bl=
+ockquote><div>=C2=A0</div><div><br></div><div>Oh, sorry, I was thinking to =
+use=C2=A0&quot;v10.1&quot;, but I wasn&#39;t sure that commit with updated =
+subject would properly appear in the current thread if being sent using git=
+ send-email --in-reply-to))=C2=A0 =C2=A0=C2=A0</div><div>=C2=A0</div><block=
+quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
+px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Cheers,<br>
+<br>
+-- <br>
+Anthony PERARD<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><span style=
+=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=3D"colo=
+r:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font></span>=
+</div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=3D"backg=
+round-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenko</font><=
+/span></div></div></div></div></div></div></div></div>
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
-
---------------VDZ5cCZUPPjk90TnYMTVITFu--
-
---------------pqKygV3Bj0X4PXsIN9plUa8L--
-
---------------t0X2MtyaTQWCihLZQQ9pIgn0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK0ZY0FAwAAAAAACgkQsN6d1ii/Ey/2
-tgf/fZBN+4Q51WyHZXhWandvIXnbVQKzA0H0uFVv4BCHKjrA3qzykpjRq4mEZnUBsa/gksJagYDZ
-rH0nekgXu/rxm8rridRiIRWxCMeUv37udtZxJWlELbWPBS+kbfOTD6VamYgfuRR/MY6RrBRa+6dz
-kUQzoBEd+tXPNsl5WgRklOoJQuH54qhHymQg52DLyglD7+DZseyW/euL7cZO0nWRNyDzWq/nnonI
-E7/Y7XusUwdaJID5TF2ESUsKEcM3KQFkCoTHP0NkujX7cTBoYDY9y5pdb0LE3gQL+dGIt/GBQRjv
-PpAXbV9uPx6toUjLfZeF/FU5qHJ4lbyB9nr4qfjMuw==
-=5uwC
------END PGP SIGNATURE-----
-
---------------t0X2MtyaTQWCihLZQQ9pIgn0--
+--00000000000042e49305e21d2a0a--
 
