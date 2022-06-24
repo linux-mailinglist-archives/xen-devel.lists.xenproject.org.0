@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB3155A389
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 23:33:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355909.583874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD1C855A406
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 23:57:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355916.583885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4quF-0005tr-2Z; Fri, 24 Jun 2022 21:31:59 +0000
+	id 1o4rIV-0008Qy-9n; Fri, 24 Jun 2022 21:57:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355909.583874; Fri, 24 Jun 2022 21:31:59 +0000
+Received: by outflank-mailman (output) from mailman id 355916.583885; Fri, 24 Jun 2022 21:57:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4quE-0005r9-V5; Fri, 24 Jun 2022 21:31:58 +0000
-Received: by outflank-mailman (input) for mailman id 355909;
- Fri, 24 Jun 2022 21:31:57 +0000
+	id 1o4rIV-0008O1-5Q; Fri, 24 Jun 2022 21:57:03 +0000
+Received: by outflank-mailman (input) for mailman id 355916;
+ Fri, 24 Jun 2022 21:57:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=b+8T=W7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o4quD-0005r3-K4
- for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 21:31:57 +0000
+ id 1o4rIT-0008Nv-JU
+ for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 21:57:01 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11f40d04-f405-11ec-b725-ed86ccbb4733;
- Fri, 24 Jun 2022 23:31:55 +0200 (CEST)
+ id 92c0caad-f408-11ec-b725-ed86ccbb4733;
+ Fri, 24 Jun 2022 23:57:00 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B2E86B82C48;
- Fri, 24 Jun 2022 21:31:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23222C34114;
- Fri, 24 Jun 2022 21:31:53 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8A809B82B63;
+ Fri, 24 Jun 2022 21:56:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13E6C34114;
+ Fri, 24 Jun 2022 21:56:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,120 +43,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11f40d04-f405-11ec-b725-ed86ccbb4733
+X-Inumbo-ID: 92c0caad-f408-11ec-b725-ed86ccbb4733
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1656106313;
-	bh=W1rSOa14R6RGx69MRWTtq56HNTBQe1M4o61oyaeDxM0=;
+	s=k20201202; t=1656107818;
+	bh=nW//reqxFHN8IpxxmzQEx9kqa7PnsGTgPmjdUQkcd0U=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=o08nZowaJ4AAF753cK7cPIsiiuGK6qJSYL2xHLJk40STZYNNnSz1xvvgqj7tHLvfx
-	 qEBi14xgO4dS6z6huN2DiOYKR6SfUldyZp+fm219Wf1AjYu4z7DTPQU2DS61aHynCM
-	 SdLeJwIA3rCowDZjmONHHk8BKyy7cdUGpbrVtUzuFcIKpvbkQQ6ixgK/dgrQhDy5bs
-	 LVVCG7oD3+M3THvxDrINLgM0cNNZa6W+6+JT9E4PdBtNO02XcHfYRioWrteAsTL1HX
-	 kp6+1HyfBYaHlTo6WWTTITMoohrxsUETA8UcsWD8Vua94sG2TmqPcPdH7xLBdAxmZv
-	 KKPytNcKC3SnQ==
-Date: Fri, 24 Jun 2022 14:31:52 -0700 (PDT)
+	b=QyI1xn1C5PQDAF2lIeVYl4zH4HmqJHM4qVZbjNzBqfl68uLqnn2KSXXOuG87z2nOs
+	 CktYgC3FDXwlJFoTbC1PwEFATgW5LkcpcYCQwZ4upp1/qkLI4suDXTMqkYbxxGb4Ho
+	 CeVlBdL5g2Voi/UnQpm4F7X8oGVo+HwGmld7JE7NCJ6RMDnCNeJorz12kqXLHW/Lll
+	 O8BlT9PCGeLGelrlIiw3JkVA8SOk8tGlyyWaQylhHUfGG/3ZwfUxIQ/UTrG8s5eyPT
+	 m49gBBawv1Jfnrp9c9a934J5/5r7voyw/0dKcdfc/Nrv0GqgpZaiaEdydbp//4/lfL
+	 628+HRXrjmukQ==
+Date: Fri, 24 Jun 2022 14:56:57 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, dmitry.semenets@gmail.com, 
-    xen-devel@lists.xenproject.org, Dmytro Semenets <dmytro_semenets@epam.com>, 
+cc: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org, 
+    wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen: arm: Don't use stop_cpu() in halt_this_cpu()
-In-Reply-To: <e60a4e68-ed00-6cc7-31ca-64bcfc4bbdc5@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2206241414420.2410338@ubuntu-linux-20-04-desktop>
-References: <20220623074428.226719-1-dmitry.semenets@gmail.com> <alpine.DEB.2.22.394.2206231457250.2410338@ubuntu-linux-20-04-desktop> <e60a4e68-ed00-6cc7-31ca-64bcfc4bbdc5@xen.org>
+Subject: Re: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
+ device tree
+In-Reply-To: <84641d6e-202d-934c-9ea9-bbf090e29bdb@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2206241448040.2410338@ubuntu-linux-20-04-desktop>
+References: <20220620051114.210118-1-Penny.Zheng@arm.com> <20220620051114.210118-8-Penny.Zheng@arm.com> <84641d6e-202d-934c-9ea9-bbf090e29bdb@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Fri, 24 Jun 2022, Julien Grall wrote:
-> On 23/06/2022 23:07, Stefano Stabellini wrote:
-> > On Thu, 23 Jun 2022, dmitry.semenets@gmail.com wrote:
-> > > From: Dmytro Semenets <dmytro_semenets@epam.com>
-> > So wouldn't it be better to remove the panic from the implementation of
-> > call_psci_cpu_off?
-> 
-> I have asked to keep the panic() in call_psci_cpu_off(). If you remove the
-> panic() then we will hide the fact that the CPU was not properly turned off
-> and will consume more energy than expected.
-> 
-> The WFI loop is fine when shutting down or rebooting because we know this will
-> only happen for a short period of time.
-
-Yeah, I don't think we should hide that CPU_OFF failed. I think we
-should print a warning. However, given that we know CPU_OFF can
-reasonably fail in normal conditions returning DENIED when a Trusted OS
-is present, then I think we should not panic.
-
-If there was a way to distinguish a failure because a Trusted OS is
-present (the "normal" failure) from other failures, I would suggest to:
-- print a warning if failed due to a Trusted OS being present
-- panic in other cases
-
-Unfortunately it looks like in all cases the return code is DENIED :-(
-
-
-Given that, I would not panic and only print a warning in all cases. Or
-we could ASSERT which at least goes away in !DEBUG builds.
-
-
-> > The reason I am saying this is that stop_cpu is called in a number of
-> > places beyond halt_this_cpu and as far as I can tell any of them could
-> > trigger the panic. (I admit they are unlikely places but still.)
-> 
-> This is one of the example where the CPU will not be stopped for a short
-> period of time. We should deal with them differently (i.e. migrating the
-> trusted OS or else) so we give all the chance for the CPU to be fully powered.
-> 
-> IMHO, this is a different issue and hence why I didn't ask Dmitry to solve it.
-
-I see your point now. I was seeing the two things as one.
-
-I think it is true that the WFI loop is likely to work. Also it is true
-that from a power perspective it makes no different on power down or
-reboot.  From that point of view this patch is OK.
-
-But even on shut-down/reboot, why not do that as a fallback in case
-CPU_OFF didn't work? It is going to work most of the times anyway, why
-change the default for the few cases that doesn't work?
-
-Given that this patch would work, I don't want to insist on this and let
-you decide.
-
-
-But even if we don't want to remove the panic as part of this patch, I
-think we should remove the panic in a separate patch anyway, at least
-until someone investigates and thinks of a strategy how to migrate the
-TrustedOS as you suggested.
-
-
- 
- 
-> > Also the PSCI spec explicitely mention CPU_OFF as a way to place CPUs in
-> > a "known state" and doesn't offer any other examples. So although what
-> > you wrote in the commit message is correct, using CPU_OFF seems to be
-> > the less error prone way (in the sense of triggering firmware errors) to
-> > place CPUs in a known state.
-> 
-> The section you are referring to is starting with "One way". This imply there
-> are others methods.
-> 
-> FWIW, the spin loop above seems to be how Linux is dealing with the
-> shutdown/reboot.
-> 
+> On 20/06/2022 06:11, Penny Zheng wrote:
+> > We expose the shared memory to the domU using the "xen,shared-memory-v1"
+> > reserved-memory binding. See
+> > Documentation/devicetree/bindings/reserved-memory/xen,shared-memory.txt
+> > in Linux for the corresponding device tree binding.
 > > 
-> > So I would simply remove the panic from call_psci_cpu_off, so that we
-> > try CPU_OFF first, and if it doesn't work, we use the WFI loop as
-> > backup. Also we get to fix all the other callers of stop_cpu this way.
-> This reads strange. In the previous paragraph you suggested the CPU off is a
-> less error prone way to place CPUs in a known state. But here, you are
-> softening the stance and suggesting to fallback to the WFI loop.
+> > To save the cost of re-parsing shared memory device tree configuration when
+> > creating shared memory nodes in guest device tree, this commit adds new
+> > field
+> > "shm_mem" to store shm-info per domain.
+> > 
+> > For each shared memory region, a range is exposed under
+> > the /reserved-memory node as a child node. Each range sub-node is
+> > named xen-shmem@<address> and has the following properties:
+> > - compatible:
+> >          compatible = "xen,shared-memory-v1"
+> > - reg:
+> >          the base guest physical address and size of the shared memory
+> > region
+> > - xen,id:
+> >          a string that identifies the shared memory region.
+> > 
+> > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > ---
+> > v5 change:
+> > - no change
+> > ---
+> > v4 change:
+> > - no change
+> > ---
+> > v3 change:
+> > - move field "shm_mem" to kernel_info
+> > ---
+> > v2 change:
+> > - using xzalloc
+> > - shm_id should be uint8_t
+> > - make reg a local variable
+> > - add #address-cells and #size-cells properties
+> > - fix alignment
+> > ---
+> >   xen/arch/arm/domain_build.c       | 143 +++++++++++++++++++++++++++++-
+> >   xen/arch/arm/include/asm/kernel.h |   1 +
+> >   xen/arch/arm/include/asm/setup.h  |   1 +
+> >   3 files changed, 143 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> > index 1584e6c2ce..4d62440a0e 100644
+> > --- a/xen/arch/arm/domain_build.c
+> > +++ b/xen/arch/arm/domain_build.c
+> > @@ -900,7 +900,22 @@ static int __init allocate_shared_memory(struct domain
+> > *d,
+> >       return ret;
+> >   }
+> >   -static int __init process_shm(struct domain *d,
+> > +static int __init append_shm_bank_to_domain(struct kernel_info *kinfo,
+> > +                                            paddr_t start, paddr_t size,
+> > +                                            u32 shm_id)
+> > +{
+> > +    if ( (kinfo->shm_mem.nr_banks + 1) > NR_MEM_BANKS )
+> > +        return -ENOMEM;
+> > +
+> > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].start = start;
+> > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].size = size;
+> > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].shm_id = shm_id;
+> > +    kinfo->shm_mem.nr_banks++;
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +static int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+> >                                 const struct dt_device_node *node)
+> >   {
+> >       struct dt_device_node *shm_node;
+> > @@ -971,6 +986,14 @@ static int __init process_shm(struct domain *d,
+> >               if ( ret )
+> >                   return ret;
+> >           }
+> > +
+> > +        /*
+> > +         * Record static shared memory region info for later setting
+> > +         * up shm-node in guest device tree.
+> > +         */
+> > +        ret = append_shm_bank_to_domain(kinfo, gbase, psize, shm_id);
+> > +        if ( ret )
+> > +            return ret;
+> >       }
+> >         return 0;
+> > @@ -1301,6 +1324,117 @@ static int __init make_memory_node(const struct
+> > domain *d,
+> >       return res;
+> >   }
+> >   +#ifdef CONFIG_STATIC_SHM
+> > +static int __init make_shm_memory_node(const struct domain *d,
+> > +                                       void *fdt,
+> > +                                       int addrcells, int sizecells,
+> > +                                       struct meminfo *mem)
 > 
-> So to me this indicates that WFI loop is fine. Otherwise, wouldn't the user
-> risk to see firmware errors (which BTW, I don't understand what sort of
-> firmware errors you are worried)? If yes, why would it be acceptable?
+> NIT: AFAICT mem is not changed, so it should be const.
 > 
-> For instance, Dmitry situation, the CPU0 would always WFI loop...
+> > +{
+> > +    unsigned long i = 0;
+> 
+> NIT: This should be "unsigned int" to match the type of nr_banks.
+> 
+> > +    int res = 0;
+> > +
+> > +    if ( mem->nr_banks == 0 )
+> > +        return -ENOENT;
+> > +
+> > +    /*
+> > +     * For each shared memory region, a range is exposed under
+> > +     * the /reserved-memory node as a child node. Each range sub-node is
+> > +     * named xen-shmem@<address>.
+> > +     */
+> > +    dt_dprintk("Create xen-shmem node\n");
+> > +
+> > +    for ( ; i < mem->nr_banks; i++ )
+> > +    {
+> > +        uint64_t start = mem->bank[i].start;
+> > +        uint64_t size = mem->bank[i].size;
+> > +        uint8_t shm_id = mem->bank[i].shm_id;
+> > +        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
+> > +        char buf[27];
+> > +        const char compat[] = "xen,shared-memory-v1";
+> > +        __be32 reg[4];
+> > +        __be32 *cells;
+> > +        unsigned int len = (addrcells + sizecells) * sizeof(__be32);
+> > +
+> > +        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64,
+> > mem->bank[i].start);
+> > +        res = fdt_begin_node(fdt, buf);
+> > +        if ( res )
+> > +            return res;
+> > +
+> > +        res = fdt_property(fdt, "compatible", compat, sizeof(compat));
+> > +        if ( res )
+> > +            return res;
+> > +
+> > +        cells = reg;
+> > +        dt_child_set_range(&cells, addrcells, sizecells, start, size);
+> > +
+> > +        res = fdt_property(fdt, "reg", reg, len);
+> > +        if ( res )
+> > +            return res;
+> > +
+> > +        dt_dprintk("Shared memory bank %lu: %#"PRIx64"->%#"PRIx64"\n",
+> > +                   i, start, start + size);
+> > +
+> > +        res = fdt_property_cell(fdt, "xen,id", shm_id);
+> 
+> Looking at the Linux binding, "xen,id" is meant to be a string. But here you
+> are writing it as an integer.
 
+Good catch!
+
+
+> Given that the Linux binding is already merged, I think the Xen binding should
+> be changed.
+
+We would be compliant with both bindings (xen and linux) just by writing
+shm_id as string here, but if it is not too difficult we might as well
+harmonize the two bindings and also define xen,shm-id as a string.
+
+On the Xen side, I would suggest to put a clear size limit so that the
+string is easier to handle.
 
