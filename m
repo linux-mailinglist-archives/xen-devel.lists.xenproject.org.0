@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1CA955A251
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 22:03:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355901.583863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FB3155A389
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 23:33:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355909.583874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4pWI-0005UM-Jr; Fri, 24 Jun 2022 20:03:10 +0000
+	id 1o4quF-0005tr-2Z; Fri, 24 Jun 2022 21:31:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355901.583863; Fri, 24 Jun 2022 20:03:10 +0000
+Received: by outflank-mailman (output) from mailman id 355909.583874; Fri, 24 Jun 2022 21:31:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4pWI-0005SS-FX; Fri, 24 Jun 2022 20:03:10 +0000
-Received: by outflank-mailman (input) for mailman id 355901;
- Fri, 24 Jun 2022 20:03:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o4pWH-0005Rz-KL; Fri, 24 Jun 2022 20:03:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o4pWH-0006sh-FZ; Fri, 24 Jun 2022 20:03:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o4pWG-0007bQ-Uw; Fri, 24 Jun 2022 20:03:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1o4pWG-0000lA-UQ; Fri, 24 Jun 2022 20:03:08 +0000
+	id 1o4quE-0005r9-V5; Fri, 24 Jun 2022 21:31:58 +0000
+Received: by outflank-mailman (input) for mailman id 355909;
+ Fri, 24 Jun 2022 21:31:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=b+8T=W7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1o4quD-0005r3-K4
+ for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 21:31:57 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 11f40d04-f405-11ec-b725-ed86ccbb4733;
+ Fri, 24 Jun 2022 23:31:55 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B2E86B82C48;
+ Fri, 24 Jun 2022 21:31:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23222C34114;
+ Fri, 24 Jun 2022 21:31:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,476 +43,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=h81FcNShrW1Td33MeisYRPwkGV86MQS+YQsw+i4uw1Q=; b=CQcmSW6MKChmw04Ld3K5nUXRnx
-	R37mu/MxPtK9FmpgLNH7t2jH3KdjE55j/OWruW/OLId/80EFFJrIpZFWAtqMLgVEYvqr1Y4ijr7mK
-	LaMWad9/BOTzeXE77Rq4c5VslpMaJECKaNVUgQU+pRjdsqX1fxTS9gsEHmwwZWxyBIL8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171342-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 11f40d04-f405-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1656106313;
+	bh=W1rSOa14R6RGx69MRWTtq56HNTBQe1M4o61oyaeDxM0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=o08nZowaJ4AAF753cK7cPIsiiuGK6qJSYL2xHLJk40STZYNNnSz1xvvgqj7tHLvfx
+	 qEBi14xgO4dS6z6huN2DiOYKR6SfUldyZp+fm219Wf1AjYu4z7DTPQU2DS61aHynCM
+	 SdLeJwIA3rCowDZjmONHHk8BKyy7cdUGpbrVtUzuFcIKpvbkQQ6ixgK/dgrQhDy5bs
+	 LVVCG7oD3+M3THvxDrINLgM0cNNZa6W+6+JT9E4PdBtNO02XcHfYRioWrteAsTL1HX
+	 kp6+1HyfBYaHlTo6WWTTITMoohrxsUETA8UcsWD8Vua94sG2TmqPcPdH7xLBdAxmZv
+	 KKPytNcKC3SnQ==
+Date: Fri, 24 Jun 2022 14:31:52 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, dmitry.semenets@gmail.com, 
+    xen-devel@lists.xenproject.org, Dmytro Semenets <dmytro_semenets@epam.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen: arm: Don't use stop_cpu() in halt_this_cpu()
+In-Reply-To: <e60a4e68-ed00-6cc7-31ca-64bcfc4bbdc5@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2206241414420.2410338@ubuntu-linux-20-04-desktop>
+References: <20220623074428.226719-1-dmitry.semenets@gmail.com> <alpine.DEB.2.22.394.2206231457250.2410338@ubuntu-linux-20-04-desktop> <e60a4e68-ed00-6cc7-31ca-64bcfc4bbdc5@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [linux-linus test] 171342: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd11-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-coresched-amd64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=92f20ff72066d8d7e2ffb655c2236259ac9d1c5d
-X-Osstest-Versions-That:
-    linux=354c6e071be986a44b956f7b57f1884244431048
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 24 Jun 2022 20:03:08 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 171342 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171342/
+On Fri, 24 Jun 2022, Julien Grall wrote:
+> On 23/06/2022 23:07, Stefano Stabellini wrote:
+> > On Thu, 23 Jun 2022, dmitry.semenets@gmail.com wrote:
+> > > From: Dmytro Semenets <dmytro_semenets@epam.com>
+> > So wouldn't it be better to remove the panic from the implementation of
+> > call_psci_cpu_off?
+> 
+> I have asked to keep the panic() in call_psci_cpu_off(). If you remove the
+> panic() then we will hide the fact that the CPU was not properly turned off
+> and will consume more energy than expected.
+> 
+> The WFI loop is fine when shutting down or rebooting because we know this will
+> only happen for a short period of time.
 
-Regressions :-(
+Yeah, I don't think we should hide that CPU_OFF failed. I think we
+should print a warning. However, given that we know CPU_OFF can
+reasonably fail in normal conditions returning DENIED when a Trusted OS
+is present, then I think we should not panic.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot            fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-freebsd11-amd64  8 xen-boot             fail REGR. vs. 171277
- test-amd64-amd64-pygrub       8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-dom0pvh-xl-amd  8 xen-boot              fail REGR. vs. 171277
- test-amd64-amd64-qemuu-nested-amd  8 xen-boot            fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-ws16-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-ovmf-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-xl-xsm       8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl           8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-credit1   8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-xl-multivcpu  8 xen-boot                fail REGR. vs. 171277
- test-amd64-amd64-xl-vhd       8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 171277
- test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 171277
- test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 171277
- test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 171277
- test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 171277
- test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 171277
- test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 171277
- test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-pvhv2-amd  8 xen-boot                fail REGR. vs. 171277
- test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 171277
- test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 171277
- test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-debianhvm-amd64  8 xen-boot    fail REGR. vs. 171277
- test-amd64-coresched-amd64-xl  8 xen-boot                fail REGR. vs. 171277
- test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 171277
+If there was a way to distinguish a failure because a Trusted OS is
+present (the "normal" failure) from other failures, I would suggest to:
+- print a warning if failed due to a Trusted OS being present
+- panic in other cases
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds      8 xen-boot                 fail REGR. vs. 171277
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 171277
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 171277
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 171277
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- linux                92f20ff72066d8d7e2ffb655c2236259ac9d1c5d
-baseline version:
- linux                354c6e071be986a44b956f7b57f1884244431048
-
-Last test of basis   171277  2022-06-19 03:11:35 Z    5 days
-Failing since        171280  2022-06-19 15:12:25 Z    5 days   15 attempts
-Testing same since   171337  2022-06-23 22:42:50 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Aidan MacDonald <aidanmacdonald.0x0@gmail.com>
-  Alexander Usyskin <alexander.usyskin@intel.com>
-  Alexei Starovoitov <ast@kernel.org>
-  Ali Saidi <alisaidi@amazon.com>
-  Alistair Popple <apopple@nvidia.com>
-  Anatolii Gerasymenko <anatolii.gerasymenko@intel.com>
-  Andrii Nakryiko <andrii@kernel.org>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Antoine Tenart <atenart@kernel.org>
-  Ard Biesheuvel <ardb@kernel.org>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Athira Jajeev <atrajeev@linux.vnet.ibm.com>
-  Athira Rajeev <atrajeev@linux.vnet.ibm.com>
-  Bart Van Assche <bvanassche@acm.org>
-  Brian Foster <bfoster@redhat.com>
-  Carlos Llamas <cmllamas@google.com>
-  Chevron Li <chevron.li@bayhubtech.com>
-  Chevron Li<chevron.li@bayhubtech.com>
-  Christian Marangi <ansuelsmth@gmail.com>
-  Christian Schoenebeck <linux_oss@crudebyte.com>
-  Christoph Lameter <cl@linux.com>
-  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-  Ciara Loftus <ciara.loftus@intel.com>
-  Claudiu Manoil <claudiu.manoil@nxp.com>
-  Curtis Taylor <cutaylor-pub@yahoo.com>
-  Damien Le Moal <damien.lemoal@opensource.wdc.com>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniil Dementev <d.dementev@ispras.ru>
-  Darrick J. Wong <djwong@kernel.org>
-  Dave Hansen <dave.hansen@linux.intel.com>
-  David Howells <dhowells@redhat.com>
-  David Rientjes <rientjes@google.com>
-  David S. Miller <davem@davemloft.net>
-  David Sterba <dsterba@suse.com>
-  Ding Xiang <dingxiang@cmss.chinamobile.com>
-  Dmitry Osipenko <dmitry.osipenko@collabora.com>
-  Dominique Martinet <asmadeus@codewreck.org>
-  Douglas Gilbert <dgilbert@interlog.com>
-  Eelco Chaudron <echaudro@redhat.com>
-  Eric Dumazet <edumazet@google.com>
-  Evgeniy Baskov <baskov@ispras.ru>
-  Filipe Manana <fdmanana@suse.com>
-  Florian Westphal <fw@strlen.de>
-  Gautam Menghani <gautammenghani201@gmail.com>
-  Genjian Zhang <zhanggenjian@kylinos.cn>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Gurucharan <gurucharanx.g@intel.com> (A Contingent worker at Intel)
-  Hoang Le <hoang.h.le@dektech.com.au>
-  huhai <huhai@kylinos.cn>
-  Hyeonggon Yoo <42.hyeyoo@gmail.com>
-  Ian Abbott <abbotti@mev.co.uk>
-  Ian Rogers <irogers@google.com>
-  Ivan Vecera <ivecera@redhat.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jakub Sitnicki <jakub@cloudflare.com>
-  Jamie Iles <jamie@jamieiles.com>
-  Jann Horn <jannh@google.com>
-  Jarkko Nikula <jarkko.nikula@linux.intel.com>
-  Jason A. Donenfeld <Jason@zx2c4.com>
-  Jason Wang <jasowang@redhat.com>
-  Javier Martinez Canillas <javierm@redhat.com>
-  Jay Vosburgh <jay.vosburgh@canonical.com>
-  Jesper Dangaard Brouer <brouer@redhat.com>
-  Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-  Jiasheng Jiang <jiasheng@iscas.ac.cn>
-  Jiaxun Yang <jiaxun.yang@flygoat.com>
-  Jie2x Zhou <jie2x.zhou@intel.com>
-  Jing-Ting Wu <jing-ting.wu@mediatek.com>
-  Jiri Olsa <jolsa@kernel.org>
-  Joe Damato <jdamato@fastly.com>
-  Joel Savitz <jsavitz@redhat.com>
-  John Fastabend <john.fastabend@gmail.com>
-  Jon Maloy <jmaloy@redhat.com>
-  Jon Maxwell <jmaxwell37@gmail.com>
-  Jonathan Lemon <jonathan.lemon@gmail.com>
-  Jonathan Toppins <jtoppins@redhat.com>
-  Josh Poimboeuf <jpoimboe@kernel.org>
-  Kai Vehmanen <kai.vehmanen@linux.intel.com>
-  Kai-Heng Feng <kai.heng.feng@canonical.com>
-  Kailang Yang <kailang@realtek.com>
-  Kees Cook <keescook@chromium.org>
-  Ken Moffat <zarniwhoop@ntlworld.com>
-  Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-  Kumar Kartikeya Dwivedi <memxor@gmail.com>
-  Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-  Leo Yan <leo.yan@linaro.org>
-  Liang He <windhl@126.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Liu Ying <victor.liu@nxp.com>
-  Lorenzo Bianconi <lorenzo@kernel.org>
-  Lukas Bulwahn <lukas.bulwahn@gmail.com>
-  Lukas Wunner <lukas@wunner.de>
-  Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-  Magnus Karlsson <magnus.karlsson@intel.com>
-  Marc Dionne <marc.dionne@auristor.com>
-  Marc Zyngier <maz@kernel.org>
-  Marcin Szycik <marcin.szycik@linux.intel.com>
-  Mark Brown <broonie@kernel.org>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Masami Hiramatsu (Google) <mhiramat@kernel.org>
-  Matthew Wilcox (Oracle) <willy@infradead.org>
-  Mengqi Zhang <mengqi.zhang@mediatek.com>
-  Miaoqian Lin <linmq006@gmail.com>
-  Michael Petlan <mpetlan@redhat.com>
-  Michal Simek <michal.simek@amd.com>
-  Nathan Chancellor <nathan@kernel.org>
-  Nathan Chancellor <nathan@kernel.org> # build
-  Nico Pache <npache@redhat.com>
-  nikitashvets@flyium.com
-  Oleksij Rempel <o.rempel@pengutronix.de>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Paolo Abeni <pabeni@redhat.com>
-  Peilin Ye <peilin.ye@bytedance.com>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Peter Zijlstra <peterz@infradead.org>
-  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-  Qu Wenruo <wqu@suse.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Riccardo Paolo Bestetti <pbl@bestov.io>
-  Rob Herring <robh@kernel.org>
-  Ron Economos <re@w6rz.net>
-  Rosemarie O'Riorden <roriorden@redhat.com>
-  Sandeep Penigalapati <sandeep.penigalapati@intel.com>
-  Saurabh Sengar <ssengar@linux.microsoft.com>
-  Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-  Sedat Dilek <sedat.dilek@gmail.com> # LLVM-14 (x86-64)
-  Serge Semin <Sergey.Semin@baikalelectronics.ru>
-  Sergey Gorenko <sergeygo@nvidia.com>
-  Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Soham Sen <contact@sohamsen.me>
-  Song Liu <songliubraving@fb.com>
-  Stephan Gerhold <stephan.gerhold@kernkonzept.com>
-  Stephen Hemminger <stephen@networkplumber.org>
-  Steven Rostedt (Google) <rostedt@goodmis.org>
-  sunliming <sunliming@kylinos.cn>
-  Takashi Iwai <tiwai@suse.de>
-  Takashi Sakamoto <o-takashi@sakamocchi.jp>
-  Tali Perry <tali.perry1@gmail.com>
-  Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-  Thomas Gleixner <tglx@linutronix.de>
-  Thomas Richter <tmricht@linux.ibm.com>
-  Tim Crawford <tcrawford@system76.com>
-  Tomas Winkler <tomas.winkler@intel.com>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Tyler Hicks <tyhicks@linux.microsoft.com>
-  Tyrel Datwyler <tyreld@linux.ibm.com>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Vadim Fedorenko <vadfed@fb.com>
-  Vlastimil Babka <vbabka@suse.cz>
-  Wentao_Liang <Wentao_Liang_g@163.com>
-  Wojciech Drewek <wojciech.drewek@intel.com>
-  Wolfram Sang <wsa@kernel.org>
-  Xiang wangx <wangxiang@cdjrlc.com>
-  Xiubo Li <xiubli@redhat.com>
-  Xu Jia <xujia39@huawei.com>
-  Ying Xue <ying.xue@windriver.com>
-  Yonghong Song <yhs@fb.com>
-  Yu Liao <liaoyu15@huawei.com>
-  Ziyang Xuan <william.xuanziyang@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             fail    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                fail    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     fail    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      fail    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                fail    
- test-amd64-amd64-xl-vhd                                      fail    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+Unfortunately it looks like in all cases the return code is DENIED :-(
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Given that, I would not panic and only print a warning in all cases. Or
+we could ASSERT which at least goes away in !DEBUG builds.
 
 
-Not pushing.
+> > The reason I am saying this is that stop_cpu is called in a number of
+> > places beyond halt_this_cpu and as far as I can tell any of them could
+> > trigger the panic. (I admit they are unlikely places but still.)
+> 
+> This is one of the example where the CPU will not be stopped for a short
+> period of time. We should deal with them differently (i.e. migrating the
+> trusted OS or else) so we give all the chance for the CPU to be fully powered.
+> 
+> IMHO, this is a different issue and hence why I didn't ask Dmitry to solve it.
 
-(No revision log; it would be 5108 lines long.)
+I see your point now. I was seeing the two things as one.
+
+I think it is true that the WFI loop is likely to work. Also it is true
+that from a power perspective it makes no different on power down or
+reboot.  From that point of view this patch is OK.
+
+But even on shut-down/reboot, why not do that as a fallback in case
+CPU_OFF didn't work? It is going to work most of the times anyway, why
+change the default for the few cases that doesn't work?
+
+Given that this patch would work, I don't want to insist on this and let
+you decide.
+
+
+But even if we don't want to remove the panic as part of this patch, I
+think we should remove the panic in a separate patch anyway, at least
+until someone investigates and thinks of a strategy how to migrate the
+TrustedOS as you suggested.
+
+
+ 
+ 
+> > Also the PSCI spec explicitely mention CPU_OFF as a way to place CPUs in
+> > a "known state" and doesn't offer any other examples. So although what
+> > you wrote in the commit message is correct, using CPU_OFF seems to be
+> > the less error prone way (in the sense of triggering firmware errors) to
+> > place CPUs in a known state.
+> 
+> The section you are referring to is starting with "One way". This imply there
+> are others methods.
+> 
+> FWIW, the spin loop above seems to be how Linux is dealing with the
+> shutdown/reboot.
+> 
+> > 
+> > So I would simply remove the panic from call_psci_cpu_off, so that we
+> > try CPU_OFF first, and if it doesn't work, we use the WFI loop as
+> > backup. Also we get to fix all the other callers of stop_cpu this way.
+> This reads strange. In the previous paragraph you suggested the CPU off is a
+> less error prone way to place CPUs in a known state. But here, you are
+> softening the stance and suggesting to fallback to the WFI loop.
+> 
+> So to me this indicates that WFI loop is fine. Otherwise, wouldn't the user
+> risk to see firmware errors (which BTW, I don't understand what sort of
+> firmware errors you are worried)? If yes, why would it be acceptable?
+> 
+> For instance, Dmitry situation, the CPU0 would always WFI loop...
+
 
