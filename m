@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED751559D5F
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 17:32:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355595.583323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B51DC559E06
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 18:05:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355602.583345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4lHl-0000zm-US; Fri, 24 Jun 2022 15:31:53 +0000
+	id 1o4lnY-00059V-Pv; Fri, 24 Jun 2022 16:04:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355595.583323; Fri, 24 Jun 2022 15:31:53 +0000
+Received: by outflank-mailman (output) from mailman id 355602.583345; Fri, 24 Jun 2022 16:04:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4lHl-0000wM-QK; Fri, 24 Jun 2022 15:31:53 +0000
-Received: by outflank-mailman (input) for mailman id 355595;
- Fri, 24 Jun 2022 15:31:52 +0000
+	id 1o4lnY-00056E-LG; Fri, 24 Jun 2022 16:04:44 +0000
+Received: by outflank-mailman (input) for mailman id 355602;
+ Fri, 24 Jun 2022 16:04:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3IMW=W7=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1o4lHk-0000wG-Jn
- for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 15:31:52 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4b987af-f3d2-11ec-bd2d-47488cf2e6aa;
- Fri, 24 Jun 2022 17:31:51 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id a13so5062904lfr.10
- for <xen-devel@lists.xenproject.org>; Fri, 24 Jun 2022 08:31:51 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- c8-20020a056512104800b0047a4f18f825sm414384lfb.74.2022.06.24.08.31.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jun 2022 08:31:49 -0700 (PDT)
+ <SRS0=7mLY=W7=citrix.com=prvs=16756bcf7=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1o4lnW-0004qb-JA
+ for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 16:04:42 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 58f3da0c-f3d7-11ec-bd2d-47488cf2e6aa;
+ Fri, 24 Jun 2022 18:04:39 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,205 +36,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4b987af-f3d2-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=uOUdcW7R4AY8NQ/GHTwqoGgjVTj1aaOmB/taBQVJKMY=;
-        b=g39lau4py5SIMDIqf8Zy5tcEyYu2tzCmb44KnVqBsjmrLEJYnswvm7OXflOiDQ/B2W
-         iF3yUKyVsCLMSCVbz//dhVXgQ2yaBa9/haAzrGK3iw/X5GSdlgqzbQEU8Ww8Vxxol6bM
-         dty9FFP1sKmQ8tIp26LuajmmKF3VkSFloslCyxZKUbuiN4sKrJbgpglmYEq12cTU/mbx
-         9k5x8/IF0PAjbG0VERfXRy8ypfrvyMRW8BMUJQczPSRV9BAlKOqYlcO+W2Mtmjud6ExE
-         tJ9tQmStrkcJ1+jaUr2PMFktF1ImPkeCvG9+AbfOeL4UuwPIXQe/A6bUZ7UxksBXfAOl
-         LCBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=uOUdcW7R4AY8NQ/GHTwqoGgjVTj1aaOmB/taBQVJKMY=;
-        b=dSeFwtpc8SZQR6GstyO+jFA+FtoZ1UiXUgmeFVU8h3CCkisd7YHUY3HBXCcNOPnpYj
-         //pItEUcyh+c4jtEf+xdHxPOkL30RYbfUuMJdoqEjW8La4GRaKB00Gmu/N54ztku+eVR
-         HOtIArqPuJJmaQer3hHvoZZEf406E6RRhWr0GApHMpXBZ6+XmN6Kqa3rvlOF+l5J404M
-         lEqVtcyfSg2D6fHn4NdYjKGttH6FBFye7nYcG7GbaXj1PEHbwnPxJ4U6v0WMmgUrzljP
-         Gmo7Kqsv+hN6RJyKvQ7gLevzP6Td0ZRSiXl1beZjTjTdn1WRH72ArfVfvgEe7gC/L3AA
-         5ZnA==
-X-Gm-Message-State: AJIora98Wxa2oxKTLxXfBL+5wCQCRFXkkZ9AOW8MLl3SsLqabpEa4LKO
-	6v8kIQQrpXh1JZAYhrGwgQQ=
-X-Google-Smtp-Source: AGRyM1sy0l1hQDqXf+rZiaNjpU7e8OJEfGbBriNPy6sRUWVQALdZ6fnGjw++knJ34bd7kKG8yZ9qkg==
-X-Received: by 2002:a05:6512:2356:b0:47f:8756:737b with SMTP id p22-20020a056512235600b0047f8756737bmr9229551lfu.212.1656084710632;
-        Fri, 24 Jun 2022 08:31:50 -0700 (PDT)
-Subject: Re: [PATCH V6 2/2] xen/arm: Harden the P2M code in
- p2m_remove_mapping()
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <1652294845-13980-1-git-send-email-olekstysh@gmail.com>
- <1652294845-13980-2-git-send-email-olekstysh@gmail.com>
- <42b0d343-a491-877c-3b5c-d9c95872774c@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <94afe35c-627c-8aba-37ce-1d017a2e4e3c@gmail.com>
-Date: Fri, 24 Jun 2022 18:31:48 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 58f3da0c-f3d7-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1656086679;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ZnL4iDV/JErozwnMFG24hDXAd8++8V6DJ1eS0kuExCY=;
+  b=FrCmoyV/K8tCwytg3rOVcwpnvyMFn+iC+fhOriYWG67A3ekQ2unVQpwQ
+   J04YA4cNzIQgkPzW1K5XFSEOjd2QRgzoynazS6OWpue+0goTuxp0r3+n7
+   mskwmPAaJnvrpbz5EwthKeRc3wV/3lQVSZmSJiBs0ITvDTDUnZi0kALh7
+   E=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 73701972
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:z/dWV6k4MZZMojTgYLzakiDo5gwYJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIdDT3SPPeLZWL9Ktx3a4mxpkwPusKGm4dhHQRs+H9gRiMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EgLd9IR2NYy24DnWV/V4
+ 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYCig0H/zXvNwmVxxAUBtiep1s+r/mPi3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
+ RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3s3d8zTbfHLA+TIrKWani7t5ExjYgwMtJGJ4yY
+ uJGMmU3NUWfOXWjPH9UAc4BorqWp0CmfhII9lWki6klwGvqmVkZPL/Fb4OOJ43iqd9utlmcj
+ nLL+SL+GB5yHMCezBKV/3TqgfXA9QvgQ54bHrC88v9sgXWQy3YVBRlQUkG0ydGjjVW0QdVYK
+ Eo89S8nrKx0/0uuJvHwWxC+qTiZsB8ZR8FdDeQS7xuEwa7ZpQ2eAwAsTCNFadEgnN87Q3otz
+ FDht9HmHzt0q5WOVGmQsLyTqFuaNTAOKG4eZQcNVQYf/8T4u4Y3kw7OSdB4VqWyi7XdCTz2h
+ jyHsiU6r7ESltIQkbW2+0jdhDChrYSPSRQ6ji3bV3yoxhl0b4mkY8qv81ezxfRKIZudT1KBl
+ GMZgMXY5+cLZbmBmyCAT/8ENK247PaCdjvHiBhgGIdJyti20yf9J8YKumg4fRo3dJZfEdP0X
+ KPNkUB++b4CJ1+SVqtye8GLF4Ma56rgNMuwA5g4ceFyjohNmB6vpX8zOxbLgjiywCDAgolkZ
+ 87FLJ/E4WIyTP0+kWHoH7p1PaoDnHhW+I/FeXzsI/1LO5K6bWXdd7oKOUDmggsRvPLd+1W9H
+ zqy2qK3J/RjvA7WOHC/HXY7dwxiEJTCLcmeRzZrXuCCOBF6P2oqFuXcx7gsE6Q8wfkLzr+Zp
+ y7hAhcHoLYauZEhAV/SApyEQOOHYHqChShjYXxE0aiAgRDPnrpDHI9ALsBqLNHLBcRozOJuT
+ ultRvhs9s9nE2ydkxxENMGVhNU7KHyD2FLfVwL4MWNXV8MxGGT0FirMI1KHGN8mVXHs66PTY
+ tSIi2vmfHb0b14zUp+INK3+lA3ZULp0sLsaYnYk6+J7IC3EmLWG4QSr5hPrC6ng8Sn++wY=
+IronPort-HdrOrdr: A9a23:RPIPMqDsij/SHLvlHemm55DYdb4zR+YMi2TC1yhKJiC9Ffbo8v
+ xG/c5rsiMc5wxxZJhNo7290cq7MBHhHPxOgbX5VI3KNGKNhILBFvAH0WKI+VPd8kPFmtK1rZ
+ 0QEJRDNA==
+X-IronPort-AV: E=Sophos;i="5.92,218,1650945600"; 
+   d="scan'208";a="73701972"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, Juergen Gross <jgross@suse.com>, "Christian
+ Lindig" <christian.lindig@citrix.com>, Daniel De Graaf
+	<dgdegra@tycho.nsa.gov>, George Dunlap <george.dunlap@citrix.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, "David
+ Scott" <dave@recoil.org>, Stefano Stabellini <sstabellini@kernel.org>, "Tim
+ Deegan" <tim@xen.org>, Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>, Nick Rosbrook
+	<rosbrookn@gmail.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>
+Subject: [XEN PATCH v3 00/25] Toolstack build system improvement, toward non-recursive makefiles
+Date: Fri, 24 Jun 2022 17:03:57 +0100
+Message-ID: <20220624160422.53457-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <42b0d343-a491-877c-3b5c-d9c95872774c@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
 
+Patch series available in this git branch:
+https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.toolstack-build-system-v3
 
-On 23.06.22 21:08, Julien Grall wrote:
-> Hi Oleksandr,
+Changes in v3:
+- rebased
+- several new patches, starting with 13/25 "tools/libs/util: cleanup Makefile"
+- introducing macros to deal with linking with in-tree xen libraries
+- Add -Werror to CFLAGS for all builds in tools/
 
+Changes in v2:
+- one new patch
+- other changes described in patch notes
 
-Hello Julien
+Hi everyone,
 
+I've been looking at reworking the build system we have for the "tools/", and
+transforming it to something that suit it better. There are a lot of
+dependencies between different sub-directories so it would be nice if GNU make
+could actually handle them. This is possible with "non-recursive makefiles".
 
->
-> On 11/05/2022 19:47, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> Borrow the x86's check from p2m_remove_page() which was added
->> by the following commit: c65ea16dbcafbe4fe21693b18f8c2a3c5d14600e
->> "x86/p2m: don't assert that the passed in MFN matches for a remove"
->> and adjust it to the Arm code base.
->>
->> Basically, this check is strictly needed for the xenheap pages only
->> since there are several non-protected read accesses to our simplified
->> xenheap based M2P approach on Arm (most calls to page_get_xenheap_gfn()
->> are not protected by the P2M lock).
->
-> To me, this read as you introduced a bug in patch #1 and now you are 
-> fixing it. So this patch should have been first.
+With non-recursive makefiles, make will have to load/include all the makefiles
+and thus will have complete overview of all the dependencies. This will allow
+make to build the necessary targets in other directory, and we won't need to
+build sub-directories one by one.
 
+To help with this transformation, I've chosen to go with a recent project
+called "subdirmk". It help to deal with the fact that all makefiles will share
+the same namespace, it is hooked into autoconf, we can easily run `make` from
+any subdirectory. Together "autoconf" and "subdirmk" will also help to get
+closer to be able to do out-of-tree build of the tools, but I'm mainly looking
+to have non-recursive makefile.
 
-Sounds like yes, I agree. But, in that case I propose to rewrite this 
-text like the following:
+Link to the project:
+    https://www.chiark.greenend.org.uk/ucgi/~ian/git/subdirmk.git/
 
+But before getting to the main course, I've got quite a few cleanup and some
+changes to the makefiles. I start the patch series with patches that remove old
+left over stuff, then start reworking makefiles. They are some common changes like
+removing the "build" targets in many places as "all" would be the more common
+way to spell it and "all" is the default target anyway. They are other changes
+related to the conversion to "subdirmk", I start to use the variable $(TARGETS)
+in several makefiles, this variable will have a special meaning in subdirmk
+which will build those target by default.
 
-Basically, this check will be strictly needed for the xenheap pages only 
-*and* only after applying subsequent
-commit which will introduce xenheap based M2P approach on Arm. But, it 
-will be a good opportunity
-to harden the P2M code for *every* RAM pages since it is possible to 
-remove any GFN - MFN mapping
-currently on Arm (even with the wrong helpers).
+As for the conversion to non-recursive makefile, with subdirmk, I have this WIP
+branch, it contains some changes that I'm trying out, some notes, and the
+conversion, one Makefile per commit. Cleanup are still needed, some makefile
+not converted yet, but it's otherwise mostly done.
 
+    https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.toolstack-build-system-v1-wip-extra
 
-And ...
+With that branch, you could tried something like:
+    ./configure; cd tools/xl; make
+and `xl` should be built as well as all the xen library needed.
+Also, things like `make clean` or rebuild should be faster in the all tools/
+directory.
 
+Cheers,
 
->
->>
->> But, it will be a good opportunity to harden the P2M code for *every*
->> RAM pages since it is possible to remove any GFN - MFN mapping
->> currently on Arm (even with the wrong helpers).
->
->> This can result in
->> a few issues when mapping is overridden silently (in particular when
->> building dom0).
->
-> Hmmm... AFAIU, in such situation p2m_remove_mapping() wouldn't be 
-> called. Instead, we would call the mapping helper twice and the 
-> override would still happen.
+Anthony PERARD (25):
+  tools/console: have one Makefile per program/directory
+  tools/debugger/gdbsx: Fix and cleanup makefiles
+  tools/examples: cleanup Makefile
+  tools/firmware/hvmloader: rework Makefile
+  tools/fuzz/libelf: rework makefile
+  tools/fuzz/x86_instruction_emulator: rework makefile
+  tools/hotplug: cleanup Makefiles
+  tools/libfsimage: Cleanup makefiles
+  tools/xenpaging: Rework makefile
+  tools/xentop: rework makefile
+  tools/xentrace: rework Makefile
+  .gitignore: Cleanup ignores of tools/libs/*/{headers.chk,*.pc}
+  tools/libs/util: cleanup Makefile
+  tools/flask/utils: list build targets in $(TARGETS)
+  libs/libs.mk: Rename $(LIB) to $(TARGETS)
+  libs/libs.mk: Remove the need for $(PKG_CONFIG_INST)
+  libs/libs.mk: Rework target headers.chk dependencies
+  tools: Introduce $(xenlibs-rpath,..) to replace $(SHDEPS_lib*)
+  tools: Introduce $(xenlibs-ldlibs, ) macro
+  tools: Introduce $(xenlibs-ldflags, ) macro
+  tools/helper: Cleanup Makefile
+  tools/console: Use $(xenlibs-ldlibs,)
+  tools/helpers: Fix build of xen-init-dom0 with -Werror
+  tools: Add -Werror by default to all tools/
+  tools: Remove -Werror everywhere else
 
+ tools/configure.ac                            |  1 +
+ tools/Makefile                                |  2 +-
+ tools/console/Makefile                        | 49 +----------------
+ tools/console/client/Makefile                 | 37 +++++++++++++
+ tools/console/daemon/Makefile                 | 45 +++++++++++++++
+ tools/debugger/gdbsx/Makefile                 | 20 +++----
+ tools/debugger/gdbsx/gx/Makefile              | 15 +++--
+ tools/debugger/gdbsx/xg/Makefile              | 25 +++------
+ tools/debugger/kdd/Makefile                   |  1 -
+ tools/examples/Makefile                       | 25 ++-------
+ tools/firmware/hvmloader/Makefile             | 16 +++---
+ tools/flask/utils/Makefile                    | 11 ++--
+ tools/fuzz/cpu-policy/Makefile                |  2 +-
+ tools/fuzz/libelf/Makefile                    | 21 ++++---
+ tools/fuzz/x86_instruction_emulator/Makefile  | 32 +++++------
+ tools/golang/xenlight/Makefile                |  2 +-
+ tools/helpers/Makefile                        | 23 ++++----
+ tools/hotplug/FreeBSD/Makefile                | 11 +---
+ tools/hotplug/Linux/Makefile                  | 16 ++----
+ tools/hotplug/Linux/systemd/Makefile          | 16 +++---
+ tools/hotplug/NetBSD/Makefile                 |  9 +--
+ tools/hotplug/common/Makefile                 | 16 ++----
+ tools/libfsimage/common/Makefile              | 11 +---
+ tools/libfsimage/ext2fs-lib/Makefile          |  9 ---
+ tools/libfsimage/ext2fs/Makefile              |  9 ---
+ tools/libfsimage/fat/Makefile                 |  9 ---
+ tools/libfsimage/iso9660/Makefile             | 11 ----
+ tools/libfsimage/reiserfs/Makefile            |  9 ---
+ tools/libfsimage/ufs/Makefile                 |  9 ---
+ tools/libfsimage/xfs/Makefile                 |  9 ---
+ tools/libfsimage/zfs/Makefile                 |  9 ---
+ tools/libs/util/Makefile                      |  3 +-
+ tools/misc/Makefile                           |  1 -
+ tools/tests/cpu-policy/Makefile               |  2 +-
+ tools/tests/depriv/Makefile                   |  2 +-
+ tools/tests/resource/Makefile                 |  1 -
+ tools/tests/tsx/Makefile                      |  1 -
+ tools/tests/xenstore/Makefile                 |  1 -
+ tools/xcutils/Makefile                        |  2 -
+ tools/xenmon/Makefile                         |  1 -
+ tools/xenpaging/Makefile                      | 25 ++++-----
+ tools/xenpmd/Makefile                         |  1 -
+ tools/xentop/Makefile                         | 23 ++++----
+ tools/xentrace/Makefile                       | 21 +++----
+ tools/xl/Makefile                             |  2 +-
+ tools/Rules.mk                                | 55 ++++++++++++++-----
+ tools/debugger/gdbsx/Rules.mk                 |  2 +-
+ tools/firmware/Rules.mk                       |  2 -
+ tools/libfsimage/Rules.mk                     | 26 +++------
+ tools/libfsimage/common.mk                    | 11 ++++
+ tools/libs/libs.mk                            | 31 +++++------
+ tools/helpers/xen-init-dom0.c                 |  2 +
+ tools/ocaml/common.make                       |  2 +-
+ .gitignore                                    | 35 ------------
+ config/Tools.mk.in                            |  1 +
+ tools/configure                               | 26 +++++++++
+ tools/console/client/.gitignore               |  1 +
+ tools/console/daemon/.gitignore               |  1 +
+ tools/fuzz/libelf/.gitignore                  |  2 +
+ .../fuzz/x86_instruction_emulator/.gitignore  |  7 +++
+ tools/libs/.gitignore                         |  2 +
+ tools/xenstore/Makefile.common                |  1 -
+ 62 files changed, 349 insertions(+), 424 deletions(-)
+ create mode 100644 tools/console/client/Makefile
+ create mode 100644 tools/console/daemon/Makefile
+ create mode 100644 tools/libfsimage/common.mk
+ create mode 100644 tools/console/client/.gitignore
+ create mode 100644 tools/console/daemon/.gitignore
+ create mode 100644 tools/fuzz/libelf/.gitignore
+ create mode 100644 tools/fuzz/x86_instruction_emulator/.gitignore
 
-    ... drop this one.
-
-
->
->
->>
->> Suggested-by: Julien Grall <jgrall@amazon.com>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> ---
->> You can find the corresponding discussion at:
->> https://lore.kernel.org/xen-devel/82d8bfe0-cb46-d303-6a60-2324dd76a1f7@xen.org/ 
->>
->>
->> Changes V5 -> V6:
->>   - new patch
->> ---
->>   xen/arch/arm/p2m.c | 21 +++++++++++++++++++++
->>   1 file changed, 21 insertions(+)
->>
->> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->> index f87b48e..635e474 100644
->> --- a/xen/arch/arm/p2m.c
->> +++ b/xen/arch/arm/p2m.c
->> @@ -1311,11 +1311,32 @@ static inline int p2m_remove_mapping(struct 
->> domain *d,
->>                                        mfn_t mfn)
->>   {
->>       struct p2m_domain *p2m = p2m_get_hostp2m(d);
->> +    unsigned long i;
->>       int rc;
->>         p2m_write_lock(p2m);
->> +    for ( i = 0; i < nr; )
-> One bit I really hate in the x86 code is the lack of in-code 
-> documentation. It makes really difficult to understand the logic.
->
-> I know this code was taken from x86, but I would like to avoid making 
-> same mistake (this code is definitely not trivial). So can we document 
-> the logic?
-
-
-ok, I propose the following text right after acquiring the p2m lock:
-
-
-  /*
-   * Before removing the GFN - MFN mapping for any RAM pages make sure
-   * that there is no difference between what is already mapped and what
-   * is requested to be unmapped. If passed mapping doesn't match
-   * the existing one bail out early.
-   */
-
-
-Could you please clarify, do you agree with both?
-
-
->
-> The code itself looks good to me.
-
-Thanks!
-
-
->
->> +    {
->> +        unsigned int cur_order;
->> +        p2m_type_t t;
->> +        mfn_t mfn_return = p2m_get_entry(p2m, gfn_add(start_gfn, i), 
->> &t, NULL,
->> +                                         &cur_order, NULL);
->> +
->> +        if ( p2m_is_any_ram(t) &&
->> +             (!mfn_valid(mfn) || !mfn_eq(mfn_add(mfn, i), 
->> mfn_return)) )
->> +        {
->> +            rc = -EILSEQ;
->> +            goto out;
->> +        }
->> +
->> +        i += (1UL << cur_order) -
->> +             ((gfn_x(start_gfn) + i) & ((1UL << cur_order) - 1));
->> +    }
->> +
->>       rc = p2m_set_entry(p2m, start_gfn, nr, INVALID_MFN,
->>                          p2m_invalid, p2m_access_rwx);
->> +
->> +out:
->>       p2m_write_unlock(p2m);
->>         return rc;
->
-> Cheers,
->
 -- 
-Regards,
-
-Oleksandr Tyshchenko
+Anthony PERARD
 
 
