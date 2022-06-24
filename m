@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 662F9559E03
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 18:05:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355606.583382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F215559E0F
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 18:05:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355607.583397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4lnb-0005xd-8h; Fri, 24 Jun 2022 16:04:47 +0000
+	id 1o4lnc-0006NQ-QV; Fri, 24 Jun 2022 16:04:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355606.583382; Fri, 24 Jun 2022 16:04:47 +0000
+Received: by outflank-mailman (output) from mailman id 355607.583397; Fri, 24 Jun 2022 16:04:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4lnb-0005sZ-0G; Fri, 24 Jun 2022 16:04:47 +0000
-Received: by outflank-mailman (input) for mailman id 355606;
- Fri, 24 Jun 2022 16:04:46 +0000
+	id 1o4lnc-0006JE-Iv; Fri, 24 Jun 2022 16:04:48 +0000
+Received: by outflank-mailman (input) for mailman id 355607;
+ Fri, 24 Jun 2022 16:04:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7mLY=W7=citrix.com=prvs=16756bcf7=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1o4lnZ-0004qb-V8
- for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 16:04:46 +0000
+ id 1o4lnb-0004qb-3R
+ for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 16:04:47 +0000
 Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
  [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d0cdfcc-f3d7-11ec-bd2d-47488cf2e6aa;
- Fri, 24 Jun 2022 18:04:44 +0200 (CEST)
+ id 5db7e901-f3d7-11ec-bd2d-47488cf2e6aa;
+ Fri, 24 Jun 2022 18:04:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d0cdfcc-f3d7-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 5db7e901-f3d7-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1656086685;
+  d=citrix.com; s=securemail; t=1656086686;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=6zroeQWnVKs2sspcMTPF4FS/ihKUgmPZSZni2g/h+iU=;
-  b=YWdVoPFHspWShIHsJGhN168qZLZ4kdsAgWqySBXBPp0Y6N5p8skDNWNo
-   9o9twQmccGSc2QZx/1LrpKQQN/wr+Nim9oNrUc81f4NxdOEQPdNdKcrIG
-   t3IRfK8wQ8FmjM90pc0hqyLDQgJx9OYSE935R2E74XJLtX143Yic1sAcM
-   Q=;
+  bh=H6lNZDzSWqxu4KmA0eh73M+dV6/C4L+8X1rFIcfviuI=;
+  b=byRBltptZh787kRD6crDvZ13r6JPwg6+bs5aadtzvlhMfWrkmK0HnyBD
+   euLMmxEfLmc3rA7soH/MDF+e936/oVTUky6q61JHJfIZw8luYKnLhqo2D
+   +Vhb9MXvExFTuyowUzZoyaMuKaYVIc4K2skvfzbQ9qYlHlKCrSvpup9Ew
+   U=;
 Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 74208073
+X-MesageID: 74208075
 X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:wU33AKy6aB2z7Iu30k96t+c1xirEfRIJ4+MujC+fZmUNrF6WrkUPz
- mUWWTiAafiPZmCgctojOY2y9x4Ovp7SmoIxHAU4/iAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX1JZS5LwbZj2NY224ThWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- Nplv5P3SQg0Aff2l746AwV3Nn1yArVL0eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DNYUDunZm3HfBAOwvW5zrSKTW/95Imjw3g6iiGN6BO
- 5BBOWIwN3wsZTUSK3wmNMgDgd6P2CC4U2R/k0Ow/aUotj27IAtZj+G2bYu9lsaxbd5Ogk+Sq
- 2bC/mL4KhIXLtqSzXyC6H3ErvDLtTP2XsQVDrLQ3vx3hFyewEQDBRtQUkG0ydGph0j7V99BJ
- kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c9haHvA+6QqN4rHJ+AvfDW8BJgOtc/R/6pVwH2Zzk
- AbUwZW5XlSDrYF5V1qX+fCUoi6NYxIad0hSeQAhEQc6+9TK9dRbYg30cjpzLEKkpoSrRG+om
- G3S83hWa6Y71pBSifjilbzTq3f1/8WSEFZojunCdjj9hj6VcrJJcGBBBbLzyf9bZLiUQVCa1
- JTvs5jPtbteZX1hecHkfQnsIF1Kz6zcWNEkqQQzd6TNDhz0k5JZQahe4StlOGBiOdsedDnib
- Sf74F0MuscLbSL1MfcvPOpd7vjGK4C6TbwJsdiEBuein7ArLFPXlM2QTRT4M5/RfLgEzvhkZ
- MbznTeEBncGE6V3pAeLqxMm+eZznEgWnDqLLbiilkjP+efONRa9FOZeWHPTP79R0U9xiFiMm
- zqpH5DRkEs3vSyXSnS/zLP/2nhQfCZiW8yp+pcJHgNBSyI/cFwc5zbq6etJU+RYc259yo8kI
- lnVtpdk9WfC
-IronPort-HdrOrdr: A9a23:xC/hIKiMcIgnQgsOgA0XVsd+oHBQXuIji2hC6mlwRA09TySZ//
- rBoB19726TtN9xYgBZpTnuAsm9qB/nmaKdpLNhWItKPzOW31dATrsSjrcKqgeIc0aVm9K1l5
- 0QF5SWYOeAdGSS5vya3ODXKbkdKaG8gcKVuds=
+IronPort-Data: A9a23:eLfogag4YypOK+jahAu2T33DX161YhAKZh0ujC45NGQN5FlHY01je
+ htvXG/Va/6PY2OjKNEnbIqwoE4Hv57Wnd8xTFA/rio0E3kb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M58wIFqtQw24LhXVnR4
+ YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YQ0mea3DhdtHaRYCNHFiEoga9IDfLFHq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
+ JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bknhm0THeC+dgWZ3ZSr/GzdRZwC0xloZFGvO2i
+ 88xNmY1NESYPEAn1lE/VckAmsi2hyLGUzQH80vWgJoY0mLS9VkkuFTqGIWMIYHbLSlPpW6Dv
+ X7P9Wn9BhAcNfScxCCD/3bqgfXA9QvkXKoCGbv+8eRl6HWR22gSBRs+RVa95/6jhSaWS99Zb
+ kAZ5Ccqhawz71CwCMnwWQWip3yJtQJaXMBfe8U44gyQzqvf4y6CG3MJCDVGbbQbWNQeHGJwk
+ AXTxpWwWGIp4Ob9pW+hGqm8pzz1OScIEjU4anUjHRcqxoXvn5k+p0eaJjp8K5JZnuEZCBmpn
+ W3U9HNj3+pD5SIY//7lpA6a2lpAsrCMF1dovVuPAwpJ+ysjPOaYi5qUBU83BBqqBKKQVRG/s
+ XcNgKByB8heXMjWxERhrAjgdYxFBspp0xWG2DaD57F7q1yQF4eLJOi8Gg1WKkZzKdojcjT0e
+ kLVsg45zMYNYSXyNf4uPN7pU5tCIU3c+TLNDKi8gj1mMvBMmPKvpnkyNSZ8IUi3+KTTrU3PE
+ cjCKpv9ZZrrIa9m0CC3V48g7FPf/QhnnTm7bcmil3yPiOPCDFbIGeZtGAbfNYgRsfLbyDg5B
+ v4CbqNmPT0EC7agCsQWmKZORW03wY8TX8Go8pILKb/YfGKL2ggJUpfs/F/oQKQ994w9qwsC1
+ i3VtpNwoLYnuUD6FA==
+IronPort-HdrOrdr: A9a23:WEOs36vjTnPFiW1lnemP18Vr7skDcNV00zEX/kB9WHVpmszxra
+ +TdZMgpHjJYVcqKQgdcL+7WZVoLUmwyXcx2/hyAV7AZniDhILLFuFfBOLZqlWKcREWtNQtsJ
+ uIG5IObuEYZmIVsS+V2mWF+q4bsbq6zJw=
 X-IronPort-AV: E=Sophos;i="5.92,218,1650945600"; 
-   d="scan'208";a="74208073"
+   d="scan'208";a="74208075"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
  Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v3 05/25] tools/fuzz/libelf: rework makefile
-Date: Fri, 24 Jun 2022 17:04:02 +0100
-Message-ID: <20220624160422.53457-6-anthony.perard@citrix.com>
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH v3 06/25] tools/fuzz/x86_instruction_emulator: rework makefile
+Date: Fri, 24 Jun 2022 17:04:03 +0100
+Message-ID: <20220624160422.53457-7-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220624160422.53457-1-anthony.perard@citrix.com>
 References: <20220624160422.53457-1-anthony.perard@citrix.com>
@@ -90,98 +91,132 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Rename ELF_LIB_OBJS to LIBELF_OBJS as to have the same name as in
-libs/guest/.
+Rework dependencies of all objects. We don't need to add dependencies
+for headers that $(CC) is capable of generating, we only need to
+include $(DEPS_INCLUDE). Some dependencies are still needed so make
+knows to generate symlinks for them.
 
-Replace "-I" by "-iquote".
+We remove the use of "vpath" for cpuid.c. While it works fine for now,
+when we will convert this makefile to subdirmk, vpath will not be
+usable. Also, "-iquote" is now needed to build "cpuid.o".
 
-Remove the use of "vpath". It will not works when we will convert this
-makefile to subdirmk. Instead, we create symlinks to the source files.
+Replace "-I." by "-iquote .", so it applies to double-quote includes
+only.
 
-Since we are creating a new .gitignore for the links, also move the
-existing entry to it.
+Rather than checking if a symlink exist, always regenerate the
+symlink. So if the source tree changed location, the symlink is
+updated.
+
+Since we are creating a new .gitignore for the symlink, also move the
+entry to it.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
 
 Notes:
     v2:
-    - create a per-directory .gitignore to add new entry and existing one
+    - create a new per-directory .gitignore to add the new entry and existing ones
 
- tools/fuzz/libelf/Makefile   | 21 ++++++++++-----------
- .gitignore                   |  1 -
- tools/fuzz/libelf/.gitignore |  2 ++
- 3 files changed, 12 insertions(+), 12 deletions(-)
- create mode 100644 tools/fuzz/libelf/.gitignore
+ tools/fuzz/x86_instruction_emulator/Makefile  | 32 ++++++++-----------
+ .gitignore                                    |  6 ----
+ .../fuzz/x86_instruction_emulator/.gitignore  |  7 ++++
+ 3 files changed, 21 insertions(+), 24 deletions(-)
+ create mode 100644 tools/fuzz/x86_instruction_emulator/.gitignore
 
-diff --git a/tools/fuzz/libelf/Makefile b/tools/fuzz/libelf/Makefile
-index 9eb30ee40c..9211f75951 100644
---- a/tools/fuzz/libelf/Makefile
-+++ b/tools/fuzz/libelf/Makefile
-@@ -1,25 +1,24 @@
- XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
+diff --git a/tools/fuzz/x86_instruction_emulator/Makefile b/tools/fuzz/x86_instruction_emulator/Makefile
+index 1a6dbf94e1..f11437e6a2 100644
+--- a/tools/fuzz/x86_instruction_emulator/Makefile
++++ b/tools/fuzz/x86_instruction_emulator/Makefile
+@@ -8,33 +8,27 @@ else
+ x86-insn-fuzz-all:
+ endif
  
--# libelf fuzz target
--vpath %.c ../../../xen/common/libelf
--CFLAGS += -I../../../xen/common/libelf
--ELF_SRCS-y += libelf-tools.c libelf-loader.c libelf-dominfo.c
--ELF_LIB_OBJS := $(patsubst %.c,%.o,$(ELF_SRCS-y))
-+LIBELF_OBJS := libelf-tools.o libelf-loader.o libelf-dominfo.o
- 
--$(patsubst %.c,%.o,$(ELF_SRCS-y)): CFLAGS += -Wno-pointer-sign
--
--$(ELF_LIB_OBJS): CFLAGS += -DFUZZ_NO_LIBXC $(CFLAGS_xeninclude)
-+CFLAGS += -iquote ../../../xen/common/libelf
-+$(LIBELF_OBJS): CFLAGS += -Wno-pointer-sign
-+$(LIBELF_OBJS): CFLAGS += -DFUZZ_NO_LIBXC $(CFLAGS_xeninclude)
- 
- libelf-fuzzer.o: CFLAGS += $(CFLAGS_xeninclude)
- 
--libelf.a: libelf-fuzzer.o $(ELF_LIB_OBJS)
-+$(LIBELF_OBJS:.o=.c): libelf-%.c: ../../../xen/common/libelf/libelf-%.c FORCE
+-# Add libx86 to the build
+-vpath %.c $(XEN_ROOT)/xen/lib/x86
++cpuid.c: %: $(XEN_ROOT)/xen/lib/x86/% FORCE
 +	ln -nsf $< $@
-+
-+libelf.a: libelf-fuzzer.o $(LIBELF_OBJS)
+ 
+-x86_emulate:
+-	[ -L $@ ] || ln -sf $(XEN_ROOT)/xen/arch/x86/$@
++x86_emulate: FORCE
++	ln -nsf $(XEN_ROOT)/xen/arch/x86/$@
+ 
+ x86_emulate/%: x86_emulate ;
+ 
+-x86-emulate.c x86-emulate.h wrappers.c: %:
+-	[ -L $* ] || ln -sf $(XEN_ROOT)/tools/tests/x86_emulator/$*
++x86-emulate.c x86-emulate.h wrappers.c: %: $(XEN_ROOT)/tools/tests/x86_emulator/% FORCE
++	ln -nsf $< $@
+ 
+-CFLAGS += $(CFLAGS_xeninclude) -D__XEN_TOOLS__ -I.
++CFLAGS += $(CFLAGS_xeninclude) -D__XEN_TOOLS__ -iquote .
++cpuid.o: CFLAGS += -iquote $(XEN_ROOT)/xen/lib/x86
+ 
+ GCOV_FLAGS := --coverage
+ %-cov.o: %.c
+ 	$(CC) -c $(CFLAGS) $(GCOV_FLAGS) $< -o $@
+ 
+-x86.h := $(addprefix $(XEN_ROOT)/tools/include/xen/asm/,\
+-                     x86-vendors.h x86-defns.h msr-index.h) \
+-         $(addprefix $(XEN_ROOT)/tools/include/xen/lib/x86/, \
+-                     cpuid.h cpuid-autogen.h)
+-x86_emulate.h := x86-emulate.h x86_emulate/x86_emulate.h $(x86.h)
+-
+-# x86-emulate.c will be implicit for both
+-x86-emulate.o x86-emulate-cov.o: x86_emulate/x86_emulate.c $(x86_emulate.h)
+-
+-fuzz-emul.o fuzz-emulate-cov.o cpuid.o wrappers.o: $(x86_emulate.h)
++x86-emulate.h: x86_emulate/x86_emulate.h
++x86-emulate.o x86-emulate-cov.o: x86-emulate.h x86_emulate/x86_emulate.c
++fuzz-emul.o fuzz-emul-cov.o wrappers.o: x86-emulate.h
+ 
+ x86-insn-fuzzer.a: fuzz-emul.o x86-emulate.o cpuid.o
  	$(AR) rc $@ $^
+@@ -51,7 +45,7 @@ all: x86-insn-fuzz-all
  
- .PHONY: libelf-fuzzer-all
- libelf-fuzzer-all: libelf.a libelf-fuzzer.o
- 
--afl-libelf-fuzzer: afl-libelf-fuzzer.o libelf-fuzzer.o $(ELF_LIB_OBJS)
-+afl-libelf-fuzzer: afl-libelf-fuzzer.o libelf-fuzzer.o $(LIBELF_OBJS)
- 	$(CC) $(CFLAGS) $^ -o $@
- 
- # Common targets
-@@ -31,7 +30,7 @@ distclean: clean
+ .PHONY: distclean
+ distclean: clean
+-	rm -f x86_emulate x86-emulate.c x86-emulate.h
++	rm -f x86_emulate x86-emulate.c x86-emulate.h wrappers.c cpuid.c
  
  .PHONY: clean
  clean:
--	rm -f *.o .*.d *.a *-libelf-fuzzer
-+	rm -f *.o .*.d *.a *-libelf-fuzzer $(LIBELF_OBJS:.o=.c)
+@@ -67,3 +61,5 @@ afl: afl-harness
  
- .PHONY: install
- install: all
+ .PHONY: afl-cov
+ afl-cov: afl-harness-cov
++
++-include $(DEPS_INCLUDE)
 diff --git a/.gitignore b/.gitignore
-index 7cf26051db..6410dfbc72 100644
+index 6410dfbc72..8b6886f3fd 100644
 --- a/.gitignore
 +++ b/.gitignore
-@@ -195,7 +195,6 @@ tools/flask/utils/flask-loadpolicy
+@@ -195,12 +195,6 @@ tools/flask/utils/flask-loadpolicy
  tools/flask/utils/flask-setenforce
  tools/flask/utils/flask-set-bool
  tools/flask/utils/flask-label-pci
--tools/fuzz/libelf/afl-libelf-fuzzer
- tools/fuzz/x86_instruction_emulator/asm
- tools/fuzz/x86_instruction_emulator/afl-harness
- tools/fuzz/x86_instruction_emulator/afl-harness-cov
-diff --git a/tools/fuzz/libelf/.gitignore b/tools/fuzz/libelf/.gitignore
+-tools/fuzz/x86_instruction_emulator/asm
+-tools/fuzz/x86_instruction_emulator/afl-harness
+-tools/fuzz/x86_instruction_emulator/afl-harness-cov
+-tools/fuzz/x86_instruction_emulator/wrappers.c
+-tools/fuzz/x86_instruction_emulator/x86_emulate
+-tools/fuzz/x86_instruction_emulator/x86-emulate.[ch]
+ tools/helpers/init-xenstore-domain
+ tools/helpers/xen-init-dom0
+ tools/hotplug/common/hotplugpath.sh
+diff --git a/tools/fuzz/x86_instruction_emulator/.gitignore b/tools/fuzz/x86_instruction_emulator/.gitignore
 new file mode 100644
-index 0000000000..ed634214c9
+index 0000000000..65c3cf9702
 --- /dev/null
-+++ b/tools/fuzz/libelf/.gitignore
-@@ -0,0 +1,2 @@
-+/afl-libelf-fuzzer
-+/libelf-*.c
++++ b/tools/fuzz/x86_instruction_emulator/.gitignore
+@@ -0,0 +1,7 @@
++/asm
++/afl-harness
++/afl-harness-cov
++/cpuid.c
++/wrappers.c
++/x86_emulate
++/x86-emulate.[ch]
 -- 
 Anthony PERARD
 
