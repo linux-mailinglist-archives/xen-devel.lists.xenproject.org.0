@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E8D5559A19
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 15:06:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355536.583260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 266D1559A28
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 15:12:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355566.583289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4j1F-0000xd-Tz; Fri, 24 Jun 2022 13:06:41 +0000
+	id 1o4j6f-0003Pb-3V; Fri, 24 Jun 2022 13:12:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355536.583260; Fri, 24 Jun 2022 13:06:41 +0000
+Received: by outflank-mailman (output) from mailman id 355566.583289; Fri, 24 Jun 2022 13:12:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4j1F-0000vq-Pv; Fri, 24 Jun 2022 13:06:41 +0000
-Received: by outflank-mailman (input) for mailman id 355536;
- Fri, 24 Jun 2022 13:06:40 +0000
+	id 1o4j6f-0003MQ-0P; Fri, 24 Jun 2022 13:12:17 +0000
+Received: by outflank-mailman (input) for mailman id 355566;
+ Fri, 24 Jun 2022 13:12:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Kb19=W7=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
- id 1o4j1E-0000vk-4u
- for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 13:06:40 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YVaO=W7=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o4j6d-0003MH-27
+ for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 13:12:15 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7bbccfe3-f3be-11ec-b725-ed86ccbb4733;
- Fri, 24 Jun 2022 15:06:38 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id q9so3059695wrd.8
- for <xen-devel@lists.xenproject.org>; Fri, 24 Jun 2022 06:06:38 -0700 (PDT)
-Received: from horizon ([2a01:e0a:19f:35f0:dde5:d55a:20f5:7ef5])
- by smtp.gmail.com with ESMTPSA id
- a17-20020adffb91000000b0020c5253d907sm2288903wrr.83.2022.06.24.06.06.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jun 2022 06:06:37 -0700 (PDT)
+ id 43705efd-f3bf-11ec-b725-ed86ccbb4733;
+ Fri, 24 Jun 2022 15:12:13 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5A6811F909;
+ Fri, 24 Jun 2022 13:12:13 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 042FC13480;
+ Fri, 24 Jun 2022 13:12:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ZlBdOyy4tWJMeQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 24 Jun 2022 13:12:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,216 +51,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bbccfe3-f3be-11ec-b725-ed86ccbb4733
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=tmmMc/+6fMOuYyEJeltVYvGlEaNaHuROm71Y1fktAl4=;
-        b=bJ85DQYPh5E55q2omOp3YTdeEdMsEEpPMr9zJayKDo9+NKjwjZf2qvmcTnKqGB5S8Q
-         DRHGXAhEENI5EsSPU+37hY77PYjSbs+W6u+jhbIi77gYbEAdn8fSMTq9maV31R0cw4HM
-         udn+/LHSFLNy+gW4C2Bz5DE29LEGkfQyagvAL4dNg8CB9+llv3u0qhzrjxlQygfG/pua
-         69eqQ93icigEbrSwTSO5ape1LYsBUEbZ2EWZfnlkz2qF5r0fFG+P5mlmupWCBAa/67U/
-         +ZVROxLFfNHQPteuQCza6vkuxXI5YogQrxrx1Jum1lIC7a3i7gxLW//XhWJ1WTReK9Mf
-         PcrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=tmmMc/+6fMOuYyEJeltVYvGlEaNaHuROm71Y1fktAl4=;
-        b=j/UQc+uzyxsiEl9KF0vvr6882/Jzh3r9ySaKxnNwreEQYxOWdWCXv1KHjtwS7Xn0n8
-         pZiDiobz7PH91UpFYwilxGCo4G15KzInHT+bDvDcbMo+ziAmK1Ryx0PzxkaDJcA//0+7
-         K59CK3Fw+o4Ac0NCsQGg9cTLiy9qoWaWJrTrOYudC8lkVBRgOSVxJF+cXr539XCY3+hX
-         8QN16EqGUV+RjtpNxeetYAynzU0i4Owo5O707OvfL5OjE177Ilz6lpGJAC4p40iWoDyW
-         9mlUYRYS7JLnmnrAIRqGLcJDInMNk0uc7Yq/JSgr+IiqHO2x7HahdHnq0BXeQbHq+Rs1
-         zZAg==
-X-Gm-Message-State: AJIora9bZrb/6igW3ZpV/HxQmkB4Xue6/6IK5KWTYIsl824ub1+cn3Kd
-	uPDmJ+8liAReN6qxKq5SfqA=
-X-Google-Smtp-Source: AGRyM1vKMSdy6rxDVn7NWw1i7aNMFQYln4QpGcwF4NeYfHwbcRM6gXJ25ElLshmrg/asjbpKla1NJg==
-X-Received: by 2002:a5d:4ace:0:b0:21b:a37d:f5d with SMTP id y14-20020a5d4ace000000b0021ba37d0f5dmr11187299wrs.38.1656075998014;
-        Fri, 24 Jun 2022 06:06:38 -0700 (PDT)
-Date: Fri, 24 Jun 2022 15:06:35 +0200
-From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Anthony Perard <anthony.perard@citrix.com>
-Subject: Re: [RFC PATCH 0/2] Add a new acquire resource to query vcpu
- statistics
-Message-ID: <20220624130635.GA249540@horizon>
-References: <cover.1652797713.git.matias.vara@vates.fr>
- <EEFF4C8C-F26D-47CF-8E5D-5E62BB6579BC@citrix.com>
+X-Inumbo-ID: 43705efd-f3bf-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1656076333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8evYzFwvo69rzCly7bkSSEquukJj4VadkKuCgUkp5U0=;
+	b=L8i/stBbiZn8Np5eet3LS6aHcdtlFDIyYSB3ytyQyvywfp8RyqcpIensUryImtHUYhrDhF
+	hP2yWwx5uhbJ+Th2fbJ8Ghn0j0KJCycVPiRHNl+RMoHClq6fO4u4ZLW4IlTIFmCG72gB/U
+	+qt6KYxua2aonkiLWaFtvEjsnk8kL8U=
+Message-ID: <b05fd5b4-c419-256d-ec56-7916cef74b39@suse.com>
+Date: Fri, 24 Jun 2022 15:12:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <EEFF4C8C-F26D-47CF-8E5D-5E62BB6579BC@citrix.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-US
+To: George Dunlap <dunlapg@umich.edu>
+Cc: Oleksandr <olekstysh@gmail.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>
+References: <1638982784-14390-1-git-send-email-olekstysh@gmail.com>
+ <1638982784-14390-2-git-send-email-olekstysh@gmail.com>
+ <YbjANCjAUGe4BAar@perard> <bce10079-abd6-c033-6273-ac0ea9f51668@gmail.com>
+ <4c89e55d-4bf1-506e-d620-4a0ff18ef308@suse.com>
+ <dc1b70ac-079d-5de8-cb13-6be4944cef0a@gmail.com>
+ <813684b0-df71-c18b-cf4c-106cc286c035@suse.com>
+ <CAFLBxZbm0KcLhpqs2tGXgx6-JP+3OtkMEReTaphBC-JHZ3sJDQ@mail.gmail.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH V6 1/2] libxl: Add support for Virtio disk configuration
+In-Reply-To: <CAFLBxZbm0KcLhpqs2tGXgx6-JP+3OtkMEReTaphBC-JHZ3sJDQ@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------2jYlYO08nbwtwG0jJEVYbgvG"
 
-Hello George and thanks for the review! you will find my comments below.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------2jYlYO08nbwtwG0jJEVYbgvG
+Content-Type: multipart/mixed; boundary="------------Nx6tv1gxiDXRxjqsti0IM9Cr";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: George Dunlap <dunlapg@umich.edu>
+Cc: Oleksandr <olekstysh@gmail.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>
+Message-ID: <b05fd5b4-c419-256d-ec56-7916cef74b39@suse.com>
+Subject: Re: [PATCH V6 1/2] libxl: Add support for Virtio disk configuration
+References: <1638982784-14390-1-git-send-email-olekstysh@gmail.com>
+ <1638982784-14390-2-git-send-email-olekstysh@gmail.com>
+ <YbjANCjAUGe4BAar@perard> <bce10079-abd6-c033-6273-ac0ea9f51668@gmail.com>
+ <4c89e55d-4bf1-506e-d620-4a0ff18ef308@suse.com>
+ <dc1b70ac-079d-5de8-cb13-6be4944cef0a@gmail.com>
+ <813684b0-df71-c18b-cf4c-106cc286c035@suse.com>
+ <CAFLBxZbm0KcLhpqs2tGXgx6-JP+3OtkMEReTaphBC-JHZ3sJDQ@mail.gmail.com>
+In-Reply-To: <CAFLBxZbm0KcLhpqs2tGXgx6-JP+3OtkMEReTaphBC-JHZ3sJDQ@mail.gmail.com>
 
-On Fri, Jun 17, 2022 at 07:54:32PM +0000, George Dunlap wrote:
-> 
-> 
-> > On 17 May 2022, at 15:33, Matias Ezequiel Vara Larsen <matiasevara@gmail.com> wrote:
-> > 
-> > Hello all,
-> > 
-> > The purpose of this RFC is to get feedback about a new acquire resource that
-> > exposes vcpu statistics for a given domain. The current mechanism to get those
-> > statistics is by querying the hypervisor. This mechanism relies on a hypercall
-> > and holds the domctl spinlock during its execution. When a pv tool like xcp-rrdd
-> > periodically samples these counters, it ends up affecting other paths that share
-> > that spinlock. By using acquire resources, the pv tool only requires a few
-> > hypercalls to set the shared memory region and samples are got without issuing
-> > any other hypercall. The original idea has been suggested by Andrew Cooper to
-> > which I have been discussing about how to implement the current PoC. You can
-> > find the RFC patch series at [1]. The series is rebased on top of stable-4.15.
-> > 
-> > I am currently a bit blocked on 1) what to expose and 2) how to expose it. For
-> > 1), I decided to expose what xcp-rrdd is querying, e.g., XEN_DOMCTL_getvcpuinfo.
-> > More precisely, xcp-rrd gets runstate.time[RUNSTATE_running]. This is a uint64_t
-> > counter. However, the time spent in other states may be interesting too.
-> > Regarding 2), I am not sure if simply using an array of uint64_t is enough or if
-> > a different interface should be exposed. The remaining question is when to get
-> > new values. For the moment, I am updating this counter during
-> > vcpu_runstate_change().
-> > 
-> > The current series includes a simple pv tool that shows how this new interface is
-> > used. This tool maps the counter and periodically samples it.
-> > 
-> > Any feedback/help would be appreciated.
-> 
-> Hey Matias,
-> 
-> Sorry it’s taken so long to get back to you.  My day-to-day job has shifted away from technical things to community management; this has been on my radar but I never made time to dig into it.
-> 
-> There are some missing details I’ve had to try to piece together about the situation, so let me sketch things out a bit further and see if I understand the situation:
-> 
-> * xcp-rrd currently wants (at minimum) to record runstate.time[RUNSTATE_running] for each vcpu.  Currently that means calling XEN_DOMCTL_getvcpuinfo, which has to hold a single global domctl_lock (!) for the entire hypercall; and of course must be iterated over every vcpu in the system for every update.
-> 
+--------------Nx6tv1gxiDXRxjqsti0IM9Cr
+Content-Type: multipart/mixed; boundary="------------U8zeXxs5PUPL4lklEHwmAIjr"
 
-For example, in xcp-ng, xcp-rrdd is sampling all the VCPUs of the system every 5
-seconds. Also, xcp-rrdd queries other counters like XEN_DOMCTL_getdomaininfo. 
+--------------U8zeXxs5PUPL4lklEHwmAIjr
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Out of curiosity, do you know any benchmark to measure the impact of this
-querying? My guess is that the time of domctl-based operations would increase
-with the number of VCPUs. In such a escenario, I am supposing that the time to
-query all vcpus increase with the number of vcpus thus holding the domctl_lock
-longer. However, this would be only observable in a large
-enough system.
+T24gMjQuMDYuMjIgMTQ6NDUsIEdlb3JnZSBEdW5sYXAgd3JvdGU6DQo+IE9uIFdlZCwgRGVj
+IDE1LCAyMDIxIGF0IDM6NTggUE0gSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tIA0K
+PiA8bWFpbHRvOmpncm9zc0BzdXNlLmNvbT4+IHdyb3RlOg0KPiANCj4gICAgIE9uIDE1LjEy
+LjIxIDE2OjAyLCBPbGVrc2FuZHIgd3JvdGU6IA0KPiANCj4gDQo+ICAgICBJbiBwcmFjdGlj
+ZSB3ZSBhcmUgaGF2aW5nIHNvbWV0aGluZyBsaWtlIHRoZSAicHJvdG9jb2wiIGFscmVhZHkg
+dG9kYXk6DQo+ICAgICB0aGUgZGlzayBkZXZpY2UgbmFtZSBpcyBlbmNvZGluZyB0aGF0ICgi
+eHZkKiIgaXMgYSBYZW4gUFYgZGlzaywgd2hpbGUNCj4gICAgICJzZCoiIGlzIGFuIGVtdWxh
+dGVkIFNDU0kgZGlzaywgd2hpY2ggaGFwcGVucyB0byBiZSBwcmVzZW50ZWQgdG8gdGhlDQo+
+ICAgICBndWVzdCBhcyAieHZkKiIsIHRvbykuIEFuZCB0aGlzIGlzIGFuIGFkZGl0aW9uYWwg
+aW5mb3JtYXRpb24gbm90DQo+ICAgICByZWxhdGVkIHRvIHRoZSBiYWNrZW5kdHlwZS4NCj4g
+DQo+ICAgICBTbyB3ZSBoYXZlIGJhc2ljYWxseSB0aGUgZm9sbG93aW5nIGNvbmZpZ3VyYXRp
+b24gaXRlbXMsIHdoaWNoIGFyZQ0KPiAgICAgb3J0aG9nb25hbCB0byBlYWNoIG90aGVyIChz
+b21lIGNvbWJpbmF0aW9ucyBtaWdodCBub3QgbWFrZSBzZW5zZSwNCj4gICAgIGJ1dCBpbiB0
+aGVvcnkgbW9zdCB3b3VsZCBiZSBwb3NzaWJsZSk6DQo+IA0KPiAgICAgMS4gcHJvdG9jb2w6
+IGVtdWxhdGVkIChub3QgUFYpLCBYZW4gKGxpa2UgdG9kYXkpLCB2aXJ0aW8NCj4gDQo+ICAg
+ICAyLiBiYWNrZW5kdHlwZTogcGh5IChibGtiYWNrKSwgcWRpc2sgKHFlbXUpLCBvdGhlciAo
+ZS5nLiBhIGRhZW1vbikNCj4gDQo+ICAgICAzLiBmb3JtYXQ6IHJhdywgcWNvdywgcWNvdzIs
+IHZoZCwgcWVkDQo+IA0KPiAgICAgVGhlIGNvbWJpbmF0aW9uIHZpcnRpbytwaHkgd291bGQg
+YmUgZXF1aXZhbGVudCB0byB2aG9zdCwgQlRXLiBBbmQNCj4gICAgIHZpcnRpbytvdGhlciBt
+aWdodCBldmVuIHVzZSB2aG9zdC11c2VyLCBkZXBlbmRpbmcgb24gdGhlIGRhZW1vbi4NCj4g
+DQo+IA0KPiBTb3JyeSB0byBmbHkgaW4gaGVyZSA3IG1vbnRocyBhZnRlciB0aGUgZmFjdCB0
+byBxdWliYmxlIGFib3V0IHNvbWV0aGluZywgYnV0IA0KPiBzaW5jZSB3ZSdyZSBiYWtpbmcg
+c29tZXRoaW5nIGludG8gYW4gZXh0ZXJuYWwgaW50ZXJmYWNlLCBJIHRoaW5rIGl0J3Mgd29y
+dGggDQo+IG1ha2luZyBzdXJlIHdlIGdldCBpdCBleGFjdGx5IHJpZ2h0Lg0KPiANCj4gSXQg
+c2VlbXMgdG8gbWUgdGhhdCB0aGUgY3VycmVudCB3YXkgdGhhdCAiYmFja2VuZHR5cGUiIGlz
+IHVzZWQgaXMgdG8gdGVsbCBsaWJ4bCANCj4gaG93IHRvIHNldCB1cCB0aGUgY29ubmVjdGlv
+bi7CoCBGb3IgInBoeSIsIGl0IHRhbGtzIHRvIHRoZSBkb20wIGJsa2JhY2sgZHJpdmVyLCAN
+Cj4gYW5kIGhhbmRzIGl0IGEgZmlsZSBvciBzb21lIG90aGVyIHBoeXNpY2FsIGRldmljZS7C
+oCBGb3IgcWRpc2ssIGl0IHRhbGtzIHRvIHRoZSANCj4gUUVNVSB3aGljaCBpcyBhbHJlYWR5
+IGFzc29jaWF0ZWQgd2l0aCB0aGUgZG9tYWluOiBlaXRoZXIgdGhlIHFkaXNrIHByb2Nlc3Mg
+DQo+IHN0YXJ0ZWQgdXAgd2hlbiB0aGUgUFYvSCBkb21haW4gd2FzIGNyZWF0ZWQsIG9yIHRo
+ZSBlbXVsYXRvciBzdGFydGVkIHVwIHdoZW4gdGhlIA0KPiBIVk0gZ3Vlc3Qgd2FzIGNyZWF0
+ZWQuwqAgKENvcnJlY3QgbWUgaWYgSSd2ZSBtYWRlIGEgbWlzdGFrZSBoZXJlLikNCj4gDQo+
+IEdpdmVuIHRoYXQsICJvdGhlciIgaXMganVzdCB3cm9uZy7CoCBUaGUgdG9vbHN0YWNrIG5l
+ZWRzIHRvIGtub3cgKnNwZWNpZmljYWxseSogDQo+IGhvdyB0byBkcml2ZSB0aGUgdGhpbmcg
+dGhhdCdzIGdvaW5nIHRvIGJlIHByb3ZpZGluZyB0aGUgcHJvdG9jb2wuwqAgSSdtIG5vdCBz
+dXJlIA0KPiB3aGF0IHlvdSdyZSBleHBlY3RpbmcgdG8gdXNlIGluIHRoaXMgY2FzZSwgYnV0
+IHByZXN1bWFibHkgaWYgd2UncmUgYWRkaW5nIGEgDQo+IHRoaXJkIHRoaW5nIChpbiBhZGRp
+dGlvbiB0byBibGtiYWNrIGFuZCBRRU1VKSwgdGhlbiBhdCBzb21lIHBvaW50IHdlJ3JlIGdv
+aW5nIHRvIA0KPiBiZSBhZGRpbmcgYSBmb3VydGggdGhpbmcsIGFuZCBhIGZpZnRoIHRoaW5n
+IGFzIHdlbGwuwqAgV2hhdCBkbyB3ZSBjYWxsIHRoZW0/ICANCj4gIk90aGVyIG90aGVyIiBh
+bmQgIm90aGVyIG90aGVyIG90aGVyIj8NCg0KVGhlIGlkZWEgd2FzIHRvIGFsbG93IGFuIHVu
+c3BlY2lmaWVkIGV4dGVybmFsIGNvbXBvbmVudCB0byBiZSB1c2VkLiBJdA0Kd291bGQgb25s
+eSBuZWVkIGluZm9ybWF0aW9uIGF2YWlsYWJsZSBpbiBYZW5zdG9yZSBhbmQgImRvIHRoZSBy
+aWdodCB0aGluZyIuDQoNClRoaXMgYWxsb3dzIHRvIGhhdmUgY3VzdG9tIGJhY2tlbmRzIHdp
+dGhvdXQgaGF2aW5nIHRvIG1vZGlmeSAobGliKXhsIG9yDQp0aGUgY29uZmlnIHN5bnRheCBp
+biBjYXNlIGEgbmV3IG9uZSBpcyBiZWluZyBhZGRlZC4NCg0KSW4gY2FzZSBYZW5zdG9yZSBp
+c24ndCBlbm91Z2ggZm9yIHRoZSBuZWVkZWQgaW5mb3JtYXRpb24gb2YgYSBuZXcgYmFja2Vu
+ZCwNCmEgbW9yZSBzcGVjaWZpYyBiYWNrZW5kdHlwZSB3b3VsZCBiZSBuZWVkZWQuDQoNCj4g
+SWYgd2UncmUgcGxhbm5pbmcgb24gaGF2aW5nIGEgZ2VuZXJhbCBpbnRlcmZhY2UgZm9yIHRo
+ZXNlIGRhZW1vbnMgdGhhdCBhcmUgZ29pbmcgDQo+IHRvIGJlIGJlIHZpcnRpbyBwcm92aWRl
+cnMsIHdlIHNob3VsZCBjb21lIHVwIHdpdGggYSBzcGVjaWZpYyBuYW1lIGZvciB0aGVtIGFz
+IGEgDQo+IGNsYXNzLCBhbmQgdXNlIHRoYXQgZm9yIHRoZSBuYW1lLg0KPiANCj4gRnVydGhl
+cm1vcmUsICJ2aXJ0aW8rcGh5ID09IHZob3N0IiBpcyBqdXN0IHdyb25nOiBwaHkgbWVhbnMg
+dGhhdCBsaWJ4bCBpcyB1c2luZyANCj4gYmxrYmFjaywgYW5kIGJsa2JhY2sgY2FuJ3Qgc3Bl
+YWsgdGhlIHZpcnRpbyBwcm90b2NvbC7CoCBJZiB3ZSB3YW50IHRvIHVzZSB2aG9zdCANCj4g
+KG9yIHNvbWV0aGluZyBsaWtlIGl0KSwgdGhlbiBpdCB3aWxsIG5lZWQgaXRzIG93biBzZXBh
+cmF0ZSBiYWNrZW5kdHlwZS4NCg0KUmVhbGx5PyBUb2RheSAidmlydGlvIiArICJwaHkiIGlz
+bid0IHVzZWQgYW55d2hlcmUsIGFzIGl0IGN1cnJlbnRseSBtYWtlcyBubw0Kc2Vuc2UuIEp1
+c3QgYmVjYXVzZSAicGh5IiBoYXMgYmVlbiB1c2VkIGZvciBibGtiYWNrLCBpdCBkb2Vzbid0
+IG1lYW4gdGhhdA0KdGhpcyBuZWVkcyB0byBzdGF5IHRoaXMgd2F5LiBXaXRoIHRoZSBuZXcg
+c2NoZW1lLCAieGVuK3BoeSIgbWVhbnMgYmxrYmFjaywNCndoaWxlICJ2aXJ0aW8rcGh5IiBp
+cyB5ZXQgdW5kZWZpbmVkLiBJZGVudGlmeWluZyAicGh5IiB3aXRoIGEgInBoeXNpY2FsIGRl
+dmljZSIsDQppdCB3b3VsZCBtYWtlIHNlbnNlIHRvIHVzZSAidmlydGlvK3BoeSIgZm9yIHZo
+b3N0LCBhcyB2aG9zdC1ibG9jayBpcyB0aGUNCmVxdWl2YWxlbnQgdG8gYmxrYmFjayBpbiB0
+aGUgdmlydGlvIHdvcmxkLg0KDQoNCkp1ZXJnZW4NCg==
+--------------U8zeXxs5PUPL4lklEHwmAIjr
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> * VCPUOP_get_runstate_info copies out a vcpu_runstate_info struct, which contains information on the other runstates.  Additionally, VCPUOP_register_runstate_memory_area already does something similar to what you want: it passes a virtual address to Xen, which Xen maps, and copies information about the various vcpus into (in update_runstate_area()).
-> 
-> * However, the above assumes a domain of “current->domain”: That is a domain can call VCPUOP_get_runstate_info on one of its own vcpus, but dom0 cannot call it to get information about the vcpus of other domains.
-> 
-> * Additionally, VCPUOP_register_runstate_memory_area registers by *virtual address*; this is actually problematic even for guest kernels looking at their own vcpus; but would be completely inappropriate for a dom0 userspace application, which is what you’re looking at.
-> 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I just learned about VCPUOP_register_runstate_memory_area a few days ago. I did
-not know that it is only for current->domain. Thanks for pointing it out.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> Your solution is to expose things via the xenforeignmemory interface instead, modelled after the vmtrace_buf functionality.
-> 
-> Does that all sound right?
-> 
+--------------U8zeXxs5PUPL4lklEHwmAIjr--
 
-That's correct. I used vmtrace_buf functionality for inspiration.
+--------------Nx6tv1gxiDXRxjqsti0IM9Cr--
 
-> I think at a high level that’s probably the right way to go.
-> 
-> As you say, my default would be to expose similar information as VCPUOP_get_runstate_info.  I’d even consider just using vcpu_runstate_info_t.
-> 
-> The other option would be to try to make the page a more general “foreign vcpu info” page, which we could expand with more information as we find it useful.
-> 
-> In this patch, you’re allocating 4k *per vcpu on the entire system* to hold a single 64-bit value; even if you decide to use vcpu_runstate_info_t, there’s still quite a large wastage.  Would it make sense rather to have this pass back an array of MFNs designed to be mapped contiguously, with the vcpus listed as an array? This seems to be what XENMEM_resource_ioreq_server does.
-> 
-> The advantage of making the structure extensible is that we wouldn’t need to add another interface, and potentially another full page, if we wanted to add more functionality that we wanted to export.  On the other hand, every new functionality that we add may require adding code to copy things into it; making it so that such code is added bit by bit as it’s requested might be better.
-> 
+--------------2jYlYO08nbwtwG0jJEVYbgvG
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Current PoC is indeed a waste of memory in two senses:
-1) data structures are not well chosen 
-2) memory is being allocated unconditionally
+-----BEGIN PGP SIGNATURE-----
 
-For 1), you propose to use an extensible structure on top of an array of MFNs. I
-checked xen.git/xen/include/public/hvm/ioreq.h, it defines the
-structure:
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK1uCwFAwAAAAAACgkQsN6d1ii/Ey/b
+ugf/TrWywdkIHq2tdD+8Jxo4MeeyyCyaoHz9RIGtDhda05ogY89oI6m/594hNwQkGy63GtuXvu6g
+AncJNAPUhb5ZEgClItZlp9/P/HffOsiiOhLg6uM5odwXjwCyiW1JT233H6Y1+9FO6dAkuYM02fNV
+D2sKKkQFdZatZH2npsXs20O9tcRlq7rbFloYcFT7pC2dEas9CSgjq0PlD/2kbWyr+N9dbxNaFM0T
+mBgqr/5wAzhVkcmbkK1Nfh1V36c3+PevkZCpiwiD66RZkypDaK/lyJ3SNmf9Ph+mKbhIWVHwZX3Q
+bSY8vEkTY4LRxL9K+oAQBF5TMEezyzxlNToSkbcQKQ==
+=+HS9
+-----END PGP SIGNATURE-----
 
-struct shared_iopage {
-    struct ioreq vcpu_ioreq[1];
-};
-
-And then, it accesses it as:
-
-p->vcpu_ioreq[v->vcpu_id];
-
-I could have similar structures, let me sketch it and then I will write down a
-design document. The extensible structures could look like:
-
-struct vcpu_stats{ 
-   uint64 runstate_running_time;
-   // potentially other runstate-time counters
-};
-
-struct shared_statspages {
-   // potentially other counters, e.g., domain-info
-   struct vcpu_stats vcpu_info[1]
-}; 
-
-The shared_statspage structure would be mapped on top of an array of continuous
-MFNs. The vcpus are listed as an array. I think this structure could be extended
-to record per-domain counters by defining them just before vcpu_info[1].  
-
-What do you think?
-
-For 2), you propose a domctl flag on domain creation to enable/disable the
-allocation and use of these buffers. I think that is the right way to go for the
-moment.
-
-There is a 3) point regarding what Jan suggested about how to ensure that the
-consumed data is consistent. I do not have a response for that yet, I will think
-about it.
-
-I will address these points and submit v1 in the next few weeks.   
-
-Thanks, Matias.
-
-> I have some more comments I’ll give on the 1/2 patch.
-> 
->  -George
-> 
-> 
-> 
-> 
-> 
-> 
-> > 
-> > Thanks, Matias.
-> > 
-> > [1] https://github.com/MatiasVara/xen/tree/feature_stats
-> > 
-> > Matias Ezequiel Vara Larsen (2):
-> >  xen/memory : Add stats_table resource type
-> >  tools/misc: Add xen-stats tool
-> > 
-> > tools/misc/Makefile         |  5 +++
-> > tools/misc/xen-stats.c      | 83 +++++++++++++++++++++++++++++++++++++
-> > xen/common/domain.c         | 42 +++++++++++++++++++
-> > xen/common/memory.c         | 29 +++++++++++++
-> > xen/common/sched/core.c     |  5 +++
-> > xen/include/public/memory.h |  1 +
-> > xen/include/xen/sched.h     |  5 +++
-> > 7 files changed, 170 insertions(+)
-> > create mode 100644 tools/misc/xen-stats.c
-> > 
-> > --
-> > 2.25.1
-> > 
-> 
-
-
+--------------2jYlYO08nbwtwG0jJEVYbgvG--
 
