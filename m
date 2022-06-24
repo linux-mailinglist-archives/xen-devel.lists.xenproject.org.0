@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6CE5559625
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 11:12:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355327.582985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66563559686
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 11:28:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355373.582996 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4fM8-0005D4-N4; Fri, 24 Jun 2022 09:12:00 +0000
+	id 1o4fbn-0000aA-Vg; Fri, 24 Jun 2022 09:28:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355327.582985; Fri, 24 Jun 2022 09:12:00 +0000
+Received: by outflank-mailman (output) from mailman id 355373.582996; Fri, 24 Jun 2022 09:28:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4fM8-000591-Ek; Fri, 24 Jun 2022 09:12:00 +0000
-Received: by outflank-mailman (input) for mailman id 355327;
- Fri, 24 Jun 2022 09:11:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1o4fbn-0000XY-RY; Fri, 24 Jun 2022 09:28:11 +0000
+Received: by outflank-mailman (input) for mailman id 355373;
+ Fri, 24 Jun 2022 09:28:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o4fM5-0004pN-Sv
- for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 09:11:57 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o4fM5-00020Z-PN; Fri, 24 Jun 2022 09:11:57 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o4fM5-0005kh-HX; Fri, 24 Jun 2022 09:11:57 +0000
+ (envelope-from <SRS0=YVaO=W7=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o4fbm-0000XO-IW
+ for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 09:28:10 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f5d8c341-f39f-11ec-bd2d-47488cf2e6aa;
+ Fri, 24 Jun 2022 11:28:09 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C3F561F747;
+ Fri, 24 Jun 2022 09:28:08 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9E22A13ACA;
+ Fri, 24 Jun 2022 09:28:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id rNY9JaiDtWKmCQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 24 Jun 2022 09:28:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,147 +51,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=zMEWCFw8VlgwSLYa/MG4xNd0JR2sCngDBJS/t/MngS4=; b=i3TFzCyYZR4/ccLzNmn4cD77da
-	uk8GGc9hqwx2yP9WgQFCpSRdv0ryucZ7Ix6DYaYQZ4uzVpqZV6pRRAfqT9HiVzxYsur/vsqi8NTpn
-	obLTjdJyJ681MtBCeZ4lyv4oidYgE7xay+yzSJiyz6zXkZETsQ5amd3l1deYzFc/Gixs=;
-From: Julien Grall <julien@xen.org>
+X-Inumbo-ID: f5d8c341-f39f-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1656062888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=NT2sb7YMg8LvPipkNj6Pv1Ue4PoLQCX83HM2YlOrZ/o=;
+	b=BW+nJlWIaflIr8E3FcM5XhRFnw5/6cTo3t0GCtucY9V7OkTQzT7Xbx5j/e1rS6SOZJyTKy
+	mukwRw4SsjDnPlVjc/CYTXTAGUcJF1Rs3qfVa48Gu4FAnvGb3bQD+2IVRWFAMY+eZ7/Exm
+	iMbUNPXrBW1atfYuCLRcfKGJ9qYtss8=
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 7/7] xen/arm: mm: Reduce the area that xen_second covers
-Date: Fri, 24 Jun 2022 10:11:46 +0100
-Message-Id: <20220624091146.35716-8-julien@xen.org>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220624091146.35716-1-julien@xen.org>
-References: <20220624091146.35716-1-julien@xen.org>
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH] tools/init-xenstore-domain: fix memory map for PVH stubdom
+Date: Fri, 24 Jun 2022 11:28:06 +0200
+Message-Id: <20220624092806.27700-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Julien Grall <jgrall@amazon.com>
+In case of maxmem != memsize the E820 map of the PVH stubdom is wrong,
+as it is missing the RAM above memsize.
 
-At the moment, xen_second is used to cover the first 2GB of the
-virtual address space. With the recent rework of the page-tables,
-only the first 1GB region (where Xen resides) is effectively used.
+Additionally the MMIO area should only cover the HVM special pages.
 
-In addition to that, I would like to reshuffle the memory layout.
-So Xen mappings may not be anymore in the first 2GB of the virtual
-address space.
-
-Therefore, rework xen_second so it only covers the 1GB region where
-Xen will reside.
-
-With this change, xen_second doesn't cover anymore the xenheap area
-on arm32. So, we first need to add memory to the boot allocator before
-setting up the xenheap mappings.
-
-Take the opportunity to update the comments on top of xen_fixmap and
-xen_xenmap.
-
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- xen/arch/arm/mm.c    | 32 +++++++++++---------------------
- xen/arch/arm/setup.c | 13 +++++++++++--
- 2 files changed, 22 insertions(+), 23 deletions(-)
+ tools/helpers/init-xenstore-domain.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index 74666b2e720a..f87a7c32d07d 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -116,17 +116,14 @@ static DEFINE_PAGE_TABLE(cpu0_pgtable);
- #endif
+diff --git a/tools/helpers/init-xenstore-domain.c b/tools/helpers/init-xenstore-domain.c
+index b4f3c65a8a..dad8e43c42 100644
+--- a/tools/helpers/init-xenstore-domain.c
++++ b/tools/helpers/init-xenstore-domain.c
+@@ -71,8 +71,9 @@ static int build(xc_interface *xch)
+     char cmdline[512];
+     int rv, xs_fd;
+     struct xc_dom_image *dom = NULL;
+-    int limit_kb = (maxmem ? : (memory + 1)) * 1024;
++    int limit_kb = (maxmem ? : memory) * 1024 + X86_HVM_NR_SPECIAL_PAGES * 4;
+     uint64_t mem_size = MB(memory);
++    uint64_t max_size = MB(maxmem);
+     struct e820entry e820[3];
+     struct xen_domctl_createdomain config = {
+         .ssidref = SECINITSID_DOMU,
+@@ -157,21 +158,24 @@ static int build(xc_interface *xch)
+         config.flags |= XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap;
+         config.arch.emulation_flags = XEN_X86_EMU_LAPIC;
+         dom->target_pages = mem_size >> XC_PAGE_SHIFT;
+-        dom->mmio_size = GB(4) - LAPIC_BASE_ADDRESS;
++        dom->mmio_size = X86_HVM_NR_SPECIAL_PAGES << XC_PAGE_SHIFT;
+         dom->lowmem_end = (mem_size > LAPIC_BASE_ADDRESS) ?
+                           LAPIC_BASE_ADDRESS : mem_size;
+         dom->highmem_end = (mem_size > LAPIC_BASE_ADDRESS) ?
+                            GB(4) + mem_size - LAPIC_BASE_ADDRESS : 0;
+-        dom->mmio_start = LAPIC_BASE_ADDRESS;
++        dom->mmio_start = (X86_HVM_END_SPECIAL_REGION -
++                           X86_HVM_NR_SPECIAL_PAGES) << XC_PAGE_SHIFT;
+         dom->max_vcpus = 1;
+         e820[0].addr = 0;
+-        e820[0].size = dom->lowmem_end;
++        e820[0].size = (max_size > LAPIC_BASE_ADDRESS) ?
++                       LAPIC_BASE_ADDRESS : max_size;
+         e820[0].type = E820_RAM;
+-        e820[1].addr = LAPIC_BASE_ADDRESS;
++        e820[1].addr = dom->mmio_start;
+         e820[1].size = dom->mmio_size;
+         e820[1].type = E820_RESERVED;
+         e820[2].addr = GB(4);
+-        e820[2].size = dom->highmem_end - GB(4);
++        e820[2].size = (max_size > LAPIC_BASE_ADDRESS) ?
++                       max_size - LAPIC_BASE_ADDRESS : 0;
+         e820[2].type = E820_RAM;
+     }
  
- /* Common pagetable leaves */
--/* Second level page tables.
-- *
-- * The second-level table is 2 contiguous pages long, and covers all
-- * addresses from 0 to 0x7fffffff. Offsets into it are calculated
-- * with second_linear_offset(), not second_table_offset().
-- */
--static DEFINE_PAGE_TABLES(xen_second, 2);
--/* First level page table used for fixmap */
-+/* Second level page table used to cover Xen virtual address space */
-+static DEFINE_PAGE_TABLE(xen_second);
-+/* Third level page table used for fixmap */
- DEFINE_BOOT_PAGE_TABLE(xen_fixmap);
--/* First level page table used to map Xen itself with the XN bit set
-- * as appropriate. */
-+/*
-+ * Third level page table used to map Xen itself with the XN bit set
-+ * as appropriate.
-+ */
- static DEFINE_PAGE_TABLE(xen_xenmap);
- 
- /* Non-boot CPUs use this to find the correct pagetables. */
-@@ -168,7 +165,6 @@ static void __init __maybe_unused build_assertions(void)
-     BUILD_BUG_ON(zeroeth_table_offset(XEN_VIRT_START));
- #endif
-     BUILD_BUG_ON(first_table_offset(XEN_VIRT_START));
--    BUILD_BUG_ON(second_linear_offset(XEN_VIRT_START) >= XEN_PT_LPAE_ENTRIES);
- #ifdef CONFIG_DOMAIN_PAGE
-     BUILD_BUG_ON(DOMHEAP_VIRT_START & ~FIRST_MASK);
- #endif
-@@ -482,14 +478,10 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
-     p = (void *) cpu0_pgtable;
- #endif
- 
--    /* Initialise first level entries, to point to second level entries */
--    for ( i = 0; i < 2; i++)
--    {
--        p[i] = pte_of_xenaddr((uintptr_t)(xen_second +
--                                          i * XEN_PT_LPAE_ENTRIES));
--        p[i].pt.table = 1;
--        p[i].pt.xn = 0;
--    }
-+    /* Map xen second level page-table */
-+    p[0] = pte_of_xenaddr((uintptr_t)(xen_second));
-+    p[0].pt.table = 1;
-+    p[0].pt.xn = 0;
- 
-     /* Break up the Xen mapping into 4k pages and protect them separately. */
-     for ( i = 0; i < XEN_PT_LPAE_ENTRIES; i++ )
-@@ -618,8 +610,6 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
- 
-     /* Record where the xenheap is, for translation routines. */
-     xenheap_virt_end = XENHEAP_VIRT_START + nr_mfns * PAGE_SIZE;
--    xenheap_mfn_start = _mfn(base_mfn);
--    xenheap_mfn_end = _mfn(base_mfn + nr_mfns);
- }
- #else /* CONFIG_ARM_64 */
- void __init setup_xenheap_mappings(unsigned long base_mfn,
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 31574996f36d..c777cc3adcc7 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -774,11 +774,20 @@ static void __init setup_mm(void)
-            opt_xenheap_megabytes ? ", from command-line" : "");
-     printk("Dom heap: %lu pages\n", domheap_pages);
- 
--    setup_xenheap_mappings((e >> PAGE_SHIFT) - xenheap_pages, xenheap_pages);
-+    /*
-+     * We need some memory to allocate the page-tables used for the
-+     * xenheap mappings. So populate the boot allocator first.
-+     *
-+     * This requires us to set xenheap_mfn_{start, end} first so the Xenheap
-+     * region can be avoided.
-+     */
-+    xenheap_mfn_start = _mfn((e >> PAGE_SHIFT) - xenheap_pages);
-+    xenheap_mfn_end = mfn_add(xenheap_mfn_start, xenheap_pages);
- 
--    /* Add non-xenheap memory */
-     populate_boot_allocator();
- 
-+    setup_xenheap_mappings(mfn_x(xenheap_mfn_start), xenheap_pages);
-+
-     /* Frame table covers all of RAM region, including holes */
-     setup_frametable_mappings(ram_start, ram_end);
-     max_page = PFN_DOWN(ram_end);
 -- 
-2.32.0
+2.35.3
 
 
