@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A08195595CD
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 10:53:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355313.582897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D199E559623
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 11:12:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355320.582908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4f3y-0000cA-FY; Fri, 24 Jun 2022 08:53:14 +0000
+	id 1o4fM0-0003ID-4a; Fri, 24 Jun 2022 09:11:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355313.582897; Fri, 24 Jun 2022 08:53:14 +0000
+Received: by outflank-mailman (output) from mailman id 355320.582908; Fri, 24 Jun 2022 09:11:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4f3y-0000a3-Cq; Fri, 24 Jun 2022 08:53:14 +0000
-Received: by outflank-mailman (input) for mailman id 355313;
- Fri, 24 Jun 2022 08:53:12 +0000
+	id 1o4fM0-0003FZ-0w; Fri, 24 Jun 2022 09:11:52 +0000
+Received: by outflank-mailman (input) for mailman id 355320;
+ Fri, 24 Jun 2022 09:11:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o4f3w-0000Zw-3X
- for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 08:53:12 +0000
+ (envelope-from <julien@xen.org>) id 1o4fLy-0003FN-EM
+ for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 09:11:50 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1o4f3v-0001bk-9y; Fri, 24 Jun 2022 08:53:11 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238] helo=[192.168.4.76])
+ id 1o4fLx-0001yy-L3; Fri, 24 Jun 2022 09:11:49 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1o4f3v-00047Q-3S; Fri, 24 Jun 2022 08:53:11 +0000
+ id 1o4fLx-0005kh-Bd; Fri, 24 Jun 2022 09:11:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +41,72 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=J3WM92tf+L1bkFnLmWQI2eBUEPRhPlBK1xk0qu5wSgM=; b=mO+BEdpmluWWR3YoX+QFMaI6u3
-	jnAym9KD4Nmtb+vEFTtIqoHKXAI2J/vXZdwiL+N5E7I7a1jW2eyXgggePoSxDhpVBkjfA+P4LxD1B
-	MwRuOFTbMUUuk/HDh8MOpCw2MQPnpXcGOva46mPEjI4GyJAV1ah4ZGUYc+QHUaGLYfu4=;
-Message-ID: <e60a4e68-ed00-6cc7-31ca-64bcfc4bbdc5@xen.org>
-Date: Fri, 24 Jun 2022 09:53:08 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [PATCH] xen: arm: Don't use stop_cpu() in halt_this_cpu()
-To: Stefano Stabellini <sstabellini@kernel.org>, dmitry.semenets@gmail.com
-Cc: xen-devel@lists.xenproject.org, Dmytro Semenets
- <dmytro_semenets@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220623074428.226719-1-dmitry.semenets@gmail.com>
- <alpine.DEB.2.22.394.2206231457250.2410338@ubuntu-linux-20-04-desktop>
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=LUUTzfKjE4shgj9dPHcr74fVufq6DTQHJU2cvaX2OrE=; b=RIq7QV
+	NEy1DfvZqLmWWUHFIGX3CrIQTQEipBgRkJD49+r7U1FMkrptrYmsEqd3QNLkDy2t2988R4DO5qm05
+	/qzI1XOUha9PMGmqDBn6wUqTMlz2QqefCQUI+XmEo2PJJcgP0afrUruSoBYnxa9i+xQvSSjk8Vnq9
+	zeFEkSEBQe0=;
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2206231457250.2410338@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH 0/7] xen/arm: mm: Bunch of clean-ups
+Date: Fri, 24 Jun 2022 10:11:39 +0100
+Message-Id: <20220624091146.35716-1-julien@xen.org>
+X-Mailer: git-send-email 2.32.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
+From: Julien Grall <jgrall@amazon.com>
 
-On 23/06/2022 23:07, Stefano Stabellini wrote:
-> On Thu, 23 Jun 2022, dmitry.semenets@gmail.com wrote:
->> From: Dmytro Semenets <dmytro_semenets@epam.com>
-> So wouldn't it be better to remove the panic from the implementation of
-> call_psci_cpu_off?
+Hi all,
 
-I have asked to keep the panic() in call_psci_cpu_off(). If you remove 
-the panic() then we will hide the fact that the CPU was not properly 
-turned off and will consume more energy than expected.
-
-The WFI loop is fine when shutting down or rebooting because we know 
-this will only happen for a short period of time.
-
-> 
-> The reason I am saying this is that stop_cpu is called in a number of
-> places beyond halt_this_cpu and as far as I can tell any of them could
-> trigger the panic. (I admit they are unlikely places but still.)
-
-This is one of the example where the CPU will not be stopped for a short 
-period of time. We should deal with them differently (i.e. migrating the 
-trusted OS or else) so we give all the chance for the CPU to be fully 
-powered.
-
-IMHO, this is a different issue and hence why I didn't ask Dmitry to 
-solve it.
-
-> 
-> 
-> Also the PSCI spec explicitely mention CPU_OFF as a way to place CPUs in
-> a "known state" and doesn't offer any other examples. So although what
-> you wrote in the commit message is correct, using CPU_OFF seems to be
-> the less error prone way (in the sense of triggering firmware errors) to
-> place CPUs in a known state.
-
-The section you are referring to is starting with "One way". This imply 
-there are others methods.
-
-FWIW, the spin loop above seems to be how Linux is dealing with the 
-shutdown/reboot.
-
-> 
-> So I would simply remove the panic from call_psci_cpu_off, so that we
-> try CPU_OFF first, and if it doesn't work, we use the WFI loop as
-> backup. Also we get to fix all the other callers of stop_cpu this way.
-This reads strange. In the previous paragraph you suggested the CPU off 
-is a less error prone way to place CPUs in a known state. But here, you 
-are softening the stance and suggesting to fallback to the WFI loop.
-
-So to me this indicates that WFI loop is fine. Otherwise, wouldn't the 
-user risk to see firmware errors (which BTW, I don't understand what 
-sort of firmware errors you are worried)? If yes, why would it be 
-acceptable?
-
-For instance, Dmitry situation, the CPU0 would always WFI loop...
+This series is a collection of patches to clean-up the MM subsystem
+I have done in preparation for the next revision of "xen/arm: Don't
+switch TTBR while the MMU is on" [1].
 
 Cheers,
 
+[1] https://lore.kernel.org/all/20220309112048.17377-1-julien@xen.org/
+
+Julien Grall (7):
+  xen/arm: Remove most of the *_VIRT_END defines
+  xen/arm32: head.S: Introduce a macro to load the physical address of a
+    symbol
+  xen/arm: head: Add missing isb after writing to SCTLR_EL2/HSCTLR
+  xen/arm: mm: Add more ASSERT() in {destroy, modify}_xen_mappings()
+  xen/arm32: mm: Consolidate the domheap mappings initialization
+  xen/arm: mm: Move domain_{,un}map_* helpers in a separate file
+  xen/arm: mm: Reduce the area that xen_second covers
+
+ xen/arch/arm/Kconfig                |   1 +
+ xen/arch/arm/Makefile               |   1 +
+ xen/arch/arm/arm32/head.S           |  24 +--
+ xen/arch/arm/arm64/head.S           |   1 +
+ xen/arch/arm/domain_page.c          | 193 +++++++++++++++++++++++
+ xen/arch/arm/include/asm/arm32/mm.h |   8 +
+ xen/arch/arm/include/asm/config.h   |  19 +--
+ xen/arch/arm/include/asm/lpae.h     |  17 ++
+ xen/arch/arm/livepatch.c            |   2 +-
+ xen/arch/arm/mm.c                   | 231 ++++------------------------
+ xen/arch/arm/setup.c                |  21 ++-
+ xen/arch/x86/Kconfig                |   1 +
+ xen/arch/x86/include/asm/config.h   |   1 -
+ xen/common/Kconfig                  |   3 +
+ 14 files changed, 297 insertions(+), 226 deletions(-)
+ create mode 100644 xen/arch/arm/domain_page.c
+
 -- 
-Julien Grall
+2.32.0
+
 
