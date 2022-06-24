@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E86F559FB0
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 19:34:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.355787.583663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4707559FC5
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jun 2022 19:55:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.355793.583675 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4nCP-0005XG-4U; Fri, 24 Jun 2022 17:34:29 +0000
+	id 1o4nWR-0007wx-Th; Fri, 24 Jun 2022 17:55:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 355787.583663; Fri, 24 Jun 2022 17:34:29 +0000
+Received: by outflank-mailman (output) from mailman id 355793.583675; Fri, 24 Jun 2022 17:55:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o4nCP-0005VT-1c; Fri, 24 Jun 2022 17:34:29 +0000
-Received: by outflank-mailman (input) for mailman id 355787;
- Fri, 24 Jun 2022 17:34:28 +0000
+	id 1o4nWR-0007tf-Q4; Fri, 24 Jun 2022 17:55:11 +0000
+Received: by outflank-mailman (input) for mailman id 355793;
+ Fri, 24 Jun 2022 17:55:10 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o4nCO-0005VN-Ai
- for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 17:34:28 +0000
+ (envelope-from <julien@xen.org>) id 1o4nWQ-0007tZ-BT
+ for xen-devel@lists.xenproject.org; Fri, 24 Jun 2022 17:55:10 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1o4nCO-0003vV-1r; Fri, 24 Jun 2022 17:34:28 +0000
+ id 1o4nWP-0004J2-VN; Fri, 24 Jun 2022 17:55:09 +0000
 Received: from 54-240-197-238.amazon.com ([54.240.197.238] helo=[192.168.4.76])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1o4nCN-0003E5-Rl; Fri, 24 Jun 2022 17:34:27 +0000
+ id 1o4nWP-0004Dn-PS; Fri, 24 Jun 2022 17:55:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,100 +42,246 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=GsUC9d5Wa3NI82Wm9SG0/Kl9J6u9HHEBs422+GYu7gY=; b=S3ErcNhqCedS7+G1NfFVYD7ce7
-	WKZIUJjGJw8/nEXMsUAofsSpjflBfERbxDOH4joC2Jya2koAKtLrrC8Bp1UVgDcLpmexc9n36tl2o
-	1wSoqceWPYtGOJDCTA5neuu/E9kMdAewKwF14Og/9pvp23ksaS2f1tNjFZ3pPVUWIRSI=;
-Message-ID: <7561bb54-a96b-0b18-f953-3ad3babf9f22@xen.org>
-Date: Fri, 24 Jun 2022 18:34:25 +0100
+	bh=JO00fkty48Zh8fsa4ezsLZvRhS4z1PJ9w1aOv2dQOTE=; b=aDJ3E5qL0YU3H0sUA8+z0fBmd5
+	dMdR5+bGDW2TqzVXWz2fZdXgrspWB7Pu1+axj20swOsqXlGNB/056IuV7mmDyxzB6F/goPRLZ6t49
+	2k+hhQkzSKQj3cKNaU28LVsu4iSiPF1mo3iabBDrutmkEX6pNBXAqk7o2hu1b3TNS7Lk=;
+Message-ID: <45a41132-1520-a894-a9eb-6688c79a660d@xen.org>
+Date: Fri, 24 Jun 2022 18:55:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [PATCH v2 2/4] tools/xenstore: add documentation for new
- set/get-feature commands
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20220527072427.20327-1-jgross@suse.com>
- <20220527072427.20327-3-jgross@suse.com>
- <4f8f6cf3-3aee-9128-df09-d3957c233c42@xen.org>
- <258f4579-7c24-dd98-d4ce-1155b1da8759@suse.com>
+Subject: Re: [PATCH v5 1/8] xen/arm: introduce static shared memory
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220620051114.210118-1-Penny.Zheng@arm.com>
+ <20220620051114.210118-2-Penny.Zheng@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <258f4579-7c24-dd98-d4ce-1155b1da8759@suse.com>
+In-Reply-To: <20220620051114.210118-2-Penny.Zheng@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Juergen,
+Hi Penny,
 
-On 24/06/2022 05:13, Juergen Gross wrote:
-> On 23.06.22 20:27, Julien Grall wrote:
->> On 27/05/2022 08:24, Juergen Gross wrote:
->>> Add documentation for two new Xenstore wire commands SET_FEATURE and
->>> GET_FEATURE used to set or query the Xenstore features visible in the
->>> ring page of a given domain.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>> Do we need support in the migration protocol for the features?
->>
->> I would say yes. You want to make sure that the client can be migrated 
->> without loosing features between two xenstored.
->>
->>> V2:
->>> - remove feature bit (Julien Grall)
->>> - GET_FEATURE without domid will return Xenstore supported features
->>>    (triggered by Julien Grall)
->>> ---
->>>   docs/misc/xenstore.txt | 14 ++++++++++++++
->>>   1 file changed, 14 insertions(+)
->>>
->>> diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
->>> index a3d3da0a5b..00f6969202 100644
->>> --- a/docs/misc/xenstore.txt
->>> +++ b/docs/misc/xenstore.txt
->>> @@ -331,6 +331,20 @@ SET_TARGET        <domid>|<tdomid>|
->>>       xenstored prevents the use of SET_TARGET other than by dom0.
->>> +GET_FEATURE        [<domid>|]        <value>|
->>> +SET_FEATURE        <domid>|<value>|
->>> +    Returns or sets the contents of the "feature" field located at
->>> +    offset 2064 of the Xenstore ring page of the domain specified by
->>> +    <domid>. <value> is a decimal number being a logical or of the
->>
->> In the context of migration, I am stilll a bit concerned that the 
->> features are stored in the ring because the guest could overwrite it.
->>
->> I would expect the migration code to check that the GET_FEATURE 
->> <domid> is a subset of GET_FEATURE on the targeted Xenstored. So it 
->> can easily prevent a guest to migrate.
->>
->> So I think this should be a shadow copy that will be returned instead 
->> of the contents of the "feature" field.
+On 20/06/2022 06:11, Penny Zheng wrote:
+> From: Penny Zheng <penny.zheng@arm.com>
 > 
-> Of course. The value in the ring is meant only for the guest. Xenstore
-> will have the authoritative value in its private memory.
+> This patch serie introduces a new feature: setting up static
 
-Good. I would suggest to clarify it in xenstore.txt because it suggests 
-otherwise so far.
+Typo: s/serie/series/
 
->>> +    feature bits as defined in docs/misc/xenstore-ring.txt. Trying
->>> +    to set a bit for a feature not being supported by the running
->>> +    Xenstore will be denied. Providing no <domid> with the
->>> +    GET_FEATURE command will return the features which are supported
->>> +    by Xenstore.
->>
->> Do we want to allow modifying the features when the guest is running?
+> shared memory on a dom0less system, through device tree configuration.
 > 
-> I think we can't remove features, but adding would be fine. For
+> This commit parses shared memory node at boot-time, and reserve it in
+> bootinfo.reserved_mem to avoid other use.
+> 
+> This commits proposes a new Kconfig CONFIG_STATIC_SHM to wrap
+> static-shm-related codes, and this option depends on static memory(
+> CONFIG_STATIC_MEMORY). That's because that later we want to reuse a few
+> helpers, guarded with CONFIG_STATIC_MEMORY, like acquire_staticmem_pages, etc,
+> on static shared memory.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> v5 change:
+> - no change
+> ---
+> v4 change:
+> - nit fix on doc
+> ---
+> v3 change:
+> - make nr_shm_domain unsigned int
+> ---
+> v2 change:
+> - document refinement
+> - remove bitmap and use the iteration to check
+> - add a new field nr_shm_domain to keep the number of shared domain
+> ---
+>   docs/misc/arm/device-tree/booting.txt | 120 ++++++++++++++++++++++++++
+>   xen/arch/arm/Kconfig                  |   6 ++
+>   xen/arch/arm/bootfdt.c                |  68 +++++++++++++++
+>   xen/arch/arm/include/asm/setup.h      |   3 +
+>   4 files changed, 197 insertions(+)
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 98253414b8..6467bc5a28 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -378,3 +378,123 @@ device-tree:
+>   
+>   This will reserve a 512MB region starting at the host physical address
+>   0x30000000 to be exclusively used by DomU1.
+> +
+> +Static Shared Memory
+> +====================
+> +
+> +The static shared memory device tree nodes allow users to statically set up
+> +shared memory on dom0less system, enabling domains to do shm-based
+> +communication.
+> +
+> +- compatible
+> +
+> +    "xen,domain-shared-memory-v1"
+> +
+> +- xen,shm-id
+> +
+> +    An 8-bit integer that represents the unique identifier of the shared memory
+> +    region. The maximum identifier shall be "xen,shm-id = <0xff>".
+> +
+> +- xen,shared-mem
+> +
+> +    An array takes a physical address, which is the base address of the
+> +    shared memory region in host physical address space, a size, and a guest
+> +    physical address, as the target address of the mapping. The number of cells
+> +    for the host address (and size) is the same as the guest pseudo-physical
+> +    address and they are inherited from the parent node.
 
-Agree with removing features, regarding adding I think we would need a 
-mechanism to tell the client there is a new feature. It would require 
-some work, so...
+Sorry for jump in the discussion late. But as this is going to be a 
+stable ABI, I would to make sure the interface is going to be easily 
+extendable.
 
-> simplicity it might be better to just deny a modification while the
-> guest is running.
+AFAIU, with your proposal the host physical address is mandatory. I 
+would expect that some user may want to share memory but don't care 
+about the exact location in memory. So I think it would be good to make 
+it optional in the binding.
 
-... I agree this is probably best for a first shot. This can be relaxed 
-afterwards.
+I think this wants to be done now because it would be difficult to 
+change the binding afterwards (the host physical address is the first 
+set of cells).
+
+The Xen doesn't need to handle the optional case.
+
+[...]
+
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index be9eff0141..7321f47c0f 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -139,6 +139,12 @@ config TEE
+>   
+>   source "arch/arm/tee/Kconfig"
+>   
+> +config STATIC_SHM
+> +	bool "Statically shared memory on a dom0less system" if UNSUPPORTED
+
+You also want to update SUPPORT.md.
+
+> +	depends on STATIC_MEMORY
+> +	help
+> +	  This option enables statically shared memory on a dom0less system.
+> +
+>   endmenu
+>   
+>   menu "ARM errata workaround via the alternative framework"
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index ec81a45de9..38dcb05d5d 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -361,6 +361,70 @@ static int __init process_domain_node(const void *fdt, int node,
+>                                      size_cells, &bootinfo.reserved_mem, true);
+>   }
+>   
+> +#ifdef CONFIG_STATIC_SHM
+> +static int __init process_shm_node(const void *fdt, int node,
+> +                                   u32 address_cells, u32 size_cells)
+> +{
+> +    const struct fdt_property *prop;
+> +    const __be32 *cell;
+> +    paddr_t paddr, size;
+> +    struct meminfo *mem = &bootinfo.reserved_mem;
+> +    unsigned long i;
+
+nr_banks is "unsigned int" so I think this should be "unsigned int" as well.
+
+> +
+> +    if ( address_cells < 1 || size_cells < 1 )
+> +    {
+> +        printk("fdt: invalid #address-cells or #size-cells for static shared memory node.\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    prop = fdt_get_property(fdt, node, "xen,shared-mem", NULL);
+> +    if ( !prop )
+> +        return -ENOENT;
+> +
+> +    /*
+> +     * xen,shared-mem = <paddr, size, gaddr>;
+> +     * Memory region starting from physical address #paddr of #size shall
+> +     * be mapped to guest physical address #gaddr as static shared memory
+> +     * region.
+> +     */
+> +    cell = (const __be32 *)prop->data;
+> +    device_tree_get_reg(&cell, address_cells, size_cells, &paddr, &size);
+
+Please check the len of the property to confirm is it big enough to 
+contain "paddr", "size", and "gaddr".
+
+> +    for ( i = 0; i < mem->nr_banks; i++ )
+> +    {
+> +        /*
+> +         * A static shared memory region could be shared between multiple
+> +         * domains.
+> +         */
+> +        if ( paddr == mem->bank[i].start && size == mem->bank[i].size )
+> +            break;
+> +    }
+> +
+> +    if ( i == mem->nr_banks )
+> +    {
+> +        if ( i < NR_MEM_BANKS )
+> +        {
+> +            /* Static shared memory shall be reserved from any other use. */
+> +            mem->bank[mem->nr_banks].start = paddr;
+> +            mem->bank[mem->nr_banks].size = size;
+> +            mem->bank[mem->nr_banks].xen_domain = true;
+> +            mem->nr_banks++;
+> +        }
+> +        else
+> +        {
+> +            printk("Warning: Max number of supported memory regions reached.\n");
+> +            return -ENOSPC;
+> +        }
+> +    }
+> +    /*
+> +     * keep a count of the number of domains, which later may be used to
+> +     * calculate the number of the reference count.
+> +     */
+> +    mem->bank[i].nr_shm_domain++;
+> +
+> +    return 0;
+> +}
+> +#endif
+> +
+>   static int __init early_scan_node(const void *fdt,
+>                                     int node, const char *name, int depth,
+>                                     u32 address_cells, u32 size_cells,
+> @@ -386,6 +450,10 @@ static int __init early_scan_node(const void *fdt,
+>           process_chosen_node(fdt, node, name, address_cells, size_cells);
+>       else if ( depth == 2 && device_tree_node_compatible(fdt, node, "xen,domain") )
+>           rc = process_domain_node(fdt, node, name, address_cells, size_cells);
+> +#ifdef CONFIG_STATIC_SHM
+> +    else if ( depth <= 3 && device_tree_node_compatible(fdt, node, "xen,domain-shared-memory-v1") )
+> +        rc = process_shm_node(fdt, node, address_cells, size_cells);
+> +#endif
+>   
+>       if ( rc < 0 )
+>           printk("fdt: node `%s': parsing failed\n", name);
+> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+> index 2bb01ecfa8..5063e5d077 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -27,6 +27,9 @@ struct membank {
+>       paddr_t start;
+>       paddr_t size;
+>       bool xen_domain; /* whether the memory bank is bound to a Xen domain. */
+> +#ifdef CONFIG_STATIC_SHM
+> +    unsigned int nr_shm_domain;
+> +#endif
+>   };
+>   
+>   struct meminfo {
 
 Cheers,
 
