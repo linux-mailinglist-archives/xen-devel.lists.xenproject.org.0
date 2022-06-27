@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E0AA55B929
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jun 2022 12:36:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.356445.584676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 283D455B936
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jun 2022 12:40:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.356451.584687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o5m5y-0005kS-4s; Mon, 27 Jun 2022 10:35:54 +0000
+	id 1o5mAe-0007Cq-NI; Mon, 27 Jun 2022 10:40:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 356445.584676; Mon, 27 Jun 2022 10:35:54 +0000
+Received: by outflank-mailman (output) from mailman id 356451.584687; Mon, 27 Jun 2022 10:40:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o5m5y-0005ig-1t; Mon, 27 Jun 2022 10:35:54 +0000
-Received: by outflank-mailman (input) for mailman id 356445;
- Mon, 27 Jun 2022 10:35:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1o5mAe-0007B4-KU; Mon, 27 Jun 2022 10:40:44 +0000
+Received: by outflank-mailman (input) for mailman id 356451;
+ Mon, 27 Jun 2022 10:40:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o5m5x-0005ia-50
- for xen-devel@lists.xenproject.org; Mon, 27 Jun 2022 10:35:53 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o5m5w-0000Ts-Ra; Mon, 27 Jun 2022 10:35:52 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=[192.168.2.226]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o5m5w-0001I9-KE; Mon, 27 Jun 2022 10:35:52 +0000
+ (envelope-from <SRS0=Z6rY=XC=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o5mAd-0007Ay-HD
+ for xen-devel@lists.xenproject.org; Mon, 27 Jun 2022 10:40:43 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97bbad31-f605-11ec-b725-ed86ccbb4733;
+ Mon, 27 Jun 2022 12:40:42 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 07BD01FD86;
+ Mon, 27 Jun 2022 10:40:42 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AB4DE13AB2;
+ Mon, 27 Jun 2022 10:40:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id EzVUKCmJuWItTAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 27 Jun 2022 10:40:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,128 +51,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=qI+p55CjaVTHL4lYOgnO2MlGiOjtAI3/EAiuxJ+Z9dY=; b=wml24ks4kmVuC4zoyWeZpJQFLz
-	2xJ3hPX7P0sh5S1plEt5HVwKaoEJ3YeWi8O8p4nFOuWZAAikwcm3TGzQVSxVEYApZt802rylZHpe9
-	S9hCf/pYee43u9nfCbLYZ6p8sPc8m+SxtP6tVlRHkkmiOT34Wr9nKQnxL/TZ2BJ01+Go=;
-Message-ID: <cbb7a231-0f61-7170-3fc4-d4ae55398f3a@xen.org>
-Date: Mon, 27 Jun 2022 11:35:50 +0100
+X-Inumbo-ID: 97bbad31-f605-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1656326442; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8MassX0m7CsOVuBuiF1VcGlLshhuv0mVzAeXp8jA6iI=;
+	b=hCIptcD/dj6y+Ld2jpc1HXbqw3n5bbw/z8CasbNHOQUx7P11C6t8DsTW7MjFbD30fae+yU
+	IH5VRbNWAUNfxAL62/a414JEFUFXwlM/fJOIh/3KBIXQd9OqhQyDeZJuAmndCRncmQ6isr
+	I8hnsqWZsa0lFjx2D681DmVsY/a7ar4=
+Message-ID: <8951e03f-ba63-4524-99e9-c030e273c1d1@suse.com>
+Date: Mon, 27 Jun 2022 12:40:41 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [PATCH] xen/arm: avoid extra caclulations when setting vtimer in
- context switch
-To: Jiamei Xie <jiamei.xie@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH v6 1/9] xen: move do_vcpu_op() to arch specific code
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
-References: <20220627025809.1985720-1-jiamei.xie@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220627025809.1985720-1-jiamei.xie@arm.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Julien Grall <jgrall@amazon.com>
+References: <20220324140139.5899-1-jgross@suse.com>
+ <20220324140139.5899-2-jgross@suse.com> <YrmGQj/W7KTzJ1vo@Air-de-Roger>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <YrmGQj/W7KTzJ1vo@Air-de-Roger>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------EuhcmWRLt50hY3I2ZO4IFZsx"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------EuhcmWRLt50hY3I2ZO4IFZsx
+Content-Type: multipart/mixed; boundary="------------8IeYO9RI9Ugt00Cokb3WO5Hh";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Julien Grall <jgrall@amazon.com>
+Message-ID: <8951e03f-ba63-4524-99e9-c030e273c1d1@suse.com>
+Subject: Re: [PATCH v6 1/9] xen: move do_vcpu_op() to arch specific code
+References: <20220324140139.5899-1-jgross@suse.com>
+ <20220324140139.5899-2-jgross@suse.com> <YrmGQj/W7KTzJ1vo@Air-de-Roger>
+In-Reply-To: <YrmGQj/W7KTzJ1vo@Air-de-Roger>
+
+--------------8IeYO9RI9Ugt00Cokb3WO5Hh
+Content-Type: multipart/mixed; boundary="------------16tBs4D94Yj7Q1NDYlibgcCH"
+
+--------------16tBs4D94Yj7Q1NDYlibgcCH
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
 
-Hi Jiami
+T24gMjcuMDYuMjIgMTI6MjgsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+IE9uIFRodSwg
+TWFyIDI0LCAyMDIyIGF0IDAzOjAxOjMxUE0gKzAxMDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6
+DQo+PiBUaGUgZW50cnkgcG9pbnQgdXNlZCBmb3IgdGhlIHZjcHVfb3AgaHlwZXJjYWxsIG9u
+IEFybSBpcyBkaWZmZXJlbnQNCj4+IGZyb20gdGhlIG9uZSBvbiB4ODYgdG9kYXksIGFzIHNv
+bWUgb2YgdGhlIGNvbW1vbiBzdWItb3BzIGFyZSBub3QNCj4+IHN1cHBvcnRlZCBvbiBBcm0u
+IFRoZSBBcm0gc3BlY2lmaWMgaGFuZGxlciBmaWx0ZXJzIG91dCB0aGUgbm90DQo+PiBzdXBw
+b3J0ZWQgc3ViLW9wcyBhbmQgdGhlbiBjYWxscyB0aGUgY29tbW9uIGhhbmRsZXIuIFRoaXMg
+bGVhZHMgdG8gdGhlDQo+PiB3ZWlyZCBjYWxsIGhpZXJhcmNoeToNCj4+DQo+PiAgICBkb19h
+cm1fdmNwdV9vcCgpDQo+PiAgICAgIGRvX3ZjcHVfb3AoKQ0KPj4gICAgICAgIGFyY2hfZG9f
+dmNwdV9vcCgpDQo+Pg0KPj4gQ2xlYW4gdGhpcyB1cCBieSByZW5hbWluZyBkb192Y3B1X29w
+KCkgdG8gY29tbW9uX3ZjcHVfb3AoKSBhbmQNCj4+IGFyY2hfZG9fdmNwdV9vcCgpIGluIGVh
+Y2ggYXJjaGl0ZWN0dXJlIHRvIGRvX3ZjcHVfb3AoKS4gVGhpcyB3YXkgb25lDQo+PiBvZiBh
+Ym92ZSBjYWxscyBjYW4gYmUgYXZvaWRlZCB3aXRob3V0IHJlc3RyaWN0aW5nIGFueSBwb3Rl
+bnRpYWwNCj4+IGZ1dHVyZSB1c2Ugb2YgY29tbW9uIHN1Yi1vcHMgZm9yIEFybS4NCj4gDQo+
+IFdvdWxkbid0IGl0IGJlIG1vcmUgbmF0dXJhbCB0byBoYXZlIGRvX3ZjcHVfb3AoKSBjb250
+YWluIHRoZSBjb21tb24NCj4gY29kZSAoQUZBSUNUIGhhbmRsZXJzIGZvcg0KPiBWQ1BVT1Bf
+cmVnaXN0ZXJfe3ZjcHVfaW5mbyxydW5zdGF0ZV9tZW1vcnlfYXJlYX0pIGFuZCB0aGVuIGV2
+ZXJ5dGhpbmcNCj4gZWxzZSBoYW5kbGVkIGJ5IHRoZSB4ODYgYXJjaF9kb192Y3B1X29wKCkg
+aGFuZGxlcj8NCj4gDQo+IEkgZmluZCB0aGUgY29tbW9uIHByZWZpeCBtaXNsZWFkaW5nLCBh
+cyBub3QgYWxsIHRoZSBWQ1BVT1AgaHlwZXJjYWxscw0KPiBhcmUgYXZhaWxhYmxlIHRvIGFs
+bCB0aGUgYXJjaGl0ZWN0dXJlcy4NCg0KVGhpcyB3b3VsZCBlbmQgdXAgaW4gQXJtIHN1ZGRl
+bmx5IHN1cHBvcnRpbmcgdGhlIHN1Yi1vcHMgaXQgZG9lc24ndA0KKHdhbnQgdG8pIHN1cHBv
+cnQgdG9kYXkuIE90aGVyd2lzZSBpdCB3b3VsZCBtYWtlIG5vIHNlbnNlIHRoYXQgQXJtIGhh
+cw0KYSBkZWRpY2F0ZWQgZW50cnkgZm9yIHRoaXMgaHlwZXJjYWxsLg0KDQpUaGUgImNvbW1v
+biIganVzdCB3YW50cyB0byBleHByZXNzIHRoYXQgdGhlIGNvZGUgaXMgY29tbW9uLiBJJ20g
+b3Blbg0KZm9yIGEgYmV0dGVyIHN1Z2dlc3Rpb24sIHRob3VnaC4gOi0pDQoNCg0KSnVlcmdl
+bg0K
+--------------16tBs4D94Yj7Q1NDYlibgcCH
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Title: s/caclulations/calculations/
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-However, I think the title should mention the overflow rather than the 
-extra calculations. The former is more important the latter.
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-On 27/06/2022 03:58, Jiamei Xie wrote:
-> virt_vtimer_save is calculating the new time for the vtimer in:
-> "v->arch.virt_timer.cval + v->domain->arch.virt_timer_base.offset
-> - boot_count".
-> In this formula, "cval + offset" might cause uint64_t overflow.
-> Changing it to "v->domain->arch.virt_timer_base.offset - boot_count +
-> v->arch.virt_timer.cval" can reduce the possibility of overflow
+--------------16tBs4D94Yj7Q1NDYlibgcCH--
 
-This read strange to me. We want to remove the overflow completely not 
-reducing it. The overflow is completely removed by converting the 
-"offset - bount_count" to ns upfront.
+--------------8IeYO9RI9Ugt00Cokb3WO5Hh--
 
-AFAICT, the commit message doesn't explain that.
+--------------EuhcmWRLt50hY3I2ZO4IFZsx
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-> , and
-> "arch.virt_timer_base.offset - boot_count" will be always the same,
-> which has been caculated in domain_vtimer_init. Introduce a new field
-> vtimer_offset.nanoseconds to store this value for arm in struct
-> arch_domain, so we can use it directly and extra caclulations can be
-> avoided.
-> 
-> This patch is enlightened from [1].
-> 
-> Signed-off-by: Jiamei Xie <jiamei.xie@arm.com>
-> 
-> [1] https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg123139.htm
+-----BEGIN PGP SIGNATURE-----
 
-This link doesn't work. But I would personally remove it from the commit 
-message (or add ---) because it doesn't bring value (this patch looks 
-like a v2 to me).
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK5iSkFAwAAAAAACgkQsN6d1ii/Ey8f
+zAf8Chm6si0OG68QQsYyLisso804agOB3dnlW9kT/3ahToFvv967fRJH8otYCx6DOTqd33z9jugA
+TlWxs4JQrwYvJQfU8eCBV85mNii26mvAdW0PlR6+BFz0VWPKsxb1oEKrSNsrSDDiz1yuNOx06MEy
+IiiWDVvt+x9fVxwq7FSRmPD81nySzuV1lN9ZjBMUTjHOkuK5YJ5+sSocU9I98cYub/D/sBfNiq01
+ob/SDKJrpV2MCVB4DKrb8IywB4rb8suvckUy+Ar9J82rMF9o3BOdJl6SsQWbmB7bM1zh/ygdeWjI
+l0JaX5/SHdKFPU0hevVXUhcUSW8gB5yumN63PxP8ag==
+=USkM
+-----END PGP SIGNATURE-----
 
-> ---
-> xen/arch/arm/include/asm/domain.h | 4 ++++
->   xen/arch/arm/vtimer.c             | 6 ++++--
->   2 files changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-> index ed63c2b6f9..94fe5b6444 100644
-> --- a/xen/arch/arm/include/asm/domain.h
-> +++ b/xen/arch/arm/include/asm/domain.h
-> @@ -73,6 +73,10 @@ struct arch_domain
->           uint64_t offset;
->       } virt_timer_base;
->   
-> +    struct {
-> +        int64_t nanoseconds;
-
-This should be s_time_t to match the argument of set_timer() and return 
-of ticks_to_ns().
-
-> +    } vtimer_offset;
-
-Why are you adding a new structure rather than re-using virt_timer_base?
-
-> +
->       struct vgic_dist vgic;
->   
->       struct vuart {
-> diff --git a/xen/arch/arm/vtimer.c b/xen/arch/arm/vtimer.c
-> index 6b78fea77d..54161e5fea 100644
-> --- a/xen/arch/arm/vtimer.c
-> +++ b/xen/arch/arm/vtimer.c
-> @@ -64,6 +64,7 @@ int domain_vtimer_init(struct domain *d, struct xen_arch_domainconfig *config)
->   {
->       d->arch.virt_timer_base.offset = get_cycles();
->       d->time_offset.seconds = ticks_to_ns(d->arch.virt_timer_base.offset - boot_count);
-> +    d->arch.vtimer_offset.nanoseconds = d->time_offset.seconds;
-
-Hmmm... I find odd to assign a field "nanoseconds" to "seconds". I would 
-suggest to re-order so you first set nanoseconds and then set seconds.
-
-This will make more obvious that this is not a mistake and "seconds" 
-will be closer to the do_div() below.
-
->       do_div(d->time_offset.seconds, 1000000000);
->   
->       config->clock_frequency = timer_dt_clock_frequency;
-> @@ -144,8 +145,9 @@ void virt_timer_save(struct vcpu *v)
->       if ( (v->arch.virt_timer.ctl & CNTx_CTL_ENABLE) &&
->            !(v->arch.virt_timer.ctl & CNTx_CTL_MASK))
->       {
-> -        set_timer(&v->arch.virt_timer.timer, ticks_to_ns(v->arch.virt_timer.cval +
-> -                  v->domain->arch.virt_timer_base.offset - boot_count));
-> +        set_timer(&v->arch.virt_timer.timer,
-> +                  v->domain->arch.vtimer_offset.nanoseconds +
-> +                  ticks_to_ns(v->arch.virt_timer.cval));
->       }
->   }
->   
-
-Cheers,
-
--- 
-Julien Grall
+--------------EuhcmWRLt50hY3I2ZO4IFZsx--
 
