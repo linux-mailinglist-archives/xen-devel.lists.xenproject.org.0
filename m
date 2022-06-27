@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0187455B8E9
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jun 2022 11:15:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.356359.584535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7E1055B900
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jun 2022 11:49:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.356366.584544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o5kpy-0007Dh-TF; Mon, 27 Jun 2022 09:15:18 +0000
+	id 1o5lLk-0002Fd-Fw; Mon, 27 Jun 2022 09:48:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 356359.584535; Mon, 27 Jun 2022 09:15:18 +0000
+Received: by outflank-mailman (output) from mailman id 356366.584544; Mon, 27 Jun 2022 09:48:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o5kpy-0007AF-PQ; Mon, 27 Jun 2022 09:15:18 +0000
-Received: by outflank-mailman (input) for mailman id 356359;
- Mon, 27 Jun 2022 09:15:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GcZ/=XC=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1o5kpy-0007A9-7G
- for xen-devel@lists.xenproject.org; Mon, 27 Jun 2022 09:15:18 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a875d8dc-f5f9-11ec-bd2d-47488cf2e6aa;
- Mon, 27 Jun 2022 11:15:16 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by DM6PR12MB4185.namprd12.prod.outlook.com (2603:10b6:5:216::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.17; Mon, 27 Jun
- 2022 09:15:13 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::6d20:93ce:c4d6:f683]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::6d20:93ce:c4d6:f683%4]) with mapi id 15.20.5373.018; Mon, 27 Jun 2022
- 09:15:13 +0000
+	id 1o5lLk-0002D1-Bo; Mon, 27 Jun 2022 09:48:08 +0000
+Received: by outflank-mailman (input) for mailman id 356366;
+ Mon, 27 Jun 2022 09:48:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1o5lLi-0002Cv-U2
+ for xen-devel@lists.xenproject.org; Mon, 27 Jun 2022 09:48:06 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o5lLi-0007qB-FO; Mon, 27 Jun 2022 09:48:06 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=[192.168.2.226]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o5lLi-0007Nb-7w; Mon, 27 Jun 2022 09:48:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,159 +39,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a875d8dc-f5f9-11ec-bd2d-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OT7qFhchU2PzV7GRp+LW/eZXcYIaOeVvWXZcsbH0ulIJTQKTC/xHHHZ9uCqBaounVPA1PQbmwjMuOmqzuFcIpQme78Moy8eeNMcgJ2GlqCQkgIOaFharBj/a4oKHyPUZpj/HJBw3ppz8UGov0mZ3LO8U3JhoelE6si3CXolplz3SLpYlm7pVPaFfSrJWyht+LFX9OYvbbkPB+XfJVoHzo1DlV8pnp2Y+ioAA4f6EWBvkE8XTUtf4+43WwWLoxYFFLUiLO2gQd3oqvxFGZsvaHVgFFmDM6z8me9AZs9tAoiAO3S9CanmbjJTnCGKv5hgfUZ+mesDb5dA9snrCdWK26g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4UBn0p/7StPmtkjZOa+mAy0AOnP5Z686T6X4+RveO/o=;
- b=eRQQYChpUXVepf5dFoWmwIGVd4WNRTwAbwTKor+v8I3YNzhDUpTpDuNZcnG+cKJnolyGhekPsDfBMgnSKNbCJk2gP6dUkd3RMgq9S/QH43OOgtedrsSVMVsbBES+md/qclPXErIcw/pWu5Pm+9G4nBJxxOLjea3dC9xb0zxY92jq0PzRSJ9+iJR4ghWYSbJcP7JT6ikpI9S5MalJC27zlIgEaxv15NdGPA/AKc/Um+Rc8fgBUV5idZLL/Pe8t/75COk0yzINiwOltQC98L0l0fqayOjmf4/nv3MK0CGATof1e2D3B0ZD+ThbnAM33/x4bJlrwHjqTWF0L/Cu6btiHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4UBn0p/7StPmtkjZOa+mAy0AOnP5Z686T6X4+RveO/o=;
- b=dlbVMR0mqfT5vFvnFu0K6k7ng78J5IFZuRaiwQKllNwOBN016eC53MVnS+8oTPGRhCH69m60jLkeU+mfKfgdDNbTAxdE/p9juEVcVwC3u0o7MyiS128o+5POn4ep32UffJrZttSZHTSVXlFZhmrbomg21gNs1b+0fOPmbXfbfLc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <78353de3-7483-a949-731c-d5a9199e7154@amd.com>
-Date: Mon, 27 Jun 2022 10:15:04 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=mdFORTlteAlYWpbLJ5/GfHtZl7sNIWJXyCTMz9o9s/A=; b=RA1OeKol2JlMFFp8O6COmJ7Lo2
+	PM+ADyQJjUiDIJ4r8u9GQ462Qjhv2numML6pI/IEgU1Ipx/2NWJGahvxbpXEc4P0+xfQRSHR/DbHZ
+	Pv2fjJAB+41c3WRnmc0ZRMaCXqM/IsUp8S/AdL0rx2+P9Rx8LNyJqtoKDn9rICAdks0I=;
+Message-ID: <1b580210-9aab-106b-c0a7-60fe8726786f@xen.org>
+Date: Mon, 27 Jun 2022 10:48:04 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [Viryaos-discuss] [PATCH 2/2] uboot-script-gen: do not enable
- direct mapping by default
-To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
-Cc: viryaos-discuss@lists.sourceforge.net
-References: <20220626184536.666647-1-burzalodowa@gmail.com>
- <20220626184536.666647-2-burzalodowa@gmail.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20220626184536.666647-2-burzalodowa@gmail.com>
+Subject: Re: [PATCH 1/7] xen/arm: Remove most of the *_VIRT_END defines
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <20220624091146.35716-1-julien@xen.org>
+ <20220624091146.35716-2-julien@xen.org>
+ <f078812a-bdd0-d27b-28ce-62c0c131ecdb@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <f078812a-bdd0-d27b-28ce-62c0c131ecdb@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0012.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:62::24) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a7a75105-2008-4634-38a3-08da581d8b17
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4185:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	bpgb6wBsuY5Od6mLXxMeKi/D+o48pH/Lym/tVUxD4NYFQqg0oI89OSdaoqd/L2PaAOo6gqPtsxxPr1h8+NHKThldDbL7qFZ3dZJ5DoJAvBvBEXpETV7q7Jmf+dmq8LX9tB3DlbJ83Ste7fChkML36ruUQHIlaLlr+ejlqGSfXaPUBqLoNm1Ap9taYnMOH5R3GJZ+ZJAT+0lK9VTdHLKozf5D3+pEjhPoW7njmHEvFZ3ie3j2ODfD9uVjRnRmKHikkwCn7gMnSr1fx2nuESmwdsuGFF14NHmcz483PhWsTn/SFMYMxQVV01NwZ2zP09//gDZGj9xlbaAXR6Pe96xayJb8nJzgtV1ElDy5R9AUj271JzTuYVW75wgsvD3jjF6dprT0HZrMwz0CrGfI2F2QeuCyBlXhT26tNUCErf7IHCtZ6DQJhP+JLqNT7W35OEj733M+H6qYSIe7RkIBVfWCcy9vL/OHh3hD9oax8jefn/z+m1deqD4VJLFK5H0FdkFqT//w4VLpexJP00amfJc656fI+/yfQcFMj86HV+elxzO3zfdfrbZCcS+GLX3mMcx2zcn3k3iUNFGZgm10TwkBNYzslySmmYaCKqs/yWFouZyYlStNjKVf0urf49foKiy6hfFfTohXvVl+XcBZY6lALGk93eGukgLZWv8JYfXn2nFNTLR7GNwBBAmpYYEU389zAfTFcHswnMLpj1QbVxRxmYLOYTQqHALmyrNnV5UDgMhDkCUXNi8QdzsU68m1CLUI28O/boH0Fh0/m25Er2VoluOe2joVBboyGo8gAZqwKxI2+3tZMr9kgVa4VqEfswnp06vmOj5HJ6BH4/TF229EVA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(396003)(136003)(366004)(39860400002)(376002)(346002)(6486002)(31686004)(26005)(36756003)(6506007)(53546011)(6666004)(316002)(6512007)(66476007)(83380400001)(478600001)(186003)(2616005)(41300700001)(66556008)(66946007)(31696002)(5660300002)(38100700002)(8676002)(4326008)(8936002)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TUkzQ3hqRE1uTGx0d0RVZkJ2Q3pWZFMwWkRmQkhuMUNScTFyRGNDK0pUbTNp?=
- =?utf-8?B?WXJHcFQrV21HOHhNRzlHNzBGT25ObGU3Z1VmWEhOTWRvUmNQcm11VnFVQ1h5?=
- =?utf-8?B?dnE0SFZTRyt4clNXWXhVNUlOZkNNRGYvRlRxRzM1Vm5qdk1RRC9LQjNteWlD?=
- =?utf-8?B?V1pzV0lQVThtbFlHSDRVREh0UkhyYWlkZW1MejFydHF4VStYQmlnNEVGYXQ4?=
- =?utf-8?B?ZjVxZDBiSnI0OWJSY25ZajZPZEhEL05FYTl4Nkoyc3FUUG5FUDhrYU9Ca2la?=
- =?utf-8?B?bTZUMXFDVjE5ZHNGVmtWb0swUWF4QU9QSFlQUm03YlZxRWlsZnFGd054dVE5?=
- =?utf-8?B?a3o1QTl1N3ZWdjZzaGEyRjhYbkpWTjJzWnUyNG9tNFNEa0NESjJWUHJSSFkx?=
- =?utf-8?B?STJYSW9qRVFyQStuMzJLRnRBaDZyQXB2MkRUT0x3MnFHblNuK3ZYS3FqOHE3?=
- =?utf-8?B?YkhzUEtnVmtLQXM3M0ZnYjBpckZGaytjMFV6RWpxY1NOdGxRb0NCeUdLYU9Z?=
- =?utf-8?B?UnpaMVRFSGgrRTFoY2NWU3V5d0o3TU5uOUg1cmZWeVBUNllLUllVcWlWeThP?=
- =?utf-8?B?dms2MmdiTkZETCtwbXZUTnBvOW5LL21OTEFvbThya1VSeCs5Z2M5RkVHckk0?=
- =?utf-8?B?c2RLbGZLZWs3VjFqWnhSUVFpaHg2N3BpWFFWQmIrTTBPWDJBd2NoOFp5ZSsz?=
- =?utf-8?B?ekorRlVvbFZCSFBOMW0vaytraHpyNERGVm9YeWI0ZklHN0V3aWMrVHVLVGJy?=
- =?utf-8?B?QlQrVGhmaWRRbDRmNWF3R2dmdUJSdURrck85MnNaWmdHQkpTZVl1dWl3VWVS?=
- =?utf-8?B?TDZFUUxPaXd1bUVhZzF2elh2Vkc0R05wZnpXWHVhcDVobXRoWFhDT2lRVXdz?=
- =?utf-8?B?UEFkTGZ5bXZ2cGVzWEljejZZQXAyOUxZTXRpTmtocExJb01aTDc4M0dCaTJG?=
- =?utf-8?B?bjhEZWFvdXVrbEQyT0IxU0xLVHhVS3E3ZUNQYzBEZUZmcEhBc212S1JxU0pR?=
- =?utf-8?B?OUR4eTVHenphVVVsZ1pHYS9DWWNmZExJOHlmYmpOdHBVNHFSbjZlY29YL0xi?=
- =?utf-8?B?blNaeEpJOXhsRzZNK2dJRk5zTHZlSUZQeGZ2UCsyRE5SbGJ5YUxFOVpxRjdO?=
- =?utf-8?B?bVJOVTBVeUNIaGtRRWFDZnBpajZPK3BEdjZnOUxmZGptY3pWbWQxaXVpczFP?=
- =?utf-8?B?WmtwcTZteUg1eDFyeWVzTFdOU1hSTFpnWlNoOFphc2d1REdONGRQcHRTY2R3?=
- =?utf-8?B?NkEwbFBtREUvY2dORDZjZnZDWktLa1V2YVhWYVl3TFgrQ0thNVdLYnJaMEdO?=
- =?utf-8?B?L2lPc0NqWDQwcFU4TEVzbTh0SGE5L0FSdGd6aVlDNmlQT0Y4ZmRSUm53MHVh?=
- =?utf-8?B?ek9WYWdLM3kyN1U5MHhYSmh0bHN2T3FBOWlpVzAyanV5dmFhM0xEWHVQUDZz?=
- =?utf-8?B?TFJPTngyeE44d3k2c0lDMGdURlhUY2lxNnRhcTczQzBDTEU5NDYyMzZLcHRR?=
- =?utf-8?B?bEhaUXVrT09WMnpVdFNQSHdnaStpRTNGYVFFL0dWM2xvWVhLd2lOSGRybStk?=
- =?utf-8?B?T0duSHVrbDArSkNOQlZtKzhnVm40MnpTRWdBSW5yd0VsUVFFazlnRXFEajdT?=
- =?utf-8?B?WkJ1d0t3TzJqTmNudHlIMTUyUzA1NFF5WVcvKzNvV1lENHd3amtVMW8xSlUz?=
- =?utf-8?B?L1ExNWEvYTZXcUFtK3p2d2JxSy9KTjVlZTRZQmRrN01mamZmWmxKdXJUd2Ns?=
- =?utf-8?B?QmRONTArQmcyVXU0L0NJMGxqYjVpdUVOVW5jdnIxSlg5OGNZL1J0WXRlL1d5?=
- =?utf-8?B?WEtWMU96UFltbEwwT0hkZ04vdXRBNHZOVEpHQ21JYVJPT1ZRSmlxSmFFUTdk?=
- =?utf-8?B?SmR3S3B0bGNWVSsvVnF1RmN3WWd5eWdwNnVkZE9CQjIvZUp6QWhpMlRmaWZF?=
- =?utf-8?B?Y0xWQVRaL0VzZjhuSlN3U0ZQQzF2UEFCRzFNeTVhdnVMb1FiMWkrWVhsR2h3?=
- =?utf-8?B?QUU1OHgyb3dTa2xkaWx3YzduRHVqZE1MWmFZY1c2UndSbStzZDYva3ZVNjNI?=
- =?utf-8?B?eGZabFA0OUZ0WUxzVEhQNm9DUEhTM2JobC9VWHJ5TlZpMVlEamxVU1VRYlI4?=
- =?utf-8?Q?PnkT/SdcCI9mNQo6ATwMTtiq5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7a75105-2008-4634-38a3-08da581d8b17
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2022 09:15:13.8915
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ecSKvl2TnZcyoDIdB/PCW9JKRBFa/Qhu6pxdZMgcDbDZiXfODpkgJk212AwtDF96BXeSWVronJ5JGYiFibP5yA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4185
 
 
-On 26/06/2022 19:45, Xenia Ragiadakou wrote:
-> To be inline with XEN, do not enable direct mapping automatically for all
-> statically allocated domains.
->
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-Reviewed-by: Ayan Kumar Halder <ayankuma@amd.com>
-> ---
->   README.md                | 4 ++--
->   scripts/uboot-script-gen | 8 ++------
->   2 files changed, 4 insertions(+), 8 deletions(-)
->
-> diff --git a/README.md b/README.md
-> index cb15ca5..03e437b 100644
-> --- a/README.md
-> +++ b/README.md
-> @@ -169,8 +169,8 @@ Where:
->     if specified, indicates the host physical address regions
->     [baseaddr, baseaddr + size) to be reserved to the VM for static allocation.
->   
-> -- DOMU_DIRECT_MAP[number] can be set to 1 or 0.
-> -  If set to 1, the VM is direct mapped. The default is 1.
-> +- DOMU_DIRECT_MAP[number] if set to 1, enables direct mapping.
-> +  By default, direct mapping is disabled.
->     This is only applicable when DOMU_STATIC_MEM is specified.
->   
->   - LINUX is optional but specifies the Linux kernel for when Xen is NOT
-> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-> index 085e29f..66ce6f7 100755
-> --- a/scripts/uboot-script-gen
-> +++ b/scripts/uboot-script-gen
-> @@ -52,7 +52,7 @@ function dt_set()
->               echo "fdt set $path $var $array" >> $UBOOT_SOURCE
->           elif test $data_type = "bool"
->           then
-> -            if test "$data" -eq 1
-> +            if test "$data" == "1"
->               then
->                   echo "fdt set $path $var" >> $UBOOT_SOURCE
->               fi
-> @@ -74,7 +74,7 @@ function dt_set()
->               fdtput $FDTEDIT -p -t s $path $var $data
->           elif test $data_type = "bool"
->           then
-> -            if test "$data" -eq 1
-> +            if test "$data" == "1"
->               then
->                   fdtput $FDTEDIT -p $path $var
->               fi
-> @@ -491,10 +491,6 @@ function xen_config()
->           then
->               DOMU_CMD[$i]="console=ttyAMA0"
->           fi
-> -        if test -z "${DOMU_DIRECT_MAP[$i]}"
-> -        then
-> -             DOMU_DIRECT_MAP[$i]=1
-> -        fi
->           i=$(( $i + 1 ))
->       done
->   }
+
+On 27/06/2022 07:23, Michal Orzel wrote:
+> Hi Julien,
+
+Hi,
+
+Thanks for the review.
+
+> On 24.06.2022 11:11, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>> ---
+>>   xen/arch/arm/include/asm/config.h | 18 ++++++++----------
+>>   xen/arch/arm/livepatch.c          |  2 +-
+>>   xen/arch/arm/mm.c                 | 13 ++++++++-----
+>>   3 files changed, 17 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+>> index 3e2a55a91058..66db618b34e7 100644
+>> --- a/xen/arch/arm/include/asm/config.h
+>> +++ b/xen/arch/arm/include/asm/config.h
+>> @@ -111,12 +111,11 @@
+>>   #define FIXMAP_ADDR(n)        (_AT(vaddr_t,0x00400000) + (n) * PAGE_SIZE)
+>>   
+>>   #define BOOT_FDT_VIRT_START    _AT(vaddr_t,0x00600000)
+>> -#define BOOT_FDT_SLOT_SIZE     MB(4)
+>> -#define BOOT_FDT_VIRT_END      (BOOT_FDT_VIRT_START + BOOT_FDT_SLOT_SIZE)
+>> +#define BOOT_FDT_VIRT_SIZE     _AT(vaddr_t, MB(4))
+>>   
+>>   #ifdef CONFIG_LIVEPATCH
+>>   #define LIVEPATCH_VMAP_START   _AT(vaddr_t,0x00a00000)
+>> -#define LIVEPATCH_VMAP_END     (LIVEPATCH_VMAP_START + MB(2))
+>> +#define LIVEPATCH_VMAP_SIZE    _AT(vaddr_t, MB(2))
+>>   #endif
+>>   
+>>   #define HYPERVISOR_VIRT_START  XEN_VIRT_START
+>> @@ -132,18 +131,18 @@
+>>   #define FRAMETABLE_VIRT_END    (FRAMETABLE_VIRT_START + FRAMETABLE_SIZE - 1)
+>>   
+>>   #define VMAP_VIRT_START        _AT(vaddr_t,0x10000000)
+>> +#define VMAP_VIRT_SIZE         _AT(vaddr_t, GB(1) - MB(256))
+>>   
+>>   #define XENHEAP_VIRT_START     _AT(vaddr_t,0x40000000)
+>> -#define XENHEAP_VIRT_END       _AT(vaddr_t,0x7fffffff)
+>> -#define DOMHEAP_VIRT_START     _AT(vaddr_t,0x80000000)
+>> -#define DOMHEAP_VIRT_END       _AT(vaddr_t,0xffffffff)
+>> +#define XENHEAP_VIRT_SIZE      _AT(vaddr_t, GB(1))
+>>   
+>> -#define VMAP_VIRT_END    XENHEAP_VIRT_START
+>> +#define DOMHEAP_VIRT_START     _AT(vaddr_t,0x80000000)
+>> +#define DOMHEAP_VIRT_SIZE      _AT(vaddr_t, GB(2))
+>>   
+>>   #define DOMHEAP_ENTRIES        1024  /* 1024 2MB mapping slots */
+>>   
+>>   /* Number of domheap pagetable pages required at the second level (2MB mappings) */
+>> -#define DOMHEAP_SECOND_PAGES ((DOMHEAP_VIRT_END - DOMHEAP_VIRT_START + 1) >> FIRST_SHIFT)
+>> +#define DOMHEAP_SECOND_PAGES (DOMHEAP_VIRT_SIZE >> FIRST_SHIFT)
+>>   
+>>   #else /* ARM_64 */
+>>   
+>> @@ -152,12 +151,11 @@
+>>   #define SLOT0_ENTRY_SIZE  SLOT0(1)
+>>   
+>>   #define VMAP_VIRT_START  GB(1)
+>> -#define VMAP_VIRT_END    (VMAP_VIRT_START + GB(1))
+>> +#define VMAP_VIRT_SIZE   GB(1)
+>>   
+>>   #define FRAMETABLE_VIRT_START  GB(32)
+>>   #define FRAMETABLE_SIZE        GB(32)
+>>   #define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
+>> -#define FRAMETABLE_VIRT_END    (FRAMETABLE_VIRT_START + FRAMETABLE_SIZE - 1)
+>>   
+>>   #define DIRECTMAP_VIRT_START   SLOT0(256)
+>>   #define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (265-256))
+>> diff --git a/xen/arch/arm/livepatch.c b/xen/arch/arm/livepatch.c
+>> index 75e8adcfd6a1..57abc746e60b 100644
+>> --- a/xen/arch/arm/livepatch.c
+>> +++ b/xen/arch/arm/livepatch.c
+>> @@ -175,7 +175,7 @@ void __init arch_livepatch_init(void)
+>>       void *start, *end;
+>>   
+>>       start = (void *)LIVEPATCH_VMAP_START;
+>> -    end = (void *)LIVEPATCH_VMAP_END;
+>> +    end = start + LIVEPATCH_VMAP_SIZE;
+>>   
+>>       vm_init_type(VMAP_XEN, start, end);
+>>   
+>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+>> index be37176a4725..0607c65f95cd 100644
+>> --- a/xen/arch/arm/mm.c
+>> +++ b/xen/arch/arm/mm.c
+>> @@ -128,9 +128,11 @@ static DEFINE_PAGE_TABLE(xen_first);
+>>   /* xen_pgtable == root of the trie (zeroeth level on 64-bit, first on 32-bit) */
+>>   static DEFINE_PER_CPU(lpae_t *, xen_pgtable);
+>>   #define THIS_CPU_PGTABLE this_cpu(xen_pgtable)
+>> -/* xen_dommap == pages used by map_domain_page, these pages contain
+>> +/*
+>> + * xen_dommap == pages used by map_domain_page, these pages contain
+>>    * the second level pagetables which map the domheap region
+>> - * DOMHEAP_VIRT_START...DOMHEAP_VIRT_END in 2MB chunks. */
+>> + * starting at DOMHEAP_VIRT_START in 2MB chunks.
+>> + */
+>>   static DEFINE_PER_CPU(lpae_t *, xen_dommap);
+>>   /* Root of the trie for cpu0, other CPU's PTs are dynamically allocated */
+>>   static DEFINE_PAGE_TABLE(cpu0_pgtable);
+>> @@ -476,7 +478,7 @@ mfn_t domain_page_map_to_mfn(const void *ptr)
+>>       int slot = (va - DOMHEAP_VIRT_START) >> SECOND_SHIFT;
+>>       unsigned long offset = (va>>THIRD_SHIFT) & XEN_PT_LPAE_ENTRY_MASK;
+>>   
+>> -    if ( va >= VMAP_VIRT_START && va < VMAP_VIRT_END )
+>> +    if ( (va >= VMAP_VIRT_START) && ((VMAP_VIRT_START - va) < VMAP_VIRT_SIZE) )
+> The second condition does not seem to be correct.
+
+Hmm... You are right, it wants to be
+
+((va - VMAP_VIRT_START) < VMAP_VIRT_SIZE)
+
+> Instead, this check should like like following:
+> if ( (va >= VMAP_VIRT_START) && (va < (VMAP_VIRT_START + VMAP_VIRT_SIZE)) )
+This check would still be incorrect because if the VMAP is right at the 
+edge of the address (e.g. 2^32 - 1 on arm32), then VMAP_VIRT_START + 
+VMAP_VIRT_SIZE would be 0.
+
+Cheers,
+
+-- 
+Julien Grall
 
