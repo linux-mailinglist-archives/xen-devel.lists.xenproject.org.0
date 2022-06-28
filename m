@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC06355F035
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jun 2022 23:10:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357376.585867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69AFE55F073
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jun 2022 23:40:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357383.585878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6ITD-0006RV-2J; Tue, 28 Jun 2022 21:10:03 +0000
+	id 1o6IvX-0001MY-CX; Tue, 28 Jun 2022 21:39:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357376.585867; Tue, 28 Jun 2022 21:10:03 +0000
+Received: by outflank-mailman (output) from mailman id 357383.585878; Tue, 28 Jun 2022 21:39:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6ITC-0006Np-VR; Tue, 28 Jun 2022 21:10:02 +0000
-Received: by outflank-mailman (input) for mailman id 357376;
- Tue, 28 Jun 2022 21:10:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F/Gg=XD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o6ITA-0006B8-Vu
- for xen-devel@lists.xenproject.org; Tue, 28 Jun 2022 21:10:00 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a9ba430d-f726-11ec-bd2d-47488cf2e6aa;
- Tue, 28 Jun 2022 23:09:59 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7EC7B61865;
- Tue, 28 Jun 2022 21:09:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59CB1C341C8;
- Tue, 28 Jun 2022 21:09:54 +0000 (UTC)
+	id 1o6IvX-0001Km-9d; Tue, 28 Jun 2022 21:39:19 +0000
+Received: by outflank-mailman (input) for mailman id 357383;
+ Tue, 28 Jun 2022 21:39:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1o6IvV-0001Kg-7k
+ for xen-devel@lists.xenproject.org; Tue, 28 Jun 2022 21:39:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o6IvV-00019E-1a; Tue, 28 Jun 2022 21:39:17 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o6IvU-0007Ml-SP; Tue, 28 Jun 2022 21:39:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,77 +39,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9ba430d-f726-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1656450595;
-	bh=1QJk4e5j0/pz9uIpQ4JWK8nVogVrZMYPM6m/PAoDjys=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nsBw1UXuvcxUmPH3tNOnNFdZmPyjltPcid9fynO3ewZauLE/h0Zh18vREFpG4Nqzu
-	 OURDTsKPHFaUrB6xAS/uDBdZlT6nup9UQFWqRhV7bVH6dvrG2vyOgconcovvPAiI8T
-	 YjNjQtMDgVUJPw8gTKybzJR8uJnlc6pUBGobQBf2CENvKROG01H7xvF7nKGdEiIvNp
-	 05spaUErlHtzYRv6eXBbkgHYR3MmWa6k64+oOwWq4PkEy/1+g6OHMldslx6Cd72eOE
-	 kxE6BeyIZl2aTxC9kXzoZny7+GOf5ELCBrK194czS1pUKo3lMpZGRQ7A/j3ZPYBo4U
-	 FdTV4tqNYeaEQ==
-Date: Tue, 28 Jun 2022 14:09:39 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: B <shentey@gmail.com>
-cc: qemu-devel@nongnu.org, Laurent Vivier <laurent@vivier.eu>, 
-    Richard Henderson <richard.henderson@linaro.org>, 
-    xen-devel@lists.xenproject.org, qemu-trivial@nongnu.org, 
-    Eduardo Habkost <eduardo@habkost.net>, 
-    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Paolo Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH 0/2] Decouple Xen-HVM from PIIX
-In-Reply-To: <D8EF825B-45A2-4DE5-A787-8FE7BE88D2E6@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2206281408490.247593@ubuntu-linux-20-04-desktop>
-References: <20220626094656.15673-1-shentey@gmail.com> <D8EF825B-45A2-4DE5-A787-8FE7BE88D2E6@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=bBhwfUS3citZT5dS9ckk80b8c7bARwGY50DeZHPPYfI=; b=nCGKdnT6/KQVvzTMY2UoiZRGFm
+	eH2U45q7iWmIT1pcx9rO2gUwRm7/YWrvr3ekbfOeuaolmo65AEltirlPAjf/JdPwrWnyjYPQbtI6M
+	WkBRuPHe5P4nQYOlxoRRjwG7F9PW5VHk2xaH+LsLdr52fAytbHTtyXABzYOZb5pLIEbQ=;
+Message-ID: <b85abae8-3d20-e997-55ea-1cf2fd312eb3@xen.org>
+Date: Tue, 28 Jun 2022 22:39:14 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.10.0
+Subject: Re: [PATCH v2 1/2] public/io: xs_wire: Document that EINVAL should
+ always be first in xsd_errors
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, Julien Grall <jgrall@amazon.com>
+References: <20220627123635.3416-1-julien@xen.org>
+ <20220627123635.3416-2-julien@xen.org>
+ <d0330408-2301-6145-f46b-c3da302a1edb@suse.com>
+ <7af3e9ec-59fe-32ce-2a9d-b8dab57d0e9e@xen.org>
+ <f7c0d5c1-01da-4dca-42ac-ce17c6109371@suse.com>
+ <10c2bc1f-f035-648f-3b9d-7c29007d3527@xen.org>
+ <c6ed6696-74f1-824f-5f64-f016284e3348@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <c6ed6696-74f1-824f-5f64-f016284e3348@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, 28 Jun 2022, B wrote:
-> Am 26. Juni 2022 09:46:54 UTC schrieb Bernhard Beschow <shentey@gmail.com>:
-> >hw/i386/xen/xen-hvm.c contains logic which is PIIX-specific. This makes xen-hvm.c depend on PIIX which can be avoided if PIIX logic was isolated in PIIX itself.
-> >
-> >
-> >
-> >Bernhard Beschow (2):
-> >
-> >  hw/i386/xen/xen-hvm: Allow for stubbing xen_set_pci_link_route()
-> >
-> >  hw/i386/xen/xen-hvm: Inline xen_piix_pci_write_config_client() and
-> >
-> >    remove it
-> >
-> >
-> >
-> > hw/i386/xen/xen-hvm.c       | 17 ++---------------
-> >
-> > hw/isa/piix3.c              | 15 ++++++++++++++-
-> >
-> > include/hw/xen/xen.h        |  2 +-
-> >
-> > include/hw/xen/xen_common.h |  6 ------
-> >
-> > stubs/xen-hw-stub.c         |  3 ++-
-> >
-> > 5 files changed, 19 insertions(+), 24 deletions(-)
-> >
-> >
-> >
-> >-- >
-> >2.36.1
-> >
-> >
-> >
+Hi Juergen,
+
+On 27/06/2022 16:13, Juergen Gross wrote:
+> On 27.06.22 17:03, Julien Grall wrote:
+>> Hi Juergen,
+>>
+>> On 27/06/2022 15:50, Juergen Gross wrote:
+>>> On 27.06.22 16:48, Julien Grall wrote:
+>>>> Hi,
+>>>>
+>>>> On 27/06/2022 15:31, Juergen Gross wrote:
+>>>>> On 27.06.22 14:36, Julien Grall wrote:
+>>>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>>>
+>>>>>> Some tools (e.g. xenstored) always expect EINVAL to be first in 
+>>>>>> xsd_errors.
+>>>>>>
+>>>>>> Document it so, one doesn't add a new entry before hand by mistake.
+>>>>>>
+>>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>>>>
+>>>>>> ----
+>>>>>>
+>>>>>> I have tried to add a BUILD_BUG_ON() but GCC complained that the 
+>>>>>> value
+>>>>>> was not a constant. I couldn't figure out a way to make GCC happy.
+>>>>>>
+>>>>>> Changes in v2:
+>>>>>>      - New patch
+>>>>>> ---
+>>>>>>   xen/include/public/io/xs_wire.h | 1 +
+>>>>>>   1 file changed, 1 insertion(+)
+>>>>>>
+>>>>>> diff --git a/xen/include/public/io/xs_wire.h 
+>>>>>> b/xen/include/public/io/xs_wire.h
+>>>>>> index c1ec7c73e3b1..dd4c9c9b972d 100644
+>>>>>> --- a/xen/include/public/io/xs_wire.h
+>>>>>> +++ b/xen/include/public/io/xs_wire.h
+>>>>>> @@ -76,6 +76,7 @@ static struct xsd_errors xsd_errors[]
+>>>>>>   __attribute__((unused))
+>>>>>>   #endif
+>>>>>>       = {
+>>>>>> +    /* /!\ Some users (e.g. xenstored) expect EINVAL to be the 
+>>>>>> first entry. */
+>>>>>>       XSD_ERROR(EINVAL),
+>>>>>>       XSD_ERROR(EACCES),
+>>>>>>       XSD_ERROR(EEXIST),
+>>>>>
+>>>>> What about another approach, like:
+>>>>
+>>>> In place of what? I still think we need the comment because this 
+>>>> assumption is not part of the ABI (AFAICT xs_wire.h is meant to be 
+>>>> stable).
+>>>>
+>>>> At which point, I see limited reason to fix xenstored_core.c.
+>>>>
+>>>> But I would have really prefer to use a BUILD_BUG_ON() (or similar) 
+>>>> so we can catch any misue a build. Maybe I should write a small 
+>>>> program that is executed at compile time?
+>>>
+>>> My suggestion removes the need for EINVAL being the first entry
+>>
+>> xsd_errors[] is part of the stable ABI. If Xenstored is already 
+>> "misusing" it, then I wouldn't be surprised if other software rely on 
+>> this as well.
 > 
-> Hi Laurent,
+> Xenstored is the only instance which needs a translation from value to
+> string, while all other users should need only the opposite direction.
+> The only other candidate would be oxenstored, but that seems not to use
+> xsd_errors[].
+
+That's assuming this is the only two implementation of Xenstored 
+existing ;).
+
 > 
-> would you like to queue this as well? Both patches have been reviewed at least once, piix twice. Or would you rather keep the review period open for longer?
- 
-Paul reviewed them both -- I don't think we need further reviews.
-Laurent could just take them.
+> And in fact libxenstore will just return a plain EINVAL in case it
+> can't find a translation, while hvmloader will return EIO in that case. >
+> With your reasoning and the hvmloader use case you could argue that
+> the EIO entry needs to stay at the same position, too.
+
+I have looked at the hmvloader code. It doesn't seem to expect EIO to be 
+at a specific position.
+
+However, I do agree that it is probably best to keep each error at the 
+same position.
+
+> 
+>> Therefore, I don't really see how fixing Xenstored would allow us to 
+>> remove this restriction.
+>>
+>> The only reason this was spotted is by Jan reviewing C Xenstored. 
+>> Without that, it would have problably took a long time to notice
+>> this change (I don't think there are many other errno used by Xenstored
+>> and xsd_errors). So I think the risk is not worth the effort.
+> 
+> I don't see a real risk here, but if there is consensus that the risk 
+> should
+> not be taken, then I'd rather add a comment that new entries are only 
+> allowed
+> to be added at the end of the array.
+
+I would be fine to mandate that new errors should be added at the end of 
+the array.
+
+Cheersm
+
+-- 
+Julien Grall
 
