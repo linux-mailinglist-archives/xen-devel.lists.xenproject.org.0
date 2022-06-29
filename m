@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3210755FCF7
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:18:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357732.586508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C7D555FCF8
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:18:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357740.586517 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6Ulj-00067T-HX; Wed, 29 Jun 2022 10:17:59 +0000
+	id 1o6UmG-0006xB-Nt; Wed, 29 Jun 2022 10:18:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357732.586508; Wed, 29 Jun 2022 10:17:59 +0000
+Received: by outflank-mailman (output) from mailman id 357740.586517; Wed, 29 Jun 2022 10:18:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6Ulj-00063i-CG; Wed, 29 Jun 2022 10:17:59 +0000
-Received: by outflank-mailman (input) for mailman id 357732;
- Wed, 29 Jun 2022 10:17:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1o6UmG-0006uF-KZ; Wed, 29 Jun 2022 10:18:32 +0000
+Received: by outflank-mailman (input) for mailman id 357740;
+ Wed, 29 Jun 2022 10:18:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o6Ulh-000625-OL
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:17:57 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o6Ulh-0008En-H8; Wed, 29 Jun 2022 10:17:57 +0000
-Received: from [54.239.6.187] (helo=[192.168.9.41])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o6Ulh-0003KL-BQ; Wed, 29 Jun 2022 10:17:57 +0000
+ (envelope-from <SRS0=m/oR=XE=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o6UmE-0005fS-TA
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:18:31 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d283695b-f794-11ec-b725-ed86ccbb4733;
+ Wed, 29 Jun 2022 12:18:30 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 01F0422057;
+ Wed, 29 Jun 2022 10:18:30 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D589E133D1;
+ Wed, 29 Jun 2022 10:18:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id hWleMvUmvGKlHAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 29 Jun 2022 10:18:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,154 +51,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=tCNZoEBeaXiQQORTk17dQGs+E6WZpOg1vOmlhRfXa+A=; b=E4Wkgbj9pJCpCjBn+qTiKVwFS8
-	ccsmOMzkMsKRSzfBQbI3XCOjEtT9sp3mrwrzMMceuq/Nkf9V8qdOlo0TGETyWaDdyM6bsvaHVcbEu
-	4/5IxKhnzRQ8FcrjqJ/hwOfjYNp06CbulTKhFVRdyS8wn2jZ7+LupoUAbyDYadY6ORMA=;
-Message-ID: <9172fc95-0939-3680-94cf-b991c46d0918@xen.org>
-Date: Wed, 29 Jun 2022 11:17:55 +0100
+X-Inumbo-ID: d283695b-f794-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1656497910; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fqq5ZtmFZsfKexKA77Ajx9AwmFNW4TjK54RY27OzxrA=;
+	b=rY+bCZASUMrABZL1dZWBa+U4oa9t1SsbAUSC217mzygy+VdbdaIJQE4cImJU3j8Z1oHbBl
+	Oj+5vyg5iC1l5Rycjo/8c0TkfdC1fPb70fxsmFJqogQSMO8jUPu6e0QHbjWdOREqLYVb/E
+	X8CkZbKwCA/K4yeFJVQDekFJ+gtSWRI=
+Message-ID: <fca7f825-39a6-ed5d-52b7-6fd5a4799607@suse.com>
+Date: Wed, 29 Jun 2022 12:18:29 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [PATCH v5 1/8] xen/arm: introduce static shared memory
-To: Penny Zheng <Penny.Zheng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220620051114.210118-1-Penny.Zheng@arm.com>
- <20220620051114.210118-2-Penny.Zheng@arm.com>
- <45a41132-1520-a894-a9eb-6688c79a660d@xen.org>
- <DU2PR08MB7325C156D4D6D5A2D18E0FF4F7BB9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <DU2PR08MB7325C156D4D6D5A2D18E0FF4F7BB9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [XEN PATCH v3 13/25] tools/libs/util: cleanup Makefile
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>
+References: <20220624160422.53457-1-anthony.perard@citrix.com>
+ <20220624160422.53457-14-anthony.perard@citrix.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20220624160422.53457-14-anthony.perard@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------m4b0S0xoGYG6kx7OSY7wQ43i"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------m4b0S0xoGYG6kx7OSY7wQ43i
+Content-Type: multipart/mixed; boundary="------------LqCLT7AgQIJvokbt04AxihNL";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>
+Message-ID: <fca7f825-39a6-ed5d-52b7-6fd5a4799607@suse.com>
+Subject: Re: [XEN PATCH v3 13/25] tools/libs/util: cleanup Makefile
+References: <20220624160422.53457-1-anthony.perard@citrix.com>
+ <20220624160422.53457-14-anthony.perard@citrix.com>
+In-Reply-To: <20220624160422.53457-14-anthony.perard@citrix.com>
+
+--------------LqCLT7AgQIJvokbt04AxihNL
+Content-Type: multipart/mixed; boundary="------------6CMlah0P3DztrhqPnCnHwAC9"
+
+--------------6CMlah0P3DztrhqPnCnHwAC9
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
 
+T24gMjQuMDYuMjIgMTg6MDQsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBSZW1vdmUgLUku
+IGZyb20gQ0ZMQUdTLCBpdCBpc24ndCBuZWNlc3NhcnkuDQo+IA0KPiBSZW1vdmVkICQoQVVU
+T1NSQ1MpLCBpdCBpc24ndCB1c2VkLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQW50aG9ueSBQ
+RVJBUkQgPGFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20+DQoNClJldmlld2VkLWJ5OiBKdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQoNCg0KSnVlcmdlbg0K
+--------------6CMlah0P3DztrhqPnCnHwAC9
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-On 29/06/2022 06:38, Penny Zheng wrote:
-> Hi Julien
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Hi Penny,
+--------------6CMlah0P3DztrhqPnCnHwAC9--
 
-> 
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: Saturday, June 25, 2022 1:55 AM
->> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org
->> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
->> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
->> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->> Subject: Re: [PATCH v5 1/8] xen/arm: introduce static shared memory
->>
->> Hi Penny,
->>
->> On 20/06/2022 06:11, Penny Zheng wrote:
->>> From: Penny Zheng <penny.zheng@arm.com>
->>>
->>> This patch serie introduces a new feature: setting up static
->>
->> Typo: s/serie/series/
->>
->>> shared memory on a dom0less system, through device tree configuration.
->>>
->>> This commit parses shared memory node at boot-time, and reserve it in
->>> bootinfo.reserved_mem to avoid other use.
->>>
->>> This commits proposes a new Kconfig CONFIG_STATIC_SHM to wrap
->>> static-shm-related codes, and this option depends on static memory(
->>> CONFIG_STATIC_MEMORY). That's because that later we want to reuse a
->>> few helpers, guarded with CONFIG_STATIC_MEMORY, like
->>> acquire_staticmem_pages, etc, on static shared memory.
->>>
->>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->>> ---
->>> v5 change:
->>> - no change
->>> ---
->>> v4 change:
->>> - nit fix on doc
->>> ---
->>> v3 change:
->>> - make nr_shm_domain unsigned int
->>> ---
->>> v2 change:
->>> - document refinement
->>> - remove bitmap and use the iteration to check
->>> - add a new field nr_shm_domain to keep the number of shared domain
->>> ---
->>>    docs/misc/arm/device-tree/booting.txt | 120
->> ++++++++++++++++++++++++++
->>>    xen/arch/arm/Kconfig                  |   6 ++
->>>    xen/arch/arm/bootfdt.c                |  68 +++++++++++++++
->>>    xen/arch/arm/include/asm/setup.h      |   3 +
->>>    4 files changed, 197 insertions(+)
->>>
->>> diff --git a/docs/misc/arm/device-tree/booting.txt
->>> b/docs/misc/arm/device-tree/booting.txt
->>> index 98253414b8..6467bc5a28 100644
->>> --- a/docs/misc/arm/device-tree/booting.txt
->>> +++ b/docs/misc/arm/device-tree/booting.txt
->>> @@ -378,3 +378,123 @@ device-tree:
->>>
->>>    This will reserve a 512MB region starting at the host physical address
->>>    0x30000000 to be exclusively used by DomU1.
->>> +
->>> +Static Shared Memory
->>> +====================
->>> +
->>> +The static shared memory device tree nodes allow users to statically
->>> +set up shared memory on dom0less system, enabling domains to do
->>> +shm-based communication.
->>> +
->>> +- compatible
->>> +
->>> +    "xen,domain-shared-memory-v1"
->>> +
->>> +- xen,shm-id
->>> +
->>> +    An 8-bit integer that represents the unique identifier of the shared
->> memory
->>> +    region. The maximum identifier shall be "xen,shm-id = <0xff>".
->>> +
->>> +- xen,shared-mem
->>> +
->>> +    An array takes a physical address, which is the base address of the
->>> +    shared memory region in host physical address space, a size, and a
->> guest
->>> +    physical address, as the target address of the mapping. The number of
->> cells
->>> +    for the host address (and size) is the same as the guest pseudo-physical
->>> +    address and they are inherited from the parent node.
->>
->> Sorry for jump in the discussion late. But as this is going to be a stable ABI, I
->> would to make sure the interface is going to be easily extendable.
->>
->> AFAIU, with your proposal the host physical address is mandatory. I would
->> expect that some user may want to share memory but don't care about the
->> exact location in memory. So I think it would be good to make it optional in
->> the binding.
->>
->> I think this wants to be done now because it would be difficult to change the
->> binding afterwards (the host physical address is the first set of cells).
->>
->> The Xen doesn't need to handle the optional case.
->>
-> 
-> Sure, I'll make "the host physical address" optional here, and right now, with no actual
-> code implementation. I'll make up it later in free time~
-> 
-> The user case you mentioned here is that we let xen to allocate an arbitrary static shared
-> memory region, so size and guest physical address are still mandatory, right?
+--------------LqCLT7AgQIJvokbt04AxihNL--
 
-That's correct.
+--------------m4b0S0xoGYG6kx7OSY7wQ43i
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Cheers,
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Julien Grall
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK8JvUFAwAAAAAACgkQsN6d1ii/Ey/P
+3gf/f+LpHthZWUtcavx/x2Eua9n+jQQ+hmp1ajFVzk1cCjvkv9DCXLL0QUXuAdQo9S8stfhApxSg
+tr93HWh1Rla3viJx1AiQYTmAR2HxPo7gSw+rOA/NJz3efLMiMiznKoeItmqAW8AQnS79wM5c0U0+
+gmmXKHYt9pmAzthNlg1Fe70ospTcuV5uq4vtsSAPYDVolaLeCAI4mX3EnGOIOrlBsqpXtAUjXCZ8
+B1Y568fkYyErDc/p/upXLP3aC/sJhfoyZO6oWlIyqqi2afRIsHqk/CF5rvJIdLcJ6GXR0tyUE4o/
+dRuxCc3AJjHmjPPweiRiWPL9oDQ0KlriG3cwBM4Ftw==
+=YljK
+-----END PGP SIGNATURE-----
+
+--------------m4b0S0xoGYG6kx7OSY7wQ43i--
 
