@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6F3560091
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 14:56:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357860.586703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0170B5601C7
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 15:57:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357867.586713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6XEJ-0007Z2-EV; Wed, 29 Jun 2022 12:55:39 +0000
+	id 1o6YBW-0005sk-U3; Wed, 29 Jun 2022 13:56:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357860.586703; Wed, 29 Jun 2022 12:55:39 +0000
+Received: by outflank-mailman (output) from mailman id 357867.586713; Wed, 29 Jun 2022 13:56:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6XEJ-0007Vu-A2; Wed, 29 Jun 2022 12:55:39 +0000
-Received: by outflank-mailman (input) for mailman id 357860;
- Wed, 29 Jun 2022 12:55:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o6YBW-0005qx-R6; Wed, 29 Jun 2022 13:56:50 +0000
+Received: by outflank-mailman (input) for mailman id 357867;
+ Wed, 29 Jun 2022 13:56:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cYaO=XE=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1o6XEH-0007Vo-RC
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 12:55:37 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id c45e385f-f7aa-11ec-bd2d-47488cf2e6aa;
- Wed, 29 Jun 2022 14:55:36 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 043F1152B;
- Wed, 29 Jun 2022 05:55:35 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.195.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9811A3F792;
- Wed, 29 Jun 2022 05:55:33 -0700 (PDT)
+ <SRS0=gFtW=XE=citrix.com=prvs=17228c8f8=Jane.Malalane@srs-se1.protection.inumbo.net>)
+ id 1o6YBV-0005qp-CG
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 13:56:49 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4fda81d5-f7b3-11ec-b725-ed86ccbb4733;
+ Wed, 29 Jun 2022 15:56:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,106 +36,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c45e385f-f7aa-11ec-bd2d-47488cf2e6aa
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2] docs/misra: Add instructions for cppcheck
-Date: Wed, 29 Jun 2022 13:55:26 +0100
-Message-Id: <20220629125526.28190-1-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
+X-Inumbo-ID: 4fda81d5-f7b3-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1656511006;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=aenH0fD8UqySU1/PrIlq9KObEtNkts4LZGVHnoFy7D0=;
+  b=Nv+/ciWBUlXMI1VJ+2vAX9T12wPwB3S32VUt4drNHpaIytBy9miV6+3a
+   QEFZ0iWfPSubMyve7uXyg6UbsqG+tJT4xfLgwVBgu2F915dDoy+bLaufw
+   C4UdwcmIuZscVIraB2r9zh37qPexBVGZDO0fJhNMZ2IosFzzKMo60Sdpf
+   M=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 74715955
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Pfb6u6864Zi+E2EIzk6wDrUDPn+TJUtcMsCJ2f8bNWPcYEJGY0x3m
+ mEWCGzQbPuKN2D2c9h0aoi2pkIG75CEztE3HlZrrSE8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si+Fa+Sn9T8mvU2xbuKU5NTsY0idfic5DnZ74f5fs7Rh2NQw34LoW1rlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCnZa0eQlqJbLNo8tHazsDEg1XIasa8paSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
+ 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKEWvHwm6DjdBPIvR53rSKTW/95Imjw3g6iiGN6BO
+ 5VANGsyMXwsZTVzKHIuBdVnt96xrUGucRtciVeyn7c4tj27IAtZj+G2bYu9lsaxbdVYmAOUq
+ 3zL+0z9AwoGL5qPxDyd6HWui+TT2yThV+ov+KaQr6AwxgfJnypKVUNQBQDTTeSFZlCWUdZvJ
+ Q8P5SsVgvIK1heqYvDhWUGyiSvR1vIDYOa8A9HW+SnUlPeKuFbBWTRcJtJSQId47ZFrHFTGw
+ nfMxoq0XmI37dV5XFrHrt+pQSWO1T/5xIPoTQsNVkM77tbqu+nfZTqfH484QMZZYjAYcAwcI
+ gxmTwBk3t3/deZRi82GEanv2lpAXKThQA8v/RnwVWm49A5/b4PNT9X2tAaHsa8Zct3JEwXpU
+ J04dy62tbFm4XalxESwrBglRun1t55pzhWG6bKQI3XR32v0oCPyFWyhyDp/OF1oIq45RNMdW
+ 2eK4Vk5zMYKZBOCNPYrC6rsWp9C5fWxSrzYugX8M4Mmjm5ZL1fXokmDpCe4ggjQraTbufthY
+ 8fALJz8UCZy5GYO5GPeetrxGIQDnkgWrV4/j7ihlHxLDZL2iKapdIo4
+IronPort-HdrOrdr: A9a23:xngPe6wJQZAVgN3regZqKrPwIr1zdoMgy1knxilNoRw8SK2lfq
+ eV7ZImPH7P+VEssR4b6LO90cW7Lk80lqQFhbX5X43SPjUO0VHAROoJgOffKlXbalTDH4VmtZ
+ uIHZIRNDSJNykesfrH
+X-IronPort-AV: E=Sophos;i="5.92,231,1650945600"; 
+   d="scan'208";a="74715955"
+From: Jane Malalane <jane.malalane@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Jane Malalane <jane.malalane@citrix.com>
+Subject: [PATCH RESEND v10 0/2] xen: Report and use hardware APIC virtualization capabilities
+Date: Wed, 29 Jun 2022 14:55:32 +0100
+Message-ID: <20220629135534.19923-1-jane.malalane@citrix.com>
+X-Mailer: git-send-email 2.11.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Add instructions on how to build cppcheck, the version currently used
-and an example to use the cppcheck integration to run the analysis on
-the Xen codebase
+Jane Malalane (2):
+  xen+tools: Report Interrupt Controller Virtualization capabilities on
+    x86
+  x86/xen: Allow per-domain usage of hardware virtualized APIC
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes in v2:
-- typo fixes, removed build command line, rephrasing (Julien)
----
- docs/misra/cppcheck.txt | 64 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
- create mode 100644 docs/misra/cppcheck.txt
+ docs/man/xl.cfg.5.pod.in              | 15 ++++++++++++++
+ docs/man/xl.conf.5.pod.in             | 12 +++++++++++
+ tools/golang/xenlight/helpers.gen.go  | 16 ++++++++++++++
+ tools/golang/xenlight/types.gen.go    |  4 ++++
+ tools/include/libxl.h                 | 14 +++++++++++++
+ tools/libs/light/libxl.c              |  3 +++
+ tools/libs/light/libxl_arch.h         |  9 ++++++--
+ tools/libs/light/libxl_arm.c          | 14 ++++++++++---
+ tools/libs/light/libxl_create.c       | 22 ++++++++++++--------
+ tools/libs/light/libxl_types.idl      |  4 ++++
+ tools/libs/light/libxl_x86.c          | 39 +++++++++++++++++++++++++++++++++--
+ tools/ocaml/libs/xc/xenctrl.ml        |  7 +++++++
+ tools/ocaml/libs/xc/xenctrl.mli       |  7 +++++++
+ tools/ocaml/libs/xc/xenctrl_stubs.c   | 17 ++++++++++++---
+ tools/xl/xl.c                         |  8 +++++++
+ tools/xl/xl.h                         |  2 ++
+ tools/xl/xl_info.c                    |  6 ++++--
+ tools/xl/xl_parse.c                   | 19 +++++++++++++++++
+ xen/arch/x86/domain.c                 | 29 +++++++++++++++++++++++++-
+ xen/arch/x86/hvm/hvm.c                |  3 +++
+ xen/arch/x86/hvm/vmx/vmcs.c           | 11 ++++++++++
+ xen/arch/x86/hvm/vmx/vmx.c            | 13 ++++--------
+ xen/arch/x86/include/asm/hvm/domain.h |  6 ++++++
+ xen/arch/x86/include/asm/hvm/hvm.h    | 10 +++++++++
+ xen/arch/x86/sysctl.c                 |  4 ++++
+ xen/arch/x86/traps.c                  |  5 +++--
+ xen/include/public/arch-x86/xen.h     |  5 +++++
+ xen/include/public/sysctl.h           | 11 +++++++++-
+ 28 files changed, 281 insertions(+), 34 deletions(-)
 
-diff --git a/docs/misra/cppcheck.txt b/docs/misra/cppcheck.txt
-new file mode 100644
-index 000000000000..25d8c3050b72
---- /dev/null
-+++ b/docs/misra/cppcheck.txt
-@@ -0,0 +1,64 @@
-+Cppcheck for Xen static and MISRA analysis
-+==========================================
-+
-+Xen can be analysed for both static analysis problems and MISRA violation using
-+cppcheck, the open source tool allows the creation of a report with all the
-+findings. Xen has introduced the support in the Makefile so it's very easy to
-+use and in this document we can see how.
-+
-+The minimum version required for cppcheck is 2.7. Note that at the time of
-+writing (June 2022), the version 2.8 is known to be broken [1].
-+
-+Install cppcheck on the system
-+==============================
-+
-+Cppcheck can be retrieved from the github repository or by downloading the
-+tarball, the version tested so far is the 2.7:
-+
-+ - https://github.com/danmar/cppcheck/tree/2.7
-+ - https://github.com/danmar/cppcheck/archive/2.7.tar.gz
-+
-+To compile and install it, the complete command line can be found in readme.md,
-+section "GNU make", please add the "install" target to that line and use every
-+argument as it is in the documentation of the tool, so that every Xen developer
-+following this page can reproduce the same findings.
-+
-+This will compile and install cppcheck in /usr/bin and all the cppcheck config
-+files and addons will be installed in /usr/share/cppcheck folder, please modify
-+that path in FILESDIR if it's not convinient for your system.
-+
-+If you don't want to overwrite a possible cppcheck binary installed in your
-+system, you can omit the "install" target and FILESDIR, cppcheck will be just
-+compiled and the binaries will be available in the same folder.
-+If you choose to do that, later in this page it's explained how to use a local
-+installation of cppcheck for the Xen analysis.
-+
-+Dependencies are listed in the readme.md of the project repository.
-+
-+Use cppcheck to analyse Xen
-+===========================
-+
-+Using cppcheck integration is very simple, it requires few steps:
-+
-+ 1) Compile Xen
-+ 2) call the cppcheck make target to generate a report in xml format:
-+    make CPPCHECK_MISRA=y cppcheck
-+ 3) call the cppcheck-html make target to generate a report in xml and html
-+    format:
-+    make CPPCHECK_MISRA=y cppcheck-html
-+
-+    In case the cppcheck binaries are not in the PATH, CPPCHECK and
-+    CPPCHECK_HTMLREPORT variables can be overridden with the full path to the
-+    binaries:
-+
-+    make -C xen \
-+        CPPCHECK=/path/to/cppcheck \
-+        CPPCHECK_HTMLREPORT=/path/to/cppcheck-htmlreport \
-+        CPPCHECK_MISRA=y \
-+        cppcheck-html
-+
-+The output is by default in a folder named cppcheck-htmlreport, but the name
-+can be changed by passing it in the CPPCHECK_HTMLREPORT_OUTDIR variable.
-+
-+
-+[1] https://sourceforge.net/p/cppcheck/discussion/general/thread/bfc3ab6c41/?limit=25
 -- 
-2.17.1
+2.11.0
 
 
