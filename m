@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC2B655FD24
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:29:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357775.586573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E314D55FD28
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:31:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357780.586584 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6Uwx-0002e6-S4; Wed, 29 Jun 2022 10:29:35 +0000
+	id 1o6Uym-0003zw-8R; Wed, 29 Jun 2022 10:31:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357775.586573; Wed, 29 Jun 2022 10:29:35 +0000
+Received: by outflank-mailman (output) from mailman id 357780.586584; Wed, 29 Jun 2022 10:31:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6Uwx-0002bC-P7; Wed, 29 Jun 2022 10:29:35 +0000
-Received: by outflank-mailman (input) for mailman id 357775;
- Wed, 29 Jun 2022 10:29:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o6Uym-0003y8-5E; Wed, 29 Jun 2022 10:31:28 +0000
+Received: by outflank-mailman (input) for mailman id 357780;
+ Wed, 29 Jun 2022 10:31:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=m/oR=XE=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o6Uww-0002b6-97
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:29:34 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5d68e7c9-f796-11ec-b725-ed86ccbb4733;
- Wed, 29 Jun 2022 12:29:32 +0200 (CEST)
+ id 1o6Uyk-0003y2-OQ
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:31:26 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a0d49c0f-f796-11ec-bd2d-47488cf2e6aa;
+ Wed, 29 Jun 2022 12:31:25 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 01E641FEF9;
- Wed, 29 Jun 2022 10:29:33 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9FE4A22072;
+ Wed, 29 Jun 2022 10:31:25 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D7481132C0;
- Wed, 29 Jun 2022 10:29:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4EC50132C0;
+ Wed, 29 Jun 2022 10:31:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id iNU2M4wpvGKUIQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 29 Jun 2022 10:29:32 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id y9fVEf0pvGIpIwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 29 Jun 2022 10:31:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,63 +51,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d68e7c9-f796-11ec-b725-ed86ccbb4733
+X-Inumbo-ID: a0d49c0f-f796-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1656498573; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1656498685; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eiIzUnp80qj7odxnRHFL40W1UZOBVwV1YdzoZJs4SZs=;
-	b=hlsRi9gv44N+ZGp/b4w8rsC1455WCuHOZMQwbZKLIDSx5oujn65TuBH68q+vOWC2DjAfg4
-	sU1cWVZD/vdVk8raG06qgakcIGOS654Ogwav+n/eG3c8ebFWsxydjYa3J/zPOZKOLEPJdK
-	ALu0p8S9Z5ItcfM3VZR+T2rCX+8EmV8=
-Message-ID: <ec3487df-bf54-cf99-71c3-bddf296fa1bb@suse.com>
-Date: Wed, 29 Jun 2022 12:29:32 +0200
+	bh=87C0rkajzJrJcpRcxfDhoQfkWwe0sArB5dJQ5FClOkc=;
+	b=l2zJlHBoIW4Z50IlImGnrhNYpBps7ytCfYh0ErYT/YwM6hnPbaSX0oaNkF4P32+s1ob/Wa
+	94wBWEbiKhkVK1oYDla16Co9BqmJ/8yryje3zT8kGTbLusn7/07uHPOLr/UdacS9/sSlYh
+	/5dVf0kDx7fBwqoX4YRSaIPeqBVHdiA=
+Message-ID: <dee9190d-635b-9af2-0cb0-35fd0b4e41cd@suse.com>
+Date: Wed, 29 Jun 2022 12:31:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Subject: Re: [XEN PATCH v3 19/25] tools: Introduce $(xenlibs-ldlibs, ) macro
+Subject: Re: [XEN PATCH v3 25/25] tools: Remove -Werror everywhere else
 Content-Language: en-US
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>
+Cc: Wei Liu <wl@xen.org>, Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
 References: <20220624160422.53457-1-anthony.perard@citrix.com>
- <20220624160422.53457-20-anthony.perard@citrix.com>
+ <20220624160422.53457-26-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220624160422.53457-20-anthony.perard@citrix.com>
+In-Reply-To: <20220624160422.53457-26-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------ofYjV57i3RDAhuvTKJuvPH49"
+ boundary="------------xLyClJFsxMZWXDWgCCG0gtaF"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ofYjV57i3RDAhuvTKJuvPH49
-Content-Type: multipart/mixed; boundary="------------jcZwaMb0vRvGbj93Acdx15XK";
+--------------xLyClJFsxMZWXDWgCCG0gtaF
+Content-Type: multipart/mixed; boundary="------------I3mZZ3DK0leXqMo1v70lpkRH";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>
-Message-ID: <ec3487df-bf54-cf99-71c3-bddf296fa1bb@suse.com>
-Subject: Re: [XEN PATCH v3 19/25] tools: Introduce $(xenlibs-ldlibs, ) macro
+Cc: Wei Liu <wl@xen.org>, Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ Tim Deegan <tim@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
+Message-ID: <dee9190d-635b-9af2-0cb0-35fd0b4e41cd@suse.com>
+Subject: Re: [XEN PATCH v3 25/25] tools: Remove -Werror everywhere else
 References: <20220624160422.53457-1-anthony.perard@citrix.com>
- <20220624160422.53457-20-anthony.perard@citrix.com>
-In-Reply-To: <20220624160422.53457-20-anthony.perard@citrix.com>
+ <20220624160422.53457-26-anthony.perard@citrix.com>
+In-Reply-To: <20220624160422.53457-26-anthony.perard@citrix.com>
 
---------------jcZwaMb0vRvGbj93Acdx15XK
-Content-Type: multipart/mixed; boundary="------------TD8v8nF6KcHcVTopEY9IoxmX"
+--------------I3mZZ3DK0leXqMo1v70lpkRH
+Content-Type: multipart/mixed; boundary="------------gOTZ0Enpy3C5r3h1g7Q5nWZq"
 
---------------TD8v8nF6KcHcVTopEY9IoxmX
+--------------gOTZ0Enpy3C5r3h1g7Q5nWZq
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMjQuMDYuMjIgMTg6MDQsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBUaGlzIGNhbiBi
-ZSB1c2VkIHdoZW4gbGlua2luZyBhZ2FpbnN0IG11bHRpcGxlIGluLXRyZWUgWGVuIGxpYnJh
-cmllcywNCj4gYW5kIGF2b2lkIGR1cGxpY2F0ZWQgZmxhZ3MuIEl0IGNhbiBiZSB1c2VkIGlu
-c3RlYWQgb2YgbXVsdGlwbGUNCj4gJChMRExJQlNfbGlieGVuKikuDQo+IA0KPiBGb3Igbm93
-LCByZXBsYWNlIHRoZSBvcGVuLWNvZGluZyBpbiBsaWJzLm1rLg0KPiANCj4gVGhlIG1hY3Jv
-ICQoeGVubGlicy1saWJzLCApIHdpbGwgYmUgdXNlZnVsIGxhdGVyIHdoZW4gb25seSB0aGUg
-cGF0aCB0bw0KPiB0aGUgbGlicmFyaWVzIGlzIHdhbnRlZCAoZS5nLiBmb3IgY2hlY2tpbmcg
-Zm9yIGRlcGVuZGVuY2llcykuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbnRob255IFBFUkFS
-RCA8YW50aG9ueS5wZXJhcmRAY2l0cml4LmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4g
-R3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQo=
---------------TD8v8nF6KcHcVTopEY9IoxmX
+T24gMjQuMDYuMjIgMTg6MDQsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBQYXRjaCAidG9v
+bHM6IEFkZCAtV2Vycm9yIGJ5IGRlZmF1bHQgdG8gYWxsIHRvb2xzLyIgaGF2ZSBhZGRlZA0K
+PiAiLVdlcnJvciIgdG8gQ0ZMQUdTIGluIHRvb2xzL1J1bGVzLm1rLCByZW1vdmUgaXQgZnJv
+bSBldmVyeSBvdGhlcg0KPiBtYWtlZmlsZXMgYXMgaXQgaXMgbm93IGR1cGxpY2F0ZWQuDQo+
+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJhcmRAY2l0
+cml4LmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNv
+bT4NCg0KDQpKdWVyZ2VuDQo=
+--------------gOTZ0Enpy3C5r3h1g7Q5nWZq
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -165,25 +170,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------TD8v8nF6KcHcVTopEY9IoxmX--
+--------------gOTZ0Enpy3C5r3h1g7Q5nWZq--
 
---------------jcZwaMb0vRvGbj93Acdx15XK--
+--------------I3mZZ3DK0leXqMo1v70lpkRH--
 
---------------ofYjV57i3RDAhuvTKJuvPH49
+--------------xLyClJFsxMZWXDWgCCG0gtaF
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK8KYwFAwAAAAAACgkQsN6d1ii/Ey+B
-Fwf+PgyPF986RcKTLU2DcbJGhVd6WyEqwHvTcE5tXMPMuu+WqM7oFjHi1wm1UD0IJYXyl4tyS28D
-QTyK6OisF3uyQSb8VzKvDfjfogm6dBLm5rsTz1vWKfoAQdVoUY/UpEUX0d3UkrKG4JGnX7pAd5Vu
-Pbl0g8qwt8UCFXcu/hWrsL8Jj34CBPOQekyRVAMRiAoDaYeG6dwH4JdoZR59lSe9kaByWGk5eD/E
-OozC3HIqglMdDhjgEuP350hPK5TbIP6zKSa5KKrPBqVw5yfLEponUak2wgSfC76Jdaqb+M/pB0XA
-dEvUkB3wiSr8RuIU/hPAHysAmn9P467SkDoH2tQg9g==
-=D6jH
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK8KfwFAwAAAAAACgkQsN6d1ii/Ey9b
+zwf+PQwh5cnIl+lV9wiwi34S+20YVP4Dt43vu0knCGNxMs/8YCRewJVNvSHr8DEYZ5uewC972yKo
+8XYYpSwiwBJt+5iEn327gqR6b22IZr91xiGtw9AeyQdksrWEcXCXPU+q/BDw1cQqsImmk7vd3Djy
+KgAMj1xePSfd0kdSgL1ezFFqiueGgraem7JWRgbQ27cFkFTFzTzgIpa2jgZnOj/IWi9gCklFJrT/
+y1Z+ReYwspa3GVcDn9TiQI2Wa7HoFe+KgRsSD+M6UGJR9pQxThuFyI12mr6aMQpOrn60KBdkcJEw
+Y0JnAxxkQTzH7lpqEuj+/p15lRKsIgArglswBwlzQg==
+=L0mL
 -----END PGP SIGNATURE-----
 
---------------ofYjV57i3RDAhuvTKJuvPH49--
+--------------xLyClJFsxMZWXDWgCCG0gtaF--
 
