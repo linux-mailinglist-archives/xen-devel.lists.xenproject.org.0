@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D168F55FD0C
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:22:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357756.586539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DAC855FD11
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:23:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357763.586551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6Upq-0000ca-GP; Wed, 29 Jun 2022 10:22:14 +0000
+	id 1o6Ur2-0001H2-W8; Wed, 29 Jun 2022 10:23:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357756.586539; Wed, 29 Jun 2022 10:22:14 +0000
+Received: by outflank-mailman (output) from mailman id 357763.586551; Wed, 29 Jun 2022 10:23:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6Upq-0000am-DV; Wed, 29 Jun 2022 10:22:14 +0000
-Received: by outflank-mailman (input) for mailman id 357756;
- Wed, 29 Jun 2022 10:22:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o6Ur2-0001EU-T7; Wed, 29 Jun 2022 10:23:28 +0000
+Received: by outflank-mailman (input) for mailman id 357763;
+ Wed, 29 Jun 2022 10:23:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=m/oR=XE=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o6Upo-0000ae-Ua
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:22:12 +0000
+ id 1o6Ur2-0001EL-5K
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:23:28 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56b1c377-f795-11ec-b725-ed86ccbb4733;
- Wed, 29 Jun 2022 12:22:12 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8395a331-f795-11ec-bd2d-47488cf2e6aa;
+ Wed, 29 Jun 2022 12:23:27 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 876DA22061;
- Wed, 29 Jun 2022 10:22:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 18EA12206C;
+ Wed, 29 Jun 2022 10:23:27 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 68043133D1;
- Wed, 29 Jun 2022 10:22:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EE3FE133D1;
+ Wed, 29 Jun 2022 10:23:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /9TKF9MnvGKLHgAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 29 Jun 2022 10:22:11 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id ViezNx4ovGIpHwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 29 Jun 2022 10:23:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,61 +51,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56b1c377-f795-11ec-b725-ed86ccbb4733
+X-Inumbo-ID: 8395a331-f795-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1656498131; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1656498207; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7SIfEwfoqyOteOiCxudJa/3wxg5EnZPiOAnLIj9MdeA=;
-	b=swQRgiAJNeFwbK5s4L0QveptEVdeLmvD3p28yGOL4FWfUz5SEPBDqZPP0JLSFmDzkpiexy
-	u3r4ijlyGyitSfkxlPvvxjr7YPtpvsLdFfp73cBWXI508u1Nnd42n02oTD5MzOSUrcNnkN
-	S7wZLnYzzcsoMxmyQtGuqjm+o6wZaSQ=
-Message-ID: <721ac9e1-116a-1b74-7257-ce0ff5b0dfac@suse.com>
-Date: Wed, 29 Jun 2022 12:22:10 +0200
+	bh=zIpFvp8gnwid1VpzoRX0Y3WSiR1K0gBpoUdliXfMNSc=;
+	b=oTDDT4RqF2ZX73RSYrw0kE/Lku2V0CS/tBMe6pQQtC47hKrT6RUmrqXUOrVUkLaf0iiM/a
+	DGNEaWZkyK3C5ebp+SkOoinJhwQD0jXumpMvgN5/wZosAuKuOoJe9V7KFjECX1RT/r0EpC
+	wWly6xlmks6S32GQispCVet6Fo3C4yU=
+Message-ID: <b6fba5ef-61f8-9834-137b-3e1e5430c966@suse.com>
+Date: Wed, 29 Jun 2022 12:23:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Subject: Re: [XEN PATCH v3 16/25] libs/libs.mk: Remove the need for
- $(PKG_CONFIG_INST)
+Subject: Re: [XEN PATCH v3 17/25] libs/libs.mk: Rework target headers.chk
+ dependencies
 Content-Language: en-US
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>
 References: <20220624160422.53457-1-anthony.perard@citrix.com>
- <20220624160422.53457-17-anthony.perard@citrix.com>
+ <20220624160422.53457-18-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220624160422.53457-17-anthony.perard@citrix.com>
+In-Reply-To: <20220624160422.53457-18-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------5SLnLgS10Q31SQbw2lP0Q59A"
+ boundary="------------DW9IugJB9Dv2Zji5LsXbO0EF"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------5SLnLgS10Q31SQbw2lP0Q59A
-Content-Type: multipart/mixed; boundary="------------rxuQGZYwzeBDEXWwxp01vRGY";
+--------------DW9IugJB9Dv2Zji5LsXbO0EF
+Content-Type: multipart/mixed; boundary="------------TX5pue2pTq9fYKtI3h4Odo4P";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>
-Message-ID: <721ac9e1-116a-1b74-7257-ce0ff5b0dfac@suse.com>
-Subject: Re: [XEN PATCH v3 16/25] libs/libs.mk: Remove the need for
- $(PKG_CONFIG_INST)
+Message-ID: <b6fba5ef-61f8-9834-137b-3e1e5430c966@suse.com>
+Subject: Re: [XEN PATCH v3 17/25] libs/libs.mk: Rework target headers.chk
+ dependencies
 References: <20220624160422.53457-1-anthony.perard@citrix.com>
- <20220624160422.53457-17-anthony.perard@citrix.com>
-In-Reply-To: <20220624160422.53457-17-anthony.perard@citrix.com>
+ <20220624160422.53457-18-anthony.perard@citrix.com>
+In-Reply-To: <20220624160422.53457-18-anthony.perard@citrix.com>
 
---------------rxuQGZYwzeBDEXWwxp01vRGY
-Content-Type: multipart/mixed; boundary="------------31I0aYDAAwcPFv1KXh3q7Saa"
+--------------TX5pue2pTq9fYKtI3h4Odo4P
+Content-Type: multipart/mixed; boundary="------------qMeKs0CAgg4XykMNEI5bkOKb"
 
---------------31I0aYDAAwcPFv1KXh3q7Saa
+--------------qMeKs0CAgg4XykMNEI5bkOKb
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMjQuMDYuMjIgMTg6MDQsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBXZSBjYW4gc2lt
-cGx5IHVzZSAkKFBLR19DT05GSUcpIHRvIHNldCB0aGUgcGFyYW1ldGVycywgYW5kIGFkZCBp
-dCB0bw0KPiAkKFRBUkdFVFMpIGFzIG5lY2Vzc2FyeS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6
-IEFudGhvbnkgUEVSQVJEIDxhbnRob255LnBlcmFyZEBjaXRyaXguY29tPg0KDQpSZXZpZXdl
-ZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
-
---------------31I0aYDAAwcPFv1KXh3q7Saa
+T24gMjQuMDYuMjIgMTg6MDQsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBUaGVyZSBpcyBu
+byBuZWVkIHRvIGNhbGwgdGhlICJoZWFkZXJzLmNoayIgdGFyZ2V0IHdoZW4gaXQgaXNuJ3QN
+Cj4gd2FudGVkLCBzbyBpdCBuZXZlciBuZWVkIHRvIGJlIC5QSE9OWS4NCj4gDQo+IEFsc28s
+IHRoZXJlIGlzIG5vIG1vcmUgcmVhc29uIHRvIHNlcGFyYXRlIHRoZSBwcmVyZXF1aXNpdGVz
+IGZyb20gdGhlDQo+IHJlY2lwZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFudGhvbnkgUEVS
+QVJEIDxhbnRob255LnBlcmFyZEBjaXRyaXguY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdl
+biBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
+--------------qMeKs0CAgg4XykMNEI5bkOKb
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -163,25 +164,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------31I0aYDAAwcPFv1KXh3q7Saa--
+--------------qMeKs0CAgg4XykMNEI5bkOKb--
 
---------------rxuQGZYwzeBDEXWwxp01vRGY--
+--------------TX5pue2pTq9fYKtI3h4Odo4P--
 
---------------5SLnLgS10Q31SQbw2lP0Q59A
+--------------DW9IugJB9Dv2Zji5LsXbO0EF
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK8J9MFAwAAAAAACgkQsN6d1ii/Ey+L
-6AgAmluXb+12RC0WclWh/Meliqx2LfzYxaD/FhieYUjfwy3JpjMYmBsqc/GidprUvBgdsAQuYnrt
-jy9gBt0np5xN+GrKVFxzS09BSUOSMGAwy/gly7wi3BwbQ3nhG2xRS3rKxr838UGyvbVC7xqoHhnA
-O4LdFDbFD3Q9pXXTx7MJAxgL9rIlUkLzdvh5cMhVsmc41KhTi5FO7y1kW7/DmAcSmdJrdBjPZ3vv
-/v6Zs6oXTBXBPdc3NtOxYUfPqFFSYv01Aplv9hwlEmdSEcF44sJhdjyWr1YA13PjUBFQ6hyO0XrC
-BtQplSNmNJTGFuTAgqPce9bke/ge4CmPgbUF6vfT2A==
-=KLG5
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK8KB4FAwAAAAAACgkQsN6d1ii/Ey99
+Hgf+MfCO03Eepn88mEdDvTOXubLOU6ocm491TJLrS+bEVDd0uaeivkaTI/13+B2BDtAHjJjfxxCe
+5x7j2qBqXRJ4qNQKa8UNJURpfkS3VbMsHNpfPPefHHiOvCK6/z1l6qZ/f8G0eoe8Dfto/CAGmKNv
+dh+VfsFAFHkoStlNb7hCvtfeVWK+HrDbaxTBaD7UuXN0QmyXyhmmPCqIzMakdooOXrxWmIn0c85A
+thwGtkuDEGAmhKGFSHJyl+BSb1Rxx3Zba9UqGpn4T0Sx/qF+zxQjCtSdMcajVypp4VA4ghGTVILQ
+s99EusDE0mHXXhprPfTU1nJP/WfZ4b8+wtHUJ2dYZQ==
+=+AHL
 -----END PGP SIGNATURE-----
 
---------------5SLnLgS10Q31SQbw2lP0Q59A--
+--------------DW9IugJB9Dv2Zji5LsXbO0EF--
 
