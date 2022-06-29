@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0CEA5601C9
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 15:57:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357868.586725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B1275601C8
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 15:57:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357869.586736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6YBo-0006FY-CY; Wed, 29 Jun 2022 13:57:08 +0000
+	id 1o6YBq-0006WR-KY; Wed, 29 Jun 2022 13:57:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357868.586725; Wed, 29 Jun 2022 13:57:08 +0000
+Received: by outflank-mailman (output) from mailman id 357869.586736; Wed, 29 Jun 2022 13:57:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6YBo-0006Bd-8t; Wed, 29 Jun 2022 13:57:08 +0000
-Received: by outflank-mailman (input) for mailman id 357868;
- Wed, 29 Jun 2022 13:57:07 +0000
+	id 1o6YBq-0006UF-GZ; Wed, 29 Jun 2022 13:57:10 +0000
+Received: by outflank-mailman (input) for mailman id 357869;
+ Wed, 29 Jun 2022 13:57:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gFtW=XE=citrix.com=prvs=17228c8f8=Jane.Malalane@srs-se1.protection.inumbo.net>)
- id 1o6YBn-0006Am-66
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 13:57:07 +0000
+ id 1o6YBo-0006Am-KJ
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 13:57:08 +0000
 Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
  [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a49a132-f7b3-11ec-bd2d-47488cf2e6aa;
- Wed, 29 Jun 2022 15:57:04 +0200 (CEST)
+ id 5c839493-f7b3-11ec-bd2d-47488cf2e6aa;
+ Wed, 29 Jun 2022 15:57:06 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,59 +36,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a49a132-f7b3-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 5c839493-f7b3-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1656511024;
+  d=citrix.com; s=securemail; t=1656511026;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ymS8YJryKhEVbGpFZD0/rfTANegGjTxcrvPr4PO6Bfs=;
-  b=TShD1bo1ZmeSUyRU3tcx9xcNGciyO8wIRS2/fZgOTDbvbWVL6VpR9Rmd
-   SXve/iWOy+84MulkxiknY8NiilqyMq1SHo8WfFa7HanQUjdWw8m5aMz8t
-   sS3n87BZu/gpHlFJHzuzkMmEgq1ZJkK4KhdH9dGj1toX9j4hA0inJI44a
-   8=;
+  bh=y6Khs4v6dKl0EH/WYll4raEtrw3v1GIBosTFY5gqhzA=;
+  b=bNRLeUEimtFUTQBcWyMlB519n4vhpLT+rmIG+zSpT7FcWSDUHvX3/tyA
+   HDn+SFo4Q5CMHnAbpmquNO182nrgAzFxRRS34mR4lFr5KWkty4d4ky1ck
+   AxbTHB6l2aXaCROTieP05nhMMtyvk4U0PmSd9p1XU9G3MR/ESjYWeRgdb
+   c=;
 Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 77263211
+X-MesageID: 77263214
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:HrAyOK0UaR9FyJazb/bD5TBxkn2cJEfYwER7XKvMYLTBsI5bpzcBz
- zAYCmuAaKqDYDT9et0nO4ixo0IGscKEyoc2SlZppC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1Ek/NtTo5w7Rj2tAy0IDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /0QiZGoVxooHJbxhekdcysISBNlIah/reqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHJNYUS/FRpyTjdBPAraZvCX7/L9ZlT2zJYasVmQqmEO
- ZFDMGMHgBLoWiAQEVxJJIIHzPr1rELWXQZRpFW5jP9ii4TU5FMoi+W8WDbPQfSISt9ShV2wv
- X/d8iLyBRRyHN6VxCeB83msrvTShi69U4UXfJW0/+BnqEeezWsSDFsRT1TTifq0lE+4Hc5eI
- ko8+ywyoKx0/0uuJvH/Qhv+pneHtxwdXtN4Eusm5QXLwa3Riy6DAXMOVDlGa9oOu8o/RDhs3
- ViM9/v5CDoqvLCLRHa18raPsSj0KSUTNXUFZyIPUU0C+daLiJ43pgLCSJBkCqHdpsbuBTj6z
- jSOrS4/r7Yel8gG0+O851+vqzCxopnESCYl6wORWXiqhj6Vf6b8OdbuswKCq68dcsDJFTFto
- UToheDD0O0WE4yMthewXegNPIP5vMSeLDjl1AsH84Yay9i9x5KyVdkOvW8ldB82bp5slSzBO
- xGK514IjHNHFD7zNPIsPdrsYyg/5fK4fekJQMw4eTanjnJZUAactB9jakeLt4wGuBh9yPpvU
- Xt3nCvFMJr7NUiE5GDvLwvl+eV3rh3SPEuKLXwB8zyp0KCFeFmeQqofPV2FY4gRtf3Z/lmJq
- o8BbJvXl32ztdEShAGOoOb/ynhaRUXX+Lis85AHHgJ9ClAO9J4d5w/5nup6Jt0Nc1V9nebU5
- HCtMnJlJK7ErSSfc22iMyk7AJu2BMoXhS9qZkQEYAf3s0XPlK7ytc/zgbNsJel5nAGipNYpJ
- 8Q4lzKoWKoVGm+aoWRAPfEQbuVKLXyWuO5HBAL9CBBXQnKqb1ahFgPMFuc3yBQzMw==
-IronPort-HdrOrdr: A9a23:RYZsTK2MGiNgHgcIIaxvMwqjBIokLtp133Aq2lEZdPRUGvb3qy
- nIpoVj6faUskd2ZJhOo7C90cW7LU80sKQFhLX5Xo3SOzUO2lHYT72KhLGKq1aLdhEWtNQtsZ
- uIG5IOcOEYZmIasS+V2maF+q4bsbu6zJw=
+IronPort-Data: A9a23:8dVMMq4sTtiVgTYxhYQTMwxRtAPHchMFZxGqfqrLsTDasY5as4F+v
+ jQWUWGBO/rZN2HxcoxyPdzn9BtU7ZLdxtc3HQpvpXs0Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw03qPp8Zj2tQy2YbjUlvU0
+ T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
+ 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
+ umhurSsUg44D4bpyd0zaCd3UCQiOL9627XYdC3XXcy7lyUqclPpyvRqSko3IZcZ6qB8BmQmG
+ f4wcW5XKErZ3qTvnez9GrIEascLdaEHOKs9s3dtixTQCf8iSJbOa67L+cVZzHE7gcUm8fP2O
+ JVDN2E1NUiojxtnFmk0V5YMheyTn2TeaTZigXGpobIPyj2GpOB2+Oe0a4eEEjCQfu1XlEuFo
+ mPN/0ziHwoXcteYzFKt8H22gfTUtTjmQ49UH7q9ntZpjUOSwCoPCRQQfVq9vfS9zEW5Xrp3K
+ VESvCwnrqEw9UmiZtj7QxC85nWDu3Y0RN54A+A8rgaXxcL88wufQ2QJUDNFQNgnr9MtAywn0
+ EeTmNHkDiApt6eaIVqR/6mZhSm/Mi8UKSkFfyBsZREC+NP5p4YwiDrAS99iFOi+ididJN3r6
+ 2nU9m5k3exV1JNVkfXglbzav96yjoTSRx8EzSCGZ0ye0Cw6YdKgdbCL40eOuJ6sM72lokm9U
+ GkswpbDsrteVc7RzERhU81WQuj3uq/t3Cn0xAc2QsJ/r2nFF2uLJ9g43d1oGKt+3i/okxfNa
+ VSbhw5e7YQ70JCCPf4uONLZ5yjHIMHd+TXZuhP8NIMmjmBZLlPvwc2XTRf4M5rRuEYti7ojH
+ pyQbNyhC30XYYw+kmfoG7tEiOFwln1irY82eXwd5032uVZ5TC79dFv4GAHWMrBRAF2s+m05D
+ Oqzx+PVkk4CAYUSkwHc8JIJLEBiEEXX8ave8pQNHsbae1IOMDh4V5f5nOJ6E6Q4zvs9qws91
+ izkMqOu4AGn1SOvxMTjQi0LVY4Dqr4l8yhrZnF2bQv4s5XhCK72hJoim1IMVeFP3IReITRcF
+ ZHpp+3o7ixzdwn6
+IronPort-HdrOrdr: A9a23:/8PYSqDfA7btmLrlHemW55DYdb4zR+YMi2TC1yhKKCC9Ffbo7/
+ xG/c5rrCMc5wxhO03I9eruBEDEewK5yXcX2/h2AV7BZniFhILAFugLhuGOrwEIWReOkdK1vZ
+ 0QCJSWY+eRMbEVt6jHCXGDYrMd/OU=
 X-IronPort-AV: E=Sophos;i="5.92,231,1650945600"; 
-   d="scan'208";a="77263211"
+   d="scan'208";a="77263214"
 From: Jane Malalane <jane.malalane@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jane Malalane <jane.malalane@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu
-	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
-	<jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>, "David
- Scott" <dave@recoil.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+CC: Jane Malalane <jane.malalane@citrix.com>, Wei Liu <wl@xen.org>, "Anthony
+ PERARD" <anthony.perard@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, Juergen
+ Gross <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
 	<kevin.tian@intel.com>
-Subject: [PATCH RESEND v10 1/2] xen+tools: Report Interrupt Controller Virtualization capabilities on x86
-Date: Wed, 29 Jun 2022 14:55:33 +0100
-Message-ID: <20220629135534.19923-2-jane.malalane@citrix.com>
+Subject: [PATCH RESEND v10 2/2] x86/xen: Allow per-domain usage of hardware virtualized APIC
+Date: Wed, 29 Jun 2022 14:55:34 +0100
+Message-ID: <20220629135534.19923-3-jane.malalane@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220629135534.19923-1-jane.malalane@citrix.com>
 References: <20220629135534.19923-1-jane.malalane@citrix.com>
@@ -96,481 +95,733 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Add XEN_SYSCTL_PHYSCAP_X86_ASSISTED_XAPIC and
-XEN_SYSCTL_PHYSCAP_X86_ASSISTED_X2APIC to report accelerated xAPIC and
-x2APIC, on x86 hardware. This is so that xAPIC and x2APIC virtualization
-can subsequently be enabled on a per-domain basis.
-No such features are currently implemented on AMD hardware.
+Introduce a new per-domain creation x86 specific flag to
+select whether hardware assisted virtualization should be used for
+x{2}APIC.
 
-HW assisted xAPIC virtualization will be reported if HW, at the
-minimum, supports virtualize_apic_accesses as this feature alone means
-that an access to the APIC page will cause an APIC-access VM exit. An
-APIC-access VM exit provides a VMM with information about the access
-causing the VM exit, unlike a regular EPT fault, thus simplifying some
-internal handling.
+A per-domain option is added to xl in order to select the usage of
+x{2}APIC hardware assisted virtualization, as well as a global
+configuration option.
 
-HW assisted x2APIC virtualization will be reported if HW supports
-virtualize_x2apic_mode and, at least, either apic_reg_virt or
-virtual_intr_delivery. This also means that
-sysctl follows the conditionals in vmx_vlapic_msr_changed().
+Having all APIC interaction exit to Xen for emulation is slow and can
+induce much overhead. Hardware can speed up x{2}APIC by decoding the
+APIC access and providing a VM exit with a more specific exit reason
+than a regular EPT fault or by altogether avoiding a VM exit.
 
-For that purpose, also add an arch-specific "capabilities" parameter
-to struct xen_sysctl_physinfo.
+On the other hand, being able to disable x{2}APIC hardware assisted
+virtualization can be useful for testing and debugging purposes.
 
-Note that this interface is intended to be compatible with AMD so that
-AVIC support can be introduced in a future patch. Unlike Intel that
-has multiple controls for APIC Virtualization, AMD has one global
-'AVIC Enable' control bit, so fine-graining of APIC virtualization
-control cannot be done on a common interface.
+Note:
+
+- vmx_install_vlapic_mapping doesn't require modifications regardless
+of whether the guest has "Virtualize APIC accesses" enabled or not,
+i.e., setting the APIC_ACCESS_ADDR VMCS field is fine so long as
+virtualize_apic_accesses is supported by the CPU.
+
+- Both per-domain and global assisted_x{2}apic options are not part of
+the migration stream, unless explicitly set in the respective
+configuration files. Default settings of assisted_x{2}apic done
+internally by the toolstack, based on host capabilities at create
+time, are not migrated.
 
 Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
 Reviewed-by: "Roger Pau Monné" <roger.pau@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
-CC: George Dunlap <george.dunlap@citrix.com>
-CC: Nick Rosbrook <rosbrookn@gmail.com>
 CC: Wei Liu <wl@xen.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: George Dunlap <george.dunlap@citrix.com>
+CC: Nick Rosbrook <rosbrookn@gmail.com>
 CC: Juergen Gross <jgross@suse.com>
 CC: Christian Lindig <christian.lindig@citrix.com>
 CC: David Scott <dave@recoil.org>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
 CC: "Roger Pau Monné" <roger.pau@citrix.com>
 CC: Jun Nakajima <jun.nakajima@intel.com>
 CC: Kevin Tian <kevin.tian@intel.com>
 
 v10:
- * Make assisted_x{2}apic_available conditional upon _vmx_cpu_up()
+ * Improve commit message note on migration
 
 v9:
- * Move assisted_x{2}apic_available to vmx_vmcs_init() so they get
-   declared at boot time, after vmx_secondary_exec_control is set
+ * Fix style issues
+ * Fix exit() logic for assisted_x{2}apic parsing
+ * Add and use XEN_X86_MISC_FLAGS_MAX for ABI checking instead of
+   using XEN_X86_ASSISTED_X2APIC directly
+ * Expand commit message to mention migration is safe
 
 v8:
- * Improve commit message
+ * Widen assisted_x{2}apic parsing to PVH guests in
+   parse_config_data()
 
 v7:
- * Make sure assisted_x{2}apic_available evaluates to false, to ensure
-   Xen builds, when !CONFIG_HVM
- * Fix coding style issues
+ * Fix void return in libxl__arch_domain_build_info_setdefault
+ * Fix style issues
+ * Use EINVAL when rejecting assisted_x{2}apic for PV guests and
+   ENODEV otherwise, when assisted_x{2}apic isn't supported
+ * Define has_assisted_x{2}apic macros for when !CONFIG_HVM
+ * Replace "EPT" fault reference with "p2m" fault since the former is
+   Intel-specific
 
 v6:
- * Limit abi check to x86
- * Fix coding style issue
+ * Use ENODEV instead of EINVAL when rejecting assisted_x{2}apic
+   for PV guests
+ * Move has_assisted_x{2}apic macros out of an Intel specific header
+ * Remove references to Intel specific features in documentation
 
 v5:
- * Have assisted_xapic_available solely depend on
-   cpu_has_vmx_virtualize_apic_accesses and assisted_x2apic_available
-   depend on cpu_has_vmx_virtualize_x2apic_mode and
-   cpu_has_vmx_apic_reg_virt OR cpu_has_vmx_virtual_intr_delivery
+ * Revert v4 changes in vmx_vlapic_msr_changed(), preserving the use of
+   the has_assisted_x{2}apic macros
+ * Following changes in assisted_x{2}apic_available definitions in
+   patch 1, retighten conditionals for setting
+   XEN_HVM_CPUID_APIC_ACCESS_VIRT and XEN_HVM_CPUID_X2APIC_VIRT in
+   cpuid_hypervisor_leaves()
 
 v4:
- * Fallback to the original v2/v1 conditions for setting
-   assisted_xapic_available and assisted_x2apic_available so that in
-   the future APIC virtualization can be exposed on AMD hardware
-   since fine-graining of "AVIC" is not supported, i.e., AMD solely
-   uses "AVIC Enable". This also means that sysctl mimics what's
-   exposed in CPUID
+ * Add has_assisted_x{2}apic macros and use them where appropriate
+ * Replace CPU checks with per-domain assisted_x{2}apic control
+   options in vmx_vlapic_msr_changed() and cpuid_hypervisor_leaves(),
+   following edits to assisted_x{2}apic_available definitions in
+   patch 1
+   Note: new assisted_x{2}apic_available definitions make later
+   cpu_has_vmx_apic_reg_virt and cpu_has_vmx_virtual_intr_delivery
+   checks redundant in vmx_vlapic_msr_changed()
 
 v3:
- * Define XEN_SYSCTL_PHYSCAP_ARCH_MAX for ABI checking and actually
-   set "arch_capbilities", via a call to c_bitmap_to_ocaml_list()
- * Have assisted_x2apic_available only depend on
-   cpu_has_vmx_virtualize_x2apic_mode
+ * Change info in xl.cfg to better express reality and fix
+   capitalization of x{2}apic
+ * Move "physinfo" variable definition to the beggining of
+   libxl__domain_build_info_setdefault()
+ * Reposition brackets in if statement to match libxl coding style
+ * Shorten logic in libxl__arch_domain_build_info_setdefault()
+ * Correct dprintk message in arch_sanitise_domain_config()
+ * Make appropriate changes in vmx_vlapic_msr_changed() and
+   cpuid_hypervisor_leaves() for amended "assisted_x2apic" bit
+ * Remove unneeded parantheses
 
 v2:
- * Use one macro LIBXL_HAVE_PHYSINFO_ASSISTED_APIC instead of two
+ * Add a LIBXL_HAVE_ASSISTED_APIC macro
  * Pass xcpyshinfo as a pointer in libxl__arch_get_physinfo
- * Set assisted_x{2}apic_available to be conditional upon "bsp" and
-   annotate it with __ro_after_init
- * Change XEN_SYSCTL_PHYSCAP_ARCH_ASSISTED_X{2}APIC to
-   _X86_ASSISTED_X{2}APIC
- * Keep XEN_SYSCTL_PHYSCAP_X86_ASSISTED_X{2}APIC contained within
-   sysctl.h
- * Fix padding introduced in struct xen_sysctl_physinfo and bump
-   XEN_SYSCTL_INTERFACE_VERSION
+ * Add a return statement in now "int"
+   libxl__arch_domain_build_info_setdefault()
+ * Preserve libxl__arch_domain_build_info_setdefault 's location in
+   libxl_create.c
+ * Correct x{2}apic default setting logic in
+   libxl__arch_domain_prepare_config()
+ * Correct logic for parsing assisted_x{2}apic host/guest options in
+   xl_parse.c and initialize them to -1 in xl.c
+ * Use guest options directly in vmx_vlapic_msr_changed
+ * Fix indentation of bool assisted_x{2}apic in struct hvm_domain
+ * Add a change in xenctrl_stubs.c to pass xenctrl ABI checks
 ---
- tools/golang/xenlight/helpers.gen.go |  4 ++++
- tools/golang/xenlight/types.gen.go   |  2 ++
- tools/include/libxl.h                |  7 +++++++
- tools/libs/light/libxl.c             |  3 +++
- tools/libs/light/libxl_arch.h        |  4 ++++
- tools/libs/light/libxl_arm.c         |  5 +++++
- tools/libs/light/libxl_types.idl     |  2 ++
- tools/libs/light/libxl_x86.c         | 11 +++++++++++
- tools/ocaml/libs/xc/xenctrl.ml       |  5 +++++
- tools/ocaml/libs/xc/xenctrl.mli      |  5 +++++
- tools/ocaml/libs/xc/xenctrl_stubs.c  | 15 +++++++++++++--
- tools/xl/xl_info.c                   |  6 ++++--
- xen/arch/x86/hvm/hvm.c               |  3 +++
- xen/arch/x86/hvm/vmx/vmcs.c          |  7 +++++++
- xen/arch/x86/include/asm/hvm/hvm.h   |  5 +++++
- xen/arch/x86/sysctl.c                |  4 ++++
- xen/include/public/sysctl.h          | 11 ++++++++++-
- 17 files changed, 94 insertions(+), 5 deletions(-)
+ docs/man/xl.cfg.5.pod.in              | 15 +++++++++++++++
+ docs/man/xl.conf.5.pod.in             | 12 ++++++++++++
+ tools/golang/xenlight/helpers.gen.go  | 12 ++++++++++++
+ tools/golang/xenlight/types.gen.go    |  2 ++
+ tools/include/libxl.h                 |  7 +++++++
+ tools/libs/light/libxl_arch.h         |  5 +++--
+ tools/libs/light/libxl_arm.c          |  9 ++++++---
+ tools/libs/light/libxl_create.c       | 22 +++++++++++++---------
+ tools/libs/light/libxl_types.idl      |  2 ++
+ tools/libs/light/libxl_x86.c          | 28 ++++++++++++++++++++++++++--
+ tools/ocaml/libs/xc/xenctrl.ml        |  2 ++
+ tools/ocaml/libs/xc/xenctrl.mli       |  2 ++
+ tools/ocaml/libs/xc/xenctrl_stubs.c   |  2 +-
+ tools/xl/xl.c                         |  8 ++++++++
+ tools/xl/xl.h                         |  2 ++
+ tools/xl/xl_parse.c                   | 19 +++++++++++++++++++
+ xen/arch/x86/domain.c                 | 29 ++++++++++++++++++++++++++++-
+ xen/arch/x86/hvm/vmx/vmcs.c           |  4 ++++
+ xen/arch/x86/hvm/vmx/vmx.c            | 13 ++++---------
+ xen/arch/x86/include/asm/hvm/domain.h |  6 ++++++
+ xen/arch/x86/include/asm/hvm/hvm.h    |  5 +++++
+ xen/arch/x86/traps.c                  |  5 +++--
+ xen/include/public/arch-x86/xen.h     |  5 +++++
+ 23 files changed, 187 insertions(+), 29 deletions(-)
 
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index b98d161398..6d98d73d76 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -1862,6 +1862,21 @@ firmware tables when using certain older guest Operating
+ Systems. These tables have been superseded by newer constructs within
+ the ACPI tables.
+ 
++=item B<assisted_xapic=BOOLEAN>
++
++B<(x86 only)> Enables or disables hardware assisted virtualization for
++xAPIC. With this option enabled, a memory-mapped APIC access will be
++decoded by hardware and either issue a more specific VM exit than just
++a p2m fault, or altogether avoid a VM exit. The
++default is settable via L<xl.conf(5)>.
++
++=item B<assisted_x2apic=BOOLEAN>
++
++B<(x86 only)> Enables or disables hardware assisted virtualization for
++x2APIC. With this option enabled, certain accesses to MSR APIC
++registers will avoid a VM exit into the hypervisor. The default is
++settable via L<xl.conf(5)>.
++
+ =item B<nx=BOOLEAN>
+ 
+ B<(x86 only)> Hides or exposes the No-eXecute capability. This allows a guest
+diff --git a/docs/man/xl.conf.5.pod.in b/docs/man/xl.conf.5.pod.in
+index df20c08137..95d136d1ea 100644
+--- a/docs/man/xl.conf.5.pod.in
++++ b/docs/man/xl.conf.5.pod.in
+@@ -107,6 +107,18 @@ Sets the default value for the C<max_grant_version> domain config value.
+ 
+ Default: maximum grant version supported by the hypervisor.
+ 
++=item B<assisted_xapic=BOOLEAN>
++
++If enabled, domains will use xAPIC hardware assisted virtualization by default.
++
++Default: enabled if supported.
++
++=item B<assisted_x2apic=BOOLEAN>
++
++If enabled, domains will use x2APIC hardware assisted virtualization by default.
++
++Default: enabled if supported.
++
+ =item B<vif.default.script="PATH">
+ 
+ Configures the default hotplug script used by virtual network devices.
 diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index b746ff1081..dd4e6c9f14 100644
+index dd4e6c9f14..dece545ee0 100644
 --- a/tools/golang/xenlight/helpers.gen.go
 +++ b/tools/golang/xenlight/helpers.gen.go
-@@ -3373,6 +3373,8 @@ x.CapVmtrace = bool(xc.cap_vmtrace)
- x.CapVpmu = bool(xc.cap_vpmu)
- x.CapGnttabV1 = bool(xc.cap_gnttab_v1)
- x.CapGnttabV2 = bool(xc.cap_gnttab_v2)
-+x.CapAssistedXapic = bool(xc.cap_assisted_xapic)
-+x.CapAssistedX2Apic = bool(xc.cap_assisted_x2apic)
- 
-  return nil}
- 
-@@ -3407,6 +3409,8 @@ xc.cap_vmtrace = C.bool(x.CapVmtrace)
- xc.cap_vpmu = C.bool(x.CapVpmu)
- xc.cap_gnttab_v1 = C.bool(x.CapGnttabV1)
- xc.cap_gnttab_v2 = C.bool(x.CapGnttabV2)
-+xc.cap_assisted_xapic = C.bool(x.CapAssistedXapic)
-+xc.cap_assisted_x2apic = C.bool(x.CapAssistedX2Apic)
- 
-  return nil
-  }
+@@ -1120,6 +1120,12 @@ x.ArchArm.Vuart = VuartType(xc.arch_arm.vuart)
+ if err := x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err != nil {
+ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+ }
++if err := x.ArchX86.AssistedXapic.fromC(&xc.arch_x86.assisted_xapic);err != nil {
++return fmt.Errorf("converting field ArchX86.AssistedXapic: %v", err)
++}
++if err := x.ArchX86.AssistedX2Apic.fromC(&xc.arch_x86.assisted_x2apic);err != nil {
++return fmt.Errorf("converting field ArchX86.AssistedX2Apic: %v", err)
++}
+ x.Altp2M = Altp2MMode(xc.altp2m)
+ x.VmtraceBufKb = int(xc.vmtrace_buf_kb)
+ if err := x.Vpmu.fromC(&xc.vpmu);err != nil {
+@@ -1605,6 +1611,12 @@ xc.arch_arm.vuart = C.libxl_vuart_type(x.ArchArm.Vuart)
+ if err := x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err != nil {
+ return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+ }
++if err := x.ArchX86.AssistedXapic.toC(&xc.arch_x86.assisted_xapic); err != nil {
++return fmt.Errorf("converting field ArchX86.AssistedXapic: %v", err)
++}
++if err := x.ArchX86.AssistedX2Apic.toC(&xc.arch_x86.assisted_x2apic); err != nil {
++return fmt.Errorf("converting field ArchX86.AssistedX2Apic: %v", err)
++}
+ xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
+ xc.vmtrace_buf_kb = C.int(x.VmtraceBufKb)
+ if err := x.Vpmu.toC(&xc.vpmu); err != nil {
 diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index b1e84d5258..87be46c745 100644
+index 87be46c745..253c9ad93d 100644
 --- a/tools/golang/xenlight/types.gen.go
 +++ b/tools/golang/xenlight/types.gen.go
-@@ -1014,6 +1014,8 @@ CapVmtrace bool
- CapVpmu bool
- CapGnttabV1 bool
- CapGnttabV2 bool
-+CapAssistedXapic bool
-+CapAssistedX2Apic bool
+@@ -520,6 +520,8 @@ Vuart VuartType
  }
- 
- type Connectorinfo struct {
+ ArchX86 struct {
+ MsrRelaxed Defbool
++AssistedXapic Defbool
++AssistedX2Apic Defbool
+ }
+ Altp2M Altp2MMode
+ VmtraceBufKb int
 diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 7ce978e83c..364d852278 100644
+index 364d852278..7910c458e3 100644
 --- a/tools/include/libxl.h
 +++ b/tools/include/libxl.h
-@@ -528,6 +528,13 @@
- #define LIBXL_HAVE_MAX_GRANT_VERSION 1
+@@ -535,6 +535,13 @@
+ #define LIBXL_HAVE_PHYSINFO_ASSISTED_APIC 1
  
  /*
-+ * LIBXL_HAVE_PHYSINFO_ASSISTED_APIC indicates that libxl_physinfo has
-+ * cap_assisted_xapic and cap_assisted_x2apic fields, which indicates
-+ * the availability of x{2}APIC hardware assisted virtualization.
++ * LIBXL_HAVE_ASSISTED_APIC indicates that libxl_domain_build_info has
++ * assisted_xapic and assisted_x2apic fields for enabling hardware
++ * assisted virtualization for x{2}apic per domain.
 + */
-+#define LIBXL_HAVE_PHYSINFO_ASSISTED_APIC 1
++#define LIBXL_HAVE_ASSISTED_APIC 1
 +
 +/*
   * libxl ABI compatibility
   *
   * The only guarantee which libxl makes regarding ABI compatibility
-diff --git a/tools/libs/light/libxl.c b/tools/libs/light/libxl.c
-index a0bf7d186f..6d699951e2 100644
---- a/tools/libs/light/libxl.c
-+++ b/tools/libs/light/libxl.c
-@@ -15,6 +15,7 @@
- #include "libxl_osdeps.h"
- 
- #include "libxl_internal.h"
-+#include "libxl_arch.h"
- 
- int libxl_ctx_alloc(libxl_ctx **pctx, int version,
-                     unsigned flags, xentoollog_logger * lg)
-@@ -410,6 +411,8 @@ int libxl_get_physinfo(libxl_ctx *ctx, libxl_physinfo *physinfo)
-     physinfo->cap_gnttab_v2 =
-         !!(xcphysinfo.capabilities & XEN_SYSCTL_PHYSCAP_gnttab_v2);
- 
-+    libxl__arch_get_physinfo(physinfo, &xcphysinfo);
-+
-     GC_FREE;
-     return 0;
- }
 diff --git a/tools/libs/light/libxl_arch.h b/tools/libs/light/libxl_arch.h
-index 1522ecb97f..207ceac6a1 100644
+index 207ceac6a1..03b89929e6 100644
 --- a/tools/libs/light/libxl_arch.h
 +++ b/tools/libs/light/libxl_arch.h
-@@ -86,6 +86,10 @@ int libxl__arch_extra_memory(libxl__gc *gc,
-                              uint64_t *out);
+@@ -71,8 +71,9 @@ void libxl__arch_domain_create_info_setdefault(libxl__gc *gc,
+                                                libxl_domain_create_info *c_info);
  
  _hidden
-+void libxl__arch_get_physinfo(libxl_physinfo *physinfo,
-+                              const xc_physinfo_t *xcphysinfo);
-+
-+_hidden
- void libxl__arch_update_domain_config(libxl__gc *gc,
-                                       libxl_domain_config *dst,
-                                       const libxl_domain_config *src);
+-void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+-                                              libxl_domain_build_info *b_info);
++int libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
++                                             libxl_domain_build_info *b_info,
++                                             const libxl_physinfo *physinfo);
+ 
+ _hidden
+ int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
 diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index eef1de0939..39fdca1b49 100644
+index 39fdca1b49..7dee2afd4b 100644
 --- a/tools/libs/light/libxl_arm.c
 +++ b/tools/libs/light/libxl_arm.c
-@@ -1431,6 +1431,11 @@ int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
-     return rc;
+@@ -1384,14 +1384,15 @@ void libxl__arch_domain_create_info_setdefault(libxl__gc *gc,
+     }
  }
  
-+void libxl__arch_get_physinfo(libxl_physinfo *physinfo,
-+                              const xc_physinfo_t *xcphysinfo)
-+{
-+}
+-void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+-                                              libxl_domain_build_info *b_info)
++int libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
++                                             libxl_domain_build_info *b_info,
++                                             const libxl_physinfo *physinfo)
+ {
+     /* ACPI is disabled by default */
+     libxl_defbool_setdefault(&b_info->acpi, false);
+ 
+     if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
+-        return;
++        return 0;
+ 
+     LOG(DEBUG, "Converting build_info to PVH");
+ 
+@@ -1399,6 +1400,8 @@ void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+     memset(&b_info->u, '\0', sizeof(b_info->u));
+     b_info->type = LIBXL_DOMAIN_TYPE_INVALID;
+     libxl_domain_build_info_init_type(b_info, LIBXL_DOMAIN_TYPE_PVH);
 +
- void libxl__arch_update_domain_config(libxl__gc *gc,
-                                       libxl_domain_config *dst,
-                                       const libxl_domain_config *src)
++    return 0;
+ }
+ 
+ int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index 2339f09e95..b9dd2deedf 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -75,6 +75,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+                                         libxl_domain_build_info *b_info)
+ {
+     int i, rc;
++    libxl_physinfo info;
+ 
+     if (b_info->type != LIBXL_DOMAIN_TYPE_HVM &&
+         b_info->type != LIBXL_DOMAIN_TYPE_PV &&
+@@ -264,7 +265,18 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+     if (!b_info->event_channels)
+         b_info->event_channels = 1023;
+ 
+-    libxl__arch_domain_build_info_setdefault(gc, b_info);
++    rc = libxl_get_physinfo(CTX, &info);
++    if (rc) {
++        LOG(ERROR, "failed to get hypervisor info");
++        return rc;
++    }
++
++    rc = libxl__arch_domain_build_info_setdefault(gc, b_info, &info);
++    if (rc) {
++        LOG(ERROR, "unable to set domain arch build info defaults");
++        return rc;
++    }
++
+     libxl_defbool_setdefault(&b_info->dm_restrict, false);
+ 
+     if (b_info->iommu_memkb == LIBXL_MEMKB_DEFAULT)
+@@ -457,14 +469,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+     }
+ 
+     if (b_info->max_grant_version == LIBXL_MAX_GRANT_DEFAULT) {
+-        libxl_physinfo info;
+-
+-        rc = libxl_get_physinfo(CTX, &info);
+-        if (rc) {
+-            LOG(ERROR, "failed to get hypervisor info");
+-            return rc;
+-        }
+-
+         if (info.cap_gnttab_v2)
+             b_info->max_grant_version = 2;
+         else if (info.cap_gnttab_v1)
 diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 2a42da2f7d..42ac6c357b 100644
+index 42ac6c357b..db5eb0a0b3 100644
 --- a/tools/libs/light/libxl_types.idl
 +++ b/tools/libs/light/libxl_types.idl
-@@ -1068,6 +1068,8 @@ libxl_physinfo = Struct("physinfo", [
-     ("cap_vpmu", bool),
-     ("cap_gnttab_v1", bool),
-     ("cap_gnttab_v2", bool),
-+    ("cap_assisted_xapic", bool),
-+    ("cap_assisted_x2apic", bool),
-     ], dir=DIR_OUT)
- 
- libxl_connectorinfo = Struct("connectorinfo", [
+@@ -648,6 +648,8 @@ libxl_domain_build_info = Struct("domain_build_info",[
+                                ("vuart", libxl_vuart_type),
+                               ])),
+     ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
++                               ("assisted_xapic", libxl_defbool),
++                               ("assisted_x2apic", libxl_defbool),
+                               ])),
+     # Alternate p2m is not bound to any architecture or guest type, as it is
+     # supported by x86 HVM and ARM support is planned.
 diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-index 1feadebb18..e0a06ecfe3 100644
+index e0a06ecfe3..7c5ee74443 100644
 --- a/tools/libs/light/libxl_x86.c
 +++ b/tools/libs/light/libxl_x86.c
-@@ -866,6 +866,17 @@ int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
-     return rc;
+@@ -23,6 +23,15 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+     if (libxl_defbool_val(d_config->b_info.arch_x86.msr_relaxed))
+         config->arch.misc_flags |= XEN_X86_MSR_RELAXED;
+ 
++    if (d_config->c_info.type != LIBXL_DOMAIN_TYPE_PV)
++    {
++        if (libxl_defbool_val(d_config->b_info.arch_x86.assisted_xapic))
++            config->arch.misc_flags |= XEN_X86_ASSISTED_XAPIC;
++
++        if (libxl_defbool_val(d_config->b_info.arch_x86.assisted_x2apic))
++            config->arch.misc_flags |= XEN_X86_ASSISTED_X2APIC;
++    }
++
+     return 0;
  }
  
-+void libxl__arch_get_physinfo(libxl_physinfo *physinfo,
-+                              const xc_physinfo_t *xcphysinfo)
-+{
-+    physinfo->cap_assisted_xapic =
-+        !!(xcphysinfo->arch_capabilities &
-+           XEN_SYSCTL_PHYSCAP_X86_ASSISTED_XAPIC);
-+    physinfo->cap_assisted_x2apic =
-+        !!(xcphysinfo->arch_capabilities &
-+           XEN_SYSCTL_PHYSCAP_X86_ASSISTED_X2APIC);
-+}
+@@ -819,11 +828,26 @@ void libxl__arch_domain_create_info_setdefault(libxl__gc *gc,
+ {
+ }
+ 
+-void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+-                                              libxl_domain_build_info *b_info)
++int libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
++                                             libxl_domain_build_info *b_info,
++                                             const libxl_physinfo *physinfo)
+ {
+     libxl_defbool_setdefault(&b_info->acpi, true);
+     libxl_defbool_setdefault(&b_info->arch_x86.msr_relaxed, false);
 +
- void libxl__arch_update_domain_config(libxl__gc *gc,
-                                       libxl_domain_config *dst,
-                                       const libxl_domain_config *src)
++    if (b_info->type != LIBXL_DOMAIN_TYPE_PV) {
++        libxl_defbool_setdefault(&b_info->arch_x86.assisted_xapic,
++                                 physinfo->cap_assisted_xapic);
++        libxl_defbool_setdefault(&b_info->arch_x86.assisted_x2apic,
++                                 physinfo->cap_assisted_x2apic);
++    }
++    else if (!libxl_defbool_is_default(b_info->arch_x86.assisted_xapic) ||
++             !libxl_defbool_is_default(b_info->arch_x86.assisted_x2apic)) {
++        LOG(ERROR, "Interrupt Controller Virtualization not supported for PV");
++        return ERROR_INVAL;
++    }
++
++    return 0;
+ }
+ 
+ int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
 diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 8eab6f60eb..7152394fce 100644
+index 7152394fce..2836abb110 100644
 --- a/tools/ocaml/libs/xc/xenctrl.ml
 +++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -128,6 +128,10 @@ type physinfo_cap_flag =
- 	| CAP_Gnttab_v1
- 	| CAP_Gnttab_v2
+@@ -50,6 +50,8 @@ type x86_arch_emulation_flags =
  
-+type physinfo_arch_cap_flag =
-+	| CAP_X86_ASSISTED_XAPIC
-+	| CAP_X86_ASSISTED_X2APIC
-+
- type physinfo =
+ type x86_arch_misc_flags =
+ 	| X86_MSR_RELAXED
++	| X86_ASSISTED_XAPIC
++	| X86_ASSISTED_X2APIC
+ 
+ type xen_x86_arch_domainconfig =
  {
- 	threads_per_core : int;
-@@ -141,6 +145,7 @@ type physinfo =
- 	(* XXX hw_cap *)
- 	capabilities     : physinfo_cap_flag list;
- 	max_nr_cpus      : int;
-+	arch_capabilities : physinfo_arch_cap_flag list;
- }
- 
- type version =
 diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index d3014a2708..bb5bf5207d 100644
+index bb5bf5207d..4dc4779ad2 100644
 --- a/tools/ocaml/libs/xc/xenctrl.mli
 +++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -113,6 +113,10 @@ type physinfo_cap_flag =
-   | CAP_Gnttab_v1
-   | CAP_Gnttab_v2
+@@ -44,6 +44,8 @@ type x86_arch_emulation_flags =
  
-+type physinfo_arch_cap_flag =
-+  | CAP_X86_ASSISTED_XAPIC
-+  | CAP_X86_ASSISTED_X2APIC
-+
- type physinfo = {
-   threads_per_core : int;
-   cores_per_socket : int;
-@@ -124,6 +128,7 @@ type physinfo = {
-   scrub_pages      : nativeint;
-   capabilities     : physinfo_cap_flag list;
-   max_nr_cpus      : int; (** compile-time max possible number of nr_cpus *)
-+  arch_capabilities : physinfo_arch_cap_flag list;
- }
- type version = { major : int; minor : int; extra : string; }
- type compile_info = {
+ type x86_arch_misc_flags =
+   | X86_MSR_RELAXED
++  | X86_ASSISTED_XAPIC
++  | X86_ASSISTED_X2APIC
+ 
+ type xen_x86_arch_domainconfig = {
+   emulation_flags: x86_arch_emulation_flags list;
 diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index 513ee142d2..e56484590e 100644
+index e56484590e..39b8034f2a 100644
 --- a/tools/ocaml/libs/xc/xenctrl_stubs.c
 +++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -718,7 +718,7 @@ CAMLprim value stub_xc_send_debug_keys(value xch, value keys)
- CAMLprim value stub_xc_physinfo(value xch)
- {
- 	CAMLparam1(xch);
--	CAMLlocal2(physinfo, cap_list);
-+	CAMLlocal3(physinfo, cap_list, arch_cap_list);
- 	xc_physinfo_t c_physinfo;
- 	int r;
+@@ -244,7 +244,7 @@ CAMLprim value stub_xc_domain_create(value xch, value wanted_domid, value config
  
-@@ -737,7 +737,7 @@ CAMLprim value stub_xc_physinfo(value xch)
- 		/* ! XEN_SYSCTL_PHYSCAP_ XEN_SYSCTL_PHYSCAP_MAX max */
- 		(c_physinfo.capabilities);
+ 		cfg.arch.misc_flags = ocaml_list_to_c_bitmap
+ 			/* ! x86_arch_misc_flags X86_ none */
+-			/* ! XEN_X86_ XEN_X86_MSR_RELAXED all */
++			/* ! XEN_X86_ XEN_X86_MISC_FLAGS_MAX max */
+ 			(VAL_MISC_FLAGS);
  
--	physinfo = caml_alloc_tuple(10);
-+	physinfo = caml_alloc_tuple(11);
- 	Store_field(physinfo, 0, Val_int(c_physinfo.threads_per_core));
- 	Store_field(physinfo, 1, Val_int(c_physinfo.cores_per_socket));
- 	Store_field(physinfo, 2, Val_int(c_physinfo.nr_cpus));
-@@ -749,6 +749,17 @@ CAMLprim value stub_xc_physinfo(value xch)
- 	Store_field(physinfo, 8, cap_list);
- 	Store_field(physinfo, 9, Val_int(c_physinfo.max_cpu_id + 1));
+ #undef VAL_MISC_FLAGS
+diff --git a/tools/xl/xl.c b/tools/xl/xl.c
+index 2d1ec18ea3..31eb223309 100644
+--- a/tools/xl/xl.c
++++ b/tools/xl/xl.c
+@@ -57,6 +57,8 @@ int max_grant_frames = -1;
+ int max_maptrack_frames = -1;
+ int max_grant_version = LIBXL_MAX_GRANT_DEFAULT;
+ libxl_domid domid_policy = INVALID_DOMID;
++int assisted_xapic = -1;
++int assisted_x2apic = -1;
  
-+#if defined(__i386__) || defined(__x86_64__)
-+	/*
-+	 * arch_capabilities: physinfo_arch_cap_flag list;
-+	 */
-+	arch_cap_list = c_bitmap_to_ocaml_list
-+		/* ! physinfo_arch_cap_flag CAP_ none */
-+		/* ! XEN_SYSCTL_PHYSCAP_ XEN_SYSCTL_PHYSCAP_X86_MAX max */
-+		(c_physinfo.arch_capabilities);
-+	Store_field(physinfo, 10, arch_cap_list);
-+#endif
+ xentoollog_level minmsglevel = minmsglevel_default;
+ 
+@@ -201,6 +203,12 @@ static void parse_global_config(const char *configfile,
+     if (!xlu_cfg_get_long (config, "claim_mode", &l, 0))
+         claim_mode = l;
+ 
++    if (!xlu_cfg_get_long (config, "assisted_xapic", &l, 0))
++        assisted_xapic = l;
 +
- 	CAMLreturn(physinfo);
++    if (!xlu_cfg_get_long (config, "assisted_x2apic", &l, 0))
++        assisted_x2apic = l;
++
+     xlu_cfg_replace_string (config, "remus.default.netbufscript",
+         &default_remus_netbufscript, 0);
+     xlu_cfg_replace_string (config, "colo.default.proxyscript",
+diff --git a/tools/xl/xl.h b/tools/xl/xl.h
+index c5c4bedbdd..528deb3feb 100644
+--- a/tools/xl/xl.h
++++ b/tools/xl/xl.h
+@@ -286,6 +286,8 @@ extern libxl_bitmap global_vm_affinity_mask;
+ extern libxl_bitmap global_hvm_affinity_mask;
+ extern libxl_bitmap global_pv_affinity_mask;
+ extern libxl_domid domid_policy;
++extern int assisted_xapic;
++extern int assisted_x2apic;
+ 
+ enum output_format {
+     OUTPUT_FORMAT_JSON,
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index b98c0de378..6080f8154d 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -2761,6 +2761,25 @@ skip_usbdev:
+ 
+     xlu_cfg_get_defbool(config, "vpmu", &b_info->vpmu, 0);
+ 
++    if (b_info->type != LIBXL_DOMAIN_TYPE_PV) {
++        e = xlu_cfg_get_long(config, "assisted_xapic", &l , 0);
++        if (!e)
++            libxl_defbool_set(&b_info->arch_x86.assisted_xapic, l);
++        else if (e != ESRCH)
++            exit(1);
++        else if (assisted_xapic != -1) /* use global default if present */
++            libxl_defbool_set(&b_info->arch_x86.assisted_xapic, assisted_xapic);
++
++        e = xlu_cfg_get_long(config, "assisted_x2apic", &l, 0);
++        if (!e)
++            libxl_defbool_set(&b_info->arch_x86.assisted_x2apic, l);
++        else if (e != ESRCH)
++            exit(1);
++        else if (assisted_x2apic != -1) /* use global default if present */
++            libxl_defbool_set(&b_info->arch_x86.assisted_x2apic,
++                              assisted_x2apic);
++    }
++
+     xlu_cfg_destroy(config);
  }
  
-diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
-index 712b7638b0..3205270754 100644
---- a/tools/xl/xl_info.c
-+++ b/tools/xl/xl_info.c
-@@ -210,7 +210,7 @@ static void output_physinfo(void)
-          info.hw_cap[4], info.hw_cap[5], info.hw_cap[6], info.hw_cap[7]
-         );
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 0d2944fe14..bc8f0b51ff 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -50,6 +50,7 @@
+ #include <asm/cpuidle.h>
+ #include <asm/mpspec.h>
+ #include <asm/ldt.h>
++#include <asm/hvm/domain.h>
+ #include <asm/hvm/hvm.h>
+ #include <asm/hvm/nestedhvm.h>
+ #include <asm/hvm/support.h>
+@@ -619,6 +620,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+     bool hvm = config->flags & XEN_DOMCTL_CDF_hvm;
+     bool hap = config->flags & XEN_DOMCTL_CDF_hap;
+     bool nested_virt = config->flags & XEN_DOMCTL_CDF_nested_virt;
++    bool assisted_xapic = config->arch.misc_flags & XEN_X86_ASSISTED_XAPIC;
++    bool assisted_x2apic = config->arch.misc_flags & XEN_X86_ASSISTED_X2APIC;
+     unsigned int max_vcpus;
  
--    maybe_printf("virt_caps              :%s%s%s%s%s%s%s%s%s%s%s\n",
-+    maybe_printf("virt_caps              :%s%s%s%s%s%s%s%s%s%s%s%s%s\n",
-          info.cap_pv ? " pv" : "",
-          info.cap_hvm ? " hvm" : "",
-          info.cap_hvm && info.cap_hvm_directio ? " hvm_directio" : "",
-@@ -221,7 +221,9 @@ static void output_physinfo(void)
-          info.cap_vmtrace ? " vmtrace" : "",
-          info.cap_vpmu ? " vpmu" : "",
-          info.cap_gnttab_v1 ? " gnttab-v1" : "",
--         info.cap_gnttab_v2 ? " gnttab-v2" : ""
-+         info.cap_gnttab_v2 ? " gnttab-v2" : "",
-+         info.cap_assisted_xapic ? " assisted_xapic" : "",
-+         info.cap_assisted_x2apic ? " assisted_x2apic" : ""
-         );
+     if ( hvm ? !hvm_enabled : !IS_ENABLED(CONFIG_PV) )
+@@ -685,13 +688,31 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+         }
+     }
  
-     vinfo = libxl_get_version_info(ctx);
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 5b16fb4cd8..0a32a948db 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -117,6 +117,9 @@ static const char __initconst warning_hvm_fep[] =
- static bool_t __initdata opt_altp2m_enabled = 0;
- boolean_param("altp2m", opt_altp2m_enabled);
+-    if ( config->arch.misc_flags & ~XEN_X86_MSR_RELAXED )
++    if ( config->arch.misc_flags & ~(XEN_X86_MSR_RELAXED |
++                                     XEN_X86_ASSISTED_XAPIC |
++                                     XEN_X86_ASSISTED_X2APIC) )
+     {
+         dprintk(XENLOG_INFO, "Invalid arch misc flags %#x\n",
+                 config->arch.misc_flags);
+         return -EINVAL;
+     }
  
-+bool __ro_after_init assisted_xapic_available;
-+bool __ro_after_init assisted_x2apic_available;
++    if ( (assisted_xapic || assisted_x2apic) && !hvm )
++    {
++        dprintk(XENLOG_INFO,
++                "Interrupt Controller Virtualization not supported for PV\n");
++        return -EINVAL;
++    }
 +
- static int cf_check cpu_callback(
-     struct notifier_block *nfb, unsigned long action, void *hcpu)
- {
++    if ( (assisted_xapic && !assisted_xapic_available) ||
++         (assisted_x2apic && !assisted_x2apic_available) )
++    {
++        dprintk(XENLOG_INFO,
++                "Hardware assisted x%sAPIC requested but not available\n",
++                assisted_xapic && !assisted_xapic_available ? "" : "2");
++        return -ENODEV;
++    }
++
+     return 0;
+ }
+ 
+@@ -864,6 +885,12 @@ int arch_domain_create(struct domain *d,
+ 
+     d->arch.msr_relaxed = config->arch.misc_flags & XEN_X86_MSR_RELAXED;
+ 
++    d->arch.hvm.assisted_xapic =
++        config->arch.misc_flags & XEN_X86_ASSISTED_XAPIC;
++
++    d->arch.hvm.assisted_x2apic =
++        config->arch.misc_flags & XEN_X86_ASSISTED_X2APIC;
++
+     spec_ctrl_init_domain(d);
+ 
+     return 0;
 diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 56fed2db03..7329622dd4 100644
+index 7329622dd4..683c650d77 100644
 --- a/xen/arch/x86/hvm/vmx/vmcs.c
 +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -2146,7 +2146,14 @@ int __init vmx_vmcs_init(void)
-     ret = _vmx_cpu_up(true);
+@@ -1134,6 +1134,10 @@ static int construct_vmcs(struct vcpu *v)
+         __vmwrite(PLE_WINDOW, ple_window);
+     }
  
-     if ( !ret )
-+    {
-+        /* Check whether hardware supports accelerated xapic and x2apic. */
-+        assisted_xapic_available = cpu_has_vmx_virtualize_apic_accesses;
-+        assisted_x2apic_available = cpu_has_vmx_virtualize_x2apic_mode &&
-+                                    (cpu_has_vmx_apic_reg_virt ||
-+                                     cpu_has_vmx_virtual_intr_delivery);
-         register_keyhandler('v', vmcs_dump, "dump VT-x VMCSs", 1);
-+    }
++    if ( !has_assisted_xapic(d) )
++        v->arch.hvm.vmx.secondary_exec_control &=
++            ~SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES;
++
+     if ( cpu_has_vmx_secondary_exec_control )
+         __vmwrite(SECONDARY_VM_EXEC_CONTROL,
+                   v->arch.hvm.vmx.secondary_exec_control);
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index f08a00dcbb..47554cc004 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -3376,16 +3376,11 @@ static void vmx_install_vlapic_mapping(struct vcpu *v)
  
-     return ret;
- }
+ void vmx_vlapic_msr_changed(struct vcpu *v)
+ {
+-    int virtualize_x2apic_mode;
+     struct vlapic *vlapic = vcpu_vlapic(v);
+     unsigned int msr;
+ 
+-    virtualize_x2apic_mode = ( (cpu_has_vmx_apic_reg_virt ||
+-                                cpu_has_vmx_virtual_intr_delivery) &&
+-                               cpu_has_vmx_virtualize_x2apic_mode );
+-
+-    if ( !cpu_has_vmx_virtualize_apic_accesses &&
+-         !virtualize_x2apic_mode )
++    if ( !has_assisted_xapic(v->domain) &&
++         !has_assisted_x2apic(v->domain) )
+         return;
+ 
+     vmx_vmcs_enter(v);
+@@ -3395,7 +3390,7 @@ void vmx_vlapic_msr_changed(struct vcpu *v)
+     if ( !vlapic_hw_disabled(vlapic) &&
+          (vlapic_base_address(vlapic) == APIC_DEFAULT_PHYS_BASE) )
+     {
+-        if ( virtualize_x2apic_mode && vlapic_x2apic_mode(vlapic) )
++        if ( has_assisted_x2apic(v->domain) && vlapic_x2apic_mode(vlapic) )
+         {
+             v->arch.hvm.vmx.secondary_exec_control |=
+                 SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE;
+@@ -3416,7 +3411,7 @@ void vmx_vlapic_msr_changed(struct vcpu *v)
+                 vmx_clear_msr_intercept(v, MSR_X2APIC_SELF, VMX_MSR_W);
+             }
+         }
+-        else
++        else if ( has_assisted_xapic(v->domain) )
+             v->arch.hvm.vmx.secondary_exec_control |=
+                 SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES;
+     }
+diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
+index 698455444e..92bf53483c 100644
+--- a/xen/arch/x86/include/asm/hvm/domain.h
++++ b/xen/arch/x86/include/asm/hvm/domain.h
+@@ -117,6 +117,12 @@ struct hvm_domain {
+ 
+     bool                   is_s3_suspended;
+ 
++    /* xAPIC hardware assisted virtualization. */
++    bool                   assisted_xapic;
++
++    /* x2APIC hardware assisted virtualization. */
++    bool                   assisted_x2apic;
++
+     /* hypervisor intercepted msix table */
+     struct list_head       msixtbl_list;
+ 
 diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index caaeacabc7..8d162b2c99 100644
+index 8d162b2c99..03096f31ef 100644
 --- a/xen/arch/x86/include/asm/hvm/hvm.h
 +++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -388,6 +388,9 @@ int hvm_get_param(struct domain *d, uint32_t index, uint64_t *value);
- #define hvm_tsc_scaling_ratio(d) \
-     ((d)->arch.hvm.tsc_scaling_ratio)
+@@ -391,6 +391,9 @@ int hvm_get_param(struct domain *d, uint32_t index, uint64_t *value);
+ extern bool assisted_xapic_available;
+ extern bool assisted_x2apic_available;
  
-+extern bool assisted_xapic_available;
-+extern bool assisted_x2apic_available;
++#define has_assisted_xapic(d) ((d)->arch.hvm.assisted_xapic)
++#define has_assisted_x2apic(d) ((d)->arch.hvm.assisted_x2apic)
 +
  #define hvm_get_guest_time(v) hvm_get_guest_time_fixed(v, 0)
  
  #define hvm_paging_enabled(v) \
-@@ -901,6 +904,8 @@ static inline void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
- #define hvm_tsc_scaling_supported false
- #define hap_has_1gb false
- #define hap_has_2mb false
-+#define assisted_xapic_available false
-+#define assisted_x2apic_available false
+@@ -907,6 +910,8 @@ static inline void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
+ #define assisted_xapic_available false
+ #define assisted_x2apic_available false
  
++#define has_assisted_xapic(d) ((void)(d), false)
++#define has_assisted_x2apic(d) ((void)(d), false)
  #define hvm_paging_enabled(v) ((void)(v), false)
  #define hvm_wp_enabled(v) ((void)(v), false)
-diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
-index f82abc2488..716525f72f 100644
---- a/xen/arch/x86/sysctl.c
-+++ b/xen/arch/x86/sysctl.c
-@@ -135,6 +135,10 @@ void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
-         pi->capabilities |= XEN_SYSCTL_PHYSCAP_hap;
-     if ( IS_ENABLED(CONFIG_SHADOW_PAGING) )
-         pi->capabilities |= XEN_SYSCTL_PHYSCAP_shadow;
-+    if ( assisted_xapic_available )
-+        pi->arch_capabilities |= XEN_SYSCTL_PHYSCAP_X86_ASSISTED_XAPIC;
-+    if ( assisted_x2apic_available )
-+        pi->arch_capabilities |= XEN_SYSCTL_PHYSCAP_X86_ASSISTED_X2APIC;
- }
+ #define hvm_pcid_enabled(v) ((void)(v), false)
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index bb3dfcc90f..cabebf4f5b 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1117,7 +1117,8 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
+         if ( !is_hvm_domain(d) || subleaf != 0 )
+             break;
  
- long arch_do_sysctl(
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index 60c8711483..fefc17c288 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -35,7 +35,7 @@
- #include "domctl.h"
- #include "physdev.h"
+-        if ( cpu_has_vmx_apic_reg_virt )
++        if ( cpu_has_vmx_apic_reg_virt &&
++             has_assisted_xapic(d) )
+             res->a |= XEN_HVM_CPUID_APIC_ACCESS_VIRT;
  
--#define XEN_SYSCTL_INTERFACE_VERSION 0x00000014
-+#define XEN_SYSCTL_INTERFACE_VERSION 0x00000015
+         /*
+@@ -1126,7 +1127,7 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
+          * and wrmsr in the guest will run without VMEXITs (see
+          * vmx_vlapic_msr_changed()).
+          */
+-        if ( cpu_has_vmx_virtualize_x2apic_mode &&
++        if ( has_assisted_x2apic(d) &&
+              cpu_has_vmx_apic_reg_virt &&
+              cpu_has_vmx_virtual_intr_delivery )
+             res->a |= XEN_HVM_CPUID_X2APIC_VIRT;
+diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
+index 7acd94c8eb..58a1e87ee9 100644
+--- a/xen/include/public/arch-x86/xen.h
++++ b/xen/include/public/arch-x86/xen.h
+@@ -317,9 +317,14 @@ struct xen_arch_domainconfig {
+  * doesn't allow the guest to read or write to the underlying MSR.
+  */
+ #define XEN_X86_MSR_RELAXED (1u << 0)
++#define XEN_X86_ASSISTED_XAPIC (1u << 1)
++#define XEN_X86_ASSISTED_X2APIC (1u << 2)
+     uint32_t misc_flags;
+ };
  
- /*
-  * Read console content from Xen buffer ring.
-@@ -111,6 +111,13 @@ struct xen_sysctl_tbuf_op {
- /* Max XEN_SYSCTL_PHYSCAP_* constant.  Used for ABI checking. */
- #define XEN_SYSCTL_PHYSCAP_MAX XEN_SYSCTL_PHYSCAP_gnttab_v2
- 
-+/* The platform supports x{2}apic hardware assisted emulation. */
-+#define XEN_SYSCTL_PHYSCAP_X86_ASSISTED_XAPIC  (1u << 0)
-+#define XEN_SYSCTL_PHYSCAP_X86_ASSISTED_X2APIC (1u << 1)
++/* Max  XEN_X86_* constant. Used for ABI checking. */
++#define XEN_X86_MISC_FLAGS_MAX XEN_X86_ASSISTED_X2APIC
 +
-+/* Max XEN_SYSCTL_PHYSCAP_X86__* constant. Used for ABI checking. */
-+#define XEN_SYSCTL_PHYSCAP_X86_MAX XEN_SYSCTL_PHYSCAP_X86_ASSISTED_X2APIC
-+
- struct xen_sysctl_physinfo {
-     uint32_t threads_per_core;
-     uint32_t cores_per_socket;
-@@ -120,6 +127,8 @@ struct xen_sysctl_physinfo {
-     uint32_t max_node_id; /* Largest possible node ID on this host */
-     uint32_t cpu_khz;
-     uint32_t capabilities;/* XEN_SYSCTL_PHYSCAP_??? */
-+    uint32_t arch_capabilities;/* XEN_SYSCTL_PHYSCAP_{X86,ARM,...}_??? */
-+    uint32_t pad;
-     uint64_aligned_t total_pages;
-     uint64_aligned_t free_pages;
-     uint64_aligned_t scrub_pages;
+ /* Location of online VCPU bitmap. */
+ #define XEN_ACPI_CPU_MAP             0xaf00
+ #define XEN_ACPI_CPU_MAP_LEN         ((HVM_MAX_VCPUS + 7) / 8)
 -- 
 2.11.0
 
