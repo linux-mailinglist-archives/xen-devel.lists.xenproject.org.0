@@ -2,29 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49B5356098A
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 20:46:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358037.587013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99B475609E6
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 21:03:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358054.587024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6chA-0001Ma-6i; Wed, 29 Jun 2022 18:45:48 +0000
+	id 1o6cxc-0004gi-QC; Wed, 29 Jun 2022 19:02:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358037.587013; Wed, 29 Jun 2022 18:45:48 +0000
+Received: by outflank-mailman (output) from mailman id 358054.587024; Wed, 29 Jun 2022 19:02:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6chA-0001Jq-3V; Wed, 29 Jun 2022 18:45:48 +0000
-Received: by outflank-mailman (input) for mailman id 358037;
- Wed, 29 Jun 2022 18:45:46 +0000
+	id 1o6cxc-0004dp-NU; Wed, 29 Jun 2022 19:02:48 +0000
+Received: by outflank-mailman (input) for mailman id 358054;
+ Wed, 29 Jun 2022 19:02:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R6b1=XE=citrix.com=prvs=172711fe8=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1o6ch8-0000mL-DY
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 18:45:46 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aef34e82-f7db-11ec-bd2d-47488cf2e6aa;
- Wed, 29 Jun 2022 20:45:45 +0200 (CEST)
+ <SRS0=Omrp=XE=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1o6cxa-0004dj-RY
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 19:02:47 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0e814f6d-f7de-11ec-bd2d-47488cf2e6aa;
+ Wed, 29 Jun 2022 21:02:44 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by MN2PR12MB3213.namprd12.prod.outlook.com (2603:10b6:208:af::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5353.14; Wed, 29 Jun
+ 2022 19:02:41 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::6d20:93ce:c4d6:f683]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::6d20:93ce:c4d6:f683%4]) with mapi id 15.20.5373.018; Wed, 29 Jun 2022
+ 19:02:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,285 +46,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aef34e82-f7db-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1656528344;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=qX8FoVKbQduGMZIO5wy6Y3hMntj7bH2XpUmWXTKnZfE=;
-  b=Xl5F6iBj9dzNNlqAo6mdyWaT5evlDbIxLRVpzaw+u/5K0k5q0WInr4Ye
-   RcCZVyDKhjnPdliG7nRvVIhlGfbHOnG6X/3Lm3goSVp6z2wh145cIXK9A
-   QcHRnvfSR6dc1WX1lgGoddOpMQqcYv+8HDA9EwxorbDkKBrx/guRNbFKB
-   E=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 74746993
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:LnFTLKhXFEXqwBCtgDC0rNzsX161PxAKZh0ujC45NGQN5FlHY01je
- htvUTrQPKmDamf9fNx2YI+y90sEsZ7RzoJgTwJtpC03FCMb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M58wIFqtQw24LhXVnc4
- YqaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
- efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
- TlDiXC/YT15MPDv3+IcajtBKCElMJJJypvoGEHq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
- JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bklhmwSvUErANRpfbTr+RzdRZwC0xloZFGvO2i
- 88xNmYwMEqRMkYn1lE/CMIlo8GYpkHDLQZBqljK9PoI42Hc5VkkuFTqGIWMIYHbLSlPpW6Ho
- krW8mK/BQsVXPS94zeY9nOnhsfUgDj2HokVEdWQ5vNsxVGe2GEXIBkXTkeg5+m0jFakXNBSI
- FBS/TAhxZXe72TyEIO7BUfh5ifZ4FhMALK8DtHW9im3mqSJwEGfB1EmVwVBM9EZu/0SagUTg
- wrhc8zSOdB/jFGEYSvDq+nJ9GLuZXF9wXwqPnFdE1ZcizX3iMRq10+UEI4+eEKgpoetcQwc1
- Qxmu8TXa187qccQn5u28lnc695HjsiYF1Vljuk7s4/M0++YWGJGT9bxgbQjxawcRLt1t3HY1
- JT+p+CQ7foVEbaGnzGXTeMGEdmBvqjYbmGA2AcxRMl8q1xBHkJPm6gJsVmSw285WvvohBezO
- BOD0e+vzMU70ISWgV9fPNvqVpVCIVnIHtX5TPHEBudzjmxKXFbfpklGPBfIt0i0yRREufxuY
- v+zLJfzZUv2/Iw6lVJasc9Gie91rs3/rEuOLa3GI+OPiuDOOC/FFe9YazNjrIkRtcu5nekcy
- P4HX+Pi9vmVeLSWjvX/mWLLEW03EA==
-IronPort-HdrOrdr: A9a23:fA9MuajhUOLgsfO5aHKh7Ri6RHBQXtYji2hC6mlwRA09TySZ//
- rBoB19726StN9xYgBFpTnuAsm9qB/nmaKdgrNhWItKPjOW21dARbsKheCJrgEIcxeOkNK1vp
- 0AT0ERMrLN5CBB/KTH3DU=
-X-IronPort-AV: E=Sophos;i="5.92,231,1650945600"; 
-   d="scan'208";a="74746993"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/2] x86/spec-ctrl: Knobs for STIBP and PSFD, and follow hardware STIBP hint
-Date: Wed, 29 Jun 2022 19:45:08 +0100
-Message-ID: <20220629184508.15956-3-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20220629184508.15956-1-andrew.cooper3@citrix.com>
-References: <20220629184508.15956-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: 0e814f6d-f7de-11ec-bd2d-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j7yhwyW5XKCuJtmcURuiFUKUCOQ4oAc9ZtHo4/D60DzzCqsWjS2MDltwX91EQSzHgv4E+g9CHzaI/4XhuipMmyFd0NWT9A7jXJ3VQjMaBpk/GkUhQGFsgXvHSM3DxrtDVkezxwhMCxVazQyM+vZ1S9e1uruz1CvDCsdQDseXA5Aj3ATGmbMjdGQC7o5rKwwqbe4qvKJ+ilmYPiGFjj/D9XGSzAOtl7uEJtuSizniqpOkCmA5e+3/FY8WvawTBjJKu+lLnOp+xZn+FxzmAa1rlb8iHsHjvtUVWRIhUyIvqT239j6/ySEupzLFXoBXaX+hxoRjZN55u6muKk1LcDCaHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4JGreh3MVBlu7GqnDF7jol/Jz//foxmoiPKAeC7DaPk=;
+ b=EpUFwtsVaumQ7bXfzJl0sq4Tu+pefiJIAL4r73c7w5yX+YPSSkWhuZuTnwm9ejRtQkKIKOr79PyHB1/c58nOUM3bYeV4wII4oZJU2YrduG2AgYNFjKkeoOk02PDs0YZMsdlROtPTZyMpm2huFKSkFK1GnfiRGdPLkVSqZupGJCC235AAbrNCreuKUaiSwzpHG1VBQwCli4GKVLLmO11DGf5B73PHQlR1HWhbuQMUHPk/1bCAIoaBfd+7AEFxBwvpR/XDZCQ32KsJZdBU5WJzjIJpT5VXyxyi5w2+mgw2xOtido34aI5nrHns67UniyO+J/zXowSkcarGcT1in4gO/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4JGreh3MVBlu7GqnDF7jol/Jz//foxmoiPKAeC7DaPk=;
+ b=qZMvPozvhDQdgWBKK1JrErT5AR0rf/bsY7Smd83YqOX+XwWXS6z92YpCaFsiC3mMdjdjzs8gx+toZ/Sx+y+ADxaOBllTgCncRnbXWRl9WMNGb7v4GArk2FIWS1V85SrF/XaqKeEi2mFbTpi/997tpZrCtjp+6jHJE2n2qP+p3Vc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <cafc1602-6f5f-3238-801d-29c13ed37f50@amd.com>
+Date: Wed, 29 Jun 2022 20:02:33 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.10.0
+Subject: Re: [PATCH 2/2] uboot-script-gen: do not enable direct mapping by
+ default
+To: xenia <burzalodowa@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, viryaos-discuss@lists.sourceforge.net
+References: <20220626184536.666647-1-burzalodowa@gmail.com>
+ <20220626184536.666647-2-burzalodowa@gmail.com>
+ <alpine.DEB.2.22.394.2206281727080.4389@ubuntu-linux-20-04-desktop>
+ <22476413-14da-21cd-eb02-15165bfe602a@gmail.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <22476413-14da-21cd-eb02-15165bfe602a@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO2P123CA0007.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:a6::19) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4dbb6d1f-1523-4c13-5463-08da5a01effa
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3213:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	T1zs6+JEVk8BAVVphdMakwyGz8GHlUoUWSIqIPgnggbgzi9Kxj66T0QaufmLG5YFxxnX+wfKOR8AAT8sAKIHd0hhhaUK9hXnXzON0t/Fv5KOFPmJUw2h39LPxZwOg+VaSx55QIm/mBHAKE30WsCr+85FTM2qusiTuN49f0TBzoYy8GetpIQmtMr7wX2eCg3hno3QzEvraVsF1DTO3bdArno4fA8nxajmaRqEjkvDGuC7vS4EBP5Lg9NEwwYep2KG99dgpjtgPlP2cCT35Wji4tAf0T17CffS86ZvuWZzK33w6mFyvrAzC0ex08Pae1QPrBMEggNUC1/xWtjd6Q/4cexzWVG38dZf2mlLJv92oRpQPJ5o5bO8bI7HWgs6Ygty5/26EieoGERF+lrDOvulfDvCl4AdbIuOpn1d9+mBQ7APexNwfPGIFHsuJVRf5Z3JCp6f5RxbviNdrhiIRiFZ0VmS/crwamCqrcs4dAt21wXSKsDiAZ4gX+PqFfO7c0AgCN0Kb/nA8AXA9DSNJcT5hMs2oTmPytwc92PSiAlyxGM9WInrGEoAFGylIXMpxXIsZiJsqD3OBCQoxBFTfRVZHYT5Lm5dDDE8YE6CLc4Di/olWA2mTBp+/oN1h5OgNotkjO+5TVqCmbV3guiliNmiZa38zaUS+A11KAdx6ir1s480D5yx/850b60xZGrUouN0fpIIMNeZWzRJ5db3qV+EpNJLXwlKyJh25ItbaXt7UPouPsZATvyF9c5sYthm9VxrsBSywVRvDw5ftxBPEofmQ58B4EfToadTOv9WKB9bGOsVvav+5zGc/Z7koYoiY7k5j0C9dnW6zB3Ejks35hKtvQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(396003)(136003)(346002)(376002)(39860400002)(366004)(66946007)(41300700001)(110136005)(8676002)(6506007)(53546011)(6512007)(36756003)(66476007)(186003)(31696002)(31686004)(8936002)(2616005)(2906002)(38100700002)(316002)(66556008)(6666004)(6486002)(26005)(478600001)(5660300002)(4326008)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UEVlK3lqTVRpVStSYzJHNHBEalhNQjFjaGZEN2JWNGhCekIzV0dkcjQvdFVB?=
+ =?utf-8?B?NGd2ZWpieDJNZjl6OFo4L0w1YU1oRFVSd2F6UFgycEo1RXRJc1g2bHQzK1Y0?=
+ =?utf-8?B?dnZaQy9kbGloSm5xa1QxQ2hJbE9xT1BSNkgzRFlqMDYvT1lHNURoQk9DMVRw?=
+ =?utf-8?B?NWJucDlBaldPQjZLcUVabU8xNEtxb0h0V2VTZ3hQNVQ5c3hRWkpCNU1xaGNT?=
+ =?utf-8?B?QWlCcFdic2J5TTZjZGN3UWhqN2pybjlCQ1BDYksxN3Y3elZKMjdWQlZFMldK?=
+ =?utf-8?B?dUxuamdBWVVzdnlNbWdTOXd4c1NYM2tua1Iza1B3TWsyaWR4N0w1aUxQeE1N?=
+ =?utf-8?B?N2FwRS9kWTVRZ3plSFQ5SDQzMURlMTRyMzdtdXpleEN0YjExRlpIRnZWcDZr?=
+ =?utf-8?B?TkhmN3ViWTV1M3VpRWlKak81RmU4YkpWTnBnM3lkSEMyM3FkUXNPMlQvT1dN?=
+ =?utf-8?B?NHEwMmpNdVRMYWhxeWpMWlRnSFZOQ2NLY1poWmN3U0pOVGVuaTJTR3NIMUFD?=
+ =?utf-8?B?VDdMd05Ja2FQdFVxSG1BR0lGV1g3M0VEQ0NsZHhQdEZHZS8ySGVkYmVXU084?=
+ =?utf-8?B?KzNjRHF6bWpHWFhtY1l1Vk5mNkRUVjV1UnJZeUsxWlllNjhuOFBXcTJBZDBL?=
+ =?utf-8?B?YWE4TTFCNnpBQzFHbFRoSzl4cGtmYlRrL1QyV1d2cGtaQ0k3Vkc5S2NpbDFJ?=
+ =?utf-8?B?QWtkT0Y1b2lnOG96ZVAxdUVOVEJsS1hma2JPVytsUjJFci8yM0RJQldEMTFm?=
+ =?utf-8?B?N3dNVkdURDZsc05GQ1pVQVJmNFpDem90NnVaTzVFbElaZ2NLQS9MU1pmMXFt?=
+ =?utf-8?B?U0xLM0ZlVTRLMTV5YjArNWlRUFFNVDlRdXp0VjlGU3Uxd0I1bEZnaXg1MHNS?=
+ =?utf-8?B?L3AxZ0tlV01FREFOQUtZdTZVSlhWZkdUYmUrVzZHcmU5MEVkQXFKRk5jMHFj?=
+ =?utf-8?B?RWgyaC9LTjRHMURrVG81SitpQ3p1YUpZMDhjNG96dHJtUGptOGRuSXBOWllL?=
+ =?utf-8?B?WVB5dExEUHFlL1gyT1N3QW9PMlRZb0lCUXdkUktIOG0yZTRNTjN4cHBsdFI5?=
+ =?utf-8?B?REpydURlLzAxc1VZYWxvV2JYZXBlVXE2R3hLaG0xM3J3UWE4WWR1b3FMWXpo?=
+ =?utf-8?B?SEh4Q2NETXZjdjRYbHNDblBVZDB2eTJKaW1PaWgvcDIzYUhJMHBudThpZ1Zi?=
+ =?utf-8?B?WlcrQ3VROXFvRVUyTDY1MUVKL0tsOCtVbjUvRmM0M3Fyd1J1a3FMOGN6U2Y5?=
+ =?utf-8?B?cEhHekdEcng0ZXVhNUhJRFdxU2JJcXY5cTFIL2ZSOUFnZGUweGJIVm1kQWNy?=
+ =?utf-8?B?dVFNT2JpMmJHWGxocUFRVU80KytsVFdLYllIUFFXTVFOdnNwUkVwMjRwWFNB?=
+ =?utf-8?B?cmc1T3c2N3ByVFVvRnVzTk4yZ2xEb3dLQWRpVHhNUC94blhJSVFIUWo4VGkx?=
+ =?utf-8?B?b0tPTXRGYktwUWJSTWVBeFVxUHgxV2NOeFFpL0l5SjlpRUJIWGZ0ZGQ2Y3V0?=
+ =?utf-8?B?WEhORG04NnQyaGZHLzFXS1RINmpwcTN0YjRBQ0RGZVdnemtoNEs2RVQxSXUv?=
+ =?utf-8?B?S3VUSFFVMGFpam9BTFBMQmpiNlFiRDEySHlNbWxYQ3RKUW01SnIxYkF5WGY3?=
+ =?utf-8?B?THNpNjc5N1h3NzI4SWl6eXJTanJ4bGF6VklhSGpvZHlxZDk0VnVvM3BGUXhq?=
+ =?utf-8?B?d2hWOGhpN0N2KzM2Q2dGc0Z4Z3VnNVdGRkZqekhvejZZVWwzc2JmS3o5RU9r?=
+ =?utf-8?B?SWpXTjMyM1VZd0s0LzFpaVRzSVBCS3cvNXpyK09wYzhqM1RPZXNnYkd4V0x4?=
+ =?utf-8?B?eWNQOEd1STVMTXp6QlRNTytheXE4aXk1bFB0UDhyOFk2NW5GN0dDYjNSazB3?=
+ =?utf-8?B?Sk5zLytLWHdrTFgydFUwVm9lRldsSElqT1RYU1hjdEpiTlVObXZBNUIrczRm?=
+ =?utf-8?B?d0t4UUhPTnBWWUIzelVMdEx4N1NlTGZSM0NIUTE0SlBpbHJkMXNiZTB1dDBn?=
+ =?utf-8?B?SWhDcUVkZXNETzlKWjBuS0MyTW1jdXQ3Sm4wSTdZc3BkNmdkY3FFSGFNM2kv?=
+ =?utf-8?B?V09DT0ZMcTROZTNxOHRqUnRySVcwalc2TkVzQjJySmlpQjZnMWpiV094a2Zx?=
+ =?utf-8?Q?iTV3K2PSTDKjBLIoswWrZmSIM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4dbb6d1f-1523-4c13-5463-08da5a01effa
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 19:02:39.6629
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DZ1Kq5CIzUT/CrHm+7XB0s8j5ontfvWzuPxojisrYN4Vi5vd932RaMh3AS0j/g9sIQL4t4s54U+EEO/V+8a1oQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3213
 
-STIBP and PSFD are slightly weird bits, because they're both implied by other
-bits in MSR_SPEC_CTRL.  Add fine grain controls for them, and take the
-implications into account when setting IBRS/SSBD.
+Hi Stefano/Xenia,
 
-Rearrange the IBPB text/variables/logic to keep all the MSR_SPEC_CTRL bits
-together, for consistency.
+On 29/06/2022 18:01, xenia wrote:
+> Hi Stefano,
+>
+> On 6/29/22 03:28, Stefano Stabellini wrote:
+>> On Sun, 26 Jun 2022, Xenia Ragiadakou wrote:
+>>> To be inline with XEN, do not enable direct mapping automatically 
+>>> for all
+>>> statically allocated domains.
+>>>
+>>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>> Actually I don't know about this one. I think it is OK that ImageBuilder
+>> defaults are different from Xen defaults. This is a case where I think
+>> it would be good to enable DOMU_DIRECT_MAP by default when
+>> DOMU_STATIC_MEM is specified.
+> Just realized that I forgot to add [ImageBuilder] tag to the patches. 
+> Sorry about that.
 
-However, AMD have a hardware hint CPUID bit recommending that STIBP be set
-unilaterally.  This is advertised on Zen3, so follow the recommendation.
-Furthermore, in such cases, set STIBP behind the guest's back for now.  This
-has negligible overhead for the guest, but saves a WRMSR on vmentry.  This is
-the only default change.
+@Stefano, why do you wish the Imagebuilder's behaviour to differ from 
+Xen ? Is there any use-case that helps.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+- Ayan
 
-v2:
- * Tweak comments/logic per suggestion.
- * Also set STIBP behind the guest's back to improve the vmentry path.
----
- docs/misc/xen-command-line.pandoc | 21 ++++++++++---
- xen/arch/x86/hvm/svm/vmcb.c       |  9 ++++++
- xen/arch/x86/spec_ctrl.c          | 65 +++++++++++++++++++++++++++++++++------
- 3 files changed, 81 insertions(+), 14 deletions(-)
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index a92b7d228cae..da18172e50c5 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2258,8 +2258,9 @@ By default SSBD will be mitigated at runtime (i.e `ssbd=runtime`).
- 
- ### spec-ctrl (x86)
- > `= List of [ <bool>, xen=<bool>, {pv,hvm,msr-sc,rsb,md-clear}=<bool>,
-->              bti-thunk=retpoline|lfence|jmp, {ibrs,ibpb,ssbd,eager-fpu,
-->              l1d-flush,branch-harden,srb-lock,unpriv-mmio}=<bool> ]`
-+>              bti-thunk=retpoline|lfence|jmp, {ibrs,ibpb,ssbd,psfd,
-+>              eager-fpu,l1d-flush,branch-harden,srb-lock,
-+>              unpriv-mmio}=<bool> ]`
- 
- Controls for speculative execution sidechannel mitigations.  By default, Xen
- will pick the most appropriate mitigations based on compiled in support,
-@@ -2309,9 +2310,10 @@ On hardware supporting IBRS (Indirect Branch Restricted Speculation), the
- If Xen is not using IBRS itself, functionality is still set up so IBRS can be
- virtualised for guests.
- 
--On hardware supporting IBPB (Indirect Branch Prediction Barrier), the `ibpb=`
--option can be used to force (the default) or prevent Xen from issuing branch
--prediction barriers on vcpu context switches.
-+On hardware supporting STIBP (Single Thread Indirect Branch Predictors), the
-+`stibp=` option can be used to force or prevent Xen using the feature itself.
-+By default, Xen will use STIBP when IBRS is in use (IBRS implies STIBP), and
-+when hardware hints recommend using it as a blanket setting.
- 
- On hardware supporting SSBD (Speculative Store Bypass Disable), the `ssbd=`
- option can be used to force or prevent Xen using the feature itself.  On AMD
-@@ -2319,6 +2321,15 @@ hardware, this is a global option applied at boot, and not virtualised for
- guest use.  On Intel hardware, the feature is virtualised for guests,
- independently of Xen's choice of setting.
- 
-+On hardware supporting PSFD (Predictive Store Forwarding Disable), the `psfd=`
-+option can be used to force or prevent Xen using the feature itself.  By
-+default, Xen will not use PSFD.  PSFD is implied by SSBD, and SSBD is off by
-+default.
-+
-+On hardware supporting IBPB (Indirect Branch Prediction Barrier), the `ibpb=`
-+option can be used to force (the default) or prevent Xen from issuing branch
-+prediction barriers on vcpu context switches.
-+
- On all hardware, the `eager-fpu=` option can be used to force or prevent Xen
- from using fully eager FPU context switches.  This is currently implemented as
- a global control.  By default, Xen will choose to use fully eager context
-diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
-index 958309657799..0fc57dfd71cf 100644
---- a/xen/arch/x86/hvm/svm/vmcb.c
-+++ b/xen/arch/x86/hvm/svm/vmcb.c
-@@ -29,6 +29,7 @@
- #include <asm/hvm/support.h>
- #include <asm/hvm/svm/svm.h>
- #include <asm/hvm/svm/svmdebug.h>
-+#include <asm/spec_ctrl.h>
- 
- struct vmcb_struct *alloc_vmcb(void)
- {
-@@ -176,6 +177,14 @@ static int construct_vmcb(struct vcpu *v)
-             vmcb->_pause_filter_thresh = SVM_PAUSETHRESH_INIT;
-     }
- 
-+    /*
-+     * When default_xen_spec_ctrl simply SPEC_CTRL_STIBP, default this behind
-+     * the back of the VM too.  Our SMT topology isn't accurate, the overhead
-+     * is neglegable, and doing this saves a WRMSR on the vmentry path.
-+     */
-+    if ( default_xen_spec_ctrl == SPEC_CTRL_STIBP )
-+        v->arch.msrs->spec_ctrl.raw = SPEC_CTRL_STIBP;
-+
-     return 0;
- }
- 
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 57f4fcb21398..efed24933d91 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -48,9 +48,13 @@ static enum ind_thunk {
-     THUNK_LFENCE,
-     THUNK_JMP,
- } opt_thunk __initdata = THUNK_DEFAULT;
-+
- static int8_t __initdata opt_ibrs = -1;
-+int8_t __initdata opt_stibp = -1;
-+bool __read_mostly opt_ssbd;
-+int8_t __initdata opt_psfd = -1;
-+
- bool __read_mostly opt_ibpb = true;
--bool __read_mostly opt_ssbd = false;
- int8_t __read_mostly opt_eager_fpu = -1;
- int8_t __read_mostly opt_l1d_flush = -1;
- static bool __initdata opt_branch_harden = true;
-@@ -172,12 +176,20 @@ static int __init cf_check parse_spec_ctrl(const char *s)
-             else
-                 rc = -EINVAL;
-         }
-+
-+        /* Bits in MSR_SPEC_CTRL. */
-         else if ( (val = parse_boolean("ibrs", s, ss)) >= 0 )
-             opt_ibrs = val;
--        else if ( (val = parse_boolean("ibpb", s, ss)) >= 0 )
--            opt_ibpb = val;
-+        else if ( (val = parse_boolean("stibp", s, ss)) >= 0 )
-+            opt_stibp = val;
-         else if ( (val = parse_boolean("ssbd", s, ss)) >= 0 )
-             opt_ssbd = val;
-+        else if ( (val = parse_boolean("psfd", s, ss)) >= 0 )
-+            opt_psfd = val;
-+
-+        /* Misc settings. */
-+        else if ( (val = parse_boolean("ibpb", s, ss)) >= 0 )
-+            opt_ibpb = val;
-         else if ( (val = parse_boolean("eager-fpu", s, ss)) >= 0 )
-             opt_eager_fpu = val;
-         else if ( (val = parse_boolean("l1d-flush", s, ss)) >= 0 )
-@@ -376,7 +388,7 @@ static void __init print_details(enum ind_thunk thunk, uint64_t caps)
-                "\n");
- 
-     /* Settings for Xen's protection, irrespective of guests. */
--    printk("  Xen settings: BTI-Thunk %s, SPEC_CTRL: %s%s%s%s, Other:%s%s%s%s%s\n",
-+    printk("  Xen settings: BTI-Thunk %s, SPEC_CTRL: %s%s%s%s%s, Other:%s%s%s%s%s\n",
-            thunk == THUNK_NONE      ? "N/A" :
-            thunk == THUNK_RETPOLINE ? "RETPOLINE" :
-            thunk == THUNK_LFENCE    ? "LFENCE" :
-@@ -390,6 +402,9 @@ static void __init print_details(enum ind_thunk thunk, uint64_t caps)
-            (!boot_cpu_has(X86_FEATURE_SSBD) &&
-             !boot_cpu_has(X86_FEATURE_AMD_SSBD))     ? "" :
-            (default_xen_spec_ctrl & SPEC_CTRL_SSBD)  ? " SSBD+" : " SSBD-",
-+           (!boot_cpu_has(X86_FEATURE_PSFD) &&
-+            !boot_cpu_has(X86_FEATURE_INTEL_PSFD))   ? "" :
-+           (default_xen_spec_ctrl & SPEC_CTRL_PSFD)  ? " PSFD+" : " PSFD-",
-            !(caps & ARCH_CAPS_TSX_CTRL)              ? "" :
-            (opt_tsx & 1)                             ? " TSX+" : " TSX-",
-            !cpu_has_srbds_ctrl                       ? "" :
-@@ -980,10 +995,7 @@ void __init init_speculation_mitigations(void)
-         if ( !has_spec_ctrl )
-             printk(XENLOG_WARNING "?!? CET active, but no MSR_SPEC_CTRL?\n");
-         else if ( opt_ibrs == -1 )
--        {
-             opt_ibrs = ibrs = true;
--            default_xen_spec_ctrl |= SPEC_CTRL_IBRS | SPEC_CTRL_STIBP;
--        }
- 
-         if ( opt_thunk == THUNK_DEFAULT || opt_thunk == THUNK_RETPOLINE )
-             thunk = THUNK_JMP;
-@@ -1087,14 +1099,49 @@ void __init init_speculation_mitigations(void)
-             setup_force_cpu_cap(X86_FEATURE_SC_MSR_HVM);
-     }
- 
--    /* If we have IBRS available, see whether we should use it. */
-+    /* Figure out default_xen_spec_ctrl. */
-     if ( has_spec_ctrl && ibrs )
-+    {
-+        /* IBRS implies STIBP.  */
-+        if ( opt_stibp == -1 )
-+            opt_stibp = 1;
-+
-         default_xen_spec_ctrl |= SPEC_CTRL_IBRS;
-+    }
-+
-+    /*
-+     * Use STIBP by default if the hardware hint is set.  Otherwise, leave it
-+     * off as it a severe performance pentalty on pre-eIBRS Intel hardware
-+     * where it was retrofitted in microcode.
-+     */
-+    if ( opt_stibp == -1 )
-+        opt_stibp = !!boot_cpu_has(X86_FEATURE_STIBP_ALWAYS);
-+
-+    if ( opt_stibp && (boot_cpu_has(X86_FEATURE_STIBP) ||
-+                       boot_cpu_has(X86_FEATURE_AMD_STIBP)) )
-+        default_xen_spec_ctrl |= SPEC_CTRL_STIBP;
- 
--    /* If we have SSBD available, see whether we should use it. */
-     if ( opt_ssbd && (boot_cpu_has(X86_FEATURE_SSBD) ||
-                       boot_cpu_has(X86_FEATURE_AMD_SSBD)) )
-+    {
-+        /* SSBD implies PSFD */
-+        if ( opt_psfd == -1 )
-+            opt_psfd = 1;
-+
-         default_xen_spec_ctrl |= SPEC_CTRL_SSBD;
-+    }
-+
-+    /*
-+     * Don't use PSFD by default.  AMD designed the predictor to
-+     * auto-clear on privilege change.  PSFD is implied by SSBD, which is
-+     * off by default.
-+     */
-+    if ( opt_psfd == -1 )
-+        opt_psfd = 0;
-+
-+    if ( opt_psfd && (boot_cpu_has(X86_FEATURE_PSFD) ||
-+                      boot_cpu_has(X86_FEATURE_INTEL_PSFD)) )
-+        default_xen_spec_ctrl |= SPEC_CTRL_PSFD;
- 
-     /*
-      * PV guests can create RSB entries for any linear address they control,
--- 
-2.11.0
-
+>
+> I cc Ayan, since the change was suggested by him.
+> I have no strong preference on the default value.
+>
+> Xenia
+>
+>>> ---
+>>>   README.md                | 4 ++--
+>>>   scripts/uboot-script-gen | 8 ++------
+>>>   2 files changed, 4 insertions(+), 8 deletions(-)
+>>>
+>>> diff --git a/README.md b/README.md
+>>> index cb15ca5..03e437b 100644
+>>> --- a/README.md
+>>> +++ b/README.md
+>>> @@ -169,8 +169,8 @@ Where:
+>>>     if specified, indicates the host physical address regions
+>>>     [baseaddr, baseaddr + size) to be reserved to the VM for static 
+>>> allocation.
+>>>   -- DOMU_DIRECT_MAP[number] can be set to 1 or 0.
+>>> -  If set to 1, the VM is direct mapped. The default is 1.
+>>> +- DOMU_DIRECT_MAP[number] if set to 1, enables direct mapping.
+>>> +  By default, direct mapping is disabled.
+>>>     This is only applicable when DOMU_STATIC_MEM is specified.
+>>>     - LINUX is optional but specifies the Linux kernel for when Xen 
+>>> is NOT
+>>> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+>>> index 085e29f..66ce6f7 100755
+>>> --- a/scripts/uboot-script-gen
+>>> +++ b/scripts/uboot-script-gen
+>>> @@ -52,7 +52,7 @@ function dt_set()
+>>>               echo "fdt set $path $var $array" >> $UBOOT_SOURCE
+>>>           elif test $data_type = "bool"
+>>>           then
+>>> -            if test "$data" -eq 1
+>>> +            if test "$data" == "1"
+>>>               then
+>>>                   echo "fdt set $path $var" >> $UBOOT_SOURCE
+>>>               fi
+>>> @@ -74,7 +74,7 @@ function dt_set()
+>>>               fdtput $FDTEDIT -p -t s $path $var $data
+>>>           elif test $data_type = "bool"
+>>>           then
+>>> -            if test "$data" -eq 1
+>>> +            if test "$data" == "1"
+>>>               then
+>>>                   fdtput $FDTEDIT -p $path $var
+>>>               fi
+>>> @@ -491,10 +491,6 @@ function xen_config()
+>>>           then
+>>>               DOMU_CMD[$i]="console=ttyAMA0"
+>>>           fi
+>>> -        if test -z "${DOMU_DIRECT_MAP[$i]}"
+>>> -        then
+>>> -             DOMU_DIRECT_MAP[$i]=1
+>>> -        fi
+>>>           i=$(( $i + 1 ))
+>>>       done
+>>>   }
+>>> -- 
+>>> 2.34.1
+>>>
 
