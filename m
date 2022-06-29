@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21A7055FC5A
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 11:44:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357714.586463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8218F55FCF2
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:16:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357720.586473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6UFJ-0000sH-Ud; Wed, 29 Jun 2022 09:44:29 +0000
+	id 1o6Ujh-0004am-Do; Wed, 29 Jun 2022 10:15:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357714.586463; Wed, 29 Jun 2022 09:44:29 +0000
+Received: by outflank-mailman (output) from mailman id 357720.586473; Wed, 29 Jun 2022 10:15:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6UFJ-0000qU-Rf; Wed, 29 Jun 2022 09:44:29 +0000
-Received: by outflank-mailman (input) for mailman id 357714;
- Wed, 29 Jun 2022 09:44:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=39p8=XE=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
- id 1o6UFI-0000qO-AU
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 09:44:28 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 109cf6ef-f790-11ec-bd2d-47488cf2e6aa;
- Wed, 29 Jun 2022 11:44:27 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id v9so5958241wrp.7
- for <xen-devel@lists.xenproject.org>; Wed, 29 Jun 2022 02:44:26 -0700 (PDT)
-Received: from horizon ([2a01:e0a:19f:35f0:dde5:d55a:20f5:7ef5])
- by smtp.gmail.com with ESMTPSA id
- bk20-20020a0560001d9400b0021b8b998ca5sm15144659wrb.107.2022.06.29.02.44.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jun 2022 02:44:25 -0700 (PDT)
+	id 1o6Ujh-0004Xw-Ar; Wed, 29 Jun 2022 10:15:53 +0000
+Received: by outflank-mailman (input) for mailman id 357720;
+ Wed, 29 Jun 2022 10:15:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=m/oR=XE=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o6Ujf-0004Xq-D8
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:15:51 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 72758b42-f794-11ec-b725-ed86ccbb4733;
+ Wed, 29 Jun 2022 12:15:49 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8F42122049;
+ Wed, 29 Jun 2022 10:15:48 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 455F8133D1;
+ Wed, 29 Jun 2022 10:15:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id KB68DlQmvGKLGwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 29 Jun 2022 10:15:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,301 +51,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 109cf6ef-f790-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=AlQeOmPpUQJBjKBz2Qp4KLbJ9+pcVkvjnIwLu7K9TMg=;
-        b=gazambA0KHXnEeskYh5wqWbiGZrhGgzegB+YS3PJB0WPWdhhYJF/yr0z9owwyFxK15
-         DyzBdL6EB7DHAbpbSfURhoqPp290OP6A9gN5C1/V8oPZqD/2guK1s2sM7pOJ0W5rHa1h
-         n9HYhCEyBMpdYz9xNLZ8sukgXua8ZDXZgEv8pGZ6l7VRNFzh9b5fDYgDaVO4lD5o1ERA
-         wrX3yn72HB0VrZXDfDGd0Ief/j/O+l6yF4U8epQionAoQfN2UxmbPTP8i6yetDj1QPTs
-         B7sYH1/A0B49zC0o7pgA6BRNOlzHCYKgyR3Qm/EFlfHwTUQ/xAYTcJqMqxDtbOZwGMZN
-         D+6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=AlQeOmPpUQJBjKBz2Qp4KLbJ9+pcVkvjnIwLu7K9TMg=;
-        b=v84BVTo0P1n+EoHJORjkcJSUlJTkVaWMwbL2zb/q1UOzpCv9/66LcmQXAW326aO2vS
-         3XvaXMX/cYcIUeFYlcnEl1/cKaz/pa8/0o4pVm0bxdFzwiWXhUtZqjEVBa9daYOFWqN1
-         IEzyXEzf1SyldiEOXWB/5deE0shJEU51DJ79bgm7G55ZV9MNh5vwqtkAQV3cFi9WoEiW
-         Wpzf6f09NKQlsvHo+AJ+LgMQ0In+MbL2BbQIv1HrszcAXL/enRcjT4SNxEhyuUH2NUyp
-         kCi6PeYjfxTtQ1pfniEYw/4/yz63HDqE+yQsmR3bt8a/I0jzZJGeyB1PnqT9JSxaV7/4
-         D2FQ==
-X-Gm-Message-State: AJIora8ZAbEvLo0ML8vIFiN1tiTyS0zSxw3e29KV2sos5dohEILPh0T0
-	pX/KTPu8I3Jpej8AEg04U6g=
-X-Google-Smtp-Source: AGRyM1sIhUDszCCqY8InATbzKyazV7qIW99Vsxrxj6D6r5NJIZAZusPVchlaw56Dyu14wuO3rI244w==
-X-Received: by 2002:a5d:5261:0:b0:21b:8740:382b with SMTP id l1-20020a5d5261000000b0021b8740382bmr2010526wrc.143.1656495866102;
-        Wed, 29 Jun 2022 02:44:26 -0700 (PDT)
-Date: Wed, 29 Jun 2022 11:44:23 +0200
-From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: Re: [RFC PATCH 1/2] xen/memory : Add stats_table resource type
-Message-ID: <20220629094423.GA250661@horizon>
-References: <cover.1652797713.git.matias.vara@vates.fr>
- <d0afb6657b1e78df4857ad7bcc875982e9c022b4.1652797713.git.matias.vara@vates.fr>
- <C9B7EF20-595D-4BCB-8545-F35611B718AF@citrix.com>
+X-Inumbo-ID: 72758b42-f794-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1656497748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qlyXEotVs3KGLoWj7lEpW6RoUlD6dJzdc722NlwYUNk=;
+	b=hwrstUrn51gitQvIuaTucP1RQg5OVCii3wZ1Zonq0Ognj6qzCOKvT2weiU2pzJIHgti7ak
+	yUIv4ZEYnEeDA1Zb4gXOQuzaZVlNwOBTfI0tVvMtihYqXF9jSTwbzJU8EgkNB/HVAqZnQy
+	pq9y7EZOQzT+VI2aOI+OBqjWe2IMq14=
+Message-ID: <dbb48b14-9581-f85c-3fa0-c5b2dc5bea02@suse.com>
+Date: Wed, 29 Jun 2022 12:15:47 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <C9B7EF20-595D-4BCB-8545-F35611B718AF@citrix.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [XEN PATCH v3 12/25] .gitignore: Cleanup ignores of
+ tools/libs/*/{headers.chk,*.pc}
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <20220624160422.53457-1-anthony.perard@citrix.com>
+ <20220624160422.53457-13-anthony.perard@citrix.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20220624160422.53457-13-anthony.perard@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------YLGlkFnuz0UDWxoULsWYUIPd"
 
-On Fri, Jun 17, 2022 at 08:54:34PM +0000, George Dunlap wrote:
-> Preface: It looks like this may be one of your first hypervisor patches.  So thank you!  FYI there’s a lot that needs fixing up here; please don’t read a tone of annoyance into it, I’m just trying to tell you what needs fixing in the most efficient manner. :-)
-> 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------YLGlkFnuz0UDWxoULsWYUIPd
+Content-Type: multipart/mixed; boundary="------------uBU5ZohxcQO3ZEBTgVDgNIyy";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+Message-ID: <dbb48b14-9581-f85c-3fa0-c5b2dc5bea02@suse.com>
+Subject: Re: [XEN PATCH v3 12/25] .gitignore: Cleanup ignores of
+ tools/libs/*/{headers.chk,*.pc}
+References: <20220624160422.53457-1-anthony.perard@citrix.com>
+ <20220624160422.53457-13-anthony.perard@citrix.com>
+In-Reply-To: <20220624160422.53457-13-anthony.perard@citrix.com>
 
-Thanks for the comments :) I have addressed some of them already in the response to the
-cover letter.
+--------------uBU5ZohxcQO3ZEBTgVDgNIyy
+Content-Type: multipart/mixed; boundary="------------cIKsxlVeS7SFnbNRTX8s4uls"
 
-> > On 17 May 2022, at 15:33, Matias Ezequiel Vara Larsen <matiasevara@gmail.com> wrote:
-> > 
-> > Allow to map vcpu stats using acquire_resource().
-> 
-> This needs a lot more expansion in terms of what it is that you’re doing in this patch and why.
-> 
+--------------cIKsxlVeS7SFnbNRTX8s4uls
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Got it. I'll improve the commit message in v1.
+T24gMjQuMDYuMjIgMTg6MDQsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBTaWduZWQtb2Zm
+LWJ5OiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJhcmRAY2l0cml4LmNvbT4NCg0KUmV2
+aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2Vu
+DQo=
+--------------cIKsxlVeS7SFnbNRTX8s4uls
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> > 
-> > Signed-off-by: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
-> > ---
-> > xen/common/domain.c         | 42 +++++++++++++++++++++++++++++++++++++
-> > xen/common/memory.c         | 29 +++++++++++++++++++++++++
-> > xen/common/sched/core.c     |  5 +++++
-> > xen/include/public/memory.h |  1 +
-> > xen/include/xen/sched.h     |  5 +++++
-> > 5 files changed, 82 insertions(+)
-> > 
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index 17cc32fde3..ddd9f88874 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -132,6 +132,42 @@ static void vcpu_info_reset(struct vcpu *v)
-> >     v->vcpu_info_mfn = INVALID_MFN;
-> > }
-> > 
-> > +static void stats_free_buffer(struct vcpu * v)
-> > +{
-> > +    struct page_info *pg = v->stats.pg;
-> > +
-> > +    if ( !pg )
-> > +        return;
-> > +
-> > +    v->stats.va = NULL;
-> > +
-> > +    if ( v->stats.va )
-> > +        unmap_domain_page_global(v->stats.va);
-> > +
-> > +    v->stats.va = NULL;
-> 
-> Looks like you meant to delete the first `va->stats.va = NULL` but forgot?
-> 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Apologies for this, I completely missed.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> > +
-> > +    free_domheap_page(pg);
-> 
-> Pretty sure this will crash.
-> 
-> Unfortunately page allocation and freeing is somewhat complicated and requires a bit of boilerplate.  You can look at the vmtrace_alloc_buffer() code for a template, but the general sequence you want is as follows:
-> 
-> * On the allocate side:
-> 
-> 1. Allocate the page
-> 
->    pg = alloc_domheap_page(d, MEMF_no_refcount);
-> 
-> This will allocate a page with the PGC_allocated bit set and a single reference count.  (If you pass a page with PGC_allocated set to free_domheap_page(), it will crash; which is why I said the above.)
-> 
-> 2.  Grab a general reference count for the vcpu struct’s reference to it; as well as a writable type count, so that it doesn’t get used as a special page
-> 
-> if (get_page_and_type(pg, d, PGT_writable_page)) {
->   put_page_alloc_ref(p);
->   /* failure path */
-> }
-> 
-> * On the free side, don’t call free_domheap_pages() directly.  Rather, drop the allocation, then drop your own type count, thus:
-> 
-> v->stats.va <http://stats.va/> = NULL;
-> 
-> put_page_alloc_ref(pg);
-> put_page_and_type(pg);
-> 
-> The issue here is that we can’t free the page until all references have dropped; and the whole point of this exercise is to allow guest userspace in dom0 to gain a reference to the page.  We can’t actually free the page until *all* references are gone, including the userspace one in dom0.  The put_page() which brings the reference count to 0 will automatically free the page.
-> 
+--------------cIKsxlVeS7SFnbNRTX8s4uls--
 
-Thanks for the explanation. For some reason, this is not crashing. I will
-reimplement the allocation, releasing, and then update the documentation that I
-proposed at
-https://lists.xenproject.org/archives/html/xen-devel/2022-05/msg01963.html. The
-idea of this reference document is to guide someone that would like to export a new
-resource by relying on the acquire-resource interface. 
+--------------uBU5ZohxcQO3ZEBTgVDgNIyy--
 
-> 
-> > +}
-> > +
-> > +static int stats_alloc_buffer(struct vcpu *v)
-> > +{
-> > +    struct domain *d = v->domain;
-> > +    struct page_info *pg;
-> > +
-> > +    pg = alloc_domheap_page(d, MEMF_no_refcount);
-> > +
-> > +    if ( !pg )
-> > +        return -ENOMEM;
-> > +
-> > +    v->stats.va = __map_domain_page_global(pg);
-> > +    if ( !v->stats.va )
-> > +        return -ENOMEM;
-> > +
-> > +    v->stats.pg = pg;
-> > +    clear_page(v->stats.va);
-> > +    return 0;
-> > +}
-> 
-> The other thing to say about this is that the memory is being allocated unconditionally, even if nobody is planning to read it.  The vast majority of Xen users will not be running xcp-rrd, so it will be pointless overheard.
-> 
-> At a basic level, you want to follow suit with the vmtrace buffers, which are only allocated if the proper domctl flag is set on domain creation.  (We could consider instead, or in addition, having a global Xen command-line parameter which would enable this feature for all domains.)
->
+--------------YLGlkFnuz0UDWxoULsWYUIPd
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-I agree. I will add a domctl flag on domain creation to enable the allocation of
-these buffers.
- 
-> > +
-> > static void vmtrace_free_buffer(struct vcpu *v)
-> > {
-> >     const struct domain *d = v->domain;
-> > @@ -203,6 +239,9 @@ static int vmtrace_alloc_buffer(struct vcpu *v)
-> >  */
-> > static int vcpu_teardown(struct vcpu *v)
-> > {
-> > +
-> > +    stats_free_buffer(v);
-> > +
-> >     vmtrace_free_buffer(v);
-> > 
-> >     return 0;
-> > @@ -269,6 +308,9 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
-> >     if ( vmtrace_alloc_buffer(v) != 0 )
-> >         goto fail_wq;
-> > 
-> > +    if ( stats_alloc_buffer(v) != 0 )
-> > +        goto fail_wq;
-> > +
-> >     if ( arch_vcpu_create(v) != 0 )
-> >         goto fail_sched;
-> > 
-> > diff --git a/xen/common/memory.c b/xen/common/memory.c
-> > index 297b98a562..39de6d9d05 100644
-> > --- a/xen/common/memory.c
-> > +++ b/xen/common/memory.c
-> > @@ -1099,6 +1099,10 @@ static unsigned int resource_max_frames(const struct domain *d,
-> >     case XENMEM_resource_vmtrace_buf:
-> >         return d->vmtrace_size >> PAGE_SHIFT;
-> > 
-> > +    // WIP: to figure out the correct size of the resource
-> > +    case XENMEM_resource_stats_table:
-> > +        return 1;
-> > +
-> >     default:
-> >         return -EOPNOTSUPP;
-> >     }
-> > @@ -1162,6 +1166,28 @@ static int acquire_vmtrace_buf(
-> >     return nr_frames;
-> > }
-> > 
-> > +static int acquire_stats_table(struct domain *d,
-> > +                                unsigned int id,
-> > +                                unsigned int frame,
-> > +                                unsigned int nr_frames,
-> > +                                xen_pfn_t mfn_list[])
-> > +{
-> > +    const struct vcpu *v = domain_vcpu(d, id);
-> > +    mfn_t mfn;
-> > +
-> 
-> Maybe I’m paranoid, but I might add an “ASSERT(nr_frames == 1)” here
->
+-----BEGIN PGP SIGNATURE-----
 
-Thanks, I will have this in mind in v1.
- 
-> > +    if ( !v )
-> > +        return -ENOENT;
-> > +
-> > +    if ( !v->stats.pg )
-> > +        return -EINVAL;
-> > +
-> > +    mfn = page_to_mfn(v->stats.pg);
-> > +    mfn_list[0] = mfn_x(mfn);
-> > +
-> > +    printk("acquire_perf_table: id: %d, nr_frames: %d, %p, domainid: %d\n", id, nr_frames, v->stats.pg, d->domain_id);
-> > +    return 1;
-> > +}
-> > +
-> > /*
-> >  * Returns -errno on error, or positive in the range [1, nr_frames] on
-> >  * success.  Returning less than nr_frames contitutes a request for a
-> > @@ -1182,6 +1208,9 @@ static int _acquire_resource(
-> >     case XENMEM_resource_vmtrace_buf:
-> >         return acquire_vmtrace_buf(d, id, frame, nr_frames, mfn_list);
-> > 
-> > +    case XENMEM_resource_stats_table:
-> > +        return acquire_stats_table(d, id, frame, nr_frames, mfn_list);
-> > +
-> >     default:
-> >         return -EOPNOTSUPP;
-> >     }
-> > diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-> > index 8f4b1ca10d..2a8b534977 100644
-> > --- a/xen/common/sched/core.c
-> > +++ b/xen/common/sched/core.c
-> > @@ -264,6 +264,7 @@ static inline void vcpu_runstate_change(
-> > {
-> >     s_time_t delta;
-> >     struct sched_unit *unit = v->sched_unit;
-> > +    uint64_t * runstate;
-> > 
-> >     ASSERT(spin_is_locked(get_sched_res(v->processor)->schedule_lock));
-> >     if ( v->runstate.state == new_state )
-> > @@ -287,6 +288,10 @@ static inline void vcpu_runstate_change(
-> >     }
-> > 
-> >     v->runstate.state = new_state;
-> > +
-> > +    // WIP: use a different interface
-> > +    runstate = (uint64_t*)v->stats.va;
-> 
-> I think you should look at xen.git/xen/include/public/hvm/ioreq.h:shared_iopage_t for inspiration.  Basically, you cast the void pointer to that type, and then just access `iopage->vcpu_ioreq[vcpuid]`.   Put it in a public header, and then both the userspace consumer and Xen can use the same structure.
-> 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK8JlMFAwAAAAAACgkQsN6d1ii/Ey8+
+hgf+MIVQuqswzxBjA4Ng7Ar09oXnEuGg5jzZGy+jlBXn7wzr1Dc6xpIEvmI+11xJozpP5AUumm+C
+o7H8NsTDeEIS+4DOJTezAa1zq4Avqvq08I82kXanRSqQPMFydfIfUQq9bGre3bL1bhmyd6J22nZ1
+ZzYOtDRHQix0F+LHXHRNfCGfFFmkcEZaGn9Qhccqg3r6uypiVAdUFVnDSZK+Iy9UGqTQgxUW3CWg
+KFCdKNhEIFIGe81w7g5W1anteHyXkFwQ+BLhxpTt9FxSkEHE3Hqak8SYFv5b3qO6yXROa+Q9UrWA
+1Q/R5zUuUO0kJVhuLd/3XcSzWEbHeB6zy727WJGaVA==
+=adUC
+-----END PGP SIGNATURE-----
 
-Thanks for pointing it out. I've addresed this comment in the response to the cover
-letter.
-
-> As I said in my response to the cover letter, I think vcpu_runstate_info_t would be something to look at and gain inspiration from.
-> 
-> The other thing to say here is that this is a hot path; we don’t want to be copying lots of information around if it’s not going to be used.  So you should only allocate the buffers if specifically enabled, and you should only copy the information over if v->stats.va <http://stats.va/> != NULL.
-> 
-> I think that should be enough to start with; we can nail down more when you send v1.
-> 
-
-Thanks for the comments, I will tackle them in v1.
-
-Matias
-
-> Peace,
->  -George
-> 
-
-
+--------------YLGlkFnuz0UDWxoULsWYUIPd--
 
