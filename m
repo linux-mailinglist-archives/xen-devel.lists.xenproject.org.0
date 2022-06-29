@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D3245606E1
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 19:02:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357974.586889 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1A5E5606FD
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 19:08:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357980.586901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6b4f-0001xz-PO; Wed, 29 Jun 2022 17:01:57 +0000
+	id 1o6bA5-0002bJ-D4; Wed, 29 Jun 2022 17:07:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357974.586889; Wed, 29 Jun 2022 17:01:57 +0000
+Received: by outflank-mailman (output) from mailman id 357980.586901; Wed, 29 Jun 2022 17:07:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6b4f-0001vU-Mh; Wed, 29 Jun 2022 17:01:57 +0000
-Received: by outflank-mailman (input) for mailman id 357974;
- Wed, 29 Jun 2022 17:01:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M2+n=XE=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1o6b4e-0001vO-Q3
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 17:01:56 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2dec736f-f7cd-11ec-bd2d-47488cf2e6aa;
- Wed, 29 Jun 2022 19:01:55 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id ay16so33852850ejb.6
- for <xen-devel@lists.xenproject.org>; Wed, 29 Jun 2022 10:01:55 -0700 (PDT)
-Received: from [192.168.1.10] (adsl-146.37.6.170.tellas.gr. [37.6.170.146])
- by smtp.gmail.com with ESMTPSA id
- fd5-20020a056402388500b00436f3107bdasm10688424edb.38.2022.06.29.10.01.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jun 2022 10:01:54 -0700 (PDT)
+	id 1o6bA5-0002Z1-9q; Wed, 29 Jun 2022 17:07:33 +0000
+Received: by outflank-mailman (input) for mailman id 357980;
+ Wed, 29 Jun 2022 17:07:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=los1=XE=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1o6bA3-0002Yv-GP
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 17:07:32 +0000
+Received: from sonic312-24.consmr.mail.gq1.yahoo.com
+ (sonic312-24.consmr.mail.gq1.yahoo.com [98.137.69.205])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f3d27184-f7cd-11ec-b725-ed86ccbb4733;
+ Wed, 29 Jun 2022 19:07:28 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic312.consmr.mail.gq1.yahoo.com with HTTP; Wed, 29 Jun 2022 17:07:26 +0000
+Received: by hermes--production-ne1-7864dcfd54-q4948 (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID b6ab6cb55138359f47e14faeedf2220c; 
+ Wed, 29 Jun 2022 17:07:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,128 +42,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2dec736f-f7cd-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=+Vd8lywTbQEL1LZx5JFpNcyJV94TE2CwbAKyE4V1pTc=;
-        b=FtHb6P631xYi8c4peq8t7LqoYLzgy4qDtqyC80vqfMJFNDpFwMHKH9Z6nOv+otBek+
-         sNGMbmErhMRIBJ5RXIeMO7N3TjQ5/et2Z+bpTVuC5NtstKAOSUdp1hLUkzGW2kE57jQa
-         ebHoNRPtiqc23s/3rPtMNYZBYD4RZlG51ejKv8VK4F41GYt/3XoLL+YXreEFcEZtI8AV
-         sFWOgsC3Yotv6laU0J3dlQFouIGcey2Xnfz4zeouBj3Vw7eGouKHvqE1diV8cNiMeZba
-         huzcoUMKTHq0zAhz7lQC4OucogW9dlJf8E0SeitLslsXoS24IUxbOx+8xbLSfqxA8rNE
-         iAmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=+Vd8lywTbQEL1LZx5JFpNcyJV94TE2CwbAKyE4V1pTc=;
-        b=v3FgtNCgw9SdMeQ63VDlNCSjkE8KHtdOpVVfSaQA1h3qLGP66Kox00H86hP5oBHv60
-         CL6Zgj2UvFNs/zdCFb8YNAGH0T3Ywklt+WuHcjc6rTWprx4g9tcyWUH3id1iDFcGjGqv
-         ZhizmYFYUHgp65VnFKnOTJ2v003/TfyAuuTSWjkTvNcb2T0BzpotUnvTxAen+UdEqdxI
-         L/IEKaJ8ZHbLb3/cHK2V+e9FTyGa8avOd8UHJJMmIbdNiE/MRyrmHBhW5uFcseXg+W9L
-         RBlUaccMdJBeb6hhpwo/cgKhbAAdFf97DADbov/YDVmU47mcz27pKb941H+QabdlwCoR
-         Fr9g==
-X-Gm-Message-State: AJIora8TY/E3UmjLRu3/hrNnwsYEdvI8m6W3Oz2qSwocdBlwZrkBFILB
-	C9+aDttzEh5zQ5nbEAlBJ/U=
-X-Google-Smtp-Source: AGRyM1vsMeIxmAkw/U+lfMrlAnsr3lW5Y7VOTSMtc5+e3TOgTMouGYEa6IDhb+4rq0nRfGKj1x5nSg==
-X-Received: by 2002:a17:907:1620:b0:726:c0d8:7578 with SMTP id hb32-20020a170907162000b00726c0d87578mr4203309ejc.587.1656522115005;
-        Wed, 29 Jun 2022 10:01:55 -0700 (PDT)
-Message-ID: <22476413-14da-21cd-eb02-15165bfe602a@gmail.com>
-Date: Wed, 29 Jun 2022 20:01:52 +0300
+X-Inumbo-ID: f3d27184-f7cd-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1656522446; bh=KGleZCrK1ory7vZwxUmrZsedjLqWV8c6qrWiB0U6mow=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=mr80KzqVqatPdlmBEV9f0VtMfWq45miGJA2WQ0/YScGHp0WLX/IsRongAc7X6/4dJiKxYsWXgMVeN84sK+Ok8qx4ORAroEVDYBObI4y7u6QLp8emcy/is0xcnocST6dFC26JbsG1s4OnYL0DnCy4xiuqzkW95rIekWcrrKI1ayaxt/ybV6aEC5Po0y3i7Ostl+hVuKP/WUc04py+PMOP2ddUvmQjGfu3ulMwtXl0T9yFHy4s1FxQgqFYoGj+p010zGJ9/her2PjCQ1+Q0o/qafIU7/kRqggl7dCrQ7zzH3P8tVyco/xeIjnkYZdntLmt74hemEva/nM/QdUsEEuNTA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1656522446; bh=vADSH42mt0SrfQIwqiqm56R6UvOcvPatZYtPdEu/k6D=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=D5V4w92Ebw+iFrzLrQn38NPfeAMwbCaSTip/5373qeg5aSoVrGsQPB2mWWzSoSngAmBKnAGDSPafqUpPGmPap+8ozN7nbSR1orUxuycow+zG/+tEk29BqCAe4hj2MzxXjnD3GPYphwOIEICM22CKEOKhOqBlLpj+IqAj7DM5wWJjcrHbiWRubhUk+8QCJLlI5vnPyjXkZUR2y0bfQ/ylSsAWsLPfiecDsHqTaTrKiTAuvPTCAKcoXmwMUZAbEHpziJ1QDkDUMXCPPSomiCHYYLjrlWm4cSUvI/+VYrY11LuoMpCxgMnPd/QW48aeWl5A+zy8sYy0jPiRRjmDpbfGJQ==
+X-YMail-OSG: GbWx56UVM1kDP1w7PXqGFTZw8a8.Q5vCHL21ZWJMlsWuRDhGaiptXkInk7wrSDt
+ WqjPVDDtKHzugx9w4kWGTrZ3L4oo8G_6oVwPvn52QxMqzpsPOSLM1oe5oDGkE9XC91PE0ZVB9A.9
+ zuWpvh_MqscHNfethKiY5ud1XdPBi7rzkEbAKpDUR9BXVH0iAtgCYMSOKgTvzBrv3MZgefiUaxYb
+ EAbaDk_9VPpqE50LYKI1hNW9ShAlkPfa9UIzcwmhc0JjTSZ7DVMG4iDsfaG1WjSBkHNtwgQLHDAq
+ qd0IkT5MhxgbI.V8lDONULHbfamPzFdbrdjABZc9T7XZ29vYkpjh1lngLKYOBSr6i_AwM1eQajHw
+ qxcsMRUoQFaSa43gmAsqj.UAdklSHIlSwN91Yj8UFfKW4S83YpMNnJ8pPSnT0hLLkQcvP1nuuz96
+ bIt77kd2ahfl92RW5.LV7swi2EE5P1rlgEA66ZO75S3Bdu3IkZAavbqolA2LrnWL1393Xkk6sY0h
+ 4VB1GZdWkc9MHEWlIBG9dJGpGdhnPC42XMV5tRf.b5u1EsXGhEf2WteK2o6_1DJcbFygj5KK211C
+ 9ml2hfZW3GwzbZhsPocDBlBLnTvM2_vtByT2ICPi9SwntfNqlZoDnS2KxUc8xYYSbFwQz0Kc2yHj
+ 8O4BaQWIqm5381VXtTARTBGIykK6zsi9qrGFoExFTmR2FTSJGrS52A.SHXjjnCBsaqcJ.H.F71hO
+ dLb9kpPtdq0lUoBFxRYdk7k9op6HHfuQYM1oA3NsEiigzC7lvVxC9lOL8Hw7LkdJduIObxWTq4t8
+ UjRNs0imI3Pn_.FkNVIbUItb0gCfu2cqhRQP_PahIxalZWw.trnSjMqF2X9gYfDKtMjx1Gl4.R.s
+ ZeZUIvuSLpnaEzQIezThSVsPMGOPgvMSBsTUacYTecP1Amq_aOzkf_Z.PO.TpXh6A6zlyY16uidE
+ usL94ull_vzItEZefaS7_vhZXP2vXHWEGR3KZK7RSf2jfxXUs_wK9PTCtdxQh5BNDvBKKicfPqgW
+ inXWQbY42JbLnfpGe7wXteNTV05qh13Yw0J3ON4K8h7VqtWsqCrEy0YPX0V.zGdXfqbaKFKQRXOA
+ kgg5PX5yiMcA56BhTCzzqVZj2o53brTapquMZp.PgVf2TT5q5coSQ5bWIRtABpOWKzCECRr59Py_
+ muhaJ7IBQ3VY4tiy4rqFY3BtL8HF9GSkygBhCplpSFfs_Kq47q39ZBmSIAqQUN3Ys9TU_gjipivm
+ EteGqxxiz844dHP7lGR5tIrV1XJgUKfJEPLkwCvPQB_qktOxc7tHwn3eW5jQAexeqJfDOsnF5yzv
+ VoW.74X2mxfskf6cWOS.MHgMTMQ7Q5WgX6zhPDXzLDknwZBStTJu4AT50Gn4U4SyNoROmhBiG8Ts
+ 4FzKWqUIGBefJkzH4WYRxV2I4KCyyCyuOUm36.17pILXJPXde.7ytSol31oc0LQ.OSU81k.30WW4
+ hbh8v8moTaoK_h5Sdo82aiBj2A1J58dUgSfMTTF9Alf97l89tVJiciqwrXEQDMLHMN_pDdoKf1Ox
+ e06_aew0t2sA1qijSZxnqZt9rT9A.PBfuwnkdT3V24xQMX0LILO.F5.R0IRtXrGFhjR8y6I.ZHYC
+ kz6JXJx6gTFCDWi_zU3aRUawuI9QPWv._E86kq3sMjs4NHdVKwvnRfpuh7G.16UcuTHfe9kQcNle
+ TP.LGr5p0yrnB6lNi7gykkWluTZ51o67FCZ8NDTTT.FtS7wvye1V7gpbm6kEcGHVgddsFsxiWWdb
+ K03_bbYLpAcj.IPhtd4w7cH3hoL3GsVZcgFYcay2oN6mRO3twBPLyY.CyTPBF4kQrzoriOdHxUhi
+ h1L4XN811tvB40ZD6vt9u6RW9eFygNVmfFo4XwYgjyNJIDnDORv3gsOnsIH4X4UpUhUiePeYRZ_i
+ FqddYkVykq69N_6m0VWeDzEMHCHgXhFUufc9GU0AP8cGhoia9gMnjJMdAgpCY7ByIz1XdGwFNxEx
+ HNOMG6LAVgAD48q0JHgFEn7WSF2rPL6eMkAUtMGA.W_BDH3J2AwRcg44TbtZM5jLk5daTXv1PWEB
+ PEDt.MZh_I1WAhwrDOL21ukap9hVMw3YNJOrcMGL_A2QcWmSm2ZX0GCOnfw5RY.efllqYkFxWs1r
+ .fAK4y1jBqwR8Me2GJp5tGvXs.V_bBkjmBWsQV_wgn1x6Gja6hJfiDhMUfhVIPS3bCrc7hifOPLq
+ sXlY-
+X-Sonic-MF: <brchuckz@aim.com>
+From: Chuck Zmudzinski <brchuckz@aol.com>
+To: qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+	qemu-trivial@nongnu.org,
+	qemu-stable@nongnu.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>
+Subject: [PATCH v5] xen/pass-through: merge emulated bits correctly
+Date: Wed, 29 Jun 2022 13:07:12 -0400
+Message-Id: <e4392535d8e5266063dc5461d0f1d301e3dd5951.1656522217.git.brchuckz@aol.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 2/2] uboot-script-gen: do not enable direct mapping by
- default
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, viryaos-discuss@lists.sourceforge.net,
- Ayan Kumar Halder <ayankuma@amd.com>
-References: <20220626184536.666647-1-burzalodowa@gmail.com>
- <20220626184536.666647-2-burzalodowa@gmail.com>
- <alpine.DEB.2.22.394.2206281727080.4389@ubuntu-linux-20-04-desktop>
-From: xenia <burzalodowa@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2206281727080.4389@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+References: <e4392535d8e5266063dc5461d0f1d301e3dd5951.1656522217.git.brchuckz.ref@aol.com>
 
-Hi Stefano,
+In xen_pt_config_reg_init(), there is an error in the merging of the
+emulated data with the host value. With the current Qemu, instead of
+merging the emulated bits with the host bits as defined by emu_mask,
+the emulated bits are merged with the host bits as defined by the
+inverse of emu_mask. In some cases, depending on the data in the
+registers on the host, the way the registers are setup, and the
+initial values of the emulated bits, the end result will be that
+the register is initialized with the wrong value.
 
-On 6/29/22 03:28, Stefano Stabellini wrote:
-> On Sun, 26 Jun 2022, Xenia Ragiadakou wrote:
->> To be inline with XEN, do not enable direct mapping automatically for all
->> statically allocated domains.
->>
->> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-> Actually I don't know about this one. I think it is OK that ImageBuilder
-> defaults are different from Xen defaults. This is a case where I think
-> it would be good to enable DOMU_DIRECT_MAP by default when
-> DOMU_STATIC_MEM is specified.
-Just realized that I forgot to add [ImageBuilder] tag to the patches. 
-Sorry about that.
+To correct this error, use the XEN_PT_MERGE_VALUE macro to help ensure
+the merge is done correctly.
 
-I cc Ayan, since the change was suggested by him.
-I have no strong preference on the default value.
+This correction is needed to resolve Qemu project issue #1061, which
+describes the failure of Xen HVM Linux guests to boot in certain
+configurations with passed through PCI devices, that is, when this error
+disables instead of enables the PCI_STATUS_CAP_LIST bit of the
+PCI_STATUS register of a passed through PCI device, which in turn
+disables the MSI-X capability of the device in Linux guests with the end
+result being that the Linux guest never completes the boot process.
 
-Xenia
+Fixes: 2e87512eccf3 ("xen/pt: Sync up the dev.config and data values")
+Resolves: https://gitlab.com/qemu-project/qemu/-/issues/1061
+Buglink: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=988333
 
->> ---
->>   README.md                | 4 ++--
->>   scripts/uboot-script-gen | 8 ++------
->>   2 files changed, 4 insertions(+), 8 deletions(-)
->>
->> diff --git a/README.md b/README.md
->> index cb15ca5..03e437b 100644
->> --- a/README.md
->> +++ b/README.md
->> @@ -169,8 +169,8 @@ Where:
->>     if specified, indicates the host physical address regions
->>     [baseaddr, baseaddr + size) to be reserved to the VM for static allocation.
->>   
->> -- DOMU_DIRECT_MAP[number] can be set to 1 or 0.
->> -  If set to 1, the VM is direct mapped. The default is 1.
->> +- DOMU_DIRECT_MAP[number] if set to 1, enables direct mapping.
->> +  By default, direct mapping is disabled.
->>     This is only applicable when DOMU_STATIC_MEM is specified.
->>   
->>   - LINUX is optional but specifies the Linux kernel for when Xen is NOT
->> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
->> index 085e29f..66ce6f7 100755
->> --- a/scripts/uboot-script-gen
->> +++ b/scripts/uboot-script-gen
->> @@ -52,7 +52,7 @@ function dt_set()
->>               echo "fdt set $path $var $array" >> $UBOOT_SOURCE
->>           elif test $data_type = "bool"
->>           then
->> -            if test "$data" -eq 1
->> +            if test "$data" == "1"
->>               then
->>                   echo "fdt set $path $var" >> $UBOOT_SOURCE
->>               fi
->> @@ -74,7 +74,7 @@ function dt_set()
->>               fdtput $FDTEDIT -p -t s $path $var $data
->>           elif test $data_type = "bool"
->>           then
->> -            if test "$data" -eq 1
->> +            if test "$data" == "1"
->>               then
->>                   fdtput $FDTEDIT -p $path $var
->>               fi
->> @@ -491,10 +491,6 @@ function xen_config()
->>           then
->>               DOMU_CMD[$i]="console=ttyAMA0"
->>           fi
->> -        if test -z "${DOMU_DIRECT_MAP[$i]}"
->> -        then
->> -             DOMU_DIRECT_MAP[$i]=1
->> -        fi
->>           i=$(( $i + 1 ))
->>       done
->>   }
->> -- 
->> 2.34.1
->>
+Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+v2: Edit the commit message to more accurately describe the cause
+of the error.
+
+v3: * Add Reviewed-By: Anthony Perard <anthony.perard@citrix.com>
+    * Add qemu-stable@nongnu.org to recipients to indicate the patch
+      may be suitable for backport to Qemu stable
+
+v4: * Add Fixed commit subject to Fixes: 2e87512eccf3
+
+Sorry for the extra noise with v4 (I thought the Fixed commit subject
+would be automatically added).
+
+v5: * Coding style fix: move block comment leading /* and trailing */
+      to separate lines
+
+Again, sorry for the noise, but the style of the comment was wrong
+before v5.
+
+Thank you, Anthony, again, for taking the time to review this patch.
+
+ hw/xen/xen_pt_config_init.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/hw/xen/xen_pt_config_init.c b/hw/xen/xen_pt_config_init.c
+index cad4aeba84..4758514ddf 100644
+--- a/hw/xen/xen_pt_config_init.c
++++ b/hw/xen/xen_pt_config_init.c
+@@ -1965,11 +1965,12 @@ static void xen_pt_config_reg_init(XenPCIPassthroughState *s,
+ 
+         if ((data & host_mask) != (val & host_mask)) {
+             uint32_t new_val;
+-
+-            /* Mask out host (including past size). */
+-            new_val = val & host_mask;
+-            /* Merge emulated ones (excluding the non-emulated ones). */
+-            new_val |= data & host_mask;
++            /*
++             * Merge the emulated bits (data) with the host bits (val)
++             * and mask out the bits past size to enable restoration
++             * of the proper value for logging below.
++             */
++            new_val = XEN_PT_MERGE_VALUE(val, data, host_mask) & size_mask;
+             /* Leave intact host and emulated values past the size - even though
+              * we do not care as we write per reg->size granularity, but for the
+              * logging below lets have the proper value. */
+-- 
+2.36.1
+
 
