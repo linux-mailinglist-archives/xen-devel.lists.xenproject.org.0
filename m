@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B701B5605A7
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 18:21:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357960.586869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E65BE5605D6
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 18:30:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357967.586879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6aRK-00051S-C6; Wed, 29 Jun 2022 16:21:18 +0000
+	id 1o6aa9-0006bG-9J; Wed, 29 Jun 2022 16:30:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357960.586869; Wed, 29 Jun 2022 16:21:18 +0000
+Received: by outflank-mailman (output) from mailman id 357967.586879; Wed, 29 Jun 2022 16:30:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6aRK-0004yA-8S; Wed, 29 Jun 2022 16:21:18 +0000
-Received: by outflank-mailman (input) for mailman id 357960;
- Wed, 29 Jun 2022 16:21:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o6aa9-0006Yt-5A; Wed, 29 Jun 2022 16:30:25 +0000
+Received: by outflank-mailman (input) for mailman id 357967;
+ Wed, 29 Jun 2022 16:30:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NFaf=XE=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o6aRJ-0004y4-8d
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 16:21:17 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2055.outbound.protection.outlook.com [40.107.20.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7feeaac7-f7c7-11ec-bd2d-47488cf2e6aa;
- Wed, 29 Jun 2022 18:21:16 +0200 (CEST)
+ id 1o6aa6-0006Yn-V0
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 16:30:22 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2087.outbound.protection.outlook.com [40.107.22.87])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c43f2dc5-f7c8-11ec-b725-ed86ccbb4733;
+ Wed, 29 Jun 2022 18:30:20 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM0PR0402MB3380.eurprd04.prod.outlook.com (2603:10a6:208:19::32)
+ by AS8PR04MB7541.eurprd04.prod.outlook.com (2603:10a6:20b:29a::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Wed, 29 Jun
- 2022 16:21:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Wed, 29 Jun
+ 2022 16:30:20 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5395.014; Wed, 29 Jun 2022
- 16:21:14 +0000
+ 16:30:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,142 +46,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7feeaac7-f7c7-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: c43f2dc5-f7c8-11ec-b725-ed86ccbb4733
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mY3deMXYLasuNs3FGu6U9foTwKxncLfPIRPa4QOeHf2+cnbpFWLTWJk+sAtIYLyq9p/md4UngxSbQzeINDD4MaonvV1pMOA73KD3lmgQ3Zo2fqzmSJGGr5dxDQDVhOHTzjemyOsXvtJ8HoNbxE8kFZ1YZDcR4NUUoq7pmxRr/sHgYfskGvS9cnaIGub34h2P0sM6hrQYdqqjWT1oJuLoLdQ1D1HYOvOkxrfUGZSnL1lRPQSv+RDA97mfSOM2nHUGtpZjuQSokm91pUhXEMLxGS1jR+h1LtLFsv27DRhLumgWDK/5Jyix7UhafKIBs8Ss+ICFIzHwjqSkJcLFnA9zlA==
+ b=I/Ae/15aJJN94OuD4/xAjGlvIliEZmBNy7O+OJPqtUvUMJLYFnmL448MaNtC+dBgIS7d7UNterAQ79xaZN55Y25EReCLGPX2Gwl5uFuvdxbbtrzrdmow6/T6CxbZ56vrDpnSqscPQ5VZy1K9BhBIn14Dm8cA+aA57Cl6JQOMyztTCfHvn7eC0NVBs2j3/L4cHPnc79h7AGVxOnNBQXM5bARgidR8AuDt4/W9ZMFmYaSm9p2ss5m1AaNXjH0suoXHC45dg7IQ7ZcO85yz0Lxkq9EWozPiZTrhCwQXVZ4GYe4AIp7sWSB3KUra8U4AJOCxgxnNBrSnPlm+oBus8HM2Fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y70GIlYFuOx1UrbqmbhtVGLcIpzH3WvBuudZ2aIuwc8=;
- b=VyHWOQpn98V8d5o5tsMPIeVVdOVHyrzENP5d7gY+OhMvyEY1x1MzCWvliJAXloo+wJD8cQVFCrs0AQgZTSq4Gw2R3i2YIakcNIBirorCpRqeJF9C6Y716A/mDLeQRdPx7Y/o0DgDBogid2lBVZFlJhRgfA3WE5Zbn5NqqE9td+KJ9IrSaRY0ZkBwhabEo/ADl+mN+8vQyOV9qujDffC08RjhJDPAo7/2mAxMYaByzXFTWfUjE93vr3rkOd3fi0E5UAggFz2B6XvpJf6RtK+HA3KN2OVLAh7nhOSvKwaTChc7C7K/yt3bC2OL+o0zR5H9ZgnelUCPQgPUpDHwtt9Z4g==
+ bh=/T/y0ZAVUA0Wee6D01J2LYmfbojAe28mmuP56LBhq3M=;
+ b=MwhL+u69R8CHYcMbpYbCPf1H0MhNksKpESPu/Ylyksd3lGBn/HMfbZtxu3w+ibHE8y9GWLW/PISVgG5VQtOT0FTPs+N+6IINc9O2QBUj9vbKGqFaAiOnziSdMFWbhiuKUOVV0Pno5xrcP/LfNQBWwcdSk/JGKRbgwlNPNyUlQwkQa1/qJGQh6jbnGtHcAr3PH/ueUjs0gievP+4hVruC+5Si20SeZf8/8tPxTIO0hGMcIDisrgZbdO8EKofQc6V37NLJpD16Iboa0vvWBy42tdoCXQGcZ2AQeunpuxse3nqryuVyHHWTCQ+NtUuXmeBModZkytRn8msIpaeaIm0Lww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y70GIlYFuOx1UrbqmbhtVGLcIpzH3WvBuudZ2aIuwc8=;
- b=YAT8xFnjdQJf0IBcdlKz7VShWGHheG6UvKYPOu1+YZtQaWulY5n51qu6FZ/yrBT1ylGRLahBou6IWU/tnpbHcsPxWAr1KAEGHcBpBy1VJr60vz8qfKwyo8Uz2BS04P+YEMDZ9BMKZj3jznp0k3UOq7il5hZCXn74xf9OsKniuASydvHEcEAOlFwYTS+D4v5dg1GDNr0uqZ5YY8He9Dr1VsTS4x5JKzXAWxQQJoHGdg5jvx7uoJHeSJCxQaPO8uDV3oGCcwncVy6xXuJZDN152T0MHbBgQXPHJcxm56Uz7lyOneDYUQ45ck8ncsHWRK2rqaIJQBRJ3RQ/qD45N2nKCg==
+ bh=/T/y0ZAVUA0Wee6D01J2LYmfbojAe28mmuP56LBhq3M=;
+ b=0wzXKaiPV1Ab1fD8Kv1Txuxys/mkQrIGBPXH7D+Wr9TvHbdDQD8m1WFjhkFPOXDziF0X8tDqib6aBXNGUkURxCHnYYsrj0TCK+snujUOkJBQ2tkJMov+UtKyCpx9x/MUflpg1kChceimbNVntE02soC21q5N2fL7sDuE1LYoXCeThkX04M8wQ+jfOtrk+q+UqowcAzvMaRCzzJ3RFFqPzd/1yhFGPte3E6zXxb0YzKqve/k3eleybsLvDpxKy1hhIWbA/w2FOeNAfTzi+ajddrIEW8F8do01U77BMByizGshXhyJWqk6mMmtOi5a+N5/qld2dEL3HikG0AWr6LMwmA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <22a70226-71a5-6caf-46b9-52956f6e9a6b@suse.com>
-Date: Wed, 29 Jun 2022 18:21:13 +0200
+Message-ID: <59fe1b28-b173-e497-5b8a-5e0bb6d946b6@suse.com>
+Date: Wed, 29 Jun 2022 18:30:18 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
-Subject: Re: [PATCH] x86/ept: fix shattering of special pages
+Subject: Re: [PATCH 2/2] console/serial: bump buffer from 16K to 32K
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-References: <20220627100119.55363-1-roger.pau@citrix.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <20220623090852.29622-1-roger.pau@citrix.com>
+ <20220623090852.29622-3-roger.pau@citrix.com>
+ <e45d8dcf-fd0a-6875-a887-5c0dafcc4543@suse.com>
+ <YrxuVPMb990xYKi9@Air-de-Roger>
+ <b4740e9b-3586-04c3-454a-5d60bae2cc55@suse.com>
+ <Yrx7hDevqMgvtMRR@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220627100119.55363-1-roger.pau@citrix.com>
+In-Reply-To: <Yrx7hDevqMgvtMRR@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0052.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0006.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 163978a9-1c5e-4ada-2bc9-08da59eb6333
-X-MS-TrafficTypeDiagnostic: AM0PR0402MB3380:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4adb5191-b865-4475-fd70-08da59eca84d
+X-MS-TrafficTypeDiagnostic: AS8PR04MB7541:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	UyWOCMzdqagE1nm325CzxK3ikSAcQdRL9qrB0lQ9pkscfdiFLnx68Ffxjbtb+N8JpdAh1ke8JnCVplh4+2hpBVGJxki74IzcqmytOYV6GgwlmKP5zG2zyOiNzLxFNonaXNS97jcHOO75FhJ7wPgn7HVc5asNDFIGVXtGYPNrcEzwC13+lQOPuyniGsAO8MzDeLwE9IebO4sGojvGoEUxY2ZhKB/weBV7FdW/TG/l4/fbpcFFwQFc4zyqYwlSKh5OaHWFYhnKQ7UMNGoT5zlRlnF73zqlMND3QJ1KmF6PmJGTaj1tn/iciE/SUOnREDH1AkmO4IQVjQTvFBS5TyQoR8SnQbxFOkIux1hrMeff0vkcb9Fkpf+7XLfu4c3epf65aH3VwWIpHNC3GTIWErRXjvTtUuRjnnNsx/mypPhSOQmmAnhAcbNqML+hcJ436hvOCu+9Df2iYcnJp5uSWr/6w15wQuTg7leXGlLspCkxxDEzJZO0dO1OanrNmLwMCfq4tRrxIlu5GxOaKab75P+raeQdZXCByECWuUkeC5Ui4xvCIszjUGMah8N8ImSqalnnG/JH5pgma9EL+douzxIhPU+F23xopLkvXbbhUllam+JLHM7LGbiBfcmXs0wE1qGFPf+SwTKjvM41acU09+ekBry1kvPYwL3TZR0yVNzJxaSHMzRIZ2/PCBQQ/x4LMYtVwrew+mnIBhQ+KumTyuWOAViP5pHmr4V9iwq7L0bPu0dW++qSKGRSO0NKgfeeFQ03XUafuL9SbbJ52pNzaORukhhxDdlzdCESR8BztBQ6hHTHk75zXWi76SVXWA7jIPavqOTrYjNmm+hC2JOKFtpKdA==
+	UEN9BZei8zMmiau+9U1mthGOUbIatiXI0gLF3JSmuva6287eqobFJV2u3UeiiK35dwz3KABaDGKOm8UM3hHmjPWt7ZLYwMcVa2GN/n/DIq5psFmrWbJxVPju1NPBwBcfuJb1+AXHp9q56tX6wWj1doTqdzD+H6acHaQVPtO5v5UuFvHwZPIQPCxJKDZwAt+xLDAgUOVaRXGNGjfirkr25NCRdxENG0f+qIUCgM4GIwDUopjeE9zcWdQC2rqgYqaAKacUqAW/cmmXyg7HdUqvhyGjMx7E1/IY+c577GXTcYTtRmwAqoG28L7HDHZ+SS+q1tkSkbXmp3Z+YIKIWVa9LOlk6xDyfGaVam2ZwixYFIz/b3rzJOqCgb5sKSQgC+3ZlmtgIJtpMm7941zCN+Y2zKVirKpZ6axuJNpp1+sgroY/ETue2iKbmnkZArLU0ixksH5SIN8wfLNlBGQcm8/f3YIsi7oxvBay77yF99Is7tqjdzenX5+Evzt1Mn64K7rDZ3qCU0hLt8qpR28GZPaW20qS6EfPvk+rbSWlgFcmQuHPleFRKS7p27pL5cVXYeZZVNb7UKkRtZ0DQt3EkzohNvr3yKtSWynGYgC+r811YWCUuqZL4DKhNrQEQQiV/c5NLlVzcQ+SAf7q/hLQKs+bBtrdxA9J2WgDga7cbFyOkPML2JFXD95YDSA2C7o5YAvvVWjrYRnNoyV6932UsSX4MOeg3qpp7Vn3JvuzygMoAgaUprOwuQtpK8r0Lids1UPOZcDOWUEFKTZLDUahUAwaVI5Dm1DgyvdZ6WVRAuwQseG9aKDuEcoq/cWdoUaTyLr/TB5pq5yBKnVOuAoQuROR9A==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(136003)(39860400002)(366004)(396003)(346002)(26005)(36756003)(4326008)(6486002)(186003)(5660300002)(8936002)(478600001)(6512007)(31686004)(41300700001)(31696002)(2616005)(6916009)(54906003)(66476007)(6506007)(66556008)(53546011)(38100700002)(8676002)(316002)(86362001)(2906002)(66946007)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(39860400002)(366004)(346002)(376002)(396003)(66946007)(54906003)(66476007)(6916009)(316002)(6506007)(41300700001)(6486002)(2906002)(36756003)(53546011)(31686004)(2616005)(8676002)(6512007)(26005)(66556008)(186003)(4326008)(86362001)(31696002)(83380400001)(38100700002)(478600001)(5660300002)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aWZIV3NvT1NaTStVRkZPWkJBeVdPNldrVnNPeHZhOVEvc3NtUmJYR0J3SnFn?=
- =?utf-8?B?SlJZSDlvcUZ6SGVRaTFJRW80QU1rR1lZY2ZlVmZmN2FIcW9RN0Z3SnhmUytP?=
- =?utf-8?B?Y3NWYmRsUThYMHB6MXZhNHRWclM2QkhRdlJJK21veHhvSWhzZzR2ZlZreFdI?=
- =?utf-8?B?YitWZDNOLzVkTUE1R05qdnJBRk5hRHBYNnEvNmx3dmkvdys1bThPV1pPNUkz?=
- =?utf-8?B?WU9hZmp0TXlCc25MbStFR09QcGFwT3d6cTRIUnFVNnNPcm9hZGRFY2hjbjg3?=
- =?utf-8?B?VGNBQzZiTmpnWEpzMURRM1FlQk0reno2aFFKbFVFb3Q3aFFkU09UWkM3dC9i?=
- =?utf-8?B?OXVYTmxMdDRBdENGUWFlbHdpMkJGWEt3ZFd2UHBsVERpQU9LR2MxTVgyam9F?=
- =?utf-8?B?VThVdWhlK0tPUVB1SG9uRjEzeThaNnAyK2QxK2l3WG5mRHlKOEJCRHhUMWlF?=
- =?utf-8?B?U3cvSWptbHI4Z1R2Z0ZwT0trREhpYUt0U2FRbVJpYUVYRitrWlI3OUd1eEVj?=
- =?utf-8?B?QmJIaTVsemIwS3BPRXBXWHVua1NQODN3alJhUTJnRG8rVlliMDBVUUdia2Nk?=
- =?utf-8?B?RGVCdTBicXJTaDdkbzhnaDFNdnNiM01aeE1aRGVHOEd6ZXpqb1R4R3VML3pB?=
- =?utf-8?B?cUZ1UWs2Rkt5TEtOaEF4a00zWkIxTnpIWEROY1M3U1Uxa1RxSGxaSTVmMFBp?=
- =?utf-8?B?NEQvd0Nvczg0ZzJXVFdrbE9PbFBZSmdrOFZyVDNodUZaL3BLWC9PWDdHTWp6?=
- =?utf-8?B?NGZMb1Z0V0dxNml3ZnJHakFiMDhqZEpGMWFOMDJoSVVoNnJPNjJiVkgvSmtE?=
- =?utf-8?B?eWczejBMbkFUbTFqNDlHVjkzMHczV1kwaFI1Z0N5SWNOcVRIMnRabkxwdUQ5?=
- =?utf-8?B?aDU0MkxhK01OQzVNSjJaVVp4U2E1M3BrTjVyRmI2VVhMc0M5Y0VoWURwc1Yr?=
- =?utf-8?B?a0lxcXEzTFV3ZGR3Q0xUWWo2THBhU0Q3bk1TOXZGR3pFaHJjdkErQng0T3lT?=
- =?utf-8?B?ZjZxMERhNW5UL1hiUW1xVytFOHhTU2hUS2xpNkM1YmNDeFRKRmNBV3J2T2xN?=
- =?utf-8?B?Y0NIRllQMGIwVXFoTEROMWM3cjRKSGU3ZERSSHJDWS85ZGxHdG9nMVBCOFZY?=
- =?utf-8?B?RjY1enc2S1lBbUFQbjFMdVUvRjkwbjhmQzhIWGZ0SHJVb0JzaEw5QVNzcjRS?=
- =?utf-8?B?Rm5oMHI3elRqMmlnMlUyc1JOWUllS3EwTG5XZ1M0bnJKT2JmSHI5V0RWM1du?=
- =?utf-8?B?aktNYWlFdmdUS0JRamExN2VSdlBBN3hxRFVpV0NUdEc4VFJmdG94OFF5VkYx?=
- =?utf-8?B?cVlmNzBmdTYzS2ZMUzltUFErYmk1WmV4ZmIwWVBzdHVtV01WeVMwSWY2bGFR?=
- =?utf-8?B?aDR0Zk1xY2h6Z1Njc3lqelU2RlJOYnlmM0xWVHQ0TXVVcUN1RStJUGZLbnJM?=
- =?utf-8?B?U25aRDk2OHNJUEVGTTdMVjkvZGVNWnQ4d3Z4YkhFNXlZeUp3QWJzRjl4ZUZG?=
- =?utf-8?B?M1ArN0tCaFhqNHlkdyt4Z2pGa3M5S3U1bUhxNDUrdzNHU1hxWmVNbXllU0Zk?=
- =?utf-8?B?ZGNEamk5bCt2b3FzeWZVdFRnWEY3cGFtc204QVF2bGRjZ1dnUnJ1ajQwNk9h?=
- =?utf-8?B?ZTZBU0JNYlRUYkkxSktpRGNoVThiYW1TRjlVMS9GeGhhT2VTZFBJcGlMaXZj?=
- =?utf-8?B?cUlvdUtEYTVlaVlDdWRNMEdiMmtMUlVXaUJqakRJcXoxWnNmL1pOSzdyK3pC?=
- =?utf-8?B?N0hybC9URStGWWEwWGdWc0x3bUhzNUJmUnQvK0tmaHJGRUE2Vm9iYmg5QkFw?=
- =?utf-8?B?NlNiQ0FuRkhiKzdTL2Jpc0gwcDJTN21SV0NacHdNL0ZsekFMYzhyWGxkZGdL?=
- =?utf-8?B?aFlxVENNYjRwbjRWa3htd0JodGlSYndNN1BqQzNvOG45SWJSWjNPWGl6ZDVO?=
- =?utf-8?B?YmJtLzN4S3crajg2c2ZNNDRxeGpnTmZXRmx2YmhrZEk2WEFlampreUtvdlpU?=
- =?utf-8?B?eWlyN0RsRmJnUDYyNzZxaGdtWnJMRFZoUlhWWGI5djFtbEtMVWpQNUZmaUZT?=
- =?utf-8?B?NFRPYVpZL09QOWkxWFBCZ0RERG9pbGFyWWxQeFFGVEtQZ0VyMTlabEN4SEVH?=
- =?utf-8?Q?I3btvzcGOc9S5a/rQ2B4FXNKe?=
+	=?utf-8?B?SGg0c3lIWGc5NG1wY3J6WTdjMFJLeDNOT2JsWTBRY3kyUjNVZTZ5NWVXaVBW?=
+ =?utf-8?B?TnFVL0hnWXRQQ21OMHp2UmxISGFkRDFmZ1poSHMwZDlSOVJVK0dMNTRObFFS?=
+ =?utf-8?B?bmNEd0hrbXJuL1F5VllkTVpjTFVDb0wvOEN2ZWltWWdxcEJJbkNLdlQvYXhq?=
+ =?utf-8?B?MUM5TG5oVjl6NllGQ0JjMTUyUml5enRUKzlUZGlic3NtdnpxR0RTcFY0bElE?=
+ =?utf-8?B?dTg2MGQ4SDhnMmlYRnZjazZzMEhsNWdTQTNGTjZianlQYjR5Z2VReVl6SjFR?=
+ =?utf-8?B?L0JpTVVDd1lZYk9KWi9kSVhFdzlQcmpsVXV2Sk5Qbm5iR1EzVzJab0dTOWZw?=
+ =?utf-8?B?dURLNjIxaFY5K05MWG1VVjJMV2hjU01KZm5KdzVzTlZEMFBwcVVjZlkvZTNC?=
+ =?utf-8?B?cW54a21rVENIYlI4NFFmUlRZcklVMis1VEtOeDdoaDB3ZGlWdC9kc2N0Q3lo?=
+ =?utf-8?B?bGlERlNpb045R1loM25IcC9UR3czT0lISDQyTXZYbnhFQncyL1lQT3NMMCtw?=
+ =?utf-8?B?UHR3YXZMb01VaDQ4Rno3OFJDM0Y1eXFQOCtFcWhnalZXN3pEMysxeTVVL0xU?=
+ =?utf-8?B?Vlh2R3BXS3NiMmFUMmxFT29VVC9vTmcwS2QzZndJdWNSQkR2UG9xdHJtRTFW?=
+ =?utf-8?B?cU5XS3hKNXVZeFR3MkRIcDh3dE9PVzN1OUhHSDFOMnBDc0pGZ2YzM0tFaWFr?=
+ =?utf-8?B?dlhNT1JpOTN0TC9XRjRseHY3c1dVZEJVbkdNU2F5b2xtK091SDlUVkRiUzZx?=
+ =?utf-8?B?Slk4VzA5RWEwaHg3N2tZNS94ODVQK2tsNzJhKzZQUEhoam0rb0dCSkZXYnEw?=
+ =?utf-8?B?NXFZUzJ1Ym4yZkZWL3ZhYk41ZUxVckt5L1hDZ2xMV2RMZStxTTZEUGtUeDdL?=
+ =?utf-8?B?cnM2TnYwNVBHeTA5UVUwc2loNFRIMUx0bXF1Unk4TzNIVTVYbk1hV1VEY2ox?=
+ =?utf-8?B?OEdRL3NncEh2eUt6SnFGZjE3RWxJdHRTRHBMV2dsN05GcjBVVG9NcVZSb3Ev?=
+ =?utf-8?B?UGkxbmlXYTZaNHN1U1BqRndYL1NDM3NVdGFJRmtOYTFmL0h4SmFSci9LWWE3?=
+ =?utf-8?B?bFJiR0ZOZTcyRkZlNjgwSFBOYTM4RjkwTC9rNWZDT2tpSTZpMGNwT2RzRXE5?=
+ =?utf-8?B?endkTzBYNmVpSWRZN01qUHhsNVI0SVM5UGNRMFc3eXFDUlNtZXptV2pzcXlN?=
+ =?utf-8?B?TUFJUmhjcGZEcmlUOGY3aVZ4em1kdVZsZzkzOWt1VWp3MlN0cFl5ZVoxVFdh?=
+ =?utf-8?B?azFKcFFKZWsrc2ZFc3Fjb2hyK0N4ZGxqWTBsSTFXWVgrbWVvVnFleEZicTJp?=
+ =?utf-8?B?UVRWaDc2RGg3MlZYYlRjYThlQno1RXlDenM1K3NiWWhTYjdmcDNkNnNFT2gx?=
+ =?utf-8?B?S01GQ0pWL2hzQ1RRc0xnaC8yVmc3M0Z0cGpEc1J3MlBROXdoMXRXRXc0OUtj?=
+ =?utf-8?B?bHZZU2V4MWUrS2xTMGVJR0dneVRBL3RYK25qWmRvTDFqbWdjVEk1UkphR2dp?=
+ =?utf-8?B?UHF3UHFvaVlJR3BaOVhLRXFIajQ5UUp2WFJ4d3JGVk5DOFBPd3hNZ2xkRXFz?=
+ =?utf-8?B?NVJFN2Z0TGlIMC9XTG43TGpCZDFKSWRONFpoR2hPZ1JITDFMZ01XQ1BOY0dQ?=
+ =?utf-8?B?ZUtYdTNKd2duSC94T1RBaXdnRFR5dTEzU2kxZHZacmZnS2FETzhjZ0hIRndL?=
+ =?utf-8?B?YVMyMWYzaC9GQ1FNMEV2RVJzS0RieWpOVW1CTi9oYVJVZnVRTFlNUkI2YmQ1?=
+ =?utf-8?B?c2QxSG9SVDVHVU91L3JhNzdka0o0cDNtSzBaakdPOGRidm55SDFyL0xGR1Fq?=
+ =?utf-8?B?TFVOWGJTcWxLWUVyb2g4SUJ4U1J5Zk9lbm9qdXNJK3RobFQzODNzM0lKeVBx?=
+ =?utf-8?B?YzJaclU2aXB5N1NyWjkxY1Z6WkEzTmJuMUc4K3lNMG5vWW1TRXdLaWMxVEF6?=
+ =?utf-8?B?c004NkNEYmlqOEduQmdQVVUvb1N2WHBnVlRvRXNBUUp5RGo5emFRaTUvVmdv?=
+ =?utf-8?B?TXcwcEhDWFRCZ0w1UTltYUtDa2gvTEkvZkxudTNkdkU1SGNpZktHMUVXN3hr?=
+ =?utf-8?B?ZXlmdFZEcmZGcmRBdzVXbXNFV3Jlc0JjMnF6N0JBYVJoeFJNLzcrdjFRQ0Js?=
+ =?utf-8?Q?jSlldGIzGJMKr/WYlTTJYr8PJ?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 163978a9-1c5e-4ada-2bc9-08da59eb6333
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4adb5191-b865-4475-fd70-08da59eca84d
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 16:21:14.4080
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2022 16:30:19.8590
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JqZn9xcZ7aOjVzYW9OcLg+L1Dab39QQSSRpHORqq7lFx7Kjz4+waLS/Pu9zv3+eaF6i+UWLUll4rWVXhNImIUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR0402MB3380
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7amy+NkL+41gxjkpuHp8TVoePvHLbBt5f0Ok/22rd81TUw2X3AIJOGsYQnhy4g5LprIr+ZtCMfair1EDjdi3fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7541
 
-On 27.06.2022 12:01, Roger Pau Monne wrote:
-> The current logic in epte_get_entry_emt() will split any page marked
-> as special with order greater than zero, without checking whether the
-> super page is all special.
+On 29.06.2022 18:19, Roger Pau Monné wrote:
+> On Wed, Jun 29, 2022 at 06:03:34PM +0200, Jan Beulich wrote:
+>> On 29.06.2022 17:23, Roger Pau Monné wrote:
+>>> On Thu, Jun 23, 2022 at 03:32:30PM +0200, Jan Beulich wrote:
+>>>> On 23.06.2022 11:08, Roger Pau Monne wrote:
+>>>>> Testing on a Kaby Lake box with 8 CPUs leads to the serial buffer
+>>>>> being filled halfway during dom0 boot, and thus a non-trivial chunk of
+>>>>> Linux boot messages are dropped.
+>>>>>
+>>>>> Increasing the buffer to 32K does fix the issue and Linux boot
+>>>>> messages are no longer dropped.  There's no justification either on
+>>>>> why 16K was chosen, and hence bumping to 32K in order to cope with
+>>>>> current systems generating output faster does seem appropriate to have
+>>>>> a better user experience with the provided defaults.
+>>>>
+>>>> Just to record what was part of an earlier discussion: I'm not going
+>>>> to nak such a change, but I think the justification is insufficient:
+>>>> On this same basis someone else could come a few days later and bump
+>>>> to 64k, then 128k, etc.
+>>>
+>>> Indeed, and that would be fine IMO.  We should aim to provide defaults
+>>> that work fine for most situations, and here I don't see what drawback
+>>> it has to increase the default buffer size from 16kiB to 32kiB, and
+>>> I would be fine with increasing to 128kiB if that's required for some
+>>> use case, albeit I have a hard time seeing how we could fill that
+>>> buffer.
+>>>
+>>> If I can ask, what kind of justification you would see fit for
+>>> granting an increase to the default buffer size?
+>>
+>> Making plausible that for a majority of contemporary systems the buffer
+>> is not large enough would be one aspect. But then there's imo always
+>> going to be an issue: What if non-Linux Dom0 would be far more chatty?
+>> What if Linux, down the road, was made less verbose (by default)? What
+>> if people expect large enough a buffer to also suffice when Linux runs
+>> in e.g. ignore_loglevel mode? We simply can't fit all use cases and at
+>> the same time also not go overboard with the default size. That's why
+>> there's a way to control this via command line option.
 > 
-> Fix this by only splitting the page only if it's not all marked as
-> special, in order to prevent unneeded super page shuttering.
+> Maybe I should clarify that the current buffer size is not enough on
+> this system with the default Linux log level. I think we can expect
+> someone that changes the default Linux log level to also consider
+> changing the Xen buffer size.  OTOH when using the default Linux log
+> level the default Xen serial buffer should be enough.
 > 
-> Fixes: ca24b2ffdb ('x86/hvm: set 'ipat' in EPT for special pages')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> Cc: Paul Durrant <paul@xen.org>
-> ---
-> It would seem weird to me to have a super page entry in EPT with
-> ranges marked as special and not the full page.  I guess it's better
-> to be safe, but I don't see an scenario where we could end up in that
-> situation.
+> I haven't tested with FreeBSD on that system, other systems I have
+> seem to be fine when booting FreeBSD with the default Xen serial
+> buffer size.
 > 
-> I've been trying to find a clarification in the original patch
-> submission about how it's possible to have such super page EPT entry,
-> but haven't been able to find any justification.
+> I think we should exercise caution if someone proposed to increase to
+> 1M for example, but I don't see why so much controversy for going from
+> 16K to 32K, it's IMO a reasonable value and has proven to prevent
+> serial log loss when using the default Linux log level.
 
-I think the loop there was added "just in case", whereas in reality
-it was only single special pages that would ever be mapped. So ...
+But see - that's exactly my point. Where do you draw the line between
+"we should accept" and "exercise caution"? Is it 256k? Or 512k?
 
-> Might be nice to expand the commit message as to why it's possible to
-> have such mixed super page entries that would need splitting.
+Certainly I'm also aware of the common "memory is cheap" attitude,
+but that doesn't make me like it. That's both because of having
+started with 64k total (or maybe even less; too long ago meanwhile),
+and because of my general observation that everything only ever
+(fast) growing makes many things slower than they would need to be.
 
-... there may not be anything to add. I don't mind this being re-done,
-hence
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Yet I'm not sure I understand what case this actually fixes (and
-hence why you did add a Fixes: tag) - are there cases where non-
-order-0 special pages are mapped in reality?
-
-As to the Fixes: tag - I think we mean to follow Linux there and
-hence want 12-digit hashes to be specified. See also
-docs/process/sending-patches.pandoc. (But no need to resend just
-for this.)
+As to controversy - I did make clear before that I don't mean to nak
+the change. But given my views, you'll need to find someone else to
+ack it despite being aware of my opinion.
 
 Jan
 
