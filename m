@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAF8355FD5F
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:35:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.357788.586594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04ECD55FDA6
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 12:43:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.357795.586605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6V1z-0004gl-RT; Wed, 29 Jun 2022 10:34:47 +0000
+	id 1o6VAW-0006H3-Mk; Wed, 29 Jun 2022 10:43:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 357788.586594; Wed, 29 Jun 2022 10:34:47 +0000
+Received: by outflank-mailman (output) from mailman id 357795.586605; Wed, 29 Jun 2022 10:43:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6V1z-0004e3-Ol; Wed, 29 Jun 2022 10:34:47 +0000
-Received: by outflank-mailman (input) for mailman id 357788;
- Wed, 29 Jun 2022 10:34:46 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o6V1y-0004dx-Mt
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:34:46 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o6V1y-00009U-3Z; Wed, 29 Jun 2022 10:34:46 +0000
-Received: from [54.239.6.187] (helo=[192.168.9.41])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o6V1x-00047W-TP; Wed, 29 Jun 2022 10:34:46 +0000
+	id 1o6VAW-0006Eb-Jx; Wed, 29 Jun 2022 10:43:36 +0000
+Received: by outflank-mailman (input) for mailman id 357795;
+ Wed, 29 Jun 2022 10:43:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iMtf=XE=citrix.com=prvs=172cd6ca3=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1o6VAV-0006EV-96
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 10:43:35 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 516c6f0b-f798-11ec-b725-ed86ccbb4733;
+ Wed, 29 Jun 2022 12:43:33 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,306 +36,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=SFUA7YNICG+IslhnVSZ93t4ry5H9zkAIIe/R5MN3gks=; b=P1K6Ry2j3UVxhrbXi0CXrKXHlt
-	bGWeaKKgLk03ArXtjFcab/2BLwXbnuoJKpA+tuAaYhbm1T3A0Pcs24xZrH8OXwDslZLRkgWsp/4ya
-	4cw3VGkmUMue7lKj0WIPBf49VkxsoeIKdhkntN2zWSTS4WBQgPAxikmxj5lG1h0UMy48=;
-Message-ID: <5a49381c-c69d-88dc-1bba-783241dbfe23@xen.org>
-Date: Wed, 29 Jun 2022 11:34:43 +0100
+X-Inumbo-ID: 516c6f0b-f798-11ec-b725-ed86ccbb4733
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1656499413;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RLWqZnvkENPRN1tooOkPezJsvJ8KPMIm6oJBRyshOmI=;
+  b=FR90wqeRhjVM6j8jrPfToU6SEf5f3ChFyTd+O2MMAhk7OzfZ0rAoP+SF
+   tq/FNFwwhLlxB3rJmc+Hq/4re+U1yDhap5ZXt2zezXWvN2AnVa05EevKc
+   Chf4jDH7MIsfp7WA1Vb+IYRaqOfU+iGdY+HlevofB7weQTnoV9K7Q36xN
+   w=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 74008342
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:fe4wN665fXRuE//MMqHhngxRtHPHchMFZxGqfqrLsTDasY5as4F+v
+ mMZUW/Sbq6PZGH3LYwiO4W/9klTupTSy4AyQFZsrC4xHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw03qPp8Zj2tQy2YbjUlvU0
+ T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
+ 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
+ umhurSNSCIuEfyQxt1ESgR6LjNDJrZL/uTYdC3XXcy7lyUqclPpyvRqSko3IZcZ6qB8BmQmG
+ f4wcW5XKErZ3qTvnez9GrIEascLdaEHOKsWvG1gyjfIS+4rW5nZT43B5MNC3Sd2jcdLdRrbT
+ 5VFMWI/N0iaC/FJElEJMZc8mtuYv1e8UW1mhE/Eq5MzxWeGmWSd15CyaYGIK7RmX/59jkue4
+ 27L4Wn9KhUbL8CEjyqI9Gq2ge3Clj+9X5gdfJW6/PN3hFyYxkQIFQYbE1C8pJGEZlWWAowFb
+ RZOo2x38PZ0pBfDosTBswOQnX+huTFNB4RpSvQnyjyf97HP7gDCGT1RJtJeU+DKpPPaVBRzi
+ ALXxIOxWmA32FGGYSnDr+nJ9FteLQBQdDZfPnFcEGPp9vG5+OkOYgTzosGP+UJfpvn8AnnOz
+ j+Dt0DSbJ1D3JdQh81XEb0q6g9AR6QlrSZvv207pkr/smtEiHeNPuREE2Tz4/daN5q+RVKcp
+ nUCkMX2xLlQUM/RyHXUHr5dQe3BCxO53Nv02A8H834Jp1yQF4OLJ9gMsFmS2m8zWir7RdMZS
+ BCK4l4AjHOiFHCrcbV2c+qMNije9oC5TY6NfqmNNrJmO8EtHCfarXoGTRPBgAjQfL0EzPhX1
+ WGzKp78Ux73yM1PkVKLegvq+eRwmHxumT+DFM6TItbO+eP2WUN5gIwtaDOmBt3VJovdyOkJ2
+ 76z7/e39ig=
+IronPort-HdrOrdr: A9a23:V6dkr6AZeM8K4YrlHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
+ xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
+ 4KSclD4bPLYmRHsQ==
+X-IronPort-AV: E=Sophos;i="5.92,231,1650945600"; 
+   d="scan'208";a="74008342"
+Date: Wed, 29 Jun 2022 11:43:01 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Jane Malalane <jane.malalane@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v10 0/2] xen: Report and use hardware APIC virtualization
+ capabilities
+Message-ID: <Yrwste7T5DSeazjh@perard.uk.xensource.com>
+References: <20220413112111.30675-1-jane.malalane@citrix.com>
+ <e16b3b4b-45f3-a520-0360-c1d59602469b@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: [PATCH v5 2/8] xen/arm: allocate static shared memory to the
- default owner dom_io
-To: Penny Zheng <Penny.Zheng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20220620051114.210118-1-Penny.Zheng@arm.com>
- <20220620051114.210118-3-Penny.Zheng@arm.com>
- <3b7b32cb-df48-e458-e8a9-f17e86f39c9a@xen.org>
- <DU2PR08MB7325A7C7C50807D7FF6AE280F7BB9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <DU2PR08MB7325A7C7C50807D7FF6AE280F7BB9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <e16b3b4b-45f3-a520-0360-c1d59602469b@suse.com>
 
-
-
-On 29/06/2022 08:13, Penny Zheng wrote:
-> Hi Julien
-
-Hi Penny,
-
+On Thu, Jun 23, 2022 at 09:23:27AM +0200, Jan Beulich wrote:
+> On 13.04.2022 13:21, Jane Malalane wrote:
+> > Jane Malalane (2):
+> >   xen+tools: Report Interrupt Controller Virtualization capabilities on
+> >     x86
+> >   x86/xen: Allow per-domain usage of hardware virtualized APIC
+> > 
+> >  docs/man/xl.cfg.5.pod.in              | 15 ++++++++++++++
+> >  docs/man/xl.conf.5.pod.in             | 12 +++++++++++
+> >  tools/golang/xenlight/helpers.gen.go  | 16 ++++++++++++++
+> >  tools/golang/xenlight/types.gen.go    |  4 ++++
+> >  tools/include/libxl.h                 | 14 +++++++++++++
+> >  tools/libs/light/libxl.c              |  3 +++
+> >  tools/libs/light/libxl_arch.h         |  9 ++++++--
+> >  tools/libs/light/libxl_arm.c          | 14 ++++++++++---
+> >  tools/libs/light/libxl_create.c       | 22 ++++++++++++--------
+> >  tools/libs/light/libxl_types.idl      |  4 ++++
+> >  tools/libs/light/libxl_x86.c          | 39 +++++++++++++++++++++++++++++++++--
+> >  tools/ocaml/libs/xc/xenctrl.ml        |  7 +++++++
+> >  tools/ocaml/libs/xc/xenctrl.mli       |  7 +++++++
+> >  tools/ocaml/libs/xc/xenctrl_stubs.c   | 17 ++++++++++++---
+> >  tools/xl/xl.c                         |  8 +++++++
+> >  tools/xl/xl.h                         |  2 ++
+> >  tools/xl/xl_info.c                    |  6 ++++--
+> >  tools/xl/xl_parse.c                   | 19 +++++++++++++++++
+> >  xen/arch/x86/domain.c                 | 29 +++++++++++++++++++++++++-
+> >  xen/arch/x86/hvm/hvm.c                |  3 +++
+> >  xen/arch/x86/hvm/vmx/vmcs.c           | 11 ++++++++++
+> >  xen/arch/x86/hvm/vmx/vmx.c            | 13 ++++--------
+> >  xen/arch/x86/include/asm/hvm/domain.h |  6 ++++++
+> >  xen/arch/x86/include/asm/hvm/hvm.h    | 10 +++++++++
+> >  xen/arch/x86/sysctl.c                 |  4 ++++
+> >  xen/arch/x86/traps.c                  |  5 +++--
+> >  xen/include/public/arch-x86/xen.h     |  5 +++++
+> >  xen/include/public/sysctl.h           | 11 +++++++++-
+> >  28 files changed, 281 insertions(+), 34 deletions(-)
+> > 
 > 
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: Saturday, June 25, 2022 2:22 AM
->> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org
->> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
->> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
->> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>;
->> Jan Beulich <jbeulich@suse.com>; Wei Liu <wl@xen.org>
->> Subject: Re: [PATCH v5 2/8] xen/arm: allocate static shared memory to the
->> default owner dom_io
->>
->> Hi Penny,
->>
->> On 20/06/2022 06:11, Penny Zheng wrote:
->>> From: Penny Zheng <penny.zheng@arm.com>
->>>
->>> This commit introduces process_shm to cope with static shared memory
->>> in domain construction.
->>>
->>> DOMID_IO will be the default owner of memory pre-shared among
->> multiple
->>> domains at boot time, when no explicit owner is specified.
->>
->> The document in patch #1 suggest the page will be shared with dom_shared.
->> But here you say "DOMID_IO".
->>
->> Which one is correct?
->>
-> 
-> I’ll fix the documentation, DOM_IO is the last call.
-> 
->>>
->>> This commit only considers allocating static shared memory to dom_io
->>> when owner domain is not explicitly defined in device tree, all the
->>> left, including the "borrower" code path, the "explicit owner" code
->>> path, shall be introduced later in the following patches.
->>>
->>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->>> ---
->>> v5 change:
->>> - refine in-code comment
->>> ---
->>> v4 change:
->>> - no changes
->>> ---
->>> v3 change:
->>> - refine in-code comment
->>> ---
->>> v2 change:
->>> - instead of introducing a new system domain, reuse the existing
->>> dom_io
->>> - make dom_io a non-auto-translated domain, then no need to create P2M
->>> for it
->>> - change dom_io definition and make it wider to support static shm
->>> here too
->>> - introduce is_shm_allocated_to_domio to check whether static shm is
->>> allocated yet, instead of using shm_mask bitmap
->>> - add in-code comment
->>> ---
->>>    xen/arch/arm/domain_build.c | 132
->> +++++++++++++++++++++++++++++++++++-
->>>    xen/common/domain.c         |   3 +
->>>    2 files changed, 134 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index 7ddd16c26d..91a5ace851 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -527,6 +527,10 @@ static bool __init
->> append_static_memory_to_bank(struct domain *d,
->>>        return true;
->>>    }
->>>
->>> +/*
->>> + * If cell is NULL, pbase and psize should hold valid values.
->>> + * Otherwise, cell will be populated together with pbase and psize.
->>> + */
->>>    static mfn_t __init acquire_static_memory_bank(struct domain *d,
->>>                                                   const __be32 **cell,
->>>                                                   u32 addr_cells, u32
->>> size_cells, @@ -535,7 +539,8 @@ static mfn_t __init
->> acquire_static_memory_bank(struct domain *d,
->>>        mfn_t smfn;
->>>        int res;
->>>
->>> -    device_tree_get_reg(cell, addr_cells, size_cells, pbase, psize);
->>> +    if ( cell )
->>> +        device_tree_get_reg(cell, addr_cells, size_cells, pbase,
->>> + psize);
->>
->> I think this is a bit of a hack. To me it sounds like this should be moved out to
->> a separate helper. This will also make the interface of
->> acquire_shared_memory_bank() less questionable (see below).
->>
-> 
-> Ok,  I'll try to not reuse acquire_static_memory_bank in
-> acquire_shared_memory_bank.
+> Just FYI: It's been over two months that v10 has been pending. There
+> are still missing acks. You may want to ping the respective maintainers
+> for this to make progress.
 
-I am OK with that so long it doesn't involve too much duplication.
+Hi Jan,
 
->>>        ASSERT(IS_ALIGNED(*pbase, PAGE_SIZE) && IS_ALIGNED(*psize,
->>> PAGE_SIZE));
->>
->> In the context of your series, who is checking that both psize and pbase are
->> suitably aligned?
->>
-> 
-> Actually, the whole parsing process is redundant for the static shared memory.
-> I've already parsed it and checked it before in process_shm.
+Are you looking for a ack for the "docs/man" changes? If so, I guess
+I'll have to make it more explicit next time that a review for "tools"
+also mean review of the changes in their respective man pages.
 
-I looked at process_shm() and couldn't find any code that would check 
-pbase and psize are suitable aligned (ASSERT() doesn't count).
+Or are you looking for a ack for the "golang" changes? Those changes are
+automatically generated by a tool already in our repository.
 
-> 
->>> +    return true;
->>> +}
->>> +
->>> +static mfn_t __init acquire_shared_memory_bank(struct domain *d,
->>> +                                               u32 addr_cells, u32 size_cells,
->>> +                                               paddr_t *pbase,
->>> +paddr_t *psize)
->>
->> There is something that doesn't add-up in this interface. The use of pointer
->> implies that pbase and psize may be modified by the function. So...
->>
-> 
-> Just like you points out before, it's a bit hacky to use acquire_static_memory_bank,
-> and the pointer used here is also due to it. Internal parsing process of acquire_static_memory_bank
-> needs pointer to deliver the result.
-> 
-> I’ll rewrite acquire_shared_memory, and it will be like:
-> "
-> static mfn_t __init acquire_shared_memory_bank(struct domain *d,
->                                                 paddr_t pbase, paddr_t psize)
-> {
->      mfn_t smfn;
->      unsigned long nr_pfns;
->      int res;
-> 
->      /*
->       * Pages of statically shared memory shall be included
->       * in domain_tot_pages().
->       */
->      nr_pfns = PFN_DOWN(psize);
->      if ( d->max_page + nr_pfns > UINT_MAX )
-
-On Arm32, this check would always be true a 32-bit unsigned value is 
-always below UINT_MAX. On arm64, you might get away because nr_pfns is 
-unsigned long (so I think the type promotion works). But this is fragile.
-
-I would suggest to use the following check:
-
-(UINT_MAX - d->max_page) < nr_pfns
-
->      {
->          printk(XENLOG_ERR "%pd: Over-allocation for d->max_pages: %lu.\n",
->                 d, psize);
->          return INVALID_MFN;
->      }
->      d->max_pages += nr_pfns;
-> 
->      smfn = maddr_to_mfn(pbase);
->      res = acquire_domstatic_pages(d, smfn, nr_pfns, 0);
->      if ( res )
->      {
->          printk(XENLOG_ERR
->                 "%pd: failed to acquire static memory: %d.\n", d, res);
->          return INVALID_MFN;
->      }
-> 
->      return smfn
-> }
-> "
-> 
->>> +{
->>> +    /*
->>> +     * Pages of statically shared memory shall be included
->>> +     * in domain_tot_pages().
->>> +     */
->>> +    d->max_pages += PFN_DOWN(*psize);
->>
->> ... it sounds a bit strange to use psize here. If psize, can't be modified than it
->> should probably not be a pointer.
->>
->> Also, where do you check that d->max_pages will not overflow?
->>
-> 
-> I'll check the overflow as follows:
-
-See above about the check.
-
-> "
->      nr_pfns = PFN_DOWN(psize);
->      if ( d->max_page + nr_pfns > UINT_MAX )
->      {
->          printk(XENLOG_ERR "%pd: Over-allocation for d->max_pages: %lu.\n",
->                 d, psize);
->          return INVALID_MFN;
->      }
->      d->max_pages += nr_pfns;
-> "
-> 
->>> +
->>> +    return acquire_static_memory_bank(d, NULL, addr_cells, size_cells,
->>> +                                      pbase, psize);
->>> +
->>> +}
->>> +
->>> +/*
->>> + * Func allocate_shared_memory is supposed to be only called
->>
->> I am a bit concerned with the word "supposed". Are you implying that it may
->> be called by someone that is not the owner? If not, then it should be
->> "should".
->>
->> Also NIT: Spell out completely "func". I.e "The function".
->>
->>> + * from the owner.
->>
->> I read from as "current should be the owner". But I guess this is not what you
->> mean here. Instead it looks like you mean "d" is the owner. So I would write
->> "d should be the owner of the shared area".
->>
->> It would be good to have a check/ASSERT confirm this (assuming this is easy
->> to write).
->>
-> 
-> The check is already in the calling path, I guess...
-
-Can you please confirm it?
-
-[...]
-
->>> +        prop = dt_find_property(shm_node, "xen,shared-mem", NULL);
->>> +        if ( !prop )
->>> +        {
->>> +            printk("Shared memory node does not provide \"xen,shared-
->> mem\" property.\n");
->>> +            return -ENOENT;
->>> +        }
->>> +        cells = (const __be32 *)prop->value;
->>> +        /* xen,shared-mem = <pbase, psize, gbase>; */
->>> +        device_tree_get_reg(&cells, addr_cells, size_cells, &pbase, &psize);
->>> +        ASSERT(IS_ALIGNED(pbase, PAGE_SIZE) && IS_ALIGNED(psize,
->>> + PAGE_SIZE));
->>
->> See above about what ASSERT()s are for.
->>
-> 
-> Do you think address was suitably checked here, is it enough?
-
-As I wrote before, ASSERT() should not be used to check user inputs. 
-They need to happen in both debug and production build.
-
-> If it is enough, I'll modify above ASSERT() to mfn_valid()
-
-It is not clear what ASSERT() you are referring to.
+Or is it an "ocaml" ack for the first patch? Unfortunately, the
+maintainers haven't been CCed, I guess that could be an issue.
 
 Cheers,
 
 -- 
-Julien Grall
+Anthony PERARD
 
