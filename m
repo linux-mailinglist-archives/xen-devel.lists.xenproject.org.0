@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0D51560832
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 20:02:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358028.586977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D9EF560989
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jun 2022 20:46:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358035.586992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6c0l-0004Vq-8P; Wed, 29 Jun 2022 18:01:59 +0000
+	id 1o6cgy-0000pR-LB; Wed, 29 Jun 2022 18:45:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358028.586977; Wed, 29 Jun 2022 18:01:59 +0000
+Received: by outflank-mailman (output) from mailman id 358035.586992; Wed, 29 Jun 2022 18:45:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6c0l-0004U6-5L; Wed, 29 Jun 2022 18:01:59 +0000
-Received: by outflank-mailman (input) for mailman id 358028;
- Wed, 29 Jun 2022 18:01:58 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o6c0k-0004U0-4h
- for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 18:01:58 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o6c0j-0000fq-UE; Wed, 29 Jun 2022 18:01:57 +0000
-Received: from [54.239.6.187] (helo=[192.168.9.41])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o6c0j-00062L-Mc; Wed, 29 Jun 2022 18:01:57 +0000
+	id 1o6cgy-0000mR-I2; Wed, 29 Jun 2022 18:45:36 +0000
+Received: by outflank-mailman (input) for mailman id 358035;
+ Wed, 29 Jun 2022 18:45:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=R6b1=XE=citrix.com=prvs=172711fe8=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1o6cgx-0000mL-4o
+ for xen-devel@lists.xenproject.org; Wed, 29 Jun 2022 18:45:35 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a67b003b-f7db-11ec-bd2d-47488cf2e6aa;
+ Wed, 29 Jun 2022 20:45:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,133 +36,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=7VoP880SRoJXEVg0j7FHhUEnCYZABffhkjsN2aIfDVA=; b=Pmf102J2sSI+sYr89ALuS9FIss
-	iU+FK3/KiEc0MsJRtfvAYnySwaX28lsi32OcxF+N5LrRNd2ImuCx4mMCxQsECahIaqa4xRlB11dFY
-	DzzPzxB7piwiYTrr7KsoAoGje/JH3TtYfFin2FGFP5EAWjZIZ39XGrurCDeNUitww8jo=;
-Message-ID: <ef8b540c-d2c2-c999-d3fe-08fc88665ad9@xen.org>
-Date: Wed, 29 Jun 2022 19:01:55 +0100
+X-Inumbo-ID: a67b003b-f7db-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1656528332;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=bZC+c6jVkNdg+OpYTgJbDfKY8xiUZ80gFTUBVJE8k2k=;
+  b=Ly5XpRfng0n66PWXCyEhXjX/1qk/P42S5aGYXA99vKU6r8SeX+xRS9Oh
+   q/IZAN8STrrpknkz3tg914fjd1Al7SIr9hXMO6OFUOpbaLCV3+QlrHC4q
+   kH+VZf+3MO2URL++XsWkUfHcywOiQH8AsFxcEBH6hN5jG+5PzVOV2dgjg
+   o=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 75147939
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:aV4cM64vL0qxqgbHoopU/AxRtGbHchMFZxGqfqrLsTDasY5as4F+v
+ jMaDGjSaf2KZjP0eYxyYdy/p0gF7JHVz9BnGgturys1Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw03qPp8Zj2tQy2YbjUlvU0
+ T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
+ 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
+ umhurSzbC0iebPql94RaENXPC9mIoJru7/+dC3XXcy7lyUqclPpyvRqSko3IZcZ6qB8BmQmG
+ f4wcW5XKErZ3qTvnez9GrIEascLdaEHOKs2vH16wC6fJvEhWZ3ZGI3B5MNC3Sd2jcdLdRrbT
+ 5VEMGYwPU+RC/FJEmc5S4o4zOOCv3XcLgAIhmm8iKAr0lGGmWSd15CyaYGIK7RmX/59gUKwt
+ m/AuWPjDXkyFvaS1D6E+XKEnfLUkGXwX4d6PK218LtmjUOewkQXCQYKTh2rrP+hkEm8VtlDb
+ UsO9UITQbMarRLxCIOnBlvh/SDC7kV0t8ds//MS6ySnwe3KxQmjClNeQRFPcMMJmYw2fGl/v
+ rOWpO8FFQCDoZXMFy/Dq+7F8W/rUcQGBTRcPHFZFGPp9/Gm+dhu1UyXE76PBYbv1rXI9SfML
+ ydmRcTUr5EaloY12qqy5jgraBr898GSHmbZCug6N19JDz+Vh6b/PuREEXCBsZ59wH+xFzFtR
+ kQslcmE9/wpBpqQjiGLS+hlNOj3uqjZbGSF3wU/QsVJG9GRF5iLJNE4DNZWdC9U3jssI2e1M
+ Cc/RysLjHOsAJdaRfAuON/gYyjb5aPhCc7kRpjpUza6WbAoLFXv1Hg3PSa4hjmx+GBxwPpXE
+ crKLq6R4YMyVP0PIMyeHL9Nj9fGB0kWmAvueHwM50/9gebPNCLNFOxt3ZnnRrlR0Z5oaT79q
+ 753X/ZmAT0GCYUSvgG/HVYvEG03
+IronPort-HdrOrdr: A9a23:TbCeuaOch5W53sBcTs2jsMiBIKoaSvp037Eqv3oedfUzSL3+qy
+ nOpoV+6faaslYssR0b9exoW5PwJE80l6QFgrX5VI3KNGKN1VdARLsSi7cKqAeAJ8SRzIFgPN
+ 9bAspDNOE=
+X-IronPort-AV: E=Sophos;i="5.92,231,1650945600"; 
+   d="scan'208";a="75147939"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v2 0/2] x86/spec-ctrl: Minor fixes
+Date: Wed, 29 Jun 2022 19:45:06 +0100
+Message-ID: <20220629184508.15956-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.10.0
-Subject: Re: R: R: Crash when using xencov
-To: Carmine Cesarano <c.cesarano@hotmail.it>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <AM7PR10MB355942D32F58FF02379C398CF8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <87d0667b-2b85-f006-ea3c-6f557b2bdc8e@xen.org>
- <AM7PR10MB355972A68A222CB9FBAC43D4F8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <daa12b90-da87-d463-24c4-a13fba330f1d@xen.org>
- <AM7PR10MB35593AA7F46B4D4A0BBD9841F8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <AM7PR10MB3559BB8CB733902773B1AD6AF8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <AM7PR10MB3559A1984F6B53CEFB4FECC7F8B89@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AM7PR10MB3559A1984F6B53CEFB4FECC7F8B89@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-(moving the discussion to xen-devel)
+Patch 2 has been posted before, but ages ago and has been rebased over
+subseqent XSAs.  Patch 1 is new.
 
-On 28/06/2022 16:32, Carmine Cesarano wrote:
-> Hi,
+Andrew Cooper (2):
+  x86/spec-ctrl: Only adjust MSR_SPEC_CTRL for idle with legacy IBRS
+  x86/spec-ctrl: Knobs for STIBP and PSFD, and follow hardware STIBP hint
 
-Hello,
-
-Please refrain to top-post and/or post images on the ML. If you need to 
-share an image, then please upload them somewhere else.
-
-> I made two further attempts, first by compiling xen and xen-tools with gcc 10 and second with gcc 7, getting the same problem.
-> 
-> By running “xencov reset”, with with both compilers, the line of code associated with the crash is:
-
-Discussing with Andrew Cooper on IRC, it looks like the problem is 
-because Xen and GCC disagrees on the format. There are newer format that 
-Xen doesn't understand.
-
-If you are interested to support GCOV on your setup, then I would 
-suggest to look at the documentation and/or look at what Linux is doing 
-for newer compiler.
-
-> 
->    *   /xen/xen/common/coverage/gcc_4_7.c:123
-> By running “xencov read”, I get two different behaviors with the two compilers:
-> 
->    *   /xen/xen/common/coverage/gcc_4_7.c:165   [GCC 11]
->    *   /xen/xen/common/coverage/gcov.c:131          [GCC 7]
-> 
-> Attached are the logs captured with a serial port.
-> 
-> Cheers,
-> 
-> Carmine Cesarano
-> Da: Julien Grall<mailto:julien@xen.org>
-> Inviato: lunedì 27 giugno 2022 14:42
-> A: Carmine Cesarano<mailto:c.cesarano@hotmail.it>
-> Oggetto: Re: R: Crash when using xencov
-> 
-> Hello,
-> 
-> You seemed to have removed xen-users from the CC list. Please keep it in
-> CC unless the discussion needs to private.
-> 
-> Also, please avoid top-posting.
-> 
-> On 27/06/2022 13:36, Carmine Cesarano wrote:
->> Yes, i mean stable-4.16. Below the logs after running "xencov reset". The situation for "xencov read" is similar.
->>
->> (XEN) ----[ Xen-4.16.2-pre  x86_64  debug=y gcov=y  Not tainted ]----
->> (XEN) CPU:    0
->> (XEN) RIP:    e008:[<ffff82d040257bd2>] gcov_info_reset+0x87/0xa9
->> (XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d0v0)
->> (XEN) rax: 0000000000000000   rbx: ffff82d04056bdc0   rcx: 00000000000c000b
->> (XEN) rdx: 0000000000000000   rsi: 0000000000000001   rdi: ffff82d04056bdc0
->> (XEN) rbp: ffff83023a7e7cb0   rsp: ffff83023a7e7c88   r8:  7fffffffffffffff
->> (XEN) r9:  deadbeefdeadf00d   r10: 0000000000000000   r11: 0000000000000000
->> (XEN) r12: 0000000000000001   r13: ffff82d04056be28   r14: 0000000000000000
->> (XEN) r15: ffff82d04056bdc0   cr0: 0000000080050033   cr4: 0000000000172620
->> (XEN) cr3: 000000017ea0b000   cr2: 0000000000000000
->> (XEN) fsb: 00007fc0fb0ca200   gsb: ffff88807b400000   gss: 0000000000000000
->> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
->> (XEN) Xen code around <ffff82d040257bd2> (gcov_info_reset+0x87/0xa9):
->> (XEN)  1d 44 89 f0 49 8b 57 70 <4c> 8b 24 c2 49 83 c4 18 48 83 05 a6 81 4c 00 01
->> (XEN) Xen stack trace from rsp=ffff83023a7e7c88:
->> (XEN)    ffff82d04056bdc0 0000000000000001 ffff82d04070f180 0000000000000001
->> (XEN)    0000000000000000 ffff83023a7e7cc8 ffff82d040257a6a ffff83023a7e7db0
->> (XEN)    ffff83023a7e7ce8 ffff82d040257547 ffff83023a7e7fff ffff83023a7e7fff
->> (XEN)    ffff83023a7e7e58 ffff82d040255d5f ffff83023a7e7d68 ffff82d0403b5e8b
->> (XEN)    000000000017d5b2 0000000000000000 ffff83023a6b5000 0000000000000000
->> (XEN)    00007fc0fb348010 800000017ea0e127 0000000000000202 ffff82d040399fd8
->> (XEN)    0000000000005a40 ffff83023a7e7d68 0000000000000206 ffff82e002fab640
->> (XEN)    ffff83023a7e7e58 ffff82d0403bb29d ffff83023a69f000 000000003a7e7fff
->> (XEN)    000000017ea0f067 0000000000000000 000000000017d5b2 000000000017d5b2
->> (XEN)    0000001400000014 0000000000000002 ffffffffffffffff 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
->> (XEN)    0000000000000000 ffff83023a7e7ef8 0000000000000001 ffff83023a69f000
->> (XEN)    deadbeefdeadf00d ffff82d04025579d ffff83023a7e7ee8 ffff82d040387f62
->> (XEN)    00007fc0fb348010 deadbeefdeadf00d deadbeefdeadf00d deadbeefdeadf00d
->> (XEN)    deadbeefdeadf00d ffff83023a7e7fff ffff82d0403b2c99 ffff83023a7e7eb8
->> (XEN)    ffff82d04038214c ffff83023a69f000 ffff83023a7e7ed8 ffff83023a69f000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
->> (XEN)    00007cfdc58180e7 ffff82d0404392ae 0000000000000000 ffff88800f484c00
->> (XEN) Xen call trace:
->> (XEN)    [<ffff82d040257bd2>] R gcov_info_reset+0x87/0xa9
-> 
-> Thanks! There are multiple versions of gcov_info_reset() in the tree.
-> The one used will depend on the compiler you are using.
-> 
-> Can you use addr2line (or gdb) to find out the file and line of code
-> associated with the crash?
-> 
-> For addr2line you could do:
-> 
->     addr2line -e xen-syms 0xffff82d040257bd2
-
-Cheers,
+ docs/misc/xen-command-line.pandoc      | 21 +++++++---
+ xen/arch/x86/hvm/svm/vmcb.c            |  9 ++++
+ xen/arch/x86/include/asm/cpufeatures.h |  2 +-
+ xen/arch/x86/include/asm/spec_ctrl.h   |  5 ++-
+ xen/arch/x86/spec_ctrl.c               | 75 +++++++++++++++++++++++++++++-----
+ 5 files changed, 93 insertions(+), 19 deletions(-)
 
 -- 
-Julien Grall
+2.11.0
+
 
