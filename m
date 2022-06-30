@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00AF4561A46
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 14:24:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358476.587708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D0CD561A47
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 14:24:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358477.587718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6tDj-0007cg-9X; Thu, 30 Jun 2022 12:24:31 +0000
+	id 1o6tDy-0007yl-Lz; Thu, 30 Jun 2022 12:24:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358476.587708; Thu, 30 Jun 2022 12:24:31 +0000
+Received: by outflank-mailman (output) from mailman id 358477.587718; Thu, 30 Jun 2022 12:24:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6tDj-0007ZU-6e; Thu, 30 Jun 2022 12:24:31 +0000
-Received: by outflank-mailman (input) for mailman id 358476;
- Thu, 30 Jun 2022 12:24:30 +0000
+	id 1o6tDy-0007wG-Id; Thu, 30 Jun 2022 12:24:46 +0000
+Received: by outflank-mailman (input) for mailman id 358477;
+ Thu, 30 Jun 2022 12:24:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6bdU=XF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o6tDh-0007ZO-Oy
- for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 12:24:29 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr130074.outbound.protection.outlook.com [40.107.13.74])
+ (envelope-from <SRS0=gQTH=XF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1o6tDw-0007ZO-QY
+ for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 12:24:45 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95cc5bd5-f86f-11ec-bdce-3d151da133c5;
- Thu, 30 Jun 2022 14:24:28 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB8PR04MB6732.eurprd04.prod.outlook.com (2603:10a6:10:10e::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
- 2022 12:24:26 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5395.014; Thu, 30 Jun 2022
- 12:24:26 +0000
+ id 9ef08ed2-f86f-11ec-bdce-3d151da133c5;
+ Thu, 30 Jun 2022 14:24:43 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3F9F721DD4;
+ Thu, 30 Jun 2022 12:24:43 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DDFAB13A5C;
+ Thu, 30 Jun 2022 12:24:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id yPlbNAqWvWLcMgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 30 Jun 2022 12:24:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,237 +51,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95cc5bd5-f86f-11ec-bdce-3d151da133c5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X9/JAEAppMlaFbbTl47xL6sYU8o17zYXoTXD0+i+D6iaqCDCGhthsDFvq2FIBVjAlzhzen78Y1adFkO5J6I0Sr05pwa3xs8psVcXoFFLAfPQDi6Y2mezaTY8ZWpbzV93B0AMAm7xYWVwZQ9XFwdgnvxspoDze+R6WTaeZiSb+g/YY7ZzTLgSqoPuEZVQiY1Im3h6WsXEADv8VEk3PyMUxB62+dPI5Uy7LiVjKd6Lq7j1CMfpChVFsTwxDbESfAoVXN35C9vR1Yqe0xR2a1CYL4uq4CH2rt1TsmEIbd5fcnvQZUi1fHf+p6UmBqg0Q0NbhGAC6ZwzdL7SnAKtPQCCag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JpaL2K1pu2wSSMdea8KXMD5azt8WoYd/UmJdDdI8xW4=;
- b=HT89mmdRFDarb4CMYSX3DJhtf0iM+Q0RDtxX26/UnEhM5I4dSaOs2Jg5NpgCKqTrD7CZljEid8vxfnYhSIV2SyJURLl4pEpoa+7yd2mlSbJcgM8M30yqrWnsrWnPgA20nfDwa+/2AqG1NOj7EJj1HEJ+/Ml/vYtKIMsLevKuHD1LBGvyMilMZ/M1CUBxqboevaCWBix6AtHQqHcaaEM8hKSqBB/wkrY1OA0N5+b/qOluiZF9BS6INEfdzRtpMs4EqOmZWIbSDoMEI/ptKk9PH6RtXeCacyObGSsun6y50UHIHA2BcA/N3/d7nEFsJXthcDicdqte7SknQte6Q0ITKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JpaL2K1pu2wSSMdea8KXMD5azt8WoYd/UmJdDdI8xW4=;
- b=3P9RY4QQ016ycNGlWpAPineWhFzYufo5kK7Gz35oku0Qkhrwz2f/eGq58BEWoWT/QgIIp1MfZz4bW4ksXZyH1aatxw+tmb6OH+02/HCah4DgsnKT7gpeDeLZjWBAV4GGnbygXU4lHzKWMJo/DCevhfXHy7vSBn1j5HV5rtiGWl4Tf+rfuB4ILDIk4puX2WnNOwYQysKlDsLMj71u7QrFnzX0dM7uofj5i7eDfhPPskBgeHLdRYo9tDu7DdVXpxxu7M0QKLJbUqJV90w9CKloBpop1alBY2XnketHPOF4e7Z86zFpMz+M5NPu3eMNm3n2dAx/kYL+lzENDYIj7RbC5w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8d23c11b-38c6-8356-cd28-6550e91220b1@suse.com>
-Date: Thu, 30 Jun 2022 14:24:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: R: R: R: Crash when using xencov
-Content-Language: en-US
-To: Carmine Cesarano <c.cesarano@hotmail.it>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- Julien Grall <julien@xen.org>
-References: <AM7PR10MB355942D32F58FF02379C398CF8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <87d0667b-2b85-f006-ea3c-6f557b2bdc8e@xen.org>
- <AM7PR10MB355972A68A222CB9FBAC43D4F8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <daa12b90-da87-d463-24c4-a13fba330f1d@xen.org>
- <AM7PR10MB35593AA7F46B4D4A0BBD9841F8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <AM7PR10MB3559BB8CB733902773B1AD6AF8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <AM7PR10MB3559A1984F6B53CEFB4FECC7F8B89@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <ef8b540c-d2c2-c999-d3fe-08fc88665ad9@xen.org>
- <AM7PR10MB355902159111F3CC8C6CDB94F8BA9@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <AM7PR10MB355902159111F3CC8C6CDB94F8BA9@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM6P195CA0043.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:87::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 9ef08ed2-f86f-11ec-bdce-3d151da133c5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1656591883; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uXa+FRlzYJYmyF3LIiIDI9DG8qyh1K9uMBsWxDl2nRM=;
+	b=CtN7UkTwywTxvzvfNX6zoOXWzTuUCeNKvW4yloLm2ReYh8SnNMXcrxmaqz5mRL+x2937vC
+	ZtAeiHVOA2aBwNk7uFB04S8NQjheWNUZkpgSyUOcBpPuY/Uv8dE7d/sJZTPtQHf/V+Wffg
+	34W92Ra4pzpS1clb0txqBoiwR/Vf/w8=
+Message-ID: <43cafa48-1cef-ad0f-654e-5296cff15018@suse.com>
+Date: Thu, 30 Jun 2022 14:24:42 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cc0e7c60-70e4-44aa-495b-08da5a9378c6
-X-MS-TrafficTypeDiagnostic: DB8PR04MB6732:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	KKOyuo9W8e65WcCMVAhgSIv48rYIusmULaeVxkzZyO0rGVqAxwO7ouwCJo3pzfIVutxJxNXv4I4kKinCgtobPgWDtNY9Mz/mKqknXFsMW8OmxBnqmpWh658TlC6TSJBm5xPbo08XvTDQ14tmvG/UUpDRba8zeT/ZS5zq8RhkQi6BdkkOjPS23gj9YbX3emHJY3bOFOXDOWlh74pWyV8yTEH3v9PAj/5GZ3De4pka1F6le5HPxYPdmnNxb0hFNoNL7zKC/T0MbDTx9OoYlp206Ty+kIRl2wEMafkHTRbSVebhIxruc2B63YHi8JESn9J0Sgx6rcsCDrtB6sUTNw4lPtuVe82SaZf59rkqm1xiQkDck27pe9htfReDvGiB/TslMZe4URXCBBe/SF32UScPgZE4RwJx8XZ+CEj4r72Y/YywRyAi9UtEcENvOt6BQsigcKJ+uxhOSAOYWJTKypAsPrczu07WfVylzmZhJn3mlymzmUVtvBqs/qNbamgpQuZ/88aojwOhA/Q5QD4SzYTb2XqXagJvjeQFctf6NJ2ZCCdlh+I4mAkKJPEXIqPAkqOJv5dDCQ/4jDVvE6BLzc7EZj5YW9FQh5ky5lxBIjDCi8FVHxe8ARQlGNMBvIYJRzQJzdjiXNKjmfDTXnA+m2SFwfx/DzbtRCDil0xGbV19tkrDd/jvNv+wgAOv5jg78fsY1wMBEfe+3lot837FY5c4vJa8ueMal1IhEL29FgIalsXYvYWwIq4rfgZGFLeaUIIi33jdmESzyd0APd5s2KWwbCbDgGtj9N0ksJh3u5XClLQKWen/cQtPdpdAv/PzvYaEjhHI8Q/a63Lshju7AB/3p/uc/ctGhyhbWdwQCUpZSDY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(39860400002)(396003)(366004)(346002)(136003)(45080400002)(186003)(6916009)(53546011)(6506007)(2616005)(8936002)(54906003)(83380400001)(26005)(8676002)(31696002)(41300700001)(6512007)(6486002)(86362001)(66556008)(66946007)(38100700002)(36756003)(5660300002)(2906002)(316002)(66476007)(478600001)(4326008)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZUVLZ0V2MjZUWS9pNzZvQlFobkl5MFYwejRwVi9KVlkzSUtJUk9TRmVuU0pP?=
- =?utf-8?B?VGJURDVQVWZVRm5HOHl5R0xKaHgwSlNpKzFCVmtsRUtTaHVZMHVHamVHTG0z?=
- =?utf-8?B?dEVaSkIrUkZkTXc3QW5mRXlGd2JlVE5jQU0xUm9NTlFmWExaaXVJVU1WMU0r?=
- =?utf-8?B?ZENReSs4QkdaWEFvb1BpNm1WbEo3VXl4WTlSYUdRa3pocnJMV0E4MXRNVkpj?=
- =?utf-8?B?VEFrNmVBNy9tQjN4Zit6bnVsQWRsdWZuOFZjWWRlMU54RlZzYUNNNW9VYnU0?=
- =?utf-8?B?VGNORi9vWW43N0VMNVdSTStYeHI0SmRaK3p3S0xwZitDVTVPTFVab2VJcW96?=
- =?utf-8?B?QWowbTE4MTg3RkpQUTNTQitEM0x2N0ZScmc4MEY5MTE4NWpvaGpHY1g2N1Vv?=
- =?utf-8?B?NUZvWGpHQW54SDcwVW5BYU80UEhCSFdHQk5mTGIzZXk0QzY3WDlySmYvNTdt?=
- =?utf-8?B?V3dUYmFVOVRsbE13OHhqellCUzdLRnk1TG5uU2x2RWQ2MUhJL2dmY1JsQm5S?=
- =?utf-8?B?YlM2YzhyYm54eXdBZG1LajVrMEtkU3NDcVNmcUdkS0g5RHlVbyt1ZG14UWQ1?=
- =?utf-8?B?dENCNEdCRk1oZ0w1Zy9jT2FsUjlwSlM0VnJWcFpCeUVVOTBRbXIyZU9ma3VB?=
- =?utf-8?B?VTh0WEtXYnYzSVRQd0xaazFVWDd2ZnVBeG1NSHlZYjZuUjcyRDRIK3NzYndw?=
- =?utf-8?B?U0FYR2ZHTEYwa2wvdmQ3M0tTRDNEQzdQdXF3bjdNV29qaTVSaTNvMEFUTGZt?=
- =?utf-8?B?QjZ2Y0tTYkpxdUpGT0F2ZWpiTlVHZTc4bkdVcnBvRjR5MlZIRzhEWWs1MDh3?=
- =?utf-8?B?eVlKY3ZjdnBxT3JROHpVcVdWTUFLVjdCQ2ZmK2pGMlVXWXNzVWR3UVFFNkI3?=
- =?utf-8?B?eWRlZlVSV01iemQxTExXOUp3WS9leXhGdjIwTktNTE5MazZHSWRUSEZONDNq?=
- =?utf-8?B?NTJzYTBKck41aWU0SkZVVk5sYm95MjgvZytxaEdVTzBRc1U1NVNFSE05ZDVw?=
- =?utf-8?B?N1l6c3ZSaHI0SWppZHVxVTFCMTJhbHV3MEdvWU1kTjhGaWJVUytUcEF5NXZR?=
- =?utf-8?B?ZXpRb3k5QkZHMmFyUHpzTUwwaFhwM01UY0xQWnEwRWRvc09XSE9sNkFWalFi?=
- =?utf-8?B?TXIyalR2elhOQXhXOURzbEtzRzNZWnlqb1c2QzdZVHVPeThIVzNMOXZlVUF5?=
- =?utf-8?B?NVFHS1JjckFMVjNveVIzUXFSOTJUaEd6TCtlUHpBOXg5MDJsT0dKMjluSVRZ?=
- =?utf-8?B?dTFFUWdJMURyTjJ2eFNIZ1l0QXlTUG40QnJMdHJoMEpzbVBQRUVHclRPcVNI?=
- =?utf-8?B?aXdFaUhSQlNEY1ZYR2hMdFdKRFFvVVpVRHpybHEycjV1Ymw2M2JVK0lpOTdL?=
- =?utf-8?B?bWMwNElDcFRySEl1Sm15SDY3bEZFa2F6TXNoRGpORGpLcWpsRmNpUjhtMXlB?=
- =?utf-8?B?SGdwblJGVzVuNXZhb01aS2V3VjNtNzZOQWllZy90Ym13ZldPQ1hjYkRIcHh3?=
- =?utf-8?B?d2k3S1NKTTJ6c3lXUHA4K0tyTitmU2tFRmE4ajRERkgwQWFLcloyZ1BDSTM5?=
- =?utf-8?B?dVlqUUVjRlE0WFhzUEdTSm5GaCtBa0ZhdFdVdGhoRWJZajNjV1BSazlpL2Rv?=
- =?utf-8?B?ZUtIVXI0aGFtd21tUHFwNURLbCtFb01vMmJUeEFGL05kY2dMZHlEa1BDL2Zp?=
- =?utf-8?B?VG10NjN5VHJRQUFlL2JDemFHYlRaRmNla3ZWSnNvSE93K0NQRjJsUWxLZ0dv?=
- =?utf-8?B?Vk9iSVE1b1JKZWdzSVIxMEFweUV5b0pJUTN3R09MMzhscEpCZGNMcUZHK0Vk?=
- =?utf-8?B?WlFmOGRDRDF0ZjBoSVFqaWp4TjJvOXlHRUVQeDFMWXpIOWs5Mk5VYWlvbDla?=
- =?utf-8?B?ZlowWnQvVlBENHVWL1paSytET3prU0JqL3djdnozQVNNYzFhbDdYaU5TcHBi?=
- =?utf-8?B?Rm1VaXdicndTZWliYXRPMGd6elEvWTRHZFUyaFVxMzVrc1pxNnV5b0luWjhn?=
- =?utf-8?B?Z1JMWHNDMDVvYk84UUJnQ0RuejlPMGRpOGRwWjFMOFZKTHlONjQ1WnR5WmQy?=
- =?utf-8?B?di95bEJ4NmFPYzZJbTFOKzFHRU5oSEZxNmhrZ1huR2t3YXAweGhiZTFsQnhq?=
- =?utf-8?Q?p/rWuGCCr1/sdHMiLS+3fQABK?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc0e7c60-70e4-44aa-495b-08da5a9378c6
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 12:24:26.0862
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1VdexkeQsANpQuoAqz6+i2/cyHrH9E7VzilNwwG/0ktEJwj/MWQHdJY6aWtz8aF/PfWTfFoVwr99WXCRuvr2QQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6732
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: Oleksandr <olekstysh@gmail.com>, George Dunlap
+ <George.Dunlap@citrix.com>, Anthony Perard <anthony.perard@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ Nick Rosbrook <rosbrookn@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <62903b8e-6c20-600e-8283-5a3e3b853a18@gmail.com>
+ <1655482471-16850-1-git-send-email-olekstysh@gmail.com>
+ <9A36692A-8095-4C76-A69B-FBAB221A365C@citrix.com>
+ <02648046-7781-61e5-de93-77342e4d6c16@gmail.com>
+ <36d4c786-9fb7-4b30-1a4d-171f92cc84d7@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH V10 1/3] libxl: Add support for Virtio disk configuration
+In-Reply-To: <36d4c786-9fb7-4b30-1a4d-171f92cc84d7@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------or0G17J0FHgXlHhgEmNHKuk0"
 
-On 30.06.2022 11:07, Carmine Cesarano wrote:
-> Sorry for the images on the ML.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------or0G17J0FHgXlHhgEmNHKuk0
+Content-Type: multipart/mixed; boundary="------------SoJtpuNNnpGoH97jtfddOXYV";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Oleksandr <olekstysh@gmail.com>, George Dunlap
+ <George.Dunlap@citrix.com>, Anthony Perard <anthony.perard@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ Nick Rosbrook <rosbrookn@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+Message-ID: <43cafa48-1cef-ad0f-654e-5296cff15018@suse.com>
+Subject: Re: [PATCH V10 1/3] libxl: Add support for Virtio disk configuration
+References: <62903b8e-6c20-600e-8283-5a3e3b853a18@gmail.com>
+ <1655482471-16850-1-git-send-email-olekstysh@gmail.com>
+ <9A36692A-8095-4C76-A69B-FBAB221A365C@citrix.com>
+ <02648046-7781-61e5-de93-77342e4d6c16@gmail.com>
+ <36d4c786-9fb7-4b30-1a4d-171f92cc84d7@gmail.com>
+In-Reply-To: <36d4c786-9fb7-4b30-1a4d-171f92cc84d7@gmail.com>
 
-Please note how Julien had also asked you to not top-post.
+--------------SoJtpuNNnpGoH97jtfddOXYV
+Content-Type: multipart/mixed; boundary="------------eyobLM2s4wBBTle5dihHL9n8"
 
-> If I wanted to change my setup instead, is there a tested and working version of gcc for xencov features on xen stable-4.16?
-> (I read GCC 3.4 or later in the documentation).
+--------------eyobLM2s4wBBTle5dihHL9n8
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Judging from the sources someone had tested with gcc7, but earlier you
-said you see the same issue there as you had seen with gcc10. I assume
-you did make sure to do a full, clean re-build when switching compiler
-versions.
+T24gMzAuMDYuMjIgMTQ6MTgsIE9sZWtzYW5kciB3cm90ZToNCj4gDQo+IERlYXIgYWxsLg0K
+PiANCj4gDQo+IE9uIDI1LjA2LjIyIDE3OjMyLCBPbGVrc2FuZHIgd3JvdGU6DQo+Pg0KPj4g
+T24gMjQuMDYuMjIgMTU6NTksIEdlb3JnZSBEdW5sYXAgd3JvdGU6DQo+Pg0KPj4gSGVsbG8g
+R2VvcmdlDQo+Pg0KPj4+DQo+Pj4+IE9uIDE3IEp1biAyMDIyLCBhdCAxNzoxNCwgT2xla3Nh
+bmRyIFR5c2hjaGVua28gPG9sZWtzdHlzaEBnbWFpbC5jb20+IHdyb3RlOg0KPj4+Pg0KPj4+
+PiBGcm9tOiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBh
+bS5jb20+DQo+Pj4+DQo+Pj4+IFRoaXMgcGF0Y2ggYWRkcyBiYXNpYyBzdXBwb3J0IGZvciBj
+b25maWd1cmluZyBhbmQgYXNzaXN0aW5nIHZpcnRpby1tbWlvDQo+Pj4+IGJhc2VkIHZpcnRp
+by1kaXNrIGJhY2tlbmQgKGVtdWxhdG9yKSB3aGljaCBpcyBpbnRlbmRlZCB0byBydW4gb3V0
+IG9mDQo+Pj4+IFFlbXUgYW5kIGNvdWxkIGJlIHJ1biBpbiBhbnkgZG9tYWluLg0KPj4+PiBB
+bHRob3VnaCB0aGUgVmlydGlvIGJsb2NrIGRldmljZSBpcyBxdWl0ZSBkaWZmZXJlbnQgZnJv
+bSB0cmFkaXRpb25hbA0KPj4+PiBYZW4gUFYgYmxvY2sgZGV2aWNlICh2YmQpIGZyb20gdGhl
+IHRvb2xzdGFjaydzIHBvaW50IG9mIHZpZXc6DQo+Pj4+IC0gYXMgdGhlIGZyb250ZW5kIGlz
+IHZpcnRpby1ibGsgd2hpY2ggaXMgbm90IGEgWGVuYnVzIGRyaXZlciwgbm90aGluZw0KPj4+
+PiDCoMKgIHdyaXR0ZW4gdG8gWGVuc3RvcmUgYXJlIGZldGNoZWQgYnkgdGhlIGZyb250ZW5k
+IGN1cnJlbnRseSAoInZkZXYiDQo+Pj4+IMKgwqAgaXMgbm90IHBhc3NlZCB0byB0aGUgZnJv
+bnRlbmQpLiBCdXQgdGhpcyBtaWdodCBuZWVkIHRvIGJlIHJldmlzZWQNCj4+Pj4gwqDCoCBp
+biBmdXR1cmUsIHNvIGZyb250ZW5kIGRhdGEgbWlnaHQgYmUgd3JpdHRlbiB0byBYZW5zdG9y
+ZSBpbiBvcmRlciB0bw0KPj4+PiDCoMKgIHN1cHBvcnQgaG90cGx1Z2dpbmcgdmlydGlvIGRl
+dmljZXMgb3IgcGFzc2luZyB0aGUgYmFja2VuZCBkb21haW4gaWQNCj4+Pj4gwqDCoCBvbiBh
+cmNoIHdoZXJlIHRoZSBkZXZpY2UtdHJlZSBpcyBub3QgYXZhaWxhYmxlLg0KPj4+PiAtIHRo
+ZSByaW5nLXJlZi9ldmVudC1jaGFubmVsIGFyZSBub3QgdXNlZCBmb3IgdGhlIGJhY2tlbmQ8
+LT5mcm9udGVuZA0KPj4+PiDCoMKgIGNvbW11bmljYXRpb24sIHRoZSBwcm9wb3NlZCBJUEMg
+Zm9yIFZpcnRpbyBpcyBJT1JFUS9ETQ0KPj4+PiBpdCBpcyBzdGlsbCBhICJibG9jayBkZXZp
+Y2UiIGFuZCBvdWdodCB0byBiZSBpbnRlZ3JhdGVkIGluIGV4aXN0aW5nDQo+Pj4+ICJkaXNr
+IiBoYW5kbGluZy4gU28sIHJlLXVzZSAoYW5kIGFkYXB0KSAiZGlzayIgcGFyc2luZy9jb25m
+aWd1cmF0aW9uDQo+Pj4+IGxvZ2ljIHRvIGRlYWwgd2l0aCBWaXJ0aW8gZGV2aWNlcyBhcyB3
+ZWxsLg0KPj4+Pg0KPj4+PiBGb3IgdGhlIGltbWVkaWF0ZSBwdXJwb3NlIGFuZCBhbiBhYmls
+aXR5IHRvIGV4dGVuZCB0aGF0IHN1cHBvcnQgZm9yDQo+Pj4+IG90aGVyIHVzZS1jYXNlcyBp
+biBmdXR1cmUgKFFlbXUsIHZpcnRpby1wY2ksIGV0YykgcGVyZm9ybSB0aGUgZm9sbG93aW5n
+DQo+Pj4+IGFjdGlvbnM6DQo+Pj4+IC0gQWRkIG5ldyBkaXNrIGJhY2tlbmQgdHlwZSAoTElC
+WExfRElTS19CQUNLRU5EX09USEVSKSBhbmQgcmVmbGVjdA0KPj4+PiDCoCB0aGF0IGluIHRo
+ZSBjb25maWd1cmF0aW9uDQo+Pj4+IC0gSW50cm9kdWNlIG5ldyBkaXNrICJzcGVjaWZpY2F0
+aW9uIiBhbmQgInRyYW5zcG9ydCIgZmllbGRzIHRvIHN0cnVjdA0KPj4+PiDCoCBsaWJ4bF9k
+ZXZpY2VfZGlzay4gQm90aCBhcmUgd3JpdHRlbiB0byB0aGUgWGVuc3RvcmUuIFRoZSB0cmFu
+c3BvcnQNCj4+Pj4gwqAgZmllbGQgaXMgb25seSB1c2VkIGZvciB0aGUgc3BlY2lmaWNhdGlv
+biAidmlydGlvIiBhbmQgaXQgYXNzdW1lcw0KPj4+PiDCoCBvbmx5ICJtbWlvIiB2YWx1ZSBm
+b3Igbm93Lg0KPj4+PiAtIEludHJvZHVjZSBuZXcgInNwZWNpZmljYXRpb24iIG9wdGlvbiB3
+aXRoICJ4ZW4iIGNvbW11bmljYXRpb24NCj4+Pj4gwqAgcHJvdG9jb2wgYmVpbmcgZGVmYXVs
+dCB2YWx1ZS4NCj4+Pj4gLSBBZGQgbmV3IGRldmljZSBraW5kIChMSUJYTF9fREVWSUNFX0tJ
+TkRfVklSVElPX0RJU0spIGFzIGN1cnJlbnQNCj4+Pj4gwqAgb25lIChMSUJYTF9fREVWSUNF
+X0tJTkRfVkJEKSBkb2Vzbid0IGZpdCBpbnRvIFZpcnRpbyBkaXNrIG1vZGVsDQo+Pj4+DQo+
+Pj4+IEFuIGV4YW1wbGUgb2YgZG9tYWluIGNvbmZpZ3VyYXRpb24gZm9yIFZpcnRpbyBkaXNr
+Og0KPj4+PiBkaXNrID0gWyAncGh5Oi9kZXYvbW1jYmxrMHAzLCB4dmRhMSwgYmFja2VuZHR5
+cGU9b3RoZXIsIHNwZWNpZmljYXRpb249dmlydGlvJ10NCj4+Pj4NCj4+Pj4gTm90aGluZyBo
+YXMgY2hhbmdlZCBmb3IgZGVmYXVsdCBYZW4gZGlzayBjb25maWd1cmF0aW9uLg0KPj4+Pg0K
+Pj4+PiBQbGVhc2Ugbm90ZSwgdGhpcyBwYXRjaCBpcyBub3QgZW5vdWdoIGZvciB2aXJ0aW8t
+ZGlzayB0byB3b3JrDQo+Pj4+IG9uIFhlbiAoQXJtKSwgYXMgZm9yIGV2ZXJ5IFZpcnRpbyBk
+ZXZpY2UgKGluY2x1ZGluZyBkaXNrKSB3ZSBuZWVkDQo+Pj4+IHRvIGFsbG9jYXRlIFZpcnRp
+byBNTUlPIHBhcmFtcyAoSVJRIGFuZCBtZW1vcnkgcmVnaW9uKSBhbmQgcGFzcw0KPj4+PiB0
+aGVtIHRvIHRoZSBiYWNrZW5kLCBhbHNvIHVwZGF0ZSBHdWVzdCBkZXZpY2UtdHJlZS4gVGhl
+IHN1YnNlcXVlbnQNCj4+Pj4gcGF0Y2ggd2lsbCBhZGQgdGhlc2UgbWlzc2luZyBiaXRzLiBG
+b3IgdGhlIGN1cnJlbnQgcGF0Y2gsDQo+Pj4+IHRoZSBkZWZhdWx0ICJpcnEiIGFuZCAiYmFz
+ZSIgYXJlIGp1c3Qgd3JpdHRlbiB0byB0aGUgWGVuc3RvcmUuDQo+Pj4+IFRoaXMgaXMgbm90
+IGFuIGlkZWFsIHNwbGl0dGluZywgYnV0IHRoaXMgd2F5IHdlIGF2b2lkIGJyZWFraW5nDQo+
+Pj4+IHRoZSBiaXNlY3RhYmlsaXR5Lg0KPj4+Pg0KPj4+PiBTaWduZWQtb2ZmLWJ5OiBPbGVr
+c2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+DQo+Pj4g
+T0ssIEkgYW0gKnJlYWxseSogc29ycnkgZm9yIGNvbWluZyBpbiBoZXJlIGF0IHRoZSBsYXN0
+IG1pbnV0ZSBhbmQgcXVpYmJsaW5nIA0KPj4+IGFib3V0IHRoaW5ncy4NCj4+DQo+Pg0KPj4g
+bm8gcHJvYmxlbQ0KPj4NCj4+DQo+Pj4gwqAgQnV0IHRoaXMgaW50cm9kdWNlcyBhIHB1Ymxp
+YyBpbnRlcmZhY2Ugd2hpY2ggbG9va3MgcmVhbGx5IHdyb25nIHRvIG1lLiAgDQo+Pj4gSeKA
+mXZlIHJlcGxpZWQgdG8gdGhlIG1haWwgZnJvbSBEZWNlbWJlciB3aGVyZSBKdWVyZ2VuIHBy
+b3Bvc2VkIHRoZSDigJxPdGhlcuKAnSANCj4+PiBwcm90b2NvbC4NCj4+Pg0KPj4+IEhvcGVm
+dWxseSB0aGlzIHdpbGwgYmUgYSBzaW1wbGUgbWF0dGVyIG9mIGZpbmRpbmcgYSBiZXR0ZXIg
+bmFtZSB0aGFuIA0KPj4+IOKAnG90aGVy4oCdLsKgIChPciB5b3UgZ3V5cyBjb252aW5jaW5n
+IG1lIHRoYXQg4oCcb3RoZXLigJ0gaXMgcmVhbGx5IHRoZSBiZXN0IG5hbWUgZm9yIA0KPj4+
+IHRoaXMgdmFsdWU7IG9yIGV2ZW4gQW50aG9ueSBhc3NlcnRpbmcgaGlzIHJpZ2h0IGFzIGEg
+bWFpbnRhaW5lciB0byBvdmVycnVsZSANCj4+PiBteSBvYmplY3Rpb24gaWYgaGUgdGhpbmtz
+IEnigJltIG91dCBvZiBsaW5lLikNCj4+DQo+Pg0KPj4gSSBzYXcgeW91ciByZXBseSB0byBW
+NiBhbmQgSnVlcmdlbidzIGFuc3dlci4gSSBzaGFyZSBKdWVyZ2VuJ3Mgb3BpbmlvbiBhcyB3
+ZWxsIA0KPj4gYXMgSSB1bmRlcnN0YW5kIHlvdXIgY29uY2Vybi4gSSB0aGluaywgdGhpcyBp
+cyBleGFjdGx5IHRoZSBzaXR1YXRpb24gd2hlbiANCj4+IGZpbmRpbmcgYSBwZXJmZWN0IG5h
+bWUgKG9idmlvdXMsIHNob3J0LCBldGMpIGZvciB0aGUgYmFja2VuZHR5cGUgKGluIG91ciAN
+Cj4+IHBhcnRpY3VsYXIgY2FzZSkgaXMgcmVhbGx5IGRpZmZpY3VsdC4NCj4+DQo+PiBQZXJz
+b25hbGx5IEkgdGVuZCB0byBsZWF2ZSAib3RoZXIiLCBiZWNhdXNlIHRoZXJlIGlzIG5vIGJl
+dHRlciBhbHRlcm5hdGl2ZSANCj4+IGZyb20gbXkgUG9WLiBBbHNvIEkgbWlnaHQgYmUgY29t
+cGxldGVseSB3cm9uZyBoZXJlLCBidXQgSSBkb24ndCB0aGluayB3ZSB3aWxsIA0KPj4gaGF2
+ZSB0byBleHRlbmQgdGhlICJiYWNrZW5kdHlwZSIgZm9yIHN1cHBvcnRpbmcgb3RoZXIgcG9z
+c2libGUgdmlydGlvIGJhY2tlbmQgDQo+PiBpbXBsZW1lbnRhdGlvbnMgaW4gdGhlIGZvcmVz
+ZWVhYmxlIGZ1dHVyZToNCj4+DQo+PiAtIHdoZW4gUWVtdSBnYWlucyB0aGUgcmVxdWlyZWQg
+c3VwcG9ydCB3ZSB3aWxsIGNob29zZSBxZGlzazogYmFja2VuZHR5cGUgcWRpc2sgDQo+PiBz
+cGVjaWZpY2F0aW9uIHZpcnRpbw0KPj4gLSBmb3IgdGhlIHBvc3NpYmxlIHZpcnRpbyBhbHRl
+cm5hdGl2ZSBvZiB0aGUgYmxrYmFjayB3ZSB3aWxsIGNob29zZSBwaHk6IA0KPj4gYmFja2Vu
+ZHR5cGUgcGh5IHNwZWNpZmljYXRpb24gdmlydGlvDQo+Pg0KPj4gSWYgdGhlcmUgd2lsbCBi
+ZSBhIG5lZWQgdG8ga2VlcCB2YXJpb3VzIGltcGxlbWVudGF0aW9uLCB3ZSB3aWxsIGJlIGFi
+bGUgdG8gDQo+PiBkZXNjcmliZSB0aGF0IGJ5IHVzaW5nICJ0cmFuc3BvcnQiIChtbWlvLCBw
+Y2ksIHhlbmJ1cywgYXJnbywgd2hhdGV2ZXIpLg0KPj4gQWN0dWFsbHkgdGhpcyBpcyB3aHkg
+d2UgYWxzbyBpbnRyb2R1Y2VkICJzcGVjaWZpY2F0aW9uIiBhbmQgInRyYW5zcG9ydCIuDQo+
+Pg0KPj4gSUlSQywgdGhlcmUgd2VyZSBvdGhlciAoc3VnZ2VzdGVkPykgbmFtZXMgZXhjZXB0
+ICJvdGhlciIgd2hpY2ggYXJlICJleHRlcm5hbCIgDQo+PiBhbmQgImRhZW1vbiIuIElmIHlv
+dSB0aGluayB0aGF0IG9uZSBvZiB0aGVtIGlzIGJldHRlciB0aGFuICJvdGhlciIsIEkgd2ls
+bCANCj4+IGhhcHB5IHRvIHVzZSBpdC4NCj4gDQo+IA0KPiBDb3VsZCB3ZSBwbGVhc2UgbWFr
+ZSBhIGRlY2lzaW9uIG9uIHRoaXM/DQo+IA0KPiBJZiAib3RoZXIiIGlzIG5vdCB1bmFtYmln
+dW91cywgdGhlbiBtYXliZSB3ZSBjb3VsZCBjaG9vc2UgImRhZW1vbiIgdG8gZGVzY3JpYmUg
+DQo+IGFyYml0cmFyeSB1c2VyLWxldmVsIGJhY2tlbmRzLCBhbnkgdGhvdWdodD8NCg0KSU1P
+IHRoaXMgd291bGQgZXhjbHVkZSBvdGhlciBjYXNlcywgbGlrZSBzcGVjaWFsIGtlcm5lbCBk
+cml2ZXJzLg0KDQpNYXliZSAic3RhbmRhbG9uZSI/ICJvbmx5LXJlbHlpbmctb24teGVuc3Rv
+cmUtZGF0YSIgd291bGQgYmUgYSBiaXQNCmV4YWdnZXJhdGVkLCB3aGlsZSBjb252ZXlpbmcg
+dGhlIGlkZWEgcXVpdGUgbmljZWx5Lg0KDQoNCkp1ZXJnZW4NCg==
+--------------eyobLM2s4wBBTle5dihHL9n8
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-No update was made after gcc 7, so it's not entirely unexpected for
-things to not work anymore with newer versions.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Jan
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> Da: Julien Grall<mailto:julien@xen.org>
-> Inviato: mercoledì 29 giugno 2022 20:02
-> A: Carmine Cesarano<mailto:c.cesarano@hotmail.it>
-> Cc: xen-devel@lists.xenproject.org<mailto:xen-devel@lists.xenproject.org>; Andrew Cooper<mailto:andrew.cooper3@citrix.com>
-> Oggetto: Re: R: R: Crash when using xencov
-> 
-> (moving the discussion to xen-devel)
-> 
-> On 28/06/2022 16:32, Carmine Cesarano wrote:
->> Hi,
-> 
-> Hello,
-> 
-> Please refrain to top-post and/or post images on the ML. If you need to
-> share an image, then please upload them somewhere else.
-> 
->> I made two further attempts, first by compiling xen and xen-tools with gcc 10 and second with gcc 7, getting the same problem.
->>
->> By running “xencov reset”, with with both compilers, the line of code associated with the crash is:
-> 
-> Discussing with Andrew Cooper on IRC, it looks like the problem is
-> because Xen and GCC disagrees on the format. There are newer format that
-> Xen doesn't understand.
-> 
-> If you are interested to support GCOV on your setup, then I would
-> suggest to look at the documentation and/or look at what Linux is doing
-> for newer compiler.
-> 
->>
->>    *   /xen/xen/common/coverage/gcc_4_7.c:123
->> By running “xencov read”, I get two different behaviors with the two compilers:
->>
->>    *   /xen/xen/common/coverage/gcc_4_7.c:165   [GCC 11]
->>    *   /xen/xen/common/coverage/gcov.c:131          [GCC 7]
->>
->> Attached are the logs captured with a serial port.
->>
->> Cheers,
->>
->> Carmine Cesarano
->> Da: Julien Grall<mailto:julien@xen.org>
->> Inviato: lunedì 27 giugno 2022 14:42
->> A: Carmine Cesarano<mailto:c.cesarano@hotmail.it>
->> Oggetto: Re: R: Crash when using xencov
->>
->> Hello,
->>
->> You seemed to have removed xen-users from the CC list. Please keep it in
->> CC unless the discussion needs to private.
->>
->> Also, please avoid top-posting.
->>
->> On 27/06/2022 13:36, Carmine Cesarano wrote:
->>> Yes, i mean stable-4.16. Below the logs after running "xencov reset". The situation for "xencov read" is similar.
->>>
->>> (XEN) ----[ Xen-4.16.2-pre  x86_64  debug=y gcov=y  Not tainted ]----
->>> (XEN) CPU:    0
->>> (XEN) RIP:    e008:[<ffff82d040257bd2>] gcov_info_reset+0x87/0xa9
->>> (XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d0v0)
->>> (XEN) rax: 0000000000000000   rbx: ffff82d04056bdc0   rcx: 00000000000c000b
->>> (XEN) rdx: 0000000000000000   rsi: 0000000000000001   rdi: ffff82d04056bdc0
->>> (XEN) rbp: ffff83023a7e7cb0   rsp: ffff83023a7e7c88   r8:  7fffffffffffffff
->>> (XEN) r9:  deadbeefdeadf00d   r10: 0000000000000000   r11: 0000000000000000
->>> (XEN) r12: 0000000000000001   r13: ffff82d04056be28   r14: 0000000000000000
->>> (XEN) r15: ffff82d04056bdc0   cr0: 0000000080050033   cr4: 0000000000172620
->>> (XEN) cr3: 000000017ea0b000   cr2: 0000000000000000
->>> (XEN) fsb: 00007fc0fb0ca200   gsb: ffff88807b400000   gss: 0000000000000000
->>> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
->>> (XEN) Xen code around <ffff82d040257bd2> (gcov_info_reset+0x87/0xa9):
->>> (XEN)  1d 44 89 f0 49 8b 57 70 <4c> 8b 24 c2 49 83 c4 18 48 83 05 a6 81 4c 00 01
->>> (XEN) Xen stack trace from rsp=ffff83023a7e7c88:
->>> (XEN)    ffff82d04056bdc0 0000000000000001 ffff82d04070f180 0000000000000001
->>> (XEN)    0000000000000000 ffff83023a7e7cc8 ffff82d040257a6a ffff83023a7e7db0
->>> (XEN)    ffff83023a7e7ce8 ffff82d040257547 ffff83023a7e7fff ffff83023a7e7fff
->>> (XEN)    ffff83023a7e7e58 ffff82d040255d5f ffff83023a7e7d68 ffff82d0403b5e8b
->>> (XEN)    000000000017d5b2 0000000000000000 ffff83023a6b5000 0000000000000000
->>> (XEN)    00007fc0fb348010 800000017ea0e127 0000000000000202 ffff82d040399fd8
->>> (XEN)    0000000000005a40 ffff83023a7e7d68 0000000000000206 ffff82e002fab640
->>> (XEN)    ffff83023a7e7e58 ffff82d0403bb29d ffff83023a69f000 000000003a7e7fff
->>> (XEN)    000000017ea0f067 0000000000000000 000000000017d5b2 000000000017d5b2
->>> (XEN)    0000001400000014 0000000000000002 ffffffffffffffff 0000000000000000
->>> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
->>> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
->>> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
->>> (XEN)    0000000000000000 ffff83023a7e7ef8 0000000000000001 ffff83023a69f000
->>> (XEN)    deadbeefdeadf00d ffff82d04025579d ffff83023a7e7ee8 ffff82d040387f62
->>> (XEN)    00007fc0fb348010 deadbeefdeadf00d deadbeefdeadf00d deadbeefdeadf00d
->>> (XEN)    deadbeefdeadf00d ffff83023a7e7fff ffff82d0403b2c99 ffff83023a7e7eb8
->>> (XEN)    ffff82d04038214c ffff83023a69f000 ffff83023a7e7ed8 ffff83023a69f000
->>> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
->>> (XEN)    00007cfdc58180e7 ffff82d0404392ae 0000000000000000 ffff88800f484c00
->>> (XEN) Xen call trace:
->>> (XEN)    [<ffff82d040257bd2>] R gcov_info_reset+0x87/0xa9
->>
->> Thanks! There are multiple versions of gcov_info_reset() in the tree.
->> The one used will depend on the compiler you are using.
->>
->> Can you use addr2line (or gdb) to find out the file and line of code
->> associated with the crash?
->>
->> For addr2line you could do:
->>
->>     addr2line -e xen-syms 0xffff82d040257bd2
-> 
-> Cheers,
-> 
-> --
-> Julien Grall
-> 
-> 
+--------------eyobLM2s4wBBTle5dihHL9n8--
 
+--------------SoJtpuNNnpGoH97jtfddOXYV--
+
+--------------or0G17J0FHgXlHhgEmNHKuk0
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK9lgoFAwAAAAAACgkQsN6d1ii/Ey9O
+RwgAnToxqTFsJCoutQxpg3dHN9B84RgitlJlXnRjnGld2JxkNDrL+Q84VuvyosCudXsPveJTyL/G
+1gjlCoaHlZcERh2njS+AUqmL491mUZdMQS5cm63P+7dhLL3omYGGEjt/GgWYtXLGES3Hn169KQOz
+z+QKKeEgod83NZzkR93x0g1Hy+M02DbXyd49Gqk+k2TheNDv9lKmQetRzjpxypoiHgzIrGfCoGfC
+vDeZkuUqIhbo+DVHl5GYVvoZygc5GNX1L/QbfkaVorjx8PukBxPFA/Ugqqtk/+oqkGMZoCm0Cw1f
+9l3Wi7YvGBCbUzuJp7CsMqz50La3vJbaNrBqm5wiJw==
+=D7G0
+-----END PGP SIGNATURE-----
+
+--------------or0G17J0FHgXlHhgEmNHKuk0--
 
