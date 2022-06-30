@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B02285624EC
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 23:14:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358711.588034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA485562590
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 23:50:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358724.588044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o71UT-000597-Nm; Thu, 30 Jun 2022 21:14:21 +0000
+	id 1o722y-0000n9-J7; Thu, 30 Jun 2022 21:50:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358711.588034; Thu, 30 Jun 2022 21:14:21 +0000
+Received: by outflank-mailman (output) from mailman id 358724.588044; Thu, 30 Jun 2022 21:50:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o71UT-00056p-Jc; Thu, 30 Jun 2022 21:14:21 +0000
-Received: by outflank-mailman (input) for mailman id 358711;
- Thu, 30 Jun 2022 21:14:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HXfy=XF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o71UR-00056j-SY
- for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 21:14:19 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9a5f3514-f8b9-11ec-bd2d-47488cf2e6aa;
- Thu, 30 Jun 2022 23:14:18 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D8857B82D04;
- Thu, 30 Jun 2022 21:14:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E10C34115;
- Thu, 30 Jun 2022 21:14:16 +0000 (UTC)
+	id 1o722y-0000lJ-GC; Thu, 30 Jun 2022 21:50:00 +0000
+Received: by outflank-mailman (input) for mailman id 358724;
+ Thu, 30 Jun 2022 21:49:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1o722x-0000lD-PE
+ for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 21:49:59 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o722r-0005ts-69; Thu, 30 Jun 2022 21:49:53 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o722q-0001iP-Up; Thu, 30 Jun 2022 21:49:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a5f3514-f8b9-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1656623656;
-	bh=VaAsnbF/EFCNrpyEEoBZj7IbJxjprPHTrNMhmwvL5o0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DMZPmMGkAXgUZJpWafB5CO0Q4LvcpIqN8atvkiKaJzgNXYcB6jky4BWJPaTeQ2Te+
-	 TevfuylY0LmNCqAWTUBZ2zZrjJ8RPNyNbQrqFJdaMyVFy0I/qQhSY05GXTYYxmCD/i
-	 T53I73xFLlzE9idfO/fdpipC9HYmNMsjRV3Y4Sha6v9m9EZK90Z5HfV3wT+CSQm6uO
-	 pY7fqKQuluHnbz8Q3/0zlluSslv3xwbzhlZsBEf09mGjb17B6mdj6pCNHv/IV5twcL
-	 AarIOBqL/Q9++tuqwYPijmxtu+Y7MS43KToZTtooX6/UP8nB3c5nSmJwZPhHISDUDs
-	 JqT1/GeECz+hg==
-Date: Thu, 30 Jun 2022 14:14:14 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    "dmitry.semenets@gmail.com" <dmitry.semenets@gmail.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Dmytro Semenets <dmytro_semenets@epam.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen: arm: Don't use stop_cpu() in halt_this_cpu()
-In-Reply-To: <14736B47-2F17-4684-9162-17C3E55F8D15@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2206301404410.4389@ubuntu-linux-20-04-desktop>
-References: <20220623074428.226719-1-dmitry.semenets@gmail.com> <alpine.DEB.2.22.394.2206231457250.2410338@ubuntu-linux-20-04-desktop> <e60a4e68-ed00-6cc7-31ca-64bcfc4bbdc5@xen.org> <alpine.DEB.2.22.394.2206241414420.2410338@ubuntu-linux-20-04-desktop>
- <5c986703-c932-3c7d-3756-2b885bb96e42@xen.org> <alpine.DEB.2.22.394.2206281538320.4389@ubuntu-linux-20-04-desktop> <26a1b208-7192-a64f-ca6d-c144de89ed2c@xen.org> <alpine.DEB.2.22.394.2206291014000.4389@ubuntu-linux-20-04-desktop>
- <14736B47-2F17-4684-9162-17C3E55F8D15@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=Nxr2urabtnXbbACzZJT+wojuonK0+VBifsLRBxz7Fak=; b=xhA6tkMkfLH4DNSUJ5v06uMEy6
+	TLrCBCxXDohfw28Tfn3zozLu77yE3El2ndoR2lQGvtgkLsGG/PMTiLtTkzEZEACJMQOptrlFJkDUq
+	9X3Z36V0tAyA2+ew4Nkn7lWOgw4+l2VnqNe4p9e7fsuyRDdwpYLCaznBVBt0ryazv0+U=;
+Message-ID: <ef5bf7df-ad8a-e420-0fc4-d8f0a0e0f2fc@xen.org>
+Date: Thu, 30 Jun 2022 22:49:49 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.10.0
+To: Jan Beulich <jbeulich@suse.com>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <1652294845-13980-1-git-send-email-olekstysh@gmail.com>
+ <632404c3-b285-753d-6644-bccbc17d42c0@xen.org>
+ <15da3838-aa8e-57c3-b9e2-6c0a4a639fb0@suse.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH V6 1/2] xen/gnttab: Store frame GFN in struct page_info on
+ Arm
+In-Reply-To: <15da3838-aa8e-57c3-b9e2-6c0a4a639fb0@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 30 Jun 2022, Bertrand Marquis wrote:
-> > On 29 Jun 2022, at 18:19, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > On Wed, 29 Jun 2022, Julien Grall wrote:
-> >> On 28/06/2022 23:56, Stefano Stabellini wrote:
-> >>>> The advantage of the panic() is it will remind us that some needs to be
-> >>>> fixed.
-> >>>> With a warning (or WARN()) people will tend to ignore it.
-> >>> 
-> >>> I know that this specific code path (cpu off) is probably not super
-> >>> relevant for what I am about to say, but as we move closer to safety
-> >>> certifiability we need to get away from using "panic" and BUG_ON as a
-> >>> reminder that more work is needed to have a fully correct implementation
-> >>> of something.
-> >> 
-> >> I don't think we have many places at runtime using BUG_ON()/panic(). They are
-> >> often used because we think Xen would not be able to recover if the condition
-> >> is hit.
-> >> 
-> >> I am happy to remove them, but this should not be at the expense to introduce
-> >> other potential weird bugs.
-> >> 
-> >>> 
-> >>> I also see your point and agree that ASSERT is not acceptable for
-> >>> external input but from my point of view panic is the same (slightly
-> >>> worse because it doesn't go away in production builds).
-> >> 
-> >> I think it depends on your target. Would you be happy if Xen continue to run
-> >> with potentially a fatal flaw?
-> > 
-> > Actually, this is an excellent question. I don't know what is the
-> > expected behavior from a safety perspective in case of serious errors.
-> > How the error should be reported and whether continuing or not is
-> > recommended. I'll try to find out more information.
+Hi Jan,
+
+On 24/06/2022 07:45, Jan Beulich wrote:
+> On 23.06.2022 19:50, Julien Grall wrote:
+>> On 11/05/2022 19:47, Oleksandr Tyshchenko wrote:
+>>> @@ -1505,7 +1507,23 @@ int xenmem_add_to_physmap_one(
+>>>        }
+>>>    
+>>>        /* Map at new location. */
+>>> -    rc = guest_physmap_add_entry(d, gfn, mfn, 0, t);
+>>
+>>> +    if ( !p2m_is_ram(t) || !is_xen_heap_mfn(mfn) )
+>>> +        rc = guest_physmap_add_entry(d, gfn, mfn, 0, t);
+>>
+>> I would expand the comment above to explain why you need a different
+>> path for xenheap mapped as RAM. AFAICT, this is because we need to call
+>> page_set_xenheap_gfn().
+>>
+>>> +    else
+>>> +    {
+>>> +        struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>>> +
+>>> +        p2m_write_lock(p2m);
+>>> +        if ( gfn_eq(page_get_xenheap_gfn(mfn_to_page(mfn)), INVALID_GFN) )
+>>
+>> Sorry to only notice it now. This check will also change the behavior
+>> for XENMAPSPACE_shared_info. Now, we are only allowed to map the shared
+>> info once.
+>>
+>> I believe this is fine because AFAICT x86 already prevents it. But this
+>> is probably something that ought to be explained in the already long
+>> commit message.
 > 
-> I think there are 2 answers to this:
-> - as much as possible: those case must be avoided and it must be demonstrated that they are impossible and hence removed or turn the system in a failsafe mode so that actions can be handle (usually reboot after saving some data)
-> - in some cases this can be robustness code (more for security)
-> 
-> I think in our case that if we know that we are ending in a case where the system is unstable we should:
-> - stop the guest responsible for this (if a guest is the origin) or return an error to the guest and cancel the operation if suitable
-> - panic if this is internal or dom0
-> 
-> A warning informing that something not supported was done and ending in an unexpected behaviour is for sure not acceptable.
+> If by "prevent" you mean x86 unmaps the page from its earlier GFN, then
+> yes. But this means that Arm would better follow that model instead of
+> returning -EBUSY in this case. Just think of kexec-ing or a boot loader
+> wanting to map shared info or grant table: There wouldn't necessarily
+> be an explicit unmap.
 
+I spent some time to think about this. There is a potential big issue 
+with implicit unmapping from its earlier GFN. Imagine the boot loader 
+decided to map the page in place of a RAM.
 
-Let's say that we demonstrate that a problematic case is impossible, can
-we still have a panic in the code? For instance:
+If the boot loader didn't unmap the page then when the OS map again, we 
+would have a hole in the RAM. The OS may not know that and it may end up 
+to use a page as RAM (and crash).
 
-ret = firmware_call();
-if (ret)
-    panic();
+The problem is the same for kexec and AFAIU that's why we need to use 
+soft-reset when kexec-ing.
 
-We know ret is always zero unless firmware is buggy or not
-spec-compliant. Can the panic() still be present?
+So overall, I think we should prevent implicit unmap. So it would help 
+to enforce that the bootloader (or any other components) clean-up behind 
+themselves (i.e. unmap the page and populate if necessary).
 
+Cheers,
 
-And/or do we need to replace all instances of "panic" with going into
-"failsafe mode", which saves state and reboots so it is not so
-dissimilar from panic actually?
-
-
-In case of guest-initiated unexpected errors we already try to crash the
-guest responsible and not crash the entire system because it is also a
-matter of security (possible DOS). That is clear.
-
-So it is other kind of unexpected errors, mostly due to hardware or
-firmware unexpected behavior or Xen finding itself in state of a state
-machine that should be impossible. Those are the ones we don't have a
-clear way to proceed.
+-- 
+Julien Grall
 
