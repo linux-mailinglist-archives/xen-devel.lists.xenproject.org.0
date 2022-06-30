@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC760561CB3
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 16:05:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358511.587769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCEE7561CB5
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 16:05:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358512.587776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6umr-0004Zt-CX; Thu, 30 Jun 2022 14:04:53 +0000
+	id 1o6umr-0004gS-Os; Thu, 30 Jun 2022 14:04:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358511.587769; Thu, 30 Jun 2022 14:04:53 +0000
+Received: by outflank-mailman (output) from mailman id 358512.587776; Thu, 30 Jun 2022 14:04:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6umr-0004UL-8z; Thu, 30 Jun 2022 14:04:53 +0000
-Received: by outflank-mailman (input) for mailman id 358511;
+	id 1o6umr-0004Zn-I3; Thu, 30 Jun 2022 14:04:53 +0000
+Received: by outflank-mailman (input) for mailman id 358512;
  Thu, 30 Jun 2022 14:04:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2IH8=XF=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
- id 1o6umJ-0004O6-3c
+ id 1o6umJ-0004O6-OP
  for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 14:04:19 +0000
 Received: from EUR04-HE1-obe.outbound.protection.outlook.com
  (mail-eopbgr70059.outbound.protection.outlook.com [40.107.7.59])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 821adbf6-f87d-11ec-bdce-3d151da133c5;
- Thu, 30 Jun 2022 16:04:08 +0200 (CEST)
+ id 8319805a-f87d-11ec-bdce-3d151da133c5;
+ Thu, 30 Jun 2022 16:04:09 +0200 (CEST)
 Received: from VI1PR04MB5056.eurprd04.prod.outlook.com (2603:10a6:803:5a::13)
  by DU0PR04MB9322.eurprd04.prod.outlook.com (2603:10a6:10:355::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
- 2022 14:04:14 +0000
+ 2022 14:04:15 +0000
 Received: from VI1PR04MB5056.eurprd04.prod.outlook.com
  ([fe80::1549:6f15:1949:f1a5]) by VI1PR04MB5056.eurprd04.prod.outlook.com
  ([fe80::1549:6f15:1949:f1a5%6]) with mapi id 15.20.5395.015; Thu, 30 Jun 2022
- 14:04:13 +0000
+ 14:04:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,22 +46,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 821adbf6-f87d-11ec-bdce-3d151da133c5
+X-Inumbo-ID: 8319805a-f87d-11ec-bdce-3d151da133c5
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iXY1k/P0bk3m/GfBSMjWRH/ulnetKmgn6JNt09emUVtWhvCIDRzeOG6JjBVuQRWJ09l2t24WvRmzC35k2VlcOUfN21SyrHOkeZyBb+jy1PqhN0xcj6/37merMNIV+Q6ChDuo7cYzz41W5iPUhPJ8voMXymuIQ/9ki7lEa2bmqSJmLDnv5eccTSQZikjvYHDOFY8TJd7L3llcKEKsYC8DK99G18z+wtUsb0yKILxjmSP1U0/XjvKDnIPx9NGTO81Qm9T1yTJ4/MnCVi1A0Mm2e7NSd2cnoZYFENFtEs0jh1319cKecuO1CFeDVFlWGD/w2auZbHWrBIkLBNAht8y8Pg==
+ b=g0TPi6aWJw0SO7x+DuRH21xHOnECvpwd0r0ZTSN/0C+JhUd8zMpFDTT9eZUTMQHK6+uxz04snj/mFZ5Hwcr/WD7rWEvVE5RvSFNZFs58sLW4oG0OpWDPCuBKjZlwXOe6BNuSQkVw2wbpfp4xNYLMoXMAb17gou6LzD3TcAIShzuzyfAefit0i4iH2m8/k5xR0GDJoGeCUt4d5FKGIl6+6SZ+utgoPiMhEhOBa7/9l8z3mOgFQHGl+Ja8ZtGmBh/qvn8cl0BKUzV89WjVWExpXtFzlr0Fq/uQFgEsmYABjnlq3Izp7hdZkSTVgAyy6BPSrrZ5l/WJPf5EkpkoeoPQIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7giP8A1iOXK4r5YaK7UVvP9/j+xU4cgR7sxpc6z2ONI=;
- b=GieAOesNy7rYgjEKVCPDOMjUvJJGdkNuuuwBavfMGjHZmzQBdcD2CU/caecYoLhwNgwcNdXPxI/1TQuPOm22vIEZfgMegA+prtPy/Z2M8TZvBXsi2BnH2vouskn/SVmBX9ikYuMU6ndd7VMQTu7EVYqFYmwpNLzx+gpg2+g10pZONnn6+qVQN3r0fCdycrEGCaVTNHZH+TZYyppr3cblXOTVxBcUkyZKHxaDFN1kIfmj00BivrFSqrGecYo8k5BcydqU2YluCIPAP5hu6nRPYeJ0ExtL9VanNVQc4mW0nQHz6tz1iyKjAMJ0eqowcJj7gzWqR8ewS0ATSMspRBogow==
+ bh=0p9WID8wCWme7yTVDlS/nHDHlNEKgtykRbLwYbaQeI4=;
+ b=mfbrWwedUKkeHZ6Vzec50C9Ikd+SBPs+wJbOhcnk7gjpJFkuSMl8fCTm5iURExowkUzuP4fDtjcJX6kb0sBJ9AhqZ0+W8gY4LYfFM1AP6fzYM1/tybx4DeB/PUOwqtAL9S5AIegQxgpcICifnfOZwkeUGPnSWelqDfFpZQ5inK1tyLY+0dstNax/rnoQiHj1eAYbbsWCanowMDxm9RqhgJadC7fX7vQM2fKzzI3nsUAuYZk+FeLAiliu6KFozvtWwCc8lg1h04OarUR8puEYXHyLGW1qXU+oZG/jmziGx/IMqW0cXqoZXYxuYA/J7fpbU0hX6exXzY/EyFTWHWHvng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7giP8A1iOXK4r5YaK7UVvP9/j+xU4cgR7sxpc6z2ONI=;
- b=b3bKox2luCJh3uG9LYknIigWafyWSjOli0Y1SR+sOoYxuYYO4VE80EM4bW2FgjZA3SBpTSv8tmd8PNPpXL531DKapfJl2+HlUfcuxA9NSkMKgcPXH136zTsGKEL3RWAo0QCz+JiHfHca7yFvku/8Eidimf8yjPLy8d3glCKB6HE=
+ bh=0p9WID8wCWme7yTVDlS/nHDHlNEKgtykRbLwYbaQeI4=;
+ b=FpqiTeDycGl20L854ENWpvCiRyWibKzqfc8uPwHzhnDd5BNm7EoF+ZiLiwuLzP/REW/T7F8aBlp+IVeQ3FyojFetGjaFRbd/q4gjYCJNpUYxqSRdUmSGHTHoTYZW0w5y/d5CWg2+zzxq/EdV9DvhWIKBcukOQEjkvCIz5XSG57A=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 From: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
@@ -69,9 +69,9 @@ To: xen-devel@lists.xenproject.org
 Cc: viryaos-discuss@lists.sourceforge.net,
 	sstabellini@kernel.org,
 	Andrei Cherechesu <andrei.cherechesu@nxp.com>
-Subject: [ImageBuilder][PATCH v2 1/4] scripts: Add support for prepending path to file names
-Date: Thu, 30 Jun 2022 17:00:26 +0300
-Message-Id: <20220630140028.3227385-2-andrei.cherechesu@oss.nxp.com>
+Subject: [ImageBuilder][PATCH v2 2/4] uboot-script-gen: Dynamically compute addr and size when loading binaries
+Date: Thu, 30 Jun 2022 17:00:27 +0300
+Message-Id: <20220630140028.3227385-3-andrei.cherechesu@oss.nxp.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220630140028.3227385-1-andrei.cherechesu@oss.nxp.com>
 References: <20220630140028.3227385-1-andrei.cherechesu@oss.nxp.com>
@@ -83,251 +83,347 @@ X-ClientProxiedBy: AM0PR03CA0089.eurprd03.prod.outlook.com
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 933f6104-b5ca-4a51-6275-08da5aa169be
+X-MS-Office365-Filtering-Correlation-Id: d9c75e5c-1b4c-4582-c8fa-08da5aa16aac
 X-MS-TrafficTypeDiagnostic: DU0PR04MB9322:EE_
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	BdocNINpiOuxSxtoTht6KPhwqlNKePMkfJSIq6FOuxQaVDoFCP4nhhSeplKZyQBDHPKzePTYt8JSzFfsR1RcEAhHKerSto06RXCpgV0BcOl6YMOlEVCpDlvHaVD2e97+59Xs7AiFAgo1QCTWVLF7b2/DqzLbbLCIHUzZq6KkQ4zNAdrdKQuN689lSILZ1bewSKCSovQniv5N7HQDr2lj6cMXTfpWCT5YzhD/nJs5QUHioiLgdv41epBZhk/yIvcY0nnu+HzZVob/6E6qc9LlsAgxfeh7uipVoyY8zT9i+7Yr+HSTjvUK2W7g6U6LCVlJES3IBkuAIw92AQWBNr4oRj5iZ8YproCIr4lGCNqtFh1Wz2WmSSms5HS0XfmKPexBBrhzv8PcaILo2tKHdX4ENvLP27d4vklv0LW9fT802z1d1YJRfPZUJkRVvM7A3MUtNP1yGCzz3X6jZdAfTZJr2KOmfC8F+nyX5SH+jn69eeK8Pz92iuMvcKFH2x6wa1yRPF6rN65hVGZ9Fmxz4aQLGLdYQcYpgtOTC1XVCqwZC2DuzP6L81Eoy4btk7TGLag1mfu6aPXN4rPGa6Rykn0xCwm/WuheL5PERneR/NwQ4P4iIzT4qfEVBq14/pH5FqyM1Xzj0dCJ6wFUJPAzph2yk0ssQWTfjE2pe8tvBVDn+85EV1uQATR7vwbhCDEWnSH+sw1aV+Jq6bdk29uAVkyIrOItiCOjQflFe19yPAWE088dz+gq0xblpFUUdVosl9f3yxo9SIKbR/tS8CDHk1Gy15htYOiG1sUm/l/SocVqhKJG1k95jszzM2NEggVU+u9U
+	N59m1XvfonJiMTpf+UpG/yzpCE7zOaAYt3GjBy5A1i+bySQs6loarS8kvi4osTx1MKoDYVagDkAO78BJ07t+yVBfTNGsyhS6lJBjfXebx+woEGOewxF7DQDV3RhokQpT2CifvB+NM8Ke+y+nErbhnjf/a8ogGxDkGYKrBoBzvSHfpzJLOH/9jPFwbXTGf5bhT0t9ViDhJ+NDwCmlV0zcVb0WXWix4jkdmicD1U+LeE+6VZMUsUpuUNEhw3t2jZwWHFOUzmySpFb5IT0alpQMumuSg7IhBL2qtUMv717hx9LDzLtqfQJaw1+1pjuw+r34x3B5cOHs8H2O0INJjoSAma7IlbSPTEgG2IY5MbaFVEycQiDZ5t23DN60mBqAdmjEGRn2FAmbg0ItOgg0e37AgzS+zs6UjCLNfI30PcKvMLYeCrtLqxlhtPfdznWupMp2trUJ54QQl0BeWjV4X6/qTQmgLftOgd0PSZVcLjfzUqQDOozRYV/CGBnnuORDrG3pYSiLqtlutlqMWIpAlmhPFVo5cBiAO03XZ5u5nvf8ynMACiuppq6QcqsQmd9Hb9bZZaDu/NWniycjpFAvEelgolT99uI3FHngUwuOnCiXyWDq9jOYvKH4ZPmz09d7p3HtxT1m/8UQQD8VuEYdhgK7UiOGLlE7J6xAd82myKsj34AmOhhr291Ismo8pxqN8I7IBuWMUFN0lmwLoXpg4eamT5nwRRpojbHTpA18w4wvjYBSIEQGSfxnXVfVJfMfZAGPHKL5GMFwoVnJSS4XCibaDkJ4gRBxeBAQIlrRh1OkQ0ohfNooMN0iAOv/KGZExZtV
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5056.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(346002)(366004)(136003)(396003)(39860400002)(376002)(478600001)(41300700001)(5660300002)(6666004)(186003)(6486002)(6512007)(52116002)(1076003)(86362001)(26005)(8936002)(2906002)(2616005)(66946007)(4326008)(38100700002)(8676002)(6506007)(316002)(66476007)(66556008)(38350700002)(83380400001)(6916009);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5056.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(346002)(366004)(136003)(396003)(39860400002)(376002)(478600001)(41300700001)(5660300002)(6666004)(186003)(6486002)(6512007)(52116002)(1076003)(86362001)(26005)(8936002)(2906002)(2616005)(30864003)(66946007)(4326008)(38100700002)(8676002)(6506007)(316002)(66476007)(66556008)(38350700002)(83380400001)(6916009);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/6inGlVl0mxGbVn8w8PbvLkPDC4AUGE/pgfQHpesNPuYCCLAmpi29Cl0t/NQ?=
- =?us-ascii?Q?9BRCqJXQdNDdv3A4H2LtWzF5xAB168Kv/LXTXZ26XDitkWhJbB/tQ1Xck4zA?=
- =?us-ascii?Q?EOJvU9ijtrnP/ZuYHU4Sbjnkzz2DSsJ3R8pV/PMSNMfgrnuEEHraEK0Lb5jB?=
- =?us-ascii?Q?Xr16uPHmzT2RdEbmKcYzcAJWEaB4/Vbl2mGeWNOFggRkYQv5lTF1fyz37bOO?=
- =?us-ascii?Q?QMW4vl78MElFaxW6+DqBU/lhMQ8sQlCe8tcIZv3JS5mDtXYWRfQMPQNQ/cDl?=
- =?us-ascii?Q?8TxWSZE9Ss//ZFZsgf1GCkXJt2CTMjPy+hwvNl9cqCfycU4qlu3fulJ+ENet?=
- =?us-ascii?Q?HQAVNRApL+CH7WcSDu+d1pzUPFNRj0wqu50YU6cGXMP5KuGY6Gyq4vnvumti?=
- =?us-ascii?Q?FAme0Uus9injZihicHZNWMonB1RprOKiFkqcmdv9SOYz6NZLhlFSWxaP9Vpq?=
- =?us-ascii?Q?NEdGaOSBpzNFns+1Rq1dZI3n61karxUD0VuFjoaQAUc2c6kM943PMMEgv974?=
- =?us-ascii?Q?X/eATYref4q9X4mzdGCNEhpLi+tEZMG97rEy7BhvRL997LGg7//Ipyy+4gxl?=
- =?us-ascii?Q?KJLWBc0N9SGls7xtYQxkrTJPWK2E70WWmvSdMYDAcckU9YePq0lwARLkdeYG?=
- =?us-ascii?Q?mbhtc9SCf+nEx9SNkTkxt9powzvvoMpI6Cp9X083qrhtN8M/xfWG1YpF0PxK?=
- =?us-ascii?Q?Smp5i2SXfUsMFHqFaUCPPC8kmEGNEX3QST4+SLeHHt0k1U+n5fgrfG778yFD?=
- =?us-ascii?Q?Ag+JhCwtOb7cyW8JetoQmZnBebWWxkYutJBUUrshPLuvWEaPJkvcOaCmMwRa?=
- =?us-ascii?Q?uk/CNRxzj8DbmiRmo1XjYEJjvNv+kikR32akLjDrBQPqVmfd9C3iQmIsRhCs?=
- =?us-ascii?Q?iOAf4HFS1LQJ4tm+9juTOKDvyLmX2dKJXj6a0DriZPXu77e+/322ptosY0JY?=
- =?us-ascii?Q?OA8jBNbQgH67LwEjOMTe+8aM060GK9bWWHt/PeeG33Rw9IID6uujRvCwz7jY?=
- =?us-ascii?Q?ziiZf5KrgeMQAVXHwA8vdp9todO6BF+W8d9KvPrEBNYn6or8B64JqhmTxZsc?=
- =?us-ascii?Q?XfyWywGvAeYxFno+4PKWOH9PhePPrquFz9Reke1pTWWDf2oSP78YLGChElfT?=
- =?us-ascii?Q?Rk1ieXapFdw9bSN31QIOtkVWI1wF52naLgIdVYtGTeX7aEDoiJuKqeOuhkBE?=
- =?us-ascii?Q?nb0UhBxwlhjTxXDYbqYYkoBnO1D63wvFCYclT6ZRdRXl+u3zlCv2ulaEqe4s?=
- =?us-ascii?Q?XJj7XdFrPuNs2w/2I9dHLoe2OBYvfMZruBt9o3XDVnY1nt0u/riGjipA+NYL?=
- =?us-ascii?Q?fzdB15ProqVY9G2a9fcrB8ohtp+fuIoJUwQHhUmuItkthA9HOoMgqS0U+gN/?=
- =?us-ascii?Q?7U8wpzfXAWoGW/L/zV3vT8lZ4Hod1kNpIqZbCU3AUH14S98KWqa7OkvRg15w?=
- =?us-ascii?Q?MAk5Syzf4pGwN3lHi+8PlfD37Yg1s1ZgtuJwdsi79OUKzrgQ1GeOz9lRWwWP?=
- =?us-ascii?Q?s9XUz4tbesTk6WL2HTToEREiV/ypz+C26qTUORz+JgMw+v7aPB5JsyyUA59Y?=
- =?us-ascii?Q?FElrY4T8MJC+3r1P+BcDC9AFQyY0fRX22XtiixNp+Er4MgAm1A01iLDRs+Mg?=
- =?us-ascii?Q?xg=3D=3D?=
+	=?us-ascii?Q?UqVlQVeYBSBgjIjgqtGzIINuDHvlUtdBkhqdpht7W1WhNJvjwmMQp0/VKFTB?=
+ =?us-ascii?Q?XrJ2yAsG8Gz0wId8uNdO5dmrHs/Rj0F3zt4XMab3rhceNjzEGa44Vhfxi+ZE?=
+ =?us-ascii?Q?HYcjIKvo92FWvHNlTYHdpE3fk/yKssE4kQLyZUv+HM9+ztSSuzz95wsRguix?=
+ =?us-ascii?Q?KxbcF8zIKUaZqmSay5u9MzC19noNw6iCXBPhxVhcyfseDpgxrw+InLaegPTi?=
+ =?us-ascii?Q?3FxiyQTzY7jFt+6IIPmvTg8H98IZHqAF7jPkgLrSQfghjka5JwV2ue2WmMRV?=
+ =?us-ascii?Q?UIZqH//uO5HmkpIs03iW0b4HbWaH1Y13BRH5egrs+SCSNt7Y9nRzO2cjxm6w?=
+ =?us-ascii?Q?/97SSSvDuMq7b07e4ALbdzIEwrbgQ9cl+njU/NOGVYEg8jQJ/ltAr9BfGMm5?=
+ =?us-ascii?Q?K9bR+J33uPkggcOYIPPYuXVoAPOAxzkCTYeNhhC2yNzu7ZrsESJuOHeqYlSl?=
+ =?us-ascii?Q?no0yXVsHCgBcs/8GLGKpzEl4SXmgXdU960rSzUbreat0zgpf3WaARm6d3+2y?=
+ =?us-ascii?Q?Nxj49R+dX46q09ahzlT0V2SBM5cuueaU/R06vgPzYz5YWWq7joyConCnNMgz?=
+ =?us-ascii?Q?0OFQ25MgxkzdI5VSDo3jnLIc1BeZ2ZKuXttR6eMsqIM8I4jn4ElGZ9V1/cO4?=
+ =?us-ascii?Q?LllIcFfTtNvN38ACAz281ex4i/R+nnibl0XwMtEvb/cA/KOo9LTThfBPpwBn?=
+ =?us-ascii?Q?srh7mZ99lNIjAWO2NHbfXTz7tZs5rFxq5Na0IZTJQkwNX8zc834+VRDdK4O4?=
+ =?us-ascii?Q?XAHpgj/Q55/5XAo4kveJIRkeuxqZq9nvEWb+CX6pkf5zoMAHIcpvtTrI2aHz?=
+ =?us-ascii?Q?y/rlkiaWj6ChxzzPVOyeRlFZgSWZWuNjcj4RWqL/YT5aI055EWeLJO7A0ElG?=
+ =?us-ascii?Q?y5EapPm84aVgZy5LAdHv0Dxiqzx7P36C6k9Fnf9yaWsK7+G7JYdVHJkezL8G?=
+ =?us-ascii?Q?H4qg2gJSzvehwjK7YwEUjMLwFd2z7DkDIq1lvDtMQ1kRU4hJL184ZtRiTJJR?=
+ =?us-ascii?Q?7xm11C3uY4fR57X+EIV1chYiZx7cLYYSrwA1RI5Burctg6EN0LUZtNgEBH6o?=
+ =?us-ascii?Q?KRslUvkvL3FkL4QMzXu3E173txSMvK/FU97ZIsabbO23xNVHr5hZT3lnW9n6?=
+ =?us-ascii?Q?YJbc/jVyGWerYM2t1yuWhhU37BI22uKNOaA60IJiqz+YQeyiOUnFOeIrpgO+?=
+ =?us-ascii?Q?ofOOGcq6kCclhHYuVXSeLzAryQCbhuJu9Ef48bsCn9Rp+W3wZr+FL/hPQ7PF?=
+ =?us-ascii?Q?xbX/qvevfIpupq8q6FK2mKsa32P1dtAW4Anm4GcBQJRJ0tZDquNg5MROX3nn?=
+ =?us-ascii?Q?5QAeuyK83JAPtFf2eBPXYK/T4xDJwFuszzt4vLovdNfFFrNjh8WR2s6RBb8+?=
+ =?us-ascii?Q?OVupmjUplCAKVVipxvdWfxVAWb9yzqHEhzhe+6o53iE6/9r5oY0i3LHjjlcQ?=
+ =?us-ascii?Q?TjXSxIgKL56VhadpgzkEDRoUuS5ncRcls/WtlPO1gmqpdv4ODbmg0n3PPaY9?=
+ =?us-ascii?Q?Ih4hv3oFli26sHJ9Zz4BbVy5WNiqfe7ubSqraZnv3txb5g0pu5z2sRZhU0DK?=
+ =?us-ascii?Q?KC+aW+iCSqI2/Pdr9BQyzkAgXBRkkDiW3uaRlwsPqTfddf/89EEafv8EwX3C?=
+ =?us-ascii?Q?ZQ=3D=3D?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 933f6104-b5ca-4a51-6275-08da5aa169be
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9c75e5c-1b4c-4582-c8fa-08da5aa16aac
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5056.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 14:04:13.8853
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 14:04:15.3851
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zk+Jo9wKlfQGj/dT1D9pz1hszik6zTfmW5Y20Lc2T+4qz7HCqHjB50M18gYJcUbIp8kFVcNJ4rbfvoTArrghYEZJhAvbAkOzzhO1YIdwfxc=
+X-MS-Exchange-CrossTenant-UserPrincipalName: VoCm1R/4Tv579CrJBDiUZo5DW0flBwP9NdKGmmPYGSSNxoNrEVX9HE67SqbzQrhxC7/QLlMjZYXhpPlxVqRrd8x7fGFj7biLyLNlyleLIuI=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9322
 
 From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 
-Added support for prepending path to file names in the final generated
-u-boot script, for the use-case where we have the files in a separate
-folder that can be accessed with a given $LOAD_CMD.
+Normally, the script would precompute the sizes of the loaded binaries
+and addresses where they are loaded before generating the script,
+and the sizes and addresses that needed to be provided to Xen via
+/chosen would be hardcoded in the boot script.
 
-For example, we can have "fatload mmc 0:2" as LOAD_CMD but the
-files would need to be loaded from the /boot folder within the 2nd
-partition, not from the root ("/"). By specifying the "-p <path>"
-parameter when running the script, paths like "/boot" can be
-automatically prepended to the generated u-boot commands used
-to load the files in board's memory.
+Added option via "-s" parameter to use the ${filesize} variable
+in u-boot, which is set automatically after a *load command.
+The value stored by filesize is now stored in a u-boot env variable
+with the name corresponding to the binary that was loaded before.
+The newly set variables are now used in setting the /chosen node,
+instead of the hardcoded values.
 
-Also added the support to disk_image script, to enable generating
-a FAT partition with the binaries deployed in a custom folder
-within it, if the "-p" parameter is specified.
+Also, the loading addresses for the files are dynamically computed
+and aligned to 0x200000 using the `setexpr` u-boot command. Basically,
+if the option is used, there are zero hardcoded addresses inside the
+boot script, and everything is determined based on the MEMORY_START
+parameter and each binary's size.
+
+If the "-s" parameter is not used, the script does not store the
+binaries' sizes and addresses in variables and uses the precomputed
+ones when advertising them in the /chosen node.
 
 Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 ---
- scripts/disk_image       | 37 +++++++++++++++++++++++--------------
- scripts/uboot-script-gen | 12 ++++++++----
- 2 files changed, 31 insertions(+), 18 deletions(-)
+ scripts/uboot-script-gen | 136 ++++++++++++++++++++++++++++++++-------
+ 1 file changed, 114 insertions(+), 22 deletions(-)
 
-diff --git a/scripts/disk_image b/scripts/disk_image
-index 12fb06b..97e798f 100755
---- a/scripts/disk_image
-+++ b/scripts/disk_image
-@@ -539,7 +539,7 @@ function write_rootfs()
- function print_help
- {
-     echo "usage:"
--    echo "	$0 -c CONFIG_FILE -d UBOOT_DIRECTORY -t UBOOT_TYPE <-w WORK_DIRECTORY> <-s SLACK> <-a> -o IMG_FILE"
-+    echo "	$0 -c CONFIG_FILE -d UBOOT_DIRECTORY -t UBOOT_TYPE <-w WORK_DIRECTORY> <-s SLACK> <-a> -o IMG_FILE <-p PREPEND_PATH>"
-     echo "	$0 -h"
-     echo "where:"
-     echo "	-c CONFIG_FILE - configuration file"
-@@ -553,6 +553,7 @@ function print_help
-     echo "	-s SLACK - free MB to add to each partition, default 128"
-     echo "	-a specifies that the size of IMG_FILE has to be aligned to the nearest power of two"
-     echo "	-o IMG_FILE - the output img file "
-+    echo "	-p PREPEND_PATH - path to be appended before file names to customize deploy location within rootfs"
-     echo "Example:"
-     echo "	$0 -c ../config -d ./build42 -w tmp -o disk.img"
- }
-@@ -564,7 +565,7 @@ then
-     exit 1
- fi
- 
--while getopts ":w:d:c:t:s:o:ah" opt
-+while getopts ":w:d:c:t:s:o:ahp:" opt
- do
-     case ${opt} in
-     t )
-@@ -606,6 +607,9 @@ do
-     a )
-         ALIGN=1
-         ;;
-+    p )
-+        PREPEND_PATH="$OPTARG"
-+        ;;
-     h )
-         print_help
-         exit 0
-@@ -828,56 +832,61 @@ mount /dev/mapper/diskimage1 $DESTDIR/part/disk1
- 
- # only copy over files that were counted for the partition size
- cd "$UBOOT_OUT"
--cp --parents "$DOM0_KERNEL" "${DESTDIR_ABS}/part/disk1/"
--cp --parents "$DEVICE_TREE" "${DESTDIR_ABS}/part/disk1/"
--cp --parents "$UBOOT_SCRIPT" "${DESTDIR_ABS}/part/disk1/"
-+if [ -n "$PREPEND_PATH" ]
-+then
-+    mkdir -p "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
-+fi
-+
-+cp --parents "$DOM0_KERNEL" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
-+cp --parents "$DEVICE_TREE" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
-+cp --parents "$UBOOT_SCRIPT" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
- 
- if test "${DOM0_RAMDISK}"
- then
--    cp --parents "$DOM0_RAMDISK" "${DESTDIR_ABS}/part/disk1/"
-+    cp --parents "$DOM0_RAMDISK" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
- fi
- if test "$NUM_DT_OVERLAY" && test "$NUM_DT_OVERLAY" -gt 0
- then
-     i=0
-     while test $i -lt "$NUM_DT_OVERLAY"
-     do
--        cp --parents "${DT_OVERLAY[$i]}" "${DESTDIR_ABS}/part/disk1/"
-+        cp --parents "${DT_OVERLAY[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
-         i=$(( $i + 1 ))
-     done
- fi
- if test "${UBOOT_SOURCE}"
- then
--    cp --parents "$UBOOT_SOURCE" "${DESTDIR_ABS}/part/disk1/"
-+    cp --parents "$UBOOT_SOURCE" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
- fi
- if test "${XEN}"
- then
--    cp --parents "$XEN" "${DESTDIR_ABS}/part/disk1/"
-+    cp --parents "$XEN" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
- fi
- if test "$NUM_BOOT_AUX_FILE" && test "$NUM_BOOT_AUX_FILE" -gt 0
- then
-     i=0
-     while test $i -lt "$NUM_BOOT_AUX_FILE"
-     do
--        cp --parents "${BOOT_AUX_FILE[$i]}" "${DESTDIR_ABS}/part/disk1/"
-+        cp --parents "${BOOT_AUX_FILE[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
-         i=$(( $i + 1 ))
-     done
- fi
- if test "${BITSTREAM}"
- then
--    cp --parents "$BITSTREAM" "${DESTDIR_ABS}/part/disk1/"
-+    cp --parents "$BITSTREAM" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
- fi
- 
- i=0
- while test $i -lt $NUM_DOMUS
- do
--    cp --parents "${DOMU_KERNEL[$i]}" "${DESTDIR_ABS}/part/disk1/"
-+    cp --parents "${DOMU_KERNEL[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
-     if test "${DOMU_RAMDISK[$i]}"
-     then
--        cp --parents "${DOMU_RAMDISK[$i]}" "${DESTDIR_ABS}/part/disk1/"
-+        cp --parents "${DOMU_RAMDISK[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
-     fi
-     if test "${DOMU_PASSTHROUGH_DTB[$i]}"
-     then
--        cp --parents "${DOMU_PASSTHROUGH_DTB[$i]}" "${DESTDIR_ABS}/part/disk1/"
-+        cp --parents "${DOMU_PASSTHROUGH_DTB[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
-     fi
-     i=$(( $i + 1 ))
- done
 diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index 085e29f..8f08cd6 100755
+index 8f08cd6..f8d2fb0 100755
 --- a/scripts/uboot-script-gen
 +++ b/scripts/uboot-script-gen
-@@ -316,7 +316,7 @@ function load_file()
+@@ -4,6 +4,9 @@ offset=$((2*1024*1024))
+ filesize=0
+ prog_req=(mkimage file fdtput mktemp awk)
+ 
++padding_mask=`printf "0x%X\n" $(($offset - 1))`
++padding_mask_inv=`printf "0x%X\n" $((~$padding_mask))`
++
+ function cleanup_and_return_err()
+ {
+     rm -f $UBOOT_SOURCE $UBOOT_SCRIPT
+@@ -91,10 +94,18 @@ function add_device_tree_kernel()
+     local size=$3
+     local bootargs=$4
+ 
+-    dt_mknode "$path" "module$addr"
+-    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,kernel multiboot,module"
+-    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
+-    dt_set "$path/module$addr" "bootargs" "str" "$bootargs"
++    if test "$dynamic_loading_opt"
++    then
++        dt_mknode "$path" "module\${"$addr"}"
++        dt_set "$path/module\${"$addr"}" "compatible" "str_a" "multiboot,kernel multiboot,module"
++        dt_set "$path/module\${"$addr"}" "reg" "hex"  "0x0 0x\${"$addr"} 0x0 0x\${"$size"}"
++        dt_set "$path/module\${"$addr"}" "bootargs" "str" "$bootargs"
++    else
++        dt_mknode "$path" "module$addr"
++        dt_set "$path/module$addr" "compatible" "str_a" "multiboot,kernel multiboot,module"
++        dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
++        dt_set "$path/module$addr" "bootargs" "str" "$bootargs"
++    fi
+ }
+ 
+ 
+@@ -104,9 +115,16 @@ function add_device_tree_ramdisk()
+     local addr=$2
+     local size=$3
+ 
+-    dt_mknode "$path"  "module$addr"
+-    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
+-    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
++    if test "$dynamic_loading_opt"
++    then
++        dt_mknode "$path" "module\${"$addr"}"
++        dt_set "$path/module\${"$addr"}" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
++        dt_set "$path/module\${"$addr"}" "reg" "hex"  "0x0 0x\${"$addr"} 0x0 0x\${"$size"}"
++    else
++        dt_mknode "$path" "module$addr"
++        dt_set "$path/module$addr" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
++        dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
++    fi
+ }
+ 
+ 
+@@ -116,9 +134,16 @@ function add_device_tree_passthrough()
+     local addr=$2
+     local size=$3
+ 
+-    dt_mknode "$path"  "module$addr"
+-    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,device-tree multiboot,module"
+-    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
++    if test "$dynamic_loading_opt"
++    then
++        dt_mknode "$path" "module\${"$addr"}"
++        dt_set "$path/module\${"$addr"}" "compatible" "str_a" "multiboot,device-tree multiboot,module"
++        dt_set "$path/module\${"$addr"}" "reg" "hex"  "0x0 0x\${"$addr"} 0x0 0x\${"$size"}"
++    else
++        dt_mknode "$path" "module$addr"
++        dt_set "$path/module$addr" "compatible" "str_a" "multiboot,device-tree multiboot,module"
++        dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
++    fi
+ }
+ 
+ function add_device_tree_mem()
+@@ -186,7 +211,12 @@ function xen_device_tree_editing()
      then
-         echo "imxtract \$fit_addr $fit_scr_name $memaddr" >> $UBOOT_SOURCE
+         dt_mknode "/chosen" "dom0"
+         dt_set "/chosen/dom0" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
+-        dt_set "/chosen/dom0" "reg" "hex" "0x0 $dom0_kernel_addr 0x0 $(printf "0x%x" $dom0_kernel_size)"
++        if test "$dynamic_loading_opt"
++        then
++            dt_set "/chosen/dom0" "reg" "hex" "0x0 0x\${dom0_linux_addr} 0x0 0x\${dom0_linux_size}"
++        else
++            dt_set "/chosen/dom0" "reg" "hex" "0x0 $dom0_kernel_addr 0x0 $(printf "0x%x" $dom0_kernel_size)"
++        fi
+         dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
+     fi
+ 
+@@ -194,7 +224,12 @@ function xen_device_tree_editing()
+     then
+         dt_mknode "/chosen" "dom0-ramdisk"
+         dt_set "/chosen/dom0-ramdisk" "compatible" "str_a" "xen,linux-initrd xen,multiboot-module multiboot,module"
+-        dt_set "/chosen/dom0-ramdisk" "reg" "hex" "0x0 $ramdisk_addr 0x0 $(printf "0x%x" $ramdisk_size)"
++        if test "$dynamic_loading_opt"
++        then
++            dt_set "/chosen/dom0-ramdisk" "reg" "hex" "0x0 0x\${dom0_ramdisk_addr} 0x0 0x\${dom0_ramdisk_size}"
++        else
++            dt_set "/chosen/dom0-ramdisk" "reg" "hex" "0x0 $ramdisk_addr 0x0 $(printf "0x%x" $ramdisk_size)"
++        fi
+     fi
+ 
+     i=0
+@@ -241,14 +276,29 @@ function xen_device_tree_editing()
+             dt_set "/chosen/domU$i" "colors" "hex" "$(printf "0x%x" $bitcolors)"
+         fi
+ 
+-        add_device_tree_kernel "/chosen/domU$i" ${domU_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
++        if test "$dynamic_loading_opt"
++        then
++            add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel_addr" "domU${i}_kernel_size" "${DOMU_CMD[$i]}"
++        else
++            add_device_tree_kernel "/chosen/domU$i" ${domU_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
++        fi
+         if test "${domU_ramdisk_addr[$i]}"
+         then
+-            add_device_tree_ramdisk "/chosen/domU$i" ${domU_ramdisk_addr[$i]} ${domU_ramdisk_size[$i]}
++            if test "$dynamic_loading_opt"
++            then
++                add_device_tree_ramdisk "/chosen/domU$i" "domU${i}_ramdisk_addr" "domU${i}_ramdisk_size"
++            else
++                add_device_tree_ramdisk "/chosen/domU$i" ${domU_ramdisk_addr[$i]} ${domU_ramdisk_size[$i]}
++            fi
+         fi
+         if test "${domU_passthrough_dtb_addr[$i]}"
+         then
+-            add_device_tree_passthrough "/chosen/domU$i" ${domU_passthrough_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
++            if test "$dynamic_loading_opt"
++            then
++                add_device_tree_passthrough "/chosen/domU$i" "domU${i}_fdt_addr" "domU${i}_fdt_size"
++            else
++                add_device_tree_passthrough "/chosen/domU$i" ${domU_passthrough_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
++            fi
+         fi
+         i=$(( $i + 1 ))
+     done
+@@ -271,7 +321,12 @@ function device_tree_editing()
+ 
+     if test $UBOOT_SOURCE
+     then
+-        echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
++        if test $dynamic_loading_opt
++        then
++            echo "fdt addr \${host_fdt_addr}" >> $UBOOT_SOURCE
++        else
++            echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
++        fi
+         echo "fdt resize 1024" >> $UBOOT_SOURCE
+ 
+         if test $NUM_DT_OVERLAY && test $NUM_DT_OVERLAY -gt 0
+@@ -306,7 +361,7 @@ function add_size()
+ function load_file()
+ {
+     local filename=$1
+-    local fit_scr_name=$2
++    local binary_name=$2
+ 
+     local absolute_path="$(realpath --no-symlinks $filename)"
+     local base="$(realpath $PWD)"/
+@@ -314,11 +369,30 @@ function load_file()
+ 
+     if test "$FIT"
+     then
+-        echo "imxtract \$fit_addr $fit_scr_name $memaddr" >> $UBOOT_SOURCE
++        echo "imxtract \$fit_addr $binary_name $memaddr" >> $UBOOT_SOURCE
      else
--        echo "$LOAD_CMD $memaddr $relative_path" >> $UBOOT_SOURCE
-+        echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
+-        echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
++        if test "$dynamic_loading_opt"
++        then
++            echo "$LOAD_CMD \${curr_addr} ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
++        else
++            echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
++        fi
      fi
      add_size $filename
++
++    if test "$dynamic_loading_opt" && test ! "$FIT"
++    then
++        # Store each binary's load addr and size
++        local binary_name_addr="${binary_name}_addr"
++        local binary_name_size="${binary_name}_size"
++        echo "setenv $binary_name_addr \${curr_addr}" >> $UBOOT_SOURCE
++        echo "setenv $binary_name_size \${filesize}" >> $UBOOT_SOURCE
++        
++        # Compute load addr for next binary dynamically
++        echo "setexpr curr_addr \${curr_addr} \+ \${filesize}" >> $UBOOT_SOURCE
++        echo "setexpr curr_addr \${curr_addr} \+ \${padding_mask}" >> $UBOOT_SOURCE
++        echo "setexpr curr_addr \${curr_addr} \& \${padding_mask_inv}" >> $UBOOT_SOURCE
++    fi
  }
-@@ -891,7 +891,7 @@ function print_help
+ 
+ function check_file_type()
+@@ -536,6 +610,14 @@ generate_uboot_images()
+ 
+ xen_file_loading()
+ {
++    if test "$dynamic_loading_opt"
++    then
++        local curr_addr=`printf "%x\n" $memaddr`
++        echo "setenv curr_addr $curr_addr" >> $UBOOT_SOURCE
++        echo "setenv padding_mask $padding_mask" >> $UBOOT_SOURCE
++        echo "setenv padding_mask_inv $padding_mask_inv" >> $UBOOT_SOURCE
++    fi
++
+     if test "$DOM0_KERNEL"
+     then
+         check_compressed_file_type $DOM0_KERNEL "executable"
+@@ -891,7 +973,7 @@ function print_help
  {
      script=`basename "$0"`
      echo "usage:"
--    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f]"
-+    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH]"
+-    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH]"
++    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH] [-s]"
      echo "	$script -h"
      echo "where:"
      echo "	CONFIG_FILE - configuration file"
-@@ -907,6 +907,7 @@ function print_help
-     echo "	HINT - the file name of the crt and key file minus the suffix (ex, hint.crt and hint.key)"
+@@ -908,6 +990,7 @@ function print_help
      echo "	U-BOOT_DTB - u-boot control dtb so that the public key gets added to it"
      echo "	-f - enable generating a FIT image"
-+    echo "	PREPEND_PATH - path to be appended before file names to match deploy location within rootfs"
+     echo "	PREPEND_PATH - path to be appended before file names to match deploy location within rootfs"
++    echo "	-s - enable dynamic loading of binaries by storing their addresses and sizes u-boot env variables"
      echo "	-h - prints out the help message and exits "
      echo "Defaults:"
      echo "	CONFIG_FILE=$cfg_file, UBOOT_TYPE=\"LOAD_CMD\" env var, DIRECTORY=$uboot_dir"
-@@ -914,7 +915,7 @@ function print_help
+@@ -915,7 +998,7 @@ function print_help
      echo "	$script -c ../config -d ./build42 -t \"scsi load 1:1\""
  }
  
--while getopts ":c:t:d:ho:k:u:f" opt; do
-+while getopts ":c:t:d:ho:k:u:fp:" opt; do
+-while getopts ":c:t:d:ho:k:u:fp:" opt; do
++while getopts ":c:t:d:ho:k:u:fp:s" opt; do
      case ${opt} in
      t )
          case $OPTARG in
-@@ -953,6 +954,9 @@ while getopts ":c:t:d:ho:k:u:f" opt; do
-     f )
-         fit_opt=y
+@@ -957,6 +1040,9 @@ while getopts ":c:t:d:ho:k:u:fp:" opt; do
+     p )
+         prepend_path="$OPTARG"
          ;;
-+    p )
-+        prepend_path="$OPTARG"
++    s )
++        dynamic_loading_opt=y
 +        ;;
      h )
          print_help
          exit 0
-@@ -1179,5 +1183,5 @@ then
-     echo "$LOAD_CMD $fit_addr $FIT; source $fit_addr:boot_scr"
- else
-     echo "Generated uboot script $UBOOT_SCRIPT, to be loaded at address $uboot_addr:"
--    echo "$LOAD_CMD $uboot_addr $UBOOT_SCRIPT; source $uboot_addr"
-+    echo "$LOAD_CMD $uboot_addr ${prepend_path:+$prepend_path/}$UBOOT_SCRIPT; source $uboot_addr"
- fi
+@@ -1151,7 +1237,13 @@ device_tree_editing $device_tree_addr
+ 
+ # disable device tree reloation
+ echo "setenv fdt_high 0xffffffffffffffff" >> $UBOOT_SOURCE
+-echo "$BOOT_CMD $kernel_addr - $device_tree_addr" >> $UBOOT_SOURCE
++
++if test "$dynamic_loading_opt"
++then
++    echo "$BOOT_CMD \${host_kernel_addr} - \${host_fdt_addr}" >> $UBOOT_SOURCE
++else
++    echo "$BOOT_CMD $kernel_addr - $device_tree_addr" >> $UBOOT_SOURCE
++fi
+ 
+ if test "$FIT"
+ then
 -- 
 2.35.1
 
