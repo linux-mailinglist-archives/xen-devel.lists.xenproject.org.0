@@ -2,39 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DBDE5615AB
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 11:09:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358391.587584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D7AA561641
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 11:25:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358400.587595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6q9w-0004iY-2r; Thu, 30 Jun 2022 09:08:24 +0000
+	id 1o6qPf-0007IE-JA; Thu, 30 Jun 2022 09:24:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358391.587584; Thu, 30 Jun 2022 09:08:24 +0000
+Received: by outflank-mailman (output) from mailman id 358400.587595; Thu, 30 Jun 2022 09:24:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6q9v-0004gR-Vt; Thu, 30 Jun 2022 09:08:23 +0000
-Received: by outflank-mailman (input) for mailman id 358391;
- Thu, 30 Jun 2022 09:07:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o6qPf-0007G8-FV; Thu, 30 Jun 2022 09:24:39 +0000
+Received: by outflank-mailman (input) for mailman id 358400;
+ Thu, 30 Jun 2022 09:24:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=89Zk=XF=hotmail.it=c.cesarano@srs-se1.protection.inumbo.net>)
- id 1o6q8t-0004RI-57
- for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 09:07:19 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-oln040092065079.outbound.protection.outlook.com [40.92.65.79])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a04e59c-f854-11ec-bd2d-47488cf2e6aa;
- Thu, 30 Jun 2022 11:07:17 +0200 (CEST)
-Received: from AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:142::21)
- by AM6PR10MB2248.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:45::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.14; Thu, 30 Jun
- 2022 09:07:16 +0000
-Received: from AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::110a:162b:f3a6:2e47]) by AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::110a:162b:f3a6:2e47%5]) with mapi id 15.20.5395.015; Thu, 30 Jun 2022
- 09:07:15 +0000
+ <SRS0=fPik=XF=citrix.com=prvs=1738a98a4=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1o6qPd-0007G0-ST
+ for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 09:24:37 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 728becfc-f856-11ec-bdce-3d151da133c5;
+ Thu, 30 Jun 2022 11:24:33 +0200 (CEST)
+Received: from mail-dm6nam10lp2109.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.109])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 30 Jun 2022 05:24:32 -0400
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+ by CH2PR03MB5367.namprd03.prod.outlook.com (2603:10b6:610:9c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.15; Thu, 30 Jun
+ 2022 09:24:30 +0000
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::40af:d5f4:95eb:d534]) by DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::40af:d5f4:95eb:d534%7]) with mapi id 15.20.5395.015; Thu, 30 Jun 2022
+ 09:24:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,466 +49,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a04e59c-f854-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 728becfc-f856-11ec-bdce-3d151da133c5
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1656581076;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=0Bls/tYCdxwkuazXrMU28N6vQGXNDC9LIy8Re5WjAs4=;
+  b=aDK3dcPVdcTPwiuRQ2J3pIlFmwSfvBx2Ttd4hDmor+wGGqHNqkEA+gt8
+   u9Giv7TuGGiRVSE7MRyFWNwQ4QK3QPL8+7dR4GKYLCZCl2MftpBRzJ7JD
+   vk0zESIel1F087nZUTeDX2EBQYWkoSVi3V8U2gO+q3g7gOPan3lm9hRDs
+   Q=;
+X-IronPort-RemoteIP: 104.47.58.109
+X-IronPort-MID: 75197129
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:2NmS0ag48lP2E24C/R1A0dzTX161RBAKZh0ujC45NGQN5FlHY01je
+ htvWWvTO6yKN2ajKYwlYIzko0MFsZ/cyoNqTANr+C09Fy4b9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M58wIFqtQw24LhXVjV4
+ YqaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YRh0PJPwkvwFaChFOAs9JPVg6Jn/PUHq5KR/z2WeG5ft69NHKRhueKE9pKNwC2wI8
+ uEEIjcQaBzFn/ix3L+wVuhrgIIkMdXvO4Qc/HpnyFk1D95/GcyFH/qMuI8ehW9h7ixNNa+2i
+ 84xcz1gYQ6GexRSElwWFIg/jKGjgXyXnzhw9w/M9PVuuTm7IApZiqO9EfHHa82zWOJS3QWRr
+ UPsoXvjK0RPXDCY4X/fmp62vcfDhTj+WZ4SPLSg++R2nUaIwWgOFBwRU0D9qv684mauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O9M97AaB26/F+TGzD2IPTiNCQNE+vcpwTjsvv
+ neWm/v5CDopt6eaIVqG/bCIsXW+MDYUNkcZeSYeSQIPpdjkyKkxhxTDVMd+E4a6i9T0HXf7x
+ DXihCM+nbQIkckT16ihu1vDiiivjoPVRxQx7w+RX2XNxgdkb4fjaYWu4lXf6etoJZycCFKGu
+ RAsmceE5eQKJZiInT6KRqMGG7TBz+yMMCDYx0VuGZYh3z23/jioeoU4yCplOE5jP8IAeDnoS
+ EzeowVc4NlUJnTCRa1qZ4O8Dew6wK6mEs7qPtjeY8BSeJF3eEmC9Tt3eE+L92n3lQ4nlqRXE
+ ZWRfNuoDH0aIb961zfwTOAYuZcnyCkxymLUQZHT1Am83PyVY3v9YbsKPFaBdOkR8LKPoAKT9
+ c1WccSN1X1ivPbWZyDW9csfKA4MJH1iXZTu8ZUPJ6iEPxZsH3wnB7nJ27Q9dod5nqNT0ODV4
+ nW6XUwew1367ZHaFTi3hrlYQOuHdf5CQbgTZETA4X7AN6AfXLuS
+IronPort-HdrOrdr: A9a23:ISQf/q8HXXsBi+ZlW3Juk+FDdb1zdoMgy1knxilNoENuH/Bwxv
+ rFoB1E73TJYVYqN03IV+rwXZVoZUmsjaKdhrNhRotKPTOWwVdASbsP0WKM+V3d8kHFh41gPO
+ JbAtJD4b7LfCdHZKTBkW6F+r8bqbHokZxAx92uqUuFJTsaF52IhD0JbjpzfHcGJjWvUvECZe
+ ehD4d81kydUEVSSv7+KmgOXuDFqdGOvJX6YSQeDxpizAWVlzun5JPzDhDdh34lInty6IZn1V
+ KAvx3y562lvf3+4hjA11XL55ATvNf60NNMCOGFl8BQADTxjQSDYphnRtS5zXkIidDqzGxvvM
+ jHoh8mMcg2w3TNflutqR+o4AXk2CZG0Q6W9XaoxV/Y5eDpTjMzDMRMwahDdAHC1kYmtNZglI
+ pWwmOwrfNsfF/9tRW4w+KNewBhl0Kyr3Znu/UUlWZjXYwXb6IUhZAD/XlSDIwLEEvBmc0a+d
+ FVfY/hDcttABKnhyizhBgu/DXsZAV4Iv6+eDlMhiTPuAIm30yQzCMjtb4idzk7hdAAoqJ/lp
+ X525RT5c9zp/AtHNJA7cc6ML+K4z/2MGXxGVPXB2jbP4c6HF+Ig6LLwdwOlZKXkdozvdAPpK
+ g=
+X-IronPort-AV: E=Sophos;i="5.92,233,1650945600"; 
+   d="scan'208";a="75197129"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DcC73G1hxEdQtbdR3jOsYUbFmNIy4JhC+rMk/eFUla1+wLMNyaBD+3YYTyPIEeoU1CrMKbiR8MKvgx96VfrwA/+IAyYtNJuiAskrMprXqZDkgnAX/UtHZ7zYLqZFlH9addZ6iytuyLgZdB4+I/f9byuDym1nEquqm1pty65xaizufQgqfJE0tdu0gZaOjDaAJmDCW2VgBRy9LI0UozCtVSk4Dn7+AsQQeXC0OPtuPzaDm5YdEsmAOoyjVBmOrZGWXstV+pawDd2/kPpIm8G++hnW2xUwLkvHSBEOlkyq4Js+sAr6eYliEBNw6gp+dvVKlDkQSBGWikwEmCRD/G8D5g==
+ b=aLhNguCvSlg4xYLP4nd7kJxirzUf6qFhPFm6ktvmRWCq65yx6vR0d0ZWffZHDpP7CegLeAklP5wc+0tEsw8N3RQhpLd5wWAOhaU535QqB0PifZZjua+ZNiRLmV5Q+vqQ14yVuKW+qGXt5IYOYy2SOUOwHUIMnSfTSOnUAC0dVDp1VP4YlmhvckxxSThHPfhJfKoa2b/lNNOLLW0ton/0V834mgjsbzIfGnjNYCnE+CaaDlZ+zExo1w5M/pz5Si63k4xpUqjiVWlAgJzrxtPhqHQN8twwJ0SeM4XAmxSvRuNqbeN+ExYMEuGhOHFXr8nwvgBph/Mm3wB+4PJOmyqMeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uLRwKeMT9BR/oaega17Tb7kpao5jwz099J/KmMl1ndM=;
- b=MVrQ+mfCwIx+V+t4MQs7stzxZhWrcQGE3dGOeIBeEKrvCt3BjCzVWp1g+5Ukkta9QaJTMQTYXNcEPQWABJqmiOw1aTjgZn3KAkRv6BUI9MZGaVvkVd7E9E6Mts+yx8dsPmcsK/+o7oA267yTXT6ekmWER0WCdHyfPLkAnueHvvpQQMtyYZ3jAFk4RVPu8ce0AazXcinYmA+LhN6GjleNk5zEUiWwy0jm/LLchxGB9EyrHadK9RKYEE+Zh89qZ11xR0imgHzJTXWXIhQq014q3qo17hG+fVvTeq3bZXJ8aE2L5j30QTDNXiri8yTCYLbnhi05Emlgfz+xwq1cy7NyIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-From: Carmine Cesarano <c.cesarano@hotmail.it>
-To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-Subject: R: R: R: Crash when using xencov
-Thread-Topic: R: R: Crash when using xencov
-Thread-Index:
- AQHYihZvzMoBU/8d5kCvfMcwSUXjJK1jJQIAgAALHhCAAAKEgIAAD46vgAAFV6WAAXJk3oAB9oiAgAD5uEk=
-Date: Thu, 30 Jun 2022 09:07:15 +0000
-Message-ID:
- <AM7PR10MB355902159111F3CC8C6CDB94F8BA9@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
-References:
- <AM7PR10MB355942D32F58FF02379C398CF8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <87d0667b-2b85-f006-ea3c-6f557b2bdc8e@xen.org>
- <AM7PR10MB355972A68A222CB9FBAC43D4F8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <daa12b90-da87-d463-24c4-a13fba330f1d@xen.org>
- <AM7PR10MB35593AA7F46B4D4A0BBD9841F8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <AM7PR10MB3559BB8CB733902773B1AD6AF8B99@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <AM7PR10MB3559A1984F6B53CEFB4FECC7F8B89@AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM>
- <ef8b540c-d2c2-c999-d3fe-08fc88665ad9@xen.org>
-In-Reply-To: <ef8b540c-d2c2-c999-d3fe-08fc88665ad9@xen.org>
-Accept-Language: it-IT, en-US
-Content-Language: it-IT
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [iTK+epqU2QfAYA6Mkoi0h3n+vH7dbsgj]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9f94accf-2d70-472a-bd18-08da5a77ed87
-x-ms-traffictypediagnostic: AM6PR10MB2248:EE_
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- beOG8WPenjwBmEkBB9m1sKnDLbLfjuWWa3lKJvdRdPjDjweFomYQIKdcAYmP/J23tEqNgz1K2hAtTdc8r8uCjdOZYc3K2VoogMZe75oz55lRsm5OwQS27dtQ8virnHbmplS3hGbMYw/u5wOZYJ215lksyd3UlxDnQ5B/vGUkDA95fhoPCKGJkLEtfYS1puxpW2528N1MVACEwN60VGmXZZLyuK9YVwlACz3dJ/+vmQFF5MOa0tVmR2IVamHJkYNXGTXnG95GLASCPQxCipliFCCbPE7ewoegXwO47DQO6YEHiW0yXcLwgky17DjhqedV5JkAM2q9+5JJlTsyB3lBcj4bF0UbdDtrOgVdks+8mzVYjOJW+T04GigKkdiaYhs/1QH9KqpDkpjyYT1ydxwj4juaB9Wj6mTaxt76HxUEskd1rndqQv+NYPt+W1EfJ+qURDxM+Djrg2Y4DHGN+zbQ9D2urUXt3P211487sseb8XzRPaiOrNjbw3JSmVeRKlw6MSwaygN32tKX69z1h49RfIXpcqOE3hiUageigmJc9TTUFVwO8G7LqlSdNjYqoNFIiNrzVj2aseP5MTI2eIy+vuA07W8nPMT8jfIMwT2Ac8Mwipg0Is73JbdsIVAyyproKs2RTfdjywfhBGgqaW3OVQ==
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?Windows-1252?Q?qIAuYqXM7uAlErqRDnE1dG0lbFTgHO3RPEZf27Y3M0eqYKliiQOlHkG7?=
- =?Windows-1252?Q?QRxcMHXQjZ9W24JGbYbGUdrMK+ijKdxUAYN5u6cMpjp7yzxr1TXt5kwN?=
- =?Windows-1252?Q?x6owHsUlOe1RHa4hPQ9TRXmSlu/qa98TmWo+X3msRcOjC/rLCFGwWzpM?=
- =?Windows-1252?Q?a3tI05M/aJD9/uKGvNgIbF4JhYpUvCctC3I9HoHOhO1HDjUJe4uGHdHn?=
- =?Windows-1252?Q?CmpoWf9TD6+kk3+3A/GPteSDsqb+m1yQ0VyUomXVerHl1hajH2OFr2cV?=
- =?Windows-1252?Q?j1qMq26+8KtBG191hQljwOSeqRRIfte8V1s4Z/6R1cxQVbjy1Xoi9zyq?=
- =?Windows-1252?Q?ivcYjqjTA3XHIkNtg431+/C1ZfxcJMsAh20udxnU1jUL9Jbrn5sFgZnO?=
- =?Windows-1252?Q?FN42GZMPJXZBo5H9MBGztefjAiqXd+hnOEIvvvRfBJvruky4x/tzYZRc?=
- =?Windows-1252?Q?iGl5mCIw8Yg47ACh1LXosxMMnQQ7MsCmHuQuuMZ5YCmZlaWPemd0vqXn?=
- =?Windows-1252?Q?ehOGOyW/nn2NIJKif8BavQxXB+OoHlh/fm6wZpddMgZF5USL/NE4LAeH?=
- =?Windows-1252?Q?1MSQXfQiIiV17FhvO0WqUjrbS7rBFJ4TH8c0ZurV1duNSbyv4eSsuXB2?=
- =?Windows-1252?Q?oUsSCF7Ol0bpBtTd6jI9aFlEwaf5lenB/5WXN1oDxlynzhQht4Lj6OTg?=
- =?Windows-1252?Q?uRq2hlBKQz5dP33LmQWKCortStk7ByGvmmrPsEnJojuhDqWsrVuG5VkQ?=
- =?Windows-1252?Q?85QMyEKSxHhGSdLPOQYUHpyse0/bKqr4v8m2A1HBXReVeqJ/pZaQyCDE?=
- =?Windows-1252?Q?5sBMvChPL8wRKUIB5Kfiy40qSy9bAdUvrBETZeCt3rxEZjME/hzQmvUT?=
- =?Windows-1252?Q?W3PjwqNqjKV617CbqclWI51fT34xG0Aw634mSjeiSEyhLD/QE/Sz8fEN?=
- =?Windows-1252?Q?dMEXDU14Ht+vnNxkOm7I8oWKh3pTdzwHrd7MMgjm5GzzrWCJ0x32yed/?=
- =?Windows-1252?Q?odFZK4WhtM0hhxkbF1BpWsBnVFFTaBSlv+0BIFGr1LNtpBchz1FdAOPw?=
- =?Windows-1252?Q?ZEVcjgIMrSsHT5N2wWTpqipqa8J+AkJ3Eyxu4Y5N/r3YgZtfBnTq4Uid?=
- =?Windows-1252?Q?ybm7w2AZP64nNTNtmmFKd4FrZR0sQrtNaIUGpntVWFXsNqZwB3Rp2fZ4?=
- =?Windows-1252?Q?htp1gAIBcQXKgA2oPuxA7wfJ1LLvJAMABYYqiB2QssGsj4V4qKBCtojA?=
- =?Windows-1252?Q?4fF8nKQ9GUGpDKbRK4z1cX8bzRx8HtwSJBQG54J2H5aRHqvy2SAQ+Sq0?=
- =?Windows-1252?Q?DZ6bud7vL1NL4tM7N9CG0iRToyBUNswIVBbccI1630ZYXb33t8P03d+V?=
- =?Windows-1252?Q?0amjVJgg+hqP1yUrN6p5rm3usp168g6vyUU=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_AM7PR10MB355902159111F3CC8C6CDB94F8BA9AM7PR10MB3559EURP_"
+ bh=GbJ8Qf4Cz0NR+IFV7ooSMyOSpWKGmIw2FnsULdrGdfY=;
+ b=i42+m2FJ9kFrRJCEwo5nLDtZ7E11RPFahejk+IpomR0tPChUa5baO1mpglcKQlpCnmqhqnR956h9yKlYx5CoHEtghuG5RAGgvW/3BRLnzmJxTBWCTMTb1bO71lHOrnLwAwlxuvSvv1zqaiVnB9ukmRmdjCUxyJPc9RFQXhfnUoYh32FUHBZW4ZfcWSg/dtMgab5mJn0C9OHpkD/NrbufIINNawwpsvNnpnMBG+K2okVP8ddb1Gh78fQ8cG5PVkPdY6PhhZXOfQJ3mXABe1wJJjsSp5/HEdQ/3QuglAR5Lnxk5phZ23JPGUevkc9Ikd2eW5kHc1NSD1jLsY+dnrMNqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GbJ8Qf4Cz0NR+IFV7ooSMyOSpWKGmIw2FnsULdrGdfY=;
+ b=YSY7DcczzEKwMcGFpOr9clx3M7gX+gAR3GyxYjX/Vv69h4hna4Hnzh8TyU7Jij78tFXHmOy71P130B/W3jY6Hqjz5XpIKunAAebS6hAjVB5gffDlyC8a8yJWNtsnvshX8PGmlvd/i65cct5pKAaGO5jpOcLS+XNzhnHFI8zDY8o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Thu, 30 Jun 2022 11:24:25 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: xen-devel@lists.xenproject.org,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Wei Liu <wl@xen.org>, scott.davis@starlab.io, jandryuk@gmail.com,
+	christopher.clark@starlab.io, Luca Fancellu <luca.fancellu@arm.com>,
+	Julien Grall <jgrall@amazon.com>, Rahul Singh <rahul.singh@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: Re: [PATCH v9 1/3] xsm: create idle domain privileged and demote
+ after setup
+Message-ID: <Yr1ryXy/mMi6tJzY@Air-de-Roger>
+References: <20220630022110.31555-1-dpsmith@apertussolutions.com>
+ <20220630022110.31555-2-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220630022110.31555-2-dpsmith@apertussolutions.com>
+X-ClientProxiedBy: LO4P123CA0152.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:188::13) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-6b909.templateTenant
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3b79d0b1-ec70-451c-7f65-08da5a7a562b
+X-MS-TrafficTypeDiagnostic: CH2PR03MB5367:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	oTKT7/ueMNraWJ1qD+1VwsOqe5FKxqJbqejaPZ6/8FDQWzNt0yfRd5MBUYK4wdYyz32WDQmlmM4tm7OX7ZbflKUUrwX6imGljByAlpFqzpkV3F7eJCuEYHGjp7U1QOR09TaP2mq/E9QDiDMjAmHyjM3irAfE9E1c9B2t+utIp9Zfl1w+3H+LH1vlqo2KWji6COuqdrDLIN4LwrLHFeA7MeygoHyp1oUVkpmVGphF2D6ACX+tiffwTYwdLQwyqsgAifpT3qvR21uIVf5UPS2jzbE2DpSYERXfqaP0uq9tpYeCXY3UYeXFIFJBOCkk3yX0ITKyYXB1y9lHvqSqCJ8gfJSsXWm+UmIR1Px5NpEg4m4wUl/7A6w1zgHYakNfFPLnv7Rh8x7Zcxvyz9bnNK1OgHAnHZ/T4nxGZggGHwm6g135eb0DAxm6eu78pZuQ2khnX01JUC1cBV/oTSeCjbqqPbXhP9yfu+yC3P9bXa5Kt3K7uTGCV2awNP8dTxnrhB0v5pvNgmNnZrO4PyJtm23Ug+DZtiEIGV5Y/9UY8Ip/BRTHl65kVkhJ1a5hOZ8/AUHsGAwEsuuewo03aPCl1bxOUGZFNlaJbzH328uGdZy6C4uCpx+J31TmriPmZOfLa0cvABGVmoX8YbnoC1h0S4TQUkdx4kUq+HnXOavxWhTWyQ9+2YD8PXlq/n6uHGZVQ9QzE5LFPscghPlTeFHB4CkKkRHIdGLeE5qnFG5P+Gx1V3TmlgHh/ErrE+3yBT+V0/O0za1Ldrgs/VT+xQNAR8hr5g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(7916004)(376002)(136003)(39860400002)(366004)(346002)(396003)(66556008)(85182001)(6916009)(54906003)(83380400001)(66476007)(316002)(26005)(8676002)(478600001)(7416002)(41300700001)(38100700002)(5660300002)(4326008)(33716001)(6666004)(6512007)(66946007)(2906002)(9686003)(6486002)(86362001)(8936002)(186003)(82960400001)(6506007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K0xNNXJZU0dwOWNTV0Z4Y3M4eHZFUVQybmtkZmFqZ3E5RzdsZ1lTQ3BlY0Ez?=
+ =?utf-8?B?RC95V0ZRK0p0T3NyMWlhMDdJbExsMEkrUSs3M1YvUktNWUh3ejVrRkhBMHVj?=
+ =?utf-8?B?VEZOWm9sV2hJQzlYbi9NMDhBTTMwVFQ2S29hVW9RWDR2TmJoL1A4MDQwOUE1?=
+ =?utf-8?B?WW13K2IxK0hlU3ZBVFJEMUNzeCtUbi9qNnBFTll6eWlrRVhZbURtZ1k4d2tD?=
+ =?utf-8?B?Z0YwaElLTEVDOHJVWUVWNFRvUDFKYXozL1RiZmRJYjQvcTUyYmtHMXFOQXgz?=
+ =?utf-8?B?YUp2T3ByRlpUUkRCYnJoYW9McEVJQ29OOFpzeFlEd2lpRld0dWgxSkh1bExB?=
+ =?utf-8?B?NnBhNDNZYTVIbWRZc3ZpNXlibWlFMm0wek1MN2k5WUVBbUV0TW5KSEQwOXR1?=
+ =?utf-8?B?d3lmdE1IMmJib3dXa04za1FHcU9IVUVvWkd4Wms0bkVBdTQwbzBGOXREcm5N?=
+ =?utf-8?B?NDdNV01HTjJYVmgxekFFaHJyTVNod0JSd0xnVjJlRCtuWlhlZ0FNVVZCSURt?=
+ =?utf-8?B?T1NTN2NHVk42VHErWWtyVGV4UHpaSEh3OVY5VjFzRFRibGNGWi9keDlVaWRF?=
+ =?utf-8?B?MGhwOW5ocEpEWER5UGc2Ym5zaVp3YU50ZG1VdjNWUTJTSW84RkRISEtyZFds?=
+ =?utf-8?B?S2UxNTVhclBEYkFVRG9PZ2IxM0JvcHlJNzQwR0E0TWdNOEYvb1hkSUV4cTVX?=
+ =?utf-8?B?WHZVVmRSWGxPQ3pleGpYbjNNVjluZ1k5UlJvSHJ3MU5zbnh2anVvZHZBaEx3?=
+ =?utf-8?B?SWFTWTZUV2tBc0ZlVXBTR25zNjAwWFdid2x5UkRBNW80YVoxaXVIc3pOWkx1?=
+ =?utf-8?B?Mk5wL3BrdTZ1eFRJdHcvZlVKVUFTcUdPdEx2a252MUgyVzAwc3pMNHg4czgz?=
+ =?utf-8?B?S1VrdVNSU2xJWDRGVVkrUlZ2NEtRdStuMHNiNjd0TUdaOUdaZkg2clJSUkE2?=
+ =?utf-8?B?UEJtMUhNaG54R3psdVdTbmJPZW1iVnlSZVdUVGoyWExqNjJzRVZXMG5QT3pO?=
+ =?utf-8?B?blhKV3J5cllNVDErZjNnMkRBODRRL2FIa0pBUk1uVVY5dnZ3Q3p3ZVRZczBl?=
+ =?utf-8?B?TDN1Rk44TDk4SURpZlZlb01WbHNxb0JkeU15TjEwRGFIK2pmNjlQZGxvSmFO?=
+ =?utf-8?B?czZQdzl1Yk1HYUcxbXRtVFZYYjRBZ0p0ZHp1M1l3TzVJYS9ndWR2aXVaRUta?=
+ =?utf-8?B?YXpaWm5US0xyU3BIWWVIOXlkNVM3cy9XaEpoSVB4VTFmbm9TekZ3L2tXbjg5?=
+ =?utf-8?B?b1VQdjFQUEh0bmYwWklQdGdKcGlYUitPSjFNZ1hLTEZrejhmS2pZVlc4VzZq?=
+ =?utf-8?B?ZjhsV3BpQlR3b09Ub0doakxsLzJnY0FveVhwQXphbDhMNy9uQTYzSGxOR0o5?=
+ =?utf-8?B?UHNraVg1QjNyTkFON3pseG12RmxPRmJFSnVleUdRYmlxbUZ1ZGhzMTRTT1Rr?=
+ =?utf-8?B?cGJyU0JmUEQzMUtDa25jRDQzL2RvQi96cGwxY25XMURvTkRpcW1UT3Vjb2o0?=
+ =?utf-8?B?MWdYWm1XTHlSRVRJRnpad1kwbTFiQStlZng3TmJCSnE0VGNZMzgyYk1HZTRC?=
+ =?utf-8?B?TEIyZ2F3L2EvSThYaGloamRVZGJoSy8yUWkwNVhDR0dYTVpJMFl3emNETmhV?=
+ =?utf-8?B?aElNZTI2WHhGMllPQjJaQmk1M0NqWDU2S050TXovS3FwYm5Remx0b3JDY3Fq?=
+ =?utf-8?B?d1lkSFpja0lPTGJmQ2N6KzArak5JWDd0UnFtNnRxT1JHZDlKOWUzNDlGM09E?=
+ =?utf-8?B?WUQzY2xBYkdPcXpzM3BGeEJkYW96d0krZGFhTmlSZjVNMk5iWGloSjJqSFlk?=
+ =?utf-8?B?RWsrTklzaVlOb09KaGlxYmtPanNPUVBPTkQvcG9iTzZrVFNoQkR6NmRDNHkx?=
+ =?utf-8?B?cmw4S2xMVmI1N2k3K1B1dUFRdjJBc1NWQkxHVkNic09oZ3FnalRja2xaMWFM?=
+ =?utf-8?B?bUVpWDdxSGNYOVRBUVFmaG1zeURwREpZdE5VdnVzNkhiN0J4Q1lMWDQxNUxm?=
+ =?utf-8?B?dHJHWG9ZcG82Mzg4U3BXMTdqZ1FBZE9WKzgyZDFHTWI0d3V0SWM2dUZXRnFw?=
+ =?utf-8?B?TFJUQUVKODdGRGhhaFFUQWN6WElQWjc4a0swWUU1NE5VVE5tdFFaOTlZdGxG?=
+ =?utf-8?B?SVdpa092QkRLTGcrdS93SWNrc3Q1ZHkwZ0xzOVFrY0RudHVmZGZ3N3RLa2Ri?=
+ =?utf-8?B?cHc9PQ==?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b79d0b1-ec70-451c-7f65-08da5a7a562b
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR10MB3559.EURPRD10.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f94accf-2d70-472a-bd18-08da5a77ed87
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jun 2022 09:07:15.8425
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 09:24:30.6578
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR10MB2248
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FlIdRmDOGbp3QiKdGDEhk9SX3/0F02s8bZRH27pRRoO6AmviMjv97gbp8qCDvqyTV14TxfH93+cHlI8HunmtNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5367
 
---_000_AM7PR10MB355902159111F3CC8C6CDB94F8BA9AM7PR10MB3559EURP_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+On Wed, Jun 29, 2022 at 10:21:08PM -0400, Daniel P. Smith wrote:
+> There are new capabilities, dom0less and hyperlaunch, that introduce internal
+> hypervisor logic, which needs to make resource allocation calls that are
+> protected by XSM access checks. The need for these resource allocations are
+> necessary for dom0less and hyperlaunch when they are constructing the initial
+> domain(s).  This creates an issue as a subset of the hypervisor code is
+> executed under a system domain, the idle domain, that is represented by a
+> per-CPU non-privileged struct domain. To enable these new capabilities to
+> function correctly but in a controlled manner, this commit changes the idle
+> system domain to be created as a privileged domain under the default policy and
+> demoted before transitioning to running. A new XSM hook,
+> xsm_set_system_active(), is introduced to allow each XSM policy type to demote
+> the idle domain appropriately for that policy type. In the case of SILO, it
+> inherits the default policy's hook for xsm_set_system_active().
+> 
+> For flask, a stub is added to ensure that flask policy system will function
+> correctly with this patch until flask is extended with support for starting the
+> idle domain privileged and properly demoting it on the call to
+> xsm_set_system_active().
+> 
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> Acked-by: Julien Grall <jgrall@amazon.com> # arm
+> Reviewed-by: Rahul Singh <rahul.singh@arm.com>
+> Tested-by: Rahul Singh <rahul.singh@arm.com>
 
-Hello,
-Sorry for the images on the ML.
-If I wanted to change my setup instead, is there a tested and working versi=
-on of gcc for xencov features on xen stable-4.16?
-(I read GCC 3.4 or later in the documentation).
+LGTM:
 
-Cheers,
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Carmine Cesarano
-
-Da: Julien Grall<mailto:julien@xen.org>
-Inviato: mercoled=EC 29 giugno 2022 20:02
-A: Carmine Cesarano<mailto:c.cesarano@hotmail.it>
-Cc: xen-devel@lists.xenproject.org<mailto:xen-devel@lists.xenproject.org>; =
-Andrew Cooper<mailto:andrew.cooper3@citrix.com>
-Oggetto: Re: R: R: Crash when using xencov
-
-(moving the discussion to xen-devel)
-
-On 28/06/2022 16:32, Carmine Cesarano wrote:
-> Hi,
-
-Hello,
-
-Please refrain to top-post and/or post images on the ML. If you need to
-share an image, then please upload them somewhere else.
-
-> I made two further attempts, first by compiling xen and xen-tools with gc=
-c 10 and second with gcc 7, getting the same problem.
->
-> By running =93xencov reset=94, with with both compilers, the line of code=
- associated with the crash is:
-
-Discussing with Andrew Cooper on IRC, it looks like the problem is
-because Xen and GCC disagrees on the format. There are newer format that
-Xen doesn't understand.
-
-If you are interested to support GCOV on your setup, then I would
-suggest to look at the documentation and/or look at what Linux is doing
-for newer compiler.
-
->
->    *   /xen/xen/common/coverage/gcc_4_7.c:123
-> By running =93xencov read=94, I get two different behaviors with the two =
-compilers:
->
->    *   /xen/xen/common/coverage/gcc_4_7.c:165   [GCC 11]
->    *   /xen/xen/common/coverage/gcov.c:131          [GCC 7]
->
-> Attached are the logs captured with a serial port.
->
-> Cheers,
->
-> Carmine Cesarano
-> Da: Julien Grall<mailto:julien@xen.org>
-> Inviato: luned=EC 27 giugno 2022 14:42
-> A: Carmine Cesarano<mailto:c.cesarano@hotmail.it>
-> Oggetto: Re: R: Crash when using xencov
->
-> Hello,
->
-> You seemed to have removed xen-users from the CC list. Please keep it in
-> CC unless the discussion needs to private.
->
-> Also, please avoid top-posting.
->
-> On 27/06/2022 13:36, Carmine Cesarano wrote:
->> Yes, i mean stable-4.16. Below the logs after running "xencov reset". Th=
-e situation for "xencov read" is similar.
->>
->> (XEN) ----[ Xen-4.16.2-pre  x86_64  debug=3Dy gcov=3Dy  Not tainted ]---=
--
->> (XEN) CPU:    0
->> (XEN) RIP:    e008:[<ffff82d040257bd2>] gcov_info_reset+0x87/0xa9
->> (XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d0v0)
->> (XEN) rax: 0000000000000000   rbx: ffff82d04056bdc0   rcx: 00000000000c0=
-00b
->> (XEN) rdx: 0000000000000000   rsi: 0000000000000001   rdi: ffff82d04056b=
-dc0
->> (XEN) rbp: ffff83023a7e7cb0   rsp: ffff83023a7e7c88   r8:  7ffffffffffff=
-fff
->> (XEN) r9:  deadbeefdeadf00d   r10: 0000000000000000   r11: 0000000000000=
-000
->> (XEN) r12: 0000000000000001   r13: ffff82d04056be28   r14: 0000000000000=
-000
->> (XEN) r15: ffff82d04056bdc0   cr0: 0000000080050033   cr4: 0000000000172=
-620
->> (XEN) cr3: 000000017ea0b000   cr2: 0000000000000000
->> (XEN) fsb: 00007fc0fb0ca200   gsb: ffff88807b400000   gss: 0000000000000=
-000
->> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
->> (XEN) Xen code around <ffff82d040257bd2> (gcov_info_reset+0x87/0xa9):
->> (XEN)  1d 44 89 f0 49 8b 57 70 <4c> 8b 24 c2 49 83 c4 18 48 83 05 a6 81 =
-4c 00 01
->> (XEN) Xen stack trace from rsp=3Dffff83023a7e7c88:
->> (XEN)    ffff82d04056bdc0 0000000000000001 ffff82d04070f180 000000000000=
-0001
->> (XEN)    0000000000000000 ffff83023a7e7cc8 ffff82d040257a6a ffff83023a7e=
-7db0
->> (XEN)    ffff83023a7e7ce8 ffff82d040257547 ffff83023a7e7fff ffff83023a7e=
-7fff
->> (XEN)    ffff83023a7e7e58 ffff82d040255d5f ffff83023a7e7d68 ffff82d0403b=
-5e8b
->> (XEN)    000000000017d5b2 0000000000000000 ffff83023a6b5000 000000000000=
-0000
->> (XEN)    00007fc0fb348010 800000017ea0e127 0000000000000202 ffff82d04039=
-9fd8
->> (XEN)    0000000000005a40 ffff83023a7e7d68 0000000000000206 ffff82e002fa=
-b640
->> (XEN)    ffff83023a7e7e58 ffff82d0403bb29d ffff83023a69f000 000000003a7e=
-7fff
->> (XEN)    000000017ea0f067 0000000000000000 000000000017d5b2 000000000017=
-d5b2
->> (XEN)    0000001400000014 0000000000000002 ffffffffffffffff 000000000000=
-0000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000=
-0000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000=
-0000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000=
-0000
->> (XEN)    0000000000000000 ffff83023a7e7ef8 0000000000000001 ffff83023a69=
-f000
->> (XEN)    deadbeefdeadf00d ffff82d04025579d ffff83023a7e7ee8 ffff82d04038=
-7f62
->> (XEN)    00007fc0fb348010 deadbeefdeadf00d deadbeefdeadf00d deadbeefdead=
-f00d
->> (XEN)    deadbeefdeadf00d ffff83023a7e7fff ffff82d0403b2c99 ffff83023a7e=
-7eb8
->> (XEN)    ffff82d04038214c ffff83023a69f000 ffff83023a7e7ed8 ffff83023a69=
-f000
->> (XEN)    0000000000000000 0000000000000000 0000000000000000 000000000000=
-0000
->> (XEN)    00007cfdc58180e7 ffff82d0404392ae 0000000000000000 ffff88800f48=
-4c00
->> (XEN) Xen call trace:
->> (XEN)    [<ffff82d040257bd2>] R gcov_info_reset+0x87/0xa9
->
-> Thanks! There are multiple versions of gcov_info_reset() in the tree.
-> The one used will depend on the compiler you are using.
->
-> Can you use addr2line (or gdb) to find out the file and line of code
-> associated with the crash?
->
-> For addr2line you could do:
->
->     addr2line -e xen-syms 0xffff82d040257bd2
-
-Cheers,
-
---
-Julien Grall
-
-
---_000_AM7PR10MB355902159111F3CC8C6CDB94F8BA9AM7PR10MB3559EURP_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:70.85pt 2.0cm 2.0cm 2.0cm;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"IT" link=3D"blue" vlink=3D"#954F72" style=3D"word-wrap:break-=
-word">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hello,</p>
-<p class=3D"MsoNormal">Sorry for the images on the ML.</p>
-<p class=3D"MsoNormal">If I wanted to change my setup instead, is there a t=
-ested and working version of gcc for xencov features on xen stable-4.16?</p=
->
-<p class=3D"MsoNormal">(I read GCC 3.4 or later in the documentation).</p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Cheers,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Carmine Cesarano</p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div style=3D"mso-element:para-border-div;border:none;border-top:solid #E1E=
-1E1 1.0pt;padding:3.0pt 0cm 0cm 0cm">
-<p class=3D"MsoNormal" style=3D"border:none;padding:0cm"><b>Da: </b><a href=
-=3D"mailto:julien@xen.org">Julien Grall</a><br>
-<b>Inviato: </b>mercoled=EC 29 giugno 2022 20:02<br>
-<b>A: </b><a href=3D"mailto:c.cesarano@hotmail.it">Carmine Cesarano</a><br>
-<b>Cc: </b><a href=3D"mailto:xen-devel@lists.xenproject.org">xen-devel@list=
-s.xenproject.org</a>;
-<a href=3D"mailto:andrew.cooper3@citrix.com">Andrew Cooper</a><br>
-<b>Oggetto: </b>Re: R: R: Crash when using xencov</p>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">(moving the discussion to xen-devel)<br>
-<br>
-On 28/06/2022 16:32, Carmine Cesarano wrote:<br>
-&gt; Hi,<br>
-<br>
-Hello,<br>
-<br>
-Please refrain to top-post and/or post images on the ML. If you need to <br=
->
-share an image, then please upload them somewhere else.<br>
-<br>
-&gt; I made two further attempts, first by compiling xen and xen-tools with=
- gcc 10 and second with gcc 7, getting the same problem.<br>
-&gt; <br>
-&gt; By running =93xencov reset=94, with with both compilers, the line of c=
-ode associated with the crash is:<br>
-<br>
-Discussing with Andrew Cooper on IRC, it looks like the problem is <br>
-because Xen and GCC disagrees on the format. There are newer format that <b=
-r>
-Xen doesn't understand.<br>
-<br>
-If you are interested to support GCOV on your setup, then I would <br>
-suggest to look at the documentation and/or look at what Linux is doing <br=
->
-for newer compiler.<br>
-<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; /xen/xen/common/coverage/gcc_4_7.c:123=
-<br>
-&gt; By running =93xencov read=94, I get two different behaviors with the t=
-wo compilers:<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; /xen/xen/common/coverage/gcc_4_7.c:165=
-&nbsp;&nbsp; [GCC 11]<br>
-&gt;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp; /xen/xen/common/coverage/gcov.c:131&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [GCC 7]<br>
-&gt; <br>
-&gt; Attached are the logs captured with a serial port.<br>
-&gt; <br>
-&gt; Cheers,<br>
-&gt; <br>
-&gt; Carmine Cesarano<br>
-&gt; Da: Julien Grall&lt;<a href=3D"mailto:julien@xen.org">mailto:julien@xe=
-n.org</a>&gt;<br>
-&gt; Inviato: luned=EC 27 giugno 2022 14:42<br>
-&gt; A: Carmine Cesarano&lt;<a href=3D"mailto:c.cesarano@hotmail.it">mailto=
-:c.cesarano@hotmail.it</a>&gt;<br>
-&gt; Oggetto: Re: R: Crash when using xencov<br>
-&gt; <br>
-&gt; Hello,<br>
-&gt; <br>
-&gt; You seemed to have removed xen-users from the CC list. Please keep it =
-in<br>
-&gt; CC unless the discussion needs to private.<br>
-&gt; <br>
-&gt; Also, please avoid top-posting.<br>
-&gt; <br>
-&gt; On 27/06/2022 13:36, Carmine Cesarano wrote:<br>
-&gt;&gt; Yes, i mean stable-4.16. Below the logs after running &quot;xencov=
- reset&quot;. The situation for &quot;xencov read&quot; is similar.<br>
-&gt;&gt;<br>
-&gt;&gt; (XEN) ----[ Xen-4.16.2-pre&nbsp; x86_64&nbsp; debug=3Dy gcov=3Dy&n=
-bsp; Not tainted ]----<br>
-&gt;&gt; (XEN) CPU:&nbsp;&nbsp;&nbsp; 0<br>
-&gt;&gt; (XEN) RIP:&nbsp;&nbsp;&nbsp; e008:[&lt;ffff82d040257bd2&gt;] gcov_=
-info_reset+0x87/0xa9<br>
-&gt;&gt; (XEN) RFLAGS: 0000000000010202&nbsp;&nbsp; CONTEXT: hypervisor (d0=
-v0)<br>
-&gt;&gt; (XEN) rax: 0000000000000000&nbsp;&nbsp; rbx: ffff82d04056bdc0&nbsp=
-;&nbsp; rcx: 00000000000c000b<br>
-&gt;&gt; (XEN) rdx: 0000000000000000&nbsp;&nbsp; rsi: 0000000000000001&nbsp=
-;&nbsp; rdi: ffff82d04056bdc0<br>
-&gt;&gt; (XEN) rbp: ffff83023a7e7cb0&nbsp;&nbsp; rsp: ffff83023a7e7c88&nbsp=
-;&nbsp; r8:&nbsp; 7fffffffffffffff<br>
-&gt;&gt; (XEN) r9:&nbsp; deadbeefdeadf00d&nbsp;&nbsp; r10: 0000000000000000=
-&nbsp;&nbsp; r11: 0000000000000000<br>
-&gt;&gt; (XEN) r12: 0000000000000001&nbsp;&nbsp; r13: ffff82d04056be28&nbsp=
-;&nbsp; r14: 0000000000000000<br>
-&gt;&gt; (XEN) r15: ffff82d04056bdc0&nbsp;&nbsp; cr0: 0000000080050033&nbsp=
-;&nbsp; cr4: 0000000000172620<br>
-&gt;&gt; (XEN) cr3: 000000017ea0b000&nbsp;&nbsp; cr2: 0000000000000000<br>
-&gt;&gt; (XEN) fsb: 00007fc0fb0ca200&nbsp;&nbsp; gsb: ffff88807b400000&nbsp=
-;&nbsp; gss: 0000000000000000<br>
-&gt;&gt; (XEN) ds: 0000&nbsp;&nbsp; es: 0000&nbsp;&nbsp; fs: 0000&nbsp;&nbs=
-p; gs: 0000&nbsp;&nbsp; ss: e010&nbsp;&nbsp; cs: e008<br>
-&gt;&gt; (XEN) Xen code around &lt;ffff82d040257bd2&gt; (gcov_info_reset+0x=
-87/0xa9):<br>
-&gt;&gt; (XEN)&nbsp; 1d 44 89 f0 49 8b 57 70 &lt;4c&gt; 8b 24 c2 49 83 c4 1=
-8 48 83 05 a6 81 4c 00 01<br>
-&gt;&gt; (XEN) Xen stack trace from rsp=3Dffff83023a7e7c88:<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; ffff82d04056bdc0 0000000000000001 ffff82d0=
-4070f180 0000000000000001<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 0000000000000000 ffff83023a7e7cc8 ffff82d0=
-40257a6a ffff83023a7e7db0<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; ffff83023a7e7ce8 ffff82d040257547 ffff8302=
-3a7e7fff ffff83023a7e7fff<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; ffff83023a7e7e58 ffff82d040255d5f ffff8302=
-3a7e7d68 ffff82d0403b5e8b<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 000000000017d5b2 0000000000000000 ffff8302=
-3a6b5000 0000000000000000<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 00007fc0fb348010 800000017ea0e127 00000000=
-00000202 ffff82d040399fd8<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 0000000000005a40 ffff83023a7e7d68 00000000=
-00000206 ffff82e002fab640<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; ffff83023a7e7e58 ffff82d0403bb29d ffff8302=
-3a69f000 000000003a7e7fff<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 000000017ea0f067 0000000000000000 00000000=
-0017d5b2 000000000017d5b2<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 0000001400000014 0000000000000002 ffffffff=
-ffffffff 0000000000000000<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 0000000000000000 0000000000000000 00000000=
-00000000 0000000000000000<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 0000000000000000 0000000000000000 00000000=
-00000000 0000000000000000<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 0000000000000000 0000000000000000 00000000=
-00000000 0000000000000000<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 0000000000000000 ffff83023a7e7ef8 00000000=
-00000001 ffff83023a69f000<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; deadbeefdeadf00d ffff82d04025579d ffff8302=
-3a7e7ee8 ffff82d040387f62<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 00007fc0fb348010 deadbeefdeadf00d deadbeef=
-deadf00d deadbeefdeadf00d<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; deadbeefdeadf00d ffff83023a7e7fff ffff82d0=
-403b2c99 ffff83023a7e7eb8<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; ffff82d04038214c ffff83023a69f000 ffff8302=
-3a7e7ed8 ffff83023a69f000<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 0000000000000000 0000000000000000 00000000=
-00000000 0000000000000000<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; 00007cfdc58180e7 ffff82d0404392ae 00000000=
-00000000 ffff88800f484c00<br>
-&gt;&gt; (XEN) Xen call trace:<br>
-&gt;&gt; (XEN)&nbsp;&nbsp;&nbsp; [&lt;ffff82d040257bd2&gt;] R gcov_info_res=
-et+0x87/0xa9<br>
-&gt; <br>
-&gt; Thanks! There are multiple versions of gcov_info_reset() in the tree.<=
-br>
-&gt; The one used will depend on the compiler you are using.<br>
-&gt; <br>
-&gt; Can you use addr2line (or gdb) to find out the file and line of code<b=
-r>
-&gt; associated with the crash?<br>
-&gt; <br>
-&gt; For addr2line you could do:<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; addr2line -e xen-syms 0xffff82d040257bd2<br>
-<br>
-Cheers,<br>
-<br>
--- <br>
-Julien Grall<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_AM7PR10MB355902159111F3CC8C6CDB94F8BA9AM7PR10MB3559EURP_--
+Thanks, Roger.
 
