@@ -2,39 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086A8561CB4
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 16:05:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358515.587790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AE7B561CBA
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 16:12:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358547.587818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6ums-0004x6-E7; Thu, 30 Jun 2022 14:04:54 +0000
+	id 1o6utc-0008Vu-DB; Thu, 30 Jun 2022 14:11:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358515.587790; Thu, 30 Jun 2022 14:04:54 +0000
+Received: by outflank-mailman (output) from mailman id 358547.587818; Thu, 30 Jun 2022 14:11:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o6ums-0004nh-6E; Thu, 30 Jun 2022 14:04:54 +0000
-Received: by outflank-mailman (input) for mailman id 358515;
- Thu, 30 Jun 2022 14:04:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o6utc-0008TB-9t; Thu, 30 Jun 2022 14:11:52 +0000
+Received: by outflank-mailman (input) for mailman id 358547;
+ Thu, 30 Jun 2022 14:11:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2IH8=XF=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
- id 1o6umL-0004O6-5X
- for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 14:04:21 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70057.outbound.protection.outlook.com [40.107.7.57])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 845c74a2-f87d-11ec-bdce-3d151da133c5;
- Thu, 30 Jun 2022 16:04:12 +0200 (CEST)
-Received: from VI1PR04MB5056.eurprd04.prod.outlook.com (2603:10a6:803:5a::13)
- by DU0PR04MB9322.eurprd04.prod.outlook.com (2603:10a6:10:355::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5373.18; Thu, 30 Jun
- 2022 14:04:18 +0000
-Received: from VI1PR04MB5056.eurprd04.prod.outlook.com
- ([fe80::1549:6f15:1949:f1a5]) by VI1PR04MB5056.eurprd04.prod.outlook.com
- ([fe80::1549:6f15:1949:f1a5%6]) with mapi id 15.20.5395.015; Thu, 30 Jun 2022
- 14:04:18 +0000
+ <SRS0=nqik=XF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1o6utb-0008T5-1K
+ for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 14:11:51 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 94139ddb-f87e-11ec-bd2d-47488cf2e6aa;
+ Thu, 30 Jun 2022 16:11:49 +0200 (CEST)
+Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1656598291417507.4277519566392;
+ Thu, 30 Jun 2022 07:11:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,172 +40,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 845c74a2-f87d-11ec-bdce-3d151da133c5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iaNeOhHqZRiDSLBjIYipfklZW9Ie3cfyB6qlqKLAY9+osIwNHCX2Z4oV6garVDFhCFPTZDj9Jc8/bBI3F4JhMwB9QVg/LjHaA06d+/gw2Pl/UlyKemZfw8O2EKruZGpH+oUVhIyWZCA0mxVGdn9nPqnu+b0P3Rx6+PvsQ3gA4ve3oDVj2bASEReS9W/lHB1IUihBAkM9tS3J1v2u41U8mJIyMaV69LySbl3BWiQeGS2Ww0ns6NdudVumlR454V61FW4wc9oicKlgSp698atFQntRKlyg2/9r8SPwuVGgmL7DO9FQmwEBq/AbVfzkUbYVNOOZwHfar0Dl6eOWlncifg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IEOir/TcWxDepJgogJp+rLWOzXH0RRWLH/R0bAwSxes=;
- b=Y3Gd2hQrS94vwh16oJ2N70W43LWmaZtdvJKE2Zt2VcuxgbRYqMxnzMu0TSdDgPoUshpeRFDTp1fWXCll9q2BwXXwyVk03PPQ6Cu/Z4ucfbEgQZNJBMQ+Bw0HKSi9qcFKdffbDtDBoHn5cIjmhHtkygrGytwYwm7fj/Z9CJ1rtcFJ15nVr+oCeNVMprMZXXkCgOyYvMyNISLOtC+M36qNO8mOxUn2wqYszwkF1udHbPw6t1iBLmLYzaI6AepV+FH1FMpqvGbfzw98amyrLPTw13fafU3CrBn4Wk88Tmm3ZujTZEs1oXm3K+Fw5TYsix74/ALQuGK+Pp5paGE3k8Eh7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IEOir/TcWxDepJgogJp+rLWOzXH0RRWLH/R0bAwSxes=;
- b=Z4ij3h4QhH+o8FEfpit/cKJUDNqRo4BGo6jBHrPyoDNLC6on4wf1xChSgB7itEzIvKd9uLcFIvWP+26hflWlmB+4UEyl3q5mMaaNUc0E9wstB/kaL7bwKsN6jSMqp3+4QAzXQ9Uz1roOo1Hcv5jLBNZ4ClD6Wn2FIcmuSFx4qGQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-From: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
-To: xen-devel@lists.xenproject.org
-Cc: viryaos-discuss@lists.sourceforge.net,
-	sstabellini@kernel.org,
-	Andrei Cherechesu <andrei.cherechesu@nxp.com>
-Subject: [ImageBuilder][PATCH v2 4/4] uboot-script-gen: Enable not adding boot command to script
-Date: Thu, 30 Jun 2022 17:00:29 +0300
-Message-Id: <20220630140028.3227385-5-andrei.cherechesu@oss.nxp.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220630140028.3227385-1-andrei.cherechesu@oss.nxp.com>
-References: <20220630140028.3227385-1-andrei.cherechesu@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AM0PR03CA0089.eurprd03.prod.outlook.com
- (2603:10a6:208:69::30) To VI1PR04MB5056.eurprd04.prod.outlook.com
- (2603:10a6:803:5a::13)
+X-Inumbo-ID: 94139ddb-f87e-11ec-bd2d-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; t=1656598293; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AUCukss27nvcWdTpFyBZ8Quk0T/v/ezw5arMiQRYtp/E+zhJfTeeSLBPL9E+heNvyRIO8BMWzM8hbo0HKRE/hFaeKFm5+rNXJ7ZUsKmLad5lN4UHYRxPSI8QxdXk8MFQgW+rQ4JLGtVg+vKomR/ppwPe7WI574Kmen3M4GBw5lk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1656598293; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=fd7RXl5+dt4+cELBUnmitpRnF8vkWWLIVA5/4Uzn+tw=; 
+	b=fZJxvakGWw9QzX2Scr/YLCeKHNUIyg5b/bVZIWYFNrBQFBV4j8ANHA0W1+OKtrLD6A2j3BTLsJrGRSRqD+KbHJsAheJNR9mArNySxpsaJvPFfxlY2JCWEucNnYvbuL6yow0e4ZINJ/JVZhR5JM9IHJc0dxCOlQBbFXvSI22jys8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1656598293;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=fd7RXl5+dt4+cELBUnmitpRnF8vkWWLIVA5/4Uzn+tw=;
+	b=XkVeJXYZeBR8C3u+zACMVY2tdaYvVK5PqPXYzQ0k7bqVZKs//XZhJfssdu786vwD
+	THrIOgNg6oA9yDweqaLdYfsn1p/IHOxCd6himvumtT0sG9YUf0UMMakBBcPgOdQnd6L
+	oVpIh8xaCXI+3WViTz7613wVUeCzjPlYzydtfutI=
+Message-ID: <d4f12e64-4db7-5c47-9412-70adfd245807@apertussolutions.com>
+Date: Thu, 30 Jun 2022 10:09:27 -0400
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 91ed6371-c465-42ee-1f5a-08da5aa16c93
-X-MS-TrafficTypeDiagnostic: DU0PR04MB9322:EE_
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	2R0yvQkVV0ZbmP+qQBWaoy+eo1ecg8F5/ZC0MyL1ZxXepCy83RY8kHeCzfOSoQR52FNG+xrOJH3ls4Adbnq8GYOGXJN1+DkvK689YcJSbzGkfbvvpxrFhg6oYqWnWhBKe/0L/+C+OfH9S7ycSK2BHClF5pxACUeljsI3JgVc6duED8+upYjopZfJ7KiZ/KsVCgMzVHwDBbxM6cMNRudm73qrv8SCyzpIkl2paCPNMhea44pivSRFfMA03c39VJKB2PL+zYWKCkZ2EC9PSJ5xxpOBW2i1R7Y0f8VRfcivwhNfuQQ+ynivlqPVF1x8r69skFcOWZX72iEAFf3wbZJomta0H/KbenL3YezO1BcUmo/6J//E8beFlpAl1k4sz1df2Ewa+pjIZizdiVzUACenrVcjKVPp9/EmwlUlE0erhzQh3rm6o57xSi22aiZEwoPL3Bq08qFB5w+cZnCKV0xkIvycc+YoAh0UgQsO9he9VVJlEaUEMRNK9//w9wNAkqWNo22LRyyBjbpCImNcuJiEED778/uyAAO5j1yrBbx+Ov7/RrUy/DJFwsNsRNOi6vLai5M/j+BfpZRY3BGY0UxSP9u78YWMU4IxkTxIaOpxeiS3VXL/x5UQBRrSDOTWmuaLTXDAe+wpDGMsALhbQ7KqettF2OprRgZskZqZsEXGRaxlzRcMtgz/oSZ95SNFpwnPDAe85vHR2RnSsvAKPToDp4sAyx6+SFaO34gwz6nM06U7Nzjuvs3Fh0VVZYMdz919h+Pqp1a+MIXIMgYz+cH6y2kSasO7mHQ9xBd/uCmO7Y/jCcY6PUdKQ0BDDZveI9x9
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5056.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(346002)(366004)(136003)(396003)(39860400002)(376002)(478600001)(41300700001)(5660300002)(6666004)(186003)(6486002)(6512007)(52116002)(1076003)(86362001)(26005)(8936002)(2906002)(2616005)(66946007)(4326008)(38100700002)(8676002)(6506007)(316002)(66476007)(66556008)(38350700002)(83380400001)(6916009);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?LsaCxl+YMIsKgAg1h9c7B4CTIvi+WIDV/juo2j+mf04+HNBfGNa75fFtUkAa?=
- =?us-ascii?Q?DadxhNl+NTWCNRPX1trj8/VIQRypK38xVKtcrDnJI2I9bydO9veYf7XtvT8C?=
- =?us-ascii?Q?a9jgs/vtXS5o8V9lGUcM85H0h4U2FCCdmjHJ5AihbtIqviRxXICppYyqP0XE?=
- =?us-ascii?Q?anWu921kndKGTXFOIkDBxW3YT7csh7OiTxltvjVHksR8NuDPhPoAnmqwatVD?=
- =?us-ascii?Q?0D9sjJy+qjLCBjbWl/QUshgQc79kGYO9S1Fl11fjEDaGPTKCw0fnsL5h9Oxv?=
- =?us-ascii?Q?e3M+pb6HewoP2m89fb3YOwulmSDLHvlBgKU6fL8J/nM2TTXbuL7X0BckCrbz?=
- =?us-ascii?Q?ReT5isJqfs1bj/KvqPHqYkt4DtPuzBb20itLXyjb4P0b+8d64c4Pb1iBK/yk?=
- =?us-ascii?Q?F1pu1hqxf+en04Vv5BTNrf7wU14Wo5FGOtxyJeb4SKxX4QWvApHfqFCr8V/4?=
- =?us-ascii?Q?aJTXsg628vMokulEsUfSXnaCwgDNwMlnbu7/tXLfV1VM/oIpkWzdTt4KwhgA?=
- =?us-ascii?Q?gvEKRLHHzMlHp/niiicZUB2Hq1LUlAiSXedvuRvGFJPj8NBtq+LzU+qTUhq6?=
- =?us-ascii?Q?xgLqcm5g9uh6YVzvoevNyz+v7aTbH7EvvStrdKy7nZ3x0YU00K5q78K/BYI+?=
- =?us-ascii?Q?s0nxgnBTNF6MXdb6CiKLf4q8tZkwjUfdsE73NT1klGTxru6ESujv1/0I7Uvl?=
- =?us-ascii?Q?IYa3HPm/GmVJB1A6mppbWo1L6MEnhnGUlcI9gmTPwALGx0S7AseSGl0mMhWl?=
- =?us-ascii?Q?sOasHUrTz0MTmGV2/qmiua3PdwFhy5F+j6xHjh05SNWj85CA2gAhQCJARV9n?=
- =?us-ascii?Q?1eDFV2SYd0BKLqjpXhjlHDoMxtHGJgFJKEz+UvPc4UAyC/wEnxbFgSklVZ8K?=
- =?us-ascii?Q?I5fsg+31uwqhkab26yLtUIQNpgH+JH8HD+mGSaaf40JKEG7pt4PNkEWbpi0c?=
- =?us-ascii?Q?cgt04z3CAKGyhb80KVkGrdGEgZYWTbmSHj9nb7eZ7cUHU2Xdre4WjQoOUAug?=
- =?us-ascii?Q?zr+/0p6dWBDisnCxB2kI2ll9MIaJRjfUWXMsMVh8Zx+CJIEetS5rC+p3dKRo?=
- =?us-ascii?Q?V66HOoDKQnjdDswXMHbudbfLkHCj/4+E5jfAGlCJIMeHG7OpoafHe24QfmGk?=
- =?us-ascii?Q?yRr/IMSDMTEDf2ZTNNsHqFoEJv0Gl6YPi+M5J327UKJq9woP1BD0U0Q7oQ/c?=
- =?us-ascii?Q?Kg5d8ptlzoqpekqc+cOKQcI8GgoZ6aUI3k5HlVwO1dwgxn9v1qszJntJhfji?=
- =?us-ascii?Q?J2E6k4pm2MN7Icq8mlhEmiggKDwAzy7F9ERHXX9ueJ7rW1KsYRtvesHu+CNv?=
- =?us-ascii?Q?0+6PXy6SXr4zulaUqrpiuVVyR7sCdztZ1bgh7v/qj41Zcf5OlDZbsxtFxAy+?=
- =?us-ascii?Q?BMSF4cBxIgzf5VZZA5HDRH7RTvc7+m0OeK5iMKYD76J0S3Eu4QUCtyI7mWJk?=
- =?us-ascii?Q?7l1hwkS5ey2iEgP7ikmFT5dVES+6RJwHAjCqEzSH7ffBkWUCO8LIz54rmYtK?=
- =?us-ascii?Q?EfqWM1fIhchUm4PVbaoPJDCH67NqMyFU/YEmD4mj6LHpr01/3rjuPx5rSCDJ?=
- =?us-ascii?Q?XSAQ+sjGWfz2dFSBLl50rGoNsLuIPjlWbT8KHtw0X1bdONFULNvIw6GHUMWP?=
- =?us-ascii?Q?Zw=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91ed6371-c465-42ee-1f5a-08da5aa16c93
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5056.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2022 14:04:18.5412
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L5vxLpA8FjH1rw/tAW8CEsO+tDdQA1nyED8JOKEL42MJf7Nfu/7+s7bZfFo4Mi52c0QS64OJH5O5P263s4OJBwADWDPF1LdIGluXou/pYos=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9322
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: scott.davis@starlab.io, jandryuk@gmail.com, christopher.clark@starlab.io,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+References: <20220630022110.31555-1-dpsmith@apertussolutions.com>
+ <20220630022110.31555-4-dpsmith@apertussolutions.com>
+ <9833c7cb-d71d-10a3-f74f-3caf46db3cb4@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v9 3/3] xsm: refactor flask sid alloc and domain check
+In-Reply-To: <9833c7cb-d71d-10a3-f74f-3caf46db3cb4@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+On 6/30/22 02:14, Jan Beulich wrote:
+> Just a two nits - while the change looks plausible, I'm afraid I'm
+> not qualified to properly review it.
+> 
+> On 30.06.2022 04:21, Daniel P. Smith wrote:
+>> The function flask_domain_alloc_security() is where a default sid should be
+>> assigned to a domain under construction. For reasons unknown, the initial
+>> domain would be assigned unlabeled_t and then fixed up under
+>> flask_domain_create().  With the introduction of xenboot_t it is now possible
+>> to distinguish when the hypervisor is in the boot state.
+>>
+>> This commit looks to correct this by using a check to see if the hypervisor is
+>> under the xenboot_t context in flask_domain_alloc_security(). If it is, then it
+> 
+> While (or maybe because) I'm not a native speaker, the use of "looks"
+> reads ambiguous to me. I think you mean it in the sense of e.g. "aims",
+> but at first I read it in the sense of "seems", which made me think
+> you're not certain whether it actually does.
 
-If the "BOOT_CMD" variable is set to "none" inside the config
-file, the boot command (i.e. "booti") will not by added to the
-generated script, to allow the user to customize the u-boot env
-or the device-tree after executing the script commands and before
-actually booting.
+Apologies, "look to" or "looks to" are forms of an American idiom, and
+was used for its meaning of "expected to happen"[1]. I will reword to
+provide a concise version of this statement.
 
-Added commands to store the addresses where the Xen image and
-device-tree file are loaded, in 'host_kernel_addr' and 'host_fdt_addr'
-variables, if the boot command is skipped and the "-s" parameter is
-not used.
+[1] https://idioms.thefreedictionary.com/look+to
 
-The `booti` command can then be executed as part of the 'bootcmd' variable
-in u-boot, which should contain:
-	1. fetching the generated u-boot script
-	2. executing the script
-	3. running `booti ${host_kernel_addr} - ${host_fdt_addr}` command
+>> will inspect the domain's is_privileged field, and select the appropriate
+>> default label, dom0_t or domU_t, for the domain. The logic for
+>> flask_domain_create() was changed to allow the incoming sid to override the
+>> default label.
+>>
+>> The base policy was adjusted to allow the idle domain under the xenboot_t
+>> context to be able to construct domains of both types, dom0 and domU.
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> ---
+>>  tools/flask/policy/modules/dom0.te |  3 +++
+>>  tools/flask/policy/modules/domU.te |  3 +++
+>>  xen/xsm/flask/hooks.c              | 34 ++++++++++++++++++------------
+>>  3 files changed, 26 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/tools/flask/policy/modules/dom0.te b/tools/flask/policy/modules/dom0.te
+>> index 0a63ce15b6..2022bb9636 100644
+>> --- a/tools/flask/policy/modules/dom0.te
+>> +++ b/tools/flask/policy/modules/dom0.te
+>> @@ -75,3 +75,6 @@ admin_device(dom0_t, ioport_t)
+>>  admin_device(dom0_t, iomem_t)
+>>  
+>>  domain_comms(dom0_t, dom0_t)
+>> +
+>> +# Allow they hypervisor to build domains of type dom0_t
+> 
+> Since it repeats ...
 
-Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
----
- README.md                |  5 ++++-
- scripts/uboot-script-gen | 16 +++++++++++++---
- 2 files changed, 17 insertions(+), 4 deletions(-)
+Ack.
 
-diff --git a/README.md b/README.md
-index cb15ca5..b1a9b9d 100644
---- a/README.md
-+++ b/README.md
-@@ -80,7 +80,10 @@ Where:
- 
- - BOOT_CMD specifies the u-boot command used to boot the binaries.
-   By default, it is 'booti'. The acceptable values are 'booti', 'bootm'
--  and 'bootefi'.
-+  and 'bootefi' and 'none'. If the value is 'none', the BOOT_CMD is not
-+  added to the boot script, and the addresses for the Xen binary and the
-+  DTB are stored in 'host_kernel_addr' and 'host_fdt_addr' u-boot
-+  env variables respectively, to be used manually when booting.
- 
- - DEVICE_TREE specifies the DTB file to load.
- 
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index 444c65a..994369c 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -966,7 +966,7 @@ function check_depends()
- 
- function check_boot_cmd()
- {
--    if ! [[ " bootm booti bootefi " =~ " ${BOOT_CMD}" ]]
-+    if ! [[ " bootm booti bootefi none " =~ " ${BOOT_CMD}" ]]
-     then
-         echo "\"BOOT_CMD=$BOOT_CMD\" is not valid"
-         exit 1
-@@ -1255,9 +1255,19 @@ echo "setenv fdt_high 0xffffffffffffffff" >> $UBOOT_SOURCE
- 
- if test "$dynamic_loading_opt"
- then
--    echo "$BOOT_CMD \${host_kernel_addr} - \${host_fdt_addr}" >> $UBOOT_SOURCE
-+    if [ "$BOOT_CMD" != "none" ]
-+    then
-+        echo "$BOOT_CMD \${host_kernel_addr} - \${host_fdt_addr}" >> $UBOOT_SOURCE
-+    fi
- else
--    echo "$BOOT_CMD $kernel_addr - $device_tree_addr" >> $UBOOT_SOURCE
-+    if [ "$BOOT_CMD" != "none" ]
-+    then
-+        echo "$BOOT_CMD $kernel_addr - $device_tree_addr" >> $UBOOT_SOURCE
-+    else
-+        # skip boot command but store load addresses to be used later
-+        echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
-+        echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
-+    fi
- fi
- 
- if test "$FIT"
--- 
-2.35.1
+>> +xen_build_domain(dom0_t)
+>> diff --git a/tools/flask/policy/modules/domU.te b/tools/flask/policy/modules/domU.te
+>> index b77df29d56..73fc90c3c6 100644
+>> --- a/tools/flask/policy/modules/domU.te
+>> +++ b/tools/flask/policy/modules/domU.te
+>> @@ -13,6 +13,9 @@ domain_comms(domU_t, domU_t)
+>>  migrate_domain_out(dom0_t, domU_t)
+>>  domain_self_comms(domU_t)
+>>  
+>> +# Allow they hypervisor to build domains of type domU_t
+>> +xen_build_domain(domU_t)
+> 
+> ... here - s/they/the/ in both places?
 
+Ack.
+
+> Jan
 
