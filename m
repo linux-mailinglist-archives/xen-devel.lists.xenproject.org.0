@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A965D5624C9
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 23:03:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358705.588024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02285624EC
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Jun 2022 23:14:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358711.588034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o71Jx-0003WX-NN; Thu, 30 Jun 2022 21:03:29 +0000
+	id 1o71UT-000597-Nm; Thu, 30 Jun 2022 21:14:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358705.588024; Thu, 30 Jun 2022 21:03:29 +0000
+Received: by outflank-mailman (output) from mailman id 358711.588034; Thu, 30 Jun 2022 21:14:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o71Jx-0003T5-KL; Thu, 30 Jun 2022 21:03:29 +0000
-Received: by outflank-mailman (input) for mailman id 358705;
- Thu, 30 Jun 2022 21:03:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o71UT-00056p-Jc; Thu, 30 Jun 2022 21:14:21 +0000
+Received: by outflank-mailman (input) for mailman id 358711;
+ Thu, 30 Jun 2022 21:14:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HXfy=XF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o71Jw-0003Sw-44
- for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 21:03:28 +0000
+ id 1o71UR-00056j-SY
+ for xen-devel@lists.xenproject.org; Thu, 30 Jun 2022 21:14:19 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 150a8efe-f8b8-11ec-bdce-3d151da133c5;
- Thu, 30 Jun 2022 23:03:26 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9a5f3514-f8b9-11ec-bd2d-47488cf2e6aa;
+ Thu, 30 Jun 2022 23:14:18 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AE37BB82D3B;
- Thu, 30 Jun 2022 21:03:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C71C341C7;
- Thu, 30 Jun 2022 21:03:22 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D8857B82D04;
+ Thu, 30 Jun 2022 21:14:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E10C34115;
+ Thu, 30 Jun 2022 21:14:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,130 +43,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 150a8efe-f8b8-11ec-bdce-3d151da133c5
+X-Inumbo-ID: 9a5f3514-f8b9-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1656623003;
-	bh=NpgX41PYo5zn4S50qz5WRQOVMLgSVQH9jPYuQuHQiuU=;
+	s=k20201202; t=1656623656;
+	bh=VaAsnbF/EFCNrpyEEoBZj7IbJxjprPHTrNMhmwvL5o0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=grEfmkO2WilLd1mTwB1B8FFq8FpqEtIrqrCpzsoxPBad69yojONdgIIw0fiu+FAFo
-	 KSKWzn81uXReJsZOVKJ8pg6Q0rX48A6Y4ED+rH3pRPyxXbg207a/nft+MXzyxoenbq
-	 U1Zq7E/PSaYdPfR5WMKv7RC47Wl4faqJATwqzT8yGuMRc928kDUnoA6Oe1naaKgPGU
-	 HoK447R/ndH1T1gW8TM/KZaJ41UzHhbDoV7JoPE4pn+HkGSbOvf0J6WQwycZSYQNNu
-	 +Htimb3AVBqzjX/TomaCzrlM8bgdwj3lIeHXvTh+nrzRAgdetrZnV0dgP3Am0oJBWm
-	 I0d0yUR5wMSDw==
-Date: Thu, 30 Jun 2022 14:03:21 -0700 (PDT)
+	b=DMZPmMGkAXgUZJpWafB5CO0Q4LvcpIqN8atvkiKaJzgNXYcB6jky4BWJPaTeQ2Te+
+	 TevfuylY0LmNCqAWTUBZ2zZrjJ8RPNyNbQrqFJdaMyVFy0I/qQhSY05GXTYYxmCD/i
+	 T53I73xFLlzE9idfO/fdpipC9HYmNMsjRV3Y4Sha6v9m9EZK90Z5HfV3wT+CSQm6uO
+	 pY7fqKQuluHnbz8Q3/0zlluSslv3xwbzhlZsBEf09mGjb17B6mdj6pCNHv/IV5twcL
+	 AarIOBqL/Q9++tuqwYPijmxtu+Y7MS43KToZTtooX6/UP8nB3c5nSmJwZPhHISDUDs
+	 JqT1/GeECz+hg==
+Date: Thu, 30 Jun 2022 14:14:14 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Luca Fancellu <Luca.Fancellu@arm.com>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, 
-    Elena Ufimtseva <elena.ufimtseva@oracle.com>, Tim Deegan <tim@xen.org>, 
-    Daniel De Graaf <dgdegra@tycho.nsa.gov>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Juergen Gross <jgross@suse.com>, 
-    Christian Lindig <christian.lindig@citrix.com>, 
-    David Scott <dave@recoil.org>
-Subject: Re: [XEN PATCH v3 25/25] tools: Remove -Werror everywhere else
-In-Reply-To: <6CA16D2D-8AD6-415A-A98D-00B27F91C4DA@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2206301348380.4389@ubuntu-linux-20-04-desktop>
-References: <20220624160422.53457-1-anthony.perard@citrix.com> <20220624160422.53457-26-anthony.perard@citrix.com> <BF28045C-0848-4B5A-8DAB-57192C7B4A18@arm.com> <alpine.DEB.2.22.394.2206291019550.4389@ubuntu-linux-20-04-desktop>
- <6CA16D2D-8AD6-415A-A98D-00B27F91C4DA@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    "dmitry.semenets@gmail.com" <dmitry.semenets@gmail.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Dmytro Semenets <dmytro_semenets@epam.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen: arm: Don't use stop_cpu() in halt_this_cpu()
+In-Reply-To: <14736B47-2F17-4684-9162-17C3E55F8D15@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2206301404410.4389@ubuntu-linux-20-04-desktop>
+References: <20220623074428.226719-1-dmitry.semenets@gmail.com> <alpine.DEB.2.22.394.2206231457250.2410338@ubuntu-linux-20-04-desktop> <e60a4e68-ed00-6cc7-31ca-64bcfc4bbdc5@xen.org> <alpine.DEB.2.22.394.2206241414420.2410338@ubuntu-linux-20-04-desktop>
+ <5c986703-c932-3c7d-3756-2b885bb96e42@xen.org> <alpine.DEB.2.22.394.2206281538320.4389@ubuntu-linux-20-04-desktop> <26a1b208-7192-a64f-ca6d-c144de89ed2c@xen.org> <alpine.DEB.2.22.394.2206291014000.4389@ubuntu-linux-20-04-desktop>
+ <14736B47-2F17-4684-9162-17C3E55F8D15@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-516487629-1656622670=:4389"
-Content-ID: <alpine.DEB.2.22.394.2206301358060.4389@ubuntu-linux-20-04-desktop>
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-516487629-1656622670=:4389
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2206301358061.4389@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 30 Jun 2022, Bertrand Marquis wrote:
-> > On 29 Jun 2022, at 18:22, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > 
-> > On Wed, 29 Jun 2022, Luca Fancellu wrote:
-> >> + CC: Stefano Stabellini
-> >> 
-> >>> On 24 Jun 2022, at 17:04, Anthony PERARD <anthony.perard@citrix.com> wrote:
+> > On 29 Jun 2022, at 18:19, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > On Wed, 29 Jun 2022, Julien Grall wrote:
+> >> On 28/06/2022 23:56, Stefano Stabellini wrote:
+> >>>> The advantage of the panic() is it will remind us that some needs to be
+> >>>> fixed.
+> >>>> With a warning (or WARN()) people will tend to ignore it.
 > >>> 
-> >>> Patch "tools: Add -Werror by default to all tools/" have added
-> >>> "-Werror" to CFLAGS in tools/Rules.mk, remove it from every other
-> >>> makefiles as it is now duplicated.
+> >>> I know that this specific code path (cpu off) is probably not super
+> >>> relevant for what I am about to say, but as we move closer to safety
+> >>> certifiability we need to get away from using "panic" and BUG_ON as a
+> >>> reminder that more work is needed to have a fully correct implementation
+> >>> of something.
+> >> 
+> >> I don't think we have many places at runtime using BUG_ON()/panic(). They are
+> >> often used because we think Xen would not be able to recover if the condition
+> >> is hit.
+> >> 
+> >> I am happy to remove them, but this should not be at the expense to introduce
+> >> other potential weird bugs.
+> >> 
 > >>> 
-> >>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> >>> I also see your point and agree that ASSERT is not acceptable for
+> >>> external input but from my point of view panic is the same (slightly
+> >>> worse because it doesn't go away in production builds).
 > >> 
-> >> Hi Anthony,
-> >> 
-> >> I will try to review the serie when I manage to have some time, in the mean time I can say the whole
-> >> serie builds fine in my Yocto setup on arm64 and x86_64, I’ve tried also the tool stack to
-> >> create/destroy/console guests and no problem so far.
-> >> 
-> >> The only problem I have is building for arm32 because, I think, this patch does a great job and it
-> >> discovers a problem here:
+> >> I think it depends on your target. Would you be happy if Xen continue to run
+> >> with potentially a fatal flaw?
 > > 
-> > That reminds me that we only have arm32 Xen hypervisor builds in
-> > gitlab-ci, we don't have any arm32 Xen tools builds. I'll add it to my
-> > TODO but if someone (not necessarily Luca) has some spare time it could
-> > be a nice project. It could be done with Yocto by adding a Yocto build
-> > container to automation/build/.
+> > Actually, this is an excellent question. I don't know what is the
+> > expected behavior from a safety perspective in case of serious errors.
+> > How the error should be reported and whether continuing or not is
+> > recommended. I'll try to find out more information.
 > 
-> We have now a way to build and run xen for arm32 on qemu using Yocto.
-> We are using this internally and also will test Xen with guests on arm32 using this soon.
+> I think there are 2 answers to this:
+> - as much as possible: those case must be avoided and it must be demonstrated that they are impossible and hence removed or turn the system in a failsafe mode so that actions can be handle (usually reboot after saving some data)
+> - in some cases this can be robustness code (more for security)
 > 
-> I am upstreaming to meta-virtualisation all the fixes needed for that so it should be fairly straight forward do reproduce this in Yocto build in a container.
+> I think in our case that if we know that we are ending in a case where the system is unstable we should:
+> - stop the guest responsible for this (if a guest is the origin) or return an error to the guest and cancel the operation if suitable
+> - panic if this is internal or dom0
 > 
-> Please tell me what you need and I will try to provide you a set of scripts or instructions do reproduce that on gitlab.
-
-That would be great!
-
-We need two things:
-
-- a Yocto build container
-- a build script
+> A warning informing that something not supported was done and ending in an unexpected behaviour is for sure not acceptable.
 
 
-The build container would be something like:
-automation/build/debian/unstable-arm64v8.dockerfile. It is a Dockerfile
-to create a container with Yocto and all required dependencies. It could
-be based on Debian arm64. The build container is only built once and
-pushed to the gitlab registry, but it is executed every time a gitlab
-pipeline is started.
+Let's say that we demonstrate that a problematic case is impossible, can
+we still have a panic in the code? For instance:
 
-We probably want the meta layers to be pulled as part of the build
-container build (git clone from the Dockerfile) because otherwise we
-would end up git cloining them every time we run a gitlab-ci pipeline,
-slowing everything down.
+ret = firmware_call();
+if (ret)
+    panic();
+
+We know ret is always zero unless firmware is buggy or not
+spec-compliant. Can the panic() still be present?
 
 
-The build script is the script executed in the build container for every
-pipeline.
-
-Imagine you have a container "yocto-arm32", basically we want to do:
-
-# docker run yocto-arm32 build.script
-
-where build.script is the script that actually triggers the Xen build
-and produces the binary output.
-
-The current build script is automation/scripts/build; it is used for all
-build containers (all of them, from Debian to Fedora and Alpine) but it
-is probably not suitable to be used for Yocto.  It simply calls
-./configure; make; make install. It is more for normal distros.
-
-I imagine that the build script for Yocto would call bitbake.
+And/or do we need to replace all instances of "panic" with going into
+"failsafe mode", which saves state and reboots so it is not so
+dissimilar from panic actually?
 
 
-With the build container Dockerfile and the build script it becomes
-very simple to add Yocto arm32 to gitlab-ci.
+In case of guest-initiated unexpected errors we already try to crash the
+guest responsible and not crash the entire system because it is also a
+matter of security (possible DOS). That is clear.
 
-I realize that the actual build could be done on both arm64 or x86.
-Currently the arm32 hypervisor-only cross-build is done on x86. See
-automation/build/debian/unstable-arm32-gcc.dockerfile. Either way is OK.
---8323329-516487629-1656622670=:4389--
+So it is other kind of unexpected errors, mostly due to hardware or
+firmware unexpected behavior or Xen finding itself in state of a state
+machine that should be impossible. Those are the ones we don't have a
+clear way to proceed.
 
