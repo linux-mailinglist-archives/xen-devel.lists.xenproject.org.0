@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2C7562ABD
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 07:13:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358836.588210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 039B9562ABE
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 07:13:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358839.588221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o78xU-0006ES-O8; Fri, 01 Jul 2022 05:12:48 +0000
+	id 1o78yI-0006jx-29; Fri, 01 Jul 2022 05:13:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358836.588210; Fri, 01 Jul 2022 05:12:48 +0000
+Received: by outflank-mailman (output) from mailman id 358839.588221; Fri, 01 Jul 2022 05:13:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o78xU-0006Bo-LM; Fri, 01 Jul 2022 05:12:48 +0000
-Received: by outflank-mailman (input) for mailman id 358836;
- Fri, 01 Jul 2022 05:12:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o78yH-0006hX-Us; Fri, 01 Jul 2022 05:13:37 +0000
+Received: by outflank-mailman (input) for mailman id 358839;
+ Fri, 01 Jul 2022 05:13:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=s4Ct=XG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1o78xS-0006Bi-Vm
- for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 05:12:47 +0000
+ id 1o78yG-0006g9-C7
+ for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 05:13:36 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 710b5d00-f8fc-11ec-bdce-3d151da133c5;
- Fri, 01 Jul 2022 07:12:45 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8e3129ec-f8fc-11ec-bd2d-47488cf2e6aa;
+ Fri, 01 Jul 2022 07:13:34 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1CBA71F9B6;
- Fri,  1 Jul 2022 05:12:45 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 349C81F9B6;
+ Fri,  1 Jul 2022 05:13:34 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E06C4139E9;
- Fri,  1 Jul 2022 05:12:44 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0199D139E9;
+ Fri,  1 Jul 2022 05:13:33 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Dq5WNUyCvmJ7fgAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 01 Jul 2022 05:12:44 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id fTkfOn2CvmKufgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 01 Jul 2022 05:13:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,73 +51,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 710b5d00-f8fc-11ec-bdce-3d151da133c5
+X-Inumbo-ID: 8e3129ec-f8fc-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1656652365; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1656652414; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=OAEh6bPMfjd7sLPj2eMiKgaZZ4+I9y9e581rRyYe51g=;
-	b=HbB3AOIMibkXhJDUZxB5XnkrpYOIOaPDNBwM1Ov6cTQOW9dyWBYyiv0WMckPzpMbOpe1vj
-	uzKsScnP76wJ1g3uv/s8LvDj3p4WWzz9eqzGK0goi8iSERnNeQ44js5jNGIuBI8oM61R8q
-	cD5P7oZlhPPHlGwU/GzsXd011XhHAjE=
-Message-ID: <8f7224dd-72a7-d690-54da-98790d4a6153@suse.com>
-Date: Fri, 1 Jul 2022 07:12:44 +0200
+	bh=c4tgpwUfFuaroKJMxuhzxSG5SGxV/r5LwiMxraJ28yk=;
+	b=IFjs59x+7Fc/PebFdupeIftX3bgKlL60ZHecy6sETUQbjbYO3Y29U7bU/l39qM52tmSUc/
+	1Q+KYe8bXQzANKTU4FUlBjFrtKff68GBWVP36JgFewFx0fmWMyO/yr742FYA5iStEVzypj
+	8fgqyq3kGn9iu/opWfypvmGZED7GyC0=
+Message-ID: <dc57c0a4-899b-a76b-6adc-cf5947beeb8b@suse.com>
+Date: Fri, 1 Jul 2022 07:13:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Subject: Re: [PATCH v3] public/io: xs_wire: Document that new errors should be
  added at the end
 Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>, Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "jbeulich@suse.com" <jbeulich@suse.com>, Julien Grall <jgrall@amazon.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, Julien Grall <jgrall@amazon.com>
 References: <20220630183655.44391-1-julien@xen.org>
- <AS8PR08MB79915165082E112C7631801892BD9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <AS8PR08MB79915165082E112C7631801892BD9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+In-Reply-To: <20220630183655.44391-1-julien@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------506yOU8mgELDYMTGMVthC7Yd"
+ boundary="------------ywmOAaGtReiFWWf6CTU1H2Tz"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------506yOU8mgELDYMTGMVthC7Yd
-Content-Type: multipart/mixed; boundary="------------C9E0Lsh400j6596UmHskFmkp";
+--------------ywmOAaGtReiFWWf6CTU1H2Tz
+Content-Type: multipart/mixed; boundary="------------LM5A4AMuEmQIKy3vjnX0rXJK";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Henry Wang <Henry.Wang@arm.com>, Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "jbeulich@suse.com" <jbeulich@suse.com>, Julien Grall <jgrall@amazon.com>
-Message-ID: <8f7224dd-72a7-d690-54da-98790d4a6153@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, Julien Grall <jgrall@amazon.com>
+Message-ID: <dc57c0a4-899b-a76b-6adc-cf5947beeb8b@suse.com>
 Subject: Re: [PATCH v3] public/io: xs_wire: Document that new errors should be
  added at the end
 References: <20220630183655.44391-1-julien@xen.org>
- <AS8PR08MB79915165082E112C7631801892BD9@AS8PR08MB7991.eurprd08.prod.outlook.com>
-In-Reply-To: <AS8PR08MB79915165082E112C7631801892BD9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+In-Reply-To: <20220630183655.44391-1-julien@xen.org>
 
---------------C9E0Lsh400j6596UmHskFmkp
-Content-Type: multipart/mixed; boundary="------------3zbkpAQ3Vkvxc0alUooTta0t"
+--------------LM5A4AMuEmQIKy3vjnX0rXJK
+Content-Type: multipart/mixed; boundary="------------0LT7VvJH7HKHRyqc1HmsVMyJ"
 
---------------3zbkpAQ3Vkvxc0alUooTta0t
+--------------0LT7VvJH7HKHRyqc1HmsVMyJ
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDEuMDcuMjIgMDQ6MTksIEhlbnJ5IFdhbmcgd3JvdGU6DQo+IEhpIEp1bGllbiwNCj4g
-DQo+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4gU3ViamVjdDogW1BBVENIIHYz
-XSBwdWJsaWMvaW86IHhzX3dpcmU6IERvY3VtZW50IHRoYXQgbmV3IGVycm9ycyBzaG91bGQg
-YmUNCj4+IGFkZGVkIGF0IHRoZSBlbmQNCj4+DQo+PiBGcm9tOiBKdWxpZW4gR3JhbGwgPGpn
-cmFsbEBhbWF6b24uY29tPg0KPj4NCj4+IFNvbWUgdG9vbHMgKGUuZy4geGVuc3RvcmVkKSBh
-bHdheXMgZXhwZWN0IEVJTlZBTCB0byBiZSBmaXJzdCBpbiB4c2RfZXJyb3JzLg0KPj4NCj4+
-IFRvIGJlIGNvbnNlcnZhdGl2ZSwgbWFuZGF0ZSB0aGF0IG5ldyBlcnJvcnMgc2hvdWxkIGJl
-IGFkZGVkIGF0IHRoZSBlbmQNCj4+IG9mIHRoZSBhcnJheS4NCj4+DQo+PiBTaWduZWQtb2Zm
-LWJ5OiBKdWxpZW4gR3JhbGwgPGpncmFsbEBhbWF6b24uY29tPg0KPiANCj4gV2hpbGUgdGhl
-IGNoYW5nZSBpcyBsb29raW5nIGdvb2QsIGp1c3QgRllJIHRoZXJlIGlzIGFuICJFUlJPUiIg
-c2VjdGlvbiBpbg0KPiAveGVuL2RvY3MvbWlzYy94ZW5zdG9yZS50eHQgdGhhdCBwb2ludHMg
-dG8gdGhlIGlvL3hzX3dpcmUuaC4gWW91IG1heQ0KPiB3YW50IHRvIGFkZCBzb21ldGhpbmcg
-dGhlcmUgKHRoYXQgZGVwZW5kcyBvbiB5b3VyIG93biB0YXN0ZSA6KSkgKQ0KDQpUaGlzIGRv
-Y3VtZW50YXRpb24gaXMgbWVhbnQgZm9yIHVzZXJzIG9mIFhlbnN0b3JlLCBub3QgZm9yIGhv
-dyB0byBtb2RpZnkNCml0LiBJIHRoaW5rIHRoZSBjb21tZW50IGlzIGFsbCB3aGF0IHNob3Vs
-ZCBiZSBhZGRlZC4NCg0KDQpKdWVyZ2VuDQo=
---------------3zbkpAQ3Vkvxc0alUooTta0t
+T24gMzAuMDYuMjIgMjA6MzYsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gRnJvbTogSnVsaWVu
+IEdyYWxsIDxqZ3JhbGxAYW1hem9uLmNvbT4NCj4gDQo+IFNvbWUgdG9vbHMgKGUuZy4geGVu
+c3RvcmVkKSBhbHdheXMgZXhwZWN0IEVJTlZBTCB0byBiZSBmaXJzdCBpbiB4c2RfZXJyb3Jz
+Lg0KPiANCj4gVG8gYmUgY29uc2VydmF0aXZlLCBtYW5kYXRlIHRoYXQgbmV3IGVycm9ycyBz
+aG91bGQgYmUgYWRkZWQgYXQgdGhlIGVuZA0KPiBvZiB0aGUgYXJyYXkuDQo+IA0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBKdWxpZW4gR3JhbGwgPGpncmFsbEBhbWF6b24uY29tPg0KDQpSZXZpZXdl
+ZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
+
+--------------0LT7VvJH7HKHRyqc1HmsVMyJ
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -175,25 +163,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------3zbkpAQ3Vkvxc0alUooTta0t--
+--------------0LT7VvJH7HKHRyqc1HmsVMyJ--
 
---------------C9E0Lsh400j6596UmHskFmkp--
+--------------LM5A4AMuEmQIKy3vjnX0rXJK--
 
---------------506yOU8mgELDYMTGMVthC7Yd
+--------------ywmOAaGtReiFWWf6CTU1H2Tz
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK+gkwFAwAAAAAACgkQsN6d1ii/Ey8y
-rAf/ZBmKWK4BHf+W4+ZCxIPAvV5JczlWSmGxzg7eLP03/ZxxLMTMPgsP2R73ErMLFDLFe71JNoRE
-6KUIBkICdggIz9/8cNE3Ib3lZ1sVyAsc05iobX8DVbQl6S4mEi6NWGyy5YWJ8MTsCOwusRi25LUN
-TOWXsWzyYAXz5qbX8SBGUmZNfRRJ/WQSD4L1FRAS7fE4NpDiobwatVkIBRy8ja2AA+SCDm7inWlI
-htppR2W52fh3kLLkTt3nrYC9Vrp7ZYPkq1dhkbT1BW7Y9i4spE3TcTvKCHc/IWfiHiEF0QVVjHcF
-+JpV69MIjUIcimORVJzMgnKzRNQbuJZ+kUnmqybCyA==
-=ivXW
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmK+gn0FAwAAAAAACgkQsN6d1ii/Ey+p
+kgf/bxd2qJEMyKWbl/72+vZfZtH7sJUuwI34Yph9hcm3MTu+3trkNonwUOoAroaeGs1UVobghhfc
+cgBnym1Usdb9Nz1Py1/gza0IaFBCdRM3TK/V7kaswZpoeFXAr2InX2wbe2+E5/rZyl9mSkipbuvf
+DluUB47N1ny3K9030nUa+hZdzu9EqKy8pgBvjhY5zI1sdP0S723j+WUHt3pTuIbKCeNgvj2/makt
+U6AeFiqAG5JofP4HgDB7fDsBUoI2dzrG5hL8OxnoPXghPXzbom19TXxxWNnJQeYDPLILtxp7lGD2
+DjJ2G3/B7I22IQLGr8rXnOY7g1wHrr2LIcGttvDhEg==
+=m5sR
 -----END PGP SIGNATURE-----
 
---------------506yOU8mgELDYMTGMVthC7Yd--
+--------------ywmOAaGtReiFWWf6CTU1H2Tz--
 
