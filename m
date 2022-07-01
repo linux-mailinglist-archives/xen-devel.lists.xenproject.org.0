@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A59C4562B20
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 07:57:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.358873.588276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBFAE562B2C
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 08:02:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.358882.588287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o79eM-0005dj-Mx; Fri, 01 Jul 2022 05:57:06 +0000
+	id 1o79je-0007PZ-Ad; Fri, 01 Jul 2022 06:02:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 358873.588276; Fri, 01 Jul 2022 05:57:06 +0000
+Received: by outflank-mailman (output) from mailman id 358882.588287; Fri, 01 Jul 2022 06:02:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o79eM-0005bx-Ir; Fri, 01 Jul 2022 05:57:06 +0000
-Received: by outflank-mailman (input) for mailman id 358873;
- Fri, 01 Jul 2022 05:57:05 +0000
+	id 1o79je-0007M6-7B; Fri, 01 Jul 2022 06:02:34 +0000
+Received: by outflank-mailman (input) for mailman id 358882;
+ Fri, 01 Jul 2022 06:02:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/an7=XG=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o79eK-00054g-Pm
- for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 05:57:05 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60079.outbound.protection.outlook.com [40.107.6.79])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a15425f9-f902-11ec-bdce-3d151da133c5;
- Fri, 01 Jul 2022 07:57:03 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB5725.eurprd04.prod.outlook.com (2603:10a6:803:e3::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15; Fri, 1 Jul
- 2022 05:57:02 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5395.015; Fri, 1 Jul 2022
- 05:57:02 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0qQD=XG=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1o79jc-0007M0-JW
+ for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 06:02:32 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 641faf2b-f903-11ec-bdce-3d151da133c5;
+ Fri, 01 Jul 2022 08:02:30 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id D0C335C0144;
+ Fri,  1 Jul 2022 02:02:29 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Fri, 01 Jul 2022 02:02:29 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 1 Jul 2022 02:02:29 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,239 +43,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a15425f9-f902-11ec-bdce-3d151da133c5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UT70/g+7z5qoQZvu+iWZn2LAHQeUh8X6Vz2tMQpSwQx97oH/UN0R9b/gR0OpM2dtLUjh4MfgXpiWBhgI7QEwyJk85jTxGSBNP12Hi5xDfnZcXEOy2NcDE8UY6rLXafqhHnqLpL4ZANt6mfyKcsn28lgtxAo4V+PRCBS9KeZ9BHilYdOuQTcYSRxbprH9/MZOqW+nhKWzCIk5K6j2Hf5blkNmf/VU263sOTMsQC7P75dYLfzLsGVWMycodUI2zmHMG4HKoZDoK/Y8nPK6jCCiRLN5SZ0UwGDFkghM+lyH70ILBRiZD+1LPDePCCKLs11zn4LyeBmtKoZ6CXOsDkI5mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o0vK/qRqt325EZ3GylagHyiXxlo7b/3gIWQjsC/HXt8=;
- b=aIzLCPt8pfnu55wgpLVkDBh1WkbGclW4+ftLuL44Zxo9b9TS3w+tzdtiaqW8TIo09iZQUYBtGPJxE7JfQsCO9dV7TRC191Hzo9Z5euICx98PNMYFF58wy2SLlqJaPxRFh4O++NX8XK3ONXyKwkLGJQyGVrXQJKcx/AtGDpHB7ufIsP9LULkNl4J0LIWZTZb86AjiskS7nNr11+FgprpnWXDXXCky6+EfIj8sz8i5BaYE+CdyLF9QHS6PGqK6jXJkdYAVjwg8rjjJHJ17bsJqbp1vjhHSdhgr3lryCgCqYBpyZ7G7xlC/EVf1bzOKWh2myaslFPjj/eiXhXUE44rUpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o0vK/qRqt325EZ3GylagHyiXxlo7b/3gIWQjsC/HXt8=;
- b=3vu9o1TCUrBwtrSELGRG6hS0HIZikFCbqZytcJg1jGkPFOlFZ8YcCFGPgsjPdzsh217MSf6p3G9Ic6weOkbwm2Ct7LxpLIV6c6z2FseO2fm7jVcMZjbxzWhMPFCSl4lFxtfgFqdJv68K4ecgdQvEq9k/klrsmmVUkTguuNX7ZkJVX8Rr6gToKfSwBSQGN3I52AmYkPeq5aSdqCj3T9O1z4F5HShKOJmmZviAn0jqOXA5cXmdrUPowOjQ+nvd0MOEawygB9rKn7GkeitVMZihe0zb0+/DY5iqTRYbAKGoCeyYgaAl7PX5lgfFYcWZ59/Y6+XtlUxRzqXU0Fqu1wErog==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <6558cefb-8541-0411-871c-939d6a4e223c@suse.com>
-Date: Fri, 1 Jul 2022 07:57:00 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [PATCH v6 1/8] xen: reuse x86 EFI stub functions for Arm
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: Wei Chen <Wei.Chen@arm.com>
-Cc: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Jiamei Xie <Jiamei.Xie@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien@xen.org>
-References: <20220610055316.2197571-1-wei.chen@arm.com>
- <20220610055316.2197571-2-wei.chen@arm.com>
- <05dadcda-505d-d46a-776a-bb29b8915815@suse.com>
- <PAXPR08MB74205A192C0E6E2E4BDD64BB9EB49@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <8e44e765-c47f-4480-ee44-704ea13a170d@xen.org>
- <cd5d728c-a21e-780e-3b79-0cfb163eb824@suse.com>
- <a6844d62-c1aa-a29f-56ba-3556bc1d4dac@xen.org>
- <6e91d7d0-78d2-2eec-3b14-9aea00b2a028@suse.com>
- <bad83568-94c6-6d90-308b-ae9965f54754@suse.com>
- <PAXPR08MB7420AD8092F0FBA43C359DD19EBA9@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <1d488f5d-bfd3-a816-dab1-515f49a57f67@suse.com>
-In-Reply-To: <1d488f5d-bfd3-a816-dab1-515f49a57f67@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0079.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 641faf2b-f903-11ec-bdce-3d151da133c5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1656655349; x=
+	1656741749; bh=wYH+5idjnaYEDi0fQMCML0U5b5ym8CcDG6Nq6PKCwGg=; b=a
+	ub/cYtRrhu/KE9H92XuMWeCHUn3gq5JAgpWIqwV0SlcV8lqluiEdt+0X7ElruGr+
+	EQlPkHv6YYtZ3Z4nUHTOzbRJqZtA/xPLoZ98diRlH0BASm7CjAmocmCClwFxRd4R
+	/ZxVq5g2BRAgiAa4O21tMi5OowrtddnwSKmqnkhq/WTH1nQagFvAslZwNL7MdW+b
+	DenjsLYpjWVxo7Q2JPB1abV+R5WsUIrQfQTffe0NQmLFHpr/iQxGLxkpihPSDWP3
+	p+2oYR7PFtYgwjKnEPoIFMjXYj15Ozkej0JkKNF3DJkMBv1bKPrA9/l+VRXcj33i
+	PMliC6DYaCEpz/nEM+j4A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1656655349; x=1656741749; bh=wYH+5idjnaYEDi0fQMCML0U5b5ym
+	8CcDG6Nq6PKCwGg=; b=voxQ6KijTNSqKElS77lVhi2EzhwTGMm5wUQB/aebD0cb
+	S0LYqPdhN6fW8C/AhJsvaF4n6iP8tReMtCF4s3pVFF0oRW2U2WTcV0fmmajrgKhL
+	MW/qIM0okoQ24NP2/TsbWb3va9LSiCjmwsPHEa6Xzmel9AjZvCbJGH7dbY4JXAj2
+	OW75b/CPAlQUJ1tPrgPz7SqR7FpjA1idKlrcYlF0K1RTgrq75NFWCuETf9C7Q/6D
+	0vysx//asA57G8xbdwbm4ebPji49T3uwwGoj1eGyJTZzSueNkMZenJ//JnlOlbjB
+	CoP1eOp2e65QVCY7JcKfqi6VaqqByTBd7BKLXv7i8A==
+X-ME-Sender: <xms:9Y2-Yh3N8RsIolle5VjJfjGSz9zr2HTdZOr_FFTnMqYdaH0mFWup5w>
+    <xme:9Y2-YoF_7qjluxbX-ZKGCSevjXfIn9f8zsOote0AAKiokO32DdlSk4AfXx_ALMbqI
+    tQ2OKZTDVtDcsA>
+X-ME-Received: <xmr:9Y2-Yh6IZpR3SI2zFHi5EfK6c9EBzSI60Qy-22lo8f6FbdnVgPo8GY_cLkYl>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudehvddguddthecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptdeigeehudegjeelteehveehveef
+    ieehiefhfefgtdduhfdtjedtkeevffefteffnecuffhomhgrihhnpehgihhthhhusgdrtg
+    homhdpkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
+    pehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
+    homh
+X-ME-Proxy: <xmx:9Y2-Yu1UfhIp9Uy4MO83p3HgBiSLVUgA4iIVpkA5eCNHQlkt-1h2PQ>
+    <xmx:9Y2-YkHb1mxCEcITaxRc1lcsHsVH-oJYx2PoghylsHVtlDec0RZM2w>
+    <xmx:9Y2-Yv9cSl9TvvLwzbhFcpV__IKxil6mWFDzM3ViMMwNke1fS_upbg>
+    <xmx:9Y2-YuMwoG2nVwbTogm4yVVZDMQnt9m62oqU8w1pF3mYkzNl_9pRTw>
+Feedback-ID: iac594737:Fastmail
+Date: Fri, 1 Jul 2022 02:02:26 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>, Greg KH <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 5.10] xen/gntdev: Avoid blocking in unmap_grant_pages()
+Message-ID: <Yr6N87QcWTm9SAwR@itl-email>
+Mail-Followup-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	Juergen Gross <jgross@suse.com>,
+	Greg KH <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+References: <20220627181006.1954-1-demi@invisiblethingslab.com>
+ <Yr2KKpWSiuzOQr7v@kroah.com>
+ <5136812e-e296-4acb-cafd-f189c4013ed3@suse.com>
+ <Yr3VQaM0NBcIV2Kl@itl-email>
+ <1c3bfe41-b86d-660c-6ccf-17777d1a5801@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 60c4aa78-f9a6-458f-5b47-08da5b2684c2
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5725:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	hcSf2eOajcDbU8XARu0Z+0pWTvnGXaPCe9i1N+5DinMkBdTQHpV3tykU4yZqcm8AINNNsXTY7XUjIx41rexyIXyUPXf4EDrrj7El9rYof2LYpYOn7R5ljIuoaCBKs4trVnuAbaZO2jYU0X1WqDNeRRiKjHKf0LindiD+BDgOyrBluDSzsfiJwShGphBKgMQtijeghLlqIOP68Qm0J1LP1e4Ft+NN434qvtFOrv+gf/8aPaJuscq3xiqWL33p+nlfQICOT/eKebcEg6yeRdIusA59dhqSe0a4aZENhElUFt39oSXRMQqahdMsYbL4x1V/P20DUM08TGWqvOp7ghLbU3AaafjFq+kOHClovvzLVpb3ekyPppMpOcRNaBpjQJlIt6m2Dlki0Rqjdh8gsuP+V030YsOoRnOpFx9K7G/5seIrWw4Uv50XDYlNRvJCrVeKVNt3bqfhABzaCdiiwBYoiHMdEuy66FWhhKlG6erb3o7MMHQMommcgTwxE3eH2li1H2zCh2ajlTJQ0P1VSXLCQaIfUzmWntUtSNsKK9KQP0X25Zqm4xKFMUsSYHlZRKQ5mxP53hELG0+c+Cria4BDyB0bQ6ycPN7bSCqSyRC/lDpETuN6PCZ0hKRft0eWmyoEXQNoq3zACarbfH7JRiKyzpoi/LaweiOSd0jb4eJbwHdqwD4vCa2ZIWCAiY+B6RSpoViscS4bTPwiR79j/q81w48jE3RWM8aGTJKMudaiMAjWAwAh1qFoyYskb9mlHlBQp6NNxVatGH7YtpmuMrd/iX+hHcyKNzm6r5RlEFkilVscucueeQdeBSAgqs1xrAigN14XjjfwcDtycneRb1KT1NqwXfJdxKbxROrErpUUPxc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(366004)(346002)(39860400002)(396003)(136003)(31696002)(86362001)(6506007)(38100700002)(316002)(66946007)(4326008)(8676002)(66556008)(66476007)(54906003)(2906002)(6862004)(8936002)(5660300002)(26005)(7416002)(186003)(2616005)(83380400001)(478600001)(6512007)(6486002)(53546011)(31686004)(41300700001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T09Hb0FhYTc4VzNaOGhYUEx6azlVYXNST000YWZTc295K2ppUGpoSjFsVW14?=
- =?utf-8?B?NUFJdTczMktaMDE5Q3hBeTBZWkd3WW41Y2tkU0x2Zmh5VHB5ekpJZVN6Y0U3?=
- =?utf-8?B?Q3BQdjVxRVhkL1JDejRLKzZZdlQ0ZGlEVWEwQXVUbVNUdEgzZEVCalltQlI4?=
- =?utf-8?B?b3BWUm5YQXYvWUQ4KzRRSTlyb3FJaDB6YjlBNDZQU1NuRHBxZGVHZXZ1d3Bj?=
- =?utf-8?B?aXhVWU9iMGw2U3o4NGU5enVJQ1lITis4cE9FWDhDVU5qSzNUR1R1NHdpMkJH?=
- =?utf-8?B?RlVjamdmUkZTTjV2ZFFoZU9wVEhoY1ZJRXRoUDlWSlpIRHhtcUlTZ0dPSS8y?=
- =?utf-8?B?bzREUE9YZWsxTGp1Mm1lUTIzc29yc0pSZTlOYjJvRmt3S1JyMEhyL3pyYy9L?=
- =?utf-8?B?d056cCtHYThGMmNSVXdnUVFhaythcGYrc2g3NExveEUwckR4eTdUNXZFaEJt?=
- =?utf-8?B?TTZPTlcvM1FLUXArQWxSLy9nbHBlamVxOG1FSTJkcEJrNVhPV2t4UkE1Z1Fi?=
- =?utf-8?B?bkR5WFNBTElmN3RRK1BDNERVQ1hveXI3alc3M1Vja3hQS2krMm56NTdWNnBh?=
- =?utf-8?B?d3JxaXNYY1kzbms3djQrSDZwRmEyREpiV2Jsc01mRzF3cnBSTEpnK1JIYzFx?=
- =?utf-8?B?ZnFlSks3b1V2bjhCS0NGK0hLN0VDN2tiYjhCbW94T0IrVnBYTzdmTmZDL0hW?=
- =?utf-8?B?NkxFL2NHYnhVRWE0UG45VkxtY2lQeFVSNU1uZk4wT29BY21OVTZFRVpiU0pn?=
- =?utf-8?B?OWdsOHY2cFM3ZmJpTVhZSjI1bnFLTEQ2N2R5ZFZXRzdmQjlTMldEc3h3MktR?=
- =?utf-8?B?ejNIWEpnTHRCOXlLOXQ4K0drbEFzVy83ZGRRMDNGSUdWRytKQk5aN2NCTjNw?=
- =?utf-8?B?OWVwMnlQcytLdUZqcDBSR00rZ2pVNzZRT1Z4RHE5Zk90UGgyQlhNSEp5R1FJ?=
- =?utf-8?B?dUF3cnhzUEhaWWZxaEFCMW4zUllzVGQ5K1VpN0VlWWlCWHBFZHZVaTYxcFZL?=
- =?utf-8?B?TEw4REVJbW9TU3pBMTViVnEzVGtCbndXQi9HMHl4enhRcytDKzF0cW9IQ3NI?=
- =?utf-8?B?U0ZpTkdZVHZRYmxjZHFBaU9MOUdqbnBodXk4NVM5Wml0T3ZGQ3F3QXYrb0hI?=
- =?utf-8?B?c0YrMG5vMWMwakFlRTVtTWpJTzBIR2dMRmZmb2YyeXp6bVY3QkVnYi9MYjhH?=
- =?utf-8?B?dGNrRm1aMDg1a1IwbktRbmkyQXo0b0ZqT0Q1SEVVQWZYcjUreFpXZ3hRUmVE?=
- =?utf-8?B?SzdDL0o4NW14N05DeWRGVUNDeEthb0NKeENGZjFNQTNaUTF1S0YxQVpMTWVO?=
- =?utf-8?B?SkRHZmJHRURzMkxFditVZ3FKQ1VJK3pLc21JOUZuUGFWQ1VLRmFwdFdpcmdv?=
- =?utf-8?B?cVRkNEg5MVNMb0JQeWM5TmV0VXlUY0gzUSt4NE1sM1NFUzZOMEphalEyLzAz?=
- =?utf-8?B?enByWS83bnE2VjdXWEdLdXVObXA3a0VPMVlIS1V6VElWM3RhMFpIZjdpTVox?=
- =?utf-8?B?akdrODdINHVIbWd0cVhuZjFOOXE4aVcvNXRJaCtGc1hJdnJCb2drVTNXSzV2?=
- =?utf-8?B?amVOMHRHTzM1bG1xWVE5S1ZYTExvTGUwOWk5QTQzYXRGbG1nVzdXRjlnb0dj?=
- =?utf-8?B?R2hqZlUwMzNYb3ZqcEhST1k1TmxHSnVodGhybUNRWFkxczdHR3EwK1JFc3Zr?=
- =?utf-8?B?cUg5UGZwU3RpT0dwa3B0a1dCbENFbUlBNXFQd2t0cnh2cUd6VmZRYVR5bmc0?=
- =?utf-8?B?VzBJKzhrVmtWYlEvRlJnQlJiWkdvZ2U0RE9BaFo1cHFRZS9aZFQrLzQvS2NW?=
- =?utf-8?B?NFZOQ0w5a3FUZFg0MmVIcTdoMGJjaHlhNmx4Z1I5dUhxL2d1ZzZvZXhZbGJJ?=
- =?utf-8?B?V3VPSE9rSXRkWWtORVhSUHhud1JPVzB2blRERkxlTFJnRit2Z25oL053ejJT?=
- =?utf-8?B?dlAyVXd1MERpRWpBL1M4K1VWWFBreElaSTM3ZnNjNVVuTkpPTzEvTVVWdFFP?=
- =?utf-8?B?b3poNDVDaWZmWUhYcnhaQytmUDRQbis2clRSd1hMeWJNUHVFeVVUWlA0clRC?=
- =?utf-8?B?aWsrMkdpc25CQzdHd00rMnRjVnh3OVlQMWRHTmFMb0dJV0ZXNzhTNTRNd3J4?=
- =?utf-8?Q?WqTmYJOCgnrCJS91vUIkGsgjG?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60c4aa78-f9a6-458f-5b47-08da5b2684c2
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2022 05:57:02.1811
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D9uYYN/AZ1g9+o2OuAsHtbi6oEGb9Dln0nXj1/FOhGZ3pdw3zdlt7pHuBDzICBwhTXHY8PRwCdtairtT0YoSEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5725
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Niq2cF0LcwVvL5C2"
+Content-Disposition: inline
+In-Reply-To: <1c3bfe41-b86d-660c-6ccf-17777d1a5801@suse.com>
 
-On 30.06.2022 14:36, Jan Beulich wrote:
-> On 30.06.2022 13:25, Wei Chen wrote:
->>> From: Jan Beulich <jbeulich@suse.com>
->>> Sent: 2022年6月24日 18:09
->>>
->>> On 24.06.2022 12:05, Jan Beulich wrote:
->>>> On 24.06.2022 11:49, Julien Grall wrote:
->>>>>>>>>> --- a/xen/arch/arm/efi/Makefile
->>>>>>>>>> +++ b/xen/arch/arm/efi/Makefile
->>>>>>>>>> @@ -1,4 +1,12 @@
->>>>>>>>>>    include $(srctree)/common/efi/efi-common.mk
->>>>>>>>>>
->>>>>>>>>> +ifeq ($(CONFIG_ARM_EFI),y)
->>>>>>>>>>    obj-y += $(EFIOBJ-y)
->>>>>>>>>>    obj-$(CONFIG_ACPI) +=  efi-dom0.init.o
->>>>>>>>>> +else
->>>>>>>>>> +# Add stub.o to EFIOBJ-y to re-use the clean-files in
->>>>>>>>>> +# efi-common.mk. Otherwise the link of stub.c in arm/efi
->>>>>>>>>> +# will not be cleaned in "make clean".
->>>>>>>>>> +EFIOBJ-y += stub.o
->>>>>>>>>> +obj-y += stub.o
->>>>>>>>>> +endif
->>>>>>>>>
->>>>>>>>> This has caused
->>>>>>>>>
->>>>>>>>> ld: warning: arch/arm/efi/built_in.o uses 2-byte wchar_t yet the
->>> output is
->>>>>>>>> to use 4-byte wchar_t; use of wchar_t values across objects may
->>> fail
->>>>>>>>>
->>>>>>>>> for the 32-bit Arm build that I keep doing every once in a while,
->>> with
->>>>>>>>> (if it matters) GNU ld 2.38. I guess you will want to consider
->>> building
->>>>>>>>> all of Xen with -fshort-wchar, or to avoid building stub.c with
->>> that
->>>>>>>>> option.
->>>>>>>>>
->>>>>>>>
->>>>>>>> Thanks for pointing this out. I will try to use -fshort-wchar for
->>> Arm32,
->>>>>>>> if Arm maintainers agree.
->>>>>>>
->>>>>>> Looking at the code we don't seem to build Xen arm64 with -fshort-
->>> wchar
->>>>>>> (aside the EFI files). So it is not entirely clear why we would want
->>> to
->>>>>>> use -fshort-wchar for arm32.
->>>>>>
->>>>>> We don't use wchar_t outside of EFI code afaict. Hence to all other
->>> code
->>>>>> it should be benign whether -fshort-wchar is in use. So the suggestion
->>>>>> to use the flag unilaterally on Arm32 is really just to silence the ld
->>>>>> warning;
->>>>>
->>>>> Ok. This is odd. Why would ld warn on arm32 but not other arch?
->>>>
->>>> Arm32 embeds ABI information in a note section in each object file.
->>>
->>> Or a note-like one (just to avoid possible confusion); I think it's
->>> ".ARM.attributes".
->>>
->>> Jan
->>>
->>>> The mismatch of the wchar_t part of this information is what causes
->>>> ld to emit the warning.
->>>>
->>>>>> off the top of my head I can't see anything wrong with using
->>>>>> the option also for Arm64 or even globally. Yet otoh we typically try
->>> to
->>>>>> not make changes for environments where they aren't really needed.
->>>>>
->>>>> I agree. If we need a workaround, then my preference would be to not
->>>>> build stub.c with -fshort-wchar.
->>>>
->>>> This would need to be an Arm-special then, as on x86 it needs to be
->>> built
->>>> this way.
->>
->> I have taken a look into this warning:
->> This is because the "-fshort-wchar" flag causes GCC to generate
->> code that is not binary compatible with code generated without
->> that flag. Why this warning hasn't been triggered in Arm64 is
->> because we don't use any wchar in Arm64 codes.
-> 
-> I don't think that's quite right - you actually say below that we
-> do use it there when interacting with UEFI. There's no warning
-> there solely because the information isn't embedded in the object
-> files there, from all I can tell.
-> 
->> We are also not
->> using wchar in Arm32 codes, but Arm32 will embed ABI information
->> in ".ARM.attributes" section. This section stores some object
->> file attributes, like ABI version, CPU arch and etc. And wchar
->> size is described in this section by "Tag_ABI_PCS_wchar_t" too.
->> Tag_ABI_PCS_wchar_t is 2 for object files with "-fshort-wchar",
->> but for object files without "-fshort-wchar" is 4. Arm32 GCC
->> ld will check this tag, and throw above warning when it finds
->> the object files have different Tag_ABI_PCS_wchar_t values.
->>
->> As gnu-efi-3.0 use the GCC option "-fshort-wchar" to force wchar
->> to use short integers (2 bytes) instead of integers (4 bytes).
->> We can't remove this option from x86 and Arm64, because they need
->> to interact with EFI firmware. So I have to options:
->> 1. Remove "-fshort-wchar" from efi-common.mk and add it back by
->>    x86 and arm64's EFI Makefile
->> 2. Add "-no-wchar-size-warning" to Arm32's linker flags
->>
->> I personally prefer option#1, because Arm32 doesn't need to interact
->> with EFI firmware, all it requires are some stub functions. And
->> "-no-wchar-size-warning" may hide some warnings we should aware in
->> future.
-> 
-> I don't mind #1, but I think your subsequently proposed #3 would be
-> the first thing to try. There may be caveats, so if that doesn't work
-> out I'd suggest falling back to #1. Albeit ideally the flag setting
-> wouldn't be moved back (it _is_ a common EFI thing, after all), but
-> rather Arm32 arranging for its addition to be suppressed.
 
-Or make Arm32 use -fno-short-wchar (looking at gcc code this should
-be possible) to override (undo) the earlier option (possibly isolated
-to just stub.c). I'd prefer that over #3, really.
+--Niq2cF0LcwVvL5C2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 1 Jul 2022 02:02:26 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>, Greg KH <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 5.10] xen/gntdev: Avoid blocking in unmap_grant_pages()
 
-Jan
+On Fri, Jul 01, 2022 at 07:56:28AM +0200, Juergen Gross wrote:
+> On 30.06.22 18:54, Demi Marie Obenour wrote:
+> > On Thu, Jun 30, 2022 at 03:16:41PM +0200, Juergen Gross wrote:
+> > > On 30.06.22 13:34, Greg KH wrote:
+> > > > On Mon, Jun 27, 2022 at 02:10:02PM -0400, Demi Marie Obenour wrote:
+> > > > > commit dbe97cff7dd9f0f75c524afdd55ad46be3d15295 upstream
+> > > > >=20
+> > > > > unmap_grant_pages() currently waits for the pages to no longer be=
+ used.
+> > > > > In https://github.com/QubesOS/qubes-issues/issues/7481, this lead=
+ to a
+> > > > > deadlock against i915: i915 was waiting for gntdev's MMU notifier=
+ to
+> > > > > finish, while gntdev was waiting for i915 to free its pages.  I a=
+lso
+> > > > > believe this is responsible for various deadlocks I have experien=
+ced in
+> > > > > the past.
+> > > > >=20
+> > > > > Avoid these problems by making unmap_grant_pages async.  This req=
+uires
+> > > > > making it return void, as any errors will not be available when t=
+he
+> > > > > function returns.  Fortunately, the only use of the return value =
+is a
+> > > > > WARN_ON(), which can be replaced by a WARN_ON when the error is
+> > > > > detected.  Additionally, a failed call will not prevent further c=
+alls
+> > > > > from being made, but this is harmless.
+> > > > >=20
+> > > > > Because unmap_grant_pages is now async, the grant handle will be =
+sent to
+> > > > > INVALID_GRANT_HANDLE too late to prevent multiple unmaps of the s=
+ame
+> > > > > handle.  Instead, a separate bool array is allocated for this pur=
+pose.
+> > > > > This wastes memory, but stuffing this information in padding byte=
+s is
+> > > > > too fragile.  Furthermore, it is necessary to grab a reference to=
+ the
+> > > > > map before making the asynchronous call, and release the referenc=
+e when
+> > > > > the call returns.
+> > > > >=20
+> > > > > It is also necessary to guard against reentrancy in gntdev_map_pu=
+t(),
+> > > > > and to handle the case where userspace tries to map a mapping who=
+se
+> > > > > contents have not all been freed yet.
+> > > > >=20
+> > > > > Fixes: 745282256c75 ("xen/gntdev: safely unmap grants in case the=
+y are still in use")
+> > > > > Cc: stable@vger.kernel.org
+> > > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > > > > Reviewed-by: Juergen Gross <jgross@suse.com>
+> > > > > Link: https://lore.kernel.org/r/20220622022726.2538-1-demi@invisi=
+blethingslab.com
+> > > > > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > > > > ---
+> > > > >    drivers/xen/gntdev-common.h |   7 ++
+> > > > >    drivers/xen/gntdev.c        | 142 +++++++++++++++++++++++++---=
+--------
+> > > > >    2 files changed, 106 insertions(+), 43 deletions(-)
+> > > >=20
+> > > > All now queued up, thanks.
+> > >=20
+> > > Sorry, but I think at least the version for 5.10 is fishy, as it remo=
+ves
+> > > the tests for successful allocations of add->map_ops and add->unmap_o=
+ps.
+> >=20
+> > That is definitely a bug; I will send another version (without your
+> > Reviewed-by).
+> >=20
+> > > I need to do a thorough review of the patches (the "Reviewed-by:" tag=
+ in
+> > > the patches is the one for the upstream patch).
+> >=20
+> > Yeah, that was my fault, sorry.
+> >=20
+> > > Greg, can you please wait for my explicit "okay" for the backports?
+> >=20
+> > Confirming that these patches do need review before they can be applied.
+> > Juergen, would you mind making sure that the upstream patch was also
+> > correct for 5.15 and 5.18?  It applied cleanly, but that is no guarantee
+> > of correctness.
+>=20
+> Those two are fine.
+
+Thanks!  I re-sent the 5.10 patch; hopefully the others are good.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--Niq2cF0LcwVvL5C2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmK+jfMACgkQsoi1X/+c
+IsHbZg/+P9onGYM5Pr4XcVDzf96AxARCkyw3tShzc4Vu1UyfnwV7uvhQF6+3VJMF
+IXOBJK3ebOsMgh0/eVvoXLKhn68n5K47xIIJPrtdglOCAYolvrG0G5yMvi2wQOWg
+1xt1ryu4GXR6z2Cwpt8St3vYgFq9hycztQ2vWXRwKDAdrOWac+BCrEwZQC9pRnRl
+fDYmSzXMXkOlQUrlZ4njowv0ZbcMybRI9IQZ6dDhcWfSycaHj9kh8grybuPMZnmt
+Q+BRpHbvi9gbpJFcDmsk8EsqHj4lUdLDjY/yve5ndIxVev3QLp2JwIL+tB2oXqgl
+YXkhEqHNHwwuHo/H5RTfT1ds7KzutJjE0vMR6eket824fLrIVXuIw09aighpY1Vg
+GFoB9B1RckmYmo1ZzmtWJusrkPBcbRkeWzydZYfXum71D3uxa1lkhxSUH+BzjiCp
+B6y5BkBad8ruRh7qZHgt17kto99oodQgCP2WHUFjupoe0nc8roJJ2dNAWz8UIZOd
+BW3vUFSf4tY5gY06vWlw7Ux8g8fWwInLlwF370LVDUMmIzNsLJAYk0RDTbMPdpNy
+KZj0hsI7S0A/YuSMd/0CCo2TZg/KRI0UM38Z4UPtCl2KcDdxSZSRdTqDQs0isRSe
+ZcmSlwQOIGs3i2tfS4vjpOV1B8zn6hjbdYcoMRv3MIFUyxBYvqI=
+=VEPi
+-----END PGP SIGNATURE-----
+
+--Niq2cF0LcwVvL5C2--
 
