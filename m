@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A86F45638C6
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 19:57:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.359141.588537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8E1E5638D2
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 20:04:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.359148.588548 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o7KsY-0005Wh-I0; Fri, 01 Jul 2022 17:56:30 +0000
+	id 1o7KzQ-0007AO-8Z; Fri, 01 Jul 2022 18:03:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 359141.588537; Fri, 01 Jul 2022 17:56:30 +0000
+Received: by outflank-mailman (output) from mailman id 359148.588548; Fri, 01 Jul 2022 18:03:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o7KsY-0005UK-EX; Fri, 01 Jul 2022 17:56:30 +0000
-Received: by outflank-mailman (input) for mailman id 359141;
- Fri, 01 Jul 2022 17:56:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kD4F=XG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o7KsX-0005UE-9L
- for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 17:56:29 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 214b9ac6-f967-11ec-bd2d-47488cf2e6aa;
- Fri, 01 Jul 2022 19:56:28 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 01E07B83106;
- Fri,  1 Jul 2022 17:56:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1306DC3411E;
- Fri,  1 Jul 2022 17:56:24 +0000 (UTC)
+	id 1o7KzQ-00078M-5m; Fri, 01 Jul 2022 18:03:36 +0000
+Received: by outflank-mailman (input) for mailman id 359148;
+ Fri, 01 Jul 2022 18:03:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1o7KzP-00078G-2Y
+ for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 18:03:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o7KzO-0007p4-7X; Fri, 01 Jul 2022 18:03:34 +0000
+Received: from [54.239.6.185] (helo=[192.168.1.77])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o7KzN-00058z-Vq; Fri, 01 Jul 2022 18:03:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,65 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 214b9ac6-f967-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1656698184;
-	bh=k3LbadIxoy6dSLMPD16RNV5MKRaAaeGfE3h3yg4vuwc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=AfjrXuSnLImyebYo6hiATn32awUJ8DECqzFKGqI/iG7lKKlrqxvB7cK5SJRqBMyfx
-	 7sHc0wMPOypzHoVxWnsYortcyvMNzEAPy/OL7JRJ/G3mFquRdjKK9xLIvF5WfqyL6o
-	 unO7mjIzlkCzjkp6++nCPP7OchG3EIzdKpMD1nSJ9Y8WgrixhIKoZdTrZxUS5b6/Ij
-	 ZapklDZTs3Y9YTsv0jkv9KTba6gw1Efc3yT9ym06EgJCoXoQvmvQWAQC69P6pn7Rvy
-	 YCVtLgbasQZq+lbS2FmctZ8j5jgywj2pUZv6OnyPi8vxPSNbx7j5fnY1BDijaA4TVH
-	 1cQZxAiNUBdAg==
-Date: Fri, 1 Jul 2022 10:56:22 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, scott.davis@starlab.io, jandryuk@gmail.com, 
-    christopher.clark@starlab.io, dgdegra@tycho.nsa.gov, julien@xen.org, 
-    george.dunlap@citrix.com, andrew.cooper3@citrix.com, dfaggioli@suse.com, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v9 0/3] Adds starting the idle domain privileged
-In-Reply-To: <563b5d12-6eca-cfff-129f-7bffb01cd25c@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2207011054500.4389@ubuntu-linux-20-04-desktop>
-References: <20220630022110.31555-1-dpsmith@apertussolutions.com> <alpine.DEB.2.22.394.2206301529570.4389@ubuntu-linux-20-04-desktop> <563b5d12-6eca-cfff-129f-7bffb01cd25c@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=RpV8wMIAYzPpXIawzmS3N2Q7UO34QnAsdyNeSFRM0Xk=; b=PmImcQJ0nBsnPZWoMYObyqBksA
+	vgBgZw9hPNe2zxJ2Lh2y3spemf/wN5h5DSzygbfY/LrzdxdIhkZile6l0ws68d5VeW/pKGkGd5hSo
+	dz3Sn/FHYp1itFXFwFLz2kVqnZUU0+LtiEzj+CFKyhHI5peHL2nh1UUXruXuOSuN86V8=;
+Message-ID: <95e7d58d-e147-fcde-c4cf-da56b6c66faa@xen.org>
+Date: Fri, 1 Jul 2022 19:03:31 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.11.0
+Subject: Re: [PATCH 2/2] xen/heap: pass order to free_heap_pages() in heap
+ init
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <jgrall@amazon.com>
+References: <20220609083039.76667-1-julien@xen.org>
+ <20220609083039.76667-3-julien@xen.org>
+ <B8DAD34C-B156-4DC9-AA80-F1401028DF6F@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <B8DAD34C-B156-4DC9-AA80-F1401028DF6F@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 1 Jul 2022, Jan Beulich wrote:
-> On 01.07.2022 00:35, Stefano Stabellini wrote:
-> > On Wed, 29 Jun 2022, Daniel P. Smith wrote:
-> >> This series makes it so that the idle domain is started privileged under the
-> >> default policy, which the SILO policy inherits, and under the flask policy. It
-> >> then introduces a new one-way XSM hook, xsm_transition_running, that is hooked
-> >> by an XSM policy to transition the idle domain to its running privilege level.
-> >>
-> >> Patch 3 is an important one, as first it addresses the issue raised under an
-> >> RFC late last year by Jason Andryuk regarding the awkward entanglement of
-> >> flask_domain_alloc_security() and flask_domain_create(). Second, it helps
-> >> articulate why it is that the hypervisor should go through the access control
-> >> checks, even when it is doing the action itself. The issue at hand is not that
-> >> the hypervisor could be influenced to go around these check. The issue is these
-> >> checks provides a configurable way to express the execution flow that the
-> >> hypervisor should enforce. Specifically with this change, it is now possible
-> >> for an owner of a dom0less or hyperlaunch system to express a policy where the
-> >> hypervisor will enforce that no dom0 will be constructed, regardless of what
-> >> boot construction details were provided to it. Likewise, an owner that does not
-> >> want to see dom0less or hyperlaunch to be used can enforce that the hypervisor
-> >> will only construct a dom0 domain. This can all be accomplished without the
-> >> need to rebuild the hypervisor with these features enabled or disabled.
-> > 
-> > 
-> > It looks like this patch series is fully acked except:
-> > - in theory we need an ack from Daniel for flask
-> > - there is a very small change to sched that would need an ack from
-> >   George/Dario
+
+
+On 28/06/2022 15:40, Bertrand Marquis wrote:
+> Hi Julien,
+
+Hi Bertrand,
+
+>> On 9 Jun 2022, at 09:30, Julien Grall <julien@xen.org> wrote:
+>>
+>> From: Hongyan Xia <hongyxia@amazon.com>
+>>
+>> The idea is to split the range into multiple aligned power-of-2 regions
+>> which only needs to call free_heap_pages() once each. We check the least
+>> significant set bit of the start address and use its bit index as the
+>> order of this increment. This makes sure that each increment is both
+>> power-of-2 and properly aligned, which can be safely passed to
+>> free_heap_pages(). Of course, the order also needs to be sanity checked
+>> against the upper bound and MAX_ORDER.
+>>
+>> Testing on a nested environment on c5.metal with various amount
+>> of RAM. Time for end_boot_allocator() to complete:
+>>             Before         After
+>>     - 90GB: 1426 ms        166 ms
+>>     -  8GB:  124 ms         12 ms
+>>     -  4GB:   60 ms          6 ms
 > 
-> I don't think I've seen any R-b for the last patch.
+> 
+> On a arm64 Neoverse N1 system with 32GB of Ram I have:
+> - 1180 ms before
+> - 63 ms after
+> 
+> and my internal tests are passing on arm64.
 
-Good point. I hope you'll be happy to give your Reviewed-by or Acked-by
-to the next version with the minor comments fixed.
+Thanks for the testing! The number are a lot better than I was actually 
+expecting on arm64.
+
+> 
+> Great optimisation :-)
+
+You will have to thanks Hongyan. He came up with the idea :).
+
+> 
+> (I will do a full review of code the in a second step).
+
+I am planning to send a new version in the next few days. So you may 
+want to wait before reviewing the series.
+
+Cheers,
+
+-- 
+Julien Grall
 
