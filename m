@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF45F56343A
+	by mail.lfdr.de (Postfix) with ESMTPS id 53B99563439
 	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 15:17:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.359009.588394 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.359010.588406 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o7GWW-0001K9-70; Fri, 01 Jul 2022 13:17:28 +0000
+	id 1o7GWi-0001cI-Hm; Fri, 01 Jul 2022 13:17:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 359009.588394; Fri, 01 Jul 2022 13:17:28 +0000
+Received: by outflank-mailman (output) from mailman id 359010.588406; Fri, 01 Jul 2022 13:17:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o7GWW-0001H3-3h; Fri, 01 Jul 2022 13:17:28 +0000
-Received: by outflank-mailman (input) for mailman id 359009;
- Fri, 01 Jul 2022 13:17:26 +0000
+	id 1o7GWi-0001ZV-Dh; Fri, 01 Jul 2022 13:17:40 +0000
+Received: by outflank-mailman (input) for mailman id 359010;
+ Fri, 01 Jul 2022 13:17:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5ipL=XG=citrix.com=prvs=17451e3f9=roger.pau@srs-se1.protection.inumbo.net>)
- id 1o7GWU-0001Gx-St
- for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 13:17:26 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24b3f1f0-f940-11ec-bd2d-47488cf2e6aa;
- Fri, 01 Jul 2022 15:17:25 +0200 (CEST)
-Received: from mail-bn8nam12lp2177.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.177])
+ id 1o7GWg-0001Gx-VU
+ for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 13:17:39 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c05b488-f940-11ec-bd2d-47488cf2e6aa;
+ Fri, 01 Jul 2022 15:17:37 +0200 (CEST)
+Received: from mail-bn8nam12lp2168.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.168])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 01 Jul 2022 09:17:21 -0400
+ 01 Jul 2022 09:17:25 -0400
 Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
  by SJ0PR03MB5693.namprd03.prod.outlook.com (2603:10b6:a03:2de::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15; Fri, 1 Jul
- 2022 13:17:19 +0000
+ 2022 13:17:23 +0000
 Received: from DS7PR03MB5608.namprd03.prod.outlook.com
  ([fe80::40af:d5f4:95eb:d534]) by DS7PR03MB5608.namprd03.prod.outlook.com
  ([fe80::40af:d5f4:95eb:d534%7]) with mapi id 15.20.5395.017; Fri, 1 Jul 2022
- 13:17:19 +0000
+ 13:17:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,61 +49,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24b3f1f0-f940-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 2c05b488-f940-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1656681444;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=3MRwqc9f6PLUD0ZVNY8tFkHVgCFux7eCRx6yjR38Llg=;
-  b=cV16PtboaS1FjEEBTjDgaxFdoaWBEXYQtfL/v+0EDmxpNfkH5/Amp6WM
-   j07DzS0ny2vgY/aY86NEtvXCny1NbafU87NBgaPhbtGHpbt3eVcf+KnWG
-   ux2dW2w1JzWLkkz4jMnpZzOkYKl5NQsG5nONSfR+CGbSJ3hiMzvTzv7Pg
-   w=;
-X-IronPort-RemoteIP: 104.47.55.177
-X-IronPort-MID: 74884640
+  d=citrix.com; s=securemail; t=1656681457;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=1CEJiaivUyqrXZRdB2bbG35oJ0UdQJFYd4ZZZCv6hM8=;
+  b=SYWE5niCsbsbC/rNvoa9FFkqIEGUHldoCva/S8SWC9UQCkos+XcLe6qN
+   37PQAtocwhiujjQBXNO8meK+TI+pmrgkzqldNFt+dVfGC59sJ1K4hISGF
+   dcZtKrvuNOCs8TY92jN6ab9sCjlqGzEMaSmVz+11gcWCm/bO+zxKW/rGt
+   E=;
+X-IronPort-RemoteIP: 104.47.55.168
+X-IronPort-MID: 77459718
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:D1I6Hqyfn5nZopDV/Qx6t+f1xyrEfRIJ4+MujC+fZmUNrF6WrkUEz
- zdMX2rXPP+CZGPzfIhzOd7l8k0Cv5PWz9FlQQNqrCAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX1JZS5LwbZj2NY32YHhWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NpljJL3EgwlO7/w28tBawtHKTAmHpJm0eqSSZS/mZT7I0zuVVLJmq8rJmdmeIoS96BwHH1E8
- uEeJHYVdBefiumqwbW9DO5xmsAkK8qtN4Qa0p1i5WiBUbB6HtaeHuOTuoAwMDQY36iiGd7EY
- MUUc3x3ZQnoaBxTIFYHTpk5mY9Eg1GgL20I9AzJ/cLb5UD87TAr7rnsKOD+e4eUG+4Eolq2u
- WX/qjGR7hYycYb3JSC+2mKhgKrDkD32XKoWFaak7bh6jVuL3GsRBRYKE1yhrpGRiFO4HdRWK
- EUW+y8nhak06EGvCNL6WnWQo3OavxhaR9tZFcU77h2Azuzf5APxLmoOQyNFadcmnNQrXjFs3
- ViM9/v2ARR/vbvTTmiSnp+WsDezNC49PWIEIygeQmMt+ML/qYs+ihbOSNdLE6OviNDxXzbqz
- Fi3QDMWgrwSiYsB0fW99FWe2Ta0/MGWEUgy+xndWX+j4kVhfom5aoe06F/dq/FdMIKeSVrHt
- 38B8ySD0N0z4Vi2vHTlaI0w8HuBvp5p7BW0bYZTIqQc
-IronPort-HdrOrdr: A9a23:OtYQZ6BXNQIJ/1nlHehKsceALOsnbusQ8zAXPh9KJCC9I/bzqy
- nxpp8mPH/P5wr5lktQ++xoX5PwOU80lKQFmLX5WI3PYOCIghrNEGgP1+vfKl7balDDH5BmpM
- BdmsFFYbWfbGSS5fyKmjVQeOxQpeVvnprY5ts3mBxWPHpXguxbnnBE4kHxKDwGeCB2Qb4CUL
- aM7MtOoDStPVwRc8SAH3EAG8zOvcfCmp7KaQMPQ0dP0njGsRqYrJrBVzSI1BYXVD1ChZ8k7G
- j+igT8ooGuqeuyxBPw33Laq75WhNzi4N1eA9HksLliFhzcziKTIKhxUbyLuz445Mmp9VYRid
- HJ5ywtOsxigkmhDF2dkF/I4U3NwTwu43jtxRuzmn34u/H0Qzo8Fo5omZ9ZWgGx0TtsgPhMlI
- Zwm06JvZteCh3N2A7n4cLTah1snk2o5VI/jO8oiWBFW4d2Us4akWUmxjIbLH48JlO11Gh+e9
- MeTf00pcwmOm9yVkqp8lWGm7eXLzQO9hTveDlwhiXa6UkUoJlD9Tpm+CUupAZ9yHsDceg72w
- 29CNUPqFhvdL5iUUsvPpZ0feKHTkrwfDnrDEW+ZXzaKYBvAQO8l3ew2sR82N2X
+IronPort-Data: A9a23:urJXZKgWLbLjr62xh01/iSjZX161ehEKZh0ujC45NGQN5FlHY01je
+ htvW2rTOPiMMDOjeo1wPozgoEsF7cCDzocwGQNsqiszQ38b9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M58wIFqtQw24LhXFvU4
+ YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YTo5FaLJxPhCaTwbKzlkHrFLx4bfcWfq5KR/z2WeG5ft69NHKRhseKc+qqNwC2wI8
+ uEEIjcQaBzFn/ix3L+wVuhrgIIkMdXvO4Qc/HpnyFk1D95/GcyFH/qMuIIehWlg7ixNNa+2i
+ 84xcz1gYQ6GexRSElwWFIg/jKGjgXyXnzhw9w3J+Ptouji7IApZ7b3HHcTqeeyxZOJVnleXv
+ 13ioXblDURPXDCY4X/fmp62vcffkCW+VI8MGbmQ8v9xnEbV1mEVEAcRV1awvb++kEHWc9BCL
+ QoS8yknr6k3/WSqSMXwW1uzp3vslh0RRdtWVfE74Qely6zI7gLfDW8BJhZDYtE7sM49RRQxy
+ 0SE2djuAFRHr7m9WX+bsLCOoluP1TM9KGYDYWoOS1sD6ty6+oUr1EuRHpBkDbK/icDzFXfo2
+ TeWoSMihrIVy8kWy6G8+lOBiDWpznTUcjMICszsdjrNxmtEiESNPuRENXCzAS58Ebuk
+IronPort-HdrOrdr: A9a23:u8gZdqHxTnVcU9ZnpLqFepHXdLJyesId70hD6qkvc3Fom52j/f
+ xGws5x6faVslkssb8b6LK90c67MAnhHP9OkPIs1NKZMDUO11HYSL2KgbGD/9SkIVyGygc/79
+ YeT0EBMqyWMbESt6+TjmiF+pQbsaG6GciT9JvjJhxWPGRXgs9bnmRE4lHxKDwKeOAKP+txKH
+ LajfA31AaISDAyVICWF3MFV+/Mq5nik4/nWwcPA1oC5BOVhT2lxbbmG1zAty1uGA9n8PMHyy
+ zoggb57qKsv7WSzQLd7Xba69BzlMH6wtVOKcSQgow+KynqiCyveIN9Mofy9AwdkaWK0hIHgd
+ PMqxAvM4Ba7G7QRHi8pV/X1wzpwF8Vmgvf4G7dpUGmjd3yRTo8BcYEr5leaAHl500pu8w5+L
+ 5X3kqC3qAnQi/orWDY3ZzlRhtqnk27rT4JiugIlUFSVoMYdft4sZEfxkVIC50NdRiKpLzPKN
+ MeTf002cwmMW9zNxvizypSKZ2XLzkO9y69MwY/Upf/6UkVoJh7p3FosfD30E1wsa7VcKM0lt
+ gsAp4Y6o2mcfVmHZ6VfN1xJ/dfKla9Ni4kY1jiV2jPJeUgB0/njaLRzfEc2NyKEaZ4vqfa3q
+ 6xGm9liQ==
 X-IronPort-AV: E=Sophos;i="5.92,237,1650945600"; 
-   d="scan'208";a="74884640"
+   d="scan'208";a="77459718"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dDUQV+Nm9dM4cqK2/dShIzowJ0cRgA55HSFDLtX5USiWSkBbv/iK3n0/3wY4ZhxNnc7bWMgapTglPj01Buw3iPf3Sa3cNh7sYYXptfJW0fZrDpISycR8nfzMUpNc9KJ9cesrBxW1mPRQeeIETp+jxPpC5FAc9yiqvOK4T2R4lEalaDho2sYkerWNwi08DOVnjrjTK3HHwRKkdn5x5mysNn1dyX7lL23kTQAiHQYAisrrajCUlKjYIwsC7GZxEP88ydH8+UMEESbyg99ttDuHy8BEMcdSMFnPmLqRjD2iysD82YVzAmcuZtx1KSJhVM2qIHfAA9MkuQ618Oy9nNFF8g==
+ b=fo/QXDFi4GWnJVaRWfqdHPnXMUNAfG6RTdr0lSkV04bXHk+pGPPlO3d+/oObzOpukiUVlX093O+pitVgSNLvyinVilP5ci4GGiJxGREEcU5n5MHPbHhMAC3szbeS5tcxSahuKBaGple7krhSyCPjOuQg8Ft9LQLKTCRhTySVbLs+A2aB2jZR7jv3RdtzYiWExK/Y1KHgwFh6YfYuHlBM/HZPNiGDkCeWO63pwVLZrK65LekTUBG4G7YlKqEFg8lX9y4omcAlrykeTJIbfZSdXQ6LcCQbAnXp/rCiLbNPKAsI7SKy7MVsmdqTroFsaOzUgtsYN8gqdB4Cl9QmNsjj1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Gdie4pdVl4a0URPS9oFagfEaDHLSYbfEO8FCT2qL4I=;
- b=KEG4yDLiza319VkCP164rJ2CIyyJMNdkKjgW5CrrtqNdS5jeri4bLXey8FYOANg9RSK8garIOaC6BFVSlePmYjc3vc36sBfdNuDy5GFx3FIBkt9n23UTvKEG0qE7DKhMwsfGvKd0xZ7r94wMVotTXHVFQykHk1lM92CklRZ0tL7D2OxXhHXgshYckL2PaydO7P2Lb6Y4ezMIISWjemJ7cuJ11ExSuK8kSNlCTavcSuZOo0jrTs6LeLWDteYJVP5YVVnucpsqbxUbketRvneuhze8hDBAn0BL1dYHK8fxWG0cYdDtKOeJFoyxRAq2FT/qe3CDOxb2en5zniwofcTp6w==
+ bh=uziEhWz0IVen09NpiCSfuedX9CMVUDdY/Qb7fXmqvOY=;
+ b=Pu7/KF+n2UCjVXUMU18o47yctZhmUe00b1tbXT8FC5Q7wNfikCOuNBKxvwMTEfquEYWWt+Uygz4vVldrZ6DArr8lAaUWtbu5P2JUmhY9ppo1U6kvzlULJ1AuOQYTPYTv4jK7k+IoZ/MMGRQBRvFLHA6YjWOeMXqX5UXMskDagV95BEONakJjsDNUgWRKXMsiwRtSMQmzbmFkpMuR4TV+E3IfA+G5yf520Z2ICSA0nkZSLLpfMx5PNMaBK3aETjlBm3LoctGWFODHzly85H32CHOav8dvb+DtpG1FKSgnvCskLMtWlMw96gI6h+8Ufb2prDV3/Le3XKW3nH68MKLeoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Gdie4pdVl4a0URPS9oFagfEaDHLSYbfEO8FCT2qL4I=;
- b=LO1Cckc1ME7VhB0Lrp6xmdj9e/ke3cytlaTPb00RcdwUtRVS52uPLMuSqpk45TqPoa/apXruh+OgDyXeTNkA86IHPE7ZJu/Y4Fsl6PYxr8sZ3liKxQsVvspNt/F7bXJs+wF9uRtGtAVftEESSetlAzmN+JNdvunPAvj94cTze5Y=
+ bh=uziEhWz0IVen09NpiCSfuedX9CMVUDdY/Qb7fXmqvOY=;
+ b=RKdJQmGPRzroloUkWG3M/YtCOCDMQRTmuIUBnTE47t+4nAzQgVcQVuwBG5lvx1k0o03iJvt7ylhP0U4ftBImoAPZ+z4i+3uJVdFtS5pjQ95GemlUxselTCPfLpwI+iY5GgUhif4BbxqwNieXxsNFnSmfVksQT/HkiTFk8AY4Xnc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -113,104 +113,227 @@ Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Kevin Tian <kevin.tian@intel.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 0/3] x86/vmx: implement Bus Lock and VM Notify
-Date: Fri,  1 Jul 2022 15:16:45 +0200
-Message-Id: <20220701131648.34292-1-roger.pau@citrix.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 1/3] x86/vmx: implement VMExit based guest Bus Lock detection
+Date: Fri,  1 Jul 2022 15:16:46 +0200
+Message-Id: <20220701131648.34292-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.37.0
+In-Reply-To: <20220701131648.34292-1-roger.pau@citrix.com>
+References: <20220701131648.34292-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0207.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:9e::27) To DS7PR03MB5608.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO2P265CA0094.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:8::34) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 466b1680-3aaf-4911-5257-08da5b640691
+X-MS-Office365-Filtering-Correlation-Id: 9f6f9143-42c0-4d7f-9f94-08da5b6408ec
 X-MS-TrafficTypeDiagnostic: SJ0PR03MB5693:EE_
 X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	jOUtGnWXZv70rm+ITBg5pFrGYrMG7kfH5Bj8djaav6jg85+iYkxIpPWj3OoaqtMuG0IUPYG8NxTCdz8z5UGJ4nWovDroclfYZhOslogFv1/cZpeczGRh1q5u65ZVAEO4A6MxtuLAV/M1EU2XbUE5shoIP1YHR1OBxmG4+hz5ie1ccmBpMoD6Pa1k7gZmkwZ/KYZt+++ASa3x8Wp0bJaIndzkpwv6gFStjxyhBoetT2D+qbVhvPa83CSyuS3V0Bq1pxG1yQY5RqEf+T11lJ527FkJkK61sFr8HqxxRKBA/AAfiYM55idf8LSn1I2ieU0uN2BSK6+JRuICR9fUsccln3TJK0JT8qHL4n1Ky27fdq4yj5rE+U/Zju1WFGPRE9UUkjLVy9bdhLcqSMv6f0aSTffp2yXfgJcyhVw/B9w039voZGzpQAeh410+XrmdPn1PVU6vlXZ3qjtshbDJs15hxLnfLoFH0hAudDp/d0NqzpnBv0jLbrFZGiqkghMnvg9Ur6chEZpUWMsK5YXgxJCq/3dM/c9m5ndLjVz5DFCLUvRc242M3HOuzse3/tLM3lftxHpVzbBT+4RdhADO7mae0khM+j/5xm2XLfsXxzr26YS+5cCyicBp0TeE4L312XSsThyo631wYf61TEMiD5pcROnjBHOlUH58VUgQHDZJGkRY5RtU4mQ0Z2PH63yfq/2GE7kxRckE9bhn7gCMuexO+fw0w5blFMHj3Lw6w3IOc9x3roXvROjix52TQWBXuMQL
+	ZBVauaUFwthmuKZRyO2A5PgS0Nh11H27SMxYuehvLpcYJBCPELCPHFTU96rLOi7n5pWmL9YxjSCP1C4KbyL7UxYzIsk60fdgG728wPoNvzgZM2q82ShsW0DeQTuKKxAMRu6yN49p3hrPnCgt13hwBJcFztT1pn4ut+F0P5REuSMe15xPHs7YHMIYeN5Dolsa+Ym50qqiqNp3GfLKZ69vHgX2An6pL1OaMN69YLGu2ToVn6eEtPDa7Avbf6XzR5XOalNcCjtqB6fJfhQZYuwCsHKxWGcI0P6W0SaRBwvWxR7cth5WwQ4/vEYEixgsaz3GzJ0BejYxb20Z+NAoxOolcmA0DVzRAm/DdG35ieWDZZvaTGlvQ+IqrHacYONyxsp0C1v0y6gu9O62eCN+kHI5oclKCKlxl9UBMWIjgOYnnX5PwrvPPXVBaePH/POA2ANiNR7PYgOldD8V4zBvWduMXkg4prYjzl9zpTzTaEQXDULni0iMnmghYO6/Te/yoiVqVUDw0fvjX5Q0o8y5tmeqcM8D3UlfaU9acoxgfLbYWs2c+p8pb48js3ie+b8/T8j4lReEW1qykJYQcfUmgiqt12KIWyBOA0NRsNn0sFZgu4TygNA7W53+wy5d7hak9BAdAzamABTugebPfV39tRGW/xmi/HR5tOGgcNgdsHewUsABr1vAVFFSVb9xjwqGwnfgnYoaKuExGi6m5jsZj8co2MMSsrY6DJ5JPCy5mi43astZtBfFmdZ86Iip4cR1Xz3+9t/Z3n1tnVgEYGRsystzGQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(346002)(396003)(39860400002)(136003)(366004)(38100700002)(66476007)(316002)(82960400001)(54906003)(6916009)(8676002)(66946007)(4326008)(66556008)(2906002)(478600001)(6512007)(186003)(41300700001)(6486002)(1076003)(6666004)(26005)(36756003)(86362001)(8936002)(83380400001)(4744005)(2616005)(6506007)(5660300002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(346002)(396003)(39860400002)(136003)(366004)(38100700002)(66476007)(316002)(82960400001)(54906003)(6916009)(8676002)(66946007)(4326008)(66556008)(2906002)(478600001)(6512007)(186003)(41300700001)(6486002)(1076003)(6666004)(26005)(36756003)(86362001)(8936002)(83380400001)(2616005)(6506007)(5660300002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UWhOVEhEM3NFaWtEekdGcGNIa3kzc3lWQlRHajVmTU45Ri9IVHpQd3h3V0RB?=
- =?utf-8?B?OU5NMk1rN2IvTDE4Yyt3YVNoSTZWR2hQRVUxdjJhS2FZUlN2UkUwb29OK0xu?=
- =?utf-8?B?WWxxNXY0aGR2OXBZdUU4UWJCQk4xUHduV1czd2Fwb0xhMUhoM1kxaHppNkJT?=
- =?utf-8?B?aTlrNjJOSlVnZW0rL2w5eUdvam5aUFFaVXRoQ1ZuR3d0MGYvVmlhTDNmMEF2?=
- =?utf-8?B?TFZqKzgxZHYrMWFxL1gzNzVDQkJ0aFE5SndZZjBJZ1hGcUxqbXVjWHB6R1g4?=
- =?utf-8?B?aEd2NlZ1bkVqaklUMU8ybVlPbzRlQ3krb1VRVGdubDFXOUFWZDUzelFCQ0Nl?=
- =?utf-8?B?ZGdqZW9zdndkZnN6Qlk2dFZUMG5CQ0Q3MXBqbm1FZkZwUlpabjBJZDhXb1Jn?=
- =?utf-8?B?UzY3WURtcjJ4bXNLWkJvV0kyQUlnbHA5T2E4STZrS3BVUVVxTGtGQzZ6TGIr?=
- =?utf-8?B?UHVRd0ZDRDNkRGloZ2lsaXlvZW5pb0pqaEFQa2tBVHFhbFNubU1jRkR5OUZ6?=
- =?utf-8?B?K3FET0pCU0MzSnhXL3lsYUVodU9ERGFwYnpNY293VjVpc1VHUHNFTFhZdkR2?=
- =?utf-8?B?Q0hRYWlnS1cvNmwrbjdyRVBIV2VEdGdNTUxzakIzb2ZlWVFzQ3lUa2c2VUx1?=
- =?utf-8?B?VzN4SUl6OXo2eFFqN3g3NjI4R3gzRTBTQ1Q4MmptbDQ5K3UzdjFpbHhYSEp1?=
- =?utf-8?B?ZHMxdHFtOW1hakRXUDl4ck9Qa3d2bkNvcFdhbHM5cGZtenpWUVVIdk85SXRy?=
- =?utf-8?B?bVVLZGlGWDNXL1FVY1JMUzZybDJHaTdiS0ZvWUlyY3hiVXdrRVNONFNGNlIx?=
- =?utf-8?B?MUZ2d0pBb3MvWFd5ZnkxM0lJRnQyVThPeWp5TE1tckNaMTM4WkxpeEFZeSsy?=
- =?utf-8?B?bFFDNk5BMm0wclQvNmVyUEZaTGV2WUo4ZWwxaWRHMHVUa29GUGo0TU5IalJQ?=
- =?utf-8?B?MTVEZHVKQUtOMmJYZ29SeWJFSDhMWTkram9NQXFUOXVsT1BlMzlwb2NBNVB0?=
- =?utf-8?B?dWtsWmhHa3ZDK0JIQTltbHBsR2Z2RTJscHdDU3Y3c0tEMm9oRnUvK3htK1l5?=
- =?utf-8?B?YnU1ZGkrM0htSUx2NFk0cVJ5RkdlZGYvRDVnSVFHRlpsQ2Y0L2daVlQyNHRw?=
- =?utf-8?B?aDZzbnk2NFBLMnpLZW4yT3BWc0UxZVhYVmVycjNDcUc3RTVyNk8wNnBtUEUv?=
- =?utf-8?B?am4zeFVOdlhZOE96dGNMT3NKQkVqS1VsUXFlcmRTc1BqWUNYc2JBbTNzMEQv?=
- =?utf-8?B?YUszaWhQM2NaQ0xycDdLbXY2S1BGRUtWT3B2OTFyb3dqQlUzald6VC9heW5w?=
- =?utf-8?B?TzFXRjh6QXo5MEZnVkwrMllRK29CMmVHdXBoOWZET2RNMUNHUk92ZWZxM2sy?=
- =?utf-8?B?R3dvNmZhR3JKbmsra291Mmd5VVVGWXhtOXQ0dU4yUXBnQkZtMjBlUnpRcENv?=
- =?utf-8?B?c0Z4UEVmSG9LWmhwYjdwcUFYc2tST2Ixck1DZXV1NWJmM2x6cmVaTkpoRktU?=
- =?utf-8?B?YzZ2V00wN2NSejhtZlJPNFN1QkRiUjhnK0ROME5ZbEpPOWFrZ3pVcGZKWmFV?=
- =?utf-8?B?SDNMVC9xZkROWnJLWDJRZDU4TkJjTzFLVGpKbEtoNzNPbXpvSUtYNUVUVkYr?=
- =?utf-8?B?OC9Xd2VvYXU5RHRsNFBETzJlV1F6ZUp3NWUyblBnODBGVXg3KzJtTGxRd2Vl?=
- =?utf-8?B?dXJjQTBmM0o5ZXhvbWZtaml0RFg3bG5MRmN2bEpMNmM0UUp1eUpjb1cyWmkx?=
- =?utf-8?B?N3o3WnVwN2lQQ012NDM3K2lrYi9nUDRaSjd3bUV5cjZ5R0p5aWY3MWdVWnp1?=
- =?utf-8?B?L2R0SFg4aUdUSkFwSEtKcCtVYWc0citPWGNIbFpnckxBK043WWNmeWdSVlR1?=
- =?utf-8?B?Ly9hN3d3OHB1aTNmd0lMR0c4cWxYNkQrUHRRZzMzTjVGL1JTR2Rvd0s2VXF3?=
- =?utf-8?B?bU5mYllPeitvdExsczhFZUl2TVNHcWhzT3FTUmZidVpzRnpEZWxFTTZRc1pT?=
- =?utf-8?B?N08yUVhVWVNYS2RmbGEvZnFjUlR0ckd6Q1lxdTNyTkhvZFdMKzF2U2sxRUJl?=
- =?utf-8?B?RGhFeXdhMjVndllYVzd1M3VpeHIwTzA1Z2ZrdERQTVhNNk5JNFpRNG14TVAr?=
- =?utf-8?Q?TLadfYbJC+ParAzd9rESuafHL?=
+	=?utf-8?B?NzRvRHEwdkdtNEVRMGk0TktrU0ErV0p2S1RJTUg1d2lic0R5WDlsa3ZRYUQz?=
+ =?utf-8?B?N0ZOVi90eWRkME1YZFdSWnNzSHlpa1BSdk03ZWxTR2p2UkY3MytQaStQb0dH?=
+ =?utf-8?B?M3VlN2dMRFVrY2NZZ0lJeE0ybVc0MEIyRFQ1K1dZZUxST3hUWHFVRFF6dmt6?=
+ =?utf-8?B?SnRacjltK3Q1elFlZDhSV2llV1BKUE1FTmFmbmMyV1IxT1RlU0hNcVNBU2Fn?=
+ =?utf-8?B?cmZtTy80Y2QzQitRemZiMEdLM1RoQkJ6WEJLd1IvRXFwMU13VlExUGQya3ZP?=
+ =?utf-8?B?aGxJWUMvdHZ4aXp5dEV6N29kQmVyLzhLTGdEM1B3elJidnZJUUtiS1drRW9V?=
+ =?utf-8?B?UE5JRWMrNWg0cXl4cXNWbTRSZjZZN1Bvd1hDam05Ymg3bDBwdHFpSlROS2ZC?=
+ =?utf-8?B?bzNkbHJha0RRWVExWTBudkpxb095K0gzOWI5Uk8vTEJIYzVJaWxNd0JKaFZv?=
+ =?utf-8?B?eTdjZXpYVjE5T1NGQlBlTjZCZE81UDJtTmFhN1BkZFVMNmswdlp1N2g5aXBs?=
+ =?utf-8?B?bmNudGhnaklyb212c0NNV0J2b0syTnNHdG1sK3dKd2x0WlR2eUw0WXVKMDNr?=
+ =?utf-8?B?WmJXd0FoTTZEZVRHaWpBVlVDTjlMR2pYL1lET29nZkhwK29meFpEL2Y5OUE3?=
+ =?utf-8?B?YzlFUjJzTW0vWE1admFoYUZJMDhOOFU3NHpKdzJqSWt1WU1VSk1xN1FLSHhE?=
+ =?utf-8?B?RGpTZG92dk12YkVaZW43cnVQbXZ6WHAzRjA0Njk2cFpoUUU3WmpJS1doTTFE?=
+ =?utf-8?B?SDE3ekVOd2dNK1I4aERpalY5bm84a1hSUDFkeVpzM2FBWXluUE15bkhLYkpU?=
+ =?utf-8?B?RVQ3UFcrSHBZU3M4ZGFkS3BMRW1Dcjd1TGI4ZktIT0MxOGs3WG1nd21kdHU4?=
+ =?utf-8?B?SUVreXMrQksrOG5DdFcxRllDbHVSRGNVTVBmSUw4QXErUllBejJ2ZEZ3c0x2?=
+ =?utf-8?B?TVdLMHVCaktXRC9QUTlPTjFudlMySlRlWDdvM3l3TjYyK1BJaW15ZVZidHhM?=
+ =?utf-8?B?NUk1WTMxU2VkRTVTYm12RUdZNDNzVW9TdGlqYk0zTUdiUlhGYzBuNVNMVnlB?=
+ =?utf-8?B?b3lyaVRLY250czRja0ZxbjhHSlBSNGNJQS81WHllSXlmM0JFN0VLZDZwMDRq?=
+ =?utf-8?B?eGg0ekxSN3g1VUNuZDhWRkJncVp3R28zNnZSQ2JiN2dhTU5JRGdoSjZuWXc0?=
+ =?utf-8?B?WHpzcWtXb08xSHJnOWE5b2ZmRDJsejJCYktMZnVYS0ppQVBSazFmUUU3SjRh?=
+ =?utf-8?B?ejhyOWRFbFY5bGUyR0hBSitob3lmMmxQTjVZeXFPRmtKUFU4Q0U1WnhOZG92?=
+ =?utf-8?B?THlMQ2t5ZHZXMWsyVEt3eFFkbXgyWUNhZnVvVmNKQ0lEekE5dTUvb1laUVNw?=
+ =?utf-8?B?NGI1amk1OHZZZU5NOW9UWFFPR2swdkpHVTNmcUl1dDdZOThlL1ZyMlU5blZC?=
+ =?utf-8?B?eU9IeXQ5N2dXTzZHTWtVUGdNUC81UVdBREt1b2lKUVRMVHVKRGg5aWczVGtt?=
+ =?utf-8?B?elYzU3JDTlE3WFdCOXBFRFROZGs1b0JYK3N3aml3TURRZzBUU25EQU1vWTJI?=
+ =?utf-8?B?eGQvMnlGMklKb3FSc0dwQVhLendycDYzUW5JdjU4bGhzZm8xVVV1ZFhSNGVz?=
+ =?utf-8?B?NksrWTFXNEpwU05FSlNGeGZEZzN0K3lTQ21jVU52Ym1pNnAxVFRjYnRndDA5?=
+ =?utf-8?B?RHFVZStTa2xiY0J2eTE2eXkrbFl0a1JKOFMwdnF0cDVnTHNudVJ1RVNPKzdD?=
+ =?utf-8?B?TkFqTnRWMzVNRS9oVW9IR0phb1hFRWJzL2pLQ2kwSCs5dkRULy9KSzk0Q0Uw?=
+ =?utf-8?B?bDBpMGY1dFlCeWxxL1d3QVo2MXhtL2NCYjZrUjk1a1pIa1pINXVKdlkrLy9k?=
+ =?utf-8?B?VmVXc240WVgvUnJ5UFlJaUpKaVhEMGNZNlM0YUwrL3JpZERWQXBnTUFRc3Bq?=
+ =?utf-8?B?eklhaHAvYzBuL2R5MjU4V1dCVmpleDNVTWN4SlR5YXd3MCs0czRlMjBFK1Yz?=
+ =?utf-8?B?RG82TmkrYWI1L0hWa1lLT1VaNzg2RTdpYXdaUld4cHBwOU05QlFVaGt5THIv?=
+ =?utf-8?B?eDdnZ3hibmtEbDh0dWhvcUFBdzNTTW9zSDcvdlc1YUFBN2RWck5MVFZMSDFa?=
+ =?utf-8?B?dDdsTWJtMXE0MGhvV1pVZU1zbnBVQjBLWlJnRmFiQUh5cDZPMzROQjVGaktS?=
+ =?utf-8?B?Q1E9PQ==?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 466b1680-3aaf-4911-5257-08da5b640691
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f6f9143-42c0-4d7f-9f94-08da5b6408ec
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2022 13:17:19.2484
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2022 13:17:23.2178
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pGZWLEjYW5m5WjTFEiKDpyj8MVn0osHRyftNN3TlpzRJ+DqvacRe3v6R29a6XygvtrqP8IJ8IVZcNQVKXDTySA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: JZZAUZth4xT0SnvsnTp5k3+H+xpBrCNIyFy76SpYozpiQOefHAg6OFRv/qy6ym6qBbNXM6W1OTbhw3nfp0RmAQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5693
 
-Hello,
+Add support for enabling guest Bus Lock Detection on Intel systems.
+Such detection works by triggering a vmexit, which ought to be enough
+of a pause to prevent a guest from abusing of the Bus Lock.
 
-Following series implements support for bus lock and notify VM exit.
+Add an extra Xen perf counter to track the number of Bus Locks detected.
+This is done because Bus Locks can also be reported by setting the bit
+26 in the exit reason field, so also account for those.
 
-Patches are not really dependent, but I've developed them together by
-virtue of both features being in Intel Instructions Set Extensions PR
-Chapter 9.
+Note EXIT_REASON_BUS_LOCK VMExits will always have bit 26 set in
+exit_reason, and hence the performance counter doesn't need to be
+increased for EXIT_REASON_BUS_LOCK handling.
 
-Thanks, Roger.
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+Changes since v2:
+ - Subject/commit log adjustments.
+ - Simply logic given bit 26 will always be set.
 
-Roger Pau Monne (3):
-  x86/vmx: implement VMExit based guest Bus Lock detection
-  x86/vmx: introduce helper to set VMX_INTR_SHADOW_NMI
-  x86/vmx: implement Notify VM Exit
+Changes since v1:
+ - Adjust commit message.
+---
+ xen/arch/x86/hvm/vmx/vmcs.c             |  4 +++-
+ xen/arch/x86/hvm/vmx/vmx.c              | 14 ++++++++++++++
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  3 +++
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h  |  2 ++
+ xen/arch/x86/include/asm/perfc_defn.h   |  4 +++-
+ 5 files changed, 25 insertions(+), 2 deletions(-)
 
- docs/misc/xen-command-line.pandoc       | 11 ++++
- xen/arch/x86/hvm/vmx/vmcs.c             | 21 ++++++-
- xen/arch/x86/hvm/vmx/vmx.c              | 74 ++++++++++++++++++++++---
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  7 +++
- xen/arch/x86/include/asm/hvm/vmx/vmx.h  | 11 ++++
- xen/arch/x86/include/asm/perfc_defn.h   |  5 +-
- 6 files changed, 118 insertions(+), 11 deletions(-)
-
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index 56fed2db03..d388e6729c 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -209,6 +209,7 @@ static void __init vmx_display_features(void)
+     P(cpu_has_vmx_virt_exceptions, "Virtualisation Exceptions");
+     P(cpu_has_vmx_pml, "Page Modification Logging");
+     P(cpu_has_vmx_tsc_scaling, "TSC Scaling");
++    P(cpu_has_vmx_bus_lock_detection, "Bus Lock Detection");
+ #undef P
+ 
+     if ( !printed )
+@@ -318,7 +319,8 @@ static int vmx_init_vmcs_config(bool bsp)
+                SECONDARY_EXEC_ENABLE_VM_FUNCTIONS |
+                SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS |
+                SECONDARY_EXEC_XSAVES |
+-               SECONDARY_EXEC_TSC_SCALING);
++               SECONDARY_EXEC_TSC_SCALING |
++               SECONDARY_EXEC_BUS_LOCK_DETECTION);
+         if ( _vmx_misc_cap & VMX_MISC_VMWRITE_ALL )
+             opt |= SECONDARY_EXEC_ENABLE_VMCS_SHADOWING;
+         if ( opt_vpid_enabled )
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index f08a00dcbb..853f3a9111 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -4065,6 +4065,11 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+ 
+     if ( unlikely(exit_reason & VMX_EXIT_REASONS_FAILED_VMENTRY) )
+         return vmx_failed_vmentry(exit_reason, regs);
++    if ( unlikely(exit_reason & VMX_EXIT_REASONS_BUS_LOCK) )
++    {
++        perfc_incr(buslock);
++        exit_reason &= ~VMX_EXIT_REASONS_BUS_LOCK;
++    }
+ 
+     if ( v->arch.hvm.vmx.vmx_realmode )
+     {
+@@ -4561,6 +4566,15 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+         vmx_handle_descriptor_access(exit_reason);
+         break;
+ 
++    case EXIT_REASON_BUS_LOCK:
++        /*
++         * Nothing to do: just taking a vmexit should be enough of a pause to
++         * prevent a VM from crippling the host with bus locks.  Note
++         * EXIT_REASON_BUS_LOCK will always have bit 26 set in exit_reason, and
++         * hence the perf counter is already increased.
++         */
++        break;
++
+     case EXIT_REASON_VMX_PREEMPTION_TIMER_EXPIRED:
+     case EXIT_REASON_INVPCID:
+     /* fall through */
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+index 9119aa8536..5d3edc1642 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -266,6 +266,7 @@ extern u32 vmx_vmentry_control;
+ #define SECONDARY_EXEC_ENABLE_VIRT_EXCEPTIONS   0x00040000
+ #define SECONDARY_EXEC_XSAVES                   0x00100000
+ #define SECONDARY_EXEC_TSC_SCALING              0x02000000
++#define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000
+ extern u32 vmx_secondary_exec_control;
+ 
+ #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
+@@ -345,6 +346,8 @@ extern u64 vmx_ept_vpid_cap;
+     (vmx_secondary_exec_control & SECONDARY_EXEC_XSAVES)
+ #define cpu_has_vmx_tsc_scaling \
+     (vmx_secondary_exec_control & SECONDARY_EXEC_TSC_SCALING)
++#define cpu_has_vmx_bus_lock_detection \
++    (vmx_secondary_exec_control & SECONDARY_EXEC_BUS_LOCK_DETECTION)
+ 
+ #define VMCS_RID_TYPE_MASK              0x80000000
+ 
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+index 8eedf59155..03995701a1 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+@@ -159,6 +159,7 @@ static inline void pi_clear_sn(struct pi_desc *pi_desc)
+  * Exit Reasons
+  */
+ #define VMX_EXIT_REASONS_FAILED_VMENTRY 0x80000000
++#define VMX_EXIT_REASONS_BUS_LOCK       (1u << 26)
+ 
+ #define EXIT_REASON_EXCEPTION_NMI       0
+ #define EXIT_REASON_EXTERNAL_INTERRUPT  1
+@@ -219,6 +220,7 @@ static inline void pi_clear_sn(struct pi_desc *pi_desc)
+ #define EXIT_REASON_PML_FULL            62
+ #define EXIT_REASON_XSAVES              63
+ #define EXIT_REASON_XRSTORS             64
++#define EXIT_REASON_BUS_LOCK            74
+ /* Remember to also update VMX_PERF_EXIT_REASON_SIZE! */
+ 
+ /*
+diff --git a/xen/arch/x86/include/asm/perfc_defn.h b/xen/arch/x86/include/asm/perfc_defn.h
+index b07063b7d8..d6eb661940 100644
+--- a/xen/arch/x86/include/asm/perfc_defn.h
++++ b/xen/arch/x86/include/asm/perfc_defn.h
+@@ -6,7 +6,7 @@ PERFCOUNTER_ARRAY(exceptions,           "exceptions", 32)
+ 
+ #ifdef CONFIG_HVM
+ 
+-#define VMX_PERF_EXIT_REASON_SIZE 65
++#define VMX_PERF_EXIT_REASON_SIZE 75
+ #define VMEXIT_NPF_PERFC 143
+ #define SVM_PERF_EXIT_REASON_SIZE (VMEXIT_NPF_PERFC + 1)
+ PERFCOUNTER_ARRAY(vmexits,              "vmexits",
+@@ -125,4 +125,6 @@ PERFCOUNTER(realmode_exits,      "vmexits from realmode")
+ 
+ PERFCOUNTER(pauseloop_exits, "vmexits from Pause-Loop Detection")
+ 
++PERFCOUNTER(buslock, "Bus Locks Detected")
++
+ /*#endif*/ /* __XEN_PERFC_DEFN_H__ */
 -- 
 2.37.0
 
