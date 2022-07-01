@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2208563AD9
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 22:19:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.359175.588591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFA8A563ADC
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Jul 2022 22:19:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.359177.588599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o7N6H-0005ul-BP; Fri, 01 Jul 2022 20:18:49 +0000
+	id 1o7N6H-00061T-MY; Fri, 01 Jul 2022 20:18:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 359175.588591; Fri, 01 Jul 2022 20:18:49 +0000
+Received: by outflank-mailman (output) from mailman id 359177.588599; Fri, 01 Jul 2022 20:18:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o7N6H-0005j7-2S; Fri, 01 Jul 2022 20:18:49 +0000
-Received: by outflank-mailman (input) for mailman id 359175;
- Fri, 01 Jul 2022 20:01:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o7N6H-0005u7-G4; Fri, 01 Jul 2022 20:18:49 +0000
+Received: by outflank-mailman (input) for mailman id 359177;
+ Fri, 01 Jul 2022 20:01:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rlr7=XG=sholland.org=samuel@srs-se1.protection.inumbo.net>)
- id 1o7Mpe-000470-1N
- for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 20:01:38 +0000
+ id 1o7Mpj-00047i-2s
+ for xen-devel@lists.xenproject.org; Fri, 01 Jul 2022 20:01:43 +0000
 Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9cd5a3ab-f978-11ec-bd2d-47488cf2e6aa;
- Fri, 01 Jul 2022 22:01:37 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 4055A5802F0;
- Fri,  1 Jul 2022 16:01:36 -0400 (EDT)
+ [66.111.4.224]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9ffb7752-f978-11ec-bf74-3be3494bec92;
+ Fri, 01 Jul 2022 22:01:42 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 88D6C5802F4;
+ Fri,  1 Jul 2022 16:01:41 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 01 Jul 2022 16:01:36 -0400
+ by compute5.internal (MEProxy); Fri, 01 Jul 2022 16:01:41 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 1 Jul 2022 16:01:30 -0400 (EDT)
+ 1 Jul 2022 16:01:36 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,46 +43,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cd5a3ab-f978-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 9ffb7752-f978-11ec-bf74-3be3494bec92
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
 	cc:cc:content-transfer-encoding:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm3; t=1656705696; x=1656712896; bh=D0
-	9F9v2OsTHtUMBckCisA3fh+Z9dxIk2ZgixoBozn6s=; b=ewPaKoSkHX2BJXiLrX
-	5+oSIjybcWAklW5wxV0V+2224R1S5aSbhX/ZumtO+pevNUEajJ4W+xkdb1xobtmO
-	5XYTY4EQgS3vI31X9KpJqpcSStss2CBfMnsdLsoEi24/QiILGCKcwtKmT3IHTl3M
-	Mv1Py5jjNaGrcKT545FKqrpJreT45hH04ngq4b9+jLCXhOz/SJLgVou/odMMcxHf
-	jE7L5Oa7EAAx5jIAr6O1i4neJfVW0AS/PUT6wWsmA07a/DS+FN2RC5D0zeLTTFHO
-	gxpbBrSPW1wLPGNr1k53E8cUdIxhDr0COGRwcsfZT5hqn7efH9ktohj1e3H0gw2y
-	IDKw==
+	:subject:subject:to:to; s=fm3; t=1656705701; x=1656712901; bh=0L
+	WuRMkphck+oUsETtbUMciB/g6XpbS+D68bi898KtM=; b=AqGoMTSNUno8lOmyDh
+	KCwBkoAA7CbRzCpTwUdrVZNLF/wgidvQ7dsm+84o2fZ7gQevOX9qgVYV5nm/9kgO
+	AMuQd8xE3VTWjlAJ7GrdD9VG7BV18Jcp9kKqlP10nOfIKsoMI+rW7kzM0NAfbTyC
+	NWr74D8Q3JSoeOaEx9LsHr33xds/373ohmcrmDKPwF8OjXUOpnM+aWDRtp6nuvq9
+	kg59XMZJPKD6+LWdXV+szMDXjt+Bh7ouD13imUf0Q05dynZ6LTdGmF8mVgEGl3Bl
+	ONZn3X292lorO+Z+uaZEodDFOzhGvINgJHQDr8YSLNCPUjVe/p4PN6U1+nlRcr03
+	GbWw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1656705696; x=1656712896; bh=D09F9v2OsTHtU
-	MBckCisA3fh+Z9dxIk2ZgixoBozn6s=; b=TBQ5zmWoRj8elXqnGUzA7FTSfUjgW
-	8okx2QN7XCl3ky8WadN5LKY6hzwdOfA9BJ0eXRmer/tFEiAUvbmU6wyJhpcSQZgj
-	Rmt76VA2NSnO3ovcCIK5WjyW5TFWl9HMcuavVAdkHsJTygI2nPusqodgPFJV4ZxT
-	L/edAsj355kbI6l/RzXXpdx9yUIvX2RXPv6ueqmRU44epIbZ+yjNJpk1CA53x/K2
-	6amlSq383hivdloACmsNrkmMJ+PWpdATylN2kVPVACnX4rT6i/tvFuKDeoqp86hr
-	Enu7oREUdbzL42YZLwjDCYWMY8dHPJjpHxLTP4IgdrwaIjKWoEmRjseFA==
-X-ME-Sender: <xms:nFK_YllnnRr_sciHqyPrgkD6BfM39zvsg08F5osTHcg_sR-Wy70VOw>
-    <xme:nFK_Yg0T4Xs609Ou5ecwzclnL5FBE5F6rJ1z1kAvq9AADLi3didfXi2Wxyr8n3TpT
-    mi7NakNtF0ybkEmZg>
-X-ME-Received: <xmr:nFK_YroiT8Opzgg4mdQnQVspyugX-2Yp7TSWYjWSc_Gb3Z8jy7_oEVH24qDxlp30FU5OF6EH21X8QO2bXW2VYXXm05wIsfBRtq4vhrPsEdruTaavuMPiuUbOCX2QMSVYSGH3Vw>
+	:x-sasl-enc; s=fm2; t=1656705701; x=1656712901; bh=0LWuRMkphck+o
+	UsETtbUMciB/g6XpbS+D68bi898KtM=; b=oa1e9Su6i+EtxBIhYMfUYN1BBIh7+
+	NtLc3K9bSFNOEpdIhhM9orp+f/WF+uOfv1NI8kwLKLdemiOeS5HWJECGkfsHhJiH
+	/wrY8WMMNhZUZUQf87Y6I2nlwQL4IKXSCH2sx7h4StxNsLo412pY5+cK8XhqNURa
+	IF4psEvV+ZGo699etAF0/P+4jL5LalpbzQlttWsppbNEXfxA/dOghfaTOCAwlKrK
+	KEvs69E1t/EoreKt1IwBdd8N4B9H428Bsjz94BHuby3lv0Gnlfekvlya7hY+n98C
+	YWKS5+DGo6Bue2FdLbpuwQxoB2okv4DaH6kIF8BDFGbnyGUVJ78Jz+rvQ==
+X-ME-Sender: <xms:olK_YsFQaQWqF-aONlCFJ5uetgmJnec1thbISaSBgnaCH8jS6vgdlw>
+    <xme:olK_YlXkRgS5TvEifhOxL8eAll0aQOmledIk1hyN2rgNMA13JYmstRmbpGOaRmTU-
+    H2H_Gklvg3vNf_76g>
+X-ME-Received: <xmr:olK_YmLuD69cpfSzw-R4kmMPgu2jyauTWKCQHkDFAgmSZn9Gis4bbGNPIwkocA_DrrsH3sMvcbGjSDo8KSO7QZfNqsw4dV7PcL3l-1zAidbDC6DmKW4D1HlwVY3xH3m954qqMg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudehfedgudeggecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
     necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
     enucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefurghm
     uhgvlhcujfholhhlrghnugcuoehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhgqeenuc
     ggtffrrghtthgvrhhnpedukeetueduhedtleetvefguddvvdejhfefudelgfduveeggeeh
-    gfdufeeitdevteenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfh
+    gfdufeeitdevteenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfh
     hrohhmpehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhg
-X-ME-Proxy: <xmx:nFK_YllRQNY4ItnskcF3wZbSLRLA3CEAGpYupD7J2qW5peJo-ruNIQ>
-    <xmx:nFK_Yj1dyGrStlLWi3Ibk1qa3a0DHtHuehPp5qlPfFiYZ8f76dMmZA>
-    <xmx:nFK_YksdN9ZGevKx8SgkWwqLy8z5Ru1bwIDqa-wLH1UTAjSTVJD4JQ>
-    <xmx:oFK_Ym2-Tx0kPJpXYNb6tkjCsCFHW9yYiblMWutR_FFjjXDpmGWUnQ>
+X-ME-Proxy: <xmx:olK_YuH3L90nAfoF2N8s9mi1lvzCGpKg5B0fSYH1opyql0hpPhTvBg>
+    <xmx:olK_YiV10CMXHptGh7LyGaSf02IoE_5CXIQLqvsRS8VJkIe4doHZvA>
+    <xmx:olK_YhO7Ax5bd7URto_P8m9sgMbfhMUEE1FQyOCxW1mjUcM8gkrmbw>
+    <xmx:pVK_YnWNuGw-JrwdgPZRMxAas6DoPrjYmDFLwWpctwyYTLAPtQGZKg>
 Feedback-ID: i0ad843c9:Fastmail
 From: Samuel Holland <samuel@sholland.org>
 To: Marc Zyngier <maz@kernel.org>,
@@ -130,122 +130,56 @@ Cc: Samuel Holland <samuel@sholland.org>,
 	linux-parisc@vger.kernel.org,	linux-pci@vger.kernel.org,
 	linux-sh@vger.kernel.org,	linux-xtensa@linux-xtensa.org,	x86@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v3 3/8] genirq: GENERIC_IRQ_EFFECTIVE_AFF_MASK depends on SMP
-Date: Fri,  1 Jul 2022 15:00:51 -0500
-Message-Id: <20220701200056.46555-4-samuel@sholland.org>
+Subject: [PATCH v3 4/8] genirq: Drop redundant irq_init_effective_affinity
+Date: Fri,  1 Jul 2022 15:00:52 -0500
+Message-Id: <20220701200056.46555-5-samuel@sholland.org>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220701200056.46555-1-samuel@sholland.org>
 References: <20220701200056.46555-1-samuel@sholland.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An IRQ's effective affinity can only be different from its configured
-affinity if there are multiple CPUs. Make it clear that this option is
-only meaningful when SMP is enabled. Most of the relevant code in
-irqdesc.c is already hidden behind CONFIG_SMP anyway.
+It does exactly the same thing as irq_data_update_effective_affinity.
 
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
 
-(no changes since v1)
+Changes in v3:
+ - New patch to drop irq_init_effective_affinity
 
- arch/arm/mach-hisi/Kconfig |  2 +-
- drivers/irqchip/Kconfig    | 14 +++++++-------
- kernel/irq/Kconfig         |  1 +
- 3 files changed, 9 insertions(+), 8 deletions(-)
+ kernel/irq/manage.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-diff --git a/arch/arm/mach-hisi/Kconfig b/arch/arm/mach-hisi/Kconfig
-index 75cccbd3f05f..7b3440687176 100644
---- a/arch/arm/mach-hisi/Kconfig
-+++ b/arch/arm/mach-hisi/Kconfig
-@@ -40,7 +40,7 @@ config ARCH_HIP04
- 	select HAVE_ARM_ARCH_TIMER
- 	select MCPM if SMP
- 	select MCPM_QUAD_CLUSTER if SMP
--	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
- 	help
- 	  Support for Hisilicon HiP04 SoC family
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 8c396319d5ac..40fe7806cc8c 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -205,16 +205,8 @@ static void irq_validate_effective_affinity(struct irq_data *data)
+ 	pr_warn_once("irq_chip %s did not update eff. affinity mask of irq %u\n",
+ 		     chip->name, data->irq);
+ }
+-
+-static inline void irq_init_effective_affinity(struct irq_data *data,
+-					       const struct cpumask *mask)
+-{
+-	cpumask_copy(irq_data_get_effective_affinity_mask(data), mask);
+-}
+ #else
+ static inline void irq_validate_effective_affinity(struct irq_data *data) { }
+-static inline void irq_init_effective_affinity(struct irq_data *data,
+-					       const struct cpumask *mask) { }
+ #endif
  
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index 5dd98a81efc8..462adac905a6 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -8,7 +8,7 @@ config IRQCHIP
- config ARM_GIC
- 	bool
- 	select IRQ_DOMAIN_HIERARCHY
--	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
+ int irq_do_set_affinity(struct irq_data *data, const struct cpumask *mask,
+@@ -347,7 +339,7 @@ static bool irq_set_affinity_deactivated(struct irq_data *data,
+ 		return false;
  
- config ARM_GIC_PM
- 	bool
-@@ -34,7 +34,7 @@ config ARM_GIC_V3
- 	bool
- 	select IRQ_DOMAIN_HIERARCHY
- 	select PARTITION_PERCPU
--	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
- 
- config ARM_GIC_V3_ITS
- 	bool
-@@ -76,7 +76,7 @@ config ARMADA_370_XP_IRQ
- 	bool
- 	select GENERIC_IRQ_CHIP
- 	select PCI_MSI if PCI
--	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
- 
- config ALPINE_MSI
- 	bool
-@@ -112,7 +112,7 @@ config BCM6345_L1_IRQ
- 	bool
- 	select GENERIC_IRQ_CHIP
- 	select IRQ_DOMAIN
--	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
- 
- config BCM7038_L1_IRQ
- 	tristate "Broadcom STB 7038-style L1/L2 interrupt controller driver"
-@@ -120,7 +120,7 @@ config BCM7038_L1_IRQ
- 	default ARCH_BRCMSTB || BMIPS_GENERIC
- 	select GENERIC_IRQ_CHIP
- 	select IRQ_DOMAIN
--	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
- 
- config BCM7120_L2_IRQ
- 	tristate "Broadcom STB 7120-style L2 interrupt controller driver"
-@@ -179,7 +179,7 @@ config IRQ_MIPS_CPU
- 	select GENERIC_IRQ_CHIP
- 	select GENERIC_IRQ_IPI if SMP && SYS_SUPPORTS_MULTITHREADING
- 	select IRQ_DOMAIN
--	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
- 
- config CLPS711X_IRQCHIP
- 	bool
-@@ -294,7 +294,7 @@ config VERSATILE_FPGA_IRQ_NR
- config XTENSA_MX
- 	bool
- 	select IRQ_DOMAIN
--	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+	select GENERIC_IRQ_EFFECTIVE_AFF_MASK if SMP
- 
- config XILINX_INTC
- 	bool "Xilinx Interrupt Controller IP"
-diff --git a/kernel/irq/Kconfig b/kernel/irq/Kconfig
-index fc760d064a65..db3d174c53d4 100644
---- a/kernel/irq/Kconfig
-+++ b/kernel/irq/Kconfig
-@@ -24,6 +24,7 @@ config GENERIC_IRQ_SHOW_LEVEL
- 
- # Supports effective affinity mask
- config GENERIC_IRQ_EFFECTIVE_AFF_MASK
-+       depends on SMP
-        bool
- 
- # Support for delayed migration from interrupt context
+ 	cpumask_copy(desc->irq_common_data.affinity, mask);
+-	irq_init_effective_affinity(data, mask);
++	irq_data_update_effective_affinity(data, mask);
+ 	irqd_set(data, IRQD_AFFINITY_SET);
+ 	return true;
+ }
 -- 
 2.35.1
 
