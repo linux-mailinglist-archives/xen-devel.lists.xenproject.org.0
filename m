@@ -2,64 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA824564EF0
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jul 2022 09:45:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.359884.589152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AE85564F30
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jul 2022 09:59:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.359893.589163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8Glp-0003il-Tv; Mon, 04 Jul 2022 07:45:25 +0000
+	id 1o8Gya-0005Tn-8e; Mon, 04 Jul 2022 07:58:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 359884.589152; Mon, 04 Jul 2022 07:45:25 +0000
+Received: by outflank-mailman (output) from mailman id 359893.589163; Mon, 04 Jul 2022 07:58:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8Glp-0003gN-R6; Mon, 04 Jul 2022 07:45:25 +0000
-Received: by outflank-mailman (input) for mailman id 359884;
- Mon, 04 Jul 2022 07:45:24 +0000
+	id 1o8Gya-0005RG-56; Mon, 04 Jul 2022 07:58:36 +0000
+Received: by outflank-mailman (input) for mailman id 359893;
+ Mon, 04 Jul 2022 07:58:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mey7=XJ=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1o8Glo-0003gF-D8
- for xen-devel@lists.xenproject.org; Mon, 04 Jul 2022 07:45:24 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70070.outbound.protection.outlook.com [40.107.7.70])
+ <SRS0=byhi=XJ=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1o8GyY-0005RA-9T
+ for xen-devel@lists.xenproject.org; Mon, 04 Jul 2022 07:58:34 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2048.outbound.protection.outlook.com [40.107.22.48])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 429261a6-fb6d-11ec-bd2d-47488cf2e6aa;
- Mon, 04 Jul 2022 09:45:23 +0200 (CEST)
-Received: from AM5PR04CA0014.eurprd04.prod.outlook.com (2603:10a6:206:1::27)
- by HE1PR0802MB2604.eurprd08.prod.outlook.com (2603:10a6:3:db::19) with
- Microsoft SMTP Server (version=TLS1_2,
+ id 1944b73f-fb6f-11ec-bd2d-47488cf2e6aa;
+ Mon, 04 Jul 2022 09:58:32 +0200 (CEST)
+Received: from AM5PR0602CA0005.eurprd06.prod.outlook.com
+ (2603:10a6:203:a3::15) by DB9PR08MB6508.eurprd08.prod.outlook.com
+ (2603:10a6:10:262::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.15; Mon, 4 Jul
- 2022 07:45:20 +0000
-Received: from AM5EUR03FT040.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:206:1:cafe::b1) by AM5PR04CA0014.outlook.office365.com
- (2603:10a6:206:1::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.20 via Frontend
- Transport; Mon, 4 Jul 2022 07:45:20 +0000
+ 2022 07:58:30 +0000
+Received: from AM5EUR03FT052.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:a3:cafe::7) by AM5PR0602CA0005.outlook.office365.com
+ (2603:10a6:203:a3::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.18 via Frontend
+ Transport; Mon, 4 Jul 2022 07:58:30 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT040.mail.protection.outlook.com (10.152.17.148) with
+ AM5EUR03FT052.mail.protection.outlook.com (10.152.17.161) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5395.14 via Frontend Transport; Mon, 4 Jul 2022 07:45:20 +0000
-Received: ("Tessian outbound 4748bc5c2894:v121");
- Mon, 04 Jul 2022 07:45:19 +0000
-Received: from bed862a63e97.2
+ 15.20.5395.14 via Frontend Transport; Mon, 4 Jul 2022 07:58:29 +0000
+Received: ("Tessian outbound d5fa056a5959:v121");
+ Mon, 04 Jul 2022 07:58:29 +0000
+Received: from b2907b2dd29a.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- C0D5A5CF-12F0-4745-A68E-7DC998581703.1; 
- Mon, 04 Jul 2022 07:45:13 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id bed862a63e97.2
+ EF69B989-4334-44BA-BEAB-64631DFF0454.1; 
+ Mon, 04 Jul 2022 07:58:22 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b2907b2dd29a.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 04 Jul 2022 07:45:13 +0000
-Received: from DU2PR08MB7325.eurprd08.prod.outlook.com (2603:10a6:10:2e4::7)
- by VI1PR08MB3406.eurprd08.prod.outlook.com (2603:10a6:803:7b::32) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.19; Mon, 4 Jul
- 2022 07:45:09 +0000
-Received: from DU2PR08MB7325.eurprd08.prod.outlook.com
- ([fe80::f90a:69e3:64e7:fdc0]) by DU2PR08MB7325.eurprd08.prod.outlook.com
- ([fe80::f90a:69e3:64e7:fdc0%6]) with mapi id 15.20.5395.020; Mon, 4 Jul 2022
- 07:45:08 +0000
+ Mon, 04 Jul 2022 07:58:22 +0000
+Received: from AM0PR08MB3809.eurprd08.prod.outlook.com (2603:10a6:208:103::16)
+ by AM6PR08MB4167.eurprd08.prod.outlook.com (2603:10a6:20b:ad::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.17; Mon, 4 Jul
+ 2022 07:58:19 +0000
+Received: from AM0PR08MB3809.eurprd08.prod.outlook.com
+ ([fe80::4ca:af1b:4380:abf9]) by AM0PR08MB3809.eurprd08.prod.outlook.com
+ ([fe80::4ca:af1b:4380:abf9%5]) with mapi id 15.20.5395.020; Mon, 4 Jul 2022
+ 07:58:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,14 +71,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 429261a6-fb6d-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 1944b73f-fb6f-11ec-bd2d-47488cf2e6aa
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=oAtUZJmPuUmcyDNoySdhgn+d5aI1mMR0TdjH7cH4tVztTScfKIcSwXWTbSjR18QkMnaL8xhte1ZST0mLECdJ3etZq213QXbHGCugituJnmZQLEWE+WN8tqwmvJ3tbLu00uQjKAe1E9MsrjlIqZfAbf/z+ofP+DhZ2Qc9HUYA4LxSurXNn/CRvqJ7HqLO1ufD0TacwgGmyM5/GZ0f0HvHuims2Hcy5s20WiwR4BAnBzbDeNq9/W7nWOhsQ/c7uqZ5q+VgTyYdw2NLmX+KA4dR3JRX7B1rw5nhOzJYh4WvZ6LEEtE+26E/szmYwctYPhL/WMFjSLHBvajmiEa4sh6U3Q==
+ b=LIa7S44yQK5Ap2umPmNN1hZiCCmEZvE7YOfyeSggrNwjRYbLz9GzLCWrSlBC6IBL3r3No8/cl5YTMoryhYEbbBTSEeZBGqGT6gQZOWDCeie2Tk9KiSe5u9uT3nzfMciEEEXtCVU8LFy1/KUGuxV6LK0TksXEpp78e3jdN1907t0J/SWj9H5qJrrsMxhRQ1LBPMVyyx6ZCD+4rjvfodf8F2HcIjfSYEtIsGE4IgwDAaeypiRn2F/on18sSubRoB0yUBtTGKRKXcF/vB4xXDrEjXzupN1wcFVxQBuoSUxZ7EGw8SNWclNT4Diag0aKQSDbSFHZW0PlLVrZLqT7xhenog==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X8FmYl87tvZLpRtZjpyus40w4spZQF0EdNwJFRPaW4w=;
- b=n/oj062YGCDBrKKYvfbAAwky7UvWmT9zpHraUwg28Q/JqGAzItCUylgejR3Ok68IE9vhKTUsbuHq767LWyijUnu14MZ99CoQhfTjK355jnMr/cO2D86i/7bGtDnZvvPqslSi6dKy0xsnJBJy4XLGHjVIl4M3nzcDwt1HKHJ7M57ooK9VJRiNfa3XFvOOtO837QGYVBlKgFiMIHHX9QIndxKL69NJzytBJpn0rDtZLBqqaVGtj3Tng01inZZ9SgjraxMQBztqiP/Hw9XQH3/Uugo7wYf+TS9pAmRpc+5ZYT+ofTtnGQUtIoA051pvHwVyWE33paPHtuHvMBRcK+Zi5A==
+ bh=y8iN7FG7QqIPSNaC7tk21q2PP6kF+jvvb+UHhnPZMsc=;
+ b=IcrPlGxtnShEIfkFOfVfQOzucX0ePTSkywvazD+Ox83CwWb8tPB6uJrsUaZZc1DwCQUC2rNmY7doYD+FfzDx8aAn05h9Ata8lBu6ZJ/BL4OE7uoW71sZflLBERi7mRa79CDvwvDm1xWCelMrX9RHZ5CkfCk6J7ngswIU0AnyaHSUnxeru8TBddccPG4o53okym8vJFs1wKdCIftu/vIZecrY8ws15K/pTmmxvD0t7dj9plOYHlMswSioKS9izNxc3jrxcCZ+uxDsbhdGyRH7Rw18Gwjh+d1QyBSeQ+tB7gmts97xg3v6bhBnpjMeFIUmjusCK3TB7Eo5UdMtuTVkWA==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -88,8 +88,8 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X8FmYl87tvZLpRtZjpyus40w4spZQF0EdNwJFRPaW4w=;
- b=fiMQdHL5BFoCYtMCccldad7f6rp4nCtWYY9ZcKaX9Bk/PHsFou8S0JOGy6wj2A8pX0fgs6L2YV3sTowKExJxEZRJ7XYiefMoY+bcfgeyNbXa+Kb2Lpz4pBgn9QWZd93XyXPaAb78cG0bmgoh/UoCfbzkrqoFk2HwlAeq/C6spgU=
+ bh=y8iN7FG7QqIPSNaC7tk21q2PP6kF+jvvb+UHhnPZMsc=;
+ b=fqrWFMsEIpQEYkKtwHmRQyRMp78fesMgZnBUjykX9A9D+MRlV1tt3M+7qOC4i/t3EMo7g9YN972E0iaRWFD/Sg85lwG2SMvLWC65f6l47aPQECboovtnWqJToSBaky/pI9oQbFbgj5IgO0zka1IYi2Yt5BH1U2gD4oMFFT2TdZw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -97,306 +97,104 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
  pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: d4ab59a1a25fc732
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E/M2UoL1jnVsMfAC7HJy7FWey2EYMzk33YSvB+l9oV8oBmV539Pl/a4JG/yFLsmY+IQYCH83wWKq+5BAfjbY85j1c63hCaiduyE7u2C8Z91z1lPUZA48OlsaqSz7mwstT91OD/pDjDtI6URBhTMcQWS4M77XH9kqbzlkKSd2ih4zc+AXsrzvZJtiHoi0lHZBk+hFdIqi98c6NWrt4N2kSrlUVYWEPVdSwzlZJZKP5/jNrXyc89c/bWXH8evkghujDS8xkg7zSVhI26cjBfT7vVTlGf62iuaeQTcdjGdbebr3fYhKazjbd///tup8bDxhyZwfl2E088tRIn8eKNnZ0g==
+ b=XNiT8BDuaxJeqngfI6qdkPr58XXsZW03b15rtmFLnoIJWB6ffzJ6ndJefr4/6JXd+UumzeRdeKOg7lwsepEyi4dboRjMiQr0MXDpB3MP5wuTP8Xr06Ac7LmiynksLboKZfSk7uMA4EXubSLsNmvepypI38LHZK8Buz7fyjxVNoj8Y89GBcl2otDv9abxttOlSlwXgQS+fe1RBG3gBmeTNxCq5GZvY69RUC/2fERz22oQpyOPP94LN9eIH5HMgeCjKzxDwKv6Yx/lSZlT2x3yHuVKQ53An2X/1BFnj2PwabA1QLbCibM2Ipdy5C+WwA0ir4RUMPi2kIhIROfwS/CN6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X8FmYl87tvZLpRtZjpyus40w4spZQF0EdNwJFRPaW4w=;
- b=NToPHy6BLtAM5en2DDlUZuRf+e6HNBpJ/tmwgv8P8A3Niqkw+/Z3zW2w17JPqAO0pTsfIB7bwl8Hhsbl/5KJ339z6KhDBpMOPsrG6D0laebStRkyA9dewHFBiJyH9VWK7HiN0y5d0nze18XVAbnToWhJ/ByFV4KYWnLUAsq2zBEAkQrwHjzPjvzy5EBgyR4ntCpEX47/gZnkCfEQHC6ERo9LAm1Bua5KKE1/a6Odts36gMdolB0NGcGorB03FbcJAj83zHGB9eWUeZsf+Qs8xok+yWy8DNaZx2QCppTY35KOkyM4MxLocEdndkLVkQ8D0wvsKKxFkYdU3Dd5lCJTEw==
+ bh=y8iN7FG7QqIPSNaC7tk21q2PP6kF+jvvb+UHhnPZMsc=;
+ b=BBarIyztV+nyZkO7Y8gtV9ZjSCnwSiBTBSRTi/FsZJdCzCB2c14NbpA1hGiUg+ZxTO5XA6xfGH1otQMdfpAEu+PaxifEAK/PZ1zgoZnKDUAS8/dwUVfnFvX0zx9pYJVMWUCr3YWJPdFmY2wGLoES7EQNWqRTspWXdIgn7zXDV4Zsv7UnhKBc9dDkZpTcvGTYUWjALT9TiIuyCctABsrgPEQCkq3XBuV32hZxS8N7ksJxpg+x8pc1XmoukUmdMKTJ9OIhss8MhDCp83k5KQ225x9WvbczV6R1xVkvpSZE3aoiUsaEWCVl3sBT5h8FmjzkOLRfLee1175H74dymvF7vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X8FmYl87tvZLpRtZjpyus40w4spZQF0EdNwJFRPaW4w=;
- b=fiMQdHL5BFoCYtMCccldad7f6rp4nCtWYY9ZcKaX9Bk/PHsFou8S0JOGy6wj2A8pX0fgs6L2YV3sTowKExJxEZRJ7XYiefMoY+bcfgeyNbXa+Kb2Lpz4pBgn9QWZd93XyXPaAb78cG0bmgoh/UoCfbzkrqoFk2HwlAeq/C6spgU=
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei
- Chen <Wei.Chen@arm.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: RE: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
- device tree
-Thread-Topic: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
- device tree
-Thread-Index: AQHYhGRGiM2+sN9ON0uL+hMDdx46E61e+NuAgAApAYCADsZBcA==
-Date: Mon, 4 Jul 2022 07:45:08 +0000
-Message-ID:
- <DU2PR08MB7325CB781C338947D0576A19F7BE9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-References: <20220620051114.210118-1-Penny.Zheng@arm.com>
- <20220620051114.210118-8-Penny.Zheng@arm.com>
- <84641d6e-202d-934c-9ea9-bbf090e29bdb@xen.org>
- <alpine.DEB.2.22.394.2206241448040.2410338@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2206241448040.2410338@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
+ bh=y8iN7FG7QqIPSNaC7tk21q2PP6kF+jvvb+UHhnPZMsc=;
+ b=fqrWFMsEIpQEYkKtwHmRQyRMp78fesMgZnBUjykX9A9D+MRlV1tt3M+7qOC4i/t3EMo7g9YN972E0iaRWFD/Sg85lwG2SMvLWC65f6l47aPQECboovtnWqJToSBaky/pI9oQbFbgj5IgO0zka1IYi2Yt5BH1U2gD4oMFFT2TdZw=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+CC: Xenia Ragiadakou <burzalodowa@gmail.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: traps: fix MISRA C 2012 Rule 8.7 violation
+Thread-Topic: [PATCH] xen/arm: traps: fix MISRA C 2012 Rule 8.7 violation
+Thread-Index: AQHYj3bsMO2Y3PSLZ0WCUDTYt37uBq1t0/kAgAAEvQA=
+Date: Mon, 4 Jul 2022 07:58:19 +0000
+Message-ID: <BB492376-6171-4ECB-8F24-6F419E9A5926@arm.com>
+References: <20220704072232.117517-1-burzalodowa@gmail.com>
+ <EB360E93-8353-48D0-844F-CB529B94B9C1@arm.com>
+In-Reply-To: <EB360E93-8353-48D0-844F-CB529B94B9C1@arm.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-ts-tracking-id: 27CB1241F8AC344DBBE19E8F30897D51.0
-x-checkrecipientchecked: true
+x-mailer: Apple Mail (2.3696.100.31)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: d25eb81f-3042-42b4-55e8-08da5d912523
+X-MS-Office365-Filtering-Correlation-Id: d01d3064-f51b-4249-336b-08da5d92fb8f
 x-ms-traffictypediagnostic:
-	VI1PR08MB3406:EE_|AM5EUR03FT040:EE_|HE1PR0802MB2604:EE_
+	AM6PR08MB4167:EE_|AM5EUR03FT052:EE_|DB9PR08MB6508:EE_
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- GhkD9VZ/iV+70Dne9dQ249Z+4vTWy/orXDb5cotE61v8BnWWiYr9uRcYjP5I28c9DgrGB+HXEF8Mb0YqJ0YzZwNTmJFaLtFF3EqrcLolyKOscDdvy+b85f4BiAJloe9kavAREDTWiKK8NCHdrkftpfuXMdxKlOYtbmQY8maLBkyKRP5v8uljvIWg28Yxwf3tCwJjOaU/ujoPiYLM7DcFzjbpriRoHyq/Fcu8J+IJOPenhePiwwuDs4GhxAyoVwQscDi/a6Q6Kt67yYb7fEob6u2ZZIu3lC+i5wWYd+zjE3oyqCW1FIY/n3w3EE3rxeadBli94Ip3gJmGBNjXCXTc4NHzntoY21tn3Vb6TTaKzGxt5vwT62Ks+vf8LPZYcjT73o+OY/W2RPxVszF1aP4B+iGvqsJzgLBr/l9Xuwm+GWO8WPlfsriGvAX7894bGrbyZD4oLimZVSLq5whHzY8xeFwHs7TOFKhgdaYJMg3YhqRb4Zdj7cwPVrefU+ya+npjFsrcbgKncn6W2Ep6b0a6AzOoC6fIi3B0i3AV+e5lNMVy6OLU7vMfy6O5oNvO4BxK6gyBJt1oaeTEMzZc0AjQRyouapro7uu6Hg5yXdMn25DyqFGSyCs5B7lGW+al5JSLD4qMIfuhBPwfFJ18DqRV/WADs46qGGpT9O8Bsz8x3kUW+PFbFsV+qWMZfWA56b5IvvO0t7WZQYvCUdbRoQu8Td9rrSnXIecdrb5dQeVOKZfTWxc/lRS6ocoUjyLlD7y7QgNt0hCUR6gGzC4xq0QdloIpBopxhMsL26EkcxEeKPMc+vcGtozSBWfc6palV532
+ PaGOY+A0P5fh5poKW8XHHntc9EjEzhYYbmHyeCLg/Kx5if62GCp7QvNrqQPw0whjydwmjBRD6C/w3MVnO/ls6X5OWh3PT991f18pPvryCOXtILy9r/CRakqv1rgCn2x0JqzCvwl3w71Ai7lYLXAFU42ltSJAuypKx0aZlx+kw8cs0mIDDOEwWj5AMik578xxB17wsix3Aaazw3ksrOj3s7YF6U7XsyETAUf9OIx/vCphvvpy1YHwir01z+L6tDiBFza0poY4S7p69jw2cHWegiAGuR7cBTK28kRBsfyynVSnHYaE6NPcJhxiqPl9CIw9y4sooJnw0bqeyEPnmk2epxEJFMH5agte2ECf+6mcFr7pMwfNesqyIzAmbmE83nIRKInzledciIzWPLZOVZWZ439fE9EeKA+0cnJayJYo33FkgUdg/cthEV/6zdkrf074Wh3gT6ylZVczTKKaUxr95+gA8fNco3q2LlKp1Gx9A2+F24GVLjWs9kecRWQ34/MMHAy5mByp1aSeh+/bg9awY6Bh9R0ZOjrbwC8pIiyS4INPDD713wDsr1tlwAbNQ1N4nub+/KMeuhYzmlWpsvbXqn2KiZwqbpwpSqRbE00v5jInHCxntJ6xwxXK6epKEQvFnOgijdLQOhwnlmfrH0C1/WGCiKe+9dB9aV44gdb2JonIPYOFk2g01W1Qv4y9exhwTpo9efzriUS56/7ZIzQnx3iV9NpPAvxot284Y9tPpkNP4xiP8EAiGVd8Ly9P58N8t2974SmiN3SrxErxt7+Vnqd0zO+RcprCn6I6EbCmpBhl/YE/vKhwQLM8jePfbi+EwuIn0UVkcU8lefK443aIROehN2nulgFToRbkmwbHHBQ=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7325.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(396003)(376002)(136003)(346002)(366004)(39850400004)(41300700001)(83380400001)(52536014)(7696005)(86362001)(6506007)(8936002)(186003)(5660300002)(2906002)(76116006)(66556008)(122000001)(55016003)(38070700005)(478600001)(33656002)(38100700002)(64756008)(66946007)(4326008)(8676002)(66446008)(66476007)(316002)(9686003)(26005)(53546011)(71200400001)(54906003)(110136005);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3809.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(396003)(346002)(39860400002)(136003)(366004)(186003)(38100700002)(2616005)(36756003)(33656002)(2906002)(76116006)(26005)(86362001)(71200400001)(66556008)(66446008)(66476007)(8676002)(4326008)(64756008)(6862004)(91956017)(66946007)(6512007)(5660300002)(8936002)(6506007)(122000001)(6486002)(54906003)(478600001)(316002)(37006003)(6636002)(41300700001)(38070700005)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <1088578C35947D4D9A0DD1802F1A6A1B@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3406
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4167
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT040.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT052.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d5bd4969-adf9-41fa-90c3-08da5d911e34
+	ccf844b3-0a01-4717-f2ba-08da5d92f5d4
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	1S7FVK7KxU77b0hTyV4h84SEdPIJ3VrXrCy8RIWtaVYlaERCv/+00HhGP48aPwg6crATVqtbItjOEKYSuXmqT1taYADi1/Nym5NBdJhIqFeo2G7z6Z/RJr5wC79p6V2XiLwDkGwfN92GOL6V5+pFeo/xTqKUZwAL1FgGz6zYzMuv6z45Rt2uTgYnvqmy8XAA3j3kDEhBh94qZ1DKVQdQ6V17x0SIX25iE9Mr37MHIn5tuo2BO0aYyoWvhPq6yJHg1TbScp7uyqzgBBx0YiG071e2Zj8/AW1A8kcpqEuWvw5W596YMOL67+k2SxLgPDcnEMephf+wFz/t7z+yHEHoJ4vNHeF1omXYDCLDm7k83EH6N9puCk78cGL99YX4o6Ua80BkO+iqUkDn3kPmWKS606KWsgKikrtFW0LkAWCCRk1TPsr59Uftshr7BrRFkUVRXwcMMXPGoKDwfjXyxqt7xUnTgMnLm2gsLfrqUXJ2QceMPRWvrJLuDL975RiCCHlGkewy92AdMj1N5FWT18H5Prhcep4Z443O0/EjBUvcdQbGT5cygnBD4f+3xVPJUCOXmMzh3q6ODJfaCXVapzAwpo4dPsO2rngliqU2DkxzAoWbYeCBeN6trCyIDdxp+vosrR3aVs/Bl/QKLSt+NUA/8C1gBRhG6Q7IdGGcJppvLQxLOe7118QrDSrxrIDLTxSIlAm/o44WgCL2b3O0uPooLh7XRwnakLdA8PTzYPOoFBerkvOQJkims80OVsJ/9ivI9Vuy6/Uh9TtRaK3lVGrqtuXH2G0zzLS573/ZUbZ12DK+f+f0xbDNehdn6izkb/fZ
+	21ZHPMRr4efaVzsnKRKjrj6j6aDrEQH6zODAvV3w/JehKqs7k1aKK0AGrdAy7F3MBerUe+zpM+O3vwYmqp6YGOdOtOaFntw69ArhodCykUEQ8jPuztzGVqrcKEDiAkuG08H7rx3KxtGux8Yc+F5EGQ2JAoyA38kOSb3J7M/vT/iiy5n/wJHKnJDb1NvyMUY6YMmMiWpeb+3mFbCPLFuFcwHnMHrYpjfq4V54NtjGBgQKa08ilf/kj+4H29rosXntHvcnCHnBjoa11/QbA8CROUWPT7Bkh49kPbIRlsfOJOj0+0gzCy7PB/SS7NBEAAGwNJhVaZeRbadqsLwsw3TM9TFElaAt5aizmv6GuFikFZTwSZ8mQomdjshZjx4Ha09yxEOLTwjDUMYj2RWZzgeo7KzDbAz8pDq++e4+/CJXcumEnpdiro5PHJCnr/Yrtx76Wrx/T2aGv9RY/h8k/UIQHCwA+rERbs09J/KD6hKlJkkUQXEbRPo6mi8HVSFd0LztPunVysdj+BKDzSjmDzV9Rmu1nfuPOM1G0K+GXKdd/3Z+sZ0JgthS9Ns2OMNyFA35KnD4DgsEU1Kc9dJ9I96Db3ri5jVVcSIn74w9c9B4izTw9LwoGy+cbfJdvtVabHJ0Q3EasnUv+M2I2TjDN6B80gzhqzuH9WyTeJ0bJi/nXVytSsZ0l9PPPIglhIQSbCCegKcQ4xLn71HP6/WAzENVPzPpCT9/x1GtLcBlEBGCa1zNIf4nEuPh6EKRzy9P+SxoPlaa3MQR93mu+jVM500/yRvdLh8kdZAuGbKb+04rORT1gmVM7TfM0zqdi3wBOJQc
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(136003)(39860400002)(376002)(396003)(346002)(36840700001)(46966006)(40470700004)(54906003)(81166007)(110136005)(2906002)(316002)(6506007)(8936002)(52536014)(82740400003)(8676002)(4326008)(356005)(7696005)(5660300002)(70206006)(9686003)(26005)(83380400001)(53546011)(70586007)(107886003)(186003)(40460700003)(336012)(47076005)(478600001)(41300700001)(36860700001)(86362001)(33656002)(55016003)(40480700001)(82310400005);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(136003)(376002)(396003)(39860400002)(346002)(36840700001)(46966006)(40470700004)(40480700001)(40460700003)(336012)(47076005)(36860700001)(107886003)(186003)(82310400005)(2616005)(36756003)(2906002)(33656002)(54906003)(6862004)(26005)(86362001)(70206006)(8676002)(4326008)(70586007)(6512007)(5660300002)(8936002)(6506007)(356005)(6486002)(82740400003)(316002)(478600001)(37006003)(6636002)(41300700001)(81166007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2022 07:45:20.0122
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2022 07:58:29.2952
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d25eb81f-3042-42b4-55e8-08da5d912523
+X-MS-Exchange-CrossTenant-Network-Message-Id: d01d3064-f51b-4249-336b-08da5d92fb8f
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT040.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT052.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0802MB2604
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6508
 
-Hi Stefano and Julien
-
-> -----Original Message-----
-> From: Stefano Stabellini <sstabellini@kernel.org>
-> Sent: Saturday, June 25, 2022 5:57 AM
-> To: Julien Grall <julien@xen.org>
-> Cc: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
-> Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
-> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
-> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> Subject: Re: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
-> device tree
->=20
-> On Fri, 24 Jun 2022, Julien Grall wrote:
-> > On 20/06/2022 06:11, Penny Zheng wrote:
-> > > We expose the shared memory to the domU using the "xen,shared-
-> memory-v1"
-> > > reserved-memory binding. See
-> > > Documentation/devicetree/bindings/reserved-memory/xen,shared-
-> memory.
-> > > txt in Linux for the corresponding device tree binding.
-> > >
-> > > To save the cost of re-parsing shared memory device tree
-> > > configuration when creating shared memory nodes in guest device
-> > > tree, this commit adds new field "shm_mem" to store shm-info per
-> > > domain.
-> > >
-> > > For each shared memory region, a range is exposed under the
-> > > /reserved-memory node as a child node. Each range sub-node is named
-> > > xen-shmem@<address> and has the following properties:
-> > > - compatible:
-> > >          compatible =3D "xen,shared-memory-v1"
-> > > - reg:
-> > >          the base guest physical address and size of the shared
-> > > memory region
-> > > - xen,id:
-> > >          a string that identifies the shared memory region.
-> > >
-> > > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> > > ---
-> > > v5 change:
-> > > - no change
-> > > ---
-> > > v4 change:
-> > > - no change
-> > > ---
-> > > v3 change:
-> > > - move field "shm_mem" to kernel_info
-> > > ---
-> > > v2 change:
-> > > - using xzalloc
-> > > - shm_id should be uint8_t
-> > > - make reg a local variable
-> > > - add #address-cells and #size-cells properties
-> > > - fix alignment
-> > > ---
-> > >   xen/arch/arm/domain_build.c       | 143
-> +++++++++++++++++++++++++++++-
-> > >   xen/arch/arm/include/asm/kernel.h |   1 +
-> > >   xen/arch/arm/include/asm/setup.h  |   1 +
-> > >   3 files changed, 143 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/xen/arch/arm/domain_build.c
-> > > b/xen/arch/arm/domain_build.c index 1584e6c2ce..4d62440a0e 100644
-> > > --- a/xen/arch/arm/domain_build.c
-> > > +++ b/xen/arch/arm/domain_build.c
-> > > @@ -900,7 +900,22 @@ static int __init allocate_shared_memory(struct
-> > > domain *d,
-> > >       return ret;
-> > >   }
-> > >   -static int __init process_shm(struct domain *d,
-> > > +static int __init append_shm_bank_to_domain(struct kernel_info *kinf=
-o,
-> > > +                                            paddr_t start, paddr_t s=
-ize,
-> > > +                                            u32 shm_id) {
-> > > +    if ( (kinfo->shm_mem.nr_banks + 1) > NR_MEM_BANKS )
-> > > +        return -ENOMEM;
-> > > +
-> > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].start =3D start;
-> > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].size =3D size;
-> > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].shm_id =3D shm_id;
-> > > +    kinfo->shm_mem.nr_banks++;
-> > > +
-> > > +    return 0;
-> > > +}
-> > > +
-> > > +static int __init process_shm(struct domain *d, struct kernel_info
-> > > +*kinfo,
-> > >                                 const struct dt_device_node *node)
-> > >   {
-> > >       struct dt_device_node *shm_node; @@ -971,6 +986,14 @@ static
-> > > int __init process_shm(struct domain *d,
-> > >               if ( ret )
-> > >                   return ret;
-> > >           }
-> > > +
-> > > +        /*
-> > > +         * Record static shared memory region info for later setting
-> > > +         * up shm-node in guest device tree.
-> > > +         */
-> > > +        ret =3D append_shm_bank_to_domain(kinfo, gbase, psize, shm_i=
-d);
-> > > +        if ( ret )
-> > > +            return ret;
-> > >       }
-> > >         return 0;
-> > > @@ -1301,6 +1324,117 @@ static int __init make_memory_node(const
-> > > struct domain *d,
-> > >       return res;
-> > >   }
-> > >   +#ifdef CONFIG_STATIC_SHM
-> > > +static int __init make_shm_memory_node(const struct domain *d,
-> > > +                                       void *fdt,
-> > > +                                       int addrcells, int sizecells,
-> > > +                                       struct meminfo *mem)
-> >
-> > NIT: AFAICT mem is not changed, so it should be const.
-> >
-> > > +{
-> > > +    unsigned long i =3D 0;
-> >
-> > NIT: This should be "unsigned int" to match the type of nr_banks.
-> >
-> > > +    int res =3D 0;
-> > > +
-> > > +    if ( mem->nr_banks =3D=3D 0 )
-> > > +        return -ENOENT;
-> > > +
-> > > +    /*
-> > > +     * For each shared memory region, a range is exposed under
-> > > +     * the /reserved-memory node as a child node. Each range sub-nod=
-e
-> is
-> > > +     * named xen-shmem@<address>.
-> > > +     */
-> > > +    dt_dprintk("Create xen-shmem node\n");
-> > > +
-> > > +    for ( ; i < mem->nr_banks; i++ )
-> > > +    {
-> > > +        uint64_t start =3D mem->bank[i].start;
-> > > +        uint64_t size =3D mem->bank[i].size;
-> > > +        uint8_t shm_id =3D mem->bank[i].shm_id;
-> > > +        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
-> > > +        char buf[27];
-> > > +        const char compat[] =3D "xen,shared-memory-v1";
-> > > +        __be32 reg[4];
-> > > +        __be32 *cells;
-> > > +        unsigned int len =3D (addrcells + sizecells) *
-> > > + sizeof(__be32);
-> > > +
-> > > +        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64,
-> > > mem->bank[i].start);
-> > > +        res =3D fdt_begin_node(fdt, buf);
-> > > +        if ( res )
-> > > +            return res;
-> > > +
-> > > +        res =3D fdt_property(fdt, "compatible", compat, sizeof(compa=
-t));
-> > > +        if ( res )
-> > > +            return res;
-> > > +
-> > > +        cells =3D reg;
-> > > +        dt_child_set_range(&cells, addrcells, sizecells, start,
-> > > + size);
-> > > +
-> > > +        res =3D fdt_property(fdt, "reg", reg, len);
-> > > +        if ( res )
-> > > +            return res;
-> > > +
-> > > +        dt_dprintk("Shared memory bank %lu: %#"PRIx64"->%#"PRIx64"\n=
-",
-> > > +                   i, start, start + size);
-> > > +
-> > > +        res =3D fdt_property_cell(fdt, "xen,id", shm_id);
-> >
-> > Looking at the Linux binding, "xen,id" is meant to be a string. But
-> > here you are writing it as an integer.
->=20
-> Good catch!
->=20
->=20
-> > Given that the Linux binding is already merged, I think the Xen
-> > binding should be changed.
->=20
-> We would be compliant with both bindings (xen and linux) just by writing
-> shm_id as string here, but if it is not too difficult we might as well ha=
-rmonize
-> the two bindings and also define xen,shm-id as a string.
->=20
-> On the Xen side, I would suggest to put a clear size limit so that the st=
-ring is
-> easier to handle.
-
-I've already made the xen,shm-id parsed as a string too, seeing the below c=
-ode:
-"
-    prop_id =3D fdt_get_property(fdt, node, "xen,shm-id", NULL);
-    if ( !prop_id )
-        return -ENOENT;
-    shm_id =3D simple_strtoul(prop_id->data, NULL, 10);
-    if ( shm_id >=3D NR_MEM_BANKS )
-    {
-        printk("fdt: invalid `xen,shm-id` %lu for static shared memory node=
-.\n",
-               shm_id);
-        return -EINVAL;
-    }
-"
-The size limit is smaller than 256, just as stated in doc:
-"
-- xen,shm-id
-
-    A string that represents the unique identifier of the shared memory
-    region. The maximum identifier shall be "xen,shm-id =3D 255".
-"
-Hope this fits what both of you suggested~~~
+DQo+PiBJIGFtIG5vdCAxMDAlIHN1cmUgYWJvdXQgdGhpcyBwYXRjaC4NCj4+IEkgdGhpbmsgc2hv
+d19zdGFjaygpIHNob3VsZCBiZSBkZWNsYXJlZCB0aGUgc2FtZSB3YXkgYXMgc2hvd19yZWdpc3Rl
+cnMoKS4NCj4+IFNvIGVpdGhlciBib3RoIG9mIHRoZW0gd2lsbCBiZSBkZWNsYXJlZCB3aXRoIGV4
+dGVybmFsIGxpbmthZ2Ugb3IgYm90aCBvZiB0aGVtDQo+PiB3aWxsIGJlIGRlY2xhcmVkIHdpdGgg
+aW50ZXJuYWwgbGlua2FnZS4NCj4gDQo+IEkgdGhpbmsgdGhhdCB0aG9zZSAyIHNob3VsZCBiZSBk
+ZWNsYXJlZCB3aXRoIGV4dGVybmFsIGxpbmthZ2Ugd2l0aCBhIGNvbW1lbnQNCj4gZXhwbGFpbmlu
+ZyB3aHkgdGhleSBhcmUuIEZvciBtZSB0aG9zZSBhcmUgdXNlZnVsIHdoZW4gZGV2ZWxvcGluZyBv
+ciBkZWJ1Z2dpbmcNCj4gYW5kIEkgc29tZXRpbWUgY2FsbCB0aG9zZSB0byBmb3JjZSBkdW1waW5n
+IHRoZSBzdGF0dXMuDQo+IFNvIEkgd291bGQgdm90ZSB0byBrZWVwIHRoZSBleHRlcm5hbCBsaW5r
+YWdlLg0KPiANCj4+IEkgZGVjaWRlZCB0byBkZWNsYXJlIGJvdGggb2YgdGhlbSBzdGF0aWMgYmVj
+YXVzZSB0aGV5IGFyZSByZWZlcmVuY2VkIG9ubHkgaW4NCj4+IHRyYXBzLmMgYnV0IEkgY291bGQg
+aGF2ZSwgYWxzbywgYWRkIHRoZSBkZWNsYXJhdGlvbiBvZiBzaG93X3N0YWNrKCkgaW4NCj4+IGFz
+bS9wcm9jZXNzb3IuaCBoZWFkZXIgaW5zdGVhZC4gUnVsZSA4LjcgaXMgYWR2aXNvcnkuDQo+IA0K
+PiBBcyBzYWlkIEkgd291bGQgdm90ZSBmb3IgZXh0ZXJuYWwgbGlua2FnZSBoZXJlIGJ1dCB3b3Vs
+ZCBiZSBuaWNlIHRvIGhhdmUgb3RoZXINCj4gZGV2ZWxvcGVycyB2aWV3IG9uIHRoaXMuDQo+IA0K
+DQpJbiBhZGRpdGlvbiB0byB0aGlzLCBpZiB3ZSBkb27igJl0IHdhbnQgdG8gcHJvdmlkZSBhIGp1
+c3RpZmljYXRpb24gZm9yIHRob3NlLCBzaW5jZSB0aGV5IHNlZW1zIHRvIG1lDQpjb2RlIHJlbGF0
+ZWQgdG8gZGVidWdnaW5nIHRoZXkgY2FuIGJlIHJlbW92ZWQgZnJvbSDigJxwcm9kdWN0aW9u4oCd
+IGNvZGUgaW4gc29tZSB3YXkuDQoNCj4gQ2hlZXJzDQo+IEJlcnRyYW5kDQoNCg==
 
