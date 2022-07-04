@@ -2,39 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40C915650FF
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Jul 2022 11:36:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.360078.589457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 891EA565152
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Jul 2022 11:51:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.360085.589485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8IV3-0002q2-44; Mon, 04 Jul 2022 09:36:13 +0000
+	id 1o8IjV-0005hD-UO; Mon, 04 Jul 2022 09:51:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 360078.589457; Mon, 04 Jul 2022 09:36:13 +0000
+Received: by outflank-mailman (output) from mailman id 360085.589485; Mon, 04 Jul 2022 09:51:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8IV3-0002np-0m; Mon, 04 Jul 2022 09:36:13 +0000
-Received: by outflank-mailman (input) for mailman id 360078;
- Mon, 04 Jul 2022 09:36:11 +0000
+	id 1o8IjV-0005el-Qf; Mon, 04 Jul 2022 09:51:09 +0000
+Received: by outflank-mailman (input) for mailman id 360085;
+ Mon, 04 Jul 2022 09:51:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rvAI=XJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o8IV1-0002mF-E4
- for xen-devel@lists.xenproject.org; Mon, 04 Jul 2022 09:36:11 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2055.outbound.protection.outlook.com [40.107.22.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bcb95ee5-fb7c-11ec-a8e4-439420d8e422;
- Mon, 04 Jul 2022 11:36:10 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM6PR04MB5429.eurprd04.prod.outlook.com (2603:10a6:20b:99::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.20; Mon, 4 Jul
- 2022 09:36:04 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5395.020; Mon, 4 Jul 2022
- 09:36:04 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=A6Xk=XJ=citrix.com=prvs=1776e108b=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1o8IjT-0005EP-Qo
+ for xen-devel@lists.xen.org; Mon, 04 Jul 2022 09:51:08 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ceb75969-fb7e-11ec-a8e4-439420d8e422;
+ Mon, 04 Jul 2022 11:51:02 +0200 (CEST)
+Received: from mail-bn8nam12lp2168.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.168])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 04 Jul 2022 05:50:58 -0400
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+ by SJ0PR03MB6421.namprd03.prod.outlook.com (2603:10b6:a03:398::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.18; Mon, 4 Jul
+ 2022 09:50:55 +0000
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::40af:d5f4:95eb:d534]) by DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::40af:d5f4:95eb:d534%7]) with mapi id 15.20.5395.020; Mon, 4 Jul 2022
+ 09:50:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,174 +49,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcb95ee5-fb7c-11ec-a8e4-439420d8e422
+X-Inumbo-ID: ceb75969-fb7e-11ec-a8e4-439420d8e422
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1656928263;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=wi6kw4uQTOZiKIGsDr8MfBIXbEdkA8GY+W10rc9D2Go=;
+  b=dHw6qahfIvfB6mjDtw/eJKfD4nANxiAC4Q7f4mbHUKwfe/K7x25C8qnB
+   NqMZjofTlpKVzUXbfzmDBuT6nz3IKf+ZmdmKutD3fv1KF2FH0PxG2u9pG
+   gmBTcEAhrULfCzR+9Gwt0r0SKlKQsDiVXhDoUGhHSAncbZNE8djSX6JWe
+   Q=;
+X-IronPort-RemoteIP: 104.47.55.168
+X-IronPort-MID: 75449540
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:KPg83anxD6rGQxJsv0URmHPo5gyCJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJOXGqHaP2Dajf8Kohyb4qx9k8PuZGHxtQyQQI9/ihgQyMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EgLd9IR2NYy24DmW1jV4
+ 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYYDoMJqfxwP4kUBBHLxFuI4Za2Y3HLi3q2SCT5xWun3rE5dxLVRtzF6tIv+F9DCdJ6
+ OASLy0LYlabneWqzbmnS+5qwMM+MM3sO4BZsXZlpd3bJa9+HdafHOOXuJkBgmdYasNmRJ4yY
+ +IDbjVidlLYagBnMVYLEpMu2uyvgxETdhUH9Q7J9PdruwA/yiRj1LHjFtf/OeakQO5OnB+4/
+ 3qe/mHmV0Ry2Nu3jGDtHmiXruHOhy7+VZ4fE6eQ6+VnmkbV3WsOEhYbW1yhrvT/jEOiM/pPJ
+ kpR5zEjt7Ma8E2wUsK7TxC+5nmesXY0S9dWVuE39gyJ4q7V+BqCQHgJSHhGctNOiSMtbTkj1
+ 1vMldW5AzVq6eeRUSjEqOfSqi6uMy8IK2NEfTUDUQYO/9jkpsc0kw7LSdFgVqWyi7UZBA3N/
+ txDlwBm7517sCLB//zTEYzv6950mqX0cw==
+IronPort-HdrOrdr: A9a23:daF2KKjS9hIcU94n5ZwghU0EyHBQXz913DAbv31ZSRFFG/FwyP
+ rCoB1L73XJYWgqM03I+eruBEBPewK4yXdQ2/hoAV7CZniehILMFu1fBOTZowEIdxeOldK1kJ
+ 0QCJSWa+eAcWSS7/yKhzVQeuxIqLfnzEnrv5a5854Ed3AWV0gK1XYcNu/0KDwVeOEQbqBJbq
+ Z0q/A30AaISDAyVICWF3MFV+/Mq5nik4/nWwcPA1oC5BOVhT2lxbbmG1zAty1uGg9n8PMHyy
+ zoggb57qKsv7WSzQLd7Xba69BzlMH6wtVOKcSQgow+KynqiCyveIN9MofyygwdkaWK0hIHgd
+ PMqxAvM4Ba7G7QRHi8pV/X1wzpwF8Vmg3f4G7dpUGmjd3yRTo8BcYEr5leaAHl500pu8w5+L
+ 5X3kqC3qAnQC/orWDY3ZzlRhtqnk27rT4JiugIlUFSVoMYdft4sZEfxkVIC50NdRiKorzPKN
+ MeQ/002cwmP29zNxvizyhSKZ2XLz8O9y69MwQ/Upf/6UkXoJh7p3Fot/D30E1wt67VcKM0md
+ gsAp4Y642mcfVmHJ6VJN1xNPdfWVa9NS7kASa1HWnNMp0hFjbkl6PXiY9FlN1CPqZ4hKcPpA
+ ==
+X-IronPort-AV: E=Sophos;i="5.92,243,1650945600"; 
+   d="scan'208";a="75449540"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n5uh3582hsd6UgvryAW0EODJoZ4f64+YiFTEan0951kcvh7JKAxlJY3S8HxNULLVzpbm5w8AtPPx+Y4rPbOqi4XbIdOZjDc/EYUsEcO3LufBdp2UnzTbkU1Aa5odpDtXqQ5uTXw6uLLMhT5p8knQhXuhsjaCjQ1J04nNxLN76Qi3vGgwoCcIEcvm/hxuLbF84D9hkyYF0mBCWL9wQO/FWKjY8HpHaUYnzXU7CTUFZ9Y5BFZEUJPZG0z64+N7FHcXBD4YV96197807xlAb4UZLKOVAaUhXPRkCIQBC3MtaiICcFBwnRibQijjW00znLuBsMGR63TsCoOxZjY+YuezMA==
+ b=BfqIFtq7S2KwGaoq7n4aFRze2/px+oLxpG+K0Q2o95GL5nDLsyjooG2n3Qcafejrn7fr1aqwVH0y5sAGQs2o5/nhYxSLDmZt1koEZ9UMgcMgMMO618YhIPjEkk34pGmVri45NinQ/sHRsTp/C6KtfIpqKkLLSXjI2LKej/YhOR11mm6EIgrkVXhSyfvwrqPfcIA9ed9B7jBBj+Zr9x4WBt5TqTaJ4Q3J0P2zelFi2J9URkEaN1Cpv/prks5+m5gZ8QLfVPS+w+xDGm5xuV4EJNqnzfSNZrwrLxO2WV/sKMIT2LmO8cjtFUs/1B25RA+Kqec+0XXzfu/9JhKAaejTKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q6xKKvrTzkKsrHUsM0iN5okDsgdVIju65ZhH96dTARc=;
- b=czAOAoE3XX6gRVsunHpa0U36uY8qh0vcjEVBfBt/3XKjyB+lXXjjPuV2G7XAFnePLqr1cGUVpPy6tzCFe2EGJ7YOtfdFieFC4UD611veDYDahx1G2Z5eAI8DDRzpd0w46vTjYm/OsnJOA2yhPxUdSu9DvJaLlIAejH22AfAEJupgF3apC0s+IM0dArCIPEqyJl+dGStijNZjxaMcjhmd67P4GmzTJoE4RjF7A8PjabpaZBEO4eCKTR+BxN3bFThZ9HZNhvyOiQSM1DCJ9SPO977nvDENCAdWcciBXTiM9M4mOj5Gz8VTRqrNtYAUbi3DfPcym4TXxygRQdiiH3B1qQ==
+ bh=9rDluYUKcxAsQlmWWPBTm509lxxjiYLo8Seh9dxgoQU=;
+ b=LDeV+mO9HcVINLVDvUKGoJz5Z3lpzWDo7v4Y8Xvv2wALcNlep4DX97FfxByHzKAdiijrwXd+lxgYWUMVgfE83ZqUvquX4Vr48PDgBeO/0WWO2a6a7c0G+Jzwr933Ky9fN13VgNspl3gf8j/n+AWFDMM4htkIl7Vk7qfHaeD6pYBdqL196XT5ayiVYUzpEwRDmZCX3d0f+gnqsoShWy8CDLlsyAwr9Fu3js+5QEQJGjPcVoLCCw/Zbr+n9DAuX5HNaUcaCr3nBE5vUTO6OSYWlVHYvd3h7FLUS/jex48Z00Cmd8RvajqT0v2z0bZp8TT98LwbTxSMkI6JlcWyULdi/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q6xKKvrTzkKsrHUsM0iN5okDsgdVIju65ZhH96dTARc=;
- b=OTiUPavXpbxKCMN5rvUMjEsL47BhLyhKDMJOuysrmYLYbytUjq768WrM49PPNl3ppZkxAJDOyVWW1MoCk1W+pU7xsoEBNL7mwn+EYg7U9RBrv9pcDGPT03veOX1+COA+oBCldN6pNy5s3KSG15oRyIRgqASnw9MTdQRhstsoSD6uLImbzUoHhATxXmPY8s26/Ot3j3eSvFG8sTBqxQtyGGTvtt7Xir3+o8t9ddFTCehSVDUvU2cHRD1J8sILP/JZJRiX3kw1WlQmGOQig4Cu3xGLhcGqUXI0RLOAd1FtJLhBPNiFYez4X4TxqiuU18IHiIuSKg4MfKEtXFmkTRK3Fw==
+ bh=9rDluYUKcxAsQlmWWPBTm509lxxjiYLo8Seh9dxgoQU=;
+ b=YyZu7bs8rtBUVWkYxr+nuQsaQUEa6Xc9UR68FSr0jjqgqwIzB2q88ebLu3X4V4mHYOG8Pdf8vDhkzY5iusJ960Vv+KDR5JV3UY0Qmhs835eOX9B/JAv3mCQ1HXjGDJGlpHM80vjS8TkFvfv/O7CHT1LyI3+A9Czak++CBN2oZqA=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b2e011db-5fb1-046e-ae10-577e06e5813d@suse.com>
-Date: Mon, 4 Jul 2022 11:36:02 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v1 01/10] drivers/char: Add support for Xue USB3 debugger
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Connor Davis <davisc@ainfosec.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.5d286dc6304969ed7155051e900236947c1b14dc.1654612169.git-series.marmarek@invisiblethingslab.com>
- <87c73737fe8ec6d9fe31c844b72b6c979b90c25d.1654612169.git-series.marmarek@invisiblethingslab.com>
- <9c7c11f5-be1e-f0ef-0659-48026675ec1a@suse.com> <YrM5g3dLRJHTIVYt@mail-itl>
- <8322303f-021a-b520-d2ad-cf8310573df5@suse.com> <YsGIzXKPr+j05TC4@mail-itl>
- <c4ecb784-e6d9-6d77-67ec-1dec78dbde0d@suse.com> <YsKyZ22TVnc+r8ag@mail-itl>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YsKyZ22TVnc+r8ag@mail-itl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0052.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 4 Jul 2022 11:50:53 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "G.R." <firemeteor@users.sourceforge.net>
+Cc: xen-users <xen-users@lists.xen.org>,
+	xen-devel <xen-devel@lists.xen.org>
+Subject: Re: PCI pass-through problem for SN570 NVME SSD
+Message-ID: <YsK3/fDX8c0Tzfv0@MacBook-Air-de-Roger.local>
+References: <CAKhsbWb4FyqWBraid=99mfr=_wbXQHfKq6jBszN9-WmV_OiBYw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAKhsbWb4FyqWBraid=99mfr=_wbXQHfKq6jBszN9-WmV_OiBYw@mail.gmail.com>
+X-ClientProxiedBy: LNXP265CA0023.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:5e::35) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fa6655ce-19e8-4456-e601-08da5da09d36
-X-MS-TrafficTypeDiagnostic: AM6PR04MB5429:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4041e4d2-508e-4505-a6fb-08da5da2b044
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6421:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	fz3rabsYcddCgt/xt7AngJUcXxlT7SpMNh4Zcrnvcy+/kQ0p14+wg4hGUSmH6gkOHnzOMwVsDzCSaVvenz+JfdXXpuVVt2D9Y4OYlpjSGFy2gos/L7WEZyxnHZGW5RGwxHiptMlkqJa/3ICnlE1+lqqVWgmk25qcONhLoOr1zSefVcHvJtEd4xsseP5/URlYSV6WhPJ6oHTMyVaHhJF4eEFTnwkGeq9sv3PXuwffLE4Bn4G0SChLRbN50+2L9oLVKYvmgdWcQqgkNuQR3PaDjKGwmBFJzQgbtgtLo47U7R9y5OkQMsjBM6zs/LpGZucIFsfGTpVaPl0pdScWA3ao3KM14n7qOM8UMQS2/FtG89O/qawdzY8vZnhz2BWqv9ZhzOpRK0TRr8QXOZ7CQz2PkUyIQr4WeIp9r36Jb67ljQsMUvmnc8pbNTo8S6gLIu44Wpz7WvP5vvKBbcTOySAjleZb/QUwoKSbA3LwF5TKfEqprVwziaZ+Q0RnaYU6mcDxW9Sq6gxMMua3hyww3QFP64UL8/XDZlaypvtlvi6OJhPPpRRg3IVSJWmzVOCWUlUAHEcDA7d59v6PUoObgR/TJBHcjowZiWBEbk+pBUNN0q+gP9lrEHub8JgIwCVnXb2i4T5EC4pHHEIDIaBC69I7YLD5oN5zj6bWWmd2GTe9fkWU8sEZphE4R+LB9nlnJUfZu4JPfrH6zvSUzbUYBhJiYleu2DU8KBFKu0b5gRE8966cHFrKYQXGNEhITYZB2te0uCpOzUbNoL/558oFV6wPNUwniA/9OZTls4wbH9VolMM5dTa9HVI/P+zrSaGqyUUqIppj+ETOMQN1kmmjJ4YIzL0xSCP48xx5fD8H9dPP3xA=
+	D8Q6P7rkg5X4vLzAd2MrQqjqEnf+y1+ZM9la0cTrloBar+cWV3W7/9pDMwoUCiVRSMkxZ5xq9xP1WrH/w3Xbvmre1hAtP1sIgfWksbsAIJAcTW5CY+fFjogoJIHdxB/jSNMUrcDqbEBg8QPS3UI90b6Dh/rtaIVraZkID5A652EkiXGoSUFtq7K/jVLkvZ/hzFaXai+3nRwDHkhxpXJTgdA1/0JK7+RujjVJGKhoAEs4aLYsd+9pg+LtgImCFlPGUCIG7g80/EQpFdFbujvzaMEnKyFCkaMQD9Eef+l5sau6wH+brkojArUd4ZiX6ZHP0n6o7KouGeOIiN7mM7PN8EY6S4gsqJbd2xcHlnw563slvz8Iw55Ss8B16Cc7bff2BygFqsI5/qm0JBbDNBsxv21QW2J1ndnlZWrENMxMzAdlU6IAgJw1w6O+KIfeC+xa4LSr1fGBek1fzAuTqLe4fhKNJABStIsa07745Eif1GrEzspwhGnVH5hRLfDzd4mvQzvFW3NE+WtJ5KAmP47mc9/O+owMQAmvIDC5YYWfdfl0dN5FZIHSUw+I7JcopEYLNKL3c93QMa0bF7shQJpqOyjtp+EuS0SqwyQO4mZD8FWCxuyqdCIPIUZ2RukkbHrqdVwRkTOyXZodLOO1prjxMW9geNpZJhODZNnfsctP8gUHhtwpmINdgpL1G0RzDNBsmckfZy0GSbpypmAjgFIHN5CwHd9f3c4YuEd8EDt/1WnZWUyOC112t/wDgfrECtRqwJsbL/9yhLNn/pBIFnmZ28Zs6Ei6sXQRiXh6YE/FdpvBDaa2c8jk0a72//7jTU5tgTRqG8xVGnTnpUAQi2nj0XSwWAGcr+/iULkY9ZY4R6c=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(136003)(366004)(39860400002)(376002)(346002)(38100700002)(66556008)(66476007)(8676002)(4326008)(54906003)(66946007)(86362001)(316002)(31696002)(6916009)(36756003)(5660300002)(6512007)(31686004)(2616005)(6486002)(41300700001)(2906002)(478600001)(8936002)(6506007)(53546011)(26005)(66574015)(7416002)(83380400001)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(136003)(366004)(346002)(376002)(396003)(39860400002)(478600001)(9686003)(6512007)(8936002)(86362001)(26005)(2906002)(6486002)(41300700001)(5660300002)(38100700002)(6506007)(83380400001)(4326008)(54906003)(66556008)(66476007)(6916009)(316002)(8676002)(85182001)(66946007)(186003)(82960400001)(21314003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NmtwNHJVdXpGdFZyQ2d5Z1ZnZTlzdENHRzdleE5ZZmpjcXVieDBoeGhUZWt1?=
- =?utf-8?B?SGNzczVhRjJKYmNDOFNhc1BvNGdqd3p2aHRlTGZ6dE9YcU5qMUpIaWtZUnUz?=
- =?utf-8?B?TTQzVitOSFQveFQ2bGdoYzgrc0xIRHBvRlEwaXRIcHJKQlcyQzFYdTVPMlhF?=
- =?utf-8?B?MEE0OTFSYUFVek1UQUtxOEZqeGlsWDFYUTRjbjBMVm1DZGhFM2xVM2R1TURp?=
- =?utf-8?B?RnprNVZCMGUyRDE1ZGs3ZEhQVGhGWHhxVTBuVW5mZFZBY2dIeVduZ0VZNm50?=
- =?utf-8?B?MVVzQWpkNSs2bGZyQnJZOURYMWdSQVJMWW1iTTlraUk3bEhpWmVmOGJITDBR?=
- =?utf-8?B?eGcydkNqWEVEMlIvUy84Vnc4NEozMTNJOTkzbDVtUDdIeFhSTmZiUExFYTlZ?=
- =?utf-8?B?QXQ2cUozQlVwM0M5MDdmUUxiK240ajVlZm9pRThqQk5jNExQM2NtbUk5YWJ4?=
- =?utf-8?B?U2NmMDd5UlVodTNGazZSY3EwOWtDeG1zTjd0bWhvT1ZWYkNEU0szY2ZkR0Uw?=
- =?utf-8?B?OFVWMzhtUVkreHpQODQ1N1ZIbDBITVh3b3ZZT280YzgyckE4bmFyTnNsRzRZ?=
- =?utf-8?B?WGJ3dVZjQS94YmZsMlpYTzR2SGJZb08zRUxoa3BiL21oR0lzVFBlWTBhTHN3?=
- =?utf-8?B?L1BGcTE1ZU8xY2pDcURObjFmeHF6U00vSEg0VksrTGl4NjJsQW4vNnpXdU5X?=
- =?utf-8?B?SWgwWlgzRVZsTWpqS1hEL1BSNGZ6TzJkVWk5RTJyUnNuNlNIYm1RWWYrdm9W?=
- =?utf-8?B?cUFqaEZhbXJOTThLb29OUU4zWDhiREg4Z2NGWTVzT2R2VUIvNGpvY1AxWXZt?=
- =?utf-8?B?WjVKbm9hS2d0Z2tEVVFiNHBzNEp2N1VFUWd0REdqNzMxSGtJSTNTVDJ1dXB5?=
- =?utf-8?B?QmlyZC9DNHNhRmxlL3BXY2R2SnY0OXBneEY3NVloYmxjN3RxQlFIMnpyWW1w?=
- =?utf-8?B?WDdPOWpNeDRycy9lUlR6eFloTjUrQ2JFbyt2MEFGRFppRGVrOVFPT1oycGl3?=
- =?utf-8?B?aG5jdEJkTDA1d0xtb0VKbi9sSTU3MVRFMXppdkNBVW1vdHN4Sk5IaFBRUndU?=
- =?utf-8?B?ay84QmQrejJ6Qm9POEtINXJyQXg2YmlKUG5SVUNqYlJkR3gzYitQbXJUVzJ5?=
- =?utf-8?B?Zkw2NXplYzBQelI3MnFuZHMwQUUzSEN1SWs5QTNLL0tWeHh5N25melQzbFlZ?=
- =?utf-8?B?YVVMcGNSaDNJenRCRS9UTjhWVGFUdGt6a3U1Q29XOFdDWDJyUnBjZFVvaDdH?=
- =?utf-8?B?MFIzWkxQRTBWTFcyTklzUHJYZGgybU5VZHRhSWl4U2ZWYUljSHc0Vm5UandH?=
- =?utf-8?B?OGJZanR4YUQrcS9EZEJ6OVpNZmdpSVNJWVVSQzM3UHIrM2Ryb3lob2JkeHBr?=
- =?utf-8?B?UlVkU2x2ZUtZUWpQV0FRRzI3SFBiYlAwcEw3NUhIOG1rcm8rZDZVUmZtY1Av?=
- =?utf-8?B?UUQ5Tlc3M1dqaTFzbUNyQVd6YmFDUlNjcnBBQTJoSGU3QUQvRmUwK3g3cnNM?=
- =?utf-8?B?S1ZlODMraFA0MVpMU0lCSVNhL1BUaW5WM3lreklyK1A2Vkt1cXl1bUJvYW4v?=
- =?utf-8?B?UytNZ1RxQUR3OFhrWFpJTno0YXJsdFA0RUZzRlVibkkwSUkrajZ0MmtIVWtp?=
- =?utf-8?B?aHBobTdxLzdTTEFwUXNhRWFNQmlrVVU5c0tDTUs5eGlPT2NSdkl5M0RyL0do?=
- =?utf-8?B?R1NFWVRFK3p6RC9oMzZoUlNaV1BVVEd0eVUrWEhUZzJ1VDlpRUFiVE1ad1p4?=
- =?utf-8?B?RUY5VXE5Y2RjbStpUkxlK295RDZsbUtRclhxa2ZRY0QySTNEdVF5ek8wYUVP?=
- =?utf-8?B?Q2ozbXd6aTNCUlBSb2cxOTg0VjNxQ1pDK2xPTWhxc1orblpNTHVZOFdaN0hm?=
- =?utf-8?B?NjczTGpYUDh1cTVVN1ZoMkNYaXVWUTdRc3JHcUowMUMzWlNFRGgvY29TS3U5?=
- =?utf-8?B?RmdoeWVmR2FNbnFNM2lnbWwvM0dlUlo4clNTbnVIR05rS05qWWtWM0JhUEkv?=
- =?utf-8?B?UU5vNXJCQXArQkdwcVAzTDA1WU51SFZCUkM3cDY4b05rWjdGUDhseG0rb0tW?=
- =?utf-8?B?eDIyRko1ZXUrTVFPYUttbmVhdDE0NjUxOGUwbDhNNFlob3FkMC8yZ0tEbXc5?=
- =?utf-8?Q?82LPkKQT5vq0SbH8o7mm/Vb1U?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa6655ce-19e8-4456-e601-08da5da09d36
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?TVJHYyswWk43OGFyNkE4N0kwTjNOb1U3d0dTdjZZdWF6TDFTelFJSjU3SmFh?=
+ =?utf-8?B?S3BybmM0d1V3dE5VdVpIT0JKaUN6OGF6SG1YVk1pN2xONjhzelhjNTl0Mkdi?=
+ =?utf-8?B?WXJLNnJ1d1VpdUxFdnFEK1JPSkEzVW14WlJIZ1Q5NjRwM0ZhRE1NVklRMWYy?=
+ =?utf-8?B?UFo3NU9EdTM5bU9oOUE1eGpPREg5UnRoY2kvRDJoUUdkamJGRDNORjZXVitN?=
+ =?utf-8?B?ZXY0NTk5Y0hGM2ZIaHp6NE5Fb29KeDhCcmRGaEJnb2Z4QmVNNkI2MWFIdFlV?=
+ =?utf-8?B?dW1ha3g4TkZWMUV0dnN5UzdLMGR5aXVncmo4YkZMYUZMUXdjMlNVOHJLbGxj?=
+ =?utf-8?B?UDdJYlVtZklxek41bnhoRHhaVllnclNjbU12V09MaU9TM3dObFdOS3Z4NkZK?=
+ =?utf-8?B?eXh3Zk5jN0dpTkZGeGdsOE1QZDl0NnZHZmZWcTNJbFlBV0lqbExtcnJKZjJ5?=
+ =?utf-8?B?bFRLTjhiZnlLVGdjVHJUc1VEVzVyOTFwQ0djazUxNENScStLb0hTOG9Jd3VQ?=
+ =?utf-8?B?aXFwY1NwUkVyK0YvNUJjczA2elZVWHcwTnBxbjczeDAxZkFkcy82SExLeitI?=
+ =?utf-8?B?SmJ3V0NxK29HazROTVBXLytCNFVzVTBtbHBHSEpxbGUrcXNjajZDVXZjYk9a?=
+ =?utf-8?B?VlkrUXJyQUpIc24rcGEyMUxwSGo4eE5mWnVOY096bDMvTzdIZGIzb1dTaFpF?=
+ =?utf-8?B?eFBOanlJRTlwOHVwLzlBd1B5ZGp1aHFFN2N2eFh1a0FpVk9GdmNNTktMZ2Uz?=
+ =?utf-8?B?QUkwcUJwNnh6MmRFVllqNkwwcHo4SUdTTmE2TmY5NzVkRkNTK3R0bWlGOTdM?=
+ =?utf-8?B?b0VUYkpza3BJdThzUmNIU3VBUDR4T1JnMXpQMCtIa0JYUVVmUFNWNlJoUXZ5?=
+ =?utf-8?B?Q2xYaDByVnY4SlNQdk9MV1RSeEhPRlYzd1g3QjVwUVYvZ3JqMmJ1NGI4MjNn?=
+ =?utf-8?B?MmltNVRsckF3cGdmYjdONjZFaVNZemUrRlI5NmNyWi8xNnNHVG9MZVpUTzhM?=
+ =?utf-8?B?TVcvSFQvRHMreURJTUtpbUY3cmoxRWNiVEdwTXZsQ2cvT250WldPRG9tMUhI?=
+ =?utf-8?B?S3NoK3h0UWVEM1kzbmtoZ2NCa3hHN2dZRmpUdEk5aGY4M21LdmFqUXFlaFcr?=
+ =?utf-8?B?MzRqdkJWb0VrcjJCdDh5YmM1clZLUTV0eHAyYXBqWk0wRjRnMUl5U2pnZjhR?=
+ =?utf-8?B?Z2M2Nm56RXBZQ3U5OEp4MUkycWV4MkpmSVhXWUVOYWh1N0NZSWZJMURTdmlK?=
+ =?utf-8?B?VVNUUk1jdC9jd3E0RldFQlhwK25qQlRpYmcvVXZSYzlDaWtFbUt3Mm1Oc3Yw?=
+ =?utf-8?B?REdJUEYrKzZpczBLdzJTWXZ1Q0lXd2hndHpDWnZZdWdyK1gwQmtrVHVQU2d6?=
+ =?utf-8?B?WEp6dzN6UDgwVmM0aE9sSkxqNkl3K3ByUzcvOERoeDhjeWx5WERoWDN1dlov?=
+ =?utf-8?B?bmdGcXViUVRJa3ZOYjhBZmlyTzFxMTZNVm41aHh6ejZmb25OdWN6YTV4c0RE?=
+ =?utf-8?B?ZkdnOWJOem5YYklrWHB4U2IvdUN4ODZGNGpjekdza0VneWJLNlhXbUNGeC9w?=
+ =?utf-8?B?K28vQStHMENrN3U4SkVxVTFtbXdNNEVJdms0ZTVMS1IzSmIzanBScXJFQUJU?=
+ =?utf-8?B?VnNtMWlYMU10S2tJL085c2xmTEgvS1lWcEZBWktqU2MvRXo0TGdCY0Y2eElp?=
+ =?utf-8?B?bUdaTWVEMVZaL3J6Ui8xMGRjK3NpNHozNjBxdWUvVjJtdUZFVUpCL082NnpK?=
+ =?utf-8?B?cGtnbG8zVFRyNHUzVnV6UEdyYUtUclJwaVd1Ui83ZE0xTVJaRGlMN3dzMGlP?=
+ =?utf-8?B?bEw1a1BHK2dkdW9ycnBIK2hwQ2tPMUo5VTBWcUU5bGNSNXcrUHAvd1dRR3Jl?=
+ =?utf-8?B?cytvRlJidmpyNGZ5SnFDRW8xZGxnSnJiYmpybjgxdWcxdzBVYXNtWFlXeFdX?=
+ =?utf-8?B?WDFoRjhaWVRBZm1MNSs2Q200RGdMalpBYmhDZElsNlRDNllkZVo3TE8zdjNM?=
+ =?utf-8?B?eFlkTmVudWYxVlkvY0M1UzBkdkRiaVJacG5Rb3l3dytFeUE3RWlMeU5ETnFY?=
+ =?utf-8?B?dUtLc2w0V1M1cUNjTVFQRlZVNXR6TmxoWkhMNVAwbjdzQ1dUdittZXF0REQ1?=
+ =?utf-8?Q?k7/Et4k2us5GLEn4iI7GeH4hS?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4041e4d2-508e-4505-a6fb-08da5da2b044
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2022 09:36:04.1523
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2022 09:50:55.0814
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vuoipukn2SSfAFjFZ79DYKu5cSfDkrqJBN8iVnaLTdL/+dBmb5D5Lcy2tabGNBjw3mLivIxCq+vvfWlMUhGiCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB5429
+X-MS-Exchange-CrossTenant-UserPrincipalName: IEbNg3aSLf+cQ1YlHiwxlwzo2HlikTsaQ2QNboWV7x08A8kUTbaq6ofxkLbDdsnc7OcgT6F3SHqz+MDNjCgVwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6421
 
-On 04.07.2022 11:27, Marek Marczykowski-Górecki wrote:
-> On Mon, Jul 04, 2022 at 08:05:06AM +0200, Jan Beulich wrote:
->> On 03.07.2022 14:17, Marek Marczykowski-Górecki wrote:
->>> On Thu, Jun 23, 2022 at 11:29:31AM +0200, Jan Beulich wrote:
->>>> On 22.06.2022 17:47, Marek Marczykowski-Górecki wrote:
->>>>> On Wed, Jun 15, 2022 at 04:25:54PM +0200, Jan Beulich wrote:
->>>>>> On 07.06.2022 16:30, Marek Marczykowski-Górecki wrote:
->>>>>>> +    memset(xue, 0, sizeof(*xue));
->>>>>>> +
->>>>>>> +    xue->dbc_ctx = &ctx;
->>>>>>> +    xue->dbc_erst = &erst;
->>>>>>> +    xue->dbc_ering.trb = evt_trb;
->>>>>>> +    xue->dbc_oring.trb = out_trb;
->>>>>>> +    xue->dbc_iring.trb = in_trb;
->>>>>>> +    xue->dbc_owork.buf = wrk_buf;
->>>>>>> +    xue->dbc_str = str_buf;
->>>>>>
->>>>>> Especially the page-sized entities want allocating dynamically here, as
->>>>>> they won't be needed without the command line option requesting the use
->>>>>> of this driver.
->>>>>
->>>>> Are you okay with changing this only in patch 9, where I restructure those
->>>>> buffers anyway?
->>>>
->>>> I'm afraid I'll need to make it to patch 9 to answer this question. If
->>>> suitable dealt with later, I don't see a fundamental problem, as long
->>>> as it's clear then that I will request that this patch be committed in
->>>> a batch with that later one, not in isolation.
->>>
->>> This turns out to be rather problematic. xue_uart_init() is called
->>> really early (as it should, to get console as early as possible). It's
->>> before even boot allocator is functioning, so I can't use alloc_boot_pages().
->>> Are there any other options for memory allocations at this point?
->>
->> No "neat" ones. Stealing directly from E820 could be an option, but
->> would of course be heavily x86-centric.
->>
->>> We are talking about 58 pages. It isn't much, but isn't exactly nothing
->>> either. Maybe there is way to keep the memory allocated statically as it
->>> is now, but return it to the allocator is xue is _not_ enabled?
->>
->> Well, yes, treating them like .init.data would seem to be the least bad
->> alternative then, at least for now. Down the road we may want to generalize
->> what's needed here, as there are other full-page or larger memory areas
->> which are used only under certain conditions. We may e.g. want to introduce
->> an approach similar to Linux'es .brk section (recently renamed to .brk..bss
->> iirc). If a non-generalized approach ends up looking too ugly, I'd be okay
->> with keeping things as they're now, just with a respective justification
->> added to the patch description.
+On Sun, Jul 03, 2022 at 01:43:11AM +0800, G.R. wrote:
+> Hi everybody,
 > 
-> Looking at it, I see another issue - Xen uses superpages, so I'd either
-> need to:
->  - reserve the whole superpage to be able to release it later (waste 6
->    pages if xue is used), or
->  - shatter superpage when releasing unused xue buffers
+> I run into problems passing through a SN570 NVME SSD to a HVM guest.
+> So far I have no idea if the problem is with this specific SSD or with
+> the CPU + motherboard combination or the SW stack.
+> Looking for some suggestions on troubleshooting.
+> 
+> List of build info:
+> CPU+motherboard: E-2146G + Gigabyte C246N-WU2
+> XEN version: 4.14.3
 
-That's part of the reason for my desire to generalize this.
+Are you using a debug build of Xen? (if not it would be helpful to do
+so).
 
-> First one is probably less bad. But maybe, instead of doing all this,
-> add xue to the menuconfig (make the prompt visible) with appropriate
-> note about wasting 58 pages when built-in but not enabled. What do you
-> think?
+> Dom0: Linux Kernel 5.10 (built from Debian 11.2 kernel source package)
+> The SN570 SSD sits here in the PCI tree:
+>            +-1d.0-[05]----00.0  Sandisk Corp Device 501a
 
-I don't mind it being done this way for now.
+Could be helpful to post the output with -vvv so we can see the
+capabilities of the device.
 
-Jan
+> Syndromes observed:
+> With ASPM enabled, pciback has problem seizing the device.
+> 
+> Jul  2 00:36:54 gaia kernel: [    1.648270] pciback 0000:05:00.0:
+> xen_pciback: seizing device
+> ...
+> Jul  2 00:36:54 gaia kernel: [    1.768646] pcieport 0000:00:1d.0:
+> AER: enabled with IRQ 150
+> Jul  2 00:36:54 gaia kernel: [    1.768716] pcieport 0000:00:1d.0:
+> DPC: enabled with IRQ 150
+> Jul  2 00:36:54 gaia kernel: [    1.768717] pcieport 0000:00:1d.0:
+> DPC: error containment capabilities: Int Msg #0, RPExt+ PoisonedTLP+
+> SwTrigger+ RP PIO Log 4, DL_ActiveErr+
+
+Is there a device reset involved here?  It's possible the device
+doesn't reset properly and hence the Uncorrectable Error Status
+Register ends up with inconsistent bits set.
+
+> ...
+> Jul  2 00:36:54 gaia kernel: [    1.770039] xen: registering gsi 16
+> triggering 0 polarity 1
+> Jul  2 00:36:54 gaia kernel: [    1.770041] Already setup the GSI :16
+> Jul  2 00:36:54 gaia kernel: [    1.770314] pcieport 0000:00:1d.0:
+> DPC: containment event, status:0x1f11 source:0x0000
+> Jul  2 00:36:54 gaia kernel: [    1.770315] pcieport 0000:00:1d.0:
+> DPC: unmasked uncorrectable error detected
+> Jul  2 00:36:54 gaia kernel: [    1.770320] pcieport 0000:00:1d.0:
+> PCIe Bus Error: severity=Uncorrected (Non-Fatal), type=Transaction
+> Layer, (Receiver ID)
+> Jul  2 00:36:54 gaia kernel: [    1.770371] pcieport 0000:00:1d.0:
+> device [8086:a330] error status/mask=00200000/00010000
+> Jul  2 00:36:54 gaia kernel: [    1.770413] pcieport 0000:00:1d.0:
+> [21] ACSViol                (First)
+> Jul  2 00:36:54 gaia kernel: [    1.770466] pciback 0000:05:00.0:
+> xen_pciback: device is not found/assigned
+> Jul  2 00:36:54 gaia kernel: [    1.920195] pciback 0000:05:00.0:
+> xen_pciback: device is not found/assigned
+> Jul  2 00:36:54 gaia kernel: [    1.920260] pcieport 0000:00:1d.0:
+> AER: device recovery successful
+> Jul  2 00:36:54 gaia kernel: [    1.920263] pcieport 0000:00:1d.0:
+> DPC: containment event, status:0x1f01 source:0x0000
+> Jul  2 00:36:54 gaia kernel: [    1.920264] pcieport 0000:00:1d.0:
+> DPC: unmasked uncorrectable error detected
+> Jul  2 00:36:54 gaia kernel: [    1.920267] pciback 0000:05:00.0:
+> xen_pciback: device is not found/assigned
+
+That's from a different device (05:00.0).
+
+> Jul  2 00:36:54 gaia kernel: [    1.938406] xen: registering gsi 16
+> triggering 0 polarity 1
+> Jul  2 00:36:54 gaia kernel: [    1.938408] Already setup the GSI :16
+> Jul  2 00:36:54 gaia kernel: [    1.938666] xen_pciback: backend is vpci
+> ...
+> Jul  2 00:43:48 gaia kernel: [  420.231955] pcieport 0000:00:1d.0:
+> DPC: containment event, status:0x1f01 source:0x0000
+> Jul  2 00:43:48 gaia kernel: [  420.231961] pcieport 0000:00:1d.0:
+> DPC: unmasked uncorrectable error detected
+> Jul  2 00:43:48 gaia kernel: [  420.231993] pcieport 0000:00:1d.0:
+> PCIe Bus Error: severity=Uncorrected (Non-Fatal), type=Transaction
+> Layer, (Requester ID)
+> Jul  2 00:43:48 gaia kernel: [  420.235775] pcieport 0000:00:1d.0:
+> device [8086:a330] error status/mask=00100000/00010000
+> Jul  2 00:43:48 gaia kernel: [  420.235779] pcieport 0000:00:1d.0:
+> [20] UnsupReq               (First)
+> Jul  2 00:43:48 gaia kernel: [  420.235783] pcieport 0000:00:1d.0:
+> AER:   TLP Header: 34000000 05000010 00000000 88458845
+> Jul  2 00:43:48 gaia kernel: [  420.235819] pci 0000:05:00.0: AER:
+> can't recover (no error_detected callback)
+> Jul  2 00:43:48 gaia kernel: [  420.384349] pcieport 0000:00:1d.0:
+> AER: device recovery successful
+> ... // The following might relate to an attempt to assign the device
+> to guest, not very sure...
+> Jul  2 00:46:06 gaia kernel: [  559.147333] pciback 0000:05:00.0:
+> xen_pciback: seizing device
+> Jul  2 00:46:06 gaia kernel: [  559.147435] pciback 0000:05:00.0:
+> enabling device (0000 -> 0002)
+> Jul  2 00:46:06 gaia kernel: [  559.147508] xen: registering gsi 16
+> triggering 0 polarity 1
+> Jul  2 00:46:06 gaia kernel: [  559.147511] Already setup the GSI :16
+> Jul  2 00:46:06 gaia kernel: [  559.147558] pciback 0000:05:00.0:
+> xen_pciback: MSI-X preparation failed (-6)
+> 
+> 
+> With pcie_aspm=off, the error log related to pciback goes away.
+> But I suspect there are still some problems hidden -- since I don't
+> see any AER enabled messages so errors may be hidden.
+> I have the xen_pciback built directly into the kernel and assigned the
+> SSD to it in the kernel command-line.
+> However, the result from pci-assignable-xxx commands are not very consistent:
+> 
+> root@gaia:~# xl pci-assignable-list
+> 0000:00:17.0
+> 0000:05:00.0
+> root@gaia:~# xl pci-assignable-remove 05:00.0
+> libxl: error: libxl_pci.c:853:libxl__device_pci_assignable_remove:
+> failed to de-quarantine 0000:05:00.0 <===== Here!!!
+> root@gaia:~# xl pci-assignable-add 05:00.0
+> libxl: warning: libxl_pci.c:794:libxl__device_pci_assignable_add:
+> 0000:05:00.0 already assigned to pciback <==== Here!!!
+> root@gaia:~# xl pci-assignable-remove 05:00.0
+> root@gaia:~# xl pci-assignable-list
+> 0000:00:17.0
+> root@gaia:~# xl pci-assignable-add 05:00.0
+> libxl: warning: libxl_pci.c:814:libxl__device_pci_assignable_add:
+> 0000:05:00.0 not bound to a driver, will not be rebound.
+> root@gaia:~# xl pci-assignable-list
+> 0000:00:17.0
+> 0000:05:00.0
+
+I'm confused, the log above is mostly from a device at 0000:00:1d.0,
+while here you only have 0000:00:17.0 and 0000:05:00.0. I assume
+0000:00:1d.0 never gets to appear on the output of `xl
+pci-assignable-list`?
+
+Also you seem to be trying to assign 0000:05:00.0 which is not the
+same device that's giving the errors above. From the text above I've
+assumed 0000:00:1d.0 was the NVME that you wanted to assign to a
+guest.
+
+Could you attempt the same with only the single device that's causing
+issues as assignable? (having other devices just makes the output
+confusing).
+
+> 
+> After the 'xl pci-assignable-list' appears to be self-consistent,
+> creating VM with the SSD assigned still leads to a guest crash:
+> From qemu log:
+> [00:06.0] xen_pt_region_update: Error: create new mem mapping failed! (err: 1)
+> qemu-system-i386: terminating on signal 1 from pid 1192 (xl)
+> 
+> From the 'xl dmesg' output:
+> (XEN) d1: GFN 0xf3078 (0xa2616,0,5,7) -> (0xa2504,0,5,7) not permitted
+
+Seems like QEMU is attempting to remap a p2m_mmio_direct region.
+
+Can you paste the full output of `xl dmesg`? (as that will contain the
+memory map).
+
+Would also be helpful if you could get the RMRR regions from that
+box. Booting with `iommu=verbose` on the Xen command line should print
+those.
+
+> (XEN) domain_crash called from p2m.c:1301
+> (XEN) Domain 1 reported crashed by domain 0 on cpu#4:
+> (XEN) memory_map:fail: dom1 gfn=f3078 mfn=a2504 nr=1 ret:-1
+> 
+> 
+> Which of the three syndromes are more fundamental?
+> 1. The DPC / AER error log
+> 2. The inconsistency in 'xl pci-assignable-list' state tracking
+> 3. The GFN mapping failure on guest setup
+> 
+> Any suggestions for the next step?
+
+I'm slightly confused by the fact that the DPC / AER errors seem to be
+from a device that's different from what you attempt to passthrough?
+(0000:00:1d.0 vs 0000:05:00.0)
+
+Might be helpful to start by only attempting to passthrough the device
+you are having issues with, and leaving any other device out.
+
+Roger.
 
