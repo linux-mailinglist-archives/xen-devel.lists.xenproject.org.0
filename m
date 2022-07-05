@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A916756640A
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jul 2022 09:29:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.360648.590057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E10CB56640E
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jul 2022 09:33:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.360654.590067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8d03-0006Ra-LF; Tue, 05 Jul 2022 07:29:35 +0000
+	id 1o8d3K-0008EQ-6G; Tue, 05 Jul 2022 07:32:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 360648.590057; Tue, 05 Jul 2022 07:29:35 +0000
+Received: by outflank-mailman (output) from mailman id 360654.590067; Tue, 05 Jul 2022 07:32:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8d03-0006PH-Gz; Tue, 05 Jul 2022 07:29:35 +0000
-Received: by outflank-mailman (input) for mailman id 360648;
- Tue, 05 Jul 2022 07:29:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o8d3K-0008Bu-3G; Tue, 05 Jul 2022 07:32:58 +0000
+Received: by outflank-mailman (input) for mailman id 360654;
+ Tue, 05 Jul 2022 07:32:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IaUl=XK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o8d01-0006PA-MY
- for xen-devel@lists.xen.org; Tue, 05 Jul 2022 07:29:33 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr130051.outbound.protection.outlook.com [40.107.13.51])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 356fa8a0-fc34-11ec-a8e4-439420d8e422;
- Tue, 05 Jul 2022 09:29:31 +0200 (CEST)
+ id 1o8d3I-0008Bm-Ti
+ for xen-devel@lists.xenproject.org; Tue, 05 Jul 2022 07:32:56 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70087.outbound.protection.outlook.com [40.107.7.87])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id af8e7f63-fc34-11ec-bd2d-47488cf2e6aa;
+ Tue, 05 Jul 2022 09:32:55 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
  by VI1PR04MB5246.eurprd04.prod.outlook.com (2603:10a6:803:54::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.21; Tue, 5 Jul
- 2022 07:29:28 +0000
+ 2022 07:32:54 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5395.021; Tue, 5 Jul 2022
- 07:29:28 +0000
+ 07:32:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,170 +46,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 356fa8a0-fc34-11ec-a8e4-439420d8e422
+X-Inumbo-ID: af8e7f63-fc34-11ec-bd2d-47488cf2e6aa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=leEMcL0XT1ZPgK6S3XI4yiPoY5JyhG5k9nz3KFPkHVSrfgDbeGrfiEs0i5gr9PuK+dGgFGPQPVB8dSE1Q8eQ2SbfPAOaiWhztLU/aWiE2G952u+AU4vYbUi+vgyOMjXFLegDTpjVll3ef4O6K2p5AaxxwG4DHQOuZDbR94h97tYZPSILx903SHLe9Cs+eJoC1/iyLJK5zE1M56WIzr1qcAi483AnBFzKm7zXeIPWMbIrfu9BKfSwFEtmjNU/bUal8mf65/+Nf1ie0xgAk4wiKF01n5tvqFeG89ct4F4HxyaUZTEsyHKMYJzwv4bc7hnNLdM6hwViqrslmTpEypB2Ug==
+ b=nXfwPpP6AH9YNWmXt86IDfdaw0ykG9fJOyvaVxMIjuFRwRQq2BnCNOzsRWEEF/4sSNQC51aE7GN67iS6HnYqZkIbzH4O0gkSPL/0nIiSOHtbS5DL+WasH7DtofC5HuQzq6dgopMhdTsTOFTUsV1ciDxY6xFjJzSceKr5xl0i7AtdnLjWTbKFAgVAOZOy2bdShbD9IE8XXZn+mjmmCrBSs+xc/C03mUGQERX1Q6OLqEFa3ZZvYpKMUIZNM63/WF4vNDXCmVePPo2+RnYLcJkSHWw98w8XdPio7Toj20x/WKtC25bXPmPWUzXlJqwoUtacgLjAMEFOrEy6Qs9eUQ8EyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tNIMALRHMc7bizFWTZt8Vg53ubMkfnRJd1oc1rp5DME=;
- b=MDJxKP1qIhEx0w0h2hyZtH/Q+lxWQI/7E9zjYgrYNuz+wHhEffYDxOGGjX4ccmynUskqtW9TspGWhXa9FWkS3vIosrhqOcaaZSLhrMeO6BdKy4gPVea7ED19Px+7cG+CpTi3/DVq6MFcT8VxZ48Of6dG6uPXSmXK41UVsnQcEEDxylYpFmErSINCFVlw9O8G+W46M+YytvN8LUd/cBAQY7e0tiFIUyqERPWrFnqyxMpkL2GKayZwN7jNNlNyhhOoxgOo5Snwz9qZLshaju99BUnDJY8rGfh6KCRNxjEBnU9LrUv77bM2VX2rjk8eCHv1/+jj0SXUItuyrGHlLnKqRw==
+ bh=OluX7aEOrjo8Q8v0QVnoNB3RdsHYRnvbmTSYSEY2ex8=;
+ b=W8o2c0FW7UIR9yK3PB5ttqw4TlABy4GTjgrMk+i9NUnktGO7fjKYQdx9nlnYGUcGfJd4mPfZno7u3k2/2s3niG4wYgtgLW5TFQ6Nhjcqm5kTJ/oveFIPKFCcbMDWJASyaMymGnPJqjo1JamZ/mtpa3uhi18CvX+ZmXmlp7Zb/DaE4eKJoNmlzqVT3dP5PPbsR1qaWOiGiNFip4kDE2z8yiwG9N0HVHItRyBW0c2FGbgks96qwgFxQgd64ZU0kneWxm3snBfE2LVm8rSKCb3QNL/BhIt+ZyqzlAP40IPjoKCidmSOPRFEjMLmk6nJYwK8C5tyzI47am67bgmjguympw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tNIMALRHMc7bizFWTZt8Vg53ubMkfnRJd1oc1rp5DME=;
- b=PKibV6XCCQ1DdUJp252J7MF6g1W12HbgBhee3JZ0lS4nxkSU2V0uiRcLkjaFENfwdL67cldN8caqJQ7dt2hn+u/EhxAvPxtxZWuiFcShoMAnfktbwnumbhO3UL8wc3r4gkSVOTlQOCywVrvQzz6RidSrbAwiR2FMxQT1n2rdEEO8OTSvtGkDZQqqmUunHcmbhTeOy1Z5RPIsnfIHkBpwKmP69/26GACR0nwjBkgw9PlEM4huPt4mylS45OUApnj6EtImltSCJLWk5um4aXmHY2ohfFYMEL5w/HwliSnKBK7jhb04M5SHjZJUdOgHc9XTo+zfhR4G5iObeP7ur3FHSg==
+ bh=OluX7aEOrjo8Q8v0QVnoNB3RdsHYRnvbmTSYSEY2ex8=;
+ b=GPDzwwDOu8RovXReBZqz5/5vltkOo0hvr5k8bbS0aeJdDlUsQqp+mXSSRQ4c8VfT2ulnrtLZkhzm6tQ2fjTV2stjezjU+MGoQPiB1GAnEcQYKrpILlTFWYBhl/YUqwjM8dKSmlxMv7+rmZhPF69QwxPN9qaq2JoULSsOBMRE6nx0ErYKgOqSSzAKkPG5rbZtsbrrdUWWicZW9lOtK+7SU1TSYyczcxuhzw/xCyyO+vOLxy21m0pjkBxuZ2RtouIVdqMuGV6AZPoUTdxXMXE5UkvhznVVsx0HBvYDPsajhjHZcVzOkLCkFo/ZLDx37mQCR7I9ZK5/peRku24H/LnIMA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <def66a62-e6d5-38bd-2e78-9ad9a7eff14e@suse.com>
-Date: Tue, 5 Jul 2022 09:29:26 +0200
+Message-ID: <480ec801-d5b2-37bf-9e84-456770b591b3@suse.com>
+Date: Tue, 5 Jul 2022 09:32:52 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: PCI pass-through problem for SN570 NVME SSD
+Subject: Re: [PATCH v2] Xen: fix EFI stub wchar_t size warning of arm32
+ building
 Content-Language: en-US
-To: "G.R." <firemeteor@users.sourceforge.net>
-Cc: xen-devel <xen-devel@lists.xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <CAKhsbWb4FyqWBraid=99mfr=_wbXQHfKq6jBszN9-WmV_OiBYw@mail.gmail.com>
- <YsK3/fDX8c0Tzfv0@MacBook-Air-de-Roger.local>
- <CAKhsbWakmx6Bw+fJZ49pbcmRx68WWuSCpYzJDg7uiYWuEnu0qg@mail.gmail.com>
- <YsLmlIrCBt/Ldg1G@MacBook-Air-de-Roger.local>
- <CAKhsbWZkbx8WrmuhAO3P_UxFihx_4UZHnUjrKZaFV1uwF6ifEg@mail.gmail.com>
- <CAKhsbWbs_QZ-DN6duUKXGBsNfq0awXFbVJkdZ9SoNxa8ySkRoQ@mail.gmail.com>
- <CAKhsbWZOB4NscA04Ez4e0q1LUHWjH1ugUdY073hoBYUqOEGxeg@mail.gmail.com>
- <YsMP1+6/Txj5s7q/@MacBook-Air-de-Roger.local>
- <CAKhsbWZmoC3JzZAZ5T1R0aUif3joJq-oncaYVpMcPZ0A1OXxJg@mail.gmail.com>
+To: Wei Chen <Wei.Chen@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20220705035405.1283032-1-wei.chen@arm.com>
+ <7843fd16-d2bd-1280-3513-11bc590aa55f@suse.com>
+ <PAXPR08MB7420F3F4BE896CBF60C0BBE69E819@PAXPR08MB7420.eurprd08.prod.outlook.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAKhsbWZmoC3JzZAZ5T1R0aUif3joJq-oncaYVpMcPZ0A1OXxJg@mail.gmail.com>
+In-Reply-To: <PAXPR08MB7420F3F4BE896CBF60C0BBE69E819@PAXPR08MB7420.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS9PR06CA0730.eurprd06.prod.outlook.com
- (2603:10a6:20b:487::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0006.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a2bad96f-211c-4b1d-4b0e-08da5e581830
+X-MS-Office365-Filtering-Correlation-Id: e50ad12d-b1fc-44d9-a565-08da5e5892a8
 X-MS-TrafficTypeDiagnostic: VI1PR04MB5246:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	eOUZINcLGm8cBq1xvBXN1tuELtIbYG7sAorzq/kcRUd/vQZCLWS7nFhUjwlJzKT7RyhwaOe+E/fGsGg0HIhovWuQL5WFJlUMNgTUbmT6pFLY6XPJPAyHUM3q0UR0qEgwuEaOT+X0wJxAPGotlxPqv2KxkHrqA4sqk4Rtx/qjhp9hD+wefsbf7jnXql+7sbh7MQxnO3iVR9JnBCfnHs8SkD37AKALvbl8VZ6BzKZHQ29DP0HgWxbiP3g4Mkrv5/uRXb1UROCaGevcglmLgQJ0GN1ALP13yTOz9jYbqiTmRRH5H5wRZffNowISdczmvfp/DYBRa/IM+WJ5kjrXtCTldjPrV0bWPIbdscoIMISx6wmcgWdFwksuaxPX2OQBNH7+auL7yQKYwrbIdCNegUOXPJRSB/J+Q/F9EBIxw0tw1EJOUdIZxtbNa2rKwCCPCs7lFpGaTcd8E/czVbvSyNHGDAniJueTWk2JgcLCbdwZMWKWpvw6TNxsql98UpPD0i9Lvm3hntyb/K0t8coNNq1MfRWIl13gi41w4K6YwOyT9ccA5/2SKDthM+Ml6RlVwvsVk9AjrdX484qz/TXLQuSHIqAzrukP32t5JSs8hW8nbBzSwrC9d4S/GKlHjF+Xg7P/H5jJ+rmbpUkQ18Zog1XTDADZ1uSKEkcLmI9gCdXG820fsGWLdO+k7VaHboWTHdvu89SDu9i4fu4yrTraXi+zL/gpV8Z3MKU/oiGkQtx2z6hdOtlY1BcHUaA5DJmTcXnBok2CMHFWCbAFcOAmM7iFwFZm7jR4/KqhNkJGWZnwEfIqOqmnwgbz33t2AyqrQDnli1EnnJfLcjgEcCu3Py7xiA==
+	5I9ZEnR4NioqR/kCwgymM44D70KacO0e/OAwFKTdrpZ4bOUJYwSXWDBo1RWtW8Vgh/UHnqCNjwXcuOXNSyim+0FNodgf7MGCYUeIC9PPWkCbD9DMwY5DYAwv0oko4tcr0xd+N6KkszBUDRCep4VYPktxWOzo9pgq5ku54/gi2rIlFM96qZWgDXAKUtPoPnLHrUbAUiMhpmnKRI5inigCIQd0FRMMI+B4TO8iCm4E8R7T99iN1VJsMy/breHm6KKl1p43mbzaZmZxJyU9wXhKeXLPKt1rryVKiuRBqKiGHfApOeNMe5MRZQpez28hkE2pvwf3Zge1k5bc7B5fN6ECZm62ME5NMX4hzNJVYpzQjg4X17imsrCJwKDTUO8g3W+pZ3N6fEUmvNeprFqgw/cbHjhK1sIag5toQf8up9eJvAu1Sd+9UpsCB2rN3XiKLEJWZT0bqbhBfAWvMdaPbfRIgKKlUzveLmHSsPfWAsupdhK/jtUDWjdt+o2Z+M42riQBRrLLs9evAcyG+rqNoc2mHXq6goohxS45kKUDvaCUJRom1IXIJ0ppPDBhJq19jTk4FJ08X6XPGz+M8p//h9oF7Q1V7GrMgC8SVwe+Oyv3VQ4hxxP0aALu2KP4N/wShyWF9ow0WkQWdIkLq46AgX02QGuEJTnwENFWLWNmmJ+GIlw6v4fvBqqBGzOQQcrqfv/cReoidSLZ/tUaUzX4emwlZhz4mCzQsSq9Y8SVERYLEDvMbhPLdZe235joT4o2+bOMQUy4kw2E2tT6OtSOP3MGSz5FO+/O0osONzsqPHkJ/HjJc5PDhmuJvFDWg8v4KiDwHjyw2lMiBma45ueUs9KOnZYzXZqXycDgJUWtQEtKtGs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(396003)(346002)(136003)(376002)(366004)(186003)(66476007)(6486002)(83380400001)(4326008)(6916009)(8676002)(66556008)(66946007)(54906003)(2616005)(6512007)(31686004)(36756003)(26005)(53546011)(6506007)(38100700002)(86362001)(31696002)(2906002)(41300700001)(5660300002)(316002)(8936002)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(396003)(346002)(136003)(376002)(366004)(186003)(66476007)(6486002)(83380400001)(4326008)(8676002)(66556008)(66946007)(54906003)(2616005)(6512007)(31686004)(36756003)(26005)(53546011)(6506007)(38100700002)(86362001)(31696002)(2906002)(41300700001)(5660300002)(316002)(8936002)(6862004)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bkplWTlaMXdob1J4ZEhNUVRxRUl6RUlGRGEyNUtrT2p2Q1ZHNVp4YXc1emty?=
- =?utf-8?B?WFh0L3R2U1d1TGFWcDhXMk9oNCtJaXBqZ1JtejRQeEh3VFF2VzlTVGFvMmhW?=
- =?utf-8?B?dkV5bnR0TTRHb2YwaHB5RVFHTU5LQVlLMGs2YmVOaDJ4WkZwbzlRTm5NL1I1?=
- =?utf-8?B?R0o2NUpuTUZDSjhIVVlFRlgzeUp5Yy8ySStnUlV5YmoyM1NERW9hT1Q4cUNS?=
- =?utf-8?B?bDVqVmFvUFdZQ011Q2kvcnNSTGJyV3BLbnBmQ1NpVGVnU1ZLMlNJcHNkRjhQ?=
- =?utf-8?B?ZjRTMFEwQTJOdjM0bTFuemYrdW1sTHZNcmc0Mm90OUJXNW1lRGRtUXZnU2N6?=
- =?utf-8?B?b1BEY202Z3docHJ2b3E4R1pnL3J5OXZWM3d0ZEFrOTZqT29OUUlDRVhicmtn?=
- =?utf-8?B?ZXMxc0dSdnQ4bExScDVVckQ4TmZPWVRBQVRrRUVSZG9HS28vUitIekw3NW9k?=
- =?utf-8?B?SkpVMnAwdmdxLzFUU2ZGdEVYVU9kMHJJQU44dkV4SE5ucUlYcUcxV09zUDRN?=
- =?utf-8?B?U2xLdTB6Y0ZVQUZqdW1iZWlZN3Zwb0ZMaFZ6Q1FySUJLTWlGVGs5alJBNmpv?=
- =?utf-8?B?SnFwN01HYTRQNWs0Szk0RGVXVGV4VGJ3SmRiM1BIalZORVN0V25XU1NUemFJ?=
- =?utf-8?B?RGFjZXBLUkFTZWxobktUUEVDUXBYS3NVZ01Fb2IzazFXN3M1N3ZHRVJIWnBW?=
- =?utf-8?B?NFFqVi9ETm0yZGxSQ2pDV3c5di9lNS8vZ1lOaFAzMFA2MHdKNUFqYjF6L3F1?=
- =?utf-8?B?aTRTTzlabDRoTjZQWHZoTFFqdzc3T0xJVkJZbDNMOVQ3Mzg0TDVrR1V5eGhV?=
- =?utf-8?B?THhKanh0UlB3U3ZUK1pRblp5dUk4dU9NL2piM0FzN0xlNE9QaFoxSlVkSTB3?=
- =?utf-8?B?bjVCbVJtNTJEREFIKy9UUXJqNjdYa0pjV1hiWUgzYVhLd0JCdzlzaFBkMGho?=
- =?utf-8?B?NUdYWENNYnBQRFYwc1RBeVBscE8xSlJCcExjL3ptbjJVSWhxWUh0Z1RnMlBz?=
- =?utf-8?B?b1lsck8xMHN3TlVleHBrOWhNRS9RTUtNQXBub1JXL0p6SHVXYi9mUG5IVytt?=
- =?utf-8?B?c1UyL2JMYng5YzNzcGdQaXlScHRyTDJ5ZW51azRMZTE5ZDdZdTBra3N4Qkl5?=
- =?utf-8?B?WUFweUZzNVZWNW9IallBMHovVEp2VGlrZUxWZEpsNmtPbStqenBhNkdtemtB?=
- =?utf-8?B?ZmxnM015QlphZHhJb3FOOXBINUQyb1dPbGxGMUtUWHVJMzg0aXhwMVlVZXZP?=
- =?utf-8?B?N09HMWlwNk5Zbnl3QVdhVkE2dnlma09iK0grbTdHZ1hoWFB0cGJXalM0U3l4?=
- =?utf-8?B?MzZ3UEFaNlVReXVZYWtpUkgzU3VINDZNS3drcHkvZnRhVEZ1aXJyRFJmRDFh?=
- =?utf-8?B?U204TVc3V0RTSFpjdzVqa0lGSXBPYzRFVFRPVWtxU05rL3B0ZDFnVGxtMy9p?=
- =?utf-8?B?ejM4WVh3cCt3aEVRUTdEVnhxajllSjJYZ3c3VUM3clUrM0VjNkp3R1puaVdL?=
- =?utf-8?B?WXJvaHNmZERqQmdBNHBvcFd4Q0RiK1I4RXAyd1ZxUkdidjMyaXJjWGtHYnhq?=
- =?utf-8?B?Rmt2Wm4zUGZUbkNRalcwUFFtZExJeXZ2aWZSUmlhV0hRcWZUcDZxT2NVYWNy?=
- =?utf-8?B?SVkrdHBBT3N1VXRmQW85d2ZIazNudWl5S1NrTGZKOFk3RVFWQlNya3BnU0lV?=
- =?utf-8?B?ZHFFM3B3OWZjblg2WWNqSFFyZ2tMUzBPVXp5UUJEbkpVQ0JieVlkZ3FVMklD?=
- =?utf-8?B?clFrWE95ay9VRjBsU0RvTkJEbDd3YU5OWGdRc29qR1duekJSU29aVDNwMjd1?=
- =?utf-8?B?YXBLYk1hOTMwRDgzdlQvSzlMODBydXhFVVhDb3JHd1pwc0FrVDFnTllDODlo?=
- =?utf-8?B?dStuY2tQZlhlZkUrSHNCLzh3ZElMQ0tMb1lsUUNoVURxaHRhQUtoWVdjN1A5?=
- =?utf-8?B?NjlZS1hGY0oxQ0tYUmRuSHZsVnp5UzQ3RlNLTkpWejJnNDhnRE9Bc2VOek9L?=
- =?utf-8?B?Z2t2MW5yZlJNWEFBdjU1V1ZrMk5IZ0Rma0pMMDFsVmdUL3g1Y2lnUmZkRGJF?=
- =?utf-8?B?d0s1YlhVYnZTNGlFaVVrVEsrUlhMUTl2RksxVVdUNXVadFBpNTNNSUt0MlRz?=
- =?utf-8?Q?lE7rjB59tDfyEZhDXSU0Ks07V?=
+	=?utf-8?B?bTREbGdTaU84amdNV3dyMlY1cEI4bmVxUWJvNWsyQzdJVkZhb2JRTHB3Yzdy?=
+ =?utf-8?B?eHVpODdTWEFBZE5pZHJHK0RsYzR5bVpod3FaVXl5UVRXb1V3SGpTaVV1RWxk?=
+ =?utf-8?B?UkdQL2RIUUk5ZU5BOWZTUlp1YUd0M0RKbmJ3dTN6TGVkZjlBL0pjK1FTbkNT?=
+ =?utf-8?B?ZE4zRWpUQUlJUzdaSFFrZlhPUVYwWjRIY00wZldLWmhRQ2FKbVM2ZGYrT1JC?=
+ =?utf-8?B?d0hiMjFaRXUzT2svZDJpaFFONXhoM3JZby9KTUhYTUNkV2hhSnRFTld0aERy?=
+ =?utf-8?B?cHZUbUV0U1F5Q2xmRmV2NnljTkFCWWRBdUIzRDZJOTlxc2FOV0M4NThoRWFQ?=
+ =?utf-8?B?Yy8vZENtU3ZzRkh6NSs3UEV6T0FTeHFJa3pCelI1NzdBTVR4eXJoT09XK1Q3?=
+ =?utf-8?B?d3BEb1Y4TmZvN2l1Mm1GSUY5a1dxNlVpMTBLdGpSZzZhdkwvVEpYM1pMTzJG?=
+ =?utf-8?B?c3NRRHRuR0tySWY4cVQ3Wi81VTRqSXp2Zzl0RUdnZi9WKyt0TUVQNDZuRGxa?=
+ =?utf-8?B?SnB5b2hoRmgxYXpFdEFUOTZUaXl3YmdPZCtJbDlmaENQTytHNDBDQ01lblZn?=
+ =?utf-8?B?YnFDK1BlaUFZMzFJOXdHUlJiTER3QjY4K1lIb29ZUno4NE5TMXBGRTU0MG54?=
+ =?utf-8?B?eUdjMGF1REpoTGQ1MFpESGluQUE2WjNPd0hUYURyMFFVc1QxcnBxTE55SUxh?=
+ =?utf-8?B?STVnS3Z6TmdlSGRmY3NBeFRKR3dPOUJLV1NOandEdGROQzBueW5KUkVUeWhq?=
+ =?utf-8?B?VTV1aFk5Z1ZJcXdDdmdzeFlpcFlwRHE4cmR6SlZGc2hLMTV1TjdOZ3MzNmVV?=
+ =?utf-8?B?RzFkOFlDRFBBYWFPVFAvQXNJNUEvb3RTUjhRMkJQOVN5RFNhMGw4MDFHVDRM?=
+ =?utf-8?B?b3I1ZUo4bFFmT1EydS9qWS9sQXlEODVoS1hkV0Y3ODcwNUtiWjlId2ltd0JD?=
+ =?utf-8?B?Y2hTNm0yRlNTaGZacFMwWTlWSFpWc0Izb0RRY2JXY3JReXhicEdKaUNBdGM0?=
+ =?utf-8?B?Vm1IZmh2bGlVWHZyU0JPL2JhTDZHeURlZEN3cDlmelhmWTJqVmZZUzlXQS93?=
+ =?utf-8?B?Y2xRRFRZRGFYLzBia2JLQm5Ka0U5bENrakFya3FmNENCWFh5VWpwcmxUTisv?=
+ =?utf-8?B?czZBcnBDYmdNajk2TXR5U01veDVkWHlCQ0RnR2xnUFFWT3ZDZ1ROTjU5anVa?=
+ =?utf-8?B?U3JOVC9qVjcyUElTMzFPZnBKSHR6djhaSWdpM1Y0NWxoWnpLeFRYQWdLVmUx?=
+ =?utf-8?B?WnFTWVZ4WklURnhhSEhLbnJMY01kVU16eEttY0UvZUxHL2hoczZoV3UweThX?=
+ =?utf-8?B?SGhySTEydUloQzA5WnducnppalJaMTF4WDZWcENtRWdWMndBYm1LNmZBWTM2?=
+ =?utf-8?B?eWZabUFRdTVOSlZvRzVTVitxQ0VRaTZ1aW1QR0xDSjBNMjd3NDY4Y2Z2YUNs?=
+ =?utf-8?B?ZWN3d0U3eWxaajlDMGlUL2NUeVVDcmNYSUNyaHAzbVRvakY0QXJseEpJZ1dv?=
+ =?utf-8?B?Q204SDhGNU43U3ZEQXJrZUJEMGtFUlNodit1dlIyM01laG9RZVlRdGpBZGVa?=
+ =?utf-8?B?M3FGNHQ0VnA4ZGpraEFlMUlSZCtCV3NuTmFhTXpQdnpLa2ZXbnVOTGhRWnpF?=
+ =?utf-8?B?WVFLcU9FamUvNUh0S2IxQ2lNbFpTMkxIMjZJeE1jM3VPWlc4QmhoZFU4OTZL?=
+ =?utf-8?B?Ly8vYkNhMTBPVW9FOHdISkVVUzUxVURSZ2xOTCtjWjZBZS83MW5aTmNwVVds?=
+ =?utf-8?B?Ykk3cDB5bGVCR0g1ckFaZWdWbTcvMGRlQWpZY2txdmlSL3I0dy83TWRkdUFN?=
+ =?utf-8?B?dmh0NVk4bDhYMjVma0sxREY3UlVhQ0pIemV3dStpZGVTWXFWNWNLTEtCY3k1?=
+ =?utf-8?B?aWFFbFJaTGRQNy9sZkZGaGRoNFpyVFZ4K2s2a2dhWE5neU9WWGM4Nm5YckV1?=
+ =?utf-8?B?NUI1VWRPaVYvZmtkNDh5N0VUMXZOajk5bHNmbnozRUdtVFFzR3NGVFF5elpp?=
+ =?utf-8?B?SlRxWHkzZ01jL1JxRnAxK3QwcDRsSjgyNEF0dnRQTXN6NzZBODlpQlF2OGZL?=
+ =?utf-8?B?VjB6d2FLa0phcENldmNWNTJESWMxbEp2UXFnNGRRSjRyMWwwSjlLUEtFQkVB?=
+ =?utf-8?Q?6cOyAJlKpMdmiz77O7M0T2alo?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2bad96f-211c-4b1d-4b0e-08da5e581830
+X-MS-Exchange-CrossTenant-Network-Message-Id: e50ad12d-b1fc-44d9-a565-08da5e5892a8
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2022 07:29:28.4484
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2022 07:32:53.9036
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cHXXicpXU9IUpOV7uCVUrQYK4rghompT+GM9VzZ3x6+2ZnxeFR6iBThdeFiRfJnRZtf2obJc8r6QU0WiGarAPQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: y9oLQOueq1TYKD03QnIOkA0beIZhyCwMFmtrLToAEXxgKakGuwQn9MRoZnyw/u4o0BBHxSqWHd8TxFqeD4z+VQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5246
 
-On 04.07.2022 18:31, G.R. wrote:
-> On Tue, Jul 5, 2022 at 12:21 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
+On 05.07.2022 09:18, Wei Chen wrote:
+> Hi Jan,
+> 
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 2022年7月5日 14:35
+>> To: Wei Chen <Wei.Chen@arm.com>
+>> Cc: Stefano Stabellini <sstabellini@kernel.org>; Julien Grall
+>> <julien@xen.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>; Volodymyr
+>> Babchuk <Volodymyr_Babchuk@epam.com>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v2] Xen: fix EFI stub wchar_t size warning of arm32
+>> building
 >>
->> On Mon, Jul 04, 2022 at 11:37:13PM +0800, G.R. wrote:
->>> On Mon, Jul 4, 2022 at 11:15 PM G.R. <firemeteor@users.sourceforge.net> wrote:
->>>>
->>>> On Mon, Jul 4, 2022 at 10:51 PM G.R. <firemeteor@users.sourceforge.net> wrote:
->>>>>
->>>>> On Mon, Jul 4, 2022 at 9:09 PM Roger Pau Monné <roger.pau@citrix.com> wrote:
->>>>>> Can you paste the lspci -vvv output for any other device you are also
->>>>>> passing through to this guest?
->>>>>>
->>>>
->>>> As reminded by this request, I tried to assign this nvme device to
->>>> another FreeBSD12 domU.
->>> Just to clarify, this time this NVME SSD is the only device I passed to this VM.
+>> On 05.07.2022 05:54, Wei Chen wrote:
+>>> Xen uses "-fshort-wchar" in CFLAGS for EFI common code. Arm32
+>>> is using stub.c of EFI common code for EFI stub functions. But
+>>> "-fshort-wchar" CFLAG will cause a warning when build stub.c
+>>> for Arm32:
+>>> "arm-linux-gnueabihf-ld: warning: arch/arm/efi/built_in.o uses
+>>> 2-byte wchar_t yet the output is to use 4-byte wchar_t; use of
+>>> wchar_t values across objects may fail"
 >>>
->>>> This time it does not fail at the VM setup stage, but the device is
->>>> still not usable at the domU.
->>>> The nvmecontrol command is not able to talk to the device at all:
->>>> nvme0: IDENTIFY (06) sqid:0 cid:0 nsid:0 cdw10:00000001 cdw11:00000000
->>>> nvme0: ABORTED - BY REQUEST (00/07) sqid:0 cid:0 cdw0:0
->>>> nvme0: IDENTIFY (06) sqid:0 cid:0 nsid:0 cdw10:00000001 cdw11:00000000
->>>> nvme0: ABORTED - BY REQUEST (00/07) sqid:0 cid:0 cdw0:0
->>>>
->>>> The QEMU log says the following:
->>>> 00:05.0] Write-back to unknown field 0x09 (partially) inhibited (0x00)
->>>> [00:05.0] If the device doesn't work, try enabling permissive mode
->>>> [00:05.0] (unsafe) and if it helps report the problem to xen-devel
->>>> [00:05.0] msi_msix_setup: Error: Mapping of MSI-X (err: 61, vec: 0x30, entry 0)
+>>> This is because the "-fshort-wchar" flag causes GCC to generate
+>>> code that is not binary compatible with code generated without
+>>> that flag. Why this warning hasn't been triggered in Arm64 is
+>>> because Arm64 does not use wchar type directly in any code for
+>>> parameters, variables and return values. And in EFI code, wchar
+>>> has been replaced by CHAR16 (the UEFI "abstraction" of wchar_t).
+>>> CHAR16 has been specified as unsigned short type in typedef, the
+>>> "-fshort-wchar" flag will not affect CHAR16. So Arm64 object
+>>> files are exactly the same with "-fshort-wchar" and without
+>>> "-fshort-wchar".
 >>>
->>> I retried with the following:
->>> pci=['05:00.0,permissive=1,msitranslate=1']
->>> Those extra options suppressed some error logging, but still didn't
->>> make the device usable to the domU.
->>> The nvmecontrol command still get ABORTED result from the kernel...
+>>> We are also not using wchar in Arm32 codes, but Arm32 will embed
+>>> ABI information in ".ARM.attributes" section. This section stores
+>>> some object file attributes, like ABI version, CPU arch and etc.
+>>> And wchar size is described in this section by "Tag_ABI_PCS_wchar_t"
+>>> too. Tag_ABI_PCS_wchar_t is 2 for object files with "-fshort-wchar",
+>>> but for object files without "-fshort-wchar" is 4. Arm32 GCC
+>>> ld will check this tag, and throw above warning when it finds
+>>> the object files have different Tag_ABI_PCS_wchar_t values.
 >>>
->>> The only thing remained in the QEMU file is this one:
->>> [00:05.0] msi_msix_setup: Error: Mapping of MSI-X (err: 61, vec: 0x30, entry 0)
+>>> As gnu-efi-3.0 use the GCC option "-fshort-wchar" to force wchar
+>>> to use short integers (2 bytes) instead of integers (4 bytes).
+>>> So keep "-fshort-wchar" for Xen EFI code is reasonable. In this
+>>> patch, we add "-fno-short-wchar" to override "-fshort-wchar" for Arm
+>>> architecutres without EFI enabled to remove above warning.
+>>>
+>>> Reported-and-Suggested-by: Jan Beulich <jbeulich@suse.com>
+>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
 >>
->> Hm it seems like Xen doesn't find the position of the MSI-X table
->> correctly, given there's only one error path from msi.c returning
->> -ENODATA (61).
+>> Tested-by: Jan Beulich <jbeulich@suse.com>
 >>
->> Are there errors from pciback when this happens?  I would expect the
->> call to pci_prepare_msix() from pciback to fail and thus also report
->> some error?
+> 
+> Thanks for testing!
+> 
+>> As to the description: Why the reference to gnu-efi? I don't think
+>> it matters how they build their code? All that's important is what
+>> we do, I suppose.
 >>
->> I think it's likely I will have to provide an additional debug patch
->> to Xen, maybe Jan has an idea of what could be going on.
->>
-> pciback reports the same MSI-x related error.
-> But even with DEBUG enabled, I didn't see more context reported.
-> Please find details from the attachment.
+> 
+> How about:
+> "Xen need to keep "-fshort-wchar" in EFI code to force wchar to use
+> short integers (2 bytes) instead of integers (4 bytes), but this is
+> unnecessary for code out of EFI. So in this patch, we add
+> "-fno-short-wchar" to override "-fshort-wchar" for Arm architectures
+> without EFI enabled to remove above warning."
 
-And nothing pertinent in "xl dmesg"? Looking back through the thread I
-couldn't spot a complete hypervisor log (i.e. from boot to assignment
-attempt). An issue with MSI-X table determination, as Roger suspects,
-would typically be associated with a prominent warning emitted to the
-log. But there are also further possible sources of -ENXIO, which
-would go silently.
+Reads better to me, thanks.
 
 Jan
 
