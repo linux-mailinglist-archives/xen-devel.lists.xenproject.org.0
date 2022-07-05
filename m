@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E50566515
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jul 2022 10:34:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.360676.590100 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D230F566554
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jul 2022 10:44:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.360683.590111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8e01-00080u-Cg; Tue, 05 Jul 2022 08:33:37 +0000
+	id 1o8eAb-0001Ej-Hl; Tue, 05 Jul 2022 08:44:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 360676.590100; Tue, 05 Jul 2022 08:33:37 +0000
+Received: by outflank-mailman (output) from mailman id 360683.590111; Tue, 05 Jul 2022 08:44:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8e01-0007z3-9F; Tue, 05 Jul 2022 08:33:37 +0000
-Received: by outflank-mailman (input) for mailman id 360676;
- Tue, 05 Jul 2022 08:33:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o8eAb-0001CJ-Er; Tue, 05 Jul 2022 08:44:33 +0000
+Received: by outflank-mailman (input) for mailman id 360683;
+ Tue, 05 Jul 2022 08:44:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=IaUl=XK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o8dzz-0007yx-Cv
- for xen-devel@lists.xenproject.org; Tue, 05 Jul 2022 08:33:35 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60087.outbound.protection.outlook.com [40.107.6.87])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 27a99e89-fc3d-11ec-a8e4-439420d8e422;
- Tue, 05 Jul 2022 10:33:34 +0200 (CEST)
+ id 1o8eAa-0001CD-C0
+ for xen-devel@lists.xenproject.org; Tue, 05 Jul 2022 08:44:32 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2049.outbound.protection.outlook.com [40.107.21.49])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id af812554-fc3e-11ec-bd2d-47488cf2e6aa;
+ Tue, 05 Jul 2022 10:44:30 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8633.eurprd04.prod.outlook.com (2603:10a6:20b:43c::24)
+ by DB9PR04MB9450.eurprd04.prod.outlook.com (2603:10a6:10:369::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.21; Tue, 5 Jul
- 2022 08:33:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.20; Tue, 5 Jul
+ 2022 08:44:28 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5395.021; Tue, 5 Jul 2022
- 08:33:31 +0000
+ 08:44:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,188 +46,434 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27a99e89-fc3d-11ec-a8e4-439420d8e422
+X-Inumbo-ID: af812554-fc3e-11ec-bd2d-47488cf2e6aa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ay+gKhjyaAs+C0PWnKhss6PBWaa2TwQdRmpVzlTLfBwjHvy/bVRcLDdotqbooqAweyMDCAor36nP/0qeopDeujqjNoWYrBh5v06kmsYNq4yKi6L8hlIcUc0B+QiOPYppwi4AsXYrjmawbJbbikqZY7CFdgnXKU7kLj/ScpipgqPAbRdcKcLkcglcRfWL4G505YcuvmYJhAhByIjisq2D9uYSFy+asZ3K0BaiLBvGHOHFvrJBWMmRNgVD2mZmHgggnnCapXFwdNPpyfmTkgG+FrWiuRZqciOUxdxSJs6/lciyRRDMTVXfZTtyu4ois0pOo2FCRf9sOIWHzBtI4o402w==
+ b=KjZKGFam89p2hcwuBQnhH+gfWVTx3PUyyfniwiGqiNgoshmlnDxaHPO75zg04BVhnbDDhEto+YJkp9N3BhtE7UATVhfYc1b5F5Tl4nnbqBGZg6N8OB9nHWokGd4oUZ0JRi4KH0j2BAKI9XKjv1gJlL7m3eSKoUVev/omzHMbHzBaDl5ZtRRIFW7XY5/JAkF3nrkXUaD2TuFj4HXkE/En/1x5q8N3xuA3jsemK615KzaoB0hcW6Lhn+6mpPdM0Haiz1cJF4iDT6L+c1ND+0NaHvwvQRgU1/1e8TVpZ4wXmDOP75vQvAbj22h7L2ZCjzSvl/vqZEG1f4JlavnfhW2Ldg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hd7SjqojnAvgXUt9V3Q1YihQSM+psdO9zlfh5i52V2I=;
- b=kDAQJYuAmtgyKxafOnqAWGdIoVJCkSisNk8WH7GpeGsB1V8N7DtziuqKfKUz+drbCYVfyV3R6uLiYBI0fHXyrh+1MEYiWWyP1UQ29z6o+EB1zij33NK/4yplJLO4Rdro+4mMeosvIff00GAmHI9plta6/oQKk+2mPD42opvoLr6Yu4abRL3xYzuRxPuevkUvFctmOEKI0608ws0b2Vkrly6o6tHvVJCdXOsoEGJ1F1OBVjadvSkxCmrutbrnG3TCBii5RkZNwePnBmgrbURdtgpgN2x+o5APLCjyWDb8nYhdHoHAS6MUld8cRVLiUokM7KCLEP7uByez1p8aGKQOjA==
+ bh=1cDwZpqa5KPrlAl4ZCkM3Ax2z2QShSo5yP48/j/vqPg=;
+ b=IhgGFEbHN1vzgyKO1tySorF1c3bCXJJ9GagJ3cWi3Uue8c8k9dbeKP9Qd0mQ4WEvtDWpva6HJkYkB5dGT7krnBh/WpKk8/hloKxnB2H1pVMPscjzsHyVfsfiS0kMhGB6h/k+JbPIzmOOErRCJrhPaW3gbwHYCEtq+qLxI1SiXvsLAXoVUQVuLa5bDwic2RHjLKFW7azVwaJh6QyWA6FMhTAklodX04KrDfbTSLyd6BYvx5bnicdkOI2g1kIO3SEGEhsFRM6hUjNpnBdP00wexZqcQ1ZBCMzCHes69JZxvE1OfI2KhaLq5lgs1ZduDkILBGKW3QNSBve4FLRO0FhBnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hd7SjqojnAvgXUt9V3Q1YihQSM+psdO9zlfh5i52V2I=;
- b=SEAq48tt+sp3w8A/QoryITRcrqui8cxLDFVGn2K+vqFsetp9P7RTFzWOxolnSkCja4+FGjo2Jr+o5o/LQNIdeZHhR0ws6EpqMgg2SJqVYJLrceU0qmJ7ElxME/AHrpWKsiohkCZCT/AXOZjsXhS8uU0/naetBSIq8c3O1aHgOL1XQpATGSXf5K3ICEUO4GA7Qkn0arCeyDOc4G02G/9qUoHIu4vvZXgFaf400+6dqG34SgD0Eci7t09gLwsWL4ylam36da11VBXlrJENrw7G+vY0J7wHrgHJCg5GOcLFy/bIYeIpCV/YxFOYacHS/zFc1+5OMCmX0UwdgDmN1w5g0w==
+ bh=1cDwZpqa5KPrlAl4ZCkM3Ax2z2QShSo5yP48/j/vqPg=;
+ b=5zbNyf9EraiRqvP7aaxp9jGdu8SCV9l8SnNYxbZW4Am5O3OCQOee9DFPnBn59bv9E6nuWaxY2AiApEX9LZPM+VbcfqZR6kVvTjNpxcdhaTfWX1RpR/vRhfFbuOE9BehgMu7PeHvex4GD9fdWR4LS3Ins1UJ/zOXYGBsqC+0c35rOvoylIsh4zbm2KhgAyYweuEgu+AekHtVH05loF3YrY+f1+5upv0pqGfG0eKy9Uu2VM3i1mvlXxmIVeFFqCxPsFOieCfw+nBiWnIzEL0cton2T0EW4ONHmqITglLLMP8om3sv1XFamV/zNLqeeynH/kSNYN5gpAgmVKj4x3mg47w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <949332d6-7915-392d-26a6-f3aaeefefc4f@suse.com>
-Date: Tue, 5 Jul 2022 10:33:29 +0200
+Message-ID: <3cb46257-c6e7-9735-c824-abb296668ee3@suse.com>
+Date: Tue, 5 Jul 2022 10:44:26 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v6 01/12] IOMMU/x86: support freeing of pagetables
+Subject: Ping: [PATCH v2 1/2] x86/mwait-idle: add 'preferred-cstates' command
+ line option
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
- Wei Liu <wl@xen.org>
-References: <e873e30c-7a04-a8a3-2fe5-0dda30e654fe@suse.com>
- <24eb0b99-c2c4-08aa-740d-df94d2505599@suse.com>
- <Yrr2iUlG43xIsOpD@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Yrr2iUlG43xIsOpD@Air-de-Roger>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <f8cebd1c-1679-7b67-c43b-8c0cbe8ffa52@suse.com>
+ <46c6bf61-5669-0de2-163d-64b9a3ce07a7@suse.com>
+In-Reply-To: <46c6bf61-5669-0de2-163d-64b9a3ce07a7@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0036.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0059.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 39204360-ed00-4bb0-0440-08da5e610ad6
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8633:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31884b70-d7b6-4ea7-3bcf-08da5e629273
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9450:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	E3QUcgjYpscPmSDa5WUgeowoiFzofMk+aNi47hR52mKxggPOjtkxzsZurHjp5VgNnHDF2fLiDH0YDEdZeTPAHXbc5U62/bXMpwqFFBTXOZbFg6v3QrpU6MJah8wO1eYbzesYKzajodvwpuC4+3gS5LDuINhbUIqzWk0KvwlXFbUl+FdRs/AdxGfVQtUVt5xaguXK6pC6sAm0HAVBM8gmCLj4Lr8Dew6H6dMH9cRocvQK52jcMZa0GByWaeWsScXakv0r8FdXDlnJsydpFlMvJFhPIP/7KWW1u6mpD8xdtrlD0eACyz2ovwknoBuN1YGAgNi6/88Y6wG79LXbUatz0UF+tGB1XPgbh71hQbk2uZIh7Ch0eFVAZTtmwSTwind7WuUzPdId50iyDC1Uq0Ql3HaA++O33+6WnNAGp+7tdIK91UvOuftJSbEi1P+9rtDoNlj95Cl2cxL22p7sFhyQyrRRkQH+c+kR/VirLqrLPzuxwa2aBEPqeY8uaV2ICnQGLg6MGrRDEo+XiqqJRt3vzZeNCkgtf+waD6sihKBkgr2lRnyVhcc5hoZY90c71ZWyJWKGtRUx88dvn/7ss0LLg+s2t8labttWgYYmfP3PjakBS8pe2zTF+BH7W9d6wK6hDZEPX65yUcmGpEvvzG+b5+ICT1fBf6dphE9clycXuKe564VwxzdyyuZ52EnNegUdgy5/d2dIgyNf55D7jpsnlDNkBwtAcbYTGHCtG1wC2yiiAz5oAj4jShxUbosGMyXo5pT2vw+u/EMCykxKrOY/pqhcXRecIQxa4Khw89zv+ngoU/m+s3evO6LolIawkaxQwbggIHDfjnoAnrC9b+fG/zBde0FZenis98acuvfMjDXy88D1dxHoitM0MFqgqfWj
+	/AJGcCjUZ6XykNgldPNeXxBmlUcZAIgLs9NN2Zdpp/KQIxE7nBOCu4w4otnRIePN3XqvXldi6/pZeBoHDZIzlpgo9/RlaCJeE116IMJdMVzIvFGHdr5eJewYlMFK/tieXnBG6uEbotYTo6C7JTNIW1WDmDuyiGCoLKhaYxCzhMkx+MvAFtqTNDXnA9XX4JILc+FR1CnWJN7ewtfQ1EE62co4luMNDqEZJ3rH7El/w5+saFVbdMqG7J18PsE5MT48ih00nMpVa/5L+i6oa6Ye3ZzbvCrUxGVOzhINXkIhbCAo3yj90Y4eg1IIvpSBpHE3VlOYmyjaZ9tTYXwYB25PHJDhcEjUqjNMHBtKZdKKjB/rVWQPq4fVjanLkEArez2yAwN5xZ0Q66y8VAP8j8aSy4TQ9OF/9V9zPOhXHIlucSk4+lPvoV/ChUJUsoWtHtkCgJ0qOkTBYIuKEPYiro/1skmVSGJ5So/wO1D+Qy5ZPHz/svL4IJIpcMRxeGtCEtHRC8jMdAPopRGOTkmKnHg0sWDWaJNFeL7QWYtIOVN2is4rn+dZci99J6QADZeo852cMUz/07cn0iEnp0L5qLsTh/k98NTXN4ASQ06x1iV09oq7yRzZapVuFNWIj0XbIXld4I7SB7xYI0q5YFj3CbeByBI2Z7wecf5D+4SNwJrMiJLQkA4zLlf57esvTlZtOZRo8RdeXaCjLaWk1NvQ2uEYK/OjQ7TI0WwF9OScxrr5zCFLRoYdXD4ph1dzGQA7cc4lIOW9kHtVQp6k2pA6f77l6PW2jl2lVdklxDj+gB0q7LaFQZaGMkURUOJOLriMABaZax0mD9RgGh8fiStItkqwWCIWoMrRg8qsLgoOYsCf7LA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(376002)(346002)(136003)(366004)(39860400002)(6486002)(31696002)(8936002)(5660300002)(478600001)(53546011)(8676002)(6506007)(86362001)(2616005)(6512007)(26005)(41300700001)(2906002)(38100700002)(83380400001)(186003)(36756003)(6916009)(66476007)(66556008)(54906003)(4326008)(31686004)(316002)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(136003)(346002)(39860400002)(396003)(376002)(38100700002)(66946007)(110136005)(66476007)(5660300002)(4326008)(8676002)(66556008)(54906003)(316002)(86362001)(31696002)(26005)(2906002)(2616005)(36756003)(6486002)(41300700001)(478600001)(8936002)(6506007)(30864003)(186003)(53546011)(83380400001)(6512007)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WXNHd09PdStudThrU3o1TXU3V2J3VmkxWFJ2YUNaUVg2dXZIRXNpeUY4dHdt?=
- =?utf-8?B?eGVYYXhEMWgyU2xVbm1RYWVwNVR1M1hhS2w2Tzh5TTA0SURlbjRhY3l1bnVn?=
- =?utf-8?B?VkZqYjZzS3EwT29oem5YeGlmMnNXZFJSRjZMeW1Ddm1Vc1czbU93V3N4bDhZ?=
- =?utf-8?B?WjJqeGZEVzFBSHN1bnZlQmt5blE5SXEyazhTaHRkSFJvUUVtbStlaDFHb25l?=
- =?utf-8?B?eXdyZnJpODdCdjJXK0lvNnkyNEkxdld6VjBtN3RDVE5kOUw1YUVnQm5GSHFx?=
- =?utf-8?B?VEVqYUlrQW9LRFJzNDB0QzNrdDM4azBlZ1h1NjN3Z0lranp3TnJEZzUyenR0?=
- =?utf-8?B?ZGJJdHhHS0c1d0R4bVR1bG83NmQ3WGd5ckRwOW1JQ3lTbW1Qd3FiYmpYRmY5?=
- =?utf-8?B?OEFrM0wxM3MxU3NFb0ovcUIvdmpxZDU5L0pxZ2tRaDBwUW1hMTgyNHJnaUhl?=
- =?utf-8?B?ang5cGxxTzFpaEJZVTgvRm1HblZSODMyc3k0SkhqUmRRamE5QTQ0N3U1Tm9W?=
- =?utf-8?B?UTBEK29qaGJSbkxNN2JHTnVXVjU1SVh3eUsrN1NtRER0MWFIdjZ0dzNVMGpk?=
- =?utf-8?B?NWZxSlFxNTRSVGxDN2ZyNXZYOFFGWkc5V1VnRG1SMTQ2Zm9hK1prUHRkU3B4?=
- =?utf-8?B?VjRhQkp6L1YzNDJnWTFhbzBLN0tVS3BzQmlOdU5PWlRjUExDeU9qeHF1NXRZ?=
- =?utf-8?B?dDVwNEI5MFU2bnFnS1AxSU1ySUpzM2JUMndISm1YanZWY1N5enJkVFdHWXBK?=
- =?utf-8?B?c0FuRkRTam1ZUmdvNVBaRnptd0RPWmpxWlE4SjdMVy9PSTFqUHRucllqUHRL?=
- =?utf-8?B?R3dwaXBkUm9EbVFzR1YzcjZueGg1NkJFNk12cVRNN0VJL3oybTU2a2dCUmp5?=
- =?utf-8?B?emZCbWVadXNnTEdaOGdYQVN4U0VpNENYV0ZyYURvR2NYVlo2NnB2NXVaRTU4?=
- =?utf-8?B?V3lSR01jd0NGL3Bmekw1R0d3SitPM1NTVEFCN2l1SDVIdXdZTDlRMnRJY3lO?=
- =?utf-8?B?UGdsUWltQkJtOG9EK1h1YURPUTFaT0NyUGtZODE0NDlyN1VuV1hVOGRmeWhx?=
- =?utf-8?B?MzZCTHN4bVFKcEhMQXlRRW0xSkc4MUVia0VlVTZCRE5jcURCV0RObUNKN0pt?=
- =?utf-8?B?ZzdxTUN0dk5TZmNCNHVQaVhod0VwenMyMzJmZTF4Qm9DdEZZTGJPWXdjbzdM?=
- =?utf-8?B?SVMzOTFrU2h5QnY3c2I4UUY0SmNSem5ZRXUvd3h3UzRjczFteXkwckU4UmYz?=
- =?utf-8?B?UjlYZkxRR2k4R3J6cGRQS3VqekhPay9IZnpjWGNubkk5V3l2Q3dMOXZuTDZV?=
- =?utf-8?B?QVJIZWxTc3dVb2hBeFVSYzJhaGhoMVU1WDBId1BaZWg2SklwMFd2Nk1SN3BH?=
- =?utf-8?B?UlJIcDVoMUsyOXR6L0VBSWlkeGVPYURaSXM3YTQxcURXczRpY0Fqdm9IaDRP?=
- =?utf-8?B?eFpRNWw2OEVaVkQwNHBaanFKVXYrU2xabTNTcFNkRVBWL1AzWWJiaExEQ053?=
- =?utf-8?B?MlRQMXNkeHF4cjR1bUpBMG1ZWVk5VmxhOXhoOWZjY05KcHFvaTRZU09CdXBG?=
- =?utf-8?B?WDEva1hvTmx4NE1XYTlvRklQY2QrTm1GbWtPVVh0cnc4UUt0VkVIemV3R0Zn?=
- =?utf-8?B?SlVXTXNYQWtraFQvS241bGdlNWVmZzQyaTVTU3RMTkd5Nm9iT0ZpOWxhVDFR?=
- =?utf-8?B?dnF2QWdTc0pHQ1djRnRjL09hU091OFV6a3pZZnF0Q0NkZWZDOHFBUVJaelZN?=
- =?utf-8?B?WERuUE5pa3JYemxJbmF3Y2pRYmVzb3UxY0lnWTdEUmFwZDlabGlSQ2NOdnZF?=
- =?utf-8?B?V0JEQ0o4QlVxZGNzWkhYVEM4Y2F6TXpjM0syeXYvMU90dnNSS05UZU8zcHNF?=
- =?utf-8?B?M2VDUHVDZjZVa29RbGFocjUwRzRHNVB0Qy8yaW1nZDhucG1aTkxpU0Q1QTVO?=
- =?utf-8?B?OGthY2EyOUhnOExETTFuNzFPc3lxQ1VKK1pVY0JJdjd6OU1tOG1rZFZuZVNt?=
- =?utf-8?B?R1d4NERDODRNS2NDbDJ3YjdvSkhOTmJUMjlwNFpkdmUvVkFERjgzUCtGL0xu?=
- =?utf-8?B?VS9oV05WYlJLTWcxNmtIVUJTcVFwVTBXTHVGTG1tZW9CK0wrWlYyK3UzWnJu?=
- =?utf-8?Q?RaS14nmbiCQ1eceW8WnM9XneB?=
+	=?utf-8?B?d3NNaEJ4UjVJTWpCRzRzeGtYN1I4L2FWdUNlSTVDVTJLWTVCTU0vRVhQQ3gv?=
+ =?utf-8?B?MG5zSWJXQnFKNjBJTlZ5Wk01bkFmZXN5cGZPZi9xWnlUT3FFOEV3VVM4WFVY?=
+ =?utf-8?B?b09UOTl1Z0VTYjdUazNSN09KMnlFS0ZIcjhlVnlISWhmN0JTV0dkWE9WTE56?=
+ =?utf-8?B?L2ZnSi91a2xYNFM0VExVUmZYSmE0cnBxWTg0VzczSTFIYTc5VWRVdkQ3U0tz?=
+ =?utf-8?B?WHpFSnlnai9HekcyazM1K2pRaWpETmVwcjVIV2RERXErMWtYU0w1M09Ha1VC?=
+ =?utf-8?B?SnozWkduYXpRZGV1S0ZyVkhQSWU0Ykp6RmNXcnF6Rngyc2Q4V1RMdEM1Z0Fs?=
+ =?utf-8?B?R1FGODVBS2JXUnBFRzJ4V2dRT3YxbHVBeklhLzV1TFN2eDZDeDMwd00rUlJy?=
+ =?utf-8?B?eTU3OTBDUXBkVW5MV1FSSW5XSnNaeVBEcmcrTHVuczRnQk5oZm12eUlsRzh4?=
+ =?utf-8?B?MXMzVmVGdFZCS0JFemZZRE9xWUVxZW52NmZjeFFsdDNlRDFjNHlrWXpIdnQv?=
+ =?utf-8?B?cEJ0SUduY3A5N2xJbXNoOVdpTXRrY0M1UW5sdm1ZcUNmc3N2Y2dkSVlFcDYy?=
+ =?utf-8?B?VDRkSUtuNkFvT3pEYitsbWpDTitDaVVFZThqV2FQWHRNellWQzNWTWJIb2tY?=
+ =?utf-8?B?VDVEeGh1bVAycXFOTGlBanJqc0x0aVZGSTAvTnlWWlJ3MElnWFdOUDRMMGZk?=
+ =?utf-8?B?Nkd3ZExMc2FMNURCZHlhaVhEYW5KQmRsQzcwVm82d09rTFd0VXkwbzVNNmVu?=
+ =?utf-8?B?MVdKNExURWwxS1Z4MzRFYVgwV1ZUSE1UYmNBNDNtU3BpRTBiQmt2OExYTktT?=
+ =?utf-8?B?TGY0anV4T0NwbkllWFNnMTZwT2JVT0hRVllSa2VubHJsOExLWVpWaWpxWVNl?=
+ =?utf-8?B?dU0yTG5HTWxNZzBmT2hQZ2lybmZTMTdHbkgyeHlUUGFmRHFqM2dxTFZEbWdz?=
+ =?utf-8?B?eVhFQ0IvNm4zK2NvSlE1S2hnNU9uSDFZK0pMczJTcGJ4Z0Vub1hZTFBWNFBv?=
+ =?utf-8?B?ckZLWnZHTDNmQnk3N0xCS3hXVHJKWTlGbnRIRmxVdmU1RmtLdFRZaXlndE5I?=
+ =?utf-8?B?dG0wWU94V3VCQ1N1SXBiWWVMWGxkbDVrcE14VjhLMmVOR3I2eTdHRktHTE1m?=
+ =?utf-8?B?KytkVFhKZmFBWmNkd0NvUHQwdEV2dmo0VVJzcis5alVoelhwMW1QV093aEhz?=
+ =?utf-8?B?Rlp0ekQ1TlBDRkpIMm5rMW9udC9UQU5KYnpwaFZodEdQSFRmaEZna2NaY21Q?=
+ =?utf-8?B?dmpiZ3lYRGdYZVMrRjhqMGVod0hwQ3lMZXYvYU1FYXhIdFBwTWgvMEdZclVH?=
+ =?utf-8?B?V2NlYXJoYTdralIxWDNiYXdBd0l6NGozTjVqUElZaDdnUE9MRmc5N0lNSU5h?=
+ =?utf-8?B?RU5tNnRVYTRScGpnZlZkZWdDNXJBTVhIeG04bkZMaWxIZlV3bk4yY2lXQ1Yx?=
+ =?utf-8?B?U3dZU2wwV0U3bGdmQnlHR0FsZGFvN1luMU5vc2V2Y20wYW1hMDRnQUdobWNS?=
+ =?utf-8?B?R0dld1IrL0tzSlhTVEhyU1hNVGJ5T0doYjZMbVMyeHEyeW9EUkdFQU1hMTI3?=
+ =?utf-8?B?S0NEVHpHcFM0QUFJNWdCNHhOR1BiMzd3RUdhdHlNckZxM1Z6NUhIaUVWbzdH?=
+ =?utf-8?B?YVh5enhReElEdjNJS1crOHllQVV5b1dLa25GK3VqKzlRejJ2OXBMbTBweUs5?=
+ =?utf-8?B?eUVLZGVjMDY1b2hOQSsrU3QzNzliM3NmMnVSYVArbVBGVFROL1FMNG81OS8w?=
+ =?utf-8?B?c1BvME9QdTlRWFFDWmZaNy8wci9VbXRobk1DTWprbEZZejhVWkxMQlVVQTRS?=
+ =?utf-8?B?ZTNoTy92cmtHVVVFSzJ2eHhGdnR5RWxZNzUybGsrbW85YnZNeURVaWs4M0Zw?=
+ =?utf-8?B?OHpielhFYjd3TGpsMkJJMm9CcGhpNnZ6VWFKRnppak53YjZrWitpckEvSmlK?=
+ =?utf-8?B?R25hUmRtN2dZckpKV1VKSFBXU1ZzME1LNm5Ba1RpdGRYaHc1a1FacGg3M2Vp?=
+ =?utf-8?B?VnhIdWNRVThRTkNad0VERkNJTmNqa0dHNW5GMXRRekthNmxmd1hmMFlMODdI?=
+ =?utf-8?B?TGxNVysxdlJmK1RRaXdPUlZjblI0UzJPSmg4cnpxRUlsazFiejcyUTU4VmN0?=
+ =?utf-8?Q?lUzX0VpKSHS4IZfEqS7Gp+M78?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39204360-ed00-4bb0-0440-08da5e610ad6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31884b70-d7b6-4ea7-3bcf-08da5e629273
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2022 08:33:31.4389
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2022 08:44:28.4896
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UX25DETCcIAAmEI+d2SyO8cG4RWgzHOkA831Qe87tD0IP3I7J+mlFjZb7LgUgVPok66T7OMfk407Y6SH+Ka2vA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8633
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3IOoADXeQQuQTUS8beWH3HUnmh69o5NpkqYq6V8geJS4ZY8JTarQUBGtKrQKlOJ5+7gteMd9+f9m3XGOdhS/lw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9450
 
-On 28.06.2022 14:39, Roger Pau Monné wrote:
-> On Thu, Jun 09, 2022 at 12:16:38PM +0200, Jan Beulich wrote:
->> For vendor specific code to support superpages we need to be able to
->> deal with a superpage mapping replacing an intermediate page table (or
->> hierarchy thereof). Consequently an iommu_alloc_pgtable() counterpart is
->> needed to free individual page tables while a domain is still alive.
->> Since the freeing needs to be deferred until after a suitable IOTLB
->> flush was performed, released page tables get queued for processing by a
->> tasklet.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> I was considering whether to use a softirq-tasklet instead. This would
->> have the benefit of avoiding extra scheduling operations, but come with
->> the risk of the freeing happening prematurely because of a
->> process_pending_softirqs() somewhere.
->> ---
->> v6: Extend comment on the use of process_pending_softirqs().
->> v5: Fix CPU_UP_PREPARE for BIGMEM. Schedule tasklet in CPU_DOWN_FAILED
->>     when list is not empty. Skip all processing in CPU_DEAD when list is
->>     empty.
->> v4: Change type of iommu_queue_free_pgtable()'s 1st parameter. Re-base.
->> v3: Call process_pending_softirqs() from free_queued_pgtables().
->>
->> --- a/xen/arch/x86/include/asm/iommu.h
->> +++ b/xen/arch/x86/include/asm/iommu.h
->> @@ -147,6 +147,7 @@ void iommu_free_domid(domid_t domid, uns
->>  int __must_check iommu_free_pgtables(struct domain *d);
->>  struct domain_iommu;
->>  struct page_info *__must_check iommu_alloc_pgtable(struct domain_iommu *hd);
->> +void iommu_queue_free_pgtable(struct domain_iommu *hd, struct page_info *pg);
->>  
->>  #endif /* !__ARCH_X86_IOMMU_H__ */
->>  /*
->> --- a/xen/drivers/passthrough/x86/iommu.c
->> +++ b/xen/drivers/passthrough/x86/iommu.c
->> @@ -12,6 +12,7 @@
->>   * this program; If not, see <http://www.gnu.org/licenses/>.
->>   */
->>  
->> +#include <xen/cpu.h>
->>  #include <xen/sched.h>
->>  #include <xen/iocap.h>
->>  #include <xen/iommu.h>
->> @@ -551,6 +552,103 @@ struct page_info *iommu_alloc_pgtable(st
->>      return pg;
->>  }
->>  
->> +/*
->> + * Intermediate page tables which get replaced by large pages may only be
->> + * freed after a suitable IOTLB flush. Hence such pages get queued on a
->> + * per-CPU list, with a per-CPU tasklet processing the list on the assumption
->> + * that the necessary IOTLB flush will have occurred by the time tasklets get
->> + * to run. (List and tasklet being per-CPU has the benefit of accesses not
->> + * requiring any locking.)
->> + */
->> +static DEFINE_PER_CPU(struct page_list_head, free_pgt_list);
->> +static DEFINE_PER_CPU(struct tasklet, free_pgt_tasklet);
->> +
->> +static void free_queued_pgtables(void *arg)
+On 02.06.2022 12:26, Jan Beulich wrote:
+> From: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
 > 
-> I think this is missing a cf_check attribute?
-
-Oh, indeed - thanks for spotting. We're still lacking compiler detection
-of such issues.
-
->> +{
->> +    struct page_list_head *list = arg;
->> +    struct page_info *pg;
->> +    unsigned int done = 0;
+> On Sapphire Rapids Xeon (SPR) the C1 and C1E states are basically mutually
+> exclusive - only one of them can be enabled. By default, 'intel_idle' driver
+> enables C1 and disables C1E. However, some users prefer to use C1E instead of
+> C1, because it saves more energy.
 > 
-> Might be worth adding an:
+> This patch adds a new module parameter ('preferred_cstates') for enabling C1E
+> and disabling C1. Here is the idea behind it.
 > 
-> ASSERT(list == &this_cpu(free_pgt_list));
+> 1. This option has effect only for "mutually exclusive" C-states like C1 and
+>    C1E on SPR.
+> 2. It does not have any effect on independent C-states, which do not require
+>    other C-states to be disabled (most states on most platforms as of today).
+> 3. For mutually exclusive C-states, the 'intel_idle' driver always has a
+>    reasonable default, such as enabling C1 on SPR by default. On other
+>    platforms, the default may be different.
+> 4. Users can override the default using the 'preferred_cstates' parameter.
+> 5. The parameter accepts the preferred C-states bit-mask, similarly to the
+>    existing 'states_off' parameter.
+> 6. This parameter is not limited to C1/C1E, and leaves room for supporting
+>    other mutually exclusive C-states, if they come in the future.
 > 
-> To make sure tasklets are never executed on the wrong CPU.
-
-Sure, added.
-
-> Apart form that:
+> Today 'intel_idle' can only be compiled-in, which means that on SPR, in order
+> to disable C1 and enable C1E, users should boot with the following kernel
+> argument: intel_idle.preferred_cstates=4
 > 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git da0e58c038e6
+> 
+> Enable C1E (if requested) not only on the BSP's socket / package. Alter
+> command line option to fit our model, and extend it to also accept
+> string form arguments.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v2: Also accept string form arguments for command line option. Restore
+>     C1E-control related enum from Linux, despite our somewhat different
+>     use (and bigger code churn).
 
-Thanks.
+Any chance of getting an ack here, then also unblocking the 2nd patch?
 
-Jan
+Thanks, Jan
+
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1885,6 +1885,12 @@ paging controls access to usermode addre
+>  ### ple_window (Intel)
+>  > `= <integer>`
+>  
+> +### preferred-cstates (x86)
+> +> `= ( <integer> | List of ( C1 | C1E | C2 | ... )`
+> +
+> +This is a mask of C-states which are to be used preferably.  This option is
+> +applicable only on hardware were certain C-states are exclusive of one another.
+> +
+>  ### psr (Intel)
+>  > `= List of ( cmt:<boolean> | rmid_max:<integer> | cat:<boolean> | cos_max:<integer> | cdp:<boolean> )`
+>  
+> --- a/xen/arch/x86/cpu/mwait-idle.c
+> +++ b/xen/arch/x86/cpu/mwait-idle.c
+> @@ -82,10 +82,29 @@ boolean_param("mwait-idle", opt_mwait_id
+>  
+>  static unsigned int mwait_substates;
+>  
+> +/*
+> + * Some platforms come with mutually exclusive C-states, so that if one is
+> + * enabled, the other C-states must not be used. Example: C1 and C1E on
+> + * Sapphire Rapids platform. This parameter allows for selecting the
+> + * preferred C-states among the groups of mutually exclusive C-states - the
+> + * selected C-states will be registered, the other C-states from the mutually
+> + * exclusive group won't be registered. If the platform has no mutually
+> + * exclusive C-states, this parameter has no effect.
+> + */
+> +static unsigned int __ro_after_init preferred_states_mask;
+> +static char __initdata preferred_states[64];
+> +string_param("preferred-cstates", preferred_states);
+> +
+>  #define LAPIC_TIMER_ALWAYS_RELIABLE 0xFFFFFFFF
+>  /* Reliable LAPIC Timer States, bit 1 for C1 etc. Default to only C1. */
+>  static unsigned int lapic_timer_reliable_states = (1 << 1);
+>  
+> +enum c1e_promotion {
+> +	C1E_PROMOTION_PRESERVE,
+> +	C1E_PROMOTION_ENABLE,
+> +	C1E_PROMOTION_DISABLE
+> +};
+> +
+>  struct idle_cpu {
+>  	const struct cpuidle_state *state_table;
+>  
+> @@ -95,7 +114,7 @@ struct idle_cpu {
+>  	 */
+>  	unsigned long auto_demotion_disable_flags;
+>  	bool byt_auto_demotion_disable_flag;
+> -	bool disable_promotion_to_c1e;
+> +	enum c1e_promotion c1e_promotion;
+>  };
+>  
+>  static const struct idle_cpu *icpu;
+> @@ -924,6 +943,15 @@ static void cf_check byt_auto_demotion_d
+>  	wrmsrl(MSR_MC6_DEMOTION_POLICY_CONFIG, 0);
+>  }
+>  
+> +static void cf_check c1e_promotion_enable(void *dummy)
+> +{
+> +	uint64_t msr_bits;
+> +
+> +	rdmsrl(MSR_IA32_POWER_CTL, msr_bits);
+> +	msr_bits |= 0x2;
+> +	wrmsrl(MSR_IA32_POWER_CTL, msr_bits);
+> +}
+> +
+>  static void cf_check c1e_promotion_disable(void *dummy)
+>  {
+>  	u64 msr_bits;
+> @@ -936,7 +964,7 @@ static void cf_check c1e_promotion_disab
+>  static const struct idle_cpu idle_cpu_nehalem = {
+>  	.state_table = nehalem_cstates,
+>  	.auto_demotion_disable_flags = NHM_C1_AUTO_DEMOTE | NHM_C3_AUTO_DEMOTE,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_atom = {
+> @@ -954,64 +982,64 @@ static const struct idle_cpu idle_cpu_li
+>  
+>  static const struct idle_cpu idle_cpu_snb = {
+>  	.state_table = snb_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_byt = {
+>  	.state_table = byt_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  	.byt_auto_demotion_disable_flag = true,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_cht = {
+>  	.state_table = cht_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  	.byt_auto_demotion_disable_flag = true,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_ivb = {
+>  	.state_table = ivb_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_ivt = {
+>  	.state_table = ivt_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_hsw = {
+>  	.state_table = hsw_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_bdw = {
+>  	.state_table = bdw_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_skl = {
+>  	.state_table = skl_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_skx = {
+>  	.state_table = skx_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_icx = {
+>         .state_table = icx_cstates,
+> -       .disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static struct idle_cpu __read_mostly idle_cpu_spr = {
+>  	.state_table = spr_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_avn = {
+>  	.state_table = avn_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_knl = {
+> @@ -1020,17 +1048,17 @@ static const struct idle_cpu idle_cpu_kn
+>  
+>  static const struct idle_cpu idle_cpu_bxt = {
+>  	.state_table = bxt_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_dnv = {
+>  	.state_table = dnv_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_snr = {
+>  	.state_table = snr_cstates,
+> -	.disable_promotion_to_c1e = true,
+> +	.c1e_promotion = C1E_PROMOTION_DISABLE,
+>  };
+>  
+>  #define ICPU(model, cpu) \
+> @@ -1241,6 +1269,25 @@ static void __init skx_idle_state_table_
+>  }
+>  
+>  /*
+> + * spr_idle_state_table_update - Adjust Sapphire Rapids idle states table.
+> + */
+> +static void __init spr_idle_state_table_update(void)
+> +{
+> +	/* Check if user prefers C1E over C1. */
+> +	if (preferred_states_mask & BIT(2, U)) {
+> +		if (preferred_states_mask & BIT(1, U))
+> +			/* Both can't be enabled, stick to the defaults. */
+> +			return;
+> +
+> +		spr_cstates[0].flags |= CPUIDLE_FLAG_DISABLED;
+> +		spr_cstates[1].flags &= ~CPUIDLE_FLAG_DISABLED;
+> +
+> +		/* Request enabling C1E using the "C1E promotion" bit. */
+> +		idle_cpu_spr.c1e_promotion = C1E_PROMOTION_ENABLE;
+> +	}
+> +}
+> +
+> +/*
+>   * mwait_idle_state_table_update()
+>   *
+>   * Update the default state_table for this CPU-id
+> @@ -1261,6 +1308,9 @@ static void __init mwait_idle_state_tabl
+>  	case INTEL_FAM6_SKYLAKE_X:
+>  		skx_idle_state_table_update();
+>  		break;
+> +	case INTEL_FAM6_SAPPHIRERAPIDS_X:
+> +		spr_idle_state_table_update();
+> +		break;
+>  	}
+>  }
+>  
+> @@ -1268,6 +1318,7 @@ static int __init mwait_idle_probe(void)
+>  {
+>  	unsigned int eax, ebx, ecx;
+>  	const struct x86_cpu_id *id = x86_match_cpu(intel_idle_ids);
+> +	const char *str;
+>  
+>  	if (!id) {
+>  		pr_debug(PREFIX "does not run on family %d model %d\n",
+> @@ -1309,6 +1360,39 @@ static int __init mwait_idle_probe(void)
+>  	pr_debug(PREFIX "lapic_timer_reliable_states %#x\n",
+>  		 lapic_timer_reliable_states);
+>  
+> +	str = preferred_states;
+> +	if (isdigit(str[0]))
+> +		preferred_states_mask = simple_strtoul(str, &str, 0);
+> +	else if (str[0])
+> +	{
+> +		const char *ss;
+> +
+> +		do {
+> +			const struct cpuidle_state *state = icpu->state_table;
+> +			unsigned int bit = 1;
+> +
+> +			ss = strchr(str, ',');
+> +			if (!ss)
+> +				ss = strchr(str, '\0');
+> +
+> +			for (; state->name[0]; ++state) {
+> +				bit <<= 1;
+> +				if (!cmdline_strcmp(str, state->name)) {
+> +					preferred_states_mask |= bit;
+> +					break;
+> +				}
+> +			}
+> +			if (!state->name[0])
+> +				break;
+> +
+> +			str = ss + 1;
+> +	    } while (*ss);
+> +
+> +	    str -= str == ss + 1;
+> +	}
+> +	if (str[0])
+> +		printk("unrecognized \"preferred-cstates=%s\"\n", str);
+> +
+>  	mwait_idle_state_table_update();
+>  
+>  	return 0;
+> @@ -1400,8 +1484,18 @@ static int cf_check mwait_idle_cpu_init(
+>  	if (icpu->byt_auto_demotion_disable_flag)
+>  		on_selected_cpus(cpumask_of(cpu), byt_auto_demotion_disable, NULL, 1);
+>  
+> -	if (icpu->disable_promotion_to_c1e)
+> +	switch (icpu->c1e_promotion) {
+> +	case C1E_PROMOTION_DISABLE:
+>  		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
+> +		break;
+> +
+> +	case C1E_PROMOTION_ENABLE:
+> +		on_selected_cpus(cpumask_of(cpu), c1e_promotion_enable, NULL, 1);
+> +		break;
+> +
+> +	case C1E_PROMOTION_PRESERVE:
+> +		break;
+> +	}
+>  
+>  	return NOTIFY_DONE;
+>  }
+> 
+> 
+
 
