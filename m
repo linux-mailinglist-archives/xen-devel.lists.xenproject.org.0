@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E3A566B30
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jul 2022 14:05:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.360839.590329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40190566B2B
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jul 2022 14:05:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.360843.590357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8hIE-00059o-Om; Tue, 05 Jul 2022 12:04:38 +0000
+	id 1o8hIG-0005nn-Lz; Tue, 05 Jul 2022 12:04:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 360839.590329; Tue, 05 Jul 2022 12:04:38 +0000
+Received: by outflank-mailman (output) from mailman id 360843.590357; Tue, 05 Jul 2022 12:04:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8hIE-00056o-AD; Tue, 05 Jul 2022 12:04:38 +0000
-Received: by outflank-mailman (input) for mailman id 360839;
- Tue, 05 Jul 2022 12:04:35 +0000
+	id 1o8hIG-0005bb-AD; Tue, 05 Jul 2022 12:04:40 +0000
+Received: by outflank-mailman (input) for mailman id 360843;
+ Tue, 05 Jul 2022 12:04:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eb3+=XK=xenbits.xen.org=julieng@srs-se1.protection.inumbo.net>)
- id 1o8hIB-0003yR-Kz
- for xen-devel@lists.xen.org; Tue, 05 Jul 2022 12:04:35 +0000
+ id 1o8hID-0003yR-LE
+ for xen-devel@lists.xen.org; Tue, 05 Jul 2022 12:04:37 +0000
 Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9eb7ed0d-fc5a-11ec-bd2d-47488cf2e6aa;
+ id 9ee01fca-fc5a-11ec-bd2d-47488cf2e6aa;
  Tue, 05 Jul 2022 14:04:32 +0200 (CEST)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julieng@xenbits.xen.org>)
- id 1o8hHu-0003NI-Fw; Tue, 05 Jul 2022 12:04:18 +0000
+ id 1o8hHz-0003No-39; Tue, 05 Jul 2022 12:04:23 +0000
 Received: from julieng by xenbits.xenproject.org with local (Exim 4.92)
  (envelope-from <julieng@xenbits.xen.org>)
- id 1o8hHu-0004G2-Eq; Tue, 05 Jul 2022 12:04:18 +0000
+ id 1o8hHz-0004HG-2A; Tue, 05 Jul 2022 12:04:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,13 +43,13 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9eb7ed0d-fc5a-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 9ee01fca-fc5a-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
 	Content-Transfer-Encoding:Content-Type;
-	bh=QAl9nOVTcMC4khUODf/sp9Yo/Uls9NnRuFaD0BAPueY=; b=l6Mf2w3V7T4K7eM3Mo/eb7VX3F
-	xemvX6yj6UVHsLHOZT1kzGbGTkp9kZ+K1SKP3ai1rk+8jFWo4iv9Bq5eDYYTgEJps+wKn+YoxqOyB
-	3upUaM0vPzMA4/g1x2Y1tus1ZGTcLCTGxZkJObN/hFG6mxSklMZI7Ln9RBswKGV9vITw=;
+	bh=Y5Aw9EVfdlix6vLX+W3t433fZ2ikgPc5rEtvnO0yoTc=; b=6IRBwThY58/hcpCkCLK0hyENDW
+	8XR2RDCYKEVOKCt7BuUgJ7foGl4bn/dauM9CxptAo7l9+p9OrH15Q8WSeymvy3a72TRQXKA6XEuwl
+	KniRi3zsFG6jE0O5iuaMOskb783tET01dY8aIPjMwPO2QEACTpxJAkNlOf80Puv+NzBk=;
 Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
 Content-Transfer-Encoding: binary
 MIME-Version: 1.0
@@ -58,10 +58,10 @@ To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
  xen-users@lists.xen.org, oss-security@lists.openwall.com
 From: Xen.org security team <security@xen.org>
 CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 405 v3 (CVE-2022-33743) - network backend
- may cause Linux netfront to use freed SKBs
-Message-Id: <E1o8hHu-0004G2-Eq@xenbits.xenproject.org>
-Date: Tue, 05 Jul 2022 12:04:18 +0000
+Subject: Xen Security Advisory 406 v3 (CVE-2022-33744) - Arm guests can
+ cause Dom0 DoS via PV devices
+Message-Id: <E1o8hHz-0004HG-2A@xenbits.xenproject.org>
+Date: Tue, 05 Jul 2022 12:04:23 +0000
 
 --=separator
 Content-Type: text/plain; charset="utf-8"
@@ -71,10 +71,10 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-            Xen Security Advisory CVE-2022-33743 / XSA-405
+            Xen Security Advisory CVE-2022-33744 / XSA-406
                                version 3
 
-       network backend may cause Linux netfront to use freed SKBs
+             Arm guests can cause Dom0 DoS via PV devices
 
 UPDATES IN VERSION 3
 ====================
@@ -84,39 +84,39 @@ Public release.
 ISSUE DESCRIPTION
 =================
 
-While adding logic to support XDP (eXpress Data Path), a code label was
-moved in a way allowing for SKBs having references (pointers) retained
-for further processing to nevertheless be freed.
+When mapping pages of guests on Arm, dom0 is using an rbtree to keep
+track of the foreign mappings.
+
+Updating of that rbtree is not always done completely with the related
+lock held, resulting in a small race window, which can be used by
+unprivileged guests via PV devices to cause inconsistencies of the
+rbtree. These inconsistencies can lead to Denial of Service (DoS) of
+dom0, e.g. by causing crashes or the inability to perform further
+mappings of other guests' memory pages.
 
 IMPACT
 ======
 
-A misbehaving or malicious backend may cause a Denial of Service (DoS)
-in the guest.  Information leaks or privilege escalation cannot be
-ruled out.
+A guest performing multiple I/Os of PV devices in parallel can cause
+DoS of dom0 and thus of the complete host.
 
 VULNERABLE SYSTEMS
 ==================
 
-Linux versions 5.9 - 5.18 are vulnerable.  Linux versions 5.8 and
-earlier are not vulnerable.
+Only Arm systems (32-bit and 64-bit) are vulnerable. Dom0 Linux versions
+3.13 - 5.18 are vulnerable.
 
-This vulnerability only increases the capability of an attacker in systems
-with less than fully privileged network backends (e.g. network driver
-domains).  For systems where netback runs in dom0 (the default
-configuration), this vulnerability does not increase the capabilities of
-an attacker.
+X86 systems are not vulnerable.
 
 MITIGATION
 ==========
 
-There is no mitigation available other than not using PV devices in case
-a backend is suspected to be potentially malicious.
+There is no mitigation available.
 
 CREDITS
 =======
 
-This issue was discovered by Jan Beulich of SUSE.
+This issue was discovered by Oleksandr Tyshchenko of EPAM.
 
 RESOLUTION
 ==========
@@ -128,26 +128,27 @@ apply to the stable branches, and may not apply cleanly to the most
 recent release tarball.  Downstreams are encouraged to update to the
 tip of the stable branch before applying these patches.
 
-xsa405-linux.patch     Linux 5.9 - 5.19-rc
+xsa406-linux.patch     Linux 3.13 - 5.19-rc
 
-$ sha256sum xsa405*
-69716b78fbd996bce0414079bbb5f002029c5a82924aaae0db78a13c4b385f0a  xsa405-linux.patch
+$ sha256sum xsa406*
+7a789f564b3365cade6e95d549dbbd5a8b7b5e53d09bc5a463c77dfefd5a4182  xsa406-linux.patch
 $
 
 DEPLOYMENT DURING EMBARGO
 =========================
 
-Deployment of patches or mitigations is NOT permitted (except where
-all the affected systems and VMs are administered and used only by
-organisations which are members of the Xen Project Security Issues
-Predisclosure List).  Specifically, deployment on public cloud systems
-is NOT permitted.
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
 
-This is because the patches need to be applied in the affected guests.
-Switching from PV to non-PV devices is observable by the guests and has
-usually a bad performance impact.
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
 
-Deployment is permitted only AFTER the embargo ends.
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
 
 (Note: this during-embargo deployment notice is retained in
 post-embargo publicly released Xen Project advisories, even though it
@@ -159,51 +160,78 @@ consult the Xen Project community's agreed Security Policy:
   http://www.xenproject.org/security-policy.html
 -----BEGIN PGP SIGNATURE-----
 
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmLEFgAMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZgG4H/3KYUQdJlSEq2AEmIZhh1HDdhj/9n9Wxm0eHEqEQ
-pXvflqbqb2glZpQyWcFPcY4oRRYvy58p9FIEi3PJD+52K/7h58XcTEZKDFP87z53
-iqATbN4s/wHQ45xWAuIEHsmfLRtj3gIr4qviux3dtygKMjo6cZDX7Ethv6j0xdgc
-lEUfvisH+3ZXG+JOQbZyxmi6g1SGDf1TJQczXR1rJjIp/npTupfFO+4r+vpiypbI
-6ytFrRwmqfzuO8Mz5Wqrda8Fkk3JYoYtJdBfd/hYNu5vBN0d4o82sbZpuzVgdRI4
-H+R90MB1XpZJ/mSYEDBbEctbmTFfJrRvr9yGjtCi8ivvQ5I=
-=fMa/
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmLEFgEMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZwJUIAJSrSYNMQE4jo1sJFKjEJ3cHy6CymbJC94JSm2Tf
+HzeMlwd7NQF3Sc2HSWQoCSI+0TiRb6bJpfZASsbL/E3b6zcm3+VxwS7HVUtvHXhN
+HJYRUMN9vckUkGwWDYbgveI7uie9P7gpjwi5CEXxQf4NO9Oloyk2J5bijktzbBN2
+9FIZ7zFuiSRwGtr2WRaozCSzgg4EGiPRc5eMCFMP+K0P+oRvpkE52wWo/ZOPzW8T
+xocUIcvQK335ib04OCS3oqJZrRNwrvX6Vn+CifXac2WHR9tQ24VnTq1iYRrVD+5x
+kxpg4IuiNc2eD8lZCLnKEUDUj6LzWvgxKoxXgJFKXlESb0A=
+=57so
 -----END PGP SIGNATURE-----
 
 --=separator
-Content-Type: application/octet-stream; name="xsa405-linux.patch"
-Content-Disposition: attachment; filename="xsa405-linux.patch"
+Content-Type: application/octet-stream; name="xsa406-linux.patch"
+Content-Disposition: attachment; filename="xsa406-linux.patch"
 Content-Transfer-Encoding: base64
 
-RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
-OiB4ZW4tbmV0ZnJvbnQ6IHJlc3RvcmUgX19za2JfcXVldWVfdGFpbCgpIHBv
-c2l0aW9uaW5nIGluIHhlbm5ldF9nZXRfcmVzcG9uc2VzKCkKClRoZSBjb21t
-aXQgcmVmZXJlbmNlZCBiZWxvdyBtb3ZlZCB0aGUgaW52b2NhdGlvbiBwYXN0
-IHRoZSAibmV4dCIgbGFiZWwsCndpdGhvdXQgYW55IGV4cGxhbmF0aW9uLiBJ
-biBmYWN0IHRoaXMgYWxsb3dzIG1pc2JlaGF2aW5nIGJhY2tlbmRzIHVuZHVl
-CmNvbnRyb2wgb3ZlciB0aGUgZG9tYWluIHRoZSBmcm9udGVuZCBydW5zIGlu
-LCBhcyBlYXJsaWVyIGRldGVjdGVkIGVycm9ycwpyZXF1aXJlIHRoZSBza2Ig
-dG8gbm90IGJlIGZyZWVkIChpdCBtYXkgYmUgcmV0YWluZWQgZm9yIGxhdGVy
-IHByb2Nlc3NpbmcKdmlhIHhlbm5ldF9tb3ZlX3J4X3Nsb3QoKSwgb3IgaXQg
-bWF5IHNpbXBseSBiZSB1bnNhZmUgdG8gaGF2ZSBpdCBmcmVlZCkuCgpUaGlz
-IGlzIENWRS0yMDIyLTMzNzQzIC8gWFNBLTQwNS4KCkZpeGVzOiA2YzVhYTZm
-YzRkZWYgKCJ4ZW4gbmV0d29ya2luZzogYWRkIGJhc2ljIFhEUCBzdXBwb3J0
-IGZvciB4ZW4tbmV0ZnJvbnQiKQpTaWduZWQtb2ZmLWJ5OiBKYW4gQmV1bGlj
-aCA8amJldWxpY2hAc3VzZS5jb20+ClJldmlld2VkLWJ5OiBKdWVyZ2VuIEdy
-b3NzIDxqZ3Jvc3NAc3VzZS5jb20+Ci0tLQpUaGUgY2hhbmdlIGluIHF1ZXN0
-aW9uIGFzIHdlbGwgYXMgdGhlIHJlc3BlY3RpdmUgbmV0aWYuaCBjaGFuZ2Ug
-d2VudAppbiB3aXRob3V0IGFueSBYZW4gcGVyc29uJ3MgYWNrIG9yIFItYjsg
-b25seSB0aGUgY29ycmVzcG9uZGluZyBiYWNrZW5kCmNoYW5nZSBoYXMgUGF1
-bCdzIFItYi4gVGhpcyBpbiBwYXJ0aWN1bGFyIG1lYW5zIHRoYXQgdGhlIGlu
-dGVyZmFjZQphZGRpdGlvbiBpcyBzdGlsbCB1bm9mZmljaWFsIChhbmQgYXQg
-cmlzayBvZiBjb2xsaWRpbmcgd2l0aCBzb21lb25lCmVsc2UncyksIGZvciBu
-b3QgaGF2aW5nIGJlZW4gY29tbWl0dGVkIHRvIHRoZSBjYW5vbmljYWwgY29w
-eSBvZiB0aGUKaGVhZGVyIGluIHhlbi5naXQuCgotLS0gYS9kcml2ZXJzL25l
-dC94ZW4tbmV0ZnJvbnQuYworKysgYi9kcml2ZXJzL25ldC94ZW4tbmV0ZnJv
-bnQuYwpAQCAtMTA1Myw4ICsxMDUzLDEwIEBAIHN0YXRpYyBpbnQgeGVubmV0
-X2dldF9yZXNwb25zZXMoc3RydWN0IG4KIAkJCX0KIAkJfQogCQlyY3VfcmVh
-ZF91bmxvY2soKTsKLW5leHQ6CisKIAkJX19za2JfcXVldWVfdGFpbChsaXN0
-LCBza2IpOworCituZXh0OgogCQlpZiAoIShyeC0+ZmxhZ3MgJiBYRU5fTkVU
-UlhGX21vcmVfZGF0YSkpCiAJCQlicmVhazsKIAo=
+eGVuL2FybTogRml4IHJhY2UgaW4gUkItdHJlZSBiYXNlZCBQMk0gYWNjb3Vu
+dGluZwoKRHVyaW5nIHRoZSBQViBkcml2ZXIgbGlmZSBjeWNsZSB0aGUgbWFw
+cGluZ3MgYXJlIGFkZGVkIHRvCnRoZSBSQi10cmVlIGJ5IHNldF9mb3JlaWdu
+X3AybV9tYXBwaW5nKCksIHdoaWNoIGlzIGNhbGxlZCBmcm9tCmdudHRhYl9t
+YXBfcmVmcygpIGFuZCBhcmUgcmVtb3ZlZCBieSBjbGVhcl9mb3JlaWduX3Ay
+bV9tYXBwaW5nKCkKd2hpY2ggaXMgY2FsbGVkIGZyb20gZ250dGFiX3VubWFw
+X3JlZnMoKS4gQXMgYm90aCBmdW5jdGlvbnMgZW5kCnVwIGNhbGxpbmcgX19z
+ZXRfcGh5c190b19tYWNoaW5lX211bHRpKCkgd2hpY2ggdXBkYXRlcyB0aGUg
+UkItdHJlZSwKdGhpcyBmdW5jdGlvbiBjYW4gYmUgY2FsbGVkIGNvbmN1cnJl
+bnRseS4KClRoZXJlIGlzIGFscmVhZHkgYSAicDJtX2xvY2siIHRvIHByb3Rl
+Y3QgYWdhaW5zdCBjb25jdXJyZW50IGFjY2Vzc2VzLApidXQgdGhlIHByb2Js
+ZW0gaXMgdGhhdCB0aGUgZmlyc3QgcmVhZCBvZiAicGh5c190b19tYWNoLnJi
+X25vZGUiCmluIF9fc2V0X3BoeXNfdG9fbWFjaGluZV9tdWx0aSgpIGlzIG5v
+dCBjb3ZlcmVkIGJ5IGl0LCBzbyB0aGlzIG1pZ2h0CmxlYWQgdG8gdGhlIGlu
+Y29ycmVjdCBtYXBwaW5ncyB1cGRhdGUgKHJlbW92aW5nIGluIG91ciBjYXNl
+KSBpbiBSQi10cmVlLgoKSW4gbXkgZW52aXJvbm1lbnQgdGhlIHJlbGF0ZWQg
+aXNzdWUgaGFwcGVucyByYXJlbHkgYW5kIG9ubHkgd2hlbgpQViBuZXQgYmFj
+a2VuZCBpcyBydW5uaW5nLCB0aGUgeGVuX2FkZF9waHlzX3RvX21hY2hfZW50
+cnkoKSBjbGFpbXMKdGhhdCBpdCBjYW5ub3QgYWRkIG5ldyBwZm4gPC0+IG1m
+biBtYXBwaW5nIHRvIHRoZSB0cmVlIHNpbmNlIGl0IGlzCmFscmVhZHkgZXhp
+c3RzIHdoaWNoIHJlc3VsdHMgaW4gYSBmYWlsdXJlIHdoZW4gbWFwcGluZyBm
+b3JlaWduIHBhZ2VzLgoKQnV0IHRoZXJlIG1pZ2h0IGJlIG90aGVyIGJhZCBj
+b25zZXF1ZW5jZXMgcmVsYXRlZCB0byB0aGUgbm9uLXByb3RlY3RlZApyb290
+IHJlYWRzIHN1Y2ggdXNlLWFmdGVyLWZyZWUsIGV0Yy4KCldoaWxlIGF0IGl0
+LCBhbHNvIGZpeCB0aGUgc2ltaWxhciB1c2FnZSBpbiBfX3Bmbl90b19tZm4o
+KSwgc28KaW5pdGlhbGl6ZSAic3RydWN0IHJiX25vZGUgKm4iIHdpdGggdGhl
+ICJwMm1fbG9jayIgaGVsZCBpbiBib3RoCmZ1bmN0aW9ucyB0byBhdm9pZCBw
+b3NzaWJsZSBiYWQgY29uc2VxdWVuY2VzLgoKVGhpcyBpcyBDVkUtMjAyMi0z
+Mzc0NCAvIFhTQS00MDYuCgpSZXBvcnRlZC1ieTogT2xla3NhbmRyIFR5c2hj
+aGVua28gPG9sZWtzYW5kcl90eXNoY2hlbmtvQGVwYW0uY29tPgpTaWduZWQt
+b2ZmLWJ5OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hj
+aGVua29AZXBhbS5jb20+ClJldmlld2VkLWJ5OiBTdGVmYW5vIFN0YWJlbGxp
+bmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+Ci0tLQogYXJjaC9hcm0veGVu
+L3AybS5jIHwgNiArKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlv
+bnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0v
+eGVuL3AybS5jIGIvYXJjaC9hcm0veGVuL3AybS5jCmluZGV4IDg0YTFjZWEu
+LjMwOTY0OGMxIDEwMDY0NAotLS0gYS9hcmNoL2FybS94ZW4vcDJtLmMKKysr
+IGIvYXJjaC9hcm0veGVuL3AybS5jCkBAIC02MywxMSArNjMsMTIgQEAgc3Rh
+dGljIGludCB4ZW5fYWRkX3BoeXNfdG9fbWFjaF9lbnRyeShzdHJ1Y3QgeGVu
+X3AybV9lbnRyeSAqbmV3KQogCiB1bnNpZ25lZCBsb25nIF9fcGZuX3RvX21m
+bih1bnNpZ25lZCBsb25nIHBmbikKIHsKLQlzdHJ1Y3QgcmJfbm9kZSAqbiA9
+IHBoeXNfdG9fbWFjaC5yYl9ub2RlOworCXN0cnVjdCByYl9ub2RlICpuOwog
+CXN0cnVjdCB4ZW5fcDJtX2VudHJ5ICplbnRyeTsKIAl1bnNpZ25lZCBsb25n
+IGlycWZsYWdzOwogCiAJcmVhZF9sb2NrX2lycXNhdmUoJnAybV9sb2NrLCBp
+cnFmbGFncyk7CisJbiA9IHBoeXNfdG9fbWFjaC5yYl9ub2RlOwogCXdoaWxl
+IChuKSB7CiAJCWVudHJ5ID0gcmJfZW50cnkobiwgc3RydWN0IHhlbl9wMm1f
+ZW50cnksIHJibm9kZV9waHlzKTsKIAkJaWYgKGVudHJ5LT5wZm4gPD0gcGZu
+ICYmCkBAIC0xNTIsMTAgKzE1MywxMSBAQCBib29sIF9fc2V0X3BoeXNfdG9f
+bWFjaGluZV9tdWx0aSh1bnNpZ25lZCBsb25nIHBmbiwKIAlpbnQgcmM7CiAJ
+dW5zaWduZWQgbG9uZyBpcnFmbGFnczsKIAlzdHJ1Y3QgeGVuX3AybV9lbnRy
+eSAqcDJtX2VudHJ5OwotCXN0cnVjdCByYl9ub2RlICpuID0gcGh5c190b19t
+YWNoLnJiX25vZGU7CisJc3RydWN0IHJiX25vZGUgKm47CiAKIAlpZiAobWZu
+ID09IElOVkFMSURfUDJNX0VOVFJZKSB7CiAJCXdyaXRlX2xvY2tfaXJxc2F2
+ZSgmcDJtX2xvY2ssIGlycWZsYWdzKTsKKwkJbiA9IHBoeXNfdG9fbWFjaC5y
+Yl9ub2RlOwogCQl3aGlsZSAobikgewogCQkJcDJtX2VudHJ5ID0gcmJfZW50
+cnkobiwgc3RydWN0IHhlbl9wMm1fZW50cnksIHJibm9kZV9waHlzKTsKIAkJ
+CWlmIChwMm1fZW50cnktPnBmbiA8PSBwZm4gJiYKLS0gCjIuNy40Cgo=
 
 --=separator--
 
