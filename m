@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8688C5679D2
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 00:01:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.361639.591256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FB305679DD
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 00:03:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.361643.591267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8qby-0001sb-9g; Tue, 05 Jul 2022 22:01:38 +0000
+	id 1o8qd4-0002Qf-JW; Tue, 05 Jul 2022 22:02:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 361639.591256; Tue, 05 Jul 2022 22:01:38 +0000
+Received: by outflank-mailman (output) from mailman id 361643.591267; Tue, 05 Jul 2022 22:02:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8qby-0001qS-6X; Tue, 05 Jul 2022 22:01:38 +0000
-Received: by outflank-mailman (input) for mailman id 361639;
- Tue, 05 Jul 2022 22:01:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o8qbw-0001qM-M2
- for xen-devel@lists.xenproject.org; Tue, 05 Jul 2022 22:01:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o8qbw-0006fW-4G; Tue, 05 Jul 2022 22:01:36 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o8qbv-00088q-Ux; Tue, 05 Jul 2022 22:01:36 +0000
+	id 1o8qd4-0002OW-GR; Tue, 05 Jul 2022 22:02:46 +0000
+Received: by outflank-mailman (input) for mailman id 361643;
+ Tue, 05 Jul 2022 22:02:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TLZa=XK=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1o8qd2-0002OG-Dk
+ for xen-devel@lists.xenproject.org; Tue, 05 Jul 2022 22:02:44 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 31d3173a-fcae-11ec-bd2d-47488cf2e6aa;
+ Wed, 06 Jul 2022 00:02:43 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id r14so13620483wrg.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Jul 2022 15:02:43 -0700 (PDT)
+Received: from [192.168.1.10] (adsl-146.37.6.170.tellas.gr. [37.6.170.146])
+ by smtp.gmail.com with ESMTPSA id
+ s14-20020a5d510e000000b0021d60994b0asm10151482wrt.100.2022.07.05.15.02.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Jul 2022 15:02:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +44,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=1ZABEC9njBC5aai4/GIav7Ak4LagUmq/AVgkeQZvHKE=; b=aZ0M/ryouasMZQWW2DRnryJ5SN
-	pK8V3Sn1QDPHJFTxw8tuipyx1BVLV/wEoJhEfNHqSPlFtk0qrXE0o3yqmhuaXkZeLWG1qF5tlpMmj
-	eFRGgcROiqPVOodoeeT6uwpcb6djnMz76OV2xxEHLatpkj4gfXA3j+WgFFMcTJGA5epU=;
-Message-ID: <bc0c9bcb-9781-6cf5-1189-c29c5cc89b09@xen.org>
-Date: Tue, 5 Jul 2022 23:01:34 +0100
+X-Inumbo-ID: 31d3173a-fcae-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=Mcg72TBG1jxYz7iVjnqxrxdaFWvNUE9pET8iQOek4xA=;
+        b=jhxkmdkB7haX9DAJ8QwVckaFsM9+56VTqdkyHC8d0QEDvK/O5ksR9mwCaYYj+DXG/x
+         +gHTHAXco+KNQgwpTSpP7dO3UR/psmfeGg4tPd25UzNyD0X9FTWXEf1TJSzbxZESBYgI
+         w9ZhwDU+FlSQ9NIEAPQTinidVM6LEQHolC4NhDvwHLFg6wn4vgH/Wt4qO2IBNkfoXvVP
+         62IJFJCATnpkzpkDWo36YM7YM5Mqcvw7fdh3Pvk6hSkMLWsI6kPNbwnBcL0gVXkpWQ80
+         Gutqk5Ih1/ZpyGv5H4f5rafpPzuMI48h9zjBPR04roDWPdiHMCoKlu5HnyP6WTHBpD4n
+         dAHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=Mcg72TBG1jxYz7iVjnqxrxdaFWvNUE9pET8iQOek4xA=;
+        b=f83NkHcOV2gwoYISUIz+gi/HwPAbxnVrLYZJ8sMdVZhmv/JngvpWg/AB20f5P1JaPY
+         q+0jxwlyDCfA3Du/jFElOJdgnaEEec3USinRkrKWtKa2aOJ6G1I69zu5P+4WQ/NT1Han
+         33V6p01PQjiPx0Hco8RM64Mv/AcZ+3/aU4u1U0mGRoQpSkK365kJEuBjKEpkJ1UzGHpT
+         fFRMvE49TGIsJ7ISuHhZ3ecpj1F1N3L6jK652ckKKAlBhRP3PkRy8iB3COTbJ0gOuPJq
+         o8HGOXMQsmf7Q+tgff2IyvQ0GuiVfn/4o5h0vxp4GhhuL7r01vijJJuhForszt55mse0
+         6z1Q==
+X-Gm-Message-State: AJIora83xdZRWyRRivJi2PxxbQ+ang9DJT9UAyr4Uqap9h6062E/JDDI
+	wanwS0oZ+K8pHdoqWqtRC9M=
+X-Google-Smtp-Source: AGRyM1tnznu0hYs4Vnv79iV0LdGWQNC52y9NyDUoLmMR+4lTxWtjMGa38EGKJ1WDzEBz6M0+1YkB2A==
+X-Received: by 2002:a5d:55cd:0:b0:21d:6d9d:2c4e with SMTP id i13-20020a5d55cd000000b0021d6d9d2c4emr9283156wrw.544.1657058562994;
+        Tue, 05 Jul 2022 15:02:42 -0700 (PDT)
+Message-ID: <fc36b54b-5bc9-d30b-3524-79711abbbdc8@gmail.com>
+Date: Wed, 6 Jul 2022 01:02:40 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.11.0
-Subject: Re: [PATCH] xen/arm: traps: Fix MISRA C 2012 Rule 8.4 violation
-To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220705122114.419634-1-burzalodowa@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220705122114.419634-1-burzalodowa@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 4/4] xen/char: pv_console: Fix MISRA C 2012 Rule 8.4
+ violation
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20220705210218.483854-1-burzalodowa@gmail.com>
+ <20220705210218.483854-5-burzalodowa@gmail.com>
+ <47ed7737-5422-e4be-c99d-0e448616f5b5@xen.org>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <47ed7737-5422-e4be-c99d-0e448616f5b5@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Xenia,
+Hi Julien,
 
-On 05/07/2022 13:21, Xenia Ragiadakou wrote:
-> Add the function prototype of show_stack() in <asm/processor.h> header file
-> so that it is visible before its definition in traps.c.
+On 7/6/22 00:38, Julien Grall wrote:
+> Hi Xenia,
 > 
-> Although show_stack() is referenced only in traps.c, it is declared with
-> external linkage because, during development, it is often called also by
-> other files for debugging purposes. Declaring it static would increase
-> development effort. Add appropriate comment
+> On 05/07/2022 22:02, Xenia Ragiadakou wrote:
+>> The function pv_console_evtchn() is defined in the header 
+>> <xen/pv_console.h>.
+>> If the header happens to be included by multiple files, this can 
+>> result in
+>> linker errors due to multiple definitions,
+>> So, it is more appropriate to resolve this MISRA C 2012 Rule 8.4 
+>> violation
+>> warning by making pv_console_evtchn() inline with internal linkage.
 > 
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-
-With one request below:
-
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-> ---
->   xen/arch/arm/include/asm/processor.h | 2 ++
->   1 file changed, 2 insertions(+)
+> There are multiple version of pv_console_evtchn(). The version below is 
+> only used when !CONFIG_XEN_GUEST.
 > 
-> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-> index 4188ec6bfb..c021160412 100644
-> --- a/xen/arch/arm/include/asm/processor.h
-> +++ b/xen/arch/arm/include/asm/processor.h
-> @@ -558,7 +558,9 @@ extern register_t __cpu_logical_map[];
->   void panic_PAR(uint64_t par);
->   
->   void show_execution_state(const struct cpu_user_regs *regs);
-> +/* Debugging functions are declared with external linkage to aid development. */
+> The header is also included multiple time within Xen. So I am a bit 
+> puzzled why we haven't seen this error before. Maybe this is unused when 
+> !CONFIG_XEN_GUEST?
+> 
+> If yes, I would remove the call. If no, then I think the commit message 
+> should be clarified.
 
-I agree that those functions are only used for debugging today. But 
-there are no reason they can't be used in code in the future.
-So I would like this comment to be dropped because it could easily 
-become stale.
+You are right. I had to clarify that this holds when !CONFIG_XEN_GUEST.
+So when !CONFIG_XEN_GUEST, the function pv_console_evtchn() is defined 
+inside the header file and the header is included only by a single file. 
+This is why the error has not been triggered.
 
-If the others argue for keeping it, then I think...
-
->   void show_registers(const struct cpu_user_regs *regs);
-> +void show_stack(const struct cpu_user_regs *regs);
-
-... we need a newline here so it is clearer which set of functions you 
-are referring to (at the moment one may think that 
-dump_execution_state()) is also included.
-
->   //#define dump_execution_state() run_in_exception_handler(show_execution_state)
->   #define dump_execution_state() WARN()
->   
-
-Cheers,
+> 
+> Cheers,
+> 
 
 -- 
-Julien Grall
+Xenia
 
