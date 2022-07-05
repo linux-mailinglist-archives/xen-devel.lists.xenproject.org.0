@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22CC56762C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Jul 2022 20:08:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.361499.591057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE421567927
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Jul 2022 23:03:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.361534.591084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8mws-0000Za-Bp; Tue, 05 Jul 2022 18:06:58 +0000
+	id 1o8pgf-0003d0-5L; Tue, 05 Jul 2022 21:02:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 361499.591057; Tue, 05 Jul 2022 18:06:58 +0000
+Received: by outflank-mailman (output) from mailman id 361534.591084; Tue, 05 Jul 2022 21:02:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8mws-0000Xo-8m; Tue, 05 Jul 2022 18:06:58 +0000
-Received: by outflank-mailman (input) for mailman id 361499;
- Tue, 05 Jul 2022 18:06:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o8pgf-0003bD-1s; Tue, 05 Jul 2022 21:02:25 +0000
+Received: by outflank-mailman (input) for mailman id 361534;
+ Tue, 05 Jul 2022 21:02:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pHCC=XK=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1o8mwr-0000Xi-1t
- for xen-devel@lists.xen.org; Tue, 05 Jul 2022 18:06:57 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40aa4b69-fc8d-11ec-924f-1f966e50362f;
- Tue, 05 Jul 2022 20:06:54 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id z13so21838994lfj.13
- for <xen-devel@lists.xen.org>; Tue, 05 Jul 2022 11:06:54 -0700 (PDT)
+ <SRS0=TLZa=XK=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1o8pgd-0003b1-RL
+ for xen-devel@lists.xenproject.org; Tue, 05 Jul 2022 21:02:23 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c385edb9-fca5-11ec-bd2d-47488cf2e6aa;
+ Tue, 05 Jul 2022 23:02:22 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ be14-20020a05600c1e8e00b003a04a458c54so7926303wmb.3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Jul 2022 14:02:22 -0700 (PDT)
+Received: from uni.. (adsl-146.37.6.170.tellas.gr. [37.6.170.146])
+ by smtp.googlemail.com with ESMTPSA id
+ l26-20020a1ced1a000000b003a03ae64f57sm2897401wmh.8.2022.07.05.14.02.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Jul 2022 14:02:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,97 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40aa4b69-fc8d-11ec-924f-1f966e50362f
+X-Inumbo-ID: c385edb9-fca5-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=xm9cRnemvM2twGxx12IaU3wNC0/7wuDcrWZFyp+aCCw=;
-        b=P7Wl3YdFag8Abxx4LfcrDjXIKPqHVyRZxnhKH15469ihaLBzSkN3d1h1EZZPlyAW1m
-         mrxjd5VpwggHVKaPdBZIo2Lrq6XjTq/sSFiinApZXyteG5a8mT8PyFZwY9hXdb1ArlzN
-         lCOj0v/lRWGqZCKR4F+Fj/WoypNAbSOPmWk98ToWLQtUtRnPsSXFVC8+BfKLeYtlXH9P
-         w8f/tQ/nbrDIXjTkIe8ts6APK3Zi1zWpl+opmimxdWeAS8jDuFkgjMWMmTmX/jJo3gIQ
-         HSVXnYilMyt1/9fzwkqLRaT5c6CCPMj42aItlgkhRPVt/Z/c3S+JxNxoaPECkak+qJst
-         qUlw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=fShJyLsuEBJvmB+AxoM45kGpo7E54ZlICruQClfnbYQ=;
+        b=lN/RlgPdxLosRgl/RUNehMS+zBujbjqZeIquKP7n+dgLl9r2vzJBVBmaq866sW8rz/
+         xioMPEXn3gvtZBlQUKZmIRx8CO6gZT+gfbkwMiI1gVAzXFsksnMvkX41zpxH++0kM25b
+         mzOFPWS2jbnUy9doUan1B/0bNJPIqBYVGwqL4qJYr5WeYzDUnIPZTcEiA864BkVAjdwE
+         5A6GqmZL57kWuoRdPIVwDyYTMETk7OBFgxmnKsVDF6LDNG6jXfTxWyRaPW8iBg1x2W1F
+         GyW+/LZBy84IQGhcDjVdhSebMlNndJak1FdYJuYLgCSjMS06MtaX0Sis14Fg6nlsOY1r
+         5+Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=xm9cRnemvM2twGxx12IaU3wNC0/7wuDcrWZFyp+aCCw=;
-        b=lWoIEn6QPr2iHgNI+MeK/Fop1rqkCVm30BOZ4KmcOKDXHnIx48/ZzdKDiuhYzkirOi
-         0ysdO79bXxW3Kn4r8M1tVLBNY7FrQy3SpmMrR+qF+0pNMaqpaIMeYkal8wckZvmPL4SA
-         rnckiGgJWjWWwQCbZwgNVQbcqCW8VjWYOZD3nOgpeoCyy48oUZvxoPB2/0uGQGQjxM5Q
-         RD3IYGXkFnPI8LhhFFdjBXHJEV+KMjW5PpQAgilaQrEKFrvMkcAkwgNrFJsQKp+j6eMt
-         a8uOFKor+eCFCKWTb5htsw5cTkZIqlSg19J3byr8x0YXpi1KTRJfmDdui6RbN/FzBAjk
-         jy6Q==
-X-Gm-Message-State: AJIora8JblWiMHpqPltRl/r/cH6nsC8KJUwXDViS5z5at2rlBVZSI2Ig
-	n+pnp9+9OSL1p1rXSgNo4XqQiRTezY/6Vjs98oKz8DKe8vQ=
-X-Google-Smtp-Source: AGRyM1uSn/QH7bfzo5fp8z3n9qjaAvtm9f77xE8UGvbjK4eoo9jdTpV0RPWb6owf4zAnuoiQDx7luEfsq0K4sqS889k=
-X-Received: by 2002:a05:6512:11d2:b0:47f:7ca3:c533 with SMTP id
- h18-20020a05651211d200b0047f7ca3c533mr22885472lfr.388.1657044414289; Tue, 05
- Jul 2022 11:06:54 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=fShJyLsuEBJvmB+AxoM45kGpo7E54ZlICruQClfnbYQ=;
+        b=6T1TEaBvapE6tsvjcApidUnVBKQBJ3NWkYqIiknQpuSFH2WNS5/DEI/zxt4Wk8sDNA
+         tKO3d+/5s7WsmdPUKHlMsRnZFND5uZQ1I/p9d5rWNX8rrq7CnjYzB9D/gcxiJlEpkwur
+         A65InwCKw45Bypec79xG0/MIbfnRpZyCrAmv4kLul7UzfaFNclnMHTc5qGFaNSxMneoJ
+         h8hp8liZ5yAOea3sfaH5VEMU+q9FPd1u1w5xzzTUcreeweE/CQXIWTdX2cOBP/DtRnZS
+         IV+OiDy24B07JLnJYssOLa+OLTahm8+tPu9RCdUfMmn9dgM9Wy4U1a8pRYR+f51AAnfR
+         MDew==
+X-Gm-Message-State: AJIora9pLtJa8217ul9v+1Rr3L3cQMX4HZV8zuF1H8FenISPB7cu3xX3
+	wmEVobLQCillxYNAUy7Xwnf3sxllUTI=
+X-Google-Smtp-Source: AGRyM1sdv5WuHFDy3B7P/CrdXFDQZJ/oOpxLP4iIGhi466AXlXHQKk+H+s6HACjE3FidvC7Su0IK3g==
+X-Received: by 2002:a05:600c:4149:b0:3a0:4728:60e7 with SMTP id h9-20020a05600c414900b003a0472860e7mr37583366wmm.10.1657054941594;
+        Tue, 05 Jul 2022 14:02:21 -0700 (PDT)
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 0/4] Fix MISRA C 2012 violations
+Date: Wed,  6 Jul 2022 00:02:14 +0300
+Message-Id: <20220705210218.483854-1-burzalodowa@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <CAKhsbWb4FyqWBraid=99mfr=_wbXQHfKq6jBszN9-WmV_OiBYw@mail.gmail.com>
- <YsK3/fDX8c0Tzfv0@MacBook-Air-de-Roger.local> <CAKhsbWakmx6Bw+fJZ49pbcmRx68WWuSCpYzJDg7uiYWuEnu0qg@mail.gmail.com>
- <YsLmlIrCBt/Ldg1G@MacBook-Air-de-Roger.local> <CAKhsbWZkbx8WrmuhAO3P_UxFihx_4UZHnUjrKZaFV1uwF6ifEg@mail.gmail.com>
- <YsMIO3E5/hzFgxSa@MacBook-Air-de-Roger.local> <CAKhsbWY2OwkGQQ-dqjOOr3Ed7dThdiFpAWbdUOnzbnOkYVqF4A@mail.gmail.com>
- <YsMN1dA8RL62vm33@MacBook-Air-de-Roger.local>
-In-Reply-To: <YsMN1dA8RL62vm33@MacBook-Air-de-Roger.local>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 5 Jul 2022 14:06:42 -0400
-Message-ID: <CAKf6xpuehkkUmr88Q358mHgmEc6YEtXrVjJbeNtDBx2prDfvug@mail.gmail.com>
-Subject: Re: PCI pass-through problem for SN570 NVME SSD
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "G.R." <firemeteor@users.sourceforge.net>, xen-devel <xen-devel@lists.xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 4, 2022 at 11:57 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com>=
- wrote:
->
-> On Mon, Jul 04, 2022 at 11:44:14PM +0800, G.R. wrote:
-> > On Mon, Jul 4, 2022 at 11:33 PM Roger Pau Monn=C3=A9 <roger.pau@citrix.=
-com> wrote:
-> > >
-> > > Right, so hvmloader attempts to place a BAR from 05:00.0 and a BAR
-> > > from 00:17.0 into the same page, which is not that good behavior.  It
-> > > might be sensible to attempt to share the page if both BARs belong to
-> > > the same device, but not if they belong to different devices.
-> > >
-> > > I think the following patch:
-> > >
-> > > https://lore.kernel.org/xen-devel/20200117110811.43321-1-roger.pau@ci=
-trix.com/
-> > >
-> > > Might help with this.
-> > >
-> > > Thanks, Roger.
-> > I suppose this patch has been released in a newer XEN version that I
-> > can pick up if I decide to upgrade?
-> > Which version would it be?
-> >
-> > On the other hand, according to the other experiment I did, this may
-> > not be the only issue related to this device.
-> > Still not sure if the device or the SW stack is faulty this time...
->
-> I don't think this patch has been applied to any release, adding Jason
-> who I think was also interested in the fix and might provide more
-> info.
+Resolve MISRA C 2012 Rule 8.4 violation warnings.
 
-Roger wrote the above patch after I tried to upstream a Qubes QEMU
-patch https://lore.kernel.org/xen-devel/20190311180216.18811-7-jandryuk@gma=
-il.com/.
-The patch rounded up BAR sizes for passed through devices which
-ensured they couldn't share a page.  But Roger rightfully pointed out
-that changing the BAR size is incorrect, and hvmloader could just
-enforce a minimum alignment.  However, nothing prevents a guest from
-relocating the BARs again.
+Xenia Ragiadakou (4):
+  xen/arm: traps: Fix MISRA C 2012 Rule 8.4 violations
+  xen/common: time: Fix MISRA C 2012 Rule 8.7 violation
+  xen/arm: domain: Fix MISRA C 2012 Rule 8.7 violation
+  xen/char: pv_console: Fix MISRA C 2012 Rule 8.4 violation
 
-I tested Roger's patch, but Qubes and OpenXT have kept using the QEMU
-patch.  When I added the QEMU patch to OpenXT, I wrote in the commit
-message that it fixed probing an e1000e nic
+ xen/arch/arm/domain.c                |  2 +-
+ xen/arch/arm/include/asm/processor.h | 14 ++++++++++++++
+ xen/common/time.c                    |  2 +-
+ xen/include/xen/pv_console.h         |  2 +-
+ 4 files changed, 17 insertions(+), 3 deletions(-)
 
+-- 
+2.34.1
 
-Regards,
-Jason
 
