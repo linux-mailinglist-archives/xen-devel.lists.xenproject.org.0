@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED176567CFB
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 06:06:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.361692.591413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE501567AE8
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 01:49:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.361727.591368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8wIJ-0008CN-1r; Wed, 06 Jul 2022 04:05:43 +0000
+	id 1o8sHa-0001VE-FA; Tue, 05 Jul 2022 23:48:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 361692.591413; Wed, 06 Jul 2022 04:05:43 +0000
+Received: by outflank-mailman (output) from mailman id 361727.591368; Tue, 05 Jul 2022 23:48:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8wII-0008A6-Ua; Wed, 06 Jul 2022 04:05:42 +0000
-Received: by outflank-mailman (input) for mailman id 361692;
- Tue, 05 Jul 2022 23:30:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o8sHa-0001SN-By; Tue, 05 Jul 2022 23:48:42 +0000
+Received: by outflank-mailman (input) for mailman id 361727;
+ Tue, 05 Jul 2022 23:48:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Zbt5=XK=gmail.com=asr7247@srs-se1.protection.inumbo.net>)
- id 1o8s0O-0007UN-A7
- for xen-devel@lists.xenproject.org; Tue, 05 Jul 2022 23:30:56 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 831ec046-fcba-11ec-924f-1f966e50362f;
- Wed, 06 Jul 2022 01:30:54 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id m16so1716088edb.11;
- Tue, 05 Jul 2022 16:30:53 -0700 (PDT)
+ id 1o8sHY-0001SH-HF
+ for xen-devel@lists.xenproject.org; Tue, 05 Jul 2022 23:48:40 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe2c1dd3-fcbc-11ec-bd2d-47488cf2e6aa;
+ Wed, 06 Jul 2022 01:48:39 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id ay16so24266895ejb.6
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Jul 2022 16:48:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,50 +39,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 831ec046-fcba-11ec-924f-1f966e50362f
+X-Inumbo-ID: fe2c1dd3-fcbc-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=GfcysKack9u98LD+9jFe9m1kkIS9l/4gskecDGT1Tyg=;
-        b=Dn576q5muipsNwTncrgD3aK2l/p+gqcMjP56jXliVMIPAxPF90qVCOKdj410P7RdBY
-         XwcaZRFIakc9WKHRjNWs2oYeQzMR6Xdp+lDkiKlaeLI8YNKYblxMkOUqq1VoeWAfXAlq
-         AbNkgmuD1gnGWpsIC3NN29D+hRtU4/dgYSHFIei38jxK6xISyWdTsJ/Hqcz4mlG5szYw
-         6EfwJA4GQdmc6YzXbViqktUI/lGjk1QwCfWeUQ270A5uZUCajAjmDXW6dBl80wjZTeS3
-         YMDxQGRNeLYJq5cuu4aC9SxCQNgjCik/vX0dL/jBQxPFp8cwRjrAuadzsLvdkjqbla3L
-         f5ng==
+        h=mime-version:from:date:message-id:subject:to;
+        bh=IBaieNh81j3eG/6AbXAFBlYHy2DeNc7YIGUU+pf4AOg=;
+        b=Y2tmj+WDjW3izOHwBHZQBJe5PTj553ADBVg3UPezPTikMNuGeaQ0GApe/RUxODQIFy
+         T0wl5Teqs6+3Gf32puXW/Ck6T78o0EWMUVY4w78TQ22gbszEwUUn42IbQW5oYX/6kSZI
+         xJQ3suVJoyKO2uRJNO/qPNIJFkOa3Ub4Kel0H/qxBR9TO4FOBugTcnRmJqaKGunQF126
+         IdhnknMuM1CQeuWnWBqLMlnjJ/t0rl6v5Y9Wf2SaU6z3rMAOH6L26ODlv31d/3B1oIhm
+         eLA5nyMn3f9xQ4feOf3ZPuUuOg6zVByJCYr4/GCnuvXsiW38kRK4RsiRczEU2zeb/uH7
+         DN4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=GfcysKack9u98LD+9jFe9m1kkIS9l/4gskecDGT1Tyg=;
-        b=1VZB0WWYzgHjP70lgHd2Zy/aG+T5W+0Z/yDJIbyi7LElmkx5DbSOrVgdtIzRtXl7Qj
-         23ICVGO0l5gRZacNqVVa3Qoj+7lze4CU7dBnlAWcN6FnhZukRZD0UsBk2BfhIGIL6Qsf
-         22PwYoPVVyN1Md70lam5quXElyVwBYA/AJujA405Vu/Md9bU5iautzm3yNKkFNEqljuu
-         fCA2wf7awPNrGHDrI2xsWkO5Cy9iYX1vB3djTYsgmcmaaMQROO85V2OSrtrHyetnRnpG
-         b9cXYEIYlMNUQ/7UzYj0BgmRrQzTz/3l3MctuTPLRpmAUXDwqhZpwZhI0bul/bYqNDnJ
-         hEyg==
-X-Gm-Message-State: AJIora+G2p3p7NkEwOoKPlalDWoNYTdRnmzqQV7MrVSR2/N6T1Hvmi5P
-	Jq5yRse4rwWz+cEnhYzszgBIwd2MnioOn4AEoWG0kDyzodkWUfiK
-X-Google-Smtp-Source: AGRyM1sdNzWgpuQxgXE+rz9MAYioTlsOYPvN6qxcNxxLvYwLWEXFz//4qhR/wy8jstEh8CJNgCZGBAS3oNYL3WbwehU=
-X-Received: by 2002:a05:6402:3490:b0:435:9802:96ac with SMTP id
- v16-20020a056402349000b00435980296acmr49691918edc.40.1657063852851; Tue, 05
- Jul 2022 16:30:52 -0700 (PDT)
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=IBaieNh81j3eG/6AbXAFBlYHy2DeNc7YIGUU+pf4AOg=;
+        b=1mtZWadIa7NkC8QUSWUjpn8Clr6mt/pXkpoOzsFE1ryTMwzPMFxBJppiGxGEhBKAb1
+         vMcB03n63KaR8yCCztUm2h7l+gNTotoSI8QchotirHrmDaXTK+n0+XDrqliFitDVhIrH
+         RkE8uEl1y+KgcBFg4OYjBIw1zgWZKZk9u8+3Aeqh1wQS8mR/F61b6f0GmWCb1mD96Q42
+         s9ErqskTfGDOLAsGzOtZBnIypWWr7jCrNQ6JtnYk8QIrVcP2GkKZinoZiuSrd0w7vTGh
+         f8j+rs6HwwVYUOg2Tidqa2899mCa3WKGgXjyoMi6YBb9C3eVi5V5o+Lx2RCwmIbdNmoX
+         bdfQ==
+X-Gm-Message-State: AJIora9u70iHn31KqraUcQLE4AvjqaszFuxVftEup032NRwb68bygUfG
+	G2IK+S5fl9b9jQ4RvQRw8bgI+AGNqG/xZODRn5opayMFouuJWT39
+X-Google-Smtp-Source: AGRyM1sMOSNGf2NTEeH/FnFLd4T33iiFVluDkixp9qJ4D59DJFqa67eRgABlhwSFfnp4WhBPlXjxaCA5v+e1CMDHmB0=
+X-Received: by 2002:a17:906:6a20:b0:726:7675:e15a with SMTP id
+ qw32-20020a1709066a2000b007267675e15amr35293872ejc.668.1657064918510; Tue, 05
+ Jul 2022 16:48:38 -0700 (PDT)
 MIME-Version: 1.0
-References: <CABg_PyKZFAtzhtk7bSKnvRt4PrFBGp++-HaE0aWQuAZkKO_Y_A@mail.gmail.com>
-In-Reply-To: <CABg_PyKZFAtzhtk7bSKnvRt4PrFBGp++-HaE0aWQuAZkKO_Y_A@mail.gmail.com>
 From: A Sudheer <asr7247@gmail.com>
-Date: Wed, 6 Jul 2022 05:00:40 +0530
-Message-ID: <CABg_Py+wqMWtVtBoDpM=XMUhwAFD3fq7pHXs_0X=hWdq4au7Gg@mail.gmail.com>
-Subject: Re: xen domU access UART I2C
-To: xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="00000000000051c31905e3173e49"
+Date: Wed, 6 Jul 2022 05:18:19 +0530
+Message-ID: <CABg_PyKHi8QUHhgD9v7CLCHvYPwNcaZP6x2_VJA5eZ2GuLOBmg@mail.gmail.com>
+Subject: access uart, i2c IO devices in DomU
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000d671c505e3177dd4"
 
---00000000000051c31905e3173e49
+--000000000000d671c505e3177dd4
 Content-Type: text/plain; charset="UTF-8"
 
 Hi All,
-
-< Posting my query again , added a few more details >
 
 On Xen-4.16 with Ubuntu-22.04 Dom0 and Ubuntu-22.04 HVM DomU, i need to
 access IO devices like UART and I2C.
@@ -92,40 +87,17 @@ them in DomU. What are the cfg options to be provided ?
 Thanks
 Sudheer
 
-On Tue, Jul 5, 2022 at 10:26 AM A Sudheer <asr7247@gmail.com> wrote:
-
-> Hi All,
->
-> On Xen with Ubuntu Dom0 and Ubuntu HVM DomU, i need to access IO devices
-> like UART and I2C.
-> I am able to access them in Dom0. Can someone let me know how to access
-> them in DomU. What are the cfg options to be provided ?
->
-> Thanks
-> Sudheer
->
-
---00000000000051c31905e3173e49
+--000000000000d671c505e3177dd4
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi All,=C2=A0<div><br></div><div>&lt; Posting my query aga=
-in ,=C2=A0added a few more details &gt;</div><div><br></div><div>On Xen-4.1=
-6 with Ubuntu-22.04 Dom0 and Ubuntu-22.04 HVM DomU, i need to access=C2=A0I=
-O devices like UART and I2C.</div><div>I am able to access them in Dom0. Ca=
-n someone let me know how to access them in DomU. What are the cfg options =
-to be provided ?</div><div><br></div><div>Thanks=C2=A0<br></div><font color=
-=3D"#888888"><div>Sudheer</div></font></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jul 5, 2022 at 10:26 AM A Sud=
-heer &lt;<a href=3D"mailto:asr7247@gmail.com">asr7247@gmail.com</a>&gt; wro=
-te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"=
-ltr">Hi All,=C2=A0<div><br></div><div>On Xen with Ubuntu Dom0 and Ubuntu HV=
-M DomU, i need to access=C2=A0IO devices like UART and I2C.</div><div>I am =
-able to access them in Dom0. Can someone let me know how to access them in =
-DomU. What are the cfg options to be provided ?</div><div><br></div><div>Th=
-anks=C2=A0</div><div>Sudheer</div></div>
-</blockquote></div>
+<div dir=3D"ltr">Hi All,=C2=A0<div><br></div><div>On Xen-4.16 with Ubuntu-2=
+2.04 Dom0 and Ubuntu-22.04 HVM DomU, i need to access=C2=A0IO devices like =
+UART and I2C.<br></div><span class=3D"gmail-im" style=3D"color:rgb(80,0,80)=
+"><div>I am able to access them in Dom0. Can someone let me know how to acc=
+ess them in DomU. What are the cfg options to be provided ?</div><div><br><=
+/div><div>Thanks=C2=A0<br></div><font color=3D"#888888"><div>Sudheer</div><=
+div><br></div></font></span></div>
 
---00000000000051c31905e3173e49--
+--000000000000d671c505e3177dd4--
 
