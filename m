@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01519568C7A
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 17:18:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362317.592308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DF2A568CE2
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 17:33:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362331.592328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o96mr-0004lO-H2; Wed, 06 Jul 2022 15:17:57 +0000
+	id 1o971L-0008FZ-7t; Wed, 06 Jul 2022 15:32:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362317.592308; Wed, 06 Jul 2022 15:17:57 +0000
+Received: by outflank-mailman (output) from mailman id 362331.592328; Wed, 06 Jul 2022 15:32:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o96mr-0004hz-DL; Wed, 06 Jul 2022 15:17:57 +0000
-Received: by outflank-mailman (input) for mailman id 362317;
- Wed, 06 Jul 2022 15:17:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o971L-0008Cy-4e; Wed, 06 Jul 2022 15:32:55 +0000
+Received: by outflank-mailman (input) for mailman id 362331;
+ Wed, 06 Jul 2022 15:32:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lo2B=XL=citrix.com=prvs=179813542=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1o96mq-0004ht-3E
- for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 15:17:56 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdec6f4c-fd3e-11ec-bd2d-47488cf2e6aa;
- Wed, 06 Jul 2022 17:17:54 +0200 (CEST)
+ <SRS0=lWdV=XL=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1o971I-00081g-Ll
+ for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 15:32:53 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e4461717-fd40-11ec-924f-1f966e50362f;
+ Wed, 06 Jul 2022 17:32:50 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id C2C9E5C0190;
+ Wed,  6 Jul 2022 11:32:48 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Wed, 06 Jul 2022 11:32:48 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 6 Jul 2022 11:32:45 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,145 +43,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdec6f4c-fd3e-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1657120674;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=h8ds19eScE8j3L+YzqslAKx1TfX5HX9CLCVB/Da1hOY=;
-  b=MHQMvOucpvNPns3N0/grzOpfJzFXHlSGzNlHN7j63QNciCkEU3tmboap
-   IskdRoQW0w3UtFZCT5YGvbO3mwUgErPFEEVAOaKQLVaOg3TSVwIXXzo0E
-   5lR0+svOwNwdl1yRPHmwLOBqGAfJrVV1IV3i06TozvGCnlHDU+rnwV/95
-   Q=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 75228734
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:aoZqA6ua8+bNB2hQLLUxVWqbPOfnVC5eMUV32f8akzHdYApBsoF/q
- tZmKWnTa/eMZWH1f9wjbIrg/EJS7Z7RydJmT1Y9rXoxHi4b+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZhSAgk/nOHNIQMcacUsxLbVYMpBwJ1FQywYbVvqYy2YLjW1zV5
- 4uoyyHiEATNNwBcYzp8B52r8HuDjNyq0N/PlgVjDRzjlAa2e0g9VPrzF4noR5fLatA88tqBb
- /TC1NmEElbxpH/BPD8HfoHTKSXmSpaKVeSHZ+E/t6KK2nCurQRquko32WZ1he66RFxlkvgoo
- Oihu6BcRi80MJWXur0TVyMATQFYZqRgp6fLcVyW5Jn7I03uKxMAwt1rBUAye4YZ5vx2ESdF8
- vlwxDIlN07ZwbjsmfTiF7cq1p9LwMrDZevzvllpyy3ZCvA3B4jOWazQ6fdT3Ssqh9AIFvHbD
- yYcQWUyNk6QPEYTUrsRIIgcvsqh1l+8SB13mWm8pIhp0WXp0AMkhdABN/KKI4fXFK25hH2wv
- Xna9m70BhUbMt23yjef9H+owOjVkkvTR4Y6BLC+sPlwjzW7xHEXCRAQfUu2p7++kEHWc9BVJ
- lEQ+yEuhbMv70HtRd74NzWorXjBshMCVt54F+wh9BrL2qfS+xyeBGUPUnhGctNOiSMtbWV0j
- BnTxYqvXGEx9u3OIZ6AyluKhS68AXM3dGEGX3dabS1e6v+8uI1jqjuaG76PD5WJYs3J9SDYm
- m7X83Fm3+VO16bnxI3gowmZ3mvESozhC1dsu16JBj/NAhZRPtbNWmC+1bTMAR+sxq69R0LJg
- nULktP2AAsmXcDUz3zlrAng8diUCxe53N702wcH82EJrWjFxpJaVdk4DMtCDEloKN0YXjTif
- VXevwhcjLcKYib1NfMpOdjqUpp6pUQFKTgCfqmNBuein7ArLFPXlM2QTRT4M5/RfLgEzvhkZ
- MbznTeEBncGE6V3pAeLqxMm+eZznEgWnDqLLbiilkjP+efPPxa9FOZaWGZim8hktctoVi2Oq
- 4YBXyZLoj0CONDDjt7/rddMcwtbcCNkVPgbaaV/L4a+H+avI0l5Y9e5/F/rU9YNc3h9/gsQw
- kyAZw==
-IronPort-HdrOrdr: A9a23:jWhyJq5YyJfCPGOhWQPXwMjXdLJyesId70hD6qhwISY6TiW9rb
- HLoB17726QtN9/YhwdcLy7VJVoBEmskqKdgrNhX4tKPjOHhILAFugLhuHfKn/bak7DH4ZmpM
- FdmsNFaeEYY2IUsfrH
-X-IronPort-AV: E=Sophos;i="5.92,250,1650945600"; 
-   d="scan'208";a="75228734"
-Date: Wed, 6 Jul 2022 16:17:48 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] EFI: strip xen.efi when putting it on the EFI partition
-Message-ID: <YsWnnMZYwB7UGuv6@perard.uk.xensource.com>
-References: <79ebbde2-4be8-d393-476d-25326a2aa327@suse.com>
+X-Inumbo-ID: e4461717-fd40-11ec-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1657121568; x=1657207968; bh=gXRVGiGc2esI8GnrDirdRc23m3W8gp6wUHz
+	KCWUNLqg=; b=IUlZYj8f0MHmJYK8S606DeGQBwEbRHFDc+0GOatQc4r524hejGb
+	E7GYO817FMbN34gSfJJTWn3beFHJHB809X6YLSZ+ZGkw/qnFrOV7/wmhaYYUhz9+
+	yt/pR9HtNFcIwMHzUjLY89M5AsiQ4pU+3YhZZ5c6a6GpLkW3oKK3UnCvMJiQBhY+
+	BcrDFW8ULr7vlynArX2M+w78NydirWGz8MdRfSoT2qutGp/HJL5eN43V2YSW3KFg
+	QShHpNdem/iCyHYUoif9KrHD2EDgFVa4XX8FJud8C7NXp+FjTnnUYaZgISJp00XF
+	gUiDe8e5lpjdhNwO8AOt0/OKaf7lsBLhs6Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1657121568; x=1657207968; bh=gXRVGiGc2esI8
+	GnrDirdRc23m3W8gp6wUHzKCWUNLqg=; b=3UFyDPQfzYosTaxseH7KuVuye5BVT
+	vM1mhcshooWsV5bQ76uLp1wlU+/e95N062VrkT6uj5Md3ncP7tE07EhhCiQpxj29
+	hUj1ycj5WDvXT01h76BYn8Sl9W8E8BMBM64794risP5vjU+VM9H9DQb3/w78BmvL
+	ZfG7qEkK7WJr3Leul7LNKexXcE40Yo139WDLSvMq8k1IOtiNG5ITtKqepiJ55WwK
+	LvE78DyjedcPWbciS6mmtIdyOiHj+dK1/hm8t2/6eEpJfjE9tBAjyKksWRTE+uAt
+	t5LEkZA0UPou8eoLmOzDDYEOTU/bjU2bpe3MOlx/GJm4RmlLhL/s3nacw==
+X-ME-Sender: <xms:H6vFYujpDS2E3YORW68ivifGNrJSVd0zXKQCmGrSuLI8YgXo_ptY5Q>
+    <xme:H6vFYvAj6cjTiuLQSShfvC0jE0GwvSejqZCGdqPfyDicN8Iu7inwK0TTVzJNhvmFG
+    yyAOETGC49YPg>
+X-ME-Received: <xmr:H6vFYmFFLjo8ttMjQ1vPCgOzWnEiZa3NcFWrjn57PHBeaWTpEZQiVlaL1I_qRkjg1SdkbO2ltf-3APk0PchJPWpzTBQ5M07LwaRtgRXowlfODtc_teY>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeifedgkeelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeefgffg
+    geevhffggfetfefhffeuvefhvdevkeehkedttddtgeefkeduheevffduleenucffohhmrg
+    hinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
+    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomh
+X-ME-Proxy: <xmx:H6vFYnQcWLBBtYqPG7_5EvnFyUuAAqP0-9zkzi9vti-zj-Wh_D5kdw>
+    <xmx:H6vFYrwZSE4SbIVTjkyBDAXeTHbZcR5oQG-_zakGJJB9rFxkNKbLxQ>
+    <xmx:H6vFYl55CF699q6Fm_vge1o7SB2y86KGZ6bu2UijRH0iDvDV3IgQOw>
+    <xmx:IKvFYjdCPfjPjoyj17c0MDA0ZSx1XdwUmdBM0i9uO5-IbV2Cqnnh1A>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v2 0/9] Add Xue - console over USB 3 Debug Capability
+Date: Wed,  6 Jul 2022 17:32:05 +0200
+Message-Id: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <79ebbde2-4be8-d393-476d-25326a2aa327@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 09, 2022 at 05:52:45PM +0200, Jan Beulich wrote:
-> With debug info retained, xen.efi can be quite large. Unlike for xen.gz
-> there's no intermediate step (mkelf32 there) involved which would strip
-> debug info kind of as a side effect. While the installing of xen.efi on
-> the EFI partition is an optional step (intended to be a courtesy to the
-> developer), adjust it also for the purpose of documenting what distros
-> would be expected to do during boot loader configuration (which is what
-> would normally put xen.efi into the EFI partition).
-> 
-> Model the control over stripping after Linux'es module installation,
-> except that the stripped executable is constructed in the build area
-> instead of in the destination location. This is to conserve on space
-> used there - EFI partitions tend to be only a few hundred Mb in size.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> GNU strip 2.38 appears to have issues when acting on a PE binary:
-> - file name symbols are also stripped; while there is a separate
->   --keep-file-symbols option (which I would have thought to be on by
->   default anyway), its use so far makes no difference,
-> - the string table grows in size, when one would expect it to retain its
->   size (or shrink),
-> - linker version is changed in and timestamp zapped from the header.
-> Older GNU strip (observed with 2.35.1) doesn't work at all ("Data
-> Directory size (1c) exceeds space left in section (8)").
-> 
-> Future GNU strip is going to honor --keep-file-symbols (and will also
-> have the other issues fixed). Question is whether we should use that
-> option (for the symbol table as a whole to make sense), or whether
-> instead we should (by default) strip the symbol table as well.
+This is integration of https://github.com/connojd/xue into mainline Xen.
+This patch series includes several patches that I made in the process, some are
+very loosely related.
 
-I guess trying to keep those symbol might be useful, if it's not too
-big, to help debugging system in production.
+The driver developed by Connor supports output-only console via USB3 debug
+capability. The capability is designed to operate mostly independently of
+normal XHCI driver, so this patch series allows dom0 to drive standard USB3
+controller part, while Xen uses DbC for console output.
 
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -465,6 +465,22 @@ endif
->  .PHONY: _build
->  _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
->  
-> +# Strip
-> +#
-> +# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped before it
-> +# is installed. If INSTALL_EFI_STRIP is '1', then the default option
-> +# --strip-debug will be used. Otherwise, INSTALL_EFI_STRIP value will be used
-> +# as the option(s) to the strip command.
+Changes since RFC:
+ - move the driver to xue.c, remove non-Xen parts, remove now unneeded abstraction
+ - adjust for Xen code style
+ - build for x86 only
+ - drop patch hidding the device from dom0
+Changes since v1:
+ - drop ehci patch - already applied
+ - adjust for review comments from Jan (see changelogs in individual patches)
 
-It would be useful to also document INSTALL_EFI_STRIP in ./INSTALL or in
-./docs/misc/efi.pandoc (efi.pandoc is where EFI_VENDOR is documented for
-example, so probably a better place for the doc of the new option).
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Wei Liu <wl@xen.org>
+Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+Cc: Paul Durrant <paul@xen.org>
+Cc: Kevin Tian <kevin.tian@intel.com>
+Cc: Connor Davis <connojdavis@gmail.com>
 
-> +ifdef INSTALL_EFI_STRIP
-> +
-> +ifeq ($(INSTALL_EFI_STRIP),1)
-> +efi-strip-opt := --strip-debug
-> +else
-> +efi-strip-opt := $(INSTALL_EFI_STRIP)
-> +endif
-> +
-> +endif
-> +
->  .PHONY: _install
->  _install: D=$(DESTDIR)
->  _install: T=$(notdir $(TARGET))
-> @@ -489,6 +505,9 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_
->  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION).efi; \
->  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
->  		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
-> +			$(if $(efi-strip-opt), \
-> +			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGET).efi && \
-> +			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
+Connor Davis (1):
+  drivers/char: Add support for Xue USB3 debugger
 
-This optional part of the script that ends with "||" means that if
-`strip` or `install` fails, we would install the non stripped binary. Is
-this something that's acceptable? (Plus of doing that is avoiding
-changing the next line, and avoiding a longer $(if ,).
+Marek Marczykowski-Górecki (8):
+  xue: reset XHCI ports when initializing dbc
+  xue: add support for selecting specific xhci
+  console: support multiple serial console simultaneously
+  IOMMU: add common API for device reserved memory
+  IOMMU/VT-d: wire common device reserved memory API
+  IOMMU/AMD: wire common device reserved memory API
+  xue: mark DMA buffers as reserved for the device
+  xue: allow driving the rest of XHCI by a domain while Xen uses DbC
 
->  			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi; \
->  		elif [ "$(D)" = "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D))" ]; then \
->  			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&2; \
+ docs/misc/xen-command-line.pandoc        |    5 +-
+ xen/arch/x86/include/asm/fixmap.h        |    4 +-
+ xen/arch/x86/setup.c                     |    3 +-
+ xen/drivers/char/Kconfig                 |    9 +-
+ xen/drivers/char/Makefile                |    1 +-
+ xen/drivers/char/console.c               |   58 +-
+ xen/drivers/char/xue.c                   | 1066 +++++++++++++++++++++++-
+ xen/drivers/passthrough/amd/iommu_acpi.c |   16 +-
+ xen/drivers/passthrough/iommu.c          |   40 +-
+ xen/drivers/passthrough/vtd/dmar.c       |  203 ++--
+ xen/include/xen/iommu.h                  |   11 +-
+ xen/include/xen/serial.h                 |    3 +-
+ 12 files changed, 1323 insertions(+), 96 deletions(-)
+ create mode 100644 xen/drivers/char/xue.c
 
-An other thing, the "*.efi.stripped" file is I think going to be left
-over and not removed during `make clean`.
-
-Cheers,
-
+base-commit: 0544c4ee4b48f7e2715e69ff3e73c3d5545b0526
 -- 
-Anthony PERARD
+git-series 0.9.1
 
