@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6585568CE5
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 17:33:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362335.592367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E32E568CE8
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 17:33:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362336.592382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o971O-0000gV-UV; Wed, 06 Jul 2022 15:32:58 +0000
+	id 1o971Q-00017g-Cg; Wed, 06 Jul 2022 15:33:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362335.592367; Wed, 06 Jul 2022 15:32:58 +0000
+Received: by outflank-mailman (output) from mailman id 362336.592382; Wed, 06 Jul 2022 15:33:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o971O-0000e4-NE; Wed, 06 Jul 2022 15:32:58 +0000
-Received: by outflank-mailman (input) for mailman id 362335;
- Wed, 06 Jul 2022 15:32:57 +0000
+	id 1o971Q-00011f-5l; Wed, 06 Jul 2022 15:33:00 +0000
+Received: by outflank-mailman (input) for mailman id 362336;
+ Wed, 06 Jul 2022 15:32:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lWdV=XL=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1o971N-00081g-G8
- for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 15:32:57 +0000
+ id 1o971O-00081g-OS
+ for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 15:32:58 +0000
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e86c1d32-fd40-11ec-924f-1f966e50362f;
- Wed, 06 Jul 2022 17:32:56 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E7E865C013E;
- Wed,  6 Jul 2022 11:32:55 -0400 (EDT)
+ id e934b572-fd40-11ec-924f-1f966e50362f;
+ Wed, 06 Jul 2022 17:32:58 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 40BA75C010B;
+ Wed,  6 Jul 2022 11:32:57 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 06 Jul 2022 11:32:55 -0400
+ by compute3.internal (MEProxy); Wed, 06 Jul 2022 11:32:57 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 6 Jul 2022 11:32:54 -0400 (EDT)
+ 6 Jul 2022 11:32:56 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,36 +43,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e86c1d32-fd40-11ec-924f-1f966e50362f
+X-Inumbo-ID: e934b572-fd40-11ec-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm2; t=1657121575; x=1657207975; bh=/FmM9IRoHk
-	jrJvz5SecKZ+9vnPpot8BHqRtqlD2wsdk=; b=TeSF8TQIHWZN5u8l7NlLQgmrM2
-	392VbjOuH3mKRqIp+KAzyPGq9YLgnpYQnIHQH0lzWrTp/kaCYeGzQjErBJWeo3tb
-	MvJ+PLtttNzAuaScAuxBJFVnhq8ARuJRPzCTjpoda3gvSOUyz5kPLp3u9PMrRYiE
-	4Rbyna0jKb5qkWFntG+XleLPi8YfBW8SMrI8sTjk4jp/3vfxBgWQgQxq+T7+17MH
-	oogqlRW0aOSO4qwhNLCcFLYZtMyPMVHy8687y0RyHpJmw4VGzxLv6VC1CgBad4V1
-	WrF8+c9rvESv1gtgD7V+tDZYtqTUsBxw+gKshhdqIdhOegoMfGTsARQNGH7Q==
+	:subject:to:to; s=fm2; t=1657121577; x=1657207977; bh=ugqnVzOyfv
+	4jmGK3lamfJM0o6KeQBk0JkpJmDYjEpP4=; b=ilQbqMYO7lq2qfPQyIr8RvB85w
+	6g9JsNgj4wb6wzOMOE78OMT++eZaQ8cIjK8q50Ib0Kf2P2HCBDfqvdXefoiYIEba
+	22yM0XUDhcSj7L3/03nsvPNAxOlIjXAYObv5BSCL6Hamc4QnSfK0D680N09u2UNa
+	xD2TGL0p0Axp12gbGDhmczFjfiigTW8xiilQMIjLaTmylx+BCf9QkxoUrGegPJsY
+	IQ84JZUMnw3VFUBfi4xDVCwHq7FsNJuwAgSg3JuO2Jv5dHPS5E/4KL9A7FAF25YR
+	Ogh1pT0yq5ahJkiiMWwL/+YveNuvWcWr0XTiopn1VmnnVR4TZYAvi+IMgOcQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1657121575; x=
-	1657207975; bh=/FmM9IRoHkjrJvz5SecKZ+9vnPpot8BHqRtqlD2wsdk=; b=v
-	EBaxY41fGsJy42QkRx73YdFsYVw5q+FrdmcA8VDmYJrIVSqdhCONLT+l/sDgqjH7
-	sh11/yOHyqz85xdsmLAYB+CIlH67DFeSAvg7/3DeQyhmKJ8kIf/wf5GKjojrZZEq
-	exuLtgrja6lWXvNf5ls0ALlDdlTN7e8llWpdlSvhFXCdSpiiY2WqyDNpdzPdOH4P
-	6vSynGaBwV8ityhz8IwgyNp/oUAnkruP0hXhiVRMNmqiEsF0voxcbPpfj/0095tb
-	PEJ06OjS9HQCbcUsAY8QPymD7rXRBNNCNdSSeOQEngQ1W/juEQQIDlPtpvd4d+Hn
-	SrMlgoqmUxD7QNoWrlc4Q==
-X-ME-Sender: <xms:J6vFYhS4ZQ0rWG4_VMYvNUa4t8Sofserwy-xH9C6FeMnrqbUQMLeKQ>
-    <xme:J6vFYqx0F2otUqFGIxI8IoIeQWBNdWf89vCy94FAcqSutAof3y1Jo_xYrJhwWjRf_
-    QrOpDETeWT_oQ>
-X-ME-Received: <xmr:J6vFYm2Nv-wVdQGDV4DcyPMQBsMyhmR-8I4Yp6JSYQSvoKGKIHPURM_uACBIG4axWA5a41hF9WDNKXifE5TUS-xvLaa3xXz8nN8knkgnckncdhunrbU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeifedgkeelucetufdoteggodetrfdotf
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1657121577; x=
+	1657207977; bh=ugqnVzOyfv4jmGK3lamfJM0o6KeQBk0JkpJmDYjEpP4=; b=M
+	6HFayEfAIjcXBe94I2gyjSLy3oulfGc8tAiaHgEkpr14I+vDV0ogAbbibU6XD6gL
+	8cNLhxlSU4fANxMp/f0EfbeJYx7xBLxHRCIzOY1TXchCyo4LPTgCVGJ0Zunf8+3w
+	7u3S1Z67IfsVhz3VbhHjPfv5JnmAClOxD47xfMKwBd1Xt8iafn2RpI5gyjUqlTjQ
+	X/w+QocjPoXX5/1mZDZGPej63lPbjmRG8FIj5WO19aj4hnVgvUc0bBswvufpRDeg
+	phRz/3eLfL+7egjvCFayhUrpWtB7thUCltZcRXO5AIP+p3EZE43ASJs+VsZYBt5I
+	Y984faiXl7yGiWjy7jhWg==
+X-ME-Sender: <xms:KavFYrXdZ-S425ArbyVex5U_g5KU9KgMfBePZMfN4QNK4HuU5gHcwA>
+    <xme:KavFYjkgPDJUXtXfe3LMTZuj8Kiczn_2Aoc016PqBNNGKNQgxybj1DgizOG9xSLmX
+    eWMmOdVBiMzWQ>
+X-ME-Received: <xmr:KavFYnZGeYKaqMLTuRW6MDkS0_wLrmQnfbT3kzrqxDj7uCkMNnIEz9hg0GPtcpSMoe24panlD80jAVhwO0i5QgqIpCramEZQ-1wnZdfaKmVG618b5aQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeifedgkeekucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
     cujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghr
@@ -81,23 +81,20 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeifedgkeelucetufdoteggod
     ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
     hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
     khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:J6vFYpCR_hFVLnGJA3bKqqzAuR2NIU0iPXwqsHTcy6wzbIZstToaZw>
-    <xmx:J6vFYqgeL63uCdqQll79-NFDJPhsB87Z4zCooItTYkImS19UOFW9kQ>
-    <xmx:J6vFYtqZYYZe501W9p9UEtWNiYORe_Zsm9BNxRUQhXFegx58hO_rpA>
-    <xmx:J6vFYsZNFplBzCo9readqVwBYvqK7bpcyUlHx6R2plx4sZAXlq296g>
+X-ME-Proxy: <xmx:KavFYmVwnBC-w1MgQkjYtx90ifzODOwqK3b0b-V5Ies9lZohqREL4g>
+    <xmx:KavFYlld9g4yidq2N_fYPlko1wtVFHHLEdy7iI-Fn5MufBFJRWB4Bg>
+    <xmx:KavFYjdRtnMn6pYWxBLgDwqLa72kF3IfupX5iEvSYcvCIQthutavoQ>
+    <xmx:KavFYqxcZHOOc8iBOLOp584i3OnOQTiMkmEadNxhXaXJKAGHCIhPsQ>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 4/9] console: support multiple serial console simultaneously
-Date: Wed,  6 Jul 2022 17:32:09 +0200
-Message-Id: <e40a6de7f032c776e889e4ca6d68579fbb3ad57a.1657121519.git-series.marmarek@invisiblethingslab.com>
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 5/9] IOMMU: add common API for device reserved memory
+Date: Wed,  6 Jul 2022 17:32:10 +0200
+Message-Id: <2538c56f6881e4e2a3e5cee3cbdeebb88a59ccb5.1657121519.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
 References: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
@@ -105,175 +102,98 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Previously only one serial console was supported at the same time. Using
-console=com1,dbgp,vga silently ignored all but last serial console (in
-this case: only dbgp and vga were active).
+Add API similar to rmrr= and ivmd= arguments, but in a common code. This
+will allow drivers to register reserved memory regardless of the IOMMU
+vendor.
+The direct reason for this API is xhci-dbc console driver (aka xue),
+that needs to use DMA. But future change may unify command line
+arguments for user-supplied reserved memory, and it may be useful for
+other drivers in the future too.
 
-Fix this by storing not a single sercon_handle, but an array of them, up
-to MAX_SERCONS entries. The value of MAX_SERCONS (4) is arbitrary,
-inspired by the number of SERHND_IDX values.
+This commit just introduces an API, subsequent patches will plug it in
+appropriate places. The reserved memory ranges needs to be saved
+locally, because at the point when they are collected, Xen doesn't know
+yet which IOMMU driver will be used.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- xen/drivers/char/console.c | 58 ++++++++++++++++++++++++++++++---------
- 1 file changed, 45 insertions(+), 13 deletions(-)
+ xen/drivers/passthrough/iommu.c | 40 ++++++++++++++++++++++++++++++++++-
+ xen/include/xen/iommu.h         | 11 +++++++++-
+ 2 files changed, 51 insertions(+)
 
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index f9937c5134c0..44b703296487 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -113,7 +113,9 @@ static char *__read_mostly conring = _conring;
- static uint32_t __read_mostly conring_size = _CONRING_SIZE;
- static uint32_t conringc, conringp;
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index 75df3aa8ddaa..257691ad19ef 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -651,6 +651,46 @@ bool_t iommu_has_feature(struct domain *d, enum iommu_feature feature)
+     return is_iommu_enabled(d) && test_bit(feature, dom_iommu(d)->features);
+ }
  
--static int __read_mostly sercon_handle = -1;
-+#define MAX_SERCONS 4
-+static int __read_mostly sercon_handle[MAX_SERCONS];
-+static int __read_mostly nr_sercon_handle = 0;
- 
- #ifdef CONFIG_X86
- /* Tristate: 0 disabled, 1 user enabled, -1 default enabled */
-@@ -395,9 +397,17 @@ static unsigned int serial_rx_cons, serial_rx_prod;
- 
- static void (*serial_steal_fn)(const char *, size_t nr) = early_puts;
- 
-+/* Redirect any console output to *fn*, if *handle* is configured as a console. */
- int console_steal(int handle, void (*fn)(const char *, size_t nr))
- {
--    if ( (handle == -1) || (handle != sercon_handle) )
-+    int i;
++#define MAX_EXTRA_RESERVED_RANGES 20
++struct extra_reserved_range {
++    xen_pfn_t start;
++    xen_ulong_t nr;
++    u32 sbdf;
++};
++static unsigned int __initdata nr_extra_reserved_ranges;
++static struct extra_reserved_range __initdata extra_reserved_ranges[MAX_EXTRA_RESERVED_RANGES];
 +
-+    if ( handle == -1 )
-+        return 0;
-+    for ( i = 0; i < nr_sercon_handle; i++ )
-+        if ( handle == sercon_handle[i] )
-+            break;
-+    if ( nr_sercon_handle && i == nr_sercon_handle )
-         return 0;
- 
-     if ( serial_steal_fn != NULL )
-@@ -415,10 +425,13 @@ void console_giveback(int id)
- 
- void console_serial_puts(const char *s, size_t nr)
- {
-+    int i;
++int iommu_add_extra_reserved_device_memory(xen_pfn_t start, xen_ulong_t nr, u32 sbdf)
++{
++    unsigned int idx;
 +
-     if ( serial_steal_fn != NULL )
-         serial_steal_fn(s, nr);
-     else
--        serial_puts(sercon_handle, s, nr);
-+        for ( i = 0; i < nr_sercon_handle; i++ )
-+            serial_puts(sercon_handle[i], s, nr);
- 
-     /* Copy all serial output into PV console */
-     pv_console_puts(s, nr);
-@@ -956,7 +969,7 @@ void guest_printk(const struct domain *d, const char *fmt, ...)
- void __init console_init_preirq(void)
- {
-     char *p;
--    int sh;
-+    int sh, i;
- 
-     serial_init_preirq();
- 
-@@ -977,7 +990,8 @@ void __init console_init_preirq(void)
-             continue;
-         else if ( (sh = serial_parse_handle(p)) >= 0 )
-         {
--            sercon_handle = sh;
-+            if ( nr_sercon_handle < MAX_SERCONS )
-+                sercon_handle[nr_sercon_handle++] = sh;
-             serial_steal_fn = NULL;
-         }
-         else
-@@ -996,7 +1010,8 @@ void __init console_init_preirq(void)
-         opt_console_xen = 0;
++    if ( nr_extra_reserved_ranges >= MAX_EXTRA_RESERVED_RANGES )
++        return -ENOMEM;
++
++    idx = nr_extra_reserved_ranges++;
++    extra_reserved_ranges[idx].start = start;
++    extra_reserved_ranges[idx].nr = nr;
++    extra_reserved_ranges[idx].sbdf = sbdf;
++    return 0;
++}
++
++int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func, void *ctxt)
++{
++    unsigned int idx;
++    int ret;
++
++    for ( idx = 0; idx < nr_extra_reserved_ranges; idx++ )
++    {
++        ret = func(extra_reserved_ranges[idx].start,
++                   extra_reserved_ranges[idx].nr,
++                   extra_reserved_ranges[idx].sbdf,
++                   ctxt);
++        if ( ret < 0 )
++            return ret;
++    }
++    return 0;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+index 79529adf1fa5..7640f40d77b5 100644
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -297,6 +297,17 @@ struct iommu_ops {
  #endif
+ };
  
--    serial_set_rx_handler(sercon_handle, serial_rx);
-+    for ( i = 0; i < nr_sercon_handle; i++ )
-+        serial_set_rx_handler(sercon_handle[i], serial_rx);
-     pv_console_set_rx_handler(serial_rx);
- 
-     /* HELLO WORLD --- start-of-day banner text. */
-@@ -1014,7 +1029,8 @@ void __init console_init_preirq(void)
- 
-     if ( opt_sync_console )
-     {
--        serial_start_sync(sercon_handle);
-+        for ( i = 0; i < nr_sercon_handle; i++ )
-+            serial_start_sync(sercon_handle[i]);
-         add_taint(TAINT_SYNC_CONSOLE);
-         printk("Console output is synchronous.\n");
-         warning_add(warning_sync_console);
-@@ -1121,13 +1137,19 @@ int __init console_has(const char *device)
- 
- void console_start_log_everything(void)
- {
--    serial_start_log_everything(sercon_handle);
-+    int i;
++/*
++ * To be called by Xen internally, to register extra RMRR/IVMD ranges.
++ * Needs to be called before IOMMU initialization.
++ */
++extern int iommu_add_extra_reserved_device_memory(xen_pfn_t start, xen_ulong_t nr, u32 sbdf);
++/*
++ * To be called by specific IOMMU driver during initialization,
++ * to fetch ranges registered with iommu_add_extra_reserved_device_memory().
++ */
++extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func, void *ctxt);
 +
-+    for ( i = 0; i < nr_sercon_handle; i++ )
-+        serial_start_log_everything(sercon_handle[i]);
-     atomic_inc(&print_everything);
- }
+ #include <asm/iommu.h>
  
- void console_end_log_everything(void)
- {
--    serial_end_log_everything(sercon_handle);
-+    int i;
-+
-+    for ( i = 0; i < nr_sercon_handle; i++ )
-+        serial_end_log_everything(sercon_handle[i]);
-     atomic_dec(&print_everything);
- }
- 
-@@ -1149,23 +1171,32 @@ void console_unlock_recursive_irqrestore(unsigned long flags)
- 
- void console_force_unlock(void)
- {
-+    int i;
-+
-     watchdog_disable();
-     spin_debug_disable();
-     spin_lock_init(&console_lock);
--    serial_force_unlock(sercon_handle);
-+    for ( i = 0 ; i < nr_sercon_handle ; i++ )
-+        serial_force_unlock(sercon_handle[i]);
-     console_locks_busted = 1;
-     console_start_sync();
- }
- 
- void console_start_sync(void)
- {
-+    int i;
-+
-     atomic_inc(&print_everything);
--    serial_start_sync(sercon_handle);
-+    for ( i = 0 ; i < nr_sercon_handle ; i++ )
-+        serial_start_sync(sercon_handle[i]);
- }
- 
- void console_end_sync(void)
- {
--    serial_end_sync(sercon_handle);
-+    int i;
-+
-+    for ( i = 0; i < nr_sercon_handle; i++ )
-+        serial_end_sync(sercon_handle[i]);
-     atomic_dec(&print_everything);
- }
- 
-@@ -1291,7 +1322,8 @@ static int suspend_steal_id;
- 
- int console_suspend(void)
- {
--    suspend_steal_id = console_steal(sercon_handle, suspend_steal_fn);
-+    if ( nr_sercon_handle )
-+        suspend_steal_id = console_steal(sercon_handle[0], suspend_steal_fn);
-     serial_suspend();
-     return 0;
- }
+ #ifndef iommu_call
 -- 
 git-series 0.9.1
 
