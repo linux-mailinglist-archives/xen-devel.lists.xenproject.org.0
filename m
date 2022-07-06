@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1902D567FA8
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 09:18:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.361824.591535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C7095680A1
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 09:58:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.361926.591706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8zIc-0001FA-Km; Wed, 06 Jul 2022 07:18:14 +0000
+	id 1o8zuv-0006EG-T3; Wed, 06 Jul 2022 07:57:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 361824.591535; Wed, 06 Jul 2022 07:18:14 +0000
+Received: by outflank-mailman (output) from mailman id 361926.591706; Wed, 06 Jul 2022 07:57:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o8zIc-0001C1-H5; Wed, 06 Jul 2022 07:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 361824;
- Wed, 06 Jul 2022 07:18:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZJ1s=XL=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o8zIb-0001Bv-Jf
- for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 07:18:13 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr140050.outbound.protection.outlook.com [40.107.14.50])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cb588d55-fcfb-11ec-924f-1f966e50362f;
- Wed, 06 Jul 2022 09:18:12 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DBAPR04MB7382.eurprd04.prod.outlook.com (2603:10a6:10:1ab::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.21; Wed, 6 Jul
- 2022 07:18:09 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5417.016; Wed, 6 Jul 2022
- 07:18:09 +0000
+	id 1o8zuv-0006B8-Pj; Wed, 06 Jul 2022 07:57:49 +0000
+Received: by outflank-mailman (input) for mailman id 361926;
+ Wed, 06 Jul 2022 07:57:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=91kg=XL=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1o8zut-0006B2-W9
+ for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 07:57:48 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 51a92cb2-fd01-11ec-bd2d-47488cf2e6aa;
+ Wed, 06 Jul 2022 09:57:46 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 8157E5C00DA;
+ Wed,  6 Jul 2022 03:57:44 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Wed, 06 Jul 2022 03:57:44 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 6 Jul 2022 03:57:44 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,142 +43,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb588d55-fcfb-11ec-924f-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VCkA3BppV1zOgZuhpOj8fF1VdlCZq0qWEJbdxh71UsUA5fxFSXZoeXKqBFDDoCDc/f1Z6zOl+TnPIk/ZUd5KdjAirhpJeV+I7dMC5DjfeV902KPCCh/Jnt+CyLHzXFpzBekt/rvabnmg/c+XeKqVV1LbFmZON63yoqSGXaRiniJjnbyI47sIKix1eE7SBAZHKjbJUqtTauH09Wn/XPxIHZZKJlGwJhcsymqkGMtYyLMDGHEvKTbt8OQhRE7U7echmSy3E2YsjeLMfi28jZ/srP/W0siTW3Id2wx4pM9u68l6zyQCZKSlgOoaPk3UNPQaUPHvNi/VKhZFuuljQamxJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3M6YCCVgKCUlDjov+0FNJ1IkfPOdPvSMb4x+W+yB22w=;
- b=KCKpQC1WxXbWG/seDyc1O0fR4+XwlumUvgYXr/tQK5Q+To1H7rnQ2/K0vvgmKE3ql8vR99tpvf2j+167vYyKAZjoeWErR48WKh/out+W3xOQDgljEa+P1eGgzzdtXh0GYmTiRMaPVXivYMwUP/6qcTYlWa+x63h20CTet92UOggUdyoauDnfBPFTfWVkqX0y5wvPR9bVUN96sWXlLk6GnHUikTzF1BnLxbeyASs1AEnLluODCocJuNC5B/lBx27coSDGOu3Gnigg5NSq8Ly49oCgPIOT/1LErgWDUdNtUyoO11mjTfh382z9MulorZusWx7i2V8vfOkMqQwtcXLh9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3M6YCCVgKCUlDjov+0FNJ1IkfPOdPvSMb4x+W+yB22w=;
- b=KyRMMB8igtjBFeG91iZvWtq2rcVQr0xr95i5dBnUq0J5Bkpsrrkm7pm+lUE2MpV7L9LfU3hq/Lqg4rFWS6J/ElZCs3RIw3i51zXF9dxHsP7c/SMVyeEZy5Oa5EbWVP3pgTYxd0jVqNHYEb6BHktEMfde/Bkx+kREDIwpMVOh00x45nAVJncLglkno1ghKrJ/O53IOpclAM9hz7YX63A9MGOsc2tOR7T3UN2NFN9aR8+RmyczSod9tW5VV07cHZjLFI3KM3WTdEQ7sBERrrctDFBguimx2HymfdQ1cZDonFvH2Q3/BksHDCOl9UNfeBRqkhL+7lMyEvk8TXAT3OL4Bw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <540e8f0d-8a1f-f80d-c6f2-05192600c4bd@suse.com>
-Date: Wed, 6 Jul 2022 09:18:07 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 4/4] xen/char: pv_console: Fix MISRA C 2012 Rule 8.4
- violation
-Content-Language: en-US
-To: Xenia Ragiadakou <burzalodowa@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <20220705210218.483854-1-burzalodowa@gmail.com>
- <20220705210218.483854-5-burzalodowa@gmail.com>
- <47ed7737-5422-e4be-c99d-0e448616f5b5@xen.org>
- <fc36b54b-5bc9-d30b-3524-79711abbbdc8@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <fc36b54b-5bc9-d30b-3524-79711abbbdc8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0013.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 51a92cb2-fd01-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1657094264; x=
+	1657180664; bh=dmjeI/GdbrlvLGdBYBq9CWM2/S9Mp4pyroeHZljMJHQ=; b=K
+	sPlJ1qx2QCQ953UZhTVD6QA2qPie2OdvziAG7gfue8CjreWXcaWI7Dkaa9AGHUkl
+	Jcd0xdvaMyN31o+TjT86bbol6Wz91m2LFzSByHLBTIk1KLhbUJgh16X8KwWSZUl9
+	oNLhyy/FNiaqcyPpKVpF1yY0EJ423uHQNvYqfjsrHClYWl+P3TgOfQ+pUCw3D+VW
+	SnDAi19WaH3lK3wy24aKrSWbckd4krfv6iSL2fAOmxtdPelf88PaUNfdEzzi0xPj
+	+3DXyGaBbfR0EYNfoRrflwCEnjfphaGMVKk4IiCmsKaDuZq6aDjPXB3Dxsd1zKo+
+	/W7zBflyihrQSD3A0qGSQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1657094264; x=1657180664; bh=dmjeI/GdbrlvLGdBYBq9CWM2/S9M
+	p4pyroeHZljMJHQ=; b=FG/tB1sNY6xmhZ7UoL7kHBezV+CYmu36YHcHGtplQcSB
+	0gCKGtlN3bsXZBS9tB8azxlVeQyER8AuVaFwRGSaetuIt8ArQh7ggfMVOfJe+XNB
+	wVZHMRWHbXuRb9y5QSrHY1UCIAzXtar2lZVFT9rUzIz+02pzG1SIlb5ZZnoKov6s
+	AetL2+3LccLmGcEcRwo8FG6dheyK9fgDMXAf01e2vS7/TFs3+zRKUGpP9HP9WLh6
+	bhEVIiRw4SjNFpPZ2QRNq15uUPj51bfDken6kon/s1uNZRXyFttufYPZQX0or7RI
+	z0eWgHcB40K7YLJCGjkNubXNajY42ZAGyMw2Ipp67g==
+X-ME-Sender: <xms:eEDFYqrbFI3VgOE56X0u8V74hbClAadoBF3e2qqzxh-KJAGsEQ5iBw>
+    <xme:eEDFYopf6gMVeqFnMBaye4QlgZ8--rlkQRJ6ZllP0NFpKUWSKRIN7s7AVLC7Zsi_4
+    ZPNf-9ROg5W1CM>
+X-ME-Received: <xmr:eEDFYvMBOfNqbtFAoZbYxKt7fmLspgUK2Snz4Dd_kTT244avxGDu2F3bNEw_>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeivddguddvfecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtdorredttdejnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeefkefgkedvtefguedtffejlefh
+    leetveekhefgfeetvefgtdektedtkeeuiedtfeenucffohhmrghinhepkhgvrhhnvghlrd
+    horhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhep
+    uggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:eEDFYp6S7ZFnRPRuJW54gkJhCl0P_jXbD12jo6mcaGtVIrXhvTS9rQ>
+    <xmx:eEDFYp4lzf1nK4Enfllbtf-jvoCbw124ZjnjIFe-GWDjJBq8nxuk6w>
+    <xmx:eEDFYpiUs5IRKHMxh2zvWVol0dfZ7mpiB0J0sDNqbFae_DTJlYxKHA>
+    <xmx:eEDFYmhK-x9TDtgm2XQK6jFV8t2myOhpAM9yD0hXn3DXTJft26VJtA>
+Feedback-ID: iac594737:Fastmail
+Date: Wed, 6 Jul 2022 03:26:35 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [xen-unstable-smoke test] 171511: regressions - FAIL
+Message-ID: <YsVAdvzTshaijALW@itl-email>
+References: <osstest-171511-mainreport@xen.org>
+ <a9a8276f-725a-db6e-8223-a9e6060f7700@suse.com>
+ <YsUyUCv7IAbXYwaB@itl-email>
+ <12374e16-8f58-ebc1-fa78-16c9eb6f1d0b@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 906ba17d-a1ab-4d12-3128-08da5f1fae09
-X-MS-TrafficTypeDiagnostic: DBAPR04MB7382:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	MsEtb8YzVTFWp7vOVEnyWSk4iOVNN4IWfMnZp+2SK3oVc2QDwu8Tq8FtrYBhDYvAY8WlRpz7zJvsKWlgklgC2qLBIeRVuzA1C3dtUAU+Ffw+zD1Eya4xQgMStzGDWPgGReOeQyC84nLi5L/xaW9KLLCX9R6NeFdNrEGPR4g2PuRznH9Ue2/A5MxA9meTAc6b7mWSvAMGrMQ88TImFqZ/sAdhNiADR4Rg3IiQ9pPxd8EYwQDFnp9XOENg0+Ebm3hUe6GPQ28i5IKlkKoMpnBf0d0EiCIWGHp+vvPcsoxGDM0oP3CXNk+wI/1WAM94OfsvMSJPzh//GTbXzxSFgnrZ53tlTl8192cGgQ10xDeCo/gopofIlzTwI9Va0k0IR9A6fiFe/tRtQcGZjuPqm6LCUUk/BoIO5fC0iTbm29JvOSuURHsB1MdQYNPfTeoguRuKrYMCM0rD9sBDf+2kMbKITUamV9kdL0ATib4VnZKTL64c/axbsIyUw1rANoy4R2wQKGPlE3SrjFb0KIBhmE44mHcDL1iXPDYBqM8GXEHP3j+IehgaVaycpoAmPXsYRY7O1aiuEMWPZwRv59Bx6OyIRqvHvrFoSKeBB/D6aoIdU3LSucWFc+Auc327+zoFub30K9MRPvsBARJNRtDloV5gP7Ddfn2jNc1kBw9MXMi3ICrW6pzH0pvwtBO3H0rU830SlkFNym8Xm9l4qTsHjqgLoj5bf22n7nvbIfzoq5ZKYUwFO73Abo3+485iHU5XSm+V41b4uambI/8k0laYi1PVz1cxYfC7BZ8wn80DFkTpBY5CXIRBED5MyRKa6uWP56RlmSp7YIFdNYUlPbfnSB9i6Zq8numczLdBvrJG3+qzqiw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(366004)(39860400002)(396003)(136003)(346002)(41300700001)(2906002)(2616005)(38100700002)(6916009)(54906003)(36756003)(31686004)(6512007)(316002)(53546011)(6506007)(66946007)(66556008)(8676002)(4326008)(478600001)(31696002)(86362001)(66476007)(186003)(83380400001)(26005)(6486002)(8936002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QWYzN0hEUVk5SFVTeWlpYzYvWU5QakplRXhyRm4rUC9EdTQ1RkdnVTI2VXYw?=
- =?utf-8?B?VDZ4R3ZtdnM5QTg1bGhYSldTVHQxK1l0ZUhxRjNlRVZJMXBMVDExaE5TbWxU?=
- =?utf-8?B?NXZFWHh2WnVvYWJNaFdOMm5CSDVHY1lhNjIvaGJPNis5clFtTXRXdUlLUFlI?=
- =?utf-8?B?Z3d5Y0FiS1MwTlJQQVBJN0gzenJCbDZXTGpWUXZOcjEzM24wUC85RTNuUFdI?=
- =?utf-8?B?SjNYdmc1VzhZZ1MxdHNBWVR1dXpFMzBwQmVmeVB4eUJmeExsZkJIM0pTRDNU?=
- =?utf-8?B?VWJkMDBpVSt2cisrVmc2YUtyRWZDT1F3eU45RE93bHJiM3NUTGl4OUh0ckla?=
- =?utf-8?B?MUZmNWxBckZkbUVScElSeG1GU3hTQ3I3bHZhMkxMOS9TUTZueTlXS1I1d0o2?=
- =?utf-8?B?ZUx1eEdRK3pFWVAreXl5K3RNWlhmTzUzVnNhZmNRMWdJZm85MWRUcXVET1FM?=
- =?utf-8?B?M3BJbXU1dWY1UzBreXNQRW80UFJzR2FkT2xIUjFYcmZNRXI4bm5lZCtWVXdQ?=
- =?utf-8?B?ZE5PZFlVdExudDcxRno1R0pQeCt5Sm9Oei9RMkE1VTVDdXh5TFhabFFMbnlV?=
- =?utf-8?B?NXExMWppM3ZZbEJWQjh2WloyUGNlcEhjN0hBQ0F6YlZReFJZSlZZdjVhWmJ3?=
- =?utf-8?B?ZHpCRVJSMExrTi9JQk1GaTNIRU9UbjJoZldGcEZnaWhhcmlHZXRPMWtHZjFR?=
- =?utf-8?B?SFpHUXNQSGRUWkhjNklsYnJ2M1FHaHNOM2hKMjNBeVBVR3N1TzBNK0FjV3Nq?=
- =?utf-8?B?R0x4ZkE3RTdySGNKZGd4dHdaN0xmWE9WdDVCSytGMWFjTitZVlppVG5jNlhy?=
- =?utf-8?B?bVg5cEJiU2tydVlUY3hPZ0lET1dQNjhhcUVtQjhrb3U2TUsvRmN0TUNIU3lL?=
- =?utf-8?B?aFlNeHZwOTg0RVZjWFdyVXZTdmR3d0NJTWZneUZZQnpGSEFIL2hncHprdkFI?=
- =?utf-8?B?VU04c2lFbytLMFZlK1pkeFVmeXB5aktFaG5BdHpFam0yZDh4NEQ4cyt4cVNy?=
- =?utf-8?B?SW5SOUcwVG9Ga21vZGpSRGtIYVVKczV5L2hYa1FFcC9UU2ltdjBsOXBoRjNJ?=
- =?utf-8?B?QmN2SjFQNVI5cXlhdzFmWUlKd3NOMUIyS2FZWFlxWVJ6QkhWbytKeXNQN0w4?=
- =?utf-8?B?Wmh3eWVESElNUG91TVl0QWl4c25ObzVNS3plSUFtYlNGdS9lYVdiQ0ROWVRG?=
- =?utf-8?B?WmIyWHN2WmFFSmhkZS9zdlU5eVVkNUtydVYvcXZibnBKZExYK3E1aWlRMWhx?=
- =?utf-8?B?Z3FzMDBTV2QyRnoyVXBmaVpCNmNjNXI3eEpZenpBZFF4QWdvaktaYklLYjJz?=
- =?utf-8?B?aHVudlczbU5yaTZXaUJtNlROL1hqM1l0bHNTOUdvTlZ2eHh1Mk1GcWtobmUx?=
- =?utf-8?B?Uk9pREVobUVlbmNMeHRwdSswVGZHWEJCdUw3RWZzejVySzAvYkhJL3BZSWdE?=
- =?utf-8?B?VWR0WjBPL3FhaU1BUDA4aUpRdE9yakZHRGttOUszMjhCZlZqM1k2ek5sMFZT?=
- =?utf-8?B?aUZjM3ovY29CVWN0WENRSXlrRWJpSnNyMmVnWnFxK0MwNnVjRXlMVmx4Z1Vn?=
- =?utf-8?B?Y1dBVlhaQm9pK0ZEbFAzZURqZjJRMS9JcmU4VHhvUStuNW1tYW1tSWhDSmRl?=
- =?utf-8?B?UTVKdTdzNVpaWlg4bVIyZ200M3NQc1dNM2FqdUdCQkY2REd2Wll4c29zajY1?=
- =?utf-8?B?V2RXaUoxc0M4OEUxVVU2WU5KQXhuNy9jUWN1WElXdmd6VHRXZzBFOU1rL3dW?=
- =?utf-8?B?bDhJTnRNcVkxSXo0SzQ1RWRBT3RFSXgxUkRXeEh4UmpWeW90YTcveDZrcnQ5?=
- =?utf-8?B?b2IxZSt0cVFPZWlUV3ZjR0h5V1RpR01vWUlXdlpOSE5yS1lET3NlMFEwbWxp?=
- =?utf-8?B?TG9yRVlUR3V1MlJxYlVYdUg1c1V2WGtPOHh3cE9zWHA4OWVyUDg2L0xrSW1x?=
- =?utf-8?B?U2xFWTNLc0hub0J2bVVBdDB4UUZqU2d1cXduVnRvcGZZcFpEMFZ4dVlFMnE1?=
- =?utf-8?B?eEtxYkt3cUdhT2pSd3RTRlpUVndjVUlTTVQ0MmJIUUZSa1NrYzJtQmxYYnV4?=
- =?utf-8?B?Y3NlaDF6M3dmeUVnZDZURERIMmFnY2lpY0FLVTNBY2FXTHp2UXRNZFRSamlX?=
- =?utf-8?Q?MPYysuLe5BJk7wff6Zl+eGFW8?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 906ba17d-a1ab-4d12-3128-08da5f1fae09
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2022 07:18:09.6371
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cTWRyqteN9PxRwZpySVbeD/ooeo3KBeLhx1bw5bEQJmacD649tHtHyLrDFI/q8jgYaNrS4cKvjtU0yEvHUZtRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7382
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9QU2mazQtCSQEbPT"
+Content-Disposition: inline
+In-Reply-To: <12374e16-8f58-ebc1-fa78-16c9eb6f1d0b@suse.com>
 
-On 06.07.2022 00:02, Xenia Ragiadakou wrote:
-> Hi Julien,
-> 
-> On 7/6/22 00:38, Julien Grall wrote:
->> Hi Xenia,
->>
->> On 05/07/2022 22:02, Xenia Ragiadakou wrote:
->>> The function pv_console_evtchn() is defined in the header 
->>> <xen/pv_console.h>.
->>> If the header happens to be included by multiple files, this can 
->>> result in
->>> linker errors due to multiple definitions,
->>> So, it is more appropriate to resolve this MISRA C 2012 Rule 8.4 
->>> violation
->>> warning by making pv_console_evtchn() inline with internal linkage.
->>
->> There are multiple version of pv_console_evtchn(). The version below is 
->> only used when !CONFIG_XEN_GUEST.
->>
->> The header is also included multiple time within Xen. So I am a bit 
->> puzzled why we haven't seen this error before. Maybe this is unused when 
->> !CONFIG_XEN_GUEST?
->>
->> If yes, I would remove the call. If no, then I think the commit message 
->> should be clarified.
-> 
-> You are right. I had to clarify that this holds when !CONFIG_XEN_GUEST.
-> So when !CONFIG_XEN_GUEST, the function pv_console_evtchn() is defined 
-> inside the header file and the header is included only by a single file. 
-> This is why the error has not been triggered.
 
-Irrespective of that it is as Julien suspects: The function is only ever
-referenced when XEN_GUEST. Hence the better course of action indeed looks
-to be to ditch the unused stub; we don't even need DCE here for there to
-not be any references.
+--9QU2mazQtCSQEbPT
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 6 Jul 2022 03:26:35 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [xen-unstable-smoke test] 171511: regressions - FAIL
 
-Jan
+On Wed, Jul 06, 2022 at 09:02:47AM +0200, Jan Beulich wrote:
+> On 06.07.2022 08:56, Demi Marie Obenour wrote:
+> >>> commit 8d410ac2c178e1dd1001cadddbe9ca75a9738c95
+> >>> Author: Demi Marie Obenour <demi@invisiblethingslab.com>
+> >>> Date:   Tue Jul 5 13:10:46 2022 +0200
+> >>>
+> >>>     EFI: preserve the System Resource Table for dom0
+> >>>    =20
+> >>>     The EFI System Resource Table (ESRT) is necessary for fwupd to id=
+entify
+> >>>     firmware updates to install.  According to the UEFI specification=
+ =C2=A723.4,
+> >>>     the ESRT shall be stored in memory of type EfiBootServicesData.  =
+However,
+> >>>     memory of type EfiBootServicesData is considered general-purpose =
+memory
+> >>>     by Xen, so the ESRT needs to be moved somewhere where Xen will not
+> >>>     overwrite it.  Copy the ESRT to memory of type EfiRuntimeServices=
+Data,
+> >>>     which Xen will not reuse.  dom0 can use the ESRT if (and only if)=
+ it is
+> >>>     in memory of type EfiRuntimeServicesData.
+> >>>    =20
+> >>>     Earlier versions of this patch reserved the memory in which the E=
+SRT was
+> >>>     located.  This created awkward alignment problems, and required e=
+ither
+> >>>     splitting the E820 table or wasting memory.  It also would have r=
+equired
+> >>>     a new platform op for dom0 to use to indicate if the ESRT is rese=
+rved.
+> >>>     By copying the ESRT into EfiRuntimeServicesData memory, the E820 =
+table
+> >>>     does not need to be modified, and dom0 can just check the type of=
+ the
+> >>>     memory region containing the ESRT.  The copy is only done if the =
+ESRT is
+> >>>     not already in EfiRuntimeServicesData memory, avoiding memory lea=
+ks on
+> >>>     repeated kexec.
+> >>>    =20
+> >>>     See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-=
+itl/T/
+> >>>     for details.
+> >>>    =20
+> >>>     Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> >>>     Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> >>
+> >> ... this is the most likely candidate, considering in the log all we
+> >> see is:
+> >>
+> >> Xen 4.17-unstable (c/s Mon Jun 27 15:15:39 2022 +0200 git:61ff273322-d=
+irty) EFI loader
+> >> Jul  5 23:09:15.692859 Using configuration file 'xen.cfg'
+> >> Jul  5 23:09:15.704878 vmlinuz: 0x00000083fb1ac000-0x00000083fc880a00
+> >> Jul  5 23:09:15.704931 initrd.gz: 0x00000083f94b7000-0x00000083fb1ab6e8
+> >> Jul  5 23:09:15.836836 xenpolicy: 0x00000083f94b4000-0x00000083f94b6a5f
+> >> Jul  5 23:09:15.980866 Using bootargs from Xen configuration file.
+> >=20
+> > This would not surprise me at all.  I was hoping that Jan would be able
+> > to test this before he merged it, especially the ARM-specific stuff.
+>=20
+> Jan (i.e. me)? I've never done any testing on Arm; all I do is build-test
+> things there. Also if you suspected there might be issues, I think you
+> should have arranged for someone to test this, i.e. at the very least
+> indicate so in a post-commit-message remark targeted at the eventual
+> committer.
+
+I don't have access to an ARM64 machine (other than a mobile device)
+myself, so I can't test anything on that platform.  I did not *expect*
+there to be any issues, but I am not surprised that there are.  I should
+have done a basic smoke test on x86, though.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--9QU2mazQtCSQEbPT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmLFOUYACgkQsoi1X/+c
+IsF5ww/+MpL+dLCGIcFZxLwuSkevBR0p89ufuOJ1heCxbyY7CiPbfTjhNGyrD+bw
+SPBIACbxKIatJu3Mqlb7CfLpQHCF/fgcpe/6XOynDEblc1DGDpaAoie0vVDYRYwK
+l97nh19F6wy/xlRESGPaFRW2aAfPz4lnL7udYfs/fIM72pb3BWUpThGahe6vucDt
+aQtVFe7yBBjtZ3KfLSpCOohsX1LfTIpUH8aUrMF/ph6fSEqmmgqzmMrEj57T9Glp
+xslBTW50HF8CdyTSUNgu0UcApfr+FuROqdXjyMw5N29cdz+ep2YIZ97oULu77DX/
+xwgQrE6IL7tnHrIkBliHD1WytZ4iOOCLIP0fb4X1rmrNCxHJIerI3VceC2uJ4HG4
+TD7x8HitF7ie2RVuKtojIMkmwesb9+zqRzUt22Sj8CZHOc1blAnxaH7rJo/VUldL
+EOQQLkBj/xMXU+c9Jf7q0NK8lyn9WXU+QkPK8Ov/mjyRim/M9qLPBuyJ5NbefJmK
+713aeZn+ImfZNt1wd9XMdpyEvOaEP45oT0KjcmDyOShG+ESTzhVUab8hZ3BMejMx
+5aspG8WfL1GVj7kZqi/JOa8CYzjfz6niww/bsnRwzMpqAi8y9hWV4riak5TaQHW8
+AzOq63MctQycywQX6/Buks9qO3EMYhJzbDuOwbg1Nh+LyWBpJrg=
+=jJsH
+-----END PGP SIGNATURE-----
+
+--9QU2mazQtCSQEbPT--
 
