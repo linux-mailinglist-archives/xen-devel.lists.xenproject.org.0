@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF53568CEC
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 17:33:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362339.592409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D70E3568CEF
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 17:33:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362340.592422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o971W-0001w1-H9; Wed, 06 Jul 2022 15:33:06 +0000
+	id 1o971Y-0002Ir-9U; Wed, 06 Jul 2022 15:33:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362339.592409; Wed, 06 Jul 2022 15:33:06 +0000
+Received: by outflank-mailman (output) from mailman id 362340.592422; Wed, 06 Jul 2022 15:33:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o971W-0001im-7Z; Wed, 06 Jul 2022 15:33:06 +0000
-Received: by outflank-mailman (input) for mailman id 362339;
- Wed, 06 Jul 2022 15:33:03 +0000
+	id 1o971X-0002CL-TY; Wed, 06 Jul 2022 15:33:07 +0000
+Received: by outflank-mailman (input) for mailman id 362340;
+ Wed, 06 Jul 2022 15:33:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lWdV=XL=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1o971T-00081g-OE
- for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 15:33:03 +0000
+ id 1o971V-00081g-Ab
+ for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 15:33:05 +0000
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec2a991e-fd40-11ec-924f-1f966e50362f;
- Wed, 06 Jul 2022 17:33:02 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 389A05C0143;
- Wed,  6 Jul 2022 11:33:02 -0400 (EDT)
+ id ed224e52-fd40-11ec-924f-1f966e50362f;
+ Wed, 06 Jul 2022 17:33:04 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id D0C825C0110;
+ Wed,  6 Jul 2022 11:33:03 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Wed, 06 Jul 2022 11:33:02 -0400
+ by compute4.internal (MEProxy); Wed, 06 Jul 2022 11:33:03 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 6 Jul 2022 11:33:00 -0400 (EDT)
+ 6 Jul 2022 11:33:02 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec2a991e-fd40-11ec-924f-1f966e50362f
+X-Inumbo-ID: ed224e52-fd40-11ec-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm2; t=1657121582; x=1657207982; bh=Eq84+x/gpm
-	KZZ+zmuklaLt+FseOD4ttC2HJ0766Jnt4=; b=hdYwMC+EKepNtFMV62HBLMx6DX
-	2/bNz/1JTmvwst161sTqM5pbMQ1+evWDgU6l8T2X4FgOw6MlqyQjiDu/ZD9aH3gM
-	vC1Z7dpymX9g+Neg4UcMLR3PamkmtRC6gi0CT8qmMbYzgIG2pClm71V4yk/0r4Q3
-	rn3tDu+Fo05b2cCfHqAdaDZ1HroQnSKvNboGwO1G2vGZCYSyZIQVbYZOuaXjm5NM
-	yEv8GABSWqYfN7qLXNraQFaqT4gARB6iuSosZ8MM32rhNO+spzInEZrZrWPxJAwd
-	HK8Pc1R7m9tpyvRqCALy+oh7OAFm1fOuXpCipduOY40NZMQJoJs9z1UAoKQg==
+	:subject:to:to; s=fm2; t=1657121583; x=1657207983; bh=KNhvo36Hm8
+	tSnLm7qCfjQ1noa8heK9BU5yJ49iE2Lhk=; b=HSypKNz25Y14o8CyLUGEofqSJg
+	EJfpN4QdMgtqN34Hr5RO8lHjz/MwFhm2jCEcQPUr9ViUMyVbNerNRnby//AtDXBi
+	EpZQQl5X1y9gfat2DF3JREpYAlMEENFWCyvfThYzTK9XmXZtStTpcd0T0kJElpVb
+	qN8zhftrdo8G3HziPCoJWQ3U/IHKNaTEXOjejCwL4dW6Xa39LRDtGGZGgYw+Kqa0
+	6cNpQWmEGfp+Dc2iAl/HRO3V+9YuQKo98WWaKFJ9dESPIsfhOVC9WzmFUZVYt8MZ
+	/xYFgRe2E8O4dApOyua8QFngnAwogqwuHZNG/9XvoyccKcjGwPqvepaamlqw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1657121582; x=
-	1657207982; bh=Eq84+x/gpmKZZ+zmuklaLt+FseOD4ttC2HJ0766Jnt4=; b=s
-	WVpQNg50CH28xPgvzg7I2ZWewg2wzY0XkUNrHReV2tGrixzC5Sbdn/5hFP623Y4o
-	ppH5SfpSD1MUg8lXnSqVOBJ2xcR3iSR9ZNfpXiKrziVAhOPicxi0pQyLQQNxwixn
-	+emgYL5SLYfsGTL/7YEkvhA4dx69NxvRF6SRYx/k9VLpP9wayaAMzImvuXig8noa
-	9ZtSJftPqSZvY0m4zDCxghlt4r6uQp+A41X/BJZ3vuSPwqFHtVbUYDnMq1J+yzwc
-	YYHqWJdbiDtRmT7Bq1zq3rWt514la6SCWcPT/xDC9lrk6PPWJbVglag6KjpUbkau
-	6U9D1iix3i/rMcm0b65eQ==
-X-ME-Sender: <xms:LqvFYm8FQgPP6qJtvnBMM-k9d4hzXBhQxwpoFzS7RjBVkGn3W7h91w>
-    <xme:LqvFYmsmSEB1EjKOzdLzHHo02nP-ADn8wgvU-X77k0a61_6UPUsunX4A_CmC4LoxF
-    nUNoIFJOf_j2w>
-X-ME-Received: <xmr:LqvFYsDVQF0zmLHcg_15XCBI1VOh3t98yxqmYd3MNnV9gnBvr3bndhwujxp_k9D6DhiqBEh1Mt91ewM67IM4MwapMRmHkDwPlWAxFhOsAMru30VUSmc>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1657121583; x=
+	1657207983; bh=KNhvo36Hm8tSnLm7qCfjQ1noa8heK9BU5yJ49iE2Lhk=; b=r
+	iVuK09+RakN3kOEDen/O7hbwhoaNctm4nmTc9u7ePOGg7WnUrLTgn9FYSmzN2tUZ
+	nupq6/kxBt6vAhnBvqU1plndnrs7+w8ucIuWs8VX0XsTWC5x7QKi3gMOb4oqqjK/
+	zHaTmjIlGS31XDo0GwD6xwD3tyfGTl2IMMpCyy28qjtvT8NFlPoGCZAqP1kWmGba
+	Db3XXbc6yYkwdpq4Mf9kC/X3qWkh347cCufR7QCAUB2Qa6khS/0Q2KtM0h9VY6Iq
+	pkb9nEnqYIux6vZxpaKpsX6/GYvIHZtQbNor9BEGeImhzBIbpl+1ChNYt5l2EppK
+	L2moXbCFatOPIgOTMyEOw==
+X-ME-Sender: <xms:L6vFYq9qI6JVYcE2AdfRZ7zvEpiGnwj2XYyYgZ-9osAqnbbHeBqflA>
+    <xme:L6vFYqvCNz6pfuIrFa4gd77jOKBbD2iOyAjpDbK_CXJfQSSyHfcMGFINcKI-IDzgL
+    LTeiOwnR68KoA>
+X-ME-Received: <xmr:L6vFYgDdp03sARCBzPKzG44BiXsKL98r0Y4HeeDx-om6SVMm_ShiT2DQbpWPCwMFSDqiKaCL_L4Bfg-SCDnKuMGvZV8FBPEqNNZFAYG8_hNCpcnulEc>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeifedgkeelucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -81,10 +81,10 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeifedgkeelucetufdoteggod
     ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
     hushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
     khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:LqvFYufuiMbcSb-pQRhVzzcfIZMnXU5FNtx6jsa-14_WtVnLqfKN4Q>
-    <xmx:LqvFYrMGKVot9lLvGdrgRWhwJ2Vr7MEKGcxdnCGxIvVCDEIQGkNYBQ>
-    <xmx:LqvFYolIZyfqHUfCPTpQEuE8NaRJDwtpf6qPnINLMMhZ6H4JeHN3MQ>
-    <xmx:LqvFYnCkhxnsofJVu-01VryMh-qHrKUtNZgsuMNW9c2Twh1OweR1Rw>
+X-ME-Proxy: <xmx:L6vFYieF6uEOgDnUbnN0tKkiqh6KboloYDMUHJ2ghsvxkN5wxOxgRQ>
+    <xmx:L6vFYvN_s7L6IwN4-xpXoSp41-JKu97RO5GwysUMGDJLTQ3vxoUmbA>
+    <xmx:L6vFYsloTIq_ufnmEL_dnbSnnbOmxR6mtTHzvszGPfMw6FBEPVu-Tw>
+    <xmx:L6vFYq2dMmxQwEScMy4ypntHFAV_5kZQ4TveU1WnFFwwU6ymjohJnw>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -94,11 +94,10 @@ Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.c
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH v2 8/9] xue: mark DMA buffers as reserved for the device
-Date: Wed,  6 Jul 2022 17:32:13 +0200
-Message-Id: <0a30e15d9195d0cd09a5ea94297dc8a74bc12c97.1657121519.git-series.marmarek@invisiblethingslab.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 9/9] xue: allow driving the rest of XHCI by a domain while Xen uses DbC
+Date: Wed,  6 Jul 2022 17:32:14 +0200
+Message-Id: <a1becf0ed2a19304ce122540e67675c06aee1702.1657121519.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
 References: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
@@ -106,110 +105,72 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The important part is to include those buffers in IOMMU page table
-relevant for the USB controller. Otherwise, DbC will stop working as
-soon as IOMMU is enabled, regardless of to which domain device assigned
-(be it xen or dom0).
-If the device is passed through to dom0 or other domain (see later
-patches), that domain will effectively have access to those buffers too.
-It does give such domain yet another way to DoS the system (as is the
-case when having PCI device assigned already), but also possibly steal
-the console ring content. Thus, such domain should be a trusted one.
-In any case, prevent anything else being placed on those pages by adding
-artificial padding.
+That's possible, because the capability was designed specifically to
+allow separate driver handle it, in parallel to unmodified xhci driver
+(separate set of registers, pretending the port is "disconnected" for
+the main xhci driver etc). It works with Linux dom0, although requires
+an awful hack - re-enabling bus mastering behind dom0's backs.
+Linux driver does similar thing - see
+drivers/usb/early/xhci-dbc.c:xdbc_handle_events().
 
-Using this API for DbC pages requires raising MAX_USER_RMRR_PAGES.
+To avoid Linux messing with the DbC, mark this MMIO area as read-only.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- xen/drivers/char/xue.c             | 43 ++++++++++++++++++++-----------
- xen/drivers/passthrough/vtd/dmar.c |  2 +-
- 2 files changed, 30 insertions(+), 15 deletions(-)
+ xen/drivers/char/xue.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
 diff --git a/xen/drivers/char/xue.c b/xen/drivers/char/xue.c
-index 9d48068a5fba..a6c49bb43e97 100644
+index a6c49bb43e97..3461e51e746a 100644
 --- a/xen/drivers/char/xue.c
 +++ b/xen/drivers/char/xue.c
-@@ -26,6 +26,7 @@
- #include <xen/serial.h>
+@@ -27,6 +27,7 @@
  #include <xen/timer.h>
  #include <xen/param.h>
-+#include <xen/iommu.h>
+ #include <xen/iommu.h>
++#include <xen/rangeset.h>
  #include <asm/fixmap.h>
  #include <asm/io.h>
  #include <xen/mm.h>
-@@ -952,13 +953,21 @@ static struct uart_driver xue_uart_driver = {
-     .flush = xue_uart_flush,
- };
+@@ -807,6 +808,7 @@ static void xue_flush(struct xue *xue, struct xue_trb_ring *trb,
+ {
+     struct xue_dbc_reg *reg = xue->dbc_reg;
+     uint32_t db = (reg->db & 0xFFFF00FF) | (trb->db << 8);
++    uint32_t cmd;
  
--static struct xue_trb evt_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
--static struct xue_trb out_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
--static struct xue_trb in_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
--static struct xue_erst_segment erst __aligned(64);
--static struct xue_dbc_ctx ctx __aligned(64);
--static uint8_t wrk_buf[XUE_WORK_RING_CAP] __aligned(XUE_PAGE_SIZE);
--static char str_buf[XUE_PAGE_SIZE] __aligned(64);
-+struct xue_dma_bufs {
-+    struct xue_trb evt_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-+    struct xue_trb out_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-+    struct xue_trb in_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-+    struct xue_erst_segment erst __aligned(64);
-+    struct xue_dbc_ctx ctx __aligned(64);
-+    uint8_t wrk_buf[XUE_WORK_RING_CAP] __aligned(XUE_PAGE_SIZE);
-+    char str_buf[XUE_PAGE_SIZE] __aligned(64);
-+    /*
-+     * Don't place anything else on this page - it will be
-+     * DMA-reachable by the USB controller.
-+     */
-+    char _pad[0] __aligned(XUE_PAGE_SIZE);
-+};
-+static struct xue_dma_bufs xue_dma_bufs __aligned(XUE_PAGE_SIZE);
- static char __initdata opt_dbgp[30];
- 
- string_param("dbgp", opt_dbgp);
-@@ -990,16 +999,22 @@ void __init xue_uart_init(void)
-         xue->sbdf = PCI_SBDF(0, bus, slot, func);
+     if ( xue->open && !(reg->ctrl & (1UL << XUE_CTRL_DCE)) )
+     {
+@@ -817,6 +819,16 @@ static void xue_flush(struct xue *xue, struct xue_trb_ring *trb,
+         xue_enable_dbc(xue);
      }
  
--    xue->dbc_ctx = &ctx;
--    xue->dbc_erst = &erst;
--    xue->dbc_ering.trb = evt_trb;
--    xue->dbc_oring.trb = out_trb;
--    xue->dbc_iring.trb = in_trb;
--    xue->dbc_owork.buf = wrk_buf;
--    xue->dbc_str = str_buf;
-+    xue->dbc_ctx = &xue_dma_bufs.ctx;
-+    xue->dbc_erst = &xue_dma_bufs.erst;
-+    xue->dbc_ering.trb = xue_dma_bufs.evt_trb;
-+    xue->dbc_oring.trb = xue_dma_bufs.out_trb;
-+    xue->dbc_iring.trb = xue_dma_bufs.in_trb;
-+    xue->dbc_owork.buf = xue_dma_bufs.wrk_buf;
-+    xue->dbc_str = xue_dma_bufs.str_buf;
- 
-     if ( xue_open(xue) )
++    /* Re-enable bus mastering, if dom0 (or other) disabled it in the meantime. */
++    cmd = pci_conf_read16(xue->sbdf, PCI_COMMAND);
++#define XUE_XHCI_CMD_REQUIRED (PCI_COMMAND_MEMORY|PCI_COMMAND_MASTER)
++    if ( (cmd & XUE_XHCI_CMD_REQUIRED) != XUE_XHCI_CMD_REQUIRED )
 +    {
-+        iommu_add_extra_reserved_device_memory(
-+                PFN_DOWN(virt_to_maddr(&xue_dma_bufs)),
-+                PFN_UP(sizeof(xue_dma_bufs)),
-+                uart->xue.sbdf.sbdf);
-         serial_register_uart(SERHND_DBGP, &xue_uart_driver, &xue_uart);
++        cmd |= XUE_XHCI_CMD_REQUIRED;
++        pci_conf_write16(xue->sbdf, PCI_COMMAND, cmd);
 +    }
++#undef XUE_XHCI_CMD_REQUIRED
++
+     xue_pop_events(xue);
+ 
+     if ( !(reg->ctrl & (1UL << XUE_CTRL_DCR)) )
+@@ -916,6 +928,13 @@ static void __init cf_check xue_uart_init_postirq(struct serial_port *port)
+     serial_async_transmit(port);
+     init_timer(&uart->timer, xue_uart_poll, port, 0);
+     set_timer(&uart->timer, NOW() + MILLISECS(1));
++
++#ifdef CONFIG_X86
++    if ( rangeset_add_range(mmio_ro_ranges,
++                PFN_DOWN(uart->xue.xhc_mmio_phys + uart->xue.xhc_dbc_offset),
++                PFN_UP(uart->xue.xhc_mmio_phys + uart->xue.xhc_dbc_offset + sizeof(*uart->xue.dbc_reg)) - 1) )
++        printk(XENLOG_INFO "Error while adding MMIO range of device to mmio_ro_ranges\n");
++#endif
  }
  
- #ifdef XUE_DEBUG
-diff --git a/xen/drivers/passthrough/vtd/dmar.c b/xen/drivers/passthrough/vtd/dmar.c
-index 661a182b08d9..2caa3e9ad1b0 100644
---- a/xen/drivers/passthrough/vtd/dmar.c
-+++ b/xen/drivers/passthrough/vtd/dmar.c
-@@ -845,7 +845,7 @@ out:
-     return ret;
- }
- 
--#define MAX_USER_RMRR_PAGES 16
-+#define MAX_USER_RMRR_PAGES 64
- #define MAX_USER_RMRR 10
- 
- /* RMRR units derived from command line rmrr option. */
+ static int cf_check xue_uart_tx_ready(struct serial_port *port)
 -- 
 git-series 0.9.1
 
