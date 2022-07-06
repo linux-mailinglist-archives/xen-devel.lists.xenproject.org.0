@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8487A568A4E
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 15:58:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362259.592231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3502A568A65
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 16:00:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362271.592245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o95Xx-00081k-La; Wed, 06 Jul 2022 13:58:29 +0000
+	id 1o95Zj-0001SJ-4W; Wed, 06 Jul 2022 14:00:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362259.592231; Wed, 06 Jul 2022 13:58:29 +0000
+Received: by outflank-mailman (output) from mailman id 362271.592245; Wed, 06 Jul 2022 14:00:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o95Xx-0007uK-Hg; Wed, 06 Jul 2022 13:58:29 +0000
-Received: by outflank-mailman (input) for mailman id 362259;
- Wed, 06 Jul 2022 13:54:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1o95Zj-0001PT-0B; Wed, 06 Jul 2022 14:00:19 +0000
+Received: by outflank-mailman (input) for mailman id 362271;
+ Wed, 06 Jul 2022 13:59:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vM8T=XL=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
- id 1o95UK-0007Zb-Vl
- for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 13:54:44 +0000
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
- [209.85.219.176]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 301cc61e-fd33-11ec-bd2d-47488cf2e6aa;
- Wed, 06 Jul 2022 15:54:44 +0200 (CEST)
-Received: by mail-yb1-f176.google.com with SMTP id 64so18154140ybt.12
- for <xen-devel@lists.xenproject.org>; Wed, 06 Jul 2022 06:54:44 -0700 (PDT)
+ id 1o95Z1-0000Wk-B5
+ for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 13:59:35 +0000
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc9bcaa9-fd33-11ec-924f-1f966e50362f;
+ Wed, 06 Jul 2022 15:59:34 +0200 (CEST)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-3137316bb69so140642067b3.10
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Jul 2022 06:59:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,31 +39,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 301cc61e-fd33-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: dc9bcaa9-fd33-11ec-924f-1f966e50362f
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=nGlq0tAOl9peVDy+2hDU8oij0psSLrDezDLIhvJH3CU=;
-        b=qIm3w2oSvR4xJEbz8Ki6ixlu+SWev4gdrkmQ2VBpJcgoO49ZOxhgyBY0qIJoQ8KLhX
-         LgFFMLUTzOBMxDeDbzVIFmLsUOmG4YyQzez8vDvYqOoL130+uOLn4KJAu2aKQLKLNl1j
-         U7GYicEiSeyWdkE5DKF/vmYkBTotN9WdVug+Iqxghgye4i/KpeTLWz9UwhEG3OqDMYAz
-         pD4Aq3eDDJlLFbFaXIh5fxyV7ruyq77GEhPbwmuaz9REG9WphZIyiv0VeRss7VjKCKTj
-         chcc4hKa3TGX86WxqVaFNn2YPb4yt16B0TTWptdPuewtKFB7buD3JoA+Gz7XnPYFfZo/
-         pZrA==
-X-Gm-Message-State: AJIora+QzHySWJ7rphAt0jYiM4vrnV7FoySHS4RWImG5bI5M1fX7pyFj
-	wUa/v/CkNYa4d80FvpdKi5MluQOyQi39dTpgie0=
-X-Google-Smtp-Source: AGRyM1tDetZqwrRScub6Y4Pn1s0tSkry0FvKlyTlHU1qOUr14WujFHx6NLxGPd7DkQtOavHEbmevSefDFcyAl6P8ZZY=
-X-Received: by 2002:a25:fb02:0:b0:66e:3db9:5d49 with SMTP id
- j2-20020a25fb02000000b0066e3db95d49mr20145358ybe.137.1657115683016; Wed, 06
- Jul 2022 06:54:43 -0700 (PDT)
+        bh=Onduqp6mjVbUTy8onn0jWt/mqpI9kGBQEYh+QUeZcBU=;
+        b=3BzfFxCiTFPQ/pzeJcbUgBBMUJwnf/PxqYfknDjKqRp3DgDpr7v7oKYsa4X+Lc/mY3
+         MDZ70WS8ulqxtiBV0i02dIezuqn9EWQhRdNS8Nqsr0GfQjPigYofsmWIUt2moq3Te2Wn
+         O2+jyjUpenbU58TkTvl5FywWUnxKFMghgYw4IF1ixGafajlxi97p1Qjew0mytzEJTmy+
+         6XThNQr11Qhwcz986EtXMgSbmGwy6ba/I8Gz2NnLNNGvvyCvC4VfYSnglm8TknuqvBbn
+         Qi30kUBmfC3mwY1FT8s3ssQwnIeZjCnA/g72nIgyjeVW6faHengv6fBpqgoNqvz9H7n5
+         k65g==
+X-Gm-Message-State: AJIora/43qGKUrYB2nYJFlI0KBtSnCZlqOFb4mtKNU/cPkYej1BKJnCI
+	WeHzgqLI8Agt37PsJiKGPDVZTmcTU1t0VPg0wX0=
+X-Google-Smtp-Source: AGRyM1tNbC/Hml4tsQcA7xFkjwPTBe4V9sculTi4g4WqVg8ltnNA+flCFfg0CHpb2ZdV5OvqewQ30xyxgoEo0qXCWHo=
+X-Received: by 2002:a81:1b97:0:b0:2db:640f:49d8 with SMTP id
+ b145-20020a811b97000000b002db640f49d8mr45117410ywb.326.1657115972382; Wed, 06
+ Jul 2022 06:59:32 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220608142723.103523089@infradead.org> <20220608144516.235041924@infradead.org>
-In-Reply-To: <20220608144516.235041924@infradead.org>
+References: <20220608142723.103523089@infradead.org> <20220608144516.998681585@infradead.org>
+In-Reply-To: <20220608144516.998681585@infradead.org>
 From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Wed, 6 Jul 2022 15:54:32 +0200
-Message-ID: <CAJZ5v0g0fCNxsc1mg9aL+ieQ1uMVS+RWqesHKoZ_zeL7cx655A@mail.gmail.com>
-Subject: Re: [PATCH 05/36] cpuidle: Move IRQ state validation
+Date: Wed, 6 Jul 2022 15:59:21 +0200
+Message-ID: <CAJZ5v0jSfvUoReFHjA5A+brExnnEKidak-GnjTbY0CKoaWpGVQ@mail.gmail.com>
+Subject: Re: [PATCH 17/36] acpi_idle: Remove tracing
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com, 
 	vgupta@kernel.org, Russell King - ARM Linux <linux@armlinux.org.uk>, ulli.kroll@googlemail.com, 
@@ -131,50 +132,81 @@ Content-Type: text/plain; charset="UTF-8"
 
 On Wed, Jun 8, 2022 at 4:47 PM Peter Zijlstra <peterz@infradead.org> wrote:
 >
-> Make cpuidle_enter_state() consistent with the s2idle variant and
-> verify ->enter() always returns with interrupts disabled.
+> All the idle routines are called with RCU disabled, as such there must
+> not be any tracing inside.
 >
 > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> ---
->  drivers/cpuidle/cpuidle.c |   10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> --- a/drivers/cpuidle/cpuidle.c
-> +++ b/drivers/cpuidle/cpuidle.c
-> @@ -234,7 +234,11 @@ int cpuidle_enter_state(struct cpuidle_d
->         stop_critical_timings();
->         if (!(target_state->flags & CPUIDLE_FLAG_RCU_IDLE))
->                 rcu_idle_enter();
-> +
->         entered_state = target_state->enter(dev, drv, index);
-> +       if (WARN_ONCE(!irqs_disabled(), "%ps leaked IRQ state", target_state->enter))
 
-I'm not sure if dumping a call trace here is really useful and
-WARN_ON() often gets converted to panic().
-
-I would print an error message with pr_warn_once().
+This actually does some additional code duplication cleanup which
+would be good to mention in the changelog.  Or even move to a separate
+patch for that matter.
 
 Otherwise LGTM.
 
+> ---
+>  drivers/acpi/processor_idle.c |   24 +++++++++++++-----------
+>  1 file changed, 13 insertions(+), 11 deletions(-)
+>
+> --- a/drivers/acpi/processor_idle.c
+> +++ b/drivers/acpi/processor_idle.c
+> @@ -108,8 +108,8 @@ static const struct dmi_system_id proces
+>  static void __cpuidle acpi_safe_halt(void)
+>  {
+>         if (!tif_need_resched()) {
+> -               safe_halt();
+> -               local_irq_disable();
+> +               raw_safe_halt();
 > +               raw_local_irq_disable();
+>         }
+>  }
+>
+> @@ -524,16 +524,21 @@ static int acpi_idle_bm_check(void)
+>         return bm_status;
+>  }
+>
+> -static void wait_for_freeze(void)
+> +static __cpuidle void io_idle(unsigned long addr)
+>  {
+> +       /* IO port based C-state */
+> +       inb(addr);
 > +
->         if (!(target_state->flags & CPUIDLE_FLAG_RCU_IDLE))
->                 rcu_idle_exit();
->         start_critical_timings();
-> @@ -246,12 +250,8 @@ int cpuidle_enter_state(struct cpuidle_d
->         /* The cpu is no longer idle or about to enter idle. */
->         sched_idle_set_state(NULL);
+>  #ifdef CONFIG_X86
+>         /* No delay is needed if we are in guest */
+>         if (boot_cpu_has(X86_FEATURE_HYPERVISOR))
+>                 return;
+>  #endif
+> -       /* Dummy wait op - must do something useless after P_LVL2 read
+> -          because chipsets cannot guarantee that STPCLK# signal
+> -          gets asserted in time to freeze execution properly. */
+> +       /*
+> +        * Dummy wait op - must do something useless after P_LVL2 read
+> +        * because chipsets cannot guarantee that STPCLK# signal
+> +        * gets asserted in time to freeze execution properly.
+> +        */
+>         inl(acpi_gbl_FADT.xpm_timer_block.address);
+>  }
 >
-> -       if (broadcast) {
-> -               if (WARN_ON_ONCE(!irqs_disabled()))
-> -                       local_irq_disable();
-> -
-> +       if (broadcast)
->                 tick_broadcast_exit();
-> -       }
+> @@ -553,9 +558,7 @@ static void __cpuidle acpi_idle_do_entry
+>         } else if (cx->entry_method == ACPI_CSTATE_HALT) {
+>                 acpi_safe_halt();
+>         } else {
+> -               /* IO port based C-state */
+> -               inb(cx->address);
+> -               wait_for_freeze();
+> +               io_idle(cx->address);
+>         }
 >
->         if (!cpuidle_state_is_coupled(drv, index))
->                 local_irq_enable();
+>         perf_lopwr_cb(false);
+> @@ -577,8 +580,7 @@ static int acpi_idle_play_dead(struct cp
+>                 if (cx->entry_method == ACPI_CSTATE_HALT)
+>                         safe_halt();
+>                 else if (cx->entry_method == ACPI_CSTATE_SYSTEMIO) {
+> -                       inb(cx->address);
+> -                       wait_for_freeze();
+> +                       io_idle(cx->address);
+>                 } else
+>                         return -ENODEV;
+>
 >
 >
 
