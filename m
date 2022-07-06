@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78432568AF3
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 16:12:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362295.592278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CEA1568BDB
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 16:54:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362309.592297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o95l5-0004et-1Y; Wed, 06 Jul 2022 14:12:03 +0000
+	id 1o96Op-0001h5-Eh; Wed, 06 Jul 2022 14:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362295.592278; Wed, 06 Jul 2022 14:12:03 +0000
+Received: by outflank-mailman (output) from mailman id 362309.592297; Wed, 06 Jul 2022 14:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o95l4-0004cA-UH; Wed, 06 Jul 2022 14:12:02 +0000
-Received: by outflank-mailman (input) for mailman id 362295;
- Wed, 06 Jul 2022 14:04:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vM8T=XL=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
- id 1o95eB-0003IU-7T
- for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 14:04:55 +0000
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9bf35241-fd34-11ec-924f-1f966e50362f;
- Wed, 06 Jul 2022 16:04:54 +0200 (CEST)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-31bf3656517so140694127b3.12
- for <xen-devel@lists.xenproject.org>; Wed, 06 Jul 2022 07:04:54 -0700 (PDT)
+	id 1o96Op-0001db-Bl; Wed, 06 Jul 2022 14:53:07 +0000
+Received: by outflank-mailman (input) for mailman id 362309;
+ Wed, 06 Jul 2022 14:53:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1o96On-0001dR-T9; Wed, 06 Jul 2022 14:53:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1o96On-0003Dy-QT; Wed, 06 Jul 2022 14:53:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1o96On-0004au-HC; Wed, 06 Jul 2022 14:53:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1o96On-0001KY-Gm; Wed, 06 Jul 2022 14:53:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,156 +42,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9bf35241-fd34-11ec-924f-1f966e50362f
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=UBE539EKjjJ8zkn99yLgr6sf0hQeHTgO/l2k1f9VAKg=;
-        b=CI3FpnTrwAoYWjrBJ3csJxAMAd1O2iKqsJR0ZcBe2CAVlPCiu7Hh0++cIJlceq0bxh
-         p7EvCCSPvYwbAQ042vjl+IeYC2oo0s+b77CVd+f4Z31ylKMHk88/llVsoR9qQhyVV6x+
-         t6HEBNuJhSCRO7yvYWwNJV3rY3JahCRCSnT3IkmgHGMW/sI93KFYZzU01DkmG4u7RJwl
-         NvPP0Kl6ZQL0ZfkU/Oje951wN50mRWj0Cr+LrQmyEC9/T5/4ZhQGIJAh26Lp+7enav8X
-         fKn3gdDEk5oEAqnRsTPQ2du0zPOQA/wWD9slTu15UUM6OsX9Bpv9yzLA9x/Lk3vtHUC5
-         /K0g==
-X-Gm-Message-State: AJIora8vFlnX7TP2CsZuvFQX5RK/iXL3UTeEk9VdXRexd4mdmWVyj356
-	Ufw1tlhwTzIvzkSbxt5pYN4KpC95Sv0b8+Fq63M=
-X-Google-Smtp-Source: AGRyM1tzweDvK/HpOTrEcMtuYgu75xJlbU4wLmWYqVeEsIhNId5gL4a/NC1jAK4t+CVNf/Oa7/ufr1ZdqBFMCfc4FVA=
-X-Received: by 2002:a81:24c7:0:b0:314:1e60:a885 with SMTP id
- k190-20020a8124c7000000b003141e60a885mr46512506ywk.301.1657116293184; Wed, 06
- Jul 2022 07:04:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220608142723.103523089@infradead.org> <20220608144517.885263942@infradead.org>
-In-Reply-To: <20220608144517.885263942@infradead.org>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Wed, 6 Jul 2022 16:04:42 +0200
-Message-ID: <CAJZ5v0j6=x-u3dorwQNd6Sihaa1rx1-uaFXbL1Kc37Hu-fcH3A@mail.gmail.com>
-Subject: Re: [PATCH 31/36] cpuidle,acpi: Make noinstr clean
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com, 
-	vgupta@kernel.org, Russell King - ARM Linux <linux@armlinux.org.uk>, ulli.kroll@googlemail.com, 
-	Linus Walleij <linus.walleij@linaro.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Sascha Hauer <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dl-linux-imx <linux-imx@nxp.com>, Tony Lindgren <tony@atomide.com>, 
-	Kevin Hilman <khilman@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, bcain@quicinc.com, 
-	Huacai Chen <chenhuacai@kernel.org>, kernel@xen0n.name, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, sammy@sammy.net, Michal Simek <monstr@monstr.eu>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, dinguyen@kernel.org, jonas@southpole.se, 
-	stefan.kristiansson@saunalahti.fi, Stafford Horne <shorne@gmail.com>, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
-	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, David Miller <davem@davemloft.net>, 
-	Richard Weinberger <richard@nod.at>, anton.ivanov@cambridgegreys.com, 
-	Johannes Berg <johannes@sipsolutions.net>, Thomas Gleixner <tglx@linutronix.de>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "the arch/x86 maintainers" <x86@kernel.org>, 
-	"H. Peter Anvin" <hpa@zytor.com>, acme@kernel.org, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, jolsa@kernel.org, namhyung@kernel.org, 
-	Juergen Gross <jgross@suse.com>, srivatsa@csail.mit.edu, amakhalov@vmware.com, 
-	pv-drivers@vmware.com, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Chris Zankel <chris@zankel.net>, jcmvbkbc@gmail.com, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@ucw.cz>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>, 
-	Andy Gross <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>, 
-	Anup Patel <anup@brainfault.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	Jon Hunter <jonathanh@nvidia.com>, Jacob Pan <jacob.jun.pan@linux.intel.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Yury Norov <yury.norov@gmail.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Steven Rostedt <rostedt@goodmis.org>, 
-	Petr Mladek <pmladek@suse.com>, senozhatsky@chromium.org, 
-	John Ogness <john.ogness@linutronix.de>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Frederic Weisbecker <frederic@kernel.org>, quic_neeraju@quicinc.com, 
-	Josh Triplett <josh@joshtriplett.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Joel Fernandes <joel@joelfernandes.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Benjamin Segall <bsegall@google.com>, 
-	Mel Gorman <mgorman@suse.de>, Daniel Bristot de Oliveira <bristot@redhat.com>, vschneid@redhat.com, 
-	jpoimboe@kernel.org, linux-alpha@vger.kernel.org, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-snps-arc@lists.infradead.org, 
-	Linux ARM <linux-arm-kernel@lists.infradead.org>, 
-	Linux OMAP Mailing List <linux-omap@vger.kernel.org>, linux-csky@vger.kernel.org, 
-	linux-hexagon@vger.kernel.org, linux-ia64@vger.kernel.org, 
-	linux-m68k <linux-m68k@lists.linux-m68k.org>, 
-	"open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>, openrisc@lists.librecores.org, 
-	Parisc List <linux-parisc@vger.kernel.org>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, 
-	linux-riscv <linux-riscv@lists.infradead.org>, linux-s390@vger.kernel.org, 
-	Linux-sh list <linux-sh@vger.kernel.org>, sparclinux@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org, 
-	virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org, 
-	linux-xtensa@linux-xtensa.org, 
-	ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
-	linux-clk <linux-clk@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
-	linux-tegra <linux-tegra@vger.kernel.org>, linux-arch <linux-arch@vger.kernel.org>, 
-	rcu@vger.kernel.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LRS+cfNF0Dgpdt0k/m195AjeU+BjeaOwwo0A3RiPrMY=; b=x8tG75N5z5Ht5xlGJcDg36r4jk
+	IY1ZBLj3dwcsuzh2t8YFcHgFdDCAmydfq9gLG+O/i0kec6Mn7uFpnQXkpePi/WZOkHb0dtf8vpAOl
+	lZyI4t5EPpCO2GBGH8xDPJ6YmJURRapqBxITGrcXip7uEb12p+RXF5RyftJq9Ur/1lXA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-171529-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 171529: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=61ff2733221e3b5bae5f647d9a460c7a68a5ace8
+X-Osstest-Versions-That:
+    xen=4df2e99d731402da48afb19dc970ccab5a0814d6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 06 Jul 2022 14:53:05 +0000
 
-On Wed, Jun 8, 2022 at 4:47 PM Peter Zijlstra <peterz@infradead.org> wrote:
->
-> vmlinux.o: warning: objtool: io_idle+0xc: call to __inb.isra.0() leaves .noinstr.text section
-> vmlinux.o: warning: objtool: acpi_idle_enter+0xfe: call to num_online_cpus() leaves .noinstr.text section
-> vmlinux.o: warning: objtool: acpi_idle_enter+0x115: call to acpi_idle_fallback_to_c1.isra.0() leaves .noinstr.text section
->
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+flight 171529 xen-unstable-smoke real [real]
+flight 171533 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171529/
+http://logs.test-lab.xenproject.org/osstest/logs/171533/
 
-Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Regressions :-(
 
-> ---
->  arch/x86/include/asm/shared/io.h |    4 ++--
->  drivers/acpi/processor_idle.c    |    2 +-
->  include/linux/cpumask.h          |    4 ++--
->  3 files changed, 5 insertions(+), 5 deletions(-)
->
-> --- a/arch/x86/include/asm/shared/io.h
-> +++ b/arch/x86/include/asm/shared/io.h
-> @@ -5,13 +5,13 @@
->  #include <linux/types.h>
->
->  #define BUILDIO(bwl, bw, type)                                         \
-> -static inline void __out##bwl(type value, u16 port)                    \
-> +static __always_inline void __out##bwl(type value, u16 port)           \
->  {                                                                      \
->         asm volatile("out" #bwl " %" #bw "0, %w1"                       \
->                      : : "a"(value), "Nd"(port));                       \
->  }                                                                      \
->                                                                         \
-> -static inline type __in##bwl(u16 port)                                 \
-> +static __always_inline type __in##bwl(u16 port)                                \
->  {                                                                      \
->         type value;                                                     \
->         asm volatile("in" #bwl " %w1, %" #bw "0"                        \
-> --- a/drivers/acpi/processor_idle.c
-> +++ b/drivers/acpi/processor_idle.c
-> @@ -593,7 +593,7 @@ static int acpi_idle_play_dead(struct cp
->         return 0;
->  }
->
-> -static bool acpi_idle_fallback_to_c1(struct acpi_processor *pr)
-> +static __always_inline bool acpi_idle_fallback_to_c1(struct acpi_processor *pr)
->  {
->         return IS_ENABLED(CONFIG_HOTPLUG_CPU) && !pr->flags.has_cst &&
->                 !(acpi_gbl_FADT.flags & ACPI_FADT_C2_MP_SUPPORTED);
-> --- a/include/linux/cpumask.h
-> +++ b/include/linux/cpumask.h
-> @@ -908,9 +908,9 @@ static inline const struct cpumask *get_
->   * concurrent CPU hotplug operations unless invoked from a cpuhp_lock held
->   * region.
->   */
-> -static inline unsigned int num_online_cpus(void)
-> +static __always_inline unsigned int num_online_cpus(void)
->  {
-> -       return atomic_read(&__num_online_cpus);
-> +       return arch_atomic_read(&__num_online_cpus);
->  }
->  #define num_possible_cpus()    cpumask_weight(cpu_possible_mask)
->  #define num_present_cpus()     cpumask_weight(cpu_present_mask)
->
->
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 171486
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  61ff2733221e3b5bae5f647d9a460c7a68a5ace8
+baseline version:
+ xen                  4df2e99d731402da48afb19dc970ccab5a0814d6
+
+Last test of basis   171486  2022-07-04 13:00:25 Z    2 days
+Failing since        171501  2022-07-05 12:03:08 Z    1 days    5 attempts
+Testing same since   171506  2022-07-05 17:00:29 Z    0 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Demi Marie Obenour <demi@invisiblethingslab.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Michal Orzel <michal.orzel@arm.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Wei Chen <wei.chen@arm.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 61ff2733221e3b5bae5f647d9a460c7a68a5ace8
+Author: Michal Orzel <michal.orzel@arm.com>
+Date:   Mon Jun 27 15:15:39 2022 +0200
+
+    xen/common: Use unsigned int instead of plain unsigned
+    
+    This is just for the style and consistency reasons as the former is
+    being used more often than the latter.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+    Reviewed-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit 54d8f27d0477937e1f99a414fc1ffd93d184b38a
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Fri Apr 8 10:21:11 2022 +0200
+
+    tools/libxl: report trusted backend status to frontends
+    
+    Allow administrators to notify a frontend driver that it's backend
+    counterpart is not to be trusted, so the frontend can deploy whatever
+    mitigations required in order to secure itself.
+    
+    Allow such option for disk and network frontends only, as those are
+    the only hardened ones currently supported.
+    
+    This is part of XSA-403
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+
+commit a4d4c541f58b378bc9d499dcb554eb9fe22312c8
+Author: Wei Chen <wei.chen@arm.com>
+Date:   Tue Jul 5 13:12:15 2022 +0200
+
+    xen/arm32: avoid EFI stub wchar_t size linker warning
+    
+    Xen uses "-fshort-wchar" in CFLAGS for EFI common code. Arm32
+    is using stub.c of EFI common code for EFI stub functions. But
+    "-fshort-wchar" CFLAG will cause a warning when build stub.c
+    for Arm32:
+    "arm-linux-gnueabihf-ld: warning: arch/arm/efi/built_in.o uses
+    2-byte wchar_t yet the output is to use 4-byte wchar_t; use of
+    wchar_t values across objects may fail"
+    
+    This is because the "-fshort-wchar" flag causes GCC to generate
+    code that is not binary compatible with code generated without
+    that flag. Why this warning hasn't been triggered in Arm64 is
+    because Arm64 does not use wchar type directly in any code for
+    parameters, variables and return values. And in EFI code, wchar
+    has been replaced by CHAR16 (the UEFI "abstraction" of wchar_t).
+    CHAR16 has been specified as unsigned short type in typedef, the
+    "-fshort-wchar" flag will not affect CHAR16. So Arm64 object
+    files are exactly the same with "-fshort-wchar" and without
+    "-fshort-wchar".
+    
+    We are also not using wchar in Arm32 codes, but Arm32 will embed
+    ABI information in ".ARM.attributes" section. This section stores
+    some object file attributes, like ABI version, CPU arch and etc.
+    And wchar size is described in this section by "Tag_ABI_PCS_wchar_t"
+    too. Tag_ABI_PCS_wchar_t is 2 for object files with "-fshort-wchar",
+    but for object files without "-fshort-wchar" is 4. Arm32 GCC
+    ld will check this tag, and throw above warning when it finds
+    the object files have different Tag_ABI_PCS_wchar_t values.
+    
+    Xen need to keep "-fshort-wchar" in EFI code to force wchar to use
+    short integers (2 bytes) instead of integers (4 bytes), but this is
+    unnecessary for code out of EFI. So in this patch, we add
+    "-fno-short-wchar" to override "-fshort-wchar" for Arm architectures
+    without EFI enabled to remove above warning."
+    
+    Reported-and-Suggested-by: Jan Beulich <jbeulich@suse.com>
+    Tested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Wei Chen <wei.chen@arm.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit c4184bf305dc14c3e150617904c40b120664efe6
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Tue Jul 5 13:11:51 2022 +0200
+
+    public: constify xsd_errors[]
+    
+    While in principle this could break existing users, I think such users
+    deserve to be put in trouble. After all the table should have been const
+    from the very beginning.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Juergen Gross <jgross@suse.com>
+
+commit 2b1ee386122a6e8bf66f5163cbda51084af6e0f4
+Author: Luca Fancellu <luca.fancellu@arm.com>
+Date:   Tue Jul 5 13:11:25 2022 +0200
+
+    tools/helpers: fix snprintf argument in init-dom0less.c
+    
+    Fix snprintf argument in init-dom0less.c because two instances of
+    the function are using libxl_dominfo struct members that are uint64_t
+    types, so change "%lu" to "%"PRIu64 to handle it properly when
+    building on arm32 and arm64.
+    
+    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+
+commit 8d410ac2c178e1dd1001cadddbe9ca75a9738c95
+Author: Demi Marie Obenour <demi@invisiblethingslab.com>
+Date:   Tue Jul 5 13:10:46 2022 +0200
+
+    EFI: preserve the System Resource Table for dom0
+    
+    The EFI System Resource Table (ESRT) is necessary for fwupd to identify
+    firmware updates to install.  According to the UEFI specification §23.4,
+    the ESRT shall be stored in memory of type EfiBootServicesData.  However,
+    memory of type EfiBootServicesData is considered general-purpose memory
+    by Xen, so the ESRT needs to be moved somewhere where Xen will not
+    overwrite it.  Copy the ESRT to memory of type EfiRuntimeServicesData,
+    which Xen will not reuse.  dom0 can use the ESRT if (and only if) it is
+    in memory of type EfiRuntimeServicesData.
+    
+    Earlier versions of this patch reserved the memory in which the ESRT was
+    located.  This created awkward alignment problems, and required either
+    splitting the E820 table or wasting memory.  It also would have required
+    a new platform op for dom0 to use to indicate if the ESRT is reserved.
+    By copying the ESRT into EfiRuntimeServicesData memory, the E820 table
+    does not need to be modified, and dom0 can just check the type of the
+    memory region containing the ESRT.  The copy is only done if the ESRT is
+    not already in EfiRuntimeServicesData memory, avoiding memory leaks on
+    repeated kexec.
+    
+    See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-itl/T/
+    for details.
+    
+    Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
