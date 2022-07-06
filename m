@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F40B4568CE0
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 17:32:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362323.592318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E967568CE4
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 17:33:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362332.592335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o970b-0007eH-OD; Wed, 06 Jul 2022 15:32:09 +0000
+	id 1o971L-0008Md-I7; Wed, 06 Jul 2022 15:32:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362323.592318; Wed, 06 Jul 2022 15:32:09 +0000
+Received: by outflank-mailman (output) from mailman id 362332.592335; Wed, 06 Jul 2022 15:32:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o970b-0007cD-LB; Wed, 06 Jul 2022 15:32:09 +0000
-Received: by outflank-mailman (input) for mailman id 362323;
- Wed, 06 Jul 2022 15:32:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o970Z-0007c3-WF; Wed, 06 Jul 2022 15:32:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o970Z-0003uE-SW; Wed, 06 Jul 2022 15:32:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o970Z-0005WC-Iw; Wed, 06 Jul 2022 15:32:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1o970Z-0005Ux-IS; Wed, 06 Jul 2022 15:32:07 +0000
+	id 1o971L-0008Fs-EF; Wed, 06 Jul 2022 15:32:55 +0000
+Received: by outflank-mailman (input) for mailman id 362332;
+ Wed, 06 Jul 2022 15:32:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lWdV=XL=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1o971K-00081g-C6
+ for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 15:32:54 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e691d91a-fd40-11ec-924f-1f966e50362f;
+ Wed, 06 Jul 2022 17:32:53 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id C8A475C0170;
+ Wed,  6 Jul 2022 11:32:52 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Wed, 06 Jul 2022 11:32:52 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 6 Jul 2022 11:32:51 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,190 +43,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=j6rltrRj/RPAg7Cp7lMqZhG0YBIS/UGLa9KNYmQZQHs=; b=gTeVMG7SIBmkM1Geo7bcoGd8Zx
-	X6MdUkQeQi2+cvIHHnB8xFgw3Tulfj/DDM26GVwFZd2wC1nmCPcOk/yTGXB4tS7wgMmYULen8CJA6
-	4vzu9k+EtBtTTNmHnvzCvcRGCx8cpBgmcAc37d3jky0th/M0mfRU3k/CugrEfPZvzOCg=;
+X-Inumbo-ID: e691d91a-fd40-11ec-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to; s=fm2; t=1657121572; x=1657207972; bh=jTLjQ6SoY6
+	EYcoZ1VpBnLuSOpWBuAhAOnELQ3/iEcEM=; b=rzkhxG0SYBz5Iq251QGwCouSeM
+	5edrhyGAkhKHvqd/7077KeEWW63IwCBJN6NTr0TzZFTulwz0WcRC9Tw69fRTLzbF
+	RF2tqZwWCQag3Hy3cqEabg7YQVPusLmdfURc7XJlOmIR719CzujlOZ8/qbSkjp+a
+	FiUAhkBPhQHLpWI67ocViubCnQUpEqwOh69gvRG61iulyFjW3fc+2Uv0eX5S3MKj
+	Qefgt/ugsX7apAMAuoMCMnxZSFHbzy0/Libh09sp5ecESrHBZVwu1ybCFjavampx
+	FHfHtYP1YAamIl/Nl3CP71mZ64XAOq+hXgiKC8udXpeLEuzUgLPhS0YOaMZg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1657121572; x=
+	1657207972; bh=jTLjQ6SoY6EYcoZ1VpBnLuSOpWBuAhAOnELQ3/iEcEM=; b=X
+	xl81hj67XgQ9b1T5I5QoRxyYqxrrcLlcCuS/mZkZzCv3ZBtm4Miu2qkdFEA3tMcj
+	qri7Xt/w4h47qUH+ctBJPVA9QBt8jY6sGuNs2xYfA0KZNg2qD2yI1b2NyFxNypBY
+	hUmgP/T9SNWC9+xVVAdlCNbKGOsMYCm4TZRAnApqO6oo7Drw5xQwWLyaoxcp2BD2
+	QXMoW4UJjozlwrZ4zRMkuGCfzgcd3m1T9QjvzLW4yaTHObq1NBmjiVayWur1OFBz
+	UzDfM8di4F3fqHS66Rru7MqucnMq6RYPFk2tFDaLvTdRpUaesW+ohd6gsNz2J2Q1
+	yIBb/bwFpKB9Ih/rwj+jg==
+X-ME-Sender: <xms:JKvFYnFfHFxrdjzNIxZEU3pYeFajnNVEBl9Pei3x9UBqPA6dmb4yQg>
+    <xme:JKvFYkVF9vfkRRA414emwB-hSJ_Qa60i7k0jebA4QEbRSA75SEdfBUDOoZOT6Cn_E
+    DXf_cZNuYR1DA>
+X-ME-Received: <xmr:JKvFYpLUE38Bjgqcxhbpf0qXX28opd9m4CMy-8AqlWO43luzXIPi3QCaYFJKeNxXRtJ0WlUGS3I0_cNxU8oZz51aiGfUXzQ0fHySnnmZCLvQyBLK9Ic>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudeifedgkeelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghr
+    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
+    ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
+    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
+    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:JKvFYlEa6MPJvrFMDQoo1gL8KZNGjVVWXzamTMbl8CsSBk_0H6-AjA>
+    <xmx:JKvFYtW-Z65maTKwq0JmHNsuXzhVCmyzbxWrE0Ad1vouBmhHBtW-1Q>
+    <xmx:JKvFYgM74pqcmOdiZsEyR72y39GFMbp6LeS9ri2awG2vSmvwxTi67Q>
+    <xmx:JKvFYrdKHoj8-wxHgMqIhUYrLiLTzIsFdWYVwF-mq2XApIdVyBKvCA>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
-Subject: [xen-unstable-smoke bisection] complete test-arm64-arm64-xl-xsm
-Message-Id: <E1o970Z-0005Ux-IS@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 06 Jul 2022 15:32:07 +0000
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 2/9] xue: reset XHCI ports when initializing dbc
+Date: Wed,  6 Jul 2022 17:32:07 +0200
+Message-Id: <4874087c2304034e0d917d649f7cb9d46c149ed6.1657121519.git-series.marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
+References: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-branch xen-unstable-smoke
-xenbranch xen-unstable-smoke
-job test-arm64-arm64-xl-xsm
-testid xen-boot
+Reset ports, to force host system to re-enumerate devices. Otheriwse it
+will require the cable to be re-plugged, or will wait in the
+"configuring" state indefinitely.
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+Trick and code copied from Linux:
+drivers/usb/early/xhci-dbc.c:xdbc_start()->xdbc_reset_debug_port()
 
-*** Found and reproduced problem changeset ***
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+Changes in v2:
+- use uint32_t instead of u32
+- code style
+---
+ xen/drivers/char/xue.c | 70 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 70 insertions(+)
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  8d410ac2c178e1dd1001cadddbe9ca75a9738c95
-  Bug not present: 4df2e99d731402da48afb19dc970ccab5a0814d6
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/171534/
-
-
-  commit 8d410ac2c178e1dd1001cadddbe9ca75a9738c95
-  Author: Demi Marie Obenour <demi@invisiblethingslab.com>
-  Date:   Tue Jul 5 13:10:46 2022 +0200
-  
-      EFI: preserve the System Resource Table for dom0
-      
-      The EFI System Resource Table (ESRT) is necessary for fwupd to identify
-      firmware updates to install.  According to the UEFI specification §23.4,
-      the ESRT shall be stored in memory of type EfiBootServicesData.  However,
-      memory of type EfiBootServicesData is considered general-purpose memory
-      by Xen, so the ESRT needs to be moved somewhere where Xen will not
-      overwrite it.  Copy the ESRT to memory of type EfiRuntimeServicesData,
-      which Xen will not reuse.  dom0 can use the ESRT if (and only if) it is
-      in memory of type EfiRuntimeServicesData.
-      
-      Earlier versions of this patch reserved the memory in which the ESRT was
-      located.  This created awkward alignment problems, and required either
-      splitting the E820 table or wasting memory.  It also would have required
-      a new platform op for dom0 to use to indicate if the ESRT is reserved.
-      By copying the ESRT into EfiRuntimeServicesData memory, the E820 table
-      does not need to be modified, and dom0 can just check the type of the
-      memory region containing the ESRT.  The copy is only done if the ESRT is
-      not already in EfiRuntimeServicesData memory, avoiding memory leaks on
-      repeated kexec.
-      
-      See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-itl/T/
-      for details.
-      
-      Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/test-arm64-arm64-xl-xsm.xen-boot.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/test-arm64-arm64-xl-xsm.xen-boot --summary-out=tmp/171534.bisection-summary --basis-template=171486 --blessings=real,real-bisect,real-retry xen-unstable-smoke test-arm64-arm64-xl-xsm xen-boot
-Searching for failure / basis pass:
- 171529 fail [host=laxton1] / 171486 ok.
-Failure / basis pass flights: 171529 / 171486
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 61ff2733221e3b5bae5f647d9a460c7a68a5ace8
-Basis pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 4df2e99d731402da48afb19dc970ccab5a0814d6
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#f0f0e602f7c9781699ecda9be763eac0b03d54f0-f0f0e602f7c9781699ecda9be763eac0b03d54f0 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen.git#b746458e1ce1bec85e58b458386f8b7a0bedfaa6-b746458e1ce1bec85e58b458386f8b7a0bedfaa6 git://xenbits.xen.org/xen.git#4df2e99d731402da48afb19dc970ccab5a0814d6-61ff273\
- 3221e3b5bae5f647d9a460c7a68a5ace8
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 171486 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 4df2e99d731402da48afb19dc970ccab5a0814d6
- 171501 [host=rochester0]
- 171505 [host=rochester0]
- 171506 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 61ff2733221e3b5bae5f647d9a460c7a68a5ace8
- 171507 [host=rochester0]
- 171510 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 4df2e99d731402da48afb19dc970ccab5a0814d6
- 171513 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 61ff2733221e3b5bae5f647d9a460c7a68a5ace8
- 171511 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 61ff2733221e3b5bae5f647d9a460c7a68a5ace8
- 171515 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 c4184bf305dc14c3e150617904c40b120664efe6
- 171518 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 8d410ac2c178e1dd1001cadddbe9ca75a9738c95
- 171521 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 4df2e99d731402da48afb19dc970ccab5a0814d6
- 171522 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 8d410ac2c178e1dd1001cadddbe9ca75a9738c95
- 171519 [host=rochester1]
- 171524 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 4df2e99d731402da48afb19dc970ccab5a0814d6
- 171527 [host=rochester1]
- 171530 [host=rochester1]
- 171531 [host=rochester1]
- 171529 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 61ff2733221e3b5bae5f647d9a460c7a68a5ace8
- 171532 [host=rochester1]
- 171534 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 8d410ac2c178e1dd1001cadddbe9ca75a9738c95
-Searching for interesting versions
- Result found: flight 171486 (pass), for basis pass
- For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 4df2e99d731402da48afb19dc970ccab5a0814d6, results HASH(0x558b35d49170) HASH(0x558b35d531c0) HASH(0x558b35d5c8b0) HASH(0x558b35d605c0) Result found: flight 171506 (fail), for basis failure (at ancestor ~260)
- Repro found: flight 171510 (pass), for basis pass
- Repro found: flight 171511 (fail), for basis failure
- 0 revisions at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 4df2e99d731402da48afb19dc970ccab5a0814d6
-No revisions left to test, checking graph state.
- Result found: flight 171486 (pass), for last pass
- Result found: flight 171518 (fail), for first failure
- Repro found: flight 171521 (pass), for last pass
- Repro found: flight 171522 (fail), for first failure
- Repro found: flight 171524 (pass), for last pass
- Repro found: flight 171534 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  8d410ac2c178e1dd1001cadddbe9ca75a9738c95
-  Bug not present: 4df2e99d731402da48afb19dc970ccab5a0814d6
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/171534/
-
-
-  commit 8d410ac2c178e1dd1001cadddbe9ca75a9738c95
-  Author: Demi Marie Obenour <demi@invisiblethingslab.com>
-  Date:   Tue Jul 5 13:10:46 2022 +0200
-  
-      EFI: preserve the System Resource Table for dom0
-      
-      The EFI System Resource Table (ESRT) is necessary for fwupd to identify
-      firmware updates to install.  According to the UEFI specification §23.4,
-      the ESRT shall be stored in memory of type EfiBootServicesData.  However,
-      memory of type EfiBootServicesData is considered general-purpose memory
-      by Xen, so the ESRT needs to be moved somewhere where Xen will not
-      overwrite it.  Copy the ESRT to memory of type EfiRuntimeServicesData,
-      which Xen will not reuse.  dom0 can use the ESRT if (and only if) it is
-      in memory of type EfiRuntimeServicesData.
-      
-      Earlier versions of this patch reserved the memory in which the ESRT was
-      located.  This created awkward alignment problems, and required either
-      splitting the E820 table or wasting memory.  It also would have required
-      a new platform op for dom0 to use to indicate if the ESRT is reserved.
-      By copying the ESRT into EfiRuntimeServicesData memory, the E820 table
-      does not need to be modified, and dom0 can just check the type of the
-      memory region containing the ESRT.  The copy is only done if the ESRT is
-      not already in EfiRuntimeServicesData memory, avoiding memory leaks on
-      repeated kexec.
-      
-      See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-itl/T/
-      for details.
-      
-      Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/test-arm64-arm64-xl-xsm.xen-boot.{dot,ps,png,html,svg}.
-----------------------------------------
-171534: tolerable ALL FAIL
-
-flight 171534 xen-unstable-smoke real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171534/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm       8 xen-boot                fail baseline untested
-
-
-jobs:
- test-arm64-arm64-xl-xsm                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+diff --git a/xen/drivers/char/xue.c b/xen/drivers/char/xue.c
+index 234b07b563bb..2cbbaea11fa0 100644
+--- a/xen/drivers/char/xue.c
++++ b/xen/drivers/char/xue.c
+@@ -63,6 +63,10 @@
+     ((1UL << XUE_PSC_CSC) | (1UL << XUE_PSC_PRC) | (1UL << XUE_PSC_PLC) |      \
+      (1UL << XUE_PSC_CEC))
+ 
++#define XUE_XHC_EXT_PORT_MAJOR(x)  (((x) >> 24) & 0xff)
++#define PORT_RESET                 (1 << 4)
++#define PORT_CONNECT               (1 << 0)
++
+ #define xue_debug(...) printk("xue debug: " __VA_ARGS__)
+ #define xue_alert(...) printk("xue alert: " __VA_ARGS__)
+ #define xue_error(...) printk("xue error: " __VA_ARGS__)
+@@ -590,6 +594,68 @@ static void xue_init_strings(struct xue *xue, uint32_t *info)
+     info[8] = (4 << 24) | (30 << 16) | (8 << 8) | 6;
+ }
+ 
++static void xue_do_reset_debug_port(struct xue *xue,
++                                    unsigned int id, unsigned int count)
++{
++    uint32_t *ops_reg;
++    uint32_t *portsc;
++    uint32_t val, cap_length;
++    int i;
++
++    cap_length = (*(uint32_t*)xue->xhc_mmio) & 0xff;
++    ops_reg = xue->xhc_mmio + cap_length;
++
++    id--;
++    for ( i = id; i < (id + count); i++ )
++    {
++        portsc = ops_reg + 0x100 + i * 0x4;
++        val = *portsc;
++        if ( !(val & PORT_CONNECT) )
++            *portsc = val | PORT_RESET;
++    }
++}
++
++static void xue_reset_debug_port(struct xue *xue)
++{
++    uint32_t val, port_offset, port_count;
++    uint32_t *xcap;
++    uint32_t next;
++    uint32_t id;
++    uint8_t *mmio = (uint8_t *)xue->xhc_mmio;
++    uint32_t *hccp1 = (uint32_t *)(mmio + 0x10);
++    const uint32_t PROTOCOL_ID = 0x2;
++
++    /**
++     * Paranoid check against a zero value. The spec mandates that
++     * at least one "supported protocol" capability must be implemented,
++     * so this should always be false.
++     */
++    if ( (*hccp1 & 0xFFFF0000) == 0 )
++        return;
++
++    xcap = (uint32_t *)(mmio + (((*hccp1 & 0xFFFF0000) >> 16) << 2));
++    next = (*xcap & 0xFF00) >> 8;
++    id = *xcap & 0xFF;
++
++    /* Look for "supported protocol" capability, major revision 3 */
++    for ( ; next; xcap += next, id = *xcap & 0xFF, next = (*xcap & 0xFF00) >> 8)
++    {
++        if ( id != PROTOCOL_ID && next )
++            continue;
++
++        if ( XUE_XHC_EXT_PORT_MAJOR(*xcap) != 0x3 )
++            continue;
++
++        /* extract ports offset and count from the capability structure */
++        val = *(xcap + 2);
++        port_offset = val & 0xff;
++        port_count = (val >> 8) & 0xff;
++
++        /* and reset them all */
++        xue_do_reset_debug_port(xue, port_offset, port_count);
++    }
++}
++
+ static void xue_enable_dbc(struct xue *xue)
+ {
+     struct xue_dbc_reg *reg = xue->dbc_reg;
+@@ -601,6 +667,10 @@ static void xue_enable_dbc(struct xue *xue)
+     while ( (reg->ctrl & (1UL << XUE_CTRL_DCE)) == 0 )
+         xue_sys_pause();
+ 
++    /* reset ports on initial open, to force re-enumerating by the host */
++    if ( !xue->open )
++        xue_reset_debug_port(xue);
++
+     wmb();
+     reg->portsc |= (1UL << XUE_PSC_PED);
+     wmb();
+-- 
+git-series 0.9.1
 
