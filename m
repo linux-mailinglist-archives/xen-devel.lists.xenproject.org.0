@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3155693E3
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 23:08:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362546.592639 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADC895693E5
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Jul 2022 23:08:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362548.592655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9CG1-0007ME-Ev; Wed, 06 Jul 2022 21:08:25 +0000
+	id 1o9CGA-0008LC-TR; Wed, 06 Jul 2022 21:08:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362546.592639; Wed, 06 Jul 2022 21:08:25 +0000
+Received: by outflank-mailman (output) from mailman id 362548.592655; Wed, 06 Jul 2022 21:08:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9CG1-0007Iu-5H; Wed, 06 Jul 2022 21:08:25 +0000
-Received: by outflank-mailman (input) for mailman id 362546;
- Wed, 06 Jul 2022 21:08:23 +0000
+	id 1o9CGA-0008F4-Ol; Wed, 06 Jul 2022 21:08:34 +0000
+Received: by outflank-mailman (input) for mailman id 362548;
+ Wed, 06 Jul 2022 21:08:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FJEZ=XL=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1o9CES-0003HV-Iv
- for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 21:06:48 +0000
+ id 1o9CEo-0003HV-Mr
+ for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 21:07:11 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b0347d4-fd6f-11ec-924f-1f966e50362f;
- Wed, 06 Jul 2022 23:06:47 +0200 (CEST)
+ id 980f365c-fd6f-11ec-924f-1f966e50362f;
+ Wed, 06 Jul 2022 23:07:09 +0200 (CEST)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1657141512149369.82004181151626;
- Wed, 6 Jul 2022 14:05:12 -0700 (PDT)
+ with SMTPS id 1657141513567683.6191702459943;
+ Wed, 6 Jul 2022 14:05:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,552 +40,664 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b0347d4-fd6f-11ec-924f-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; t=1657141514; cv=none; 
+X-Inumbo-ID: 980f365c-fd6f-11ec-924f-1f966e50362f
+ARC-Seal: i=1; a=rsa-sha256; t=1657141515; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=AODrPQsGitTUc7ZsIrIKbdIQa6xWtcDmC6BK+chBmc+swcdHPajSLVx5jV/R1hPrR4dQqrrMSykfgyZu0oa+ikEIuYMa9ow7IODBaHHTyNYiWMdS/4D/lphTFwtjtOGY4z25kIRmdhC1xkIs9U65WiS+1Q6S82dxgv4bKphD7X0=
+	b=hH8iSSh7V0tdIXTzS1Ubw9vFs83PaKUcRziQHL+OnMqNVNS+E5snNAWFFY5OgSg7/Gn3kZdza2/V1tL0Gjl7aAPtFzGdnkjby2Uckzh9VRrTTaMC5aZGjQZgi4gcQBUSIMAgp9PQ+PCiyz4TtSOizHarcl43IQz+VbnCbrkgkwM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1657141514; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=Rrvu8k3I40Yg9tyliHrdCDkFpt7JnYcfPTHvIPVr/5k=; 
-	b=eWvjAAp/PHtnXwC5AvtBUaLEcij1Ks1iaHLsJtJAs+DUFcbS4c3nS/yqosD8whlzwfcPF2uRx+i02QgAuIsJn9SNACDfFzRv7j/5ke4vGGlNsAyX34LZIc6qaxFQtG+Wz+YeIJT7ZY5uXZIc/0usrp5rTGOH/8k97VkOYMfLyXk=
+	t=1657141515; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=J77O8suVeejM9qg7gYOMo0/ft/qDVUpd9vIxutDZU4s=; 
+	b=PixWEodVN4GaUxiV7hsApDpWo0eO9647EbCs+EHkpFT7xrLOaxCIVbyEZyqhxqp89wC7ITrCcfNZWZNQ0gyliRHsIoJ+BPETPEVBEIuwOmwH0hd9vpiX0RHoz40lmz/ELE6LeFvijQnw1K9hKBctI+tRo/7TAog5aCu502CgyUI=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1657141514;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1657141515;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=Rrvu8k3I40Yg9tyliHrdCDkFpt7JnYcfPTHvIPVr/5k=;
-	b=FFl9IBi7r3Mtikob3O2PQ2vXENqfnpaqW4alNDMGkB4v5T+OWnYywPb/6ISTOLTs
-	cKOSjO+Adt7DQVz5SuZR2tpvdckxGm1flVmsWtaH2/KRwwb38HTuRME0PgLSk30999N
-	KGHKhtDy9EA8B6X3CJx2gGeN3KB3piigHb8wQovQ=
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Reply-To;
+	bh=J77O8suVeejM9qg7gYOMo0/ft/qDVUpd9vIxutDZU4s=;
+	b=QTlDaaVUp7U5CqwKiB/RSI74HNKmbgltsH7KOnzePAGUpWbfNmJ/rarveUhifBDu
+	EYaHRDLi8V5n4IjeHtUC/HUFz/wS6mv+XhJ1oEU9BM8/SSW2TdMEkndQRIlFt9VZoSa
+	9khOUqhvWovwIACE+Kb5mpEKGTUOyPIdIzZ2JUy8=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	scott.davis@starlab.io,
 	christopher.clark@starlab.io,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v1 06/18] fdt: make fdt handling reusable across arch
-Date: Wed,  6 Jul 2022 17:04:41 -0400
-Message-Id: <20220706210454.30096-7-dpsmith@apertussolutions.com>
+Subject: [PATCH v1 07/18] docs: update hyperlaunch device tree documentation
+Date: Wed,  6 Jul 2022 17:04:42 -0400
+Message-Id: <20220706210454.30096-8-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220706210454.30096-1-dpsmith@apertussolutions.com>
 References: <20220706210454.30096-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-This refactors reusable code from Arm's bootfdt.c and device-tree.h that is
-general fdt handling code.  The Kconfig parameter CORE_DEVICE_TREE is
-introduced for when the ability of parsing DTB files is needed by a capability
-such as hyperlaunch.
+This commit is to update the hyperlaunch device tree documentation to align
+with the DTB parsing implementation.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 Reviewed-by: Christopher Clark <christopher.clark@starlab.io>
 ---
- xen/arch/arm/bootfdt.c        | 115 +----------------------------
- xen/common/Kconfig            |   4 ++
- xen/common/Makefile           |   3 +-
- xen/common/fdt.c              | 131 ++++++++++++++++++++++++++++++++++
- xen/include/xen/device_tree.h |  50 +------------
- xen/include/xen/fdt.h         |  79 ++++++++++++++++++++
- 6 files changed, 218 insertions(+), 164 deletions(-)
- create mode 100644 xen/common/fdt.c
- create mode 100644 xen/include/xen/fdt.h
+ .../designs/launch/hyperlaunch-devicetree.rst | 497 +++++++++++-------
+ 1 file changed, 306 insertions(+), 191 deletions(-)
 
-diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-index ec81a45de9..ddedb55fe7 100644
---- a/xen/arch/arm/bootfdt.c
-+++ b/xen/arch/arm/bootfdt.c
-@@ -14,53 +14,11 @@
- #include <xen/efi.h>
- #include <xen/device_tree.h>
- #include <xen/libfdt/libfdt.h>
-+#include <xen/fdt.h>
- #include <xen/sort.h>
- #include <xsm/xsm.h>
- #include <asm/setup.h>
+diff --git a/docs/designs/launch/hyperlaunch-devicetree.rst b/docs/designs/launch/hyperlaunch-devicetree.rst
+index b49c98cfbd..ae1a786d0b 100644
+--- a/docs/designs/launch/hyperlaunch-devicetree.rst
++++ b/docs/designs/launch/hyperlaunch-devicetree.rst
+@@ -13,12 +13,268 @@ difference is the introduction of the ``hypervisor`` node that is under the
+ 2. Allows for the domain construction information to easily be sanitized by
+    simple removing the ``/chosen/hypervisor`` node.
  
--static bool __init device_tree_node_matches(const void *fdt, int node,
--                                            const char *match)
--{
--    const char *name;
--    size_t match_len;
--
--    name = fdt_get_name(fdt, node, NULL);
--    match_len = strlen(match);
--
--    /* Match both "match" and "match@..." patterns but not
--       "match-foo". */
--    return strncmp(name, match, match_len) == 0
--        && (name[match_len] == '@' || name[match_len] == '\0');
--}
--
--static bool __init device_tree_node_compatible(const void *fdt, int node,
--                                               const char *match)
--{
--    int len, l;
--    const void *prop;
--
--    prop = fdt_getprop(fdt, node, "compatible", &len);
--    if ( prop == NULL )
--        return false;
--
--    while ( len > 0 ) {
--        if ( !dt_compat_cmp(prop, match) )
--            return true;
--        l = strlen(prop) + 1;
--        prop += l;
--        len -= l;
--    }
--
--    return false;
--}
--
--void __init device_tree_get_reg(const __be32 **cell, u32 address_cells,
--                                u32 size_cells, u64 *start, u64 *size)
--{
--    *start = dt_next_cell(address_cells, cell);
--    *size = dt_next_cell(size_cells, cell);
--}
--
- static int __init device_tree_get_meminfo(const void *fdt, int node,
-                                           const char *prop_name,
-                                           u32 address_cells, u32 size_cells,
-@@ -108,77 +66,6 @@ static int __init device_tree_get_meminfo(const void *fdt, int node,
-     return 0;
- }
++
++The Hypervisor node
++-------------------
++
++The ``hypervisor`` node is a top level container for the domains that will be built
++by hypervisor on start up. The node will be named ``hypervisor``  with a ``compatible``
++property to identify which hypervisors the configuration is intended. The hypervisor
++node will consist of one or more config nodes and one or more domain nodes.
++
++Properties
++""""""""""
++
++compatible
++  Identifies which hypervisors the configuration is compatible. Required.
++
++  Format: "hypervisor,<hypervisor name>", e.g "hypervisor,xen"
++
++Child Nodes
++"""""""""""
++
++* config
++* domain
++
++Config Node
++-----------
++
++A ``config`` node is for passing configuration data and identifying any boot
++modules that is of interest to the hypervisor.  For example this would be where
++Xen would be informed of microcode or XSM policy locations. Each ``config``
++node will require a unique device-tree compliant name as there may be one or
++more ``config`` nodes present in a single dtb file. To identify which
++hypervisor the configuration is intended, the required ``compatible`` property
++must be present.
++
++While the config node is not meant to replace the hypervisor commandline, there
++may be cases where it is better suited for passing configuration details at
++boot time.  This additional information may be carried in properties assigned
++to a ``config`` node. If there are any boot modules that are intended for the
++hypervisor, then a ``module`` child node should be provided to identify the
++boot module.
++
++Properties
++""""""""""
++
++compatible
++  Identifies the hypervisor the confiugration is intended. Required.
++
++  Format: "<hypervisor name>,config", e.g "xen,config"
++
++bootargs
++  This is used to provide the boot params for Xen.
++
++  Format: String, e.g. "flask=silo"
++
++Child Nodes
++"""""""""""
++
++* module
++
++Domain Node
++-----------
++
++A ``domain`` node is for describing the construction of a domain. Since there
++may be one or more domain nodes, each one requires a unique, DTB compliant name
++and a ``compatible`` property to identify as a domain node.
++
++A ``domain`` node  may provide a ``domid`` property which will be used as the
++requested domain id for the domain with a value of “0” signifying to use the
++next available domain id, which is the default behavior if omitted. It should
++be noted that a domain configuration is not able to request a domid of “0”.
++Beyond that a domain node may have any of the following optional properties.
++
++Properties
++""""""""""
++
++compatible
++  Identifies the node as a domain node and for which hypervisor. Required.
++
++  Format: "<hypervisor name>,domain", e.g "xen,domain"
++
++domid
++  Identifies the domid requested to assign to the domain.
++
++  Format: Integer, e.g <0>
++
++permissions
++  This sets what Discretionary Access Control permissions
++  a domain is assigned. Optional, default is none.
++
++  Format: Bitfield, e.g <3> or <0x00000003>
++
++          PERMISSION_NONE          (0)
++          PERMISSION_CONTROL       (1 << 0)
++          PERMISSION_HARDWARE      (1 << 1)
++
++functions
++  This identifies what system functions a domain will fulfill.
++  Optional, the default is none.
++
++  Format: Bitfield, e.g <3221225487> or <0xC0000007>
++
++          FUNCTION_NONE            (0)
++          FUNCTION_BOOT            (1 << 0)
++          FUNCTION_CRASH           (1 << 1)
++          FUNCTION_CONSOLE         (1 << 2)
++          FUNCTION_XENSTORE        (1 << 30)
++          FUNCTION_LEGACY_DOM0     (1 << 31)
++
++.. note::  The `functions` bits that have been selected to indicate
++   ``FUNCTION_XENSTORE`` and ``FUNCTION_LEGACY_DOM0`` are the last two bits
++   (30, 31) such that should these features ever be fully replaced or retired,
++   the flags may be dropped without leaving a gap in the flag set.
++
++mode
++  The mode the domain will be executed under. Required.
++
++  Format: Bitfield, e.g <5> or <0x00000005>
++
++          MODE_PARAVIRTUALIZED     (1 << 0) PV | PVH/HVM
++          MODE_ENABLE_DEVICE_MODEL (1 << 1) HVM | PVH
++          MODE_LONG                (1 << 2) 64 BIT | 32 BIT
++
++domain-uuid
++  A globally unique identifier for the domain. Optional,
++  the default is NULL.
++
++  Format: Byte Array, e.g [B3 FB 98 FB 8F 9F 67 A3]
++
++cpus
++  The number of vCPUs to be assigned to the domain. Optional,
++  the default is “1”.
++
++  Format: Integer, e.g <0>
++
++memory
++  The amount of memory to assign to the domain, in KBs. This field uses a DTB
++  Reg which contains a start and size. For memory allocation start may or may
++  not have significance but size will always be used for the amount of memory
++  Required.
++
++  Format: String  min:<sz> | max:<sz> | <sz>, e.g. "256M"
++
++security-id
++  The security identity to be assigned to the domain when XSM
++  is the access control mechanism being used. Optional,
++  the default is “system_u:system_r:domU_t”.
++
++  Format: string, e.g. "system_u:system_r:domU_t"
++
++Child Nodes
++"""""""""""
++
++* module
++
++Module node
++-----------
++
++This node describes a boot module loaded by the boot loader. A ``module`` node
++will often appear repeatedly and will require a unique and DTB compliant name
++for each instance. The compatible property is required to identify that the
++node is a ``module`` node, the type of boot module, and what it represents.
++
++Depending on the type of boot module, the ``module`` node will require either a
++``module-index`` or ``module-addr`` property must be present. They provide the
++boot module specific way of locating the boot module in memory.
++
++Properties
++""""""""""
++
++compatible
++  This identifies what the module is and thus what the hypervisor
++  should use the module for during domain construction. Required.
++
++  Format: "module,<module type>"[, "module,<locating type>"]
++          module type: kernel, ramdisk, device-tree, microcode, xsm-policy,
++                       config
++
++          locating type: index, addr
++
++module-index
++  This identifies the index for this module when in a module chain.
++  Required for multiboot environments.
++
++  Format: Integer, e.g. <0>
++
++module-addr
++  This identifies where in memory this module is located. Required for
++  non-multiboot environments.
++
++  Format: DTB Reg <start size>, e.g. <0x0 0x20000>
++
++bootargs
++  This is used to provide the boot params to kernel modules.
++
++  Format: String, e.g. "ro quiet"
++
++.. note::  The bootargs property is intended for situations where the same kernel multiboot module is used for more than one domain.
++
+ Example Configuration
+ ---------------------
  
--u32 __init device_tree_get_u32(const void *fdt, int node,
--                               const char *prop_name, u32 dflt)
--{
--    const struct fdt_property *prop;
--
--    prop = fdt_get_property(fdt, node, prop_name, NULL);
--    if ( !prop || prop->len < sizeof(u32) )
--        return dflt;
--
--    return fdt32_to_cpu(*(uint32_t*)prop->data);
--}
--
--/**
-- * device_tree_for_each_node - iterate over all device tree sub-nodes
-- * @fdt: flat device tree.
-- * @node: parent node to start the search from
-- * @func: function to call for each sub-node.
-- * @data: data to pass to @func.
-- *
-- * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
-- *
-- * Returns 0 if all nodes were iterated over successfully.  If @func
-- * returns a value different from 0, that value is returned immediately.
-- */
--int __init device_tree_for_each_node(const void *fdt, int node,
--                                     device_tree_node_func func,
--                                     void *data)
--{
--    /*
--     * We only care about relative depth increments, assume depth of
--     * node is 0 for simplicity.
--     */
--    int depth = 0;
--    const int first_node = node;
--    u32 address_cells[DEVICE_TREE_MAX_DEPTH];
--    u32 size_cells[DEVICE_TREE_MAX_DEPTH];
--    int ret;
--
--    do {
--        const char *name = fdt_get_name(fdt, node, NULL);
--        u32 as, ss;
--
--        if ( depth >= DEVICE_TREE_MAX_DEPTH )
--        {
--            printk("Warning: device tree node `%s' is nested too deep\n",
--                   name);
--            continue;
--        }
--
--        as = depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
--        ss = depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
--
--        address_cells[depth] = device_tree_get_u32(fdt, node,
--                                                   "#address-cells", as);
--        size_cells[depth] = device_tree_get_u32(fdt, node,
--                                                "#size-cells", ss);
--
--        /* skip the first node */
--        if ( node != first_node )
--        {
--            ret = func(fdt, node, name, depth, as, ss, data);
--            if ( ret != 0 )
--                return ret;
--        }
--
--        node = fdt_next_node(fdt, node, &depth);
--    } while ( node >= 0 && depth > 0 );
--
--    return 0;
--}
--
- static int __init process_memory_node(const void *fdt, int node,
-                                       const char *name, int depth,
-                                       u32 address_cells, u32 size_cells,
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 41a67891bc..9fc6683932 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -31,8 +31,12 @@ config HAS_ALTERNATIVE
- config HAS_COMPAT
- 	bool
+-Below are two example device tree definitions for the hypervisor node. The
+-first is an example of a multiboot-based configuration for x86 and the second
+-is a module-based configuration for Arm.
++Below are examples device tree definitions for the hypervisor node. The first
++is an example of booting a dom0 only configuration. Afterh that are a
++multiboot-based configuration for x86 and a module-based configuration for Arm.
++
++Multiboot x86 Configuration Dom0-only:
++""""""""""""""""""""""""""""""""""""""
++The following dts file can be provided to the Device Tree compiler, ``dtc``, to
++produce a dtb file.
++::
++
++  /dts-v1/;
++
++  / {
++      chosen {
++          hypervisor {
++              compatible = "hypervisor,xen";
++
++              dom0 {
++                  compatible = "xen,domain";
++
++                  domid = <0>;
++
++                  permissions = <3>;
++                  functions = <0xC000000F>;
++                  mode = <5>;
++
++                  domain-uuid = [B3 FB 98 FB 8F 9F 67 A3 8A 6E 62 5A 09 13 F0 8C];
++
++                  cpus = <1>;
++                  memory = <0x0 0x20000000>;
++
++                  kernel {
++                      compatible = "module,kernel", "module,index";
++                      module-index = <1>;
++                  };
++              };
++
++          };
++      };
++  };
++
++The resulting dtb file, in this case dom0-only.dtb, can then be used with a
++GRUB menuentry as such,
++::
++
++  menuentry 'Devuan GNU/Linux, with Xen hyperlaunch' {
++        insmod part_gpt
++        insmod ext2
++        set root='hd0,gpt2'
++
++        echo    'Loading Xen hyperlaunch ...'
++
++        multiboot2      /xen.gz placeholder sync_console
++        echo    'Loading Dom0 hyperlaunch dtb ...'
++        module2 --nounzip   /dom0-only.dtb
++        echo    'Loading Linux 5.4.36+ ...'
++        module2 /vmlinuz-5.4.36+ placeholder root=/dev/mapper/test01--vg-root ro  quiet
++        echo    'Loading initial ramdisk ...'
++        module2 --nounzip   /initrd.img-5.4.36+
++  }
++
  
-+config CORE_DEVICE_TREE
-+	bool
-+
- config HAS_DEVICE_TREE
- 	bool
-+	select CORE_DEVICE_TREE
+ Multiboot x86 Configuration:
+ """"""""""""""""""""""""""""
+@@ -31,89 +287,70 @@ Multiboot x86 Configuration:
+         compatible = “hypervisor,xen”
  
- config HAS_EX_TABLE
- 	bool
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 3baf83d527..ebd3e2d659 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -10,6 +10,7 @@ obj-y += domain.o
- obj-y += event_2l.o
- obj-y += event_channel.o
- obj-y += event_fifo.o
-+obj-$(CONFIG_CORE_DEVICE_TREE) += fdt.o
- obj-$(CONFIG_CRASH_DEBUG) += gdbstub.o
- obj-$(CONFIG_GRANT_TABLE) += grant_table.o
- obj-y += guestcopy.o
-@@ -73,7 +74,7 @@ obj-y += sched/
- obj-$(CONFIG_UBSAN) += ubsan/
+         // Configuration container
+-        config {
++        xen-config {
+             compatible = "xen,config";
  
- obj-$(CONFIG_NEEDS_LIBELF) += libelf/
--obj-$(CONFIG_HAS_DEVICE_TREE) += libfdt/
-+obj-$(CONFIG_CORE_DEVICE_TREE) += libfdt/
+-            module {
+-                compatible = "module,microcode", "multiboot,module";
+-                mb-index = <1>;
++            bootargs = "console=com1,vga com1=115200,8n1 loglvl=all";
++
++            microcode {
++                compatible = "module,microcode", "module,index";
++                module-index = <1>;
+             };
  
- CONF_FILE := $(if $(patsubst /%,,$(KCONFIG_CONFIG)),$(objtree)/)$(KCONFIG_CONFIG)
- $(obj)/config.gz: $(CONF_FILE)
-diff --git a/xen/common/fdt.c b/xen/common/fdt.c
-new file mode 100644
-index 0000000000..ed9347e5f7
---- /dev/null
-+++ b/xen/common/fdt.c
-@@ -0,0 +1,131 @@
-+/*
-+ * Flattened Device Tree
-+ *
-+ * Copyright (C) 2012-2014 Citrix Systems, Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License version 2 as
-+ * published by the Free Software Foundation.
-+ */
-+#include <xen/fdt.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/libfdt/libfdt.h>
-+#include <xen/types.h>
-+
-+bool __init device_tree_node_matches(
-+    const void *fdt, int node, const char *match)
-+{
-+    const char *name;
-+    size_t match_len;
-+
-+    name = fdt_get_name(fdt, node, NULL);
-+    match_len = strlen(match);
-+
-+    /* Match both "match" and "match@..." patterns but not
-+       "match-foo". */
-+    return strncmp(name, match, match_len) == 0
-+        && (name[match_len] == '@' || name[match_len] == '\0');
-+}
-+
-+bool __init device_tree_node_compatible(
-+    const void *fdt, int node, const char *match)
-+{
-+    int len, l;
-+    int mlen;
-+    const void *prop;
-+
-+    mlen = strlen(match);
-+
-+    prop = fdt_getprop(fdt, node, "compatible", &len);
-+    if ( prop == NULL )
-+        return false;
-+
-+    while ( len > 0 ) {
-+        if ( !dt_compat_cmp(prop, match) )
-+            return true;
-+        l = strlen(prop) + 1;
-+        prop += l;
-+        len -= l;
-+    }
-+
-+    return false;
-+}
-+
-+void __init device_tree_get_reg(
-+    const __be32 **cell, u32 address_cells, u32 size_cells, u64 *start,
-+    u64 *size)
-+{
-+    *start = dt_next_cell(address_cells, cell);
-+    *size = dt_next_cell(size_cells, cell);
-+}
-+
-+u32 __init device_tree_get_u32(
-+    const void *fdt, int node, const char *prop_name, u32 dflt)
-+{
-+    const struct fdt_property *prop;
-+
-+    prop = fdt_get_property(fdt, node, prop_name, NULL);
-+    if ( !prop || prop->len < sizeof(u32) )
-+        return dflt;
-+
-+    return fdt32_to_cpu(*(uint32_t*)prop->data);
-+}
-+
-+/**
-+ * device_tree_for_each_node - iterate over all device tree sub-nodes
-+ * @fdt: flat device tree.
-+ * @node: parent node to start the search from
-+ * @func: function to call for each sub-node.
-+ * @data: data to pass to @func.
-+ *
-+ * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
-+ *
-+ * Returns 0 if all nodes were iterated over successfully.  If @func
-+ * returns a value different from 0, that value is returned immediately.
-+ */
-+int __init device_tree_for_each_node(
-+    const void *fdt, int node, device_tree_node_func func, void *data)
-+{
-+    /*
-+     * We only care about relative depth increments, assume depth of
-+     * node is 0 for simplicity.
-+     */
-+    int depth = 0;
-+    const int first_node = node;
-+    u32 address_cells[DEVICE_TREE_MAX_DEPTH];
-+    u32 size_cells[DEVICE_TREE_MAX_DEPTH];
-+    int ret;
-+
-+    do {
-+        const char *name = fdt_get_name(fdt, node, NULL);
-+        u32 as, ss;
-+
-+        if ( depth >= DEVICE_TREE_MAX_DEPTH )
-+        {
-+            printk("Warning: device tree node `%s' is nested too deep\n",
-+                   name);
-+            continue;
-+        }
-+
-+        as = depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
-+        ss = depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
-+
-+        address_cells[depth] = device_tree_get_u32(fdt, node,
-+                                                   "#address-cells", as);
-+        size_cells[depth] = device_tree_get_u32(fdt, node,
-+                                                "#size-cells", ss);
-+
-+        /* skip the first node */
-+        if ( node != first_node )
-+        {
-+            ret = func(fdt, node, name, depth, as, ss, data);
-+            if ( ret != 0 )
-+                return ret;
-+        }
-+
-+        node = fdt_next_node(fdt, node, &depth);
-+    } while ( node >= 0 && depth > 0 );
-+
-+    return 0;
-+}
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 430a1ef445..c98c898ffc 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -14,13 +14,12 @@
- #include <asm/device.h>
- #include <public/xen.h>
- #include <public/device_tree_defs.h>
-+#include <xen/fdt.h>
- #include <xen/kernel.h>
- #include <xen/string.h>
- #include <xen/types.h>
- #include <xen/list.h>
+-            module {
+-                compatible = "module,xsm-policy", "multiboot,module";
+-                mb-index = <2>;
++            policy {
++                compatible = "module,xsm-policy", "module,index";
++                module-index = <2>;
+             };
+         };
  
--#define DEVICE_TREE_MAX_DEPTH 16
--
- /*
-  * Struct used for matching a device
-  */
-@@ -158,17 +157,8 @@ struct dt_raw_irq {
- #define dt_irq(irq) ((irq)->irq)
- #define dt_irq_flags(irq) ((irq)->flags)
+         // Boot Domain definition
+-        domain {
++        domB {
+             compatible = "xen,domain";
  
--typedef int (*device_tree_node_func)(const void *fdt,
--                                     int node, const char *name, int depth,
--                                     u32 address_cells, u32 size_cells,
--                                     void *data);
--
- extern const void *device_tree_flattened;
+             domid = <0x7FF5>;
  
--int device_tree_for_each_node(const void *fdt, int node,
--                              device_tree_node_func func,
--                              void *data);
--
- /**
-  * dt_unflatten_host_device_tree - Unflatten the host device tree
-  *
-@@ -213,14 +203,6 @@ extern const struct dt_device_node *dt_interrupt_controller;
- struct dt_device_node *
- dt_find_interrupt_controller(const struct dt_device_match *matches);
+-            // FUNCTION_NONE            (0)
+-            // FUNCTION_BOOT            (1 << 0)
+-            // FUNCTION_CRASH           (1 << 1)
+-            // FUNCTION_CONSOLE         (1 << 2)
+-            // FUNCTION_XENSTORE        (1 << 30)
+-            // FUNCTION_LEGACY_DOM0     (1 << 31)
+             functions = <0x00000001>;
  
--#define dt_prop_cmp(s1, s2) strcmp((s1), (s2))
--#define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
--#define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
--
--/* Default #address and #size cells */
--#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
--#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
--
- #define dt_for_each_property_node(dn, pp)                   \
-     for ( pp = dn->properties; pp != NULL; pp = pp->next )
+             memory = <0x0 0x20000>;
+             cpus = <1>;
+-            module {
+-                compatible = "module,kernel", "multiboot,module";
+-                mb-index = <3>;
+-            };
  
-@@ -230,36 +212,6 @@ dt_find_interrupt_controller(const struct dt_device_match *matches);
- #define dt_for_each_child_node(dt, dn)                      \
-     for ( dn = dt->child; dn != NULL; dn = dn->sibling )
+-            module {
+-                compatible = "module,ramdisk", "multiboot,module";
+-                mb-index = <4>;
++            kernel {
++                compatible = "module,kernel", "module,index";
++                module-index = <3>;
+             };
+-            module {
+-                compatible = "module,config", "multiboot,module";
+-                mb-index = <5>;
++            initrd {
++                compatible = "module,ramdisk", "module,index";
++                module-index = <4>;
++            };
++            dom-config {
++                compatible = "module,config", "module,index";
++                module-index = <5>;
+             };
  
--/* Helper to read a big number; size is in cells (not bytes) */
--static inline u64 dt_read_number(const __be32 *cell, int size)
--{
--    u64 r = 0;
+         // Classic Dom0 definition
+-        domain {
++        dom0 {
+             compatible = "xen,domain";
+ 
+             domid = <0>;
+ 
+-            // PERMISSION_NONE          (0)
+-            // PERMISSION_CONTROL       (1 << 0)
+-            // PERMISSION_HARDWARE      (1 << 1)
+             permissions = <3>;
 -
--    while ( size-- )
--        r = (r << 32) | be32_to_cpu(*(cell++));
--    return r;
--}
+-            // FUNCTION_NONE            (0)
+-            // FUNCTION_BOOT            (1 << 0)
+-            // FUNCTION_CRASH           (1 << 1)
+-            // FUNCTION_CONSOLE         (1 << 2)
+-            // FUNCTION_XENSTORE        (1 << 30)
+-            // FUNCTION_LEGACY_DOM0     (1 << 31)
+             functions = <0xC0000006>;
 -
--/* Helper to convert a number of cells to bytes */
--static inline int dt_cells_to_size(int size)
--{
--    return (size * sizeof (u32));
--}
+-            // MODE_PARAVIRTUALIZED     (1 << 0) /* PV | PVH/HVM */
+-            // MODE_ENABLE_DEVICE_MODEL (1 << 1) /* HVM | PVH */
+-            // MODE_LONG                (1 << 2) /* 64 BIT | 32 BIT */
+             mode = <5>; /* 64 BIT, PV */
+ 
+-            // UUID
+             domain-uuid = [B3 FB 98 FB 8F 9F 67 A3];
+ 
+             cpus = <1>;
+             memory = <0x0 0x20000>;
+-            security-id = “dom0_t;
++            security-id = “system_u:system_r:dom0_t;
+ 
+-            module {
+-                compatible = "module,kernel", "multiboot,module";
+-                mb-index = <6>;
++            kernel {
++                compatible = "module,kernel", "module,index";
++                module-index = <6>;
+                 bootargs = "console=hvc0";
+             };
+-            module {
+-                compatible = "module,ramdisk", "multiboot,module";
+-                mb-index = <7>;
++            initrd {
++                compatible = "module,ramdisk", "module,index";
++                module-index = <7>;
+             };
+     };
+ 
+@@ -137,89 +374,68 @@ Module Arm Configuration:
+         compatible = “hypervisor,xen”
+ 
+         // Configuration container
+-        config {
++        xen-config {
+             compatible = "xen,config";
+ 
+-            module {
+-                compatible = "module,microcode”;
++            microcode {
++                compatible = "module,microcode”,"module,addr";
+                 module-addr = <0x0000ff00 0x80>;
+             };
+ 
+-            module {
+-                compatible = "module,xsm-policy";
++            policy {
++                compatible = "module,xsm-policy","module,addr";
+                 module-addr = <0x0000ff00 0x80>;
+ 
+             };
+         };
+ 
+         // Boot Domain definition
+-        domain {
++        domB {
+             compatible = "xen,domain";
+ 
+             domid = <0x7FF5>;
+ 
+-            // FUNCTION_NONE            (0)
+-            // FUNCTION_BOOT            (1 << 0)
+-            // FUNCTION_CRASH           (1 << 1)
+-            // FUNCTION_CONSOLE         (1 << 2)
+-            // FUNCTION_XENSTORE        (1 << 30)
+-            // FUNCTION_LEGACY_DOM0     (1 << 31)
+             functions = <0x00000001>;
+ 
+             memory = <0x0 0x20000>;
+             cpus = <1>;
+-            module {
+-                compatible = "module,kernel";
++
++            kernel {
++                compatible = "module,kernel","module,addr";
+                 module-addr = <0x0000ff00 0x80>;
+             };
 -
--/* Helper to convert a number of bytes to cells, rounds down */
--static inline int dt_size_to_cells(int bytes)
--{
--    return (bytes / sizeof(u32));
--}
+-            module {
+-                compatible = "module,ramdisk";
++            initrd {
++                compatible = "module,ramdisk","module,addr";
+                 module-addr = <0x0000ff00 0x80>;
+             };
+-            module {
+-                compatible = "module,config";
++            dom-config {
++                compatible = "module,config","module,addr";
+                 module-addr = <0x0000ff00 0x80>;
+             };
+ 
+         // Classic Dom0 definition
+-        domain@0 {
++        dom0 {
+             compatible = "xen,domain";
+ 
+             domid = <0>;
+ 
+-            // PERMISSION_NONE          (0)
+-            // PERMISSION_CONTROL       (1 << 0)
+-            // PERMISSION_HARDWARE      (1 << 1)
+             permissions = <3>;
 -
--static inline u64 dt_next_cell(int s, const __be32 **cellp)
--{
--    const __be32 *p = *cellp;
+-            // FUNCTION_NONE            (0)
+-            // FUNCTION_BOOT            (1 << 0)
+-            // FUNCTION_CRASH           (1 << 1)
+-            // FUNCTION_CONSOLE         (1 << 2)
+-            // FUNCTION_XENSTORE        (1 << 30)
+-            // FUNCTION_LEGACY_DOM0     (1 << 31)
+             functions = <0xC0000006>;
 -
--    *cellp = p + s;
--    return dt_read_number(p, s);
--}
+-            // MODE_PARAVIRTUALIZED     (1 << 0) /* PV | PVH/HVM */
+-            // MODE_ENABLE_DEVICE_MODEL (1 << 1) /* HVM | PVH */
+-            // MODE_LONG                (1 << 2) /* 64 BIT | 32 BIT */
+             mode = <5>; /* 64 BIT, PV */
+ 
+-            // UUID
+             domain-uuid = [B3 FB 98 FB 8F 9F 67 A3];
+ 
+             cpus = <1>;
+             memory = <0x0 0x20000>;
+-            security-id = “dom0_t”;
++            security-id = “system_u:system_r:dom0_t”;
+ 
+-            module {
+-                compatible = "module,kernel";
++            kernel {
++                compatible = "module,kernel","module,addr";
+                 module-addr = <0x0000ff00 0x80>;
+                 bootargs = "console=hvc0";
+             };
+-            module {
+-                compatible = "module,ramdisk";
++            intird {
++                compatible = "module,ramdisk","module,addr";
+                 module-addr = <0x0000ff00 0x80>;
+             };
+     };
+@@ -240,104 +456,3 @@ provided to Xen using the standard method currently in use. The remaining
+ modules would need to be loaded in the respective addresses specified in the
+ `module-addr` property.
+ 
 -
- static inline const char *dt_node_full_name(const struct dt_device_node *np)
- {
-     return (np && np->full_name) ? np->full_name : "<no-node>";
-diff --git a/xen/include/xen/fdt.h b/xen/include/xen/fdt.h
-new file mode 100644
-index 0000000000..00f9f3792f
---- /dev/null
-+++ b/xen/include/xen/fdt.h
-@@ -0,0 +1,79 @@
-+/*
-+ * Flattened Device Tree
-+ *
-+ * Copyright (C) 2012 Citrix Systems, Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License version 2 as
-+ * published by the Free Software Foundation.
-+ */
-+#ifndef __XEN_FDT_H__
-+#define __XEN_FDT_H__
-+
-+#include <xen/init.h>
-+#include <xen/libfdt/libfdt.h>
-+#include <xen/types.h>
-+
-+#define DEVICE_TREE_MAX_DEPTH 16
-+
-+/* Default #address and #size cells */
-+#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
-+#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
-+
-+#define dt_prop_cmp(s1, s2) strcmp((s1), (s2))
-+#define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
-+#define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
-+
-+/* Helper to read a big number; size is in cells (not bytes) */
-+static inline u64 dt_read_number(const __be32 *cell, int size)
-+{
-+    u64 r = 0;
-+
-+    while ( size-- )
-+        r = (r << 32) | be32_to_cpu(*(cell++));
-+    return r;
-+}
-+
-+/* Helper to convert a number of cells to bytes */
-+static inline int dt_cells_to_size(int size)
-+{
-+    return (size * sizeof (u32));
-+}
-+
-+/* Helper to convert a number of bytes to cells, rounds down */
-+static inline int dt_size_to_cells(int bytes)
-+{
-+    return (bytes / sizeof(u32));
-+}
-+
-+static inline u64 dt_next_cell(int s, const __be32 **cellp)
-+{
-+    const __be32 *p = *cellp;
-+
-+    *cellp = p + s;
-+    return dt_read_number(p, s);
-+}
-+
-+
-+bool __init device_tree_node_matches(
-+    const void *fdt, int node, const char *match);
-+
-+bool __init device_tree_node_compatible(
-+    const void *fdt, int node, const char *match);
-+
-+void __init device_tree_get_reg(
-+    const __be32 **cell, u32 address_cells, u32 size_cells, u64 *start,
-+    u64 *size);
-+
-+u32 __init device_tree_get_u32(
-+    const void *fdt, int node, const char *prop_name, u32 dflt);
-+
-+typedef int (*device_tree_node_func)(
-+    const void *fdt, int node, const char *name, int depth, u32 address_cells,
-+    u32 size_cells, void *data);
-+
-+int device_tree_for_each_node(
-+    const void *fdt, int node, device_tree_node_func func, void *data);
-+
-+
-+#endif /* __XEN_FDT_H__ */
+-The Hypervisor node
+--------------------
+-
+-The hypervisor node is a top level container for the domains that will be built
+-by hypervisor on start up. On the ``hypervisor`` node the ``compatible``
+-property is used to identify the type of hypervisor node present..
+-
+-compatible
+-  Identifies the type of node. Required.
+-
+-The Config node
+----------------
+-
+-A config node is for detailing any modules that are of interest to Xen itself.
+-For example this would be where Xen would be informed of microcode or XSM
+-policy locations. If the modules are multiboot modules and are able to be
+-located by index within the module chain, the ``mb-index`` property should be
+-used to specify the index in the multiboot module chain.. If the module will be
+-located by physical memory address, then the ``module-addr`` property should be
+-used to identify the location and size of the module.
+-
+-compatible
+-  Identifies the type of node. Required.
+-
+-The Domain node
+----------------
+-
+-A domain node is for describing the construction of a domain. It may provide a
+-domid property which will be used as the requested domain id for the domain
+-with a value of “0” signifying to use the next available domain id, which is
+-the default behavior if omitted. A domain configuration is not able to request
+-a domid of “0”. After that a domain node may have any of the following
+-parameters,
+-
+-compatible
+-  Identifies the type of node. Required.
+-
+-domid
+-  Identifies the domid requested to assign to the domain. Required.
+-
+-permissions
+-  This sets what Discretionary Access Control permissions
+-  a domain is assigned. Optional, default is none.
+-
+-functions
+-  This identifies what system functions a domain will fulfill.
+-  Optional, the default is none.
+-
+-.. note::  The `functions` bits that have been selected to indicate
+-   ``FUNCTION_XENSTORE`` and ``FUNCTION_LEGACY_DOM0`` are the last two bits
+-   (30, 31) such that should these features ever be fully retired, the flags may
+-   be dropped without leaving a gap in the flag set.
+-
+-mode
+-  The mode the domain will be executed under. Required.
+-
+-domain-uuid
+-  A globally unique identifier for the domain. Optional,
+-  the default is NULL.
+-
+-cpus
+-  The number of vCPUs to be assigned to the domain. Optional,
+-  the default is “1”.
+-
+-memory
+-  The amount of memory to assign to the domain, in KBs.
+-  Required.
+-
+-security-id
+-  The security identity to be assigned to the domain when XSM
+-  is the access control mechanism being used. Optional,
+-  the default is “domu_t”.
+-
+-The Module node
+----------------
+-
+-This node describes a boot module loaded by the boot loader. The required
+-compatible property follows the format: module,<type> where type can be
+-“kernel”, “ramdisk”, “device-tree”, “microcode”, “xsm-policy” or “config”. In
+-the case the module is a multiboot module, the additional property string
+-“multiboot,module” may be present. One of two properties is required and
+-identifies how to locate the module. They are the mb-index, used for multiboot
+-modules, and the module-addr for memory address based location.
+-
+-compatible
+-  This identifies what the module is and thus what the hypervisor
+-  should use the module for during domain construction. Required.
+-
+-mb-index
+-  This identifies the index for this module in the multiboot module chain.
+-  Required for multiboot environments.
+-
+-module-addr
+-  This identifies where in memory this module is located. Required for
+-  non-multiboot environments.
+-
+-bootargs
+-  This is used to provide the boot params to kernel modules.
+-
+-.. note::  The bootargs property is intended for situations where the same kernel multiboot module is used for more than one domain.
 -- 
 2.20.1
 
