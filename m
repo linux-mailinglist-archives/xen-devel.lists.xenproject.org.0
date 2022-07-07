@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D301E56969E
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Jul 2022 01:53:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362660.592798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E04E75696BE
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Jul 2022 02:09:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362666.592809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9EpD-0004m3-CO; Wed, 06 Jul 2022 23:52:55 +0000
+	id 1o9F4s-0007hQ-Ke; Thu, 07 Jul 2022 00:09:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362660.592798; Wed, 06 Jul 2022 23:52:55 +0000
+Received: by outflank-mailman (output) from mailman id 362666.592809; Thu, 07 Jul 2022 00:09:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9EpD-0004im-9T; Wed, 06 Jul 2022 23:52:55 +0000
-Received: by outflank-mailman (input) for mailman id 362660;
- Wed, 06 Jul 2022 23:52:54 +0000
+	id 1o9F4s-0007fc-Hl; Thu, 07 Jul 2022 00:09:06 +0000
+Received: by outflank-mailman (input) for mailman id 362666;
+ Thu, 07 Jul 2022 00:09:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kyFG=XL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o9EpC-0004ig-AI
- for xen-devel@lists.xenproject.org; Wed, 06 Jul 2022 23:52:54 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=tNfF=XM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1o9F4q-0007fW-66
+ for xen-devel@lists.xenproject.org; Thu, 07 Jul 2022 00:09:04 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf30765a-fd86-11ec-bd2d-47488cf2e6aa;
- Thu, 07 Jul 2022 01:52:52 +0200 (CEST)
+ id 017314b9-fd89-11ec-bd2d-47488cf2e6aa;
+ Thu, 07 Jul 2022 02:09:02 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1DC5C61F55;
- Wed,  6 Jul 2022 23:52:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA65C3411C;
- Wed,  6 Jul 2022 23:52:50 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4C5CBB81F5A;
+ Thu,  7 Jul 2022 00:09:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A99C3411C;
+ Thu,  7 Jul 2022 00:08:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,247 +44,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf30765a-fd86-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: 017314b9-fd89-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1657151570;
-	bh=mtvwmybBVzuD5FEfsA/4/5Xosx/4NjyqNhBjl6lmQ1w=;
+	s=k20201202; t=1657152540;
+	bh=hq32ZyKR/RWmwDjvNRS77lPyXTPv2bBPC3EmC0mfXbE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HaFIfEUx1AgtQCCSrjHHb5p7OwOSOqmsvzeSTbG2p4iL9sv2sML2j1DE9sj9PmUQB
-	 mjomJEJmSXlOytCKspjfdmD0rSQsABoykEgrmzu4HtMl1hpzlzN55SGvWorfcKF59Q
-	 zaWapt5i3kchcFX0tZSKgRM4cqR121+cOOPvibcLc3o1zitEZLsuXmhho3BLPlnF6G
-	 Jg5KgkYw7a2lGYVBa16FxJiWWkNJgyCsiLAJBL4FyXzzOUo5Vs5CK7Wo7kCRB4R8y1
-	 AtW5zN7ULhPbcl7byxOrQTCvIhfHjBFhW1YVhM3MYSmITuW4+9quzNbStqqPCjA+D2
-	 aXzpGBaA18SIg==
-Date: Wed, 6 Jul 2022 16:52:48 -0700 (PDT)
+	b=KZGs541EG8FMENDvcYuNauFHA/929QJpg0kVdoXHpN7IMmH0nxGcgZKi+3yPJXJge
+	 P/jIxbKL4Xm25b5zzI9Z64NEwrMnf1M23A/f1RjUBMzCR+sJRWDpc4o7yamU9n6dxz
+	 xG006U/pg2i7TgDIoznht6++9r/MC7GmVAXhoZdvgslcPcC7dzMsUBjoqr6Ycl3dBM
+	 3SNwv+NSfs1z3SO3ivLAjDgdaILsZbqhUjjgdEySwehuevl7yrpWeKxkH8/lfJXAy+
+	 z15LFF2BD+I7Zzm8HkH3s5+PKEs/AvcwHee6nIQ7YKH1ppeZIAqlnmhJQIYg6IondA
+	 bJ5ekeALq013w==
+Date: Wed, 6 Jul 2022 17:08:57 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Penny Zheng <Penny.Zheng@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Wei Chen <Wei.Chen@arm.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: RE: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
- device tree
-In-Reply-To: <DU2PR08MB7325CB781C338947D0576A19F7BE9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-Message-ID: <alpine.DEB.2.22.394.2207061647160.2354836@ubuntu-linux-20-04-desktop>
-References: <20220620051114.210118-1-Penny.Zheng@arm.com> <20220620051114.210118-8-Penny.Zheng@arm.com> <84641d6e-202d-934c-9ea9-bbf090e29bdb@xen.org> <alpine.DEB.2.22.394.2206241448040.2410338@ubuntu-linux-20-04-desktop>
- <DU2PR08MB7325CB781C338947D0576A19F7BE9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
+cc: xen-devel@lists.xenproject.org, viryaos-discuss@lists.sourceforge.net, 
+    sstabellini@kernel.org, Andrei Cherechesu <andrei.cherechesu@nxp.com>
+Subject: Re: [ImageBuilder][PATCH v2 1/4] scripts: Add support for prepending
+ path to file names
+In-Reply-To: <20220630140028.3227385-2-andrei.cherechesu@oss.nxp.com>
+Message-ID: <alpine.DEB.2.22.394.2207061708320.2354836@ubuntu-linux-20-04-desktop>
+References: <20220630140028.3227385-1-andrei.cherechesu@oss.nxp.com> <20220630140028.3227385-2-andrei.cherechesu@oss.nxp.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 4 Jul 2022, Penny Zheng wrote:
-> Hi Stefano and Julien
+On Thu, 30 Jun 2022, Andrei Cherechesu (OSS) wrote:
+> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 > 
-> > -----Original Message-----
-> > From: Stefano Stabellini <sstabellini@kernel.org>
-> > Sent: Saturday, June 25, 2022 5:57 AM
-> > To: Julien Grall <julien@xen.org>
-> > Cc: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
-> > Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
-> > <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
-> > Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> > Subject: Re: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
-> > device tree
-> > 
-> > On Fri, 24 Jun 2022, Julien Grall wrote:
-> > > On 20/06/2022 06:11, Penny Zheng wrote:
-> > > > We expose the shared memory to the domU using the "xen,shared-
-> > memory-v1"
-> > > > reserved-memory binding. See
-> > > > Documentation/devicetree/bindings/reserved-memory/xen,shared-
-> > memory.
-> > > > txt in Linux for the corresponding device tree binding.
-> > > >
-> > > > To save the cost of re-parsing shared memory device tree
-> > > > configuration when creating shared memory nodes in guest device
-> > > > tree, this commit adds new field "shm_mem" to store shm-info per
-> > > > domain.
-> > > >
-> > > > For each shared memory region, a range is exposed under the
-> > > > /reserved-memory node as a child node. Each range sub-node is named
-> > > > xen-shmem@<address> and has the following properties:
-> > > > - compatible:
-> > > >          compatible = "xen,shared-memory-v1"
-> > > > - reg:
-> > > >          the base guest physical address and size of the shared
-> > > > memory region
-> > > > - xen,id:
-> > > >          a string that identifies the shared memory region.
-> > > >
-> > > > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> > > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> > > > ---
-> > > > v5 change:
-> > > > - no change
-> > > > ---
-> > > > v4 change:
-> > > > - no change
-> > > > ---
-> > > > v3 change:
-> > > > - move field "shm_mem" to kernel_info
-> > > > ---
-> > > > v2 change:
-> > > > - using xzalloc
-> > > > - shm_id should be uint8_t
-> > > > - make reg a local variable
-> > > > - add #address-cells and #size-cells properties
-> > > > - fix alignment
-> > > > ---
-> > > >   xen/arch/arm/domain_build.c       | 143
-> > +++++++++++++++++++++++++++++-
-> > > >   xen/arch/arm/include/asm/kernel.h |   1 +
-> > > >   xen/arch/arm/include/asm/setup.h  |   1 +
-> > > >   3 files changed, 143 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/xen/arch/arm/domain_build.c
-> > > > b/xen/arch/arm/domain_build.c index 1584e6c2ce..4d62440a0e 100644
-> > > > --- a/xen/arch/arm/domain_build.c
-> > > > +++ b/xen/arch/arm/domain_build.c
-> > > > @@ -900,7 +900,22 @@ static int __init allocate_shared_memory(struct
-> > > > domain *d,
-> > > >       return ret;
-> > > >   }
-> > > >   -static int __init process_shm(struct domain *d,
-> > > > +static int __init append_shm_bank_to_domain(struct kernel_info *kinfo,
-> > > > +                                            paddr_t start, paddr_t size,
-> > > > +                                            u32 shm_id) {
-> > > > +    if ( (kinfo->shm_mem.nr_banks + 1) > NR_MEM_BANKS )
-> > > > +        return -ENOMEM;
-> > > > +
-> > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].start = start;
-> > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].size = size;
-> > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].shm_id = shm_id;
-> > > > +    kinfo->shm_mem.nr_banks++;
-> > > > +
-> > > > +    return 0;
-> > > > +}
-> > > > +
-> > > > +static int __init process_shm(struct domain *d, struct kernel_info
-> > > > +*kinfo,
-> > > >                                 const struct dt_device_node *node)
-> > > >   {
-> > > >       struct dt_device_node *shm_node; @@ -971,6 +986,14 @@ static
-> > > > int __init process_shm(struct domain *d,
-> > > >               if ( ret )
-> > > >                   return ret;
-> > > >           }
-> > > > +
-> > > > +        /*
-> > > > +         * Record static shared memory region info for later setting
-> > > > +         * up shm-node in guest device tree.
-> > > > +         */
-> > > > +        ret = append_shm_bank_to_domain(kinfo, gbase, psize, shm_id);
-> > > > +        if ( ret )
-> > > > +            return ret;
-> > > >       }
-> > > >         return 0;
-> > > > @@ -1301,6 +1324,117 @@ static int __init make_memory_node(const
-> > > > struct domain *d,
-> > > >       return res;
-> > > >   }
-> > > >   +#ifdef CONFIG_STATIC_SHM
-> > > > +static int __init make_shm_memory_node(const struct domain *d,
-> > > > +                                       void *fdt,
-> > > > +                                       int addrcells, int sizecells,
-> > > > +                                       struct meminfo *mem)
-> > >
-> > > NIT: AFAICT mem is not changed, so it should be const.
-> > >
-> > > > +{
-> > > > +    unsigned long i = 0;
-> > >
-> > > NIT: This should be "unsigned int" to match the type of nr_banks.
-> > >
-> > > > +    int res = 0;
-> > > > +
-> > > > +    if ( mem->nr_banks == 0 )
-> > > > +        return -ENOENT;
-> > > > +
-> > > > +    /*
-> > > > +     * For each shared memory region, a range is exposed under
-> > > > +     * the /reserved-memory node as a child node. Each range sub-node
-> > is
-> > > > +     * named xen-shmem@<address>.
-> > > > +     */
-> > > > +    dt_dprintk("Create xen-shmem node\n");
-> > > > +
-> > > > +    for ( ; i < mem->nr_banks; i++ )
-> > > > +    {
-> > > > +        uint64_t start = mem->bank[i].start;
-> > > > +        uint64_t size = mem->bank[i].size;
-> > > > +        uint8_t shm_id = mem->bank[i].shm_id;
-> > > > +        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
-> > > > +        char buf[27];
-> > > > +        const char compat[] = "xen,shared-memory-v1";
-> > > > +        __be32 reg[4];
-> > > > +        __be32 *cells;
-> > > > +        unsigned int len = (addrcells + sizecells) *
-> > > > + sizeof(__be32);
-> > > > +
-> > > > +        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64,
-> > > > mem->bank[i].start);
-> > > > +        res = fdt_begin_node(fdt, buf);
-> > > > +        if ( res )
-> > > > +            return res;
-> > > > +
-> > > > +        res = fdt_property(fdt, "compatible", compat, sizeof(compat));
-> > > > +        if ( res )
-> > > > +            return res;
-> > > > +
-> > > > +        cells = reg;
-> > > > +        dt_child_set_range(&cells, addrcells, sizecells, start,
-> > > > + size);
-> > > > +
-> > > > +        res = fdt_property(fdt, "reg", reg, len);
-> > > > +        if ( res )
-> > > > +            return res;
-> > > > +
-> > > > +        dt_dprintk("Shared memory bank %lu: %#"PRIx64"->%#"PRIx64"\n",
-> > > > +                   i, start, start + size);
-> > > > +
-> > > > +        res = fdt_property_cell(fdt, "xen,id", shm_id);
-> > >
-> > > Looking at the Linux binding, "xen,id" is meant to be a string. But
-> > > here you are writing it as an integer.
-> > 
-> > Good catch!
-> > 
-> > 
-> > > Given that the Linux binding is already merged, I think the Xen
-> > > binding should be changed.
-> > 
-> > We would be compliant with both bindings (xen and linux) just by writing
-> > shm_id as string here, but if it is not too difficult we might as well harmonize
-> > the two bindings and also define xen,shm-id as a string.
-> > 
-> > On the Xen side, I would suggest to put a clear size limit so that the string is
-> > easier to handle.
+> Added support for prepending path to file names in the final generated
+> u-boot script, for the use-case where we have the files in a separate
+> folder that can be accessed with a given $LOAD_CMD.
 > 
-> I've already made the xen,shm-id parsed as a string too, seeing the below code:
-> "
->     prop_id = fdt_get_property(fdt, node, "xen,shm-id", NULL);
->     if ( !prop_id )
->         return -ENOENT;
->     shm_id = simple_strtoul(prop_id->data, NULL, 10);
->     if ( shm_id >= NR_MEM_BANKS )
->     {
->         printk("fdt: invalid `xen,shm-id` %lu for static shared memory node.\n",
->                shm_id);
->         return -EINVAL;
->     }
-> "
-> The size limit is smaller than 256, just as stated in doc:
-> "
-> - xen,shm-id
+> For example, we can have "fatload mmc 0:2" as LOAD_CMD but the
+> files would need to be loaded from the /boot folder within the 2nd
+> partition, not from the root ("/"). By specifying the "-p <path>"
+> parameter when running the script, paths like "/boot" can be
+> automatically prepended to the generated u-boot commands used
+> to load the files in board's memory.
 > 
->     A string that represents the unique identifier of the shared memory
->     region. The maximum identifier shall be "xen,shm-id = 255".
-> "
-> Hope this fits what both of you suggested~~~
+> Also added the support to disk_image script, to enable generating
+> a FAT partition with the binaries deployed in a custom folder
+> within it, if the "-p" parameter is specified.
+> 
+> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 
-Yes. I think supporting arbitrary strings like "my-shared-mem-1" would
-be nice-to-have but I wouldn't make it a hard requirement.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-"255" as a string would match Linux's requirements for xen,id.
+
+> ---
+>  scripts/disk_image       | 37 +++++++++++++++++++++++--------------
+>  scripts/uboot-script-gen | 12 ++++++++----
+>  2 files changed, 31 insertions(+), 18 deletions(-)
+> 
+> diff --git a/scripts/disk_image b/scripts/disk_image
+> index 12fb06b..97e798f 100755
+> --- a/scripts/disk_image
+> +++ b/scripts/disk_image
+> @@ -539,7 +539,7 @@ function write_rootfs()
+>  function print_help
+>  {
+>      echo "usage:"
+> -    echo "	$0 -c CONFIG_FILE -d UBOOT_DIRECTORY -t UBOOT_TYPE <-w WORK_DIRECTORY> <-s SLACK> <-a> -o IMG_FILE"
+> +    echo "	$0 -c CONFIG_FILE -d UBOOT_DIRECTORY -t UBOOT_TYPE <-w WORK_DIRECTORY> <-s SLACK> <-a> -o IMG_FILE <-p PREPEND_PATH>"
+>      echo "	$0 -h"
+>      echo "where:"
+>      echo "	-c CONFIG_FILE - configuration file"
+> @@ -553,6 +553,7 @@ function print_help
+>      echo "	-s SLACK - free MB to add to each partition, default 128"
+>      echo "	-a specifies that the size of IMG_FILE has to be aligned to the nearest power of two"
+>      echo "	-o IMG_FILE - the output img file "
+> +    echo "	-p PREPEND_PATH - path to be appended before file names to customize deploy location within rootfs"
+>      echo "Example:"
+>      echo "	$0 -c ../config -d ./build42 -w tmp -o disk.img"
+>  }
+> @@ -564,7 +565,7 @@ then
+>      exit 1
+>  fi
+>  
+> -while getopts ":w:d:c:t:s:o:ah" opt
+> +while getopts ":w:d:c:t:s:o:ahp:" opt
+>  do
+>      case ${opt} in
+>      t )
+> @@ -606,6 +607,9 @@ do
+>      a )
+>          ALIGN=1
+>          ;;
+> +    p )
+> +        PREPEND_PATH="$OPTARG"
+> +        ;;
+>      h )
+>          print_help
+>          exit 0
+> @@ -828,56 +832,61 @@ mount /dev/mapper/diskimage1 $DESTDIR/part/disk1
+>  
+>  # only copy over files that were counted for the partition size
+>  cd "$UBOOT_OUT"
+> -cp --parents "$DOM0_KERNEL" "${DESTDIR_ABS}/part/disk1/"
+> -cp --parents "$DEVICE_TREE" "${DESTDIR_ABS}/part/disk1/"
+> -cp --parents "$UBOOT_SCRIPT" "${DESTDIR_ABS}/part/disk1/"
+> +if [ -n "$PREPEND_PATH" ]
+> +then
+> +    mkdir -p "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+> +fi
+> +
+> +cp --parents "$DOM0_KERNEL" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+> +cp --parents "$DEVICE_TREE" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+> +cp --parents "$UBOOT_SCRIPT" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>  
+>  if test "${DOM0_RAMDISK}"
+>  then
+> -    cp --parents "$DOM0_RAMDISK" "${DESTDIR_ABS}/part/disk1/"
+> +    cp --parents "$DOM0_RAMDISK" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>  fi
+>  if test "$NUM_DT_OVERLAY" && test "$NUM_DT_OVERLAY" -gt 0
+>  then
+>      i=0
+>      while test $i -lt "$NUM_DT_OVERLAY"
+>      do
+> -        cp --parents "${DT_OVERLAY[$i]}" "${DESTDIR_ABS}/part/disk1/"
+> +        cp --parents "${DT_OVERLAY[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>          i=$(( $i + 1 ))
+>      done
+>  fi
+>  if test "${UBOOT_SOURCE}"
+>  then
+> -    cp --parents "$UBOOT_SOURCE" "${DESTDIR_ABS}/part/disk1/"
+> +    cp --parents "$UBOOT_SOURCE" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>  fi
+>  if test "${XEN}"
+>  then
+> -    cp --parents "$XEN" "${DESTDIR_ABS}/part/disk1/"
+> +    cp --parents "$XEN" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>  fi
+>  if test "$NUM_BOOT_AUX_FILE" && test "$NUM_BOOT_AUX_FILE" -gt 0
+>  then
+>      i=0
+>      while test $i -lt "$NUM_BOOT_AUX_FILE"
+>      do
+> -        cp --parents "${BOOT_AUX_FILE[$i]}" "${DESTDIR_ABS}/part/disk1/"
+> +        cp --parents "${BOOT_AUX_FILE[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>          i=$(( $i + 1 ))
+>      done
+>  fi
+>  if test "${BITSTREAM}"
+>  then
+> -    cp --parents "$BITSTREAM" "${DESTDIR_ABS}/part/disk1/"
+> +    cp --parents "$BITSTREAM" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>  fi
+>  
+>  i=0
+>  while test $i -lt $NUM_DOMUS
+>  do
+> -    cp --parents "${DOMU_KERNEL[$i]}" "${DESTDIR_ABS}/part/disk1/"
+> +    cp --parents "${DOMU_KERNEL[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>      if test "${DOMU_RAMDISK[$i]}"
+>      then
+> -        cp --parents "${DOMU_RAMDISK[$i]}" "${DESTDIR_ABS}/part/disk1/"
+> +        cp --parents "${DOMU_RAMDISK[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>      fi
+>      if test "${DOMU_PASSTHROUGH_DTB[$i]}"
+>      then
+> -        cp --parents "${DOMU_PASSTHROUGH_DTB[$i]}" "${DESTDIR_ABS}/part/disk1/"
+> +        cp --parents "${DOMU_PASSTHROUGH_DTB[$i]}" "${DESTDIR_ABS}/part/disk1/${PREPEND_PATH}"
+>      fi
+>      i=$(( $i + 1 ))
+>  done
+> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+> index 085e29f..8f08cd6 100755
+> --- a/scripts/uboot-script-gen
+> +++ b/scripts/uboot-script-gen
+> @@ -316,7 +316,7 @@ function load_file()
+>      then
+>          echo "imxtract \$fit_addr $fit_scr_name $memaddr" >> $UBOOT_SOURCE
+>      else
+> -        echo "$LOAD_CMD $memaddr $relative_path" >> $UBOOT_SOURCE
+> +        echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
+>      fi
+>      add_size $filename
+>  }
+> @@ -891,7 +891,7 @@ function print_help
+>  {
+>      script=`basename "$0"`
+>      echo "usage:"
+> -    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f]"
+> +    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH]"
+>      echo "	$script -h"
+>      echo "where:"
+>      echo "	CONFIG_FILE - configuration file"
+> @@ -907,6 +907,7 @@ function print_help
+>      echo "	HINT - the file name of the crt and key file minus the suffix (ex, hint.crt and hint.key)"
+>      echo "	U-BOOT_DTB - u-boot control dtb so that the public key gets added to it"
+>      echo "	-f - enable generating a FIT image"
+> +    echo "	PREPEND_PATH - path to be appended before file names to match deploy location within rootfs"
+>      echo "	-h - prints out the help message and exits "
+>      echo "Defaults:"
+>      echo "	CONFIG_FILE=$cfg_file, UBOOT_TYPE=\"LOAD_CMD\" env var, DIRECTORY=$uboot_dir"
+> @@ -914,7 +915,7 @@ function print_help
+>      echo "	$script -c ../config -d ./build42 -t \"scsi load 1:1\""
+>  }
+>  
+> -while getopts ":c:t:d:ho:k:u:f" opt; do
+> +while getopts ":c:t:d:ho:k:u:fp:" opt; do
+>      case ${opt} in
+>      t )
+>          case $OPTARG in
+> @@ -953,6 +954,9 @@ while getopts ":c:t:d:ho:k:u:f" opt; do
+>      f )
+>          fit_opt=y
+>          ;;
+> +    p )
+> +        prepend_path="$OPTARG"
+> +        ;;
+>      h )
+>          print_help
+>          exit 0
+> @@ -1179,5 +1183,5 @@ then
+>      echo "$LOAD_CMD $fit_addr $FIT; source $fit_addr:boot_scr"
+>  else
+>      echo "Generated uboot script $UBOOT_SCRIPT, to be loaded at address $uboot_addr:"
+> -    echo "$LOAD_CMD $uboot_addr $UBOOT_SCRIPT; source $uboot_addr"
+> +    echo "$LOAD_CMD $uboot_addr ${prepend_path:+$prepend_path/}$UBOOT_SCRIPT; source $uboot_addr"
+>  fi
+> -- 
+> 2.35.1
+> 
 
