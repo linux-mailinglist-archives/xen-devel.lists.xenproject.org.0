@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BDC3569A9C
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Jul 2022 08:39:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362747.592941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FE2B569AA8
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Jul 2022 08:46:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362753.592952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9LA4-0001MH-9q; Thu, 07 Jul 2022 06:38:52 +0000
+	id 1o9LGm-0002l0-WF; Thu, 07 Jul 2022 06:45:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362747.592941; Thu, 07 Jul 2022 06:38:52 +0000
+Received: by outflank-mailman (output) from mailman id 362753.592952; Thu, 07 Jul 2022 06:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9LA4-0001JF-64; Thu, 07 Jul 2022 06:38:52 +0000
-Received: by outflank-mailman (input) for mailman id 362747;
- Thu, 07 Jul 2022 06:38:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o9LGm-0002ie-Sq; Thu, 07 Jul 2022 06:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 362753;
+ Thu, 07 Jul 2022 06:45:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+VJ/=XM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o9LA2-0001J9-KS
- for xen-devel@lists.xenproject.org; Thu, 07 Jul 2022 06:38:50 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2050.outbound.protection.outlook.com [40.107.21.50])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75391459-fdbf-11ec-924f-1f966e50362f;
- Thu, 07 Jul 2022 08:38:49 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB5790.eurprd04.prod.outlook.com (2603:10a6:803:e7::32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5395.21; Thu, 7 Jul
- 2022 06:38:47 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5417.016; Thu, 7 Jul 2022
- 06:38:47 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1o9LGl-0002iU-Em; Thu, 07 Jul 2022 06:45:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1o9LGl-00079i-AD; Thu, 07 Jul 2022 06:45:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1o9LGk-00064V-N5; Thu, 07 Jul 2022 06:45:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1o9LGk-0007YA-Mc; Thu, 07 Jul 2022 06:45:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,146 +42,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75391459-fdbf-11ec-924f-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BVqooPY1la/VXv31gWYrZTHxT8fwRCF6ukm0HF12mrMRN4beZPj7Qs+X4zmJceUJ7VPFzwVedo6nWUXix6YhLVhNUlDcYoQ7IT2DfU97ekbvzqRCksIGQpCex1pi6xQEgvUbfZg/0K3jdXA4NpxutM8t2HIfc3ZlfDzKuvlLSNhWebacfKdcb+WZvmnxht8U1GUkqmXBHcsVGZdLcyfFuOaoLPvNPIjkVGsh1twXaVYaeGdFkQF8u0/xo7vYfsTtHGHecMdCPXbUFH/an3lenqvP31PTlyNOXKR3QGzPN4L7GrTYpHQuhvU38dDeZBMzuL4XuxCfTKYp2JYLKtt1iA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k8l4Nf8fQ67bEwIAO+a1iTiSd6Jzq1VNu3+xuHiRqxA=;
- b=SIZicQKRhmS7mZw5aZgll9PXqIgDPwdvC8FnfULNzebu5w69jc5ZUR8RGIbGCUAPBTFKODPd69mA7UHm7p5VexzQREKY+aBjBvB0TEmKu0l78igY9h+SfkXgOfZnL+C+emG/1OdxVF7CYtaP+PMQQl3ccjWibvjfUg4dBVCEfzNXzr+9Qfutt8DHZ1zR1xwwAa3l3nlvmedPNQtAQxR4pxm3McPkIO9EE2+UNpSOgj+ySljwEXf4YSRqKEtBllGKbH6qKS2Ub/mdXGUKbME5MJHNMtpf0fBMnCPWCSrSVH7yX5bDEej+2j2gaA4QqFAfzRCCx6HZwy3b0icDuVto3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k8l4Nf8fQ67bEwIAO+a1iTiSd6Jzq1VNu3+xuHiRqxA=;
- b=W+Zw5AEgOicnQomNBnVhdLUTUQlpq9PPbHcSSEnBcVnbxlhXDrU3qhQlcjPdWDoXEXaJ4UQDmjqQdqLX5rlmuBhJt/Q4bWk8xbAfZWOuzMntemgQG/XCrvd1IaBeUhGXoUOUFguXVOEgO4jBFHunb8cJxZ5UJPPt5vUyk6q1sNjBKsapeaMKlY9yqssKc0rWtwAGt93N7Kaq7BDBOoOfUk0zHQxCFGI+kK4m8QVD70xsT8/myn50JkYKR4H70YgYHvbcHqZYLRU/nb2Rmg9H1CzK4266pMy+RT5Fp6hIVwUkfjaL22otAeE+p/NBslaUBhoVX45IDqhUPv680xOFAA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <bc13c66d-a885-e405-7b53-8cd7afdbecff@suse.com>
-Date: Thu, 7 Jul 2022 08:38:44 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] x86/PAT: have pat_enabled() properly reflect state when
- running on e.g. Xen
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: Andrew Lutomirski <luto@kernel.org>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9385fa60-fa5d-f559-a137-6608408f88b0@suse.com>
- <YsRTAGI2PhfZ5V7M@zn.tnic> <016d281b-7e40-f1bd-66ee-c19c3cc56efe@suse.com>
- <YsRjX/U1XN8rq+8u@zn.tnic> <b7fa785b-cea3-3e05-c101-d6c7bd101ef3@suse.com>
- <YsW/3/fEuNYAuFwZ@zn.tnic>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YsW/3/fEuNYAuFwZ@zn.tnic>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR07CA0009.eurprd07.prod.outlook.com
- (2603:10a6:20b:46c::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=eDOj9DKlurmPw0cLvUQryba9TBJOjeJJR5+R39aen+I=; b=ZFZmiZWgTDS0dFD3qBpSofRuRa
+	sh9Aaap4w7E8L6PVnLdwWdh+YNHYQtb7TgqGzFZUh5g276BPyNk3RXdL20CF7KhdiX87Wgrj9ymSb
+	hK/ocRUBs0tHK9su3Fzw9kQHN2ZcQcI0vI3MyCvEPdi3TD1iS5gEpfkCgFv/XZ0vaBuc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-171540-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7e90a53b-a53e-4780-bd70-08da5fe3589b
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5790:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	T0rEg8n6X0RTwHf3cXu5K/IKD/eV5Douibq3m9YtTyjnNtrvugrn2cQ09RbBk8MgQ06txc+nbi98jlYDK+irjZHMD/wQPnjzDoGYqU0ytxg3PlH+2cE8H0fUHGnqEhKp4/0B2pzig93+EQGesqpi8XS3t15+/vk0J7QFs/fOQNzXGhC5DdCRzh/s8Tc1cxQWxz3r8ekT438L3YT1J9hKXkMMMMTgZBUh5KEOr0PccuJYFf57fIk1Tr1hL3XcKZloONQu1wD2lW3ViuVY/B6YboIofSbnH91DEe5I1/CA12CYCNfuGovp78GDmJ2ic9UggWwaosK3TVPUwN6jB3YpHd7RoEPSzh0ceo3RmEshdqaxhqOfXVFXW3QXdI9ZG2bvZQXRMQToYDjgVI7R8YtqOkIacH+ZkxcmpCVz30dnrv0E8dc3y5TxEys+2aisI9ZQqBtLtbyJqPFuDLzyrJIyrCLEIGLDShFFLiGg+8ltnfawZdW7oh3+WEF09bRNOJpN93TaT0ONBvrhyUNKWqyYVL4HVMgQp87OXyO1XuVEfqKS0KvuwFzPUm4cn2YQctzDnmdeMT/6ITAaEl83zUblV/c1mlzmAe8JDMvuzjP2OrJqMo8pGA5lTUB/eX2jPgm1XmxH7TsRYrtcK2jPDRrRVBDKbdYDUiLlzk9gqoGVKu1gZixWAD9fhUXU8vbMxr0Qwc8RuQZL8SipbF1AEc/nW7nNi4m3kAcz9v7OKbU6OQtKrPcVk71sW0HttQeNgFvtaE1WkzPYlbGXk9/lMCTLzSmhjTFOAgfAoebNrGP1Wj7m6bDCaUhJVFJ5K2kqX7ceGacHuoAUafegy7gFJHA8iA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(346002)(136003)(396003)(366004)(376002)(39860400002)(8936002)(54906003)(86362001)(2906002)(31696002)(26005)(66556008)(8676002)(66946007)(316002)(5660300002)(6512007)(4326008)(6916009)(66476007)(186003)(31686004)(2616005)(478600001)(38100700002)(6486002)(6666004)(53546011)(36756003)(41300700001)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RzlOMHhZV29sckdlVXBuRmpjaGgzYWtNdUY1M21UOEhxRS9pVnpKTlQ2cGx0?=
- =?utf-8?B?cU51RUlrWUF1NG1kTStrVVFUMXozWHBWUnFhSlhRNTBrMno5a2laZ3o1U0dk?=
- =?utf-8?B?U3pJMkcwbzZkNENrRkVuVTVBZkYwK0ROTDZyU3NNQjN4RU1BbThHQTh2eFl0?=
- =?utf-8?B?N21PdTlYVjNyZEgxa0t5SlNCSUtWSnJxWjlPNW4wTUczWVd6NUp2RzdQcmYy?=
- =?utf-8?B?aTJpeWNIQWpSclJtd0g1UmF3Y3gvSVRZb2MvWkJUeDdqRjUzVVdsdTJ3Uk80?=
- =?utf-8?B?YlAzaHo2VEV1OGYrQi9JcmlIOE5SZFBMRndRaWhtSTRrMVptWEdacVVxbG4x?=
- =?utf-8?B?Q24xYU1xTXV2RWN5OHpCQmNySGtlcWVzMjdqdDFuUnFOOWczcFFuWElUcFVK?=
- =?utf-8?B?alJaUWhaMzlIOGpueGlqYzRWTVhOcmhFVWJQcGprYXhDK2l5NXpUYWE5VXhq?=
- =?utf-8?B?VWpOT3RORWpWTG85dVF2OU9CYW9uY1pkb2dSNmNpWjNZOWhKeElRVG82dTNz?=
- =?utf-8?B?ZGlGTnU0VVJXUENvTm43RkJDZFdBNVdaYU01MkZ1dGpRUW5KOUhxMjNtMUpN?=
- =?utf-8?B?cmlQbStjUGt5SFc5a2NaUWgxT29manJrRy9PYjlhU0hwbGpLYTdUcWlSNlF3?=
- =?utf-8?B?bnJtVS9RamFBTThaSjJiNDdQQkh2dFhsZGpuNjRRZFd3N1lXc3JibWM3bklu?=
- =?utf-8?B?RzNMajBlb2ltdW4yaDRjS2M2a2dsSno4ckVXK2RYazlCTlRnTU0vais1dXY0?=
- =?utf-8?B?aWRTb3Ira1k1OUxYR1pQWlltU2M3R1pPaXc1elBYaDhZc0ZOczNhVkhVNER3?=
- =?utf-8?B?KzhQTysxVDlVU0J0N1dVM0FacktOTlhQWFhCam50S01JZTBRUi8yQ05Jclox?=
- =?utf-8?B?REhsR0QvLzBzckl2MG5uNHQ5OTFCK0FQQlZPTWVwL2d2MmFPRHRWdUN0cTBB?=
- =?utf-8?B?SVk3c2dCSWkzVDNiTXd5UFJLWFdTSDVYaVZ5aktwVElmc1IzWlMveTY4YWkz?=
- =?utf-8?B?YnpiNnhONFI2cWpaTVIzR25FYU9MTnk2VEhzTnBsZFlHVFd5bVQxd3NOL3Fv?=
- =?utf-8?B?YTRsa1NqU3Q2dEdlOWVPVFVUYWpEQzVIVm5uckx3bStXOWF6V0RBSy9wRWcz?=
- =?utf-8?B?VFVqWUVJeXU0bFBHcHJUdytoVzhzL0lDOWVSUm91RFZJVC9kMC9pWi9jSXNN?=
- =?utf-8?B?MXNSU0VQY282Lyt6bmJ6TE5XK2RUTHRTQzV1Qkh2aXBSMGlYWURMUW0zWVNE?=
- =?utf-8?B?OWkxTkNVRkt2b0NNK0NkdDJMVEJDOFQ5cGxXWTFzblVTVXlBbFRWWDIzZ1V0?=
- =?utf-8?B?RmEyTmFKbmhHa3VNbEdiaGhPbk1vaDBlNGtWUDBVMWwydzBaYmk2Z1pwMVVC?=
- =?utf-8?B?SHdzSGtFa2Y2ZUhWcElOOGtEWGN5SWZESFluOTFzRHdzbWhyM0VHK01jUmVQ?=
- =?utf-8?B?TkFuY3ZOREQ2K2lFS0hFVFpEcW1kcHNaamNadFZFaWduNnpxTXVrY2pQcEx3?=
- =?utf-8?B?cXcvUTQwQUlWeTRYSTNvb3E1bkMxM3pHbWVza2JCVEtoejlrRjFuSXJ2dFBl?=
- =?utf-8?B?ckJ4SWpDandWQ3FaMDZVaGE0VDRMRU1OdnVkMzJIUit6aVJmTzVxeTEwcHVJ?=
- =?utf-8?B?TzRFeUNrWlluR2dLQVR1a1I2Znl0dnl0RndVVVF2alRKTGlIOFZSMGZ6OXpO?=
- =?utf-8?B?cHVBSHJqenhDWTRMa2t6RU5NQjgxdDREMWhORFBKNENDa0ZNTE1GRHBnaXZJ?=
- =?utf-8?B?ZjBrR3JLNlkwSHBQZU9yYnJIU1hFOC9lNnVyUERtQnloVFNyVU1ibnZnYk9p?=
- =?utf-8?B?alROU3d0YWJFdlJISGVGaGhobnczbFVoYjdYa2pkOWtTT3hKVXEvWmdsOVdO?=
- =?utf-8?B?UldTQnV4ZHRqcTQ0akZCSWtEMGNvSk4wMjZ5bzZEQW4wcU00UW9YRmV2eDBi?=
- =?utf-8?B?M3BjVDE3OTNkcmw5R3ZyUnBJTFZ2SkY1TXEyckZFZklRSENvU09EYkpzcGZl?=
- =?utf-8?B?emNhOU5ScHBXTTFPU0ZTSGlkWDgxZHNTSjYwWHJsQ0gyaHNFQ2lEQ0RvVGY3?=
- =?utf-8?B?OHVNbVVNQlN0WEh1dUtycHNNTVBreVNxVkpXVnlWR0lUNXo1cGJqNEpCUGpS?=
- =?utf-8?Q?SXro35KzhBwa3Jt01KMVtB+l3?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e90a53b-a53e-4780-bd70-08da5fe3589b
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 06:38:47.6881
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: S40zdMHotd/81B+j4BnNjd8SZ3M6E+2s3AK6Lk8t6YkEA+gTC+VBVq/+Ezlp04osrzDojZEa85RTmwsvtOZpdQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5790
+Subject: [ovmf test] 171540: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=f193b945eac58ca379d3d21c77d5550b063580d6
+X-Osstest-Versions-That:
+    ovmf=e1eef3a8b01a25e75abf63d15bdc90157a74cba9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 07 Jul 2022 06:45:46 +0000
 
-On 06.07.2022 19:01, Borislav Petkov wrote:
-> On Wed, Jul 06, 2022 at 08:17:41AM +0200, Jan Beulich wrote:
->> Sure, but that alone won't help.
-> 
-> Well, the MTRR code looks at X86_FEATURE_MTRR. If Xen doesn't expose the
-> MTRRs, then that bit should be clear in the CPUID the guest sees.
-> 
-> So in that case, you could test X86_FEATURE_XENPV at the end of
-> mtrr_bp_init() and not disable PAT if running as a PV guest. Would that
-> work?
-> 
->> There's a beneficial side effect of running through pat_disable():
->> That way pat_init() will bail right away. Without that I'd need to
->> further special case things there (as under Xen/PV PAT must not be
->> written, only read)
-> 
-> We have wrmsr_safe for that.
+flight 171540 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171540/
 
-Well, right now the pvops hook for Xen swallows #GP anyway (wrongly
-so imo, but any of my earlier pointing out of that has been left
-unheard, despite even the code comments there saying "It may be worth
-changing that"). The point is therefore that after writing PAT, it
-would need reading back. In which case it feels (slightly) more clean
-to me to avoid the write attempt in the first place, when we know
-it's not going to work.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 f193b945eac58ca379d3d21c77d5550b063580d6
+baseline version:
+ ovmf                 e1eef3a8b01a25e75abf63d15bdc90157a74cba9
 
->> Any decent hypervisor will allow overriding CPUID, so in principle
->> I'd expect any to permit disabling MTRR to leave a guest to use
->> the (more modern and less cumbersome) PAT alone.
-> 
-> So I'm being told that it would be generally beneficial for all kinds of
-> virtualization solutions to be able to support PAT only, without MTRRs
-> so it would be interesting to see how ugly it would become to decouple
-> PAT from MTRRs in Linux...
+Last test of basis   171446  2022-07-01 17:40:26 Z    5 days
+Testing same since   171540  2022-07-07 01:10:28 Z    0 days    1 attempts
 
-If I may ask - doesn't this mean this patch, in its current shape, is
-already a (small) step in that direction? In any event what you say
-doesn't sound to me like a viable (backportable) route to addressing
-the regression at hand.
+------------------------------------------------------------
+People who touched revisions under test:
+  Kun Qin <kun.qin@microsoft.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kun Qin <kuqin@microsoft.com>
+  kuqin <kuqin@microsoft.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
 
-Jan
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   e1eef3a8b0..f193b945ea  f193b945eac58ca379d3d21c77d5550b063580d6 -> xen-tested-master
 
