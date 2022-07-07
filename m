@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 385B756A04C
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Jul 2022 12:46:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.362922.593205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EB4E56A0BC
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Jul 2022 13:03:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.362928.593216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9P0x-00075E-A9; Thu, 07 Jul 2022 10:45:43 +0000
+	id 1o9PH3-0001yt-PO; Thu, 07 Jul 2022 11:02:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 362922.593205; Thu, 07 Jul 2022 10:45:43 +0000
+Received: by outflank-mailman (output) from mailman id 362928.593216; Thu, 07 Jul 2022 11:02:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9P0x-00072v-7b; Thu, 07 Jul 2022 10:45:43 +0000
-Received: by outflank-mailman (input) for mailman id 362922;
- Thu, 07 Jul 2022 10:45:41 +0000
+	id 1o9PH3-0001wM-Lx; Thu, 07 Jul 2022 11:02:21 +0000
+Received: by outflank-mailman (input) for mailman id 362928;
+ Thu, 07 Jul 2022 11:02:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wjRc=XM=gmail.com=fancer.lancer@srs-se1.protection.inumbo.net>)
- id 1o9P0v-00072j-Gg
- for xen-devel@lists.xenproject.org; Thu, 07 Jul 2022 10:45:41 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+VJ/=XM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1o9PH2-0001wG-2r
+ for xen-devel@lists.xenproject.org; Thu, 07 Jul 2022 11:02:20 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2042.outbound.protection.outlook.com [40.107.20.42])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f19552a3-fde1-11ec-924f-1f966e50362f;
- Thu, 07 Jul 2022 12:45:40 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id r9so21701136ljp.9
- for <xen-devel@lists.xenproject.org>; Thu, 07 Jul 2022 03:45:40 -0700 (PDT)
-Received: from mobilestation ([95.79.140.178])
- by smtp.gmail.com with ESMTPSA id
- g2-20020a056512118200b0047f701f6d09sm6766233lfr.184.2022.07.07.03.45.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Jul 2022 03:45:37 -0700 (PDT)
+ id 446ef526-fde4-11ec-924f-1f966e50362f;
+ Thu, 07 Jul 2022 13:02:18 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM0PR04MB4627.eurprd04.prod.outlook.com (2603:10a6:208:74::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.15; Thu, 7 Jul
+ 2022 11:02:16 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5417.016; Thu, 7 Jul 2022
+ 11:02:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,205 +46,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f19552a3-fde1-11ec-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=WY98p2xpQdOFXmhJtt3xHyGiLiAUhi6XRf4hr9Uc3Wg=;
-        b=b6GFfkBqjaMf2ocm+NmB4Pdq8BftwMkyn64oPaQ4MV4pvFzFkwxMEQeq6P80Hm4/xV
-         qZ+8LuyU5wRQNERGgQNFjcHh58vvfaC0ptqNORWmxffraiT9/DjbcHTSFTsFBlux58Ot
-         XhtqsfAx1Sa2gM/tjlsL0QsZtd9LNBgjw9CnnsV557EhbpHb9gCv8v2p+Oj+GmTrlkqp
-         mUp+nL+5dVYNjaxqq1uCJh+k/gsHSTvygVI9uMaKcsKBGCdHzMWvDPsDHQivCRNcB3z5
-         282ePxgRE2AokBxYCEN4Y+8PqCSOtSZbzmUbIGk4eL7kv/uEwV39B6EvqmW8CS1gOdOi
-         UC1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=WY98p2xpQdOFXmhJtt3xHyGiLiAUhi6XRf4hr9Uc3Wg=;
-        b=F3HtDHZ0NjqlQIoKY7fhsr/gDbMq/AeaB6AxTmaW9ILGsQG5HB31zizCE39qbLwENM
-         HrmOBAIv39Om9sg+ZCV5eCYdYlpMQDJCzVFQwOGZEl7Hw68774pEaYnWJvLUp5t7jsMk
-         DyQZn37hJ5qJkj/V4nAfEhDaYm3dJ6vxGOsJ0WZ6pT75Wsi+ila7tUUBF2Tn9dTFshJ5
-         uGelobOnm7RKfrsiT6AiE1FzH7XhAFmU+oJj02khb0r3YaxvIYGWAaAIz6M2NSJljzEp
-         kE8E0NNs7OhvXb/tYDBLirIQnj/H1b/Iowh394p0xL6QGaYMLvBQXNB/c6imcH0gfCZm
-         uXCg==
-X-Gm-Message-State: AJIora+fIsfncU/Z4gissEZsbLlanAgRT1knrEs83rM3IBeDmrtnVJFb
-	D9xEBH0/PPW+27a6FaiZDlQ=
-X-Google-Smtp-Source: AGRyM1u/4QG+lv01OuNQRv5dICfp1iMojBGdOQCB054Of0nHO6eJIDlEiA+XLi20gZMrDBLB66OBnA==
-X-Received: by 2002:a05:651c:158a:b0:25d:1cc9:3ce7 with SMTP id h10-20020a05651c158a00b0025d1cc93ce7mr13652854ljq.450.1657190739851;
-        Thu, 07 Jul 2022 03:45:39 -0700 (PDT)
-Date: Thu, 7 Jul 2022 13:45:33 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Samuel Holland <samuel@sholland.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Bartosz Golaszewski <brgl@bgdev.pl>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Chris Zankel <chris@zankel.net>,
-	Colin Ian King <colin.king@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Guo Ren <guoren@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Helge Deller <deller@gmx.de>, Ingo Molnar <mingo@redhat.com>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Jan Beulich <jbeulich@suse.com>, Joerg Roedel <joro@8bytes.org>,
-	Juergen Gross <jgross@suse.com>,
-	Julia Lawall <Julia.Lawall@inria.fr>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Kees Cook <keescook@chromium.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Matt Turner <mattst88@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>,
-	Maximilian Heyne <mheyne@amazon.de>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Rich Felker <dalias@libc.org>, Richard Henderson <rth@twiddle.net>,
-	Rikard Falkeborn <rikard.falkeborn@gmail.com>,
-	Rob Herring <robh@kernel.org>, Russell King <linux@armlinux.org.uk>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Sven Schnelle <svens@stackframe.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Wei Liu <wei.liu@kernel.org>, Wei Xu <xuwei5@hisilicon.com>,
-	Will Deacon <will@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	iommu@lists.linux-foundation.org, iommu@lists.linux.dev,
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-hyperv@vger.kernel.org, linux-ia64@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-sh@vger.kernel.org, linux-xtensa@linux-xtensa.org,
-	x86@kernel.org, xen-devel@lists.xenproject.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH v3 1/8] irqchip/mips-gic: Only register IPI domain when
- SMP is enabled
-Message-ID: <20220707104533.7iakliv2f5i2qi33@mobilestation>
-References: <20220701200056.46555-1-samuel@sholland.org>
- <20220701200056.46555-2-samuel@sholland.org>
- <20220705135243.ydbwfo4kois64elr@mobilestation>
- <87czehmiwt.wl-maz@kernel.org>
+X-Inumbo-ID: 446ef526-fde4-11ec-924f-1f966e50362f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I3DUmzbGpHitjgWqA//jU9T2t7XetRXn05nLxUp/cQP8tGPwsIinkh18oSym4nMHz7IwZi/ArnUG8Gv+3WLh22PSV4lxeKbzPV5cvxciFYtKXeWAjSGxraZPtPTi/ocFNY0dGWqlzge+E6IHWpWWgNdzS/SniCjCAd5i13mdpt07lLOtpbAgL5JjK0GWau780RTLKqPof0+15DtqO3oivvwccnVlLh4hDDy6j7th1hyITFFfZE9SfeWwfNWoIbuoHrjz1QF6pomFjgqIVOpKQv+FgqEw5FLUyOYKfRCvSJtvx4vqK+jiGwnHCN7iAU5DzLXQQFktUT5HDQroYhOsiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0gTBnkG3u3nbW69rLllx7S8Ed/m8Y9An/koezV6cZ6Y=;
+ b=m4CikfXT1mQLbtluMPnrKvgvL3itPk3863XGKMvmbw3EeLa2BGRHRrP8iyn2aUZMuKZRaniKyI9OiEiinvwjbBKid+xb8XRTW+8dtwCdIJjQbJgSXlGfXpfEpd2NYQARN62ET2AcKRB1kVfQ454sCaCF4IIk2CbQat9rPa2vmH19EwYmrR08GhdMYLN/TjbPjuuRtAJ1RocKeAiwfuPtuSclrV0MRMDBmkEmN+5sf3uVntizjuerznThqZ8ikw8sBk7y4K/Ysw0Vf6Qy/AUMsy739TLafkavTh7+5FNGUFGdWNOYJIFqSSLcqkTNRpQ7WWI+WyHoJtoq7iFyqZN40w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0gTBnkG3u3nbW69rLllx7S8Ed/m8Y9An/koezV6cZ6Y=;
+ b=sitFvSYrVZPBhb5VjKWi6aMmBXMXbphuCrIsdP1//bMTBxR8eZRCCu6CeMa967gFdIehBfr111PVcZ02n3Msdtu7/oFVtcxDr8jAm/YP9nd+nTA4zdF9+iF3NyBnSsxQim08WuRPRjWSc4US0w9GCHlu3ONT0hCkv0PfNIcEluNSKAs+5R9ChjLkrAllAyUhmg1IYHWmbUL2KW85DSATuVn9PXW25cEmxuldItLn98e9qd1F29CdIi0hiqnGuJKFA4bTYTC8+kgqm9jyLXbgdFg9BKqUc315EwVVFQ6h4NpnY7+JxPj8Ejj6zubVfqVIilEvdGDgIZH83VAl4SlSig==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <0d24ac7e-c46f-b6e1-64a8-e28b2eec471a@suse.com>
+Date: Thu, 7 Jul 2022 13:02:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] Config.mk: use newest Mini-OS commit
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220707093911.22182-1-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220707093911.22182-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0029.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87czehmiwt.wl-maz@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6212f580-4141-4a38-27ad-08da60082741
+X-MS-TrafficTypeDiagnostic: AM0PR04MB4627:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	L4rXSit6fyRuOByYWmazqv6F2t+KGdygZZ6Qk6VDEJ4La7n+Vkg3N9KXVElhvLctCx8IS9CiVqasxhSpZc0oQEyYClWfxJoG/cLWOZq4SS1jINkQu4P73EAmtGh/Mer0+7M/gLJYXOVbsIKyrYEClcPw8Kb73vFfvcAQDZHLXiRydmv+jwMh3beuO9/2nia1nTEmUtBRV5o/Fp3nZH3PxHKBMwMhpwwoNxLJf4WQHVSFOVW9jekfzOUq4Quos0J8R/GMt0fW2VyXHl+zQbvxJNHz6T0vdS+Ku4GW+PmSS67JaneIRMjn7Fi6ffIuHFz/WuuVco6+JOI/HVz5CJz+EwycJ7whh9eYkfm5AvAa9zJgqg2fL2qj87fE7oe53fu2saEgPoesF9u4ngNxuGdSLEozhFnszl6lTKusNgNXPubUEAkML88BN9wMV9EthdWXL/fJhUpujzF1ddCH6dPJ1GF5neIfIPXu+Jfa3qEdxVYPyY5sgMOEPMhFRSgyceqnEYCddlnDZ30aPm/PwxtRCxLRHZFwODzUpApohHAw14jyeE7kHUd4nBy0PnfwK8qbqBL8XQRv2i5H4Nb2JlGHL8/Du+ioS89JN5I9aK/FyvLexIy2BUdyx7+KmDoasmOTIx6gcbBjq/Cv9M/PCi+SPCOAz9/5Yqqi0AMdhDv/3QaK51HY1B+wTQOKuQRN2q4E6UnISc/jCxlcKK3Zh0M/9Gyqy1VJKxVSstNzei/gl1gmjDkDWOKk7Po/xjikgN0k7NWFUaCHvKxbz9U8Kl2OI4z7e7KDxOSCQbSO0epQAzgoA7/yJ+f/NqzbCARKwxLPCQiXPjC6frdkG8nTv/xEFnoYKc7v34XN7AI7BOSPMoA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(396003)(366004)(346002)(376002)(39860400002)(37006003)(66946007)(66556008)(66476007)(41300700001)(53546011)(8676002)(4326008)(38100700002)(36756003)(86362001)(6862004)(6506007)(5660300002)(31696002)(186003)(8936002)(2616005)(6486002)(2906002)(6512007)(478600001)(31686004)(26005)(6636002)(83380400001)(558084003)(54906003)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UkV1aUVlaUdDU1gyS2Y3UXNYVGpzNzJTSDVFclI1RklvSzJDTkt3citQZThD?=
+ =?utf-8?B?aEtkd3lGaE5pOUppS25KNm5HNlZyQnJvT0MwSHZuWktBdU9JNnRhQmFwOGx0?=
+ =?utf-8?B?RVF4eVlqb1YxTHk5SE4yR0lhY0JlY1dwdGR6TmpScktqNi9GOXluM1QxRVpI?=
+ =?utf-8?B?Tm5EUE1LemdqUDNXd2R2Ti9HcHlZakJycGtYZWtaQXRSaDZNYmJzUXN3RXNQ?=
+ =?utf-8?B?dTlXSmVMMWdkN255SGhYeGlWOGdxRWt1LzJBV1Q4aTlBN08vbEJHYjk0VnBu?=
+ =?utf-8?B?ZVc1TjFOYXpiVWg0ODVTWWpQZHRrTkRUdU8rUWNONVloL3ZpRmtYWTczaGJs?=
+ =?utf-8?B?aFZlczhwbFk2dnZxT0ZtVGtVNUdoS3ZFOHk3MTZhWWJIOXdqN2w3QlFqSDQz?=
+ =?utf-8?B?TURSUGpwNU1jNUxrVzdnVU5tZ3R0VXAyUG1GQWNETHZ1Ym5PRGhTYWhPS0pj?=
+ =?utf-8?B?REFjUThZWmNzcitDNTY3eE9sbm90Z0NZZ1h5U0VsMmV4b0plZFFlM0NLVS9n?=
+ =?utf-8?B?QVlvZkJHRXozeUdoZXVOL1RHbUwxbXVUdHNFOXVSRmMyUVZzM1M5UFpkbVF2?=
+ =?utf-8?B?UlAvTFVMN3BCY0FmSWYrbU9qK250S3cwME5EL2pBenBoQ2xkcHpDeFZZdGEv?=
+ =?utf-8?B?dWExQXE2VUFZOHdVRmh1aE52anZSSm40WmVRTVdHeDlLT2NJVkZnOXVGelY5?=
+ =?utf-8?B?SlkvZldQR0xNR0xyZ24reFRjcVRrY3A0VUpybjJ2R2tFN3pJQ0RQK2lTOHFP?=
+ =?utf-8?B?SkR5eFY1KzNaVHoyKzczby8vamEvb2VFVWVDcXpEcENpQ1NrYm9Ca052TDQv?=
+ =?utf-8?B?YXVreVBlTlZmL0ZWaUVISk95RzBYM3VGYVRzNjNHdDMwK1FwVHVpTTVUdXpS?=
+ =?utf-8?B?STFDMTA5YWZDbkxGdmpDMWdLWFZ2RUVXc2tyV0c5a1IvNFY0cDZDNXlCTS93?=
+ =?utf-8?B?RVlxVGtnaTBpSkM5VUo3VjVVTmJEMHhOVDMxR1FaMDhnakhSTnhPU01TdGRq?=
+ =?utf-8?B?SldEbjUwTUZHMWVVNXpvd2g0b20vSUhtdzZZbU1uTGMrM2hzUTdRMXpBVWQ4?=
+ =?utf-8?B?TW53L1NoYWlmTFUrOGN2U3NXNWVIWjdBU0RPZWI3akEyQU5GVDZYYkZuNHR2?=
+ =?utf-8?B?S2Yva0NERHZTRHdxWHczUEE3NXlrSTBsR1VyTC91YXBCWXIrWmxpRmpNQ0sy?=
+ =?utf-8?B?dWFDZHg3cjZJbnl6dURRbG1XVkozc0kwcWY2YndUS2lTeHUrN3RVbTdNNWQ2?=
+ =?utf-8?B?Y1V1eTFkNm1DcHlRZVo0ZUFKWjJmV0d0UG8ybFlsb1N1Q2x2eWNXdEE4TDNY?=
+ =?utf-8?B?RXF5b0x0TWxlRVdNSUFDaTFKK2h4MjZncWZXQjRlZ2pmOU83eW1oVTdzZzdi?=
+ =?utf-8?B?Rk04ZWdsbEFZWkJSdWp0VFdjSnJ5M2lZRXJMOGtzTTcyc2ozeFdXekNGNGpw?=
+ =?utf-8?B?Tk5OeWU2UTVZTXNVY3MyQ0g2WFZENkQ1MTJ0WHhxSWRGdXNmZWhKUElwc24r?=
+ =?utf-8?B?Mndwekp6TVZhSDdVK1JQTWs2c1FTRGJaT3BLY0tTZlFCOTI3Q2NnSldnZWht?=
+ =?utf-8?B?NEJzWkpSeEgwZ0E4OGpTU1FYNXh2OWltL0JSbDAxUjNBYmVubjdyQm1MeERx?=
+ =?utf-8?B?ZDl5NW9rZ05udGhjY3BPRnp3U1d1Sm9maWVId2ZETHE4K2dIbEQvSE1UZUFu?=
+ =?utf-8?B?emtqNVdEaVFHdWNqUW4rQ2txaWdhRGlPRVViUWo2czlBNTZqQWk0eGZqS3NG?=
+ =?utf-8?B?OUtDQm9kTUVPWHVFMFE4ZWFtYUpGZHZzcWF0RVVKcEpUT0wvUnNCQWEvMGl0?=
+ =?utf-8?B?ZVpZcitMMUpJL2pQQ29ZNTRGK2V4bEg3bHE1dVBIT3JpVnZkSEhrWExBdjlI?=
+ =?utf-8?B?UmhMelJlTVY5S0lCaEwyMnVLaEMrYlRvVnM4UXcxRzhKNVRreWdCTHRtaDNp?=
+ =?utf-8?B?RWtNT2h2aEdTRTNjRWdpaW5DUWlxc1YzVEx6N0VBV2VvZTZNbHBTY2h0Ylkx?=
+ =?utf-8?B?ZWtmQmo2dkVYMlo3emRmeDczWE82c0xYRjJmelcvd0tzM2hrZFFVZVI3cVM1?=
+ =?utf-8?B?bjR1L21oZjhDZUFXbTRzVHByUkRwZ0cybGNXQlJPZ0VjWEUyMHZaNTExcWRS?=
+ =?utf-8?Q?5mXq6x9RiwuOudr3KdS21TNmG?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6212f580-4141-4a38-27ad-08da60082741
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 11:02:16.3120
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zIyXsKRktADmb0GE0SI7YBx8dSw0ZdMoiwCSCZ0g2Bl4K7TCAhFFjwpnjZSYs/1BtNsQqi0jfgGY0wu0Im+6WQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4627
 
-On Thu, Jul 07, 2022 at 09:22:26AM +0100, Marc Zyngier wrote:
-> On Tue, 05 Jul 2022 14:52:43 +0100,
-> Serge Semin <fancer.lancer@gmail.com> wrote:
-> > 
-> > Hi Samuel
-> > 
-> > On Fri, Jul 01, 2022 at 03:00:49PM -0500, Samuel Holland wrote:
-> > > The MIPS GIC irqchip driver may be selected in a uniprocessor
-> > > configuration, but it unconditionally registers an IPI domain.
-> > > 
-> > > Limit the part of the driver dealing with IPIs to only be compiled when
-> > > GENERIC_IRQ_IPI is enabled, which corresponds to an SMP configuration.
-> > 
-> > Thanks for the patch. Some comment is below.
-> > 
-> > > 
-> > > Reported-by: kernel test robot <lkp@intel.com>
-> > > Signed-off-by: Samuel Holland <samuel@sholland.org>
-> > > ---
-> > > 
-> > > Changes in v3:
-> > >  - New patch to fix build errors in uniprocessor MIPS configs
-> > > 
-> > >  drivers/irqchip/Kconfig        |  3 +-
-> > >  drivers/irqchip/irq-mips-gic.c | 80 +++++++++++++++++++++++-----------
-> > >  2 files changed, 56 insertions(+), 27 deletions(-)
-> > > 
-> > > diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-> > > index 1f23a6be7d88..d26a4ff7c99f 100644
-> > > --- a/drivers/irqchip/Kconfig
-> > > +++ b/drivers/irqchip/Kconfig
-> > > @@ -322,7 +322,8 @@ config KEYSTONE_IRQ
-> > >  
-> > >  config MIPS_GIC
-> > >  	bool
-> > > -	select GENERIC_IRQ_IPI
-> > > +	select GENERIC_IRQ_IPI if SMP
-> > 
-> > > +	select IRQ_DOMAIN_HIERARCHY
-> > 
-> > It seems to me that the IRQ domains hierarchy is supposed to be
-> > created only if IPI is required. At least that's what the MIPS GIC
-> > driver implies. Thus we can go further and CONFIG_IRQ_DOMAIN_HIERARCHY
-> > ifdef-out the gic_irq_domain_alloc() and gic_irq_domain_free()
-> > methods definition together with the initialization:
-> > 
-> >  static const struct irq_domain_ops gic_irq_domain_ops = {
-> >  	.xlate = gic_irq_domain_xlate,
-> > +#ifdef CONFIG_IRQ_DOMAIN_HIERARCHY
-> >  	.alloc = gic_irq_domain_alloc,
-> >  	.free = gic_irq_domain_free,
-> > +#endif
-> >  	.map = gic_irq_domain_map,
-> > };
-> > 
-> > If the GENERIC_IRQ_IPI config is enabled, CONFIG_IRQ_DOMAIN_HIERARCHY
-> > will be automatically selected (see the config definition in
-> > kernel/irq/Kconfig). If the IRQs hierarchy is needed for some another
-> > functionality like GENERIC_MSI_IRQ_DOMAIN or GPIOs then they will
-> > explicitly enable the IRQ_DOMAIN_HIERARCHY config thus activating the
-> > denoted .alloc and .free methods definitions.
-> > 
-> > To sum up you can get rid of the IRQ_DOMAIN_HIERARCHY config
-> > force-select from this patch and make the MIPS GIC driver code a bit
-> > more coherent.
-> > 
-> > @Marc, please correct me if were wrong.
+On 07.07.2022 11:39, Juergen Gross wrote:
+> Switch to use the newest Mini-OS commit in order to get the recent
+> fixes.
 > 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-> Either way probably works correctly, but Samuel's approach is more
-> readable IMO. It is far easier to reason about a high-level feature
-> (GENERIC_IRQ_IPI) than an implementation detail (IRQ_DOMAIN_HIERARCHY).
-> 
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-The main idea of my comment was to get rid of the forcible
-IRQ_DOMAIN_HIERARCHY config selection, because the basic part of the
-driver doesn't depends on the hierarchical IRQ-domains functionality.
-It's needed only for IPIs and implicitly for the lower level IRQ
-device drivers like GPIO or PCIe-controllers, which explicitly enable
-the IRQ_DOMAIN_HIERARCHY config anyway. That's why instead of forcible
-IRQ_DOMAIN_HIERARCHY config selection (see Samuel patch) I suggested
-to make the corresponding functionality defined under the
-IRQ_DOMAIN_HIERARCHY config ifdefs, thus having the driver capable of
-creating the hierarchical IRQs domains only if it's required.
-
-> If you really want to save a handful of bytes, you can make the
-> callbacks conditional on GENERIC_IRQ_IPI, and be done with it.
-
-AFAIU I can't in this case. It must be either IRQ_DOMAIN_HIERARCHY
-ifdefs or explicit IRQ_DOMAIN_HIERARCHY select. There can be non-SMP
-(UP) systems with no need in IPIs but for instance having a GPIO or
-PCIe controller which require the hierarchical IRQ-domains support of
-the parental IRQ controller. So making the callbacks definition
-depended on the GENERIC_IRQ_IPI config state will break the driver for
-these systems. That's why I suggested to use
-CONFIG_IRQ_DOMAIN_HIERARCHY which activates the hierarchical IRQ
-domains support in the IRQ-chip system (see the irq_domain_ops
-structure conditional fields definition) and shall we have the
-suggested approach implemented in the MIPS GIC driver.
-
--Sergey
-
-> But this can come as an additional patch.
-> 
-> Thanks,
-> 
-> 	M.
-> 
-> -- 
-> Without deviation from the norm, progress is not possible.
 
