@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1950856B3C6
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 09:45:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.363263.593736 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E53956B3C8
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 09:46:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.363268.593747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9ifv-0004z6-Gp; Fri, 08 Jul 2022 07:45:19 +0000
+	id 1o9igs-0005YA-QS; Fri, 08 Jul 2022 07:46:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 363263.593736; Fri, 08 Jul 2022 07:45:19 +0000
+Received: by outflank-mailman (output) from mailman id 363268.593747; Fri, 08 Jul 2022 07:46:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9ifv-0004vd-DT; Fri, 08 Jul 2022 07:45:19 +0000
-Received: by outflank-mailman (input) for mailman id 363263;
- Fri, 08 Jul 2022 07:45:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1o9igs-0005VG-NG; Fri, 08 Jul 2022 07:46:18 +0000
+Received: by outflank-mailman (input) for mailman id 363268;
+ Fri, 08 Jul 2022 07:46:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rYmb=XN=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1o9ifu-0004vX-2M
- for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 07:45:18 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2047.outbound.protection.outlook.com [40.107.22.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8a3a012-fe91-11ec-924f-1f966e50362f;
- Fri, 08 Jul 2022 09:45:17 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB7PR04MB5162.eurprd04.prod.outlook.com (2603:10a6:10:1d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Fri, 8 Jul
- 2022 07:45:13 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5417.016; Fri, 8 Jul 2022
- 07:45:12 +0000
+ (envelope-from <julien@xen.org>) id 1o9igr-0005V6-7S
+ for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 07:46:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o9igr-0005pF-2l; Fri, 08 Jul 2022 07:46:17 +0000
+Received: from [54.239.6.190] (helo=[192.168.18.211])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1o9igq-0006KE-TB; Fri, 08 Jul 2022 07:46:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,111 +39,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8a3a012-fe91-11ec-924f-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gEywP+ml83p9L+uFRi90HyAvxHLOLdT729HPtZck1+cGDftSd+pmxVicjSxSZkvSbCyRLljPfv9S8LIkkw9HyE3RbEyEntxaaCpwJVQUf3Lozs8kqAqLNw5EWuM+5JrT+KoOdxxGxBWscqUYx+MFT5HF/Yuy/P5hqFIhx+pJV6tvbOEqOaif4fRh18vDqE38xqynA2hjE0dQlMUY6d8HT2iFalwyuOvUbUZ2wcmnau3nwkHR2ti3A4aWcgnC++Ntwq7M2Q2NelGPdxPQL+XVXejncJFVvBxXizXyNCcOcyq/bl5dn7CFk44uqJ+tA+m53f9ogyQnGjGxaOZVP8w8GQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H4eikT7UR16x3SJhXouZIDaPJov9z+zIjrxXq/Q14iI=;
- b=TrlbbkfcQ9TTm4mpbRxpdAczmgYnZYEn1HgoGx/Uam1HqgWqxgPRBLqjsay8L14zKM2BtqhQ86UDZdJqWIkOVflsdmU1thGDW+AOumkgRNOUEewiSSY0C/p3IXAnfnH41DjDOmSpV6z5YzRw3Sx4e6mTxQq83nj9lZpA/nozG41LB0PI3hja7kMVhjiqV1qNWRTimvNYaQXXjiuoVwReXhEP1X4NZ1YGrsQyiiPfH0iKFEAO/QRVNlWPalqA5WpKP0JwupcNn/Wr+nNSPFQpRnnsSSXb6mWh23VNa53ic9o42WKktlPh9aLRm2DpHmnsKWW48gGPaY+gxbEf2Wf63Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H4eikT7UR16x3SJhXouZIDaPJov9z+zIjrxXq/Q14iI=;
- b=bzfznHuph7j7S2aleIa70rkQbxqjOuWxsaiAbZGqs9OzT1PxdTl05G/L3O9xRY70icyS1UziZpomOlwkJ6u4+J0qLQcSCTmHrohL/8Vl9l8xUpHr2NVd9EdINFkP6dVxd8v6EkWfVBTwHPELhrB/P+4dQwicGMjXxJ0MG6ew9+EFhBHdRCD9VDXROxDcM83Q3I1GPRmc3JaVoI8wNWNSuh1USkFHUjUEQgmSwiko8Jcz4uzoi7HERrhz7atnp/w12Cr5w1/RvXoXSNc3tIRZlxCdYkW3dgq058N2/DA7UqcD6w7oOff6mKKGt17tCNA6O7hmBpF1xTLkr21BT85PcA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <22d754e3-f01d-4f4e-8a34-e8af65ef6437@suse.com>
-Date: Fri, 8 Jul 2022 09:45:11 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] docs: add reference to release cycle discussion
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Henry.Wang@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220708041258.10349-1-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220708041258.10349-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0036.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Enrk0CMF9QdvkKEmX+ZyvNMDaUhuGcFGRrFhEb9mArk=; b=DMB021HDOWZyiaE07h7pfu3c3b
+	dJYi5JuwML2tcii8ln8DXyYArxmx7vqwf66ugPfJtxJmFEYNGhiukvI7xHF+XbJkrSN5yKcksyO+7
+	asI0LNhoxMPgjEDTYmEvCPf/BBCwKPGGYr4NInSDTMx595lL6SqoNUqwepdImGwLIVDI=;
+Message-ID: <418ffeb7-a088-28e8-c1b3-8f5ced317666@xen.org>
+Date: Fri, 8 Jul 2022 08:46:15 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e471cd97-5cec-4b8d-b051-08da60b5ca64
-X-MS-TrafficTypeDiagnostic: DB7PR04MB5162:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ZUcJfJtMEI/1WwV2AAiTRNE8mJY7B/d0XWL6acjCzvUvavV9RDoqgI/sn9rOCpp+tbj6Fh9tpy5A0Kjrk1WOg/Evzkhge9+QWOPEqLNUTD81iXceOOH6DG9TIliOvziAMQ5SjB/PFO2Dt+lMzklr0R2S4C6wgV7vLvzwCh3bgmZ3hAgqZ/FPUy4TQqIC4VzAJstBWhZotrB8A8GiopxnuoumxLVMpeMLpe9gfMWQaFIgZfb2ROyL5U79ZWgj0HtZKcsD8yauJgjnDxw6mcS39h7ksKfqmJooNrEotCmLyQWkkNmYS93l+elYpz3gbGwmzjAR0t2rGbBRA39L5598iM7u7Jwl3Hu+C+F/4lfJ4RY+8NDluduLxTdntVtOKGtxFWu4ID+FbP8+CT/oyAqQmDHV6k+5WruD7fxknwSiriLtaD4ka6M3OTHI0vgLrR4vrJIan5IepWKyIC15wtgKy169SGyzearP0+S3MeeT+pGj3KpArOsnpyTPKgM7UFKHT/8FMCdKnaZrqf8ercYBKV0mOs1RPJ7/mLtogdvqljYz7uJ2mUtRuoPd0OJd6R2ql7R8KIRKwZP1Rzz7AJ0633wcmc9fzkAcKn3dIMBPHKBTZWBOrwWM8tq3SQgV00s0lqg8AvAtZsoq4/Yk6M5BBr86BgyPyt+wu6nx3aommQrLs2nVQGkA7p+z+GwnDr2LY5Xdo+lxYM2BzkoiPRKA03SYM+RPhcZYh3xQWwqd6X+c7wbGA2p4jb0D7fjCxCe4i9e5UfUWAw3urt77Cyypd+ywyIgRgnKIVsgOAH1Ou/EwQUfTauTwKblAyEu1QH7176I7fKZHZlqM23eR+VO4cerb+EIV6+Lkzk9i839FvWQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(396003)(136003)(376002)(346002)(366004)(38100700002)(31686004)(6636002)(2906002)(36756003)(37006003)(54906003)(41300700001)(66946007)(86362001)(6862004)(5660300002)(6486002)(66476007)(8936002)(66556008)(316002)(4326008)(6512007)(2616005)(478600001)(186003)(4744005)(31696002)(8676002)(26005)(6506007)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dmxmanVaUXViMHV5SVlPNnNvMEpiUzFiSUZUcitoQk9uQnlqRGcyajhyOFUy?=
- =?utf-8?B?dWV2Y2VjOXQ2K1V1R21BSEhNdXNOeE45NlViMkxmbWhsNk14L3lwUEE0YzJG?=
- =?utf-8?B?M0Y4K1BQanFQNHp1S3JDWlEyVjMwK2FRZFZvck9jYWdQTk91QWZaTVl2VGdz?=
- =?utf-8?B?eFJXdUphb2xqU01oVzlHSE11OEFwUWZlZVNndklpSmpNb1NGS1lBeFhNNnB2?=
- =?utf-8?B?NzBlaXNHTnVXVlV5amRTeDQwWnJDVWhzblIzUnB2cnI5STlyU1I5NTJkeDFZ?=
- =?utf-8?B?VUV3ODAwcHpVcmszUkp3d3FxTFd0N284RnBzUjJhY3NIWVRKU2xwa2ZtTTJx?=
- =?utf-8?B?MndDM3FnU2R1enNyd1cvcnpLcUVrNy9zVVFiTzVIK0JBUDE3bUo2OUFsT21Z?=
- =?utf-8?B?U2tlQnBpYXRvMjdQRVdOcThlSU5OV0E2cU55QWVIcXhralcvTk1kdU9zU2Fw?=
- =?utf-8?B?eGdtd2dOcUNlVlp0amRLKytMWXM3NnJnL2NrY2tzdkdQdmk0QTNIekxsWm1N?=
- =?utf-8?B?aVFwZkxaV2V0U3VBSkJkRWIvQmM2cWFHVVZBSzFsWWpldDhQdFhXNlVPTHNu?=
- =?utf-8?B?ZUlPS3gvaUVENEZCMWw0dzA0blpMcTBSZzBhd2Fjbmd3L0J4NDgwOVhwOFd1?=
- =?utf-8?B?YVNSRU5jSkRWVTlwRG90d0VuZnJBaXVtYnpucXRQeVp4KzZYWHZ1SkZDUmw3?=
- =?utf-8?B?azlLWmRBZmhPbndReGxKUzl5NGhpdTJhK0RHY1AvRlc0SUZjVjdybDBhZXBz?=
- =?utf-8?B?SnltSlpYUVpSYTZ1MEtjTFlYTk1FT0FLL2ZOVWxKRXBGakxOWjQ2OWVzV2Js?=
- =?utf-8?B?eGRIYk1Vd0NKVTlJYUF3MUMxTmxNSGJBdjM0aUphanFzQlBOMGd2L3FlbWU3?=
- =?utf-8?B?czRVM25jUGdNRjlOY1RaMnFNeWEvY1BwWWdlUnNBOWw3Y3dEc0ZuNWJlNVFT?=
- =?utf-8?B?UUNIK3ZBNVRObDVkQWhoZGNqS1E0cFpyWW1ocmpCdVJFNG5GQlh5a21ibDJk?=
- =?utf-8?B?bmgwVlBTZlFlc3MvODBqNGlTSThlMWFQb3kvcncyVEZSZU1nSU9oelV1QVkr?=
- =?utf-8?B?V1BoRlkxMVdGWGdIdHd0dHBLcUFhMlFDSGpBSEpxN0NzUUNwb203anVmdXBa?=
- =?utf-8?B?Zy9hbUZRMnE4RjRmUjlnSnN4WjhCRGlFaWxMa01hT0s1NmlpTGVvbElyZEt6?=
- =?utf-8?B?aHpBS0F4VUdWWlY4Uy9VMTNzdWNCVUVpTG1PbWE4K3YweTF0VHJxekU5cmNJ?=
- =?utf-8?B?Q251RUJYVnEwbzlzUisxbms0ZEgxbGVvUXk2bU1JQjRoMENHelBPbFBhLzh6?=
- =?utf-8?B?MVVQd3orR3NjUERzdU9oQ2xkcGdOZXZKeTAzTVMrOElqKzR5Qjh1bysrREdm?=
- =?utf-8?B?Y1J5eVZLZE9zaFBHQTkyYW4zT1VsY2xWanNYdHIxSlV4OUFIQ2RaS3hHcmxv?=
- =?utf-8?B?U2cwU0ozUG1lUXA5dFEyTy91M28vZ2NFWmRPQVBudHQxYjAxRmRDMjV5RXpJ?=
- =?utf-8?B?dWxPZ2ZmYkZxVitkb1YxVGt5Qzg0SjZNeGpTOVVWN0NGeU8yTjd2VDUxWkZX?=
- =?utf-8?B?SDU2RXIwcDhCNkVCeHRmbkdwRERWNXVMaHhqU0owV0N1KzRoR1FxRjRkQzRp?=
- =?utf-8?B?ZFRaTjA0Wm1qcnRzOW1CU2JGR0FyMWptQnBaT2cxVFUxbW1sUHBMMkJCV2V5?=
- =?utf-8?B?ZW1hZWxKUkZxVzIxcVB1Z01oYjV4ak1TTnJhVXN1RGZHMVFndEdJMWxkMEJi?=
- =?utf-8?B?QzBldllDbU81T0p6elFTdm5JOVp4QzNMZGNWbnhNQTArQTZVSjZpemNjdUZi?=
- =?utf-8?B?UjFUYUxmTFJyc3hhTTUrenRQakNvcmh1aEZKM0FKV0lrbDdUOUpPQ3lpelZO?=
- =?utf-8?B?QlhCdmdtelphZzdKRkxwSC85djYzbCt4S0pWTUowK3RqOEpTZ1ZPK1ZFSGt3?=
- =?utf-8?B?VkVtZi9hQ0ZhekN2Um9lOUJ6ajFrTzJacFRGNnN3NHBoTXN3cjkwaUlxbzNa?=
- =?utf-8?B?NnNkb0pCRGtNN0pqa0tRSjlzTXh2RTZBRndQLzJCcDk5Z0VDeEx4b29QSHJh?=
- =?utf-8?B?cUQ1ZVVRc0pJNW1haDVoMDA4S08vdjBOVWtvWVhiUC9BbVhiQWxWQnRWQmVi?=
- =?utf-8?Q?S2gPD6uh5PowohaAV5jvwdGIb?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e471cd97-5cec-4b8d-b051-08da60b5ca64
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2022 07:45:12.9008
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y6q9r2WyavcwTZ6TibVt/VniYgYoDN5tJHlHv8o3QKFsM6j/M3suEdh6HeorBp/vuvxubiDYs/nnOuzDTwe+QQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5162
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.11.0
+Subject: Re: [PATCH 2/2] automation: arm64: Create a test job for testing
+ static allocation on qemu
+To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20220707203803.798317-1-burzalodowa@gmail.com>
+ <20220707203803.798317-3-burzalodowa@gmail.com>
+ <259c9042-4a40-ddd3-5e3c-7a1698df74c4@xen.org>
+ <c46137a2-d65c-3292-6e1c-8578e771f3b9@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <c46137a2-d65c-3292-6e1c-8578e771f3b9@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 08.07.2022 06:12, Juergen Gross wrote:
-> As it is coming up basically every release cycle of Xen, add a
-> reference to the discussion why the current release scheme has been
-> selected in the release management documentation.
+
+
+On 08/07/2022 08:17, Xenia Ragiadakou wrote:
+> Hi Julien,
+
+Hi Xenia,
+
+> On 7/8/22 01:26, Julien Grall wrote:
+>> Hi Xenia,
+>>
+>> On 07/07/2022 21:38, Xenia Ragiadakou wrote:
+>>> Add an arm subdirectory under automation/configs for the arm specific 
+>>> configs
+>>> and add a config that enables static allocation.
+>>>
+>>> Modify the build script to search for configs also in this 
+>>> subdirectory and to
+>>> keep the generated xen binary, suffixed with the config file name, as 
+>>> artifact.
+>>>
+>>> Create a test job that
+>>> - boots xen on qemu with a single direct mapped dom0less guest 
+>>> configured with
+>>> statically allocated memory
+>>> - verifies that the memory ranges reported in the guest's logs are 
+>>> the same
+>>> with the provided static memory regions
+>>>
+>>> For guest kernel, use the 5.9.9 kernel from the tests-artifacts 
+>>> containers.
+>>> Use busybox-static package, to create the guest ramdisk.
+>>> To generate the u-boot script, use ImageBuilder.
+>>> Use the qemu from the tests-artifacts containers.
+>>>
+>>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>>> ---
+>>>   automation/configs/arm/static_mem          |   3 +
+>>>   automation/gitlab-ci/test.yaml             |  24 +++++
+>>>   automation/scripts/build                   |   4 +
+>>>   automation/scripts/qemu-staticmem-arm64.sh | 114 +++++++++++++++++++++
+>>>   4 files changed, 145 insertions(+)
+>>>   create mode 100644 automation/configs/arm/static_mem
+>>>   create mode 100755 automation/scripts/qemu-staticmem-arm64.sh
+>>>
+>>> diff --git a/automation/configs/arm/static_mem 
+>>> b/automation/configs/arm/static_mem
+>>> new file mode 100644
+>>> index 0000000000..84675ddf4e
+>>> --- /dev/null
+>>> +++ b/automation/configs/arm/static_mem
+>>> @@ -0,0 +1,3 @@
+>>> +CONFIG_EXPERT=y
+>>> +CONFIG_UNSUPPORTED=y
+>>> +CONFIG_STATIC_MEMORY=y
+>>> \ No newline at end of file
+>>
+>> Any particular reason to build a new Xen rather enable 
+>> CONFIG_STATIC_MEMORY in the existing build
 > 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> IIUC, the xen binary (built with the arm64_defconfig) is used by the two 
+> other arm64 test jobs qemu-smoke-arm64-gcc and qemu-alpine-arm64-gcc. I 
+> did not want to change its configuration.
+> 
+> If there is no issue with changing its configuration, I can enable 
+> static memory and use this one. 
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I would expect a Xen built to CONFIG_STATIC_MEMORY to continue to work 
+in normal case. So it should be fine to enable by default.
 
+> But to be honest, I would like to be 
+> able also to test with custom configs.
+
+That's fine. But in this case...
+
+> 
+>>> diff --git a/automation/scripts/build b/automation/scripts/build
+>>> index 21b3bc57c8..9c6196d9bd 100755
+>>> --- a/automation/scripts/build
+>>> +++ b/automation/scripts/build
+>>> @@ -83,6 +83,7 @@ fi
+>>>   # Build all the configs we care about
+>>>   case ${XEN_TARGET_ARCH} in
+>>>       x86_64) arch=x86 ;;
+>>> +    arm64) arch=arm ;;
+>>>       *) exit 0 ;;
+>>>   esac
+>>> @@ -93,4 +94,7 @@ for cfg in `ls ${cfg_dir}`; do
+>>>       rm -f xen/.config
+>>>       make -C xen KBUILD_DEFCONFIG=../../../../${cfg_dir}/${cfg} 
+>>> defconfig
+>>>       make -j$(nproc) -C xen
+>>> +    if [[ ${arch} == "arm" ]]; then
+>>> +        cp xen/xen binaries/xen-${cfg}
+>>> +    fi
+>>
+>> This feels a bit of a hack to be arm only. Can you explain why this is 
+>> not enabled for x86 (other than this is not yet used)?
+> 
+> I did not want to change the existing behavior for x86.
+
+
+... I don't think this should be restricted to arm. I would also 
+consider to do this change separately to avoid mixing infrastructure 
+change and new test.
+
+[...]
+
+>>> +# ImageBuilder
+>>> +rm -rf imagebuilder
+>>> +git clone https://gitlab.com/ViryaOS/imagebuilder
+>>> +
+>>> +echo "MEMORY_START=\"0x40000000\"
+>>> +MEMORY_END=\"0x0200000000\"
+>>> +
+>>> +DEVICE_TREE=\"virt-gicv2.dtb\"
+>>> +
+>>> +XEN=\"xen-static_mem\"
+>>> +XEN_CMD=\"console=dtuart earlyprintk xsm=dummy\"
+>>
+>> AFAIK, earlyprintk is not an option for Xen on Arm (at least). It is 
+>> also not clear why you need to pass xsm=dummy.
+> 
+> It is not clear to me either :). I will remove them.
+
+Where was this command line copied from? If it is an Arm documentation 
+(or script), then they should be corrected.
+
+>>> +
+>>> +(grep -q "Xen dom0less mode detected" qemu-staticmem.serial) || exit 1
+>>> +
+>>> +for ((i=0; i<${#base[@]}; i++))
+>>> +do
+>>> +    start="$(printf "0x%016x" ${base[$i]})"
+>>> +    end="$(printf "0x%016x" $((${base[$i]} + ${size[$i]} - 1)))"
+>>> +    grep -q "node   0: \[mem ${start}-${end}\]" qemu-staticmem.serial
+>>> +    if test $? -eq 1
+>>> +    then
+>>> +        exit 1
+>>> +    fi
+>>> +done
+>>
+>> Please add a comment on top to explain what this is meant to do. 
+>> However, I think we should avoid relying on output that we have 
+>> written ourself. IOW, relying on Xen/Linux to always write the same 
+>> message is risky because they can change at any time.
+> 
+> The kernel is taken from a test-artifact container, so, IIUC, it won't 
+> change.
+
+This statement is correct today. However, we may decide to update the 
+kernel or test multiple kernels (with different ouput).
+
+In the first case, it would be a matter of updating the script. This is 
+annoying but not too bad. In the second case, we would need to have "if 
+version X ... else if version Y ... ".
+
+Cheers,
+
+-- 
+Julien Grall
 
