@@ -2,37 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3884B56B340
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 09:18:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.363237.593681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DB0156B3A3
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 09:36:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.363246.593702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9iEs-0006Zn-2f; Fri, 08 Jul 2022 07:17:22 +0000
+	id 1o9iWY-0001tB-Vr; Fri, 08 Jul 2022 07:35:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 363237.593681; Fri, 08 Jul 2022 07:17:22 +0000
+Received: by outflank-mailman (output) from mailman id 363246.593702; Fri, 08 Jul 2022 07:35:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9iEr-0006WK-Vm; Fri, 08 Jul 2022 07:17:21 +0000
-Received: by outflank-mailman (input) for mailman id 363237;
- Fri, 08 Jul 2022 07:17:21 +0000
+	id 1o9iWY-0001qz-St; Fri, 08 Jul 2022 07:35:38 +0000
+Received: by outflank-mailman (input) for mailman id 363246;
+ Fri, 08 Jul 2022 07:35:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/WbS=XN=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1o9iEr-0006WE-AH
- for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 07:17:21 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ <SRS0=ITNJ=XN=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1o9iWX-0001pv-1m
+ for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 07:35:37 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2071.outbound.protection.outlook.com [40.107.22.71])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0106ec52-fe8e-11ec-924f-1f966e50362f;
- Fri, 08 Jul 2022 09:17:20 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id ez10so6073011ejc.13
- for <xen-devel@lists.xenproject.org>; Fri, 08 Jul 2022 00:17:19 -0700 (PDT)
-Received: from [192.168.1.10] (adsl-142.37.6.26.tellas.gr. [37.6.26.142])
- by smtp.gmail.com with ESMTPSA id
- 18-20020a170906329200b0072abb95eaa4sm7619472ejw.215.2022.07.08.00.17.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Jul 2022 00:17:18 -0700 (PDT)
+ id 8d57fa29-fe90-11ec-924f-1f966e50362f;
+ Fri, 08 Jul 2022 09:35:34 +0200 (CEST)
+Received: from AM5PR0701CA0020.eurprd07.prod.outlook.com
+ (2603:10a6:203:51::30) by AM8PR08MB6433.eurprd08.prod.outlook.com
+ (2603:10a6:20b:36b::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20; Fri, 8 Jul
+ 2022 07:35:31 +0000
+Received: from VE1EUR03FT057.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:51:cafe::1c) by AM5PR0701CA0020.outlook.office365.com
+ (2603:10a6:203:51::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.5 via Frontend
+ Transport; Fri, 8 Jul 2022 07:35:31 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT057.mail.protection.outlook.com (10.152.19.123) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5417.15 via Frontend Transport; Fri, 8 Jul 2022 07:35:30 +0000
+Received: ("Tessian outbound f9f15f9daab2:v122");
+ Fri, 08 Jul 2022 07:35:29 +0000
+Received: from 43010edddf83.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ D9AD7C36-F871-476A-805B-0953F634DBE1.1; 
+ Fri, 08 Jul 2022 07:35:20 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 43010edddf83.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 08 Jul 2022 07:35:20 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by AS8PR08MB6151.eurprd08.prod.outlook.com (2603:10a6:20b:290::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.20; Fri, 8 Jul
+ 2022 07:35:17 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::502f:a77a:aba1:f3ee]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::502f:a77a:aba1:f3ee%6]) with mapi id 15.20.5395.020; Fri, 8 Jul 2022
+ 07:35:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,300 +71,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0106ec52-fe8e-11ec-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=AEU1mSHIXvqqwylw0IB3U4Ad98mWiw0OJkgCFIwOnAQ=;
-        b=kc4ggJq1LKJVjKAWoHzmF17AHeWJadER1Y6af3Rlv0RyA/YavTqgpStE4/lsEXD1kr
-         tscGi5MdK0Waagnu8YlGDt+UovFE1hO33Ev4tHFOtSVj4X9u/7wz5MKHls0VHy9LVOL+
-         1SOElqAR2pruJMhlgxH77gu6Fxz08s7sc2P9QrkwXIT1z8AvsfzddqbecA4T8XHhVvz5
-         evZGzRlGxkI1ccTbValaQZeXaaL2++nLuexGOEjy07PKCGtjYbr0K4SU1ou7DjU479NT
-         PJAAgPdnveIYUKFR/4dNItXMnuxUTCtShOzG7o7UVq+XdALhMmygTsF9fCddaoNi55sp
-         gtEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=AEU1mSHIXvqqwylw0IB3U4Ad98mWiw0OJkgCFIwOnAQ=;
-        b=3ZeUxoBnz9bWMuYkumqGIRiUuB5TzWYBLc3LSXK9XOwPbrP0IuhDRbbes+7m0LmdWf
-         iFCIf7zuCJTmxJLo/+o0L+rAOas70AXD/GZAJzbwNKQR5pCJDR7bHZ51/QHN4m6orYyG
-         tC6lCec/66tZv8lEiE7/Ize1bvkw3YW6OaaTdNcmiZ9pIvM+wS7aLP3lreqkgdsGDd4b
-         /dVuVOjLD432UkIz82bnLdaDeXOtlnVGtmw3v+EKk5KLK/obDmBTQ0eCqMJeQDXmKY1J
-         7DUR300TPVHg/od5VE20h37o4+VIssUHTaM7Vwg629UwxEj5e4QjlOInCz5S+U3dwGWE
-         dLEA==
-X-Gm-Message-State: AJIora8TPRLMODo9PSuTuh5PUShJVhpZaU7eKVDKa2bF60FCi5FkVIog
-	axD79V4hTQUeN6Doy/C1cL3hvTLmoxE=
-X-Google-Smtp-Source: AGRyM1t4N0LY6yBx8oPChURkWOlD3O06cJbsjzXl9wmRNRL/1AR2izIa0DPKM+jm66TSipRopBRuPg==
-X-Received: by 2002:a17:907:d15:b0:72b:1718:59be with SMTP id gn21-20020a1709070d1500b0072b171859bemr2092202ejc.349.1657264639373;
-        Fri, 08 Jul 2022 00:17:19 -0700 (PDT)
-Message-ID: <c46137a2-d65c-3292-6e1c-8578e771f3b9@gmail.com>
-Date: Fri, 8 Jul 2022 10:17:16 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-Subject: Re: [PATCH 2/2] automation: arm64: Create a test job for testing
- static allocation on qemu
+X-Inumbo-ID: 8d57fa29-fe90-11ec-924f-1f966e50362f
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=h18peno+Q7IeKI9SQP4AbI9n28MnIc4TScslgrikIavf28FooC8MVQ89EqW+QbdRdAa0hiLi9oWEdBqQCzkv6G8OOLAmA7b2lTfuxiSgS6i8yX8kSiFcdlGfelFy7XJ/1BCbhK9jFL51+RgCF8uJbRExfWbypv8Bgz+uWOAwVbqL4RJfK1wN9XAfJ3uzIqJmdzXRwWZ5dovamQZJxoqXNhfCM9GMijXjKUi1DqaMbMZLhP9zCEdkJ4le83gNDhfmz+fKmeUFvpfkNY11vjV3sLxeDavgsPZ+YgdAtSPWR6MB6QncvVGxskEOAoQZlsZw5HvsqVTpJtyGcdc84vTnWA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dE+WFuNzX8GpfHH4BB0wjIQK4dcy90sVhvBf4d2ehFY=;
+ b=ZUxkiGIvwEXIymj4LK0yPDg0cF0Ikp4lQn5/Ir5VS6nv35YO8sVWGfoIBKBKR3XWmrpew+16JTMhf8aspn5iFSPNNQBzc1FHBcfxGKQd5j7I7Tuk9E5e7OYXLwCdS++RiWkeRaJ/kHhcv+i8F1gmIu0/JQ+RMAdjA23NKUqK1ugpd+E0pWdBGTfbVYRWQjIOwPxvMi2lS+6aA9NLiJnDojM4A/wSx76Fto7hZ72PawXozRqSVvQrj5bD0xJjGG/J7ezqzBSr7tttsIQuzuHvQMAcnDxyyxZtFU4nJj7pmVg8LVh8Dt6hNDi0lJD36mMT+vb1bLycTrHH1WlfI7KDGg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dE+WFuNzX8GpfHH4BB0wjIQK4dcy90sVhvBf4d2ehFY=;
+ b=vVz31XpyBVPVECVKme7Y5LDZv52DboIEui23pjIXKViEud7jtSLDvclpT637qx144fMHHipVlMtn2dIwUyM4dnqfNBBvRbD2BVxwx0/5KO1Nw2l/+KM36cRFPWWSZaohCI2jNzTAjQ80qayQ7tJiH8fYo2Th1xOa2doKbr4Nlo4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OxdHkqKyzLmlR3bVE55prs+SJBuFSnqasAx4K+tcTwyxie0XVDAFjMs6rYVbC7fI7+pLehl3vcrDPCwQHBRj6lh08vpsAPpdGZiQOn4/KxkXJwLvHVrq24Ka+Q7Z4WwMLNYpcsnbOAxNuUlDG3bhmO/5gj77JBrf43eZGfVL+V89E+tqVqdwaxlBYhSNGZbH0c7vos2BW9YEmc4eRhtYl7NF44P8zPuPnOpF/3Z3hiXhnurDY+wSTqk1n5DZWKSs9KVgJbzuy9hTM80Ij7WTGMUD6g4Gx+2nRONAvvwyAbkdh07hTRbYx9fBFK3lxE6X8n9eMdTCPjfc+f318AyM1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dE+WFuNzX8GpfHH4BB0wjIQK4dcy90sVhvBf4d2ehFY=;
+ b=Lnr+WPWJbciCNZ9HpUB+ilC+wwP28OGy7lzmvLYW65jXOy1aHGmTBuVGw8tYfQLbJSIDnIQiq/FYc6DEQkFaZx4yjQjfyNjHsesMdwCpXser/CsgO79rkwQEX4Wq8+pGjau8jTzbniGtjK+xx6mmUrf7/Wx5FNHls5DBAhmkcWkJlNv3b2n2u3M5yPr493DJD6rXzDsmuUZuzfz1mcvmQPtDEpBaC6L8yCgFKORHYqhu+AinWWyy/9u9FgqUGbY+6+itxZW/j00aea3ULyhd9b0JmtFWHCfdBadh6LgWZZ3h3GoPMTqajHiTR/YJtnuECU6KcTwHbJZvG//6nd6zjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dE+WFuNzX8GpfHH4BB0wjIQK4dcy90sVhvBf4d2ehFY=;
+ b=vVz31XpyBVPVECVKme7Y5LDZv52DboIEui23pjIXKViEud7jtSLDvclpT637qx144fMHHipVlMtn2dIwUyM4dnqfNBBvRbD2BVxwx0/5KO1Nw2l/+KM36cRFPWWSZaohCI2jNzTAjQ80qayQ7tJiH8fYo2Th1xOa2doKbr4Nlo4=
+From: Henry Wang <Henry.Wang@arm.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	"christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>,
+	"christopher.clark@starlab.io" <christopher.clark@starlab.io>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>, Julien
+ Grall <jgrall@amazon.com>, Stefano Stabellini
+	<stefano.stabellini@xilinx.com>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, "jgross@suse.com" <jgross@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@citrix.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, "Wei Liu (LSG)"
+	<liuwe@microsoft.com>
+Subject: Xen 4.17: Proposed release schedule
+Thread-Topic: Xen 4.17: Proposed release schedule
+Thread-Index: AdiSei6vjIC3DQhRQxe+drETJuVp3w==
+Date: Fri, 8 Jul 2022 07:35:17 +0000
+Message-ID:
+ <AS8PR08MB7991145C8063D6939AFFED8F92829@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20220707203803.798317-1-burzalodowa@gmail.com>
- <20220707203803.798317-3-burzalodowa@gmail.com>
- <259c9042-4a40-ddd3-5e3c-7a1698df74c4@xen.org>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <259c9042-4a40-ddd3-5e3c-7a1698df74c4@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 36BB5B1F521FCC4EA4B75A6C404CB7D6.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 69dba295-9261-400a-fd26-08da60b46f50
+x-ms-traffictypediagnostic:
+	AS8PR08MB6151:EE_|VE1EUR03FT057:EE_|AM8PR08MB6433:EE_
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ zp2hskBSgDnsvHiYf5carenTbHNWtWUcK5rfqAbQCsxpduPcPgY/GdHXwzfWBxfQybjVgfxM/GUj3fc8FkLdnzgF79eFU5EGWfexZ27eN8q1/Nst6D+KWPpNfjf+0uTCf08XRYGeJcDhn06YAaFa9txDEwjIH0Z/g7Wy8aXMEXT1o4dESMR1mmLnwTFkFykGfFGx8a20RysRzjCSvuyo3O5Sas/EShN6HfD9RRNwN1Vdp4Ht4gM4l/sr4J1VkPCMD6N9BbpD/H8FfQz5i3MShur9TtIkkPqyDjf+KL7znqx7dMNzZd6v33+7Bxj+H6kQhReS1jZ1K76+zIY1RIvQ6WHVt9Bm51trnVzjujONw/E1iQnqBuMBhMVCPjIe2gmhlrANeVS67fEDRZ/LZES+vEUHuFzsvAqGqcgOv5SGxEH6Sfa54bCeWvl0S5EhrS30ZPft32yJkE0OQCc/xa9rw38KcEdRKYjYl9j5kwxqlv3R7e0YTN5qTz7onAzRCKrkFPMfDyur2CP0/XNpfHUMTqZvZe7MURrUN+nI6EdGkgfwhcoPWI/9lLUyuqqKKNQDt+6QtkqxEG/k56k0K1neU+NxK59IQi1vA+Qo7q0cW+gcW1KH6DF9QmHNOjRIJ8v3P8ntL7xzkqjbvJVXfdSJs+gEFUpFzszHfUJh6BIAmfdMwi5flzZ8h/8r+Sg7AenCO+gdH3y9PP/ASSp9WmzPzZyaZcBOacBFgQyVljVasEeC7Th0IhVCA3clRqPn2cOTAkNYKVVtrLUcRLGaJfwm//TkeOSgKOwjsRxRc+Bw7/xmmxXxmhYt9pYwgUJHGVdr
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(396003)(39860400002)(366004)(136003)(376002)(346002)(71200400001)(66556008)(66476007)(66446008)(64756008)(66946007)(4326008)(8676002)(76116006)(9686003)(54906003)(6916009)(316002)(38070700005)(86362001)(186003)(26005)(52536014)(2906002)(38100700002)(33656002)(41300700001)(122000001)(478600001)(7696005)(83380400001)(6506007)(5660300002)(8936002)(7416002)(55016003);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6151
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT057.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	fe8dccae-d6dc-465b-e8f5-08da60b46791
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	eUQK+O/GpBv+PlV8FXkMrn5q7dllO48AfH/gq1gL6Xn+TVvzLxjgOtvSx+O9OyjA71aw1vPp6deKVJ8J9yVmZQrFkeamBaVWokEYbNaYedi725Rr2oeKXUeqaB26Wg4DafMSVRgj7QnTfRA6+E/5kIlkOpIl70+Ix3xedg8f+M54jazwwcBPzMd8q1QQRclG04EsYqG8s1GYfL5GAu/2s2uEDgTF0APyb98Cj7quHKF+ZzVNjQVOs3/gqSNB0pFUSzeAf2Pt5JenNMjefvE2ixPS8FbF/rfBEO0jVnRp7X4kpnB+9ulj0b0KtOTJm4xOjRVHnsx0QgSi1EJCEb5fr2LxYSzUH9krViglLmUWQA+7fHiwW0ynHOjtYp3qWko6GTtwPT1LJ1+m3jDPpeIAs0CfnTc/SLcDN7ipFkf9Aubr2pF3pCvO78DfBjmlSHhTDJ+nnuDHwSQsJoNGoQyvrNByeeje+GYqUc8cvsYWhLGW9VcI9vbjWTBDcXyw02Ct+THHsI+N/8soDUFmqolQhteGE5o6il5JUNunD1v7eUnfNZrCRwUKOJXrBW99DrtcbqzUKl6VXNJQxK8QS2M7tqZrcCJ0b1+ix+uE9uAvIGGyF0gk6jB0KMCduIsDhVepuXUKiiAOTj8inAhi0fVdTO22MhELuzJQcBQJcsyYbb+jkaIRMTyqQrpN1wCbvOoYsWvjukskJS7QM6FeWY7DDObuxKycgm6B0x7+tNLtey79z2iqA/i/EG/FgpQEZMSMQeyFda8n0O9UjdIBRPJ1rz+N/FtRR2Og1q0/pVunwaEeN6feoTTctLalZFF1hNrw
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(396003)(136003)(39860400002)(346002)(376002)(40470700004)(36840700001)(46966006)(5660300002)(9686003)(356005)(82740400003)(107886003)(36860700001)(26005)(8676002)(70586007)(70206006)(83380400001)(47076005)(8936002)(336012)(52536014)(186003)(4326008)(86362001)(82310400005)(478600001)(33656002)(41300700001)(55016003)(40460700003)(81166007)(316002)(6506007)(2906002)(40480700001)(6916009)(54906003)(7696005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2022 07:35:30.3211
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69dba295-9261-400a-fd26-08da60b46f50
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT057.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6433
 
-Hi Julien,
+Hi,
 
-On 7/8/22 01:26, Julien Grall wrote:
-> Hi Xenia,
-> 
-> On 07/07/2022 21:38, Xenia Ragiadakou wrote:
->> Add an arm subdirectory under automation/configs for the arm specific 
->> configs
->> and add a config that enables static allocation.
->>
->> Modify the build script to search for configs also in this 
->> subdirectory and to
->> keep the generated xen binary, suffixed with the config file name, as 
->> artifact.
->>
->> Create a test job that
->> - boots xen on qemu with a single direct mapped dom0less guest 
->> configured with
->> statically allocated memory
->> - verifies that the memory ranges reported in the guest's logs are the 
->> same
->> with the provided static memory regions
->>
->> For guest kernel, use the 5.9.9 kernel from the tests-artifacts 
->> containers.
->> Use busybox-static package, to create the guest ramdisk.
->> To generate the u-boot script, use ImageBuilder.
->> Use the qemu from the tests-artifacts containers.
->>
->> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
->> ---
->>   automation/configs/arm/static_mem          |   3 +
->>   automation/gitlab-ci/test.yaml             |  24 +++++
->>   automation/scripts/build                   |   4 +
->>   automation/scripts/qemu-staticmem-arm64.sh | 114 +++++++++++++++++++++
->>   4 files changed, 145 insertions(+)
->>   create mode 100644 automation/configs/arm/static_mem
->>   create mode 100755 automation/scripts/qemu-staticmem-arm64.sh
->>
->> diff --git a/automation/configs/arm/static_mem 
->> b/automation/configs/arm/static_mem
->> new file mode 100644
->> index 0000000000..84675ddf4e
->> --- /dev/null
->> +++ b/automation/configs/arm/static_mem
->> @@ -0,0 +1,3 @@
->> +CONFIG_EXPERT=y
->> +CONFIG_UNSUPPORTED=y
->> +CONFIG_STATIC_MEMORY=y
->> \ No newline at end of file
-> 
-> Any particular reason to build a new Xen rather enable 
-> CONFIG_STATIC_MEMORY in the existing build
+As discussed in the community call on July 7, the release schedule for Xen =
+4.17
+is proposed below. Please send comments ASAP and in any case by the end of
+Friday the 15th of July. I hope we can finalise the schedule then.
 
-IIUC, the xen binary (built with the arm64_defconfig) is used by the two 
-other arm64 test jobs qemu-smoke-arm64-gcc and qemu-alpine-arm64-gcc. I 
-did not want to change its configuration.
+Original date following the 8 month release cycle (August 2022) is likely t=
+o miss
+considering the summer season in Europe and the fact that we would have had=
+ to
+feature freeze in July, but this is likely to be not feasible anymore.
 
-If there is no issue with changing its configuration, I can enable 
-static memory and use this one. But to be honest, I would like to be 
-able also to test with custom configs.
+Based on the Xen 4.16 release timeline, for Xen 4.17 release:
 
->> diff --git a/automation/scripts/build b/automation/scripts/build
->> index 21b3bc57c8..9c6196d9bd 100755
->> --- a/automation/scripts/build
->> +++ b/automation/scripts/build
->> @@ -83,6 +83,7 @@ fi
->>   # Build all the configs we care about
->>   case ${XEN_TARGET_ARCH} in
->>       x86_64) arch=x86 ;;
->> +    arm64) arch=arm ;;
->>       *) exit 0 ;;
->>   esac
->> @@ -93,4 +94,7 @@ for cfg in `ls ${cfg_dir}`; do
->>       rm -f xen/.config
->>       make -C xen KBUILD_DEFCONFIG=../../../../${cfg_dir}/${cfg} 
->> defconfig
->>       make -j$(nproc) -C xen
->> +    if [[ ${arch} == "arm" ]]; then
->> +        cp xen/xen binaries/xen-${cfg}
->> +    fi
-> 
-> This feels a bit of a hack to be arm only. Can you explain why this is 
-> not enabled for x86 (other than this is not yet used)?
+Proposed option 1: Wed Sep 28, 2022
+(+9 months from Xen 4.16 release, after Xen Summit)
 
-I did not want to change the existing behavior for x86.
+- Last posting date          Fri Jul 29, 2022 (+3 weeks from now)
 
->>   done
->> diff --git a/automation/scripts/qemu-staticmem-arm64.sh 
->> b/automation/scripts/qemu-staticmem-arm64.sh
->> new file mode 100755
->> index 0000000000..5b89a151aa
->> --- /dev/null
->> +++ b/automation/scripts/qemu-staticmem-arm64.sh
->> @@ -0,0 +1,114 @@
->> +#!/bin/bash
->> +
->> +base=(0x50000000 0x100000000)
->> +size=(0x10000000 0x10000000)
-> 
->  From the name, it is not clear what the base and size refers too. 
-> Looking a bit below, it seems to be referring to the domain memory. If 
-> so, I would suggest to comment and rename to "domu_{base, size}".
+Patches adding new features should be posted to the mailing list
+by this date, although perhaps not in their final version.
 
-They are the static memory regions allocated to the domu.
+- Feature freeze             Fri Aug 19, 2022 (+3 weeks from Last posting d=
+ate)
 
->> +
->> +set -ex
->> +
->> +apt-get -qy update
->> +apt-get -qy install --no-install-recommends u-boot-qemu \
->> +                                            u-boot-tools \
->> +                                            device-tree-compiler \
->> +                                            cpio \
->> +                                            curl \
->> +                                            busybox-static
->> +
->> +# DomU Busybox
->> +cd binaries
->> +mkdir -p initrd
->> +mkdir -p initrd/bin
->> +mkdir -p initrd/sbin
->> +mkdir -p initrd/etc
->> +mkdir -p initrd/dev
->> +mkdir -p initrd/proc
->> +mkdir -p initrd/sys
->> +mkdir -p initrd/lib
->> +mkdir -p initrd/var
->> +mkdir -p initrd/mnt
->> +cp /bin/busybox initrd/bin/busybox
->> +initrd/bin/busybox --install initrd/bin
->> +echo "#!/bin/sh
->> +
->> +mount -t proc proc /proc
->> +mount -t sysfs sysfs /sys
->> +mount -t devtmpfs devtmpfs /dev
->> +/bin/sh" > initrd/init
->> +chmod +x initrd/init
->> +cd initrd
->> +find . | cpio --create --format='newc' | gzip > ../initrd.cpio.gz
->> +cd ../..
->> +
->> +# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
->> +curl -fsSLO 
->> https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
->> +
->> +./binaries/qemu-system-aarch64 -nographic \
->> +    -M virtualization=true \
->> +    -M virt \
->> +    -M virt,gic-version=2 \
->> +    -cpu cortex-a57 \
->> +    -smp 2 \
->> +    -m 8G \
->> +    -M dumpdtb=binaries/virt-gicv2.dtb
->> +
->> +#dtc -I dtb -O dts binaries/virt-gicv2.dtb > binaries/virt-gicv2.dts
->> +
->> +# ImageBuilder
->> +rm -rf imagebuilder
->> +git clone https://gitlab.com/ViryaOS/imagebuilder
->> +
->> +echo "MEMORY_START=\"0x40000000\"
->> +MEMORY_END=\"0x0200000000\"
->> +
->> +DEVICE_TREE=\"virt-gicv2.dtb\"
->> +
->> +XEN=\"xen-static_mem\"
->> +XEN_CMD=\"console=dtuart earlyprintk xsm=dummy\"
-> 
-> AFAIK, earlyprintk is not an option for Xen on Arm (at least). It is 
-> also not clear why you need to pass xsm=dummy.
+Patches adding new features should be committed by this date.
+Straightforward bugfixes may continue to be accepted by maintainers.
 
-It is not clear to me either :). I will remove them.
+- Code freeze                Fri Sep 9, 2022 (+3 weeks from Feature freeze)
 
->> +
->> +NUM_DOMUS=1
->> +DOMU_MEM[0]=512
->> +DOMU_VCPUS[0]=1
->> +DOMU_KERNEL[0]=\"Image\"
->> +DOMU_RAMDISK[0]=\"initrd.cpio.gz\"
->> +DOMU_CMD[0]=\"earlyprintk console=ttyAMA0\"
->> +DOMU_STATIC_MEM[0]=\"${base[0]} ${size[0]} ${base[1]} ${size[1]}\"
->> +
->> +UBOOT_SOURCE=\"boot.source\"
->> +UBOOT_SCRIPT=\"boot.scr\"" > binaries/imagebuilder_config
->> +
->> +bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c 
->> binaries/imagebuilder_config
->> +
->> +# Run the test
->> +rm -f qemu-staticmem.serial
->> +set +e
->> +echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 
->> 0x40000000"| \
->> +timeout -k 1 60 ./binaries/qemu-system-aarch64 -nographic \
->> +    -M virtualization=true \
->> +    -M virt \
->> +    -M virt,gic-version=2 \
->> +    -cpu cortex-a57 \
->> +    -smp 2 \
->> +    -m 8G \
->> +    -no-reboot \
->> +    -device virtio-net-pci,netdev=vnet0 -netdev 
->> user,id=vnet0,tftp=binaries \
->> +    -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin \
->> +    -dtb ./binaries/virt-gicv2.dtb \
->> +    |& tee qemu-staticmem.serial
->> +
->> +set -e
-> 
-> A lot of the code above is duplicated from qemu-smoke-arm64.sh. I think 
-> it would be better to consolidate in a single script. Looking briefly 
-> throught the existing scripts, it looks like it is possible to pass 
-> arguments (see qemu-smoke-x86-64.sh).
+Bugfixes only.
 
-Yes, if there is no issue with changing qemu-smoke-arm64.sh, this is a 
-very good idea.
+- Hard code freeze           Fri Sep 16, 2022 (+1 week from Code freeze)
 
->> +
->> +(grep -q "Xen dom0less mode detected" qemu-staticmem.serial) || exit 1
->> +
->> +for ((i=0; i<${#base[@]}; i++))
->> +do
->> +    start="$(printf "0x%016x" ${base[$i]})"
->> +    end="$(printf "0x%016x" $((${base[$i]} + ${size[$i]} - 1)))"
->> +    grep -q "node   0: \[mem ${start}-${end}\]" qemu-staticmem.serial
->> +    if test $? -eq 1
->> +    then
->> +        exit 1
->> +    fi
->> +done
-> 
-> Please add a comment on top to explain what this is meant to do. 
-> However, I think we should avoid relying on output that we have written 
-> ourself. IOW, relying on Xen/Linux to always write the same message is 
-> risky because they can change at any time.
+Branch off staging-4.17. Bugfixes for serious bugs (including regressions),
+and low-risk fixes only.
 
-The kernel is taken from a test-artifact container, so, IIUC, it won't 
-change.
+- Final commits              Fri Sep 23, 2022 (+1 week from Hard code freez=
+e)
 
->> +
->> +(grep -q "BusyBox" qemu-staticmem.serial) || exit 1
-> 
-> Cheers,
-> 
+Docs/prep only
 
--- 
-Xenia
+- Release                    Wed Sep 28, 2022
+
+
+Proposed option 2: Wed Nov 2, 2022
+(+1 year from Xen 4.16 release)
+
+- Last posting date          Fri Aug 12, 2022 (+5 weeks from now)
+
+- Feature freeze             Fri Sep 2, 2022 (+3 weeks from Last posting da=
+te)
+
+- Code freeze                Fri Sep 23, 2022 (+3 weeks from Feature freeze=
+)
+
+- Hard code freeze           Fri Oct 14, 2022 (+3 weeks from Code freeze)
+
+- Final commits              Fri Oct 28, 2022 (+2 weeks from Hard code free=
+ze)
+
+- Release                    Wed Nov 2, 2022
+
+
+As soon as the release schedule is decided, I will post reminders one
+week before important dates.
+
+Kind regards,
+Henry
 
