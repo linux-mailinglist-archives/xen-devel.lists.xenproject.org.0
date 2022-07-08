@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5B7B56BD2B
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 18:04:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.363571.594176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3864156BE17
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 18:20:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.363583.594219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9qT4-0001dX-Mb; Fri, 08 Jul 2022 16:04:34 +0000
+	id 1o9qiM-00061l-W8; Fri, 08 Jul 2022 16:20:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 363571.594176; Fri, 08 Jul 2022 16:04:34 +0000
+Received: by outflank-mailman (output) from mailman id 363583.594219; Fri, 08 Jul 2022 16:20:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9qT4-0001bj-Jk; Fri, 08 Jul 2022 16:04:34 +0000
-Received: by outflank-mailman (input) for mailman id 363571;
- Fri, 08 Jul 2022 16:04:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o9qT3-0001bd-6U
- for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 16:04:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o9qT1-0007oq-IK; Fri, 08 Jul 2022 16:04:31 +0000
-Received: from [54.239.6.184] (helo=[192.168.18.9])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o9qT1-00066S-C6; Fri, 08 Jul 2022 16:04:31 +0000
+	id 1o9qiM-0005yV-Sd; Fri, 08 Jul 2022 16:20:22 +0000
+Received: by outflank-mailman (input) for mailman id 363583;
+ Fri, 08 Jul 2022 16:20:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=i666=XN=citrix.com=prvs=181ea21da=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1o9qiL-00054g-5S
+ for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 16:20:21 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id db6a532c-fed9-11ec-bd2d-47488cf2e6aa;
+ Fri, 08 Jul 2022 18:20:20 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,46 +36,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=rzbOg72Z2GgK1xdreJJj7KZCOASVERvaMdhhLOzBo6s=; b=BQorHkv2+XKYTZwAvBd5DKlhoX
-	J0TNucsjO802roiNNksMXOXrnkDq8Ft8xVi+wIxAXSJd+gMCU/FveUquBhNPaGgJLXrT3vLLv7Lkd
-	hlBYOO/xKyuOv+LZFjFBVkPcS+rPOnfhUFb2jvWTimXXHAUWqkryOGnfx+6vw0aS9vGA=;
-Message-ID: <84efdf22-1e28-040f-a41d-0c3709e6b60b@xen.org>
-Date: Fri, 8 Jul 2022 17:04:29 +0100
+X-Inumbo-ID: db6a532c-fed9-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1657297219;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=JXYfonh7wj3ThAZmLEhpE9NLkOrzDAqig0RXIjQQqEU=;
+  b=GwqvMqOurQ1dY7ipk+tgWSIrJEQZ3E/819NVtbRa9Srd2a0pPmbzg4jw
+   ylgFiY0rCtoZb9/RqEDuSbT/WJ4VFaFGfvsqcyCSC0ApZtw53AOySPynQ
+   5lnjkhjovMek7XYSlaCdgM/sKsMjyVt0wYO74MF+6U14nJGjM8EKOWllH
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 77956798
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:f8nGGas6jHDgQMY5R70n+E+aH+fnVFpeMUV32f8akzHdYApBsoF/q
+ tZmKWuPP/aKMWbwed5+OYu1o0lU7MLVmNRhQVY4rS5jHn8X+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZhSAgk/nOHNIQMcacUsxLbVYMpBwJ1FQywYbVvqYy2YLjW1zV6
+ YupyyHiEATNNwBcYzp8B52r8HuDjNyq0N/PlgVjDRzjlAa2e0g9VPrzF4noR5fLatA88tqBb
+ /TC1NmEElbxpH/BPD8HfoHTKSXmSpaKVeSHZ+E/t6KK2nCurQRquko32WZ1he66RFxlkvgoo
+ Oihu6BcRi8WLrLPm78+fiJDPAolbIEdoI7JP1uw5Jn7I03uKxMAwt1rBUAye4YZ5vx2ESdF8
+ vlwxDIlN07ZwbjsmfTiF7cq1p9LwMrDZevzvllJyz3DAOlgapfEW6jQvvdT3Ssqh9AIFvHbD
+ yYcQWUwPUmePEwfUrsRIIwAsM6CrVXdTzFJ9U6TpY8m+Vf08iUkhdABN/KKI4fXFK25hH2wp
+ H/C/mn/KgEXMpqY0zXt2m2orv/Cm2X8Qo16PKaj6vdgjVmXx2oSIB4bT122pb++kEHWc8JSL
+ QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOiSMtbWV0j
+ BnTxYqvXGEx9u3OIZ6AyluKhQyiJisWdkwvXjQrZlBUz4K7kY8trR2aG76PD5WJYs3J9SDYm
+ m7X83Jn2+pD0abnxI3gowmZ3mvESozhC1dsu16JBj/NAhZRPtbNWmC+1bTMAR+sxq69R0LJg
+ nULktP2AAsmXcDUz3zlrAng8diUCxe53N702wcH82EJrWjFxpJaVdk4DMtCDEloKN0YXjTif
+ VXevwhcjLcKYib1N/YnPNLrVZ56pUQFKTgDfqmFBjapSsEoHDJrAQk0PRLAt4wTuBJEfV4D1
+ WezLp/3UCdy5VVPxzuqXeYNuYIWKtQF7TqLH/jTlk3/uZLHPSL9YepVYTOmM7FihIvZ8Vq9z
+ jqqH5bTo/mpeLalOXe/HE96BQ1iEEXX8ris8ZIIKrLdclo2cIzjYteIqY4cl0Vet/w9vo/1E
+ ruVAB8wJIbX7ZEfFTi3Vw==
+IronPort-HdrOrdr: A9a23:y48TFKhpmPGxOKj9ZFxRS0l1B3BQXtQji2hC6mlwRA09TySZ//
+ rOoB19726TtN9xYgBGpTnuAtjifZqxz/FICOoqTNOftWvdyQmVxehZhOOIqVCNJ8SXzJ8l6U
+ 4KSchD4bPLY2SS9fyKhTWFLw==
+X-IronPort-AV: E=Sophos;i="5.92,256,1650945600"; 
+   d="scan'208";a="77956798"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, Julien Grall
+	<julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+Subject: [PATCH 0/3] x86/spec-ctrl: Bug / (mis)feature fixes
+Date: Fri, 8 Jul 2022 17:19:31 +0100
+Message-ID: <20220708161934.10095-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.11.0
-Subject: Re: [PATCH 2/2] automation: arm64: Create a test job for testing
- static allocation on qemu
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-References: <20220707203803.798317-1-burzalodowa@gmail.com>
- <20220707203803.798317-3-burzalodowa@gmail.com>
- <259c9042-4a40-ddd3-5e3c-7a1698df74c4@xen.org>
- <alpine.DEB.2.22.394.2207071548220.2354836@ubuntu-linux-20-04-desktop>
- <d3f2e9b2-219b-d00b-04fd-f8e6a38222e4@gmail.com>
- <alpine.DEB.2.22.394.2207080850510.2354836@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2207080850510.2354836@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Andrew Cooper (3):
+  x86/spec-ctrl: Honour spec-ctrl=0 for unpriv-mmio sub-option
+  xen/cmdline: Extend parse_boolean() to signal a name match
+  x86/spec-ctrl: Add fine-grained cmdline suboptions for primitives
 
-On 08/07/2022 16:56, Stefano Stabellini wrote:
-> Or we could add a script to detect and print specific output but I
-> don't know if there is something under /proc or /sys that we could
-> simply "cat" from bash to check it.
-
-The domain device-tree should be /proc/device-tree. So you could check 
-the properties from there.
-
-Cheers,
+ docs/misc/xen-command-line.pandoc | 12 +++++--
+ xen/arch/x86/spec_ctrl.c          | 67 +++++++++++++++++++++++++++++++++------
+ xen/common/kernel.c               | 20 +++++++++---
+ xen/include/xen/lib.h             |  3 +-
+ 4 files changed, 85 insertions(+), 17 deletions(-)
 
 -- 
-Julien Grall
+2.11.0
+
 
