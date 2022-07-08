@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4208256BE48
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 18:40:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.363621.594275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6640A56BE4A
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 18:40:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.363625.594286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9r1W-0004Fl-LM; Fri, 08 Jul 2022 16:40:10 +0000
+	id 1o9r20-0004lK-VP; Fri, 08 Jul 2022 16:40:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 363621.594275; Fri, 08 Jul 2022 16:40:10 +0000
+Received: by outflank-mailman (output) from mailman id 363625.594286; Fri, 08 Jul 2022 16:40:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9r1W-0004Dv-I5; Fri, 08 Jul 2022 16:40:10 +0000
-Received: by outflank-mailman (input) for mailman id 363621;
- Fri, 08 Jul 2022 16:40:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o9r1U-0004Dg-Nr; Fri, 08 Jul 2022 16:40:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o9r1U-0008V1-KY; Fri, 08 Jul 2022 16:40:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1o9r1U-0003DD-5B; Fri, 08 Jul 2022 16:40:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1o9r1U-00029V-4h; Fri, 08 Jul 2022 16:40:08 +0000
+	id 1o9r20-0004jA-Qx; Fri, 08 Jul 2022 16:40:40 +0000
+Received: by outflank-mailman (input) for mailman id 363625;
+ Fri, 08 Jul 2022 16:40:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LJCY=XN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1o9r1y-0004hN-Qy
+ for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 16:40:38 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b1d3bad1-fedc-11ec-bd2d-47488cf2e6aa;
+ Fri, 08 Jul 2022 18:40:37 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A651BB828B5;
+ Fri,  8 Jul 2022 16:40:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35DCC341C0;
+ Fri,  8 Jul 2022 16:40:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,315 +44,304 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=S1z+LOECjll4rGab05FIN5sjmDorMmU6gn9CRO+LJV8=; b=u0GA8Q/Fu+fPQSyX8GtNeTDjCP
-	+JZOwbminfH7LM6b45r94rFxYvPay30qbgc1LMXsQPUk3zWJ7oTHTgGhAjZ9B5UsAOhnbYjWkw4TJ
-	IjC2LNYEP0T3tvg37lCIdyybyiA1u9ntzgYIeFPrYC8BH5AKOJE884yPxU88ORy0k/PY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171553-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b1d3bad1-fedc-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1657298435;
+	bh=UNIZH4By+8EFj8FchRhVPyjYaE0OqZ6LjzqwVHA0WuU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=H6Y479DBzfHqzyrj/HnspR9IoUcI8HQ19rMUAhiepmsWwkIsIDuvm0Dff1+XT4apV
+	 +EWF0ppiHMM/KDOdmIfuyG/+C32YoGTJmM93wE39TrIFYfnoVIv+4vUzpZlGWCSOPy
+	 QC5G+MEnTGf6KbDF867xOEWzYmdT7IcnDLwwqCrZ+61tMnk7krOqKJm+vRG2Oo255j
+	 CzusNGaRev18bcUHz4IJ1ucPuk/N8Rd40jt0YKfQvnpw3ySf2G44TFF/6RNKQoEu06
+	 iOPqO6NJAPBBEUFHnzNxgYbAfemCJZlgjh9JZDJDqYQ7YHTs81PAH3Z7lGlYuol1G0
+	 tOkgtuKCzmolA==
+Date: Fri, 8 Jul 2022 09:40:33 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Penny Zheng <Penny.Zheng@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "julien@xen.org" <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Wei Chen <Wei.Chen@arm.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: RE: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
+ device tree
+In-Reply-To: <DU2PR08MB7325C9A6011B877DDF09524FF7839@DU2PR08MB7325.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2207080938280.2354836@ubuntu-linux-20-04-desktop>
+References: <20220620051114.210118-1-Penny.Zheng@arm.com> <20220620051114.210118-8-Penny.Zheng@arm.com> <84641d6e-202d-934c-9ea9-bbf090e29bdb@xen.org> <alpine.DEB.2.22.394.2206241448040.2410338@ubuntu-linux-20-04-desktop>
+ <DU2PR08MB7325CB781C338947D0576A19F7BE9@DU2PR08MB7325.eurprd08.prod.outlook.com> <alpine.DEB.2.22.394.2207061647160.2354836@ubuntu-linux-20-04-desktop> <DU2PR08MB7325C9A6011B877DDF09524FF7839@DU2PR08MB7325.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [linux-linus test] 171553: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd11-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:xen-boot:fail:regression
-    linux-linus:test-amd64-coresched-amd64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=e8a4e1c1bb697b1d9fc48f0e56dc0f50bc024bee
-X-Osstest-Versions-That:
-    linux=354c6e071be986a44b956f7b57f1884244431048
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 Jul 2022 16:40:08 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 171553 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171553/
+On Thu, 7 Jul 2022, Penny Zheng wrote:
+> Hi Stefano and julien
+> 
+> > -----Original Message-----
+> > From: Stefano Stabellini <sstabellini@kernel.org>
+> > Sent: Thursday, July 7, 2022 7:53 AM
+> > To: Penny Zheng <Penny.Zheng@arm.com>
+> > Cc: Stefano Stabellini <sstabellini@kernel.org>; Julien Grall <julien@xen.org>;
+> > xen-devel@lists.xenproject.org; Wei Chen <Wei.Chen@arm.com>; Bertrand
+> > Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+> > <Volodymyr_Babchuk@epam.com>
+> > Subject: RE: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
+> > device tree
+> > 
+> > On Mon, 4 Jul 2022, Penny Zheng wrote:
+> > > Hi Stefano and Julien
+> > >
+> > > > -----Original Message-----
+> > > > From: Stefano Stabellini <sstabellini@kernel.org>
+> > > > Sent: Saturday, June 25, 2022 5:57 AM
+> > > > To: Julien Grall <julien@xen.org>
+> > > > Cc: Penny Zheng <Penny.Zheng@arm.com>;
+> > > > xen-devel@lists.xenproject.org; Wei Chen <Wei.Chen@arm.com>;
+> > Stefano
+> > > > Stabellini <sstabellini@kernel.org>; Bertrand Marquis
+> > > > <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+> > > > <Volodymyr_Babchuk@epam.com>
+> > > > Subject: Re: [PATCH v5 7/8] xen/arm: create shared memory nodes in
+> > > > guest device tree
+> > > >
+> > > > On Fri, 24 Jun 2022, Julien Grall wrote:
+> > > > > On 20/06/2022 06:11, Penny Zheng wrote:
+> > > > > > We expose the shared memory to the domU using the "xen,shared-
+> > > > memory-v1"
+> > > > > > reserved-memory binding. See
+> > > > > > Documentation/devicetree/bindings/reserved-memory/xen,shared-
+> > > > memory.
+> > > > > > txt in Linux for the corresponding device tree binding.
+> > > > > >
+> > > > > > To save the cost of re-parsing shared memory device tree
+> > > > > > configuration when creating shared memory nodes in guest device
+> > > > > > tree, this commit adds new field "shm_mem" to store shm-info per
+> > > > > > domain.
+> > > > > >
+> > > > > > For each shared memory region, a range is exposed under the
+> > > > > > /reserved-memory node as a child node. Each range sub-node is
+> > > > > > named xen-shmem@<address> and has the following properties:
+> > > > > > - compatible:
+> > > > > >          compatible = "xen,shared-memory-v1"
+> > > > > > - reg:
+> > > > > >          the base guest physical address and size of the shared
+> > > > > > memory region
+> > > > > > - xen,id:
+> > > > > >          a string that identifies the shared memory region.
+> > > > > >
+> > > > > > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> > > > > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > > > > > ---
+> > > > > > v5 change:
+> > > > > > - no change
+> > > > > > ---
+> > > > > > v4 change:
+> > > > > > - no change
+> > > > > > ---
+> > > > > > v3 change:
+> > > > > > - move field "shm_mem" to kernel_info
+> > > > > > ---
+> > > > > > v2 change:
+> > > > > > - using xzalloc
+> > > > > > - shm_id should be uint8_t
+> > > > > > - make reg a local variable
+> > > > > > - add #address-cells and #size-cells properties
+> > > > > > - fix alignment
+> > > > > > ---
+> > > > > >   xen/arch/arm/domain_build.c       | 143
+> > > > +++++++++++++++++++++++++++++-
+> > > > > >   xen/arch/arm/include/asm/kernel.h |   1 +
+> > > > > >   xen/arch/arm/include/asm/setup.h  |   1 +
+> > > > > >   3 files changed, 143 insertions(+), 2 deletions(-)
+> > > > > >
+> > > > > > diff --git a/xen/arch/arm/domain_build.c
+> > > > > > b/xen/arch/arm/domain_build.c index 1584e6c2ce..4d62440a0e
+> > > > > > 100644
+> > > > > > --- a/xen/arch/arm/domain_build.c
+> > > > > > +++ b/xen/arch/arm/domain_build.c
+> > > > > > @@ -900,7 +900,22 @@ static int __init
+> > > > > > allocate_shared_memory(struct domain *d,
+> > > > > >       return ret;
+> > > > > >   }
+> > > > > >   -static int __init process_shm(struct domain *d,
+> > > > > > +static int __init append_shm_bank_to_domain(struct kernel_info
+> > *kinfo,
+> > > > > > +                                            paddr_t start, paddr_t size,
+> > > > > > +                                            u32 shm_id) {
+> > > > > > +    if ( (kinfo->shm_mem.nr_banks + 1) > NR_MEM_BANKS )
+> > > > > > +        return -ENOMEM;
+> > > > > > +
+> > > > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].start = start;
+> > > > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].size = size;
+> > > > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].shm_id =
+> > shm_id;
+> > > > > > +    kinfo->shm_mem.nr_banks++;
+> > > > > > +
+> > > > > > +    return 0;
+> > > > > > +}
+> > > > > > +
+> > > > > > +static int __init process_shm(struct domain *d, struct
+> > > > > > +kernel_info *kinfo,
+> > > > > >                                 const struct dt_device_node *node)
+> > > > > >   {
+> > > > > >       struct dt_device_node *shm_node; @@ -971,6 +986,14 @@
+> > > > > > static int __init process_shm(struct domain *d,
+> > > > > >               if ( ret )
+> > > > > >                   return ret;
+> > > > > >           }
+> > > > > > +
+> > > > > > +        /*
+> > > > > > +         * Record static shared memory region info for later setting
+> > > > > > +         * up shm-node in guest device tree.
+> > > > > > +         */
+> > > > > > +        ret = append_shm_bank_to_domain(kinfo, gbase, psize,
+> > shm_id);
+> > > > > > +        if ( ret )
+> > > > > > +            return ret;
+> > > > > >       }
+> > > > > >         return 0;
+> > > > > > @@ -1301,6 +1324,117 @@ static int __init
+> > make_memory_node(const
+> > > > > > struct domain *d,
+> > > > > >       return res;
+> > > > > >   }
+> > > > > >   +#ifdef CONFIG_STATIC_SHM
+> > > > > > +static int __init make_shm_memory_node(const struct domain *d,
+> > > > > > +                                       void *fdt,
+> > > > > > +                                       int addrcells, int sizecells,
+> > > > > > +                                       struct meminfo *mem)
+> > > > >
+> > > > > NIT: AFAICT mem is not changed, so it should be const.
+> > > > >
+> > > > > > +{
+> > > > > > +    unsigned long i = 0;
+> > > > >
+> > > > > NIT: This should be "unsigned int" to match the type of nr_banks.
+> > > > >
+> > > > > > +    int res = 0;
+> > > > > > +
+> > > > > > +    if ( mem->nr_banks == 0 )
+> > > > > > +        return -ENOENT;
+> > > > > > +
+> > > > > > +    /*
+> > > > > > +     * For each shared memory region, a range is exposed under
+> > > > > > +     * the /reserved-memory node as a child node. Each range
+> > > > > > + sub-node
+> > > > is
+> > > > > > +     * named xen-shmem@<address>.
+> > > > > > +     */
+> > > > > > +    dt_dprintk("Create xen-shmem node\n");
+> > > > > > +
+> > > > > > +    for ( ; i < mem->nr_banks; i++ )
+> > > > > > +    {
+> > > > > > +        uint64_t start = mem->bank[i].start;
+> > > > > > +        uint64_t size = mem->bank[i].size;
+> > > > > > +        uint8_t shm_id = mem->bank[i].shm_id;
+> > > > > > +        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
+> > > > > > +        char buf[27];
+> > > > > > +        const char compat[] = "xen,shared-memory-v1";
+> > > > > > +        __be32 reg[4];
+> > > > > > +        __be32 *cells;
+> > > > > > +        unsigned int len = (addrcells + sizecells) *
+> > > > > > + sizeof(__be32);
+> > > > > > +
+> > > > > > +        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64,
+> > > > > > mem->bank[i].start);
+> > > > > > +        res = fdt_begin_node(fdt, buf);
+> > > > > > +        if ( res )
+> > > > > > +            return res;
+> > > > > > +
+> > > > > > +        res = fdt_property(fdt, "compatible", compat, sizeof(compat));
+> > > > > > +        if ( res )
+> > > > > > +            return res;
+> > > > > > +
+> > > > > > +        cells = reg;
+> > > > > > +        dt_child_set_range(&cells, addrcells, sizecells, start,
+> > > > > > + size);
+> > > > > > +
+> > > > > > +        res = fdt_property(fdt, "reg", reg, len);
+> > > > > > +        if ( res )
+> > > > > > +            return res;
+> > > > > > +
+> > > > > > +        dt_dprintk("Shared memory bank %lu: %#"PRIx64"-
+> > >%#"PRIx64"\n",
+> > > > > > +                   i, start, start + size);
+> > > > > > +
+> > > > > > +        res = fdt_property_cell(fdt, "xen,id", shm_id);
+> > > > >
+> > > > > Looking at the Linux binding, "xen,id" is meant to be a string.
+> > > > > But here you are writing it as an integer.
+> > > >
+> > > > Good catch!
+> > > >
+> > > >
+> > > > > Given that the Linux binding is already merged, I think the Xen
+> > > > > binding should be changed.
+> > > >
+> > > > We would be compliant with both bindings (xen and linux) just by
+> > > > writing shm_id as string here, but if it is not too difficult we
+> > > > might as well harmonize the two bindings and also define xen,shm-id as a
+> > string.
+> > > >
+> > > > On the Xen side, I would suggest to put a clear size limit so that
+> > > > the string is easier to handle.
+> > >
+> > > I've already made the xen,shm-id parsed as a string too, seeing the below
+> > code:
+> > > "
+> > >     prop_id = fdt_get_property(fdt, node, "xen,shm-id", NULL);
+> > >     if ( !prop_id )
+> > >         return -ENOENT;
+> > >     shm_id = simple_strtoul(prop_id->data, NULL, 10);
+> > >     if ( shm_id >= NR_MEM_BANKS )
+> > >     {
+> > >         printk("fdt: invalid `xen,shm-id` %lu for static shared memory node.\n",
+> > >                shm_id);
+> > >         return -EINVAL;
+> > >     }
+> > > "
+> > > The size limit is smaller than 256, just as stated in doc:
+> > > "
+> > > - xen,shm-id
+> > >
+> > >     A string that represents the unique identifier of the shared memory
+> > >     region. The maximum identifier shall be "xen,shm-id = 255".
+> > > "
+> > > Hope this fits what both of you suggested~~~
+> > 
+> > Yes. I think supporting arbitrary strings like "my-shared-mem-1" would be
+> > nice-to-have but I wouldn't make it a hard requirement.
+> > 
+> 
+> Oh, the example "my-shared-mem-1" really expands my mind, I think I understand
+> what you and Julien referred as free form string, which shall not be limited to only
+> numeric number... thanks!!!
+> 
+> You were suggesting a strict limit on the number of characters, TBH, I have no clue
+> What the standard is here. Any suggestions?
+> 
+> If considering padding, maybe 19?
+> "
+> struct membank {
+>     paddr_t start;
+>     paddr_t size;
+>     bool xen_domain; /* whether the memory bank is bound to a Xen domain. */
+> #ifdef CONFIG_STATIC_SHM
+>     char shm_id[19];
+>     unsigned int nr_shm_borrowers;
+> #endif
+> };
+> "
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-credit1   8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot            fail REGR. vs. 171277
- test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 171277
- test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 171277
- test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 171277
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-freebsd11-amd64  8 xen-boot             fail REGR. vs. 171277
- test-amd64-amd64-pygrub       8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 171277
- test-amd64-amd64-xl           8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-qemuu-nested-amd  8 xen-boot            fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-ovmf-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-xl-multivcpu  8 xen-boot                fail REGR. vs. 171277
- test-amd64-amd64-xl-vhd       8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-xl-xsm       8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-ws16-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 171277
- test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 171277
- test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 171277
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 171277
- test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 171277
- test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 171277
- test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 171277
- test-amd64-amd64-xl-pvhv2-amd  8 xen-boot                fail REGR. vs. 171277
- test-amd64-amd64-dom0pvh-xl-amd  8 xen-boot              fail REGR. vs. 171277
- test-amd64-coresched-amd64-xl  8 xen-boot                fail REGR. vs. 171277
- test-amd64-amd64-xl-qemut-debianhvm-amd64  8 xen-boot    fail REGR. vs. 171277
- test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 171277
- test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 171277
-
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds      8 xen-boot                 fail REGR. vs. 171277
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 171277
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 171277
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 171277
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- linux                e8a4e1c1bb697b1d9fc48f0e56dc0f50bc024bee
-baseline version:
- linux                354c6e071be986a44b956f7b57f1884244431048
-
-Last test of basis   171277  2022-06-19 03:11:35 Z   19 days
-Failing since        171280  2022-06-19 15:12:25 Z   19 days   50 attempts
-Testing same since   171553  2022-07-08 03:03:18 Z    0 days    1 attempts
-
-------------------------------------------------------------
-541 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             fail    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                fail    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     fail    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      fail    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                fail    
- test-amd64-amd64-xl-vhd                                      fail    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+Yeah I suggested a strict limit on the number of chars so that we could
+embed the string in struct membank. I would pick 16 characters which is
+equivalent to two uint64_t in terms of memory usage.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> > "255" as a string would match Linux's requirements for xen,id.
+> 
+> I will use your example "my-shm-mem-1", I think its better for users
+> to understand, at least for me...
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 22593 lines long.)
++1
 
