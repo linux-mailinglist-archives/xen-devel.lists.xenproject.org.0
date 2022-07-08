@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6640A56BE4A
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 18:40:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.363625.594286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AB4156C110
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 21:25:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.363669.594341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9r20-0004lK-VP; Fri, 08 Jul 2022 16:40:40 +0000
+	id 1o9tZm-0006qH-U1; Fri, 08 Jul 2022 19:23:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 363625.594286; Fri, 08 Jul 2022 16:40:40 +0000
+Received: by outflank-mailman (output) from mailman id 363669.594341; Fri, 08 Jul 2022 19:23:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9r20-0004jA-Qx; Fri, 08 Jul 2022 16:40:40 +0000
-Received: by outflank-mailman (input) for mailman id 363625;
- Fri, 08 Jul 2022 16:40:38 +0000
+	id 1o9tZm-0006oR-Pi; Fri, 08 Jul 2022 19:23:42 +0000
+Received: by outflank-mailman (input) for mailman id 363669;
+ Fri, 08 Jul 2022 19:23:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LJCY=XN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1o9r1y-0004hN-Qy
- for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 16:40:38 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ <SRS0=/WbS=XN=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1o9tZk-0006oL-IH
+ for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 19:23:40 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1d3bad1-fedc-11ec-bd2d-47488cf2e6aa;
- Fri, 08 Jul 2022 18:40:37 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A651BB828B5;
- Fri,  8 Jul 2022 16:40:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35DCC341C0;
- Fri,  8 Jul 2022 16:40:34 +0000 (UTC)
+ id 779356e1-fef3-11ec-bd2d-47488cf2e6aa;
+ Fri, 08 Jul 2022 21:23:38 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id l23so7443604ejr.5
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Jul 2022 12:23:37 -0700 (PDT)
+Received: from [192.168.1.10] (adsl-142.37.6.26.tellas.gr. [37.6.26.142])
+ by smtp.gmail.com with ESMTPSA id
+ ck10-20020a170906c44a00b006fec27575f1sm20584375ejb.123.2022.07.08.12.23.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 08 Jul 2022 12:23:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,304 +44,331 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1d3bad1-fedc-11ec-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1657298435;
-	bh=UNIZH4By+8EFj8FchRhVPyjYaE0OqZ6LjzqwVHA0WuU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=H6Y479DBzfHqzyrj/HnspR9IoUcI8HQ19rMUAhiepmsWwkIsIDuvm0Dff1+XT4apV
-	 +EWF0ppiHMM/KDOdmIfuyG/+C32YoGTJmM93wE39TrIFYfnoVIv+4vUzpZlGWCSOPy
-	 QC5G+MEnTGf6KbDF867xOEWzYmdT7IcnDLwwqCrZ+61tMnk7krOqKJm+vRG2Oo255j
-	 CzusNGaRev18bcUHz4IJ1ucPuk/N8Rd40jt0YKfQvnpw3ySf2G44TFF/6RNKQoEu06
-	 iOPqO6NJAPBBEUFHnzNxgYbAfemCJZlgjh9JZDJDqYQ7YHTs81PAH3Z7lGlYuol1G0
-	 tOkgtuKCzmolA==
-Date: Fri, 8 Jul 2022 09:40:33 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Penny Zheng <Penny.Zheng@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "julien@xen.org" <julien@xen.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Wei Chen <Wei.Chen@arm.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: RE: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
- device tree
-In-Reply-To: <DU2PR08MB7325C9A6011B877DDF09524FF7839@DU2PR08MB7325.eurprd08.prod.outlook.com>
-Message-ID: <alpine.DEB.2.22.394.2207080938280.2354836@ubuntu-linux-20-04-desktop>
-References: <20220620051114.210118-1-Penny.Zheng@arm.com> <20220620051114.210118-8-Penny.Zheng@arm.com> <84641d6e-202d-934c-9ea9-bbf090e29bdb@xen.org> <alpine.DEB.2.22.394.2206241448040.2410338@ubuntu-linux-20-04-desktop>
- <DU2PR08MB7325CB781C338947D0576A19F7BE9@DU2PR08MB7325.eurprd08.prod.outlook.com> <alpine.DEB.2.22.394.2207061647160.2354836@ubuntu-linux-20-04-desktop> <DU2PR08MB7325C9A6011B877DDF09524FF7839@DU2PR08MB7325.eurprd08.prod.outlook.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 779356e1-fef3-11ec-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=khMA9Z2o/pNJ70arxNMGf2ZW/aNmrg75x+nik7Psr0E=;
+        b=VFLqZKJxBK7NUHN1Jg1pMpDEcs+8VU00Ui2wAnrOaLkyhSpWwSc4vxYHtc4aWVsaQt
+         E8WKAjG8fSd7iOrHG9SLcmK14tXwFENaE2RxZiOvhTa25z0sl/7oDAt0gtN0A5jPiRIM
+         0n7fYu1m5flm12YfjN2lBizqeDSktXyBoXW7vnOxJTzJFbh4wLRZLFe/k6WUteqfAo3x
+         NkFnygICpCbQ4TZ8jx6DinupNEMH83WcrJE73tM5oqng5bNH4jAn7gi2UMqJQxhFsZt+
+         b9Psm9i/UcAsrUii8eOSe/Cd9X9Bz+wqv4ltRmTN+xXiEACqJnh4tYkIlB4//4rfSnad
+         TjNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=khMA9Z2o/pNJ70arxNMGf2ZW/aNmrg75x+nik7Psr0E=;
+        b=Pr+veRfodB2OpZqcob40bUgilUxtkjA/UWW++PNSE67sn8y0QNbuhZjl+wIBV4qyTf
+         QAJvN5aP/0GTZO+1e7naPwLzLxq4XwS/cncqmo9e66ydcerLuQhTk/HXW5AoQHzOtk5f
+         AI3to/riirwr0pn8Ww1OzCi8iDy7tbrHI7Cj/nVOYDwP9RwwyZL7SZ4dezczNwaokTzt
+         Y57ZvcbHYAeK15vW2nVRUbabBdIxMZ9uJ7ihgaZsSa0rECEZVIAj4M69MFhtBAtVOxFv
+         s8dGYLQiioJ5M7YAkKdpPqwWKHusfoAIbwtojztO6sJxrZWIwDHlU5DLIRvXw9im+NIW
+         u1kA==
+X-Gm-Message-State: AJIora+50rJN4RbfEZx5xNKcJ1eq7aTtii5AF9tdGduAGaXycrNWpnUV
+	KpXQhmbmbWpTW0R4mwzonyE=
+X-Google-Smtp-Source: AGRyM1vND14//KzhnTGNbZzJ3z2ROZdhtHTQwKMWX0j+EWu0kMdNXjUF4mlRBoQRhyBRvDlkIMsoyg==
+X-Received: by 2002:a17:907:c0a:b0:726:22b1:9734 with SMTP id ga10-20020a1709070c0a00b0072622b19734mr5098832ejc.195.1657308217467;
+        Fri, 08 Jul 2022 12:23:37 -0700 (PDT)
+Message-ID: <870a02d8-e1ad-f848-f13b-b4573d8c99ac@gmail.com>
+Date: Fri, 8 Jul 2022 22:23:34 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Thu, 7 Jul 2022, Penny Zheng wrote:
-> Hi Stefano and julien
-> 
-> > -----Original Message-----
-> > From: Stefano Stabellini <sstabellini@kernel.org>
-> > Sent: Thursday, July 7, 2022 7:53 AM
-> > To: Penny Zheng <Penny.Zheng@arm.com>
-> > Cc: Stefano Stabellini <sstabellini@kernel.org>; Julien Grall <julien@xen.org>;
-> > xen-devel@lists.xenproject.org; Wei Chen <Wei.Chen@arm.com>; Bertrand
-> > Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
-> > <Volodymyr_Babchuk@epam.com>
-> > Subject: RE: [PATCH v5 7/8] xen/arm: create shared memory nodes in guest
-> > device tree
-> > 
-> > On Mon, 4 Jul 2022, Penny Zheng wrote:
-> > > Hi Stefano and Julien
-> > >
-> > > > -----Original Message-----
-> > > > From: Stefano Stabellini <sstabellini@kernel.org>
-> > > > Sent: Saturday, June 25, 2022 5:57 AM
-> > > > To: Julien Grall <julien@xen.org>
-> > > > Cc: Penny Zheng <Penny.Zheng@arm.com>;
-> > > > xen-devel@lists.xenproject.org; Wei Chen <Wei.Chen@arm.com>;
-> > Stefano
-> > > > Stabellini <sstabellini@kernel.org>; Bertrand Marquis
-> > > > <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
-> > > > <Volodymyr_Babchuk@epam.com>
-> > > > Subject: Re: [PATCH v5 7/8] xen/arm: create shared memory nodes in
-> > > > guest device tree
-> > > >
-> > > > On Fri, 24 Jun 2022, Julien Grall wrote:
-> > > > > On 20/06/2022 06:11, Penny Zheng wrote:
-> > > > > > We expose the shared memory to the domU using the "xen,shared-
-> > > > memory-v1"
-> > > > > > reserved-memory binding. See
-> > > > > > Documentation/devicetree/bindings/reserved-memory/xen,shared-
-> > > > memory.
-> > > > > > txt in Linux for the corresponding device tree binding.
-> > > > > >
-> > > > > > To save the cost of re-parsing shared memory device tree
-> > > > > > configuration when creating shared memory nodes in guest device
-> > > > > > tree, this commit adds new field "shm_mem" to store shm-info per
-> > > > > > domain.
-> > > > > >
-> > > > > > For each shared memory region, a range is exposed under the
-> > > > > > /reserved-memory node as a child node. Each range sub-node is
-> > > > > > named xen-shmem@<address> and has the following properties:
-> > > > > > - compatible:
-> > > > > >          compatible = "xen,shared-memory-v1"
-> > > > > > - reg:
-> > > > > >          the base guest physical address and size of the shared
-> > > > > > memory region
-> > > > > > - xen,id:
-> > > > > >          a string that identifies the shared memory region.
-> > > > > >
-> > > > > > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> > > > > > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> > > > > > ---
-> > > > > > v5 change:
-> > > > > > - no change
-> > > > > > ---
-> > > > > > v4 change:
-> > > > > > - no change
-> > > > > > ---
-> > > > > > v3 change:
-> > > > > > - move field "shm_mem" to kernel_info
-> > > > > > ---
-> > > > > > v2 change:
-> > > > > > - using xzalloc
-> > > > > > - shm_id should be uint8_t
-> > > > > > - make reg a local variable
-> > > > > > - add #address-cells and #size-cells properties
-> > > > > > - fix alignment
-> > > > > > ---
-> > > > > >   xen/arch/arm/domain_build.c       | 143
-> > > > +++++++++++++++++++++++++++++-
-> > > > > >   xen/arch/arm/include/asm/kernel.h |   1 +
-> > > > > >   xen/arch/arm/include/asm/setup.h  |   1 +
-> > > > > >   3 files changed, 143 insertions(+), 2 deletions(-)
-> > > > > >
-> > > > > > diff --git a/xen/arch/arm/domain_build.c
-> > > > > > b/xen/arch/arm/domain_build.c index 1584e6c2ce..4d62440a0e
-> > > > > > 100644
-> > > > > > --- a/xen/arch/arm/domain_build.c
-> > > > > > +++ b/xen/arch/arm/domain_build.c
-> > > > > > @@ -900,7 +900,22 @@ static int __init
-> > > > > > allocate_shared_memory(struct domain *d,
-> > > > > >       return ret;
-> > > > > >   }
-> > > > > >   -static int __init process_shm(struct domain *d,
-> > > > > > +static int __init append_shm_bank_to_domain(struct kernel_info
-> > *kinfo,
-> > > > > > +                                            paddr_t start, paddr_t size,
-> > > > > > +                                            u32 shm_id) {
-> > > > > > +    if ( (kinfo->shm_mem.nr_banks + 1) > NR_MEM_BANKS )
-> > > > > > +        return -ENOMEM;
-> > > > > > +
-> > > > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].start = start;
-> > > > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].size = size;
-> > > > > > +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].shm_id =
-> > shm_id;
-> > > > > > +    kinfo->shm_mem.nr_banks++;
-> > > > > > +
-> > > > > > +    return 0;
-> > > > > > +}
-> > > > > > +
-> > > > > > +static int __init process_shm(struct domain *d, struct
-> > > > > > +kernel_info *kinfo,
-> > > > > >                                 const struct dt_device_node *node)
-> > > > > >   {
-> > > > > >       struct dt_device_node *shm_node; @@ -971,6 +986,14 @@
-> > > > > > static int __init process_shm(struct domain *d,
-> > > > > >               if ( ret )
-> > > > > >                   return ret;
-> > > > > >           }
-> > > > > > +
-> > > > > > +        /*
-> > > > > > +         * Record static shared memory region info for later setting
-> > > > > > +         * up shm-node in guest device tree.
-> > > > > > +         */
-> > > > > > +        ret = append_shm_bank_to_domain(kinfo, gbase, psize,
-> > shm_id);
-> > > > > > +        if ( ret )
-> > > > > > +            return ret;
-> > > > > >       }
-> > > > > >         return 0;
-> > > > > > @@ -1301,6 +1324,117 @@ static int __init
-> > make_memory_node(const
-> > > > > > struct domain *d,
-> > > > > >       return res;
-> > > > > >   }
-> > > > > >   +#ifdef CONFIG_STATIC_SHM
-> > > > > > +static int __init make_shm_memory_node(const struct domain *d,
-> > > > > > +                                       void *fdt,
-> > > > > > +                                       int addrcells, int sizecells,
-> > > > > > +                                       struct meminfo *mem)
-> > > > >
-> > > > > NIT: AFAICT mem is not changed, so it should be const.
-> > > > >
-> > > > > > +{
-> > > > > > +    unsigned long i = 0;
-> > > > >
-> > > > > NIT: This should be "unsigned int" to match the type of nr_banks.
-> > > > >
-> > > > > > +    int res = 0;
-> > > > > > +
-> > > > > > +    if ( mem->nr_banks == 0 )
-> > > > > > +        return -ENOENT;
-> > > > > > +
-> > > > > > +    /*
-> > > > > > +     * For each shared memory region, a range is exposed under
-> > > > > > +     * the /reserved-memory node as a child node. Each range
-> > > > > > + sub-node
-> > > > is
-> > > > > > +     * named xen-shmem@<address>.
-> > > > > > +     */
-> > > > > > +    dt_dprintk("Create xen-shmem node\n");
-> > > > > > +
-> > > > > > +    for ( ; i < mem->nr_banks; i++ )
-> > > > > > +    {
-> > > > > > +        uint64_t start = mem->bank[i].start;
-> > > > > > +        uint64_t size = mem->bank[i].size;
-> > > > > > +        uint8_t shm_id = mem->bank[i].shm_id;
-> > > > > > +        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
-> > > > > > +        char buf[27];
-> > > > > > +        const char compat[] = "xen,shared-memory-v1";
-> > > > > > +        __be32 reg[4];
-> > > > > > +        __be32 *cells;
-> > > > > > +        unsigned int len = (addrcells + sizecells) *
-> > > > > > + sizeof(__be32);
-> > > > > > +
-> > > > > > +        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64,
-> > > > > > mem->bank[i].start);
-> > > > > > +        res = fdt_begin_node(fdt, buf);
-> > > > > > +        if ( res )
-> > > > > > +            return res;
-> > > > > > +
-> > > > > > +        res = fdt_property(fdt, "compatible", compat, sizeof(compat));
-> > > > > > +        if ( res )
-> > > > > > +            return res;
-> > > > > > +
-> > > > > > +        cells = reg;
-> > > > > > +        dt_child_set_range(&cells, addrcells, sizecells, start,
-> > > > > > + size);
-> > > > > > +
-> > > > > > +        res = fdt_property(fdt, "reg", reg, len);
-> > > > > > +        if ( res )
-> > > > > > +            return res;
-> > > > > > +
-> > > > > > +        dt_dprintk("Shared memory bank %lu: %#"PRIx64"-
-> > >%#"PRIx64"\n",
-> > > > > > +                   i, start, start + size);
-> > > > > > +
-> > > > > > +        res = fdt_property_cell(fdt, "xen,id", shm_id);
-> > > > >
-> > > > > Looking at the Linux binding, "xen,id" is meant to be a string.
-> > > > > But here you are writing it as an integer.
-> > > >
-> > > > Good catch!
-> > > >
-> > > >
-> > > > > Given that the Linux binding is already merged, I think the Xen
-> > > > > binding should be changed.
-> > > >
-> > > > We would be compliant with both bindings (xen and linux) just by
-> > > > writing shm_id as string here, but if it is not too difficult we
-> > > > might as well harmonize the two bindings and also define xen,shm-id as a
-> > string.
-> > > >
-> > > > On the Xen side, I would suggest to put a clear size limit so that
-> > > > the string is easier to handle.
-> > >
-> > > I've already made the xen,shm-id parsed as a string too, seeing the below
-> > code:
-> > > "
-> > >     prop_id = fdt_get_property(fdt, node, "xen,shm-id", NULL);
-> > >     if ( !prop_id )
-> > >         return -ENOENT;
-> > >     shm_id = simple_strtoul(prop_id->data, NULL, 10);
-> > >     if ( shm_id >= NR_MEM_BANKS )
-> > >     {
-> > >         printk("fdt: invalid `xen,shm-id` %lu for static shared memory node.\n",
-> > >                shm_id);
-> > >         return -EINVAL;
-> > >     }
-> > > "
-> > > The size limit is smaller than 256, just as stated in doc:
-> > > "
-> > > - xen,shm-id
-> > >
-> > >     A string that represents the unique identifier of the shared memory
-> > >     region. The maximum identifier shall be "xen,shm-id = 255".
-> > > "
-> > > Hope this fits what both of you suggested~~~
-> > 
-> > Yes. I think supporting arbitrary strings like "my-shared-mem-1" would be
-> > nice-to-have but I wouldn't make it a hard requirement.
-> > 
-> 
-> Oh, the example "my-shared-mem-1" really expands my mind, I think I understand
-> what you and Julien referred as free form string, which shall not be limited to only
-> numeric number... thanks!!!
-> 
-> You were suggesting a strict limit on the number of characters, TBH, I have no clue
-> What the standard is here. Any suggestions?
-> 
-> If considering padding, maybe 19?
-> "
-> struct membank {
->     paddr_t start;
->     paddr_t size;
->     bool xen_domain; /* whether the memory bank is bound to a Xen domain. */
-> #ifdef CONFIG_STATIC_SHM
->     char shm_id[19];
->     unsigned int nr_shm_borrowers;
-> #endif
-> };
-> "
-
-Yeah I suggested a strict limit on the number of chars so that we could
-embed the string in struct membank. I would pick 16 characters which is
-equivalent to two uint64_t in terms of memory usage.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 2/2] automation: arm64: Create a test job for testing
+ static allocation on qemu
+Content-Language: en-US
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, xen-devel@lists.xenproject.org,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <20220707203803.798317-1-burzalodowa@gmail.com>
+ <20220707203803.798317-3-burzalodowa@gmail.com>
+ <259c9042-4a40-ddd3-5e3c-7a1698df74c4@xen.org>
+ <alpine.DEB.2.22.394.2207071548220.2354836@ubuntu-linux-20-04-desktop>
+ <d3f2e9b2-219b-d00b-04fd-f8e6a38222e4@gmail.com>
+ <alpine.DEB.2.22.394.2207080850510.2354836@ubuntu-linux-20-04-desktop>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2207080850510.2354836@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-> > "255" as a string would match Linux's requirements for xen,id.
+On 7/8/22 18:56, Stefano Stabellini wrote:
+> On Fri, 8 Jul 2022, Xenia Ragiadakou wrote:
+>> On 7/8/22 02:05, Stefano Stabellini wrote:
+>>> On Thu, 7 Jul 2022, Julien Grall wrote:
+>>>> Hi Xenia,
+>>>>
+>>>> On 07/07/2022 21:38, Xenia Ragiadakou wrote:
+>>>>> Add an arm subdirectory under automation/configs for the arm specific
+>>>>> configs
+>>>>> and add a config that enables static allocation.
+>>>>>
+>>>>> Modify the build script to search for configs also in this subdirectory
+>>>>> and
+>>>>> to
+>>>>> keep the generated xen binary, suffixed with the config file name, as
+>>>>> artifact.
+>>>>>
+>>>>> Create a test job that
+>>>>> - boots xen on qemu with a single direct mapped dom0less guest
+>>>>> configured
+>>>>> with
+>>>>> statically allocated memory
+>>>>> - verifies that the memory ranges reported in the guest's logs are the
+>>>>> same
+>>>>> with the provided static memory regions
+>>>>>
+>>>>> For guest kernel, use the 5.9.9 kernel from the tests-artifacts
+>>>>> containers.
+>>>>> Use busybox-static package, to create the guest ramdisk.
+>>>>> To generate the u-boot script, use ImageBuilder.
+>>>>> Use the qemu from the tests-artifacts containers.
+>>>>>
+>>>>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>>>>> ---
+>>>>>     automation/configs/arm/static_mem          |   3 +
+>>>>>     automation/gitlab-ci/test.yaml             |  24 +++++
+>>>>>     automation/scripts/build                   |   4 +
+>>>>>     automation/scripts/qemu-staticmem-arm64.sh | 114
+>>>>> +++++++++++++++++++++
+>>>>>     4 files changed, 145 insertions(+)
+>>>>>     create mode 100644 automation/configs/arm/static_mem
+>>>>>     create mode 100755 automation/scripts/qemu-staticmem-arm64.sh
+>>>>>
+>>>>> diff --git a/automation/configs/arm/static_mem
+>>>>> b/automation/configs/arm/static_mem
+>>>>> new file mode 100644
+>>>>> index 0000000000..84675ddf4e
+>>>>> --- /dev/null
+>>>>> +++ b/automation/configs/arm/static_mem
+>>>>> @@ -0,0 +1,3 @@
+>>>>> +CONFIG_EXPERT=y
+>>>>> +CONFIG_UNSUPPORTED=y
+>>>>> +CONFIG_STATIC_MEMORY=y
+>>>>> \ No newline at end of file
+>>>>
+>>>> Any particular reason to build a new Xen rather enable
+>>>> CONFIG_STATIC_MEMORY in
+>>>> the existing build?
+>>>>
+>>>>> diff --git a/automation/scripts/build b/automation/scripts/build
+>>>>> index 21b3bc57c8..9c6196d9bd 100755
+>>>>> --- a/automation/scripts/build
+>>>>> +++ b/automation/scripts/build
+>>>>> @@ -83,6 +83,7 @@ fi
+>>>>>     # Build all the configs we care about
+>>>>>     case ${XEN_TARGET_ARCH} in
+>>>>>         x86_64) arch=x86 ;;
+>>>>> +    arm64) arch=arm ;;
+>>>>>         *) exit 0 ;;
+>>>>>     esac
+>>>>>     @@ -93,4 +94,7 @@ for cfg in `ls ${cfg_dir}`; do
+>>>>>         rm -f xen/.config
+>>>>>         make -C xen KBUILD_DEFCONFIG=../../../../${cfg_dir}/${cfg}
+>>>>> defconfig
+>>>>>         make -j$(nproc) -C xen
+>>>>> +    if [[ ${arch} == "arm" ]]; then
+>>>>> +        cp xen/xen binaries/xen-${cfg}
+>>>>> +    fi
+>>>>
+>>>> This feels a bit of a hack to be arm only. Can you explain why this is not
+>>>> enabled for x86 (other than this is not yet used)?
+>>>>
+>>>>>     done
+>>>>> diff --git a/automation/scripts/qemu-staticmem-arm64.sh
+>>>>> b/automation/scripts/qemu-staticmem-arm64.sh
+>>>>> new file mode 100755
+>>>>> index 0000000000..5b89a151aa
+>>>>> --- /dev/null
+>>>>> +++ b/automation/scripts/qemu-staticmem-arm64.sh
+>>>>> @@ -0,0 +1,114 @@
+>>>>> +#!/bin/bash
+>>>>> +
+>>>>> +base=(0x50000000 0x100000000)
+>>>>> +size=(0x10000000 0x10000000)
+>>>>
+>>>>   From the name, it is not clear what the base and size refers too. Looking
+>>>> a
+>>>> bit below, it seems to be referring to the domain memory. If so, I would
+>>>> suggest to comment and rename to "domu_{base, size}".
+>>>>
+>>>>> +
+>>>>> +set -ex
+>>>>> +
+>>>>> +apt-get -qy update
+>>>>> +apt-get -qy install --no-install-recommends u-boot-qemu \
+>>>>> +                                            u-boot-tools \
+>>>>> +                                            device-tree-compiler \
+>>>>> +                                            cpio \
+>>>>> +                                            curl \
+>>>>> +                                            busybox-static
+>>>>> +
+>>>>> +# DomU Busybox
+>>>>> +cd binaries
+>>>>> +mkdir -p initrd
+>>>>> +mkdir -p initrd/bin
+>>>>> +mkdir -p initrd/sbin
+>>>>> +mkdir -p initrd/etc
+>>>>> +mkdir -p initrd/dev
+>>>>> +mkdir -p initrd/proc
+>>>>> +mkdir -p initrd/sys
+>>>>> +mkdir -p initrd/lib
+>>>>> +mkdir -p initrd/var
+>>>>> +mkdir -p initrd/mnt
+>>>>> +cp /bin/busybox initrd/bin/busybox
+>>>>> +initrd/bin/busybox --install initrd/bin
+>>>>> +echo "#!/bin/sh
+>>>>> +
+>>>>> +mount -t proc proc /proc
+>>>>> +mount -t sysfs sysfs /sys
+>>>>> +mount -t devtmpfs devtmpfs /dev
+>>>>> +/bin/sh" > initrd/init
+>>>>> +chmod +x initrd/init
+>>>>> +cd initrd
+>>>>> +find . | cpio --create --format='newc' | gzip > ../initrd.cpio.gz
+>>>>> +cd ../..
+>>>>> +
+>>>>> +# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
+>>>>> +curl -fsSLO
+>>>>> https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
+>>>>> +
+>>>>> +./binaries/qemu-system-aarch64 -nographic \
+>>>>> +    -M virtualization=true \
+>>>>> +    -M virt \
+>>>>> +    -M virt,gic-version=2 \
+>>>>> +    -cpu cortex-a57 \
+>>>>> +    -smp 2 \
+>>>>> +    -m 8G \
+>>>>> +    -M dumpdtb=binaries/virt-gicv2.dtb
+>>>>> +
+>>>>> +#dtc -I dtb -O dts binaries/virt-gicv2.dtb > binaries/virt-gicv2.dts
+>>>>> +
+>>>>> +# ImageBuilder
+>>>>> +rm -rf imagebuilder
+>>>>> +git clone https://gitlab.com/ViryaOS/imagebuilder
+>>>>> +
+>>>>> +echo "MEMORY_START=\"0x40000000\"
+>>>>> +MEMORY_END=\"0x0200000000\"
+>>>>> +
+>>>>> +DEVICE_TREE=\"virt-gicv2.dtb\"
+>>>>> +
+>>>>> +XEN=\"xen-static_mem\"
+>>>>> +XEN_CMD=\"console=dtuart earlyprintk xsm=dummy\"
+>>>>
+>>>> AFAIK, earlyprintk is not an option for Xen on Arm (at least). It is also
+>>>> not
+>>>> clear why you need to pass xsm=dummy.
+>>>>
+>>>>> +
+>>>>> +NUM_DOMUS=1
+>>>>> +DOMU_MEM[0]=512
+>>>>> +DOMU_VCPUS[0]=1
+>>>>> +DOMU_KERNEL[0]=\"Image\"
+>>>>> +DOMU_RAMDISK[0]=\"initrd.cpio.gz\"
+>>>>> +DOMU_CMD[0]=\"earlyprintk console=ttyAMA0\"
+>>>>> +DOMU_STATIC_MEM[0]=\"${base[0]} ${size[0]} ${base[1]} ${size[1]}\"
+>>>>> +
+>>>>> +UBOOT_SOURCE=\"boot.source\"
+>>>>> +UBOOT_SCRIPT=\"boot.scr\"" > binaries/imagebuilder_config
+>>>>> +
+>>>>> +bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c
+>>>>> binaries/imagebuilder_config
+>>>>> +
+>>>>> +# Run the test
+>>>>> +rm -f qemu-staticmem.serial
+>>>>> +set +e
+>>>>> +echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source
+>>>>> 0x40000000"| \
+>>>>> +timeout -k 1 60 ./binaries/qemu-system-aarch64 -nographic \
+>>>>> +    -M virtualization=true \
+>>>>> +    -M virt \
+>>>>> +    -M virt,gic-version=2 \
+>>>>> +    -cpu cortex-a57 \
+>>>>> +    -smp 2 \
+>>>>> +    -m 8G \
+>>>>> +    -no-reboot \
+>>>>> +    -device virtio-net-pci,netdev=vnet0 -netdev
+>>>>> user,id=vnet0,tftp=binaries
+>>>>> \
+>>>>> +    -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin \
+>>>>> +    -dtb ./binaries/virt-gicv2.dtb \
+>>>>> +    |& tee qemu-staticmem.serial
+>>>>> +
+>>>>> +set -e
+>>>>
+>>>> A lot of the code above is duplicated from qemu-smoke-arm64.sh. I think it
+>>>> would be better to consolidate in a single script. Looking briefly
+>>>> throught
+>>>> the existing scripts, it looks like it is possible to pass arguments (see
+>>>> qemu-smoke-x86-64.sh).
+>>>    One idea would be to make the script common and "source" a second
+>>> script or config file with just the ImageBuilder configuration because
+>>> it looks like it is the only thing different.
+>>>
+>>>
+>>>>> +
+>>>>> +(grep -q "Xen dom0less mode detected" qemu-staticmem.serial) || exit 1
+>>>>> +
+>>>>> +for ((i=0; i<${#base[@]}; i++))
+>>>>> +do
+>>>>> +    start="$(printf "0x%016x" ${base[$i]})"
+>>>>> +    end="$(printf "0x%016x" $((${base[$i]} + ${size[$i]} - 1)))"
+>>>>> +    grep -q "node   0: \[mem ${start}-${end}\]" qemu-staticmem.serial
+>>>>> +    if test $? -eq 1
+>>>>> +    then
+>>>>> +        exit 1
+>>>>> +    fi
+>>>>> +done
+>>>>
+>>>> Please add a comment on top to explain what this is meant to do. However,
+>>>> I
+>>>> think we should avoid relying on output that we have written ourself. IOW,
+>>>> relying on Xen/Linux to always write the same message is risky because
+>>>> they
+>>>> can change at any time.
+>>>
+>>> Especially if we make the script common, then we could just rely on the
+>>> existing check to see if the guest started correctly (no special check
+>>> for static memory).
+>>
+>> In this case, how the test will verify that the static memory configuration
+>> has been taken into account and has not just been ignored?
 > 
-> I will use your example "my-shm-mem-1", I think its better for users
-> to understand, at least for me...
+> There is no simple way that I can think of.
+> 
+> We can trust that it worked, without checking that the ranges were
+> actually static as requested.
+> 
+> We can parse the Xen output like you did, although if it changes then
+> the test will break.
+> 
+> Or we could add a script to detect and print specific output but I
+> don't know if there is something under /proc or /sys that we could
+> simply "cat" from bash to check it.
+> 
+> If there is a simple way to do this by cat'ing /proc or /sys then I
+> think that would be great. Otherwise I think we could do as you did in
+> this patch, which is not perfect but it works and if something changes
+> in the Xen output we'll detect it right away given that gitlab-ci is run
+> pre-commit.
 
-+1
+Ok, I 'll send another patch that will enable static memory for all arm 
+xen builds and will use a single script.
+For the static memory case, I will try to verify the values of the 
+guest's dt memory node via /proc/device-tree.
+
+Also, I will do some minor cleanups in qemu-smoke-arm64.sh because there 
+are some inconsistencies for instance the dtb is named virt-gicv3 while 
+runs with gicv2, a comment states that qemu gets installed while it is 
+taken from test-artifacts container.
+
+Thanks to both of you for the review.
+
+-- 
+Xenia
 
