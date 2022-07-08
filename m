@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7072D56BE14
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 18:20:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.363582.594203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05DFB56BE15
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 18:20:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.363580.594186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9qiG-0005V8-OH; Fri, 08 Jul 2022 16:20:16 +0000
+	id 1o9qiB-00057c-1p; Fri, 08 Jul 2022 16:20:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 363582.594203; Fri, 08 Jul 2022 16:20:16 +0000
+Received: by outflank-mailman (output) from mailman id 363580.594186; Fri, 08 Jul 2022 16:20:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9qiG-0005O5-KG; Fri, 08 Jul 2022 16:20:16 +0000
-Received: by outflank-mailman (input) for mailman id 363582;
- Fri, 08 Jul 2022 16:20:15 +0000
+	id 1o9qiA-00054m-UZ; Fri, 08 Jul 2022 16:20:10 +0000
+Received: by outflank-mailman (input) for mailman id 363580;
+ Fri, 08 Jul 2022 16:20:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=i666=XN=citrix.com=prvs=181ea21da=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1o9qiF-00054g-LD
- for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 16:20:15 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8f26d42-fed9-11ec-bd2d-47488cf2e6aa;
- Fri, 08 Jul 2022 18:20:14 +0200 (CEST)
+ id 1o9qi9-00054g-8G
+ for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 16:20:09 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d3865ac0-fed9-11ec-bd2d-47488cf2e6aa;
+ Fri, 08 Jul 2022 18:20:07 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,140 +36,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8f26d42-fed9-11ec-bd2d-47488cf2e6aa
+X-Inumbo-ID: d3865ac0-fed9-11ec-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1657297214;
+  d=citrix.com; s=securemail; t=1657297206;
   h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=OPOL1lal7rsNW/hGS9xlZBwEc0R8DY+uuDGsN9y09zc=;
-  b=Z8ftb2+CVvHOuZSmjAI88GMqsBBg2ZFj5wXeE2Sg0oQSt9bsYKv9jblb
-   D4OQwXNVW0+JLd0kLYOzPbtFb5xsemx+pjNxwCk1ZkpOesGtLI3SoRAmq
-   97PrCedNbxyq3tgyqMUaBLzGpGcHHQLYyOLqU8eifRw6BcgWZra6fjuLO
-   Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+   references:mime-version:content-transfer-encoding;
+  bh=Y7mZFxS2RWldNtqgu6etUWYDAXOJTO/Jp6WEGB9hmEo=;
+  b=bJ3eI7g30OBSmoeUAMHccUQUrTyCITL/a6+vAPJx2VehqOdUvcj8YFjm
+   4oAPKYf1OhIiv6yiO+/XZHbDWCfv+5ovdjJdXLVk7bfd/0guTijFabTg0
+   BZaO7LLyHVoT1l8qnFUSuPYc5jDJWwuPTeTpzNn8WANFPkS9KIOo3NkF2
+   w=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 74700441
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 75816900
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:VWtQ06LMl24ztx6hFE+RzZUlxSXFcZb7ZxGr2PjKsXjdYENS1zVVn
- DEeDWiFOK2IZmv9Ldp/ao2x9x8HsJHWndI3TQZlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokf0/0vrav67xZVF/fngqoDUUYYoAQgsA14+IMsdoUg7wbRh3dY42YPR7z6l4
- rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
- s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- NVKn6TtblcKBPLFoeMTeQJjFgJAErITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQqqBP
- 5JFNWMHgBLoPj1AawY0I6oFjsSDv3b/fAN4lFSonP9ii4TU5FMoi+W8WDbPQfSIWMFUk0Cwt
- m/AuWPjDXkyFvaS1D6E+XKEnfLUkGXwX4d6PL+37Plxm3WI23ceThYRUDOTsfS/z0KzRd9bA
- 0gV4TY167g/8lSxSdvwVAH+p2SL1jYHQMZZGeA+7ACLy4LX7hyfC2xCSSROAPQ5sOcmSDps0
- UWG9+4FHhQ27ufTEyjEsO7J83XiYkD5MFPuewcESiE9vv6zg7tshyvIQPx4K6uWsPLqTGSYL
- y+xkMQuu1kCpZdVivrhpAyY027ESovhFVBsuFiONo6xxkYgPdP+OdT1gbTOxawYRLt1WGVtq
- 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hO0yT6FWyoyGsiTHqFy+5dEdMTX
- GfduBlK+LhYN2awYKl8buqZUpp3kvK5RYu1DK6OPrKih6SdkiferUmCgmbJhgjQfLUEy/lja
- f93j+72ZZrlNUiX5GXvHLpMuVPa7is/2XnSVfjG8vhT6pLHPCT9Ye5caDOmN7llhIvZ8FS92
- 4sObKOilkQAONASlwGKqOb/23hRdiNlbX03wuQKHtO+zv1OQjt/VKONn+NxK+SIXc19z4/1w
- 510YWcAoHKXuJENAVzihqxLAF83YatCkA==
-IronPort-HdrOrdr: A9a23:I+wugKxPXK4b/no+Q5r5KrPwKL1zdoMgy1knxilNoRw8SK2lfq
- GV7YwmPHDP+VUssR0b9uxofZPwJU80lqQFmLX5X43SPjUO0VHAROoJgOffKn/bakrDH4ZmpM
- FdmsNFaOEYY2IVsS+D2njcL+od
+IronPort-Data: A9a23:wCPpcaj9TiUZUcn0wHrrmBq4X161BRAKZh0ujC45NGQN5FlHY01je
+ htvXDjSafyPZGD3LohyPojj80JVu5XSztcyHApprikwEigb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M58wIFqtQw24LhXFvd4
+ YiaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YSB5EoLco7klaghVQihSD4NF5r/5ClHq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
+ JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bklhmwSvUErANRpfbTr+RzdRZwC0xloZFGvO2i
+ 88xNmc/NUqRO0Un1lE/MZ1itfqjuSLDTxoHiUqvp4UIwHf/01kkuFTqGIWMIYHbLSlPpW6Ho
+ krW8mK/BQsVXPS94zeY9nOnhsfUgDj2HokVEdWQ5vNsxVGe2GEXIBkXTkeg5+m0jFakXNBSI
+ FBS/TAhxZXe72TyEIO7BUfh5ifZ4FhMALK8DtHW9imqmob78z3EPlEVQ29IRO4It9E2excDg
+ wrhc8zSOdB/jFGEYSvDq+jO9G/taXR9wXwqPnFdE1ZcizX3iMRq10+UEI4+eEKgpoetcQwc1
+ Qxmu8TXa187qccQn5u28lnc695HjsiYF1Vljuk7s4/M0++YWGJGT9bxgbQjxawcRLt1t3HY1
+ JT+p+CQ7foVEbaGnzGXTeMGEdmBvqjYb2eF0QE/Rcd7p1xBHkJPm6gJsVmSw28wa645lcLBO
+ heP6Wu9GrcJVJdVUUOHS93oUJl7pUQRPd/kSurVfrJzX3SFTyfepHsGTRfJhwjFyRFw+Ylia
+ cbzWZv9Vh4yVPU4pAdass9AiNfHMAhlnjiNLX06pjz6uYejiIm9E+1bbwfSMLBpvMtpYmz9q
+ r5iCidD8D0HOMWWX8Ud2dR7wYwiRZTjOa3Llg==
+IronPort-HdrOrdr: A9a23:8F9pUKqxzpLiLKEmmJzEj4MaV5oTeYIsimQD101hICG8cqSj+f
+ xG+85rrCMc6QxhPk3I9urhBEDtex/hHNtOkOws1NSZLW7bUQmTXeJfBOLZqlWKcUDDH6xmpM
+ NdmsBFeaXN5DNB7PoSjjPWLz9Z+qjkzJyV
 X-IronPort-AV: E=Sophos;i="5.92,256,1650945600"; 
-   d="scan'208";a="74700441"
+   d="scan'208";a="75816900"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH 2/3] xen/cmdline: Extend parse_boolean() to signal a name match
-Date: Fri, 8 Jul 2022 17:19:33 +0100
-Message-ID: <20220708161934.10095-3-andrew.cooper3@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH 3/3] x86/spec-ctrl: Add fine-grained cmdline suboptions for primitives
+Date: Fri, 8 Jul 2022 17:19:34 +0100
+Message-ID: <20220708161934.10095-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220708161934.10095-1-andrew.cooper3@citrix.com>
 References: <20220708161934.10095-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-This will help parsing a sub-option which has boolean and non-boolean options
-available.
-
-First, rework 'int val' into 'bool has_neg_prefix'.  This inverts it's value,
-but the resulting logic is far easier to follow.
-
-Second, reject anything of the form 'no-$FOO=' which excludes ambiguous
-constructs such as 'no-$foo=yes' which have never been valid.
-
-This just leaves the case where everything is otherwise fine, but parse_bool()
-can't interpret the provided string.
+Support controling the PV/HVM suboption of msr-sc/rsb/md-clear, which
+previously wasn't possible.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-CC: George Dunlap <George.Dunlap@eu.citrix.com>
 CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-CC: Julien Grall <julien@xen.org>
-CC: Juergen Gross <jgross@suse.com>
 ---
- xen/common/kernel.c   | 20 ++++++++++++++++----
- xen/include/xen/lib.h |  3 ++-
- 2 files changed, 18 insertions(+), 5 deletions(-)
+ docs/misc/xen-command-line.pandoc | 12 +++++--
+ xen/arch/x86/spec_ctrl.c          | 66 +++++++++++++++++++++++++++++++++------
+ 2 files changed, 66 insertions(+), 12 deletions(-)
 
-diff --git a/xen/common/kernel.c b/xen/common/kernel.c
-index adff2d2c77f3..74dbaf31ea70 100644
---- a/xen/common/kernel.c
-+++ b/xen/common/kernel.c
-@@ -272,9 +272,9 @@ int parse_bool(const char *s, const char *e)
- int parse_boolean(const char *name, const char *s, const char *e)
- {
-     size_t slen, nlen;
--    int val = !!strncmp(s, "no-", 3);
-+    bool has_neg_prefix = !strncmp(s, "no-", 3);
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index da18172e50c5..de33ccc005fc 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2257,7 +2257,8 @@ not be able to control the state of the mitigation.
+ By default SSBD will be mitigated at runtime (i.e `ssbd=runtime`).
  
--    if ( !val )
-+    if ( has_neg_prefix )
-         s += 3;
+ ### spec-ctrl (x86)
+-> `= List of [ <bool>, xen=<bool>, {pv,hvm,msr-sc,rsb,md-clear}=<bool>,
++> `= List of [ <bool>, xen=<bool>, {pv,hvm}=<bool>,
++>              {msr-sc,rsb,md-clear}=<bool>|{pv,hvm}=<bool>,
+ >              bti-thunk=retpoline|lfence|jmp, {ibrs,ibpb,ssbd,psfd,
+ >              eager-fpu,l1d-flush,branch-harden,srb-lock,
+ >              unpriv-mmio}=<bool> ]`
+@@ -2282,12 +2283,17 @@ in place for guests to use.
  
-     slen = e ? ({ ASSERT(e >= s); e - s; }) : strlen(s);
-@@ -286,11 +286,23 @@ int parse_boolean(const char *name, const char *s, const char *e)
+ Use of a positive boolean value for either of these options is invalid.
  
-     /* Exact, unadorned name?  Result depends on the 'no-' prefix. */
-     if ( slen == nlen )
--        return val;
-+        return !has_neg_prefix;
+-The booleans `pv=`, `hvm=`, `msr-sc=`, `rsb=` and `md-clear=` offer fine
++The `pv=`, `hvm=`, `msr-sc=`, `rsb=` and `md-clear=` options offer fine
+ grained control over the primitives by Xen.  These impact Xen's ability to
+-protect itself, and Xen's ability to virtualise support for guests to use.
++protect itself, and/or Xen's ability to virtualise support for guests to use.
+ 
+ * `pv=` and `hvm=` offer control over all suboptions for PV and HVM guests
+   respectively.
++* Each other option can be used either as a plain boolean
++  (e.g. `spec-ctrl=rsb` to control both the PV and HVM sub-options), or with
++  `pv=` or `hvm=` subsuboptions (e.g. `spec-ctrl=rsb=no-hvm` to disable HVM
++  RSB only).
 +
-+    /* Inexact match with a 'no-' prefix?  Not valid. */
-+    if ( has_neg_prefix )
-+        return -1;
- 
-     /* =$SOMETHING?  Defer to the regular boolean parsing. */
-     if ( s[nlen] == '=' )
--        return parse_bool(&s[nlen + 1], e);
-+    {
-+        int b = parse_bool(&s[nlen + 1], e);
+ * `msr-sc=` offers control over Xen's support for manipulating `MSR_SPEC_CTRL`
+   on entry and exit.  These blocks are necessary to virtualise support for
+   guests and if disabled, guests will be unable to use IBRS/STIBP/SSBD/etc.
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index ba64a09048be..328862bdf549 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -147,20 +147,68 @@ static int __init cf_check parse_spec_ctrl(const char *s)
+             opt_rsb_hvm = val;
+             opt_md_clear_hvm = val;
+         }
+-        else if ( (val = parse_boolean("msr-sc", s, ss)) >= 0 )
++        else if ( (val = parse_boolean("msr-sc", s, ss)) != -1 )
+         {
+-            opt_msr_sc_pv = val;
+-            opt_msr_sc_hvm = val;
++            switch ( val )
++            {
++            case 0:
++            case 1:
++                opt_msr_sc_pv = opt_msr_sc_hvm = val;
++                break;
 +
-+        if ( b >= 0 )
-+            return b;
++            case -2:
++                s += strlen("msr-sc=");
++                if ( (val = parse_boolean("pv", s, ss)) >= 0 )
++                    opt_msr_sc_pv = val;
++                else if ( (val = parse_boolean("hvm", s, ss)) >= 0 )
++                    opt_msr_sc_hvm = val;
++                else
++            default:
++                    rc = -EINVAL;
++                break;
++            }
+         }
+-        else if ( (val = parse_boolean("rsb", s, ss)) >= 0 )
++        else if ( (val = parse_boolean("rsb", s, ss)) != -1 )
+         {
+-            opt_rsb_pv = val;
+-            opt_rsb_hvm = val;
++            switch ( val )
++            {
++            case 0:
++            case 1:
++                opt_rsb_pv = opt_rsb_hvm = val;
++                break;
 +
-+        /* Not a boolean, but the name matched.  Signal specially. */
-+        return -2;
-+    }
++            case -2:
++                s += strlen("rsb=");
++                if ( (val = parse_boolean("pv", s, ss)) >= 0 )
++                    opt_rsb_pv = val;
++                else if ( (val = parse_boolean("hvm", s, ss)) >= 0 )
++                    opt_rsb_hvm = val;
++                else
++            default:
++                    rc = -EINVAL;
++                break;
++            }
+         }
+-        else if ( (val = parse_boolean("md-clear", s, ss)) >= 0 )
++        else if ( (val = parse_boolean("md-clear", s, ss)) != -1 )
+         {
+-            opt_md_clear_pv = val;
+-            opt_md_clear_hvm = val;
++            switch ( val )
++            {
++            case 0:
++            case 1:
++                opt_md_clear_pv = opt_md_clear_hvm = val;
++                break;
++
++            case -2:
++                s += strlen("md-clear=");
++                if ( (val = parse_boolean("pv", s, ss)) >= 0 )
++                    opt_md_clear_pv = val;
++                else if ( (val = parse_boolean("hvm", s, ss)) >= 0 )
++                    opt_md_clear_hvm = val;
++                else
++            default:
++                    rc = -EINVAL;
++                break;
++            }
+         }
  
-     /* Unrecognised.  Give up. */
-     return -1;
-diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
-index aab1fc7c4a69..05ee1e18af6b 100644
---- a/xen/include/xen/lib.h
-+++ b/xen/include/xen/lib.h
-@@ -89,7 +89,8 @@ int parse_bool(const char *s, const char *e);
- /**
-  * Given a specific name, parses a string of the form:
-  *   [no-]$NAME[=...]
-- * returning 0 or 1 for a recognised boolean, or -1 for an error.
-+ * returning 0 or 1 for a recognised boolean.  Returns -1 for general errors,
-+ * and -2 for "not a boolean, but $NAME= matches".
-  */
- int parse_boolean(const char *name, const char *s, const char *e);
- 
+         /* Xen's speculative sidechannel mitigation settings. */
 -- 
 2.11.0
 
