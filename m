@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E53956B3C8
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 09:46:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.363268.593747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C049256B3C9
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Jul 2022 09:46:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.363269.593758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9igs-0005YA-QS; Fri, 08 Jul 2022 07:46:18 +0000
+	id 1o9ih8-0005tx-2s; Fri, 08 Jul 2022 07:46:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 363268.593747; Fri, 08 Jul 2022 07:46:18 +0000
+Received: by outflank-mailman (output) from mailman id 363269.593758; Fri, 08 Jul 2022 07:46:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o9igs-0005VG-NG; Fri, 08 Jul 2022 07:46:18 +0000
-Received: by outflank-mailman (input) for mailman id 363268;
- Fri, 08 Jul 2022 07:46:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1o9igr-0005V6-7S
- for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 07:46:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o9igr-0005pF-2l; Fri, 08 Jul 2022 07:46:17 +0000
-Received: from [54.239.6.190] (helo=[192.168.18.211])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1o9igq-0006KE-TB; Fri, 08 Jul 2022 07:46:17 +0000
+	id 1o9ih7-0005s2-VU; Fri, 08 Jul 2022 07:46:33 +0000
+Received: by outflank-mailman (input) for mailman id 363269;
+ Fri, 08 Jul 2022 07:46:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/WbS=XN=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1o9ih6-0005pn-1v
+ for xen-devel@lists.xenproject.org; Fri, 08 Jul 2022 07:46:32 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14cde0df-fe92-11ec-924f-1f966e50362f;
+ Fri, 08 Jul 2022 09:46:31 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id dn9so31043875ejc.7
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Jul 2022 00:46:31 -0700 (PDT)
+Received: from [192.168.1.10] (adsl-142.37.6.26.tellas.gr. [37.6.26.142])
+ by smtp.gmail.com with ESMTPSA id
+ ba29-20020a0564021add00b00435a62d35b5sm29548359edb.45.2022.07.08.00.46.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 08 Jul 2022 00:46:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,189 +44,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Enrk0CMF9QdvkKEmX+ZyvNMDaUhuGcFGRrFhEb9mArk=; b=DMB021HDOWZyiaE07h7pfu3c3b
-	dJYi5JuwML2tcii8ln8DXyYArxmx7vqwf66ugPfJtxJmFEYNGhiukvI7xHF+XbJkrSN5yKcksyO+7
-	asI0LNhoxMPgjEDTYmEvCPf/BBCwKPGGYr4NInSDTMx595lL6SqoNUqwepdImGwLIVDI=;
-Message-ID: <418ffeb7-a088-28e8-c1b3-8f5ced317666@xen.org>
-Date: Fri, 8 Jul 2022 08:46:15 +0100
+X-Inumbo-ID: 14cde0df-fe92-11ec-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=ARRkIZ8oM6AY7XkmPNQ+UAJJsD+UxhJYrjou3qsB+Ew=;
+        b=Tabu27DFSa1QTsTGieIl0R3OJWDfCoyk9JiJuW1HBM1TXdrKj7PnOPUpzd1YZ6qUsB
+         wfl5Yi8AfmQaONlu49rXKp4Ro+7kcfj4llGztHCRYPLquT+F9dkKf9ItXDKCuX0NqLCD
+         VIudk2QhqMKfb13Sqd2qn/zfqAxt8yRq/AUEsB5hc5thHyU/qIyYpxx78KiYkK8k4p0V
+         HaUWx+mEch+HyM3PkqpNJNUSgSRdNm1EbCzl9Kt73YHo400Dz3fyrWzV2LNmjeZcwt1s
+         SB7tOF8DU38YkXFpzmnz3J6MXgI2KcFqRjO1l+kPsoNUXwDMJ0xnQD37m9YZ4MGO00CR
+         YRxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=ARRkIZ8oM6AY7XkmPNQ+UAJJsD+UxhJYrjou3qsB+Ew=;
+        b=twxc4Oi79kdRm8Q1OV80YhEe6skvyRbvm5UeBUGfFDvtLIYZNkL9FRkeIkCXYCkUIg
+         +6GKDiX+QaU5TKkX6Ja/VGIinPBH+QzpmHPd2WAO3VdLz//Y/F491UG3AFMK1P21AOG8
+         kfosHN5aXpsDsMOleYcuFC/IU7OJLd5ZiJHWIBfO6UsQOcBxMNp6IyJTL2Xh9JBTrjEd
+         mWk7RxXaMxUN7XW6afVofHSyXJy+l1ohTergEE/1+fO4nROAcQn4kqXtbU6dtOFKp+sA
+         soyZ6xtQvkgO0FQ8qDW/Cmfs8yR+GKR3M6/LPVMwoqsnTv2iNrievsrTcYHyevjPOi5p
+         eI4A==
+X-Gm-Message-State: AJIora/jNqggyTtDL0lGO4A8q1lQFV04ds1Vm5Bmi9NefY4LaqFqZWbN
+	wlUt7E0tmIZEHyWKqeB41n/0a9s7vEo=
+X-Google-Smtp-Source: AGRyM1uHFjO57EYgHOGL6FuR37nYm/5085Cdai4oROdXsNhyY3LiT29ERwNSywa3mnZemVF2Bdusgg==
+X-Received: by 2002:a17:906:9b8a:b0:722:e6e0:33d with SMTP id dd10-20020a1709069b8a00b00722e6e0033dmr2153998ejc.317.1657266390496;
+        Fri, 08 Jul 2022 00:46:30 -0700 (PDT)
+Message-ID: <bf3c4081-3133-dd53-b98d-b191942ec585@gmail.com>
+Date: Fri, 8 Jul 2022 10:46:28 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.11.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
 Subject: Re: [PATCH 2/2] automation: arm64: Create a test job for testing
  static allocation on qemu
-To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
 References: <20220707203803.798317-1-burzalodowa@gmail.com>
  <20220707203803.798317-3-burzalodowa@gmail.com>
  <259c9042-4a40-ddd3-5e3c-7a1698df74c4@xen.org>
- <c46137a2-d65c-3292-6e1c-8578e771f3b9@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <c46137a2-d65c-3292-6e1c-8578e771f3b9@gmail.com>
+ <alpine.DEB.2.22.394.2207071548220.2354836@ubuntu-linux-20-04-desktop>
+ <2176a93e-5949-022e-d107-e42c859626ef@xen.org>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <2176a93e-5949-022e-d107-e42c859626ef@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
 
-On 08/07/2022 08:17, Xenia Ragiadakou wrote:
-> Hi Julien,
-
-Hi Xenia,
-
-> On 7/8/22 01:26, Julien Grall wrote:
->> Hi Xenia,
->>
->> On 07/07/2022 21:38, Xenia Ragiadakou wrote:
->>> Add an arm subdirectory under automation/configs for the arm specific 
->>> configs
->>> and add a config that enables static allocation.
+On 7/8/22 10:35, Julien Grall wrote:
+> Hi,
+> 
+> On 08/07/2022 00:05, Stefano Stabellini wrote:
+>> On Thu, 7 Jul 2022, Julien Grall wrote:
+>>>> +# Run the test
+>>>> +rm -f qemu-staticmem.serial
+>>>> +set +e
+>>>> +echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 
+>>>> 0x40000000"| \
+>>>> +timeout -k 1 60 ./binaries/qemu-system-aarch64 -nographic \
+>>>> +    -M virtualization=true \
+>>>> +    -M virt \
+>>>> +    -M virt,gic-version=2 \
+>>>> +    -cpu cortex-a57 \
+>>>> +    -smp 2 \
+>>>> +    -m 8G \
+>>>> +    -no-reboot \
+>>>> +    -device virtio-net-pci,netdev=vnet0 -netdev 
+>>>> user,id=vnet0,tftp=binaries
+>>>> \
+>>>> +    -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin \
+>>>> +    -dtb ./binaries/virt-gicv2.dtb \
+>>>> +    |& tee qemu-staticmem.serial
+>>>> +
+>>>> +set -e
 >>>
->>> Modify the build script to search for configs also in this 
->>> subdirectory and to
->>> keep the generated xen binary, suffixed with the config file name, as 
->>> artifact.
->>>
->>> Create a test job that
->>> - boots xen on qemu with a single direct mapped dom0less guest 
->>> configured with
->>> statically allocated memory
->>> - verifies that the memory ranges reported in the guest's logs are 
->>> the same
->>> with the provided static memory regions
->>>
->>> For guest kernel, use the 5.9.9 kernel from the tests-artifacts 
->>> containers.
->>> Use busybox-static package, to create the guest ramdisk.
->>> To generate the u-boot script, use ImageBuilder.
->>> Use the qemu from the tests-artifacts containers.
->>>
->>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
->>> ---
->>>   automation/configs/arm/static_mem          |   3 +
->>>   automation/gitlab-ci/test.yaml             |  24 +++++
->>>   automation/scripts/build                   |   4 +
->>>   automation/scripts/qemu-staticmem-arm64.sh | 114 +++++++++++++++++++++
->>>   4 files changed, 145 insertions(+)
->>>   create mode 100644 automation/configs/arm/static_mem
->>>   create mode 100755 automation/scripts/qemu-staticmem-arm64.sh
->>>
->>> diff --git a/automation/configs/arm/static_mem 
->>> b/automation/configs/arm/static_mem
->>> new file mode 100644
->>> index 0000000000..84675ddf4e
->>> --- /dev/null
->>> +++ b/automation/configs/arm/static_mem
->>> @@ -0,0 +1,3 @@
->>> +CONFIG_EXPERT=y
->>> +CONFIG_UNSUPPORTED=y
->>> +CONFIG_STATIC_MEMORY=y
->>> \ No newline at end of file
->>
->> Any particular reason to build a new Xen rather enable 
->> CONFIG_STATIC_MEMORY in the existing build
+>>> A lot of the code above is duplicated from qemu-smoke-arm64.sh. I 
+>>> think it
+>>> would be better to consolidate in a single script. Looking briefly 
+>>> throught
+>>> the existing scripts, it looks like it is possible to pass arguments 
+>>> (see
+>>> qemu-smoke-x86-64.sh).
+>> One idea would be to make the script common and "source" a second
+>> script or config file with just the ImageBuilder configuration because
+>> it looks like it is the only thing different.
 > 
-> IIUC, the xen binary (built with the arm64_defconfig) is used by the two 
-> other arm64 test jobs qemu-smoke-arm64-gcc and qemu-alpine-arm64-gcc. I 
-> did not want to change its configuration.
-> 
-> If there is no issue with changing its configuration, I can enable 
-> static memory and use this one. 
+> This would mean creating a new bash script for every new test. This 
+> sounds a bit pointless if the only difference is the ImageBuilder 
+> configuration. Instead, it would be better to pass an argument to the 
+> script (like qemu-smoke-x86-64.sh) indicating which test we are going to 
+> perform.
 
-I would expect a Xen built to CONFIG_STATIC_MEMORY to continue to work 
-in normal case. So it should be fine to enable by default.
-
-> But to be honest, I would like to be 
-> able also to test with custom configs.
-
-That's fine. But in this case...
-
-> 
->>> diff --git a/automation/scripts/build b/automation/scripts/build
->>> index 21b3bc57c8..9c6196d9bd 100755
->>> --- a/automation/scripts/build
->>> +++ b/automation/scripts/build
->>> @@ -83,6 +83,7 @@ fi
->>>   # Build all the configs we care about
->>>   case ${XEN_TARGET_ARCH} in
->>>       x86_64) arch=x86 ;;
->>> +    arm64) arch=arm ;;
->>>       *) exit 0 ;;
->>>   esac
->>> @@ -93,4 +94,7 @@ for cfg in `ls ${cfg_dir}`; do
->>>       rm -f xen/.config
->>>       make -C xen KBUILD_DEFCONFIG=../../../../${cfg_dir}/${cfg} 
->>> defconfig
->>>       make -j$(nproc) -C xen
->>> +    if [[ ${arch} == "arm" ]]; then
->>> +        cp xen/xen binaries/xen-${cfg}
->>> +    fi
->>
->> This feels a bit of a hack to be arm only. Can you explain why this is 
->> not enabled for x86 (other than this is not yet used)?
-> 
-> I did not want to change the existing behavior for x86.
-
-
-... I don't think this should be restricted to arm. I would also 
-consider to do this change separately to avoid mixing infrastructure 
-change and new test.
-
-[...]
-
->>> +# ImageBuilder
->>> +rm -rf imagebuilder
->>> +git clone https://gitlab.com/ViryaOS/imagebuilder
->>> +
->>> +echo "MEMORY_START=\"0x40000000\"
->>> +MEMORY_END=\"0x0200000000\"
->>> +
->>> +DEVICE_TREE=\"virt-gicv2.dtb\"
->>> +
->>> +XEN=\"xen-static_mem\"
->>> +XEN_CMD=\"console=dtuart earlyprintk xsm=dummy\"
->>
->> AFAIK, earlyprintk is not an option for Xen on Arm (at least). It is 
->> also not clear why you need to pass xsm=dummy.
-> 
-> It is not clear to me either :). I will remove them.
-
-Where was this command line copied from? If it is an Arm documentation 
-(or script), then they should be corrected.
-
->>> +
->>> +(grep -q "Xen dom0less mode detected" qemu-staticmem.serial) || exit 1
->>> +
->>> +for ((i=0; i<${#base[@]}; i++))
->>> +do
->>> +    start="$(printf "0x%016x" ${base[$i]})"
->>> +    end="$(printf "0x%016x" $((${base[$i]} + ${size[$i]} - 1)))"
->>> +    grep -q "node   0: \[mem ${start}-${end}\]" qemu-staticmem.serial
->>> +    if test $? -eq 1
->>> +    then
->>> +        exit 1
->>> +    fi
->>> +done
->>
->> Please add a comment on top to explain what this is meant to do. 
->> However, I think we should avoid relying on output that we have 
->> written ourself. IOW, relying on Xen/Linux to always write the same 
->> message is risky because they can change at any time.
-> 
-> The kernel is taken from a test-artifact container, so, IIUC, it won't 
-> change.
-
-This statement is correct today. However, we may decide to update the 
-kernel or test multiple kernels (with different ouput).
-
-In the first case, it would be a matter of updating the script. This is 
-annoying but not too bad. In the second case, we would need to have "if 
-version X ... else if version Y ... ".
-
-Cheers,
+I agree with Julien, also because the ImageBuilder script depends on how 
+qemu is configured. It is not completely independent.
 
 -- 
-Julien Grall
+Xenia
 
