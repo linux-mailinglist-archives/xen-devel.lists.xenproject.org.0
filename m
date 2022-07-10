@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF9E956CC7E
-	for <lists+xen-devel@lfdr.de>; Sun, 10 Jul 2022 05:00:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.364544.594583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A615956CD43
+	for <lists+xen-devel@lfdr.de>; Sun, 10 Jul 2022 07:35:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.364552.594594 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oAN9l-0000dJ-IM; Sun, 10 Jul 2022 02:58:49 +0000
+	id 1oAPaW-0001Hz-FE; Sun, 10 Jul 2022 05:34:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 364544.594583; Sun, 10 Jul 2022 02:58:49 +0000
+Received: by outflank-mailman (output) from mailman id 364552.594594; Sun, 10 Jul 2022 05:34:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oAN9l-0000bW-DA; Sun, 10 Jul 2022 02:58:49 +0000
-Received: by outflank-mailman (input) for mailman id 364544;
- Sun, 10 Jul 2022 02:58:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=puvd=XP=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1oAN9j-0000bQ-6l
- for xen-devel@lists.xenproject.org; Sun, 10 Jul 2022 02:58:47 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3502bf8d-fffc-11ec-bd2d-47488cf2e6aa;
- Sun, 10 Jul 2022 04:58:44 +0200 (CEST)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 16574219191281002.3677204736817;
- Sat, 9 Jul 2022 19:58:39 -0700 (PDT)
+	id 1oAPaW-0001Fd-CL; Sun, 10 Jul 2022 05:34:36 +0000
+Received: by outflank-mailman (input) for mailman id 364552;
+ Sun, 10 Jul 2022 05:34:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Cjpo=XP=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oAPaU-0001FX-9S
+ for xen-devel@lists.xenproject.org; Sun, 10 Jul 2022 05:34:34 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f90acb06-0011-11ed-924f-1f966e50362f;
+ Sun, 10 Jul 2022 07:34:31 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A100B21F58;
+ Sun, 10 Jul 2022 05:34:30 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 799DF13638;
+ Sun, 10 Jul 2022 05:34:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id XEIdHOZkymIiTAAAMHmgww
+ (envelope-from <jgross@suse.com>); Sun, 10 Jul 2022 05:34:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,153 +51,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3502bf8d-fffc-11ec-bd2d-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; t=1657421921; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GkXs1IZo9L/WTtQvSe/e8YZlbzUzrn8qem0tZstCOT6saM5KoCIajLz/ECawQJ0Fq0Tmn+Ga83WcKh8k8ozPW9Gyp+5EatL51ns5x+NCiewEbjL5V2MbMOQBDBvFzcGJvhZb6NzzOBazQpVgdq7UPnqXcWnql9WIhRt20llmOMo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1657421921; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=JuwqlljZ0pCG9JhQeB9bTp107EufSATKXjA5r12gq/U=; 
-	b=jPdo85qWe03noK39Nf8r9y/APeeJu5hEUVLhs8E3cuZaLAsH2tTA+iXeNNWKJf/oiBWzWmHn3tQXsv9fe5n5ZGFOmfys+ex0CMUYK4EtR3gBKmALlLDnpKseVekz/it1lx5qLRstxtrznAjfw4xgcF0O9b2ZXhPuCOtNT8O6tbE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1657421921;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:From:From:To:To:Cc:Cc:References:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=JuwqlljZ0pCG9JhQeB9bTp107EufSATKXjA5r12gq/U=;
-	b=HWShZCzztyBNj6I5bdMmTHec6Z9ERgxwErZkILZRxYqRhF6tF1KKUEiIl7A4KayM
-	NDs6picNS0aCDEqCX3gwEU+oqKBl5e0yirjyuzGuFfx8oIcCbRH4RudUqhCuPZ78iLo
-	F6Y+MqhcBZzZyfjwyATacEY/RIA/4NZ5pAcMS8sg=
-Message-ID: <7672d8bb-cae5-a07b-3410-6f495686c106@apertussolutions.com>
-Date: Sat, 9 Jul 2022 22:58:28 -0400
+X-Inumbo-ID: f90acb06-0011-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1657431270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OLa6hNL7L9C4iErVzQN4e+EJTyfdTuUa1Bz+P0yvcJ8=;
+	b=rVKk/ARhgwFZbLuWWt4ixIllgMVJDOW502fqQEAGP0eWmeS3OwQTzseIkH+7OQ1FXEdoOV
+	opKd4IziHCXYhTFiC2vik2TqhXKFG+lPGgb2ZntY5zRAVGoK1FRlP4NDmwhL7Bu3+tSLpZ
+	OccpKHJM/NbqGitwGFjvDRLusOj18wg=
+Message-ID: <995c95e2-6df7-4c96-94c0-f069635a1044@suse.com>
+Date: Sun, 10 Jul 2022 07:34:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>, christopher.clark@starlab.io,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Scott Davis
- <scott.davis@starlab.io>, Wei Liu <wl@xen.org>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <92644952-48be-d25b-4471-121cfa14a5c0@apertussolutions.com>
- <20220706191325.440538-1-jandryuk@gmail.com>
- <b689b39e-581d-01fe-c473-b585dca880eb@apertussolutions.com>
- <CAKf6xpubT9GNTO-nY1WZXhAFSArrfNqJ9Da+pG06Ye3cTzo1CA@mail.gmail.com>
 Content-Language: en-US
-Subject: Re: [RFC PATCH] flask: Remove magic SID setting
-In-Reply-To: <CAKf6xpubT9GNTO-nY1WZXhAFSArrfNqJ9Da+pG06Ye3cTzo1CA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+To: Paul Menzel <pmenzel@molgen.mpg.de>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <9d547826-d4f8-1547-c842-6eded10a7584@molgen.mpg.de>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: Lots of XEN init functions called in non-XEN environment
+In-Reply-To: <9d547826-d4f8-1547-c842-6eded10a7584@molgen.mpg.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------ywijOeQYnMfu4NtG09TwKltv"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------ywijOeQYnMfu4NtG09TwKltv
+Content-Type: multipart/mixed; boundary="------------oYe1aFiOOeipbheLAp7LvbiM";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Paul Menzel <pmenzel@molgen.mpg.de>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <995c95e2-6df7-4c96-94c0-f069635a1044@suse.com>
+Subject: Re: Lots of XEN init functions called in non-XEN environment
+References: <9d547826-d4f8-1547-c842-6eded10a7584@molgen.mpg.de>
+In-Reply-To: <9d547826-d4f8-1547-c842-6eded10a7584@molgen.mpg.de>
 
-On 7/7/22 08:45, Jason Andryuk wrote:
-> On Thu, Jul 7, 2022 at 6:14 AM Daniel P. Smith
-> <dpsmith@apertussolutions.com> wrote:
->>
->> On 7/6/22 15:13, Jason Andryuk wrote:
->>> flask_domain_alloc_security and flask_domain_create has special code to
->>> magically label dom0 as dom0_t.  This can all be streamlined by making
->>> create_dom0 set ssidref before creating dom0.
->>
->> Hmm, I wouldn't call it magical, it is the initialization policy for a
->> domain labeling, which is specific to each policy module. I considered
->> this approach already and my concern here is two fold. First, it now
->> hard codes the concept of dom0 vs domU into the XSM API. There is an
->> ever growing desire by solution providers to not have a dom0 and at most
->> have a hardware domain if at all and this is a step backwards from that
->> movement. Second, and related, is this now pushes the initial label
->> policy up into the domain builder code away from the policy module and
->> spreads it out. Hopefully Xen will evolve to have a richer set of
->> initial domains and an appropriate initial label policy will be needed
->> for this case. This approach will result in having to continually expand
->> the XSM API for each new initial domain type.
-> 
-> Yeah, adding dom0 vs. domU into the XSM API isn't nice.  My original
-> idea was just for dom0, but I added the domU hook after you basically
-> said in your other email that dom0less had to work.  There should not
-> be any more of these since they are just to provide backwards
-> compatibility.
+--------------oYe1aFiOOeipbheLAp7LvbiM
+Content-Type: multipart/mixed; boundary="------------xnv5yJeidzGvavarsLLO21j8"
 
-Help me understand, why is it considered magic/undesirable to assign a
-label for Dom0/DomU in flask_domain_alloc_security() when the context is
-clearly discernible, yet it is acceptable to assign SECINITSID_XENBOOT,
-SECINITSID_DOMXEN, and SECINITSID_DOMIO? Specifically, when
-flask_domain_alloc_security() is called with the current domain labeled
-with SECINITSID_XENBOOT, we know it is creating either a system domain
-or a Dom0/DomU. At no time should there be a domain created at this time
-that needs to be labeled with SECINITSID_UNLABELED. When the current
-domain is no longer SECINITSID_XENBOOT, then the context is no longer
-understood and the only safe SID to initializat with is
-SECINITSID_UNLABELED.
+--------------xnv5yJeidzGvavarsLLO21j8
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-While I am more than open to listening as to why my opinion/approach may
-be flawed, codifying dom0 and/or domU into the XSM API is really a
-non-starter for me.
+T24gMDkuMDcuMjIgMTg6MjksIFBhdWwgTWVuemVsIHdyb3RlOg0KPiBEZWFyIExpbnV4IGZv
+bGtzLA0KPiANCj4gDQo+IEJvb3RpbmcgRGViaWFu4oCZcyBMaW51eCBrZXJuZWwgd2l0aCBg
+aW5pdGNhbGxfZGVidWdgIG9uIGEgbGFwdG9wIHdpdGggbm8gWEVOIA0KPiBiZWluZyB1c2Vk
+LCBJIHNlZSBhIGxvdCBvZiBYZW4gcmVsYXRlZCBpbml0IGZ1bmN0aW9ucyB0byBiZSBjYWxs
+ZWQuDQo+IA0KPiBgYGANCj4gJCBzdWRvIGRtZXNnIHwgZ3JlcCAtZSBiYWxsb29uIC1lIHhl
+bg0KPiBbwqDCoMKgIDAuMDY2MjA3XSBjYWxsaW5nwqAgeGVuX2NvbnNfaW5pdCsweDAvMHg1
+MCBAIDANCj4gW8KgwqDCoCAwLjA2NjIxMF0gaW5pdGNhbGwgeGVuX2NvbnNfaW5pdCsweDAv
+MHg1MCByZXR1cm5lZCAwIGFmdGVyIDAgdXNlY3MNCj4gW8KgwqDCoCAwLjA5NjQ5MV0gY2Fs
+bGluZ8KgIHhlbl9wdmhfZ250dGFiX3NldHVwKzB4MC8weDM0IEAgMQ0KPiBbwqDCoMKgIDAu
+MDk2NDkxXSBpbml0Y2FsbCB4ZW5fcHZoX2dudHRhYl9zZXR1cCsweDAvMHgzNCByZXR1cm5l
+ZCAtMTkgYWZ0ZXIgMCB1c2Vjcw0KPiBbwqDCoMKgIDAuMTAwMzUzXSBjYWxsaW5nwqAgeGVu
+YnVzX2luaXQrMHgwLzB4MzIyIEAgMQ0KPiBbwqDCoMKgIDAuMTAwMzUzXSBpbml0Y2FsbCB4
+ZW5idXNfaW5pdCsweDAvMHgzMjIgcmV0dXJuZWQgLTE5IGFmdGVyIDAgdXNlY3MNCj4gW8Kg
+wqDCoCAwLjEwMDM1M10gY2FsbGluZ8KgIHJlZ2lzdGVyX3hlbl9wY2lfbm90aWZpZXIrMHgw
+LzB4MmQgQCAxDQo+IFvCoMKgwqAgMC4xMDAzNTNdIGluaXRjYWxsIHJlZ2lzdGVyX3hlbl9w
+Y2lfbm90aWZpZXIrMHgwLzB4MmQgcmV0dXJuZWQgMCBhZnRlciAwIHVzZWNzDQo+IFvCoMKg
+wqAgMC4xMDAzNTNdIGNhbGxpbmfCoCB4ZW5fcGNwdV9pbml0KzB4MC8weGI1IEAgMQ0KPiBb
+wqDCoMKgIDAuMTAwMzUzXSBpbml0Y2FsbCB4ZW5fcGNwdV9pbml0KzB4MC8weGI1IHJldHVy
+bmVkIC0xOSBhZnRlciAwIHVzZWNzDQo+IFvCoMKgwqAgMC4xNjk0NjVdIGNhbGxpbmfCoCBi
+YWxsb29uX2luaXQrMHgwLzB4MWUwIEAgMQ0KPiBbwqDCoMKgIDAuMTY5NDY3XSBpbml0Y2Fs
+bCBiYWxsb29uX2luaXQrMHgwLzB4MWUwIHJldHVybmVkIC0xOSBhZnRlciAwIHVzZWNzDQo+
+IFvCoMKgwqAgMC4xNjk0NzBdIGNhbGxpbmfCoCB4ZW5fc2V0dXBfc2h1dGRvd25fZXZlbnQr
+MHgwLzB4MzAgQCAxDQo+IFvCoMKgwqAgMC4xNjk0NzNdIGluaXRjYWxsIHhlbl9zZXR1cF9z
+aHV0ZG93bl9ldmVudCsweDAvMHgzMCByZXR1cm5lZCAtMTkgYWZ0ZXIgMCANCj4gdXNlY3MN
+Cj4gW8KgwqDCoCAwLjE2OTQ3Nl0gY2FsbGluZ8KgIHhlbmJ1c19wcm9iZV9iYWNrZW5kX2lu
+aXQrMHgwLzB4NmIgQCAxDQo+IFvCoMKgwqAgMC4xNjk0ODJdIGluaXRjYWxsIHhlbmJ1c19w
+cm9iZV9iYWNrZW5kX2luaXQrMHgwLzB4NmIgcmV0dXJuZWQgMCBhZnRlciAwIHVzZWNzDQo+
+IFvCoMKgwqAgMC4xNjk0ODVdIGNhbGxpbmfCoCB4ZW5idXNfcHJvYmVfZnJvbnRlbmRfaW5p
+dCsweDAvMHg0ZiBAIDENCj4gW8KgwqDCoCAwLjE2OTQ4OV0gaW5pdGNhbGwgeGVuYnVzX3By
+b2JlX2Zyb250ZW5kX2luaXQrMHgwLzB4NGYgcmV0dXJuZWQgMCBhZnRlciAwIA0KPiB1c2Vj
+cw0KPiBbwqDCoMKgIDAuMTY5NDkxXSBjYWxsaW5nwqAgeGVuX2FjcGlfcGFkX2luaXQrMHgw
+LzB4M2MgQCAxDQo+IFvCoMKgwqAgMC4xNjk0OTNdIGluaXRjYWxsIHhlbl9hY3BpX3BhZF9p
+bml0KzB4MC8weDNjIHJldHVybmVkIC0xOSBhZnRlciAwIHVzZWNzDQo+IFvCoMKgwqAgMC4y
+NTc2NDBdIGNhbGxpbmfCoCB4ZW5mYl9pbml0KzB4MC8weDNiIEAgMQ0KPiBbwqDCoMKgIDAu
+MjU3NjQyXSBpbml0Y2FsbCB4ZW5mYl9pbml0KzB4MC8weDNiIHJldHVybmVkIC0xOSBhZnRl
+ciAwIHVzZWNzDQo+IFvCoMKgwqAgMC4yNTk0OThdIGNhbGxpbmfCoCB4ZW5idXNfcHJvYmVf
+aW5pdGNhbGwrMHgwLzB4NmYgQCAxDQo+IFvCoMKgwqAgMC4yNTk1OTldIGluaXRjYWxsIHhl
+bmJ1c19wcm9iZV9pbml0Y2FsbCsweDAvMHg2ZiByZXR1cm5lZCAwIGFmdGVyIDk4IHVzZWNz
+DQo+IFvCoMKgwqAgMC4yNTk2MTVdIGNhbGxpbmfCoCB4ZW5idXNfaW5pdCsweDAvMHgzYiBA
+IDENCj4gW8KgwqDCoCAwLjI1OTYxN10gaW5pdGNhbGwgeGVuYnVzX2luaXQrMHgwLzB4M2Ig
+cmV0dXJuZWQgLTE5IGFmdGVyIDAgdXNlY3MNCj4gW8KgwqDCoCAwLjI1OTYyMF0gY2FsbGlu
+Z8KgIHhlbmJ1c19iYWNrZW5kX2luaXQrMHgwLzB4NDQgQCAxDQo+IFvCoMKgwqAgMC4yNTk2
+MjJdIGluaXRjYWxsIHhlbmJ1c19iYWNrZW5kX2luaXQrMHgwLzB4NDQgcmV0dXJuZWQgLTE5
+IGFmdGVyIDAgdXNlY3MNCj4gW8KgwqDCoCAwLjI1OTY2Nl0gY2FsbGluZ8KgIHhlbl9sYXRl
+X2luaXRfbWNlbG9nKzB4MC8weDVlIEAgMQ0KPiBbwqDCoMKgIDAuMjU5NjY4XSBpbml0Y2Fs
+bCB4ZW5fbGF0ZV9pbml0X21jZWxvZysweDAvMHg1ZSByZXR1cm5lZCAtMTkgYWZ0ZXIgMCB1
+c2Vjcw0KPiBbwqDCoMKgIDAuMjU5ODExXSBjYWxsaW5nwqAgeGVuX2h2Y19pbml0KzB4MC8w
+eDFkZSBAIDENCj4gW8KgwqDCoCAwLjI1OTgxM10gaW5pdGNhbGwgeGVuX2h2Y19pbml0KzB4
+MC8weDFkZSByZXR1cm5lZCAtMTkgYWZ0ZXIgMCB1c2Vjcw0KPiBbwqDCoMKgIDAuMjYzNzk0
+XSBjYWxsaW5nwqAgeGVua2JkX2luaXQrMHgwLzB4M2IgQCAxDQo+IFvCoMKgwqAgMC4yNjM3
+OTZdIGluaXRjYWxsIHhlbmtiZF9pbml0KzB4MC8weDNiIHJldHVybmVkIC0xOSBhZnRlciAw
+IHVzZWNzDQo+IFvCoMKgwqAgMC4yODUxODFdIGNhbGxpbmfCoCBiYWxsb29uX3dhaXRfZmlu
+aXNoKzB4MC8weGRhIEAgMQ0KPiBbwqDCoMKgIDAuMjg1MTgzXSBpbml0Y2FsbCBiYWxsb29u
+X3dhaXRfZmluaXNoKzB4MC8weGRhIHJldHVybmVkIC0xOSBhZnRlciAwIHVzZWNzDQo+IGBg
+YA0KPiANCj4gQWxsIHRoZXNlIGRyaXZlcnMoPykgYXJlIGVuYWJsZWQgaW4gRGViaWFu4oCZ
+cyBMaW51eCBjb25maWd1cmF0aW9uIHRvIGFsc28gc3VwcG9ydCANCj4gWEVOIHNldHVwcywg
+YnV0IEkgd29uZGVyLCBpZiB0aGUgc3lzdGVtIGNhbuKAmXQgZGV0ZWN0IG9uY2UgaWYgaXTi
+gJlzIHJ1bm5pbmcgaW4gYSANCj4gWEVOIGVudmlyb25tZW50LCBhbmQgaWYgaXTigJlzIG5v
+dCB0aGVuIHRvIHNraXAgYWxsIHRoZSBYRU4gcmVsYXRlZCBpbml0IGZ1bmN0aW9ucy4NCg0K
+WW91IGFyZSBhd2FyZSBob3cgaW5pdGNhbGwgaXMgd29ya2luZz8gSWYgbm90LCBJJ2QgcmVj
+b21tZW5kIHRvIHJlYWQgdGhlDQpjb2RlLg0KDQpTbyBob3cgd291bGQgeW91IHNraXAgaW5p
+dGNhbGxzIGZvciBYZW4gb3RoZXIgdGhhbiBiYWlsaW5nIG91dCBlYXJseSBpbg0KZWFjaCBY
+ZW4gcmVsYXRlZCBpbml0Y2FsbCBpZiB0aGUgc3lzdGVtIGlzIG5vdCBydW5uaW5nIGFzIGEg
+WGVuIGd1ZXN0LA0Kd2hpY2ggaXMgaG93IGl0IHdvcmtzIHRvZGF5Pw0KDQoNCkp1ZXJnZW4N
+Cg==
+--------------xnv5yJeidzGvavarsLLO21j8
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> A dom0/domU flask policy is not interesting for dom0less/hyperlaunch.
-> So I don't see why xen/flask needs support for determining sids for
-> domains.  If you have dom0less/hyperlaunch + flask, every domain
-> should have a ssidref defined in its config when building.  If you
-> require ssidrefs for dom0less/hyperlaunch + flask, then there is less
-> initial label policy.  An unspecified ssidref defaulting to
-> unlabeled_t is fine.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Actually, a Dom0/DomU policy is very interesting for those of us that
-would like to see XSM/Flask to be the default policy regardless of the
-method of construction for the initial system. A specific test case I
-would run was a configuration containing a Dom0 and a DomU without XSM
-labels specified. This configuration should Just Work(tm).
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> I saw your other patch as adding more "initial label policy" since it
-> adds more special cases.  I see requiring an explicit ssidref or
-> getting unlabeled_t as a feature.  Automatic labeling seems like a
-> misfeature to me.
+--------------xnv5yJeidzGvavarsLLO21j8--
 
-This is the crux of the problem, you view the XSM API Expansion as label
-or fail while viewing the Default Initial Assignment as being automatic
-labeling. The reality is that this is not the case and that the end
-result between them is exactly the same, just with slightly different
-flows to get there. The difference being that the XSM API Expansion has
-codified Dom0/DomU into the XSM API and incurred an additional XSM call
-on each construction path.
+--------------oYe1aFiOOeipbheLAp7LvbiM--
 
-Consider the state sequence for struct domain_security_struct{} of the
-two under dom0less where labels cannot be specified,
+--------------ywijOeQYnMfu4NtG09TwKltv
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-XSM API Expansion:
- 1. xsm_ssidref_{dom0,domU}() -> config->ssidref = SECINITSID_DOM0 or
-    SECINITSID_DOMU respectively
- 2. xsm_alloc_security_domain() -> d->ssid->sid = SECINITSID_UNLABELED
- 3. xsm_domain_create() will always test config->ssidref,
-    SECINITSID_DOM0 or SECINITSID_DOMU, because (1) will always set it
-    and never as SECINITSID_UNLABELED
+-----BEGIN PGP SIGNATURE-----
 
-Default Initial Assignment:
- 1. xsm_alloc_security_domain() -> d->ssid->sid = SECINITSID_DOM0 or
-    SECINITSID_DOMU
- 2. config->ssidref = NULL
- 3. xsm_domain_create() will always test d->ssid->sid, SECINITSID_DOM0
-    or SECINITSID_DOMU because of (1) and never as SECINITSID_UNLABELED
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmLKZOUFAwAAAAAACgkQsN6d1ii/Ey+U
+4gf+LF41bcvmCYRBeAaUf3PhXYcT1NWhqRd3zJEGMZGZo62OP4LH/qAY6QU6zzdwRkmyNOxgBlc4
+pv0/nKmYNT/+d5IqGJ6gAi601kxZUbxKx+tPjAzzYgYnglNg5O/cASSReRq2kkS6leADuDJi9fVq
+Q8FaSBKAOiXI5iK1GuaqDlYLmrDuX6n0QidY4sU2wyUiHt1zcjDQvpTBRmr5MoXxunNaNK49/njd
+vV21Y5vjECt3tI2v4S5NrbpzhtwKgQSw4xk9u6R6diYo4RnWz6kPCYu1uA0EANoR7Y9SE5tZezEp
+1ORsmtPxHBHAK41b07jRS3TeUeX+dUTqlPvZLpzuMQ==
+=E3ne
+-----END PGP SIGNATURE-----
 
-Hyperlaunch domain construction works differently, Dom0/DomU was not
-codified into the API and where possible the existing Dom0 API
-codifications were eliminated. The XSM API Expansion approach would
-result in a similar if statement that is in xsm_alloc_security_domain()
-under the Default Initial Assignment approach. It would likely occur in
-builder_create_domains(). There a check of the domain'a permissions and
-functions would occur to then call the appropriate
-xsm_ssid_{dom0,domu}() hook.
-
-Maybe some day it will be reasonable to expect labeling as a standard
-part of a domain's configuration, and thus acceptable to panic during
-boot when it is missing. Unfortunately, that is not today and no matter
-how it is dressed, the current model has to be a default label
-assignment based on the understanding that the context is boot-time
-domain construction.
-
-v/r,
-dps
+--------------ywijOeQYnMfu4NtG09TwKltv--
 
