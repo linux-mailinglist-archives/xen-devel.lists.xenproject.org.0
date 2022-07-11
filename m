@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BF195701DF
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jul 2022 14:19:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.365076.595127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D95515701EE
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jul 2022 14:23:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.365082.595138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oAsNC-00017M-KJ; Mon, 11 Jul 2022 12:18:46 +0000
+	id 1oAsRY-0002We-6y; Mon, 11 Jul 2022 12:23:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 365076.595127; Mon, 11 Jul 2022 12:18:46 +0000
+Received: by outflank-mailman (output) from mailman id 365082.595138; Mon, 11 Jul 2022 12:23:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oAsNC-000153-HM; Mon, 11 Jul 2022 12:18:46 +0000
-Received: by outflank-mailman (input) for mailman id 365076;
- Mon, 11 Jul 2022 12:18:45 +0000
+	id 1oAsRY-0002TJ-4F; Mon, 11 Jul 2022 12:23:16 +0000
+Received: by outflank-mailman (input) for mailman id 365082;
+ Mon, 11 Jul 2022 12:23:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=twA/=XQ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oAsNB-00014x-CN
- for xen-devel@lists.xenproject.org; Mon, 11 Jul 2022 12:18:45 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BZ7N=XQ=gmail.com=dmitry.semenets@srs-se1.protection.inumbo.net>)
+ id 1oAsRX-0002TD-0y
+ for xen-devel@lists.xenproject.org; Mon, 11 Jul 2022 12:23:15 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b6f5fea-0113-11ed-bd2d-47488cf2e6aa;
- Mon, 11 Jul 2022 14:18:44 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DDEDE226DB;
- Mon, 11 Jul 2022 12:18:43 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9A6D913524;
- Mon, 11 Jul 2022 12:18:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Ke8JJCMVzGLNDQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 11 Jul 2022 12:18:43 +0000
+ id 3c05f19e-0114-11ed-bd2d-47488cf2e6aa;
+ Mon, 11 Jul 2022 14:23:13 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id h23so8479346ejj.12
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Jul 2022 05:23:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,185 +39,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b6f5fea-0113-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1657541923; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=coJAKtWro/QwaPzIMIZrthrprFLcSmPOp/3UjS6lE4U=;
-	b=Ds3bq2YgWb+RQCUSXyxzEK2NU1ytQGx7sDtukh5f6m52m2QjuBM/85EVrEWw2BK9AbEMdq
-	I4qIxsSRsp07bO4Y8Oqrc7prDZsiIDOPj3m7zB3OAm7vOdgjcR0TOF5ersl20JncITLQwj
-	XaxlttVT9Gg8XCgY60G6z3i9hTdKafM=
-Message-ID: <55665843-dff0-1e71-762e-088089f49f16@suse.com>
-Date: Mon, 11 Jul 2022 14:18:43 +0200
+X-Inumbo-ID: 3c05f19e-0114-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=7z/Yw9bPW0DKGPmwQ7L+ORE6AGYICJHFKRHeV9+hFV8=;
+        b=AT9EqtxGAhw/HNz9jVvPlD6wn9mv0vExV0mgbdwR4kjqrQVqMpOAj+pYVCvNCjdZ4G
+         ndmjZa7laJUubXpRZkvAPBB7Y8G9bO8BSrljV8AYlArBI7N4eKQyOSTa4SKrwMTh4mn1
+         isVj2ZckCGYYc8Yni820umaxWqDfOSjhA5nuV+w2WvPSjG+uynmX3brRFyqTKhEo4e17
+         RF8Suej5Mh115ZgAmcPaD1KjliH//1QX3oPsAaWWynTZIjlDxVMxkdIzUwqJLpyn6/GR
+         3WPEs37JGcXxV2rQGvn+LGEcgjy6/zLPtbzivRy4WMROQxwBGJzt+94evhcp6fHNXDV4
+         L1Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=7z/Yw9bPW0DKGPmwQ7L+ORE6AGYICJHFKRHeV9+hFV8=;
+        b=7Fag6DK0o7mNzp0VnVoqNhvdT9R4Pd1Vn150FgubUCU+60e/tYJpwL0VorZ/lDKB+Y
+         yQPqd62grmQsrmzbPk3Nni75wQAbV8PbghBQ48VYKN1NmLCQmRtKKMolbmBBp1n1wOyC
+         1wME8JTZdr5WghinufULa+mCvfZF8IWKFO+glhe4SWwH/AJFdInLce56GPuqg8imVYo/
+         WoGgMz8nma0XUuY+0RsqV4mXMDyf/uZTYNqObDMYQL+QVxBLUsVp2Ex3apTshYuSHllV
+         N0/OHLp+TltkL9uTYN2Kwcq1X9ovM9iNldId4dOXGH3Rm5n0Oz7NzUAOu0b2Wk+A8LEu
+         5uNg==
+X-Gm-Message-State: AJIora8dsycPlI3Y/nQqdG68FW47Hk16s2Dv7vA2ZZ50fkTK+L3X213G
+	rr+69/yP8sntzqyhb/Gm+Y4UEUhgj8tsCSuU7JU=
+X-Google-Smtp-Source: AGRyM1ul3/Uo69TqevUNUyvADa4YDbgHF6GpdCfR57h6fRrE9LnqCEviFE8YhRVMjNYzCpT8qu3JDmVBo16tyc7D37g=
+X-Received: by 2002:a17:906:dc8f:b0:725:28d1:422d with SMTP id
+ cs15-20020a170906dc8f00b0072528d1422dmr17888687ejc.131.1657542193353; Mon, 11
+ Jul 2022 05:23:13 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 1/4] tools: remove xenstore entries on vchan server
- closure
-Content-Language: en-US
-To: Dmytro Semenets <dmitry.semenets@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Dmytro Semenets <dmytro_semenets@epam.com>
 References: <20220709101035.2989428-1-dmitry.semenets@gmail.com>
- <20f563b2-68e1-e429-f762-78474c566d04@suse.com>
- <CACM97VWWz-L8XvJkAUmfU2cOTwu=Hhhu3=w9n9sbi2cSDJk5+g@mail.gmail.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <CACM97VWWz-L8XvJkAUmfU2cOTwu=Hhhu3=w9n9sbi2cSDJk5+g@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------CAdvAzzbZbSyA8wUsTIPCwMC"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------CAdvAzzbZbSyA8wUsTIPCwMC
-Content-Type: multipart/mixed; boundary="------------2qNJJd3iXHnjcZN5T4BZyvC1";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Dmytro Semenets <dmitry.semenets@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Dmytro Semenets <dmytro_semenets@epam.com>
-Message-ID: <55665843-dff0-1e71-762e-088089f49f16@suse.com>
-Subject: Re: [PATCH 1/4] tools: remove xenstore entries on vchan server
- closure
-References: <20220709101035.2989428-1-dmitry.semenets@gmail.com>
- <20f563b2-68e1-e429-f762-78474c566d04@suse.com>
- <CACM97VWWz-L8XvJkAUmfU2cOTwu=Hhhu3=w9n9sbi2cSDJk5+g@mail.gmail.com>
-In-Reply-To: <CACM97VWWz-L8XvJkAUmfU2cOTwu=Hhhu3=w9n9sbi2cSDJk5+g@mail.gmail.com>
-
---------------2qNJJd3iXHnjcZN5T4BZyvC1
-Content-Type: multipart/mixed; boundary="------------WZ0yoirnOlporgh2V4bfPdOc"
-
---------------WZ0yoirnOlporgh2V4bfPdOc
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTEuMDcuMjIgMTQ6MTIsIERteXRybyBTZW1lbmV0cyB3cm90ZToNCj4g0L/QvSwgMTEg
-0LjRjtC7LiAyMDIyINCzLiDQsiAxMDowOSwgSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2Uu
-Y29tPjoNCj4+DQo+PiBPbiAwOS4wNy4yMiAxMjoxMCwgZG1pdHJ5LnNlbWVuZXRzQGdtYWls
-LmNvbSB3cm90ZToNCj4+PiBGcm9tOiBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyA8b2xla3Nh
-bmRyX2FuZHJ1c2hjaGVua29AZXBhbS5jb20+DQo+Pj4NCj4+PiB2Y2hhbiBzZXJ2ZXIgY3Jl
-YXRlcyBYZW5TdG9yZSBlbnRyaWVzIHRvIGFkdmVydGlzZSBpdHMgZXZlbnQgY2hhbm5lbCBh
-bmQNCj4+PiByaW5nLCBidXQgdGhvc2UgYXJlIG5vdCByZW1vdmVkIGFmdGVyIHRoZSBzZXJ2
-ZXIgcXVpdHMuDQo+Pj4gQWRkIGFkZGl0aW9uYWwgY2xlYW51cCBzdGVwLCBzbyB0aG9zZSBh
-cmUgcmVtb3ZlZCwgc28gY2xpZW50cyBkbyBub3QgdHJ5DQo+Pj4gdG8gY29ubmVjdCB0byBh
-IG5vbi1leGlzdGluZyBzZXJ2ZXIuDQo+Pj4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBPbGVrc2Fu
-ZHIgQW5kcnVzaGNoZW5rbyA8b2xla3NhbmRyX2FuZHJ1c2hjaGVua29AZXBhbS5jb20+DQo+
-Pj4gLS0tDQo+Pj4gICAgdG9vbHMvaW5jbHVkZS9saWJ4ZW52Y2hhbi5oIHwgIDUgKysrKysN
-Cj4+PiAgICB0b29scy9saWJzL3ZjaGFuL2luaXQuYyAgICAgfCAyMyArKysrKysrKysrKysr
-KysrKysrKysrKw0KPj4+ICAgIHRvb2xzL2xpYnMvdmNoYW4vaW8uYyAgICAgICB8ICA0ICsr
-KysNCj4+PiAgICB0b29scy9saWJzL3ZjaGFuL3ZjaGFuLmggICAgfCAzMSArKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrDQo+Pj4gICAgNCBmaWxlcyBjaGFuZ2VkLCA2MyBpbnNl
-cnRpb25zKCspDQo+Pj4gICAgY3JlYXRlIG1vZGUgMTAwNjQ0IHRvb2xzL2xpYnMvdmNoYW4v
-dmNoYW4uaA0KPj4+DQo+Pj4gZGlmZiAtLWdpdCBhL3Rvb2xzL2luY2x1ZGUvbGlieGVudmNo
-YW4uaCBiL3Rvb2xzL2luY2x1ZGUvbGlieGVudmNoYW4uaA0KPj4+IGluZGV4IGQ2MDEwYjE0
-NWQuLjMwY2M3M2NmOTcgMTAwNjQ0DQo+Pj4gLS0tIGEvdG9vbHMvaW5jbHVkZS9saWJ4ZW52
-Y2hhbi5oDQo+Pj4gKysrIGIvdG9vbHMvaW5jbHVkZS9saWJ4ZW52Y2hhbi5oDQo+Pj4gQEAg
-LTg2LDYgKzg2LDExIEBAIHN0cnVjdCBsaWJ4ZW52Y2hhbiB7DQo+Pj4gICAgICAgIGludCBi
-bG9ja2luZzoxOw0KPj4+ICAgICAgICAvKiBjb21tdW5pY2F0aW9uIHJpbmdzICovDQo+Pj4g
-ICAgICAgIHN0cnVjdCBsaWJ4ZW52Y2hhbl9yaW5nIHJlYWQsIHdyaXRlOw0KPj4+ICsgICAg
-IC8qKg0KPj4+ICsgICAgICAqIEJhc2UgeGVuc3RvcmUgcGF0aCBmb3Igc3RvcmluZyByaW5n
-L2V2ZW50IGRhdGEgdXNlZCBieSB0aGUgc2VydmVyDQo+Pj4gKyAgICAgICogZHVyaW5nIGNs
-ZWFudXAuDQo+Pj4gKyAgICAgICogKi8NCj4+PiArICAgICBjaGFyICp4c19wYXRoOw0KPj4+
-ICAgIH07DQo+Pj4NCj4+PiAgICAvKioNCj4+PiBkaWZmIC0tZ2l0IGEvdG9vbHMvbGlicy92
-Y2hhbi9pbml0LmMgYi90b29scy9saWJzL3ZjaGFuL2luaXQuYw0KPj4+IGluZGV4IGM4NTEw
-ZTZjZTkuLmM2Yjg2NzRlZjUgMTAwNjQ0DQo+Pj4gLS0tIGEvdG9vbHMvbGlicy92Y2hhbi9p
-bml0LmMNCj4+PiArKysgYi90b29scy9saWJzL3ZjaGFuL2luaXQuYw0KPj4+IEBAIC00Niw2
-ICs0Niw4IEBADQo+Pj4gICAgI2luY2x1ZGUgPHhlbi9zeXMvZ250ZGV2Lmg+DQo+Pj4gICAg
-I2luY2x1ZGUgPGxpYnhlbnZjaGFuLmg+DQo+Pj4NCj4+PiArI2luY2x1ZGUgInZjaGFuLmgi
-DQo+Pj4gKw0KPj4+ICAgICNpZm5kZWYgUEFHRV9TSElGVA0KPj4+ICAgICNkZWZpbmUgUEFH
-RV9TSElGVCAxMg0KPj4+ICAgICNlbmRpZg0KPj4+IEBAIC0yNTEsNiArMjUzLDEwIEBAIHN0
-YXRpYyBpbnQgaW5pdF94c19zcnYoc3RydWN0IGxpYnhlbnZjaGFuICpjdHJsLCBpbnQgZG9t
-YWluLCBjb25zdCBjaGFyKiB4c19iYXNlDQo+Pj4gICAgICAgIGNoYXIgcmVmWzE2XTsNCj4+
-PiAgICAgICAgY2hhciogZG9taWRfc3RyID0gTlVMTDsNCj4+PiAgICAgICAgeHNfdHJhbnNh
-Y3Rpb25fdCB4c190cmFucyA9IFhCVF9OVUxMOw0KPj4+ICsNCj4+PiArICAgICAvLyBzdG9y
-ZSB0aGUgYmFzZSBwYXRoIHNvIHdlIGNhbiBjbGVhbiB1cCBvbiBzZXJ2ZXIgY2xvc3VyZQ0K
-Pj4NCj4+IFBsZWFzZSBkb24ndCBpbnRyb2R1Y2UgbmV3IHVzYWdlcyBvZiB0aGUgQysrIGNv
-bW1lbnQgc3R5bGUuDQo+IE1vc3QgY29tbWVudHMgaW4gdGhpcyBmaWxlIGFyZSBDKysgc3R5
-bGUgc2luY2UgbGlidmNoYW4gaW50cm9kdWNlZA0KDQpJIGtub3cuIE5ldmVydGhlbGVzcyBp
-bnRyb2R1Y2luZyBuZXcgY29kaW5nIHN0eWxlIHZpb2xhdGlvbnMgc2hvdWxkIGJlDQphdm9p
-ZGVkLCBlc3BlY2lhbGx5IGFzIGlvLmMgaXMgdXNpbmcgLyogLi4uICovIGFscmVhZHkuDQoN
-Cg0KSnVlcmdlbg0K
---------------WZ0yoirnOlporgh2V4bfPdOc
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+ <20220709101035.2989428-2-dmitry.semenets@gmail.com> <7e32d853-a1e4-f828-7c27-dbd2e3595d5f@suse.com>
+In-Reply-To: <7e32d853-a1e4-f828-7c27-dbd2e3595d5f@suse.com>
+From: Dmytro Semenets <dmitry.semenets@gmail.com>
+Date: Mon, 11 Jul 2022 15:23:02 +0300
+Message-ID: <CACM97VUqyG66XHO__+8v6F4Uq=oVi_-_8R=B8STjgOzCb9kmaw@mail.gmail.com>
+Subject: Re: [PATCH 2/4] tools: allow vchan XenStore paths more then 64 bytes long
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Dmytro Semenets <dmytro_semenets@epam.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------WZ0yoirnOlporgh2V4bfPdOc--
-
---------------2qNJJd3iXHnjcZN5T4BZyvC1--
-
---------------CAdvAzzbZbSyA8wUsTIPCwMC
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmLMFSMFAwAAAAAACgkQsN6d1ii/Ey9/
-3Af/QklEkyCcoQ3qojxEWj+Pew1afgR1c9Ap0x4hax0lKA462me8Ay5Myhf5bcv1tJ/wGWvpP2FM
-e0jGrcE67jw2Gu9Wdy2nodqqE8OmhHqgWZDmz7w2x5QOVoypOAixhSwKpjbOH3tZ7aVD+kcBHKg4
-c2FXQkTDvuQf741cp2YFNnB4awfibieiaqsqGKyuvuj1+lrvsC0TgiWtHoIGkqrBmIzDgs/ou4T/
-XVXDKSJDqVZNWMg8X9XGyO2pndftKkf87m5NoTFGm0TJkSY0kEkOrnegXH5JS1xFjgdbOTbGH+gX
-+E5gkrybX9cCgfpjTu8n0L/MYKiqFaXZPV8NpFUkFg==
-=ESBK
------END PGP SIGNATURE-----
-
---------------CAdvAzzbZbSyA8wUsTIPCwMC--
+Hello Juergen,
+=D0=BF=D0=BD, 11 =D0=B8=D1=8E=D0=BB. 2022 =D0=B3. =D0=B2 10:24, Juergen Gro=
+ss <jgross@suse.com>:
+>
+> On 09.07.22 12:10, dmitry.semenets@gmail.com wrote:
+> > From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> >
+> > Current vchan implementation, while dealing with XenStore paths,
+> > allocates 64 bytes buffer on the stack which may not be enough for
+> > some use-cases. Make the buffer longer to respect maximum allowed
+> > XenStore path of XENSTORE_ABS_PATH_MAX.
+> >
+> > Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.co=
+m>
+> > ---
+> >   tools/libs/vchan/init.c | 28 ++++++++++++++++++++++------
+> >   1 file changed, 22 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/tools/libs/vchan/init.c b/tools/libs/vchan/init.c
+> > index c6b8674ef5..17945c24a1 100644
+> > --- a/tools/libs/vchan/init.c
+> > +++ b/tools/libs/vchan/init.c
+> > @@ -249,7 +249,7 @@ static int init_xs_srv(struct libxenvchan *ctrl, in=
+t domain, const char* xs_base
+> >       int ret =3D -1;
+> >       struct xs_handle *xs;
+> >       struct xs_permissions perms[2];
+> > -     char buf[64];
+> > +     char *buf;
+> >       char ref[16];
+> >       char* domid_str =3D NULL;
+> >       xs_transaction_t xs_trans =3D XBT_NULL;
+> > @@ -257,6 +257,12 @@ static int init_xs_srv(struct libxenvchan *ctrl, i=
+nt domain, const char* xs_base
+> >       // store the base path so we can clean up on server closure
+> >       ctrl->xs_path =3D strdup(xs_base);
+> >
+> > +     buf =3D malloc(XENSTORE_ABS_PATH_MAX);
+> > +     if (!buf) {
+> > +             free(ctrl);
+> > +             return 0;
+> > +     }
+> > +
+> >       xs =3D xs_open(0);
+> >       if (!xs)
+> >               goto fail;
+> > @@ -278,14 +284,14 @@ retry_transaction:
+> >               goto fail_xs_open;
+> >
+> >       snprintf(ref, sizeof ref, "%d", ring_ref);
+> > -     snprintf(buf, sizeof buf, "%s/ring-ref", xs_base);
+> > +     snprintf(buf, XENSTORE_ABS_PATH_MAX, "%s/ring-ref", xs_base);
+> >       if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
+> >               goto fail_xs_open;
+> >       if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
+> >               goto fail_xs_open;
+> >
+> >       snprintf(ref, sizeof ref, "%d", ctrl->event_port);
+> > -     snprintf(buf, sizeof buf, "%s/event-channel", xs_base);
+> > +     snprintf(buf, XENSTORE_ABS_PATH_MAX, "%s/event-channel", xs_base)=
+;
+> >       if (!xs_write(xs, xs_trans, buf, ref, strlen(ref)))
+> >               goto fail_xs_open;
+> >       if (!xs_set_permissions(xs, xs_trans, buf, perms, 2))
+> > @@ -301,6 +307,7 @@ retry_transaction:
+> >       free(domid_str);
+> >       xs_close(xs);
+> >    fail:
+> > +     free(buf);
+> >       return ret;
+> >   }
+> >
+> > @@ -418,13 +425,20 @@ struct libxenvchan *libxenvchan_client_init(struc=
+t xentoollog_logger *logger,
+> >   {
+> >       struct libxenvchan *ctrl =3D malloc(sizeof(struct libxenvchan));
+> >       struct xs_handle *xs =3D NULL;
+> > -     char buf[64];
+> > +     char *buf;
+> >       char *ref;
+> >       int ring_ref;
+> >       unsigned int len;
+> >
+> >       if (!ctrl)
+> >               return 0;
+> > +
+> > +     buf =3D malloc(XENSTORE_ABS_PATH_MAX);
+> > +     if (!buf) {
+> > +             free(ctrl);
+> > +             return 0;
+> > +     }
+> > +
+> >       ctrl->ring =3D NULL;
+> >       ctrl->event =3D NULL;
+> >       ctrl->gnttab =3D NULL;
+> > @@ -435,8 +449,9 @@ struct libxenvchan *libxenvchan_client_init(struct =
+xentoollog_logger *logger,
+> >       if (!xs)
+> >               goto fail;
+>
+> You are leaking buf in this case.
+No. buf released in line 474. ctrl leaks in fail case
+>
+> >
+> > +
+> >   // find xenstore entry
+> > -     snprintf(buf, sizeof buf, "%s/ring-ref", xs_path);
+> > +     snprintf(buf, XENSTORE_ABS_PATH_MAX, "%s/ring-ref", xs_path);
+> >       ref =3D xs_read(xs, 0, buf, &len);
+> >       if (!ref)
+> >               goto fail;
+> > @@ -444,7 +459,7 @@ struct libxenvchan *libxenvchan_client_init(struct =
+xentoollog_logger *logger,
+> >       free(ref);
+> >       if (!ring_ref)
+> >               goto fail;
+> > -     snprintf(buf, sizeof buf, "%s/event-channel", xs_path);
+> > +     snprintf(buf, XENSTORE_ABS_PATH_MAX, "%s/event-channel", xs_path)=
+;
+> >       ref =3D xs_read(xs, 0, buf, &len);
+> >       if (!ref)
+> >               goto fail;
+> > @@ -474,6 +489,7 @@ struct libxenvchan *libxenvchan_client_init(struct =
+xentoollog_logger *logger,
+> >    out:
+> >       if (xs)
+> >               xs_close(xs);
+> > +     free(buf);
+> >       return ctrl;
+> >    fail:
+> >       libxenvchan_close(ctrl);
+>
+> Juergen
 
