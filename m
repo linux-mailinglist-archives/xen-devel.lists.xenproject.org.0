@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A69B457074F
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jul 2022 17:44:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.365266.595384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D9B25707F9
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jul 2022 18:07:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.365281.595400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oAvaF-0001Bc-6Z; Mon, 11 Jul 2022 15:44:27 +0000
+	id 1oAvus-0004O6-1W; Mon, 11 Jul 2022 16:05:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 365266.595384; Mon, 11 Jul 2022 15:44:27 +0000
+Received: by outflank-mailman (output) from mailman id 365281.595400; Mon, 11 Jul 2022 16:05:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oAvaF-00018L-3o; Mon, 11 Jul 2022 15:44:27 +0000
-Received: by outflank-mailman (input) for mailman id 365266;
- Mon, 11 Jul 2022 15:44:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oAvur-0004LW-TP; Mon, 11 Jul 2022 16:05:45 +0000
+Received: by outflank-mailman (input) for mailman id 365281;
+ Mon, 11 Jul 2022 16:05:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BSD2=XQ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oAvaD-00018F-Gx
- for xen-devel@lists.xenproject.org; Mon, 11 Jul 2022 15:44:25 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr140048.outbound.protection.outlook.com [40.107.14.48])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 566e40f1-0130-11ed-bd2d-47488cf2e6aa;
- Mon, 11 Jul 2022 17:44:23 +0200 (CEST)
+ id 1oAvuq-0004Jt-5m
+ for xen-devel@lists.xenproject.org; Mon, 11 Jul 2022 16:05:44 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2066.outbound.protection.outlook.com [40.107.22.66])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4eb9d2cc-0133-11ed-924f-1f966e50362f;
+ Mon, 11 Jul 2022 18:05:39 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8100.eurprd04.prod.outlook.com (2603:10a6:20b:3e3::12)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DBBPR04MB6075.eurprd04.prod.outlook.com (2603:10a6:10:c4::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Mon, 11 Jul
- 2022 15:44:21 +0000
+ 2022 16:05:39 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5417.025; Mon, 11 Jul 2022
- 15:44:21 +0000
+ 16:05:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,125 +46,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 566e40f1-0130-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: 4eb9d2cc-0133-11ed-924f-1f966e50362f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cDg2RFjTn5CapAmR5LdY/oYORaO1gbs3118uGW9iwR/Zf8hDY2gpxfVvWIVUluEX35kWnwrb6nP4nHJDopA/ma/VsHugBNDR7g/59pZzAirkBt6Z1KULkbIijPeTUUC2cgacsIyC+f5iv5BapLiWW5u0gMPf7ebNAuKtw8v3MOxB2vAafBg2bamV4FmtCIbdFbG6OetO055WwD2q8mtpfJJxJ7ll9oab5n+4jE55RBx6e+PH9zGuQlanzzZRZTJGuUvBgoUeCf7ur3R2Xz3rPY7YZYfNrSJWzzyIY2HTT618QxMnVhdVqfvMFs+v6JNwjHR21P0yDDedgWhGNd5/Ow==
+ b=bAAiIl+H7j1q1RrlEQjZqOKo+5bISIuJH7vQQRkTTyYeSizDT8C+vi8Ri5oBknFkUiVMrIdWajPmqK4U4LAsFIyt+WjxELubE3bb3iiLgawT98zguKw52eSMBlYRUSpAnuGNcOM7UAXDOrUOLMCUfdlGFWmpW9zw+olJlp0xtncAEm2bSVFc28pPNkafF742q1qlW9VfFTZQTqabX8w/ckVhmmi9XSi/L/sujChVSdYaf8kXz7qTbkgbwOsTCnHbu6Let2p1HJ4wjUwcuf6HVmzJIhdbQ1G8VYJveJXjUF53ij9XDCQSDsvZDKPt0XyXYNCipOggB9fQH3UCOwjzrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QM+CLaN+xAkrTVHpV+K7R3DHHG8+aOMrHq0gIAWw6+Y=;
- b=mX15mLTwyf4x8l5OvfH/DRRBBdbln+xvgzDNQfUIWEHGqzNHwiXb9HZvzbJ02G+Bh52k1ihWzYC87TrUnuFsdCfbz3lDH5WPWh7G43ULZzc5lU84BuelJL2GCvpMRdokTU1mO66vkL9dP8YtY0iW0CD9LUpUpyL7U5RCFud03Ka8sZKCRnacEzjbSUz1s53fLrbooiULQ0OvDcWbKg+GmK2QWx5NKdNh1waMz0BJyUxOMWV7u9H4b/1oqlyL1Ns3sp3P3SsfEy7WdJ9dzCEIYLl/JkBwA7zdBZt/nGlQE5Xt9r73287tTT4KkJTfsKIdDMYkL4GJHxEsTew34NM/xA==
+ bh=NZJhi/0JPagQhzQIH3E3WVG24pojUvNPKRJ4yJJhDuk=;
+ b=YBYpM8WKHV87TRKIkUM0d+gjFbw9L4VDbnF2WQYNMlUkl+Scd2Ipby4HIXuJ7huydcbktK4DG2WmqJ43k1etr/k3yV3M/XbRxfZfIy5v1YNJ4GFlOPp5GE89iK8Gxp4GdE1VXOKPUOOvZl7upZzOKw3uXckcXxoIAQvuR3S1pfVqkdGA+8a/AYy9QI986psmg1/Kdr5H43ubnTuYpQ9/58PcoowgctRv4G+yePTFl1VsJCr/A9O9F7JImd82QSOw6etJLIpsyzNViszXlkdMdtZ+84dTkYXSeeWGot+TRSTj4qp4vRhPtrMX1y+x/eENu9aFl1Mm0sJR1iHNX4jcZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QM+CLaN+xAkrTVHpV+K7R3DHHG8+aOMrHq0gIAWw6+Y=;
- b=QvuIbAum1VGAraPJtHIc02TNl4ktxE2C5oelJ0sdKgbSiX3Ao+YSclrSjzIe6fYkCuQtoXgxyXFSc8nUsJVsLhKCyO5b0yng3n27xElKcKDgstvInnMqUvkqcfaoE7Xs557p7UMXoq2XAz5/Tg/qkkyM/84tj6BF9hFclFFJzvOWyQpj1DOfFFgbexwgCyoTWN3zbI17++6yALG/FvDXiJtp6POZ/oEEPisP7J/157FcIpX+pSmMqlYljrchdTtKFs3gLbKMINPmanIu1UFvhKra+a8u+XgmqBQHyZ6pFcdG3lM612YWaTPx7JIk5uwlRS5AtOrlrycG9RVk1G7xRw==
+ bh=NZJhi/0JPagQhzQIH3E3WVG24pojUvNPKRJ4yJJhDuk=;
+ b=0tJzclq24JGhQWaZwM4H1xvZQ/IeXrWBkbjrqSjBIILSoHfDNc1RJa+A4unp0yL2Cy5jDyGJWz17RRDcgdPqgcdY7ncMwvtc+F26GxjeM41iea6WlV8W7hl8f0bBT/6xlCsa1hP441MeR3wiusHKg7UcdmH21H082BZws8Bs/Bs9lFGnpT+nE1OEIefuHw8iakUOOV8InLUJBjUrAUCq9xwK7vJXW9Mclz4nZcuGVfmoNXenwH+WSLTSjdvBuWFXlvmr08UAwUBCBIyWhmD5dcYKUzfX6AA8XFpakT3Fn+LFdrcVcNzt6O+5AAdf/xGVmLoT3I5ELIrUBOgnIvgVMw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b80d3d49-1a5c-41de-b6d6-87e9631d4f53@suse.com>
-Date: Mon, 11 Jul 2022 17:44:20 +0200
+Message-ID: <0a2da2ea-bc8e-05be-2c4a-5f9b0841f0d3@suse.com>
+Date: Mon, 11 Jul 2022 18:05:37 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [XEN PATCH] libxl: Check return value of libxl__xs_directory in
- name2bdf
-Content-Language: en-US
-To: "G.R." <firemeteor@users.sourceforge.net>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Juergen Gross <jgross@suse.com>
-References: <20220711103847.21276-1-anthony.perard@citrix.com>
- <490ef2d3-98e3-42f9-84e9-cf2122b14472@suse.com>
- <CAKhsbWanTngsCF3p5QDEF0RtWhA95HovJqE=H047HoN0hfz-CA@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAKhsbWanTngsCF3p5QDEF0RtWhA95HovJqE=H047HoN0hfz-CA@mail.gmail.com>
+Subject: [PATCH v2] EFI: strip xen.efi when putting it on the EFI partition
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0100.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a9::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0125.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a1659802-9c3a-4db9-0916-08da6354392e
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8100:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: 30f634fd-6504-4ed2-4d8c-08da635732a5
+X-MS-TrafficTypeDiagnostic: DBBPR04MB6075:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	8oVGrHhJQ4QwjU2SI8fA4vm3XRadIw780+4uoeDyOn+Kj549pfDCxkBp3Vgm/1A6t+o+GCJmVIZ7KvEYHwYA/OmGbWzYwxqwqhAjUGslhrJnsdTaAkNVJJhuqwUJ2FEGleBGRydIB5m+0I3Mk4fp5k4STE8MWRhHzKJalEU00Iyb3ZHtjTaEebChaO5LM1wNirYYxZlim3Jx4XyEWYePRzaBlgC9cK9HnZWfJ4ZprDOx0vfNc2L7q/pgfeN6aS1r0rRoQPL+xmEwse+MQUtd26iP21mLXrvzelmn8S9tJf3vfjZihsAQWm4mVagJdH3TiYuI0rsIDBfLYXvFzb9G4Rz3/DZL2C/vvORUAxmkX877PrG4pyYexgeVEXuLbep1e2we3LARs7/lBjcP90j9hE+BD5o1N8DNcBLXuR6pXQ9m2KyQVOeVwvH2ewjM31KN2eQ/yky7v5NcOP8npoqN+n+nsYF9v/J3g6YXRQdn7PT3amME4dPH0pjiDKYCJNj1IeiK+5pN5aYxoqv26b3qWAgCo67nkqBAv2ZT9c+UMdjEC0GYnV6k4x8TVbs0QYqwgOKYE79l4mqa3eDwgoaBdxhCYs9+Hy2TM8JvsXokBD+SSRsRonNBO6jH7eJozq/1CNjyK/BUFbENoV7gWLRjtSGWK+lPgmXPjM/bz5FBGSgjGVMND0NPeE2483BItwEmPFh9M1vwRbRn3AujVVCtACgvGS2ZzRbh66RmUTVMmX3sS7zwFGwmdvntATUZy5kPTykW7KNcfhhDm/v2s3aJE636k8R5NiHTMK739Z+HC51exM6QP4DiMs7M6KgcZDMdUKyUOwXkeZKatgFx+bYLdmWKF4M2WhvnvQ8fFmclc/gzKuVzzrDG4Ot6dWk6qQAX
+	kl+D2EWBFobHriHWwaSAnrRRBowpSNBu3S0/o0xH3c1XhtDlBjocuEps3qwWRDbYeKDtBDc6PI0P+AKb3AjQCrGhEpmTjeGWKhKp40yDfwuF9Nx+aEyiBFz0zkZST6o91JTIzFTAfPwyiGnwa/Irsz+y/Uc52XaUCX3rIuESllUDGrRPZK4H39+S22mJ8lL1SPShNdno5whEq34wo3mz/yIP22+skPvKaMJTohfBtYZkZPieckNl5bj1KmLfqtCSOJb6ZhGieE7gbDfGUtiJ6Scd8xeCo8aUrL2mY3Khg4lUtUknk3W4qXuq6lHZ9BDRtfQnG3wi49c7ZfPEun0fC+GS36VN8b2PN5/QkGA2ysi98xP4gzOUFBkTt0RUbSYAPIjtRDO1XOxKgVwzvtVzTBC5i4RMBi8FPqy1fwKLaD6lw/CGOg4mM4xA3eNsIfiZCNLnhDvtJxKAlS7NNIwWI8ojg0CVOs5CSqyq+bxBH6KfGRilc3Nyoy4P0tIO4dtcu07XroxSp3tCBmJImUfwrPr/BTpYUCJQWLIUoKA5ZQYkSMXM1f6izLelfJLB7uHf2TmwFnJOq4kna5XlcDNjnpEwq0m1BXD9EHQoMt28IeVm79FRxhsPe6Ch+YLSwT3BcnxKj5eRqT58LB0q9K2S3yRJMNTAAfAliuty0vcQu3js/ad2GKfKOfIY2AlEXCRTmJMVHmZWjWqjkiafiOOM2FreGrn7SJ66CGYaIP4JmZW0WhtO2w4kNMiwQx708PS0I9QvgrDuXqhW7ExuHxfpcAXbDuntGBC763fd5LYhmxlq/GGnuofS7LpeK/iOz1mTyHjyhwLGxo+EdS0ZQ5PtUDXEqcgakGs+7GoMq/bGpE0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(366004)(136003)(396003)(346002)(39860400002)(186003)(107886003)(83380400001)(38100700002)(66946007)(66476007)(2616005)(66556008)(478600001)(6916009)(54906003)(316002)(53546011)(26005)(2906002)(6486002)(6512007)(4744005)(6506007)(36756003)(8936002)(31696002)(5660300002)(31686004)(4326008)(86362001)(41300700001)(8676002)(101420200003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(39860400002)(346002)(136003)(366004)(376002)(2906002)(6486002)(478600001)(186003)(83380400001)(31686004)(36756003)(5660300002)(31696002)(316002)(8676002)(86362001)(66946007)(8936002)(66476007)(4326008)(54906003)(66556008)(6916009)(41300700001)(38100700002)(6506007)(6512007)(26005)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R2o2VXdBNFRaKy90TzlwV2gza0pUL0FHVlRTLytaS0hWenFCMXZWYXVyakdy?=
- =?utf-8?B?UHJGbnpla0pXR2UwcXdjYXhKY2FTektrTllKNUJwd212bythK281blJ4N1Nk?=
- =?utf-8?B?TmtaQVlKKzFGbXU3cDFVV1JSY0h1UlpFZjN1Y3piV3E5S3hRUUIrbytvNjFv?=
- =?utf-8?B?UTNkRnQ5MlhvdGlMTm1vOU1PK04wTnZnMWFud2FKa1Y4cEQ0RkRmT3hiZHNw?=
- =?utf-8?B?ZEErWS9MWURXa1Z4OTB2OXpzeC9MRW04UUhoZUVMZU5RZkhibVg5cy9VL0Zz?=
- =?utf-8?B?Sk55dDcrMC9CcllTckI2cjV5VVZQQUlwcWV1RXpyMTUyVlBCWHhqQmwyN1lD?=
- =?utf-8?B?Mjh5aFZkcDdpYnVVYUtSNTF0aEd4Rm9lS0JwdlV4RTUzMU9YRG9LaXBYanVC?=
- =?utf-8?B?TEg4MFNWWTNuYjhHU25PK2c4a0FwTjl6Q3VrM2xjeXNJV3dWVjlaanR0alps?=
- =?utf-8?B?N002VVhtQ09EMXIzVnM1UmhiTGtIa2p6eHM5NThKTkJWUldEWCtuWXhSZFk1?=
- =?utf-8?B?eSt1ZTZYS1cyOFNPalVydDFoUnEza2l3cHU1NjA4VU1qRytJdDAveTUxdWZj?=
- =?utf-8?B?UHlQUzllY1dJQ3pzSVJZQXd0cGV1WjB6T3NkNGluQ01KTis5VERpa3RJaDRi?=
- =?utf-8?B?NDQ0dkZES3RDcXpsVjB1Q2J5SVRoaDJ4UWxYZXh0eDBYUnlwanBJenNucjFa?=
- =?utf-8?B?amROT2Nudm1WVDRyblFyejZpa2RsZ1RZVElBMkdjb09UakwvY1JhdE9FRUt1?=
- =?utf-8?B?RHpyeEVZU3M1NjRpM3JhNFoyTTlGMHViWWlCbWZ3RXp0REordExpbHVDQ2l6?=
- =?utf-8?B?OUowUnZJNE01Z2JuYUlkcUZ0UlRvSGZLcHIxMGZteWx5bXFqSWIyaTVBK01w?=
- =?utf-8?B?WXJ0aDhaMkZQK3h2cm9TQnJZMjV0T1hQaGphNENUNjRVcUxwMWpqNWxnb0Ir?=
- =?utf-8?B?SUJySUloczZJS2dFQnNJZ2RZOTF6bTYyY2JYakdJckliRDE4bXhlWHlESU5G?=
- =?utf-8?B?a29ySEFoRlhVdlFIZnlDbTQweS9PZjVwckprMXFDaTNVOXBBOERkK0IzcXEy?=
- =?utf-8?B?eDNwbjVBaVluK1ZJN1A1QmpOOVlpTEFkcTdtaGdkWHQzWGRYSVk2QldkTGlH?=
- =?utf-8?B?Qk1OTEZEd0VpbzFFNlFxUk9RZHlDM1p0LzAzUjZsS3BQcXF1dGhScEJQVXBP?=
- =?utf-8?B?Wjdsbi9ac291cTB0N2J6aThtNzFSMFZsdGkwcGx4M2E4TUpBVDB5Q1NNTE1L?=
- =?utf-8?B?VnlSRTZKOWU1bmcyQWtsNndaMGFvbUtOODEyemFLN29iZnZob0hYb0tuT0FP?=
- =?utf-8?B?ZnVNZVNYSjcvVGEwMzU5dHJFa0dPQW1VZ2ZsZGx5eGg2QWU3TTFoRUFycldE?=
- =?utf-8?B?LzNFc2lhZE45dkRRYVZSa0tmQWlZaFZCeWg5L1pkaUtyOGNRVXNwTGhZd1RF?=
- =?utf-8?B?QlNZNEJtN2xzWnlEYUk2d2UzVjdOVTIwQnB6OXo1bWhnT1BTSlpIejZZbWhn?=
- =?utf-8?B?NTJtZlJJcExuSXp4eUpiU1FBVnM2U0dlVzR4dnBZRmNkc0dQREszVHdwLzU3?=
- =?utf-8?B?RHRTWWdDbWN0VkhRNlFTRnFsejEwdGtCTEtMT082TnR1OHRxWFJuS1BDNkY5?=
- =?utf-8?B?NDZlU1pZS1NsSXI3UGFmUjVxOXZnT0x5OW9HZTgvMVFOR3BnZHRHdFp3eUJs?=
- =?utf-8?B?STdkdDM0SDhqeDBwdzJvTlo4dllpcEFjdVpmRUhJZnRhRlZYY0hRVmhJV0R6?=
- =?utf-8?B?eURwejZOanM4U2tiRm1vQk1TMXhscjJmWEQ3dEtGWEhaTDd2SVdlMWtUeUpB?=
- =?utf-8?B?cGhiV3RJMk0vVzZPZFBMaE94cVNVR29PTVRyYS9qZlNBeFAyNzN5ZStVQVk1?=
- =?utf-8?B?SFlkQldNME9WTXluQTBPWG1zeU40TnFidzZBUjdYNU9HTElydTd4bWxvQUxy?=
- =?utf-8?B?MWZzSHFXSmFGcTFjOFB5cU5PR0oxMDRwdWZJWHAzYzJmalYzUEgrOHhJMUpu?=
- =?utf-8?B?dEFURXhRdEZyeVdBRGRoOHF5TVI2czM0QkoweFp0dGY3RmJpUUJWdlVKRUxD?=
- =?utf-8?B?RUEzNDhRK3pwT0IyeG5PTVhudTFPa2RDRDdBdWxqelRiT1VyUG42SGY4SUM5?=
- =?utf-8?Q?eAUPiI0QZpjXRuB8V6piRY/AP?=
+	=?utf-8?B?WC8zMVV6REFpdWRDd3J0UXp3dWdkVzlxQXNYY1Z3QlNWMW1OQW9vc1pzTUFu?=
+ =?utf-8?B?TTlrZmtPUWVqcy8zT0RmSlJFeXNXV3kwcDFsU3dJV1hMb0ptYTREU3JpUkI0?=
+ =?utf-8?B?U0pkcjJMYTVaTG1RYW16K0xvNDIxWmY4UXQzVmdjZ1BJbUZ1N0pEVTJCMUlR?=
+ =?utf-8?B?aWM0Z0c0OG9ITkU0KzllS1NRSWw1Tmc0aktQdHRMMkVzTnoyRUMwYUo0bFNp?=
+ =?utf-8?B?Ry83VTl5UTBkTUpldTQ0cGlTUjl6Z1FLWUFwY2pHNklWTGJ3WVFXdlpDOGI2?=
+ =?utf-8?B?R0dVdzZBWTlGbFZtWEZsWVAwcFJjVFNieXI5Q0lCVEg2RDBGcDJRUDE3SGlF?=
+ =?utf-8?B?dS83UnNzcEdESU95NUliaTdjT2Fnb3NUcmx6Vkx5WGlYV016WVBOZDQ0RGZD?=
+ =?utf-8?B?aE11SFhodkRDWmxVU2IxTjBKNHducWpQU3JZVi9MTmlGSlY0UGhndVJEQi9x?=
+ =?utf-8?B?Z1Y2NXhrcHFxV3Bhcllib0Zic1MyRGJIczVJUzE0UGhsaTV3eGFuc2tIMTBR?=
+ =?utf-8?B?S0hZMnBQVmlvdUdXaUZXZ2FVd0ZKdTJySU5EN2pWenJnNWRSUlgyWW8wZDVB?=
+ =?utf-8?B?OHI2b0xDZTNEWXZzLzQ1TzE4YStMekcxUjA2UytYZThEeElwblhBaXBoeVhn?=
+ =?utf-8?B?VmJKa2FtQ1ZZR0NzMSszdi9nTEZVNDBCS2lQRHMzK1VoUXBqV0RyV3Y5a3dK?=
+ =?utf-8?B?R0dRWldIMGFySjJaalFrOGlSbzNnNjkwb3JrSVQ1anBLTEFLWVhuMzJ0NGQw?=
+ =?utf-8?B?K2VReEJ5MEZ6REMxK0dmV2xZWi91TmZhdlhVUklSMXdYRFNzSTYwano4ajdm?=
+ =?utf-8?B?ejRwUzJXaEpERGlsVUlRUGhBUTZTVnFHR2NIOFBQOHdYVXFHSTR5anJyM29P?=
+ =?utf-8?B?NzNUK2o0WVNtTW1uSzcwRXdiZ1BTQzBPMi9LSXFmeWxFMDEzMlBBYnlxWk1V?=
+ =?utf-8?B?WGIrZU1EeXY1aUw4dHoxZC96bEFzVWlyTHNUVjRiNy9XZnJZSWZmNVg3SzdH?=
+ =?utf-8?B?bnlKT3RtOHVRdThwWTh4TFJXUklrZTEyNzcwV1NDMTRhN0JyVlRUaldFTHhN?=
+ =?utf-8?B?V2dhNkxvZ0YzZnNXWDNuTmJsbDVha0dETVhRQjFTT3ZuQU1ldVluSW9CTjB4?=
+ =?utf-8?B?cSt2Tk11OVZpVjM0YVFLN3pVb3lmZXlvZEk2RTBnVGNLNXN2WStIb2gva1ov?=
+ =?utf-8?B?bVlObDBKelBOVXNrdER5a3FyZlltVjg0cERSa2VqLytMZGorMk5WTmVFWU1i?=
+ =?utf-8?B?TVVyZGxNLzNuMDczUFMvRTA5KzB4eEwva2VXNytiV0tTbjhxZkgySUQyTHFp?=
+ =?utf-8?B?Um5nUTBVb1VaSWZaUFcwT29rZkJSekFiQTJoR1Z0Y0NIK2hFS2w1YTZqUGJL?=
+ =?utf-8?B?T0xVbmZQN2t4VU5rR3ZYTm5aWUJPajkxM0VDRGEvUU9BLzI4eWZTVUN4dHA1?=
+ =?utf-8?B?RUlidDlOeGFwWXhvMUIvSTd2Tk9vbmFnMzNveWRPWmJLMlNRbDFGWE5Hd2JJ?=
+ =?utf-8?B?Z2dGQ0cxU1Q3TXBNam44YnVxODFmS1JMRmlla1Q1ZjhiYlMrMWZ3RTYycGZ5?=
+ =?utf-8?B?eStmQiswQTAzNVlWdnRPanhRcEQwbjhLVmlwUU9wVm1mQWRDakNZWWNKUjJj?=
+ =?utf-8?B?eS8yd0dPa1pjZFZQVzdoYU9FK0txR0NJUmRndlhzK2Q2Z29ITEJxQ3R3bFZs?=
+ =?utf-8?B?VlhSdkZrbS9ubUNrQnFXdnlBeTBtRkZkQXNZa3g2WjJvY2E4ZTA2b0RzUWJo?=
+ =?utf-8?B?N0ZrMDdBTkx6K2dreWU3ZFdCSFhmdi8wbEk3OUt0SlVXa1pCM0VVbElmajNM?=
+ =?utf-8?B?ODdMb1pHMjBFUVUzdDBzQWdFaWc1cUI4THI2SU1BMG8reVk4d2ZVZ1NydGl4?=
+ =?utf-8?B?T3cwK1RlcG0xQy9PNDdJb2t4UUl2ZWYrRG5IOHhzZFppK3R4aEdraWltZnpV?=
+ =?utf-8?B?MFdDam5VWjM2elNRTnBPNy94ZmdLWVdrK2lMS0oycTFzT1JBdWJSZ0VOVlRk?=
+ =?utf-8?B?MGpCMTlkRFEyeThzcDhYSUxwTUVwVW1taGcwVmVtWXFpcHBsL2ZCbm9talRl?=
+ =?utf-8?B?amw1Yzh4c2pFZXB4a1ZyZkZ2SElNb0tOUnNqZ3UweXU0WWNVak9vV1h1WlB3?=
+ =?utf-8?Q?iXCvxFi4c8a3jOWzVeNC1rLH+?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1659802-9c3a-4db9-0916-08da6354392e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30f634fd-6504-4ed2-4d8c-08da635732a5
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2022 15:44:21.5629
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2022 16:05:39.0751
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vaQh1mVy/m4Da/tlKSYTZnZJllriF/IFZYkpz2t9p/W4WtejEamh6Th+yj5pigeVYg3zn1bZcI/7qoxcZEauJA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8100
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9IsJ3MbOnIzKwA4IEB6YeB8kYtIDD2GaCuOZQsB/XIR+QKLPq2P7X4EFockPozIJkr44oXluvAKLonzubLC0AA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB6075
 
-On 11.07.2022 17:35, G.R. wrote:
-> On Mon, Jul 11, 2022 at 7:03 PM Juergen Gross <jgross@suse.com> wrote:
->>
->> On 11.07.22 12:38, Anthony PERARD wrote:
->>> libxl__xs_directory() can potentially return NULL without setting `n`.
->>> As `n` isn't initialised, we need to check libxl__xs_directory()
->>> return value before checking `n`. Otherwise, `n` might be non-zero
->>> with `bdfs` NULL which would lead to a segv.
->>>
->>> Reported-by: "G.R." <firemeteor@users.sourceforge.net>
->>> Fixes: 57bff091f4 ("libxl: add 'name' field to 'libxl_device_pci' in the IDL...")
->>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
->>
->> Reviewed-by: Juergen Gross <jgross@suse.com>
-> 
-> I can confirm that the change fixed the segment fault issue I observed
-> on 4.16.1 release.
+With debug info retained, xen.efi can be quite large. Unlike for xen.gz
+there's no intermediate step (mkelf32 there) involved which would strip
+debug info kind of as a side effect. While the installing of xen.efi on
+the EFI partition is an optional step (intended to be a courtesy to the
+developer), adjust it also for the purpose of documenting what distros
+would be expected to do during boot loader configuration (which is what
+would normally put xen.efi into the EFI partition).
 
-I'll take the liberty and transform this into a Tested-by:.
+Model the control over stripping after Linux'es module installation,
+except that the stripped executable is constructed in the build area
+instead of in the destination location. This is to conserve on space
+used there - EFI partitions tend to be only a few hundred Mb in size.
 
-Jan
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Tested-by: Henry Wang <Henry.Wang@arm.com>
+Tested-by: Wei Chen <Wei.Chen@arm.com> # arm
+---
+GNU strip 2.38 appears to have issues when acting on a PE binary:
+- file name symbols are also stripped; while there is a separate
+  --keep-file-symbols option (which I would have thought to be on by
+  default anyway), its use so far makes no difference,
+- the string table grows in size, when one would expect it to retain its
+  size (or shrink),
+- linker version is changed in and timestamp zapped from the header.
+Older GNU strip (observed with 2.35.1) doesn't work at all ("Data
+Directory size (1c) exceeds space left in section (8)"). Future GNU
+strip is going to honor --keep-file-symbols (and will also have the
+other issues fixed).
+---
+v2: Remove stripped intermediate file during "make clean". Use
+    --keep-file-symbols by default. Add doc.
+
+--- a/docs/misc/efi.pandoc
++++ b/docs/misc/efi.pandoc
+@@ -20,9 +20,13 @@ Xen to load the configuration file even
+ Once built, `make install-xen` will place the resulting binary directly into
+ the EFI boot partition, provided `EFI_VENDOR` is set in the environment (and
+ `EFI_MOUNTPOINT` is overridden as needed, should the default of `/boot/efi` not
+-match your system). The xen.efi binary will also be installed in
+-`/usr/lib64/efi/`, unless `EFI_DIR` is set in the environment to override this
+-default.
++match your system). When built with debug info, the binary can be quite large.
++Setting `INSTALL_EFI_STRIP=1` in the environment will cause it to be stripped
++of debug info in the process of installing. `INSTALL_EFI_STRIP` can also be set
++to any combination of options suitable to pass to `strip`, in case the default
++ones don't do. The xen.efi binary will also be installed in `/usr/lib64/efi/`,
++unless `EFI_DIR` is set in the environment to override this default. This
++binary will not be stripped in the process.
+ 
+ The binary itself will require a configuration file (names with the `.efi`
+ extension of the binary's name replaced by `.cfg`, and - until an existing
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -464,6 +464,22 @@ endif
+ .PHONY: _build
+ _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+ 
++# Strip
++#
++# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped before it
++# is installed. If INSTALL_EFI_STRIP is '1', then the default option(s) below
++# will be used. Otherwise, INSTALL_EFI_STRIP value will be used as the
++# option(s) to the strip command.
++ifdef INSTALL_EFI_STRIP
++
++ifeq ($(INSTALL_EFI_STRIP),1)
++efi-strip-opt := --strip-debug --keep-file-symbols
++else
++efi-strip-opt := $(INSTALL_EFI_STRIP)
++endif
++
++endif
++
+ .PHONY: _install
+ _install: D=$(DESTDIR)
+ _install: T=$(notdir $(TARGET))
+@@ -488,6 +504,9 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_
+ 		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION).efi; \
+ 		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
+ 		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
++			$(if $(efi-strip-opt), \
++			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGET).efi && \
++			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
+ 			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi; \
+ 		elif [ "$(D)" = "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D))" ]; then \
+ 			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&2; \
+@@ -544,7 +563,8 @@ _clean:
+ 		-o -name ".*.o.tmp" -o -name "*~" -o -name "core" \
+ 		-o -name '*.lex.c' -o -name '*.tab.[ch]' -o -name '*.c.cppcheck' \
+ 		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
+-	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map
++	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET)-syms $(TARGET)-syms.map
++	rm -f $(TARGET).efi $(TARGET).efi.map $(TARGET).efi.stripped
+ 	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
+ 	rm -f .banner .allconfig.tmp include/xen/compile.h
+ 	rm -f cppcheck-misra.* xen-cppcheck.xml
 
