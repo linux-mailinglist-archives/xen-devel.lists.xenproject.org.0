@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BAB25706E7
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Jul 2022 17:23:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.365242.595352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88B52570716
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Jul 2022 17:29:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.365250.595362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oAvFk-0005mK-VZ; Mon, 11 Jul 2022 15:23:16 +0000
+	id 1oAvLO-0006X9-Jx; Mon, 11 Jul 2022 15:29:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 365242.595352; Mon, 11 Jul 2022 15:23:16 +0000
+Received: by outflank-mailman (output) from mailman id 365250.595362; Mon, 11 Jul 2022 15:29:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oAvFk-0005kX-SO; Mon, 11 Jul 2022 15:23:16 +0000
-Received: by outflank-mailman (input) for mailman id 365242;
- Mon, 11 Jul 2022 15:23:15 +0000
+	id 1oAvLO-0006VL-H4; Mon, 11 Jul 2022 15:29:06 +0000
+Received: by outflank-mailman (input) for mailman id 365250;
+ Mon, 11 Jul 2022 15:29:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VQZC=XQ=citrix.com=prvs=184aca51e=Jane.Malalane@srs-se1.protection.inumbo.net>)
- id 1oAvFj-0005kR-SE
- for xen-devel@lists.xenproject.org; Mon, 11 Jul 2022 15:23:15 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60327879-012d-11ed-924f-1f966e50362f;
- Mon, 11 Jul 2022 17:23:13 +0200 (CEST)
+ <SRS0=ieeT=XQ=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1oAvLM-0006VD-VM
+ for xen-devel@lists.xenproject.org; Mon, 11 Jul 2022 15:29:05 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 31bf6f44-012e-11ed-924f-1f966e50362f;
+ Mon, 11 Jul 2022 17:29:03 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id fd6so6705697edb.5
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Jul 2022 08:29:03 -0700 (PDT)
+Received: from [192.168.1.8] (adsl-142.37.6.26.tellas.gr. [37.6.26.142])
+ by smtp.googlemail.com with ESMTPSA id
+ l17-20020a1709063d3100b0072b1c21ce65sm2756516ejf.150.2022.07.11.08.29.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Jul 2022 08:29:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,311 +44,332 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60327879-012d-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1657552993;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=pZGb0cAgf2x8v4lEYbVef+sU13jY0Ld25ol2N9KqxBE=;
-  b=NZAJZNUIVnlBL0eM4G6EEf/3099Gesy05W9UCTmsuNJII/1I3UbgY/yk
-   E9UAZA+/rC6b3TY3c+7HvFtBqPT4tIaLM2T9du1+Zs99NaxYWZXhLlmE7
-   rAurOk4hcsol2d/ZocVb88PG4h14pOHnpw+T5Dax9+lTh2PjlUqI4wL56
-   4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 75346842
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:qL/hcak6oBccjp5pBgR02zvo5gzmIURdPkR7XQ2eYbSJt1+Wr1Gzt
- xJNCzrUMvqCMDH1KYh2YYqx/U4EsZXczN9iTARrryw1HyMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EgLd9IR2NYy24DmWlrV4
- 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
- v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
- NtxWZOYQg0xMaeSiPYmXxRKTAEiBKkew5HbGC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
- RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3mHhmwHf8BPIvRZnFTo3B5MNC3Sd2jcdLdRrbT
- 5VEMmYxPEiaC/FJEg8VOb4Mw9uvv0DidiFpuUCn5o1w4kGGmWSd15CyaYGIK7RmX/59m0aVt
- 2TL1238CwMdMpqTxFKt9XahhfTGmy/hb54DD72z9vNsg1q7y3QaDVsdUl7TieKilke0VtZbK
- koV0ikjt64/8AqsVNaVdx+3unmfpTYHRsFdVeY97Wml2qfSpgqUGGUAZjpAc8A98t87QyQw0
- V2ElM+vAiZg2JWeTnac8PGXrDW9ESkTMWIGIyQDSGMt4dPuvYUyhRLnVct4Hei+ididMSGgn
- RiJoTI4irFVitQEv42n8lTXqzatoIXVVAkz5xWRUm/Nxgl+fo++IYuz9ULc8+1DPa6eVFCKu
- HVCkM+bhMgKDJeQhGmOTf8LEbWB+fmIKnvfjERpEp1n8C6ik1amfIZf5xlkKUtpO9pCcjjsC
- GfToQp59o5PO2HsZqhyC6q9Atoni6jpE8/oUNjQb9xTct5wchOK+GdlYkv492r1uEEokKw5a
- dGXfK6R4W0yUPo9imDsHqFEjOFtlntWKX7vqY7TxB6/3rDAdGyuRboXb3vSV+Rh142YmVCAm
- zpADPdm2ymzQcWnPHSIqtZJcAlTRZQoLcuo8pIKL4ZvNiIjQTh8UKGJnNvNbqQ/x8xoevH0E
- mZRs6Oy4H72njX5JAqDcRiPg5u/DM8k/RrX0cHBVGtEOkTPgq71tc/zj7NtIdEaGBVLlJaYt
- cUtdcSaGehoQT/a4TkbZpSVhNU8KUv32lLXYHb0OmRXk3tcq+vho4WMQ+cS3HNWUnrfWTUW+
- dVMKT83sbJcHl8/Xa46mdqkzk+rvGh1pd+eq3Dge4EJEG21qdACA3Wo0pcffpBXQT2el2Ty6
- upjKUpBzQU7i9RtoIehaGHth9rBLtaS6WIATjOEtufmb3OAlodhqKcZONu1kfnmfDuc0M2fi
- S99lJkQ7NVvcI52jrdB
-IronPort-HdrOrdr: A9a23:MJzeIaq7dYPlArvywvnORXsaV5oneYIsimQD101hICG8cqSj+f
- xG+85rsiMc6QxhPE3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakvDH4VmtJ
- uIHZIQNDSJNykZsfrH
-X-IronPort-AV: E=Sophos;i="5.92,263,1650945600"; 
-   d="scan'208";a="75346842"
-From: Jane Malalane <jane.malalane@citrix.com>
-To: LKML <linux-kernel@vger.kernel.org>
-CC: Jane Malalane <jane.malalane@citrix.com>, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Thomas Gleixner
-	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Maximilian Heyne <mheyne@amazon.de>, "Jan
- Beulich" <jbeulich@suse.com>, Colin Ian King <colin.king@intel.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/xen: Add support for HVMOP_set_evtchn_upcall_vector
-Date: Mon, 11 Jul 2022 16:22:30 +0100
-Message-ID: <20220711152230.17749-1-jane.malalane@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: 31bf6f44-012e-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=Fz3JaKBVLQvZvuwmbq+mibOy8m/9O2czJ4UY+vpkuVQ=;
+        b=A0wNy6oUAPjtVwtjN6iSjyg3EMPnyRD4bTeIsSdQwG0k7kfyDm0O41qsRtN16gO8Va
+         yQ2OIHORlLLItGb9dQLH4tuKtEawjK57tAGvG1VC7FxPS3NDdydr7yMgPayPkV9S7cl+
+         zL6jotM95XkxtgRIdUSiJFrPViyS+n0Qk5gjqkIMGiQlv7/u3onWVJFQhe6nPlzViS9B
+         NIELcOfNR43hqygr8KnIVMpLeLXuXgqdS8ijMO+5tsOO4F8R+/gx9oClNXYvs1xsHRPM
+         9GOQ7wQRcGvLBvN4x32WZj3JicHNfOX3FDwWHj9J36+xOCV3EaRJwBG+DifmJPhQ1IbO
+         O6tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=Fz3JaKBVLQvZvuwmbq+mibOy8m/9O2czJ4UY+vpkuVQ=;
+        b=cztVnwZecBKSE5DiM5xLIEYNDi0dJYKACx4BkYKMYYHpHOQSvNd+MWKrAXRq1YvC83
+         ALJwu69GbmK0m1G4pDtOTc02F5NNp6FJgrmvq3I+wF+LNf35d2nCVvJn3lVaGWge5h2s
+         EYBqW0LNDPq2RF0yy05i/rcIkRqRHqeuHig6irdZ2HWiqdDNO0jre3+hBswvtxjuTcRx
+         /v9VdEN4f66TTtVONsSMYvu9H6/K6LeTxPf/80eOFB9ajJyQ5afWBTmuYEuZfHljnVVB
+         XTvMgc2+oDPMr+88hG+3OwSRKJbDYsODMiLg4V17AZT1KRZkhlEXpnxHhoxSWaimJCTg
+         F1zg==
+X-Gm-Message-State: AJIora/V7239tgRUys87q3V/jcoZVyYFB01ihCc7TkDDl2jhM5Uy8vTD
+	3rRIJZ5CaTTaCCbL39yttoUw4Lw2piM=
+X-Google-Smtp-Source: AGRyM1tDajnJ2RFUeYzMoF4MjKl3CKf8B9j0UQx4/ndxKMPZmcsqZMBlhhizzopjhlyHneZj/mHS3w==
+X-Received: by 2002:aa7:c2d3:0:b0:43a:707a:72c5 with SMTP id m19-20020aa7c2d3000000b0043a707a72c5mr25684152edp.54.1657553342942;
+        Mon, 11 Jul 2022 08:29:02 -0700 (PDT)
+Message-ID: <69c1e0e4-f83d-527b-050b-d0760562b3b3@gmail.com>
+Date: Mon, 11 Jul 2022 18:29:00 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 2/2] automation: arm64: Create a test job for testing
+ static allocation on qemu
+Content-Language: en-US
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <20220707203803.798317-1-burzalodowa@gmail.com>
+ <20220707203803.798317-3-burzalodowa@gmail.com>
+ <259c9042-4a40-ddd3-5e3c-7a1698df74c4@xen.org>
+ <alpine.DEB.2.22.394.2207071548220.2354836@ubuntu-linux-20-04-desktop>
+ <d3f2e9b2-219b-d00b-04fd-f8e6a38222e4@gmail.com>
+ <DU2PR08MB732506A6DA12FD290FAD0E89F7879@DU2PR08MB7325.eurprd08.prod.outlook.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <DU2PR08MB732506A6DA12FD290FAD0E89F7879@DU2PR08MB7325.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Implement support for the HVMOP_set_evtchn_upcall_vector hypercall in
-order to set the per-vCPU event channel vector callback on Linux and
-use it in preference of HVM_PARAM_CALLBACK_IRQ.
+Hi Penny,
 
-If the per-VCPU vector setup is successful on BSP, use this method
-for the APs. If not, fallback to the global vector-type callback.
+On 11/7/22 12:02, Penny Zheng wrote:
+> Hi Xenia
+> 
+>> -----Original Message-----
+>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
+>> Xenia Ragiadakou
+>> Sent: Friday, July 8, 2022 5:54 PM
+>> To: Stefano Stabellini <sstabellini@kernel.org>; Julien Grall <julien@xen.org>
+>> Cc: xen-devel@lists.xenproject.org; Doug Goldstein <cardoe@cardoe.com>
+>> Subject: Re: [PATCH 2/2] automation: arm64: Create a test job for testing
+>> static allocation on qemu
+>>
+>> Hi Stefano,
+>>
+>> On 7/8/22 02:05, Stefano Stabellini wrote:
+>>> On Thu, 7 Jul 2022, Julien Grall wrote:
+>>>> Hi Xenia,
+>>>>
+>>>> On 07/07/2022 21:38, Xenia Ragiadakou wrote:
+>>>>> Add an arm subdirectory under automation/configs for the arm
+>>>>> specific configs and add a config that enables static allocation.
+>>>>>
+>>>>> Modify the build script to search for configs also in this
+>>>>> subdirectory and to keep the generated xen binary, suffixed with the
+>>>>> config file name, as artifact.
+>>>>>
+>>>>> Create a test job that
+>>>>> - boots xen on qemu with a single direct mapped dom0less guest
+>>>>> configured with statically allocated memory
+> 
+> Although you said booting a single direct mapped dom0less guest
+> configured with statically allocated memory here, later in code, you are
+> only enabling statically allocated memory in the ImageBuilder script,
+> missing the direct-map property.
+>   
+>>>>> - verifies that the memory ranges reported in the guest's logs are
+>>>>> the same with the provided static memory regions
+>>>>>
+>>>>> For guest kernel, use the 5.9.9 kernel from the tests-artifacts containers.
+>>>>> Use busybox-static package, to create the guest ramdisk.
+>>>>> To generate the u-boot script, use ImageBuilder.
+>>>>> Use the qemu from the tests-artifacts containers.
+>>>>>
+>>>>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>>>>> ---
+>>>>>     automation/configs/arm/static_mem          |   3 +
+>>>>>     automation/gitlab-ci/test.yaml             |  24 +++++
+>>>>>     automation/scripts/build                   |   4 +
+>>>>>     automation/scripts/qemu-staticmem-arm64.sh | 114
+>> +++++++++++++++++++++
+>>>>>     4 files changed, 145 insertions(+)
+>>>>>     create mode 100644 automation/configs/arm/static_mem
+>>>>>     create mode 100755 automation/scripts/qemu-staticmem-arm64.sh
+>>>>>
+>>>>> diff --git a/automation/configs/arm/static_mem
+>>>>> b/automation/configs/arm/static_mem
+>>>>> new file mode 100644
+>>>>> index 0000000000..84675ddf4e
+>>>>> --- /dev/null
+>>>>> +++ b/automation/configs/arm/static_mem
+>>>>> @@ -0,0 +1,3 @@
+>>>>> +CONFIG_EXPERT=y
+>>>>> +CONFIG_UNSUPPORTED=y
+>>>>> +CONFIG_STATIC_MEMORY=y
+>>>>> \ No newline at end of file
+>>>>
+>>>> Any particular reason to build a new Xen rather enable
+>>>> CONFIG_STATIC_MEMORY in the existing build?
+>>>>
+>>>>> diff --git a/automation/scripts/build b/automation/scripts/build
+>>>>> index 21b3bc57c8..9c6196d9bd 100755
+>>>>> --- a/automation/scripts/build
+>>>>> +++ b/automation/scripts/build
+>>>>> @@ -83,6 +83,7 @@ fi
+>>>>>     # Build all the configs we care about
+>>>>>     case ${XEN_TARGET_ARCH} in
+>>>>>         x86_64) arch=x86 ;;
+>>>>> +    arm64) arch=arm ;;
+>>>>>         *) exit 0 ;;
+>>>>>     esac
+>>>>>     @@ -93,4 +94,7 @@ for cfg in `ls ${cfg_dir}`; do
+>>>>>         rm -f xen/.config
+>>>>>         make -C xen KBUILD_DEFCONFIG=../../../../${cfg_dir}/${cfg} defconfig
+>>>>>         make -j$(nproc) -C xen
+>>>>> +    if [[ ${arch} == "arm" ]]; then
+>>>>> +        cp xen/xen binaries/xen-${cfg}
+>>>>> +    fi
+>>>>
+>>>> This feels a bit of a hack to be arm only. Can you explain why this
+>>>> is not enabled for x86 (other than this is not yet used)?
+>>>>
+>>>>>     done
+>>>>> diff --git a/automation/scripts/qemu-staticmem-arm64.sh
+>>>>> b/automation/scripts/qemu-staticmem-arm64.sh
+>>>>> new file mode 100755
+>>>>> index 0000000000..5b89a151aa
+>>>>> --- /dev/null
+>>>>> +++ b/automation/scripts/qemu-staticmem-arm64.sh
+>>>>> @@ -0,0 +1,114 @@
+>>>>> +#!/bin/bash
+>>>>> +
+>>>>> +base=(0x50000000 0x100000000)
+>>>>> +size=(0x10000000 0x10000000)
+>>>>
+>>>>   From the name, it is not clear what the base and size refers too.
+>>>> Looking a bit below, it seems to be referring to the domain memory.
+>>>> If so, I would suggest to comment and rename to "domu_{base, size}".
+>>>>
+>>>>> +
+>>>>> +set -ex
+>>>>> +
+>>>>> +apt-get -qy update
+>>>>> +apt-get -qy install --no-install-recommends u-boot-qemu \
+>>>>> +                                            u-boot-tools \
+>>>>> +                                            device-tree-compiler \
+>>>>> +                                            cpio \
+>>>>> +                                            curl \
+>>>>> +                                            busybox-static
+>>>>> +
+>>>>> +# DomU Busybox
+>>>>> +cd binaries
+>>>>> +mkdir -p initrd
+>>>>> +mkdir -p initrd/bin
+>>>>> +mkdir -p initrd/sbin
+>>>>> +mkdir -p initrd/etc
+>>>>> +mkdir -p initrd/dev
+>>>>> +mkdir -p initrd/proc
+>>>>> +mkdir -p initrd/sys
+>>>>> +mkdir -p initrd/lib
+>>>>> +mkdir -p initrd/var
+>>>>> +mkdir -p initrd/mnt
+>>>>> +cp /bin/busybox initrd/bin/busybox
+>>>>> +initrd/bin/busybox --install initrd/bin echo "#!/bin/sh
+>>>>> +
+>>>>> +mount -t proc proc /proc
+>>>>> +mount -t sysfs sysfs /sys
+>>>>> +mount -t devtmpfs devtmpfs /dev
+>>>>> +/bin/sh" > initrd/init
+>>>>> +chmod +x initrd/init
+>>>>> +cd initrd
+>>>>> +find . | cpio --create --format='newc' | gzip > ../initrd.cpio.gz
+>>>>> +cd ../..
+>>>>> +
+>>>>> +# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded curl
+>>>>> +-fsSLO
+>>>>> +https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
+>>>>> +
+>>>>> +./binaries/qemu-system-aarch64 -nographic \
+>>>>> +    -M virtualization=true \
+>>>>> +    -M virt \
+>>>>> +    -M virt,gic-version=2 \
+>>>>> +    -cpu cortex-a57 \
+>>>>> +    -smp 2 \
+>>>>> +    -m 8G \
+>>>>> +    -M dumpdtb=binaries/virt-gicv2.dtb
+>>>>> +
+>>>>> +#dtc -I dtb -O dts binaries/virt-gicv2.dtb >
+>>>>> +binaries/virt-gicv2.dts
+>>>>> +
+>>>>> +# ImageBuilder
+>>>>> +rm -rf imagebuilder
+>>>>> +git clone https://gitlab.com/ViryaOS/imagebuilder
+>>>>> +
+>>>>> +echo "MEMORY_START=\"0x40000000\"
+>>>>> +MEMORY_END=\"0x0200000000\"
+>>>>> +
+>>>>> +DEVICE_TREE=\"virt-gicv2.dtb\"
+>>>>> +
+>>>>> +XEN=\"xen-static_mem\"
+>>>>> +XEN_CMD=\"console=dtuart earlyprintk xsm=dummy\"
+>>>>
+>>>> AFAIK, earlyprintk is not an option for Xen on Arm (at least). It is
+>>>> also not clear why you need to pass xsm=dummy.
+>>>>
+>>>>> +
+>>>>> +NUM_DOMUS=1
+>>>>> +DOMU_MEM[0]=512
+>>>>> +DOMU_VCPUS[0]=1
+>>>>> +DOMU_KERNEL[0]=\"Image\"
+>>>>> +DOMU_RAMDISK[0]=\"initrd.cpio.gz\"
+>>>>> +DOMU_CMD[0]=\"earlyprintk console=ttyAMA0\"
+>>>>> +DOMU_STATIC_MEM[0]=\"${base[0]} ${size[0]} ${base[1]} ${size[1]}\"
+>>>>> +
+> 
+> You would like to add  DOMU_DIRECT_MAP[0] = 1 to enable direct-map.
 
-Also register callback_irq at per-vCPU event channel setup to trick
-toolstack to think the domain is enlightened.
+The imagebuilder configuration option DOMU_DIRECT_MAP defaults to 1.
 
-Suggested-by: "Roger Pau Monné" <roger.pau@citrix.com>
-Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
----
-CC: Juergen Gross <jgross@suse.com>
-CC: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-CC: Thomas Gleixner <tglx@linutronix.de>
-CC: Ingo Molnar <mingo@redhat.com>
-CC: Borislav Petkov <bp@alien8.de>
-CC: Dave Hansen <dave.hansen@linux.intel.com>
-CC: x86@kernel.org
-CC: "H. Peter Anvin" <hpa@zytor.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-CC: Jane Malalane <jane.malalane@citrix.com>
-CC: Maximilian Heyne <mheyne@amazon.de>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Colin Ian King <colin.king@intel.com>
-CC: xen-devel@lists.xenproject.org
----
- arch/x86/include/asm/xen/cpuid.h   |  2 ++
- arch/x86/include/asm/xen/events.h  |  1 +
- arch/x86/xen/enlighten_hvm.c       | 19 +++++++++++++++++--
- arch/x86/xen/suspend_hvm.c         | 20 +++++++++++++++++++-
- drivers/xen/events/events_base.c   | 32 ++++++++++++++++++++++++++++----
- include/xen/interface/hvm/hvm_op.h | 15 +++++++++++++++
- 6 files changed, 82 insertions(+), 7 deletions(-)
+But I could add DOMU_DIRECT_MAP[0]=1 in the script to make it clearer.
 
-diff --git a/arch/x86/include/asm/xen/cpuid.h b/arch/x86/include/asm/xen/cpuid.h
-index 78e667a31d6c..6daa9b0c8d11 100644
---- a/arch/x86/include/asm/xen/cpuid.h
-+++ b/arch/x86/include/asm/xen/cpuid.h
-@@ -107,6 +107,8 @@
-  * ID field from 8 to 15 bits, allowing to target APIC IDs up 32768.
-  */
- #define XEN_HVM_CPUID_EXT_DEST_ID      (1u << 5)
-+/* Per-vCPU event channel upcalls */
-+#define XEN_HVM_CPUID_UPCALL_VECTOR    (1u << 6)
- 
- /*
-  * Leaf 6 (0x40000x05)
-diff --git a/arch/x86/include/asm/xen/events.h b/arch/x86/include/asm/xen/events.h
-index 068d9b067c83..b2d86c761bf8 100644
---- a/arch/x86/include/asm/xen/events.h
-+++ b/arch/x86/include/asm/xen/events.h
-@@ -34,4 +34,5 @@ static inline bool xen_support_evtchn_rebind(void)
- 	return (!xen_hvm_domain() || xen_have_vector_callback);
- }
- 
-+extern bool xen_ack_upcall;
- #endif /* _ASM_X86_XEN_EVENTS_H */
-diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-index 8b71b1dd7639..847d1da46ff7 100644
---- a/arch/x86/xen/enlighten_hvm.c
-+++ b/arch/x86/xen/enlighten_hvm.c
-@@ -7,6 +7,7 @@
- 
- #include <xen/features.h>
- #include <xen/events.h>
-+#include <xen/interface/hvm/hvm_op.h>
- #include <xen/interface/memory.h>
- 
- #include <asm/apic.h>
-@@ -30,6 +31,9 @@
- 
- static unsigned long shared_info_pfn;
- 
-+__ro_after_init bool xen_ack_upcall;
-+EXPORT_SYMBOL_GPL(xen_ack_upcall);
-+
- void xen_hvm_init_shared_info(void)
- {
- 	struct xen_add_to_physmap xatp;
-@@ -125,6 +129,9 @@ DEFINE_IDTENTRY_SYSVEC(sysvec_xen_hvm_callback)
- {
- 	struct pt_regs *old_regs = set_irq_regs(regs);
- 
-+	if (xen_ack_upcall)
-+		ack_APIC_irq();
-+
- 	inc_irq_stat(irq_hv_callback_count);
- 
- 	xen_hvm_evtchn_do_upcall();
-@@ -168,6 +175,15 @@ static int xen_cpu_up_prepare_hvm(unsigned int cpu)
- 	if (!xen_have_vector_callback)
- 		return 0;
- 
-+	if (xen_ack_upcall) {
-+		xen_hvm_evtchn_upcall_vector_t op = {
-+			.vector = HYPERVISOR_CALLBACK_VECTOR,
-+			.vcpu = per_cpu(xen_vcpu_id, cpu),
-+		};
-+
-+		BUG_ON(HYPERVISOR_hvm_op(HVMOP_set_evtchn_upcall_vector, &op));
-+	}
-+
- 	if (xen_feature(XENFEAT_hvm_safe_pvclock))
- 		xen_setup_timer(cpu);
- 
-@@ -211,8 +227,7 @@ static void __init xen_hvm_guest_init(void)
- 
- 	xen_panic_handler_init();
- 
--	if (!no_vector_callback && xen_feature(XENFEAT_hvm_callback_vector))
--		xen_have_vector_callback = 1;
-+	xen_have_vector_callback = !no_vector_callback;
- 
- 	xen_hvm_smp_init();
- 	WARN_ON(xen_cpuhp_setup(xen_cpu_up_prepare_hvm, xen_cpu_dead_hvm));
-diff --git a/arch/x86/xen/suspend_hvm.c b/arch/x86/xen/suspend_hvm.c
-index 9d548b0c772f..be66e027ef28 100644
---- a/arch/x86/xen/suspend_hvm.c
-+++ b/arch/x86/xen/suspend_hvm.c
-@@ -5,6 +5,7 @@
- #include <xen/hvm.h>
- #include <xen/features.h>
- #include <xen/interface/features.h>
-+#include <xen/events.h>
- 
- #include "xen-ops.h"
- 
-@@ -14,6 +15,23 @@ void xen_hvm_post_suspend(int suspend_cancelled)
- 		xen_hvm_init_shared_info();
- 		xen_vcpu_restore();
- 	}
--	xen_setup_callback_vector();
-+	if (xen_ack_upcall) {
-+		unsigned int cpu;
-+
-+		for_each_online_cpu(cpu) {
-+			xen_hvm_evtchn_upcall_vector_t op = {
-+					.vector = HYPERVISOR_CALLBACK_VECTOR,
-+					.vcpu = per_cpu(xen_vcpu_id, cpu),
-+			};
-+
-+			BUG_ON(HYPERVISOR_hvm_op(HVMOP_set_evtchn_upcall_vector,
-+						 &op));
-+			/* Trick toolstack to think we are enlightened. */
-+			if (!cpu)
-+				BUG_ON(xen_set_callback_via(1));
-+		}
-+	} else {
-+		xen_setup_callback_vector();
-+	}
- 	xen_unplug_emulated_devices();
- }
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index 46d9295d9a6e..a2420b66e735 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -48,6 +48,7 @@
- #include <asm/xen/pci.h>
- #endif
- #include <asm/sync_bitops.h>
-+#include <asm/xen/cpuid.h>
- #include <asm/xen/hypercall.h>
- #include <asm/xen/hypervisor.h>
- #include <xen/page.h>
-@@ -2200,6 +2201,29 @@ void xen_setup_callback_vector(void)
- 	}
- }
- 
-+/* Setup per-vCPU vector-type callbacks and trick toolstack to think
-+ * we are enlightened. If this setup is unavailable, fallback to the
-+ * global vector-type callback. */
-+static __init void xen_setup_upcall_vector(void)
-+{
-+	xen_hvm_evtchn_upcall_vector_t op = {
-+		.vector = HYPERVISOR_CALLBACK_VECTOR,
-+		.vcpu = per_cpu(xen_vcpu_id, 0),
-+	};
-+
-+	if (!xen_have_vector_callback)
-+		return;
-+
-+	if ((cpuid_eax(xen_cpuid_base() + 4) & XEN_HVM_CPUID_UPCALL_VECTOR) &&
-+	    !HYPERVISOR_hvm_op(HVMOP_set_evtchn_upcall_vector, &op) &&
-+	    !xen_set_callback_via(1))
-+		xen_ack_upcall = true;
-+	else if (xen_feature(XENFEAT_hvm_callback_vector))
-+		xen_setup_callback_vector();
-+	else
-+		xen_have_vector_callback = 0;
-+}
-+
- static __init void xen_alloc_callback_vector(void)
- {
- 	if (!xen_have_vector_callback)
-@@ -2210,6 +2234,7 @@ static __init void xen_alloc_callback_vector(void)
- }
- #else
- void xen_setup_callback_vector(void) {}
-+static inline void xen_setup_upcall_vector(void) {}
- static inline void xen_alloc_callback_vector(void) {}
- #endif
- 
-@@ -2271,10 +2296,9 @@ void __init xen_init_IRQ(void)
- 		if (xen_initial_domain())
- 			pci_xen_initial_domain();
- 	}
--	if (xen_feature(XENFEAT_hvm_callback_vector)) {
--		xen_setup_callback_vector();
--		xen_alloc_callback_vector();
--	}
-+	xen_setup_upcall_vector();
-+	xen_alloc_callback_vector();
-+
- 
- 	if (xen_hvm_domain()) {
- 		native_init_IRQ();
-diff --git a/include/xen/interface/hvm/hvm_op.h b/include/xen/interface/hvm/hvm_op.h
-index f3097e79bb03..e714d8b6ef89 100644
---- a/include/xen/interface/hvm/hvm_op.h
-+++ b/include/xen/interface/hvm/hvm_op.h
-@@ -46,4 +46,19 @@ struct xen_hvm_get_mem_type {
- };
- DEFINE_GUEST_HANDLE_STRUCT(xen_hvm_get_mem_type);
- 
-+/*
-+ * HVMOP_set_evtchn_upcall_vector: Set a <vector> that should be used for event
-+ *                                 channel upcalls on the specified <vcpu>. If set,
-+ *                                 this vector will be used in preference to the
-+ *                                 domain global callback via (see
-+ *                                 HVM_PARAM_CALLBACK_IRQ).
-+ */
-+#define HVMOP_set_evtchn_upcall_vector 23
-+struct xen_hvm_evtchn_upcall_vector {
-+    uint32_t vcpu;
-+    uint8_t vector;
-+};
-+typedef struct xen_hvm_evtchn_upcall_vector xen_hvm_evtchn_upcall_vector_t;
-+DEFINE_GUEST_HANDLE_STRUCT(xen_hvm_evtchn_upcall_vector_t);
-+
- #endif /* __XEN_PUBLIC_HVM_HVM_OP_H__ */
--- 
-2.11.0
+>>>>> +UBOOT_SOURCE=\"boot.source\"
+>>>>> +UBOOT_SCRIPT=\"boot.scr\"" > binaries/imagebuilder_config
+>>>>> +
+>>>>> +bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c
+>>>>> binaries/imagebuilder_config
+>>>>> +
+>>>>> +# Run the test
+>>>>> +rm -f qemu-staticmem.serial
+>>>>> +set +e
+>>>>> +echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source
+>>>>> +0x40000000"| \ timeout -k 1 60 ./binaries/qemu-system-aarch64 -
+>> nographic \
+>>>>> +    -M virtualization=true \
+>>>>> +    -M virt \
+>>>>> +    -M virt,gic-version=2 \
+>>>>> +    -cpu cortex-a57 \
+>>>>> +    -smp 2 \
+>>>>> +    -m 8G \
+>>>>> +    -no-reboot \
+>>>>> +    -device virtio-net-pci,netdev=vnet0 -netdev
+>>>>> +user,id=vnet0,tftp=binaries
+>>>>> \
+>>>>> +    -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin \
+>>>>> +    -dtb ./binaries/virt-gicv2.dtb \
+>>>>> +    |& tee qemu-staticmem.serial
+>>>>> +
+>>>>> +set -e
+>>>>
+>>>> A lot of the code above is duplicated from qemu-smoke-arm64.sh. I
+>>>> think it would be better to consolidate in a single script. Looking
+>>>> briefly throught the existing scripts, it looks like it is possible
+>>>> to pass arguments (see qemu-smoke-x86-64.sh).
+>>>
+>>> One idea would be to make the script common and "source" a second
+>>> script or config file with just the ImageBuilder configuration because
+>>> it looks like it is the only thing different.
+>>>
+>>>
+>>>>> +
+>>>>> +(grep -q "Xen dom0less mode detected" qemu-staticmem.serial) ||
+>>>>> +exit 1
+>>>>> +
+>>>>> +for ((i=0; i<${#base[@]}; i++))
+>>>>> +do
+>>>>> +    start="$(printf "0x%016x" ${base[$i]})"
+>>>>> +    end="$(printf "0x%016x" $((${base[$i]} + ${size[$i]} - 1)))"
+>>>>> +    grep -q "node   0: \[mem ${start}-${end}\]" qemu-staticmem.serial
+>>>>> +    if test $? -eq 1
+>>>>> +    then
+>>>>> +        exit 1
+>>>>> +    fi
+>>>>> +done
+>>>>
+>>>> Please add a comment on top to explain what this is meant to do.
+>>>> However, I think we should avoid relying on output that we have
+>>>> written ourself. IOW, relying on Xen/Linux to always write the same
+>>>> message is risky because they can change at any time.
+>>>
+>>> Especially if we make the script common, then we could just rely on
+>>> the existing check to see if the guest started correctly (no special
+>>> check for static memory).
+>>
+>> In this case, how the test will verify that the static memory configuration has
+>> been taken into account and has not just been ignored?
+>>
+> 
+> If only statically allocated memory is enabled, guest memory address will still be mapped
+> to GUEST_RAM_BASE(0x40000000)
+> 
+>>>>> +
+>>>>> +(grep -q "BusyBox" qemu-staticmem.serial) || exit 1
+>>>
+>>
+>> --
+>> Xenia
+> 
+> ---
+> Cheers,
+> Penny Zheng
+> 
+> 
+> 
+> 
 
 
