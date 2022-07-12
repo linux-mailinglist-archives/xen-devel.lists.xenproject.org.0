@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1C32571AE1
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 15:13:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.365697.595984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 290F0571B10
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 15:23:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.365706.595998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBFhP-0005HY-AQ; Tue, 12 Jul 2022 13:13:11 +0000
+	id 1oBFqW-0006w5-9u; Tue, 12 Jul 2022 13:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 365697.595984; Tue, 12 Jul 2022 13:13:11 +0000
+Received: by outflank-mailman (output) from mailman id 365706.595998; Tue, 12 Jul 2022 13:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBFhP-0005Ej-68; Tue, 12 Jul 2022 13:13:11 +0000
-Received: by outflank-mailman (input) for mailman id 365697;
- Tue, 12 Jul 2022 13:13:10 +0000
+	id 1oBFqW-0006u7-6s; Tue, 12 Jul 2022 13:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 365706;
+ Tue, 12 Jul 2022 13:22:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=n9Yz=XR=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oBFhN-0005Ed-VS
- for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 13:13:10 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60059.outbound.protection.outlook.com [40.107.6.59])
+ (envelope-from <SRS0=DJCY=XR=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1oBFqT-0006u0-QI
+ for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 13:22:34 +0000
+Received: from sonic301-21.consmr.mail.gq1.yahoo.com
+ (sonic301-21.consmr.mail.gq1.yahoo.com [98.137.64.147])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f3258bd-01e4-11ed-bd2d-47488cf2e6aa;
- Tue, 12 Jul 2022 15:13:08 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR0401MB2479.eurprd04.prod.outlook.com (2603:10a6:800:53::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Tue, 12 Jul
- 2022 13:13:05 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5417.025; Tue, 12 Jul 2022
- 13:13:05 +0000
+ id ad6cb6de-01e5-11ed-bd2d-47488cf2e6aa;
+ Tue, 12 Jul 2022 15:22:31 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic301.consmr.mail.gq1.yahoo.com with HTTP; Tue, 12 Jul 2022 13:22:28 +0000
+Received: by hermes--production-ne1-7864dcfd54-hcklt (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 0acdc84b3b441651254eb93653e367b2; 
+ Tue, 12 Jul 2022 13:22:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,238 +42,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f3258bd-01e4-11ed-bd2d-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ychrbz4pRLxrp/F1ZpQLghX4tARWe1GgqsH44HE5uRAUnUOZta+a3VoQh4FVKwYLjg/YkU36THOG/PlMMPTVEre5k15d3cxi7sDZxI0z3N9SMx+1ibABCvBqZ23irLqeMun19bXOR7pyJ+idDjN1ABReLAKK9YywVfNbn72z9LRCnXjtRcuKrfc2bZ52g6BOlNkscmLiYnfUgHtCgKWFUGKYgPTYuItucHF4vde6mQVdsvNmBArkS7CncePL4CeMu1HYnwoMrzNFQYRfn2C5JWaarV5mpGR++m/GHmU9nPvm1vYoh6qb69TuIPg55z/R7OC4bXit85J8jO0hSso4bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ylGWmcAhIhFVUisaiNsJWg9JoeiMyxWeNyKTWs6XXZI=;
- b=PyHeaBuWERj/NvqxmRLhbPeQlSHGRBaHy5R/TrdHC3E3lQI6n0CLpIBcQimesgzwZWX5E/d1FuVK8ObKZH5FO7zkxDYweQMizCrbjpBnN35yW1uAsnCpT9zDKSfM9T0Szyd/L9uXI2ybGerkHyojqqTUrG+otDfglCzvTU9iQsFCY+s7cV87GKGQO4TMQwuSiLQmWOAfDlToOBgJzv7sHe1YiAj5dvK/SfhJWDchPlVLuvIHbycVAe1IHdFbaIVDqF/rsGGCw9sWk385RosRIk176hgfbdRHL9lSNSZrZPLd6L1VvH/e/39UmBMFNreYVJ4pBICQsmyv3P3PxxC9uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ylGWmcAhIhFVUisaiNsJWg9JoeiMyxWeNyKTWs6XXZI=;
- b=jxWM22cUga7L+bb0bQ1IIRpTYAoxTQSMSYKk6xaIEJLQEEHbRjFgOqk/f/t0kpktNQh6sfybUxDKLJ6gjmt2QFOJff+JMZ26e9R2JC1Q4om4sF0X8oNFxfcLrW1p4z4/azhA9vdADe4uujRs+7XDNmw69+lC3lrT9hmrlXgAxvti/P4Q6OEJcGabK83t6IB0bv3AQkujDmGA+LmRex0BagXdCR93zx/ZCPtBzaVnSLhuDCy3RyxOTEOdoE1whpikHAhPLgCptIcj6B73BIyfSDR/ZvxWnHia9TYEAtRjwGfte0e565srUNmq8v7OtxnKQvoqfHsqWbUN2CtV0FJw5A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <444a540a-bf0f-f743-3b01-b65210b49361@suse.com>
-Date: Tue, 12 Jul 2022 15:13:04 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 3/9] xen/x86: move generically usable NUMA code from
- x86 to common
-Content-Language: en-US
-To: Wei Chen <wei.chen@arm.com>
-Cc: nd@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20220708145424.1848572-1-wei.chen@arm.com>
- <20220708145424.1848572-4-wei.chen@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220708145424.1848572-4-wei.chen@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0104.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: ad6cb6de-01e5-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657632148; bh=xJ9Sz+y9USDgbyuOjTjsV8ceUXxOwGkS0zUBwjj6SsA=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=LWhmvy+Zc8nU+HFfil/PAT6rBbwGh5tiTFG9m6zxb4Qwi42br+xJ9gDl80Ue+4FJTrJEbsJJoNrlNKDPAENMIJpXVBErt0sQQtSUuOhMCk4c/gc8iH9F/AS5x3AYdMJtQKhDaIsS2ikZ9y50UjERFMGZgj7eOR7Nuxp1SpnFlsLiw8+mkErRuc5cYwK7iiaZ94T53an6dQb0HCS/xI4JGpj6CL4tqFKMx1MH/VSJz6Ff5Djy8m0lNONJbLhHWYX0/yd7bxUxLKACntKQIJfnQgYLMAkZTgu+fxsd1aHsVHDOGQynO0465Rg2tSkX/lQZmOhJwP1uF4cQpt8VoY+wCg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657632148; bh=nyuhStRwJvNRCLIVsXYVTfe3U6CzGzAAY+XfayCyvK0=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=R5vyqjTR/YlCaaJzHfA5HVtqHRHhSuBJKuoNdy7wsGPMSlrxQocfFIa1tbYlqMwyZkwFFfH8CzR1YMZn4psKgs/l4ai71o8D7Mo7kt4c+Z5WI/l80C3cC+9dh93k2Ri3vCUyKZm26DcJcTJxbcH7xfXcEfe2CbZm9SrtX/i0A7HmAefGbMFYeMC2un2Aj3BC7CvKxnU97fF6Y55KI4ahmxxNA/nYPPaqyWXdqUOpfBbWg9Laj1nf+ppdt6owumSxwMiao6RinFM2rvl6ev2ABZj/TqJvxzZlRvWQrDipwOhyJ+nktnBnkL1hqIFOz2/95Sy88I/xnQKVlvGq8XLzaw==
+X-YMail-OSG: A9CSTc8VM1la8yPPD6h918B78emmpPO3796POtupixScIxrK8Jg1kT.1JwjHQIq
+ mf9c5mDUph3UkBHfYQJjal9NOkVqXozoIRVzyw7g1_EE739ZQN9UbmKn4jGVbW0g0BshZX6W8nex
+ i6wH5SUUY8AM2J7Rk4DScsfepXyidvRmqGLHzQemXdDvLHagSLIkgO7V_HHlGSWyeVHYLUUTIcL8
+ M2pfEuXpsQxDf4a0_jn1O3a_XJcaQ1g8pJk2wRydZWDwiyf29TMK7twax32y1BpH6vnSBcjfXwHC
+ L72pl2G5Nm.f6Nf8wbNNJLNSh5BYkat9T9X.a3po3d02N3RKWpg9aMNkqP63FMVKXZ77ZSZ8RCyC
+ bf_stfpr6ub5jPdV5LV65TCptl1cr9__kJ.cHCURCfTmUrTcI0ZMuAA9P879HRNJAI1L8lBVg7ye
+ Y.v9nh9_5wy52BRPEL62sUCXpU0h9tG7uCSy7XGNpP3KXEbw1b.fCsQPL8_YhNbWhk7yYkLOfYJ.
+ ZQCt493i_WwsO9LAgujug9xojEy0Vd5YK2hV0d3hTwphWt9Kn7cWrBPB_wqTzlSIS0VuNQV5SHm6
+ tcKZQnFTeRQ5WQ6MfVRf008uPg4ulzaWp3oqZEjNqK8GoQ7YpAoPzs6GLhtbiSOBiIHRjqnZtTZk
+ iEj4sIQeNERCdMn2XTnFVc1bPs0_SerYYRn7qrryTUVLw0oZRgOruij2ZVxrINjsApCUeoRHA2M7
+ OwHUUWGsgl_Z8LKIWAu2JhSo9vNZdCN1eF9sjTQEtook7pTgsdEaaULjhfRjOykADCLWAA1HkzUG
+ ii5DXnXgqn4B4RW_jJlQejGg8lm34OMiRAEfxq95YOJA7XCtfm7bLaR1OpkAm3QCFUvNGNRYn1ib
+ PxKErqn_vWr.w7k3C5U_tv5G4kKAda_Rz7fsDV1WZnYq.l4ZcYmAROrPv_f6T4vDw_f.7LseY2vO
+ mTMrm7idkLj3ZMHYWshLBfpr2gE5w26qaTf8Wpdf13sh2CKC6EQEo.M7q2HDnFaV7flHdlGVpbaX
+ 2CxREPKjq425Crqx25IYCOZviCBcsNv9eFRy0Ozf908FbOyP9g7bNAjSZYwWrfJABKpgXR4.coTs
+ ixuyun9ImbQqA.RbhJGr.lKmyTahc3etbfPOHw6hrmhbuXnvh0GNfh.tvFvfcVmg8F9t02JLULeJ
+ TtL9cjDQngPj6aQUv3.u4RL.zpts9zKVPNz1qxvO7ZNypZ3_X9Brnm4kdiChoT.cYSyz4Q22tpeT
+ 45STrU0_Z_xYRMFVPlCM21EpLhxwBxWLFWMpG7ZqFRZ9HKNlRWq2bWVI9dssq8DvGf4X6wUuKPAy
+ _WbUaLv1PVuodRpHtbnkR7ZWHcvBpOlm5APPbq5V_ZA8oBifgAI.Aiw4o8Lb10s3rAfzg_5Sr_0P
+ ozmfzOX8Xui1L.bNEjTkbsMpl4W3A4jdrlxalaBubdVIQFaHQPr9D2UIwP70PVXetah982UBuvdP
+ mjZaO0NCx1ym2LrO6guHOZdSR7KmYpJyokL63YPBS069B.cbrugmmncDF728SddgFg8meiLFnQLb
+ 8S4TiEjfdVD6CP2.nY8V63uRpWt4A8NFHFd4T169Tu_yMQmiwX_ieny9WX4EHUNqBU9_sTqxTWwc
+ 5DJedIQiM_TlAQgW__42T4naUe7njtLNd.NsytgvmpTXHPENtcrzekEsNms0TL5IhX7HIfIKDwPS
+ uR85l2q7HhGvxamSJXzaJ5LemWIahqtsTESshNXOg981OtTZwDD4n9KdofZ2gs6svtyNzT9Blzvq
+ 4GLenke97D003tDZFVC9pctYSO3f7zx.TuFQdMDUasmOIp_oKgSh2E2oiO5fC.ODMhNkNqepZA.9
+ p60qEL_fN.02r3WurZLVmf8gETF1gFhDWiTlHdcdv5r6Txp0reuvUmffiUwRfo8TUpiaNZVrf87U
+ mM7.zgjoIecaIWaW0zQqYbx4v1isFWPFq1xmB1iu2dIYqnxmjPUOWSeveeF9hKom25OHLqfykKAz
+ iLvpYFkGBTT8dYs_aLv9yolJC.Mg2bpjuAZH10V9JEMAzEi2jL4OgqEAQsd7WvkhwLlO.fUVidLN
+ l8HEdkyKMbWyEpRBLc9DuuD2yMsp0foCXuySjUg65gvYCM1C9fXUXy70HquI03RMIoAoiq5Bfsmt
+ LiYjW7lYGYRrCuRFwZDulNQbHdvOQ.3gtR5YUboFBwCTxSXYGAy3bABlABpBwG4hKMLLEs1oYit.
+ Y6FAfWvz_H..6zQ--
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <8011dff1-6551-898f-7e37-38ede106e2f4@netscape.net>
+Date: Tue, 12 Jul 2022 09:22:24 -0400
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e022b0f0-03b5-4ea6-dfcc-08da6408420c
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2479:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Ij2dbgQYqBmADOHjaY1LUZttrH6C9MdJLhZbEIMGhg/myto6Oq4pTJ21svQk+ViIeL4a8qKjjIJk91y2qULAuXBVNKy9sVh7i0xfxmwwrW5mqJEH5fX8jm/ZEH3t67y8DFlf6q/YIkRRYSOE55+3XBdmaK4jXZ6a96FHzB06CdJcz3EktgaAfBJaGJji5br2xq7VtdzakzcjX3ehuuzUe3mzvcadeIQKXqdlM4vl9d5VFrtkLl8GswUCu4TH/qo03Ub1Vr4QkZDWhqLXnCEOZX9wndb/XQQ+Rk41MWFcbvhkmkM+aLq3sMDKgAphZErxYzU+3UaLCK0znNR1vq+zgvPOgmQG5cs5AeWmQ030IEfHhnx1kOEKN5ML+CDjTujkrGMLKwlFwdLWxaDAqFjWSdYN4FpCRX1D6tmkWwRi5JuACxe9TrAWwsRSq//esSWiZ+Xim6IH7IwbbSaocWdYXlenzaqk09pXVnoP58pSm1nvZLmNihwz4FD3AY0eN0bwslbKbdHeXdUjZAGlkDo/pK9ktrs6UmD6xnTff4Bt2JwTCJtJM+P2WRgiGbXZXqHxxBKRmACmbvuldgI+RwlN6P8UI4/NVA9Ag2z8cLVaUolTsYpYNOrcNzUYHqghqOb15TftMiOSpW2VDFKeHCqNKliM6p+zXeQgIsFiZ+rSQez/HYqffhFU2N8AB0iFweXm0uFxt3z09eNPy4h16Aeh5vwhN9Elu3FCdwCSuoandMo4OSsWyQLj7vdCoQ9TvSJC/AVUMsb2gSq24S2v7sNclP82grVdMzz0mlmkOKJHI4MQFP9GXdXegG6F8+F916Gh6WWGiBrtWcpMfBWYpE/L3aR+Vb+nd8hrgGOFG8czKf0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(346002)(39860400002)(136003)(366004)(396003)(6486002)(31686004)(478600001)(66476007)(8676002)(83380400001)(2906002)(36756003)(4326008)(316002)(8936002)(41300700001)(54906003)(5660300002)(6916009)(186003)(26005)(53546011)(6506007)(2616005)(6512007)(86362001)(31696002)(66946007)(66556008)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1lHOGVmT0FzZWZEcUF0UHA0by9lVFhXSU5mQjZPV3F1cHE5VXh4SDJseTls?=
- =?utf-8?B?OGZiYWlseWNsVi9YQ0JSZ1hFb2pmWVVyMXMyZVJmaEViOVB6WFoybFhRSjMw?=
- =?utf-8?B?VmFwKzF6K0h4ZHRVNTlrRUZCWXVyRWVnQlQ3cFRBbTRWSjVCUDBIbUNXVGlw?=
- =?utf-8?B?NnM5WHN5WllZeEFhcmRCNDJNNXJQNDBkWXBnSmIyMnVic1pMbC9yOXk4Tlg5?=
- =?utf-8?B?UUxkQ3NWZzNyYzh1V1NMNGc2QXlTOTB2Wlh3QzJrRXoxOFZ5Z2taSCs5Rk9u?=
- =?utf-8?B?VG9XTnlsNnk5NEpnYTN2QTVlYmltaGxBcmtFZnQ5ZFViRC9uY3J2QzlvWmF0?=
- =?utf-8?B?UVJJb2RhSS9xaWU1MnJFOTZzKy8xcHNFYitwS1F5Vm9xRnpxWUJta0E5a1g0?=
- =?utf-8?B?ckd1WjlqWnN3dWhxVi9xOHhTQWFkNU5ralJHc3FQTmxNc09xNHFXMGhWRmdT?=
- =?utf-8?B?b25STS9oU2UwWnpHK2NhZldBYkhTNlJZbVJZcHhIai81dG5UTzExRGhHMi9k?=
- =?utf-8?B?cXJrY1MzYUdncitiNEVhMndqcVVFLzhqYVU4eTExQVJ5Y3laTHVsVE9NZEFt?=
- =?utf-8?B?UDVRZStGeVN5Y29YUFV3cTU2djVQRkUrRzZ3VFZsazNoV3pIR2NZZDduWUUr?=
- =?utf-8?B?TVBqWnVNMmNaM2w0eG5MQWlZODJBRWtEbEllME5ITUtmZjF1SjFsK2VBWnZK?=
- =?utf-8?B?dlRnNWN2ZWxwRzRGd2ZkSzBGWlAyZE9sYnpQeWQwN0h2TnVtQi9nUHNLMjZW?=
- =?utf-8?B?T2haeGY5eGJZQ0V3cnVITVhEa01WNW1FZ3dDVk44Q2hjMlR6NkpLRTljcU55?=
- =?utf-8?B?bS9QSlpQM3laRUZwL2E0NitObFRmaHZQSjNqdXpONGpvK3VUN09IUUpzc2Uv?=
- =?utf-8?B?eW0wdHJrMEhlbWkzMzFkaXN6Ymw2M25UanExbkVkSDN0NlZpcTA3eThiUmJU?=
- =?utf-8?B?MzlCZkN5N1l5emJjVXhXZXVSVncvZExOTVpRU3hYcFU5dS9vNGVWT09BWDRI?=
- =?utf-8?B?YWtFYVFZM0piRVBtYTg5Wlo2V3pEZWswQVkyYjE5bFppN3VONXB4emZiYVBD?=
- =?utf-8?B?WW1iYURMa2tDeUJPRmFYRDNKQkU5OEY3VzRYZjRRSmF4WFlaYjVkTVpjZHNz?=
- =?utf-8?B?a2g3Qzc2VFNRWkR0RGxaOWQzekR0NXlhWmtjTXRKcEIvRk40WjR0cW9RdG1S?=
- =?utf-8?B?WFVDZ2Y5allMY2gwZHM0dlUxZFJuL2ZqNDVPQ3lkY214V3BCU3ZGSktvSnJZ?=
- =?utf-8?B?N0wyYW52Um8xRExJRFJORWVGVEJNWUFCSzl1bHJRQW5HVk1ZNi85UGE4bzk2?=
- =?utf-8?B?c2xvL3I0RU4rV2VGeVZsNVlCRERaVGdZTjVhdTIxazJBZzNZL1U1eUVJbU4z?=
- =?utf-8?B?Y1lnU1ZNalJsMGNRVmxRSkJ4bE92WkkvaDBpRGIwZEJMRUtsZDEwR2dpVEht?=
- =?utf-8?B?QkIvNHRNUi91OGd2RjdVYk05VEMwSFNpMkd4enhQWVZHWXJCeEtNMklTMHBM?=
- =?utf-8?B?YWhvRUpSUEthZDY0dGtGMlZycldtS1ZPY1dQNk5LQ3JkK2dLZlJjWWMreWtm?=
- =?utf-8?B?bmZIN3h3MVpJVXZRL1ZENlpJZUlTbkVlcU5KQ2IvMHRBajAyQ1ZsN2s5ZGYy?=
- =?utf-8?B?d1NYUTZEenVMUWtKWmI2LzVDb2VuUDlYN2FLMUhUbDdMalJkT25idU5Sd012?=
- =?utf-8?B?VG12WEVBYmNhcjRwaEs4djBvd2N6OFdXaWl5VTcxbDkvTWtIRGUwYVhDR0NW?=
- =?utf-8?B?eU9SN2l1MkZLeVovcDNEVnV1eDJzeHEyMmhKUStKSWh3OG1wVXNMa2dqQ3c2?=
- =?utf-8?B?VzBhYjNGZnExVXh5Q3JRUzRJRmdiWXo3NUZlajN6K1pGeGhPTWNsSVFRbVF1?=
- =?utf-8?B?Z0xXTW5ZcXpHSTZEZTYyOWhEYW5jMVNTcExqVmVKcDh0MU9aZFZianFzZjlK?=
- =?utf-8?B?SURwSkJ2M1F1b2l3MmdHa2JkL201QmNiZk5yM1gvSVhyV1B0d3A4eUVINkZI?=
- =?utf-8?B?Z0pUbjFrcHJpQWlmNVBxMUY2SnU2bFdsVFVPWXJUYnhHWnJBeWRjeUZGempk?=
- =?utf-8?B?cnIwRG1sbHQwaVM4TytvQUhFNER5QWlpWnpOQXVxNjdrS1B0M1NUOWNqNE5m?=
- =?utf-8?Q?M8lQTCqFIpjVRIuV6aw0ZHzZJ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e022b0f0-03b5-4ea6-dfcc-08da6408420c
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 13:13:05.8252
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q0PFsUxn9h0MHJx7lreQ2DCq11pNBapxIp0vWevqCrZjH45j7ST/EGwSbWgIy34CZUwy8Y0ibhdjN78R5i3bZw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2479
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] x86/PAT: have pat_enabled() properly reflect state when
+ running on e.g. Xen
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Lutomirski <luto@kernel.org>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>, Borislav Petkov <bp@alien8.de>
+References: <9385fa60-fa5d-f559-a137-6608408f88b0@suse.com>
+ <YsRTAGI2PhfZ5V7M@zn.tnic> <016d281b-7e40-f1bd-66ee-c19c3cc56efe@suse.com>
+ <YsRjX/U1XN8rq+8u@zn.tnic>
+ <4e099e2d-e429-252b-ceeb-678066d85e61@netscape.net>
+ <aa8f99dc-e622-398e-1a68-6b060497e4b3@suse.com>
+ <d49e87a0-417d-194d-daa1-952f707f096c@netscape.net>
+ <6afa42fd-469d-5b08-1688-5af8a3c9d8fa@suse.com>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+In-Reply-To: <6afa42fd-469d-5b08-1688-5af8a3c9d8fa@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On 08.07.2022 16:54, Wei Chen wrote:
-> --- /dev/null
-> +++ b/xen/common/numa.c
-> @@ -0,0 +1,439 @@
-> +/*
-> + * Generic VM initialization for NUMA setups.
-> + * Copyright 2002,2003 Andi Kleen, SuSE Labs.
-> + * Adapted for Xen: Ryan Harper <ryanh@us.ibm.com>
-> + */
-> +
-> +#include <xen/init.h>
-> +#include <xen/keyhandler.h>
-> +#include <xen/mm.h>
-> +#include <xen/nodemask.h>
-> +#include <xen/numa.h>
-> +#include <xen/param.h>
-> +#include <xen/sched.h>
-> +#include <xen/softirq.h>
-> +#include <asm/acpi.h>
+On 7/12/2022 2:04 AM, Jan Beulich wrote:
+> On 11.07.2022 19:41, Chuck Zmudzinski wrote:
+> > Moreover... (please move to the bottom of the code snippet
+> > for more information about my tests in the Xen PV environment...)
+> > 
+> > void init_cache_modes(void)
+> > {
+> >     u64 pat = 0;
+> > 
+> >     if (pat_cm_initialized)
+> >         return;
+> > 
+> >     if (boot_cpu_has(X86_FEATURE_PAT)) {
+> >         /*
+> >          * CPU supports PAT. Set PAT table to be consistent with
+> >          * PAT MSR. This case supports "nopat" boot option, and
+> >          * virtual machine environments which support PAT without
+> >          * MTRRs. In specific, Xen has unique setup to PAT MSR.
+> >          *
+> >          * If PAT MSR returns 0, it is considered invalid and emulates
+> >          * as No PAT.
+> >          */
+> >         rdmsrl(MSR_IA32_CR_PAT, pat);
+> >     }
+> > 
+> >     if (!pat) {
+> >         /*
+> >          * No PAT. Emulate the PAT table that corresponds to the two
+> >          * cache bits, PWT (Write Through) and PCD (Cache Disable).
+> >          * This setup is also the same as the BIOS default setup.
+> >          *
+> >          * PTE encoding:
+> >          *
+> >          *       PCD
+> >          *       |PWT  PAT
+> >          *       ||    slot
+> >          *       00    0    WB : _PAGE_CACHE_MODE_WB
+> >          *       01    1    WT : _PAGE_CACHE_MODE_WT
+> >          *       10    2    UC-: _PAGE_CACHE_MODE_UC_MINUS
+> >          *       11    3    UC : _PAGE_CACHE_MODE_UC
+> >          *
+> >          * NOTE: When WC or WP is used, it is redirected to UC- per
+> >          * the default setup in __cachemode2pte_tbl[].
+> >          */
+> >         pat = PAT(0, WB) | PAT(1, WT) | PAT(2, UC_MINUS) | PAT(3, UC) |
+> >               PAT(4, WB) | PAT(5, WT) | PAT(6, UC_MINUS) | PAT(7, UC);
+> >     }
+> > 
+> >     else if (!pat_bp_enabled) {
+> >         /*
+> >          * In some environments, specifically Xen PV, PAT
+> >          * initialization is skipped because MTRRs are
+> >          * disabled even though PAT is available. In such
+> >          * environments, set PAT to initialized and enabled to
+> >          * correctly indicate to callers of pat_enabled() that
+> >          * PAT is available and prevent PAT from being disabled.
+> >          */
+> >         pat_bp_enabled = true;
+> >         pr_info("x86/PAT: PAT enabled by init_cache_modes\n");
+> >     }
+> > 
+> >     __init_cache_modes(pat);
+> > }
+> > 
+> > This function, patched with the extra 'else if' block, fixes the
+> > regression on my Xen worksatation, and the pr_info message
+> > "x86/PAT: PAT enabled by init_cache_modes" appears in the logs
+> > when running this patched kernel in my Xen Dom0. This means
+> > that in the Xen PV environment on my Xen Dom0 workstation,
+> > rdmsrl(MSR_IA32_CR_PAT, pat) successfully tested for the presence
+> > of PAT on the virtual CPU that Xen exposed to the Linux kernel on my
+> > Xen Dom0 workstation. At least that is what I think my tests prove.
+> > 
+> > So why is this not a valid way to test for the existence of
+> > PAT in the Xen PV environment? Are the existing comments
+> > in init_cache_modes() about supporting both the case when
+> > the "nopat" boot option is set and the specific case of Xen and
+> > MTRR disabled wrong? My testing confirms those comments are
+> > correct.
+>
+> At the very least this ignores the possible "nopat" an admin may
+> have passed to the kernel.
 
-Isn't the goal for the now common code to not be dependent upon ACPI?
+I realize that. The patch I proposed here only fixes the regression. It
+would be easy to also modify the patch to also observe the 'nopat"
+setting. I think your patch had a force_pat_disable local variable that
+is set if pat is disabled by the administrator with "nopat." With that
+variable available, modifying the patch so in init_cache_modes we have:
 
-> +struct node_data node_data[MAX_NUMNODES];
-> +
-> +/* Mapping from pdx to node id */
-> +int memnode_shift;
-> +static typeof(*memnodemap) _memnodemap[64];
-> +unsigned long memnodemapsize;
-> +u8 *memnodemap;
+     if (!pat || force_pat_disable) {
+         /*
+          * No PAT. Emulate the PAT table that corresponds to the two
 
-For code moved, please switch to (in this case) uint8_t. I'm on the
-edge of asking to go further and
-- also use __read_mostly for some / all of these,
-- make memnode_shift unsigned int (sadly this looks to require more
-  adjustments, even if negative shift counts are meaningless),
-- convert from plain int to unsigned int elsewhere as appropriate,
-- add const where appropriate / possible.
+Instead of:
 
-> +nodeid_t cpu_to_node[NR_CPUS] __read_mostly = {
-> +    [0 ... NR_CPUS-1] = NUMA_NO_NODE
-> +};
-> +
-> +cpumask_t node_to_cpumask[MAX_NUMNODES] __read_mostly;
+     if (!pat) {
+         /*
+          * No PAT. Emulate the PAT table that corresponds to the two
 
-For these two please put __read_mostly into its more conventional
-place (right after the type).
+would cause the kernel to respect the "nopat" setting by the administrator
+in the Xen PV Dom0 environment.
 
-> +nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
-> +
-> +enum numa_mode numa_status;
+I agree this needs to be fixed up, because currently the code is very
+confusing and the current variable names and function names do not
+always accurately describe what they actually do in the code. That is
+why I am working on a patch to do some re-factoring, which only consists
+of function and variable name changes and comment changes to fix
+the places where the comments in the code are misleading or incomplete.
 
-This should probably have been __read_mostly already in the earlier
-patch introducing it.
+I think perhaps the most misnamed variable here is the  local
+variable pat_disabled in memtypes.c and the most misnamed function is the
+pat_disable function in memtypes.c. They should be named pat_init_disabled
+and pat_init_disable, respectively, because they do not really disable
+PAT in
+the code but only prevent execution of the pat_init function. That
+leaves open
+the possibility for PAT to be enabled by init_cache_modes, which actually
+occurs in the current code in the Xen PV Dom0 environment, but the current
+code neglects to set pat_bp_enabled to true in that case. So we need a patch
+to fix that in order to fix the regression.
 
-> +#ifdef CONFIG_NUMA_EMU
-> +static int numa_fake __initdata = 0;
-
-The __initdata again wants to move, and the initializer can be omitted.
-
-> +/* [numa=off] */
-> +static int __init cf_check numa_setup(const char *opt)
-> +{
-> +    if ( !strncmp(opt,"off",3) )
-
-As you're correcting style violations elsewhere, please also insert the
-missing spaces here and below.
-
-> --- a/xen/include/xen/numa.h
-> +++ b/xen/include/xen/numa.h
-> @@ -18,4 +18,78 @@
->    (((d)->vcpu != NULL && (d)->vcpu[0] != NULL) \
->     ? vcpu_to_node((d)->vcpu[0]) : NUMA_NO_NODE)
->  
-> +/* The following content can be used when NUMA feature is enabled */
-> +#ifdef CONFIG_NUMA
-> +
-> +extern nodeid_t      cpu_to_node[NR_CPUS];
-> +extern cpumask_t     node_to_cpumask[];
-> +
-> +#define cpu_to_node(cpu)        (cpu_to_node[cpu])
-> +#define parent_node(node)       (node)
-> +#define node_to_first_cpu(node) (__ffs(node_to_cpumask[node]))
-> +#define node_to_cpumask(node)   (node_to_cpumask[node])
-> +
-> +struct node {
-> +    paddr_t start, end;
-> +};
-> +
-> +extern int compute_hash_shift(struct node *nodes, int numnodes,
-> +                              nodeid_t *nodeids);
-> +
-> +#define VIRTUAL_BUG_ON(x)
-> +
-> +/* Enumerations for NUMA status. */
-> +enum numa_mode {
-> +    numa_on = 0,
-> +    numa_off,
-> +    /* NUMA turns on, but ACPI table is bad or disabled. */
-> +    numa_no_acpi,
-> +    /* NUMA turns on, and ACPI table works well. */
-> +    numa_acpi,
-> +};
-> +
-> +extern void numa_add_cpu(int cpu);
-> +extern void numa_init_array(void);
-> +extern void numa_initmem_init(unsigned long start_pfn, unsigned long end_pfn);
-> +extern bool numa_enabled_with_firmware(void);
-> +extern enum numa_mode numa_status;
-> +
-> +extern void numa_set_node(int cpu, nodeid_t node);
-> +extern void setup_node_bootmem(nodeid_t nodeid, paddr_t start, paddr_t end);
-> +
-> +static inline void clear_node_cpumask(int cpu)
-> +{
-> +    cpumask_clear_cpu(cpu, &node_to_cpumask[cpu_to_node(cpu)]);
-> +}
-> +
-> +/* Simple perfect hash to map pdx to node numbers */
-> +extern int memnode_shift;
-> +extern unsigned long memnodemapsize;
-> +extern u8 *memnodemap;
-> +
-> +struct node_data {
-> +    unsigned long node_start_pfn;
-> +    unsigned long node_spanned_pages;
-> +};
-> +
-> +extern struct node_data node_data[];
-> +
-> +static inline __attribute__((pure)) nodeid_t phys_to_nid(paddr_t addr)
-
-Please use __attribute_pure__.
-
-Jan
+Chuck
 
