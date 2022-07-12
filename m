@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66CC45720B7
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 18:24:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.365846.596190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3FC57210F
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 18:35:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.365857.596201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBIgS-0002EJ-Sr; Tue, 12 Jul 2022 16:24:24 +0000
+	id 1oBIqO-0003qe-Sh; Tue, 12 Jul 2022 16:34:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 365846.596190; Tue, 12 Jul 2022 16:24:24 +0000
+Received: by outflank-mailman (output) from mailman id 365857.596201; Tue, 12 Jul 2022 16:34:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBIgS-0002CH-QA; Tue, 12 Jul 2022 16:24:24 +0000
-Received: by outflank-mailman (input) for mailman id 365846;
- Tue, 12 Jul 2022 16:24:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oBIqO-0003ng-PS; Tue, 12 Jul 2022 16:34:40 +0000
+Received: by outflank-mailman (input) for mailman id 365857;
+ Tue, 12 Jul 2022 16:34:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xDJC=XR=cachengo.com=brad@srs-se1.protection.inumbo.net>)
- id 1oBIgR-0002CB-Hj
- for xen-devel@lists.xen.org; Tue, 12 Jul 2022 16:24:23 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 15f17105-01ff-11ed-bd2d-47488cf2e6aa;
- Tue, 12 Jul 2022 18:24:21 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id os14so15261909ejb.4
- for <xen-devel@lists.xen.org>; Tue, 12 Jul 2022 09:24:21 -0700 (PDT)
+ (envelope-from <SRS0=DJCY=XR=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1oBIqM-0003nY-Hh
+ for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 16:34:39 +0000
+Received: from sonic316-54.consmr.mail.gq1.yahoo.com
+ (sonic316-54.consmr.mail.gq1.yahoo.com [98.137.69.30])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8341a92d-0200-11ed-924f-1f966e50362f;
+ Tue, 12 Jul 2022 18:34:36 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic316.consmr.mail.gq1.yahoo.com with HTTP; Tue, 12 Jul 2022 16:34:33 +0000
+Received: by hermes--production-bf1-58957fb66f-88chf (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 692ae7703da13e268bead15e283ae6fb; 
+ Tue, 12 Jul 2022 16:34:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,425 +42,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15f17105-01ff-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cachengo.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=AiJHgP4SktI6IFUN/kbFU1k/R7pEHyYR+prIGIb4Npc=;
-        b=CJY7dbh7T3nSEVWsM7bNQRU5AtEkI6xMJ4Bg4xdnuOtYlga2AUKdkenCUW9LNHLrVc
-         OjXX48wT6FUrKwYgzDfhb+xtB+UL2e3Z7JXO+sNKZ1KO74pylLSvUDJd6b371l7lp3f7
-         cjlSN/dJsKPIxnpxbcqShO7FnX8hGZ1IsFUxj3w1jz6to0+qPKsjqnui/+WMbGbcuM1L
-         cfPrIfJI2EZgNUbIX81xDaWjrsBpWTQuRW4RfTY6OmjR38RPDfql65i6FGWFLTiNSvH7
-         LSotuL0iitNTEXGQ+nUq5SyYVmxPcGSXJ+fnOQYJzrunsklQ22L7iD/QhrUMlfRl//dh
-         duow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=AiJHgP4SktI6IFUN/kbFU1k/R7pEHyYR+prIGIb4Npc=;
-        b=CsA/Y3q2FKDzvvr20l6U0sxSiOQ9285bZOfrl4wh9yCj/vwcWtIRcHtRZ83kjueIcJ
-         kBjv7mEVhPh9thNXm5MAx2qeqO1NS/ozb5aSHrM17kDzzdz4ngmYDhYbFA3aUrkm8mZ3
-         9k00J5SbE3KTsWPQCjJLwPrIHIInPvaJ3ijyQRMTwxXu+uuUGOdNdIkJfF2dW0Ajzwuw
-         j8xPFrBwyLndHpbkpMC8cm73Wr52ekvT9YhP3tAtWb2wQlgPvjiNqn3uq0k/TFO8zeli
-         rjYUb2FlwJcublrL0yAh3OOwSaGt+Wb9dXde9OcBaNsAukjTqDb7oH1gLFkCICIt4CjO
-         61pA==
-X-Gm-Message-State: AJIora9RG88zN4z0fYn+60NlCmyHYpjDOHK1x/E2IG+7/wrxLKd8Ct0o
-	OHXuoCuEu33/F1YuCfCOaOrdAW/Kt5/UGsW+sSaKdg==
-X-Google-Smtp-Source: AGRyM1t3Xf70OpvmxqYXd2aPfh3ujeha70hYNlzCE63cSwc2Os2yq3Ua++h3pGdHoPzx68zfghZjEGt+BOG/aSnomnw=
-X-Received: by 2002:a17:907:2d8a:b0:722:e35b:695 with SMTP id
- gt10-20020a1709072d8a00b00722e35b0695mr25508088ejc.470.1657643061166; Tue, 12
- Jul 2022 09:24:21 -0700 (PDT)
+X-Inumbo-ID: 8341a92d-0200-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657643673; bh=9IPvrhsDCI1C7tNIqLBIkt5VSUNjrL3qx3hjUwV1AVc=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=mkQn2ruLTkVnkaYhPKMI8A1lymmgrtP3aERlUAE5AfykX9IB4aVdLdozjGH/jXZ60eYNMa8ubOKn8kukli/tfeoJRvZbESUxZClkAFHldkc/7+GfUHkWU0kFwWaE+Sk/sTklS5ARwMZ3q3v2Mp91aKVKnZltz9jBaW2FUd1Rf8k4B61Ye4sCnkXfe21XWK6k1ZDTdRM+SMdc+L1pwWDMtCQCd6zWcWIj8B6rU5nVsPd4WKmJ8AguhM3YFlz/NPYsICLWLUQ63GzMwx6WsfGY2kRuWP25RlIBG+8VlUayCrklhsvbpL6lJp/2X9Mjd5KeEZS+6EFiesKRmZAvp0OP4w==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657643673; bh=wKSWEjne/d5RFVv8EG+JgkENbFezPjdV65OY/2OPOwa=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=GCJjBW+1cz0+qw690ie/dsV3VntOKOmkoSlraIq+83Tuyx3j/5nCuGLFykvuYUpH+wUpBJFfsOgNN4TcAWy41tQRFvt+Qelmf0e3cCpZgOCPb3YOvxSTiJvVqvEg4gW74AKPsUXUo9S5u7xyJs/H1vT7lNIQcmDnPv/8rvEZA6XGJeqHS8nXPdLHjZRKAQWgX0iNeRHdrX6NRoCWeoi+HT8usweFV1XbHTOOxrDPCTWr+7JlQXi5N4k5KwpHRo8mzvIRuMfDR8nXF3RzUyNIna1+nAEwV8up7GGnDLWyHiJk4n7pscqYoBiQhlGxhmUW5ojkhzPkMWAHpUgmmVVEZA==
+X-YMail-OSG: 0UPu97wVM1muZrI_X_I3OFm.UHdm2L8gFk9nuSipTX6bcrrKj4JP6Eaff37VDcS
+ tIkeCtA1MEboyz2x4S4q4X9T31UvZQBn2foYA7U.in3RoJofqjIL2KS0XPkMavz124tniTumj.lA
+ HjWk3ck7blLCxbNSUSadsAPUbiYhGP5Gb4Itd52ePYftyMYssvkobshcjJdJqR_WVsZWogQFZQwd
+ tzMMF8ka.q0gCvWtydEqnVH_t4aRA8sApHZrq3ElufWCaygI9KTA39hdAd4BHbUI35ompFFkKuHA
+ 098uFwpDVxDz_HihwVnhapQIgRbgdkAwWc.0dBOa7xfCuachjBndOYjTqzwm82zgr9h_hggYghv0
+ DEE5NlUTTZm..RJGtcuQyO71ZLN0VA5nW2VjiyejvtibsNylIWpScu7yJOVkwqhS15UlP1mIkM.s
+ XY9r7PadGcICC6MocUMYwDQGVKO8usnc.7igW4MVg_84P7wW5L7RFW2GR7o08O.wcI8rcill67qH
+ 8t6Vx2Q6OZXLA9RyxU0ItBR5rUpsEiZ2e2sFDtO2ukaM7ETL7TO9YgjOAe5K3MD6.txTeaDEGbK8
+ hx2v_l3.REgFU7tEhquvg9rEGzFDRRyu1AwDD8BlQDIcCXwo3NbRFgUhW2pvLRSvoOS1dWRTjE1J
+ w6BXuWlkfFnt_eupyimFCL_V.2MRbIMOxUQM1XZQtKHFwbiSW8YmFnmWz4PJcNPIeNrOwO44KHwm
+ lGk_9mfMfIFwCvMp9OYuhlHTa2BM0_T56Vze5PN8sBzRo633rgFLuXlgCdxbgLTgxwmQs1h2UVXM
+ q4ZCCvWbmg851J5MpofSLBkCUNHk7mK3HFh7qjCdqJlKS22t8ArgNjIL59iRgisc3VcvKD48ES7a
+ 7ICfi4ikrNgnY7fbnrHFSM44e2z5ITAvY.vMm8ntCRY40mLxuWogJhQhdukIGlp70m2JSQtag3r4
+ dyMLo1X_OYW28WlFA0w1V_MCVfDUmEIl2sotInHefhSjmw5Jihwl9h9e6QELF1jw_79anVoOhfrV
+ 0w7hyXPhYOVbaM0CowtInk1XaRqlamepdMBaeHybCl64sdXqSv5RPcUhLxKYyjgR_NvjWrFj9yiG
+ 2QiYmg_5gbeDXrJHAcQW7kc4CbS8CBXtqLV8dholK0WWmR7QSiPkp5U6UVkh0SNECJ4GnJFEhab5
+ s7fo1W4CqenR398nJRTSRDEI0gAzBxLB9F6ZOnLr96Elu1XAtZxRh_nVRnu8zhzkSWLAqpBveH5e
+ 9.GX2_zdQkBWSM6UjJ6msOYlcJuiO6DKlB_q3_MGMrQjwlpxPElOECd_h9pu1KwkiOMfNaDb8TGY
+ wM5yPmUZrVvZMqo35d.1rzaNtqNnb5y3oguulw9JW.VlLaXXhxHZ4CxOYsyTopcUuFMMoWZC5Z9D
+ X.7qTzRooyvR8FQqH__68jT3FvD91rhls9T0f4Vy8QWuAhCK4oCK7FTBdIZz8FXH8JDRuUEXYThA
+ hHQgyB961gfVi0icoChz3YAUW2CQa.bTntGEtYhS3ShENdFzaG_k5sWpk2p6sSyFl2iE.gHWEv.K
+ nU_Vpk_Avjpf1PS7Vy7aNZuE0kTeC1SCDxDPC25yMFz3VbrPG5kqYA0B6FG68_HLFnZpx_WQJSCK
+ bAvVUB6Lmy_T0M.ELUUId4EA0iWlP2XbO07GBcJYdZLKhIkZF66GcoeK0WCw2PpiyMArCXU7VH2y
+ 4TwHmZgB.pk2zmubg2CbRCb.nrabOGYvgNvhMdirkK9m1ea_dcRUDHCrJ.9u6dRVlQSpawZec6wa
+ AxLgy.B1mxRb8ZqhZlZwHfhwJKj8bxkwPcUsRiNyrZlCgOaXNZ8X65MbOtHwe8skFjghodag_k.P
+ RE0nlhbOKRetMu3TDD0VVMlfv2VpAbZTWqw1waZ6tfjIySLC832YNe1o4qhtvDh5lH3_pmG321c4
+ s5uZN9FHvrWA7m71jSs9bMiig7WYhI.eukhSpFn1KDIHSaorPVjRf.qPWRB4gx61f5JXEPjEVMR5
+ iyHgs2dAXJRb0vMQKAE4wdIVdz4baYONpth7tonr.LaumuSFG8uM4oMNNzqVQandIgbpOjSInaZs
+ vW2bt_NwDVVCxZX_Ra2L3.OMiEookM0TFc_ip6dE.YnP5cgKj9v9dRWRe5KflhB_hPiIsK8jk16s
+ .U_7bV6dH_aXAaPoWLWHhY7m4J8sLTu55dtXoUo6FEQI2xEYCJ179Svj63I1.F_8rWSwUgVdcLoO
+ x74jLDWAwhrZ9
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <08691a7e-8af6-00d8-4bd3-41b8c44536e1@netscape.net>
+Date: Tue, 12 Jul 2022 12:34:26 -0400
 MIME-Version: 1.0
-References: <CAMdBLPN183W-t5bNJvxGb=t0kL4QHFQNQ7O3LZAd_yXUOrSStA@mail.gmail.com>
- <C84A929A-CCFC-497E-96C8-8D5EC3DE9AFD@arm.com> <CAMdBLPP62J250=ZTAM=vMR-a0rD_AdFxnbP5WVtybDiLisEV9w@mail.gmail.com>
- <ECBAC842-3E20-4956-BACF-CB6D8CE708F8@arm.com>
-In-Reply-To: <ECBAC842-3E20-4956-BACF-CB6D8CE708F8@arm.com>
-From: Brad Churchwell <brad@cachengo.com>
-Date: Tue, 12 Jul 2022 11:24:10 -0500
-Message-ID: <CAMdBLPOXnHuXyC9pqN=w4i8nD9aLXtBBhXL1JuUe-igsPkBwYQ@mail.gmail.com>
-Subject: Re: Xen on rk3399
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
-Content-Type: multipart/alternative; boundary="000000000000d362ef05e39e1951"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] x86/PAT: have pat_enabled() properly reflect state when
+ running on e.g. Xen
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Lutomirski <luto@kernel.org>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Borislav Petkov <bp@alien8.de>
+References: <9385fa60-fa5d-f559-a137-6608408f88b0@suse.com>
+ <YsRTAGI2PhfZ5V7M@zn.tnic> <016d281b-7e40-f1bd-66ee-c19c3cc56efe@suse.com>
+ <YsRjX/U1XN8rq+8u@zn.tnic>
+ <4e099e2d-e429-252b-ceeb-678066d85e61@netscape.net>
+ <aa8f99dc-e622-398e-1a68-6b060497e4b3@suse.com>
+ <d49e87a0-417d-194d-daa1-952f707f096c@netscape.net>
+ <6afa42fd-469d-5b08-1688-5af8a3c9d8fa@suse.com>
+ <8011dff1-6551-898f-7e37-38ede106e2f4@netscape.net>
+ <45fd7ade-61fe-18fa-aacc-ed80fdf3fb8d@suse.com>
+ <3b228e55-53b6-beb8-7822-af03e65a078b@netscape.net>
+ <7ff738f2-716f-f42a-2f92-3a7d94722d33@suse.com>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+In-Reply-To: <7ff738f2-716f-f42a-2f92-3a7d94722d33@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
---000000000000d362ef05e39e1951
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Bertrand,
 
-I believe I understand, but just to clarify, should I leave the
-ppi-partitions block in rk3399.dtsi as is and disable the little cores, or
-should I also modify that block?
+On 7/12/22 11:30 AM, Juergen Gross wrote:
+> On 12.07.22 17:09, Chuck Zmudzinski wrote:
+> > On 7/12/2022 9:32 AM, Juergen Gross wrote:
+> >> On 12.07.22 15:22, Chuck Zmudzinski wrote:
+> >>> On 7/12/2022 2:04 AM, Jan Beulich wrote:
+> >>>> On 11.07.2022 19:41, Chuck Zmudzinski wrote:
+> >>>>> Moreover... (please move to the bottom of the code snippet
+> >>>>> for more information about my tests in the Xen PV environment...)
+> >>>>>
+> >>>>> void init_cache_modes(void)
+> >>>>> {
+> >>>>>       u64 pat = 0;
+> >>>>>
+> >>>>>       if (pat_cm_initialized)
+> >>>>>           return;
+> >>>>>
+> >>>>>       if (boot_cpu_has(X86_FEATURE_PAT)) {
+> >>>>>           /*
+> >>>>>            * CPU supports PAT. Set PAT table to be consistent with
+> >>>>>            * PAT MSR. This case supports "nopat" boot option, and
+> >>>>>            * virtual machine environments which support PAT without
+> >>>>>            * MTRRs. In specific, Xen has unique setup to PAT MSR.
+> >>>>>            *
+> >>>>>            * If PAT MSR returns 0, it is considered invalid and emulates
+> >>>>>            * as No PAT.
+> >>>>>            */
+> >>>>>           rdmsrl(MSR_IA32_CR_PAT, pat);
+> >>>>>       }
+> >>>>>
+> >>>>>       if (!pat) {
+> >>>>>           /*
+> >>>>>            * No PAT. Emulate the PAT table that corresponds to the two
+> >>>>>            * cache bits, PWT (Write Through) and PCD (Cache Disable).
+> >>>>>            * This setup is also the same as the BIOS default setup.
+> >>>>>            *
+> >>>>>            * PTE encoding:
+> >>>>>            *
+> >>>>>            *       PCD
+> >>>>>            *       |PWT  PAT
+> >>>>>            *       ||    slot
+> >>>>>            *       00    0    WB : _PAGE_CACHE_MODE_WB
+> >>>>>            *       01    1    WT : _PAGE_CACHE_MODE_WT
+> >>>>>            *       10    2    UC-: _PAGE_CACHE_MODE_UC_MINUS
+> >>>>>            *       11    3    UC : _PAGE_CACHE_MODE_UC
+> >>>>>            *
+> >>>>>            * NOTE: When WC or WP is used, it is redirected to UC- per
+> >>>>>            * the default setup in __cachemode2pte_tbl[].
+> >>>>>            */
+> >>>>>           pat = PAT(0, WB) | PAT(1, WT) | PAT(2, UC_MINUS) | PAT(3, UC) |
+> >>>>>                 PAT(4, WB) | PAT(5, WT) | PAT(6, UC_MINUS) | PAT(7, UC);
+> >>>>>       }
+> >>>>>
+> >>>>>       else if (!pat_bp_enabled) {
+> >>>>>           /*
+> >>>>>            * In some environments, specifically Xen PV, PAT
+> >>>>>            * initialization is skipped because MTRRs are
+> >>>>>            * disabled even though PAT is available. In such
+> >>>>>            * environments, set PAT to initialized and enabled to
+> >>>>>            * correctly indicate to callers of pat_enabled() that
+> >>>>>            * PAT is available and prevent PAT from being disabled.
+> >>>>>            */
+> >>>>>           pat_bp_enabled = true;
+> >>>>>           pr_info("x86/PAT: PAT enabled by init_cache_modes\n");
+> >>>>>       }
+> >>>>>
+> >>>>>       __init_cache_modes(pat);
+> >>>>> }
+> >>>>>
+> >>>>> This function, patched with the extra 'else if' block, fixes the
+> >>>>> regression on my Xen worksatation, and the pr_info message
+> >>>>> "x86/PAT: PAT enabled by init_cache_modes" appears in the logs
+> >>>>> when running this patched kernel in my Xen Dom0. This means
+> >>>>> that in the Xen PV environment on my Xen Dom0 workstation,
+> >>>>> rdmsrl(MSR_IA32_CR_PAT, pat) successfully tested for the presence
+> >>>>> of PAT on the virtual CPU that Xen exposed to the Linux kernel on my
+> >>>>> Xen Dom0 workstation. At least that is what I think my tests prove.
+> >>>>>
+> >>>>> So why is this not a valid way to test for the existence of
+> >>>>> PAT in the Xen PV environment? Are the existing comments
+> >>>>> in init_cache_modes() about supporting both the case when
+> >>>>> the "nopat" boot option is set and the specific case of Xen and
+> >>>>> MTRR disabled wrong? My testing confirms those comments are
+> >>>>> correct.
+> >>>>
+> >>>> At the very least this ignores the possible "nopat" an admin may
+> >>>> have passed to the kernel.
+> >>>
+> >>> I realize that. The patch I proposed here only fixes the regression. It
+> >>> would be easy to also modify the patch to also observe the 'nopat"
+> >>> setting. I think your patch had a force_pat_disable local variable that
+> >>> is set if pat is disabled by the administrator with "nopat." With that
+> >>> variable available, modifying the patch so in init_cache_modes we have:
+> >>>
+> >>>        if (!pat || force_pat_disable) {
+> >>>            /*
+> >>>             * No PAT. Emulate the PAT table that corresponds to the two
+> >>>
+> >>> Instead of:
+> >>>
+> >>>        if (!pat) {
+> >>>            /*
+> >>>             * No PAT. Emulate the PAT table that corresponds to the two
+> >>>
+> >>> would cause the kernel to respect the "nopat" setting by the administrator
+> >>> in the Xen PV Dom0 environment.
+> >>
+> >> Chuck, could you please send out a proper patch with your initial fix
+> >> (setting pat_bp_enabled) and the fix above?
+> >>
+> >> I've chatted with Boris Petkov on IRC and he is fine with that.
+> > 
+> > That's great, I will submit a formal patch later today.
+> > 
+> >>
+> >>> I agree this needs to be fixed up, because currently the code is very
+> >>> confusing and the current variable names and function names do not
+> >>> always accurately describe what they actually do in the code. That is
+> >>> why I am working on a patch to do some re-factoring, which only consists
+> >>> of function and variable name changes and comment changes to fix
+> >>> the places where the comments in the code are misleading or incomplete.
+> >>
+> >> Boris and I agreed to pursue my approach further by removing the
+> >> dependency between PAT and MTRR and to make this whole mess more
+> >> clear.
+> >>
+> >> I will start to work on this as soon as possible, which will
+> >> probably be some time in September.
+> > 
+> > Good, I will look for your patches and try them out.
+> > 
+> >>
+> >>> I think perhaps the most misnamed variable here is the  local
+> >>> variable pat_disabled in memtypes.c and the most misnamed function is the
+> >>> pat_disable function in memtypes.c. They should be named pat_init_disabled
+> >>> and pat_init_disable, respectively, because they do not really disable
+> >>> PAT in
+> >>> the code but only prevent execution of the pat_init function. That
+> >>> leaves open
+> >>> the possibility for PAT to be enabled by init_cache_modes, which actually
+> >>> occurs in the current code in the Xen PV Dom0 environment, but the current
+> >>> code neglects to set pat_bp_enabled to true in that case. So we need a patch
+> >>> to fix that in order to fix the regression.
+> >>
+> >> In principle I agree, but you should be aware of my refactoring plans.
+> > 
+> > I will defer to you and stop working on this re-factoring effort, but I
+> > will prepare a formal patch to fix the regression later today.
+> > 
+> > I do think Jan's point about respecting the administrator's "nopat" setting
+> > should also be considered. AFAICT, the "nopat" option in current code
+>
+> Yes, please add that, too. This was what I meant with "the fix above".
+>
+> > is also not being respected on the bare metal, and the patch to
+> > init_cache_modes with a force_no_pat variable is also needed to
+> > ensure "nopat" is respected on the bare metal, AFAICT.
+>
+> Hmm, I don't see how the PAT MSR will be written on bare metal when "nopat"
+> has been specified.
+>
+> I just tried it with a 5.19 kernel and it booted with the correct PAT
+> settings:
+>
+> [    0.000000] x86/PAT: PAT support disabled via boot option.
+> [    0.000986] x86/PAT: Configuration [0-7]: WB  WT  UC- UC  WB  WT  UC- UC
+>
+>
+> Juergen
 
-Brad
+OK, I understand. In init_cache_modes, if on Xen we read the PAT MSR
+to pick up the configuration Xen did, so on bare metal we will just read the
+configuration with PAT disabled. So "nopat" does work on bare metal.
 
-On Tue, Jul 12, 2022 at 11:11 AM Bertrand Marquis <Bertrand.Marquis@arm.com>
-wrote:
+I do think Jan is correct that "nopat" does not work on Xen, though.
 
-> Hi Brad,
->
-> > On 12 Jul 2022, at 16:59, Brad Churchwell <brad@cachengo.com> wrote:
-> >
-> > Hi Bertrand,
-> >
-> > Thanks so much for the quick response!
-> >
-> > I should have mentioned previously that this device tree and kernel
-> Image (5.15.16) does boot properly with the rootfs without XEN. The
-> interrupt errors are only present when booting with XEN.
-> >
-> > These are custom boards and they do have usb c, however we are unable to
-> boot from usb as it doesn't receive power.  We currently only use the usb
-> to flash u-boot to spi which requires us to use a separate power adapter.
-> These boards get power and networking through a custom backplane and
-> interface with the backplane via a sata style justice (I'm not sure what
-> the proper terminology would be here).
-> >
-> > Since I cannot boot to rootfs with XEN, I'm unable to show the device
-> tree there. The only bit that I added to accommodate XEN is this bit here:
-> >
-> > chosen {
-> >     stdout-path = "serial2:1500000n8";
-> >     bootargs = "hmp-unsafe=true";
-> >     xen,dom0-bootargs = "console=hvc0 earlyprintk=xen clk_ignore_unused
-> root=/dev/nvme0n1p2 rw init=/sbin/init rootwait rootfstype=ext4
-> ignore_loglevel";
-> >     modules {
-> >         #address-cells = <2>;
-> >         #size-cells = <2>;
-> >
-> >         module@1 {
-> >             compatible = "xen,linux-zimage", "xen,multiboot-module";
-> >             reg = <0x0 0x03F80000 0x0 0x01aa8008>;
-> >         };
-> >         module@2 {
-> >             compatible = "xen,linux-initrd", "xen,multiboot-module";
-> >             reg = <0x0 0x06000000 0x0 0x02000000>;
-> >         };
-> >     };
-> >
-> > };
-> >
-> > The gic declaration is in the vanilla rk3399.dtsi file and hasn't been
-> modified:
-> >
-> >         gic: interrupt-controller@fee00000 {
-> >                 compatible = "arm,gic-v3";
-> >                 #interrupt-cells = <4>;
-> >                 #address-cells = <2>;
-> >                 #size-cells = <2>;
-> >                 ranges;
-> >                 interrupt-controller;
-> >
-> >                 reg = <0x0 0xfee00000 0 0x10000>, /* GICD */
-> >                       <0x0 0xfef00000 0 0xc0000>, /* GICR */
-> >                       <0x0 0xfff00000 0 0x10000>, /* GICC */
-> >                       <0x0 0xfff10000 0 0x10000>, /* GICH */
-> >                       <0x0 0xfff20000 0 0x10000>; /* GICV */
-> >                 interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH 0>;
-> >                 its: interrupt-controller@fee20000 {
-> >                         compatible = "arm,gic-v3-its";
-> >                         msi-controller;
-> >                         #msi-cells = <1>;
-> >                         reg = <0x0 0xfee20000 0x0 0x20000>;
-> >                 };
-> >
-> >                 ppi-partitions {
-> >                         ppi_cluster0: interrupt-partition-0 {
-> >                                 affinity = <&cpu_l0 &cpu_l1 &cpu_l2
-> &cpu_l3>;
-> >                         };
-> >
-> >                         ppi_cluster1: interrupt-partition-1 {
-> >                                 affinity = <&cpu_b0 &cpu_b1>;
-> >                         };
-> >                 };
->
-> Xen is not supporting PPI partitions.
-> I also saw that your booting using SMP unsafe so all core are enabled by
-> Xen.
->
-> Right now big/little is not supported by Xen and here you might have some
-> interrupts in your system which can only occur on some specific cores.
-> I would suggest to try the following:
-> - only boot enable in your dtb the cores with the same type than the boot
-> core
-> - check in your device tree which devices are assign to the ppi_cluster
-> not available and disable them
->
-> This kind of configuration will be tricky to handle so it will depend on
-> which devices have interrupts that can only be fired on one cluster type.
->
-> Sorry but I cannot right now check in the device tree and do those checks
-> myself but if you do get the idea send back a mail :-)
->
-> Cheers
-> Bertrand
->
-> >         };
-> >
-> > I've attached the device tree and include files just in case you'd like
-> to take a look at those.
-> >
-> > Thanks so much for your help! I've been at this for weeks with very
-> little progress.
-> >
-> > Cheers,
-> > Brad
-> >
-> >
-> > On Tue, Jul 12, 2022 at 10:05 AM Bertrand Marquis <
-> Bertrand.Marquis@arm.com> wrote:
-> > Hi Brad,
-> >
-> > > On 11 Jul 2022, at 19:38, Brad Churchwell <brad@cachengo.com> wrote:
-> > >
-> > > Hello,
-> > >
-> > > I've been trying to get Xen to boot dom0 with my kernel for weeks on
-> an rk3399 based board and thought I'd reach out for help. It looks like
-> either Xen is not properly recreating the device tree or the interrupt
-> controller is just failing. The hypervisor boots but falls to initramfs
-> because it cannot find the root device (nvme on pcie). Any help would be
-> greatly appreciated. Here is the complete boot log
-> >
-> > From the logs you have an issue with the interrupt controller and the
-> fact that your NVME is behind PCIE and as such depends on ITS is probably
-> not helping.
-> >
-> > I would suggest to try to boot on usb as root fs for a try.
-> >
-> > Also it could be useful to compare the device tree on xen and without
-> xen to understand what is going on (using /proc/device-tree).
-> >
-> > Xen seems to be ok but Linux is not happy with interrupts and is showing
-> several issues around this area on your logs.
-> > Could you show us an extract of your device tree around the gic
-> declaration ?
-> >
-> > Cheers
-> > Bertrand
-> >
-> >
-> > IMPORTANT NOTICE: The contents of this email and any attachments are
-> confidential and may also be privileged. If you are not the intended
-> recipient, please notify the sender immediately and do not disclose the
-> contents to any other person, use it for any purpose, or store or copy the
-> information in any medium. Thank you.
-> > <rk3399-zaku.dts><rk3399-zaku.dtsi><rk3399.dtsi>
->
-> IMPORTANT NOTICE: The contents of this email and any attachments are
-> confidential and may also be privileged. If you are not the intended
-> recipient, please notify the sender immediately and do not disclose the
-> contents to any other person, use it for any purpose, or store or copy the
-> information in any medium. Thank you.
->
-
---000000000000d362ef05e39e1951
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Bertrand,<div><br></div><div>I believe I understand, bu=
-t just to clarify, should I leave the ppi-partitions block in rk3399.dtsi a=
-s is and disable the little cores, or should I also modify that block?</div=
-><div><br></div><div>Brad</div></div><br><div class=3D"gmail_quote"><div di=
-r=3D"ltr" class=3D"gmail_attr">On Tue, Jul 12, 2022 at 11:11 AM Bertrand Ma=
-rquis &lt;<a href=3D"mailto:Bertrand.Marquis@arm.com">Bertrand.Marquis@arm.=
-com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">Hi Brad,<br>
-<br>
-&gt; On 12 Jul 2022, at 16:59, Brad Churchwell &lt;<a href=3D"mailto:brad@c=
-achengo.com" target=3D"_blank">brad@cachengo.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Hi Bertrand,<br>
-&gt;<br>
-&gt; Thanks so much for the quick response!<br>
-&gt;<br>
-&gt; I should have mentioned previously that this device tree and kernel Im=
-age (5.15.16) does boot properly with the rootfs without XEN. The interrupt=
- errors are only present when booting with XEN.<br>
-&gt;<br>
-&gt; These are custom boards and they do have usb c, however we are unable =
-to boot from usb as it doesn&#39;t receive power.=C2=A0 We currently only u=
-se the usb to flash u-boot to spi which requires us to use a separate power=
- adapter. These boards get power and networking through a custom backplane =
-and interface with the backplane via a sata style justice (I&#39;m not sure=
- what the proper terminology would be here).<br>
-&gt;<br>
-&gt; Since I cannot boot to rootfs with XEN, I&#39;m unable to show the dev=
-ice tree there. The only bit that I added to accommodate XEN is this bit he=
-re:<br>
-&gt;<br>
-&gt; chosen {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0stdout-path =3D &quot;serial2:1500000n8&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0bootargs =3D &quot;hmp-unsafe=3Dtrue&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0xen,dom0-bootargs =3D &quot;console=3Dhvc0 earlypri=
-ntk=3Dxen clk_ignore_unused root=3D/dev/nvme0n1p2 rw init=3D/sbin/init root=
-wait rootfstype=3Dext4 ignore_loglevel&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0modules {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#address-cells =3D &lt;2&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#size-cells =3D &lt;2&gt;;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0module@1 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quot;xe=
-n,linux-zimage&quot;, &quot;xen,multiboot-module&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D &lt;0x0 0x03F80=
-000 0x0 0x01aa8008&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0module@2 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quot;xe=
-n,linux-initrd&quot;, &quot;xen,multiboot-module&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D &lt;0x0 0x06000=
-000 0x0 0x02000000&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0 =C2=A0};<br>
-&gt;<br>
-&gt; };<br>
-&gt;<br>
-&gt; The gic declaration is in the vanilla rk3399.dtsi file and hasn&#39;t =
-been modified:<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0gic: interrupt-controller@fee00000 {<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatibl=
-e =3D &quot;arm,gic-v3&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#interrup=
-t-cells =3D &lt;4&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#address-=
-cells =3D &lt;2&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#size-cel=
-ls =3D &lt;2&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ranges;<b=
-r>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0interrupt=
--controller;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D &=
-lt;0x0 0xfee00000 0 0x10000&gt;, /* GICD */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&lt;0x0 0xfef00000 0 0xc0000&gt;, /* GICR */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&lt;0x0 0xfff00000 0 0x10000&gt;, /* GICC */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&lt;0x0 0xfff10000 0 0x10000&gt;, /* GICH */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0&lt;0x0 0xfff20000 0 0x10000&gt;; /* GICV */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0interrupt=
-s =3D &lt;GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH 0&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0its: inte=
-rrupt-controller@fee20000 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0compatible =3D &quot;arm,gic-v3-its&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0msi-controller;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0#msi-cells =3D &lt;1&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0reg =3D &lt;0x0 0xfee20000 0x0 0x20000&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ppi-parti=
-tions {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0ppi_cluster0: interrupt-partition-0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0affinity =3D &lt;&amp;cpu_l=
-0 &amp;cpu_l1 &amp;cpu_l2 &amp;cpu_l3&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0};<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0ppi_cluster1: interrupt-partition-1 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0affinity =3D &lt;&amp;cpu_b=
-0 &amp;cpu_b1&gt;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-<br>
-Xen is not supporting PPI partitions.<br>
-I also saw that your booting using SMP unsafe so all core are enabled by Xe=
-n.<br>
-<br>
-Right now big/little is not supported by Xen and here you might have some i=
-nterrupts in your system which can only occur on some specific cores.<br>
-I would suggest to try the following:<br>
-- only boot enable in your dtb the cores with the same type than the boot c=
-ore<br>
-- check in your device tree which devices are assign to the ppi_cluster not=
- available and disable them<br>
-<br>
-This kind of configuration will be tricky to handle so it will depend on wh=
-ich devices have interrupts that can only be fired on one cluster type.<br>
-<br>
-Sorry but I cannot right now check in the device tree and do those checks m=
-yself but if you do get the idea send back a mail :-)<br>
-<br>
-Cheers<br>
-Bertrand<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
-&gt;<br>
-&gt; I&#39;ve attached the device tree and include files just in case you&#=
-39;d like to take a look at those.<br>
-&gt;<br>
-&gt; Thanks so much for your help! I&#39;ve been at this for weeks with ver=
-y little progress.<br>
-&gt;<br>
-&gt; Cheers,<br>
-&gt; Brad<br>
-&gt;<br>
-&gt;<br>
-&gt; On Tue, Jul 12, 2022 at 10:05 AM Bertrand Marquis &lt;<a href=3D"mailt=
-o:Bertrand.Marquis@arm.com" target=3D"_blank">Bertrand.Marquis@arm.com</a>&=
-gt; wrote:<br>
-&gt; Hi Brad,<br>
-&gt;<br>
-&gt; &gt; On 11 Jul 2022, at 19:38, Brad Churchwell &lt;<a href=3D"mailto:b=
-rad@cachengo.com" target=3D"_blank">brad@cachengo.com</a>&gt; wrote:<br>
-&gt; &gt;<br>
-&gt; &gt; Hello,<br>
-&gt; &gt;<br>
-&gt; &gt; I&#39;ve been trying to get Xen to boot dom0 with my kernel for w=
-eeks on an rk3399 based board and thought I&#39;d reach out for help. It lo=
-oks like either Xen is not properly recreating the device tree or the inter=
-rupt controller is just failing. The hypervisor boots but falls to initramf=
-s because it cannot find the root device (nvme on pcie). Any help would be =
-greatly appreciated. Here is the complete boot log<br>
-&gt;<br>
-&gt; From the logs you have an issue with the interrupt controller and the =
-fact that your NVME is behind PCIE and as such depends on ITS is probably n=
-ot helping.<br>
-&gt;<br>
-&gt; I would suggest to try to boot on usb as root fs for a try.<br>
-&gt;<br>
-&gt; Also it could be useful to compare the device tree on xen and without =
-xen to understand what is going on (using /proc/device-tree).<br>
-&gt;<br>
-&gt; Xen seems to be ok but Linux is not happy with interrupts and is showi=
-ng several issues around this area on your logs.<br>
-&gt; Could you show us an extract of your device tree around the gic declar=
-ation ?<br>
-&gt;<br>
-&gt; Cheers<br>
-&gt; Bertrand<br>
-&gt;<br>
-&gt;<br>
-&gt; IMPORTANT NOTICE: The contents of this email and any attachments are c=
-onfidential and may also be privileged. If you are not the intended recipie=
-nt, please notify the sender immediately and do not disclose the contents t=
-o any other person, use it for any purpose, or store or copy the informatio=
-n in any medium. Thank you.<br>
-&gt; &lt;rk3399-zaku.dts&gt;&lt;rk3399-zaku.dtsi&gt;&lt;rk3399.dtsi&gt;<br>
-<br>
-IMPORTANT NOTICE: The contents of this email and any attachments are confid=
-ential and may also be privileged. If you are not the intended recipient, p=
-lease notify the sender immediately and do not disclose the contents to any=
- other person, use it for any purpose, or store or copy the information in =
-any medium. Thank you.<br>
-</blockquote></div>
-
---000000000000d362ef05e39e1951--
+Chuck
 
