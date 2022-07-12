@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73C59572598
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:26:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.366024.596583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4453A57259A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:27:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.366030.596594 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLWU-0006iU-Jl; Tue, 12 Jul 2022 19:26:18 +0000
+	id 1oBLXK-0007P9-UT; Tue, 12 Jul 2022 19:27:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 366024.596583; Tue, 12 Jul 2022 19:26:18 +0000
+Received: by outflank-mailman (output) from mailman id 366030.596594; Tue, 12 Jul 2022 19:27:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLWU-0006g8-Gz; Tue, 12 Jul 2022 19:26:18 +0000
-Received: by outflank-mailman (input) for mailman id 366024;
- Tue, 12 Jul 2022 19:26:17 +0000
+	id 1oBLXK-0007MC-RN; Tue, 12 Jul 2022 19:27:10 +0000
+Received: by outflank-mailman (input) for mailman id 366030;
+ Tue, 12 Jul 2022 19:27:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1LYd=XR=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1oBLWT-0006g2-6t
- for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 19:26:17 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ <SRS0=dIdn=XR=gmail.com=salvatore.bonaccorso@srs-se1.protection.inumbo.net>)
+ id 1oBLXJ-0007Lm-PD
+ for xen-devel@lists.xen.org; Tue, 12 Jul 2022 19:27:09 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f540be1-0218-11ed-bd2d-47488cf2e6aa;
- Tue, 12 Jul 2022 21:26:15 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 11D04B81B96;
- Tue, 12 Jul 2022 19:26:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA9DC3411C;
- Tue, 12 Jul 2022 19:26:13 +0000 (UTC)
+ id 9ecf03bf-0218-11ed-bd2d-47488cf2e6aa;
+ Tue, 12 Jul 2022 21:27:08 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id g1so11369769edb.12;
+ Tue, 12 Jul 2022 12:27:08 -0700 (PDT)
+Received: from eldamar (c-82-192-242-114.customer.ggaweb.ch. [82.192.242.114])
+ by smtp.gmail.com with ESMTPSA id
+ fy6-20020a170906b7c600b0072aed3b2158sm4117961ejb.45.2022.07.12.12.27.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Jul 2022 12:27:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,95 +43,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f540be1-0218-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1657653973;
-	bh=KofZy0gS7enXRLvK5w5s70pOuM52suAS0d4+pv9phsg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=C+JpUI7Hlc73b9zL/pC97stcYKxyVPA2NzaJTw5CDhNHAWTdGQPl4eSAY2DrMC4yZ
-	 4w5E3PHJwulm6Ys1IlHBPmCC+2Opm/xQnuZWr6p5ofmoxTUPqlxmpimVKTnLXUxJwp
-	 P0Ur70+AdZXROv+Az3KlC8DmWNqTme9x8yRZX0c4=
-Date: Tue, 12 Jul 2022 21:26:10 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Chuck Zmudzinski <brchuckz@netscape.net>
-Cc: linux-kernel@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Brijesh Singh <brijesh.singh@amd.com>,
-	Jane Chu <jane.chu@oracle.com>,
-	Tianyu Lan <Tianyu.Lan@microsoft.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sean Christopherson <seanjc@google.com>,
-	Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
-	xen-devel@lists.xenproject.org, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/PAT: Report PAT on CPUs that support PAT without MTRR
-Message-ID: <Ys3K0oS9QLx778Lb@kroah.com>
-References: <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz.ref@aol.com>
- <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz@aol.com>
- <Ys2/Lho9vQO33RZc@kroah.com>
- <a9efcbf3-3b34-53b7-0fa8-55a5ed3a17b4@netscape.net>
+X-Inumbo-ID: 9ecf03bf-0218-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=sender:date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=z9G0wguDrAjcjW75nvr7+pGpjBAR/f3spr6nVa+W/E8=;
+        b=hdS47UsIc8Fwz4zPSqtXitJJWQN1LCuo4FKPRv16FEUdcOd+jNhAGXk6U/TMsne7CY
+         OWPbw7WcL1VYfnvV4p5u8jGRr1SAcNuC3JB/tUIXNd6rga6qu546Urpw38vlw6VCRppW
+         xE/eOuxFIUG8W8kJhuH7U2LAWumu7eXZgS2QXB7z15N22+sMxDnTcLWXqP4yW5a2bWWD
+         EeB5DzMFNIBX43mfFkybVmzucuCMjWFT2edBJfecKXTc1UQgfJ4ixOR2aMAUxt5Hdbpt
+         v+UpC9bB0E+zZ5sVw+pSYlrKo4lWRgG4KJJljjPsKwSAeRAlmX8GmNDoabxxTevf+1kw
+         C97w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+         :references:mime-version:content-disposition:in-reply-to;
+        bh=z9G0wguDrAjcjW75nvr7+pGpjBAR/f3spr6nVa+W/E8=;
+        b=DbEa8mmiVeQ5C4zIP1Q4atF8Rvp/BWrLsren0Oup4NULQX/yXCCbB7bnijNmHgIEMP
+         QYw9UBrO2EKUNoNNp0xpnqLWOaLsWyNgzuYbW8ElxxpzaSSn9VTodDwoFcczHRbCHg0r
+         K6oqAVn3aQprs+2NxgKN1CTzVqfW0IigjIlYWbjF5ZchkBaFc1vYy58sWAkoRJO4SoQq
+         3AKto7Fp1NX1Zi6hLFxll1ZUCPzEUmaEoJtfEjjRxv5YCxb5c2enSxNxSTAtiqe60B4T
+         UkE8vcE1HnNU3sAldn9v15/Xka3NS9QcvTJA+0rwxPrmEMio/PxuiDM3xXq6zdsX1JFX
+         DNVw==
+X-Gm-Message-State: AJIora8cjgE77HD2oGuYyYUkNqFt/+p4TXMiqXCogOPamtvr/WjCeZDp
+	D5QkBTIOvaUDZzz9zMpdfMU=
+X-Google-Smtp-Source: AGRyM1v8019adYsp3ny2RyVvIYKz2DtuN+HXhP1DCr3GueiOWQEx9YpzP62n3PtvTXXlbH7Gs0vgYg==
+X-Received: by 2002:a05:6402:cba:b0:43a:6b17:f6b5 with SMTP id cn26-20020a0564020cba00b0043a6b17f6b5mr34455445edb.330.1657654028245;
+        Tue, 12 Jul 2022 12:27:08 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Date: Tue, 12 Jul 2022 21:27:07 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: oss-security@lists.openwall.com
+Cc: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+	xen-users@lists.xen.org,
+	"Xen.org security team" <security-team-members@xen.org>
+Subject: Re: [oss-security] Xen Security Advisory 407 v1
+ (CVE-2022-23816,CVE-2022-23825,CVE-2022-29900) - Retbleed - arbitrary
+ speculative code execution with return instructions
+Message-ID: <Ys3LCx6LmRFF547K@eldamar.lan>
+References: <E1oBIrq-0007mF-D5@xenbits.xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a9efcbf3-3b34-53b7-0fa8-55a5ed3a17b4@netscape.net>
+In-Reply-To: <E1oBIrq-0007mF-D5@xenbits.xenproject.org>
 
-On Tue, Jul 12, 2022 at 03:16:01PM -0400, Chuck Zmudzinski wrote:
-> On 7/12/22 2:36 PM, Greg KH wrote:
-> > On Tue, Jul 12, 2022 at 02:20:37PM -0400, Chuck Zmudzinski wrote:
-> > > The commit 99c13b8c8896d7bcb92753bf
-> > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
-> > > incorrectly failed to account for the case in init_cache_modes() when
-> > > CPUs do support PAT and falsely reported PAT to be disabled when in
-> > > fact PAT is enabled. In some environments, notably in Xen PV domains,
-> > > MTRR is disabled but PAT is still enabled, and that is the case
-> > > that the aforementioned commit failed to account for.
-> > > 
-> > > As an unfortunate consequnce, the pat_enabled() function currently does
-> > > not correctly report that PAT is enabled in such environments. The fix
-> > > is implemented in init_cache_modes() by setting pat_bp_enabled to true
-> > > in init_cache_modes() for the case that commit 99c13b8c8896d7bcb92753bf
-> > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it") failed
-> > > to account for.
-> > > 
-> > > This patch fixes a regression that some users are experiencing with
-> > > Linux as a Xen Dom0 driving particular Intel graphics devices by
-> > > correctly reporting to the Intel i915 driver that PAT is enabled where
-> > > previously it was falsely reporting that PAT is disabled.
-> > > 
-> > > Fixes: 99c13b8c8896d7bcb92753bf ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
-> > > ---
-> > > Reminder: This patch is a regression fix that is needed on stable
-> > > versions 5.17 and later.
-> >
-> > Then why are you saying it fixes a commit that is in 4.4.y and newer?
-> >
-> > confused,
-> >
-> > greg k-h
+Hi,
+
+On Tue, Jul 12, 2022 at 04:36:10PM +0000, Xen.org security team wrote:
+> -----BEGIN PGP SIGNED MESSAGE-----
+> Hash: SHA256
 > 
-> It is true the erroneous reporting of PAT goes back to 4.4.y. But it
-> was not until 5.17.y when the i915 driver was patched with a commit
-> that started using pat_enabled() instead of boot_cpu_has(X86_FEATURE_PAT)
-> and that is when a regression that started annoying users appeared
-> in the kernel. I presume that we only backport patches to stable that
-> fix regressions that are really bothering users, so even though the
-> problem dates to 4.4.y, there is no need to backport before 5.17.y
-> which is when the problem manifested in a way that started
-> bothering users.
+>  Xen Security Advisory CVE-2022-23816,CVE-2022-23825,CVE-2022-29900 / XSA-407
+> 
+>    Retbleed - arbitrary speculative code execution with return instructions
+> 
+> ISSUE DESCRIPTION
+> =================
+> 
+> Researchers at ETH Zurich have discovered Retbleed, allowing for
+> arbitrary speculative execution in a victim context.
+> 
+> For more details, see:
+>   https://comsec.ethz.ch/retbleed
+> 
+> ETH Zurich have allocated CVE-2022-29900 for AMD and CVE-2022-29901 for
+> Intel.
+> 
+> Despite the similar preconditions, these are very different
+> microarchitectural behaviours between vendors.
+> 
+> On AMD CPUs, Retbleed is one specific instance of a more general
+> microarchitectural behaviour called Branch Type Confusion.  AMD have
+> assigned CVE-2022-23816 (Retbleed) and CVE-2022-23825 (Branch Type
+> Confusion).
+> 
+> For more details, see:
+>   https://www.amd.com/en/corporate/product-security/bulletin/amd-sb-1037
 
-If it needs to go back to 4.9.y or so, let's take it all the way back to
-be consistent everywhere.
+Is it confirmed that AMD is not using CVE-2022-29900? The above
+amd-sb-1037 references as well both CVE-2022-23825 (Branch Type
+Confusion) and CVE-2022-29900 (RETbleed), so I assume they agreed to
+use CVE-2022-29900 for retbleed?
 
-thanks,
+So should the Xen advisory as well use CVE-2022-23825,CVE-2022-29900
+and CVE-2022-29901?
 
-greg k-h
+Regards,
+Salvatore
 
