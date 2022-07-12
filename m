@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A388157211D
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 18:39:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.365877.596226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDA7A57216C
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 18:53:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.365942.596441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBIuS-0005Mf-QG; Tue, 12 Jul 2022 16:38:52 +0000
+	id 1oBJ7o-0001mc-PJ; Tue, 12 Jul 2022 16:52:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 365877.596226; Tue, 12 Jul 2022 16:38:52 +0000
+Received: by outflank-mailman (output) from mailman id 365942.596441; Tue, 12 Jul 2022 16:52:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBIuS-0005KA-MQ; Tue, 12 Jul 2022 16:38:52 +0000
-Received: by outflank-mailman (input) for mailman id 365877;
- Tue, 12 Jul 2022 16:38:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1LYd=XR=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1oBIuR-0005K0-1V
- for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 16:38:51 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1adfddf9-0201-11ed-bd2d-47488cf2e6aa;
- Tue, 12 Jul 2022 18:38:49 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 37D6D6192F;
- Tue, 12 Jul 2022 16:38:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002E6C3411C;
- Tue, 12 Jul 2022 16:38:46 +0000 (UTC)
+	id 1oBJ7o-0001jJ-MQ; Tue, 12 Jul 2022 16:52:40 +0000
+Received: by outflank-mailman (input) for mailman id 365942;
+ Tue, 12 Jul 2022 16:52:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oBJ7n-0001j7-54; Tue, 12 Jul 2022 16:52:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oBJ7n-0003Ie-41; Tue, 12 Jul 2022 16:52:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oBJ7m-0005TR-KE; Tue, 12 Jul 2022 16:52:38 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oBJ7m-0007Qe-JX; Tue, 12 Jul 2022 16:52:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,72 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1adfddf9-0201-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1657643927;
-	bh=4BDfSSRpMaIphCs/51FX5hBMkKL+h2V39A32PoeENKE=;
-	h=Date:From:To:Cc:Subject:From;
-	b=VszbvoOQ32Y5tUUOu1X5m/qZVrA8i8HEwF6OfAI3/1iEY8WzgXQYawQzWhkcEHNI1
-	 zb7w8lqauDh19oVhcNZgsh2p101mFkKJXH45mNi5sZfjBIZjIfjXX0qJk2ixP1XNaA
-	 1zzD/p9+2gIbYSLAfE5mJBzY40yFlUhhIcHqvp4k=
-Date: Tue, 12 Jul 2022 18:38:44 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: Build warnings in Xen 5.15.y and 5.10.y with retbleed backports
-Message-ID: <Ys2jlGMqAe6+h1SX@kroah.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=YzHWmIOTH4Wt/xFaM53bhFHQyh7Xor+M6xtliUIgaTA=; b=AJmVxxA+057DOzNTMvUwuC42j2
+	fcfnDnOabD/S6PBYpr82Nho9gdoBW962oQRwsSWh/yuAoV0gPxmhpgSzHn7gZrFcjIgYcWSagB0k+
+	aQVTbP2EtOsdDLCh4OT+QpxGpwsVxhN2FTqhSfP1KFH/3J7YPAnawnRshaTtVLuahjho=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-171599-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Subject: [xen-unstable-smoke test] 171599: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=033ae6f88be198b8f56043f94b7076b79b5e447e
+X-Osstest-Versions-That:
+    xen=dc7da0874ba4e8fab4c5783055755938ef19fc37
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 12 Jul 2022 16:52:38 +0000
 
-Hi all,
+flight 171599 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171599/
 
-I'm seeing the following build warning:
-	arch/x86/kernel/head_64.o: warning: objtool: xen_hypercall_mmu_update(): can't find starting instruction
-in the 5.15.y and 5.10.y retbleed backports.
+Failures :-/ but no regressions.
 
-I don't know why just this one hypercall is being called out by objtool,
-and this warning isn't in 5.18 and Linus's tree due to I think commit
-5b2fc51576ef ("x86/ibt,xen: Sprinkle the ENDBR") being there.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-But, is this a ret call that we "forgot" here?  It's a "real" ret in
-Linus's branch:
+version targeted for testing:
+ xen                  033ae6f88be198b8f56043f94b7076b79b5e447e
+baseline version:
+ xen                  dc7da0874ba4e8fab4c5783055755938ef19fc37
 
-.pushsection .noinstr.text, "ax"
-	.balign PAGE_SIZE
-SYM_CODE_START(hypercall_page)
-	.rept (PAGE_SIZE / 32)
-		UNWIND_HINT_FUNC
-		ANNOTATE_NOENDBR
-		ANNOTATE_UNRET_SAFE
-		ret
-		/*
-		 * Xen will write the hypercall page, and sort out ENDBR.
-		 */
-		.skip 31, 0xcc
-	.endr
+Last test of basis   171590  2022-07-12 07:01:45 Z    0 days
+Testing same since   171599  2022-07-12 14:00:30 Z    0 days    1 attempts
 
-while 5.15.y and older has:
-.pushsection .text
-	.balign PAGE_SIZE
-SYM_CODE_START(hypercall_page)
-	.rept (PAGE_SIZE / 32)
-		UNWIND_HINT_FUNC
-		.skip 31, 0x90
-		ANNOTATE_UNRET_SAFE
-		RET
-	.endr
+------------------------------------------------------------
+People who touched revisions under test:
+  George Dunlap <george.dunlap@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Stefano Stabellini <sstabellini@kernel.org>
 
-So should the "ret" remain or be turned into "RET" in mainline right
-now?
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-thanks,
 
-greg k-h
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   dc7da0874b..033ae6f88b  033ae6f88be198b8f56043f94b7076b79b5e447e -> smoke
 
