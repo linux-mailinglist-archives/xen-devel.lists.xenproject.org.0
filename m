@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC49C572601
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:41:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.366061.596629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF3A1572696
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:49:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.366070.596640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLkU-0002hg-WD; Tue, 12 Jul 2022 19:40:47 +0000
+	id 1oBLs6-0003V1-PS; Tue, 12 Jul 2022 19:48:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 366061.596629; Tue, 12 Jul 2022 19:40:46 +0000
+Received: by outflank-mailman (output) from mailman id 366070.596640; Tue, 12 Jul 2022 19:48:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLkU-0002eu-TN; Tue, 12 Jul 2022 19:40:46 +0000
-Received: by outflank-mailman (input) for mailman id 366061;
- Tue, 12 Jul 2022 19:40:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oBLs6-0003Si-Mh; Tue, 12 Jul 2022 19:48:38 +0000
+Received: by outflank-mailman (input) for mailman id 366070;
+ Tue, 12 Jul 2022 19:48:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oBLkT-0002ek-Es; Tue, 12 Jul 2022 19:40:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oBLkT-000747-Du; Tue, 12 Jul 2022 19:40:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oBLkS-0007tP-Sp; Tue, 12 Jul 2022 19:40:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oBLkS-00071v-SH; Tue, 12 Jul 2022 19:40:44 +0000
+ (envelope-from <SRS0=DJCY=XR=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1oBLs5-0003Sc-4G
+ for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 19:48:37 +0000
+Received: from sonic309-21.consmr.mail.gq1.yahoo.com
+ (sonic309-21.consmr.mail.gq1.yahoo.com [98.137.65.147])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9b679076-021b-11ed-924f-1f966e50362f;
+ Tue, 12 Jul 2022 21:48:34 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic309.consmr.mail.gq1.yahoo.com with HTTP; Tue, 12 Jul 2022 19:48:30 +0000
+Received: by hermes--production-bf1-58957fb66f-fvhff (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 971ea9941bc8ae4c927179b995a77a93; 
+ Tue, 12 Jul 2022 19:48:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +42,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xEgzwFyJ1h97J4cHBj/Ln0Y7cXsp2KVSxz/PY0L43Q8=; b=2zXrfSmaE8RrwXEkDC16LoVtt0
-	mhwWCbM8jf7f6qqy4DJ8mVJewxgDg5/ZSJjO7G3Z0Hf1PqRk7kOe+XkMN/mzJZaGo0ml7elK35FCG
-	GmWkZ2429GQRa6BUqIgB/vDopI7s+E8ThT71ELha6MOjp/A+00L8pEQaVngee1bWNZhk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171602-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 9b679076-021b-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657655310; bh=pgrpjNqb385gEEgRLF0Q/rt+9pomAz4bgE3sZ8LNtkM=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=cGK1XAumi8ewsF02TDfEwvDxKjXEE/9dyYBYKSwydfPHvLpmv8AXuXlWouC0txtVox6a4tuf1/ZEbNeprbOdN+MpnPWHSKsPYE/tpoM28eGUdjY3ncxa/bzZ8sMq5o+dWSvZJUP/jGYd0S/+TZhfmjWlgZWJVb55iBqtty3fD9nmfsWhp1HpoDnN2TdrQ7FY9bzAb2myFGBkPzucdxIHKcXwsfEvbQjC+nr2qS6D7ct5pS/pKLdWW/hlrgyZ8vO32M7qBJNQD9K4n9KRi++dS42Z+KvuweDe/fmNU2/KkzFwIXybY0uOsmJ2kD5Obl/+4bUEadN4MNT+7HbbDUBJyA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657655310; bh=h/lH+nNJqzfnjk2ZuaQqpRQOd5bw1El5erq2VjEJbzC=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=iPoSOZtBsKACXCciYie15Rq8Perhe6oJ9HL/fN+KRuNjcGdFPEcN+EoXh3BzdpvtY0ScMF6y4RLSKBZDrvsJ9zfzGvPWURZ/b4kUhDA2mDukGb+6SBLyANhSjXNWK3MlowYA+9XOL/IjiulZ7RiAZzj8U8nMGQom5V+SLO+UWV8qdv11xFnmJPBFWdflBDbDTKICnyASpNHt4Gws3kk6HW9p4phG8ZE5MSQRmKzCHJuBAtIoheYusTbPh7afmKfo7o7pEFL/t351W5lrjVqwsyrwkiLN2wSRw1kYiJ+azATUSQJJHmohC/2SZ87bey1aMP5Cb87Vi9TvwnBmyKh/cQ==
+X-YMail-OSG: f0kMs3UVM1nloicb8jexJ_OKjrYz7NLzq7Mukf1rrF8mhZWIkQCqPlJdj4i0JKh
+ AMAlWciZnf_KHh1uRKHdBbMokQcd4tFlOuJg.l65dnPLR0KUgrcIVzjWorOdJ6kJKI8AXML91uRm
+ 45oG2eXHRcibvH4vEbZqrU2mY8c7z8RFCk5TPn1A_RZy5mDvsofRlX9AYOdhI9fIo7z9fwpYQdFN
+ YOKlXLEKpbYmFPqG6RbMKC0dw97_IhoI0W7gZJmHc.3Mie6RSEQcMh7NVZmH8WQ0PY31ysm0yGeo
+ vTFemmChWd0LrAnPsfBnkyZ3sPGYpQU3LXcbQy2IcSTVTQGcVMlLr3tjxE4Uqj7e2vqo.wqpyO7s
+ nuGiIfeXv7Qk3ZFIzdSb4u1U5tlIxVj4Og6C1TeUlZV7U8adjXgsmbAz7TwZ7VbQ4r.bxRDGyFzw
+ bMwogHOS7KfGXMWUK3X3qs0EGYNw5vLxagG0q8Asqj6I4CTTUkJHiTIg5k_8iTpPNjCUYfKbUJlM
+ dD3TRvPlq1e_xTaxFnwY36M0dHAMnW3vqyrrMCjfe3vNKU3WwIeHwR.5_OXu.X5mJp.Vfxe74kay
+ D6F9wY7C25HRAAwqkOnCysejo3cnJ5dIMARt4uWQHzxaX7769MICz.zqi8JUQhTKnYtTu_Cs9wFZ
+ a45o90eHUYtGK43u1hnDQjI_r_IjZj6TIHotzI6J5n8XvPm3g7PzHi3s4rFYezL.pm46nKCvDs5g
+ o60ItcLaxA9LhN1UnsaEGZgb.U_2iE5qutFYBvDzTSeWlP4moO1wFOG0bZE1iQYg9rbC5ReuN3de
+ _1.ehlOZjUvgkRwHA3i531N_ULmhK8itT5OIxzWDpjFkafTuKO6Qi3WzNdclTsVyC7JhjYCy6qqN
+ FVkBtPge0IPtFiwJ9NRaXy2AR24lOEqGpZgqcQwz_Sm_QL7n7tEGooTSbUAknIGX77Usl7fMIZlu
+ z_H2qW.SooXOMW9FCd1RtdT5Iz2sAildSVwLc0gow6.sRw_bjM2c2G.2O08TfhiCTgnRx7LAsACL
+ z4NZSj4xnJs84hcZtsZzYR7AQSE_Ei48EilayTo9V1HU.5evMR6TA2HFbgJ4DUS7GqCTCMzQYbos
+ TR8sBMFABKtxhV_NkprZM7D7k.XTtYEu37JR5xcBpO54tWu.UjBdKOxRAWZ8.0RFdDoTjqygsJtr
+ POa6jvslWrRoQ8QiFJxKqUYcVia20_y49p4I51eDiY..LKD5ZhqicoJFiyHqbJK1EthG1agLC850
+ 25m0gKFZ86CJrP1T8oBwyXnc95KSFt2xVMpAomwCutUjVk38qdhUfLiTtH831Hz8ima0NJfO1hZX
+ EU1WaPHpEVLpV9N_p88VO1HMeK_gwqfImVi.HdIfRp2KTzOVBZKB_GRj9bqJYUG6xMJJ5VnLIscU
+ pGR3QT9a_vs.aOInnjOEYK.S2v3uL0MjFuPCEWS1QL58lubW0aDr2I7wHwagr1UEySspAFPUyO.I
+ T8p_OvXKHGvoSjF6lXujTAITwdwY8oaPkRmbXEaGrm7Gwm0eUtozmp8LM3KM6i294.1TQeS76952
+ Wbd4VpkZMBBbCsc2IH08bjEE_h8EWmZRdZ8HpuCQjMRoQNMeJIcg7.Mc2_MVl9NB65SrobDbuMo3
+ 2K8s99RpsUpDGDm3.Bp.YcpAW8i3tCM5MrE8fjAjQnZGSMyKb7fdPl027JxFlFEHZ8ECRsVWEdrp
+ JQwFz7OajkuTtY.f0JBydVLtdRR0R8emJGqOVeQ_6u9ZBhi4fEk9jJV0imkWQOrgCXim83E.uy4i
+ MhwWiXLjexdrDqvOjv2PnsiNvAHd6VLk239OS4LGpc02FNN.lRx8xXH0OtxROc1qL.MZRQG6_Uf7
+ FzNS_YDwA5pjPXlpQ8l9CMRf3.9Ts2chwfpgHgXJVfyk2yGriwuJr3G9Gi9ssjxcGETZeNmWMDW.
+ ciGrTJhCsKi6UEzWPyI7iw9aFENrCz5yYRaMMsvbZmN9WrSX7v60cCFDZgJlsK02Q_ZU.9mg61LK
+ I5OOLbc2Z9Acbpa2HvOdjpfw_vQeRNKPtt1ZVcyGKc_IgR9r2ATBxZzja5OWj4YHmV2OQqKAKqNC
+ QY5Ft157jRfoxt7zcyunB6CMYsNrMWbT1rcwEmLxyk6vWikvw51aJkMJGv.cIStEKBAycwJGhrg2
+ 0PWzfs3PpPrwATELsM9EQaS9YbkfOJscmdXyussGcSV5vPXbJ7bIp.lg6XjZHhBHA92SwAGX4ZSm
+ SwmY-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <32c86239-c434-369d-b6a7-f6f88cf5430a@netscape.net>
+Date: Tue, 12 Jul 2022 15:48:25 -0400
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 171602: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=d8cb7e0f069e0f106d24941355b59b45a731eabe
-X-Osstest-Versions-That:
-    xen=033ae6f88be198b8f56043f94b7076b79b5e447e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 12 Jul 2022 19:40:44 +0000
-
-flight 171602 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171602/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  d8cb7e0f069e0f106d24941355b59b45a731eabe
-baseline version:
- xen                  033ae6f88be198b8f56043f94b7076b79b5e447e
-
-Last test of basis   171599  2022-07-12 14:00:30 Z    0 days
-Testing same since   171602  2022-07-12 17:03:16 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] x86/PAT: Report PAT on CPUs that support PAT without MTRR
+Content-Language: en-US
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+ Jan Beulich <jbeulich@suse.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Dan Williams <dan.j.williams@intel.com>,
+ "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Brijesh Singh
+ <brijesh.singh@amd.com>, Jane Chu <jane.chu@oracle.com>,
+ Tianyu Lan <Tianyu.Lan@microsoft.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sean Christopherson <seanjc@google.com>, xen-devel@lists.xenproject.org,
+ stable@vger.kernel.org
+References: <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz.ref@aol.com>
+ <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz@aol.com>
+ <388a3838-1681-dba4-dabd-a7f27817bf34@suse.com>
+ <b24d7fe6-c1aa-5d3a-5c68-98dfb57bdc40@netscape.net>
+In-Reply-To: <b24d7fe6-c1aa-5d3a-5c68-98dfb57bdc40@netscape.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 7/12/22 3:18 PM, Chuck Zmudzinski wrote:
+> On 7/12/22 2:27 PM, Juergen Gross wrote:
+> > On 12.07.22 20:20, Chuck Zmudzinski wrote:
+> > > The commit 99c13b8c8896d7bcb92753bf
+> > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
+> > > incorrectly failed to account for the case in init_cache_modes() when
+> > > CPUs do support PAT and falsely reported PAT to be disabled when in
+> > > fact PAT is enabled. In some environments, notably in Xen PV domains,
+> > > MTRR is disabled but PAT is still enabled, and that is the case
+> > > that the aforementioned commit failed to account for.
+> > > 
+> > > As an unfortunate consequnce, the pat_enabled() function currently does
+> > > not correctly report that PAT is enabled in such environments. The fix
+> > > is implemented in init_cache_modes() by setting pat_bp_enabled to true
+> > > in init_cache_modes() for the case that commit 99c13b8c8896d7bcb92753bf
+> > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it") failed
+> > > to account for.
+> > > 
+> > > This patch fixes a regression that some users are experiencing with
+> > > Linux as a Xen Dom0 driving particular Intel graphics devices by
+> > > correctly reporting to the Intel i915 driver that PAT is enabled where
+> > > previously it was falsely reporting that PAT is disabled.
+> > > 
+> > > Fixes: 99c13b8c8896d7bcb92753bf ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+> > > ---
+> > > Reminder: This patch is a regression fix that is needed on stable
+> > > versions 5.17 and later.
+> > > 
+> > >   arch/x86/mm/pat/memtype.c | 12 ++++++++++++
+> > >   1 file changed, 12 insertions(+)
+> > > 
+> > > diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
+> > > index d5ef64ddd35e..0f2417bd1b40 100644
+> > > --- a/arch/x86/mm/pat/memtype.c
+> > > +++ b/arch/x86/mm/pat/memtype.c
+> > > @@ -315,6 +315,18 @@ void init_cache_modes(void)
+> > >   		      PAT(4, WB) | PAT(5, WT) | PAT(6, UC_MINUS) | PAT(7, UC);
+> > >   	}
+> > >   
+> > > +	else if (!pat_bp_enabled) {
+> >
+> > Please put the "else if {" into the same line as the "}" above.
+> >
+> > > +	/*
+> > > +	 * In some environments, specifically Xen PV, PAT
+> > > +	 * initialization is skipped because MTRRs are disabled even
+> > > +	 * though PAT is available. In such environments, set PAT to
+> > > +	 * enabled to correctly indicate to callers of pat_enabled()
+> > > +	 * that CPU support for PAT is available.
+> > > +	 */
+> > > +	pat_bp_enabled = true;
+> > > +	pr_info("x86/PAT: PAT enabled by init_cache_modes\n");
+> >
+> > Wrong indentation.
+> >
+> > > +	}
+> > > +
+> > >   	__init_cache_modes(pat);
+> > >   }
+> > >   
+> >
+> > Any reason you didn't fix the "nopat" issue Jan mentioned?
+> >
+> > I asked you twice to add this fix.
+> >
+> >
+> > Juergen
+>
+> Sorry, I did not see your request. I will resend with the fix
+> for "nopat" and the other style issues you mentioned.
+>
+> Chuck
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I will also re-compile and test the new patch before sending
+v2 and unless Jan objects, I should acknowledge Jan as co-author
+of the patch since I will be using parts of his proposed patch
+to fix the "nopat" issue, so I also need to get his sign-off before
+sending v2. Jan, how should I obtain your sign-off?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Chuck
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   033ae6f88b..d8cb7e0f06  d8cb7e0f069e0f106d24941355b59b45a731eabe -> smoke
+Chuck
 
