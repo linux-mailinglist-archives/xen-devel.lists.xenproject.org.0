@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 082F15725AA
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:34:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.366051.596616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC49C572601
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:41:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.366061.596629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLeX-00012y-7o; Tue, 12 Jul 2022 19:34:37 +0000
+	id 1oBLkU-0002hg-WD; Tue, 12 Jul 2022 19:40:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 366051.596616; Tue, 12 Jul 2022 19:34:37 +0000
+Received: by outflank-mailman (output) from mailman id 366061.596629; Tue, 12 Jul 2022 19:40:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLeX-0000zY-34; Tue, 12 Jul 2022 19:34:37 +0000
-Received: by outflank-mailman (input) for mailman id 366051;
- Tue, 12 Jul 2022 19:34:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dIdn=XR=gmail.com=salvatore.bonaccorso@srs-se1.protection.inumbo.net>)
- id 1oBLeU-0000yq-O0
- for xen-devel@lists.xen.org; Tue, 12 Jul 2022 19:34:34 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6fe1df7-0219-11ed-bd2d-47488cf2e6aa;
- Tue, 12 Jul 2022 21:34:31 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id j22so16147413ejs.2;
- Tue, 12 Jul 2022 12:34:31 -0700 (PDT)
-Received: from eldamar (c-82-192-242-114.customer.ggaweb.ch. [82.192.242.114])
- by smtp.gmail.com with ESMTPSA id
- l1-20020aa7c301000000b0043ab5939ecbsm6522136edq.59.2022.07.12.12.34.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Jul 2022 12:34:30 -0700 (PDT)
+	id 1oBLkU-0002eu-TN; Tue, 12 Jul 2022 19:40:46 +0000
+Received: by outflank-mailman (input) for mailman id 366061;
+ Tue, 12 Jul 2022 19:40:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oBLkT-0002ek-Es; Tue, 12 Jul 2022 19:40:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oBLkT-000747-Du; Tue, 12 Jul 2022 19:40:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oBLkS-0007tP-Sp; Tue, 12 Jul 2022 19:40:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oBLkS-00071v-SH; Tue, 12 Jul 2022 19:40:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,104 +41,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: a6fe1df7-0219-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=sender:date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=cUibCSxMoDeR+V4rKvezXaJVFqRh4BDSNyqzyGJ45Gw=;
-        b=p8OpUHIOiSngRVmkadDU59ENA5YE1Vjf/ta6crjLkw2cIEsXcHQfAIepCdgvM24fb5
-         /hv2mxkNHj4jlc6+22Xm3l4+diOCMNc4W9l7YwXdEELS5JMfd9b4LvKYVFftAIDCesE0
-         9QR0ThnYp5JjEhw0QCf4LfHuE1I+n3eZwJAOAuCfjMlNwTB5wknD56wXdl/hlf7i0Npk
-         wFD1Kx/G7Z9zERMfokbwJEUOgdgQqReOXm/8ChRsnVgJ89rOeG0jj/yCEU0Y2eJfkQqU
-         s++OUtmVhAV/dvUwxUPkaPKYM1bs7a7ULMv2V5DLyxQal+a7IsbsKGwM63UUdbBwybSM
-         I94A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
-         :references:mime-version:content-disposition:in-reply-to;
-        bh=cUibCSxMoDeR+V4rKvezXaJVFqRh4BDSNyqzyGJ45Gw=;
-        b=FP62xSJO0P5kY71PevlKl+5dcOidyg8Um1RE6y0p0sEBY8mwL3vuZGNZvRT5ACIbGS
-         nyiUeC+2piVYO37aSLIPgo8lPIt9ri7RLPxJgE2367ecu+mt5Aa712N5VokTWKIuiZjQ
-         i79x2UpGruQE+p/WleD5O8rm5+kYNXEfkPbJkNe8NYqcsDc8Vw+teeC8x3u4Or5NcDfV
-         JRvpxA9lALCF1KSD/Gcm8x0C1NLzeAh24NrcbvWKm04qwevYr0x+62IYGZrTIiilSQv5
-         JKl8DlzGNOjEXd94liKSmZFpTrW3El3usnUb2qskrV5dE5lbv3gP5AaGGBNB5jsK6sQ8
-         R4kQ==
-X-Gm-Message-State: AJIora+NbdEd/pqsqK/NsLJkJWdnHir4AUKdoyOofCWvBi3ikO/Q2iu4
-	UVJpkkaqWi3+TGTDJN/5UATZEN2zchQP/w==
-X-Google-Smtp-Source: AGRyM1tEKkn1bdaPUb7b1bLudzPimOOYGYcxvbrVbouCSR2q/lPhvsXhcnPVC+v9w+hQWUzSox3ywA==
-X-Received: by 2002:a17:907:2718:b0:72b:6b65:37dc with SMTP id w24-20020a170907271800b0072b6b6537dcmr8356123ejk.425.1657654471466;
-        Tue, 12 Jul 2022 12:34:31 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Date: Tue, 12 Jul 2022 21:34:30 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: oss-security@lists.openwall.com
-Cc: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
-	xen-users@lists.xen.org,
-	"Xen.org security team" <security-team-members@xen.org>
-Subject: Re: [oss-security] Xen Security Advisory 407 v1
- (CVE-2022-23816,CVE-2022-23825,CVE-2022-29900) - Retbleed - arbitrary
- speculative code execution with return instructions
-Message-ID: <Ys3MxgqixXKIMg/T@eldamar.lan>
-References: <E1oBIrq-0007mF-D5@xenbits.xenproject.org>
- <Ys3LCx6LmRFF547K@eldamar.lan>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xEgzwFyJ1h97J4cHBj/Ln0Y7cXsp2KVSxz/PY0L43Q8=; b=2zXrfSmaE8RrwXEkDC16LoVtt0
+	mhwWCbM8jf7f6qqy4DJ8mVJewxgDg5/ZSJjO7G3Z0Hf1PqRk7kOe+XkMN/mzJZaGo0ml7elK35FCG
+	GmWkZ2429GQRa6BUqIgB/vDopI7s+E8ThT71ELha6MOjp/A+00L8pEQaVngee1bWNZhk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-171602-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Ys3LCx6LmRFF547K@eldamar.lan>
+Subject: [xen-unstable-smoke test] 171602: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=d8cb7e0f069e0f106d24941355b59b45a731eabe
+X-Osstest-Versions-That:
+    xen=033ae6f88be198b8f56043f94b7076b79b5e447e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 12 Jul 2022 19:40:44 +0000
 
-Hi,
+flight 171602 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171602/
 
-On Tue, Jul 12, 2022 at 09:27:07PM +0200, Salvatore Bonaccorso wrote:
-> Hi,
-> 
-> On Tue, Jul 12, 2022 at 04:36:10PM +0000, Xen.org security team wrote:
-> > -----BEGIN PGP SIGNED MESSAGE-----
-> > Hash: SHA256
-> > 
-> >  Xen Security Advisory CVE-2022-23816,CVE-2022-23825,CVE-2022-29900 / XSA-407
-> > 
-> >    Retbleed - arbitrary speculative code execution with return instructions
-> > 
-> > ISSUE DESCRIPTION
-> > =================
-> > 
-> > Researchers at ETH Zurich have discovered Retbleed, allowing for
-> > arbitrary speculative execution in a victim context.
-> > 
-> > For more details, see:
-> >   https://comsec.ethz.ch/retbleed
-> > 
-> > ETH Zurich have allocated CVE-2022-29900 for AMD and CVE-2022-29901 for
-> > Intel.
-> > 
-> > Despite the similar preconditions, these are very different
-> > microarchitectural behaviours between vendors.
-> > 
-> > On AMD CPUs, Retbleed is one specific instance of a more general
-> > microarchitectural behaviour called Branch Type Confusion.  AMD have
-> > assigned CVE-2022-23816 (Retbleed) and CVE-2022-23825 (Branch Type
-> > Confusion).
-> > 
-> > For more details, see:
-> >   https://www.amd.com/en/corporate/product-security/bulletin/amd-sb-1037
-> 
-> Is it confirmed that AMD is not using CVE-2022-29900? The above
-> amd-sb-1037 references as well both CVE-2022-23825 (Branch Type
-> Confusion) and CVE-2022-29900 (RETbleed), so I assume they agreed to
-> use CVE-2022-29900 for retbleed?
-> 
-> So should the Xen advisory as well use CVE-2022-23825,CVE-2022-29900
-> and CVE-2022-29901?
+Failures :-/ but no regressions.
 
-Nevermind, I missunderstood the wording and the advisory just mentions
-all the related CVEs correctly and made a thinko. It might turn out
-that CVE-2022-23816 will not be used, but then the title would read
-only as 
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Xen Security Advisory CVE-2022-23825,CVE-2022-29900 / XSA-407
+version targeted for testing:
+ xen                  d8cb7e0f069e0f106d24941355b59b45a731eabe
+baseline version:
+ xen                  033ae6f88be198b8f56043f94b7076b79b5e447e
 
-So please disregard the question above.
+Last test of basis   171599  2022-07-12 14:00:30 Z    0 days
+Testing same since   171602  2022-07-12 17:03:16 Z    0 days    1 attempts
 
-Salvatore
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   033ae6f88b..d8cb7e0f06  d8cb7e0f069e0f106d24941355b59b45a731eabe -> smoke
 
