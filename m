@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0A8F571E7B
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 17:11:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.365798.596124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 152D4571F35
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 17:30:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.365806.596135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBHXR-0007es-TS; Tue, 12 Jul 2022 15:11:01 +0000
+	id 1oBHpv-0001pf-Hy; Tue, 12 Jul 2022 15:30:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 365798.596124; Tue, 12 Jul 2022 15:11:01 +0000
+Received: by outflank-mailman (output) from mailman id 365806.596135; Tue, 12 Jul 2022 15:30:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBHXR-0007cN-P8; Tue, 12 Jul 2022 15:11:01 +0000
-Received: by outflank-mailman (input) for mailman id 365798;
- Tue, 12 Jul 2022 15:11:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oBHpv-0001m7-Cy; Tue, 12 Jul 2022 15:30:07 +0000
+Received: by outflank-mailman (input) for mailman id 365806;
+ Tue, 12 Jul 2022 15:30:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DJCY=XR=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1oBHXP-0007cH-TC
- for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 15:11:00 +0000
-Received: from sonic301-21.consmr.mail.gq1.yahoo.com
- (sonic301-21.consmr.mail.gq1.yahoo.com [98.137.64.147])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d13f03cc-01f4-11ed-924f-1f966e50362f;
- Tue, 12 Jul 2022 17:10:52 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic301.consmr.mail.gq1.yahoo.com with HTTP; Tue, 12 Jul 2022 15:10:53 +0000
-Received: by hermes--production-bf1-58957fb66f-p6kcj (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID e0593cb1e20b98e2a34ab7885caed5d9; 
- Tue, 12 Jul 2022 15:10:46 +0000 (UTC)
+ (envelope-from <SRS0=AePn=XR=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oBHpt-0001Vs-Ma
+ for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 15:30:05 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7ffa63e8-01f7-11ed-bd2d-47488cf2e6aa;
+ Tue, 12 Jul 2022 17:30:03 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 10BEA20376;
+ Tue, 12 Jul 2022 15:30:03 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B8BDC13A94;
+ Tue, 12 Jul 2022 15:30:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2iUXK3qTzWKPegAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 12 Jul 2022 15:30:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,46 +51,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d13f03cc-01f4-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657638653; bh=bOVx7YrJAuUMpkgDTYAHEYSe4MaLEA3DCPkIu6cmXSQ=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=lwJaZA9F7lQIKd1z2jh+I1393ECUv1G6a18GunLQOybb81a1+7PZ2kFN02SpvKJd/hx1SXIUzK+N69UziEaX3HoMZqh8fbF5EjmwpWX2PtYwkLUS8tu8DyZr7G/+W2OyuhkFw3YSTIZz2CNLOVIlqc0ftvchKIdUDe13txhMYYaPukoqiSEQZCg0vUaCaeHEGgXA4VVjXkHgixuFRq8qGHuV0jDaF2kZML3QVpPhhJUYyI/NaP3Bj3+rCcLCZ+/UFcvHImPKztANDU3oive31cimoF1eo0+citUomiB50lEOdx3tibsRQPL6UXHtLfGboxGSto2VsnegXTnnykaGow==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657638653; bh=FfZVB0AtytDJFrI2r2Op342mDi9hyzYHrQ+lzrBJvzI=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=eUulBIhmrYpxeMz6bPnOEDof4xyRuDffvsaml9R6RRPzpCZSHjKeeEuPpxicINZqsH3b36QX93cmanSC9bqCu8WeeGhoIWIsxxX3U+A3o9EvXvm7FnAwQiMhW2+r1VEMSQPjuxT/z0VZ480mcUmZo0QSPHSpQhVImb9wJhDn+/UKzmB2BN1TrfVSVYhhb2ezl1YJv0mqQah/PiWDqeu7d8JMGMLD93kRVFz6j3Sg614ww9vcfsUrfyw7UzmSPt+qVWdj1glNRBf3w4vwi+r0Y9lYscGnGeCgW7CenstfbB6/Zb3/Wqg5vR/1fu8dJBZzQuPu4WsBqD8I0zFf52xSiw==
-X-YMail-OSG: hicEidYVM1nv_OxWru_4Fj6z1kYd_Rf2mLCS5854cpF9Cw5lGoVInjCa0CmdF6g
- t71Q1bnWA3wvQqTyPPKP_X2jhNUYn5xfNZ4w9EhkQqpT54GTtdkNQ4Uj75HsFomj1nsqRDtHoUfa
- 0nZ6MDQF1h7Ma_9_6n71Y0ZTARx3d3ZSv26NPe0dS6IqYy4OvNhxtyK90nLYeZc02elfGHrp4MMq
- VLJB4kxWReK6nX5lcyOQ3Bls0QuLZreqWgF_Q99kMi.7eAvpCRDIuu88ilg.33rWPGeYI0gfXgK9
- deJZue19u9uWKEMCKuym1bkwtJdkCy07voDmKhHOEois.2Mi7jVb78_PmOkT73vL4eG5RYppwxDA
- _6Ng2T5iPUH6.IDi4YGhT49xaFfHhYnbp5Glp7IP_KQbVMnDJ0o1pbgf80CkyqJUSMsIXheIWV8x
- 2FrTKZQnzOO3BeSPaK5lFvw9yGtS0_kn3ImKjG_8dGqRtOsGHOnn18QhI3c6nj_qz71sLEsYKQdb
- GweFZjFXwPFAE9it_xc_I23UEXE69nCaj0jkHVfHgbuTG6GAnz1oAf2hpOqYiNdPtk7ukObwzfBB
- x8d6UNlmigKIlDNzzk8y9gKyu5UCY4LMGiXfQLPOUqD_v_UUTvFG5qhYQnP6_WybenZbFyH.lfn7
- K6zQoKk6qrKAsl8VeN_bdNx8K8UNxLrNvaoq0o_6Vo5.tgJU7M_Cp9UkRQKERpsWlWpscax5iwm0
- Thv.c._SVJ8BX2qTBWwFiOg_.J5J5ZYmjSyrqAzpfBcObsql0H42h5dwKwBy0W4a2wlw60ApU4ma
- I1JFIVfVdQM9CNftmi9q0gbQYdJyATyQb2cVrKutkkho14EXHzsMkQ5YW8mxOoeBQzhE7KyeG3J_
- Vq_65w8UmzDO6iBtfkO16lUTl2P8IX6h8VOQu4Mkh7CsZ3CLYLbeLlbFWcxM4iG81z.vvvBN6cTI
- oi1TVQF5KkpLcmpsY2WMqeRqpZGYl_gKAqhb0NVg5zHKqkWAOrjehbT80v6dFkvgiM.lckIGI8f9
- gDevs27JCfQCbtia9A8uMqVKPvlM9b0UvKoivz78y9mN.6krQjqcaHCDqnGbi3OHjrTd5YamwFxo
- HQzuLI2nMizzf_aeelaXbsGrjsQbgPKhjigF1lq0bEWFpE4apIoDv3UPKp8ZLRKNqdQylPi5bv6k
- 5NSmj.3wtK41RfkG4y7ValKUdJKni5HOWkmYBQWO7X4QHn6grmUVoLSUsiOOM4Au9FZan0arrQ4f
- Ga2VL1eYTU9o8KoRP7cxnXksYBKtskOKh6MIn825.LvOGiDJAu8REgdR3Q_rXq5WqxCI5.3o.DB8
- y3wQP8m9MoqGDfkYZNUTMDQ4WJA.J.vp6qPQlOBbjrlVPGphQC6V_06sK9tL2cv.MvecaDN3I1KU
- .bGsr0KONhCfh._2xUjcp8WXoBUendH0wF6l0KzNwtLwnzscr1AP0FaPbqq1HLY1igFUNlT_h807
- VUdeln.DsYmMTCxVKqGOOEG9RRT9YYmEWb7zs1TUHSoymnJ4T3iv6X5tzvImJZ1Kvj5_5qfamAXU
- qMRsR3cDKpzbT2aclkUqrgKPY5fLGDE81lVBSEzOEIBBYvhBAcuWqiT085Nlyfntxq4D8Xn9wN1E
- OkXxTUI879yWyVqRLomYQl3SBfXDWGGb.W1q5g9f2MjNKAarYuyV.WuARcyXC81SY9y.G.D2jHvB
- Gi3KNrgCIje_EUAcFRgIY_dAQhf5mXQC5do.qA4tudRowk7zMB5JGlLKJI4o3idmQGLKPbXcjGCJ
- 7tErUBo44gy2WyrJhoxId0uk6ogYI2kAO9sfrOEB0zbI9Xr3nSXZBvgR2QJvyCUkzVJ9w2rNM_W1
- Krqz.oX3_LglZVA4pXlhV5jEZ4XA3N00W0AZJ3l1kWSNFx9kW6zR0jngucXZNcRGVkwlNkpwvaQM
- vsmXMdwLD4WM6NEjKWLjPZkxWSJ5jE.PA9PjhTi7J.vE-
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <3b228e55-53b6-beb8-7822-af03e65a078b@netscape.net>
-Date: Tue, 12 Jul 2022 11:09:59 -0400
+X-Inumbo-ID: 7ffa63e8-01f7-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1657639803; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HZcOzATguMN201yo0KEpufnUqjbpa5VOh3F5suHdSu8=;
+	b=UkrlMDDv5wJFt3k78mzNlxZALnxMFko2xQiHSMW2U6POuS3yj5Rafp60Pvt6iApYtBKAF7
+	AjoMDq0XGz9zt7q1ZU0lUNV2JW5CbQMQnDznpAMRyTvnMmlNWd4ODvkOJdslAIFQQXGOTe
+	vW60dtKI3snCfy7SFBkMQXoTh9fDjQ4=
+Message-ID: <7ff738f2-716f-f42a-2f92-3a7d94722d33@suse.com>
+Date: Tue, 12 Jul 2022 17:30:02 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] x86/PAT: have pat_enabled() properly reflect state when
- running on e.g. Xen
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
+To: Chuck Zmudzinski <brchuckz@netscape.net>, Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Lutomirski <luto@kernel.org>,
  "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
  Peter Zijlstra <peterz@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
@@ -96,165 +81,271 @@ References: <9385fa60-fa5d-f559-a137-6608408f88b0@suse.com>
  <6afa42fd-469d-5b08-1688-5af8a3c9d8fa@suse.com>
  <8011dff1-6551-898f-7e37-38ede106e2f4@netscape.net>
  <45fd7ade-61fe-18fa-aacc-ed80fdf3fb8d@suse.com>
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-In-Reply-To: <45fd7ade-61fe-18fa-aacc-ed80fdf3fb8d@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+ <3b228e55-53b6-beb8-7822-af03e65a078b@netscape.net>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] x86/PAT: have pat_enabled() properly reflect state when
+ running on e.g. Xen
+In-Reply-To: <3b228e55-53b6-beb8-7822-af03e65a078b@netscape.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------0qcVuYOeBgyocpe774tTP9C3"
 
-On 7/12/2022 9:32 AM, Juergen Gross wrote:
-> On 12.07.22 15:22, Chuck Zmudzinski wrote:
-> > On 7/12/2022 2:04 AM, Jan Beulich wrote:
-> >> On 11.07.2022 19:41, Chuck Zmudzinski wrote:
-> >>> Moreover... (please move to the bottom of the code snippet
-> >>> for more information about my tests in the Xen PV environment...)
-> >>>
-> >>> void init_cache_modes(void)
-> >>> {
-> >>>      u64 pat = 0;
-> >>>
-> >>>      if (pat_cm_initialized)
-> >>>          return;
-> >>>
-> >>>      if (boot_cpu_has(X86_FEATURE_PAT)) {
-> >>>          /*
-> >>>           * CPU supports PAT. Set PAT table to be consistent with
-> >>>           * PAT MSR. This case supports "nopat" boot option, and
-> >>>           * virtual machine environments which support PAT without
-> >>>           * MTRRs. In specific, Xen has unique setup to PAT MSR.
-> >>>           *
-> >>>           * If PAT MSR returns 0, it is considered invalid and emulates
-> >>>           * as No PAT.
-> >>>           */
-> >>>          rdmsrl(MSR_IA32_CR_PAT, pat);
-> >>>      }
-> >>>
-> >>>      if (!pat) {
-> >>>          /*
-> >>>           * No PAT. Emulate the PAT table that corresponds to the two
-> >>>           * cache bits, PWT (Write Through) and PCD (Cache Disable).
-> >>>           * This setup is also the same as the BIOS default setup.
-> >>>           *
-> >>>           * PTE encoding:
-> >>>           *
-> >>>           *       PCD
-> >>>           *       |PWT  PAT
-> >>>           *       ||    slot
-> >>>           *       00    0    WB : _PAGE_CACHE_MODE_WB
-> >>>           *       01    1    WT : _PAGE_CACHE_MODE_WT
-> >>>           *       10    2    UC-: _PAGE_CACHE_MODE_UC_MINUS
-> >>>           *       11    3    UC : _PAGE_CACHE_MODE_UC
-> >>>           *
-> >>>           * NOTE: When WC or WP is used, it is redirected to UC- per
-> >>>           * the default setup in __cachemode2pte_tbl[].
-> >>>           */
-> >>>          pat = PAT(0, WB) | PAT(1, WT) | PAT(2, UC_MINUS) | PAT(3, UC) |
-> >>>                PAT(4, WB) | PAT(5, WT) | PAT(6, UC_MINUS) | PAT(7, UC);
-> >>>      }
-> >>>
-> >>>      else if (!pat_bp_enabled) {
-> >>>          /*
-> >>>           * In some environments, specifically Xen PV, PAT
-> >>>           * initialization is skipped because MTRRs are
-> >>>           * disabled even though PAT is available. In such
-> >>>           * environments, set PAT to initialized and enabled to
-> >>>           * correctly indicate to callers of pat_enabled() that
-> >>>           * PAT is available and prevent PAT from being disabled.
-> >>>           */
-> >>>          pat_bp_enabled = true;
-> >>>          pr_info("x86/PAT: PAT enabled by init_cache_modes\n");
-> >>>      }
-> >>>
-> >>>      __init_cache_modes(pat);
-> >>> }
-> >>>
-> >>> This function, patched with the extra 'else if' block, fixes the
-> >>> regression on my Xen worksatation, and the pr_info message
-> >>> "x86/PAT: PAT enabled by init_cache_modes" appears in the logs
-> >>> when running this patched kernel in my Xen Dom0. This means
-> >>> that in the Xen PV environment on my Xen Dom0 workstation,
-> >>> rdmsrl(MSR_IA32_CR_PAT, pat) successfully tested for the presence
-> >>> of PAT on the virtual CPU that Xen exposed to the Linux kernel on my
-> >>> Xen Dom0 workstation. At least that is what I think my tests prove.
-> >>>
-> >>> So why is this not a valid way to test for the existence of
-> >>> PAT in the Xen PV environment? Are the existing comments
-> >>> in init_cache_modes() about supporting both the case when
-> >>> the "nopat" boot option is set and the specific case of Xen and
-> >>> MTRR disabled wrong? My testing confirms those comments are
-> >>> correct.
-> >>
-> >> At the very least this ignores the possible "nopat" an admin may
-> >> have passed to the kernel.
-> > 
-> > I realize that. The patch I proposed here only fixes the regression. It
-> > would be easy to also modify the patch to also observe the 'nopat"
-> > setting. I think your patch had a force_pat_disable local variable that
-> > is set if pat is disabled by the administrator with "nopat." With that
-> > variable available, modifying the patch so in init_cache_modes we have:
-> > 
-> >       if (!pat || force_pat_disable) {
-> >           /*
-> >            * No PAT. Emulate the PAT table that corresponds to the two
-> > 
-> > Instead of:
-> > 
-> >       if (!pat) {
-> >           /*
-> >            * No PAT. Emulate the PAT table that corresponds to the two
-> > 
-> > would cause the kernel to respect the "nopat" setting by the administrator
-> > in the Xen PV Dom0 environment.
->
-> Chuck, could you please send out a proper patch with your initial fix
-> (setting pat_bp_enabled) and the fix above?
->
-> I've chatted with Boris Petkov on IRC and he is fine with that.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------0qcVuYOeBgyocpe774tTP9C3
+Content-Type: multipart/mixed; boundary="------------bp5CP2emjMCpBr8uvIZiCwkL";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Chuck Zmudzinski <brchuckz@netscape.net>, Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Lutomirski <luto@kernel.org>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Borislav Petkov <bp@alien8.de>
+Message-ID: <7ff738f2-716f-f42a-2f92-3a7d94722d33@suse.com>
+Subject: Re: [PATCH] x86/PAT: have pat_enabled() properly reflect state when
+ running on e.g. Xen
+References: <9385fa60-fa5d-f559-a137-6608408f88b0@suse.com>
+ <YsRTAGI2PhfZ5V7M@zn.tnic> <016d281b-7e40-f1bd-66ee-c19c3cc56efe@suse.com>
+ <YsRjX/U1XN8rq+8u@zn.tnic>
+ <4e099e2d-e429-252b-ceeb-678066d85e61@netscape.net>
+ <aa8f99dc-e622-398e-1a68-6b060497e4b3@suse.com>
+ <d49e87a0-417d-194d-daa1-952f707f096c@netscape.net>
+ <6afa42fd-469d-5b08-1688-5af8a3c9d8fa@suse.com>
+ <8011dff1-6551-898f-7e37-38ede106e2f4@netscape.net>
+ <45fd7ade-61fe-18fa-aacc-ed80fdf3fb8d@suse.com>
+ <3b228e55-53b6-beb8-7822-af03e65a078b@netscape.net>
+In-Reply-To: <3b228e55-53b6-beb8-7822-af03e65a078b@netscape.net>
 
-That's great, I will submit a formal patch later today.
+--------------bp5CP2emjMCpBr8uvIZiCwkL
+Content-Type: multipart/mixed; boundary="------------hVsn0s000J25FiXUpIB0Bzg6"
 
->
-> > I agree this needs to be fixed up, because currently the code is very
-> > confusing and the current variable names and function names do not
-> > always accurately describe what they actually do in the code. That is
-> > why I am working on a patch to do some re-factoring, which only consists
-> > of function and variable name changes and comment changes to fix
-> > the places where the comments in the code are misleading or incomplete.
->
-> Boris and I agreed to pursue my approach further by removing the
-> dependency between PAT and MTRR and to make this whole mess more
-> clear.
->
-> I will start to work on this as soon as possible, which will
-> probably be some time in September.
+--------------hVsn0s000J25FiXUpIB0Bzg6
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Good, I will look for your patches and try them out.
+T24gMTIuMDcuMjIgMTc6MDksIENodWNrIFptdWR6aW5za2kgd3JvdGU6DQo+IE9uIDcvMTIv
+MjAyMiA5OjMyIEFNLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMTIuMDcuMjIgMTU6
+MjIsIENodWNrIFptdWR6aW5za2kgd3JvdGU6DQo+Pj4gT24gNy8xMi8yMDIyIDI6MDQgQU0s
+IEphbiBCZXVsaWNoIHdyb3RlOg0KPj4+PiBPbiAxMS4wNy4yMDIyIDE5OjQxLCBDaHVjayBa
+bXVkemluc2tpIHdyb3RlOg0KPj4+Pj4gTW9yZW92ZXIuLi4gKHBsZWFzZSBtb3ZlIHRvIHRo
+ZSBib3R0b20gb2YgdGhlIGNvZGUgc25pcHBldA0KPj4+Pj4gZm9yIG1vcmUgaW5mb3JtYXRp
+b24gYWJvdXQgbXkgdGVzdHMgaW4gdGhlIFhlbiBQViBlbnZpcm9ubWVudC4uLikNCj4+Pj4+
+DQo+Pj4+PiB2b2lkIGluaXRfY2FjaGVfbW9kZXModm9pZCkNCj4+Pj4+IHsNCj4+Pj4+ICAg
+wqDCoCDCoHU2NCBwYXQgPSAwOw0KPj4+Pj4NCj4+Pj4+ICAgwqDCoCDCoGlmIChwYXRfY21f
+aW5pdGlhbGl6ZWQpDQo+Pj4+PiAgIMKgwqAgwqDCoMKgwqAgcmV0dXJuOw0KPj4+Pj4NCj4+
+Pj4+ICAgwqDCoCDCoGlmIChib290X2NwdV9oYXMoWDg2X0ZFQVRVUkVfUEFUKSkgew0KPj4+
+Pj4gICDCoMKgIMKgwqDCoMKgIC8qDQo+Pj4+PiAgIMKgwqAgwqDCoMKgwqAgwqAqIENQVSBz
+dXBwb3J0cyBQQVQuIFNldCBQQVQgdGFibGUgdG8gYmUgY29uc2lzdGVudCB3aXRoDQo+Pj4+
+PiAgIMKgwqAgwqDCoMKgwqAgwqAqIFBBVCBNU1IuIFRoaXMgY2FzZSBzdXBwb3J0cyAibm9w
+YXQiIGJvb3Qgb3B0aW9uLCBhbmQNCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCogdmlydHVh
+bCBtYWNoaW5lIGVudmlyb25tZW50cyB3aGljaCBzdXBwb3J0IFBBVCB3aXRob3V0DQo+Pj4+
+PiAgIMKgwqAgwqDCoMKgwqAgwqAqIE1UUlJzLiBJbiBzcGVjaWZpYywgWGVuIGhhcyB1bmlx
+dWUgc2V0dXAgdG8gUEFUIE1TUi4NCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCoNCj4+Pj4+
+ICAgwqDCoCDCoMKgwqDCoCDCoCogSWYgUEFUIE1TUiByZXR1cm5zIDAsIGl0IGlzIGNvbnNp
+ZGVyZWQgaW52YWxpZCBhbmQgZW11bGF0ZXMNCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCog
+YXMgTm8gUEFULg0KPj4+Pj4gICDCoMKgIMKgwqDCoMKgIMKgKi8NCj4+Pj4+ICAgwqDCoCDC
+oMKgwqDCoCByZG1zcmwoTVNSX0lBMzJfQ1JfUEFULCBwYXQpOw0KPj4+Pj4gICDCoMKgIMKg
+fQ0KPj4+Pj4NCj4+Pj4+ICAgwqDCoCDCoGlmICghcGF0KSB7DQo+Pj4+PiAgIMKgwqAgwqDC
+oMKgwqAgLyoNCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCogTm8gUEFULiBFbXVsYXRlIHRo
+ZSBQQVQgdGFibGUgdGhhdCBjb3JyZXNwb25kcyB0byB0aGUgdHdvDQo+Pj4+PiAgIMKgwqAg
+wqDCoMKgwqAgwqAqIGNhY2hlIGJpdHMsIFBXVCAoV3JpdGUgVGhyb3VnaCkgYW5kIFBDRCAo
+Q2FjaGUgRGlzYWJsZSkuDQo+Pj4+PiAgIMKgwqAgwqDCoMKgwqAgwqAqIFRoaXMgc2V0dXAg
+aXMgYWxzbyB0aGUgc2FtZSBhcyB0aGUgQklPUyBkZWZhdWx0IHNldHVwLg0KPj4+Pj4gICDC
+oMKgIMKgwqDCoMKgIMKgKg0KPj4+Pj4gICDCoMKgIMKgwqDCoMKgIMKgKiBQVEUgZW5jb2Rp
+bmc6DQo+Pj4+PiAgIMKgwqAgwqDCoMKgwqAgwqAqDQo+Pj4+PiAgIMKgwqAgwqDCoMKgwqAg
+wqAqwqDCoMKgwqDCoMKgIFBDRA0KPj4+Pj4gICDCoMKgIMKgwqDCoMKgIMKgKsKgwqDCoMKg
+wqDCoCB8UFdUwqAgUEFUDQo+Pj4+PiAgIMKgwqAgwqDCoMKgwqAgwqAqwqDCoMKgwqDCoMKg
+IHx8wqDCoMKgIHNsb3QNCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCrCoMKgwqDCoMKgwqAg
+MDDCoMKgwqAgMMKgwqDCoCBXQiA6IF9QQUdFX0NBQ0hFX01PREVfV0INCj4+Pj4+ICAgwqDC
+oCDCoMKgwqDCoCDCoCrCoMKgwqDCoMKgwqAgMDHCoMKgwqAgMcKgwqDCoCBXVCA6IF9QQUdF
+X0NBQ0hFX01PREVfV1QNCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCrCoMKgwqDCoMKgwqAg
+MTDCoMKgwqAgMsKgwqDCoCBVQy06IF9QQUdFX0NBQ0hFX01PREVfVUNfTUlOVVMNCj4+Pj4+
+ICAgwqDCoCDCoMKgwqDCoCDCoCrCoMKgwqDCoMKgwqAgMTHCoMKgwqAgM8KgwqDCoCBVQyA6
+IF9QQUdFX0NBQ0hFX01PREVfVUMNCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCoNCj4+Pj4+
+ICAgwqDCoCDCoMKgwqDCoCDCoCogTk9URTogV2hlbiBXQyBvciBXUCBpcyB1c2VkLCBpdCBp
+cyByZWRpcmVjdGVkIHRvIFVDLSBwZXINCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCogdGhl
+IGRlZmF1bHQgc2V0dXAgaW4gX19jYWNoZW1vZGUycHRlX3RibFtdLg0KPj4+Pj4gICDCoMKg
+IMKgwqDCoMKgIMKgKi8NCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCBwYXQgPSBQQVQoMCwgV0Ip
+IHwgUEFUKDEsIFdUKSB8IFBBVCgyLCBVQ19NSU5VUykgfCBQQVQoMywgVUMpIHwNCj4+Pj4+
+ICAgwqDCoCDCoMKgwqDCoCDCoMKgwqDCoMKgIFBBVCg0LCBXQikgfCBQQVQoNSwgV1QpIHwg
+UEFUKDYsIFVDX01JTlVTKSB8IFBBVCg3LCBVQyk7DQo+Pj4+PiAgIMKgwqAgwqB9DQo+Pj4+
+Pg0KPj4+Pj4gICDCoMKgIMKgZWxzZSBpZiAoIXBhdF9icF9lbmFibGVkKSB7DQo+Pj4+PiAg
+IMKgwqAgwqDCoMKgwqAgLyoNCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCogSW4gc29tZSBl
+bnZpcm9ubWVudHMsIHNwZWNpZmljYWxseSBYZW4gUFYsIFBBVA0KPj4+Pj4gICDCoMKgIMKg
+wqDCoMKgIMKgKiBpbml0aWFsaXphdGlvbiBpcyBza2lwcGVkIGJlY2F1c2UgTVRSUnMgYXJl
+DQo+Pj4+PiAgIMKgwqAgwqDCoMKgwqAgwqAqIGRpc2FibGVkIGV2ZW4gdGhvdWdoIFBBVCBp
+cyBhdmFpbGFibGUuIEluIHN1Y2gNCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCDCoCogZW52aXJv
+bm1lbnRzLCBzZXQgUEFUIHRvIGluaXRpYWxpemVkIGFuZCBlbmFibGVkIHRvDQo+Pj4+PiAg
+IMKgwqAgwqDCoMKgwqAgwqAqIGNvcnJlY3RseSBpbmRpY2F0ZSB0byBjYWxsZXJzIG9mIHBh
+dF9lbmFibGVkKCkgdGhhdA0KPj4+Pj4gICDCoMKgIMKgwqDCoMKgIMKgKiBQQVQgaXMgYXZh
+aWxhYmxlIGFuZCBwcmV2ZW50IFBBVCBmcm9tIGJlaW5nIGRpc2FibGVkLg0KPj4+Pj4gICDC
+oMKgIMKgwqDCoMKgIMKgKi8NCj4+Pj4+ICAgwqDCoCDCoMKgwqDCoCBwYXRfYnBfZW5hYmxl
+ZCA9IHRydWU7DQo+Pj4+PiAgIMKgwqAgwqDCoMKgwqAgcHJfaW5mbygieDg2L1BBVDogUEFU
+IGVuYWJsZWQgYnkgaW5pdF9jYWNoZV9tb2Rlc1xuIik7DQo+Pj4+PiAgIMKgwqAgwqB9DQo+
+Pj4+Pg0KPj4+Pj4gICDCoMKgIMKgX19pbml0X2NhY2hlX21vZGVzKHBhdCk7DQo+Pj4+PiB9
+DQo+Pj4+Pg0KPj4+Pj4gVGhpcyBmdW5jdGlvbiwgcGF0Y2hlZCB3aXRoIHRoZSBleHRyYSAn
+ZWxzZSBpZicgYmxvY2ssIGZpeGVzIHRoZQ0KPj4+Pj4gcmVncmVzc2lvbiBvbiBteSBYZW4g
+d29ya3NhdGF0aW9uLCBhbmQgdGhlIHByX2luZm8gbWVzc2FnZQ0KPj4+Pj4gIng4Ni9QQVQ6
+IFBBVCBlbmFibGVkIGJ5IGluaXRfY2FjaGVfbW9kZXMiIGFwcGVhcnMgaW4gdGhlIGxvZ3MN
+Cj4+Pj4+IHdoZW4gcnVubmluZyB0aGlzIHBhdGNoZWQga2VybmVsIGluIG15IFhlbiBEb20w
+LiBUaGlzIG1lYW5zDQo+Pj4+PiB0aGF0IGluIHRoZSBYZW4gUFYgZW52aXJvbm1lbnQgb24g
+bXkgWGVuIERvbTAgd29ya3N0YXRpb24sDQo+Pj4+PiByZG1zcmwoTVNSX0lBMzJfQ1JfUEFU
+LCBwYXQpIHN1Y2Nlc3NmdWxseSB0ZXN0ZWQgZm9yIHRoZSBwcmVzZW5jZQ0KPj4+Pj4gb2Yg
+UEFUIG9uIHRoZSB2aXJ0dWFsIENQVSB0aGF0IFhlbiBleHBvc2VkIHRvIHRoZSBMaW51eCBr
+ZXJuZWwgb24gbXkNCj4+Pj4+IFhlbiBEb20wIHdvcmtzdGF0aW9uLiBBdCBsZWFzdCB0aGF0
+IGlzIHdoYXQgSSB0aGluayBteSB0ZXN0cyBwcm92ZS4NCj4+Pj4+DQo+Pj4+PiBTbyB3aHkg
+aXMgdGhpcyBub3QgYSB2YWxpZCB3YXkgdG8gdGVzdCBmb3IgdGhlIGV4aXN0ZW5jZSBvZg0K
+Pj4+Pj4gUEFUIGluIHRoZSBYZW4gUFYgZW52aXJvbm1lbnQ/IEFyZSB0aGUgZXhpc3Rpbmcg
+Y29tbWVudHMNCj4+Pj4+IGluIGluaXRfY2FjaGVfbW9kZXMoKSBhYm91dCBzdXBwb3J0aW5n
+IGJvdGggdGhlIGNhc2Ugd2hlbg0KPj4+Pj4gdGhlICJub3BhdCIgYm9vdCBvcHRpb24gaXMg
+c2V0IGFuZCB0aGUgc3BlY2lmaWMgY2FzZSBvZiBYZW4gYW5kDQo+Pj4+PiBNVFJSIGRpc2Fi
+bGVkIHdyb25nPyBNeSB0ZXN0aW5nIGNvbmZpcm1zIHRob3NlIGNvbW1lbnRzIGFyZQ0KPj4+
+Pj4gY29ycmVjdC4NCj4+Pj4NCj4+Pj4gQXQgdGhlIHZlcnkgbGVhc3QgdGhpcyBpZ25vcmVz
+IHRoZSBwb3NzaWJsZSAibm9wYXQiIGFuIGFkbWluIG1heQ0KPj4+PiBoYXZlIHBhc3NlZCB0
+byB0aGUga2VybmVsLg0KPj4+DQo+Pj4gSSByZWFsaXplIHRoYXQuIFRoZSBwYXRjaCBJIHBy
+b3Bvc2VkIGhlcmUgb25seSBmaXhlcyB0aGUgcmVncmVzc2lvbi4gSXQNCj4+PiB3b3VsZCBi
+ZSBlYXN5IHRvIGFsc28gbW9kaWZ5IHRoZSBwYXRjaCB0byBhbHNvIG9ic2VydmUgdGhlICdu
+b3BhdCINCj4+PiBzZXR0aW5nLiBJIHRoaW5rIHlvdXIgcGF0Y2ggaGFkIGEgZm9yY2VfcGF0
+X2Rpc2FibGUgbG9jYWwgdmFyaWFibGUgdGhhdA0KPj4+IGlzIHNldCBpZiBwYXQgaXMgZGlz
+YWJsZWQgYnkgdGhlIGFkbWluaXN0cmF0b3Igd2l0aCAibm9wYXQuIiBXaXRoIHRoYXQNCj4+
+PiB2YXJpYWJsZSBhdmFpbGFibGUsIG1vZGlmeWluZyB0aGUgcGF0Y2ggc28gaW4gaW5pdF9j
+YWNoZV9tb2RlcyB3ZSBoYXZlOg0KPj4+DQo+Pj4gICDCoMKgwqDCoCBpZiAoIXBhdCB8fCBm
+b3JjZV9wYXRfZGlzYWJsZSkgew0KPj4+ICAgwqDCoMKgwqDCoMKgwqDCoCAvKg0KPj4+ICAg
+wqDCoMKgwqDCoMKgwqDCoMKgICogTm8gUEFULiBFbXVsYXRlIHRoZSBQQVQgdGFibGUgdGhh
+dCBjb3JyZXNwb25kcyB0byB0aGUgdHdvDQo+Pj4NCj4+PiBJbnN0ZWFkIG9mOg0KPj4+DQo+
+Pj4gICDCoMKgwqDCoCBpZiAoIXBhdCkgew0KPj4+ICAgwqDCoMKgwqDCoMKgwqDCoCAvKg0K
+Pj4+ICAgwqDCoMKgwqDCoMKgwqDCoMKgICogTm8gUEFULiBFbXVsYXRlIHRoZSBQQVQgdGFi
+bGUgdGhhdCBjb3JyZXNwb25kcyB0byB0aGUgdHdvDQo+Pj4NCj4+PiB3b3VsZCBjYXVzZSB0
+aGUga2VybmVsIHRvIHJlc3BlY3QgdGhlICJub3BhdCIgc2V0dGluZyBieSB0aGUgYWRtaW5p
+c3RyYXRvcg0KPj4+IGluIHRoZSBYZW4gUFYgRG9tMCBlbnZpcm9ubWVudC4NCj4+DQo+PiBD
+aHVjaywgY291bGQgeW91IHBsZWFzZSBzZW5kIG91dCBhIHByb3BlciBwYXRjaCB3aXRoIHlv
+dXIgaW5pdGlhbCBmaXgNCj4+IChzZXR0aW5nIHBhdF9icF9lbmFibGVkKSBhbmQgdGhlIGZp
+eCBhYm92ZT8NCj4+DQo+PiBJJ3ZlIGNoYXR0ZWQgd2l0aCBCb3JpcyBQZXRrb3Ygb24gSVJD
+IGFuZCBoZSBpcyBmaW5lIHdpdGggdGhhdC4NCj4gDQo+IFRoYXQncyBncmVhdCwgSSB3aWxs
+IHN1Ym1pdCBhIGZvcm1hbCBwYXRjaCBsYXRlciB0b2RheS4NCj4gDQo+Pg0KPj4+IEkgYWdy
+ZWUgdGhpcyBuZWVkcyB0byBiZSBmaXhlZCB1cCwgYmVjYXVzZSBjdXJyZW50bHkgdGhlIGNv
+ZGUgaXMgdmVyeQ0KPj4+IGNvbmZ1c2luZyBhbmQgdGhlIGN1cnJlbnQgdmFyaWFibGUgbmFt
+ZXMgYW5kIGZ1bmN0aW9uIG5hbWVzIGRvIG5vdA0KPj4+IGFsd2F5cyBhY2N1cmF0ZWx5IGRl
+c2NyaWJlIHdoYXQgdGhleSBhY3R1YWxseSBkbyBpbiB0aGUgY29kZS4gVGhhdCBpcw0KPj4+
+IHdoeSBJIGFtIHdvcmtpbmcgb24gYSBwYXRjaCB0byBkbyBzb21lIHJlLWZhY3RvcmluZywg
+d2hpY2ggb25seSBjb25zaXN0cw0KPj4+IG9mIGZ1bmN0aW9uIGFuZCB2YXJpYWJsZSBuYW1l
+IGNoYW5nZXMgYW5kIGNvbW1lbnQgY2hhbmdlcyB0byBmaXgNCj4+PiB0aGUgcGxhY2VzIHdo
+ZXJlIHRoZSBjb21tZW50cyBpbiB0aGUgY29kZSBhcmUgbWlzbGVhZGluZyBvciBpbmNvbXBs
+ZXRlLg0KPj4NCj4+IEJvcmlzIGFuZCBJIGFncmVlZCB0byBwdXJzdWUgbXkgYXBwcm9hY2gg
+ZnVydGhlciBieSByZW1vdmluZyB0aGUNCj4+IGRlcGVuZGVuY3kgYmV0d2VlbiBQQVQgYW5k
+IE1UUlIgYW5kIHRvIG1ha2UgdGhpcyB3aG9sZSBtZXNzIG1vcmUNCj4+IGNsZWFyLg0KPj4N
+Cj4+IEkgd2lsbCBzdGFydCB0byB3b3JrIG9uIHRoaXMgYXMgc29vbiBhcyBwb3NzaWJsZSwg
+d2hpY2ggd2lsbA0KPj4gcHJvYmFibHkgYmUgc29tZSB0aW1lIGluIFNlcHRlbWJlci4NCj4g
+DQo+IEdvb2QsIEkgd2lsbCBsb29rIGZvciB5b3VyIHBhdGNoZXMgYW5kIHRyeSB0aGVtIG91
+dC4NCj4gDQo+Pg0KPj4+IEkgdGhpbmsgcGVyaGFwcyB0aGUgbW9zdCBtaXNuYW1lZCB2YXJp
+YWJsZSBoZXJlIGlzIHRoZcKgIGxvY2FsDQo+Pj4gdmFyaWFibGUgcGF0X2Rpc2FibGVkIGlu
+IG1lbXR5cGVzLmMgYW5kIHRoZSBtb3N0IG1pc25hbWVkIGZ1bmN0aW9uIGlzIHRoZQ0KPj4+
+IHBhdF9kaXNhYmxlIGZ1bmN0aW9uIGluIG1lbXR5cGVzLmMuIFRoZXkgc2hvdWxkIGJlIG5h
+bWVkIHBhdF9pbml0X2Rpc2FibGVkDQo+Pj4gYW5kIHBhdF9pbml0X2Rpc2FibGUsIHJlc3Bl
+Y3RpdmVseSwgYmVjYXVzZSB0aGV5IGRvIG5vdCByZWFsbHkgZGlzYWJsZQ0KPj4+IFBBVCBp
+bg0KPj4+IHRoZSBjb2RlIGJ1dCBvbmx5IHByZXZlbnQgZXhlY3V0aW9uIG9mIHRoZSBwYXRf
+aW5pdCBmdW5jdGlvbi4gVGhhdA0KPj4+IGxlYXZlcyBvcGVuDQo+Pj4gdGhlIHBvc3NpYmls
+aXR5IGZvciBQQVQgdG8gYmUgZW5hYmxlZCBieSBpbml0X2NhY2hlX21vZGVzLCB3aGljaCBh
+Y3R1YWxseQ0KPj4+IG9jY3VycyBpbiB0aGUgY3VycmVudCBjb2RlIGluIHRoZSBYZW4gUFYg
+RG9tMCBlbnZpcm9ubWVudCwgYnV0IHRoZSBjdXJyZW50DQo+Pj4gY29kZSBuZWdsZWN0cyB0
+byBzZXQgcGF0X2JwX2VuYWJsZWQgdG8gdHJ1ZSBpbiB0aGF0IGNhc2UuIFNvIHdlIG5lZWQg
+YSBwYXRjaA0KPj4+IHRvIGZpeCB0aGF0IGluIG9yZGVyIHRvIGZpeCB0aGUgcmVncmVzc2lv
+bi4NCj4+DQo+PiBJbiBwcmluY2lwbGUgSSBhZ3JlZSwgYnV0IHlvdSBzaG91bGQgYmUgYXdh
+cmUgb2YgbXkgcmVmYWN0b3JpbmcgcGxhbnMuDQo+IA0KPiBJIHdpbGwgZGVmZXIgdG8geW91
+IGFuZCBzdG9wIHdvcmtpbmcgb24gdGhpcyByZS1mYWN0b3JpbmcgZWZmb3J0LCBidXQgSQ0K
+PiB3aWxsIHByZXBhcmUgYSBmb3JtYWwgcGF0Y2ggdG8gZml4IHRoZSByZWdyZXNzaW9uIGxh
+dGVyIHRvZGF5Lg0KPiANCj4gSSBkbyB0aGluayBKYW4ncyBwb2ludCBhYm91dCByZXNwZWN0
+aW5nIHRoZSBhZG1pbmlzdHJhdG9yJ3MgIm5vcGF0IiBzZXR0aW5nDQo+IHNob3VsZCBhbHNv
+IGJlIGNvbnNpZGVyZWQuIEFGQUlDVCwgdGhlICJub3BhdCIgb3B0aW9uIGluIGN1cnJlbnQg
+Y29kZQ0KDQpZZXMsIHBsZWFzZSBhZGQgdGhhdCwgdG9vLiBUaGlzIHdhcyB3aGF0IEkgbWVh
+bnQgd2l0aCAidGhlIGZpeCBhYm92ZSIuDQoNCj4gaXMgYWxzbyBub3QgYmVpbmcgcmVzcGVj
+dGVkIG9uIHRoZSBiYXJlIG1ldGFsLCBhbmQgdGhlIHBhdGNoIHRvDQo+IGluaXRfY2FjaGVf
+bW9kZXMgd2l0aCBhIGZvcmNlX25vX3BhdCB2YXJpYWJsZSBpcyBhbHNvIG5lZWRlZCB0bw0K
+PiBlbnN1cmUgIm5vcGF0IiBpcyByZXNwZWN0ZWQgb24gdGhlIGJhcmUgbWV0YWwsIEFGQUlD
+VC4NCg0KSG1tLCBJIGRvbid0IHNlZSBob3cgdGhlIFBBVCBNU1Igd2lsbCBiZSB3cml0dGVu
+IG9uIGJhcmUgbWV0YWwgd2hlbiAibm9wYXQiDQpoYXMgYmVlbiBzcGVjaWZpZWQuDQoNCkkg
+anVzdCB0cmllZCBpdCB3aXRoIGEgNS4xOSBrZXJuZWwgYW5kIGl0IGJvb3RlZCB3aXRoIHRo
+ZSBjb3JyZWN0IFBBVA0Kc2V0dGluZ3M6DQoNClsgICAgMC4wMDAwMDBdIHg4Ni9QQVQ6IFBB
+VCBzdXBwb3J0IGRpc2FibGVkIHZpYSBib290IG9wdGlvbi4NClsgICAgMC4wMDA5ODZdIHg4
+Ni9QQVQ6IENvbmZpZ3VyYXRpb24gWzAtN106IFdCICBXVCAgVUMtIFVDICBXQiAgV1QgIFVD
+LSBVQw0KDQoNCkp1ZXJnZW4NCg==
+--------------hVsn0s000J25FiXUpIB0Bzg6
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
->
-> > I think perhaps the most misnamed variable here is the  local
-> > variable pat_disabled in memtypes.c and the most misnamed function is the
-> > pat_disable function in memtypes.c. They should be named pat_init_disabled
-> > and pat_init_disable, respectively, because they do not really disable
-> > PAT in
-> > the code but only prevent execution of the pat_init function. That
-> > leaves open
-> > the possibility for PAT to be enabled by init_cache_modes, which actually
-> > occurs in the current code in the Xen PV Dom0 environment, but the current
-> > code neglects to set pat_bp_enabled to true in that case. So we need a patch
-> > to fix that in order to fix the regression.
->
-> In principle I agree, but you should be aware of my refactoring plans.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I will defer to you and stop working on this re-factoring effort, but I
-will prepare a formal patch to fix the regression later today.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-I do think Jan's point about respecting the administrator's "nopat" setting
-should also be considered. AFAICT, the "nopat" option in current code
-is also not being respected on the bare metal, and the patch to
-init_cache_modes with a force_no_pat variable is also needed to
-ensure "nopat" is respected on the bare metal, AFAICT.
+--------------hVsn0s000J25FiXUpIB0Bzg6--
 
-Best Regards,
+--------------bp5CP2emjMCpBr8uvIZiCwkL--
 
-Chuck
+--------------0qcVuYOeBgyocpe774tTP9C3
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmLNk3oFAwAAAAAACgkQsN6d1ii/Ey+5
+3Qf/ZqJUOehzN/hZi7dtx2aMUa11580pqFAiPtLTcv8wMfAoicVI2MxOpa6Gq14qhKwvSKOLyZte
+QvCTmTsUm3KPU8UGTJ196gIBJeI3EclGOkY0hoKj1eQ79mlzJ9JeXHWzx9Hux3aDfU6ngTcDLZEb
+E0f0nUM4GEyTNWm+sYKAbrZO1KHQZTKuCqxEz3Sw1h0m6LoCH25XMTgYGDCZG1Mo9l5pLrSgktje
+IWAdrbtcf82kzTzRjh3DUKVxQ/oOt7/LlTzUwStqFPjwZDJGdu0Tiz86AxNSeERYnkgv+dyMqYkq
+1Js6SrMu3ATdm81cWVUQosxb6a6s4Rq/zjNIokuxbQ==
+=2nyO
+-----END PGP SIGNATURE-----
+
+--------------0qcVuYOeBgyocpe774tTP9C3--
 
