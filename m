@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF3A1572696
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:49:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.366070.596640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1C045726D7
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:58:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.366078.596652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLs6-0003V1-PS; Tue, 12 Jul 2022 19:48:38 +0000
+	id 1oBM15-000570-Jv; Tue, 12 Jul 2022 19:57:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 366070.596640; Tue, 12 Jul 2022 19:48:38 +0000
+Received: by outflank-mailman (output) from mailman id 366078.596652; Tue, 12 Jul 2022 19:57:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLs6-0003Si-Mh; Tue, 12 Jul 2022 19:48:38 +0000
-Received: by outflank-mailman (input) for mailman id 366070;
- Tue, 12 Jul 2022 19:48:37 +0000
+	id 1oBM15-00054F-Gf; Tue, 12 Jul 2022 19:57:55 +0000
+Received: by outflank-mailman (input) for mailman id 366078;
+ Tue, 12 Jul 2022 19:57:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DJCY=XR=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1oBLs5-0003Sc-4G
- for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 19:48:37 +0000
-Received: from sonic309-21.consmr.mail.gq1.yahoo.com
- (sonic309-21.consmr.mail.gq1.yahoo.com [98.137.65.147])
+ id 1oBM14-000549-9O
+ for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 19:57:54 +0000
+Received: from sonic306-20.consmr.mail.gq1.yahoo.com
+ (sonic306-20.consmr.mail.gq1.yahoo.com [98.137.68.83])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b679076-021b-11ed-924f-1f966e50362f;
- Tue, 12 Jul 2022 21:48:34 +0200 (CEST)
+ id e924be19-021c-11ed-924f-1f966e50362f;
+ Tue, 12 Jul 2022 21:57:53 +0200 (CEST)
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic309.consmr.mail.gq1.yahoo.com with HTTP; Tue, 12 Jul 2022 19:48:30 +0000
-Received: by hermes--production-bf1-58957fb66f-fvhff (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 971ea9941bc8ae4c927179b995a77a93; 
- Tue, 12 Jul 2022 19:48:28 +0000 (UTC)
+ sonic306.consmr.mail.gq1.yahoo.com with HTTP; Tue, 12 Jul 2022 19:57:50 +0000
+Received: by hermes--production-bf1-58957fb66f-c5dsp (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID d650e0fd81500940b6eca43bb599a29c; 
+ Tue, 12 Jul 2022 19:57:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,52 +42,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b679076-021b-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657655310; bh=pgrpjNqb385gEEgRLF0Q/rt+9pomAz4bgE3sZ8LNtkM=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=cGK1XAumi8ewsF02TDfEwvDxKjXEE/9dyYBYKSwydfPHvLpmv8AXuXlWouC0txtVox6a4tuf1/ZEbNeprbOdN+MpnPWHSKsPYE/tpoM28eGUdjY3ncxa/bzZ8sMq5o+dWSvZJUP/jGYd0S/+TZhfmjWlgZWJVb55iBqtty3fD9nmfsWhp1HpoDnN2TdrQ7FY9bzAb2myFGBkPzucdxIHKcXwsfEvbQjC+nr2qS6D7ct5pS/pKLdWW/hlrgyZ8vO32M7qBJNQD9K4n9KRi++dS42Z+KvuweDe/fmNU2/KkzFwIXybY0uOsmJ2kD5Obl/+4bUEadN4MNT+7HbbDUBJyA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657655310; bh=h/lH+nNJqzfnjk2ZuaQqpRQOd5bw1El5erq2VjEJbzC=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=iPoSOZtBsKACXCciYie15Rq8Perhe6oJ9HL/fN+KRuNjcGdFPEcN+EoXh3BzdpvtY0ScMF6y4RLSKBZDrvsJ9zfzGvPWURZ/b4kUhDA2mDukGb+6SBLyANhSjXNWK3MlowYA+9XOL/IjiulZ7RiAZzj8U8nMGQom5V+SLO+UWV8qdv11xFnmJPBFWdflBDbDTKICnyASpNHt4Gws3kk6HW9p4phG8ZE5MSQRmKzCHJuBAtIoheYusTbPh7afmKfo7o7pEFL/t351W5lrjVqwsyrwkiLN2wSRw1kYiJ+azATUSQJJHmohC/2SZ87bey1aMP5Cb87Vi9TvwnBmyKh/cQ==
-X-YMail-OSG: f0kMs3UVM1nloicb8jexJ_OKjrYz7NLzq7Mukf1rrF8mhZWIkQCqPlJdj4i0JKh
- AMAlWciZnf_KHh1uRKHdBbMokQcd4tFlOuJg.l65dnPLR0KUgrcIVzjWorOdJ6kJKI8AXML91uRm
- 45oG2eXHRcibvH4vEbZqrU2mY8c7z8RFCk5TPn1A_RZy5mDvsofRlX9AYOdhI9fIo7z9fwpYQdFN
- YOKlXLEKpbYmFPqG6RbMKC0dw97_IhoI0W7gZJmHc.3Mie6RSEQcMh7NVZmH8WQ0PY31ysm0yGeo
- vTFemmChWd0LrAnPsfBnkyZ3sPGYpQU3LXcbQy2IcSTVTQGcVMlLr3tjxE4Uqj7e2vqo.wqpyO7s
- nuGiIfeXv7Qk3ZFIzdSb4u1U5tlIxVj4Og6C1TeUlZV7U8adjXgsmbAz7TwZ7VbQ4r.bxRDGyFzw
- bMwogHOS7KfGXMWUK3X3qs0EGYNw5vLxagG0q8Asqj6I4CTTUkJHiTIg5k_8iTpPNjCUYfKbUJlM
- dD3TRvPlq1e_xTaxFnwY36M0dHAMnW3vqyrrMCjfe3vNKU3WwIeHwR.5_OXu.X5mJp.Vfxe74kay
- D6F9wY7C25HRAAwqkOnCysejo3cnJ5dIMARt4uWQHzxaX7769MICz.zqi8JUQhTKnYtTu_Cs9wFZ
- a45o90eHUYtGK43u1hnDQjI_r_IjZj6TIHotzI6J5n8XvPm3g7PzHi3s4rFYezL.pm46nKCvDs5g
- o60ItcLaxA9LhN1UnsaEGZgb.U_2iE5qutFYBvDzTSeWlP4moO1wFOG0bZE1iQYg9rbC5ReuN3de
- _1.ehlOZjUvgkRwHA3i531N_ULmhK8itT5OIxzWDpjFkafTuKO6Qi3WzNdclTsVyC7JhjYCy6qqN
- FVkBtPge0IPtFiwJ9NRaXy2AR24lOEqGpZgqcQwz_Sm_QL7n7tEGooTSbUAknIGX77Usl7fMIZlu
- z_H2qW.SooXOMW9FCd1RtdT5Iz2sAildSVwLc0gow6.sRw_bjM2c2G.2O08TfhiCTgnRx7LAsACL
- z4NZSj4xnJs84hcZtsZzYR7AQSE_Ei48EilayTo9V1HU.5evMR6TA2HFbgJ4DUS7GqCTCMzQYbos
- TR8sBMFABKtxhV_NkprZM7D7k.XTtYEu37JR5xcBpO54tWu.UjBdKOxRAWZ8.0RFdDoTjqygsJtr
- POa6jvslWrRoQ8QiFJxKqUYcVia20_y49p4I51eDiY..LKD5ZhqicoJFiyHqbJK1EthG1agLC850
- 25m0gKFZ86CJrP1T8oBwyXnc95KSFt2xVMpAomwCutUjVk38qdhUfLiTtH831Hz8ima0NJfO1hZX
- EU1WaPHpEVLpV9N_p88VO1HMeK_gwqfImVi.HdIfRp2KTzOVBZKB_GRj9bqJYUG6xMJJ5VnLIscU
- pGR3QT9a_vs.aOInnjOEYK.S2v3uL0MjFuPCEWS1QL58lubW0aDr2I7wHwagr1UEySspAFPUyO.I
- T8p_OvXKHGvoSjF6lXujTAITwdwY8oaPkRmbXEaGrm7Gwm0eUtozmp8LM3KM6i294.1TQeS76952
- Wbd4VpkZMBBbCsc2IH08bjEE_h8EWmZRdZ8HpuCQjMRoQNMeJIcg7.Mc2_MVl9NB65SrobDbuMo3
- 2K8s99RpsUpDGDm3.Bp.YcpAW8i3tCM5MrE8fjAjQnZGSMyKb7fdPl027JxFlFEHZ8ECRsVWEdrp
- JQwFz7OajkuTtY.f0JBydVLtdRR0R8emJGqOVeQ_6u9ZBhi4fEk9jJV0imkWQOrgCXim83E.uy4i
- MhwWiXLjexdrDqvOjv2PnsiNvAHd6VLk239OS4LGpc02FNN.lRx8xXH0OtxROc1qL.MZRQG6_Uf7
- FzNS_YDwA5pjPXlpQ8l9CMRf3.9Ts2chwfpgHgXJVfyk2yGriwuJr3G9Gi9ssjxcGETZeNmWMDW.
- ciGrTJhCsKi6UEzWPyI7iw9aFENrCz5yYRaMMsvbZmN9WrSX7v60cCFDZgJlsK02Q_ZU.9mg61LK
- I5OOLbc2Z9Acbpa2HvOdjpfw_vQeRNKPtt1ZVcyGKc_IgR9r2ATBxZzja5OWj4YHmV2OQqKAKqNC
- QY5Ft157jRfoxt7zcyunB6CMYsNrMWbT1rcwEmLxyk6vWikvw51aJkMJGv.cIStEKBAycwJGhrg2
- 0PWzfs3PpPrwATELsM9EQaS9YbkfOJscmdXyussGcSV5vPXbJ7bIp.lg6XjZHhBHA92SwAGX4ZSm
- SwmY-
+X-Inumbo-ID: e924be19-021c-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657655870; bh=gVNIDnB0rwg0U52jp8XQ0N1+sFJsTQLMngaDbXUXbMc=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=kVhI3kveFTbqCZCXcm5KMuGkeSj49gYXQgkACEx7MdQKIiDicrsy7FQOyHbz/ZC+cfjNmlgekM6pGmU6CHx+uTcIBJXhvLHi9J09UcMBiRhX8nyYD7ZuPOflZU/qwvvk16G3gKd0OkCS/s8oDEjtUJe/SobaVSKkLRVb8dcvfLSj5y1+TOFP8kfoyMy+2clfDJmYs3lQcqg92a77xLzuIlnnlZ4WeIQlIrxzV5F4EfWb/Bu2+vFkSk2NLezjg7lRgFrIHVmqLvUNnBxKK03wGK5StOtNS9dtXM6y+u4j5Tm2w2dFWSC/4KWllYRrM1pBk9oeKvo0E0N/xBE3AdmGoA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657655870; bh=IiioFCTJVjJjhIygn2ZBqdTmcjLz4leAoJuVtgdQfQy=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=XvwyZwISFXfE170G+U12KE+WRqio3bvNPKbWeYzzrKooZmFYTTO4haY/dlZIrGGdH0+z+RQDd14uRU5wTzQQvI0Yt9/9LBnyLl4vPbZpUBMByfCsg+HUb6qDWpxt3ZjQa/3eqlLaTtX7MAYnO/egHngK44GzjFwIUS3jcpZ/Zwvl4Dpm4gjyTvBgcD36oatrbYgYk3dQtGYBOrIyMWwOBz6rrdZ2Qulm5+qisikGuBksp1Glx1plHzrVwYxAfzzlcckV3WcOQ3gmNJO0oTalVp1df4TrIPuG6X2C3aYeO7vIF6IibbA3W0+ZNXoLLHMcTVfvjGM0xIojVeF/F1YIGg==
+X-YMail-OSG: Gp6QV24VM1keOGlwbdklQrOy4xcanvYpcd4oO0yfIlFrKzTDqN6x4kI4wGVkqG0
+ DyRz9VE2ZpDXWWvD0_mET1e570_5.NsxDx6jBC2YSrm8LYSPC3NqkymDg3qmxkPYnkx4MWYeRhT7
+ oEgNfe7ti3IbW.ZwzZdAxWN9rWdmBgvkZhi6xTnqV5Fhtvr_nYoc6.vAYml4jZ0KfLkbeRQVdr5g
+ mYZHWPgXRkKuTeBXNMd8nWIGy0eKPRhBJ3EdqnyN4WWe5NoqoakfsUftnsmB6HYd65Y9h2QTiT_b
+ fSD.wj5mUXU_NKfOAOi_FjWXTF6bGNstZYj8TM79BsG19gywlusTiclyxZTjSun8gnVNE4dXZryw
+ LC5HEucVM2fZaKmj9uVEcmyTfjIdRFq3O5V2xdkyOvaorhSbgmgROyTJnQtyI3Nfz4yKqRaH_GlW
+ D96eIAWIFWrDfQ4NUfQhrA2r5rvHWkzuF2pbepkF._c5cMBQDe_iIN2LtLknKuroRKxfqESK8W4q
+ N3uVBAeJMtsfPeKUGMwVXqhCY09r8bAp_xrHtVUDNFT_Ai35Urk2KXoXrvlozqxgBpnH.DYLCXK0
+ .2kvBpFwCoibAF3zsgFS8FvvJLiWIhCXrg35dNc9h.56HIxa8iGtMa80h8jtDW0_XG8c8wrDmvOX
+ SAPCza08JYQWPCnPDx33yGhxEoiyN9lkJQvwsfQlCIWkZCUiBJaAPHfRV6Y58wwmIi4OY9ImioFH
+ WUA04Z0wHAKazk.LL5CT37ZeSsIT2b5.88wryZC0XDjO8Al6RjAusST4cXlhz5GDClOq9LRM2DuO
+ 8H2zCMYoyR5R1OUt4As5k.kk_qWCYbW2JuqHhk5WGLLtUF6DejjjClM9E1mvkdmpfzSeeheeQoaN
+ 9uj4eqfUsHobpNOD.c36jVglUPM8Wdbyztj0knaWh3bf7zdL5JD1MDz_Bemzt5HZeUItScolniu9
+ eLx7BizyTIPm6IilClF1FK.nv2wE_iX3UYYFXgeVlYKz_MV3jDWMaFE_apcqTjYqAbPu5BX4xVn2
+ XAg3ZC4LeXQUAD5ikg36aDnLz5b3dsI4as7Y98hzU7rKkp7CWs4IrJN2qhdZzLxnQIYczJYen7Jx
+ Qm2Krsbsz7JMsptS4EtjhqCOAGc6f8o416SVgVFaN1rhsQGYP_EM1stBgL3R9NrZ2h_ImpjUvF2c
+ dDQZdVubjdc6C3Ae0s90ZCxgyJDXz6.7OO4g6smW4IS2_En8Zwo6zMopMAjMhO3cjwqs4tc7gQhJ
+ WWHyKJ9tGQ0ifXKkSqNXbAj6naP6LMF.2kzBcW_NuhFpy01S7.nB1UuyA4uPzO4YFGrN8vI9VaMe
+ gQoAD_G_KCiC2qu457uYKTXcL6ztzxmFkiU.A5pysFpxdByAr7jUZpsOliC3n8_b3dfAth8Z4htx
+ w9fuqyfONy7Yvftqt.rE_87KFHLI1ricTVo1YjrMMvEXBOh5CiW11OW8K9StLnoFFXzX2E6U56VN
+ 7ID_2vBccfhOi2YafF1kXPJ9mv4EhBaHgihwA62GUy.gRsFkRhnLqRd.Jj0Ad4V.n1TQzsk3UHxm
+ 72Tuv0.DUPJoAcdTOrFv15srf5aOML.sG59a1uY.ZBMa_2QMb3znZ2zshTUdCkTYVR9bEBomTtpJ
+ DkpJSkZB7SeNrlrx7Kmc5fEuubKmVX5UglDGzxKsmJosybGFXlCC7P0O4dNgAIcWM9ZcnNYBUSxC
+ Cd3tULROZQorHjxaC_C2WhvwnPjCgPp.lqb7Qb_x99yVz5ufuKsEuW26GUa4Q4O7NNGW.75z7tTB
+ arLvwCeBaGutJuf3fLXUNxgLzCKzmpmZyZ5NdWr4iIieKHVCwu3IKjj8mItOO69gTqCvn39137kZ
+ D0CeE4r3x7of6a.A0htBZPDVEGH9xLxP1yUjy4EGti1R7MCu_APBJBkVQjvqsUVC5KHdayk0Sf8g
+ ..Ych4o6h1LhF17OgYCOQeWa8_7C9Sqem.F6mPg0_zRlHgxx9ZbvBEU2LQV4kmzHGqQbHDMExW9P
+ pdbpaOY6.lvKJLrDGj6hW4t3IYfr0XIPlagDM2UjcEm9do44QvD31xjq9cRDQCQf_DrLJhv_QzVZ
+ VvskVNIUzJBvo8WYKztL4e3utwl.4UXT8o6KC.Ncc8asv0iQTuJdkSw1XBoigwRS1NRWVaG.Zyxt
+ nU4PttDIqE5wgfuYr2YEz2zz1veAwKM7Vq_0CVWZtNqhQw54S4ICop6__BAv9yrzFAFscU2qExaR
+ VViEnHESDsg--
 X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <32c86239-c434-369d-b6a7-f6f88cf5430a@netscape.net>
-Date: Tue, 12 Jul 2022 15:48:25 -0400
+Message-ID: <008ff24c-d059-8d39-5e57-6f5e9de0dcbf@netscape.net>
+Date: Tue, 12 Jul 2022 15:57:45 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
 Subject: Re: [PATCH] x86/PAT: Report PAT on CPUs that support PAT without MTRR
 Content-Language: en-US
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
- Jan Beulich <jbeulich@suse.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
  Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
  Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, x86@kernel.org,
@@ -96,101 +94,80 @@ Cc: Dave Hansen <dave.hansen@linux.intel.com>,
  Tom Lendacky <thomas.lendacky@amd.com>, Brijesh Singh
  <brijesh.singh@amd.com>, Jane Chu <jane.chu@oracle.com>,
  Tianyu Lan <Tianyu.Lan@microsoft.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sean Christopherson <seanjc@google.com>, xen-devel@lists.xenproject.org,
+ Sean Christopherson <seanjc@google.com>, Jan Beulich <jbeulich@suse.com>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
  stable@vger.kernel.org
 References: <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz.ref@aol.com>
  <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz@aol.com>
- <388a3838-1681-dba4-dabd-a7f27817bf34@suse.com>
- <b24d7fe6-c1aa-5d3a-5c68-98dfb57bdc40@netscape.net>
-In-Reply-To: <b24d7fe6-c1aa-5d3a-5c68-98dfb57bdc40@netscape.net>
+ <Ys2/Lho9vQO33RZc@kroah.com>
+ <a9efcbf3-3b34-53b7-0fa8-55a5ed3a17b4@netscape.net>
+ <Ys3K0oS9QLx778Lb@kroah.com>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+In-Reply-To: <Ys3K0oS9QLx778Lb@kroah.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-
-
-On 7/12/22 3:18 PM, Chuck Zmudzinski wrote:
-> On 7/12/22 2:27 PM, Juergen Gross wrote:
-> > On 12.07.22 20:20, Chuck Zmudzinski wrote:
-> > > The commit 99c13b8c8896d7bcb92753bf
-> > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
-> > > incorrectly failed to account for the case in init_cache_modes() when
-> > > CPUs do support PAT and falsely reported PAT to be disabled when in
-> > > fact PAT is enabled. In some environments, notably in Xen PV domains,
-> > > MTRR is disabled but PAT is still enabled, and that is the case
-> > > that the aforementioned commit failed to account for.
-> > > 
-> > > As an unfortunate consequnce, the pat_enabled() function currently does
-> > > not correctly report that PAT is enabled in such environments. The fix
-> > > is implemented in init_cache_modes() by setting pat_bp_enabled to true
-> > > in init_cache_modes() for the case that commit 99c13b8c8896d7bcb92753bf
-> > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it") failed
-> > > to account for.
-> > > 
-> > > This patch fixes a regression that some users are experiencing with
-> > > Linux as a Xen Dom0 driving particular Intel graphics devices by
-> > > correctly reporting to the Intel i915 driver that PAT is enabled where
-> > > previously it was falsely reporting that PAT is disabled.
-> > > 
-> > > Fixes: 99c13b8c8896d7bcb92753bf ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
-> > > ---
-> > > Reminder: This patch is a regression fix that is needed on stable
-> > > versions 5.17 and later.
-> > > 
-> > >   arch/x86/mm/pat/memtype.c | 12 ++++++++++++
-> > >   1 file changed, 12 insertions(+)
-> > > 
-> > > diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
-> > > index d5ef64ddd35e..0f2417bd1b40 100644
-> > > --- a/arch/x86/mm/pat/memtype.c
-> > > +++ b/arch/x86/mm/pat/memtype.c
-> > > @@ -315,6 +315,18 @@ void init_cache_modes(void)
-> > >   		      PAT(4, WB) | PAT(5, WT) | PAT(6, UC_MINUS) | PAT(7, UC);
-> > >   	}
-> > >   
-> > > +	else if (!pat_bp_enabled) {
-> >
-> > Please put the "else if {" into the same line as the "}" above.
-> >
-> > > +	/*
-> > > +	 * In some environments, specifically Xen PV, PAT
-> > > +	 * initialization is skipped because MTRRs are disabled even
-> > > +	 * though PAT is available. In such environments, set PAT to
-> > > +	 * enabled to correctly indicate to callers of pat_enabled()
-> > > +	 * that CPU support for PAT is available.
-> > > +	 */
-> > > +	pat_bp_enabled = true;
-> > > +	pr_info("x86/PAT: PAT enabled by init_cache_modes\n");
-> >
-> > Wrong indentation.
-> >
-> > > +	}
-> > > +
-> > >   	__init_cache_modes(pat);
-> > >   }
-> > >   
-> >
-> > Any reason you didn't fix the "nopat" issue Jan mentioned?
-> >
-> > I asked you twice to add this fix.
-> >
-> >
-> > Juergen
+On 7/12/22 3:26 PM, Greg KH wrote:
+> On Tue, Jul 12, 2022 at 03:16:01PM -0400, Chuck Zmudzinski wrote:
+> > On 7/12/22 2:36 PM, Greg KH wrote:
+> > > On Tue, Jul 12, 2022 at 02:20:37PM -0400, Chuck Zmudzinski wrote:
+> > > > The commit 99c13b8c8896d7bcb92753bf
+> > > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
+> > > > incorrectly failed to account for the case in init_cache_modes() when
+> > > > CPUs do support PAT and falsely reported PAT to be disabled when in
+> > > > fact PAT is enabled. In some environments, notably in Xen PV domains,
+> > > > MTRR is disabled but PAT is still enabled, and that is the case
+> > > > that the aforementioned commit failed to account for.
+> > > > 
+> > > > As an unfortunate consequnce, the pat_enabled() function currently does
+> > > > not correctly report that PAT is enabled in such environments. The fix
+> > > > is implemented in init_cache_modes() by setting pat_bp_enabled to true
+> > > > in init_cache_modes() for the case that commit 99c13b8c8896d7bcb92753bf
+> > > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it") failed
+> > > > to account for.
+> > > > 
+> > > > This patch fixes a regression that some users are experiencing with
+> > > > Linux as a Xen Dom0 driving particular Intel graphics devices by
+> > > > correctly reporting to the Intel i915 driver that PAT is enabled where
+> > > > previously it was falsely reporting that PAT is disabled.
+> > > > 
+> > > > Fixes: 99c13b8c8896d7bcb92753bf ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+> > > > ---
+> > > > Reminder: This patch is a regression fix that is needed on stable
+> > > > versions 5.17 and later.
+> > >
+> > > Then why are you saying it fixes a commit that is in 4.4.y and newer?
+> > >
+> > > confused,
+> > >
+> > > greg k-h
+> > 
+> > It is true the erroneous reporting of PAT goes back to 4.4.y. But it
+> > was not until 5.17.y when the i915 driver was patched with a commit
+> > that started using pat_enabled() instead of boot_cpu_has(X86_FEATURE_PAT)
+> > and that is when a regression that started annoying users appeared
+> > in the kernel. I presume that we only backport patches to stable that
+> > fix regressions that are really bothering users, so even though the
+> > problem dates to 4.4.y, there is no need to backport before 5.17.y
+> > which is when the problem manifested in a way that started
+> > bothering users.
 >
-> Sorry, I did not see your request. I will resend with the fix
-> for "nopat" and the other style issues you mentioned.
+> If it needs to go back to 4.9.y or so, let's take it all the way back to
+> be consistent everywhere.
 >
-> Chuck
+> thanks,
+>
+> greg k-h
 
-I will also re-compile and test the new patch before sending
-v2 and unless Jan objects, I should acknowledge Jan as co-author
-of the patch since I will be using parts of his proposed patch
-to fix the "nopat" issue, so I also need to get his sign-off before
-sending v2. Jan, how should I obtain your sign-off?
+I presume you want me to prepare the backport patches, or at
+least the ones that need the patch to be significantly modified to
+apply to those branches. I expect older versions will need the
+patch to be significantly modified to apply. If not, please let me know.
 
-Chuck
+Is 4.9.y the oldest version we are still supporting?
 
 Chuck
 
