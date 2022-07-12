@@ -2,56 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94CB4572590
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:20:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.366015.596572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73C59572598
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Jul 2022 21:26:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.366024.596583 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLQc-000639-UT; Tue, 12 Jul 2022 19:20:14 +0000
+	id 1oBLWU-0006iU-Jl; Tue, 12 Jul 2022 19:26:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 366015.596572; Tue, 12 Jul 2022 19:20:14 +0000
+Received: by outflank-mailman (output) from mailman id 366024.596583; Tue, 12 Jul 2022 19:26:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBLQc-0005zj-RR; Tue, 12 Jul 2022 19:20:14 +0000
-Received: by outflank-mailman (input) for mailman id 366015;
- Tue, 12 Jul 2022 19:20:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oBLWU-0006g8-Gz; Tue, 12 Jul 2022 19:26:18 +0000
+Received: by outflank-mailman (input) for mailman id 366024;
+ Tue, 12 Jul 2022 19:26:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U76a=XR=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1oBLQa-0005zX-2w
- for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 19:20:12 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4c213f3-0217-11ed-924f-1f966e50362f;
- Tue, 12 Jul 2022 21:20:10 +0200 (CEST)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26CIdQ1f031069;
- Tue, 12 Jul 2022 19:19:47 GMT
-Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3h71rfyy0c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 12 Jul 2022 19:19:46 +0000
-Received: from pps.filterd
- (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 26CJADdG021677; Tue, 12 Jul 2022 19:19:46 GMT
-Received: from nam10-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam10lp2104.outbound.protection.outlook.com [104.47.55.104])
- by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id
- 3h70445qs1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 12 Jul 2022 19:19:46 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by BY5PR10MB4177.namprd10.prod.outlook.com (2603:10b6:a03:205::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.16; Tue, 12 Jul
- 2022 19:19:43 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::80e:be92:1fd5:b066]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::80e:be92:1fd5:b066%4]) with mapi id 15.20.5417.026; Tue, 12 Jul 2022
- 19:19:43 +0000
+ <SRS0=1LYd=XR=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
+ id 1oBLWT-0006g2-6t
+ for xen-devel@lists.xenproject.org; Tue, 12 Jul 2022 19:26:17 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7f540be1-0218-11ed-bd2d-47488cf2e6aa;
+ Tue, 12 Jul 2022 21:26:15 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 11D04B81B96;
+ Tue, 12 Jul 2022 19:26:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA9DC3411C;
+ Tue, 12 Jul 2022 19:26:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,175 +43,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4c213f3-0217-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=iD85MsUZ8TPR4rd4PbP1LyBxIUKYZGUtgDJrOvDl/+8=;
- b=MYUiYlMHFFzmlDgaHt6zHsHfCqHaSkbzUOf4DpJ5FSDrCv+AnJpPFVwBgnZZ8E4bWFTF
- /hhkVOHIOUxQMNxJw6gCFAE9y+/HyFdRwlOrj4RE6XCz8i+AQj3qlu5bowf0aj8lTKmM
- XYeEYNZAE3vMgszxp191E3XiiMVxKOdkOZjpWBSCgiC96611k9uXzD6a8xyheSU/h2u5
- 76/K4q0wXAeNcZFBYMWREoZnPFbPgn7D/hCBG+yyJHPK5/PUknb09p0ehi1aeK3ZliA7
- g02VPhz5iQhkZK+vbW5SBBGHNJ3xytgn0y7SM0lq5bJCVKMq84qzNj8T/OWOddoUyfbC wQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bzSgiaA6JrYRhxiKKU4rxKoOJqNFdtgLY3+EUHGVKi21zgUwCdGri+Unrj/g5OfcYf5igdWUNLgYfAfN8GFLlaHTlWNZfcxw0aMxQQpeyH2aJy8dyRhjVFd8hNdl7kcrzRGOXaH2RzKMI+6akXHrPW6ilhyQ6Jv2UNQgnymxXDXAwJ329My/7zWF7koU1mhYV7xIhemQN5uw/H89a/rsEwJn3arGR3XuzV82OIcfyDwOmz+ZWZd18tK9zMhN9jmj4fTeD3WMkvcWqRVELllXojYsnCgQH5/B8zF0du9FOYMoY6RxgupROCAzt0EDGSO1TigbGxezKhUTiR/aaBtAgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iD85MsUZ8TPR4rd4PbP1LyBxIUKYZGUtgDJrOvDl/+8=;
- b=OsZrueX6TCiRIRhP59UqAiSPet5cm5h5ly3U3IGjPSqjnbpc4ea0AW1Nmj532RFDTnK/U43VX8SKUkjmTUWtWqVSHtwPzCWy2uvUN8qASTMQpj9qg/51ukeDF9G+jSlQdzOBKip6izKW09GyQLl9hyCEO1Ud8IT7clcbQu3hSAMUiUaF0HvMn8NpuLcpkuXeHRvH0ypwEIhaZAGQtxVxQcYHseYd/XOh+uF01zQia9d3mC4ijJgJNJxguE0K7ZTheIfRuKXHFYMOmttAQBTiHTV43WTgqRM4Kf3jGLaPmr9GtnYz+fOBF6FaflyTPPNvbeg5HSM8zmWMPhZqxFiISg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iD85MsUZ8TPR4rd4PbP1LyBxIUKYZGUtgDJrOvDl/+8=;
- b=FcYd/jSBCgK/1iu2JGd04EKQXtwOmJ9KpPMvBN3FaxmrhJigfejaoWJbkVZO7AS0cJkXX/AiHNs4u4I0CWrfxsOOC9i1XqIKDwGK+7gU/RxcmpDGhRAnlfPwIFzqtpBdIHGyw8DtlBJwBwefb6H5gUQGT8RKrxiy2kGPbDlnZ4A=
-Message-ID: <ddcdd531-fc33-39df-a69f-5352d7a1c8af@oracle.com>
-Date: Tue, 12 Jul 2022 15:19:39 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.11.0
-Subject: Re: Build warnings in Xen 5.15.y and 5.10.y with retbleed backports
-Content-Language: en-US
-To: Greg KH <gregkh@linuxfoundation.org>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
-        linux-kernel@vger.kernel.org
-References: <Ys2jlGMqAe6+h1SX@kroah.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <Ys2jlGMqAe6+h1SX@kroah.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1PR03CA0018.namprd03.prod.outlook.com
- (2603:10b6:806:2d3::29) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: 7f540be1-0218-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+	s=korg; t=1657653973;
+	bh=KofZy0gS7enXRLvK5w5s70pOuM52suAS0d4+pv9phsg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=C+JpUI7Hlc73b9zL/pC97stcYKxyVPA2NzaJTw5CDhNHAWTdGQPl4eSAY2DrMC4yZ
+	 4w5E3PHJwulm6Ys1IlHBPmCC+2Opm/xQnuZWr6p5ofmoxTUPqlxmpimVKTnLXUxJwp
+	 P0Ur70+AdZXROv+Az3KlC8DmWNqTme9x8yRZX0c4=
+Date: Tue, 12 Jul 2022 21:26:10 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Chuck Zmudzinski <brchuckz@netscape.net>
+Cc: linux-kernel@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Brijesh Singh <brijesh.singh@amd.com>,
+	Jane Chu <jane.chu@oracle.com>,
+	Tianyu Lan <Tianyu.Lan@microsoft.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
+	xen-devel@lists.xenproject.org, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/PAT: Report PAT on CPUs that support PAT without MTRR
+Message-ID: <Ys3K0oS9QLx778Lb@kroah.com>
+References: <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz.ref@aol.com>
+ <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz@aol.com>
+ <Ys2/Lho9vQO33RZc@kroah.com>
+ <a9efcbf3-3b34-53b7-0fa8-55a5ed3a17b4@netscape.net>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a514469f-3d1d-47a0-6330-08da643b79ce
-X-MS-TrafficTypeDiagnostic: BY5PR10MB4177:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	7YSrWJ3aM2Bi0FRjqIYfs2tB8FKDhjSVvITymp1OUfmLEA/KXR3cOouT9lOTMODZbIPsOVEDDsF+AJyWxqohEJ28cBQ80ApUg7rYlpns8bl5mX+PHBo0ytou9B00lvfzhlvRWxGpVUDXW8a3DHWDkCHAhmSyRN+Wf8L1v1DUs4xxiAUPPHp/Yca9AVIyHz0HUi1skVrCkak9s70L0Vvbi8eBxahSlBO3tlHZjl0vIAyw4J67b5NZ4GxFgVAgFztELaLSSOS/Rg/apii7KouosHl+YUoniUMyR1urro5SbyfRmg6nDE92SL/n3y7DcJyCaJA5JhNZIazLeuP5YQSqsq+CVCZVRwhT0+akF1mj+H2qN+desn2cFWOqAQbEXlDGcj8L5sp7Y5g3+ilByGGKMQLJ7DoFot8GWQdCRmaQWVSDLiEQkpx8y0P0KE6BzJTkQ9IhJ/0QKaPhbC/nD/4PNWMBCOdfzfvhEsyeK5e9TMd6xjsxWoPL0HU9JT/XQnKmLWQJgw/5RcnPfWkznyEWxnU2QFfxWn0eRfPeSxUMIwIo2O4KOWhJG8yiE+aHF0Ff/MV7HvzA3VaU/SgjRw0KRSRfI/YjMeSjqlxvgStV+2u509+5fEzTyJtNuuyv3qiueCppbj+TlAKIEp3jVjaah2IvscIdxo899y1xYs7CNoLHfh7dIxAYeWBjoEeBaI8FTMlRAvesW2Tzx9LDcUEzDw/KInm4iP+jNz4TKbzDCjhRQYvw0KSiwMMYwwgAfhW/WFcfm7ThEv257B2CmiIpWUshUSFozp94jHBGUd++pMMWO7NzhwOW4lomlSs9QVg+LRDT6AqVcASFplF0s1OPcTuWB0CWfi2NB/vajOSAH5A=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(136003)(376002)(346002)(366004)(396003)(6486002)(53546011)(38100700002)(478600001)(31696002)(86362001)(26005)(110136005)(6506007)(36756003)(8676002)(66556008)(54906003)(31686004)(316002)(66476007)(2616005)(4326008)(66946007)(186003)(41300700001)(6666004)(2906002)(8936002)(6512007)(44832011)(7416002)(5660300002)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?UEQ3OUE3M2xYOWs3UkczWWVkQUlRbDFZUk9STEJjNmtJTmwrUGVid2tRRlBH?=
- =?utf-8?B?cnUzZjA3dGZscEs4VzBOZ2dmY2swODNJNWVVTkFObnRnazZES1kxRGtYeHJJ?=
- =?utf-8?B?TEYyMXNYQmlpRTc0eURPYXhhZGc1TStLSkJwSVZVRGF0cGhxQmpVczEwUjdU?=
- =?utf-8?B?VGlaNWg2VWRWODc3ejVnbGU3emRtcThaR2FOTG9ocFZKajZsS0gyMm4xdWFs?=
- =?utf-8?B?YmFWTUJmVUlwYm9kdTJwUnNIRmJQcUd1N0l0dDJxZzcyYjR0dHdseGlaMnhn?=
- =?utf-8?B?blBPbkw0YUNyaGhUVjNCS2NlM1lKdWFRZWZRcHB6VzBocndrK2J4Lyt0SVdo?=
- =?utf-8?B?OHc2OXBvYmt0RjZYbHpxUmNIdk9xV1ZxTXlQNENTVUNPdVNEYmVYNmhvUHpa?=
- =?utf-8?B?UXEwM0x3UG1tUFFUd3o1NG41YTJnMHFMZXEwVFQ4VjR6ZWlrZ2Jsd3JYOHpF?=
- =?utf-8?B?MVZNSGRzejBmbFVXbm5ic1QwVm1YcjhGMUI5SUZoKzlBNFpONnQ4cDJCV01q?=
- =?utf-8?B?MzgwWnl5K2NTd2grSTd6TFhkbUkxZFZOY0dJdkcvcDVLamY2MVE5OEVBZVZs?=
- =?utf-8?B?YVpxL0xtWEZhbFVabzRYVEpxbmtEZWNjdGh0WmM0bW4zb1ZKVG5SWWlabG1p?=
- =?utf-8?B?SzU2N25Mc3QvMXFySHBMcnF3UDZpRzNUY2JYTUZwU0hvd2FKVnVYREhwMEcz?=
- =?utf-8?B?bkVEdGEweDFrSEdocTRGOGFCMTVoalpjQkZrSEpFS3RkVzlCNEtMUXhMZWlm?=
- =?utf-8?B?aEhSZlFZcFVVVGN3QkhzbGpzMTdzNWoyZjFsQm5yV2VRNS9CZGtQUi84bWc4?=
- =?utf-8?B?ZDBzNWZFajRGdUVTdk5jL2lnYkFtNW9GQTdtbHNGcEhyZlhqa2VvZXNPTEdW?=
- =?utf-8?B?cTdER1Y1bzZQdFdlN1llK3lIVTJNcGV1ZDNiL1RrR1lXY2JaR0xXbTR2WU1w?=
- =?utf-8?B?THh1TnR3NWpOVXB6QWZXT21neHdZVXRtZDdXcHJJL29LaEJoOCs0NURaT2pr?=
- =?utf-8?B?UlhiWVliMjJRSUExaGlDMCs4R05VZ2pRU1VDait6d09WY0tCVzRXQ2lyVjVT?=
- =?utf-8?B?eVVnSHROdUVORlE4aHA3NktHWCtqNjhtVk92eElzSnVSeGRaMUJsNHZVdm1y?=
- =?utf-8?B?U3M2Vlp2YS85UlllQnFmWHgxQWxnSVFoMjZHc05tM1pReG1GVHFmY2l2T29K?=
- =?utf-8?B?UXRtUzJOdndQYUxuQkJmMmsxZjl4aWNDYzhzU2ErMDdXVVFPS2RyVmZRdFVj?=
- =?utf-8?B?T1ZiUlVnQUh3NEZZcDlFSHJNMlc4R1BnS1hJdjBVeTd4QisyOE9XWlhWOXBx?=
- =?utf-8?B?SGxFZTFvYW1MaWVHWWJFaFNReTdwdStqN3ZpOVBNWE5tWUtoYWJPaW9qbkhC?=
- =?utf-8?B?RFRvWUI4OXlYYWNzQTFKVy95WHR3UzhoS1o2T2dDM3ZvWVM5Y2t4N2xmcUdV?=
- =?utf-8?B?MlFuaHpJbk1LUUd5NVAvUE5QTDJhTHBMaUhKSWNtdFdyTCtIbUdlOE5HbE9C?=
- =?utf-8?B?SFJTSnF4clJDTmlwK1FWNkd3cnRER0g0UVBtaU5PcmtReERBUFVDMnIrZXZm?=
- =?utf-8?B?SnhVQVZZaWVoQnRJWGxLRVpQQjRSdFNVdEl1bG85ZGtkald4UE5sWTVlaUEx?=
- =?utf-8?B?cHdCSlZ5a2pDN0pDdjVqVy9mMU5YQ21OVWw2SVhVYUt2YkR5NmVUNlpzeXk4?=
- =?utf-8?B?M29iVjNuMkVUMXkxbjBLb09pUTBDdzQvY0RRRXNoMzRRM1Y2cjJBZFlUcy9j?=
- =?utf-8?B?Y0RXWEtoYkxsZTJGRWs0ZGhoL1J3cUlpVC9keFlxUDlSRmJ4ZXBic01pQkVp?=
- =?utf-8?B?ZXQrZmtJM2ViakllMXBQZE9uc1RxQlZDT1I1TlRKZXhCYmJweDFwQzhyRkoy?=
- =?utf-8?B?SDBQNTNtcVIxbUJWaStIejZmUThTaVhmeEZUUTlZVnlFMWlBc0tuYmt6Sllk?=
- =?utf-8?B?QXFoUk1MRTFsZjhFOW5FeEt2U293WGFYbnVidFphT0xGL1Nva3BxRStWZHZE?=
- =?utf-8?B?RnErOGdXckRJcy9tazJTU3pCSFRJVFdINlpZV2xobWpBelI2eGVCZ2VWSEFn?=
- =?utf-8?B?a1piYitJN0tBSGQwQlFYL24zNDZOY3d4cytPV0VzZGN2UU5vSm5pY1FtT1Bx?=
- =?utf-8?B?NXp2S2wzYlhyamJ6OTVVSFN5cEJQMFMyTFVYLzVUcnRHUThaeDhNMmhkVHo2?=
- =?utf-8?B?dHc9PQ==?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a514469f-3d1d-47a0-6330-08da643b79ce
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2022 19:19:43.7950
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HQJM1K9sNLgGnSc+KfmMDVuavnqpn33RnDHqw40ta7hbJYnXiGUk4ygyUzZF4SLrgrBM6FrFroAtoG4ZcDInMoCrM1epNkHvxvvFt5Tjvm4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB4177
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517,18.0.883
- definitions=2022-07-12_12:2022-07-12,2022-07-12 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 mlxlogscore=999
- malwarescore=0 suspectscore=0 mlxscore=0 spamscore=0 adultscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2206140000 definitions=main-2207120078
-X-Proofpoint-GUID: 90l5qejajIJQaoY7LC9GUmnpRHoQle1s
-X-Proofpoint-ORIG-GUID: 90l5qejajIJQaoY7LC9GUmnpRHoQle1s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a9efcbf3-3b34-53b7-0fa8-55a5ed3a17b4@netscape.net>
 
+On Tue, Jul 12, 2022 at 03:16:01PM -0400, Chuck Zmudzinski wrote:
+> On 7/12/22 2:36 PM, Greg KH wrote:
+> > On Tue, Jul 12, 2022 at 02:20:37PM -0400, Chuck Zmudzinski wrote:
+> > > The commit 99c13b8c8896d7bcb92753bf
+> > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
+> > > incorrectly failed to account for the case in init_cache_modes() when
+> > > CPUs do support PAT and falsely reported PAT to be disabled when in
+> > > fact PAT is enabled. In some environments, notably in Xen PV domains,
+> > > MTRR is disabled but PAT is still enabled, and that is the case
+> > > that the aforementioned commit failed to account for.
+> > > 
+> > > As an unfortunate consequnce, the pat_enabled() function currently does
+> > > not correctly report that PAT is enabled in such environments. The fix
+> > > is implemented in init_cache_modes() by setting pat_bp_enabled to true
+> > > in init_cache_modes() for the case that commit 99c13b8c8896d7bcb92753bf
+> > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it") failed
+> > > to account for.
+> > > 
+> > > This patch fixes a regression that some users are experiencing with
+> > > Linux as a Xen Dom0 driving particular Intel graphics devices by
+> > > correctly reporting to the Intel i915 driver that PAT is enabled where
+> > > previously it was falsely reporting that PAT is disabled.
+> > > 
+> > > Fixes: 99c13b8c8896d7bcb92753bf ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+> > > ---
+> > > Reminder: This patch is a regression fix that is needed on stable
+> > > versions 5.17 and later.
+> >
+> > Then why are you saying it fixes a commit that is in 4.4.y and newer?
+> >
+> > confused,
+> >
+> > greg k-h
+> 
+> It is true the erroneous reporting of PAT goes back to 4.4.y. But it
+> was not until 5.17.y when the i915 driver was patched with a commit
+> that started using pat_enabled() instead of boot_cpu_has(X86_FEATURE_PAT)
+> and that is when a regression that started annoying users appeared
+> in the kernel. I presume that we only backport patches to stable that
+> fix regressions that are really bothering users, so even though the
+> problem dates to 4.4.y, there is no need to backport before 5.17.y
+> which is when the problem manifested in a way that started
+> bothering users.
 
-On 7/12/22 12:38 PM, Greg KH wrote:
-> Hi all,
->
-> I'm seeing the following build warning:
-> 	arch/x86/kernel/head_64.o: warning: objtool: xen_hypercall_mmu_update(): can't find starting instruction
-> in the 5.15.y and 5.10.y retbleed backports.
->
-> I don't know why just this one hypercall is being called out by objtool,
-> and this warning isn't in 5.18 and Linus's tree due to I think commit
-> 5b2fc51576ef ("x86/ibt,xen: Sprinkle the ENDBR") being there.
->
-> But, is this a ret call that we "forgot" here?  It's a "real" ret in
-> Linus's branch:
->
-> .pushsection .noinstr.text, "ax"
-> 	.balign PAGE_SIZE
-> SYM_CODE_START(hypercall_page)
-> 	.rept (PAGE_SIZE / 32)
-> 		UNWIND_HINT_FUNC
-> 		ANNOTATE_NOENDBR
-> 		ANNOTATE_UNRET_SAFE
-> 		ret
-> 		/*
-> 		 * Xen will write the hypercall page, and sort out ENDBR.
-> 		 */
-> 		.skip 31, 0xcc
-> 	.endr
->
-> while 5.15.y and older has:
-> .pushsection .text
-> 	.balign PAGE_SIZE
-> SYM_CODE_START(hypercall_page)
-> 	.rept (PAGE_SIZE / 32)
-> 		UNWIND_HINT_FUNC
-> 		.skip 31, 0x90
-> 		ANNOTATE_UNRET_SAFE
-> 		RET
-> 	.endr
->
-> So should the "ret" remain or be turned into "RET" in mainline right
-> now?
+If it needs to go back to 4.9.y or so, let's take it all the way back to
+be consistent everywhere.
 
+thanks,
 
-It doesn't matter --- this is overwritten by the hypervisor during initialization when Xen fills in actual hypercall code.
-
-
-So f4b4bc10b0b85ec66f1a9bf5dddf475e6695b6d2 added 'ret' to make objtool happy and then 14b476e07fab6 replaced 'ret' with RET as part of SLS fixes. The latter was not really necessary but harmless.
-
-
-So it can be 'ret', RET, or anything else that tools don't complain about. It will not be executed.
-
-
--boris
-
+greg k-h
 
