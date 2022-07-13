@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E987572D70
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jul 2022 07:36:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.366185.596858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8250572DC3
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jul 2022 07:55:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.366192.596869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBV1m-0004XX-Gy; Wed, 13 Jul 2022 05:35:14 +0000
+	id 1oBVL8-0007Ab-2v; Wed, 13 Jul 2022 05:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 366185.596858; Wed, 13 Jul 2022 05:35:14 +0000
+Received: by outflank-mailman (output) from mailman id 366192.596869; Wed, 13 Jul 2022 05:55:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBV1m-0004UK-ED; Wed, 13 Jul 2022 05:35:14 +0000
-Received: by outflank-mailman (input) for mailman id 366185;
- Wed, 13 Jul 2022 05:35:12 +0000
+	id 1oBVL7-000786-W8; Wed, 13 Jul 2022 05:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 366192;
+ Wed, 13 Jul 2022 05:55:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=phet=XS=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1oBV1k-0004UE-HU
- for xen-devel@lists.xenproject.org; Wed, 13 Jul 2022 05:35:12 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XN81=XS=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oBVL5-000780-HB
+ for xen-devel@lists.xenproject.org; Wed, 13 Jul 2022 05:55:11 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr00048.outbound.protection.outlook.com [40.107.0.48])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f6e88a5-026d-11ed-bd2d-47488cf2e6aa;
- Wed, 13 Jul 2022 07:35:10 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1F3A5B81CB0;
- Wed, 13 Jul 2022 05:35:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D31EC3411E;
- Wed, 13 Jul 2022 05:35:06 +0000 (UTC)
+ id 5a511f8d-0270-11ed-bd2d-47488cf2e6aa;
+ Wed, 13 Jul 2022 07:55:10 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DBAPR04MB7400.eurprd04.prod.outlook.com (2603:10a6:10:1b3::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Wed, 13 Jul
+ 2022 05:55:05 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5417.025; Wed, 13 Jul 2022
+ 05:55:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,115 +46,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f6e88a5-026d-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1657690507;
-	bh=C6Qvmu8YGI/7zZ+PW9nfbi7sR3QFFcB/JWTbSIlVJFg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XqpAoqynsEuoTHKPzK+XyGdIWKe+7LwOpsOoLz0GOmgpMQt0yAIdlRHvR1/dz0gpL
-	 f1wM4YPqOe8Q45XvOqaqsBLBLObiEYHaMn3MGzSN6Anu69/mnWCc1y+6OwF0hxgOsi
-	 asY0eSNZbsKov8qKtbpNnfhOgwkmycFbKcbnl7ew=
-Date: Wed, 13 Jul 2022 07:35:02 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Chuck Zmudzinski <brchuckz@netscape.net>
-Cc: linux-kernel@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Brijesh Singh <brijesh.singh@amd.com>,
-	Jane Chu <jane.chu@oracle.com>,
-	Tianyu Lan <Tianyu.Lan@microsoft.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sean Christopherson <seanjc@google.com>,
-	Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
-	xen-devel@lists.xenproject.org, stable@vger.kernel.org
+X-Inumbo-ID: 5a511f8d-0270-11ed-bd2d-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WoS+54FbeIPf2qJJrm7LvEpABt+PFJNzxKA8QrbzTWubfcbLosCXxONdP7fEdqRlvSwY95n34t9Mg6xU39oh1KlXYN1sy4XkxLiWoN/yM09FMZ4gQYhuQsfFZ0sBj508Gq4bPMX+WfupQI6AfU3RfEnZtYxVZvEx9+JUKUrn+4UOw3X4OZob/ZXmIDUR5UozKxqWQyPLRjNbt1nI9OBJQB5Fd65EWvVFAlyYXiKBsgTNCmmicymbHRDBfL31mpog+luYU/JOAVWdr3JgknQTb809ot3RruDfCm1Wsm9iJaQDOYk1s3fVCPvxw/juGephJmjUYsbq6BkXE7ZuiyfXyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9GwnI4wc2WVXTeskyFFlqhlCn8IDGfaU7tHz9iiq03Q=;
+ b=NHLcxWA6F94/OB8T+PORQza1HWl1YfOgesJAK/tRkKN5CR5kwTFPl7z8WnRKSnr540mbiGCLUHaKYfB4E/pLK1MvcIvs9FJG3EQj3Ll42aWvKJkvHryqzjchx+aNYPxJCjY8/j9jM/+8tAoRW3U0+4o1TV1cHNnz1UjKgl0psqN/7Aq66iYLgMCNcUBXcWNgQOgDokVSSyJ26PEi2fdEMf8+gkcRhUzdwMbW8itjQtZFnEX5dCbm3skYMx9zZBEMP3TwkYHmwidOC9ospC6FcpBkubWGMOUC+dlcXcQOYmsncOsO/AJk7gerfZeqsQzNPqYUjxHSKE8PvrXz6bJXQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9GwnI4wc2WVXTeskyFFlqhlCn8IDGfaU7tHz9iiq03Q=;
+ b=hKsD6bQE9xDjwp0nBCXZBl0JgunXyLRc7RJpzgBOKU6fJoxOytLv55D8GQDyCa34iX0dqp5gbz5I/nFFApSqONhr9sujfkobpWh/PXM9OmZhSt52aAjpcNifnwUZSnANtnkzIp5AqVdzXhkYmH+hNoBbxTTGS6ZmI7Gqy9eSE89siWWqJvuSeA3B9bHzTANoWr6JvqD7JX14EFtHv1sBMUiUUhwsNTFLdb3Wbd0GJdXElqS6Mk+TaG32JY0oM0LM37WASrLJQgQUM2bWwUHUL6AdNN/iaG1AVteWQq0lto6f6PYChWsmzea7GOjaVW96wrs6OnczKl2+4MzTeKViCw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <09fee965-9cf2-110c-4484-d00bddb6b782@suse.com>
+Date: Wed, 13 Jul 2022 07:55:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
 Subject: Re: [PATCH] x86/PAT: Report PAT on CPUs that support PAT without MTRR
-Message-ID: <Ys5ZhmRHvRtpFN6t@kroah.com>
+Content-Language: en-US
+To: Chuck Zmudzinski <brchuckz@netscape.net>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Sean Christopherson <seanjc@google.com>, xen-devel@lists.xenproject.org,
+ Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org
 References: <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz.ref@aol.com>
  <2885cdcaccffd287ef69c7509056ddf183a38a0e.1657647656.git.brchuckz@aol.com>
- <Ys2/Lho9vQO33RZc@kroah.com>
- <a9efcbf3-3b34-53b7-0fa8-55a5ed3a17b4@netscape.net>
- <Ys3K0oS9QLx778Lb@kroah.com>
- <008ff24c-d059-8d39-5e57-6f5e9de0dcbf@netscape.net>
+ <388a3838-1681-dba4-dabd-a7f27817bf34@suse.com>
+ <b24d7fe6-c1aa-5d3a-5c68-98dfb57bdc40@netscape.net>
+ <32c86239-c434-369d-b6a7-f6f88cf5430a@netscape.net>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <32c86239-c434-369d-b6a7-f6f88cf5430a@netscape.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0013.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <008ff24c-d059-8d39-5e57-6f5e9de0dcbf@netscape.net>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8065d7aa-3b7a-43d7-1e99-08da64943c07
+X-MS-TrafficTypeDiagnostic: DBAPR04MB7400:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Cp08Lt8J2tdFYcBkx8QHfJCYxbTWu0QHcFemdGWT9xXQ4BkT9p8+my6vXZZizTMOmyOAGZXk8vJaFqQR0EVbrJVgEkpTq1bjuEdFCXIp0H9jMvrS0A9tO61WL0WesHda9fX1yhwNeJhRkBfdYJKxu7lBkj9IA9B9PNAEe+CwQn+tb+BaTckihgrZ47Aaqk6mMjaAiKOzNmnJ5EMBD+4U3dIQwAZJ5noNToHdvmyhUjaWr54D9tAY4DLEUTYvzzVVYy2fMscvwW4oPJABVIti2XUkLCggz8zjOZ5ZQaLAIqUmh36oxp0q0BmiMXAi5CmXFZ8PbFGuh2rlUwJ5yqrQ6Z944kjwezUhLNF7Gl2G6lu8AhOpoF0wJdQb1qqTyNsCoTTdZ3CG+2xBW4i7ic3H0x2ocjqCnhY5np3Bexp1SamksGuxHHspO357N+jhIEfKr1iyHWYGDwU1c2IKFXr47JctATGPG/QuI3QGr1XBDfD6I+8KHVv9HpxOgHpPBwJBSdH6+J8r96n6poMDkjpFmAHACofnhsHLgok5/VoMfJWTEB4QhvkMV7IrtT0VomKvusHEt4FqkGVOAfXCq8ZdXJReZM0F1rgDWYMS3Oy+szwrDK+gPE67WP4QrUNXZV8v0wXDuhNpXfQD2I/vo1PZHq83vv7NnyNoDQx9QEtht3G4J1/TrPAWAx4Z1IwTF9CJqnNXd4N2dtNqxCkaKNNDiF2KPVQhVJDfUV1EdePOaVeXFqWU3gXdQ4I6M4pe8fott9ojOpsJHWoPyx05lVVQfohDcn82OrM9vUuju1K8gJ1PHejkSYVEQ6tOLmQ+D60WZEks1LRRD+6MyLp+8ItvWJOl+mzvqUMD6PRKKQfIr6w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(366004)(396003)(346002)(376002)(136003)(186003)(66556008)(478600001)(2616005)(66476007)(66946007)(38100700002)(316002)(31686004)(54906003)(8936002)(26005)(53546011)(2906002)(6486002)(41300700001)(6512007)(6916009)(4744005)(4326008)(7416002)(6506007)(36756003)(5660300002)(31696002)(86362001)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NUZhZlZybndiRE1jOFVWaTRPeE5teDRjWmNSeU1NUFZXN1NEcm5rdUZadUla?=
+ =?utf-8?B?U1pDN1p0VVFRT2ZwWUZhR3RTak9nT1YxbjN2cmtKT2pMR3o1K1N4eUhtVVJK?=
+ =?utf-8?B?SkRLcnRsZU1zRWJBTnBKV0lJOThsK21ZYXNVS1ptMXJibFZsU2FpSzNybDZw?=
+ =?utf-8?B?My9tTjlKWDVuMGR6anZ6U04rUTZGK2tXYjZPUklZRnNwUHAvdVI2TnBUaTh0?=
+ =?utf-8?B?MWoxTXZuUHdWQmJ5LzFxYUhkTmVmVGZ0THlGRDkycEFtb2pZMFdXQmJPY081?=
+ =?utf-8?B?aDJkVVJIMmY2NEl3Uy83SFdvcXdtbktQbVJsQm1QbFFJenV5MlcrdjlnbS9w?=
+ =?utf-8?B?V25QeWdVTlZhMzMvV2hQSDJBclJqbHlKTlh3ZVd4TjdwQ1NQRVBLQzNoSmR4?=
+ =?utf-8?B?RmFpYXBRdys1SzhmUE1DekRLZ054Wk9KSGEzOEFOV0VKcWZ4RkhyVHdPYmVR?=
+ =?utf-8?B?QlNmbE1KckxzdjJyOHRXdE0rRzZOMHNzSXJFOTVpeGJiRHQrTnBuN3E0QnJs?=
+ =?utf-8?B?U1JwNHF5Yk53UHYxVlBDaVJ4eVF2V3pFL2VFbW01bUFEY3M5MzVyd3VJb3kw?=
+ =?utf-8?B?QTl5M0N1VkFtU0xXMnFNNEs5NlZaN3BHV3VPdDliM01yQkdUYWp0Z0l0WGRx?=
+ =?utf-8?B?M213OHNJY09oY0JJRXh1VGprTjN3bS9maTlseTU3Rk0zL2ZmQUNmYURGck05?=
+ =?utf-8?B?UE9RWnB5N0xNQW9IeTFtU1lYcEU5eHhwVmRoZittWXQ2ZXVvNTZkWEhEUXNO?=
+ =?utf-8?B?MnZKSjlpaWRteUZDemx2MVc1RDJLemhKRTM3UW91L1diTFpoM2hjeU1CZGRx?=
+ =?utf-8?B?ZkMyQzVOZ01hN3g4TGs3cWxwZXRBallrdE41QjV5Q0txVHB5WENYeWpnMG42?=
+ =?utf-8?B?dW1PUjNZaDRXWndrRnhodmlRYVhieXBXTzJkeUsyNDQwS1FhdXpFRVh0Smla?=
+ =?utf-8?B?bmRwRmdTZDJaTk80T0R2ZTNvOVlJaFNESHlZZWxGN1lyNGtpdTl4aVVWQUJw?=
+ =?utf-8?B?Sit6THlGWlExTzExQ1dlbHlZU0xLN0g3eG8vQ1Bka0FBbDY1aE42M2phK0g1?=
+ =?utf-8?B?MndCbi9OSGVIbXA3ZnBxSlF2S2VNS2tRS3NaQ0hLWFUxbjZTazZMNDFkd2lM?=
+ =?utf-8?B?dzhrU3FGRlp5SEltNHNwaGNnSHY3ZjVNb0s0Mm1SRzBIRm1oOHNPMkZTSDAr?=
+ =?utf-8?B?NDg4UXJGbEsycVlTR2FBNW5MRHY0bUd0M0NlSlp5aUd2R2tQS2pGamFBUml3?=
+ =?utf-8?B?RVJ4UW5ZMTZoMlYxUkhpR0doSzExY01HaEdtNS9FbVNHRnRwK2o1RkJaNDZ4?=
+ =?utf-8?B?TlltbS9ZNUVZSGZNS3B4T2RUbzZSOWh4QmFTeXZmLzF3MEFqOVVOM25hNzRm?=
+ =?utf-8?B?RVdWUzVyY01FWnFla3RuNmhTbVIxT0pmVm9PczdlZWFwanBpdjkyK3J2a3R2?=
+ =?utf-8?B?ZWxxa1JvQ1E3d2FtMGM5TVdHWVcrWkNqSk9MWVd4Smc1bC96ejBKMm5xd3dV?=
+ =?utf-8?B?dElzaVl4U0RUVjBMRlBTK2FXaEcySEpRcGRDWUVCYjQxMWJPQ2x6b0FyOGNI?=
+ =?utf-8?B?Z0pSUFhXT3RyRGU3V3gyMTNremk2ckZWcVJSd0ZvTlZCWGFFYzIwVjlFS1J3?=
+ =?utf-8?B?L1YzNG5pWFNpWW1pNUkycXRFVnVTc2UrWlI4aXl6ay9oek5yc2duSmpZeHFZ?=
+ =?utf-8?B?SlBVWTNKTXlDUmk3ZTZoQVRyVWZwSXVBOU0yejB1aXhiSVBQT3BqK3V1MEZB?=
+ =?utf-8?B?TE5BZldLNytHL3AxOFlLZTNsdk56N1E3bWw2RVRnV3NreGxJSUVvaUFUcGJY?=
+ =?utf-8?B?QWFpZmM1cG51MWhpWG9nN3BHQ3YxSC9kRENQN0NDTFgxcndpa1ljSGJpcjBW?=
+ =?utf-8?B?SVpFejFSTHkxd1BjbXpPeUNGNXQwRHBremdnajF1YW1sdW03Q0tSak5JRzEy?=
+ =?utf-8?B?YnZHTVNIekRTQ3dLNEJHYmNBR21pSlBtN3Vya0hNaGJXRVhCTGZtMWhwZ1Rm?=
+ =?utf-8?B?M2JSdUhWaThsQW5ZdW5rWXYxK0ZEaWxtR0s4dkF6eVBvWVVXU0JaZlVoWUdo?=
+ =?utf-8?B?UzI4RVFoNXlVWHo0MFpMSUt4ajFDRDRGUVhnbGdYMXNXcTFJQmNZdWlrVG9a?=
+ =?utf-8?Q?DmHU2OWWzOTVjyg6SW3mjMKOB?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8065d7aa-3b7a-43d7-1e99-08da64943c07
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2022 05:55:05.3570
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vwj0U9lBPQ0NNCqtj8Vf+PE70k9YrqKqPpJFwHrOEpce17dN1j+iWBRFLGYy3pkdSixEbesVBHetumQ8gPR5sw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7400
 
-On Tue, Jul 12, 2022 at 03:57:45PM -0400, Chuck Zmudzinski wrote:
-> On 7/12/22 3:26 PM, Greg KH wrote:
-> > On Tue, Jul 12, 2022 at 03:16:01PM -0400, Chuck Zmudzinski wrote:
-> > > On 7/12/22 2:36 PM, Greg KH wrote:
-> > > > On Tue, Jul 12, 2022 at 02:20:37PM -0400, Chuck Zmudzinski wrote:
-> > > > > The commit 99c13b8c8896d7bcb92753bf
-> > > > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
-> > > > > incorrectly failed to account for the case in init_cache_modes() when
-> > > > > CPUs do support PAT and falsely reported PAT to be disabled when in
-> > > > > fact PAT is enabled. In some environments, notably in Xen PV domains,
-> > > > > MTRR is disabled but PAT is still enabled, and that is the case
-> > > > > that the aforementioned commit failed to account for.
-> > > > > 
-> > > > > As an unfortunate consequnce, the pat_enabled() function currently does
-> > > > > not correctly report that PAT is enabled in such environments. The fix
-> > > > > is implemented in init_cache_modes() by setting pat_bp_enabled to true
-> > > > > in init_cache_modes() for the case that commit 99c13b8c8896d7bcb92753bf
-> > > > > ("x86/mm/pat: Don't report PAT on CPUs that don't support it") failed
-> > > > > to account for.
-> > > > > 
-> > > > > This patch fixes a regression that some users are experiencing with
-> > > > > Linux as a Xen Dom0 driving particular Intel graphics devices by
-> > > > > correctly reporting to the Intel i915 driver that PAT is enabled where
-> > > > > previously it was falsely reporting that PAT is disabled.
-> > > > > 
-> > > > > Fixes: 99c13b8c8896d7bcb92753bf ("x86/mm/pat: Don't report PAT on CPUs that don't support it")
-> > > > > Cc: stable@vger.kernel.org
-> > > > > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
-> > > > > ---
-> > > > > Reminder: This patch is a regression fix that is needed on stable
-> > > > > versions 5.17 and later.
-> > > >
-> > > > Then why are you saying it fixes a commit that is in 4.4.y and newer?
-> > > >
-> > > > confused,
-> > > >
-> > > > greg k-h
-> > > 
-> > > It is true the erroneous reporting of PAT goes back to 4.4.y. But it
-> > > was not until 5.17.y when the i915 driver was patched with a commit
-> > > that started using pat_enabled() instead of boot_cpu_has(X86_FEATURE_PAT)
-> > > and that is when a regression that started annoying users appeared
-> > > in the kernel. I presume that we only backport patches to stable that
-> > > fix regressions that are really bothering users, so even though the
-> > > problem dates to 4.4.y, there is no need to backport before 5.17.y
-> > > which is when the problem manifested in a way that started
-> > > bothering users.
-> >
-> > If it needs to go back to 4.9.y or so, let's take it all the way back to
-> > be consistent everywhere.
-> >
-> > thanks,
-> >
-> > greg k-h
-> 
-> I presume you want me to prepare the backport patches, or at
-> least the ones that need the patch to be significantly modified to
-> apply to those branches. I expect older versions will need the
-> patch to be significantly modified to apply. If not, please let me know.
+On 12.07.2022 21:48, Chuck Zmudzinski wrote:
+> I will also re-compile and test the new patch before sending
+> v2 and unless Jan objects, I should acknowledge Jan as co-author
+> of the patch since I will be using parts of his proposed patch
+> to fix the "nopat" issue, so I also need to get his sign-off before
+> sending v2. Jan, how should I obtain your sign-off?
 
-I will not know until it hits Linus's tree and the patch is backported
-then.  If there are problems, you will get an email at that point in
-time.
+If you really re-use any meaningful part, I think you could simply
+propagate it from the patch I had sent. But I'd expect the pieces
+to be too minor to actually warrant that.
 
-> Is 4.9.y the oldest version we are still supporting?
-
-Yes, the front page of kernel.org lists the active kernel versions.
-
-thanks,
-
-greg k-h
+Jan
 
