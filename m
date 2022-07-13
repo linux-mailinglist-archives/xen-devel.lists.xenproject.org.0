@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F2AA57337D
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jul 2022 11:49:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.366407.597164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D99F573389
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jul 2022 11:54:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.366413.597176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBYzU-0006Gt-57; Wed, 13 Jul 2022 09:49:08 +0000
+	id 1oBZ48-0007eg-O5; Wed, 13 Jul 2022 09:53:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 366407.597164; Wed, 13 Jul 2022 09:49:08 +0000
+Received: by outflank-mailman (output) from mailman id 366413.597176; Wed, 13 Jul 2022 09:53:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBYzU-0006Dr-2O; Wed, 13 Jul 2022 09:49:08 +0000
-Received: by outflank-mailman (input) for mailman id 366407;
- Wed, 13 Jul 2022 09:49:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oBZ48-0007c7-LE; Wed, 13 Jul 2022 09:53:56 +0000
+Received: by outflank-mailman (input) for mailman id 366413;
+ Wed, 13 Jul 2022 09:53:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XN81=XS=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oBYzS-0006Dl-F2
- for xen-devel@lists.xenproject.org; Wed, 13 Jul 2022 09:49:06 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2061.outbound.protection.outlook.com [40.107.21.61])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07faed02-0291-11ed-bd2d-47488cf2e6aa;
- Wed, 13 Jul 2022 11:49:04 +0200 (CEST)
+ id 1oBZ47-0007c1-4W
+ for xen-devel@lists.xenproject.org; Wed, 13 Jul 2022 09:53:55 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2075.outbound.protection.outlook.com [40.107.20.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b460ae5f-0291-11ed-924f-1f966e50362f;
+ Wed, 13 Jul 2022 11:53:54 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB9074.eurprd04.prod.outlook.com (2603:10a6:102:227::7)
+ by AM8PR04MB7460.eurprd04.prod.outlook.com (2603:10a6:20b:1c5::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Wed, 13 Jul
- 2022 09:49:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.27; Wed, 13 Jul
+ 2022 09:53:52 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5417.025; Wed, 13 Jul 2022
- 09:49:01 +0000
+ 09:53:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,174 +46,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07faed02-0291-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: b460ae5f-0291-11ed-924f-1f966e50362f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XWZMk+o7vMNMJ6ipMVGKzWM8z5G5LKVHvMyE9Sjx+lCq3ExhH9feWu75+JB1PN3VAsIY9mZInnAtcfY6nYw9CWsd2+EItw2QxY4N/puaFIsZHU258+3WY3Ply8+sP7UBIeT94m8RvalpYZxFzYfvV1I7nSsOAgHPW29GqnlEBznf+YwJcR3lNSWO/+vb2phnDRZYgl7uSfQOjNYiD8L50/FRxSCxDg44okejyPiAH+aU4BcjCr0cAnQkJbcWkDMCUPIVAROUdBqTNy9rT3WrjzxCqJiuSnTGZAhXxoziSLXtz0x5y60VNl4yATKJWSorxgGEkn8n1Qy9H1ITBsKT2g==
+ b=hJII0yv0sDetlxthXsLaci3Fj9gmJTgPQnF5eeCF3nSLx+4Q6OfBljsoX5bmjLgt5iwMlsEnByZGv05adxezEa2GqiXbvA7rJE2jvFsxS7jgafhAKD6zvfyPbvI6zfc8JUq9ZQ3Ml7lJZ2NOWB+vbfhaM5Js8Wpd4AtQUGzX0JuQSTSYNUcgK86w7J91UjP4QrTfK02ukjYcifz/fEeyYGSadN9NOp740pxKlpsjgn/JWy/4GWi9JsxMW/Gp/9q7M/VQKhco7bpz8i5zEQeCXHe80rUNbzXcLTnEs2NICLBGyX9oWIwwwfGX9mEXbKWYrEGYF3T7wdxvMLwe15+fuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eQDHYXBSiqGtSfCtEQYakVQSucdfXKK79khOVuSY6Cg=;
- b=CASWgMXQANUMwAu+CylPIodwbChrlT0WZyhqHl1dv3UpfEtlWfSDrOmUqque+YTeedaX73hXLXkiRDCvfd/C9615LSb6tPQ8pVgbQbY0j2z4q0OlLbf47NchMfzyaSznGbe/mjU0YFtv9Ch3duyXs8PboFvFIkezKjDAZN/Vaovoe/122owHsXG0uI3yy5nhsXhs+l6I78DU4XaGQ5CGKg6oRBkCVShaUZzovsonKIgcpjNp07Be+5X+L6k1Vc/8B2pF6rne75d2QcVwJ1idZGRpQ7iN9mC6TQTqLLeUMcV5pHt6Gg6sfhcw2Ztsd4xHIaQ9A70X8vR0S5vPPWU87g==
+ bh=RN0c0/+RBtS0QLG2v7icUhMBY9CevbS6Srs0SCzJnbY=;
+ b=FOcwiHvvTMznyCD+ahM6OpvQNPkZtMYd4socpVrGH8QefdtgF5ikcRsxKed1n09VK7xecNcUJW8CmHeY3XwXtBY3KkFb44Ywc8eaMTtqgjVb1cB6TzjGje9y9IBP5PCU93NuShIFUsDjD3XiXdW7DYJXn8MMN/HPHy7/w5tPHPJiFbBc8vLTE6naP/vieO+sgkJI8JBPIpznmfdc9xwI8x8/AmAimTDejizKD9wXEtB4fW/4tVHbBEobA5TC/sFumqOd8M8oXhU3qkjtTiyRYyoritXwjpT7otLKfCvcK63kW1MtyQT7LrjRoI6QLefX6jV78Txcpmtou2sggt159w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eQDHYXBSiqGtSfCtEQYakVQSucdfXKK79khOVuSY6Cg=;
- b=AnuRwGnwQJn0szwVbtD3UECOKrQedDN2857U2DI91d32FAPjcEz2GhtgXD5cBh61ZrNjyCIvW6ADx2+2Ll05eWwVseWC6HfajB9DRZDXubzcp718Tc4vkEXrGQZfdqH4enVM0vg1PKXk+a8uBER8VppEKhWUpsgQauHW/wxheUgG301icm7U6SMtMpskCV75j1PFfjnX0TbfUF7JKWrJx356XR4LOTnAk2l+bQP1u225iLLRVI58dsUuaDnTTl6CAHmQW/QIvfbHqEBRdUuFvaFnyWiSndnelb8qAqrWdzDO1fQM+SfcJ1BQBdZL/Z//yyU/NcfGWOFqEOTo6+F6Hg==
+ bh=RN0c0/+RBtS0QLG2v7icUhMBY9CevbS6Srs0SCzJnbY=;
+ b=RJryA0TkGckqb5TpNgcJoRRGsMxinevPvTY1OaKilaepA4GI5s9HpAh5CYYcZsQZgzI/dN06HAP2/HcMMWQPJcf/PCffUNV+mlfiMQvAanKxMwNvPEWl5NGDkFPOyPOf6IUT9bU7Wyyzb53OnL66eSa4FPA64kSIazrto96uE78i10Ljd60kxRxnhEzejQNrR3qCTReHoyNVd48nXekqruy6td7vH9VNmcg+XQSubnJ/EgJHqL8wP/Az91fMDMzL77tiYZDj0ThhxvIy/MHTLI30lD59c7B95VBzxmLckhjkSYx3cpsQcpXqP74ZckEo8s1+HINcKqgy6gp9Kx02Ig==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <9a96fc6f-23c5-e2f1-062b-39aa0c7ba724@suse.com>
-Date: Wed, 13 Jul 2022 11:48:59 +0200
+Message-ID: <5f200481-ed3c-a463-90aa-3718c0ab57a3@suse.com>
+Date: Wed, 13 Jul 2022 11:53:50 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] xen/netback: handle empty rx queue in
- xenvif_rx_next_skb()
+Subject: Re: [PATCH 2/8] xen/evtchn: modify evtchn_alloc_unbound to allocate
+ specified port
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20220713074823.5679-1-jgross@suse.com>
- <0e2772a3-3c3c-b447-ecb5-e2750959b527@suse.com>
- <b11693ec-5d08-62e7-7479-a631edd5b1ce@suse.com>
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Rahul Singh <Rahul.Singh@arm.com>
+References: <cover.1655903088.git.rahul.singh@arm.com>
+ <5ea66595248c41a011ac465bfabd7a7a40dcd565.1655903088.git.rahul.singh@arm.com>
+ <2cdde2eb-33ac-568b-a0ae-b819b7b4161b@xen.org>
+ <1494EC8C-9916-472F-9285-57C0FF656919@arm.com>
+ <abcf96b0-1c41-476a-de08-adb3eaaaa05d@xen.org>
+ <addaeb82-2d15-a46e-f9f9-274572d2ddc2@suse.com>
+ <9711c08f-7e16-daf3-f010-1e6a53b0b9a0@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b11693ec-5d08-62e7-7479-a631edd5b1ce@suse.com>
+In-Reply-To: <9711c08f-7e16-daf3-f010-1e6a53b0b9a0@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0087.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0150.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7e77f8f1-e75d-4268-6250-08da64b4ea41
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9074:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: 5ea2047b-7556-4e89-2ff0-08da64b5977d
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7460:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	DhudvRbpZ1Jk4oyzRTNH3i1TLT8yYuIHSMxa7oPZhDmsTiIfrP+xncFLuHxRB6L9BKojZobxtqEVOpkfSy1duKc5E/A1hJIWy8Q4cBlSZaw8HxQkWv7JlfF8Mw7B6C40gzQcodMfikYQxra7t7+pZAbL8pb2EpCojPF/jriVE1AsTlSJRNdUU+JqWdo5P+6QSlCFvN+RvcDOIz2W84uAZGKlII8AWOTmRqA2dFdHIZhCpXMY6LGgTEuOb16W5LiZ4x6EKROLzZpEbLL98eEWNT0oejO3dIuyg5xF62a6REMpsGoDxTVa1y/2L6uPjYLiwAqzDBjhOjyFBuchwXG+HdJtESBwZh3WjF6+8Kz7zU69G/CT6LITTMOMLuVdkQZP8MhcKImlZcfAubzeGTnm8eoxI7wktQcFeIDc69Ow6pnvJzke9kDuc3zyDEjU5YkvB/DPR41JJC/XBV06OjNKzQfuuwD9dYtYt91dWiJrli3PeQ3HLLA+8L4RYWtupPB3+MABgANEdOOMlg0LiYetSwcjQ/5e3mkls+qC0mzt835A5rsnOowwZQma22FZo0fa099OUMi7EjuL/pUM/KbLecV7YO/sp087f/1YqkPUs6hu7cEoWncWAhbEuIEkU0xn+n6Ha3QVfSaA2PnXUa9PjU/ujf5uKMb67cL1H56AYcA0yxitEuRL+CZS84JkvvLkYEtZLYCSeuGzCB1kp+INHUpxZPByt1VH9x4GZKr/0NxyRYwxM4btMQTxzK4a0Dt7TcZ/EXoiGUM54VtE6gfu0Us5Isgs9r3ksyhgedKyvuPHAPOqBWuxP5e3VPW9ozE0Dk1RE4NsjV+65cPBUh2Jenl/tZsubw7uHADH8OQbNH4=
+	POmlmVhD3YjB3pAEmjoysbuu/MEHEd+7hdQQObMiBYnyL5MrEkXZQzAocw2hKCdoFki3GxDGlmJhf99rnd7GdFjZrCcLdelz/4KkiMgtNoeKfO7p8PISOL/QfeVEEuB6XJbw+aCxf605LKxdDcuroIIg+M2vk0tk4dDqnkkTRIqcwNsIdADvTC/PoDt4en4rZmxHpX2WYp6zqI6CMFqV0WXZkruMEDEYPMtaDqlu4t3k3lmVENvuMGQnvnrlWEOpNUr2yDV8tI/NERbsbELF1cqnNmvbQRoRTORNAlC9urc1v8wMdjhIJ1ocDsvrhfvd7xjIXSKFu7o04fh+9OUGTIEd8cVhhZU9tZJHN/yDQe4FA7BBhFyhv3PkVG7jXnm0C+VaO4Pats2dQ3Dm68Ezdm4+S9wuVRV9IcUfF1eOYo0fTK6zmlW+tHM5lrfGrsPP14NgtpQihS7bAUHopDdisEqRUkpQZSjQogn3gLMy4oJnEaPl1peWGZkXLAKLqcOyFHlKx/DkvHwGI73B0uCwJ+w0ul7bLUZF42SCtJ4oYAc27LeyjYR/pfnzJvsp/WvPdKbGC2h6r9IaaTdQbdwLbPSPFkTwXLACTJkXxkjxTJQiTiUBDkmarB21WyhlG0Qw9Drh+lyHbNlMtE7Lk4Xfzc1PHjxHWIdpdd/mUY4eEZg9lKiF+CRep6owdheyxN6W3kkF7p3MkBv78BMBEnrTgLiCbVjhc5u9cJ3g3z73QMWamy2it+533BRuqOs4gLZ2wSdPAeV8gMGxwQmjyFerqsdTybBhY3mbPjFx2pAb8HdhzJjXWIZNI/yolvje61mgJbX3zV9CE11lXinHMMpMP9obp7rmBEl3i0PlzaCSRHs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(346002)(39860400002)(366004)(136003)(396003)(83380400001)(86362001)(6486002)(5660300002)(38100700002)(8936002)(6862004)(31696002)(6636002)(41300700001)(31686004)(4326008)(2616005)(478600001)(36756003)(54906003)(8676002)(53546011)(66556008)(66476007)(66946007)(2906002)(316002)(6512007)(26005)(37006003)(186003)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(366004)(39860400002)(346002)(376002)(136003)(6486002)(2616005)(186003)(31686004)(53546011)(41300700001)(26005)(6506007)(4326008)(478600001)(6512007)(66946007)(66476007)(8676002)(66556008)(83380400001)(6916009)(38100700002)(54906003)(316002)(31696002)(86362001)(2906002)(36756003)(5660300002)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?czRKTEtpWnh1V0F4cDBPb1RZUXlMdHNxZVd5M1hnV01VUUpzOS9qTzJrbldn?=
- =?utf-8?B?YlFHUnhUNWtZMDZjS05BVUFiaXZqTGhRTFJPdEtuUnV3L2NTRVlJMUtxMlFs?=
- =?utf-8?B?eXNQQTNMYmdLVW82bVpwRGJGTmd1dU1USi9DRXVFSXRYQzRrT0ZYaHFpM1hy?=
- =?utf-8?B?d1g1U1ZIRVFISHVZRThmWmZhUGtZSEc2Vm5ZdCtTRWZXeHNvYWNHZ25pdlhR?=
- =?utf-8?B?bzRabWtWSnNmS2dVSThDZzVOUTdFcXJtUTRGV2QvbWJTTzJiUXJ1MVlUYXlJ?=
- =?utf-8?B?aGc4VlUzV0t2WmhQTVJmYmJLRGwxRlFLblpMNldpOFF3V1FQT0VOZ0tJVk9i?=
- =?utf-8?B?RzRlTVBHcUJIUmdkYk9VRXFaODFoOGs1N3VkS2ZIUFlCMkZET2NNT3lMbEFJ?=
- =?utf-8?B?aSt3VVBPbE5VWVNnc3EwNVYrdHh3aUlBYy9WMEhESU1yVEdWdm13MHd6Z0ZF?=
- =?utf-8?B?d3hmajg4eXd0ZVhZVFBCeXdtWHJvSDZtTXNRQW4vcTlqVkYwUEFBUjd5Q1FI?=
- =?utf-8?B?VnRmWFRTTndaN3F0RHllYTlmYjBKc21mQjNQNFcvK21HdlpyeWJZOFViN2po?=
- =?utf-8?B?T0tWTnBxbU9sRTBNc1I3b0JpeW9lS2VVR2dqSHRBL3BLWlhIN1pUUWV4MFUy?=
- =?utf-8?B?bVBhMHdGLzd1MmdGRWFRU1R1UEMrYWJ1TWluTEdCUWwweDZla1c5SXhocFRF?=
- =?utf-8?B?NzE2ZktGRzFhUjA5SlpBeElFcndyQ3hNUm96ZkZIdkF1WlZTK0kzZ2FTbVJz?=
- =?utf-8?B?dXd0eFhWNnZGWG5uTDZRV3VZUkoxZ3pWK3RXUXNQbDl2N1VCdVIvYXdGOE55?=
- =?utf-8?B?Y21ySWpxTUo2Y29OL1JwL05BN3BLbnBFOTIvUWthV0EvWEs0WHd3UXAwZkRp?=
- =?utf-8?B?eWZKWURtS2JHRWFWVlZGdHlQaHVnWEpLVGwyeHdsZk1QM3lwQURGc01XZTds?=
- =?utf-8?B?LzdZTHVtQnZ5ejMyb0JoYStreXNCclVrb1UvbWc2NEVMY3VySHdVMmFxYWMv?=
- =?utf-8?B?Tko4Y2FwUmNTbHByTlUvR3NlOXBwUE9sdzhuWVBhOFc1V3JMNklOOEd5NS9R?=
- =?utf-8?B?dmZzcTBoTVB0RUhoMDdsZS9wTlNlYURXQlI4TDc4MzloVHZJQk9aeG8zUFRV?=
- =?utf-8?B?OWJlMDJDM0RqdHdqWERYdVBVS0ZnNWRNYU4vUjFOZkJFMWVCNXk4MEpVck5z?=
- =?utf-8?B?SURYRytoWmFJblpEcXQrODY0T3ZVSnpLdVpDT3JPWGdiR1dGMVhOZmZxb1NJ?=
- =?utf-8?B?dlFuSnR2MitCUkdSWDMzbzZ5ME5SVFp0ZkNrWkprN2pxQlpFaFJYRnpmSTBq?=
- =?utf-8?B?ZDE5UXhhREtlOU9DemVGMUpPZjlLL2hUU0Y3ZlJQQm9zYktpZzRJU2RJSWJi?=
- =?utf-8?B?TGRtYlZZbDhzVEhBTlFUK0ZyVnE1akQ5TG9XQnZuTjI0QkJSRTlvMXBLeE8w?=
- =?utf-8?B?eE5tMEFSWW1Ia29MV25Db0ZlNVVFT2h4RUJ4S0gwN0xjZEJrNkI5bmg1Uk93?=
- =?utf-8?B?TENaSGVYdW9sbFZOMno2ZGIycVNnS0dzU3piWXJKTGozYTkwSDJJSitKK2tj?=
- =?utf-8?B?V2JxbWh4NGRsUTdZcnBvK2ZGd0Q0Qy83cUdRWjVTVmRkN1NMRUdoYnlNem9m?=
- =?utf-8?B?OTN3M0tSby93UklIK3Y1aHB4Tkh4eDU2NUc2TDF2MStiYVlTR3ZVTUNPYXE0?=
- =?utf-8?B?Q0I5QzNvS1RsM3dIczdIUVBaWWJ3M1JhQW5idlMreHo4ZmJyWDBNZnVvNFJP?=
- =?utf-8?B?dUpIaXlzK3FXSFZEVUxlTWQvYmVjUUNMbXRzcnIvS0JrZEtQeVZ5cG8zelJp?=
- =?utf-8?B?T0pBRTNsQVlITGFIYnZrOGYzdzMxTFNQUGh6OHpVai96ZWRVZWZGbXAwc0Qx?=
- =?utf-8?B?RXJHanp3UGJkdnJuWkhJamNobUNlc0VNL2tzRUNRUk1vdUdPZTd5OU15QXFE?=
- =?utf-8?B?dnZmQXd3d2ZPaXh1d0FLOVFDNWhzTHhFcGJ3S1QxYUJpTFkrcEpYSkJIS0c3?=
- =?utf-8?B?Rkdlak45dmpSVzcybVlHRkVQbUd0cFVUNE04M1FlTVBObWtYZXd4VS90Tkl4?=
- =?utf-8?B?NE42cGNPcDRqUG45dWpLbG1wSXhBcDM5VGZnWkZBZGdSSnZZeEx0OUNtU1Vi?=
- =?utf-8?Q?wfzO406qvRqJc4oX5ueY3rCE8?=
+	=?utf-8?B?SWV1TFh1YWl5VXMrNDkvSXVGclE0Nit1K0J3WWx3aEU3bHdIbmtQait2a1VT?=
+ =?utf-8?B?a1FLS3k4ZERlNTJBd1VuU0FEb25ERGJZTUltaXR1bzFZRGJubHBsOUVoSDBw?=
+ =?utf-8?B?SmUzNU5abHVQZjRxRnBodUFhYmdQbWFtWUZuK1JsYnJuUUp1QVB3RjB0MzFD?=
+ =?utf-8?B?aElFUk5CZ1hYd3pLQVFFcGhsN0IrNDl6T2lXM2VPVjJyMWo1YmpCQXJ1cDFO?=
+ =?utf-8?B?N0RMRCthcGQ2dHBzN2NtRDhNTkVyN1I2UWRJejRFNmIrRWd2Uk1qTzQ5eU0w?=
+ =?utf-8?B?UHJOWnJCS3VUeTFsNXhSNGVRQ0xIdTBha2NYYWsreFFRWitmcGZUcGZqNCtV?=
+ =?utf-8?B?cldhNzQ4QVNNUlhEdTdBQ2xpMktGOE91cVZMZmhudDB0dTNQY285UHgwSnpG?=
+ =?utf-8?B?bVBaeTFwV2QzV2d6RkVmbDRMWlFHcTBTMHFaZzAzbG9oK2dsWUVocUJkUXhZ?=
+ =?utf-8?B?a1lNcGFHa2R3YTkwRU9vMVVXUEV0aFg5azRiRlNobFUvL2FOellKNkthOXht?=
+ =?utf-8?B?WTV6cnZCSjBYTFpOUHBGT2p2eTVvZHY3VTAwd1lVd3ZlejE0S0U2aWRnUk9h?=
+ =?utf-8?B?NitTQTNlWDNSSnpPTEZCaHppRW9abkpJQkVBblNEbkRFL0ZLRlRxZFRCMitv?=
+ =?utf-8?B?eW5Td0poZzNOeXVvdlFGWFd0UVJFYVZzVmZaenlZTVNLQm8xa3NibjkzNVYr?=
+ =?utf-8?B?c3lTR21WS044aDE3d1orbTVsZEtrQk5NWVFvVHVmTHNRSkp3ZWdVZzZZbUdQ?=
+ =?utf-8?B?QmpreXBxU0F3L2Vwb0NZZlRTMWtKY2pmbTYvOHRnRktFck43OVpEbXM5dHFV?=
+ =?utf-8?B?RnlnYjlTU3BsWXg5V09MYStDdmRGUEVhZDArSlpPMHROMHFwZEhhNmgxQVVt?=
+ =?utf-8?B?YzExS2REd1B0OXVUZ2JRK0ZpTzJHdmsycWhIbFZFVkl2dWE0WlM2R2N3elVx?=
+ =?utf-8?B?M3E4cllBOFNaeDJOVzErTTIwb2toVDZraThVZTJwNmpaQzhJc2ZDcVZ4TTM1?=
+ =?utf-8?B?dk9UTStlVUhJU0FIVEVRM1llVjE0ZEpzODlRN0lDcExoL21DUjNLcS9kVjV1?=
+ =?utf-8?B?THVEcDBkS0xjdmhxcjdLK1JkN1Ewa29LNG1oc1h6WWNmaUVJYWJZdnFmeGNL?=
+ =?utf-8?B?amFvNnUyZ0VJOTd6Y1VkbTR6Zmg0YXBvc1duSDV4Z2ZLaDNHaU5FUVBDS3RG?=
+ =?utf-8?B?RTQvMUp6Y3REMzJYWEExMThzMW1ydmRYU2lLYkFOL2h0S3E5Wkh4VERQak5J?=
+ =?utf-8?B?WDdUVGNTMU5KcWNmMExCY2FxenN1bHFnQW1jRk9IZlU4RDVldU1jVjZ5TG0r?=
+ =?utf-8?B?cUluL2dCaS9XY2VHaENhRWlDakpkazlWVzZFay9VZUJpKytQMTFHazhNQ2V5?=
+ =?utf-8?B?cjBQM2RnTURidC9LSzBBaEd6QXBja05zMHp2NnBtYWlUcTJWYi9jdXdyTjZn?=
+ =?utf-8?B?amRwVVh3amNTQTFjZ2R1bUZMbmJUbFo4cDR2SU5SazN3RUJJeUZuQkczUk55?=
+ =?utf-8?B?OHZXM3lKRkduMWNLLy8wNUYzOW90bksrWW51cDlRS05ZL2gxWkVkVlpMR0gv?=
+ =?utf-8?B?Y3IrTTkrR1NScDVEdWVNclRsNDgvUlpnbGoyYU1rNVplMDdSc2tHUzNUSkNp?=
+ =?utf-8?B?V2dNQmJEYXh3dzJYTUFjaHhSNW9ucjIzZlVLNHhsbWcva0dYSnlWczFuTmMx?=
+ =?utf-8?B?eUFwd05ZNGhaMlJWNVd0S3hldm5KQ2pVRTRGRzUzaGZ2MWxTTEtXVDZGVzJ5?=
+ =?utf-8?B?Z2xmWlB6M1kzQk1MNm0weTh6akpScnAzRUE2TlZCY24xZEcrVTN0bjlGd2hF?=
+ =?utf-8?B?NllOanhEaCtybENETzdibTg5TTZXTnp4ak1hRk5rQlJDVHdsem5ybzIyc0c5?=
+ =?utf-8?B?MzRWWWxJNGlZSGJyNGlmeS85K3Zpd2lsNXJ6Zm5TN0N2RVNxT1lDSThQbnZ5?=
+ =?utf-8?B?dHJSU25oZlFnWEdtUmlEWjNZUm85UVJJNlJsUGZZa3NxLzk5UmpLQWxSVmk5?=
+ =?utf-8?B?OXJWYzRxWnJDcFFaRStJSVdFZlhEYkc5UGRWZzlVV2V1dWFCZG8yU21Ca2p3?=
+ =?utf-8?B?RHAyUzExMDJtc3BjSENodzRCQk5MWVhGazhodFR6YnFuYUY1TW1ZYVc0Z2xr?=
+ =?utf-8?Q?XZxaD5mmBIFnYPMOdpA/SzWPa?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e77f8f1-e75d-4268-6250-08da64b4ea41
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ea2047b-7556-4e89-2ff0-08da64b5977d
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2022 09:49:01.4953
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jul 2022 09:53:52.1955
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HKbrqYGYiu9sI1+QiLoj4euxAjdtlFONEKpXgyNrMkHxnbnDjn2u5dYFf27TMlwoNirNupvNYHILaTMfWNYTQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9074
+X-MS-Exchange-CrossTenant-UserPrincipalName: eLkN8+l3npsD778n3XQCyBhPbvhSMw8+3+tQG5pQiy0iFhK00g/4uSUraf8KXo3lfmLF7kxuzw7zRKs0VTyf3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7460
 
-On 13.07.2022 11:31, Juergen Gross wrote:
-> On 13.07.22 09:59, Jan Beulich wrote:
->> On 13.07.2022 09:48, Juergen Gross wrote:
->>> xenvif_rx_next_skb() is expecting the rx queue not being empty, but
->>> in case the loop in xenvif_rx_action() is doing multiple iterations,
->>> the availability of another skb in the rx queue is not being checked.
->>>
->>> This can lead to crashes:
->>>
->>> [40072.537261] BUG: unable to handle kernel NULL pointer dereference at 0000000000000080
->>> [40072.537407] IP: xenvif_rx_skb+0x23/0x590 [xen_netback]
->>> [40072.537534] PGD 0 P4D 0
->>> [40072.537644] Oops: 0000 [#1] SMP NOPTI
->>> [40072.537749] CPU: 0 PID: 12505 Comm: v1-c40247-q2-gu Not tainted 4.12.14-122.121-default #1 SLE12-SP5
->>> [40072.537867] Hardware name: HP ProLiant DL580 Gen9/ProLiant DL580 Gen9, BIOS U17 11/23/2021
->>> [40072.537999] task: ffff880433b38100 task.stack: ffffc90043d40000
->>> [40072.538112] RIP: e030:xenvif_rx_skb+0x23/0x590 [xen_netback]
->>> [40072.538217] RSP: e02b:ffffc90043d43de0 EFLAGS: 00010246
->>> [40072.538319] RAX: 0000000000000000 RBX: ffffc90043cd7cd0 RCX: 00000000000000f7
->>> [40072.538430] RDX: 0000000000000000 RSI: 0000000000000006 RDI: ffffc90043d43df8
->>> [40072.538531] RBP: 000000000000003f R08: 000077ff80000000 R09: 0000000000000008
->>> [40072.538644] R10: 0000000000007ff0 R11: 00000000000008f6 R12: ffffc90043ce2708
->>> [40072.538745] R13: 0000000000000000 R14: ffffc90043d43ed0 R15: ffff88043ea748c0
->>> [40072.538861] FS: 0000000000000000(0000) GS:ffff880484600000(0000) knlGS:0000000000000000
->>> [40072.538988] CS: e033 DS: 0000 ES: 0000 CR0: 0000000080050033
->>> [40072.539088] CR2: 0000000000000080 CR3: 0000000407ac8000 CR4: 0000000000040660
->>> [40072.539211] Call Trace:
->>> [40072.539319] xenvif_rx_action+0x71/0x90 [xen_netback]
->>> [40072.539429] xenvif_kthread_guest_rx+0x14a/0x29c [xen_netback]
->>>
->>> Fix that by stopping the loop in case the rx queue becomes empty.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>
->> Does this want a Fixes: tag and Cc: to stable@ (not the least since as per
->> above the issue was noticed with 4.12.x)?
+On 13.07.2022 11:35, Julien Grall wrote:
+> Hi,
 > 
-> Hmm, I _think_ the issue was introduced with eb1723a29b9a. Do you agree?
-
-If it was that, then something must have invoked xenvif_rx_action()
-without there actually being work. I'd rather see 98f6d57ced73
-("xen-netback: process guest rx packets in batches") as the origin.
-
->>> --- a/drivers/net/xen-netback/rx.c
->>> +++ b/drivers/net/xen-netback/rx.c
->>> @@ -495,6 +495,7 @@ void xenvif_rx_action(struct xenvif_queue *queue)
->>>   	queue->rx_copy.completed = &completed_skbs;
->>>   
->>>   	while (xenvif_rx_ring_slots_available(queue) &&
->>> +	       !skb_queue_empty(&queue->rx_queue) &&
->>>   	       work_done < RX_BATCH_SIZE) {
->>>   		xenvif_rx_skb(queue);
->>>   		work_done++;
+> On 13/07/2022 07:21, Jan Beulich wrote:
+>>>> For the FIFO issue, we can introduce the new config option to restrict the maximum number of static
+>>>> port supported in Xen. We can check the user-defined static port when we parse the device tree and if
+>>>> a user-defined static port is greater than the maximum allowed static port will return an error to the user.
+>>>> In this way, we can avoid allocating a lot of memory to fill the hole.
+>>>>
+>>>> Let me know your view on this.
+>>>>
+>>>> config MAX_STATIC_PORT
+>>>>       int "Maximum number of static ports”
+>>>>       range 1 4095
+>>>>       help
+>>>>          Controls the build-time maximum number of static port supported
+>>>
+>>> The problem is not exclusive to the static event channel. So I don't
+>>> think this is right to introduce MAX_STATIC_PORT to mitigate the issue
+>>> (even though this is the only user today).
+>>>
+>>> A few of alternative solutions:
+>>>     1) Handle preemption in alloc_evtchn_bucket()
+>>>     2) Allocate all the buckets when the domain is created (the max
+>>> numbers event channel is known). We may need to think about preemption
+>>>     3) Tweak is_port_valid() to check if the bucket is valid. This would
+>>> introduce a couple of extra memory access (might be OK as the bucket
+>>> would be accessed afterwards) and we would need to update some users.
+>>>
+>>> At the moment, 3) is appealing me the most. I would be interested to
+>>> have an opionions from the other maintainers.
 >>
->> I have to admit that I find the title a little misleading - you don't
->> deal with the issue _in_ xenvif_rx_next_skb(); you instead avoid
->> entering the function in such a case.
+>> Fwiw of the named alternatives I would also prefer 3. Whether things
+>> really need generalizing at this point I'm not sure, though.
+> I am worry that we may end up to forget that we had non-generaic way 
+> (e.g. MAX_STATIC_PORT) to prevent trigger the issue. So we could end up 
+> to mistakenly introduce a security issue.
 > 
-> I'm handling the issue to avoid "an empty rx queue in xenvif_rx_next_skb()".
+> However, my point was less about generalization but more about 
+> introducing CONFIG_MAX_STATIC_PORT.
 > 
-> I can rephrase it to "avoid entering xenvif_rx_next_skb() with an empty rx
-> queue".
+> It seems strange to let the admin to decide the maximum number of static 
+> port supported.
 
-That or simply s/handle/avoid/ in the original title.
+Why (assuming s/admin/build admin/)? I view both a build time upper bound
+as well as (alternatively) a command line driven upper bound as reasonable
+(in the latter case there of course still would want/need to be an upper
+bound on what is legitimate to specify from the command line). Using
+static ports after all means there's a static largest port number.
+Determined across all intended uses of a build such an upper bound can be
+a feasible mechanism.
 
 Jan
 
