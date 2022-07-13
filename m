@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0584573D16
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Jul 2022 21:23:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.366957.597936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C11A2573D4A
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Jul 2022 21:39:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.366963.597946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBhwz-0002Hu-Ge; Wed, 13 Jul 2022 19:23:09 +0000
+	id 1oBiBn-00048a-Oh; Wed, 13 Jul 2022 19:38:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 366957.597936; Wed, 13 Jul 2022 19:23:09 +0000
+Received: by outflank-mailman (output) from mailman id 366963.597946; Wed, 13 Jul 2022 19:38:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBhwz-0002FG-D8; Wed, 13 Jul 2022 19:23:09 +0000
-Received: by outflank-mailman (input) for mailman id 366957;
- Wed, 13 Jul 2022 19:23:07 +0000
+	id 1oBiBn-00046M-Lq; Wed, 13 Jul 2022 19:38:27 +0000
+Received: by outflank-mailman (input) for mailman id 366963;
+ Wed, 13 Jul 2022 19:38:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9ORK=XS=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1oBhwx-0002Er-LU
- for xen-devel@lists.xenproject.org; Wed, 13 Jul 2022 19:23:07 +0000
-Received: from sonic313-20.consmr.mail.gq1.yahoo.com
- (sonic313-20.consmr.mail.gq1.yahoo.com [98.137.65.83])
+ id 1oBiBm-00046G-88
+ for xen-devel@lists.xenproject.org; Wed, 13 Jul 2022 19:38:26 +0000
+Received: from sonic306-20.consmr.mail.gq1.yahoo.com
+ (sonic306-20.consmr.mail.gq1.yahoo.com [98.137.68.83])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36fcfdd7-02e1-11ed-924f-1f966e50362f;
- Wed, 13 Jul 2022 21:23:05 +0200 (CEST)
+ id 5a9a138d-02e3-11ed-924f-1f966e50362f;
+ Wed, 13 Jul 2022 21:38:24 +0200 (CEST)
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic313.consmr.mail.gq1.yahoo.com with HTTP; Wed, 13 Jul 2022 19:23:02 +0000
-Received: by hermes--production-bf1-58957fb66f-c5dsp (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID be5fa1fef9434c2588515f43cf87c2ec; 
- Wed, 13 Jul 2022 19:22:58 +0000 (UTC)
+ sonic306.consmr.mail.gq1.yahoo.com with HTTP; Wed, 13 Jul 2022 19:38:21 +0000
+Received: by hermes--production-bf1-58957fb66f-p6kcj (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 564882263554cd3ca01f52971e669fd2; 
+ Wed, 13 Jul 2022 19:38:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,43 +42,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36fcfdd7-02e1-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657740182; bh=/pqEtPTwoqlqf1VfNjWI+ICxoox940uBU+wleS/dIQA=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=jOfzgrIZnCGAOPIyNe5JIWs0IE3kzATlnIeOengJsRshFZHKdzoOKXtvRZjg2k9NnJ1Wb+7mhzw0v4BbxCPWA5j2OylngBa8yTJpjeI4X+dXVtbJVf37Eppl+XLV946ub17PuQJbPNEDyNJDx+s6XrWrNgc9TTMNjYIxK0gSO7aIKzLqQ/nl/Rme8gw6IDNZh/ML83/boCnGnehv10j9wjRQ/7TCS0PmqltNSLTSxZ9ec310Min8XajREI+1SN8FnmQbJrkpluiQNcKWn5gb4q08j1zvgXeEPJFoaOYFImtBGBgAucJxirOinPKMVLmNEUpMchHbUS85w0HcpX5c8Q==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657740182; bh=iDdQzQUxoYiwLEBUT6Opp93BUFmnJiJhA/x+KMtY0pk=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=Tr3kDXM64Qz8a/Nk+fSD4+jPhhx8mSk0WOUnB2addJ+WEF6Br33g5JUnyT88sOVE1nvpAEcfGLsr3IfvQ1QRk1KpAgEOHxw4hmaWyHBWvtPElmJRFK9GSY6y8h14vx2QHTTycWrYK1Hhux498KLODzsO7udPsfYXlbAMr1MhvxHoIfY7OLYaqkTHBgmtKrMAKDwxMgc6RCMjF0YHf73hmlel6zkvrnh0IheGEOSMDucecax4i9cORU47hsPBUJfHYi3Y20QuRQAqfJi6BA6x960DldC8+WD9ACduVKAmd8SAK+eidAZ/Hqiqjih+n9ut05UgsEJhHvbxSjG0pcGLdg==
-X-YMail-OSG: jVFH_4sVM1nv9uVHcq_abWJ3PwOSDpTt4cR4mfH4t5l46G7PndKKnZVIyhOQ95Z
- kMrzamX_2cnR7VtZSrjVKFN8KdcMsPbNqdYzQHAsfH3K.FLpYl1ESyVCCK3A.rzUPGfgWBhoY_m2
- 7wRhYUhOUGJvHmHc9XaQDKFd56QUQHTtgN7cAizWZAlfslIFyh6DfCKi49JanjAh_SGs1uOzEJeF
- 04gR07VvsAH2tKBPc2GNXzdaRwhxQp.hvixGwoXtBgttwA17B3gD1lEqf7NtYN94zg9rcePfL2Iz
- n9vlowjcfq799NKN3HzEwcHMQ0s2VcoaQwNCgPTgR7Rz0zrFKUjlIkmI_dJnfIDRY7pZGpQthk7x
- 8pGlT73ukUpUNXmZ.jzAvtZt1_86vE6HxcsgclA6id0V506D.qlPYYcPQXNl5TLCLIwSPEi1PjCK
- xOwH6kGhfqeO7_4kfzyAShju7pQZvJ3LoQevpK46XoGP.fuUJXBf9PVAqsp6iQdUSBS54UTxfAN0
- iB__bo6cbMur4MxBQ_NzsuaVskH3SRRAVmaGtYZm4OIdEdjVToEKSaHwmJ62nWmjs3zee6rtU8ZA
- vSzdXYL6cPgGrRPN29JdZHPUgEl4uGi_cAykKmk_8bHZw5gFUAIT_kqxUrnM55KJpTqVFdg87ikb
- I_j4aOxjR_FHkx946MQTVtZFDYXO46z1uY7DnbpAUM6uFS5CVX6g4ejuURaUMlSbvvCSXOugJymm
- w3uyROGdlJrtCjLKX04xgCQZKwheC6J02nBoOrdb9q0MRR9RwCtITLq6I0s06239AYyi1RPCCmIb
- vuhKkDQ0sq0TddbHHgCv9QYvxgN60dvE54iFp_CiEIf35gUBPFBPodgpCKG9Wh8qlNH5tum5rgab
- I9EWOVzDVxD3KmgUXypIjjH.y7y7H4NbxTzJQX5VScLi.CYL_FfRERIoeT2AcJ8D5HDXmDZ08osm
- qCF6I5061yYDWTy_X6_tD4h2z05haNgm1ZFuMB_qmm1G.Erj2Gqk2.t2Ahamh0oenjH7Ln2NptA5
- dhPAThR5RrT.kOJ0DyBFoUToFzj4Db5nYb9_oWX3aDOQc.NBHwH50WQ6Nm04V2qC__rK0HXj4HJU
- ZojPKFeoUPd9XYVFOUVxga4Ymv3UMeKr7WTj1Gy1tETIExmsmDpE.T1CA5YUiWAsowxrazRkXvnP
- yXll8heAHBvzLCsPIuslVQcOSZzpEdVKUCXLlm5WQrxGPUBBev5wO0f7.2zap2aSL8uuHNxT0bnI
- Hv5ctTEi5B21XgM.Psx4Kq.HNVwg22Ij9B7aRalBDgLdlVbBqm.cwOHDoOonL2JzrvCUTSqKOX2f
- GduBe7IiSsHqhjXPm1KoUEp67Nq1YAVD4NM8XOc2qLBFEK3_HY.dLAZ4c3vFIL9x7JN9Bd32Z1BL
- 1CCt1ceK2CFj__20ITwrP56hmX7R.cJcQT.YVKp3VHCPw0GZWdeBOySC5ms15GgEcSVK5JVB1IAb
- __hIpu2F_0xz3kiIpGdZnre77bGdb.N2sGbOMb.See3A5tudGSGQL7hEfhU1MrkFQJS1qE63.rr1
- PkONvRZXfxBpvxHEomtCY6uwz4jdusqAQTh52hYzNFFlKuYj5tDt2cMqP02UWQVjT4tVKoMDadP0
- FicsqjMwUBpCO8raScPwwHBYZaLd1g5JjCQ5hHlrdv0hsfyjwxSUTsovYohEHzN2lJzAUVLfw1Qb
- ISijlH4Y6ETlqSkqXMxEhJQu04DLEIhBhgQ.jTIfS6PcOsDNQyibLiOyHDdtLjHRLOCCNtkelVTS
- ot62jYJu_UeMmVYOcm.RLIFPoINLNGqbFLKWF5Qu_pTTbJcDH.9MS46_oOJagtK_rsh2HYuVyIkm
- P.EMxBfgPXNh2RDfR_CnDjRnnYXsa7OVH98Pvlt4Un3jdKWv3CWe7F9utXCFlvEGajNtnocuo1Oa
- VnRR3vEETeNbwhiF7IU2dZgeKXA4wTAPGgPestIFw71DZFie1tcAqF6hr9HJhPrSeYDKXTJ9f5Jv
- jZ6iaFQUyTGOHQ.4lbH2qDNabRkLsjpVbMr1Ac34ybtuNp94ddE4JN9LDgz0iE_ydBDzxqvpcSwB
- AJwMKus1Rnc2IPsxry8am4yV8HpSATZhJyrC84xRinldEAZzbEFKQxWs7kI5nTfFTS1VkRf.XJam
- YKn4KK3kXV_6Q3BQu9MBn5XtRchX_BtgKnWw1uV4vmrxwWJJD2s2zEf8WjkWypPjS9BY_IBhT3vC
- m6Q--
+X-Inumbo-ID: 5a9a138d-02e3-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657741101; bh=gvegsbKA0Ugq9G0OL2YHhHKrmsIiT+j/cAd/AQ6k6Xs=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=MZQFw9/JPmpuroD8LpVy2xa3dQDRMBFdA1RTqyTtfXGmJdjhwswFVzyIiTtrjeVLke4h9R6vpbhZrwclrfloBGOp2L+wHCFozHHxshm96MpC8KnvxjrbCxDHjQlpRIUpJr3OANhsOqTkaEeDDjVqPyjjcXAeyvNV5NU3tZXVKTLiEK/0j7m1/p13hezk70gaMuusWCA4JRaa2p0Jzse6r7VoUMRvivNOpBOcUWfv/kgTPfpCaZHSyerdo5KS/z7T6qpy9go7S/K1gkEUopfNCmdCWHS4IDEM6Mgm4KYZ0+hLIe52QXhqSu9Uw1QPPkIk8YBYeUMNc2FU2q5el6C0KQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657741101; bh=gZ+FnmKOj2zVRAIddN3HlDPLO1hF3KTuu1g/XWWOSUs=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=a2pkxJoMqAMjHRNepy+Lww/IxC/RE0FTJRCwDDn/wY4E0LE8qCmiLkebT84SXNo+TlgHg11MluHHmltYfW7+EFlikPZ0urlzkyhtpPIYnT6NBiEKkEIrkJ5o2w4NJKVADJI7/18sg/UjKFESFH+RP6AYTYe1iExKtTUIDxtME5cTWF1ITBkUd+qnpyaT8NMqsZHgdMNbLrpBrJDldNKFgg9Zzpn0s/q6EMtoxgdHUy+mvasB13AiPzduJ9m04jq7bK/mbIgapg9+LTqtVnZf/Vhl5Gjt/5aLDz9bMDVv/+DDIUctfWPI3NckNk1ChAZ+i9BgzS9+VYZuS4pRfNSbeg==
+X-YMail-OSG: 6luG7AYVM1ncjX7nkCvm9bLVe10whawpCglcbiYMUxQ2vlNaWqmz.Z9bEDOn_49
+ iRTUpxQz7K2qvaNS2J2y8psq2P0rEXp5vqGKyN11aM77RStL50FoqtrPJ6j0bdro7hg3IcsH09JN
+ ne3T8aDhdkdYjDnOAxG0TmPRA4l7CQlxppszvaPxaSWGEXoEQydR9VpICDcRUf7Q6fDXGSbrNB_0
+ Q572vxdxIFATyMSkoluEbUneSV3IRw.dOKEdOVreZTJOYaWtmd6mp8juh1i6BTSAU6HhiNGAlCOY
+ UJnkfjbe5CWsZ5zDBlI8Qvhp8HKy0d9SEZZrNp4ZbtrWZEzaDi.o3Ij7rkk9ADsdFrVldnY.psmh
+ knlFFmuqF6mXn_04ZRXKcTCX8829w.r.ah1gNITohjd8JqSnEEgfuqI2rnDOSogBGCGR.ojSthf1
+ 9cwixTxmGffEbuyyKVnf0x1MvLirnTSUrVAeWE2CL7louDYGEpd03wPfoAbs4rnb4l11Y3k21XcW
+ Lbt1W2p4yGRVwKOIwthaq12o74hdGxUinST.2p4ZS2HgDgeQhMWD2SB7vFCrR.ZyWhmG0juDZr_y
+ lFueayb9GF8.WkWzvPIeV7T6lfG73MnfrhAbz.PTbByim89nFkpHGRB46D_LIGQPYBk4gIsgml5F
+ UaCBrtqWwDjWaRyxNqlCr7SfT5XlP7Xoyqgiqqq7LBD2f6fOD0qHtebvJGZccgMk8eOd0ECXRRPa
+ 7l7rNL5juqI99YtXBU4dRG.uP_Tw_T3R20JxGBs.2HXiMA3GB8f16_9rZdCk86nBXJqcGwa2VJV6
+ yRjwbC7UHKGmlkqDcWYRIqYrj_aaeokYD7yAwntlrAkjo1HLlcIvyT2uQOQS6wSKfB5HjgpRGS0R
+ 9UhoLIsYxVvpwC6v2HWTOvlHC70DFJyk04G69oizXdeBicJGz_eH.InuYvclXJQcX44_EYXtSF80
+ Xmc5ReIFPw6o4Nvw2a0nmOkwNd67hhv_6vcyGfURwyUHsuys17jHmXyKDsKkY.Bonqyx2H15AQ9b
+ 3tokiGn3Y4nPWzGgnviaD6LXI3DyRu00uv8oB.gzfDuHeDhSETaPelKXMmF2nImaT.tKktPDAocD
+ 4zNoYSG_xPqWm5cksbgvpXA5tR8OqpcZN6djOiIKVLu5Dyx4H6rI0Pu3oOFE17HmEZdZVmVk9lUG
+ rgNtz52CKxTbNdgMmTLJBehtHFw6pansJH296wx0y26C8wZkjpFAU1J8BtiYqjNbTjOX6qNfASio
+ chc.zRQCDGkLV78hS9Z4Jp9fByWtFyJ3DEhF.tco3rXB9la83ONyM2dklm9YQtcofpccVVtMZf6M
+ rFuSmRQVxGQ7mpRiScTlS2dM_PU7XQO3crjWzhZAPSKYnHKwUvDse4tBUGqkgTyv2LxlEtF2p1rE
+ nXzD4O54dQAj7GOH7LZJBB4y.N4VJD0c71jg_zfwoT8PIdvByLHQ2Q1J6CiGDBItchWsci_mkpsZ
+ F.BvZUFLlmGv5SE2r0wFRAIRedSB1LcaiF2w.5T2dDq6c8ntVjv7WJdyViKxF4PoXjQM0MGv.zPt
+ IVFuiiRtW3OxU15KT2btrB7iriw17eCDKzd7JaqBvZujjeCV05DkTGEyVqYDJdN9Z.oCduNyunYC
+ LyW2kuwf0w.KJPt6J2_8s0aQzv11v76SuPMMhUMpPRWFVRnxEDeCTWiVuF4m.XqaRAonA7idjTMk
+ 54s80Vdyra0rFJylo9njYUS7qP4Y.2gdNBO6WXa7w8lh3bNZDsRHChZQPMRPgE48w7zAE9lzrVoY
+ 2vcFB__DJE.MEB8_a43uDr1Wd4HaM8FYe0RCu7YgdcCzjYdmZkKNkQofUpvhtMtN6E_SRxrrtOpr
+ 5OURJ9WfoKOATbcUcbSSOcOrExivbbAGtL0JiQEqYJ47Qlu5QF.WhGdXRUCslRUGq7c9U3Ai_oHo
+ FYRfLsYLhqfxSEzuq6g3.1FFZHFypkQhNncDQ4gU.UZIKvUyFWGBTbjYrV5qS8Wk.qyU1Q1Vedfv
+ umnFJk_NU1qEn.aUiv_.fihm.ivkRppWG0H_a.yp0cuWcELo1hd.W6jKtaIAToVmuxLc.PjczmGD
+ _9tuqHljtG6g92DYqhD.6WkVzlar2mMaD0RmSt3MQvM1eUp6vZ7m1AkYrquTAHudbRlCVO.AIvWI
+ dnc_HFSnf6_NX0xYI.hq.laqyMvQ99CXMuLBFAlCoIczXGGRgwwRynI4OedIYZj95bLfbVasiHgZ
+ WNt2WUQ--
 X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <4e74aae6-7d8c-15ed-c571-b797239374cb@netscape.net>
-Date: Wed, 13 Jul 2022 15:22:57 -0400
+Message-ID: <9c97d8b4-ae1d-efd0-8414-91a50d22cf12@netscape.net>
+Date: Wed, 13 Jul 2022 15:38:16 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
@@ -107,73 +107,93 @@ References: <9d5070ae4f3e956a95d3f50e24f1a93488b9ff52.1657671676.git.brchuckz.re
  <1d06203b-97ff-e7eb-28ae-4cdbc7569218@suse.com>
  <a8d0763f-7757-38ec-f9c1-5be6629ee6b2@suse.com>
  <56a304ad-606f-6d33-bd2b-8c614fcdb666@netscape.net>
-In-Reply-To: <56a304ad-606f-6d33-bd2b-8c614fcdb666@netscape.net>
+ <4e74aae6-7d8c-15ed-c571-b797239374cb@netscape.net>
+In-Reply-To: <4e74aae6-7d8c-15ed-c571-b797239374cb@netscape.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On 7/13/2022 3:07 PM, Chuck Zmudzinski wrote:
-> On 7/13/2022 9:45 AM, Juergen Gross wrote:
-> > >> On 7/13/2022 6:36 AM, Chuck Zmudzinski wrote:
-> > >> And in addition, if we are going to backport this patch to
-> > >> all current stable branches, we better have a really, really,
-> > >> good reason for changing the behavior of "nopat" on Xen.
-> > >>
-> > >> Does such a reason exist?
-> > > 
-> > > Well, the simple reason is: It doesn't work the same way under Xen
-> > > and non-Xen (in turn because, before my patch or whatever equivalent
-> > > work, things don't work properly anyway, PAT-wise). Yet it definitely
-> > > ought to behave the same everywhere, imo.
+On 7/13/2022 3:22 PM, Chuck Zmudzinski wrote:
+> On 7/13/2022 3:07 PM, Chuck Zmudzinski wrote:
+> > On 7/13/2022 9:45 AM, Juergen Gross wrote:
+> > > >> On 7/13/2022 6:36 AM, Chuck Zmudzinski wrote:
+> > > >> And in addition, if we are going to backport this patch to
+> > > >> all current stable branches, we better have a really, really,
+> > > >> good reason for changing the behavior of "nopat" on Xen.
+> > > >>
+> > > >> Does such a reason exist?
+> > > > 
+> > > > Well, the simple reason is: It doesn't work the same way under Xen
+> > > > and non-Xen (in turn because, before my patch or whatever equivalent
+> > > > work, things don't work properly anyway, PAT-wise). Yet it definitely
+> > > > ought to behave the same everywhere, imo.
+> > >
+> > > There is Documentation/x86/pat.rst which rather clearly states, how
+> > > "nopat" is meant to work. It should not change the contents of the
+> > > PAT MSR and keep it just as it was set at boot time (the doc talks
+> > > about the "BIOS" setting of the MSR, and I guess in the Xen case
+> > > the hypervisor is kind of acting as the BIOS).
+> > >
+> > > The question is, whether "nopat" needs to be translated to
+> > > pat_enabled() returning "false".
 > >
-> > There is Documentation/x86/pat.rst which rather clearly states, how
-> > "nopat" is meant to work. It should not change the contents of the
-> > PAT MSR and keep it just as it was set at boot time (the doc talks
-> > about the "BIOS" setting of the MSR, and I guess in the Xen case
-> > the hypervisor is kind of acting as the BIOS).
+> > When I started working on a re-factoring effort of the logic
+> > surrounding pat_enabled(), I noticed there are five different
+> > reasons in the current code for setting pat_disabled to true,
+> > which IMO is what should be a redundant variable that should
+> > always be equal !pat_enabled() and !pat_bp_enabled, but that
+> > unfortunately is not the case. The five reasons for setting
+> > pat_disabled to true are given as message strings:
 > >
-> > The question is, whether "nopat" needs to be translated to
-> > pat_enabled() returning "false".
+> > 1. "MTRRs disabled, skipping PAT initialization too."
+> > 2. "PAT support disabled because CONFIG_MTRR is disabled in the kernel."
+> > 3. "PAT support disabled via boot option."
+> > 4. "PAT not supported by the CPU."
+> > 5. "PAT support disabled by the firmware."
+> >
+> > The only effect of setting pat_disabled to true is to inhibit
+> > the execution of pat_init(), but it does not inhibit the execution
+> > of init_cache_modes(), which is for handling all these cases
+> > when pat_init() was skipped. The Xen case is one of those
+> > cases, so in the Xen case, pat_disabled will be true yet the
+> > only way to fix the current regression and the five-year-old
+> > commit is by setting pat_bp_enabled to true so pat_enabled()
+> > will return true. So to fix the five-year-old commit, we must have
+> >
+> > pat_enabled() != pat_disabled
+> >
+> > Something is wrong with this logic, that is why I wanted to precede
+> > my fix with some re-factoring that will change some variable
+> > and function names and modify some comments before trying
+> > to fix the five-year-old commit, so that we will never have a situation
+> > when pat_enabled() != pat_disabled.
+> >
+> > Chuck
+> Sorry, I meant to say,
 >
-> When I started working on a re-factoring effort of the logic
-> surrounding pat_enabled(), I noticed there are five different
-> reasons in the current code for setting pat_disabled to true,
-> which IMO is what should be a redundant variable that should
-> always be equal !pat_enabled() and !pat_bp_enabled, but that
-> unfortunately is not the case. The five reasons for setting
-> pat_disabled to true are given as message strings:
+> To fix the five-year-old commit, we must have
 >
-> 1. "MTRRs disabled, skipping PAT initialization too."
-> 2. "PAT support disabled because CONFIG_MTRR is disabled in the kernel."
-> 3. "PAT support disabled via boot option."
-> 4. "PAT not supported by the CPU."
-> 5. "PAT support disabled by the firmware."
+> pat_enabled() != !pat_disabled or pat_enabled() == pat_disabled,
 >
-> The only effect of setting pat_disabled to true is to inhibit
-> the execution of pat_init(), but it does not inhibit the execution
-> of init_cache_modes(), which is for handling all these cases
-> when pat_init() was skipped. The Xen case is one of those
-> cases, so in the Xen case, pat_disabled will be true yet the
-> only way to fix the current regression and the five-year-old
-> commit is by setting pat_bp_enabled to true so pat_enabled()
-> will return true. So to fix the five-year-old commit, we must have
->
-> pat_enabled() != pat_disabled
->
-> Something is wrong with this logic, that is why I wanted to precede
-> my fix with some re-factoring that will change some variable
-> and function names and modify some comments before trying
-> to fix the five-year-old commit, so that we will never have a situation
-> when pat_enabled() != pat_disabled.
+> and there is something wrong with that logic.
 >
 > Chuck
-Sorry, I meant to say,
 
-To fix the five-year-old commit, we must have
+So to summarize, I think this means that to be comfortable
+fixing the five-year-old commit and the current regression
+by artificially setting pat_bp_enabled and pat_enabled() to
+true, something which both my patch and Jan's patch does,
+we need to come to a new understanding of what the
+static boolean variable pat_disabled in
+arch/x86/mm/pat/memtype.c in the code really means.
 
-pat_enabled() != !pat_disabled or pat_enabled() == pat_disabled,
+The fact is, we have a regression and the only fix we
+can find is to try to make pat_enabled() == pat_disabled
 
-and there is something wrong with that logic.
+I need to stop thinking about this for a while. It is time
+for those who have authority to fix this regression to
+make some comments about how they think this should
+be fixed.
 
 Chuck
 
