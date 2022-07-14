@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF064575525
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jul 2022 20:38:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.367769.598891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C234557556D
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jul 2022 20:54:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.367775.598901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oC3iV-00057B-B4; Thu, 14 Jul 2022 18:37:39 +0000
+	id 1oC3y5-0007eu-Jm; Thu, 14 Jul 2022 18:53:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 367769.598891; Thu, 14 Jul 2022 18:37:39 +0000
+Received: by outflank-mailman (output) from mailman id 367775.598901; Thu, 14 Jul 2022 18:53:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oC3iV-00053w-7t; Thu, 14 Jul 2022 18:37:39 +0000
-Received: by outflank-mailman (input) for mailman id 367769;
- Thu, 14 Jul 2022 18:37:38 +0000
+	id 1oC3y5-0007co-HB; Thu, 14 Jul 2022 18:53:45 +0000
+Received: by outflank-mailman (input) for mailman id 367775;
+ Thu, 14 Jul 2022 18:53:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3zuY=XT=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1oC3iT-00053q-PP
- for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 18:37:38 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 06d408b9-03a4-11ed-bd2d-47488cf2e6aa;
- Thu, 14 Jul 2022 20:37:36 +0200 (CEST)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1657823849553651.8044949330165;
- Thu, 14 Jul 2022 11:37:29 -0700 (PDT)
+ <SRS0=4joA=XT=citrix.com=prvs=1872ec3d0=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1oC3y4-0007ci-4z
+ for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 18:53:44 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 46c2b0b5-03a6-11ed-bd2d-47488cf2e6aa;
+ Thu, 14 Jul 2022 20:53:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,71 +36,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06d408b9-03a4-11ed-bd2d-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; t=1657823852; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=lET8+YswKQnt9z1OT2xhDqDPbpGN8hvbv6gfW19MgBRoj1wCQEOxY/PiMy/AHi5f4lTuPWH75yj7qNbVsIZh5SHsVB363AGotwIZt9ynF5coDTtmjxL8kTVmzFSkixQzQKmdGqUGTeKoVbWij0Lr+c3dPMjTahfwTzuq5iqMdMI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1657823852; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=fG+QZHlO/wSEPhTewtGSNBoT1Wkf0kp1paagS1eHz+k=; 
-	b=cSNSDU81n7BxlAfyQ02HQTxh/EbDrq7C6k6iOYF+Ld3bBX96WhA3hKSsEw97HJPieN8S4Vxo8rja32tMjAg94WBRY5UDGlHrrDtacaaUitduLsH1ECgFOCLaJ4fIzjiiVigJFhfrAOzL2+MuD+zUf5IS9K3aFJgbcGDNby4W32o=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1657823852;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=fG+QZHlO/wSEPhTewtGSNBoT1Wkf0kp1paagS1eHz+k=;
-	b=ops2pci6OZN4lCJORnY+Nh+w+/3QcxVHaEgX+sq5tSEuYc2CGr6V77MbYBxJmew+
-	r2zg1GsxsjDAQvZ4SfqI+YJKzdtO3CdUDRqA7OcfI2buKLKoKLKLXI8mnd/Gj55nx5A
-	NXVYMTPo241rNmFsWEYCGTBoxYI20KjqAL1iycUI=
-Message-ID: <08f742e3-eff2-a53c-bf1d-91226a223d4f@apertussolutions.com>
-Date: Thu, 14 Jul 2022 14:37:14 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: Hyperlaunch Working Group: Status and Next Steps (15JUL22)
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+X-Inumbo-ID: 46c2b0b5-03a6-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1657824822;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version;
+  bh=PYjZibqlUc5HapZ3z5TXoIsV/PSL5eJB/GaF84eWiGU=;
+  b=Vr3UTERrfbmbRFn7dnav6nlLl7aVHt3q3T8dyiA92SZfnuhz2TgZea0R
+   rEXmuOibRh2PovipcyJg44LUhePFv+Kt6qUKIqhBYVDkhlc0O52ofxiUA
+   rJ627iVenQ7hB9krUp9e73ttxwiOyROAWiJXmQAk2enunv2y5KmSecdwo
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 78398029
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Fl4eR6mFWdlN1vXnvjcAwKTo5gynJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJOXmyFb6mMZDD1KNx3YNvl9B9V78PdxtVqSAU5/Ck0EiMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8mk/ngqoPUUIbsIjp2SRJvVBAvgBdin/9RqoNziJ2yDhjlV
+ ena+qUzA3f4nW8uWo4ow/jb8kk3462u4GhwUmEWPpingnePzxH5M7pHTU2BByOQapVZGOe8W
+ 9HCwNmRlo8O105wYj8Nuu+TnnwiGtY+DyDX4pZlc/HKbix5jj4zys4G2M80Mi+7vdkrc+dZk
+ 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzdFSfqV/wmWfG0YAzcmCA2k3ZYZEqtd3Dlps3
+ tBFJBsPdU6J3dyflefTpulE3qzPLeHuNYIb/Hph0SvYHbAtRpWrr6fivIECmm1q34YXQKiYN
+ 5FxhTlHNXwsZzVmPFsNBY14t+CvnnTlKBVTqU6PpLpx6G/WpOB0+Oe9a4uFIobbLSlTtm2Zg
+ 3Lp3Wb5OTAXOdnY7BOVrUuRisaayEsXX6pNTeblp5aGmma72Wg7GBAQE1yhrpGRiFO6Wt9ZA
+ 1wZ/Gwpt6da3FewUtD3Uhm8oXiFlh0RQdxdF6s98g7l4rrZ5UOVC3YJShZFacc6r4kmSDoyz
+ FiLktj1Qzt1v9W9a1iQ67OVpjOaIjUOICkJYipscOcey4C9+sdp1EuJF4s9Vv7u5jHoJd3u6
+ zHSp3RutrUctuwg+/i31lLc3Tj2mLGcG2bZ+T7rsnKZAhJRPdD4ONH5sQWCtZ6sP67CEADf4
+ SFsd9y2qblXUMrTzHHlrPAlRunB2hqTDNHLbbeD9bEF/i/lxXOsdJs4DNpWdBYwaZZsldMEj
+ SbuVeJtCHx7ZiLCgVdfOd7ZNijT5fGI+S7Zfv7VdMFSRZN6aRWK+ipjDWbJgT2yzxNzzflgY
+ 8/AGSpJMZr9If09pAdaus9HieN7rszA7Tm7qW/HI+SPjuPFOS/9pUYtO1qSdOEphJ65TPHu2
+ 48HbaOikkwHOMWnO3m/2dNCdjgicClkba0aXuQKL4Zv1CI9Qzp/YxIQqJt8E7FYc1N9zbqSp
+ C3iBxcIlzISRxTvcG23V5yqU5u3Nb4XkJ7xFXBE0YqAs5T7XbuS0Q==
+IronPort-HdrOrdr: A9a23:F6a1K66YsO7U24MI0wPXwMrXdLJyesId70hD6qhwISY6TiX4rb
+ HWoB1173/JYVoqNE3I3OrwXZVoIkmsk6Kdg7NhXotKNTOO0ADDQb2Kr7GSpwEIcxeOkdK1vp
+ 0AT0ERMrLN5CBB/KTH3DU=
+X-IronPort-AV: E=Sophos;i="5.92,272,1650945600"; 
+   d="scan'208";a="78398029"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Rich Persaud <persaur@gmail.com>,
- "Smith, Jackson" <rsmith@RiversideResearch.org>,
- "Brookes, Scott" <sbrookes@RiversideResearch.org>,
- "Lei, Jason" <jlei@RiversideResearch.org>,
- Scott Davis <scott.davis@starlab.io>
-References: <bb409564-0f4b-b59c-9a62-574028e6029b@apertussolutions.com>
-In-Reply-To: <bb409564-0f4b-b59c-9a62-574028e6029b@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+	<julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH 3/2] README: State POSIX compatibility as a requirement for AWK
+Date: Thu, 14 Jul 2022 19:53:05 +0100
+Message-ID: <20220714185305.29507-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20220714143907.25938-1-anthony.perard@citrix.com>
+References: <20220714143907.25938-1-anthony.perard@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-On 7/10/22 18:45, Daniel P. Smith wrote:
-> Greetings All,
-> 
-> We will be holding a Hyperlaunch Working Group meeting on Friday, July
-> 15th at 0900PDT/1200EDT/1700GMT. The agenda will be ready by Wednesday
-> and can be found at the below cryptpad link. Call-in details will be
-> published in the agenda once it has been set up.
-> 
-> Agenda:
-> https://cryptpad.fr/pad/#/2/pad/edit/0uw06jY29gjSJMxs8Q9CWipp/
-> 
-> 
+In particular, we support FreeBSD and NetBSD build environments, and some
+Linux build environments use MAWK over GAWK anyway.
 
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>
+---
+ README | 1 +
+ 1 file changed, 1 insertion(+)
 
-Agenda has been published with the call in being via GoTo Meeting[1]. If
-anyone would like to see specific questions addressed, feel free to
-contribute to the Community Topics section.
+diff --git a/README b/README
+index 5e55047ffd9e..89a1d0b43c4c 100644
+--- a/README
++++ b/README
+@@ -48,6 +48,7 @@ provided by your OS distributor:
+       - For ARM 64-bit:
+         - GCC 5.1 or later
+         - GNU Binutils 2.24 or later
++    * POSIX compatible awk
+     * Development install of zlib (e.g., zlib-dev)
+     * Development install of Python 2.6 or later (e.g., python-dev)
+     * Development install of curses (e.g., libncurses-dev)
+-- 
+2.11.0
 
-
-[1] https://meet.goto.com/apertussolutions
-
-
-V/r,
-Daniel P. Smith
-Apertus Solutions, LLC
 
