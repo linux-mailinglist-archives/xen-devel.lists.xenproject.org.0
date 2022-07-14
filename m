@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2545753DC
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jul 2022 19:19:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.367734.598835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1BB5753DF
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jul 2022 19:20:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.367739.598848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oC2TZ-0001CD-8d; Thu, 14 Jul 2022 17:18:09 +0000
+	id 1oC2Vf-0002YT-MA; Thu, 14 Jul 2022 17:20:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 367734.598835; Thu, 14 Jul 2022 17:18:09 +0000
+Received: by outflank-mailman (output) from mailman id 367739.598848; Thu, 14 Jul 2022 17:20:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oC2TZ-0001AO-5v; Thu, 14 Jul 2022 17:18:09 +0000
-Received: by outflank-mailman (input) for mailman id 367734;
- Thu, 14 Jul 2022 17:18:08 +0000
+	id 1oC2Vf-0002VB-IR; Thu, 14 Jul 2022 17:20:19 +0000
+Received: by outflank-mailman (input) for mailman id 367739;
+ Thu, 14 Jul 2022 17:20:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Cqqt=XT=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1oC2TX-0001AI-Pd
- for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 17:18:08 +0000
-Received: from sonic310-21.consmr.mail.gq1.yahoo.com
- (sonic310-21.consmr.mail.gq1.yahoo.com [98.137.69.147])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h5WS=XT=kernel.org=patchwork-bot+netdevbpf@srs-se1.protection.inumbo.net>)
+ id 1oC2Ve-0002V3-6n
+ for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 17:20:18 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb1176c7-0398-11ed-bd2d-47488cf2e6aa;
- Thu, 14 Jul 2022 19:18:04 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic310.consmr.mail.gq1.yahoo.com with HTTP; Thu, 14 Jul 2022 17:18:02 +0000
-Received: by hermes--production-ne1-7864dcfd54-dxcrc (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 78c9938f79c6bfaa1dd44261bd92c198; 
- Thu, 14 Jul 2022 17:17:56 +0000 (UTC)
+ id 39db0177-0399-11ed-bd2d-47488cf2e6aa;
+ Thu, 14 Jul 2022 19:20:16 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AFBB6620DB;
+ Thu, 14 Jul 2022 17:20:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0EEC6C341C6;
+ Thu, 14 Jul 2022 17:20:14 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ E7A4FE45227; Thu, 14 Jul 2022 17:20:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,184 +47,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb1176c7-0398-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657819082; bh=K6joDuzaz6ReyBN1azQqrz7eoLesddIL/DW3l7lThp0=; h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=M9awDOAzPh3Fw17O4JgpEjPn9mjHJ7usy0wGo+t1B7h5gSKRHlXk09+YYJNOmCQev4heN9bp1zRakNptwTWQ2UkwWQnTul777CPYQdrqZSh6uRifbNoUO02fg2kg5UknGqw0wcaYPxUns6Bd+glWpl0iYwiRb8kWaRSKT767APrn04VY9HtROnGES40Uqc/Iz3wN1XB+G24k9ZWGilZ0QEY6gDntHRXL3ON6ikCUpJPh2sz4QJYyUFEAyMBpeMRjth9WM9SSkDaZq9bSvW6xSQOzrZ2kAEvU/wYQGKp79kb4hMsv9dw1pjM9pxH1VSLNQI7lO4HQ3gSDO5tvX2Z8Qg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657819082; bh=xIGE8RBQDUpUkF4cyoBG8GZz5Q2LafG9TdX2VJtrVS4=; h=X-Sonic-MF:Date:From:Subject:To:From:Subject; b=knCxCA00GJeVPCjt3+nTqNd4TO7ZzSXoX849CBPd6pAYvOEFPHeSibRa1eouvP9tn5Gu6fZwoOS20jkWiuYBBNX5wsAbKsNb30cXlxYK2mq8zYmGLw04M5k2L5N3WpmONTVbl2XgX0oqYk8auMwwIjD1MYWM37CPy1z5lKQdiTNCOn5Hu2TSelh2klvuCp+hK/8pOqh1HcJKg8njPK0DfwtwAT+TF2SXRk0+e1T8jom5Ut2r9S5X9HKQfv3Gdf+24NVxNzZ2DASEzITsFpAHaYOY9Gp8gF/wxvsn13M44igaQ4Za6e6MYwaDGSjBdcZnQFlqruZV77fimkCDcBcY9Q==
-X-YMail-OSG: _G3Z_fUVM1mmgdigp1QpLXL0sKHIi8.3W1ckI4YZkbMlI7ljSvNIqCVUpe7tT8v
- GIu_y4vEnuYkUh_CcSsHGTJidjxFYuXfB66rZspz56_qx84XD0bhk9l_br2Jjfbyn8QsaU2grcBq
- 9f8JV6apWuACoFy4V9Nrq8bdV6jJZX9uFeoWm0C0tTg0sAkhMefP4qCMqAsca2ZALq2X4zoRyzqL
- E1ld_DFdxjERy9edhOpN8CJAAopAZO4QQZhFqyq44C4u4jFH.YxWAMUXByLE2iky3_q4vCrqBebh
- I3U2v4EuOSpt7U6.QG88zH8L5hXrjKBmoIp3jBOfCHQ758dUybjOL7uCJ3yubSeTb4q_ovqEleWk
- I124SYO.SdneY3XgIjYxEQ2kCi3Kxx5yN5KS7L3wYlUkeCxYEI_M3Apo1PSsth_EzCwnO2qoiY1G
- LYZQN4sqzVuwbKmcLDad0oGWR.DOLAacx5J2anrtS42WdpqJL.tmMQ7ja_1QniXkWoGaovhp4YiM
- 8Oksu9rrvYM5zJoVq6pmObXQdF5pcRZLzr_vhjVcKZGHBwW1BUoJxjo0pQG3Mw7XZOCR1hEEjN8K
- RyMwIpnfTIs9bp_oZW9SWFW5iVQO.ThbbJoaKL34wC6ppUDnRaysfHq7sT3YSE4YbL0iUl_rSZO0
- x4_JCD9B_1OTKBlRo45RKNzrOjgEFXw8p716FtthW4n4cK3MLrji2o_rlncsiDs9Uj9wiDctVMlf
- 4bWgD7u2zGmJdF0BHKSHVpFgNQdF6viE_OE7QU2_eCpGykC811NkmlVpI9RYD6G9sQe77fG6Bqp3
- zrxM38o6rvKuhxyQcCTwKYCyvFFNcxDVdUO2tarFhhjKLp2AFmaT.otRFpMNZ9zZxNlB2DE_s4IC
- mF0I66peWeKkG5Qqg4A8KdA7NGI_oJI4V3K4j04oxIY9YC6YNxyjdfBDj7RYfXUNvnIylI8h7DUG
- DBAJ3BdLBSzeEx3g4r13Dl6msk7aGSv51NHXqoYR2sFLPYiV92tVAVLpGSZEPxjN4zudbfjHNFok
- it2V.HXHZnw5ztr5n_tBW5LVOk9GftbeSLGMEw502Jr51Hk62cLTcWdr0hks.IWOZJaqB1ffoN1r
- pPIRTgKWFWLyvPNyQpKy9LEjOcCLmYESX_armBrxLZGXRtQFm704WAY8n5BSes8lrvrIJ52lY.HR
- gEaomrCMaiMvVUNxgaFM92srpoB93tfTSf5Whn6zTcGAribQp1zO0BrP6tWD3OGFlIEMui7JQQFs
- GDCta4unrrOegQh1DyttghwxZdA0IHpw40qm5NkDZxdIMc_gy1FcRQBCSZTHLDUpVcCarpr3LfnS
- an64El6lVaiRQab08E6EzarOAjaUicBj5aed8TzMzY.LMJkriBa7K7tx8Y8JpdFiXIbYbu6JXa_o
- mbf6S2hofpCMT5_FjD_S2wkGV8W8t3yWl7ze49Nq4R4LK7sHUeWNjR0j0gAPkoOZ2Siv4SP859OT
- 253vAIbvHVZ5c3HUx9wWABJvjQ76KILFbYW63yn6FtjOiuOPP_M05NCGcR21943DRX6UbJ4bWNMB
- wW67eJ38MrpthNtdkcm400ftIXOGHePta4KOrij6NCTlANmh4DmgyUorIpRgjXQByINO3uYLgoek
- v8kzlRrQ_l6fOngV8JIJg413TrC1eSP74d2X.lXwx23LECZgllruKvskMcaBQclkaIO6LLjTxlPg
- DtCqVW_hGlWX0LiWrHvotDFSCzJgaVvSqs_VseD9aEA27vAohe1KRDmUB_q7e3FRBvWugJRXwVam
- _Q6otUZOtc0Yc_SWK8mAToqxCrYcbpISPjlmOSM1beFaX8ImRKAic3TuW05GTGde9pGH4uXPyuWN
- Zuq4.lSEyEjc9_w8hJte9Fq8.hWfm9XZE3r3wS0.w9TaSa3K5xzDir_42qBa7F7qpO9bT05rxPO.
- 3t0KFBuypyampyroB3D2Qfmpb45vvvyLdzFpTB_oX.dxo2uMPt6ubF9gmYswWjaBTqimRPlkJT3Z
- AgWr0aunWDyVCiOdzHuZU3nWshCkdeIldhEjtXny49tIyyXtrsb35_FPzgGM.FM3fMOI.wBz7kKn
- saB8OkA_CcD7dqlKuykEZJi1FOirLbYg.1KoWjlMTLiCHVgjFIONSZEqGPYNcV4mpBbdbtFRB5iC
- rOHMq0xlLgY7Of1SF3Nf.XbdpNbnnPUuY7HOIWZRwD01w9Oc2lB2ZRA6zYDerd1_dIdb5jUCzdce
- PvXPWEcaPXdPtOkcYx9Uhr5VSvT.ow.bVphpSVoxTLmd2QYyy2.uC8iFSeHMY5h0VrouMQwTl_Wn
- jjYcN55VtVsr1wqqHOK_Ns5zOElFJOEpB
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <eda0381b-fe6d-144b-76cd-d943082d70e0@netscape.net>
-Date: Thu, 14 Jul 2022 13:17:56 -0400
+X-Inumbo-ID: 39db0177-0399-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1657819214;
+	bh=mwbikd27srKBB4H1oi//HqBqo/5GVj37mlD7K7FUkgA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=i0M9UqPnWQFLgyHm4Z5KBRGohNmeutOSy85I3+8THypH/7W6Ot5JYIN7PyfYrjyFs
+	 XOXBtezsTNRndqDnZvi9a2rdWjDQsLxRdCUsLTIA585m6UkMGx5PpCC8/cKLt76Jzk
+	 XgWuVdip4t/iHftcShz8kuFoAtQm38WNf8Q4E0nxvgY/kt1Nt9z9h1HAmcbrxSyFtT
+	 00OEZmGv850vZ088Q4bY1ZiDuE16FcGP5Rjpop1oJFCeDFrug9yW44beUTDG7sl5Sm
+	 yk+HzJUoEPPjqjASsd//N+ov/q/JruLwH+6kBpydPh2/Jmf07UrvEwGIWNtwaSUCag
+	 UxQojyc3DaRhw==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-Subject: Re: Ping: [PATCH] x86/PAT: have pat_enabled() properly reflect state
- when running on e.g. Xen
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Jan Beulich <jbeulich@suse.com>
-Cc: lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Lutomirski <luto@kernel.org>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- the arch/x86 maintainers <x86@kernel.org>, Juergen Gross <jgross@suse.com>
-References: <9385fa60-fa5d-f559-a137-6608408f88b0@suse.com>
- <dff7bcd3-affc-9272-81e9-d686d9c997d5@suse.com>
- <8756355c-b586-3d1b-531c-72a04a8c047a@leemhuis.info>
- <05b5e672-0a1b-2d00-a879-b5127a94973f@suse.com>
- <4c8c9d4c-1c6b-8e9f-fa47-918a64898a28@leemhuis.info>
-Content-Language: en-US
-In-Reply-To: <4c8c9d4c-1c6b-8e9f-fa47-918a64898a28@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.20432 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2] xen/netback: avoid entering xenvif_rx_next_skb() with an
+ empty rx queue
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <165781921394.9202.6162247811572175997.git-patchwork-notify@kernel.org>
+Date: Thu, 14 Jul 2022 17:20:13 +0000
+References: <20220713135322.19616-1-jgross@suse.com>
+In-Reply-To: <20220713135322.19616-1-jgross@suse.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, wei.liu@kernel.org, paul@xen.org,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ stable@vger.kernel.org, jbeulich@suse.com
 
-On 7/5/22 6:57 AM, Thorsten Leemhuis wrote:
-> [CCing tglx, mingo, Boris and Juergen]
->
-> On 04.07.22 14:26, Jan Beulich wrote:
-> > On 04.07.2022 13:58, Thorsten Leemhuis wrote:
-> >> On 25.05.22 10:55, Jan Beulich wrote:
-> >>> On 28.04.2022 16:50, Jan Beulich wrote:
-> >>>> The latest with commit bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT
-> >>>> with pat_enabled()") pat_enabled() returning false (because of PAT
-> >>>> initialization being suppressed in the absence of MTRRs being announced
-> >>>> to be available) has become a problem: The i915 driver now fails to
-> >>>> initialize when running PV on Xen (i915_gem_object_pin_map() is where I
-> >>>> located the induced failure), and its error handling is flaky enough to
-> >>>> (at least sometimes) result in a hung system.
-> >>>>
-> >>>> Yet even beyond that problem the keying of the use of WC mappings to
-> >>>> pat_enabled() (see arch_can_pci_mmap_wc()) means that in particular
-> >>>> graphics frame buffer accesses would have been quite a bit less
-> >>>> performant than possible.
-> >>>>
-> >>>> Arrange for the function to return true in such environments, without
-> >>>> undermining the rest of PAT MSR management logic considering PAT to be
-> >>>> disabled: Specifically, no writes to the PAT MSR should occur.
-> >>>>
-> >>>> For the new boolean to live in .init.data, init_cache_modes() also needs
-> >>>> moving to .init.text (where it could/should have lived already before).
-> >>>>
-> >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >>>
-> >>> The Linux kernel regression tracker is pestering me because things are
-> >>> taking so long (effectively quoting him), and alternative proposals
-> >>> made so far look to have more severe downsides.
-> >>
-> >> Has any progress been made with this patch? It afaics is meant to fix
-> >> this regression, which ideally should have been fixed weeks ago (btw:
-> >> adding a "Link:" tag pointing to it would be good):
-> >> https://lore.kernel.org/regressions/YnHK1Z3o99eMXsVK@mail-itl/
-> >>
-> >> According to Juergen it's still needed:
-> >> https://lore.kernel.org/lkml/c5515533-29a9-9e91-5a36-45f00f25b37b@suse.com/
-> >>
-> >> Or was a different solution found to fix that regression?
-> > 
-> > No progress and no alternatives I'm aware of.
->
-> Getting closer to the point where I need to bring this to Linus
-> attention. I hope this mail can help avoiding this.
->
-> Jan, I didn't follow this closely, but do you have any idea why Dave,
-> Luto, and Peter are ignoring this? Is reverting bdd8b6c98239 a option to
-> get the regression fixed? Would a repost maybe help getting this rolling
-> again?
+Hello:
 
-Hi, Thorsten,
+This patch was applied to netdev/net.git (master)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Here is a link to the hardware probe of my system which exhibits
-a system hang before fully booting with bdd8b6c98239. Without
-bdd8b6c98239, the problem is gone:
+On Wed, 13 Jul 2022 15:53:22 +0200 you wrote:
+> xenvif_rx_next_skb() is expecting the rx queue not being empty, but
+> in case the loop in xenvif_rx_action() is doing multiple iterations,
+> the availability of another skb in the rx queue is not being checked.
+> 
+> This can lead to crashes:
+> 
+> [40072.537261] BUG: unable to handle kernel NULL pointer dereference at 0000000000000080
+> [40072.537407] IP: xenvif_rx_skb+0x23/0x590 [xen_netback]
+> [40072.537534] PGD 0 P4D 0
+> [40072.537644] Oops: 0000 [#1] SMP NOPTI
+> [40072.537749] CPU: 0 PID: 12505 Comm: v1-c40247-q2-gu Not tainted 4.12.14-122.121-default #1 SLE12-SP5
+> [40072.537867] Hardware name: HP ProLiant DL580 Gen9/ProLiant DL580 Gen9, BIOS U17 11/23/2021
+> [40072.537999] task: ffff880433b38100 task.stack: ffffc90043d40000
+> [40072.538112] RIP: e030:xenvif_rx_skb+0x23/0x590 [xen_netback]
+> [40072.538217] RSP: e02b:ffffc90043d43de0 EFLAGS: 00010246
+> [40072.538319] RAX: 0000000000000000 RBX: ffffc90043cd7cd0 RCX: 00000000000000f7
+> [40072.538430] RDX: 0000000000000000 RSI: 0000000000000006 RDI: ffffc90043d43df8
+> [40072.538531] RBP: 000000000000003f R08: 000077ff80000000 R09: 0000000000000008
+> [40072.538644] R10: 0000000000007ff0 R11: 00000000000008f6 R12: ffffc90043ce2708
+> [40072.538745] R13: 0000000000000000 R14: ffffc90043d43ed0 R15: ffff88043ea748c0
+> [40072.538861] FS: 0000000000000000(0000) GS:ffff880484600000(0000) knlGS:0000000000000000
+> [40072.538988] CS: e033 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [40072.539088] CR2: 0000000000000080 CR3: 0000000407ac8000 CR4: 0000000000040660
+> [40072.539211] Call Trace:
+> [40072.539319] xenvif_rx_action+0x71/0x90 [xen_netback]
+> [40072.539429] xenvif_kthread_guest_rx+0x14a/0x29c [xen_netback]
+> 
+> [...]
 
-https://linux-hardware.org/?probe=32e615b538
+Here is the summary with links:
+  - [v2] xen/netback: avoid entering xenvif_rx_next_skb() with an empty rx queue
+    https://git.kernel.org/netdev/net/c/94e810067888
 
-Keep in mind this problem is not seen with bdd8b6c98239
-on the bare metal, but only when running as a traditional Dom0
-PV type guest on Xen. I don't know see the problem on Xen HVM
-DomU, and I have not tested it on Xen PVH DomU, Xen PV DomU,
-or the experimental Xen PVH Dom0.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-You can probably verify yourself that reverting bdd8b6c98239
-fixes the regression if you try to reproduce the regression with
-any Linux version that has bdd8b6c98239 or its equivalent on
-the stable branches with a hardware profile similar to the link
-to the profile of my machine which exhibits the problem. Mine
-is a Haswell core-i5 4590S CPU and ASRock B85M-Pro4
-motherboard.
-
-Also, other notes:
-
-1. Yes, AFAICT, Marek at Qubes OS is the first to report the problem.
-2. Juergen Gross' work to try to fix this has been helpful, but none
-of his posted patches has fixed the regression on my system.
-3. Jan's patch fixes it also, and so do the two patches I posted to lkml
-earlier this week to the appropriate maintainers.
-4. On the pkg-xen-devel mailing list, which is public, this issue was
-briefly discussed where I first reported it. Someone there said they
-did not see the issue with Broadwell Xeons. Mine is a Haswell core i5,
-which is one generation older than Broadwell, so you are most likely
-to be able to reproduce the problem with a Haswell core i5 desktop
-system like my ASRock system, which was my own private build
-which has been working fine for eight years until Linux 5.17.y.
-
-Hope this helps.
-
-Chuck
-
-> BTW, for anyone new to this, Jan's patch afaics is supposed to fix the
-> regression reported here:
-> https://lore.kernel.org/all/YnHK1Z3o99eMXsVK@mail-itl/
->
-> Side note: Juergen Gross recently posted related patches in this code
-> area to fix some other problems (regressions?), but his efforts look
-> stalled, too:
-> https://lore.kernel.org/all/ddb0cc0d-cefc-4f33-23f8-3a94c7c51a49@suse.com/
->
-> And he recently stated this Jan's patch is still needed, even if his
-> changes make it in.
-> https://lore.kernel.org/all/c5515533-29a9-9e91-5a36-45f00f25b37b@suse.com/
->
-> This from my point all looks a bit... unsatisfying. :-/
->
-> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
->
-> P.S.: As the Linux kernel's regression tracker I deal with a lot of
-> reports and sometimes miss something important when writing mails like
-> this. If that's the case here, don't hesitate to tell me in a public
-> reply, it's in everyone's interest to set the public record straight.
 
 
