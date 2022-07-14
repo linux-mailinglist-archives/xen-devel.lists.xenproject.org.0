@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 842EC5750F6
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jul 2022 16:40:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.367663.598753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 395AE5750F8
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jul 2022 16:40:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.367664.598767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBzzq-0002fc-P7; Thu, 14 Jul 2022 14:39:18 +0000
+	id 1oBzzt-00032Y-05; Thu, 14 Jul 2022 14:39:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 367663.598753; Thu, 14 Jul 2022 14:39:18 +0000
+Received: by outflank-mailman (output) from mailman id 367664.598767; Thu, 14 Jul 2022 14:39:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBzzq-0002Xd-KX; Thu, 14 Jul 2022 14:39:18 +0000
-Received: by outflank-mailman (input) for mailman id 367663;
- Thu, 14 Jul 2022 14:39:17 +0000
+	id 1oBzzs-0002zc-TY; Thu, 14 Jul 2022 14:39:20 +0000
+Received: by outflank-mailman (input) for mailman id 367664;
+ Thu, 14 Jul 2022 14:39:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SkWo=XT=citrix.com=prvs=1879e8f0d=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oBzzp-0002UF-6s
- for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 14:39:17 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bba4ace8-0382-11ed-924f-1f966e50362f;
- Thu, 14 Jul 2022 16:39:15 +0200 (CEST)
+ id 1oBzzr-0002UF-AM
+ for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 14:39:19 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bcdc8d90-0382-11ed-924f-1f966e50362f;
+ Thu, 14 Jul 2022 16:39:18 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,56 +36,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bba4ace8-0382-11ed-924f-1f966e50362f
+X-Inumbo-ID: bcdc8d90-0382-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1657809554;
+  d=citrix.com; s=securemail; t=1657809558;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Nc5Of1JguiIJKYdeJhWijIYiWRv/ScVk33+JiERSYGg=;
-  b=KYH0OLfzZ3I0ocFT0wZbfP/EykCmbVhy1E3B5Er3oUtH+LhX67fKZoKg
-   wl/oxwxiZiijxCxdm43MfIKJLZfvq9zr3FwbKo+RYn9BvB/aopS9fpAA6
-   mbj4P+Pspk4J7GKyeAOK4zP2mFd3jKWa+4e9oFDIBYMIMDf5vnPr5FzsP
-   M=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=dERAYYpHGNdDoJC+KVVotxHQ1VnjUBp5rhHFM0sXzE4=;
+  b=MCK7bo/vXRh/8qb5578TiMBgnU8smrPJn9woVb8DeQdq1pPIr8TduhaM
+   kOuhHxJJfIEvRuymF+z5bmX6bsr7chnRXwLYcaNhxL2ycEAD4kdtfWn6o
+   VnUQdKTNDuTcpXrjJU9FtzMtfbT3sTg23AMUxTX8l1CdXeo2QExuYoZAU
+   4=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 76233202
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 75798792
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:gN8p9qD3SjtKExVW//Xjw5YqxClBgxIJ4kV8jS/XYbTApDoggz0Bz
- moXXj2EPq2La2v3Kd0jbtu09EIPvcXXx9EyQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E3ratANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq3uU0meaEu/Dga++2k
- Y608pe31GONgWYuaDpLsv7b8nuDgdyp0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSq
- zHrlezREsvxpn/BO/v9+lrJWhRiro36ZGBivkF+Sam66iWukwRpukoN2FjwXm8M49mBt4gZJ
- NygLvVcQy9xVkHHsLx1vxW1j0iSlECJkVPKCSHXjCCd86HJW3S9ztlIHkQ5BIcn2MpcGCZh8
- OEjCC9YO3hvh8ruqF66Yuxlh8BlJ8j3JoIP/HpnyFk1D95/H8qFGf+To4YFgnFg3aiiHt6HD
- yYdQTNpcBTHZQwJIloNAYgytOypmmP+Y3tTr1f9Sa8fvDaJl1criOKF3Nz9J8yEX9l2tHijp
- F3Uo1zCGUEnBN2D1m/Qmp6rrrCWxn6qMG4IL5W66/prjVu71mEVThoMWjOTuuKlg0SzX9ZeL
- U08+Sc0q6U2skuxQbHVQBmQsHOC+BkGVLJ4Eec39QWMwar8+BuCCy4PSTspQMwrsoo6SCIn0
- neNnsj1Hnp/vbuNU3Wf+7yI6zSoNkA9CXIJbGkqRA0O7t3nvak6lBeJRdFmeIawh8H1GDzth
- SyDtjI3g50Ll8kX0KO+9FHDxTmro/D0ohUdv1uNGDj/t0UgOdDjN9fABUXnAehoI9eUYn+Tu
- Xc9kfe8wMsXSr6IiRetX7BYdF223MppIAEwkHY2QcR+qmX1pif7FWxDyGogfRk0a67obResO
- RaO4l0Jufe/KVPwNcdKj5SN59PGJEQKPfDsTbjqY9VHefCdnyfXrXg1NSZ8M40A+XXAcJ3T2
- r/BKK5A9V5AVcxaIMOeHo/xK4MDyCEk3n/0Tpvm1Rmh2rf2TCfLFOhaawTSNr9jtPjsTODpH
- zF3bpHi9vmieLemPnm/HXA7dzjm0kTX9bip8pcKJ4Zv0yJtGX07Cu+5/I7Nj7dNxvwP/s+Rp
- ynVchYBmDLX2CycQS3XOy8LVV8adcsmxZ7NFXd3ZgjANrlKSdvH0ZrzgLNtIeJ+rrUznaQrJ
- xTHEu3Zaslypv3802x1RfHAQEZKLnxHWSrm0/KZXQUC
-IronPort-HdrOrdr: A9a23:RDxlcaFXdJliAEVtpLqE7seALOsnbusQ8zAXP0AYc3Nom6uj5q
- eTdZUgpGbJYVkqOU3I9ersBEDEewK/yXcX2/h0AV7BZmnbUQKTRekIh7cKgQeQfhEWntQts5
- uIGJIRNDSfNzRHZL7BkWqFL+o=
+IronPort-Data: =?us-ascii?q?A9a23=3AiXDNOq6KkQbvo+zrfQ9WOwxR2vbMJYB3ticv2?=
+ =?us-ascii?q?ybIaGNq3BzvzP6J+z/mGEsNoGQgghEXUqHF+SBmUu4agP2hTNrF5aKgZyR3R?=
+ =?us-ascii?q?4P4GA0qI50YOLPjud6PHCHi/1pOz2/MjEBijBIvfJmnoJTSD1r450U94P76C?=
+ =?us-ascii?q?xccJKfJwXAzxWyrM2mO8kNp34j21uwmza5YK9eBcDdZSSM+Oq8WgedLlLy7L?=
+ =?us-ascii?q?ilHHkFyRhaeczJEz38cw76laVo7i5/olpY3zrGbZTnTuBmPOdoJkVvFfxEnV?=
+ =?us-ascii?q?VVg360t0pFhwiBmhiHjbr8cMbtbjo+MxvjrSTtQ14DTU7v0YL5xmn7tVwsVS?=
+ =?us-ascii?q?2OnkB7RrGaQ5kH5IjXSUlG/oWRqcQwqOaK1Wu1D3LpBxiW87lG3SAH5N/fg3?=
+ =?us-ascii?q?oRM6/k6U0A3yZsiFP/omaov9OXhyoMRQxzp9yi5up3rlFIdv7ZUq/7JYNBaS?=
+ =?us-ascii?q?TFeeQkGSGtzhx4zrXhFnn0YOA4mZiCDtojdWaPEMBCDvwQ6QqXpy+elXXQ/g?=
+ =?us-ascii?q?x1oLtf2l+HpiQTTor8PWQ4yo3x/Oqr0Sg35Bc1nPIdFSRt6HuHuCJfQYiQ08?=
+ =?us-ascii?q?w6HbeZW6pBqLiki3YtecajmBOYxITr/jx5q6xJcUx+WXKM1xFd06B5FJhu7t?=
+ =?us-ascii?q?nfxxu15URlUMPknFdmkspJXfiF7qud+m3xHtW71NRIIvJmK7VFqXJ+Wg52VW?=
+ =?us-ascii?q?jyn/yEiGdx2UDbbVA+K58z3qEBXqILxEAe0rZl31CuexgqYcEx/JzWHO7RJi?=
+ =?us-ascii?q?aG1BsMypDww2+Ctw3jArzZSDYwprMvqIK52uoFFsa+yx+sr3WePRvXhZEDjz?=
+ =?us-ascii?q?1+vkGAlqZabNYYD+LOuApdGy3riUzitx/RAutaEd0mzgL/pPqsjfexIqW+ZS?=
+ =?us-ascii?q?gZEiWr+dsk2pZLOydjULJVD461dtZ8grF6Z+m8wZZ5Ov0+1bhapbMrJfpZWL?=
+ =?us-ascii?q?doseUGY+fzqJ5NfxXM3KpfHYmp9+gF4q4cY/muCm4bSf5uDqLmgLCgsZBHue?=
+ =?us-ascii?q?qzJl+10Yu113VgXABjO2LHFgBS50AyD6yFpLouno96OnKWIHpgazx1eYm3FL?=
+ =?us-ascii?q?lysRNNOKBnYX0H50hkcqRk0wzKiLmbFcbcGrbX7SLTUW8wZMxjCGb9akKAkh?=
+ =?us-ascii?q?k1IxWVVWHhlmqk/UVjb7aWW+B1ano2yMj7/CUJS4Grry3hvnC2LzoqgIHgzx?=
+ =?us-ascii?q?u6N7odaA2a+di3sbKRddy7tRFx+yBkY0IQY8tQEPB1TsAd2ys0jqHUPcAJN6?=
+ =?us-ascii?q?sbdt6k+/donjUuCNZVjrrdykKysV3cfq6SOrS3pEcDDzmLMpk0ziNb6kTQ4w?=
+ =?us-ascii?q?GQPQKK4XsyWw3J3PCn/2epLQ8rCnGhthvhKH1GI1LShfXi0rW0J7gFP8J5MO?=
+ =?us-ascii?q?HRdV1H9CbTPH4SfN2jp8Fd1MN4nXmnl9l0tGEs8PH+qA2EFrrVWjYm0sxoKR?=
+ =?us-ascii?q?5RXYtt+mptl4HJ8qNpRyn7npjZ/uDOuollSs0bfVNmqykJhB2NOl7mBtHQef?=
+ =?us-ascii?q?tf73jofkSS0mxpjNvUsnM0s2ygxP1+pR9KSpoaaZL3oCwGEiIGV5Wkh9sBNY?=
+ =?us-ascii?q?Sxhej1vviDMHN2RLZL9e8S1xzMxmOSpD62qABxPfd6LjZcL5fbgaA8ab2YMo?=
+ =?us-ascii?q?aDZHnZrMUD8bA2jXfBFsQjjHKbBlT0n1A9C5H/Y1yuCWjMyeFHzKl4f6+FoW?=
+ =?us-ascii?q?hd9unqNCoL33o1SYNALpcXZU1UZHma4igo9ZrCbTunGR5akx/UHsIEs4DOaK?=
+ =?us-ascii?q?j4x7yH2Z2VhlFcazZZ2mnkG34hGn0wGhw8v5UC+Q3neOxqmISh9K1dlbgiru?=
+ =?us-ascii?q?XfsWLNvo/0+2sUja72gij3XPraCtI5xYsV3GupDCZPDgDfbgQzsDa2K1BuJ7?=
+ =?us-ascii?q?VsEDaxA6PQGM0fqS3pnUADPKDVVQL2WAalt7g7lKPJs+Z13EBOV5IXKuDgCQ?=
+ =?us-ascii?q?ct4MiYmtrbW+x0oI5Soaf0fRTCfB/LS50VMy5+wyr2NsavrM5kp1ADi+lH88?=
+ =?us-ascii?q?D5kqqSW/VhTiN47vCZqjgqj07CLlxWwsJ1581JirwIgPbS5qtnFsA4Uvqlfa?=
+ =?us-ascii?q?lNjRWUuZAgkqebKxXnlWXDLka4PR8ZzvvyzEIhhQSAmlFNk8vXkyQlGFxJjW?=
+ =?us-ascii?q?r7IvBFRCd2jYBKCRcpji3lf/QMlMqGyf0/NWLI5c1DLZ17G2lby2Qt0E5qyK?=
+ =?us-ascii?q?DRffaxLuzNLZDBHD5Dojtwmi+MZed/VOpqDOwluqHBkE+JR9kzBzh2U+Vyep?=
+ =?us-ascii?q?KWMptqQfgdPS5L2Vy9C1+EamuGik82R04s7amRdx1Suxadg22Rvp4PlEmQTO?=
+ =?us-ascii?q?pCJSr0yu0yY6os1Bnxp2g5JvkAjzxeeSVTNOue9pHFY7ncuzj9fD+td6g8D+?=
+ =?us-ascii?q?eNHKh12p3DH9pCBSvnbXHIPXzYTafac/038UE3jmRucQCpfieuSAPRyz5bVZ?=
+ =?us-ascii?q?1H98P92BOlgPp8x5MEEGYaCio3Ph+L4/DMQ65lgVrkwjAjF57FXZRVnrUzC/?=
+ =?us-ascii?q?ANrWbN3ovroCIbU/1LkokPJN8gho7oGakmtIhh8IbIFzSKJSrqN2+Qfwk74n?=
+ =?us-ascii?q?8yIU5kdCfvF3OAJpar+5bFZMGdnVyfZ26SLQUHprSuKaNSoYVhCYdrL7cJKl?=
+ =?us-ascii?q?WBlsMF3q+7VXCU2c1uAthfhHZ+IipvH2z7yAfsjhgaC7r72T+wTEZ320bljA?=
+ =?us-ascii?q?h0kI08wVsJbq3YZtj+uB+qxn4itMlnc/VAFyYsOgYFRW4C+4Csf0gWwjpxJS?=
+ =?us-ascii?q?wi6lGrVYebNFWpR4zS58cwXjangMABpudta8CfCUpgKAQ4y6ah/qbx3DLMAM?=
+ =?us-ascii?q?qrmkmtasd8q/rRacCdYyN7h+Qm0B0UHbIRw412VaWF4jEjK1ewdc/5CrGlZt?=
+ =?us-ascii?q?DWngAiTR1wW3g=3D=3D?=
 X-IronPort-AV: E=Sophos;i="5.92,271,1650945600"; 
-   d="scan'208";a="76233202"
+   d="scan'208";a="75798792"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Luca Fancellu
-	<Luca.Fancellu@arm.com>, Mathieu Tarral <mathieu.tarral@protonmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-Subject: [XEN PATCH 1/2] xen: Fix check-endbr with mawk
-Date: Thu, 14 Jul 2022 15:39:06 +0100
-Message-ID: <20220714143907.25938-2-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH 2/2] xen: Introduce $AWK in check-endbr
+Date: Thu, 14 Jul 2022 15:39:07 +0100
+Message-ID: <20220714143907.25938-3-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220714143907.25938-1-anthony.perard@citrix.com>
 References: <20220714143907.25938-1-anthony.perard@citrix.com>
@@ -93,43 +118,38 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-check-endbr.sh works well with gawk, but fails with mawk. The produced
-$ALL file is smaller, it is missing 0x$vma_lo on every line. On mawk,
-int(0x2A) just produce 0, instead of the expected value.
-
-The use of hexadecimal-constant in awk is an optional part of the
-posix spec, and mawk doesn't seems to implemented.
-
-There is a way to convert an hexadecimal to a number be putting it in
-a string, and awk as I understand is supposed to use strtod() to
-convert the string to a number when needed. The expression
-'int("0x15") + 21' would produce the expected value in `mawk` but now
-`gawk` won't convert the string to a number unless we use the option
-"--non-decimal-data".
-
-So let's convert the hexadecimal number before using it in the awk
-script. The shell as no issue with dealing with hexadecimal-constant
-so we'll simply use the expression "$(( 0x15 ))" to convert the value
-before using it in awk.
-
-Fixes: 4d037425dc ("x86: Build check for embedded endbr64 instructions")
-Reported-by: Luca Fancellu <Luca.Fancellu@arm.com>
-Reported-by: Mathieu Tarral <mathieu.tarral@protonmail.com>
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/tools/check-endbr.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/tools/check-endbr.sh | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/xen/tools/check-endbr.sh b/xen/tools/check-endbr.sh
-index 552f233912..64fa9a56b7 100755
+index 64fa9a56b7..523797a15f 100755
 --- a/xen/tools/check-endbr.sh
 +++ b/xen/tools/check-endbr.sh
-@@ -78,7 +78,7 @@ then
+@@ -10,6 +10,7 @@ MSG_PFX="${0##*/} ${1##*/}"
+ OBJCOPY="${OBJCOPY:-objcopy}"
+ OBJDUMP="${OBJDUMP:-objdump}"
+ ADDR2LINE="${ADDR2LINE:-addr2line}"
++AWK="${AWK:-awk}"
+ 
+ D=$(mktemp -d)
+ trap "rm -rf $D" EXIT
+@@ -64,7 +65,7 @@ ${OBJDUMP} -j .text $1 -d -w | grep '	endbr64 *$' | cut -f 1 -d ':' > $VALID &
+ #    numbers, which don't lose precision.
+ #
+ eval $(${OBJDUMP} -j .text $1 -h |
+-    awk '$2 == ".text" {printf "vma_hi=%s\nvma_lo=%s\n", substr($4, 1, 8), substr($4, 9, 16)}')
++    $AWK '$2 == ".text" {printf "vma_hi=%s\nvma_lo=%s\n", substr($4, 1, 8), substr($4, 9, 16)}')
+ 
+ ${OBJCOPY} -j .text $1 -O binary $TEXT_BIN
+ 
+@@ -78,7 +79,7 @@ then
  else
      grep -aob -e "$(printf '\363\17\36\372')" -e "$(printf '\363\17\36\373')" \
           -e "$(printf '\146\17\37\1')" $TEXT_BIN
--fi | awk -F':' '{printf "%s%x\n", "'$vma_hi'", int(0x'$vma_lo') + $1}' > $ALL
-+fi | awk -F':' '{printf "%s%x\n", "'$vma_hi'", int('$((0x$vma_lo))') + $1}' > $ALL
+-fi | awk -F':' '{printf "%s%x\n", "'$vma_hi'", int('$((0x$vma_lo))') + $1}' > $ALL
++fi | $AWK -F':' '{printf "%s%x\n", "'$vma_hi'", int('$((0x$vma_lo))') + $1}' > $ALL
  
  # Wait for $VALID to become complete
  wait
