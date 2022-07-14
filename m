@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28943574C7A
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Jul 2022 13:52:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.367625.598701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2742B574CA6
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Jul 2022 13:58:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.367632.598711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBxNf-0005Eg-4c; Thu, 14 Jul 2022 11:51:43 +0000
+	id 1oBxUF-000628-Tm; Thu, 14 Jul 2022 11:58:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 367625.598701; Thu, 14 Jul 2022 11:51:43 +0000
+Received: by outflank-mailman (output) from mailman id 367632.598711; Thu, 14 Jul 2022 11:58:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oBxNf-0005Co-0h; Thu, 14 Jul 2022 11:51:43 +0000
-Received: by outflank-mailman (input) for mailman id 367625;
- Thu, 14 Jul 2022 11:51:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oBxUF-0005zN-Qp; Thu, 14 Jul 2022 11:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 367632;
+ Thu, 14 Jul 2022 11:58:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kqGS=XT=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oBxNd-0005Ci-Eo
- for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 11:51:41 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2049.outbound.protection.outlook.com [40.107.22.49])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5248c70c-036b-11ed-bd2d-47488cf2e6aa;
- Thu, 14 Jul 2022 13:51:39 +0200 (CEST)
+ id 1oBxUE-0005zH-JM
+ for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 11:58:30 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2040.outbound.protection.outlook.com [40.107.20.40])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 462cbe32-036c-11ed-924f-1f966e50362f;
+ Thu, 14 Jul 2022 13:58:29 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB4783.eurprd04.prod.outlook.com (2603:10a6:803:5e::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5417.26; Thu, 14 Jul
- 2022 11:51:08 +0000
+ by DB3PR0402MB3676.eurprd04.prod.outlook.com (2603:10a6:8:d::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.12; Thu, 14 Jul
+ 2022 11:58:27 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5438.014; Thu, 14 Jul 2022
- 11:51:07 +0000
+ 11:58:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,198 +46,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5248c70c-036b-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: 462cbe32-036c-11ed-924f-1f966e50362f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SYq/ARUONuBH7Yzjy3+s55DRn9H1OZ4f/4hCTMdw/WZ55diKm6z7OZ8BN4tIrrIOzv/GUBEVoxXFF9Q0cv38KzXxeddkxq4wZVQvYLEY9r/NL7UxiT3W4fnDe9SN7m0vnCBkneW0QzLa85WHb/OJai31unPR9YyTHisZncdpe7DoICyWDp01HXOTpX3lrHdSSvscLc41iuCjvMcSWdFGsSUoHh6aboFWmBgQrynUlaiwP3rUwKbacZKInmrGR3KphQH/NregoRm2Rpu7vZ/YNRVlnQG45NQJlEvxRspy8/PUP8HvS/Pd3Yx8Llxt//UL9MlmjCUwocecHDpbb1tkYQ==
+ b=kkkfeTlANHevIDBzX2kP62nBjz3l5atPi1AHzaZLyDG6gcIZ/LUtrQSiub5pkosiJk8/QMi0Xe7DO53S+E1sQhMoGWtRq3w382U29U5OImNEPG743arObIovkiO4XNzPYo8azKctb3/ghI7fskDwrjDsRljqzHiL+Z+5FRKB/4HtNGmJCDzgc4RV/MqLsg0tlmjwti4O8KGmMxDEdwGs08zoXnUaVzHtvasxaaAAI0G9ewdxL0jJP1gV+sCE9LqxON7W7CpfE9K/k31XYjiD5slmpf+qdceQkusyoWoTKD5H0l9KpOrcu7LeegDJ/Sqxam6+LrDz8uUtm6B0Srr7mQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wRJvKi/TcqUW/3TSHShq/4XKra83Qjczh2+hSwFAFZk=;
- b=dq8nnzlDv4IzpCTpR/dtHCB1f40tvepGlQOLDgYrXZSz1ZbA2vpg2aprQwUh+VeUmWjVHD0c/T9j2MPV1AmPZ4oXvi2uMi7kOGHmgWaFC3ol5qjLTCKVE91tz+Mgoh3Tch7Rtm92xqcMXnmn7Hl6eeF9oh0MHkY92lQXu2o85Cy7QUysmiyxuvA4m1Nrki5sBMnXu+vu5E0MMPRB8pa3QvCFV8jMdKnt6UfYd/Byz2x+7uSH+A1aEh0WFDGNluuNhAermVxs1ZlK7UkQrWHoYImfQ9GMqpK4HJkoFtsflf9oW60J7TOhr7MHHXhVbHGfW5h8SEGT26uzQy4g0h0Z1Q==
+ bh=11unytSiLs678PrZ8sc7YV1Xvo4MxclbMNsP2wJRGwI=;
+ b=Lh5h87BDt62MPCm91iLYhVFwtmbtram3VFCqcwXZN+Xiv6oXW4w6GrDpggdkbPkTbkxLZRX2Ji8UWT+ZGC/dridWuShigpph/eIgfmq9D4VLYPWzcxl73+O+/dLUmURxu88D+oCa1cFU4w3cTS5OFX8Eia/mFNt7+0m+GlR828bhzCK10oWZ6Env6V5c45l45Pdfa59GJ7aVfjHsNOeh0AbrPDuT/DULnPJivt4avvEYEruzTh19KxCwDuYDJZmljliszzNHEvn8UqE1G7PncQb5p1KbAyg9SjRT5FY9G+sa9r5b6VISwgkqXtMEEzjEkJjYeIx89abF+n/ZCQMwmA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wRJvKi/TcqUW/3TSHShq/4XKra83Qjczh2+hSwFAFZk=;
- b=ys058qn5HSILyprmaZNCu0IYy3RfVUKfECj1eYjMtX9F3TFs6tq2UAWRz7ZiWWvH3iySpZ/UZRWsY3bzNteEBGKfjuHDGpm6BVfR5dJfGL2+7cc4uWL9rPXhFq91zLLa312pss+n8+sZXH+O9+OHkkwah3fIguZAXziKErcEPQbFe7T9Cx293eWjP5+TnfEJ88d9V2A7rMZyq7NvoBURYTwmZdyEdw9wl9jdKfIc5HDErVnhCb2IixTBtHTwNswHoZg/4oK9SWn5DJpMDZsgaHwqGltKcPS9byVqiBgLXVz0oUsqN1Yn3YL7TWBGLElj/hvSg0m29Na/m2XuR/XldA==
+ bh=11unytSiLs678PrZ8sc7YV1Xvo4MxclbMNsP2wJRGwI=;
+ b=io8GNxrl5Qiz80bcb00md+FatEC7hZzuud5gee6Xkt0EMolKEb/LMhZ8KqS4nJFGyE+7gA7IGX2MxxSke7RROyCQ5sSZaWKT9ALVNk/RremY1SPTZvyxefgt5pKpSPxHVr1nWxKn7tn1Spvo2R/0EIqq4orQL9p0RhkjY27CrbzOU0uOOebMlHtzVD2Aojz9oC1goWRoEIcdBd8F8YpjVXQGI3Nd3XiYv1k9t2snrwOznPLovTcUn9siafwdBVEr6kOEbIE6RBeDZ0eTdStxpZrqP/2/SbAvvGLoaGHaIDot+plKr6ZeKpGHg6f2oealF8o+J2ekIrdrQKYcL9H0VA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a259bc09-710c-0c19-60c8-f7fa310357bc@suse.com>
-Date: Thu, 14 Jul 2022 13:51:06 +0200
+Message-ID: <dc195aca-79e1-7faa-d29a-ea0626e257ad@suse.com>
+Date: Thu, 14 Jul 2022 13:58:25 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v2 8/9] xue: mark DMA buffers as reserved for the device
+Subject: Re: [PATCH v2 1/9] drivers/char: Add support for Xue USB3 debugger
 Content-Language: en-US
 To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
  <marmarek@invisiblethingslab.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Connor Davis <connojdavis@gmail.com>
 References: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
- <0a30e15d9195d0cd09a5ea94297dc8a74bc12c97.1657121519.git-series.marmarek@invisiblethingslab.com>
+ <80051b9dc5c99532e18a10a941c3523945d77698.1657121519.git-series.marmarek@invisiblethingslab.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <0a30e15d9195d0cd09a5ea94297dc8a74bc12c97.1657121519.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <80051b9dc5c99532e18a10a941c3523945d77698.1657121519.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0048.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0010.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 726d4715-afc4-47c1-244f-08da658f2394
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79c96960-3951-4505-4de5-08da65902948
+X-MS-TrafficTypeDiagnostic: DB3PR0402MB3676:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	iVcvopmGeQBcqdFO10gpyfonAMFferdQElMCuCglz2qwC5zgOSGPlTeSIJPP//730LCtHIy0b9gm64lO5Vc4ngi12Lt0DuyFojg8oj/pJqTLsR+/94aJfPbKLYvmfz3AC7kTCyrYbm9Gki/sxFywY65QBAcE/tHKspujYtd9PisGC0BGBathn3iavFAM5SoezbTz7OS5FJLcChn4bOzlGtKaAoJHa+zfFqzmXHiZEJp04r/uC2GUJFJ+RHdDEsRkUF06jgL4w8cmBO1iXcFYSm2aFYV/p0Fr/zAipa9qRyhb7KP/pBJ/a85H785gXJR2iBrZz1EZLdNUR747In29N01g+g2R6GNTqCZt0BIy7THGN/zEEC/iOVdVWbvIMhxVhvpavc2ncj2NzI4KQ244Maq/285StdryeDJ/KEDTtmL2JmMa3qPdBdC/qxhCTW0nTbSGkPNe2DfeFsfceFsfjIUsHqdkb6UA6sBdqYROLZU1U/ZbSpCVo2kvrZBaVAUyOTX2rS87NvM3HSx6NziXI+bQkSf0UfFxQS5gJhEK7tVzTIlIH0bUxerFwFTgfupjMnPG31zPenNFqZ93ezal0QVWVDyvfdu5eFMb57SG+SUc96pvM4HNS66oqdPTQovV0cS/3QmrmMr9e35uDji2syv6kCIbohcmzrQCC/O4x/ZjZuXCzPlcTbMfEZ0EujwrRuXEbFO3PEL8zWUQWPxHKKH+Q9hSpoHF8etCxq0n6yQkPFSlMRHPPXbL4c8QVIhHwbdraekVsiKNB/eI8dWb9BIqJkjfQR4x+QX2wjflcbIGuPmAoU9HSK7HQuG2hSRDZZGP6HrSxzjRoy77ZqGke+R5SzSmCg/yieNwJn/j18w=
+	8rCj+LVeaL/12v+7CFyW3m/bgTd/glICzSNHnFwnDANu0ucKYSaoQ1lVaNpXT5eqiaDj/Nsl4wQneYXd82piE34vODSaZ0+C73/qbQYChqrb6VZDlQnIsYOPMr3s1q0CBXnhfTiYh8M0IjS9aCKNCBUOWmkdCeTAejwUJxLPbDHjUpA3wS/a0YcnFM8sXlrMcuVnow72ZNqefI8j7LA9tIbSgkSY2jHeDeaKAuXfF/Iecy5zvJ7CSSWfMA/wGNw395xikoI1jwg1k6jxQOVrYXpVoB5KvRN9b2H1GaCnUBJqAeBiz1jfEewwpgFr4Ynxy6gEZT6pcSSY67gfbyPBv6FgOzFFDCrDm12v/KEtMuXVJnBvmIc6f2AsLmP8PdpYRCHYnplwpA4Hq/0jqAi6ybEAnPRZDrhuZwjF/P5jrSwCDGQgLtvd6QImHETE5BqvpQYFzlJ6LMI16fllQJYTcqoQHzYHrjkLrxEmi+6+7+bXavyZizulQFtqFH3HkessvKceqjuOqzuMsSE2zWrBEu8BzRNlffl3RNVBcYXTxH65Kyq9dvL0rUJ2f0hDSRlMRKaqiYzMwumLJShVj2BgePC7A3m0coDtkKtRIf1JmUF47I9ACZbeAhNZXbAEJalfZKkHqiiLUrfOTr9dhsK8ifyJlnP5zpsEQguEarV1RalJ0QhYAaXTa9MSwJQ2FbEB5PpC3O55qe3UludCTcwIutiJSHNGEDfxSeiyWva2VakxwxZp81B8/5KAJQZ9zpoQVozZ0IGA3I84grNIKkrCymSFrNeNVLS08/4UsZJMdPotKrCUOE9pLIW2ps5rFjA50JPTDKB0tgLKwzEXfkuq8pPBFj8i19ZRaV08NLtRF5Y=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(136003)(346002)(396003)(366004)(39860400002)(86362001)(6506007)(83380400001)(53546011)(186003)(6512007)(36756003)(6916009)(66574015)(31696002)(8936002)(2616005)(26005)(478600001)(66946007)(31686004)(54906003)(6486002)(8676002)(66556008)(316002)(4326008)(66476007)(5660300002)(2906002)(38100700002)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(136003)(39860400002)(366004)(346002)(396003)(186003)(2616005)(38100700002)(2906002)(31686004)(5660300002)(36756003)(8676002)(54906003)(6512007)(41300700001)(66946007)(8936002)(478600001)(66556008)(66476007)(6506007)(6486002)(26005)(53546011)(4326008)(31696002)(86362001)(316002)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T0s0dUpzcjd3aExuWEhSdXV2enFaVklpWVJQUmhnYkozL2FGY3ZuWTNQc2lN?=
- =?utf-8?B?bThkeWo5R2ZLNFkxNGtCTTFFRjJJSDBhSjhaTk9aYkgyLzJzZCtNdUVVWXpV?=
- =?utf-8?B?RldQWksyd2VmQjc4QUN5bkFWR2ZuMFE1ZG9PWUR2Ry80U0xSWkloeUdOVm11?=
- =?utf-8?B?eUVLek8weXRpdEdmWWJuMWZnajFnTXVTSjg2Y3lJd3d2UUVYMmJ6ajNVRnB4?=
- =?utf-8?B?a2tVTGJLVldqbFVVbWhFTEdDSFlYeUtMMmhWZHcybXhRRElJbzJ4RlJBcDNS?=
- =?utf-8?B?ZWpoRlJKUnNXS1ZYamNmbWF0RWpVZWhkQS9TVzhXMm83aWJkL0FSd2l4RG94?=
- =?utf-8?B?SVVwS0JhdzJpODZLZzJSVUVvVWZPdlJSeXdFaTFieVpjaUU3LzF5V2FpTmtH?=
- =?utf-8?B?dU1IbHlJWHBXWkVadG1MaTAxS2Y1d01BeThxVlMzSHFFV0xjSXB5WEJRMFRC?=
- =?utf-8?B?SnVIeUN0cjU3TEVTWWpISWJxcXFKd2xueDd4TzZsR2x1WElzcFZDUXowTUFN?=
- =?utf-8?B?U2piQllUVG5EdTg2RHhWd210WUN2QzBZZFF2M2JvaFlaNEt1QlFtQVJiREx0?=
- =?utf-8?B?Z2N4K3Boc042WlZCT1hHelB5YjJvOE1wMk5aUlpVamFjVjMveGRsSWZYV0tq?=
- =?utf-8?B?dWlkSjhielBJckJ2T3RwaVV0VXlzakw3ZlIvcWM5dG1UTGtYci9ObTRIVzRq?=
- =?utf-8?B?WEJDTjgvdnpJMzJTUHY5bVA5REFBT2xhdzRnUjhNQ2xzTVU1bmp6U3FWNExm?=
- =?utf-8?B?dnVWTjN0bjdnWTcrQ25RUFNiWGVRbTBiWEkzZkdjeXZyVG1YbW9CcjllTUk1?=
- =?utf-8?B?NDNPWnZrVENsdWU3aldMak9RWGo4YU5wVENsSlhwZUFqSWVsL0NtUHdiWXZk?=
- =?utf-8?B?UTNWQmV5NWdodVR1SFJGMVAxMjNPM1AxdElQZm1iSDc5Nkttb2cxS0dJMkZK?=
- =?utf-8?B?Vk5qZG14N0I4N0ZUYmNJT3ZUUlNuRnRtRDVBbEtYK1ZZcDhkZ2lOSlVzMjh6?=
- =?utf-8?B?RHpwT09mYWpaQ1ZnaFB3ckpJUTNVYXdYWXROZ3Z3YTFlN3FNMFRGMXlERFds?=
- =?utf-8?B?M0ZHNkc4OHBGcWJRTTFQZGh1NWwyMWVVdGo4VHBEMms3cmFZak05QTYwZHBm?=
- =?utf-8?B?NTUzcnR0OGY1UVFpcW5jZzBUZjBGcXhnaDNiQXFkQTVMYU8rVjFnNlgyS2NL?=
- =?utf-8?B?Q0xuN0xCWFJHTGhRSURMdVFYVHNvUVZ1eW9JejZ4UHlxMTJ4UjFGMmxSRjRs?=
- =?utf-8?B?MHo1cWI4cTl2dEtmUmpWUFRJREFibjlBSzFPUzZzOFFDdngxTktaMFJablRu?=
- =?utf-8?B?a29sZS9SRGFiT29BMENteGR1SVROZ0ZiaU5yZFRnbjZKYmVOWmlHcHdPbGdo?=
- =?utf-8?B?SWZHMi9OSUdrckdLZkN5a0RSUExFUUhSS2ZIb1lOM29UTFlUeXN6SnJtbXc2?=
- =?utf-8?B?T1ljQlVYK3JBZkxReWRvalhTSWJLZ0p3dGZUbjRkcXBSc2xWRkROT1pIZk9B?=
- =?utf-8?B?U2JzcXFGZkdMTmYrSEkvdFg4RUh6WWpmKzIyYXpoWm15M0hPOGFBUzVpSmxG?=
- =?utf-8?B?dXpSaWc3RkZlb2FQTGIxalJvam44VlFVZUNWb3g2YnRwMElZTmlzcERybSs2?=
- =?utf-8?B?YjRXMlI2L2lzMzZiKzdROGJNVW5ZTmI0Q0R5eTFCSkFVR1dUeEsyczRCUzdt?=
- =?utf-8?B?QlB5Rm9pK21Gd2pveGdMbEpUMnpjK1JDMHB6dURmb3paWlNock9LTnZtbjZw?=
- =?utf-8?B?YU5SVEV4b1JXd1hRMmxnR3JJNW54WUNsYXltYWh3bXVBK3FlSTVTMG1LTWtJ?=
- =?utf-8?B?bXdjdTFpdDBnWlVHams0bm9zREcvQS9qRlBHWnliV01PNTBEbXlHdEVLVlNZ?=
- =?utf-8?B?ZWVKakVacE55SGJPbm9JQzFjYkVzZ2tlakN2SElBUE00U0E5anErdzJaU010?=
- =?utf-8?B?SjJib1VXYUdCTFUveUd3cUlLbmo5QTEybndJa08vdVBkc2pSU0pab0ZqVmY3?=
- =?utf-8?B?WkQ5TWQyS000REttQndIRFBuaUppV2w1aVpmODNPdkhOWUJVdWd2cmFLZmtZ?=
- =?utf-8?B?cjVNc0pmQ2NtMzhkVDFReitQdHk4Rm03NDN2OEpVWVJVL1JuR0tIYUcweG5Z?=
- =?utf-8?Q?9Znhh9Qh5zQ8GtAm/oYSm3u6f?=
+	=?utf-8?B?TEZ3MWFvMS8vd3B1T01kL2FVMHM3RUYvcE8zYkw1MEk3SVF2WElFcklHR2o5?=
+ =?utf-8?B?OThTRXU5RGlIZld4NU1oeEM0VENKRHU0YjlNaEpsaVVCbFExWk1qQ0hyRmFT?=
+ =?utf-8?B?eHoxT3MyMFZIek15OVh2RkVlRWNZV2lENGh0c2JVcE5tZG01RlBFSFBnaDla?=
+ =?utf-8?B?TmhueHgyTTVCZWIvblBJRVVFeU1EQkcvWXVNNFNpekJBVTZQYnBFZElKSmJZ?=
+ =?utf-8?B?YmNnTm9oWUNuUGVlWTEycGg2NmVYMVZjWldjZ1hPdFZWRDJkWWJSODMxOGJr?=
+ =?utf-8?B?MEhFdkE3a3RSSXNUdGFiUEdUSlhtMUNCeXpzWEQ3YThGQ3lIbVYvYXc1d2dL?=
+ =?utf-8?B?NG9VNll2Uzdkb3RvalFVTUF1TVFPNDFaSTRMdUZBQTZNRXpJRXU2Rk5PNmNx?=
+ =?utf-8?B?R3gyQXZESk9mWTFYR2JoYjFRN1U1V1QzcWU1Z0dmUThOUDR4ellscmVUSzFV?=
+ =?utf-8?B?T0JjK0ZhUFJRZmpoeEpESE5QMmxPTDUzbmFBMDVqUjRQWkNlcWFNbS9jelJ1?=
+ =?utf-8?B?Vmg2OGZKRUZCcGFLNGE5Ri9BRGo3d0xJQmIvQzcreXJ5TnZCU0xWN0ZNbzV2?=
+ =?utf-8?B?cHk3TmVMK3NNSkVOS3FRRUxCUEhucnpLZVJkK3djTm9MNHN1dzhrcGFHbWNK?=
+ =?utf-8?B?bDFrdFg2WXBtOFBBMEo5anBKWkJUNXpSZlRCWWlFLzlSMWkwbHhpZVd5cFVj?=
+ =?utf-8?B?S3RLeEVneTRkTzB2K2FKMWdwYXBHTlpWYXNtem5mMVhWTi9lb2RaTTlINlcy?=
+ =?utf-8?B?Z3RselpCcUQyRy9mRnpPY1R1Wm80QmNZTnVxV0t5TTZCZEZ6SE1Db3VYNmZ2?=
+ =?utf-8?B?cjY0aXU3Uk51YVQycERpR0tKK3R0NnAwMnU2eUZJWWZVYlJya3did0ZQZEIw?=
+ =?utf-8?B?c2doblVESDBVRHhoM0tVTUVaSysvTDJSMDRINS9TRzg2VnBwVnpUWDMraUtj?=
+ =?utf-8?B?YTVEci9tMFhaSlVjaEVQb1R2dmJyZ1laQ09ueWgycVExSlZTV08ybHZkdEpM?=
+ =?utf-8?B?QmVkWjBPeUpGUWxpK2FGTGR4SHc2anVlS3lvMHdVenRDK0g1a2ZhMk8zQ05s?=
+ =?utf-8?B?eGpqTmhtUFFqdEVNalBvc1d0MktodWxNOWFkMS90VFFqWitNeHRlUlFkc2t5?=
+ =?utf-8?B?a3pGSkZrclUrNkkxS0ZYclIyMEY5NVBpZ3g1V2I5VTdaVXhnQWZ2K0lNQUNN?=
+ =?utf-8?B?TENjcm1JdU5mbnl6L0RmbVExc2VTVU8vcncraEQzQlNJenBsc0dGWXp4V3dq?=
+ =?utf-8?B?UjJKQmZ3WWJITklZVWxHY2lodGU4MHNkSEREWHcwNCtIVTRhRFdYWUkwL2RH?=
+ =?utf-8?B?eGYyQnU3S3U3VTZ5VGFwWWptaGlxSGFaYlVSRjNYaGZuU2VQa0dta3dxRVB4?=
+ =?utf-8?B?TjVhRTRKMnVDNmJuVFlZUUtSeWgvS0lxbk9xbzIwck1uamtPNnNDTmVHM2Vp?=
+ =?utf-8?B?WUFUSFJxS2M3QWNyRHR3RytuU1RKdW94S3k5ZUorTCs0NHUwYmsxR1EycHAy?=
+ =?utf-8?B?V1ZhVzRrYzZ5ZmhYNW9aMERlT25TK2hxYW9ub2FrbHpwM3BWdTd1MTN5VG5N?=
+ =?utf-8?B?MkdnZnpKenR4bnpQY1dHckczblFUamR6REJDNFk4RHl2U1dLeTYvY0Y2ZW9X?=
+ =?utf-8?B?Ni8xLytYdC9ReFA5MkdEUzRvMFJjRXZCam5ybVcvU2FjWS9UbzZLdGxkditI?=
+ =?utf-8?B?T0FhRVYwV3V2bzhmNVlvd3VXR1JvZzhTZ293cTJZSlR1NzN4WVBKSUdBWXor?=
+ =?utf-8?B?d0RkZVgxN0lQU2lVeTdnOU5DaEVkS1FwaUxvMWJ4bWdENUVLYkpvMi9QNkVI?=
+ =?utf-8?B?Tkc1NmlEbUM3RXpsZWk1ekpBb3JTSVoxTm1wZktMU1NEaXR6RHZkbmpFcHV0?=
+ =?utf-8?B?SEJUd3JxQWdSSlltWTRiUzBWWWxyRGVjTEFuTXlXTFkwcEI5L25aR1lhRDNU?=
+ =?utf-8?B?anMxK05tVkhJK2hkSHBwOUYvdU14TXpyaHFCZTlhZGJwZWZhMVFxVURFTHNp?=
+ =?utf-8?B?emdocHFwZE9aM2lObms5TVZXcTlqNW1na1FpMEF2UER0b0pkZ0ZSeGhGamp5?=
+ =?utf-8?B?NGRmTnEzbXlzbGVnUVlweXVXa2pWekNKODR4cUx3QTZFMW4xWVljYTJlTlRa?=
+ =?utf-8?Q?MTjSmIt7NDvnT3u2dY0j8/Jfq?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 726d4715-afc4-47c1-244f-08da658f2394
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79c96960-3951-4505-4de5-08da65902948
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 11:51:07.9392
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2022 11:58:26.9896
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: msmrhx5rUx3Xnr3IMLyXRigAPNAxMTb79wYkoR7Jwq6GNTYGfjCe1bv7qW7906u4swl9jZNeCfhyCdKE2WEx/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4783
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5N2ejT+/OeDuqLGIIWQH2fOZUZthDIqcxQ6YJyrd/d4IyljUD0U0FXBK6LU1/OEgcocbVxyDXv/KI9wWf9i9Kg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0402MB3676
 
 On 06.07.2022 17:32, Marek Marczykowski-Górecki wrote:
-> The important part is to include those buffers in IOMMU page table
-> relevant for the USB controller. Otherwise, DbC will stop working as
-> soon as IOMMU is enabled, regardless of to which domain device assigned
-> (be it xen or dom0).
-> If the device is passed through to dom0 or other domain (see later
-> patches), that domain will effectively have access to those buffers too.
-> It does give such domain yet another way to DoS the system (as is the
-> case when having PCI device assigned already), but also possibly steal
-> the console ring content. Thus, such domain should be a trusted one.
-> In any case, prevent anything else being placed on those pages by adding
-> artificial padding.
+> +static int xue_init_dbc(struct xue *xue)
+> +{
+> +    uint64_t erdp = 0;
+> +    uint64_t out = 0;
+> +    uint64_t in = 0;
+> +    uint64_t mbs = 0;
+> +    struct xue_dbc_reg *reg = xue_find_dbc(xue);
+> +
+> +    if ( !reg )
+> +        return 0;
+> +
+> +    xue->dbc_reg = reg;
+> +    xue_disable_dbc(xue);
+> +
+> +    xue_trb_ring_init(xue, &xue->dbc_ering, 0, XUE_DB_INVAL);
+> +    xue_trb_ring_init(xue, &xue->dbc_oring, 1, XUE_DB_OUT);
+> +    xue_trb_ring_init(xue, &xue->dbc_iring, 1, XUE_DB_IN);
+> +
+> +    erdp = virt_to_maddr(xue->dbc_ering.trb);
+> +    if ( !erdp )
+> +        return 0;
+> +
+> +    memset(xue->dbc_erst, 0, sizeof(*xue->dbc_erst));
+> +    xue->dbc_erst->base = erdp;
+> +    xue->dbc_erst->size = XUE_TRB_RING_CAP;
+> +
+> +    mbs = (reg->ctrl & 0xFF0000) >> 16;
+> +    out = virt_to_maddr(xue->dbc_oring.trb);
+> +    in = virt_to_maddr(xue->dbc_iring.trb);
+> +
+> +    memset(xue->dbc_ctx, 0, sizeof(*xue->dbc_ctx));
+> +    xue_init_strings(xue, xue->dbc_ctx->info);
+> +    xue_init_ep(xue->dbc_ctx->ep_out, mbs, xue_ep_bulk_out, out);
+> +    xue_init_ep(xue->dbc_ctx->ep_in, mbs, xue_ep_bulk_in, in);
+> +
+> +    reg->erstsz = 1;
+> +    reg->erstba = virt_to_maddr(xue->dbc_erst);
+> +    reg->erdp = erdp;
+> +    reg->cp = virt_to_maddr(xue->dbc_ctx);
 
-I don't think this device should be allowed to be assigned to any
-DomU. Just like the EHCI driver, at some point in the series you
-will want to call pci_hide_device() (you may already do, and I may
-merely have missed it).
+The only place this field is read looks to be xue_dump().
 
-> Using this API for DbC pages requires raising MAX_USER_RMRR_PAGES.
+> +static struct xue_trb evt_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
+> +static struct xue_trb out_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
+> +static struct xue_trb in_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
+> +static struct xue_erst_segment erst __aligned(64);
+> +static struct xue_dbc_ctx ctx __aligned(64);
+> +static uint8_t wrk_buf[XUE_WORK_RING_CAP] __aligned(XUE_PAGE_SIZE);
+> +static char str_buf[XUE_PAGE_SIZE] __aligned(64);
 
-I disagree here: This is merely an effect of you re-using the pre-
-existing functionality there with too little customization. I think
-the respective check shouldn't be applied for internal uses.
-
-> @@ -952,13 +953,21 @@ static struct uart_driver xue_uart_driver = {
->      .flush = xue_uart_flush,
->  };
->  
-> -static struct xue_trb evt_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-> -static struct xue_trb out_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-> -static struct xue_trb in_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-> -static struct xue_erst_segment erst __aligned(64);
-> -static struct xue_dbc_ctx ctx __aligned(64);
-> -static uint8_t wrk_buf[XUE_WORK_RING_CAP] __aligned(XUE_PAGE_SIZE);
-> -static char str_buf[XUE_PAGE_SIZE] __aligned(64);
-> +struct xue_dma_bufs {
-> +    struct xue_trb evt_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-> +    struct xue_trb out_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-> +    struct xue_trb in_trb[XUE_TRB_RING_CAP] __aligned(XUE_PAGE_SIZE);
-> +    struct xue_erst_segment erst __aligned(64);
-> +    struct xue_dbc_ctx ctx __aligned(64);
-> +    uint8_t wrk_buf[XUE_WORK_RING_CAP] __aligned(XUE_PAGE_SIZE);
-> +    char str_buf[XUE_PAGE_SIZE] __aligned(64);
-
-Please arrange data such that the amount of unused (padding) space
-is minimal. If I'm not mistaken the page-size-aligned fields are
-also an even multiple of pages in size, in which case they all want
-to go ahead of the 64-byte aligned but sub-page-size fields (as
-per an earlier comment str_buf[] likely can go away anyway, being
-the one field which is a page in size but having smaller alignment).
-
-> +    /*
-> +     * Don't place anything else on this page - it will be
-> +     * DMA-reachable by the USB controller.
-> +     */
-> +    char _pad[0] __aligned(XUE_PAGE_SIZE);
-
-I don't think this is needed, due to sizeof() being required to be
-a multiple of alignof().
-
-> +};
-> +static struct xue_dma_bufs xue_dma_bufs __aligned(XUE_PAGE_SIZE);
-
-I don't think the alignment here is needed, as the struct will
-already have suitable alignment (derived from the biggest field
-alignment value). Instead please consider putting this in
-.bss.page_aligned.
-
-> @@ -990,16 +999,22 @@ void __init xue_uart_init(void)
->          xue->sbdf = PCI_SBDF(0, bus, slot, func);
->      }
->  
-> -    xue->dbc_ctx = &ctx;
-> -    xue->dbc_erst = &erst;
-> -    xue->dbc_ering.trb = evt_trb;
-> -    xue->dbc_oring.trb = out_trb;
-> -    xue->dbc_iring.trb = in_trb;
-> -    xue->dbc_owork.buf = wrk_buf;
-> -    xue->dbc_str = str_buf;
-> +    xue->dbc_ctx = &xue_dma_bufs.ctx;
-> +    xue->dbc_erst = &xue_dma_bufs.erst;
-> +    xue->dbc_ering.trb = xue_dma_bufs.evt_trb;
-> +    xue->dbc_oring.trb = xue_dma_bufs.out_trb;
-> +    xue->dbc_iring.trb = xue_dma_bufs.in_trb;
-> +    xue->dbc_owork.buf = xue_dma_bufs.wrk_buf;
-> +    xue->dbc_str = xue_dma_bufs.str_buf;
->  
->      if ( xue_open(xue) )
-> +    {
-> +        iommu_add_extra_reserved_device_memory(
-> +                PFN_DOWN(virt_to_maddr(&xue_dma_bufs)),
-
-virt_to_pfn()?
+While I think I can see the point of the page-size alignment, can you
+please clarify the need for the three instances of 64-byte alignment?
 
 Jan
 
