@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FED15757B2
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jul 2022 00:34:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.367831.598958 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CABE25757CD
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jul 2022 00:44:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.367838.598968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oC7Ou-0002wm-BX; Thu, 14 Jul 2022 22:33:40 +0000
+	id 1oC7ZG-0004fw-AN; Thu, 14 Jul 2022 22:44:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 367831.598958; Thu, 14 Jul 2022 22:33:40 +0000
+Received: by outflank-mailman (output) from mailman id 367838.598968; Thu, 14 Jul 2022 22:44:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oC7Ou-0002tI-8R; Thu, 14 Jul 2022 22:33:40 +0000
-Received: by outflank-mailman (input) for mailman id 367831;
- Thu, 14 Jul 2022 22:33:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oC7ZG-0004dK-79; Thu, 14 Jul 2022 22:44:22 +0000
+Received: by outflank-mailman (input) for mailman id 367838;
+ Thu, 14 Jul 2022 22:44:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Cqqt=XT=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1oC7Os-0002tC-JP
- for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 22:33:38 +0000
-Received: from sonic306-21.consmr.mail.gq1.yahoo.com
- (sonic306-21.consmr.mail.gq1.yahoo.com [98.137.68.84])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fdce5e42-03c4-11ed-bd2d-47488cf2e6aa;
- Fri, 15 Jul 2022 00:33:35 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic306.consmr.mail.gq1.yahoo.com with HTTP; Thu, 14 Jul 2022 22:33:31 +0000
-Received: by hermes--production-ne1-7864dcfd54-q5j27 (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 97517d2a66b128664f6173582b24cba9; 
- Thu, 14 Jul 2022 22:33:26 +0000 (UTC)
+ (envelope-from <SRS0=Nrp6=XT=kernel.org=sj@srs-se1.protection.inumbo.net>)
+ id 1oC7ZE-0004dE-33
+ for xen-devel@lists.xenproject.org; Thu, 14 Jul 2022 22:44:20 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7de4abd2-03c6-11ed-924f-1f966e50362f;
+ Fri, 15 Jul 2022 00:44:18 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3D36EB829DA;
+ Thu, 14 Jul 2022 22:44:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE5DC34114;
+ Thu, 14 Jul 2022 22:44:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,209 +43,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdce5e42-03c4-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1657838011; bh=QXJxK9uRHPgeJRYwYqRfbGAEL0vbJkn+fNS92crcabw=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=SrT8orGXGXfdlnw18KfQ6xiDEMi1bWINravl/lGmRyFYTsbGoBPJSb5FLtNWlDqfID1gVSPFqe84lzpKmUtt00FK+IhmjIHXGXSi0LkKW0ZAj3+IXQf78uSQPajb80E9OBIxyB/e47VbMHx6nU3SupOwWxtsJevwoyTU8Q+gR4OE3ic97VP8WSuR7/0+Jp7q5SEG82NQHL4I8Cu4wfrE7R9/2/r0gtWCMpOf5W8segQhYm/KMpxjxo6ZWIeogSKFVOmupwHi55+Uph1cMOnhaIUS5bL47ik5htW0Wz0YCj81+ANo/J3yQup5SZ0UNr5843QvkLoT5/Z2dkEG7xKn0A==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1657838011; bh=5EH6pEyDHX14H2TfJ4h1fCsU95bY0bgSM0NUqADtoMo=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=anMbBvXEVzp1zpYaTS+WzCGGdkS3ySaGB/nmk72ujHZywg8Abul9wnx8Nxw8APiFMEBi8HofXG3bY4Z9RqxTLkeW81CTOkJ737hidIp8DVYeYPkff+0SnLCq9r4P8ah5bqYcqm/WJKCIH3aAgcOT5AEnnUiO44NWiN+7MndwU6sJdPWjzoAIlx85fpDfvfPv2LLNxIdCP/kmax3EWwV9x5GvC4GjpmKNucePsNe2QQqbkLWNnUuHs0E4fF5etDB3MFFJwtLHfNnlGrAEBBhRh9PuJ0UpIUfRTvGVbOaE3Cb2FhBHDptbj14nsnD6fFQtuOcXHzUoRzsuxB1E4WIQeQ==
-X-YMail-OSG: 7LiRrc0VM1mpINPlx9OtkbZVhtIdlEu.6jc1MF2_AlHiYGU0IvI5LM8aIsRrE4U
- dZA3WYXohky5mb.HQ6NPcyk8dnsqQRbpe_Uj2eiMJmyGznOZenH7LyFDNUpVRuNEbFPA5MiDn1JY
- NUCfYQP.isyvQk_sYaH.oN.ce1r2v5uoMGBfByQqpXFtNacsVBBzqaM3bOGXoF.YE8P_HWdjWt5O
- VnWL26UMHwP_sgTU6t1Xh56sfcBRzdlgDl7zE2.eLia5ujeqg92UK.BmBZufttMz2mnPuzOJx3PS
- 5HsEIWLGOEA.GahB.pV8aB9FRPWhBJufsSxop6pUBIeeVqt7jAP94pyRVNYv58Q3CRVAs9722AT2
- VpnEjTc2FkwKecdBf04k9bg_rnps7jWMDdAoMbKjp7xmSQdKPYRYwOwneLa3XxiKHem.AC1cPQa4
- sIC4d6h.5rc6aejrnp7dOHzLBoLiYPPII9JOSRp30AMEAs89BIBJh6uYDNQ7NI1JkDp_U71cfUQ4
- c6s6wH6tMjdA7UomXWZfG7chxnvVBwUdSt95DWUp1roNJ9gT6WXVCwwWW6VCm.8p8QWZULOCsCQa
- ekqYeF.eqFbTRH8xTAaaSpeK797v7H.Sjwi8J6nsMyZIKtAWsVO7VntlP9t1G7_lQ.Nq52UeieCp
- 0lb09R6k.EzeevL9amiE4itDq35YjL71VYdvwJHQzJH0lMlpqK39vNftIKkRVLeZDv53jqhZz9pB
- F4fBBRH_BZk.u79YrPUeiVpnoR3hqhtLCit6JiewR3mAwS_5.cd_bTc5K59ZgbPPTWw9mmz6YT5q
- hR77zAuvfVDYf1WkAa4zVN86MBgNN9tl2UDhlnAKfkPwxz.5eL6r4TSe.ViigS8MMKamJaCoqvDh
- hge8PrOSbtQbyDieAQV.TLUBLv0kSdUoE.DRkSW1v.sbxNMoYtIE0UGRydeDtgJCPPWGG7yZt0yZ
- Y0VRcD.i8mER_ZLyvDx8m0RAvAnIBuGMrgKDJDNFCrvkTv9Q4HX4sluYFkHgONKpE0M5b8jj7szP
- xq_CmFuEHX_4Ip3WloXAHR8mI4qmZvvKVieh0k8eDcYZhE48._Ri.u.bFwokKpLX4IntLpz2hg5_
- 4Ese1tgx1CrWI4qqRWlP.b_hiR1rfjOUU0eK0YzIeNGW48nGeRzRVeUI9SD06s9WKiqyV0pKD4Ce
- E0kDss17PM8OJGFdVzxKFl0WFjK5PAEBiMXokDnytF9Dmyn5tEK7tyTtVCSQFpHgxiRUDVnWcFH1
- JyOU7vMxVQJ9rBq6omrhI62kWoIgziIFzI1L08NyT_RJ_qvbq.JTeTp7g4hbBMoUoULHz0YsRLCw
- I5XTyPmrtelZRvXAlpKQDo_UrlT7Rm6Uq7gz0ZwvdMxL1fG2fMG.wEgnKYPd.7RmF5Crun2Pzqls
- poNalRcNlM7dvoRSpwfsZke2EHZzW0T4v3IPObjeW_nzQXlpCJog8LDfJIGrQYCKX1PDEBdtgf3O
- Pr2pqHNXprkwnugK9S1BZDSQNN1j090_ExqdZvVEK8ut4tv3zJxRPC3jssR0FspbDJYlsBMolXUs
- YLcIcG7pUCM1lyF1Yq2ZG2smQykkjdVMi_dYZG0488TXPflOlvdy4g7Dn6IiN1RiIPqyhxfpMuHU
- QCvF6OzK_uisToqLAtCDsShqt4NflKLv6arQFcGkYm2QLb1N6_vlM8IYbtWVNIZnPAR4s8hiXFXg
- u3D.b9R.LEsXy65AMvv_sQ2ZkIkSbLAi_sDOwnENgUdJC6MIqrQ1oX2JGGaRm6oGtXLhsw2pMAxk
- aVCdp4eUsjEbmNGTqWCblmHWZwkwEH1pND7PdPzHWvmNtE3R4r1dAPL.lTn54SoscY5UNsUzDG4Q
- gnCqwMqHwMdPyBjYHUgjU6YtZ4oGcmRlsxgtOdU7_yg.rCjpX6BeJiiYlERcDzL0glxM0_G..BKK
- mgemFArKIq.9CD1rOBb9mpN.rklqSfJ01HbiZgr0amafF2rCI2VB3DMG.IPxQP20pL3U1bpRfh2z
- javnaR9dbAqlDUOD2YaGoCRHozthmk115.9NueZYuK9h2DeOiqJECug12FygH1UiJgWOE_0c_kpB
- 76wDsk.ppOgEvDqCK85s8BJkWGeUs0J4FBPqCNjO_YW2VBVFja2bRJKdz8TiHhYNTXJV3mhDRPtZ
- tTdL_iWD3WicNXZkwKy1q_pkcGAnNOt3fg_8N9npv7yfO2c7vOmjmaPnyZujPoXHoid4Jy6oJwki
- uQSc90ySOEP6uZqnuWkPFiQ6U
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <1a486b6d-037e-ac54-4279-286b4ae9452e@netscape.net>
-Date: Thu, 14 Jul 2022 18:33:23 -0400
+X-Inumbo-ID: 7de4abd2-03c6-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1657838654;
+	bh=ZTNaD7TTclpn13DZH9gmDu/kVHAK0vU6nq05MFNP/OI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=OeQS1awqXop0peSKh0A2dyghSIgn/D6oI+ww24QPmvMecatn8NjCA7FnNbTxEA1a/
+	 jFfq/8eoAnF4reSH3Zx5kRBPZtq+YrIOM8HKBzJObtP2Ce3WAxlCRQiGY63uEN5Hen
+	 DXyg1enx4YljQAw7SN2WDuLqa7+SvA0Tirs62KT5LpVuYOAhBNesaRbael/3jB9R3e
+	 Ipu0Z9Ok3f1qtPoAtUizrTvfyKyZgfT1XWtlp8dlj7SLkFReNxP74nx3isQPvw2C6h
+	 h0ATw8BT5o2FV9ZpvVEjQMzburXRmJx+x+EICrJ/Hog1ZVlmG8L60Q+0d9vLU8VYyC
+	 PbhWXmyYeRo0w==
+From: SeongJae Park <sj@kernel.org>
+To: roger.pau@citrix.com
+Cc: axboe@kernel.dk,
+	boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	mheyne@amazon.de,
+	xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	SeongJae Park <sj@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xen-blkback: fix persistent grants negotiation
+Date: Thu, 14 Jul 2022 22:44:10 +0000
+Message-Id: <20220714224410.51147-1-sj@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: Ping: [PATCH] x86/PAT: have pat_enabled() properly reflect state
- when running on e.g. Xen
-Content-Language: en-US
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Jan Beulich <jbeulich@suse.com>
-Cc: lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Lutomirski <luto@kernel.org>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- the arch/x86 maintainers <x86@kernel.org>, Juergen Gross <jgross@suse.com>
-References: <9385fa60-fa5d-f559-a137-6608408f88b0@suse.com>
- <dff7bcd3-affc-9272-81e9-d686d9c997d5@suse.com>
- <8756355c-b586-3d1b-531c-72a04a8c047a@leemhuis.info>
- <05b5e672-0a1b-2d00-a879-b5127a94973f@suse.com>
- <4c8c9d4c-1c6b-8e9f-fa47-918a64898a28@leemhuis.info>
- <eda0381b-fe6d-144b-76cd-d943082d70e0@netscape.net>
-In-Reply-To: <eda0381b-fe6d-144b-76cd-d943082d70e0@netscape.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Transfer-Encoding: 8bit
 
-On 7/14/2022 1:17 PM, Chuck Zmudzinski wrote:
-> On 7/5/22 6:57 AM, Thorsten Leemhuis wrote:
-> > [CCing tglx, mingo, Boris and Juergen]
-> >
-> > On 04.07.22 14:26, Jan Beulich wrote:
-> > > On 04.07.2022 13:58, Thorsten Leemhuis wrote:
-> > >> On 25.05.22 10:55, Jan Beulich wrote:
-> > >>> On 28.04.2022 16:50, Jan Beulich wrote:
-> > >>>> The latest with commit bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT
-> > >>>> with pat_enabled()") pat_enabled() returning false (because of PAT
-> > >>>> initialization being suppressed in the absence of MTRRs being announced
-> > >>>> to be available) has become a problem: The i915 driver now fails to
-> > >>>> initialize when running PV on Xen (i915_gem_object_pin_map() is where I
-> > >>>> located the induced failure), and its error handling is flaky enough to
-> > >>>> (at least sometimes) result in a hung system.
-> > >>>>
-> > >>>> Yet even beyond that problem the keying of the use of WC mappings to
-> > >>>> pat_enabled() (see arch_can_pci_mmap_wc()) means that in particular
-> > >>>> graphics frame buffer accesses would have been quite a bit less
-> > >>>> performant than possible.
-> > >>>>
-> > >>>> Arrange for the function to return true in such environments, without
-> > >>>> undermining the rest of PAT MSR management logic considering PAT to be
-> > >>>> disabled: Specifically, no writes to the PAT MSR should occur.
-> > >>>>
-> > >>>> For the new boolean to live in .init.data, init_cache_modes() also needs
-> > >>>> moving to .init.text (where it could/should have lived already before).
-> > >>>>
-> > >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > >>>
-> > >>> The Linux kernel regression tracker is pestering me because things are
-> > >>> taking so long (effectively quoting him), and alternative proposals
-> > >>> made so far look to have more severe downsides.
-> > >>
-> > >> Has any progress been made with this patch? It afaics is meant to fix
-> > >> this regression, which ideally should have been fixed weeks ago (btw:
-> > >> adding a "Link:" tag pointing to it would be good):
-> > >> https://lore.kernel.org/regressions/YnHK1Z3o99eMXsVK@mail-itl/
-> > >>
-> > >> According to Juergen it's still needed:
-> > >> https://lore.kernel.org/lkml/c5515533-29a9-9e91-5a36-45f00f25b37b@suse.com/
-> > >>
-> > >> Or was a different solution found to fix that regression?
-> > > 
-> > > No progress and no alternatives I'm aware of.
-> >
-> > Getting closer to the point where I need to bring this to Linus
-> > attention. I hope this mail can help avoiding this.
-> >
-> > Jan, I didn't follow this closely, but do you have any idea why Dave,
-> > Luto, and Peter are ignoring this? Is reverting bdd8b6c98239 a option to
-> > get the regression fixed? Would a repost maybe help getting this rolling
-> > again?
->
-> Hi, Thorsten,
->
-> Here is a link to the hardware probe of my system which exhibits
-> a system hang before fully booting with bdd8b6c98239. Without
-> bdd8b6c98239, the problem is gone:
->
-> https://linux-hardware.org/?probe=32e615b538
->
-> Keep in mind this problem is not seen with bdd8b6c98239
-> on the bare metal, but only when running as a traditional Dom0
-> PV type guest on Xen. I don't know see the problem on Xen HVM
-> DomU, and I have not tested it on Xen PVH DomU, Xen PV DomU,
-> or the experimental Xen PVH Dom0.
+Persistent grants feature can be used only when both backend and the
+frontend supports the feature.  The feature was always supported by
+'blkback', but commit aac8a70db24b ("xen-blkback: add a parameter for
+disabling of persistent grants") has introduced a parameter for
+disabling it runtime.
 
-Update: On affected hardware, you do not need to run in a
-Xen PV Dom0 to see the regression caused by bdd8b6c98239.
+To avoid the parameter be updated while being used by 'blkback', the
+commit caches the parameter into 'vbd->feature_gnt_persistent' in
+'xen_vbd_create()', and then check if the guest also supports the
+feature and finally updates the field in 'connect_ring()'.
 
-All you need to do is run, on the bare metal, on the affected
-hardware, with the Linux kernel nopat boot option.
+However, 'connect_ring()' could be called before 'xen_vbd_create()', so
+later execution of 'xen_vbd_create()' can wrongly overwrite 'true' to
+'vbd->feature_gnt_persistent'.  As a result, 'blkback' could try to use
+'persistent grants' feature even if the guest doesn't support the
+feature.
 
-Jan mentions in his commit message the function in the i915
-driver that was touched by bdd8b6c98239 and that causes this
-regression. That is, any Intel IGD that needs to execute the
-function that Jan mentions in the commit message of his
-proposed patch when the i915 driver is setting up the graphics
-engine will most likely be hardware that is affected. My Intel
-IGD was marketed as HD Graphics 4600, I think.
+This commit fixes the issue by moving the parameter value caching to
+'xen_blkif_alloc()', which allocates the 'blkif'.  Because the struct
+embeds 'vbd' object, which will be used by 'connect_ring()' later, this
+should be called before 'connect_ring()' and therefore this should be
+the right and safe place to do the caching.
 
-So find an a system with these hardware characteristics, and
-try running, with the nopat option, the Linux kernel, with
-and without bdd8b6c98239. You will see the regression I
-am experiencing, I predict.
+Fixes: aac8a70db24b ("xen-blkback: add a parameter for disabling of persistent grants")
+Cc: <stable@vger.kernel.org> # 5.10.x
+Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
+Signed-off-by: SeongJae Park <sj@kernel.org>
+---
 
-Chuck
+Changes from v1[1]
+- Avoid the behavioral change[2]
+- Rebase on latest xen/tip/linux-next
+- Re-work by SeongJae Park <sj@kernel.org>
+- Cc stable@
 
->
-> You can probably verify yourself that reverting bdd8b6c98239
-> fixes the regression if you try to reproduce the regression with
-> any Linux version that has bdd8b6c98239 or its equivalent on
-> the stable branches with a hardware profile similar to the link
-> to the profile of my machine which exhibits the problem. Mine
-> is a Haswell core-i5 4590S CPU and ASRock B85M-Pro4
-> motherboard.
->
-> Also, other notes:
->
-> 1. Yes, AFAICT, Marek at Qubes OS is the first to report the problem.
-> 2. Juergen Gross' work to try to fix this has been helpful, but none
-> of his posted patches has fixed the regression on my system.
-> 3. Jan's patch fixes it also, and so do the two patches I posted to lkml
-> earlier this week to the appropriate maintainers.
-> 4. On the pkg-xen-devel mailing list, which is public, this issue was
-> briefly discussed where I first reported it. Someone there said they
-> did not see the issue with Broadwell Xeons. Mine is a Haswell core i5,
-> which is one generation older than Broadwell, so you are most likely
-> to be able to reproduce the problem with a Haswell core i5 desktop
-> system like my ASRock system, which was my own private build
-> which has been working fine for eight years until Linux 5.17.y.
->
-> Hope this helps.
->
-> Chuck
->
-> > BTW, for anyone new to this, Jan's patch afaics is supposed to fix the
-> > regression reported here:
-> > https://lore.kernel.org/all/YnHK1Z3o99eMXsVK@mail-itl/
-> >
-> > Side note: Juergen Gross recently posted related patches in this code
-> > area to fix some other problems (regressions?), but his efforts look
-> > stalled, too:
-> > https://lore.kernel.org/all/ddb0cc0d-cefc-4f33-23f8-3a94c7c51a49@suse.com/
-> >
-> > And he recently stated this Jan's patch is still needed, even if his
-> > changes make it in.
-> > https://lore.kernel.org/all/c5515533-29a9-9e91-5a36-45f00f25b37b@suse.com/
-> >
-> > This from my point all looks a bit... unsatisfying. :-/
-> >
-> > Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
-> >
-> > P.S.: As the Linux kernel's regression tracker I deal with a lot of
-> > reports and sometimes miss something important when writing mails like
-> > this. If that's the case here, don't hesitate to tell me in a public
-> > reply, it's in everyone's interest to set the public record straight.
->
+[1] https://lore.kernel.org/xen-devel/20220106091013.126076-1-mheyne@amazon.de/
+[2] https://lore.kernel.org/xen-devel/20220121102309.27802-1-sj@kernel.org/
 
+ drivers/block/xen-blkback/xenbus.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
+index 97de13b14175..16c6785d260c 100644
+--- a/drivers/block/xen-blkback/xenbus.c
++++ b/drivers/block/xen-blkback/xenbus.c
+@@ -157,6 +157,11 @@ static int xen_blkif_alloc_rings(struct xen_blkif *blkif)
+ 	return 0;
+ }
+ 
++/* Enable the persistent grants feature. */
++static bool feature_persistent = true;
++module_param(feature_persistent, bool, 0644);
++MODULE_PARM_DESC(feature_persistent, "Enables the persistent grants feature");
++
+ static struct xen_blkif *xen_blkif_alloc(domid_t domid)
+ {
+ 	struct xen_blkif *blkif;
+@@ -181,6 +186,8 @@ static struct xen_blkif *xen_blkif_alloc(domid_t domid)
+ 	__module_get(THIS_MODULE);
+ 	INIT_WORK(&blkif->free_work, xen_blkif_deferred_free);
+ 
++	blkif->vbd.feature_gnt_persistent = feature_persistent;
++
+ 	return blkif;
+ }
+ 
+@@ -472,12 +479,6 @@ static void xen_vbd_free(struct xen_vbd *vbd)
+ 	vbd->bdev = NULL;
+ }
+ 
+-/* Enable the persistent grants feature. */
+-static bool feature_persistent = true;
+-module_param(feature_persistent, bool, 0644);
+-MODULE_PARM_DESC(feature_persistent,
+-		"Enables the persistent grants feature");
+-
+ static int xen_vbd_create(struct xen_blkif *blkif, blkif_vdev_t handle,
+ 			  unsigned major, unsigned minor, int readonly,
+ 			  int cdrom)
+@@ -520,8 +521,6 @@ static int xen_vbd_create(struct xen_blkif *blkif, blkif_vdev_t handle,
+ 	if (bdev_max_secure_erase_sectors(bdev))
+ 		vbd->discard_secure = true;
+ 
+-	vbd->feature_gnt_persistent = feature_persistent;
+-
+ 	pr_debug("Successful creation of handle=%04x (dom=%u)\n",
+ 		handle, blkif->domid);
+ 	return 0;
+-- 
+2.25.1
 
 
