@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07CB5576672
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jul 2022 19:56:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.368434.599720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0E0457668C
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Jul 2022 20:10:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.368453.599741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oCPXi-00077p-Tj; Fri, 15 Jul 2022 17:55:58 +0000
+	id 1oCPlN-0002MJ-E1; Fri, 15 Jul 2022 18:10:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 368434.599720; Fri, 15 Jul 2022 17:55:58 +0000
+Received: by outflank-mailman (output) from mailman id 368453.599741; Fri, 15 Jul 2022 18:10:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oCPXi-00074j-Qb; Fri, 15 Jul 2022 17:55:58 +0000
-Received: by outflank-mailman (input) for mailman id 368434;
- Fri, 15 Jul 2022 17:55:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oCPlN-0002Iq-Al; Fri, 15 Jul 2022 18:10:05 +0000
+Received: by outflank-mailman (input) for mailman id 368453;
+ Fri, 15 Jul 2022 18:10:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tST6=XU=kernel.org=sj@srs-se1.protection.inumbo.net>)
- id 1oCPXi-0006sk-2C
- for xen-devel@lists.xenproject.org; Fri, 15 Jul 2022 17:55:58 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 600a1b96-0467-11ed-bd2d-47488cf2e6aa;
- Fri, 15 Jul 2022 19:55:56 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6C364622BC;
- Fri, 15 Jul 2022 17:55:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73DBC341C6;
- Fri, 15 Jul 2022 17:55:53 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1oCPlL-00025E-Rw
+ for xen-devel@lists.xenproject.org; Fri, 15 Jul 2022 18:10:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oCPlL-0002Un-Ii; Fri, 15 Jul 2022 18:10:03 +0000
+Received: from [54.239.6.188] (helo=[192.168.17.116])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oCPlL-0002md-Bu; Fri, 15 Jul 2022 18:10:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,86 +39,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 600a1b96-0467-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1657907754;
-	bh=glq1x5HjisMX5ci0YsvyB4Ygu//43duXbX0NbnuWshE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hwiOW9YiIbTCMdE0Tf/wDkTu2UsIH14atZA/yHy8G06FnwGKtOvtYIp7JmSM860P4
-	 m+G2KTFISLmBB0n/oEn8K3iH1lIn6aH1fWMLr7ww7PITjexJM6W7ZiuqU1DabSZBq6
-	 ZkcjxYbTGCjxLiP6g/cFeKH/FkCdsABIN2KAKfZMBEOIvPbq2P2UCQEPLEtUiPMz9J
-	 bLjFGcCRLmlNFaclKw6IP4+80g51MAYkepMQwlXy4XO8/e3VSueMCLT0xHfCpQw5WP
-	 8V1Pa5gDFUAvwHJgrms8TjifJPJ4u8v1dljABKadLQRH9bMyMnHIve039sDnxUTegP
-	 cIcw+eyH/Bk9A==
-From: SeongJae Park <sj@kernel.org>
-To: roger.pau@citrix.com
-Cc: axboe@kernel.dk,
-	boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	olekstysh@gmail.com,
-	andrii.chepurnyi82@gmail.com,
-	mheyne@amazon.de,
-	xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	SeongJae Park <sj@kernel.org>
-Subject: [PATCH 2/2] xen-blkfront: Apply 'feature_persistent' parameter when connect
-Date: Fri, 15 Jul 2022 17:55:21 +0000
-Message-Id: <20220715175521.126649-3-sj@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220715175521.126649-1-sj@kernel.org>
-References: <20220715175521.126649-1-sj@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=0dq+NPThF+RlX1bDPiXVFdfGt6qqMAkPqDf4Cr73lIk=; b=il5ytrRZ3EsxlBO41OJc62gmnJ
+	KXWFyXBFomzzeeeyFQRc4VajTHf6KovzxTjDb/+AigIpFtbass/L5X9CBvkdxCPWCXxcEbo1VSuRB
+	5s3TmMNenn5ZDKJokLFBnMqTiVYflBcuc7ZxeWWZj94o/PCmGcoNY547EwxS1yspB+2Q=;
+Message-ID: <eb483210-9f6c-9177-4e96-d87fb4ff9d1b@xen.org>
+Date: Fri, 15 Jul 2022 19:10:01 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.11.0
+Subject: Re: [PATCH v5 1/8] xen/arm: introduce static shared memory
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220620051114.210118-1-Penny.Zheng@arm.com>
+ <20220620051114.210118-2-Penny.Zheng@arm.com>
+ <45a41132-1520-a894-a9eb-6688c79a660d@xen.org>
+ <DU2PR08MB7325E703004D3BB160C2CF50F7BB9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <DU2PR08MB7325E703004D3BB160C2CF50F7BB9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Previous commit made xen-blkback's 'feature_persistent' parameter to
-make effect for not only newly created backends but also for every
-reconnected backends.  This commit makes xen-blkfront's counterpart
-parameter to works in same manner and update the document to avoid any
-confusion due to inconsistent behavior of same-named parameters.
+Hi Penny,
 
-Cc: <stable@vger.kernel.org> # 5.10.x
-Signed-off-by: SeongJae Park <sj@kernel.org>
----
- Documentation/ABI/testing/sysfs-driver-xen-blkfront | 2 +-
- drivers/block/xen-blkfront.c                        | 4 +---
- 2 files changed, 2 insertions(+), 4 deletions(-)
+On 29/06/2022 09:39, Penny Zheng wrote:
+>>> +    for ( i = 0; i < mem->nr_banks; i++ )
+>>> +    {
+>>> +        /*
+>>> +         * A static shared memory region could be shared between multiple
+>>> +         * domains.
+>>> +         */
+>>> +        if ( paddr == mem->bank[i].start && size == mem->bank[i].size )
+>>> +            break;
+> 
+> Maybe I need to add a check on shm-id:
+> "
+>          /*
+>           * A static shared memory region could be shared between multiple
+>           * domains.
+>           */
+>          if ( strcmp(shm_id, mem->bank[i].shm_id) == 0 )
+>          {
+>              if ( paddr == mem->bank[i].start && size == mem->bank[i].size )
+>                  break;
+>              else
+>              {
+>                  printk("Warning: xen,shm-id %s does not match for all the nodes using the same region.\n",
+>                         shm_id);
+>                  return -EINVAL;
+>              }
+>          }
+> "
+> Wdyt？
 
-diff --git a/Documentation/ABI/testing/sysfs-driver-xen-blkfront b/Documentation/ABI/testing/sysfs-driver-xen-blkfront
-index 7f646c58832e..4d36c5a10546 100644
---- a/Documentation/ABI/testing/sysfs-driver-xen-blkfront
-+++ b/Documentation/ABI/testing/sysfs-driver-xen-blkfront
-@@ -15,5 +15,5 @@ KernelVersion:  5.10
- Contact:        Maximilian Heyne <mheyne@amazon.de>
- Description:
-                 Whether to enable the persistent grants feature or not.  Note
--                that this option only takes effect on newly created frontends.
-+                that this option only takes effect on newly connected frontends.
-                 The default is Y (enable).
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 3646c0cae672..4e763701b372 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -1988,8 +1988,6 @@ static int blkfront_probe(struct xenbus_device *dev,
- 	info->vdevice = vdevice;
- 	info->connected = BLKIF_STATE_DISCONNECTED;
- 
--	info->feature_persistent = feature_persistent;
--
- 	/* Front end dir is a number, which is used as the id. */
- 	info->handle = simple_strtoul(strrchr(dev->nodename, '/')+1, NULL, 0);
- 	dev_set_drvdata(&dev->dev, info);
-@@ -2283,7 +2281,7 @@ static void blkfront_gather_backend_features(struct blkfront_info *info)
- 	if (xenbus_read_unsigned(info->xbdev->otherend, "feature-discard", 0))
- 		blkfront_setup_discard(info);
- 
--	if (info->feature_persistent)
-+	if (feature_persistent)
- 		info->feature_persistent =
- 			!!xenbus_read_unsigned(info->xbdev->otherend,
- 					       "feature-persistent", 0);
+AFAICT, this would allow to region to overlap if they have different shm 
+ID. I am not entirely sure the rest of your code would work properly in 
+this case (what if the owner is different).
+
+So I think we need the following checks:
+   1) The shm ID matches *and* the region exactly match
+   2) The shm ID doesn't match and the region doesn't overlap with an 
+existing one
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
