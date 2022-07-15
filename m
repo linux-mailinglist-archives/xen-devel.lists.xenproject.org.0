@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4675E57682C
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Jul 2022 22:35:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.368558.599908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9647C5769C7
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Jul 2022 00:17:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.368567.599918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oCS0y-0003ou-QH; Fri, 15 Jul 2022 20:34:20 +0000
+	id 1oCTbw-0000GY-2s; Fri, 15 Jul 2022 22:16:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 368558.599908; Fri, 15 Jul 2022 20:34:20 +0000
+Received: by outflank-mailman (output) from mailman id 368567.599918; Fri, 15 Jul 2022 22:16:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oCS0y-0003m8-M1; Fri, 15 Jul 2022 20:34:20 +0000
-Received: by outflank-mailman (input) for mailman id 368558;
- Fri, 15 Jul 2022 20:34:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oCTbv-0000Dx-VT; Fri, 15 Jul 2022 22:16:35 +0000
+Received: by outflank-mailman (input) for mailman id 368567;
+ Fri, 15 Jul 2022 22:16:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oCS0w-0003ly-PJ; Fri, 15 Jul 2022 20:34:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oCS0w-00056T-Lh; Fri, 15 Jul 2022 20:34:18 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oCS0w-0006z2-7p; Fri, 15 Jul 2022 20:34:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oCS0w-00007P-7N; Fri, 15 Jul 2022 20:34:18 +0000
+ (envelope-from <SRS0=tST6=XU=kernel.org=sj@srs-se1.protection.inumbo.net>)
+ id 1oCTbu-00004w-9K
+ for xen-devel@lists.xenproject.org; Fri, 15 Jul 2022 22:16:34 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8254f1c-048b-11ed-924f-1f966e50362f;
+ Sat, 16 Jul 2022 00:16:32 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A52C1B82EB3;
+ Fri, 15 Jul 2022 22:16:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C99AC34115;
+ Fri, 15 Jul 2022 22:16:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +43,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=oCI+LDB8NPljwIykIdWwPtWHKwKqYT/MK9O3xXpFE/c=; b=DT0HvJFYc3ZfM3V5errIZwewBT
-	sLjx/HA8im4miHUiTh95ouo8zf2YQOCG3yZfOs1D/s3n1Dzh/ntlwO30cOIggheVWA6IduLXsuUqk
-	6sxKgNz5yI5WyztPZU9cbERND5n4r9Yl8gOQ8RKHY7mo211PtjtQ/kQqcCSUAq0bXXh8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171645-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c8254f1c-048b-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1657923390;
+	bh=5/bcyrjFpp5Iuv4UCuUwJcz8BDDH3Jj7t4EoceoC5iE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=NvfK/jLzTa/S0wO9Yu7D5Jj5Fqj2YFjk1gi1svN5MtA8ehbFBJQc2RMO9X4ScthVs
+	 QsizMcGJn7zk4W0Q3qGAkYt5Xj7DUH3MiVecJWCNDWVTicNQBpujr5kpgNbSeEotZJ
+	 OL7a0dy1v8P4oiwQ2lzX1fSSWGN5aJz9TvIhxB8GxpoV6utwwratBETIkCoPtKgB8G
+	 zgF1NCIytZlL2WQlSg6UoeibjYVBrB6HeYMze2quwYG0Tc0fnlsZ57dLrUSVvRgN9V
+	 m/k5ebjsanBpcE15qxEz7qp7QPV+iB5uoCnQDAXTMlzemLomd7+ODKbJzYMRAGSxkc
+	 peojgDaJNTxsQ==
+From: SeongJae Park <sj@kernel.org>
+To: SeongJae Park <sj@kernel.org>
+Cc: roger.pau@citrix.com,
+	axboe@kernel.dk,
+	boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	olekstysh@gmail.com,
+	andrii.chepurnyi82@gmail.com,
+	mheyne@amazon.de,
+	xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] Fix persistent grants negotiation with a behavior change
+Date: Fri, 15 Jul 2022 22:16:27 +0000
+Message-Id: <20220715221627.127648-1-sj@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220715181226.126714-1-sj@kernel.org>
+References: 
 MIME-Version: 1.0
-Subject: [ovmf test] 171645: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=0d23c447d6f574cbe511414b70df14119099c70f
-X-Osstest-Versions-That:
-    ovmf=470206ba7f118aaa1153d66689cf3ee4d17051b7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 15 Jul 2022 20:34:18 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 171645 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171645/
+Hi all,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 0d23c447d6f574cbe511414b70df14119099c70f
-baseline version:
- ovmf                 470206ba7f118aaa1153d66689cf3ee4d17051b7
+On Fri, 15 Jul 2022 18:12:26 +0000 SeongJae Park <sj@kernel.org> wrote:
 
-Last test of basis   171633  2022-07-14 18:41:54 Z    1 days
-Testing same since   171645  2022-07-15 18:11:45 Z    0 days    1 attempts
+> Hi all,
+> 
+> On Fri, 15 Jul 2022 17:55:19 +0000 SeongJae Park <sj@kernel.org> wrote:
+> 
+> > The first patch of this patchset fixes 'feature_persistent' parameter
+> > handling in 'blkback' to respect the frontend's persistent grants
+> > support always.  The fix makes a behavioral change, so the second patch
+> > makes the counterpart of 'blkfront' to consistently follow the behavior
+> > change.
+> 
+> I made the behavior change as requested by Andrii[1].  I therefore made similar
+> behavior change to blkfront and Cc-ed stable for the second change, too.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Sami Mujawar <sami.mujawar@arm.com>
+Now I realize that commit aac8a70db24b ("xen-blkback: add a parameter for
+disabling of persistent grants") introduced two issues.  One is what Max
+reported with his patch, and the second one is unintended behavioral change
+that broke Andrii's use case.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+That is, Andrii's use case should had no problem at all before the introduction
+of 'feature_persistent', as at that time 'blkback' checked if the frontend
+support the persistent grants for every 'reconnect()' and enables it if so.
+However, introduction of the parameter made it behaves differently.
 
+Yes, we intended to make the prameter to make effects to newly created devices.
+But, as it breaks user workflows, this should be fixed.  Same for the
+'blkfront' side 'feature_persistent'.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> 
+> To make the change history clear and reduce the stable side overhead, however,
+> it might be better to apply the v2, which don't make behavior change but only
+> fix the issue, Cc stable@ for it, make the behavior change commits for both
+> blkback and blkfront, update the documents, and don't Cc stable@ for the
+> behavior change and documents update commits.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+I'd say having one patch for each issue would be the right way to go, and all
+fixes should Cc stable@.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> 
+> One downside of that would be that it will make a behavioral difference in
+> pre-5.19.x and post-5.19.x.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+The unintended behavioral fix should also be considered fix and therefore
+should be merged into stable@, so above concern is not valid.
+
+I will send the next spin soon.
 
 
-Pushing revision :
+Thanks,
+SJ
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   470206ba7f..0d23c447d6  0d23c447d6f574cbe511414b70df14119099c70f -> xen-tested-master
+[...]
 
