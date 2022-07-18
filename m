@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD065577DD9
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 10:48:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.369385.600773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5968577DFF
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 10:53:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.369391.600785 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDMPn-0007mL-6B; Mon, 18 Jul 2022 08:47:43 +0000
+	id 1oDMV4-0000kQ-NH; Mon, 18 Jul 2022 08:53:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 369385.600773; Mon, 18 Jul 2022 08:47:43 +0000
+Received: by outflank-mailman (output) from mailman id 369391.600785; Mon, 18 Jul 2022 08:53:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDMPn-0007jg-3L; Mon, 18 Jul 2022 08:47:43 +0000
-Received: by outflank-mailman (input) for mailman id 369385;
- Mon, 18 Jul 2022 08:47:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oDMV4-0000i1-JJ; Mon, 18 Jul 2022 08:53:10 +0000
+Received: by outflank-mailman (input) for mailman id 369391;
+ Mon, 18 Jul 2022 08:53:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pu44=XX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oDMPl-0007ja-IS
- for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 08:47:41 +0000
+ id 1oDMV3-0000hv-CB
+ for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 08:53:09 +0000
 Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20088.outbound.protection.outlook.com [40.107.2.88])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47f8c078-0676-11ed-bd2d-47488cf2e6aa;
- Mon, 18 Jul 2022 10:47:40 +0200 (CEST)
+ (mail-eopbgr20065.outbound.protection.outlook.com [40.107.2.65])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0aed69c1-0677-11ed-924f-1f966e50362f;
+ Mon, 18 Jul 2022 10:53:07 +0200 (CEST)
 Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
- by HE1PR0401MB2476.eurprd04.prod.outlook.com (2603:10a6:3:83::7) with
+ by AM6PR04MB4744.eurprd04.prod.outlook.com (2603:10a6:20b:5::30) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23; Mon, 18 Jul
- 2022 08:47:37 +0000
+ 2022 08:53:05 +0000
 Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
  ([fe80::dd30:2cbc:361d:2d1e]) by AM6PR04MB6551.eurprd04.prod.outlook.com
  ([fe80::dd30:2cbc:361d:2d1e%6]) with mapi id 15.20.5438.023; Mon, 18 Jul 2022
- 08:47:37 +0000
+ 08:53:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,128 +46,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47f8c078-0676-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: 0aed69c1-0677-11ed-924f-1f966e50362f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iWiqeX7Hb3ZWJkPs+chvXDZjCUgh5mxomnmtdbzc8Vh54ZgU8pkMV0VRO5ME6turwmDVoKwSTemICYDfIzNelly64uRIoe8NcUTeag/W0OdKkDE6l+SAj0yUIaLtzOnIHjjBEM4LRPYpN3hAn4litsyUXFOaMUWjYKJKeuKdjBnCaj9OKCTFb36NRqpjuK1JUjml8By1uJnIBrS2RBurtD6iO1V3bbuc6odUqgtbS3gELF1PnFHZVQvoDajSpYWn/sFnvQVYV6RqoAIZbQ84nTl5jMgbTrL5yp7xBRIYeeUdrgLXsyyTJEaPBdVsOYvm+dbuCwuTEyx50jFoKJ2W6Q==
+ b=XLONbPqdlWFHOSxLA7AynVTqXld0PKK/j/EWWsBiFmn7GUVXFYlYL0y8vdjo88fnqoBQDSRDU3IYBqtwEOUbu7/E7w/X6cJ7QDN7ZgBFK11otA7I5MVOJgTGXvi+fZpR/JUK7+i7jLYCgVglrfOQlGAs4OqB3yPJDZ4XDmypiUIR6R11tvwhsVBMuPumeJpV7St3YSJRc7u57/EOkvYxDJ0hgu+LoVxqYWmK3dDSIo6lUkTWsctc2XMuEl3lFbOQE/4rnGdmvuSlBe8AuExC3+91c3Na/gAIg41ouroc9v4pBfjSAxk2Jc4ZudsUNZCij6r3U3MsLeCVoaOXzlfaww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uvsjDqGL2BujawmzknEtMFgCpnNttGWLdgUDtHSTwH4=;
- b=RT3LQwoGME3AgwiLjm6p4A17fqYTIpC+IdCxBL3ZwCIpzbB5BKhUq5+ZpjcAjV0ls/xqb4wRxDjyAdU089tjJW+GAzCTZW4MMxDtknv+8LA8CCjjl8JksdCXP6GRZ/mB8x0/92IZFgl67FJ65DVsT2DfQ5k+JF9DRzXfONVe18kCp/HEaAu9QoPs3VDEZ2pqJcCHAKN/U4kl06XoLYuswJS5WpfE/4PUuLEcvukFdaAtDhzmhcyfbLLl13uUqr4TMPOQtCc744Ld0+yJTTmiOrObSVoCAqlQoITekuWNlVWP1bW89CH/iPh3X0X3maTTdc+84WY6kC8muJyQIWlBLg==
+ bh=0y4NpEPVsh+0hDEh+toso5RpkSjt5rwTlUb0rw6Z14I=;
+ b=FohFFHDNxV3qnNQ1Zs39R86Yito7KQ6fiebiI1mBEITL125ypzvv2VoI6Rkq6DGtMICVkndMpLTiOMMO5CcSXCe7DQLwp/taJe3Tc+hhveSVa1FRRkLFd07O7Y67Ce4QGouZc8AzScXvNtX+/ub8kUJnHkhNhM9jnSDkjlvOmq+YB6wEoN/QmVBkGmr/VnhXefshl400A41l88nnLE+20yYhnHtdV0HsuM9yAi1Las2JrOlaQMvBQrBasKRQBRSnFi0+bngxZwW6EP6pHCCHKccXJCXK0gjLbyaYfAITuL6wgyXAADsuj+Wkkk/hf8o0ypdqdunyUh5igUhraYMFnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uvsjDqGL2BujawmzknEtMFgCpnNttGWLdgUDtHSTwH4=;
- b=MyVaek/O+8lNfo6KyQd7xj7JTWzgSPnI5vhoZ0p3G0Ajeyway1tJ2GDtYbS84OgEVl59v2lQ9xDtdDRD6KMDKnWwJVHS7H8fBptEVsqzWb8USoXC0tTXMdfIN9eKoBVlvlDN9kqPUdxPY34yFeYR55kTp6160jT9bnmGcFC+9TtwE59c09Iok5n1kJdMQCVlBkeKnSP34ENuT1vmfigfkL1KXFsF21HUL112dIQ+fnoUNFL2g8nfuYA91qCb8X191xn6UAG3tvnhMsiumqYDUSMK6/DGgBKjfbWsglfu4/ohdIv7yJQerxGb0JQwrTtn0bqcTcBNn2rFyZXCfaA0zw==
+ bh=0y4NpEPVsh+0hDEh+toso5RpkSjt5rwTlUb0rw6Z14I=;
+ b=d6f0usFZSIx7L0bgb4lkvvEzthVWD1Xi+9TDu0E1AsIh+yqCoiVjn6Q/MZlNwC8aCKYoXNZEX7CbxCmO+nYWL3gEff3TZ9QlIC9alcgZeGRLJtjjCfRTyytvewDpjqp7FCA9g/lYunIMdeBM3Fw4mTkoC4LJ2gaGnqDOiEzkfnOTb82/dTRUWzwlVr4BD8fTYvrDbMBm3J2H2exTiaXf9LS+d1ejbLIRCJXaKljSttNiGmZp5sVk7qax/LO6l8tht90JVHdABBUHzg3dduKIPQWz2fzmocI/olEZJXB+d01w8bV//ri6gDlUdZ4xrDmrdR3IzbdfQkHBiLt7lr00jw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <48d5cdc0-3937-a5f5-5c0e-a0eee90342f3@suse.com>
-Date: Mon, 18 Jul 2022 10:47:38 +0200
+Message-ID: <1ab92b5d-a908-8027-fb64-51e95d08c727@suse.com>
+Date: Mon, 18 Jul 2022 10:53:05 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH 4/7] xen/arm: mm: Add more ASSERT() in {destroy,
- modify}_xen_mappings()
+Subject: Re: [PATCH V7 2/2] xen/gnttab: Store frame GFN in struct page_info on
+ Arm
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <20220624091146.35716-1-julien@xen.org>
- <20220624091146.35716-5-julien@xen.org>
- <5CD19BFD-62C6-4409-A5A9-675D8F5FF795@arm.com>
- <8c6a788c-ccb9-fc5c-fdf6-870540eed722@xen.org>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+References: <20220716145658.4175730-1-olekstysh@gmail.com>
+ <20220716145658.4175730-2-olekstysh@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <8c6a788c-ccb9-fc5c-fdf6-870540eed722@xen.org>
+In-Reply-To: <20220716145658.4175730-2-olekstysh@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0122.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::6) To AM6PR04MB6551.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0067.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::21) To AM6PR04MB6551.eurprd04.prod.outlook.com
  (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dcfad578-af38-40e3-81f1-08da689a2aa3
-X-MS-TrafficTypeDiagnostic: HE1PR0401MB2476:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d046c35-de49-4168-dff6-08da689aedb5
+X-MS-TrafficTypeDiagnostic: AM6PR04MB4744:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	AQrrAYBSQQWWgIpsrNWe6DL/VtXzL69W2y9kZdNL9UZ3nt7bFn9aIhFpVEAwxLHDR03aHBj/wv8eRZiuG+eCa0vOxUxrpn/SZ9IPVCegSlBGXwkMSplJl3W1pvuGCUqrD5qFk6tROhmVbCk7nUOiyo+mNdmhRmaHVmQIy5MpEx48CAJbgO+oDY0Ro4nbZjSZd2EWSYEcnv4N7ct/aiXZ4VO00l+4mGjIm4zQlaCD7ZbyHRvgb8kJVRHcLpDzqPu4RkFU6hXie9dp5gCayCQU6WYu7vTWm8fQWIW2ufIerVy6+RPYOJmENzyoKVglYRe3qyVOKW1Zz795mNbcFB8AlUfFitIxqBWQBcdWdl4cUmSPsJJUVtQbZ/K2Y5dMBnXpNi9KW1NB0j5COOQ3YOMMLQFOKnpZIo5kVhYikp6V1f4xMX7durRwXeonusLfggsaLw6ZV+ea0oXly9vu8RJoO7vvK9W4BLWzXAfZ7LGiiW9dXD75mszPRhIeYbBfKcikFymMEaQZvYTLb6CljSi1Pex8IHb9IoT6KpJjhOpooGqGKqJll0dZFZs0/qysUmaSNc9G859EoNrWL6IY3idG5qboG4c7xtX9tJ6OeZA0JTOaB19oJkGElAYQeCQiWCx4/8ZpENQQCfHjAGV3NSYcPHJN7D8XXcOr6rLl8PMNdcnvtf6H13uPnT5k7ERHuWXj2gXKm0XgJ0hWf3oprFqj5ibokn9g06v3eIHEZmZGDeJjP4UMPSAO+2hMOCmix8B79Ggstey1lMrR/dtuctsOPdINNfFWDmN+PRD/wpmW3UvNxTc6hypyqTTy+3mrSzMQNbtYpgKxY3uxsmLCndiqmg==
+	94/kvKrJNBgeJap2hlfSna3gM8WNPwiQxJTsGc2fKpmagtG0KQSogUtFfs47+CNNTWrExF5Wcyp2CvXok3i1bxqIOqklg1X0EmH4tB3h6HR1jbmAWlRjBG/mY7SbIUoF9Fd2SH4ppthsD/LcZ91lXyksYR7vFTLl7cEoj/K03x9PUeKWYJzucllY6BKX8PKAXmIp+0GTORmVRvQsOoUUZda3QYkNO90jJQHY4YVGQde+Dj+CMbUmqj0EiPVeUKFyPjKuDq9TnUpQ6TKiaS5x/BN2UmzaJO14mPxM2UKIkTS51k4LRccsQ2E2hKMmyTyANCq6tvMS0ici/qTJRTo0R2IGZ/w2UnrfRBYy40qAQ88a4mhAgDiiSXJ6OChR1ywEltdSi3KuducpEIKwK5SxTGkmfIIfyvwMC+rLyFFoH58LXXD2D04xYOSnn6DsqeT9ruyYOkMIbaQz/KAGH9r3KnKmIAFQnjqs3YzMFxVIdyuyT1JAtX3z7Y7kPFOBEZOqT023WvLtqhUKvZzReoBRCNuPSsq1rLNs+2diXNGxpfDr4ByVFwtPRFxAtyk4jtVmplQshQfS1gc12oFbgQ6aL+LYTtpHhk+YG3Y9hDlMXIt97Vfe0sF1wzeY2WHnQze+Qi7v8EoDcPB7lum6KXz7oacQ5B2kPcoDn+gYTttP2edqMqRDi2QaFXoSpUGdMGOMbwbarMBF1kwTrPadOpfzAlrd6Mu+6auYQ1J+oSdxUCzQoj3Z6zfZxU/HPz5e+ec3XI6jKansVJDW7+1g9tSKxBDax/AVfOL6mlhY38wUApsmlpVBZi3clm0SZpfLn56S8l2MoKAmBjNGdk6Iz94ffe9yliDXI/Dp/DEImZ1SOAs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(396003)(366004)(346002)(39860400002)(376002)(83380400001)(4744005)(186003)(6512007)(2906002)(26005)(41300700001)(86362001)(53546011)(6506007)(478600001)(6486002)(2616005)(8936002)(5660300002)(31696002)(38100700002)(6916009)(54906003)(316002)(31686004)(36756003)(66476007)(66946007)(66556008)(4326008)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(39860400002)(366004)(346002)(396003)(376002)(31696002)(86362001)(41300700001)(53546011)(478600001)(6506007)(6512007)(26005)(36756003)(31686004)(83380400001)(186003)(316002)(54906003)(6916009)(2616005)(6486002)(8676002)(4326008)(2906002)(8936002)(7416002)(5660300002)(66476007)(66556008)(66946007)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UGx0TXdNSW5DNG96STJGL1dIQXVrVGM4Mld0K1cxSGJtUmhadUZ1elhDMmZv?=
- =?utf-8?B?YXA3aGpkWnZTZDMzdHRPUUlmZG1Ya1dFSUUyRUh4Qi9ubENEai9Id2RaaUFZ?=
- =?utf-8?B?a3VuNTJEZEVTZlljOWg0dmZiZEhXYTEwbXZSd0tNVDVFTktnUjdnNkxWQ245?=
- =?utf-8?B?N3ZNdm1EcjlPcEFuYitIcUw0Rk9Mc01qa016eFZZbDFSTWpaTTFvdVgrWU9P?=
- =?utf-8?B?RjVqV2FWc2I4aDJGNUZvWnhjMTZBRHZ6MDFwcG54WERVczFDMjFvdFY5U0Vv?=
- =?utf-8?B?U1ZnbW1FckpGRitXZndVRnBUdm4yQzk0L25ZcS9iMjBvSFovREk0YVpNWHpa?=
- =?utf-8?B?OUltTFl5Z00vdXFQSk1yTnBnV25FU0VxazdyOVo3VDFnSlV0Q3p4Tm9TaUp5?=
- =?utf-8?B?Z0g1KzRLdkNIZEJ5bllTTE40Z29zT1VUeHlScWF0anIzcVlKUWdaSmh3eDBS?=
- =?utf-8?B?dkpZak1KcG0zNjVRRGh0Yis4ekNtNW9GN0RzbnRUZS9zcXVHcFpTRE9zQWNW?=
- =?utf-8?B?eXJoR1BSVjc3M0lmcC9rK0xxQjlmMGNlMW8ySWthcEdiWFRFQ2s5SWRFUDVM?=
- =?utf-8?B?eUhNVEFkVFBKQTBaamtuV0swQlpaV011WHRWYStqeUlieXQxb0hVQ1dwMlUw?=
- =?utf-8?B?SjI0bU5KRm5UZk5IR3NBZ0xPeXVDOFh6RmRDU3ZvV0hkUENxemVSS1lQQjh2?=
- =?utf-8?B?RDFNTzh5Y3BFSkxtRzY4SkJUWnNSbTdYRDIvWVgzeDVYOTNQWmZtWUpRV0ZY?=
- =?utf-8?B?WW1EWW1Nc3ZOelZPakNGTGxQWkpXRUd6K0ZEL1UxZXREOXBBK1ZCTThGaFRX?=
- =?utf-8?B?akFJRkZzSGIyMndpbDdwSHQ2UlZ2T2FKSDBLeUx0akhMTG51cyswUzBaMHp2?=
- =?utf-8?B?ckN6NEZ4ZklrQnZXRlFlb1Z3RVhsMUp2TTgzei9hOS9aSzZPSlVYcGxaZm0v?=
- =?utf-8?B?MUZPTW1kMFoxSjMyd25pUEExVll6M1JYdnRPQUtpdnZrTDZ0MEZZQWhZelp6?=
- =?utf-8?B?YjVidkFTMVNML2dQckswU2V6VEg1UXA1a3dzK003UTlCRFNWMFpreTFJN1JQ?=
- =?utf-8?B?S3MvSS9tS1NSZUhrd2FMMVl4ZnRKazRIOWxhTDU2TmZXT0dLTitkVnhlVnk0?=
- =?utf-8?B?N3FNaXpYREVHclBtL3RYTzQvRWtCdUkxeEEzNEJPbW04T3M1eWdNRERQUGpj?=
- =?utf-8?B?Y2tiMWVnQUNrMThIdUlyRkVXL1JKT1hQcjFQV1ErL2NZWmQ4ZDJrbFRxZENW?=
- =?utf-8?B?VXFxTzhhQzlkbHhlWXFETmxpMGZ1TWdMbldSQmErbS9YQUx6Q1YvUFk4TnF5?=
- =?utf-8?B?T2FNTFJQN0pzTjViY0wxVmtwQU1BcnpyUXpyVEFBaUhCa2RsWGoyaThLOEVs?=
- =?utf-8?B?dTdHdzR4VnpDWU1paUxnbkc1aXRWbGU0UGM0MGlBdWc4dk56SzRORWp5SWZp?=
- =?utf-8?B?cjQ1ZW9xQ1NaNHU1cVJGTVl4dExNbEhzSklTV3ptUzVPREpHRVNiVzZPM2c3?=
- =?utf-8?B?aWdaQ25RbkJzanNrMDl0LzVOYVdoQ2hMMStKVFgxNldFbWs0Rjc4cWRqWHpC?=
- =?utf-8?B?VHVaR2J5d09xKzhXcGcrTnJLdDEwNjBzOUpDbFBQaloxWUM3TDIzUElwMDVN?=
- =?utf-8?B?UExva1ZCWTdpVklVMXk4b1UyQ3Njd09WeEdXMHJzdm9QRWRHS3l1M3pueEYx?=
- =?utf-8?B?WFdnUXZwQXhob0VMV1JrT3dQTGNiTmxYQXg1Sm1qRGVRcFBjTVVHNVZQTnpt?=
- =?utf-8?B?aGxXd2l3N3NicThEMlQ1VDhUN3Jwa05leGROV1VNeW5oclFUbCtXc2tXQldX?=
- =?utf-8?B?dWErK05pMVdzbCs4QlI3eStuUFVXRTl5NENHTlVTSmxWWlBseUhJaS9ieTBQ?=
- =?utf-8?B?cWtoWGZiaVZGLzBoV0lLcGF5UFBwa2pyVzBMektRS0g0c0dhSU5KNjZFME16?=
- =?utf-8?B?OWV0OXVMRGdBdGdId0NjdXZDZVYwcDJTZmI2VllDR0F4ZHNSUjY4M29BNnBz?=
- =?utf-8?B?Q0wzU085eklRc1M3KzV0bExPUklqQ2p6TjB2Ti9nYUlPL0x5WE1OeHh2U2JY?=
- =?utf-8?B?QkwxcTlIMWVxcGJueWZlcTVUU29sSjNwaUhrYTRXWDArOHBqWmlxSTAvdVVk?=
- =?utf-8?Q?x6ZRNH9NTVxjf8mfG9VCemvrk?=
+	=?utf-8?B?TUFrbWFNZkpvcW1kZzRsTFBIMjByQUVwS0RNMUVWYjdsUTV2ZFBpM2JicGhi?=
+ =?utf-8?B?cE1zampDTDlnNnhBWFU1WUlqUFVBZG5uVlIvazlwaFdURWc2dmhkaVZ4dStP?=
+ =?utf-8?B?NW81dTdqSGUzZXY0TnJQKzhuR0prdXFKZUt6OEpUTmpwOHMyWmQ1SWR4LzJX?=
+ =?utf-8?B?czA4bVNwT2RKYWZrNGwvRFJVaVhQV1QrNktVdDVPcHJVL0h0WDRmU2RNZzRw?=
+ =?utf-8?B?ZUcyR1FkYUNXck9Cbzh5cXR3aGx2cTVQTXRvME5lanpsNy92ZWhiaGtxRjgr?=
+ =?utf-8?B?NkJXUnNLV1EzcS82V1NJT2x6TmUvb1FMR2xwTFlIM3lOMUVIL2l0K1JmZ0xV?=
+ =?utf-8?B?MGMzV3I0bHpZWW5tMGRIMUVIelBrVGhaZDBmTG5iV2R1Y0pSQlcxdzJqMUlU?=
+ =?utf-8?B?bHJlcDNiY3dvN2Zyd0hMK0k5MFBSNm9EWVNyUmlkKytucGhjbVJ1NjVhdldF?=
+ =?utf-8?B?Z1dGanBoTjJnRjQvVDlGdHRWcm5hbzJwRkdHUzd0dlE1aTJxeTdxekFZcWQ3?=
+ =?utf-8?B?WUllS1NJOHdHajFVK2V4VmVpOFNxUEhCdWk1c3Z6ZkFrVkFOT1BHMHJTYzU5?=
+ =?utf-8?B?c1N3U3UyUnRlRFgwb2wvZnpHQ3oybzJSR0VJWHRETnFITzVRL2dEQTZoUFZH?=
+ =?utf-8?B?eXB3c3p1RnVkYWthVEdzRHlkOTgwVzVxUy95NTlpdVZ3U0k2dVhZN212Nnpi?=
+ =?utf-8?B?TnJ5NnFrMkh3Y3RlVjZEbmRpZW41Lys2NGFrK1UzZlZLUEo3azBQU1Mzdkpy?=
+ =?utf-8?B?cjJzKzg0N2oyWW0zTkpNN1V2RmlWMDBVUXZXRytzQ3BzNzZBbjBtMzlBbFVV?=
+ =?utf-8?B?ZWgzdEFQUGEzTlprUW5MdVpRejhuN1RlRmVRTnd2bUZBYzM1Q2swdGM2NHAw?=
+ =?utf-8?B?V3FuWlcvd1dhWmlJR0dMVVVwN3pWWnRlVVZpSEh4UUw0YUtlRDA0L3lqeW5h?=
+ =?utf-8?B?NEVSUWgyUlRENjVadEpmWFE2UEt3dkhpREFDczNTUkJCRWdPV3h1RGxlZEhW?=
+ =?utf-8?B?QVROVk5jV2kwdHZ6cmhVMWFVNjdhQkZtOXhWdXB1WnFHSEp6cGJFOTZxMHB1?=
+ =?utf-8?B?QmN2N0RIT1ZhQi9jWktoc1lXbVFQelQxTmpJYTVONVBpTnZydXZvdktkZGN1?=
+ =?utf-8?B?ZzYvUHN0NzNRbzB3VnlIdFVtNDVLdEplQjlMS2t5SGFhaFUxWUI0L3Q1ZzU2?=
+ =?utf-8?B?bUR2YVFBSTUzR0kzT1NTMVpES2VPNTN0WmRPWVpCaEpMWEw2RzRHZUYrbnE1?=
+ =?utf-8?B?bVZ2OWRTUWh1cHdBOExsdXpQQ0ZneUlIZ0loYUVnc2FvZEZ6ZTZKTW5SNnBN?=
+ =?utf-8?B?RkJ6QmNmVXU4SEFTVXBjU1JWV243VUo4d2NwUS9PSXB5RGRmbjJJR05CSFJF?=
+ =?utf-8?B?a05QUmxPdTA2R2lKN1NCVVdYb0lPWjJoODRiUEVRZEFBK0xSL2dSRTRuSFAx?=
+ =?utf-8?B?eTRES05adHg2VEtmeEhFZ3VVMUJoTmxJenh6SGVjSE5TSTQxSUk5SkF0SWpj?=
+ =?utf-8?B?S2ZyN2tsUlJuWTIzVGhGNnI3Qk5XelBQU3NMYUVwVG9rbU5PZjdpdXJaV0la?=
+ =?utf-8?B?bHM4K1o4RnFJYWdiQ3FTOENQK29td1JJTkMxMW9FdFR4MGQwU09MNnVQakFJ?=
+ =?utf-8?B?bW9RTkV5U2hPQ3N2bHQrbjZiZTRsWVpkNy9aUDNDWnpvRnhCYWJsUnhUSTVI?=
+ =?utf-8?B?am1qdDNZd1F6a3BhNDM5U3E1SGNXTjVNMGJEVXh1U0hBd05zMU4zdTFBYzZF?=
+ =?utf-8?B?QXo3K1dJNGdld21qMGpmanlqbWxuU2RlT3d0NGQ3VndndmorZ25jeGFEazJu?=
+ =?utf-8?B?SktHNDVlOFZpUk4zOWJqVERkdVJ4elRmckNaUWtKOUJwTUtFTlpDcGJzemgy?=
+ =?utf-8?B?Zkw1UmlBNmtIOGV4SzFYSU4xbENFY2hnekhJSkxiOGFSQVU3VnZzOVBpdm4z?=
+ =?utf-8?B?K21oSW5XRDlIMXZIOHUreVhISExMRXdad0hqN0tHWkN4emdqcC96emJoSjdZ?=
+ =?utf-8?B?QTBhcExvbHErYzVBWmcvdjhTY04xdURnMExyVW5Hd1ZCUVJuZHQvcER4R1BK?=
+ =?utf-8?B?aGhCMVFzZXZjVGZJTnFKbEd5Nk5hemxCbEtTMGNXYTUwV2xWL2p2U3VFZFJ1?=
+ =?utf-8?Q?98w1Y5ulj1YTt/HKnI+fXo5n1?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcfad578-af38-40e3-81f1-08da689a2aa3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d046c35-de49-4168-dff6-08da689aedb5
 X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2022 08:47:37.7363
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2022 08:53:05.0593
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Rw4kKoj6v2H9GlGgEEJsft7vy2/K2CVgoELvmW6nFNG1nR7iPUnN4O8mefv/7FirJK3fOYrkfWdk5yqaXOeFhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0401MB2476
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q22gXpkbT17Y3wXaHUkcMQ02OXb+Vh8NgomvomzqZyPlkxx8gIQDfHNj63E6XNKAb8t4qVY8CzV5QJitivs2eA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB4744
 
-On 16.07.2022 16:38, Julien Grall wrote:
-> On 04/07/2022 13:35, Bertrand Marquis wrote:
->>> On 24 Jun 2022, at 10:11, Julien Grall <julien@xen.org> wrote:
->>>
->>> From: Julien Grall <jgrall@amazon.com>
->>>
->>> Both destroy_xen_mappings() and modify_xen_mappings() will take in
->>> parameter a range [start, end[. Both end should be page aligned.
->>>
->>> Add extra ASSERT() to ensure start and end are page aligned. Take the
->>> opportunity to rename 'v' to 's' to be consistent with the other helper.
->>>
->>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>
->> With the prototype updated in mm.h as suggested by Michal:
+On 16.07.2022 16:56, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> Done. I will send a new version shortly.
+> Rework Arm implementation to store grant table frame GFN
+> in struct page_info directly instead of keeping it in
+> standalone status/shared arrays. This patch is based on
+> the assumption that a grant table page is a xenheap page.
+> 
+> To cover 64-bit/40-bit IPA on Arm64/Arm32 we need the space
+> to hold 52-bit/28-bit + extra bit value respectively. In order
+> to not grow the size of struct page_info borrow the required
+> amount of bits from type_info's count portion which current
+> context won't suffer (currently only 1 bit is used on Arm).
+> Please note, to minimize code changes and avoid introducing
+> an extra #ifdef-s to the header, we keep the same amount of
+> bits on both subarches, although the count portion on Arm64
+> could be wider, so we waste some bits here.
+> 
+> Introduce corresponding PGT_* constructs and access macro
+> page_get(set)_xenheap_gfn. Please note, all accesses to
+> the GFN portion of type_info field should always be protected
+> by the P2M lock. In case when it is not feasible to satisfy
+> that requirement (risk of deadlock, lock inversion, etc)
+> it is important to make sure that all non-protected updates
+> to this field are atomic.
+> As several non-protected read accesses still exist within
+> current code (most calls to page_get_xenheap_gfn() are not
+> protected by the P2M lock) the subsequent patch will introduce
+> hardening code for p2m_remove_mapping() to be called with P2M
+> lock held in order to check any difference between what is
+> already mapped and what is requested to be ummapped.
+> 
+> Update existing gnttab macros to deal with GFN value according
+> to new location. Also update the use of count portion of type_info
+> field on Arm in share_xen_page_with_guest().
+> 
+> While at it, extend this simplified M2P-like approach for any
+> xenheap pages which are proccessed in xenmem_add_to_physmap_one()
+> except foreign ones. Update the code to set GFN portion after
+> establishing new mapping for the xenheap page in said function
+> and to clean GFN portion when putting a reference on that page
+> in p2m_put_l3_page().
+> 
+> And for everything to work correctly introduce arch-specific
+> initialization pattern PGT_TYPE_INFO_INITIALIZER to be applied
+> to type_info field during initialization at alloc_heap_pages()
+> and acquire_staticmem_pages(). The pattern's purpose on Arm
+> is to clear the GFN portion before use, on x86 it is just
+> a stub.
+> 
+> This patch is intended to fix the potential issue on Arm
+> which might happen when remapping grant-table frame.
+> A guest (or the toolstack) will unmap the grant-table frame
+> using XENMEM_remove_physmap. This is a generic hypercall,
+> so on x86, we are relying on the fact the M2P entry will
+> be cleared on removal. For architecture without the M2P,
+> the GFN would still be present in the grant frame/status
+> array. So on the next call to map the page, we will end up to
+> request the P2M to remove whatever mapping was the given GFN.
+> This could well be another mapping.
+> 
+> Please note, this patch also changes the behavior how the shared_info
+> page (which is xenheap RAM page) is mapped in xenmem_add_to_physmap_one().
+> Now, we only allow to map the shared_info at once. The subsequent
+> attempts to map it will result in -EBUSY. Doing that we mandate
+> the caller to first unmap the page before mapping it again. This is
+> to prevent Xen creating an unwanted hole in the P2M. For instance,
+> this could happen if the firmware stole a RAM address for mapping
+> the shared_info page into but forgot to unmap it afterwards.
+> 
+> Besides that, this patch simplifies arch code on Arm by
+> removing arrays and corresponding management code and
+> as the result gnttab_init_arch/gnttab_destroy_arch helpers
+> and struct grant_table_arch become useless and can be
+> dropped globally.
+> 
+> Suggested-by: Julien Grall <jgrall@amazon.com>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-I notice you had applied and then reverted this, with the revert saying
-an x86 ack was missing. I don't see any need for an x86 ack here though,
-so I'm puzzled ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
