@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 385925780D0
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 13:32:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.369679.601161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E368B5780E3
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 13:36:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.369683.601173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDOzL-00049d-8m; Mon, 18 Jul 2022 11:32:35 +0000
+	id 1oDP2K-0004nw-Nl; Mon, 18 Jul 2022 11:35:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 369679.601161; Mon, 18 Jul 2022 11:32:35 +0000
+Received: by outflank-mailman (output) from mailman id 369683.601173; Mon, 18 Jul 2022 11:35:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDOzL-00046p-5c; Mon, 18 Jul 2022 11:32:35 +0000
-Received: by outflank-mailman (input) for mailman id 369679;
- Mon, 18 Jul 2022 11:32:33 +0000
+	id 1oDP2K-0004lm-KC; Mon, 18 Jul 2022 11:35:40 +0000
+Received: by outflank-mailman (input) for mailman id 369683;
+ Mon, 18 Jul 2022 11:35:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TsIJ=XX=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1oDOzJ-00046d-3t
- for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 11:32:33 +0000
-Received: from sonic309-20.consmr.mail.gq1.yahoo.com
- (sonic309-20.consmr.mail.gq1.yahoo.com [98.137.65.146])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e101a37-068d-11ed-924f-1f966e50362f;
- Mon, 18 Jul 2022 13:32:31 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic309.consmr.mail.gq1.yahoo.com with HTTP; Mon, 18 Jul 2022 11:32:28 +0000
-Received: by hermes--production-ne1-7864dcfd54-s2f4b (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 5f85adc2208b756781d6358a6215d965; 
- Mon, 18 Jul 2022 11:32:24 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9Ov/=XX=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1oDP2K-0004lg-4C
+ for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 11:35:40 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bf04d9af-068d-11ed-924f-1f966e50362f;
+ Mon, 18 Jul 2022 13:35:38 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 018B65C0105;
+ Mon, 18 Jul 2022 07:35:38 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Mon, 18 Jul 2022 07:35:38 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 18 Jul 2022 07:35:37 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,209 +43,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e101a37-068d-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1658143948; bh=vrfJ9pyqjWpK7xL7Agn/Qyz9mLq/DkPBwszWxndRwkw=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=aVUgLDjdoRtoM7Su17+uh5Ph70eJ5A6NzAQV7WqnaRkupPA/5sqR7lYZ/GfTfwH3QSVNmD02omwxJ95VjQM/gSw9RmvzzqMVTWlBl0X2yPE9SpnB36O3KeyHj7SUovJbUEqUELNCYfFSkWXOSoGNzZUl/iPntFLpVVJJplwjW51eM8GVjmOuQ1CDluZ89+3963i0W7MDrCsxlz8iiVIz9HLg++fI05KFgYWHjxe9z9GSBWMCUfTbX0FEUoDv+5lWznNnAibShLyPLxp7jOX4rdua8fbwVf0Ftx4v5UIYNyF9JBpow0kchR5TO/vmJKD29DA8SdIlPz9Nf5qCvGyLwQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1658143948; bh=pLWoEJP5gyWDQwvGvWcwstoh/8L5KauqGMcTiDSVn+m=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=XZZVVlT1aR25OfUfsDS9DnhEPzfZvtCkLnoj5GMGNvwv3517Ke8byGe//up3U8OEW7mn4OD6tmgaL5Jqs6eDh2A0r26+MA0YcKso2ywJeDQKbwvkBW2DHrb418VDnTq+Oj7SSOY3khfHR3v0iodl8cuxQEfUzPDtyMXjJ4AWQpXkYVID3C0LpdUpanvxvhQu6rhWaIkvFuKtGAbwTGREP5q8ohKy+4+zOpDxjwHc7zw69J+23+mYjX7GXq/A4qjRkBzuIGKSuHqeFQQlv6+33C0At0+ouTfBfBLAMtPha+gADX9s3/+AZ3SI/wKEFmFaHcJ+AVEcJ++dCxw7D0vrcQ==
-X-YMail-OSG: iPgMkIIVM1m_mM.C9E6stDxh6XaPikarGZGOdGjWjq355k9cvwWaGxdt3TVgK0k
- XOhv56ChvgvZ.8Sjtz.fBlqqScrYXUuo10KIDFycg8H39F.opllfBgwDTMnVwf0gRjE5zMcrMz6j
- 2PfVHi.zhWOkVapgmW1nqpVgv4rRxCqszb7hfcI1TsMaM_v.cex47uLa4Aj8nmGX8wrzndDkyHWl
- AWuT1uJRuXnu8ovfCEAwwD7_1f6_CO0fab7sqUYv8rCESr_7sy_KQS7D3HoIR.3VqmnhxavFfVYl
- GmMmkh2FH_5iqZxQHGGFePg9zPnxiK2rFF5Ha7MGv1e3AjncpknD8XIFcvAv7hDcnMYuUwiXaCTI
- Y.9vkmz0sM2YOxl83CcxNvQRspZxv6p_txwWViVa.Jtlc_UT57BVIiUYS7PHVllhXkDBpuopoQDU
- eGUIP4oskGwMIksHGne3uuniRO6JyHqz1vk2qrR6_N8vput5yhlaoE4fsWPxBijR2fseVRX1fkCq
- R9EwggVpjIWGQKKzB.XnmfuJoGtodtVLVndbWUlLNzH4Enap0rVVCxaFAtMoSKZ2exAk8udcvx0O
- bMSpI1EfmB6..KgPVF6Qqsun0QJBG0LQi0z_Jbj0.dWZc001RIHWdUPeArFWjpCjc70bNf7vveuZ
- RZdIOO3eKTsFabQSuKGy03zOdnRniEuCI4q9WDIVC.ue1vibg0BnirAZeOipL0zAXzb7QNM.PTHW
- uvj7eMuayku2T3aa9WeKyT_EeC.IdmRrK9YhKvGqCJolWLr3hChRz.tr0XC9PJjqfMd8v0ftAD5C
- tu6wD8jYRnWRd3eT1SkqzfegndnOVxjlvlBWkQ9IJnQTZwXiLVxfaNkKX8QKrvmwY.VBTCk_BeC.
- 37nkHdXVwirUsB4iDU_8t5vKmCUgGwQvc1UDWNu36.1WmneQxgXQjXEruiCLPPg7HtGuqkKLRaoF
- _3fUd8TE.nRcj060dlvhtkZIjEbg4Db8oZQYEG75BfPPCmat14gqV0gdH4ylKwPfio2a.8ltO0Wn
- cIXOkltfFiyjXoPAEFtk9GKeH.mp9CzZUpG8ENBWeDHPet5UI4ppsPXm.UT6Cl8jnhQywj.KBNNP
- .0FjGx7NSMJskV9dj08K6iy0u0riSwZDC.fltw1W62V5hyalbb6fSdfoCZAH02U5qr0oga8neLpx
- xpWbiA8BZt7gTDEXm3SmnHtzbo3Nl9VQAW2Xhs_3mkfMNdoe0KLM_CJtfYMzihUr6f_5Op9_PlpY
- w.ZRL3iVFubrfFMgvVn_RxLvwPsW7Df2Z0GKNxbejX47puc_rCO69LatVfC22YM8BPpdvgC3CwG.
- O2zgsCqvZig9j7GHYZxBRPJ7vwgh0q6dRYFGS86ljHK6btQ5dHhUksAQNs6tFCm3n1jlsdcGvB_h
- oRWa977CQ5TRZcOeoUj7LhxnUP_TdpX.TJSdbRpflSQ3nwI4TbD.eib1kX.AHUFEtUBI4hcAjtwu
- pwdAZOCK98tdHCmxYon9YA4sUk5n37CtZt72YxF_rbCBW4fDFa7ljY3UuVLUoKd2woFQ3LQxO1q_
- dQVT8QUrY.KopxhO5BFdIcoF3OVkxUu7fgu8f4Xnfkx9LCqGbuXxifdANDqY2XGAIZOlF0MEEADF
- LIkQTfnTJzNzbuk7.7IbH2.0SDgAt32DN8_9HkWXaprAqc07h5.31G0Y5czSclilcXH_oj1KPbcJ
- Lk_j9ClVg3cG8FQpAA5yzXPE96Q3AH5sZjxPEhEYhIxIm2fRpkDyKLIVBzm1iZSu0am3BvEyC223
- ff7ZFqR9deX8zO0Ec1om1pBIzEnrkZo.1K1sSkZlvkBCza2FuIP9WQEs.urGq3x721cHZvoNKWfg
- HPVYI3W4Pmfl9pbGaJb6A9d7CjDV3RrD9tEEhWYpiUkR4x3XaOC7F_Vji_8Sqi5kkwPyIys0lyXg
- GLP5ABzv77Vqr1sBXP32jG2JmKc6fvmJ6d6X3MfiL8RW113JV6PTJx7fUWoA0pE1y4zzJn5RxPxM
- u78uIorfTjXiZTxTaak_xmnN2KIetb19HD5BCLyip1vlQ8.x_vCnweRHOHEH.EGcEcr6DcfIxynJ
- aMxI0uDjQKa1gxPZcakZI1zDA31jYob59PeqK3HNKYPG5ciGEnWujQ9RZ041cc_s9q0wbULXq.KI
- 3yKCr0nG5c2aiN2U.Nwbx.75tMeP9tnzG6KzR8oua.vIG7HqeA42jnOWo.KOndi0GvODLE2vpNMs
- KR07HDMRIpvjZ281y6670VmNwC6UkEr1dAyb7Nc3v1brJQt2h9UkvHEiX3BuYAkA3z6mqNyD.7QM
- z_J9YKA--
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <4ef8c3ae-b365-03ba-0e8e-9f4a2bf53748@netscape.net>
-Date: Mon, 18 Jul 2022 07:32:20 -0400
+X-Inumbo-ID: bf04d9af-068d-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm3; t=1658144137; x=
+	1658230537; bh=0HqKLmJGSnaIm61y6IqoYDb1CsR3FlBGazWv2JPT6W4=; b=q
+	fHyL31nPM3t0P6JuU/bMnYNz7IQq4UPZuw2Hd7Yl6ZboFAHNJgA0DPqHOKazxydL
+	pj6aGc+f7YUjcbGHSB1LDCOiuKDFo5xfDKTqs8EZ/i0Lg7zYOFAW4FyXKfXM54km
+	dgK+wKgnctqZEhYv6ix3GiXJp4c9Gpw6iva8fJwFL/NJCKAB1/5e2x/PRvDgtExi
+	Vq2jUI5KsVBz2cWiqDHvoYhUATxvqE1crzUidO6znZBnaDhJaT0vn8GaD4XlLM9u
+	dcwgo2PZqcYBplzcRlBDcILyfSMnGtYG2H3TaQOEkBxd8hURQPpGgKqYRT0kh1Ah
+	Xz5hFf4d2MY1wKdpl0EFg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1658144137; x=1658230537; bh=0HqKLmJGSnaIm61y6IqoYDb1CsR3
+	FlBGazWv2JPT6W4=; b=GBGme8el+RDW1zONBfzcRw27UnW0TTzrMUfFnTSN6XNN
+	ivmAq0WRRiFA5QqYxMnuIK9lCC2wwComqWr9dSxPJ73P82uaIizKhNFeMOp+sfQV
+	a6v9qVR52wFOjNjygbYBCgn4b6D//WVaHiSoCgber5tkf06niGLEXeLUOsW5hsK7
+	ZvhZ4Mn0RjboCEacSExjgyCVeg8KyJHEfSRjk3b6uU3EK0HzHEr5bEeyt77PzDjf
+	X4/wAex1Dm0TxYNhVH0TjlMNSKpOTum6r9hkMES8SEQexDQShA+oNeQJFfgFHvg+
+	3Drva2Fo/LZJMhhgsMj0Y8A3lNishZygXnkrUi7IdA==
+X-ME-Sender: <xms:iUXVYgIUv5-m0pqohbXtktW1VZ3Nt2X-MC6q3-lEsZb0Myon2pKKTw>
+    <xme:iUXVYgJtIyY_FE3cVcbPicN-pUvlM4_voLTn99TSp1QhWc_6R8ZoPJZpwhEriqsMw
+    dW722m7V_nCKg>
+X-ME-Received: <xmr:iUXVYguOPULwtrYaF_ZV-GXWcARSHHiR_dl3E2mgGORmwfz7c9kJhkJJEM58qg-2BRxedBrgYwedGHNeSYei-jbGHbVNr7n9_A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudekkedggedtucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtroertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptdet
+    vdfhkedutedvleffgeeutdektefhtefhfffhfeetgefhieegledvtddtkedtnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:iUXVYtbI2kLokbYiRf3S03IGhSMnIIh2Whg-IThwCAdElyy1qpVgDg>
+    <xmx:iUXVYnaLI_2W8UsxVBGcOmmELp2zsY845JFh_aclgSoViUTiRqHj_Q>
+    <xmx:iUXVYpABHR3Y65-QeFQsuexWeKa2ekGRwfZsjzobxjSTiE9RjaUfBA>
+    <xmx:iUXVYoBBDEo9TvEFh_7UhSel10_ImxEt6iqDGwRl4Df80zWSaI5HjA>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 18 Jul 2022 13:35:34 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 7/9] IOMMU/AMD: wire common device reserved memory API
+Message-ID: <YtVFhljIHQBhHQPt@mail-itl>
+References: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
+ <457056cbc6dcc00958b1f4e0cad35121e0cd1557.1657121519.git-series.marmarek@invisiblethingslab.com>
+ <00c64c2e-a007-8188-469e-08e8c8cd25e1@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 0/3] x86: make pat and mtrr independent from each other
-Content-Language: en-US
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- x86@kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- Borislav Petkov <bp@alien8.de>
-Cc: jbeulich@suse.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "# 5 . 17" <stable@vger.kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <20220715142549.25223-1-jgross@suse.com>
- <efbde93b-e280-0e40-798d-dc7bf8ca83cf@leemhuis.info>
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-In-Reply-To: <efbde93b-e280-0e40-798d-dc7bf8ca83cf@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="0J8ImBKga4SBTFMo"
+Content-Disposition: inline
+In-Reply-To: <00c64c2e-a007-8188-469e-08e8c8cd25e1@suse.com>
 
-On 7/17/2022 3:55 AM, Thorsten Leemhuis wrote:
-> Hi Juergen!
->
-> On 15.07.22 16:25, Juergen Gross wrote:
-> > Today PAT can't be used without MTRR being available, unless MTRR is at
-> > least configured via CONFIG_MTRR and the system is running as Xen PV
-> > guest. In this case PAT is automatically available via the hypervisor,
-> > but the PAT MSR can't be modified by the kernel and MTRR is disabled.
-> > 
-> > As an additional complexity the availability of PAT can't be queried
-> > via pat_enabled() in the Xen PV case, as the lack of MTRR will set PAT
-> > to be disabled. This leads to some drivers believing that not all cache
-> > modes are available, resulting in failures or degraded functionality.
-> > 
-> > The same applies to a kernel built with no MTRR support: it won't
-> > allow to use the PAT MSR, even if there is no technical reason for
-> > that, other than setting up PAT on all cpus the same way (which is a
-> > requirement of the processor's cache management) is relying on some
-> > MTRR specific code.
-> > 
-> > Fix all of that by:
-> > 
-> > - moving the function needed by PAT from MTRR specific code one level
-> >   up
-> > - adding a PAT indirection layer supporting the 3 cases "no or disabled
-> >   PAT", "PAT under kernel control", and "PAT under Xen control"
-> > - removing the dependency of PAT on MTRR
->
-> Thx for working on this. If you need to respin these patches for one
-> reason or another, could you do me a favor and add proper 'Link:' tags
-> pointing to all reports about this issue? e.g. like this:
->
->  Link: https://lore.kernel.org/regressions/YnHK1Z3o99eMXsVK@mail-itl/
->
-> These tags are considered important by Linus[1] and others, as they
-> allow anyone to look into the backstory weeks or years from now. That is
-> why they should be placed in cases like this, as
-> Documentation/process/submitting-patches.rst and
-> Documentation/process/5.Posting.rst explain in more detail. I care
-> personally, because these tags make my regression tracking efforts a
-> whole lot easier, as they allow my tracking bot 'regzbot' to
-> automatically connect reports with patches posted or committed to fix
-> tracked regressions.
->
-> [1] see for example:
-> https://lore.kernel.org/all/CAHk-=wjMmSZzMJ3Xnskdg4+GGz=5p5p+GSYyFBTh0f-DgvdBWg@mail.gmail.com/
-> https://lore.kernel.org/all/CAHk-=wgs38ZrfPvy=nOwVkVzjpM3VFU1zobP37Fwd_h9iAD5JQ@mail.gmail.com/
-> https://lore.kernel.org/all/CAHk-=wjxzafG-=J8oT30s7upn4RhBs6TX-uVFZ5rME+L5_DoJA@mail.gmail.com/
->
-> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
->
 
-I echo Thorsten's thx for starting on this now instead of waiting until
-September which I think is when Juergen said he could start working
-on this last week. I agree with Thorsten that Link tags are needed.
-Since multiple patches have been proposed to fix this regression,
-perhaps a Link to each proposed patch, and a note that
-the original report identified a specific commit which when reverted
-also fixes it. IMO, this is all part of the backstory Thorsten refers to.
+--0J8ImBKga4SBTFMo
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 18 Jul 2022 13:35:34 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 7/9] IOMMU/AMD: wire common device reserved memory API
 
-It looks like with this approach, a fix will not be coming real soon,
-and Borislav Petkov also discouraged me from testing this
-patch set until I receive a ping telling me it is ready for testing,
-which seems to confirm that this regression will not be fixed
-very soon. Please correct me if I am wrong about how long
-it will take to fix it with this approach.
+On Thu, Jul 14, 2022 at 12:22:36PM +0200, Jan Beulich wrote:
+> On 06.07.2022 17:32, Marek Marczykowski-G=C3=B3recki wrote:
+> > --- a/xen/drivers/passthrough/amd/iommu_acpi.c
+> > +++ b/xen/drivers/passthrough/amd/iommu_acpi.c
+> > @@ -1078,6 +1078,20 @@ static inline bool_t is_ivmd_block(u8 type)
+> >              type =3D=3D ACPI_IVRS_TYPE_MEMORY_IOMMU);
+> >  }
+> > =20
+> > +static int __init cf_check add_one_extra_ivmd(xen_pfn_t start, xen_ulo=
+ng_t nr, u32 id, void *ctxt)
+> > +{
+> > +    struct acpi_ivrs_memory ivmd;
+> > +
+> > +    ivmd.start_address =3D start << PAGE_SHIFT;
+> > +    ivmd.memory_length =3D nr << PAGE_SHIFT;
+>=20
+> Aren't these at risk of truncation on 32-bit architectures? We have
+> suitable wrappers for such conversions, avoiding such issues.
 
-Also, is there any guarantee this approach is endorsed by
-all the maintainers who will need to sign-off, especially
-Linus? I say this because some of the discussion on the
-earlier proposed patches makes me doubt this. I am especially
-referring to this discussion:
+Well, this (and the vtd equivalent) is x86-only, so it's always 64-bit.
+Anyway, what are those wrappers?
 
-https://lore.kernel.org/lkml/4c8c9d4c-1c6b-8e9f-fa47-918a64898a28@leemhuis.info/
+> > +    ivmd.header.flags =3D ACPI_IVMD_UNITY |
+> > +                        ACPI_IVMD_READ | ACPI_IVMD_WRITE;
+> > +    ivmd.header.length =3D sizeof(ivmd);
+> > +    ivmd.header.device_id =3D id;
+> > +    ivmd.header.type =3D ACPI_IVRS_TYPE_MEMORY_ONE;
+>=20
+> Please make these the variable's initializer.
+>=20
+> Jan
 
-and also, here:
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-https://lore.kernel.org/lkml/YsRjX%2FU1XN8rq+8u@zn.tnic/
+--0J8ImBKga4SBTFMo
+Content-Type: application/pgp-signature; name="signature.asc"
 
-where Borislav Petkov argues that Linux should not be
-patched at all to fix this regression but instead the fix
-should come by patching the Xen hypervisor.
+-----BEGIN PGP SIGNATURE-----
 
-So I have several questions, presuming at least the fix is going
-to be delayed for some time, and also presuming this approach
-is not yet an approach that has the blessing of the maintainers
-who will need to sign-off:
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmLVRYYACgkQ24/THMrX
+1yz/vgf+PWn4F5Grx2ZPVmEOqhFiQfNKTjbRDj1GOeQIjTZl+OTfdwHHFamuV6TS
+qv7IpAX6IJOMI3FOEtTVZhLGBDr/ThAS3pMLW9uAUZe4reyE5BApnRrQBIuBzzrl
+RN12+rjntZ2DPTmdlbOJ+6MDLgkHZ7Hv0Mq6JkSCdsrIdW1ZMUDpDWwwz8hnH3Ln
+tnZS1Si/dt51fM/W61eje1nGdlZ7mowcHUud+lJgdjo3bRSJ0O/TQ+6NN90Nu3+5
+yD0k4XU42asAFvY4QSnZhuI3yAf1ylZu7SifMnAJ4wINOJRNoQd4O9tSpGMjcQ6I
+h87xb9mw9QvLGUwpn6HGDJdNhjhdvw==
+=X6eJ
+-----END PGP SIGNATURE-----
 
-1. Can you estimate when the patch series will be ready for
-testing and suitable for a prepatch or RC release?
-
-2. Can you estimate when the patch series will be ready to be
-merged into the mainline release? Is there any hope it will be
-fixed before the next longterm release hosted on kernel.org?
-
-3. Since a fix is likely not coming soon, can you explain
-why the commit that was mentioned in the original
-report cannot be reverted as a temporary solution while
-we wait for the full fix to come later? I can say that
-reverting that commit (It was a commit affecting
-drm/i915) does fix the issue on my system with no
-negative side effects at all. In such a case, it seems
-contrary to Linus' regression rule to not revert the
-offending commit, even if reverting the offending
-commit is not going to be the final solution. IOW,
-I am trying to argue that an important corollary to
-the Linus regression rule is that we revert commits
-that introduce regressions, especially when there
-are no negative effects when reverting the offending
-commit. Why are we not doing that in this case?
-
-4. Can you explain why this patch series is superior
-to the other proposed patches that are much more
-simple and have been reported to fix the regression?
-
-5. This approach seems way too aggressive for backporting
-to the stable releases. Is that correct? Or, will the patches
-be backported to the stable releases? I was told that
-backports to the stable releases are needed to keep things
-consistent across all the supported versions when I submitted
-a patch to fix this regression that identified a specific five year
-old commit that my proposed patch would fix.
-
-Remember, this is a regression that is really bothering
-people now. For example, I am now in a position where
-I cannot install the updates of the Linux kernel that Debian
-pushes out to me without patching the kernel with my
-own private build that has one of the known fixes that
-have already been identified as ways to workaround this
-regression while we wait for the full solution that will
-hopefully come later.
-
-Chuck
-
-> P.S.: As the Linux kernel's regression tracker I deal with a lot of
-> reports and sometimes miss something important when writing mails like
-> this. If that's the case here, don't hesitate to tell me in a public
-> reply, it's in everyone's interest to set the public record straight.
->
-> BTW, let me tell regzbot to monitor this thread:
->
-> #regzbot ^backmonitor:
-> https://lore.kernel.org/regressions/YnHK1Z3o99eMXsVK@mail-itl/
-
+--0J8ImBKga4SBTFMo--
 
