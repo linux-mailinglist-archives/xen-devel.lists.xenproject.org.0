@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C262C577F4F
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 12:05:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.369487.600928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7AE3577F5A
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 12:09:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.369495.600939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDNd5-0007Ti-EO; Mon, 18 Jul 2022 10:05:31 +0000
+	id 1oDNgQ-0008Ny-Sz; Mon, 18 Jul 2022 10:08:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 369487.600928; Mon, 18 Jul 2022 10:05:31 +0000
+Received: by outflank-mailman (output) from mailman id 369495.600939; Mon, 18 Jul 2022 10:08:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDNd5-0007Rr-BZ; Mon, 18 Jul 2022 10:05:31 +0000
-Received: by outflank-mailman (input) for mailman id 369487;
- Mon, 18 Jul 2022 10:05:30 +0000
+	id 1oDNgQ-0008Lu-Q6; Mon, 18 Jul 2022 10:08:58 +0000
+Received: by outflank-mailman (input) for mailman id 369495;
+ Mon, 18 Jul 2022 10:08:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oDNd3-0007PM-Uz
- for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 10:05:29 +0000
+ (envelope-from <julien@xen.org>) id 1oDNgP-0008Lo-E6
+ for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 10:08:57 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oDNd2-0003fw-Rd; Mon, 18 Jul 2022 10:05:28 +0000
+ id 1oDNgM-0003j9-Fb; Mon, 18 Jul 2022 10:08:54 +0000
 Received: from 54-240-197-231.amazon.com ([54.240.197.231] helo=[10.7.237.21])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oDNd2-0008Uv-Le; Mon, 18 Jul 2022 10:05:28 +0000
+ id 1oDNgM-0000Gy-9w; Mon, 18 Jul 2022 10:08:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,51 +42,108 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=dV+jasoKk3gC8wKgROH3pnd7QENC8d8zIdRedI6098A=; b=0VfQ4lflbavOMvCoL/aoFMI0xh
-	CnxecszZ+Pk69NPSaj+kCnhavV1a8l/2p++A71bNFDSgWHnN9gaV+iD02evRaWsCLV7Sl6ngwUoNz
-	pqdl4ljWyxlsopUd1NJWYFRnXQ9dMoE6Qgh8quXRgZCMGbyg1mNNo6gi7LJEpC1geSZ8=;
-Message-ID: <3c46a848-eac9-3dcb-80ae-3ceb7ea92402@xen.org>
-Date: Mon, 18 Jul 2022 11:05:26 +0100
+	bh=gg/eIRBR+2729+QDn3Xu6pAoLH4/146HRGNk99x43K0=; b=oTkJIAk6HBHdfoSRbceft2zpvs
+	0UAEEk3lUvnD8yqmECo533fCwVkWHGpS6zOuVVkCKSvCnR/TkaUWp2OTUc4ByyGt9HFXppBA+6X23
+	ln0owUgxcsBUSVJqubJJ7M08cqkJBGoALzLbX05lM84LH3MGEg92iw9fAIqBHf3d6BM4=;
+Message-ID: <be525e4d-1dd0-bc4d-1b26-c4483e16cc10@xen.org>
+Date: Mon, 18 Jul 2022 11:08:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.11.0
 Subject: Re: [PATCH v2 2/3] xen/heap: Split init_heap_pages() in two
-To: Wei Chen <Wei.Chen@arm.com>, xen-devel@lists.xenproject.org
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Julien Grall <jgrall@amazon.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <20220715170312.13931-1-julien@xen.org>
  <20220715170312.13931-3-julien@xen.org>
- <b7b1b735-e16e-2bf5-e634-e56291dab61b@arm.com>
+ <07304aef-e278-9da9-ebd9-640ac7933268@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <b7b1b735-e16e-2bf5-e634-e56291dab61b@arm.com>
+In-Reply-To: <07304aef-e278-9da9-ebd9-640ac7933268@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+Hi Jan,
 
-
-On 18/07/2022 09:18, Wei Chen wrote:
->>   static void init_heap_pages(
->>       struct page_info *pg, unsigned long nr_pages)
->>   {
->>       unsigned long i;
->> -    bool idle_scrub = false;
->> +    bool need_scrub = scrub_debug;
+On 18/07/2022 10:31, Jan Beulich wrote:
+> On 15.07.2022 19:03, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
 >>
+>> At the moment, init_heap_pages() will call free_heap_pages() page
+>> by page. To reduce the time to initialize the heap, we will want
+>> to provide multiple pages at the same time.
+>>
+>> init_heap_pages() is now split in two parts:
+>>      - init_heap_pages(): will break down the range in multiple set
+>>        of contiguous pages. For now, the criteria is the pages should
+>>        belong to the same NUMA node.
+>>      - _init_heap_pages(): will initialize a set of pages belonging to
+>>        the same NUMA node. In a follow-up patch, new requirements will
+>>        be added (e.g. pages should belong to the same zone). For now the
+>>        pages are still passed one by one to free_heap_pages().
+>>
+>> Note that the comment before init_heap_pages() is heavily outdated and
+>> does not reflect the current code. So update it.
+>>
+>> This patch is a merge/rework of patches from David Woodhouse and
+>> Hongyan Xia.
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
-> You have changed idle_scrub to need_scrub, but haven't mentioned this
-> in commit log, and I also haven't found related discussion in v1. I
-> am very clear about this change.
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-The meaning/use of the variable is now different. Before this patch, the 
-variable was only indicating whether idle scrub was enabled (this is 
-configurable by the admin). This was then or-ed with  'scrub_debug' when 
-calling free_heap_pages().
+Thanks.
 
-With this patch, we now store the result of the or-ed in the local variable.
+>> --- a/xen/common/page_alloc.c
+>> +++ b/xen/common/page_alloc.c
+>> @@ -1778,16 +1778,44 @@ int query_page_offline(mfn_t mfn, uint32_t *status)
+>>   }
+>>   
+>>   /*
+>> - * Hand the specified arbitrary page range to the specified heap zone
+>> - * checking the node_id of the previous page.  If they differ and the
+>> - * latter is not on a MAX_ORDER boundary, then we reserve the page by
+>> - * not freeing it to the buddy allocator.
+>> + * This function should only be called with valid pages from the same NUMA
+>> + * node.
+>>    */
+>> +static void _init_heap_pages(const struct page_info *pg,
+>> +                             unsigned long nr_pages,
+>> +                             bool need_scrub)
+>> +{
+>> +    unsigned long s, e;
+>> +    unsigned int nid = phys_to_nid(page_to_maddr(pg));
+>> +
+>> +    s = mfn_x(page_to_mfn(pg));
+>> +    e = mfn_x(mfn_add(page_to_mfn(pg + nr_pages - 1), 1));
+>> +    if ( unlikely(!avail[nid]) )
+>> +    {
+>> +        bool use_tail = IS_ALIGNED(s, 1UL << MAX_ORDER) &&
+>> +                        (find_first_set_bit(e) <= find_first_set_bit(s));
+>> +        unsigned long n;
+>> +
+>> +        n = init_node_heap(nid, s, nr_pages, &use_tail);
+>> +        BUG_ON(n > nr_pages);
+>> +        if ( use_tail )
+>> +            e -= n;
+>> +        else
+>> +            s += n;
+>> +    }
+>> +
+>> +    while ( s < e )
+>> +    {
+>> +        free_heap_pages(mfn_to_page(_mfn(s)), 0, need_scrub);
+>> +        s += 1UL;
+> 
+> ... the more conventional s++ or ++s used here?
 
-This is not something I felt was necessary to mention in the commit message.
+I would prefer to keep using "s += 1UL" here because:
+   * it will be replace with a proper order in the follow-up patch. So 
+this is temporary.
+   * one could argue that if I use "s++" then I should also switch to a 
+for loop which would make sense here but not in the next patch.
 
 Cheers,
 
