@@ -2,29 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D62B5783CA
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 15:35:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.369789.601294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237E15783D8
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 15:37:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.369794.601305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDQtP-00073r-4b; Mon, 18 Jul 2022 13:34:35 +0000
+	id 1oDQvr-0007lx-J9; Mon, 18 Jul 2022 13:37:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 369789.601294; Mon, 18 Jul 2022 13:34:35 +0000
+Received: by outflank-mailman (output) from mailman id 369794.601305; Mon, 18 Jul 2022 13:37:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDQtP-00071A-1k; Mon, 18 Jul 2022 13:34:35 +0000
-Received: by outflank-mailman (input) for mailman id 369789;
- Mon, 18 Jul 2022 13:34:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oDQvr-0007jR-GO; Mon, 18 Jul 2022 13:37:07 +0000
+Received: by outflank-mailman (input) for mailman id 369794;
+ Mon, 18 Jul 2022 13:37:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6ih7=XX=citrix.com=prvs=1911958e4=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oDQtN-000714-JH
- for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 13:34:33 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a0b7c99-069e-11ed-bd2d-47488cf2e6aa;
- Mon, 18 Jul 2022 15:34:31 +0200 (CEST)
+ <SRS0=0a1V=XX=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1oDQvq-0007jJ-0V
+ for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 13:37:06 +0000
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b4bdbae1-069e-11ed-924f-1f966e50362f;
+ Mon, 18 Jul 2022 15:37:04 +0200 (CEST)
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26IDZkin014113;
+ Mon, 18 Jul 2022 13:36:38 GMT
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3hbn7a394c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 18 Jul 2022 13:36:37 +0000
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
+ with ESMTP id 26IBXQvi027415; Mon, 18 Jul 2022 13:36:36 GMT
+Received: from nam10-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10lp2101.outbound.protection.outlook.com [104.47.55.101])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3hc1ma8s6n-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 18 Jul 2022 13:36:36 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by BYAPR10MB2712.namprd10.prod.outlook.com (2603:10b6:a02:b3::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.13; Mon, 18 Jul
+ 2022 13:36:33 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::80e:be92:1fd5:b066]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::80e:be92:1fd5:b066%5]) with mapi id 15.20.5438.023; Mon, 18 Jul 2022
+ 13:36:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,82 +63,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a0b7c99-069e-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1658151272;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Id3O7hwS0P4KWg2ZgtR1vm+6s0Z3YjEYBjQ34jtLqKw=;
-  b=A2TkDqiDMVH8r2Hxt5FLgNN+WmpIymDuDfqVVXQ20lVyCMU7XYpOpgi0
-   DfITTsfrcHOXQYtzceF9w6xyBiAIIiEVdkrdxYAcd+vYh4JPGvyxZR0o4
-   s7CJwgmZCebIZBBQaTehqxTNsqWBIrvzvcqO90Blu+qm7PeRULlyKxeHL
-   0=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 2.7
-X-MesageID: 75335267
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:+11ChKhTrn7tDQzLNm/lVJqeX161cRAKZh0ujC45NGQN5FlHY01je
- htvXW6Ab6veZWTxKd8laYnn/U4Fu5PQy94yGwJlq3wzQX8b9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oDJ9CU6j+fQLlbFILasEjhrQgN5QzsWhxtmmuoo6qZlmtH8CA6W0
- T/Ii5S31GSNhnglaAr414rZ8Ek15Kur6GtB1rADTasjUGH2xiF94K03fcldH1OgKqFIE+izQ
- fr0zb3R1gs1KD90V7tJOp6iGqE7aua60Tqm0xK6aID76vR2nQQg075TCRYpQRw/ZwNlPTxG4
- I4lWZSYEW/FN0BX8QgXe0Ew/ypWZcWq9FJbSJQWXAP6I0DuKhPRL/tS4E4eBqtFvfx0I3p1q
- OEyDXMjV0mAlruPz+fuIgVsrpxLwMjDOYoevjdrzC3DDOZgSpfGK0nIzYYGhnFq3JkIRKuAI
- ZpCAdZsRE2ojxlnM1ELCJU4jaGwi2P2aTFwo1OJv6snpWPUyWSd1ZCybYGOJ4bUGq25mG6Go
- j379FrrOi0wC8Wy7Wqa8COjrbf2yHaTtIU6S+Tjq68CbEeo7ncIFBQcWF+/oP+4ok2zQdRSL
- woT4CVGhbc23FymSJ/6RRLQiHyZuh8RXfJAHut87xuCooLW6QuEAmkPThZadccr8sQxQFQCx
- lKP2t/kGzFrmLmUUm6GsKeZqyuoPioYJnNEYjULJTbp+PG6/tt11EiWCI8+Tujl1bUZBA0c3
- RixinV5nbYxlvVWyo+evn7+2jG9/6HGG1tdChrsYo610u9oTNf7OtP5sQmKsawowJWxFQfY4
- iVd8ySKxKVXVMzWynTQKAkYNOvxj8tpJgEwlrKG83MJ0z22s0CucolLiN2VDBc4a51UEdMFj
- aK6hO+w2HOwFCHzBUOPS9jtY/nGNIC5fTgfatjab8BVfr96fxKd8SdlaCa4hj6wwBB8y/BgY
- c7KLa5A6Er27ow+llKLqxo1i+d3lkjSO0uJLXwE8/hX+eXHPyPEIVv0GFCPcvo4/Mu5nekhy
- P4GbpPi40gOD4XDjtz/q9F7waYicSdmXvgbaqV/Koa+H+aRMDh/UqSPn+J/K90NcmY8vr6gw
- 0xRk3RwkDLX7UAr4y3RApy/QNsDhapCkE8=
-IronPort-HdrOrdr: A9a23:7v8AKqosmq21GIgYQo3FbQkaV5oreYIsimQD101hICG8cqSj+f
- xGuM5rsSMc6QxhPU3I9ursBEDtex/hHNtOkO4s1NSZLWvbUQmTTL2KhLGKq1aLJ8S9zJ8/6U
- 4JSdkZNDSaNzlHZKjBjzWFLw==
-X-IronPort-AV: E=Sophos;i="5.92,281,1650945600"; 
-   d="scan'208";a="75335267"
-Date: Mon, 18 Jul 2022 14:34:10 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2] EFI: strip xen.efi when putting it on the EFI
- partition
-Message-ID: <YtVhUqm4cjPhgNwO@perard.uk.xensource.com>
-References: <0a2da2ea-bc8e-05be-2c4a-5f9b0841f0d3@suse.com>
+X-Inumbo-ID: b4bdbae1-069e-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2022-7-12;
+ bh=h3hc/7NY/DrEOQX5zwjF5UBKGhznt9ZhD2uleomkU/Q=;
+ b=RthPlsgVOcm33mlQNazOot5Kgu1ahPp3vYsHTOuILAa1siKQUYhK2pyniVbN0m8gEOfD
+ mbMyPMncNKnbtR6bSN7TED3prSVi3wCpTPDA1P1mM6CjHkJftptjHfIZKlzUltigd9mu
+ 45PkmA29EvcnD/lWXPkNXkU+oT7TvR20RcDVLZ2OtdBq9NCREl10wi1pHNqFsXVEr7eQ
+ RqgZt40RamyspvQmW4MJLqnwIAqdlTSBWz3jdqZ+AdsdbAzPFvi2TQYKjVIccX+sBgUx
+ zFIxJzgN+xS2hMQNTJYcuTFxIiOzsK7/RbvzeDlCkpUsrPVGtxc829GuH+QOO2lNFZCg zQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WAW3qDYDmhoNYj4DjMY/6yEIkP8Lw47XR6+/45eTUWGvWLt+u12uY4UFFf8Ss1Kida+NIWjDxJoaeAIpRucNKiAz8EhpFPWqZ39Mm52PXG/+Qz4eeXz2MbMdXmq+uLvbigE2e0hG/Duod4ILkdsXkP6Xt+rO8L2Qkwg908BV5aunLpGU4pJb5CR5WyfikKNYa01ZmZrEU86CbB4Szk3ED0UiPj1AZuYUsdEebLeRq5sG/I29KUrWJs8MVrepxvpm8p3t89U5aUyIS05kuJKHLODsB/KnJ+6uXLt1tVoEyeKsaqzuAupkKloEW6a7bqblA5A0pGnbBF+GqsfGN08szQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h3hc/7NY/DrEOQX5zwjF5UBKGhznt9ZhD2uleomkU/Q=;
+ b=k0KWLSQ2MpNwT8nrOAULnTBQN6Nohozetk2x8nfsc/++tC5p1Rqz5jctlfNzHEF1FW3bNC5ooeuXI+/ndRdXDZ6VAwYZVzxb1jZ8pmQ3N/W1Gfyl8elUA5ZJlJBbJSuNU+Ukvc0+jHDtjbLdq6YTfo3m7jt2wVhtwc8TEbEbaNo/DQYRSHDCJkMllnjdvyxoVZSv5jc/Cf8fsTXEygdx7lD8D2ytWhTvHAk3li1sLuaT8yuh0mn3iFkvaMfGez2mIPFsuICCHJHclOE+50kbTFYpT+aqkstUD9cfhoeEZt0He98ueohJxLA7anoWeGpqQcr2hfHMx5B59bQOL80Qgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h3hc/7NY/DrEOQX5zwjF5UBKGhznt9ZhD2uleomkU/Q=;
+ b=TCEsuc0WITOrDUCTARBxngn+Rg4Aq9VrbajVSg+EHFGb0QQ5/YVTYfSi7lnSkcpC3LZ0UF2AP1opk2BlAGn8EiKh5jlUnhwbBnMu5jWnFC/LWjRtgx8KURG4yddYrSfIIVvyrmjgM4A5xTERYJfdnci3aXC/mZqpe3vDBWhgbxU=
+Message-ID: <7e075c90-5adb-856a-36fb-73a8d424cd0b@oracle.com>
+Date: Mon, 18 Jul 2022 09:36:26 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.11.0
+Subject: Re: Build warnings in Xen 5.15.y and 5.10.y with retbleed backports
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, Nicolai Stange <nstange@suse.de>,
+        Greg KH <gregkh@linuxfoundation.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
+        linux-kernel@vger.kernel.org, jpoimboe@redhat.com,
+        Ben Hutchings <ben@decadent.org.uk>
+References: <Ys2jlGMqAe6+h1SX@kroah.com>
+ <ddcdd531-fc33-39df-a69f-5352d7a1c8af@oracle.com>
+ <Ys3MI7cv2yKj9RFc@kroah.com>
+ <1b8fee7f-5af2-332e-d2c9-ceecd6ff487b@oracle.com>
+ <875yjxrp66.fsf@linux.fritz.box>
+ <ed82e54e-ccc4-f514-7018-8410d0f5bb82@oracle.com>
+ <6eea38ab-17d2-7bdc-1277-9964a3828a9e@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <6eea38ab-17d2-7bdc-1277-9964a3828a9e@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY3PR05CA0032.namprd05.prod.outlook.com
+ (2603:10b6:a03:39b::7) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <0a2da2ea-bc8e-05be-2c4a-5f9b0841f0d3@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 956a61a8-131d-4a9e-29b5-08da68c28798
+X-MS-TrafficTypeDiagnostic: BYAPR10MB2712:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	SHvj6O7548uKtIk0ulA0N2QJlcFglZwKRqKYtHJACknQLw9ah8jra3wt8r4YGesAPIfnUmYSVey97XMTUGL4R9wXo3yH36HAYRUnmkQAQt78j2mQn0NOoXGgf+Xj7ma+QNGpNpBhuW7KaH94xMMGPYsKRBaRpa9uWPHmLZnDV3FktD6p9muG94J1xWsKlgLDx0jlEueIlm0BVGVpzxnPcriaUPi7s8N/BrKRIehz2lrtUrOEeOnIpsqSA58a1EHMIfQvbhYyyE5GxU8RJakYk2aDrdT5aeUSYkZDTDFxpfMqp9kUtGNf+broONUCju2gZ5ULpx8SW637rT5Rt9TSLx6VNChdVu66oGgakH4LEf6u66XXAdQ4kdip55XM2CT2gBe7vhKDv0TXh6h6k/S11uar7gQDkDkSGkQJwEaH6M0HzU0NtyrpDHFrpVLVB4sCj6iD/kGyytVRJtQzZO3a5PKelihv4lvFlc/9feBnuG1SUvcVFt78nd3iA8xLgEz1RIX+IMR3pPExbNoU4iQyXpSVj4HB/c0jvrLr4Z4Yyk50B/iBThy8WN+f9cAq+L4b8/lfqMQIcIyyfmjp18uupbBhP8bAN6H9XN6rVePQ7eyYegGvjrE2J8EeSJjzj91AfjB4dJcRa/TY6IZRkHQkW5U+oFe3FhEzk9Tk3E/YlM9JnkpP/rnqlPEY0xtqyNxRq25uYn2Xn45eo4eHhVZl9t6O0x3KYif+dppE44frcmfO8MkJd7S+ro0jkDAo2+yjcCcmfGwzpHkQk+G82VeFH5EBaluIwIHG5M9MuStFmzj08zQhmRN2/M7svnLHBDMItjyRfD2sypHF45diS1wgI1wNgL2WX6uG6gKamC55Ffw=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(346002)(396003)(39860400002)(366004)(376002)(38100700002)(36756003)(44832011)(110136005)(31686004)(2906002)(4744005)(8936002)(5660300002)(6666004)(26005)(8676002)(316002)(2616005)(54906003)(4326008)(66556008)(66946007)(66476007)(6512007)(478600001)(53546011)(31696002)(41300700001)(6506007)(7416002)(6486002)(86362001)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?YmxiY2s1Z1dXQXl1TlpjVjR0MVltc3A0TVRNRnlsSDFxdzdLcGhEZHp1cnZX?=
+ =?utf-8?B?UEpOUUFiWnZEU0o2d0VVWG1PeklVeEZkd1NqR083SWR1bEZFMTV0RHY0Z3ZG?=
+ =?utf-8?B?OVpndFBXcCtJK3pWUTBSbHVDbDBybnREQXRPL1l2WnZPekJHQVo1dW5TbzVs?=
+ =?utf-8?B?eFJvSDV6NW4zNHpmWGlialdvSUNoUTk3VFM4Sy93WFNWN2lLTWdLcWJMZVpp?=
+ =?utf-8?B?RXMwNFl0a2cyVDNVNGRzdS9ibXZMUXE0akpmZWkzd1U5Wlk3ZnpiZTQraU5y?=
+ =?utf-8?B?RUliY25tZ2syUWkwK0E4WGI5TDk0QndnQjFKcHREckhPMnJQSmlxUmgxMWEw?=
+ =?utf-8?B?cmRNMndJcWRzUityelZnQmhhblFtNE5kNEc5Wk5PRnhHMitFTXEwaE8vOFFp?=
+ =?utf-8?B?cXJZdGs5amN6NFhqZGhsWXFZbnc0c0RPS2ZkUUZHNEpiNkd5TUZCckdtU2dU?=
+ =?utf-8?B?V2VDcFZpM1habjRKMkl3QWR0OTN6OWVHdXd2YlFLQ2pqaWZtNGRScmJnNDly?=
+ =?utf-8?B?OWdmeHlFanptMHBTS3g0cWFXQlN5TTJRNDY4ZEV5UEVBZFRObFJ3TjdHL2Ns?=
+ =?utf-8?B?OEdxOTZpbFJ1clk1OTFMSjg4ZU11REVSM1JvWCtvck11MWdNT1VJbDBja2FS?=
+ =?utf-8?B?RHhDSytXRGV0bFo5UGZPZ0RnM2E2SHhZbGx5V21HSTNGMEJUbE9zMHFkaC95?=
+ =?utf-8?B?RytYRVpDdmR3Nkd2WkNHTUE1S2NtRFhRQnZZdHNQRkVrdVVtOXRKYit4VGZM?=
+ =?utf-8?B?UWZuMlI1S0JmWlR0YU5CVWFmdDgwcVEvVVBGdHp2OEVoT3hldlhSbGhHcWFM?=
+ =?utf-8?B?NVg2czhQSkplRERJeHpBRm8zYVprTnpoWllwTkh1WGhGcG52czlhbkhqbC9l?=
+ =?utf-8?B?OUxWeERyUFVFUE1yclg1Tzk4NmgyS1VJaVlCUExCQzlnNEwwaHprZFdSMks1?=
+ =?utf-8?B?QVI0L052YmpIWWZJNVJkeDhFUTkrWFpMakNvYU5zNTJ3U0VzVXhtTExUaVB5?=
+ =?utf-8?B?UUYyb3U3RmlzZDVUZGJuU3l4VWU0NkJINURScXJqYy9TcmlTY3Y3NU1KVEdw?=
+ =?utf-8?B?RFk0UnF2SlFWeXJ5L0hEVWsxU3docjhuWm9XZEU4eFpnV1VwWGdtK1A2VXIr?=
+ =?utf-8?B?ZktlRkpKeDZBS0YzaUdHdzZJdWVPZmlCYldBa3gxaVNPUXpIREJocnVka3dx?=
+ =?utf-8?B?cG9xOWVmVStFemIwS3JpRlRrRWhYQnliUUh6L3BMOUFLOVlKcWpmZEtIbzVY?=
+ =?utf-8?B?ZFhWUWxMYVptU1loWHJOdzNydy9HNzBXM0Z3TUtFZTByd2kwbU1md29NRlF6?=
+ =?utf-8?B?aUltSG9oeXlLTGJHQWI1dWxmUDBXSWY5b0VmY25kOVFtdUduNVVkOEpZbzNK?=
+ =?utf-8?B?SFFHcEVCVGdYRXZrck5mcWs3cTg4emh0aVU5RkxWVk1EZzZlaUJTZWNmQ0Vm?=
+ =?utf-8?B?akdSSkN4WkxTR2dTZEY1TEtrY2UrVytVbkJpS01HMmhIZllNWExOTUhYcXFn?=
+ =?utf-8?B?cHRqQTRVa0tFVGdFVVBkaS9pOUgvVmtpcTZmd3hDRTNGUWV2dDNuNzBhUnhj?=
+ =?utf-8?B?eGk4TW93T014cDk5aDU3dXUwZ0VxK281aW1RZjZyS1pwUTYrb2hnbWNuS0kw?=
+ =?utf-8?B?ai9ndTkzcHdGT1BsSlVXK25LMGM2VDMzdlpmalYwQ1I4d3ZiN0lRNmRjV21a?=
+ =?utf-8?B?MFN2Uzd1cUozRHE4d0tOclBsallJbFpZazFROXY2b1M5Y0kxaExXbFROb2Ni?=
+ =?utf-8?B?WkN5WnpmQ1E5RTZjTGNZNnFIdWo1S2ovQjd2eC8vdnFLTWRXdEFqUElqMVNw?=
+ =?utf-8?B?Z2NlbVJLbDNpd3ZlNkhWTFYrSkY3VXYySWRNUDRXZGMrck9NUk5UTXBVbEFP?=
+ =?utf-8?B?NS91cll1VTV1RW5CTUlwWjMxb2lmWXZsSVM3ZkdLRmIxV01YVGRGa004WENL?=
+ =?utf-8?B?ZndaSjhjZ1JjQW9tNTZDR3N4TDN2ZXRzbm5MYnpNVHRORUxZV1g5MXRPRjNW?=
+ =?utf-8?B?UFhVcmNYalpyMWE0VXNPU2c4K2N6Rk85OHFoUlFzcm9tb2oxQ0VSRHVxVVhl?=
+ =?utf-8?B?Q0h6NDRKSWMxSjd4K3Q4NEtkU0ZJVDZHNXl6Y3lRVXFSdU43bGo3Qk9YMitw?=
+ =?utf-8?B?NzRRdkhZc2lDbG1JeGU4TUVRT0VaUkQ1YmtEMGQwV0pvUVh5OWpWeHBlY212?=
+ =?utf-8?B?aVE9PQ==?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 956a61a8-131d-4a9e-29b5-08da68c28798
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2022 13:36:33.5763
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lK1AIdeIt6/RrX1Le4u1OKvHjz6bemHp05CeGLE9xU9mkPEjYSk5KDPx+X8Qu53WGyTWBCuwTZeUuxji5aZTIanhIgKsmCVqAyiSRkgE9/g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB2712
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-18_12,2022-07-18_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 bulkscore=0 phishscore=0
+ suspectscore=0 mlxlogscore=990 adultscore=0 spamscore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
+ definitions=main-2207180058
+X-Proofpoint-ORIG-GUID: b5XY6G6y847g1fD1OvOY8nCptARhD_t4
+X-Proofpoint-GUID: b5XY6G6y847g1fD1OvOY8nCptARhD_t4
 
-On Mon, Jul 11, 2022 at 06:05:37PM +0200, Jan Beulich wrote:
-> With debug info retained, xen.efi can be quite large. Unlike for xen.gz
-> there's no intermediate step (mkelf32 there) involved which would strip
-> debug info kind of as a side effect. While the installing of xen.efi on
-> the EFI partition is an optional step (intended to be a courtesy to the
-> developer), adjust it also for the purpose of documenting what distros
-> would be expected to do during boot loader configuration (which is what
-> would normally put xen.efi into the EFI partition).
-> 
-> Model the control over stripping after Linux'es module installation,
-> except that the stripped executable is constructed in the build area
-> instead of in the destination location. This is to conserve on space
-> used there - EFI partitions tend to be only a few hundred Mb in size.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Tested-by: Henry Wang <Henry.Wang@arm.com>
-> Tested-by: Wei Chen <Wei.Chen@arm.com> # arm
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+On 7/17/22 1:20 AM, Juergen Gross wrote:
+>
+> What about filling the complete hypercall page just with "int 3" or "ud2"?
+>
+> Any try to do a hypercall before the hypercall page has been initialized
+> is a bug anyway. What good can come from calling a function which will
+> return a basically random value instead of doing a privileged operation?
+>
 
-Thanks,
+This is all about objtool, that's why 'ret' was added there originally by f4b4bc10b0b8 ("x86/xen: Support objtool vmlinux.o validation in xen-head.S").
 
--- 
-Anthony PERARD
+
+Before that it was all 'nop' which is similar to what you are suggesting ('int3' or 'ud2' would of course be better)
+
+
+-boris
+
 
