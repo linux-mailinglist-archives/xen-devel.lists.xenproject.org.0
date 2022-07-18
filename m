@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85F4E57800A
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 12:46:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.369556.600996 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BCB157801B
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 12:48:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.369564.601008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDOG5-0006yR-Vu; Mon, 18 Jul 2022 10:45:49 +0000
+	id 1oDOIW-0007YT-CE; Mon, 18 Jul 2022 10:48:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 369556.600996; Mon, 18 Jul 2022 10:45:49 +0000
+Received: by outflank-mailman (output) from mailman id 369564.601008; Mon, 18 Jul 2022 10:48:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDOG5-0006vk-T1; Mon, 18 Jul 2022 10:45:49 +0000
-Received: by outflank-mailman (input) for mailman id 369556;
- Mon, 18 Jul 2022 10:45:48 +0000
+	id 1oDOIW-0007We-99; Mon, 18 Jul 2022 10:48:20 +0000
+Received: by outflank-mailman (input) for mailman id 369564;
+ Mon, 18 Jul 2022 10:48:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9Ov/=XX=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1oDOG4-0006vc-7R
- for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 10:45:48 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c65980a9-0686-11ed-bd2d-47488cf2e6aa;
- Mon, 18 Jul 2022 12:45:45 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id CBFF95C00B5;
- Mon, 18 Jul 2022 06:45:43 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 18 Jul 2022 06:45:43 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 18 Jul 2022 06:45:42 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Pu44=XX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oDOIV-0007WD-0m
+ for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 10:48:19 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2065.outbound.protection.outlook.com [40.107.20.65])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 21c8c391-0687-11ed-bd2d-47488cf2e6aa;
+ Mon, 18 Jul 2022 12:48:17 +0200 (CEST)
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
+ by AS1PR04MB9653.eurprd04.prod.outlook.com (2603:10a6:20b:475::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23; Mon, 18 Jul
+ 2022 10:48:15 +0000
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::dd30:2cbc:361d:2d1e]) by AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::dd30:2cbc:361d:2d1e%6]) with mapi id 15.20.5438.023; Mon, 18 Jul 2022
+ 10:48:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,403 +46,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c65980a9-0686-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1658141143; x=
-	1658227543; bh=LMJuxnGnJ+U5QCPNRgg8fL8m8II2urSozxMf60fUk14=; b=I
-	Jtqy5qGu4i1j+QdwrVqqjJ+TXmki2zRTyOhiOgIBcr/asFoQR+6huW/56oxHposP
-	noAY1xLOkf0UH5nsLIMUTsyVhiaMwBQau8oZw0lMK6302Hkhwjq1k53hVyjLPfLD
-	VeYXL0pHKJs/fUNacHHMI2TlE5kV1j1LoWEnmGpflH6q6B4unGIF+GbY6NIEU0D/
-	6D/q+UTQmGgu5QlEnzle83NZ0ttCmE9yNk9H/RCh257y2sTuu1x7YmC22TrZ433x
-	XFXJVJvOI3T6lV5xr9MmFAFsFKuE7yuY84iyORp12//PDz7jqNg6TccYPuV/plEq
-	zqD1SQOZMVdiQ6eIJ7HIw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1658141143; x=1658227543; bh=LMJuxnGnJ+U5QCPNRgg8fL8m8II2
-	urSozxMf60fUk14=; b=ZQ5vcDajj2Nxf9+mntGbUiiVhgIEg7PsH2pOWkWZqKg1
-	KVSk/+oIRu5LhKLGuqbXz3RSDhPSoyvIkA6L+XmmvLDpusbV/ovKYtuQaQ63kP1D
-	vDyWIzBr34+LYYYYNTXreslgZJIY7klXW4K48qgQnhwAtCcJfXUtkleat9p3Jb37
-	J+noxCK/QVPkOiGQD9XyogRr9ruGsPmMwl4t6LJ4IGTuw5tUVSsVqO3j/XViojXh
-	bliixe5/1fhLr7BC/ZMWFRZyHFHgy2aazDlIYN8sNOnKFPL0OxCZ0Xd0BGVMs+BG
-	CGZOSRebywXeRBVe8VFbR6f4aQWklXT2ckV7iohrwA==
-X-ME-Sender: <xms:1znVYptnt5yoyUde-s6NloNxxTCmKzwcbF4N0nhfe2OupF9zyCzuCw>
-    <xme:1znVYid7BraoOSbRUgWxt9lJDS46Lax9dXIIYEgOYAUIPhPmiJeceF1aOr1U2xm-n
-    CYl_z0UaJqAAA>
-X-ME-Received: <xmr:1znVYszRu6Sb5Vt9adGsegFllymbaLSi4Kg_M95e3_rDogrzCBA84cvxQYY7mnCtHjhrYA0EY6D2MF49I49HeQtk1fg6rN7cPQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudekkedgfedtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepieeg
-    ueekveetudfghefgieevffelieeiueekffdtgeejkeelgeffudfhfffhjeefnecuffhomh
-    grihhnpehgnhhurdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
-    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
-    drtghomh
-X-ME-Proxy: <xmx:1znVYgMIaXeEp_22pdA8VHeAMp_b2uySUPRh1wK1MUy7X1LToFF6vA>
-    <xmx:1znVYp_f8m0h-0xVGzOuQrl0yr_57T3QcduQ6VTMoN5kNILRAwZm1g>
-    <xmx:1znVYgWtzI76jFFqkAjSDt8iDTs9ssWz_vx6MuYIKHdgnCqtlcvTDg>
-    <xmx:1znVYpzpCfcw3sdfaxGO3NuYPo1NcgW1XL76aS8J4_khB9qRQx8ECg>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 18 Jul 2022 12:45:38 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Connor Davis <davisc@ainfosec.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/9] drivers/char: Add support for Xue USB3 debugger
-Message-ID: <YtU50+Wz4HWQ6p2Q@mail-itl>
-References: <cover.991b72d99d9e5bd4c2c76791ceb49f1056ce5d1c.1657121519.git-series.marmarek@invisiblethingslab.com>
- <80051b9dc5c99532e18a10a941c3523945d77698.1657121519.git-series.marmarek@invisiblethingslab.com>
- <5a283b4d-8d1a-52cf-d863-350e2ff39566@suse.com>
+X-Inumbo-ID: 21c8c391-0687-11ed-bd2d-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=amgXt8zuA8Kbkikgd9nQq57HKgkuwY6ezXeyo+XpXbyGhl5W6pZSPUacsQxY+Bab45hZMV+cF8qO7kie3ExLz84Jt50oB66I7VQZQ+bjP9t9/CfEMtV5bXMTZ2lm1LaeV7r5afwOAXLDlhRuMq3STvaSabt7IlXP8Z/whyByZqgTKK/U13GX5B7NCwq5BXTVHbL64JnIpKYuWOFmp7QBoY77URrLJ2yZ5YMUAxE3v4HKIKim6a+27yQDTkLwbkilftVc3OOVR/UL5meS7MujcnHwVgsDHajm059j9Pd4Xw2lQIkyu6NwOUrfl1ZuUoKfPga+jsAN1XUvqXPLs4ewdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TWYiKj1v9skZopvMgCoh4nulmfHARZA6J/VFo/hpWhk=;
+ b=hgK2eKnKBY9zZTYAR1kgY/aLZbk0WgRonErjFoAgkgotEaxqeriAv2necyhY7tEEmb03/AXFWp+95uKszIvxU+AdMKwcW8fdbk3NwxtXTzWuI9d0+IX7DdMgvHYRqbvS3x65feeCOjdGlgjV6Hy6tgpVYX7tZ5fq0xqWIYSpZoxjXMOmmlITWNQ41s/KqvH1MfkhoHTn1fDZ++tlWm0yrf9dCj9xpF6mAXqTArRql7U377uF23m0wDUOeJab32VIICGWezoQYxjKryOl0o/JmIFiqMtqyNkjvqFWMcfYvl7jd31/qd0W/QvMkucrRJxcz6iKDoVsGtbMxuFIo4M8YQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TWYiKj1v9skZopvMgCoh4nulmfHARZA6J/VFo/hpWhk=;
+ b=lKwjz2rFTAufM7VOFXnk09PEV2BWOkJFwME4XUgoZaV3Nvb7K566HzMyh4u6oAj6C8AAKN9QPxYswUdIRc6cWSHsTW2KpG+ygc7NDEkAH+fvFOd0iHD78UD4ugxPkwZJX+WU7cmKEFAiPNM5V+CFyOsKVFjXsB2DdZ43t92geT+L+TYpYxs08I0u7ihm2HJygO1OpaTJFsRSf1+kUwRXU/ucctM6G9i8g+l5QQg1A2NBsY0aGJFzChRU/H7cc+mwFFK1P61pz7AGGaed7uaLAApoZHDCVdnqtfkCrNN4L9w0uU4kVWS4n5Jvrb/0jr7nqE1QuZOSdQR0x5lXCRIVIg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <44a6e983-59e1-b60d-c86f-db2a1747ddf7@suse.com>
+Date: Mon, 18 Jul 2022 12:48:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 5/5] xen/wait: Remove VCPU_AFFINITY_WAIT
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
+ Dario Faggioli <dfaggioli@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220718071825.22113-1-andrew.cooper3@citrix.com>
+ <20220718071825.22113-6-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220718071825.22113-6-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0116.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::20) To AM6PR04MB6551.eurprd04.prod.outlook.com
+ (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Up8UBq8qqDpu2mBW"
-Content-Disposition: inline
-In-Reply-To: <5a283b4d-8d1a-52cf-d863-350e2ff39566@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac8d889d-8b3a-4590-0519-08da68ab04b8
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9653:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	NNO7W8lnnxlgI3f6RO7WSsnP/ld55lypUQBlQmUzIuS/EJXSWI4Y9k8v3cQW69Jh6KcGRFRPKsYjG0KK9/NLDMQZBwOzhfDmIv3ciR14Kxna8MOwLzepmiwiVBWcXxsMAORzrtw4eMDBHPgKq4dHDdPJRVLUtUfc6BQGiLcCQp1L8fCSbLrPKAEHOtH4qkIDeGqYYxnnhKt8kplsN23NBD1bTmj8s0veAMa6c//Dn55XkdwG4/nwNd5QwZe5/0gersZ1CMo77KgIkk8uectstFE9Lw+LsrNT7BXkQWwF0k90EZyRyx8NP6yqqFc5atCWyIGuDNHNdbUknz5V1qKqYufa4Yddd3+KkDm7XwoH6RCqjFOQD5pLhqL2RjSBq78vGrn17zyDaB8NPvq1UzYfJ4RQXyI0Ivkwm4tAnEQPY4H7l4sHE0UP3flt3CSMJenetI2RBGY1bIYOszCDoa8Pn+sG2Drlq6TnfVNsiuHIDiIoR7JtQ/BKQYl71zyVIefvFSCQFQV4O8T1fTo+hI9KbLVK6HNMAVi9IlUQyf9v6stVj+ghxpfUPvN/cVhl9Jm8WyLXqQQwgsqyw6OTA/FaDC0HVOXIt7OfJMvammd8tpCY+DJSdgaD1Y+RypsN0LgXaoU6WOBtR5jMOvnvI5siu6pwzxbAAPuJ5dE+ww17cw6HTzGqy7GaowDQpHGU6Lyw14G+1GttpmtpVbsxZ5nPyW154pCth+F55x3wa+sPEszcavPX+osSOg7Ov5PtSeQSJcjOMw56qo0VDFOOa9CXle98ApBwXB8QJlMflL+uIGTLWsMDRw74CpOk5fK+ZvH0sW8+WDnetZUYfDp4uuUFjqJXgjZoK8rVbnm5vTbrZ1g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(396003)(136003)(39860400002)(366004)(346002)(8936002)(5660300002)(31686004)(4744005)(2906002)(86362001)(6916009)(31696002)(54906003)(8676002)(4326008)(66556008)(316002)(36756003)(6512007)(53546011)(6506007)(26005)(6486002)(41300700001)(2616005)(186003)(478600001)(83380400001)(38100700002)(66946007)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZGdzbFlLWXdDSW9vM2haa1pwbldUbDJvMkhqZWJPcTlZQzBzc3FiMXMzNjkw?=
+ =?utf-8?B?U0NCRGNBQ2YzdC90dWhhWjN2STVLWUZIZThLR2FNbjJuV0ZubDlYWTNndlJG?=
+ =?utf-8?B?YlJ5ZFhHY2JKQVN2M0VtMnRFMTRCMTBQekxJVEFyMDZVeGNPd1M4RjRmdlJs?=
+ =?utf-8?B?alJtSGNST2ZUTkRWODhGUStlZmdLdWhSTWJTRlBlNENQK1hrVnNTdjUxKzc5?=
+ =?utf-8?B?UGU0L2JMYk9xQllnTnBXMlFUNSs5eXdwL2JuMm1OVnZwWjFjZWFNd1dIVmtH?=
+ =?utf-8?B?V3MxVUY4cVNwSUdxWTZGZnRwallCME5ROWx1d3ZOcDV4TE8rV3IzTHV1ZzZT?=
+ =?utf-8?B?T1hzM2JER3RUaHNQMmxKWUZvcTIvYVNYcDkwVlVPdHlvR3d1cDlRRzduVjFK?=
+ =?utf-8?B?czZpaWhjdGFyb1h6UW1wOC8zVWZTR1pJZEJ4OGRTQ3Nia3RaTklGNjJaaDhl?=
+ =?utf-8?B?bkNmbWJjN2pvVkVUeGJVUklmeG9WTWd3ZEltTEd2VWZzWlp0STZvSDhucUZy?=
+ =?utf-8?B?eHJCUklmaWlMNng1aUljVW4yZjIzOVVPcnRmR2hQcXpvczE5OFlEb0hYZ2JI?=
+ =?utf-8?B?cEZ5ZVBqaWZYWTZXUFduRFVlMUtkaVFhSWs5c3d1Z1FtcTBBd0ZqU1RrR2hH?=
+ =?utf-8?B?SXBxNkVadGF2dTdLT3B2STUxNms3RWU0UE5GWkhCY0JZcVNESjJIdGFvZTl5?=
+ =?utf-8?B?YmJXazVrVTc2Z0wzS1lHUTIwWXl1V1E3Zk9uTndOeEpvTWNXeWRkWUpRR0M1?=
+ =?utf-8?B?NDY5QkFkb2ZUMnFJTGFSaGdOeVFMVjlyU0N1bkFCNWFSN1BoY2xYUmVOQ1BQ?=
+ =?utf-8?B?eHRTd0hMOFpBcnB1dm1FeXZHZ1o5aUZwdWJpYnRLUnFoWThSM0tNRFRleFR3?=
+ =?utf-8?B?emdYNGJRUE5PT1M5VGFieHFYM0ZqVXFBQlc1a1NQSDEyS2pMSnB0aEE5Q0o5?=
+ =?utf-8?B?K0hnT2tSdU1RM0hheFdteDV1MmtCc3o0cC83a3V5TWNWeVBiZnd2eS8xWnl2?=
+ =?utf-8?B?NDR3TWsvaHRhNU0xd3QvUHk3OFRvOGZOOFhxYlRUM2xWc0E4TTVNb2xSMDBH?=
+ =?utf-8?B?TDVkZGdnb3VWZWhCWENVY29JU0ptSXNHK3NXdk8yZHM2M0h3VG1YRURFdUxI?=
+ =?utf-8?B?L2pSZXhNUTMvci9rTk9lT2R3cnNzSU1WcWRoNEdqU2kyTXZTRkYwNm5Ic0t3?=
+ =?utf-8?B?YkZWTVk5Z0dqODMxVzhUcDkraXBLNVgvQno4dUFkYWIyS2xCSHYvMlFpMjZN?=
+ =?utf-8?B?YkE0RnhNTEVQQzIzcFlQTVBKVjZxNEp5bnZzUThTYmk3ZVhaVmtqaEZZQ2JT?=
+ =?utf-8?B?MU5uK1BDZWpzaEVPYWFSUGJNYm1aT3g4d3kydDYvdy9XRDZ2MkJLekM4Z2hT?=
+ =?utf-8?B?ZGFtdjh1ZHNsc0hiMUF4RU1nVWRqZG5SR29WQjVnU3dYUzNJUWVUWElQL1pK?=
+ =?utf-8?B?ZHhWZnVDOENWMGdqTEYydm12V2lETDY4MGw5ZXVDRnlCWFB0RnEwMm5ETW1j?=
+ =?utf-8?B?a0t5TXVMSWpPZlVyRXJGTzJsZXg5Ui9rWC9FUnhEaWJJWDkyVmFzYVZNS1Y2?=
+ =?utf-8?B?M0VScUpCL0ZLekd6ekhQYUd5REhrb3dmeDFaa281UlJBbWI1aEc2MWlSMExD?=
+ =?utf-8?B?UjBYcmNlYkpaSytWeFBxYnAvRFJQbWpmVEQ1K0VaU08rZG1tcU9DM1p5RVAr?=
+ =?utf-8?B?a3V0UjJXTXp3WFBIc25HYkNrcm5VWWZuQ0E5d1ppandPSDVLVTIzZTBSNGtu?=
+ =?utf-8?B?MVVOcUN0QWF0N1YrUWFjb3lDSDM3OXY2Mmk4by9URUwrQjVlaHUwNkQzbGg1?=
+ =?utf-8?B?MzcrbzNRbnVWSzEyQmlxakdWejIybzU2b3o0TklsNVdlT3RHNDFjbW1oQzhn?=
+ =?utf-8?B?ZGlrb2k1dmxjZGFWb0ovWXVGMHNTWWV4d01SSHRTKzJHbnVkYTYxbjBjSVRS?=
+ =?utf-8?B?L1ZyM0M2N0g2UmlXQ1Bnb1dOQlB6aHJRRXNLNUhYUkRabDV2cm5oQVpVSWtB?=
+ =?utf-8?B?WGZycytxTmZseEYvcG9KZEdPRGJtaGZZbVhlS2RDTWYwV1RJMVUwV1BTSjNE?=
+ =?utf-8?B?SytKRzZuc3ZZb2VqSWFqdTdVQ1d2ZlgzNHEybkJZUWNFekNhZGVLbTZDSWVo?=
+ =?utf-8?Q?zE94Weem+zqIG8Fm9OSwwER42?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac8d889d-8b3a-4590-0519-08da68ab04b8
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2022 10:48:15.5617
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pXMqTVQy6TlwLh1HN6iQF+w1w+kG+LlV7aA9oeySUYB19zzY7X87cdvVkywQ27WHh6p5xUNyyiFqj4g5aB1RSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9653
 
+On 18.07.2022 09:18, Andrew Cooper wrote:
+> With the waitqueue logic updated to not use an absolute stack pointer
+> reference, the vCPU can safely be resumed anywhere.
+> 
+> Remove VCPU_AFFINITY_WAIT completely, getting rid of two domain crashes,
 
---Up8UBq8qqDpu2mBW
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 18 Jul 2022 12:45:38 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Connor Davis <davisc@ainfosec.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/9] drivers/char: Add support for Xue USB3 debugger
+I understand you mean two domain_crash() invocations here, but ...
 
-On Tue, Jul 12, 2022 at 05:59:51PM +0200, Jan Beulich wrote:
-> On 06.07.2022 17:32, Marek Marczykowski-G=C3=B3recki wrote:
-> > --- a/docs/misc/xen-command-line.pandoc
-> > +++ b/docs/misc/xen-command-line.pandoc
-> > @@ -721,10 +721,15 @@ Available alternatives, with their meaning, are:
-> > =20
-> >  ### dbgp
-> >  > `=3D ehci[ <integer> | @pci<bus>:<slot>.<func> ]`
-> > +> `=3D xue`
-> > =20
-> >  Specify the USB controller to use, either by instance number (when goi=
-ng
-> >  over the PCI busses sequentially) or by PCI device (must be on segment=
- 0).
-> > =20
-> > +Use `ehci` for EHCI debug port, use `xue` for XHCI debug capability.
-> > +Xue driver will wait indefinitely for the debug host to connect - make=
- sure the
-> > +cable is connected.
->=20
-> Especially without it being clear what "xue" stands for, I wonder
-> whether "xhci" would be the better (more commonly known) token to
-> use here.
+> and a
+> logical corner case where resetting the vcpu with an oustanding waitqueue
+> would crash the domain.
 
-Sure, I can change that. I modify this code heavily anyway, so there is
-little point in keeping it similar to the original xue driver.
+... some other domain crash here?
 
-> > --- a/xen/arch/x86/setup.c
-> > +++ b/xen/arch/x86/setup.c
-> > @@ -946,6 +946,9 @@ void __init noreturn __start_xen(unsigned long mbi_=
-p)
-> >      ns16550.irq     =3D 3;
-> >      ns16550_init(1, &ns16550);
-> >      ehci_dbgp_init();
-> > +#ifdef CONFIG_HAS_XHCI
-> > +    xue_uart_init();
-> > +#endif
->=20
-> Can you make an empty inline stub to avoid the #ifdef here?
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Ok.
+I assume you've checked thoroughly that calling code hasn't
+grown dependencies on execution coming back on the same CPU?
 
-> > --- a/xen/drivers/char/Kconfig
-> > +++ b/xen/drivers/char/Kconfig
-> > @@ -74,3 +74,12 @@ config HAS_EHCI
-> >  	help
-> >  	  This selects the USB based EHCI debug port to be used as a UART. If
-> >  	  you have an x86 based system with USB, say Y.
-> > +
-> > +config HAS_XHCI
-> > +	bool "XHCI DbC UART driver"
->=20
-> I'm afraid I consider most of the other options here wrong in
-> starting with HAS_: Such named options should have no prompt, and
-> be exclusively engaged by "select". Hence I'd like to ask to drop
-> the HAS_ here.
-
-Ok.
-
-> > +	depends on X86
-> > +	help
-> > +	  This selects the USB based XHCI debug capability to be used as a UA=
-RT.
->=20
-> s/used/usable/?
-
-Yes.
-
-> > --- /dev/null
-> > +++ b/xen/drivers/char/xue.c
-> > @@ -0,0 +1,933 @@
-> > +/*
-> > + * drivers/char/xue.c
-> > + *
-> > + * Xen port for the xue debugger
-> > + *
-> > + * This program is free software; you can redistribute it and/or modify
-> > + * it under the terms of the GNU General Public License as published by
-> > + * the Free Software Foundation; either version 2 of the License, or
-> > + * (at your option) any later version.
-> > + *
-> > + * This program is distributed in the hope that it will be useful,
-> > + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> > + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> > + * GNU General Public License for more details.
-> > + *
-> > + * You should have received a copy of the GNU General Public License
-> > + * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> > + *
-> > + * Copyright (c) 2019 Assured Information Security.
-> > + */
-> > +
-> > +#include <xen/delay.h>
-> > +#include <xen/types.h>
-> > +#include <asm/string.h>
-> > +#include <asm/system.h>
-> > +#include <xen/serial.h>
-> > +#include <xen/timer.h>
-> > +#include <xen/param.h>
-> > +#include <asm/fixmap.h>
-> > +#include <asm/io.h>
-> > +#include <xen/mm.h>
->=20
-> Please sort xen/ before asm/ and alphabetically within each group.
-
-Ok.
-
-> > +/* uncomment to have xue_uart_dump() debug function */
-> > +/* #define XUE_DEBUG 1 */
-> > +
-> > +#define XUE_POLL_INTERVAL 100 /* us */
-> > +
-> > +#define XUE_PAGE_SIZE 4096ULL
->=20
-> I think I had asked before - why this odd suffix?
->=20
-> > +static void xue_sys_pause(void)
-> > +{
-> > +    asm volatile("pause" ::: "memory");
-> > +}
->=20
-> I wonder whether the open-coded inline assembly is really needed
-> here: Can't you use cpu_relax()? If not, style nit: Several blanks
-> missing.
-
-Probably I can.
-
-> > +static bool __init xue_init_xhc(struct xue *xue)
-> > +{
-> > +    uint32_t bar0;
-> > +    uint64_t bar1;
-> > +    uint64_t devfn;
-> > +
-> > +    /*
-> > +     * Search PCI bus 0 for the xHC. All the host controllers supporte=
-d so far
-> > +     * are part of the chipset and are on bus 0.
-> > +     */
-> > +    for ( devfn =3D 0; devfn < 256; devfn++ )
-> > +    {
-> > +        pci_sbdf_t sbdf =3D PCI_SBDF(0, 0, devfn);
-> > +        uint32_t hdr =3D pci_conf_read8(sbdf, PCI_HEADER_TYPE);
-> > +
-> > +        if ( hdr =3D=3D 0 || hdr =3D=3D 0x80 )
-> > +        {
-> > +            if ( (pci_conf_read32(sbdf, PCI_CLASS_REVISION) >> 8) =3D=
-=3D XUE_XHC_CLASSC )
-> > +            {
-> > +                xue->sbdf =3D sbdf;
-> > +                break;
-> > +            }
-> > +        }
-> > +    }
-> > +
-> > +    if ( !xue->sbdf.sbdf )
-> > +    {
-> > +        xue_error("Compatible xHC not found on bus 0\n");
-> > +        return false;
-> > +    }
-> > +
-> > +    /* ...we found it, so parse the BAR and map the registers */
-> > +    bar0 =3D pci_conf_read32(xue->sbdf, PCI_BASE_ADDRESS_0);
-> > +    bar1 =3D pci_conf_read32(xue->sbdf, PCI_BASE_ADDRESS_1);
-> > +
-> > +    /* IO BARs not allowed; BAR must be 64-bit */
-> > +    if ( (bar0 & PCI_BASE_ADDRESS_SPACE) !=3D PCI_BASE_ADDRESS_SPACE_M=
-EMORY ||
-> > +         (bar0 & PCI_BASE_ADDRESS_MEM_TYPE_MASK) !=3D PCI_BASE_ADDRESS=
-_MEM_TYPE_64 )
-> > +        return false;
-> > +
-> > +    pci_conf_write32(xue->sbdf, PCI_BASE_ADDRESS_0, 0xFFFFFFFF);
-> > +    xue->xhc_mmio_size =3D ~(pci_conf_read32(xue->sbdf, PCI_BASE_ADDRE=
-SS_0) & 0xFFFFFFF0) + 1;
-> > +    pci_conf_write32(xue->sbdf, PCI_BASE_ADDRESS_0, bar0);
->=20
-> Why is a 64-bit BAR required when you size only the low 32 bits?
-
-xHCI spec says the first BAR is required to be 64-bit, so I'm checking
-this assumption to handle just this one case. But then, the size is 64K
-in practice (and xue_sys_map_xhc() checks for that), so just 32 bits are
-enough. Anyway, I can add sizing the whole thing, for consistency.
-
-> Also you need to disable memory decoding around this (and
-> somewhere you also need to explicitly enable it, assuming here
-> you would afterwards restore the original value of the command
-> register).=20
-
-Actually, this is a good place to enable memory decoding.
-
-> Further you're still open-coding
-> PCI_BASE_ADDRESS_MEM_MASK here.
->=20
-> > +/**
-> > + * The first register of the debug capability is found by traversing t=
-he
-> > + * host controller's capability list (xcap) until a capability
-> > + * with ID =3D 0xA is found. The xHCI capability list begins at address
-> > + * mmio + (HCCPARAMS1[31:16] << 2)
-> > + */
-> > +static struct xue_dbc_reg *xue_find_dbc(struct xue *xue)
-> > +{
-> > +    uint32_t *xcap;
-> > +    uint32_t next;
-> > +    uint32_t id;
-> > +    uint8_t *mmio =3D (uint8_t *)xue->xhc_mmio;
-> > +    uint32_t *hccp1 =3D (uint32_t *)(mmio + 0x10);
-> > +    const uint32_t DBC_ID =3D 0xA;
-> > +
-> > +    /**
-> > +     * Paranoid check against a zero value. The spec mandates that
-> > +     * at least one "supported protocol" capability must be implemente=
-d,
-> > +     * so this should always be false.
-> > +     */
-> > +    if ( (*hccp1 & 0xFFFF0000) =3D=3D 0 )
-> > +        return NULL;
-> > +
-> > +    xcap =3D (uint32_t *)(mmio + (((*hccp1 & 0xFFFF0000) >> 16) << 2));
->=20
-> Why not either
->=20
->     xcap =3D (uint32_t *)(mmio + ((*hccp1 >> 16) << 2));
->=20
-> or
->=20
->     xcap =3D (uint32_t *)(mmio + ((*hccp1 & 0xFFFF0000) >> 14));
->=20
-> ?
-
-Ok.
-
-> > +    next =3D (*xcap & 0xFF00) >> 8;
-> > +    id =3D *xcap & 0xFF;
-> > +
-> > +    /**
-> > +     * Table 7-1 states that 'next' is relative to
-> > +     * the current value of xcap and is a dword offset.
-> > +     */
-> > +    while ( id !=3D DBC_ID && next ) {
->=20
-> Nit: Brace placement.
->=20
-> > +        xcap +=3D next;
-> > +        id =3D *xcap & 0xFF;
-> > +        next =3D (*xcap & 0xFF00) >> 8;
-> > +    }
->=20
-> Is this loop guaranteed to terminate? See drivers/pci/pci.c where
-> circular chains are being dealt with in a similar situation.
-
-Proper device shouldn't have circular chains here, but yes, adding
-protection against this is a good idea.
-
-> > +/* Initialize the DbC info with USB string descriptor addresses */
-> > +static void xue_init_strings(struct xue *xue, uint32_t *info)
-> > +{
-> > +    uint64_t *sda;
-> > +
-> > +    /* clang-format off */
->=20
-> What's this?
->=20
-> > +    const char strings[] =3D {
->=20
-> static?
->=20
-> > +        6,  3, 9, 0, 4, 0,
-> > +        8,  3, 'A', 0, 'I', 0, 'S', 0,
-> > +        30, 3, 'X', 0, 'u', 0, 'e', 0, ' ', 0,
-> > +               'D', 0, 'b', 0, 'C', 0, ' ', 0,
-> > +               'D', 0, 'e', 0, 'v', 0, 'i', 0, 'c', 0, 'e', 0,
-> > +        4, 3, '0', 0
-> > +    };
-> > +    /* clang-format on */
-> > +
-> > +    memcpy(xue->dbc_str, strings, sizeof(strings));
->=20
-> Can't you simply assign to xue->dbc_str? I don't see this being used
-> elsewhere, so it might even be possible to omit the field altogether
-> (and with it the str_buf static variable consuming an entire page).
-
-That is an option, but honestly (as you note below), there is a bit too
-much magic here.
-
-> > +    sda =3D (uint64_t *)&info[0];
-> > +    sda[0] =3D virt_to_maddr(xue->dbc_str);
-> > +    sda[1] =3D sda[0] + 6;
-> > +    sda[2] =3D sda[0] + 6 + 8;
-> > +    sda[3] =3D sda[0] + 6 + 8 + 30;
-> > +    info[8] =3D (4 << 24) | (30 << 16) | (8 << 8) | 6;
->=20
-> Wow, magic numbers. And, apparently, some used several times.
-
-I think I can make this whole string table init a bit clearer (at a
-negligible higher runtime cost).
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---Up8UBq8qqDpu2mBW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmLVOdMACgkQ24/THMrX
-1yzH/ggAiMyT1/hzBWzPSpsJDxVXO6+MhtCv6pOaZ4cGRoojehKs9Cz/nKfylaMC
-oEuR+NcTG8UADvOXr1PsK9thKTNNFE8Ci5MA47/aQ8I+ZR0bgHwzixSrib/VADvU
-aRE/UGpbKtHKGin5f/21DhNfZg87Klof1VCysVCDd5dEJI8L80BkAjEFq01IlkT2
-SMJwwsP7zywJyGkmwdTcK8x5ery6lUpVU4voWJugdvTd7tSbyvKgeoHYUPWd+2rl
-xxjUebI7OFVO8E9gR7st+jg+QEfqlOCHyhZBZrRXcCR6GnE2xTa5x6eNIGcn4U/P
-oMtKlhnZG1rsxx8AWv26nSG8Lr5m6A==
-=Rss7
------END PGP SIGNATURE-----
-
---Up8UBq8qqDpu2mBW--
+Jan
 
