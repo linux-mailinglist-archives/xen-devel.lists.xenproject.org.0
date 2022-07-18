@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1172E577C59
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 09:19:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.369275.600623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2E9F577C5C
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 09:19:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.369274.600614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDL1m-0005SA-I5; Mon, 18 Jul 2022 07:18:50 +0000
+	id 1oDL1m-0005KV-2R; Mon, 18 Jul 2022 07:18:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 369275.600623; Mon, 18 Jul 2022 07:18:50 +0000
+Received: by outflank-mailman (output) from mailman id 369274.600614; Mon, 18 Jul 2022 07:18:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDL1m-0005IR-94; Mon, 18 Jul 2022 07:18:50 +0000
-Received: by outflank-mailman (input) for mailman id 369275;
- Mon, 18 Jul 2022 07:18:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oDL1l-0005ET-TW; Mon, 18 Jul 2022 07:18:49 +0000
+Received: by outflank-mailman (input) for mailman id 369274;
+ Mon, 18 Jul 2022 07:18:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fb5k=XX=citrix.com=prvs=1919bed39=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1oDL1k-0004tp-Br
- for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 07:18:48 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dcff2983-0669-11ed-bd2d-47488cf2e6aa;
- Mon, 18 Jul 2022 09:18:47 +0200 (CEST)
+ id 1oDL1j-0004to-NP
+ for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 07:18:47 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id db04218d-0669-11ed-924f-1f966e50362f;
+ Mon, 18 Jul 2022 09:18:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,74 +36,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcff2983-0669-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: db04218d-0669-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1658128727;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Mum1aKh8B28t6+mlcr+GzyZyZrglrMoFRYfHGq4I0qs=;
-  b=Zuu7XkbW4U82RljWa/OJqD8BvI9FPCqBCsPbUewEoLDUWg97ABwt/tqZ
-   TzUDcXuw3x9mw9bvKdmH8s7g7GDe57TJmeiR2U2lRZEhy9TYt90+oK6gN
-   H9xu0ymW4oiyL18q6+6RvM+iFNuUqMgV4v+dSB+CS4zEnMPN76fHxH3vE
-   g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1658128725;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=MBnjpYcrthIMf2A0TClYrTSnU8giI6pEvHtffLJlDVY=;
+  b=G6cN5xEVpKp13zbtjNdQm9WsVzxFaw8p3fJI03vxLfTZTyT70n27sbKB
+   5Fe0u/NAZ1NvsVofjfiTZOKFUtndI93zhU6NZCoh/hWXVLl3emHSQ0B3W
+   /j1dTrGX2SBDEjWOH75qG4lmfkTV6cwAbIIO1aihYscV9kohivGAuh1Py
+   0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 76442483
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 76011728
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Rcff2qBxOxqi9BVW/z3jw5YqxClBgxIJ4kV8jS/XYbTApGtwgjRWn
- TccX2nQOPyKMDH8Lt90O9zkoxlV75TXx4ViQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E3ratANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq3uU0meaEu/Dga++2k
- Y608pe31GONgWYuaDpLsv3b8nuDgdyp0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSq
- zHrlezREsvxpn/BO/v9+lrJWhRiro36ZGBivkF+Sam66iWukwRpukoN2FjwXm8M49mBt4gZJ
- NygLvVcQy9xVkHHsLx1vxW1j0iSlECJkVPKCSHXjCCd86HJW0rR095NIRE1B7Rb3P1zDUVQx
- 6YqNS9YO3hvh8ruqF66Yuxlh8BlJ8j3JoIP/HpnyFk1D95/H8qFGf+To4YFgnFg3aiiHt6HD
- yYdQRNpYA7NfFtkPVAPBYhltOypmmP+Y3tTr1f9Sa8fvDaPkFYtgOOF3Nz9JeDSY8xloFqh/
- 3uB8GvyW04aD/nC8G/Qmp6rrrCWxn6qMG4IL5W6+eRtm0a73XEIBVsdUl7TifW3g0GxWtVbK
- mQP5zEj66M18SSDbPPwQhm5q36spQMHVpxbFOhSwBGAzO/Y7hiUAkAATyVdc5o2uckuXzso2
- 1SV2dTzClRHr7m9WX+bsLCOoluP1TM9dDFYI3VeFE1cvoel8NpbYg/zoshLIZOlpf7YSTLK+
- nOstywyo6sh1/wWyPDulbzYuA5AtqQlXyZsuFiIDzr0v18jDGK2T9f2sAaGtJ6sOK7cFwDc5
- yZcxqBy+chUVfmweDqxrPLh9V1Dz9KMK3XijFFmBPHNHBz9qif4Lei8DNyTTXqF0/romhezO
- Sc/QSsLuPdu0IKCNMebmb6ZBcUw1rTHHt/4TP3SZdcmSsEvKV/frHs/OhbJjjyFfK0QfUYXY
- M3zTCpRJSxCVfQPIMSeHY/xLoPHNghhnDiOFPgXPjys0KaEZW79dIrpxGCmN7lhhIvZ8Vq9z
- jqqH5HVo/mpeLGhP3K/HE96BQxiEEXX8ris9pQJJrbeflY+cIzjYteIqY4cl0Vet/w9vo/1E
- ruVACe0FHKXaaX7FDi3
-IronPort-HdrOrdr: A9a23:Kho/nKhMTd6jj0eTVbL0W7Yk/nBQXtQji2hC6mlwRA09TySZ//
- rOoB19726TtN9xYgBGpTnuAtjifZqxz/FICOoqTNOftWvdyQmVxehZhOOIqVCNJ8SXzJ8l6U
- 4KSchD4bPLY2SS9fyKhTWFLw==
+IronPort-Data: A9a23:P9jYk60dOKxWYV0JffbD5bpxkn2cJEfYwER7XKvMYLTBsI5bpzNVn
+ zMeWD+HbKrcMGCgfo1xYYjj/E5S65+Gm9FhSVNspC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkjk7xdOKn9RGQ7InQLpLkEunIJyttcgFtTSYlmHpLlvUwx4VlmrBVOSvU0
+ T/Ji5CZaQXNNwJcaDpOsfrc8Uw35pwehRtD1rAATaET1LPhvyF94KI3fcmZM3b+S49IKe+2L
+ 86rIGaRpz6xE78FU7tJo56jGqE4aue60Tum0xK6b5OKkBlazhHe545gXBYqheW7vB3S9zx54
+ I0lWZVd0m7FNIWU8AgWe0Ew/y2TocSqUVIISJSymZX78qHIT5fj6/FxKkI2P4kmw7YtI01E2
+ 6I7NC4kVh/W0opawJrjIgVtrsEqLc2tN4IDoHBwizreCJ7KQ7iaHf+Mv4UBmm5t2IYeRp4yZ
+ OJAAdZrRD3GbwdCJRE8D5Umkf3zrnL+bydZuBSeoq9fD237k1IpieGyaoq9ltqiVcdSlWiWh
+ 1P/pHnHXS8UNPGy6yDZ/Sf57gPItXyiA99DfFGizdZ1hHWDy2pVDwcZPXOZi/Skjk+1W/pEN
+ lcZvCEpqMAa5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWblXoVRYYNoZg7pVvA2V3i
+ BnZxLsFGACDrpWRVlSe9rWQkwriYwo5J0FcRjMaZDMKtoyLTJ4Isv7fcjpyOPfr04KkQWChn
+ 2riQDsW3OtK05NSv0mv1RWe2m/3+MCUJuIgzl+PNl9J+D+Vc2JMi2aAzVHApchNI4+CJrVql
+ ChVwpPOhAzi4HzkqcBsfAnuNOvwjxp9GGeA6WOD5rF4n9hXx1atfJpL/BZ1L1pzP8APdFfBO
+ RGO6VsBvs4MZCL7Mcebhr5d7Oxzl8Dd+SnNDKiIPrKinLArHON4wM2eTRHJhD28+KTduao+J
+ Y2aYa6RMJruMow+lWLeb7pMjtcWKtUWnzy7qWbTk0v6itJzpRe9Fd84Dbd5RrpktP3U+FiJr
+ 4432gnj40w3bdASqxL/qeY7RW3m51BibXwqg6S7rtK+Hzc=
+IronPort-HdrOrdr: A9a23:6oN8nqq5ic+i+tM3scP2gRoaV5oTeYIsimQD101hICG8cqSj+f
+ xG+85rrCMc6QxhPk3I9urhBEDtex/hHNtOkOws1NSZLW7bUQmTXeJfBOLZqlWKcUDDH6xmpM
+ NdmsBFeaXN5DNB7PoSjjPWLz9Z+qjkzJyV
 X-IronPort-AV: E=Sophos;i="5.92,280,1650945600"; 
-   d="scan'208";a="76442483"
+   d="scan'208";a="76011728"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Juergen Gross
-	<jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH 0/5] xen/wait: Improvements
-Date: Mon, 18 Jul 2022 08:18:20 +0100
-Message-ID: <20220718071825.22113-1-andrew.cooper3@citrix.com>
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH 1/5] xen/wait: Drop vestigial remnants of TRAP_regs_partial
+Date: Mon, 18 Jul 2022 08:18:21 +0100
+Message-ID: <20220718071825.22113-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20220718071825.22113-1-andrew.cooper3@citrix.com>
+References: <20220718071825.22113-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-This started out as patch 2 for a different task, and quickly identified some
-technical debt, long overdue for cleaning up.
+The preservation of entry_vector was introduced with ecf9846a6a20 ("x86:
+save/restore only partial register state where possible") where
+TRAP_regs_partial was introduced, but missed from f9eb74789af7 ("x86/entry:
+Remove support for partial cpu_user_regs frames") where TRAP_regs_partial was
+removed.
 
-Andrew Cooper (5):
-  xen/wait: Drop vestigial remnants of TRAP_regs_partial
-  xen/wait: Extend the description of how this logic actually works
-  xen/wait: Minor asm improvements
-  xen/wait: Use relative stack adjustments
-  xen/wait: Remove VCPU_AFFINITY_WAIT
+Fixes: f9eb74789af7 ("x86/entry: Remove support for partial cpu_user_regs frames")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/common/wait.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
- xen/common/domain.c     |   2 -
- xen/common/sched/core.c |   4 +-
- xen/common/wait.c       | 117 +++++++++++++++++++++++++-----------------------
- xen/include/xen/sched.h |   1 -
- 4 files changed, 63 insertions(+), 61 deletions(-)
-
+diff --git a/xen/common/wait.c b/xen/common/wait.c
+index 9276d76464fb..3ebb884fe738 100644
+--- a/xen/common/wait.c
++++ b/xen/common/wait.c
+@@ -124,7 +124,6 @@ static void __prepare_to_wait(struct waitqueue_vcpu *wqv)
+     struct cpu_info *cpu_info = get_cpu_info();
+     struct vcpu *curr = current;
+     unsigned long dummy;
+-    u32 entry_vector = cpu_info->guest_cpu_user_regs.entry_vector;
+ 
+     ASSERT(wqv->esp == 0);
+ 
+@@ -169,8 +168,6 @@ static void __prepare_to_wait(struct waitqueue_vcpu *wqv)
+         for ( ; ; )
+             do_softirq();
+     }
+-
+-    cpu_info->guest_cpu_user_regs.entry_vector = entry_vector;
+ }
+ 
+ static void __finish_wait(struct waitqueue_vcpu *wqv)
 -- 
 2.11.0
 
