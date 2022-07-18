@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC9A857889D
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 19:39:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.369990.601612 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A06D057894B
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Jul 2022 20:09:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.369998.601624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDUi5-0005yr-4Q; Mon, 18 Jul 2022 17:39:09 +0000
+	id 1oDVAx-0001MB-Gh; Mon, 18 Jul 2022 18:08:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 369990.601612; Mon, 18 Jul 2022 17:39:09 +0000
+Received: by outflank-mailman (output) from mailman id 369998.601624; Mon, 18 Jul 2022 18:08:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDUi5-0005wY-1e; Mon, 18 Jul 2022 17:39:09 +0000
-Received: by outflank-mailman (input) for mailman id 369990;
- Mon, 18 Jul 2022 17:39:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oDUi4-0005wS-1z
- for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 17:39:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oDUi0-0004DQ-Dq; Mon, 18 Jul 2022 17:39:04 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231] helo=[10.7.237.21])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oDUi0-0002kq-7q; Mon, 18 Jul 2022 17:39:04 +0000
+	id 1oDVAx-0001JB-Cp; Mon, 18 Jul 2022 18:08:59 +0000
+Received: by outflank-mailman (input) for mailman id 369998;
+ Mon, 18 Jul 2022 18:08:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yO7Q=XX=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1oDVAv-0001J5-Gl
+ for xen-devel@lists.xenproject.org; Mon, 18 Jul 2022 18:08:57 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id af728146-06c4-11ed-924f-1f966e50362f;
+ Mon, 18 Jul 2022 20:08:55 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 21D715C0138;
+ Mon, 18 Jul 2022 14:08:54 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Mon, 18 Jul 2022 14:08:54 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 18 Jul 2022 14:08:53 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,56 +43,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=lJPhKBGAbseUHfu7daN4peHCxF/nHRM2kxGLurhaQsE=; b=OUumpu6AIW/5grr1tn4oKyCA2A
-	ehUitDkgciaCSttx203kX0Y9fvum5NPFeruUdfGKUo8PrGHUV2OpqI93wul4lqujG1KK5h9L5Umxu
-	OepcjXXRIUtLs9+UmYFYpjR16w5VG2vV51LSNS2kbSjExG+xLmvTIvdz6BqPt2Z/Tt4c=;
-Message-ID: <a06eb29a-c5b3-3a97-7f39-ca25a051163d@xen.org>
-Date: Mon, 18 Jul 2022 18:39:02 +0100
+X-Inumbo-ID: af728146-06c4-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm3; t=1658167734; x=
+	1658254134; bh=Q+2bcuYbqNaeJUyXlpoGM3BHR0EjVdzO4fH/v0jEPL4=; b=K
+	FkuLtwY8N/NT+897LsnwrmqResDCTsmeNkRGz3A4D3IKhIHhReJBdgxGEoglt8lz
+	t61FyVx/GsuH6AmhqZ38839vURcVrFYkv20tkQA9jQ5vR7f9QOJA/SkanhWDmA/y
+	GuPLaciVjfUAlMPq211+3XLfQ/HQ9vXP28mLMjidgW6pDnDwC6Os9AXFyBKoRe9m
+	1vm1GymUnpzZXWpVKRbd3jn21WapiKGr+flz0RH8GnbITVf/OsnazMtkyxCfSOzO
+	7+UCRRjYB9C7iCYUbRGNiNF0+izwCTRXjuyJ1OfleorZjNzEZuis1qV0RwX2A4+J
+	5HWGgeTxZZKdLpOJL1uZw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1658167734; x=1658254134; bh=Q+2bcuYbqNaeJUyXlpoGM3BHR0EjVdzO4fH
+	/v0jEPL4=; b=lSA5Fe4ygcts/JbmilaClF0qUDFhO1v8zGlO49buFQIxkpBkCjc
+	McN43T2+kEcMDKdVPi+JvNpeculuYe+NotAGpPd2mM8IAsfZHnMhvDlJhYQ0sGXg
+	W3r8+p6wO47FwElGock0/nexZQPlWbC4sQ6+iUHnhbxtjVjHOn0w1SKR7jAFqBzQ
+	ETeQrynfaCoi0n5T0ZbbMTMGCDt5yPOScnZt0FUHgDOtciZMET5eFGWTaKygc0AM
+	Dlj/KIiQw11ksh9R9o49qAvzbJwNI3EC4dzbAXyxBUG9Wt/tsZjGNsC8IYplR2Vq
+	qIcixAAgWOGO7Oi7uG+btMtCxr2ucmlxNUw==
+X-ME-Sender: <xms:taHVYgtMQ3kYUFAQnvD9lZE1lxr_UhG6qcwc-qhVvaohVVk08IWVdw>
+    <xme:taHVYtdeEwQ54v2429QhTfR5nf78vQqQmrQjh6yuWWzYEBGFsEimaJDy7XmzeH1rV
+    u_1stTrvLcpvLs>
+X-ME-Received: <xmr:taHVYrzjCPu7tnDLwcDjp_xU4Ntl3q9-yyZgQe8T1YzFC6DTX8o5idZm2oFGW_9Ucgzyiku9L6zQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudekkedguddukecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcu
+    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvfeegkedvkefgffegkefhieejtdff
+    keehhfelheefjeeutefgleeggfdtveeileenucevlhhushhtvghrufhiiigvpedtnecurf
+    grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
+    rggsrdgtohhm
+X-ME-Proxy: <xmx:taHVYjNLlx0_FeAaJcGGVzoa88tuX6WwtfCAZz2kOT25UO-_-clsHw>
+    <xmx:taHVYg-bQlA-ljX_ZuBG063vbqPZX_Q5pvdcOd02u6i_hr-Hn5UFCQ>
+    <xmx:taHVYrUbZnhYcx4cIcIky9m0sdiYhtO2IYRKCLjYMZCB6zOg0UrlVw>
+    <xmx:tqHVYvlFziuhYfTi7hOXLPF3VI-N4DfmOyZGPF7yMu1AlRjJKM86jQ>
+Feedback-ID: iac594737:Fastmail
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Backport of 166d38632316 ("xen/gntdev: Ignore failure to unmap INVALID_GRANT_HANDLE")
+Date: Mon, 18 Jul 2022 14:08:16 -0400
+Message-Id: <20220718180820.2555-1-demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.11.0
-Subject: Re: [PATCH v2 3/3] xen/heap: pass order to free_heap_pages() in heap
- init
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Hongyan Xia <hongyxia@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-References: <20220715170312.13931-1-julien@xen.org>
- <20220715170312.13931-4-julien@xen.org>
- <0242a659-fcf9-74cc-102c-df775123b7ac@suse.com>
- <b8b84df4-4101-a78f-1cf1-1662500ee2c0@xen.org>
- <097e8634-0c5b-35ac-6ad6-5b83d9b29f64@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <097e8634-0c5b-35ac-6ad6-5b83d9b29f64@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
-
-On 18/07/2022 12:02, Jan Beulich wrote:
-> On 18.07.2022 12:24, Julien Grall wrote:
-> 3)
->          unsigned int inc_order = min(MAX_ORDER, flsl(e - s) - 1);
-> 
->          if ( s )
->              inc_order = min(inc_order, ffsl(s) - 1U);
-
-I like this idea!
-
-> 
-> No compilation issues to expect here, afaict.
-
-Correct, GCC is happy with this approach. Assuming there are no other 
-comments, are you happy if I make the change on commit?
-
-Cheers,
-
-
+This series backports upstream commit 166d3863231667c4f64dee72b77d1102cdfad11f
+to all supported stable kernel trees.
 -- 
-Julien Grall
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
