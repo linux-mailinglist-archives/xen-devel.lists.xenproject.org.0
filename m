@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 069E057A498
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 19:06:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.370775.602651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EA8F57A4FA
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 19:19:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.370787.602662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDqg5-0000gd-96; Tue, 19 Jul 2022 17:06:33 +0000
+	id 1oDqrx-0002YN-Bj; Tue, 19 Jul 2022 17:18:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 370775.602651; Tue, 19 Jul 2022 17:06:33 +0000
+Received: by outflank-mailman (output) from mailman id 370787.602662; Tue, 19 Jul 2022 17:18:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDqg5-0000d7-6R; Tue, 19 Jul 2022 17:06:33 +0000
-Received: by outflank-mailman (input) for mailman id 370775;
- Tue, 19 Jul 2022 17:06:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oDqrx-0002Vu-8c; Tue, 19 Jul 2022 17:18:49 +0000
+Received: by outflank-mailman (input) for mailman id 370787;
+ Tue, 19 Jul 2022 17:18:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vT2r=XY=riversideresearch.org=rsmith@srs-se1.protection.inumbo.net>)
- id 1oDqg3-0000cM-8a
- for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 17:06:31 +0000
-Received: from USG02-CY1-obe.outbound.protection.office365.us
- (mail-cy1usg02on0107.outbound.protection.office365.us [23.103.209.107])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2096b11f-0785-11ed-924f-1f966e50362f;
- Tue, 19 Jul 2022 19:06:29 +0200 (CEST)
-Received: from BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:185::22)
- by BN0P110MB1418.NAMP110.PROD.OUTLOOK.COM (2001:489a:200:181::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23; Tue, 19 Jul
- 2022 17:06:26 +0000
-Received: from BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM
- ([fe80::5c73:fd8e:2a33:be27]) by BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM
- ([fe80::5c73:fd8e:2a33:be27%3]) with mapi id 15.20.5438.023; Tue, 19 Jul 2022
- 17:06:26 +0000
+ <SRS0=B0fU=XY=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
+ id 1oDqrv-0002Vo-HA
+ for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 17:18:47 +0000
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d75ccb72-0786-11ed-bd2d-47488cf2e6aa;
+ Tue, 19 Jul 2022 19:18:45 +0200 (CEST)
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2022 10:18:30 -0700
+Received: from jlirvin-mobl5.amr.corp.intel.com (HELO ubuntu.localdomain)
+ ([10.212.39.211])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2022 10:18:29 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,103 +43,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2096b11f-0785-11ed-924f-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector5401; d=microsoft.com; cv=none;
- b=Tuza4z5t8AM6Jr0P/j+p9kgWGG2YCZTbhO7N02iiu2YK+8LtAhe/TV/qi/lp/p+oj3TG8OGoOG8p73EFaKMXC7y3v1xPiSHygY65z5lhEttyg7vIYmNCaR+syW80ceLQIzMHgbecMny+a/5DSNHap9oLW8S+o2oYN0dANFXGv2By0xGxIeAqEYF8NLopy/7qKATwf3og9jYNdbnf7hWEq9JxEHRk6hjeIQjUm6Rcr6D8W5PtleryJhLopphLWBNuMsCzjlP7VYSp6uMEeOypoXh9q+C1xo7erhTwwQ8rCFeSXAoHmgQEU8ZWWT3R/r8nv2YrX5iTQ5ZrY4Ebkv0nBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector5401;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i6te3jQ3p/QWgcuoyD3zoTgKMYHVzI6raRHg9aEQR3A=;
- b=uMdMEaWw5OnlbxaDPm0YUA55Ld2IE9XncrQCmHZ7I8/yIQZT7Wqkie01u+KxRNUzSWyqd3uxpSp7KOvquenR/uYvc6e4aS7d7YLMCmVY17SooOiD0OeJNmcoaJMurwE+TWNotB+R1EJEyIa7vWjHREZOh3bnfQAasLk+OmwgqzAFPOV8I9z3PlLbvWxS9dU5XGfY9d84LqQlNg8thMlRbfvAF0K26N6qh9GbJ01M1a662cCxevSRnlXogZwFAATMXE3n46ffXdBSeUJunW6jQVeVj9jN0HqVqxvWIpVNCz3ocTiobMW2+pqmIoda3BpJ0GJdHWOgC97JVt+oWijGdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=riversideresearch.org; dmarc=pass action=none
- header.from=riversideresearch.org; dkim=pass header.d=riversideresearch.org;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=riversideresearch.org;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i6te3jQ3p/QWgcuoyD3zoTgKMYHVzI6raRHg9aEQR3A=;
- b=EZo3bI5kI9j04nVMi3wA1DLrV2p2LVoeEiO4sBJZGCbVFbYQwWt6eOxb1GFpcuTus/Sj1IvZl4EE3NSuzRm+phL7ZZFw0NCok50oM7bmoCDwZOgNq4WY4c96BR/4FBjaY6TmwiiX+dkf2c34nSTAy9DLCvY2fYNDcpBljxs6uQOAU0J0lLTmFv0jh6Nr/4pa6e3ZLd9z7Mmo/qXebfmFzIXWEhG8FaMisvEHcrPIXzGCe5jtVTVcGL3J92iA0zN0X9Q0gcDZZ11O1L62HgxQ84tb6R4TAXZ/VzhPIHNcAlj8OpcmFbcd19ITBSEMSG/7ljPq9dsJWemZRIMOwdIfZQ==
-From: "Smith, Jackson" <rsmith@RiversideResearch.org>
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "scott.davis@starlab.io" <scott.davis@starlab.io>,
-	"christopher.clark@starlab.io" <christopher.clark@starlab.io>
-Subject: RE: [PATCH v1 00/18] Hyperlaunch
-Thread-Topic: [PATCH v1 00/18] Hyperlaunch
-Thread-Index: AQHDrne88XyYXkgxTAt6TFUls0rRYK2vvfVA
-Date: Tue, 19 Jul 2022 17:06:26 +0000
-Message-ID:
- <BN0P110MB1642FA64F48C31ED7F64AF27CF8F9@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
-References: <20220706210454.30096-1-dpsmith@apertussolutions.com>
-In-Reply-To: <20220706210454.30096-1-dpsmith@apertussolutions.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=RiversideResearch.org;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8d93e4e1-fc7e-4bf3-6dd9-08da69a903df
-x-ms-traffictypediagnostic: BN0P110MB1418:EE_
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 8pzMy4DoeACj9hNnC4atV3e6N9figjCLk7PM1Z9UkKR3qVDDZf+DaEftbMt7zV08e4E0n1d/2qotN+CIUjgdxcU3wK6vrUqT850TmHgpFpxaoDwPH8MngZUGUdjpCMexiTlz0mG08qyFuTz8LWo3pSiM0gh8KSuf8me4hV5n1E53s5cj7txGwSHzRSRvI4BoIiOFoA1R/5MIV7YnQNTdBVqSEQoDNwD1E+Oz/n6FwIM9A6ErbmrXbTWmm66iJlLcOb/XlIM1nJ9BKif0IrZtgzPagpqtg+txwwsK1JIYtFTLfRpv4KWdoyrbCii1+9tA2GBNFyV1tLpxbulQ/pJPjFOEvC4zHh42DEmU0ocvau/ezFdOWKvZ9GQiH+vf6bg2LoDRxRPZH+Y7h22pKdqxuWMVkffm1HK2MFgAffncGVnIxzzvOdzLeKf2kY4YjGaiupOu/lLf9etgHiEnccksNdWmDXwpOwot5C24TQYJe3KaKtZ+HQAnehJLHP3I4LBfsyilOrqbhZvyFBEUXVE4x/1OllcVCiQg4l0BeZZrQ+i0j24GSydIvMLunrDnT+GPDjSyESXJ2te76gEu3GgT1/UdUkev0miuZzyyAqRguELdy4ARgN1W1STTLDMcz0ZIMi+TVMsirvwuMRjnLkSTH9o04O0T/yN2FVm2jOFcESR3A3N+jHwMHTOg43ihX6ZmBuuZkjwOFpcCmFa05AGNfws6bcPKRhcPODRMqpZg4os1m6BEybUsPiwn7KIMdR++
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230016)(366004)(55016003)(2906002)(54906003)(76116006)(33656002)(5660300002)(52536014)(8936002)(8676002)(66556008)(4326008)(66446008)(66946007)(64756008)(110136005)(66476007)(6506007)(83380400001)(71200400001)(122000001)(498600001)(82960400001)(86362001)(7696005)(38100700002)(186003)(9686003)(26005)(38070700005)(85282002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- uMuNJL4aJojtcz9JVyZJJklEM/L3Mf7Xm9PO0gOqkL1fa3bxshF92D6H+7JUNiHOVy6T1czrxVUzcAectYgrKFQfHl4HCNkEihzJIWQterD/lencuL8W4TUSvs1JyBtBJ+VBj8v9UzaseKa/rngq0XXAOwcy/wITZMN9kkqkGE0h5c7h6stdqX7ua4NP9shciPgpMhzr+7JobDnynJRJnWkRNll4ZFKegiQ+43XFKQofU9Gy676neH1OzIUL5+XCFsa3o06mbavTIQb7ntJoVIkDpN25qRM1xoUyrXpz5Z31zCbGjVauhW58/iZBPQnhDnt5ivIeo2EuMforM3VwG5T6bjsR2EYkOrEU7NkJuKWemcZQPmYag2ww6fPzFBuShvwbKLtMuZWq/5Nq/xCXnHNa7htLdpB2oQNDiL8yal4=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: d75ccb72-0786-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1658251125; x=1689787125;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=7OuMzZMeAVedQlxQcpp8HXe51NYN54wYxaB9nOgs/74=;
+  b=nZcs3cFO6ezobCUnFm09uwHQQBbnbDH6wZ6R/LoicPXYKGGVVkP6f7mD
+   52w/z15u4mo+EcwI0Wv6eB/1zo3P+8SK6QC1WrGu3OiMON1qD497SW4oD
+   KhwZdQymdT/ykmjObbtMbtDTM306Th49nllOSrxJFa+Gx2Pxxh4OAThhs
+   LOURijGgqAq0BgvcXSF1EFkWDtiurU5yjR9DHqwHgmM0YJIKkCXWYJr8d
+   Z7eVOPisBsYyUMi+GjS92cxyZbUJ+NJ78E0FTUC5ujlaS8qa7nQxDam6o
+   eoob1QvRdqxqnHbTZ55sdC3fjD3ody+7apYtEGZICvQ7ne/kWqKB0nMXO
+   A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10413"; a="284110682"
+X-IronPort-AV: E=Sophos;i="5.92,284,1650956400"; 
+   d="scan'208";a="284110682"
+X-IronPort-AV: E=Sophos;i="5.92,284,1650956400"; 
+   d="scan'208";a="924859998"
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: [PATCH] xen/mem_sharing: support forks with active vPMU state
+Date: Tue, 19 Jul 2022 13:18:11 -0400
+Message-Id: <4f3ff38d8226d10dab3440f020c9ba7f07cab1fd.1658250756.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-OriginatorOrg: riversideresearch.org
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d93e4e1-fc7e-4bf3-6dd9-08da69a903df
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2022 17:06:26.1397
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bfc64a8d-9064-4c64-91c3-9d10b44c1cb6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0P110MB1418
+Content-Transfer-Encoding: 8bit
 
-Hi Daniel,
+Currently the vPMU state from a parent isn't copied to VM forks. To enable the
+vPMU state to be copied to a fork VM we export certain vPMU functions. First,
+the vPMU context needs to be allocated for the fork if the parent has one. For
+this we introduce vpmu->allocate_context, which has previously only been called
+when the guest enables the PMU on itself. Furthermore, we export
+vpmu_save_force so that the PMU context can be saved on-demand even if no
+context switch took place on the parent's CPU yet. Additionally, we make sure
+all relevant configuration MSRs are saved in the vPMU context so the copy is
+complete and the fork starts with the same PMU config as the parent.
 
-> -----Original Message-----
-> Subject: [PATCH v1 00/18] Hyperlaunch
+Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+---
+ xen/arch/x86/cpu/vpmu.c         | 12 ++++++++-
+ xen/arch/x86/cpu/vpmu_intel.c   | 16 +++++++++++
+ xen/arch/x86/include/asm/vpmu.h |  5 ++++
+ xen/arch/x86/mm/mem_sharing.c   | 48 +++++++++++++++++++++++++++++++++
+ 4 files changed, 80 insertions(+), 1 deletion(-)
 
-With the adjustments that I suggested in other messages, this patch builds =
-and boots for me on x86 (including a device tree with a domU). I will conti=
-nue to poke around and see if I discover any other rough edges.
+diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
+index d2c03a1104..2b5d64a60d 100644
+--- a/xen/arch/x86/cpu/vpmu.c
++++ b/xen/arch/x86/cpu/vpmu.c
+@@ -336,7 +336,7 @@ void vpmu_do_interrupt(struct cpu_user_regs *regs)
+ #endif
+ }
+ 
+-static void cf_check vpmu_save_force(void *arg)
++void cf_check vpmu_save_force(void *arg)
+ {
+     struct vcpu *v = arg;
+     struct vpmu_struct *vpmu = vcpu_vpmu(v);
+@@ -529,6 +529,16 @@ void vpmu_initialise(struct vcpu *v)
+         put_vpmu(v);
+ }
+ 
++void vpmu_allocate_context(struct vcpu *v)
++{
++    struct vpmu_struct *vpmu = vcpu_vpmu(v);
++
++    if ( vpmu_is_set(vpmu, VPMU_CONTEXT_ALLOCATED) )
++        return;
++
++    alternative_call(vpmu_ops.allocate_context, v);
++}
++
+ static void cf_check vpmu_clear_last(void *arg)
+ {
+     if ( this_cpu(last_vcpu) == arg )
+diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
+index 8612f46973..31dc0ee14b 100644
+--- a/xen/arch/x86/cpu/vpmu_intel.c
++++ b/xen/arch/x86/cpu/vpmu_intel.c
+@@ -282,10 +282,17 @@ static inline void __core2_vpmu_save(struct vcpu *v)
+     for ( i = 0; i < fixed_pmc_cnt; i++ )
+         rdmsrl(MSR_CORE_PERF_FIXED_CTR0 + i, fixed_counters[i]);
+     for ( i = 0; i < arch_pmc_cnt; i++ )
++    {
+         rdmsrl(MSR_IA32_PERFCTR0 + i, xen_pmu_cntr_pair[i].counter);
++        rdmsrl(MSR_P6_EVNTSEL(i), xen_pmu_cntr_pair[i].control);
++    }
+ 
+     if ( !is_hvm_vcpu(v) )
+         rdmsrl(MSR_CORE_PERF_GLOBAL_STATUS, core2_vpmu_cxt->global_status);
++    /* Save MSR to private context to make it fork-friendly */
++    else if ( mem_sharing_enabled(v->domain) )
++        vmx_read_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
++                           &core2_vpmu_cxt->global_ctrl);
+ }
+ 
+ static int cf_check core2_vpmu_save(struct vcpu *v, bool to_guest)
+@@ -346,6 +353,10 @@ static inline void __core2_vpmu_load(struct vcpu *v)
+         core2_vpmu_cxt->global_ovf_ctrl = 0;
+         wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, core2_vpmu_cxt->global_ctrl);
+     }
++    /* Restore MSR from context when used with a fork */
++    else if ( mem_sharing_is_fork(v->domain) )
++        vmx_write_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
++                            core2_vpmu_cxt->global_ctrl);
+ }
+ 
+ static int core2_vpmu_verify(struct vcpu *v)
+@@ -474,7 +485,11 @@ static int core2_vpmu_alloc_resource(struct vcpu *v)
+                                     sizeof(uint64_t) * fixed_pmc_cnt;
+ 
+     vpmu->context = core2_vpmu_cxt;
++    vpmu->context_size = sizeof(struct xen_pmu_intel_ctxt) +
++                         fixed_pmc_cnt * sizeof(uint64_t) +
++                         arch_pmc_cnt * sizeof(struct xen_pmu_cntr_pair);
+     vpmu->priv_context = p;
++    vpmu->priv_context_size = sizeof(uint64_t);
+ 
+     if ( !has_vlapic(v->domain) )
+     {
+@@ -882,6 +897,7 @@ static int cf_check vmx_vpmu_initialise(struct vcpu *v)
+ 
+ static const struct arch_vpmu_ops __initconst_cf_clobber core2_vpmu_ops = {
+     .initialise = vmx_vpmu_initialise,
++    .allocate_context = core2_vpmu_alloc_resource,
+     .do_wrmsr = core2_vpmu_do_wrmsr,
+     .do_rdmsr = core2_vpmu_do_rdmsr,
+     .do_interrupt = core2_vpmu_do_interrupt,
+diff --git a/xen/arch/x86/include/asm/vpmu.h b/xen/arch/x86/include/asm/vpmu.h
+index e5709bd44a..14d0939247 100644
+--- a/xen/arch/x86/include/asm/vpmu.h
++++ b/xen/arch/x86/include/asm/vpmu.h
+@@ -40,6 +40,7 @@
+ /* Arch specific operations shared by all vpmus */
+ struct arch_vpmu_ops {
+     int (*initialise)(struct vcpu *v);
++    int (*allocate_context)(struct vcpu *v);
+     int (*do_wrmsr)(unsigned int msr, uint64_t msr_content);
+     int (*do_rdmsr)(unsigned int msr, uint64_t *msr_content);
+     int (*do_interrupt)(struct cpu_user_regs *regs);
+@@ -59,6 +60,8 @@ struct vpmu_struct {
+     u32 hw_lapic_lvtpc;
+     void *context;      /* May be shared with PV guest */
+     void *priv_context; /* hypervisor-only */
++    size_t context_size;
++    size_t priv_context_size;
+     struct xen_pmu_data *xenpmu_data;
+     spinlock_t vpmu_lock;
+ };
+@@ -106,8 +109,10 @@ void vpmu_lvtpc_update(uint32_t val);
+ int vpmu_do_msr(unsigned int msr, uint64_t *msr_content, bool is_write);
+ void vpmu_do_interrupt(struct cpu_user_regs *regs);
+ void vpmu_initialise(struct vcpu *v);
++void vpmu_allocate_context(struct vcpu *v);
+ void vpmu_destroy(struct vcpu *v);
+ void vpmu_save(struct vcpu *v);
++void vpmu_save_force(void *arg);
+ int vpmu_load(struct vcpu *v, bool_t from_guest);
+ void vpmu_dump(struct vcpu *v);
+ 
+diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
+index 8f9d9ed9a9..39cd03abf7 100644
+--- a/xen/arch/x86/mm/mem_sharing.c
++++ b/xen/arch/x86/mm/mem_sharing.c
+@@ -1653,6 +1653,50 @@ static void copy_vcpu_nonreg_state(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
+     hvm_set_nonreg_state(cd_vcpu, &nrs);
+ }
+ 
++static int copy_vpmu(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
++{
++    struct vpmu_struct *d_vpmu = vcpu_vpmu(d_vcpu);
++    struct vpmu_struct *cd_vpmu = vcpu_vpmu(cd_vcpu);
++
++    if ( !vpmu_are_all_set(d_vpmu, VPMU_INITIALIZED | VPMU_CONTEXT_ALLOCATED) )
++        return 0;
++    if ( !vpmu_is_set(cd_vpmu, VPMU_CONTEXT_ALLOCATED) )
++    {
++        vpmu_allocate_context(cd_vcpu);
++        if ( !vpmu_is_set(cd_vpmu, VPMU_CONTEXT_ALLOCATED) )
++            return -ENOMEM;
++    }
++
++    /*
++     * The VPMU subsystem only saves the context when the CPU does a context
++     * switch. Otherwise, the relevant MSRs are not saved on vmexit.
++     * We force a save here in case the parent CPU context is still loaded.
++     */
++    if ( vpmu_is_set(d_vpmu, VPMU_CONTEXT_LOADED) )
++    {
++        int pcpu = smp_processor_id();
++
++        if ( d_vpmu->last_pcpu != pcpu )
++        {
++            on_selected_cpus(cpumask_of(d_vpmu->last_pcpu),
++                             vpmu_save_force, (void *)d_vcpu, 1);
++            vpmu_reset(d_vpmu, VPMU_CONTEXT_LOADED);
++        } else
++            vpmu_save(d_vcpu);
++    }
++
++    if ( vpmu_is_set(d_vpmu, VPMU_RUNNING) )
++        vpmu_set(cd_vpmu, VPMU_RUNNING);
++
++    /* Make sure context gets (re-)loaded when scheduled next */
++    vpmu_reset(cd_vpmu, VPMU_CONTEXT_LOADED);
++
++    memcpy(cd_vpmu->context, d_vpmu->context, d_vpmu->context_size);
++    memcpy(cd_vpmu->priv_context, d_vpmu->priv_context, d_vpmu->priv_context_size);
++
++    return 0;
++}
++
+ static int copy_vcpu_settings(struct domain *cd, const struct domain *d)
+ {
+     unsigned int i;
+@@ -1702,6 +1746,10 @@ static int copy_vcpu_settings(struct domain *cd, const struct domain *d)
+             copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);
+         }
+ 
++        ret = copy_vpmu(d_vcpu, cd_vcpu);
++        if ( ret )
++            return ret;
++
+         hvm_vmtrace_reset(cd_vcpu);
+ 
+         copy_vcpu_nonreg_state(d_vcpu, cd_vcpu);
+-- 
+2.34.1
 
-One strange behavior I see is that xen fails to start the Dom0 kernel on a =
-warm reboot. I'm using qemu_system_x86 with the KVM backend to test out the=
- patch. After starting qemu, xen will boot correctly only once. If I attemp=
-t to reboot the virtual system (through the 'reboot' command in dom0 or the=
- 'system_reset' qemu monitor command) without exiting/starting a new qemu p=
-rocess on the host machine, xen panics while booting after printing this:
-
-(XEN) *** Building Dom0 ***
-(XEN) Dom0 has maximum 856 PIRQs
-(XEN) *** Constructing a PV Dom0 ***
-(XEN) ELF: not an ELF binary
-(XEN)
-(XEN) ****************************************
-(XEN) Panic on CPU 0:
-(XEN) Could not construct domain 0
-(XEN) ****************************************
-
-This happens with the BUILDER_FDT config option on and off, and regardless =
-of what dtb (if any) I pass to xen. I don't see this behavior if I switch b=
-ack to xen's master branch.
-
-Hopefully that explanation made sense. Let me know if I can provide any fur=
-ther information about my setup.
-
-Thanks,
-Jackson
-
-Also, I apologize that my last messages included a digital signature. Shoul=
-d be fixed now.
 
