@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84AD857A6D6
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 20:58:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.371020.602915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8EB857A80E
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 22:09:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.371145.602980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDsPX-0002Jz-UA; Tue, 19 Jul 2022 18:57:35 +0000
+	id 1oDtW5-0005hz-VM; Tue, 19 Jul 2022 20:08:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 371020.602915; Tue, 19 Jul 2022 18:57:35 +0000
+Received: by outflank-mailman (output) from mailman id 371145.602980; Tue, 19 Jul 2022 20:08:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDsPX-0002Hy-RC; Tue, 19 Jul 2022 18:57:35 +0000
-Received: by outflank-mailman (input) for mailman id 371020;
- Tue, 19 Jul 2022 18:57:34 +0000
+	id 1oDtW5-0005gB-Sk; Tue, 19 Jul 2022 20:08:25 +0000
+Received: by outflank-mailman (input) for mailman id 371145;
+ Tue, 19 Jul 2022 20:08:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=N2Ae=XY=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1oDsPW-0002Hs-71
- for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 18:57:34 +0000
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hYTG=XY=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1oDtW4-0005g5-5M
+ for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 20:08:24 +0000
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [2607:f8b0:4864:20::732])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a34a2434-0794-11ed-924f-1f966e50362f;
- Tue, 19 Jul 2022 20:57:31 +0200 (CEST)
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2022 11:57:28 -0700
-Received: from lkp-server02.sh.intel.com (HELO ff137eb26ff1) ([10.239.97.151])
- by orsmga002.jf.intel.com with ESMTP; 19 Jul 2022 11:57:25 -0700
-Received: from kbuild by ff137eb26ff1 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1oDsPM-0005v3-Vy;
- Tue, 19 Jul 2022 18:57:24 +0000
+ id 8a42efc0-079e-11ed-924f-1f966e50362f;
+ Tue, 19 Jul 2022 22:08:23 +0200 (CEST)
+Received: by mail-qk1-x732.google.com with SMTP id m16so7909192qka.12
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Jul 2022 13:08:23 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:b68c:61:1ba8:65b6])
+ by smtp.gmail.com with ESMTPSA id
+ g3-20020a05620a40c300b006b5ee4de4fbsm5789509qko.37.2022.07.19.13.08.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Jul 2022 13:08:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,230 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a34a2434-0794-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1658257051; x=1689793051;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BqgXG/4LbCtAN57U01YaIg9Myl3LD4Ewp7qmwOT00PM=;
-  b=OSDsmD1VCwQWpoVm3gGICMlCSTbsugTifyYK14Y2jBIYkgKAnNRNRwQf
-   0W3D0XxOlbpNbetB6qKBSTFjnkTazUL7KiPVAXfDse/o39wymr5BvBkPn
-   kvnEl+aybSWcyuw/MT99PLFkTWkfmK8oFhHAcPlk39pfs/Uh+dKh++A55
-   Z5ludP7jmBTg6NH3ESVDvGBLB53yHQPJDsQRV4J9tUMJFbYEQNeoxBTVh
-   XFSTPuEBKHIww7pLjfL/97W0Iqi7vw4Om3gk2Xgb9eDy28aN1dmhJ/oGv
-   ZwCvKtkg3FVB6x0QEkIjX4eBrIuNexzPOy3hlWS+VCtJadXNuwDKqjs/R
-   g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10413"; a="348266989"
-X-IronPort-AV: E=Sophos;i="5.92,285,1650956400"; 
-   d="scan'208";a="348266989"
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.92,285,1650956400"; 
-   d="scan'208";a="597776942"
-Date: Wed, 20 Jul 2022 02:57:24 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dan Carpenter <error27@gmail.com>, Juergen Gross <jgross@suse.com>
-Cc: llvm@lists.linux.dev, kbuild-all@lists.01.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Andres Lagar-Cavilla <andreslc@gridcentric.ca>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	David Vrabel <david.vrabel@citrix.com>,
-	xen-devel@lists.xenproject.org, kernel-janitors@vger.kernel.org
-Subject: Re: [PATCH] xen/privcmd:  prevent integer overflow on 32 bit systems
-Message-ID: <202207200236.GeswjpCk-lkp@intel.com>
-References: <YtEjVdG+pp9DGz++@kili>
+X-Inumbo-ID: 8a42efc0-079e-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=vk644Lja/mvPWFdI7/cp75V/rxQwtcwBZ/WnM74etDI=;
+        b=NslfdsnjmFJgi4tud+4/p+a+4qFgyVz5ao0zTmxhBEpQUI8JUesTnEn9KP/Eaiv52i
+         anPLl99GDLAdyawp2Bz4ogBTmeazEuX45VAn7m28nWiwXPDQFMqgjjpZpO+xPfgvDCaV
+         58YmO7alnnJJlIeVE+0GQY9tXb41qC6XtxdfVd+X1A3GioFCT2N5V8DTmStGKKTFLeHt
+         Y8+pNYT4ZnFaoiC3FhF9WH9jsuFl00CjMXuEZoGkHCRjbzaifjDiIbCZ0i8zdC3yRh2b
+         Xg6S9Jmw/800mLiwnoOb9/OKC5X5ukrpp8sOgY5x3tGiMnvCRCUD1RNI1BEhEtKuJLTH
+         Zm8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=vk644Lja/mvPWFdI7/cp75V/rxQwtcwBZ/WnM74etDI=;
+        b=e/UKfKHyC22IyRU+rzv/TrmvYypTgEquqJWbPs9vZo8m+WArekHrAFtM0sYIg1Cep+
+         OSr8zvlfOSrQc2HtnTJZ1rGPr1jMjSp7xE3pX+OBQxHyuQDiuEMcxVbYnGudI+NpdG6n
+         lU7aYXhc6FE7KfZvmJlh755R8VPuv16DyUX7s1M4PEJSvoSkuGCUMqhN/c0evMxwDKCk
+         sAzhwikgFP0HvDfJXLWJRmUXZjBj37m6/EBbxLrTy4CdkE+YstHam9lWdlyMy5gZf/Et
+         au8zB+eEqT9BG6gIrSGNgO2UnU4t9BQ13h+3imsbCaAHFdJyih/oWuN0HRl8kZLjqVm7
+         6ruQ==
+X-Gm-Message-State: AJIora/AqrZh1qHtxRetc++YZ6JA3kinVsi2QC6/fVN+sBjTkO8wJGEq
+	2grjzCP4sWVidiWYL0kpu5JfXmSpvcQ=
+X-Google-Smtp-Source: AGRyM1turHQnSVWDYwsKayK4cI+X2TFxzbe8/wcxb/GlnmcMMdDoofJ65IDk1BAqD2sDp8Vbod3wPg==
+X-Received: by 2002:a37:b241:0:b0:6b5:5eb6:3f9f with SMTP id b62-20020a37b241000000b006b55eb63f9fmr21436100qkf.299.1658261301520;
+        Tue, 19 Jul 2022 13:08:21 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86: Expose more MSR_ARCH_CAPS to hwdom
+Date: Tue, 19 Jul 2022 16:08:15 -0400
+Message-Id: <20220719200815.69884-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YtEjVdG+pp9DGz++@kili>
+Content-Transfer-Encoding: 8bit
 
-Hi Dan,
+commit e46474278a0e ("x86/intel: Expose MSR_ARCH_CAPS to dom0") started
+exposing MSR_ARCH_CAPS to dom0.  More bits in MSR_ARCH_CAPS have since
+been defined, but they haven't been exposed.  Update the list to allow
+them through.
 
-Thank you for the patch! Perhaps something to improve:
+As one example, this allows a linux Dom0 to know that it has the
+appropriate microcode via FB_CLEAR.  Notably, and with the updated
+microcode, this changes dom0's
+/sys/devices/system/cpu/vulnerabilities/mmio_stale_data changes from:
+"Vulnerable: Clear CPU buffers attempted, no microcode; SMT Host state
+unknown"
+to:
+"Mitigation: Clear CPU buffers; SMT Host state unknown"
 
-[auto build test WARNING on xen-tip/linux-next]
-[also build test WARNING on linus/master v5.19-rc7 next-20220719]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+This ecposes the MMIO Stale Data and Intel Branch History Injection
+(BHI) controls as well as the page size change MCE issue bit.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dan-Carpenter/xen-privcmd-prevent-integer-overflow-on-32-bit-systems/20220715-162307
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git linux-next
-config: x86_64-randconfig-a005 (https://download.01.org/0day-ci/archive/20220720/202207200236.GeswjpCk-lkp@intel.com/config)
-compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project fa0c7639e91fa1cd0cf2ff0445a1634a90fe850a)
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/ea22ebd83753c7181043e69251b78f0be73675ad
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Dan-Carpenter/xen-privcmd-prevent-integer-overflow-on-32-bit-systems/20220715-162307
-        git checkout ea22ebd83753c7181043e69251b78f0be73675ad
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash drivers/acpi/ drivers/ata/ drivers/rtc/ drivers/thermal/intel/ drivers/xen/
+Fixes: commit 2ebe8fe9b7e0 ("x86/spec-ctrl: Enumeration for MMIO Stale Data controls")
+Fixes: commit cea9ae062295 ("x86/spec-ctrl: Enumeration for new Intel BHI controls")
+Fixes: commit 59e89cdabc71 ("x86/vtx: Disable executable EPT superpages to work around CVE-2018-12207")
 
-If you fix the issue, kindly add following tag where applicable
-Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+---
+This is the broader replacement for "x86: Add MMIO Stale Data arch_caps
+to hardware domain".
 
-All warnings (new ones prefixed by >>):
+It wasn't discussed previously, but ARCH_CAPS_IF_PSCHANGE_MC_NO is added
+as well.
 
->> drivers/xen/privcmd.c:459:13: warning: result of comparison of constant 2305843009213693951 with expression of type 'unsigned int' is always false [-Wtautological-constant-out-of-range-compare]
-                   if (m.num > SIZE_MAX / sizeof(*m.arr))
-                       ~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/xen/privcmd.c:469:13: warning: result of comparison of constant 2305843009213693951 with expression of type 'unsigned int' is always false [-Wtautological-constant-out-of-range-compare]
-                   if (m.num > SIZE_MAX / sizeof(*m.arr))
-                       ~~~~~ ^ ~~~~~~~~~~~~~~~~~~~~~~~~~
-   2 warnings generated.
+This patch can't be directly backported because cea9ae062295 was not
+backported.
 
+ xen/arch/x86/msr.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-vim +459 drivers/xen/privcmd.c
-
-   441	
-   442	static long privcmd_ioctl_mmap_batch(
-   443		struct file *file, void __user *udata, int version)
-   444	{
-   445		struct privcmd_data *data = file->private_data;
-   446		int ret;
-   447		struct privcmd_mmapbatch_v2 m;
-   448		struct mm_struct *mm = current->mm;
-   449		struct vm_area_struct *vma;
-   450		unsigned long nr_pages;
-   451		LIST_HEAD(pagelist);
-   452		struct mmap_batch_state state;
-   453	
-   454		switch (version) {
-   455		case 1:
-   456			if (copy_from_user(&m, udata, sizeof(struct privcmd_mmapbatch)))
-   457				return -EFAULT;
-   458			/* Returns per-frame error in m.arr. */
- > 459			if (m.num > SIZE_MAX / sizeof(*m.arr))
-   460				return -EINVAL;
-   461			m.err = NULL;
-   462			if (!access_ok(m.arr, m.num * sizeof(*m.arr)))
-   463				return -EFAULT;
-   464			break;
-   465		case 2:
-   466			if (copy_from_user(&m, udata, sizeof(struct privcmd_mmapbatch_v2)))
-   467				return -EFAULT;
-   468			/* Returns per-frame error code in m.err. */
-   469			if (m.num > SIZE_MAX / sizeof(*m.arr))
-   470				return -EINVAL;
-   471			if (!access_ok(m.err, m.num * (sizeof(*m.err))))
-   472				return -EFAULT;
-   473			break;
-   474		default:
-   475			return -EINVAL;
-   476		}
-   477	
-   478		/* If restriction is in place, check the domid matches */
-   479		if (data->domid != DOMID_INVALID && data->domid != m.dom)
-   480			return -EPERM;
-   481	
-   482		nr_pages = DIV_ROUND_UP(m.num, XEN_PFN_PER_PAGE);
-   483		if ((m.num <= 0) || (nr_pages > (LONG_MAX >> PAGE_SHIFT)))
-   484			return -EINVAL;
-   485	
-   486		ret = gather_array(&pagelist, m.num, sizeof(xen_pfn_t), m.arr);
-   487	
-   488		if (ret)
-   489			goto out;
-   490		if (list_empty(&pagelist)) {
-   491			ret = -EINVAL;
-   492			goto out;
-   493		}
-   494	
-   495		if (version == 2) {
-   496			/* Zero error array now to only copy back actual errors. */
-   497			if (clear_user(m.err, sizeof(int) * m.num)) {
-   498				ret = -EFAULT;
-   499				goto out;
-   500			}
-   501		}
-   502	
-   503		mmap_write_lock(mm);
-   504	
-   505		vma = find_vma(mm, m.addr);
-   506		if (!vma ||
-   507		    vma->vm_ops != &privcmd_vm_ops) {
-   508			ret = -EINVAL;
-   509			goto out_unlock;
-   510		}
-   511	
-   512		/*
-   513		 * Caller must either:
-   514		 *
-   515		 * Map the whole VMA range, which will also allocate all the
-   516		 * pages required for the auto_translated_physmap case.
-   517		 *
-   518		 * Or
-   519		 *
-   520		 * Map unmapped holes left from a previous map attempt (e.g.,
-   521		 * because those foreign frames were previously paged out).
-   522		 */
-   523		if (vma->vm_private_data == NULL) {
-   524			if (m.addr != vma->vm_start ||
-   525			    m.addr + (nr_pages << PAGE_SHIFT) != vma->vm_end) {
-   526				ret = -EINVAL;
-   527				goto out_unlock;
-   528			}
-   529			if (xen_feature(XENFEAT_auto_translated_physmap)) {
-   530				ret = alloc_empty_pages(vma, nr_pages);
-   531				if (ret < 0)
-   532					goto out_unlock;
-   533			} else
-   534				vma->vm_private_data = PRIV_VMA_LOCKED;
-   535		} else {
-   536			if (m.addr < vma->vm_start ||
-   537			    m.addr + (nr_pages << PAGE_SHIFT) > vma->vm_end) {
-   538				ret = -EINVAL;
-   539				goto out_unlock;
-   540			}
-   541			if (privcmd_vma_range_is_mapped(vma, m.addr, nr_pages)) {
-   542				ret = -EINVAL;
-   543				goto out_unlock;
-   544			}
-   545		}
-   546	
-   547		state.domain        = m.dom;
-   548		state.vma           = vma;
-   549		state.va            = m.addr;
-   550		state.index         = 0;
-   551		state.global_error  = 0;
-   552		state.version       = version;
-   553	
-   554		BUILD_BUG_ON(((PAGE_SIZE / sizeof(xen_pfn_t)) % XEN_PFN_PER_PAGE) != 0);
-   555		/* mmap_batch_fn guarantees ret == 0 */
-   556		BUG_ON(traverse_pages_block(m.num, sizeof(xen_pfn_t),
-   557					    &pagelist, mmap_batch_fn, &state));
-   558	
-   559		mmap_write_unlock(mm);
-   560	
-   561		if (state.global_error) {
-   562			/* Write back errors in second pass. */
-   563			state.user_gfn = (xen_pfn_t *)m.arr;
-   564			state.user_err = m.err;
-   565			ret = traverse_pages_block(m.num, sizeof(xen_pfn_t),
-   566						   &pagelist, mmap_return_errors, &state);
-   567		} else
-   568			ret = 0;
-   569	
-   570		/* If we have not had any EFAULT-like global errors then set the global
-   571		 * error to -ENOENT if necessary. */
-   572		if ((ret == 0) && (state.global_error == -ENOENT))
-   573			ret = -ENOENT;
-   574	
-   575	out:
-   576		free_page_list(&pagelist);
-   577		return ret;
-   578	
-   579	out_unlock:
-   580		mmap_write_unlock(mm);
-   581		goto out;
-   582	}
-   583	
-
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index 6206529162..170f041793 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -72,7 +72,9 @@ static void __init calculate_host_policy(void)
+     mp->arch_caps.raw &=
+         (ARCH_CAPS_RDCL_NO | ARCH_CAPS_IBRS_ALL | ARCH_CAPS_RSBA |
+          ARCH_CAPS_SKIP_L1DFL | ARCH_CAPS_SSB_NO | ARCH_CAPS_MDS_NO |
+-         ARCH_CAPS_IF_PSCHANGE_MC_NO | ARCH_CAPS_TSX_CTRL | ARCH_CAPS_TAA_NO);
++         ARCH_CAPS_IF_PSCHANGE_MC_NO | ARCH_CAPS_TSX_CTRL | ARCH_CAPS_TAA_NO |
++         ARCH_CAPS_SBDR_SSDP_NO | ARCH_CAPS_FBSDP_NO | ARCH_CAPS_PSDP_NO |
++         ARCH_CAPS_FB_CLEAR | ARCH_CAPS_RRSBA | ARCH_CAPS_BHI_NO);
+ }
+ 
+ static void __init calculate_pv_max_policy(void)
+@@ -161,7 +163,10 @@ int init_domain_msr_policy(struct domain *d)
+ 
+         mp->arch_caps.raw = val &
+             (ARCH_CAPS_RDCL_NO | ARCH_CAPS_IBRS_ALL | ARCH_CAPS_RSBA |
+-             ARCH_CAPS_SSB_NO | ARCH_CAPS_MDS_NO | ARCH_CAPS_TAA_NO);
++             ARCH_CAPS_SSB_NO | ARCH_CAPS_MDS_NO | ARCH_CAPS_IF_PSCHANGE_MC_NO |
++             ARCH_CAPS_TAA_NO | ARCH_CAPS_SBDR_SSDP_NO | ARCH_CAPS_FBSDP_NO |
++             ARCH_CAPS_PSDP_NO | ARCH_CAPS_FB_CLEAR | ARCH_CAPS_RRSBA |
++             ARCH_CAPS_BHI_NO);
+     }
+ 
+     d->arch.msr = mp;
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.36.1
+
 
