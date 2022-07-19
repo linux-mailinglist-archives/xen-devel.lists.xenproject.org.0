@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF64C579203
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 06:35:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.370302.601972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8825157920D
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 06:38:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.370307.601983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDewZ-0001NN-0I; Tue, 19 Jul 2022 04:34:47 +0000
+	id 1oDezr-00028x-Fh; Tue, 19 Jul 2022 04:38:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 370302.601972; Tue, 19 Jul 2022 04:34:46 +0000
+Received: by outflank-mailman (output) from mailman id 370307.601983; Tue, 19 Jul 2022 04:38:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDewY-0001LU-Tb; Tue, 19 Jul 2022 04:34:46 +0000
-Received: by outflank-mailman (input) for mailman id 370302;
- Tue, 19 Jul 2022 04:34:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s463=XY=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
- id 1oDewW-0001LO-Uz
- for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 04:34:45 +0000
-Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com
- [2607:f8b0:4864:20::e33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1bfe23fa-071c-11ed-924f-1f966e50362f;
- Tue, 19 Jul 2022 06:34:43 +0200 (CEST)
-Received: by mail-vs1-xe33.google.com with SMTP id 125so1928204vsd.5
- for <xen-devel@lists.xenproject.org>; Mon, 18 Jul 2022 21:34:43 -0700 (PDT)
+	id 1oDezr-00026k-Bx; Tue, 19 Jul 2022 04:38:11 +0000
+Received: by outflank-mailman (input) for mailman id 370307;
+ Tue, 19 Jul 2022 04:38:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oDezp-00026W-EH; Tue, 19 Jul 2022 04:38:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oDezp-0006dQ-9i; Tue, 19 Jul 2022 04:38:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oDezo-0004ZW-GK; Tue, 19 Jul 2022 04:38:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oDezo-0000zU-Fx; Tue, 19 Jul 2022 04:38:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,117 +42,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bfe23fa-071c-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=KxN37o8r5lialnTPBTEdzc7ULFbJA4Z5yiyB3T51vkw=;
-        b=G3ktOcJmo8PVJOKfYcjNdXVYvWx5S8QQjxLle6d1sGKgfhjzxZHOkhdQl2f1dIwEh7
-         N57cTovsIcLwo7/JcqYqxQHr0qI8aru7cjmHQ+eicraepSXgW0hG4OFzHoDRCKfTI6di
-         mHQNH617iG3rCCYeJTblB53/vdyXYLLHNU3puMud+hy2fgjrSvhQQbbaICcH+DATfmY+
-         wes7zW7XSnQlqFXh4+Rtv7joEW4/aLvnIMOQHBgKoIvAVcR6XfrxPg1OnOl9sdRjCYFp
-         M09b+wSyNg7MM8wTnYruvyyH4KKkGO+AEed6LRPBmy0bvG6Kl3FRXeFyed8X6yArnCfV
-         l3QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=KxN37o8r5lialnTPBTEdzc7ULFbJA4Z5yiyB3T51vkw=;
-        b=ByrcQwBPMZm4c7xiRyLRNWx+OTJstF4J+yDC3h+C8kFB5qqk0ni1oLdC5knbu4ZNYa
-         CxXc6kjKmNqRjnteGTCfVNmhpX/F6CCy80ZWaObIF7gGruHWVWtDSPSjDoEIOsUIaXvB
-         KnTyYE1pc5d8mL3liNjyPSLpNP6+KzUxvn0SmzTN3+qv4OgSEu8Dvm6wtCPWJPwjpXqS
-         yuqvPWBODFiYs4pCBHpnlbyb9zsg3Qxl84cr5/2v8ttXhAPsteD9/l0LZIy3iO082Ein
-         u2jxP/8xefTzwUYzBspOvjwFAKMZmLRlQUjvxHYVZRbE/n7dRwFcUk6xjkDGUOtiK+1R
-         Mtkg==
-X-Gm-Message-State: AJIora/tMen0wmWEZvQUIsYPimKlq1fB5lK6CJWDgmI6kHPUoy/UFhrq
-	Bfb5PmTxeOLNkep8I1vL3adPyGZyJ2xqwn+HTnulicbKmCY=
-X-Google-Smtp-Source: AGRyM1up8TFtlPSzJY427jNjcd2VXBEu852uUcYdftZ8D+462MF4KQ9oZpvB+DN2LhQbRvP9K2OrJXO1+zUewLRar18=
-X-Received: by 2002:a05:6102:667:b0:357:6577:a994 with SMTP id
- z7-20020a056102066700b003576577a994mr10446945vsf.77.1658205282412; Mon, 18
- Jul 2022 21:34:42 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1657792818.git.bertrand.marquis@arm.com>
-In-Reply-To: <cover.1657792818.git.bertrand.marquis@arm.com>
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Mon, 18 Jul 2022 21:34:31 -0700
-Message-ID: <CACMJ4GZYweNCWAmWEru8eLLbHRSMkZf82CzFO0Y74mtQc5LqsQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/2] Yocto Gitlab CI support
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=4AA5SvJNCrPRNBWNS7vCAENp78kjFYuNbqUPlq3YmFY=; b=X7gNHM1yPiSDP7Z4Nc2S8BaApO
+	90QrZ6w/GIYu1581vDHBUM9c4O4rCGLS0rgqtCHHYCFOnF/ztDonHTfEqpBb6Y/yPKVE0G0AtUQsb
+	OEAsMTSbWsWu4UvDbcojP0TnnYp3hPTFWnBBf/GlyBs+et8xE+FJEEUlNIWFd1VwLG9E=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-171674-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 171674: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:build-arm64:xen-build:fail:regression
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=80e19f34c2887a8881084b7bb7480e9544d56b91
+X-Osstest-Versions-That:
+    linux=ff6992735ade75aae3e35d16b17da1008d753d28
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 19 Jul 2022 04:38:08 +0000
 
-On Thu, Jul 14, 2022 at 3:10 AM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> This patch series is a first attempt to check if we could use Yocto in
-> gitlab ci to build and run xen on qemu for arm, arm64 and x86.
+flight 171674 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171674/
 
-Hi Bertrand, thanks for posting this.
+Regressions :-(
 
-I'm still making my way through it, and should be able to speak more
-to the OE/Yocto aspects than the Xen automation integration but at
-first pass, I think that this is work in the right direction.
-A few quick early points:
-- The build-yocto.sh script is clear to understand, which is helpful.
-- The layers that you have selected to include in the build are good.
-Might be worth considering using openembedded-core, which is poky's
-upstream, but I think either is a valid choice.
-    - listing the layers one-per-line in the script might make it
-easier to patch in additional layers downstream, if needed
-- The target image of 'xen-image-minimal' is the right start; it would
-be nice to be able to pass that as an input from the dockerfile to
-allow for using this with other images.
-- Possibly worth mentioning somewhere in the series description that
-this introduces coverage for x86-64 but not 32-bit x86 guests - it's
-the right choice given that this is just booting to a dom0.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64                   6 xen-build                fail REGR. vs. 171664
 
-Christopher
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 171664
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 171664
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 171664
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 171664
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 171664
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 171664
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 171664
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 171664
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-> The first patch is creating a container with all elements required to
-> build Yocto, a checkout of the yocto layers required and an helper
-> script to build and run xen on qemu with yocto.
->
-> The second patch is creating containers with a first build of yocto done
-> so that susbsequent build with those containers would only rebuild what
-> was changed and take the rest from the cache.
->
-> This is is mainly for discussion and sharing as there are still some
-> issues/problem to solve:
-> - building the qemu* containers can take several hours depending on the
->   network bandwith and computing power of the machine where those are
->   created
-> - produced containers containing the cache have a size between 8 and
->   12GB depending on the architecture. We might need to store the build
->   cache somewhere else to reduce the size. If we choose to have one
->   single image, the needed size is around 20GB and we need up to 40GB
->   during the build, which is why I splitted them.
-> - during the build and run, we use a bit more then 20GB of disk which is
->   over the allowed size in gitlab
->
-> Once all problems passed, this can be used to build and run dom0 on qemu
-> with a modified Xen on the 3 archs in less than 10 minutes.
->
-> Bertrand Marquis (2):
->   automation: Add elements for Yocto test and run
->   automation: Add yocto containers with cache
->
->  automation/build/Makefile                     |   2 +
->  automation/build/yocto/build-yocto.sh         | 322 ++++++++++++++++++
->  .../build/yocto/kirkstone-qemuarm.dockerfile  |  28 ++
->  .../yocto/kirkstone-qemuarm64.dockerfile      |  28 ++
->  .../yocto/kirkstone-qemux86-64.dockerfile     |  28 ++
->  automation/build/yocto/kirkstone.dockerfile   |  98 ++++++
->  6 files changed, 506 insertions(+)
->  create mode 100755 automation/build/yocto/build-yocto.sh
->  create mode 100644 automation/build/yocto/kirkstone-qemuarm.dockerfile
->  create mode 100644 automation/build/yocto/kirkstone-qemuarm64.dockerfile
->  create mode 100644 automation/build/yocto/kirkstone-qemux86-64.dockerfile
->  create mode 100644 automation/build/yocto/kirkstone.dockerfile
->
-> --
-> 2.25.1
->
->
+version targeted for testing:
+ linux                80e19f34c2887a8881084b7bb7480e9544d56b91
+baseline version:
+ linux                ff6992735ade75aae3e35d16b17da1008d753d28
+
+Last test of basis   171664  2022-07-17 21:11:10 Z    1 days
+Testing same since   171674  2022-07-18 19:40:02 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  Bartosz Golaszewski <brgl@bgdev.pl>
+  Dipen Patel <dipenp@nvidia.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Thierry Reding <treding@nvidia.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  fail    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 80e19f34c2887a8881084b7bb7480e9544d56b91
+Merge: ff6992735ade 85ff37e302ef
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Mon Jul 18 11:47:04 2022 -0700
+
+    Merge tag 'hte/for-5.19' of git://git.kernel.org/pub/scm/linux/kernel/git/tegra/linux
+    
+    Pull hardware timestamp fix from Thierry Reding:
+     "A single fix for an out-of-sync kerneldoc comment"
+    
+    * tag 'hte/for-5.19' of git://git.kernel.org/pub/scm/linux/kernel/git/tegra/linux:
+      gpiolib: cdev: Fix kernel doc for struct line
+
+commit 85ff37e302efdf173cff6d1a310c2f7f38f1d069
+Author: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Date:   Fri May 20 19:47:26 2022 +0300
+
+    gpiolib: cdev: Fix kernel doc for struct line
+    
+    Kernel doc validator is not happy:
+      gpiolib-cdev.c:487: warning: Function parameter or member 'hdesc' not described in 'line'
+      gpiolib-cdev.c:487: warning: Function parameter or member 'raw_level' not described in 'line'
+      gpiolib-cdev.c:487: warning: Function parameter or member 'total_discard_seq' not described in 'line'
+      gpiolib-cdev.c:487: warning: Function parameter or member 'last_seqno' not described in 'line'
+    
+    Describe above mentioned parameters.
+    
+    Fixes: 2068339a6c35 ("gpiolib: cdev: Add hardware timestamp clock type")
+    Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+    Acked-by: Dipen Patel <dipenp@nvidia.com>
+    Acked-by: Bartosz Golaszewski <brgl@bgdev.pl>
+    Signed-off-by: Thierry Reding <treding@nvidia.com>
 
