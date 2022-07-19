@@ -2,42 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9FEE57A0F5
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 16:14:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.370677.602557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4AF57A16E
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 16:27:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.370688.602568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDny2-0001UD-SN; Tue, 19 Jul 2022 14:12:54 +0000
+	id 1oDoBW-0003Jv-60; Tue, 19 Jul 2022 14:26:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 370677.602557; Tue, 19 Jul 2022 14:12:54 +0000
+Received: by outflank-mailman (output) from mailman id 370688.602568; Tue, 19 Jul 2022 14:26:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDny2-0001RD-PZ; Tue, 19 Jul 2022 14:12:54 +0000
-Received: by outflank-mailman (input) for mailman id 370677;
- Tue, 19 Jul 2022 14:12:53 +0000
+	id 1oDoBW-0003HX-2Y; Tue, 19 Jul 2022 14:26:50 +0000
+Received: by outflank-mailman (input) for mailman id 370688;
+ Tue, 19 Jul 2022 14:26:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+LuP=XY=citrix.com=prvs=1929f1d84=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1oDny1-0001R7-75
- for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 14:12:53 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dde3f1a2-076c-11ed-924f-1f966e50362f;
- Tue, 19 Jul 2022 16:12:50 +0200 (CEST)
-Received: from mail-dm6nam12lp2176.outbound.protection.outlook.com (HELO
- NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.176])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 19 Jul 2022 10:12:42 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by BN9PR03MB5962.namprd03.prod.outlook.com (2603:10b6:408:133::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.15; Tue, 19 Jul
- 2022 14:12:40 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::bd46:feab:b3:4a5c]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::bd46:feab:b3:4a5c%4]) with mapi id 15.20.5438.023; Tue, 19 Jul 2022
- 14:12:40 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=68VC=XY=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1oDoBU-0003HR-4V
+ for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 14:26:48 +0000
+Received: from sonic307-55.consmr.mail.gq1.yahoo.com
+ (sonic307-55.consmr.mail.gq1.yahoo.com [98.137.64.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d042e8ad-076e-11ed-924f-1f966e50362f;
+ Tue, 19 Jul 2022 16:26:45 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic307.consmr.mail.gq1.yahoo.com with HTTP; Tue, 19 Jul 2022 14:26:43 +0000
+Received: by hermes--production-ne1-7864dcfd54-xmlhn (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID b8ca309c635e58bb59d98f5d4af24c5c; 
+ Tue, 19 Jul 2022 14:26:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,179 +42,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dde3f1a2-076c-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1658239970;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=46eHTGcIXiTxNKzyN+/IF89NYdtrZ4+vu3IkW/DEro4=;
-  b=KBQ7qIFOWuXtNeNXe9CUTOYl9hlIEb81/cmLAGDyoF4J6Rp9X//i6Zkc
-   hMzPPoPD0WAjZnFUjH2CvjsBU6xw3+wmzMaybfd6hFiip7DHhYtNevGJz
-   v2lEtTz9j5g0WZZ5HtBXOUEbkZd20/+z30C2ZVIQQyc1pH0kmNc+cUHyt
-   0=;
-X-IronPort-RemoteIP: 104.47.59.176
-X-IronPort-MID: 75950192
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:TWQW36Jh7TkjX2C4FE+RVpQlxSXFcZb7ZxGr2PjKsXjdYENS1jcEm
- jYaCz+EM/mLNmr2eo92O4W3pEoOuMXcx4VnQFZlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokf0/0vraP65xZVF/fngbqLmD+LZMTxGSwZhSSMw4TpugOd8iYNz6TSDK1rlV
- eja/ouOYjdJ5xYuajhOs/3a+Us11BjPkGhwUmIWNKgjUGD2zxH5PLpHTYmtIn3xRJVjH+LSb
- 44vG5ngows1Vz90Yj+Uuu6Tnn8iG9Y+DiDX4pZiYICwgwAqm8AH+v1T2Mzwy6tgo27hc9hZk
- L2hvHErIOsjFvWkdO81C3G0H8ziVEHvFXCuzXWX6KSuI0P6n3TE/ql3PGMvFoYi2sVHAmtXq
- /A1BxckcUXW7w626OrTpuhEoO0GdZOuEKZB/3ZqwHfeEOosRo3FT+PS/9hE0Twsh8dIW/HDe
- 84ebjkpZxPFC/FNEg5PVNRiw6H11z+mLGMwRFG9/MLb50D6ygBr3aerG93SYtGQHu1en1qCp
- 3KA9GP8av0fHIPCmGfdqyP27gPJtQPSW7ITBODjz9druWSP3k4yJS8IX2Lu9JFVjWb7AbqzM
- Xc89icwoKwa+UCoFJ/yRRqluGXCvxl0c8pdFag25R+AzoLQ4h2FHS4UQzhZctskucQqAzsw2
- TehlsnlD39zsbSTTnma7Lq8rj6oPyURa2gYakcsTwoI/NTl5pA6iTrOSMpuFOi+ididMTP32
- TyDqm46wbcOltIG0Y26+0zKh3SnoZ2hZg0v7xXaWkq/4w95bZLjbIutgXDZ8PJBIYCxXlSH+
- n8elKCjAPsmCJiMkGmBRbsLFbTwvfKdamSD3xhoAoUr8Cmr9zi7Z4dM7TpiJUBvdMEZZTvuZ
- 0yVsgRUjHNOAEaXgWZMS9rZI6wXIWLITLwJiti8ggJyX6VM
-IronPort-HdrOrdr: A9a23:RCXnIK0QC64I0XIewvHhzgqjBRFyeYIsimQD101hICG9Lfb0qy
- n+pp4mPEHP4wr5AEtQ4uxpOMG7MBDhHQYc2/hdAV7QZnidhILOFvAv0WKC+UyrJ8SazIJgPM
- hbAs9D4bHLbGSSyPyKmDVQcOxQj+VvkprY49s2pk0FJW4FV0gj1XYBNu/xKDwVeOAyP+tcKH
- Pq3Lsjm9PPQxQqR/X+IkNAc/nIptXNmp6jSwUBHQQb5A6Hii7twKLmEjCDty1uEg9n8PMHyy
- zoggb57qKsv7WQ0RnHzVLe6JxQhZ/I1sZDPsqRkcIYQw+cyjpAJb4RGIFqjgpF5d1H22xa1O
- UkZC1QePib3kmhPF1dZyGdnTUIngxeskMKgmXo/EcL6faJOA7STfAxy76xOyGplXbJ9rtHod
- 129nPcuJxNARzamiPho9DOShFxj0Kx5WEviOgJkhVkIMIjgZJq3PsiFXluYeE9NTO/7JpiHP
- hlDcna6voTeVSGb2rBtm0qxNC3RHw8EhqPX0BH46WuonNrtWE8y1FdyN0Un38G+p54Q55Y5/
- 7cOqAtkL1VVMcZYa90Ge9ES8qqDW7GRw7KLQupUBzaPbBCP2iIp4/84b0z6u3vcJsUzIEqkJ
- CES19cvX5aQTObNSRP5uw/zvngehTMYd228LAu23FQgMyOeJP7dSueVVspj8ys5/0CH8yzYY
- fABK5r
-X-IronPort-AV: E=Sophos;i="5.92,284,1650945600"; 
-   d="scan'208";a="75950192"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lTK0i/w5JXIz0NLO9Lq/IJNPgdDTx59MhYiPSXjOfGxGVHFXrHt8iitmHyVS8UVTvw7aX/beyOHn7W6c7Hsp5NSxXcLjGIXC1T20/jwrSYeLnZssnbCeQ2GMPQ9SbV+hTnIHdc8WdxgxAPH0a5INcJTT7eDMaNGdeFGXnUkmdwVUXln59blqW9Hc7SitQeD59bVyInr/xlGKXBW+Euv3oRiPeaDbOiNmDPNI1hgJDGSJgFxcDDDoTThMTu4wS281Z530J9EBM5LCSnSVvAKBsNWcSCT6fLdTJOqbD3zB31mSvd/REHpCKuaDJ3BbdcAARV0gF9vFFeHALmEyAGMk/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=46eHTGcIXiTxNKzyN+/IF89NYdtrZ4+vu3IkW/DEro4=;
- b=TQsUsvCn8USGf6KViJ1f19QwzOW8UUMnJLVxq0TwPo33Kh3WTIiFMxpLp+XA6b/+y21ElpU29AzbsX39qB72RpBR3a1pTRcYzKrWxpzmjm7sIHlc1N7+fz6Fq3FrYv+5w/yL3eKizsBczH7Lw7ZcnPYdBMSIGTrVxAypIYfPLNVELQMiSThGhFZrH7QetVvVq21CHMfaCWrhrFGFg0Ld9xL7XcyrRTWycurvEdEDu28pdg9ZOalk9m3wSAyDpC9Hj/A0LBBgq4BeBqBS3Co3J7U4j/kB3Hf+MDMZUszGAQ19PpLTpB8ZxX1mcXMW/5n4Uay1Sa0XXfojGHrB/rtWbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=46eHTGcIXiTxNKzyN+/IF89NYdtrZ4+vu3IkW/DEro4=;
- b=VlVwr+5Lpr4Whz8cfuSKXyH0ZghM/D1L3lKiMrPkAafi0zesVu7vj9d4btNw8tMrgAID2sQbeuHpxNofaE+xGFFPUmvsL3CJGg0P5E3BviXyWx/yCHB+Dv25ayckRU6vkcTtHVwXWGuaIllorpgVAVWb7q+yhEJlYAK4fi4pqo0=
-From: Andrew Cooper <Andrew.Cooper3@citrix.com>
-To: Anthony Perard <anthony.perard@citrix.com>, "devel@edk2.groups.io"
-	<devel@edk2.groups.io>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Ard
- Biesheuvel <ardb+tianocore@kernel.org>, Jiewen Yao <jiewen.yao@intel.com>,
-	Jordan Justen <jordan.l.justen@intel.com>, Gerd Hoffmann <kraxel@redhat.com>,
-	Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 1/1] OvmfPkg/XenPvBlkDxe: Fix memory barrier macro
-Thread-Topic: [PATCH 1/1] OvmfPkg/XenPvBlkDxe: Fix memory barrier macro
-Thread-Index: AQHYm3bUnP9y0GYoU0uIINVtZTXPCK2FvEeA
-Date: Tue, 19 Jul 2022 14:12:40 +0000
-Message-ID: <73483ebf-d641-e4f2-6e23-b0336e62f359@citrix.com>
-References: <20220719135230.32838-1-anthony.perard@citrix.com>
-In-Reply-To: <20220719135230.32838-1-anthony.perard@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 459c6c68-c9f3-45f9-e2d8-08da6990bd98
-x-ms-traffictypediagnostic: BN9PR03MB5962:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 181hoYzkU6eUIr4dOOIYmiL8nAcgAd6w2o4NjPyk96AEludIthqpaG91j4bGWHEzrIHNakHdEFS0Gkg3Egm55iO24No99woTkTj1A1gsTXJej05GDmxl/6Ufh9P9aUscpgneJHwXbx5toVq6hjHzQjVxSrfU6alY8n4+JwnVeQri4/pFU2zE41A05ZjEUfjLGtcwqjn7/SBZze25FHCFCTy6VMw4B4MoIup7+sxpxvz1ERtzhJWW2XlUhqOUKgOJOfuYp/RZI5Ut3VA8/589g2A6RjT/0CR/POtpUaYqnUSbGXBqS00jLI5fTxIEwbZVymlsmwNcbCmK3GNSuVRmY6YdPud3BqhH1GWsn/hZmVBm6vHa85k6auIUASQ7HzvyU8RPiT9quF6zxNhgctkfuEM6SqcRxElKk3OvcB4LvNPqH5sN8jxxNjmbbM2lNE5bTU6mjueisNgd7ttgAoWjTbM/Yeeb/enbfU1uo5W24RKsfnNhJF36lANFoKtj9cXPuVloCc5yj3jVopCl+qo4GUBwEj6n5/vhcH/zcIfhS+6GiUo7pvKbiZSoglHBGZWpnBRl+VM8RWG3ScKZNgenECNuZHH1doVTWlho5Zjk21VSN+651QahT47jF0Kj4gDhYCdInr67GpnRHQKIvs/ANtWTxnRxSY3qkGKXZUtT3YhE+6t8O+e/PDAB4cdKKq3Uy59bH3xTDQs3jJpCV/689YD8FhcyFfsj86+8k96xoMFB7bo9G5Cbx8giq2hnnsPLMlV7j5VI5EK7WLMP36bb26IzUbQG7Phe7TbP1ScwOQFUz7yOdYRRmERTqDAZtinFPfUBh6pBBmBuWYdXaUHbRtSvu29cMj986c+vPc4zw8g=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(6029001)(4636009)(396003)(39860400002)(366004)(346002)(136003)(376002)(36756003)(4326008)(76116006)(5660300002)(8936002)(66476007)(66556008)(64756008)(8676002)(66946007)(38100700002)(122000001)(31696002)(2616005)(2906002)(86362001)(478600001)(19627235002)(38070700005)(31686004)(6486002)(71200400001)(41300700001)(82960400001)(83380400001)(110136005)(6506007)(66446008)(316002)(6512007)(26005)(53546011)(186003)(91956017)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SnpYblhobzdNWmZTK2F5eHBOKzlFSnFmK1FUUzlwZlB3aE1CZjFBQWpPY2sr?=
- =?utf-8?B?NnNTZ0l0V2E0L1BuN0w0UTFmZUhrdTgrM3R6aTVWZVZncGpRZkdlSng0am5R?=
- =?utf-8?B?TXFNQjl4d09OTFBlNkJabGZIek1uc0lRaTV3Q25yMjhyYzFQRHh6M1JScTB4?=
- =?utf-8?B?VUxjaEtnK1gzRkFiMS9qTzZzcE9yY1EzWmJNcDZYOXdyWjU3MVhsMlJrZnQx?=
- =?utf-8?B?SThONU9MYkVZbTN4Q2lYekdJa0JoMXNZY05pT2MwSGFmaVZ6N3QwVWVUKzBo?=
- =?utf-8?B?TWVYY1hjdXNSbERIbUhSZWtxV1dlRjd0Wm1WRTJ6U2dtL1NmRkNoR1B2UGdF?=
- =?utf-8?B?aTdyd3Izc0s4S01vVDh5NTJ4MUQwWmRjcUl2c0FYQjRoWGtZeGpGR1JiZ2lh?=
- =?utf-8?B?TEpsSTd4bytFcWFEUDBJT1A3TmlXSEJKTzg4WjgzcENQaUtIWnBrTGhWSjhz?=
- =?utf-8?B?MTdaUWJXYmVaby9kSnpSZW5tVHBzeTVSTVRCZjl4azJJaG55RnliTWxsRS9H?=
- =?utf-8?B?V1doTkxsd2RPNUgwOUt4YlpFaGRRaTI0MHhlNDlGQ0FqMDdjZ3J3ZXFUU3Vx?=
- =?utf-8?B?RmJHVXdxUnJUWmxvTjMyNlc2NXo4QlhEemRFTnJrOGtZbjR5RG9xQjB6R0JG?=
- =?utf-8?B?UnY4QlEwMDZpSndnK3JBVmlVRkx2ZEkwaGpJbHc0ZzdvMjZPQVFYTTJMNmp6?=
- =?utf-8?B?RjRrTXRNcTZmb1g1UFNTa1haUjFrTHhlb0ZpbkNXSkoxWFUzVlE1SkRzVmNr?=
- =?utf-8?B?Wld6ZGNkQmZJWVRJSmllQWZrb0pMQWRSRklnaDlGOC9XMzJLQ0RCQ0tiSzh0?=
- =?utf-8?B?OW51R3hHZGNoNTQ5aGhRL0wvcXlYRzZEbXUxNkdZZUovdTRHT3hwV1Y2a0Jo?=
- =?utf-8?B?cmRCYXRINU1FUmlvWFBmS01ma3Q2K3FLT0RCaXRCM1NVWXlzTk9Rb3lON3No?=
- =?utf-8?B?V3BxcmVjeXkyQVZjako2Um5oTk9nUjhFUUZhQTBubWhUVnFkQVI4UGF1c09B?=
- =?utf-8?B?bXVRa1pVQm42SklVQzlIQUdGL1A0dWhsU1hKN0tTZ0J0YnJsUzB4TFBUajl4?=
- =?utf-8?B?elJvdnNaUEk1MzNldUJJMzBTbitMQVhPUHRiVzlBb3ZyRXRwU3RrSEVvQVpQ?=
- =?utf-8?B?Y2lxbFozLzdwV3BCVWxHcDdQeTdwZGRSWUR1QlZoY3U0Z3Z5ckRLZHN1NDdT?=
- =?utf-8?B?M3lNdFNHa0xJZ01ab0o3bTVPM1BoZW5hUVA0U0o1SldoT2UzUi9ZcU9vc2JS?=
- =?utf-8?B?N0s2U28zNFRGNW5nb0xjN3l3TFBBUkdOb2NQcEhDU01WUjhleTVNa0xERjJp?=
- =?utf-8?B?bGQ3TFh0QlNPUk1ZRDg1WGF3bzhmcGFhSy8rMDRCRUc1Y2h4YmtiVVFlT25p?=
- =?utf-8?B?OXRYcy9YNFRMWlF0MWFVdzFiaHRublpLQnh5NDFFb0RCeElxL01nMXhkVEp3?=
- =?utf-8?B?a3dydTg3VUs1SjRBZzhyNWcyc2NjVzlTaGg0T3RSNCsraG50RU5oaG55d2NP?=
- =?utf-8?B?WFY1ZERpYXdkdlRidm9sTjZyaURjTnJsTW9JRUhZYWc1RTRkSG0yMi9yWWh3?=
- =?utf-8?B?czBrMndTZVBvcTA5YmQrbmV1czlFVk1UMWVxeGc0d2twNDJwbXZnbGc5eDBl?=
- =?utf-8?B?bTJlM1hpNUZaeUtldkl1UUFueXR5STJ1bEcxM0pwTkRoNFdFTXdjc2tMRTFJ?=
- =?utf-8?B?Y0ZoR1BnUEpDZTNDaWxvMzhqVXhmaUlkRDFybUZ3dFp5YmtGQ0h5VmViWGoz?=
- =?utf-8?B?UXc4RjRoSWIrT2VHNEpZbEx1a2hRV2lnVTBwYTBleEV4TUNKdEJPdVpPamV2?=
- =?utf-8?B?K1dmSXNsNXU3L3E2djgxY21uTzhOQlFIK1NqZVlwTHczRkc3Tk1CczBXV2ov?=
- =?utf-8?B?QmhYUE1IaXpSWEhObG1seHNVcFFvR0tSbHRVbnhTNFZYeHVqOFVTM2hQQ2h2?=
- =?utf-8?B?UnJ0MVN4bUZIU3M3QU8wYlhvZXhkMUgvZDhIeU9GL0JvV2lHZzgzTmRYSGdq?=
- =?utf-8?B?Smd1ZHV1WVBqbzVvRHptOGNhR2VzU1RUM2FkOVZURDFGU0NlRGV3NXBZS0o2?=
- =?utf-8?B?TmJKRUQzZWdCRHc0L1NDSm5wbElEMXA2eXpBMFQ2dWxFVCtpN1JiUGhBSG9D?=
- =?utf-8?Q?EdyQS7Mc8E4FJH6gP5hcW7Y/E?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4322EA8C8F1BA34D9996EB110178DAC0@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: d042e8ad-076e-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1658240803; bh=0MCR8ztNVvXBqIPyv/idSIbRg9uzDbj24OkajSfymqY=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=Z3k1/SJIzrZYrmbOX1dBbaf5GPEKHP9SIlbBvRQlqBjd8qMjN/2mF7XRPzfHAbxlmURUBwF5s5RI6+x316ZZpLkLk5e8Eu63arS8GgpUfxv3qs0+kJMCF+XL++omqVMKJXY05rIIue4WPv+uZJoi0BQjIoNZ8HVPWuF/zUjyI7Sg/4LD4pAW0Hud6OIkN5f5fBXX8Kv9+iodyZwQNK0ebnPwk1kchQpcrS0K5YPlRhbpz6Mv7x5htlA0KyUVm9cZsXJbVeoT9lijfAGPEiDRWImhzrz0LkvD844VI8FxMilexZ6roqaALnwSahB/eQ8f3muNnR6y/rO+H1Q92jwqvg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1658240803; bh=prMMb/82heNYdPl8col/mQCTUTYLA2n+jBI4we748yI=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=PXDSqxBhUqlwJ479JUvc/OkXo87eA2EEDdZ0OgsoauJScchd8YyBSp/YMrYVHro8a8bBIhBTykGItbHbW7MMF5gZrSx3uBA7uTU5/taPrnANWu/LAfYW2Y31lcjoZACWbOIpeXyUhzgGaOxViSAvoNzb5K4/W1cXrUw/hktCFsyDW8lMC4TvP3pfzFfBqZlDHR6e00rAI0Buub08vGArUAkHytVsPVxwkgNOziLAs/Q/aYHHX/92rcB+2H/ezAlqcKx23fymfTPIJ1UGBbG2MW+yos2nEwNRhebgrKewXVKQA2Oowrh3azQWKSjAH8dH5PB2p23de2SREOEaSIehuw==
+X-YMail-OSG: GyAknA4VM1kx2hr044yAhCFakR.BiMo_KCi1aa1GGZVgj47vNFVX2KVm5iDUEFP
+ QBdv0weC5482CAyl_reJrQeG7yhskjldBgFPnX6gi5Zt0H23wjVn08.AKrv9fxduJj1vTPqIGFJC
+ P6VRJ5uFKnLmRC5FbZqJbxFoVNdNBCHC2gKWKxdq3RsM5n9cyFDnQnK.Kn0.Pk9Ug.j7iEOS2f9e
+ 04jepfROKgV3LSQtuBFB9JiJ6_QbDXo7Z8OoGkMFEAqtNhXAxnQyyzcHD4q.Mc3ZWQZRlQx4BmwZ
+ na7vGEY93Q72xg.gQGt3OjRbP9rHnHPVOunGQy82lLOPhe1.menmI.4iYiPd6sgQ62Ng95Sxdwep
+ 7YplzMHSl5ZkYQkdrw99l1_CdeoINsCmUH_T2X1pwCGMcIEScz4BnDVseOWHTFlMELqS_OLywuRF
+ yuhKryGQjDgpEsMIv2ASWN5QgKiISbQdtSmCKOUh_BnH3UBok6pBuIR8bj6m9QS2_zevXfGHiFPd
+ P7b7Gy5DTz_bBh9ELpcGVGupqSZjF5BHx9r4F_YvEL3sPgrRuurMhgT.xks5mcb0XQD.ypbUbnCK
+ pPZKp..QoZPYjWwq3Zy_unTauYc092g6h7AgtX022cBlfpwNyK55.KB0sXEdHAeihT5a_aKpnTAl
+ 6CmaxqWzR_skPl19hHtrfVvC8xmJwPyQxr6DeZOAXDP7PST6inAkyROyytSyVQA47dvi.AzWo4F6
+ HuI2zMHolHgkocRl.3UQQ7Rk6ftZ1OTCsrlCrwzKN4ZpyPrOrutBDiYx0JpZYDipMfPXXL0Sp1iR
+ dxecP0SOs.DRrNqkrYBTrd13.rRiA_Nfx6OPYkGIM4NCSMEMkm6vydRQDIEG5MM6Czdq53O937CV
+ tWls6IqkwMHGvFManTX5wR24_Ow9y5UzCFa6zG2EOXdovq_1TF2JBoq8GOjeZgZHvKljWxV4wYmt
+ AYBf9AirQQIRlzTovcuRuG0KDb9PNAntFpYnjpZlLfnQp4Q8KpX3tSPEbb9xR9V5wspdsUf_kVJS
+ Rcmqm_T4hB7FGolwjYHOxUdftLx6.h8..h9HaP3GM0WRoO.WHOCFdIzuE3viSlnpZLW_QVModxIU
+ kPp2dYNsqd5fhPNiWK01KOxKtV6jH.A_XCdXW7Yz.ZcoK1Y45cpxvj3bJSW0KXj8Vpf566nn1TaY
+ sDQzkqgwhW5bNXFJJZkq97FcqZaXGfsCEQr57ckaxV7EV6W6PVK_Baow1FCAcTq3Ds9En3VM_nhL
+ P5DhFhvSCAD.7DrCPEkDxraKn4XA_RY53p20snBga7NMYjqX9h2EZDXqUxyoxYyrwoswumb37_Wa
+ TRZE.SjiIDiuY6yTL8CRpKrZLxFAkEwmnnwmdWGmqeQvYRdRn1KzTroB3nyfh_A3TbBFllUvJ3Bu
+ cMiW.Gkp8172fijKqa7OVLjmltJKgTW4js3zHm8sU_xVMrwy_zfGoCNlw3El2vLw32GeTXoqzVnu
+ VXdgXvDEw4SfkIk6rBnkL47Zi95Cy4QIetKfg3ywIkYGWVs9ZI0XxIaOFzYO_HrqlBZ8XYw.JXHa
+ Wp0LK3oob4utMS3pr81QkDQ0QkcjB.yNOnA9ookCXhJyeDhjnjdPjxTu5kOWgoZafzQUc66nroal
+ _NUpYCDB9xGEMDj0ESfRZHyslut8FOYa865RZZ1KZZ1st86xczDzl.24gS1opmAlPN5vCuaXjLGd
+ 0ihIrsBWEADnSRmLuxNlsSmuIkOWzv_pDu1LtIMSaAxUy6d9TJ5gfdLHL7WXddNGBt.BbJbvTSj5
+ EFACuylD3.ASK.7J29Og4x_y4gFGrRaQFwWhaKDg6I.FzLCRsHCUNugN1176q7a94Tx4ts6j9.IG
+ 1mPzfpNdx0AunF8y0vl9dhhdqzq564gZFshrBjSDbCfIlXEUHNDdOt2TnOuk_AN0q7nsRn5V5zcU
+ aiGrNYcmt1yTRDF4fk8C7fKLFQaklfFkOIwrgwVUBPkDLws9en8hRpgdR7UI0JK6UkPAA0PWwktA
+ 70r6OGbOBCJppoxtEXoUQBjbTVHLFmwJIs6f_3uQAF.7NWM0GGvEE9NuWo2r7gvQluSVvRjW6Ji_
+ .tUFXl8SnC34We6uYhEYB3nmDLX97eDjLsJPTuYKikdnmRX96HghKnqsXXlXxxZRgt3FuexlOAUK
+ UVMvfK9fn8oQ84KcNbgYds0HCEZJIfmtPMwpEQJ1hTWVAsO5x3eilTOEfWF0.WjPuw_NLCWYZdkg
+ W8ioE52OkZ.N18NN7rbedB6Q1rh3fSw--
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <786efd9f-d8fc-7235-7c1c-e0e90d1640be@netscape.net>
+Date: Tue, 19 Jul 2022 10:26:36 -0400
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 459c6c68-c9f3-45f9-e2d8-08da6990bd98
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2022 14:12:40.3154
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dGthQG0ll0ZY3kYrE2IbyHP1EbNYsD3yGnS0580krOxoTSelUVzZliY8odoZBQ1oUDtUTzNFHR8cTN97H5KuWIhQazraDYwuF03iMk0Bovk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR03MB5962
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: Ping: [PATCH] x86/PAT: have pat_enabled() properly reflect state
+ when running on e.g. Xen
+Content-Language: en-US
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: lkml <linux-kernel@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Lutomirski <luto@kernel.org>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ the arch/x86 maintainers <x86@kernel.org>, Juergen Gross <jgross@suse.com>
+References: <9385fa60-fa5d-f559-a137-6608408f88b0@suse.com>
+ <dff7bcd3-affc-9272-81e9-d686d9c997d5@suse.com>
+ <8756355c-b586-3d1b-531c-72a04a8c047a@leemhuis.info>
+ <05b5e672-0a1b-2d00-a879-b5127a94973f@suse.com>
+ <4c8c9d4c-1c6b-8e9f-fa47-918a64898a28@leemhuis.info>
+ <eda0381b-fe6d-144b-76cd-d943082d70e0@netscape.net>
+ <1a486b6d-037e-ac54-4279-286b4ae9452e@netscape.net>
+ <a13b8cdd-8e9f-a917-9e61-1ce6eee8da1c@netscape.net>
+In-Reply-To: <a13b8cdd-8e9f-a917-9e61-1ce6eee8da1c@netscape.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-T24gMTkvMDcvMjAyMiAxNDo1MiwgQW50aG9ueSBQZXJhcmQgd3JvdGU6DQo+IGRpZmYgLS1naXQg
-YS9Pdm1mUGtnL1hlblB2QmxrRHhlL1hlblB2QmxrRHhlLmggYi9Pdm1mUGtnL1hlblB2QmxrRHhl
-L1hlblB2QmxrRHhlLmgNCj4gaW5kZXggMzUwYjdiZDMwOWMwLi42N2VlMTg5OWU5YTggMTAwNjQ0
-DQo+IC0tLSBhL092bWZQa2cvWGVuUHZCbGtEeGUvWGVuUHZCbGtEeGUuaA0KPiArKysgYi9Pdm1m
-UGtnL1hlblB2QmxrRHhlL1hlblB2QmxrRHhlLmgNCj4gQEAgLTExLDggKzExLDkgQEANCj4gICNk
-ZWZpbmUgX19FRklfWEVOX1BWX0JMS19EWEVfSF9fDQo+ICANCj4gICNpbmNsdWRlIDxVZWZpLmg+
-DQo+ICsjaW5jbHVkZSAiRnVsbE1lbW9yeUZlbmNlLmgiDQo+ICANCj4gLSNkZWZpbmUgeGVuX21i
-KCkgICBNZW1vcnlGZW5jZSgpDQo+ICsjZGVmaW5lIHhlbl9tYigpICAgRnVsbE1lbW9yeUZlbmNl
-KCkNCj4gICNkZWZpbmUgeGVuX3JtYigpICBNZW1vcnlGZW5jZSgpDQo+ICAjZGVmaW5lIHhlbl93
-bWIoKSAgTWVtb3J5RmVuY2UoKQ0KDQpPaywgc28gdGhlIG9sZCBNZW1vcnlGZW5jZSgpIGlzIGRl
-ZmluaXRlbHkgYm9ndXMgaGVyZS4NCg0KSG93ZXZlciwgaXQgZG9lc24ndCBuZWVkIHRvIGJlIGFu
-IG1mZW5jZSBpbnN0cnVjdGlvbi7CoCBBbGwgdGhhdCBpcw0KbmVlZGVkIGlzIHNtcF9tYigpLCB3
-aGljaCB0aGVzZSBkYXlzIGlzDQoNCmFzbSB2b2xhdGlsZSAoICJsb2NrIGFkZGwgJDAsIC00KCUl
-cnNwKSIgOjo6ICJtZW1vcnkiICkNCg0KYmVjYXVzZSB0aGF0IGhhcyB0aGUgcmVxdWlyZWQgcmVh
-ZC93cml0ZSBvcmRlcmluZyBwcm9wZXJ0aWVzIHdpdGhvdXQgdGhlDQpleHRyYSBzZXJpYWxpc2lu
-ZyBwcm9wZXJ0eSB0aGF0IG1mZW5jZSBoYXMuDQoNCkZ1cnRoZXJtb3JlLCAuLi4NCg0KPiAgDQo+
-IGRpZmYgLS1naXQgYS9Pdm1mUGtnL1hlblB2QmxrRHhlL1g4NkdjY0Z1bGxNZW1vcnlGZW5jZS5j
-IGIvT3ZtZlBrZy9YZW5QdkJsa0R4ZS9YODZHY2NGdWxsTWVtb3J5RmVuY2UuYw0KPiBuZXcgZmls
-ZSBtb2RlIDEwMDY0NA0KPiBpbmRleCAwMDAwMDAwMDAwMDAuLjkyZDEwN2RlZjQ3MA0KPiAtLS0g
-L2Rldi9udWxsDQo+ICsrKyBiL092bWZQa2cvWGVuUHZCbGtEeGUvWDg2R2NjRnVsbE1lbW9yeUZl
-bmNlLmMNCj4gQEAgLTAsMCArMSwyMCBAQA0KPiArLyoqIEBmaWxlDQo+ICsgIENvcHlyaWdodCAo
-QykgMjAyMiwgQ2l0cml4IEx0ZC4NCj4gKw0KPiArICBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
-QlNELTItQ2xhdXNlLVBhdGVudA0KPiArKiovDQo+ICsNCj4gKyNpbmNsdWRlICJGdWxsTWVtb3J5
-RmVuY2UuaCINCj4gKw0KPiArLy8NCj4gKy8vIExpa2UgTWVtb3J5RmVuY2UoKSBidXQgcHJldmVu
-dCBzdG9yZXMgZnJvbSBiZWVuIHJlb3JkZWQgd2l0aCBsb2FkcyBieQ0KPiArLy8gdGhlIENQVSBv
-biBYNjQuDQo+ICsvLw0KPiArVk9JRA0KPiArRUZJQVBJDQo+ICtGdWxsTWVtb3J5RmVuY2UgKA0K
-PiArICBWT0lEDQo+ICsgICkNCj4gK3sNCj4gKyAgX19hc21fXyBfX3ZvbGF0aWxlX18gKCJtZmVu
-Y2UiOjo6Im1lbW9yeSIpOw0KPiArfQ0KDQouLi4gc3R1ZmYgbGlrZSB0aGlzIG5lZWRzIHRvIGNv
-bWUgZnJvbSBhIHNpbmdsZSBjb3JlIGxvY2F0aW9uLCBhbmQgbm90DQpvcGVuY29kZWQgZm9yIGVh
-Y2ggZHJpdmVyLg0KDQp+QW5kcmV3DQo=
+On 7/14/2022 6:45 PM, Chuck Zmudzinski wrote:
+> On 7/14/2022 6:33 PM, Chuck Zmudzinski wrote:
+> > On 7/14/2022 1:17 PM, Chuck Zmudzinski wrote:
+> > > On 7/5/22 6:57 AM, Thorsten Leemhuis wrote:
+> > > > [CCing tglx, mingo, Boris and Juergen]
+> > > >
+> > > > On 04.07.22 14:26, Jan Beulich wrote:
+> > > > > On 04.07.2022 13:58, Thorsten Leemhuis wrote:
+> > > > >> On 25.05.22 10:55, Jan Beulich wrote:
+> > > > >>> On 28.04.2022 16:50, Jan Beulich wrote:
+> > > > >>>> The latest with commit bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT
+> > > > >>>> with pat_enabled()") pat_enabled() returning false (because of PAT
+> > > > >>>> initialization being suppressed in the absence of MTRRs being announced
+> > > > >>>> to be available) has become a problem: The i915 driver now fails to
+> > > > >>>> initialize when running PV on Xen (i915_gem_object_pin_map() is where I
+> > > > >>>> located the induced failure), and its error handling is flaky enough to
+> > > > >>>> (at least sometimes) result in a hung system.
+> > > > >>>>
+> > > > >>>> Yet even beyond that problem the keying of the use of WC mappings to
+> > > > >>>> pat_enabled() (see arch_can_pci_mmap_wc()) means that in particular
+> > > > >>>> graphics frame buffer accesses would have been quite a bit less
+> > > > >>>> performant than possible.
+> > > > >>>>
+> > > > >>>> Arrange for the function to return true in such environments, without
+> > > > >>>> undermining the rest of PAT MSR management logic considering PAT to be
+> > > > >>>> disabled: Specifically, no writes to the PAT MSR should occur.
+> > > > >>>>
+> > > > >>>> For the new boolean to live in .init.data, init_cache_modes() also needs
+> > > > >>>> moving to .init.text (where it could/should have lived already before).
+> > > > >>>>
+> > > > >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > > > >>>
+> > > > >>> The Linux kernel regression tracker is pestering me because things are
+> > > > >>> taking so long (effectively quoting him), and alternative proposals
+> > > > >>> made so far look to have more severe downsides.
+> > > > >>
+> > > > >> Has any progress been made with this patch? It afaics is meant to fix
+> > > > >> this regression, which ideally should have been fixed weeks ago (btw:
+> > > > >> adding a "Link:" tag pointing to it would be good):
+> > > > >> https://lore.kernel.org/regressions/YnHK1Z3o99eMXsVK@mail-itl/
+> > > > >>
+> > > > >> According to Juergen it's still needed:
+> > > > >> https://lore.kernel.org/lkml/c5515533-29a9-9e91-5a36-45f00f25b37b@suse.com/
+> > > > >>
+> > > > >> Or was a different solution found to fix that regression?
+> > > > > 
+> > > > > No progress and no alternatives I'm aware of.
+> > > >
+> > > > Getting closer to the point where I need to bring this to Linus
+> > > > attention. I hope this mail can help avoiding this.
+> > > >
+> > > > Jan, I didn't follow this closely, but do you have any idea why Dave,
+> > > > Luto, and Peter are ignoring this? Is reverting bdd8b6c98239 a option to
+> > > > get the regression fixed? Would a repost maybe help getting this rolling
+> > > > again?
+> > >
+> > > Hi, Thorsten,
+> > >
+> > > Here is a link to the hardware probe of my system which exhibits
+> > > a system hang before fully booting with bdd8b6c98239. Without
+> > > bdd8b6c98239, the problem is gone:
+> > >
+> > > https://linux-hardware.org/?probe=32e615b538
+> > >
+> > > Keep in mind this problem is not seen with bdd8b6c98239
+> > > on the bare metal, but only when running as a traditional Dom0
+> > > PV type guest on Xen. I don't know see the problem on Xen HVM
+> > > DomU, and I have not tested it on Xen PVH DomU, Xen PV DomU,
+> > > or the experimental Xen PVH Dom0.
+> >
+> > Update: On affected hardware, you do not need to run in a
+> > Xen PV Dom0 to see the regression caused by bdd8b6c98239.
+> >
+> > All you need to do is run, on the bare metal, on the affected
+> > hardware, with the Linux kernel nopat boot option.
+> >
+> > Jan mentions in his commit message the function in the i915
+> > driver that was touched by bdd8b6c98239 and that causes this
+> > regression. That is, any Intel IGD that needs to execute the
+> > function that Jan mentions in the commit message of his
+> > proposed patch when the i915 driver is setting up the graphics
+> > engine will most likely be hardware that is affected. My Intel
+> > IGD was marketed as HD Graphics 4600, I think.
+> >
+> > So find an a system with these hardware characteristics, and
+> > try running, with the nopat option, the Linux kernel, with
+> > and without bdd8b6c98239. You will see the regression I
+> > am experiencing, I predict.
+>
+> This raises a disturbing question: The commit message of
+> bdd8b6c98239 mentions the nopat option. It does not specify what
+> effect the commit was supposed to have on system
+> with the nopat option, but the actual effect on the system,
+> both with the seldom used nopat option and in Xen PV Dom0,
+> a nasty regression on some older Intel IGD devices. My question:
+>
+> Was this intentional? Or just grossly incompetent? Any other
+> possibilities?
+
+After reading more of the discussions on lkml, I suppose Intel
+decided a regression affecting older Intel IGDs running on Xen
+would not affect enough users to cause a serious problem.
+I just happen to be one of the few users affected by it. I
+understand I cannot expect Intel to support its older devices
+forever, even if Linus' regression rule would seem to suggest
+that on Linux older devices need to continue to be supported
+for as long as is reasonably possible. In any case, I can see that
+efforts are still underway to fix this regression, not from Intel,
+but from maintainers of x86 and Xen kernel code, and that is
+what is necessary if the Linus regression rule applies even when
+just a few users are affected by a regression. While waiting for a
+fix in the mainline kernel, affected users can revert bdd8b6c98239
+on top of the released kernel versions as the most simple
+workaround for this regression.
+
+Chuck
+
+>
+> I think you should definitely notify Linus about this if you can
+> verify the story I am telling here.
+>
+> Chuck
+>
+> >
+> > Chuck
+> >
+> > >
+> > > You can probably verify yourself that reverting bdd8b6c98239
+> > > fixes the regression if you try to reproduce the regression with
+> > > any Linux version that has bdd8b6c98239 or its equivalent on
+> > > the stable branches with a hardware profile similar to the link
+> > > to the profile of my machine which exhibits the problem. Mine
+> > > is a Haswell core-i5 4590S CPU and ASRock B85M-Pro4
+> > > motherboard.
+> > >
+> > > Also, other notes:
+> > >
+> > > 1. Yes, AFAICT, Marek at Qubes OS is the first to report the problem.
+> > > 2. Juergen Gross' work to try to fix this has been helpful, but none
+> > > of his posted patches has fixed the regression on my system.
+> > > 3. Jan's patch fixes it also, and so do the two patches I posted to lkml
+> > > earlier this week to the appropriate maintainers.
+> > > 4. On the pkg-xen-devel mailing list, which is public, this issue was
+> > > briefly discussed where I first reported it. Someone there said they
+> > > did not see the issue with Broadwell Xeons. Mine is a Haswell core i5,
+> > > which is one generation older than Broadwell, so you are most likely
+> > > to be able to reproduce the problem with a Haswell core i5 desktop
+> > > system like my ASRock system, which was my own private build
+> > > which has been working fine for eight years until Linux 5.17.y.
+> > >
+> > > Hope this helps.
+> > >
+> > > Chuck
+> > >
+> > > > BTW, for anyone new to this, Jan's patch afaics is supposed to fix the
+> > > > regression reported here:
+> > > > https://lore.kernel.org/all/YnHK1Z3o99eMXsVK@mail-itl/
+> > > >
+> > > > Side note: Juergen Gross recently posted related patches in this code
+> > > > area to fix some other problems (regressions?), but his efforts look
+> > > > stalled, too:
+> > > > https://lore.kernel.org/all/ddb0cc0d-cefc-4f33-23f8-3a94c7c51a49@suse.com/
+> > > >
+> > > > And he recently stated this Jan's patch is still needed, even if his
+> > > > changes make it in.
+> > > > https://lore.kernel.org/all/c5515533-29a9-9e91-5a36-45f00f25b37b@suse.com/
+> > > >
+> > > > This from my point all looks a bit... unsatisfying. :-/
+> > > >
+> > > > Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+> > > >
+> > > > P.S.: As the Linux kernel's regression tracker I deal with a lot of
+> > > > reports and sometimes miss something important when writing mails like
+> > > > this. If that's the case here, don't hesitate to tell me in a public
+> > > > reply, it's in everyone's interest to set the public record straight.
+> > >
+> >
+> >
+>
+
 
