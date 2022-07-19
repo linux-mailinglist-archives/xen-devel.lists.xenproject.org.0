@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EA8F57A4FA
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 19:19:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.370787.602662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76A3057A597
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 19:43:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.370796.602674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDqrx-0002YN-Bj; Tue, 19 Jul 2022 17:18:49 +0000
+	id 1oDrFZ-00067c-69; Tue, 19 Jul 2022 17:43:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 370787.602662; Tue, 19 Jul 2022 17:18:49 +0000
+Received: by outflank-mailman (output) from mailman id 370796.602674; Tue, 19 Jul 2022 17:43:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDqrx-0002Vu-8c; Tue, 19 Jul 2022 17:18:49 +0000
-Received: by outflank-mailman (input) for mailman id 370787;
- Tue, 19 Jul 2022 17:18:47 +0000
+	id 1oDrFZ-00065e-2F; Tue, 19 Jul 2022 17:43:13 +0000
+Received: by outflank-mailman (input) for mailman id 370796;
+ Tue, 19 Jul 2022 17:43:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B0fU=XY=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
- id 1oDqrv-0002Vo-HA
- for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 17:18:47 +0000
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ <SRS0=D6sG=XY=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1oDrFW-00065R-Ke
+ for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 17:43:10 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d75ccb72-0786-11ed-bd2d-47488cf2e6aa;
- Tue, 19 Jul 2022 19:18:45 +0200 (CEST)
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2022 10:18:30 -0700
-Received: from jlirvin-mobl5.amr.corp.intel.com (HELO ubuntu.localdomain)
- ([10.212.39.211])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2022 10:18:29 -0700
+ id 40ac0a14-078a-11ed-bd2d-47488cf2e6aa;
+ Tue, 19 Jul 2022 19:43:09 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id w12so20591242edd.13
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Jul 2022 10:43:09 -0700 (PDT)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ wj18-20020a170907051200b0072af92fa086sm6903268ejb.32.2022.07.19.10.43.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Jul 2022 10:43:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,243 +44,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d75ccb72-0786-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1658251125; x=1689787125;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=7OuMzZMeAVedQlxQcpp8HXe51NYN54wYxaB9nOgs/74=;
-  b=nZcs3cFO6ezobCUnFm09uwHQQBbnbDH6wZ6R/LoicPXYKGGVVkP6f7mD
-   52w/z15u4mo+EcwI0Wv6eB/1zo3P+8SK6QC1WrGu3OiMON1qD497SW4oD
-   KhwZdQymdT/ykmjObbtMbtDTM306Th49nllOSrxJFa+Gx2Pxxh4OAThhs
-   LOURijGgqAq0BgvcXSF1EFkWDtiurU5yjR9DHqwHgmM0YJIKkCXWYJr8d
-   Z7eVOPisBsYyUMi+GjS92cxyZbUJ+NJ78E0FTUC5ujlaS8qa7nQxDam6o
-   eoob1QvRdqxqnHbTZ55sdC3fjD3ody+7apYtEGZICvQ7ne/kWqKB0nMXO
-   A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10413"; a="284110682"
-X-IronPort-AV: E=Sophos;i="5.92,284,1650956400"; 
-   d="scan'208";a="284110682"
-X-IronPort-AV: E=Sophos;i="5.92,284,1650956400"; 
-   d="scan'208";a="924859998"
-From: Tamas K Lengyel <tamas.lengyel@intel.com>
+X-Inumbo-ID: 40ac0a14-078a-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=iil/+hh1lHYGOFBEfrlSQzLIKhq77Pxuaiko3wYSpsA=;
+        b=RPcILN7TxkPOWRwhXV/C22OKCKtG+y7218BmcyLiwGX2gm3tERkvTw3XHbJ5hIghgO
+         GoUs3XEZIq880DUGx/5IGkkH9epNDZPpDsFo9Y5CCzdORnY5jBZr5laii2x+Gr0WBy9G
+         SZ6hqfjUC1ea5xRL7W8aMqf4aGCZpfxblOwV5yZG9+Dk0jj/iXerrsM56uDq2T0LJPPM
+         xr7r9/1ceS36v1zrs18BGSxHD0GbcYVG36KK90geOb5T/HzDyGaLTHEw8fZTWI/8KI3n
+         FzZ/XiBWZkSGbzVdrxwPlZf7fRDQHUQSfiw8ZjGYcCPRpiBfE89KbvGZN4S+mZF3XD7O
+         gCeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=iil/+hh1lHYGOFBEfrlSQzLIKhq77Pxuaiko3wYSpsA=;
+        b=4ZiXkyU9NNFyDZSeeg0KrR4Bf+75hW5sU/cE4bfzWlkFLQPn4ww9maj4+Reurzznfp
+         41NKTQqiZQXt7SbyQjAud3QCQUac8AHVeGvK/2Ilpj1kqTEo/LygexSxwyqVDHVETzVN
+         k4t0KMpyfOzzk6kZREWfH4L58LzI5qk36hQly9r+3tvlKt30sadcICNF0y6P+654qns+
+         SxGww61+U+G/BROZ6d/0fFHXGK5mGfDYaotHJX79KK7avlpJTKvmP8RS44xYfZwhVO/e
+         FKLql2gBSCyCBeu3XVli7i6ZvWA33i2RXXPv4eTkpm/2g3vICi0XbKtYadjZqnp/hpB6
+         CyWg==
+X-Gm-Message-State: AJIora+pQ7Rq76SOyAOuyEgE3SzwH1oT7/QretXEtQtygxJemh8Fnwss
+	y+lh0O2IDat6W92X9KegQq4wPQRngik53g==
+X-Google-Smtp-Source: AGRyM1v0XmDpSKmZVABaGFn5fKIsYr/CT0hOc8daUAkuz3OMKftl6Zk1BSBH77tlumb3enDFUXr1Eg==
+X-Received: by 2002:a05:6402:2554:b0:43a:902b:d31f with SMTP id l20-20020a056402255400b0043a902bd31fmr45208629edb.416.1658252588202;
+        Tue, 19 Jul 2022 10:43:08 -0700 (PDT)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
-	Jan Beulich <jbeulich@suse.com>,
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Wei Liu <wl@xen.org>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	George Dunlap <george.dunlap@citrix.com>
-Subject: [PATCH] xen/mem_sharing: support forks with active vPMU state
-Date: Tue, 19 Jul 2022 13:18:11 -0400
-Message-Id: <4f3ff38d8226d10dab3440f020c9ba7f07cab1fd.1658250756.git.tamas.lengyel@intel.com>
-X-Mailer: git-send-email 2.34.1
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Rahul Singh <rahul.singh@arm.com>
+Subject: [PATCH V7 00/11] PCI devices passthrough on Arm, part 3
+Date: Tue, 19 Jul 2022 20:42:42 +0300
+Message-Id: <20220719174253.541965-1-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently the vPMU state from a parent isn't copied to VM forks. To enable the
-vPMU state to be copied to a fork VM we export certain vPMU functions. First,
-the vPMU context needs to be allocated for the fork if the parent has one. For
-this we introduce vpmu->allocate_context, which has previously only been called
-when the guest enables the PMU on itself. Furthermore, we export
-vpmu_save_force so that the PMU context can be saved on-demand even if no
-context switch took place on the parent's CPU yet. Additionally, we make sure
-all relevant configuration MSRs are saved in the vPMU context so the copy is
-complete and the fork starts with the same PMU config as the parent.
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
----
- xen/arch/x86/cpu/vpmu.c         | 12 ++++++++-
- xen/arch/x86/cpu/vpmu_intel.c   | 16 +++++++++++
- xen/arch/x86/include/asm/vpmu.h |  5 ++++
- xen/arch/x86/mm/mem_sharing.c   | 48 +++++++++++++++++++++++++++++++++
- 4 files changed, 80 insertions(+), 1 deletion(-)
+Hi, all!
 
-diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
-index d2c03a1104..2b5d64a60d 100644
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -336,7 +336,7 @@ void vpmu_do_interrupt(struct cpu_user_regs *regs)
- #endif
- }
- 
--static void cf_check vpmu_save_force(void *arg)
-+void cf_check vpmu_save_force(void *arg)
- {
-     struct vcpu *v = arg;
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
-@@ -529,6 +529,16 @@ void vpmu_initialise(struct vcpu *v)
-         put_vpmu(v);
- }
- 
-+void vpmu_allocate_context(struct vcpu *v)
-+{
-+    struct vpmu_struct *vpmu = vcpu_vpmu(v);
-+
-+    if ( vpmu_is_set(vpmu, VPMU_CONTEXT_ALLOCATED) )
-+        return;
-+
-+    alternative_call(vpmu_ops.allocate_context, v);
-+}
-+
- static void cf_check vpmu_clear_last(void *arg)
- {
-     if ( this_cpu(last_vcpu) == arg )
-diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
-index 8612f46973..31dc0ee14b 100644
---- a/xen/arch/x86/cpu/vpmu_intel.c
-+++ b/xen/arch/x86/cpu/vpmu_intel.c
-@@ -282,10 +282,17 @@ static inline void __core2_vpmu_save(struct vcpu *v)
-     for ( i = 0; i < fixed_pmc_cnt; i++ )
-         rdmsrl(MSR_CORE_PERF_FIXED_CTR0 + i, fixed_counters[i]);
-     for ( i = 0; i < arch_pmc_cnt; i++ )
-+    {
-         rdmsrl(MSR_IA32_PERFCTR0 + i, xen_pmu_cntr_pair[i].counter);
-+        rdmsrl(MSR_P6_EVNTSEL(i), xen_pmu_cntr_pair[i].control);
-+    }
- 
-     if ( !is_hvm_vcpu(v) )
-         rdmsrl(MSR_CORE_PERF_GLOBAL_STATUS, core2_vpmu_cxt->global_status);
-+    /* Save MSR to private context to make it fork-friendly */
-+    else if ( mem_sharing_enabled(v->domain) )
-+        vmx_read_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
-+                           &core2_vpmu_cxt->global_ctrl);
- }
- 
- static int cf_check core2_vpmu_save(struct vcpu *v, bool to_guest)
-@@ -346,6 +353,10 @@ static inline void __core2_vpmu_load(struct vcpu *v)
-         core2_vpmu_cxt->global_ovf_ctrl = 0;
-         wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, core2_vpmu_cxt->global_ctrl);
-     }
-+    /* Restore MSR from context when used with a fork */
-+    else if ( mem_sharing_is_fork(v->domain) )
-+        vmx_write_guest_msr(v, MSR_CORE_PERF_GLOBAL_CTRL,
-+                            core2_vpmu_cxt->global_ctrl);
- }
- 
- static int core2_vpmu_verify(struct vcpu *v)
-@@ -474,7 +485,11 @@ static int core2_vpmu_alloc_resource(struct vcpu *v)
-                                     sizeof(uint64_t) * fixed_pmc_cnt;
- 
-     vpmu->context = core2_vpmu_cxt;
-+    vpmu->context_size = sizeof(struct xen_pmu_intel_ctxt) +
-+                         fixed_pmc_cnt * sizeof(uint64_t) +
-+                         arch_pmc_cnt * sizeof(struct xen_pmu_cntr_pair);
-     vpmu->priv_context = p;
-+    vpmu->priv_context_size = sizeof(uint64_t);
- 
-     if ( !has_vlapic(v->domain) )
-     {
-@@ -882,6 +897,7 @@ static int cf_check vmx_vpmu_initialise(struct vcpu *v)
- 
- static const struct arch_vpmu_ops __initconst_cf_clobber core2_vpmu_ops = {
-     .initialise = vmx_vpmu_initialise,
-+    .allocate_context = core2_vpmu_alloc_resource,
-     .do_wrmsr = core2_vpmu_do_wrmsr,
-     .do_rdmsr = core2_vpmu_do_rdmsr,
-     .do_interrupt = core2_vpmu_do_interrupt,
-diff --git a/xen/arch/x86/include/asm/vpmu.h b/xen/arch/x86/include/asm/vpmu.h
-index e5709bd44a..14d0939247 100644
---- a/xen/arch/x86/include/asm/vpmu.h
-+++ b/xen/arch/x86/include/asm/vpmu.h
-@@ -40,6 +40,7 @@
- /* Arch specific operations shared by all vpmus */
- struct arch_vpmu_ops {
-     int (*initialise)(struct vcpu *v);
-+    int (*allocate_context)(struct vcpu *v);
-     int (*do_wrmsr)(unsigned int msr, uint64_t msr_content);
-     int (*do_rdmsr)(unsigned int msr, uint64_t *msr_content);
-     int (*do_interrupt)(struct cpu_user_regs *regs);
-@@ -59,6 +60,8 @@ struct vpmu_struct {
-     u32 hw_lapic_lvtpc;
-     void *context;      /* May be shared with PV guest */
-     void *priv_context; /* hypervisor-only */
-+    size_t context_size;
-+    size_t priv_context_size;
-     struct xen_pmu_data *xenpmu_data;
-     spinlock_t vpmu_lock;
- };
-@@ -106,8 +109,10 @@ void vpmu_lvtpc_update(uint32_t val);
- int vpmu_do_msr(unsigned int msr, uint64_t *msr_content, bool is_write);
- void vpmu_do_interrupt(struct cpu_user_regs *regs);
- void vpmu_initialise(struct vcpu *v);
-+void vpmu_allocate_context(struct vcpu *v);
- void vpmu_destroy(struct vcpu *v);
- void vpmu_save(struct vcpu *v);
-+void vpmu_save_force(void *arg);
- int vpmu_load(struct vcpu *v, bool_t from_guest);
- void vpmu_dump(struct vcpu *v);
- 
-diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index 8f9d9ed9a9..39cd03abf7 100644
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -1653,6 +1653,50 @@ static void copy_vcpu_nonreg_state(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
-     hvm_set_nonreg_state(cd_vcpu, &nrs);
- }
- 
-+static int copy_vpmu(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
-+{
-+    struct vpmu_struct *d_vpmu = vcpu_vpmu(d_vcpu);
-+    struct vpmu_struct *cd_vpmu = vcpu_vpmu(cd_vcpu);
-+
-+    if ( !vpmu_are_all_set(d_vpmu, VPMU_INITIALIZED | VPMU_CONTEXT_ALLOCATED) )
-+        return 0;
-+    if ( !vpmu_is_set(cd_vpmu, VPMU_CONTEXT_ALLOCATED) )
-+    {
-+        vpmu_allocate_context(cd_vcpu);
-+        if ( !vpmu_is_set(cd_vpmu, VPMU_CONTEXT_ALLOCATED) )
-+            return -ENOMEM;
-+    }
-+
-+    /*
-+     * The VPMU subsystem only saves the context when the CPU does a context
-+     * switch. Otherwise, the relevant MSRs are not saved on vmexit.
-+     * We force a save here in case the parent CPU context is still loaded.
-+     */
-+    if ( vpmu_is_set(d_vpmu, VPMU_CONTEXT_LOADED) )
-+    {
-+        int pcpu = smp_processor_id();
-+
-+        if ( d_vpmu->last_pcpu != pcpu )
-+        {
-+            on_selected_cpus(cpumask_of(d_vpmu->last_pcpu),
-+                             vpmu_save_force, (void *)d_vcpu, 1);
-+            vpmu_reset(d_vpmu, VPMU_CONTEXT_LOADED);
-+        } else
-+            vpmu_save(d_vcpu);
-+    }
-+
-+    if ( vpmu_is_set(d_vpmu, VPMU_RUNNING) )
-+        vpmu_set(cd_vpmu, VPMU_RUNNING);
-+
-+    /* Make sure context gets (re-)loaded when scheduled next */
-+    vpmu_reset(cd_vpmu, VPMU_CONTEXT_LOADED);
-+
-+    memcpy(cd_vpmu->context, d_vpmu->context, d_vpmu->context_size);
-+    memcpy(cd_vpmu->priv_context, d_vpmu->priv_context, d_vpmu->priv_context_size);
-+
-+    return 0;
-+}
-+
- static int copy_vcpu_settings(struct domain *cd, const struct domain *d)
- {
-     unsigned int i;
-@@ -1702,6 +1746,10 @@ static int copy_vcpu_settings(struct domain *cd, const struct domain *d)
-             copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);
-         }
- 
-+        ret = copy_vpmu(d_vcpu, cd_vcpu);
-+        if ( ret )
-+            return ret;
-+
-         hvm_vmtrace_reset(cd_vcpu);
- 
-         copy_vcpu_nonreg_state(d_vcpu, cd_vcpu);
+You can find previous discussion at [1].
+
+1. This patch series is focusing on vPCI and adds support for non-identity
+PCI BAR mappings which is required while passing through a PCI device to
+a guest. The highlights are:
+
+- Add relevant vpci register handlers when assigning PCI device to a domain
+  and remove those when de-assigning. This allows having different
+  handlers for different domains, e.g. hwdom and other guests.
+
+- Emulate guest BAR register values based on physical BAR values.
+  This allows creating a guest view of the registers and emulates
+  size and properties probe as it is done during PCI device enumeration by
+  the guest.
+
+- Instead of handling a single range set, that contains all the memory
+  regions of all the BARs and ROM, have them per BAR.
+
+- Take into account guest's BAR view and program its p2m accordingly:
+  gfn is guest's view of the BAR and mfn is the physical BAR value as set
+  up by the host bridge in the hardware domain.
+  This way hardware domain sees physical BAR values and guest sees
+  emulated ones.
+
+2. The series also adds support for virtual PCI bus topology for guests:
+ - We emulate a single host bridge for the guest, so segment is always 0.
+ - The implementation is limited to 32 devices which are allowed on
+   a single PCI bus.
+ - The virtual bus number is set to 0, so virtual devices are seen
+   as embedded endpoints behind the root complex.
+
+3. The series has been updated due to the new PCI(vPCI) locking scheme implemented
+in the prereq series which is also on the review now [2].
+
+4. For unprivileged guests vpci_{read|write} has been re-worked
+to not passthrough accesses to the registers not explicitly handled
+by the corresponding vPCI handlers: without that passthrough
+to guests is completely unsafe as Xen allows them full access to
+the registers. During development this can be reverted for debugging purposes.
+
+!!! OT: please note, Oleksandr Andrushchenko who is the author of all this stuff
+has managed to address allmost all review comments given for v6 and pushed the updated
+version to the github (23.02.22). 
+So after receiving his agreement I just picked it up and did the following before
+pushing V7:
+- rebased on the recent staging (resolving a few conflicts)
+- updated according to the recent changes (added cf_check specifiers where appropriate, etc)
+and performed minor adjustments
+- made sure that both current and prereq series [2] didn't really break x86 by testing
+PVH Dom0 (vPCI) and PV Dom0 + HVM DomU (PCI passthrough to DomU) using Qemu
+- my colleague Volodymyr Babchuk (who was involved in the prereq series) rechecked that
+both series worked on Arm using real HW
+
+You can also find the series at [3].
+
+[1] https://lore.kernel.org/xen-devel/20220204063459.680961-1-andr2000@gmail.com/
+[2] https://lore.kernel.org/xen-devel/20220718211521.664729-1-volodymyr_babchuk@epam.com/
+[3] https://github.com/otyshchenko1/xen/commits/vpci7
+
+Oleksandr Andrushchenko (11):
+  xen/pci: arm: add stub for is_memory_hole
+  vpci: add hooks for PCI device assign/de-assign
+  vpci/header: implement guest BAR register handlers
+  rangeset: add RANGESETF_no_print flag
+  vpci/header: handle p2m range sets per BAR
+  vpci/header: program p2m with guest BAR view
+  vpci/header: emulate PCI_COMMAND register for guests
+  vpci/header: reset the command register when adding devices
+  vpci: add initial support for virtual PCI bus topology
+  xen/arm: translate virtual PCI bus topology for guests
+  xen/arm: account IO handlers for emulated PCI MSI-X
+
+ xen/arch/arm/mm.c             |   6 +
+ xen/arch/arm/vpci.c           |  31 ++-
+ xen/common/rangeset.c         |   5 +-
+ xen/drivers/Kconfig           |   4 +
+ xen/drivers/passthrough/pci.c |  11 +
+ xen/drivers/vpci/header.c     | 458 ++++++++++++++++++++++++++--------
+ xen/drivers/vpci/msi.c        |   4 +
+ xen/drivers/vpci/msix.c       |   4 +
+ xen/drivers/vpci/vpci.c       | 130 ++++++++++
+ xen/include/xen/rangeset.h    |   5 +-
+ xen/include/xen/sched.h       |   8 +
+ xen/include/xen/vpci.h        |  42 +++-
+ 12 files changed, 604 insertions(+), 104 deletions(-)
+
 -- 
-2.34.1
+2.25.1
 
 
