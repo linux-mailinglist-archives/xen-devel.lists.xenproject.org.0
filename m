@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6ED557A43E
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 18:38:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.370753.602619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3D0357A478
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Jul 2022 19:00:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.370760.602629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDqDt-0004CG-EC; Tue, 19 Jul 2022 16:37:25 +0000
+	id 1oDqa1-0007lZ-8C; Tue, 19 Jul 2022 17:00:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 370753.602619; Tue, 19 Jul 2022 16:37:25 +0000
+Received: by outflank-mailman (output) from mailman id 370760.602629; Tue, 19 Jul 2022 17:00:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDqDt-0004AS-B1; Tue, 19 Jul 2022 16:37:25 +0000
-Received: by outflank-mailman (input) for mailman id 370753;
- Tue, 19 Jul 2022 16:37:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BLto=XY=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1oDqDr-0004AM-Dt
- for xen-devel@lists.xenproject.org; Tue, 19 Jul 2022 16:37:23 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0dbf8384-0781-11ed-924f-1f966e50362f;
- Tue, 19 Jul 2022 18:37:20 +0200 (CEST)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1658248634568315.9538041364176;
- Tue, 19 Jul 2022 09:37:14 -0700 (PDT)
+	id 1oDqa1-0007j5-4u; Tue, 19 Jul 2022 17:00:17 +0000
+Received: by outflank-mailman (input) for mailman id 370760;
+ Tue, 19 Jul 2022 17:00:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oDqZz-0007iv-Gh; Tue, 19 Jul 2022 17:00:15 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oDqZz-0004RB-CR; Tue, 19 Jul 2022 17:00:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oDqZz-0005xW-3J; Tue, 19 Jul 2022 17:00:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oDqZz-0007oa-2o; Tue, 19 Jul 2022 17:00:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,239 +42,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dbf8384-0781-11ed-924f-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; t=1658248636; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=M+KtG0SQGD5c4Yc5uAfdIV0yf1vj9Lk0YE09+/f112XEJjVFomiX7t7LtqmOhTb08v49uEz30B4TJHh40YT/KLBQ+ZOpuDErpClLKoLphhaQqsmWkmZ7QG+n4zD5cqP3cX4tEwc5/W65jZfFjGJtiTXr8eqi+Skj3b9uGYSk4iM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1658248636; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=bjrTTcX2WxDg7VEE5uCHADJqFBNUYF9tPGumG+FeAWY=; 
-	b=M2GL0/17tGhuooUB/gUHr3Q3sBGioof4CDrdwy9CVj1SUN0/vzJGgfH1GpMdH2lBvwd0zk7sPA9rvEQjDBxY11TtT3HuTkNvFP7C4uv36WkD71ry6a9UtQhmR9cKPCBPiLQKCz3EUr9OkIYJnMsMqPW8FYz5SzSMI19uvZPWGY0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1658248636;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=bjrTTcX2WxDg7VEE5uCHADJqFBNUYF9tPGumG+FeAWY=;
-	b=Qj2i2P/dCLJFT5ePBTAJpxa/UUK4e/AF44pbydE0ejUxtk17HFhx/W97SOYZvfKH
-	AwksQaRcCZeoiWjXK4FEdnfnPmPmNIef3ysjkC0uRv252mDvs5y/6wK/9zzVzhKJgLQ
-	mEEB8iKseWQt8wv3VBaN6h3Ywe1bebrMYnHqCgOo=
-Message-ID: <78c3f88a-4f36-087d-31b1-d02bfbc8df30@apertussolutions.com>
-Date: Tue, 19 Jul 2022 12:36:53 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>
-Cc: scott.davis@starlab.io, christopher.clark@starlab.io,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20220706210454.30096-1-dpsmith@apertussolutions.com>
- <20220706210454.30096-2-dpsmith@apertussolutions.com>
- <c4ca59d6-daed-25e9-86d8-019676744eb2@xen.org>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v1 01/18] kconfig: allow configuration of maximum modules
-In-Reply-To: <c4ca59d6-daed-25e9-86d8-019676744eb2@xen.org>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=P/3KIQdeEBwlSDFoZic66XyIh+gVmDe2kGl7G5IN3e8=; b=NdkE0Hggp10GWW2JwcyC7dAG9M
+	e/+IdAoV2c/feNo/ip/StjaSNs3hP9B8cZBznPGn+U7UT7yQE10EMgLxHjQ0lpLKz0sg0RMu8RMrg
+	Yt6lHrxKaBmi6snfjqWDDX716OpTzNXuBBDDqKu35vPa/PCm595ODs5a5ky+6RW+IRu8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-171681-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Subject: [linux-linus test] 171681: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=ca85855bdcae8f84f1512e88b4c75009ea17ea2f
+X-Osstest-Versions-That:
+    linux=ff6992735ade75aae3e35d16b17da1008d753d28
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 19 Jul 2022 17:00:15 +0000
+
+flight 171681 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171681/
+
+Failures :-/ but no regressions.
+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds    18 guest-start/debian.repeat fail REGR. vs. 171664
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 171664
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 171664
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 171664
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 171664
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 171664
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 171664
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 171664
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 171664
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                ca85855bdcae8f84f1512e88b4c75009ea17ea2f
+baseline version:
+ linux                ff6992735ade75aae3e35d16b17da1008d753d28
+
+Last test of basis   171664  2022-07-17 21:11:10 Z    1 days
+Failing since        171674  2022-07-18 19:40:02 Z    0 days    2 attempts
+Testing same since   171681  2022-07-19 04:40:23 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  Bartosz Golaszewski <brgl@bgdev.pl>
+  Dipen Patel <dipenp@nvidia.com>
+  Jason Gunthorpe <jgg@nvidia.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Mustafa Ismail <mustafa.ismail@intel.com>
+  Shiraz Saleem <shiraz.saleem@intel.com>
+  Thierry Reding <treding@nvidia.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-On 7/15/22 15:16, Julien Grall wrote:
-> Hi Daniel,
-> 
-> On 06/07/2022 22:04, Daniel P. Smith wrote:
->> For x86 the number of allowable multiboot modules varies between the
->> different
->> entry points, non-efi boot, pvh boot, and efi boot. In the case of
->> both Arm and
->> x86 this value is fixed to values based on generalized assumptions. With
->> hyperlaunch for x86 and dom0less on Arm, use of static sizes results
->> in large
->> allocations compiled into the hypervisor that will go unused by many
->> use cases.
->>
->> This commit introduces a Kconfig variable that is set with sane
->> defaults based
->> on configuration selection. This variable is in turned used as the
->> array size
->> for the cases where a static allocated array of boot modules is declared.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> Reviewed-by: Christopher Clark <christopher.clark@starlab.io>
-> 
-> I am not entirely sure where this reviewed-by is coming from. Is this
-> from internal review?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Yes.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> If yes, my recommendation would be to provide the reviewed-by on the
-> mailing list. Ideally, the review should also be done in the open, but I
-> understand some company wish to do a fully internal review first.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Since this capability is being jointly developed by Christopher and I,
-with myself being the author of code, Christopher reviewed the code as
-the co-developer. He did so as a second pair of eyes for any obvious
-mistakes and to concur that the implementation was in line with the
-approach the two of us architected. Perhaps a SoB line might be more
-appropriate than an R-b line.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> At least from a committer perspective, this helps me to know whether the
-> reviewed-by still apply. An example would be if you send a v2, I would
-> not be able to know whether Christoffer still agreed on the change.
 
-If an SoB line is more appropriate, then on the next version I can
-switch it
+Pushing revision :
 
->> ---
->>   xen/arch/Kconfig                  | 12 ++++++++++++
->>   xen/arch/arm/include/asm/setup.h  |  5 +++--
->>   xen/arch/x86/efi/efi-boot.h       |  2 +-
->>   xen/arch/x86/guest/xen/pvh-boot.c |  2 +-
->>   xen/arch/x86/setup.c              |  4 ++--
->>   5 files changed, 19 insertions(+), 6 deletions(-)
->>
->> diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
->> index f16eb0df43..24139057be 100644
->> --- a/xen/arch/Kconfig
->> +++ b/xen/arch/Kconfig
->> @@ -17,3 +17,15 @@ config NR_CPUS
->>         For CPU cores which support Simultaneous Multi-Threading or
->> similar
->>         technologies, this the number of logical threads which Xen will
->>         support.
->> +
->> +config NR_BOOTMODS
->> +    int "Maximum number of boot modules that a loader can pass"
->> +    range 1 32768
->> +    default "8" if X86
->> +    default "32" if ARM
->> +    help
->> +      Controls the build-time size of various arrays allocated for
->> +      parsing the boot modules passed by a loader when starting Xen.
->> +
->> +      This is of particular interest when using Xen's hypervisor domain
->> +      capabilities such as dom0less.
->> diff --git a/xen/arch/arm/include/asm/setup.h
->> b/xen/arch/arm/include/asm/setup.h
->> index 2bb01ecfa8..312a3e4209 100644
->> --- a/xen/arch/arm/include/asm/setup.h
->> +++ b/xen/arch/arm/include/asm/setup.h
->> @@ -10,7 +10,8 @@
->>     #define NR_MEM_BANKS 256
->>   -#define MAX_MODULES 32 /* Current maximum useful modules */
->> +/* Current maximum useful modules */
->> +#define MAX_MODULES CONFIG_NR_BOOTMODS
->>     typedef enum {
->>       BOOTMOD_XEN,
->> @@ -38,7 +39,7 @@ struct meminfo {
->>    * The domU flag is set for kernels and ramdisks of "xen,domain" nodes.
->>    * The purpose of the domU flag is to avoid getting confused in
->>    * kernel_probe, where we try to guess which is the dom0 kernel and
->> - * initrd to be compatible with all versions of the multiboot spec.
->> + * initrd to be compatible with all versions of the multiboot spec.
-> 
-> In general, I much prefer if coding style changes are done separately
-> because it helps the review (I don't have to stare at the line to figure
-> out what changed).
-
-Actually, on a past review of another series I got dinged on this, and I
-did try to get most of them out of this series. This is just a straggler
-that I missed. I will clean up on next revision.
-
-> I am not going to force this here. However, the strict minimum is to
-> mention the change in the commit message.
-> 
->>    */
->>   #define BOOTMOD_MAX_CMDLINE 1024
->>   struct bootmodule {
->> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
->> index 6e65b569b0..4e1a799749 100644
->> --- a/xen/arch/x86/efi/efi-boot.h
->> +++ b/xen/arch/x86/efi/efi-boot.h
->> @@ -18,7 +18,7 @@ static multiboot_info_t __initdata mbi = {
->>    * The array size needs to be one larger than the number of modules we
->>    * support - see __start_xen().
->>    */
->> -static module_t __initdata mb_modules[5];
->> +static module_t __initdata mb_modules[CONFIG_NR_BOOTMODS + 1];
-> 
-> Please explain in the commit message why the number of modules was
-> bumped from 5 to 9.
-
-The number of modules were inconsistent between the different entry
-points into __start_xen(). By switching to a Kconfig variable, whose
-default was set to the largest value used across the entry points,
-results in change for the locations using another value.
-
-See below for +1 explanation.
-
->>     static void __init edd_put_string(u8 *dst, size_t n, const char *src)
->>   {
->> diff --git a/xen/arch/x86/guest/xen/pvh-boot.c
->> b/xen/arch/x86/guest/xen/pvh-boot.c
->> index 498625eae0..834b1ad16b 100644
->> --- a/xen/arch/x86/guest/xen/pvh-boot.c
->> +++ b/xen/arch/x86/guest/xen/pvh-boot.c
->> @@ -32,7 +32,7 @@ bool __initdata pvh_boot;
->>   uint32_t __initdata pvh_start_info_pa;
->>     static multiboot_info_t __initdata pvh_mbi;
->> -static module_t __initdata pvh_mbi_mods[8];
->> +static module_t __initdata pvh_mbi_mods[CONFIG_NR_BOOTMOD + 1];
-> 
-> What's the +1 for?
-
-I should clarify in the commit message, but the value set in
-CONFIG_NR_BOOTMOD is the max modules that Xen would accept from a
-bootloader. Xen startup code expects to be able to append Xen itself as
-the array. The +1 allocates an additional entry to store Xen in the
-array should a bootloader actually pass CONFIG_NR_BOOTMOD modules to
-Xen. There is an existing comment floating in one of these locations
-that explained it.
-
->>   static const char *__initdata pvh_loader = "PVH Directboot";
->>     static void __init convert_pvh_info(multiboot_info_t **mbi,
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index f08b07b8de..2aa1e28c8f 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1020,9 +1020,9 @@ void __init noreturn __start_xen(unsigned long
->> mbi_p)
->>           panic("dom0 kernel not specified. Check bootloader
->> configuration\n");
->>         /* Check that we don't have a silly number of modules. */
->> -    if ( mbi->mods_count > sizeof(module_map) * 8 )
->> +    if ( mbi->mods_count > CONFIG_NR_BOOTMODS )
->>       {
->> -        mbi->mods_count = sizeof(module_map) * 8;
->> +        mbi->mods_count = CONFIG_NR_BOOTMODS;
->>           printk("Excessive multiboot modules - using the first %u
->> only\n",
->>                  mbi->mods_count);
->>       }
-> 
-> AFAIU, this check is to make sure that we will not overrun module_map in
-> the next line:
-> 
-> bitmap_fill(module_map, mbi->mods_count);
-> 
-> The current definition of module_map will allow 64 modules. But you are
-> allowing 32768. So I think you either want to keep the check or define
-> module_map as:
-> 
-> DECLARE_BITMAP(module_map, CONFIG_NR_BOOTMODS);
-
-Yes, in the RFC I had it capped to 64 and lost track of this related
-changed when it was bumped to 32768 per the review discussion. Later in
-the series, module_map goes away. To ensure stability at this point I
-would be inclined to restore the 64 module clamp down check. Thoughts?
-
-v/r,
-dps
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   ff6992735ade..ca85855bdcae  ca85855bdcae8f84f1512e88b4c75009ea17ea2f -> tested/linux-linus
 
