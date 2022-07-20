@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CDCE57BDA6
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jul 2022 20:20:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.372118.603924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31CAF57BDBC
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jul 2022 20:27:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.372126.603943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oEEIm-00061X-IA; Wed, 20 Jul 2022 18:20:04 +0000
+	id 1oEEPi-0007Hr-Ca; Wed, 20 Jul 2022 18:27:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 372118.603924; Wed, 20 Jul 2022 18:20:04 +0000
+Received: by outflank-mailman (output) from mailman id 372126.603943; Wed, 20 Jul 2022 18:27:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oEEIm-0005wg-E8; Wed, 20 Jul 2022 18:20:04 +0000
-Received: by outflank-mailman (input) for mailman id 372118;
- Wed, 20 Jul 2022 18:20:02 +0000
+	id 1oEEPi-0007Fo-94; Wed, 20 Jul 2022 18:27:14 +0000
+Received: by outflank-mailman (input) for mailman id 372126;
+ Wed, 20 Jul 2022 18:27:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oEEIk-0005iQ-NB
- for xen-devel@lists.xenproject.org; Wed, 20 Jul 2022 18:20:02 +0000
+ (envelope-from <julien@xen.org>) id 1oEEPh-0007Fi-C7
+ for xen-devel@lists.xenproject.org; Wed, 20 Jul 2022 18:27:13 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oEEIk-0006eP-A2; Wed, 20 Jul 2022 18:20:02 +0000
+ id 1oEEPd-0006n5-Kh; Wed, 20 Jul 2022 18:27:09 +0000
 Received: from [54.239.6.185] (helo=[192.168.0.130])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oEEIk-0001aj-3m; Wed, 20 Jul 2022 18:20:02 +0000
+ id 1oEEPd-0001w4-Bu; Wed, 20 Jul 2022 18:27:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,91 +42,60 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wX6Nsyee0y16F8ALHiab3Hdw62yglC7YJ6wiz8g1Us4=; b=38PucLFDTi+dt9BByNb3btzJlF
-	CPzmPz7SICTWbbOkg0HuCY1hz99R16wxJOvZh2Mf5uGkHtB6X2YirUmJ1t96Kx2iIYQ2a7DBtR3b8
-	2rR9RqSBVq3Dcyd/8D7SzvxwUVh1xjEIVVB3CYhN2wxUR8z66BnbXzQUlfJO56ybQkXg=;
-Message-ID: <43793378-6539-1795-8262-189f7ff61d66@xen.org>
-Date: Wed, 20 Jul 2022 19:20:00 +0100
+	bh=lukKjgnuc7y0+9OBOaI2LWBRC0HjHZ+rW3x2gC55vKQ=; b=6UXGz+6lnU39C2ju7kQoAhnKrc
+	7G2+jvWrPY/po8Yu4++rAUPxwE6DMLt3pxpjtEChLZj5vd3+IY1u5TB+3TRqtKoBA2IhPnaqKGLHN
+	RdFw03TdVK/+4dA2sVqtKr/6LlXTFSomnOjVDicv2aGetla3USNijkCB8WkYXxtCt5M4=;
+Message-ID: <a1c001b6-3a4a-a118-c343-f2c47a6e3d11@xen.org>
+Date: Wed, 20 Jul 2022 19:27:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.11.0
-Subject: Re: [PATCH V7 1/2] xen/arm: Harden the P2M code in
- p2m_remove_mapping()
-To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <jgrall@amazon.com>, Oleksandr Tyshchenko <olekstysh@gmail.com>
-References: <20220716145658.4175730-1-olekstysh@gmail.com>
- <fea296b1-76e4-f8f1-77fc-274309b54a38@xen.org>
- <7960855a-5135-00d9-fff8-b571d7be03d1@epam.com>
+Subject: Re: [PATCH v2 3/3] xen/heap: pass order to free_heap_pages() in heap
+ init
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Hongyan Xia <hongyxia@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+References: <20220715170312.13931-1-julien@xen.org>
+ <20220715170312.13931-4-julien@xen.org>
+ <0242a659-fcf9-74cc-102c-df775123b7ac@suse.com>
+ <b8b84df4-4101-a78f-1cf1-1662500ee2c0@xen.org>
+ <097e8634-0c5b-35ac-6ad6-5b83d9b29f64@suse.com>
+ <a06eb29a-c5b3-3a97-7f39-ca25a051163d@xen.org>
+ <4904ae1b-19ef-533c-fc2f-baec570bfcca@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <7960855a-5135-00d9-fff8-b571d7be03d1@epam.com>
+In-Reply-To: <4904ae1b-19ef-533c-fc2f-baec570bfcca@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Oleksandr,
+Hi Jan,
 
-On 16/07/2022 16:29, Oleksandr Tyshchenko wrote:
->> On 16/07/2022 15:56, Oleksandr Tyshchenko wrote:
->>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 19/07/2022 07:01, Jan Beulich wrote:
+> On 18.07.2022 19:39, Julien Grall wrote:
+>> On 18/07/2022 12:02, Jan Beulich wrote:
+>>> On 18.07.2022 12:24, Julien Grall wrote:
+>>> 3)
+>>>           unsigned int inc_order = min(MAX_ORDER, flsl(e - s) - 1);
 >>>
->>> Borrow the x86's check from p2m_remove_page() which was added
->>> by the following commit: c65ea16dbcafbe4fe21693b18f8c2a3c5d14600e
->>> "x86/p2m: don't assert that the passed in MFN matches for a remove"
->>> and adjust it to the Arm code base.
->>>
->>> Basically, this check will be strictly needed for the xenheap pages
->>> after applying a subsequent commit which will introduce xenheap based
->>> M2P approach on Arm. But, it will be a good opportunity to harden
->>> the P2M code for *every* RAM pages since it is possible to remove
->>> any GFN - MFN mapping currently on Arm (even with the wrong helpers).
->>>
->>> Suggested-by: Julien Grall <jgrall@amazon.com>
->>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>> ---
->>> You can find the corresponding discussion at:
->>> https://urldefense.com/v3/__https://lore.kernel.org/xen-devel/82d8bfe0-cb46-d303-6a60-2324dd76a1f7@xen.org/__;!!GF_29dbcQIUBPA!3a2u-XL4NvAzSMfz72LARrdWVFvq2In5ZpUdxP2cSt7bM8PgV7P_ZclZG2R-rE9PcosUHyqsKRNfVG2TiM9Tlg$
->>> [lore[.]kernel[.]org]
->>> https://urldefense.com/v3/__https://lore.kernel.org/xen-devel/1652294845-13980-2-git-send-email-olekstysh@gmail.com/__;!!GF_29dbcQIUBPA!3a2u-XL4NvAzSMfz72LARrdWVFvq2In5ZpUdxP2cSt7bM8PgV7P_ZclZG2R-rE9PcosUHyqsKRNfVG0kg7IZSA$
->>> [lore[.]kernel[.]org]
->>>
->>> Changes V6 -> V7:
->>>      - make this commit to be the first
->>>      - update commit description and add a comment in code
->>> ---
->>>    xen/arch/arm/p2m.c | 28 ++++++++++++++++++++++++++++
->>>    1 file changed, 28 insertions(+)
->>>
->>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->>> index d00c2e462a..2a0d383df4 100644
->>> --- a/xen/arch/arm/p2m.c
->>> +++ b/xen/arch/arm/p2m.c
->>> @@ -1308,11 +1308,39 @@ static inline int p2m_remove_mapping(struct
->>> domain *d,
->>>                                         mfn_t mfn)
->>>    {
->>>        struct p2m_domain *p2m = p2m_get_hostp2m(d);
->>> +    unsigned long i;
->>>        int rc;
->>>          p2m_write_lock(p2m);
->>> +    /*
->>> +     * Before removing the GFN - MFN mapping for any RAM pages make
->>> sure
->>> +     * that there is no difference between what is already mapped
->>> and what
->>> +     * is requested to be unmapped.
->>> +     * If they don't match bail out early. For instance, this could
->>> happen
->>> +     * if two CPUs are requesting to unmap the same P2M concurrently.
+>>>           if ( s )
+>>>               inc_order = min(inc_order, ffsl(s) - 1U);
 >>
->> Missing word: P2M *entry*
+>> I like this idea!
+>>
+>>>
+>>> No compilation issues to expect here, afaict.
+>>
+>> Correct, GCC is happy with this approach. Assuming there are no other
+>> comments, are you happy if I make the change on commit?
 > 
-> Yes. May I please ask, could this be done on the commit if this appears
-> to be the last version?
+> Sure - iirc I gave my R-b already.
 
-I have committed the series with the same typo.
+You did. Just wanted to make sure your reviewed-by was valid with your 
+proposal.
+
+I have now committed the series.
 
 Cheers,
 
