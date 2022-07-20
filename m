@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4597757AB75
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jul 2022 03:12:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.371277.603113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F8657AB78
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jul 2022 03:13:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.371286.603124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDyG2-0004Lo-1b; Wed, 20 Jul 2022 01:12:10 +0000
+	id 1oDyGs-0005AS-D4; Wed, 20 Jul 2022 01:13:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 371277.603113; Wed, 20 Jul 2022 01:12:10 +0000
+Received: by outflank-mailman (output) from mailman id 371286.603124; Wed, 20 Jul 2022 01:13:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDyG1-0004Jm-Uv; Wed, 20 Jul 2022 01:12:09 +0000
-Received: by outflank-mailman (input) for mailman id 371277;
- Wed, 20 Jul 2022 01:12:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oDyGs-00056y-A1; Wed, 20 Jul 2022 01:13:02 +0000
+Received: by outflank-mailman (input) for mailman id 371286;
+ Wed, 20 Jul 2022 01:13:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/117=XZ=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1oDyG0-00044I-3u
- for xen-devel@lists.xenproject.org; Wed, 20 Jul 2022 01:12:08 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f86dbb4b-07c8-11ed-bd2d-47488cf2e6aa;
- Wed, 20 Jul 2022 03:12:07 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9E8196174C;
- Wed, 20 Jul 2022 01:12:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15B0C341D1;
- Wed, 20 Jul 2022 01:12:03 +0000 (UTC)
+ (envelope-from <SRS0=skLv=XZ=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1oDyGp-00051e-Lz
+ for xen-devel@lists.xenproject.org; Wed, 20 Jul 2022 01:13:00 +0000
+Received: from sonic316-55.consmr.mail.gq1.yahoo.com
+ (sonic316-55.consmr.mail.gq1.yahoo.com [98.137.69.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 163d2564-07c9-11ed-924f-1f966e50362f;
+ Wed, 20 Jul 2022 03:12:58 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic316.consmr.mail.gq1.yahoo.com with HTTP; Wed, 20 Jul 2022 01:12:55 +0000
+Received: by hermes--production-ne1-7864dcfd54-dxcrc (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID da1c1059c6f58b1197fb62eedc118138; 
+ Wed, 20 Jul 2022 01:12:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,177 +42,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f86dbb4b-07c8-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1658279525;
-	bh=c9nhF8SJnbgT1PcdEw9BhinCExmguSEsqIqZEydceYM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=D3cR5F6y+stgqYnzhXPjbUzIQhCS5sZXrXN4QVNkuR7VlyfyV/5YA9/Q7emGkuSJI
-	 eyJcQ8TuaKGeFLk8/qUpYzovHxJ/F4tBcF7sPHtRw+witDUi8Ve3QiVrf0llTLc7kv
-	 PlQ9prkBWq87sUzL5uWuS+gFMrP84HcSxYT2DD9i1HTSTcMIatlYXy9tk5ctziLAJs
-	 Mdm8kFKq4qfrpUq1Q0EIMxE1JvdpOaMcdpoAtpQUtINBsFGxENOwUC9dkdD2WrbNhK
-	 GWq7gvObl89raDRtsHCxkX2+HbYpf4cmerLw3LjF24BdNcyVR/kD09i9hg6aso02OG
-	 RulKTONQgHJug==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Borislav Petkov <bp@suse.de>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	jgross@suse.com,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 5.18 21/54] x86/xen: Rename SYS* entry points
-Date: Tue, 19 Jul 2022 21:09:58 -0400
-Message-Id: <20220720011031.1023305-21-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220720011031.1023305-1-sashal@kernel.org>
-References: <20220720011031.1023305-1-sashal@kernel.org>
+X-Inumbo-ID: 163d2564-07c9-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1658279575; bh=iWifEwj9jXr+OJlYWHhKvQEskuKfIAM/4zntUXILFnY=; h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=exWkcLCPxO+hW4q4nym5lwdLYXXGPKihrdkNPqFWPQ0bJlQpL2z1Shc/S7+USYQz8x+IclfSyEU2gRSi2JDzq7hfz9ooYxGMX3+HjZsb7tmVp+hhQ7i3xv7JXQrPB1TqKKvvlsxzAZ3Lfsg35ntOJWeHgqGAoWDu5f1cCmu/5r1j58r+6alQ8qBh85Tc3wZZeFaKv1H5AEsqFBbQ8iwg3IV/W+c1sVYS2Dba7ZwAo9IhJ6jVmyJEXbj107v2q4L5BvdhIDjI72ZYUd35/nF0T+AUe+L3aOcx03AHzhBMlHlFink3K+ZFDq2me8t85yUYMKfq8a4dgbZ5LLnnjHT/YA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1658279575; bh=ltLZEA8eNzEprIbhzvJZSEYmOFXhbEoexjddTnHQJe0=; h=X-Sonic-MF:Date:From:Subject:To:From:Subject; b=o04QgON2jXIorVudFo+weZ1JqkUDUyf0LhDxLtasf+wfwbVi3bimjfGZdaQfRa/5CZ+edusKouC0GGdnMfP+2DCOdFuVH17BdN7rozKS7Xj0S23TuN8e+pLkNJFJjzIkCwkM784sh/nDzs0mm8zQOp94SZy4sGHkL/F7HvHA/KObD/I0YDn52L+cedlcoMH6UyIQGzKmtUwKDRmSlFS/pZh03jgWVlncN4KepPoupQD5WHGW1YZVhEpnYzwRmkOsC1CqbAwqMfdoGFOf6vZR09M3/aK4GX13robVyo8yJcXdaJjbtzIg2rTcnNC3GjUZ9S7EQbjMT4gInZGGFoltNg==
+X-YMail-OSG: _YxVZCIVM1mdVS.6PZEvKwtUn9DEZEiI_daZt3JoDahEStm86JT2j22U.LY4Mu4
+ 4XXxbUOFQBSoI73wQ0WRjNTy3tN8GBI0NnEI80mK0SMpFLCN6JcTtuDCWQ.2IlrBfYiO0MeqRePh
+ Eoz89uwJzVyVkhrTemBnLPx69lJu1sXoPebXkn4cNjk1935_ULAkty375.YUBtVP1bKclIu3.mXR
+ BpVaOer9yweN.ayTZNccxid5wOs7EyqUsP4NA9DZu6kCFy9AvNNC6xNoFU8BfgnifrgS8IWrlXNZ
+ HBz0VAVv.AtJHcmplK8QWjMj9VhB5ZmdxVGpI4AsfEAB8_fBmu07JCcqz.CyVPodNRJ8.LkrOSY7
+ MkCWhM1t9j1CljJRdx40ggqbZ54EAZ0XFpuEDTidw3hnyixrilMY_QM59FEC6gCVvSB2MjFwmqAv
+ M_AtSaxNLyX3VqFy_GyUavaG9fAijYPzYEa44EjHNSKWu3Bg5DtrNLoVBJ6bxg5BMSYgJf4okDfd
+ vBojJnA42UVVa56BYMH9GtVfQpKOpBf.JCCLR7apCCkkqq6HrH5oQUh20ges5cPC9baGC853yQ1g
+ IfFgVSRSYEgllHqtC6yyC.2Xf2sdYvCfls3DcEtkcbySvhLIKBHAn6GkSJFtgYqu_famxfI7mSEL
+ sL4fC5Q2Ao5d2JKaNJTdYszCyI540GTaujpA8qTYmRoCplfU5Ff5u_dVDHUoKROZ8MueFiKDcO0E
+ qn7TEUVo9NaOp_HYaQ7BreHgYKQsb6OSpUbzU3lhKhZ6x69LRQll7xkZWUANck3cMW5B72lOuqrB
+ JRJGmdBn8T.8VOzJM6xvQKqVUK2HdSbLcr8vdTYGyU7xzP1vHOlINaW6DI5fYfl_glupCKDBNeIj
+ ZTEL8pSR_uuTzN_Z8M8DC5TBGF0lgNtDjYi4ZQxlJj.j3yW23RVdchi67N7LXez9Vbq16kKgiAy8
+ oOLcvtPiolij9UrvDVcdarHj93mrTCSAbzaV7PZbRm5hfa4yCkRzgHhCfrQRzKzwp.TTzb7CnTct
+ yyHNrevjmlrImhXd47cHrv1LzaSu8GnqyIHOPBgdYg1lApUkUug7Ur7L.07BM9_hTwbu3UNWIAl5
+ b8CFvBAdIVFtIRTDTxHreK2ldCj.Vy9emehQI3mY2scsMCCjfOXa6SSctkGJQ3rTRYPXuY198sq3
+ eaoPmL7EcQzXnJHfO7nBkDMax4RyF8Ys_tv3mHz7ckZ4MXDOHwJYZAuAbrtRFMBFoNHLCS1FpI_c
+ aHmkN8pjWLuy.gR.3rX_IBZZspifZayK9wla5l2NQozQQyo6HzkkysynXU5bdeA6atJrELPYnLvt
+ LXV2W2fhnTj86b9zWVwrll..1UkKc6GGXYdAvLp9W20n9R_joWPK0P7.RWNaMZqS28yGX1nUJyKl
+ NHKaGZKJi_8OnWmyVPTHlhAO67XJyJi4NLMvAYSUCNF4LMNSDtBUtoIGk7ncLYMPcJsJ_d6eDnKY
+ We2TQja26tJLDoZJNVHhfr4oRS853WgkEFkeF7JMUvQSuem3xYrRUT4B_pKRPhXm1EhwIU0btxtj
+ wA6FZMCo8_UHy5A9cfJbb9AdZNfweKL_liXHVmte_G0A1.llvkmSYi8X1U0uNFPscrNHLwSp3a3_
+ et7rnJjR17uhd7DveJ.PkQYJRNqFG86tD9VnKUEa6syH3FRAIDxHqQWKYwXraOY_BWGzPfsgJiiF
+ CWgdIxUAjGTdSLxnZfxlyK7I62xMFJ8TJ6L5TBiQT3Vz939813izWLknZrWHfHxjrMZVqyCpP9NI
+ OrKPqlTwlxTbeQ1patAdbgSgiuCPSy4w8oL9vyjtx_QB11w6b55EzUJ.iYFYBcRKUQ_HIcN5Pvca
+ 29d1nhQ_1qdge_UMyTnbd4rPJzV7x6oRQmQfd2vF7Fg3cK3WK5bWOvzOvfBJi4R4nsDJI2vZ.hcT
+ ETselLdMobEQZRd2GLJJYlq7aXgkkqqSsVffkv0vbymKzhFrFVFTsSD8I1mpoWKrUHYUOg9nQlMm
+ 2klFKDl0YxZuaHaA7LTkMZLovoBEELcsSuNreV9lRUXSwK789N4XdHBwBqXZ58kAtbN6nkbx2Z8N
+ 1XlFWaRFtI8zZvZn16mnDbRuQZjQNX4L5TIhdLkP_JSVHWeRZdsXphT2S0n8Zka8xB.YO39bAWUN
+ Cm_1n1esOcoUCNwroUf3eGp91Nh3ayLsc3skJcxKsHppkhyNawAx3D7W7Yd3XNy8iKGB59RTldFr
+ h0E4otvnGgXKBo_37ahHG5fA-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <9487b1ef-bc7c-b9c5-929f-0953756e9bd5@netscape.net>
+Date: Tue, 19 Jul 2022 21:12:48 -0400
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+Subject: Re: [PATCH 3/3] x86: decouple pat and mtrr handling
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+Cc: jbeulich@suse.com, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Thorsten Leemhuis <regressions@leemhuis.info>
+References: <20220715142549.25223-1-jgross@suse.com>
+ <20220715142549.25223-4-jgross@suse.com>
+Content-Language: en-US
+In-Reply-To: <20220715142549.25223-4-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.20407 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-From: Peter Zijlstra <peterz@infradead.org>
+On 7/15/22 10:25 AM, Juergen Gross wrote:
+> Today PAT is usable only with MTRR being active, with some nasty tweaks
+> to make PAT usable when running as Xen PV guest, which doesn't support
+> MTRR.
+>
+> The reason for this coupling is, that both, PAT MSR changes and MTRR
+> changes, require a similar sequence and so full PAT support was added
+> using the already available MTRR handling.
+>
+> Xen PV PAT handling can work without MTRR, as it just needs to consume
+> the PAT MSR setting done by the hypervisor without the ability and need
+> to change it. This in turn has resulted in a convoluted initialization
+> sequence and wrong decisions regarding cache mode availability due to
+> misguiding PAT availability flags.
+>
+> Fix all of that by allowing to use PAT without MTRR and by adding an
+> environment dependent PAT init function.
+>
+> Cc: <stable@vger.kernel.org> # 5.17
+> Fixes: bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT with pat_enabled()")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+...
+> diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
+> index d5ef64ddd35e..3d4bc27ffebb 100644
+> --- a/arch/x86/mm/pat/memtype.c
+> +++ b/arch/x86/mm/pat/memtype.c
+> ...
+>  
+> +void pat_init_noset(void)
+> +{
+> +	pat_bp_enabled = true;
+> +	init_cache_modes();
+> +}
 
-[ Upstream commit b75b7f8ef1148be1b9321ffc2f6c19238904b438 ]
+This is what should fix the regression caused by commit
+bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT
+with pat_enabled()"). Thanks for including this.
 
-Native SYS{CALL,ENTER} entry points are called
-entry_SYS{CALL,ENTER}_{64,compat}, make sure the Xen versions are
-named consistently.
+This function might need a better name. Does noset
+refer to the fact that when we use this function, we do
+not set or write to the PAT MSR? Maybe it should be
+pat_init_noset_msr. Is Xen PV Dom0 the only case when
+this function will be called or is it also for unprivileged
+Xen PV domains? Then maybe it should be named
+pat_init_xen_pv_dom0 or maybe just pat_init_xen_pv
+if it is also used with unprivileged Xen PV domains. Or,
+if you want to keep the name as pat_init_noset, maybe
+it should be preceded by a comment clearly explaining
+this function is currently only for the Xen PV and/or the Xen
+PV Dom0 case when we don't write to the PAT MSR and we
+still want to report PAT as enabled in those cases.
 
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Borislav Petkov <bp@suse.de>
-Reviewed-by: Josh Poimboeuf <jpoimboe@kernel.org>
-Signed-off-by: Borislav Petkov <bp@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/xen/setup.c   |  6 +++---
- arch/x86/xen/xen-asm.S | 20 ++++++++++----------
- arch/x86/xen/xen-ops.h |  6 +++---
- 3 files changed, 16 insertions(+), 16 deletions(-)
-
-diff --git a/arch/x86/xen/setup.c b/arch/x86/xen/setup.c
-index 81aa46f770c5..cfa99e8f054b 100644
---- a/arch/x86/xen/setup.c
-+++ b/arch/x86/xen/setup.c
-@@ -918,7 +918,7 @@ void xen_enable_sysenter(void)
- 	if (!boot_cpu_has(sysenter_feature))
- 		return;
- 
--	ret = register_callback(CALLBACKTYPE_sysenter, xen_sysenter_target);
-+	ret = register_callback(CALLBACKTYPE_sysenter, xen_entry_SYSENTER_compat);
- 	if(ret != 0)
- 		setup_clear_cpu_cap(sysenter_feature);
- }
-@@ -927,7 +927,7 @@ void xen_enable_syscall(void)
- {
- 	int ret;
- 
--	ret = register_callback(CALLBACKTYPE_syscall, xen_syscall_target);
-+	ret = register_callback(CALLBACKTYPE_syscall, xen_entry_SYSCALL_64);
- 	if (ret != 0) {
- 		printk(KERN_ERR "Failed to set syscall callback: %d\n", ret);
- 		/* Pretty fatal; 64-bit userspace has no other
-@@ -936,7 +936,7 @@ void xen_enable_syscall(void)
- 
- 	if (boot_cpu_has(X86_FEATURE_SYSCALL32)) {
- 		ret = register_callback(CALLBACKTYPE_syscall32,
--					xen_syscall32_target);
-+					xen_entry_SYSCALL_compat);
- 		if (ret != 0)
- 			setup_clear_cpu_cap(X86_FEATURE_SYSCALL32);
- 	}
-diff --git a/arch/x86/xen/xen-asm.S b/arch/x86/xen/xen-asm.S
-index caa9bc2fa100..6bf9d45b9178 100644
---- a/arch/x86/xen/xen-asm.S
-+++ b/arch/x86/xen/xen-asm.S
-@@ -234,7 +234,7 @@ SYM_CODE_END(xenpv_restore_regs_and_return_to_usermode)
-  */
- 
- /* Normal 64-bit system call target */
--SYM_CODE_START(xen_syscall_target)
-+SYM_CODE_START(xen_entry_SYSCALL_64)
- 	UNWIND_HINT_EMPTY
- 	ENDBR
- 	popq %rcx
-@@ -249,12 +249,12 @@ SYM_CODE_START(xen_syscall_target)
- 	movq $__USER_CS, 1*8(%rsp)
- 
- 	jmp entry_SYSCALL_64_after_hwframe
--SYM_CODE_END(xen_syscall_target)
-+SYM_CODE_END(xen_entry_SYSCALL_64)
- 
- #ifdef CONFIG_IA32_EMULATION
- 
- /* 32-bit compat syscall target */
--SYM_CODE_START(xen_syscall32_target)
-+SYM_CODE_START(xen_entry_SYSCALL_compat)
- 	UNWIND_HINT_EMPTY
- 	ENDBR
- 	popq %rcx
-@@ -269,10 +269,10 @@ SYM_CODE_START(xen_syscall32_target)
- 	movq $__USER32_CS, 1*8(%rsp)
- 
- 	jmp entry_SYSCALL_compat_after_hwframe
--SYM_CODE_END(xen_syscall32_target)
-+SYM_CODE_END(xen_entry_SYSCALL_compat)
- 
- /* 32-bit compat sysenter target */
--SYM_CODE_START(xen_sysenter_target)
-+SYM_CODE_START(xen_entry_SYSENTER_compat)
- 	UNWIND_HINT_EMPTY
- 	ENDBR
- 	/*
-@@ -291,19 +291,19 @@ SYM_CODE_START(xen_sysenter_target)
- 	movq $__USER32_CS, 1*8(%rsp)
- 
- 	jmp entry_SYSENTER_compat_after_hwframe
--SYM_CODE_END(xen_sysenter_target)
-+SYM_CODE_END(xen_entry_SYSENTER_compat)
- 
- #else /* !CONFIG_IA32_EMULATION */
- 
--SYM_CODE_START(xen_syscall32_target)
--SYM_CODE_START(xen_sysenter_target)
-+SYM_CODE_START(xen_entry_SYSCALL_compat)
-+SYM_CODE_START(xen_entry_SYSENTER_compat)
- 	UNWIND_HINT_EMPTY
- 	ENDBR
- 	lea 16(%rsp), %rsp	/* strip %rcx, %r11 */
- 	mov $-ENOSYS, %rax
- 	pushq $0
- 	jmp hypercall_iret
--SYM_CODE_END(xen_sysenter_target)
--SYM_CODE_END(xen_syscall32_target)
-+SYM_CODE_END(xen_entry_SYSENTER_compat)
-+SYM_CODE_END(xen_entry_SYSCALL_compat)
- 
- #endif	/* CONFIG_IA32_EMULATION */
-diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
-index fd0fec6e92f4..9a8bb972193d 100644
---- a/arch/x86/xen/xen-ops.h
-+++ b/arch/x86/xen/xen-ops.h
-@@ -10,10 +10,10 @@
- /* These are code, but not functions.  Defined in entry.S */
- extern const char xen_failsafe_callback[];
- 
--void xen_sysenter_target(void);
-+void xen_entry_SYSENTER_compat(void);
- #ifdef CONFIG_X86_64
--void xen_syscall_target(void);
--void xen_syscall32_target(void);
-+void xen_entry_SYSCALL_64(void);
-+void xen_entry_SYSCALL_compat(void);
- #endif
- 
- extern void *xen_initial_gdt;
--- 
-2.35.1
-
+Chuck
 
