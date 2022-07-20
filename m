@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5326257AB01
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jul 2022 02:34:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.371234.603072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BE4E57AB74
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jul 2022 03:12:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.371276.603102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDxeK-00081F-CP; Wed, 20 Jul 2022 00:33:12 +0000
+	id 1oDyG0-00046q-QX; Wed, 20 Jul 2022 01:12:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 371234.603072; Wed, 20 Jul 2022 00:33:12 +0000
+Received: by outflank-mailman (output) from mailman id 371276.603102; Wed, 20 Jul 2022 01:12:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oDxeK-0007zO-9V; Wed, 20 Jul 2022 00:33:12 +0000
-Received: by outflank-mailman (input) for mailman id 371234;
- Wed, 20 Jul 2022 00:33:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HPeO=XZ=protonmail.com=dylangerdaly@srs-se1.protection.inumbo.net>)
- id 1oDxeI-0007zC-8v
- for xen-devel@lists.xenproject.org; Wed, 20 Jul 2022 00:33:10 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 86ffcb67-07c3-11ed-924f-1f966e50362f;
- Wed, 20 Jul 2022 02:33:08 +0200 (CEST)
+	id 1oDyG0-00044T-Nr; Wed, 20 Jul 2022 01:12:08 +0000
+Received: by outflank-mailman (input) for mailman id 371276;
+ Wed, 20 Jul 2022 01:12:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/117=XZ=kernel.org=sashal@srs-se1.protection.inumbo.net>)
+ id 1oDyFz-00044I-A5
+ for xen-devel@lists.xenproject.org; Wed, 20 Jul 2022 01:12:07 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f7f77d53-07c8-11ed-bd2d-47488cf2e6aa;
+ Wed, 20 Jul 2022 03:12:05 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B1951B81DE4;
+ Wed, 20 Jul 2022 01:12:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98CD9C341C6;
+ Wed, 20 Jul 2022 01:12:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,179 +43,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86ffcb67-07c3-11ed-924f-1f966e50362f
-Date: Wed, 20 Jul 2022 00:33:00 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1658277187; x=1658536387;
-	bh=uwCIiuzMhvcjNM/4DDtAUEPWKgyBxdDAIwSD03eQxPs=;
-	h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
-	 References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
-	 Feedback-ID:Message-ID;
-	b=eqBKKt8Cy6bCS/0SDk4vRcH/bQTfFSsCEq07qwV6n7eYmo5fhAaulGpcQeMQQkMf9
-	 7U0eNBfCKDKts6oFIm6aoijP0rRngCE9PPWsDZXynPT8mkB1r4uK4BFc6vd+1YNtce
-	 e9nx/lxr4IJJzD8f1vqNZINWfJb/tJXaRh++MLbIHdMPESsvkOkU4yYC/ktSb6oRb4
-	 HNKu8v2tz/6UgqrbRqeo3IzreWI4NL13hs/Gn3RnQjOGfawoJ3eehgDVg19RAS655n
-	 UOi9xoB9sza+jLljKh/cAkf4h0o+hXfBLVAUKSZ9RmDSfLZkt01ITs6SLgDXkcGkFK
-	 b5t1Al4BzVYdw==
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-From: Dylanger Daly <dylangerdaly@protonmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
-Subject: Re: Ryzen 6000 (Mobile)
-Message-ID: <pDQL7BhwlO49buWymLE-VFEZJim7qNeMmAeThZgHF9qzcbNbQ6ZoSXktgD14I_HYpsdxqfCugrNoJ227u5DLCWEEXk_h9c7bf4iKdgoQbQ8=@protonmail.com>
-In-Reply-To: <4c3976aa-dad4-2707-2852-9b26593692d0@citrix.com>
-References: <wMV4okoInWxTqAaH6sxUug6my9BOlkurOWuCUILGFxoYe96U_-Z-KPjDdacRmuIksOMX-chaAN0lnGj5XevfNJKw6fIVhsSIqBCxGHweK-Q=@protonmail.com> <4c3976aa-dad4-2707-2852-9b26593692d0@citrix.com>
-Feedback-ID: 21854323:user:proton
+X-Inumbo-ID: f7f77d53-07c8-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1658279523;
+	bh=VoMl3IiXADXOrzYUU30d8G4boCKSZdvtXjRJJHHaY44=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=TDcie2KO3OBwvTT5O2M6l0j6f99DtbItqm2N3h8YB/Me2Xcsc4j83RP1GoDGwj2+6
+	 996/g2aEZyU/RDVPXWHAqY/bE1z+B9P7/vTCiL+rBlMw75lgevexKtO9bav68aAxPs
+	 uZNh/k32ik3JWvRKKpinpUbo7MYP9Xgp7bvW3pOtqPxOOcFneLyo6ZKsGp7BxM4oGA
+	 M7g094X8ECOWxiyfjKXNBtoPwk7dY6j13mbIVBAjBMuGgiy8p37HE9AQnnX36IQhKD
+	 oiChHPykcF/xJToKcZxD6+lxZNtJ+h+FQaVg+AIAfAC7Y1cfXLN/RBT/WlYVYrm7WF
+	 9dOlq8GtfsnEw==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Borislav Petkov <bp@suse.de>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	luto@kernel.org,
+	jgross@suse.com,
+	pawan.kumar.gupta@linux.intel.com,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH AUTOSEL 5.18 20/54] objtool: Update Retpoline validation
+Date: Tue, 19 Jul 2022 21:09:57 -0400
+Message-Id: <20220720011031.1023305-20-sashal@kernel.org>
+X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220720011031.1023305-1-sashal@kernel.org>
+References: <20220720011031.1023305-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="b1_xTk3vw6VfGMgDSSPzYY6nwsZQ6W3Udu6r8mU5cLeI"
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
+From: Peter Zijlstra <peterz@infradead.org>
 
---b1_xTk3vw6VfGMgDSSPzYY6nwsZQ6W3Udu6r8mU5cLeI
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+[ Upstream commit 9bb2ec608a209018080ca262f771e6a9ff203b6f ]
 
-PiBJJ2QgZm9jdXMgb24gdGhlIGJvb3RpbmcgaXNzdWVzIGZpcnN0LiBBbmQgSSBndWVzcyB5b3Ug
-Y2FuIHRha2UgYSB2aWRlbwo+IG9mIHRoYXQgKGFzc3VtaW5nIHRoYXQgYSBzaW5nbGUgc2NyZWVu
-c2hvdCBsaWtlbHkgaXNuJ3QgZ29pbmcgdG8gYmUKPiBlbm91Z2gpLCBwb3NzaWJseSB3aXRoICJ2
-Z2E9a2VlcCIgaW4gcGxhY2UgKGFsYmVpdCB0aGF0IGludHJvZHVjZXMKPiBleHRyYSBzbG93bmVz
-cyk/Cj4KPiBUaGVyZSdzIGFsc28gdGhlIG9wdGlvbiBvZiB1c2luZyBhbiBFSENJIGRlYnVnIHBv
-cnQgZm9yIHRoZSBzZXJpYWwKPiBjb25zb2xlLCBidXQgdGhpcyByZXF1aXJlcyAoYSkgYSBzcGVj
-aWFsIGNhYmxlIGFuZCAoYikgdGhlIHN5c3RlbQo+IGRlc2lnbmVycyBub3QgaGF2aW5nIGluc2Vy
-dGVkIGFueSBodWJzIGJldHdlZW4gdGhlIGNvbnRyb2xsZXIgYW5kdGhlIGNvbm5lY3Rvci4KCkRv
-IHlvdSBrbm93IGlmIGl0J3MgcG9zc2libGUgdG8gaGF2ZSBgY29uc29sZT12Z2EgdmdhPWtlZXBg
-IGFuZCBzcGVjaWZ5IGEgc2Vjb25kYXJ5IG1vbml0b3I/IFRoaXMgd291bGQgYmUgdmVyeSB1c2Vm
-dWwgaWYgSSBjb3VsZCBoYXZlIFhlbiBsb2cgdmlhIGEgc2Vjb25kYXJ5IG1vbml0b3IsIGluIGFu
-eSBjYXNlIEknbGwgcmVjb3JkIGEgdmlkZW8gdG9kYXkuIEkgY2FuJ3Qgc2VlbSB0byBnZXQgYW55
-dGhpbmcgdXNlZnVsIG91dCBvZiAvdmFyL2xvZy94ZW4vY29uc29sZS9oeXBlcnZpc29yLmxvZywg
-SSBhc3N1bWUgdGhpcyBsb2cgZmlsZSBpc24ndCB3cml0dGVuIHRvIG9uIGEgJ2xpdmUnIGJhc2lz
-LgoKSSB3b3VsZCBhc3N1bWUgQU1EIGhhcyBkaXNhYmxlZCBhbnkgc29ydCBvZiBkZWJ1Z2dpbmcv
-TklEblQvQ0NELCBzdXJwcmlzaW5nbHkgb3IgdW5zdXJwcmlzaW5nbHkgaXQncyBlYXNpZXIgdG8g
-ZGVidWcgQ2hyb21lYm9va3Mgd2l0aCB0aGVpciBDQ0QgVVNCLUMgY2FibGVzLgoKPiBPaywgdGhl
-c2Ugc291bmQgbGlrZSB0d28gZGlmZmVyZW50IHRoaW5ncy4gT25lIGlzIGRvbTAgZmFpbGluZyB0
-byBib290LCBhbmQgb25lIGlzIHRoZSBoYW5nL3Jlc2V0IHdoZW4gc3RhcnRpbmcgdGhlIFZNcy4K
-PiBMZXRzIHN0YXJ0IHdpdGggdGhlIGRvbTAgcHJvYmxlbSBmaXJzdC4gVGhlIGxpbmsgeW91IHBy
-b3ZpZGUgc3VnZ2VzdHMgYSBjcmVkaXQyIGJ1Zy4gRG9lcyBkb20wIGJvb3QgaWYgeW91IHBhc3Mg
-YHNjaGVkPWNyZWRpdGAgb24gdGhlIGNvbW1hbmQgbGluZSwgaW4gcGxhY2Ugb2YgYGRvbTBfbWF4
-X3ZjcHVzPTEgZG9tMF92Y3B1c19waW5gID8KClllcywgdGhpcyBpcyBjb3JyZWN0LCBJIHRoaW5r
-IHRoZSBmaXJzdCBwcm9ibGVtIGlzIGFuIEFNRCA2MDAwIFNlcmllcyBDUFUgaXNzdWUsIGFzIG90
-aGVycyBoYXZlIHJlcG9ydGVkIHRoaXMgc2FtZSBmaXJzdCBpc3N1ZTogaHR0cHM6Ly9naXRodWIu
-Y29tL1F1YmVzT1MvcXViZXMtaXNzdWVzL2lzc3Vlcy83NTcwIChoYXZpbmcgdG8gYWRkIGBkb20w
-X21heF92Y3B1cz0xIGRvbTBfdmNwdXNfcGluYCkKCkkgYmVsaWV2ZSB0aGUgc2Vjb25kIGlzc3Vl
-IGNvdWxkIGJlIHBsYXRmb3JtIHNwZWNpZmljLCB0aGF0IGJlaW5nIGEgVUVGSSBPcHRpb24gcmVs
-YXRpbmcgdG8gdGhlIHNjaGVkdWxlciBvciBzb21ldGhpbmcgZWxzZSBjYXVzaW5nIHRoZSBkZXZp
-Y2UgdG8gaGFuZywgYW5lY2RvdGFsbHkgb3RoZXJzIHRoYXQgaGF2ZSB0aGUgc2FtZS1pc2ggQ1BV
-IGFyZW4ndCBoYXZpbmcgdGhpcyBpc3N1ZSwgc28gaXQgY291bGQgYmUgc3BlY2lmaWMgdG8gdGhl
-IExlbm92byBZb2dhIFNsaW0gNyBQcm8gWCAoR2VuIDcpLgoKSXNzdWUgIzEgc2VlbXMgdG8gYmUg
-Y29tbW9uIHdpdGggbmV3ZXIgQU1EIFJ5emVuIE1vYmlsZSBDUFVzCklzc3VlICMyIHNlZW1zIHRv
-IGJlIExlbm92byBzcGVjaWZpYywgSSd2ZSB0cmllZCBsaW1pdGluZyBvdGhlciBkb21VJ3MgdG8g
-MSB2Y3B1IHRvIG5vIGF2YWlsLCBJIGhhdmVuJ3QgdHJpZWQgcGlubmluZyBhIHZjcHUgdG8gYSBk
-b21VIHlldC4KClVuZm9ydHVuYXRlbHkgSSB0cmllZCBhZGRpbmcgYHNjaGVkPWNyZWRpdGAgaW4g
-cGxhY2Ugb2YgdGhlIHBpbm5pbmcgY29uZmlnIGFuZCBkb20wIGRpZG4ndCBjb21lIHVwIHRvIGFz
-ayBmb3IgYSBMVUtzIHBhc3N3b3JkLiBEb20wIGRvZXMgaW5kZWVkIGJvb3QsIGl0IGp1c3QgZG9l
-c24ndCBtYWtlIGl0IHBhc3QgdGhlIGVhcmx5IHN0YWdlIG9mIGtlcm5lbCBzZXR1cC4KCkNoZWVy
-cywgRHlsYW5nZXI=
+Update retpoline validation with the new CONFIG_RETPOLINE requirement of
+not having bare naked RET instructions.
 
---b1_xTk3vw6VfGMgDSSPzYY6nwsZQ6W3Udu6r8mU5cLeI
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Borislav Petkov <bp@suse.de>
+Reviewed-by: Josh Poimboeuf <jpoimboe@kernel.org>
+Signed-off-by: Borislav Petkov <bp@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/include/asm/nospec-branch.h |  6 ++++++
+ arch/x86/mm/mem_encrypt_boot.S       |  2 ++
+ arch/x86/xen/xen-head.S              |  1 +
+ tools/objtool/check.c                | 19 +++++++++++++------
+ 4 files changed, 22 insertions(+), 6 deletions(-)
 
-PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IGhlbHZldGljYTsgZm9udC1zaXplOiAxNHB4OyI+PGJs
-b2NrcXVvdGUgc3R5bGU9ImJvcmRlci1sZWZ0OiAzcHggc29saWQgcmdiKDIwMCwgMjAwLCAyMDAp
-OyBib3JkZXItdG9wLWNvbG9yOiByZ2IoMjAwLCAyMDAsIDIwMCk7IGJvcmRlci1yaWdodC1jb2xv
-cjogcmdiKDIwMCwgMjAwLCAyMDApOyBib3JkZXItYm90dG9tLWNvbG9yOiByZ2IoMjAwLCAyMDAs
-IDIwMCk7IHBhZGRpbmctbGVmdDogMTBweDsgY29sb3I6IHJnYigxMDIsIDEwMiwgMTAyKTsiPjxz
-cGFuPkknZCBmb2N1cyBvbiB0aGUgYm9vdGluZyBpc3N1ZXMgZmlyc3QuIEFuZCBJIGd1ZXNzIHlv
-dSBjYW4gdGFrZSBhIHZpZGVvPC9zcGFuPjxkaXY+PHNwYW4+b2YgdGhhdCAoYXNzdW1pbmcgdGhh
-dCBhIHNpbmdsZSBzY3JlZW5zaG90IGxpa2VseSBpc24ndCBnb2luZyB0byBiZTwvc3Bhbj48L2Rp
-dj48ZGl2PjxzcGFuPmVub3VnaCksIHBvc3NpYmx5IHdpdGggInZnYT1rZWVwIiBpbiBwbGFjZSAo
-YWxiZWl0IHRoYXQgaW50cm9kdWNlczwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPmV4dHJhIHNsb3du
-ZXNzKT88L3NwYW4+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj48c3Bhbj5UaGVyZSdzIGFsc28g
-dGhlIG9wdGlvbiBvZiB1c2luZyBhbiBFSENJIGRlYnVnIHBvcnQgZm9yIHRoZSBzZXJpYWw8L3Nw
-YW4+PC9kaXY+PGRpdj48c3Bhbj5jb25zb2xlLCBidXQgdGhpcyByZXF1aXJlcyAoYSkgYSBzcGVj
-aWFsIGNhYmxlIGFuZCAoYikgdGhlIHN5c3RlbTwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuPmRlc2ln
-bmVycyBub3QgaGF2aW5nIGluc2VydGVkIGFueSBodWJzIGJldHdlZW4gdGhlIGNvbnRyb2xsZXIg
-YW5kPC9zcGFuPjwvZGl2PjxzcGFuPnRoZSBjb25uZWN0b3IuPC9zcGFuPjxicj48L2Jsb2NrcXVv
-dGU+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IGhlbHZldGljYTsgZm9udC1zaXplOiAx
-NHB4OyI+PHNwYW4+PGJyPjwvc3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogaGVs
-dmV0aWNhOyBmb250LXNpemU6IDE0cHg7Ij48c3Bhbj5EbyB5b3Uga25vdyBpZiBpdCdzIHBvc3Np
-YmxlIHRvIGhhdmUgYGNvbnNvbGU9dmdhIHZnYT1rZWVwYCBhbmQgc3BlY2lmeSBhIHNlY29uZGFy
-eSBtb25pdG9yPyBUaGlzIHdvdWxkIGJlIHZlcnkgdXNlZnVsIGlmIEkgY291bGQgaGF2ZSBYZW4g
-bG9nIHZpYSBhIHNlY29uZGFyeSBtb25pdG9yLCBpbiBhbnkgY2FzZSBJJ2xsIHJlY29yZCBhIHZp
-ZGVvIHRvZGF5LiBJIGNhbid0IHNlZW0gdG8gZ2V0IGFueXRoaW5nIHVzZWZ1bCBvdXQgb2YgL3Zh
-ci9sb2cveGVuL2NvbnNvbGUvaHlwZXJ2aXNvci5sb2csIEkgYXNzdW1lIHRoaXMgbG9nIGZpbGUg
-aXNuJ3Qgd3JpdHRlbiB0byBvbiBhICdsaXZlJyBiYXNpcy48L3NwYW4+PC9kaXY+PGRpdiBzdHls
-ZT0iZm9udC1mYW1pbHk6IGhlbHZldGljYTsgZm9udC1zaXplOiAxNHB4OyI+PHNwYW4+PGJyPjwv
-c3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSIiPjxmb250IGZhY2U9ImhlbHZldGljYSI+SSB3b3VsZCBh
-c3N1bWUgQU1EIGhhcyBkaXNhYmxlZCBhbnkgc29ydCBvZiBkZWJ1Z2dpbmcvTklEblQvQ0NELCBz
-dXJwcmlzaW5nbHkgb3IgdW48c3BhbiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjpyZ2IoMjU1LCAy
-NTUsIDI1NSk7ZGlzcGxheTppbmxpbmUgIWltcG9ydGFudCI+c3VycHJpc2luZ2x5PC9zcGFuPiZu
-YnNwO2l0J3MgZWFzaWVyIHRvIGRlYnVnIENocm9tZWJvb2tzIHdpdGggdGhlaXIgQ0NEIFVTQi1D
-IGNhYmxlcy48L2ZvbnQ+PC9kaXY+PGRpdiBzdHlsZT0iIj48Zm9udCBmYWNlPSJoZWx2ZXRpY2Ei
-Pjxicj48L2ZvbnQ+PC9kaXY+PGRpdiBzdHlsZT0iIj48Zm9udCBmYWNlPSJoZWx2ZXRpY2EiPjxi
-cj48L2ZvbnQ+PC9kaXY+PGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlci1sZWZ0OiAzcHggc29saWQg
-cmdiKDIwMCwgMjAwLCAyMDApOyBib3JkZXItdG9wLWNvbG9yOiByZ2IoMjAwLCAyMDAsIDIwMCk7
-IGJvcmRlci1yaWdodC1jb2xvcjogcmdiKDIwMCwgMjAwLCAyMDApOyBib3JkZXItYm90dG9tLWNv
-bG9yOiByZ2IoMjAwLCAyMDAsIDIwMCk7IHBhZGRpbmctbGVmdDogMTBweDsgY29sb3I6IHJnYigx
-MDIsIDEwMiwgMTAyKTsiPjxkaXYgc3R5bGU9IiI+PGZvbnQgZmFjZT0iaGVsdmV0aWNhIj48c3Bh
-bj5PaywgdGhlc2Ugc291bmQgbGlrZSB0d28gZGlmZmVyZW50IHRoaW5ncy4gJm5ic3A7T25lIGlz
-IGRvbTAgZmFpbGluZyB0byBib290LCBhbmQgb25lIGlzIHRoZSBoYW5nL3Jlc2V0IHdoZW4gc3Rh
-cnRpbmcgdGhlIFZNcy48L3NwYW4+PGRpdj48YnI+PC9kaXY+PHNwYW4+TGV0cyBzdGFydCB3aXRo
-IHRoZSBkb20wIHByb2JsZW0gZmlyc3QuICZuYnNwO1RoZSBsaW5rIHlvdSBwcm92aWRlIHN1Z2dl
-c3RzIGEgY3JlZGl0MiBidWcuICZuYnNwO0RvZXMgZG9tMCBib290IGlmIHlvdSBwYXNzIGBzY2hl
-ZD1jcmVkaXRgIG9uIHRoZSBjb21tYW5kIGxpbmUsIGluIHBsYWNlIG9mIGBkb20wX21heF92Y3B1
-cz0xIGRvbTBfdmNwdXNfcGluYCA/PC9zcGFuPjwvZm9udD48L2Rpdj48L2Jsb2NrcXVvdGU+DQo8
-ZGl2IGNsYXNzPSJwcm90b25tYWlsX3NpZ25hdHVyZV9ibG9jayIgc3R5bGU9IiI+DQogICAgPGRp
-diBjbGFzcz0icHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stdXNlciBwcm90b25tYWlsX3NpZ25h
-dHVyZV9ibG9jay1lbXB0eSIgc3R5bGU9ImZvbnQtZmFtaWx5OiBoZWx2ZXRpY2E7IGZvbnQtc2l6
-ZTogMTRweDsiPg0KDQogICAgICAgICAgICA8L2Rpdj4NCg0KICAgICAgICAgICAgPGRpdiBjbGFz
-cz0icHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stcHJvdG9uIiBzdHlsZT0iZm9udC1mYW1pbHk6
-IGhlbHZldGljYTsgZm9udC1zaXplOiAxNHB4OyI+PGJyPjwvZGl2PjxkaXYgY2xhc3M9InByb3Rv
-bm1haWxfc2lnbmF0dXJlX2Jsb2NrLXByb3RvbiIgc3R5bGU9ImZvbnQtZmFtaWx5OiBoZWx2ZXRp
-Y2E7IGZvbnQtc2l6ZTogMTRweDsiPlllcywgdGhpcyBpcyBjb3JyZWN0LCBJIHRoaW5rIHRoZSBm
-aXJzdCBwcm9ibGVtIGlzIGFuIEFNRCA2MDAwIFNlcmllcyBDUFUgaXNzdWUsIGFzIG90aGVycyBo
-YXZlIHJlcG9ydGVkIHRoaXMgc2FtZSBmaXJzdCBpc3N1ZTombmJzcDs8c3Bhbj48YSB0YXJnZXQ9
-Il9ibGFuayIgcmVsPSJub3JlZmVycmVyIG5vZm9sbG93IG5vb3BlbmVyIiBocmVmPSJodHRwczov
-L2dpdGh1Yi5jb20vUXViZXNPUy9xdWJlcy1pc3N1ZXMvaXNzdWVzLzc1NzAiPmh0dHBzOi8vZ2l0
-aHViLmNvbS9RdWJlc09TL3F1YmVzLWlzc3Vlcy9pc3N1ZXMvNzU3MDwvYT4mbmJzcDsoaGF2aW5n
-IHRvIGFkZCZuYnNwOzxzcGFuPmBkb20wX21heF92Y3B1cz0xIGRvbTBfdmNwdXNfcGluYCk8L3Nw
-YW4+PC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLXBy
-b3RvbiIgc3R5bGU9ImZvbnQtZmFtaWx5OiBoZWx2ZXRpY2E7IGZvbnQtc2l6ZTogMTRweDsiPjxz
-cGFuPjxzcGFuPjxicj48L3NwYW4+PC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9InByb3Rvbm1haWxf
-c2lnbmF0dXJlX2Jsb2NrLXByb3RvbiIgc3R5bGU9IiI+PGZvbnQgZmFjZT0iaGVsdmV0aWNhIj5J
-IGJlbGlldmUgdGhlIHNlY29uZCBpc3N1ZSBjb3VsZCBiZSBwbGF0Zm9ybSBzcGVjaWZpYywgdGhh
-dCBiZWluZyBhIFVFRkkgT3B0aW9uIHJlbGF0aW5nIHRvIHRoZSBzY2hlZHVsZXImbmJzcDtvciBz
-b21ldGhpbmcgZWxzZSBjYXVzaW5nIHRoZSBkZXZpY2UgdG8gaGFuZywgYW5lY2RvdGFsbHkmbmJz
-cDtvdGhlcnMgdGhhdCBoYXZlIHRoZSBzYW1lLWlzaCBDUFUgYXJlbid0IGhhdmluZyB0aGlzIGlz
-c3VlLCBzbyBpdCBjb3VsZCBiZSBzcGVjaWZpYyB0byB0aGUgTGVub3ZvIFlvZ2EgU2xpbSA3IFBy
-byBYIChHZW4gNykuPC9mb250PjwvZGl2PjxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJl
-X2Jsb2NrLXByb3RvbiIgc3R5bGU9IiI+PGZvbnQgZmFjZT0iaGVsdmV0aWNhIj48YnI+PC9mb250
-PjwvZGl2PjxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLXByb3RvbiIgc3R5
-bGU9IiI+PGZvbnQgZmFjZT0iaGVsdmV0aWNhIj5Jc3N1ZSAjMSBzZWVtcyB0byBiZSBjb21tb24g
-d2l0aCBuZXdlciBBTUQgUnl6ZW4gTW9iaWxlIENQVXM8L2ZvbnQ+PC9kaXY+PGRpdiBjbGFzcz0i
-cHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stcHJvdG9uIiBzdHlsZT0iIj48Zm9udCBmYWNlPSJo
-ZWx2ZXRpY2EiPklzc3VlICMyIHNlZW1zIHRvIGJlIExlbm92byBzcGVjaWZpYywgSSd2ZSB0cmll
-ZCBsaW1pdGluZyBvdGhlciBkb21VJ3MgdG8gMSB2Y3B1IHRvIG5vIGF2YWlsLCBJIGhhdmVuJ3Qg
-dHJpZWQgcGlubmluZyBhIHZjcHUgdG8gYSBkb21VIHlldC48L2ZvbnQ+PC9kaXY+PGRpdiBjbGFz
-cz0icHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stcHJvdG9uIiBzdHlsZT0iIj48Zm9udCBmYWNl
-PSJoZWx2ZXRpY2EiPjxicj48L2ZvbnQ+PC9kaXY+PGRpdiBjbGFzcz0icHJvdG9ubWFpbF9zaWdu
-YXR1cmVfYmxvY2stcHJvdG9uIiBzdHlsZT0iIj48Zm9udCBmYWNlPSJoZWx2ZXRpY2EiPlVuZm9y
-dHVuYXRlbHkmbmJzcDtJIHRyaWVkIGFkZGluZyBgPHNwYW4+c2NoZWQ9Y3JlZGl0YCBpbiBwbGFj
-ZSBvZiB0aGUgcGlubmluZyBjb25maWcgYW5kIGRvbTAgZGlkbid0IGNvbWUgdXAgdG8gYXNrIGZv
-ciBhIExVS3MgcGFzc3dvcmQuIERvbTAgZG9lcyBpbmRlZWQgYm9vdCwgaXQganVzdCBkb2Vzbid0
-Jm5ic3A7bWFrZSBpdCBwYXN0IHRoZSBlYXJseSBzdGFnZSBvZiBrZXJuZWwgc2V0dXAuPC9zcGFu
-PjwvZm9udD48L2Rpdj48ZGl2IGNsYXNzPSJwcm90b25tYWlsX3NpZ25hdHVyZV9ibG9jay1wcm90
-b24iIHN0eWxlPSIiPjxmb250IGZhY2U9ImhlbHZldGljYSI+PHNwYW4+PGJyPjwvc3Bhbj48L2Zv
-bnQ+PC9kaXY+PGRpdiBjbGFzcz0icHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stcHJvdG9uIiBz
-dHlsZT0iIj48Zm9udCBmYWNlPSJoZWx2ZXRpY2EiPjxzcGFuPkNoZWVycywgRHlsYW5nZXI8L3Nw
-YW4+PC9mb250PjwvZGl2PjxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLXBy
-b3RvbiIgc3R5bGU9ImZvbnQtZmFtaWx5OiBoZWx2ZXRpY2E7IGZvbnQtc2l6ZTogMTRweDsiPjxi
-cj48L2Rpdj48ZGl2IGNsYXNzPSJwcm90b25tYWlsX3NpZ25hdHVyZV9ibG9jay1wcm90b24iIHN0
-eWxlPSJmb250LWZhbWlseTogaGVsdmV0aWNhOyBmb250LXNpemU6IDE0cHg7Ij48YnI+PC9kaXY+
-PC9kaXY+
-
-
---b1_xTk3vw6VfGMgDSSPzYY6nwsZQ6W3Udu6r8mU5cLeI--
+diff --git a/arch/x86/include/asm/nospec-branch.h b/arch/x86/include/asm/nospec-branch.h
+index 92290b4f1c96..a790109f9337 100644
+--- a/arch/x86/include/asm/nospec-branch.h
++++ b/arch/x86/include/asm/nospec-branch.h
+@@ -75,6 +75,12 @@
+ 	.popsection
+ .endm
+ 
++/*
++ * (ab)use RETPOLINE_SAFE on RET to annotate away 'bare' RET instructions
++ * vs RETBleed validation.
++ */
++#define ANNOTATE_UNRET_SAFE ANNOTATE_RETPOLINE_SAFE
++
+ /*
+  * JMP_NOSPEC and CALL_NOSPEC macros can be used instead of a simple
+  * indirect jmp/call which may be susceptible to the Spectre variant 2
+diff --git a/arch/x86/mm/mem_encrypt_boot.S b/arch/x86/mm/mem_encrypt_boot.S
+index d94dea450fa6..9de3d900bc92 100644
+--- a/arch/x86/mm/mem_encrypt_boot.S
++++ b/arch/x86/mm/mem_encrypt_boot.S
+@@ -66,6 +66,7 @@ SYM_FUNC_START(sme_encrypt_execute)
+ 	pop	%rbp
+ 
+ 	/* Offset to __x86_return_thunk would be wrong here */
++	ANNOTATE_UNRET_SAFE
+ 	ret
+ 	int3
+ SYM_FUNC_END(sme_encrypt_execute)
+@@ -154,6 +155,7 @@ SYM_FUNC_START(__enc_copy)
+ 	pop	%r15
+ 
+ 	/* Offset to __x86_return_thunk would be wrong here */
++	ANNOTATE_UNRET_SAFE
+ 	ret
+ 	int3
+ .L__enc_copy_end:
+diff --git a/arch/x86/xen/xen-head.S b/arch/x86/xen/xen-head.S
+index 3a2cd93bf059..fa884fc73e07 100644
+--- a/arch/x86/xen/xen-head.S
++++ b/arch/x86/xen/xen-head.S
+@@ -26,6 +26,7 @@ SYM_CODE_START(hypercall_page)
+ 	.rept (PAGE_SIZE / 32)
+ 		UNWIND_HINT_FUNC
+ 		ANNOTATE_NOENDBR
++		ANNOTATE_UNRET_SAFE
+ 		ret
+ 		/*
+ 		 * Xen will write the hypercall page, and sort out ENDBR.
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index 204519704f3b..2daa0dce199b 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -2097,8 +2097,9 @@ static int read_retpoline_hints(struct objtool_file *file)
+ 		}
+ 
+ 		if (insn->type != INSN_JUMP_DYNAMIC &&
+-		    insn->type != INSN_CALL_DYNAMIC) {
+-			WARN_FUNC("retpoline_safe hint not an indirect jump/call",
++		    insn->type != INSN_CALL_DYNAMIC &&
++		    insn->type != INSN_RETURN) {
++			WARN_FUNC("retpoline_safe hint not an indirect jump/call/ret",
+ 				  insn->sec, insn->offset);
+ 			return -1;
+ 		}
+@@ -3631,7 +3632,8 @@ static int validate_retpoline(struct objtool_file *file)
+ 
+ 	for_each_insn(file, insn) {
+ 		if (insn->type != INSN_JUMP_DYNAMIC &&
+-		    insn->type != INSN_CALL_DYNAMIC)
++		    insn->type != INSN_CALL_DYNAMIC &&
++		    insn->type != INSN_RETURN)
+ 			continue;
+ 
+ 		if (insn->retpoline_safe)
+@@ -3646,9 +3648,14 @@ static int validate_retpoline(struct objtool_file *file)
+ 		if (!strcmp(insn->sec->name, ".init.text") && !module)
+ 			continue;
+ 
+-		WARN_FUNC("indirect %s found in RETPOLINE build",
+-			  insn->sec, insn->offset,
+-			  insn->type == INSN_JUMP_DYNAMIC ? "jump" : "call");
++		if (insn->type == INSN_RETURN) {
++			WARN_FUNC("'naked' return found in RETPOLINE build",
++				  insn->sec, insn->offset);
++		} else {
++			WARN_FUNC("indirect %s found in RETPOLINE build",
++				  insn->sec, insn->offset,
++				  insn->type == INSN_JUMP_DYNAMIC ? "jump" : "call");
++		}
+ 
+ 		warnings++;
+ 	}
+-- 
+2.35.1
 
 
