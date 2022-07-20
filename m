@@ -2,39 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E686157B7DE
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Jul 2022 15:49:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.371856.603720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB66157B891
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Jul 2022 16:32:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.371884.603739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oEA4h-000591-8a; Wed, 20 Jul 2022 13:49:15 +0000
+	id 1oEAjZ-00032V-Mc; Wed, 20 Jul 2022 14:31:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 371856.603720; Wed, 20 Jul 2022 13:49:15 +0000
+Received: by outflank-mailman (output) from mailman id 371884.603739; Wed, 20 Jul 2022 14:31:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oEA4h-00055d-5G; Wed, 20 Jul 2022 13:49:15 +0000
-Received: by outflank-mailman (input) for mailman id 371856;
- Wed, 20 Jul 2022 13:49:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=H1QO=XZ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oEA1P-0002uf-SO
- for xen-devel@lists.xenproject.org; Wed, 20 Jul 2022 13:45:51 +0000
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr00089.outbound.protection.outlook.com [40.107.0.89])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4451eb4c-0832-11ed-bd2d-47488cf2e6aa;
- Wed, 20 Jul 2022 15:45:51 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB4431.eurprd04.prod.outlook.com (2603:10a6:803:6f::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.23; Wed, 20 Jul
- 2022 13:45:49 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::60ad:4d78:a28a:7df4%4]) with mapi id 15.20.5438.023; Wed, 20 Jul 2022
- 13:45:49 +0000
+	id 1oEAjZ-0002zp-J4; Wed, 20 Jul 2022 14:31:29 +0000
+Received: by outflank-mailman (input) for mailman id 371884;
+ Wed, 20 Jul 2022 14:31:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wgt+=XZ=citrix.com=prvs=193804040=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oEAjY-0002ze-2A
+ for xen-devel@lists.xenproject.org; Wed, 20 Jul 2022 14:31:28 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a02e128c-0838-11ed-924f-1f966e50362f;
+ Wed, 20 Jul 2022 16:31:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,107 +36,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4451eb4c-0832-11ed-bd2d-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N0JfG3Q75Q9RDZAidxW0xAAAIITouCF+AlX/kI6cY38kpuiXZXJi1jMw1A/1lmhTz3GVYY1wXtxVh25LGp94l5Gu0oS4nlWlyXewKVOtE5hHfs2TOjOVE0vN1fOLtmQs+m7ZgTsvdWLM9yTEQEZV+CkUHvNp7Klm0wdtbF1cYGxXPI/RVCU/xvMMPtIjf5DjeyEw8EZvcaGe9OePWsrvxdjhCOGfRxyDHr+lbWd231Nd4jkMChRXlKUbTBhsLIrlqNIcM2XsAJoMQDNSzdmmghi3OMJmZrWErVXKJHpkgswMehALLTlOsf4ZqQyURUY4lafPZ7lWC334C+WlAFC3dQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jS/yKL4oIKTxMLrQEBaAASlunp0O/VzrpFcEz+o5dEA=;
- b=TwjmC9pryJZ3mpFKnzQpw2DYp5syvY/5psZkeJmp1qrnVWJKughySEeE6lGlhufqXkxmDTo5pDVWPbv+V8Od9UNexC1jnKURRBFJPlkqGC1FRe0EKa5/bLgf6mfWFQ4c/zdXodMJEoT87nt6mnVve+6obYoeSBSks6ZbBFs3dOFBw+aL2/s+9Qx9ap95mB8DBODV4KFl14x+JfqnU8XxKrJPrPDCJKTeeb1MryDe/Ym1ygaVBqPh1twCELo2I5mbF5FkFB0fH2HcggPRe+AgaGTCogG5sF5FHJOgA/VsFL/nXc1yjgGSPDcB80hBHlfidOUK4paupxkK0ZD/xyWGNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jS/yKL4oIKTxMLrQEBaAASlunp0O/VzrpFcEz+o5dEA=;
- b=20Q0HHJQlqWYof6fbs76SXlTyS61VB1Rj/s1a+8ttJxeHhpwJEA+5wcrV84IM8TsMmcXsh6VL5nQowoKE+FDVMYFJUJdfQ6T5ks89ZrMUjMn6Q1OfivFOlM9QuIFfEYntz4OSk5UfhT7iahoA7JZLbdLlz07dS9b1FGJ0VIOOL7aPg3pOgbkGIMAx1Xc39B9J8IByHDp/xmVoktCAnCUcePp9sqsA0QU5wcucjNiEP1ljDbUkXCK5MsoMFX9931O2NwMpe9LeNqRMkp8bBwO6L9Uljs7wKVRN88+T8ATemcOAHbWdFFiYV257uAHlYZ8No2gKsz1Qy+RfhimtBnvEQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1b6bed07-a500-4683-3b0a-0c82dde1c1cd@suse.com>
-Date: Wed, 20 Jul 2022 15:45:47 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: Panic on CPU 0: FATAL TRAP: vec 7, #NM[0000]
-Content-Language: en-US
-To: ChrisD <chris@dalessio.org>
-Cc: Michael Young <m.a.young@durham.ac.uk>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <202207200448.26K4muXc067471@mail116c40.carrierzone.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <202207200448.26K4muXc067471@mail116c40.carrierzone.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0079.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: a02e128c-0838-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1658327486;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding:in-reply-to;
+  bh=TJ6DZ2oWI3AF7li+JDEzJLBp+/fJiehqbIJe5gKaBXM=;
+  b=PZ2p4vIVsbCrtea3Gh3ZrtaaOSVOBkyx71x7qdS2IZ5X5MWUw0w3ZNAN
+   h/xFab8TPe1KrMXfa/YGFXMlRIL+TVafQ5qYj92px1Jo7lJDC++rcDWfi
+   cLMwGFsSrwbZVnlZDH35ik7H2XpmgokFxv4WauvIEGFBXJccQgkSJRoIb
+   Y=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 75525756
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:jKAC8aw+BWraU6KP9MR6t+cDxirEfRIJ4+MujC+fZmUNrF6WrkUGy
+ WBLCm6Obq6CMWHzcoslPIzn/B9QuZXSx9BmSVQ+riAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnj/0bv676yEUOZigHtLUEPTDNj16WThqQSIgjQMLs+Mii8tjjMPR7zml4
+ LsemOWCfg7/s9JIGjhMsfjb90k35K2aVA4w5TTSW9ga5DcyqFFNZH4vDfnZB2f1RIBSAtm7S
+ 47rpF1u1jqEl/uFIorNfofTKiXmcJaLVeS9oiM+t5yZqgpDvkQPPpMTb5LwX6v1ZwKhxLidw
+ P0V3XC5pJxA0qfkwIzxWDEAe81y0DEvFBYq7hFTvOTKp3AqfUcAzN1vFUUnJJQnyt1YQmFz0
+ eIjJTIESiCM0rfeLLKTEoGAh+wmJcjveogepmth3XfSCvNOrZLrGvuQo4UChXFp254ITa22i
+ 8kxMFKDaDzJZQFPPVEGToozhu6yilH0ciFCqULTrq0yi4TW5FMsjeKwb4eLEjCMbe5bjka35
+ U3hxEnoXxA7KIOR0DSY0Uv504cjmgukAdlPRdVU7MVCglKJwXcIIAYLTlb9qv684mauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O+En7gWE0qX8/gOYDWhCQzJcAPQjvdM2RDE3k
+ EOAhcngARR3qrqJTnSY/7aQ6zi1PEA9PWIEIDIfQBEey93iu50oyALCSM55F6y4hcGzHiv/q
+ w1mtwBn2e9V15RSkfzmoxaX2FpAu6QlUCY0/wHGR3ua3jhWJ46YQ5KT5FrSycZPedPxoka6g
+ JQUpySPxLlQUMHXzXbcHLxl8KKBvKjcbmCF6bJ7N9x4rmn2pSb+FWxFyGsmTHqFJProbtMAj
+ KX7nQpKrKFeM3KxBUOcS9LgUp96pUQM+DmMaxw1UjatSsIoHON/1HsyDXN8Jki0+KTWrYkxO
+ I2AbeGnBmsABKJswVKeHrlAgeV2m3BmmD6PFfgXKihLNpLHPhaopUotagPSPojVEovfyOkqz
+ zqvH5TTkEgOOAEPSiLW7ZQSPTg3EJTPPriv8pQ/XrPSfWJb9JQJUaC5LUUJJ9M4xMy4V47go
+ hmAZ6Ov4AGv2S2WcF7UMiELhXGGdc8XkE/X9BcEZT6As0XPq672t8/zq7NfkWEbydFe
+IronPort-HdrOrdr: A9a23:6J8I4aE7wtVd34pmpLqEEseALOsnbusQ8zAXPiBKJCC9vPb5qy
+ nOpoV+6faQslwssR4b9uxoVJPvfZq+z+8R3WByB8bAYOCOggLBQL2KhbGI/9SKIVydygcy78
+ Zdm6gVMqyMMbB55/yKnDVRxbwbsaa6GKPDv5ah8590JzsaDJ2Jd21Ce32m+ksdfnghObMJUK
+ Cyy+BgvDSadXEefq2AdwM4t7iqnayzqHr+CyR2fyIa1A==
+X-IronPort-AV: E=Sophos;i="5.92,286,1650945600"; 
+   d="scan'208";a="75525756"
+Date: Wed, 20 Jul 2022 15:31:00 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Mathieu Tarral <mathieu.tarral@protonmail.com>
+CC: Xen-users <xen-users@lists.xenproject.org>, George Dunlap
+	<George.Dunlap@citrix.com>, George Dunlap <dunlapg@umich.edu>, Juergen Gross
+	<jgross@suse.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: xen master: xl create hangs
+Message-ID: <YtgRpBR0duVAqPZJ@perard.uk.xensource.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 00d911e9-4c09-40a7-94aa-08da6a56278f
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4431:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rbcUtvPBo3lla9R2fl4CjxkOk+Y9dk8tUl2mFGDaljLDXYv8Wlxpi760p5j+uolTO+Em8cQWyX0rqmIkYQkG6bnAPn7LZufY/Z67tVd093BYWHe4JB3QF+b3F7iefHYY4rasysb501wczkZ5b/fNX1Vjs5gsV5+R+1sugrioyNuocyGeOM+MjZlcoGdwxTd0fmmgO4dnfPamHSLNzlRWxAY/nKsuaN9rcOPRCwObNWAYQODcnST+/fKB/VxhEKYNbUYwyAKIleifMEzQxWRODe3TYfxWrmSaQtEnmcxc/5Rnu+2u7IcfbJUTt7rdMJuJ+Xj2iI4A+24mP7UcyNfRbYOv9hgBAFH8KiLkJ4S/PMh0xgfXbpxQ3NY5YC0oeINlJCwPY0IQ1CpgewbNSeaSka8yRJRdFDHarp+XHOBju9ABrceTG4/LIHwjvGsIUDV9IXSU+GvCqBqYwlt6fhPxFLT1nH0xlfNWjw/t9GqpovohXL83t9HihyPtd6JYnJ+z74FKhBFAxaADlSJ6ihohCOnAmfZu9SOXhkwqXYbV/4BYb3mEDZok4SYtttXv3/16tmBULE3avdjJ+lE7xMyvl4ecwKZ61gZdwtUqTn5SuzpAE8jNQy4U+Wl4CN8pJKoeP85dpNEcKCosthZaDeWHyNsplSEswZGEUniUlalNWfGlktU5y56HjSP21IhS+TuNNY0MTNN7EInYW6FrTInnZM+uedxSbVBZdueFgb4i5A/yX+yrL7n44mjAOOmxjyr7ZUTZg6sd19tk4cSnotlqDExOB2Wl6io5/LJ5GFmj5OvezMVSIx8Z8Fjq0qTiDjumZMsqIVcIKn8sv+z+2yeyiw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(346002)(136003)(366004)(39860400002)(376002)(4326008)(6512007)(478600001)(53546011)(6486002)(86362001)(2616005)(26005)(186003)(38100700002)(6506007)(41300700001)(66946007)(31696002)(6916009)(558084003)(8676002)(31686004)(36756003)(5660300002)(8936002)(2906002)(54906003)(66476007)(316002)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MjROd3lFc3p3bzY3ZXZZUWM3Q0dMd2hKaWYySzRoUGhqdFl0cE43VUhDVnlh?=
- =?utf-8?B?K2lEcXo0RlNxY2tMTzBnZW84MnNobDkrbjRSVmRzcDJqQWloNmt2Q0tsMDZD?=
- =?utf-8?B?eEh0WUxxdnFmMmlHcmEwS21MQmwrem15aVpEUVNJMmhHZXVBbDNsWCt4Q0Z1?=
- =?utf-8?B?dXVqSzJTK1NSa3A0TVFwTFpQc1cxT1QyOHd2OWE4cForbWU1anZvUjlCd0w3?=
- =?utf-8?B?TVVBQXVzdHJsMjI4azJ6VE11M1M3QWxKWGVkdWw2MktxaUVjQjZhb1dzNnU3?=
- =?utf-8?B?Nnk2TVAvQWxJODNTbmJJMEoyVTM2MS9aR3N6MDdKbmRwcktldnVFMWV5MEJR?=
- =?utf-8?B?cDJqeFE4blJNN1ZmUVN2MTROb3NIUGlZM29qc0lsSTRWbThYRUg1T0JIS2xD?=
- =?utf-8?B?dDdKVkU3Tjlmb2FHVXdBcGZnbWh0Z2N2NXlUVy9VVTd5NGNGdjZhS2s2SUN4?=
- =?utf-8?B?WVNucWJzZ0RtT1NyeUhkMGppU0c0ai9RL3lkWEk3VGRDejc1aitmajJOVXdH?=
- =?utf-8?B?eGFSYW5pcEh5YVlyUUxyaWsvSndzbDhyc1N0ZmRiaFpFS1Vtc3MzTkxndTRm?=
- =?utf-8?B?emVFL3IrbU02cVpPTkhKU1l3OWEvVExReDMxTFIxWExXUW1MeHZpRS9vQ2VD?=
- =?utf-8?B?U2tJakJIT0JEZW9vcVllQ3p5UlhtOHh6akJlUTc2em9JMjV2WU9LZVZYOTRk?=
- =?utf-8?B?YXhVdE9KdVN3VkpvVzlGWTdlVEczWFlqVTBIbFl4MzJqMlNidURJWGErQ3Bj?=
- =?utf-8?B?V0FyUnF4dXRJTDRlS0RxN1pFbUgyUGxzYmloQU5kbU43OERIZUxUSEhTSnM3?=
- =?utf-8?B?dFZlaUREcmN5MXZQL2oyVWJIak1mcDZXcmtaOHVkMm83S3lvREJrbjdSQUN0?=
- =?utf-8?B?SndoTmVSdkVDREdPaFBIaFFaUndWMmkvYUtYL3grY1VOaTF2eHV2cGxac0V5?=
- =?utf-8?B?anFQOTV4UVRqbm9tZUFoQkM1UXlIMVNBVVV5YmJackNWUURSaW1uUHk2aW56?=
- =?utf-8?B?andUbXZKL0tFZUhhdFd1dEp4MlZQUkNDVktaTWUzTmxxNmtuTEZvMlFXSnhV?=
- =?utf-8?B?amMyQnlyRk1qMFlsVXRhU3d3QjZRVDBkanFjbjQ1OHo3Q0hwNS83SmhpRFBh?=
- =?utf-8?B?MHVxT0ptTmpUWFpmL3pMN0szUDdCU2xPZndNM1ltSzUzTUpwWFNDeWYySjFy?=
- =?utf-8?B?MEVDL0hPUDZRUFlxSGQyY2NrYnU2MjlSSE94R1ZXbVVEd3RFRjNnRFl0WURz?=
- =?utf-8?B?c1VtUGV0Q1VSLytWWE9OMWdoUklsdEhGU2lJZVdRODg4VlVIR3JpR2V2eEpF?=
- =?utf-8?B?MnZFLzcvV3lXVURxbFVGbTh6Rkh2Z1R6TEVBc3d1WDFIYzBGeXZSd09XMTZv?=
- =?utf-8?B?N0duT3pwMEdsVkZjcVJKa0FERGZ0ODI5NEREejhqK0tmSyttdWROVGh1NGhF?=
- =?utf-8?B?cFJrZUtoNzZuYUcwc2FxRmJxdkxUckZKdUtQMGp4QmFNa0NkWjdUQnhsOTJ6?=
- =?utf-8?B?MXRVeWlkY1EyQ202V0V2VjFhTldMS1RGWFhPVjZKZUZjWmhXOG9QbjNGeGVp?=
- =?utf-8?B?am9KejlzTG1UcVdGUUs5QW5nNEFTSzZ3azNmNUF3MVZDTlllSHA4R29XdnZR?=
- =?utf-8?B?WlUrNjBENVNZbjRKNXBLSVFUWS8xVVJDd1Z2TFAyZW1qbEhIRDF4Q3pyUHhW?=
- =?utf-8?B?WTlpeWZHYVpKSzhNRTBUTW5Zc3JCQkErdG5jcGtmZjk4dUFWRmhwcHdyc1Zz?=
- =?utf-8?B?MDdpRTJaelcyeTdtQlF2ZFZ1Tm84YVpFRzVsZW9FRTl2MDR2cFgydHhIY05T?=
- =?utf-8?B?cU9sL0w5UnpQTFE1VkFGZUNDZnVSZmFlRnFzWFpkcUgvMDFLekVKOG1YUlds?=
- =?utf-8?B?STBYOVZYQ0JDQ0F4VTFRUkVMMTFnSmJJbkNkbUJNMHlIbzlpZ3JGdStJa2dj?=
- =?utf-8?B?bjFnNFJURHFZSUQyOUhCQ1ZuVFRvamhoMkVSQmc0TWhQN3E0blJVMFpNRTV6?=
- =?utf-8?B?MTVsRDBhWWYzMjBhNi93b2FSUHN1NDUvVlpXMDg5RzM0UU9yMHRZWnBVcVpQ?=
- =?utf-8?B?WGRrVjkrckY4emZjbEJPeDFjbytrQnBPYWhmdVdOaHJiOXJYbUNlSnJtQ0ps?=
- =?utf-8?Q?l9P1WwFuFYc6fVuXP3c/Pj64d?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00d911e9-4c09-40a7-94aa-08da6a56278f
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2022 13:45:49.1361
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hu0DiMOCad7TO7hRIRRvSJR9MwHgOXBsxtXyiZL5DAXiww6wHA3svx48oSNBYFxRvAQJgYGS5aTvRy3/TZoQoQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4431
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DAbRAAjnRz3aFx_bSck4UDuz2jfsLuEiepSpT3aNvEh0HhRko8ZIKQYb2FWqtqUVJhxG9VzNDz4oTmqNU6HlSeorDeS_JrDns76I4yeHPrY=@protonmail.com>
+ <S4N2Wfl4ELkLaDHWDd44TotbqXvtrCzjQ5_gKmiThQxKPdsssI93Hy-et5a4CIULJylIynUpvIRPTLL7Zkm4-4Nw6cNDfR9_Y5NWzIDsy6s=@protonmail.com>
 
-On 20.07.2022 06:48, ChrisD wrote:
-> So, you think it's a problem with fc36?
+CCing Juergen and xen-devel.
 
-Just to also state it here - it turns out we need to tell the compiler
-to avoid MMX insns. A patch for this was already sent and ack-ed.
+On Mon, Jul 18, 2022 at 06:25:54PM +0000, Mathieu Tarral wrote:
+> Using gdb to debug the xl process, I get the following stacktrace:
+> 
+> (gdb) bt
+> #0  __futex_abstimed_wait_common64 (private=128, cancel=true, abstime=0x0, op=265, expected=8652, futex_word=0x7f6debd22a50) at ./nptl/futex-internal.c:57
+> #1  __futex_abstimed_wait_common (cancel=true, private=128, abstime=0x0, clockid=0, expected=8652, futex_word=0x7f6debd22a50) at ./nptl/futex-internal.c:87
+> #2  __GI___futex_abstimed_wait_cancelable64 (futex_word=futex_word@entry=0x7f6debd22a50, expected=8652, clockid=clockid@entry=0, abstime=abstime@entry=0x0,
+>     private=private@entry=128) at ./nptl/futex-internal.c:139
+> #3  0x00007f6deba736a4 in __pthread_clockjoin_ex (threadid=140110084581248, thread_return=thread_return@entry=0x0, clockid=clockid@entry=0,
+>     abstime=abstime@entry=0x0, block=block@entry=true) at ./nptl/pthread_join_common.c:105
+> #4  0x00007f6deba73543 in ___pthread_join (threadid=<optimized out>, thread_return=thread_return@entry=0x0) at ./nptl/pthread_join.c:24
+> #5  0x00007f6deb9a144b in xs_daemon_close (h=0x561db3bc5bc0) at xs.c:366
+> #6  0x00007f6deb9a145f in xs_close (xsh=<optimized out>) at xs.c:386
+> #7  0x00007f6debc43a36 in libxl_ctx_free (ctx=0x561db3bc52e0) at libxl.c:173
+> #8  0x0000561db33bf5a3 in xl_ctx_free () at xl.c:370
+> #9  0x00007f6deba22495 in __run_exit_handlers (status=0, listp=0x7f6debbf6838 <__exit_funcs>, run_list_atexit=run_list_atexit@entry=true,
+>     run_dtors=run_dtors@entry=true) at ./stdlib/exit.c:113
+> #10 0x00007f6deba22610 in __GI_exit (status=<optimized out>) at ./stdlib/exit.c:143
+> #11 0x00007f6deba06d97 in __libc_start_call_main (main=main@entry=0x561db33c0425 <main>, argc=argc@entry=4, argv=argv@entry=0x7ffeb2f263d8)
+>     at ../sysdeps/nptl/libc_start_call_main.h:74
+> #12 0x00007f6deba06e40 in __libc_start_main_impl (main=0x561db33c0425 <main>, argc=4, argv=0x7ffeb2f263d8, init=<optimized out>, fini=<optimized out>,
+>     rtld_fini=<optimized out>, stack_end=0x7ffeb2f263c8) at ../csu/libc-start.c:392
+> #13 0x0000561db33bf425 in _start ()
+> 
+> Colorized version in a Github Gist:
+> https://gist.github.com/Wenzel/4da1e0a025954fac13a0ee57147cc44f
+> 
+> So looks like xs_daemon_close is waiting on a thread to join:
+> https://github.com/xen-project/xen/blob/a5fb66f4513c2c2d222dcc3753163b15690bd003/tools/libs/store/xs.c#L366
 
-Jan
+On Wed, Jul 20, 2022 at 12:53:29PM +0000, Mathieu Tarral wrote:
+> > Verify that things work properly at that commit, then use that as the “good” starting point.
+> 
+> Turns out that this commit (74a11c43fd7e074b1f77631b446dd2115eacb9e8) was also bad.
+> So I used git bisect again, but this time to find the commit which introduced the bug fix
+> between 74a11c43fd7e074b1f77631b446dd2115eacb9e8 and RELEASE-4.16.1.
+> 
+> After a few steps, git bisect identified this commit:
+> https://github.com/xen-project/xen/commit/59505f48fabed2e6fa5ad992edaabeb4a1441599
+> "Turn off debug by default"
+> Surprisingly simple.
+> 
+> And I confirm that it's one that fixes the issue of xl create hanging.
+> 
+> I cherry-picked this commit on master:
+> https://user-images.githubusercontent.com/964610/179986382-a774c91a-7b68-416b-9dbe-226b8aca0673.png
+> 
+> recompiled and tested again, my master branch now works as expected, tested with the small config file I already had and the XTF test-pv64-example.
+> 
+> So it works, but I don't know why this commit fixed it.
+
+$(debug) controls the level of optimisation of the compilation to make
+it easier to debug.
+
+So, with debug=y, we have libxenstore having issue with killing the
+its reading thread? :-(
+Maybe that reading thread is doing something that can't be stopped,
+maybe it's waiting for a lock. Could you try to print a back trace of
+that thread (or even all thread in `xl`)? ("thread apply all bt full" in gdb)
+
+Thanks,
+
+-- 
+Anthony PERARD
 
