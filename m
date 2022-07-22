@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 218F057E318
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Jul 2022 16:37:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.373307.605440 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C778257E33F
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Jul 2022 16:52:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.373315.605450 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oEtm3-0003Tr-Ub; Fri, 22 Jul 2022 14:37:03 +0000
+	id 1oEu0A-000664-8x; Fri, 22 Jul 2022 14:51:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 373307.605440; Fri, 22 Jul 2022 14:37:03 +0000
+Received: by outflank-mailman (output) from mailman id 373315.605450; Fri, 22 Jul 2022 14:51:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oEtm3-0003Rr-PH; Fri, 22 Jul 2022 14:37:03 +0000
-Received: by outflank-mailman (input) for mailman id 373307;
- Fri, 22 Jul 2022 14:37:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oEu0A-00064J-6G; Fri, 22 Jul 2022 14:51:38 +0000
+Received: by outflank-mailman (input) for mailman id 373315;
+ Fri, 22 Jul 2022 14:51:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fVTW=X3=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1oEtm2-0003Rl-P9
- for xen-devel@lists.xenproject.org; Fri, 22 Jul 2022 14:37:02 +0000
+ id 1oEu08-00064D-G4
+ for xen-devel@lists.xenproject.org; Fri, 22 Jul 2022 14:51:36 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be5b179b-09cb-11ed-924f-1f966e50362f;
- Fri, 22 Jul 2022 16:37:01 +0200 (CEST)
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c704cd0f-09cd-11ed-bd2d-47488cf2e6aa;
+ Fri, 22 Jul 2022 16:51:34 +0200 (CEST)
 Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1658500613510367.3388619115185;
- Fri, 22 Jul 2022 07:36:53 -0700 (PDT)
+ with SMTPS id 1658501490142284.71513356999617;
+ Fri, 22 Jul 2022 07:51:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,27 +40,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be5b179b-09cb-11ed-924f-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; t=1658500615; cv=none; 
+X-Inumbo-ID: c704cd0f-09cd-11ed-bd2d-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; t=1658501492; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=UkLSqu+I+jERP8niOM9qnZwTq4ONc7DgQMfomir4FoMIuRD5leLLpjCIRNXSmQpvbXohzWLz4jmfIIh++iZ2xAjZ58DRBd5ILP+aQ02duRe6Pj7DQSGXrsBD6NKFOF8cHlAOkb7DPn5182OcNdXmL2xIqDhDs8XyT2SCyBvhvSk=
+	b=Mew7OXShvMRwoGDwHlgEjwszSNSttYY7rDNWH1oX4vMshagZkO5NGXIFsbm2xyw/jCuUjWaC2OrsvlxcJHXGMSxaU4yjenc3T/0hVmWvGcpYTTyKIpCWCk6f/i+vDhS5eoTXgD604CBHKIV8hHn3ANZTskiH3LrT4RxRd/nEk08=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1658500615; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=cyMNX9hjD/zX8ywkDXCFUsBvTbaj01gv0K3cyjQb/w8=; 
-	b=d0yoeUYJPoVHeR79sO7aUDwN3tNLCIViP4yIbReAtrXN8LZc1MKwMtIb/8Yv9eKjmMeCOM/Srt31HLi5ASlM68Uh49Gv0LWSzYZvjQVZPovsWvyleAxXzEL4fRzaWmgC6Gb26FoIgekKTQPoc+6Nzwca37unK1hy/Y2OhV+P+Y0=
+	t=1658501492; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=LY6ekQGrWlYm10xecyKNOkpPaSOz1o6GFlDi/DCO8J0=; 
+	b=ibjduP59Nmuo/Vf0v6DWuJJaTsKTNOg2cDAAkGU2WVQn8Me83eoFKko2estkXKrXE/dufON6dTadnlOeQVQHA3Iq2ewLTKT+0ZwLmKBDlDRyMP/FpncCsrNx9qx7aKZ30rJExVo1Ez5IaUxO0kjbEFSD3svjLWpY4tITa6Mu1Ro=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1658500615;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1658501492;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=cyMNX9hjD/zX8ywkDXCFUsBvTbaj01gv0K3cyjQb/w8=;
-	b=W/r7hO09+rkXpRNPW4cqh/nmKDRcUn0WQ3Mahmu3uPeKT4nJl0dA0gCQ/4LTf9Ri
-	CNU7gvOtrd4o89tB1bCiAPla5X7gAD9Kfy3VvyOfXGNkX+zGBYdM1cdgU3YLVf2xPG/
-	GJ0MlBHRdxP2Fhs6bvKcFTU29Revs1Afq0PfY03o=
-Message-ID: <96cc29cf-5b31-eabd-3cca-eeaa7d7c58db@apertussolutions.com>
-Date: Fri, 22 Jul 2022 10:36:29 -0400
+	bh=LY6ekQGrWlYm10xecyKNOkpPaSOz1o6GFlDi/DCO8J0=;
+	b=iJ7NPvkmsq3PyypagRSl2qhV4Nk+SlP84ad/02cbSVRnyBn12iITKofpDiMivFbc
+	FeV1kjcn4GqMkoZqk3vD7aYvlXhAwB7R67H3+7OEDUrxdCvi56qoD7xN88t134CEiCN
+	36/0Sh0UPBlXaBB3f4aGDXzteqY49hUDr3kQfUXE=
+Message-ID: <961186e0-7da5-da27-a355-4c2554f800c3@apertussolutions.com>
+Date: Fri, 22 Jul 2022 10:51:06 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
@@ -68,113 +68,47 @@ Content-Language: en-US
 To: "Smith, Jackson" <rsmith@RiversideResearch.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: "scott.davis@starlab.io" <scott.davis@starlab.io>,
- "christopher.clark@starlab.io" <christopher.clark@starlab.io>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+ "christopher.clark@starlab.io" <christopher.clark@starlab.io>
 References: <20220706210454.30096-1-dpsmith@apertussolutions.com>
- <20220706210454.30096-11-dpsmith@apertussolutions.com>
- <BN0P110MB16425760D6D6991942DEE6DCCF8C9@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+ <BN0P110MB1642FA64F48C31ED7F64AF27CF8F9@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v1 10/18] x86: introduce the domain builder
-In-Reply-To: <BN0P110MB16425760D6D6991942DEE6DCCF8C9@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH v1 00/18] Hyperlaunch
+In-Reply-To: <BN0P110MB1642FA64F48C31ED7F64AF27CF8F9@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-
-On 7/18/22 09:59, Smith, Jackson wrote:
+On 7/19/22 13:06, Smith, Jackson wrote:
 > Hi Daniel,
 > 
 >> -----Original Message-----
->> Subject: [PATCH v1 10/18] x86: introduce the domain builder
->>
->> This commit introduces the domain builder configuration FDT parser along
->> with the domain builder core for domain creation. To enable domain builder
->> to be a cross architecture internal API, a new arch domain creation call
-> is
->> introduced for use by the domain builder.
+>> Subject: [PATCH v1 00/18] Hyperlaunch
 > 
->> diff --git a/xen/common/domain-builder/core.c
+> With the adjustments that I suggested in other messages, this patch builds and boots for me on x86 (including a device tree with a domU). I will continue to poke around and see if I discover any other rough edges.
+
+Thank you so much for reviewing and testing!
+
+> One strange behavior I see is that xen fails to start the Dom0 kernel on a warm reboot. I'm using qemu_system_x86 with the KVM backend to test out the patch. After starting qemu, xen will boot correctly only once. If I attempt to reboot the virtual system (through the 'reboot' command in dom0 or the 'system_reset' qemu monitor command) without exiting/starting a new qemu process on the host machine, xen panics while booting after printing this:
 > 
->> +void __init builder_init(struct boot_info *info) {
->> +    struct boot_domain *d = NULL;
->> +
->> +    info->builder = &builder;
->> +
->> +    if ( IS_ENABLED(CONFIG_BUILDER_FDT) )
->> +    {
+> (XEN) *** Building Dom0 ***
+> (XEN) Dom0 has maximum 856 PIRQs
+> (XEN) *** Constructing a PV Dom0 ***
+> (XEN) ELF: not an ELF binary
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) Could not construct domain 0
+> (XEN) ****************************************
 > 
->> +    }
->> +
->> +    /*
->> +     * No FDT config support or an FDT wasn't present, do an initial
->> +     * domain construction
->> +     */
->> +    printk("Domain Builder: falling back to initial domain build\n");
->> +    info->builder->nr_doms = 1;
->> +    d = &info->builder->domains[0];
->> +
->> +    d->mode = opt_dom0_pvh ? 0 : BUILD_MODE_PARAVIRTUALIZED;
->> +
->> +    d->kernel = &info->mods[0];
->> +    d->kernel->kind = BOOTMOD_KERNEL;
->> +
->> +    d->permissions = BUILD_PERMISSION_CONTROL |
->> BUILD_PERMISSION_HARDWARE;
->> +    d->functions = BUILD_FUNCTION_CONSOLE |
->> BUILD_FUNCTION_XENSTORE |
->> +                     BUILD_FUNCTION_INITIAL_DOM;
->> +
->> +    d->kernel->arch->headroom = bzimage_headroom(bootstrap_map(d-
->>> kernel),
->> +                                                   d->kernel->size);
->> +    bootstrap_map(NULL);
->> +
->> +    if ( d->kernel->string.len )
->> +        d->kernel->string.kind = BOOTSTR_CMDLINE; }
+> This happens with the BUILDER_FDT config option on and off, and regardless of what dtb (if any) I pass to xen. I don't see this behavior if I switch back to xen's master branch.
 > 
-> Forgive me if I'm incorrect, but I believe there is an issue with this
-> fallback logic for the case where no FDT was provided.
+> Hopefully that explanation made sense. Let me know if I can provide any further information about my setup.
 
-IIUC, the issue at hand has to deal with patch #15.
+That is certainly a very strange behavior. I never tested reboot as I
+assumed it should just go through the same process as could boot. I will
+add this to my tests to run and see if I can track down why it is happening.
 
-> If dom0_mem is not supplied to the xen cmd line, then d->meminfo is never
-> initialized. (See dom0_compute_nr_pages/dom0_build.c:335)
-> This was giving me trouble because bd->meminfo.mem_max.nr_pages was left at
-> 0, effectivity clamping dom0 to 0 pages of ram.
-> 
-> I'm not sure what the best solution is but one (easy) possibility is just
-> initializing meminfo to the dom0 defaults near the end of this function:
->         d->meminfo.mem_size = dom0_size;
->         d->meminfo.mem_min = dom0_min_size;
->         d->meminfo.mem_max = dom0_max_size;
+V/r,
+Daniel P. Smith
 
-I believe the correct fix is to this hunk,
-
-@@ -416,7 +379,12 @@ unsigned long __init dom0_compute_nr_pages(
-         }
-     }
-
--    d->max_pages = min_t(unsigned long, max_pages, UINT_MAX);
-+    /* Clamp according to min/max limits and available memory (final). */
-+    nr_pages = max(nr_pages, min_pages);
-+    nr_pages = min(nr_pages, max_pages);
-+    nr_pages = min(nr_pages, avail);
-+
-+    bd->domain->max_pages = min_t(unsigned long, max_pages, UINT_MAX);
-
-Before that last line, there should be a clamp up of max_pages, e.g.
-
-    nr_pages = max(nr_pages, min_pages);
-    nr_pages = min(nr_pages, max_pages);
-    nr_pages = min(nr_pages, avail);
-
-    max_pages = max(nr_pages, max_pages);
-
-    bd->domain->max_pages = min_t(unsigned long, max_pages, UINT_MAX);
-
-v/r,
-dps
 
