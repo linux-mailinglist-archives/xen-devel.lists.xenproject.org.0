@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5349757F874
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Jul 2022 05:23:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.374356.606398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46DE857F8EC
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Jul 2022 07:02:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.374383.606410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oFogA-0000El-C6; Mon, 25 Jul 2022 03:22:46 +0000
+	id 1oFqDi-00030b-BS; Mon, 25 Jul 2022 05:01:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 374356.606398; Mon, 25 Jul 2022 03:22:46 +0000
+Received: by outflank-mailman (output) from mailman id 374383.606410; Mon, 25 Jul 2022 05:01:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oFogA-0000CA-99; Mon, 25 Jul 2022 03:22:46 +0000
-Received: by outflank-mailman (input) for mailman id 374356;
- Mon, 25 Jul 2022 03:22:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6z2V=X6=computer.org=sarah.newman@srs-se1.protection.inumbo.net>)
- id 1oFog8-0000C2-Qv
- for xen-devel@lists.xenproject.org; Mon, 25 Jul 2022 03:22:44 +0000
-Received: from d.mail.sonic.net (d.mail.sonic.net [64.142.111.50])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0960d7e6-0bc9-11ed-bd2d-47488cf2e6aa;
- Mon, 25 Jul 2022 05:22:41 +0200 (CEST)
-Received: from localhost.localdomain (c-174-62-72-237.hsd1.ca.comcast.net
- [174.62.72.237]) (authenticated bits=0)
- by d.mail.sonic.net (8.16.1/8.16.1) with ESMTPSA id 26P3LrEj027125
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Sun, 24 Jul 2022 20:22:37 -0700
+	id 1oFqDi-0002xP-82; Mon, 25 Jul 2022 05:01:30 +0000
+Received: by outflank-mailman (input) for mailman id 374383;
+ Mon, 25 Jul 2022 05:01:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oFqDh-0002xF-05; Mon, 25 Jul 2022 05:01:29 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oFqDg-0004dz-TG; Mon, 25 Jul 2022 05:01:28 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oFqDg-0001KY-GZ; Mon, 25 Jul 2022 05:01:28 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oFqDg-0004ZN-Fo; Mon, 25 Jul 2022 05:01:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,51 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0960d7e6-0bc9-11ed-bd2d-47488cf2e6aa
-From: Sarah Newman <sarah.newman@computer.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Ap3IKGAoR5qRNsCAgXwTh9asl/UQV8USsJ/93Ey2Q5U=; b=FnwCqL3b9XMrGHlVqRs5YDv/nA
+	hf90qNKZU5hTt4kTSmSrRDncjoR/N0sGYj38aHDCRi+Gb1BuW00waTFz+rQ4UkujZFYU9bUkY/kI1
+	tt1c8o+Jk+6CV5T87ESTW6+PqCtB2ZrMU6r7A6ezAAxkRkVTL9boD88+3Q9hon3uGKtI=;
 To: xen-devel@lists.xenproject.org
-Cc: konrad.wilk@oracle.com, ross.lagerwall@citrix.com,
-        Sarah Newman <sarah.newman@computer.org>
-Subject: [PATCH v2] livepatch: create-diff-object: Check that the section has a secsym
-Date: Sun, 24 Jul 2022 20:20:53 -0700
-Message-Id: <20220725032053.12933-1-sarah.newman@computer.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <f0dfe416-76d3-0380-ba8a-f24e12c83a86@suse.com>
-References: <f0dfe416-76d3-0380-ba8a-f24e12c83a86@suse.com>
-MIME-Version: 1.0
+Message-ID: <osstest-171849-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Sonic-CAuth: UmFuZG9tSVZoC1vw7S/DCY/pzLZLUesW5RkI/M5t3vi1cuMydmAvHEj1dz9TptErxRVfVfXjX1+yIR5WZeeqT3dh8Q67NO41
-X-Sonic-ID: C;iB7f7cgL7RGZuLBQfcNRkQ== M;YmcaCMkL7RGZuLBQfcNRkQ==
-X-Spam-Flag: No
-X-Sonic-Spam-Details: 0.0/5.0 by cerberusd
+MIME-Version: 1.0
+Subject: [ovmf test] 171849: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=8a5782d704cfeb78aafdec1c03685107586f4ee6
+X-Osstest-Versions-That:
+    ovmf=fca5de51e1fd2f3c5ddbf5974d785f0f6b2f6c38
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 25 Jul 2022 05:01:28 +0000
 
-A STT_SECTION symbol is not needed if if it is not used as a relocation
-target. Therefore, a section, in this case a debug section, may not have
-a secsym associated with it.
+flight 171849 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171849/
 
-Origin: https://github.com/dynup/kpatch.git ba3defa06073
-Signed-off-by: Sarah Newman <sarah.newman@computer.org>
----
-Changes in v2:
-- commit message changed to use Origin
----
- create-diff-object.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 8a5782d704cfeb78aafdec1c03685107586f4ee6
+baseline version:
+ ovmf                 fca5de51e1fd2f3c5ddbf5974d785f0f6b2f6c38
 
-diff --git a/create-diff-object.c b/create-diff-object.c
-index a516670..780e6c8 100644
---- a/create-diff-object.c
-+++ b/create-diff-object.c
-@@ -1484,7 +1484,7 @@ static void kpatch_include_debug_sections(struct kpatch_elf *kelf)
- 	list_for_each_entry(sec, &kelf->sections, list) {
- 		if (is_debug_section(sec)) {
- 			sec->include = 1;
--			if (!is_rela_section(sec))
-+			if (!is_rela_section(sec) && sec->secsym)
- 				sec->secsym->include = 1;
- 		}
- 	}
--- 
-2.17.1
+Last test of basis   171845  2022-07-24 17:11:43 Z    0 days
+Testing same since   171849  2022-07-25 02:42:04 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   fca5de51e1..8a5782d704  8a5782d704cfeb78aafdec1c03685107586f4ee6 -> xen-tested-master
 
