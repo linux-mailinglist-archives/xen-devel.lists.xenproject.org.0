@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23BA25802D4
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Jul 2022 18:37:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.374719.606877 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54ABD58036D
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Jul 2022 19:16:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.374728.606888 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oG14i-00039T-LY; Mon, 25 Jul 2022 16:36:56 +0000
+	id 1oG1fb-0007Ze-KM; Mon, 25 Jul 2022 17:15:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 374719.606877; Mon, 25 Jul 2022 16:36:56 +0000
+Received: by outflank-mailman (output) from mailman id 374728.606888; Mon, 25 Jul 2022 17:15:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oG14i-00037Y-Ih; Mon, 25 Jul 2022 16:36:56 +0000
-Received: by outflank-mailman (input) for mailman id 374719;
- Mon, 25 Jul 2022 16:36:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oG14g-00037O-Sj; Mon, 25 Jul 2022 16:36:54 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oG14g-00045k-QN; Mon, 25 Jul 2022 16:36:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oG14g-0003MU-AK; Mon, 25 Jul 2022 16:36:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oG14g-0002SA-9v; Mon, 25 Jul 2022 16:36:54 +0000
+	id 1oG1fb-0007XZ-HS; Mon, 25 Jul 2022 17:15:03 +0000
+Received: by outflank-mailman (input) for mailman id 374728;
+ Mon, 25 Jul 2022 17:15:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6z2V=X6=computer.org=sarah.newman@srs-se1.protection.inumbo.net>)
+ id 1oG1fa-0007XT-SC
+ for xen-devel@lists.xenproject.org; Mon, 25 Jul 2022 17:15:02 +0000
+Received: from c.mail.sonic.net (c.mail.sonic.net [64.142.111.80])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4f893653-0c3d-11ed-bd2d-47488cf2e6aa;
+ Mon, 25 Jul 2022 19:15:00 +0200 (CEST)
+Received: from localhost.localdomain (c-174-62-72-237.hsd1.ca.comcast.net
+ [174.62.72.237]) (authenticated bits=0)
+ by c.mail.sonic.net (8.16.1/8.16.1) with ESMTPSA id 26PHD3R7021698
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 25 Jul 2022 10:14:55 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +41,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=vYE52YPr88WyEMusMKjj0gUhmIvVWNz61edoYR8QgMw=; b=uIAPKmY+jl6cSnbQeZ7I6zcQmQ
-	eApG/rnCwYv0zm4ha81qmlLoF11+VKQ5XOngA6RxnjBJZqXSG1Y8BKZS/8HP0wFUx7rBpB0eFBHrU
-	8FudAVz1+0QG0NNKzvc7YE7t0+rqhjDnY7Y+Zl27PRdAzMvuPu9hVaDB0GEJA++1NlnA=;
+X-Inumbo-ID: 4f893653-0c3d-11ed-bd2d-47488cf2e6aa
+From: Sarah Newman <sarah.newman@computer.org>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171854-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: konrad.wilk@oracle.com, ross.lagerwall@citrix.com,
+        Sarah Newman <sarah.newman@computer.org>
+Subject: [PATCH v3] livepatch: create-diff-object: Check that the section has a secsym
+Date: Mon, 25 Jul 2022 10:13:02 -0700
+Message-Id: <20220725171302.25910-1-sarah.newman@computer.org>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <d45c75a2-81ae-7061-6f75-ed8378fc6d16@suse.com>
+References: <d45c75a2-81ae-7061-6f75-ed8378fc6d16@suse.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 171854: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f1c719d5cd8ab4d5d4c8df139b9df3c2c47221d1
-X-Osstest-Versions-That:
-    xen=fcd27b3c759995775afb66be6bb7ba1e85da0506
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 25 Jul 2022 16:36:54 +0000
+Content-Transfer-Encoding: 8bit
+X-Sonic-CAuth: UmFuZG9tSVYw7an9Y36xyKou/Ityk+kRmydRdr2FhcFU/JCK9M/WxdIVNlvsx6221yndaODaqA+nI/CrvDASekfPuR8/E4h4
+X-Sonic-ID: C;pNjCCj0M7RGWb/U2He8XJw== M;eGqDTT0M7RGWb/U2He8XJw==
+X-Spam-Flag: No
+X-Sonic-Spam-Details: 0.0/5.0 by cerberusd
 
-flight 171854 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171854/
+A STT_SECTION symbol is not needed if if it is not used as a relocation
+target. Therefore, a section, in this case a debug section, may not have
+a secsym associated with it.
 
-Failures :-/ but no regressions.
+Signed-off-by: Bill Wendling <morbo@google.com>
+Origin: https://github.com/dynup/kpatch.git ba3defa06073
+Signed-off-by: Sarah Newman <sarah.newman@computer.org>
+Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+---
+Changes in v3:
+- add reviewed-by given to v1 of this patch
+- restored tag from original commit per sending-patches.pandoc
+Changes in v2:
+- commit message changed to use Origin
+---
+ create-diff-object.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+diff --git a/create-diff-object.c b/create-diff-object.c
+index a516670..780e6c8 100644
+--- a/create-diff-object.c
++++ b/create-diff-object.c
+@@ -1484,7 +1484,7 @@ static void kpatch_include_debug_sections(struct kpatch_elf *kelf)
+ 	list_for_each_entry(sec, &kelf->sections, list) {
+ 		if (is_debug_section(sec)) {
+ 			sec->include = 1;
+-			if (!is_rela_section(sec))
++			if (!is_rela_section(sec) && sec->secsym)
+ 				sec->secsym->include = 1;
+ 		}
+ 	}
+-- 
+2.17.1
 
-version targeted for testing:
- xen                  f1c719d5cd8ab4d5d4c8df139b9df3c2c47221d1
-baseline version:
- xen                  fcd27b3c759995775afb66be6bb7ba1e85da0506
-
-Last test of basis   171747  2022-07-21 20:05:50 Z    3 days
-Testing same since   171854  2022-07-25 14:03:15 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tamas K Lengyel <tamas.lengyel@intel.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   fcd27b3c75..f1c719d5cd  f1c719d5cd8ab4d5d4c8df139b9df3c2c47221d1 -> smoke
 
