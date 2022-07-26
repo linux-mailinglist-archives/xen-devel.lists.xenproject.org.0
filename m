@@ -2,64 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9144E581937
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jul 2022 19:55:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.375638.608087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E56A581967
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jul 2022 20:08:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.375647.608098 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGOlR-0008BV-RG; Tue, 26 Jul 2022 17:54:37 +0000
+	id 1oGOyH-0001d9-05; Tue, 26 Jul 2022 18:07:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 375638.608087; Tue, 26 Jul 2022 17:54:37 +0000
+Received: by outflank-mailman (output) from mailman id 375647.608098; Tue, 26 Jul 2022 18:07:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGOlR-00089E-Nd; Tue, 26 Jul 2022 17:54:37 +0000
-Received: by outflank-mailman (input) for mailman id 375638;
- Tue, 26 Jul 2022 17:54:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CAXX=X7=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1oGOlQ-000898-1K
- for xen-devel@lists.xenproject.org; Tue, 26 Jul 2022 17:54:36 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2057.outbound.protection.outlook.com [40.107.20.57])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0112c3e1-0d0c-11ed-924f-1f966e50362f;
- Tue, 26 Jul 2022 19:54:33 +0200 (CEST)
-Received: from DB6PR0802CA0048.eurprd08.prod.outlook.com (2603:10a6:4:a3::34)
- by AM0PR08MB4481.eurprd08.prod.outlook.com (2603:10a6:208:148::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.20; Tue, 26 Jul
- 2022 17:54:30 +0000
-Received: from DBAEUR03FT026.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:a3:cafe::df) by DB6PR0802CA0048.outlook.office365.com
- (2603:10a6:4:a3::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.7 via Frontend
- Transport; Tue, 26 Jul 2022 17:54:29 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT026.mail.protection.outlook.com (100.127.142.242) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5458.17 via Frontend Transport; Tue, 26 Jul 2022 17:54:29 +0000
-Received: ("Tessian outbound cc6a8ab50b6b:v123");
- Tue, 26 Jul 2022 17:54:29 +0000
-Received: from 7c4cde0860f9.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 0CD7A060-B7A9-456F-B227-5A7952886530.1; 
- Tue, 26 Jul 2022 17:54:18 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 7c4cde0860f9.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 26 Jul 2022 17:54:18 +0000
-Received: from AM0PR08MB3809.eurprd08.prod.outlook.com (2603:10a6:208:103::16)
- by DBBPR08MB4458.eurprd08.prod.outlook.com (2603:10a6:10:c8::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.18; Tue, 26 Jul
- 2022 17:54:15 +0000
-Received: from AM0PR08MB3809.eurprd08.prod.outlook.com
- ([fe80::4ca:af1b:4380:abf9]) by AM0PR08MB3809.eurprd08.prod.outlook.com
- ([fe80::4ca:af1b:4380:abf9%5]) with mapi id 15.20.5458.024; Tue, 26 Jul 2022
- 17:54:15 +0000
+	id 1oGOyG-0001aV-SD; Tue, 26 Jul 2022 18:07:52 +0000
+Received: by outflank-mailman (input) for mailman id 375647;
+ Tue, 26 Jul 2022 18:07:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1oGOyE-0001aP-H4
+ for xen-devel@lists.xenproject.org; Tue, 26 Jul 2022 18:07:50 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oGOyD-0006To-58; Tue, 26 Jul 2022 18:07:49 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230] helo=[10.7.237.34])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oGOyC-0007L2-TH; Tue, 26 Jul 2022 18:07:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,126 +39,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0112c3e1-0d0c-11ed-924f-1f966e50362f
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=lMfMiMxNPx1DQd8nddOfMoejmp5FZNb/fpXoXiU2GqMqoo7w916UJdmUxMnRsfYBebFUBVSV0g7+Q0S2Uj7HYvmJqVJ0Z1kFjoDKY1ElyGEJtGzXqdl+0ZcdKGNovOPzz4k7HaCBYFnzL5T8YhVOfcIFdnQZukrBr5P54t7WE6jD5PKEVnER+GqexrOaDpMNasyi1FV9YpcDzlqHb2IpKkuV8IS0Y7A1CHoWesVC0IZ6pvsE+zFn638sNH+T1Xq+rwo3PRHY8ro3bvxJmzra/0bwBvEgFjWI0/QtCwyuVB1VDZTxlrODnWyvuO23KmIDyRuKES9qjpNWDuGUWulaMA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yqf2HrM5cwNlZb1sRn9sgOYekHVMARMf1nskCLjgsNg=;
- b=K/H57BJN82CpPgw+NFmq5wTe0FpJFdpzWoGKvE7aYkuGgk4ntRsDxwSgj+b50gs/Gg3BbqGiXSGOHOaaeFA/IdqxG2EQM3Fw7SgV4Pa+L49T9LdhchLy+fMA1narwvnJr0B9HtI/0q/vG4VHc//Djn2XbONoCjFkK1uadF1TJq0KPYZE8+1kNLPt4+9IH3GY+kMbgCVopZUAl3I2iKdKkG57ATNnPdeupkM7zD0rizLKJrOl9MhO15Y+ULF1XObLaAuS8eydjHMvwXq82sQ2dv3QyZeDa95gQ23NmDs1JVk980Cnayev4+b97nUeir2zW94tpNKmOPEB1BA0ICsljQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yqf2HrM5cwNlZb1sRn9sgOYekHVMARMf1nskCLjgsNg=;
- b=jc3Fy6IQ/+1I36nflsVl1KbnwmqzaUhaHL4wS7sqgUVMxHE1l38FRiwLld2MN6sTYrEDz8Wc/lHYElQKo8E4Ff12zbQneC+sugX/IYLsu0sF7DU1kNOFhcw7cjYG3fCsKq5/kPdHvW7q1lgHkyi8RoPTZ8D46AbbIepRa3oBKqo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 3451fc0f16a722b7
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EgSr1P95KSyHfx747T17Qgmot+/m0ni0bJzUVw/LdGAd9NcoRGdWFpVRoiLqzO+2Wd4ztt8VHy0XbefFs9+dY7QcQWrvotp2mvfOGF4M3gPzAoAMkknNMpHC/KexpN2I947x4M3xP6w3nMWyVpKTgWolH+8j2h1HodtelixNdUApKbAOe/G/Bo6ftccNFT0PVfGCo5IRD4kmBS/kpfN1VdoOdI/mz5uTqLStsrIscUGHbIgntXsNP+SSg9eNWkgoWE7uih9cKZ8p41K/x+KUIhOjfha4aQ16aY/my3UWLQbO/22GCLMMhiEkzkpj36AZz4StnZZQjhnM0O2YOmUQGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yqf2HrM5cwNlZb1sRn9sgOYekHVMARMf1nskCLjgsNg=;
- b=Ws/ztLCFgwEleruslGLhVZYT2q8reFcFrQaDWah53cp7LEfQZbvnXBZl4ch7tbXFlUV4fzPii0S/73LNT1Iu8x/J/1misOzVkmtE9CwsYR8a9gYZR/QESKXxnqb/SyPX+/IGyrae60fewqRwOSAReiDI1VvmZBuP543qpwyHqWha/r3VXwKoLicIDCguPo0WTORWCtUu2TtlAe7EBZNc67VOkQbLqVtuBWdDv4FJlhdcuQntTF/W/8RAIxaBrpfSTdS8oPA5ek1U7uxsMtnqxKtGqWV1ozhuJn+AhiXyZq4pCbZLXL8+cWVrVvvDpPlwnA45QVOP7g74+jLmF/YG4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yqf2HrM5cwNlZb1sRn9sgOYekHVMARMf1nskCLjgsNg=;
- b=jc3Fy6IQ/+1I36nflsVl1KbnwmqzaUhaHL4wS7sqgUVMxHE1l38FRiwLld2MN6sTYrEDz8Wc/lHYElQKo8E4Ff12zbQneC+sugX/IYLsu0sF7DU1kNOFhcw7cjYG3fCsKq5/kPdHvW7q1lgHkyi8RoPTZ8D46AbbIepRa3oBKqo=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Hongda Deng <Hongda.Deng@arm.com>, Xen development discussion
-	<xen-devel@lists.xenproject.org>, nd <nd@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] arm/vgic-v3: fix virq offset in the rank
-Thread-Topic: [PATCH] arm/vgic-v3: fix virq offset in the rank
-Thread-Index: AQHYmDhKpSlCCmBtRkalGlTcUHBM2q2Q/kQAgAACugA=
-Date: Tue, 26 Jul 2022 17:54:15 +0000
-Message-ID: <64095CA8-C1FC-4EF1-874C-E3E1962567EA@arm.com>
-References: <20220715104620.3929121-1-Hongda.Deng@arm.com>
- <b19be266-82f5-eb14-36df-14a5b21b40bc@xen.org>
-In-Reply-To: <b19be266-82f5-eb14-36df-14a5b21b40bc@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.100.31)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 21e0c7f0-0f35-4785-f97f-08da6f2fe362
-x-ms-traffictypediagnostic:
-	DBBPR08MB4458:EE_|DBAEUR03FT026:EE_|AM0PR08MB4481:EE_
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- qUEO9GG6IIaWyc2TeXxMcPUWgP18I2HeaFNu1h+UkC4Z38H3QXdjiMO7mAPL67ynlav0Ax4EARvGrHc2Y+i7QsQffPgbF7Y7EBSBEZIWqhzzcI5FPojHz2qfCPM9usEADrc+7TKDb5MJ8n5Ji0JROkcs3AGcjvKOTE/r+d1Tdul3Jtt4esEmc4vfPuA+BuOaZsilhugCIz+xuW7OVoP9wXuBt1Res0WcuLae2+2k64Q2jp/O3WkFBjy8Fv7XN3ZF0h8bfU+YksDa1STLET47bLJXaPdZInFqP4okHAxICvmSBEh98R2rgUoE63Vf9Kx7aEpvGLt+DZth7b8MyE151yogLhCDKzSKVsQtjomV8LPpXWKaULmzgMRZ8r8T4S0OUgHIScatBC++VWmhiBkQ9pwQ0z9B8rhL2XP0LHMsMJb8RpgIvRPnVBH+vTWGiJMTyS2bEqkw2M1jhPnfnIv6OYCHJEajF1GnUqdAtiU9EcPrq2hXCRnX2E+GZHuinfjvu+ALttnn4G0rVcYn897OXdezoZdV2c/YutOGlR5DDJWf4ZvlRwJtk9bvdEn1xrv7uTHLmk2VFxoYUrG68qIyEF34P3U9cCOh3TMsUuRIpOlEfudYJXtL3etzSJjuNy12Ew3TA7FWtQIwOQWrrJvqz4Fejea0q/T2uxUqlbaDEVQq6IAKxfGIS1ReuO1fIEcP36M1QFgE/0Rl/cByLGdbUZGT6+S+SwZDZ7sYIrSy7Ub37QVyhZs+NeHsr07jHAnfO5v2WgV60MpK9L1dM+HO3rf1qzQrCDlFANJqcsHZ0bO3WnyDzWmd8kh/xgQ+rtR6yFgFv3/xZP2PCmzgpt12IA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3809.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(39860400002)(136003)(366004)(346002)(396003)(376002)(5660300002)(26005)(6512007)(38100700002)(6506007)(64756008)(4744005)(8936002)(36756003)(186003)(6486002)(478600001)(83380400001)(66946007)(41300700001)(76116006)(33656002)(91956017)(66476007)(2906002)(86362001)(4326008)(122000001)(6916009)(2616005)(8676002)(66446008)(38070700005)(71200400001)(54906003)(66556008)(316002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <91E4CF8F3C1E0640A27B195B2896AA2D@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=l8bWrkiASMfyQa8reDRgMmg4Z303ORAVDy22/WUEJE0=; b=5VSduaUGb3ourZa9umZneUg5E6
+	Qqy+gLDpKLgPMvfQrThjJ/hj1sR1+406nF4d+ppbN1ZRKNYkryAP/cMLAqrDAjx9hoXCTKnjC6guo
+	aVO90lx33VJlhcbDT6rlCLEstdlk+XAY806TRdzGau+hUs+so0U9o2LPGxy8kj0ocb/g=;
+Message-ID: <04c7adfd-e978-b911-fef9-f068ec624849@xen.org>
+Date: Tue, 26 Jul 2022 19:07:46 +0100
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4458
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT026.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	ee71a0b7-8dff-4385-aca5-08da6f2fdaca
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0OyPMJYEuJKY0ShbM3H0Zt2yM0fCOwsNwji5Ko92YokZiFa7qELPJw1V4glGzhxUesfTwwCQmKB/bSu/EJsNwScdfFywo39c0JvPKH84FmFEP2DjWhEp5FZK56b2L0fUi4E4lovOEw9xtgeU6D9M3IyCE0L6Tpep3bvElg2uszFJN1hFFmS20NDfaxPVoXAiIRtKtd9mvlvdfYM1M+0yR+S2Pta/LQfeQ9xVqL/8VB0QTIAsUA6/wTQVDMgCSyA8UlLo9E9dSxyx6Y8XqYaoGtk+zcTJZP1Md/I+2cIPfRHf/rmZizgtCM/uyv7DKXY0lkYsSjLxRMa7Cu8i2UId8q/3U6W4nY0U/MFY3LVRa9Gn652XLvTcwX31llKAOGugUBSo3R006X0eTtqkVayoeXJ6SWXz8MILdTUzO7UV6sZNxsI/L/bHpjTeBS68Ti4ixFblpvyKyvlTvdVe8WIUQfOZTmmo7Wf9bB44RqX22Mene+5FXD/3wGhrsdXM1/YZmGE56Jc5jUqGA//7tvldHYp1glefBAPKYA8KhkAyEVrVldYSjlUV2tBfnOiqzE9aU4rG6ttZ6MfpoDZmNA0wwZRFwcscQpmxAwF9RpDMG+AOsiArOnnl10zHdAPwx4FnmHysgy6+eRe9jlRf77LnoFhVS6SmnQaFAYo2y9PF+O8YmTtwEZyI7y2Kvr88wW0sTvJvkJFb1KtJ42LOmZoDDTYi/2V2uJuIsbyWdYyfDCwbh9SzsL+Z9kUeQxxpUKepOV7dEgQO8YLauee0XwkJx2rJkcTRtXhUdW8meXzMrFAEEAh3Tpv6mZbtz/9GaRsC
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(39860400002)(136003)(346002)(376002)(396003)(36840700001)(46966006)(40470700004)(6506007)(36860700001)(4744005)(8936002)(6512007)(40480700001)(107886003)(6862004)(2906002)(186003)(33656002)(5660300002)(26005)(47076005)(41300700001)(2616005)(40460700003)(36756003)(356005)(4326008)(70206006)(478600001)(8676002)(83380400001)(54906003)(82740400003)(82310400005)(316002)(6486002)(336012)(70586007)(86362001)(81166007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2022 17:54:29.5406
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21e0c7f0-0f35-4785-f97f-08da6f2fe362
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT026.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB4481
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.11.0
+Subject: Re: [PATCH v1 01/18] kconfig: allow configuration of maximum modules
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>
+Cc: scott.davis@starlab.io, christopher.clark@starlab.io,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20220706210454.30096-1-dpsmith@apertussolutions.com>
+ <20220706210454.30096-2-dpsmith@apertussolutions.com>
+ <c4ca59d6-daed-25e9-86d8-019676744eb2@xen.org>
+ <78c3f88a-4f36-087d-31b1-d02bfbc8df30@apertussolutions.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <78c3f88a-4f36-087d-31b1-d02bfbc8df30@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-DQpIaSBKdWxpZW4sDQoNCj4+IC8qIEdldCB0aGUgaW5kZXggaW4gdGhlIHJhbmsgKi8NCj4+IC0g
-b2Zmc2V0ICY9IHZpcnEgJiBJTlRFUlJVUFRfUkFOS19NQVNLOw0KPj4gKyBvZmZzZXQgPSB2aXJx
-ICYgSU5URVJSVVBUX1JBTktfTUFTSzsNCj4gDQo+IEFGQUlDVCwgdmdpY19mZXRjaF9pcm91dGVy
-KCkgaGFzIHRoZSBzYW1lIHByb2JsZW0uIENhbiB5b3UgdXBkYXRlIGl0IGhlcmUgYXMgd2VsbD8N
-Cg0KSSB0aGluayB0aGF0IGZ1bmN0aW9uIGlzIG9rLCBiZWNhdXNlIGluIHRoZXJlIHdlIGhhdmU6
-DQoNCi8qIFRoZXJlIGlzIGV4YWN0bHkgMSB2SVJRIHBlciBJUk9VVEVSICovDQpvZmZzZXQgPSBv
-ZmZzZXQgIC8gTlJfQllURVNfUEVSX0lST1VURVI7DQoNCi8qIEdldCB0aGUgaW5kZXggaW4gdGhl
-IHJhbmsgKi8NCm9mZnNldCA9IG9mZnNldCAmIElOVEVSUlVQVF9SQU5LX01BU0s7DQoNCldoaWNo
-IGlzIGJhc2ljYWxseSBvZmZzZXQgPSAob2Zmc2V0ICAvIE5SX0JZVEVTX1BFUl9JUk9VVEVSKSAm
-IElOVEVSUlVQVF9SQU5LX01BU0s7DQoNCkxpa2UgaW4gdGhlIGNvdW50ZXJwYXJ0ICh1cGRhdGVk
-IGJ5IHRoaXMgcGF0Y2gpIHZnaWNfc3RvcmVfaXJvdXRlciB3aG8gaGFzOg0KDQovKiBUaGVyZSBp
-cyAxIHZJUlEgcGVyIElST1VURVIgKi8NCnZpcnEgPSBvZmZzZXQgLyBOUl9CWVRFU19QRVJfSVJP
-VVRFUjsNCg0KW+KApl0NCg0KLyogR2V0IHRoZSBpbmRleCBpbiB0aGUgcmFuayAqLw0Kb2Zmc2V0
-ID0gdmlycSAmIElOVEVSUlVQVF9SQU5LX01BU0s7DQoNCldoaWNoIGlzIHRoZSBzYW1lIGFzIGFi
-b3ZlDQoNCkNoZWVycywNCkx1Y2E=
+Hi Daniel,
+
+On 19/07/2022 17:36, Daniel P. Smith wrote:
+> 
+> On 7/15/22 15:16, Julien Grall wrote:
+>> Hi Daniel,
+>>
+>> On 06/07/2022 22:04, Daniel P. Smith wrote:
+>>> For x86 the number of allowable multiboot modules varies between the
+>>> different
+>>> entry points, non-efi boot, pvh boot, and efi boot. In the case of
+>>> both Arm and
+>>> x86 this value is fixed to values based on generalized assumptions. With
+>>> hyperlaunch for x86 and dom0less on Arm, use of static sizes results
+>>> in large
+>>> allocations compiled into the hypervisor that will go unused by many
+>>> use cases.
+>>>
+>>> This commit introduces a Kconfig variable that is set with sane
+>>> defaults based
+>>> on configuration selection. This variable is in turned used as the
+>>> array size
+>>> for the cases where a static allocated array of boot modules is declared.
+>>>
+>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>> Reviewed-by: Christopher Clark <christopher.clark@starlab.io>
+>>
+>> I am not entirely sure where this reviewed-by is coming from. Is this
+>> from internal review?
+> 
+> Yes.
+> 
+>> If yes, my recommendation would be to provide the reviewed-by on the
+>> mailing list. Ideally, the review should also be done in the open, but I
+>> understand some company wish to do a fully internal review first.
+> 
+> Since this capability is being jointly developed by Christopher and I,
+> with myself being the author of code, Christopher reviewed the code as
+> the co-developer. He did so as a second pair of eyes for any obvious
+> mistakes and to concur that the implementation was in line with the
+> approach the two of us architected. Perhaps a SoB line might be more
+> appropriate than an R-b line.
+> 
+>> At least from a committer perspective, this helps me to know whether the
+>> reviewed-by still apply. An example would be if you send a v2, I would
+>> not be able to know whether Christoffer still agreed on the change.
+> 
+> If an SoB line is more appropriate, then on the next version I can
+> switch it
+
+Thanks for the explanation. To me "signed-off-by" means the person wrote 
+some code (or sent the patches) code. So from above, it sounds more like 
+Christoffer did a review.
+
+So I think it is more suitable for him to provide a reviewed-by. For 
+follow-up, my preference would be Christoffer to provide the reviewed-by 
+on the ML.
+
+If it is too much overhead, I would suggest to log the latest version 
+Christoffer reviewed-by in the changelog. I usually do:
+
+Changes in vX:
+   - Add Christoffer's reviewed-by
+
+Or if he will reviewing every version, just mention it in the cover letter.
+
+>>
+>> Please explain in the commit message why the number of modules was
+>> bumped from 5 to 9.
+> 
+> The number of modules were inconsistent between the different entry
+> points into __start_xen(). By switching to a Kconfig variable, whose
+> default was set to the largest value used across the entry points,
+> results in change for the locations using another value.
+
+Ok. Can you add something like: "For x86, the number of modules is not 
+consistent across the code base. Use the maximum"?
+
+> 
+> See below for +1 explanation.
+> 
+>>>      static void __init edd_put_string(u8 *dst, size_t n, const char *src)
+>>>    {
+>>> diff --git a/xen/arch/x86/guest/xen/pvh-boot.c
+>>> b/xen/arch/x86/guest/xen/pvh-boot.c
+>>> index 498625eae0..834b1ad16b 100644
+>>> --- a/xen/arch/x86/guest/xen/pvh-boot.c
+>>> +++ b/xen/arch/x86/guest/xen/pvh-boot.c
+>>> @@ -32,7 +32,7 @@ bool __initdata pvh_boot;
+>>>    uint32_t __initdata pvh_start_info_pa;
+>>>      static multiboot_info_t __initdata pvh_mbi;
+>>> -static module_t __initdata pvh_mbi_mods[8];
+>>> +static module_t __initdata pvh_mbi_mods[CONFIG_NR_BOOTMOD + 1];
+>>
+>> What's the +1 for?
+> 
+> I should clarify in the commit message, but the value set in
+> CONFIG_NR_BOOTMOD is the max modules that Xen would accept from a
+> bootloader. Xen startup code expects to be able to append Xen itself as
+> the array. The +1 allocates an additional entry to store Xen in the
+> array should a bootloader actually pass CONFIG_NR_BOOTMOD modules to
+> Xen. There is an existing comment floating in one of these locations
+> that explained it.
+
+This makes sense. So every use of CONFIG_NR_BOOTMOD would end up to 
+require +1. Is that correct?
+
+If yes, then I think it would be better to require CONFIG_NR_BOOTMOD to 
+be at minimum 1. This would reduce the risk to have different array size 
+again. That said, this is x86 code, so the call is for the x86 maintainers.
+
+> 
+>>>    static const char *__initdata pvh_loader = "PVH Directboot";
+>>>      static void __init convert_pvh_info(multiboot_info_t **mbi,
+>>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>>> index f08b07b8de..2aa1e28c8f 100644
+>>> --- a/xen/arch/x86/setup.c
+>>> +++ b/xen/arch/x86/setup.c
+>>> @@ -1020,9 +1020,9 @@ void __init noreturn __start_xen(unsigned long
+>>> mbi_p)
+>>>            panic("dom0 kernel not specified. Check bootloader
+>>> configuration\n");
+>>>          /* Check that we don't have a silly number of modules. */
+>>> -    if ( mbi->mods_count > sizeof(module_map) * 8 )
+>>> +    if ( mbi->mods_count > CONFIG_NR_BOOTMODS )
+>>>        {
+>>> -        mbi->mods_count = sizeof(module_map) * 8;
+>>> +        mbi->mods_count = CONFIG_NR_BOOTMODS;
+>>>            printk("Excessive multiboot modules - using the first %u
+>>> only\n",
+>>>                   mbi->mods_count);
+>>>        }
+>>
+>> AFAIU, this check is to make sure that we will not overrun module_map in
+>> the next line:
+>>
+>> bitmap_fill(module_map, mbi->mods_count);
+>>
+>> The current definition of module_map will allow 64 modules. But you are
+>> allowing 32768. So I think you either want to keep the check or define
+>> module_map as:
+>>
+>> DECLARE_BITMAP(module_map, CONFIG_NR_BOOTMODS);
+> 
+> Yes, in the RFC I had it capped to 64 and lost track of this related
+> changed when it was bumped to 32768 per the review discussion. Later in
+> the series, module_map goes away. To ensure stability at this point I
+> would be inclined to restore the 64 module clamp down check. Thoughts?
+
+I don't know what would a sensible value for x86. I will leave this 
+question to the x86 maintainers.
+
+Cheers,
+
+-- 
+Julien Grall
 
