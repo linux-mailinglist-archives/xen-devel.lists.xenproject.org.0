@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71CD581511
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Jul 2022 16:24:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.375351.607684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67E1D58159D
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Jul 2022 16:44:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.375363.607695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGLTi-0006Tc-4y; Tue, 26 Jul 2022 14:24:06 +0000
+	id 1oGLn7-0000fi-Ps; Tue, 26 Jul 2022 14:44:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 375351.607684; Tue, 26 Jul 2022 14:24:06 +0000
+Received: by outflank-mailman (output) from mailman id 375363.607695; Tue, 26 Jul 2022 14:44:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGLTi-0006R4-1Z; Tue, 26 Jul 2022 14:24:06 +0000
-Received: by outflank-mailman (input) for mailman id 375351;
- Tue, 26 Jul 2022 14:24:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oGLn7-0000dE-MR; Tue, 26 Jul 2022 14:44:09 +0000
+Received: by outflank-mailman (input) for mailman id 375363;
+ Tue, 26 Jul 2022 14:44:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DB1L=X7=citrix.com=prvs=199b7977f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1oGLTg-0006Qm-8O
- for xen-devel@lists.xenproject.org; Tue, 26 Jul 2022 14:24:04 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 97432ca5-0cee-11ed-924f-1f966e50362f;
- Tue, 26 Jul 2022 16:24:02 +0200 (CEST)
+ <SRS0=Xzkj=X7=citrix.com=prvs=199529adf=edvin.torok@srs-se1.protection.inumbo.net>)
+ id 1oGLn7-0000d8-5b
+ for xen-devel@lists.xenproject.org; Tue, 26 Jul 2022 14:44:09 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65d3fd7a-0cf1-11ed-bd2d-47488cf2e6aa;
+ Tue, 26 Jul 2022 16:44:07 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,86 +36,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97432ca5-0cee-11ed-924f-1f966e50362f
+X-Inumbo-ID: 65d3fd7a-0cf1-11ed-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1658845441;
+  d=citrix.com; s=securemail; t=1658846647;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=HxHygnpvgc7Ss4bF6OSZ6XL9TwL7xK96HAGSXOTqMLI=;
-  b=f00ORTTUSGoq52UWPu/6CDpFf34k3E7Zej6/mlbFqt9Ly6pPn6T2RTHr
-   bS2nRuGOz+d/g/ftQM8ldq1wZLvjjGpsDyiHB35a4n51UbVJEvFi/zTQE
-   eO+HcC4J6JNP/Sh2MObWhmc/5xIt/Qjnj3fuNPj74aoezldYSKF51Uy3L
-   s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=PDLwc3Aco3iQCsS4JF/aEn7uDmViPWgey2FgpMpNTbs=;
+  b=accb0OsVUFzUw1VeQPohV+GcidhaPByKUTR9p5IlhvpJLrj2/xPQ8IzI
+   lIDwyJfIJmClXo6mgfbQ0jnIfkclGgCfVmLIHUduQORitIHyOgR3vymKF
+   hkC4KqZT1/OSQ2spCIj4IiE5Vzhp85aaghH3zAQ2+QRS0iMqosKMctZ78
+   E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 76451401
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 76657825
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:GVHju6xD61E8W3nbwU56t+dexirEfRIJ4+MujC+fZmUNrF6WrkUPm
- DBKDzqFPPjZYTGjKIhwbY3k8BsBuZXWzYNnTAFq/CAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnj/0bv676yEUOZigHtLUEPTDNj16WThqQSIgjQMLs+Mii8tjjMPR7zml4
- LsemOWCfg7+s9JIGjhMsfjb90ky5K6aVA4w5TTSW9ga5DcyqFFNZH4vDfnZB2f1RIBSAtm7S
- 47rpF1u1jqEl/uFIorNfofTKiXmcJaLVeS9oiM+t5yZqgpDvkQPPpMTb5LwX6v1ZwKhxLidw
- P0V3XC5pJxA0qfkwIzxWDEAe81y0DEvFBYq7hFTvOTKp3AqfUcAzN1CS3ARDYM2/d9TOllLz
- dMgORICciic0rfeLLKTEoGAh+wmJcjveogepmth3XfSCvNOrZLrGvuQo4UChXFp254ITa22i
- 8kxMFKDaDzpZRFVN0hRI5U5hOqy3VH0ciFCqULTrq0yi4TW5FMvjOW0bIKMEjCMbd1qmVvHv
- k38xlu6DQhKBYOjijW6z1v504cjmgukAdlPRdVU7MVCn1m71mEVThoMWjOTg9O0l0q/UNJ3M
- FEP92wlqq1a3FymSJzxUgO1pFaAvwUAQJxAHusi8gaPx6HIpQGDCQA5oiVpMYJ88pVsHHpzi
- wHPz4iB6SFTXKO9ZTWs0YeagzSLHRMtKFctXT4mQhc9/Iy2yG0stS4jXuqPAYbs0IClSWmom
- WvTxMQtr+5N1JBWjs1X6XiC2mvx/caRE2bZ8y2NBgqYAhVFiJlJjmBCwXzS9r5+IYmQVTFtV
- 1BUypHFvIji4Xxg/RFhodnh/5nzvp5pyBWG3TZS82AJrlxBAUKLc4FK+y1ZL0x0KMsCcjKBS
- BaN5FMOu8MKbCv1MPEfj2eN5yMClPOIKDgYfqqMMoomjmZZL2drAx2ClWbPhjuwwSDAYIk0O
- IuBcNbEMEv2/Z9PlWPuL89AgOBD+8zL7TmMLXwN50j4jOH2ib/8YettDWZimchitPna+lqEr
- ocAXyZIoj0GONDDjuDs2dZ7BTg3wbITX/gad+Q/mja/Hzdb
-IronPort-HdrOrdr: A9a23:ogktEqoFsoa/Q4IKFEz9jUcaV5oneYIsimQD101hICG8cqSj+f
- xG+85rsiMc6QxhPE3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakvDH4VmtJ
- uIHZIQNDSJNykZsfrH
+IronPort-Data: A9a23:hTtjr6pVw5ACCCxTVd5RBq+9RR5eBmJ0ZRIvgKrLsJaIsI4StFCzt
+ garIBmDM66LY2ujL953aYm0oEgHvsLRy99kQAs/pS1gRCka9ZuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefSAOKU5NfsYkhZXRVjRDoqlSVtkus4hp8AqdWiCkaGt
+ MiaT/f3YTdJ4BYpdDNPg06/gEk35q6q52lF5gZWic1j5zcyqVFEVPrzGonpR5fIatE8NvK3Q
+ e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkEqShgJ+rQ6LJIhhXJ/0F1lqTzTJ
+ OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXWV+ACQqflO1q8iCAn3aMqU89vhpE1EWr
+ ccaFw4hRRWFl/CU+O60H7wEasQLdKEHPasas3BkizrYEewnUdbIRKCiCd1whWlqwJoURLCHO
+ pRfOWEHgBfoOnWjPn8aBIw/mqG0gWP4cBVTqU6PpLpx6G/WpOB0+OezboeKKobXLSlTtmG9n
+ D/5xEbbOzhZFcLHmAvG8y6OhvCayEsXX6pNTeblp5aGmma72Wg7GBAQE1yhrpGRiESzRtZeI
+ Ew84Tc1oO4580nDZsnwWVi0rWCJujYYWsFMCKsq5QeV0K3W7g2FQG8eQVZ8hMcO7ZFsA2Zwj
+ xnQwo2vVWcHXKCppWy10ruKsyGCYXAuL1A8SQQBSxsXweG/r9Rm5v7QdeqPAJJZn/WsR2ygk
+ 2jS9nNn71kApZVVjvvmpDgrlxrp/8GUFVBtu207S0r/tmtEiJiZi5tEALQxxdJJN86nQ1aIp
+ xDocODOvblVXflheMFgKdjh/Y1FBN7faVUweXY1Q/EcG82FohZPh7x47jBkP1tOOc0ZYzLva
+ 0K7kVoPuc8MYyfzPf8oPtzZ5yEWIU/ITI+NaxwpRoAWPsgZmPGvp0mCmnJ8L0iyyRNxwMnTy
+ L+QcNq2DGZyNJmLOAGeHr5FuZd2l39W+I8mbcqkp/hR+ebBOSX9pHZsGAfmU93VG4vf+F+Lq
+ YkOaprVo/idOcWnChTqHUcoBQhiBRAG6Vre8qS7qsbrztJaJVwc
+IronPort-HdrOrdr: A9a23:VkYgAaGQmTti8n8HpLqE5MeALOsnbusQ8zAXP0AYc3Jom6uj5q
+ eTdZUgpHvJYVkqOE3I9ertBEDiewK4yXcW2/hzAV7KZmCP0wHEEGgL1/qF/9SKIUzDH4Bmup
+ uIC5IOauHNMQ==
 X-IronPort-AV: E=Sophos;i="5.93,193,1654574400"; 
-   d="scan'208";a="76451401"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] xen/check-endbr.sh: Explain the purpose of the script
-Date: Tue, 26 Jul 2022 15:23:28 +0100
-Message-ID: <20220726142328.12246-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+   d="scan'208";a="76657825"
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>
+Subject: [PATCH] x86/msr: fix X2APIC_LAST
+Date: Tue, 26 Jul 2022 15:43:36 +0100
+Message-ID: <d4fb4631b82643751fcb3356b094be65e5bc9bcc.1658846616.git.edvin.torok@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/tools/check-endbr.sh | 9 +++++++++
- 1 file changed, 9 insertions(+)
+The latest Intel manual now says the X2APIC reserved range is only
+0x800 to 0x8ff (NOT 0xbff). The AMD manual documents 0x800-0x8ff too.
 
-diff --git a/xen/tools/check-endbr.sh b/xen/tools/check-endbr.sh
-index b97684ac25e9..bf153a570db4 100755
---- a/xen/tools/check-endbr.sh
-+++ b/xen/tools/check-endbr.sh
-@@ -2,6 +2,15 @@
- #
- # Usage ./$0 xen-syms
- #
-+# When CET-IBT (Control-flow Enforcement Technology, Indirect Branch Tracking)
-+# is active, ENDBR instructions mark legal indirect branch targets in the
-+# .text section.
-+#
-+# However x86 is a variable length instruction set so the same byte pattern
-+# can exist embedded in other instructions, or crossing multiple instructions.
-+# This script searches .text for any problematic byte patterns which aren't
-+# legitimate ENDBR instructions.
-+#
- set -e
+There are non-X2APIC MSRs in the 0x900-0xbff range now:
+e.g. 0x981 is IA32_TME_CAPABILITY, an architectural MSR.
+
+The new MSR in this range appears to have been introduced in Icelake,
+so this commit should be backported to Xen versions supporting Icelake.
+
+Backport: 4.13+
+
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+---
+ xen/arch/x86/include/asm/msr-index.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
+index 8cab8736d8..1a928ea6af 100644
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -148,7 +148,7 @@
+ #define MSR_INTERRUPT_SSP_TABLE             0x000006a8
  
- # Pretty-print parameters a little for message
+ #define MSR_X2APIC_FIRST                    0x00000800
+-#define MSR_X2APIC_LAST                     0x00000bff
++#define MSR_X2APIC_LAST                     0x000008ff
+ 
+ #define MSR_X2APIC_TPR                      0x00000808
+ #define MSR_X2APIC_PPR                      0x0000080a
 -- 
-2.11.0
+2.34.1
 
 
