@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A5C58284C
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jul 2022 16:12:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.376221.608849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 728FA5828B4
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jul 2022 16:31:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.376228.608860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGhly-00056V-OM; Wed, 27 Jul 2022 14:12:26 +0000
+	id 1oGi3n-0007rW-Cb; Wed, 27 Jul 2022 14:30:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 376221.608849; Wed, 27 Jul 2022 14:12:26 +0000
+Received: by outflank-mailman (output) from mailman id 376228.608860; Wed, 27 Jul 2022 14:30:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGhly-00054J-K5; Wed, 27 Jul 2022 14:12:26 +0000
-Received: by outflank-mailman (input) for mailman id 376221;
- Wed, 27 Jul 2022 14:12:25 +0000
+	id 1oGi3n-0007o5-9p; Wed, 27 Jul 2022 14:30:51 +0000
+Received: by outflank-mailman (input) for mailman id 376228;
+ Wed, 27 Jul 2022 14:30:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=C2cV=YA=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oGhlx-00054D-DK
- for xen-devel@lists.xenproject.org; Wed, 27 Jul 2022 14:12:25 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2085.outbound.protection.outlook.com [40.107.21.85])
+ id 1oGi3l-0007nz-VT
+ for xen-devel@lists.xenproject.org; Wed, 27 Jul 2022 14:30:50 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70059.outbound.protection.outlook.com [40.107.7.59])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 225fd994-0db6-11ed-924f-1f966e50362f;
- Wed, 27 Jul 2022 16:12:23 +0200 (CEST)
+ id b4ba0fc0-0db8-11ed-924f-1f966e50362f;
+ Wed, 27 Jul 2022 16:30:47 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM6PR04MB4549.eurprd04.prod.outlook.com (2603:10a6:20b:24::32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.24; Wed, 27 Jul
- 2022 14:12:20 +0000
+ by DBAPR04MB7254.eurprd04.prod.outlook.com (2603:10a6:10:1a4::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.25; Wed, 27 Jul
+ 2022 14:30:45 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::d4c4:d01d:5d39:920c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::d4c4:d01d:5d39:920c%7]) with mapi id 15.20.5458.019; Wed, 27 Jul 2022
- 14:12:19 +0000
+ 14:30:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,602 +46,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 225fd994-0db6-11ed-924f-1f966e50362f
+X-Inumbo-ID: b4ba0fc0-0db8-11ed-924f-1f966e50362f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j6V/fX36IfJplI2VsqcXuRzxtHsdq+7IWRv9KB6egR2ZZk51kN0/dqvX+IgQEn6PIt9Vbf8Jcvmn6D43Idx4EHebczeV1qbjlkkD/F9ywWBtZqXxARNYGw3dqh3KwMTRc7LQRXp9DgvMAUQ2XLPyJpIdbfSBRic3Og1vIKcUHhS0lmKDoG/MbEvKy5qZeXG4/Hygslf22tGK6/r73esv9W+c0jnnDhfu1KwexhMfGCzH6q6idCMrQktAlEHqZ+rQWHWj+0GsDRhpkzeUEl6YSFI+1q/f/8BEap44oGnIhd/MYWFxjVK3ixnzFrC4/URrpT2sj0izmTJtTPFlfunvzQ==
+ b=RFAdwMIRl79b06CYB0FVzB9HZxVgtBnmt1YCmuoAAzciSty9LlgM/+5AQK0rtHbSO91X6GiuRosc8rVpoUfN+I/tLHx0Re+iyd6bv2cB7KGy/f73iJCGbpPKtcIFYWXRa5GsAIS2wbFoKKy2vy84lLlluV7HF3G1DPvbZXLkn5Zgs5DDLjAR/q+Ua6dq+01Jt4TtBzOaYeZmmqKKE+aG7ntVO9taf6jomDKH2potFfIs/RTX1r6CM5q79Z419zSU1k/Yp7RRp9x2TtrDWIzIwUa+6K/0/4HHua8cbKsiB4ud8z5fBiKeaid+0za+x2YgSWKPj2sZV4SC8zlMMFpLJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jLap+y/wGPsGo3VqfNP/zcxddxSLtPmyoTigp2bz2ug=;
- b=GMZbs8RVoTkRKgC9xbZImcdzSeu90/xigJ2ME8QJrAEon9cL23SfVwUbMTLOZHlekbwDPmAIf5MX10ApmAPv3KxpKlc6Ur/oKKWGOYOnoto9rjwU3SIi4aejOIXHSnke2T7XKXVFZzlv+MBAwRAP6hMII1ZniBDIIVyY6id79SvzukpPCNOdFcej5OOf8imZ+xmZOgwRABkNrajnbZjB13rnBzfJK/CNZ9Z/euYm/x1Gsdx/kHu8AvV9lD+QCfaNwkKdDjt9zfPvOdO4qsJe/xwRE8F/8oVtpgxbvPRlCqC5a8+Hdo5bmNnFusB0rU+QFWwm81sN2EkQfqPhvq8X0w==
+ bh=axuX18RS7W5qUjIfqjMh+CQO5ugvudP9Jor8Vpxq43E=;
+ b=f03jcYRo2gcmtJjxD44vJTOEq3ziFdJkgeZajdS7mW6xmqn6KqHv3QRzMtb6JCV2aHrXaubJLQbf9xbM0jpZrtV8FvzdDZa7Xi8f2TL5FoSa3xmx+KPQVz9vXImFfHgOZWjgayHubfvXe6vPSjmLxh1XvPtI+Gv6c8FniXP5Pp4QIxd7ZjgMuLgSz6SrmD9FI1JPtI9pqYdRSwBT/imaETUoI+hWU/GDaBdc1tT9QQfpYMr1Oz3m0gJkvs1iQ/t5fh7ablkBbuRn0qIA/+jWZrQqR12swUE8tzIaifmMt6owUXqfLYbDH3HmWl4rDkMDatY6ZpjV/OGFLhs9A1aMNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jLap+y/wGPsGo3VqfNP/zcxddxSLtPmyoTigp2bz2ug=;
- b=NidpBPyaRZS4w05ZOMcXLqo1MHEbytDVLeBhGqppPdzbBDbUfl50W5FFo8+jm+bGRaI8eEnpl5Gk6QColjZcr2yMTuC3Flzg3RwK/uzGbK5UUINZhiOhPzzGKf4jf5vGULOD6S3Fo3th+nxo3AP13EVbx9LgQj4+CHqbkea3YCVIeyzkvkpknGY41IMvooPan6zqTMuBtxleOYDE7C71EoWT4fkd/pjDHXy0PnLYa9OXk1CxThgRLSGriVpgMV7N8h2MKl8PvDP1egCRLH48fqFOu5mAImnh2+wnY9/7SzX7yNtWC6C12h1yezGOlEYL2wa3fiJFQcJJojvO2xVgzw==
+ bh=axuX18RS7W5qUjIfqjMh+CQO5ugvudP9Jor8Vpxq43E=;
+ b=ihYYgb2pwa6Ju7aBwHGCgmTSXooIrO2k0FSbJgr4mKPGb4hqYg0d/wml6yHZbhDyo2WFybRfCcdEYjPBT+V4AeNO2hQ2DMn5CntOSLN/5je1nHZmWca3/eoaLi8IX90lZOB1NTvoDTjfpe8Zg1U78KZchs+Xzi6Ozp5XZxBnA0gfThI4PymePzMvHddAFYcLhSJBhRHDyzyNHw8OFw/P3u6maZZSQ4wdItMC1gEzf4R5YfYkkuUIld9LpM6UjazBfZ0n9Mh4C0Wo7qFsupWuEzOXGs8xkTdSQgf4AD8TPWW1/eLGq3gdshLwxZZMTooHmAFmF+BFeIUPi09rVhAP3g==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3d35ac8a-51b7-5b78-4d5b-9ee4c06e71d8@suse.com>
-Date: Wed, 27 Jul 2022 16:12:17 +0200
+Message-ID: <e7a01a13-9a0d-d6eb-d348-f62952f93bc9@suse.com>
+Date: Wed, 27 Jul 2022 16:30:43 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH v1 16/18] x86: add pv multidomain construction
+Subject: Re: [PATCH v1 17/18] builder: introduce domain builder hypfs tree
 Content-Language: en-US
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: scott.davis@starlab.io, christopher.clark@starlab.io,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Wei Liu <wl@xen.org>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <20220706210454.30096-1-dpsmith@apertussolutions.com>
- <20220706210454.30096-17-dpsmith@apertussolutions.com>
+ <20220706210454.30096-18-dpsmith@apertussolutions.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220706210454.30096-17-dpsmith@apertussolutions.com>
+In-Reply-To: <20220706210454.30096-18-dpsmith@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0170.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR0301CA0046.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b3906429-9aef-474b-ea66-08da6fda0487
-X-MS-TrafficTypeDiagnostic: AM6PR04MB4549:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3553e971-fe71-4d6c-4e97-08da6fdc97b0
+X-MS-TrafficTypeDiagnostic: DBAPR04MB7254:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ZlTtVcrFxKZ3/vlE/7e5sJsIP03LXlTKcqKn9gzocSJmxQoMk3DDcErQWsYwkNcjqC7qJt0JERQER2jREUQAxa50/y7YGK1W3nm6SZLjBwSXYeUhe3GBt+GgLBzKs+8Vu6Z6TsRiSaJrisroqzi4bRFQR42ZBVjVUXYTPx2s543sysW3dGQDFLD10uFK4mBpVmVaOHuFEtQt0OZYf15R95QXse3u+p6hzxJuCTQgZfIDtteAS+yPnM4jaWx1inlyaMnV9+3F39JWxnnenM4IVT6Ffb9cHu+Zu+ST20G6TdlHz7qLiy/iwcRl3hP3udIVW+vZY6lOal6F+qQv8hdnp7nQlKpFD1HHuBGndFPRBUz90JJ8jbkbM3rVO0pDKzDMqNxtIeyAaDSJbNr5llj2jJCUgl11WG12i5Fwb+CZfaH3G2T6ewjm8wYFPqyHveXOLnwW4/R2yOC1le+LOt9+At+dWAQKjcM6SiwiY0IRSWfYGnpJjDFzBq3KJIbH32zpnDyrl2A9xvhAovEQ7mfTeJ3/FZPl9HEo59Zg6/Tfp3TzCtyF44jrbzQ5SrREA7OBVxSjaHSoUyC2nCcyLeFwzaQpeZIPk5TNrGs5RizMFC5zDMC5UDWeQmKeqTwiQxLdFS0B/8GRio7pLHT8Mbp5LUz5lzQ889eBHl6yoluXC0wQHRiTluSvQwxE9sYP2/kmpfUTGraHjERIAqKFb6jLZ9r0cdE1Maav5zgrL1fQkcDXzisWw2GNryYSohCABjSOof4yAp4GS1l1WBmVORpx9y+Dw7gIQS+5SzQGE6j5W6hg/R6NmTyeChsFsY8bGR7lb+GYV/jyQXoMhiwR3ZPffg==
+	v/E3ReGc8YA+oZBteGjS4A0Cf0obIZSS+3B93dtA1eU2cjvvN0tu5VLxsbqs+i+brpbiGr8eKfZoh6Zh2HXD4vHZmnN14urnKXKf3nyykEl9mA5nDtwcpcWlgAayIoOqMwaMfdLlByQEQzCaRnTHuUweQ+yHwaooYwdLRcaq5Ts4lmkBYOVJcmofE52t8PQEk7dWoH9jS1s60y+Su9EU3Hsg9LS/GKEUKqLBZ1te9QEC4DqApyEWousi0VFD1Lk8lHHZgMRsS2bIk8QD0OdHISHJB0D3Hg4Gn1kSaW0zSS5rBTXvRMbSu0ZKWHUHBWEd/nY+7UOZAvCdwfkUGbtTtDTtNIdK1XjHN4HHLE/po3SWzDcntm9lSkrPGUebqte5PL8h4M2a7Re4puU1B5k/CbDRfApr7d43bNOlkGDcfYzIQhdZF8BksuaQDMgmqQHAScksG1WAW98FkPt+xv/e8xCLNvnnA5N2EYk97nXL4Ba+Vr2WI63pU9/hwtoUS7HYC+POgzjfDZvCSAx4LaBxPww2TSfH2Vgw3ZmP/BeFhrgHkyPQUuho6fm/NNdCSq5nAu+GG9GY9OAkGsU3uvUQnsaUCW63kR8JnubaQvbw0/6VGSefMlJFg4U53ZmmG+T9MyW5d+BJJNCn3Ubmmxn32Ph8yPI3kb2LOr2LgmTD1VjXlVM+r956OSAQIE//AQvW8Gw1oJ6jRFGd0qyrxPFcIZcxo69RYTP05AmwNkQUBNCiKWa368miy8zbEC2+WD+A8J+wpDeGpzA5TQymRkuZ97WvldiQCkP1rp73KBOlkW0sKuyW90QRrboRGzAyMK2b+lIj5LivZm5y31IOWvufUw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(136003)(376002)(346002)(396003)(39860400002)(6916009)(66946007)(6506007)(30864003)(6512007)(86362001)(6486002)(8936002)(31696002)(83380400001)(478600001)(5660300002)(41300700001)(8676002)(7416002)(53546011)(31686004)(66476007)(26005)(4326008)(38100700002)(186003)(316002)(2906002)(2616005)(54906003)(66556008)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(346002)(376002)(366004)(396003)(136003)(39860400002)(31696002)(478600001)(6486002)(38100700002)(8936002)(86362001)(5660300002)(66476007)(186003)(66946007)(8676002)(316002)(2616005)(66556008)(6916009)(83380400001)(2906002)(53546011)(41300700001)(26005)(6512007)(31686004)(4326008)(54906003)(36756003)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VUMyNE55eHNQR0lrTVpLZ291VzJtUWJMd0ZsSklBa0FQSDl1aHExOGhITXZB?=
- =?utf-8?B?aS9vTEFJUXIyYUphVWQxdkhIOGdVYmF0ZkdSaS9WeFQyVnlwSGFiR2VDTnFT?=
- =?utf-8?B?eXUvQUdYWUVxM0t2b2NaZzc1RmN2Vzg4ODBsQkxQNDZ6aDJOZzEvRTZzQmpE?=
- =?utf-8?B?OXJpNDcvdGdvZ255R2xIK0dVc2dOaWtZS2J2R29mTnJuN1lZdFZuWUFOQ1dq?=
- =?utf-8?B?NHJ2TWdkWmJiUDdtL0tJd3JvQTJUZW9YdE8wTlBhNnIrSU96eFl0amFoK2Fi?=
- =?utf-8?B?c3VuSklBVFN2eUlxeUIvcDRlZTM0bHlDbzh3cE1EY204RGFwYVkxTTVoQ3RK?=
- =?utf-8?B?Q0ZXOVlKSmpkdG9xOUtac1Mwdm41K1hXZXpjN1dZMFpuWVNjdDRDSm1aQ1hD?=
- =?utf-8?B?bkFjUm5lQThobEdLSW1xV0lMRHA4bnhObkF4bnFYWktRMmhmcDVVcEtaSU5S?=
- =?utf-8?B?V0dieitDRnJNNmU2U0VhNElXY1JQVUJzRUJxcG1ubEF4bTNEMzhKeWJtb3NW?=
- =?utf-8?B?ZjhwNzBPc1JsZG13T1pyQkFxbzd1VjVaZnIrZllOVFh0N0kzWGpObHFtS3cv?=
- =?utf-8?B?QlBkU1QyNXREeXViRzE2YWdGS1JjQU1UOWZ5cEFORVZCWjN0K2ZwUnNxTmk1?=
- =?utf-8?B?UzQ4TzJJRGFtV0MvSmI2YlRyaGZ3ZkVTeW95amRRQUl6MEk4dDRxblZDY3hw?=
- =?utf-8?B?S3FYNmViYzQ4NEdkWmhuZ09JdCtyRHVmNWxVbDI1ZkRUeFRIR1ppcTlzQ2NM?=
- =?utf-8?B?RmhSdU11Z1pWMUNmSkcxSHNLaEFaUC8xcndLWmlRRFBxbUNSUmRITElHaTVD?=
- =?utf-8?B?UncwSmE2YkhpTy9UMHl5bnVYSjhJWTZSbnZvUkNOcDFQVm1rSVowUnRnODFu?=
- =?utf-8?B?MTJaeUVqVDhuT0FhYXNkdVczU1AxN3lCMEV1RkVYUjZtYjdMNGZCYS8xTDRP?=
- =?utf-8?B?cUNFcURTUnJoVk1DZjd0dGJDRmFKL0MyOTZ5a3UzeWdHR0p5bytFcDJRTm9J?=
- =?utf-8?B?S2Yxd2hDRmxBUXJjOCtkSGs3SjJXeVE0SWlhb2hHVFJnM3BNVFE2T05nd0Nk?=
- =?utf-8?B?VlBPUFg3QTdRUU9lWUY1ZEpJaHNiaCtXbnM5Vks5Y1lrVkVxZThkMXVqOGhJ?=
- =?utf-8?B?TW5LMWxmY3lpUTJUMS85OE1BM09wdGUrYWJGenVxVUIyZ2hYYVBsdE9pYXBX?=
- =?utf-8?B?YldwTjVkbHlUeFJkUThqVWl0cU1WTjdnUGZQOVBFNk5KWFBkQVBJd0R5dURC?=
- =?utf-8?B?Z3hWc2pZMTR3ZTRHVHV6enRQSW1Nc3lKaFV0QmNSVTBqQ0l6dUh0Wm5SekdD?=
- =?utf-8?B?U1NyQnhwQ29HSVozQ1lhbjBLL2ZoRnp3Rkc5QkZzRDlaNXc2Tm9kTkNpYTdL?=
- =?utf-8?B?TGdDbTlQcGxYLzNTN3RjTUNNbGhPOG5LOThrMllUM1VSSUJrSDdpRzcvdzVj?=
- =?utf-8?B?YnpZc0ZMbFc2NzF3QUo5TEJZL3pvbTNMRmJxMmJ6SHhQaERlWU9YdEsrQUZ5?=
- =?utf-8?B?TG1kRys3R1ZlelZLdHFnaEdDYnlVZjZFNng3Nk02dG9mcDd0eGhVUVI1bm9V?=
- =?utf-8?B?L2JaZFlDZ3lUbERzTzFsNHlZMEprRWdmUDdsTmcxc0VaTGtueTg2cWJTUTI5?=
- =?utf-8?B?dCtVc0ZsY0MyR3QwM0dXNjBPaWh6MjVCNEdMVnN4UWRpVHQyaFIyc3FPV2I1?=
- =?utf-8?B?Vmt3c2laTnVpTEFwM01lMGFzVHY0L0pkdDAxMERpSkZoMkVRREpBcUNqQzZl?=
- =?utf-8?B?aGtpL2FQZ3dSWUt5SlZjY0k1aTRmR0JlNXozWGRWajFNMDA1TXZXTWhsUjFK?=
- =?utf-8?B?WStIWFJ2c0F1WDhuVDJLVFBmZ1F3ajlBZ3FjUHpQVnZCMWVlbWtaUFhVMHg1?=
- =?utf-8?B?T05VY3lzZG9MUFdYdk9zQXVFR0tJazQwMHJhKzQwN2xLelRWVUlQUmk5WEVB?=
- =?utf-8?B?ZU1MZUc4M1Jhd01qV1VVMmM3Y2V1dHorbk5yL1VHTWlPL25CdlNqcm5RN2xE?=
- =?utf-8?B?TmxKL3Y0U1dQc0F4dnBDT2lqN1pLTGppQmk1eWJ1TnB5MmpRbVgxRkQrb21Y?=
- =?utf-8?B?N1hNTkh5V2lSR3BpeGtCMFE3ZHpXeUNOMkZPOVlJUUU3dEN3YzZWaWVOUVIz?=
- =?utf-8?Q?W4k3a9eAp6ppBN+4Pn+5lhL0Y?=
+	=?utf-8?B?V1lDM0pVR2kyWVVSQ0tHeDkwSmFxdzNIZUdiRU5MR3BMSVpCWktnMnJOMEx4?=
+ =?utf-8?B?c203TDNHdWtHSk1pd1JSMGhQNXBNT1ZuOTYxVHVJS05xRHZUUStWTmoxdFJa?=
+ =?utf-8?B?VUZSV1Z4MVZ2NXJyd2xrVWhQY3E0WUkyZHhac3oyME5hQjRQSk9laHRwMHR6?=
+ =?utf-8?B?R1dpL1p2djZlRGJkWVFGTTlXbXJXekUyK015WDhseG9FZVRpY3E2VVJBcU1q?=
+ =?utf-8?B?WnRqQUkxcGt0RlB1OHM3YkM0U2cvaERDWkJCWHU3YjYyTThMWE5YWUIxbFhC?=
+ =?utf-8?B?QUNKQmJDOTQ0Qm90aW9ORmtEM0p4NVV3QTREajlMZEhROWI3TlpveDJkRFVI?=
+ =?utf-8?B?RWYrSVAwUUpzUC9BUW5lMHRYaEwvRXFlenlzWlNDQjRtM1gwcGtDb202dXRZ?=
+ =?utf-8?B?NHExdWhZZ2tPTW5wblZUcUQrV2ZZTlN4LzdTUy83YkdMcmh5cy95RkNhWmx6?=
+ =?utf-8?B?TWE0SWROOW5ET25RQ0FKWjlEUWFiOW5zSTFFNHFlMWhLVFRwR2VPUU9KQi9y?=
+ =?utf-8?B?NDN6ZDY4T2kxQTZPTFVqdlAwUlhIYUxlQ3N1eXIyMnJvV2x4ZHVVUFVMTC83?=
+ =?utf-8?B?d2hFcG4yTTdSVmkyZkd6RTBvaWYrQUJzbEdmVmk5RmhCc1J0Sk5TQTcwVWRK?=
+ =?utf-8?B?YjBrVEt4TnhMODI4SVpVV3J3VnVqRi9Vb0lhTStMQUFSeGk3bGM2MFRQaXg1?=
+ =?utf-8?B?S09mSHdnRWl6a3VvVDl6N1NGemZuaUlEU2d6RkxSNzJFcWc2U0hiMXRmMkZ3?=
+ =?utf-8?B?WFZoUUlyT3ZySlBCRUNoSFJYc21KNUx6eDBSazJwN0FoTkIvZnVHS1h6bGo4?=
+ =?utf-8?B?WndkWmgzcTdJWU0vN3FjTVhxQU9PK0VDRExWS2MyMGxrZ1VLMjdNY3FTbHhq?=
+ =?utf-8?B?WFZUdFJqWlRRcll2VFlqaU9VYVRwL1JWZG5Fa2ZQNWhkb0pNTVdCdzJnTzVp?=
+ =?utf-8?B?T0hVamM4WEFYVmJPR0dTaGx3RHY4VEFJYVFzYVVycnNLdURJMW5veGRuc0J0?=
+ =?utf-8?B?QjBxZXVYNHNYaWFoSXJVTHdoak5SWHRTbjFwd0hPRzU5bHNaWU5pQVlWRmFk?=
+ =?utf-8?B?Q1gyQi9aOHJ3Sk1YdkUrSVdQS05ycit1NytsOThwL2NaZzBxWURXSHdONkRn?=
+ =?utf-8?B?Q2EvT1B4cnp3ejFTMjhpRWlOeTdFSWhYWTlDTHNkT1pNQkE3WGJ4RExhZVdz?=
+ =?utf-8?B?UkxhZVIrR0NacWkxNGJRbzdLY0pWcWthK1RkTkJUdjRXOXV5b1Q3djdWaGxL?=
+ =?utf-8?B?ekhsMkp5ZzljRzg1OFFUNEc4UXlzVjhCVWhVa2FrTXIvMUZiMDFvczBhcDhI?=
+ =?utf-8?B?WUlaS3doZDdYaGhHRFJnVFVnVStjdlhRQUdOMFNFcFIrMW9KVXRlbkErTVJN?=
+ =?utf-8?B?aVI4R0ZaRG1xZWZuSEJGbFBpclBsdmZDdmtEYjVoV0RXOTFnUCtKd0JveEhK?=
+ =?utf-8?B?TElKY3JGN1ByZTJMSjBFK0tURkZaSlJtRktQWE52ajk3b2NhTjlzcmQveTN6?=
+ =?utf-8?B?NnhoU1oyK2ZMM0NPelI4c0lNdllLTzNBSTdlNk5uR01OV1RsOXA0K0pkQlNy?=
+ =?utf-8?B?ZWRsVHgxUDc1dmdxemRFQ1hIUlNvaERkRGR6UDFQL1NnY0t2UHVmZ3VEQ3FT?=
+ =?utf-8?B?aWpqMENyejR6eHQ4VVdoNmNqU0pueHVvWXd6d2NUZjh2R0N4MmRpcDV1cTN0?=
+ =?utf-8?B?ZkM3d0lLVTRuZVU5NTBwbTFaZzU1Q3dUQStCMVRjb3JPaFBFUER5a1NoUFpZ?=
+ =?utf-8?B?czVuUER4d0lvYkhNbVhjZnhIL0dWU2xZSkJKQjRhMVZaY3I2Q0RtUDAzUllt?=
+ =?utf-8?B?akF2cFRWSVNZSmM3SmY4S0p3MHYvWHZ1dUs2UitMdW1PbnVKeEhWOHFyMjgr?=
+ =?utf-8?B?YlRGenhhbldvaVJzQWRDV0VueGVoZzNjVUE3Mm42MEJxVzY3bWVHV3J1aXp0?=
+ =?utf-8?B?TEwzTnAxcGJxeTcxb1lJNGtvQkxPSFF4eCszM0d1OFpHc09vdmNZZXJXdEYw?=
+ =?utf-8?B?TWEyQUw2Q1Q4ak5vVGYyakt6TGlCb3FlZGxjYWwxVVhZQnNjdDQySjFDb0RR?=
+ =?utf-8?B?K05FM3ZvazVHaFNlcXNuTm81UnQ0dWpmRW5NT1RWcFN3cU5jSW1xR0dKcnND?=
+ =?utf-8?Q?+pT3NKX8638bxopgv7x2Db0L8?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3906429-9aef-474b-ea66-08da6fda0487
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3553e971-fe71-4d6c-4e97-08da6fdc97b0
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2022 14:12:19.7322
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2022 14:30:45.7092
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fvUQa8Av/Gj2qhMUKgVwhLOA3XUjaJRQRUteBpXDb1qL6f8uqrAzLk33lJPCtK/Gr2wSev+jQin/ywI1ps0tyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB4549
+X-MS-Exchange-CrossTenant-UserPrincipalName: 81z8q5BWDE/WaNe5PCFhxhcO8yWsaHHuZNTEndubGK/kMwMjqRsTXRVe4UQAjj0bQo+042d/kFAjU0xZvVRmtQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7254
 
 On 06.07.2022 23:04, Daniel P. Smith wrote:
-> --- a/xen/arch/x86/dom0_build.c
-> +++ b/xen/arch/x86/dom0_build.c
-> @@ -524,37 +524,6 @@ int __init dom0_setup_permissions(struct domain *d)
->  
->      return rc;
->  }
-> -
-> -int __init construct_domain(struct boot_domain *bd)
-> -{
-> -    int rc = 0;
-> -
-> -    /* Sanity! */
-> -    BUG_ON(!pv_shim && bd->domid != 0);
-> -    BUG_ON(bd->domain->vcpu[0] == NULL);
-> -    BUG_ON(bd->domain->vcpu[0]->is_initialised);
-> -
-> -    process_pending_softirqs();
-> -
-> -    if ( builder_is_initdom(bd) )
-> -    {
-> -        if ( is_hvm_domain(bd->domain) )
-> -            rc = dom0_construct_pvh(bd);
-> -        else if ( is_pv_domain(bd->domain) )
-> -            rc = dom0_construct_pv(bd);
-> -        else
-> -            panic("Cannot construct Dom0. No guest interface available\n");
-> -    }
-> -
-> -    if ( rc )
-> -        return rc;
-> -
-> -    /* Sanity! */
-> -    BUG_ON(!bd->domain->vcpu[0]->is_initialised);
-> -
-> -    return 0;
-> -}
-
-Iirc this function was introduced earlier in the series. Just for it
-to now be moved around? Why can't it be introduced in the intended
-source file right away?
-
-> @@ -189,18 +190,22 @@ void __init arch_create_dom(
->      if ( !pv_shim && builder_is_ctldom(bd) )
->          is_privileged = CDF_privileged;
->  
-> -    /* Create initial domain.  Not d0 for pvshim. */
-> -    bd->domid = get_initial_domain_id();
-> +    /* Determine proper domain id. */
-> +    if ( builder_is_initdom(bd) )
-> +        bd->domid = get_initial_domain_id();
-> +    else
-> +        bd->domid = bd->domid ? bd->domid : get_next_domid();
-
-We prefer to omit the middle operand in such cases.
-
-Where to you guarantee no two domains would use the same domain ID?
-I can't help thinking that a predetermined one may have been
-assigned earlier on to a domain which got it from get_next_domid().
-
->      bd->domain = domain_create(bd->domid, &dom_cfg, is_privileged);
->      if ( IS_ERR(bd->domain) )
->          panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(bd->domain));
->  
-> -    init_dom0_cpuid_policy(bd->domain);
-> +    if ( builder_is_initdom(bd) )
-> +        init_dom0_cpuid_policy(bd->domain);
-
-What about other than Dom0?
-
-> @@ -210,15 +215,23 @@ void __init arch_create_dom(
->          cmdline = arch_prepare_cmdline(cmdline, bi->arch);
->          strlcpy(dom_cmdline, cmdline, MAX_GUEST_CMDLINE);
->  
-> -        if ( bi->arch->kextra )
-> -            /* kextra always includes exactly one leading space. */
-> -            strlcat(dom_cmdline, bi->arch->kextra, MAX_GUEST_CMDLINE);
-> +        if ( builder_is_initdom(bd) )
-> +        {
-> +            if ( bi->arch->kextra )
-> +                /* kextra always includes exactly one leading space. */
-> +                strlcat(dom_cmdline, bi->arch->kextra, MAX_GUEST_CMDLINE);
->  
-> -        apply_xen_cmdline(dom_cmdline);
-> +            apply_xen_cmdline(dom_cmdline);
-> +        }
-
-Why is kextra applicable to Dom0 only? Shouldn't each domain have a
-way to append to its command line?
-
->          strlcpy(bd->kernel->string.bytes, dom_cmdline, MAX_GUEST_CMDLINE);
->      }
->  
-> +    if ( alloc_system_evtchn(bi, bd) != 0 )
-> +        printk(XENLOG_WARNING "%s: "
-> +               "unable set up system event channels for Dom%d\n",
-> +               __func__, bd->domid);
-
-So if Dom0 is created after e.g. a separate xenstore domain, it'll
-also have a xenstore event channel assigned (changing behavior from
-what we have today)?
-
-> @@ -240,3 +253,32 @@ void __init arch_create_dom(
->      }
->  }
->  
-> +int __init construct_domain(struct boot_domain *bd)
-> +{
-> +    int rc = 0;
-> +
-> +    /* Sanity! */
-> +    BUG_ON(bd->domid != bd->domain->domain_id);
-> +    BUG_ON(bd->domain->vcpu[0] == NULL);
-> +    BUG_ON(bd->domain->vcpu[0]->is_initialised);
-> +
-> +    process_pending_softirqs();
-> +
-> +    if ( is_hvm_domain(bd->domain) )
-> +        if ( builder_is_initdom(bd) )
-> +            rc = dom0_construct_pvh(bd);
-> +        else
-> +            panic("Cannot construct HVM DomU. Not supported.\n");
-> +    else if ( is_pv_domain(bd->domain) )
-
-Please properly use braces to enclose the inner if/else pair.
-
-> +            rc = dom_construct_pv(bd);
-> +    else
-> +        panic("Cannot construct Dom0. No guest interface available\n");
-
-Dom0?
-
-> --- a/xen/arch/x86/pv/dom0_build.c
-> +++ b/xen/arch/x86/pv/domain_builder.c
-> @@ -1,5 +1,5 @@
->  /******************************************************************************
-> - * pv/dom0_build.c
-> + * pv/domain_builder.c
->   *
->   * Copyright (c) 2002-2005, K A Fraser
->   */
-> @@ -8,6 +8,7 @@
->  #include <xen/bootinfo.h>
->  #include <xen/console.h>
->  #include <xen/domain.h>
-> +#include <xen/domain_builder.h>
->  #include <xen/domain_page.h>
->  #include <xen/init.h>
->  #include <xen/libelf.h>
-> @@ -296,7 +297,7 @@ static struct page_info * __init alloc_chunk(struct domain *d,
->      return page;
->  }
->  
-> -int __init dom0_construct_pv(struct boot_domain *bd)
-> +int __init dom_construct_pv(struct boot_domain *bd)
->  {
->      int i, rc, order, machine;
->      bool compatible, compat;
-> @@ -350,7 +351,7 @@ int __init dom0_construct_pv(struct boot_domain *bd)
->      /* Machine address of next candidate page-table page. */
->      paddr_t mpt_alloc;
->  
-> -    printk(XENLOG_INFO "*** Building a PV Dom%d ***\n", d->domain_id);
-> +    printk(XENLOG_INFO "*** Constructing a PV Dom%d ***\n", d->domain_id);
-
-When touching things like here and even more so when ...
-
-> @@ -384,7 +385,8 @@ int __init dom0_construct_pv(struct boot_domain *bd)
->          {
->              if ( unlikely(rc = switch_compat(d)) )
->              {
-> -                printk("Dom0 failed to switch to compat: %d\n", rc);
-> +                printk("Dom%d failed to switch to compat: %d\n",
-> +                        d->domain_id, rc);
-
-... adding new logging of domain IDs, please use %pd whenever possible.
-
-> @@ -404,22 +406,23 @@ int __init dom0_construct_pv(struct boot_domain *bd)
->      if ( elf_msb(&elf) )
->          compatible = false;
->  
-> -    printk(" Dom0 kernel: %s-bit%s, %s, paddr %#" PRIx64 " -> %#" PRIx64 "\n",
-> -           elf_64bit(&elf) ? "64" : elf_32bit(&elf) ? "32" : "??",
-> +    printk(" Dom%d kernel: %s-bit%s, %s, paddr %#" PRIx64 " -> %#" PRIx64 "\n",
-> +           d->domain_id, elf_64bit(&elf) ? "64" : elf_32bit(&elf) ? "32" : "??",
->             parms.pae       ? ", PAE" : "",
->             elf_msb(&elf)   ? "msb"   : "lsb",
->             elf.pstart, elf.pend);
->      if ( elf.bsd_symtab_pstart )
-> -        printk(" Dom0 symbol map %#" PRIx64 " -> %#" PRIx64 "\n",
-> -               elf.bsd_symtab_pstart, elf.bsd_symtab_pend);
-> +        printk(" Dom%d symbol map %#" PRIx64 " -> %#" PRIx64 "\n",
-> +               d->domain_id, elf.bsd_symtab_pstart, elf.bsd_symtab_pend);
->  
->      if ( !compatible )
->      {
-> -        printk("Mismatch between Xen and DOM0 kernel\n");
-> +        printk("Mismatch between Xen and DOM%d kernel\n", d->domain_id);
->          return -EINVAL;
->      }
->  
-> -    if ( parms.elf_notes[XEN_ELFNOTE_SUPPORTED_FEATURES].type != XEN_ENT_NONE )
-> +    if ( builder_is_initdom(bd) &&
-> +         parms.elf_notes[XEN_ELFNOTE_SUPPORTED_FEATURES].type != XEN_ENT_NONE )
->      {
->          if ( !pv_shim && !test_bit(XENFEAT_dom0, parms.f_supported) )
->          {
-> @@ -443,7 +446,8 @@ int __init dom0_construct_pv(struct boot_domain *bd)
->  
->              if ( value > __HYPERVISOR_COMPAT_VIRT_START )
->              {
-> -                printk("Dom0 expects too high a hypervisor start address\n");
-> +                printk("Dom%d expects too high a hypervisor start address\n",
-> +                       d->domain_id);
->                  return -ERANGE;
->              }
->              HYPERVISOR_COMPAT_VIRT_START(d) =
-> @@ -487,7 +491,7 @@ int __init dom0_construct_pv(struct boot_domain *bd)
->      vstartinfo_start = round_pgup(vphysmap_end);
->      vstartinfo_end   = vstartinfo_start + sizeof(struct start_info);
->  
-> -    if ( pv_shim )
-> +    if ( pv_shim || ! builder_is_initdom(bd) )
-
-As elsewhere - stray blank after ! . Also wouldn't it make sense for
-builder_is_initdom() to return false in the pv_shim case, thus making
-the || here (and again below) unnecessary?
-
-> @@ -789,6 +790,19 @@ int __init dom0_construct_pv(struct boot_domain *bd)
->      snprintf(si->magic, sizeof(si->magic), "xen-3.0-x86_%d%s",
->               elf_64bit(&elf) ? 64 : 32, parms.pae ? "p" : "");
->  
-> +    if ( !builder_is_initdom(bd) )
-> +    {
-> +        si->store_mfn = ((vxenstore_start - v_start) >> PAGE_SHIFT)
-> +                        + alloc_spfn;
-> +        bd->store.mfn = si->store_mfn;
-> +        si->store_evtchn = bd->store.evtchn;
-> +
-> +        si->console.domU.mfn = ((vconsole_start - v_start) >> PAGE_SHIFT)
-> +                               + alloc_spfn;
-> +        bd->console.mfn = si->console.domU.mfn;
-> +        si->console.domU.evtchn = bd->console.evtchn;
-> +    }
-
-While elsewhere you allow separate hwdom and ctrldom, aiui only one
-of the two would fail the entry condition to this if(). Which one
-would that be? And in how far are there kernels knowing how to deal
-with the situation? I'm not even certain this can be properly
-expressed in the present start_info structure, as a non-Dom0
-control domain would e.g. need to have xenstore coordinates passed,
-but might act as the domain handling consoles.
-
-> @@ -871,23 +885,24 @@ int __init dom0_construct_pv(struct boot_domain *bd)
->                  sizeof(si->cmd_line));
->  
->  #ifdef CONFIG_VIDEO
-> -    if ( !pv_shim && fill_console_start_info((void *)(si + 1)) )
-> -    {
-> -        si->console.dom0.info_off  = sizeof(struct start_info);
-> -        si->console.dom0.info_size = sizeof(struct dom0_vga_console_info);
-> -    }
-> +    if ( builder_is_hwdom(bd) )
-> +        if ( !pv_shim && fill_console_start_info((void *)(si + 1)) )
-
-As before - please combine such if()s.
-
-> +        {
-> +            si->console.dom0.info_off  = sizeof(struct start_info);
-> +            si->console.dom0.info_size = sizeof(struct dom0_vga_console_info);
-> +        }
-
-I don't view it as a given that hwdom is the domain to have access to
-the physical VGA. While it may follow from its name, it may be more
-useful to have the control domain direct its output there.
-
->  #endif
->  
->      /*
->       * TODO: provide an empty stub for fill_console_start_info in the
->       * !CONFIG_VIDEO case so the logic here can be simplified.
->       */
-> -    if ( pv_shim )
-> +    if ( builder_is_hwdom(bd) && pv_shim )
->          pv_shim_setup_dom(d, l4start, v_start, vxenstore_start, vconsole_start,
->                            vphysmap_start, si);
-
-???
-
->  #ifdef CONFIG_COMPAT
-> -    if ( compat )
-> +    if ( builder_is_hwdom(bd) && compat )
->          xlat_start_info(si, pv_shim ? XLAT_start_info_console_domU
->                                      : XLAT_start_info_console_dom0);
-
-Even more so here: ??? (This is a clear sign that your commit messages
-are lacking helpful detail.)
-
-> @@ -926,15 +941,18 @@ int __init dom0_construct_pv(struct boot_domain *bd)
->      if ( test_bit(XENFEAT_supervisor_mode_kernel, parms.f_required) )
->          panic("Dom0 requires supervisor-mode execution\n");
->  
-> -    rc = dom0_setup_permissions(d);
-> -    BUG_ON(rc != 0);
-> +    if ( builder_is_hwdom(bd) )
-> +    {
-> +        rc = dom0_setup_permissions(d);
-> +        BUG_ON(rc != 0);
-> +    }
-
-What about other domains?
-
->      if ( d->domain_id == hardware_domid )
->          iommu_hwdom_init(d);
->  
->  #ifdef CONFIG_SHADOW_PAGING
->      /* Fill the shadow pool if necessary. */
-> -    if ( opt_dom0_shadow || opt_pv_l1tf_hwdom )
-> +    if ( builder_is_hwdom(bd) && (opt_dom0_shadow || opt_pv_l1tf_hwdom) )
-
-With this I'd like to refer you back to my "An interesting combination
-of conditions" comment on patch 15.
-
-> --- a/xen/common/domain-builder/Kconfig
-> +++ b/xen/common/domain-builder/Kconfig
-> @@ -12,4 +12,14 @@ config BUILDER_FDT
->  
->  	  If unsure, say N.
->  
-> +config MULTIDOM_BUILDER
-> +	bool "Multidomain building (UNSUPPORTED)" if UNSUPPORTED
-> +	depends on BUILDER_FDT
-
-Shouldn't this be "select", with that other option perhaps not even
-needing a prompt?
-
 > --- a/xen/common/domain-builder/core.c
 > +++ b/xen/common/domain-builder/core.c
-> @@ -1,6 +1,7 @@
->  #include <xen/bootdomain.h>
->  #include <xen/bootinfo.h>
->  #include <xen/domain_builder.h>
-> +#include <xen/event.h>
->  #include <xen/init.h>
->  #include <xen/types.h>
+> @@ -134,6 +134,9 @@ uint32_t __init builder_create_domains(struct boot_info *info)
+>          /* Free temporary buffers. */
+>          discard_initial_images();
 >  
-> @@ -60,37 +61,144 @@ void __init builder_init(struct boot_info *info)
->          d->kernel->string.kind = BOOTSTR_CMDLINE;
->  }
->  
-> +static bool __init build_domain(struct boot_info *info, struct boot_domain *bd)
+> +    if ( IS_ENABLED(CONFIG_BUILDER_HYPFS) )
+> +        builder_hypfs(info);
+
+No need for the if() here when you provide a stub in the header file.
+Just that of course the stub vs prototype there needs to depend on
+CONFIG_BUILDER_HYPFS, not CONFIG_HYPFS.
+
+> +static int __init alloc_hypfs(struct boot_info *info)
 > +{
-> +    if ( bd->constructed == true )
+> +    if ( !(builder_dir = (struct hypfs_entry_dir *)xmalloc_bytes(
+> +                        sizeof(struct hypfs_entry_dir))) )
 
-Please omit "== true" / replace "== false" or alike.
+Why not xmalloc() (or xzalloc()), which specifically exists to avoid
+open-coded casts like the one here?
 
-> +        return true;
-> +
-> +    if ( bd->kernel == NULL )
-> +        return false;
-> +
-> +    printk(XENLOG_INFO "*** Building Dom%d ***\n", bd->domid);
-> +
-> +    arch_create_dom(info, bd);
-> +    if ( bd->domain )
 > +    {
-> +        bd->constructed = true;
-> +        return true;
+> +        printk(XENLOG_WARNING "%s: unable to allocate hypfs dir\n", __func__);
+> +        return -ENOMEM;
 > +    }
 > +
-> +    return false;
-> +}
+> +    builder_dir->e.type = XEN_HYPFS_TYPE_DIR;
+> +    builder_dir->e.encoding = XEN_HYPFS_ENC_PLAIN;
+> +    builder_dir->e.name = "builder";
+> +    builder_dir->e.size = 0;
+> +    builder_dir->e.max_size = 0;
+> +    INIT_LIST_HEAD(&builder_dir->e.list);
+> +    builder_dir->e.funcs = &hypfs_dir_funcs;
+> +    INIT_LIST_HEAD(&builder_dir->dirlist);
 > +
->  uint32_t __init builder_create_domains(struct boot_info *info)
->  {
->      uint32_t build_count = 0, functions_built = 0;
-> +    struct boot_domain *bd;
->      int i;
->  
-> +    if ( IS_ENABLED(CONFIG_MULTIDOM_BUILDER) )
+> +    if ( !(entries = (struct domain_node *)xmalloc_bytes(
+> +                        sizeof(struct domain_node) * info->builder->nr_doms)) )
+
+xmalloc_array()?
+
 > +    {
-> +        bd = builder_dom_by_function(info, BUILD_FUNCTION_XENSTORE);
-> +        if ( build_domain(info, bd) )
-> +        {
-> +            functions_built |= bd->functions;
-> +            build_count++;
-> +        }
-> +        else
-> +            printk(XENLOG_WARNING "Xenstore build failed, system may be unusable\n");
-> +
-> +        bd = builder_dom_by_function(info, BUILD_FUNCTION_CONSOLE);
-> +        if ( build_domain(info, bd) )
-> +        {
-> +            functions_built |= bd->functions;
-> +            build_count++;
-
-If both are the same domain, you'll end up with a count of 2 here even
-though only one domain was built. This looks misleading.
-
-> +        }
-> +        else
-> +            printk(XENLOG_WARNING "Console build failed, system may be unusable\n");
-
-I think this and the similar earlier message want to include the word
-"domain". You also want to split the lines at the start of the literal
-strings.
-
+> +        printk(XENLOG_WARNING "%s: unable to allocate hypfs nodes\n", __func__);
+> +        return -ENOMEM;
 > +    }
 > +
->      for ( i = 0; i < info->builder->nr_doms; i++ )
->      {
-> -        struct boot_domain *d = &info->builder->domains[i];
-> +        bd = &info->builder->domains[i];
->  
->          if ( ! IS_ENABLED(CONFIG_MULTIDOM_BUILDER) &&
-
-Interesting - this config option is being introduced only here.
-
-> -             ! builder_is_initdom(d) &&
-> +             ! builder_is_initdom(bd) &&
->               functions_built & BUILD_FUNCTION_INITIAL_DOM )
->              continue;
->  
-> -        if ( d->kernel == NULL )
-> +        if ( !build_domain(info, bd) )
->          {
-> -            if ( builder_is_initdom(d) )
-> +            if ( builder_is_initdom(bd) )
->                  panic("%s: intial domain missing kernel\n", __func__);
->  
-> -            printk(XENLOG_ERR "%s:Dom%d definiton has no kernel\n", __func__,
-> -                    d->domid);
-> +            printk(XENLOG_WARNING "Dom%d build failed, skipping\n", bd->domid);
->              continue;
->          }
->  
-> -        arch_create_dom(info, d);
-> -        if ( d->domain )
-> +        functions_built |= bd->functions;
-> +        build_count++;
-> +    }
-> +
-> +    if ( IS_ENABLED(CONFIG_X86) )
-> +        /* Free temporary buffers. */
-> +        discard_initial_images();
-
-I guess this won't build on Arm. Plus Arm has a similarly named function
-(discard_initial_modules()) which likely wants calling here (or rather:
-adding suitable abstraction for the right function to be called).
-
-> +    return build_count;
-> +}
-> +
-> +domid_t __init get_next_domid(void)
-> +{
-> +    static domid_t __initdata last_domid = 0;
-> +    domid_t next;
-> +
-> +    for ( next = last_domid + 1; next < DOMID_FIRST_RESERVED; next++ )
-> +    {
-> +        struct domain *d;
-> +
-> +        if ( (d = rcu_lock_domain_by_id(next)) == NULL )
->          {
-> -            functions_built |= d->functions;
-> -            build_count++;
-> +            last_domid = next;
-> +            return next;
->          }
-> +
-> +        rcu_unlock_domain(d);
->      }
->  
-> -    return build_count;
 > +    return 0;
 > +}
-
-This looks suspiciously similar to code in common/domctl.c. Perhaps
-you want to make a function usable by both (introduced in a separate
-patch)?
-
-> --- a/xen/include/xen/bootdomain.h
-> +++ b/xen/include/xen/bootdomain.h
-> @@ -47,6 +47,12 @@ struct boot_domain {
->      struct boot_module *configs[BUILD_MAX_CONF_MODS];
->  
->      struct domain *domain;
-> +    struct {
-> +        xen_pfn_t mfn;
-> +        unsigned int evtchn;
-> +    } store, console;
-> +    bool constructed;
 > +
->  };
+> +void __init builder_hypfs(struct boot_info *info)
+> +{
+> +    int i;
+> +
+> +    printk("Domain Builder: creating hypfs nodes\n");
 
-Stray blank line? Or maybe you meant it to go in front of "constructed"?
+If at all, then dprintk().
+
+> +    if ( alloc_hypfs(info) != 0 )
+> +        return;
+> +
+> +    for ( i = 0; i < info->builder->nr_doms; i++ )
+> +    {
+> +        struct domain_node *e = &entries[i];
+> +        struct boot_domain *bd = &info->builder->domains[i];
+> +        uint8_t *uuid = bd->uuid;
+> +
+> +        snprintf(e->dir_name, sizeof(e->dir_name), "%d", bd->domid);
+> +
+> +        snprintf(e->uuid, sizeof(e->uuid), "%08x-%04x-%04x-%04x-%04x%08x",
+> +                 *(uint32_t *)uuid, *(uint16_t *)(uuid+4),
+> +                 *(uint16_t *)(uuid+6), *(uint16_t *)(uuid+8),
+> +                 *(uint16_t *)(uuid+10), *(uint32_t *)(uuid+12));
+
+Perhaps better introduce a properly typed structure? Endian-ness-wise
+I'm also unsure about the last 12 nibbles: Isn't this an array of bytes
+really? Actually the second-to-last 16-bit item is an array of two
+bytes as well, if Linux'es %pU vsprintf() formatting is to be trusted.
+
+> +        e->functions = bd->functions;
+> +        e->constructed = bd->constructed;
+> +
+> +        e->ncpus = bd->ncpus;
+> +        e->mem_size = (bd->meminfo.mem_size.nr_pages * PAGE_SIZE)/1024;
+> +        e->mem_max = (bd->meminfo.mem_max.nr_pages * PAGE_SIZE)/1024;
+
+Nit: Blanks around / please.
+
+> +        e->xs.evtchn = bd->store.evtchn;
+> +        e->xs.mfn = bd->store.mfn;
+> +
+> +        e->con_dev.evtchn = bd->console.evtchn;
+> +        e->con_dev.mfn = bd->console.mfn;
+> +
+> +        /* Initialize and construct builder hypfs tree */
+> +        INIT_HYPFS_DIR(e->dir, e->dir_name);
+> +        INIT_HYPFS_DIR(e->xs.dir, "xenstore");
+> +        INIT_HYPFS_DIR(e->dev_dir, "devices");
+> +        INIT_HYPFS_DIR(e->con_dev.dir, "console");
+> +
+> +        INIT_HYPFS_STRING(e->uuid_leaf, "uuid");
+> +        hypfs_string_set_reference(&e->uuid_leaf, e->uuid);
+> +        INIT_HYPFS_UINT(e->func_leaf, "functions", e->functions);
+> +        INIT_HYPFS_UINT(e->ncpus_leaf, "ncpus", e->ncpus);
+> +        INIT_HYPFS_UINT(e->mem_sz_leaf, "mem_size", e->mem_size);
+> +        INIT_HYPFS_UINT(e->mem_mx_leaf, "mem_max", e->mem_max);
+
+May I suggest to prefer - over _ in node names?
+
+> --- a/xen/include/xen/domain_builder.h
+> +++ b/xen/include/xen/domain_builder.h
+> @@ -72,4 +72,17 @@ int alloc_system_evtchn(
+>      const struct boot_info *info, struct boot_domain *bd);
+>  void arch_create_dom(const struct boot_info *bi, struct boot_domain *bd);
+>  
+> +#ifdef CONFIG_HYPFS
+> +
+> +void builder_hypfs(struct boot_info *info);
+> +
+> +#else
+> +
+> +static inline void builder_hypfs(struct boot_info *info)
+> +{
+> +    return;
+> +}
+> +
+> +#endif
+
+This would better go in a private header in xen/common/domain-builder/.
 
 Jan
 
