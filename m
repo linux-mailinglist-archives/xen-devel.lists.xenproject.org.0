@@ -2,56 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC77581C6F
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jul 2022 01:34:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.375808.608251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 122C7581CA9
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jul 2022 02:11:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.375815.608262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGU3E-0001ce-LW; Tue, 26 Jul 2022 23:33:20 +0000
+	id 1oGUdM-0006wn-30; Wed, 27 Jul 2022 00:10:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 375808.608251; Tue, 26 Jul 2022 23:33:20 +0000
+Received: by outflank-mailman (output) from mailman id 375815.608262; Wed, 27 Jul 2022 00:10:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGU3E-0001al-I4; Tue, 26 Jul 2022 23:33:20 +0000
-Received: by outflank-mailman (input) for mailman id 375808;
- Tue, 26 Jul 2022 23:33:18 +0000
+	id 1oGUdM-0006ud-0O; Wed, 27 Jul 2022 00:10:40 +0000
+Received: by outflank-mailman (input) for mailman id 375815;
+ Wed, 27 Jul 2022 00:10:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Bnnm=X7=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1oGU3C-0001ae-86
- for xen-devel@lists.xenproject.org; Tue, 26 Jul 2022 23:33:18 +0000
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 515b8b31-0d3b-11ed-bd2d-47488cf2e6aa;
- Wed, 27 Jul 2022 01:33:14 +0200 (CEST)
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26QKn4up024544;
- Tue, 26 Jul 2022 23:31:41 GMT
-Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3hg940qqnv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 26 Jul 2022 23:31:40 +0000
-Received: from pps.filterd
- (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 26QMg2Ha006242; Tue, 26 Jul 2022 23:31:39 GMT
-Received: from nam11-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam11lp2168.outbound.protection.outlook.com [104.47.58.168])
- by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3hh65c6394-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 26 Jul 2022 23:31:39 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by CH0PR10MB5260.namprd10.prod.outlook.com (2603:10b6:610:c4::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Tue, 26 Jul
- 2022 23:31:37 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::80e:be92:1fd5:b066]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::80e:be92:1fd5:b066%5]) with mapi id 15.20.5458.025; Tue, 26 Jul 2022
- 23:31:37 +0000
+ <SRS0=J/C0=YA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oGUdK-0006uX-Gl
+ for xen-devel@lists.xenproject.org; Wed, 27 Jul 2022 00:10:38 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8973a7e7-0d40-11ed-bd2d-47488cf2e6aa;
+ Wed, 27 Jul 2022 02:10:36 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D278661723;
+ Wed, 27 Jul 2022 00:10:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1919C433D7;
+ Wed, 27 Jul 2022 00:10:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,181 +44,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 515b8b31-0d3b-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2022-7-12;
- bh=b6wO/3pdjGedZMm568xlqM2fZJwXioknbMs8JiVAnn0=;
- b=mY0C3SzRLUXhjuGmRGzknUUjX8rUQEUBXgatvEsC7WBZtV4vlY43bsDlsYz7JUbAoA9x
- X1rpgoqjcJduUmt3R4p1LnQcMtwro1mRToVBhLnC0hXNeBHnVFcUD5PhPk1fVU6KZ7cR
- Kv7ad8N96LtQQyUa2KbTVMxwVM5CvCPLyO40PInnjTPPmCzgMqUtCu7QZeZ6Up9sfN1q
- 5Nq72kIYMAi/ZI9PdQVklPATeCtnxvkKBgMYGHlUZyYY3+GXItNq8hNqGwf4Mlw4rwsi
- pSOzYvp+NF2NvCyy17izAigPXZFqI/GgCelNbYKR2rFRY8W3yRW7NcUO4n3kl0PRJB3H jQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M+2X0JzZzsnHRHgXINMMFFu6uo//+HMRucI6ZhjmwWI4t2Vuvlw2FjjRz6JHSUf1TviYx4QBBPLqvz9QlpxfvL+H5DQEzvN98Oth5X+04dHPpzh2ZemgzpcwyuNyLyloI7fj5+NCiIS0lTVESGW4iOJ11dZo7osI8RJ8obZFaaWGBC1g2Zb/NSuNkxyZ42hnNtT9vB9OXPVEn4qXsdDMNcaiNvsYLo1qZ3bgZwbVTIT0QBUmKle/4VTGo+5XmRuBETgepR/eu9+hg7POG7hO3DgVFtqtnm9SEOU0U6OEspM6dpr4hvACNwBBtw4YBZwniuctyNvSEt5LfcDAhAth6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b6wO/3pdjGedZMm568xlqM2fZJwXioknbMs8JiVAnn0=;
- b=Tw99YD/ZMNKXaDiFzBMI3tBAjrPS6qOqJTHweiPqxapiO3ra7NY1IQVb+onptM0/NXYNZgA2EmaLgM3MeyHWD2Df0LmyWY/MEtNaJq2emvp2M50bglGWUV8ZSTFg7WiqF+SIdqgVjQJXsa2sGW9fDcQ9SAkgxs4vz/HF8kZoLiushu0cg6zvYlcM1Rdt56sJ9HCVw+8lFFhQzFqHQdTWTDNCBZ6PVS1KX9yYeu0u8BxSVH3iibcBup8rH+ke++ow+hyStFvM5hw/iEQ2mVpOm4ZiaWO2fPtqMWC+KoE+SG5/QJh2SLOR7l1bskf2UjYjFF/VfqGziRr1QVAemZDGyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b6wO/3pdjGedZMm568xlqM2fZJwXioknbMs8JiVAnn0=;
- b=oVgw7SnTwaZ5+aDT4BAGkZO5zkV5kLLl1DjDPvjou4QJDHlCJRDp0BvT04L6ALf3fa6HCX1FchAfpLBl4UY/Tf4psshlrIqtBevtcsaXNUMEvgVzJALwqlC+H+dttcy6nCxmO5fJwqteyFOrdo6T+WkYaLTvAW1FUhbCJsCx0No=
-Message-ID: <f396712e-f567-f4f9-7b2b-a67b528e1939@oracle.com>
-Date: Tue, 26 Jul 2022 19:31:33 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.11.0
-Subject: Re: [PATCH v2] x86/xen: Add support for
- HVMOP_set_evtchn_upcall_vector
-Content-Language: en-US
-To: Jane Malalane <jane.malalane@citrix.com>,
-        LKML <linux-kernel@vger.kernel.org>
-Cc: Juergen Gross <jgross@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        "H. Peter Anvin" <hpa@zytor.com>,
-        Stefano Stabellini
- <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Maximilian Heyne <mheyne@amazon.de>, Jan Beulich <jbeulich@suse.com>,
-        Colin Ian King <colin.king@intel.com>, xen-devel@lists.xenproject.org
-References: <20220726125657.12151-1-jane.malalane@citrix.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20220726125657.12151-1-jane.malalane@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA0PR11CA0130.namprd11.prod.outlook.com
- (2603:10b6:806:131::15) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: 8973a7e7-0d40-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1658880634;
+	bh=ERe/UoPccwHe1lujJO8w2fdoWuNzcQ22xInflxw3VrU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=OZoyd5Sv3L2P4ZILtptpRRgSTmX3QKllHNCSJeb5IX8ABZGnUn1Dmj4h+5svCTFOX
+	 yBpSo6hzvDlB6b3VcJUttuBmQxLTbCunhN2C8vv2BibDHwRw7Rgo2LyM7LFpXnFHOJ
+	 m8omy3eTWtJQiSl77RDUIT4lZraEAzor8VLe7YlENnQaycvk/gaxT2FHhufLiNVb1M
+	 5fdqLWPQxaM0MRt7Pd6wg1fElqI/c9mbsI826hGR8JLET5DNlFeaHSU2K0v5mJi9zj
+	 KV2VjsWCitr5AruRgzVKKewW2e0mnix9BqdQIfxV/8SdRKre2nVmGNq009+V84rvzp
+	 HubHPd3BbcM9g==
+Date: Tue, 26 Jul 2022 17:10:32 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    xen-devel@lists.xenproject.org, Xenia Ragiadakou <burzalodowa@gmail.com>
+Subject: Re: [PATCH 3/4] xen/arm: domain: Fix MISRA C 2012 Rule 8.7
+ violation
+In-Reply-To: <981e2fb9-6f99-2113-86ab-f3da860b74b9@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2207261704400.4648@ubuntu-linux-20-04-desktop>
+References: <20220705210218.483854-1-burzalodowa@gmail.com> <20220705210218.483854-4-burzalodowa@gmail.com> <115c89bc-259e-8ca1-5533-49c98f637a0d@suse.com> <3f4c9270-56e5-f9fe-6de8-01c997ad2ddb@gmail.com> <910119aa-69c6-6736-49f1-3b51da1c4fb0@suse.com>
+ <e0a05c63-dc0a-6898-3e73-c327ff7514e2@gmail.com> <d4002ba3-e5b2-b732-66fb-ad6d674afe25@suse.com> <e0b98949-8bb4-5c58-1e96-0675a144694e@gmail.com> <99d585dc-9bee-b0a1-7f5b-db67b2ea0944@suse.com> <8522a9aa-e7f5-9b8a-5a8f-4c6d1403317b@gmail.com>
+ <alpine.DEB.2.22.394.2207251727470.4648@ubuntu-linux-20-04-desktop> <981e2fb9-6f99-2113-86ab-f3da860b74b9@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0123e62b-c3ef-4dbe-75ae-08da6f5efc3a
-X-MS-TrafficTypeDiagnostic: CH0PR10MB5260:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	XvWQC2Az8/IdCmk2GttLKMkToRrHZpqOehE89Qf3X4mQ8MfJUPq1bA3DQ7yufvWITg56UsNXAuXhf/11wWVcIdMsCsgmPlaYGNci5Krncy+p9dr439DKAi0hFU1zUJQJ43Ca3zj6aCc6I3oMWQIgATx/x636npFw56cGZWV2Z5cZCbMsQwsEesMP/DkpMz6IlAyCA92r8V7By+imGydq+UtZpXl1ZdhHf8u8QSTPFDPpdjHOp7iwSRbc9IXF+Qh+hLCiKT6uVH7s9wJ2w8h7kTay3KTp+e2soBzgH3svHXhRDo82Mv8C2d8eJfvP28EOPp68CnxO62ijEl2GEarDdXtKQQ1xZfqiaV8plTZ+ApS7yzbbLG0arfaneWST3OYL4IgNgSVLChyBu1KBliHHOwNHpFlawVgWhL1ZlaHTsu8PuYVpeS9a2/XUD9SGbO5fS1aS6sNzTwBxwT4Q7DXBWlKrUlXK+euGyvSSZoB6XB5nJTkjiCb/doBgSWfx/54x4erosae/r7mmCWDNBxw/ObyE/nEsIhD7UKrJ9psPtPtpynHh8IXYWzq8Mbh3CQQujqQteiBxxEHCcWedKOHvZPo1dEAAORBdoWpBWaucF9s3rVnXZtZpE5fmycZmGUb/Yq5IzyZd5yKGm/ic/tiQ4Fdrv/r77HUBlcBD3Mrj/6Wasf29HCR6MeFH8Cp94t1yOPci+r9Z7miihscdQ/KxO8ffpquCmGUSlqMtX/crb094j6bMwd5Z7R07J1RYcnLT+lX+9UDzJQaBM5LFQsT4bQ7QRC23jSGMnRTh8KKk2y0xzQfI4vOK1j5upUkKpKoNpk7rhRxPczrbQ6pdNmqggg==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(346002)(376002)(136003)(39860400002)(396003)(366004)(6506007)(41300700001)(36756003)(6666004)(38100700002)(186003)(2616005)(54906003)(316002)(31686004)(2906002)(110136005)(86362001)(31696002)(4326008)(66556008)(8676002)(6486002)(44832011)(53546011)(66946007)(66476007)(7416002)(5660300002)(478600001)(8936002)(6512007)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?SjE5cjN3UXFxd2FHOUd4dGVEZHZVdmltK1NoWHV5MVozdGJRVzBINnhoY29R?=
- =?utf-8?B?ajlXR3MvdXlaOCtaN3VLaitNRWpueU1jd29OdVF4RFhML2tLeHNwOWtFVmdr?=
- =?utf-8?B?bldGUEdlV0tORWFiMUF6aXUxSzBOOVhXRVRZc1llQWl5VVE1ZG1CWHNKelo0?=
- =?utf-8?B?RnRwUHV1emdjK2FXWkc1ZThPenkrRkpJY3NDSWhSSnJySkt4aUluSGk1S0tV?=
- =?utf-8?B?UHFlUmNIa09aYjdnSzUzTUZWRXNab25KYkNCZ0txRlphK1BXSHpOcVNoVHFt?=
- =?utf-8?B?RmY4cUpqRTY0UGd5eVlsODY0ZVIvLzk5RzNqT1ordFFRc2tOelYvUFdPajY4?=
- =?utf-8?B?QXlPa3FZbVRySFFIams4WHpZdWdQOU13OERoRUZTOEk4YzNJVTNxVDNVS2JF?=
- =?utf-8?B?bko3dlZ3MnBvcWkzcTF3Qm95SDNMeXJ6cGN3N3JoUlh2TFlRc2swYmY2Rmsy?=
- =?utf-8?B?eUJKbU96K2tRY0FOQi95b21nMm1KZ1BtMk9mYm14Nm9EZ0tsdEpyMlBLbjBK?=
- =?utf-8?B?R0lGQjlGaG0zQWFkNUFWbGZCR2tXOStFemM2R0pTUnBHNmMxdzhDNHdNWmNY?=
- =?utf-8?B?RXBpZTlOdzBzR3d6OEMyS0NkZmlZT0hkY3ZuUVROZ3ZjWVdKVWZaOEU3ZGQ4?=
- =?utf-8?B?ZjdLczU5QkJodUY2YkppYlViaGJpQkFraE5jUnJBdDdMaVZxcXRCRG55V2h5?=
- =?utf-8?B?ZmpLdmg2eXJ1WkNuQXJXTUdqS1BGVHJsQW5ZZk53MFp6dVhvMk1mcW5QMDVt?=
- =?utf-8?B?RFZOeUVDQ1FhOGtJQ0dNeVRNdkdyOVNabWNoRS9oZHQwQWE5MjZON0wzNlJP?=
- =?utf-8?B?MFdPcnp5TDBnQjdUeGxMODNDbThaWnhHNVVIaE4yWG0zYnowbkR0Mk92UUdY?=
- =?utf-8?B?R3R3TzYwY3lIV1JBcmo3U1NUcVQ0cVhRWHZBTW5uakZUOEZLYVMwa29IMjh6?=
- =?utf-8?B?dzYvdU9PREhXYmNETU0zTnRnS0JMR09sNlJjM1JWQld0S1FibG9IOHZPdmxO?=
- =?utf-8?B?L0JzNjVhZDd5MzZKUjhYai95WU5DTlNvUjFrc1l1K1FMQ0kyanZpOGFRN282?=
- =?utf-8?B?b1JUMzZVQ3NZSHpPVmNLMWczWnVWWmhjSmtGSjU0ZThhLzlYSjBWOElqY1Vn?=
- =?utf-8?B?RUl3aVNqSzRyMU11UE9EUVF0cXdIamJCd1dXd2Y3SmpLekV6TVZJS01FbEdC?=
- =?utf-8?B?R2ZwRUVLSUFaMWxnelVvblp2d052OXBYM3B3Slp3THYzZ0NYMTF2V3F1MkFo?=
- =?utf-8?B?RDhyK1R1ZEhQM1BvaTFUa2F3NnFTY1hnV1NzTDZTNEFINHBXakZCQm1KS29V?=
- =?utf-8?B?NkVCbjRRcTR1ZnFsOUE5M29tWDZnTkRkdkNPOGdjanVmbUF2VmI5Y2pONHl3?=
- =?utf-8?B?TW9JUEFvZXNoS2xtTm1LNWxLYkx5dWh2NmY2cURyNWUwdjM3Q0F6Q0ZHZDdm?=
- =?utf-8?B?SW5JTGhiSFd2cEk0ZWhhcGszVHQ2YUNHcE95ejVxZ1Q0WEIzRG1wWnJNMlRD?=
- =?utf-8?B?UzAwcGdldVBYS0N1SG0yMVdWeWJ1UUV4bFlMc2w4enRFT2RaMlptb2xrSHow?=
- =?utf-8?B?ei80T3NGRG9pOXFzVFpSZExyUXJBY1dMdkwxNWtOVlROUzdtQ2NCMDhoUHFP?=
- =?utf-8?B?Nm9RaU9DYmthQ0lSZkdxV0RVV1RtTVZsTnlUbDN2Qy9FRmlDVEdESXlEQzk5?=
- =?utf-8?B?ZjRlUnJWdG9QeTVLZ3poU04xcE4vZnZkT1hXbzg2RVpTNjJRSEdmVTNndG9j?=
- =?utf-8?B?OFpOTzM1ZHRqeEIzejhUUStwRUYrK2w4OVdwTmVxdHEwazl3N1lJKzZsRnNQ?=
- =?utf-8?B?SStSRjVtVmw0TG44YU9NdHROWWg1Vm9RSkNpYzRXUmtJQVVESEhIYWFUeElv?=
- =?utf-8?B?M2prYndSTE9Selp0NnVSbnE4Y0dFdDhHZWlOaEd1SzBnN3gvMEh1RnB2alBE?=
- =?utf-8?B?Y2dwOG12UHVQWmtidjNtd0FCSEpyRG4zNk1hVjBtT1dVYWJuT1JXSkZvV2dz?=
- =?utf-8?B?eFA5eXhIb2kxS3daT0s4Y3RVNS9SYzNpVjFodkwzaXZjbjhpK2tDT053MHBs?=
- =?utf-8?B?YnNRcnlJaUg1dWlmcHFlM1hmMHp6enJ5NVpiQzB3TG04TUVuVFV6NzYxV3d0?=
- =?utf-8?B?NWdFVGtmWmtKRzlNZ2VDKzNQNDhncm9IZG5Bd0dJaXM5U0RnMmEyWXhrOVV2?=
- =?utf-8?B?VWc9PQ==?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0123e62b-c3ef-4dbe-75ae-08da6f5efc3a
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jul 2022 23:31:37.7363
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UkxT0vvuYbbA0d9A+baZevCP+EUoo7tuHTlT4EFGQ9sNvVrOhkTDwWFj0cM6fD8e0SyotLKiBYB3WTj0hg6v/RI9WaeY78vGYEhHqplQfMM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB5260
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
- definitions=2022-07-26_07,2022-07-26_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 malwarescore=0 phishscore=0
- spamscore=0 mlxlogscore=999 suspectscore=0 bulkscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
- definitions=main-2207260089
-X-Proofpoint-GUID: Ul6hWfnwxE-yWm59F8N7TnJNRPUNyOHC
-X-Proofpoint-ORIG-GUID: Ul6hWfnwxE-yWm59F8N7TnJNRPUNyOHC
+Content-Type: multipart/mixed; boundary="8323329-26634204-1658880634=:4648"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 7/26/22 8:56 AM, Jane Malalane wrote:
->   
-> +/* Setup per-vCPU vector-type callbacks and trick toolstack to think
-> + * we are enlightened. If this setup is unavailable, fallback to the
-> + * global vector-type callback. */
+--8323329-26634204-1658880634=:4648
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
+On Tue, 26 Jul 2022, Jan Beulich wrote:
+> On 26.07.2022 02:33, Stefano Stabellini wrote:
+> > On Mon, 25 Jul 2022, Xenia Ragiadakou wrote:
+> >> On 7/25/22 09:32, Jan Beulich wrote:
+> >>> On 24.07.2022 19:20, Xenia Ragiadakou wrote:
+> >>>> On 7/7/22 10:55, Jan Beulich wrote:
+> >>>>> On 07.07.2022 09:27, Xenia Ragiadakou wrote:
+> >>>>>> On 7/6/22 11:51, Jan Beulich wrote:
+> >>>>>>> On 06.07.2022 10:43, Xenia Ragiadakou wrote:
+> >>>>>>>> On 7/6/22 10:10, Jan Beulich wrote:
+> >>>>>>>>> On 05.07.2022 23:02, Xenia Ragiadakou wrote:
+> >>>>>>>>>> The function idle_loop() is referenced only in domain.c.
+> >>>>>>>>>> Change its linkage from external to internal by adding the
+> >>>>>>>>>> storage-class
+> >>>>>>>>>> specifier static to its definitions.
+> >>>>>>>>>>
+> >>>>>>>>>> Since idle_loop() is referenced only in inline assembly, add
+> >>>>>>>>>> the 'used'
+> >>>>>>>>>> attribute to suppress unused-function compiler warning.
+> >>>>>>>>>
+> >>>>>>>>> While I see that Julien has already acked the patch, I'd like to
+> >>>>>>>>> point
+> >>>>>>>>> out that using __used here is somewhat bogus. Imo the better
+> >>>>>>>>> approach
+> >>>>>>>>> is to properly make visible to the compiler that the symbol is
+> >>>>>>>>> used by
+> >>>>>>>>> the asm(), by adding a fake(?) input.
+> >>>>>>>>
+> >>>>>>>> I 'm afraid I do not understand what do you mean by "adding a
+> >>>>>>>> fake(?)
+> >>>>>>>> input". Can you please elaborate a little on your suggestion?
+> >>>>>>>
+> >>>>>>> Once the asm() in question takes the function as an input, the
+> >>>>>>> compiler
+> >>>>>>> will know that the function has a user (unless, of course, it finds
+> >>>>>>> a
+> >>>>>>> way to elide the asm() itself). The "fake(?)" was because I'm not
+> >>>>>>> deeply
+> >>>>>>> enough into Arm inline assembly to know whether the input could then
+> >>>>>>> also be used as an instruction operand (which imo would be
+> >>>>>>> preferable) -
+> >>>>>>> if it can't (e.g. because there's no suitable constraint or operand
+> >>>>>>> modifier), it still can be an input just to inform the compiler.
+> >>>>>>
+> >>>>>> According to the following statement, your approach is the recommended
+> >>>>>> one:
+> >>>>>> "To prevent the compiler from removing global data or functions which
+> >>>>>> are referenced from inline assembly statements, you can:
+> >>>>>> -use __attribute__((used)) with the global data or functions.
+> >>>>>> -pass the reference to global data or functions as operands to inline
+> >>>>>> assembly statements.
+> >>>>>> Arm recommends passing the reference to global data or functions as
+> >>>>>> operands to inline assembly statements so that if the final image does
+> >>>>>> not require the inline assembly statements and the referenced global
+> >>>>>> data or function, then they can be removed."
+> >>>>>>
+> >>>>>> IIUC, you are suggesting to change
+> >>>>>> asm volatile ("mov sp,%0; b " STR(fn) : : "r" (stack) : "memory" )
+> >>>>>> into
+> >>>>>> asm volatile ("mov sp,%0; b %1" : : "r" (stack), "S" (fn) : "memory"
+> >>>>>> );
+> >>>>>
+> >>>>> Yes, except that I can't judge about the "S" constraint.
+> >>>>>
+> >>>>
+> >>>> This constraint does not work for arm32. Any other thoughts?
+> >>>>
+> >>>> Another way, as Jan suggested, is to pass the function as a 'fake'
+> >>>> (unused) input.
+> >>>> I 'm suspecting something like the following could work
+> >>>> asm volatile ("mov sp,%0; b " STR(fn) : : "r" (stack), "X" (fn) :
+> >>>> "memory")
+> >>>> What do you think?
+> >>>
+> >>> Well, yes, X should always be a fallback option. But I said already when
+> >>> you suggested S that I can't judge about its use, so I guess I'm the
+> >>> wrong one to ask. Even more so that you only say "does not work", without
+> >>> any details ...
+> >>>
+> >>
+> >> The question is addressed to anyone familiar with arm inline assembly.
+> >> I added the arm maintainers as primary recipients to this email to make this
+> >> perfectly clear.
+> >>
+> >> When cross-compiling Xen on x86 for arm32 with
+> >> asm volatile ("mov sp,%0; b %1" : : "r" (stack), "S" (fn) : "memory" );
+> >> compilation fails with the error: impossible constraint in ‘asm'
+> > 
+> > Unfortunately looking at the GCC manual pages [1], it doesn't seem to be
+> > possible. The problem is that the definition of "S" changes between
+> > aarch64 and arm (the 32-bit version).
+> > 
+> > For aarch64:
+> > 
+> > S   An absolute symbolic address or a label reference
+> > 
+> > This is what we want. For arm instead:
+> > 
+> > S   A symbol in the text segment of the current file
+> > 
+> > This is not useful for what we need to do here. As far as I can tell,
+> > there is no other way in GCC assembly inline for arm to do this.
+> > 
+> > So we have 2 choices: we use the __used keyword as Xenia did in this
+> > patch. Or we move the implementation of switch_stack_and_jump in
+> > assembly. I attempted a prototype of the latter to see how it would come
+> > out, see below.
+> > 
+> > I don't like it very much. I prefer the version with __used that Xenia
+> > had in this patch. But I am OK either way.
+> 
+> You forgot the imo better intermediate option of using the "X" constraint.
 
-Comment style.
-
-
-> +static __init void xen_init_setup_upcall_vector(void)
-> +{
-> +	unsigned int cpu = 0;
-
-
-Unnecessary variable.
-
-
-> +
-> +	if (!xen_have_vector_callback)
-> +		return;
-> +
-> +	if ((cpuid_eax(xen_cpuid_base() + 4) & XEN_HVM_CPUID_UPCALL_VECTOR) &&
-> +	    !xen_set_upcall_vector(cpu) && !xen_set_callback_via(1))
-> +		xen_percpu_upcall = true;
-> +	else if (xen_feature(XENFEAT_hvm_callback_vector))
-> +		xen_setup_callback_vector();
-> +	else
-> +		xen_have_vector_callback = false;
-> +}
-> +
-> +int xen_set_upcall_vector(unsigned int cpu)
-> +{
-> +	int rc;
-> +	xen_hvm_evtchn_upcall_vector_t op = {
-> +		.vector = HYPERVISOR_CALLBACK_VECTOR,
-> +		.vcpu = per_cpu(xen_vcpu_id, cpu),
-> +	};
-> +
-> +	rc = HYPERVISOR_hvm_op(HVMOP_set_evtchn_upcall_vector, &op);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (!cpu)
-
-
-A comment (e.g. "Let toolstack know that we are enlightened." or something along these lines) would be useful here.
-
-
--boris
-
-
-> +		rc = xen_set_callback_via(1);
-> +
+I couldn't get "X" to compile in any way (not even for arm64). Do you
+have a concrete example that you think should work using "X" as
+constraint?
+--8323329-26634204-1658880634=:4648--
 
