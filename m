@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C66F35826B3
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Jul 2022 14:33:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.376151.608728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DFF65826B6
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Jul 2022 14:34:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.376156.608739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGgDt-0004kx-HN; Wed, 27 Jul 2022 12:33:09 +0000
+	id 1oGgEf-0005Il-Pj; Wed, 27 Jul 2022 12:33:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 376151.608728; Wed, 27 Jul 2022 12:33:09 +0000
+Received: by outflank-mailman (output) from mailman id 376156.608739; Wed, 27 Jul 2022 12:33:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oGgDt-0004iP-Dm; Wed, 27 Jul 2022 12:33:09 +0000
-Received: by outflank-mailman (input) for mailman id 376151;
- Wed, 27 Jul 2022 12:33:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oGgEf-0005Fn-MN; Wed, 27 Jul 2022 12:33:57 +0000
+Received: by outflank-mailman (input) for mailman id 376156;
+ Wed, 27 Jul 2022 12:33:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oGgDs-0004iJ-Ng
- for xen-devel@lists.xenproject.org; Wed, 27 Jul 2022 12:33:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oGgDU-0004ih-79; Wed, 27 Jul 2022 12:32:44 +0000
-Received: from [54.239.6.186] (helo=[192.168.6.7])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oGgDT-0008Pi-VU; Wed, 27 Jul 2022 12:32:44 +0000
+ (envelope-from <SRS0=C2cV=YA=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oGgEe-0005Fd-JG
+ for xen-devel@lists.xenproject.org; Wed, 27 Jul 2022 12:33:56 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr20068.outbound.protection.outlook.com [40.107.2.68])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 60e3abc5-0da8-11ed-bd2d-47488cf2e6aa;
+ Wed, 27 Jul 2022 14:33:55 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by VI1PR04MB6941.eurprd04.prod.outlook.com (2603:10a6:803:12e::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.25; Wed, 27 Jul
+ 2022 12:33:53 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::d4c4:d01d:5d39:920c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::d4c4:d01d:5d39:920c%7]) with mapi id 15.20.5458.019; Wed, 27 Jul 2022
+ 12:33:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,204 +46,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=E6+gj7hdT4Zrz9hBQQ/b6zaYk6fh+BZKunB47YG96+k=; b=OCAUvZFu5ee5MYoUnfUBLlXn0o
-	2TC3qv2dP8aUNapSne3agJCSYl1uC90+RCFSpxZZlb5BD5J7s6Fn9Ed3aB0biUnIt4hy+Iv53ZtQD
-	Qq18ySSH64SAAQ2Da6lCkEeHTMdJZ8aQNlQGlVIsaxoAYEVxn58NPsuf9CKLuFYFtbv4=;
-Message-ID: <51ba135e-a105-036f-b891-e7d9e1bb607d@xen.org>
-Date: Wed, 27 Jul 2022 13:32:40 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.0.3
-Subject: Re: [PATCH v2] x86/xen: Add support for
- HVMOP_set_evtchn_upcall_vector
+X-Inumbo-ID: 60e3abc5-0da8-11ed-bd2d-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AHg57wS0xtWa7LB052MMoDhA/4RM7arqWEbW0cW5TxnxdVnEk1Dwjsy60AGqBF5AU6/c3nxYJOGJ7FobWwyWeuqHzwzX8SJ12/67HPAxy9jB7v4ottYSY15XalcrTXB4cdAiyJHihVX9WV93eQ2FPub/CG9mRfg5UDC6pPRd7WmWxqU7rDsRqw3NXvnjFwFU4u1qFjBLdayj/fqH0YOoXbuRJ4O/GIqjtvpyzT/ThtCDRYOelULGh15Iq/Yd0IMmRHXH5k9e2H7cuITgfz6TqnfMWRKlLDdOZNubk+uX33l1T9HwIKGQyRXjgeLIURJwZosDhphNNHeRFuSdnM5kCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OH8u1EK+MWbdCTuijn8lnPbRejOugNUpmf0KVQdhE9k=;
+ b=I2qE/nOzR9qBqj+CBP30JMcu5Rg0kE+W7VeTzBy0XOVAfOnbNs/oDjwR6McFBtAZPEB/k8mKhC4t7+Q5IrODZuhG1Ggt0EHvRoB5LoE7acMWhjCJHy55Xz1HCZim2vI6DDGFH9iu57lhUBaL9/5HB8vLPOCNHlcWH8dhXb8AWTgJMflqDtATIdPS7fkFpDCSE/r44AO1McebMB739flTZ+PZnzR4bgO6pQjqmPykmzTJjatgpBiOsokc0KAB3jxmDYKu1NxOA1VRFr9XztJ8K8oTqtRRic9aEGJqrO6FXQY7GAIAIwbjmk340sQ9GGSGC1SSsWZM+vxHJuPfF0hc7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OH8u1EK+MWbdCTuijn8lnPbRejOugNUpmf0KVQdhE9k=;
+ b=Za5QaEMjqgBTDZEhcpxiE0nPTY3b5uMMLHA8tI7CpKIx4MTUZphfuT8S2zOB5uKPbfThy+ctqPGWt+Uk6rVMFvoliYaFfnTde773Lv8TCcZP8U3Rf7ZkbHAZv0tlYMie13lVCLO6JFmOxLzkJ9dXOe1PkdMl0LrBiNaXIydlg01ffsQEoNSo0KRnGAZZnFWHuNn334hOAuO8V5/kainhOPK0vgG1Tb0Bh8/EO1S7u0aTYt79EZgiB+1vLdVEtUjpza16JVYM6l5R3JPcDP/b4/MeGhVAERkiPwgOv2VUJFEBNSGbZqQFX5l46Re+pmT4KEQCC6i6Tc6y0K7RGW+pnA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <266606f5-dad6-a1dc-b4f7-96a81152e08b@suse.com>
+Date: Wed, 27 Jul 2022 14:33:50 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v1 13/18] x86: generalize physmap logic
 Content-Language: en-US
-To: Jane Malalane <jane.malalane@citrix.com>,
- LKML <linux-kernel@vger.kernel.org>
-Cc: Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Maximilian Heyne <mheyne@amazon.de>, Jan Beulich <jbeulich@suse.com>,
- Colin Ian King <colin.king@intel.com>, xen-devel@lists.xenproject.org
-References: <20220726125657.12151-1-jane.malalane@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220726125657.12151-1-jane.malalane@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: scott.davis@starlab.io, christopher.clark@starlab.io,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+References: <20220706210454.30096-1-dpsmith@apertussolutions.com>
+ <20220706210454.30096-14-dpsmith@apertussolutions.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220706210454.30096-14-dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS8PR04CA0084.eurprd04.prod.outlook.com
+ (2603:10a6:20b:313::29) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9c298e56-fef7-4223-52ce-08da6fcc4397
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6941:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	zljnZjvhQvwPP1di/UNLq5jqkL7F+rpjgLtJffTZn+9B2QM/OrfWeGkqipH9NMWMGo2h7td6pNOaKaYKxvX7QTpk9a8y8fXtddOkxjldbkKX+1MZwEOovP4ev8VcLz4Z4MsIBhXS0b+eDPOdYbD8f62IRjV/kYoDQnl2Xbxr+uOFJsQj2Ni5gFCx6VSkfHGz49cIgGTuIe/oTBacnacZGWoNZOVytTlKeeMaHWCXWpkfb7JVpJtMmFSkakXU/twBAa986RuNNx0W3K6S6rHhezUuygA+xnn5XII6j/35zzCmdfu4YpF9A995qQ9gw1dY9fuD6lY2H+ASQa71mozsL8Lg91lPIpIrfLa6WC2n4GaOSxfRoAs1aeuSk3xde4cx7CwixJWHGPvjQIq/xsfzgiBHRIjhkBMNDCQdFbAwapC0Eh36RCx/hATjuZjQDnP/W4FOeNJOdlJVDWgnptsCsUH8KE/X0/vhtCrZHfFNLFlB/tesRuKrEeYU61H6vGJf74nqBsIzSikAzHQzMGla+GMrzs/+mDrdg8wwqwX//sqnNPdo0CBYeoD7WwjMawnXtMcFI3bTNcQmrRqiAkU4dlKqNcW5B8xyCGP940J/ZIFnZEZn2rblQCnv4wovfV73GqDtK7noIw5QfbgG4GptB9IFJNaoHcUdvz3e48tkZypiqCFSUDCXmag1K5q4gFvh9DQus/Xv5C6/bvM6pwvBsXnj90MFZ+TCXq32jsG32Yc9PhEmaPXvlrarYyGhBdvy5OwsnepGlieJnlQN49k+vDu2Idfhdqk6AOYLSmHN4wNi6bSCc28fjtK57zL0A72ot50IlltwWj9ZkI2M+JkR6g==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(39860400002)(366004)(396003)(346002)(136003)(478600001)(6512007)(31696002)(86362001)(6486002)(41300700001)(38100700002)(6506007)(26005)(53546011)(83380400001)(2616005)(186003)(8936002)(31686004)(54906003)(36756003)(66476007)(5660300002)(2906002)(4326008)(8676002)(66946007)(66556008)(316002)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZlcrNE8xYVpsWCtxSm9XTWxHMUIwL05td2dIbUVIWUZ0ZXhhRVgvREdPS1Yx?=
+ =?utf-8?B?Zlg0N1k2bzFQWTVCenJJcFovOXl3cnJpMUVlU00zUjlkaHhVVjZjeW5IdWJO?=
+ =?utf-8?B?aTRNejZYbmFYMUQ1T2dzOC9pNVpGdUZ1SFFUanBPbDc0VWhDZ2p5YUxyZU9x?=
+ =?utf-8?B?aDYzVzdKRC9zTkxvVnR2Qkh5aU5xUFFtSU9JanZKaHFER3NpcWpzN3h5RXBH?=
+ =?utf-8?B?UHJncDd1dXNVQm5xMzQ5UXFUN3RqMWZ2bUYyT2RpMnQyNFpYV284VWNmMDFx?=
+ =?utf-8?B?Slg5WmdWejB6MDB6N3lJVk1qeVY4NGt5akptdnJhVHhXQmNNVXl1aGlJb2Iv?=
+ =?utf-8?B?ZGZmREk4MHlwMW1WZ3FKRGhOYXZ5RHJGMXIwRzJlVXlRZ1FnNm11SUxqRkZU?=
+ =?utf-8?B?U0V6WmZ0RmpZOFBqamw5V09VK21iQk1hc3lWaDQrTUtQVU9ZaTRMckVHYWY5?=
+ =?utf-8?B?alNYZytsRVJNdTkxVnk5MWo0NEw0cVd2ZFlESExKbUYwR21NUzFldExCcU1z?=
+ =?utf-8?B?dmNycHZSUHhUbG5xVjRyak92YkRzQUszNkZ1N1FmUDVNeDJPTCtjbWpnN01H?=
+ =?utf-8?B?aTIyZkdWQzFpOHRCM1k2S1pDck8xVGVsV0NzTnhrUml0YTFtZ0ZHcmlERFlM?=
+ =?utf-8?B?MVZVZHRkUDlPOW9CT1M4cElsdlBRQ3B5S1pmblNQRGIyNlhlR214Q2doek1B?=
+ =?utf-8?B?amVQUjI0TVU5N0tsQ2JIQlB0SDUvcE80UzJsSEZxM2pId1U4MFdwbXd6MjdN?=
+ =?utf-8?B?VzR5ZWtoa3hrbDVFd0lheWJzdzJkdHRDbDRRTFJZZ0pZRGpveGVrMndIVmdQ?=
+ =?utf-8?B?Vk9oMHMxckJKWWN6RlhRSHc4dVlaUnZmbVhYNWhoVFZUQUJoWExYMHkzSmRB?=
+ =?utf-8?B?em4vdGE5cnBmRGhLOHBramJobVkvQzhnZDJKZEdsOWJnMWxXcTkzNGJwV2ln?=
+ =?utf-8?B?VmZuT2FRQ2JBaFI0U0c0VGVkUmllN1BaYWdUS293WVE4dFlma0FyVU0wajdJ?=
+ =?utf-8?B?LzZwMXREVmdmQ1RZcWpKdDk0dGRHVnBNV3gvb0VCQVBPNjhXMk9nZUVLTWt5?=
+ =?utf-8?B?cEtsL1NJRExMY0hzMitwRWVTdjBHS0swUHZzdVZSQ3RyWmtZNS9qaDZNSEMr?=
+ =?utf-8?B?VWlBdFNLcEoxd1dMd2pwWHVGRUQ1MFZ3VXlRVkUvOHU4TW9INnYvMEFTc0pm?=
+ =?utf-8?B?aUdVUXRlV1FDNkhHZzUySVlyMFlhWXovRW9KYlE4TDErV0tmL2RJUlphZ3ov?=
+ =?utf-8?B?VEI2RTlrM2lSaEpaakdkeGZVNGJkbGdsNTZzN2FYWi9OZkg5cWxBSWVSOXBs?=
+ =?utf-8?B?QUhtUFg1UXkrWCtyYWFjMUVrQVI1a3NncDcwQlY3UHJYM0Y4bWRiNEtWY3hB?=
+ =?utf-8?B?aTVUUlRwcERIamZ6NEV5bzRuVThhY1kyRmswS0M1eWxsUk9OT2Zhc3hOUFNs?=
+ =?utf-8?B?MExPek1tUndid1hlZ3hyK05uMVYzaVhsYW9taDFnb2YzekhuUWhDcVJnYklt?=
+ =?utf-8?B?bFgyajBCaDJIeXN1bUN2TnZVU0lFRFFzVmVaVWtoY0VTT1J4clBJT3dpd1Z4?=
+ =?utf-8?B?czVUMUZQN3ZZOEpNb256V1BaRGd5OGFWeE8xdnl3WmZWMDQwM3pYeDFQTnNI?=
+ =?utf-8?B?Mmk1WlBFRHNvcURUOEJhSDRrTmk4L1l2Nlg5WHJhVzZYejBObXM3VXNCWnV6?=
+ =?utf-8?B?NWJ0NEdLN2RoZGhrYThVMEdXb09YdkE1K3JkRUUvMEo0RnpINzV2cXBmSWZn?=
+ =?utf-8?B?K3BtbytGOFpNR2QreXVBcW4xYkRpdjlXUmcyYVpPUlJ3bEJqQitJL3JxTFRF?=
+ =?utf-8?B?Z01NVVROOVhMaitkR01UbWxVNTRxVjhJeE50bzlNUHZMcGkrdlRoaHVXM1lF?=
+ =?utf-8?B?d1UyKzhNMXg5Q0gydFNYYUJFNWljSFZ5VUErNTI4dzJOc0dnbmNlZkdQMWlz?=
+ =?utf-8?B?ak05VHR2NzhtTVFpZ1B6TC9CSlJnY1M2VFlTejA4MG8yYlF1RnFvckFXMS9E?=
+ =?utf-8?B?elRGeGNwelN1QzQvVE1pM3lYMEJnY2Y3c2dvWWlSRWJHekMzd0d5bXNJK3pQ?=
+ =?utf-8?B?UnU4Nzlvb1VvN2JlNEIvTHlhalFsTm8yV3o0NDhPVmRIbFdLSmVEZjBzNVA2?=
+ =?utf-8?Q?o/b+co/Sa5wnoRXG8BihKfvqB?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c298e56-fef7-4223-52ce-08da6fcc4397
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2022 12:33:52.5754
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Lqd78RV5qhmgKj0kXCVhiiKXxVWKQUm7Jtt2rZHBMbA5639Njq4HcwBaHalJTjpma9A+gLMLb3PJmrAhnLMPSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6941
 
-Hi Jane,
+On 06.07.2022 23:04, Daniel P. Smith wrote:
+> The existing physmap code is specific to dom0.
 
-On 26/07/2022 13:56, Jane Malalane wrote:
-> diff --git a/arch/x86/xen/suspend_hvm.c b/arch/x86/xen/suspend_hvm.c
-> index 9d548b0c772f..0c4f7554b7cc 100644
-> --- a/arch/x86/xen/suspend_hvm.c
-> +++ b/arch/x86/xen/suspend_hvm.c
-> @@ -5,6 +5,7 @@
->   #include <xen/hvm.h>
->   #include <xen/features.h>
->   #include <xen/interface/features.h>
-> +#include <xen/events.h>
->   
->   #include "xen-ops.h"
->   
-> @@ -14,6 +15,13 @@ void xen_hvm_post_suspend(int suspend_cancelled)
->   		xen_hvm_init_shared_info();
->   		xen_vcpu_restore();
->   	}
-> -	xen_setup_callback_vector();
-> +	if (xen_percpu_upcall) {
-> +		unsigned int cpu;
-> +
-> +		for_each_online_cpu(cpu)
-> +			BUG_ON(xen_set_upcall_vector(cpu));
-> +	} else {
-> +		xen_setup_callback_vector();
-> +	}
->   	xen_unplug_emulated_devices();
->   }
-> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-> index 46d9295d9a6e..2ad93595d03a 100644
-> --- a/drivers/xen/events/events_base.c
-> +++ b/drivers/xen/events/events_base.c
-> @@ -48,6 +48,7 @@
->   #include <asm/xen/pci.h>
->   #endif
->   #include <asm/sync_bitops.h>
-> +#include <asm/xen/cpuid.h>
+I think this needs better wording. Either you name the function or you
+explain what piece of code you're talking about. "physmap" alone is
+just not meaningful enough. (Also applies to the title.)
 
-This include doesn't exist on Arm and will result to a build failure:
+> --- a/xen/arch/x86/include/asm/dom0_build.h
+> +++ b/xen/arch/x86/include/asm/dom0_build.h
+> @@ -21,7 +21,7 @@ int dom0_construct_pvh(struct boot_domain *bd);
+>  unsigned long dom0_paging_pages(const struct domain *d,
+>                                  unsigned long nr_pages);
+>  
+> -void dom0_update_physmap(bool compat, unsigned long pfn,
+> +void dom_update_physmap(bool compat, unsigned long pfn,
+>                           unsigned long mfn, unsigned long vphysmap_s);
 
-linux/drivers/xen/events/events_base.c:51:10: fatal error: 
-asm/xen/cpuid.h: No such file or directory
-    51 | #include <asm/xen/cpuid.h>
-       |          ^~~~~~~~~~~~~~~~~
+So my initial inclination was to suggest domain_ as a name prefix,
+matching what we have elsewhere. But when we're already giving the
+thing a new name, its PV-only nature also wants expressing. Hence
+I'd like to suggest pv_update_physmap(). And then please fix
+indentation of the continuation lines here and below.
 
+> --- a/xen/arch/x86/pv/dom0_build.c
+> +++ b/xen/arch/x86/pv/dom0_build.c
+> @@ -34,8 +34,8 @@
+>  #define L3_PROT (BASE_PROT|_PAGE_DIRTY)
+>  #define L4_PROT (BASE_PROT|_PAGE_DIRTY)
+>  
+> -void __init dom0_update_physmap(bool compat, unsigned long pfn,
+> -                                unsigned long mfn, unsigned long vphysmap_s)
+> +void __init dom_update_physmap(
+> +    bool compat, unsigned long pfn, unsigned long mfn, unsigned long vphysmap_s)
+>  {
 
->   #include <asm/xen/hypercall.h>
->   #include <asm/xen/hypervisor.h>
->   #include <xen/page.h>
-> @@ -2195,11 +2196,48 @@ void xen_setup_callback_vector(void)
->   		callback_via = HVM_CALLBACK_VECTOR(HYPERVISOR_CALLBACK_VECTOR);
->   		if (xen_set_callback_via(callback_via)) {
->   			pr_err("Request for Xen HVM callback vector failed\n");
-> -			xen_have_vector_callback = 0;
-> +			xen_have_vector_callback = false;
->   		}
->   	}
->   }
->   
-> +/* Setup per-vCPU vector-type callbacks and trick toolstack to think
-> + * we are enlightened. If this setup is unavailable, fallback to the
-> + * global vector-type callback. */
-> +static __init void xen_init_setup_upcall_vector(void)
-> +{
-> +	unsigned int cpu = 0;
-> +
-> +	if (!xen_have_vector_callback)
-> +		return;
-> +
-> +	if ((cpuid_eax(xen_cpuid_base() + 4) & XEN_HVM_CPUID_UPCALL_VECTOR) &&
-> +	    !xen_set_upcall_vector(cpu) && !xen_set_callback_via(1))
+Personally I dislike this further change to re-flow the parameter
+list, as I see no particular reason for doing so.
 
-xen_cpuid_base() is an x86-ism. This is going to build because 
-CONFIG_XEN_PVHVM is only set for x86. However, I think this is quite 
-fragile.
-
-You are also using more variable defined only on x86. So it feels to me 
-that these functions should be implemented in x86 code.
-
-> +		xen_percpu_upcall = true;
-> +	else if (xen_feature(XENFEAT_hvm_callback_vector))
-> +		xen_setup_callback_vector();
-> +	else
-> +		xen_have_vector_callback = false;
-> +}
-> +
-> +int xen_set_upcall_vector(unsigned int cpu)
-> +{
-> +	int rc;
-> +	xen_hvm_evtchn_upcall_vector_t op = {
-> +		.vector = HYPERVISOR_CALLBACK_VECTOR,
-> +		.vcpu = per_cpu(xen_vcpu_id, cpu),
-> +	};
-> +
-> +	rc = HYPERVISOR_hvm_op(HVMOP_set_evtchn_upcall_vector, &op);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (!cpu)
-> +		rc = xen_set_callback_via(1);
-> +
-> +	return rc;
-> +}
-> +
->   static __init void xen_alloc_callback_vector(void)
->   {
->   	if (!xen_have_vector_callback)
-> @@ -2210,6 +2248,8 @@ static __init void xen_alloc_callback_vector(void)
->   }
->   #else
->   void xen_setup_callback_vector(void) {}
-> +static inline void xen_init_setup_upcall_vector(void) {}
-> +int xen_set_upcall_vector(unsigned int cpu) {}
->   static inline void xen_alloc_callback_vector(void) {}
->   #endif
->   
-> @@ -2271,10 +2311,9 @@ void __init xen_init_IRQ(void)
->   		if (xen_initial_domain())
->   			pci_xen_initial_domain();
->   	}
-> -	if (xen_feature(XENFEAT_hvm_callback_vector)) {
-> -		xen_setup_callback_vector();
-> -		xen_alloc_callback_vector();
-> -	}
-> +	xen_init_setup_upcall_vector();
-> +	xen_alloc_callback_vector();
-> +
->   
->   	if (xen_hvm_domain()) {
->   		native_init_IRQ();
-> diff --git a/include/xen/hvm.h b/include/xen/hvm.h
-> index b7fd7fc9ad41..8da7a6747058 100644
-> --- a/include/xen/hvm.h
-> +++ b/include/xen/hvm.h
-> @@ -60,4 +60,6 @@ static inline int hvm_get_parameter(int idx, uint64_t *value)
->   
->   void xen_setup_callback_vector(void);
->   
-> +int xen_set_upcall_vector(unsigned int cpu);
-> +
->   #endif /* XEN_HVM_H__ */
-> diff --git a/include/xen/interface/hvm/hvm_op.h b/include/xen/interface/hvm/hvm_op.h
-> index f3097e79bb03..e714d8b6ef89 100644
-> --- a/include/xen/interface/hvm/hvm_op.h
-> +++ b/include/xen/interface/hvm/hvm_op.h
-> @@ -46,4 +46,19 @@ struct xen_hvm_get_mem_type {
->   };
->   DEFINE_GUEST_HANDLE_STRUCT(xen_hvm_get_mem_type);
->   
-> +/*
-> + * HVMOP_set_evtchn_upcall_vector: Set a <vector> that should be used for event
-> + *                                 channel upcalls on the specified <vcpu>. If set,
-> + *                                 this vector will be used in preference to the
-> + *                                 domain global callback via (see
-> + *                                 HVM_PARAM_CALLBACK_IRQ).
-> + */
-
-Technically this hypercall is x86 specific. IOW, it would be possible 
-for another architecture to define 23 for something different.
-
-If it is not possible (or desired) to surround with an #ifdef, then I 
-think we should at least be mentioned it in the comment.
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
