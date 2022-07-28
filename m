@@ -2,39 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 497A9583E02
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jul 2022 13:48:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.376763.609744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78571583F53
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jul 2022 14:54:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.376770.609755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oH1zx-0004wC-LP; Thu, 28 Jul 2022 11:48:13 +0000
+	id 1oH31D-0004TQ-IL; Thu, 28 Jul 2022 12:53:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 376763.609744; Thu, 28 Jul 2022 11:48:13 +0000
+Received: by outflank-mailman (output) from mailman id 376770.609755; Thu, 28 Jul 2022 12:53:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oH1zx-0004tM-Ht; Thu, 28 Jul 2022 11:48:13 +0000
-Received: by outflank-mailman (input) for mailman id 376763;
- Thu, 28 Jul 2022 11:48:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aTbt=YB=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oH1zv-0004tA-Lc
- for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 11:48:11 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2054.outbound.protection.outlook.com [40.107.21.54])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26ac4f52-0e6b-11ed-bd2d-47488cf2e6aa;
- Thu, 28 Jul 2022 13:48:09 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM6PR04MB6454.eurprd04.prod.outlook.com (2603:10a6:20b:f4::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Thu, 28 Jul
- 2022 11:48:07 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::9da9:fa60:f04a:2a0e]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::9da9:fa60:f04a:2a0e%7]) with mapi id 15.20.5482.011; Thu, 28 Jul 2022
- 11:48:07 +0000
+	id 1oH31D-0004QX-FA; Thu, 28 Jul 2022 12:53:35 +0000
+Received: by outflank-mailman (input) for mailman id 376770;
+ Thu, 28 Jul 2022 12:53:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FxLs=YB=citrix.com=prvs=201c0317f=Jane.Malalane@srs-se1.protection.inumbo.net>)
+ id 1oH31C-0004QR-EZ
+ for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 12:53:34 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 47bc9eb9-0e74-11ed-924f-1f966e50362f;
+ Thu, 28 Jul 2022 14:53:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,218 +36,404 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26ac4f52-0e6b-11ed-bd2d-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fAE9UWw7VxfWXvW+4mOxy5HODyiI6YOUdScrj5fiZ2ImfDPEk3YsUUKajs9nMKvqxd83t7qf3ki6fqTa10FfpYrWBeor9XtngQajHF9AwrB++Pcuk25OJfmEhSqXKRTx7tUUZ0MacRTdCsjHUAHILsch64dm+o+LmDthaarfU8bdNCKCqly703ZW7dJ+kWKz4jHy6dlkP0dWTZZ/5Cq7UkrNkdMJbIHqazFfXQC8Pgu5+adi24+7fMHHkGSX+TWfrq9xErOsJPHOO9Lw1uIJ3OAGmBGXOQ1d5m2+Gx6x00scQI0piZsyR761EC5qmR5aENAWL0ilOitpdWxDnm4kfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8p5OZ2TJ5c9CrAJ0KNTAbYyFf1npzTfjTLEFRILvDjY=;
- b=LPMNW8sfiHt4qPl1kB6B71csAkmGFqIiNcneUvPyXrHs0T5L5eVSsUX6w3XIZQ6oN49o31sImZZDDEUxVBMWGDZl4gYG5azPgml4kWHnPhoUTMYQ/0OgnGth2KbLvsrjGJikkA4eTaikf7SAAOTNNuOCkReOQ0CJ9Gc1sBvu57DRcSy2Ju7tIPulxJpnlKAN6i78YlgPi6dgKFLff0Cu1o9ThkHf1deAN+iNmyh2GIdjSJwuClo0/MaVjQSoPeqWb4jETN5evnKcM1d+xkTcGwS8K+cm1GPg1rOzDgeMJDd3rH5r10LzbZ8W2WT3WG8RwGqRjIM4/f4L8n7Cf78PsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8p5OZ2TJ5c9CrAJ0KNTAbYyFf1npzTfjTLEFRILvDjY=;
- b=su6ScJ1ceW4sKEqqcuirTXMtTnoErsc11udzqzCFUePE8jIaybQOrkUFHOxQ4bnoUjqWpwfHXYE+GsHaLrxxPNormmX6z7rzWLwuuRM4dzuXX6bj8v4ZRlUOcv1Ssvi1MaDkSF72tvjtZlo9HjroWQ5XDXOGHWzE1rU57O9yblkd0SSfGVW//tIHSd5hS3T4P+NVnVXQ+0u0Z5grbnfz6RqElC4CMXznEULaoMsDcYtrHYJefuGweF/pKVNfm5BMhEOZfeFII75vIa3q9KF7qZD0kdFR0KRHkaZ4gZajtfD4bV2HupnMm4HlAebAtaEwUqICY6Ux1dMzGCF77UCIOg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <88025800-66e2-4fb4-facf-5989e75ba08f@suse.com>
-Date: Thu, 28 Jul 2022 13:48:04 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v1] xen: add late init call in start_xen
-Content-Language: en-US
-To: boyoun.park@samsung.com
-Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "julien@xen.org" <julien@xen.org>,
- "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
- "wl@xen.org" <wl@xen.org>, "roger.pau@citrix.com" <roger.pau@citrix.com>,
- Chungwoo Park <cww.park@samsung.com>, SoungKwan Kimn <sk.kimn@samsung.com>,
- DongJin PARK <djpax.park@samsung.com>, Gang Li <gang30.li@samsung.com>,
- Lei Wang <lei19.wang@samsung.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <CGME20220728092237epcms2p53821bba31388763f45b5204d56520c20@epcms2p5>
- <97499212.9948800.1659000157467@mail-kr2-3>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <97499212.9948800.1659000157467@mail-kr2-3>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS8PR04CA0156.eurprd04.prod.outlook.com
- (2603:10a6:20b:331::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 47bc9eb9-0e74-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1659012812;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ng7b+AAgMXcZ/+TJuJcCEeWQ4bsCFjToHv0fp7P5JkI=;
+  b=VPwook7Tzvu0O6kA9FYyJapx1D9tGOyQIAdb+rf9h87KypRj+11U6Jz3
+   sONbzX0kFVF1xuKUEO99i2Q/ZZ7gpmuTH1TejsL6BZqXZSJUDxBl06uzI
+   ZsehT/Ll17WfGMpXFZz47WTq6hF9PXLANaDfvAbVSZgDG1iHgDiIqKbUh
+   w=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 76112333
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:c5VvaqhWJ3cMKYa7cwBnfNCNX161BhcKZh0ujC45NGQN5FlHY01je
+ htvW2uEO/3bN2HyLo1yaI7koxkAsMXWnIUxTQA4/n0zF3wb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6j+fQLlbFILasEjhrQgN5QzsWhxtmmuoo6qZlmtH8CA6W0
+ T/Ii5S31GSNhnglaQr414rZ8Ek15Kuo6GtC1rADTasjUGH2xiF94K03fcldH1OgKqFIE+izQ
+ fr0zb3R1gs1KD90V7tJOp6iGqE7aua60Tqm0xK6aID76vR2nQQg075TCRYpQRw/ZwNlPTxG4
+ I4lWZSYEW/FN0BX8QgXe0Ew/ypWZcWq9FJbSJQWXAP6I0DuKhPRL/tS4E4eFs40x8h2JzF33
+ uESEwsRT02FucS6z+fuIgVsrpxLwMjDOYoevjdrzC3DDOZgSpfGK0nIzYYGhnFq3JkIRKuAI
+ ZpCAdZsRE2ojxlnGF4RBdQbleOhgnD5fhVTqU6PpLpx6G/WpOB0+OezaYOPIYfRLSlTthuSi
+ HPE3UDTOFIDJsW42AqL0S6slNaayEsXX6pNTeblp5aGmma7wWgeCwYfU1ehluWokU61W99ZK
+ Es89zInqO4580nDZsLmQxSyrXqAvxgdc9ldCes37EeK0KW8yxbJWEAHQyRHZdhgs9U5LRQo2
+ UWOhMjBHiF0vfueTnf13qeZq3a+NDYYKUcGZDQYVk0V7t/7uoYxgxnTCNF5H8adi934CDf96
+ zmPpTo5gfMfgKYj1a+24FTGiDKEvYXSQ0g+4QC/dn6q6hNRYI+jepCy7l7a/bBMIe6xRF6bv
+ WNCnNOC9ucQFpKcvCuXSe4JEfei4PPtGDndh0N/Wpos7TKg/1a9co1KpjJzPkFkNoADYzCBS
+ ErSvwxWzIVeMHujcel8ZIfZI8QyxIDyBMjiTLbfad8mSpR4agLB/ChofkOW92TsllU816A5J
+ ZqfN82rCB4yA7xPxT63SuFNl7Mmrh3S3kuKG8q9lU7+l+PDOjjFEt/pLWdicMgSr4+5jgTzo
+ +90KsGx8Al+DevARCXYpNt7wU8xEZQrOXzng5UJK77Sf1s4RDhJ5+z5mu14JdE890hBvqKRp
+ yzmBBcFoLbqrSefQThmfEyPf18GsXxXiXsgdRIhMl+zs5TISdb+tfxPH3fbkFROyQCC8RKXZ
+ 6NcEyl4Kq4TIgkrAhxEBXUHkKRsdQ6wmSWFNDe/bT40cvZIHlKUqo64IFq/qnhUU0JbUPfSR
+ JX5jGvmrWcrHVw+XK46ltr0p79OgZTtsL0rBBaZSjWiUE7t7JJrO0TMsxPDGOlVcE2r7mbLi
+ G6r7eIw/7alT3kdrIaU3shpbu6BT4NDI6atNzKKs+7naneBozvLLE0peL/gQA0xnVjcoM2KD
+ di5BdmlWBHbtD6ma7ZBLos=
+IronPort-HdrOrdr: A9a23:XtZmI6wElHoWjHQ9EVstKrPwIL1zdoMgy1knxilNoRw8SKKlfq
+ eV7ZMmPH7P+VIssR4b+exoVJPtfZq+z+8R3WByB8bAYOCOggLBR+sO0WKL+UyHJ8SUzI9gPM
+ lbHJSWcOeAb2RHsQ==
+X-IronPort-AV: E=Sophos;i="5.93,198,1654574400"; 
+   d="scan'208";a="76112333"
+From: Jane Malalane <jane.malalane@citrix.com>
+To: LKML <linux-kernel@vger.kernel.org>
+CC: Jane Malalane <jane.malalane@citrix.com>, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Thomas Gleixner
+	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Jan Beulich <jbeulich@suse.com>, "Maximilian
+ Heyne" <mheyne@amazon.de>, <xen-devel@lists.xenproject.org>
+Subject: [PATCH v3] x86/xen: Add support for HVMOP_set_evtchn_upcall_vector
+Date: Thu, 28 Jul 2022 13:52:44 +0100
+Message-ID: <20220728125244.19163-1-jane.malalane@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 633e0874-e5cf-4c6e-c27d-08da708f0989
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6454:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	eVGh/lJ6m1IoXCwltC4Dws+Ykedmjj4KxZNFRwt8N4Ur1UjVFxCNwvMfR0Z5Q9J5N2tiF9BhJLCoyqBESH+vcfzlXSafuYKH3IodUSPt2U2xDtXfjfLstzDOFpqT+s6bEXz7ufeW7R3omGCY9gDJLp/c9FJq1ljVOV+EeSuRxfcrrYVlxOpktIZlUJ5yxZn4ZtknFNb7M6VDTlFeqDjpJjQO2wRipEF3h7a1nLXiqEbMvXQm57bo2Sqf+62rXD8Dnxr6qDikzFFYob9ygJjca18+xlC11z3U9Gm3f1oDPQRNH1ZMk6MRur3OgqqrPKly9KJdRmzv+NW2WJyBeL81NT++1Spc7SPn6S6cyRvKWulIEpH9FH+iUucov0LFyk3CbkAFwlUIs+Ni3tTcNqqGXyauCVHG+HS2XszFm0v2+0nnuBphm4TUY6z5LhYY7Xd+aLQ2L6QoEVTFIxh+g/ax6DNZBxi2UGdpbOr/Vqfe7vGr0yisrn0UIH/h6PkDAx5DMnstHSoRVZ6dLoMYn1/uWaGDtcZ0dX58TOFJ2bal1sPLppplu31+GCsHwE4HcA47lna6KdT+4YgZuEYK9+9ymNMBVW9WFsp8pFypTDx+lH9zjmV9//qUfI4IrznhZtLOJY8XaHBsex0TLXUpB7bHNiC+BYQA9SWbuebnGAp0XdeDPKFoeN0p8JBX0opSTOXwOii5s/K6kHa5Poh5fgN6UYqiu1ZpNc27CgVRAjLJDd2Gtwrb5+UJlxU4VTHb69N3bQxJWZfehvk7ww7kSUCTBMiZwl8ElgddoPKy7TRd0Lk7v0/xWBBnIcH7y9QxYTzTf7f97Ud2QcESFmkc17LvcA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(396003)(366004)(39860400002)(346002)(136003)(31686004)(7416002)(5660300002)(6916009)(6506007)(31696002)(316002)(478600001)(66946007)(8676002)(6486002)(66476007)(54906003)(4326008)(53546011)(8936002)(66556008)(86362001)(83380400001)(38100700002)(186003)(6512007)(26005)(6666004)(2906002)(36756003)(41300700001)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YzlFd1ZKNytLTTFGdFlGcDBBNDN5dUIwaGIvTGMxZzNKQS9pREtoQ2ZMSU1C?=
- =?utf-8?B?aWRzd0EvTlVtdUlXcUcxVUFCd1BQdFNVSXlnTjJRTGJMS2dZM3owcVg1TVpH?=
- =?utf-8?B?QVBCWTJoUHYwaDdpU0hyQXQwU25icWYvZkxieHA2bGRNNjlMRGJySytpeDJ6?=
- =?utf-8?B?TkRwbC82Z3JBUlZheU54VUxpU3dTT29pSm1UOXM5QjJMOS85TCs4SFVGbzNZ?=
- =?utf-8?B?TjNpNHBOQWtQaUZTOWVTbEpSR2M3MFBjY0d0Sko2cml1NjRGL1laMW9jeFhq?=
- =?utf-8?B?ditzNDZyVEZUNnJ3bFJaU2RtWWUwTEY1ZUhvOXdITGRLRFVmUUplcWxON2Fv?=
- =?utf-8?B?WWhTVkIrNDZQSGVzMXZhcVpuUWxCRFZuQm4yY1hqTDBrMXI2YWlmQnNKSEV2?=
- =?utf-8?B?eXNsaDRmMDl3eHlQSDFNVmdwOWJEcU0wZVZtTC9sMFpPa3R5aHQxeHJOYTJO?=
- =?utf-8?B?OFVZMm1HVEpORmF3K3ZZVkt2OWl2eVlsaUh2cG9WUHBIdjNGcFptUFFSUiti?=
- =?utf-8?B?VVZTT1NHTk5kM2NCZ0RzNk9IajEzRWhJY1lHUnBETVN6TDl0c0hkWHZiUHky?=
- =?utf-8?B?ZzEvZ0h5MmFXcmRwU0RDaklDbGcxdHFGcG1MZlZIOUdQTXFGMkJYN29pUGZQ?=
- =?utf-8?B?TnRqTEh1Z2x6K0pXYXMrQzNUYjEzYmttY1RCbWJZNzErY0NyZnRwQnN0dzQz?=
- =?utf-8?B?MmFEMXR2c2ZUSm9ER0VaOU41eFNoYnNuNm9QU3cyVFNSNk5aNmpuL2FYRzlj?=
- =?utf-8?B?V25naFZKUC9VODBxRzZqM1BCd3pJcHhIb2ovM21xa0UrY1VtSHNvRkd3NXBy?=
- =?utf-8?B?elo5TmJGSHN2MnZEZmtQbmpFb3grekZWc0o1ZHAxRTdianM0OXdWVFI3T3Yv?=
- =?utf-8?B?TGNXSG1iamE5MktuODRRN2s4Yzh3TXI4MlE4N3JEQldXblordXpBR2MrUks1?=
- =?utf-8?B?Nm5uSjgvZ2JLU1pWZGt0cFE3Y0dDWDhEbFAyYXFqV1B0MDNyd3Flbnk2Nkt0?=
- =?utf-8?B?UzBvbGFrVlVTTFJvMThNcjdWSEU2dFJHU0ZtZEZDQjU2YURwZVJ3WXZESGdP?=
- =?utf-8?B?NVNvNGZycC9TRnEvbVd4OWhEb0VOVzFKMzdZb0c0MkptY3ZNNno0MlZsUlRV?=
- =?utf-8?B?TURqcEo5NUtteCtjaHFSb29rWnVwWDdBaEpmRmJrMDAzV09TTG1OcFR2cXhk?=
- =?utf-8?B?UldidG9rMENodFg4eXI5OERhM2tOSDJhSHdwQ0FhTVByWWcxdkZxWUxFdnlt?=
- =?utf-8?B?bmhEUjRORjQwTERDb29IMElzM3VvcEYvWit0TUdXaGZYTDBIaVh3SjFvMi9z?=
- =?utf-8?B?cU1zcmxRbE1HbFZQM2NPamFaS1J0d0VCdW9HelMzbm9KZHJMWU9UZHJWc1g0?=
- =?utf-8?B?c3hpcWJGaGlYQS9UcXlSUG84NzQ3eEdsT0pXOVUrMDRWcUI5QTkyUW4zZzZj?=
- =?utf-8?B?bG0xUkxiNUVTS0tTd3hQWDdWNTkrMnZ2bmtLTE9GSHJmYjlyeUpYenkzL3JT?=
- =?utf-8?B?NTFvazRzVWZGemMwWjhlT09OdXkrY1hubDI3VEs3b3QvQW9YbWJZalVHTk1u?=
- =?utf-8?B?K3BSU2pnK0ZFK1g5OEg5OVpYVEJRS2Y0T1FIT2FydXlpQ05rMytLdHlVa2NW?=
- =?utf-8?B?bEJJcEQxV2pwaGJYay8yaUsyTWY2ZkI3T0RnTUpac3N0ckx3S1NCa3dHN05M?=
- =?utf-8?B?akswQXdQWXE1WWhrNXpNcFhGaDJOWlpZYnJtRkZweFIxdS9ERVVQNWM5Ykpj?=
- =?utf-8?B?NmQ0aXV6MUxIVEt1ZXRKZ3R5ZVJUVDg4cUhMZitOOEJHTjIyZ1FRU3g5eHll?=
- =?utf-8?B?dTdLWGpLdFhoa3lFeVR3c09RT2lCeHkyd2dXNmd3dDhUWEk0dnBoUFJGWjVN?=
- =?utf-8?B?VTJtNmpKSTFBejdjWHhiLzFkSE1CWFU0RzdmVkpYYi9rWnB3Z0IxYVgwcVZU?=
- =?utf-8?B?MGZQYWNmbWdLakpuREx3ZW40WmFINmdRVThPb05ZT0x4d1pPVUFDczl1QzZM?=
- =?utf-8?B?QWtFY01jYkRYb1BlbEh1OXpyeDNyUStNTnc1V0ZpU0xRaEpNQnRpcHM2aDFK?=
- =?utf-8?B?bWwyeEtQZ2UxSDh3dGJMaDZRMXZMZmx4L3o1YTlnQVdFZ1BQS0liQXhScmJX?=
- =?utf-8?Q?/k98m5G3MzxxwgKlmA1HfJYBz?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 633e0874-e5cf-4c6e-c27d-08da708f0989
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2022 11:48:06.9941
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eqzfJmMwdvj+bWCc0Q+vwkXv7sVetYAuhlPFgssCNVFVv1i1PUixXQivn2k/6Nlc96VLvc5XVTFoxQQdqufIQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB6454
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 28.07.2022 11:22, Boyoun Park wrote:
-> Hello,
-> 
-> This patch added late_initcall to deal with
-> 
-> some init functions which should be called
-> 
-> after other init functions in start_xen.
-> 
-> If this patch is added,
-> 
-> then the original initcall in xen will be treated
-> 
-> as early_initcall and the late_initcall
-> 
-> which is added by this patch will be
-> 
-> called sequentially.
-> 
-> I cannot send patches through git send-email
-> 
-> due to some security issues in my work.
-> 
-> So intead, I just send the patches manually.
+Implement support for the HVMOP_set_evtchn_upcall_vector hypercall in
+order to set the per-vCPU event channel vector callback on Linux and
+use it in preference of HVM_PARAM_CALLBACK_IRQ.
 
-Which is fine, but you want to configure your mail client such that it
-doesn't mangle the patch. Albeit I see that to cover for that at least
-you've also attached both the patch and a cover letter. For a single
-patch a cover letter can normally be omitted, but if you don't then
-even if you're sending without "git send-email" you will want to send
-both as separate mails, with the patch being a reply to the cover
-letter thread root.
+If the per-VCPU vector setup is successful on BSP, use this method
+for the APs. If not, fallback to the global vector-type callback.
 
-> Sorry for the inconvenience.
-> 
-> I made this patch during using xen for a project.
-> 
-> And I want to share it and ask for review.
-> 
-> Boyoun Park.
-> 
-> From: Boyoun Park <boyoun.park@samsung.com>
-> 
-> To: xen-devel@lists.xenproject.org
-> 
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Cc: Julien Grall <julien@xen.org>
-> 
-> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
-> 
-> Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> 
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> Cc: George Dunlap <george.dunlap@citrix.com>
-> 
-> Cc: Jan Beulich <jbeulich@suse.com>
-> 
-> Cc: Wei Liu <wl@xen.org>
-> 
-> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> 
-> Date: Tue, 15 Mar 2022 12:57:59 +0900
-> 
-> Subject: [PATCH v1] xen: add late init call in start_xen
-> 
-> This patch added late_initcall section in init.data.
-> 
-> The late initcall would be called after initcall
-> 
-> in the start_xen function.
-> 
-> Some initializing works on priority should be run
-> 
-> in do_initcalls and other non-prioritized works
-> 
-> would be run in do_late_initcalls.
-> 
-> To call some functions by late_initcall,
-> 
-> then it is possible by using
-> 
-> __late_initcall(/*Function Name*/);
-> 
-> Signed-off-by: Boyoun Park <boyoun.park@samsung.com>
+Also register callback_irq at per-vCPU event channel setup to trick
+toolstack to think the domain is enlightened.
 
-So I could imagine this patch to be in a series where a subsequent
-patch then adds an actual use of the new functionality. Without
-that what you're proposing is to add dead code.
+Suggested-by: "Roger Pau Monné" <roger.pau@citrix.com>
+Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+---
+CC: Juergen Gross <jgross@suse.com>
+CC: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+CC: Thomas Gleixner <tglx@linutronix.de>
+CC: Ingo Molnar <mingo@redhat.com>
+CC: Borislav Petkov <bp@alien8.de>
+CC: Dave Hansen <dave.hansen@linux.intel.com>
+CC: x86@kernel.org
+CC: "H. Peter Anvin" <hpa@zytor.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Maximilian Heyne <mheyne@amazon.de>
+CC: xen-devel@lists.xenproject.org
 
-> @@ -1964,6 +1966,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-> 
->       bsp_info = get_cpu_info_from_stack((unsigned long)bsp_stack);
-> 
->       *bsp_info = *info;
-> 
-> +    /* Jump to the 1:1 virtual mappings of cpu0_stack. */
-> 
->       asm volatile ("mov %[stk], %%rsp; jmp %c[fn]" ::
-> 
->                     [stk] "g" (&bsp_info->guest_cpu_user_regs),
-> 
->                     [fn] "i" (reinit_bsp_stack) : "memory");
+v3:
+ * comment style
+ * add comment on toolstack trick
+ * remove unnecessary variable and function call
+ * surround x86-specific code with #ifdef
 
-How does this addition of a comment relate to the purpose of the
-patch?
+v2:
+ * remove no_vector_callback
+ * make xen_have_vector_callback a bool
+ * rename xen_ack_upcall to xen_percpu_upcall
+ * fail to bring CPU up on init instead of crashing kernel
+ * add and use xen_set_upcall_vector where suitable
+ * xen_setup_upcall_vector -> xen_init_setup_upcall_vector for clarity
+---
+ arch/x86/include/asm/xen/cpuid.h   |  2 ++
+ arch/x86/include/asm/xen/events.h  |  3 ++-
+ arch/x86/xen/enlighten.c           |  2 +-
+ arch/x86/xen/enlighten_hvm.c       | 24 ++++++++++++-----
+ arch/x86/xen/suspend_hvm.c         | 10 ++++++-
+ drivers/xen/events/events_base.c   | 54 +++++++++++++++++++++++++++++++++-----
+ include/xen/hvm.h                  |  2 ++
+ include/xen/interface/hvm/hvm_op.h | 19 ++++++++++++++
+ 8 files changed, 101 insertions(+), 15 deletions(-)
 
-Jan
+diff --git a/arch/x86/include/asm/xen/cpuid.h b/arch/x86/include/asm/xen/cpuid.h
+index 78e667a31d6c..6daa9b0c8d11 100644
+--- a/arch/x86/include/asm/xen/cpuid.h
++++ b/arch/x86/include/asm/xen/cpuid.h
+@@ -107,6 +107,8 @@
+  * ID field from 8 to 15 bits, allowing to target APIC IDs up 32768.
+  */
+ #define XEN_HVM_CPUID_EXT_DEST_ID      (1u << 5)
++/* Per-vCPU event channel upcalls */
++#define XEN_HVM_CPUID_UPCALL_VECTOR    (1u << 6)
+ 
+ /*
+  * Leaf 6 (0x40000x05)
+diff --git a/arch/x86/include/asm/xen/events.h b/arch/x86/include/asm/xen/events.h
+index 068d9b067c83..62bdceb594f1 100644
+--- a/arch/x86/include/asm/xen/events.h
++++ b/arch/x86/include/asm/xen/events.h
+@@ -23,7 +23,7 @@ static inline int xen_irqs_disabled(struct pt_regs *regs)
+ /* No need for a barrier -- XCHG is a barrier on x86. */
+ #define xchg_xen_ulong(ptr, val) xchg((ptr), (val))
+ 
+-extern int xen_have_vector_callback;
++extern bool xen_have_vector_callback;
+ 
+ /*
+  * Events delivered via platform PCI interrupts are always
+@@ -34,4 +34,5 @@ static inline bool xen_support_evtchn_rebind(void)
+ 	return (!xen_hvm_domain() || xen_have_vector_callback);
+ }
+ 
++extern bool xen_percpu_upcall;
+ #endif /* _ASM_X86_XEN_EVENTS_H */
+diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
+index 30c6e986a6cd..b8db2148c07d 100644
+--- a/arch/x86/xen/enlighten.c
++++ b/arch/x86/xen/enlighten.c
+@@ -51,7 +51,7 @@ EXPORT_SYMBOL_GPL(xen_start_info);
+ 
+ struct shared_info xen_dummy_shared_info;
+ 
+-__read_mostly int xen_have_vector_callback;
++__read_mostly bool xen_have_vector_callback = true;
+ EXPORT_SYMBOL_GPL(xen_have_vector_callback);
+ 
+ /*
+diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
+index 8b71b1dd7639..198d3cd3e9a5 100644
+--- a/arch/x86/xen/enlighten_hvm.c
++++ b/arch/x86/xen/enlighten_hvm.c
+@@ -7,6 +7,8 @@
+ 
+ #include <xen/features.h>
+ #include <xen/events.h>
++#include <xen/hvm.h>
++#include <xen/interface/hvm/hvm_op.h>
+ #include <xen/interface/memory.h>
+ 
+ #include <asm/apic.h>
+@@ -30,6 +32,9 @@
+ 
+ static unsigned long shared_info_pfn;
+ 
++__ro_after_init bool xen_percpu_upcall;
++EXPORT_SYMBOL_GPL(xen_percpu_upcall);
++
+ void xen_hvm_init_shared_info(void)
+ {
+ 	struct xen_add_to_physmap xatp;
+@@ -125,6 +130,9 @@ DEFINE_IDTENTRY_SYSVEC(sysvec_xen_hvm_callback)
+ {
+ 	struct pt_regs *old_regs = set_irq_regs(regs);
+ 
++	if (xen_percpu_upcall)
++		ack_APIC_irq();
++
+ 	inc_irq_stat(irq_hv_callback_count);
+ 
+ 	xen_hvm_evtchn_do_upcall();
+@@ -168,6 +176,15 @@ static int xen_cpu_up_prepare_hvm(unsigned int cpu)
+ 	if (!xen_have_vector_callback)
+ 		return 0;
+ 
++	if (xen_percpu_upcall) {
++		rc = xen_set_upcall_vector(cpu);
++		if (rc) {
++			WARN(1, "HVMOP_set_evtchn_upcall_vector"
++			     " for CPU %d failed: %d\n", cpu, rc);
++			return rc;
++		}
++	}
++
+ 	if (xen_feature(XENFEAT_hvm_safe_pvclock))
+ 		xen_setup_timer(cpu);
+ 
+@@ -188,8 +205,6 @@ static int xen_cpu_dead_hvm(unsigned int cpu)
+ 	return 0;
+ }
+ 
+-static bool no_vector_callback __initdata;
+-
+ static void __init xen_hvm_guest_init(void)
+ {
+ 	if (xen_pv_domain())
+@@ -211,9 +226,6 @@ static void __init xen_hvm_guest_init(void)
+ 
+ 	xen_panic_handler_init();
+ 
+-	if (!no_vector_callback && xen_feature(XENFEAT_hvm_callback_vector))
+-		xen_have_vector_callback = 1;
+-
+ 	xen_hvm_smp_init();
+ 	WARN_ON(xen_cpuhp_setup(xen_cpu_up_prepare_hvm, xen_cpu_dead_hvm));
+ 	xen_unplug_emulated_devices();
+@@ -239,7 +251,7 @@ early_param("xen_nopv", xen_parse_nopv);
+ 
+ static __init int xen_parse_no_vector_callback(char *arg)
+ {
+-	no_vector_callback = true;
++	xen_have_vector_callback = false;
+ 	return 0;
+ }
+ early_param("xen_no_vector_callback", xen_parse_no_vector_callback);
+diff --git a/arch/x86/xen/suspend_hvm.c b/arch/x86/xen/suspend_hvm.c
+index 9d548b0c772f..0c4f7554b7cc 100644
+--- a/arch/x86/xen/suspend_hvm.c
++++ b/arch/x86/xen/suspend_hvm.c
+@@ -5,6 +5,7 @@
+ #include <xen/hvm.h>
+ #include <xen/features.h>
+ #include <xen/interface/features.h>
++#include <xen/events.h>
+ 
+ #include "xen-ops.h"
+ 
+@@ -14,6 +15,13 @@ void xen_hvm_post_suspend(int suspend_cancelled)
+ 		xen_hvm_init_shared_info();
+ 		xen_vcpu_restore();
+ 	}
+-	xen_setup_callback_vector();
++	if (xen_percpu_upcall) {
++		unsigned int cpu;
++
++		for_each_online_cpu(cpu)
++			BUG_ON(xen_set_upcall_vector(cpu));
++	} else {
++		xen_setup_callback_vector();
++	}
+ 	xen_unplug_emulated_devices();
+ }
+diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+index 46d9295d9a6e..3681770589f5 100644
+--- a/drivers/xen/events/events_base.c
++++ b/drivers/xen/events/events_base.c
+@@ -45,6 +45,7 @@
+ #include <asm/irq.h>
+ #include <asm/io_apic.h>
+ #include <asm/i8259.h>
++#include <asm/xen/cpuid.h>
+ #include <asm/xen/pci.h>
+ #endif
+ #include <asm/sync_bitops.h>
+@@ -2183,6 +2184,7 @@ static struct irq_chip xen_percpu_chip __read_mostly = {
+ 	.irq_ack		= ack_dynirq,
+ };
+ 
++#ifdef CONFIG_X86
+ #ifdef CONFIG_XEN_PVHVM
+ /* Vector callbacks are better than PCI interrupts to receive event
+  * channel notifications because we can receive vector callbacks on any
+@@ -2195,11 +2197,49 @@ void xen_setup_callback_vector(void)
+ 		callback_via = HVM_CALLBACK_VECTOR(HYPERVISOR_CALLBACK_VECTOR);
+ 		if (xen_set_callback_via(callback_via)) {
+ 			pr_err("Request for Xen HVM callback vector failed\n");
+-			xen_have_vector_callback = 0;
++			xen_have_vector_callback = false;
+ 		}
+ 	}
+ }
+ 
++/*
++ * Setup per-vCPU vector-type callbacks and trick toolstack to think
++ * we are enlightened. If this setup is unavailable, fallback to the
++ * global vector-type callback.
++ */
++static __init void xen_init_setup_upcall_vector(void)
++{
++	if (!xen_have_vector_callback)
++		return;
++
++	if ((cpuid_eax(xen_cpuid_base() + 4) & XEN_HVM_CPUID_UPCALL_VECTOR) &&
++	    !xen_set_upcall_vector(0))
++		xen_percpu_upcall = true;
++	else if (xen_feature(XENFEAT_hvm_callback_vector))
++		xen_setup_callback_vector();
++	else
++		xen_have_vector_callback = false;
++}
++
++int xen_set_upcall_vector(unsigned int cpu)
++{
++	int rc;
++	xen_hvm_evtchn_upcall_vector_t op = {
++		.vector = HYPERVISOR_CALLBACK_VECTOR,
++		.vcpu = per_cpu(xen_vcpu_id, cpu),
++	};
++
++	rc = HYPERVISOR_hvm_op(HVMOP_set_evtchn_upcall_vector, &op);
++	if (rc)
++		return rc;
++
++	/* Trick toolstack to think we are enlightened. */
++	if (!cpu)
++		rc = xen_set_callback_via(1);
++
++	return rc;
++}
++
+ static __init void xen_alloc_callback_vector(void)
+ {
+ 	if (!xen_have_vector_callback)
+@@ -2210,8 +2250,11 @@ static __init void xen_alloc_callback_vector(void)
+ }
+ #else
+ void xen_setup_callback_vector(void) {}
++static inline void xen_init_setup_upcall_vector(void) {}
++int xen_set_upcall_vector(unsigned int cpu) {}
+ static inline void xen_alloc_callback_vector(void) {}
+-#endif
++#endif /* CONFIG_XEN_PVHVM */
++#endif /* CONFIG_X86 */
+ 
+ bool xen_fifo_events = true;
+ module_param_named(fifo_events, xen_fifo_events, bool, 0);
+@@ -2271,10 +2314,9 @@ void __init xen_init_IRQ(void)
+ 		if (xen_initial_domain())
+ 			pci_xen_initial_domain();
+ 	}
+-	if (xen_feature(XENFEAT_hvm_callback_vector)) {
+-		xen_setup_callback_vector();
+-		xen_alloc_callback_vector();
+-	}
++	xen_init_setup_upcall_vector();
++	xen_alloc_callback_vector();
++
+ 
+ 	if (xen_hvm_domain()) {
+ 		native_init_IRQ();
+diff --git a/include/xen/hvm.h b/include/xen/hvm.h
+index b7fd7fc9ad41..8da7a6747058 100644
+--- a/include/xen/hvm.h
++++ b/include/xen/hvm.h
+@@ -60,4 +60,6 @@ static inline int hvm_get_parameter(int idx, uint64_t *value)
+ 
+ void xen_setup_callback_vector(void);
+ 
++int xen_set_upcall_vector(unsigned int cpu);
++
+ #endif /* XEN_HVM_H__ */
+diff --git a/include/xen/interface/hvm/hvm_op.h b/include/xen/interface/hvm/hvm_op.h
+index f3097e79bb03..03134bf3cec1 100644
+--- a/include/xen/interface/hvm/hvm_op.h
++++ b/include/xen/interface/hvm/hvm_op.h
+@@ -46,4 +46,23 @@ struct xen_hvm_get_mem_type {
+ };
+ DEFINE_GUEST_HANDLE_STRUCT(xen_hvm_get_mem_type);
+ 
++#if defined(__i386__) || defined(__x86_64__)
++
++/*
++ * HVMOP_set_evtchn_upcall_vector: Set a <vector> that should be used for event
++ *                                 channel upcalls on the specified <vcpu>. If set,
++ *                                 this vector will be used in preference to the
++ *                                 domain global callback via (see
++ *                                 HVM_PARAM_CALLBACK_IRQ).
++ */
++#define HVMOP_set_evtchn_upcall_vector 23
++struct xen_hvm_evtchn_upcall_vector {
++    uint32_t vcpu;
++    uint8_t vector;
++};
++typedef struct xen_hvm_evtchn_upcall_vector xen_hvm_evtchn_upcall_vector_t;
++DEFINE_GUEST_HANDLE_STRUCT(xen_hvm_evtchn_upcall_vector_t);
++
++#endif /* defined(__i386__) || defined(__x86_64__) */
++
+ #endif /* __XEN_PUBLIC_HVM_HVM_OP_H__ */
+-- 
+2.11.0
+
 
