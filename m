@@ -2,36 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 790D0584882
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 01:01:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377203.610294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CCC858488F
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 01:10:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377209.610304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHCVa-0007GO-Ar; Thu, 28 Jul 2022 23:01:34 +0000
+	id 1oHCeC-0000SD-6M; Thu, 28 Jul 2022 23:10:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377203.610294; Thu, 28 Jul 2022 23:01:34 +0000
+Received: by outflank-mailman (output) from mailman id 377209.610304; Thu, 28 Jul 2022 23:10:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHCVa-0007DE-7c; Thu, 28 Jul 2022 23:01:34 +0000
-Received: by outflank-mailman (input) for mailman id 377203;
- Thu, 28 Jul 2022 23:01:33 +0000
+	id 1oHCeC-0000Pr-2v; Thu, 28 Jul 2022 23:10:28 +0000
+Received: by outflank-mailman (input) for mailman id 377209;
+ Thu, 28 Jul 2022 23:10:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M61b=YB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oHCVZ-0007D8-9N
- for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 23:01:33 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 381a149a-0ec9-11ed-924f-1f966e50362f;
- Fri, 29 Jul 2022 01:01:31 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A2EBB61C99;
- Thu, 28 Jul 2022 23:01:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFB0CC433D7;
- Thu, 28 Jul 2022 23:01:29 +0000 (UTC)
+ <SRS0=D1cL=YB=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1oHCe9-0000Pl-Ju
+ for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 23:10:26 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7458f1fc-0eca-11ed-924f-1f966e50362f;
+ Fri, 29 Jul 2022 01:10:22 +0200 (CEST)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 26SKJ0Od009624;
+ Thu, 28 Jul 2022 23:10:03 GMT
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3hg940wjwn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 28 Jul 2022 23:10:02 +0000
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
+ with ESMTP id 26SLTKMm017628; Thu, 28 Jul 2022 23:10:01 GMT
+Received: from nam04-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04lp2168.outbound.protection.outlook.com [104.47.73.168])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3hh653sb4h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 28 Jul 2022 23:10:01 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by BLAPR10MB5329.namprd10.prod.outlook.com (2603:10b6:208:307::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Thu, 28 Jul
+ 2022 23:09:59 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::80e:be92:1fd5:b066]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::80e:be92:1fd5:b066%6]) with mapi id 15.20.5482.011; Thu, 28 Jul 2022
+ 23:09:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,99 +63,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 381a149a-0ec9-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1659049290;
-	bh=mYIZv7qO/hv0UXAejYw61xs9h5tN2EQOm/GOSS/2XDE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ASycqEolwFbTexjgosQWZkrMZNRt6RVTQnO/aeCCKgVZInAdVD+o7jRdPa7If6EQg
-	 bweQboZhKAWCpaCIafM0op9NvebGfPBM6nxS4XqNy6upuNlKIj9yGpwu0LlHaSj5Q3
-	 vTPzqqEUZgbUAdKUuDN2uwq7lP7Rp8R3XcJGobDI+/PEij5/6uN4TXdJJUrl9pFygF
-	 EY8LxzV1Ik738E5VL76cLq0V/uHQ/ja5YjCUUmHAcRNWdp4frxobf4eaC7JxfSjaxx
-	 tskS0dQ/hZLAJochOdKDyzzLIcx09VHJfwhSENR0bjZ6QXex9Nr+uDlnRaBjVt1DOn
-	 9e9fQ7vHnOryw==
-Date: Thu, 28 Jul 2022 16:01:28 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Julien Grall <julien@xen.org>, Xenia Ragiadakou <burzalodowa@gmail.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 2/2] xen/arm: asm/atomic.h: Fix MISRA C 2012 Rule 2.5
- violation
-In-Reply-To: <FE2D035F-5EEC-491B-8369-2B327C497482@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2207281558450.4648@ubuntu-linux-20-04-desktop>
-References: <20220727153254.1143503-1-burzalodowa@gmail.com> <20220727153254.1143503-3-burzalodowa@gmail.com> <d0e8f4b6-a66e-48c3-4f29-728cc7f5fafc@xen.org> <93036B23-69AA-4075-A54F-1EC8CB194928@arm.com> <49ed6d31-76fd-c962-5320-c88726b45987@xen.org>
- <27786AF4-37EA-4C54-9330-1C9B674BAC87@arm.com> <b4187646-875c-644c-937f-a6c0493d8aea@xen.org> <FE2D035F-5EEC-491B-8369-2B327C497482@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 7458f1fc-0eca-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2022-7-12;
+ bh=DOQT/KUqlqsGczY6dMr3wVoRwKshwl33ymjdIQA2U1g=;
+ b=jJR+5HASIdteoTMB+6GQ/X/AR6AUgzQdY6btt6RcZiv6djeKKx4CNnwSJr364wfi0L9z
+ OycmK/UKHVemcTqnJpLjLQr7+IKys7bSh51foCIYHVCR3GYCCBnBeCXeGibV3AQjG28Y
+ No4spX/KnFN2dnVdaFR7EA/SzcdyEqD8embhf75hXjY4fJwViSytIisYFeQsKOaDXFVz
+ g2CITPcBQQuzOkguVVv3+wbiZngv61wo4fVEBoDSLOGDe5AjjfuHHDy/XCh8oUkoKrY/
+ j1kynhQURDN9MUH1hoYfT48QaX2LtPY3hfXNhF5rlAxHfKJlh5mnciuFkOdnLPgCwnbK rQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lzCWH93LsbwdFfdaCY8bDO8UMs1c380yFP7crQTk/iWDAEi6CJshofcL8sF4pwrRKcrS2+2KVK4akdaUXkq+YLOa++VXfNV/BTWbOkRqmvmxFJ5fH2TE1CuhRwG66txtPN2ZGMswm4fi7Fn1tI/DQpIZ8AzdQE00VZZPnlElorUI+UpSB2qOCA3C7qia7GvkbVxHqy108GhP/heQRhUTE3EXtek7ANQ9tqiRRhR3viXXRnHHmqQhgkm4DQeiwAqIjSsbZgPeDnb0socjeLiAZUzEIcefwagilPJY27ilacv+ZJUxr2lUtw8ImSBsIgZ6/enOduIa2NwBnu+jsf2iZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DOQT/KUqlqsGczY6dMr3wVoRwKshwl33ymjdIQA2U1g=;
+ b=Y4NzSirXCs6XKzZAKT20TRVmDWu/Gb90rzCtLY88Z6i0jJZu5ceKNlmwo8yK5eyM2UmYjMc+F8T8RMxvfyd+kXlv15YLim8IQfwSlZPq1VUS7hHgFlTAZRf7hS1KVE7vcw9f+k5dErLJwWo1VSECpfUNUjLx/blDOImpiXBolGhVohAnyS1tSx1gWbXT5FcObcbT/QTxBq1EUhHiSIY6xmVYVyrqrDG+TbTHMdsc/sFpTUs8Y3anUC4zYrby0p7dLJPbyp5uWGHfaga2FFbzEe4yx+VJwPkrQ9gx8kr47YudFaPwe5TG9LrMvICU1FQYZfpwjhNMRf3yhDPhfzFePg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DOQT/KUqlqsGczY6dMr3wVoRwKshwl33ymjdIQA2U1g=;
+ b=xxIU/UZOs0aaYzbw50vI/EWBQJ9PAoULtOjWOnzwc8V9ak+dpL1eMM9woZElFLNI2IC8l3T3td9zEc81T/oLOfDynVlnBwE+mgPThL2JBHOfPMQMQs+HeDlXQDK1TQywvcGaBFYSPkuCwwl+aNJCj+Gq+W1MtJGsc9vaVd/i8fs=
+Message-ID: <ee19c2c1-9e71-1190-b27f-327c8a6942a4@oracle.com>
+Date: Thu, 28 Jul 2022 19:09:56 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.11.0
+Subject: Re: [PATCH v3] x86/xen: Add support for
+ HVMOP_set_evtchn_upcall_vector
+Content-Language: en-US
+To: Jane Malalane <jane.malalane@citrix.com>,
+        LKML <linux-kernel@vger.kernel.org>
+Cc: Juergen Gross <jgross@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        Stefano Stabellini
+ <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Jan Beulich <jbeulich@suse.com>, Maximilian Heyne <mheyne@amazon.de>,
+        xen-devel@lists.xenproject.org
+References: <20220728125244.19163-1-jane.malalane@citrix.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <20220728125244.19163-1-jane.malalane@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DS7PR03CA0220.namprd03.prod.outlook.com
+ (2603:10b6:5:3ba::15) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9270724a-64df-49c1-3e02-08da70ee4b3b
+X-MS-TrafficTypeDiagnostic: BLAPR10MB5329:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	ojK0iE+SJoQJoeDz15RGwwkrJoG+s43Tc64IFj6tJWnLnTGPJinA55RP6Ge/EkhpcF+13i2tk3HaTRnCuyQnlaB45a1Z0C6eRKk7L4r4Gcz9Eo7vfD9NiNIa7+zfBV6rozaG3EorHcfLysYEZlNt8l4bEPoCBbP7U2TisQITFCU96XuGzBldjEd4VHKqVgHwA/X8WjP+vAIsjPYhUtJcezOtVTWLMHGjnQLCOASi1P2lYpWk1VqBhdG2WiA8VXuKVGROVamNk9yAIVQyKFxwJwUiwqQy5DnQ96wkaYygvlIBOC03Jfwqk/yoFoSMO8pId+i5XuvLkoYBeX5pvVs6nKBtzmycs3c+DDracEjTkQWshGFRIrsZN1YrZ+n1jY37kz2sFooxgk2TUIDvVqVx67mo6s12OUlUmJ08f4ldu3wGl5Qhak+AfufY00WvCbwy0wNfrW8ovaFmv3HYI9RTilNOQfB4985GU2qtcXEOZpp+DOVTRC+vCuKs6DeCzmu7oyqWIbkeh67E3BUzTmbpViSsLnJYaejtJTGWLInxeOUdkVUaaYpHD84cDCdno67MZ6ljNksBT26l82cZJULeE9vHULokba3RMwj9RjbvDOT6huoNPckq4O7DM781jbr2s6jwWPVEO3HYIccNqpUXF8W6a86tnsZpQRJcVmoUsfSa82j26796NwixbN2Fh9i5yGoZecz8EfQfGHlup2ZMq7z83iEB1Xla2/yxK1aFT4b/EEJ8GHWjs6TZrK+dzG9Afy28c3uty5xtcKv9oaG/W6pEYlqmZcLs24pyW8wZrJlMvH9cp6937pwHtW530qeFU+B57YlaE6+KlMf/zy19mQ==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(39860400002)(366004)(346002)(376002)(136003)(66476007)(6666004)(41300700001)(2906002)(31686004)(316002)(54906003)(86362001)(36756003)(31696002)(478600001)(66946007)(6486002)(110136005)(66556008)(2616005)(6506007)(53546011)(186003)(26005)(6512007)(8936002)(4326008)(8676002)(4744005)(5660300002)(44832011)(7416002)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?M1JscDdLZkIvZXVCUmY1S1RKdzIzU0xQamdaUGpJZ2lteWlxb0JEVGdoLzlz?=
+ =?utf-8?B?bHJpSUYzREZJQWN0ZnVTQzZuWE95ZUtoRWR1QkZraW5QSVdyUUtYWXgwallq?=
+ =?utf-8?B?VEhFQWZNNTN0QUEwUFBVMXR0SE5OazhmMkpZY1RDc2xqdlNkdkp2UEJhNmV4?=
+ =?utf-8?B?c2R0akQ3SmdHWWJ3c3VlMitZT3ZVSG14cll5bnFSb0p2enlSSjFoOXlFbkVi?=
+ =?utf-8?B?UGRMcE9nMGpFV29RWERTNXlNT1FjbkZJZkRYdnc0UW9ORVE3YThSOUtkbkkr?=
+ =?utf-8?B?b0diN1RiNTU2UzRlRDNjOElOK2dPZjF2d3pLdjZKL3hKUk5aSjRvNDhITTh5?=
+ =?utf-8?B?SEh3QmNlM1BYdFd6byt3QjMyMXZIclJSMmZ5NExTSGRCTFJBMCszcU1QNW5Z?=
+ =?utf-8?B?S1FxT3lGZTRIWm5mMTlGa2E0SmZuY0hkRG02dGl4bGJidFk2T2d2V2JiZCtU?=
+ =?utf-8?B?OTF0MVRoYU5yT1cwLzdNWGVVRXdPQjRBQTFhMVpzR1h1Q0xobzdsYVl1NnFE?=
+ =?utf-8?B?ejFlWnFjRzdLWkNNbVFWSnV4V2lTalpScUxsNUpFR091RnU5Wno2OUJWczNC?=
+ =?utf-8?B?YTVCS0JTTFE1TXpDZkw2U2x6WHJqY2JOZzFUc2kraXNmSXBGVXFEd0JlRUs2?=
+ =?utf-8?B?ZEYzeVFuOHJXVy9jOWpidUYzUTNZZ2NtalVQc2F6bzJrU25NaU14VzJWSFR6?=
+ =?utf-8?B?Uk9xT0R3NVd6WTM3NHlSVmJTMll1V0FETEpxaDEyMVZXaTJwN1VMWm1PVnpl?=
+ =?utf-8?B?aEpVdUZTLzQ0dDNwVUlLZlNUMFRRUDhtM1ZlT3FuTEhPTThJU2U0U0hQSWxz?=
+ =?utf-8?B?bFU3T2JTTi9xNjdiMWxWay90aDQycXErOEtxbnNCRi9HWXZEd1creDdqMjI0?=
+ =?utf-8?B?cUdwZVBCYjRZeU5MNVdOb3ExcExibnVjTWNObTVPdmpNbmtYbmc1bUVUYjFC?=
+ =?utf-8?B?Q211SnVOazBWTkVhWi9CNFpoSEVNek5tbGdVVTZOZURFWW9hak9FTTlSZ1Nl?=
+ =?utf-8?B?YStVS3QyYUpVQ25GZXlyK2tSakF0WUx6dWFFWHh5VUhBU3FsQXJkcDhZZ3Na?=
+ =?utf-8?B?bzBTd29CY0l1M1dNTjJubXFCVTFuaFpTd1EzZU5DbEFoSERNNlJwdG5RNzFX?=
+ =?utf-8?B?eW81V3dURlZGeEtQWGV1azFsbFMyS3F3QThKNllyL0E3RnlHNEVFRHhwZThZ?=
+ =?utf-8?B?eGpwMndPTlFFeGc1QjZQZkFIVGsyQTUyTTlqRnBCdm9pNzgxZ3JiUlZJcXR6?=
+ =?utf-8?B?bFhCNEQ5VHA2TmxkOCtuS0tRQmxnZDdGbnZ6N051MkxHNjBTK2pCY3gxSmFp?=
+ =?utf-8?B?SlYxZVZaQWZJaUZ0WjlUVkdBZnRwMmFNL3BnWXJ1Zm5MV3lUWXE3RnU5a1V6?=
+ =?utf-8?B?UnRPdXo3eUp3aUtJT05OZUphT1Z5KzZxbFFva3BET0laZTBpaTc5TG4vek1C?=
+ =?utf-8?B?OHJGVW94L25nKzRqZ3NBY3V0Ymd5eHM2UXlsMXhaMEZSZG1xLzZxcEozWVhs?=
+ =?utf-8?B?b1hLWFVmb1RQOHhlTFlUUGFYSFhTNUhKekNubllxMzFEUUZydDNNWWhHSkVl?=
+ =?utf-8?B?NDlzNG5YWCsvMysrZnc1emk0ZkIrZHVMa09TTm9qbGxaUUQ5Y0xOR0dQNUF5?=
+ =?utf-8?B?YjZwTEpoMFpsOTlhUEQxS01JWjI0dklTVG9mOGp1Y1JDZzZXSlo2N1FPaG5N?=
+ =?utf-8?B?bkpnSjJoQzV1QzNFdnJORVNMb0hrMHkvWjVsSCtrOHRxMmsrbEdqQTA0M1dT?=
+ =?utf-8?B?Qm5nSWMvb0g3TGtiKzZRa2ZNdTA2QnVuQ2xTais1U0JobHJWM3FqUHRJUWJQ?=
+ =?utf-8?B?VHJRY2VxN24zV1RqVlUvS01IYyt5Zi93NzY3L3R4VER6VksxVlJlT0ZNQzl6?=
+ =?utf-8?B?QjNUZTZqOXRvWXYreHMzNXZsWFUxZUVBR3g5Mi9mVjRTZG9MaUZEN1FlRFhQ?=
+ =?utf-8?B?SXNsYmNualdYZFcvQ0N6aTlLaHpBbTNDWk8yVDVnRi9sZGhPem5ybEdrbmsy?=
+ =?utf-8?B?eTJoSWZkQVN6blV1RW8xb2NGODYrQWtnb3JBVnZZZThRcUQ5YWVrRjF6ck4v?=
+ =?utf-8?B?Q1hxSWlmbjMvblNtRWxHMENzeUZ0T1VSbFZuRElsTUo3NFNFeGV3anVuK2or?=
+ =?utf-8?B?eEp1MjVCNkt5Z3pJdzZ2bkFuK3YraXQ3RWhKbW1MdGkrVGhzNC9NanR4eVMy?=
+ =?utf-8?B?UEE9PQ==?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9270724a-64df-49c1-3e02-08da70ee4b3b
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2022 23:09:59.4453
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MmRnvOExXnrvRn9eeAe7BwOC+cXoBjWoIv8Ql9LOoG/VlnM2a1XPb1ATpCNWWdXP6OMK3nwerGR9ZLh21M2Em7mry6jJoFKcAaMGQzluzCQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB5329
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-07-28_06,2022-07-28_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 phishscore=0 bulkscore=0
+ adultscore=0 mlxscore=0 mlxlogscore=999 spamscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
+ definitions=main-2207280103
+X-Proofpoint-GUID: ctTXCaCEqhwEuIkVB_W0YPIKmiVz2MNv
+X-Proofpoint-ORIG-GUID: ctTXCaCEqhwEuIkVB_W0YPIKmiVz2MNv
 
-On Thu, 28 Jul 2022, Bertrand Marquis wrote:
-> > On 28 Jul 2022, at 11:21, Julien Grall <julien@xen.org> wrote:
-> > On 28/07/2022 10:45, Bertrand Marquis wrote:
-> >>> On 28 Jul 2022, at 10:35, Julien Grall <julien@xen.org> wrote:
-> >>> On 28/07/2022 08:57, Bertrand Marquis wrote:
-> >>>> Hi Julien,
-> >>> 
-> >>> Hi Bertrand,
-> >>> 
-> >>>>> On 27 Jul 2022, at 16:46, Julien Grall <julien@xen.org> wrote:
-> >>>>> 
-> >>>>> Hi Xenia,
-> >>>>> 
-> >>>>> On 27/07/2022 16:32, Xenia Ragiadakou wrote:
-> >>>>>> Remove unused macro atomic_xchg().
-> >>>>>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-> >>>>>> ---
-> >>>>>> xen/arch/arm/include/asm/atomic.h | 2 --
-> >>>>>> 1 file changed, 2 deletions(-)
-> >>>>>> diff --git a/xen/arch/arm/include/asm/atomic.h b/xen/arch/arm/include/asm/atomic.h
-> >>>>>> index f5ef744b4b..a2dc125291 100644
-> >>>>>> --- a/xen/arch/arm/include/asm/atomic.h
-> >>>>>> +++ b/xen/arch/arm/include/asm/atomic.h
-> >>>>>> @@ -223,8 +223,6 @@ static inline int atomic_add_unless(atomic_t *v, int a, int u)
-> >>>>>> return __atomic_add_unless(v, a, u);
-> >>>>>> }
-> >>>>>> -#define atomic_xchg(v, new) (xchg(&((v)->counter), new))
-> >>>>>> -
-> >>>>> 
-> >>>>> While I agree this is unused today, the wrapper is quite trivial and part of the generic API (x86 also provides one). So I am not in favor of removing it just to please MISRA.
-> >>>>> 
-> >>>>> That said, if Bertrand and Stefano agrees with removing it then you should also remove the x86 version to avoid inconsistency.
-> >>>> I think we can keep this and maybe add a comment on top to document a known violation:
-> >>>> /* TODO: MISRA_VIOLATION 2.5 */
-> >>> 
-> >>> While I am fine with this goal of the comment (i.e. indicating where Xen is not MISRA compliant), I think this is one place where I would rather not want one because it can get stale if someones decide to use the function.
-> >> I think the one doing that will have to update the comment otherwise we will never manage to have an analysis without findings.
-> > 
-> > I was under the impression that Xen will never officially follow some of the MISRA rules. So I would expect the tools to be able to detect such cases so we don't have to add a comment for every deviation on something we will never support.
-> > 
-> >> Having those kind of comments in the code for violation also means that they must be updated if the violation is solved.
-> > 
-> > Right, but for thing like unused function, this is quite easy to miss by both the developer and reviewers. So we are going to end up to comments for nothing.
-> > 
-> >> Maybe we will need a run ignoring those to identify possible violations which are not violations anymore but this might be hard to do.
-> > 
-> > TBH, I think it would be best if we can teach the tools to ignore certain rules.
-> 
-> Definitely it is possible to instruct the tool to ignore this you are right and for 2.5 we should (for some reason I was under the impression that we said we would follow 2.5 but accept deviations).
 
-Absolutely possible, basically we (the community) are the ones providing
-the list of rules to the MISRA C checkers.
+On 7/28/22 8:52 AM, Jane Malalane wrote:
+>   
+> +/*
+> + * Setup per-vCPU vector-type callbacks and trick toolstack to think
 
 
-> @Xenia: please ignore and do not add a comment for this.
-> 
-> I think we will need to distinguish 2 kind of not following:
-> - not following at all (disable in the tools)
-> - accepting some deviations (documented in the code)
-
-Yes, exactly right.
+The comment should be adjusted -- no need to mention toolstack now that that code has been factored out.
 
 
-> As much as we can, I think we should target the second unless we have a lot of violations.
+Other than that
 
-+1
+
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+
+
+> + * we are enlightened. If this setup is unavailable, fallback to the
+> + * global vector-type callback.
+> + */
+> +static __init void xen_init_setup_upcall_vector(void)
+> +{
+>
 
