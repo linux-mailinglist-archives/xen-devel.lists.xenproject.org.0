@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E27D584824
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 00:20:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377188.610268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51B13584873
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 00:57:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377197.610282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHBqS-0000qu-RM; Thu, 28 Jul 2022 22:19:04 +0000
+	id 1oHCRC-0005pK-O4; Thu, 28 Jul 2022 22:57:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377188.610268; Thu, 28 Jul 2022 22:19:04 +0000
+Received: by outflank-mailman (output) from mailman id 377197.610282; Thu, 28 Jul 2022 22:57:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHBqS-0000oy-OW; Thu, 28 Jul 2022 22:19:04 +0000
-Received: by outflank-mailman (input) for mailman id 377188;
- Thu, 28 Jul 2022 22:19:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oHBqQ-0000oo-SL; Thu, 28 Jul 2022 22:19:02 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oHBqQ-0003Ad-Or; Thu, 28 Jul 2022 22:19:02 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oHBqQ-0003lr-GP; Thu, 28 Jul 2022 22:19:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oHBqQ-0002Zs-Fi; Thu, 28 Jul 2022 22:19:02 +0000
+	id 1oHCRC-0005mw-LE; Thu, 28 Jul 2022 22:57:02 +0000
+Received: by outflank-mailman (input) for mailman id 377197;
+ Thu, 28 Jul 2022 22:57:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=M61b=YB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oHCRB-0005md-RG
+ for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 22:57:01 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 95becba6-0ec8-11ed-924f-1f966e50362f;
+ Fri, 29 Jul 2022 00:57:00 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id B2296CE259A;
+ Thu, 28 Jul 2022 22:56:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A74F0C433B5;
+ Thu, 28 Jul 2022 22:56:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,221 +44,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AjT8AhO/Ap1zjpoEECSJ8l7LYzIRND3nPxVTSvZ62HM=; b=QegthArM3hyvoIbNlX37ik1arn
-	pCekyKOayEyGvsch5u/mOPJUhnXk7KfWbKrYxDS0INjk6CccjzYGktfPqykDtrNzJ4VPDLbPs/XGx
-	kOVODd473uwPmYHcBK4FNp4WX0C3UuuXuNf2lEmk9ZFu0/P9d49L6JrmSY7fhjBgzStA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171899-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 95becba6-0ec8-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1659049016;
+	bh=7HcUjbpRugDsm/OaanGW6Nhd2FkfLulFUst1ug6kHDE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=gIPx7UJ6dkf+8hdT4QaFayC1fsNCXn8rScevHGK31NBM/UgYRmvCiVZsAkx1DSW6R
+	 2SB7XPOpZWwFqV3q1FR4hCX/Y0yie1Lj5dhKBd5cHun/WfG/EGG9Tkdr4lXA8OZ5IV
+	 VqC9lqqz/2tI51eQCU8ZECJXgmYyrO138aIj+8WEz2SmuI2esHQ6Jz9qC8Wf7EZXNh
+	 hDq2K9AAhRHhe4dJRXnbvh5sV4N/9Zthw8xpQf1wBVB4Fb/JdsLxVVO8jD/7sGmZeT
+	 5fmMHeyzujjvhkEzADBQfCE6BYmFmwZZldxq7wRL6NnfcY9kxbTnxYzk6BycFiDcHi
+	 dxbqYqwj36gYQ==
+Date: Thu, 28 Jul 2022 15:56:54 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/arm64: sysreg.h: Fix MISRA C 2012 Rule 20.7
+ violation
+In-Reply-To: <c71c9522-2df5-35a3-d39c-706d5c9d5263@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2207281551140.4648@ubuntu-linux-20-04-desktop>
+References: <20220728134943.1185621-1-burzalodowa@gmail.com> <0a8ff178-280d-717f-dacb-4eb9f57a24eb@xen.org> <83c17bf6-b9b2-a297-6f7f-dd08231d0f90@suse.com> <c71c9522-2df5-35a3-d39c-706d5c9d5263@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 171899: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=ca45d3cb4586372909f350e54482246f994e1bc7
-X-Osstest-Versions-That:
-    xen=f732240fd3bac25116151db5ddeb7203b62e85ce
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 28 Jul 2022 22:19:02 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 171899 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171899/
+On Thu, 28 Jul 2022, Julien Grall wrote:
+> On 28/07/2022 15:20, Jan Beulich wrote:
+> > On 28.07.2022 15:56, Julien Grall wrote:
+> > > On 28/07/2022 14:49, Xenia Ragiadakou wrote:
+> > > > --- a/xen/arch/arm/include/asm/arm64/sysregs.h
+> > > > +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+> > > > @@ -461,7 +461,7 @@
+> > > >    /* Access to system registers */
+> > > >       #define WRITE_SYSREG64(v, name) do {                    \
+> > > > -    uint64_t _r = v;                                    \
+> > > > +    uint64_t _r = (v);                                              \
+> > > 
+> > > I am failing to see why the parentheses are necessary here. Could you
+> > > give an example where the lack of them would end up to different code?
+> > 
+> > I think it is merely good practice to parenthesize the right sides of =.
+> > Indeed with assignment operators having second to lowest precedence, and
+> > with comma (the lowest precedence one) requiring parenthesization at the
+> > macro invocation site, there should be no real need for parentheses here.
+> 
+> I am not really happy with adding those parentheses because they are
+> pointless. But if there are a consensus to use it, then the commit message
+> should be updated to clarify this is just here to please MISRA (to me "need"
+> implies it would be bug).
 
-Regressions :-(
+Let me premise that I don't know if this counts as a MISRA violation or
+not. (Also I haven't checked if cppcheck/eclair report it as violation.)
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 171884
+But I think the reason for making the change would be to follow our
+coding style / coding practices. It makes the code simpler to figure out
+that it is correct, to review and maintain if we always add the
+parenthesis even in cases like this one where they are not strictly
+necessary. We are going to save our future selves some mental cycles.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  ca45d3cb4586372909f350e54482246f994e1bc7
-baseline version:
- xen                  f732240fd3bac25116151db5ddeb7203b62e85ce
-
-Last test of basis   171884  2022-07-27 12:03:31 Z    1 days
-Testing same since   171899  2022-07-28 19:01:47 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  George Dunlap <george.dunlap@citrix.com>
-  Jiamei Xie <jiamei.xie@arm.com>
-  Julien Grall <julien.grall@arm.com>
-  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit ca45d3cb4586372909f350e54482246f994e1bc7
-Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date:   Fri Jul 15 22:20:26 2022 +0300
-
-    libxl/arm: Create specific IOMMU node to be referred by virtio-mmio device
-    
-    Reuse generic IOMMU device tree bindings to communicate Xen specific
-    information for the virtio devices for which the restricted memory
-    access using Xen grant mappings need to be enabled.
-    
-    Insert "iommus" property pointed to the IOMMU node with "xen,grant-dma"
-    compatible to all virtio devices which backends are going to run in
-    non-hardware domains (which are non-trusted by default).
-    
-    Based on device-tree binding from Linux:
-    Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
-    
-    The example of generated nodes:
-    
-    xen_iommu {
-        compatible = "xen,grant-dma";
-        #iommu-cells = <0x01>;
-        phandle = <0xfde9>;
-    };
-    
-    virtio@2000000 {
-        compatible = "virtio,mmio";
-        reg = <0x00 0x2000000 0x00 0x200>;
-        interrupts = <0x00 0x01 0xf01>;
-        interrupt-parent = <0xfde8>;
-        dma-coherent;
-        iommus = <0xfde9 0x01>;
-    };
-    
-    virtio@2000200 {
-        compatible = "virtio,mmio";
-        reg = <0x00 0x2000200 0x00 0x200>;
-        interrupts = <0x00 0x02 0xf01>;
-        interrupt-parent = <0xfde8>;
-        dma-coherent;
-        iommus = <0xfde9 0x01>;
-    };
-    
-    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-commit 2128143c114c52c7536e37c32935fdd77f23edc1
-Author: Julien Grall <julien.grall@arm.com>
-Date:   Fri Jul 15 22:20:25 2022 +0300
-
-    libxl: Introduce basic virtio-mmio support on Arm
-    
-    This patch introduces helpers to allocate Virtio MMIO params
-    (IRQ and memory region) and create specific device node in
-    the Guest device-tree with allocated params. In order to deal
-    with multiple Virtio devices, reserve corresponding ranges.
-    For now, we reserve 1MB for memory regions and 10 SPIs.
-    
-    As these helpers should be used for every Virtio device attached
-    to the Guest, call them for Virtio disk(s).
-    
-    Please note, with statically allocated Virtio IRQs there is
-    a risk of a clash with a physical IRQs of passthrough devices.
-    For the first version, it's fine, but we should consider allocating
-    the Virtio IRQs automatically. Thankfully, we know in advance which
-    IRQs will be used for passthrough to be able to choose non-clashed
-    ones.
-    
-    Signed-off-by: Julien Grall <julien.grall@arm.com>
-    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
-Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date:   Fri Jul 15 22:20:24 2022 +0300
-
-    libxl: Add support for Virtio disk configuration
-    
-    This patch adds basic support for configuring and assisting virtio-mmio
-    based virtio-disk backend (emulator) which is intended to run out of
-    Qemu and could be run in any domain.
-    Although the Virtio block device is quite different from traditional
-    Xen PV block device (vbd) from the toolstack's point of view:
-     - as the frontend is virtio-blk which is not a Xenbus driver, nothing
-       written to Xenstore are fetched by the frontend currently ("vdev"
-       is not passed to the frontend). But this might need to be revised
-       in future, so frontend data might be written to Xenstore in order to
-       support hotplugging virtio devices or passing the backend domain id
-       on arch where the device-tree is not available.
-     - the ring-ref/event-channel are not used for the backend<->frontend
-       communication, the proposed IPC for Virtio is IOREQ/DM
-    it is still a "block device" and ought to be integrated in existing
-    "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
-    logic to deal with Virtio devices as well.
-    
-    For the immediate purpose and an ability to extend that support for
-    other use-cases in future (Qemu, virtio-pci, etc) perform the following
-    actions:
-    - Add new disk backend type (LIBXL_DISK_BACKEND_STANDALONE) and reflect
-      that in the configuration
-    - Introduce new disk "specification" and "transport" fields to struct
-      libxl_device_disk. Both are written to the Xenstore. The transport
-      field is only used for the specification "virtio" and it assumes
-      only "mmio" value for now.
-    - Introduce new "specification" option with "xen" communication
-      protocol being default value.
-    - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
-      one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
-    
-    An example of domain configuration for Virtio disk:
-    disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=standalone, specification=virtio']
-    
-    Nothing has changed for default Xen disk configuration.
-    
-    Please note, this patch is not enough for virtio-disk to work
-    on Xen (Arm), as for every Virtio device (including disk) we need
-    to allocate Virtio MMIO params (IRQ and memory region) and pass
-    them to the backend, also update Guest device-tree. The subsequent
-    patch will add these missing bits. For the current patch,
-    the default "irq" and "base" are just written to the Xenstore.
-    This is not an ideal splitting, but this way we avoid breaking
-    the bisectability.
-    
-    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Acked-by: George Dunlap <george.dunlap@citrix.com>
-    Tested-by: Jiamei Xie <jiamei.xie@arm.com>
-(qemu changes not included)
+So the explanation on the commit message could be along those lines.
 
