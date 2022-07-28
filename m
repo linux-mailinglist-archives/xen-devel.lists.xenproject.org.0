@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C76C584628
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jul 2022 21:15:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377062.610145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E55EF58469D
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jul 2022 21:42:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377070.610156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oH8yl-0007it-7Q; Thu, 28 Jul 2022 19:15:27 +0000
+	id 1oH9Na-00036X-99; Thu, 28 Jul 2022 19:41:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377062.610145; Thu, 28 Jul 2022 19:15:27 +0000
+Received: by outflank-mailman (output) from mailman id 377070.610156; Thu, 28 Jul 2022 19:41:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oH8yl-0007fp-49; Thu, 28 Jul 2022 19:15:27 +0000
-Received: by outflank-mailman (input) for mailman id 377062;
- Thu, 28 Jul 2022 19:15:25 +0000
+	id 1oH9Na-00034G-66; Thu, 28 Jul 2022 19:41:06 +0000
+Received: by outflank-mailman (input) for mailman id 377070;
+ Thu, 28 Jul 2022 19:41:04 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oH8yj-0007fj-Nr
- for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 19:15:25 +0000
+ (envelope-from <julien@xen.org>) id 1oH9NY-00034A-Eq
+ for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 19:41:04 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oH8yi-0008Ge-QM; Thu, 28 Jul 2022 19:15:24 +0000
+ id 1oH9NY-0000Gc-3x; Thu, 28 Jul 2022 19:41:04 +0000
 Received: from [54.239.6.189] (helo=[192.168.25.182])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oH8yi-0002IT-Ia; Thu, 28 Jul 2022 19:15:24 +0000
+ id 1oH9NX-0003RB-Tc; Thu, 28 Jul 2022 19:41:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,176 +42,180 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=6UT7bCaYzyGCe0MEDUH/ypta6gAQtL5TSOWu4dfV2Ug=; b=DPD287kUs48gpxP8wxTDU7qbVv
-	Q/rtFMC4OGkAwldP6jdMeCuFstDxGS5m1mG/p3U43u1Y8k/Y9yxSlGCnpszSo8Ob15rvHXYdi60wW
-	/deEidMyv21Tawb5Ek+c/Tfmg3GVKgmtdALX8hH2jGI8Dd8i1B50xLIDeRT8+jIVPvps=;
-Message-ID: <307cef37-e48f-e66f-3550-85c0c50cbb7e@xen.org>
-Date: Thu, 28 Jul 2022 20:15:20 +0100
+	bh=YWYNBbIOvApdZ6sjCCeZTSPgbgncP8nHDwNGQ/Ukemg=; b=c+2RWHZcMEvKCnwGx2SRZwJaDJ
+	6NlPLhqe/rFIn6BJCYvG3lXm+IYQQDMkC+Q7e9oDS6SCo6tZpVNn7juX+G+zZpxXOUrxir+UQ64yq
+	E0b5mnVwL8PMM3QkPiw6hUEuQtONLL4ZHEcxjyk4HAQkDWOo0nAMsFlzMlTc+q1KjB5A=;
+Message-ID: <2444aee6-13b6-a208-d6ba-89c42b43315e@xen.org>
+Date: Thu, 28 Jul 2022 20:41:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.0.3
 Subject: Re: [PATCH v4 2/2] xen/arm: add FF-A mediator
+Content-Language: en-US
 To: Jens Wiklander <jens.wiklander@linaro.org>
 Cc: xen-devel@lists.xenproject.org,
  Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand.Marquis@arm.com,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Wei Liu <wl@xen.org>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand.Marquis@arm.com
 References: <20220622134219.1596613-1-jens.wiklander@linaro.org>
  <20220622134219.1596613-3-jens.wiklander@linaro.org>
- <25778cc8-b9d3-ac0d-b8e4-9a7be87d44bc@xen.org>
- <CAHUa44EBUE3Xo+YGj+JBu0ebpW+sDmuvXS5i-GO45K-4ZdiSBA@mail.gmail.com>
-Content-Language: en-US
+ <a6610563-38b2-bb66-feab-df2ea29a9bb8@xen.org>
+ <CAHUa44GLbbnxrKWQP2ZLGJO_rDUukdiO4_jOs8Ai55iLFh5YmQ@mail.gmail.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <CAHUa44EBUE3Xo+YGj+JBu0ebpW+sDmuvXS5i-GO45K-4ZdiSBA@mail.gmail.com>
+In-Reply-To: <CAHUa44GLbbnxrKWQP2ZLGJO_rDUukdiO4_jOs8Ai55iLFh5YmQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 26/07/2022 07:17, Jens Wiklander wrote:
-> On Fri, Jul 8, 2022 at 3:41 PM Julien Grall <julien@xen.org> wrote:
+On 27/07/2022 07:33, Jens Wiklander wrote:
+> On Fri, Jul 8, 2022 at 9:54 PM Julien Grall <julien@xen.org> wrote:
+>>> +    unsigned int n;
+>>> +    unsigned int m;
+>>> +    p2m_type_t t;
+>>> +    uint64_t addr;
+>>> +
+>>> +    for ( n = 0; n < range_count; n++ )
+>>> +    {
+>>> +        for ( m = 0; m < range[n].page_count; m++ )
+>>> +        {
+>>> +            if ( pg_idx >= shm->page_count )
+>>> +                return FFA_RET_INVALID_PARAMETERS;
 >>
->> Hi Jens,
->>
->> I haven't checked whether the FFA driver is complaint with the spec. I
->> mainly checked whether the code makes sense from Xen PoV.
->>
->> This is a fairly long patch to review. So I will split my review in
->> multiple session/e-mail.
->>
->> On 22/06/2022 14:42, Jens Wiklander wrote:
->>> Adds a FF-A version 1.1 [1] mediator to communicate with a Secure
->>> Partition in secure world.
->>>
->>> The implementation is the bare minimum to be able to communicate with
->>> OP-TEE running as an SPMC at S-EL1.
->>>
->>> This is loosely based on the TEE mediator framework and the OP-TEE
->>> mediator.
->>>
->>> [1] https://developer.arm.com/documentation/den0077/latest
->>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
->>> ---
->>>    SUPPORT.md                        |    7 +
->>>    tools/libs/light/libxl_arm.c      |    3 +
->>>    tools/libs/light/libxl_types.idl  |    1 +
->>>    tools/xl/xl_parse.c               |    3 +
->>
->> These changes would need an ack from the toolstack maintainers.
+>> Shouldn't we call put_page() to drop the references taken by
+>> get_page_from_gfn()?
 > 
-> OK, I'll keep them in CC.
-> 
->>
->>>    xen/arch/arm/Kconfig              |   11 +
->>>    xen/arch/arm/Makefile             |    1 +
->>>    xen/arch/arm/domain.c             |   10 +
->>>    xen/arch/arm/domain_build.c       |    1 +
->>>    xen/arch/arm/ffa.c                | 1683 +++++++++++++++++++++++++++++
->>>    xen/arch/arm/include/asm/domain.h |    4 +
->>>    xen/arch/arm/include/asm/ffa.h    |   71 ++
->>>    xen/arch/arm/vsmc.c               |   17 +-
->>>    xen/include/public/arch-arm.h     |    2 +
->>>    13 files changed, 1811 insertions(+), 3 deletions(-)
->>>    create mode 100644 xen/arch/arm/ffa.c
->>>    create mode 100644 xen/arch/arm/include/asm/ffa.h
->>>
->>> diff --git a/SUPPORT.md b/SUPPORT.md
->>> index 70e98964cbc0..215bb3c9043b 100644
->>> --- a/SUPPORT.md
->>> +++ b/SUPPORT.md
->>> @@ -785,6 +785,13 @@ that covers the DMA of the device to be passed through.
->>>
->>>    No support for QEMU backends in a 16K or 64K domain.
->>>
->>> +### ARM: Firmware Framework for Arm A-profile (FF-A) Mediator
->>> +
->>> +    Status, Arm64: Tech Preview
->>> +
->>> +There are still some code paths where a vCPU may hog a pCPU longer than
->>> +necessary. The FF-A mediator is not yet implemented for Arm32.
->>> +
->>>    ### ARM: Guest Device Tree support
->>>
->>>        Status: Supported
->>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
->>> index eef1de093914..a985609861c7 100644
->>> --- a/tools/libs/light/libxl_arm.c
->>> +++ b/tools/libs/light/libxl_arm.c
->>> @@ -101,6 +101,9 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->>>            return ERROR_FAIL;
->>>        }
->>>
->>> +    config->arch.ffa_enabled =
->>> +        libxl_defbool_val(d_config->b_info.arch_arm.ffa_enabled);
->>> +
->>>        return 0;
->>>    }
->>>
->>> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
->>> index 2a42da2f7d78..bf4544bef399 100644
->>> --- a/tools/libs/light/libxl_types.idl
->>> +++ b/tools/libs/light/libxl_types.idl
->>> @@ -646,6 +646,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
->>>
->>>        ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
->>>                                   ("vuart", libxl_vuart_type),
->>> +                               ("ffa_enabled", libxl_defbool),
->>
->> This needs to be accompagnied with a define LIBXL_HAVE_* in
->> tools/include/libxl.h. Please see the examples in the header.
-> 
-> OK, I'll add something. I'm not entirely sure how this is used so I'm
-> afraid it will be a bit of Cargo Cult programming from my side.
+> Yes, and that's done by put_shm_pages(). One would normally expect
+> get_shm_pages() to do this on error, but that's not needed here since
+> we're always calling put_shm_pages() just before freeing the shm. I
+> can change to let get_shm_pages() do the cleanup on error instead if
+> you prefer that.
 
-The LIBXL_HAVE* by toolstack built on top of libxl (like virtio) to know 
-whether a future is supported by the current library.
+I am fine with the current approach. I would suggest to document it on 
+top of get_shm_pages().
+
+Also, if you expect put_shm_pages() to always be called before freeing 
+shm, then I think it would be worth adding an helper that is doing the 
+two. So the requirement is clearer.
 
 [...]
 
 >>
->>> +
->>> +static inline uint64_t reg_pair_to_64(uint32_t reg0, uint32_t reg1)
->>> +{
->>> +    return (uint64_t)reg0 << 32 | reg1;
->>> +}
->>> +
->>> +static void inline reg_pair_from_64(uint32_t *reg0, uint32_t *reg1,
->>> +                                    uint64_t val)
->>> +{
->>> +    *reg0 = val >> 32;
->>> +    *reg1 = val;
->>> +}
->>
->> Those two functions are the same as optee.c but with a different. I
->> would rather prefer if we avoid the duplication and provide generic
->> helpers in a pre-requisite.
+>> How do you guarantee that both Xen and the domain agree on the page size?
 > 
-> These functions are trivial but at the same time for a special purpose
-> which happens to coincide with the usage in optee.c. I can't find a
-> suitable common .h file and creating a new one seems a bit much.
+> For now, I'll add a BUILD_BUG_ON() to check that the hypervisor page
+> size is 4K  to simplify the initial implementation. We can update to
+> support a larger minimal memory granule later on.
 
-I would implement it in regs.h.
+I am fine with that. FWIW, this is also what we did in the OP-TEE case.
+
+>>> +    for ( n = 1; n < shm->page_count; last_pa = pa, n++ )
+>>> +    {
+>>> +        pa = page_to_maddr(shm->pages[n]);
+>>> +        if ( last_pa + PAGE_SIZE == pa )
+>>> +        {
+>>
+>> Coding style: We usually avoid {} for single line.
+> 
+> OK
+> 
+>>
+>>> +            continue;
+>>> +        }
+>>> +        region_descr->address_range_count++;
+>>> +    }
+>>> +
+>>> +    tot_len = sizeof(*descr) + sizeof(*mem_access_array) +
+>>> +              sizeof(*region_descr) +
+>>> +              region_descr->address_range_count * sizeof(*addr_range);
+>>
+>> How do you make sure that you will not write past the end of ffa_tx?
+>>
+>> I think it would be worth to consider adding an helper that would allow
+>> you to allocate space in ffa_tx and zero it. This would return an error
+>> if there is not enough space.
+> 
+> That's what I'm doing with frag_len. If the descriptor cannot fit it's
+> divided into fragments that will fit.
+
+Oh, so this is what the loop below is for, am I correct? If so, I would 
+suggest to document a bit the code because this function is fairly 
+confusing to understand.
 
 [...]
 
->>> +        .a4 = pg_count,
->>> +    };
->>> +    struct arm_smccc_1_2_regs resp;
+>>> +    if ( read_atomic(&mem_access->access_perm.perm) != FFA_MEM_ACC_RW )
+>>> +    {
+>>> +        ret = FFA_RET_NOT_SUPPORTED;
+>>> +        goto out_unlock;
+>>> +    }
 >>> +
->>> +    /*
->>> +     * For arm64 we must use 64-bit calling convention if the buffer isn't
->>> +     * passed in our tx buffer.
->>> +     */
->>
->> Can you explain why we would want to use the 32-bit calling convention
->> if addr is 0?
+>>> +    region_offs = read_atomic(&mem_access->region_offs);
+>>> +    if ( sizeof(*region_descr) + region_offs > frag_len )
+>>> +    {
+>>> +        ret = FFA_RET_NOT_SUPPORTED;
+>>> +        goto out_unlock;
+>>> +    }
+>>> +
+>>> +    region_descr = (void *)((vaddr_t)ctx->tx + region_offs);
+>>> +    range_count = read_atomic(&region_descr->address_range_count);
+>>> +    page_count = read_atomic(&region_descr->total_page_count);
+>>> +
+>>> +    shm = xzalloc_flex_struct(struct ffa_shm_mem, pages, page_count)
+>> This will allow a guest to allocate an arbitrarily large array in Xen.
+>> So please sanitize page_count before using it.
 > 
-> I was trying to avoid the 64-bit calling convention where possible,
+> This is tricky, what is a reasonable limit? 
 
-OOI, why are you trying to avoid the 64-bit calling convention?
+Indeed. We need a limit that will prevent an untrusted domain to DoS Xen 
+and at the same doesn't prevent the majority of well-behave domain to 
+function.
+
+How is this call going to be used?
+
+> If we do set a limit the
+> guest can still share many separate memory ranges.
+
+This would also need to be limited if there is a desire to support 
+untrusted domain.
 
 [...]
+
+>>> +    ret = get_shm_pages(d, shm, region_descr->address_range_array, range_count,
+>>> +                        0, &last_page_idx);
+>>> +    if ( ret )
+>>> +        goto out;
+>>> +    if ( last_page_idx != shm->page_count )
+>>> +    {
+>>> +        ret = FFA_RET_INVALID_PARAMETERS;
+>>> +        goto out;
+>>> +    }
+>>> +
+>>> +    /* Note that share_shm() uses our tx buffer */
+>>> +    spin_lock(&ffa_buffer_lock);
+>>> +    ret = share_shm(shm);
+>>> +    spin_unlock(&ffa_buffer_lock);
+>>> +    if ( ret )
+>>> +        goto out;
+>>> +
+>>> +    spin_lock(&ffa_mem_list_lock);
+>>> +    list_add_tail(&shm->list, &ffa_mem_list);
+>>
+>> A couple of questions:
+>>     - What is the maximum size of the list?
+> 
+> Currently, there is no limit. I'm not sure what is a reasonable limit
+> more than five for sure, but depending on the use case more than 100
+> might be excessive.
+This is fine to be excessive so long it doesn't allow a guest to drive 
+Xen out of memory or allow long running operations.
+
+As I wrote above, the idea is we need limits that protect Xen but at the 
+same time doesn't prevent the majority well-behave guest to function.
+
+As this is a tech preview, the limits can be low. We can raise the 
+limits as we get a better understanding how this will be used.
+
+Cheers,
 
 -- 
 Julien Grall
