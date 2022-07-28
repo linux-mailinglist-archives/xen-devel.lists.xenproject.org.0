@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8FCC584410
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jul 2022 18:23:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.376951.610016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0713B584441
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jul 2022 18:35:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.376957.610027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oH6Gt-0007v9-TP; Thu, 28 Jul 2022 16:21:59 +0000
+	id 1oH6Tg-0001Bz-1b; Thu, 28 Jul 2022 16:35:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 376951.610016; Thu, 28 Jul 2022 16:21:59 +0000
+Received: by outflank-mailman (output) from mailman id 376957.610027; Thu, 28 Jul 2022 16:35:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oH6Gt-0007tA-PV; Thu, 28 Jul 2022 16:21:59 +0000
-Received: by outflank-mailman (input) for mailman id 376951;
- Thu, 28 Jul 2022 16:21:58 +0000
+	id 1oH6Tf-00018w-UL; Thu, 28 Jul 2022 16:35:11 +0000
+Received: by outflank-mailman (input) for mailman id 376957;
+ Thu, 28 Jul 2022 16:35:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dfiA=YB=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1oH6Gs-0007t1-FP
- for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 16:21:58 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ <SRS0=B2Bu=YB=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1oH6Te-00018q-5j
+ for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 16:35:10 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 665d558e-0e91-11ed-bd2d-47488cf2e6aa;
- Thu, 28 Jul 2022 18:21:57 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id f15so2821842edc.4
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jul 2022 09:21:57 -0700 (PDT)
-Received: from uni.router.wind (adsl-93.176.58.224.tellas.gr. [176.58.224.93])
- by smtp.googlemail.com with ESMTPSA id
- dk15-20020a0564021d8f00b0043cedad30a5sm997092edb.21.2022.07.28.09.21.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Jul 2022 09:21:55 -0700 (PDT)
+ id 3e5833eb-0e93-11ed-bd2d-47488cf2e6aa;
+ Thu, 28 Jul 2022 18:35:08 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id b21so2516857ljk.8
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jul 2022 09:35:08 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ k18-20020a192d12000000b0048a854462a4sm260629lfj.214.2022.07.28.09.35.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Jul 2022 09:35:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,116 +44,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 665d558e-0e91-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: 3e5833eb-0e93-11ed-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=XJz3FE30CMUZxePR5Hul4ldsrorD4RAPiwG0AXEy62g=;
-        b=l8wAFe4tR4icpFOjTC76vG2xM9yosMH8ldGOfAtBcJDInee7i5GcJ9s5lRaH1a/WR6
-         IJlyEl05jXAGvyuZHX/DNyn/9K/eqJimV10lCxHRyrXqD347GmfvUw6LGLfpJU7zQLX+
-         vYs9cKtjmOvIvlgGGpNMBdpVSrohyVf2G2In+LBd0HE/HsF9Mf00XE3uECWMDLnjU3Fg
-         RzAqzyWa4nX/k+vby3v2uXvtq3FvvsNzcFuhQVhTVcwYRkU1gzA9wXg54dPYhZ/otokl
-         G3N1HV7+VBBVjcb3s8fKUhmdXKg/WQkyHySMH+aABk4HE1Os3TSSHxZaet3iePlE8RgK
-         THfg==
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc;
+        bh=Sxv92ZJs3ks/JCHHiU3btXv/lQmsRNCIjFRqW7Zg0uU=;
+        b=NsDTTkpilNTsNHxaJ5ktZzVbng13QHkXSXq7A21SNjtYa/yTUQqGdJeALyFe6b4wC1
+         G1wyUBntJVhTrwdlPjrfZvl/bAOc4pW3kvXZlzKSsn7FJK6IDDr+4WLwsv6xKN7tQocL
+         I77o9CjgL2bK7uPHkgBWyr5dGShf7ejaSwg+jSZFV3N+7b+bjdvxTX32yyDTSKUZmDN3
+         X6ZYMeIonmBtRnJi/Anm4O/713SeDkAfTNUbwtImPe6vNVWK5BvTkE/+zcZ9P+a4AAEQ
+         BqdSKmag+7otKXSMpXuzuqTwXdAF/Z5vE39DzM4sR7ulzIgdynjbqQeWQjKPvKPzb5yv
+         Xwxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=XJz3FE30CMUZxePR5Hul4ldsrorD4RAPiwG0AXEy62g=;
-        b=E+U8TtapYtl1CRPMUEXc0t1/bB6j8vvLwSDFWb25ZeQd19u76GpVY7tjrlgv3P35bo
-         JcuBBm+ne+yOLPl5d1RlTEdtSs9DLZl7f0gAlS5HfL34BB4KDKEyZDojnDDKoJZnu3Ld
-         ItqcLlPfHjDc1yY86VopW8KX2nCXuY7cY63EkYQRvSDSeD4x6rIv8uWlWsRHtdyuksjU
-         mISeIwz8TsnwMb9IWthxTqMe485tV/7jSPfnT8QK3fVuav4Ahq0MkgC7jPesfmcxhlTS
-         hBPByhcGM4KExxlEyc07rRNCdfqwf5S2q1JfhRuBDZD7cqPdTuxyal34niccWmNyM7wX
-         rWew==
-X-Gm-Message-State: AJIora9Qo25pJuH/fsFw+OOcHJ0PB1ywjVAnFZRxR3kPniPZQx/Bs7Oc
-	NFKR3xPch818zz1mIKlYhIlcAeyvRnY=
-X-Google-Smtp-Source: AGRyM1txPcvTQtajiZSTmJEhcDTSocrmT/k2OKxHh/gPQ0D2fFfEcjxHo/86ZWcdncxhRl5CCx8dsg==
-X-Received: by 2002:a05:6402:35c4:b0:43b:fee5:2653 with SMTP id z4-20020a05640235c400b0043bfee52653mr20588266edc.415.1659025315949;
-        Thu, 28 Jul 2022 09:21:55 -0700 (PDT)
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3] xen/arm: domain: Fix MISRA C 2012 Rule 8.7 violation
-Date: Thu, 28 Jul 2022 19:21:51 +0300
-Message-Id: <20220728162151.1228747-1-burzalodowa@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc;
+        bh=Sxv92ZJs3ks/JCHHiU3btXv/lQmsRNCIjFRqW7Zg0uU=;
+        b=zJG8yZpip/MWvlX+xjlYGllNgaLBN8Xp4lL3gfZIgS/coEzgv6mDc5zF+v6Ty8a72f
+         viDKu0iVQWNEgqSA7HRmRRZ7Vqp+ZjlNtbHYqSMXuMeEjNqPpjNZc5nww7rOr3Q/GIav
+         TTk3c8aVvxA+LKWEbkzZQfdY+hvsknSFktAqaCmZTYy8UC8DXlVNf2UxqpPQj8XSXTUq
+         rF7ejlqiLTV44TDGu8dIPvvPtWud+99ut1JnmbtNLbFm9yvG5Bfgl7XVMp42Vjfzfhw6
+         hs3jNNYmY1EyTu2sjkhr8hWmq292MqKjLfwrTTnRGAletwoFzaApgMVc+auvWczBQAQq
+         R2zw==
+X-Gm-Message-State: AJIora8K069dRSPU24dfcdAuPeC8Lm25lA7ItfRdB8QWgJjMQ9DJwO35
+	/z68ctAPfxHlopZMNWjXBUY=
+X-Google-Smtp-Source: AGRyM1sRrFF4CxITdzq6DOgcBvvTuOwxJVZXCMo9f4LEuYOSGqPQCwErehECmxNkiBdb1Er43JQ0hw==
+X-Received: by 2002:a2e:b945:0:b0:25d:e607:ae27 with SMTP id 5-20020a2eb945000000b0025de607ae27mr9557290ljs.368.1659026108141;
+        Thu, 28 Jul 2022 09:35:08 -0700 (PDT)
+Message-ID: <3752a158-85a1-e758-36eb-2feb0c5be954@gmail.com>
+Date: Thu, 28 Jul 2022 19:35:06 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V7 10/11] xen/arm: translate virtual PCI bus topology for
+ guests
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20220719174253.541965-1-olekstysh@gmail.com>
+ <20220719174253.541965-11-olekstysh@gmail.com>
+ <6e1a842f-e577-0f01-5046-f96c3c75db5b@suse.com>
+ <b0f69f8b-d163-f984-e5ec-88a0a158eafc@gmail.com>
+ <8e839472-f49d-a464-34aa-c7b26b9c50de@gmail.com>
+ <cfc6488d-c06e-e943-fc8c-7b12d330f263@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+In-Reply-To: <cfc6488d-c06e-e943-fc8c-7b12d330f263@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The function idle_loop() is referenced only in domain.c.
-Change its linkage from external to internal by adding the storage-class
-specifier static to its definitions.
 
-Add the function as a 'fake' input operand to the inline assembly statement,
-to make the compiler aware that the function is used.
-Fake means that the function is not actually used as an operand by the asm code.
-That is because there is not a suitable gcc arm32 asm constraint for labels.
+On 28.07.22 10:15, Jan Beulich wrote:
 
-Declare return_to_new_vcpu32() and return_to_new_vcpu64() that are also
-referenced by this inline asm statement.
+Hello Jan
 
-Also, this patch resolves indirectly a MISRA C 2012 Rule 8.4 violation warning.
+> On 27.07.2022 21:39, Oleksandr wrote:
+>> On 27.07.22 20:54, Oleksandr wrote:
+>>> On 26.07.22 18:16, Jan Beulich wrote:
+>>>> On 19.07.2022 19:42, Oleksandr Tyshchenko wrote:
+>>>>> --- a/xen/arch/arm/vpci.c
+>>>>> +++ b/xen/arch/arm/vpci.c
+>>>>> @@ -41,6 +41,16 @@ static int vpci_mmio_read(struct vcpu *v,
+>>>>> mmio_info_t *info,
+>>>>>        /* data is needed to prevent a pointer cast on 32bit */
+>>>>>        unsigned long data;
+>>>>>    +    /*
+>>>>> +     * For the passed through devices we need to map their virtual
+>>>>> SBDF
+>>>>> +     * to the physical PCI device being passed through.
+>>>>> +     */
+>>>>> +    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
+>>>>> +    {
+>>>>> +        *r = ~0ul;
+>>>>> +        return 1;
+>>>>> +    }
+>>>> I'm probably simply lacking specific Arm-side knowledge, but it strikes
+>>>> me as odd that the need for translation would be dependent upon
+>>>> "bridge".
+>>>
+>>> I am afraid I cannot answer immediately.
+>>>
+>>> I will analyze that question and provide an answer later on.
+>>
+>> Well, most likely that "valid" bridge pointer here is just used as an
+>> indicator of hwdom currently, so no need to perform virt->phys
+>> translation for sbdf.
+>>
+>> You can see that domain_vpci_init() passes a valid value for hwdom and
+>> NULL for other domains when setting up vpci_mmio* callbacks.
+> Oh, I see.
+>
+>> Alternatively, I guess we could use "!is_hardware_domain(v->domain)"
+>> instead of "!bridge" in the first part of that check. Shall I?
+> Maybe simply add a comment? Surely checking "bridge" is cheaper than
+> using is_hardware_domain(), so I can see the benefit. But the larger
+> arm/vpci.c grows, the less obvious the connection will be without a
+> comment.
 
-Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
----
 
-Changes in v2:
-- remove the 'used' attribute and pass the function as input operand to
-the inline asm statement
-- declare return_to_new_vcpu32() and return_to_new_vcpu64()
+Agree the connection is worth a comment ...
 
-Changes in v3:
-- remove the declarations of return_to_new_vcpu32() and return_to_new_vcpu64()
-from asm/current.h because this is not the appropriate header
-- place them in arm/domain.c to restrict their visibilty to this particular file
-- declare them as noreturn
 
- xen/arch/arm/domain.c              | 5 ++++-
- xen/arch/arm/include/asm/current.h | 2 +-
- 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 2f8eaab7b5..ce1089f0c6 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -63,7 +63,7 @@ static void do_idle(void)
-     rcu_idle_exit(cpu);
- }
- 
--void idle_loop(void)
-+static void idle_loop(void)
- {
-     unsigned int cpu = smp_processor_id();
- 
-@@ -331,6 +331,9 @@ static void schedule_tail(struct vcpu *prev)
-     update_vcpu_system_time(current);
- }
- 
-+extern void noreturn return_to_new_vcpu32(void);
-+extern void noreturn return_to_new_vcpu64(void);
+>   (Instead of a comment, an alternative may be a suitable
+> assertion, which then documents the connection at the same time, e.g.
+> ASSERT(!bridge == !is_hardware_domain(v->domain)). But that won't be
+> possible in e.g. vpci_sbdf_from_gpa(), where apparently a similar
+> assumption is being made.)
+
+
+    ... or indeed to put such ASSERT _before_ vpci_sbdf_from_gpa().
+
+This will cover assumption being made in both places.
+
+
+diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+index a9fc5817f9..1d4b1ef39e 100644
+--- a/xen/arch/arm/vpci.c
++++ b/xen/arch/arm/vpci.c
+@@ -37,10 +37,24 @@ static int vpci_mmio_read(struct vcpu *v, 
+mmio_info_t *info,
+                            register_t *r, void *p)
+  {
+      struct pci_host_bridge *bridge = p;
+-    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
++    pci_sbdf_t sbdf;
+      /* data is needed to prevent a pointer cast on 32bit */
+      unsigned long data;
+
++    ASSERT(!bridge == !is_hardware_domain(v->domain));
 +
- static void continue_new_vcpu(struct vcpu *prev)
- {
-     current->arch.actlr = READ_SYSREG(ACTLR_EL1);
-diff --git a/xen/arch/arm/include/asm/current.h b/xen/arch/arm/include/asm/current.h
-index 73e81458e5..6973eeb1d1 100644
---- a/xen/arch/arm/include/asm/current.h
-+++ b/xen/arch/arm/include/asm/current.h
-@@ -45,7 +45,7 @@ static inline struct cpu_info *get_cpu_info(void)
- #define guest_cpu_user_regs() (&get_cpu_info()->guest_cpu_user_regs)
- 
- #define switch_stack_and_jump(stack, fn) do {                           \
--    asm volatile ("mov sp,%0; b " STR(fn) : : "r" (stack) : "memory" ); \
-+    asm volatile ("mov sp,%0; b " STR(fn) : : "r" (stack), "X" (fn) : "memory" ); \
-     unreachable();                                                      \
- } while ( false )
- 
++    sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
++
++    /*
++     * For the passed through devices we need to map their virtual SBDF
++     * to the physical PCI device being passed through.
++     */
++    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
++    {
++        *r = ~0ul;
++        return 1;
++    }
++
+      if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
+                          1U << info->dabt.size, &data) )
+      {
+@@ -57,7 +71,18 @@ static int vpci_mmio_write(struct vcpu *v, 
+mmio_info_t *info,
+                             register_t r, void *p)
+  {
+      struct pci_host_bridge *bridge = p;
+-    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
++    pci_sbdf_t sbdf;
++
++    ASSERT(!bridge == !is_hardware_domain(v->domain));
++
++    sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
++
++    /*
++     * For the passed through devices we need to map their virtual SBDF
++     * to the physical PCI device being passed through.
++     */
++    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
++        return 1;
+
+      return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
+                             1U << info->dabt.size, r);
+diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+index d4601ecf9b..fc2c51dc3e 100644
+
+
+Any preference here?
+
+
+Personally, I think that such ASSERT will better explain the connection 
+than the comment will do.
+
+
+>
+> Jan
+
 -- 
-2.34.1
+Regards,
+
+Oleksandr Tyshchenko
 
 
