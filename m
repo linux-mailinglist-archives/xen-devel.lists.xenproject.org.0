@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D247F584266
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Jul 2022 16:57:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.376891.609939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17DD25842BF
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Jul 2022 17:15:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.376910.609949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oH4wT-00024S-4h; Thu, 28 Jul 2022 14:56:49 +0000
+	id 1oH5EC-0004iz-M0; Thu, 28 Jul 2022 15:15:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 376891.609939; Thu, 28 Jul 2022 14:56:49 +0000
+Received: by outflank-mailman (output) from mailman id 376910.609949; Thu, 28 Jul 2022 15:15:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oH4wT-00021f-1x; Thu, 28 Jul 2022 14:56:49 +0000
-Received: by outflank-mailman (input) for mailman id 376891;
- Thu, 28 Jul 2022 14:56:47 +0000
+	id 1oH5EC-0004gJ-JE; Thu, 28 Jul 2022 15:15:08 +0000
+Received: by outflank-mailman (input) for mailman id 376910;
+ Thu, 28 Jul 2022 15:15:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B2Bu=YB=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1oH4wR-00021Z-L3
- for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 14:56:47 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ <SRS0=dfiA=YB=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1oH5EB-0004gD-JU
+ for xen-devel@lists.xenproject.org; Thu, 28 Jul 2022 15:15:07 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 805e992b-0e85-11ed-bd2d-47488cf2e6aa;
- Thu, 28 Jul 2022 16:56:46 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id t1so3211478lft.8
- for <xen-devel@lists.xenproject.org>; Thu, 28 Jul 2022 07:56:46 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
+ id 0fc597a5-0e88-11ed-bd2d-47488cf2e6aa;
+ Thu, 28 Jul 2022 17:15:06 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id j22so3724693ejs.2
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Jul 2022 08:15:06 -0700 (PDT)
+Received: from [192.168.1.93] (adsl-237.176.58.138.tellas.gr. [176.58.138.237])
  by smtp.gmail.com with ESMTPSA id
- u13-20020ac258cd000000b00489f0c8bddesm231487lfo.207.2022.07.28.07.56.45
+ z19-20020a170906075300b0071c6dc728b2sm510541ejb.86.2022.07.28.08.15.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Jul 2022 07:56:45 -0700 (PDT)
+ Thu, 28 Jul 2022 08:15:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,150 +44,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 805e992b-0e85-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: 0fc597a5-0e88-11ed-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc;
-        bh=aukZP7fIYEgRcNgQauT0c9Fws8Q4PpqsdZsgdLKxqdI=;
-        b=p0dpGsyJfHJgJQcWgPZ4/jOCo/m9pB2Qa7AhY2yTiZ6eeAyVczlLL96AL1+lgOTG5o
-         vbIo1mtG9erExx5xTrC25nEy7doWOnH7b7SQ0a5JqIZrYUQYpwL/C7T87hpW+0aGGkD2
-         VG5OzaACprRjtKdSpgzXMbxQLzA1IRoryPRXXMdUB/kVqqgmLaojTV4MqoCc1dPtHGFF
-         fX1aPrrrZ3V4SZqFX1i+mvJ2wqtq5YIkElUDri8YIXeHulUnxEz0yMnxOH3SoLBw+p+x
-         cUzC6y6cQ3KQU+phGXGS8oR+h9HHSkghRWSkewVujg/++RzpcWDzlbZXDsvE6ZWLX/W8
-         UMNg==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=+bDXLM/gyGC9wqVQYDzf3ehUIgXmb8Ntv7fGLNNxN74=;
+        b=puKhKrFVrFDCJFQfXNm/H9+TBioKRmycKN0KxyzKSuT2KM91MBdC5CBIg7tDtKCfSM
+         EIZ7DxnIklLuKPkfTb1DMFZaSDM3TmGuftGb522IaRYaHtZ+MKjrgkRH2Ahlx518egjC
+         OoulS8sp/IM9ix9Jiwzn1ZzajVyWJmpa/gm7nofEGMDW69FQrrHE872T+MB2G+JoF4GX
+         TJNeJNnHEYWXh7S8cXE5iLDzO+rCij8xnQF4IXllpvlVu5/hi8nzq0YqfeUlZyPdd0eo
+         +WfY7g6R0L2oXrLoihtDMthSkau1yihxe3Of/k+S5gyzT7JZiocDPvp4Foedg2YeW7A0
+         MUHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc;
-        bh=aukZP7fIYEgRcNgQauT0c9Fws8Q4PpqsdZsgdLKxqdI=;
-        b=a1x9yGjCzJdzACJtw1wMZ/GfjxMymk3jbXue4qaNTv5Aefx/R2HVoVz862mFLPcxHv
-         OrYRmL9nidY0nGJjhyqRw7vbckdvqz8Q51IYTSCt3OegX6tymoq6Qw5VI+cSc1MSzVhn
-         /qNS/ll3e0vE3YcjrMyeCkJ8GLGGU++y8qEUbGeLDLCWpnZAUOIDKfOmmlaf/S62N8yy
-         /r+WIFp4MJmTzfTybqohvbuNSFx4n1NmnBAwifpYhppW2knL9Zl9hYai2NxHFNmucTta
-         1chj8y/Rmh2TrLJzkkb7ewFRa68GQqIxfizkHr5OYwvJcfcqdTqG//rgM7jNZJtlA7nB
-         pKQQ==
-X-Gm-Message-State: AJIora+pT4YqqhFm1/S0w4R3TE9uPsvjPu+J201seZUePrR2xySBWPYN
-	dRBV1ENicBNfQLV71Jt0gqU=
-X-Google-Smtp-Source: AGRyM1tq1Iizw2ysuZFEUUnG4A26/4b5TR/GA5uOcfZsK6KObj3Qu8/0N2JnaRC/hPz0qmjiMu31DA==
-X-Received: by 2002:a05:6512:2141:b0:48a:772b:bf86 with SMTP id s1-20020a056512214100b0048a772bbf86mr9954494lfr.178.1659020206115;
-        Thu, 28 Jul 2022 07:56:46 -0700 (PDT)
-Message-ID: <00968e58-8e52-dc5f-f5fc-09274d8f4ec3@gmail.com>
-Date: Thu, 28 Jul 2022 17:56:44 +0300
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=+bDXLM/gyGC9wqVQYDzf3ehUIgXmb8Ntv7fGLNNxN74=;
+        b=6QIrOzyGll4GEFWS//7QvIJ2igzy2IxDQOL77EDm/KNxkwOm8REWR0sQ+LJtx74idD
+         Q72BYPVwJSWFML754wzVAW8QId/D6Dzjbn+TT2+JNrSW22Vy6LZZI9A5yynpxf/DXlPo
+         Zf2xbZlCut5ofrY0QdT8K6YK14YTJnGhcO+gzhbqoUoOwyO2hUVRcwVCMTpagt4if8lO
+         32QiJLD1Ux3eanKDvhZldzGaEzGxG+nGrLPWoCMu0s1uZJuzFNVP5IZJyebvsXDcm8Ot
+         1JKgONdoSPKf7JwRtywyxm16cu1hcrHTnTflM/GvGNt8IwD1aobakhE9HLi3JwAFwYSE
+         T+Zg==
+X-Gm-Message-State: AJIora9KhQQhCuHY0dCGJ45GrjUyxebmBHqRloBYufo/zOP6EXJKMcpt
+	ubwZKR7eF3BgMiHQmZbm5V8=
+X-Google-Smtp-Source: AGRyM1uPSv5ukhWossIxUO7jh66r750jRUMLDa1dA2panHIS8cwLnQ2Smf8Jue6GGYtL1Wev0XXYEw==
+X-Received: by 2002:a17:906:cc12:b0:72b:67bb:80c3 with SMTP id ml18-20020a170906cc1200b0072b67bb80c3mr20748678ejb.668.1659021305532;
+        Thu, 28 Jul 2022 08:15:05 -0700 (PDT)
+Message-ID: <deec9152-3ca8-829e-23d0-2390f1981666@gmail.com>
+Date: Thu, 28 Jul 2022 18:15:03 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH V7 03/11] vpci/header: implement guest BAR register
- handlers
+Subject: Re: [PATCH] xen/arm64: sysreg.h: Fix MISRA C 2012 Rule 20.7 violation
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20220719174253.541965-1-olekstysh@gmail.com>
- <20220719174253.541965-4-olekstysh@gmail.com>
- <dfc1adb6-82ac-5afc-0d4d-4514548314e1@suse.com>
- <25d96933-5582-ff1e-f685-d48b5380d531@gmail.com>
- <a43ac496-3296-93d4-f1ed-5fd4acfe9ac6@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-In-Reply-To: <a43ac496-3296-93d4-f1ed-5fd4acfe9ac6@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220728134943.1185621-1-burzalodowa@gmail.com>
+ <0a8ff178-280d-717f-dacb-4eb9f57a24eb@xen.org>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <0a8ff178-280d-717f-dacb-4eb9f57a24eb@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Julien,
 
-On 28.07.22 10:01, Jan Beulich wrote:
-
-Hello Jan
-
-
-> On 27.07.2022 18:17, Oleksandr wrote:
->> On 27.07.22 13:15, Jan Beulich wrote:
->>> On 19.07.2022 19:42, Oleksandr Tyshchenko wrote:
->>>> @@ -527,6 +592,17 @@ static int cf_check init_bars(struct pci_dev *pdev)
->>>>            if ( (val & PCI_BASE_ADDRESS_SPACE) == PCI_BASE_ADDRESS_SPACE_IO )
->>>>            {
->>>>                bars[i].type = VPCI_BAR_IO;
->>>> +
->>>> +#ifndef CONFIG_X86
->>>> +            if ( !is_hwdom )
->>>> +            {
->>>> +                rc = vpci_add_register(pdev->vpci, empty_bar_read, NULL,
->>>> +                                       reg, 4, &bars[i]);
->>>> +                if ( rc )
->>>> +                    goto fail;
->>>> +            }
->>>> +#endif
->>> Since long term this can't be correct, it wants a TODO comment put next
->>> to it.
+On 7/28/22 16:56, Julien Grall wrote:
+> Hi,
+> 
+> On 28/07/2022 14:49, Xenia Ragiadakou wrote:
+>> The macro parameter 'v' is used as an expression and needs to be 
+>> enclosed in
+>> parentheses.
 >>
->> Looking into the previous versions of this patch (up to V3) I failed to
->> find any changes in current version which hadn't been discussed (and
->> agreed in some form).
+>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>> ---
+>>   xen/arch/arm/include/asm/arm64/sysregs.h | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
 >>
->> Could you please clarify what exactly can't be correct the long term,
->> for me to put the proper TODO here. Do you perhaps mean that TODO needs
->> to explain why we have to diverge?
-> If a device has I/O port ranges, then that's typically for a reason.
-> Drivers (in the guest) may therefore want to use those ranges to
-> communicate with the device. Imagine in particular a device without
-> any MMIO BARs, and with only I/O port one(s).
->
->>>> @@ -553,34 +635,47 @@ static int cf_check init_bars(struct pci_dev *pdev)
->>>>            bars[i].size = size;
->>>>            bars[i].prefetchable = val & PCI_BASE_ADDRESS_MEM_PREFETCH;
->>>>    
->>>> -        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg, 4,
->>>> -                               &bars[i]);
->>>> +        rc = vpci_add_register(pdev->vpci,
->>>> +                               is_hwdom ? vpci_hw_read32 : guest_bar_read,
->>>> +                               is_hwdom ? bar_write : guest_bar_write,
->>>> +                               reg, 4, &bars[i]);
->>>>            if ( rc )
->>>> -        {
->>>> -            pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
->>>> -            return rc;
->>>> -        }
->>>> +            goto fail;
->>>>        }
->>>>    
->>>> -    /* Check expansion ROM. */
->>>> -    rc = pci_size_mem_bar(pdev->sbdf, rom_reg, &addr, &size, PCI_BAR_ROM);
->>>> -    if ( rc > 0 && size )
->>>> +    /* Check expansion ROM: we do not handle ROM for guests. */
->>>> +    if ( is_hwdom )
->>> This again can't be right long-term. Personally I'd prefer if the code
->>> was (largely) left as is, with adjustments (with suitable TODO comments)
->>> made on a much smaller scope only.
->>
->> I can revive a comment that Oleksandr Andrushchenko provided for earlier
->> version by transforming into TODO:
->>
->>
->> ROM BAR is only handled for the hardware domain and for guest domains
->> there is a stub: at the moment PCI expansion ROM handling is supported
->> for x86 only and it might not be used by other architectures without
->> emulating x86. Other use-cases may include using that expansion ROM before
->> Xen boots, hence no emulation is needed in Xen itself. Or when a guest
->> wants to use the ROM code which seems to be rare.
-> ROMs can contain other than x86 code. While reportedly mostly dead, EFI
-> bytecode was an example of an abstraction layer supporting arbitrary
-> architectures. Therefore a comment along these lines would be okay, but
-> personally I'd prefer it to be less verbose - along the lines of the
-> one to be supplied for the I/O port restriction.
+>> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h 
+>> b/xen/arch/arm/include/asm/arm64/sysregs.h
+>> index 54670084c3..f5a7269a27 100644
+>> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
+>> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+>> @@ -461,7 +461,7 @@
+>>   /* Access to system registers */
+>>   #define WRITE_SYSREG64(v, name) do {                    \
+>> -    uint64_t _r = v;                                    \
+>> +    uint64_t _r = (v);                                              \
+> 
+> I am failing to see why the parentheses are necessary here. Could you 
+> give an example where the lack of them would end up to different code?
 
+Here v is supposed to be used as an expression. So maybe the rule wants 
+to enforce that in the macro we will pass an expression and not multiple 
+statements (?) ... not sure.
 
-Thanks for the clarification. I will add two TODOs.
-
-
-
->
-> Jan
+> 
+>>       asm volatile("msr "__stringify(name)", %0" : : "r" (_r));       \
+>>   } while (0)
+>>   #define READ_SYSREG64(name) ({                          \
+> 
+> Cheers,
+> 
 
 -- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Xenia
 
