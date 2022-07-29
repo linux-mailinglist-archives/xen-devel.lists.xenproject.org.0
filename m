@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 048165854C7
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 19:54:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377686.610977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED02D5854CC
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 19:54:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377691.611021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHUBf-0006bt-1o; Fri, 29 Jul 2022 17:54:11 +0000
+	id 1oHUBn-0007lj-8i; Fri, 29 Jul 2022 17:54:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377686.610977; Fri, 29 Jul 2022 17:54:11 +0000
+Received: by outflank-mailman (output) from mailman id 377691.611021; Fri, 29 Jul 2022 17:54:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHUBe-0006a3-VK; Fri, 29 Jul 2022 17:54:10 +0000
-Received: by outflank-mailman (input) for mailman id 377686;
- Fri, 29 Jul 2022 17:54:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oHUBn-0007jh-4O; Fri, 29 Jul 2022 17:54:19 +0000
+Received: by outflank-mailman (input) for mailman id 377691;
+ Fri, 29 Jul 2022 17:54:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UihI=YC=citrix.com=prvs=202bfa127=edvin.torok@srs-se1.protection.inumbo.net>)
- id 1oHUBd-0006Zx-8z
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 17:54:09 +0000
+ id 1oHUBl-0006a9-Bo
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 17:54:17 +0000
 Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f4ca0d9-0f67-11ed-bd2d-47488cf2e6aa;
- Fri, 29 Jul 2022 19:54:07 +0200 (CEST)
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 75963896-0f67-11ed-924f-1f966e50362f;
+ Fri, 29 Jul 2022 19:54:16 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,51 +36,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f4ca0d9-0f67-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: 75963896-0f67-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1659117246;
+  d=citrix.com; s=securemail; t=1659117256;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0XhqZ8NRblIeCreSrfdQ9yayvs4XLb4vL2XM9dKH9MI=;
-  b=Olub0/TxHoeGYkwVPs1gUqmyLYbi0fhmOLAxAFjNVndFxAbpTMIz3vMB
-   ShbMT33OF7024qTLsXL4WxJlni8CE/i+ZtD0l7rapqwwUHx9WWk2aL4i/
-   gHl8zoSbUbD+LMFXDLhEKE4OB445VHpKfENz+we7uSmoD0zTzp/t2uOor
-   g=;
+  bh=RkbRUEdOWEaCHa9+/Ptg/amm9wD5Jpr8o1Ls9yYeJ4s=;
+  b=gN5sn3moo+oRFf86iejqDq7FlUjbatC2OJyxQ1g0DRDlFXogVjcZB1ws
+   pMj5OLQg39fqcGR0yHAiNuSSO2kJHKXPw6VgmyHi/Rcr/UjJGINKO1BKN
+   eFj68MGpwU3v3KF6QoF71s3ZDl04OGDQs05d0cv6IY0buWEamcGJZliDT
+   A=;
 Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 77388856
+X-MesageID: 77388875
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:HU0/CKv9tOJ6MyKo8h3FoJZFJefnVDVeMUV32f8akzHdYApBsoF/q
- tZmKTrQa/zZa2rxKIwkatvi8EtV7JOEz4NjTlFurHwwES0W+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZhSAgk/vOHtIQMcacUghpXwhoVSw9vhxqnu89k+ZAjMOwRgiAo
- rsemeWGULOe82MyYzl8B56r8ks15qyt4mJA5DTSWNgQ1LPgvyhNZH4gDfnZw0vQGuF8AuO8T
- uDf+7C1lkuxE8AFU47Nfh7TKyXmc5aKVeS8oiM+t5uK23CukhcawKcjXMfwXG8M49m/c3Kd/
- /0W3XC4YV9B0qQhA43xWTEAe811FfUuFLMqvRFTGCFcpqHLWyKE/hlgMK05FaFB1qEqInNFz
- OQdDRsAS0m9p9u9663uH4GAhux7RCXqFIYWu3UmxjDFF/c2B5vERs0m5/cBgm123JoXW6+DO
- YxJMlKDbzyZC/FLElobFpM42vuvnH78WzZZtEiUtew85G27IAlZj+e2YIqFJ4LiqcN9nkGWu
- UvcxVvAWU8/C/ub2R2g4FOyibqa9c/8cN1LT+DpnhJwu3Wfz3IeIAcbXly6pb++kEHWc81bA
- 1wZ/Gwpt6da3FymSJzxUgO1pFaAvwUAQJxAHusi8gaPx6HIpQGDCQA5oiVpMYJ88pVsHHpzi
- wHPz4iB6SFTXKO9ZSuxseq3vziLIS0wBmInPBEkdAAu/Iy2yG0stS4jXuqPAYbs0ICkQWyhn
- mjbxMQtr+5N1JBWjs1X6XiC2mvx/caRE2bZ8y2NBgqYAhVFiJlJjmBCwXzS9r5+IYmQVTFtV
- 1BUypHFvIji4Xxg/RFhodnh/5nzvp5pyBWG3TZS82AJrlxBAUKLc4FK+y1ZL0x0KMsCcjKBS
- BaN5FIJv8QIbCf1N/Afj2eN5yMClPKIKDgYfqqMMoomjmZZL2drAx2ClWbPhjuwwSDAYIk0O
- IuBcNbEMEv2/Z9PlWPuL89AgOBD+8zL7TmMLXwN50j4jOH2ib/8YettDWZimchjsPrd8F2Or
- 4s32gnj40w3bdASqxL/qeY7RW3m51BibXwqg6S7rtK+Hzc=
-IronPort-HdrOrdr: A9a23:03lGSq84duHOqchc7HRuk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
- re5cjztCWE7gr5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
- 9bAtBD4bbLbGSS4/yU3ODBKadD/OW6
+IronPort-Data: A9a23:CWTGF6ooLySU/BLxNlG4Siz64opeBmJ7ZRIvgKrLsJaIsI4StFCzt
+ garIBmBb/aPZWfzftgjbYSyp04G6sSDmIJnGQdppSk2EXgU+JuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefSAOKU5NfsYkhZXRVjRDoqlSVtkus4hp8AqdWiCkaGt
+ MiaT/f3YTdJ4BYpdDNPg06/gEk35q6q52lJ5gZWic1j5zcyqVFEVPrzGonpR5fIatE8NvK3Q
+ e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkEqShgJ+rQ6LJIhhXJ/0F1lqTzTJ
+ OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXWV+ACQqflO1q8iCAn3aMqU80PhLMGYV9
+ MdBLS4ucFOOiPKz4rmSH7wEasQLdKEHPasas3BkizrYEewnUdbIRKCiCd1whWlqwJoURLCHO
+ pRfOWEHgBfoOnWjPn8aBIw/mqG0gWP4cBVTqU6PpLpx6G/WpOB0+Oeya4qFKoPXLSlTtkiZn
+ Vr50UrDOCwXLNGW7TGI9ky8j/CayEsXX6pNTeblp5aGmma7ymUNBTUMWFC8oP3/jVSxM/pAL
+ 2QE9yxoqrI9nGS7Q9+4UxCmrXqsuh8HR8EWA+A88BuKyKff/0CeHGdsc9JaQIV47olsH2Vsj
+ wLX2YOybdByjFGLYVa36IulqmizAnEQM0wcJiILXQ4n6PC29enfkSnzosZf/L+d14OoSGmtk
+ m3S/UDSlJ1I05dVivzTEUTvxmv1+8OXFlNdChD/BDrN0+9vWGKyi2VEA3D/5O0IEouWR0LpU
+ JMsy5nHt7Bm4X1geUWwrAQx8FKBva/t3MX02wIHInXY323FF4SfVY5R+ipiA0xiL9wJfzTkC
+ GeK514AvMQIZyv2MvUoC25UNyjN5fG6fekJq9iONoYeCnSPXFTvEN5Sib64gDm2zRlEfVAXM
+ paHa8e8ZUsn5VBc5GPvH481jO50rh3SMEuJGvgXOTz7jufFDJNUIJ9ZWGazghcRtv/d+VWNq
+ IoCXyZIoj0GONDDjuDs2dZ7BTg3wbITXPgad+Q/mja/Hzdb
+IronPort-HdrOrdr: A9a23:BZPhpqzw6gv8Rot2yYapKrPwFL1zdoMgy1knxilNoRw8SKKlfq
+ eV7Y0mPH7P+VAssR4b+exoVJPtfZqYz+8R3WBzB8bEYOCFghrKEGgK1+KLqFeMJ8S9zJ846U
+ 4JSdkHNDSaNzlHZKjBjzVQa+xQouW6zA==
 X-IronPort-AV: E=Sophos;i="5.93,201,1654574400"; 
-   d="scan'208";a="77388856"
+   d="scan'208";a="77388875"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, Wei Liu
 	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Christian Lindig
 	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>
-Subject: [PATCH v1 2/7] tools/ocaml/*/Makefile: generate paths.ml from configure
-Date: Fri, 29 Jul 2022 18:53:25 +0100
-Message-ID: <0752fe6eaa26f244f6fb45b1c3c6b9906deb2aa9.1659116941.git.edvin.torok@citrix.com>
+Subject: [PATCH v1 3/7] tools/ocaml/*/dune: dune based build system
+Date: Fri, 29 Jul 2022 18:53:26 +0100
+Message-ID: <0f2c08734668626a618767680493a006827e123b.1659116941.git.edvin.torok@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1659116941.git.edvin.torok@citrix.com>
 References: <cover.1659116941.git.edvin.torok@citrix.com>
@@ -88,105 +88,258 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-paths.ml contains various paths known to configure,
-and currently is generated via a Makefile rule.
-Simplify this and generate it through configure, similar to how
-oxenstored.conf is generated from oxenstored.conf.in.
+Based on Christian Lindig's work.
 
-This will allow to reuse the generated file more easily with Dune.
+Initially this will be used to build unit tests, and to make development
+easier.
+
+Dune supports proper incremental builds and editor integration with
+merlin/LSP.
+
+For now the Makefile based build system is retained too: this is not a
+hard dependency on Dune.
+
+Using version 2.1 of Dune build language here, because that is the one
+available in Ubuntu Focal (part of the CI here).
 
 No functional change.
 
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 ---
- tools/configure                   | 4 +++-
- tools/configure.ac                | 2 ++
- tools/ocaml/libs/xs/Makefile      | 5 -----
- tools/ocaml/libs/xs/paths.ml.in   | 1 +
- tools/ocaml/xenstored/Makefile    | 5 -----
- tools/ocaml/xenstored/paths.ml.in | 4 ++++
- 6 files changed, 10 insertions(+), 11 deletions(-)
- create mode 100644 tools/ocaml/libs/xs/paths.ml.in
- create mode 100644 tools/ocaml/xenstored/paths.ml.in
+ tools/.gitignore               |  7 +++++
+ tools/dune                     |  5 ++++
+ tools/dune-project             |  1 +
+ tools/ocaml/dune-project       | 27 ++++++++++++++++++
+ tools/ocaml/libs/eventchn/dune | 11 ++++++++
+ tools/ocaml/libs/mmap/dune     |  9 ++++++
+ tools/ocaml/libs/xb/dune       | 10 +++++++
+ tools/ocaml/libs/xc/dune       | 16 +++++++++++
+ tools/ocaml/libs/xs/dune       | 15 ++++++++++
+ tools/ocaml/xenstored/dune     | 51 ++++++++++++++++++++++++++++++++++
+ 10 files changed, 152 insertions(+)
+ create mode 100644 tools/.gitignore
+ create mode 100644 tools/dune
+ create mode 100644 tools/dune-project
+ create mode 100644 tools/ocaml/dune-project
+ create mode 100644 tools/ocaml/libs/eventchn/dune
+ create mode 100644 tools/ocaml/libs/mmap/dune
+ create mode 100644 tools/ocaml/libs/xb/dune
+ create mode 100644 tools/ocaml/libs/xc/dune
+ create mode 100644 tools/ocaml/libs/xs/dune
+ create mode 100644 tools/ocaml/xenstored/dune
 
-diff --git a/tools/configure b/tools/configure
-index a052c186a5..41deb7fb96 100755
---- a/tools/configure
-+++ b/tools/configure
-@@ -2453,7 +2453,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
- 
- 
- 
--ac_config_files="$ac_config_files ../config/Tools.mk hotplug/FreeBSD/rc.d/xencommons hotplug/FreeBSD/rc.d/xendriverdomain hotplug/Linux/init.d/sysconfig.xencommons hotplug/Linux/init.d/sysconfig.xendomains hotplug/Linux/init.d/xen-watchdog hotplug/Linux/init.d/xencommons hotplug/Linux/init.d/xendomains hotplug/Linux/init.d/xendriverdomain hotplug/Linux/launch-xenstore hotplug/Linux/vif-setup hotplug/Linux/xen-hotplug-common.sh hotplug/Linux/xendomains hotplug/NetBSD/rc.d/xencommons hotplug/NetBSD/rc.d/xendriverdomain ocaml/xenstored/oxenstored.conf"
-+ac_config_files="$ac_config_files ../config/Tools.mk hotplug/FreeBSD/rc.d/xencommons hotplug/FreeBSD/rc.d/xendriverdomain hotplug/Linux/init.d/sysconfig.xencommons hotplug/Linux/init.d/sysconfig.xendomains hotplug/Linux/init.d/xen-watchdog hotplug/Linux/init.d/xencommons hotplug/Linux/init.d/xendomains hotplug/Linux/init.d/xendriverdomain hotplug/Linux/launch-xenstore hotplug/Linux/vif-setup hotplug/Linux/xen-hotplug-common.sh hotplug/Linux/xendomains hotplug/NetBSD/rc.d/xencommons hotplug/NetBSD/rc.d/xendriverdomain ocaml/libs/xs/paths.ml ocaml/xenstored/paths.ml ocaml/xenstored/oxenstored.conf"
- 
- ac_config_headers="$ac_config_headers config.h"
- 
-@@ -10935,6 +10935,8 @@ do
-     "hotplug/Linux/xendomains") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/xendomains" ;;
-     "hotplug/NetBSD/rc.d/xencommons") CONFIG_FILES="$CONFIG_FILES hotplug/NetBSD/rc.d/xencommons" ;;
-     "hotplug/NetBSD/rc.d/xendriverdomain") CONFIG_FILES="$CONFIG_FILES hotplug/NetBSD/rc.d/xendriverdomain" ;;
-+    "ocaml/libs/xs/paths.ml") CONFIG_FILES="$CONFIG_FILES ocaml/libs/xs/paths.ml" ;;
-+    "ocaml/xenstored/paths.ml") CONFIG_FILES="$CONFIG_FILES ocaml/xenstored/paths.ml" ;;
-     "ocaml/xenstored/oxenstored.conf") CONFIG_FILES="$CONFIG_FILES ocaml/xenstored/oxenstored.conf" ;;
-     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
-     "hotplug/Linux/systemd/proc-xen.mount") CONFIG_FILES="$CONFIG_FILES hotplug/Linux/systemd/proc-xen.mount" ;;
-diff --git a/tools/configure.ac b/tools/configure.ac
-index 1094d896fc..32cbe6bd3c 100644
---- a/tools/configure.ac
-+++ b/tools/configure.ac
-@@ -21,6 +21,8 @@ hotplug/Linux/xen-hotplug-common.sh
- hotplug/Linux/xendomains
- hotplug/NetBSD/rc.d/xencommons
- hotplug/NetBSD/rc.d/xendriverdomain
-+ocaml/libs/xs/paths.ml
-+ocaml/xenstored/paths.ml
- ocaml/xenstored/oxenstored.conf
- ])
- AC_CONFIG_HEADERS([config.h])
-diff --git a/tools/ocaml/libs/xs/Makefile b/tools/ocaml/libs/xs/Makefile
-index e934bbb550..e160e6a711 100644
---- a/tools/ocaml/libs/xs/Makefile
-+++ b/tools/ocaml/libs/xs/Makefile
-@@ -44,8 +44,3 @@ uninstall:
- 	$(OCAMLFIND) remove -destdir $(OCAMLDESTDIR) xenstore
- 
- include $(OCAML_TOPLEVEL)/Makefile.rules
--
--genpath-target = $(call buildmakevars2module,paths.ml)
--$(eval $(genpath-target))
--
--GENERATED_FILES += paths.ml
-diff --git a/tools/ocaml/libs/xs/paths.ml.in b/tools/ocaml/libs/xs/paths.ml.in
+diff --git a/tools/.gitignore b/tools/.gitignore
 new file mode 100644
-index 0000000000..c067f8d012
+index 0000000000..c211749a3b
 --- /dev/null
-+++ b/tools/ocaml/libs/xs/paths.ml.in
++++ b/tools/.gitignore
+@@ -0,0 +1,7 @@
++dune-workspace*
++_build/
++.merlin
++*.h.gch
++*.opam
++ocaml/*.install
++include/_xentoolcore_list.h
+diff --git a/tools/dune b/tools/dune
+new file mode 100644
+index 0000000000..febbd078f0
+--- /dev/null
++++ b/tools/dune
+@@ -0,0 +1,5 @@
++; only look inside ocaml and include subdirectory, speeds up the build
++; since dune doesn't need to copy/hash/monitor all the other files
++(dirs ocaml)
++
++(data_only_dirs include libs)
+diff --git a/tools/dune-project b/tools/dune-project
+new file mode 100644
+index 0000000000..cd8d4e3d86
+--- /dev/null
++++ b/tools/dune-project
 @@ -0,0 +1 @@
-+let xen_run_stored = "@XEN_RUN_STORED@"
-diff --git a/tools/ocaml/xenstored/Makefile b/tools/ocaml/xenstored/Makefile
-index 0b5711b507..6f7333926e 100644
---- a/tools/ocaml/xenstored/Makefile
-+++ b/tools/ocaml/xenstored/Makefile
-@@ -93,8 +93,3 @@ uninstall:
- 	rm -f $(DESTDIR)$(sbindir)/oxenstored
- 
- include $(OCAML_TOPLEVEL)/Makefile.rules
--
--genpath-target = $(call buildmakevars2module,paths.ml)
--$(eval $(genpath-target))
--
--GENERATED_FILES += paths.ml
-diff --git a/tools/ocaml/xenstored/paths.ml.in b/tools/ocaml/xenstored/paths.ml.in
++(lang dune 2.1)
+diff --git a/tools/ocaml/dune-project b/tools/ocaml/dune-project
 new file mode 100644
-index 0000000000..37949dc8f3
+index 0000000000..1dae7b0acb
 --- /dev/null
-+++ b/tools/ocaml/xenstored/paths.ml.in
-@@ -0,0 +1,4 @@
-+let xen_log_dir = "@XEN_LOG_DIR@"
-+let xen_config_dir = "@XEN_CONFIG_DIR@"
-+let xen_run_dir = "@XEN_RUN_DIR@"
-+let xen_run_stored = "@XEN_RUN_STORED@"
++++ b/tools/ocaml/dune-project
+@@ -0,0 +1,27 @@
++(lang dune 2.1)
++
++(name xen)
++
++(formatting (enabled_for dune))
++(generate_opam_files true)
++
++(maintainers christian.lindig@citrix.com)
++(license LGPL)
++
++(package
++ (name xen)
++ (synopsis "Xen interfaces")
++ (depends
++  base-unix
++  (dune (>= 2.1))
++ )
++)
++
++(package
++ (name xenstored)
++ (synopsis "In-memory key-value store for the Xen hypervisor")
++ (depends
++  base-unix
++  (dune (>= 2.1))
++ )
++)
+diff --git a/tools/ocaml/libs/eventchn/dune b/tools/ocaml/libs/eventchn/dune
+new file mode 100644
+index 0000000000..4468f2e769
+--- /dev/null
++++ b/tools/ocaml/libs/eventchn/dune
+@@ -0,0 +1,11 @@
++(library
++ (foreign_stubs
++  (language c)
++  (names xeneventchn_stubs)
++  (extra_deps ../../../include/xen/xen.h ../../../libs/evtchn/libxenevtchn.so)
++  (include_dirs ../../../include))
++ (name xeneventchn)
++ (public_name xen.eventchn)
++ (libraries unix)
++ (no_dynlink)
++ (c_library_flags -lxenevtchn))
+diff --git a/tools/ocaml/libs/mmap/dune b/tools/ocaml/libs/mmap/dune
+new file mode 100644
+index 0000000000..57a8ab5b9b
+--- /dev/null
++++ b/tools/ocaml/libs/mmap/dune
+@@ -0,0 +1,9 @@
++(library
++ (foreign_stubs
++  (language c)
++  (names xenmmap_stubs))
++ (name xenmmap)
++ (public_name xen.mmap)
++ (libraries unix)
++ (no_dynlink)
++ (install_c_headers mmap_stubs))
+diff --git a/tools/ocaml/libs/xb/dune b/tools/ocaml/libs/xb/dune
+new file mode 100644
+index 0000000000..13a507ea87
+--- /dev/null
++++ b/tools/ocaml/libs/xb/dune
+@@ -0,0 +1,10 @@
++(library
++ (foreign_stubs
++  (language c)
++  (extra_deps ../../../include/xen/xen.h)
++  (include_dirs ../../../include)
++  (names xenbus_stubs xs_ring_stubs))
++ (name xenbus)
++ (public_name xen.bus)
++ (no_dynlink)
++ (libraries unix xenmmap))
+diff --git a/tools/ocaml/libs/xc/dune b/tools/ocaml/libs/xc/dune
+new file mode 100644
+index 0000000000..6f9450cd27
+--- /dev/null
++++ b/tools/ocaml/libs/xc/dune
+@@ -0,0 +1,16 @@
++(rule
++ (with-stdout-to
++  xenctrl_abi_check.h
++  (run perl -w %{dep:abi-check} %{dep:xenctrl_stubs.c} %{dep:xenctrl.ml})))
++
++(library
++ (foreign_stubs
++  (language c)
++  (names xenctrl_stubs)
++  (extra_deps ../../../include/xen/xen.h ../../../libs/ctrl/libxenctrl.so)
++  (include_dirs ../../../include))
++ (name xenctrl)
++ (public_name xen.ctrl)
++ (libraries unix xenmmap)
++ (no_dynlink)
++ (c_library_flags -lxenctrl -lxenguest))
+diff --git a/tools/ocaml/libs/xs/dune b/tools/ocaml/libs/xs/dune
+new file mode 100644
+index 0000000000..086259f51d
+--- /dev/null
++++ b/tools/ocaml/libs/xs/dune
+@@ -0,0 +1,15 @@
++; fallback mode: the files may have been generated by configure already
++
++(rule
++ (targets paths.ml)
++ (deps paths.ml.in)
++ (mode fallback)
++ (action
++  (run ../../../config.status --file=paths.ml)))
++
++(library
++ ; avoid conflict with mirage lib: name it differently
++ (name xenstore_xen)
++ (public_name xen.store)
++ (no_dynlink)
++ (libraries unix xenbus))
+diff --git a/tools/ocaml/xenstored/dune b/tools/ocaml/xenstored/dune
+new file mode 100644
+index 0000000000..d71decebcf
+--- /dev/null
++++ b/tools/ocaml/xenstored/dune
+@@ -0,0 +1,51 @@
++; fallback mode: the files may have been generated by configure already
++; also for fallback mode either all files must be present or none
++; hence the 2 separate rules here
++
++(rule
++ (targets oxenstored.conf)
++ (deps oxenstored.conf.in)
++ (mode fallback)
++ (action
++  (run ../../config.status --file=oxenstored.conf)))
++
++(rule
++ (targets paths.ml)
++ (deps paths.ml.in)
++ (mode fallback)
++ (action
++  (run ../../config.status --file=paths.ml)))
++
++(executable
++ (modes native)
++ (name xenstored)
++ (modules
++  (:standard \ syslog systemd))
++ (flags
++  (:standard -w -52))
++ (libraries unix xen.bus xen.mmap xen.ctrl xen.eventchn xenstubs))
++
++(install
++ (package xenstored)
++ (section sbin)
++ (files
++  (xenstored.exe as oxenstored)))
++
++(install
++ (package xen)
++ (section etc)
++ (files oxenstored.conf))
++
++(library
++ (foreign_stubs
++  (language c)
++  (names syslog_stubs systemd_stubs select_stubs)
++  (extra_deps ../../dune-workspace)
++  (flags
++   (:standard -DHAVE_SYSTEMD)))
++ (modules syslog systemd)
++ (name xenstubs)
++ (wrapped false)
++ (libraries unix)
++ (no_dynlink)
++ (c_library_flags -lsystemd))
 -- 
 2.34.1
 
