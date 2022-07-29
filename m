@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED02D5854CC
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 19:54:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377691.611021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39BF95854C9
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 19:54:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377694.611044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHUBn-0007lj-8i; Fri, 29 Jul 2022 17:54:19 +0000
+	id 1oHUBx-0000EZ-BB; Fri, 29 Jul 2022 17:54:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377691.611021; Fri, 29 Jul 2022 17:54:19 +0000
+Received: by outflank-mailman (output) from mailman id 377694.611044; Fri, 29 Jul 2022 17:54:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHUBn-0007jh-4O; Fri, 29 Jul 2022 17:54:19 +0000
-Received: by outflank-mailman (input) for mailman id 377691;
- Fri, 29 Jul 2022 17:54:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oHUBx-0000Ad-2n; Fri, 29 Jul 2022 17:54:29 +0000
+Received: by outflank-mailman (input) for mailman id 377694;
+ Fri, 29 Jul 2022 17:54:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UihI=YC=citrix.com=prvs=202bfa127=edvin.torok@srs-se1.protection.inumbo.net>)
- id 1oHUBl-0006a9-Bo
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 17:54:17 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75963896-0f67-11ed-924f-1f966e50362f;
- Fri, 29 Jul 2022 19:54:16 +0200 (CEST)
+ id 1oHUBu-0006Zx-VN
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 17:54:27 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7ac7730c-0f67-11ed-bd2d-47488cf2e6aa;
+ Fri, 29 Jul 2022 19:54:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,51 +36,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75963896-0f67-11ed-924f-1f966e50362f
+X-Inumbo-ID: 7ac7730c-0f67-11ed-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1659117256;
+  d=citrix.com; s=securemail; t=1659117265;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=RkbRUEdOWEaCHa9+/Ptg/amm9wD5Jpr8o1Ls9yYeJ4s=;
-  b=gN5sn3moo+oRFf86iejqDq7FlUjbatC2OJyxQ1g0DRDlFXogVjcZB1ws
-   pMj5OLQg39fqcGR0yHAiNuSSO2kJHKXPw6VgmyHi/Rcr/UjJGINKO1BKN
-   eFj68MGpwU3v3KF6QoF71s3ZDl04OGDQs05d0cv6IY0buWEamcGJZliDT
-   A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=ZFznG8baVkBRD0RFiw68lK6To7/I2LLnkXE/qkikiGI=;
+  b=IbLSyBHZFq/3deZHRCWu+D5aONwlTXaGAPXLRFraEJTBi5P8JZ1hFW9+
+   VGww3rEStcdTrUOKa5R0yWsxF7JjOxIJopjPIn14V6pZfKa75L4wpeyJ/
+   mIFAdQ9mxKtQpVzJMuWmGwZV0/HbzKRXTHQnlChXyeHQRbkXoyR32DmYh
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 77388875
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 79518995
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:CWTGF6ooLySU/BLxNlG4Siz64opeBmJ7ZRIvgKrLsJaIsI4StFCzt
- garIBmBb/aPZWfzftgjbYSyp04G6sSDmIJnGQdppSk2EXgU+JuZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlVEliefSAOKU5NfsYkhZXRVjRDoqlSVtkus4hp8AqdWiCkaGt
- MiaT/f3YTdJ4BYpdDNPg06/gEk35q6q52lJ5gZWic1j5zcyqVFEVPrzGonpR5fIatE8NvK3Q
- e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkEqShgJ+rQ6LJIhhXJ/0F1lqTzTJ
- OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXWV+ACQqflO1q8iCAn3aMqU80PhLMGYV9
- MdBLS4ucFOOiPKz4rmSH7wEasQLdKEHPasas3BkizrYEewnUdbIRKCiCd1whWlqwJoURLCHO
- pRfOWEHgBfoOnWjPn8aBIw/mqG0gWP4cBVTqU6PpLpx6G/WpOB0+Oeya4qFKoPXLSlTtkiZn
- Vr50UrDOCwXLNGW7TGI9ky8j/CayEsXX6pNTeblp5aGmma7ymUNBTUMWFC8oP3/jVSxM/pAL
- 2QE9yxoqrI9nGS7Q9+4UxCmrXqsuh8HR8EWA+A88BuKyKff/0CeHGdsc9JaQIV47olsH2Vsj
- wLX2YOybdByjFGLYVa36IulqmizAnEQM0wcJiILXQ4n6PC29enfkSnzosZf/L+d14OoSGmtk
- m3S/UDSlJ1I05dVivzTEUTvxmv1+8OXFlNdChD/BDrN0+9vWGKyi2VEA3D/5O0IEouWR0LpU
- JMsy5nHt7Bm4X1geUWwrAQx8FKBva/t3MX02wIHInXY323FF4SfVY5R+ipiA0xiL9wJfzTkC
- GeK514AvMQIZyv2MvUoC25UNyjN5fG6fekJq9iONoYeCnSPXFTvEN5Sib64gDm2zRlEfVAXM
- paHa8e8ZUsn5VBc5GPvH481jO50rh3SMEuJGvgXOTz7jufFDJNUIJ9ZWGazghcRtv/d+VWNq
- IoCXyZIoj0GONDDjuDs2dZ7BTg3wbITXPgad+Q/mja/Hzdb
-IronPort-HdrOrdr: A9a23:BZPhpqzw6gv8Rot2yYapKrPwFL1zdoMgy1knxilNoRw8SKKlfq
- eV7Y0mPH7P+VAssR4b+exoVJPtfZqYz+8R3WBzB8bEYOCFghrKEGgK1+KLqFeMJ8S9zJ846U
- 4JSdkHNDSaNzlHZKjBjzVQa+xQouW6zA==
+IronPort-Data: A9a23:esanYaOzg4HxfsnvrR2Bl8FynXyQoLVcMsEvi/4bfWQNrUoq0TJTn
+ DBNCDuOM/mPMzT0e4hybYS0/BgGvJ/Sm4JnTwto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH3dOCJQUBUjcmgXqD7BPPPJhd/TAplTDZJoR94kqsyj5UAbeKRWmthg
+ vuv5ZyEULOZ82QsaDhMtPjS8EkHUMna41v0gHRvPZing3eG/5UlJMp3Db28KXL+Xr5VEoaSL
+ woU5Ojklo9x105F5uKNyt4XQGVTKlLhFVHmZk5tc7qjmnB/Shkaic7XAha+hXB/0F1ll/gpo
+ DlEWAfZpQ0BZsUgk8xFO/VU/r0X0QSrN9YrLFDm2fF/wXEqfFPH//RTMGMJPbER/8BlIkNB9
+ uQmLBASO0Xra+KemNpXS8Fpj8UnasLqIJkeqjdryjSx4fQOGM6ZBf+QvJkBgWl21psm8fX2P
+ qL1bRJiYArBZVtTPU0QC7o1nfuyh2m5eDpdwL6QjfVmvjGDnV0suFTrGIXNVuK4WeBcpAWdn
+ F7p4FbbWio0LsPKnFJp9Vrz37SSzEsXQrk6FqC89/NsqE2ewCoUEhJ+fUS/iem0jAi5Qd03A
+ 0Ad5CcGt6U5802vCN7nUHWQsHOC+xIRRddUO+k78x2WjLrZ5R6DAWoJRSIHb8Yp3Oc0TzE30
+ l6Cn/vyGCdi9raSTBq17ayIpDm/PSwUK24qZiIeSwYBpd75r+kOYgnnF4g5VvTv15usRG+2k
+ 2viQDUCa6s7pvIK6pmZwlD7ijeKtLvrQQ0t2AH3QTfwhu9mX7JJd7BE+HCCs6sRdNvIEwHQ1
+ JQXs5PAtb5TVPlhgATIGbxQR+/xup5pJRWG2TZS848dGyNBEpJJVaRZ+3lAKUhgKa7okhe5M
+ RaI6Wu9CHK+VUZGjJObgKrrUqzGNYC6SbzYugn8N7KimKRZeg6d5z1JbkWNxW3rm0VEufhhZ
+ MbDKp33XSpFU/sPIN+KqwA1iOVD+8zD7TmLGcCTI+qPitJym0J5uZ9aaQDTP4jVHYuPoRnP8
+ sY3CvZmPy53CbSmCgGKoNF7ELz/BSJkbXwAg5AIK7Xrz8sPMD1JNsI9Npt7J9U8z/wOyrqgE
+ 7PUchYw9WcTTEbvcW2iAk2PopuzNXqjhRrX5RARAGs=
+IronPort-HdrOrdr: A9a23:ID6w9KvvymmH4rJE/dy/2VOu7skDTtV00zEX/kB9WHVpmszxra
+ 6TdZMgpGbJYVcqKRcdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
+ YFT0EXMqyJMbEQt6fHCWeDfOrIuOP3kpyVuQ==
 X-IronPort-AV: E=Sophos;i="5.93,201,1654574400"; 
-   d="scan'208";a="77388875"
+   d="scan'208";a="79518995"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, Wei Liu
-	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Christian Lindig
-	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>
-Subject: [PATCH v1 3/7] tools/ocaml/*/dune: dune based build system
-Date: Fri, 29 Jul 2022 18:53:26 +0100
-Message-ID: <0f2c08734668626a618767680493a006827e123b.1659116941.git.edvin.torok@citrix.com>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Christian Lindig <christian.lindig@citrix.com>, David Scott
+	<dave@recoil.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v1 4/7] tools/ocaml: Makefile to drive dune
+Date: Fri, 29 Jul 2022 18:53:27 +0100
+Message-ID: <322ec0c9af480e9b8a6246d0a2cdb4e308a5900c.1659116941.git.edvin.torok@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1659116941.git.edvin.torok@citrix.com>
 References: <cover.1659116941.git.edvin.torok@citrix.com>
@@ -88,258 +92,199 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Based on Christian Lindig's work.
+create a separate Makefile that can be used to drive dune.
 
-Initially this will be used to build unit tests, and to make development
-easier.
+Usage:
+`make -f Makefile.dune`
 
-Dune supports proper incremental builds and editor integration with
-merlin/LSP.
+There are some files that need to be created by the Makefile based
+build system (such as all the C code in $(XEN_ROOT)/tools/libs),
+and those need to exist before dune runs.
 
-For now the Makefile based build system is retained too: this is not a
-hard dependency on Dune.
+Although it'd be possible to automatically call the necessary makefile
+rules from dune, it wouldn't work reliably:
+* dune uses sandboxing by default (only files declared or known as
+  dependencies are visible to individual build commands,
+  symlinks/hardlinks are used by dune to implement this)
+* the dune builds always run in a _build subdir, and calling the
+  makefiles from there would get the wrong XEN_ROOT set
+* running the make command in the source tree would work, but dune still
+  wouldn't immediately see the build dependencies since they wouldn't
+  have been copied/linked under _build
 
-Using version 2.1 of Dune build language here, because that is the one
-available in Ubuntu Focal (part of the CI here).
+The approach here is to:
+* use the Makefile to build C-only prerequisites (i.e. most of Xen)
+* use Dune only to build the OCaml parts once the C prerequisites exist
+* dune has dependencies declared on the C bits, so if they are missing
+  you will get an error about a missing rule to create them instead of a
+  cryptic compilation error
+* dune is still optional - the old Makefile based buildsystem is still
+  there for now
+* use dune exclusively for new code going forward (e.g. OCaml test-suites)
+
+The workspace file needs to be generated by make because this currently
+cannot be generated by dune, and it doesn't support including external
+files. But could be generated by configure?
+
+LD_LIBRARY_PATH needs to be set, because even with -Wl,-rpath
+executables wouldn't be able to run using the just-built libraries,
+unless we'd also link all the transitive dependencies of libs.
 
 No functional change.
 
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 ---
- tools/.gitignore               |  7 +++++
- tools/dune                     |  5 ++++
- tools/dune-project             |  1 +
- tools/ocaml/dune-project       | 27 ++++++++++++++++++
- tools/ocaml/libs/eventchn/dune | 11 ++++++++
- tools/ocaml/libs/mmap/dune     |  9 ++++++
- tools/ocaml/libs/xb/dune       | 10 +++++++
- tools/ocaml/libs/xc/dune       | 16 +++++++++++
- tools/ocaml/libs/xs/dune       | 15 ++++++++++
- tools/ocaml/xenstored/dune     | 51 ++++++++++++++++++++++++++++++++++
- 10 files changed, 152 insertions(+)
- create mode 100644 tools/.gitignore
- create mode 100644 tools/dune
- create mode 100644 tools/dune-project
- create mode 100644 tools/ocaml/dune-project
- create mode 100644 tools/ocaml/libs/eventchn/dune
- create mode 100644 tools/ocaml/libs/mmap/dune
- create mode 100644 tools/ocaml/libs/xb/dune
- create mode 100644 tools/ocaml/libs/xc/dune
- create mode 100644 tools/ocaml/libs/xs/dune
- create mode 100644 tools/ocaml/xenstored/dune
+ Makefile                          |  5 ++
+ tools/ocaml/Makefile.dune         | 88 +++++++++++++++++++++++++++++++
+ tools/ocaml/dune-workspace.dev.in |  2 +
+ tools/ocaml/dune-workspace.in     | 18 +++++++
+ 4 files changed, 113 insertions(+)
+ create mode 100644 tools/ocaml/Makefile.dune
+ create mode 100644 tools/ocaml/dune-workspace.dev.in
+ create mode 100644 tools/ocaml/dune-workspace.in
 
-diff --git a/tools/.gitignore b/tools/.gitignore
-new file mode 100644
-index 0000000000..c211749a3b
---- /dev/null
-+++ b/tools/.gitignore
-@@ -0,0 +1,7 @@
-+dune-workspace*
-+_build/
-+.merlin
-+*.h.gch
-+*.opam
-+ocaml/*.install
-+include/_xentoolcore_list.h
-diff --git a/tools/dune b/tools/dune
-new file mode 100644
-index 0000000000..febbd078f0
---- /dev/null
-+++ b/tools/dune
-@@ -0,0 +1,5 @@
-+; only look inside ocaml and include subdirectory, speeds up the build
-+; since dune doesn't need to copy/hash/monitor all the other files
-+(dirs ocaml)
+diff --git a/Makefile b/Makefile
+index b93b22c752..ddb33c3555 100644
+--- a/Makefile
++++ b/Makefile
+@@ -68,6 +68,11 @@ build-tools-oxenstored: build-tools-public-headers
+ 	$(MAKE) -s -C tools/libs
+ 	$(MAKE) -C tools/ocaml build-tools-oxenstored
+ 
++.PHONY: build-tools-oxenstored-prepare
++build-tools-oxenstored-prepare: build-tools-public-headers
++	test -f tools/config.status || (cd tools && ./configure --with-xenstored=oxenstored)
++	$(MAKE) -C tools/libs V=
 +
-+(data_only_dirs include libs)
-diff --git a/tools/dune-project b/tools/dune-project
+ .PHONY: build-stubdom
+ build-stubdom: mini-os-dir build-tools-public-headers
+ 	$(MAKE) -C stubdom build
+diff --git a/tools/ocaml/Makefile.dune b/tools/ocaml/Makefile.dune
 new file mode 100644
-index 0000000000..cd8d4e3d86
+index 0000000000..eca9cac0ca
 --- /dev/null
-+++ b/tools/dune-project
-@@ -0,0 +1 @@
++++ b/tools/ocaml/Makefile.dune
+@@ -0,0 +1,88 @@
++XEN_ROOT = $(CURDIR)/../..
++all: dune-all-check
++
++# Dune by default uses all available CPUs. Make doesn't.
++# Query the available CPUs and use all available for any of the make rules we call out to.
++# -O is also needed with parallel make such that the build error and the build command causing
++#  the error are close together and not interspersed with other output
++NPROC=$(shell getconf _NPROCESSORS_ONLN)
++MAKEN=$(MAKE) -j$(NPROC) -O
++
++# We want to link and use the Xen libraries built locally
++# without installing them system-wide
++# (the system-wide one installed from packages will likely be too old and not match the locally
++# built one anyway).
++#
++# Set LIBRARY_PATH and LD_LIBRARY_PATH so that the linker
++# finds the proper libraries and the various dune commands
++# work (e.g. running tests, utop, etc.).
++#
++# The Makefile based buildsystem would use -Wl,-rpath-link= here,
++# but that only works during linking, not runtime.
++# There is a -Wl, -rpath= that can be used, but that only works
++# for libraries linked directly to the main executable:
++# the dependencies of those libraries won't get found on the rpath
++# (the rpath of the executable is apparently not used during that search).
++#
++# Use environment variables, because that way we don't make any permanent alternations (rpath)
++# to the executable, so once installed system-wide it won't refer to build paths anymore.
++#
++# Dune cannot be used to generate this file: the env-vars stanza doesn't support %{read:}, :include,
++# and dune-workspace doesn't support (include) stanzas.
++# So for now generate it from this Makefile
++# Cannot start with comment, so add auto-generated comment at the end
++LIB_DIRS=$(abspath $(wildcard ../libs/*/.))
++LIBRARY_PATH=$(subst $(eval) ,:,$(LIB_DIRS))
++../dune-workspace ../dune-workspace.dev: dune-workspace.in dune-workspace.dev.in Makefile.dune
++	@( sed -e "s|@LIBRARY_PATH@|$(LIBRARY_PATH)|" <$< \
++	&& echo "; DO NOT EDIT: autogenerated from ocaml/dune-workspace.in") >../dune-workspace
++	@cat ../dune-workspace dune-workspace.dev.in >../dune-workspace.dev
++
++# for location of various libs which moves between Xen versions
++include $(XEN_ROOT)/tools/Rules.mk
++
++XEN_DEPS=$(XEN_libxenctrl)/libxenctrl.so
++XEN_DEPS+=$(XEN_libxenevtchn)/libxenevtchn.so
++XEN_DEPS+=$(XEN_libxenguest)/libxenguest.so
++
++# Cannot be generated from dune
++# Tell the user how to generate them
++../include/xen/xen.h ../config.status $(XEN_DEPS):
++	echo "Missing C headers or libraries" >&2
++	echo "Run make -C $(XEN_ROOT) build-tools-oxenstored-prepare -j$$(nproc)" >&2
++	exit 1
++
++# dune would refuse to run if there are build artifacts in the source directory
++# if we detect anything then run make clean to ensure these are removed
++# don't always call 'make clean' because it takes ~1.6s
++.PHONY: dune-pre
++dune-pre: ../config.status | ../include/xen/xen.h ../dune-workspace $(XEN_DEPS)
++	$(MAKEN) clean -s
++
++# Convenience targets
++dune-syntax-check: dune-pre
++	dune build @check
++
++dune-all-check: dune-pre ../dune-workspace.dev
++	# Test build with multiple compiler versions
++	# requires opam switches for each to be already installed
++	dune build --workspace=../dune-workspace.dev @check @install @runtest
++
++check: dune-pre
++	dune runtest --no-buffer
++
++# approximatively equivalent to Dune 3.0 --release mode
++dune-oxenstored: dune-pre
++	dune build --root .. --ignore-promoted-rules --no-config \
++           --profile release --always-show-command-line \
++           --promote-install-files --default-target @install
++
++-include $(XEN_ROOT)/config/Paths.mk
++
++# skip doc, it'd install an extra LICENSE file that is already installed by other rules
++INSTALL_SECTIONS=bin,etc,lib,sbin
++dune-install: dune-oxenstored
++	dune install --destdir=$(DESTDIR) --prefix=$(prefix) --libdir=$(shell ocamlfind printconf destdir) --mandir=$(mandir) --etcdir=$(sysconfdir) --docdir=$(docdir) --sections=$(INSTALL_SECTIONS)
++
++dune-uninstall: dune-oxenstored
++	dune uninstall --destdir=$(DESTDIR) --prefix=$(prefix) --libdir=$(shell ocamlfind printconf destdir) --mandir=$(mandir) --etcdir=$(sysconfdir) --docdir=$(docdir)
+diff --git a/tools/ocaml/dune-workspace.dev.in b/tools/ocaml/dune-workspace.dev.in
+new file mode 100644
+index 0000000000..2ca831a048
+--- /dev/null
++++ b/tools/ocaml/dune-workspace.dev.in
+@@ -0,0 +1,2 @@
++(context default)
++(context (opam (switch 4.02.3) (profile release)))
+diff --git a/tools/ocaml/dune-workspace.in b/tools/ocaml/dune-workspace.in
+new file mode 100644
+index 0000000000..c963a6e599
+--- /dev/null
++++ b/tools/ocaml/dune-workspace.in
+@@ -0,0 +1,18 @@
 +(lang dune 2.1)
-diff --git a/tools/ocaml/dune-project b/tools/ocaml/dune-project
-new file mode 100644
-index 0000000000..1dae7b0acb
---- /dev/null
-+++ b/tools/ocaml/dune-project
-@@ -0,0 +1,27 @@
-+(lang dune 2.1)
 +
-+(name xen)
-+
-+(formatting (enabled_for dune))
-+(generate_opam_files true)
-+
-+(maintainers christian.lindig@citrix.com)
-+(license LGPL)
-+
-+(package
-+ (name xen)
-+ (synopsis "Xen interfaces")
-+ (depends
-+  base-unix
-+  (dune (>= 2.1))
-+ )
-+)
-+
-+(package
-+ (name xenstored)
-+ (synopsis "In-memory key-value store for the Xen hypervisor")
-+ (depends
-+  base-unix
-+  (dune (>= 2.1))
-+ )
-+)
-diff --git a/tools/ocaml/libs/eventchn/dune b/tools/ocaml/libs/eventchn/dune
-new file mode 100644
-index 0000000000..4468f2e769
---- /dev/null
-+++ b/tools/ocaml/libs/eventchn/dune
-@@ -0,0 +1,11 @@
-+(library
-+ (foreign_stubs
-+  (language c)
-+  (names xeneventchn_stubs)
-+  (extra_deps ../../../include/xen/xen.h ../../../libs/evtchn/libxenevtchn.so)
-+  (include_dirs ../../../include))
-+ (name xeneventchn)
-+ (public_name xen.eventchn)
-+ (libraries unix)
-+ (no_dynlink)
-+ (c_library_flags -lxenevtchn))
-diff --git a/tools/ocaml/libs/mmap/dune b/tools/ocaml/libs/mmap/dune
-new file mode 100644
-index 0000000000..57a8ab5b9b
---- /dev/null
-+++ b/tools/ocaml/libs/mmap/dune
-@@ -0,0 +1,9 @@
-+(library
-+ (foreign_stubs
-+  (language c)
-+  (names xenmmap_stubs))
-+ (name xenmmap)
-+ (public_name xen.mmap)
-+ (libraries unix)
-+ (no_dynlink)
-+ (install_c_headers mmap_stubs))
-diff --git a/tools/ocaml/libs/xb/dune b/tools/ocaml/libs/xb/dune
-new file mode 100644
-index 0000000000..13a507ea87
---- /dev/null
-+++ b/tools/ocaml/libs/xb/dune
-@@ -0,0 +1,10 @@
-+(library
-+ (foreign_stubs
-+  (language c)
-+  (extra_deps ../../../include/xen/xen.h)
-+  (include_dirs ../../../include)
-+  (names xenbus_stubs xs_ring_stubs))
-+ (name xenbus)
-+ (public_name xen.bus)
-+ (no_dynlink)
-+ (libraries unix xenmmap))
-diff --git a/tools/ocaml/libs/xc/dune b/tools/ocaml/libs/xc/dune
-new file mode 100644
-index 0000000000..6f9450cd27
---- /dev/null
-+++ b/tools/ocaml/libs/xc/dune
-@@ -0,0 +1,16 @@
-+(rule
-+ (with-stdout-to
-+  xenctrl_abi_check.h
-+  (run perl -w %{dep:abi-check} %{dep:xenctrl_stubs.c} %{dep:xenctrl.ml})))
-+
-+(library
-+ (foreign_stubs
-+  (language c)
-+  (names xenctrl_stubs)
-+  (extra_deps ../../../include/xen/xen.h ../../../libs/ctrl/libxenctrl.so)
-+  (include_dirs ../../../include))
-+ (name xenctrl)
-+ (public_name xen.ctrl)
-+ (libraries unix xenmmap)
-+ (no_dynlink)
-+ (c_library_flags -lxenctrl -lxenguest))
-diff --git a/tools/ocaml/libs/xs/dune b/tools/ocaml/libs/xs/dune
-new file mode 100644
-index 0000000000..086259f51d
---- /dev/null
-+++ b/tools/ocaml/libs/xs/dune
-@@ -0,0 +1,15 @@
-+; fallback mode: the files may have been generated by configure already
-+
-+(rule
-+ (targets paths.ml)
-+ (deps paths.ml.in)
-+ (mode fallback)
-+ (action
-+  (run ../../../config.status --file=paths.ml)))
-+
-+(library
-+ ; avoid conflict with mirage lib: name it differently
-+ (name xenstore_xen)
-+ (public_name xen.store)
-+ (no_dynlink)
-+ (libraries unix xenbus))
-diff --git a/tools/ocaml/xenstored/dune b/tools/ocaml/xenstored/dune
-new file mode 100644
-index 0000000000..d71decebcf
---- /dev/null
-+++ b/tools/ocaml/xenstored/dune
-@@ -0,0 +1,51 @@
-+; fallback mode: the files may have been generated by configure already
-+; also for fallback mode either all files must be present or none
-+; hence the 2 separate rules here
-+
-+(rule
-+ (targets oxenstored.conf)
-+ (deps oxenstored.conf.in)
-+ (mode fallback)
-+ (action
-+  (run ../../config.status --file=oxenstored.conf)))
-+
-+(rule
-+ (targets paths.ml)
-+ (deps paths.ml.in)
-+ (mode fallback)
-+ (action
-+  (run ../../config.status --file=paths.ml)))
-+
-+(executable
-+ (modes native)
-+ (name xenstored)
-+ (modules
-+  (:standard \ syslog systemd))
-+ (flags
-+  (:standard -w -52))
-+ (libraries unix xen.bus xen.mmap xen.ctrl xen.eventchn xenstubs))
-+
-+(install
-+ (package xenstored)
-+ (section sbin)
-+ (files
-+  (xenstored.exe as oxenstored)))
-+
-+(install
-+ (package xen)
-+ (section etc)
-+ (files oxenstored.conf))
-+
-+(library
-+ (foreign_stubs
-+  (language c)
-+  (names syslog_stubs systemd_stubs select_stubs)
-+  (extra_deps ../../dune-workspace)
-+  (flags
-+   (:standard -DHAVE_SYSTEMD)))
-+ (modules syslog systemd)
-+ (name xenstubs)
-+ (wrapped false)
-+ (libraries unix)
-+ (no_dynlink)
-+ (c_library_flags -lsystemd))
++(env
++  ; we need to support older compilers so don't make deprecation warnings fatal
++ (dev
++  (flags (:standard -w -3))
++   (env-vars
++    (LD_LIBRARY_PATH @LIBRARY_PATH@)
++    (LIBRARY_PATH @LIBRARY_PATH@)
++   ))
++ (release
++  (env-vars
++   (OCAMLRUNPARAM b)
++    (LD_LIBRARY_PATH @LIBRARY_PATH@)
++    (LIBRARY_PATH @LIBRARY_PATH@)
++  )
++  (flags (:standard -strict-sequence -strict-formats -principal -w @18))
++  (ocamlopt_flags -nodynlink)))
 -- 
 2.34.1
 
