@@ -2,31 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFE855850B2
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 15:18:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377454.610747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E02958501E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 14:37:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377496.610714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHPsP-00056T-Tw; Fri, 29 Jul 2022 13:18:01 +0000
+	id 1oHPDi-00078A-Uy; Fri, 29 Jul 2022 12:35:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377454.610747; Fri, 29 Jul 2022 13:18:01 +0000
+Received: by outflank-mailman (output) from mailman id 377496.610714; Fri, 29 Jul 2022 12:35:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHPsP-00053j-Pp; Fri, 29 Jul 2022 13:18:01 +0000
-Received: by outflank-mailman (input) for mailman id 377454;
- Fri, 29 Jul 2022 10:25:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oHPDi-00075a-SI; Fri, 29 Jul 2022 12:35:58 +0000
+Received: by outflank-mailman (input) for mailman id 377496;
+ Fri, 29 Jul 2022 12:35:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=atAJ=YC=lespinasse.org=michel@srs-se1.protection.inumbo.net>)
- id 1oHNB3-0006yM-0r
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 10:25:05 +0000
-Received: from server.lespinasse.org (unknown [63.205.204.226])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b359c384-0f28-11ed-924f-1f966e50362f;
- Fri, 29 Jul 2022 12:25:01 +0200 (CEST)
-Received: by server.lespinasse.org (Postfix, from userid 1000)
- id 43C591608FB; Fri, 29 Jul 2022 03:24:58 -0700 (PDT)
+ <SRS0=lppd=YC=arm.com=Rahul.Singh@srs-se1.protection.inumbo.net>)
+ id 1oHPDh-00075U-Kl
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 12:35:57 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-eopbgr60089.outbound.protection.outlook.com [40.107.6.89])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fd03913e-0f3a-11ed-bd2d-47488cf2e6aa;
+ Fri, 29 Jul 2022 14:35:55 +0200 (CEST)
+Received: from DU2PR04CA0023.eurprd04.prod.outlook.com (2603:10a6:10:3b::28)
+ by AM6PR08MB3302.eurprd08.prod.outlook.com (2603:10a6:209:41::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.21; Fri, 29 Jul
+ 2022 12:35:52 +0000
+Received: from DBAEUR03FT027.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:3b:cafe::5) by DU2PR04CA0023.outlook.office365.com
+ (2603:10a6:10:3b::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.12 via Frontend
+ Transport; Fri, 29 Jul 2022 12:35:52 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT027.mail.protection.outlook.com (100.127.142.237) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5482.12 via Frontend Transport; Fri, 29 Jul 2022 12:35:52 +0000
+Received: ("Tessian outbound cc6a8ab50b6b:v123");
+ Fri, 29 Jul 2022 12:35:51 +0000
+Received: from cbb0d993ebdf.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 10FBFBD7-A218-4E96-851E-5170E45CA1CE.1; 
+ Fri, 29 Jul 2022 12:35:40 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id cbb0d993ebdf.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 29 Jul 2022 12:35:40 +0000
+Received: from AS8PR08MB7158.eurprd08.prod.outlook.com (2603:10a6:20b:404::24)
+ by DB9PR08MB7772.eurprd08.prod.outlook.com (2603:10a6:10:398::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.6; Fri, 29 Jul
+ 2022 12:35:37 +0000
+Received: from AS8PR08MB7158.eurprd08.prod.outlook.com
+ ([fe80::f5fa:7206:9197:6ba2]) by AS8PR08MB7158.eurprd08.prod.outlook.com
+ ([fe80::f5fa:7206:9197:6ba2%3]) with mapi id 15.20.5482.011; Fri, 29 Jul 2022
+ 12:35:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,180 +71,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b359c384-0f28-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
- d=lespinasse.org; i=@lespinasse.org; q=dns/txt; s=srv-79-ed;
- t=1659090298; h=date : from : to : cc : subject : message-id :
- references : mime-version : content-type : in-reply-to : from;
- bh=a/XS8F6DJ0UncG2aNUIYHtQzj6v+HgUrBJ1uNti4iPo=;
- b=z07fAc3s82E8eDjOmWqCiQ8bXbav83TEx3/Re97NlSxxiCQo28PSqhP5HNIn+14JJNint
- RyzSM6g4CHMlWDtCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lespinasse.org;
- i=@lespinasse.org; q=dns/txt; s=srv-79-rsa; t=1659090298; h=date :
- from : to : cc : subject : message-id : references : mime-version :
- content-type : in-reply-to : from;
- bh=a/XS8F6DJ0UncG2aNUIYHtQzj6v+HgUrBJ1uNti4iPo=;
- b=I1XE4PG3J6WdBxHBHPO8gz729jU9NwxFGePQBg2SGh03K5MaVR21Or0F1Ed2fJkedXwqn
- 73ZEg9HBg/VtqO2lKkpr4whjhup8i+ouV+MRlyl12YqkOIbBlxYxGShIJKbmEieaOBGjn22
- ZXDWImDNaRHLW7cNGx8eSPR5smKlm5X/Vadfwpk61igIRp4T13wJ8QuAfpZsGCdgjSHCAt3
- xICHC0gdRmgeZ4VsHAxcqkS8UkYtj/62Fy/MANXsihH037ZiFlqRtJ1IH4+gKYbMZ+SX1Jj
- 7eSPi+obGVy9GT10OfxqZ1++H06soXF8UFwZNT5FhqZM4eGuNqJqYx1H9gbg==
-Date: Fri, 29 Jul 2022 03:24:58 -0700
-From: Michel Lespinasse <michel@lespinasse.org>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Michel Lespinasse <michel@lespinasse.org>,
-	Peter Zijlstra <peterz@infradead.org>, rth@twiddle.net,
-	ink@jurassic.park.msu.ru, mattst88@gmail.com, vgupta@kernel.org,
-	linux@armlinux.org.uk, ulli.kroll@googlemail.com,
-	linus.walleij@linaro.org, shawnguo@kernel.org,
-	Sascha Hauer <s.hauer@pengutronix.de>, kernel@pengutronix.de,
-	festevam@gmail.com, linux-imx@nxp.com, tony@atomide.com,
-	khilman@kernel.org, catalin.marinas@arm.com, will@kernel.org,
-	guoren@kernel.org, bcain@quicinc.com, chenhuacai@kernel.org,
-	kernel@xen0n.name, geert@linux-m68k.org, sammy@sammy.net,
-	monstr@monstr.eu, tsbogend@alpha.franken.de, dinguyen@kernel.org,
-	jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com, James.Bottomley@HansenPartnership.com,
-	deller@gmx.de, mpe@ellerman.id.au, benh@kernel.crashing.org,
-	paulus@samba.org, paul.walmsley@sifive.com, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, hca@linux.ibm.com, gor@linux.ibm.com,
-	agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
-	svens@linux.ibm.com, ysato@users.sourceforge.jp, dalias@libc.org,
-	davem@davemloft.net, richard@nod.at,
-	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net,
-	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	acme@kernel.org, mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-	namhyung@kernel.org, jgross@suse.com, srivatsa@csail.mit.edu,
-	amakhalov@vmware.com, pv-drivers@vmware.com,
-	boris.ostrovsky@oracle.com, chris@zankel.net, jcmvbkbc@gmail.com,
-	rafael@kernel.org, lenb@kernel.org, pavel@ucw.cz,
-	gregkh@linuxfoundation.org, mturquette@baylibre.com,
-	sboyd@kernel.org, daniel.lezcano@linaro.org, lpieralisi@kernel.org,
-	sudeep.holla@arm.com, agross@kernel.org, bjorn.andersson@linaro.org,
-	anup@brainfault.org, thierry.reding@gmail.com, jonathanh@nvidia.com,
-	jacob.jun.pan@linux.intel.com, Arnd Bergmann <arnd@arndb.de>,
-	yury.norov@gmail.com, andriy.shevchenko@linux.intel.com,
-	linux@rasmusvillemoes.dk, rostedt@goodmis.org, pmladek@suse.com,
-	senozhatsky@chromium.org, john.ogness@linutronix.de,
-	frederic@kernel.org, quic_neeraju@quicinc.com,
-	josh@joshtriplett.org, mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com, joel@joelfernandes.org,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
-	bristot@redhat.com, vschneid@redhat.com, jpoimboe@kernel.org,
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-snps-arc@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
-	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, openrisc@lists.librecores.org,
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
-	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
-	rcu@vger.kernel.org, rh0@fb.com
-Subject: Re: [PATCH 04/36] cpuidle,intel_idle: Fix CPUIDLE_FLAG_IRQ_ENABLE
-Message-ID: <20220729102458.GA1695@lespinasse.org>
-References: <20220608142723.103523089@infradead.org>
- <20220608144516.172460444@infradead.org>
- <20220725194306.GA14746@lespinasse.org>
- <20220728172053.GA3607379@paulmck-ThinkPad-P17-Gen-1>
+X-Inumbo-ID: fd03913e-0f3a-11ed-bd2d-47488cf2e6aa
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=aG53V/AE8L9MGt3K9lqli04zhGQUhwEDT2W+B3UuX51sxIwIsDpdvKE12MX8jy0u1GI3Syc16Lvi/fhNNedxIcRwfFnlYmWdesR/1gG8U3dhOC7xMVKyg/nnQsRoZp1rFmGJYVrr74vtMnMEVKeblpOJckPoyeSDhhfGA/aBAPL2ZLbLOp/7Q4xagg97decvNdlqmJJZxxGnp+43/ngCVGGFBCkJal6pp0CC29c/2P8v0d6DxyWz2mMxnpESbCRFx4zwcziRVygFrKojMjYiGG8ZjN2cEazFP2mYL66VK93uXO5EPbo85aLB6fjsdhyapzNhgq4Ypykmp1w/GD52tw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/WQMdyN/qvKllpoVdrrpxuJUjQRyNbX2bwusTOrxZtI=;
+ b=P+lH46q8E9g1uNsjZGcY04pDs/v4kg41j0Hj9FIqpmiMjgpbECSQlHdSV3oOErxzxIyYP1LjzPLIQskaHC9uYgqgr75hI/d8ZicYJTp3B6WrTXbPSB5P8kkSdFyy3Sa3fXO7+HgX7IaZLmhpAJwAxBpAF2eMHEdt+EVodS+lFKULWuQRjSDVIcSaLFicwKA043jR62GgxmhoDz7EvgZ0VunLAOTrOjSM4esQZdXA5ryN0hyvsmaHL+ByQPzPT1JqpFmpSECY/9dvJE2VLif0AjGjiZg6/oGqWLw3ZsPrhKJ4fkcoM3AQjhGJ2n8/3ZMdTPGGhnRUndnjhVlN5QrILg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/WQMdyN/qvKllpoVdrrpxuJUjQRyNbX2bwusTOrxZtI=;
+ b=PUSuM0tyBGlgBJPYa3XsliqH58eHYYQCmIJMVHn+fGHgYRndJbXTmKWZnFcl61VkmR61PQJyhKc61bRafIQYHc8cw4LN3xgz7ocgFZRy61qdbtqJeO79D8eU70DsSh2Rh6D53gj71nrxCmLtthPWg4g82aAD8fnSlVyJ1Klry0E=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: fe02f11487eedbdb
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=n9ON4GNlg7S8EdZZQrtcK20ZoEAMNN6i4NL+rHYtn6aVOpe6Tsmkrkt0cvj2cUG2f4drKLwEEsXXv4cP4tqzVNF3MFp6m+VwCW62fYeTwYJSujx2OqmfK24+zBtmC1PdYFWSTKWrY/Odben8C+OEcwYg+AgEuvM9C5bKKeworArgvTWHCGw2ODhb/t3Ka2XVLy4kqUXalEhZKz9ZdIpnxLd8Sl+M77iGPBTnTlKCDkAYDjrIvsaq/ZbMrprGTz+zY8l/cwoAvBskll5hFsYIKCTG/VG92vRrQUZ5D3MnvApuXD8EgX0N86+wlxCpM6hXJbutWbOS9kMC9THLMnnLuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/WQMdyN/qvKllpoVdrrpxuJUjQRyNbX2bwusTOrxZtI=;
+ b=SbXuNSCFbeZBaYEsXF1v8AuVqtD5a9mwIbjqYyzGBrjihePXHrMboRl9gsSO1nPoY0Usms5c6i7yRm4xWW/vFs8tbGPk8+V/w+0Zt5zeLXvIrysaXMQ87LhonBfT2scrgmFxDLhv9MfGH9BZ9L6TwSH0A8eZcH8jC4p4SB3fbD4iUhNtaFK3zcQ6KrTLPboW2m4OyskTaL0KITtRqKuol2kmg+ylGiwfn5n4wcL8yLAFp+T8q4Mtr7+rZgQ0RoI8l5XYIAGX0BcI4nNIuzkj+Ksbob7Njd2kA4lYn9TKpQOVize9AVQUibKDrUrhNtyxt4AtIPFCWnMysrRUNBRkCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/WQMdyN/qvKllpoVdrrpxuJUjQRyNbX2bwusTOrxZtI=;
+ b=PUSuM0tyBGlgBJPYa3XsliqH58eHYYQCmIJMVHn+fGHgYRndJbXTmKWZnFcl61VkmR61PQJyhKc61bRafIQYHc8cw4LN3xgz7ocgFZRy61qdbtqJeO79D8eU70DsSh2Rh6D53gj71nrxCmLtthPWg4g82aAD8fnSlVyJ1Klry0E=
+From: Rahul Singh <Rahul.Singh@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
+	<jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 2/8] xen/evtchn: modify evtchn_alloc_unbound to allocate
+ specified port
+Thread-Topic: [PATCH 2/8] xen/evtchn: modify evtchn_alloc_unbound to allocate
+ specified port
+Thread-Index:
+ AQHYhkXaSSR0QDc2DUiowhnmyNd/Sq1bgqiAgB3xuACAAai8gIAA1/CAgAA2U4CAAAT8AIAABuwAgAAKeYCAAAnjAIAAC4AAgAAEsgCACtZcgIAAFXWAgAGspoCAAAsFgIAAI8AAgAf9PoCAAwMegIAAV24AgAEIAAA=
+Date: Fri, 29 Jul 2022 12:35:37 +0000
+Message-ID: <C863F6A1-67BB-4508-A8C3-70829A56AEF6@arm.com>
+References: <cover.1655903088.git.rahul.singh@arm.com>
+ <5ea66595248c41a011ac465bfabd7a7a40dcd565.1655903088.git.rahul.singh@arm.com>
+ <2cdde2eb-33ac-568b-a0ae-b819b7b4161b@xen.org>
+ <1494EC8C-9916-472F-9285-57C0FF656919@arm.com>
+ <abcf96b0-1c41-476a-de08-adb3eaaaa05d@xen.org>
+ <addaeb82-2d15-a46e-f9f9-274572d2ddc2@suse.com>
+ <9711c08f-7e16-daf3-f010-1e6a53b0b9a0@xen.org>
+ <5f200481-ed3c-a463-90aa-3718c0ab57a3@suse.com>
+ <758779b3-ef39-aa95-15c9-9b84b952e80b@xen.org>
+ <3b42f9ab-383c-694c-cef0-5d24531e556a@suse.com>
+ <019c5cb4-7e6a-d822-3c02-e3199d499106@xen.org>
+ <93E40C29-DD1E-4C9B-936B-45ACA69BBD66@arm.com>
+ <d868fab2-c55a-7e2c-cd54-6dc3eedbbf26@xen.org>
+ <BB3ECBA1-A028-44A0-A6BB-5D6BD009C095@arm.com>
+ <ee0a62af-fa79-3699-7652-d976a8690995@xen.org>
+ <99D4D342-5DF7-4F85-A311-4D03967D77DB@arm.com>
+ <b98c14d6-d788-427f-3fe4-b36bc85aae59@xen.org>
+ <E290A20A-D6C7-4154-A0A4-3FC91C479B25@arm.com>
+ <c673e9df-02b6-4f90-aca9-dc2ad9d3f922@xen.org>
+ <329C928A-92B2-43EB-8972-52DAEF5258EF@arm.com>
+ <03fd4b2b-66ab-eaf8-0875-9382e8b14012@xen.org>
+In-Reply-To: <03fd4b2b-66ab-eaf8-0875-9382e8b14012@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: fc537254-3137-4323-9ae3-08da715edfb5
+x-ms-traffictypediagnostic:
+	DB9PR08MB7772:EE_|DBAEUR03FT027:EE_|AM6PR08MB3302:EE_
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ W2wosatFJBQuC499WADjM0x45OCeRx1WR9rwaObUNNVOGg+7AZSSMP9tdsgmxI+rDKRMXydlXCpylmCv6usEXkt4tppUrsYgQKUowGA93Gq2f68IRDX8v+VuV4blwe1/8C+EApuXfEJeWYOxKO4EbdhoLbDyEnTYGdE6jGyAw6D72KZUUd8F0ff9owT2ip+OtKjakrJMhUQq6T0XCJWxU1oqQkTsIrc3FrstPxYxSlT8KpANzcpIZvlB8YFOUFMoebJ9Fal+oMpFbIjG0K6xFWIHpmkV0S23yODYWYMosoXa8aAVV7jBXn7CnLRyzbawsWAPp+gJ3lC+sWTjcYLcPqSL1kjYDHQCML+vjOEYahQ05yS7Dk24R6EnQjptFPNhxhq/K6WUawyCxnMvUJbIhWmboJu2dJ+vBcW6bJzRnK+FFPmclBL67Qpzdi1V4VLF5Ygx5gPSrrV4c01YB5xj6HUiX6dqwfDRh7D0cQwYYI/0j2ZBiXb8cIT202f27ckMVBBxzpVIqr9kS69kWVoda+1jt7so8cwWGKzFqtUWGHxcWDq9//lh/5pp/bqZbzVXmiE4HmkozfrY1S+bVywPt00xJsiqcf6kSlXFYkjtVpgSBjlb+xQnhZlaDXVeR8LDdyy6Dkw0E5meFoxMWm0PAkElFvHgYSi9m5DJuU4pAoPEmk3muQTX2xhV11lGkD44UKLkEoU3CCs68r/JBb+r2K2mG3avcNTvLOD/iKr7lkHPWyEpPognaK+rfIBS3U0xdifmYJb/aOtKRAcJk1Jp4uxPp0NVyQFZXM1BzDMwY5Tsxb0AJP4eIacXzK6iaXre1WhlR5GvjIRDzCdvflLuxw==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7158.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(396003)(346002)(366004)(136003)(39860400002)(376002)(36756003)(33656002)(5660300002)(76116006)(8676002)(38070700005)(4326008)(2906002)(8936002)(91956017)(86362001)(66556008)(66946007)(54906003)(316002)(64756008)(66476007)(6916009)(66446008)(41300700001)(53546011)(6506007)(6486002)(38100700002)(2616005)(71200400001)(6512007)(478600001)(26005)(186003)(83380400001)(122000001)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <8CD915512EC57540A61029E0293FC91D@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220728172053.GA3607379@paulmck-ThinkPad-P17-Gen-1>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7772
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT027.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	be84e825-e706-406b-7403-08da715ed730
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	45xgqtfPGEykGbeREFqqdpIWnEdqDzBe1dqCKRVfgYlVvKsEuA9uFUskSQtyKK0RgQlyAhjKiandelrJml9tyYLx1PQNjTm5RKcxkvwYBpT/n8iLuiwmrULfS9pdsyqjsY2/3tljE35IZ4MaIdM+GbStnenap9YVQy+DKn7gbYbXMT6/DdPXGLxwwPiH5gwgwxeuf9e6onAUs2+c7VcuFH+nZA/dZjC02fK5HfkeyogBAwNtl5L2kPYIZHIgTj0MAtKOuPQgu2qd8By/yorO4FaXMREoPZaw/FEX7QKuXakXpJQ4cS9Q3s4URrI4nflNAlllBpSHdg2K+v/xCbcxfSPaiCw8MTCsdoh1MtUxNZEqSWYiNYv7XRIxzs6ROvb9U7HOaJN9qqZMtDeQikivaXf8Pf53rrbJrhRBbHIGT9oBeiHjBZNNLlZbC7s1vAtXdkDezW9IozITyb5mF7YNevAOc5Hi7gp+S2tHzgMnVrDeww+aO2IBx9bbTfmN8l+IuMpdV8M2MpRkEUldtpNvIDQYcJgdoKrQPF559Pwli8DLGBQfPZHhSLh3aXgZi/G3LZw8XDxvIr3xUD2v7FeyFYL6R5OufXpDmUMKBrWa3EHSVw6IJSFG5Eep3STgNn3ZPg/0tCb02K90CZnV/Ay/bIl4iYJDH3FfQlBqWO80Fkvv7Db5Ot1wUpFu1K6gpZ4pWLL6TeD5Jbju+QCoKlPpOZAZE2B1NZxRLV6M5jgtTaOhTgj+UaYYuMG/H1WKein+B3kv9UpI68jaIdyAyUlDVugynaG0yd05fkN+lXR9a+3cl0+AlGK4N3wVnzPPKfec
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(396003)(39860400002)(346002)(136003)(376002)(46966006)(40470700004)(36840700001)(336012)(53546011)(36756003)(70206006)(47076005)(356005)(36860700001)(6512007)(478600001)(6506007)(6486002)(186003)(82740400003)(81166007)(33656002)(2616005)(70586007)(82310400005)(40480700001)(54906003)(40460700003)(8936002)(2906002)(26005)(316002)(4326008)(83380400001)(41300700001)(5660300002)(8676002)(86362001)(6862004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2022 12:35:52.0275
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc537254-3137-4323-9ae3-08da715edfb5
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT027.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3302
 
-On Thu, Jul 28, 2022 at 10:20:53AM -0700, Paul E. McKenney wrote:
-> On Mon, Jul 25, 2022 at 12:43:06PM -0700, Michel Lespinasse wrote:
-> > On Wed, Jun 08, 2022 at 04:27:27PM +0200, Peter Zijlstra wrote:
-> > > Commit c227233ad64c ("intel_idle: enable interrupts before C1 on
-> > > Xeons") wrecked intel_idle in two ways:
-> > > 
-> > >  - must not have tracing in idle functions
-> > >  - must return with IRQs disabled
-> > > 
-> > > Additionally, it added a branch for no good reason.
-> > > 
-> > > Fixes: c227233ad64c ("intel_idle: enable interrupts before C1 on Xeons")
-> > > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> > 
-> > After this change was introduced, I am seeing "WARNING: suspicious RCU
-> > usage" when booting a kernel with debug options compiled in. Please
-> > see the attached dmesg output. The issue starts with commit 32d4fd5751ea
-> > and is still present in v5.19-rc8.
-> > 
-> > I'm not sure, is this too late to fix or revert in v5.19 final ?
-> 
-> I finally got a chance to take a quick look at this.
-> 
-> The rcu_eqs_exit() function is making a lockdep complaint about
-> being invoked with interrupts enabled.  This function is called from
-> rcu_idle_exit(), which is an expected code path from cpuidle_enter_state()
-> via its call to rcu_idle_exit().  Except that rcu_idle_exit() disables
-> interrupts before invoking rcu_eqs_exit().
-> 
-> The only other call to rcu_idle_exit() does not disable interrupts,
-> but it is via rcu_user_exit(), which would be a very odd choice for
-> cpuidle_enter_state().
-> 
-> It seems unlikely, but it might be that it is the use of local_irq_save()
-> instead of raw_local_irq_save() within rcu_idle_exit() that is causing
-> the trouble.  If this is the case, then the commit shown below would
-> help.  Note that this commit removes the warning from lockdep, so it
-> is necessary to build the kernel with CONFIG_RCU_EQS_DEBUG=y to enable
-> equivalent debugging.
-> 
-> Could you please try your test with the -rce commit shown below applied?
-
-Thanks for looking into it.
-
-After checking out Peter's commit 32d4fd5751ea,
-cherry picking your commit ed4ae5eff4b3,
-and setting CONFIG_RCU_EQS_DEBUG=y in addition of my usual debug config,
-I am now seeing this a few seconds into the boot:
-
-[    3.010650] ------------[ cut here ]------------
-[    3.010651] WARNING: CPU: 0 PID: 0 at kernel/sched/clock.c:397 sched_clock_tick+0x27/0x60
-[    3.010657] Modules linked in:
-[    3.010660] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.19.0-rc1-test-00005-g1be22fea0611 #1
-[    3.010662] Hardware name: LENOVO 30BFS44D00/1036, BIOS S03KT51A 01/17/2022
-[    3.010663] RIP: 0010:sched_clock_tick+0x27/0x60
-[    3.010665] Code: 1f 40 00 53 eb 02 5b c3 66 90 8b 05 2f c3 40 01 85 c0 74 18 65 8b 05 60 88 8f 4e 85 c0 75 0d 65 8b 05 a9 85 8f 4e 85 c0 74 02 <0f> 0b e8 e2 6c 89 00 48 c7 c3 40 d5 02 00
- 89 c0 48 03 1c c5 c0 98
-[    3.010667] RSP: 0000:ffffffffb2803e28 EFLAGS: 00010002
-[    3.010670] RAX: 0000000000000001 RBX: ffffc8ce7fa07060 RCX: 0000000000000001
-[    3.010671] RDX: 0000000000000000 RSI: ffffffffb268dd21 RDI: ffffffffb269ab13
-[    3.010673] RBP: 0000000000000001 R08: ffffffffffc300d5 R09: 000000000002be80
-[    3.010674] R10: 000003625b53183a R11: ffffa012b802b7a4 R12: ffffffffb2aa9e80
-[    3.010675] R13: ffffffffb2aa9e00 R14: 0000000000000001 R15: 0000000000000000
-[    3.010677] FS:  0000000000000000(0000) GS:ffffa012b8000000(0000) knlGS:0000000000000000
-[    3.010678] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    3.010680] CR2: ffffa012f81ff000 CR3: 0000000c99612001 CR4: 00000000003706f0
-[    3.010681] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[    3.010682] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[    3.010683] Call Trace:
-[    3.010685]  <TASK>
-[    3.010688]  cpuidle_enter_state+0xb7/0x4b0
-[    3.010694]  cpuidle_enter+0x29/0x40
-[    3.010697]  do_idle+0x1d4/0x210
-[    3.010702]  cpu_startup_entry+0x19/0x20
-[    3.010704]  rest_init+0x117/0x1a0
-[    3.010708]  arch_call_rest_init+0xa/0x10
-[    3.010711]  start_kernel+0x6d8/0x6ff
-[    3.010716]  secondary_startup_64_no_verify+0xce/0xdb
-[    3.010728]  </TASK>
-[    3.010729] irq event stamp: 44179
-[    3.010730] hardirqs last  enabled at (44179): [<ffffffffb2000ccb>] asm_sysvec_apic_timer_interrupt+0x1b/0x20
-[    3.010734] hardirqs last disabled at (44177): [<ffffffffb22003f0>] __do_softirq+0x3f0/0x498
-[    3.010736] softirqs last  enabled at (44178): [<ffffffffb2200332>] __do_softirq+0x332/0x498
-[    3.010738] softirqs last disabled at (44171): [<ffffffffb16c760b>] irq_exit_rcu+0xab/0xf0
-[    3.010741] ---[ end trace 0000000000000000 ]---
+SGkgSnVsaWVuDQoNCj4gT24gMjggSnVsIDIwMjIsIGF0IDk6NTAgcG0sIEp1bGllbiBHcmFsbCA8
+anVsaWVuQHhlbi5vcmc+IHdyb3RlOg0KPiANCj4gSGkgUmFodWwsDQo+IA0KPiBPbiAyOC8wNy8y
+MDIyIDE2OjM3LCBSYWh1bCBTaW5naCB3cm90ZToNCj4+IEFzIHlvdSBtZW50aW9uZWQsIGlmIHdl
+IGRvbuKAmXQgcmVzdHJpY3QgdGhlIG51bWJlciBvZiBldmVudHMgY2hhbm5lbCBmb3IgdGhlIGRv
+bTAgc3lzdGVtIHdpbGwgYm9vdCBzbG93ZXIuDQo+PiBUaGlzIGlzIGEgZ29vZCByZWFzb24gdG8g
+cmVzdHJpY3QgdGhlIG51bWJlciBvZiBldmVudCBjaGFubmVscyBmb3IgZG9tMC4NCj4gTGV0IG1l
+IHN0YXJ0IHRoYXQgSSBhbSBzdGlsbCBmaW5lIGlmIHlvdSB3YW50IHRvIHB1c2ggZm9yIGEgbmV3
+IHBhcmFtZXRlciAoc28gbG9uZyBpdCBpcyBub3QgQXJtIHNwZWNpZmljKS4gSG93ZXZlciwgSSBh
+bSBhZnJhaWQgdGhhdCBJIHdpbGwgbm90IGJlIGFibGUgdG8gYXJndWUgZm9yIGl0IGJlY2F1c2Ug
+SSBkb24ndCBzZWUgYSBzdHJpY3QgbmVlZCBmb3IgaXQuDQo+IA0KPiBMZXQgbWUgcGxheSB0aGUg
+ZGV2aWwncyBhZHZvY2F0ZSBmb3IgYSBiaXQuIEFGQUlVLCB5b3Ugd291bGQgbGlrZSB0byBpbnRy
+b2R1Y2UgdGhlIG5ldyBwYXJhbWV0ZXIganVzdCB0byB0ZWxsIHRoZSBhZG1pbiB0aGUgYm9vdCBp
+cyBnb2luZyB0byBiZSBzbG93ZXIgaWYgeW91IHVzZSBhIGV2ZW50IGNoYW5uZWwgSUQgaGlnaGVy
+IHRoYW4gTi4NCj4gDQo+IFRvIG1lIHRoaXMgc291bmRzIGxpa2UgdGhlIHNhbWUgYXMgaWYgYW4g
+YWRtaW4gZGVjaWRlIHRvIHVzZSAxMEdCIHJhdGhlciB0aGFuIDFHQi4gVGhlcmUgd2lsbCBiZSBz
+bG93IGRvd24uDQo+IA0KPiBUaGlzIHNsb3duZXNzIGlzIG9ubHkgYm9vdCBzcGVjaWZpYyBhbmQg
+d2lsbCBub3QgdmFyeS4gU28gb25lIGNvdWxkIGFyZ3VlIHRoaXMgaXMgZWFzaWx5IG5vdGljZWFi
+bGUgYW5kIGFuIGFkbWluIGNhbiB0YWtlIHJlbWVkaWF0aW9uLg0KPiANCj4gR2l2ZW4gSmFuJ3Mg
+b2JqZWN0aW9uLCBJIHdvdWxkIGxpa2UgdG8gcHJvcG9zZSB0byBkb2N1bWVudCBpdCBpbiB0aGUg
+YmluZGluZ3MgaW5zdGVhZCAoYSBjb25jZXJuZWQgYWRtaW4gd2lsbCBsaWtlbHkgcmVhZCBpdCku
+IEJlbG93IGEgcm91Z2ggcHJvcG9zYWwgZm9yIHRoZSBkb2N1bWVudGF0aW9uOg0KPiANCj4gIkl0
+IGlzIHJlY29tbWVuZGVkIHRvIHVzZSBsb3cgZXZlbnQgY2hhbm5lbCBJRC4iDQo+IA0KPiBXb3Vs
+ZCB0aGF0IGJlIHN1aXRhYmxlIGZvciB5b3U/DQoNClllcywgdGhhdCB3aWxsIHdvcmtzIGZvciBt
+ZS4gSSB3aWxsIHJlc3RyaWN0IHRoZSBtYXggZXZlbnQgY2hhbm5lbCBmb3IgZG9tVSBvbmx5IGFu
+ZCBhbHNvIGFkZCB0aGUgY29tbWVudCBpbiANCiJkb2NzL21pc2MvYXJtL2RldmljZS10cmVlL2Jv
+b3RpbmcudHh04oCdIGFzIHN1Z2dlc3RlZCBieSB5b3UuDQoNClJlZ2FyZHMsDQpSYWh1bA==
 
