@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDCAF585202
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 17:02:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377592.610857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0C8758522E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 17:16:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377601.610868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHRV0-00067Z-SB; Fri, 29 Jul 2022 15:01:58 +0000
+	id 1oHRie-0007uO-6W; Fri, 29 Jul 2022 15:16:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377592.610857; Fri, 29 Jul 2022 15:01:58 +0000
+Received: by outflank-mailman (output) from mailman id 377601.610868; Fri, 29 Jul 2022 15:16:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHRV0-00064H-P6; Fri, 29 Jul 2022 15:01:58 +0000
-Received: by outflank-mailman (input) for mailman id 377592;
- Fri, 29 Jul 2022 15:00:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FQc2=YC=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
- id 1oHRTA-0005gg-PB
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 15:00:04 +0000
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1f6b1734-0f4f-11ed-bd2d-47488cf2e6aa;
- Fri, 29 Jul 2022 17:00:03 +0200 (CEST)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-2ef5380669cso53732067b3.9
- for <xen-devel@lists.xenproject.org>; Fri, 29 Jul 2022 08:00:03 -0700 (PDT)
+	id 1oHRie-0007ru-1t; Fri, 29 Jul 2022 15:16:04 +0000
+Received: by outflank-mailman (input) for mailman id 377601;
+ Fri, 29 Jul 2022 15:16:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1oHRic-0007ro-FA
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 15:16:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oHRiX-00050a-5E; Fri, 29 Jul 2022 15:15:57 +0000
+Received: from [54.239.6.186] (helo=[192.168.0.45])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oHRiW-00052G-V1; Fri, 29 Jul 2022 15:15:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,191 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f6b1734-0f4f-11ed-bd2d-47488cf2e6aa
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc;
-        bh=S1YI+SR1sGADVizxFmy+lJ0FTmSOnUKcWTIA6mLx/E8=;
-        b=PAswu8WoyoMJzGQDHm0ElXUr2ZPwHT3+WO+WgT9GJIJvdmIZC6e7+thBdNaWPfydDF
-         We7mAIZ9+c1S937hGXDfpM53q0Nl0PUhoNN/Wu3C4BLDfk993aagStmMD1BsSl6iSJLM
-         YshtMaU7ErsHmps10otLE96TAl6014cS4s90cW8GyINlWNly/RkyCVt+S5fnE5ZhI3HQ
-         lUS/YaD5IOxvQieOS+kNyNFEIvvQ38I8DdofQ/GBu7wKELt7bPEwL6taYrQutUoXQZo4
-         uFxQdGn3QSfnVPM3AvwRvWjt64SoNzzPH0GXO275Ft1nrsc9kdtGI5KR6ngDUQy5XHgi
-         yXBg==
-X-Gm-Message-State: ACgBeo1Y3hJfR/59YrTcGPMJUGZ10DScASkfsVPVWTsIfyUQQwCbUro/
-	BaKvzAtiBStjINky54TtlUABLvpEQCPwxwm32Nc=
-X-Google-Smtp-Source: AA6agR5QQFhqUTEC/IGPMir7zUIdteVkQo93xHT0n5oUM+G+UQ5tpfdzHAC9fZE5clkaGoQ4WXKUt2zD7Q2S/JCn7tY=
-X-Received: by 2002:a81:1b97:0:b0:2db:640f:49d8 with SMTP id
- b145-20020a811b97000000b002db640f49d8mr3338822ywb.326.1659106801810; Fri, 29
- Jul 2022 08:00:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=VEZyU/ntnKujOpb3iwU1YsfJEAOr7n7/eTqcCzjMqM8=; b=wSzIbZZqYxzUKZ1KKkIApHtbfQ
+	cgyN7Gf6NAXR0GahZHvaoUUTm5WqGiZd2nhCCwapQI0GHTORV3sAPK7ShhS9FxpwfPF5JKDRPl5AL
+	sz+zBerBN6vlQJu7sKD+/bk8YWxgd+XHQmTjddWJxcwqXtZzSmVveQKLbA9g5xZUW1zg=;
+Message-ID: <fa07bef2-8f0e-affe-0965-65156bdcc84d@xen.org>
+Date: Fri, 29 Jul 2022 16:15:54 +0100
 MIME-Version: 1.0
-References: <20220608142723.103523089@infradead.org> <20220608144516.172460444@infradead.org>
- <20220725194306.GA14746@lespinasse.org> <20220728172053.GA3607379@paulmck-ThinkPad-P17-Gen-1>
- <20220729102458.GA1695@lespinasse.org>
-In-Reply-To: <20220729102458.GA1695@lespinasse.org>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Fri, 29 Jul 2022 16:59:50 +0200
-Message-ID: <CAJZ5v0gyPtX=ksCibo2ZN_BztCqUn9KRtRu+gsJ5KetB_1MwEQ@mail.gmail.com>
-Subject: Re: [PATCH 04/36] cpuidle,intel_idle: Fix CPUIDLE_FLAG_IRQ_ENABLE
-To: Michel Lespinasse <michel@lespinasse.org>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Richard Henderson <rth@twiddle.net>, Ivan Kokshaysky <ink@jurassic.park.msu.ru>, 
-	Matt Turner <mattst88@gmail.com>, vgupta@kernel.org, 
-	Russell King - ARM Linux <linux@armlinux.org.uk>, ulli.kroll@googlemail.com, 
-	Linus Walleij <linus.walleij@linaro.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Sascha Hauer <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, dl-linux-imx <linux-imx@nxp.com>, Tony Lindgren <tony@atomide.com>, 
-	Kevin Hilman <khilman@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, bcain@quicinc.com, 
-	Huacai Chen <chenhuacai@kernel.org>, kernel@xen0n.name, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, sammy@sammy.net, Michal Simek <monstr@monstr.eu>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, dinguyen@kernel.org, jonas@southpole.se, 
-	stefan.kristiansson@saunalahti.fi, Stafford Horne <shorne@gmail.com>, 
-	James Bottomley <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
-	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, David Miller <davem@davemloft.net>, 
-	Richard Weinberger <richard@nod.at>, anton.ivanov@cambridgegreys.com, 
-	Johannes Berg <johannes@sipsolutions.net>, Thomas Gleixner <tglx@linutronix.de>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "the arch/x86 maintainers" <x86@kernel.org>, 
-	"H. Peter Anvin" <hpa@zytor.com>, acme@kernel.org, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, jolsa@kernel.org, namhyung@kernel.org, 
-	Juergen Gross <jgross@suse.com>, srivatsa@csail.mit.edu, amakhalov@vmware.com, 
-	pv-drivers@vmware.com, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@ucw.cz>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>, 
-	Andy Gross <agross@kernel.org>, Bjorn Andersson <bjorn.andersson@linaro.org>, 
-	Anup Patel <anup@brainfault.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	Jon Hunter <jonathanh@nvidia.com>, Jacob Pan <jacob.jun.pan@linux.intel.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Yury Norov <yury.norov@gmail.com>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Steven Rostedt <rostedt@goodmis.org>, 
-	Petr Mladek <pmladek@suse.com>, senozhatsky@chromium.org, 
-	John Ogness <john.ogness@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>, 
-	quic_neeraju@quicinc.com, Josh Triplett <josh@joshtriplett.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Joel Fernandes <joel@joelfernandes.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Benjamin Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Daniel Bristot de Oliveira <bristot@redhat.com>, vschneid@redhat.com, jpoimboe@kernel.org, 
-	linux-alpha@vger.kernel.org, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-snps-arc@lists.infradead.org, 
-	Linux ARM <linux-arm-kernel@lists.infradead.org>, 
-	Linux OMAP Mailing List <linux-omap@vger.kernel.org>, linux-csky@vger.kernel.org, 
-	linux-hexagon@vger.kernel.org, linux-ia64@vger.kernel.org, 
-	linux-m68k <linux-m68k@lists.linux-m68k.org>, 
-	"open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>, openrisc@lists.librecores.org, 
-	Parisc List <linux-parisc@vger.kernel.org>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, 
-	linux-riscv <linux-riscv@lists.infradead.org>, linux-s390@vger.kernel.org, 
-	Linux-sh list <linux-sh@vger.kernel.org>, sparclinux@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org, 
-	virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org, 
-	linux-xtensa@linux-xtensa.org, 
-	ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
-	linux-clk <linux-clk@vger.kernel.org>, linux-arm-msm <linux-arm-msm@vger.kernel.org>, 
-	linux-tegra <linux-tegra@vger.kernel.org>, linux-arch <linux-arch@vger.kernel.org>, 
-	rcu@vger.kernel.org, rh0@fb.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.0.3
+Subject: Re: [PATCH v3] xen/arm: domain: Fix MISRA C 2012 Rule 8.7 violation
+Content-Language: en-US
+To: Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20220728162151.1228747-1-burzalodowa@gmail.com>
+ <65adc941-78a9-2e2d-fa43-6189ea95773d@suse.com>
+ <b9f3bbc1-e6ec-35c3-6ff6-35e051c86953@gmail.com>
+ <4327CBBD-315D-44C0-A429-25F3CA5BE25D@arm.com>
+ <01bb7315-91a1-de7a-2c17-c6772f740619@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <01bb7315-91a1-de7a-2c17-c6772f740619@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 29, 2022 at 12:25 PM Michel Lespinasse
-<michel@lespinasse.org> wrote:
->
-> On Thu, Jul 28, 2022 at 10:20:53AM -0700, Paul E. McKenney wrote:
-> > On Mon, Jul 25, 2022 at 12:43:06PM -0700, Michel Lespinasse wrote:
-> > > On Wed, Jun 08, 2022 at 04:27:27PM +0200, Peter Zijlstra wrote:
-> > > > Commit c227233ad64c ("intel_idle: enable interrupts before C1 on
-> > > > Xeons") wrecked intel_idle in two ways:
-> > > >
-> > > >  - must not have tracing in idle functions
-> > > >  - must return with IRQs disabled
-> > > >
-> > > > Additionally, it added a branch for no good reason.
-> > > >
-> > > > Fixes: c227233ad64c ("intel_idle: enable interrupts before C1 on Xeons")
-> > > > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> > >
-> > > After this change was introduced, I am seeing "WARNING: suspicious RCU
-> > > usage" when booting a kernel with debug options compiled in. Please
-> > > see the attached dmesg output. The issue starts with commit 32d4fd5751ea
-> > > and is still present in v5.19-rc8.
-> > >
-> > > I'm not sure, is this too late to fix or revert in v5.19 final ?
-> >
-> > I finally got a chance to take a quick look at this.
-> >
-> > The rcu_eqs_exit() function is making a lockdep complaint about
-> > being invoked with interrupts enabled.  This function is called from
-> > rcu_idle_exit(), which is an expected code path from cpuidle_enter_state()
-> > via its call to rcu_idle_exit().  Except that rcu_idle_exit() disables
-> > interrupts before invoking rcu_eqs_exit().
-> >
-> > The only other call to rcu_idle_exit() does not disable interrupts,
-> > but it is via rcu_user_exit(), which would be a very odd choice for
-> > cpuidle_enter_state().
-> >
-> > It seems unlikely, but it might be that it is the use of local_irq_save()
-> > instead of raw_local_irq_save() within rcu_idle_exit() that is causing
-> > the trouble.  If this is the case, then the commit shown below would
-> > help.  Note that this commit removes the warning from lockdep, so it
-> > is necessary to build the kernel with CONFIG_RCU_EQS_DEBUG=y to enable
-> > equivalent debugging.
-> >
-> > Could you please try your test with the -rce commit shown below applied?
->
-> Thanks for looking into it.
->
-> After checking out Peter's commit 32d4fd5751ea,
-> cherry picking your commit ed4ae5eff4b3,
-> and setting CONFIG_RCU_EQS_DEBUG=y in addition of my usual debug config,
-> I am now seeing this a few seconds into the boot:
->
-> [    3.010650] ------------[ cut here ]------------
-> [    3.010651] WARNING: CPU: 0 PID: 0 at kernel/sched/clock.c:397 sched_clock_tick+0x27/0x60
-> [    3.010657] Modules linked in:
-> [    3.010660] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.19.0-rc1-test-00005-g1be22fea0611 #1
-> [    3.010662] Hardware name: LENOVO 30BFS44D00/1036, BIOS S03KT51A 01/17/2022
-> [    3.010663] RIP: 0010:sched_clock_tick+0x27/0x60
-> [    3.010665] Code: 1f 40 00 53 eb 02 5b c3 66 90 8b 05 2f c3 40 01 85 c0 74 18 65 8b 05 60 88 8f 4e 85 c0 75 0d 65 8b 05 a9 85 8f 4e 85 c0 74 02 <0f> 0b e8 e2 6c 89 00 48 c7 c3 40 d5 02 00
->  89 c0 48 03 1c c5 c0 98
-> [    3.010667] RSP: 0000:ffffffffb2803e28 EFLAGS: 00010002
-> [    3.010670] RAX: 0000000000000001 RBX: ffffc8ce7fa07060 RCX: 0000000000000001
-> [    3.010671] RDX: 0000000000000000 RSI: ffffffffb268dd21 RDI: ffffffffb269ab13
-> [    3.010673] RBP: 0000000000000001 R08: ffffffffffc300d5 R09: 000000000002be80
-> [    3.010674] R10: 000003625b53183a R11: ffffa012b802b7a4 R12: ffffffffb2aa9e80
-> [    3.010675] R13: ffffffffb2aa9e00 R14: 0000000000000001 R15: 0000000000000000
-> [    3.010677] FS:  0000000000000000(0000) GS:ffffa012b8000000(0000) knlGS:0000000000000000
-> [    3.010678] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    3.010680] CR2: ffffa012f81ff000 CR3: 0000000c99612001 CR4: 00000000003706f0
-> [    3.010681] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> [    3.010682] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> [    3.010683] Call Trace:
-> [    3.010685]  <TASK>
-> [    3.010688]  cpuidle_enter_state+0xb7/0x4b0
-> [    3.010694]  cpuidle_enter+0x29/0x40
-> [    3.010697]  do_idle+0x1d4/0x210
-> [    3.010702]  cpu_startup_entry+0x19/0x20
-> [    3.010704]  rest_init+0x117/0x1a0
-> [    3.010708]  arch_call_rest_init+0xa/0x10
-> [    3.010711]  start_kernel+0x6d8/0x6ff
-> [    3.010716]  secondary_startup_64_no_verify+0xce/0xdb
-> [    3.010728]  </TASK>
-> [    3.010729] irq event stamp: 44179
-> [    3.010730] hardirqs last  enabled at (44179): [<ffffffffb2000ccb>] asm_sysvec_apic_timer_interrupt+0x1b/0x20
-> [    3.010734] hardirqs last disabled at (44177): [<ffffffffb22003f0>] __do_softirq+0x3f0/0x498
-> [    3.010736] softirqs last  enabled at (44178): [<ffffffffb2200332>] __do_softirq+0x332/0x498
-> [    3.010738] softirqs last disabled at (44171): [<ffffffffb16c760b>] irq_exit_rcu+0xab/0xf0
-> [    3.010741] ---[ end trace 0000000000000000 ]---
+Hi Xenia,
 
-Can you please give this patch a go:
-https://patchwork.kernel.org/project/linux-pm/patch/Yt/AxPFi88neW7W5@e126311.manchester.arm.com/
-?
+On 29/07/2022 15:03, Xenia Ragiadakou wrote:
+> 
+> On 7/29/22 16:41, Bertrand Marquis wrote:
+>> Hi Xenia,
+>>
+>>> On 29 Jul 2022, at 07:31, Xenia Ragiadakou <burzalodowa@gmail.com> 
+>>> wrote:
+>>>
+>>> Hi Jan,
+>>>
+>>> On 7/29/22 09:26, Jan Beulich wrote:
+>>>> On 28.07.2022 18:21, Xenia Ragiadakou wrote:
+>>>>> --- a/xen/arch/arm/domain.c
+>>>>> +++ b/xen/arch/arm/domain.c
+>>>>> @@ -63,7 +63,7 @@ static void do_idle(void)
+>>>>>       rcu_idle_exit(cpu);
+>>>>>   }
+>>>>>   -void idle_loop(void)
+>>>>> +static void idle_loop(void)
+>>>> While you're adding "noreturn" below, shouldn't this one be marked so
+>>>> as well? Preferably with the addition:
+>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Yes, but I was not sure if this should go in this patch or in a 
+>>> separate one.
+>>
+>> As you modify the function to make it static, I think it is ok to also 
+>> add the noreturn in the same patch.
+>>
+>> With that done, you can add my:
+>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>>
+>> Cheers
+>> Bertrand
+> 
+> I consider this change unrelated to the patch. I think it is a bad 
+> practice to squash unrelated changes in a single patch. Also, I do not 
+> think it is unfair to be obliged to make it in order for the patch to be 
+> accepted.
+> I could have taken the opportunity to fix this in the same patch but I 
+> decided to not take it.
+
+In general, I don't like having multiple changes within a patch. 
+However, here this is a consistency problem. You are modifying the 3 
+prototypes (well one is technically a declaration) and it reads odd that 
+2 are using noreturn but not the other one.
+
+I would actually argue that if this patch goes in like that, then the 
+commit message ought to explain why there is a lack of consistency.
+
+Anyway, I agree with Bertrand that it would be preferable to add 
+noreturn to the declaration of idle_loop() in this patch.
+
+To avoid a round trip, I would be OK to handle on commit.
+
+Cheers,
+
+-- 
+Julien Grall
 
