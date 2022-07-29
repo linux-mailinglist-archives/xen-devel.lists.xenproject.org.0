@@ -2,64 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E02958501E
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 14:37:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377496.610714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BA9F585048
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 15:03:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377504.610726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHPDi-00078A-Uy; Fri, 29 Jul 2022 12:35:58 +0000
+	id 1oHPdf-0002Zr-5n; Fri, 29 Jul 2022 13:02:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377496.610714; Fri, 29 Jul 2022 12:35:58 +0000
+Received: by outflank-mailman (output) from mailman id 377504.610726; Fri, 29 Jul 2022 13:02:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHPDi-00075a-SI; Fri, 29 Jul 2022 12:35:58 +0000
-Received: by outflank-mailman (input) for mailman id 377496;
- Fri, 29 Jul 2022 12:35:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lppd=YC=arm.com=Rahul.Singh@srs-se1.protection.inumbo.net>)
- id 1oHPDh-00075U-Kl
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 12:35:57 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60089.outbound.protection.outlook.com [40.107.6.89])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd03913e-0f3a-11ed-bd2d-47488cf2e6aa;
- Fri, 29 Jul 2022 14:35:55 +0200 (CEST)
-Received: from DU2PR04CA0023.eurprd04.prod.outlook.com (2603:10a6:10:3b::28)
- by AM6PR08MB3302.eurprd08.prod.outlook.com (2603:10a6:209:41::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5438.21; Fri, 29 Jul
- 2022 12:35:52 +0000
-Received: from DBAEUR03FT027.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:3b:cafe::5) by DU2PR04CA0023.outlook.office365.com
- (2603:10a6:10:3b::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.12 via Frontend
- Transport; Fri, 29 Jul 2022 12:35:52 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT027.mail.protection.outlook.com (100.127.142.237) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5482.12 via Frontend Transport; Fri, 29 Jul 2022 12:35:52 +0000
-Received: ("Tessian outbound cc6a8ab50b6b:v123");
- Fri, 29 Jul 2022 12:35:51 +0000
-Received: from cbb0d993ebdf.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 10FBFBD7-A218-4E96-851E-5170E45CA1CE.1; 
- Fri, 29 Jul 2022 12:35:40 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id cbb0d993ebdf.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 29 Jul 2022 12:35:40 +0000
-Received: from AS8PR08MB7158.eurprd08.prod.outlook.com (2603:10a6:20b:404::24)
- by DB9PR08MB7772.eurprd08.prod.outlook.com (2603:10a6:10:398::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.6; Fri, 29 Jul
- 2022 12:35:37 +0000
-Received: from AS8PR08MB7158.eurprd08.prod.outlook.com
- ([fe80::f5fa:7206:9197:6ba2]) by AS8PR08MB7158.eurprd08.prod.outlook.com
- ([fe80::f5fa:7206:9197:6ba2%3]) with mapi id 15.20.5482.011; Fri, 29 Jul 2022
- 12:35:37 +0000
+	id 1oHPdf-0002WM-2O; Fri, 29 Jul 2022 13:02:47 +0000
+Received: by outflank-mailman (input) for mailman id 377504;
+ Fri, 29 Jul 2022 13:02:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oHPdd-0002WC-Fn; Fri, 29 Jul 2022 13:02:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oHPdd-0002b1-CT; Fri, 29 Jul 2022 13:02:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oHPdd-0004gp-1T; Fri, 29 Jul 2022 13:02:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oHPdd-00059E-11; Fri, 29 Jul 2022 13:02:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,159 +42,364 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd03913e-0f3a-11ed-bd2d-47488cf2e6aa
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=aG53V/AE8L9MGt3K9lqli04zhGQUhwEDT2W+B3UuX51sxIwIsDpdvKE12MX8jy0u1GI3Syc16Lvi/fhNNedxIcRwfFnlYmWdesR/1gG8U3dhOC7xMVKyg/nnQsRoZp1rFmGJYVrr74vtMnMEVKeblpOJckPoyeSDhhfGA/aBAPL2ZLbLOp/7Q4xagg97decvNdlqmJJZxxGnp+43/ngCVGGFBCkJal6pp0CC29c/2P8v0d6DxyWz2mMxnpESbCRFx4zwcziRVygFrKojMjYiGG8ZjN2cEazFP2mYL66VK93uXO5EPbo85aLB6fjsdhyapzNhgq4Ypykmp1w/GD52tw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/WQMdyN/qvKllpoVdrrpxuJUjQRyNbX2bwusTOrxZtI=;
- b=P+lH46q8E9g1uNsjZGcY04pDs/v4kg41j0Hj9FIqpmiMjgpbECSQlHdSV3oOErxzxIyYP1LjzPLIQskaHC9uYgqgr75hI/d8ZicYJTp3B6WrTXbPSB5P8kkSdFyy3Sa3fXO7+HgX7IaZLmhpAJwAxBpAF2eMHEdt+EVodS+lFKULWuQRjSDVIcSaLFicwKA043jR62GgxmhoDz7EvgZ0VunLAOTrOjSM4esQZdXA5ryN0hyvsmaHL+ByQPzPT1JqpFmpSECY/9dvJE2VLif0AjGjiZg6/oGqWLw3ZsPrhKJ4fkcoM3AQjhGJ2n8/3ZMdTPGGhnRUndnjhVlN5QrILg==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/WQMdyN/qvKllpoVdrrpxuJUjQRyNbX2bwusTOrxZtI=;
- b=PUSuM0tyBGlgBJPYa3XsliqH58eHYYQCmIJMVHn+fGHgYRndJbXTmKWZnFcl61VkmR61PQJyhKc61bRafIQYHc8cw4LN3xgz7ocgFZRy61qdbtqJeO79D8eU70DsSh2Rh6D53gj71nrxCmLtthPWg4g82aAD8fnSlVyJ1Klry0E=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: fe02f11487eedbdb
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n9ON4GNlg7S8EdZZQrtcK20ZoEAMNN6i4NL+rHYtn6aVOpe6Tsmkrkt0cvj2cUG2f4drKLwEEsXXv4cP4tqzVNF3MFp6m+VwCW62fYeTwYJSujx2OqmfK24+zBtmC1PdYFWSTKWrY/Odben8C+OEcwYg+AgEuvM9C5bKKeworArgvTWHCGw2ODhb/t3Ka2XVLy4kqUXalEhZKz9ZdIpnxLd8Sl+M77iGPBTnTlKCDkAYDjrIvsaq/ZbMrprGTz+zY8l/cwoAvBskll5hFsYIKCTG/VG92vRrQUZ5D3MnvApuXD8EgX0N86+wlxCpM6hXJbutWbOS9kMC9THLMnnLuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/WQMdyN/qvKllpoVdrrpxuJUjQRyNbX2bwusTOrxZtI=;
- b=SbXuNSCFbeZBaYEsXF1v8AuVqtD5a9mwIbjqYyzGBrjihePXHrMboRl9gsSO1nPoY0Usms5c6i7yRm4xWW/vFs8tbGPk8+V/w+0Zt5zeLXvIrysaXMQ87LhonBfT2scrgmFxDLhv9MfGH9BZ9L6TwSH0A8eZcH8jC4p4SB3fbD4iUhNtaFK3zcQ6KrTLPboW2m4OyskTaL0KITtRqKuol2kmg+ylGiwfn5n4wcL8yLAFp+T8q4Mtr7+rZgQ0RoI8l5XYIAGX0BcI4nNIuzkj+Ksbob7Njd2kA4lYn9TKpQOVize9AVQUibKDrUrhNtyxt4AtIPFCWnMysrRUNBRkCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/WQMdyN/qvKllpoVdrrpxuJUjQRyNbX2bwusTOrxZtI=;
- b=PUSuM0tyBGlgBJPYa3XsliqH58eHYYQCmIJMVHn+fGHgYRndJbXTmKWZnFcl61VkmR61PQJyhKc61bRafIQYHc8cw4LN3xgz7ocgFZRy61qdbtqJeO79D8eU70DsSh2Rh6D53gj71nrxCmLtthPWg4g82aAD8fnSlVyJ1Klry0E=
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Jan Beulich
-	<jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 2/8] xen/evtchn: modify evtchn_alloc_unbound to allocate
- specified port
-Thread-Topic: [PATCH 2/8] xen/evtchn: modify evtchn_alloc_unbound to allocate
- specified port
-Thread-Index:
- AQHYhkXaSSR0QDc2DUiowhnmyNd/Sq1bgqiAgB3xuACAAai8gIAA1/CAgAA2U4CAAAT8AIAABuwAgAAKeYCAAAnjAIAAC4AAgAAEsgCACtZcgIAAFXWAgAGspoCAAAsFgIAAI8AAgAf9PoCAAwMegIAAV24AgAEIAAA=
-Date: Fri, 29 Jul 2022 12:35:37 +0000
-Message-ID: <C863F6A1-67BB-4508-A8C3-70829A56AEF6@arm.com>
-References: <cover.1655903088.git.rahul.singh@arm.com>
- <5ea66595248c41a011ac465bfabd7a7a40dcd565.1655903088.git.rahul.singh@arm.com>
- <2cdde2eb-33ac-568b-a0ae-b819b7b4161b@xen.org>
- <1494EC8C-9916-472F-9285-57C0FF656919@arm.com>
- <abcf96b0-1c41-476a-de08-adb3eaaaa05d@xen.org>
- <addaeb82-2d15-a46e-f9f9-274572d2ddc2@suse.com>
- <9711c08f-7e16-daf3-f010-1e6a53b0b9a0@xen.org>
- <5f200481-ed3c-a463-90aa-3718c0ab57a3@suse.com>
- <758779b3-ef39-aa95-15c9-9b84b952e80b@xen.org>
- <3b42f9ab-383c-694c-cef0-5d24531e556a@suse.com>
- <019c5cb4-7e6a-d822-3c02-e3199d499106@xen.org>
- <93E40C29-DD1E-4C9B-936B-45ACA69BBD66@arm.com>
- <d868fab2-c55a-7e2c-cd54-6dc3eedbbf26@xen.org>
- <BB3ECBA1-A028-44A0-A6BB-5D6BD009C095@arm.com>
- <ee0a62af-fa79-3699-7652-d976a8690995@xen.org>
- <99D4D342-5DF7-4F85-A311-4D03967D77DB@arm.com>
- <b98c14d6-d788-427f-3fe4-b36bc85aae59@xen.org>
- <E290A20A-D6C7-4154-A0A4-3FC91C479B25@arm.com>
- <c673e9df-02b6-4f90-aca9-dc2ad9d3f922@xen.org>
- <329C928A-92B2-43EB-8972-52DAEF5258EF@arm.com>
- <03fd4b2b-66ab-eaf8-0875-9382e8b14012@xen.org>
-In-Reply-To: <03fd4b2b-66ab-eaf8-0875-9382e8b14012@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: fc537254-3137-4323-9ae3-08da715edfb5
-x-ms-traffictypediagnostic:
-	DB9PR08MB7772:EE_|DBAEUR03FT027:EE_|AM6PR08MB3302:EE_
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- W2wosatFJBQuC499WADjM0x45OCeRx1WR9rwaObUNNVOGg+7AZSSMP9tdsgmxI+rDKRMXydlXCpylmCv6usEXkt4tppUrsYgQKUowGA93Gq2f68IRDX8v+VuV4blwe1/8C+EApuXfEJeWYOxKO4EbdhoLbDyEnTYGdE6jGyAw6D72KZUUd8F0ff9owT2ip+OtKjakrJMhUQq6T0XCJWxU1oqQkTsIrc3FrstPxYxSlT8KpANzcpIZvlB8YFOUFMoebJ9Fal+oMpFbIjG0K6xFWIHpmkV0S23yODYWYMosoXa8aAVV7jBXn7CnLRyzbawsWAPp+gJ3lC+sWTjcYLcPqSL1kjYDHQCML+vjOEYahQ05yS7Dk24R6EnQjptFPNhxhq/K6WUawyCxnMvUJbIhWmboJu2dJ+vBcW6bJzRnK+FFPmclBL67Qpzdi1V4VLF5Ygx5gPSrrV4c01YB5xj6HUiX6dqwfDRh7D0cQwYYI/0j2ZBiXb8cIT202f27ckMVBBxzpVIqr9kS69kWVoda+1jt7so8cwWGKzFqtUWGHxcWDq9//lh/5pp/bqZbzVXmiE4HmkozfrY1S+bVywPt00xJsiqcf6kSlXFYkjtVpgSBjlb+xQnhZlaDXVeR8LDdyy6Dkw0E5meFoxMWm0PAkElFvHgYSi9m5DJuU4pAoPEmk3muQTX2xhV11lGkD44UKLkEoU3CCs68r/JBb+r2K2mG3avcNTvLOD/iKr7lkHPWyEpPognaK+rfIBS3U0xdifmYJb/aOtKRAcJk1Jp4uxPp0NVyQFZXM1BzDMwY5Tsxb0AJP4eIacXzK6iaXre1WhlR5GvjIRDzCdvflLuxw==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7158.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(396003)(346002)(366004)(136003)(39860400002)(376002)(36756003)(33656002)(5660300002)(76116006)(8676002)(38070700005)(4326008)(2906002)(8936002)(91956017)(86362001)(66556008)(66946007)(54906003)(316002)(64756008)(66476007)(6916009)(66446008)(41300700001)(53546011)(6506007)(6486002)(38100700002)(2616005)(71200400001)(6512007)(478600001)(26005)(186003)(83380400001)(122000001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <8CD915512EC57540A61029E0293FC91D@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EN5Nnwc796a2S8NePbDhNcvBZjerdbGTUaRuh0AqaU8=; b=kTg1EbngL5LqXHnz5ttHvkCnoZ
+	Y53TgwMcOFA4ZXY1CNo6Lyu4BrEgB8+nk/NqfdaRlDy8xbhhFzvn4uNG4fIKxDet13PsbhLMpCVE3
+	hMploz4fWCnbOKH6ufUeYzyAJZfLR+ckxceQksVua12azTUVD5wiRVs3gsnxThJHjQkE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-171917-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7772
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT027.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	be84e825-e706-406b-7403-08da715ed730
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	45xgqtfPGEykGbeREFqqdpIWnEdqDzBe1dqCKRVfgYlVvKsEuA9uFUskSQtyKK0RgQlyAhjKiandelrJml9tyYLx1PQNjTm5RKcxkvwYBpT/n8iLuiwmrULfS9pdsyqjsY2/3tljE35IZ4MaIdM+GbStnenap9YVQy+DKn7gbYbXMT6/DdPXGLxwwPiH5gwgwxeuf9e6onAUs2+c7VcuFH+nZA/dZjC02fK5HfkeyogBAwNtl5L2kPYIZHIgTj0MAtKOuPQgu2qd8By/yorO4FaXMREoPZaw/FEX7QKuXakXpJQ4cS9Q3s4URrI4nflNAlllBpSHdg2K+v/xCbcxfSPaiCw8MTCsdoh1MtUxNZEqSWYiNYv7XRIxzs6ROvb9U7HOaJN9qqZMtDeQikivaXf8Pf53rrbJrhRBbHIGT9oBeiHjBZNNLlZbC7s1vAtXdkDezW9IozITyb5mF7YNevAOc5Hi7gp+S2tHzgMnVrDeww+aO2IBx9bbTfmN8l+IuMpdV8M2MpRkEUldtpNvIDQYcJgdoKrQPF559Pwli8DLGBQfPZHhSLh3aXgZi/G3LZw8XDxvIr3xUD2v7FeyFYL6R5OufXpDmUMKBrWa3EHSVw6IJSFG5Eep3STgNn3ZPg/0tCb02K90CZnV/Ay/bIl4iYJDH3FfQlBqWO80Fkvv7Db5Ot1wUpFu1K6gpZ4pWLL6TeD5Jbju+QCoKlPpOZAZE2B1NZxRLV6M5jgtTaOhTgj+UaYYuMG/H1WKein+B3kv9UpI68jaIdyAyUlDVugynaG0yd05fkN+lXR9a+3cl0+AlGK4N3wVnzPPKfec
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(396003)(39860400002)(346002)(136003)(376002)(46966006)(40470700004)(36840700001)(336012)(53546011)(36756003)(70206006)(47076005)(356005)(36860700001)(6512007)(478600001)(6506007)(6486002)(186003)(82740400003)(81166007)(33656002)(2616005)(70586007)(82310400005)(40480700001)(54906003)(40460700003)(8936002)(2906002)(26005)(316002)(4326008)(83380400001)(41300700001)(5660300002)(8676002)(86362001)(6862004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2022 12:35:52.0275
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc537254-3137-4323-9ae3-08da715edfb5
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT027.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3302
+Subject: [xen-unstable-smoke test] 171917: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=062790aca6b1faea62c9ed2737c3791efb0d0f4c
+X-Osstest-Versions-That:
+    xen=f732240fd3bac25116151db5ddeb7203b62e85ce
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 Jul 2022 13:02:45 +0000
 
-SGkgSnVsaWVuDQoNCj4gT24gMjggSnVsIDIwMjIsIGF0IDk6NTAgcG0sIEp1bGllbiBHcmFsbCA8
-anVsaWVuQHhlbi5vcmc+IHdyb3RlOg0KPiANCj4gSGkgUmFodWwsDQo+IA0KPiBPbiAyOC8wNy8y
-MDIyIDE2OjM3LCBSYWh1bCBTaW5naCB3cm90ZToNCj4+IEFzIHlvdSBtZW50aW9uZWQsIGlmIHdl
-IGRvbuKAmXQgcmVzdHJpY3QgdGhlIG51bWJlciBvZiBldmVudHMgY2hhbm5lbCBmb3IgdGhlIGRv
-bTAgc3lzdGVtIHdpbGwgYm9vdCBzbG93ZXIuDQo+PiBUaGlzIGlzIGEgZ29vZCByZWFzb24gdG8g
-cmVzdHJpY3QgdGhlIG51bWJlciBvZiBldmVudCBjaGFubmVscyBmb3IgZG9tMC4NCj4gTGV0IG1l
-IHN0YXJ0IHRoYXQgSSBhbSBzdGlsbCBmaW5lIGlmIHlvdSB3YW50IHRvIHB1c2ggZm9yIGEgbmV3
-IHBhcmFtZXRlciAoc28gbG9uZyBpdCBpcyBub3QgQXJtIHNwZWNpZmljKS4gSG93ZXZlciwgSSBh
-bSBhZnJhaWQgdGhhdCBJIHdpbGwgbm90IGJlIGFibGUgdG8gYXJndWUgZm9yIGl0IGJlY2F1c2Ug
-SSBkb24ndCBzZWUgYSBzdHJpY3QgbmVlZCBmb3IgaXQuDQo+IA0KPiBMZXQgbWUgcGxheSB0aGUg
-ZGV2aWwncyBhZHZvY2F0ZSBmb3IgYSBiaXQuIEFGQUlVLCB5b3Ugd291bGQgbGlrZSB0byBpbnRy
-b2R1Y2UgdGhlIG5ldyBwYXJhbWV0ZXIganVzdCB0byB0ZWxsIHRoZSBhZG1pbiB0aGUgYm9vdCBp
-cyBnb2luZyB0byBiZSBzbG93ZXIgaWYgeW91IHVzZSBhIGV2ZW50IGNoYW5uZWwgSUQgaGlnaGVy
-IHRoYW4gTi4NCj4gDQo+IFRvIG1lIHRoaXMgc291bmRzIGxpa2UgdGhlIHNhbWUgYXMgaWYgYW4g
-YWRtaW4gZGVjaWRlIHRvIHVzZSAxMEdCIHJhdGhlciB0aGFuIDFHQi4gVGhlcmUgd2lsbCBiZSBz
-bG93IGRvd24uDQo+IA0KPiBUaGlzIHNsb3duZXNzIGlzIG9ubHkgYm9vdCBzcGVjaWZpYyBhbmQg
-d2lsbCBub3QgdmFyeS4gU28gb25lIGNvdWxkIGFyZ3VlIHRoaXMgaXMgZWFzaWx5IG5vdGljZWFi
-bGUgYW5kIGFuIGFkbWluIGNhbiB0YWtlIHJlbWVkaWF0aW9uLg0KPiANCj4gR2l2ZW4gSmFuJ3Mg
-b2JqZWN0aW9uLCBJIHdvdWxkIGxpa2UgdG8gcHJvcG9zZSB0byBkb2N1bWVudCBpdCBpbiB0aGUg
-YmluZGluZ3MgaW5zdGVhZCAoYSBjb25jZXJuZWQgYWRtaW4gd2lsbCBsaWtlbHkgcmVhZCBpdCku
-IEJlbG93IGEgcm91Z2ggcHJvcG9zYWwgZm9yIHRoZSBkb2N1bWVudGF0aW9uOg0KPiANCj4gIkl0
-IGlzIHJlY29tbWVuZGVkIHRvIHVzZSBsb3cgZXZlbnQgY2hhbm5lbCBJRC4iDQo+IA0KPiBXb3Vs
-ZCB0aGF0IGJlIHN1aXRhYmxlIGZvciB5b3U/DQoNClllcywgdGhhdCB3aWxsIHdvcmtzIGZvciBt
-ZS4gSSB3aWxsIHJlc3RyaWN0IHRoZSBtYXggZXZlbnQgY2hhbm5lbCBmb3IgZG9tVSBvbmx5IGFu
-ZCBhbHNvIGFkZCB0aGUgY29tbWVudCBpbiANCiJkb2NzL21pc2MvYXJtL2RldmljZS10cmVlL2Jv
-b3RpbmcudHh04oCdIGFzIHN1Z2dlc3RlZCBieSB5b3UuDQoNClJlZ2FyZHMsDQpSYWh1bA==
+flight 171917 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171917/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 171884
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  062790aca6b1faea62c9ed2737c3791efb0d0f4c
+baseline version:
+ xen                  f732240fd3bac25116151db5ddeb7203b62e85ce
+
+Last test of basis   171884  2022-07-27 12:03:31 Z    2 days
+Failing since        171899  2022-07-28 19:01:47 Z    0 days    5 attempts
+Testing same since   171917  2022-07-29 10:03:07 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jiamei Xie <jiamei.xie@arm.com>
+  Julien Grall <julien.grall@arm.com>
+  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+  Xenia Ragiadakou <burzalodowa@gmail.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 062790aca6b1faea62c9ed2737c3791efb0d0f4c
+Author: Xenia Ragiadakou <burzalodowa@gmail.com>
+Date:   Fri Jul 29 08:51:31 2022 +0200
+
+    arm/atomic: fix MISRA C 2012 Rule 20.7 violation
+    
+    The macro parameter 'p' is used as an expression and needs to be enclosed in
+    parentheses.
+    
+    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 124f138b37d595294b3100349e26ffb3f1df7b13
+Author: Xenia Ragiadakou <burzalodowa@gmail.com>
+Date:   Fri Jul 29 08:50:58 2022 +0200
+
+    xsm/dummy: fix MISRA C 2012 Directive 4.10 violation
+    
+    Protect header file from being included more than once by adding ifndef guard.
+    
+    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+    Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+
+commit 9ff3231f955cee4d62c7be6a03d061c037d7ca69
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Jul 29 08:50:25 2022 +0200
+
+    x86/shadow: drop CONFIG_HVM conditionals from sh_update_cr3()
+    
+    Now that we're not building multi.c anymore for 2 and 3 guest levels
+    when !HVM, there's no point in having these conditionals anymore. (As
+    somewhat a special case, the last of the removed conditionals really
+    builds on shadow_mode_external() always returning false when !HVM.) This
+    way the code becomes a tiny bit more readable.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 5b04fe78646a8222626996113c9d1e598cb84831
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Jul 29 08:49:48 2022 +0200
+
+    x86/shadow: don't open-code shadow_remove_all_shadows()
+    
+    Let's use the existing inline wrapper instead of repeating respective
+    commentary at every site.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 8a3b89e4307da260675483bb86fc06cc62ed7c08
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Jul 29 08:49:06 2022 +0200
+
+    x86/shadow: exclude HVM-only code from sh_remove_shadows() when !HVM
+    
+    In my (debug) build this amounts to well over 500 bytes of dead code.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 3629759626ac7201a670a8a2d4d4a536e7443575
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Jul 29 08:48:26 2022 +0200
+
+    x86/shadow: properly handle get_page() failing
+    
+    We should not blindly (in a release build) insert the new entry in the
+    hash if a reference to the guest page cannot be obtained, or else an
+    excess reference would be put when removing the hash entry again. Crash
+    the domain in that case instead. The sole caller doesn't further care
+    about the state of the guest page: All it does is return the
+    corresponding shadow page (which was obtained successfully before) to
+    its caller.
+    
+    To compensate we further need to adjust hash removal: Since the shadow
+    page already has had its backlink set, domain cleanup code would try to
+    destroy the shadow, and hence still cause a put_page() without
+    corresponding get_page(). Leverage that the failed get_page() leads to
+    no hash insertion, making shadow_hash_delete() no longer assume it will
+    find the requested entry. Instead return back whether the entry was
+    found. This way delete_shadow_status() can avoid calling put_page() in
+    the problem scenario.
+    
+    For the other caller of shadow_hash_delete() simply reinstate the
+    otherwise dropped assertion at the call site.
+    
+    While touching the conditionals in {set,delete}_shadow_status() anyway,
+    also switch around their two pre-existing parts, to have the cheap one
+    first (frequently allowing to avoid evaluation of the expensive - due to
+    evaluate_nospec() - one altogether).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 108e6f282d2c2b8442ac9e1487e6fd7865cd6ede
+Author: Xenia Ragiadakou <burzalodowa@gmail.com>
+Date:   Thu Jul 28 10:58:56 2022 +0300
+
+    automation: arm64: Create a test job for testing static allocation on qemu
+    
+    Enable CONFIG_STATIC_MEMORY in the existing arm64 build.
+    
+    Create a new test job, called qemu-smoke-arm64-gcc-staticmem.
+    
+    Adjust qemu-smoke-arm64.sh script to accomodate the static memory test as a
+    new test variant. The test variant is determined based on the first argument
+    passed to the script. For testing static memory, the argument is 'static-mem'.
+    
+    The test configures DOM1 with a static memory region and adds a check in the
+    init script.
+    The check consists in comparing the contents of the /proc/device-tree
+    memory entry with the static memory range with which DOM1 was configured.
+    If the memory layout is correct, a message gets printed by DOM1.
+    
+    At the end of the qemu run, the script searches for the specific message
+    in the logs and fails if not found.
+    
+    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+    Reviewed-by: Penny Zheng <penny.zheng@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 37339ba9ef46cf55e077ca50235279f058b01779
+Author: Xenia Ragiadakou <burzalodowa@gmail.com>
+Date:   Thu Jul 28 10:58:55 2022 +0300
+
+    automation: Remove XEN_CONFIG_EXPERT leftovers
+    
+    The EXPERT config option cannot anymore be selected via the environmental
+    variable XEN_CONFIG_EXPERT. Remove stale references to XEN_CONFIG_EXPERT
+    from the automation code.
+    
+    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit ca45d3cb4586372909f350e54482246f994e1bc7
+Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Date:   Fri Jul 15 22:20:26 2022 +0300
+
+    libxl/arm: Create specific IOMMU node to be referred by virtio-mmio device
+    
+    Reuse generic IOMMU device tree bindings to communicate Xen specific
+    information for the virtio devices for which the restricted memory
+    access using Xen grant mappings need to be enabled.
+    
+    Insert "iommus" property pointed to the IOMMU node with "xen,grant-dma"
+    compatible to all virtio devices which backends are going to run in
+    non-hardware domains (which are non-trusted by default).
+    
+    Based on device-tree binding from Linux:
+    Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
+    
+    The example of generated nodes:
+    
+    xen_iommu {
+        compatible = "xen,grant-dma";
+        #iommu-cells = <0x01>;
+        phandle = <0xfde9>;
+    };
+    
+    virtio@2000000 {
+        compatible = "virtio,mmio";
+        reg = <0x00 0x2000000 0x00 0x200>;
+        interrupts = <0x00 0x01 0xf01>;
+        interrupt-parent = <0xfde8>;
+        dma-coherent;
+        iommus = <0xfde9 0x01>;
+    };
+    
+    virtio@2000200 {
+        compatible = "virtio,mmio";
+        reg = <0x00 0x2000200 0x00 0x200>;
+        interrupts = <0x00 0x02 0xf01>;
+        interrupt-parent = <0xfde8>;
+        dma-coherent;
+        iommus = <0xfde9 0x01>;
+    };
+    
+    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+
+commit 2128143c114c52c7536e37c32935fdd77f23edc1
+Author: Julien Grall <julien.grall@arm.com>
+Date:   Fri Jul 15 22:20:25 2022 +0300
+
+    libxl: Introduce basic virtio-mmio support on Arm
+    
+    This patch introduces helpers to allocate Virtio MMIO params
+    (IRQ and memory region) and create specific device node in
+    the Guest device-tree with allocated params. In order to deal
+    with multiple Virtio devices, reserve corresponding ranges.
+    For now, we reserve 1MB for memory regions and 10 SPIs.
+    
+    As these helpers should be used for every Virtio device attached
+    to the Guest, call them for Virtio disk(s).
+    
+    Please note, with statically allocated Virtio IRQs there is
+    a risk of a clash with a physical IRQs of passthrough devices.
+    For the first version, it's fine, but we should consider allocating
+    the Virtio IRQs automatically. Thankfully, we know in advance which
+    IRQs will be used for passthrough to be able to choose non-clashed
+    ones.
+    
+    Signed-off-by: Julien Grall <julien.grall@arm.com>
+    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+
+commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Date:   Fri Jul 15 22:20:24 2022 +0300
+
+    libxl: Add support for Virtio disk configuration
+    
+    This patch adds basic support for configuring and assisting virtio-mmio
+    based virtio-disk backend (emulator) which is intended to run out of
+    Qemu and could be run in any domain.
+    Although the Virtio block device is quite different from traditional
+    Xen PV block device (vbd) from the toolstack's point of view:
+     - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+       written to Xenstore are fetched by the frontend currently ("vdev"
+       is not passed to the frontend). But this might need to be revised
+       in future, so frontend data might be written to Xenstore in order to
+       support hotplugging virtio devices or passing the backend domain id
+       on arch where the device-tree is not available.
+     - the ring-ref/event-channel are not used for the backend<->frontend
+       communication, the proposed IPC for Virtio is IOREQ/DM
+    it is still a "block device" and ought to be integrated in existing
+    "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+    logic to deal with Virtio devices as well.
+    
+    For the immediate purpose and an ability to extend that support for
+    other use-cases in future (Qemu, virtio-pci, etc) perform the following
+    actions:
+    - Add new disk backend type (LIBXL_DISK_BACKEND_STANDALONE) and reflect
+      that in the configuration
+    - Introduce new disk "specification" and "transport" fields to struct
+      libxl_device_disk. Both are written to the Xenstore. The transport
+      field is only used for the specification "virtio" and it assumes
+      only "mmio" value for now.
+    - Introduce new "specification" option with "xen" communication
+      protocol being default value.
+    - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+      one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
+    
+    An example of domain configuration for Virtio disk:
+    disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=standalone, specification=virtio']
+    
+    Nothing has changed for default Xen disk configuration.
+    
+    Please note, this patch is not enough for virtio-disk to work
+    on Xen (Arm), as for every Virtio device (including disk) we need
+    to allocate Virtio MMIO params (IRQ and memory region) and pass
+    them to the backend, also update Guest device-tree. The subsequent
+    patch will add these missing bits. For the current patch,
+    the default "irq" and "base" are just written to the Xenstore.
+    This is not an ideal splitting, but this way we avoid breaking
+    the bisectability.
+    
+    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Acked-by: George Dunlap <george.dunlap@citrix.com>
+    Tested-by: Jiamei Xie <jiamei.xie@arm.com>
+(qemu changes not included)
 
