@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 802675856A8
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 23:51:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377862.611146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45B415856AD
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 23:54:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377868.611157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHXt2-0000mc-St; Fri, 29 Jul 2022 21:51:12 +0000
+	id 1oHXva-0001Nc-9b; Fri, 29 Jul 2022 21:53:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377862.611146; Fri, 29 Jul 2022 21:51:12 +0000
+Received: by outflank-mailman (output) from mailman id 377868.611157; Fri, 29 Jul 2022 21:53:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHXt2-0000jp-Pb; Fri, 29 Jul 2022 21:51:12 +0000
-Received: by outflank-mailman (input) for mailman id 377862;
- Fri, 29 Jul 2022 21:51:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HszZ=YC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oHXt2-0000jh-0I
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 21:51:12 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e59736b-0f88-11ed-924f-1f966e50362f;
- Fri, 29 Jul 2022 23:51:10 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5C8D6B829BD;
- Fri, 29 Jul 2022 21:51:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB80C433C1;
- Fri, 29 Jul 2022 21:51:07 +0000 (UTC)
+	id 1oHXva-0001L7-6O; Fri, 29 Jul 2022 21:53:50 +0000
+Received: by outflank-mailman (input) for mailman id 377868;
+ Fri, 29 Jul 2022 21:53:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1oHXvY-0001L1-P0
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 21:53:48 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oHXvT-000459-Ss; Fri, 29 Jul 2022 21:53:43 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oHXvT-0004KU-Mt; Fri, 29 Jul 2022 21:53:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,144 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e59736b-0f88-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1659131468;
-	bh=uXj1dutMGgKN6p36vmGkamno7p685JlvjZgVhe4jxoY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fcjtE7u8nYtj2sCQKPSJJI7JiYkchFL/sDw/RstV/5bXq4PpwdRg6UvO0MDVGk8Fu
-	 oE6P1axDXpIfX3/cBZ977kSpZW7TvyUt/ETh8vXxgow5HptPsounK5aZgo66gMeLA/
-	 VB9IjXp5ODBJBYwEArvoHehENfAKJyyWw95J9MBuh4F06eRp0/FJ/7qPMk2KIShzw7
-	 9fn5DWnTowSkKnw6sNuCxgKjuET6H92BIIBCboCAuguCRLqQe0V8+74F/hZt6KRTc5
-	 VCekTk57mcCX2HHZ1y3rmsxBQd+jbDohI1wDz/JHj1NEm0BN7qpNkwhFbRrdZRdCbz
-	 y+2kAkGos8vXA==
-Date: Fri, 29 Jul 2022 14:51:05 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Boyoun Park <boyoun.park@samsung.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, "julien@xen.org" <julien@xen.org>, 
-    "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>, 
-    "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, 
-    "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>, 
-    "george.dunlap@citrix.com" <george.dunlap@citrix.com>, 
-    "wl@xen.org" <wl@xen.org>, "roger.pau@citrix.com" <roger.pau@citrix.com>, 
-    Chungwoo Park <cww.park@samsung.com>, Gang Li <gang30.li@samsung.com>, 
-    Lei Wang <lei19.wang@samsung.com>, SoungKwan Kimn <sk.kimn@samsung.com>, 
-    DongJin PARK <djpax.park@samsung.com>, 
-    Joonjae Lee <joonjae7.lee@samsung.com>
-Subject: Re: [PATCH v1] xen: add late init call in start_xen
-In-Reply-To: <20220729110313epcms2p5f9b24d5a65b98c220a6e99675298560f@epcms2p5>
-Message-ID: <alpine.DEB.2.22.394.2207291447080.4648@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2207281251160.4648@ubuntu-linux-20-04-desktop> <97499212.9948800.1659000157467@mail-kr2-3> <88025800-66e2-4fb4-facf-5989e75ba08f@suse.com> <CGME20220728092237epcms2p53821bba31388763f45b5204d56520c20@epcms2p5>
- <20220729110313epcms2p5f9b24d5a65b98c220a6e99675298560f@epcms2p5>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=BCA0y1weyRIq79mO4Dv43/KSclJqDmErh7Si8sAyLNo=; b=flepE9ala46oljY3vQ5G1vb/JK
+	NJdtmu1jqZzhAeXTMcwJE66JhC7kxerSegjTCwQb1hxKjThNbD8oIHToOnxEU/FOlR72tyHmbCtQF
+	dAjisKECL7sF1zcl466DpJ2l0d5ccviaM/qCf/mt3QRVQJwgSnjfhfgvJZDGzNUM00IU=;
+Message-ID: <59433009-26de-4bac-d7cd-c57e64171262@xen.org>
+Date: Fri, 29 Jul 2022 22:53:40 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2013376029-1659131467=:4648"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.11.0
+Subject: Re: [PATCH v2 3/5] xen: Rename CONFIG_DOMAIN_PAGE to
+ CONFIG_ARCH_MAP_DOMAIN_PAGE and...
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20220720184459.51582-1-julien@xen.org>
+ <20220720184459.51582-4-julien@xen.org>
+ <414dcf57-b18f-8a88-b143-e275b5311079@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <414dcf57-b18f-8a88-b143-e275b5311079@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Jan,
 
---8323329-2013376029-1659131467=:4648
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Fri, 29 Jul 2022, Boyoun Park wrote:
-> I really appreciate all the comments and reviews.
-> I understand that it is hard to add this patch without any usage.
+On 25/07/2022 16:51, Jan Beulich wrote:
+> On 20.07.2022 20:44, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> move it to Kconfig.
+>>
+>> The define CONFIG_DOMAIN_PAGE indicates whether the architecture provide
+>> helpers to map/unmap a domain page. Rename it to the define to
+>> CONFIG_ARCH_MAP_DOMAIN_PAGE so it is clearer that this will not remove
+>> support for domain page (this is not a concept that Xen can't get
+>> away with).
 > 
-> On Fri, 29 Jul 2022, Stefano Stabellini:
-> > On Thu, 28 Jul 2022, Jan Beulich wrote:
-> > > On 28.07.2022 11:22, Boyoun Park wrote:
-> > > > Hello,
-> > > > 
-> > > > This patch added late_initcall to deal with
-> > > > 
-> > > > some init functions which should be called
-> > > > 
-> > > > after other init functions in start_xen.
-> > > > 
-> > > > If this patch is added,
-> > > > 
-> > > > then the original initcall in xen will be treated
-> > > > 
-> > > > as early_initcall and the late_initcall
-> > > > 
-> > > > which is added by this patch will be
-> > > > 
-> > > > called sequentially.
-> > > > 
-> > > > I cannot send patches through git send-email
-> > > > 
-> > > > due to some security issues in my work.
-> > > > 
-> > > > So intead, I just send the patches manually.
-> > > 
-> > > Which is fine, but you want to configure your mail client such that it
-> > > doesn't mangle the patch. Albeit I see that to cover for that at least
-> > > you've also attached both the patch and a cover letter. For a single
-> > > patch a cover letter can normally be omitted, but if you don't then
-> > > even if you're sending without "git send-email" you will want to send
-> > > both as separate mails, with the patch being a reply to the cover
-> > > letter thread root.
-> > 
-> > Yeah. Boyoun, if you only have a couple of patches then it is fine to
-> > send them manually. Otherwise, if you have many patches, you can send
-> > them in attachment as tarball and I'll send them all to xen-devel using
-> > git-send-email for you (of course keeping you as original author and
-> > retaining all Signed-off-bys).
+> Especially the part in parentheses reads odd, if not backwards.
+
+Indeed. I tweaked the sentence to:
+
+Rename it to CONFIG_ARCH_MAP_DOMAIN_PAGE so it is clearer that support 
+for domain page is not something that can be disabled in Xen.
+
 > 
-> You're awesome. Thanks you so much. I'm still requesting approvals to use git send-email.
-> I'll let you know if I have to send many patches wihout git send-email.
+>> --- a/xen/arch/arm/mm.c
+>> +++ b/xen/arch/arm/mm.c
+>> @@ -371,7 +371,7 @@ void clear_fixmap(unsigned int map)
+>>       BUG_ON(res != 0);
+>>   }
+>>   
+>> -#ifdef CONFIG_DOMAIN_PAGE
+>> +#ifdef CONFIG_ARCH_MAP_DOMAIN_PAGE
+>>   /*
+>>    * Prepare the area that will be used to map domheap pages. They are
+>>    * mapped in 2MB chunks, so we need to allocate the page-tables up to
 > 
-> > > > Subject: [PATCH v1] xen: add late init call in start_xen
-> > > > 
-> > > > This patch added late_initcall section in init.data.
-> > > > 
-> > > > The late initcall would be called after initcall
-> > > > 
-> > > > in the start_xen function.
-> > > > 
-> > > > Some initializing works on priority should be run
-> > > > 
-> > > > in do_initcalls and other non-prioritized works
-> > > > 
-> > > > would be run in do_late_initcalls.
-> > > > 
-> > > > To call some functions by late_initcall,
-> > > > 
-> > > > then it is possible by using
-> > > > 
-> > > > __late_initcall(/*Function Name*/);
-> > > > 
-> > > > Signed-off-by: Boyoun Park <boyoun.park@samsung.com>
-> > > 
-> > > So I could imagine this patch to be in a series where a subsequent
-> > > patch then adds an actual use of the new functionality. Without
-> > > that what you're proposing is to add dead code.
-> > 
-> > Yeah, I think it would be cool to have late initcalls but it makes sense
-> > to add them if we have someone that makes use of them.
-> 
-> I totally agree with your comments. Some drivers that I'm developing now and use this function are specific to my hardware environment.
-> Thus, it seems difficult to arrange them in the near future.
-> I will update patches if I can suggest an actual use.
+> What about the other #ifdef in build_assertions()? With that also
+> converted (and preferably with the description adjusted)
 
-I totally understand custom setups and non-upstreamable configurations
-and I have certainly some of them myself.
+Good catch. I update the patch.
 
-However, I just wanted to let you know that we are fine with accepting
-platform specific drivers in Xen where it makes sense, for instance:
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-- Renesas IPMMU-VMSA found in R-Car Gen3/Gen4 SoCs (an IOMMU driver)
-xen/drivers/passthrough/arm/ipmmu-vmsa.c
-
-- Xilinx EEMI firmware interface "mediator" in Xen (power management)
-xen/arch/arm/platforms/xilinx-zynqmp-eemi.c
+Thanks for the review!
 
 Cheers,
 
-Stefano
---8323329-2013376029-1659131467=:4648--
+-- 
+Julien Grall
 
