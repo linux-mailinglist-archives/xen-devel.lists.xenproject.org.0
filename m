@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3769A584E15
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 11:34:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377438.610648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212B7584E7B
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 12:04:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377444.610659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHMNk-0000H7-8B; Fri, 29 Jul 2022 09:34:08 +0000
+	id 1oHMqJ-0004Ek-HM; Fri, 29 Jul 2022 10:03:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377438.610648; Fri, 29 Jul 2022 09:34:08 +0000
+Received: by outflank-mailman (output) from mailman id 377444.610659; Fri, 29 Jul 2022 10:03:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHMNk-0000EN-5F; Fri, 29 Jul 2022 09:34:08 +0000
-Received: by outflank-mailman (input) for mailman id 377438;
- Fri, 29 Jul 2022 09:34:07 +0000
+	id 1oHMqJ-0004Bx-Eb; Fri, 29 Jul 2022 10:03:39 +0000
+Received: by outflank-mailman (input) for mailman id 377444;
+ Fri, 29 Jul 2022 10:03:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N3XD=YC=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1oHMNj-0000EH-1V
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 09:34:07 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ <SRS0=llaK=YC=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1oHMqH-0004Br-R1
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 10:03:37 +0000
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [2607:f8b0:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 96c1771b-0f21-11ed-924f-1f966e50362f;
- Fri, 29 Jul 2022 11:34:05 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id os14so7542199ejb.4
- for <xen-devel@lists.xenproject.org>; Fri, 29 Jul 2022 02:34:05 -0700 (PDT)
-Received: from [192.168.1.93] (adsl-237.176.58.138.tellas.gr. [176.58.138.237])
- by smtp.gmail.com with ESMTPSA id
- 17-20020a170906211100b0072af2460cd6sm1468903ejt.30.2022.07.29.02.34.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Jul 2022 02:34:04 -0700 (PDT)
+ id b57eebc6-0f25-11ed-924f-1f966e50362f;
+ Fri, 29 Jul 2022 12:03:36 +0200 (CEST)
+Received: by mail-pl1-x62c.google.com with SMTP id w7so4145614ply.12
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Jul 2022 03:03:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,180 +39,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96c1771b-0f21-11ed-924f-1f966e50362f
+X-Inumbo-ID: b57eebc6-0f25-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=Y2Wz/fGSfC4Yndoab6IP3Nuu1Cre9LOqctbIL8IkPSo=;
-        b=N8F6JWLrQhsC8BYB6Be2BoGV2CAvKG4VABAU1PqgR3+mUIXdb/sQh9s0wTazMSJq9N
-         1I5x4Ots1m1gAFp4awJZtNZDDzZyZ7oK4/UUm001kRaLf6VIC0g/bm/9HI2P1lcNYBVI
-         au32br08imT480ka+R94JzHfpb1qwitjw+fn+50sWPg6affQfb4L8SqgzxiZ0n6rnLSB
-         wSq8U3flvTLqXvrkbNOwt5JHpzfDghZBGgWCidQVMRXKIw382M7BhwNQB6Z8LZVVwvfE
-         nJBEd1C2VmtWREtHGnUORBxADq6f6jY/2PXwtl5FYS+nXfwIWEtQSHmfA3K76igt1+0W
-         kGvQ==
+        d=linaro.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=/LXI3L17+WtGu616rS/nHNIU6OsczQPnLRSBLTdg8kE=;
+        b=VZatfwLi3AzAViuLuLgUSRFaJZQhrYImrUBRZgI7aF7WrnNbNt1PB3uRxMbOv6lzD7
+         9LmrMwQMEE2BZBE/nNbZojpLCrqlj4Bclg4CAIemoEXwfApjAIQnCPmEEojEnF60Ye5o
+         UcVzl6OCE5efpYx3hyVbe4mdMxaFdGbMa1hlLVmP2qSLzgLh1waKilKdPsvyUe4gER+M
+         7MSZT1mr2EJ0VCP6rHDgX/+aOu3W0bsqK0tRS3eTGZ3ID5kIToha8qYrEFOXY/mMPSgM
+         4y1+bzY8wUJ0/OF3kog+33uVC9A3LD3OouVAvnCLdWrQzFkicqK07HEaS0Px4h3iw7+2
+         T9yA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=Y2Wz/fGSfC4Yndoab6IP3Nuu1Cre9LOqctbIL8IkPSo=;
-        b=Y/OYysAldtqsTU9zZx+WxdZogwR6pJqFA8S529IXNX3eMS+VjUyZj+RHIHaiboUsSt
-         PJZzE4MRWz/86iD91dWtRBswdm63jkSxcunFtuGvWOCTg7qKzxRhNka7//23KXMhf04u
-         gRveuUDMVaOqqjuuQqP50zcOqBt+BkXo5NvRSkkdCDL0neBOuJ1KTPDE4QOsTEfV6mwB
-         0sLIzD8AGXofw9gAFbsD/M0TwaE+BEJ1yipn1DjdgQRtTtOWk17b1raZUcU7oI3DZWQX
-         e4KKe4wr8q5vOUbYOz+LMcLNAt9BCAMQiEYhyryVd5dZ67rTKk0z8Jo5SoUyzvLf3uVj
-         6R6g==
-X-Gm-Message-State: AJIora+W1IkED2jupRsZS1OEPq7v0l8Uqi9i81s6h4ilFJemE7D69gBg
-	E8uVrL1qrwfSKMQttFsidAA=
-X-Google-Smtp-Source: AGRyM1sQkT4slRmoUqT6YMrban3LsJFRYjldRuvIMN1OvyJt2Ey2Iddaf2F4y0TByswOgJhJUxh0hA==
-X-Received: by 2002:a17:907:3f27:b0:72b:838e:f104 with SMTP id hq39-20020a1709073f2700b0072b838ef104mr2250272ejc.63.1659087244766;
-        Fri, 29 Jul 2022 02:34:04 -0700 (PDT)
-Message-ID: <6b239efa-14ff-2a5e-0828-7f62c82487e6@gmail.com>
-Date: Fri, 29 Jul 2022 12:34:02 +0300
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=/LXI3L17+WtGu616rS/nHNIU6OsczQPnLRSBLTdg8kE=;
+        b=zuA13Z9LmGxueVjNCCr8LBKHus8Nd2iIxTqNIOi/S0xABcMbN59YaW8hj/q4Z/dE04
+         uH1WQvOmUp7gxYabewYkwpJVAXHndbdZh5X7/dg9r0tdWl2cSJKckKHQWXlCRF2IVC+C
+         sBT4QtMsK2+ufp1nfwZitQflJH1EOeMjO6dKJQrMR2b/PQsHstQNnSbxQYThXOyW8pX8
+         Bl60uZalqCTooLKyO4QRz/5NUminL9vJ1hpWmRw7KLPKinAq6/DQgQa43Emj+/LMTNGj
+         rRxnz3elvCQD7k+tD8ecHi2Er0SEGTpAtV5QG6RjylcOP4XWHvcS7SYjtRnOK4b1hKap
+         XYqQ==
+X-Gm-Message-State: ACgBeo1c3k8VYEYLpHEo6nLaYZJNc17pKVtZfiKTT5Yrsei9SQVnkAqi
+	sLrhjaIy0YB7g19DkaRPXPjxh5FHles43+gblhhrLkg4mUc=
+X-Google-Smtp-Source: AA6agR6ObIrIOOOd+uCaSudrMUFSObKxQZBbgP0XfZv7I+3y1Cg4rkggGnSkJ/cXuqMAHZF4eOHgb3KKKiSpRhRZXas=
+X-Received: by 2002:a17:902:f101:b0:16d:c0ae:acd5 with SMTP id
+ e1-20020a170902f10100b0016dc0aeacd5mr3071809plb.70.1659089014391; Fri, 29 Jul
+ 2022 03:03:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] xen/arm64: sysreg.h: Fix MISRA C 2012 Rule 20.7 violation
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <20220728134943.1185621-1-burzalodowa@gmail.com>
- <0a8ff178-280d-717f-dacb-4eb9f57a24eb@xen.org>
- <83c17bf6-b9b2-a297-6f7f-dd08231d0f90@suse.com>
- <c71c9522-2df5-35a3-d39c-706d5c9d5263@xen.org>
- <alpine.DEB.2.22.394.2207281551140.4648@ubuntu-linux-20-04-desktop>
- <ec89b2e1-a18a-9ef7-1ca8-edd19e737d4f@gmail.com>
- <c55b9ad0-bfa8-f0b1-6c4e-a794afd75e7c@suse.com>
- <69942917-f2e9-718e-094d-9b01aea16a4a@gmail.com>
- <a9cddfc6-235f-a42f-b522-04ae87990b47@suse.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <a9cddfc6-235f-a42f-b522-04ae87990b47@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20220622134219.1596613-1-jens.wiklander@linaro.org>
+ <20220622134219.1596613-3-jens.wiklander@linaro.org> <25778cc8-b9d3-ac0d-b8e4-9a7be87d44bc@xen.org>
+ <CAHUa44EBUE3Xo+YGj+JBu0ebpW+sDmuvXS5i-GO45K-4ZdiSBA@mail.gmail.com> <307cef37-e48f-e66f-3550-85c0c50cbb7e@xen.org>
+In-Reply-To: <307cef37-e48f-e66f-3550-85c0c50cbb7e@xen.org>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Fri, 29 Jul 2022 12:03:23 +0200
+Message-ID: <CAHUa44GbUwAYxi4zTO=7QUCBKaFfF1fM5RD=AOD_iEUDChLpJA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] xen/arm: add FF-A mediator
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Bertrand.Marquis@arm.com, Anthony PERARD <anthony.perard@citrix.com>, 
+	Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi,
 
-On 7/29/22 10:22, Jan Beulich wrote:
-> On 29.07.2022 09:01, Xenia Ragiadakou wrote:
->> On 7/29/22 09:16, Jan Beulich wrote:
->>> On 29.07.2022 07:23, Xenia Ragiadakou wrote:
->>>> On 7/29/22 01:56, Stefano Stabellini wrote:
->>>>> On Thu, 28 Jul 2022, Julien Grall wrote:
->>>>>> On 28/07/2022 15:20, Jan Beulich wrote:
->>>>>>> On 28.07.2022 15:56, Julien Grall wrote:
->>>>>>>> On 28/07/2022 14:49, Xenia Ragiadakou wrote:
->>>>>>>>> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
->>>>>>>>> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
->>>>>>>>> @@ -461,7 +461,7 @@
->>>>>>>>>       /* Access to system registers */
->>>>>>>>>          #define WRITE_SYSREG64(v, name) do {                    \
->>>>>>>>> -    uint64_t _r = v;                                    \
->>>>>>>>> +    uint64_t _r = (v);                                              \
->>>>>>>>
->>>>>>>> I am failing to see why the parentheses are necessary here. Could you
->>>>>>>> give an example where the lack of them would end up to different code?
->>>>>>>
->>>>>>> I think it is merely good practice to parenthesize the right sides of =.
->>>>>>> Indeed with assignment operators having second to lowest precedence, and
->>>>>>> with comma (the lowest precedence one) requiring parenthesization at the
->>>>>>> macro invocation site, there should be no real need for parentheses here.
->>>>>>
->>>>>> I am not really happy with adding those parentheses because they are
->>>>>> pointless. But if there are a consensus to use it, then the commit message
->>>>>> should be updated to clarify this is just here to please MISRA (to me "need"
->>>>>> implies it would be bug).
->>>>>
->>>>> Let me premise that I don't know if this counts as a MISRA violation or
->>>>> not. (Also I haven't checked if cppcheck/eclair report it as violation.)
->>>>>
->>>>> But I think the reason for making the change would be to follow our
->>>>> coding style / coding practices. It makes the code simpler to figure out
->>>>> that it is correct, to review and maintain if we always add the
->>>>> parenthesis even in cases like this one where they are not strictly
->>>>> necessary. We are going to save our future selves some mental cycles.
->>>>>
->>>>> So the explanation on the commit message could be along those lines.
->>>>
->>>> First, the rule 20.7 states "Expressions resulting from the expansion of
->>>> macro parameters shall
->>>>     be enclosed in parentheses". So, here it is a clear violation of the
->>>> rule because the right side of the assignment operator is an expression.
->>>>
->>>> Second, as I stated in a previous email, if v is not enclosed in
->>>> parentheses, I could write the story of my life in there and compile it
->>>> :) So, it would be a bug.
->>>>
->>>> So, I recommend the title and the explanation i.e
->>>> "xen/arm64: sysreg.h: Fix MISRA C 2012 Rule 20.7 violation
->>>>
->>>> The macro parameter 'v' is used as an expression and needs to be enclosed in
->>>>     parentheses."
->>>> to remain as is because they are accurate.
->>>
->>> I'm afraid you're following the MISRA wording too much to the latter.
->>> Earlier on you agreed that when macro parameters are used as function
->>> arguments, the parentheses can be omitted. Yet by what you say above
->>> those are also expressions.
->>
->> Yes, those are also expressions (that's why I added parentheses
->> initially) and I agreed with you that the parentheses there may not be
->> necessary because I could not think of an example that will produce
->> different behaviors with and without the parentheses. This will need a
->> formal deviation I imagine or maybe a MISRA C expert could provide a
->> justification regarding why parentheses are needed around function
->> arguments that we may have not think of.
->>
+On Thu, Jul 28, 2022 at 9:15 PM Julien Grall <julien@xen.org> wrote:
+>
+> Hi,
+>
+> On 26/07/2022 07:17, Jens Wiklander wrote:
+> > On Fri, Jul 8, 2022 at 3:41 PM Julien Grall <julien@xen.org> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >> I haven't checked whether the FFA driver is complaint with the spec. I
+> >> mainly checked whether the code makes sense from Xen PoV.
+> >>
+> >> This is a fairly long patch to review. So I will split my review in
+> >> multiple session/e-mail.
+> >>
+> >> On 22/06/2022 14:42, Jens Wiklander wrote:
+> >>> Adds a FF-A version 1.1 [1] mediator to communicate with a Secure
+> >>> Partition in secure world.
+> >>>
+> >>> The implementation is the bare minimum to be able to communicate with
+> >>> OP-TEE running as an SPMC at S-EL1.
+> >>>
+> >>> This is loosely based on the TEE mediator framework and the OP-TEE
+> >>> mediator.
+> >>>
+> >>> [1] https://developer.arm.com/documentation/den0077/latest
+> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >>> ---
+> >>>    SUPPORT.md                        |    7 +
+> >>>    tools/libs/light/libxl_arm.c      |    3 +
+> >>>    tools/libs/light/libxl_types.idl  |    1 +
+> >>>    tools/xl/xl_parse.c               |    3 +
+> >>
+> >> These changes would need an ack from the toolstack maintainers.
+> >
+> > OK, I'll keep them in CC.
+> >
+> >>
+> >>>    xen/arch/arm/Kconfig              |   11 +
+> >>>    xen/arch/arm/Makefile             |    1 +
+> >>>    xen/arch/arm/domain.c             |   10 +
+> >>>    xen/arch/arm/domain_build.c       |    1 +
+> >>>    xen/arch/arm/ffa.c                | 1683 +++++++++++++++++++++++++++++
+> >>>    xen/arch/arm/include/asm/domain.h |    4 +
+> >>>    xen/arch/arm/include/asm/ffa.h    |   71 ++
+> >>>    xen/arch/arm/vsmc.c               |   17 +-
+> >>>    xen/include/public/arch-arm.h     |    2 +
+> >>>    13 files changed, 1811 insertions(+), 3 deletions(-)
+> >>>    create mode 100644 xen/arch/arm/ffa.c
+> >>>    create mode 100644 xen/arch/arm/include/asm/ffa.h
+> >>>
+> >>> diff --git a/SUPPORT.md b/SUPPORT.md
+> >>> index 70e98964cbc0..215bb3c9043b 100644
+> >>> --- a/SUPPORT.md
+> >>> +++ b/SUPPORT.md
+> >>> @@ -785,6 +785,13 @@ that covers the DMA of the device to be passed through.
+> >>>
+> >>>    No support for QEMU backends in a 16K or 64K domain.
+> >>>
+> >>> +### ARM: Firmware Framework for Arm A-profile (FF-A) Mediator
+> >>> +
+> >>> +    Status, Arm64: Tech Preview
+> >>> +
+> >>> +There are still some code paths where a vCPU may hog a pCPU longer than
+> >>> +necessary. The FF-A mediator is not yet implemented for Arm32.
+> >>> +
+> >>>    ### ARM: Guest Device Tree support
+> >>>
+> >>>        Status: Supported
+> >>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> >>> index eef1de093914..a985609861c7 100644
+> >>> --- a/tools/libs/light/libxl_arm.c
+> >>> +++ b/tools/libs/light/libxl_arm.c
+> >>> @@ -101,6 +101,9 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+> >>>            return ERROR_FAIL;
+> >>>        }
+> >>>
+> >>> +    config->arch.ffa_enabled =
+> >>> +        libxl_defbool_val(d_config->b_info.arch_arm.ffa_enabled);
+> >>> +
+> >>>        return 0;
+> >>>    }
+> >>>
+> >>> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> >>> index 2a42da2f7d78..bf4544bef399 100644
+> >>> --- a/tools/libs/light/libxl_types.idl
+> >>> +++ b/tools/libs/light/libxl_types.idl
+> >>> @@ -646,6 +646,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+> >>>
+> >>>        ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
+> >>>                                   ("vuart", libxl_vuart_type),
+> >>> +                               ("ffa_enabled", libxl_defbool),
+> >>
+> >> This needs to be accompagnied with a define LIBXL_HAVE_* in
+> >> tools/include/libxl.h. Please see the examples in the header.
+> >
+> > OK, I'll add something. I'm not entirely sure how this is used so I'm
+> > afraid it will be a bit of Cargo Cult programming from my side.
+>
+> The LIBXL_HAVE* by toolstack built on top of libxl (like virtio) to know
+> whether a future is supported by the current library.
+>
+> [...]
+>
+> >>
+> >>> +
+> >>> +static inline uint64_t reg_pair_to_64(uint32_t reg0, uint32_t reg1)
+> >>> +{
+> >>> +    return (uint64_t)reg0 << 32 | reg1;
+> >>> +}
+> >>> +
+> >>> +static void inline reg_pair_from_64(uint32_t *reg0, uint32_t *reg1,
+> >>> +                                    uint64_t val)
+> >>> +{
+> >>> +    *reg0 = val >> 32;
+> >>> +    *reg1 = val;
+> >>> +}
+> >>
+> >> Those two functions are the same as optee.c but with a different. I
+> >> would rather prefer if we avoid the duplication and provide generic
+> >> helpers in a pre-requisite.
+> >
+> > These functions are trivial but at the same time for a special purpose
+> > which happens to coincide with the usage in optee.c. I can't find a
+> > suitable common .h file and creating a new one seems a bit much.
+>
+> I would implement it in regs.h.
 
-With the example that Jan provided I just realized, if function 
-arguments are not parenthesized, somebody could alter the rest of the 
-arguments with which a function is called via an intermediate macro ... 
-a rather far fetched example but still ...
+OK, thanks.
 
->>> As indicated before - I think parentheses
->>> are wanted here, but it's strictly "wanted", and hence the title
->>> better wouldn't say "fix" (but e.g. "improve") and the description
->>> also should be "softened".
->>>
->>
->> Regarding the latter, are you saying that the parentheses are not needed?
->> In my opinion they are needed to prevent the bug described in the
->> previous email i.e passing multiple statements to the macro.
-> 
-> Any such use would be rejected during review, I'm sure.
-> 
-> However I think there's another case which might indeed make this
-> more than just a "want" (and then responses further down are to be
-> viewed only in the context of earlier discussion):
-> 
-> #define wr(v) ({ \
-> 	unsigned r_ = v; \
-> 	asm("" :: "r" (r_)); \
-> })
-> 
-> #define M x, y
-> 
-> void test(unsigned x) {
-> 	wr(M);
-> }
-> 
-> While this would result in an unused variable warning, it's surely
-> misleading (and less certain to be noticed during review) - which
-> is what Misra wants to avoid. Let's see what Julien thinks.
-> 
->> By whom are they wanted? I 'm afraid I cannot understand.
-> 
-> By us as a community: This can be viewed as one of many agreements we
-> have on coding style. (As such it may want to be written down somewhere.)
-> 
->> Also, are you proposing to change the title into "Improve MISRA C 2012
->> Rule 20.7 violation" ?
-> 
-> Obviously not. I was thinking of "improve to avoid ...".
-> 
-> Jan
+>
+> [...]
+>
+> >>> +        .a4 = pg_count,
+> >>> +    };
+> >>> +    struct arm_smccc_1_2_regs resp;
+> >>> +
+> >>> +    /*
+> >>> +     * For arm64 we must use 64-bit calling convention if the buffer isn't
+> >>> +     * passed in our tx buffer.
+> >>> +     */
+> >>
+> >> Can you explain why we would want to use the 32-bit calling convention
+> >> if addr is 0?
+> >
+> > I was trying to avoid the 64-bit calling convention where possible,
+>
+> OOI, why are you trying to avoid the 64-bit calling convention?
 
--- 
-Xenia
+To make it easier to support a use-case where the SPMC is using
+AArch32, but I'm not sure it's realistic any longer.
+
+Cheers,
+Jens
 
