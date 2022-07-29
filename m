@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F05585317
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 17:50:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377619.610889 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C64AC585320
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 17:56:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377627.610901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHSG0-0004wB-36; Fri, 29 Jul 2022 15:50:32 +0000
+	id 1oHSLM-0005bP-NA; Fri, 29 Jul 2022 15:56:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377619.610889; Fri, 29 Jul 2022 15:50:32 +0000
+Received: by outflank-mailman (output) from mailman id 377627.610901; Fri, 29 Jul 2022 15:56:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHSG0-0004tp-0A; Fri, 29 Jul 2022 15:50:32 +0000
-Received: by outflank-mailman (input) for mailman id 377619;
- Fri, 29 Jul 2022 15:50:31 +0000
+	id 1oHSLM-0005ZF-Ja; Fri, 29 Jul 2022 15:56:04 +0000
+Received: by outflank-mailman (input) for mailman id 377627;
+ Fri, 29 Jul 2022 15:56:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QCuC=YC=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1oHSFz-0004tj-6J
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 15:50:31 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ id 1oHSLL-0005Z9-28
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 15:56:03 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c048b38-0f56-11ed-bd2d-47488cf2e6aa;
- Fri, 29 Jul 2022 17:50:30 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id bf9so7872620lfb.13
- for <xen-devel@lists.xenproject.org>; Fri, 29 Jul 2022 08:50:30 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
+ id f15eabc7-0f56-11ed-bd2d-47488cf2e6aa;
+ Fri, 29 Jul 2022 17:56:01 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id a13so5611606ljr.11
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Jul 2022 08:56:01 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- bp23-20020a056512159700b0048a835a60f6sm693428lfb.251.2022.07.29.08.50.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Jul 2022 08:50:28 -0700 (PDT)
+ o25-20020a198c19000000b0048a9c80b1f2sm693314lfd.194.2022.07.29.08.55.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Jul 2022 08:55:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,131 +44,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c048b38-0f56-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: f15eabc7-0f56-11ed-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc;
-        bh=S01wSBMMcdelVnVjOkH9lCwWoMGdbRzrK7HqSib69Hg=;
-        b=LFp7OCtLArAWZrWOeuJsky9HKKLt42lomc5ZCZlwDVu7gTbyAhWxVFxCHMqauI5zQP
-         XrQjSoQnO+SwTEVZPkTLnp8siPxVgTADZviZjxWaT0FhHniUCT1AuZR6+wWux2lfKdHr
-         wtAfBqGskxrja9bdWbmbc1qLUMioLFT7HS5cClX7hIQhm+DzV/S8z3pqMbiv25UL3aeZ
-         he/avPFnqs2Hug7Lzv94C6QulY10W8FMDp1MwxXQ3OGW3hWZ2psFppL62R3rnpIFqTTr
-         uKOykqGzCXBQFnDcQgrON0kzlrv1OBOMRjRWpd5HTEK88zqNSm9XOzyCmnPRMSvuVN64
-         XVqg==
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc;
+        bh=eat4TgmilUiNiJbcKemb7fgNhPjU0Rsr1AtN3zFtS+4=;
+        b=f9mDiDTkEkMe+g1pD72ycEo4OtXk8OceFprvTH0eL8ivpk9N0c41u4VF2rYwo9tpLd
+         wTr3Oz3w4Fr0oHqolIZvJAy3ll46WHNLrRT9l+gGcp/l7C/CzqTeEV5U7D7tee9L2DLc
+         zUUp2/6vGFDoh4jf5y7al9Uzfwj+nr7nLKooclIdNUa9NXN6MJhOBwF2/O3vwtNP7uzd
+         kXZtt+BMLFVCkxKor4y32cDYKCyoEMXMVRTtS3jAfoSbXD6qBPuH1bcw8w3y/G1oJEZc
+         Qx2FoYdoo5Qhn+JAvSkoIbeEuejGzTuKQOa+gI12WNBMrydRh/T1f6/ncVS2ClDqNu3w
+         m6LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc;
-        bh=S01wSBMMcdelVnVjOkH9lCwWoMGdbRzrK7HqSib69Hg=;
-        b=Sbw7xwhxFGyi1H3GBzseW0sZAfLI2o14XPplnglmM871Z57dR8XRr/k8PtUO5Eq5fJ
-         ay6t3wwEUgUgwvT3vofQkWpS5i8DskEzZiW85uSUpbHcDqIzCC7Zgnp8YX/Q5Yyzel7V
-         ONwpzHbD62BnjyeOZTbBFF2hdqpXZbMWmRdmyocbPuRA0zyjlMLNfrWpSVH8J4+ZDyEn
-         Qeo0p4z3fbvF6U9AMfEIcmKrfNggO+KZnv/EF7OSmv2L/NawfUVpRC+jN0bNKottKNck
-         7U59wmQSI5R0v9eYR0kx/9oUYOWsCovqNf0+5alJdIaKVHaqhhliEXbxJbVyrSV7IUhk
-         GnWg==
-X-Gm-Message-State: ACgBeo1HoE1vpx5ySHU/JXXPN6Xg5uSjlAfy3e+F22Y0EZ/xK+1d5j9j
-	3qFLfFO6VonbCE9tdmZusmyRwWhM4SRzlA==
-X-Google-Smtp-Source: AA6agR7I0GXQBFySP974763gBQRcBZVi3iQZyVTmh3NffVj56BJeEOk++Kyr+zNdGBCsmPwcxzVclw==
-X-Received: by 2002:a05:6512:1292:b0:48a:e693:9da3 with SMTP id u18-20020a056512129200b0048ae6939da3mr566261lfs.328.1659109828939;
-        Fri, 29 Jul 2022 08:50:28 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	libvir-list@redhat.com
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Michal Privoznik <mprivozn@redhat.com>
-Subject: [libvirt PATCH] libxl: Fix build with recent Xen that introduces new disk backend type
-Date: Fri, 29 Jul 2022 18:50:24 +0300
-Message-Id: <20220729155024.3327364-1-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc;
+        bh=eat4TgmilUiNiJbcKemb7fgNhPjU0Rsr1AtN3zFtS+4=;
+        b=GY0Lmi55vlwfTCQTtMYaV2lhGZom6MJB5/JY5RTDKD91sKotzx2ml5AIxCaay+YBnC
+         g53Zfn8W091roj5I37o9QF5tvT2tbkrfX4OdZ4WiRaQ/xbb9Nas8xqZsJS1Gi0aXXbm9
+         8Hpx2cykdIY4EJ9CvkAdtLAvbx4zvRf1OLBj5tzeX/oAn/6vkb4o3QbZdR9SLIS0djVD
+         BikSQ8zKH4UwOkC37+EmAph39zesrReOLLJgvCEYQkHSE0TPc/1rjbwloXKVDmZ1IbbF
+         fS11QFZ0LX+3VVPDPfkuzznt5UHDS9j7tSkxD5VQjTgH17X6sYPSLRfr93JJVy40GpGV
+         1HFQ==
+X-Gm-Message-State: AJIora8/fa2U2eXIZ2ux9lgVlqUEFUS3+yrK5u2IUsIAirIsdH76G0Z6
+	x7Oi5tfbU/bYXUEiOdK7n9A=
+X-Google-Smtp-Source: AGRyM1v0pJ1pepY1Kegy89G6hVJ+xoBLeQPYQDTbUJRgscVkA+9hHQbe5JdI4xCjqHp/GX9pU/Zf6w==
+X-Received: by 2002:a2e:98d5:0:b0:25e:c1b:f262 with SMTP id s21-20020a2e98d5000000b0025e0c1bf262mr1273603ljj.343.1659110160534;
+        Fri, 29 Jul 2022 08:56:00 -0700 (PDT)
+Message-ID: <0f7a750d-20c9-f624-133a-51f6638fc643@gmail.com>
+Date: Fri, 29 Jul 2022 18:55:58 +0300
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [xen-unstable-smoke bisection] complete build-amd64-libvirt
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+References: <E1oHEQO-0008GA-Uo@osstest.test-lab.xenproject.org>
+ <08606914-f5f4-8415-51a2-f6a5e1c54d20@suse.com>
+ <57da62dc-81c2-5018-dfc7-5eb784ea53d1@epam.com>
+ <ac219f32-641d-bbcb-2ae0-9410404458de@xen.org>
+ <0fa56cfe-85dc-5fd2-6405-e18115420306@epam.com>
+ <0adaeec4-d810-f235-b3a0-951610db216a@xen.org>
+From: Oleksandr <olekstysh@gmail.com>
+In-Reply-To: <0adaeec4-d810-f235-b3a0-951610db216a@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Xen toolstack has gained basic Virtio support recently which becides
-adding various virtio related stuff introduces new disk backend type
-LIBXL_DISK_BACKEND_STANDALONE [1].
+On 29.07.22 13:29, Julien Grall wrote:
+> Hi Oleksandr,
 
-Unfortunately, this caused a regression in libvirt build with Xen support
-enabled, reported by the osstest today [2]:
 
-CC       libxl/libvirt_driver_libxl_impl_la-xen_xl.lo
-../../src/libxl/xen_xl.c: In function 'xenParseXLDisk':
-../../src/libxl/xen_xl.c:779:17: error: enumeration value 'LIBXL_DISK_BACKEND_STANDALONE'
-   not handled in switch [-Werror=switch-enum]
-                 switch (libxldisk->backend) {
-                 ^~~~~~
-cc1: all warnings being treated as errors
+Hello Julien
 
-The interesting fact is that switch already has a default branch (which ought
-to cover such new addition), but the error is triggered as -Wswitch-enum
-gives a warning about an omitted enumeration code even if there is a default
-label.
 
-Also there is a similar issue in libxlUpdateDiskDef() which I have reproduced
-after fixing the first one, but it that case the corresponding switch doesn't
-have a default branch.
+>
+> On 29/07/2022 11:25, Oleksandr Tyshchenko wrote:
+>>
+>> On 29.07.22 12:08, Julien Grall wrote:
+>>
+>>
+>> Hello Julien
+>>
+>>> (+ Anthony)
+>>>
+>>> Hi,
+>>>
+>>> On 29/07/2022 07:48, Oleksandr Tyshchenko wrote:
+>>>>
+>>>> On 29.07.22 09:22, Jan Beulich wrote:
+>>>>
+>>>> Hello Jan
+>>>>
+>>>>> On 29.07.2022 03:04, osstest service owner wrote:
+>>>>>> branch xen-unstable-smoke
+>>>>>> xenbranch xen-unstable-smoke
+>>>>>> job build-amd64-libvirt
+>>>>>> testid libvirt-build
+>>>>>>
+>>>>>> Tree: libvirt git://xenbits.xen.org/libvirt.git
+>>>>>> Tree: libvirt_keycodemapdb
+>>>>>> https://urldefense.com/v3/__https://gitlab.com/keycodemap/keycodemapdb.git__;!!GF_29dbcQIUBPA!0s_nyAgds977dw0dGPgFJGkIaBiKiXH3nR11Ni6gGjN5gQmB0DEhKrm5SUX4R0WhK8YkQemR6RVhiojpzij9yLM$ 
+>>>>>>
+>>>>>> [gitlab[.]com]
+>>>>>> Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+>>>>>> Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+>>>>>> Tree: xen git://xenbits.xen.org/xen.git
+>>>>>>
+>>>>>> *** Found and reproduced problem changeset ***
+>>>>>>
+>>>>>>      Bug is in tree:  xen git://xenbits.xen.org/xen.git
+>>>>>>      Bug introduced: 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+>>>>>>      Bug not present: f732240fd3bac25116151db5ddeb7203b62e85ce
+>>>>>>      Last fail repro:
+>>>>>> https://urldefense.com/v3/__http://logs.test-lab.xenproject.org/osstest/logs/171909/__;!!GF_29dbcQIUBPA!0s_nyAgds977dw0dGPgFJGkIaBiKiXH3nR11Ni6gGjN5gQmB0DEhKrm5SUX4R0WhK8YkQemR6RVhiojpmYABJkc$ 
+>>>>>>
+>>>>>> [logs[.]test-lab[.]xenproject[.]org]
+>>>>>>
+>>>>>>
+>>>>>>      commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+>>>>>>      Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>>      Date:   Fri Jul 15 22:20:24 2022 +0300
+>>>>>>              libxl: Add support for Virtio disk configuration
+>>>>> Just in case you didn't notice it: Something's wrong here. I didn't
+>>>>> look
+>>>>> at the details at all. Please advise whether a fix will soon 
+>>>>> arrive or
+>>>>> whether we should revert for the time being.
+>>>>
+>>>> Sorry for the breakage. At the moment I have no idea what is wrong 
+>>>> here,
+>>>
+>>>  From the build log:
+>>>
+>>> ../../src/libxl/xen_xl.c: In function 'xenParseXLDisk':
+>>> ../../src/libxl/xen_xl.c:779:17: error: enumeration value
+>>> 'LIBXL_DISK_BACKEND_STANDALONE' not handled in switch
+>>> [-Werror=switch-enum]
+>>>                   switch (libxldisk->backend) {
+>>>                   ^~~~~~
+>>>
+>>> The switch contains a default branch [1], so I am a bit puzzled why
+>>> GCC is not happy here.
+>>
+>> Libvirt seems to compiled with -Wswitch-enum
+>>
+>> And https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html says the
+>> following:
+>>
+>> "-Wswitch-enum
+>>
+>> Warn whenever a switch statement has an index of enumerated type and
+>> lacks a case for one or more of the named codes of that enumeration.
+>> case labels outside the enumeration range also provoke warnings when
+>> this option is used. The only difference between -Wswitch and this
+>> option is that this option gives a warning about an omitted enumeration
+>> code even if there is a default label."
+>
+> Thanks for digging! That's explained the error. I still don't think we 
+> can solve the error in libxl.
+>
+> So I would suggest to involve the libvirt folks to know how they want 
+> to solve the issue.
 
-Fix both issues by inserting required enumeration item to make the compiler
-happy and adding ifdef guard to be able to build against old Xen libraries
-as well (without LIBXL_HAVE_DEVICE_DISK_SPECIFICATION). Also add a default
-branch to switch in libxlUpdateDiskDef().
 
-Please note, that current patch doesn't implement the proper handling of
-LIBXL_DISK_BACKEND_STANDALONE and friends, it is just intended to fix
-the regression immediately to unblock the osstest.  Also it worth mentioning
-that current patch won't solve the possible additions in the future.
+Already pushed an immediate fix with detailed description:
 
-[1] https://lore.kernel.org/xen-devel/20220716163745.28712-1-olekstysh@gmail.com/
-[2] https://lore.kernel.org/xen-devel/E1oHEQO-0008GA-Uo@osstest.test-lab.xenproject.org/
+https://lore.kernel.org/xen-devel/20220729155024.3327364-1-olekstysh@gmail.com/
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-Cc: Julien Grall <julien@xen.org>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Michal Privoznik <mprivozn@redhat.com>
 
-Please note, the patch is tested on:
-https://xenbits.xen.org/gitweb/?p=libvirt.git;a=shortlog;h=refs/heads/xen-tested-master
-but should work on the master as well (as the same code is present here).
----
- src/libxl/libxl_conf.c | 4 ++++
- src/libxl/xen_xl.c     | 3 +++
- 2 files changed, 7 insertions(+)
-
-diff --git a/src/libxl/libxl_conf.c b/src/libxl/libxl_conf.c
-index aa3d7925ec..526f0b2b08 100644
---- a/src/libxl/libxl_conf.c
-+++ b/src/libxl/libxl_conf.c
-@@ -1240,6 +1240,10 @@ libxlUpdateDiskDef(virDomainDiskDef *l_disk, libxl_device_disk *x_disk)
-         driver = "phy";
-         break;
-     case LIBXL_DISK_BACKEND_UNKNOWN:
-+#ifdef LIBXL_HAVE_DEVICE_DISK_SPECIFICATION
-+    case LIBXL_DISK_BACKEND_STANDALONE:
-+#endif
-+    default:
-         break;
-     }
-     if (driver)
-diff --git a/src/libxl/xen_xl.c b/src/libxl/xen_xl.c
-index 4de4e3140f..6919325623 100644
---- a/src/libxl/xen_xl.c
-+++ b/src/libxl/xen_xl.c
-@@ -715,6 +715,9 @@ xenParseXLDisk(virConf *conf, virDomainDef *def)
-                     virDomainDiskSetDriver(disk, "phy");
-                     virDomainDiskSetType(disk, VIR_STORAGE_TYPE_BLOCK);
-                     break;
-+#ifdef LIBXL_HAVE_DEVICE_DISK_SPECIFICATION
-+                case LIBXL_DISK_BACKEND_STANDALONE:
-+#endif
-                 default:
-                     virReportError(VIR_ERR_CONFIG_UNSUPPORTED,
-                                    _("disk backend not supported: %s"),
+>
+> Cheers,
+>
 -- 
-2.25.1
+Regards,
+
+Oleksandr Tyshchenko
 
 
