@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0379E5857C5
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Jul 2022 03:31:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377958.611292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6C17585866
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Jul 2022 06:08:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377607.611305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHbJI-00057a-Pb; Sat, 30 Jul 2022 01:30:32 +0000
+	id 1oHdle-0006AY-1e; Sat, 30 Jul 2022 04:07:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377958.611292; Sat, 30 Jul 2022 01:30:32 +0000
+Received: by outflank-mailman (output) from mailman id 377607.611305; Sat, 30 Jul 2022 04:07:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHbJI-00054q-MT; Sat, 30 Jul 2022 01:30:32 +0000
-Received: by outflank-mailman (input) for mailman id 377958;
- Sat, 30 Jul 2022 01:30:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oHdld-00067l-Qp; Sat, 30 Jul 2022 04:07:57 +0000
+Received: by outflank-mailman (input) for mailman id 377607;
+ Fri, 29 Jul 2022 15:26:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=klDL=YD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oHbJG-00054k-VZ
- for xen-devel@lists.xenproject.org; Sat, 30 Jul 2022 01:30:30 +0000
+ <SRS0=719g=YC=paulmck-ThinkPad-P17-Gen-1.home=paulmck@kernel.org>)
+ id 1oHRsg-00017C-Ev
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 15:26:26 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 316cf2dc-0fa7-11ed-bd2d-47488cf2e6aa;
- Sat, 30 Jul 2022 03:30:29 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce28bede-0f52-11ed-924f-1f966e50362f;
+ Fri, 29 Jul 2022 17:26:24 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9B73161CEE;
- Sat, 30 Jul 2022 01:30:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AE1DC433D6;
- Sat, 30 Jul 2022 01:30:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0442661BF0;
+ Fri, 29 Jul 2022 15:26:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618D7C433B5;
+ Fri, 29 Jul 2022 15:26:22 +0000 (UTC)
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+ id 0AF325C033E; Fri, 29 Jul 2022 08:26:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,331 +45,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 316cf2dc-0fa7-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: ce28bede-0f52-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1659144627;
-	bh=x98hx+nXW+NyRpONjLXqJeGNcgcO9WnjuDaMpyLpXNw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=P4uorzhWraIM8zhI4r3lshu2ZdX6QcqZ8G0RzIJp4p1lp8sLik8hsTnOuv2dVci71
-	 3o28Tqid8rhv+o4EWbtNPQFVgQY2mfbzbeDR6OQeza2LKx4a7WgPmqTjH8Qwk4hi1a
-	 Q8SdOfHc5WdlnWw7p9A7nauvogrTGImAx0anzeQVgp3Li7IHdHW4mKKSXcjZnUIab5
-	 rhv4h0W0A673rpCtkZ1n5rKL3NDMDPL+dHnbb9nt3czaNU0Nd3ZFyb8O7mKvSCjqJ1
-	 BkKkTnIcJeTEELoHvH4yu0qVgIPiHLX02F0KWzOaa15RKgbXQ59H1yKJ72TvFsvfA8
-	 FZ2uSj/9f4uaA==
-Date: Fri, 29 Jul 2022 18:30:25 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
-cc: xen-devel@lists.xenproject.org, viryaos-discuss@lists.sourceforge.net, 
-    sstabellini@kernel.org, Andrei Cherechesu <andrei.cherechesu@nxp.com>, 
-    ayan.kumar.halder@amd.com
-Subject: Re: [ImageBuilder][PATCH v3 1/3] uboot-script-gen: Dynamically
- compute addr and size when loading binaries
-In-Reply-To: <20220713163044.3541661-2-andrei.cherechesu@oss.nxp.com>
-Message-ID: <alpine.DEB.2.22.394.2207291825460.4648@ubuntu-linux-20-04-desktop>
-References: <20220713163044.3541661-1-andrei.cherechesu@oss.nxp.com> <20220713163044.3541661-2-andrei.cherechesu@oss.nxp.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+	s=k20201202; t=1659108382;
+	bh=u7iMRCibJGPgHojnAneRfpJQLfO1v9UeCr7NEqXA5r0=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
+	b=j/ssGM4UwMLUBLCP78RosSv+xdTA5IxQuurJEQkAk0bXcmXPO93JJUXNFsdGh+1wg
+	 +oQu9G8HFTFvq7oWLnSNFUXfz91zcbExFBxbHvUUrLwuFGec8y0pgDI7OkmIEUiDsJ
+	 xuSOA0nMD0LfFRMzO/hFHpmNupsJvKL62OZ7Ogs2Sct+xobNCKamTbCGFqWe+ziWO5
+	 X1ZeZmjvoSs9jG1zXifbRaMvzpG1WXKjUcVgoHT0G2I9F3u+FSVuGP4WeqriMREnTB
+	 5LhXtVu1diWGmPLJYP56buqhIf3r1Jp2kzJeotpuUGt61TvxvtDbwosjkjOrYw33Op
+	 oX8J8MWyCJV3g==
+Date: Fri, 29 Jul 2022 08:26:22 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Michel Lespinasse <michel@lespinasse.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, rth@twiddle.net,
+	ink@jurassic.park.msu.ru, mattst88@gmail.com, vgupta@kernel.org,
+	linux@armlinux.org.uk, ulli.kroll@googlemail.com,
+	linus.walleij@linaro.org, shawnguo@kernel.org,
+	Sascha Hauer <s.hauer@pengutronix.de>, kernel@pengutronix.de,
+	festevam@gmail.com, linux-imx@nxp.com, tony@atomide.com,
+	khilman@kernel.org, catalin.marinas@arm.com, will@kernel.org,
+	guoren@kernel.org, bcain@quicinc.com, chenhuacai@kernel.org,
+	kernel@xen0n.name, geert@linux-m68k.org, sammy@sammy.net,
+	monstr@monstr.eu, tsbogend@alpha.franken.de, dinguyen@kernel.org,
+	jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com, James.Bottomley@HansenPartnership.com,
+	deller@gmx.de, mpe@ellerman.id.au, benh@kernel.crashing.org,
+	paulus@samba.org, paul.walmsley@sifive.com, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, hca@linux.ibm.com, gor@linux.ibm.com,
+	agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+	svens@linux.ibm.com, ysato@users.sourceforge.jp, dalias@libc.org,
+	davem@davemloft.net, richard@nod.at,
+	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net,
+	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	acme@kernel.org, mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+	namhyung@kernel.org, jgross@suse.com, srivatsa@csail.mit.edu,
+	amakhalov@vmware.com, pv-drivers@vmware.com,
+	boris.ostrovsky@oracle.com, chris@zankel.net, jcmvbkbc@gmail.com,
+	rafael@kernel.org, lenb@kernel.org, pavel@ucw.cz,
+	gregkh@linuxfoundation.org, mturquette@baylibre.com,
+	sboyd@kernel.org, daniel.lezcano@linaro.org, lpieralisi@kernel.org,
+	sudeep.holla@arm.com, agross@kernel.org, bjorn.andersson@linaro.org,
+	anup@brainfault.org, thierry.reding@gmail.com, jonathanh@nvidia.com,
+	jacob.jun.pan@linux.intel.com, Arnd Bergmann <arnd@arndb.de>,
+	yury.norov@gmail.com, andriy.shevchenko@linux.intel.com,
+	linux@rasmusvillemoes.dk, rostedt@goodmis.org, pmladek@suse.com,
+	senozhatsky@chromium.org, john.ogness@linutronix.de,
+	frederic@kernel.org, quic_neeraju@quicinc.com,
+	josh@joshtriplett.org, mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com, joel@joelfernandes.org,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
+	bristot@redhat.com, vschneid@redhat.com, jpoimboe@kernel.org,
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-snps-arc@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, openrisc@lists.librecores.org,
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
+	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
+	rcu@vger.kernel.org, rh0@fb.com
+Subject: Re: [PATCH 04/36] cpuidle,intel_idle: Fix CPUIDLE_FLAG_IRQ_ENABLE
+Message-ID: <20220729152622.GM2860372@paulmck-ThinkPad-P17-Gen-1>
+Reply-To: paulmck@kernel.org
+References: <20220608142723.103523089@infradead.org>
+ <20220608144516.172460444@infradead.org>
+ <20220725194306.GA14746@lespinasse.org>
+ <20220728172053.GA3607379@paulmck-ThinkPad-P17-Gen-1>
+ <20220729102458.GA1695@lespinasse.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220729102458.GA1695@lespinasse.org>
 
-On Wed, 13 Jul 2022, Andrei Cherechesu (OSS) wrote:
-> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+On Fri, Jul 29, 2022 at 03:24:58AM -0700, Michel Lespinasse wrote:
+> On Thu, Jul 28, 2022 at 10:20:53AM -0700, Paul E. McKenney wrote:
+> > On Mon, Jul 25, 2022 at 12:43:06PM -0700, Michel Lespinasse wrote:
+> > > On Wed, Jun 08, 2022 at 04:27:27PM +0200, Peter Zijlstra wrote:
+> > > > Commit c227233ad64c ("intel_idle: enable interrupts before C1 on
+> > > > Xeons") wrecked intel_idle in two ways:
+> > > > 
+> > > >  - must not have tracing in idle functions
+> > > >  - must return with IRQs disabled
+> > > > 
+> > > > Additionally, it added a branch for no good reason.
+> > > > 
+> > > > Fixes: c227233ad64c ("intel_idle: enable interrupts before C1 on Xeons")
+> > > > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> > > 
+> > > After this change was introduced, I am seeing "WARNING: suspicious RCU
+> > > usage" when booting a kernel with debug options compiled in. Please
+> > > see the attached dmesg output. The issue starts with commit 32d4fd5751ea
+> > > and is still present in v5.19-rc8.
+> > > 
+> > > I'm not sure, is this too late to fix or revert in v5.19 final ?
+> > 
+> > I finally got a chance to take a quick look at this.
+> > 
+> > The rcu_eqs_exit() function is making a lockdep complaint about
+> > being invoked with interrupts enabled.  This function is called from
+> > rcu_idle_exit(), which is an expected code path from cpuidle_enter_state()
+> > via its call to rcu_idle_exit().  Except that rcu_idle_exit() disables
+> > interrupts before invoking rcu_eqs_exit().
+> > 
+> > The only other call to rcu_idle_exit() does not disable interrupts,
+> > but it is via rcu_user_exit(), which would be a very odd choice for
+> > cpuidle_enter_state().
+> > 
+> > It seems unlikely, but it might be that it is the use of local_irq_save()
+> > instead of raw_local_irq_save() within rcu_idle_exit() that is causing
+> > the trouble.  If this is the case, then the commit shown below would
+> > help.  Note that this commit removes the warning from lockdep, so it
+> > is necessary to build the kernel with CONFIG_RCU_EQS_DEBUG=y to enable
+> > equivalent debugging.
+> > 
+> > Could you please try your test with the -rce commit shown below applied?
 > 
-> Normally, the script would precompute the sizes of the loaded binaries
-> and addresses where they are loaded before generating the script,
-> and the sizes and addresses that needed to be provided to Xen via
-> /chosen would be hardcoded in the boot script.
+> Thanks for looking into it.
+
+And thank you for trying this shot in the dark!
+
+> After checking out Peter's commit 32d4fd5751ea,
+> cherry picking your commit ed4ae5eff4b3,
+> and setting CONFIG_RCU_EQS_DEBUG=y in addition of my usual debug config,
+> I am now seeing this a few seconds into the boot:
 > 
-> Added option via "-s" parameter to use the ${filesize} variable
-> in u-boot, which is set automatically after a *load command.
-> The value stored by filesize is now stored in a u-boot env variable
-> with the name corresponding to the binary that was loaded before.
-> The newly set variables are now used in setting the /chosen node,
-> instead of the hardcoded values.
-> 
-> Also, the loading addresses for the files are dynamically computed
-> and aligned to 0x200000 using the `setexpr` u-boot command. Basically,
-> if the option is used, there are zero hardcoded addresses inside the
-> boot script, and everything is determined based on the MEMORY_START
-> parameter and each binary's size.
-> 
-> If the "-s" parameter is not used, the script does not store the
-> binaries' sizes and addresses in variables and uses the precomputed
-> ones when advertising them in the /chosen node.
-> 
-> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> [    3.010650] ------------[ cut here ]------------
+> [    3.010651] WARNING: CPU: 0 PID: 0 at kernel/sched/clock.c:397 sched_clock_tick+0x27/0x60
 
-This patch is difficult :-)
+And this is again a complaint about interrupts not being disabled.
 
-I like the idea but it makes the code significantly more complex due to
-the additional $dynamic_loading_opt case handled everywhere. Initially I
-thought about only retain the code path using u-boot variables, at least
-after loading the files. However, I realize that it would break the
-FDTEDIT case, which I think it would be good to keep working. Also it is
-nice to be able to edit the device tree at build time putting in the
-right values.
+But it does appear that the problem was the lockdep complaint, and
+eliminating that did take care of part of the problem.  But lockdep
+remained enabled, and you therefore hit the next complaint.
 
-So I tried to eliminated most of the new "if" statements in another way.
-The best I could come up with is the below, using eval and additional
-bash variables to look up the address and size based on the variable
-name (e.g. dom0_kernel). If we want the address, we use the value of
-$dom0_kernel_addr, if we want the u-boot variable we use ${dom0_kernel}.
+> [    3.010657] Modules linked in:
+> [    3.010660] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 5.19.0-rc1-test-00005-g1be22fea0611 #1
+> [    3.010662] Hardware name: LENOVO 30BFS44D00/1036, BIOS S03KT51A 01/17/2022
+> [    3.010663] RIP: 0010:sched_clock_tick+0x27/0x60
 
-This is untested, just to show the idea. What do you think? Is it
-better? Do you prefer the original patch? Other ideas or opinions? 
+The most straightforward way to get to sched_clock_tick() from
+cpuidle_enter_state() is via the call to sched_clock_idle_wakeup_event().
 
+Except that it disables interrupts before invoking sched_clock_tick().
 
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index 18c0ce1..cee22f6 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -4,6 +4,9 @@ offset=$((2*1024*1024))
- filesize=0
- prog_req=(mkimage file fdtput mktemp awk)
+> [    3.010665] Code: 1f 40 00 53 eb 02 5b c3 66 90 8b 05 2f c3 40 01 85 c0 74 18 65 8b 05 60 88 8f 4e 85 c0 75 0d 65 8b 05 a9 85 8f 4e 85 c0 74 02 <0f> 0b e8 e2 6c 89 00 48 c7 c3 40 d5 02 00
+>  89 c0 48 03 1c c5 c0 98
+> [    3.010667] RSP: 0000:ffffffffb2803e28 EFLAGS: 00010002
+> [    3.010670] RAX: 0000000000000001 RBX: ffffc8ce7fa07060 RCX: 0000000000000001
+> [    3.010671] RDX: 0000000000000000 RSI: ffffffffb268dd21 RDI: ffffffffb269ab13
+> [    3.010673] RBP: 0000000000000001 R08: ffffffffffc300d5 R09: 000000000002be80
+> [    3.010674] R10: 000003625b53183a R11: ffffa012b802b7a4 R12: ffffffffb2aa9e80
+> [    3.010675] R13: ffffffffb2aa9e00 R14: 0000000000000001 R15: 0000000000000000
+> [    3.010677] FS:  0000000000000000(0000) GS:ffffa012b8000000(0000) knlGS:0000000000000000
+> [    3.010678] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    3.010680] CR2: ffffa012f81ff000 CR3: 0000000c99612001 CR4: 00000000003706f0
+> [    3.010681] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+> [    3.010682] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+> [    3.010683] Call Trace:
+> [    3.010685]  <TASK>
+> [    3.010688]  cpuidle_enter_state+0xb7/0x4b0
+> [    3.010694]  cpuidle_enter+0x29/0x40
+> [    3.010697]  do_idle+0x1d4/0x210
+> [    3.010702]  cpu_startup_entry+0x19/0x20
+> [    3.010704]  rest_init+0x117/0x1a0
+> [    3.010708]  arch_call_rest_init+0xa/0x10
+> [    3.010711]  start_kernel+0x6d8/0x6ff
+> [    3.010716]  secondary_startup_64_no_verify+0xce/0xdb
+> [    3.010728]  </TASK>
+> [    3.010729] irq event stamp: 44179
+> [    3.010730] hardirqs last  enabled at (44179): [<ffffffffb2000ccb>] asm_sysvec_apic_timer_interrupt+0x1b/0x20
+> [    3.010734] hardirqs last disabled at (44177): [<ffffffffb22003f0>] __do_softirq+0x3f0/0x498
+> [    3.010736] softirqs last  enabled at (44178): [<ffffffffb2200332>] __do_softirq+0x332/0x498
+> [    3.010738] softirqs last disabled at (44171): [<ffffffffb16c760b>] irq_exit_rcu+0xab/0xf0
+> [    3.010741] ---[ end trace 0000000000000000 ]---
+
+Would you be willing to try another shot in the dark, but untested
+this time?  I freely admit that this is getting strange.
+
+							Thanx, Paul
+
+------------------------------------------------------------------------
+
+diff --git a/kernel/sched/clock.c b/kernel/sched/clock.c
+index e374c0c923dae..279f557bf60bb 100644
+--- a/kernel/sched/clock.c
++++ b/kernel/sched/clock.c
+@@ -394,7 +394,7 @@ notrace void sched_clock_tick(void)
+ 	if (!static_branch_likely(&sched_clock_running))
+ 		return;
  
-+padding_mask=`printf "0x%X\n" $(($offset - 1))`
-+padding_mask_inv=`printf "0x%X\n" $((~$padding_mask))`
-+
- function cleanup_and_return_err()
- {
-     rm -f $UBOOT_SOURCE $UBOOT_SCRIPT
-@@ -28,6 +31,7 @@ function dt_mknode()
- #   str
- #   str_a
- #   bool
-+#   var
- function dt_set()
- {
-     local path=$1
-@@ -35,11 +39,21 @@ function dt_set()
-     local data_type=$3
-     local data=$4
+-	lockdep_assert_irqs_disabled();
++	WARN_ON_ONCE(IS_ENABLED(CONFIG_RCU_EQS_DEBUG) && !raw_irqs_disabled());
  
-+    if test $data_type = "var"
-+    then
-+        eval data_addr_var="$data"_addr
-+        eval data_addr=\$"$data_addr_var"
-+        eval data_size_var="$data"_size
-+        eval data_size=\$"$data_size_var"
-+    fi
- 
-     if test "$UBOOT_SOURCE" && test ! "$FIT"
-     then
-         var=${var/\#/\\#}
--        if test $data_type = "hex" || test $data_type = "int"
-+        if test $data_type = "var"
-+        then
-+            echo "fdt set $path $var <0x0 0x\${"$data_addr_var"} 0x0 0x\${"$data_size_var"}>" >> $UBOOT_SOURCE
-+        elif test $data_type = "hex" || test $data_type = "int"
-         then
-             echo "fdt set $path $var <$data>" >> $UBOOT_SOURCE
-         elif test $data_type = "str_a"
-@@ -63,7 +77,10 @@ function dt_set()
- 
-     if test $FDTEDIT
-     then
--        if test $data_type = "hex"
-+        if test $data_type = "var"
-+        then
-+            fdtput $FDTEDIT -p -t x $path $var 0x0 "$data_addr" 0x0 "$data_size"
-+        elif test $data_type = "hex"
-         then
-             fdtput $FDTEDIT -p -t x $path $var $data
-         elif test $data_type = "int"
-@@ -87,38 +104,35 @@ function dt_set()
- function add_device_tree_kernel()
- {
-     local path=$1
--    local addr=$2
--    local size=$3
--    local bootargs=$4
-+    local varname=$2
-+    local bootargs=$3
- 
--    dt_mknode "$path" "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,kernel multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
--    dt_set "$path/module$addr" "bootargs" "str" "$bootargs"
-+    dt_mknode "$path" "module-$varname"
-+    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,kernel multiboot,module"
-+    dt_set "$path/module-$varname" "reg" "var"  "$varname"
-+    dt_set "$path/module-$varname" "bootargs" "str" "$bootargs"
- }
- 
- 
- function add_device_tree_ramdisk()
- {
-     local path=$1
--    local addr=$2
--    local size=$3
-+    local varname=$2
- 
--    dt_mknode "$path"  "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
-+    dt_mknode "$path" "module-$varname"
-+    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
-+    dt_set "$path/module-$varname" "reg" "var"  "$varname"
- }
- 
- 
- function add_device_tree_passthrough()
- {
-     local path=$1
--    local addr=$2
--    local size=$3
-+    local varname=$2
- 
--    dt_mknode "$path"  "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,device-tree multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
-+    dt_mknode "$path" "module-$varname"
-+    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,device-tree multiboot,module"
-+    dt_set "$path/module-$varname" "reg" "var"  "$varname"
- }
- 
- function add_device_tree_mem()
-@@ -186,7 +200,7 @@ function xen_device_tree_editing()
-     then
-         dt_mknode "/chosen" "dom0"
-         dt_set "/chosen/dom0" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
--        dt_set "/chosen/dom0" "reg" "hex" "0x0 $dom0_kernel_addr 0x0 $(printf "0x%x" $dom0_kernel_size)"
-+        dt_set "/chosen/dom0" "reg" "var" "dom0_linux"
-         dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
-     fi
- 
-@@ -194,7 +208,7 @@ function xen_device_tree_editing()
-     then
-         dt_mknode "/chosen" "dom0-ramdisk"
-         dt_set "/chosen/dom0-ramdisk" "compatible" "str_a" "xen,linux-initrd xen,multiboot-module multiboot,module"
--        dt_set "/chosen/dom0-ramdisk" "reg" "hex" "0x0 $ramdisk_addr 0x0 $(printf "0x%x" $ramdisk_size)"
-+        dt_set "/chosen/dom0-ramdisk" "reg" "var" "dom0_ramdisk"
-     fi
- 
-     i=0
-@@ -241,14 +255,14 @@ function xen_device_tree_editing()
-             dt_set "/chosen/domU$i" "colors" "hex" "$(printf "0x%x" $bitcolors)"
-         fi
- 
--        add_device_tree_kernel "/chosen/domU$i" ${domU_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
-+        add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel" "${DOMU_CMD[$i]}"
-         if test "${domU_ramdisk_addr[$i]}"
-         then
--            add_device_tree_ramdisk "/chosen/domU$i" ${domU_ramdisk_addr[$i]} ${domU_ramdisk_size[$i]}
-+            add_device_tree_ramdisk "/chosen/domU$i" "domU${i}_ramdisk"
-         fi
-         if test "${domU_passthrough_dtb_addr[$i]}"
-         then
--            add_device_tree_passthrough "/chosen/domU$i" ${domU_passthrough_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
-+            add_device_tree_passthrough "/chosen/domU$i" "domU${i}_fdt"
-         fi
-         i=$(( $i + 1 ))
-     done
-@@ -271,7 +285,7 @@ function device_tree_editing()
- 
-     if test $UBOOT_SOURCE
-     then
--        echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
-+        echo "fdt addr \${host_fdt_addr}" >> $UBOOT_SOURCE
-         echo "fdt resize 1024" >> $UBOOT_SOURCE
- 
-         if test $NUM_DT_OVERLAY && test $NUM_DT_OVERLAY -gt 0
-@@ -296,11 +310,25 @@ function device_tree_editing()
- function add_size()
- {
-     local filename=$1
-+    local fit_scr_name=$2
-+    local binary_name_addr="${fit_scr_name}_addr"
-+    local binary_name_size="${fit_scr_name}_size"
-+    eval "$fit_scr_name"_addr=$memaddr
-+
-+    echo "setenv $binary_name_addr \${memaddr}" >> $UBOOT_SOURCE
-+    echo "setenv $binary_name_size \${filesize}" >> $UBOOT_SOURCE
-+    # Compute load addr for next binary dynamically
-+    echo "setexpr memaddr \${memaddr} \+ \${filesize}" >> $UBOOT_SOURCE
-+    echo "setexpr memaddr \${memaddr} \+ $padding_mask" >> $UBOOT_SOURCE
-+    echo "setexpr memaddr \${memaddr} \& $padding_mask_inv" >> $UBOOT_SOURCE
-+
-     local size=`stat -L --printf="%s" $filename`
-     memaddr=$(( $memaddr + $size + $offset - 1))
-     memaddr=$(( $memaddr & ~($offset - 1) ))
-     memaddr=`printf "0x%X\n" $memaddr`
-     filesize=$size
-+
-+    eval "$fit_scr_name"_size=`printf "0x%X\n" $size`
- }
- 
- function load_file()
-@@ -315,10 +343,13 @@ function load_file()
-     if test "$FIT"
-     then
-         echo "imxtract \$fit_addr $fit_scr_name $memaddr" >> $UBOOT_SOURCE
-+    elif test "$dynamic_loading_opt"
-+    then
-+        echo "$LOAD_CMD \${memaddr} ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
-     else
-         echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
-     fi
--    add_size $filename
-+    add_size $filename $fit_scr_name
- }
- 
- function check_file_type()
-@@ -899,7 +930,7 @@ function print_help
- {
-     script=`basename "$0"`
-     echo "usage:"
--    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH]"
-+    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH] [-s]"
-     echo "	$script -h"
-     echo "where:"
-     echo "	CONFIG_FILE - configuration file"
-@@ -916,6 +947,7 @@ function print_help
-     echo "	U-BOOT_DTB - u-boot control dtb so that the public key gets added to it"
-     echo "	-f - enable generating a FIT image"
-     echo "	PREPEND_PATH - path to be appended before file names to match deploy location within rootfs"
-+    echo "	-s - enable dynamic loading of binaries by storing their addresses and sizes u-boot env variables"
-     echo "	-h - prints out the help message and exits "
-     echo "Defaults:"
-     echo "	CONFIG_FILE=$cfg_file, UBOOT_TYPE=\"LOAD_CMD\" env var, DIRECTORY=$uboot_dir"
-@@ -923,7 +955,7 @@ function print_help
-     echo "	$script -c ../config -d ./build42 -t \"scsi load 1:1\""
- }
- 
--while getopts ":c:t:d:ho:k:u:fp:" opt; do
-+while getopts ":c:t:d:ho:k:u:fp:s" opt; do
-     case ${opt} in
-     t )
-         case $OPTARG in
-@@ -965,6 +997,9 @@ while getopts ":c:t:d:ho:k:u:fp:" opt; do
-     p )
-         prepend_path="$OPTARG"
-         ;;
-+    s )
-+        dynamic_loading_opt=y
-+        ;;
-     h )
-         print_help
-         exit 0
-@@ -1126,6 +1161,7 @@ uboot_addr=$memaddr
- # 2MB are enough for a uboot script
- memaddr=$(( $memaddr + $offset ))
- memaddr=`printf "0x%X\n" $memaddr`
-+echo "setenv memaddr $memaddr" >> $UBOOT_SOURCE
- 
- if test "$os" = "xen"
- then
-@@ -1169,11 +1205,7 @@ fi
- 
- if [ "$BOOT_CMD" != "none" ]
- then
--    echo "$BOOT_CMD $kernel_addr - $device_tree_addr" >> $UBOOT_SOURCE
--else
--    # skip boot command but store load addresses to be used later
--    echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
--    echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
-+    echo "$BOOT_CMD \${host_kernel_addr} - \${host_fdt_addr}" >> $UBOOT_SOURCE
- fi
- 
- if test "$FIT"
+ 	scd = this_scd();
+ 	__scd_stamp(scd);
 
