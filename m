@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 629625856AE
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 23:54:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377874.611168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A9925856B1
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 23:57:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377881.611180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHXw9-0001vV-IB; Fri, 29 Jul 2022 21:54:25 +0000
+	id 1oHXz0-0002pB-0l; Fri, 29 Jul 2022 21:57:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377874.611168; Fri, 29 Jul 2022 21:54:25 +0000
+Received: by outflank-mailman (output) from mailman id 377881.611180; Fri, 29 Jul 2022 21:57:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHXw9-0001sd-Ek; Fri, 29 Jul 2022 21:54:25 +0000
-Received: by outflank-mailman (input) for mailman id 377874;
- Fri, 29 Jul 2022 21:54:23 +0000
+	id 1oHXyz-0002lg-U1; Fri, 29 Jul 2022 21:57:21 +0000
+Received: by outflank-mailman (input) for mailman id 377881;
+ Fri, 29 Jul 2022 21:57:20 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oHXw7-0001sR-Ir
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 21:54:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oHXyy-0002lW-3P; Fri, 29 Jul 2022 21:57:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oHXw6-000465-L1; Fri, 29 Jul 2022 21:54:22 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oHXw6-0004LZ-Fz; Fri, 29 Jul 2022 21:54:22 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oHXyy-0004Am-2U; Fri, 29 Jul 2022 21:57:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oHXyx-00042j-Ls; Fri, 29 Jul 2022 21:57:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oHXyx-0007Ij-LM; Fri, 29 Jul 2022 21:57:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,69 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=vbpHLn6XCaVz2EkJDP3/OTuNWpvyNe9yKehAmdUInbE=; b=SkFhbsuCFwupZXy/XYqfpahHUv
-	B/2Yt+yw3TMUpi10Ul1M3FTQ7JrX3ZMbGRcXJHKeAC/5bx3ZbKZjf1UBAL5honCdeqLk9r+XK3oO+
-	B2m+a+pHljlDMrCkrmjEQExtvQ4k8CKYF1J/8dEOoQaTJ/y4IB51BxqDk/UJnsLgFChQ=;
-Message-ID: <f070e2e8-2821-4ee9-211e-22542df036a6@xen.org>
-Date: Fri, 29 Jul 2022 22:54:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.11.0
-Subject: Re: [PATCH v2 3/5] xen: Rename CONFIG_DOMAIN_PAGE to
- CONFIG_ARCH_MAP_DOMAIN_PAGE and...
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20220720184459.51582-1-julien@xen.org>
- <20220720184459.51582-4-julien@xen.org>
- <36782478-2EF8-45C6-A1CC-1E299704F33B@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <36782478-2EF8-45C6-A1CC-1E299704F33B@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1ur2yIiNNACfKUxxZtzfU8wlsxaJy5e1MgczKg5BRu4=; b=RKOpAxDQZ2tZEtuuezT0OTbWjl
+	UqFOR//tAfsOzDWejvIz/WWwGKoDGv3aIumn4wjex2mAjdku9Vz2CmuZnZDm5xrygu7YNRi31gKON
+	G0bxQlyFS0qc+/uQjncWFyFTRa/WWdbd2gN0nFEAJKgNSxLPR/qmDTlheQYxWU7j4NbU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-171929-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 171929: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=e9150618ec91f79e70a1719ac8c198bee34a99be
+X-Osstest-Versions-That:
+    ovmf=0d0bfcb4571caa65b7875003f38e67e2ac7e5560
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 Jul 2022 21:57:19 +0000
 
-On 21/07/2022 09:40, Bertrand Marquis wrote:
-> Hi Julien,
+flight 171929 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/171929/
 
-Hi Bertrand,
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 e9150618ec91f79e70a1719ac8c198bee34a99be
+baseline version:
+ ovmf                 0d0bfcb4571caa65b7875003f38e67e2ac7e5560
 
->> On 20 Jul 2022, at 19:44, Julien Grall <julien@xen.org> wrote:
->>
->> From: Julien Grall <jgrall@amazon.com>
->>
->> move it to Kconfig.
->>
->> The define CONFIG_DOMAIN_PAGE indicates whether the architecture provide
->> helpers to map/unmap a domain page. Rename it to the define to
-> 
-> Maybe “the define to” can be removed in this sentence or it needs some rephrasing.
+Last test of basis   171913  2022-07-29 03:12:41 Z    0 days
+Testing same since   171929  2022-07-29 19:42:00 Z    0 days    1 attempts
 
-I have removed "the define to".
+------------------------------------------------------------
+People who touched revisions under test:
+  Sami Mujawar <sami.mujawar@arm.com>
 
-> 
->> CONFIG_ARCH_MAP_DOMAIN_PAGE so it is clearer that this will not remove
->> support for domain page (this is not a concept that Xen can't get
->> away with).
->>
->> Take the opportunity to move CONFIG_MAP_DOMAIN_PAGE to Kconfig as this
->> will soon be necessary to use it in the Makefile.
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> With this fixed:
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com> #arm part
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Thanks!
 
-Cheers,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Julien Grall
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   0d0bfcb457..e9150618ec  e9150618ec91f79e70a1719ac8c198bee34a99be -> xen-tested-master
 
