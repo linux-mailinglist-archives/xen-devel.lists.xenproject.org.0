@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97980584B62
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 08:08:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377305.610448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5AE8584B8B
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Jul 2022 08:17:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377311.610460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHJ9F-0000kB-HN; Fri, 29 Jul 2022 06:06:57 +0000
+	id 1oHJJ3-0002QT-HR; Fri, 29 Jul 2022 06:17:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377305.610448; Fri, 29 Jul 2022 06:06:57 +0000
+Received: by outflank-mailman (output) from mailman id 377311.610460; Fri, 29 Jul 2022 06:17:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHJ9F-0000hx-Dw; Fri, 29 Jul 2022 06:06:57 +0000
-Received: by outflank-mailman (input) for mailman id 377305;
- Fri, 29 Jul 2022 06:06:55 +0000
+	id 1oHJJ3-0002N0-Dz; Fri, 29 Jul 2022 06:17:05 +0000
+Received: by outflank-mailman (input) for mailman id 377311;
+ Fri, 29 Jul 2022 06:17:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GB/u=YC=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oHJ9C-0000hr-Ne
- for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 06:06:55 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr10085.outbound.protection.outlook.com [40.107.1.85])
+ id 1oHJJ2-0002Mu-Lp
+ for xen-devel@lists.xenproject.org; Fri, 29 Jul 2022 06:17:04 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr00040.outbound.protection.outlook.com [40.107.0.40])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a39b0f15-0f04-11ed-bd2d-47488cf2e6aa;
- Fri, 29 Jul 2022 08:06:53 +0200 (CEST)
+ id 1003aef0-0f06-11ed-bd2d-47488cf2e6aa;
+ Fri, 29 Jul 2022 08:17:03 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8372.eurprd04.prod.outlook.com (2603:10a6:20b:3b3::10)
+ by HE1PR0401MB2299.eurprd04.prod.outlook.com (2603:10a6:3:24::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.25; Fri, 29 Jul
- 2022 06:06:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.24; Fri, 29 Jul
+ 2022 06:17:00 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::9da9:fa60:f04a:2a0e]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::9da9:fa60:f04a:2a0e%7]) with mapi id 15.20.5482.011; Fri, 29 Jul 2022
- 06:06:49 +0000
+ 06:17:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,238 +46,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a39b0f15-0f04-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: 1003aef0-0f06-11ed-bd2d-47488cf2e6aa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dzsUdF3VG1L8HjKvhR1hLljjbLeEYC150ofxDS35zyD5k1rYOUahtJK8O7DAFeCUV+C9mgJOO0i8Byjc7NOs68RZGGFWFa85HRkN0KpJcf1mdHF3BQXEKNiGLTtmJgls2oyy+RM9b8dbC1yqE0nbMKVVRVCkwEnOdwUdNS1VWzpaYVDLYeB5n/UXaeehapEmtMtx1Uxo1U9pEl0iy27EyNvxwHkNq2KB8BBHanXOJV57FSKjGinn9gbTWkP1/JYSAyr8sqTRLf5orsn6IZ2zYk2Bez6D5sXY2z612nMX+3e3iYVOCndgrIaas+LL4VPFxAcwIyPE+1GhHpA/D/QajQ==
+ b=aFbCFql72oSanqjDoA7G59yAs9FJPvGLfrn87PEmIKEeXvj/dJaOUDvcCRcoPgWP9GS18ldU8WGaHqzHOF27dy49xPqthOC/q6vUbAtqHwo/WFhhAqPjdUW7xs1JPQ7D1XruH720ieEbLhnD7l1Li6Cs2biFyatH0PV/XvjK8HgDBuxekckf2Iall3HIa1NEcU9PpQe63Mc1AogFE8DmTwBhjEDySkAGy638DK1OTeJDBq7UWbFsbfK0u6NDluHe7YmmQtz+Bmuii0rQxdgWf3THezy4iw6Drbm9RZBVera1I7urSygCNxin1Q08jq5KVa492uGXHJm9Qvj1xJD2iQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p0/77bOgMdn5xbfR/VFB2ZYeKWpba+foG2spqaIxxxU=;
- b=GMjL/z3NuvIL1xDUjlnvEsVA51WcQaPM/3Xv/TvUI8DGXg25BtDzBZlRQwq7nzK46g2pVTHe8NK0jE9/bC0GgxgVvTSxzVRAUeNDsgjXgUspszsAkeJILHVud4MGYrL3UVpJI/Pl7hOeAMUoM0tLbSeCHdgl/tpmDBE9TDsv0FIcCSt16LHKFQrtstBV383SbNW7KgIs9Ofl9V5gEjrC1N7pPh/ArJ/nfVsLZBrcWcJxSkDQN57c0UJkD9fkKtmtBT7QthixqnRSPYiNhC7sNbCpKAG39xaFYKWnNvxBksRxZAslR4aHiG0K6rexGDGyYQfC0a/h7PeH3ERmK+GIbg==
+ bh=AVKM3Rod3d5UqMux+/1t4vz2tPeoFxxUo/Xham+fuP0=;
+ b=Edo+LmOwbBsnAI1UelfWoky9qT+kq2ftwkI7q9XrZHssYco+VdXi0BK+NiyRZAwwLc78oJiR4j46yuqbZimQprcMz/UcAkZmDvLyOpwpt2iwElpxjfs96dnS3KkYAH2NFdJckSa0pY2M6y7lE4X1XR4sbB9EzU/3Igeyni27Tr+iCNZMGJ791wMzahj8G6/rkS2793b6crkuelu8aKsnm7/9Ww5ypzGfm+b1pMlxpqoiSZQ4L+ODLVkf5NvAPGw91LGintDNoU54Dc7BERl3pipEoqw+4BnsO5LQF/FzsGjMC90ndo8+xVpwDjxrHIthP0zYY1r+DbZF8jlZDUFODw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p0/77bOgMdn5xbfR/VFB2ZYeKWpba+foG2spqaIxxxU=;
- b=RD6krOlWyOnZ1UdU2kkUu3m02qT4ZAMWgOxvSBA2BV0J99DVBUyhMTo9KAEHNVhrK072kFkqHYP89PutvWQEfkdapUoK7C//rE2bqTqCl7ZqNdQOqsWcb9+kOLk2tqte+ClmqmJyjMcw+ZReHlSskGZOyyWLnmukVniOVaCUxDryxzoy3jn9PwmvhEGWvLmeilFgu4FYvXlYP25duXOmtHSiAuQdqfrIAdb+Oylg4l32416ygdCYUddjJFMCI/lJZVERUMz0qya0MihujBI6TVXs/oweU5/JAodk/JOsLY+Pec4M111U+deBItQu7zBFj/7YhKrM83SDrbQwWRtSUA==
+ bh=AVKM3Rod3d5UqMux+/1t4vz2tPeoFxxUo/Xham+fuP0=;
+ b=HViJ/yu7MmXJvrnbNwIQvW4UAyAcNZ2uHePbXX4ed81gVn/yfxT6H2u773w94ru8yVerNaf1VMTNbfYOA547Aql0gp68qoMak6QVbtaGsx5u0yNAvmx5wIb5LuKwDO5/S2+RDs7pg5W0VAhwvXxEMkBTwzueZZdS9WSYkh6dnx6k6wF2LLcuurZKAWky3Lw4plDMZB31jFd4y8TJ4ZkN1NRQnpuZbTpgDRbVu61IJLkh4CYM9XCZPi4RxQOS3D/rGpI8k7NufhTz7Xbg4kUk5k6a/H2i9Q8W4H8vPhq8ApFojK85BXo5LEH1bE3l6m3NXECR96mSWkOpI/phWHklIg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c1286f79-65be-a7fb-0661-2b682ab3d4a8@suse.com>
-Date: Fri, 29 Jul 2022 08:06:47 +0200
+Message-ID: <c55b9ad0-bfa8-f0b1-6c4e-a794afd75e7c@suse.com>
+Date: Fri, 29 Jul 2022 08:16:58 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH V7 10/11] xen/arm: translate virtual PCI bus topology for
- guests
+Subject: Re: [PATCH] xen/arm64: sysreg.h: Fix MISRA C 2012 Rule 20.7 violation
 Content-Language: en-US
-To: Oleksandr <olekstysh@gmail.com>
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+To: Xenia Ragiadakou <burzalodowa@gmail.com>
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20220719174253.541965-1-olekstysh@gmail.com>
- <20220719174253.541965-11-olekstysh@gmail.com>
- <6e1a842f-e577-0f01-5046-f96c3c75db5b@suse.com>
- <b0f69f8b-d163-f984-e5ec-88a0a158eafc@gmail.com>
- <8e839472-f49d-a464-34aa-c7b26b9c50de@gmail.com>
- <cfc6488d-c06e-e943-fc8c-7b12d330f263@suse.com>
- <3752a158-85a1-e758-36eb-2feb0c5be954@gmail.com>
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>
+References: <20220728134943.1185621-1-burzalodowa@gmail.com>
+ <0a8ff178-280d-717f-dacb-4eb9f57a24eb@xen.org>
+ <83c17bf6-b9b2-a297-6f7f-dd08231d0f90@suse.com>
+ <c71c9522-2df5-35a3-d39c-706d5c9d5263@xen.org>
+ <alpine.DEB.2.22.394.2207281551140.4648@ubuntu-linux-20-04-desktop>
+ <ec89b2e1-a18a-9ef7-1ca8-edd19e737d4f@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <3752a158-85a1-e758-36eb-2feb0c5be954@gmail.com>
+In-Reply-To: <ec89b2e1-a18a-9ef7-1ca8-edd19e737d4f@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0052.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::23) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0047.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e11e5bc3-8e7c-4eec-244e-08da7128863c
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8372:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0259b68c-a7d9-422b-e54d-08da7129f299
+X-MS-TrafficTypeDiagnostic: HE1PR0401MB2299:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	P0FRuVLu8PW2DGoYOATKknZNdUBEcOInwMetXxUGCgpwuFH739u8XcncyxAFHUBM93CpA7rW35XfAg4te9QvdzABPRSzEVmdZPbKUXAN1raMfpqLljC3VkjmTEVtMFgojbUDR8or4tn7W8iTiR3PKr4zkX5P4m9IvRntcBta+jBbDY+493ORWmjR5C42xJjQ72Tj8AGPQbrdb+4IiPBwPqCaZ+21jhpTUYvsIzil3rmimDW+GmJ/gtqgDUKWvDUOieYg+mmCu7nORzCaIvz7DLiVd9qajNGNieSHFnP3GefbG/5pQPT611CyukCxBTElRAQM6awX6auTsin0jiBpId9qWuCnWMo2aqiPCNqzselJTpht9pwZ3siP2RvSomxEOoqfxGQPCwa6YtNKdim+lST1DhwcQ6WNspMHwLpvUn9LUsSLcd2MPyWLgDeS/h4zYytpdcyMWR2s3N/jFbESQxyhTZvtjlql3fZFpuSmueAYiSw/RJSm6ciLTTTBRgzSpAd5l6kPnz5y2kiQ1YFsCpBAwnFqmmvffznVlVOTmtDOPqpH580of/v5bl+AsWPeYdvdUoOzoucnFnHRTOteIOq/3Ozrs+dw5IK/xMSjfqTF8j7BBZyhV+ZVjn+jg0h3YlP6RmHbYzAjuCw15/xNYlFUPsr2bt6IgOBlvoQPfbDxTdSuU0Fn8i4TnnTn8MWosn7bbE1N7/4h1DFpDSRy4Ope+mKUCbSfbfS9jbh6r9F+6ee36EjQbv/W4vE+BbGk3tSNb7XAG0SkbLOvoSPldnjpHwtXpjx1i2W1kvBu/xI9s1WyCMGw3Q7vW6eDykn6lQnBNcYPNUPVWYcRZPL3kQ==
+	Jo3H+YlGifwRVs6PiwHnKvseknKgfLiKer2URi67xzzs3k4NhQJZYj6gB/4PdKDeoEha9yveH80YOcSyK0B6w7ReoLGqNkD/4m7YEzYfLJJO3tPpLicg0qmmDR+9d25SYAdQjBr00Yu9c6l6Di9bJ5YzhC4akVo21hs1U9xeG+rR6+2lvyuVF5Nt9u0v369JyXfl+MZCYMi+UyDzQ5z4VvAAfoprKFYFzBC/ydnY9aHP3TAMdJ43lybNklyasHoiXM0ZE54xHsmb5zgBBMI+RgOgq7hq7mVvv9E3PxutE+LHhC7zmnXxunYeGzZY38M/cFuSSJ7ewo6oIcLmLcGSywXuYxJLQqcnA02ggRp5ZfgcTu+MkVfcBiAoxZFkOU6N8gdlpFdsaaZzSYdzp/pEU+Z5OlDA0x+PAWFJAVDpNWcqv7z8vgFL5FI+Umf+lawyNY2r+gZ7kticEC2nnKA22hR8FnfAH8/Wkiq5IkmEWGnWvvW1vBC0NAb+rNGanJL33EMt3bq0yHJcT44gCJAdBmu7+grXdoJ+csk3JIXe44emaD+967C1Mi9e4ePEX2cuhw/vj7zY7LZqeAigPpJtbGLwfFjLPfdrZG0KutABi7U6z0o5nr/BF+CjfoXcQNtOKlO2Mz81iYHzh6SaL4bNjP4OTVEUculFWo7U/vtGjNCK8C7FNJcXk2gt454D3iIRJ7Vfwvn8ZGDQJGmA5R/epCQyAokjlAurEORRbMSc6z8NLe5nx/JoqxDwmt6qsq1VUL+KD7r1wubADgSjTpnkIHJ5b/5MC2Avz19fgBJQ238HzyzkCBb2PJpwYT4HyD5+jl1t26kBktaGVFewIoXB4A==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(39860400002)(136003)(346002)(366004)(396003)(86362001)(31696002)(31686004)(478600001)(5660300002)(8936002)(316002)(186003)(4326008)(66556008)(2616005)(66476007)(6486002)(26005)(38100700002)(8676002)(6916009)(54906003)(83380400001)(2906002)(6506007)(66946007)(6512007)(53546011)(41300700001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(346002)(366004)(396003)(136003)(376002)(186003)(6512007)(41300700001)(2616005)(316002)(8676002)(66946007)(31686004)(478600001)(4326008)(26005)(6506007)(66556008)(66476007)(53546011)(36756003)(31696002)(8936002)(83380400001)(38100700002)(6916009)(86362001)(54906003)(2906002)(5660300002)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TERHbUFJS29qaVZIUE16cWpVYTdCU2ZYVUUxTkxtYVk4cEpsR1QycDl2R1M3?=
- =?utf-8?B?elF0SXhEOTRWbWxFSmF2R2cxa3l3OXBMMGRNazI5dVVjOEk3SUZnck5GZkdS?=
- =?utf-8?B?U0NBUnlnZzlZS1BmaXZhRU1mT3RYZHkxZjd5c2w2UWpHa2xEWEQyREYySHFn?=
- =?utf-8?B?dUMySmM4V3B3VW5zQjhTdXdJT0FkR0xlTC9hcTc5SzRTOWxXazNLMGdTTjhH?=
- =?utf-8?B?RCtOQmFFaHN4TlljTERNTjE5S05BU3hoaDVBY1lpTHh4MUhXTEV1Z2tDVG41?=
- =?utf-8?B?d2ZqTkU4TDNpSjBlUWdSZk4venEycWhqdWdqL2llL0d3d1hCRExWS2tuV0Q0?=
- =?utf-8?B?aFQwSFoyaHp4ZEhOKzNsY1Jnei80dHVVSEY0bUx6K2FqeEpyak5mN244NWRn?=
- =?utf-8?B?bzI4K1lBaEFiU3NSMnZac1BFUVB0TlFRVExHTWFPUHZKd3cyMEROMms4R3lU?=
- =?utf-8?B?bkF4amE5RmlwR21hZ05tMlFaUGJpNkdhaDJocXNYN3pFcmQwakNhM3lZdGow?=
- =?utf-8?B?bVQzWGZuME9WaUZqazB2K3Z2Ym1iYnNRMysvRkgyVkR1MUtNWFo1V3RzdGFL?=
- =?utf-8?B?b2JEQmptcE9mUS9pVkZLODhKajRCbXFHRjVxdEZVV0NlcXo3NGNsaE1xN2Ji?=
- =?utf-8?B?WEZRMStPZVRCc1lpQ3U0Q002M1FERSt6R1cxMEkycitFbHJEazJVUi9DUExI?=
- =?utf-8?B?eXFRVnlTSkRTaHpRZ3d5emhhVXQwQ3g3NmIxSTlvS3dOT05BeWlhdi9aOHdI?=
- =?utf-8?B?TnR5bDQ2WlRMeURLeUxlakZQRnNZS2tUdWpDaUUrT1JjT0trWWhsQk1RMTQ3?=
- =?utf-8?B?bmc1UDhXMVB0QWJZU1puZ0xsRGRJSVpPV0YzdXdLelFMSkV6RHErTVorczBy?=
- =?utf-8?B?VlFQUkdFaGJzWnR1b1ZhYU1TZGVyMVdpbjBDZTR2VXB2L0tMcGRORTA2NkN1?=
- =?utf-8?B?c09wVk1NNVlkU2hLcllFYlFZcWZwa1AzOTRBakRVSkpYeHBFQWd4WDQ3WTB1?=
- =?utf-8?B?SWhYSlBwZnp0SGVrY09LZUtqVm9CeFo4djl5REswcytmY3h1SlhXK01qQ3Fw?=
- =?utf-8?B?OXFOTk82MVdFdk0wcG82a1VCUGpaTlVDN3ROUEVtdWpzYS9oVGl3aG5UUzVy?=
- =?utf-8?B?WWhmQWpoL0NBaVdPdmVjdFVGb08zcFVPbWpCaVJCVXNFNE8zZ0s1TjNUcmZD?=
- =?utf-8?B?clB1SEtXd2pCNVRMYzJHblcycy9VZXBqMFdIcmpleThBTjZ6bmQ5bjlHVDAy?=
- =?utf-8?B?cWd5OGEyZGc4S2JENGtxQnlRb0UxOTZ3Z0JJclN4V3Q4ZTZ6R0NPNkxYdURW?=
- =?utf-8?B?VTZteWhqYU83bGU4T2pGWXQyWHRTWXBSODUrdUMrNU9FRW1NSW82dlpvampC?=
- =?utf-8?B?MGd4TkhIZXdwMm5zV3YwYWlCcGcvVllYRmNTS0MzNS9yZHVGT3N3cGUyNzQw?=
- =?utf-8?B?allGakVTbVhIcWpWRVd4Z0hZUjVsMXpXSnRCVFoxUHhqSjBiSjB0cUlPRGZ2?=
- =?utf-8?B?cTBqaThnTkd5b01tZ3VxNVMwZkhpeVhpck9UZGY2NlVZemhxSVdneUsrWWc2?=
- =?utf-8?B?NDVWSEl3THp6ZExPajVuOVJ4WTl5a01VWlcxOXE1STc0Q3R5QnkxWFI4ak1N?=
- =?utf-8?B?c0VRRTlXb1ErcXJYaWFnMnBqbzc4bENUVDdFSEQ2bU12ZHRCSW9VSFMwaXov?=
- =?utf-8?B?OTd3a0RhUjRUNjVCSHFBUC9ycVAvNmxlOE1qWmwxNTM3NHNWNHU5amRlUGVU?=
- =?utf-8?B?RWZyTmdtNlJxVHJCdEN2UHFOTGwwc0pMOEdYM0gvWXpZeDFDd01ROXkzNzFW?=
- =?utf-8?B?c01Kc1RlTFdIclhpb0lMTzR2Y0g5VUxhY3hkT3hmamhYV1lrQWRYci90VWcw?=
- =?utf-8?B?aThJKzB2eXlqenZScU5TK3Q3YStNdnBhSDUyakxqbk1LeG5pblNIb3F5TmtK?=
- =?utf-8?B?L3U1cVhwdE1hVlV3c1RDa1U1NFJoUEx1QnN5MzhNYmljTnl1eHlEYW43UDFs?=
- =?utf-8?B?akUvNEIwSlF3RXlYYk1GQTcwU3ViY2xyZkhjaTcxK3pQMGVYRFFZNVQxUURS?=
- =?utf-8?B?UHJ0SllvZDQySGFjR01wMUpwRTkrcVQydjBMMThCQjQyVWZEVzM5U3hOeHAx?=
- =?utf-8?Q?YbapSkfQz5perPdBKVuESCpl3?=
+	=?utf-8?B?WmlqeVY2ZlIrMEg0NDhVZDVWYjlBVnJOVFltbU5QNC91aEYzTitWODhFYzZX?=
+ =?utf-8?B?S2Vydm9VOFJ2UXFaSklEU2hVNkEwRFRYZVhRZXVsVVZTVHN6TURteGlnK2NY?=
+ =?utf-8?B?NjNmV0gyYnNVd25nTlhLUzFCR1Qwc3FrUlRxY0hMOS9JVjdweFZLNXdaUE9l?=
+ =?utf-8?B?ekZEaWc3LzBaTFBJbll4SlFyV3E0ZEgwaEhwUU1COTYwenNnTklReFBmV2hR?=
+ =?utf-8?B?ZFRXcFJDNmxLNllIMGNFZU1qQW9Xc2Jxc290dzdrd0MzdUllUlRBQnJtcHF5?=
+ =?utf-8?B?RjZkUDd6NnFGRG5OdUgzZ2Y0Q3FFM3Q1NzA2UlNYMXQ5eVRDcmM1b0dkT3Zu?=
+ =?utf-8?B?T2VuaXdEKzhNRlgzQ05lNjlPaHp4dkRhd21JK3ZkMEFvZ1Z6TkJlSjVnRnc0?=
+ =?utf-8?B?VGlvc3Rha3hvbkJaNmRYdlErZGpkVFNLMEZhVEVhcCtKdnMxWnJ6UWRySEZa?=
+ =?utf-8?B?SWZkajNPZDlTQTI1Z3VQVk1PZ2phOWNCaGlmVTFidUZRV0lWc1JmYzJCVEpO?=
+ =?utf-8?B?K1BOdkk0YTRJV0w2M2Vid2NlQk9nRms0ZFZHRSt0WVJneHA3QmdiMkg2TXRS?=
+ =?utf-8?B?MFhOcW84dFlMQlJ2dE00T3FPL0crdXJpR0FHcFRCbVpGSmRZZzlBd1VibVdE?=
+ =?utf-8?B?YXI0QTRrVTlZd2o4bTNUWjJNUStZc0JqV3l1b1VuZCtxUWtnWEtrb1FDenNF?=
+ =?utf-8?B?UzVuUmtjcjFxZjdLaFR4UXZTMDZvcjZrWTduSUxPZUp6Z2dqanhpaStvaHph?=
+ =?utf-8?B?aDJuaXY1d1NRTjJ3UEtnQWlvdm9FekhRTXkxYkJjeXMvVDA4WGVMMTJkVmU3?=
+ =?utf-8?B?S0RyN3FvSStPRHVxMDNtQWVkODFhRERMS2lUTTJ0cDl3WEdNcXVIWDllcFhS?=
+ =?utf-8?B?bk5RMTd5R3lCR0lJYUJKV0pvQ201QXlHTXJzaWZJQnl2a2xrK0h6cllPTi8z?=
+ =?utf-8?B?YW9lb3VqMlhxSVlpZUphQ3M3eUNPR282bEszdWhvdXU1YWVPYjZjS2tySTM2?=
+ =?utf-8?B?Mm9GWGR2TzAwSmhyWk5BYWlmRkppSlYxMzhzVTV6aThIb2hzVWFnNExhYTI3?=
+ =?utf-8?B?UnJONDV3RDNzZlo0R3kwUGJtWjVXbjdlRzQzTEVOTlE1OXVORlhiazFYT3Ew?=
+ =?utf-8?B?bEJvd09WcE5PeFhmOUtSZDFwVDlWY1MySzdGcWs1UGd5Z3NnT2ZOaGJjZXo3?=
+ =?utf-8?B?L1piME1HMHJXNHlRM3l3cUpuMFhucUpTTFJ0RmhWY2pkZ3ZIVWxaeEkzSmlD?=
+ =?utf-8?B?WUx0ZzlWR0pHLzhGZVJxdElvZzEzTU1WbURGaWdUL2lvNG1hY0txdnZNc2ty?=
+ =?utf-8?B?THNPUzNHUTk0NThrYlNaN2JPRndiREhWTGZ4V2pHMTFscVljdExBNEtzN1pi?=
+ =?utf-8?B?OXl6WDMrSGlMUzhzZ1RqYW9QcGtyTjBZdWN2NnJWeUd1ZnRONDJCYWJhT3JZ?=
+ =?utf-8?B?TGF4aEp0OHpVWkFVYlBqZDZDS3BsYXVEOGI4WnhhcnMybzM0cjJoSVZxQXM3?=
+ =?utf-8?B?Q3NncjdLTW9SOGgzS29EQnFtdFlqOStML1JGTHpEd3FNLyt1UVFCREl6RzEx?=
+ =?utf-8?B?am9wT09sTkpMc0pEdEtkNEtDU2pjOEFxYXg0T0prOFM3ZzF1TlBET05FdXov?=
+ =?utf-8?B?L0svYlFqNTVEUzFtTTlwZVJjZTUwcGlUSnEycHFEREhyRHRKMlhwSUhsZ01X?=
+ =?utf-8?B?RXZRRFA1MGxsNkNONTVhK09TY2JOY2ZGMGJSQjRTeG1hek9XRkdFZ1ptZHJZ?=
+ =?utf-8?B?TUdhQXVXSFVzQXEzaC9WUEo3YVVSaEhvSmp3b3k4cmpNMkd0bWtWRlNlSFJG?=
+ =?utf-8?B?NEZiNjZzUU5xVitQcGZSMzkrdjBuSWh2emZiL0U4UHp1MDg0Z1BuNkZtcEY4?=
+ =?utf-8?B?dkhFTjNCK1c3a1dxMFY3bjVSQWJjbkllMFFEK0hrK3VScjF4ZDV5MnpZLzVW?=
+ =?utf-8?B?SGt1bjVvMEIyc1BvdXlZWVJwTENFZStwUEhkRXBaTHduNngwaFdhYTlBNmdq?=
+ =?utf-8?B?bnI2N0VqK0xBT1VCNEY2QlMrb2lIUXppcFhaV2UySkY5QkM4Z1MwOG9XYnMz?=
+ =?utf-8?B?V2czc1l1SVVUMHRhc0dnRW1NbTIyTXIrbVVZZmVvNDZKZjFtVTU2NjBacTgz?=
+ =?utf-8?Q?xhDjL8RM7gNhF1pj10gbRxSk9?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e11e5bc3-8e7c-4eec-244e-08da7128863c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0259b68c-a7d9-422b-e54d-08da7129f299
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2022 06:06:49.2315
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2022 06:17:00.5210
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q/9h69EU07Ls0w69Wp6Lq+b25Lbz4VHqqQqdhwdXJJBOso7jDBLgo6YPGLmZarknIpSM9AgnPRsx4lzA4muB5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8372
+X-MS-Exchange-CrossTenant-UserPrincipalName: tuSoWeyhTw44u5TcRwWHUEXKiRtJgV67hJv1FG3+nNaVzz/xaL0j87RjUiuGFXnwL2lY/xDhpymxmWPEU/oEuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0401MB2299
 
-On 28.07.2022 18:35, Oleksandr wrote:
-> On 28.07.22 10:15, Jan Beulich wrote:
->> On 27.07.2022 21:39, Oleksandr wrote:
->>> On 27.07.22 20:54, Oleksandr wrote:
->>>> On 26.07.22 18:16, Jan Beulich wrote:
->>>>> On 19.07.2022 19:42, Oleksandr Tyshchenko wrote:
->>>>>> --- a/xen/arch/arm/vpci.c
->>>>>> +++ b/xen/arch/arm/vpci.c
->>>>>> @@ -41,6 +41,16 @@ static int vpci_mmio_read(struct vcpu *v,
->>>>>> mmio_info_t *info,
->>>>>>        /* data is needed to prevent a pointer cast on 32bit */
->>>>>>        unsigned long data;
->>>>>>    +    /*
->>>>>> +     * For the passed through devices we need to map their virtual
->>>>>> SBDF
->>>>>> +     * to the physical PCI device being passed through.
->>>>>> +     */
->>>>>> +    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
->>>>>> +    {
->>>>>> +        *r = ~0ul;
->>>>>> +        return 1;
->>>>>> +    }
->>>>> I'm probably simply lacking specific Arm-side knowledge, but it strikes
->>>>> me as odd that the need for translation would be dependent upon
->>>>> "bridge".
+On 29.07.2022 07:23, Xenia Ragiadakou wrote:
+> Hi Stefano,
+> 
+> On 7/29/22 01:56, Stefano Stabellini wrote:
+>> On Thu, 28 Jul 2022, Julien Grall wrote:
+>>> On 28/07/2022 15:20, Jan Beulich wrote:
+>>>> On 28.07.2022 15:56, Julien Grall wrote:
+>>>>> On 28/07/2022 14:49, Xenia Ragiadakou wrote:
+>>>>>> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
+>>>>>> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+>>>>>> @@ -461,7 +461,7 @@
+>>>>>>     /* Access to system registers */
+>>>>>>        #define WRITE_SYSREG64(v, name) do {                    \
+>>>>>> -    uint64_t _r = v;                                    \
+>>>>>> +    uint64_t _r = (v);                                              \
+>>>>>
+>>>>> I am failing to see why the parentheses are necessary here. Could you
+>>>>> give an example where the lack of them would end up to different code?
 >>>>
->>>> I am afraid I cannot answer immediately.
->>>>
->>>> I will analyze that question and provide an answer later on.
+>>>> I think it is merely good practice to parenthesize the right sides of =.
+>>>> Indeed with assignment operators having second to lowest precedence, and
+>>>> with comma (the lowest precedence one) requiring parenthesization at the
+>>>> macro invocation site, there should be no real need for parentheses here.
 >>>
->>> Well, most likely that "valid" bridge pointer here is just used as an
->>> indicator of hwdom currently, so no need to perform virt->phys
->>> translation for sbdf.
->>>
->>> You can see that domain_vpci_init() passes a valid value for hwdom and
->>> NULL for other domains when setting up vpci_mmio* callbacks.
->> Oh, I see.
+>>> I am not really happy with adding those parentheses because they are
+>>> pointless. But if there are a consensus to use it, then the commit message
+>>> should be updated to clarify this is just here to please MISRA (to me "need"
+>>> implies it would be bug).
 >>
->>> Alternatively, I guess we could use "!is_hardware_domain(v->domain)"
->>> instead of "!bridge" in the first part of that check. Shall I?
->> Maybe simply add a comment? Surely checking "bridge" is cheaper than
->> using is_hardware_domain(), so I can see the benefit. But the larger
->> arm/vpci.c grows, the less obvious the connection will be without a
->> comment.
+>> Let me premise that I don't know if this counts as a MISRA violation or
+>> not. (Also I haven't checked if cppcheck/eclair report it as violation.)
+>>
+>> But I think the reason for making the change would be to follow our
+>> coding style / coding practices. It makes the code simpler to figure out
+>> that it is correct, to review and maintain if we always add the
+>> parenthesis even in cases like this one where they are not strictly
+>> necessary. We are going to save our future selves some mental cycles.
+>>
+>> So the explanation on the commit message could be along those lines.
 > 
+> First, the rule 20.7 states "Expressions resulting from the expansion of 
+> macro parameters shall
+>   be enclosed in parentheses". So, here it is a clear violation of the 
+> rule because the right side of the assignment operator is an expression.
 > 
-> Agree the connection is worth a comment ...
+> Second, as I stated in a previous email, if v is not enclosed in 
+> parentheses, I could write the story of my life in there and compile it 
+> :) So, it would be a bug.
 > 
+> So, I recommend the title and the explanation i.e
+> "xen/arm64: sysreg.h: Fix MISRA C 2012 Rule 20.7 violation
 > 
-> 
->>   (Instead of a comment, an alternative may be a suitable
->> assertion, which then documents the connection at the same time, e.g.
->> ASSERT(!bridge == !is_hardware_domain(v->domain)). But that won't be
->> possible in e.g. vpci_sbdf_from_gpa(), where apparently a similar
->> assumption is being made.)
-> 
-> 
->     ... or indeed to put such ASSERT _before_ vpci_sbdf_from_gpa().
-> 
-> This will cover assumption being made in both places.
-> 
-> 
-> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-> index a9fc5817f9..1d4b1ef39e 100644
-> --- a/xen/arch/arm/vpci.c
-> +++ b/xen/arch/arm/vpci.c
-> @@ -37,10 +37,24 @@ static int vpci_mmio_read(struct vcpu *v, 
-> mmio_info_t *info,
->                             register_t *r, void *p)
->   {
->       struct pci_host_bridge *bridge = p;
-> -    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
-> +    pci_sbdf_t sbdf;
->       /* data is needed to prevent a pointer cast on 32bit */
->       unsigned long data;
-> 
-> +    ASSERT(!bridge == !is_hardware_domain(v->domain));
-> +
-> +    sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
-> +
-> +    /*
-> +     * For the passed through devices we need to map their virtual SBDF
-> +     * to the physical PCI device being passed through.
-> +     */
-> +    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
-> +    {
-> +        *r = ~0ul;
-> +        return 1;
-> +    }
-> +
->       if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
->                           1U << info->dabt.size, &data) )
->       {
-> @@ -57,7 +71,18 @@ static int vpci_mmio_write(struct vcpu *v, 
-> mmio_info_t *info,
->                              register_t r, void *p)
->   {
->       struct pci_host_bridge *bridge = p;
-> -    pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
-> +    pci_sbdf_t sbdf;
-> +
-> +    ASSERT(!bridge == !is_hardware_domain(v->domain));
-> +
-> +    sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
-> +
-> +    /*
-> +     * For the passed through devices we need to map their virtual SBDF
-> +     * to the physical PCI device being passed through.
-> +     */
-> +    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
-> +        return 1;
-> 
->       return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
->                              1U << info->dabt.size, r);
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index d4601ecf9b..fc2c51dc3e 100644
-> 
-> 
-> Any preference here?
-> 
-> 
-> Personally, I think that such ASSERT will better explain the connection 
-> than the comment will do.
+> The macro parameter 'v' is used as an expression and needs to be enclosed in
+>   parentheses."
+> to remain as is because they are accurate.
 
-Indeed I'd also prefer ASSERT()s being put there. But my opinion is
-secondary here, as I'm not a maintainer of this code.
+I'm afraid you're following the MISRA wording too much to the latter.
+Earlier on you agreed that when macro parameters are used as function
+arguments, the parentheses can be omitted. Yet by what you say above
+those are also expressions. As indicated before - I think parentheses
+are wanted here, but it's strictly "wanted", and hence the title
+better wouldn't say "fix" (but e.g. "improve") and the description
+also should be "softened".
 
 Jan
 
