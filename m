@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 829A75857B2
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Jul 2022 03:07:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.377951.611281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0379E5857C5
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Jul 2022 03:31:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.377958.611292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHawn-0001Js-TO; Sat, 30 Jul 2022 01:07:17 +0000
+	id 1oHbJI-00057a-Pb; Sat, 30 Jul 2022 01:30:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 377951.611281; Sat, 30 Jul 2022 01:07:17 +0000
+Received: by outflank-mailman (output) from mailman id 377958.611292; Sat, 30 Jul 2022 01:30:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oHawn-0001HS-PM; Sat, 30 Jul 2022 01:07:17 +0000
-Received: by outflank-mailman (input) for mailman id 377951;
- Sat, 30 Jul 2022 01:07:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oHawm-0001HI-5H; Sat, 30 Jul 2022 01:07:16 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oHawm-0006Qo-1g; Sat, 30 Jul 2022 01:07:16 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oHawl-0004AN-QW; Sat, 30 Jul 2022 01:07:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oHawl-0003Ay-Py; Sat, 30 Jul 2022 01:07:15 +0000
+	id 1oHbJI-00054q-MT; Sat, 30 Jul 2022 01:30:32 +0000
+Received: by outflank-mailman (input) for mailman id 377958;
+ Sat, 30 Jul 2022 01:30:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=klDL=YD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oHbJG-00054k-VZ
+ for xen-devel@lists.xenproject.org; Sat, 30 Jul 2022 01:30:30 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 316cf2dc-0fa7-11ed-bd2d-47488cf2e6aa;
+ Sat, 30 Jul 2022 03:30:29 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9B73161CEE;
+ Sat, 30 Jul 2022 01:30:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AE1DC433D6;
+ Sat, 30 Jul 2022 01:30:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,364 +43,331 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=UhteFSL3AFqU3ztmdBM9vKnZ1NkjBB8f6JvysQxoAGM=; b=ogJWDuqRIb8eVkFOOJEjlBI223
-	92WIKQZT/dfrHcj3wr4TTHvA5HRznKY1Cpvxm9K8Ebi+lI6NvtvsVOroatXBSrCIt9DUke0iA3GQt
-	bgUELhkAud+OlKqJRYkuJ+BVa/akcqZ1H7bNFRoJDT39anr54BVfmTBnGDKmHlKmW9Bc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-171932-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 316cf2dc-0fa7-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1659144627;
+	bh=x98hx+nXW+NyRpONjLXqJeGNcgcO9WnjuDaMpyLpXNw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=P4uorzhWraIM8zhI4r3lshu2ZdX6QcqZ8G0RzIJp4p1lp8sLik8hsTnOuv2dVci71
+	 3o28Tqid8rhv+o4EWbtNPQFVgQY2mfbzbeDR6OQeza2LKx4a7WgPmqTjH8Qwk4hi1a
+	 Q8SdOfHc5WdlnWw7p9A7nauvogrTGImAx0anzeQVgp3Li7IHdHW4mKKSXcjZnUIab5
+	 rhv4h0W0A673rpCtkZ1n5rKL3NDMDPL+dHnbb9nt3czaNU0Nd3ZFyb8O7mKvSCjqJ1
+	 BkKkTnIcJeTEELoHvH4yu0qVgIPiHLX02F0KWzOaa15RKgbXQ59H1yKJ72TvFsvfA8
+	 FZ2uSj/9f4uaA==
+Date: Fri, 29 Jul 2022 18:30:25 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
+cc: xen-devel@lists.xenproject.org, viryaos-discuss@lists.sourceforge.net, 
+    sstabellini@kernel.org, Andrei Cherechesu <andrei.cherechesu@nxp.com>, 
+    ayan.kumar.halder@amd.com
+Subject: Re: [ImageBuilder][PATCH v3 1/3] uboot-script-gen: Dynamically
+ compute addr and size when loading binaries
+In-Reply-To: <20220713163044.3541661-2-andrei.cherechesu@oss.nxp.com>
+Message-ID: <alpine.DEB.2.22.394.2207291825460.4648@ubuntu-linux-20-04-desktop>
+References: <20220713163044.3541661-1-andrei.cherechesu@oss.nxp.com> <20220713163044.3541661-2-andrei.cherechesu@oss.nxp.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 171932: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=062790aca6b1faea62c9ed2737c3791efb0d0f4c
-X-Osstest-Versions-That:
-    xen=f732240fd3bac25116151db5ddeb7203b62e85ce
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 30 Jul 2022 01:07:15 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 171932 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171932/
+On Wed, 13 Jul 2022, Andrei Cherechesu (OSS) wrote:
+> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+> 
+> Normally, the script would precompute the sizes of the loaded binaries
+> and addresses where they are loaded before generating the script,
+> and the sizes and addresses that needed to be provided to Xen via
+> /chosen would be hardcoded in the boot script.
+> 
+> Added option via "-s" parameter to use the ${filesize} variable
+> in u-boot, which is set automatically after a *load command.
+> The value stored by filesize is now stored in a u-boot env variable
+> with the name corresponding to the binary that was loaded before.
+> The newly set variables are now used in setting the /chosen node,
+> instead of the hardcoded values.
+> 
+> Also, the loading addresses for the files are dynamically computed
+> and aligned to 0x200000 using the `setexpr` u-boot command. Basically,
+> if the option is used, there are zero hardcoded addresses inside the
+> boot script, and everything is determined based on the MEMORY_START
+> parameter and each binary's size.
+> 
+> If the "-s" parameter is not used, the script does not store the
+> binaries' sizes and addresses in variables and uses the precomputed
+> ones when advertising them in the /chosen node.
+> 
+> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 
-Regressions :-(
+This patch is difficult :-)
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 171884
+I like the idea but it makes the code significantly more complex due to
+the additional $dynamic_loading_opt case handled everywhere. Initially I
+thought about only retain the code path using u-boot variables, at least
+after loading the files. However, I realize that it would break the
+FDTEDIT case, which I think it would be good to keep working. Also it is
+nice to be able to edit the device tree at build time putting in the
+right values.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+So I tried to eliminated most of the new "if" statements in another way.
+The best I could come up with is the below, using eval and additional
+bash variables to look up the address and size based on the variable
+name (e.g. dom0_kernel). If we want the address, we use the value of
+$dom0_kernel_addr, if we want the u-boot variable we use ${dom0_kernel}.
 
-version targeted for testing:
- xen                  062790aca6b1faea62c9ed2737c3791efb0d0f4c
-baseline version:
- xen                  f732240fd3bac25116151db5ddeb7203b62e85ce
-
-Last test of basis   171884  2022-07-27 12:03:31 Z    2 days
-Failing since        171899  2022-07-28 19:01:47 Z    1 days    8 attempts
-Testing same since   171917  2022-07-29 10:03:07 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Daniel P. Smith <dpsmith@apertussolutions.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jiamei Xie <jiamei.xie@arm.com>
-  Julien Grall <julien.grall@arm.com>
-  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-  Xenia Ragiadakou <burzalodowa@gmail.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     blocked 
+This is untested, just to show the idea. What do you think? Is it
+better? Do you prefer the original patch? Other ideas or opinions? 
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 062790aca6b1faea62c9ed2737c3791efb0d0f4c
-Author: Xenia Ragiadakou <burzalodowa@gmail.com>
-Date:   Fri Jul 29 08:51:31 2022 +0200
-
-    arm/atomic: fix MISRA C 2012 Rule 20.7 violation
-    
-    The macro parameter 'p' is used as an expression and needs to be enclosed in
-    parentheses.
-    
-    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 124f138b37d595294b3100349e26ffb3f1df7b13
-Author: Xenia Ragiadakou <burzalodowa@gmail.com>
-Date:   Fri Jul 29 08:50:58 2022 +0200
-
-    xsm/dummy: fix MISRA C 2012 Directive 4.10 violation
-    
-    Protect header file from being included more than once by adding ifndef guard.
-    
-    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-    Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-
-commit 9ff3231f955cee4d62c7be6a03d061c037d7ca69
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Jul 29 08:50:25 2022 +0200
-
-    x86/shadow: drop CONFIG_HVM conditionals from sh_update_cr3()
-    
-    Now that we're not building multi.c anymore for 2 and 3 guest levels
-    when !HVM, there's no point in having these conditionals anymore. (As
-    somewhat a special case, the last of the removed conditionals really
-    builds on shadow_mode_external() always returning false when !HVM.) This
-    way the code becomes a tiny bit more readable.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 5b04fe78646a8222626996113c9d1e598cb84831
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Jul 29 08:49:48 2022 +0200
-
-    x86/shadow: don't open-code shadow_remove_all_shadows()
-    
-    Let's use the existing inline wrapper instead of repeating respective
-    commentary at every site.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 8a3b89e4307da260675483bb86fc06cc62ed7c08
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Jul 29 08:49:06 2022 +0200
-
-    x86/shadow: exclude HVM-only code from sh_remove_shadows() when !HVM
-    
-    In my (debug) build this amounts to well over 500 bytes of dead code.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 3629759626ac7201a670a8a2d4d4a536e7443575
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Jul 29 08:48:26 2022 +0200
-
-    x86/shadow: properly handle get_page() failing
-    
-    We should not blindly (in a release build) insert the new entry in the
-    hash if a reference to the guest page cannot be obtained, or else an
-    excess reference would be put when removing the hash entry again. Crash
-    the domain in that case instead. The sole caller doesn't further care
-    about the state of the guest page: All it does is return the
-    corresponding shadow page (which was obtained successfully before) to
-    its caller.
-    
-    To compensate we further need to adjust hash removal: Since the shadow
-    page already has had its backlink set, domain cleanup code would try to
-    destroy the shadow, and hence still cause a put_page() without
-    corresponding get_page(). Leverage that the failed get_page() leads to
-    no hash insertion, making shadow_hash_delete() no longer assume it will
-    find the requested entry. Instead return back whether the entry was
-    found. This way delete_shadow_status() can avoid calling put_page() in
-    the problem scenario.
-    
-    For the other caller of shadow_hash_delete() simply reinstate the
-    otherwise dropped assertion at the call site.
-    
-    While touching the conditionals in {set,delete}_shadow_status() anyway,
-    also switch around their two pre-existing parts, to have the cheap one
-    first (frequently allowing to avoid evaluation of the expensive - due to
-    evaluate_nospec() - one altogether).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 108e6f282d2c2b8442ac9e1487e6fd7865cd6ede
-Author: Xenia Ragiadakou <burzalodowa@gmail.com>
-Date:   Thu Jul 28 10:58:56 2022 +0300
-
-    automation: arm64: Create a test job for testing static allocation on qemu
-    
-    Enable CONFIG_STATIC_MEMORY in the existing arm64 build.
-    
-    Create a new test job, called qemu-smoke-arm64-gcc-staticmem.
-    
-    Adjust qemu-smoke-arm64.sh script to accomodate the static memory test as a
-    new test variant. The test variant is determined based on the first argument
-    passed to the script. For testing static memory, the argument is 'static-mem'.
-    
-    The test configures DOM1 with a static memory region and adds a check in the
-    init script.
-    The check consists in comparing the contents of the /proc/device-tree
-    memory entry with the static memory range with which DOM1 was configured.
-    If the memory layout is correct, a message gets printed by DOM1.
-    
-    At the end of the qemu run, the script searches for the specific message
-    in the logs and fails if not found.
-    
-    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-    Reviewed-by: Penny Zheng <penny.zheng@arm.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 37339ba9ef46cf55e077ca50235279f058b01779
-Author: Xenia Ragiadakou <burzalodowa@gmail.com>
-Date:   Thu Jul 28 10:58:55 2022 +0300
-
-    automation: Remove XEN_CONFIG_EXPERT leftovers
-    
-    The EXPERT config option cannot anymore be selected via the environmental
-    variable XEN_CONFIG_EXPERT. Remove stale references to XEN_CONFIG_EXPERT
-    from the automation code.
-    
-    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit ca45d3cb4586372909f350e54482246f994e1bc7
-Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date:   Fri Jul 15 22:20:26 2022 +0300
-
-    libxl/arm: Create specific IOMMU node to be referred by virtio-mmio device
-    
-    Reuse generic IOMMU device tree bindings to communicate Xen specific
-    information for the virtio devices for which the restricted memory
-    access using Xen grant mappings need to be enabled.
-    
-    Insert "iommus" property pointed to the IOMMU node with "xen,grant-dma"
-    compatible to all virtio devices which backends are going to run in
-    non-hardware domains (which are non-trusted by default).
-    
-    Based on device-tree binding from Linux:
-    Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
-    
-    The example of generated nodes:
-    
-    xen_iommu {
-        compatible = "xen,grant-dma";
-        #iommu-cells = <0x01>;
-        phandle = <0xfde9>;
-    };
-    
-    virtio@2000000 {
-        compatible = "virtio,mmio";
-        reg = <0x00 0x2000000 0x00 0x200>;
-        interrupts = <0x00 0x01 0xf01>;
-        interrupt-parent = <0xfde8>;
-        dma-coherent;
-        iommus = <0xfde9 0x01>;
-    };
-    
-    virtio@2000200 {
-        compatible = "virtio,mmio";
-        reg = <0x00 0x2000200 0x00 0x200>;
-        interrupts = <0x00 0x02 0xf01>;
-        interrupt-parent = <0xfde8>;
-        dma-coherent;
-        iommus = <0xfde9 0x01>;
-    };
-    
-    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-commit 2128143c114c52c7536e37c32935fdd77f23edc1
-Author: Julien Grall <julien.grall@arm.com>
-Date:   Fri Jul 15 22:20:25 2022 +0300
-
-    libxl: Introduce basic virtio-mmio support on Arm
-    
-    This patch introduces helpers to allocate Virtio MMIO params
-    (IRQ and memory region) and create specific device node in
-    the Guest device-tree with allocated params. In order to deal
-    with multiple Virtio devices, reserve corresponding ranges.
-    For now, we reserve 1MB for memory regions and 10 SPIs.
-    
-    As these helpers should be used for every Virtio device attached
-    to the Guest, call them for Virtio disk(s).
-    
-    Please note, with statically allocated Virtio IRQs there is
-    a risk of a clash with a physical IRQs of passthrough devices.
-    For the first version, it's fine, but we should consider allocating
-    the Virtio IRQs automatically. Thankfully, we know in advance which
-    IRQs will be used for passthrough to be able to choose non-clashed
-    ones.
-    
-    Signed-off-by: Julien Grall <julien.grall@arm.com>
-    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
-Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date:   Fri Jul 15 22:20:24 2022 +0300
-
-    libxl: Add support for Virtio disk configuration
-    
-    This patch adds basic support for configuring and assisting virtio-mmio
-    based virtio-disk backend (emulator) which is intended to run out of
-    Qemu and could be run in any domain.
-    Although the Virtio block device is quite different from traditional
-    Xen PV block device (vbd) from the toolstack's point of view:
-     - as the frontend is virtio-blk which is not a Xenbus driver, nothing
-       written to Xenstore are fetched by the frontend currently ("vdev"
-       is not passed to the frontend). But this might need to be revised
-       in future, so frontend data might be written to Xenstore in order to
-       support hotplugging virtio devices or passing the backend domain id
-       on arch where the device-tree is not available.
-     - the ring-ref/event-channel are not used for the backend<->frontend
-       communication, the proposed IPC for Virtio is IOREQ/DM
-    it is still a "block device" and ought to be integrated in existing
-    "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
-    logic to deal with Virtio devices as well.
-    
-    For the immediate purpose and an ability to extend that support for
-    other use-cases in future (Qemu, virtio-pci, etc) perform the following
-    actions:
-    - Add new disk backend type (LIBXL_DISK_BACKEND_STANDALONE) and reflect
-      that in the configuration
-    - Introduce new disk "specification" and "transport" fields to struct
-      libxl_device_disk. Both are written to the Xenstore. The transport
-      field is only used for the specification "virtio" and it assumes
-      only "mmio" value for now.
-    - Introduce new "specification" option with "xen" communication
-      protocol being default value.
-    - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
-      one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
-    
-    An example of domain configuration for Virtio disk:
-    disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=standalone, specification=virtio']
-    
-    Nothing has changed for default Xen disk configuration.
-    
-    Please note, this patch is not enough for virtio-disk to work
-    on Xen (Arm), as for every Virtio device (including disk) we need
-    to allocate Virtio MMIO params (IRQ and memory region) and pass
-    them to the backend, also update Guest device-tree. The subsequent
-    patch will add these missing bits. For the current patch,
-    the default "irq" and "base" are just written to the Xenstore.
-    This is not an ideal splitting, but this way we avoid breaking
-    the bisectability.
-    
-    Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Acked-by: George Dunlap <george.dunlap@citrix.com>
-    Tested-by: Jiamei Xie <jiamei.xie@arm.com>
-(qemu changes not included)
+diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+index 18c0ce1..cee22f6 100755
+--- a/scripts/uboot-script-gen
++++ b/scripts/uboot-script-gen
+@@ -4,6 +4,9 @@ offset=$((2*1024*1024))
+ filesize=0
+ prog_req=(mkimage file fdtput mktemp awk)
+ 
++padding_mask=`printf "0x%X\n" $(($offset - 1))`
++padding_mask_inv=`printf "0x%X\n" $((~$padding_mask))`
++
+ function cleanup_and_return_err()
+ {
+     rm -f $UBOOT_SOURCE $UBOOT_SCRIPT
+@@ -28,6 +31,7 @@ function dt_mknode()
+ #   str
+ #   str_a
+ #   bool
++#   var
+ function dt_set()
+ {
+     local path=$1
+@@ -35,11 +39,21 @@ function dt_set()
+     local data_type=$3
+     local data=$4
+ 
++    if test $data_type = "var"
++    then
++        eval data_addr_var="$data"_addr
++        eval data_addr=\$"$data_addr_var"
++        eval data_size_var="$data"_size
++        eval data_size=\$"$data_size_var"
++    fi
+ 
+     if test "$UBOOT_SOURCE" && test ! "$FIT"
+     then
+         var=${var/\#/\\#}
+-        if test $data_type = "hex" || test $data_type = "int"
++        if test $data_type = "var"
++        then
++            echo "fdt set $path $var <0x0 0x\${"$data_addr_var"} 0x0 0x\${"$data_size_var"}>" >> $UBOOT_SOURCE
++        elif test $data_type = "hex" || test $data_type = "int"
+         then
+             echo "fdt set $path $var <$data>" >> $UBOOT_SOURCE
+         elif test $data_type = "str_a"
+@@ -63,7 +77,10 @@ function dt_set()
+ 
+     if test $FDTEDIT
+     then
+-        if test $data_type = "hex"
++        if test $data_type = "var"
++        then
++            fdtput $FDTEDIT -p -t x $path $var 0x0 "$data_addr" 0x0 "$data_size"
++        elif test $data_type = "hex"
+         then
+             fdtput $FDTEDIT -p -t x $path $var $data
+         elif test $data_type = "int"
+@@ -87,38 +104,35 @@ function dt_set()
+ function add_device_tree_kernel()
+ {
+     local path=$1
+-    local addr=$2
+-    local size=$3
+-    local bootargs=$4
++    local varname=$2
++    local bootargs=$3
+ 
+-    dt_mknode "$path" "module$addr"
+-    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,kernel multiboot,module"
+-    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
+-    dt_set "$path/module$addr" "bootargs" "str" "$bootargs"
++    dt_mknode "$path" "module-$varname"
++    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,kernel multiboot,module"
++    dt_set "$path/module-$varname" "reg" "var"  "$varname"
++    dt_set "$path/module-$varname" "bootargs" "str" "$bootargs"
+ }
+ 
+ 
+ function add_device_tree_ramdisk()
+ {
+     local path=$1
+-    local addr=$2
+-    local size=$3
++    local varname=$2
+ 
+-    dt_mknode "$path"  "module$addr"
+-    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
+-    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
++    dt_mknode "$path" "module-$varname"
++    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
++    dt_set "$path/module-$varname" "reg" "var"  "$varname"
+ }
+ 
+ 
+ function add_device_tree_passthrough()
+ {
+     local path=$1
+-    local addr=$2
+-    local size=$3
++    local varname=$2
+ 
+-    dt_mknode "$path"  "module$addr"
+-    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,device-tree multiboot,module"
+-    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
++    dt_mknode "$path" "module-$varname"
++    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,device-tree multiboot,module"
++    dt_set "$path/module-$varname" "reg" "var"  "$varname"
+ }
+ 
+ function add_device_tree_mem()
+@@ -186,7 +200,7 @@ function xen_device_tree_editing()
+     then
+         dt_mknode "/chosen" "dom0"
+         dt_set "/chosen/dom0" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
+-        dt_set "/chosen/dom0" "reg" "hex" "0x0 $dom0_kernel_addr 0x0 $(printf "0x%x" $dom0_kernel_size)"
++        dt_set "/chosen/dom0" "reg" "var" "dom0_linux"
+         dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
+     fi
+ 
+@@ -194,7 +208,7 @@ function xen_device_tree_editing()
+     then
+         dt_mknode "/chosen" "dom0-ramdisk"
+         dt_set "/chosen/dom0-ramdisk" "compatible" "str_a" "xen,linux-initrd xen,multiboot-module multiboot,module"
+-        dt_set "/chosen/dom0-ramdisk" "reg" "hex" "0x0 $ramdisk_addr 0x0 $(printf "0x%x" $ramdisk_size)"
++        dt_set "/chosen/dom0-ramdisk" "reg" "var" "dom0_ramdisk"
+     fi
+ 
+     i=0
+@@ -241,14 +255,14 @@ function xen_device_tree_editing()
+             dt_set "/chosen/domU$i" "colors" "hex" "$(printf "0x%x" $bitcolors)"
+         fi
+ 
+-        add_device_tree_kernel "/chosen/domU$i" ${domU_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
++        add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel" "${DOMU_CMD[$i]}"
+         if test "${domU_ramdisk_addr[$i]}"
+         then
+-            add_device_tree_ramdisk "/chosen/domU$i" ${domU_ramdisk_addr[$i]} ${domU_ramdisk_size[$i]}
++            add_device_tree_ramdisk "/chosen/domU$i" "domU${i}_ramdisk"
+         fi
+         if test "${domU_passthrough_dtb_addr[$i]}"
+         then
+-            add_device_tree_passthrough "/chosen/domU$i" ${domU_passthrough_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
++            add_device_tree_passthrough "/chosen/domU$i" "domU${i}_fdt"
+         fi
+         i=$(( $i + 1 ))
+     done
+@@ -271,7 +285,7 @@ function device_tree_editing()
+ 
+     if test $UBOOT_SOURCE
+     then
+-        echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
++        echo "fdt addr \${host_fdt_addr}" >> $UBOOT_SOURCE
+         echo "fdt resize 1024" >> $UBOOT_SOURCE
+ 
+         if test $NUM_DT_OVERLAY && test $NUM_DT_OVERLAY -gt 0
+@@ -296,11 +310,25 @@ function device_tree_editing()
+ function add_size()
+ {
+     local filename=$1
++    local fit_scr_name=$2
++    local binary_name_addr="${fit_scr_name}_addr"
++    local binary_name_size="${fit_scr_name}_size"
++    eval "$fit_scr_name"_addr=$memaddr
++
++    echo "setenv $binary_name_addr \${memaddr}" >> $UBOOT_SOURCE
++    echo "setenv $binary_name_size \${filesize}" >> $UBOOT_SOURCE
++    # Compute load addr for next binary dynamically
++    echo "setexpr memaddr \${memaddr} \+ \${filesize}" >> $UBOOT_SOURCE
++    echo "setexpr memaddr \${memaddr} \+ $padding_mask" >> $UBOOT_SOURCE
++    echo "setexpr memaddr \${memaddr} \& $padding_mask_inv" >> $UBOOT_SOURCE
++
+     local size=`stat -L --printf="%s" $filename`
+     memaddr=$(( $memaddr + $size + $offset - 1))
+     memaddr=$(( $memaddr & ~($offset - 1) ))
+     memaddr=`printf "0x%X\n" $memaddr`
+     filesize=$size
++
++    eval "$fit_scr_name"_size=`printf "0x%X\n" $size`
+ }
+ 
+ function load_file()
+@@ -315,10 +343,13 @@ function load_file()
+     if test "$FIT"
+     then
+         echo "imxtract \$fit_addr $fit_scr_name $memaddr" >> $UBOOT_SOURCE
++    elif test "$dynamic_loading_opt"
++    then
++        echo "$LOAD_CMD \${memaddr} ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
+     else
+         echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
+     fi
+-    add_size $filename
++    add_size $filename $fit_scr_name
+ }
+ 
+ function check_file_type()
+@@ -899,7 +930,7 @@ function print_help
+ {
+     script=`basename "$0"`
+     echo "usage:"
+-    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH]"
++    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH] [-s]"
+     echo "	$script -h"
+     echo "where:"
+     echo "	CONFIG_FILE - configuration file"
+@@ -916,6 +947,7 @@ function print_help
+     echo "	U-BOOT_DTB - u-boot control dtb so that the public key gets added to it"
+     echo "	-f - enable generating a FIT image"
+     echo "	PREPEND_PATH - path to be appended before file names to match deploy location within rootfs"
++    echo "	-s - enable dynamic loading of binaries by storing their addresses and sizes u-boot env variables"
+     echo "	-h - prints out the help message and exits "
+     echo "Defaults:"
+     echo "	CONFIG_FILE=$cfg_file, UBOOT_TYPE=\"LOAD_CMD\" env var, DIRECTORY=$uboot_dir"
+@@ -923,7 +955,7 @@ function print_help
+     echo "	$script -c ../config -d ./build42 -t \"scsi load 1:1\""
+ }
+ 
+-while getopts ":c:t:d:ho:k:u:fp:" opt; do
++while getopts ":c:t:d:ho:k:u:fp:s" opt; do
+     case ${opt} in
+     t )
+         case $OPTARG in
+@@ -965,6 +997,9 @@ while getopts ":c:t:d:ho:k:u:fp:" opt; do
+     p )
+         prepend_path="$OPTARG"
+         ;;
++    s )
++        dynamic_loading_opt=y
++        ;;
+     h )
+         print_help
+         exit 0
+@@ -1126,6 +1161,7 @@ uboot_addr=$memaddr
+ # 2MB are enough for a uboot script
+ memaddr=$(( $memaddr + $offset ))
+ memaddr=`printf "0x%X\n" $memaddr`
++echo "setenv memaddr $memaddr" >> $UBOOT_SOURCE
+ 
+ if test "$os" = "xen"
+ then
+@@ -1169,11 +1205,7 @@ fi
+ 
+ if [ "$BOOT_CMD" != "none" ]
+ then
+-    echo "$BOOT_CMD $kernel_addr - $device_tree_addr" >> $UBOOT_SOURCE
+-else
+-    # skip boot command but store load addresses to be used later
+-    echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
+-    echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
++    echo "$BOOT_CMD \${host_kernel_addr} - \${host_fdt_addr}" >> $UBOOT_SOURCE
+ fi
+ 
+ if test "$FIT"
 
