@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC2835866E8
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Aug 2022 11:37:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.378628.611920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A6135866EA
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Aug 2022 11:39:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.378635.611931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIRrH-0002dW-QG; Mon, 01 Aug 2022 09:37:07 +0000
+	id 1oIRt0-0003GK-6b; Mon, 01 Aug 2022 09:38:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 378628.611920; Mon, 01 Aug 2022 09:37:07 +0000
+Received: by outflank-mailman (output) from mailman id 378635.611931; Mon, 01 Aug 2022 09:38:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIRrH-0002bm-NJ; Mon, 01 Aug 2022 09:37:07 +0000
-Received: by outflank-mailman (input) for mailman id 378628;
- Mon, 01 Aug 2022 09:37:06 +0000
+	id 1oIRt0-0003DP-3M; Mon, 01 Aug 2022 09:38:54 +0000
+Received: by outflank-mailman (input) for mailman id 378635;
+ Mon, 01 Aug 2022 09:38:52 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oIRrG-0002bW-8a; Mon, 01 Aug 2022 09:37:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oIRsy-0003DE-4e
+ for xen-devel@lists.xenproject.org; Mon, 01 Aug 2022 09:38:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oIRrG-00079P-6e; Mon, 01 Aug 2022 09:37:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oIRrF-0005LA-SM; Mon, 01 Aug 2022 09:37:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oIRrF-0001gR-Rs; Mon, 01 Aug 2022 09:37:05 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oIRss-0007CV-Dx; Mon, 01 Aug 2022 09:38:46 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.0.187])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oIRss-0002tO-7t; Mon, 01 Aug 2022 09:38:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,99 +39,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=u1whQxdDo2S99px18HPnofOvA0+6RbNVEAde7XmxME8=; b=o/8phKG+NW5Xbebe05jSgw1+lb
-	1MbUN44TqMMU+bc6notNn000bPZSosf2lhDw+f7Ks4EVo79GQEqRBt3Hpp/PzdASpwY6ata/8QSS1
-	l8JPYxmrDQ3XpwL1jTX+hFVF8304ptJ9BpHe666DHWkkKdHxoyBIEnv5w8B3YcKOkR7k=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172061-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=qOlPD6f9eDKHdEA9sWvBfhAyfbriKuSdKhUJ16Rvd78=; b=z2Z1UttMa7D7lVEFRl0g2bnKiO
+	VocAnM9tNH7Li6y2//kTnoPFsvexPpB6GaWp3H49lD9kBONWkEVL4IRgN2/xYPTpa9n/YHLotWXlo
+	D5u30BOH0P9jOzRFDUKAx8xtiW6PCWQOjQbES8KqCh2Hz3JHTLn5mRrYIFt/P64ET4Z0=;
+Message-ID: <b9b3a07d-a24d-deac-c812-7393554407e4@xen.org>
+Date: Mon, 1 Aug 2022 10:38:43 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 172061: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=9dc3f006a831cd20d531123f097e3de176ac3cae
-X-Osstest-Versions-That:
-    xen=f732240fd3bac25116151db5ddeb7203b62e85ce
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 01 Aug 2022 09:37:05 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.1.0
+Subject: Re: [xen-unstable-smoke bisection] complete build-amd64-libvirt
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ Henry Wang <Henry.Wang@arm.com>
+References: <E1oHEQO-0008GA-Uo@osstest.test-lab.xenproject.org>
+ <08606914-f5f4-8415-51a2-f6a5e1c54d20@suse.com>
+ <db39670c-7e36-2cf5-a87b-92d10d3aac18@xen.org>
+ <7bcf8fac-df56-2032-0057-2b7c671e59be@suse.com>
+ <16b1c490-1d8f-1c35-496a-a60fb1404fc3@xen.org>
+ <230338bf-b709-f2dd-bc8f-80052e98233b@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <230338bf-b709-f2dd-bc8f-80052e98233b@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 172061 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172061/
+Hi Jan,
 
-Regressions :-(
+On 01/08/2022 10:06, Jan Beulich wrote:
+> On 01.08.2022 10:43, Julien Grall wrote:
+>> If we don't force push, we have two solutions:
+>>     1) Revert Oleksandr's series
+>>     2) Leave it until we have Osstest fixed *and* Oleksandr's patch
+>> reached libvirt.
+>>
+>> The former is not an option for me, because Oleksandr's series is not at
+>> fault. So this leave us to 2).
+>>
+>> So what's your proposal?
+> 
+> It's still 1), no matter that I agree that Oleksandr's series is not
+> directly at fault.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 171884
+My worry is while we have a plan to address the libvirt issues, I am not 
+confident this could be addressed by Xen 4.17. In particular, Osstest 
+has to be fixed and we need a push.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+I think this is a bit unfair to block the virtio series on the recent 
+lack of investment in libvirt testing.
 
-version targeted for testing:
- xen                  9dc3f006a831cd20d531123f097e3de176ac3cae
-baseline version:
- xen                  f732240fd3bac25116151db5ddeb7203b62e85ce
+So if we end up to revert it, this will need to be a block for Xen 4.17.
 
-Last test of basis   171884  2022-07-27 12:03:31 Z    4 days
-Failing since        171899  2022-07-28 19:01:47 Z    3 days   24 attempts
-Testing same since   171934  2022-07-30 02:00:28 Z    2 days   16 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Daniel P. Smith <dpsmith@apertussolutions.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jiamei Xie <jiamei.xie@arm.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien.grall@arm.com>
-  Luca Fancellu <luca.fancellu@arm.com>
-  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-  Xenia Ragiadakou <burzalodowa@gmail.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 451 lines long.)
+-- 
+Julien Grall
 
