@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24579586674
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Aug 2022 10:37:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.378571.611811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3346758667D
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Aug 2022 10:42:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.378578.611822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIQuW-0007Oi-Vf; Mon, 01 Aug 2022 08:36:24 +0000
+	id 1oIQzq-0000Z8-LK; Mon, 01 Aug 2022 08:41:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 378571.611811; Mon, 01 Aug 2022 08:36:24 +0000
+Received: by outflank-mailman (output) from mailman id 378578.611822; Mon, 01 Aug 2022 08:41:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIQuW-0007MF-Sr; Mon, 01 Aug 2022 08:36:24 +0000
-Received: by outflank-mailman (input) for mailman id 378571;
- Mon, 01 Aug 2022 08:36:23 +0000
+	id 1oIQzq-0000Wp-Ib; Mon, 01 Aug 2022 08:41:54 +0000
+Received: by outflank-mailman (input) for mailman id 378578;
+ Mon, 01 Aug 2022 08:41:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TwEK=YF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oIQuU-0007M7-Vy
- for xen-devel@lists.xenproject.org; Mon, 01 Aug 2022 08:36:23 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60051.outbound.protection.outlook.com [40.107.6.51])
+ id 1oIQzo-0000WQ-EA
+ for xen-devel@lists.xenproject.org; Mon, 01 Aug 2022 08:41:52 +0000
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr50070.outbound.protection.outlook.com [40.107.5.70])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04a26dc0-1175-11ed-924f-1f966e50362f;
- Mon, 01 Aug 2022 10:36:20 +0200 (CEST)
+ id c96dd485-1175-11ed-924f-1f966e50362f;
+ Mon, 01 Aug 2022 10:41:51 +0200 (CEST)
 Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
- by HE1PR0402MB2746.eurprd04.prod.outlook.com (2603:10a6:3:e0::20)
+ by VI1PR04MB4079.eurprd04.prod.outlook.com (2603:10a6:803:48::25)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.16; Mon, 1 Aug
- 2022 08:36:18 +0000
+ 2022 08:41:47 +0000
 Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
  ([fe80::f1f6:f171:49e9:b68a]) by AM6PR04MB6551.eurprd04.prod.outlook.com
  ([fe80::f1f6:f171:49e9:b68a%4]) with mapi id 15.20.5482.014; Mon, 1 Aug 2022
- 08:36:18 +0000
+ 08:41:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,161 +46,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04a26dc0-1175-11ed-924f-1f966e50362f
+X-Inumbo-ID: c96dd485-1175-11ed-924f-1f966e50362f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h6BsZ3jMGEPzA7/+w7HZoxG1ivmwdG1ZbwsEPsN/t+7qjXyuIEK0nSFzDmRKllUgM1VIwKS3QaRNs5Ja+MAFjxDylKS0v/rlu2T8maXdkHKirQz3+jC6B7PuLBpivO/bF3u5JkBgJcFh9jX2g2MlkbRrdLq6FymjfKsVR6odY8BvDRuXnf/IlmVYLnUZCk39opPLaHIoI0j2n0EaznyEvPE76tqXyQFCy7P9tzGfcqZYfzUwSPDKzGW7NgNGoAfSgNGwlmGA/zx/+Ex+ND21eUzp9OsxcFSeD7YCyfwX4bjDWTrJIK+GSqHYT9OH/psCUdSQI2j3wtaaYHLm2MSoYg==
+ b=Ybv4tRi6V8ARLWCglPLJaiLv6BETxkuLf9At/kOK2+rPkVp18xfljwq0cIXcU/RpCV5nBzZinvZoHatgQZin9y+Vyz2v+1XzUn8ADzhQJaPDgH2NczIbV25jFFq8TsHDfBwfW069fYHQ79q+TizLN8qTqC7F8EnjOdRBG0mQPN+hIR8cRxLE6WjbTvicXFoyeU3sMHTqlO4UGWhppaUcjVUFPeCW+TCzUtQMSa6a9l7xQ04HGZnk3u1FmBqsbCtAoA9aTlv+nzU7Q9Q+yUUWa607XzHXt3zfKkbB3twDdWgwdzrYNl2IDHqcIEgD/fMOciJ4dsAAKpnsH7JhF4IlEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nwh0RJftgr9Jp9erwxz99WTrz5bNdOSKjSwZKoznrqU=;
- b=AHTlVTHTIG2NldhFg//dWz7dALMP6rfGdiE4UbO2wR/8wh3Qd+LDTkt+kViHDNA48Ji1RAM8aaNsZRy+49UGvx7Q/4c9qfwaBMUphreaQrr9jmNyzv4IwyN2yHg/1BjY+EonSHDX7NmGNfUxrhwM4mGJOYj5LWDDPbSrhLqPK/cnFHOV9q9WMRr6Oe4iva3J7n+2oy7HDzPpjJ0AZjozO5IKOBgdLeGJRqrbgx6fPOuBDmLla6gDffK/UaSe91TI6v8ezb4pzoLKpGXnpAO93ITxqyU/YZG7tkTnojM/j9EJiUhAYd8n4P21bNc3rQOjDyQmsg2p4JdwrbSy3JqUfw==
+ bh=XqgKCYljuqimkIK/KZKu2ZAsOfEoC4UdLFlgBJ4AZ/w=;
+ b=fuQ30MwGkW7QNj+PvVyFa5+nQ25hteF9r+QZHXpeCAgwAtINYjPh4N1DK77PIsXOtnNrLD4mYuR7o496PJgV9mIpmXmAEqLmq4RmMRNx1uQu5drnc7+N6/0pkeb9cM37eMXR4idU55vIjg4JEv8pfoG7hKceoBrpyXD5cCLAj34mu9zvAgOdmzpcZFO9eHDaDEtt0N4e07CjUVD/2o0Xm9w9PxX/MZkpV+MUxLgqMhrPRdn7zeMs8wbBGlYJxKdxcDpgl21D/MhURJZGeg99iwWbeWAS3iir0FDnVU9Wr8O2laGHU0n8M2C2Pn59JAWwPx3V4Gsr7XkzHBi0r1CZuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nwh0RJftgr9Jp9erwxz99WTrz5bNdOSKjSwZKoznrqU=;
- b=FlUlF26BgRf+tpcPxuKJtE/1w8kXPU255wgfObWuQEMraduWwRYu3SRQ3HNmYaFqWLwKNnfaZOcMBssFbWUsGBuDb9eJ8oGRH7RGtaHibvFmeXkJWLgGgaZ98BhdzjpWZEUUHiYFdC2s+UFYO0RmVxEO4llcIldsvvXS3MmYB9DHTUiM53KU1SN7OJBRPhBjrMvdB3MWLXrHSPrHyQvmmBonAlgVczDtThBDTfXnjbAHRnIaYXx8F4Vovb/hKg61z2VBo74G10u+hdpbFqKprDfRqLbZsVn7xWvGBzkUxx2/YmF/mS2YGyb8OppZFWqSzUy4fl7oFFx/3iQ6/PoMwQ==
+ bh=XqgKCYljuqimkIK/KZKu2ZAsOfEoC4UdLFlgBJ4AZ/w=;
+ b=RYW5HE4fioKxEB/1EA9uVX95ALEQk8qFPejz/SgSd/1REE7kulZ0r7U7Ns+zuePpyO4hh5k2W+OUwkri6VNayXAVd2YBRTAf/SD7W2eV+o581z6n4po9YaUQd1hRc7om+kpoy/UDrr1Z+yHvqd5hkRh3TVUcr1kgEwC3nwijEr88XVWKhoLayfDQyuQ8FySK/WFvrUJIW2XbTFRwHLewLMHnM5juTYNlJLdaXF+E5wg6JU4es/vNkk4eFl0PaWbd5UWJPot/6W3/MPFmwXpt2cZ2zgUvDBfh2MlYfaNn8Zma5AzEUKOfV6fcquSb/WBG8Evxsim5A8XNfoJjarODOg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7bcf8fac-df56-2032-0057-2b7c671e59be@suse.com>
-Date: Mon, 1 Aug 2022 10:36:17 +0200
+Message-ID: <389cd355-908f-cb5e-0fb3-38d76a42e4e7@suse.com>
+Date: Mon, 1 Aug 2022 10:41:46 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [xen-unstable-smoke bisection] complete build-amd64-libvirt
+Subject: Re: cpupool / credit2 misuse of xfree() (was: Re: [BUG] Xen causes a
+ host hang by using xen-hptool cpu-offline)
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <E1oHEQO-0008GA-Uo@osstest.test-lab.xenproject.org>
- <08606914-f5f4-8415-51a2-f6a5e1c54d20@suse.com>
- <db39670c-7e36-2cf5-a87b-92d10d3aac18@xen.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Dario Faggioli <dfaggioli@suse.com>, George Dunlap
+ <george.dunlap@citrix.com>, "Gao, Ruifeng" <ruifeng.gao@intel.com>
+References: <BL1PR11MB546193E001A425E0B9B7848EEC979@BL1PR11MB5461.namprd11.prod.outlook.com>
+ <bfba43a2-951c-4770-7bb9-3559f1bc69d2@suse.com>
+ <ac3b6d9a-ab63-6d09-e9f1-2f6391c4aa0c@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <db39670c-7e36-2cf5-a87b-92d10d3aac18@xen.org>
+In-Reply-To: <ac3b6d9a-ab63-6d09-e9f1-2f6391c4aa0c@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0020.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::21) To AM6PR04MB6551.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0086.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::22) To AM6PR04MB6551.eurprd04.prod.outlook.com
  (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 65ce64f5-4dcb-4848-4b4c-08da7398e72f
-X-MS-TrafficTypeDiagnostic: HE1PR0402MB2746:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4abcb098-6267-4c11-8a04-08da7399ab51
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4079:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	OqP7RihlOCPDNM62Xaod1KOwfao/NCuJyQn8MWqaEIImGtdpOBa9i19O4fwy+PFYZJ8anYTZsoZROe6ba6RpjF4c7cWL/xFmvhJvvF7oFUH4PURfBcdvDW3GPTL31wOe3O6HXwXcCjhkzCyuh4gRl4BLwJa4pLyn2vEh7pDqVO3hYX5OUbl5fmIsAs+oI6q+JlGWwhNF82gxctl86QUi4KYqTo9iM+g7f4SJ1aKobyGygEWyDYhGE/CmuMJtSz008W2ozMgChPF+sdojMgoQQOBenDu680cKCD7XWw4L11inJ/ccW1tisynOuokgxL/jRcDdZgVI0NrPWrJ/XVQkD2HdKO1+FqXEu+jakNPfiwcqPuKLGVB4sw9+YRX6pYmZY91GFqbfYb0OO3EhmwbGF9LguWkKHSq2u7axHPrh4/K6XHZfNB0ltCTYn3+SiZGlHn4bdpLIIc+JQoHlXZo1BczjfAWx6Twr8Bd4aMJdu0sUchkrB2J+ymtC4bCtbv/eOI5WgAhuWCNQEhQRFKm84bSEO4mgUqqlPJMdsUaqxKvIYg/nN2U2wbITpzX5NfJFwkIl8cnIk9ZnqELWf9xuPZz6Cw0FktQ6wh1jJhwmeetUT/sESvKLNxmaZb4pK1qlL29nIVhEgTdKQgZcIOq98C/L1lSf3gCrcCU/cHEtsygCSS1oggokK6r9tQ4XE8CCm18bucbu2mLljH2een+S3BO57HSmgoYYBDeoFn3sr1g0T2zACxnQjjmaEngednBvN7AMfI1LpeCMFfeMcyLn0pLSfxTr3KFgXCHi/73qYylvE7LjqW7JJkOoISpQ3FuFtAnXN+TBxUCzF/d4GHozIHg6smdGv16+yi0on3n2+CvciO7CH6po1i9c48EmeMf2vY28SJMeRdLjcjqmiVupqQ==
+	koGE+mx7z0a+e4dk8nQJArk5+rm/3gq3AKFIVcRGkq0YpE0RJFpcDy83op5pndsYdviFwtRIoMOkdFIYNlY7QEU1TP5/rwJlcGQ838Zz2fHCq0pxobvMWHCCN0xlgVXoxDdGjhrI6ok3vZXCWqB4wLt852nHupvwmx5bjTYkHvi6R3IcHQ5r3cfDGGM4l+eLxFJJmtkO/GsIQsnLz89vZZQtdSTQEI1zohTsBxrbUHCw5r7K2qatKWc2hlVaM6dVsEOCxJTNveAQwxJgwxMm/DvGorpDrX+z8QDOhVxbs4a8/Iz4YO6RUbHMpOz6BwOurn4S095DMFTiqj0TFrJY8RB2g20jGvCC9vOtjX05FE0lgt266BHuTBsz0ZZR4X9SV2v+nwU8BipkkpGkjmDv1wsjtZO8W/rY1p8jjf9wdXZSwhOVWiHLMcifWoCSANDf5JdyZk3S81fnZ5bUqHXcNe84PUWzQAqo5Kn28tlWWMdng27wrg+u3rr036+tO6bSg4pRcPub159Rg84sPuVMKe+pGURC3XPgOnZ1YpuSIC48ehuptjiYBwUEDLhP7IEsdMl4xkjBnhDnWSs9/WhxF5DkrPVgsA6IbFCrDips0bXsLKYKXwH/wJNa7XKCwgeOaHuvRNhTAevYpaBh8fWYTTaP85hQXCl/4IUIRznEMZX/LPF5nGy7YaSyciob+81L5SNaZHlY39X9KU6sx/c3lEGhYS8p8DxspLNLjj3DyNKYY391GvP9WBnN2AoxabqkO2k5aI3rJbXOLHK2pMNEwHwOMFgJBFotUjz5ZHQat7gnvJxuPPqi+/DKbYAemlzmmuBvev/SAOW4JWCqkUdgAA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(39860400002)(366004)(376002)(346002)(136003)(966005)(6486002)(478600001)(2906002)(8936002)(86362001)(31696002)(5660300002)(31686004)(8676002)(4326008)(66476007)(66556008)(66946007)(36756003)(38100700002)(6916009)(316002)(54906003)(186003)(6512007)(83380400001)(26005)(53546011)(2616005)(6506007)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(346002)(136003)(39850400004)(366004)(396003)(2616005)(8936002)(6862004)(83380400001)(186003)(8676002)(4326008)(66476007)(66556008)(66574015)(478600001)(6486002)(5660300002)(66946007)(53546011)(38100700002)(2906002)(6636002)(37006003)(54906003)(31686004)(86362001)(31696002)(316002)(6506007)(36756003)(26005)(41300700001)(6512007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZnVwdytTeHdDN0FNa1h3SzNJZGFWb2JkaHgxRHplSktFbVFmU2FicXc2NTJV?=
- =?utf-8?B?czRLOG11aEFVNk9aR1VkY2N2ZHE4dmFBYUJOMUpySjBnVFpHYW9IeVd4SElj?=
- =?utf-8?B?Yy9XclRpUmc2eDJKd3BJYzZXUjBCZHhzMU1DSUlaQThYcHhzbC8wVVQ1L3VO?=
- =?utf-8?B?aXV5NmZtK20vTEhIdnVUMDJqZnlaOFg0NDJYNG1UWTVTQXV4eDdXZGtacndZ?=
- =?utf-8?B?cW1yZDgzZWdLRVVyNkNWNzMzYXE1YkpVUU5qL2hSM1VTaUhhZXloMUU0Y2h2?=
- =?utf-8?B?Tk1WTWRRQVNQd3VrL2ZraC9wSEhMclJnR3VrZ1pTMCthVFJkSjQ2ZmE5ZExM?=
- =?utf-8?B?MnRoMnliNWw3eDZnbTBtcTVJT1hPc3RxK3MrQm8xdlZQOURrcVpTV2lTVEhO?=
- =?utf-8?B?Qm5ZaDJ3MS8wMjRaVkRrVWE2VDlxYW1keEpCWlN0ZW9PTDA2OS9oNC80QXVV?=
- =?utf-8?B?S2s5WWkrc3pDY0ZFUUF4dVA2OURheElpdDJ3ZjVLYlBiV3pWV3JUeENFTTll?=
- =?utf-8?B?dmEyQndjaXpGUEJ6L3ErbWFnWm5kMXZ6a3UvTEpEbzg1UWlYMkoyU0RJUW9F?=
- =?utf-8?B?M25icWcvQVRJNnRYZzdoNjN0WkJOK1hGM0FPd3JJUmZyUHFLVTBSbnB0cDZq?=
- =?utf-8?B?WTByRWlnOVI2Qm9jTUdhbTJmT2lHMzVSSEYxZDh6eWMycm0zNGk2bjY4S3V1?=
- =?utf-8?B?YUJGZXZFd2c4SjRseXdjRWhoMGpMWFMxVnNFMnA2WG1FMWxORXhJN0QzZnFr?=
- =?utf-8?B?WjgxdTRDelRiZFZ5NCtXRW11cVQzNmE4WDN5dWdIak4xaGc1TWc4MXFPZjRU?=
- =?utf-8?B?TURLTUovTUFmYlU1QXNTaFVHd085d1h3V3VQVVN0V0grWnV1cmhPeDJIZU9W?=
- =?utf-8?B?dUdpM1pTa0ZxUU8zMzMwRVMra3FKTXpsbk1tMkh4UExHNktNRitiNUdmR2ZY?=
- =?utf-8?B?a0dJWVgvU09JbTIvb1VIMkVpS01qSVFEZ1JVTGxYQ2owTHh5MjdzRk9XNStJ?=
- =?utf-8?B?YUVvcXB4NXlWQjRFdGNBSFlvcFNtOUVVb3JJQnZwbklvcUNUR3FwNHhnVk1j?=
- =?utf-8?B?eFNTejN0djZzL1pZazdpRFpYdC9abE10OGNDZ1l3dlFsLzRGY0kwaXUycDFY?=
- =?utf-8?B?UG9OekFBT2ZWZWRBQ0pDNVl4bVpnUkY2VWg3bmxXRGUyUW15TUxvYzNNN3RX?=
- =?utf-8?B?UVlJWEU5dTYyc2Q1TDlTTkc5WGVpQWNuRmMwTzFqTG9tbzg1QktPV0g4WEZT?=
- =?utf-8?B?cXdaWWdHUnl4THBIUVlpL21lVTU0cmZSRElvQjc5WkRCZmZ1Zyt1ZUhrYUxB?=
- =?utf-8?B?L2gyZHgrTkxSOHRSV2tpMXl5Mkc5eFpFN0tVRmFVYVB3N3psYW9aZFN1SUJG?=
- =?utf-8?B?blFWNUVFL3FzTHg3YUpabnBxbCtTNWkxcjJUR1pGMWVjcnJ0OUo0NTJ2SWpv?=
- =?utf-8?B?YlpSc1ozaW9Yak1qby9kUkNGdHRoZG03QzVmRENkWFlEclBLblZzelZvL3F0?=
- =?utf-8?B?c3kwbFgwZDlkcVY4VGlrMG9tWi9WdnVlRDJVVGI3LzlraEZWSW5VR3gvMDJB?=
- =?utf-8?B?ZFU4Ynh5M0JicFkrY0VvOSswRUlMN0xwODcwc2lrR3JUZTdmUFcvc3p4c3ZL?=
- =?utf-8?B?eW5DcnYzclNobnNPYkxXUExtM1FuNE5UeE42cDl5VlBlQTE3cTZJYVY2TEE3?=
- =?utf-8?B?NGVzM0tCbFVld0Q5MFgvT2tKeGFvaTRpQVZtaEtGNUx3dkk1V1Z4RitFQVgv?=
- =?utf-8?B?T044WUZTekhoRklGcTh1WmRScVk4c3JiOHVaMDNnMjgwVmNFQ3JKQUJjTGRE?=
- =?utf-8?B?Qk1va3M0aURNOFd3azk0NDFzK2JYcWd3MFd1b1JNK29PdTZDcmJFNmY3UzBM?=
- =?utf-8?B?R1lvMTB5ZWZKMUpOaW85N053eExVbWVtcTcxb0Z0OG1ReWthUVJMNkpMRUtF?=
- =?utf-8?B?MHBJdHdCakhKRVpEVC9MbmllendaZGhLUnpNNTd4eFNaYVNqM05odWhrcmNM?=
- =?utf-8?B?VFNKTTluUkVRM2p0L0xlNElveGxCNWNxa1JLTXFCeXV5eFFET29nNnR2V0Jt?=
- =?utf-8?B?dlJOcEZpaXFUekR6RXZCZ1ZDQmhMUzNOTzNEV2xyYXIxRVhoT3lrL25QUzVE?=
- =?utf-8?Q?ZDDmEIu+Hxv7QRFgEYpD9b1lB?=
+	=?utf-8?B?Z1ArUVN0MEwzbzVpcTBCRXlzR0RXVTEweGJGUktCUkxNa1RzcVY4TUlhb1Fi?=
+ =?utf-8?B?ZzRkQlVFMGtsTVF2TWJUM0prMnZhMTBpWEdNSEFsY2E1Z0VZOTNhNy9FYmp2?=
+ =?utf-8?B?dGxBb3ZKdXltRFJsMEhEVXJ3QUVFNWF6U2t3MTVwc25OWXVESGxZR0NhQkJE?=
+ =?utf-8?B?NEhYaHhGZlNqaWd4WHBYdklEZzAycmRaYldrT1RMbFhQNkhtUW4xK3AxRjNx?=
+ =?utf-8?B?U1V1eWFHUTliWjJ2R1I1TVUxOUdGZjVxZE14Ym03K0F4SnJsS2RNWVN6TmtR?=
+ =?utf-8?B?bDlMNi8vRC9yeTlmcGc1YW1vSDZ1dWd2WS93ZGQyRmtlQmt6VXovbjdtZnZO?=
+ =?utf-8?B?a244RzdET01EUW52OTJ6ZmxibW5GRUZGSGxIVStlOHp0c3l2dWZSMU0zS2Q1?=
+ =?utf-8?B?cnh4bndBaWluRXVhZXhaa2lIWVFJVUYzaWtNSCttN3RhNU5PRGhDNTN3SWxB?=
+ =?utf-8?B?Y2IzSXlUcmFYdWpjYUxOSHdkMTVyMlFmZVN1cG44UE5ucngrZVlNSnV4dGVE?=
+ =?utf-8?B?eXN2N3pmVDNhbWk4QmhJUGsvRTBUYUlzaHFYVGFmbTFnNDhuSlBiSTZUdFBL?=
+ =?utf-8?B?VHdkOGtjOHRoV0E5WWJWRUdJVlBqN2RITmhyOFIrbndWL1NNMk5lUUh2L2la?=
+ =?utf-8?B?K1EybUgxRG13QlY0WFlCUExSQ1NDUmxOUnhyOFkzS2J1ZzVoNXVsM3V6a1hQ?=
+ =?utf-8?B?ZlU5RWJZU1NGVTQ0ZTdiYU1zcUo0YzBqNHNwNi9jaEVRN3VmSEF5cUNTR0ow?=
+ =?utf-8?B?YW5vdFExbU95aHIwQk01bmt3UlFnSmVCUmhUNFZUYjNwNGo3MDJBZzdIUmVr?=
+ =?utf-8?B?YmhqK2c3VjRSTHYzdm1wRGo5K2xnYjYvbG55TTRNcFpNWWMyOE1sWE40alk4?=
+ =?utf-8?B?WnNya3VnOTJQSVV1bG8wYnpxS25YL2M4aTh5aEJyUWdZM0lDdnI5dHFXV3JE?=
+ =?utf-8?B?OFNDajVmYllhMnlQbm1veWlwd0dSUnBHZmNpcnhXb084THE4SGd4U0lRa1Rk?=
+ =?utf-8?B?cjlKVTcybXNHcXpFTmJySjU2QWtuUHFmM050bVpuNzBsMnpvWVk5dWxRQzln?=
+ =?utf-8?B?MG1HTE4wVW4vY2lDWElack1SdUVJYUtMZ2FUMXl3M1FkTnNpYjZDOEJ4VEdj?=
+ =?utf-8?B?eWZjeVhmb05YdUxBVmd2T0hmN0hmVHhZWEZpZjRmYmlJRWhONFAvcDdCbENh?=
+ =?utf-8?B?ZkswenhsUjRyamVlZDlsRXlDajNaOWN1NHZXNVUvb2FlSFVlWnBPZnJEbnJi?=
+ =?utf-8?B?V081eHdnUFBVYlZ5cDU2L2tybnBNL0YxMm9LVEF0N1UyMGJFbWZzQU5uS2l6?=
+ =?utf-8?B?RllnK3duRkcvTllKTDUvNEFQZ3NZcTluZnNWMkh3NzFwcnBFTXNYTUF1Y1l1?=
+ =?utf-8?B?QlZ3Nk5kZDlJUHZnekhPeU8yaGt3RmlNdmVJM2IveGl6OWJlRGVDekN2aUZk?=
+ =?utf-8?B?K0lrWjRCRnhxSFI0bVFMdUMreDR6cUsrYyt4ZjRBV3RSUTFkcTVuMGpyallZ?=
+ =?utf-8?B?SWtUamRpa2w5NUhSemJhYkpFb25CeU5MaVU0aVNjT2I0NU03R3U3Q3JyZ1RO?=
+ =?utf-8?B?anVzUWk3Y3VvUVZaOG9lRDdUSTBHTkFycXoyOVpNZEVzUEpSZ2tFRUt1SmVh?=
+ =?utf-8?B?dXYvM2dFdDNRNE1EMXhNT0ZieFdmVXhtdndUNk1QemRJbWd2Uy84QUJaMDJk?=
+ =?utf-8?B?ay9xdWNnakZaZkM3TnQ4MlNaalpMK004SWNmSDg3M0JOVGk0R2o2cHdXaVlI?=
+ =?utf-8?B?VExvOVd0ZDJQcnkxQWZlSWlGTk1XZGtmbEF4ak1UV082SjNrZGlpYVpjS0hX?=
+ =?utf-8?B?VWlQTjRXWWNJVEh5WG1rY2w2RUdaaW9zaFlLWVhHVCszQTdpWldWU2p5cG1w?=
+ =?utf-8?B?bXUxYS9hdUdDd1pFKzVkLzJQOUF4SWh3MFVjdGpFT2FUaUkyQzFHRHNrU01C?=
+ =?utf-8?B?SFZXTlhTRVd1bysrZS94VjBXTVBrOEIxeTZldmJqVEs3SHAvWENCVlVudWM3?=
+ =?utf-8?B?eEVHVE53M1lyeWdRYjNpUG9LZVJLS21NODNSQkhQaFR2VEZ1SDNVV2JMVWNq?=
+ =?utf-8?B?T292bnptUFVoUUZ4aGtuTWNvblZiZUsxTWNUanhJVC9CZVNacHZYRGJqaHRq?=
+ =?utf-8?Q?dqqyYlhDZrM2cVQB8qFwL1dns?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65ce64f5-4dcb-4848-4b4c-08da7398e72f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4abcb098-6267-4c11-8a04-08da7399ab51
 X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2022 08:36:17.9862
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2022 08:41:46.8878
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iR8e5Hw2fdxOp+Taa8Fl13LExxlaR8puIZtwuY2bC7BRNj8X/4XpNrcrZ0xeXAxCeLDyo7GxNRsMMoQM9sgwug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0402MB2746
+X-MS-Exchange-CrossTenant-UserPrincipalName: Gt3Vct6Og5fjuVIUteHfLB9WamSNU7QKDcSI+iUrG2EXi18I/wmPrapAL6kEr/7RU1q3OOjmNCnvPYgt5UyPRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4079
 
-On 29.07.2022 19:36, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 29/07/2022 07:22, Jan Beulich wrote:
->> On 29.07.2022 03:04, osstest service owner wrote:
->>> branch xen-unstable-smoke
->>> xenbranch xen-unstable-smoke
->>> job build-amd64-libvirt
->>> testid libvirt-build
+On 01.08.2022 09:38, Juergen Gross wrote:
+> On 27.07.22 08:32, Jan Beulich wrote:
+>> On 27.07.2022 03:19, Gao, Ruifeng wrote:
+>>> Problem Description:
+>>> Trying to execute "/usr/local/sbin/xen-hptool cpu-offline <cpuid>", the host will hang immediately.
 >>>
->>> Tree: libvirt git://xenbits.xen.org/libvirt.git
->>> Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
->>> Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
->>> Tree: qemuu git://xenbits.xen.org/qemu-xen.git
->>> Tree: xen git://xenbits.xen.org/xen.git
+>>> Version-Release and System Details:
+>>> Platform: Ice Lake Server
+>>> Host OS: Red Hat Enterprise Linux 8.3 (Ootpa)
+>>> Kernel: 5.19.0-rc6
+>>> HW: Intel(R) Xeon(R) Gold 6336Y CPU @ 2.40GHz
+>>> Xen Version: 4.17-unstable(ab2977b027-dirty)
 >>>
->>> *** Found and reproduced problem changeset ***
+>>> Reproduce Steps:
+>>> 1. Boot from Xen and check the information:
+>>> [root@icx-2s1 ~]# xl info
+>>> host                   : icx-2s1
+>>> release                : 5.19.0-rc6
+>>> xen_version            : 4.17-unstable
+>>> xen_caps               : xen-3.0-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_64
+>>> platform_params        : virt_start=0xffff800000000000
+>>> xen_changeset          : Thu Jul 14 19:45:36 2022 +0100 git:ab2977b027-dirty
+>>> 2. Execute the cpu-offline command, here cpuid is 48 as an example:
+>>> [root@icx-2s1 ~]# /usr/local/sbin/xen-hptool cpu-offline 48
 >>>
->>>    Bug is in tree:  xen git://xenbits.xen.org/xen.git
->>>    Bug introduced:  66dd1c62b2a3c707bd5c55750d10a8223fbd577f
->>>    Bug not present: f732240fd3bac25116151db5ddeb7203b62e85ce
->>>    Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/171909/
->>>
->>>
->>>    commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
->>>    Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>    Date:   Fri Jul 15 22:20:24 2022 +0300
->>>    
->>>        libxl: Add support for Virtio disk configuration
+>>> Actual Results:
+>>> The host will hang immediately.
 >>
->> Just in case you didn't notice it: Something's wrong here. I didn't look
->> at the details at all. Please advise whether a fix will soon arrive or
->> whether we should revert for the time being.
+>> Well, it crashes (which is an important difference). Also you've hidden
+>> the important details (allowing to easily identify what area the issue
+>> is in) quite well in the attachment.
+>>
+>> Jürgen (and possibly George / Dario),
+>>
+>> this
+>>
+>> (XEN) Xen call trace:
+>> (XEN)    [<ffff82d04023be76>] R xfree+0x150/0x1f7
+>> (XEN)    [<ffff82d040248795>] F common/sched/credit2.c#csched2_free_udata+0xc/0xe
+>> (XEN)    [<ffff82d040259169>] F schedule_cpu_rm+0x38d/0x4b3
+>> (XEN)    [<ffff82d0402430ca>] F common/sched/cpupool.c#cpupool_unassign_cpu_finish+0x17e/0x22c
+>> (XEN)    [<ffff82d04021d402>] F common/sched/cpupool.c#cpu_callback+0x3fb/0x4dc
+>> (XEN)    [<ffff82d040229fc3>] F notifier_call_chain+0x6b/0x96
+>> (XEN)    [<ffff82d040204df7>] F common/cpu.c#cpu_notifier_call_chain+0x1b/0x33
+>> (XEN)    [<ffff82d040204e33>] F common/cpu.c#_take_cpu_down+0x24/0x2b
+>> (XEN)    [<ffff82d040204e43>] F common/cpu.c#take_cpu_down+0x9/0x10
+>> (XEN)    [<ffff82d040231517>] F common/stop_machine.c#stopmachine_action+0x86/0x96
+>> (XEN)    [<ffff82d040231cc5>] F common/tasklet.c#do_tasklet_work+0x72/0xa5
+>> (XEN)    [<ffff82d040231f42>] F do_tasklet+0x58/0x8a
+>> (XEN)    [<ffff82d040320b60>] F arch/x86/domain.c#idle_loop+0x8d/0xee
+>> (XEN)
+>> (XEN)
+>> (XEN) ****************************************
+>> (XEN) Panic on CPU 48:
+>> (XEN) Assertion '!in_irq() && (local_irq_is_enabled() || num_online_cpus() <= 1)' failed at common/xmalloc_tlsf.c:704
+>> (XEN) ****************************************
+>>
+>> is pointing at the problem quite clearly. Conceptually I think it
+>> has always been wrong to call xfree() from stop-machine context. It
+>> just so happened that we got away with that so far, because the CPU
+>> being brought down was the only one using respective functions (and
+>> hence there was no other risk of locking issues).
+>>
+>> Question is whether we want to continue building upon this (and
+>> hence the involved assertion would need to "learn" to ignore
+>> stop-machine context) or whether instead the freeing of the memory
+>> here can be deferred, e.g. to be taken care of by the CPU driving
+>> the offlining process.
 > 
-> We had discussion on IRC about this today. This is an issue in libvirt 
-> rather than Xen. So I think a revert is not warrant here.
+> This is even more complicated.
 > 
-> Instead, it was suggested to force push because it is going to take some 
-> times to fix libvirt (see more below).
+> I think ASSERT_ALLOC_CONTEXT() will trigger more often, especially
+> with core scheduling enabled. In fact I think this is the reason why
+> I've seen very rare strange failures with core scheduling when trying
+> cpu hotplug operations, as there are even xmalloc() calls in stop
+> machine context.
 > 
-> Oleksandr already sent a patch to fix libvirt [1]. The problem is even 
-> if this is accepted, our testing branch for libvirt is 2 years behind 
-> because they switched to Meson and Osstest has not been adapted to the 
-> new build system.
+> I'm seeing the following possibilities:
 > 
-> Anthony kindly offered to update Osstest.
+> 1) Pre-allocating the needed data and deferring freeing of no longer
+>     needed data when taking a cpu down. Apart form some refactoring
+>     in common/sched/cpupool.c and common/sched/core.c this should be
+>     doable.
 > 
-> Regarding force pushing, I am waiting for the Osstest result to confirm 
-> that only the libvirt tests are failing in staging (we already have the 
-> results for smoke). So my plan is to force push on Monday.
+> 2) In case stop_machine() is called for action on only one cpu allow
+>     memory allocations and freeing with interrupts off and flush the
+>     TLBs locally when enabling interrupts again. This would require
+>     rather limited changes, but wouldn't be as clean as the other
+>     approach.
 > 
-> Please let me know on Monday morning if you have some concerns with this 
-> approach.
+> Any preferences? I'd be fine with both variants and could write the
+> patches.
 
-Actually I do - if we force push, the libvirt failure will stick, and
-hence potential further regressions introduced there would not be noticed.
+I'd prefer 1 over 2, but in the unlikely event that 1 ends up unwieldy
+I could live with an extensively commented form of 2.
 
 Jan
 
