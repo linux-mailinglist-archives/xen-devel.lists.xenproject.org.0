@@ -2,39 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3FAB586709
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Aug 2022 11:46:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.378646.611953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E31D258673A
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Aug 2022 12:09:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.378652.611965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIS03-0005MF-8L; Mon, 01 Aug 2022 09:46:11 +0000
+	id 1oISLv-0008C7-3G; Mon, 01 Aug 2022 10:08:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 378646.611953; Mon, 01 Aug 2022 09:46:11 +0000
+Received: by outflank-mailman (output) from mailman id 378652.611965; Mon, 01 Aug 2022 10:08:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIS03-0005Jr-5g; Mon, 01 Aug 2022 09:46:11 +0000
-Received: by outflank-mailman (input) for mailman id 378646;
- Mon, 01 Aug 2022 09:46:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TwEK=YF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oIS02-0005Jj-6E
- for xen-devel@lists.xenproject.org; Mon, 01 Aug 2022 09:46:10 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-eopbgr80077.outbound.protection.outlook.com [40.107.8.77])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c50ab931-117e-11ed-924f-1f966e50362f;
- Mon, 01 Aug 2022 11:46:09 +0200 (CEST)
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
- by AM0PR04MB4785.eurprd04.prod.outlook.com (2603:10a6:208:c2::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.16; Mon, 1 Aug
- 2022 09:46:06 +0000
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::f1f6:f171:49e9:b68a]) by AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::f1f6:f171:49e9:b68a%4]) with mapi id 15.20.5482.014; Mon, 1 Aug 2022
- 09:46:06 +0000
+	id 1oISLu-000897-Up; Mon, 01 Aug 2022 10:08:46 +0000
+Received: by outflank-mailman (input) for mailman id 378652;
+ Mon, 01 Aug 2022 10:08:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=V0wp=YF=redhat.com=mprivozn@srs-se1.protection.inumbo.net>)
+ id 1oISLt-000891-1w
+ for xen-devel@lists.xenproject.org; Mon, 01 Aug 2022 10:08:45 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ebc9ceef-1181-11ed-bd2d-47488cf2e6aa;
+ Mon, 01 Aug 2022 12:08:43 +0200 (CEST)
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-582-htTe3GA5N_y0jDiRWQUvlA-1; Mon, 01 Aug 2022 06:08:41 -0400
+Received: by mail-wr1-f69.google.com with SMTP id
+ w17-20020adfbad1000000b0021f0acd5398so2337402wrg.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Aug 2022 03:08:40 -0700 (PDT)
+Received: from [10.43.2.88] (nat-pool-brq-t.redhat.com. [213.175.37.10])
+ by smtp.gmail.com with ESMTPSA id
+ p4-20020a7bcc84000000b003a325bd8517sm16349951wma.5.2022.08.01.03.08.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Aug 2022 03:08:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,124 +49,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c50ab931-117e-11ed-924f-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ROB8rIbdqDG95GIteoDOnlruKUi57QNNOr+L+ZJd0/iZYHDJuVYDceliL4OWGUW0JvyWkOHc9Ql+3qlI891CT4exMKXen0GoBejh5cxFCf/q+bfIiLDFXbHbeCVTB8Q6f/GjED42rDCEhbBkf5eW4uUTlg5us+jRI2G4HlOOB0RJLkQvB0E5DstaJlb5dPa5zUwBOKCOUVdcgX3LOlfQWHA3Z/YWm+TCspuXwzOnG0uavJ/HZMATpPB7xQqerUSFRUTtOwtBuvnOf1F/0sMTsvrbwt9e6LSY8MVNdr4ASpEXuihfcXeaiV9ZVaixPNuFHHvpjijuSYLuTUMkjKkKzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ch/l7iC9CTpr9NUxVrfR2M7RejyOnykUw5lHvY/Ji8Q=;
- b=aF7WMKpnbJK+B89Tdtdm6xnPiOTHCOtcqTfFHmoMtUU9l96vPQ8K5cF3TyT2pj+vm6MUfoHm4lhDq31xWtGq8oG8CTR5w6hXkvgyZSZsX0Zcp0rd0NMjqD6s9V19M7ApSLsTuxb3dvCfVUfPHVHB06iqw2nKHZRwgVUnr9RZUeTvRML9TA4kXjFAG8+rbV/ox8tUeo4Ncm0Dlm1PMo6oVx4n0LyPojKa5gbKZKJYK5WDxDwqW892QG1ftqClARG+MgSmmGvJFgG3r668kl0IzBk4sKIEimN3V0iAbf6VTlCBQWqW3JitoaeylaiQ4EBAAuarxkaT3Ze/oMW4nTPJaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ch/l7iC9CTpr9NUxVrfR2M7RejyOnykUw5lHvY/Ji8Q=;
- b=AlvQFJLxWjZGAKCNOLifHftbd7nmUdWhnnrJN6rOADCTsc89+tvziSAcGUriauIt+GBgTgRfv8pYRlpgR75Cz2Hg5p2+e4z5Ck5aOg9J8f/vE2GHlGKRoBzEAEHGZDOR7Ewko0JIlQouCIXFxAXxCRvBAqxUfZPa3DdnUUinikKey1wYu3EURPO9T5Bea36ms6J9NMLP5EkgL26GdAnVXvN1PVqQlR5Cs5kjI2/0gD2MOMu9lgVhnWZJ/i3DpL+N8BqObo0Jp1q17i/wB0adhWBPlmD3KmDEnnJYTD05+5CpHtykJI61yZP0otHi1H9EU23OSD7b7uWNiDYi6wgaVg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <38938738-7300-d73b-1221-1192d2b92c36@suse.com>
-Date: Mon, 1 Aug 2022 11:46:05 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [XEN PATCH 0/X] tools/libxl: XSA-403 follow-up
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20220729132641.21221-1-anthony.perard@citrix.com>
- <7fa1b084-ef9a-976d-ddb1-b07cded96f08@suse.com>
-In-Reply-To: <7fa1b084-ef9a-976d-ddb1-b07cded96f08@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0086.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1f::13) To AM6PR04MB6551.eurprd04.prod.outlook.com
- (2603:10a6:20b:fa::20)
+X-Inumbo-ID: ebc9ceef-1181-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1659348522;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0dar3qMSEwc1Q6O597FToFvC0epSd5f4tDBDDk8XSY=;
+	b=Tw5hDsACZ+3+Wtv8Z6bM+A6sCLm8eLKsfI/yJgcm7QqCxBPoD460QZYLTqbWVOpeat1TB+
+	O1VHD6wQpJVWPoqOEW3kQVhG0HO4+GT0b30d5JWM7QRGeFRYGutDUaSY17MtLCCz+KzOSp
+	yIahnJ/zMT++RH6SUXf9QVPraBpizjE=
+X-MC-Unique: htTe3GA5N_y0jDiRWQUvlA-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc;
+        bh=Q0dar3qMSEwc1Q6O597FToFvC0epSd5f4tDBDDk8XSY=;
+        b=l3b5+FEnNkHGSgiZUxj5D4XfH2Gm2zHMQ6TIHsm+1jONRncdMyQJHCfrKa8qcqeW1K
+         AX30gVs6DUokH3xxSWT4cYLt31H84Pk26lInq08+JFVKxe2pKACu/q9NS12E0fzbsOMX
+         kO1uKCEx+XQEnXeXpmD2tdBTYtv4CV9I1PQp+YBv3Daaxr5vqzTzB7e/w9LmKeHu0Tun
+         iBgBDh0pAhLxhjawCCg8FSpIuJwukrUA4nyGXrn6/b+sYzuRYUMV+AGEusLKLD9fLQte
+         sXdmsJ7tfettRVWTQtaaE6gZNhZZnR8RC/Qh2WeJ1LsFct8Bl1uqmdH2XonRVL+qn4Tk
+         YRgA==
+X-Gm-Message-State: AJIora9z6GWM25AK0RbfCUbHzJPjt7IppV8GjikoSSNYKcY3a0ROJaNY
+	xsT4XOYswGxXhN5bR+w/bKChyYvSj6v+rnQOjdUbYHixXTEqZwu2iew8e8wkFWCSlGFzJhzkHyP
+	SgGGO005GCuiab2nDoCFo7TIC9eg=
+X-Received: by 2002:a05:600c:198f:b0:3a3:2dd5:8e35 with SMTP id t15-20020a05600c198f00b003a32dd58e35mr10537606wmq.121.1659348519811;
+        Mon, 01 Aug 2022 03:08:39 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1sManSNJneqp9RkPW7iNpcj47VsnBdDOwEGAoLbhA3D+w6lKBuapTx0+PM15uMxeS1wj1fqAw==
+X-Received: by 2002:a05:600c:198f:b0:3a3:2dd5:8e35 with SMTP id t15-20020a05600c198f00b003a32dd58e35mr10537589wmq.121.1659348519538;
+        Mon, 01 Aug 2022 03:08:39 -0700 (PDT)
+Message-ID: <8947085c-bcc4-e599-0636-3a7f1f7b9ac6@redhat.com>
+Date: Mon, 1 Aug 2022 12:08:38 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b0a4e32d-4120-418f-c4b2-08da73a2a7d4
-X-MS-TrafficTypeDiagnostic: AM0PR04MB4785:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	x83WFSxpa1dlAxjd8oh9bnnjc4Y2Aq45yBudkLheOCsfmuv2Z206nbeRTJjPopq5UlmshqlMJXch5jEcwbPe9DVUW0o5YYA6n9nXSpsfmpJGkohNDShYLw9Vwh6Zwb1jEGCCHasYsL+Bi1HU2uqYbQ7jawYmZ2jtLuvUjTvstjnZVWhTY31B7JkUzPmm98uXohXrCOdjvJBHakbHBIpYrNFDgh0GoKhaE00Fq5E6U1pG/r82XsVyBQGfiYeDSacZe2FpxIzdNkJ4c69f99ocZZqJ70Z3J3z3aJF4YakCSiekY/pDmpHIDJo2aJ/e8eM9zs6WSJoJxEapJjvvHh9hCM61jYwrFy7X9d+FLAr5TymsXghiqjZUZ3eFLKHpYrG8kjiQXXc5k623puFwtGtAlGJteyzhxHJWDRrAKu2t+FQnA0zNN/jmnJzKqGHbj1iK4poiq1vRRpC91asZ8h670+Vl8+dgSJ4028vJkJQp6sf59x7RFD5h/WtrkygJSA5oZZjNBy+oSp0PcSrStswOcQMCuY7bP6OZG7zOkeiaFvp8PdMLtpZwoM49MofrpUPXKGYk1nnxA5MBxI9k0+G/k2oLi7Z1sUYomwqqgyLvwg12HWK89qZU3TKFsyOTi/n8bd3pAU9Vjd4rN+YzhApMDO2+mB0lNJ3iLlm0xvoY1SPDUlr24vGNo9adXCl+oQjrbgXcbDKxqAxxXDcehd4c3RpvkieMl2e25xCpx8YyNzDT77M9/NbSyJnvayHlM094r10oRPoKE+8nn+YTY8fRm4lQ7ody256ny4HDL8McWTKFNkWvKAfPkRJ/cCWHTl+YfMtWNrML2lRuWId3rPUf9w==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(366004)(136003)(346002)(396003)(376002)(53546011)(6506007)(86362001)(31696002)(6512007)(2906002)(26005)(5660300002)(6486002)(478600001)(41300700001)(8936002)(2616005)(186003)(38100700002)(31686004)(54906003)(6916009)(316002)(36756003)(4326008)(66476007)(66556008)(8676002)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cUQ0ekpUQ3BFRjlOOHNrYUhnRkpEVG9yU2xuQm5LMmVOd0V2U0lnU0x1M2lR?=
- =?utf-8?B?R2F2VzFaNkJPWEplLzFmWXRCNVc0UlAxb0NrRVZzemZNSkJ5UGM2WkRvWWha?=
- =?utf-8?B?TWpBR1RMdmRjT3V5UFVQUTZpVWdkSG95aUlKbnU4L3FnR2lSbXk3TXBucWJq?=
- =?utf-8?B?REcvQUk4cHhEbEF4VUl2aWNXalk4c29TYlYwYkYzVVIxdDdtUklrcUlIOUFs?=
- =?utf-8?B?RW9PVkpQd050ejUybmJvTjF5cnRUVWhJdGJPWkRrcmMzSDlTL1ltc3BpTm5C?=
- =?utf-8?B?TStCRC83aHoxclhET0tUR24vL2VQeGJPdUhIWUpNUEFBTG5jMTMxT1RSRUxl?=
- =?utf-8?B?QThabW15NlQ0YW1GemxYSENZMUJZRjJxeDJxWENZdHNVL0x5ak9KOXA1Umtp?=
- =?utf-8?B?c1Z6U0owczZ3RmdlUHorcFllOUt0N0NsWDJXTUN2Tm90WHhUOGFzQk1xNHBI?=
- =?utf-8?B?bjdsbkQ1djZPZnEySURkVTdxUzc1b01nY2lOMUdicncwZmZ4bnNSc3pmUzB3?=
- =?utf-8?B?TlVXQnRRa3JOTEd1S1lnYjd5RWFySnJMajN5VkV0WWk0MzBKQzFWS0RYYjRt?=
- =?utf-8?B?V1BpZzUxYzBrU01TNURNUjJCdklJWmowcGpRMXFiU0IvYUxzZUdSb3l1UDJp?=
- =?utf-8?B?Mk8zemRCWDBSS2dSWExLNlExWk9mV293N29pbnErLzFBNGoxeFQ2OFJoZWlN?=
- =?utf-8?B?c0lIUmpqR2xXU3lEaXMxdVFIZlBCR01KaHpZdXk4ajQwTm9adGoxVFF6Zldj?=
- =?utf-8?B?UjJpdGpGMlkyaEtBY2hqMGN3RzNoenY1aHNDdUNjZXRVT2dFTTB6NWZEak5I?=
- =?utf-8?B?OXBDQTc4YUUvRmQ4ZXFxdXBpbTRCSXNkbWdhWFVNTXdBa1hpcmoveE1YZ3Zm?=
- =?utf-8?B?OHdZeXZscGMwd2c3MHVWaG0zSkt3WHYyb1dQbkllVG83dUFyQUtEaEVEQUlh?=
- =?utf-8?B?dWVnaFlxZWdEOXhhMVRnREpXWEh5anVDQUxoYWUzUVZnS2wyTUFnaVBKVkRS?=
- =?utf-8?B?TnoyV1dCUXpmclZMQ0xLL3RXVmpkNGNuMlBNdktSa2F0VDk2aTQxQ2hIR2ht?=
- =?utf-8?B?Rm1yTmlXWkU3dWxvVUIybDlyRUMvTkRGa0xVdkJab0dhdnVJMGhBdFAzcUY4?=
- =?utf-8?B?VUU0b25ORXhnNHE4QW9hZzNaSGRwSTNzT1lEUlBYdjVCckl4ZHFXUVJaeERF?=
- =?utf-8?B?WkFMK0ZsR2dzMFhoM0c2Mk95N0dqY2hBdExpd3drcHRld0pBd0o2MEdHdzA4?=
- =?utf-8?B?Qldkd0ZhR0h3QUpwVTZKcFhCeDJhTSs4WnlJZ09rQUNFUlJCSmtESXByNmFM?=
- =?utf-8?B?TWdZWnlWSGVsN21hUUE2V2doZjhVZm9kMVNBRFJjbC9DZFFVc1d6L2ZXdDNL?=
- =?utf-8?B?amNaZ3k1VXJ6NWxIbTE5eW0wVWtJRHBnU29HZDBmdTdiVXlObkdoZG5kZ1ds?=
- =?utf-8?B?N1FxV3pLOVU1M1RPaW5lb1I4NlJvdCtDUG9WR29wbTRDL3dIYkNEZEo1SDNk?=
- =?utf-8?B?cmpuTTZVODgyNExhdkhRaXUvY3JFdVFDc3F0SDZ1TjhHTTZ6SzBIT1NkaEkz?=
- =?utf-8?B?Qm5Fc0VTVWsyOGlIcXJMVEI4RDlleVlXZ0NxUG5hTkphV3ZDZ3VIblVXNXBI?=
- =?utf-8?B?dzRUbXlTVUlyTE1uSlZGVk94WTIzaTVkSjRFTUxDbWo3L29TR2JicTdpeFRl?=
- =?utf-8?B?akVjOXBVeWFKTllIeG9tdnFjNU1tckRlMEdIM2szUERJbWhabFpiTFNXL25B?=
- =?utf-8?B?K1hlUW9WdVNoWklBT0NDOFhlZ3N3S05zWlhiU3FCK0J3MEFuYWp1SVNDbVhF?=
- =?utf-8?B?eEZtMzFvTUhPK1UwcWhyNkZRWWZ4YzBsQTQ3UHNJdzhDZmJ0VVRUMExDOUpK?=
- =?utf-8?B?Z3ExUStPMXYwRnMvaHZYaVhmSW1hOFRRaG9SZGkzUlF0Sy81M3ZSUzN1aEdW?=
- =?utf-8?B?ZmZ1Tk9GcTN2S1AyWHkzMDVUY0FxZWFpZ01UUVRFaXJ1cGF2bUxqZm91V29M?=
- =?utf-8?B?UGphMEdVTWVQVnRqWXgwYnkvQmN4RnYvaVdVUUttcUlSaUxPSlV6K3J5aUY1?=
- =?utf-8?B?YnhaL2k4ckRTR0E0c25LaHhBWHVtYUd6ZytmOWNMenpWVFd5a2JmaHRBa1Ir?=
- =?utf-8?Q?HcmtzzatZYWyvHhTD1u8vj6ji?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0a4e32d-4120-418f-c4b2-08da73a2a7d4
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2022 09:46:06.5544
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mTFP1IztD9Dukny/hfOdPZ4hcnuiyeY35AsTp8LwQCIJSV07L9CLP9Fvocvk0zXk38cwIjtbeAluMaCtgWfkFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4785
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [libvirt PATCH] libxl: Fix build with recent Xen that introduces
+ new disk backend type
+To: Julien Grall <julien@xen.org>, Oleksandr Tyshchenko
+ <olekstysh@gmail.com>, xen-devel@lists.xenproject.org, libvir-list@redhat.com
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20220729155024.3327364-1-olekstysh@gmail.com>
+ <d29b2ad1-fa32-4897-a113-c8a0864c6630@redhat.com>
+ <7444eeec-5a7c-6a18-ffde-cb32528a0e20@xen.org>
+From: =?UTF-8?B?TWljaGFsIFByw612b3puw61r?= <mprivozn@redhat.com>
+In-Reply-To: <7444eeec-5a7c-6a18-ffde-cb32528a0e20@xen.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 01.08.2022 11:43, Jan Beulich wrote:
-> On 29.07.2022 15:26, Anthony PERARD wrote:
->> Two patches:
->>     - one for stable branches (I've rework the XSA's patch on 4.16 so
->>       patch will need to be backported);
->>     - and one patch for staging, forward porting the patch for stable
->>       branches.
->>
->> Those patches are a rework of the patch for the stable branches available
->> in XSA-403. The environment variable is now in upper case, like one
->> would expect, and now a value of "0" as the same meaning as the variable
->> been absent. Also, there's a bit of documentation in `man xl`.
+On 8/1/22 10:51, Julien Grall wrote:
+> Hi Michal,
 > 
-> Thank you very much for helping out with this. While arguably not worth
-> a lot,
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> and I'm inclined to throw this in rather quickly, not the least to have
-> it in 4.16 a little ahead of the next stable version release there.
+> On 01/08/2022 09:23, Michal Prívozník wrote:
+>> On 7/29/22 17:50, Oleksandr Tyshchenko wrote:
+>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>
+>>> Xen toolstack has gained basic Virtio support recently which becides
+>>> adding various virtio related stuff introduces new disk backend type
+>>> LIBXL_DISK_BACKEND_STANDALONE [1].
+>>>
+>>> Unfortunately, this caused a regression in libvirt build with Xen
+>>> support
+>>> enabled, reported by the osstest today [2]:
+>>>
+>>> CC       libxl/libvirt_driver_libxl_impl_la-xen_xl.lo
+>>> ../../src/libxl/xen_xl.c: In function 'xenParseXLDisk':
+>>> ../../src/libxl/xen_xl.c:779:17: error: enumeration value
+>>> 'LIBXL_DISK_BACKEND_STANDALONE'
+>>>     not handled in switch [-Werror=switch-enum]
+>>>                   switch (libxldisk->backend) {
+>>>                   ^~~~~~
+>>> cc1: all warnings being treated as errors
+>>>
+>>> The interesting fact is that switch already has a default branch
+>>> (which ought
+>>> to cover such new addition), but the error is triggered as -Wswitch-enum
+>>> gives a warning about an omitted enumeration code even if there is a
+>>> default
+>>> label.
+>>
+>> This is expected and in fact working correctly. We want compiler to warn
+>> us about enum members that are not handled in a switch() statement.
+> 
+> For us this is treated as an error. Is it intended?
 
-Actually, as per the advisory it's only the stable trees which want the
-respective change committed. Unless I'm unaware of a change in mind.
+-Werror shouldn't be enabled when building a package, exactly for this
+reason. Header files change and we might get a warning or two when
+building a RPM. However, we definitely want to treat warnings as errors
+when developing libvirt, i.e. building libvirt from a git repo. That's
+why we get -Werror enabled in our CI too.
 
-Jan
+> 
+> If it is, then I think this will be a problem for Xen because it means
+> we will always need to fix libvirt before accepting a patch in Xen (see
+> more below).
+
+So we have a chicken egg problem. Xen needs libvirt to compile without
+any warning to merge a patch and libvirt wants hypervisors to have the
+patch merged first. Well, I think in this case we can make an
+"exception". Our demand comes from quite a few cases where we burned
+ourselves by merging our portion of a feature before it was merged into
+QEMU. And according to Murphy's law, QEMU interface was changed
+rendering our patches (now commits) useless. But I believe this is not
+the case with xen staging, is it?
+
+BTW: every other package that does switch() over libxl_disk_backend enum
+will need this fix.
+
+> 
+>>  The
+>> 'default' case exists in some places because we suspect the value might
+>> not have been validated before. For instance:
+>>
+>> libxl_disk_backend x = atoi(argv[1]); /* or parse something from XML */
+>>
+>> switch(x) {
+>> case LIBXL_DISK_BACKEND_UNKNOWN:
+>> case LIBXL_DISK_BACKEND_PHY:
+>> case LIBXL_DISK_BACKEND_TAP:
+>> case LIBXL_DISK_BACKEND_QDISK:
+>>    // Neither of these might be exectuted ..
+>> default:
+>>    // .. in which case this will.
+>> }
+>>
+>>
+>> But we are not very consistent in putting 'default' case, sadly.
+>>
+>>>
+>>> Also there is a similar issue in libxlUpdateDiskDef() which I have
+>>> reproduced
+>>> after fixing the first one, but it that case the corresponding switch
+>>> doesn't
+>>> have a default branch.
+>>>
+>>> Fix both issues by inserting required enumeration item to make the
+>>> compiler
+>>> happy and adding ifdef guard to be able to build against old Xen
+>>> libraries
+>>> as well (without LIBXL_HAVE_DEVICE_DISK_SPECIFICATION). Also add a
+>>> default
+>>> branch to switch in libxlUpdateDiskDef().
+>>>
+>>> Please note, that current patch doesn't implement the proper handling of
+>>> LIBXL_DISK_BACKEND_STANDALONE and friends, it is just intended to fix
+>>> the regression immediately to unblock the osstest.  Also it worth
+>>> mentioning
+>>> that current patch won't solve the possible additions in the future.
+>>>
+>>> [1]
+>>> https://lore.kernel.org/xen-devel/20220716163745.28712-1-olekstysh@gmail.com/
+>>>
+>>> [2]
+>>> https://lore.kernel.org/xen-devel/E1oHEQO-0008GA-Uo@osstest.test-lab.xenproject.org/
+>>>
+>>>
+>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>> ---
+>>> Cc: Julien Grall <julien@xen.org>
+>>> Cc: Anthony PERARD <anthony.perard@citrix.com>
+>>> Cc: Michal Privoznik <mprivozn@redhat.com>
+>>>
+>>> Please note, the patch is tested on:
+>>> https://xenbits.xen.org/gitweb/?p=libvirt.git;a=shortlog;h=refs/heads/xen-tested-master
+>>>
+>>> but should work on the master as well (as the same code is present
+>>> here).
+>>> ---
+>>>   src/libxl/libxl_conf.c | 4 ++++
+>>>   src/libxl/xen_xl.c     | 3 +++
+>>>   2 files changed, 7 insertions(+)
+>>
+>> Ah, I couldn't find the commit in master, and it's simply because it's
+>> not there yet. It's in staging:
+>>
+>> https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;f=tools/libs/light/libxl_types.idl;h=66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+>>
+>>
+>> The patch looks correct. Do you have any estimate when it can be merged
+>> into master? I'm not sure what our, libvirt, rules about xen staging
+>> are, but for qemu we require master (even unreleased yet).
+> 
+> The patches usually land in master after our test suite has completed.
+> One of the test is to confirm that libvirt is still working. Therefore,
+> the Xen patch will not be part of master until the patch in libvirt is
+> added.
+
+I understand that but what can we do here is to disable -Werror so that
+the commit can land in master. And then merge this libvirt fix. Does
+that work for you?
+
+Michal
+
 
