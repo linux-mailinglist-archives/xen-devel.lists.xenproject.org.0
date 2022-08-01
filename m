@@ -2,43 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF0595866E7
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Aug 2022 11:36:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.378621.611911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC2835866E8
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Aug 2022 11:37:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.378628.611920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIRqW-00020E-Iz; Mon, 01 Aug 2022 09:36:20 +0000
+	id 1oIRrH-0002dW-QG; Mon, 01 Aug 2022 09:37:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 378621.611911; Mon, 01 Aug 2022 09:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 378628.611920; Mon, 01 Aug 2022 09:37:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIRqW-0001wv-Ex; Mon, 01 Aug 2022 09:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 378621;
- Mon, 01 Aug 2022 09:36:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+uOD=YF=redhat.com=berrange@srs-se1.protection.inumbo.net>)
- id 1oIRqU-0001wp-9M
- for xen-devel@lists.xenproject.org; Mon, 01 Aug 2022 09:36:18 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 63b69c2b-117d-11ed-bd2d-47488cf2e6aa;
- Mon, 01 Aug 2022 11:36:17 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-261-RVpR-IIdOt-v2lRj7-Wl8g-1; Mon, 01 Aug 2022 05:36:12 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 22200185A794;
- Mon,  1 Aug 2022 09:36:12 +0000 (UTC)
-Received: from redhat.com (unknown [10.33.36.173])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 07BA4140EBE3;
- Mon,  1 Aug 2022 09:36:10 +0000 (UTC)
+	id 1oIRrH-0002bm-NJ; Mon, 01 Aug 2022 09:37:07 +0000
+Received: by outflank-mailman (input) for mailman id 378628;
+ Mon, 01 Aug 2022 09:37:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oIRrG-0002bW-8a; Mon, 01 Aug 2022 09:37:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oIRrG-00079P-6e; Mon, 01 Aug 2022 09:37:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oIRrF-0005LA-SM; Mon, 01 Aug 2022 09:37:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oIRrF-0001gR-Rs; Mon, 01 Aug 2022 09:37:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,93 +42,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63b69c2b-117d-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659346575;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fT1/66XxC5JMrsVsNAbAxmVxnCB+UfRqO9wwOaAvlmw=;
-	b=h2bzkkCBnRTcN3J18M9YD2MF74HYrT9v9nlVTqlGDKtKO82E6ItZmHAlrUyJf4ULI0h7E8
-	IRov/w9bIK00sXQYHmo+enHzdvWS7zPNOfqksk/I7rS+w6GNP8oxDIDaJ+YhiUPpFmkQSa
-	uUlASl1HNJV8uFfdgFKmuS/bdcJnX30=
-X-MC-Unique: RVpR-IIdOt-v2lRj7-Wl8g-1
-Date: Mon, 1 Aug 2022 10:36:07 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Julien Grall <julien@xen.org>
-Cc: Michal =?utf-8?B?UHLDrXZvem7DrWs=?= <mprivozn@redhat.com>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	xen-devel@lists.xenproject.org, libvir-list@redhat.com,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [libvirt PATCH] libxl: Fix build with recent Xen that introduces
- new disk backend type
-Message-ID: <Yueeh9w1EiY2sNEK@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20220729155024.3327364-1-olekstysh@gmail.com>
- <d29b2ad1-fa32-4897-a113-c8a0864c6630@redhat.com>
- <7444eeec-5a7c-6a18-ffde-cb32528a0e20@xen.org>
-MIME-Version: 1.0
-In-Reply-To: <7444eeec-5a7c-6a18-ffde-cb32528a0e20@xen.org>
-User-Agent: Mutt/2.2.6 (2022-06-05)
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=berrange@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=u1whQxdDo2S99px18HPnofOvA0+6RbNVEAde7XmxME8=; b=o/8phKG+NW5Xbebe05jSgw1+lb
+	1MbUN44TqMMU+bc6notNn000bPZSosf2lhDw+f7Ks4EVo79GQEqRBt3Hpp/PzdASpwY6ata/8QSS1
+	l8JPYxmrDQ3XpwL1jTX+hFVF8304ptJ9BpHe666DHWkkKdHxoyBIEnv5w8B3YcKOkR7k=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172061-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 172061: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=9dc3f006a831cd20d531123f097e3de176ac3cae
+X-Osstest-Versions-That:
+    xen=f732240fd3bac25116151db5ddeb7203b62e85ce
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 01 Aug 2022 09:37:05 +0000
 
-On Mon, Aug 01, 2022 at 09:51:11AM +0100, Julien Grall wrote:
-> Hi Michal,
-> 
-> On 01/08/2022 09:23, Michal Prívozník wrote:
-> > On 7/29/22 17:50, Oleksandr Tyshchenko wrote:
-> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > 
-> > > Xen toolstack has gained basic Virtio support recently which becides
-> > > adding various virtio related stuff introduces new disk backend type
-> > > LIBXL_DISK_BACKEND_STANDALONE [1].
-> > > 
-> > > Unfortunately, this caused a regression in libvirt build with Xen support
-> > > enabled, reported by the osstest today [2]:
-> > > 
-> > > CC       libxl/libvirt_driver_libxl_impl_la-xen_xl.lo
-> > > ../../src/libxl/xen_xl.c: In function 'xenParseXLDisk':
-> > > ../../src/libxl/xen_xl.c:779:17: error: enumeration value 'LIBXL_DISK_BACKEND_STANDALONE'
-> > >     not handled in switch [-Werror=switch-enum]
-> > >                   switch (libxldisk->backend) {
-> > >                   ^~~~~~
-> > > cc1: all warnings being treated as errors
-> > > 
-> > > The interesting fact is that switch already has a default branch (which ought
-> > > to cover such new addition), but the error is triggered as -Wswitch-enum
-> > > gives a warning about an omitted enumeration code even if there is a default
-> > > label.
-> > 
-> > This is expected and in fact working correctly. We want compiler to warn
-> > us about enum members that are not handled in a switch() statement.
-> 
-> For us this is treated as an error. Is it intended?
+flight 172061 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172061/
 
-Yes & no, but mostly yes.
+Regressions :-(
 
-You can choose to build with -Werror or not. If building from .git
-then it defaults to enabled, but can be disabled if desired.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 171884
 
-Generally we want to see errors triggered from new enums arriving,
-as it can be a sign that libvirt code needs a semantic change in
-order to continue operating correctly.  It isn't always correct
-to assume that the 'default' case gives the correct behaviour.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+version targeted for testing:
+ xen                  9dc3f006a831cd20d531123f097e3de176ac3cae
+baseline version:
+ xen                  f732240fd3bac25116151db5ddeb7203b62e85ce
 
+Last test of basis   171884  2022-07-27 12:03:31 Z    4 days
+Failing since        171899  2022-07-28 19:01:47 Z    3 days   24 attempts
+Testing same since   171934  2022-07-30 02:00:28 Z    2 days   16 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jiamei Xie <jiamei.xie@arm.com>
+  Julien Grall <jgrall@amazon.com>
+  Julien Grall <julien.grall@arm.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+  Xenia Ragiadakou <burzalodowa@gmail.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 451 lines long.)
 
