@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5B2E587D12
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Aug 2022 15:28:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.379310.612651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75263587D38
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Aug 2022 15:36:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.379328.612696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIrw9-0001yQ-5w; Tue, 02 Aug 2022 13:27:53 +0000
+	id 1oIs4S-0004tY-TL; Tue, 02 Aug 2022 13:36:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 379310.612651; Tue, 02 Aug 2022 13:27:53 +0000
+Received: by outflank-mailman (output) from mailman id 379328.612696; Tue, 02 Aug 2022 13:36:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIrw9-0001vi-1w; Tue, 02 Aug 2022 13:27:53 +0000
-Received: by outflank-mailman (input) for mailman id 379310;
- Tue, 02 Aug 2022 13:27:51 +0000
+	id 1oIs4S-0004rL-PR; Tue, 02 Aug 2022 13:36:28 +0000
+Received: by outflank-mailman (input) for mailman id 379328;
+ Tue, 02 Aug 2022 13:36:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NPAu=YG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oIrw7-0001vX-LG
- for xen-devel@lists.xenproject.org; Tue, 02 Aug 2022 13:27:51 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7964cae-1266-11ed-bd2d-47488cf2e6aa;
- Tue, 02 Aug 2022 15:27:50 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DF0691FECD;
- Tue,  2 Aug 2022 13:27:49 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B3B2F1345B;
- Tue,  2 Aug 2022 13:27:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2JSGKlUm6WLWWQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 02 Aug 2022 13:27:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gPpP=YG=citrix.com=prvs=206784369=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oIs4R-0004av-Lv
+ for xen-devel@lists.xenproject.org; Tue, 02 Aug 2022 13:36:27 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a553bdf-1268-11ed-bd2d-47488cf2e6aa;
+ Tue, 02 Aug 2022 15:36:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,261 +36,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7964cae-1266-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1659446869; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=r055KlFFG7wgfZTYdhnXl5L+qkf5yrkGetDrG95QZRU=;
-	b=D9Nk4HC7bTVYz3Rki3dxqiER5QExFkNZOTkSQnHBogzwviGA26NwXBWapTUVEKWxGFvqq3
-	49Hmb+mjkIkdphYJgsoqhhd3PiMLosqdCjKYwCrhpYiyzFCmnU1HpNhscIzaJrceClAU7b
-	L45vuWnyGN4XjN4cv4kIdbm2HOpgHpQ=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH 2/3] xen/sched: carve out memory allocation and freeing from schedule_cpu_rm()
-Date: Tue,  2 Aug 2022 15:27:46 +0200
-Message-Id: <20220802132747.22507-3-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220802132747.22507-1-jgross@suse.com>
-References: <20220802132747.22507-1-jgross@suse.com>
+X-Inumbo-ID: 1a553bdf-1268-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1659447386;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PpfpV5nkngWKXwIzMuzDvmEu5G/siM6B6JBZhHRYfO8=;
+  b=bpVq/R1Hh0n9OIfLEweslxGyCD513brfGP1BME7+hAWU8VpCGBnT0BTL
+   5RD1G6vtw287sytT+UDTwNhSaB3zyLLgRmHnL/64meJeYY5a8eKbrf9rS
+   LpGIYKMmlu3vqCr7IBowzRnbFAMrYs33rkwi0veLMeMxVYkCfBk8RoR+J
+   o=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: None
+X-MesageID: 77611014
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:/690IKBKkP6TjhVW/3Tjw5YqxClBgxIJ4kV8jS/XYbTApDki1jYOm
+ 2IeCj3XOKneYDH9c9pzPI22px9S7JfTxt9qQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaA4E3ratANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq3uU0meaEu/Dga++2k
+ Y608pa31GONgWYuaDpEs/jb83uDgdyp0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSq
+ zHrlezREsvxpn/BO/v9+lrJWhRiro36ZGBivkF+Sam66iWukwRpukoN2FjwXm8M49mBt4gZJ
+ NygLvVcQy9xVkHHsLx1vxW1j0iSlECJkVPKCSHXjCCd86HJW2PT5KhxKmMXBJA32e9xA0UNx
+ foSERlYO3hvh8ruqF66Yuxlh8BlJ8j3JoIP/HpnyFk1D95/H8qFGf+To4YFgnFg3aiiHt6HD
+ yYdQTNpcBTHZQwJIloNAYgytOypmmP+Y3tTr1f9Sa8fvDeNlVUpieSF3Nz9R/O7YZlOxBajm
+ 3/s5E7cHRYaKNvAxm/Qmp6rrrCWxn6qMG4IL5Wo+/gvjFCNy2g7DBwNSUD9sfS/klS5Wd9UN
+ woT4CVGhakw/UeoVd77dxa4oXeevVgTQdddFeA85EeK0KWS/gXxO4QfZmcfMpp87pZwHGF0k
+ A/S9z/0OdBxmKWqbi+C0JW1lC6dGiETL0tBVSkOdCJQtrEPv7oPYgLzosdLSfDo34GtRGitm
+ VhmvwBl2exN0JdjO7GTuAme3mny/sWhohsdvF2/Y46z0u9uiGdJjaSM4EOT0/tPJZ3xorKp7
+ CldwJj2AAzj4PiweM2xrAYlRujBCw6tamG0vLKWN8BJGvTE0yfLkXpsyD9/Plx1Fc0PZCXkZ
+ kTe0SsIusICZyT7NfYsMtPoYyjP8UQHPY28Ps04k/IUOsQhHON51HsGibGsM5DFzxF3zPBX1
+ WazesewF3cKYZlaIfvfb7l17ILHMQhnlT6JFM+kkEj5uVdcDVbMIYo43JK1RrhRxMu5TM/9r
+ 76z6+PiJ81jbdDD
+IronPort-HdrOrdr: A9a23:0QCekqFtv0fLIyJ3pLqFaZHXdLJyesId70hD6qkvc3Fom52j/f
+ xGws5x6fatskd2ZJhSo6H4BEDgewKryXcR2+Us1NiZLWvbUQeTQ72KqLGSpAEIeBeOv9K1t5
+ 0QFpSWYeeYZWSSz/yKhDVQeOxA/DDzytHKuQ6o9RdQpG9RBZ1I3kNcMEK2A0d2TA5JCd4SD5
+ yH/PdKoDKmZDA+ctm7LmNtZZmJm/T70LbdJTIWDR8u7weDyRmy7qThLhSe1hACFxtS3LYZ93
+ TfmQCR3NTojxj78G6Q64bg1eUYpDLT8KoMOCVKsLlVFtzYsHflWG2mYczDgNl6mpDt1L9gqq
+ i1n/5pBbUJ15qWRBD8nfKl4Xib7B8+r3Lj01WciXvmrdeRfkNFN+NRwY1eaRfX8EwmoZV117
+ 9KxXuQs95NAQrHhzmV3am8a/hGrDvGnZMZq59gs1VPFY8FLLNBp40W+01YVJ8GASLh8YgiVO
+ 1jFtvV6vpaeU6TKymxhBgZ/PW8GnAoWhuWSEkLvcKYlzBQgXBi1kMdgMgShG0J+p4xQ4RNo+
+ 7ELqNrnrdTSdJ+V9MIOM4RBc+sTmDdSxPFN2yfZVzhCaEcInrI74X65b0kjdvaCKDgDKFC6a
+ gpfGkoyVLaIXiedPFm9Kc7jSzwfA==
+X-IronPort-AV: E=Sophos;i="5.93,211,1654574400"; 
+   d="scan'208";a="77611014"
+Date: Tue, 2 Aug 2022 14:36:13 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Ian Jackson <ijackson@chiark.greenend.org.uk>
+CC: <xen-devel@lists.xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>
+Subject: Re: [OSSTEST PATCH 1/2] TestSupport: Add support for installing from
+ backport repo
+Message-ID: <YukoTdtWbExEVCH7@perard.uk.xensource.com>
+References: <20220802102602.131992-1-anthony.perard@citrix.com>
+ <20220802102602.131992-2-anthony.perard@citrix.com>
+ <25321.6183.866850.867719@chiark.greenend.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <25321.6183.866850.867719@chiark.greenend.org.uk>
 
-In order to prepare not allocating or freeing memory from
-schedule_cpu_rm(), move this functionality to dedicated functions.
+On Tue, Aug 02, 2022 at 01:27:19PM +0100, Ian Jackson wrote:
+> Anthony PERARD writes ("[OSSTEST PATCH 1/2] TestSupport: Add support for installing from backport repo"):
+> > We are going to need to install package from the debian backport
+> > repository in order to do a build.
+> 
+> LGTM.  I was kind of surprised we didn't have this already, but now I
+> come to think of it, I think that was only for kernels ?  (I haven't
+> UTSL to check.)
 
-For now call those functions from schedule_cpu_rm().
+Yes, there's preseed_backports_packages() to install from backports repo
+at host/guest installation. But nothing once the OS is already
+installed. I thought it would not be a good idea to install meson on
+every host.
 
-No change of behavior expected.
+> > +sub target_install_packages_backport ($@) {
+> > +    my ($ho, @packages) = @_;
+> > +    my $had_backport_repo = 0;
+> > +    target_editfile_root($ho, '/etc/apt/sources.list', sub {
+> > +        my $suite = $ho->{Suite};
+> > +        my $bp_url = Osstest::Debian::debian_mirror_url($ho);
+> > +        while (<::EI>) {
+> > +            if (m/^# $suite backports/) {
+> > +                $had_backport_repo = 1;
+> > +            }
+> > +            print ::EO;
+> > +        }
+> > +        print ::EO <<EOF unless $had_backport_repo;
+> > +
+> > +# $suite backports
+> > +deb $bp_url $suite-backports main
+> > +EOF
+> > +        });
+> 
+> Nit: this last line looks misindented to me.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- xen/common/sched/core.c    | 133 +++++++++++++++++++++----------------
- xen/common/sched/private.h |   8 +++
- 2 files changed, 85 insertions(+), 56 deletions(-)
+Would be nice to fix on commit, I guess.
 
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index c8d1034d3d..d6ff4f4921 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -3190,6 +3190,66 @@ out:
-     return ret;
- }
- 
-+static struct cpu_rm_data *schedule_cpu_rm_alloc(unsigned int cpu)
-+{
-+    struct cpu_rm_data *data;
-+    struct sched_resource *sr;
-+    int idx;
-+
-+    rcu_read_lock(&sched_res_rculock);
-+
-+    sr = get_sched_res(cpu);
-+    data = xzalloc_flex_struct(struct cpu_rm_data, sr, sr->granularity - 1);
-+    if ( !data )
-+        goto out;
-+
-+    data->old_ops = sr->scheduler;
-+    data->vpriv_old = idle_vcpu[cpu]->sched_unit->priv;
-+    data->ppriv_old = sr->sched_priv;
-+
-+    for ( idx = 0; idx < sr->granularity - 1; idx++ )
-+    {
-+        data->sr[idx] = sched_alloc_res();
-+        if ( data->sr[idx] )
-+        {
-+            data->sr[idx]->sched_unit_idle = sched_alloc_unit_mem();
-+            if ( !data->sr[idx]->sched_unit_idle )
-+            {
-+                sched_res_free(&data->sr[idx]->rcu);
-+                data->sr[idx] = NULL;
-+            }
-+        }
-+        if ( !data->sr[idx] )
-+        {
-+            for ( idx--; idx >= 0; idx-- )
-+                sched_res_free(&data->sr[idx]->rcu);
-+            xfree(data);
-+            data = NULL;
-+            goto out;
-+        }
-+
-+        data->sr[idx]->curr = data->sr[idx]->sched_unit_idle;
-+        data->sr[idx]->scheduler = &sched_idle_ops;
-+        data->sr[idx]->granularity = 1;
-+
-+        /* We want the lock not to change when replacing the resource. */
-+        data->sr[idx]->schedule_lock = sr->schedule_lock;
-+    }
-+
-+ out:
-+    rcu_read_unlock(&sched_res_rculock);
-+
-+    return data;
-+}
-+
-+static void schedule_cpu_rm_free(struct cpu_rm_data *mem, unsigned int cpu)
-+{
-+    sched_free_udata(mem->old_ops, mem->vpriv_old);
-+    sched_free_pdata(mem->old_ops, mem->ppriv_old, cpu);
-+
-+    xfree(mem);
-+}
-+
- /*
-  * Remove a pCPU from its cpupool. Its scheduler becomes &sched_idle_ops
-  * (the idle scheduler).
-@@ -3198,53 +3258,22 @@ out:
-  */
- int schedule_cpu_rm(unsigned int cpu)
- {
--    void *ppriv_old, *vpriv_old;
--    struct sched_resource *sr, **sr_new = NULL;
-+    struct sched_resource *sr;
-+    struct cpu_rm_data *data;
-     struct sched_unit *unit;
--    struct scheduler *old_ops;
-     spinlock_t *old_lock;
-     unsigned long flags;
--    int idx, ret = -ENOMEM;
-+    int idx = 0;
-     unsigned int cpu_iter;
- 
-+    data = schedule_cpu_rm_alloc(cpu);
-+    if ( !data )
-+        return -ENOMEM;
-+
-     rcu_read_lock(&sched_res_rculock);
- 
-     sr = get_sched_res(cpu);
--    old_ops = sr->scheduler;
- 
--    if ( sr->granularity > 1 )
--    {
--        sr_new = xmalloc_array(struct sched_resource *, sr->granularity - 1);
--        if ( !sr_new )
--            goto out;
--        for ( idx = 0; idx < sr->granularity - 1; idx++ )
--        {
--            sr_new[idx] = sched_alloc_res();
--            if ( sr_new[idx] )
--            {
--                sr_new[idx]->sched_unit_idle = sched_alloc_unit_mem();
--                if ( !sr_new[idx]->sched_unit_idle )
--                {
--                    sched_res_free(&sr_new[idx]->rcu);
--                    sr_new[idx] = NULL;
--                }
--            }
--            if ( !sr_new[idx] )
--            {
--                for ( idx--; idx >= 0; idx-- )
--                    sched_res_free(&sr_new[idx]->rcu);
--                goto out;
--            }
--            sr_new[idx]->curr = sr_new[idx]->sched_unit_idle;
--            sr_new[idx]->scheduler = &sched_idle_ops;
--            sr_new[idx]->granularity = 1;
--
--            /* We want the lock not to change when replacing the resource. */
--            sr_new[idx]->schedule_lock = sr->schedule_lock;
--        }
--    }
--
--    ret = 0;
-     ASSERT(sr->cpupool != NULL);
-     ASSERT(cpumask_test_cpu(cpu, &cpupool_free_cpus));
-     ASSERT(!cpumask_test_cpu(cpu, sr->cpupool->cpu_valid));
-@@ -3252,10 +3281,6 @@ int schedule_cpu_rm(unsigned int cpu)
-     /* See comment in schedule_cpu_add() regarding lock switching. */
-     old_lock = pcpu_schedule_lock_irqsave(cpu, &flags);
- 
--    vpriv_old = idle_vcpu[cpu]->sched_unit->priv;
--    ppriv_old = sr->sched_priv;
--
--    idx = 0;
-     for_each_cpu ( cpu_iter, sr->cpus )
-     {
-         per_cpu(sched_res_idx, cpu_iter) = 0;
-@@ -3269,27 +3294,27 @@ int schedule_cpu_rm(unsigned int cpu)
-         else
-         {
-             /* Initialize unit. */
--            unit = sr_new[idx]->sched_unit_idle;
--            unit->res = sr_new[idx];
-+            unit = data->sr[idx]->sched_unit_idle;
-+            unit->res = data->sr[idx];
-             unit->is_running = true;
-             sched_unit_add_vcpu(unit, idle_vcpu[cpu_iter]);
-             sched_domain_insert_unit(unit, idle_vcpu[cpu_iter]->domain);
- 
-             /* Adjust cpu masks of resources (old and new). */
-             cpumask_clear_cpu(cpu_iter, sr->cpus);
--            cpumask_set_cpu(cpu_iter, sr_new[idx]->cpus);
-+            cpumask_set_cpu(cpu_iter, data->sr[idx]->cpus);
-             cpumask_set_cpu(cpu_iter, &sched_res_mask);
- 
-             /* Init timer. */
--            init_timer(&sr_new[idx]->s_timer, s_timer_fn, NULL, cpu_iter);
-+            init_timer(&data->sr[idx]->s_timer, s_timer_fn, NULL, cpu_iter);
- 
-             /* Last resource initializations and insert resource pointer. */
--            sr_new[idx]->master_cpu = cpu_iter;
--            set_sched_res(cpu_iter, sr_new[idx]);
-+            data->sr[idx]->master_cpu = cpu_iter;
-+            set_sched_res(cpu_iter, data->sr[idx]);
- 
-             /* Last action: set the new lock pointer. */
-             smp_mb();
--            sr_new[idx]->schedule_lock = &sched_free_cpu_lock;
-+            data->sr[idx]->schedule_lock = &sched_free_cpu_lock;
- 
-             idx++;
-         }
-@@ -3305,16 +3330,12 @@ int schedule_cpu_rm(unsigned int cpu)
-     /* _Not_ pcpu_schedule_unlock(): schedule_lock may have changed! */
-     spin_unlock_irqrestore(old_lock, flags);
- 
--    sched_deinit_pdata(old_ops, ppriv_old, cpu);
--
--    sched_free_udata(old_ops, vpriv_old);
--    sched_free_pdata(old_ops, ppriv_old, cpu);
-+    sched_deinit_pdata(data->old_ops, data->ppriv_old, cpu);
- 
--out:
-     rcu_read_unlock(&sched_res_rculock);
--    xfree(sr_new);
-+    schedule_cpu_rm_free(data, cpu);
- 
--    return ret;
-+    return 0;
- }
- 
- struct scheduler *scheduler_get_default(void)
-diff --git a/xen/common/sched/private.h b/xen/common/sched/private.h
-index de0cf63ce8..c626ad4907 100644
---- a/xen/common/sched/private.h
-+++ b/xen/common/sched/private.h
-@@ -598,6 +598,14 @@ struct affinity_masks {
-     cpumask_var_t soft;
- };
- 
-+/* Memory allocation related data for schedule_cpu_rm(). */
-+struct cpu_rm_data {
-+    struct scheduler *old_ops;
-+    void *ppriv_old;
-+    void *vpriv_old;
-+    struct sched_resource *sr[];
-+};
-+
- void domain_update_node_affinity_noalloc(struct domain *d,
-                                          const cpumask_t *online,
-                                          struct affinity_masks *affinity);
+> Acked-by: Ian Jackson <ijackson@chiark.greenend.org.uk>
+
+Thanks,
+
 -- 
-2.35.3
-
+Anthony PERARD
 
