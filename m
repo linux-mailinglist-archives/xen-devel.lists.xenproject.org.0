@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75263587D38
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Aug 2022 15:36:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.379328.612696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BE28587D39
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Aug 2022 15:36:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.379327.612686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIs4S-0004tY-TL; Tue, 02 Aug 2022 13:36:28 +0000
+	id 1oIs4O-0004eS-LN; Tue, 02 Aug 2022 13:36:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 379328.612696; Tue, 02 Aug 2022 13:36:28 +0000
+Received: by outflank-mailman (output) from mailman id 379327.612686; Tue, 02 Aug 2022 13:36:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIs4S-0004rL-PR; Tue, 02 Aug 2022 13:36:28 +0000
-Received: by outflank-mailman (input) for mailman id 379328;
- Tue, 02 Aug 2022 13:36:27 +0000
+	id 1oIs4O-0004b1-I2; Tue, 02 Aug 2022 13:36:24 +0000
+Received: by outflank-mailman (input) for mailman id 379327;
+ Tue, 02 Aug 2022 13:36:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gPpP=YG=citrix.com=prvs=206784369=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oIs4R-0004av-Lv
- for xen-devel@lists.xenproject.org; Tue, 02 Aug 2022 13:36:27 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a553bdf-1268-11ed-bd2d-47488cf2e6aa;
- Tue, 02 Aug 2022 15:36:26 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NPAu=YG=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oIs4N-0004av-5c
+ for xen-devel@lists.xenproject.org; Tue, 02 Aug 2022 13:36:23 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 189c781a-1268-11ed-bd2d-47488cf2e6aa;
+ Tue, 02 Aug 2022 15:36:22 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7773F1FD3A;
+ Tue,  2 Aug 2022 13:36:21 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 396951345B;
+ Tue,  2 Aug 2022 13:36:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id nlWmDFUo6WLkXQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 02 Aug 2022 13:36:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,106 +51,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a553bdf-1268-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1659447386;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=PpfpV5nkngWKXwIzMuzDvmEu5G/siM6B6JBZhHRYfO8=;
-  b=bpVq/R1Hh0n9OIfLEweslxGyCD513brfGP1BME7+hAWU8VpCGBnT0BTL
-   5RD1G6vtw287sytT+UDTwNhSaB3zyLLgRmHnL/64meJeYY5a8eKbrf9rS
-   LpGIYKMmlu3vqCr7IBowzRnbFAMrYs33rkwi0veLMeMxVYkCfBk8RoR+J
-   o=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: None
-X-MesageID: 77611014
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:/690IKBKkP6TjhVW/3Tjw5YqxClBgxIJ4kV8jS/XYbTApDki1jYOm
- 2IeCj3XOKneYDH9c9pzPI22px9S7JfTxt9qQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E3ratANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq3uU0meaEu/Dga++2k
- Y608pa31GONgWYuaDpEs/jb83uDgdyp0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSq
- zHrlezREsvxpn/BO/v9+lrJWhRiro36ZGBivkF+Sam66iWukwRpukoN2FjwXm8M49mBt4gZJ
- NygLvVcQy9xVkHHsLx1vxW1j0iSlECJkVPKCSHXjCCd86HJW2PT5KhxKmMXBJA32e9xA0UNx
- foSERlYO3hvh8ruqF66Yuxlh8BlJ8j3JoIP/HpnyFk1D95/H8qFGf+To4YFgnFg3aiiHt6HD
- yYdQTNpcBTHZQwJIloNAYgytOypmmP+Y3tTr1f9Sa8fvDeNlVUpieSF3Nz9R/O7YZlOxBajm
- 3/s5E7cHRYaKNvAxm/Qmp6rrrCWxn6qMG4IL5Wo+/gvjFCNy2g7DBwNSUD9sfS/klS5Wd9UN
- woT4CVGhakw/UeoVd77dxa4oXeevVgTQdddFeA85EeK0KWS/gXxO4QfZmcfMpp87pZwHGF0k
- A/S9z/0OdBxmKWqbi+C0JW1lC6dGiETL0tBVSkOdCJQtrEPv7oPYgLzosdLSfDo34GtRGitm
- VhmvwBl2exN0JdjO7GTuAme3mny/sWhohsdvF2/Y46z0u9uiGdJjaSM4EOT0/tPJZ3xorKp7
- CldwJj2AAzj4PiweM2xrAYlRujBCw6tamG0vLKWN8BJGvTE0yfLkXpsyD9/Plx1Fc0PZCXkZ
- kTe0SsIusICZyT7NfYsMtPoYyjP8UQHPY28Ps04k/IUOsQhHON51HsGibGsM5DFzxF3zPBX1
- WazesewF3cKYZlaIfvfb7l17ILHMQhnlT6JFM+kkEj5uVdcDVbMIYo43JK1RrhRxMu5TM/9r
- 76z6+PiJ81jbdDD
-IronPort-HdrOrdr: A9a23:0QCekqFtv0fLIyJ3pLqFaZHXdLJyesId70hD6qkvc3Fom52j/f
- xGws5x6fatskd2ZJhSo6H4BEDgewKryXcR2+Us1NiZLWvbUQeTQ72KqLGSpAEIeBeOv9K1t5
- 0QFpSWYeeYZWSSz/yKhDVQeOxA/DDzytHKuQ6o9RdQpG9RBZ1I3kNcMEK2A0d2TA5JCd4SD5
- yH/PdKoDKmZDA+ctm7LmNtZZmJm/T70LbdJTIWDR8u7weDyRmy7qThLhSe1hACFxtS3LYZ93
- TfmQCR3NTojxj78G6Q64bg1eUYpDLT8KoMOCVKsLlVFtzYsHflWG2mYczDgNl6mpDt1L9gqq
- i1n/5pBbUJ15qWRBD8nfKl4Xib7B8+r3Lj01WciXvmrdeRfkNFN+NRwY1eaRfX8EwmoZV117
- 9KxXuQs95NAQrHhzmV3am8a/hGrDvGnZMZq59gs1VPFY8FLLNBp40W+01YVJ8GASLh8YgiVO
- 1jFtvV6vpaeU6TKymxhBgZ/PW8GnAoWhuWSEkLvcKYlzBQgXBi1kMdgMgShG0J+p4xQ4RNo+
- 7ELqNrnrdTSdJ+V9MIOM4RBc+sTmDdSxPFN2yfZVzhCaEcInrI74X65b0kjdvaCKDgDKFC6a
- gpfGkoyVLaIXiedPFm9Kc7jSzwfA==
-X-IronPort-AV: E=Sophos;i="5.93,211,1654574400"; 
-   d="scan'208";a="77611014"
-Date: Tue, 2 Aug 2022 14:36:13 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Ian Jackson <ijackson@chiark.greenend.org.uk>
-CC: <xen-devel@lists.xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>
-Subject: Re: [OSSTEST PATCH 1/2] TestSupport: Add support for installing from
- backport repo
-Message-ID: <YukoTdtWbExEVCH7@perard.uk.xensource.com>
-References: <20220802102602.131992-1-anthony.perard@citrix.com>
- <20220802102602.131992-2-anthony.perard@citrix.com>
- <25321.6183.866850.867719@chiark.greenend.org.uk>
+X-Inumbo-ID: 189c781a-1268-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1659447381; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yxhfYvFG5L28ncEPs8ILtxibkaHQd3HYF/JgY5i75BY=;
+	b=b3IxQFs7pm5TJYFxJon3cr8h1MiPCDNz75Eqm/ylqOqTDkoYGrOMu7gXGhFli6f7j/tZm7
+	HOB7hxhqSrYoTpeVqS5jNkFiIUVLZCwDRvYfDYf2ECt+Q3vTIxyciMxLP7W3oZA11GWvaP
+	0DSm1fquKkW7WbaDmD+qxs3QLWYSeno=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Gao Ruifeng <ruifeng.gao@intel.com>
+Subject: [PATCH 3/3] xen/sched: fix cpu hotplug
+Date: Tue,  2 Aug 2022 15:36:19 +0200
+Message-Id: <20220802133619.22965-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220802132747.22507-1-jgross@suse.com>
+References: <20220802132747.22507-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <25321.6183.866850.867719@chiark.greenend.org.uk>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 02, 2022 at 01:27:19PM +0100, Ian Jackson wrote:
-> Anthony PERARD writes ("[OSSTEST PATCH 1/2] TestSupport: Add support for installing from backport repo"):
-> > We are going to need to install package from the debian backport
-> > repository in order to do a build.
-> 
-> LGTM.  I was kind of surprised we didn't have this already, but now I
-> come to think of it, I think that was only for kernels ?  (I haven't
-> UTSL to check.)
+Cpu cpu unplugging is calling schedule_cpu_rm() via stop_machine_run()
+with interrupts disabled, thus any memory allocation or freeing must
+be avoided.
 
-Yes, there's preseed_backports_packages() to install from backports repo
-at host/guest installation. But nothing once the OS is already
-installed. I thought it would not be a good idea to install meson on
-every host.
+Since commit 5047cd1d5dea ("xen/common: Use enhanced
+ASSERT_ALLOC_CONTEXT in xmalloc()") this restriction is being enforced
+via an assertion, which will now fail.
 
-> > +sub target_install_packages_backport ($@) {
-> > +    my ($ho, @packages) = @_;
-> > +    my $had_backport_repo = 0;
-> > +    target_editfile_root($ho, '/etc/apt/sources.list', sub {
-> > +        my $suite = $ho->{Suite};
-> > +        my $bp_url = Osstest::Debian::debian_mirror_url($ho);
-> > +        while (<::EI>) {
-> > +            if (m/^# $suite backports/) {
-> > +                $had_backport_repo = 1;
-> > +            }
-> > +            print ::EO;
-> > +        }
-> > +        print ::EO <<EOF unless $had_backport_repo;
-> > +
-> > +# $suite backports
-> > +deb $bp_url $suite-backports main
-> > +EOF
-> > +        });
-> 
-> Nit: this last line looks misindented to me.
+Before that commit cpu unplugging in normal configurations was working
+just by chance as only the cpu performing schedule_cpu_rm() was doing
+active work. With core scheduling enabled, however, failures could
+result from memory allocations not being properly propagated to other
+cpus' TLBs.
 
-Would be nice to fix on commit, I guess.
+Fix this mess by allocating needed memory before entering
+stop_machine_run() and freeing any memory only after having finished
+stop_machine_run().
 
-> Acked-by: Ian Jackson <ijackson@chiark.greenend.org.uk>
+Fixes: 1ec410112cdd ("xen/sched: support differing granularity in schedule_cpu_[add/rm]()")
+Reported-by: Gao Ruifeng <ruifeng.gao@intel.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/common/sched/core.c    | 14 ++++---
+ xen/common/sched/cpupool.c | 77 +++++++++++++++++++++++++++++---------
+ xen/common/sched/private.h |  5 ++-
+ 3 files changed, 72 insertions(+), 24 deletions(-)
 
-Thanks,
-
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index d6ff4f4921..1473cef372 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -3190,7 +3190,7 @@ out:
+     return ret;
+ }
+ 
+-static struct cpu_rm_data *schedule_cpu_rm_alloc(unsigned int cpu)
++struct cpu_rm_data *schedule_cpu_rm_alloc(unsigned int cpu)
+ {
+     struct cpu_rm_data *data;
+     struct sched_resource *sr;
+@@ -3242,7 +3242,7 @@ static struct cpu_rm_data *schedule_cpu_rm_alloc(unsigned int cpu)
+     return data;
+ }
+ 
+-static void schedule_cpu_rm_free(struct cpu_rm_data *mem, unsigned int cpu)
++void schedule_cpu_rm_free(struct cpu_rm_data *mem, unsigned int cpu)
+ {
+     sched_free_udata(mem->old_ops, mem->vpriv_old);
+     sched_free_pdata(mem->old_ops, mem->ppriv_old, cpu);
+@@ -3256,17 +3256,18 @@ static void schedule_cpu_rm_free(struct cpu_rm_data *mem, unsigned int cpu)
+  * The cpu is already marked as "free" and not valid any longer for its
+  * cpupool.
+  */
+-int schedule_cpu_rm(unsigned int cpu)
++int schedule_cpu_rm(unsigned int cpu, struct cpu_rm_data *data)
+ {
+     struct sched_resource *sr;
+-    struct cpu_rm_data *data;
+     struct sched_unit *unit;
+     spinlock_t *old_lock;
+     unsigned long flags;
+     int idx = 0;
+     unsigned int cpu_iter;
++    bool freemem = !data;
+ 
+-    data = schedule_cpu_rm_alloc(cpu);
++    if ( !data )
++        data = schedule_cpu_rm_alloc(cpu);
+     if ( !data )
+         return -ENOMEM;
+ 
+@@ -3333,7 +3334,8 @@ int schedule_cpu_rm(unsigned int cpu)
+     sched_deinit_pdata(data->old_ops, data->ppriv_old, cpu);
+ 
+     rcu_read_unlock(&sched_res_rculock);
+-    schedule_cpu_rm_free(data, cpu);
++    if ( freemem )
++        schedule_cpu_rm_free(data, cpu);
+ 
+     return 0;
+ }
+diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
+index 1463dcd767..d9dadedea3 100644
+--- a/xen/common/sched/cpupool.c
++++ b/xen/common/sched/cpupool.c
+@@ -419,6 +419,8 @@ static int cpupool_alloc_affin_masks(struct affinity_masks *masks)
+         return 0;
+ 
+     free_cpumask_var(masks->hard);
++    memset(masks, 0, sizeof(*masks));
++
+     return -ENOMEM;
+ }
+ 
+@@ -428,28 +430,34 @@ static void cpupool_free_affin_masks(struct affinity_masks *masks)
+     free_cpumask_var(masks->hard);
+ }
+ 
+-static void cpupool_update_node_affinity(const struct cpupool *c)
++static void cpupool_update_node_affinity(const struct cpupool *c,
++                                         struct affinity_masks *masks)
+ {
+     const cpumask_t *online = c->res_valid;
+-    struct affinity_masks masks;
++    struct affinity_masks local_masks;
+     struct domain *d;
+ 
+-    if ( cpupool_alloc_affin_masks(&masks) )
+-        return;
++    if ( !masks )
++    {
++        if ( cpupool_alloc_affin_masks(&local_masks) )
++            return;
++        masks = &local_masks;
++    }
+ 
+     rcu_read_lock(&domlist_read_lock);
+     for_each_domain_in_cpupool(d, c)
+     {
+         if ( d->vcpu && d->vcpu[0] )
+         {
+-            cpumask_clear(masks.hard);
+-            cpumask_clear(masks.soft);
+-            domain_update_node_affinity_noalloc(d, online, &masks);
++            cpumask_clear(masks->hard);
++            cpumask_clear(masks->soft);
++            domain_update_node_affinity_noalloc(d, online, masks);
+         }
+     }
+     rcu_read_unlock(&domlist_read_lock);
+ 
+-    cpupool_free_affin_masks(&masks);
++    if ( masks == &local_masks )
++        cpupool_free_affin_masks(&local_masks);
+ }
+ 
+ /*
+@@ -483,15 +491,17 @@ static int cpupool_assign_cpu_locked(struct cpupool *c, unsigned int cpu)
+ 
+     rcu_read_unlock(&sched_res_rculock);
+ 
+-    cpupool_update_node_affinity(c);
++    cpupool_update_node_affinity(c, NULL);
+ 
+     return 0;
+ }
+ 
+-static int cpupool_unassign_cpu_finish(struct cpupool *c)
++static int cpupool_unassign_cpu_finish(struct cpupool *c,
++                                       struct cpu_rm_data *mem)
+ {
+     int cpu = cpupool_moving_cpu;
+     const cpumask_t *cpus;
++    struct affinity_masks *masks = mem ? &mem->affinity : NULL;
+     int ret;
+ 
+     if ( c != cpupool_cpu_moving )
+@@ -514,7 +524,7 @@ static int cpupool_unassign_cpu_finish(struct cpupool *c)
+      */
+     if ( !ret )
+     {
+-        ret = schedule_cpu_rm(cpu);
++        ret = schedule_cpu_rm(cpu, mem);
+         if ( ret )
+             cpumask_andnot(&cpupool_free_cpus, &cpupool_free_cpus, cpus);
+         else
+@@ -526,7 +536,7 @@ static int cpupool_unassign_cpu_finish(struct cpupool *c)
+     }
+     rcu_read_unlock(&sched_res_rculock);
+ 
+-    cpupool_update_node_affinity(c);
++    cpupool_update_node_affinity(c, masks);
+ 
+     return ret;
+ }
+@@ -590,7 +600,7 @@ static long cf_check cpupool_unassign_cpu_helper(void *info)
+                       cpupool_cpu_moving->cpupool_id, cpupool_moving_cpu);
+     spin_lock(&cpupool_lock);
+ 
+-    ret = cpupool_unassign_cpu_finish(c);
++    ret = cpupool_unassign_cpu_finish(c, NULL);
+ 
+     spin_unlock(&cpupool_lock);
+     debugtrace_printk("cpupool_unassign_cpu ret=%ld\n", ret);
+@@ -737,7 +747,7 @@ static int cpupool_cpu_add(unsigned int cpu)
+  * This function is called in stop_machine context, so we can be sure no
+  * non-idle vcpu is active on the system.
+  */
+-static void cpupool_cpu_remove(unsigned int cpu)
++static void cpupool_cpu_remove(unsigned int cpu, struct cpu_rm_data *mem)
+ {
+     int ret;
+ 
+@@ -745,7 +755,7 @@ static void cpupool_cpu_remove(unsigned int cpu)
+ 
+     if ( !cpumask_test_cpu(cpu, &cpupool_free_cpus) )
+     {
+-        ret = cpupool_unassign_cpu_finish(cpupool0);
++        ret = cpupool_unassign_cpu_finish(cpupool0, mem);
+         BUG_ON(ret);
+     }
+     cpumask_clear_cpu(cpu, &cpupool_free_cpus);
+@@ -811,7 +821,7 @@ static void cpupool_cpu_remove_forced(unsigned int cpu)
+         {
+             ret = cpupool_unassign_cpu_start(c, master_cpu);
+             BUG_ON(ret);
+-            ret = cpupool_unassign_cpu_finish(c);
++            ret = cpupool_unassign_cpu_finish(c, NULL);
+             BUG_ON(ret);
+         }
+     }
+@@ -1031,10 +1041,23 @@ static int cf_check cpu_callback(
+ {
+     unsigned int cpu = (unsigned long)hcpu;
+     int rc = 0;
++    static struct cpu_rm_data *mem;
+ 
+     switch ( action )
+     {
+     case CPU_DOWN_FAILED:
++        if ( system_state <= SYS_STATE_active )
++        {
++            if ( mem )
++            {
++                if ( memchr_inv(&mem->affinity, 0, sizeof(mem->affinity)) )
++                    cpupool_free_affin_masks(&mem->affinity);
++                schedule_cpu_rm_free(mem, cpu);
++                mem = NULL;
++            }
++            rc = cpupool_cpu_add(cpu);
++        }
++        break;
+     case CPU_ONLINE:
+         if ( system_state <= SYS_STATE_active )
+             rc = cpupool_cpu_add(cpu);
+@@ -1042,12 +1065,32 @@ static int cf_check cpu_callback(
+     case CPU_DOWN_PREPARE:
+         /* Suspend/Resume don't change assignments of cpus to cpupools. */
+         if ( system_state <= SYS_STATE_active )
++        {
+             rc = cpupool_cpu_remove_prologue(cpu);
++            if ( !rc )
++            {
++                ASSERT(!mem);
++                mem = schedule_cpu_rm_alloc(cpu);
++                rc = mem ? cpupool_alloc_affin_masks(&mem->affinity) : -ENOMEM;
++            }
++        }
+         break;
+     case CPU_DYING:
+         /* Suspend/Resume don't change assignments of cpus to cpupools. */
+         if ( system_state <= SYS_STATE_active )
+-            cpupool_cpu_remove(cpu);
++        {
++            ASSERT(mem);
++            cpupool_cpu_remove(cpu, mem);
++        }
++        break;
++    case CPU_DEAD:
++        if ( system_state <= SYS_STATE_active )
++        {
++            ASSERT(mem);
++            cpupool_free_affin_masks(&mem->affinity);
++            schedule_cpu_rm_free(mem, cpu);
++            mem = NULL;
++        }
+         break;
+     case CPU_RESUME_FAILED:
+         cpupool_cpu_remove_forced(cpu);
+diff --git a/xen/common/sched/private.h b/xen/common/sched/private.h
+index c626ad4907..f5bf41226c 100644
+--- a/xen/common/sched/private.h
++++ b/xen/common/sched/private.h
+@@ -600,6 +600,7 @@ struct affinity_masks {
+ 
+ /* Memory allocation related data for schedule_cpu_rm(). */
+ struct cpu_rm_data {
++    struct affinity_masks affinity;
+     struct scheduler *old_ops;
+     void *ppriv_old;
+     void *vpriv_old;
+@@ -617,7 +618,9 @@ struct scheduler *scheduler_alloc(unsigned int sched_id);
+ void scheduler_free(struct scheduler *sched);
+ int cpu_disable_scheduler(unsigned int cpu);
+ int schedule_cpu_add(unsigned int cpu, struct cpupool *c);
+-int schedule_cpu_rm(unsigned int cpu);
++struct cpu_rm_data *schedule_cpu_rm_alloc(unsigned int cpu);
++void schedule_cpu_rm_free(struct cpu_rm_data *mem, unsigned int cpu);
++int schedule_cpu_rm(unsigned int cpu, struct cpu_rm_data *mem);
+ int sched_move_domain(struct domain *d, struct cpupool *c);
+ struct cpupool *cpupool_get_by_id(unsigned int poolid);
+ void cpupool_put(struct cpupool *pool);
 -- 
-Anthony PERARD
+2.35.3
+
 
