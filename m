@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F973587C8E
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Aug 2022 14:40:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.379297.612629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ECDF587CF9
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Aug 2022 15:21:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.379304.612640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIrCC-0005N4-D1; Tue, 02 Aug 2022 12:40:24 +0000
+	id 1oIrpN-0001Gw-DX; Tue, 02 Aug 2022 13:20:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 379297.612629; Tue, 02 Aug 2022 12:40:24 +0000
+Received: by outflank-mailman (output) from mailman id 379304.612640; Tue, 02 Aug 2022 13:20:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oIrCC-0005KT-AD; Tue, 02 Aug 2022 12:40:24 +0000
-Received: by outflank-mailman (input) for mailman id 379297;
- Tue, 02 Aug 2022 12:40:22 +0000
+	id 1oIrpN-0001Et-Aq; Tue, 02 Aug 2022 13:20:53 +0000
+Received: by outflank-mailman (input) for mailman id 379304;
+ Tue, 02 Aug 2022 13:20:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Dd5r=YG=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1oIrCA-0005KN-7B
- for xen-devel@lists.xenproject.org; Tue, 02 Aug 2022 12:40:22 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45818ab2-1260-11ed-bd2d-47488cf2e6aa;
- Tue, 02 Aug 2022 14:40:21 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id j15so9661117wrr.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Aug 2022 05:40:21 -0700 (PDT)
-Received: from ?IPV6:2a02:587:ac1d:6c00:6613:8422:cc8a:dbae?
- ([2a02:587:ac1d:6c00:6613:8422:cc8a:dbae])
- by smtp.gmail.com with ESMTPSA id
- h23-20020a05600c145700b003a35ec4bf4fsm18731048wmi.20.2022.08.02.05.40.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Aug 2022 05:40:19 -0700 (PDT)
+ <SRS0=gPpP=YG=citrix.com=prvs=206784369=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oIrpM-0001En-Mj
+ for xen-devel@lists.xenproject.org; Tue, 02 Aug 2022 13:20:52 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ec4401d6-1265-11ed-bd2d-47488cf2e6aa;
+ Tue, 02 Aug 2022 15:20:50 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +36,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45818ab2-1260-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc;
-        bh=TGIsEWb6MTvgxvH/NdeK+Er6OfyqdxfebsAbGX5twdE=;
-        b=W1sf+N9iTFKHWveVRp8+n66s69/aMzoG+jc3skLdP3/Ymh+YQtuQrR+4wUZeY8SKEW
-         QckwsrhZi6mqZFH+JbXIms6Wah/2qGXcUNF03G/HB/IS/j247XFPTu15bHaoT2Rf6SFK
-         xswXycF+zIBGaSRy3sRXbPuNZMPRrFcYD5RzQVzsa9XDoT2A1XW9/08gDB4dTYBp/9ME
-         Aza/XzqavaO4fGPdiMOpRBzzDgsVbR/8Zj7irPQe/JE8yQjtU+uSmpDsjVAY9Pxi8yyP
-         b8o5BYFT9fmJfCZNgC/rjrg4bu0LsNg8ciuNXruilLPF2m60AM/uCjTLAHCj7STw1AUR
-         iXJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc;
-        bh=TGIsEWb6MTvgxvH/NdeK+Er6OfyqdxfebsAbGX5twdE=;
-        b=1sbR7DEkm7EovdQj9my6mqh6gAyS5dhT5cKBqy0g/NXN79pN4UcyMt9p+8ItY8A9Q1
-         +mTQs2T9OPJvT3Gi5g6GktjnzKYbWVDO3Hqmc6VINTR8UJghiWEetlCa+mqItOSamxgM
-         nQ3AjicUXB5OGTTlLaMc8fDsE58D7aUb7tbhYh4b13t+ker3oF2lmeKEUik4bRM4wU4f
-         ZfMYqMs0aKj9QZJC1tQeHeHDA3svd6N36k+U3u9Lu73Y9XRkJc9tW7RNS6r4XbsJWIaH
-         wZM73ZO3iI92CjGqfFadosx5ikOQRD73Dff9ad3ixQ916OitpB1BaXe+1e5e+5C3aycp
-         ElMQ==
-X-Gm-Message-State: ACgBeo1w4Uh0VlNDkwGNx2UWobrKvzQ3L5lhYP7aHZKartOiloov16+q
-	k4vRp5/9cgJ7gA0Ie5tOhVs=
-X-Google-Smtp-Source: AA6agR5TY7535b8YiaepMMNgcHh6v1pesKF3eOp7AW5jdouoEp35Jm8XEFRNdbZRvRQ9kpKpMBNR7g==
-X-Received: by 2002:a05:6000:15c8:b0:220:6362:e578 with SMTP id y8-20020a05600015c800b002206362e578mr5699236wry.68.1659444020688;
-        Tue, 02 Aug 2022 05:40:20 -0700 (PDT)
-Message-ID: <3b0fd31a-c847-f5ff-2365-5fca5becb051@gmail.com>
-Date: Tue, 2 Aug 2022 15:40:18 +0300
+X-Inumbo-ID: ec4401d6-1265-11ed-bd2d-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1659446450;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=gsqV/QACjx0v25R8gJdUnAjBJQ0Vt5rADqB7xDJ3Obs=;
+  b=FFSU+8gUpOo3pUTy3bIT+1A1QKXd+3u8HuuAquUv+AGkc7mCEwR8ILmh
+   2S+EZ4PYnHb/X4gINT4kkPqPVVb1MVBA5drYBafAun3L+vpvmDM3cGmHV
+   uNpK73IpqT3eaQoZUZ1chxfJKTnL+sLDl+YltSgB2tHC/6DXNA4TR/Iip
+   c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: None
+X-MesageID: 79733339
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:OZYWoq0+w7V+bPRl3fbD5RVxkn2cJEfYwER7XKvMYLTBsI5bp2dVn
+ GAXXDrVPfmOazP9KNp2Pomy9UlX7ZOBx9U3SFFlpC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkjk7xdOKn9RGQ7InQLpLkEunIJyttcgFtTSYlmHpLlvUwx4VlmrBVOSvU0
+ T/Ji5CZaQTNNwJcaDpOsfrT8Ek355wehRtD1rAATaET1LPhvyF94KI3fcmZM3b+S49IKe+2L
+ 86rIGaRpz6xE78FU7tJo56jGqE4aue60Tum0xK6b5OKkBlazhHe545gXBYqheW7vB3S9zx54
+ I0lWZVd0m7FNIWU8AgWe0Ew/y2TocSqUVIISJSymZX78qHIT5fj68tjPW9pbdVfxtR+PW51x
+ /o8LhQBVinW0opawJrjIgVtrsEqLc2tN4IDoHBwizreCJ7KQ7iaHf+Mv4UBmm5t2IYeRp4yZ
+ OJAAdZrRB3Gfx1IPEZREJ8klf2krnL+bydZuBSeoq9fD237k10ui+O2a4u9ltqiSMgJsmWg+
+ EX/3kvlKAEkLYOG5SC52yf57gPItXyiA99DfFGizdZugVeNx3ZWDBwNSXOhrPW5g1L4UNVaQ
+ 2QT/icttqE0+FacUsjmXxa4rXiHuTYRQ9NVVeY97Wmlwa3R5geFGmUeVRZRZdo+rsg0SDc2k
+ FiTkLvBFTFp9bGYV3+Z3rOVti+pfzgYK3cYYi0JRhdD5MPsyKkxkxbOQ9BLAKOzyNrvFlnYx
+ iiQrTY5lbM7l8MH16ynu1vAhlqEoZzETRUp9x7Xdm2g5wJ9IoWiYuSVBUPztKgaatzDFx/Y4
+ SZCy5P2AP0y4Y+lqiG8brpdRPaV1f+5Pwbuh3ppO5UZzmH4k5K8Rry88A2SNW8wbJtVJWe0O
+ RKJ0e9CzMQNZSX3NMebd6r0Up13lva4SLwJQ9iONrJzjo5NmBhrFc2ETWqZxCjTnUclisnT0
+ r/LIJ/3XR725UmKpQdaptvxMpdxn0jSPUuJGfjGI+2PiNJzpBe9EN/pymemYOEj97+jqw7I6
+ dtZPMbi40wBDbylPXiPqNVCfAliwZ0H6Xfe8pU/SwJ+ClA+RDFJ5wH5m9vNhLCJb4wKz7yVr
+ xlRq2dTyUblhG2vFDhnqxlLNtvSYHqIhStrYHZ9Ygn3hyZLjETGxP53SqbbtIIPrIRLpcOYh
+ dFcEylcKpyjkgj6xgk=
+IronPort-HdrOrdr: A9a23:t3OKw6E/MMVCQaCppLqE0MeALOsnbusQ8zAXP0AYc31om+ij5q
+ eTdZMgpHnJYVcqKRUdcL+7VJVoLUmyyXcx2/hpAV7AZniChILLFvAA0WKK+VSJcEeSygce79
+ YDT0EXMqyJMbEQt6bHCWeDfeod/A==
+X-IronPort-AV: E=Sophos;i="5.93,211,1654574400"; 
+   d="scan'208";a="79733339"
+Date: Tue, 2 Aug 2022 14:20:40 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Julien Grall <julien@xen.org>
+CC: Michal =?iso-8859-1?B?UHLtdm96bu1r?= <mprivozn@redhat.com>, "Oleksandr
+ Tyshchenko" <olekstysh@gmail.com>, <xen-devel@lists.xenproject.org>,
+	<libvir-list@redhat.com>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, "committers@xenproject.org"
+	<committers@xenproject.org>
+Subject: Re: [libvirt PATCH] libxl: Fix build with recent Xen that introduces
+ new disk backend type
+Message-ID: <YukkqFxKAIPxVe7l@perard.uk.xensource.com>
+References: <20220729155024.3327364-1-olekstysh@gmail.com>
+ <d29b2ad1-fa32-4897-a113-c8a0864c6630@redhat.com>
+ <7444eeec-5a7c-6a18-ffde-cb32528a0e20@xen.org>
+ <8947085c-bcc4-e599-0636-3a7f1f7b9ac6@redhat.com>
+ <793186ea-11de-7ce6-9866-7d4c1336ca02@xen.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] xen/char: imx-lpuart: Fix MISRA C 2012 Rule 20.7
- violation
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220802075433.1748035-1-burzalodowa@gmail.com>
- <7e78d64a-c700-5846-f046-a1b0f2c98ea3@suse.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <7e78d64a-c700-5846-f046-a1b0f2c98ea3@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <793186ea-11de-7ce6-9866-7d4c1336ca02@xen.org>
 
-Hi Jan,
-
-On 8/2/22 14:58, Jan Beulich wrote:
-> On 02.08.2022 09:54, Xenia Ragiadakou wrote:
->> --- a/xen/drivers/char/imx-lpuart.c
->> +++ b/xen/drivers/char/imx-lpuart.c
->> @@ -26,8 +26,8 @@
->>   #include <asm/imx-lpuart.h>
->>   #include <asm/io.h>
->>   
->> -#define imx_lpuart_read(uart, off)       readl((uart)->regs + off)
->> -#define imx_lpuart_write(uart, off, val) writel((val), (uart)->regs + off)
->> +#define imx_lpuart_read(uart, off)       readl((uart)->regs + (off))
->> +#define imx_lpuart_write(uart, off, val) writel((val), (uart)->regs + (off))
+On Mon, Aug 01, 2022 at 06:04:38PM +0100, Julien Grall wrote:
+> On 01/08/2022 11:08, Michal Prívozník wrote:
+> > BTW: every other package that does switch() over libxl_disk_backend enum
+> > will need this fix.
 > 
-> As elsewhere before I think at the same time you want to drop the
-> parentheses from the single use of "val".
-> 
+> Indeed. From my understanding, there is an expectation that tools built on
+> top of libxl may need some update to work on the latest Xen. I will let
+> Anthony (one of the tools maintainers to confirm).
 
-In general I do not want to include irrelevant changes in my patches.
-Also, here, I do not want to drop the parentheses from val because the 
-removal of the parentheses
-- consists a violation of the rule 20.7
-- would allow the following to compile
-#define VAL x, y, z);(
-imx_lpuart_write(uart, off, VAL)
-- is not justifiable (i.e does not fix a bug, does not result in more 
-readable code etc)
+Actually, if an application defines LIBXL_API_VERSION, like libvirt
+does, we expect the application to still build against the latest
+version of libxl. But I don't think that should prevent us from adding
+new enum values.
 
-I understand that the rest of the community does not agree with adding 
-parentheses around macro parameters used as function arguments and as 
-the right-side operand of the assignment operator, but I consider them 
-useful and I do not want to remove them myself. Maybe somebody else from 
-the community could do that.
-
-Also, these exceptions would be good to be mentioned in the rules.rst. 
-So, that other contributors do not try to fix relevant warnings.
+Cheers,
 
 -- 
-Xenia
+Anthony PERARD
 
