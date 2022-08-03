@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E291588728
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Aug 2022 08:11:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.379554.613082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14C1B58873B
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Aug 2022 08:17:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.379559.613094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJ7ak-0007Qq-S4; Wed, 03 Aug 2022 06:10:50 +0000
+	id 1oJ7gX-00086u-HP; Wed, 03 Aug 2022 06:16:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 379554.613082; Wed, 03 Aug 2022 06:10:50 +0000
+Received: by outflank-mailman (output) from mailman id 379559.613094; Wed, 03 Aug 2022 06:16:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJ7ak-0007OE-PE; Wed, 03 Aug 2022 06:10:50 +0000
-Received: by outflank-mailman (input) for mailman id 379554;
- Wed, 03 Aug 2022 06:10:49 +0000
+	id 1oJ7gX-00083v-ES; Wed, 03 Aug 2022 06:16:49 +0000
+Received: by outflank-mailman (input) for mailman id 379559;
+ Wed, 03 Aug 2022 06:16:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PneM=YH=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oJ7aj-0007O8-3a
- for xen-devel@lists.xenproject.org; Wed, 03 Aug 2022 06:10:49 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2059.outbound.protection.outlook.com [40.107.22.59])
+ id 1oJ7gV-00083p-OK
+ for xen-devel@lists.xenproject.org; Wed, 03 Aug 2022 06:16:47 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70074.outbound.protection.outlook.com [40.107.7.74])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04482db6-12f3-11ed-924f-1f966e50362f;
- Wed, 03 Aug 2022 08:10:47 +0200 (CEST)
+ id da16c823-12f3-11ed-924f-1f966e50362f;
+ Wed, 03 Aug 2022 08:16:46 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8199.eurprd04.prod.outlook.com (2603:10a6:20b:3f6::21)
+ by VI1PR04MB5599.eurprd04.prod.outlook.com (2603:10a6:803:de::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Wed, 3 Aug
- 2022 06:10:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.16; Wed, 3 Aug
+ 2022 06:16:44 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::1959:dab4:15f1:4acf]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::1959:dab4:15f1:4acf%2]) with mapi id 15.20.5482.016; Wed, 3 Aug 2022
- 06:10:46 +0000
+ 06:16:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,243 +46,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04482db6-12f3-11ed-924f-1f966e50362f
+X-Inumbo-ID: da16c823-12f3-11ed-924f-1f966e50362f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iAgoidF0m8Y86VmSGolboq4tXEMi59gxzkVYiQ9y4EhzC06umWW0ibUeW5RjCfipu8yTc+N4gYJql7Q8hw+uLmViWa1QmUTR/jvEmRSp1lyyWhR6YGUfPJEPmXBombQmnfswWlFQcDPj/XCHFJgqXqB2aPToNChyk5Y+RfSrNI+hPtoqdTnkNdD2tcRQ0l02D5Qq8eWVbS7e4BrqD+UEQ47xcs+0Ghu1pIyCvWH5GnIWCSkyvnyYCYowkUNysa/rO5p7UGlpQfWDshAhP2eaJR5UlP4fVR8wlcNV0djr2tQ+c/Wg1eLsAUOf2Qu7bw5oKS6xfl7Jz0saDJMKtSD8ng==
+ b=Qcf2gMOg/LSEEmmjJDr7mb6sijr+p568Yyto10AG6q2mNAB+R7A1haKT9zdn3Pbg6W4FQ5wPjvcD+5m3OwPwhDSpEf2M5FMfY1mvT+Q8aQfHmYBJBk2+cCaHOFgUigop8L8r9buAJ25eoEC3X29hm2LUb+Ay/imaaGZACBjQIWII0Bo36M/LVZM2w4QJDWaFtLMpQO1vN7NHjo2LO8eRVK5bolEuq3PQwhIolX874+KnOOnMVlKxFpvvo/Y/NFRU2XDsm8i3fN6c9wNEVkhu2cZxpL+tUGq+EPnIRgJRkx+M4pkZefTp7EtzQ0meNsKN7PV8DraAVZgZr07aGxi9eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N0/EfWY5CI1823DjxDrE0eqB3qfVwrqfOeDZjs9dr2Y=;
- b=iePDVNG7syk7DXMpo94PwdjHBgRl6/BwfCEZcbawreFOqeYtDIOqUi4Xr7UlEjBlqn1JAE0hh09xO42oB8uyBrQ2jgMFzLlY+oxYOYrLdfkoylAw3pP04g5R+43CeFDnGcgzk/gcMG7V3vZlzBrSbfGbccAp/o/XFIpVWbj7B8sWcdzzUOUeiRWqcCvoHyevVH0kFBmrZ2uvBD90mCdi5waEOkapMkVPQbjJqEaeHjLTO3joq2h2ePoxyWlAiGZTA/14VsPxArKOC+PENYvwjHavHkmNyb0rUzhqXv/AE57ykFqT6fXywfeP3n1kZdUqHfWalgDU0hjz7WyG/Btqww==
+ bh=BTtNdVDYFrM1I1LvxUSxHYlIaMDDTH1sjtZmGr8g4oE=;
+ b=oFInQ3ZaPScAajU8al3VVp41/k9qchY46UccnKj1BQSID38bmCXIfRz99vb5laFwBUS54qhnswbx9TIYU+QPEP9WgmKx1S9ZbievveCiiok42vfaZrfPY50iunpF5dUFrg6yns43zHyUt3N9wcBQMVji+SUynxYIMlmzbczS2nnjfmdmBWstt5tLJSnkR/Jz/xqCa3E/pWGwNh0uVii3pr5FOWfBP7i1KPGE5LMkQVVKxjrUHK0amgM5y8rZ0uIPwSrVohuTM0sN007pL6PibUTrqkrmYmb31/VDf6WiUNO6VzvReEy2CupOWZuJSY34mk6lzpuED5DWJWblQJVyuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N0/EfWY5CI1823DjxDrE0eqB3qfVwrqfOeDZjs9dr2Y=;
- b=vbfch6i/QgpkqkfaTbSSaLmYtfj673PNGsXJBp2Tjpdult8ay1l8qz6LR3KDu4T38p8HMRe8jn/cZ2Lfv4SJcNLyOBdbo6xsfhowteUAJLGqjWBoPTQtFS6oKfvLHg3Qvle6cbH9K/eNKls80BMeQwYCOEI3AzxYFBcC2NNO5D58W2WSJ8ouVWdrtthHwY2WJh1k7wFALVCM2xIrbAMUhxOfBYx15UdhCBVCOpaGfLUkpw1LZa99V4sNpMY/1HAFWNNEThe2KlA3Nfl/2Y82bfgHw35APTQoYHZNKTxDrG2RmLHtu41zFr2UdTLodocAOQx4yZYd5pvQfcSZZnDoDQ==
+ bh=BTtNdVDYFrM1I1LvxUSxHYlIaMDDTH1sjtZmGr8g4oE=;
+ b=Tgu/dwpsGb4QOz/PJKlghFDCREixbS85ibcp9oDLu93Lxzc2We8gaal8AUMQ3PowXH5gR3/W/CZV7NBVpD/5o65Al+HA/U85I6ZUO/yVVvVBnhGXB44NdRgaHySffvdHXUbkmHfjqrTK3EkmI4au9ynl1UF0RRHHHU/lh+Q/Llli8J94nCZKgpd9tD88qjH/ZCSHMordLc8mxPewhsGmiudcZhDWsduMcLd6GVk2eDh+GCUyhS5ku+tCCq0esWrSNsKdnJ7kHwalAjANo3e6qgB3hIn1L0C02mDecG5JbRrlq/68PqEXQO4ZqEGtqER3Lrrbr2Q+1/OPzIgi9WvtdQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b1ce4b78-c28c-1ad1-af7b-892c069d24ab@suse.com>
-Date: Wed, 3 Aug 2022 08:10:44 +0200
+Message-ID: <8981ca99-247c-ae62-0180-14789be47f68@suse.com>
+Date: Wed, 3 Aug 2022 08:16:42 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] xen/arm64: sysreg.h: Fix MISRA C 2012 Rule 20.7 violation
+Subject: Re: [PATCH] xen/char: imx-lpuart: Fix MISRA C 2012 Rule 20.7
+ violation
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <burzalodowa@gmail.com>
-References: <20220728134943.1185621-1-burzalodowa@gmail.com>
- <0a8ff178-280d-717f-dacb-4eb9f57a24eb@xen.org>
- <83c17bf6-b9b2-a297-6f7f-dd08231d0f90@suse.com>
- <c71c9522-2df5-35a3-d39c-706d5c9d5263@xen.org>
- <alpine.DEB.2.22.394.2207281551140.4648@ubuntu-linux-20-04-desktop>
- <ec89b2e1-a18a-9ef7-1ca8-edd19e737d4f@gmail.com>
- <c55b9ad0-bfa8-f0b1-6c4e-a794afd75e7c@suse.com>
- <69942917-f2e9-718e-094d-9b01aea16a4a@gmail.com>
- <a9cddfc6-235f-a42f-b522-04ae87990b47@suse.com>
- <b2f2d1e7-0c18-206f-5e9d-d0115e398840@xen.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20220802075433.1748035-1-burzalodowa@gmail.com>
+ <7e78d64a-c700-5846-f046-a1b0f2c98ea3@suse.com>
+ <3b0fd31a-c847-f5ff-2365-5fca5becb051@gmail.com>
+ <d6470ea9-f225-a0e9-64cb-a24e25ca7604@suse.com>
+ <alpine.DEB.2.22.394.2208021549380.3147284@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b2f2d1e7-0c18-206f-5e9d-d0115e398840@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2208021549380.3147284@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0168.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0068.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dc5351cf-3b7c-4878-d802-08da7516e770
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8199:EE_
+X-MS-Office365-Filtering-Correlation-Id: ecf69a77-e235-44d9-f9c8-08da7517bcd6
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5599:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	C4YSNMCddOX3FFszBXXNQ4P3sHOt1sGWkymgdhaezCV3BZ793Q71GJRv2oto+C+QaAxx0d66HN0cAFViudNR0ahjWZSck5a18YFO4a5nTZqRlp+KeDPfqcVbqpHL1SoghnM9A+hX358zoUc/IbnPP3lBqbsK9WDOdj3BlqegMD6WcIcJpn22kHyTLFJcFDcFRduSKd89Vt+dRbZ0MvPgH4i6XWpFfxJN3elOTPm7LjBw+5IILtfvxE2X6HjTxw4p14UDYvpkI03cJnpMN6142IXWonE45mtDbVGNEhiBLGwkohnGCCoCQ0PRphQLl+ghvS531zF57oMt2oyO1mK+V6efzba9TS3YRu2WPY8I+JuHwX+N8WM5v4n+KlmRYngwxLDIjXRnMwTtlrf0WTwEuHq8SmW+HzVflH2jB5wpWe9H5314PxZJtFln82IKbb3sC2MyjTeOGqonjBY3tEWbvvXMmcRJfVc0uxZC1ZXWdKAJLURq5sgasoAUv1iz3UU/JNoqUV7MkmPv5b5WaUKts/1DlRZ8Qjyx1OO5qC6+L13ijuswbALVmbz/ikZSgEp4WEMbX9AxZ+Cr7NFBBg8vfgOvkLuCpi9fhh1MHMCCE4EPbKHNhs/BsEDzWl4D3xwjwnIdv06d3Nf26mU830QIKHmYkN+3tfYztKOlOYlV9U8q1MGObC7O60XNs4jQKQyRGhpaPzEIqkgKJqHOPEPaa15QeeH4BnDtsu8W1Q1lnQJV+w7x5jRdUY0mFMxiYTk09/byuQ/Hc1ZZb/E/QJORwmS27zgZG/ytxyPTva63QQnezJlx0ZQnlsLas5HCmCPUHogwSU65JyAaexsdI605yQ==
+	1pdoeW2GdaEfi2Itow225rUeoKvwNLAJd/NAzE05mehOyRBHdS1teCq35ox+vK/SD0FlyNb/b4vqkuPfvWbS0eteCugPK1mEmsHUWJAWlfNhc2q2R85qB57CD1i4alF6HJ0SvW8TwDDbByksMAfsFI2Wq0P47xTafOXM6oWkYfpb8Yts2FKRaa+zx8FDuiNoUdm5mt73iTW/Y3qmyIEv6G5VoAv8h3dtoOOhPSevAa540J6nuw4XZ2BJf4rxyytb0z2PnTF+Pw5QlkpykpYjww/ZzNbfSi9wrqiTH0PcZHGToVmI2EMaRikigqHHPWtF+D4UMsRfKA91oxjl1+Xa0r31TX1ONm+pkTXhCgUO3gDy2sWAFHuHM6Y+j1q/TQvfPWGvasKrO0mTopLyycLbd782Jf2g0QQPZYuLghaQ2OwPEmQh0pYFZdPwbQ5fGf1GAMMynj61ADTRuR3f6gmqY8MRH6JyWllK/2Jt4tBNdFu/s3xKy4E7TZSHqRlmNG73WxxaoSE8CefDkkJm2jDp32Mq1vohH9R+XHcN3ZVew0kPIVZpkzmBCQCXODFyg9Hg1PsL+7TYpTvOG9UKmwO8yFBnBPpORa5E08VqxPoNyKci/hnAm9XzyV1LJKKupiMR+8Q7tDayUz7HG1vEGQhlspTBPCdd6N2R8eTJtE7Vr8caCSqKhL+I5RPTwSfrf7qKentGcdDEtEBQzefF0gQ4TN8mTveBpZo7nLdlJQw9TPpgxSSZB6NUimFsyGTS+rJAiFy5t7f9ib9uQ96cjpB91EEqx/HcQzoAmkgfj6gQmn5ha8YlWPvxwdMBLZmrB49y3UW/DxeJ+e6qcE3fbythVA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(396003)(39860400002)(346002)(136003)(376002)(31686004)(38100700002)(54906003)(316002)(186003)(6916009)(36756003)(4326008)(8676002)(2616005)(66556008)(83380400001)(66476007)(66946007)(478600001)(6486002)(5660300002)(8936002)(2906002)(86362001)(6506007)(31696002)(53546011)(26005)(41300700001)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(366004)(346002)(376002)(39860400002)(136003)(54906003)(38100700002)(8936002)(6916009)(26005)(6512007)(86362001)(31696002)(6506007)(186003)(8676002)(66556008)(66946007)(4326008)(66476007)(316002)(41300700001)(31686004)(36756003)(2906002)(5660300002)(6486002)(53546011)(2616005)(4744005)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Wkl1MWxpOENreG5WZy8rcHkvNFJpVGVWRTBQOG1zN1lJMXhKclFoVGxKc2pj?=
- =?utf-8?B?alkrLzhYZXRQSWdEZEF5ZVFETDVqSWEvR1BMM0IwQ0xnNDZjVGRwQVF1am9S?=
- =?utf-8?B?d3dFdnlkZjJOVXgreFhQN0JTR1J5V3c4eFZ4UXpEWEhSaGsrRXhmMldJMk9D?=
- =?utf-8?B?ekEzc0FObzJvNlcrSkxYT1Q4YmlzM05FVTFEK0s0VHhGMXMyMGFOdHF5STl5?=
- =?utf-8?B?OFhhRXg1c2hDbTNtZEZQUGdpY3RNYmMzRW8vN1pXbVVIaVlZa21uaFpuRGNB?=
- =?utf-8?B?d0hYclloZVNmaDhneHQxY0QxZ1pvdENjWUtYNFNEOG1XODdXVjJIbkpxblBG?=
- =?utf-8?B?WUg1ZzZpWDdocWxtQ3ZvQnhlRlNHT3lDb0tvZVlPdjhPLy83MUwzSGVITFdC?=
- =?utf-8?B?eDIyeUFDSHZCV0wzMTF3Z1REZWdGb3B4dUI3UGlZYVluWE42ZFdFZS9JakRV?=
- =?utf-8?B?MW51K3dSd1Fsd3h0TWdQZ3ZwTURGWUEvbUVqRkRVRkFLTUUxajhSTy9TZGEx?=
- =?utf-8?B?Q3JQRUJFRmpsSFZpVmZYNThpUEh6UGorVnV6SVRVS0RVWFpXUzZiMjhyZWFn?=
- =?utf-8?B?U3UxNGo1dVNadG5wMm9taXlqemhnRGd3R0FsQXBXUE5UcmxTUmlxZy9vQkdx?=
- =?utf-8?B?MVBYZ1VjeDc0ZC9NcElMYW5uUDAvK015UVNFUHk5WGxHOTZaWVJQVGgzSTJx?=
- =?utf-8?B?TFZqd2s2bUgvK2szRzg1a0wxdWs2Qm9IdEVCUmhRam55WXI3eUVtZHI5L3JP?=
- =?utf-8?B?UXF1bWVXRnVNcGdUdlVRcGErcm4rcTFFVlVHa2tudm0zcCtnTEMwZG15MkV6?=
- =?utf-8?B?WlBMVmZwTndia1Jtc2hSOU96K214ME5nMGJzTGdjQnBaZy9TcjFTdWMrLzMw?=
- =?utf-8?B?VUdmRno2MDFySGk4bjZJRlJDV1ZQVXl5ZTA2OWE1SVZ0V09zSlF1QmFUWGsx?=
- =?utf-8?B?bkxGbjljY1djd1BsUGxOcXdQRlFXNUNLY3RnQ2IxUWJZWGFoK1RUYTAwUFRB?=
- =?utf-8?B?eVphc1huZ3NYS3JUZmpmNlZmTnJ4dU9NR3ovemV4U3BwODYzZG5aS2VhcUhH?=
- =?utf-8?B?OGpmVmVOejBTNkI4UlNXUGpZY1JJb3ZmT0g5UnNxRkppYzdCSU9iSTVmajAr?=
- =?utf-8?B?KzlVL2ZVMlFHUENlR1ZkMXJDdzRSL05ZY1kyUkNDci92TWREMlZ4K2U2Zlkv?=
- =?utf-8?B?bzE2REZCQkVNVHkvR3RaMjlJUkZDb0JkNUEyWmxIQUt1REp3MjVMSHlEeDZo?=
- =?utf-8?B?cUcrTS9mdE9vTlhHNElYRVhBNy9wUWJMT1BLdE9DZGE4RmJKS1JhbElpbEpN?=
- =?utf-8?B?UlNPb0tLd2FFdGdLc0lZQUhGZGFjMDNvZUJJUHovUmRhOGN1am9ZZUdDQW13?=
- =?utf-8?B?RzE1WkYycVdaeEZ5N1NCMzEzSHhMaElnSThrOHJJWFNmTjZHTWIxdDdzK2Fw?=
- =?utf-8?B?TGJpZ0FCenZuWEdFSUliWUN3QklyMEg0QXZrbDFtUkNhVjFUczZ2YTJINzNl?=
- =?utf-8?B?RTAvWXZpR0VqUlo5SUx1RE5QT0RVcG9OZmhIaW5yLzdubmR0ckFCS0s5dXA5?=
- =?utf-8?B?dzJnQlA4aTNOdXFFODVhbDdKeDV2cGd4NE5TaHFGbHFmOUFGek1GNzFuUzVx?=
- =?utf-8?B?TnRLa25nczJQWDQwR0tNV1JzdU5PS0lPRjFjd3VPNFpvWE1sRlRWd3p1MldJ?=
- =?utf-8?B?TUlWTnZWWkxGaWZXa3RwTVFncjJEMmxVR1lCbkR1QVllOFdsTXYxU01YbndY?=
- =?utf-8?B?aHdCbkNQeVdoU2hEaDV3Z0dFZnBnb0psR3JrbGsxRjQ3RE0xM1BiMURLRFBU?=
- =?utf-8?B?SW5XSVBXTXdhaFRsc2FkTFpRUDdsYnppcmJkRWRnaUpYaDY4WFBBUUVGUWZq?=
- =?utf-8?B?R2d0THQ5UCtvSXoyL2w5Z3l2bmxLdEdKRCtaNHYwaUNLRzBxandTMmt0L2pz?=
- =?utf-8?B?SnNiYWhpSUs3eGNXcWh0d3NhWUdHSDkxbkkyWHU1cTB2T0xqbXM0aTFjRUlt?=
- =?utf-8?B?VTZkZm13WDllSHZSMStSa1lSaCtneUlwejVwZXNES0ZoK3E5L3BYa0JOVlFk?=
- =?utf-8?B?c2UrZEtiQUNHaEFja2p6b3o0T2dTOVZuOHJuOURlTXdaTEI4dW1oZjJQSkdX?=
- =?utf-8?Q?x81YYH8crK301iexWv7gbwEV2?=
+	=?utf-8?B?eTNDTjlRMVNCTzhoamZXcDljTS8rWklsK0U5eXBTRG1vTXIvbmMxTE1vS1hE?=
+ =?utf-8?B?eVNjODFsU0d3WkZPYkZORHlqVFZzOFJtWDhCTFZORDJIeVltWjRmQ1BLU0JK?=
+ =?utf-8?B?azdydUJlZTc2dmxNNDdsWTdjNGpjM2t2NXJ4M2VXVy9tc2VadDNrSW1aYW5H?=
+ =?utf-8?B?REhzbW9zVlNLd3Y4TEE0YThNaksxS1NwZTY1S0J5Nm9tcTZEVGREWlNZNUVY?=
+ =?utf-8?B?QnkvL0U0b3dYMFlWYjQ5aGtneElsc3ozTFNlbk1PazY1clVObEdsZzFzdXJW?=
+ =?utf-8?B?YUFaM0JIU1dEKzBKREx0ZHdqQzJDZkRGOVBqQm1qOXVTc0E3clgxWVVndnFV?=
+ =?utf-8?B?K2JHaEpFaVVRVkZhcFg5c2wwYitFMGZIalB4Ykc3VHZRVUh0VXZNaXZwMjR2?=
+ =?utf-8?B?UHBzYmk1R1RvSmV4S3dtUzQ4U1FnTUZTVG4xbjV1cFM2cTRlclUrQzVieVlM?=
+ =?utf-8?B?VEd6djhkQmRMTVBHNkI4T3RwUXZwMlFsT21ZbmhXOWZwVTFzRS9iMFB2Rkh3?=
+ =?utf-8?B?cU5EdnFqQyt6M3VzZ3c4Vm83RUhOL24yZEJkUzJlNktDYmw5ZzBPcGp6cXV6?=
+ =?utf-8?B?bjJKQlBHWnQ2a3gvYjQ0NmhxY3pOM1c2K0xXZE8vR3dIblpUdmNqajIwRkJF?=
+ =?utf-8?B?emVMdjBTa3BVZDJscmxUdFFiTWdjWWM5eHRlMnAraExCNi9aNWVRRVBJT1VS?=
+ =?utf-8?B?TXZqR1N6WVpSVDZ3T0t1aFRKQ3dPZ2Y4NG9uZWJsZHp5b2J2alMrUHQvUjdq?=
+ =?utf-8?B?aEN3MDYzZWdhekxsNVkzTG1EM1BrMXNGenh0eVRTa3FBaU5sN20vSkVZY3U4?=
+ =?utf-8?B?TWJTYkd5V2VadkIvTzdTVklUcEVJcHhKaXl3TktjWFRUWnFkOHozV0tHNlFW?=
+ =?utf-8?B?Qnl4ZHRHY3VLeTJTb3FzVW1ZZ01oQy93YjltN2NhNlB6Q3BnSFE2NjhLUmhO?=
+ =?utf-8?B?ancvV0ZTSjBGdzh5N05VdFoxSHp0RHlTblZzcnY4MEhIRHpSZmtDUllaR0pl?=
+ =?utf-8?B?bFhHYzFZTzFxbnpTdjJhVVVNSTBFS2hWa1pneG1qUkNhQkh6U21WWkRlRms4?=
+ =?utf-8?B?Qzl2VHBJNzFoY2Q1cTlGRHhSc0oyQnhPK3ZsL1dmT2FkZHN1NFd0NDFONk1H?=
+ =?utf-8?B?ZjJkN1hJcEFuK1VxL0hQN1hSQ0JJVmVMdzlhMk1mVnEvSGxCNXdiNFh0QUVu?=
+ =?utf-8?B?SXFjTjRjN0hkb21JbGsreFk2MHhhTzBwSzZBUW1vWEtobEdzL1N3WXViSnZq?=
+ =?utf-8?B?enAvKytmTVI5bHBtS0FNOEdYbEY5SHNQbmNnN29GNUU4REJMZ0Vkc3BzaFBr?=
+ =?utf-8?B?ci9BNmoxMzRld3oxNk9OaTdtZjFOdndtVXY4dndZeXVBZU81QTQ2V0RtTnM0?=
+ =?utf-8?B?Z0dmTVpkeW13ZFNwMDJpRGNJYmZCWUl5Q0ZkWjNYT1NJLzUxb3J0RFY5NW1O?=
+ =?utf-8?B?M1Y0bkNreVUzT1dIczNXcUVYQUdwMFRBZ2g4L0NkWmVCYnUrM0FLVXI5NXpw?=
+ =?utf-8?B?QURHSzRVZzRMOURyOHZWZ3A1TXhZTWp5aUZXM01GanNXK2VFZ3B2Q0xhRzdI?=
+ =?utf-8?B?QTliN2tLR0wvbExzL2tiZ1JRSE4xa291alp3YThFcENJTVYyTHVwL2tqc09W?=
+ =?utf-8?B?VWVjeHl4Q2xjcmpoaXVYcU1ja1p1WVltOXNmazd3K2RzZnBrVFVxYXRjZXNw?=
+ =?utf-8?B?aGxWc2lxU0lnMDVFVGxNVDVzQ280amZaRUZ5REN6MVMwM1ZVOHRlems1SjNQ?=
+ =?utf-8?B?dm13QWlEZlMwdzRtaS9YM3NmMEpzYUsrODczcmRSc2VVTXd2NWlZckxBRk9L?=
+ =?utf-8?B?b25OVjZFd21QcFBYRmdNLzgwVGtBWXg1UVJPSzBBbG9DKzcwNHZxaDUwTHZp?=
+ =?utf-8?B?K29hU2wrZWRqZHQ2Qm0rTnFJR0FTRzdzaG0yM2FsYTgzd3J3c0E1ZFNIZXFJ?=
+ =?utf-8?B?eGJwaEFZaWlXQUFlLzU2eUdnRmRGU0UwMXYzVzdwOXV3SGc2M3E0bEx3NGt0?=
+ =?utf-8?B?WFRpUnFNQVppNFlnalJtcTAzSlV1SXFEUVVoaTFSZnhTbGJ4dFdSeHV6TjZz?=
+ =?utf-8?B?bGlLTVErVC93emlnYm5HNDZtc2RLRDBuWFVQNXFBSE4zbXlEU0ZzalY4enla?=
+ =?utf-8?Q?KzQM6TKXJL0SriMRMxDCYvmk9?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc5351cf-3b7c-4878-d802-08da7516e770
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecf69a77-e235-44d9-f9c8-08da7517bcd6
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2022 06:10:46.0258
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2022 06:16:44.0499
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CMHxKe0107d+nSmHus9WPqrnq3OZydoXaBZ4R+2lB48WvHYLq0G5qISjEQXfz9E+MdP/k/AZlzp6nu1ywGl5MQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8199
+X-MS-Exchange-CrossTenant-UserPrincipalName: pPlPDERjbw5NFC8utFCgf2rA+YeQwKTrF6+QtB6CDvDB0NEKb+kNns5+MKF8wUc23mNGeFBDf2iMGBwOv4EdGg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5599
 
-On 02.08.2022 19:32, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 29/07/2022 08:22, Jan Beulich wrote:
->> On 29.07.2022 09:01, Xenia Ragiadakou wrote:
->>> On 7/29/22 09:16, Jan Beulich wrote:
->>>> On 29.07.2022 07:23, Xenia Ragiadakou wrote:
->>>>> On 7/29/22 01:56, Stefano Stabellini wrote:
->>>>>> On Thu, 28 Jul 2022, Julien Grall wrote:
->>>>>>> On 28/07/2022 15:20, Jan Beulich wrote:
->>>>>>>> On 28.07.2022 15:56, Julien Grall wrote:
->>>>>>>>> On 28/07/2022 14:49, Xenia Ragiadakou wrote:
->>>>>>>>>> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
->>>>>>>>>> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
->>>>>>>>>> @@ -461,7 +461,7 @@
->>>>>>>>>>       /* Access to system registers */
->>>>>>>>>>          #define WRITE_SYSREG64(v, name) do {                    \
->>>>>>>>>> -    uint64_t _r = v;                                    \
->>>>>>>>>> +    uint64_t _r = (v);                                              \
->>>>>>>>>
->>>>>>>>> I am failing to see why the parentheses are necessary here. Could you
->>>>>>>>> give an example where the lack of them would end up to different code?
->>>>>>>>
->>>>>>>> I think it is merely good practice to parenthesize the right sides of =.
->>>>>>>> Indeed with assignment operators having second to lowest precedence, and
->>>>>>>> with comma (the lowest precedence one) requiring parenthesization at the
->>>>>>>> macro invocation site, there should be no real need for parentheses here.
->>>>>>>
->>>>>>> I am not really happy with adding those parentheses because they are
->>>>>>> pointless. But if there are a consensus to use it, then the commit message
->>>>>>> should be updated to clarify this is just here to please MISRA (to me "need"
->>>>>>> implies it would be bug).
->>>>>>
->>>>>> Let me premise that I don't know if this counts as a MISRA violation or
->>>>>> not. (Also I haven't checked if cppcheck/eclair report it as violation.)
->>>>>>
->>>>>> But I think the reason for making the change would be to follow our
->>>>>> coding style / coding practices. It makes the code simpler to figure out
->>>>>> that it is correct, to review and maintain if we always add the
->>>>>> parenthesis even in cases like this one where they are not strictly
->>>>>> necessary. We are going to save our future selves some mental cycles.
->>>>>>
->>>>>> So the explanation on the commit message could be along those lines.
->>>>>
->>>>> First, the rule 20.7 states "Expressions resulting from the expansion of
->>>>> macro parameters shall
->>>>>     be enclosed in parentheses". So, here it is a clear violation of the
->>>>> rule because the right side of the assignment operator is an expression.
->>>>>
->>>>> Second, as I stated in a previous email, if v is not enclosed in
->>>>> parentheses, I could write the story of my life in there and compile it
->>>>> :) So, it would be a bug.
->>>>>
->>>>> So, I recommend the title and the explanation i.e
->>>>> "xen/arm64: sysreg.h: Fix MISRA C 2012 Rule 20.7 violation
->>>>>
->>>>> The macro parameter 'v' is used as an expression and needs to be enclosed in
->>>>>     parentheses."
->>>>> to remain as is because they are accurate.
->>>>
->>>> I'm afraid you're following the MISRA wording too much to the latter.
->>>> Earlier on you agreed that when macro parameters are used as function
->>>> arguments, the parentheses can be omitted. Yet by what you say above
->>>> those are also expressions.
->>>
->>> Yes, those are also expressions (that's why I added parentheses
->>> initially) and I agreed with you that the parentheses there may not be
->>> necessary because I could not think of an example that will produce
->>> different behaviors with and without the parentheses. This will need a
->>> formal deviation I imagine or maybe a MISRA C expert could provide a
->>> justification regarding why parentheses are needed around function
->>> arguments that we may have not think of.
->>>
->>>> As indicated before - I think parentheses
->>>> are wanted here, but it's strictly "wanted", and hence the title
->>>> better wouldn't say "fix" (but e.g. "improve") and the description
->>>> also should be "softened".
->>>>
->>>
->>> Regarding the latter, are you saying that the parentheses are not needed?
->>> In my opinion they are needed to prevent the bug described in the
->>> previous email i.e passing multiple statements to the macro.
->>
->> Any such use would be rejected during review, I'm sure.
->>
->> However I think there's another case which might indeed make this
->> more than just a "want" (and then responses further down are to be
->> viewed only in the context of earlier discussion):
->>
->> #define wr(v) ({ \
->> 	unsigned r_ = v; \
->> 	asm("" :: "r" (r_)); \
->> })
->>
->> #define M x, y
->>
->> void test(unsigned x) {
->> 	wr(M);
->> }
-> 
-> Interesting. I would have expected the pre-processor to first expand M 
-> and then consider wr() is called with 2 parameters.
-> 
->>
->> While this would result in an unused variable warning,
-> 
-> FWIW, in our case, the compiler is going to throw an error.
-> 
->> it's surely
->> misleading (and less certain to be noticed during review) - which
-> My expectation is we would notice that M is missing the parentheses. If 
-> it is really wanted, the name of the macro should be obvious.
-> 
->> is what Misra wants to avoid. Let's see what Julien thinks.
-> I am struggling to see how this is different from:
-> 
-> #define wr(v) printf("%u\n", v)
-> 
-> If I am not mistaken, you have been arguing against adding the 
-> parentheses here.
+On 03.08.2022 00:58, Stefano Stabellini wrote:
+> I think it is better to avoid asking for changes not currently in
+> CODING_STYLE and docs/misra. It is less work for both reviewers and
+> contributors to add the rule to the coding style first, then ask for
+> changes.
 
-Yes - not the least because we actually use such in our code (at
-the very least in hvmloader, see PRIllx_arg()).
-
-> So, AFAIU, this means we will need to rely on the 
-> compiler to notice the extra parameters.
-> 
-> Anyway, I am not against adding the parentheses in your example. 
-> However, I think we should be consistent how we use them.
-
-Indeed I, too, am all for consistency.
+I very specifically disagree with this statement: Attempts to add
+text there have been ignored altogether, i.e. have not even been
+seen worth a comment against the clarification and/or addition. I
+have therefore given up to propose changes to this document, and
+I'm also not going to suggest to anyone to make any attempt up and
+until I see movement on the adjustment proposals already pending
+(the two of them that I can easily locate for now over 2 years,
+and iirc there were more which predate our switching of email
+systems and which hence I wouldn't have in my outbox anymore).
 
 Jan
 
