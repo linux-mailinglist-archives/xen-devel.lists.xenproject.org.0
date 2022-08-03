@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC860589367
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Aug 2022 22:44:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.380099.614073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3634589405
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Aug 2022 23:23:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.380105.614083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJLCp-0004FV-JC; Wed, 03 Aug 2022 20:43:03 +0000
+	id 1oJLpA-000056-G5; Wed, 03 Aug 2022 21:22:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 380099.614073; Wed, 03 Aug 2022 20:43:03 +0000
+Received: by outflank-mailman (output) from mailman id 380105.614083; Wed, 03 Aug 2022 21:22:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJLCp-0004Cp-Fn; Wed, 03 Aug 2022 20:43:03 +0000
-Received: by outflank-mailman (input) for mailman id 380099;
- Wed, 03 Aug 2022 20:43:02 +0000
+	id 1oJLpA-0008Uc-D8; Wed, 03 Aug 2022 21:22:40 +0000
+Received: by outflank-mailman (input) for mailman id 380105;
+ Wed, 03 Aug 2022 21:22:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B7Vd=YH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oJLCo-0004Cj-JB
- for xen-devel@lists.xenproject.org; Wed, 03 Aug 2022 20:43:02 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1oJLp9-0008UW-2K
+ for xen-devel@lists.xenproject.org; Wed, 03 Aug 2022 21:22:39 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcca16cd-136c-11ed-924f-1f966e50362f;
- Wed, 03 Aug 2022 22:43:01 +0200 (CEST)
+ id 65d6f895-1372-11ed-924f-1f966e50362f;
+ Wed, 03 Aug 2022 23:22:37 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9E55561532;
- Wed,  3 Aug 2022 20:42:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99833C433D6;
- Wed,  3 Aug 2022 20:42:58 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E29A1B8227F;
+ Wed,  3 Aug 2022 21:22:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F690C433D6;
+ Wed,  3 Aug 2022 21:22:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,63 +43,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcca16cd-136c-11ed-924f-1f966e50362f
+X-Inumbo-ID: 65d6f895-1372-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1659559379;
-	bh=YeXtbBliMUDISzh6WQ7jb7FiUaupdbolNvxbXwlxVKI=;
+	s=k20201202; t=1659561755;
+	bh=y7RIHItmEHgJ137CuGXgY/O3/XZTzNvmMY4b1GaIZeg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=RTsUeBfqLHhaC3YGC76x0tNXuUXkYmww5s0IYyHIBNSHFBftyI2WWr5qyL9b64Vb/
-	 IK9Xfpf9wn9siYdIUIH3oUScb0DCtM5ffjcFmsFUUzmezcJWa3rpAE9nr7xu0CYlAw
-	 SRKoTggZXIJWaoW1hK24pL648gZTyqNvx5edvlaRFRKqeKGIV434B5wNVdKQYjH32G
-	 hW2OeGjx48zjJpZ7oChKGZjWd1qzwZLNiYKU3goJVSNMAQbRwh/aZtP4bm0u5Qndaz
-	 CTgpF1zca4Ruy7dLuFpM37MuO1YyDRmhBjIrloielhUebDR25n1SSPldaPx1oB7laa
-	 G5Odfk0IvLTFA==
-Date: Wed, 3 Aug 2022 13:42:57 -0700 (PDT)
+	b=tH53X3/y2lE0FtD11RQIoOLaSQO5pfZeMPynESRPBAB1Y0ajsCLBeypPupcuLNQVe
+	 xQEdIMtQ+eMdWP0lrFgQo/5iR0PoiJjq2rnEpe7nhodzVucUYU4IVHGCCI7uFT5YLA
+	 Wbedd9U9cHx7gCWaRU3rz4RAmq4piJ1wxc/LpPyeuh/t2kYeCx3Xp+zpMbgw3TeMan
+	 ok97jEEtitncla0PMJc988tpOb146NbqYR0r/wFTSD26Dc6Ld3nfL9q47zvtICx3hF
+	 CWoktePI2cISi+A3UQ/qMLzap2ggI/ui/XWrBb34f5UGqY84hjJuAiHmf8Q07+xbow
+	 ihpgzVqwVzdfQ==
+Date: Wed, 3 Aug 2022 14:22:34 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] doc: Add git commands to generate Fixes
-In-Reply-To: <b57628b8cf8355a5f4f32e6ea577689ae7450a69.1659537759.git.bertrand.marquis@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2208031342190.3147284@ubuntu-linux-20-04-desktop>
-References: <b57628b8cf8355a5f4f32e6ea577689ae7450a69.1659537759.git.bertrand.marquis@arm.com>
+To: Xenia Ragiadakou <burzalodowa@gmail.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/char: mvebu-uart: Fix MISRA C 2012 Rule 20.7
+ violation
+In-Reply-To: <20220803070958.1752256-1-burzalodowa@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2208031422170.3147284@ubuntu-linux-20-04-desktop>
+References: <20220803070958.1752256-1-burzalodowa@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 3 Aug 2022, Bertrand Marquis wrote:
-> Add git commands examples that can be used to generate fixes and how to
-> use the pretty configuration for git.
-> This should make it easier for contributors to have the right format.
+On Wed, 3 Aug 2022, Xenia Ragiadakou wrote:
+> The macro parameters 'off' and 'uart' are used as expressions and it is
+> good to be enclosed in parentheses to prevent against unintended expansion.
 > 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> For the 'uart' case, in mvebu3700_write(), correct the second parentheses
+> that seems to have been accidently misplaced.
+> 
+> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  docs/process/sending-patches.pandoc | 4 ++++
->  1 file changed, 4 insertions(+)
+>  xen/drivers/char/mvebu-uart.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/docs/process/sending-patches.pandoc b/docs/process/sending-patches.pandoc
-> index 7ff7826c992b..9c4c4655323b 100644
-> --- a/docs/process/sending-patches.pandoc
-> +++ b/docs/process/sending-patches.pandoc
-> @@ -102,6 +102,10 @@ E.g.:
+> diff --git a/xen/drivers/char/mvebu-uart.c b/xen/drivers/char/mvebu-uart.c
+> index 835d1ace3c..a00618b96f 100644
+> --- a/xen/drivers/char/mvebu-uart.c
+> +++ b/xen/drivers/char/mvebu-uart.c
+> @@ -64,8 +64,8 @@ static struct mvebu3700_uart {
+>      struct vuart_info vuart;
+>  } mvebu3700_com = {0};
 >  
->      Fixes: 67d01cdb5518 ("x86: infrastructure to allow converting certain indirect calls to direct ones")
+> -#define mvebu3700_read(uart, off)           readl((uart)->regs + off)
+> -#define mvebu3700_write(uart, off, val)     writel(val, (uart->regs) + off)
+> +#define mvebu3700_read(uart, off)           readl((uart)->regs + (off))
+> +#define mvebu3700_write(uart, off, val)     writel(val, (uart)->regs + (off))
 >  
-> +If git was configured as explained earlier, this can be retrieved using
-> +``git log --pretty=fixes`` otherwise ``git log --abbrev=12 --oneline`` will
-> +give the proper tag and title.
-> +
->  ### Backport:
->  
->  A backport tag is an optional tag in the commit message to request a
+>  static void mvebu3700_uart_interrupt(int irq, void *data,
+>                                       struct cpu_user_regs *regs)
 > -- 
-> 2.25.1
-~ 
+> 2.34.1
+> 
 
