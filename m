@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B2A588713
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Aug 2022 07:58:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.379532.613044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DDCD588715
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Aug 2022 08:00:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.379537.613055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJ7N5-0003mW-TH; Wed, 03 Aug 2022 05:56:43 +0000
+	id 1oJ7QV-0005Do-EL; Wed, 03 Aug 2022 06:00:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 379532.613044; Wed, 03 Aug 2022 05:56:43 +0000
+Received: by outflank-mailman (output) from mailman id 379537.613055; Wed, 03 Aug 2022 06:00:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJ7N5-0003kc-QM; Wed, 03 Aug 2022 05:56:43 +0000
-Received: by outflank-mailman (input) for mailman id 379532;
- Wed, 03 Aug 2022 05:56:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oJ7QV-0005B9-AX; Wed, 03 Aug 2022 06:00:15 +0000
+Received: by outflank-mailman (input) for mailman id 379537;
+ Wed, 03 Aug 2022 06:00:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PneM=YH=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oJ7N4-0003kW-F5
- for xen-devel@lists.xenproject.org; Wed, 03 Aug 2022 05:56:42 +0000
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr00060.outbound.protection.outlook.com [40.107.0.60])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09dc26c7-12f1-11ed-bd2d-47488cf2e6aa;
- Wed, 03 Aug 2022 07:56:40 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB6944.eurprd04.prod.outlook.com (2603:10a6:803:133::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Wed, 3 Aug
- 2022 05:56:36 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::1959:dab4:15f1:4acf]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::1959:dab4:15f1:4acf%2]) with mapi id 15.20.5482.016; Wed, 3 Aug 2022
- 05:56:36 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oJ7QO-0005Av-Mv; Wed, 03 Aug 2022 06:00:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oJ7QO-0008R3-Hm; Wed, 03 Aug 2022 06:00:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oJ7QO-00015W-2Q; Wed, 03 Aug 2022 06:00:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oJ7QO-0003om-1y; Wed, 03 Aug 2022 06:00:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,124 +42,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09dc26c7-12f1-11ed-bd2d-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aln3wghwjLgEHvBKSRvuiIn32HxY/jWaXNPdosAg/TaS1A6UfMsNDs+xzVyRy477vFSb6AsY0B4TQlinADLJhVQUsz/2y2z2TReVTnNKTcnXpoLmodKy0DcUgs8MvGPIxZKQEqV9Yp5xDDAq2X+salgNgYmgbrRhHl5NaVXO1qiCwsS3rPMAiWjlV+dMbLpOvhVcUTEMFH2KEm4Rq53kWG78LmJlNjfIGNRvuub0bUJbWJHniIRBwFLxzbj8DK9ovbY04IK0fKYLy1UQRXYXRUPRMrse/F6MEqzXZj1+9wVqiaNVOfjjDPh0aw4OTtTtV9x5g2jNm5L4zaNKOvh7DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zvOoW2k7UWeN66gbtOjvtoaUiBItn5IIPB0rPCa4t/U=;
- b=RbF/JNXY5GSbLERwcCx9uTlABHsmkhdGc88YNlbFxe1XeIaWnpPtSCx0ucvnyqyMVdWl2c/cB6JG288vu7xpau+mfXFyQoFJlpQ+QLuXgeevOkmubec5Wc6cNiBfBQpBS3Hdh+RNYnmnEAEtdwIK3ZmGW70iXxApV3CL1eiI8wE1VI7k0X7VIFb7x/m2/VKUE06lKMUzPVRiccY+J4FPIRsE6UvSVjkFQIEtC9utm5sA7FNE2lqnk3t5lkBmSQXXKiEph3z5O8ulgf2PKhPe95P3M1Q3rJDWBWFjL7vfs5sOkRA3MQTxnWARrKg+uUfB6187n4UpZ4xOxHj7LYbwzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zvOoW2k7UWeN66gbtOjvtoaUiBItn5IIPB0rPCa4t/U=;
- b=uBFGIe+P4ySBuO+I3TSAHlUNxqyujqq/Ex/lPailkD7WD0mugymJqQRBpo6DYhUMO9nS151nc4jj1WJYDyQznzhUDmh/pct0tA8O5x4lpGB+M8WwYJpnuDMi5ABaLLA/Kf0j1LKCetMhHOaktc+Y0r44RZJHRuxq9w2KhJ0Jw72ycfk9M5Gom1Yroi0LcR1ozgRsF4IJipRPE3n5Y3FAmAquuF+qx2CjZCuHvJFOGslr/OnMO47X+Pmusmf6qFHQqxLFaccM6hfTE/ol9WPP+ftPdKv6vomrJpbJGM3xh7teZsGslhzh3u+lGGQ604sTQ4LbKSEFBzUE+xi927oTaA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <9e8b366b-5ab1-599b-263b-d86f0f111d89@suse.com>
-Date: Wed, 3 Aug 2022 07:56:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [XEN PATCH v3 06/25] tools/fuzz/x86_instruction_emulator: rework
- makefile
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20220624160422.53457-1-anthony.perard@citrix.com>
- <20220624160422.53457-7-anthony.perard@citrix.com>
- <d917d9a6-5ab7-f826-21e0-2c95b4614f9c@suse.com>
- <YulaTPhEf8Mp+p0q@perard.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YulaTPhEf8Mp+p0q@perard.uk.xensource.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR08CA0039.eurprd08.prod.outlook.com
- (2603:10a6:20b:c0::27) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d8162377-c448-4d74-b1b3-08da7514ed21
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6944:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	jiDH3BMhvKfrRNAodkbmLdtSrUXpCvzUGTyTFA5XYNxrOP4W3SHVMT2Wt1gf365TEQOZXx+MXerL/Rd3fSpYkCEO9L1uc9tOS6XNdRSg72eJkmhCGc8H/qPlkLZzLM/YBvy0QMseU4aYydBWe3sIiI9SI/GfL0pPt/F8APpldrRHpObLBsVvsm1rOO00nJGx/QlIKLzfwSWSwrSyI6ASX7KV2s/HOXyvoeyC56Wc22/E7i8OkRxLJVdpMYnQIz+5dW6KZML+Th4SdD1TpbLbvyH4cqbk3g+DgYNsbUrZAw010X8b2vW8WOrIk8/x4WjxkVhZ4bxuvm0RojGotbLlvhQ47x/A5EfczY8Vz5J4ve+R0S+y/Dg6yBZS1lOvED9ReVwU6b8Rm6PQ1udlK0UoAjGFyPSi506AuGDYXxgUIzmR0EwiOlmmCcgNfSs98wU4UfkFcruWOTMMR3+PWe1CGiAeYBWDzlyXRBS9uKvQS3EHQHrMDNGFPMtUpMhF+S+raoW32vrrbvVA93g3DiziRMDp0qwL8OntkNyKOHClHiTS5k9l0qVkMB5XPk9jFdEXTpggibLYqB/83faq/PWZIyceeTEvGW0geSvTdNpSGqTFb2gUSgOjg7ihQRnOvhPnCAArqFdQda19yeGezDH6yKvFPW70B2NQTFG9wUEcjBhYYkyNPtwcFL/H9JWBRpuDsoMg86pHKHRifIRc69mN7WYSUn/cehr+6L3aaFFEDrMnWxNp4Xor73dMcLFaXlzeIykw4QNrgmEpiTQP59FXlG+6kuHacZLtu/Dqs/g4vdE7PuL6YcSYuXqE6bU0iuTysk8s9QzkiVHBDD4o/U0O0w==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(136003)(39860400002)(346002)(366004)(376002)(31686004)(186003)(83380400001)(2616005)(38100700002)(2906002)(4744005)(6506007)(36756003)(5660300002)(53546011)(6512007)(26005)(31696002)(8936002)(86362001)(41300700001)(8676002)(4326008)(66476007)(66946007)(6486002)(66556008)(478600001)(316002)(54906003)(6916009)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cW1iSFBVdGJ4aytZd1BvYnBtais5UUJMU1Nzd0tEU1Y0UjhzcW5IUTJROFdz?=
- =?utf-8?B?azV3bXR3TVZIaEdJNUlZSzVIcHBpeVBCSHl2L1NKbFVEbUZDWWptWlhNU2N2?=
- =?utf-8?B?ZERReG8xbEhBZmhEUzN5WmIxR2ZBVUZLSjh2c25tcFI3NEREaDJFZExwNFQx?=
- =?utf-8?B?N3NDNkpWZ0JxdXhWaGtueG12WCs5b2MvVmdENmFBTG5jcGRFQnBidjQvOHJB?=
- =?utf-8?B?ME1Oa3NXRnY1aDd2RjdQK0t1UkF0SjFUSTVJTmwzMmljY1g1L1VSVkJjTFpH?=
- =?utf-8?B?U3lhN09qOXQ2ekR1dG01Y1I3c1lOM21tUkpHb2pKOEhTL284d3ZTTStTdnlM?=
- =?utf-8?B?MUZPQnlhNGJtVkpuYlZ6QWlJeGdPMm5mczRjV3FxaFJBKzZDTzN1S0tkTThN?=
- =?utf-8?B?RENKTjdEajFza1N4ei9lRVpGZVUyRWQ0UWxUS2dZQjRtRURhZkhTa1JRZENn?=
- =?utf-8?B?NXh6b0NZMlhQZjkwQ2RsbnlUUmtZRFYvWGk2RHlWVVVrOFJsWGxxNjZTWkta?=
- =?utf-8?B?b3ArVVR0WDJDMTlESG1RclBzOURHNk5yR2dYc05YUmQ1ZjQ1YW5UTDRaN1d5?=
- =?utf-8?B?bEZlNWw2cHluZnNCM3pzY1hUK0k4L2RKV3FXSExOSEYyUHh1UHk0SlMxS2th?=
- =?utf-8?B?ZlFZeEQrU3hhQlY2Y1FHK04yK0dSNUQrUCtHRUhtOFF4S0h1SVBnSnpPa0Ra?=
- =?utf-8?B?N08zRHc5U0x5S3hxUWpVbmE2T1R3STRmS1Z5ZjdqM3VRakg5OVJwVHUxdUN3?=
- =?utf-8?B?eHltZXRlOU9RZ2cwR3Q5S1dINFdEOFZGaXVyZUZvVkxQdi9FOFZnRS95ZVRQ?=
- =?utf-8?B?bDVTTFVYWnZOc0loT25xaU9IREhtTlRpbkZ6VCt6ZWtsOFR2UEx1cURIVEh6?=
- =?utf-8?B?Sm1URG05NXc0M0xMU2QxeWxaNHRZSnZlU05la3VDcDhJN2ttU2RVRWVEZk9u?=
- =?utf-8?B?VnZrMzVhZ242cWhBSE42ZUQ5WU00WTUwd2U0akRWZUtIdDZXb3ZiWWQ3c1dL?=
- =?utf-8?B?WFlrNkFMUzFKNHVCMXFCSVk5enhWTzg0L3pmMmdEM0l4dzk0a0swU2J1VGhF?=
- =?utf-8?B?RjBHTFV2YjdUb1EyRnRpMElpL0pQaERXSGVZVHJFWGZMMGl2aG1HWjFGRmh5?=
- =?utf-8?B?L1E5SVJNbWh5UmlsUCtjR3JTUDVOYm1oOVlUa2Z1N1BNemZodVFJZExmZHlC?=
- =?utf-8?B?bWFaVlYrQ1FTQ2ROU29hTlV4MFZHZGlXYVNYckpzSmhIK1VabGxMNkJYQ2Va?=
- =?utf-8?B?bWlEMk43eGtQTmZ4U3JVOGpaeThpSExldXk4cHZVRVFEM2pIbjgweUlkYkZD?=
- =?utf-8?B?cTdxUTcxU1ZJZ092VjZGNU1XcVMxejJSUm1UL3pIMUtFL3FiaW44dkJhSGNQ?=
- =?utf-8?B?RkZac3lsWStseFp5bWpCbmZlZWh5MEp0LzY4a1o4MkV1Y0tQOVIxaG01R0k4?=
- =?utf-8?B?OVUvS2wrYU5VRkZha0k1S3QybFZQZW8yKzcwMFFncDhBVTJTMmpoODZ4UktQ?=
- =?utf-8?B?S0tVNVJwbUZMb0Mzc05uOEdVRVhzZ05heG8xYVVVYUtxOW8xaUI4MHgzVjFF?=
- =?utf-8?B?STFJUEZ0SFlHcWhhTTNza0lkSmtUMHVlV0xIdjVJUGFVdnpxSjQ5N0JJRmlJ?=
- =?utf-8?B?UkVud0FpbkJvTis4VUNSYXpobHVZWW55RFVRZE5FR245MEVLbmFNRW5NWUNH?=
- =?utf-8?B?V3Y2MjhlNXNnRHdqRXh5WlpJTVNhTDY4Rkt0TEpQaGRrY2RkV1hlbm9CZEFD?=
- =?utf-8?B?Sm01R0IwbjFsRWhGZ29aUGt1bXo3RjVvakZWWXAxM2FsUjFhc0puMk9JaG9X?=
- =?utf-8?B?VTF5czhiSmJUMFkxVEJTaEprd2MzTDhadFNhY1U2LzA0MndGZm1XMHBFc29R?=
- =?utf-8?B?S1NoLytuK0ZpLzd5dlpySHlhbzI3QkV6RkJCQ0ZKanlzQm8xK2dSeVhlNklU?=
- =?utf-8?B?b3dpOVR3c2R5dVpRZmVhNFpzS3VOUnVJVXZDQm1qWXhoajEvT0kyNk5HbEN1?=
- =?utf-8?B?WVoveEVwQkNqVzVOT1R4WmFzVmZMYmJDMFNlbmtlTFJqVVVDYnp0WkFERnhm?=
- =?utf-8?B?MGZhVVJ2UkVBb05jODFNclhraml2bEtvNHgzWkVVN1k1T21LamovZUdhK1hL?=
- =?utf-8?Q?RHWyQooP7cxteQ8Q+iMq5wFYU?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8162377-c448-4d74-b1b3-08da7514ed21
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2022 05:56:36.6425
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Uz6KQQMJOkuovCOaLl3On5FehTe3kmLFk/pYiU8oaelwX3bl2Fo+Vs5lTmCQRACos63Kvt5vZGypbCIsNyrBLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6944
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=O4Jd0GCKVYSjvBW+vR6Y+Ovwu8PxJJmTw23W3GB8kqs=; b=Ig2jBT0jqg/U2psEnT/4LNwbHQ
+	CbSrxmqazGyIUu2Pq7/62fr8Fu6e4RDdXvG4f+VvX+EDDRSPjPM+I0zXXfu+LbaDKwGCgZYwVBP4H
+	WH43EuxODTM4MboJgI5FdwZQ7r1JE368ZHGX8HfP51G0/UL7+ep0KELOBcfQZGtC/bbg=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-unstable bisection] complete build-i386-libvirt
+Message-Id: <E1oJ7QO-0003om-1y@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 03 Aug 2022 06:00:08 +0000
 
-On 02.08.2022 19:09, Anthony PERARD wrote:
-> On Mon, Jul 11, 2022 at 04:08:55PM +0200, Jan Beulich wrote:
->> Can you confirm things to work when
->> building locally in just this subdir, e.g. via
->>
->> make -sC .../tools/fuzz/x86_instruction_emulator CC=/build/afl/2.52b-base/afl-gcc
->>
->> ?
-> 
-> Yes, that still works. But I'm not sure why you would ask since the
-> tools/ build system works this way, execution of make in a subdir
-> doesn't depends on the execution from the parent dir (it doesn't
-> depends on anything in the envvar).
+branch xen-unstable
+xenbranch xen-unstable
+job build-i386-libvirt
+testid libvirt-build
 
-Oh, I wasn't even aware of this as a general feature in tools/. Is
-this going to survive your rework to use non-recursive makefiles?
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Jan
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+  Bug not present: f732240fd3bac25116151db5ddeb7203b62e85ce
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/172100/
+
+
+  commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+  Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+  Date:   Fri Jul 15 22:20:24 2022 +0300
+  
+      libxl: Add support for Virtio disk configuration
+      
+      This patch adds basic support for configuring and assisting virtio-mmio
+      based virtio-disk backend (emulator) which is intended to run out of
+      Qemu and could be run in any domain.
+      Although the Virtio block device is quite different from traditional
+      Xen PV block device (vbd) from the toolstack's point of view:
+       - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+         written to Xenstore are fetched by the frontend currently ("vdev"
+         is not passed to the frontend). But this might need to be revised
+         in future, so frontend data might be written to Xenstore in order to
+         support hotplugging virtio devices or passing the backend domain id
+         on arch where the device-tree is not available.
+       - the ring-ref/event-channel are not used for the backend<->frontend
+         communication, the proposed IPC for Virtio is IOREQ/DM
+      it is still a "block device" and ought to be integrated in existing
+      "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+      logic to deal with Virtio devices as well.
+      
+      For the immediate purpose and an ability to extend that support for
+      other use-cases in future (Qemu, virtio-pci, etc) perform the following
+      actions:
+      - Add new disk backend type (LIBXL_DISK_BACKEND_STANDALONE) and reflect
+        that in the configuration
+      - Introduce new disk "specification" and "transport" fields to struct
+        libxl_device_disk. Both are written to the Xenstore. The transport
+        field is only used for the specification "virtio" and it assumes
+        only "mmio" value for now.
+      - Introduce new "specification" option with "xen" communication
+        protocol being default value.
+      - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+        one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
+      
+      An example of domain configuration for Virtio disk:
+      disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=standalone, specification=virtio']
+      
+      Nothing has changed for default Xen disk configuration.
+      
+      Please note, this patch is not enough for virtio-disk to work
+      on Xen (Arm), as for every Virtio device (including disk) we need
+      to allocate Virtio MMIO params (IRQ and memory region) and pass
+      them to the backend, also update Guest device-tree. The subsequent
+      patch will add these missing bits. For the current patch,
+      the default "irq" and "base" are just written to the Xenstore.
+      This is not an ideal splitting, but this way we avoid breaking
+      the bisectability.
+      
+      Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+      Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+      Acked-by: George Dunlap <george.dunlap@citrix.com>
+      Tested-by: Jiamei Xie <jiamei.xie@arm.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/build-i386-libvirt.libvirt-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/build-i386-libvirt.libvirt-build --summary-out=tmp/172100.bisection-summary --basis-template=172073 --blessings=real,real-bisect,real-retry xen-unstable build-i386-libvirt libvirt-build
+Searching for failure / basis pass:
+ 172081 fail [host=huxelrebe0] / 172073 [host=nobling0] 172058 [host=nocera0] 171993 [host=albana0] 171910 [host=nocera0] 171896 [host=albana0] 171887 [host=italia1] 171873 [host=italia1] 171862 [host=albana0] 171859 [host=nobling1] 171856 ok.
+Failure / basis pass flights: 172081 / 171856
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 ca45d3cb4586372909f350e54482246f994e1bc7
+Basis pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f1c719d5cd8ab4d5d4c8df139b9df3c2c47221d1
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/libvirt.git#2c846fa6bcc11929c9fb857a22430fb9945654ad-2c846fa6bcc11929c9fb857a22430fb9945654ad https://gitlab.com/keycodemap/keycodemapdb.git#27acf0ef828bf719b2053ba398b195829413dbdd-27acf0ef828bf719b2053ba398b195829413dbdd git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#b746458e1ce1bec85e58b458386f8b7a0bedf\
+ aa6-b746458e1ce1bec85e58b458386f8b7a0bedfaa6 git://xenbits.xen.org/xen.git#f1c719d5cd8ab4d5d4c8df139b9df3c2c47221d1-ca45d3cb4586372909f350e54482246f994e1bc7
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 171856 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f1c719d5cd8ab4d5d4c8df139b9df3c2c47221d1
+ 171859 [host=nobling1]
+ 171862 [host=albana0]
+ 171873 [host=italia1]
+ 171887 [host=italia1]
+ 171896 [host=albana0]
+ 171910 [host=nocera0]
+ 171933 []
+ 171993 [host=albana0]
+ 172058 [host=nocera0]
+ 172073 [host=nobling0]
+ 172081 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 ca45d3cb4586372909f350e54482246f994e1bc7
+ 172088 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f1c719d5cd8ab4d5d4c8df139b9df3c2c47221d1
+ 172090 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 ca45d3cb4586372909f350e54482246f994e1bc7
+ 172092 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 13316827faadbb4f72ae6c625af9938d8f976f86
+ 172094 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f732240fd3bac25116151db5ddeb7203b62e85ce
+ 172096 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+ 172097 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f732240fd3bac25116151db5ddeb7203b62e85ce
+ 172098 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+ 172099 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f732240fd3bac25116151db5ddeb7203b62e85ce
+ 172100 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+Searching for interesting versions
+ Result found: flight 171856 (pass), for basis pass
+ For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f732240fd3bac25116151db5ddeb7203b62e85ce, results HASH(0x5607da348ab8) HASH(0x5607da340470) HASH(0x5607da336480) For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1\
+ ce1bec85e58b458386f8b7a0bedfaa6 13316827faadbb4f72ae6c625af9938d8f976f86, results HASH(0x5607da346ab0) For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f1c719d5cd8ab4d5d4c8df139b9df3c2c47221d1, results HASH(0x5607da33d0c0) HASH(0x5607da339b30) Result found: flight 172081 (fail), for basis failure (at ancestor ~368)
+ Repro found: flight 172088 (pass), for basis pass
+ Repro found: flight 172090 (fail), for basis failure
+ 0 revisions at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b746458e1ce1bec85e58b458386f8b7a0bedfaa6 f732240fd3bac25116151db5ddeb7203b62e85ce
+No revisions left to test, checking graph state.
+ Result found: flight 172094 (pass), for last pass
+ Result found: flight 172096 (fail), for first failure
+ Repro found: flight 172097 (pass), for last pass
+ Repro found: flight 172098 (fail), for first failure
+ Repro found: flight 172099 (pass), for last pass
+ Repro found: flight 172100 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+  Bug not present: f732240fd3bac25116151db5ddeb7203b62e85ce
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/172100/
+
+
+  commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+  Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+  Date:   Fri Jul 15 22:20:24 2022 +0300
+  
+      libxl: Add support for Virtio disk configuration
+      
+      This patch adds basic support for configuring and assisting virtio-mmio
+      based virtio-disk backend (emulator) which is intended to run out of
+      Qemu and could be run in any domain.
+      Although the Virtio block device is quite different from traditional
+      Xen PV block device (vbd) from the toolstack's point of view:
+       - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+         written to Xenstore are fetched by the frontend currently ("vdev"
+         is not passed to the frontend). But this might need to be revised
+         in future, so frontend data might be written to Xenstore in order to
+         support hotplugging virtio devices or passing the backend domain id
+         on arch where the device-tree is not available.
+       - the ring-ref/event-channel are not used for the backend<->frontend
+         communication, the proposed IPC for Virtio is IOREQ/DM
+      it is still a "block device" and ought to be integrated in existing
+      "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+      logic to deal with Virtio devices as well.
+      
+      For the immediate purpose and an ability to extend that support for
+      other use-cases in future (Qemu, virtio-pci, etc) perform the following
+      actions:
+      - Add new disk backend type (LIBXL_DISK_BACKEND_STANDALONE) and reflect
+        that in the configuration
+      - Introduce new disk "specification" and "transport" fields to struct
+        libxl_device_disk. Both are written to the Xenstore. The transport
+        field is only used for the specification "virtio" and it assumes
+        only "mmio" value for now.
+      - Introduce new "specification" option with "xen" communication
+        protocol being default value.
+      - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+        one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
+      
+      An example of domain configuration for Virtio disk:
+      disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=standalone, specification=virtio']
+      
+      Nothing has changed for default Xen disk configuration.
+      
+      Please note, this patch is not enough for virtio-disk to work
+      on Xen (Arm), as for every Virtio device (including disk) we need
+      to allocate Virtio MMIO params (IRQ and memory region) and pass
+      them to the backend, also update Guest device-tree. The subsequent
+      patch will add these missing bits. For the current patch,
+      the default "irq" and "base" are just written to the Xenstore.
+      This is not an ideal splitting, but this way we avoid breaking
+      the bisectability.
+      
+      Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+      Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+      Acked-by: George Dunlap <george.dunlap@citrix.com>
+      Tested-by: Jiamei Xie <jiamei.xie@arm.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/build-i386-libvirt.libvirt-build.{dot,ps,png,html,svg}.
+----------------------------------------
+172100: tolerable ALL FAIL
+
+flight 172100 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172100/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build           fail baseline untested
+
+
+jobs:
+ build-i386-libvirt                                           fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
