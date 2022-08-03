@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D393588FA8
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Aug 2022 17:50:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.379998.613968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D436588FCB
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Aug 2022 17:53:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.380005.613978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJGd6-0004iU-Qp; Wed, 03 Aug 2022 15:49:52 +0000
+	id 1oJGg0-00066s-9r; Wed, 03 Aug 2022 15:52:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 379998.613968; Wed, 03 Aug 2022 15:49:52 +0000
+Received: by outflank-mailman (output) from mailman id 380005.613978; Wed, 03 Aug 2022 15:52:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJGd6-0004gg-Nq; Wed, 03 Aug 2022 15:49:52 +0000
-Received: by outflank-mailman (input) for mailman id 379998;
- Wed, 03 Aug 2022 15:49:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oJGd5-0004gW-JH; Wed, 03 Aug 2022 15:49:51 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oJGd5-0003de-IB; Wed, 03 Aug 2022 15:49:51 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oJGd5-0003Ow-7H; Wed, 03 Aug 2022 15:49:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oJGd5-00006j-6n; Wed, 03 Aug 2022 15:49:51 +0000
+	id 1oJGg0-000640-75; Wed, 03 Aug 2022 15:52:52 +0000
+Received: by outflank-mailman (input) for mailman id 380005;
+ Wed, 03 Aug 2022 15:52:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2dnW=YH=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1oJGfz-00063u-KC
+ for xen-devel@lists.xenproject.org; Wed, 03 Aug 2022 15:52:51 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 52e0eb4b-1344-11ed-bd2d-47488cf2e6aa;
+ Wed, 03 Aug 2022 17:52:50 +0200 (CEST)
+Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1659541963776129.17942170233516;
+ Wed, 3 Aug 2022 08:52:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,90 +40,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=DbwuOfGXCJtSuyMPXrvWv60gRiDBh5dTwphZfM2/a7w=; b=uZjQBUMsv99b1HiQecakIuENN2
-	nKHw9wYL/G1jdQflcmQZl0Dp7Tftqjyp1MgpXunGUmRDn20V2wy2HDnG4ye3AjVIMh3s4AQmaItl/
-	tBgV1A0k0OshidZITM+DQNpl5wTuLdpSudQM9htneTxlNVcCg171UUgr4BaG7IZITjjk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172116-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 52e0eb4b-1344-11ed-bd2d-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; t=1659541965; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=TVtyRiWUtsKmJNTug91pv6BLryWvOOhRc5uZ+D6EHWZDehjC4KMkK2z9M8HnrLJrGK7/fc4Dp0uxwGj1ZfMd8t85ZbUA64Ie9+y+62g9oa+3CltrRYnHJqQ7yDdlOZvSrfisZpzFB+WrfCAFOniCOvRqWFJXgQFQeQlg0gTJpoo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1659541965; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=vrq9T6KffAmMrEcdjJdEcGzwsQbVuYfSpqEXivIpH2g=; 
+	b=bdG5F3wPIPuhGolc7DZ3B3jKExEj5PK6k+FkZmKdj/yY/Fkylv/MDtgcK/36NRxouYryPIPRurOpB+08PixyzPHChFaMNvL4+H4X/1TvAWnEyqApUrpUr5zHhRsSVHSnYKd9ifXkbpHkyqlKyWJOBsHnlC9qj0TYP7XxTLMvIIo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1659541965;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=vrq9T6KffAmMrEcdjJdEcGzwsQbVuYfSpqEXivIpH2g=;
+	b=kwQO9CuyQNiIA9Rj3P9jCXC3t9xoZKWeX0YXRjiHUW2U096xuoTVoci7l9qhtm+O
+	eZ4z9wN1AhN9P5lXnww7N7HseptPyiCMt3057eV4rJJbqOzjuzZxCZ6Jlz/FXar9v4D
+	ODuVLtpcgYTQArNSzvafaaV/pSbf6HqE+f8a9TpE=
+Message-ID: <fdf2a27d-e0e0-f76b-654c-73f7dd8dff90@apertussolutions.com>
+Date: Wed, 3 Aug 2022 11:52:04 -0400
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 172116: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=01ca29f0b17a50a94b0e232ba276c32e95d80ae3
-X-Osstest-Versions-That:
-    xen=800f21499e0ec112771ce1e94490ca5811578bc2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 03 Aug 2022 15:49:51 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: jandryuk@gmail.com, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+References: <20220803151741.7826-1-dpsmith@apertussolutions.com>
+ <f9001446-157a-99a6-29cd-dcbbb6d59527@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v11] xsm: refactor flask sid alloc and domain check
+In-Reply-To: <f9001446-157a-99a6-29cd-dcbbb6d59527@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-flight 172116 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172116/
+On 8/3/22 11:26, Jan Beulich wrote:
+> On 03.08.2022 17:17, Daniel P. Smith wrote:
+>> Changes in v11:
+>> - put back dom0_created variable in flask_domain_create() to ensure the
+>>   enforcement that dom0_t is a singleton label
+> 
+> Stale patch or bad rev log?
 
-Failures :-/ but no regressions.
+Nope, having a bad day. Staged the change but didn't amend commit it
+before my usual sequence of test and cut patch. My apologies.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- build-amd64-libvirt           6 libvirt-build                fail  like 172107
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  01ca29f0b17a50a94b0e232ba276c32e95d80ae3
-baseline version:
- xen                  800f21499e0ec112771ce1e94490ca5811578bc2
-
-Last test of basis   172107  2022-08-03 10:01:49 Z    0 days
-Testing same since   172116  2022-08-03 13:00:31 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Christian Lindig <christian.lindig@citrix.com>
-  Daniel P. Smith <dpsmith@apertussolutions.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Edwin Török <edvin.torok@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   800f21499e..01ca29f0b1  01ca29f0b17a50a94b0e232ba276c32e95d80ae3 -> smoke
+>> @@ -548,22 +556,19 @@ static int cf_check flask_domain_create(struct domain *d, uint32_t ssidref)
+>>  {
+>>      int rc;
+>>      struct domain_security_struct *dsec = d->ssid;
+>> -    static int dom0_created = 0;
+> 
+> The variable is going away here, and it is not re-appearing elsewhere.
+> 
+> Jan
+> 
+>> -    if ( is_idle_domain(current->domain) && !dom0_created )
+>> -    {
+>> -        dsec->sid = SECINITSID_DOM0;
+>> -        dom0_created = 1;
+>> -    }
+>> -    else
+>> -    {
+>> -        rc = avc_current_has_perm(ssidref, SECCLASS_DOMAIN,
+>> -                          DOMAIN__CREATE, NULL);
+>> -        if ( rc )
+>> -            return rc;
+>> +    /*
+>> +     * If the null label is passed, then use the label from security context
+>> +     * allocation.
+>> +     */
+>> +    if ( ssidref == 0 )
+>> +        ssidref = dsec->sid;
+>>  
+>> -        dsec->sid = ssidref;
+>> -    }
+>> +    rc = avc_current_has_perm(ssidref, SECCLASS_DOMAIN, DOMAIN__CREATE, NULL);
+>> +    if ( rc )
+>> +        return rc;
+>> +
+>> +    dsec->sid = ssidref;
+>>      dsec->self_sid = dsec->sid;
+>>  
+>>      rc = security_transition_sid(dsec->sid, dsec->sid, SECCLASS_DOMAIN,
+> 
 
