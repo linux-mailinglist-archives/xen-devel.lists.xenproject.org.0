@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E6B7589E29
+	by mail.lfdr.de (Postfix) with ESMTPS id B0679589E2A
 	for <lists+xen-devel@lfdr.de>; Thu,  4 Aug 2022 17:05:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.380517.614704 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.380523.614748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJcPM-0001sR-Gg; Thu, 04 Aug 2022 15:05:08 +0000
+	id 1oJcPX-00036N-OC; Thu, 04 Aug 2022 15:05:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 380517.614704; Thu, 04 Aug 2022 15:05:08 +0000
+Received: by outflank-mailman (output) from mailman id 380523.614748; Thu, 04 Aug 2022 15:05:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJcPM-0001pb-CE; Thu, 04 Aug 2022 15:05:08 +0000
-Received: by outflank-mailman (input) for mailman id 380517;
- Thu, 04 Aug 2022 15:05:06 +0000
+	id 1oJcPX-00033L-Ks; Thu, 04 Aug 2022 15:05:19 +0000
+Received: by outflank-mailman (input) for mailman id 380523;
+ Thu, 04 Aug 2022 15:05:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QMPZ=YI=citrix.com=prvs=2084bc4d8=Jane.Malalane@srs-se1.protection.inumbo.net>)
- id 1oJcPK-0001pR-Nw
- for xen-devel@lists.xenproject.org; Thu, 04 Aug 2022 15:05:06 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d120dfde-1406-11ed-bd2d-47488cf2e6aa;
- Thu, 04 Aug 2022 17:05:04 +0200 (CEST)
+ id 1oJcPW-0001pR-LQ
+ for xen-devel@lists.xenproject.org; Thu, 04 Aug 2022 15:05:18 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d886c8f3-1406-11ed-bd2d-47488cf2e6aa;
+ Thu, 04 Aug 2022 17:05:17 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,192 +36,339 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d120dfde-1406-11ed-bd2d-47488cf2e6aa
+X-Inumbo-ID: d886c8f3-1406-11ed-bd2d-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1659625504;
+  d=citrix.com; s=securemail; t=1659625516;
   h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=+XvSPGhkSE1Z7JYIaZw7tOFI2h+V4kO6R6kgf5+xW64=;
-  b=aDfuyZ4eBB4NvKyWNWOS3qP5o2MY0Dz31i3wV/Z2bXSWcT9XflGDiApc
-   f604ymhx7kFf4V4s0tpzVimiiHtYp6zD/p2kDeZjsYKEiUIy7afwZK3on
-   psOXWIa85qS4ez7fN+2hpBleU/67T6U3PlmzqTkyQVpBT+1CwHWm9JTX9
-   8=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+   references:mime-version;
+  bh=CdtbkD3eQ8hKPJiJTBFFPb8a5m5PwrGLe0HfMNmqQaQ=;
+  b=G7ZY9PbNyfVRA65s7s85gODyhEWswcsgLbPFXzByoWhiY0L+8fb7NfM9
+   qoiZAkGQwBiDvJmcYW/Ga6LUmnOAkHP1F4z8KVmKFm9FCqDTaep/zikLg
+   PgNVXCDdLDjK9sRFOUTCY8srB6B/DaqnDeSIg0hlt2KKxLxYvoaxgGaEe
+   I=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 77380020
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 79938458
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: =?us-ascii?q?A9a23=3ANMr33qhHPO9XXKvyR54p6DOKX17brhtdeKXEu?=
- =?us-ascii?q?qucoGZYitEo9fiigw3rTHB/vMu+OsBzOTSeNSnCs4IU2YTIz8AWJWPuvmb4K?=
- =?us-ascii?q?X+F6BLaQgz51FdQzqpjf+ZYVAVlHC8VHgAGJ+35Y8rt69mUOzoU6eggX3v0m?=
- =?us-ascii?q?CFpCDCP66c4sovqSAV1PuGqrraWgiiC9H6id5H5IOZwQnV82SAENY+Qq4nIJ?=
- =?us-ascii?q?dfZm8s9Z26+9B2O6qwbCFlEw/pozTzRAV9PdtnNiWPQrmYfwXFTBGXwwWqXI?=
- =?us-ascii?q?uRPBXvHZhialCZjxd56C9cfvPKD5cNkWiqjbo0jV+RqaHO5+BFRwOiweYsRS?=
- =?us-ascii?q?VCrvW530EeQeRkUXs51Zjvskyief97OlHOIOVsq/EIBO5lKuCA9y9BFUDNk0?=
- =?us-ascii?q?uJ6IgBgEGjXLpfmtSZ9kwE0jxrELnwQ3rl/zmVFJrzr1FIZuYZUWNeJrnpq/?=
- =?us-ascii?q?DzMrUpjBx4vH8cEpj6M7wb8aB2UMy3R/R4et5Mzp+Z9yoHsWIqjTwKW2ggUk?=
- =?us-ascii?q?eQwD7kkzPdjaNC7YaSuPaQSvQyO8qBs67QVgNOBaHKFw+Mb37P5EgbmEiNUd?=
- =?us-ascii?q?g7QrVfPCQSpH9POnafnwvTy0ZPuQTgDd2501tPP8A4rbOQ/VkPviWrwpomZb?=
- =?us-ascii?q?p2PlvKehhPiL+IFR1o0oe+S4oNXGqlJaWjyDkuC9pQlh+a/XdEjJXUxvurvK?=
- =?us-ascii?q?n7NnCi2yGP25bVhDFvkcmkFZ29Od8xGqZGTomlQ4L+H5jQb28aeVgAlUQYfm?=
- =?us-ascii?q?Di1Cw/uv6LbctgI8unj1LsHykm6iyjGJdlh/t107ybMEv/JPPjPh0zHtIkk4?=
- =?us-ascii?q?oUQlzSrT4mue6o8wSeYKDmzpi7EjT1K2AYWI575WoucbdK55uu7aPgjVT6Ao?=
- =?us-ascii?q?dsDdKUAwyvAWEMpeOqtkhwCx6HntlUbwxigTU93ilcH8j3NUKtu1mLaf8JzZ?=
- =?us-ascii?q?kXHAvTtN5//KtUP94z5r0yQrX+ukxN0mLB2fnrFTWBwnf/rRxXDXhZZZOabh?=
- =?us-ascii?q?enUHZIjqwb1ZBA5QFeXfUvMdl+W/kTNROu1RIieKf9uDMCZ7xVpRUTuHLmZc?=
- =?us-ascii?q?lRDh9BcFVsilMHRTX/c4cXvy0c5Eh6VhU539T5Xg+2F+Xdw6OkrchK4rs1I7?=
- =?us-ascii?q?HEgD8YHRvV0PtFKgTbImom2PGaRHQ25/ixctgP2dXzuqOytZHUWyZCQHgrlB?=
- =?us-ascii?q?3c6fAxcLuHLqnLqFD3pvARMopzuRllSo6AI49/kNHXNYmVqZSyWenpkysTjB?=
- =?us-ascii?q?EFJdt2KGbA4nU46Qy/KhLBkihw6U1a2LcqoJVAbaaefEQWD0f0uswa8xKAhh?=
- =?us-ascii?q?iWq6RuPhhPIcfausd8mjSyZS3r7ohA6EqgVKSuI0MYLVKjEfvhYWPRBmzJ4t?=
- =?us-ascii?q?RczDpuV+xnu6pjzAsDlRrPrrTxaK3Q2Y/iBcUBdeXqe0e7w8m+X4G8lVwRhq?=
- =?us-ascii?q?f0tssQSX3BN3u3ZdUL5gAoLXK4dVc1r0Z/Ir0hAq5HVAE1A6q2tcBc+inbjT?=
- =?us-ascii?q?Ld3g1nF7PBKMSMPvyjb+/rHdKJcTG1zQEopU+l8mksaNfbN9C8LRuspvd7/7?=
- =?us-ascii?q?q/9Qq5zBteBL+ldihvhu4NSxHe8qvCJPzd9vKTIAil4JrqCbgfLS8mJJlIgM?=
- =?us-ascii?q?TGQMAa6B+eofn81jAel4OtJx8BhM0ZnZHmf4lS5Qr2vqY6xZ+N1IUKcOg2vc?=
- =?us-ascii?q?t7WRtgiHA4JLGMa29qEXPImi8ZKu4dges4QpQbQ0eVpIQF8cuiqJvN8K9Th8?=
- =?us-ascii?q?LL9eb37jjP/68V3kOJ9uriSjOdk+Z+mBQNPJ9740Srb2EIDAvki9Bdo9t03r?=
- =?us-ascii?q?r/8bdBPcINSOJHyAyZ8GQb/Q6/6t9/e20HPLIiw5esvpOGdW4WqHo6inmgFj?=
- =?us-ascii?q?JycmiGgZlJKEtQdxFX1OzbS4qrlobqdJuqknL+NEeG8y35SXx5bPiXvkDaak?=
- =?us-ascii?q?sAi3weIQKjfH1VY3c8o86glbmiP7A+dpcFlnedoF5LtlWiEaZpBiVWwRHd1L?=
- =?us-ascii?q?mkfp0kCND/DlTgki+V/9YEOI8UPwPxUOctWLjBElxZjG922RZPHjx/AXSzvW?=
- =?us-ascii?q?mpw1eora2w8Hk3uA6e8pqcW+BWe5g25h+sxmFF0+gctMpMtiq8b4zrk7yyka?=
- =?us-ascii?q?Cbd/RhO4TbjKt1Jk4ObUFfFTf3wcttJbQ81tfpI5W0dOuk7nxPlryLxz32Ei?=
- =?us-ascii?q?JvYK3xkvFWB9yVWy7EAx8f+LcWDuEcJk+t/BPX57nbtVCV86H7drNJmgqfsf?=
- =?us-ascii?q?kgECcgsuqQwmQxvj8KNz2bOKao/4ST3mh2sIxIwv7FqWJuHARGcyLvH8THMx?=
- =?us-ascii?q?qNSmV4rV4W/e6q4VspUHvzP6IO2s5R/z0zSwnFezE9fCoj55QtXA/Q4+bkiC?=
- =?us-ascii?q?sD0cqv7sr/+4pSOFleVZzWKkkUAYuybUt+whvTmzilDkaetH2nMQn6pDyQfx?=
- =?us-ascii?q?nXA6JKNVBxP2DrP0j11IYDXIn5CdhiB/PcXRtzRF5ThM5Lsg3IyY1w5N/Vpa?=
- =?us-ascii?q?b3525FLx4VaH0nTDmhXtFA797l5z8hK4HMh6KATcUdeLuqk3A9ugAeZY64gd?=
- =?us-ascii?q?4FAYnwggIX1JpzRkOE+kLGKbW5JgKjw6XJSXhiH2IdRjAq+rTa+SUFrm8Bpy?=
- =?us-ascii?q?Y3j636/H0/tj+e2t5QChflL6QGh7kR1p6MojxNgAMdc8AY2gWCLYnbEyT717?=
- =?us-ascii?q?+JvmngLQOiI2BjKBEJRv6B3JPFylOe/SS8NIeRR7OCZ/ZTcu0UBYeUM1jgGx?=
- =?us-ascii?q?CCcB2V0LQ/WGq0ujgxP?=
+IronPort-Data: A9a23:TzcxsqCcdd+35BVW/z3jw5YqxClBgxIJ4kV8jS/XYbTApGwh3zFSz
+ jYYXD+DO6qJMWGkct10bYmz9k4H6MPSy9NgQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaA4E3ratANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq3uU0meaEu/Dga++2k
+ Y608pa31GONgWYuaDpEs/7b83uDgdyp0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSq
+ zHrlezREsvxpn/BO/v9+lrJWhRiro36ZGBivkF+Sam66iWukwRpukoN2FjwXm8M49mBt4gZJ
+ NygLvVcQy9xVkHHsLx1vxW1j0iSlECJkVPKCSHXjCCd86HJWyDxnfAwIWUfB5Un9r5MQkZN5
+ P0bcQlYO3hvh8ruqF66Yuxlh8BlJ8j3JoIP/HpnyFk1D95/H8qFGf+To4YFgnFg3aiiHt6HD
+ yYdQRhmahmGRhRLM1MeDp8Wl+a0nHjvNTZfrTp5oIJosjmInFAsgNABNvLxXoCLGOJ+jn/bi
+ VLEpTjWAzYhaP+QnG/tHnWE2baUwHKTtJgpPL+l8v9nhnWDy2pVDwcZPXOkpdGph0j4XMhQQ
+ 2QP4TYnp6U28E2tT/H+Uge+rXrCuQQTM/JAHut/5AyTx6785weCGnNCXjNHcMYhtsI9WXotz
+ FDht9HjCCFrsbaVYWmA7brSpjS3URX5NkdbO3VCF1FcpYC+/sdj1XojU+qPDobuk4PwRxzU6
+ gqSkyRmvPY0jt8K1PyCqAWvby2XmnTZcuIkzlyJAzP5tl4gOdTNi5+AsgaCs6sZRGqNZhzY5
+ SVfxZDDhAwbJcvV/BFhVtnhC11ACxytFDTHyWBiEJA6n9hG0y7yJNsAiN2SyaoADyrlRdMKS
+ BWK0e+pzMUPVEZGlIcuC25LN+wkzLL7CfPuXe3OY9xFb/BZLVHarXwzPBHAhDCyyyDAdJ3T3
+ r/LGftA8F5AUfg3pNZIb711PUAXKtAWmjqIGMGTI+WP2ruCfn+FIYo43K+1RrlgtMus/VSKm
+ +uzwuPQlH2zpsWiPXSMmWPSRHhWRUUG6Wfe9JYGK7bSe1o7cIzjYteIqY4cl0Vet/w9vo/1E
+ ruVAye0FHKXaaX7FDi3
+IronPort-HdrOrdr: A9a23:B8WLcq6W0Rs8HKcvWgPXwMrXdLJyesId70hD6qhwISY6TiX4rb
+ HWoB1173/JYVoqNE3I3OrwXZVoIkmsk6Kdg7NhXotKNTOO0ADDQb2Kr7GSpwEIcxeOkdK1vp
+ 0AT0ERMrLN5CBB/KTH3DU=
 X-IronPort-AV: E=Sophos;i="5.93,216,1654574400"; 
-   d="scan'208";a="77380020"
+   d="scan'208";a="79938458"
 From: Jane Malalane <jane.malalane@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Jane Malalane <jane.malalane@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [PATCH 1/4] x86/kexec: Add the '.L_' prefix to is_* and call_* labels
-Date: Thu, 4 Aug 2022 16:04:21 +0100
-Message-ID: <20220804150424.17584-2-jane.malalane@citrix.com>
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH 2/4] xen: Port linkage.h from kernel code
+Date: Thu, 4 Aug 2022 16:04:22 +0100
+Message-ID: <20220804150424.17584-3-jane.malalane@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220804150424.17584-1-jane.malalane@citrix.com>
 References: <20220804150424.17584-1-jane.malalane@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-
-These are local symbols and shouldn't be externally visible.
+Content-Type: text/plain
 
 Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
 ---
 CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: George Dunlap <george.dunlap@citrix.com>
 CC: Jan Beulich <jbeulich@suse.com>
-CC: "Roger Pau Monné" <roger.pau@citrix.com>
+CC: Julien Grall <julien@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
 CC: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/x86_64/kexec_reloc.S | 42 +++++++++++++++++++--------------------
- 1 file changed, 21 insertions(+), 21 deletions(-)
+ xen/include/xen/linkage.h | 260 ++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 260 insertions(+)
+ create mode 100644 xen/include/xen/linkage.h
 
-diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
-index 89316bc3a7..f4842025eb 100644
---- a/xen/arch/x86/x86_64/kexec_reloc.S
-+++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -40,10 +40,10 @@ ENTRY(kexec_reloc)
-         movq    %rsi, %cr3
- 
-         /* Jump to identity mapped code. */
--        leaq    (identity_mapped - kexec_reloc)(%rdi), %rax
-+        leaq    (.L_identity_mapped - kexec_reloc)(%rdi), %rax
-         jmpq    *%rax
- 
--identity_mapped:
-+.L_identity_mapped:
-         /*
-          * Set cr0 to a known state:
-          *  - Paging enabled
-@@ -70,14 +70,14 @@ identity_mapped:
- 
-         /* Need to switch to 32-bit mode? */
-         testq   $KEXEC_RELOC_FLAG_COMPAT, %r8
--        jnz     call_32_bit
-+        jnz     .L_call_32_bit
- 
--call_64_bit:
-+.L_call_64_bit:
-         /* Call the image entry point.  This should never return. */
-         callq   *%rbp
-         ud2
- 
--call_32_bit:
-+.L_call_32_bit:
-         /* Setup IDT. */
-         lidt    compat_mode_idt(%rip)
- 
-@@ -102,41 +102,41 @@ relocate_pages:
-         xorl    %edi, %edi
-         xorl    %esi, %esi
- 
--next_entry: /* top, read another word for the indirection page */
-+.L_next_entry: /* top, read another word for the indirection page */
- 
-         movq    (%rbx), %rcx
-         addq    $8, %rbx
--is_dest:
-+.L_is_dest:
-         testb   $IND_DESTINATION, %cl
--        jz      is_ind
-+        jz      .L_is_ind
-         movq    %rcx, %rdi
-         andq    $PAGE_MASK, %rdi
--        jmp     next_entry
--is_ind:
-+        jmp     .L_next_entry
-+.L_is_ind:
-         testb   $IND_INDIRECTION, %cl
--        jz      is_done
-+        jz      .L_is_done
-         movq    %rcx, %rbx
-         andq    $PAGE_MASK, %rbx
--        jmp     next_entry
--is_done:
-+        jmp     .L_next_entry
-+.L_is_done:
-         testb   $IND_DONE, %cl
--        jnz     done
--is_source:
-+        jnz     .L_done
-+.L_is_source:
-         testb   $IND_SOURCE, %cl
--        jz      is_zero
-+        jz      .L_is_zero
-         movq    %rcx, %rsi      /* For every source page do a copy */
-         andq    $PAGE_MASK, %rsi
-         movl    $(PAGE_SIZE / 8), %ecx
-         rep movsq
--        jmp     next_entry
--is_zero:
-+        jmp     .L_next_entry
-+.L_is_zero:
-         testb   $IND_ZERO, %cl
--        jz      next_entry
-+        jz      .L_next_entry
-         movl    $(PAGE_SIZE / 8), %ecx  /* Zero the destination page. */
-         xorl    %eax, %eax
-         rep stosq
--        jmp     next_entry
--done:
-+        jmp     .L_next_entry
-+.L_done:
-         popq    %rbx
-         ret
- 
+diff --git a/xen/include/xen/linkage.h b/xen/include/xen/linkage.h
+new file mode 100644
+index 0000000000..adc00c356b
+--- /dev/null
++++ b/xen/include/xen/linkage.h
+@@ -0,0 +1,260 @@
++#ifndef __XEN_LINKAGE_H
++#define __XEN_LINKAGE_H
++
++/*
++ * Imported from linux-5.19:include/linux/linkage.h
++ */
++
++/* Some toolchains use other characters (e.g. '`') to mark new line in macro */
++#ifndef ASM_NL
++#define ASM_NL		 ;
++#endif
++
++#ifdef __ASSEMBLY__
++
++/* SYM_T_FUNC -- type used by assembler to mark functions */
++#ifndef SYM_T_FUNC
++#define SYM_T_FUNC				STT_FUNC
++#endif
++
++/* SYM_T_OBJECT -- type used by assembler to mark data */
++#ifndef SYM_T_OBJECT
++#define SYM_T_OBJECT				STT_OBJECT
++#endif
++
++/* SYM_T_NONE -- type used by assembler to mark entries of unknown type */
++#ifndef SYM_T_NONE
++#define SYM_T_NONE				STT_NOTYPE
++#endif
++
++/* SYM_A_* -- align the symbol? */
++#define SYM_A_ALIGN				ALIGN
++#define SYM_A_NONE				/* nothing */
++
++/* SYM_L_* -- linkage of symbols */
++#define SYM_L_GLOBAL(name)			.globl name
++#define SYM_L_WEAK(name)			.weak name
++#define SYM_L_LOCAL(name)			/* nothing */
++
++/* === generic annotations === */
++
++/* SYM_ENTRY -- use only if you have to for non-paired symbols */
++#ifndef SYM_ENTRY
++#define SYM_ENTRY(name, linkage, align...)		\
++	linkage(name) ASM_NL				\
++	align ASM_NL					\
++	name:
++#endif
++
++/* SYM_START -- use only if you have to */
++#ifndef SYM_START
++#define SYM_START(name, linkage, align...)		\
++	SYM_ENTRY(name, linkage, align)
++#endif
++
++/* SYM_END -- use only if you have to */
++#ifndef SYM_END
++#define SYM_END(name, sym_type)				\
++	.type name sym_type ASM_NL			\
++	.set .L__sym_size_##name, .-name ASM_NL		\
++	.size name, .L__sym_size_##name
++#endif
++
++/* SYM_ALIAS -- use only if you have to */
++#ifndef SYM_ALIAS
++#define SYM_ALIAS(alias, name, linkage)			\
++	linkage(alias) ASM_NL				\
++	.set alias, name ASM_NL
++#endif
++
++/* === code annotations === */
++
++/*
++ * FUNC -- C-like functions (proper stack frame etc.)
++ * CODE -- non-C code (e.g. irq handlers with different, special stack etc.)
++ *
++ * Objtool validates stack for FUNC, but not for CODE.
++ * Objtool generates debug info for both FUNC & CODE, but needs special
++ * annotations for each CODE's start (to describe the actual stack frame).
++ *
++ * Objtool requires that all code must be contained in an ELF symbol. Symbol
++ * names that have a  .L prefix do not emit symbol table entries. .L
++ * prefixed symbols can be used within a code region, but should be avoided for
++ * denoting a range of code via ``SYM_*_START/END`` annotations.
++ *
++ * ALIAS -- does not generate debug info -- the aliased function will
++ */
++
++/* SYM_INNER_LABEL_ALIGN -- only for labels in the middle of code,
++ * w/ alignment
++ */
++#ifndef SYM_INNER_LABEL_ALIGN
++#define SYM_INNER_LABEL_ALIGN(name, linkage)	\
++	.type name SYM_T_NONE ASM_NL			\
++	SYM_ENTRY(name, linkage, SYM_A_ALIGN)
++#endif
++
++/* SYM_INNER_LABEL_LOCAL -- only for local labels in the middle of code */
++#ifndef SYM_INNER_LABEL_LOCAL
++#define SYM_INNER_LABEL_LOCAL(name)			\
++	.type name SYM_T_NONE ASM_NL			\
++	SYM_ENTRY(name, SYM_L_LOCAL, SYM_A_NONE)
++#endif
++
++/* SYM_INNER_LABEL_GLOBAL -- only for global labels in the middle of code */
++#ifndef SYM_INNER_LABEL_GLOBAL
++#define SYM_INNER_LABEL_GLOBAL(name)				    \
++            .type name SYM_T_NONE ASM_NL                    \
++	    SYM_ENTRY(name, SYM_L_GLOBAL, SYM_A_NONE)
++#endif
++
++/* SYM_FUNC_START -- use for global functions */
++#ifndef SYM_FUNC_START
++#define SYM_FUNC_START(name)				\
++	SYM_START(name, SYM_L_GLOBAL, SYM_A_ALIGN)
++#endif
++
++/* SYM_FUNC_START_NOALIGN -- use for global functions, w/o alignment */
++#ifndef SYM_FUNC_START_NOALIGN
++#define SYM_FUNC_START_NOALIGN(name)			\
++	SYM_START(name, SYM_L_GLOBAL, SYM_A_NONE)
++#endif
++
++/* SYM_FUNC_START_LOCAL -- use for local functions */
++#ifndef SYM_FUNC_START_LOCAL
++#define SYM_FUNC_START_LOCAL(name)			\
++	SYM_START(name, SYM_L_LOCAL, SYM_A_ALIGN)
++#endif
++
++/* SYM_FUNC_START_LOCAL_NOALIGN -- use for local functions, w/o alignment */
++#ifndef SYM_FUNC_START_LOCAL_NOALIGN
++#define SYM_FUNC_START_LOCAL_NOALIGN(name)		\
++	SYM_START(name, SYM_L_LOCAL, SYM_A_NONE)
++#endif
++
++/* SYM_FUNC_START_WEAK -- use for weak functions */
++#ifndef SYM_FUNC_START_WEAK
++#define SYM_FUNC_START_WEAK(name)			\
++	SYM_START(name, SYM_L_WEAK, SYM_A_ALIGN)
++#endif
++
++/* SYM_FUNC_START_WEAK_NOALIGN -- use for weak functions, w/o alignment */
++#ifndef SYM_FUNC_START_WEAK_NOALIGN
++#define SYM_FUNC_START_WEAK_NOALIGN(name)		\
++	SYM_START(name, SYM_L_WEAK, SYM_A_NONE)
++#endif
++
++/*
++ * SYM_FUNC_END -- the end of SYM_FUNC_START_LOCAL, SYM_FUNC_START,
++ * SYM_FUNC_START_WEAK, ...
++ */
++#ifndef SYM_FUNC_END
++#define SYM_FUNC_END(name)				\
++	SYM_END(name, SYM_T_FUNC)
++#endif
++
++/*
++ * SYM_FUNC_ALIAS -- define a global alias for an existing function
++ */
++#ifndef SYM_FUNC_ALIAS
++#define SYM_FUNC_ALIAS(alias, name)					\
++	SYM_ALIAS(alias, name, SYM_L_GLOBAL)
++#endif
++
++/*
++ * SYM_FUNC_ALIAS_LOCAL -- define a local alias for an existing function
++ */
++#ifndef SYM_FUNC_ALIAS_LOCAL
++#define SYM_FUNC_ALIAS_LOCAL(alias, name)				\
++	SYM_ALIAS(alias, name, SYM_L_LOCAL)
++#endif
++
++/*
++ * SYM_FUNC_ALIAS_WEAK -- define a weak global alias for an existing function
++ */
++#ifndef SYM_FUNC_ALIAS_WEAK
++#define SYM_FUNC_ALIAS_WEAK(alias, name)				\
++	SYM_ALIAS(alias, name, SYM_L_WEAK)
++#endif
++
++/* SYM_CODE_START -- use for non-C (special) functions */
++#ifndef SYM_CODE_START
++#define SYM_CODE_START(name)				\
++	SYM_START(name, SYM_L_GLOBAL, SYM_A_ALIGN)
++#endif
++
++/* SYM_CODE_START_NOALIGN -- use for non-C (special) functions, w/o alignment */
++#ifndef SYM_CODE_START_NOALIGN
++#define SYM_CODE_START_NOALIGN(name)			\
++	SYM_START(name, SYM_L_GLOBAL, SYM_A_NONE)
++#endif
++
++/* SYM_CODE_START_LOCAL -- use for local non-C (special) functions */
++#ifndef SYM_CODE_START_LOCAL
++#define SYM_CODE_START_LOCAL(name)			\
++	SYM_START(name, SYM_L_LOCAL, SYM_A_ALIGN)
++#endif
++
++/*
++ * SYM_CODE_START_LOCAL_NOALIGN -- use for local non-C (special) functions,
++ * w/o alignment
++ */
++#ifndef SYM_CODE_START_LOCAL_NOALIGN
++#define SYM_CODE_START_LOCAL_NOALIGN(name)		\
++	SYM_START(name, SYM_L_LOCAL, SYM_A_NONE)
++#endif
++
++/* SYM_CODE_END -- the end of SYM_CODE_START_LOCAL, SYM_CODE_START, ... */
++#ifndef SYM_CODE_END
++#define SYM_CODE_END(name)				\
++	SYM_END(name, SYM_T_NONE)
++#endif
++
++/* === data annotations === */
++
++/* SYM_DATA_START -- global data symbol */
++#ifndef SYM_DATA_START
++#define SYM_DATA_START(name)				\
++	SYM_START(name, SYM_L_GLOBAL, SYM_A_NONE)
++#endif
++
++/* SYM_DATA_START -- local data symbol */
++#ifndef SYM_DATA_START_LOCAL
++#define SYM_DATA_START_LOCAL(name)			\
++	SYM_START(name, SYM_L_LOCAL, SYM_A_NONE)
++#endif
++
++/* SYM_DATA_END -- the end of SYM_DATA_START symbol */
++#ifndef SYM_DATA_END
++#define SYM_DATA_END(name)				\
++	SYM_END(name, SYM_T_OBJECT)
++#endif
++
++/* SYM_DATA_END_LABEL -- the labeled end of SYM_DATA_START symbol */
++#ifndef SYM_DATA_END_LABEL
++#define SYM_DATA_END_LABEL(name, linkage, label)	\
++	linkage(label) ASM_NL				\
++	.type label SYM_T_OBJECT ASM_NL			\
++	label:						\
++	SYM_END(name, SYM_T_OBJECT)
++#endif
++
++/* SYM_DATA -- start+end wrapper around simple global data */
++#ifndef SYM_DATA
++#define SYM_DATA(name, data...)				\
++	SYM_DATA_START(name) ASM_NL				\
++	data ASM_NL						\
++	SYM_DATA_END(name)
++#endif
++
++/* SYM_DATA_LOCAL -- start+end wrapper around simple local data */
++#ifndef SYM_DATA_LOCAL
++#define SYM_DATA_LOCAL(name, data...)			\
++	SYM_DATA_START_LOCAL(name) ASM_NL			\
++	data ASM_NL						\
++	SYM_DATA_END(name)
++#endif
++
++#endif /* __ASSEMBLY__ */
++
++#endif /* __XEN_LINKAGE_H */
 -- 
 2.11.0
 
