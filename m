@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ABDF589CFE
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Aug 2022 15:43:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.380414.614552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5CB3589D4F
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Aug 2022 16:15:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.380426.614569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJb8G-0003RY-A1; Thu, 04 Aug 2022 13:43:24 +0000
+	id 1oJbc5-0006x7-Ot; Thu, 04 Aug 2022 14:14:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 380414.614552; Thu, 04 Aug 2022 13:43:24 +0000
+Received: by outflank-mailman (output) from mailman id 380426.614569; Thu, 04 Aug 2022 14:14:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJb8G-0003Ot-5p; Thu, 04 Aug 2022 13:43:24 +0000
-Received: by outflank-mailman (input) for mailman id 380414;
- Thu, 04 Aug 2022 13:43:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nGyI=YI=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1oJb8E-0003Ok-9P
- for xen-devel@lists.xenproject.org; Thu, 04 Aug 2022 13:43:22 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 64366558-13fb-11ed-bd2d-47488cf2e6aa;
- Thu, 04 Aug 2022 15:43:18 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 6196A5C00BC;
- Thu,  4 Aug 2022 09:43:15 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 04 Aug 2022 09:43:15 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 4 Aug 2022 09:43:13 -0400 (EDT)
+	id 1oJbc5-0006vC-ME; Thu, 04 Aug 2022 14:14:13 +0000
+Received: by outflank-mailman (input) for mailman id 380426;
+ Thu, 04 Aug 2022 14:14:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ntlx=YI=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oJbc4-0006v6-7Y
+ for xen-devel@lists.xenproject.org; Thu, 04 Aug 2022 14:14:12 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80081.outbound.protection.outlook.com [40.107.8.81])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b55b2586-13ff-11ed-924f-1f966e50362f;
+ Thu, 04 Aug 2022 16:14:10 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM0PR04MB4674.eurprd04.prod.outlook.com (2603:10a6:208:75::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Thu, 4 Aug
+ 2022 14:14:00 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::d475:4e1c:e4df:495b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::d475:4e1c:e4df:495b%3]) with mapi id 15.20.5504.015; Thu, 4 Aug 2022
+ 14:14:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,347 +46,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64366558-13fb-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1659620595; x=
-	1659706995; bh=JH+4zo2qcCvINb3gN4LPh4tkWxvaN2tRfcaf+e0qFas=; b=H
-	198Y0CCN5OPJ/MoQ8/Gli85n+RujTBhOSaQ0IE5Fc/RiFlCXt6lcR6PXjprCPCrI
-	ttciSyxSN+IuBv5753DfB7HqhYlPXP71qWmi/UGxM35mkLGuaTdXW6QB7i+GLeui
-	x6NjDEwrxbmYtgRbCj2gptFB5IEWcPBMLoYekFu37OrnqL1bSpRauh3BzMxhtsyA
-	i+nW2zT8pwcUvTAyGflPmrZq5ELuQzYGZF5d9zaSyRqifAAgMTcSGOmUXgV0BDTl
-	7H35PYvOZAPwxkmkj0/NEMQqzuG4nk9x6aIZO7Sv6mETJ9i/uWA0FrGLICwEgyQz
-	gffKs8FDTHhs+eR8mrZsw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1659620595; x=1659706995; bh=JH+4zo2qcCvINb3gN4LPh4tkWxva
-	N2tRfcaf+e0qFas=; b=QFUgaOfeIfkhUVfMcbhI5gsr7HoQzVHU9rjUXiLrXMUQ
-	n4pn5Ojtz3UE72/+0kSdkyu3IYvCDBqAcWkTr8/xgrPTTWBEP7t5usQQTR1TyAA5
-	SAGAtkXmqpf2W3aicQRN0mdn1KcMe1I2Wr5MrrJ4lzDJIK9NlznalRMeKHpyOMzF
-	A8qQ9oPPtz8cju5r7a5icn9O5dhmf8WGAmi6ZncFG9OMJ4o57V3Dp/La/EwRHBW8
-	MUfRUMKWGeU7EulnrNDidFwyI0PsXrEGEJcqZvDCYUe9arUSzR0dGXAeulHcV3BC
-	JBMjfZ14sIkCe2JwwqTnOM2GjXkZ9w9E34AbL1mhjA==
-X-ME-Sender: <xms:88zrYpcgaeGydwFcc2XaL9uScu-0ccg8_uF_Zy4Rg7E0rNjcpurxKA>
-    <xme:88zrYnOmNLLP9fI9yW0Lch1AEb9Z178vryisnQRLR4m0lmFYlc7M8fF6yad9W1lP7
-    YXosDaokfZORg>
-X-ME-Received: <xmr:88zrYiiJWlHLtEuLHwsYZDoLkIQyJ4PmeUJf06N2nTDINDmLEmt9OZYXPCvrr1UfLzf1Mm5yvj6W5KXHyTW76UFyYg3BFX5pGCBJ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvddvledgieekucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:88zrYi_CiWD5nEYu9VrrybVFJtwaEoRcwIfa1E4cJcSKY-0tc56LMw>
-    <xmx:88zrYlusteCSKO0J-fz2e8n9kQquPmWu3zDFT1tCKo0tsFioVXSkgQ>
-    <xmx:88zrYhHB_jRJ5eO_OcIf8Dy2XAH-j8t8I6Avgomdbj__dg2nrgic_A>
-    <xmx:88zrYjXMAyQnH9dYDG-KCnznx0JAmtDVjIn-voA2uRRb3dlJ0G4d6g>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 4 Aug 2022 15:43:10 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
+X-Inumbo-ID: b55b2586-13ff-11ed-924f-1f966e50362f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mgcutbMdFrHM7NevH5EOloYyvYbNZaSDE5Z2jbGwKSHFTZgioYzCn7mseKQiLVKrKeTtI7D3lWBM2ewS6rWhBx9b0zz5Ljn/w92UUpfkgJAlN1TVS8DUyNoqQjeKZBLCvUV8QcHzmEesoFDqEOh8K3GC2L3D+yyotqHxKFxDQM+YgYsT+WQVnhSVKajcsmJzgeQOU0gBtihjHPthxsA00+AMfYAwSrynyc2uGUMWoQpGL/laWn5kHmnZHX/CAqYUOovb+OX61KPVNuvOWUAWMjmiiIkkTkiuaH+bbOz0ypSWChXCz0NWVm9YxH9rSSIDBxDrgKQ5/NMKPM7xatsITA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VTuDKxZ7q6XrynJBt6sd1xWkzC4emYIpt0uOrgjtYzI=;
+ b=MTVtO4OyZYYyrXtS8Bx0JFuQ6DBzojcMS8GqcE8fJshth5kuemJJ6oF0+JPFvuicrfGv+sgVXHP83Uz1ZXfFP35bwlVIwlGjSWDXSaxjoozrQi1DygJC43QGnnznP2/zoGAaApIMxoHRTMqNMR7K10qZYJ2NRgtmBfT36tSfmW94BjTHIECKv7fvY64nW0zhhSFzfqn/L8R7gHafje5+KFAjysKED+UU6ooNh/CwTmDCp+TjCrGPL9BGl4dda5xzhjFBeKRcTOc+7w9kRtesGyjQ/IJpS/rjHgF5ZALpxTB0QM2HWlWzwij1TdTOt2EXquwKPUXlfnk/65lD3Y4bUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VTuDKxZ7q6XrynJBt6sd1xWkzC4emYIpt0uOrgjtYzI=;
+ b=P2ZeMP5n2EVcwP2hP733HLkfPh0WLqtP03Hgbq9gBj4ZxJFXVf4nODfpla0dsVF1IJRS23HHsIxjEwjNE2Y/Q9mQyXsA6k7FMLaNpgaJ6K+kNdp+5CPkM0rrfsHyulGKpjbWkD5huxUs+Dddm5NsfkuTXNGDhX3kGPHCz/7WSo1YSy8XHKy0DPT2JfQlKPaJtZYDW/y6gm5qMbAXqdEZM17lYk57HwKdGNHlLstSElNBOuJTaoDcgBpwozOmi3iBL7Z3x7TLUeHS1VwkhApjTSqM1PnJ9Bd2sCMpEVmFfbSTpLr1w5CX1g2PvIm4ANDu4gNBa//coGQged1LITRIRg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <a9ddc9df-82ad-ad92-a5db-4a0e67dc972e@suse.com>
+Date: Thu, 4 Aug 2022 16:13:56 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v3 04/10] console: support multiple serial console
+ simultaneously
+Content-Language: en-US
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 01/10] drivers/char: Add support for USB3 DbC debugger
-Message-ID: <YuvM7vElH/IdBJjq@mail-itl>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <cover.981658add2114d2558989cedba5877aa8b82d8a4.1658804819.git-series.marmarek@invisiblethingslab.com>
- <e2e536b4b3d6ef417efbc399842b58aa420c1e3f.1658804819.git-series.marmarek@invisiblethingslab.com>
- <3bd56b9d-023b-1991-90bf-bc44d3c75bc8@suse.com>
+ <14411aa674b61d22d9626a3455206454793b6a37.1658804819.git-series.marmarek@invisiblethingslab.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <14411aa674b61d22d9626a3455206454793b6a37.1658804819.git-series.marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS9PR06CA0245.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45f::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="nk1fkjOg/PvuRQA1"
-Content-Disposition: inline
-In-Reply-To: <3bd56b9d-023b-1991-90bf-bc44d3c75bc8@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 3daeee16-2473-4935-6257-08da762393dd
+X-MS-TrafficTypeDiagnostic: AM0PR04MB4674:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	tKWIpW4TPcUl1wccRztqsD52WPzE3r7rAEj8s14PI3wXbhpxbUflNOhZ+oMkk0xtjX6r1JKIHVsihMBFgVNE7Nm1fgIHufVY6zoKN/kEcCc5Vn8rW7fv4zZh0+5ye9IxRNYf+v5Rv0m03kPTI9Pd02MVLYkFzNU6rN4EEvaIddBx2h5Dsfe+yEwMMaexyHWtPwBoJRxJEI9LftJawZJHLl+KQj0STsn/DHEM2NnYzjeLL1ASTOrcWdPYklTmuDxLQ6FRoVu3v/xcZoQnYQrHViBcel5ZsxFmd0gUusmA7b8+pa1PrBjcNw3nnG8lHilLLMzANmpz18FZl+RLUlW1Og3zxdvkZLfgYo20x6D4RR5z7gTJpo6RG5BD+RxyhGo+cuNE2eYa05KkbH4Q87l8rYtCjvjtqrfSyMtTVpNhWHtzytUUXgAeN6tWghL0N5E9vgSdCZ5SZd97UUohr8N59KGn1p8G+G/T8LsUcfKRyI1LII7VL6sJe2KTaK5vaWmfo1E2fydJKAhVwcMQPqAcAYp4NvXc6nMucI0xzrH3VvqsVWZx2HO0amfpBZaX0+a+A/KcEtzfCftLX5pSM20KCrR/cf30avI9nMjcJptG6BPjyzFL7EtP7e0tFLrg8GJ4JHUkcs4tJm22SFTFaWn6pyBT5Aa6mPXHBXDiA+clCT8exv11elZtnSh769xqSTgLbdr5fGyT00lfThlGG1kuTsA/wg7RWawUIoeJVhK0BnIO5B0Lu3uC3QlWNRxbxbIx88nynz9OdQBQhEWiWuvbYm7Pgi7yHrn3hRGis62+QpPvTAAnK6UnqQtwfY98PnUvv/uHHanSDveq3NTMRy+IJQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(346002)(39860400002)(376002)(396003)(366004)(2616005)(186003)(26005)(83380400001)(6512007)(53546011)(66574015)(6506007)(31686004)(2906002)(36756003)(6486002)(86362001)(38100700002)(316002)(54906003)(31696002)(6666004)(6916009)(8936002)(478600001)(41300700001)(5660300002)(66476007)(66946007)(66556008)(4326008)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?azI4TW1KZGJHL1F0NlppMDBPWXR1cTJsWk5Xd1duSjBQNXNBMmlDNGJUY3JC?=
+ =?utf-8?B?SC9jZW9oYU1XYnk4OWltMHEwR0s5VjkyYVdQVGpBcnJaeWFHZHdBVkFJU3FJ?=
+ =?utf-8?B?bEJDd01lZ3dPNGlkVEhOVmc0TFBTeGNMYlZBdWs4b3JVd3pQd0dFUWhBcnp2?=
+ =?utf-8?B?SDduY3NRNHhrcEkzVVBtOW4zREdHZzU0NW1XNVl6TWdPaG5vNzBLTlowMytZ?=
+ =?utf-8?B?MGMyMUN0MTFWQnJ3cHVvRzBWRXRxL1p3WVo3cDRXTlZXTGM4bi81d3BxeHhx?=
+ =?utf-8?B?QzJrL2FkWFF0SW9uRjBiM3lVY2ZJbUVaV0tkbjBYV2Nzc2I1czJzeHBCY3lj?=
+ =?utf-8?B?WHBwRFh3d2pFRk9SeldPaEwwSVJnQjFlaUFUZnU3MlVxSUhBOGwyQ1Q4Rmcx?=
+ =?utf-8?B?MkhCMVhaT3FJYk9JbFdkaGppVzlJSGUrQXJTUGIwU2U3bXpvdDRLZzVZaGNU?=
+ =?utf-8?B?VStqUEFwK0VCYjZ1UHg5SVNJZ1FFM21tdWNtME8xRFdFTUEvOTVyRDhkdkVz?=
+ =?utf-8?B?dGxJalBiMWZVZ1BCK2gvUTBtR3NIeUNvcFBCZ0J1cFhtRUl4Kzd2Njg1dXEy?=
+ =?utf-8?B?MmN6RTFDTkpKR0pLNTcyQ1BUejQ0WHFrbENVVEp3bWs0cElBT2RZeFM3ZlhQ?=
+ =?utf-8?B?emlwOVM0N0RCQUg5SlJaL3M2a2htVS8vUzdOV2drUFcrY1FWd0dBTGdMUDBV?=
+ =?utf-8?B?cFpCbm5ndEpEa3JrelE2SDFxZ3NlUnJLRWlsVUxlcnpHUnArTmUxSkFoaUVB?=
+ =?utf-8?B?dTBsZStiOGFYY0JUU2JrdStvUVFrQmF1SXJ1czB3OHBEeEtWdG5Hek1XWVho?=
+ =?utf-8?B?RUF0SlpPZVQ4dk41VDlGcXRlMi92WDdiY3pGOUdxOXpJdi8wbVlWUW1XUGIy?=
+ =?utf-8?B?VHo5bUdhZTZrNmdlcHJ0dmcvVjRUZkdOK3JEK0NsQmJCU1FZWTI1UlFlZ3dS?=
+ =?utf-8?B?bVBNeFJGMGEwQ0RFYW1rUHNvaWFwM1RhNDJZZXdNalIyMGUwbWxuS2o4dWF1?=
+ =?utf-8?B?VjI0TVZzdWt0Zmtxazkzd0JvblVEVjVoS3BzMXhWRkdkQ0xVdk12N2U0TjNV?=
+ =?utf-8?B?Mk1jazdlNkxsVDUrMHNrVmlTbFl5U0pBcnBZbFhMSEtvam15VjFzZHIyZ3U1?=
+ =?utf-8?B?RXR2d20vUnBHaDZBUloxblFRMEVYd1V1THd5N1NhQWZHWmlTeGo2RXQ0YURU?=
+ =?utf-8?B?SFZUeG5RK1RrN2JyYUFtazhJUWZrL0o0dXZqdXhjQ1VvNXNSNEdoejF0WTY4?=
+ =?utf-8?B?LzFmbXFtd3FhK3dmK3RUVU5xMVluTDBKc1JOTFBjTFZzQ1BoVmhwMUZBZzF5?=
+ =?utf-8?B?SUlaVytiVGo3MFJTelVBNzVNQzdndzlyaXhEdnFOZzJvZWw3UWZVcWVWYmRP?=
+ =?utf-8?B?dXZIL3BCRUUzSUhPcGpLSUxvZ0pUOGlhM1QyYmJTOU5sNDRNSS9QRVBDQXNq?=
+ =?utf-8?B?cVBrTlloNGw1eDgxRmVwa0k3c0ZkZFZaNnNmTGhKSVNHMGUxV3RJNlU0R1VO?=
+ =?utf-8?B?Q0tiOEh5MG1kZzNSYVpWWnl3YzhNaUV2WkI1RDlPZCtQVlpqTkdaR040d0pF?=
+ =?utf-8?B?ZHE1WUxmNTBLZU1ibG4wVzc2SVh0akJkQjU5MHlCTjRYVnQvaW1SYW1YR2xB?=
+ =?utf-8?B?Q2NCR2lqRGZRWWExNVM0WmtLM0lRWXJZbUZMMDE0SGZhU0tIeFNjTVpXSzdN?=
+ =?utf-8?B?clM2TTAreUJnYzZBeVg1WVdhVjFMUDFiZlZZcFNDekVhamM4Q0x0ZG96dms5?=
+ =?utf-8?B?NEFnNmtHb3lMa1lmSTJRbmhKRXhibVhWR2had2RPejdtNHM0aHVrcjgycnhZ?=
+ =?utf-8?B?N01GQ0Y0Unhadm1sSXlZMDl6NENZZ3BuRG9zOC91U1AwVmFKQ21OS3N6WXlu?=
+ =?utf-8?B?NHNpYktwbmNzT0hFS1dMUy9OdzYrMzVteWdocklOT1YwazNVOWhTV3I4QzVk?=
+ =?utf-8?B?bkYrK21HYkQ5REZkUmtQTDMydGtKcjBDRFFKS1ByeEttcFkvZ2cxcjV3U0pn?=
+ =?utf-8?B?THNDK1RyeWM1V3JxY0dHVWI0bS9qZmlSVVVhdmNiQTRMenhwOWRENUY4aitH?=
+ =?utf-8?B?NVMveXBmVDNrZW9QWC8wN3kxZGF3allPc2E4NkhBOXJsMGdqckdKdzl0QVh1?=
+ =?utf-8?Q?B+H/NP+WDpIDK7VRTkerdub4g?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3daeee16-2473-4935-6257-08da762393dd
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2022 14:14:00.4757
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BixZTVESVwYSQhajhCSYhUF0f9qJDv0DkKGYiJluuRYD9EwPmJy+lY9nVZK/qZjefcJeETTT9yapXrzuZJ+dqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4674
 
+On 26.07.2022 05:23, Marek Marczykowski-Górecki wrote:
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -85,6 +85,17 @@ config SERIAL_TX_BUFSIZE
+>  
+>  	  Default value is 16384 (16kiB).
+>  
+> +config MAX_SERCONS
+> +	int "Maximum number of serial consoles active at once"
+> +	default 4
+> +	help
+> +      Controls how many serial consoles can be active at once. Configuring more
+> +      using `console=` parameter will be ignored.
+> +      When multiple consoles are configured, overhead of `sync_console` option
+> +      is even bigger.
+> +
+> +	  Default value is 4.
 
---nk1fkjOg/PvuRQA1
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 4 Aug 2022 15:43:10 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 01/10] drivers/char: Add support for USB3 DbC debugger
+Indentation (the help text ought to be indented by a tab and two spaces).
 
-On Thu, Aug 04, 2022 at 02:57:49PM +0200, Jan Beulich wrote:
-> On 26.07.2022 05:23, Marek Marczykowski-G=C3=B3recki wrote:
-> > +/* Defines the size in bytes of TRB rings as 2^DBC_TRB_RING_ORDER * 40=
-96 */
-> > +#ifndef DBC_TRB_RING_ORDER
-> > +#define DBC_TRB_RING_ORDER 4
-> > +#endif
-> > +#define DBC_TRB_RING_CAP (DBC_TRB_PER_PAGE * (1 << DBC_TRB_RING_ORDER))
->=20
-> I have to admit that I'm always puzzled when seeing such - why not
->=20
-> #define DBC_TRB_RING_CAP (DBC_TRB_PER_PAGE << DBC_TRB_RING_ORDER)
->=20
-> ?
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -113,7 +113,9 @@ static char *__read_mostly conring = _conring;
+>  static uint32_t __read_mostly conring_size = _CONRING_SIZE;
+>  static uint32_t conringc, conringp;
+>  
+> -static int __read_mostly sercon_handle = -1;
+> +#define MAX_SERCONS CONFIG_MAX_SERCONS
+> +static int __read_mostly sercon_handle[MAX_SERCONS];
+> +static int __read_mostly nr_sercon_handle = 0;
 
-I think the former is a bit more clear what's the actual size, but the
-end result is the same, I can change that.
+unsigned int please.
 
-> > +struct dbc {
-> > +    struct dbc_reg __iomem *dbc_reg;
-> > +    struct xhci_dbc_ctx *dbc_ctx;
-> > +    struct xhci_erst_segment *dbc_erst;
-> > +    struct xhci_trb_ring dbc_ering;
-> > +    struct xhci_trb_ring dbc_oring;
-> > +    struct xhci_trb_ring dbc_iring;
-> > +    struct dbc_work_ring dbc_owork;
-> > +    struct xhci_string_descriptor *dbc_str;
->=20
-> I'm afraid I still don't see why the static page this field is being
-> initialized with is necessary. Can't you have a static variable (of
-> some struct type) all pre-filled at build time, which you then apply
-> virt_to_maddr() to in order to fill the respective dbc_ctx fields?
+> @@ -393,32 +395,59 @@ long read_console_ring(struct xen_sysctl_readconsole *op)
+>  static char serial_rx_ring[SERIAL_RX_SIZE];
+>  static unsigned int serial_rx_cons, serial_rx_prod;
+>  
+> -static void (*serial_steal_fn)(const char *, size_t nr) = early_puts;
+> +/* The last entry means "steal from all consoles" */
+> +static void (*serial_steal_fn[MAX_SERCONS+1])(const char *, size_t nr) = {
 
-I need to keep this structure somewhere DMA-reachable for the device (as
-in - included in appropriate IOMMU context). Patch 8/10 is doing it. And
-also, patch 8/10 is putting it together with other DMA-reachable
-structures (not a separate page on its own). If I'd make it a separate
-static variable (not part of that later struct), I'd need to reserve the
-whole page for it - to guarantee no unrelated data lives on the same
-(DMA-reachable) page.
+Nit: blanks please around + . But with ...
 
-As for statically initializing it, if would require the whole
-(multi-page DMA-reachable) thing living in .data, not .bss, so a bigger
-binary (not a huge concern due to compression, but still). But more
-importantly, I don't know how to do it in a readable way, and you have
-complained about readability of initializer of this structure in v2.
+> +    [MAX_SERCONS] = early_puts,
 
-> That struct will be quite a bit less than a page's worth in size.
+... this initializer you could as well omit the dimension.
 
-See above - it cannot share page with unrelated Xen data.
+> +};
+>  
+> +/*
+> + * Redirect console *handle* output to *fn*. Use SERHND_STEAL_ALL as *handle* to
+> + * redirect all the consoles. 
+> + */
+>  int console_steal(int handle, void (*fn)(const char *, size_t nr))
+>  {
+> -    if ( (handle == -1) || (handle != sercon_handle) )
+> -        return 0;
+> +    int i;
 
-> If you build the file with -fshort-wchar, you may even be able to
-> use easy to read string literals for the initializer.
+While from the use inside the function this would better be unsigned int,
+I can see how that would be slightly odd with the return value. But with
+overly high a MAX_SERCONS ...
 
-I can try, but I'm not exactly sure how to make readable UTF-16
-literals...
+> +    if ( handle == -1 )
+> +        return -ENOENT;
+> +    if ( serial_steal_fn[MAX_SERCONS] != NULL )
+> +        return -EBUSY;
+> +    if ( handle == SERHND_STEAL_ALL )
+> +    {
+> +        serial_steal_fn[MAX_SERCONS] = fn;
+> +        return MAX_SERCONS;
+> +    }
+> +    for ( i = 0; i < nr_sercon_handle; i++ )
+> +        if ( handle == sercon_handle[i] )
 
-> > +static void *dbc_sys_map_xhc(uint64_t phys, size_t size)
-> > +{
-> > +    size_t i;
-> > +
-> > +    if ( size !=3D MAX_XHCI_PAGES * DBC_PAGE_SIZE )
-> > +        return NULL;
-> > +
-> > +    for ( i =3D FIX_XHCI_END; i >=3D FIX_XHCI_BEGIN; i-- )
-> > +    {
-> > +        set_fixmap_nocache(i, phys);
-> > +        phys +=3D DBC_PAGE_SIZE;
->=20
-> While there may be an assumption of DBC_PAGE_SIZE =3D=3D PAGE_SIZE, the
-> constant used here clearly needs to be PAGE_SIZE, as that's the unit
-> set_fixmap_nocache() deals with.
+... the array access will degenerate when i is "int", but will be okay
+when i is "unsigned int" (and of course everything will break if
+MAX_SERCONS > UINT_MAX).
 
-Ok.
+> +            break;
+> +    if ( i == nr_sercon_handle )
+> +        return -ENOENT;
+>  
+> -    if ( serial_steal_fn != NULL )
+> +    if ( serial_steal_fn[i] != NULL )
+>          return -EBUSY;
+>  
+> -    serial_steal_fn = fn;
+> -    return 1;
+> +    serial_steal_fn[i] = fn;
+> +    return i;
+>  }
+>  
+>  void console_giveback(int id)
+>  {
+> -    if ( id == 1 )
+> -        serial_steal_fn = NULL;
+> +    if ( id >= 0 && id <= MAX_SERCONS )
+> +        serial_steal_fn[id] = NULL;
+>  }
+>  
+>  void console_serial_puts(const char *s, size_t nr)
+>  {
+> -    if ( serial_steal_fn != NULL )
+> -        serial_steal_fn(s, nr);
+> +    int i;
 
-> > +static bool __init dbc_init_xhc(struct dbc *dbc)
-> > +{
-> > +    uint32_t bar0;
-> > +    uint64_t bar1;
-> > +    uint64_t bar_size;
-> > +    uint64_t devfn;
-> > +    uint16_t cmd;
-> > +    size_t xhc_mmio_size;
-> > +
-> > +    /*
-> > +     * Search PCI bus 0 for the xHC. All the host controllers supporte=
-d so far
-> > +     * are part of the chipset and are on bus 0.
-> > +     */
-> > +    for ( devfn =3D 0; devfn < 256; devfn++ )
-> > +    {
-> > +        pci_sbdf_t sbdf =3D PCI_SBDF(0, 0, devfn);
-> > +        uint8_t hdr =3D pci_conf_read8(sbdf, PCI_HEADER_TYPE);
-> > +
-> > +        if ( hdr =3D=3D 0 || hdr =3D=3D 0x80 )
-> > +        {
-> > +            if ( (pci_conf_read32(sbdf, PCI_CLASS_REVISION) >> 8) =3D=
-=3D DBC_XHC_CLASSC )
-> > +            {
-> > +                dbc->sbdf =3D sbdf;
-> > +                break;
-> > +            }
-> > +        }
-> > +    }
-> > +
-> > +    if ( !dbc->sbdf.sbdf )
-> > +    {
-> > +        dbc_error("Compatible xHC not found on bus 0\n");
-> > +        return false;
-> > +    }
-> > +
-> > +    /* ...we found it, so parse the BAR and map the registers */
-> > +    bar0 =3D pci_conf_read32(dbc->sbdf, PCI_BASE_ADDRESS_0);
-> > +    bar1 =3D pci_conf_read32(dbc->sbdf, PCI_BASE_ADDRESS_1);
-> > +
-> > +    /* IO BARs not allowed; BAR must be 64-bit */
-> > +    if ( (bar0 & PCI_BASE_ADDRESS_SPACE) !=3D PCI_BASE_ADDRESS_SPACE_M=
-EMORY ||
-> > +         (bar0 & PCI_BASE_ADDRESS_MEM_TYPE_MASK) !=3D PCI_BASE_ADDRESS=
-_MEM_TYPE_64 )
-> > +        return false;
-> > +
-> > +    cmd =3D pci_conf_read16(dbc->sbdf, PCI_COMMAND);
-> > +    pci_conf_write16(dbc->sbdf, PCI_COMMAND, cmd & ~PCI_COMMAND_MEMORY=
-);
-> > +
-> > +    pci_conf_write32(dbc->sbdf, PCI_BASE_ADDRESS_0, 0xFFFFFFFF);
-> > +    pci_conf_write32(dbc->sbdf, PCI_BASE_ADDRESS_1, 0xFFFFFFFF);
-> > +    bar_size =3D pci_conf_read32(dbc->sbdf, PCI_BASE_ADDRESS_0);
-> > +    bar_size |=3D (uint64_t)pci_conf_read32(dbc->sbdf, PCI_BASE_ADDRES=
-S_1) << 32;
-> > +    xhc_mmio_size =3D ~(bar_size & PCI_BASE_ADDRESS_MEM_MASK) + 1;
-> > +    pci_conf_write32(dbc->sbdf, PCI_BASE_ADDRESS_0, bar0);
-> > +    pci_conf_write32(dbc->sbdf, PCI_BASE_ADDRESS_1, bar1);
-> > +
-> > +    pci_conf_write16(dbc->sbdf, PCI_COMMAND, cmd);
-> > +
-> > +    dbc->xhc_mmio_phys =3D (bar0 & PCI_BASE_ADDRESS_MEM_MASK) | (bar1 =
-<< 32);
-> > +    dbc->xhc_mmio =3D dbc_sys_map_xhc(dbc->xhc_mmio_phys, xhc_mmio_siz=
-e);
->=20
-> Before actually using the address to map the MMIO you will want to make
-> somewhat sure firmware did initialize it: The EHCI driver checks for
-> all zeroes or all ones in the writable bits.
+unsigned int please, again (yet more further down).
 
-Ok.
+> +    if ( serial_steal_fn[MAX_SERCONS] != NULL )
+> +        serial_steal_fn[MAX_SERCONS](s, nr);
+>      else
+> -        serial_puts(sercon_handle, s, nr);
+> +        for ( i = 0; i < nr_sercon_handle; i++ )
+> +            if ( serial_steal_fn[i] != NULL )
+> +                serial_steal_fn[i](s, nr);
+> +            else
+> +                serial_puts(sercon_handle[i], s, nr);
 
->=20
-> > +/**
-> > + * The first register of the debug capability is found by traversing t=
-he
-> > + * host controller's capability list (xcap) until a capability
-> > + * with ID =3D 0xA is found. The xHCI capability list begins at address
-> > + * mmio + (HCCPARAMS1[31:16] << 2).
-> > + */
-> > +static struct dbc_reg __iomem *xhci_find_dbc(struct dbc *dbc)
-> > +{
-> > +    uint32_t *xcap;
->=20
-> const?
->=20
-> > +    uint32_t xcap_val;
-> > +    uint32_t next;
-> > +    uint32_t id =3D 0;
-> > +    uint8_t *mmio =3D (uint8_t *)dbc->xhc_mmio;
->=20
-> Can't this be const void * (and probably wants to also use __iomem),
-> avoiding the cast here, ...
->=20
-> > +    uint32_t *hccp1 =3D (uint32_t *)(mmio + 0x10);
->=20
-> ... here, ...
->=20
-> > +    const uint32_t DBC_ID =3D 0xA;
-> > +    int ttl =3D 48;
-> > +
-> > +    xcap =3D (uint32_t *)dbc->xhc_mmio;
->=20
-> ... and here (if actually using the local variable you've got).
+This for() would better gain braces.
 
-Ok.
+> @@ -977,8 +1006,12 @@ void __init console_init_preirq(void)
+>              continue;
+>          else if ( (sh = serial_parse_handle(p)) >= 0 )
+>          {
+> -            sercon_handle = sh;
+> -            serial_steal_fn = NULL;
+> +            if ( nr_sercon_handle < MAX_SERCONS )
+> +                sercon_handle[nr_sercon_handle++] = sh;
+> +            else
+> +                printk("Too many consoles (max %d), ignoring '%s'\n",
+> +                       MAX_SERCONS, p);
 
-> > +/*
-> > + * Note that if IN transfer support is added, then this
-> > + * will need to be changed; it assumes an OUT transfer ring only
-> > + */
->=20
-> Hmm, is this comment telling me that this driver is an output-only one?
+In order to use p here, I think we want (need?) to make
+serial_parse_handle()'s parameter const char *.
 
-At this point, yes. Input support is added in patch 10/10.
+> --- a/xen/drivers/char/xhci-dbc.c
+> +++ b/xen/drivers/char/xhci-dbc.c
+> @@ -1078,8 +1078,12 @@ void __init xhci_dbc_uart_init(void)
+>  
+>          e = parse_pci(opt_dbgp + 8, NULL, &bus, &slot, &func);
+>          if ( !e || *e )
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "Invalid dbgp= PCI device spec: '%s'\n",
+> +                   opt_dbgp);
+>              return;
+> -
+> +        }
+>          dbc->sbdf = PCI_SBDF(0, bus, slot, func);
+>      }
 
-> Or is it simply that input doesn't use this code path?
->=20
-> > +static void dbc_init_string_single(struct xhci_string_descriptor *stri=
-ng,
-> > +                                   char *ascii_str,
->=20
-> If this function has to survive, then const please here and ...
->=20
-> > +                                   uint64_t *str_ptr,
-> > +                                   uint8_t *str_size_ptr)
-> > +{
-> > +    size_t i, len =3D strlen(ascii_str);
-> > +
-> > +    string->size =3D offsetof(typeof(*string), string) + len * 2;
-> > +    string->type =3D XHCI_DT_STRING;
-> > +    /* ASCII to UTF16 conversion */
-> > +    for (i =3D 0; i < len; i++)
->=20
-> ... this missing blanks added here.
+Does this change belong elsewhere?
 
-Ok.
-
-> > +static struct xhci_trb evt_trb[DBC_TRB_RING_CAP];
-> > +static struct xhci_trb out_trb[DBC_TRB_RING_CAP];
-> > +static struct xhci_trb in_trb[DBC_TRB_RING_CAP];
-> > +static struct xhci_erst_segment erst __aligned(64);
-> > +static struct xhci_dbc_ctx ctx __aligned(64);
-> > +static uint8_t out_wrk_buf[DBC_WORK_RING_CAP] __aligned(DBC_PAGE_SIZE);
-> > +static struct xhci_string_descriptor str_buf[DBC_STRINGS_COUNT];
-> > +static char __initdata opt_dbgp[30];
-> > +
-> > +string_param("dbgp", opt_dbgp);
->=20
-> This duplicates what ehci-dbgp.c already has. I guess we can live with
-> it for now and de-duplicate later, but it's still a little odd. In any
-> even please move the blank line up be a line, so that string_param()
-> and its referenced array are kept together.
->=20
-> > +void __init xhci_dbc_uart_init(void)
-> > +{
-> > +    struct dbc_uart *uart =3D &dbc_uart;
-> > +    struct dbc *dbc =3D &uart->dbc;
-> > +
-> > +    if ( strncmp(opt_dbgp, "xhci", 4) )
-> > +        return;
-> > +
-> > +    memset(dbc, 0, sizeof(*dbc));
->=20
-> Why? dbc_uart is a static variable, and hence already zero-initialized.
-
-Ok.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---nk1fkjOg/PvuRQA1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmLrzO4ACgkQ24/THMrX
-1yw01wgAgoD5t7ncCjs6WqA/wjy/xIA76/8Ms6ngLDd/xNxPQcgoM+C9ORGIGrGi
-nPgUtcWzZTud/m+Ll15iqzvvP3FgiYUJIvnsI2wdZV3eKXTzpOziXFpCGnFDOeyM
-Q35DQj04gRqA+8LbWDKJZ974sZqVSR4uK4Sj+LgCRGz+VaTJ4qCsjkGLtovgK2Me
-dQIWuJftt74oqjEn89+XQkkz72c0q4I7gURiyT0xO7Lo3M5PvjQWs14cltx8ErdP
-Pb5+9PvhGgAUG4rtVm01uM2ipvEYHlOSWmT691I9kXa+Sjllpwv62U8eZEc5Xbjy
-JarhD9Ylk0jmqQNVYYY/CFxaQwB3MA==
-=EF02
------END PGP SIGNATURE-----
-
---nk1fkjOg/PvuRQA1--
+Jan
 
