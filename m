@@ -2,29 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E5DC589E28
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Aug 2022 17:05:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.380519.614725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46E1E589E36
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Aug 2022 17:08:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.380554.614758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJcPO-0002LS-6A; Thu, 04 Aug 2022 15:05:10 +0000
+	id 1oJcSF-0004xr-9D; Thu, 04 Aug 2022 15:08:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 380519.614725; Thu, 04 Aug 2022 15:05:10 +0000
+Received: by outflank-mailman (output) from mailman id 380554.614758; Thu, 04 Aug 2022 15:08:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJcPO-0002Ka-2p; Thu, 04 Aug 2022 15:05:10 +0000
-Received: by outflank-mailman (input) for mailman id 380519;
- Thu, 04 Aug 2022 15:05:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oJcSF-0004ug-67; Thu, 04 Aug 2022 15:08:07 +0000
+Received: by outflank-mailman (input) for mailman id 380554;
+ Thu, 04 Aug 2022 15:08:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QMPZ=YI=citrix.com=prvs=2084bc4d8=Jane.Malalane@srs-se1.protection.inumbo.net>)
- id 1oJcPM-0001pR-Ds
- for xen-devel@lists.xenproject.org; Thu, 04 Aug 2022 15:05:08 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2ed1192-1406-11ed-bd2d-47488cf2e6aa;
- Thu, 04 Aug 2022 17:05:06 +0200 (CEST)
+ <SRS0=HjU9=YI=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1oJcSD-0004uH-W2
+ for xen-devel@lists.xenproject.org; Thu, 04 Aug 2022 15:08:06 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80078.outbound.protection.outlook.com [40.107.8.78])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d1e95f9-1407-11ed-924f-1f966e50362f;
+ Thu, 04 Aug 2022 17:08:04 +0200 (CEST)
+Received: from AM6P191CA0001.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:8b::14)
+ by AM0PR08MB3697.eurprd08.prod.outlook.com (2603:10a6:208:103::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Thu, 4 Aug
+ 2022 15:08:01 +0000
+Received: from AM5EUR03FT012.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:8b:cafe::c6) by AM6P191CA0001.outlook.office365.com
+ (2603:10a6:209:8b::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.15 via Frontend
+ Transport; Thu, 4 Aug 2022 15:08:01 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT012.mail.protection.outlook.com (10.152.16.161) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5482.12 via Frontend Transport; Thu, 4 Aug 2022 15:08:01 +0000
+Received: ("Tessian outbound 6a3290ff1310:v123");
+ Thu, 04 Aug 2022 15:08:01 +0000
+Received: from 755d239f8905.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ CDA7AE3C-9B51-4B77-A72D-D045A2F2BCF1.1; 
+ Thu, 04 Aug 2022 15:07:54 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 755d239f8905.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 04 Aug 2022 15:07:54 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by DB7PR08MB3370.eurprd08.prod.outlook.com (2603:10a6:10:41::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.14; Thu, 4 Aug
+ 2022 15:07:53 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::f474:4549:1f7a:b89a]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::f474:4549:1f7a:b89a%4]) with mapi id 15.20.5504.014; Thu, 4 Aug 2022
+ 15:07:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,559 +71,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2ed1192-1406-11ed-bd2d-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1659625506;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=rbJPwE6pO1Pfkj8tz43SWX+jW02vPu3YzO8jU4aC0vk=;
-  b=EHYW9NA7DEHiuZ3i9Ccz+vU87QPCyndLt+hkkXGPYPr19+hr/paAZ/d4
-   VtklaLbvSxHGtL0JssYjztWetGNiufqIaE74xNSY0/BtJyAJfjj943c+e
-   n4jFF6SL8pJz7hRtMmaMlh3F7W2kTTR7qYblKRbfpXVm9GKYx9wtIj+MQ
-   I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 2.7
-X-MesageID: 77380021
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: =?us-ascii?q?A9a23=3AF3uhQ6JiYW6qZF04FE//H55y250vRxNeGxJCi?=
- =?us-ascii?q?3AjJ82iE/EPTyDwt742D5P94fufO2Mly1YiPPZe5+jT09A7gBsgnHK1UfR4o?=
- =?us-ascii?q?TNGZHdDtA9arrtjBpDu2jUjUTckrYCczJuZyqIPmd8mQVzrEbEyFDn2krfYO?=
- =?us-ascii?q?PA0ArqimpAOqFj9+MsE6/VHefdJZF7HtuKO7xWrLPOsBwuuj32maZXGTKYi2?=
- =?us-ascii?q?LP/UgOkvayD2xE++K672sJ7H33HjbEjXNu/r1oRqm5wcBaRxG2Um2FVNt9Tk?=
- =?us-ascii?q?Ijm+YekHUxEHdcHvG7U9FxsHzNpwSAElCeU8pl0u5abKD5KGd8feXBLCEpHU?=
- =?us-ascii?q?oJVgtz8hNX0bzSf+IBpgqnNH3+GTgRzeRNkyVxYibP/4auGtZlBMXU/Hnmoe?=
- =?us-ascii?q?GPj/NKC7s+joT9qMh86VENs3UcyYjtsO4HyYcGlSZmQn+eXyehglK874Nwx1?=
- =?us-ascii?q?8YVj+OOuhex7GMx47KKlrm/M7bJoi6o9Z+9lyYwteYDIsrE7axinwlKZ5Fwz?=
- =?us-ascii?q?emQ9UYwjEI9e22qSgmgV9wZmnOFE5FsMsq3i4+Kmab76XgF5+F+l9FQ8V4Yn?=
- =?us-ascii?q?Pk7WHSKc33PjvakskUDB8C+H/SEHVUj50kMBy1q3x8OdFF7337nJd0HJ+kcB?=
- =?us-ascii?q?HptNPr4qgZAuD20LDShdSuqUZ4jkiZFLODb3zhoYogiVUPptKYWtxKWfDJlv?=
- =?us-ascii?q?FvpoeqWf8qyB4Mei6YFXUIeLEhgS/kft7Lbabjl4xjTUrAy31wVjhgnkQum+?=
- =?us-ascii?q?AfvE5/KoBYc+fVAqtCllWXCzrP1QJxM2xoZaAHTw7TDhtPCXCh0t0p+znYnJ?=
- =?us-ascii?q?fDDojcX0xD1nipWCzN3HvLpY0K/X+NpoFhfQW/pPYdB2dN2obKQSJOBDCgIY?=
- =?us-ascii?q?wsKEicTg4vdS6s+ynlVbgmNpamYb/yXMdng6Ra51DaQqwX3pjYD0k1jXoh4/?=
- =?us-ascii?q?PIP0EilUJkSbYaQezFCvHvIpR6qu4N/i2dxht1pALBcDKvfMjt5DEuE8J06O?=
- =?us-ascii?q?Ij90jU5d5i4ICnJSgOAM3/jBJEcVEW3aIk9DAK8ahlLnQwyww/oDzdgYSmUc?=
- =?us-ascii?q?ZbMIxQElayeZhZpnyrPl5Ezz7jabquZ9XdapBp6U3VL3WVWgAR9f7+ONNx8z?=
- =?us-ascii?q?nKH8TTGh/qa92MZ6O8GcYGb43y87ikphBYmSaPKX6y9nq2NaKguRGMxsxn6E?=
- =?us-ascii?q?EmE6wQP05oq57jcoNKjOiTLBpWZX5WcHMHtVu1P+nBayyD/Al2OJA+5ye7X2?=
- =?us-ascii?q?RcDYqA0kVerWudfqVnEpzyP+Xf4JYgBhlA4wF0qXn0Ua8CoKw0oPsuQqZw5T?=
- =?us-ascii?q?3mwPGhFAIl0xwKN4qvPMm2S/ORRB/5632zvJPCBoGT77ykNWbNYVdcYxgNlz?=
- =?us-ascii?q?055eX9CaqlUBMgZogtY3diwCfm1W68Jx61Nkqdybfl3gxssjvwYSKW4XmZcX?=
- =?us-ascii?q?1vz8tjHIaavga2gorbVr6eTiHYcmKaGIJB10BaFjwbLswNdG8FGj/TjJgTu+?=
- =?us-ascii?q?nel8ZDpfJqHg7crqcGDEcgyDq4Vb+5hDGURmN2HSPBoFDvi8a4GxqMrsUcKm?=
- =?us-ascii?q?7MrT7dE08VWacqmHwc3OE3WV5WSW4C3eNnmjLAY30S6ld9FfOWsoAr70owET?=
- =?us-ascii?q?RivYhqxrSR/Ry/16FEb6T/oXTagyXezsprU6ePO58XDD6ltMIPOLVhUwY14m?=
- =?us-ascii?q?/16RZ4zE57RT8DY9Ji49t9ugEZlI+RtUAYE4PKgwDPAvJuU9ZellO0wKDvuw?=
- =?us-ascii?q?jSQai31OXzmTESyvPEG+8qBdUNQY2wnab6u59LVzc+Mgzkk7MkaA94F5FYKy?=
- =?us-ascii?q?ncEx/K+09JqW/al6Ex7DTvyXiXWHiOR+reWZ/SWlwOe8NIO+R+YluHHD1Wqv?=
- =?us-ascii?q?6UsJiwhRdADluCO1eBk4m72FiNT5pOZ6v7dRajPYjp3xIMfZlT1lwkjG3S7l?=
- =?us-ascii?q?Pp57s4hyvvZlcY7dyj5wiysx1Q6nlPBnzyoQS4nRH+6GrhAMKhvts/CyuqYo?=
- =?us-ascii?q?ZxFPPMOY/3Aqfy4B47SqGywlfn3L3bHURaD9WKmM5rlAXVRn28hXrQXB71JW?=
- =?us-ascii?q?8j086zdqhuXtW8iDfbxJ0qljqYOLDjIbMEnIf5HWxvX472bd8+Oo5D9YIVSU?=
- =?us-ascii?q?l3XZGkMVVXs2izbPYAIpgYz833V1k4KsJJcIDBNajsjx7V57fNhTntl9O1SW?=
- =?us-ascii?q?odk88ffMKNwLRCZPMsP2LPPLoUEoF8D1u7B/UQCyLZkW35TCayl0Z/ujDF/n?=
- =?us-ascii?q?KuC2Z9CotUMCi+cYuzdZz6gnZzMLnu7iPYdHzn34PglQ3h0v7cKe7jpLhNVb?=
- =?us-ascii?q?/Fn/a7vUEZ+7lHJ5YaOHmgEgH/UWLqe4rxarvr+n59OYehsGcZ5hnZWx8DYt?=
- =?us-ascii?q?erWjWi4UT9pm07qoF2r0cfQOqb9AMc45NVzwirKYD4i2Bf9qgQJ8VA3xnIJq?=
- =?us-ascii?q?BVxB5gz3+dDVpkMTmKrtRpomS2SDv3yjmF1MTyCJCut+oxAmKILLP3R6zCi3?=
- =?us-ascii?q?grp3jRRiNB59qjO6WUTd3xuUI0ItIfIqJcDZnLKouq882miSk4UQ7Zu27nV2?=
- =?us-ascii?q?+Jh8GNsdyGU04zPsn5g0AWogGOQYiKrPuj6lZpuF2d6tFsq1RqslGoCLAAHW?=
- =?us-ascii?q?xi7yQ7TmOO3HiS6yRO8KRT600dz96c5ank8tH78I4enToqjv5mvTOs6Er/z/?=
- =?us-ascii?q?V0T2N4s/SWxbkDxg3QK5CkGVu6719we2H7HDYYMP8CQZmLDdUhj/tg+ptiM2?=
- =?us-ascii?q?98n5tCsNI6+C86arY6nQob98NohhNZKYyabEjW4/lE=3D?=
-X-IronPort-AV: E=Sophos;i="5.93,216,1654574400"; 
-   d="scan'208";a="77380021"
-From: Jane Malalane <jane.malalane@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jane Malalane <jane.malalane@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [RFC PATCH 4/4] x86: Use linkage.h helpers to add tags to symbols
-Date: Thu, 4 Aug 2022 16:04:24 +0100
-Message-ID: <20220804150424.17584-5-jane.malalane@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20220804150424.17584-1-jane.malalane@citrix.com>
-References: <20220804150424.17584-1-jane.malalane@citrix.com>
+X-Inumbo-ID: 3d1e95f9-1407-11ed-924f-1f966e50362f
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=TC3+bDTfCJruvuA3UA/C4EiLJbvdGdzmy1GDruamGvI8WaQoElHR/AQXCOKf8nEBsiahlrxo+xMQZ9KetX2/BlbeZP/cVSSPvxH3tbu8OpyQRw86XXbcRTZPNQGLVZ+9JyJXCB7sqM+qbHfNA+rvBbITUr1u/Sf+w5v37MFS/1OIv6HaIBhMB1qZdXLdbvIsbPkv6Spkt5UimLeuebzO2dBWWejk9OYQcmm8UxAJzQ+1tEitNHH1jvCzpI8KFL81cyeVfcafJVaBPbC/T3sGznc8qEai6vbLDUQfu3Xdp2etks4Lj/omU9G5S23Gc3ZyrIiySUAsfJZZthZ7CrA9Ew==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f3HJgREWPQHHrprlmL/3n5Py3MtRlKxKH8p/s3OyqpI=;
+ b=ekRcdfTBMMKxxamc5RP4oHbxmJhuttT6VLQO+3Qj48zZLUPiTG52jD3nndM7znBpPB42/zYPw+Kiu9UO0ml3H/yfnr+n2Pko+Al/garLs0RdFs3F9eiU3XxqLoRlBfwICM0+TlluWqYCPZc0c6OrSmtPvRDVsWkrGJOtOhb5X90SGv8VHF5beetv5pWX/KjIupLGs7Kv5O3cYj8yPonaiu2c0KFj7+ge7LZugDBMMNilNElrhyP9OZCWg8HsxoHSs/Y+lGiS8IfcQMX8Vt7x97Orhq2trfBkpGbKgOhnMG1C1QWdpez7gQ7NXEz7xC7PKRlrMG359Msldx5XEXz5kQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f3HJgREWPQHHrprlmL/3n5Py3MtRlKxKH8p/s3OyqpI=;
+ b=sPIeSrfq5dIOSIMS0Rw8+/1bPFFzMTKtDkc4CLYAb9qSeRkxywYlN3CstbOXq4EnKmFH2oGAKYFxf3x4g3ZgpMKz8yisJiE9/+aJNckQMTsoFj8Bs6sPstpU6UmH5iu+oBSWQIor6bz0FR3Yqw0UJkHel0/ZFxFWcDBe3epF1UI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: d41f0af7d12bdc2c
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ADOY0/rNzr/zvwgQEaWKdKRCeKCU50Z82Lh4Cz8Ms6/6MHXcrxxIRI7kowEkoN+CA1bAN/w0gsPD+0SB1U2pYacSIhB9O45i9u04z4T1OTzh+mKNNDZTH26xVl9k+KCTqFgbRSEeIS3Mba03DUoxTYGRFn6RmOQl4jwW0dzDSL7NCkWxZjbt790YpM2aeuBGZIBuFdgWJb+KGm+bT4bInbFmb/za26LypBWRjIO87A6QypnXg7GSPYGSDGUOa8V/fKypzgIPRm6Hj0TYf8NkbMLAfJQolNCYgINOY6hjDPQZLNh2me5RPGvCk4S1terfzinmwHDPPo9yCBbi9k9opw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f3HJgREWPQHHrprlmL/3n5Py3MtRlKxKH8p/s3OyqpI=;
+ b=iyEHOyuhmWtad6rfZc7h3+Ua59cOgx2uixCp8xJySDvibQOr21kU56Qz4EAuPrJigYgMMvhyn32rG/HDIdA04A2hs1xViOQiShQD2VYN95fjLduBcnMCdmx+GKAnAZ8VmYvvCAdqumU/1bMiRCm53KzM1BadCVKyHV24786Y1eMpbagvM7g/2TfTdkmYTS3fI6tgC7nElGUsCcCMHd3dVHyQmB+PQJbM2v1beNlybF/P+VoTVGkbj5P7Ty6KRGWf2cdx8PEEJwa1iDMhmYZnXXI8OccQi68WOuchKQuC/SVnpE+zLw8f2e1M2+S1lGL3MTKMX8BFtcWK4iyXYTV/kA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f3HJgREWPQHHrprlmL/3n5Py3MtRlKxKH8p/s3OyqpI=;
+ b=sPIeSrfq5dIOSIMS0Rw8+/1bPFFzMTKtDkc4CLYAb9qSeRkxywYlN3CstbOXq4EnKmFH2oGAKYFxf3x4g3ZgpMKz8yisJiE9/+aJNckQMTsoFj8Bs6sPstpU6UmH5iu+oBSWQIor6bz0FR3Yqw0UJkHel0/ZFxFWcDBe3epF1UI=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: xen-devel <xen-devel@lists.xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei
+ Liu <wl@xen.org>
+Subject: Re: [PATCH] doc: Add git commands to generate Fixes
+Thread-Topic: [PATCH] doc: Add git commands to generate Fixes
+Thread-Index: AQHYp0dt1L2bMKjw90+5sUGUPO+Pi62ewIcAgAAY2IA=
+Date: Thu, 4 Aug 2022 15:07:51 +0000
+Message-ID: <CE812F61-3A0D-4E5B-8FC6-54FA40F84E14@arm.com>
+References:
+ <b57628b8cf8355a5f4f32e6ea577689ae7450a69.1659537759.git.bertrand.marquis@arm.com>
+ <688de547-896b-da29-9137-44cf2c20227a@xen.org>
+In-Reply-To: <688de547-896b-da29-9137-44cf2c20227a@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: fe4722fb-bf69-4528-515f-08da762b1fc5
+x-ms-traffictypediagnostic:
+	DB7PR08MB3370:EE_|AM5EUR03FT012:EE_|AM0PR08MB3697:EE_
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 11DI5KBvpQJ0e29hP2CzIEHceIfy0DcUU/0QUT2D5duMBIVAa0+kVdSX/sKX8KyR3goC1FgD6saeSHfXFu2WzoxmPGsYvDZpbCaROA1AXHC+ClFdSb/iMPZgOZ1Gnuq7ABk+u0L9m9xKOCkqooLc3Vt9Cjl85gH1Xr5pTwqLd+V0G9QlOJTVbbPWA/R12QvEB2BFR5PpBXB+BxiLKzNZA7pEEA0VeXFgFOSOszYSGLhUihU80IS/RTcTWNDNKfMKiMzT388SZcA6MJ+F+o5DD5Sxr7pJKvrFmisCBRX3bkTrHK422LKk8hy2Kktxu71fxdZ2EZovQxDMzRUHpIS+yOa149bAs5KviV+JiqfBUAbxef5blbnGf9b1hwiOfugjCBHRsOYsCwwwBgD9+/hBh3jrOkr0vcvCFHDH4z+kXmDzU7EZ64BR96hgh9YwSK/KoqQZ7IZOHCnTp9MnBYLJTE95bYLqpjrFpW3Gz6xHnliAleadQThfmnRmV4UeJMSL+RsjVf82xwqf7lyiFK3aNar06FYaUIVR+oPE8DT1xEsP1TMFsl+54S/Tttp2WLnTLnldOw44F8ceSCkuO0DxzsoPXrhuvUwR7T3HFrByh7fcfPiA3bV8mRA5lh4o6xMHvGmv5myeKZqB40/InP58i2hVnlKpuiZ5b2zexB/i19Q8oUZivgF0E30aNcG8FmcclzFcA+ouBuRtEVBi6BRqzkoEf/V365HRYUrSC7EIqqB+5+BPxlxlEjc0X+9MVrZBddDaV9V51b90ezCv6HPrGMS+lbAIpXxM39zv5yLaMoR68kZ/CClclr+kg1HenIyFQNYQsYlyjG2k6uQKDtOwxQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(136003)(346002)(396003)(376002)(366004)(39860400002)(478600001)(26005)(122000001)(38100700002)(316002)(6512007)(71200400001)(6486002)(186003)(2616005)(54906003)(8936002)(41300700001)(36756003)(53546011)(6506007)(2906002)(6916009)(33656002)(8676002)(76116006)(64756008)(66946007)(66556008)(91956017)(66476007)(86362001)(4326008)(5660300002)(66446008)(38070700005)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <526B9735E9D30F4AA98C43A330CAC191@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3370
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT012.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	fc9512a5-aaf4-44bb-ff00-08da762b19eb
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	jEgqOHxXVTaUCdKAfVfD3Lglj1t4tCWy/UI1fnq829v8Qt1d58uLSCkdfwIEj2LMSFl8UBUe7d/l8Cp9DQoiw2I09bp7k1bdGP8UmqR900hQNRwPXkHThtMGdhqKuqxapu92MAWWUb+xE2Jf16x9aPdybIocAyDP57N9swBpIJHH5yAYKws0KU5b7aVhoBQb+I9WnIJuSuxX4e5n9epUjvhyUcAD3iZUsWdtSLd9r5onA/7DdmQG2GxzWc93Jsr0qxdkmgmJW+0fQxDpcRQ3x+vRISmyK7XnJo20RRq+2PVZN7/WOzdxj8FGBUaXqC1cDYLkk94XTC4aqkzT7GRpql/1OU6t1ElWwmWWcL9Iekh6cuZ9OzsOCURK4hvA2goDeSjDuhfAB8vJij1o+bmlUJR+KVsfr1f+0A+wwZfmSNWPSfX2gfDs1LFL/Naa7icoWTLbHskwVDoDX5VZ4rSfb7ra7Vqnp4SJc4o+o2joqD7ozXkoJxwwIlEZZLwrT0YYMclKWUJt3NHwjLRzjILf1NcYNfANrbulOXJPnxrN4F3h2dbdrVjM5PzMEHYuCzYYoiwdgWd1Q2PKGPl8Y9Ze4Yl9sK6eY4DtWo/1TzK2M4LRHTFCWb6ZrZdiczWDXXQoD5U7yI3dyrEQeEVEtZvzlgF8yQEMcuW8OTjAVhDrB2hop3nDfMEfIQocCt+6At+BDBqK5wxTG4K/rjkbwu0HUToBOes08n+2THEy6+9wfPkcoCrBVszks/h6J3MRKEc143b+YHlGb/WC3eMZPmXpjezdTTCbmAVisFcPE02f7dCoJs83VYpDWyIx37iPx2kS
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(136003)(396003)(39860400002)(346002)(376002)(46966006)(36840700001)(40470700004)(186003)(2906002)(47076005)(40460700003)(336012)(41300700001)(26005)(6506007)(53546011)(33656002)(356005)(82740400003)(2616005)(6512007)(86362001)(81166007)(40480700001)(82310400005)(36860700001)(6862004)(5660300002)(36756003)(70586007)(4326008)(70206006)(8676002)(8936002)(6486002)(316002)(478600001)(54906003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2022 15:08:01.4261
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe4722fb-bf69-4528-515f-08da762b1fc5
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT012.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB3697
 
-Clean up x86_64/kexec_reloc.S and x86_64/entry.S.
 
-This fixes the livepatching contents of entry.S.
 
-RFC: I'm unsure on where the page_fault symbol should end, i.e. if
-unlike current code handle_exception_saved should be within page_fault
-like handle_exception is or not.
+> On 4 Aug 2022, at 14:38, Julien Grall <julien@xen.org> wrote:
+>=20
+> Hi Bertrand,
+>=20
+> On 03/08/2022 15:43, Bertrand Marquis wrote:
+>> Add git commands examples that can be used to generate fixes and how to
+>> use the pretty configuration for git.
+>> This should make it easier for contributors to have the right format.
+>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>> ---
+>>  docs/process/sending-patches.pandoc | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>> diff --git a/docs/process/sending-patches.pandoc b/docs/process/sending-=
+patches.pandoc
+>> index 7ff7826c992b..9c4c4655323b 100644
+>> --- a/docs/process/sending-patches.pandoc
+>> +++ b/docs/process/sending-patches.pandoc
+>> @@ -102,6 +102,10 @@ E.g.:
+>>        Fixes: 67d01cdb5518 ("x86: infrastructure to allow converting cer=
+tain indirect calls to direct ones")
+>>  +If git was configured as explained earlier, this can be retrieved usin=
+g
+>> +``git log --pretty=3Dfixes`` otherwise ``git log --abbrev=3D12 --onelin=
+e`` will
+>> +give the proper tag and title.
+>=20
+> Rather than "proper tag", do you mean "commit-id"?
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
----
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: "Roger Pau Monné" <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/x86_64/entry.S       | 105 +++++++++++++++++++++++++-------------
- xen/arch/x86/x86_64/kexec_reloc.S |  43 ++++++----------
- 2 files changed, 86 insertions(+), 62 deletions(-)
+Yes you are right commit-id is better.
+Can you fix on commit ?=20
 
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 4ad25d9c90..7dc280aafa 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -11,6 +11,7 @@
- #include <asm/processor.h>
- #include <public/xen.h>
- #include <irq_vectors.h>
-+#include <xen/linkage.h>
- 
- /* %rsp: struct cpu_user_regs */
- .macro ASSERT_CONTEXT_IS_XEN
-@@ -152,7 +153,7 @@ process_trap:
-         .section .text.entry, "ax", @progbits
- 
- /* %rbx: struct vcpu, interrupts disabled */
--restore_all_guest:
-+SYM_CODE_START_LOCAL(restore_all_guest)
-         ASSERT_INTERRUPTS_DISABLED
- 
-         /* Stash guest SPEC_CTRL value while we can read struct vcpu. */
-@@ -239,6 +240,7 @@ iret_exit_to_guest:
-         addq  $8,%rsp
- .Lft0:  iretq
-         _ASM_PRE_EXTABLE(.Lft0, handle_exception)
-+SYM_CODE_END(restore_all_guest)
- 
- /*
-  * When entering SYSCALL from kernel mode:
-@@ -255,7 +257,7 @@ iret_exit_to_guest:
-  *  - Guest %rsp stored in %rax
-  *  - Xen stack loaded, pointing at the %ss slot
-  */
--ENTRY(lstar_enter)
-+SYM_CODE_START(lstar_enter)
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
- #endif
-@@ -290,9 +292,10 @@ ENTRY(lstar_enter)
-         mov   %rsp, %rdi
-         call  pv_hypercall
-         jmp   test_all_events
-+SYM_CODE_END(lstar_enter)
- 
- /* See lstar_enter for entry register state. */
--ENTRY(cstar_enter)
-+SYM_CODE_START(cstar_enter)
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
- #endif
-@@ -329,8 +332,9 @@ ENTRY(cstar_enter)
-         jne   compat_syscall
- #endif
-         jmp   switch_to_kernel
-+SYM_CODE_END(cstar_enter)
- 
--ENTRY(sysenter_entry)
-+SYM_CODE_START(sysenter_entry)
-         ENDBR64
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
-@@ -339,7 +343,7 @@ ENTRY(sysenter_entry)
-         pushq $FLAT_USER_SS
-         pushq $0
-         pushfq
--GLOBAL(sysenter_eflags_saved)
-+SYM_INNER_LABEL_GLOBAL(sysenter_eflags_saved)
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $3 /* ring 3 null cs */
-         pushq $0 /* null rip */
-@@ -393,8 +397,9 @@ UNLIKELY_END(sysenter_gpf)
-         jne   compat_sysenter
- #endif
-         jmp   .Lbounce_exception
-+SYM_CODE_END(sysenter_entry)
- 
--ENTRY(int80_direct_trap)
-+SYM_CODE_START(int80_direct_trap)
-         ENDBR64
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $0
-@@ -465,8 +470,9 @@ UNLIKELY_END(msi_check)
- 
-         call  create_bounce_frame
-         jmp   test_all_events
-+SYM_CODE_END(int80_direct_trap)
- 
--int80_slow_path:
-+SYM_CODE_START_LOCAL(int80_slow_path)
-         /* 
-          * Setup entry vector and error code as if this was a GPF caused by an
-          * IDT entry with DPL==0.
-@@ -482,6 +488,7 @@ int80_slow_path:
-          */
-         GET_STACK_END(14)
-         jmp   handle_exception_saved
-+SYM_CODE_END(int80_slow_path)
- 
-         /* create_bounce_frame & helpers don't need to be in .text.entry */
-         .text
-@@ -657,9 +664,8 @@ ret_from_intr:
- 
-         .section .text.entry, "ax", @progbits
- 
--        ALIGN
- /* No special register assumptions. */
--restore_all_xen:
-+SYM_CODE_START_LOCAL(restore_all_xen)
-         /*
-          * Check whether we need to switch to the per-CPU page tables, in
-          * case we return to late PV exit code (from an NMI or #MC).
-@@ -676,8 +682,9 @@ UNLIKELY_END(exit_cr3)
- 
-         RESTORE_ALL adj=8
-         iretq
-+SYM_CODE_END(restore_all_xen)
- 
--ENTRY(common_interrupt)
-+SYM_CODE_START(common_interrupt)
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         SAVE_ALL
- 
-@@ -706,12 +713,14 @@ ENTRY(common_interrupt)
-         mov   %r15, STACK_CPUINFO_FIELD(xen_cr3)(%r14)
-         mov   %bl, STACK_CPUINFO_FIELD(use_pv_cr3)(%r14)
-         jmp ret_from_intr
-+SYM_CODE_END(common_interrupt)
- 
--ENTRY(page_fault)
-+SYM_CODE_START(page_fault)
-         ENDBR64
-         movl  $TRAP_page_fault,4(%rsp)
-+
- /* No special register assumptions. */
--GLOBAL(handle_exception)
-+SYM_INNER_LABEL_GLOBAL(handle_exception)
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         SAVE_ALL
- 
-@@ -734,7 +743,7 @@ GLOBAL(handle_exception)
-         cmovnz %r12d, %r13d
- .Lxcpt_cr3_okay:
- 
--handle_exception_saved:
-+SYM_INNER_LABEL_LOCAL(handle_exception_saved)
-         GET_CURRENT(bx)
-         testb $X86_EFLAGS_IF>>8,UREGS_eflags+1(%rsp)
-         jz    exception_with_ints_disabled
-@@ -842,9 +851,10 @@ handle_exception_saved:
-         ASSERT_CONTEXT_IS_XEN
-         jmp   restore_all_xen
- #endif
-+SYM_CODE_END(page_fault)
- 
- /* No special register assumptions. */
--exception_with_ints_disabled:
-+SYM_CODE_START_LOCAL(exception_with_ints_disabled)
-         testb $3,UREGS_cs(%rsp)         # interrupts disabled outside Xen?
-         jnz   FATAL_exception_with_ints_disabled
-         movq  %rsp,%rdi
-@@ -874,99 +884,116 @@ exception_with_ints_disabled:
-         mov   %r15, STACK_CPUINFO_FIELD(xen_cr3)(%r14)
-         mov   %r13b, STACK_CPUINFO_FIELD(use_pv_cr3)(%r14)
-         jmp   restore_all_xen           # return to fixup code
-+SYM_CODE_END(exception_with_ints_disabled)
- 
- /* No special register assumptions. */
--FATAL_exception_with_ints_disabled:
-+SYM_CODE_START_LOCAL(FATAL_exception_with_ints_disabled)
-         xorl  %esi,%esi
-         movq  %rsp,%rdi
-         call  fatal_trap
-         BUG   /* fatal_trap() shouldn't return. */
-+SYM_CODE_END(FATAL_exception_with_ints_disabled)
- 
--ENTRY(divide_error)
-+SYM_CODE_START(divide_error)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_divide_error,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(divide_error)
- 
--ENTRY(coprocessor_error)
-+SYM_CODE_START(coprocessor_error)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_copro_error,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(coprocessor_error)
- 
--ENTRY(simd_coprocessor_error)
-+SYM_CODE_START(simd_coprocessor_error)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_simd_error,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(simd_coprocessor_error)
- 
--ENTRY(device_not_available)
-+SYM_CODE_START(device_not_available)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_no_device,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(device_not_available)
- 
--ENTRY(debug)
-+SYM_CODE_START(debug)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_debug,4(%rsp)
-         jmp   handle_ist_exception
-+SYM_CODE_END(debug)
- 
--ENTRY(int3)
-+SYM_CODE_START(int3)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_int3,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(int3)
- 
--ENTRY(overflow)
-+SYM_CODE_START(overflow)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_overflow,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(overflow)
- 
--ENTRY(bounds)
-+SYM_CODE_START(bounds)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_bounds,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(bounds)
- 
--ENTRY(invalid_op)
-+SYM_CODE_START(invalid_op)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_invalid_op,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(invalid_op)
- 
--ENTRY(invalid_TSS)
-+SYM_CODE_START(invalid_TSS)
-         ENDBR64
-         movl  $TRAP_invalid_tss,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(invalid_TSS)
- 
--ENTRY(segment_not_present)
-+SYM_CODE_START(segment_not_present)
-         ENDBR64
-         movl  $TRAP_no_segment,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(segment_not_present)
- 
--ENTRY(stack_segment)
-+SYM_CODE_START(stack_segment)
-         ENDBR64
-         movl  $TRAP_stack_error,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(stack_segment)
- 
--ENTRY(general_protection)
-+SYM_CODE_START(general_protection)
-         ENDBR64
-         movl  $TRAP_gp_fault,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(general_protection)
- 
--ENTRY(alignment_check)
-+SYM_CODE_START(alignment_check)
-         ENDBR64
-         movl  $TRAP_alignment_check,4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(alignment_check)
- 
--ENTRY(entry_CP)
-+SYM_CODE_START(entry_CP)
-         ENDBR64
-         movl  $X86_EXC_CP, 4(%rsp)
-         jmp   handle_exception
-+SYM_CODE_END(entry_CP)
- 
--ENTRY(double_fault)
-+SYM_CODE_START(double_fault)
-         ENDBR64
-         movl  $TRAP_double_fault,4(%rsp)
-         /* Set AC to reduce chance of further SMAP faults */
-@@ -990,12 +1017,13 @@ ENTRY(double_fault)
-         movq  %rsp,%rdi
-         call  do_double_fault
-         BUG   /* do_double_fault() shouldn't return. */
-+SYM_CODE_END(double_fault)
- 
--ENTRY(nmi)
-+SYM_CODE_START(nmi)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_nmi,4(%rsp)
--handle_ist_exception:
-+SYM_INNER_LABEL_LOCAL(handle_ist_exception)
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         SAVE_ALL
- 
-@@ -1119,17 +1147,20 @@ handle_ist_exception:
-         ASSERT_CONTEXT_IS_XEN
-         jmp   restore_all_xen
- #endif
-+SYM_CODE_END(nmi)
- 
--ENTRY(machine_check)
-+SYM_CODE_START(machine_check)
-         ENDBR64
-         pushq $0
-         movl  $TRAP_machine_check,4(%rsp)
-         jmp   handle_ist_exception
-+SYM_CODE_END(machine_check)
- 
- /* No op trap handler.  Required for kexec crash path. */
--GLOBAL(trap_nop)
-+SYM_CODE_START_NOALIGN(trap_nop)
-         ENDBR64
-         iretq
-+SYM_CODE_END(trap_nop)
- 
- /* Table of automatically generated entry points.  One per vector. */
-         .pushsection .init.rodata, "a", @progbits
-@@ -1142,7 +1173,8 @@ GLOBAL(autogen_entrypoints)
-         .endm
- 
-         .popsection
--autogen_stubs: /* Automatically generated stubs. */
-+/* Automatically generated stubs. */
-+SYM_CODE_START_LOCAL(autogen_stubs)
- 
-         vec = 0
-         .rept X86_NR_VECTORS
-@@ -1186,6 +1218,7 @@ autogen_stubs: /* Automatically generated stubs. */
- 
-         vec = vec + 1
-         .endr
-+SYM_CODE_END(autogen_stubs)
- 
-         .section .init.rodata, "a", @progbits
-         .size autogen_entrypoints, . - autogen_entrypoints
-diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
-index f4842025eb..5f96c74085 100644
---- a/xen/arch/x86/x86_64/kexec_reloc.S
-+++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -14,6 +14,7 @@
-         .file __FILE__
- 
- #include <xen/kimage.h>
-+#include <xen/linkage.h>
- 
- #include <asm/asm_defns.h>
- #include <asm/msr-index.h>
-@@ -24,7 +25,7 @@
-         .align PAGE_SIZE
-         .code64
- 
--ENTRY(kexec_reloc)
-+SYM_FUNC_START(kexec_reloc)
-         /* %rdi - code page maddr */
-         /* %rsi - page table maddr */
-         /* %rdx - indirection page maddr */
-@@ -92,8 +93,9 @@ ENTRY(kexec_reloc)
- 
-         /* Enter compatibility mode. */
-         ljmp    *compatibility_mode_far(%rip)
-+SYM_FUNC_END(kexec_reloc)
- 
--relocate_pages:
-+SYM_FUNC_START_LOCAL(relocate_pages)
-         /* %rdi - indirection page maddr */
-         pushq   %rbx
- 
-@@ -141,8 +143,9 @@ relocate_pages:
-         ret
- 
-         .code32
-+SYM_FUNC_END(relocate_pages)
- 
--compatibility_mode:
-+SYM_FUNC_START_LOCAL(compatibility_mode)
-         /* Setup some sane segments. */
-         movl    $0x0008, %eax
-         movl    %eax, %ds
-@@ -169,46 +172,34 @@ compatibility_mode:
-         /* Call the image entry point.  This should never return. */
-         call    *%ebp
-         ud2
-+SYM_FUNC_END(compatibility_mode)
- 
--        .align 4
--compatibility_mode_far:
-+SYM_DATA_START_LOCAL(compatibility_mode_far)
-         .long 0x00000000             /* set in call_32_bit above */
-         .word 0x0010
-+SYM_DATA_END(compatibility_mode_far)
- 
--        .type compatibility_mode_far, @object
--        .size compatibility_mode_far, . - compatibility_mode_far
--
--compat_mode_gdt_desc:
-+SYM_DATA_START_LOCAL(compat_mode_gdt_desc)
-         .word .Lcompat_mode_gdt_end - compat_mode_gdt -1
-         .quad 0x0000000000000000     /* set in call_32_bit above */
-+SYM_DATA_END(compat_mode_gdt_desc)
- 
--        .type compat_mode_gdt_desc, @object
--        .size compat_mode_gdt_desc, . - compat_mode_gdt_desc
--
--        .align 8
--compat_mode_gdt:
-+SYM_DATA_START_LOCAL(compat_mode_gdt)
-         .quad 0x0000000000000000     /* null                              */
-         .quad 0x00cf93000000ffff     /* 0x0008 ring 0 data                */
-         .quad 0x00cf9b000000ffff     /* 0x0010 ring 0 code, compatibility */
- .Lcompat_mode_gdt_end:
-+SYM_DATA_END(compat_mode_gdt)
- 
--        .type compat_mode_gdt, @object
--        .size compat_mode_gdt, . - compat_mode_gdt
--
--compat_mode_idt:
-+SYM_DATA_START_LOCAL(compat_mode_idt)
-         .word 0                      /* limit */
-         .long 0                      /* base */
--
--        .type compat_mode_idt, @object
--        .size compat_mode_idt, . - compat_mode_idt
-+SYM_DATA_END(compat_mode_idt)
- 
-         /*
-          * 16 words of stack are more than enough.
-          */
--        .align 8
--reloc_stack:
-+SYM_DATA_START_LOCAL(reloc_stack)
-         .fill 16,8,0
- .Lreloc_stack_base:
--
--        .type reloc_stack, @object
--        .size reloc_stack, . - reloc_stack
-+SYM_DATA_END(reloc_stack)
--- 
-2.11.0
+>=20
+> Other than that:
+>=20
+> Acked-by: Julien Grall <jgrall@amazon.com>
+>=20
+
+Thanks
+Bertrand
+
+> Cheers,
+>=20
+> --=20
+> Julien Grall
 
 
