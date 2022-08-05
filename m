@@ -2,64 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABE1558AA7C
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 14:06:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.381105.615633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A52F58AA89
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 14:11:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.381113.615648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJw5H-0006CF-LC; Fri, 05 Aug 2022 12:05:43 +0000
+	id 1oJwAC-0007fO-AT; Fri, 05 Aug 2022 12:10:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 381105.615633; Fri, 05 Aug 2022 12:05:43 +0000
+Received: by outflank-mailman (output) from mailman id 381113.615648; Fri, 05 Aug 2022 12:10:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJw5H-00069P-Hf; Fri, 05 Aug 2022 12:05:43 +0000
-Received: by outflank-mailman (input) for mailman id 381105;
- Fri, 05 Aug 2022 12:05:42 +0000
+	id 1oJwAC-0007bw-7B; Fri, 05 Aug 2022 12:10:48 +0000
+Received: by outflank-mailman (input) for mailman id 381113;
+ Fri, 05 Aug 2022 12:10:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=34eQ=YJ=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1oJw5G-00068Y-3G
- for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 12:05:42 +0000
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20045.outbound.protection.outlook.com [40.107.2.45])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=eACj=YJ=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1oJwAA-0007bq-R7
+ for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 12:10:46 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ec63fd40-14b6-11ed-bd2e-47488cf2e6aa;
- Fri, 05 Aug 2022 14:05:40 +0200 (CEST)
-Received: from FR0P281CA0053.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:48::17)
- by VI1PR08MB4559.eurprd08.prod.outlook.com (2603:10a6:803:100::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Fri, 5 Aug
- 2022 12:05:37 +0000
-Received: from VE1EUR03FT045.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:d10:48:cafe::7f) by FR0P281CA0053.outlook.office365.com
- (2603:10a6:d10:48::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.15 via Frontend
- Transport; Fri, 5 Aug 2022 12:05:37 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT045.mail.protection.outlook.com (10.152.19.51) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5504.16 via Frontend Transport; Fri, 5 Aug 2022 12:05:36 +0000
-Received: ("Tessian outbound fccf984e7173:v123");
- Fri, 05 Aug 2022 12:05:36 +0000
-Received: from cc54504fab03.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 75CC43E4-BFFA-488E-91C3-772C8E4C703C.1; 
- Fri, 05 Aug 2022 12:05:25 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id cc54504fab03.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 05 Aug 2022 12:05:25 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by DU0PR08MB8470.eurprd08.prod.outlook.com (2603:10a6:10:406::17)
+ id a172a5c9-14b7-11ed-bd2e-47488cf2e6aa;
+ Fri, 05 Aug 2022 14:10:45 +0200 (CEST)
+Received: from MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
+ by BN7PR12MB2676.namprd12.prod.outlook.com (2603:10b6:408:2d::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5482.16; Fri, 5 Aug
- 2022 12:05:23 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::f474:4549:1f7a:b89a]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::f474:4549:1f7a:b89a%4]) with mapi id 15.20.5504.014; Fri, 5 Aug 2022
- 12:05:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16; Fri, 5 Aug
+ 2022 12:10:42 +0000
+Received: from MN2PR12MB4192.namprd12.prod.outlook.com
+ ([fe80::1a7:7daa:9230:1372]) by MN2PR12MB4192.namprd12.prod.outlook.com
+ ([fe80::1a7:7daa:9230:1372%7]) with mapi id 15.20.5504.016; Fri, 5 Aug 2022
+ 12:10:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,200 +46,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec63fd40-14b6-11ed-bd2e-47488cf2e6aa
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=Kh91LmvjidxXvabeeFSL5uqWurR+zgCVP9fHFN2dsEGRbqUdnQtjGJjM29KwRuPjs9lr92GM1kI9AvhZHfnLCL784NkgZOHMQQXFjr8oSnhl79SRBb8xCGyan57Xse3arc8fs95ysgQ6ir//ywF0UYlFodApUeBJtuslo8zskGB7qwwBhAx89aaB8mMq/Xpy48B4H49Jb5noDJtgg66qquF9OjRLyftcD78igAQGtLAavoaFsR7PYUjRMJ3IwiLvZjQQzy/V2HcsCJ7kVjbT1ThNpj+kGAeXw6btyPNwFv2v5Yq9TauDQqXoYw+ZkacAEa8dMJfwRBmkVFx4ol8bwg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vXNlIwD4rqRziOLZr0CUjujEfSVSItRtbleORrE8oF4=;
- b=PFYSUzfkEYPTolnMFmxS/3yeeH6J8Xci4ubDBw0ZicTtMUoeQ/u/ox39LwLCUX2sNlKaKtjRuU5khE02hHjKCaac/PXhsC5AL2ecXx8Mm9d+GPDuEzP9OYhJgdC4sIFQw5nEEX3jvePf4DIu8zme7KQyU6r4LMMpg0AXlVZylveZu0uES5seb7CDXv1gcANg+7Q1CYOWHDHHQGPToGey31sNHbjDEJ7ABpQk/lapD4P5cqfDJnNktdsHP0kLrkLm3a24LS5yw40CCQY46/KafHRnFx9WpGGrsRPos5BPb3LfL7WH/zcOhMhFMbMkxTOT9/cD4pzqi/Go6wqtJdqnng==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vXNlIwD4rqRziOLZr0CUjujEfSVSItRtbleORrE8oF4=;
- b=v3gJUTkDtxBGCmaxB4MP81N+G0lwg5QFB4KMBMJFZZDK4LaJePIf9T3+XZTuXkvRz/+vH6RvgW75YlWTVhKZATyVSaWD8+NHs9zl257+cIlf3SiWvE6QEUbdEPGjVm5z5bb1F9BhkOc5W2MnFUWRT/hT18Owj1RKv6gCC2ya2tI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 20023080a0a20548
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: a172a5c9-14b7-11ed-bd2e-47488cf2e6aa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SwmrPU8Am4DrBXexY29pUyquN9Xtlt6fsgjAxZFPLHmGGefT0o11A5d+XichKPJICXbCpSqFAZyNAMUj/VjP6VgkUg8yj7GLcAXgMYXrnS4N3NRZLZHWehKKY3LxDAmoCaIQvipuoz2gM1oKz5BP7rg7sc0hL+k9ffAT+P4r2X/I8pgiQC+1p8CO0tvHi9YlolKO1b37FQEcLEWyH1YglXu9qIawPYtjy0XS3ww135qFZN/EDItMWW/cpW0jXU00X+L6jjizO+NjzGeVQuPCTempGDjtWSI8+hCkM5PMsx+7EqCA+M57qRfoQAlufrIL43tUW0gfYqM0875/P2ySwA==
+ b=Kh7Ue+MJvGMREL2MiPtXKas+SAYp77rsPhWFNPhF181kq4erhOLdILSC4xUvPhLRyRGIFvEymLuHHCMXjK1NVRy6UjatCh5DPvBz0lFjf1AXMOm4vjC/tnJRdPVgksVDVulMqvFmPPMI4yGzdiz2ozqb7WmtkraNX9rxYDrhFGl8ajw6logtnC9aA6BWeBefaSpEahuFi4hHiUjwFZMRfpsa9ZUNfgSFAx4xPMntsiUtnJqpGpjZ7WaLHtsGVqV8qv7VQ4jYpBwcofd5RpAWkH/TAnlyp3vmar1kFzJjuEjRAONXZRlvsunBrleAMoiaXC4TLDMtQ2ej6Jcel19pZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vXNlIwD4rqRziOLZr0CUjujEfSVSItRtbleORrE8oF4=;
- b=Myxvdf/GthqsFOHraW8sfOJ8VpibvoQFCm1/O7rQNr/0l8EfN+v08ySVWsDen10IsjaESvAvE6Mdg7LakCqCoRieeyKa4HZz+Cr3r6V0ToiirTV+Gus9jwILPhgBKounn6rto35pSBq04Y4SR8K5uFnsdOVnYRgUnCcmPlJJqqp3EeROMXKRzpXbj/g0JTHCshgCPOI8klMyvpW73Zx1zdLa1ksK/IlniMZY1xWMaayNALAGfhWa7C9v6YFmVL03PkjX5urb+dtN/3dQ1FEMGsyC7vt4lgFyE8Y3aqt3ybp6j/CaeXbwlxauPtg+cuSoQUOzSDStkWQScU65ZQwRLA==
+ bh=9xxeV8rR278VqMcf3mIZ8bLAT4CFg7jhy+Oi9B4XdAM=;
+ b=Tppk4QN1wkt4mSwe8rGOwh+Nig5+wlwI49BGOAk4YhVlUoU67fJdb+ZdoU7Twwt8U/G+yrxL8F/ps90NbuQS2FMCY+GQE6vF4gEapi96sDQA89JJn3jXFepvTlSoNQo6BjY5clnUbg5HHVpJofV5ytoT+OLoU9hyEswP+uUiPKmMkOh+9S2L1Cd61jfOWSbi9dpxBwFwYKUkuQ4qBb0K/JHZEJgN8I8aGANoAdwOXf3HjSF5YKa0aX+ncuD8tYfQh1vGsfxhUlJkpeTXq5OP+049t/iW8O/zylaZJ9eA7J2h7a7VSKDQ/zSfn51Y90Q6zoBq/kbHDJpCY0zXSjmWnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vXNlIwD4rqRziOLZr0CUjujEfSVSItRtbleORrE8oF4=;
- b=v3gJUTkDtxBGCmaxB4MP81N+G0lwg5QFB4KMBMJFZZDK4LaJePIf9T3+XZTuXkvRz/+vH6RvgW75YlWTVhKZATyVSaWD8+NHs9zl257+cIlf3SiWvE6QEUbdEPGjVm5z5bb1F9BhkOc5W2MnFUWRT/hT18Owj1RKv6gCC2ya2tI=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: "leo.yan@linaro.org" <leo.yan@linaro.org>
-CC: xen-devel <xen-devel@lists.xenproject.org>, Peter Griffin
-	<peter.griffin@linaro.org>, Jerome Forissier <jerome.forissier@linaro.org>,
-	Marc Zyngier <maz@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Rahul Singh
-	<Rahul.Singh@arm.com>
-Subject: Re: Question: Enable LINUX_EFI_MEMRESERVE_TABLE_GUID in EFI
-Thread-Topic: Question: Enable LINUX_EFI_MEMRESERVE_TABLE_GUID in EFI
-Thread-Index: AQHYp9oMDnfnppRN40WNR+bqQStYIa2gMcaAgAAFzAA=
-Date: Fri, 5 Aug 2022 12:05:23 +0000
-Message-ID: <EA8A294E-856D-4579-B26E-55F6B7EB477C@arm.com>
-References: <20220804081253.GA1219098@leoy-ThinkPad-X240s>
- <D6DDAE40-A8EF-4230-A292-401FBA085EE0@arm.com>
-In-Reply-To: <D6DDAE40-A8EF-4230-A292-401FBA085EE0@arm.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.120.41.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 33acfad1-6a7c-4890-8e54-08da76dacebf
-x-ms-traffictypediagnostic:
-	DU0PR08MB8470:EE_|VE1EUR03FT045:EE_|VI1PR08MB4559:EE_
-x-ld-processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr
-x-checkrecipientrouted: true
-nodisclaimer: true
+ bh=9xxeV8rR278VqMcf3mIZ8bLAT4CFg7jhy+Oi9B4XdAM=;
+ b=ohPAArF8s3Pc3VCcZ9pAtmuOTkCTbCCe7dSw8Fb+HPVxOE8BLm6w4W8Evjk06+5wRCnKcTe2WfMRpMNCTyFBRRngpdoUt09qPxoYB+Umbq0/nhQnDma7u5PLa5FoO0cC+xckM3Z6WJ8QuWQuPeRlpt8HcsG03pbSC0B7BkuPIGn+BngURXIgmRiSrvZZKr0J1vW773Sqwz0R93Cte/opg7ouH0tChsJSaqqtfiMwShNlvCseB8KW8+FwaqE0WCRzVDjp+b7Wu9mMidwsX+17zwCnVhvBqxhoHv28/qulPTVlwrL7nxtbk4X2eP8rbMb7FMqwEGjHtrVsyDC8e7zbVg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Fri, 5 Aug 2022 09:10:41 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Josef Johansson <josef@oderland.se>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, linux-pci@vger.kernel.org,
+	xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] PCI/MSI: Correct use of can_mask in msi_add_msi_desc()
+Message-ID: <Yu0IwZXyTIhdALMb@nvidia.com>
+References: <d818f9c9-a432-213e-4152-eaff3b7da52e@oderland.se>
+ <f1d3ebc5-0e5e-20b5-430c-9426aa5e4bbe@oderland.se>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f1d3ebc5-0e5e-20b5-430c-9426aa5e4bbe@oderland.se>
+X-ClientProxiedBy: BL1PR13CA0282.namprd13.prod.outlook.com
+ (2603:10b6:208:2bc::17) To MN2PR12MB4192.namprd12.prod.outlook.com
+ (2603:10b6:208:1d5::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: afdaee0a-f265-4bd7-b749-08da76db848b
+X-MS-TrafficTypeDiagnostic: BN7PR12MB2676:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- jjKC9sw26RcwHB7lozlpQx6K3b6xXeQzXHDHI9H+A+CXcvkmfV+lWrx2foyu+imuGVUZ3oqBpS7NVJCsW/0WLMS5ZvOc7d+sFdgLQTmNo8qrvGP7Oq3NGLKByeafb5oStDU0o/OtbhZLhbR+qN4fsBac5shvkh+NI050C7CYa9mHgsqIImWXQCcp+4JIJUoll0nEnsNfi+0dtXo7vutcF7IMNUXyZnEYIPqJLG7bivtSJww327z7j2uqnkR1eEzen7SkFjNpKkzmLkhk+kLPp3WfUggdX7SVlu4tDeiwvz03XbQl1k85O3Z6rMP+Py1qFWL9NMIWLJVvQtp9FdSqMdIC8YogI9WUp8nf3gfQ6VzuBQ/o0WeboOIvRWThMUFnihUo73012HVTGv55x+pj5L7WjTsjmV2yVt7zLRXTgyP2YkyFpZWM8d2aNcDgFrBa0VHtiCZsj8Dyzvmup4F5EE8N8cnbQWCWAkWE7WeJhF1B9kdKFpdbuS3HIQPRkMEBYOON18xco8Uq2HX38asE3LhuCMOmYpqHQAlB2bDZF6wii9VWcZMrgOWITeJfgsNU8O+HP7Iv45iCteXnZ9yICH7IMCsMCL7yYGMJxODN2rvVYykw5nhQJlQd+b0k7wpWCFf2P0Skbyc/tNDmSdysQqAkLpPmt7lF85XpEVzoxwCpljVSY677HUXY1jUxVmJZsNrIHsvsoCjj6s81EkUz4DUbCJ9zN5R5peZpT3nVHpv7JXilZdiZsPtoSI+OIbHnUT7Fdi1ZncqbjEy6h0jkYk97C1pTUxzbVaRQnIJBu1CFvqYCtgdGuSpTr793XIm9GkmVE9FtzKeuSY4skmPBbA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(346002)(136003)(39860400002)(396003)(366004)(478600001)(2906002)(64756008)(2616005)(6486002)(66446008)(83380400001)(91956017)(8676002)(186003)(36756003)(26005)(71200400001)(4326008)(33656002)(6512007)(5660300002)(6506007)(76116006)(53546011)(38100700002)(66946007)(45080400002)(86362001)(66556008)(38070700005)(122000001)(6916009)(54906003)(316002)(8936002)(66476007)(41300700001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <EFAE786890DA60409799899A0273F717@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8470
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT045.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	405a6d48-01a7-49cf-a2d6-08da76dac6ae
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Z4iM8dGCroM+ovT0qcRrixB/2uW1RT5ZEzdDr+xKyYSAUFbXAOhrglHtrVNRlLQehvLpMh5dcuYlhNimSJyl/nqtxtY5ueo4hcwxFVNY5uKy1d3iAup7oR6dV/49gT4iMR5caDytzVeCyDW3haxWQsFXwhE8yggzoR4G4JNrs3AWtrSKvPEiiP15OUGefJwtr7Ztm+c8qF1Hmj8D4kfEs40pTcFe38tI0yekIcrq1Jdu0Bw54IXY+XOBm9hlfJVd7nCVZcTfZDCqYv+Hp0+qvo78Ut4hooAvg3S1hI3a/lKMw09dynUXafmHUqLAljrOBlu0zZoynJX/H6dAL3b1yueRP8Ppn9K899bCrx/3mwR6lkNETs7xvq6nWkNj2eT+IvqxpamknHgQpWLCvdGRrqCuK2EB51Bzrtpe+tC1ApTeo9vU3/IhVrVsqfm/fIphFTJGjRfPfpgRp5wQ0Hz1b4I5RbosUlDWYOtpBmiUcqZOSHHE0ktfLqBkp3gcyBKpLBGUNk5dBsVlov8CTG4AwdA45qznj8hGCnP/iTw+wzte59wREZuLdU6U074Tu1WQAy9zp53yZQiWU2o4rqcoJEoj7u/zV+jFeqK4XQShZNTSk23vq6L8cwlHnF2OSwh/Vri+5CoUzEvjXrGyvlfaL+nBBVRoaS1qU4jcIG1kCNVz22UMK7nbKKWjw7AOUU8OHxCZ6ps/ZHUOi59fhzAbOsl+9pQPjzp+EauIoSPD6dDh8yeRSdRPMO5TvPsqCtoJCLbbC/2DF4QmCKfOjdDcdU6+ralqS6DyGmwnRQ0KaLcpyNcoTMbu9jEANg0j0028
+	Z/ZYL9xAGYkhlwftTK0ifDVhB7op4XjzUWiujDGOpgIfgQRJBixPrruv9jedOjn+DUTYPVkUNWcKeUXjW9lvsjb80M+ZLgYMCJTvcJocnP02IX7N5OQno0CromeAM1YVTT2cppfNAKQm6njZXy6HBZAxnSVw2RrKTi+bd+QzZDZwxmebBqpBHrrin4DUhOmBLmu/s4L9HPjloqizym5o8BW3XgEw7fh2T4fzQajCbhPn/CN+ebhtEOwx4D1Xlys829a/02cS9a9YZ4EeXk8wCxLnfnqlMqvVIL5Sja0+/X+8NSdOq1H54YLvyyRmC+MC7ZdNik0n7A+ZCE1JKvDvUj7RgZGPHwReFjHiPN5y9i1pmRHP7PUYR5WxY1bZePvXvbM5mg98hvoEKl5xKbfcNQ7JBnQAAHrjtMGCB+eVc8/BFTK7jOiOwvyNEIhhZtW5UaEqHVaLj2dAdUo/882mj136b7si34i+dGPokGE35SKM6N6I9hXfBeSLkuvZCncRF6OImSPQGnJ/TlXOyfRsSCDXhU/j3WB4GOf00IlSn+9AvBtLOHZwZt/r6S0+6T0Y3kMiMJO/cBNZA+3wZDNHf/qg8SComgQ6jUOzeAhKfe+TRAvFlT9V/hkuRTbxyeKIyvyb4HBhmAOXW7UUHsboMkVv/8J4Lw8/YUYWZvDeFAP8QXRm+vmQWBGuMB9H1bxhMbv8Lhe6n2a51n6ZNXQU64JEF+Z+ox8VmP/HO6lsaMdpsvs0jnYtze7XfiJuPMKC
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(136003)(346002)(396003)(39860400002)(376002)(36840700001)(46966006)(40470700004)(36860700001)(82740400003)(6486002)(2906002)(5660300002)(82310400005)(33656002)(41300700001)(26005)(478600001)(6512007)(53546011)(6506007)(8936002)(6862004)(36756003)(83380400001)(81166007)(316002)(356005)(45080400002)(54906003)(186003)(2616005)(40480700001)(86362001)(8676002)(4326008)(70586007)(336012)(70206006)(47076005)(40460700003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2022 12:05:36.8816
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB4192.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(396003)(39860400002)(366004)(346002)(376002)(136003)(2906002)(83380400001)(38100700002)(110136005)(6486002)(8676002)(66476007)(4326008)(66946007)(66556008)(54906003)(316002)(478600001)(2616005)(186003)(41300700001)(5660300002)(6512007)(6506007)(26005)(53546011)(8936002)(36756003)(86362001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?VGgwgg62OJ23hNDSV0Aw3rnMkOGNyck/QKz1/1gbN+JxghvbGwv6nAWCj7T6?=
+ =?us-ascii?Q?o0JHGTDaH+hnsG8yi66ES4IL0mkgxqCrfUFMS5Uf4j4+/WHkGwqV9HnZj8XY?=
+ =?us-ascii?Q?2uIE0N8RoZpyWDbf06rtDinXCDyU9Zt2LhNuOHaC0ZghfZY4F+K65Wgu6MNX?=
+ =?us-ascii?Q?V1opUK+5nvd2fu1Hs/wQwwQzi8zpZvqbl4ZM9TKoCvHnFPnD8HS4ZAvElOjC?=
+ =?us-ascii?Q?2cD8wuFYoyJnDSmO7vj43KQznN9PuLJRUHbOuxhTHvDQA95oP0qKXhjc8av6?=
+ =?us-ascii?Q?0qHlA5+NrgUv+/yxzirRvHaavxIYuTP2M8tYixjewrnO5GAipStI4up59Pd/?=
+ =?us-ascii?Q?A5tRVGUMlnBY6Swo/LnMz3vbVpDew+6gxyq54azrXv0coK0Fd8toVt7c2nHG?=
+ =?us-ascii?Q?8dl1wpiylGgr1PWTloxxjJOhugrXxUNYhZq1Rg0gbLnKxV7ZPPEmFlKjpHk4?=
+ =?us-ascii?Q?w4qAsCc4QdYTXI3jBHyB173TCvVHqUF2+ZQthYzNhNYqkwVsObF5iSgZNrar?=
+ =?us-ascii?Q?cppY59uWAa2YBPxh0orturx4qVyHz+5rysegmn6BUBnqVyWceXgKBCKncZiD?=
+ =?us-ascii?Q?T12rOk+jpokjs1Ufi3x6pRMP9EltPnbUHk1EIBoapH+LwrtghEK4zvR0/Xrs?=
+ =?us-ascii?Q?jAo4BPFM+w2j4K1y161RngOBUOcldgFkbwKkrIn0+95OGtS4ImxIvThRScYf?=
+ =?us-ascii?Q?ZBUhQCBQpDW/AOF2E9GUOKzJ0V8yxC1zx1ttHwgzwam6bRDCyk4sEGIyhrsC?=
+ =?us-ascii?Q?k9oJnsFMaSpIrNQA5RIXuRlwY1LqW9NqV7RavaAuOGqLuwTRulP1sp+5T/A4?=
+ =?us-ascii?Q?wCBXnumIzJLe3OBxvhsj9dP/2GCO9ZHSJE83KOExGOetBXDYn+sVahUgdpug?=
+ =?us-ascii?Q?usN8kqGx7OuhKQ40EbRXDldQLOeyuyuWBpzqlGNUJy44wsMHN3xF6/zMpsOY?=
+ =?us-ascii?Q?rCiajsQRz1/ndenQL6NvojSl8u2/pbij46DrOIWvzCuMiTGnKLpJCa42mFY9?=
+ =?us-ascii?Q?vvcSWxd4GEukb3XcP8sk+XhzEL38dt/9FvmvVSCdwS0DRm4dA3LdXrSy6O7J?=
+ =?us-ascii?Q?2FvlvwrZh8nCqUOt6n63Ytmos5Vm3KdTAdIP/9XQDre39Qy895AOxiAm7eCn?=
+ =?us-ascii?Q?oGre5gYvsYUUXrEuqPA3FZ2G+MUX+TOOCpzSCTSSakeHtTnC6BMGdVkar8ww?=
+ =?us-ascii?Q?jaxH2vmFAOGaDgQ47h+aMvc61O8o6dOonRdXAIPpkoDD/7/HbCnxjhVTfaWw?=
+ =?us-ascii?Q?wIpe2EDZJ/fLJbMef6DlHLq8G2jXt2iTH0wog0/ZHhDoM0owJjSLzwO+5h4P?=
+ =?us-ascii?Q?CoIY+UWb/iNRLkSOLm6nUYsYDkNo7MlCv/YeqTFniEMsAz4/za4M2p80/9Pt?=
+ =?us-ascii?Q?i7vlbfHGZfD1OvZopmGflQUuSxyM1LKS1wUf7THDpNgEYMNtD7CLCH/vm1hd?=
+ =?us-ascii?Q?yX98dteGwXkFkkNSSBw6Lulw8clVGEoKSjv8UNWiQszYfLznLfdJYKQ1TIlg?=
+ =?us-ascii?Q?UACV7oT0C227KsQxrz5L+nXuUg3fn/K3ExM5Z5KL3InvEhyNLIpQp95vWhCF?=
+ =?us-ascii?Q?99SmlKH4n+zHdD5R3VHDLK5KY1n6WKFuQZvANujw?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: afdaee0a-f265-4bd7-b749-08da76db848b
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2022 12:10:42.1416
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33acfad1-6a7c-4890-8e54-08da76dacebf
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT045.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4559
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rDCa341oS1udUlYEgJR16KRnAwek0Hf8+0R/6mfpfWCq3DIikXCfeZKySxscZVSG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2676
 
-HI Leo
+On Fri, Aug 05, 2022 at 12:03:15PM +0200, Josef Johansson wrote:
+> On 2/14/22 11:07, Josef Johansson wrote:
+> > From: Josef Johansson <josef@oderland.se>
+> > 
+> > PCI/MSI: Correct use of can_mask in msi_add_msi_desc()
+> > Commit 71020a3c0dff4 ("PCI/MSI: Use msi_add_msi_desc()") modifies
+> > the logic of checking msi_attrib.can_mask, without any reason.
+> > This commits restores that logic.
+> >
+> > Fixes: 71020a3c0dff4 ("PCI/MSI: Use msi_add_msi_desc()")
+> > Signed-off-by: Josef Johansson <josef@oderland.se>
+> > 
+> > ---
+> > v2: Changing subject line to fit earlier commits.
+> > 
+> > Trying to fix a NULL BUG in the NVMe MSIX implementation I stumbled upon this code,
+> > which ironically was what my last MSI patch resulted into.
+> > 
+> > I don't see any reason why this logic was change, and it did not break anything
+> > correcting the logic.
+> > 
+> > CC xen-devel since it very much relates to Xen kernel (via pci_msi_ignore_mask).
+> > ---
+> > 
+> > diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
+> > index c19c7ca58186..146e7b9a01cc 100644
+> > --- a/drivers/pci/msi/msi.c
+> > +++ b/drivers/pci/msi/msi.c
+> > @@ -526,7 +526,7 @@ static int msix_setup_msi_descs(struct pci_dev *dev, void __iomem *base,
+> >   		desc.pci.msi_attrib.can_mask = !pci_msi_ignore_mask &&
+> >   					       !desc.pci.msi_attrib.is_virtual;
+> > -		if (!desc.pci.msi_attrib.can_mask) {
+> > +		if (desc.pci.msi_attrib.can_mask) {
+> >   			addr = pci_msix_desc_addr(&desc);
+> >   			desc.pci.msix_ctrl = readl(addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
+> >   		}
+> > 
 
-> On 5 Aug 2022, at 12:44, Rahul Singh <Rahul.Singh@arm.com> wrote:
->=20
-> Hi Leo,
->=20
->> On 4 Aug 2022, at 9:12 am, Leo Yan <leo.yan@linaro.org> wrote:
->>=20
->> Hi there,
->>=20
->> Now I am working on Ampere Altra SoC platform, with Xen (4.16) and Linux
->> kernel (5.15.23).
->>=20
->> I observed a warning is reported by Linux kernel in the booting flow:
->>=20
->> [    0.403737] ------------[ cut here ]------------
->> [    0.403738] WARNING: CPU: 30 PID: 0 at drivers/irqchip/irq-gic-v3-its=
-.c:3074 its_cpu_init+0x814/0xae0
->> [    0.403745] Modules linked in:
->> [    0.403748] CPU: 30 PID: 0 Comm: swapper/30 Tainted: G        W      =
-   5.15.23-ampere-lts-standard #1
->> [    0.403752] pstate: 600001c5 (nZCv dAIF -PAN -UAO -TCO -DIT -SSBS BTY=
-PE=3D--)
->> [    0.403755] pc : its_cpu_init+0x814/0xae0
->> [    0.403758] lr : its_cpu_init+0x810/0xae0
->> [    0.403761] sp : ffff800009c03ce0
->> [    0.403762] x29: ffff800009c03ce0 x28: 000000000000001e x27: ffff8807=
-11f43000
->> [    0.403767] x26: ffff80000a3c0070 x25: fffffc1ffe0a4400 x24: ffff8000=
-0a3c0000
->> [    0.403770] x23: ffff8000095bc998 x22: ffff8000090a6000 x21: ffff8000=
-09850cb0
->> [    0.403774] x20: ffff800009701a10 x19: ffff800009701000 x18: ffffffff=
-ffffffff
->> [    0.403777] x17: 3030303035303031 x16: 3030313030303078 x15: 303a3020=
-6e6f6967
->> [    0.403780] x14: 6572206530312072 x13: 3030303030353030 x12: 31303031=
-30303030
->> [    0.403784] x11: 78303a30206e6f69 x10: 6765722065303120 x9 : ffff8000=
-0870e710
->> [    0.403788] x8 : 6964657220646e75 x7 : 0000000000000003 x6 : 00000000=
-00000000
->> [    0.403791] x5 : 0000000000000000 x4 : fffffc0000000000 x3 : 00000000=
-00000010
->> [    0.403794] x2 : 000000000000ffff x1 : 0000000000010000 x0 : 00000000=
-ffffffed
->> [    0.403798] Call trace:
->> [    0.403799]  its_cpu_init+0x814/0xae0
->> [    0.403802]  gic_starting_cpu+0x48/0x90
->> [    0.403805]  cpuhp_invoke_callback+0x16c/0x5b0
->> [    0.403808]  cpuhp_invoke_callback_range+0x78/0xf0
->> [    0.403811]  notify_cpu_starting+0xbc/0xdc
->> [    0.403814]  secondary_start_kernel+0xe0/0x170
->> [    0.403817]  __secondary_switched+0x94/0x98
->> [    0.403821] ---[ end trace f68728a0d3053b70 ]---
->>=20
->> Looked into the code, the GICv3 driver tries to create persistent
->> reservations for pending pages, and the persistent reservation table
->> can be used by kexec/kdump.  For the persistent reservations, it
->> relies on MEMRESERVE EFI configuration table, but this table is not
->> supported by xen.efi, I think this is the reason for the above oops.
->=20
-> Yes, you are right above warning is observed because Xen does not support=
-=20
-> memreserve efi table. I also observed a similar warning on the N1SDP boar=
-d.
->>=20
->> I checked that if I boot a host Linux (without Xen), then the EFI has
->> provided MEMRESERVE configuration table, I can get below log:
->>=20
->> #  dmesg | grep MEMRESERVE
->> [    0.000000] efi: TPMFinalLog=3D0x807f9ef0000 ACPI 2.0=3D0x807fa0d0018=
- ... MEMRESERVE=3D0x807f8141e98
->>=20
->> Just want to confirm, is anyone working on enabling MEMRESERVE EFI
->> configuration table for Xen?  And welcome any comments and
->> suggestions!
->>=20
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-No I do not think anybody is working on this at the moment.
-If you want to work on adding support for this in Xen, we can provide suppo=
-rt
-and help on reviewing and testing as we have several targets on which we
-observe this (N1SDP and Ava).
+Bjorn, please take it?
 
-Cheers
-Bertrand
-
+Jason
 
