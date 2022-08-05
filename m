@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAE5858ADF0
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 18:14:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.381406.616073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C113258AED0
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 19:25:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.381427.616102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJzxr-000789-KK; Fri, 05 Aug 2022 16:14:19 +0000
+	id 1oK13w-0005le-WE; Fri, 05 Aug 2022 17:24:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 381406.616073; Fri, 05 Aug 2022 16:14:19 +0000
+Received: by outflank-mailman (output) from mailman id 381427.616102; Fri, 05 Aug 2022 17:24:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJzxr-00075E-Ha; Fri, 05 Aug 2022 16:14:19 +0000
-Received: by outflank-mailman (input) for mailman id 381406;
- Fri, 05 Aug 2022 16:14:17 +0000
+	id 1oK13w-0005iq-TC; Fri, 05 Aug 2022 17:24:40 +0000
+Received: by outflank-mailman (input) for mailman id 381427;
+ Fri, 05 Aug 2022 17:24:39 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oJzxp-000758-Bn
- for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 16:14:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oK13v-0005ig-T6; Fri, 05 Aug 2022 17:24:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oJzxp-0004TT-1W; Fri, 05 Aug 2022 16:14:17 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=[192.168.9.179]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oJzxo-0001mm-Rv; Fri, 05 Aug 2022 16:14:16 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oK13v-0005rO-Oy; Fri, 05 Aug 2022 17:24:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oK13v-00015E-E3; Fri, 05 Aug 2022 17:24:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oK13v-000814-Dd; Fri, 05 Aug 2022 17:24:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,65 +42,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=oppPtUa9gUMv3aBAKnYK8X5squWNVmFP7ys6AaSrUTc=; b=l9DSfSElfuVQND2AVd1nVv63CY
-	047WnIq0c3bh3BKuuHL2VLaScZbIJ/dA8ETIUaC3MzcEqgEPGPbbsh9J+3uYf2Grhytd9yRCunpEr
-	nxvGT0lqI03hJDsPHgxikaqFzEEGccvZFftIV+gZXMTGgeAiz34rTuMYRud8EfSJiX/g=;
-Message-ID: <6a276407-cfcd-d383-6d51-644b463ee510@xen.org>
-Date: Fri, 5 Aug 2022 17:14:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=YaIGa6fkEpq9nv/7SqspySX9JNXehTGYmklHPQFXU1I=; b=hYQTDt1UBT6oQVMEGJAa3z7MzX
+	/tQ2kyFdn5ESf0YgPjiTrZpkXomP1yx7pCwd6Z3q/472Wh+DuYE4bW/22W7tRI/g4j/QzLHtU3hHx
+	Q5FKO7niVLHyFUWc7hlRLEMMVYGTXWns/NTtO4zkJ6t2OM5lhbaXFEq6OcL6XHmN4KKE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172191-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.1.0
-Subject: Re: [PATCH 7/8] xen: introduce xen-evtchn dom0less property
-Content-Language: en-US
-To: Rahul Singh <Rahul.Singh@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1655903088.git.rahul.singh@arm.com>
- <f2bc792f8dea59648b011cda4fe7c42929c4e3d7.1655903088.git.rahul.singh@arm.com>
- <B91E9B3F-27DA-4412-9F1D-AFD1287D0898@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <B91E9B3F-27DA-4412-9F1D-AFD1287D0898@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 172191: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=a8f59e2eb44199040d2e1f747a6d950a25ed0984
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 05 Aug 2022 17:24:39 +0000
+
+flight 172191 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172191/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+
+version targeted for testing:
+ ovmf                 a8f59e2eb44199040d2e1f747a6d950a25ed0984
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z    1 days
+Testing same since   172151  2022-08-05 02:40:28 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 05/08/2022 17:10, Rahul Singh wrote:
-> Hi ,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi Rahul,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->> On 22 Jun 2022, at 3:38 pm, Rahul Singh <Rahul.Singh@arm.com> wrote:
->>
->> Introduce a new sub-node under /chosen node to establish static event
->> channel communication between domains on dom0less systems.
->>
->> An event channel will be created beforehand to allow the domains to
->> send notifications to each other.
->>
->> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->> ---
->> docs/misc/arm/device-tree/booting.txt |  62 +++++++++++-
->> xen/arch/arm/domain_build.c           | 139 ++++++++++++++++++++++++++
->> xen/arch/arm/include/asm/domain.h     |   1 +
->> xen/arch/arm/include/asm/setup.h      |   1 +
->> xen/arch/arm/setup.c                  |   2 +
->> 5 files changed, 204 insertions(+), 1 deletion(-)
-> 
-> I am waiting for a review for this patch and the next patch in the series before
-> I send the next version. Sending this email as a gentle reminder.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-I wasn't planning to review this patch and the next one yet because this 
-looks mostly parsing. I think this is more important to get patch #1-#6 
-correct first.
 
-Cheers,
+Not pushing.
 
--- 
-Julien Grall
+------------------------------------------------------------
+commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:09 2022 +0800
+
+    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
+    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
+    AHCI mode.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit 86757f0b4750f672f346d955f89e5b76430ba6b4
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:08 2022 +0800
+
+    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
+    to provide a way of accessing PCI devices to drvice drivers such as
+    NvmExpressPei or AhciPei.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
 
