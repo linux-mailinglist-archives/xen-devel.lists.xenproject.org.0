@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73CA258B0D9
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 22:32:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.381504.616225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A39D58B10C
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 23:18:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.381516.616239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oK3y6-0003EH-Hp; Fri, 05 Aug 2022 20:30:50 +0000
+	id 1oK4hb-0007ZY-5e; Fri, 05 Aug 2022 21:17:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 381504.616225; Fri, 05 Aug 2022 20:30:50 +0000
+Received: by outflank-mailman (output) from mailman id 381516.616239; Fri, 05 Aug 2022 21:17:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oK3y6-0003As-Ej; Fri, 05 Aug 2022 20:30:50 +0000
-Received: by outflank-mailman (input) for mailman id 381504;
- Fri, 05 Aug 2022 20:30:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oK3y5-0003Ai-JJ; Fri, 05 Aug 2022 20:30:49 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oK3y5-0001OU-Gm; Fri, 05 Aug 2022 20:30:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oK3y5-0001N4-5F; Fri, 05 Aug 2022 20:30:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oK3y5-0005Oe-4r; Fri, 05 Aug 2022 20:30:49 +0000
+	id 1oK4hb-0007XV-2N; Fri, 05 Aug 2022 21:17:51 +0000
+Received: by outflank-mailman (input) for mailman id 381516;
+ Fri, 05 Aug 2022 21:17:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gvBN=YJ=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1oK4ha-0007XM-4H
+ for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 21:17:50 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e8f1f67-1504-11ed-924f-1f966e50362f;
+ Fri, 05 Aug 2022 23:17:49 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id l22so4517656wrz.7
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Aug 2022 14:17:48 -0700 (PDT)
+Received: from uni.. ([2a02:587:ac1d:6c00:cdd9:ab5d:6d5c:1538])
+ by smtp.googlemail.com with ESMTPSA id
+ z9-20020a5d4d09000000b0021dd08ad8d7sm4833347wrt.46.2022.08.05.14.17.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Aug 2022 14:17:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,116 +44,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=A0n/PrQnJe2w2GYN+vk94PriFzbkprnzUZ48uaX5PbI=; b=eb7zJSYkt684pBzPM4jgeJOKct
-	QCuyKob9dFBhsxesxaFAL87INYhUqC6wJWZF4fUy/KEh//qOPyOrchsUG5rkMcpY47R7nN2IvE4eA
-	FDVWA3iLdWFMM2qNHhud8jCWtw6b0wCB8+xyvyO9rJ7IUO9Gp7BEk2eMPuTy8RehsMT4=;
+X-Inumbo-ID: 0e8f1f67-1504-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc;
+        bh=U9oyGo2xK9qn/v4CR94onuln5ETzoejF6L9XxhBXwCk=;
+        b=SvYg6n/dXePu4V843nj8d+0plQBewKILIQRL9YqL4D2PagYiNyVRDIT+9Y4Qt/9Tk7
+         jJapaJ5QaFv1kGdqex8KjhtrJjLpP4LVEMcQoUzIroqGA7Dib2uzoxqDsnbDdxEbmNUB
+         gVGjeOkA/J67DRPwArl47AnlNjdYx4avP53T2otn6ZRcSZC5E8Zu2n0VTKj9hN58zlCJ
+         0mW4BKamJHF/KrdmN5a1wR+aC/4b5Hnn4tF//1Gk6YPURxyK7FeW8MUigmVfBLgxsyFe
+         vw/GdtiZAesKQjq7qS45OOMuyTT1E33lwBuJ711pWx0NPRja22HeT+PwrY0ww3ZbGA53
+         V8nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc;
+        bh=U9oyGo2xK9qn/v4CR94onuln5ETzoejF6L9XxhBXwCk=;
+        b=MO93t8C1Y8LhO4WE4/QuCxUEtf4K+ulCp2FJxzkrFuj0jy/EABPqAPEA22SRHTLwtH
+         e0opn2XTqpS5CmJFj2mVx/i6aWsiyX3ScLTEGI8L6HxyZ0vSByqzD4LKkSmVv9JhaDNA
+         CNuc7SFKRmHaCqCFWKIVItcNqNShYdAPlr8JW08Ava30fo39LrCjmCpgQPCvw/oM8pkB
+         j3kYM+8Whw4TOOGHMyi06vnYmk3Dbp8u6te/wbIX2Owbid9t9+Zh1l3zo0EhnOr2LaM2
+         nQGdkgdyYVEGOrSDkcjABco/mfnz0bHCInICA/3hBRiVJ9lscN9wmboRilJLvj9QhzXI
+         a/Iw==
+X-Gm-Message-State: ACgBeo26hQMq6xtFx5nCcy8nl5ApHtS9aLu+3Lj1eToVF/YHLvdAJTlu
+	pPaw7QQ/zqoqjItUp9Z5XidT+kiv2xk=
+X-Google-Smtp-Source: AA6agR45mHKoEUaKa85DtqrmuKxottTAYeYU3g1NT4+XIaDZT5xE+LfO6Qq22kBmwcTwyvXzyVTc9A==
+X-Received: by 2002:a5d:4345:0:b0:21a:3b82:ad57 with SMTP id u5-20020a5d4345000000b0021a3b82ad57mr5398632wrr.176.1659734268172;
+        Fri, 05 Aug 2022 14:17:48 -0700 (PDT)
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172198-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 0/2] automation: Test a pv network interface under dom0less enhanced
+Date: Sat,  6 Aug 2022 00:17:39 +0300
+Message-Id: <20220805211741.1869068-1-burzalodowa@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [ovmf test] 172198: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=a8f59e2eb44199040d2e1f747a6d950a25ed0984
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 05 Aug 2022 20:30:49 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 172198 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172198/
+Xenia Ragiadakou (2):
+  automation: qemu-smoke-arm64: Use kernel 5.19
+  automation: qemu-smoke-arm64: Run ping test over a pv network
+    interface
 
-Regressions :-(
+ automation/gitlab-ci/build.yaml               | 11 +++++
+ automation/gitlab-ci/test.yaml                | 10 +++--
+ automation/scripts/qemu-smoke-arm64.sh        | 43 +++++++++++++++++--
+ .../kernel/5.19-arm64v8.dockerfile            | 37 ++++++++++++++++
+ 4 files changed, 93 insertions(+), 8 deletions(-)
+ create mode 100644 automation/tests-artifacts/kernel/5.19-arm64v8.dockerfile
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+-- 
+2.34.1
 
-version targeted for testing:
- ovmf                 a8f59e2eb44199040d2e1f747a6d950a25ed0984
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
-
-Last test of basis   172136  2022-08-04 06:43:42 Z    1 days
-Testing same since   172151  2022-08-05 02:40:28 Z    0 days    7 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
-Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
-Date:   Tue Aug 2 01:00:09 2022 +0800
-
-    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
-    
-    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
-    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
-    AHCI mode.
-    
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
-
-commit 86757f0b4750f672f346d955f89e5b76430ba6b4
-Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
-Date:   Tue Aug 2 01:00:08 2022 +0800
-
-    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
-    
-    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
-    to provide a way of accessing PCI devices to drvice drivers such as
-    NvmExpressPei or AhciPei.
-    
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
 
