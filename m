@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A52F58AA89
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 14:11:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.381113.615648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FF8558AA8E
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 14:11:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.381119.615657 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJwAC-0007fO-AT; Fri, 05 Aug 2022 12:10:48 +0000
+	id 1oJwAi-00087e-J0; Fri, 05 Aug 2022 12:11:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 381113.615648; Fri, 05 Aug 2022 12:10:48 +0000
+Received: by outflank-mailman (output) from mailman id 381119.615657; Fri, 05 Aug 2022 12:11:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJwAC-0007bw-7B; Fri, 05 Aug 2022 12:10:48 +0000
-Received: by outflank-mailman (input) for mailman id 381113;
- Fri, 05 Aug 2022 12:10:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oJwAi-00085h-Fq; Fri, 05 Aug 2022 12:11:20 +0000
+Received: by outflank-mailman (input) for mailman id 381119;
+ Fri, 05 Aug 2022 12:11:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eACj=YJ=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
- id 1oJwAA-0007bq-R7
- for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 12:10:46 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2059.outbound.protection.outlook.com [40.107.93.59])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a172a5c9-14b7-11ed-bd2e-47488cf2e6aa;
- Fri, 05 Aug 2022 14:10:45 +0200 (CEST)
-Received: from MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
- by BN7PR12MB2676.namprd12.prod.outlook.com (2603:10b6:408:2d::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16; Fri, 5 Aug
- 2022 12:10:42 +0000
-Received: from MN2PR12MB4192.namprd12.prod.outlook.com
- ([fe80::1a7:7daa:9230:1372]) by MN2PR12MB4192.namprd12.prod.outlook.com
- ([fe80::1a7:7daa:9230:1372%7]) with mapi id 15.20.5504.016; Fri, 5 Aug 2022
- 12:10:42 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oJwAh-00085R-Dl; Fri, 05 Aug 2022 12:11:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oJwAh-0007JI-Cu; Fri, 05 Aug 2022 12:11:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oJwAh-0000YP-4a; Fri, 05 Aug 2022 12:11:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oJwAh-0001b6-46; Fri, 05 Aug 2022 12:11:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,133 +42,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a172a5c9-14b7-11ed-bd2e-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kh7Ue+MJvGMREL2MiPtXKas+SAYp77rsPhWFNPhF181kq4erhOLdILSC4xUvPhLRyRGIFvEymLuHHCMXjK1NVRy6UjatCh5DPvBz0lFjf1AXMOm4vjC/tnJRdPVgksVDVulMqvFmPPMI4yGzdiz2ozqb7WmtkraNX9rxYDrhFGl8ajw6logtnC9aA6BWeBefaSpEahuFi4hHiUjwFZMRfpsa9ZUNfgSFAx4xPMntsiUtnJqpGpjZ7WaLHtsGVqV8qv7VQ4jYpBwcofd5RpAWkH/TAnlyp3vmar1kFzJjuEjRAONXZRlvsunBrleAMoiaXC4TLDMtQ2ej6Jcel19pZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9xxeV8rR278VqMcf3mIZ8bLAT4CFg7jhy+Oi9B4XdAM=;
- b=Tppk4QN1wkt4mSwe8rGOwh+Nig5+wlwI49BGOAk4YhVlUoU67fJdb+ZdoU7Twwt8U/G+yrxL8F/ps90NbuQS2FMCY+GQE6vF4gEapi96sDQA89JJn3jXFepvTlSoNQo6BjY5clnUbg5HHVpJofV5ytoT+OLoU9hyEswP+uUiPKmMkOh+9S2L1Cd61jfOWSbi9dpxBwFwYKUkuQ4qBb0K/JHZEJgN8I8aGANoAdwOXf3HjSF5YKa0aX+ncuD8tYfQh1vGsfxhUlJkpeTXq5OP+049t/iW8O/zylaZJ9eA7J2h7a7VSKDQ/zSfn51Y90Q6zoBq/kbHDJpCY0zXSjmWnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9xxeV8rR278VqMcf3mIZ8bLAT4CFg7jhy+Oi9B4XdAM=;
- b=ohPAArF8s3Pc3VCcZ9pAtmuOTkCTbCCe7dSw8Fb+HPVxOE8BLm6w4W8Evjk06+5wRCnKcTe2WfMRpMNCTyFBRRngpdoUt09qPxoYB+Umbq0/nhQnDma7u5PLa5FoO0cC+xckM3Z6WJ8QuWQuPeRlpt8HcsG03pbSC0B7BkuPIGn+BngURXIgmRiSrvZZKr0J1vW773Sqwz0R93Cte/opg7ouH0tChsJSaqqtfiMwShNlvCseB8KW8+FwaqE0WCRzVDjp+b7Wu9mMidwsX+17zwCnVhvBqxhoHv28/qulPTVlwrL7nxtbk4X2eP8rbMb7FMqwEGjHtrVsyDC8e7zbVg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Date: Fri, 5 Aug 2022 09:10:41 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Josef Johansson <josef@oderland.se>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, linux-pci@vger.kernel.org,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2] PCI/MSI: Correct use of can_mask in msi_add_msi_desc()
-Message-ID: <Yu0IwZXyTIhdALMb@nvidia.com>
-References: <d818f9c9-a432-213e-4152-eaff3b7da52e@oderland.se>
- <f1d3ebc5-0e5e-20b5-430c-9426aa5e4bbe@oderland.se>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f1d3ebc5-0e5e-20b5-430c-9426aa5e4bbe@oderland.se>
-X-ClientProxiedBy: BL1PR13CA0282.namprd13.prod.outlook.com
- (2603:10b6:208:2bc::17) To MN2PR12MB4192.namprd12.prod.outlook.com
- (2603:10b6:208:1d5::15)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=wTjeiZMPhAiHPEvv9lHmGvWH/GKTeXi1pRo+Ezv+3Eo=; b=i3+YGM//Gr8S+5usG19cGSnBqU
+	Lwot3yuwLnlYD4eb6lQaRswuKorajG/3SNK0TPWFe+s4u6y5gQsHVWOUeKQpICB7V1SmX6ubH6F4j
+	V2FMeKNEFuRrzEfz3TTOYTIKOy6/2QD8aQI9f8kk+uNNiIPCEvgZ9BTMXwBuR6EbqZCc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172170-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: afdaee0a-f265-4bd7-b749-08da76db848b
-X-MS-TrafficTypeDiagnostic: BN7PR12MB2676:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Z/ZYL9xAGYkhlwftTK0ifDVhB7op4XjzUWiujDGOpgIfgQRJBixPrruv9jedOjn+DUTYPVkUNWcKeUXjW9lvsjb80M+ZLgYMCJTvcJocnP02IX7N5OQno0CromeAM1YVTT2cppfNAKQm6njZXy6HBZAxnSVw2RrKTi+bd+QzZDZwxmebBqpBHrrin4DUhOmBLmu/s4L9HPjloqizym5o8BW3XgEw7fh2T4fzQajCbhPn/CN+ebhtEOwx4D1Xlys829a/02cS9a9YZ4EeXk8wCxLnfnqlMqvVIL5Sja0+/X+8NSdOq1H54YLvyyRmC+MC7ZdNik0n7A+ZCE1JKvDvUj7RgZGPHwReFjHiPN5y9i1pmRHP7PUYR5WxY1bZePvXvbM5mg98hvoEKl5xKbfcNQ7JBnQAAHrjtMGCB+eVc8/BFTK7jOiOwvyNEIhhZtW5UaEqHVaLj2dAdUo/882mj136b7si34i+dGPokGE35SKM6N6I9hXfBeSLkuvZCncRF6OImSPQGnJ/TlXOyfRsSCDXhU/j3WB4GOf00IlSn+9AvBtLOHZwZt/r6S0+6T0Y3kMiMJO/cBNZA+3wZDNHf/qg8SComgQ6jUOzeAhKfe+TRAvFlT9V/hkuRTbxyeKIyvyb4HBhmAOXW7UUHsboMkVv/8J4Lw8/YUYWZvDeFAP8QXRm+vmQWBGuMB9H1bxhMbv8Lhe6n2a51n6ZNXQU64JEF+Z+ox8VmP/HO6lsaMdpsvs0jnYtze7XfiJuPMKC
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB4192.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(396003)(39860400002)(366004)(346002)(376002)(136003)(2906002)(83380400001)(38100700002)(110136005)(6486002)(8676002)(66476007)(4326008)(66946007)(66556008)(54906003)(316002)(478600001)(2616005)(186003)(41300700001)(5660300002)(6512007)(6506007)(26005)(53546011)(8936002)(36756003)(86362001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VGgwgg62OJ23hNDSV0Aw3rnMkOGNyck/QKz1/1gbN+JxghvbGwv6nAWCj7T6?=
- =?us-ascii?Q?o0JHGTDaH+hnsG8yi66ES4IL0mkgxqCrfUFMS5Uf4j4+/WHkGwqV9HnZj8XY?=
- =?us-ascii?Q?2uIE0N8RoZpyWDbf06rtDinXCDyU9Zt2LhNuOHaC0ZghfZY4F+K65Wgu6MNX?=
- =?us-ascii?Q?V1opUK+5nvd2fu1Hs/wQwwQzi8zpZvqbl4ZM9TKoCvHnFPnD8HS4ZAvElOjC?=
- =?us-ascii?Q?2cD8wuFYoyJnDSmO7vj43KQznN9PuLJRUHbOuxhTHvDQA95oP0qKXhjc8av6?=
- =?us-ascii?Q?0qHlA5+NrgUv+/yxzirRvHaavxIYuTP2M8tYixjewrnO5GAipStI4up59Pd/?=
- =?us-ascii?Q?A5tRVGUMlnBY6Swo/LnMz3vbVpDew+6gxyq54azrXv0coK0Fd8toVt7c2nHG?=
- =?us-ascii?Q?8dl1wpiylGgr1PWTloxxjJOhugrXxUNYhZq1Rg0gbLnKxV7ZPPEmFlKjpHk4?=
- =?us-ascii?Q?w4qAsCc4QdYTXI3jBHyB173TCvVHqUF2+ZQthYzNhNYqkwVsObF5iSgZNrar?=
- =?us-ascii?Q?cppY59uWAa2YBPxh0orturx4qVyHz+5rysegmn6BUBnqVyWceXgKBCKncZiD?=
- =?us-ascii?Q?T12rOk+jpokjs1Ufi3x6pRMP9EltPnbUHk1EIBoapH+LwrtghEK4zvR0/Xrs?=
- =?us-ascii?Q?jAo4BPFM+w2j4K1y161RngOBUOcldgFkbwKkrIn0+95OGtS4ImxIvThRScYf?=
- =?us-ascii?Q?ZBUhQCBQpDW/AOF2E9GUOKzJ0V8yxC1zx1ttHwgzwam6bRDCyk4sEGIyhrsC?=
- =?us-ascii?Q?k9oJnsFMaSpIrNQA5RIXuRlwY1LqW9NqV7RavaAuOGqLuwTRulP1sp+5T/A4?=
- =?us-ascii?Q?wCBXnumIzJLe3OBxvhsj9dP/2GCO9ZHSJE83KOExGOetBXDYn+sVahUgdpug?=
- =?us-ascii?Q?usN8kqGx7OuhKQ40EbRXDldQLOeyuyuWBpzqlGNUJy44wsMHN3xF6/zMpsOY?=
- =?us-ascii?Q?rCiajsQRz1/ndenQL6NvojSl8u2/pbij46DrOIWvzCuMiTGnKLpJCa42mFY9?=
- =?us-ascii?Q?vvcSWxd4GEukb3XcP8sk+XhzEL38dt/9FvmvVSCdwS0DRm4dA3LdXrSy6O7J?=
- =?us-ascii?Q?2FvlvwrZh8nCqUOt6n63Ytmos5Vm3KdTAdIP/9XQDre39Qy895AOxiAm7eCn?=
- =?us-ascii?Q?oGre5gYvsYUUXrEuqPA3FZ2G+MUX+TOOCpzSCTSSakeHtTnC6BMGdVkar8ww?=
- =?us-ascii?Q?jaxH2vmFAOGaDgQ47h+aMvc61O8o6dOonRdXAIPpkoDD/7/HbCnxjhVTfaWw?=
- =?us-ascii?Q?wIpe2EDZJ/fLJbMef6DlHLq8G2jXt2iTH0wog0/ZHhDoM0owJjSLzwO+5h4P?=
- =?us-ascii?Q?CoIY+UWb/iNRLkSOLm6nUYsYDkNo7MlCv/YeqTFniEMsAz4/za4M2p80/9Pt?=
- =?us-ascii?Q?i7vlbfHGZfD1OvZopmGflQUuSxyM1LKS1wUf7THDpNgEYMNtD7CLCH/vm1hd?=
- =?us-ascii?Q?yX98dteGwXkFkkNSSBw6Lulw8clVGEoKSjv8UNWiQszYfLznLfdJYKQ1TIlg?=
- =?us-ascii?Q?UACV7oT0C227KsQxrz5L+nXuUg3fn/K3ExM5Z5KL3InvEhyNLIpQp95vWhCF?=
- =?us-ascii?Q?99SmlKH4n+zHdD5R3VHDLK5KY1n6WKFuQZvANujw?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afdaee0a-f265-4bd7-b749-08da76db848b
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4192.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2022 12:10:42.1416
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rDCa341oS1udUlYEgJR16KRnAwek0Hf8+0R/6mfpfWCq3DIikXCfeZKySxscZVSG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2676
+Subject: [ovmf test] 172170: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=a8f59e2eb44199040d2e1f747a6d950a25ed0984
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 05 Aug 2022 12:11:19 +0000
 
-On Fri, Aug 05, 2022 at 12:03:15PM +0200, Josef Johansson wrote:
-> On 2/14/22 11:07, Josef Johansson wrote:
-> > From: Josef Johansson <josef@oderland.se>
-> > 
-> > PCI/MSI: Correct use of can_mask in msi_add_msi_desc()
-> > Commit 71020a3c0dff4 ("PCI/MSI: Use msi_add_msi_desc()") modifies
-> > the logic of checking msi_attrib.can_mask, without any reason.
-> > This commits restores that logic.
-> >
-> > Fixes: 71020a3c0dff4 ("PCI/MSI: Use msi_add_msi_desc()")
-> > Signed-off-by: Josef Johansson <josef@oderland.se>
-> > 
-> > ---
-> > v2: Changing subject line to fit earlier commits.
-> > 
-> > Trying to fix a NULL BUG in the NVMe MSIX implementation I stumbled upon this code,
-> > which ironically was what my last MSI patch resulted into.
-> > 
-> > I don't see any reason why this logic was change, and it did not break anything
-> > correcting the logic.
-> > 
-> > CC xen-devel since it very much relates to Xen kernel (via pci_msi_ignore_mask).
-> > ---
-> > 
-> > diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-> > index c19c7ca58186..146e7b9a01cc 100644
-> > --- a/drivers/pci/msi/msi.c
-> > +++ b/drivers/pci/msi/msi.c
-> > @@ -526,7 +526,7 @@ static int msix_setup_msi_descs(struct pci_dev *dev, void __iomem *base,
-> >   		desc.pci.msi_attrib.can_mask = !pci_msi_ignore_mask &&
-> >   					       !desc.pci.msi_attrib.is_virtual;
-> > -		if (!desc.pci.msi_attrib.can_mask) {
-> > +		if (desc.pci.msi_attrib.can_mask) {
-> >   			addr = pci_msix_desc_addr(&desc);
-> >   			desc.pci.msix_ctrl = readl(addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
-> >   		}
-> > 
+flight 172170 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172170/
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Regressions :-(
 
-Bjorn, please take it?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
 
-Jason
+version targeted for testing:
+ ovmf                 a8f59e2eb44199040d2e1f747a6d950a25ed0984
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z    1 days
+Testing same since   172151  2022-08-05 02:40:28 Z    0 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:09 2022 +0800
+
+    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
+    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
+    AHCI mode.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit 86757f0b4750f672f346d955f89e5b76430ba6b4
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:08 2022 +0800
+
+    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
+    to provide a way of accessing PCI devices to drvice drivers such as
+    NvmExpressPei or AhciPei.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
 
