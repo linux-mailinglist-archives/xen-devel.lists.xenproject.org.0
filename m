@@ -2,36 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 717F658AB6A
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 15:12:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.381235.615832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D2A58AB6F
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 15:13:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.381240.615843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJx7Z-0005Lk-1U; Fri, 05 Aug 2022 13:12:09 +0000
+	id 1oJx8j-0005u5-D5; Fri, 05 Aug 2022 13:13:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 381235.615832; Fri, 05 Aug 2022 13:12:09 +0000
+Received: by outflank-mailman (output) from mailman id 381240.615843; Fri, 05 Aug 2022 13:13:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJx7Y-0005Ir-Uw; Fri, 05 Aug 2022 13:12:08 +0000
-Received: by outflank-mailman (input) for mailman id 381235;
- Fri, 05 Aug 2022 13:12:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oJx8j-0005qq-A9; Fri, 05 Aug 2022 13:13:21 +0000
+Received: by outflank-mailman (input) for mailman id 381240;
+ Fri, 05 Aug 2022 13:13:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3gIk=YJ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1oJx7X-0005Il-NG
- for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 13:12:07 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33a40cd9-14c0-11ed-bd2e-47488cf2e6aa;
- Fri, 05 Aug 2022 15:12:06 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 18C8932008C3;
- Fri,  5 Aug 2022 09:12:03 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 05 Aug 2022 09:12:03 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Aug 2022 09:12:00 -0400 (EDT)
+ <SRS0=LiuH=YJ=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1oJx8i-0005qb-69
+ for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 13:13:20 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80087.outbound.protection.outlook.com [40.107.8.87])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5f657930-14c0-11ed-924f-1f966e50362f;
+ Fri, 05 Aug 2022 15:13:19 +0200 (CEST)
+Received: from AS9P194CA0024.EURP194.PROD.OUTLOOK.COM (2603:10a6:20b:46d::29)
+ by AM0PR08MB5362.eurprd08.prod.outlook.com (2603:10a6:208:180::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Fri, 5 Aug
+ 2022 13:13:06 +0000
+Received: from AM5EUR03FT015.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:46d:cafe::fa) by AS9P194CA0024.outlook.office365.com
+ (2603:10a6:20b:46d::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14 via Frontend
+ Transport; Fri, 5 Aug 2022 13:13:06 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT015.mail.protection.outlook.com (10.152.16.132) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5504.16 via Frontend Transport; Fri, 5 Aug 2022 13:13:06 +0000
+Received: ("Tessian outbound fa99bf31ee7d:v123");
+ Fri, 05 Aug 2022 13:13:06 +0000
+Received: from 6780071df1f6.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 0254D989-E64A-4029-880B-FA48708B5A45.1; 
+ Fri, 05 Aug 2022 13:12:54 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 6780071df1f6.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 05 Aug 2022 13:12:54 +0000
+Received: from AM0PR08MB3809.eurprd08.prod.outlook.com (2603:10a6:208:103::16)
+ by GV1PR08MB8473.eurprd08.prod.outlook.com (2603:10a6:150:81::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.16; Fri, 5 Aug
+ 2022 13:12:52 +0000
+Received: from AM0PR08MB3809.eurprd08.prod.outlook.com
+ ([fe80::4ca:af1b:4380:abf9]) by AM0PR08MB3809.eurprd08.prod.outlook.com
+ ([fe80::4ca:af1b:4380:abf9%5]) with mapi id 15.20.5504.014; Fri, 5 Aug 2022
+ 13:12:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,130 +71,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33a40cd9-14c0-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1659705122; x=
-	1659791522; bh=bx1uynbDvPEOaeRQsheEo3fUrtNzutH+a0nifpI6Ek8=; b=c
-	L10tn/4ozEbYqxYqysVsNPofRDrtlbPvFPVeVScvsDYADR7WtHb73DPTQNERrdJs
-	PQoTvRTRQS77WHS6yvzulWJBs4SS3RPz/p1CvzUxDRbA+WFjvdC6Dw0R6ByBnAh+
-	TX4PJGCgcYACEnDY7N6L3Lr+57EEs6SvhU692TUiLCPENvuInT3cZu110WIcCHRs
-	ed6Fj7xqCMmNtgxMu6kp17phth74HggQ1e2FocHARCfw4fUm+vULqC2kH6/eH0eY
-	Ktb0oaTmSilkcyPGiJ6nxDc/XZz/d3S+m1e0lHVarvp/R+EE1N+4px+stb5ooD7G
-	UjhXw7PvcMLEe0KdYMjNA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1659705122; x=1659791522; bh=bx1uynbDvPEOaeRQsheEo3fUrtNz
-	utH+a0nifpI6Ek8=; b=SsQ6M7QJuHGHcukY3mKWHUW6VvohsxO+UzEuCIc4WULW
-	W+BBnFsq1qLTTPONldMSQcCFRj23LCxZALLZN3mWCn3nmYqm8UkWw0ZxS97QdWQU
-	aCLT4do8gzSlJcxVxTK/bZOxqTFQTYoz+8Z5Ept7mZFgiggO6arHoJzhMyuWGWl2
-	dr9QOu90aAZtFBYg6HgjrLwWn7NKmk0QtaAsVQ19iDjdUXcfMQYyyZOhwtx5wKi/
-	+9gb+1ETTT3OWTol6lLtb6TjTLsYCH5s9K7GjNs3LBTVuRcz4Ev867NXC7HN7Z+A
-	JZvlY7gz6Dsf7J0Uok1biUOTtiFXL+AY4WqpHWDMtw==
-X-ME-Sender: <xms:IRftYk-s9glKhaJLMnr14lGA795QYqrTReVwABz1BtNudkUw0hQbEA>
-    <xme:IRftYstzoH8KPIsaZ4Q7ftBLU6BLrJv50efJ_bRDkIxHcW6CeT1svWyoe2_1QZTaq
-    Ae40m6AvTW5qQ>
-X-ME-Received: <xmr:IRftYqAH3j_zglcNbcE9MXlPgwm_yym44uFn2v3iyJO1EEPO1ln5mWqnAi8WvFL59yxre_VhcDMFsVWb9P8W--8ARyX4zdYs3Ohn>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdefuddgieegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:IRftYkdrxrhGcFUrdYC7mLhmrOqtCXUY6akdjwBlZka7RdibEH7_gQ>
-    <xmx:IRftYpM7laRMUhh5K6RXhYTeoDl6gnhiMahex7kOvgyqLN7ASqbkyQ>
-    <xmx:IRftYukLew3UG70nD1tFTCuIa8lDUDI2F88A0Klv2lli9gywlC9ekA>
-    <xmx:IhftYurksyIvl7Rqevggqo25ynQWwsMEW1Ckc5sqcXswq9lG_fma6g>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 5 Aug 2022 15:11:57 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 04/10] console: support multiple serial console
- simultaneously
-Message-ID: <Yu0XHUhsebE+WG0g@mail-itl>
-References: <cover.981658add2114d2558989cedba5877aa8b82d8a4.1658804819.git-series.marmarek@invisiblethingslab.com>
- <14411aa674b61d22d9626a3455206454793b6a37.1658804819.git-series.marmarek@invisiblethingslab.com>
- <48ec7c43-d9cc-e6da-dd06-1119d5a909e1@suse.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="iL6KS72HvcTwiigy"
-Content-Disposition: inline
-In-Reply-To: <48ec7c43-d9cc-e6da-dd06-1119d5a909e1@suse.com>
-
-
---iL6KS72HvcTwiigy
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 5f657930-14c0-11ed-924f-1f966e50362f
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=A6lX5AdE1sH5dm4pCnzQiI7UAjmoe8EgJlepyfCqwW1Xsf7+kTOcK+voBTjmVSF2m6M+40ASh06bHA4b5ob0U90dK4YjmC70eSrLTNoa6RVRlRsIW3VHrAeX5FWFw9mUUAljFB7f6glzknmmPhaRF2h26G5RoqhOtamPiRb6sSdoAk42QPb4B2rGXw2lpoANqo1mP0UtYTmj7iXBco2xo1OdjUZpVkN8gmXhB36c3zdTFU81/oaFRj4Es6Cl6gQOmxnyfCkuuNjiGchu3v+AJoSfdaIcIT+dw5/HnkPmsQjO/Jv1l+09ExWYvsddpi/pw6vsKjC363WHM4Jmvnfqjw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MZlSKummqDwyA7XSeCEvJAjoFOPoUHXJcN868r8iNcY=;
+ b=RKnW1sC97J0OanPGQ4qprJK9a5y0jWlMD9I5LiuyS0c4JX9LQtkVE42E3EtrXxos4xBZbjmQdmMDdKMskBwiNmC517ledFlWrduSuDZBwnYKu1soZsYHmNX/eu49dAdbKfkBg1uubMgJouBxPcv3BZaAskU+yQ26IPOnwXZqtW+jlOfGHjdWfq0BQLcLpcRH02utb00nZ+ydqvTcjU/ufIr9hnkg2k7t8Qjq0gvTRV+BXvF2AIAZMP6qzp/GjgeJRxq/pV+3MUJrbPszg+mM/l57jI5CVQCLHmGW5TmEWe/6BXwfSpNP0LpdwOfeaf6sZGKk00TjZtedAT9c5zqyoQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MZlSKummqDwyA7XSeCEvJAjoFOPoUHXJcN868r8iNcY=;
+ b=mNarN6+umvPffiILeCxxRzcdtDO0yNXElXJ9oF1udVDoHedZRhE0vqdUjdihVRx7bNz53jS5GqOeEv96p61xRGNC+CSFhOvp+O3366p8dedc9kk3kuLREMhC5cqA2PWAUC8W/i3xzL4Eb+QC+ZAQ7kMpOv+bQj6GSbRTBp70Wno=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: db805199d11b63d7
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gRfJtSgh7DCh7K2+1KAE7utDGA1YBrNR/WgqT7HlCuPdCUCVwrEZrZ25Rp34lxIKls4ayfb3frAWezlLnN07HAvflzWHcI803nONPl/x7yDkssrVWp375RvSORIt2OdYW5WPkMQ4O4KkUeM92JdXWtuu7iBbqFU0ekKioATYa9rF3A7lRr55/PWO+N9RMUMAcyh1l7fXQLRRYSnwoOC4+IZ35zhVLzKeas6mRqtyBcTYMeem5odeZSaN9nM3MFVrymnmT96Dpu5Nn98IxvG/f/fFEYiwqrMurZv92puba0Qdd96QUn+sHGdA3MHSXlmXiG3rYsIcNvjT8mtB8lQD8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MZlSKummqDwyA7XSeCEvJAjoFOPoUHXJcN868r8iNcY=;
+ b=Z92UR6A873UJhF/+ajwtuu3GNT37pmLu8kCgetj9AG3hR+K3//H5XfjjCsjQd+K/jsyn69TB35VoIqRIE1sbDfobQ/cDMs+S2qbmYjOGyeysodMrwszuWx7vZ3f/fLzo4owMR6iMCggjyVhHpiLH9RqeWJEr1j5sifxr2GmUJ2N/e+G4IHd4/NZZT3huGCR3q9+KmGXbyRvbT1s9eXXZOIRCGUggahtK/IIvEA7CM0MNN/k6h2/Cy4EBwpBsjfk9qg81HIjHjgymaIj57IIk3aJUMBrPiP6/5rFswxmMk3D6Dey3PlfGSzIwR2uhqipZk5Gi+IgYMxpZCG3vdQmHbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MZlSKummqDwyA7XSeCEvJAjoFOPoUHXJcN868r8iNcY=;
+ b=mNarN6+umvPffiILeCxxRzcdtDO0yNXElXJ9oF1udVDoHedZRhE0vqdUjdihVRx7bNz53jS5GqOeEv96p61xRGNC+CSFhOvp+O3366p8dedc9kk3kuLREMhC5cqA2PWAUC8W/i3xzL4Eb+QC+ZAQ7kMpOv+bQj6GSbRTBp70Wno=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Xen development discussion <xen-devel@lists.xenproject.org>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] arm/domain: fix comment for arch_set_info_guest
+Thread-Topic: [PATCH] arm/domain: fix comment for arch_set_info_guest
+Thread-Index: AQHYqMxj+SsCb6WfSkeThh/1USfbDq2gSIcA
+Date: Fri, 5 Aug 2022 13:12:50 +0000
+Message-ID: <7ED079C7-4A8A-45EF-8DC7-539D338F8535@arm.com>
+References: <20220805130800.16387-1-luca.fancellu@arm.com>
+In-Reply-To: <20220805130800.16387-1-luca.fancellu@arm.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: bfc08538-26c8-490e-ab7f-08da76e43c6e
+x-ms-traffictypediagnostic:
+	GV1PR08MB8473:EE_|AM5EUR03FT015:EE_|AM0PR08MB5362:EE_
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ LhVKvsjkGdK5FCTWgJUi50KXPD9TBUb2zClOrjS57FiXJt1W76Xl0klzmc2doLGpNnR+aKlDHQJ4EYmbkM5xaX2kNdUXg3MhX7cD/F6/aLNyzfLvJILU5wgG9mKMpz7ZmLDwPGLC+MCSDD4n9H3yn8h33Lw3l6X4q8w5R1NDrm3FJP56rHcrgoKYMprQuzejvlA78QE0US73O4txMiSkoBVfnGZzv08cJXUenjQ8DUte/pZD8CT2Dm8pNJ+w4mFaLGJZBENAawwB2It9Bhc2e7ZQnXvsdSgdMlElcTF0F8t9Fy45Nn2qSoYejFCCy/b39+XG21skRhKshfKXbg79OOyo9SokyAahzyAGnd+OIr2Q9KdhEN3w8AAgPjiKInuh+QbE4KvyhePJOiMW/LtbKg0x45QGYxHLPxk1x0DJ+LKCKPrfG8PgJPA4LpBhC9rYeYxdHl3nhFyP1455kXxb1UV0va5uQdzhZtGUwwBJvA/jwDSqALhJGFgbwFMwcUWYvFg+eomdOO8xQEJNZjYMWfNAkqQcC9FymexNGSlgIs63BLTQISi27uCZ48AyoAxWIDVRVZ8M9JXnnwgmpDRWaUgckC8BFhBIJGElUN+nqqb+SKtAw4/DvthAcDIApVKI4Uu2O0I8fatBsppiI+A8FdblZQbxFTiaA390QKwjMqPphw33p2NfMOpZ7ML/k3QwvB/dw6qeh5bFUsoksrhdblIsVcWTgw07iO+EkBm2D/7tms9i3sAaGg8q6MZ9AOC1+UI5NA7W32MmNPrJwL3SWFvR1umNI8xfoF6hlaFtV4SgPGMnOlvbFbgaxKJkmYFDnpGJt89pRul3YA9w8glBEA==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3809.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(39860400002)(346002)(396003)(376002)(136003)(366004)(2906002)(478600001)(8936002)(38100700002)(6506007)(6512007)(36756003)(26005)(53546011)(54906003)(6916009)(316002)(2616005)(91956017)(122000001)(4326008)(41300700001)(64756008)(76116006)(66556008)(66476007)(66446008)(66946007)(86362001)(8676002)(83380400001)(71200400001)(6486002)(38070700005)(5660300002)(186003)(33656002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <0B21AD160A45D04EA9FF183628EBA995@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 5 Aug 2022 15:11:57 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 04/10] console: support multiple serial console
- simultaneously
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB8473
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT015.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	bf4560da-c9ee-43bc-0bc4-08da76e43327
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	65OiH8Jo7EDztNaAC9ks4neNeu82+xafaDXHz33GV47ZzTOdxs9Npe2/5FDXkHtYATNYnfaWeCHNF6HAy9ScwI4Son3YEnqjI+KKOutVdcIMYq/sVufOgRobKlKxqMBiEdTk/IMlZki9GU3MP1Ngty3iUrtmZCZJegqiwJSPSyQUlGVlcXHi4wy1m6SZ4mRyiXB5EWdVGxMk4L8/KBPrN1iu7AKMvpvcSwUuSX8BFSrF7z5uokKE0vGV6f2Wg4RFZOGBCQCt2vGNrBWyiCMuakEtaga2ApvdTr01yi+En2nuy9kSeWTg1XH7/wXuLqnZCMBe+U6J9gmw3dSvJd+SfmWwTI9gRWR6oibdsAzNTMX736qyXgnOjrSd+BZtfWf3JXt5mHx2XV73853+vRnOCue+n1+S7V6j6LjOTpPQXw5j7wwM3UD7GcVK/fcodAYkqrt0CT8cps63z3SPj10qiuy5hFlVpl0ZxvJrAOQVxnMoJJ+JoWf9EAVYSxTsyzwTT1ho7A+Vzjw8Nmy4dkMf3nUhXRuF0OhsMBEBCsfgu8O/FxXJJRXHwbdWmXVAM3KwHexZgyxzam2FGAtP97cON9tJT/n8lG6BASavVck1JR56b9lAA9uQZvOfSCSTREqchliDWrNJXRHQWfxQwbfIvQN6Iof0wfQQuQAgddcHb1YKH3jZCYAomMRLPs+ntpagLJ6ByJn2SnrRdIry4J7Ws9rHNsDx584UvgHUGIAI1eY8H99zYf1WJWzjwiunQ/VHwx7qu2RWi8o70qbIZ9DasNIpp6EtF+TF5/qns7d77VauoyCLLh1qxpfvxIOuNJDk
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(136003)(376002)(346002)(39860400002)(396003)(46966006)(40470700004)(36840700001)(6486002)(8936002)(70586007)(70206006)(2616005)(8676002)(6916009)(54906003)(5660300002)(4326008)(53546011)(6506007)(41300700001)(6512007)(107886003)(26005)(2906002)(36756003)(47076005)(40460700003)(81166007)(83380400001)(186003)(86362001)(336012)(33656002)(356005)(36860700001)(40480700001)(316002)(478600001)(82310400005)(82740400003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2022 13:13:06.4228
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfc08538-26c8-490e-ab7f-08da76e43c6e
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT015.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5362
 
-On Fri, Aug 05, 2022 at 09:41:09AM +0200, Jan Beulich wrote:
-> On 26.07.2022 05:23, Marek Marczykowski-G=C3=B3recki wrote:
-> > Previously only one serial console was supported at the same time. Using
-> > console=3Dcom1,dbgp,vga silently ignored all but last serial console (in
-> > this case: only dbgp and vga were active).
-> >=20
-> > Fix this by storing not a single sercon_handle, but an array of them, up
-> > to MAX_SERCONS entries. The value of MAX_SERCONS can be chosen in
-> > kconfig, the default (4) is arbitrary, inspired by the number of
-> > SERHND_IDX values.
-> >=20
-> > Make console_steal() aware of multiple consoles too. It can now either
-> > steal output from specific console (for gdbstub), or from all of them at
-> > once (for console suspend).
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
+
+
+> On 5 Aug 2022, at 14:08, Luca Fancellu <luca.fancellu@arm.com> wrote:
 >=20
-> Actually I should have clarified yesterday that despite my effort to
-> review this change, I'm not convinced of its need. I simply don't see
-> the use case of having multiple serial consoles at a time, and afaict
-> console and gdb connection can already be run over different channels.
+> The function arch_set_info_guest is not reached anymore through
+> VCPUOP_initialise on arm, update the comment.
+>=20
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-I agree the usefulness is limited. I needed this only to debug the xhci
-console driver itself. But since I did this change already, I figured
-I'd share it as it might be useful for others in similar situation.
+Hi All,
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Sorry I forgot to put v2 in the tag.
 
---iL6KS72HvcTwiigy
-Content-Type: application/pgp-signature; name="signature.asc"
+Cheers,
+Luca
 
------BEGIN PGP SIGNATURE-----
+> ---
+> Changes in v2:
+> - rephrased comment to not list caller functions (Julien)
+> ---
+> xen/arch/arm/domain.c | 5 ++---
+> 1 file changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 2cd481979cf1..9db8a37a089c 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -885,9 +885,8 @@ static int is_guest_pv64_psr(uint64_t psr)
+> #endif
+>=20
+> /*
+> - * Initialise VCPU state. The context can be supplied by either the
+> - * toolstack (XEN_DOMCTL_setvcpucontext) or the guest
+> - * (VCPUOP_initialise) and therefore must be properly validated.
+> + * Initialise vCPU state. The context may be supplied by an external ent=
+ity, so
+> + * we need to validate it
+>  */
+> int arch_set_info_guest(
+>     struct vcpu *v, vcpu_guest_context_u c)
+> --=20
+> 2.17.1
+>=20
+>=20
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmLtFx0ACgkQ24/THMrX
-1ywCqwf+L8TOcTbsS9UtWNKvvaSbITWjqyXOg17F0oaWLNs+D2yPuJ2Blmk0/xw/
-3Rk1uGEkIr4SZnv0n2RwplAdh5JgJFA9xVQt+oiqJrui3Gsdzagou1Dpy3gWtEx4
-6VJd4xJZrXG/7gaDbsNkc/sAwMsWkwPgo7qgVktvFxKSK9hc2IAPr5YfSg4lEhQr
-ijblvXGnL4AdeRQpSxnIKxC3OVgVVmcbP5APUabnpdoEXelYmQcXGeCl5Xj824jV
-JowXGxNVb+nhsu1vnrElyn2uAKt344bRExsrdxH+/BaVAzuLOPVD3oIaa2XjEG9w
-/k4ukUc+Jg2kCV1fOjnSWPa5xiRe0w==
-=a7hR
------END PGP SIGNATURE-----
-
---iL6KS72HvcTwiigy--
 
