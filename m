@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 697FC58A93F
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 12:11:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.381011.615491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 226E058A98A
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Aug 2022 12:39:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.381022.615508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJuIZ-0006UQ-A7; Fri, 05 Aug 2022 10:11:19 +0000
+	id 1oJuj5-0000ih-K0; Fri, 05 Aug 2022 10:38:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 381011.615491; Fri, 05 Aug 2022 10:11:19 +0000
+Received: by outflank-mailman (output) from mailman id 381022.615508; Fri, 05 Aug 2022 10:38:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oJuIZ-0006Sh-6Y; Fri, 05 Aug 2022 10:11:19 +0000
-Received: by outflank-mailman (input) for mailman id 381011;
- Fri, 05 Aug 2022 10:11:18 +0000
+	id 1oJuj5-0000g9-GK; Fri, 05 Aug 2022 10:38:43 +0000
+Received: by outflank-mailman (input) for mailman id 381022;
+ Fri, 05 Aug 2022 10:38:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3gIk=YJ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1oJuIX-0006SI-RB
- for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 10:11:17 +0000
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f087ac16-14a6-11ed-bd2e-47488cf2e6aa;
- Fri, 05 Aug 2022 12:11:16 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id E0CC832004E7;
- Fri,  5 Aug 2022 06:11:13 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 05 Aug 2022 06:11:14 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Aug 2022 06:11:11 -0400 (EDT)
+ <SRS0=jIDu=YJ=citrix.com=prvs=2098568dc=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1oJuj3-0000g3-Os
+ for xen-devel@lists.xenproject.org; Fri, 05 Aug 2022 10:38:41 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c328a0d8-14aa-11ed-bd2e-47488cf2e6aa;
+ Fri, 05 Aug 2022 12:38:38 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,131 +36,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f087ac16-14a6-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1659694273; x=
-	1659780673; bh=2qhs46LUf3+Xtf/2JnW6tSAg63w3kOere6vPwuH6uqg=; b=h
-	MqGBRO/QV3qgCgN/6WOKDn3fp2XE2aj7Q17Kxz3Yiq9zg3oyNV/dIpuqpHrKzwRU
-	dPQ+hfypZByxn8gwl7p2oeLbmuA8Hx8YSK1A+U5b47ixiHKD6BaheuP8+mWat1no
-	3JrIj/VyC+0v9exc5fq2aheRNBPpJQ7wT0zHf2tpY80SebHjQNtpapUljsGB+EuH
-	o2U728nn2Pbk7Tp1jOBMqHY0ytZgZEt6ecPW8KBmk+NO0arsPgZe1B85e0VioF/R
-	nTWSfqSU0SEa8VxQfaGJYKrlc7zRFIlfykoTozWeokp5HdOCi1JisorV4UhG0GzQ
-	T5nyfxQjdoBcaxOmZHGOg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1659694273; x=1659780673; bh=2qhs46LUf3+Xtf/2JnW6tSAg63w3
-	kOere6vPwuH6uqg=; b=QwTKGQS6vLcfT2r66nXMC8rM02ZFi73dwC2hrjgY1FOQ
-	XMEfw8Nf8tV9Rbr4covcysCCiGVgC9eCjYCPKH81ZzSBxLc1MzG2p2DoM4sgikol
-	Z1hRNS6azwecgWXNc33BIbu4QcwR9HDhHBK1BnUeMvAY1g4IMdO0QiJoQTPxFEza
-	dKCRUWL7v7sMRAVY1rP9X8JXE1ljNSCsbar4hs0jnyoZI4H5N8a+139urcUNOJJC
-	BSG8FGXkyUvXh/ltm3gHWhy8pi+N6pUqNj8UnTmsF5VFW+fPA4jWfIL9aIZ5tB9W
-	shFEt710WKbjNLdcoBLDmL6CSuw9dE9fdrV0xWbaeQ==
-X-ME-Sender: <xms:wezsYua0WNMTz9IG83lyxSdAGUPK_3FGSKsSAX2uroisv_vJVjhZpg>
-    <xme:wezsYhbGSS_0tip1zEoSmIjPBytw_x0DDpD6G6R8ejjQz52i6ZCq0_KcAf1ZDtiml
-    T6eA8NRYtoW7A>
-X-ME-Received: <xmr:wezsYo9zCRL9MJH_pj5XMJ1PGDCzMZUpWsL4tThUr9Sab6j5Ohk7qMbetK7OdFiFEtu8hm05Xygf9pYPsFuAc1jJ1Texa_5uMUeA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdefuddgvdejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:wezsYgoakPqCnkW1uDCh9zAuJI2vfQdsoNPVdgTbOXx-sU0HAsz-Bw>
-    <xmx:wezsYprWOxDI-EFndDCjDMIOke2YDBe6_i0ojoY6vWWjOp7Uz9087A>
-    <xmx:wezsYuRXJ4-Gw214f83d_SQnZ5nu1ebdToNc9ZQVCXFMTY5cGi000Q>
-    <xmx:wezsYqm9_YibKDnjOk_xSFELwnXY5J4ehueVZXCYBPO3gMMiuuL2UQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 5 Aug 2022 12:11:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 08/10] drivers/char: mark DMA buffers as reserved for
- the XHCI
-Message-ID: <YuzsvMZdryi3GXhO@mail-itl>
-References: <cover.981658add2114d2558989cedba5877aa8b82d8a4.1658804819.git-series.marmarek@invisiblethingslab.com>
- <b35f5a68502352396cf6d95cc726bfdeb72639c9.1658804819.git-series.marmarek@invisiblethingslab.com>
- <6397ea86-7391-5044-8e8b-a3d291521028@suse.com>
+X-Inumbo-ID: c328a0d8-14aa-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1659695918;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=klcN6ihm9mZaX9/9wwugxzNwOZN9EgdYLIIdk4FSF+c=;
+  b=Y3APm8/oaZg9evdDihbVuEg5YO/TvvvF26k0pYeoticR80ZVluAhFqeL
+   KDy5rSXEQ8jnVS2ga+VfNGEIPzrZNjU9/kV6O4x433mxNUvhqf+P+Ghvp
+   BmwpbSLNJy/a3H1fc9dd5AH0YmdJM5ZPkaHcGQg8d7isyGELj5KMUC3/3
+   c=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 76698737
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:0SQsSqpLZgCy19daMwkFnUe1JTpeBmJ2ZRIvgKrLsJaIsI4StFCzt
+ garIBnVPv2LNzHwLdskbo2+/E8GvcXTztNkSwRppXoyFSJHpJuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefSAOKU5NfsYkhZXRVjRDoqlSVtkus4hp8AqdWiCkaGt
+ MiaT/f3YTdJ4BYpdDNPg06/gEk35q6q6GtE5gdWic1j5zcyqVFEVPrzGonpR5fIatE8NvK3Q
+ e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkEqShgJ+rQ6LJIhhXJ/0F1lqTzTJ
+ OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXWV+ACQqflO1q8iCAn3aMqUWvdZsO00Q0
+ sAyBzkuSBKR27u2wrOkH7wEasQLdKEHPasas3BkizrYEewnUdbIRKCiCd1whWlqwJoURLCHO
+ pRfOWEHgBfoOnWjPn8+Dp4kkfjurX74azBC83qepLYt4niVxwt0uFToGIWLJI3aGp4K9qqej
+ mLl+D/rGR8rCMeW73m/7i2U3MTivCyuDer+E5Xnr6U30TV/3Fc7Fxk+RVa95/6jhSaWefhSN
+ kgV8SoGtrUp+QqgSdyVdw21pjuIswARX/JUEvYm80edx6zM+QGbC2MYCDlbZ7QbWNQeHGJwk
+ AXTxpWwWGIp4Ob9pW+hGqm8o3SCIhI5c0g+TwANbi0H8YW6oIMykUeaJjp8K5JZnuEZCBmpn
+ W3b8nZj2OxP5SIY//7lpA6a2lpAsrCMF1dovVuPAwpJ+ysjPOaYi5qUBU83BBqqBKKQVRG/s
+ XcNgKByB8heXMjWxERhrAjgdYxFBspp0xWG2DaD57F7q1yQF4eLJOi8Gg1WKkZzKdojcjT0e
+ kLVsg45zMYNYSr0Nv8uMtPrV5VCIU3c+TPNBpjpgidmOMAtJGdrAgk0DaJv44wduBd1yvxuU
+ XtqWc2tEWwbGcxa8dZCfM9EiOdD7n1vmgvuqWXTlUvPPUy2OCHIEt/o8TKmMogE0U9ziF+Lr
+ IYObZbblk83vS+XSnC/zLP/5GsidRATba0aYeQNHgJfCmKKwF0cNsI=
+IronPort-HdrOrdr: A9a23:nhuvB64AF1GZ32zgCgPXwMTXdLJyesId70hD6qhwISY6TiX+rb
+ HIoB17726RtN9/YhEdcLy7VJVoIkmskKKdg7NhXotKNTOO0ADDQb2KhbGSpQEIcBeeygcy78
+ hdmtBFeb/NMWQ=
+X-IronPort-AV: E=Sophos;i="5.93,216,1654574400"; 
+   d="scan'208";a="76698737"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/spec-ctrl: Use IST RSB protection for !SVM systems
+Date: Fri, 5 Aug 2022 11:38:14 +0100
+Message-ID: <20220805103814.23032-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="H2BSgvvACpZPQrOC"
-Content-Disposition: inline
-In-Reply-To: <6397ea86-7391-5044-8e8b-a3d291521028@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
+There is a corner case where a VT-x guest which manages to reliably trigger
+non-fatal #MC's could evade the rogue RSB speculation protections that were
+supposed to be in place.
 
---H2BSgvvACpZPQrOC
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 5 Aug 2022 12:11:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 08/10] drivers/char: mark DMA buffers as reserved for
- the XHCI
+This is a lack of defence in depth; Xen does not architecturally execute more
+RET than CALL instructions, so an attacker would have to locate a different
+gadget (e.g. SpectreRSB) first to execute a transient path of excess RET
+instructions.
 
-On Fri, Aug 05, 2022 at 09:05:27AM +0200, Jan Beulich wrote:
-> On 26.07.2022 05:23, Marek Marczykowski-G=C3=B3recki wrote:
-> > @@ -1046,13 +1047,20 @@ static struct uart_driver dbc_uart_driver =3D {
-> >      .flush =3D dbc_uart_flush,
-> >  };
-> > =20
-> > -static struct xhci_trb evt_trb[DBC_TRB_RING_CAP];
-> > -static struct xhci_trb out_trb[DBC_TRB_RING_CAP];
-> > -static struct xhci_trb in_trb[DBC_TRB_RING_CAP];
-> > -static struct xhci_erst_segment erst __aligned(64);
-> > -static struct xhci_dbc_ctx ctx __aligned(64);
->=20
-> Why the change from 64 ...
->=20
-> > -static uint8_t out_wrk_buf[DBC_WORK_RING_CAP] __aligned(DBC_PAGE_SIZE);
-> > -static struct xhci_string_descriptor str_buf[DBC_STRINGS_COUNT];
-> > +struct dbc_dma_bufs {
-> > +    struct xhci_trb evt_trb[DBC_TRB_RING_CAP];
-> > +    struct xhci_trb out_trb[DBC_TRB_RING_CAP];
-> > +    struct xhci_trb in_trb[DBC_TRB_RING_CAP];
-> > +    uint8_t out_wrk_buf[DBC_WORK_RING_CAP] __aligned(DBC_PAGE_SIZE);
-> > +    struct xhci_erst_segment erst __aligned(16);
-> > +    struct xhci_dbc_ctx ctx __aligned(16);
->=20
-> ... to 16?
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/spec_ctrl.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-That's rebase fail, it should be changed to 16 initial patch too.
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index 44e86f3d674d..d2cd5459739f 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -1327,8 +1327,24 @@ void __init init_speculation_mitigations(void)
+      * mappings.
+      */
+     if ( opt_rsb_hvm )
++    {
+         setup_force_cpu_cap(X86_FEATURE_SC_RSB_HVM);
+ 
++        /*
++         * For SVM, Xen's RSB safety actions are performed before STGI, so
++         * behave atomically with respect to IST sources.
++         *
++         * For VT-x, NMIs are atomic with VMExit (the NMI gets queued but not
++         * delivered) whereas other IST sources are not atomic.  Specifically,
++         * #MC can hit ahead the RSB safety action in the vmexit path.
++         *
++         * Therefore, it is necessary for the IST logic to protect Xen against
++         * possible rogue RSB speculation.
++         */
++        if ( !cpu_has_svm )
++            default_spec_ctrl_flags |= SCF_ist_rsb;
++    }
++
+     ibpb_calculations();
+ 
+     /* Check whether Eager FPU should be enabled by default. */
+-- 
+2.11.0
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---H2BSgvvACpZPQrOC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmLs7LwACgkQ24/THMrX
-1yzbWQgAkd0+ocKcxzuiyfjf1xP47sWav+X7FshGKrHvYflyvgjpV13TVhjPpSY6
-jpKsdDD5FVORfk4mzj53Ol7Orj5UEbAjpag4/+YD6fK1fxZp/q2vAb3Ki52GK1Rl
-J861Pyhpgc00/KjLRe3R1fVI6LBTkXbQdFWH7ce9dspfxntmmMHWfq+8Rh67CRqD
-TtrU4kxfkp4KAvzLnOtqaImZmadsQuySE7fHQr+kb0rCS2dnAdbK9k7tO/HD+UDs
-nJv1LcqQFunCtBTUC8Q46AIgMIiz70gvBQVOt+eLsZLiWaCZz7mCQQqKg3VU29T5
-y0A7NmSKTKn9jClHzvLgiSiAWyIyog==
-=muyc
------END PGP SIGNATURE-----
-
---H2BSgvvACpZPQrOC--
 
