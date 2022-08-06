@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5627C58B2CB
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Aug 2022 01:41:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.381637.616377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9EB658B32F
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Aug 2022 03:19:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.381653.616409 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oK6wS-0001SX-3w; Fri, 05 Aug 2022 23:41:20 +0000
+	id 1oK8Sh-0000mK-6o; Sat, 06 Aug 2022 01:18:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 381637.616377; Fri, 05 Aug 2022 23:41:20 +0000
+Received: by outflank-mailman (output) from mailman id 381653.616409; Sat, 06 Aug 2022 01:18:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oK6wS-0001Q6-1E; Fri, 05 Aug 2022 23:41:20 +0000
-Received: by outflank-mailman (input) for mailman id 381637;
- Fri, 05 Aug 2022 23:41:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oK6wQ-0001Pw-6g; Fri, 05 Aug 2022 23:41:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oK6wQ-0005I5-5o; Fri, 05 Aug 2022 23:41:18 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oK6wP-00031B-Po; Fri, 05 Aug 2022 23:41:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oK6wP-0004OB-PL; Fri, 05 Aug 2022 23:41:17 +0000
+	id 1oK8Sh-0000kV-47; Sat, 06 Aug 2022 01:18:43 +0000
+Received: by outflank-mailman (input) for mailman id 381653;
+ Sat, 06 Aug 2022 01:18:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RBGG=YK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oK8Sf-0000kP-VJ
+ for xen-devel@lists.xenproject.org; Sat, 06 Aug 2022 01:18:42 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b430fa96-1525-11ed-924f-1f966e50362f;
+ Sat, 06 Aug 2022 03:18:40 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7848DB82A2A;
+ Sat,  6 Aug 2022 01:18:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124F5C433D6;
+ Sat,  6 Aug 2022 01:18:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,116 +44,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=1ETLgZ9OM9rEzPhgh65a7CxCo1OBJOzB+SnchSOPD2s=; b=Y2giLE6ykdc4q+mTJUx1SQ9wAX
-	YZuE7SWwk7eUG6pn3yuhH7vnE2h+hHbtBGe4S7clLwU55IbpU70Jjr2XBRE97K7Yv9lbTr/oENjbw
-	gKylmfH08Hz/Kuqar6ZdBWPe3Bj7U1qTVtpbBzIRKk7I/MB5tEMvBmGlgu3PFSQIJkjg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172205-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b430fa96-1525-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1659748718;
+	bh=tOPc8jqwQzeGntxejPsnkylEqSahnrjGmg1D5U59qWo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=PZAYivHP8DFbj3Q3TAxRRsGwcfLcZF5O5g4RaaGTCs5Jyd2WRdTH/GVNygvfs7y/g
+	 YkZWveqWW+pQ5rCDYFtVDOhQOBlHftFPNdwVk82P503c4low1fZZ/FuV8m8HzDEI91
+	 qAhSksgXDUbDJWlOBj/9/pdLapMhBzHD+wE75fcjc13WKDpISHtKNeaHHMtpzf64tw
+	 K/LkijI/DqBf5dO6o6wbOE2sSiMzPoIr1zDQ1exueK09aHfaGJX/1xdX4cvCZxR1Q2
+	 CvvQAA7ZttrjLDazHEMtcUx4NtejRFGNwh0EkAsY/FYfNjCGnqG3YE8H5XiERjgKyx
+	 U7BX+jLLNAnkA==
+Date: Fri, 5 Aug 2022 18:18:36 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org, 
+    Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH 2/2] automation: qemu-smoke-arm64: Run ping test over a
+ pv network interface
+In-Reply-To: <alpine.DEB.2.22.394.2208051453020.3147284@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2208051501510.3147284@ubuntu-linux-20-04-desktop>
+References: <20220805211741.1869068-1-burzalodowa@gmail.com> <20220805211741.1869068-3-burzalodowa@gmail.com> <alpine.DEB.2.22.394.2208051453020.3147284@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 172205: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=a8f59e2eb44199040d2e1f747a6d950a25ed0984
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 05 Aug 2022 23:41:17 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 172205 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172205/
+On Fri, 5 Aug 2022, Stefano Stabellini wrote:
+> On Sat, 6 Aug 2022, Xenia Ragiadakou wrote:
+> > This patch modified the test in the following way
+> > - Dom0 is booted with an alpine linux rootfs with the xen tools.
+> > - Once Dom0 is booted, it starts xenstored, calls init-dom0less to setup
+> > the xenstore interface for the dom0less Dom1, setups the bridged network
+> > and attaches a pv network interface to Dom1.
+> > - In the meantime, Dom1 in its init script tries to assign an ip to eth0
+> > and ping Dom0,
+> > - If Dom1 manages to ping Dom0, it prints 'passed'.
+> > 
+> > Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 
-Regressions :-(
+[...]
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+> > @@ -113,5 +148,5 @@ timeout -k 1 240 \
+> >      -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin |& tee smoke.serial
+> >  
+> >  set -e
+> > -(grep -q "^BusyBox" smoke.serial && grep -q "DOM1: ${passed}" smoke.serial) || exit 1
+> > +(grep -q "^Welcome to Alpine Linux 3.12" smoke.serial && grep -q "DOM1: ${passed}" smoke.serial) || exit 1
+> >  exit 0
+> 
+> This patch looks great! One minor comment: Should we great only for
+> "^Welcome to Alpine Linux" without the version (3.12) to make it easier
+> to upgrade in the future?
+> 
+> If you are OK with it, I can remove "3.12" on commit.
 
-version targeted for testing:
- ovmf                 a8f59e2eb44199040d2e1f747a6d950a25ed0984
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+We also need to remove DOMU_ENHANCED[0] from the ImageBuilder config
+otherwise this is not going to work.
 
-Last test of basis   172136  2022-08-04 06:43:42 Z    1 days
-Testing same since   172151  2022-08-05 02:40:28 Z    0 days    8 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
-Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
-Date:   Tue Aug 2 01:00:09 2022 +0800
-
-    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
-    
-    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
-    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
-    AHCI mode.
-    
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
-
-commit 86757f0b4750f672f346d955f89e5b76430ba6b4
-Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
-Date:   Tue Aug 2 01:00:08 2022 +0800
-
-    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
-    
-    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
-    to provide a way of accessing PCI devices to drvice drivers such as
-    NvmExpressPei or AhciPei.
-    
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+diff --git a/automation/scripts/qemu-smoke-arm64.sh b/automation/scripts/qemu-smoke-arm64.sh
+index a79401fd81..0d19ad52cc 100755
+--- a/automation/scripts/qemu-smoke-arm64.sh
++++ b/automation/scripts/qemu-smoke-arm64.sh
+@@ -118,7 +118,6 @@ NUM_DOMUS=1
+ DOMU_KERNEL[0]="Image"
+ DOMU_RAMDISK[0]="initrd"
+ DOMU_MEM[0]="256"
+-DOMU_ENHANCED[0]=0
+ 
+ LOAD_CMD="tftpb"
+ UBOOT_SOURCE="boot.source"
 
