@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3099858B8A3
-	for <lists+xen-devel@lfdr.de>; Sun,  7 Aug 2022 01:02:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.381969.616831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D46CC58B8BA
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Aug 2022 02:10:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.381980.616843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oKSnr-0001hI-Ct; Sat, 06 Aug 2022 23:01:55 +0000
+	id 1oKTr7-0008T7-Vn; Sun, 07 Aug 2022 00:09:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 381969.616831; Sat, 06 Aug 2022 23:01:55 +0000
+Received: by outflank-mailman (output) from mailman id 381980.616843; Sun, 07 Aug 2022 00:09:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oKSnr-0001ei-9I; Sat, 06 Aug 2022 23:01:55 +0000
-Received: by outflank-mailman (input) for mailman id 381969;
- Sat, 06 Aug 2022 23:01:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xclA=YK=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1oKSnp-0001ec-NV
- for xen-devel@lists.xenproject.org; Sat, 06 Aug 2022 23:01:54 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bfd7ee7a-15db-11ed-924f-1f966e50362f;
- Sun, 07 Aug 2022 01:01:50 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A14465C003D
- for <xen-devel@lists.xenproject.org>; Sat,  6 Aug 2022 19:01:47 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sat, 06 Aug 2022 19:01:47 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <xen-devel@lists.xenproject.org>; Sat, 6 Aug 2022 19:01:46 -0400 (EDT)
+	id 1oKTr7-0008RJ-Sy; Sun, 07 Aug 2022 00:09:21 +0000
+Received: by outflank-mailman (input) for mailman id 381980;
+ Sun, 07 Aug 2022 00:09:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oKTr5-0008R9-Lz; Sun, 07 Aug 2022 00:09:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oKTr5-0000qy-JX; Sun, 07 Aug 2022 00:09:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oKTr5-0002q6-7g; Sun, 07 Aug 2022 00:09:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oKTr5-00066m-7E; Sun, 07 Aug 2022 00:09:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,111 +42,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfd7ee7a-15db-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to; s=fm3; t=1659826907; x=1659913307; bh=ZBKQSKRMMC
-	mzsCJlk0Mfty7Sz0g/6zAg7aYoTXrsjGU=; b=qVOMpX/anhdm00NRyWT6dbQT1W
-	IgR9lZJQsQXYfg4Y8YN9py5Vdk0tP6Bwynw5rwqf2njUJPDDKndqpHhHK5wGNIWD
-	oHNwPijFef+nLvZ1wxXAUisxZvyFpMS99z0D9ZgHKjCCj07IuVURTaVzgzIz+qip
-	Vi93BSPILObRNpDvynTcVgtsgism0eeQKv8e8qThKPpOb3uT9CRxK67KrnD3t01A
-	NFJmNyLR1HtDJjvX2aTM/bPn2cHCexpQ+Bs7rkmk8/yMhdtNUkwPas2cTSc3lnId
-	/tx3i5p42AFL8O2W3Y4144HACnMD7NQATwCZwTHM4X0Di2kZRQkY4yDXgzNA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:message-id:mime-version
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1659826907; x=
-	1659913307; bh=ZBKQSKRMMCmzsCJlk0Mfty7Sz0g/6zAg7aYoTXrsjGU=; b=T
-	fQaZsNtQYR9jjqKpyAQfCT7zqRapOxodeMAnWuANai484reW0ihyqBdLGBC7/HiI
-	F+qcUVquBZlpDnAnjkYbvOTx3tq1lytZPVzbszJgEgZfH9gLEeyVo6SUiE4o5wHK
-	uSUFYP2ECAb3wnO95INX5ZA82x1N6qPFZayHYEZ4idilbFixP/1XDfPijIZicY+o
-	vrg823Dhf1MZ93ana1zNKo3ShUjhsesogK0oYnDapxOOD/nbPPZQUmaqg8TODK48
-	FaJ62D1yP5YHMVSO76wws9Q/zUnJfdcLicWm5J7xcbeJzs6LGHc3CzVy0L5H8KKx
-	0Yo0Y+oxsExLUO9RQ4E0A==
-X-ME-Sender: <xms:2_LuYgXb0geHlNcTSVTcdHcKz3P0md5F7y35c6059WATwYHrzmFmHA>
-    <xme:2_LuYknbH0z8t7v4g8tfgwxZUgDX6uOAr6Fiu1h1tAK-MMQwW1C6cHtR7NUH57z73
-    22WQhPpUxoMcg>
-X-ME-Received: <xmr:2_LuYkZMQHW7n6LiT_jh3W8eESto4KMQ749tzjf4oCAYhDm-WzVEwCO35sumEyN3W2t4v8R_EBClm9A_DvpGlc6teyBHwG6RVgQL>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdefgedgudekucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
-    dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
-    uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
-    cuggftrfgrthhtvghrnhepieffjeeuheeghfeutefftdeufefhieethfehveehteefgfeu
-    udelffefffehledvnecuffhomhgrihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvg
-    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:2_LuYvXJUvq2xTkj0sf7-JMgxUTTXJd5MDJQ3JoyARMlaQjmanfwaQ>
-    <xmx:2_LuYqnf0da0zJKNyphZUlRmvb2kJ8pfqlKfjasQJERLK4AU13XMQQ>
-    <xmx:2_LuYketAEV_Re3U6S1Qm1Dzl0bi1wP8_UmcTc1nKieXVbHgP1I4Lg>
-    <xmx:2_LuYmzBP0f1S8Tglp8RJMDDZOKqN0XS6RQS843cGK0TfUsvjUWS5g>
-Feedback-ID: i1568416f:Fastmail
-Date: Sun, 7 Aug 2022 01:01:43 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: getting gitlab pipeline status
-Message-ID: <Yu7y2LoNMI4wyUxb@mail-itl>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=CasH41TJK8msr10dH4krNuc4CVtrWss6QTjufxlsEQQ=; b=M5CvDfxCBEzEwelc3Ew44hDdte
+	GNKm7CUnpqPSLEUJl8SbN/FWnc4ENp2PqJX3G0OiR2hw5wQ5Dt3MP0nfoWbafMUa4Q28YmEKg6ZST
+	V63pI2DEkEY0UlENUNs+0U2mvPY0xKG4md6HV4O9hx+EabRX2iVgFs9ZZ7ROSrEfVPMo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172255-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="sUYoUiAsqHeLhFU3"
-Content-Disposition: inline
+Subject: [ovmf test] 172255: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=cf02322c984a16fc2af252124df96564e574f3a7
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 07 Aug 2022 00:09:19 +0000
+
+flight 172255 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172255/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+
+version targeted for testing:
+ ovmf                 cf02322c984a16fc2af252124df96564e574f3a7
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z    2 days
+Failing since        172151  2022-08-05 02:40:28 Z    1 days   17 attempts
+Testing same since   172247  2022-08-06 15:41:48 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
---sUYoUiAsqHeLhFU3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 7 Aug 2022 01:01:43 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: getting gitlab pipeline status
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Hi,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Related to an IRC chat few days ago - here is how to get gitlab pipeline st=
-atus:
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-# get latest pipeline of a branch
-$ curl -s 'https://gitlab.com/api/v4/projects/xen-project%2Fxen/pipelines?r=
-ef=3Dstaging' | jq -r '.[0].status'
-success
-# get latest pipeline of a commit (example of success and failure)
-$ curl -s 'https://gitlab.com/api/v4/projects/xen-project%2Fxen/pipelines?s=
-ha=3D6d6aee437e37fced0c49be97e08c30da873690fc' | jq -r '.[0].status'
-success
-$ curl -s 'https://gitlab.com/api/v4/projects/xen-project%2Fxen/pipelines?s=
-ha=3Dda74c951e4e58080583daaad373b0d38a3f8bc83' | jq -r '.[0].status'
-failed
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Documentation:
-https://docs.gitlab.com/ee/api/pipelines.html#list-project-pipelines
 
-If making osstest push gate checking gitlab pipeline status is desirable
-(IMO that would be helpful), the above should be enough. I'm not fluent
-in osstest internals, but I hope it isn't too complex to add such
-check...
+Not pushing.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+------------------------------------------------------------
+commit cf02322c984a16fc2af252124df96564e574f3a7
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Wed Jul 20 22:08:12 2022 +0800
 
---sUYoUiAsqHeLhFU3
-Content-Type: application/pgp-signature; name="signature.asc"
+    BaseTools/GenSec: Support EFI_SECTION_FREEFORM_SUBTYPE_GUID sections
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
 
------BEGIN PGP SIGNATURE-----
+commit d241a09afbe4f472a5d7da5090dfc85046f2250f
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Wed Jul 20 20:00:39 2022 +0800
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmLu8tgACgkQ24/THMrX
-1yxqoAf/Tuy3V/IQV11rTFuWQ6ySIODRL7dtD6mMPc+nQRd+lRXv5uGTYFUuSEo5
-YxhYMCupEBeudgJtO52eYgOvbp+q333ETF2nJiuKfATi5lasAlV3U4F0YlYyrSGB
-6eJ8KnAViTdUMH6pZXZDuM02sAEdoRyZuc5Rzkjpun1gfoMk2g67+/c156vIRbjY
-8ktxd6X0fk90loiInVyGQbBr317weBNbKsdGF/VbvbFreGrkf+QwIsY37UqceHAq
-N0Rb04hSxNu8XBpcleqb8X5Lg0Fi5aYAYUgXZrE9jwKKD0MTsbTaib2Kax0tVlvk
-9ycYS+VHwlLWd20GZ6WVZTD6MQjafA==
-=K/6z
------END PGP SIGNATURE-----
+    BaseTools/VolInfo: Parse EFI_SECTION_FREEFORM_SUBTYPE_GUID header
+    
+    Print 'SubtypeGuid' field from the EFI_FREEFORM_SUBTYPE_GUID_SECTION
+    structure.
+    This value describes the raw data inside the section.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng<bob.c.feng@intel.com>
 
---sUYoUiAsqHeLhFU3--
+commit f5f8c08db92d15c7a359a5eb3b0cc2545c945942
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Tue Jul 19 23:45:52 2022 +0800
+
+    BaseTools/VolInfo: Show FV section boundaries
+    
+    Currently there is no labels for start and end of the
+    EFI_SECTION_FIRMWARE_VOLUME_IMAGE type section. Therefore it is not
+    possible to see where the FV section ends and another section starts.
+    Add labels for start and end of the FV sections to fix the issue.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit a0a03b51548e6fc7524b5aa9f8042cbabce6da1c
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Tue Jul 19 22:27:10 2022 +0800
+
+    BaseTools/GenSec: Fix typo
+    
+    Fix typo in the help message.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit 3e599bbc105ff089b21b6024100d585a8c781328
+Author: Edward Pickup <edward.pickup@arm.com>
+Date:   Thu Aug 4 10:20:50 2022 +0100
+
+    DynamicTablesPkg: Fix using RmrNodeCount unitlitialised
+    
+    Fix using RmrNodeCount uninitliased by initliasing it to zero. Also, add
+    an additional check for ACPI version. This fixes a crash running on
+    kvmtool.
+    
+    Signed-off-by: Edward Pickup <edward.pickup@arm.com>
+    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
+
+commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:09 2022 +0800
+
+    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
+    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
+    AHCI mode.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit 86757f0b4750f672f346d955f89e5b76430ba6b4
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:08 2022 +0800
+
+    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
+    to provide a way of accessing PCI devices to drvice drivers such as
+    NvmExpressPei or AhciPei.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
 
