@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 510A658CF89
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Aug 2022 23:16:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.382594.617571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85E9D58CFA2
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Aug 2022 23:29:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.382602.617582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLA6t-0006fA-2e; Mon, 08 Aug 2022 21:16:27 +0000
+	id 1oLAIO-0008EC-7a; Mon, 08 Aug 2022 21:28:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 382594.617571; Mon, 08 Aug 2022 21:16:27 +0000
+Received: by outflank-mailman (output) from mailman id 382602.617582; Mon, 08 Aug 2022 21:28:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLA6s-0006cU-VZ; Mon, 08 Aug 2022 21:16:26 +0000
-Received: by outflank-mailman (input) for mailman id 382594;
- Mon, 08 Aug 2022 21:16:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y+qk=YM=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1oLA6r-0006cN-6b
- for xen-devel@lists.xen.org; Mon, 08 Aug 2022 21:16:25 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b61e5bb-175f-11ed-924f-1f966e50362f;
- Mon, 08 Aug 2022 23:16:24 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id bq11so14464309lfb.5
- for <xen-devel@lists.xen.org>; Mon, 08 Aug 2022 14:16:24 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- c9-20020a056512324900b0048afdf1ba33sm1534255lfr.208.2022.08.08.14.16.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Aug 2022 14:16:23 -0700 (PDT)
+	id 1oLAIO-0008Br-4A; Mon, 08 Aug 2022 21:28:20 +0000
+Received: by outflank-mailman (input) for mailman id 382602;
+ Mon, 08 Aug 2022 21:28:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLAIM-0008Bd-Mg; Mon, 08 Aug 2022 21:28:18 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLAIM-0007B0-Ky; Mon, 08 Aug 2022 21:28:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLAIM-00024r-AP; Mon, 08 Aug 2022 21:28:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLAIM-0001Qw-7w; Mon, 08 Aug 2022 21:28:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,138 +42,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b61e5bb-175f-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc;
-        bh=i7sPcJcYJQqlG8+9RAdwokm2aX0ltxFoBxcSqQqgYGM=;
-        b=YMT0LyDNumiq5hkP4xLvldqwpg5jyUIS9J588fyrHn3Az//G5VFFRYJvpsX3IILnoT
-         PkEtsXMHvSHzzmBbOHtEoUDYlK98W5CQ0Oi3bqYdS97muxLpxXLK9iQuicPSroph1/xj
-         etkIIzgDb+qRipVOZKit/Q+yGTNc7SpNUOOGVuzjdT9LSlMZkPK/bOz46HNyxkNEvpD0
-         hY/8TaAbprCnVVBZGjShcG/MykNbCGp+voMHL+xQ8x7ijZW0jJKwO1TPpGOfWZlMCrp1
-         6gXsrKZccmsZjvoAPRhG7EPc+t/M5HQqMMS4RkxTgeRGvgi3DA8Py/aLx6WSzlcgcuEh
-         pUfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc;
-        bh=i7sPcJcYJQqlG8+9RAdwokm2aX0ltxFoBxcSqQqgYGM=;
-        b=oItQKpBU5sH4N6H/xGxSzAiW9aTK7TjyGaSXSFj5XZwax0gwnvf+zHFP74Ab5eVjTm
-         BC6nG+wYx8rXxjqpikhoLt5jkAVa8ckSZUvS0X4ASdreI99RQbp3Uf/Cye3fx1t0B61m
-         xRPjOwm09fYRICtmXu6d1zCWuCpNCzwbiFAireY7nhQfaHuqnxQ+GAkwrKhz1n8cPAlb
-         5jl9nleiegS9Q3YGwB/f38flESJJKYioZQxjaZpYWTGXYHp4M7Jwv5nvyJOEH+yFxzyN
-         g/zmIlzjWB7ZKogwUbdYJH9KmGunTNNQyop/1UOE73MH7g4KOaKiVA4IILorN/tGMEYn
-         APcQ==
-X-Gm-Message-State: ACgBeo1EQKxPW1fdtrgJj6Fdrphz09tOwqXc/prUNfB4nbFni62nH+kX
-	HcFT1h6AMRWGDvj5DHJHqaU=
-X-Google-Smtp-Source: AA6agR4ZpsVxQiDD8cSBPMyeSP1aWpsjR3qGi2qMv5ViCUIG577CbFYSpVgWPyYT7gd4vMdQ+n/1UQ==
-X-Received: by 2002:ac2:5ca3:0:b0:48b:9997:9a01 with SMTP id e3-20020ac25ca3000000b0048b99979a01mr4269402lfq.374.1659993383806;
-        Mon, 08 Aug 2022 14:16:23 -0700 (PDT)
-Message-ID: <0610eb02-f074-f2d1-47b0-cb8c54374ebb@gmail.com>
-Date: Tue, 9 Aug 2022 00:16:21 +0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Y9jW/UREgmRzdZ0I/O72Oj2l4fj/BrmIwN7pYge/JqE=; b=0lAOwEkcPjqi33S6vBmZPurKfb
+	N2bqRgEzJHK/HJxfZchRY/GyOe+ypIlIL7WvCXVzq88hWmaGfHRPWm8qCbNLQYKMCHzeJmd7ckhhD
+	dXsZa0ZppxSZE7lExC1eMN1GjMLb6hCZ8aiq2rCJlG9VKm6KQYouO+yapL90wApNcLCc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172306-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V3 0/6] Virtio toolstack support for I2C and GPIO on Arm
-Content-Language: en-US
-To: Viresh Kumar <viresh.kumar@linaro.org>, xen-devel@lists.xen.org
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
- <alex.bennee@linaro.org>, Stefano Stabellini
- <stefano.stabellini@xilinx.com>, Mathieu Poirier
- <mathieu.poirier@linaro.com>, Mike Holmes <mike.holmes@linaro.org>,
- Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
- Julien Grall <julien@xen.org>
-References: <cover.1659596139.git.viresh.kumar@linaro.org>
-From: Oleksandr <olekstysh@gmail.com>
-In-Reply-To: <cover.1659596139.git.viresh.kumar@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 172306: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=cf02322c984a16fc2af252124df96564e574f3a7
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 08 Aug 2022 21:28:18 +0000
+
+flight 172306 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172306/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+
+version targeted for testing:
+ ovmf                 cf02322c984a16fc2af252124df96564e574f3a7
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z    4 days
+Failing since        172151  2022-08-05 02:40:28 Z    3 days   36 attempts
+Testing same since   172247  2022-08-06 15:41:48 Z    2 days   22 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-On 04.08.22 10:01, Viresh Kumar wrote:
-> Hello,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Hello Viresh
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->
-> This patchset adds toolstack support for I2C and GPIO virtio devices. This is
-> inspired from the work done by Oleksandr for the Disk device.
->
-> This is developed as part of Linaro's Project Stratos, where we are working
-> towards Hypervisor agnostic Rust based backend [1].
->
-> This is based of origin/staging (commit 01ca29f0b17a ("sched: dom0_vcpus_pin
-> should only affect dom0")) which already has Oleksandr's patches applied.
->
-> V2->V3:
-> - Rebased over latest tree and made changes according to changes in Oleksandr's
->    patches from sometime back.
-
-Thanks, I have reviewed all patches that touch libxl_arm.c (##3-6)
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Not pushing.
 
-> - Minor cleanups.
->
-> V1->V2:
-> - Patches 3/6 and 4/6 are new.
-> - Patches 5/6 and 6/6 updated based on the above two patches.
-> - Added link to the bindings for I2C and GPIO.
-> - Rebased over latest master branch.
->
->
-> Thanks.
->
-> --
-> Viresh
->
-> [1] https://lore.kernel.org/xen-devel/20220414092358.kepxbmnrtycz7mhe@vireshk-i7/
->
-> Viresh Kumar (6):
->    libxl: Add support for Virtio I2C device
->    libxl: Add support for Virtio GPIO device
->    libxl: arm: Create alloc_virtio_mmio_params()
->    libxl: arm: Split make_virtio_mmio_node()
->    libxl: Allocate MMIO params for I2c device and update DT
->    libxl: Allocate MMIO params for GPIO device and update DT
->
->   tools/golang/xenlight/helpers.gen.go      | 212 ++++++++++++++++++++
->   tools/golang/xenlight/types.gen.go        |  54 ++++++
->   tools/include/libxl.h                     |  64 ++++++
->   tools/include/libxl_utils.h               |   6 +
->   tools/libs/light/Makefile                 |   2 +
->   tools/libs/light/libxl_arm.c              | 138 +++++++++++--
->   tools/libs/light/libxl_create.c           |  26 +++
->   tools/libs/light/libxl_dm.c               |  34 +++-
->   tools/libs/light/libxl_gpio.c             | 226 ++++++++++++++++++++++
->   tools/libs/light/libxl_i2c.c              | 226 ++++++++++++++++++++++
->   tools/libs/light/libxl_internal.h         |   2 +
->   tools/libs/light/libxl_types.idl          |  48 +++++
->   tools/libs/light/libxl_types_internal.idl |   2 +
->   tools/ocaml/libs/xl/genwrap.py            |   2 +
->   tools/ocaml/libs/xl/xenlight_stubs.c      |   2 +
->   tools/xl/Makefile                         |   2 +-
->   tools/xl/xl.h                             |   6 +
->   tools/xl/xl_cmdtable.c                    |  30 +++
->   tools/xl/xl_gpio.c                        | 142 ++++++++++++++
->   tools/xl/xl_i2c.c                         | 142 ++++++++++++++
->   tools/xl/xl_parse.c                       | 160 +++++++++++++++
->   tools/xl/xl_parse.h                       |   2 +
->   tools/xl/xl_sxp.c                         |   4 +
->   23 files changed, 1509 insertions(+), 23 deletions(-)
->   create mode 100644 tools/libs/light/libxl_gpio.c
->   create mode 100644 tools/libs/light/libxl_i2c.c
->   create mode 100644 tools/xl/xl_gpio.c
->   create mode 100644 tools/xl/xl_i2c.c
->
--- 
-Regards,
+------------------------------------------------------------
+commit cf02322c984a16fc2af252124df96564e574f3a7
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Wed Jul 20 22:08:12 2022 +0800
 
-Oleksandr Tyshchenko
+    BaseTools/GenSec: Support EFI_SECTION_FREEFORM_SUBTYPE_GUID sections
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
 
+commit d241a09afbe4f472a5d7da5090dfc85046f2250f
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Wed Jul 20 20:00:39 2022 +0800
+
+    BaseTools/VolInfo: Parse EFI_SECTION_FREEFORM_SUBTYPE_GUID header
+    
+    Print 'SubtypeGuid' field from the EFI_FREEFORM_SUBTYPE_GUID_SECTION
+    structure.
+    This value describes the raw data inside the section.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng<bob.c.feng@intel.com>
+
+commit f5f8c08db92d15c7a359a5eb3b0cc2545c945942
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Tue Jul 19 23:45:52 2022 +0800
+
+    BaseTools/VolInfo: Show FV section boundaries
+    
+    Currently there is no labels for start and end of the
+    EFI_SECTION_FIRMWARE_VOLUME_IMAGE type section. Therefore it is not
+    possible to see where the FV section ends and another section starts.
+    Add labels for start and end of the FV sections to fix the issue.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit a0a03b51548e6fc7524b5aa9f8042cbabce6da1c
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Tue Jul 19 22:27:10 2022 +0800
+
+    BaseTools/GenSec: Fix typo
+    
+    Fix typo in the help message.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit 3e599bbc105ff089b21b6024100d585a8c781328
+Author: Edward Pickup <edward.pickup@arm.com>
+Date:   Thu Aug 4 10:20:50 2022 +0100
+
+    DynamicTablesPkg: Fix using RmrNodeCount unitlitialised
+    
+    Fix using RmrNodeCount uninitliased by initliasing it to zero. Also, add
+    an additional check for ACPI version. This fixes a crash running on
+    kvmtool.
+    
+    Signed-off-by: Edward Pickup <edward.pickup@arm.com>
+    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
+
+commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:09 2022 +0800
+
+    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
+    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
+    AHCI mode.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit 86757f0b4750f672f346d955f89e5b76430ba6b4
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:08 2022 +0800
+
+    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
+    to provide a way of accessing PCI devices to drvice drivers such as
+    NvmExpressPei or AhciPei.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
 
