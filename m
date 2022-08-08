@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EF3258D027
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Aug 2022 00:34:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.382611.617592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC8958D082
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Aug 2022 01:38:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.382622.617612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLBJl-0006dt-R9; Mon, 08 Aug 2022 22:33:49 +0000
+	id 1oLCJ3-0004Ia-F5; Mon, 08 Aug 2022 23:37:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 382611.617592; Mon, 08 Aug 2022 22:33:49 +0000
+Received: by outflank-mailman (output) from mailman id 382622.617612; Mon, 08 Aug 2022 23:37:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLBJl-0006bL-OQ; Mon, 08 Aug 2022 22:33:49 +0000
-Received: by outflank-mailman (input) for mailman id 382611;
- Mon, 08 Aug 2022 22:33:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I8Hg=YM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oLBJk-0006bC-Nz
- for xen-devel@lists.xenproject.org; Mon, 08 Aug 2022 22:33:48 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a6194d6-176a-11ed-924f-1f966e50362f;
- Tue, 09 Aug 2022 00:33:46 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 90774B80E89;
- Mon,  8 Aug 2022 22:33:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 075D6C433C1;
- Mon,  8 Aug 2022 22:33:43 +0000 (UTC)
+	id 1oLCJ3-0004GI-C7; Mon, 08 Aug 2022 23:37:09 +0000
+Received: by outflank-mailman (input) for mailman id 382622;
+ Mon, 08 Aug 2022 23:37:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLCJ2-0004G8-2I; Mon, 08 Aug 2022 23:37:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLCJ1-0000xi-Q7; Mon, 08 Aug 2022 23:37:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLCJ1-0000kN-DD; Mon, 08 Aug 2022 23:37:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLCJ1-0003OT-Cj; Mon, 08 Aug 2022 23:37:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,45 +42,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a6194d6-176a-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1659998024;
-	bh=RD/Tmut2c+yNq9ahQUgZ7ov+TZ/oyJxFRs02AcWWPzk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Dcck0nf+8oypcGJWcvoyOBni7Inv7Sl5x1P0IsKOHx9NmkjVOdi6/DDZgZZV2CdAt
-	 SKvgF7U5oemXO6Cx6ZUCIDQNa/b5xVhh4hfPF9H2+9zhYeKotWighBAQ/wpWXnYUCk
-	 leE9VapqKvol2NJFrduM+kTDPx5oPfHIOEMEcAQ518S+2bgfNyDeoGdrO6mBiPqekP
-	 a/WIVvgLof27SZlORmniB0VVdNC0UBDBig+oJv8fepeFNmZLu0HWy9CxQnC2yQlrd7
-	 gr1GLRQo+brR4rFENvqiC4OPkRfrcV4cLIu8sOqlda3ARNQmFBBiZrMBdmXlbAQyn2
-	 Te2fE3VaMH2yw==
-Date: Mon, 8 Aug 2022 15:33:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Xenia Ragiadakou <burzalodowa@gmail.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 0/2] automation: Test a pv network interface under
- dom0less enhanced
-In-Reply-To: <20220808183952.1888459-1-burzalodowa@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2208081533350.3147284@ubuntu-linux-20-04-desktop>
-References: <20220808183952.1888459-1-burzalodowa@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Kms8iTGO6VFeaV6Rq9GO2ABnGYJkzwEj4vT3Jz5I65k=; b=0WcRtjNgMd8CNswCkOS4lH0Nsz
+	yGKulG8Ih0SWx2WrZorItbSxdotR+186KLFUl6+WECmCx9xPWjz66Kc9HceGKm1c2nHxDRzogIZG7
+	a/v+OFVk8dVvvhubRGe0xPY+3uBOSuqkjUWCpr7iF7xRtiTYN4JEXSKSM/oPQr48hGQ4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172309-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 172309: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=cf02322c984a16fc2af252124df96564e574f3a7
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 08 Aug 2022 23:37:07 +0000
 
-On Mon, 8 Aug 2022, Xenia Ragiadakou wrote:
-> Xenia Ragiadakou (2):
->   automation: qemu-smoke-arm64: Use kernel 5.19
->   automation: qemu-smoke-arm64: Run ping test over a pv network
->     interface
-> 
->  automation/gitlab-ci/build.yaml               | 11 +++++
->  automation/gitlab-ci/test.yaml                | 10 +++--
->  automation/scripts/qemu-smoke-arm64.sh        | 44 ++++++++++++++++---
->  .../kernel/5.19-arm64v8.dockerfile            | 37 ++++++++++++++++
->  4 files changed, 93 insertions(+), 9 deletions(-)
->  create mode 100644 automation/tests-artifacts/kernel/5.19-arm64v8.dockerfile
+flight 172309 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172309/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+
+version targeted for testing:
+ ovmf                 cf02322c984a16fc2af252124df96564e574f3a7
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z    4 days
+Failing since        172151  2022-08-05 02:40:28 Z    3 days   37 attempts
+Testing same since   172247  2022-08-06 15:41:48 Z    2 days   23 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit cf02322c984a16fc2af252124df96564e574f3a7
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Wed Jul 20 22:08:12 2022 +0800
+
+    BaseTools/GenSec: Support EFI_SECTION_FREEFORM_SUBTYPE_GUID sections
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit d241a09afbe4f472a5d7da5090dfc85046f2250f
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Wed Jul 20 20:00:39 2022 +0800
+
+    BaseTools/VolInfo: Parse EFI_SECTION_FREEFORM_SUBTYPE_GUID header
+    
+    Print 'SubtypeGuid' field from the EFI_FREEFORM_SUBTYPE_GUID_SECTION
+    structure.
+    This value describes the raw data inside the section.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng<bob.c.feng@intel.com>
+
+commit f5f8c08db92d15c7a359a5eb3b0cc2545c945942
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Tue Jul 19 23:45:52 2022 +0800
+
+    BaseTools/VolInfo: Show FV section boundaries
+    
+    Currently there is no labels for start and end of the
+    EFI_SECTION_FIRMWARE_VOLUME_IMAGE type section. Therefore it is not
+    possible to see where the FV section ends and another section starts.
+    Add labels for start and end of the FV sections to fix the issue.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit a0a03b51548e6fc7524b5aa9f8042cbabce6da1c
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Tue Jul 19 22:27:10 2022 +0800
+
+    BaseTools/GenSec: Fix typo
+    
+    Fix typo in the help message.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit 3e599bbc105ff089b21b6024100d585a8c781328
+Author: Edward Pickup <edward.pickup@arm.com>
+Date:   Thu Aug 4 10:20:50 2022 +0100
+
+    DynamicTablesPkg: Fix using RmrNodeCount unitlitialised
+    
+    Fix using RmrNodeCount uninitliased by initliasing it to zero. Also, add
+    an additional check for ACPI version. This fixes a crash running on
+    kvmtool.
+    
+    Signed-off-by: Edward Pickup <edward.pickup@arm.com>
+    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
+
+commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:09 2022 +0800
+
+    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
+    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
+    AHCI mode.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit 86757f0b4750f672f346d955f89e5b76430ba6b4
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:08 2022 +0800
+
+    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
+    to provide a way of accessing PCI devices to drvice drivers such as
+    NvmExpressPei or AhciPei.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
 
