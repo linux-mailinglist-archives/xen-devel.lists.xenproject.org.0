@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2374458C5E3
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Aug 2022 11:49:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.382310.617221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 979E358C5E8
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Aug 2022 11:51:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.382317.617232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oKzNO-00027u-VH; Mon, 08 Aug 2022 09:48:46 +0000
+	id 1oKzPP-0003Tx-B7; Mon, 08 Aug 2022 09:50:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 382310.617221; Mon, 08 Aug 2022 09:48:46 +0000
+Received: by outflank-mailman (output) from mailman id 382317.617232; Mon, 08 Aug 2022 09:50:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oKzNO-00025T-SZ; Mon, 08 Aug 2022 09:48:46 +0000
-Received: by outflank-mailman (input) for mailman id 382310;
- Mon, 08 Aug 2022 09:48:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iWor=YM=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1oKzNN-00025N-47
- for xen-devel@lists.xenproject.org; Mon, 08 Aug 2022 09:48:45 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a6c9a77-16ff-11ed-bd2e-47488cf2e6aa;
- Mon, 08 Aug 2022 11:48:44 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id gk3so15544815ejb.8
- for <xen-devel@lists.xenproject.org>; Mon, 08 Aug 2022 02:48:44 -0700 (PDT)
-Received: from uni.. ([2a02:587:ac16:4a00:e000:5de0:498c:ce14])
- by smtp.googlemail.com with ESMTPSA id
- 27-20020a170906309b00b007317d1fde85sm287196ejv.89.2022.08.08.02.48.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Aug 2022 02:48:42 -0700 (PDT)
+	id 1oKzPP-0003Qx-8U; Mon, 08 Aug 2022 09:50:51 +0000
+Received: by outflank-mailman (input) for mailman id 382317;
+ Mon, 08 Aug 2022 09:50:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oKzPO-0003Qo-Oi; Mon, 08 Aug 2022 09:50:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oKzPO-00027H-LZ; Mon, 08 Aug 2022 09:50:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oKzPO-0001HK-As; Mon, 08 Aug 2022 09:50:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oKzPO-0001eP-AU; Mon, 08 Aug 2022 09:50:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,70 +42,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a6c9a77-16ff-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc;
-        bh=fAbvP2qffw6JPn02Gyh6ZC4rHhETkfv+Fr6KgCMMz4U=;
-        b=TiT0PVwGEEod0droqvG8LTqXtWYcXMOkttkUp1jFh7eY3vNZAMHdD8Hz8wOeYeF3By
-         hk1MxA1SA3x5Nn7JbDcSWj6ly4uy3EMQVX6TLTL3q2tcz7VWdmUPMM61KPo67XQtDhXR
-         epcA0U0FdmfJrcdOutG+1Vc8YlMpJkXoKKqUfgfnYSJCNiqCGXqQBipAuvF6/F99LJdV
-         fiXO5reMDFAsD1bscpXDnNflHEiarzSC6u3nCendQJyChzYoJYlRsCOXiJAg+8Ql5ATZ
-         4GhrvDXHxw0pkvrx9I/VutFfL9TJX/pBftZY0kcNcXTf5bCfVIC0PtNBZJDkLfL+VWxC
-         +kcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc;
-        bh=fAbvP2qffw6JPn02Gyh6ZC4rHhETkfv+Fr6KgCMMz4U=;
-        b=liQIzX9WtEpZK2ipFpQ+x7v1CplvgPgfrJTE1fpIF82tk04Ijn3puxNzUkdHYtkAIu
-         fOVY+TDhf7mtVQQnH6uiEfLpyiBHBeLEByRqMdm5LYL48J9sU8bCTQB1Op9np4H1ODbm
-         niVdQb5sKic+4zYvk5xROxMv3bmjPcXH00pa0Ap44xXNb/tpS+zyiQcfW/Z+OT9lR68q
-         c4jdIqPxVGnoKtIq46qjxv4V62ueT+NPtNz076Lyop8AcWUOU0fGNzb9I4KlnieFSJ5R
-         81la3q2j2p/Y/yB0hCf7q6mJ9lsPAYJO8tIWYgRx8Laq+WMqRWIMRgWfKzh7/KaLL91u
-         fKeQ==
-X-Gm-Message-State: ACgBeo3F4jDbS+LSEw6MkMDR9JmReWBtUP/fPLGCRPTgIU36m5/KNAwn
-	Vd6ljQkyycsI8SYJ8XRogJ2mc1nLOSE=
-X-Google-Smtp-Source: AA6agR6ufHUL8UFQW7m2lkSfJ0KfAMJaHnx+O5sbnk49JdbVa1z4ff7ZQib/BAI9+RN1rbhMW+RubQ==
-X-Received: by 2002:a17:907:87b0:b0:731:3dfd:bc8d with SMTP id qv48-20020a17090787b000b007313dfdbc8dmr5437896ejc.607.1659952123349;
-        Mon, 08 Aug 2022 02:48:43 -0700 (PDT)
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=aiyMY54X/R3IVzS45xbJkPUErqZv8k+iMhjMLDuB1l4=; b=JxyEamMsQ/rQn3kgqHFiYHMiUh
+	m9J+lCswr6/0PUcLraibzYsp2TezfTUlZftOkOcz9hnHmM1NiUJiJjrU3AP4+/ucwKIEaRT3HtmEk
+	dwzzUUS8/N8sO6oiRGWMrweeaexH8Ip2zTcbE0gPGun1BBqiyM3N1fP5pV7IC5yRBa5Y=;
 To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: regs: Fix MISRA C 2012 Rule 20.7 violation
-Date: Mon,  8 Aug 2022 12:48:37 +0300
-Message-Id: <20220808094837.1880522-1-burzalodowa@gmail.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+Message-ID: <osstest-172294-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 172294: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=cf02322c984a16fc2af252124df96564e574f3a7
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 08 Aug 2022 09:50:50 +0000
 
-In macro psr_mode(), the macro parameter 'm' is used as expression and
-therefore it is good to be enclosed in parentheses to prevent against
-unintended expansions.
+flight 172294 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172294/
 
-Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
----
- xen/arch/arm/include/asm/regs.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Regressions :-(
 
-diff --git a/xen/arch/arm/include/asm/regs.h b/xen/arch/arm/include/asm/regs.h
-index 794721a103..0693a68131 100644
---- a/xen/arch/arm/include/asm/regs.h
-+++ b/xen/arch/arm/include/asm/regs.h
-@@ -11,7 +11,7 @@
- #include <asm/current.h>
- #include <asm/processor.h>
- 
--#define psr_mode(psr,m) (((psr) & PSR_MODE_MASK) == m)
-+#define psr_mode(psr,m) (((psr) & PSR_MODE_MASK) == (m))
- 
- static inline bool regs_mode_is_32bit(const struct cpu_user_regs *regs)
- {
--- 
-2.34.1
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
 
+version targeted for testing:
+ ovmf                 cf02322c984a16fc2af252124df96564e574f3a7
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z    4 days
+Failing since        172151  2022-08-05 02:40:28 Z    3 days   31 attempts
+Testing same since   172247  2022-08-06 15:41:48 Z    1 days   17 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit cf02322c984a16fc2af252124df96564e574f3a7
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Wed Jul 20 22:08:12 2022 +0800
+
+    BaseTools/GenSec: Support EFI_SECTION_FREEFORM_SUBTYPE_GUID sections
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit d241a09afbe4f472a5d7da5090dfc85046f2250f
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Wed Jul 20 20:00:39 2022 +0800
+
+    BaseTools/VolInfo: Parse EFI_SECTION_FREEFORM_SUBTYPE_GUID header
+    
+    Print 'SubtypeGuid' field from the EFI_FREEFORM_SUBTYPE_GUID_SECTION
+    structure.
+    This value describes the raw data inside the section.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng<bob.c.feng@intel.com>
+
+commit f5f8c08db92d15c7a359a5eb3b0cc2545c945942
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Tue Jul 19 23:45:52 2022 +0800
+
+    BaseTools/VolInfo: Show FV section boundaries
+    
+    Currently there is no labels for start and end of the
+    EFI_SECTION_FIRMWARE_VOLUME_IMAGE type section. Therefore it is not
+    possible to see where the FV section ends and another section starts.
+    Add labels for start and end of the FV sections to fix the issue.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit a0a03b51548e6fc7524b5aa9f8042cbabce6da1c
+Author: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date:   Tue Jul 19 22:27:10 2022 +0800
+
+    BaseTools/GenSec: Fix typo
+    
+    Fix typo in the help message.
+    
+    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
+    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
+
+commit 3e599bbc105ff089b21b6024100d585a8c781328
+Author: Edward Pickup <edward.pickup@arm.com>
+Date:   Thu Aug 4 10:20:50 2022 +0100
+
+    DynamicTablesPkg: Fix using RmrNodeCount unitlitialised
+    
+    Fix using RmrNodeCount uninitliased by initliasing it to zero. Also, add
+    an additional check for ACPI version. This fixes a crash running on
+    kvmtool.
+    
+    Signed-off-by: Edward Pickup <edward.pickup@arm.com>
+    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
+
+commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:09 2022 +0800
+
+    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
+    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
+    AHCI mode.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit 86757f0b4750f672f346d955f89e5b76430ba6b4
+Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
+Date:   Tue Aug 2 01:00:08 2022 +0800
+
+    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
+    
+    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
+    to provide a way of accessing PCI devices to drvice drivers such as
+    NvmExpressPei or AhciPei.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
 
