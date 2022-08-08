@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C441358C732
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Aug 2022 13:06:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.382387.617315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EDF258C731
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Aug 2022 13:06:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.382388.617327 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oL0a3-0005gj-H7; Mon, 08 Aug 2022 11:05:55 +0000
+	id 1oL0a4-0005x5-U7; Mon, 08 Aug 2022 11:05:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 382387.617315; Mon, 08 Aug 2022 11:05:55 +0000
+Received: by outflank-mailman (output) from mailman id 382388.617327; Mon, 08 Aug 2022 11:05:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oL0a3-0005ev-E4; Mon, 08 Aug 2022 11:05:55 +0000
-Received: by outflank-mailman (input) for mailman id 382387;
- Mon, 08 Aug 2022 11:05:53 +0000
+	id 1oL0a4-0005uh-R9; Mon, 08 Aug 2022 11:05:56 +0000
+Received: by outflank-mailman (input) for mailman id 382388;
+ Mon, 08 Aug 2022 11:05:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MrjU=YM=citrix.com=prvs=2124ac30a=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oL0a1-0005ep-Qw
- for xen-devel@lists.xenproject.org; Mon, 08 Aug 2022 11:05:53 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f98bbb1-170a-11ed-bd2e-47488cf2e6aa;
- Mon, 08 Aug 2022 13:05:51 +0200 (CEST)
+ id 1oL0a4-0005ep-5W
+ for xen-devel@lists.xenproject.org; Mon, 08 Aug 2022 11:05:56 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11d60e7a-170a-11ed-bd2e-47488cf2e6aa;
+ Mon, 08 Aug 2022 13:05:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,77 +36,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f98bbb1-170a-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 11d60e7a-170a-11ed-bd2e-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1659956751;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=LrYwBQoaATgyh7V0ViZ2IL0EZDYvWxwNLf16i7LThYw=;
-  b=JyHL3wUDufgScCSCL/G4YzNmIKCiGgbTF3na1xl/ORWlpLPWJS9rV4bH
-   lrii3ViAUcowYJA2oiBFyYNWHRHWcgdGSV2rtOfInq5zvya5FxZ90E6OV
-   6wlxHFwGHgryTRkt0+I3E0R3tDwhafvYd4rFpg/TQKTHOmW9ix8fnEkjK
-   Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1659956754;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=+TMoGxiqff4av5HP+7bjjRzkm1T+xybFBCI1AfNJyi4=;
+  b=VxUc//Fdg8pIARCaUTHySDh5x7mzK80Q5tn6qIANx/ZUZkjukyZcRtWe
+   OZuxwl+hqLc8g3Li/4lEX8kReUU7U+mAfrF7YMBclttzVIgjxOCsZY6D4
+   YigsrccCQdbDuWIt8x/yA4vx5GoRqdJEUxr2Gh/uwEgaF6brg60YfDD6N
+   w=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 77591055
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 80148078
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:d1gELalwc/FdZelG/RwLvnro5gz/JkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xJJWD3VOa3YMzH1KNsjPN619kpUuJWAyd9jSgpl/3g9FyMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8mk/ngqoPUUIbsIjp2SRJvVBAvgBdin/9RqoNziJ2yDhjlV
- ena+qUzA3f4nW8vWo4ow/jb8kk37Kyi4GpwUmEWPpingnePzxH5M7pHTU2BByOQapVZGOe8W
- 9HCwNmRlo8O105wYj8Nuu+TnnwiGtY+DyDX4pZlc/HKbix5jj4zys4G2M80Mi+7vdkrc+dZk
- 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzdFSfqV/wmWfG0YAzcmCA2kmJag+x7stHVtA3
- ucfaxwudhmepfC5lefTpulE3qzPLeHuNYIb/Hph0SvYHbAtRpWrr6fivIECmm1q34YXQKiYN
- 5FxhTlHNXwsZzVGPEsXD5Qv2v+lnHDlfxVTqU6PpLpx6G/WpOB0+OeybYuMIoHXLSlTtmy8h
- XidoXi6OBVEatG41QGv6HKHm8aayEsXX6pNTeblp5aGmma7xGMJDwYNfUCmuvT/gUm7M/pAL
- 2QE9yxoqrI9nGS7Q9+4UxCmrXqsuh8HR8EWA+A88BuKyKff/0CeHGdsZjxLZcEitcQ2bSc3z
- VLPlNTsbQGDq5XMFyjbrO3N62rvZ25FdgfueBPoUyMV+/zFndxpkijBZc1kU4KWltToOyP/l
- mXiQDcFu1kDsSIa//zloAGZ3W/z/8Shoh0dvVuOAD/8hu9tTMv8PtHztwCGhRpVBNzBJmRtq
- kTojCR3AAomKZiW3BKAT+wWdF1Cz6bUaWaM6bKD8nRIythMx5JAVdoJiN2GDB01WvvogBewC
- KMphStf5YVIIFyhZrJtboS6BqwClPa9RIS0CauLP4IROfCdkTNrGwk+DXN8Iki3yBR8+U3BE
- c3znTmQ4YYyVv08kWveqxY12r433CEurV7uqWTA503+idK2OS/KIYrpxXPUMYjVGovY/1iOm
- zueXuPWoyhivBrWO3WPr9ZPdQFURZX5bLivw/Fqmie4ClIOMAkc5zX5mNvNp6QNc3xpq9r1
-IronPort-HdrOrdr: A9a23:TJ/ocq8DuwM7SEbY0S9uk+DUI+orL9Y04lQ7vn2YSXRuHPBw8P
- re+MjztCWE7gr5N0tBpTntAsW9qBDnhPtICOsqTNSftWDd0QPCRuxfBOPZslrd8kbFl9K1u5
- 0OT0EHMqyTMWRH
+IronPort-Data: A9a23:wHgEFqj7aZmE4a2AndrzZ+saX161HhAKZh0ujC45NGQN5FlHY01je
+ htvX2DXaKrZMGOmL4t0bo2w8R4O75+EytM2GVE6riEwFiMb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6j+fQLlbFILasEjhrQgN5QzsWhxtmmuoo6qZlmtH8CA6W0
+ T/Ii5S31GSNhnglaQr414rZ8Ek15KSq6GtB1rADTasjUGH2xiF94K03fcldH1OgKqFIE+izQ
+ fr0zb3R1gs1KD90V7tJOp6iGqE7aua60Tqm0xK6aID76vR2nQQg075TCRYpQRw/ZwNlPTxG4
+ I4lWZSYEW/FN0BX8QgXe0Ew/ypWZcWq9FJbSJQWXAP6I0DuKhPRL/tS4E4eNJJb27t+Hn532
+ +08MDlQS0meiP2o+efuIgVsrpxLwMjDOYoevjdrzC3DDOZgSpfGK0nIzYYGhnFq3JkIRKuAI
+ ZpCAdZsRE2ojxlnM1ELCJU4jaGwi2P2aTFwo1OJv6snpWPUyWSd1ZC9aIOJKoTVFa25mG6Jv
+ SH3plSgCCgCPfLC4yjCqk+n2rfmyHaTtIU6S+Tjq68CbEeo7nMXIA0bUx28u/bRokyxQdVEM
+ GQP5zEj66M18SSDXtT7GhG1vnOAlhodQMZLVf037hmXzajZ6BrfAXILJhZDYtE7sM49RRQxy
+ 0SE2djuAFRSXKa9ECzHsO3O9HXrZHZTfTRqiTI4oRUt6saggdw6kQ32YMdHCKfoq4ToFi7u+
+ mXfxMQhvIn/nfLnxo3iow2W3Wzx+cGVJuImzl6JBzz4t2uVcKbgPtX1sgaDsJ6sOa7DFjG8U
+ G44d99yBQzkJbWEj2SzTeoEB9lFDN7VYWSH0TaD83TMnglBGkJPnqgKuVmS3G8zbq45lcbBO
+ Sc/Qz956p5JJ2eNZqRqeY+3AMlC5fG+SIW1B6+PMYsWPcMZmOq7EMZGNSatM53FyhBwwcnTx
+ 7/BGSpTMZrqIfs+l2fnLwvs+bQq2jo/1QvueHwP9Dz+iOL2TCPEFt843K6mNL9RAFWs/FqIq
+ L6y9qKil31ibQEJSnCLqdBLcQhbcxDWx/ne8qRqSwJKGSI+cElJNhMb6ehJl1BN90iNqtr1w
+ w==
+IronPort-HdrOrdr: A9a23:e4P0QKqb829wWHGwoNGNzeQaV5oteYIsimQD101hICG8cqSj+P
+ xG+85rsiMc6QxhIU3I9urgBEDtex7hHNtOkOss1NSZLW3bUQmTTL2KhLGKq1aLJ8S9zJ856U
+ 4JSdkZNDSaNzZHZKjBjDVQa+xQo+W6zA==
 X-IronPort-AV: E=Sophos;i="5.93,222,1654574400"; 
-   d="scan'208";a="77591055"
+   d="scan'208";a="80148078"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Jan Beulich <jbeulich@suse.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, Wei Liu
-	<wl@xen.org>
-Subject: [XEN PATCH 0/2] libxl: replace deprecated -sdl and -soundhw qemu options
-Date: Mon, 8 Aug 2022 12:05:43 +0100
-Message-ID: <20220808110545.62886-1-anthony.perard@citrix.com>
+	<anthony.perard@citrix.com>, Wei Liu <wl@xen.org>, Juergen Gross
+	<jgross@suse.com>
+Subject: [XEN PATCH 1/2] tools/libxl: Replace deprecated -sdl option on QEMU command line
+Date: Mon, 8 Aug 2022 12:05:44 +0100
+Message-ID: <20220808110545.62886-2-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220808110545.62886-1-anthony.perard@citrix.com>
+References: <20220808110545.62886-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Patch series available in this git branch:
-https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.qemu-deprecated-soundhw-v1
+"-sdl" is deprecated upstream since 6695e4c0fd9e ("softmmu/vl:
+Deprecate the -sdl and -curses option"), QEMU v6.2, and the option is
+removed by 707d93d4abc6 ("ui: Remove deprecated options "-sdl" and
+"-curses""), in upcoming QEMU v7.1.
 
-Hi,
+Instead, use "-display sdl", available since 1472a95bab1e ("Introduce
+-display argument"), before QEMU v1.0.
 
-There's some more QEMU options that are deprecated. We still don't need to
-figure out which QEMU version we are going to run as the options that replace
-them already existed in QEMU 1.0, so all the version QEMU upstream that we
-could possible use as device model.
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+ tools/libs/light/libxl_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-
-Anthony PERARD (2):
-  tools/libxl: Replace deprecated -sdl option on QEMU command line
-  tools/libxl: Replace deprecated -soundhw on QEMU command line
-
- docs/man/xl.cfg.5.pod.in                  |  6 +++---
- tools/libs/light/libxl_types_internal.idl | 10 ++++++++++
- tools/libs/light/libxl_dm.c               | 21 +++++++++++++++++++--
- 3 files changed, 32 insertions(+), 5 deletions(-)
-
+diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+index 1864ee30f0..04bf5d8563 100644
+--- a/tools/libs/light/libxl_dm.c
++++ b/tools/libs/light/libxl_dm.c
+@@ -1349,7 +1349,7 @@ static int libxl__build_device_model_args_new(libxl__gc *gc,
+     flexarray_append_pair(dm_args, "-display", "none");
+ 
+     if (sdl && !is_stubdom) {
+-        flexarray_append(dm_args, "-sdl");
++        flexarray_append_pair(dm_args, "-display", "sdl");
+         if (sdl->display)
+             flexarray_append_pair(dm_envs, "DISPLAY", sdl->display);
+         if (sdl->xauthority)
 -- 
 Anthony PERARD
 
