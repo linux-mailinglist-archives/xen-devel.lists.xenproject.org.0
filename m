@@ -2,35 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 094EB58D51B
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Aug 2022 10:05:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.382812.617851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3F3058D525
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Aug 2022 10:08:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.382822.617860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLKF2-0003py-AQ; Tue, 09 Aug 2022 08:05:32 +0000
+	id 1oLKHe-0004Rl-PV; Tue, 09 Aug 2022 08:08:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 382812.617851; Tue, 09 Aug 2022 08:05:32 +0000
+Received: by outflank-mailman (output) from mailman id 382822.617860; Tue, 09 Aug 2022 08:08:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLKF2-0003mX-7H; Tue, 09 Aug 2022 08:05:32 +0000
-Received: by outflank-mailman (input) for mailman id 382812;
- Tue, 09 Aug 2022 08:05:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oLKF1-0003mN-6g; Tue, 09 Aug 2022 08:05:31 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oLKF1-0001mX-1T; Tue, 09 Aug 2022 08:05:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oLKF0-00015m-NY; Tue, 09 Aug 2022 08:05:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oLKF0-0003uH-N6; Tue, 09 Aug 2022 08:05:30 +0000
+	id 1oLKHe-0004OR-M6; Tue, 09 Aug 2022 08:08:14 +0000
+Received: by outflank-mailman (input) for mailman id 382822;
+ Tue, 09 Aug 2022 08:08:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VsBn=YN=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1oLKHc-0004OJ-Sx
+ for xen-devel@lists.xenproject.org; Tue, 09 Aug 2022 08:08:13 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80084.outbound.protection.outlook.com [40.107.8.84])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 65413755-17ba-11ed-924f-1f966e50362f;
+ Tue, 09 Aug 2022 10:08:05 +0200 (CEST)
+Received: from AS9PR06CA0308.eurprd06.prod.outlook.com (2603:10a6:20b:45b::28)
+ by DB9PR08MB6507.eurprd08.prod.outlook.com (2603:10a6:10:25a::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.14; Tue, 9 Aug
+ 2022 08:08:08 +0000
+Received: from VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:45b:cafe::7e) by AS9PR06CA0308.outlook.office365.com
+ (2603:10a6:20b:45b::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.15 via Frontend
+ Transport; Tue, 9 Aug 2022 08:08:08 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT008.mail.protection.outlook.com (10.152.18.75) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5504.16 via Frontend Transport; Tue, 9 Aug 2022 08:08:07 +0000
+Received: ("Tessian outbound 6a3290ff1310:v123");
+ Tue, 09 Aug 2022 08:08:07 +0000
+Received: from 5e29a059cbca.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ DC595C5E-A5A2-4CFA-98E8-3F1EF15201BF.1; 
+ Tue, 09 Aug 2022 08:08:01 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 5e29a059cbca.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 09 Aug 2022 08:08:01 +0000
+Received: from DU2PR08MB7325.eurprd08.prod.outlook.com (2603:10a6:10:2e4::7)
+ by VI1PR08MB5470.eurprd08.prod.outlook.com (2603:10a6:803:136::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.15; Tue, 9 Aug
+ 2022 08:07:59 +0000
+Received: from DU2PR08MB7325.eurprd08.prod.outlook.com
+ ([fe80::80f6:a08f:6f28:6518]) by DU2PR08MB7325.eurprd08.prod.outlook.com
+ ([fe80::80f6:a08f:6f28:6518%8]) with mapi id 15.20.5504.021; Tue, 9 Aug 2022
+ 08:07:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,327 +71,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ds+xXx2ko5Wbq8ELx9fOwGPaW/dURJ40nG59Wkw+s30=; b=ladq7dhH344Iht7U2IzGVB5xAx
-	BxA6Jf9B0i1FShXVOupAT9zt/zxW1522K+Qh3m7rJtuasKwnW+XOj70Br4dAnWsfs96H27tc3FxQp
-	B0hyD9KWV4qgRJw/CksGmWseN6OWRtuS3kB8+hmgV3PyAnWcP7wNoIepeUkArs+CmMdc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172320-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 65413755-17ba-11ed-924f-1f966e50362f
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=nRUZ7HZ5yovfmYihyLxrVHr8/UE36gi4O74optTVREjGA7NLkx1e88CEUTE3rDuoejqqEyIRPJLSAjVR2k5fJvJbavu7dZqqyftaKkRFZV1SAlXI8E9C+auUf+T7qtPN/0mmH3qxJEG3Cvu3TVssIVHbEquqBczxEq8CYqrTTdliIw9ZhlAVUS87jY0DjlhRz9/LYJg5KAOC/lHrrlqcFKfgU38AIwIyYNds6iD5P74CL2oF5E+qFd18xhRMV0c42XeDd3udtbNfgrLZeTmJzEpPafXNnjqJzA1PiJarRVQe8Vx3QLCm+YDBKcuyHxzqaJ5yu0ZOAgdVQkAT2Kb49g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9kCQSUP1KNF16XoRASwxg0ZiuNazY6sZKtoDPBN1gBk=;
+ b=mRZSEQbzdQwzekbzDSHv9ajiP5nlo82iysTcsWYWIg9v5MWMc3wKyhf051SJiFleWnmC8IdWVmiO1kkj+HAYXY1UwEjTkK2zPdN4JRzbAftA2N2cSjc1smZtUFlhvodpMvI2tFAgy7t8rsZhFFYdZj8IPAq3ryTuYiehQ3wEBNcAhjtOSutqBJsFlVWd5cfETFzk4WV6tVafSoE932jXyTD6LGgx+axkzDyyO2DxJ42pxsQT7UCXVMkm4YbPZUYzU3zYV6c/5JenVsC0VYJKJvVt8oFdbfBkwHdYzoO3ZFNeDEdKZ8aaqlGMzC9T95lJ+VBlsT37J/t02U9Ekjy4Ow==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9kCQSUP1KNF16XoRASwxg0ZiuNazY6sZKtoDPBN1gBk=;
+ b=Lq3N9o5OpKyOp+zT9z3EMgvlci2d4iVTobXhrD6UkYl8Q6auDm0E8XZeJdPYQeBppWmTd1IiK89ClAtvLSxn511EVyGDTSsAMaiummZ0C6CgeU7kXlwZ6gr7QFsvTkILWjfeeJO3C1QpYCox/khDo0wmz3+c9OhWkMjP3iWGJH0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CFs1uFSfcjMer+XFlRY0h59ho0XzMRcCmMYEUTGmVIYTt6wDEVTI4VuVvrEqjgEwRgVnxwDF/T7cOL6sl/2ZLT0QE2b4j53JQisTLLz8wwgpWEbHEJwi4OHdqTRK4wuWYVEDZMteSzdlEtn5V1qQeJjyQw3Y+RQwKXjOhlwB6YcbRFAQ7F0hdGis857hWhL8YdviEsrc5iyB9C68YWJrgQ14NhRCCFrZ1+HCbgWaR41kOSMI9/UL75105QQ2LogXhXWK7v+bQ5gAW49lWQT85YTE5cx9/gxQ0nOMCdDU1sP3CSaOSM1JzXGAGU4u3GasZ1n8d9bv7bcdb0sekmR7xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9kCQSUP1KNF16XoRASwxg0ZiuNazY6sZKtoDPBN1gBk=;
+ b=VooDAHp86T2g2H9QOEZX66P3+XVxQUugqu+qeXUTNwZ0xNfscIvsVewKgHbM7lxh0dL1TcpXl/zYBAthBdPkiWM/ES4UOak6Bzsij/2BrnrkDjAAY7BXzd+vZkbZ5oHreMLmOA1tCqKxPjxll4faD99Lb4/ZM/+NA3okAuwPHjRg3OcJn0TGdIxNaGo3tGzNJPk1jX3gJ0LKDQUtXfUcoGY+eLziTpbVgQQyuV8YK/rb3F3nQvjnekPI7Fg9iRTCoFpbNm7y9AELBgXZpaLlOZw4U95PnhgEahFM9ToIRGi4c3Zt1OCA0D9iN1FZVvc2ta65r9Q2KMyF5V9FaoQ4ZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9kCQSUP1KNF16XoRASwxg0ZiuNazY6sZKtoDPBN1gBk=;
+ b=Lq3N9o5OpKyOp+zT9z3EMgvlci2d4iVTobXhrD6UkYl8Q6auDm0E8XZeJdPYQeBppWmTd1IiK89ClAtvLSxn511EVyGDTSsAMaiummZ0C6CgeU7kXlwZ6gr7QFsvTkILWjfeeJO3C1QpYCox/khDo0wmz3+c9OhWkMjP3iWGJH0=
+From: Penny Zheng <Penny.Zheng@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Wei Chen <Wei.Chen@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v9 8/8] xen: retrieve reserved pages on populate_physmap
+Thread-Topic: [PATCH v9 8/8] xen: retrieve reserved pages on populate_physmap
+Thread-Index: AQHYm/wqv1nrEHMOJUyQDyAePQJHla2PQtqAgBcOCRCAAALrAIAAAXbw
+Date: Tue, 9 Aug 2022 08:07:59 +0000
+Message-ID:
+ <DU2PR08MB7325A733C5B374ED899A2007F7629@DU2PR08MB7325.eurprd08.prod.outlook.com>
+References: <20220720054611.2695787-1-Penny.Zheng@arm.com>
+ <20220720054611.2695787-9-Penny.Zheng@arm.com>
+ <d050bcf4-f71d-423d-a157-4243548f47a6@suse.com>
+ <DU2PR08MB7325EB83FDD208467A493557F7629@DU2PR08MB7325.eurprd08.prod.outlook.com>
+ <99e65678-c394-01f1-9f49-827388f2fff6@suse.com>
+In-Reply-To: <99e65678-c394-01f1-9f49-827388f2fff6@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 42FF908CD720B246B0FE3C97F5FC4C6C.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 94458ecd-9a2f-4fc1-f17c-08da79de4b38
+x-ms-traffictypediagnostic:
+	VI1PR08MB5470:EE_|VE1EUR03FT008:EE_|DB9PR08MB6507:EE_
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ JgIvgWftmUUa18CaI/VZyr+tLTHGYvtYckZRG03ZU8kNXlmy+myHTPSYvJ05pq8tAOhqTgsLcZllHAJFOfcljuownkQGlDmZtQj5ifKkRdCX/OicumKUy42kbz/HcyTTrHWg2f4fGBMbVVKtAqoefs3K5XZcsRF+wO7JRlUXqMbKzZdYAkbp2ULEvkdownqOzN9gCCF75sJ8E9wW8LSQyZPD94tID3rGodsFJWPdc99l8YPT4HEysYPfumZd3TqGWijqOnV29fEy1gKBrQGB+h7gEXJYv5PSj4bLNNyQ8bFmBEs+7iwXR9yp7qjXvCnSJ1BuqdLO396INqp/5wtPpzirsXK44anwAQ2WRRIB688+oT8v3FnXV1CIu6xzOLCHQgjPGkITIh941k052sbOaot59wO/XC6qs26Qv2iu1NWRwatfmg/r0QcSq2EkI6CChTbL4UazdtpqgXgxgSL52A1gIbTx8nBLeUJ2rlZrtobOtCJIoBPr8bT+cprTVreQCcPNfDS8CKYI8CNgiYV1qBA3pXZf/YqTqBRzEPKGjeQ3IO6bkDhOnkLfDKITEqIKAhXsX4cwqvCFQ34BCJFxiAV1GafYq1dvWErExZygOl39ADRmYCvZCu0aBmKNB9dZOzmOLCqSJSV9Cu+C2lRiSR/ccHOH2JTjOwsU8MGkoQ3ggAYq0iZnvyFSmGqe3SNQxOb1XUEL2g2r2XQ1FzTJk+Cs6ephSxS1qlAG7EeemOMXnpUh16p5JP8R849FGxewbqVczUtyj+2Of9/8w4+vftqqmTgl/DupQtL0XJyhV1watfjcZxIlwQwccyvTWuFT
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7325.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(39860400002)(346002)(366004)(136003)(396003)(122000001)(2906002)(6916009)(54906003)(38070700005)(55016003)(38100700002)(83380400001)(52536014)(33656002)(8936002)(5660300002)(66476007)(186003)(53546011)(478600001)(9686003)(41300700001)(66556008)(66946007)(4326008)(76116006)(66446008)(64756008)(26005)(8676002)(86362001)(316002)(7696005)(71200400001)(6506007);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: [ovmf test] 172320: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=f1688ec9dab680ad8a56ec0a3d0b1346933d7e07
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 09 Aug 2022 08:05:30 +0000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB5470
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	dc46f409-6f72-4858-47ee-08da79de460d
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	sDzPTFwY++0AZvOblhuTHcxFqb3BbsS4kYhx3cVHBipO3YfdcpYrIl9GTDe4aWJU8Z5qe42AMd4PtK11iNklUCVhkpkAeWWripTswXul2KREZiYbAlY1alsST61DeGPQL23QluShWKWHBHtViLhyNlFN5dtPrY5Bi1bZProZSWw1WCcTVuZcTOrDwro7NKkeAtrN8ocuz1tIWiKI+78bIrU4BXHhQIqsttrTW6ZqopqnaZohLUGkCNoxmNwK0z7eBVlVKFlh3tHDjyURuOSgcEyJbi+/mYznlQytQ6O7yRNC6VBgOiWnIqdC6v2tcFmPVZWKkv4cws0EMwXI7PMFyq/oZLlWJNpDEB169gD8MVvuE7zNygFvqIL9H65YwBR3hqBuPQrvV+bgRqw+w9EsgMX23dRwNOg3+0n/CL5Dw7gxPHBkDOVR1T8+yOzY8vCbiKpCzaxLqfp7cLnO7DuChcpjfdl1cpAnCChOr8avQj0a87vXZS6r26cwIsWFvIpye96CTDFmTzOpWh0rijUM6gol3aroZv3TB22Kb1Rc1PVCKZrnP4Zl85SpwaZHpuWUb+0uDpsZjtGBcP7VAXTskyeMdGQjiH2HuqFOcblcIyDc+QGjjLO0zW47ybP42P/yFRhiSTo2VcMz2mul6jaRXBTcJMmrXMRZzRxyyfPTmpHCY/2ekEmB29copQwRiVqPRJSPuqpUI6vei501qjrBxrc78b1KlJc0L1CQQBWnxE/ssOEfjNofDB/a3/rYLbWLE7MQSjFb+14T+VudgSy/OTIkf54yoUm+QK49Dgi1JgkXfsscgwGy7jJUMrisB7/s
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(346002)(396003)(136003)(39860400002)(376002)(40470700004)(36840700001)(46966006)(82740400003)(4326008)(70586007)(70206006)(6862004)(54906003)(36860700001)(5660300002)(316002)(82310400005)(8936002)(8676002)(186003)(478600001)(52536014)(2906002)(47076005)(26005)(9686003)(33656002)(41300700001)(7696005)(336012)(6506007)(53546011)(40480700001)(356005)(81166007)(83380400001)(40460700003)(86362001)(55016003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 08:08:07.6820
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94458ecd-9a2f-4fc1-f17c-08da79de4b38
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6507
 
-flight 172320 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172320/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
-
-version targeted for testing:
- ovmf                 f1688ec9dab680ad8a56ec0a3d0b1346933d7e07
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
-
-Last test of basis   172136  2022-08-04 06:43:42 Z    5 days
-Failing since        172151  2022-08-05 02:40:28 Z    4 days   41 attempts
-Testing same since   172320  2022-08-09 06:10:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Jose Marinho <jose.marinho@arm.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit f1688ec9dab680ad8a56ec0a3d0b1346933d7e07
-Author: Liu, Zhiguang <Zhiguang.Liu@intel.com>
-Date:   Tue Aug 9 09:25:37 2022 +0800
-
-    UefiCpuPkg: Simplify the struct definition of CPU_EXCEPTION_INIT_DATA
-    
-    CPU_EXCEPTION_INIT_DATA is now an internal implementation of
-    CpuExceptionHandlerLib. Union can be removed since Ia32 and X64 have the
-    same definition. Also, two fields (Revision and InitDefaultHandlers)are
-    useless, can be removed.
-    
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Signed-off-by: Zhiguang Liu <zhiguang.liu@intel.com>
-
-commit 9a24c3546ebeb58ae72a21e0ad353980ce906931
-Author: Liu, Zhiguang <Zhiguang.Liu@intel.com>
-Date:   Tue Aug 9 09:25:36 2022 +0800
-
-    MdeModulePkg: Move CPU_EXCEPTION_INIT_DATA to UefiCpuPkg
-    
-    Since the API InitializeSeparateExceptionStacks is simplified and does't
-    use the struct CPU_EXCEPTION_INIT_DATA, CPU_EXCEPTION_INIT_DATA become
-    a inner implementation of CpuExcetionHandlerLib.
-    
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Leif Lindholm <quic_llindhol@quicinc.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Signed-off-by: Zhiguang Liu <zhiguang.liu@intel.com>
-
-commit 0f7bccf584d93b2642c0a413a47fc821d1f5dbfd
-Author: Liu, Zhiguang <Zhiguang.Liu@intel.com>
-Date:   Tue Aug 9 09:25:35 2022 +0800
-
-    UefiCpuPkg: Simplify InitializeSeparateExceptionStacks
-    
-    Hide the Exception implementation details in CpuExcetionHandlerLib and
-    caller only need to provide buffer
-    
-    Cc: Eric Dong <eric.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-    Cc: Leif Lindholm <quic_llindhol@quicinc.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Jian J Wang <jian.j.wang@intel.com>
-    Cc: Ard Biesheuvel <ardb+tianocore@kernel.org>
-    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
-    Signed-off-by: Zhiguang Liu <zhiguang.liu@intel.com>
-
-commit 1da2012d938f141821740324e2dceee1b4cfa76d
-Author: Jose Marinho <jose.marinho@arm.com>
-Date:   Tue Jul 26 17:54:42 2022 +0100
-
-    PrmPkg: Add details on AArch64 build to the Readme.
-    
-    Specify how to build the PrmPkg for the AArch64 architecture.
-    Make the 2 following notes:
-     - the PrmPkg has only been tested on AArch64 using the GCC5
-    toolchain.
-     - All symbols to be listed in the PRMT as well as the
-    PrmModuleExportDescriptor must be explicitly preserved by resorting to
-    the --require-defined linker flag.
-    
-    Signed-off-by: Jose Marinho <jose.marinho@arm.com>
-    Signed-off-by: Sami Mujawar <sami.mujawar@arm.com>
-    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
-    Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 57faeb782a505935363936ab2edce282d3afc4d5
-Author: Jose Marinho <jose.marinho@arm.com>
-Date:   Fri Dec 18 14:01:55 2020 +0000
-
-    PrmPkg: Support AArch64 builds using GCC
-    
-    Add support to build PrmPkg for AArch64 using the GCC compiler.
-    
-    Add AARCH64 architecture to the list of supported architectures.
-    Add BaseStackCheck library to allow for Prm module builds on AARCH64.
-    
-    Also update the CI to add dependency on ArmPkg.
-    
-    Signed-off-by: Jose Marinho <jose.marinho@arm.com>
-    Signed-off-by: Sami Mujawar <sami.mujawar@arm.com>
-    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
-    Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 21200d9fe6d5b8078b93dbddfbcdf536308b67e4
-Author: Jose Marinho <jose.marinho@arm.com>
-Date:   Tue Apr 5 18:57:23 2022 +0100
-
-    PrmPkg: Build Prm Samples with GCC for AARCH64
-    
-    - Add the --prm flag to the GENFW_FLAGS
-    - Add the --no-gc-section to the linker flags so that apparently
-    unreferenced symbols are not prematurely removed from the .dll which
-    is used to generate the Prm module .efi.
-    - Force the linker to maintain the PrmModuleExportDescriptor symbol.
-    - Force the linker to maintain the PRM handler funtion's symbol.
-    
-    Signed-off-by: Jose Marinho <jose.marinho@arm.com>
-    Signed-off-by: Sami Mujawar <sami.mujawar@arm.com>
-    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
-    Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 9f197e44b102a8d7d457d2cb4f54967681c858a9
-Author: Jose Marinho <jose.marinho@arm.com>
-Date:   Tue Apr 5 18:53:25 2022 +0100
-
-    PrmPkg: Enable external visibility on PRM symbols
-    
-    Enable GCC compilations to keep external symbols when generating a PRM
-    module.
-    
-    Signed-off-by: Jose Marinho <jose.marinho@arm.com>
-    Signed-off-by: Sami Mujawar <sami.mujawar@arm.com>
-    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
-    Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 1ee162281710650d444c554f9fdbbd404abd9677
-Author: Jose Marinho <jose.marinho@arm.com>
-Date:   Fri Oct 29 17:48:26 2021 +0100
-
-    Basetools/GenFw: Allow AARCH64 builds to use the --prm flag
-    
-    The GenFw invocation with the --prm flag was previously reserved for
-    X64.
-    AArch64 platforms, built with GCC5, can also deploy PRM modules, hence
-    the --prm flag is also applicable in builds targeting the AARCH64
-    architecture.
-    
-    This commit enables the --prm flag to be used for EDK2 builds targeting
-    AARCH64.
-    
-    Signed-off-by: Jose Marinho <jose.marinho@arm.com>
-    Signed-off-by: Sami Mujawar <sami.mujawar@arm.com>
-    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
-    Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit cf02322c984a16fc2af252124df96564e574f3a7
-Author: Konstantin Aladyshev <aladyshev22@gmail.com>
-Date:   Wed Jul 20 22:08:12 2022 +0800
-
-    BaseTools/GenSec: Support EFI_SECTION_FREEFORM_SUBTYPE_GUID sections
-    
-    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
-    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
-
-commit d241a09afbe4f472a5d7da5090dfc85046f2250f
-Author: Konstantin Aladyshev <aladyshev22@gmail.com>
-Date:   Wed Jul 20 20:00:39 2022 +0800
-
-    BaseTools/VolInfo: Parse EFI_SECTION_FREEFORM_SUBTYPE_GUID header
-    
-    Print 'SubtypeGuid' field from the EFI_FREEFORM_SUBTYPE_GUID_SECTION
-    structure.
-    This value describes the raw data inside the section.
-    
-    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
-    Reviewed-by: Bob Feng<bob.c.feng@intel.com>
-
-commit f5f8c08db92d15c7a359a5eb3b0cc2545c945942
-Author: Konstantin Aladyshev <aladyshev22@gmail.com>
-Date:   Tue Jul 19 23:45:52 2022 +0800
-
-    BaseTools/VolInfo: Show FV section boundaries
-    
-    Currently there is no labels for start and end of the
-    EFI_SECTION_FIRMWARE_VOLUME_IMAGE type section. Therefore it is not
-    possible to see where the FV section ends and another section starts.
-    Add labels for start and end of the FV sections to fix the issue.
-    
-    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
-    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
-
-commit a0a03b51548e6fc7524b5aa9f8042cbabce6da1c
-Author: Konstantin Aladyshev <aladyshev22@gmail.com>
-Date:   Tue Jul 19 22:27:10 2022 +0800
-
-    BaseTools/GenSec: Fix typo
-    
-    Fix typo in the help message.
-    
-    Signed-off-by: Konstantin Aladyshev <aladyshev22@gmail.com>
-    Reviewed-by: Bob Feng <bob.c.feng@intel.com>
-
-commit 3e599bbc105ff089b21b6024100d585a8c781328
-Author: Edward Pickup <edward.pickup@arm.com>
-Date:   Thu Aug 4 10:20:50 2022 +0100
-
-    DynamicTablesPkg: Fix using RmrNodeCount unitlitialised
-    
-    Fix using RmrNodeCount uninitliased by initliasing it to zero. Also, add
-    an additional check for ACPI version. This fixes a crash running on
-    kvmtool.
-    
-    Signed-off-by: Edward Pickup <edward.pickup@arm.com>
-    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
-
-commit a8f59e2eb44199040d2e1f747a6d950a25ed0984
-Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
-Date:   Tue Aug 2 01:00:09 2022 +0800
-
-    MdeModulePkg/AhciPei: Use PCI_DEVICE_PPI to manage AHCI device
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
-    
-    This change modifies AhciPei library to allow usage both EDKII_PCI_DEVICE_PPI
-    and EDKII_PEI_ATA_AHCI_HOST_CONTROLLER_PPI to manage ATA HDD working under
-    AHCI mode.
-    
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
-
-commit 86757f0b4750f672f346d955f89e5b76430ba6b4
-Author: Czajkowski, Maciej <maciej.czajkowski@intel.com>
-Date:   Tue Aug 2 01:00:08 2022 +0800
-
-    MdeModulePkg: Add EDKII_PCI_DEVICE_PPI definition
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3907
-    
-    This commit introduces EDKII_PCI_DEVICE_PPI. The purpose of this PPI is
-    to provide a way of accessing PCI devices to drvice drivers such as
-    NvmExpressPei or AhciPei.
-    
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Signed-off-by: Maciej Czajkowski <maciej.czajkowski@intel.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+SGkgamFuDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSmFuIEJldWxp
+Y2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPiBTZW50OiBUdWVzZGF5LCBBdWd1c3QgOSwgMjAyMiAz
+OjU5IFBNDQo+IFRvOiBQZW5ueSBaaGVuZyA8UGVubnkuWmhlbmdAYXJtLmNvbT4NCj4gQ2M6IFdl
+aSBDaGVuIDxXZWkuQ2hlbkBhcm0uY29tPjsgQW5kcmV3IENvb3Blcg0KPiA8YW5kcmV3LmNvb3Bl
+cjNAY2l0cml4LmNvbT47IEdlb3JnZSBEdW5sYXAgPGdlb3JnZS5kdW5sYXBAY2l0cml4LmNvbT47
+DQo+IEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+OyBTdGVmYW5vIFN0YWJlbGxpbmkgPHNz
+dGFiZWxsaW5pQGtlcm5lbC5vcmc+Ow0KPiBXZWkgTGl1IDx3bEB4ZW4ub3JnPjsgeGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjkgOC84XSB4ZW46
+IHJldHJpZXZlIHJlc2VydmVkIHBhZ2VzIG9uDQo+IHBvcHVsYXRlX3BoeXNtYXANCj4gDQo+IE9u
+IDA5LjA4LjIwMjIgMDk6NTMsIFBlbm55IFpoZW5nIHdyb3RlOg0KPiA+PiAtLS0tLU9yaWdpbmFs
+IE1lc3NhZ2UtLS0tLQ0KPiA+PiBGcm9tOiBYZW4tZGV2ZWwgPHhlbi1kZXZlbC1ib3VuY2VzQGxp
+c3RzLnhlbnByb2plY3Qub3JnPiBPbiBCZWhhbGYgT2YNCj4gPj4gSmFuIEJldWxpY2gNCj4gPj4g
+U2VudDogTW9uZGF5LCBKdWx5IDI1LCAyMDIyIDExOjQ0IFBNDQo+ID4+DQo+ID4+IE9uIDIwLjA3
+LjIwMjIgMDc6NDYsIFBlbm55IFpoZW5nIHdyb3RlOg0KPiA+Pj4gV2hlbiBhIHN0YXRpYyBkb21h
+aW4gcG9wdWxhdGVzIG1lbW9yeSB0aHJvdWdoIHBvcHVsYXRlX3BoeXNtYXAgYXQNCj4gPj4+IHJ1
+bnRpbWUsIGl0IHNoYWxsIHJldHJpZXZlIHJlc2VydmVkIHBhZ2VzIGZyb20gcmVzdl9wYWdlX2xp
+c3QgdG8NCj4gPj4+IG1ha2Ugc3VyZSB0aGF0IGd1ZXN0IFJBTSBpcyBzdGlsbCByZXN0cmljdGVk
+IGluIHN0YXRpY2FsbHkNCj4gPj4+IGNvbmZpZ3VyZWQgbWVtb3J5DQo+ID4+IHJlZ2lvbnMuDQo+
+ID4+PiBUaGlzIGNvbW1pdCBhbHNvIGludHJvZHVjZXMgYSBuZXcgaGVscGVyIGFjcXVpcmVfcmVz
+ZXJ2ZWRfcGFnZSB0bw0KPiA+Pj4gbWFrZQ0KPiA+PiBpdCB3b3JrLg0KPiA+Pj4NCj4gPj4+IFNp
+Z25lZC1vZmYtYnk6IFBlbm55IFpoZW5nIDxwZW5ueS56aGVuZ0Bhcm0uY29tPg0KPiA+Pj4gLS0t
+DQo+ID4+PiB2OSBjaGFuZ2VzOg0KPiA+Pj4gLSBVc2UgQVNTRVJUX0FMTE9DX0NPTlRFWFQoKSBp
+biBhY3F1aXJlX3Jlc2VydmVkX3BhZ2UNCj4gPj4+IC0gQWRkIGZyZWVfc3RhdGljbWVtX3BhZ2Vz
+IHRvIHVuZG8gcHJlcGFyZV9zdGF0aWNtZW1fcGFnZXMgd2hlbg0KPiA+Pj4gYXNzaWduX2RvbXN0
+YXRpY19wYWdlcyBmYWlscw0KPiA+Pg0KPiA+PiBNYXkgSSBzdWdnZXN0IHRvIHJlLWNvbnNpZGVy
+IG5hbWluZyBvZiB0aGUgdmFyaW91cyBmdW5jdGlvbnM/IFVuZG9pbmcNCj4gPj4gd2hhdCAicHJl
+cGFyZSIgZGlkIGJ5ICJmcmVlIiBpcywgd2VsbCwgY291bnRlcmludHVpdGl2ZS4NCj4gPj4NCj4g
+Pg0KPiA+IEhvdyBhYm91dCBjaGFuZ2UgdGhlIG5hbWUgInByZXBhcmVfc3RhdGljbWVtX3BhZ2Vz
+IiB0bw0KPiAiYWxsb2NhdGVfc3RhdGljbWVtX3BhZ2VzIj8NCj4gDQo+IFBlcmhhcHMgLSBpZiB3
+aGF0IHRoZSBmdW5jdGlvbiBkb2VzIHJlYWxseSByZXNlbWJsZXMgYWxsb2NhdGlvbiBpbiBzb21l
+IHdheS4NCj4gU28gZmFyIEkgd2Fzbid0IHJlYWxseSBjZXJ0YWluIGluIHRoYXQgcmVnYXJkLCBh
+bmQgaGVuY2UgSSB3YXMgd29uZGVyaW5nDQo+IHdoZXRoZXIgInByZXBhcmUiIGRvZXNuJ3QgYmV0
+dGVyIGRlc2NyaWJlIHdoYXQgaXQgZG9lcywgYnV0IHRoZW4gaXRzIGludmVyc2UNCj4gYWxzbyBk
+b2Vzbid0IHJlYWxseSAiZnJlZSIgYW55dGhpbmcuDQo+IA0KDQpIbW1tbSwg4oCccHJlcGFyZeKA
+nSB3aXRoIOKAnGRlc3Ryb3nigJ0gaW4gaXRzIGludmVyc2U/IERvIHlvdSBoYXZlIGFueSBzdWdn
+ZXN0aW9uIGluIG1pbmQ/DQogDQo+IEphbg0K
 
