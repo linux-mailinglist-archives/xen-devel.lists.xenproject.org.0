@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9100B58F8C9
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 10:06:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.383707.619609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D43E58F8CB
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 10:06:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.383710.619615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oM3CC-0005l5-S1; Thu, 11 Aug 2022 08:05:36 +0000
+	id 1oM3CD-0005xn-Mw; Thu, 11 Aug 2022 08:05:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 383707.619609; Thu, 11 Aug 2022 08:05:36 +0000
+Received: by outflank-mailman (output) from mailman id 383710.619615; Thu, 11 Aug 2022 08:05:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oM3CB-0005cY-P2; Thu, 11 Aug 2022 08:05:35 +0000
-Received: by outflank-mailman (input) for mailman id 383707;
- Wed, 10 Aug 2022 15:51:48 +0000
+	id 1oM3CC-0005jh-Jm; Thu, 11 Aug 2022 08:05:36 +0000
+Received: by outflank-mailman (input) for mailman id 383710;
+ Wed, 10 Aug 2022 15:51:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eIlE=YO=gmail.com=asml.silence@srs-se1.protection.inumbo.net>)
- id 1oLnzo-00016w-NB
- for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 15:51:48 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1oLnzq-00016w-9S
+ for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 15:51:50 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 579a2e61-18c4-11ed-924f-1f966e50362f;
- Wed, 10 Aug 2022 17:51:48 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- a18-20020a05600c349200b003a30de68697so1853031wmq.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Aug 2022 08:51:48 -0700 (PDT)
+ id 586c0349-18c4-11ed-924f-1f966e50362f;
+ Wed, 10 Aug 2022 17:51:49 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ q1-20020a05600c040100b003a52db97fffso1193011wmb.4
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Aug 2022 08:51:49 -0700 (PDT)
 Received: from 127.0.0.1localhost (188.28.126.24.threembb.co.uk.
  [188.28.126.24]) by smtp.gmail.com with ESMTPSA id
- ay1-20020a05600c1e0100b003a342933727sm3004519wmb.3.2022.08.10.08.51.46
+ ay1-20020a05600c1e0100b003a342933727sm3004519wmb.3.2022.08.10.08.51.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Aug 2022 08:51:47 -0700 (PDT)
+ Wed, 10 Aug 2022 08:51:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +45,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 579a2e61-18c4-11ed-924f-1f966e50362f
+X-Inumbo-ID: 586c0349-18c4-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc;
-        bh=itYGv2JZK8WBFRrJm44D9H1rA7HcrDCnR5GlKfK0jhs=;
-        b=g4eoVr1fu36ewbAmfG/t6UJBFOF1oHPXDiKrqdGSPIInTe4GhXxac8aY/xl6qj4Ry6
-         hjJIrOjXgd6Yh8flP1MMruBaz19LaJGjliJaVdqyUgKhS5Iv3yZ5EXnaluD0BcKphXnA
-         a5VMobfClu6mDyYL8AgAxvtUKvP55/JPpMBJHMu3wEu4WaWTzPCZhMYmHWz8b0MVDXhx
-         GJ1Mj+/b/tEIWLH+pz8xBbXVEHEgTx42XMs5iv3QJxf8DSyr0HdmFD+Q1l3bx4FME1BL
-         RC5BlkaAdauVJCjSBnJ19eyaQPimR9ZGZKGI4e8RTaSx6XcGE3jjRf3+QIMjbpvGpNmL
-         Nr8g==
+        bh=P8aAKAj6QbUGM3qiLbxj6rCIuSDWisCzVUCts73nG7k=;
+        b=iw4zMeJIq6Iduj5Ai23kLZLWv6lH2honhKvhFD/8RjX03J6CC6OT3GFZdBOkedBUdt
+         n+4sEAA+jY/L/94w0veZ6+BigRGb/z+iiaiJDK2kbDqMnLkYpIKAVeEpBGeRkUhR8ZY4
+         3C2zmmMBUj+haew1vR4ZvQFcsNz2n5JD1clVwf0uHdPmnBF3QMz0ffFPSnpU76csdYvx
+         WghdcQ+nasGK3chHwCDoPTmwBdCerSaeh8eCSRiiRqlv5NxV5e1DoaVA1cZ7GwqNoWTR
+         Iu2g0zXQ4q7bhvEbKDfbxuVUgmKMV7FWlYgxIhokbOIyG0ObnwT0cf/lwdYDKKmbRxeE
+         YrCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
-        bh=itYGv2JZK8WBFRrJm44D9H1rA7HcrDCnR5GlKfK0jhs=;
-        b=Eu1x/h1pKkKvMyI/hKC0fdssmeG+AuM7xF6yGrQkIUOxOYnVQhwoZt2wPPS48d2GTi
-         Co7g1yHyqXGaD4bpYWEaYj8sj8HwwibAayborxLVKQZBrhnlceb5CD5nv4d0fCSPfBJ/
-         nVE5UPNWnndtegyGqyxVa9cfLZQta0JLyTRO2iBrXiqNZGu9Mk1E9IMv1y93wvVa5hsN
-         uXtup5G9PMu9WS0GgzL/EaZv3J7gtKLDDD1X6VXGxips3JJ7MO1TQOXjC2KhSmaio6nI
-         +xe8tVdU63qi4YHtc7ZC8d5jdBIu+PKHNnqhdphi4fYl31DdPmC6R9rzBSWjd4v5cx3V
-         DjBg==
-X-Gm-Message-State: ACgBeo2L9Tv91Dc3U5ywlP7ZBlFZccwFmReyvj83G1OAOMCiArXaleyR
-	6E80RVGfQ3Je4SCOk5AzMkg=
-X-Google-Smtp-Source: AA6agR5tWoJNmIKULSv6qED4kYicFbD6aj95a2kTMgyfbOltADMEJMZMCY4KEhAPbmXEqnmelWqLpA==
-X-Received: by 2002:a05:600c:6009:b0:3a5:b069:5d34 with SMTP id az9-20020a05600c600900b003a5b0695d34mr2478342wmb.115.1660146707842;
-        Wed, 10 Aug 2022 08:51:47 -0700 (PDT)
+        bh=P8aAKAj6QbUGM3qiLbxj6rCIuSDWisCzVUCts73nG7k=;
+        b=GuZeUyiouTVg0qvaoa1ubwMRhZwwr1q0byzgSuSg4RZW2Qj6ctkiPBzQRI0nKaYGbJ
+         dej5nyNcdEJLbMzbbmivnlgK9r01jEL9aHexV1rlMK9QA2I7ojzKQsG7wN50tNPiLUMu
+         RLB+4N+X/BpRpAcgEb8iTRg8IHAPLvPuEQ/OiQclJRz+G5fVd0/fv6Kz1SpwcNWjNpTH
+         Uqj16tjVNgUFAcNDzY2KXC0avuS8pz31u1nxQP3G24INXItUMt3wDF47PQgm/BRCsYJz
+         nZH2zVvqh9d6n/r6DyVpJtiTv+6lh+k4bQeQz2cecvjgf4gm4ARpQNwohbBSAO/+GibQ
+         xPpA==
+X-Gm-Message-State: ACgBeo2AG//HtraBIRmJhNM+wqvvoXecAiAIOWEHfExxPVfs1+XSTXH1
+	eaY6XadsbCqwnwC9M4EOPj+glHhCwpE=
+X-Google-Smtp-Source: AA6agR51LI/17gzAJrVldihDliUyILNuNHqftq15rGqHxVJN5cbfccCeChTUV2Xc8UnWpC6KUoJk0Q==
+X-Received: by 2002:a1c:f209:0:b0:3a4:f42c:9ffb with SMTP id s9-20020a1cf209000000b003a4f42c9ffbmr2964735wmc.62.1660146709173;
+        Wed, 10 Aug 2022 08:51:49 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: io-uring@vger.kernel.org,
 	netdev@vger.kernel.org
@@ -89,86 +89,67 @@ Cc: Jens Axboe <axboe@kernel.dk>,
 	"Michael S . Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowang@redhat.com>,
 	Pavel Begunkov <asml.silence@gmail.com>
-Subject: [RFC net-next io_uring 08/11] net: let callers provide ->msg_ubuf refs
-Date: Wed, 10 Aug 2022 16:49:16 +0100
-Message-Id: <526fe4cb9cda287bedfc92b3888b48a4f3b0250b.1660124059.git.asml.silence@gmail.com>
+Subject: [RFC net-next io_uring 09/11] io_uring/notif: add helper for flushing refs
+Date: Wed, 10 Aug 2022 16:49:17 +0100
+Message-Id: <a68ff48da5a52be8f64b058c30d7076fbec41beb.1660124059.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.37.0
 In-Reply-To: <cover.1660124059.git.asml.silence@gmail.com>
 References: <cover.1660124059.git.asml.silence@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some msg_ubuf providers like io_uring can keep elaborated ubuf_info
-reference batching and caching, so it will be of benefit to let the
-network layer to optionally steal some of the cached refs.
-
-Add UARGFL_GIFT_REF, if set the caller has at least one extra reference
-that it can gift away. If the network decides to take the ref it should
-clear the flag.
+Add a helper for dropping notification references during flush. It's a
+preparation patch, currently it's only one master ref, but we're going
+to add ref caching.
 
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- include/linux/skbuff.h | 14 ++++++++++++++
- net/ipv4/ip_output.c   |  1 +
- net/ipv6/ip6_output.c  |  1 +
- 3 files changed, 16 insertions(+)
+ io_uring/notif.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 45fe7f0648d0..972ec676e222 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -527,6 +527,11 @@ enum {
- 	 * be freed until we return.
- 	 */
- 	UARGFL_CALLER_PINNED = BIT(0),
-+
-+	/* The caller can gift one ubuf reference. The flag should be cleared
-+	 * when the reference is taken.
-+	 */
-+	UARGFL_GIFT_REF = BIT(1),
- };
- 
- /*
-@@ -1709,6 +1714,15 @@ static inline void net_zcopy_put(struct ubuf_info *uarg)
- 		uarg->callback(NULL, uarg, true);
+diff --git a/io_uring/notif.c b/io_uring/notif.c
+index a2ba1e35a59f..5661681b3b44 100644
+--- a/io_uring/notif.c
++++ b/io_uring/notif.c
+@@ -73,6 +73,13 @@ struct io_kiocb *io_alloc_notif(struct io_ring_ctx *ctx,
+ 	return notif;
  }
  
-+static inline bool net_zcopy_get_gift_ref(struct ubuf_info *uarg)
++static inline bool io_notif_drop_refs(struct io_notif_data *nd)
 +{
-+	bool has_ref;
++	int refs = 1;
 +
-+	has_ref = uarg->flags & UARGFL_GIFT_REF;
-+	uarg->flags &= ~UARGFL_GIFT_REF;
-+	return has_ref;
++	return refcount_sub_and_test(refs, &nd->uarg.refcnt);
 +}
 +
- static inline void net_zcopy_put_abort(struct ubuf_info *uarg, bool have_uref)
+ void io_notif_slot_flush(struct io_notif_slot *slot)
+ 	__must_hold(&ctx->uring_lock)
  {
- 	if (uarg) {
-diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
-index 546897a4b4fa..9d42b6dd6b78 100644
---- a/net/ipv4/ip_output.c
-+++ b/net/ipv4/ip_output.c
-@@ -1032,6 +1032,7 @@ static int __ip_append_data(struct sock *sk,
- 				paged = true;
- 				zc = true;
- 				uarg = msg->msg_ubuf;
-+				extra_uref = net_zcopy_get_gift_ref(uarg);
- 			}
- 		} else if (sock_flag(sk, SOCK_ZEROCOPY)) {
- 			uarg = msg_zerocopy_realloc(sk, length, skb_zcopy(skb));
-diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-index 6d4f01a0cf6e..8d8a8bbdb8df 100644
---- a/net/ipv6/ip6_output.c
-+++ b/net/ipv6/ip6_output.c
-@@ -1557,6 +1557,7 @@ static int __ip6_append_data(struct sock *sk,
- 				paged = true;
- 				zc = true;
- 				uarg = msg->msg_ubuf;
-+				extra_uref = net_zcopy_get_gift_ref(uarg);
- 			}
- 		} else if (sock_flag(sk, SOCK_ZEROCOPY)) {
- 			uarg = msg_zerocopy_realloc(sk, length, skb_zcopy(skb));
+@@ -81,8 +88,7 @@ void io_notif_slot_flush(struct io_notif_slot *slot)
+ 
+ 	slot->notif = NULL;
+ 
+-	/* drop slot's master ref */
+-	if (refcount_dec_and_test(&nd->uarg.refcnt))
++	if (io_notif_drop_refs(nd))
+ 		io_notif_complete(notif);
+ }
+ 
+@@ -97,13 +103,11 @@ __cold int io_notif_unregister(struct io_ring_ctx *ctx)
+ 	for (i = 0; i < ctx->nr_notif_slots; i++) {
+ 		struct io_notif_slot *slot = &ctx->notif_slots[i];
+ 		struct io_kiocb *notif = slot->notif;
+-		struct io_notif_data *nd;
+ 
+ 		if (!notif)
+ 			continue;
+-		nd = io_kiocb_to_cmd(notif);
+ 		slot->notif = NULL;
+-		if (!refcount_dec_and_test(&nd->uarg.refcnt))
++		if (!io_notif_drop_refs(io_kiocb_to_cmd(notif)))
+ 			continue;
+ 		notif->io_task_work.func = __io_notif_complete_tw;
+ 		io_req_task_work_add(notif);
 -- 
 2.37.0
 
