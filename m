@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C05B58F8D2
+	by mail.lfdr.de (Postfix) with ESMTPS id 1371458F8D3
 	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 10:06:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.383692.619541 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.383693.619552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oM3C8-0004YT-F2; Thu, 11 Aug 2022 08:05:32 +0000
+	id 1oM3C8-0004fG-TK; Thu, 11 Aug 2022 08:05:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 383692.619541; Thu, 11 Aug 2022 08:05:32 +0000
+Received: by outflank-mailman (output) from mailman id 383693.619552; Thu, 11 Aug 2022 08:05:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oM3C8-0004VI-CM; Thu, 11 Aug 2022 08:05:32 +0000
-Received: by outflank-mailman (input) for mailman id 383692;
- Wed, 10 Aug 2022 15:51:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oM3C8-0004Yj-LJ; Thu, 11 Aug 2022 08:05:32 +0000
+Received: by outflank-mailman (input) for mailman id 383693;
+ Wed, 10 Aug 2022 15:51:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eIlE=YO=gmail.com=asml.silence@srs-se1.protection.inumbo.net>)
- id 1oLnze-00016q-5Z
- for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 15:51:38 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 509c43d0-18c4-11ed-bd2e-47488cf2e6aa;
- Wed, 10 Aug 2022 17:51:36 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id bv3so18211431wrb.5
- for <xen-devel@lists.xenproject.org>; Wed, 10 Aug 2022 08:51:36 -0700 (PDT)
+ id 1oLnzf-00016w-62
+ for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 15:51:39 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5186db06-18c4-11ed-924f-1f966e50362f;
+ Wed, 10 Aug 2022 17:51:38 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id l22so18237621wrz.7
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Aug 2022 08:51:38 -0700 (PDT)
 Received: from 127.0.0.1localhost (188.28.126.24.threembb.co.uk.
  [188.28.126.24]) by smtp.gmail.com with ESMTPSA id
- ay1-20020a05600c1e0100b003a342933727sm3004519wmb.3.2022.08.10.08.51.34
+ ay1-20020a05600c1e0100b003a342933727sm3004519wmb.3.2022.08.10.08.51.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Aug 2022 08:51:35 -0700 (PDT)
+ Wed, 10 Aug 2022 08:51:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 509c43d0-18c4-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 5186db06-18c4-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc;
-        bh=eLUXa/7f03mrrlxRZvP1+mfNlm5ZK61/IOpf+UOnfpA=;
-        b=WqSg1M4LPvRvE7ifojxAgf7wRBU1icJ6/c02Okmzy1I7MNcWnJciMvgd9E29H25H4Q
-         hOSe7+Md7Co6t5MC+3/kIvdRVkg5NK+48WzlsJpoKmlT00h4hLNZDfBAFl5jNzjUkw2L
-         tDwbjfZBV458pAPRzXjVRiCGwRDFyQTytaD+8YF9Tuc0TmbJm9yw+HSJc6BXCFKIzpEK
-         D9d891nlEEq+OcCtS7778AT52Q5yAJ9ZCs40vzIlwX+6P3K1D46S8DHPJLWHUfGr37ct
-         L8IZcVVnoD/jWZzALGwunGKNX3cSyxrT1U/+O4o866OfJT0bJ2tZvGB0V4x8e0v/HdlK
-         ai3g==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc;
+        bh=mveucMTZdZPLlN4D5K1kqfZw5UNWDwp9Ns7O7VRFK+I=;
+        b=FeHdakLvXxtWgjpPF+aflE98THue/ZKUpEuSPYY/vwKS6pLky2/FycS8L1DaAOP7p2
+         gbmwq+ySuj1nbkojJhrktc86MeoeDdNZHmrmEXeui4TvX9dWZtL5o1pn/n2SFPu2UKqJ
+         LwG8Bt1+6Z9HVd12TbOjrwFHHO7Xbx+0NZ4knAvVP00VnvWpTA1vdoX8qFWZUEU1a0Hc
+         WTzV9hRGh/acAWBr/K4D/fYN2WXLMaChMzaEobWBKN01dp0GD77rhc2rXo7Zw1Rse8vI
+         EoYL8E2KpOU5sN0NjoXacILSTjNTJslWSxRKaYX/is4eawuPkbRaWRlUK6vsWA5Q252i
+         fHCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc;
-        bh=eLUXa/7f03mrrlxRZvP1+mfNlm5ZK61/IOpf+UOnfpA=;
-        b=iVuUgPGZSblF0iDAwVMXsJMi3cEdZf2NMlyFuTFGs5QW2rodO3j9h0Ly8VKXzFS+i9
-         RS+T+dbXWwxzi29BAwU75Ji+deSrnPFNoLWfSyk7w89L7pwmmFaWMtCtCGrRXqnQqayX
-         AEh9aSpL8Tkv60opG+T2/zD3LpZF2tS24KS0nWrc1/eINGmHaMcOu5FF8XV7E7o8NESu
-         fvrnzte55scRA2BZ5qzxz7ZiBaT7y6hEaSqduTQibXWT3ORd95SgATYtKrUh5chW48kL
-         dy9fjbskRmiXkIwE6lj9gYinrqy8fXKpCoxLXiH/tfFrSdsQpy6Y4x8CSawKAgBlBK2M
-         kvtQ==
-X-Gm-Message-State: ACgBeo32nm4MIrhlDSaMS5zvf5daAf1VnIeGAmmUW08DSYnWsW8+eBk+
-	ZCUm7Glkh0Awp7T6epUx3Pk=
-X-Google-Smtp-Source: AA6agR5DJfVKYDlrSNLa3wNyuLPvwubsZF8VZQM6JU+GS2BugrOvjw9AFh0IiP8A3TZSNH/OEieLog==
-X-Received: by 2002:a05:6000:785:b0:220:6d7f:dd1f with SMTP id bu5-20020a056000078500b002206d7fdd1fmr18016045wrb.578.1660146695975;
-        Wed, 10 Aug 2022 08:51:35 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+        bh=mveucMTZdZPLlN4D5K1kqfZw5UNWDwp9Ns7O7VRFK+I=;
+        b=EeFksYZ35i1qaPE28k27EygXi9Hk0amzquZl8wc9o0iOIXgXQymyoA3wd+YBcLMyCf
+         LYoU+9zv7noUhKgoy3FbGRcTuPHbmb5jb5tZPpA3AQsfuXVndYoG6y8JQT0RhCrWZ5a5
+         M7rA4cCtB6pqxqawNGTeqwXoHFOHjLciPLpaFkPdRFZktgDdZ7LRMlz/SpBp3VF0/jOk
+         pg7p+O0EqXrSBWakpb8YROAsDOBAg/lWE250apcV5bqE1tys6fDxcPeX3ymuC6ldA8nX
+         Peuez7rvbi2ckMGCeJJlMSLBUxgHzBmAHmdAZONLF7I/TxY2wr8neuXvhyEk+PBSThDF
+         IA6g==
+X-Gm-Message-State: ACgBeo1uwcLFx4gJmOQQ6iZaaN7fa7NAcz4iKUAojh38mEv6czDFFrcB
+	WD4azZs9gnduOGFLdkZ9DQY=
+X-Google-Smtp-Source: AA6agR6IVj+Term37QFPdVaJx8duP8zGzs+p0efJL76vLIQCk5ivpP0E95/E2mMnqsqquEDgBKZAtg==
+X-Received: by 2002:a05:6000:3c6:b0:220:5efd:423c with SMTP id b6-20020a05600003c600b002205efd423cmr18135634wrg.214.1660146697602;
+        Wed, 10 Aug 2022 08:51:37 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: io-uring@vger.kernel.org,
 	netdev@vger.kernel.org
@@ -88,58 +88,59 @@ Cc: Jens Axboe <axboe@kernel.dk>,
 	"Michael S . Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowang@redhat.com>,
 	Pavel Begunkov <asml.silence@gmail.com>
-Subject: [RFC net-next io_uring 00/11] improve io_uring's ubuf_info refcounting
-Date: Wed, 10 Aug 2022 16:49:08 +0100
-Message-Id: <cover.1660124059.git.asml.silence@gmail.com>
+Subject: [RFC net-next io_uring 01/11] net: introduce struct ubuf_info_msgzc
+Date: Wed, 10 Aug 2022 16:49:09 +0100
+Message-Id: <d43f3ed1cb75c5572c1fc3bb32f2bb47c682da93.1660124059.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.37.0
+In-Reply-To: <cover.1660124059.git.asml.silence@gmail.com>
+References: <cover.1660124059.git.asml.silence@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is a couple of tricks we can do with io_uring to improve ubuf_info
-refcounting. First, we ammortise reference grabbing and then give them
-away to the network layer, which is implemented in 8 and 11. Also, we
-don't need need additional pinning for TCP, which is removed by 7.
+We're going to split struct ubuf_info and leave there only
+mandatory fields. Users are free to extend it. Add struct
+ubuf_info_msgzc, which will be an extended version for MSG_ZEROCOPY and
+some other users. It duplicates of struct ubuf_info for now and will be
+removed in a couple of patches.
 
-1-4 are needed because otherwise we're out of space in io_notif_data and
-using ->desc or some other field of ubuf_info would be ugly. It'll also
-facilitate further ideas like adding a simpler notification model for UDP.
+Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+---
+ include/linux/skbuff.h | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-liburing/examples/io_uring-sendzc benchmark using a branch containing the
-patchset and some more [1] showed ~1.6% qps improvement for UDP (dummy dev),
-and ~1% for TCP (localhost + hacks enabling zc).
-
-I didn't specifically test xen and vhost and not sure how, would love
-some help with that.
-
-[1] https://github.com/isilence/linux/tree/net/zc-ref-optimisation
-
-Pavel Begunkov (11):
-  net: introduce struct ubuf_info_msgzc
-  xen/netback: use struct ubuf_info_msgzc
-  vhost/net: use struct ubuf_info_msgzc
-  net: shrink struct ubuf_info
-  net: rename ubuf_info's flags
-  net: add flags for controlling ubuf_info
-  net/tcp: optimise tcp ubuf refcounting
-  net: let callers provide ->msg_ubuf refs
-  io_uring/notif: add helper for flushing refs
-  io_uring/notif: mark notifs with UARGFL_CALLER_PINNED
-  io_uring/notif: add ubuf_info ref caching
-
- drivers/net/xen-netback/common.h    |  2 +-
- drivers/net/xen-netback/interface.c |  4 +--
- drivers/net/xen-netback/netback.c   |  7 +++---
- drivers/vhost/net.c                 | 17 +++++++------
- include/linux/skbuff.h              | 35 +++++++++++++++++++++++---
- io_uring/net.c                      |  8 +++++-
- io_uring/notif.c                    | 21 ++++++++++------
- io_uring/notif.h                    | 22 +++++++++++++++-
- net/core/skbuff.c                   | 39 ++++++++++++++++-------------
- net/ipv4/ip_output.c                |  3 ++-
- net/ipv4/tcp.c                      | 11 +++++---
- net/ipv6/ip6_output.c               |  3 ++-
- 12 files changed, 123 insertions(+), 49 deletions(-)
-
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index ca8afa382bf2..f8ac3678dab8 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -554,7 +554,28 @@ struct ubuf_info {
+ 	} mmp;
+ };
+ 
++struct ubuf_info_msgzc {
++	struct ubuf_info ubuf;
++
++	union {
++		struct {
++			unsigned long desc;
++			void *ctx;
++		};
++		struct {
++			u32 id;
++			u16 len;
++			u16 zerocopy:1;
++			u32 bytelen;
++		};
++	};
++
++	struct mmpin mmp;
++};
++
+ #define skb_uarg(SKB)	((struct ubuf_info *)(skb_shinfo(SKB)->destructor_arg))
++#define uarg_to_msgzc(ubuf_ptr)	container_of((ubuf_ptr), struct ubuf_info_msgzc, \
++					     ubuf)
+ 
+ int mm_account_pinned_pages(struct mmpin *mmp, size_t size);
+ void mm_unaccount_pinned_pages(struct mmpin *mmp);
 -- 
 2.37.0
 
