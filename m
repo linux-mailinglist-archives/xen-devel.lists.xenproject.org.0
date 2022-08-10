@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF5F558F354
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Aug 2022 21:49:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.384000.619267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 476A458F352
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Aug 2022 21:49:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.384001.619278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLrhR-0007vJ-0Q; Wed, 10 Aug 2022 19:49:05 +0000
+	id 1oLrhS-0008Ds-I7; Wed, 10 Aug 2022 19:49:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 384000.619267; Wed, 10 Aug 2022 19:49:04 +0000
+Received: by outflank-mailman (output) from mailman id 384001.619278; Wed, 10 Aug 2022 19:49:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLrhQ-0007tW-S0; Wed, 10 Aug 2022 19:49:04 +0000
-Received: by outflank-mailman (input) for mailman id 384000;
- Wed, 10 Aug 2022 19:49:03 +0000
+	id 1oLrhS-0008BG-CO; Wed, 10 Aug 2022 19:49:06 +0000
+Received: by outflank-mailman (input) for mailman id 384001;
+ Wed, 10 Aug 2022 19:49:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UxBI=YO=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1oLrhP-0007rn-AY
- for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 19:49:03 +0000
-Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
- [2607:f8b0:4864:20::834])
+ id 1oLrhQ-0007rn-RW
+ for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 19:49:05 +0000
+Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
+ [2607:f8b0:4864:20::82b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b1ebc2e-18e5-11ed-924f-1f966e50362f;
- Wed, 10 Aug 2022 21:49:01 +0200 (CEST)
-Received: by mail-qt1-x834.google.com with SMTP id l5so5602918qtv.4
- for <xen-devel@lists.xenproject.org>; Wed, 10 Aug 2022 12:49:01 -0700 (PDT)
+ id 7c7242b0-18e5-11ed-924f-1f966e50362f;
+ Wed, 10 Aug 2022 21:49:03 +0200 (CEST)
+Received: by mail-qt1-x82b.google.com with SMTP id u12so12077995qtk.0
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Aug 2022 12:49:03 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:289e:b898:c7de:df6c])
  by smtp.gmail.com with ESMTPSA id
- bk9-20020a05620a1a0900b006b978b521c8sm520897qkb.69.2022.08.10.12.48.59
+ bk9-20020a05620a1a0900b006b978b521c8sm520897qkb.69.2022.08.10.12.49.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Aug 2022 12:48:59 -0700 (PDT)
+ Wed, 10 Aug 2022 12:49:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b1ebc2e-18e5-11ed-924f-1f966e50362f
+X-Inumbo-ID: 7c7242b0-18e5-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc;
-        bh=SumqexTTCRqxobYVxQoizLalrVNYgAZFWBWnxLaSfUU=;
-        b=O3R02hA7NmhxIqDrMeEBUTxbZLZtn7DIWAvSUoNFXQ3G5qQQ7LSvcdH281uucrfp7c
-         lFhMYQaC6H5VGiq27S5mJIGWDm6nPZXkPEFCS+3yjpRkmxGV5svrnHUg+6kMTeW0rdx5
-         /NKMEhvUzZVIdWCNoOI7FBs4X5g+MIteStBt58JP0Ya/p9CvYpDuiElkniJwpzn16pT8
-         whpBxWtEiWpuEkRtdPDOP8yvoO/yhQ76A+3IxNX1AyK2OIjMbgJX4TUKuRN4txOXp5++
-         LkiIW1AEYh2Er/B+1B2wfN6XO2KqnwodWBxpHrSlFRbOwRZPTZkt5WqslZ96p5U9sniq
-         4wuQ==
+        bh=UYR0+uohvDIXv206Eq7xqYEcXJtgPEmS478u5ZUE58M=;
+        b=LLmFZQIXXQR5s7aFFARrKKhoL7RS9PfJtLk+hCdCy0aMZ7snwvIODOVNup8KuprMGb
+         Dt1ibz50BR8ZcFRg2gBumMj8lDOPAI/hxXdJngGeaTVy9Slir4k8qV8LujOQuiC1WpU+
+         b6AagDGv8Nke6toKpx9fSOSRje6XxLk5IFh8BvgB9vKkYwuptPyalD3eBHWzLZrZkZ7X
+         O6xSerIYCA00eutDFTqEWkT/bW/V2K+B8VSDZVHkx90akTn65fGczEtNfX5nJm4s3vk2
+         TeAnCbFtjDoTktVlhKTBTUYwgstSa8POgeVm/4Z2FFSmXh0g076FT/G6xIImGuSjGgMk
+         UzjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
-        bh=SumqexTTCRqxobYVxQoizLalrVNYgAZFWBWnxLaSfUU=;
-        b=POct13hKXoX59FETvLJeLkdOfwrw8URmiE2M0VOA2QJO1GhgCKFX625WX6HSr/A57I
-         K50NKa41KCkrKELTh1LLmwgKD62OUpdnkUmTS47ykVjaesPEDJOEmS4lfE80MAT8/BA/
-         gxVVsp0Xn++jlOgCq5WgacrqpQodsNDWfTgYzabYsZeDcmGfy50nRcHrkt7XejjWm8m3
-         +0QtqwJLqutvbyuLlUK4kUvCnz7MqBPHVAdzqf7NPnXyHwyO4+/W+N15XVGBqfzlx5FI
-         wrlP54vGSTPM5kNfEhNKvYMParu8Qnu30JNfQ28U7Uy/nzO2zIt+DvbSfVQcmI77QzW4
-         OCng==
-X-Gm-Message-State: ACgBeo1SrqEzqh5C+QmHIatY9q7tvHPiWxVMiHc7+dH55EEFRudXQ6uB
-	HDvmhsVzKQFC/pAtt+UblUhJGz7kWoA=
-X-Google-Smtp-Source: AA6agR5iS1H/EecYrydPcu8k+9OzkxsXICEcXw+79WbpyY1AwZ7Fd4FykCuXSCQF1u5TcGgw4uiD2A==
-X-Received: by 2002:ac8:5fd1:0:b0:31f:31a6:55c0 with SMTP id k17-20020ac85fd1000000b0031f31a655c0mr25626552qta.506.1660160940152;
-        Wed, 10 Aug 2022 12:49:00 -0700 (PDT)
+        bh=UYR0+uohvDIXv206Eq7xqYEcXJtgPEmS478u5ZUE58M=;
+        b=tzxVNKOvXrwjTrk+rHeWKBeuyqPMQTB4kfc8xV+cmtU/6UUxnGPHlSmrnJMokHDlL7
+         S8rpS9OEDYqC89MYfAh+FPzmnll3O9WLb3nBRbPcFInzT/3iw40ENcXPT4e/DxyD4TFD
+         VxND4K9f3sCquSpZoJ6dZaZSu3lVNDAtGiMiHTpQzfbcTWNfM99fLzCyYnrm7o8P5C6I
+         ERmSXbA5Za31HZvB2IFtFra0WnwN/oQ6Z/GN0oguySp5Jkd1O23zUcdJGdCnHPFanYi9
+         oVFi93UnlWfBbWnNzY2Cyw9sk5QIIyRwqG6L/25LDKJ2ZV150B0sNpXjaahd/T7JwAHD
+         F8qQ==
+X-Gm-Message-State: ACgBeo3fT0nNG59z17bh5JRMIYR2Gpx4zzNKAX4Od/lBefkz9EYKUoVc
+	wdy09hdm3uWEfdqsMFieuwnBWKdqclI=
+X-Google-Smtp-Source: AA6agR40LUsRMZXNfAIHlTIAI+WhtV2fN3eSZ/8pzxbMagSPZBUttDo96OvAI48aq5j3PvHaDDRguA==
+X-Received: by 2002:ac8:7e96:0:b0:340:be9a:8ce1 with SMTP id w22-20020ac87e96000000b00340be9a8ce1mr25787460qtj.228.1660160942481;
+        Wed, 10 Aug 2022 12:49:02 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
@@ -80,399 +80,314 @@ Cc: Jason Andryuk <jandryuk@gmail.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Nick Rosbrook <rosbrookn@gmail.com>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 2/3] xl/libxl: Add ability to specify SMBIOS strings
-Date: Wed, 10 Aug 2022 15:48:26 -0400
-Message-Id: <20220810194827.103428-3-jandryuk@gmail.com>
+Subject: [PATCH 3/3] xl/libxl: Add OEM string support to smbios
+Date: Wed, 10 Aug 2022 15:48:27 -0400
+Message-Id: <20220810194827.103428-4-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220810194827.103428-1-jandryuk@gmail.com>
 References: <20220810194827.103428-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-hvm_xs_strings.h specifies xenstore entries which can be used to set or
-override smbios strings.  hvmloader has support for reading them, but
-xl/libxl support is not wired up.
+Add support for OEM strings in the SMBIOS type 11.
 
-Allow specifying the strings with the new xl.cfg option:
-smbios=["bios_vendor=Xen Project","system_version=1.0"]
-
-In terms of strings, the SMBIOS specification 3.5 says:
-https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.5.0.pdf
-"""
-Strings must be encoded as UTF-8 with no byte order mark (BOM). For
-compatibility with older SMBIOS parsers, US-ASCII characters should be
-used.  NOTE There is no limit on the length of each individual text
-string. However, the length of the entire structure table (including all
-strings) must be reported in the Structure Table Length field of the
-32-bit Structure Table Entry Point (see 5.2.1) and/or the Structure
-Table Maximum Size field of the 64-bit Structure Table Entry Point (see
-5.2.2).
-"""
-
-The strings aren't checked for utf-8 or length.  hvmloader has a sanity
-check on the overall length.
-
-The libxl_smbios_type enum starts at 1 since otherwise the 0th key is
-not printed in the json output.
+hvmloader checks them sequentially, so hide the implementation detail.
+Allow multiple plain oem= items and assign the numeric values
+internally.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
-The rendered man page and html don't have a newline at then end of the
-new section.
-"""
-           battery_device_name=STRING
-       ms_vm_genid="OPTION"
-"""
-
-however the txt format is correct:
-"""
-        battery_device_name=STRING
-
-    ms_vm_genid="OPTION"
-"""
-
-I'm at a loss as to why this is happening.
+This change re-introduces the newline before ms_vm_genid.
 ---
- docs/man/xl.cfg.5.pod.in             | 45 ++++++++++++++++++++++++
- tools/golang/xenlight/helpers.gen.go | 51 ++++++++++++++++++++++++++++
- tools/golang/xenlight/types.gen.go   | 27 +++++++++++++++
- tools/include/libxl.h                |  5 +++
- tools/libs/light/libxl_dom.c         | 20 +++++++++++
- tools/libs/light/libxl_types.idl     | 26 ++++++++++++++
- tools/xl/xl_parse.c                  | 44 +++++++++++++++++++++++-
- 7 files changed, 217 insertions(+), 1 deletion(-)
+ docs/man/xl.cfg.5.pod.in           |  4 ++
+ tools/golang/xenlight/types.gen.go | 99 ++++++++++++++++++++++++++++++
+ tools/libs/light/libxl_types.idl   | 99 ++++++++++++++++++++++++++++++
+ tools/xl/xl_parse.c                | 15 +++++
+ 4 files changed, 217 insertions(+)
 
 diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 6d98d73d76..7edf5d23f3 100644
+index 7edf5d23f3..7947bf07ea 100644
 --- a/docs/man/xl.cfg.5.pod.in
 +++ b/docs/man/xl.cfg.5.pod.in
-@@ -2061,6 +2061,51 @@ number of vendor defined SMBIOS structures (type 128 - 255). Since SMBIOS
- structures do not present their overall size, each entry in the file must be
- preceded by a 32b integer indicating the size of the following structure.
+@@ -2104,8 +2104,12 @@ Each B<SMBIOS_SPEC_STRING> is a C<KEY=VALUE> string from the following list:
  
-+=item B<smbios=[ "SMBIOS_SPEC_STRING", "SMBIOS_SPEC_STRING", ...]>
+ =item B<battery_device_name=STRING>
+ 
++=item B<oem=STRING>
 +
-+Specifies the SMBIOS values to be provided to the guest.  These set or
-+override specific entries in the tables provided to the guest.
-+
-+Each B<SMBIOS_SPEC_STRING> is a C<KEY=VALUE> string from the following list:
-+
-+=over 4
-+
-+=item B<bios_vendor=STRING>
-+
-+=item B<bios_version=STRING>
-+
-+=item B<system_manufacturer=STRING>
-+
-+=item B<system_product_name=STRING>
-+
-+=item B<system_version=STRING>
-+
-+=item B<system_serial_number=STRING>
-+
-+=item B<baseboard_manufacturer=STRING>
-+
-+=item B<baseboard_product_name=STRING>
-+
-+=item B<baseboard_version=STRING>
-+
-+=item B<baseboard_serial_number=STRING>
-+
-+=item B<baseboard_asset_tag=STRING>
-+
-+=item B<baseboard_location_in_chassis=STRING>
-+
-+=item B<enclosure_manufacturer=STRING>
-+
-+=item B<enclosure_serial_number=STRING>
-+
-+=item B<enclosure_asset_tag=STRING>
-+
-+=item B<battery_manufacturer=STRING>
-+
-+=item B<battery_device_name=STRING>
-+
-+=back
+ =back
+ 
++oem= strings can be specified mutiple times up to a limit of 99.
 +
  =item B<ms_vm_genid="OPTION">
  
  Provide a VM generation ID to the guest.
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-index fa3cf2ab76..cae14ec6f5 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -589,6 +589,38 @@ xc.build_id = C.CString(x.BuildId)}
-  return nil
-  }
- 
-+// NewSmbios returns an instance of Smbios initialized with defaults.
-+func NewSmbios() (*Smbios, error) {
-+var (
-+x Smbios
-+xc C.libxl_smbios)
-+
-+C.libxl_smbios_init(&xc)
-+defer C.libxl_smbios_dispose(&xc)
-+
-+if err := x.fromC(&xc); err != nil {
-+return nil, err }
-+
-+return &x, nil}
-+
-+func (x *Smbios) fromC(xc *C.libxl_smbios) error {
-+ x.Key = SmbiosType(xc.key)
-+x.Value = C.GoString(xc.value)
-+
-+ return nil}
-+
-+func (x *Smbios) toC(xc *C.libxl_smbios) (err error){defer func(){
-+if err != nil{
-+C.libxl_smbios_dispose(xc)}
-+}()
-+
-+xc.key = C.libxl_smbios_type(x.Key)
-+if x.Value != "" {
-+xc.value = C.CString(x.Value)}
-+
-+ return nil
-+ }
-+
- // NewDomainCreateInfo returns an instance of DomainCreateInfo initialized with defaults.
- func NewDomainCreateInfo() (*DomainCreateInfo, error) {
- var (
-@@ -1189,6 +1221,15 @@ return fmt.Errorf("converting field Altp2M: %v", err)
- }
- x.SystemFirmware = C.GoString(tmp.system_firmware)
- x.SmbiosFirmware = C.GoString(tmp.smbios_firmware)
-+x.Smbios = nil
-+if n := int(tmp.num_smbios); n > 0 {
-+cSmbios := (*[1<<28]C.libxl_smbios)(unsafe.Pointer(tmp.smbios))[:n:n]
-+x.Smbios = make([]Smbios, n)
-+for i, v := range cSmbios {
-+if err := x.Smbios[i].fromC(&v); err != nil {
-+return fmt.Errorf("converting field Smbios: %v", err) }
-+}
-+}
- x.AcpiFirmware = C.GoString(tmp.acpi_firmware)
- x.Hdtype = Hdtype(tmp.hdtype)
- if err := x.Nographic.fromC(&tmp.nographic);err != nil {
-@@ -1501,6 +1542,16 @@ if tmp.SystemFirmware != "" {
- hvm.system_firmware = C.CString(tmp.SystemFirmware)}
- if tmp.SmbiosFirmware != "" {
- hvm.smbios_firmware = C.CString(tmp.SmbiosFirmware)}
-+if numSmbios := len(tmp.Smbios); numSmbios > 0 {
-+hvm.smbios = (*C.libxl_smbios)(C.malloc(C.ulong(numSmbios)*C.sizeof_libxl_smbios))
-+hvm.num_smbios = C.int(numSmbios)
-+cSmbios := (*[1<<28]C.libxl_smbios)(unsafe.Pointer(hvm.smbios))[:numSmbios:numSmbios]
-+for i,v := range tmp.Smbios {
-+if err := v.toC(&cSmbios[i]); err != nil {
-+return fmt.Errorf("converting field Smbios: %v", err)
-+}
-+}
-+}
- if tmp.AcpiFirmware != "" {
- hvm.acpi_firmware = C.CString(tmp.AcpiFirmware)}
- hvm.hdtype = C.libxl_hdtype(tmp.Hdtype)
 diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index a0be7ada8c..e084c3540b 100644
+index e084c3540b..bd5752f634 100644
 --- a/tools/golang/xenlight/types.gen.go
 +++ b/tools/golang/xenlight/types.gen.go
-@@ -386,6 +386,32 @@ Commandline string
- BuildId string
- }
+@@ -405,6 +405,105 @@ SmbiosTypeEnclosureSerialNumber SmbiosType = 14
+ SmbiosTypeEnclosureAssetTag SmbiosType = 15
+ SmbiosTypeBatteryManufacturer SmbiosType = 16
+ SmbiosTypeBatteryDeviceName SmbiosType = 17
++SmbiosTypeOem1 SmbiosType = 18
++SmbiosTypeOem2 SmbiosType = 19
++SmbiosTypeOem3 SmbiosType = 20
++SmbiosTypeOem4 SmbiosType = 21
++SmbiosTypeOem5 SmbiosType = 22
++SmbiosTypeOem6 SmbiosType = 23
++SmbiosTypeOem7 SmbiosType = 24
++SmbiosTypeOem8 SmbiosType = 25
++SmbiosTypeOem9 SmbiosType = 26
++SmbiosTypeOem10 SmbiosType = 27
++SmbiosTypeOem11 SmbiosType = 28
++SmbiosTypeOem12 SmbiosType = 29
++SmbiosTypeOem13 SmbiosType = 30
++SmbiosTypeOem14 SmbiosType = 31
++SmbiosTypeOem15 SmbiosType = 32
++SmbiosTypeOem16 SmbiosType = 33
++SmbiosTypeOem17 SmbiosType = 34
++SmbiosTypeOem18 SmbiosType = 35
++SmbiosTypeOem19 SmbiosType = 36
++SmbiosTypeOem20 SmbiosType = 37
++SmbiosTypeOem21 SmbiosType = 38
++SmbiosTypeOem22 SmbiosType = 39
++SmbiosTypeOem23 SmbiosType = 40
++SmbiosTypeOem24 SmbiosType = 41
++SmbiosTypeOem25 SmbiosType = 42
++SmbiosTypeOem26 SmbiosType = 43
++SmbiosTypeOem27 SmbiosType = 44
++SmbiosTypeOem28 SmbiosType = 45
++SmbiosTypeOem29 SmbiosType = 46
++SmbiosTypeOem30 SmbiosType = 47
++SmbiosTypeOem31 SmbiosType = 48
++SmbiosTypeOem32 SmbiosType = 49
++SmbiosTypeOem33 SmbiosType = 50
++SmbiosTypeOem34 SmbiosType = 51
++SmbiosTypeOem35 SmbiosType = 52
++SmbiosTypeOem36 SmbiosType = 53
++SmbiosTypeOem37 SmbiosType = 54
++SmbiosTypeOem38 SmbiosType = 55
++SmbiosTypeOem39 SmbiosType = 56
++SmbiosTypeOem40 SmbiosType = 57
++SmbiosTypeOem41 SmbiosType = 58
++SmbiosTypeOem42 SmbiosType = 59
++SmbiosTypeOem43 SmbiosType = 60
++SmbiosTypeOem44 SmbiosType = 61
++SmbiosTypeOem45 SmbiosType = 62
++SmbiosTypeOem46 SmbiosType = 63
++SmbiosTypeOem47 SmbiosType = 64
++SmbiosTypeOem48 SmbiosType = 65
++SmbiosTypeOem49 SmbiosType = 66
++SmbiosTypeOem50 SmbiosType = 67
++SmbiosTypeOem51 SmbiosType = 68
++SmbiosTypeOem52 SmbiosType = 69
++SmbiosTypeOem53 SmbiosType = 70
++SmbiosTypeOem54 SmbiosType = 71
++SmbiosTypeOem55 SmbiosType = 72
++SmbiosTypeOem56 SmbiosType = 73
++SmbiosTypeOem57 SmbiosType = 74
++SmbiosTypeOem58 SmbiosType = 75
++SmbiosTypeOem59 SmbiosType = 76
++SmbiosTypeOem60 SmbiosType = 77
++SmbiosTypeOem61 SmbiosType = 78
++SmbiosTypeOem62 SmbiosType = 79
++SmbiosTypeOem63 SmbiosType = 80
++SmbiosTypeOem64 SmbiosType = 81
++SmbiosTypeOem65 SmbiosType = 82
++SmbiosTypeOem66 SmbiosType = 83
++SmbiosTypeOem67 SmbiosType = 84
++SmbiosTypeOem68 SmbiosType = 85
++SmbiosTypeOem69 SmbiosType = 86
++SmbiosTypeOem70 SmbiosType = 87
++SmbiosTypeOem71 SmbiosType = 88
++SmbiosTypeOem72 SmbiosType = 89
++SmbiosTypeOem73 SmbiosType = 90
++SmbiosTypeOem74 SmbiosType = 91
++SmbiosTypeOem75 SmbiosType = 92
++SmbiosTypeOem76 SmbiosType = 93
++SmbiosTypeOem77 SmbiosType = 94
++SmbiosTypeOem78 SmbiosType = 95
++SmbiosTypeOem79 SmbiosType = 96
++SmbiosTypeOem80 SmbiosType = 97
++SmbiosTypeOem81 SmbiosType = 98
++SmbiosTypeOem82 SmbiosType = 99
++SmbiosTypeOem83 SmbiosType = 100
++SmbiosTypeOem84 SmbiosType = 101
++SmbiosTypeOem85 SmbiosType = 102
++SmbiosTypeOem86 SmbiosType = 103
++SmbiosTypeOem87 SmbiosType = 104
++SmbiosTypeOem88 SmbiosType = 105
++SmbiosTypeOem89 SmbiosType = 106
++SmbiosTypeOem90 SmbiosType = 107
++SmbiosTypeOem91 SmbiosType = 108
++SmbiosTypeOem92 SmbiosType = 109
++SmbiosTypeOem93 SmbiosType = 110
++SmbiosTypeOem94 SmbiosType = 111
++SmbiosTypeOem95 SmbiosType = 112
++SmbiosTypeOem96 SmbiosType = 113
++SmbiosTypeOem97 SmbiosType = 114
++SmbiosTypeOem98 SmbiosType = 115
++SmbiosTypeOem99 SmbiosType = 116
+ )
  
-+type SmbiosType int
-+const(
-+SmbiosTypeBiosVendor SmbiosType = 1
-+SmbiosTypeBiosVersion SmbiosType = 2
-+SmbiosTypeSystemManufacturer SmbiosType = 3
-+SmbiosTypeSystemProductName SmbiosType = 4
-+SmbiosTypeSystemVersion SmbiosType = 5
-+SmbiosTypeSystemSerialNumber SmbiosType = 6
-+SmbiosTypeBaseboardManufacturer SmbiosType = 7
-+SmbiosTypeBaseboardProductName SmbiosType = 8
-+SmbiosTypeBaseboardVersion SmbiosType = 9
-+SmbiosTypeBaseboardSerialNumber SmbiosType = 10
-+SmbiosTypeBaseboardAssetTag SmbiosType = 11
-+SmbiosTypeBaseboardLocationInChassis SmbiosType = 12
-+SmbiosTypeEnclosureManufacturer SmbiosType = 13
-+SmbiosTypeEnclosureSerialNumber SmbiosType = 14
-+SmbiosTypeEnclosureAssetTag SmbiosType = 15
-+SmbiosTypeBatteryManufacturer SmbiosType = 16
-+SmbiosTypeBatteryDeviceName SmbiosType = 17
-+)
-+
-+type Smbios struct {
-+Key SmbiosType
-+Value string
-+}
-+
- type DomainCreateInfo struct {
- Type DomainType
- Hap Defbool
-@@ -568,6 +594,7 @@ NestedHvm Defbool
- Altp2M Defbool
- SystemFirmware string
- SmbiosFirmware string
-+Smbios []Smbios
- AcpiFirmware string
- Hdtype Hdtype
- Nographic Defbool
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 2321a648a5..023613d35b 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -174,6 +174,11 @@
-  */
- #define LIBXL_HAVE_BUILDINFO_HVM_MS_VM_GENID 1
- 
-+/*
-+ * libxl_domain_build_info has the u.hvm.smbios field.
-+ */
-+#define LIBXL_HAVE_BUILDINFO_HVM_SMBIOS 1
-+
- /*
-  * LIBXL_HAVE_VCPUINFO_SOFT_AFFINITY indicates that a 'cpumap_soft'
-  * field (of libxl_bitmap type) is present in libxl_vcpuinfo,
-diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
-index 2abaab439c..9034933ea8 100644
---- a/tools/libs/light/libxl_dom.c
-+++ b/tools/libs/light/libxl_dom.c
-@@ -771,6 +771,26 @@ static int hvm_build_set_xs_values(libxl__gc *gc,
-             goto err;
-     }
- 
-+    for (int i = 0; i < info->u.hvm.num_smbios; i++) {
-+        char *p;
-+        path = GCSPRINTF("/local/domain/%d/"HVM_XS_BIOS_STRINGS"/%s", domid,
-+                   libxl_smbios_type_to_string(info->u.hvm.smbios[i].key));
-+
-+        /* libxl defines are all "_", but the HVM_XS_ strings are "-". */
-+        p = strrchr(path, '/');
-+        for ( ; *p; p++) {
-+            if (*p == '_')
-+                *p = '-';
-+        }
-+
-+        LOGD(DEBUG, domid, "Writing %d %s %s\n", i, path,
-+             info->u.hvm.smbios[i].value);
-+        ret = libxl__xs_printf(gc, XBT_NULL, path, "%s",
-+                               info->u.hvm.smbios[i].value);
-+        if (ret)
-+            goto err;
-+    }
-+
-     /* Only one module can be passed. PVHv2 guests do not support this. */
-     if (dom->acpi_modules[0].guest_addr_out && 
-         info->type == LIBXL_DOMAIN_TYPE_HVM) {
+ type Smbios struct {
 diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index d634f304cd..d04207748e 100644
+index d04207748e..58f404af37 100644
 --- a/tools/libs/light/libxl_types.idl
 +++ b/tools/libs/light/libxl_types.idl
-@@ -418,6 +418,31 @@ libxl_version_info = Struct("version_info", [
-     ("build_id",          string),
-     ], dir=DIR_OUT)
+@@ -436,6 +436,105 @@ libxl_smbios_type = Enumeration("smbios_type", [
+     (15, "enclosure_asset_tag"),
+     (16, "battery_manufacturer"),
+     (17, "battery_device_name"),
++    (18, "oem_1"),
++    (19, "oem_2"),
++    (20, "oem_3"),
++    (21, "oem_4"),
++    (22, "oem_5"),
++    (23, "oem_6"),
++    (24, "oem_7"),
++    (25, "oem_8"),
++    (26, "oem_9"),
++    (27, "oem_10"),
++    (28, "oem_11"),
++    (29, "oem_12"),
++    (30, "oem_13"),
++    (31, "oem_14"),
++    (32, "oem_15"),
++    (33, "oem_16"),
++    (34, "oem_17"),
++    (35, "oem_18"),
++    (36, "oem_19"),
++    (37, "oem_20"),
++    (38, "oem_21"),
++    (39, "oem_22"),
++    (40, "oem_23"),
++    (41, "oem_24"),
++    (42, "oem_25"),
++    (43, "oem_26"),
++    (44, "oem_27"),
++    (45, "oem_28"),
++    (46, "oem_29"),
++    (47, "oem_30"),
++    (48, "oem_31"),
++    (49, "oem_32"),
++    (50, "oem_33"),
++    (51, "oem_34"),
++    (52, "oem_35"),
++    (53, "oem_36"),
++    (54, "oem_37"),
++    (55, "oem_38"),
++    (56, "oem_39"),
++    (57, "oem_40"),
++    (58, "oem_41"),
++    (59, "oem_42"),
++    (60, "oem_43"),
++    (61, "oem_44"),
++    (62, "oem_45"),
++    (63, "oem_46"),
++    (64, "oem_47"),
++    (65, "oem_48"),
++    (66, "oem_49"),
++    (67, "oem_50"),
++    (68, "oem_51"),
++    (69, "oem_52"),
++    (70, "oem_53"),
++    (71, "oem_54"),
++    (72, "oem_55"),
++    (73, "oem_56"),
++    (74, "oem_57"),
++    (75, "oem_58"),
++    (76, "oem_59"),
++    (77, "oem_60"),
++    (78, "oem_61"),
++    (79, "oem_62"),
++    (80, "oem_63"),
++    (81, "oem_64"),
++    (82, "oem_65"),
++    (83, "oem_66"),
++    (84, "oem_67"),
++    (85, "oem_68"),
++    (86, "oem_69"),
++    (87, "oem_70"),
++    (88, "oem_71"),
++    (89, "oem_72"),
++    (90, "oem_73"),
++    (91, "oem_74"),
++    (92, "oem_75"),
++    (93, "oem_76"),
++    (94, "oem_77"),
++    (95, "oem_78"),
++    (96, "oem_79"),
++    (97, "oem_80"),
++    (98, "oem_81"),
++    (99, "oem_82"),
++    (100, "oem_83"),
++    (101, "oem_84"),
++    (102, "oem_85"),
++    (103, "oem_86"),
++    (104, "oem_87"),
++    (105, "oem_88"),
++    (106, "oem_89"),
++    (107, "oem_90"),
++    (108, "oem_91"),
++    (109, "oem_92"),
++    (110, "oem_93"),
++    (111, "oem_94"),
++    (112, "oem_95"),
++    (113, "oem_96"),
++    (114, "oem_97"),
++    (115, "oem_98"),
++    (116, "oem_99"),
+     ])
  
-+libxl_smbios_type = Enumeration("smbios_type", [
-+    (1,  "bios_vendor"),
-+    (2,  "bios_version"),
-+    (3,  "system_manufacturer"),
-+    (4,  "system_product_name"),
-+    (5,  "system_version"),
-+    (6,  "system_serial_number"),
-+    (7,  "baseboard_manufacturer"),
-+    (8,  "baseboard_product_name"),
-+    (9,  "baseboard_version"),
-+    (10, "baseboard_serial_number"),
-+    (11, "baseboard_asset_tag"),
-+    (12, "baseboard_location_in_chassis"),
-+    (13, "enclosure_manufacturer"),
-+    (14, "enclosure_serial_number"),
-+    (15, "enclosure_asset_tag"),
-+    (16, "battery_manufacturer"),
-+    (17, "battery_device_name"),
-+    ])
-+
-+libxl_smbios = Struct("smbios", [
-+    ("key",          libxl_smbios_type),
-+    ("value",        string),
-+    ], dir=DIR_IN)
-+
- libxl_domain_create_info = Struct("domain_create_info",[
-     ("type",         libxl_domain_type),
-     ("hap",          libxl_defbool),
-@@ -604,6 +629,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
-                                        ("altp2m",           libxl_defbool),
-                                        ("system_firmware",  string),
-                                        ("smbios_firmware",  string),
-+                                       ("smbios",           Array(libxl_smbios, "num_smbios")),
-                                        ("acpi_firmware",    string),
-                                        ("hdtype",           libxl_hdtype),
-                                        ("nographic",        libxl_defbool),
+ libxl_smbios = Struct("smbios", [
 diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 1b5381cef0..4f3f962773 100644
+index 4f3f962773..fb7f1f6867 100644
 --- a/tools/xl/xl_parse.c
 +++ b/tools/xl/xl_parse.c
-@@ -1220,8 +1220,9 @@ void parse_config_data(const char *config_source,
-     XLU_ConfigList *cpus, *vbds, *nics, *pcis, *cvfbs, *cpuids, *vtpms,
-                    *usbctrls, *usbdevs, *p9devs, *vdispls, *pvcallsifs_devs;
-     XLU_ConfigList *channels, *ioports, *irqs, *iomem, *viridian, *dtdevs,
--                   *mca_caps;
-+                   *mca_caps, *smbios;
-     int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps;
-+    int num_smbios;
-     int pci_power_mgmt = 0;
-     int pci_msitranslate = 0;
-     int pci_permissive = 0;
-@@ -1783,6 +1784,47 @@ void parse_config_data(const char *config_source,
-         xlu_cfg_replace_string(config, "acpi_firmware",
-                                &b_info->u.hvm.acpi_firmware, 0);
- 
-+        switch (xlu_cfg_get_list(config, "smbios", &smbios, &num_smbios, 0))
+@@ -1787,12 +1787,16 @@ void parse_config_data(const char *config_source,
+         switch (xlu_cfg_get_list(config, "smbios", &smbios, &num_smbios, 0))
+         {
+         case 0: /* Success */
 +        {
-+        case 0: /* Success */
-+            b_info->u.hvm.num_smbios = num_smbios;
-+            b_info->u.hvm.smbios = xcalloc(num_smbios, sizeof(libxl_smbios));
-+            for (i = 0; i < num_smbios; i++) {
-+                char *option_untrimmed, *value_untrimmed;
-+                char *option, *value;
-+                libxl_smbios_type v;
++            unsigned int num_oem = 1;
 +
-+                buf = xlu_cfg_get_listitem(smbios, i);
-+                if (!buf) continue;
-+
-+                if (split_string_into_pair(buf, "=",
-+                                           &option_untrimmed,
-+                                           &value_untrimmed)) {
-+                    fprintf(stderr, "xl: failed to split \"%s\" into pair\n",
-+                            buf);
-+                    exit(EXIT_FAILURE);
-+                }
-+                trim(isspace, option_untrimmed, &option);
-+                trim(isspace, value_untrimmed, &value);
-+
-+                e = libxl_smbios_type_from_string(option, &v);
-+                if (e) {
-+                    fprintf(stderr,
-+                            "xl: unknown smbios type '%s'\n",
-+                            buf);
-+                    exit(-ERROR_FAIL);
+             b_info->u.hvm.num_smbios = num_smbios;
+             b_info->u.hvm.smbios = xcalloc(num_smbios, sizeof(libxl_smbios));
+             for (i = 0; i < num_smbios; i++) {
+                 char *option_untrimmed, *value_untrimmed;
+                 char *option, *value;
+                 libxl_smbios_type v;
++                char oem_buf[] = "oem_99";
+ 
+                 buf = xlu_cfg_get_listitem(smbios, i);
+                 if (!buf) continue;
+@@ -1807,6 +1811,16 @@ void parse_config_data(const char *config_source,
+                 trim(isspace, option_untrimmed, &option);
+                 trim(isspace, value_untrimmed, &value);
+ 
++                if (strcmp(option, "oem") == 0) {
++                    if (num_oem > 99) {
++                        fprintf(stderr, "xl: sbmios oem strings limited to 99\n");
++                        exit(-ERROR_FAIL);
++                    }
++                    sprintf(oem_buf, "oem_%d", num_oem);
++                    num_oem++;
++                    option = oem_buf;
 +                }
 +
-+                b_info->u.hvm.smbios[i].key = v;
-+                b_info->u.hvm.smbios[i].value = value;
-+            }
-+            break;
-+        case ESRCH: break; /* Option not present */
-+        default:
-+            fprintf(stderr,"xl: Unable to parse smbios options.\n");
-+            exit(-ERROR_FAIL);
+                 e = libxl_smbios_type_from_string(option, &v);
+                 if (e) {
+                     fprintf(stderr,
+@@ -1819,6 +1833,7 @@ void parse_config_data(const char *config_source,
+                 b_info->u.hvm.smbios[i].value = value;
+             }
+             break;
 +        }
-+
-         if (!xlu_cfg_get_string(config, "ms_vm_genid", &buf, 0)) {
-             if (!strcmp(buf, "generate")) {
-                 e = libxl_ms_vm_genid_generate(ctx, &b_info->u.hvm.ms_vm_genid);
+         case ESRCH: break; /* Option not present */
+         default:
+             fprintf(stderr,"xl: Unable to parse smbios options.\n");
 -- 
 2.37.1
 
