@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CEE858EECC
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Aug 2022 16:52:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.383683.618887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5524F58F08A
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Aug 2022 18:40:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.383719.618899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLn3J-0003df-Ei; Wed, 10 Aug 2022 14:51:21 +0000
+	id 1oLojc-0005Tg-5d; Wed, 10 Aug 2022 16:39:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 383683.618887; Wed, 10 Aug 2022 14:51:21 +0000
+Received: by outflank-mailman (output) from mailman id 383719.618899; Wed, 10 Aug 2022 16:39:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLn3J-0003bs-C5; Wed, 10 Aug 2022 14:51:21 +0000
-Received: by outflank-mailman (input) for mailman id 383683;
- Wed, 10 Aug 2022 14:51:20 +0000
+	id 1oLojc-0005Qe-1J; Wed, 10 Aug 2022 16:39:08 +0000
+Received: by outflank-mailman (input) for mailman id 383719;
+ Wed, 10 Aug 2022 16:39:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oLn3I-0003bm-06
- for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 14:51:20 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLoja-0005QU-E5; Wed, 10 Aug 2022 16:39:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oLn3H-0002sW-Ig; Wed, 10 Aug 2022 14:51:19 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238] helo=[192.168.4.36])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oLn3H-0008G3-Bq; Wed, 10 Aug 2022 14:51:19 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLoja-0005Cx-AW; Wed, 10 Aug 2022 16:39:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLojZ-00076P-W2; Wed, 10 Aug 2022 16:39:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oLojZ-0007Sd-Vb; Wed, 10 Aug 2022 16:39:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,71 +42,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=e9QsneBUnLAQW6zomqTk7AC2tJQoftZpmuTfa1unkmQ=; b=iM+aVzJTKS26pXsQbZi9u3nWS2
-	Hs1s3Ewc5HCnrUW1AAqT/b4Abn6l2f2J3Uy16dPUfH7FoyjMWM7UmgSFSIOQ6QeOiPUD010xRJyTM
-	3UVGwUxo5ndGrN9TeKieZKFQHogWOcK0QIVZd2jbrz6yHSiiZDU/GDQI4e1W22QBm4i0=;
-Message-ID: <28d85fd0-0e61-7e45-34c5-91ba746561ce@xen.org>
-Date: Wed, 10 Aug 2022 15:51:17 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZISkhQkxIcHGQwTyqwx8eejVAvxT9awW/YkwkntRvc0=; b=CtvfvzYc10sDOTCxY6rRU4dPPj
+	gY9zai3ZPSRngRp9M/cRkZUoHoIKgTxd4HEcRsctZzsFFgcBnEckJ1jfEwRLj5Mfj1Gq0lsXSEa9D
+	Su2xe0ckXCkd4Qhn4oHz4MyjDgyC3sxcvTVGS2lwXdA9m7XOAsjkKXvhtmclph3rhpa4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172361-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.1.0
-Subject: Re: [XEN v1] xen: arm: Check if timer is enabled for timer irq
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@amd.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com
-References: <20220810105822.18404-1-ayankuma@amd.com>
- <6cfcd4fa-3afd-1c70-6a70-9df557ee1811@xen.org>
- <f10e92ea-ac57-18a9-8843-781d3242f67d@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <f10e92ea-ac57-18a9-8843-781d3242f67d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 172361: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=e9e2ecab2d931069d5f9afaae313e09d42bee6e9
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 10 Aug 2022 16:39:05 +0000
 
-Hi Ayan,
+flight 172361 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172361/
 
-On 10/08/2022 15:00, Ayan Kumar Halder wrote:
-> On 10/08/2022 14:34, Julien Grall wrote:
->> On 10/08/2022 11:58, Ayan Kumar Halder wrote:
->>> Refer "Arm Architecture Registers DDI 0595", AArch32 system registers,
->> Checking the 'enable' is not going to add too much overhead. So I am 
->> fine if this is added. That said, would you be able to provide more 
->> details on how this was spotted?
-> 
-> This was spotted while debugging an unrelated problem while porting Xen 
-> on R52. For a different reason, I was not able to get context switch to 
-> work correctly.
-> 
-> When I was scrutinizing the timer_interrupt() with the documentation, I 
-> found that we are not checking ENABLE.
-> 
-> Although the code works fine today (on aarch32 or aarch64), I thought it 
-> is better to add the check for the sake of compliance with the 
-> documentation.
+Regressions :-(
 
-Thanks for the clarification. I am quite curious to know why you think 
-our code is not compliant.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
 
-As I wrote before, when ENABLE is cleared, you should never have an 
-interrupt because the timer interrupt is level. So I believe our code is 
-compliant with the Arm Arm.
+version targeted for testing:
+ ovmf                 e9e2ecab2d931069d5f9afaae313e09d42bee6e9
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-The only reason I am OK with checking ENABLE is because the overhead is 
-limited. If this wasn't the case, then I think I would have wanted clear 
-justification in the commit message *why* this is not compliant.
+Last test of basis   172136  2022-08-04 06:43:42 Z    6 days
+Failing since        172151  2022-08-05 02:40:28 Z    5 days   54 attempts
+Testing same since   172322  2022-08-09 08:10:24 Z    1 days   13 attempts
 
-FWIW, Linux seems to use the same approach as us (see [1]). So, if you 
-think this is not compliant, then maybe this is something you also want 
-to consider to fix there?
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Jose Marinho <jose.marinho@arm.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-Cheers,
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-[1] 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/clocksource/arm_arch_timer.c#n644
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 492 lines long.)
 
