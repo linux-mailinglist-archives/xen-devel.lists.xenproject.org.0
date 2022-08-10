@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C086B58F31A
+	by mail.lfdr.de (Postfix) with ESMTPS id BA72B58F319
 	for <lists+xen-devel@lfdr.de>; Wed, 10 Aug 2022 21:30:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.383895.619189 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.383898.619197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLrPZ-0000xw-6P; Wed, 10 Aug 2022 19:30:37 +0000
+	id 1oLrPa-0001LZ-T7; Wed, 10 Aug 2022 19:30:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 383895.619189; Wed, 10 Aug 2022 19:30:37 +0000
+Received: by outflank-mailman (output) from mailman id 383898.619197; Wed, 10 Aug 2022 19:30:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oLrPY-0000rS-Sq; Wed, 10 Aug 2022 19:30:36 +0000
-Received: by outflank-mailman (input) for mailman id 383895;
- Wed, 10 Aug 2022 19:30:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oLrPa-0001DW-PV; Wed, 10 Aug 2022 19:30:38 +0000
+Received: by outflank-mailman (input) for mailman id 383898;
+ Wed, 10 Aug 2022 19:30:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UxBI=YO=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1oLrPW-00067E-Sh
- for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 19:30:35 +0000
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [2607:f8b0:4864:20::f2c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e770febe-18e2-11ed-924f-1f966e50362f;
- Wed, 10 Aug 2022 21:30:34 +0200 (CEST)
-Received: by mail-qv1-xf2c.google.com with SMTP id l18so11711228qvt.13
- for <xen-devel@lists.xenproject.org>; Wed, 10 Aug 2022 12:30:34 -0700 (PDT)
+ id 1oLrPY-0005rf-LI
+ for xen-devel@lists.xenproject.org; Wed, 10 Aug 2022 19:30:36 +0000
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [2607:f8b0:4864:20::82d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e8749938-18e2-11ed-bd2e-47488cf2e6aa;
+ Wed, 10 Aug 2022 21:30:36 +0200 (CEST)
+Received: by mail-qt1-x82d.google.com with SMTP id e28so3916803qts.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Aug 2022 12:30:35 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:289e:b898:c7de:df6c])
  by smtp.gmail.com with ESMTPSA id
- v6-20020a05620a0f0600b006af10bd3635sm537231qkl.57.2022.08.10.12.30.32
+ v6-20020a05620a0f0600b006af10bd3635sm537231qkl.57.2022.08.10.12.30.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Aug 2022 12:30:32 -0700 (PDT)
+ Wed, 10 Aug 2022 12:30:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,111 +44,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e770febe-18e2-11ed-924f-1f966e50362f
+X-Inumbo-ID: e8749938-18e2-11ed-bd2e-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc;
-        bh=dLajvGFi/Mcq6cLyHR7My8Hc/MEdmzVTbkF+UN7LfEg=;
-        b=pB5xf/YEQ3P8NLS7h8SXbF4V4sYUUeMsGEYPIFenPb8paOjgeZ/0QBPFHSpO2t0H6a
-         HJ3d1q+KGpQMvuMOao+B4AIIRF921ShjneEBM4WOMdDQG9btDQC9zGyX/eU1wyiLxjNt
-         VENBx0xjLF8/tE2KXCg9QR9L7j6NSmHsubPxm17B+0upYRHaBjfYLYQa98yHMZvC1rXL
-         TnDC3YdQhApMTPHH8jsQp1do6ucwo7nGHI46z+/NqtRuIQFOvJc7sZOqEtp7fk5w2Lh1
-         PkfAO4Ssupm5OIuXCPS3YfE/405aKoRtXXUHFn354CMHzckx54tsNQxQRiCGxn8KSyQx
-         GZpQ==
+        bh=y+vBMXcv/4DGDDmvZsPT8uzCrAOnCtue/wVF+VShjKg=;
+        b=PPGXS1dOZqj42VzObj0IdiHNnLxQmcwh/dsSPcpXr3rOsqcxlHLsH3hHXmBW9TPyvC
+         estethndHVfIg1qXWb9+T7HqGO4xe0bD6FkJmweoZXrFmPD7D6BtteubqJikkSnXVPrY
+         P4HtAel+xPintYU2didWBR/a0EaaQJOLHAAWHCUZLIWHuI5qPRhFiARFAU4Bb7TzWayB
+         /2WXKlhs/fGa8Os71/LCOmhkQWyHJfiSd3iqvvi+v+abqtGgDq9jDZWytvHaFjaoMUao
+         rIIaPncGXFJuyEtkfXPklW/Y+z7q2Jrk61g+XhrHk0K1sABhLEcM27zvWt5z9qxjiUR6
+         FmQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
-        bh=dLajvGFi/Mcq6cLyHR7My8Hc/MEdmzVTbkF+UN7LfEg=;
-        b=wvJv/T7eZ03Jg1QjVs0/zOhEStMWt9V8cUBZCMiJ5xet4nPFhK1BGtYunUrEGFDvhY
-         3ekr1oj6IJVIzZz5Dl64ova4Sru81wujbByvZdlaVu6i0ElB6rMuy1y4SUPag2Igj+8+
-         OzH9UPzoCe+4T/0CFqMGk/7Ib5nRu13e6Ln/spwxIIQhXKNv9D+wwzpXPNPqZNX8MdTn
-         a0OgfyjeW5mYqh9Zu8G1Rojx4jXFbf8A4V4kNc21u3afWElX965jzTVVEYzZLEwqQMHd
-         PP/XopEHVAyqw0pqOgugmsxQX2KiDwjRCxwZjO+ESaXY5R/mi6t10bjNYe8kmOpYhHvB
-         uiKw==
-X-Gm-Message-State: ACgBeo3bdKAgCp3RBc5bk04Z+jjHJK+ZzzEJ04b4xvmtkhVaTXQ5uBOJ
-	01ysIrSqupbx0Xq9Yot2PDNPUnf2V+k=
-X-Google-Smtp-Source: AA6agR6AHSo2l4SyRfTLy7dPfWFwKCM7w+4fegiPz5bnDR7LfriyWsMdrF8su5Ldpt6aKhrNUxADLQ==
-X-Received: by 2002:a05:6214:c25:b0:476:eb9c:fc7b with SMTP id a5-20020a0562140c2500b00476eb9cfc7bmr24850012qvd.108.1660159833498;
-        Wed, 10 Aug 2022 12:30:33 -0700 (PDT)
+        bh=y+vBMXcv/4DGDDmvZsPT8uzCrAOnCtue/wVF+VShjKg=;
+        b=pndWOd0mWhTvIg48dTsWNvtbpIV9Ivtxg4bJq4nBX5KjI90AkBpKVEwTNVo+CeCOxm
+         s6H1xawSWXjujlzLo0MUwCQ3d++wPalC/VnFGP+xrltBRxtovaGoZvQglqBw4FM9e5oy
+         yIgZ3fXHE5AXy2cjxYUJy1udVheuzZENUDvYJkIp8MrGWFIhungG45o+GEZv85H+45Of
+         Kelvda4Ql5Lh416S/QNEIuz4Q99pnS0X/GB88aDzGhasDivDi7dEa7CwzucJpubCdGPg
+         0dKv3zPSbFkzp04u4tRTOXf5trEcKtX4bPbiXuGP2B59UsxJOX67bL6KY/kM/BpFmVO/
+         hCOg==
+X-Gm-Message-State: ACgBeo1SermSt+TSIKfarL6XsjXZ+BEki7bi7anLj8sBGNHeF4aDGKh/
+	AbZJ8rzb0JvXUxW+l1PctjkL49rJDDo=
+X-Google-Smtp-Source: AA6agR7XoRUtZkLiJlHkCmpGAOHqOTXlBzuTjfVIEO0YRFkRRBuKdvoOHMPunC0xVX3Ku0XJQJxE+A==
+X-Received: by 2002:a05:622a:190f:b0:343:5aa8:5538 with SMTP id w15-20020a05622a190f00b003435aa85538mr3286410qtc.445.1660159835258;
+        Wed, 10 Aug 2022 12:30:35 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 10/13] libxc: Add xc_set_cpufreq_hwp
-Date: Wed, 10 Aug 2022 15:29:41 -0400
-Message-Id: <20220810192944.102135-11-jandryuk@gmail.com>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 11/13] xenpm: Factor out a non-fatal cpuid_parse variant
+Date: Wed, 10 Aug 2022 15:29:42 -0400
+Message-Id: <20220810192944.102135-12-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220810192944.102135-1-jandryuk@gmail.com>
 References: <20220810192944.102135-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add xc_set_cpufreq_hwp to allow calling xen_systctl_pm_op
-SET_CPUFREQ_HWP.
+Allow cpuid_parse to be re-used without terminating xenpm.  HWP will
+re-use it to optionally parse a cpuid.  Unlike other uses of
+cpuid_parse, parse_hwp_opts will take a variable number of arguments and
+cannot just check argc.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-
 ---
 v2:
-Mark xc_set_hwp_para_t const
+Retained because cpuid_parse handles numeric cpu numbers and "all".
 ---
- tools/include/xenctrl.h |  4 ++++
- tools/libs/ctrl/xc_pm.c | 18 ++++++++++++++++++
- 2 files changed, 22 insertions(+)
+ tools/misc/xenpm.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 9586eca4c0..2d6c112d44 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -1934,11 +1934,15 @@ struct xc_get_cpufreq_para {
-     int32_t turbo_enabled;
- };
- 
-+typedef struct xen_set_hwp_para xc_set_hwp_para_t;
-+
- int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
-                         struct xc_get_cpufreq_para *user_para);
- int xc_set_cpufreq_gov(xc_interface *xch, int cpuid, char *govname);
- int xc_set_cpufreq_para(xc_interface *xch, int cpuid,
-                         int ctrl_type, int ctrl_value);
-+int xc_set_cpufreq_hwp(xc_interface *xch, int cpuid,
-+                       const xc_set_hwp_para_t *set_hwp);
- int xc_get_cpufreq_avgfreq(xc_interface *xch, int cpuid, int *avg_freq);
- 
- int xc_set_sched_opt_smt(xc_interface *xch, uint32_t value);
-diff --git a/tools/libs/ctrl/xc_pm.c b/tools/libs/ctrl/xc_pm.c
-index 76d7eb7f26..87c636f820 100644
---- a/tools/libs/ctrl/xc_pm.c
-+++ b/tools/libs/ctrl/xc_pm.c
-@@ -330,6 +330,24 @@ int xc_set_cpufreq_para(xc_interface *xch, int cpuid,
-     return xc_sysctl(xch, &sysctl);
+diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
+index 610a516213..5b28e2f6dd 100644
+--- a/tools/misc/xenpm.c
++++ b/tools/misc/xenpm.c
+@@ -79,17 +79,26 @@ void help_func(int argc, char *argv[])
+     show_help();
  }
  
-+int xc_set_cpufreq_hwp(xc_interface *xch, int cpuid,
-+                       const xc_set_hwp_para_t *set_hwp)
-+{
-+    DECLARE_SYSCTL;
+-static void parse_cpuid(const char *arg, int *cpuid)
++static int parse_cpuid_non_fatal(const char *arg, int *cpuid)
+ {
+     if ( sscanf(arg, "%d", cpuid) != 1 || *cpuid < 0 )
+     {
+         if ( strcasecmp(arg, "all") )
+-        {
+-            fprintf(stderr, "Invalid CPU identifier: '%s'\n", arg);
+-            exit(EINVAL);
+-        }
++            return -1;
 +
-+    if ( !xch )
-+    {
-+        errno = EINVAL;
-+        return -1;
-+    }
-+    sysctl.cmd = XEN_SYSCTL_pm_op;
-+    sysctl.u.pm_op.cmd = SET_CPUFREQ_HWP;
-+    sysctl.u.pm_op.cpuid = cpuid;
-+    sysctl.u.pm_op.u.set_hwp = *set_hwp;
+         *cpuid = -1;
+     }
 +
-+    return xc_sysctl(xch, &sysctl);
++    return 0;
 +}
 +
- int xc_get_cpufreq_avgfreq(xc_interface *xch, int cpuid, int *avg_freq)
- {
-     int ret = 0;
++static void parse_cpuid(const char *arg, int *cpuid)
++{
++    if ( parse_cpuid_non_fatal(arg, cpuid) )
++    {
++        fprintf(stderr, "Invalid CPU identifier: '%s'\n", arg);
++        exit(EINVAL);
++    }
+ }
+ 
+ static void parse_cpuid_and_int(int argc, char *argv[],
 -- 
 2.37.1
 
