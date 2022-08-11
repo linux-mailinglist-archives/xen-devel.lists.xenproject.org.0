@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A4D58FB4B
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 13:30:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.384490.619882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E5758FBF0
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 14:10:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.384509.619893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oM6OM-0006Q1-QT; Thu, 11 Aug 2022 11:30:22 +0000
+	id 1oM70g-0001iU-15; Thu, 11 Aug 2022 12:09:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 384490.619882; Thu, 11 Aug 2022 11:30:22 +0000
+Received: by outflank-mailman (output) from mailman id 384509.619893; Thu, 11 Aug 2022 12:09:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oM6OM-0006NM-ME; Thu, 11 Aug 2022 11:30:22 +0000
-Received: by outflank-mailman (input) for mailman id 384490;
- Thu, 11 Aug 2022 11:30:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oM70f-0001ff-UA; Thu, 11 Aug 2022 12:09:57 +0000
+Received: by outflank-mailman (input) for mailman id 384509;
+ Thu, 11 Aug 2022 12:09:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wU7G=YP=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1oM6OL-0006L3-60
- for xen-devel@lists.xenproject.org; Thu, 11 Aug 2022 11:30:21 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id faffcfcf-1968-11ed-bd2e-47488cf2e6aa;
- Thu, 11 Aug 2022 13:30:19 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id f22so22521036edc.7
- for <xen-devel@lists.xenproject.org>; Thu, 11 Aug 2022 04:30:19 -0700 (PDT)
+ <SRS0=PDJ2=YP=cdjrlc.com=wangborong@srs-se1.protection.inumbo.net>)
+ id 1oM70e-0001fY-Bt
+ for xen-devel@lists.xenproject.org; Thu, 11 Aug 2022 12:09:56 +0000
+Received: from bg5.exmail.qq.com (bg4.exmail.qq.com [43.154.221.58])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7581e34b-196e-11ed-924f-1f966e50362f;
+ Thu, 11 Aug 2022 14:09:36 +0200 (CEST)
+Received: from localhost.localdomain ( [182.148.14.53])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 11 Aug 2022 20:09:25 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,73 +39,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: faffcfcf-1968-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc;
-        bh=Z3pEJGy1REnvgyy1oqHrPC2LjoiqiqNYoMkBf57hqjg=;
-        b=nONpIuEL/LFcZCFd9KlimL3IEfSecAe2TmXAO4C9/JmMLUHjF18jL4HdsriDYfFOUc
-         9V4wIHHAfqztp3VxJAs4W26jCVyD4vezSpm9QkmOw7cQ8GSf/i3dBrqaEPkPJ+o9SYxB
-         +ABvuoxty5Et18khBp6YBy3w4azRZ7yUSCzs99Ae0O+Sj0amwp1ZFaHcWmEgRv4ZhoFK
-         cDOXgPoU6RFyVUx0o8hdGFkLCr0fryhdUwk2mp3xjuqOtHmb2FV0Vkzh8gSKeaw7FVpC
-         EUCgAgq23naLT0xAZPanwsJV0r991yHU1UxKCGQiO58O6HAVrcR+bknJTjEKS8oK2FmU
-         QhsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc;
-        bh=Z3pEJGy1REnvgyy1oqHrPC2LjoiqiqNYoMkBf57hqjg=;
-        b=jrIi5iGKpVSSK1pn6Mb4bxdNI5ndiAfw8Pzc7xRa68o3I84653Sk64LjxOZjDEPWZ+
-         V7FMnFg3NLe61zp5K7di+KYTgLI2nxnac7MSIpNaBDrcmCUgb6+BQ5pzl4fQEDAvHCRH
-         psGcCycs1p1qhcv0XkJ/SeWVlaXKvIHUDsWis/1CoJMRRPoHZ8Ctrt2mtjzU7a1wnOZ4
-         UJrdE0EF+lUoGR0iNE6UTVGrx1a1wNAM+R1+n23CTCeIJn4sTcmOCxPhc7EJj/rS1T4V
-         AKWaj/Fz0i6S6Vu+pgwbt/TtN7GYjFPVqFvZsjSu8V0lGEyxaHfk/2ULLdDgoGh5UpLE
-         jOvQ==
-X-Gm-Message-State: ACgBeo2i992wmyYTEUWk3T8daBIWH0cFvSvqwXi3xdHhF8Bo6m8uiBNb
-	Lvbw8F4WNsLQcKhwmWf8mQFE8Fw5jPTT5UJsLeU=
-X-Google-Smtp-Source: AA6agR4K5rz6p7T3vjYS+Jt7gu6UNMdZhfdwJwRIEp4m+SoH4U9cRNuq1scSvguS+rMTEBhx50t2a1qBd7salsq+Irw=
-X-Received: by 2002:a05:6402:3595:b0:43d:710a:3f3f with SMTP id
- y21-20020a056402359500b0043d710a3f3fmr30451103edc.375.1660217419336; Thu, 11
- Aug 2022 04:30:19 -0700 (PDT)
+X-Inumbo-ID: 7581e34b-196e-11ed-924f-1f966e50362f
+X-QQ-mid: bizesmtp79t1660219767t4u30kic
+X-QQ-SSF: 01000000002000G0V000B00A0000020
+X-QQ-FEAT: TLc+rbMvNaH5OYpc2vpXRliUymwUm3enbmSFWCPJHLn06RxUVTo7PYfDoGSrc
+	Bf1mjnddn5ysypy0lYDebVTCHb1ta+hJ42+ICX9bVZkki8fWJAPuB77P0BTPLB6E6/zKNOs
+	1ygH0WkIG8GlHvaeknhZKc7QKboCryiP1Ijqxfjxi2VKh1aacbmp2VNYZhTxtnsC2jFNozo
+	/f/iNMCOjFoFJnQJJcdFQ69fMJDgzc3frUXx5g/Hi8ESPD6iZWAW9Z764mt3GIh5wV3aKXV
+	t0X9VnkZG8PaBahVKeJIMmJKfm0k18jOxCmOb7sPvA+Jo11o++jJxROa92NSXNR9ssAtSSK
+	0UMEzj44QlR5zkEOMzW3bxqlWCoKbTfEjEwsPitTU+NyQK6Ep3/AuDqG35gmtMEDvKYZVG2
+X-QQ-GoodBg: 0
+From: Jason Wang <wangborong@cdjrlc.com>
+To: oleksandr_tyshchenko@epam.com
+Cc: jgross@suse.com,
+	sstabellini@kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	Jason Wang <wangborong@cdjrlc.com>
+Subject: [PATCH] xen/pciback: Fix comment typo
+Date: Thu, 11 Aug 2022 20:09:18 +0800
+Message-Id: <20220811120918.17961-1-wangborong@cdjrlc.com>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-References: <20220810192944.102135-1-jandryuk@gmail.com> <20220810192944.102135-14-jandryuk@gmail.com>
- <dff3fc03-8d94-7ca0-512a-501ed71dcc48@suse.com>
-In-Reply-To: <dff3fc03-8d94-7ca0-512a-501ed71dcc48@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 11 Aug 2022 07:30:07 -0400
-Message-ID: <CAKf6xpsrTsmUj9+EO31FvY5xB+fnsH8PvQm868s5xO8tcG-OJQ@mail.gmail.com>
-Subject: Re: [PATCH v2 13/13] CHANGELOG: Add Intel HWP entry
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Henry Wang <Henry.Wang@arm.com>, 
-	Community Manager <community.manager@xenproject.org>, 
-	xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:cdjrlc.com:qybglogicsvr:qybglogicsvr6
 
-On Thu, Aug 11, 2022 at 2:51 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 10.08.2022 21:29, Jason Andryuk wrote:
-> > --- a/CHANGELOG.md
-> > +++ b/CHANGELOG.md
-> > @@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-> >
-> >  ## [unstable UNRELEASED](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
-> >
-> > +### Added
-> > + - Intel Hardware P-States (HWP) cpufreq driver
->
-> Note that there already is ...
->
-> >  ### Changed
-> >   - On x86 "vga=current" can now be used together with GrUB2's gfxpayload setting. Note that
-> >     this requires use of "multiboot2" (and "module2") as the GrUB commands loading Xen.
->
-> ... a "Added / support upgraded" section right below here.
+The double `the' is duplicated in the comment, remove one.
 
-Whoops, sorry about that.  Thanks for catching it.
+Signed-off-by: Jason Wang <wangborong@cdjrlc.com>
+---
+ drivers/xen/xen-pciback/pciback_ops.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-For v3, I'll move to the existing section while keeping Henry's Ack.
+diff --git a/drivers/xen/xen-pciback/pciback_ops.c b/drivers/xen/xen-pciback/pciback_ops.c
+index 3fbc21466a93..84e014490950 100644
+--- a/drivers/xen/xen-pciback/pciback_ops.c
++++ b/drivers/xen/xen-pciback/pciback_ops.c
+@@ -159,7 +159,7 @@ int xen_pcibk_enable_msi(struct xen_pcibk_device *pdev,
+ 		return XEN_PCI_ERR_op_failed;
+ 	}
+ 
+-	/* The value the guest needs is actually the IDT vector, not the
++	/* The value the guest needs is actually the IDT vector, not
+ 	 * the local domain's IRQ number. */
+ 
+ 	op->value = dev->irq ? xen_pirq_from_irq(dev->irq) : 0;
+-- 
+2.36.1
 
-Regards,
-Jason
 
