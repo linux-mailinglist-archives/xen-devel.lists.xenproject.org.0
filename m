@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79ECF590059
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 17:42:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.384723.620164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DAA95900A8
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 17:46:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.384733.620175 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMAKB-0001uR-Me; Thu, 11 Aug 2022 15:42:19 +0000
+	id 1oMANj-0002bj-4s; Thu, 11 Aug 2022 15:45:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 384723.620164; Thu, 11 Aug 2022 15:42:19 +0000
+Received: by outflank-mailman (output) from mailman id 384733.620175; Thu, 11 Aug 2022 15:45:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMAKB-0001s0-Jz; Thu, 11 Aug 2022 15:42:19 +0000
-Received: by outflank-mailman (input) for mailman id 384723;
- Thu, 11 Aug 2022 15:42:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aO9K=YP=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1oMAK9-0001p9-QC
- for xen-devel@lists.xenproject.org; Thu, 11 Aug 2022 15:42:17 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 2cbafda2-198c-11ed-924f-1f966e50362f;
- Thu, 11 Aug 2022 17:42:16 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9A5F113E;
- Thu, 11 Aug 2022 08:42:15 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 38B533F5A1;
- Thu, 11 Aug 2022 08:42:14 -0700 (PDT)
+	id 1oMANj-0002YR-23; Thu, 11 Aug 2022 15:45:59 +0000
+Received: by outflank-mailman (input) for mailman id 384733;
+ Thu, 11 Aug 2022 15:45:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oMANh-0002YG-I1; Thu, 11 Aug 2022 15:45:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oMANh-0004NW-Fl; Thu, 11 Aug 2022 15:45:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oMANh-0003IT-8i; Thu, 11 Aug 2022 15:45:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oMANh-0007iI-8D; Thu, 11 Aug 2022 15:45:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,106 +42,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2cbafda2-198c-11ed-924f-1f966e50362f
-From: Rahul Singh <rahul.singh@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ovfSNkzUCzuJUMRjb08xcxHSSVfCYbc8uxO6Sr01xKw=; b=2PcC1a4uqPEv8ePDs3+FdJjX5t
+	QgIWaXuN2Q3NGaRkpWB41JcyRWGqTZHGEwSGARCqk58LyZcMU967eN367Ky+2WHxrI7Jr5r3cRPb1
+	lkLKosAVTPDRvJmjebnAH1cIJjWXrpDOhyki6Hm6l9VJBubRrOka3KD7A4z5ukoH+nVg=;
 To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	rahul.singh@arm.com,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2] xen/arm: smmu: Set s2cr to type fault when the devices are deassigned
-Date: Thu, 11 Aug 2022 16:42:04 +0100
-Message-Id: <3d254f1c7045bc212c5700c1becde458174e5bf3.1660232299.git.rahul.singh@arm.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+Message-ID: <osstest-172386-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 172386: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=e76496530c5facf58f57680825adf513265066f0
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 11 Aug 2022 15:45:57 +0000
 
-When devices are deassigned/assigned, SMMU global fault is observed
-because SMEs are freed in detach function and not allocated again when
-the device is assigned back to the guest.
+flight 172386 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172386/
 
-Don't free the SMEs when devices are deassigned, set the s2cr to type
-fault. This way the SMMU will generate a fault if a DMA access is done
-by a device not assigned to a guest.
+Regressions :-(
 
-Remove the arm_smmu_master_free_smes() as this is not needed anymore,
-arm_smmu_write_s2cr will be used to set the s2cr to type fault.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-Fixes: 0435784cc75d ("xen/arm: smmuv1: Intelligent SMR allocation")
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
----
-Changes in v2:
- - fix minor comment in commit msg and added fixes tag.
- - make smmu_domain const in function arm_smmu_domain_remove_master
- - remove return in arm_smmu_detach_dev
----
----
- xen/drivers/passthrough/arm/smmu.c | 33 +++++++++++++++---------------
- 1 file changed, 17 insertions(+), 16 deletions(-)
+version targeted for testing:
+ ovmf                 e76496530c5facf58f57680825adf513265066f0
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index 69511683b4..0a514821b3 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -1598,21 +1598,6 @@ out_err:
- 	return ret;
- }
- 
--static void arm_smmu_master_free_smes(struct arm_smmu_master_cfg *cfg)
--{
--    struct arm_smmu_device *smmu = cfg->smmu;
--	int i, idx;
--	struct iommu_fwspec *fwspec = arm_smmu_get_fwspec(cfg);
--
--	spin_lock(&smmu->stream_map_lock);
--	for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
--		if (arm_smmu_free_sme(smmu, idx))
--			arm_smmu_write_sme(smmu, idx);
--		cfg->smendx[i] = INVALID_SMENDX;
--	}
--	spin_unlock(&smmu->stream_map_lock);
--}
--
- static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
- 				      struct arm_smmu_master_cfg *cfg)
- {
-@@ -1635,6 +1620,21 @@ static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
- 	return 0;
- }
- 
-+static void arm_smmu_domain_remove_master(
-+				const struct arm_smmu_domain *smmu_domain,
-+				struct arm_smmu_master_cfg *cfg)
-+{
-+	uint32_t i, idx;
-+	struct arm_smmu_device *smmu = smmu_domain->smmu;
-+	struct arm_smmu_s2cr *s2cr = smmu->s2crs;
-+	const struct iommu_fwspec *fwspec = arm_smmu_get_fwspec(cfg);
-+
-+	for_each_cfg_sme(cfg, i, idx, fwspec->num_ids) {
-+		s2cr[idx] = s2cr_init_val;
-+		arm_smmu_write_s2cr(smmu, idx);
-+	}
-+}
-+
- static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
- {
- 	int ret;
-@@ -1684,10 +1684,11 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
- 
- static void arm_smmu_detach_dev(struct iommu_domain *domain, struct device *dev)
- {
-+	struct arm_smmu_domain *smmu_domain = domain->priv;
- 	struct arm_smmu_master_cfg *cfg = find_smmu_master_cfg(dev);
- 
- 	if (cfg)
--		arm_smmu_master_free_smes(cfg);
-+		arm_smmu_domain_remove_master(smmu_domain, cfg);
- 
- }
- 
--- 
-2.25.1
+Last test of basis   172136  2022-08-04 06:43:42 Z    7 days
+Failing since        172151  2022-08-05 02:40:28 Z    6 days   63 attempts
+Testing same since   172371  2022-08-11 00:41:44 Z    0 days    6 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Jose Marinho <jose.marinho@arm.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 515 lines long.)
 
