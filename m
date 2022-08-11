@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C42FF590549
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 18:59:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.384916.620514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C3DB590541
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 18:59:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.384876.620392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMBXD-00085g-AA; Thu, 11 Aug 2022 16:59:51 +0000
+	id 1oMBWs-0003wQ-G8; Thu, 11 Aug 2022 16:59:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 384916.620514; Thu, 11 Aug 2022 16:59:51 +0000
+Received: by outflank-mailman (output) from mailman id 384876.620392; Thu, 11 Aug 2022 16:59:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMBXC-0007sp-KB; Thu, 11 Aug 2022 16:59:50 +0000
-Received: by outflank-mailman (input) for mailman id 384916;
- Thu, 11 Aug 2022 16:59:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oMBWs-0003uX-CT; Thu, 11 Aug 2022 16:59:30 +0000
+Received: by outflank-mailman (input) for mailman id 384876;
+ Thu, 11 Aug 2022 16:59:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jhQd=YP=citrix.com=prvs=21531f474=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oMBNU-0003Aq-87
- for xen-devel@lists.xenproject.org; Thu, 11 Aug 2022 16:49:48 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 973f5cd3-1995-11ed-bd2e-47488cf2e6aa;
- Thu, 11 Aug 2022 18:49:41 +0200 (CEST)
+ id 1oMBNQ-0003s9-NL
+ for xen-devel@lists.xenproject.org; Thu, 11 Aug 2022 16:49:44 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 98768f32-1995-11ed-924f-1f966e50362f;
+ Thu, 11 Aug 2022 18:49:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,80 +36,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 973f5cd3-1995-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 98768f32-1995-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1660236581;
+  d=citrix.com; s=securemail; t=1660236583;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=W6vCbrh65CqtneFRPKerc/tF+uYF6bBQ+treqeycw4E=;
-  b=B+yYT4xTMoCyP4HbTgPkrrlRK5VVtV29sJ6Ax11DE/lF6AukyIFj9BxV
-   x3FNfqj8EB5+wr7e7PLN7lW1e4fMmeLzdkfMNPlBb62S89MDA+eDJwK07
-   ZSb+UQ0K4xqDr77pfU3M2Ur+kubuiTswVSQOr1j7mbpMJSSd+w+37OEAh
-   Y=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=/gk/zrc7mUau8n7u3084orMZkSKyjao6ioLVB6VKyZU=;
+  b=cpPFQ3kzJJGr6vJFYit8uvf6uSzQuR24sSBUT/i9pzGYKr6HQQZ51o09
+   NQsLMDLZsY2wPs57krO1/Ty6nuXlQKxJIB3+qflOhcM1SJmOMVcOtbYpg
+   71gNux4cMRirMR0Gyj6dmyn7oTvz+xEQ4evUlB5nnXkgMetj/w7CHFX2B
+   4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 77898109
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 77893963
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: =?us-ascii?q?A9a23=3AaVG8CKnncLjjaAHjvQOC/4ro5mJPLRN+VbBN2?=
- =?us-ascii?q?KgSYl3aPzYEGi7M+fK5BX4HbfXpEBkXJ6DNWZp+jjygzYrHtUg2Xxbj45YZf?=
- =?us-ascii?q?yDZLXmqdZgs0VxX6vn0ZOlwoiFN1XsDjuYdcDWPVIPGpeEQDFzbZKfGyJh0o?=
- =?us-ascii?q?JTlcDTURsW6/O+DBuvFIgpPt653o7KWjKJYK1cCcPdYWSMeOq8Wg+dLlLy7D?=
- =?us-ascii?q?iknrOc9ndkYuEn/kabEvtHuigADi58QgSP3SwBBg0cWDhRbaT7kUiV2Akg8L?=
- =?us-ascii?q?bYTJtu0Au6XiyJ4IyxgowRQeLsKh/mqBmNerufe/AyIABnOriJgbY2LivAJj?=
- =?us-ascii?q?g9gxgj3GoXyPNShhAR/efpWNlqFb8NujQsYBaJ3kjr0Bqe8zlk3nzf6lEjKE?=
- =?us-ascii?q?TJ7KdzklJ1dayNvDS72lUM7T8a4Tq4/0QeLhbuxeYZKUNtdJ1Yc9vY0HX3E+?=
- =?us-ascii?q?HtbK9IVWmHMOfXa9Hkx6fTg0pfkPesg/xRcv5czRtJNO8Qx8SKBG4CaN32PM?=
- =?us-ascii?q?XMiVkEGQRTXBgC6PqWv/WgytQwOIv5k6LQVB9IIa3ZLLftUUGTUe2E/UOJQd?=
- =?us-ascii?q?y5OT0YXDcR+TGErJ3ROEfk8DNkoZPNF5BoVKeXyRgtdwPkU4mHB4nHhjpjqO?=
- =?us-ascii?q?3mByYmn+6pB12gWE/ir8mSNeyHMKzNKSy9gSsfXWSFuUHUZ1b+0IRpbMIjDy?=
- =?us-ascii?q?G/2TBcqlkwilko2tlMMvKuzXjmfcIIsG5BV+JiUURvnwJYwXwIOoTDvCeVex?=
- =?us-ascii?q?01siOhJPp1eHNSeieqEg2DYPZcRrlp/lLAawO8FPBEcniyutiAbev/tREMvV?=
- =?us-ascii?q?441SNFY1ER1JN0+nYTNmdg+Cy0LwMM8qtNKQK0GyAEX7WipQ6ixDOWIqbqlm?=
- =?us-ascii?q?BZZX9mH4ouwooa6II9v3i/6WJ1owdr3qUk9e4xszpwq4SW/xxVfe/+HIF7f3?=
- =?us-ascii?q?4FtCNEzKqk1tcLQYXylDxFvkCcup4WR7haqvkWBCzJZJmeFFB4KLgQGc9VTu?=
- =?us-ascii?q?qgFmN9xCuRR3ErLEWJosKSgg9u0WjlXQgZeLrS/ktoPpAg3TTyIfd+OsC7A6?=
- =?us-ascii?q?Y8WRmCp8a3dLC5kaPSCISA7ULlx1ungExH8RqMYm2sMTEpZKSP97ZH0ifUHo?=
- =?us-ascii?q?WtH146kMvCSddaygun4W6HFAkydHnb+FqpwVA5zLEA6F6DJyOwmAlNi8vtqy?=
- =?us-ascii?q?/X4xfqm0tjD9yrzL1ga+fyzEU4nRUwdGZGdxo2oAqI+PtwSk6mjC+c8J7vAO?=
- =?us-ascii?q?3cWooenQWiaSHJJk9SpEghtpak16SC+SkwRLDTtudvmX4RCvlknuNLU3o8OP?=
- =?us-ascii?q?2ie+YigNOGgCFeMI53VK3C2OUeVuF4X8AqOjcggNb3XTQGnVr+JAouE44y8G?=
- =?us-ascii?q?mLWEXWbjglo/uUs2E0NSAwPh7WW07hSsBA5RHkYYGeWnIuW4D8ZgVbNVmolW?=
- =?us-ascii?q?YB7U4PIr113xtofpfJmqyxj2FVWSSnhJ+R0tmkZ8Pb2CpS5/zAVkd7y3dLBa?=
- =?us-ascii?q?lA9JpLgN/hlG67cTgXdYsgaBp5egThvKJrT3z3G/5gzr3uXs+46UG+k8lIhu?=
- =?us-ascii?q?7vDS9PgIsEtDxontowKV3uCgIlzxG+W23L9+/xIXlsUQ1vtWIrLnPL9NPDyl?=
- =?us-ascii?q?tqPUeArDZhFTYO8Y1aS8aPKgxiDTDkwwY17dewNdGinlw4hKb92kAFW596Tf?=
- =?us-ascii?q?Oami2yMcpsl7WTT3a8TcXIJy5/QEg6Qq7YGpm0FxxLFXB/wpA1jssusmsS0s?=
- =?us-ascii?q?6baqKTlkAn6GGcbjEZS6o7XxIsHHIBc+UpQF55+gLkay0BtBEI6q6ILGsXjR?=
- =?us-ascii?q?fyUUj4wXOJ1Q7adUacW6TBg9R0APjezijGWd5yR/F9UQVoAyfWtDmxRpSdf6?=
- =?us-ascii?q?sy/DPLQNnQlpaNUmAofo5foJ9hot/CBp1ev+bZI6bgvjHOxMp8Qr8DvU/Oju?=
- =?us-ascii?q?SvL4kKpqaxO0EuomG28FnhpnhX9LkL9VNWYpqLqUiAIdbPYpBWulDa4Y2Gwj?=
- =?us-ascii?q?UXFEA0oaqzvgpTILHf9essG/U/0mhRXJDz5X5NpEy/EF+Ax/a/7SPppLFJbL?=
- =?us-ascii?q?UPg7S/HkMW8J0uNETCCTSDrkimCLj04RFyRLb4TAU4xgtVIG3RNoudB4RCUY?=
- =?us-ascii?q?Zl3fRJ5sdc6KZhqcNq53L9E20dGONn1dct99e9eNmwppfydbh5haROoJAmLN?=
- =?us-ascii?q?Z4P3UAOgJ+qQK1XZk3zqvKjvPM3v0Lff4cXhArtzXQg3v4pjRsb5yIU8NrU+?=
- =?us-ascii?q?+3qNn0UHG4+EGgOTP9ulLHmoUx/ppzIXyF1ICnG0RLvzTHoqVG7XSp/NnNVo?=
- =?us-ascii?q?omyCl9UqxQhtXqG7717zOrUhCMgoG70+bEWkKPx/hUkbfMuhN+fut/gOrIHz?=
- =?us-ascii?q?ajpXshO1uh26g3C75bRWHIPHyYTafacLD/k8W3DmRmcQCpfieuSAPRyz5bVJ?=
- =?us-ascii?q?4XVm2EcpPBYPp8x7FJK0q7QV7JcLfzt/DOQKzZyCnkkFtwkCmken90hF5xaW?=
- =?us-ascii?q?tBp7KJG9GNmiVb3H5i7Xpu5mlHxlYk2ZEetIhh8oXMZuqtJdLVaI+Ie+sUyO?=
- =?us-ascii?q?SteRfEVIahTRmIjyxse1PW/+QoFjlq1QLxV0zHxduRSw4RTT9gC+cc5jwAnd?=
- =?us-ascii?q?NaTLV9Vc6dxtNfH66/iGt/0RYQlU6/bkOV8aM7Clhy7KYvlIOkjmjnntbHIb?=
- =?us-ascii?q?mZ/xfrhymqIm6nFhoufOEfXsPjSr5UJBU0jWWO7XuOmkW5Gkn3/gJkg4j0R2?=
- =?us-ascii?q?5UDfNn/2zx1CTmbC1AvlnDc/TisvlXmcDMz9iNwH3Xev+JJcsPrBCYUpe6rz?=
- =?us-ascii?q?rPHmQA0cmdmj3CmidFuEJywFXsBlwGuA/PWpjElA4jIToB01zfbSMAACS75?=
+IronPort-Data: A9a23:v94EQaLZjYN0cux2FE+RvZUlxSXFcZb7ZxGr2PjKsXjdYENS0DIAn
+ zYcWm/TbqveZzOmeth2YNm+9BgG75OAnN5lGQRlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokf0/0vraP65xZVF/fngbqLmD+LZMTxGSwZhSSMw4TpugOd8iYNz6TSDK1rlV
+ eja/ouOYzdJ5xYuajhOs/La8Us11BjPkGhwUmIWNKgjUGD2zxH5PLpHTYmtIn3xRJVjH+LSb
+ 44vG5ngows1Vz90Yj+Uuu6Tnn8iG9Y+DiDX4pZiYICwgwAqm8AH+v1T2Mzwy6tgo27hc9hZk
+ L2hvHErIOsjFvWkdO81C3G0H8ziVEHvFXCuzXWX6KSuI0P6n3TEmMpTEnkXPpEh5vsoLWNkz
+ v80MncdR0XW7w626OrTpuhEg80iKI/gPZ8Fu2EmxjbcZRokacmdGeOQv4YehWpuwJAVdRrdT
+ 5NxhT5HZRLcYxpJKxEPBYg3huuAjXjjaTxI7lmSoMLb5kCMk1wgi+mza7I5fPTVe+d/vEeni
+ lnGoVnYCwlALdzG9DeapyfEaujnwnqgBdN6+KeD3vxlmlqI3UQIFQYbE1C8pJGRlUqWS99Zb
+ UsO9UIGvaU0sUCmUNT5dxm5u2Kf+A4RXcJKFO834x3LzbDbizt1HUBdEGQHMoZ/8pZrG3p6j
+ Tdlgu8FGxQ0j4CLcVOe6o6IsGyeOwIuLkMYIj8tGF5tD8bYnG0jsv7eZo89Tvbt34KsQG+YL
+ yOi93Zn2ehK5SIf/+DipA2c3WrxznTcZlRtjjg7SF5J+e+QiGSNQ4WzoWbW4v9bRGpyZgnQ5
+ SNU8yRyAQ1nMH1sqMBuaL9UdF1Rz6zZWAAweHY2d3Xbyxyj+mS4Yadb6yxkKUFiP64sIGG3O
+ BeM4VoAtMIJZhNGiJObhKrvY/nGMIC6TYi1PhwqRoMmjmdNmP+vo3g1OB/4M5HFm0kwi6AvU
+ aqmnTKXJS9DUcxPkWvpL9rxJJdxmUjSM0uPGs2gp/lmuJLCDEOopUAtbALSMrxkt/PY+W04M
+ b93bqO39vmWa8WmCgG/zGLZBQliwaQTbXwul/FqSw==
+IronPort-HdrOrdr: A9a23:2xFxG6yhHFVOhYBlZyFCKrPwFL1zdoMgy1knxilNoRw8SKKlfq
+ eV7ZImPH7P+U4ssR4b+exoVJPtfZqYz+8R3WBzB8bEYOCFghrKEGgK1+KLqFeMJ8S9zJ846U
+ 4JSdkGNDSaNzlHZKjBjzVQa+xQouW6zA==
 X-IronPort-AV: E=Sophos;i="5.93,230,1654574400"; 
-   d="scan'208";a="77898109"
+   d="scan'208";a="77893963"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v4 24/32] git-checkout.sh: handle running git-checkout from a different directory
-Date: Thu, 11 Aug 2022 17:48:37 +0100
-Message-ID: <20220811164845.38083-25-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>, "Juergen
+ Gross" <jgross@suse.com>
+Subject: [XEN PATCH v4 25/32] libs: Avoid exposing -Wl,--version-script to other built library
+Date: Thu, 11 Aug 2022 17:48:38 +0100
+Message-ID: <20220811164845.38083-26-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220811164845.38083-1-anthony.perard@citrix.com>
 References: <20220811164845.38083-1-anthony.perard@citrix.com>
@@ -117,13 +87,16 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-"$DIR" might not be a full path and it might not have `pwd` as ".."
-directory. So use `cd -` to undo the first `cd` command.
+$(SHLIB_LDFLAGS) is used by more targets that the single targets that
+except it (libxenfoo.so.X.Y). There is also some dynamic libraries in
+stats/ that uses $(SHLIB_LDFLAGS) (even if those are never built), and
+there's libxenlight_test.so which doesn't needs a version script.
 
-Also, use `basename` to make a symbolic link with a relative path.
+Also, libxenlight_test.so might failed to build if the version script
+doesn't exist yet.
 
-This doesn't matter yet but it will when for example the commands to
-clone OVMF is been run from tools/ rather than tools/firmware/.
+For these reasons, avoid changing the generic $(SHLIB_LDFLAGS) flags,
+and add the flag directly on the command line.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
@@ -132,25 +105,31 @@ Notes:
     v4:
     - new patch
 
- scripts/git-checkout.sh | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/libs/libs.mk | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/scripts/git-checkout.sh b/scripts/git-checkout.sh
-index 20ae31ff23..fd4425ac4e 100755
---- a/scripts/git-checkout.sh
-+++ b/scripts/git-checkout.sh
-@@ -19,9 +19,9 @@ if test \! -d $DIR-remote; then
- 		cd $DIR-remote.tmp
- 		$GIT branch -D dummy >/dev/null 2>&1 ||:
- 		$GIT checkout -b dummy $TAG
--		cd ..
-+		cd -
- 	fi
- 	mv $DIR-remote.tmp $DIR-remote
- fi
- rm -f $DIR
--ln -sf $DIR-remote $DIR
-+ln -sf $(basename $DIR-remote) $DIR
+diff --git a/tools/libs/libs.mk b/tools/libs/libs.mk
+index e47fb30ed4..3eb91fc8f3 100644
+--- a/tools/libs/libs.mk
++++ b/tools/libs/libs.mk
+@@ -12,8 +12,6 @@ MAJOR := $(shell $(XEN_ROOT)/version.sh $(XEN_ROOT)/xen/Makefile)
+ endif
+ MINOR ?= 0
+ 
+-SHLIB_LDFLAGS += -Wl,--version-script=libxen$(LIBNAME).map
+-
+ CFLAGS   += -Wmissing-prototypes
+ CFLAGS   += $(CFLAGS_xeninclude)
+ CFLAGS   += $(foreach lib, $(USELIBS_$(LIBNAME)), $(CFLAGS_libxen$(lib)))
+@@ -85,7 +83,7 @@ lib$(LIB_FILE_NAME).so.$(MAJOR): lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR)
+ 	$(SYMLINK_SHLIB) $< $@
+ 
+ lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR): $(PIC_OBJS) libxen$(LIBNAME).map
+-	$(CC) $(LDFLAGS) $(PTHREAD_LDFLAGS) -Wl,$(SONAME_LDFLAG) -Wl,lib$(LIB_FILE_NAME).so.$(MAJOR) $(SHLIB_LDFLAGS) -o $@ $(PIC_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
++	$(CC) $(LDFLAGS) $(PTHREAD_LDFLAGS) -Wl,$(SONAME_LDFLAG) -Wl,lib$(LIB_FILE_NAME).so.$(MAJOR) -Wl,--version-script=libxen$(LIBNAME).map $(SHLIB_LDFLAGS) -o $@ $(PIC_OBJS) $(LDLIBS) $(APPEND_LDFLAGS)
+ 
+ # If abi-dumper is available, write out the ABI analysis
+ ifneq ($(ABI_DUMPER),)
 -- 
 Anthony PERARD
 
