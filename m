@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42DDB58FD85
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 15:39:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.384631.620043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E4F658FE25
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Aug 2022 16:18:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.384639.620054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oM8OY-0000qN-51; Thu, 11 Aug 2022 13:38:42 +0000
+	id 1oM8zw-00059X-58; Thu, 11 Aug 2022 14:17:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 384631.620043; Thu, 11 Aug 2022 13:38:42 +0000
+Received: by outflank-mailman (output) from mailman id 384639.620054; Thu, 11 Aug 2022 14:17:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oM8OY-0000ob-2C; Thu, 11 Aug 2022 13:38:42 +0000
-Received: by outflank-mailman (input) for mailman id 384631;
- Thu, 11 Aug 2022 13:38:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oM8zw-00056g-1C; Thu, 11 Aug 2022 14:17:20 +0000
+Received: by outflank-mailman (input) for mailman id 384639;
+ Thu, 11 Aug 2022 14:17:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eubj=YP=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1oM8OW-0000oV-81
- for xen-devel@lists.xenproject.org; Thu, 11 Aug 2022 13:38:40 +0000
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [2607:f8b0:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e71203f3-197a-11ed-bd2e-47488cf2e6aa;
- Thu, 11 Aug 2022 15:38:38 +0200 (CEST)
-Received: by mail-pf1-x42f.google.com with SMTP id h28so16481238pfq.11
- for <xen-devel@lists.xenproject.org>; Thu, 11 Aug 2022 06:38:38 -0700 (PDT)
+ <SRS0=foSi=YP=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1oM8zu-00056a-6E
+ for xen-devel@lists.xenproject.org; Thu, 11 Aug 2022 14:17:18 +0000
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [2607:f8b0:4864:20::1035])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4d3d9a45-1980-11ed-924f-1f966e50362f;
+ Thu, 11 Aug 2022 16:17:17 +0200 (CEST)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ q7-20020a17090a7a8700b001f300db8677so5233156pjf.5
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Aug 2022 07:17:16 -0700 (PDT)
+Received: from leoy-huanghe.lan (n058152077182.netvigator.com. [58.152.77.182])
+ by smtp.gmail.com with ESMTPSA id
+ u8-20020a170902e5c800b00170a359eb0esm9446133plf.63.2022.08.11.07.17.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Aug 2022 07:17:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,226 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e71203f3-197a-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 4d3d9a45-1980-11ed-924f-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc;
-        bh=xnHqZDNGnZc5b7MP7xNff02YIiaMYNtpO3qGseQwAUg=;
-        b=ztgk7H9meRnG112AV5/iiM2wg7+CBWEDQnqIl8ERQD8vRw6VfJXbI5rVaD4EgpxOjA
-         CXirhiDe2P6W2FJi0gf7+cawIk/tvG0vAT6kv7YUhDHEwvWhH0g0Xp9UBmfywHq1Us89
-         45542KuCYXs4pUTGdrXJOLhPgTVUNwzUMNm7DSwdhSpAWYmQi7xhTAuFMWtIK/TYOhSv
-         a6gy3qfgflUUuYwSwWpjqsX1Vh2voje0yaP45Yz+5v7uUaB56G44m1lBCTuwpLxHoyFi
-         6mf4Jel6i0sU5ivnSwaYEA1bcj/JLpa8b6mwCu8RDRlfwyWGa86Q6/QCPs/Iz+3FuvU8
-         bewA==
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc;
+        bh=C8Zf2NSvfDsDU1qGut500fi9G7IQx8n0oSWEzCgVfIg=;
+        b=zmUR88JIAsi3JxmbFzbYZ0cS75C5eZdvjTvDlEtg9yG4LDN4HFySLVXxRr6vBvFKd1
+         kPTdUXpNud57u410H9Xhwll1F/Q34PmiWMXTok0T51T2kfy/oAxxVjW14AYyx6BB1K6R
+         +QbUq9tiYcLL7WkQ15BvyUZydU2L+lJCba3rxUIkScKdDFt3Lk++RrZr1WC+N+D/HbXx
+         Xe3cw7qqBeUoQZ91kpADvvuYXtfRPd+Z2nAlzdgvFbs+7BdhiitTUZO4gPRPK90ep2Ji
+         xkmlpAAQTc8H82ceMhQLm+vlhQ+Nijvea1mgLanMyZpM2P+JFaJb/ul2KgcCXBkRhqNr
+         /HRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc;
-        bh=xnHqZDNGnZc5b7MP7xNff02YIiaMYNtpO3qGseQwAUg=;
-        b=0trGHVDawt0iUcTn98DhTY2pZ+Z4tJX3SGebInwEpkFvBXq/4YStpCR5O3bMgngfgh
-         91JqdBmzcTwPlucDjFbrETuouQjyFdiIVTj6/EeN45GQaNHI7hDrmrGcz42JTUYrb546
-         LWke59iycsk+QxqQ9uA4aH4+HGFz/XVTUNhs8EoAS37JHcqucEyYB5JGGB1HfQWtdhtH
-         IFDcvhhndxdN43plrGq+4rS2clo9oOs1bMDiy4WrstS0txTXeq9w2kPFWHt/Lfi4qeDT
-         hMG1yOaY02HzPkyDcGDOhaQQDqkuqcsZLzQ58bIph2THQln7gg43Hmns4CmTCUiAeYsX
-         y0dA==
-X-Gm-Message-State: ACgBeo3YhWTG9/SHNvnR8pp+kaqMlUAecxaYWMXd+LLq1NWRYKbj2q1B
-	WvNQd6pwZNYZE9hIyVStbM5izTAk7JKkKM8yZOVXQg==
-X-Google-Smtp-Source: AA6agR5wvQL2hXktVlLrd7PxdcVfdJeJ+31PFw0jutE15Cvic2Q5ZO8CK2Vg4I3GmkpdAOqzfK7DRwsytzSD1SvLhbM=
-X-Received: by 2002:a62:30c7:0:b0:52f:9a31:5935 with SMTP id
- w190-20020a6230c7000000b0052f9a315935mr13531307pfw.14.1660225116535; Thu, 11
- Aug 2022 06:38:36 -0700 (PDT)
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+        bh=C8Zf2NSvfDsDU1qGut500fi9G7IQx8n0oSWEzCgVfIg=;
+        b=CBUEWFoEJQKm6CFjdOKkroK5H7Ogb0zDWE7eIkhe56C6FjnD9ZQ+fghtlG4b3tFstp
+         /z/S7PmW7LuaYXLCV7usTq9AgS6HL1Ae5Z8Dkzv8u5FLZ5h0gGU1FA4VMBC4MyOv9woa
+         xS+S780ZGaXyb3FKq4lX2tmuDkrqy7qxnicO41K1GEPBNWuQbcwxp5eQwrlCtsYeJLMo
+         5wnr1BXTPcZ3CneZcSrYotKOak0BNbPVbqnSkfH3AovVfirxjQaTjBgqOpVS/SSRu0Ed
+         Ww1xDLphVEIJYerAsgP3wcHpCYkCKVyU4ZAAm62217QdT9VGL2gtsNj0+pwZ6QU+XXCp
+         Xt1g==
+X-Gm-Message-State: ACgBeo04zhhtj2Pq6xm5OzspQ3ZYX++iOS7k0ADiVMawVZ5zp/EzgW/z
+	QmWdgS/p1gdTvhykvKPFIa4Zlw==
+X-Google-Smtp-Source: AA6agR5ORDVzX0hn5csZu/4hcVbAhZCP5wL2HcM6Ed3tSuxyAG4tpDePd/DISbcyW4Nf65t3VIeY/w==
+X-Received: by 2002:a17:902:8502:b0:16c:c5c5:a198 with SMTP id bj2-20020a170902850200b0016cc5c5a198mr31988808plb.88.1660227435254;
+        Thu, 11 Aug 2022 07:17:15 -0700 (PDT)
+Date: Thu, 11 Aug 2022 22:17:07 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Jerome Forissier <jerome.forissier@linaro.org>,
+	Marc Zyngier <maz@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+	Rahul Singh <Rahul.Singh@arm.com>
+Subject: Re: Question: Enable LINUX_EFI_MEMRESERVE_TABLE_GUID in EFI
+Message-ID: <20220811141707.GB868014@leoy-huanghe.lan>
+References: <20220804081253.GA1219098@leoy-ThinkPad-X240s>
+ <D6DDAE40-A8EF-4230-A292-401FBA085EE0@arm.com>
+ <EA8A294E-856D-4579-B26E-55F6B7EB477C@arm.com>
 MIME-Version: 1.0
-References: <20220622134219.1596613-1-jens.wiklander@linaro.org>
- <20220622134219.1596613-3-jens.wiklander@linaro.org> <a6610563-38b2-bb66-feab-df2ea29a9bb8@xen.org>
- <CAHUa44GLbbnxrKWQP2ZLGJO_rDUukdiO4_jOs8Ai55iLFh5YmQ@mail.gmail.com> <2444aee6-13b6-a208-d6ba-89c42b43315e@xen.org>
-In-Reply-To: <2444aee6-13b6-a208-d6ba-89c42b43315e@xen.org>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Thu, 11 Aug 2022 15:38:25 +0200
-Message-ID: <CAHUa44G1Ea6Ry_TTPzOGG9yqFYabnPQbtsUc49048DCJd36BkQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] xen/arm: add FF-A mediator
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Bertrand.Marquis@arm.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <EA8A294E-856D-4579-B26E-55F6B7EB477C@arm.com>
 
-Hi,
+Hi Bertrand, Rahul,
 
-On Thu, Jul 28, 2022 at 9:41 PM Julien Grall <julien@xen.org> wrote:
->
-> Hi,
->
-> On 27/07/2022 07:33, Jens Wiklander wrote:
-> > On Fri, Jul 8, 2022 at 9:54 PM Julien Grall <julien@xen.org> wrote:
-> >>> +    unsigned int n;
-> >>> +    unsigned int m;
-> >>> +    p2m_type_t t;
-> >>> +    uint64_t addr;
-> >>> +
-> >>> +    for ( n = 0; n < range_count; n++ )
-> >>> +    {
-> >>> +        for ( m = 0; m < range[n].page_count; m++ )
-> >>> +        {
-> >>> +            if ( pg_idx >= shm->page_count )
-> >>> +                return FFA_RET_INVALID_PARAMETERS;
-> >>
-> >> Shouldn't we call put_page() to drop the references taken by
-> >> get_page_from_gfn()?
-> >
-> > Yes, and that's done by put_shm_pages(). One would normally expect
-> > get_shm_pages() to do this on error, but that's not needed here since
-> > we're always calling put_shm_pages() just before freeing the shm. I
-> > can change to let get_shm_pages() do the cleanup on error instead if
-> > you prefer that.
->
-> I am fine with the current approach. I would suggest to document it on
-> top of get_shm_pages().
->
-> Also, if you expect put_shm_pages() to always be called before freeing
-> shm, then I think it would be worth adding an helper that is doing the
-> two. So the requirement is clearer.
+On Fri, Aug 05, 2022 at 12:05:23PM +0000, Bertrand Marquis wrote:
+> > On 5 Aug 2022, at 12:44, Rahul Singh <Rahul.Singh@arm.com> wrote:
 
-OK, I'll fix.
+[...]
 
->
-> [...]
->
-> >>
-> >> How do you guarantee that both Xen and the domain agree on the page size?
-> >
-> > For now, I'll add a BUILD_BUG_ON() to check that the hypervisor page
-> > size is 4K  to simplify the initial implementation. We can update to
-> > support a larger minimal memory granule later on.
->
-> I am fine with that. FWIW, this is also what we did in the OP-TEE case.
->
-> >>> +    for ( n = 1; n < shm->page_count; last_pa = pa, n++ )
-> >>> +    {
-> >>> +        pa = page_to_maddr(shm->pages[n]);
-> >>> +        if ( last_pa + PAGE_SIZE == pa )
-> >>> +        {
-> >>
-> >> Coding style: We usually avoid {} for single line.
-> >
-> > OK
-> >
-> >>
-> >>> +            continue;
-> >>> +        }
-> >>> +        region_descr->address_range_count++;
-> >>> +    }
-> >>> +
-> >>> +    tot_len = sizeof(*descr) + sizeof(*mem_access_array) +
-> >>> +              sizeof(*region_descr) +
-> >>> +              region_descr->address_range_count * sizeof(*addr_range);
-> >>
-> >> How do you make sure that you will not write past the end of ffa_tx?
-> >>
-> >> I think it would be worth to consider adding an helper that would allow
-> >> you to allocate space in ffa_tx and zero it. This would return an error
-> >> if there is not enough space.
-> >
-> > That's what I'm doing with frag_len. If the descriptor cannot fit it's
-> > divided into fragments that will fit.
->
-> Oh, so this is what the loop below is for, am I correct? If so, I would
-> suggest to document a bit the code because this function is fairly
-> confusing to understand.
+> >> Looked into the code, the GICv3 driver tries to create persistent
+> >> reservations for pending pages, and the persistent reservation table
+> >> can be used by kexec/kdump.  For the persistent reservations, it
+> >> relies on MEMRESERVE EFI configuration table, but this table is not
+> >> supported by xen.efi, I think this is the reason for the above oops.
+> > 
+> > Yes, you are right above warning is observed because Xen does not support 
+> > memreserve efi table. I also observed a similar warning on the N1SDP board.
+> >> 
+> >> I checked that if I boot a host Linux (without Xen), then the EFI has
+> >> provided MEMRESERVE configuration table, I can get below log:
+> >> 
+> >> #  dmesg | grep MEMRESERVE
+> >> [    0.000000] efi: TPMFinalLog=0x807f9ef0000 ACPI 2.0=0x807fa0d0018 ... MEMRESERVE=0x807f8141e98
+> >> 
+> >> Just want to confirm, is anyone working on enabling MEMRESERVE EFI
+> >> configuration table for Xen?  And welcome any comments and
+> >> suggestions!
+> >> 
+> 
+> No I do not think anybody is working on this at the moment.
+> If you want to work on adding support for this in Xen, we can provide support
+> and help on reviewing and testing as we have several targets on which we
+> observe this (N1SDP and Ava).
 
-Yeah, I'm sorry about that. I'll add a comment describing what's going on.
+Thanks for your quick response.
 
->
-> [...]
->
-> >>> +    if ( read_atomic(&mem_access->access_perm.perm) != FFA_MEM_ACC_RW )
-> >>> +    {
-> >>> +        ret = FFA_RET_NOT_SUPPORTED;
-> >>> +        goto out_unlock;
-> >>> +    }
-> >>> +
-> >>> +    region_offs = read_atomic(&mem_access->region_offs);
-> >>> +    if ( sizeof(*region_descr) + region_offs > frag_len )
-> >>> +    {
-> >>> +        ret = FFA_RET_NOT_SUPPORTED;
-> >>> +        goto out_unlock;
-> >>> +    }
-> >>> +
-> >>> +    region_descr = (void *)((vaddr_t)ctx->tx + region_offs);
-> >>> +    range_count = read_atomic(&region_descr->address_range_count);
-> >>> +    page_count = read_atomic(&region_descr->total_page_count);
-> >>> +
-> >>> +    shm = xzalloc_flex_struct(struct ffa_shm_mem, pages, page_count)
-> >> This will allow a guest to allocate an arbitrarily large array in Xen.
-> >> So please sanitize page_count before using it.
-> >
-> > This is tricky, what is a reasonable limit?
->
-> Indeed. We need a limit that will prevent an untrusted domain to DoS Xen
-> and at the same doesn't prevent the majority of well-behave domain to
-> function.
->
-> How is this call going to be used?
->
-> > If we do set a limit the
-> > guest can still share many separate memory ranges.
->
-> This would also need to be limited if there is a desire to support
-> untrusted domain.
+I took time to look into the code, below are my conclusions.
 
-I see that someone obviously has asked the same questions about the
-OP-TEE mediator in the TEE mediator framework. I'll try the same
-approach with limit etc since I guess the use-case there and here at
-least initially will be similar.
+For a normal UEFI boot flow, UEFI will invoke Linux kernel's EFI stub,
+and the EFI stub will install MEMRESERVE EFI configuration table.
+This is accomplished in the Linux function install_memreserve_table().
 
->
-> [...]
->
-> >>> +    ret = get_shm_pages(d, shm, region_descr->address_range_array, range_count,
-> >>> +                        0, &last_page_idx);
-> >>> +    if ( ret )
-> >>> +        goto out;
-> >>> +    if ( last_page_idx != shm->page_count )
-> >>> +    {
-> >>> +        ret = FFA_RET_INVALID_PARAMETERS;
-> >>> +        goto out;
-> >>> +    }
-> >>> +
-> >>> +    /* Note that share_shm() uses our tx buffer */
-> >>> +    spin_lock(&ffa_buffer_lock);
-> >>> +    ret = share_shm(shm);
-> >>> +    spin_unlock(&ffa_buffer_lock);
-> >>> +    if ( ret )
-> >>> +        goto out;
-> >>> +
-> >>> +    spin_lock(&ffa_mem_list_lock);
-> >>> +    list_add_tail(&shm->list, &ffa_mem_list);
-> >>
-> >> A couple of questions:
-> >>     - What is the maximum size of the list?
-> >
-> > Currently, there is no limit. I'm not sure what is a reasonable limit
-> > more than five for sure, but depending on the use case more than 100
-> > might be excessive.
-> This is fine to be excessive so long it doesn't allow a guest to drive
-> Xen out of memory or allow long running operations.
->
-> As I wrote above, the idea is we need limits that protect Xen but at the
-> same time doesn't prevent the majority well-behave guest to function.
->
-> As this is a tech preview, the limits can be low. We can raise the
-> limits as we get a better understanding how this will be used.
+Secondly, Xen passes DT to kernel, it synthesizes ACPI compatible
+nodes in the device tree and finally kernel parses DT and create the
+ACPI table.  In this case, Xen doesn't invoke Linux EFI stub.
 
-OK.
+To be honest, I have very less knowledge for Xen and APCI; just based on
+reading code, I think it's hard for Xen to invoke Linux kernel's EFI
+stub, this is because Xen needs to provide the EFI runtime services, and
+I don't think it's feasible for Xen to pass through UEFI's runtime
+service to Linux kernel.  If we implement the EFI runtime services for
+Xen, then this would introduce a big implementation.
 
-Thanks for the review.
+So another option is we simply add MEMRESERVE EFI configuration table
+into device tree, just like Xen does for other ACPI tables (e.g.
+RSDP?).  And then in Linux kernel, we need to parse the DT binding and
+initialize the corresponding variables in kernel, so we need to add
+support in the Linux source drivers/firmware/efi/fdtparams.c.
 
-Cheers,
-Jens
+Before I proceed, just want to check which option would be the right
+way to move forward?  And I am open for any other solution and welcome
+suggestions.
 
->
-> Cheers,
->
-> --
-> Julien Grall
+Thanks a lot!
+Leo
 
