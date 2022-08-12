@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E1945915EE
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 21:25:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.385858.621675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98125915EA
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 21:25:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.385860.621685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMaHS-0001Nb-F2; Fri, 12 Aug 2022 19:25:14 +0000
+	id 1oMaHT-0001fa-Un; Fri, 12 Aug 2022 19:25:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 385858.621675; Fri, 12 Aug 2022 19:25:14 +0000
+Received: by outflank-mailman (output) from mailman id 385860.621685; Fri, 12 Aug 2022 19:25:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMaHS-0001Jd-AI; Fri, 12 Aug 2022 19:25:14 +0000
-Received: by outflank-mailman (input) for mailman id 385858;
- Fri, 12 Aug 2022 19:25:12 +0000
+	id 1oMaHT-0001bf-PF; Fri, 12 Aug 2022 19:25:15 +0000
+Received: by outflank-mailman (input) for mailman id 385860;
+ Fri, 12 Aug 2022 19:25:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oMaHQ-0000wg-9V
- for xen-devel@lists.xenproject.org; Fri, 12 Aug 2022 19:25:12 +0000
+ (envelope-from <julien@xen.org>) id 1oMaHR-0001CF-BA
+ for xen-devel@lists.xenproject.org; Fri, 12 Aug 2022 19:25:13 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oMaHP-0000yE-W3; Fri, 12 Aug 2022 19:25:11 +0000
+ id 1oMaHR-0000yS-13; Fri, 12 Aug 2022 19:25:13 +0000
 Received: from 54-240-197-224.amazon.com ([54.240.197.224]
  helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oMaHP-0006n6-O5; Fri, 12 Aug 2022 19:25:11 +0000
+ id 1oMaHQ-0006n6-PT; Fri, 12 Aug 2022 19:25:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,9 +43,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=UfWb+n83nlA+FfpERZvzgicr1KFfkvvT5C3RMOVERFw=; b=W2b0baSx43V013hbPf7SzcRvE0
-	v/ztQ6YwuCVWGKXQGcZxazGfi2Flfd+KVf1T8WS98QpgSNX+g6zRFe7dzqvLEMEwgAHE6WNpOb3Xo
-	CEo/Uth0uA0+CJANi7xO3p5FxPZsW+wp2jGvk7cy2ZyfxGgeeUjKdg8HVpxN3qZ15vHM=;
+	bh=KSNSRhk/b7PF+Veoqw2eqLMcjCDzJVoJhlmghRfM920=; b=ZCkoDm+ZTirO4BNHjMNk5xuq33
+	f3rtyXAH3xWYCjq79zyYeHN2QV+2yLqY6vW97Eu3JLKvZnY8hFYAFlnUO84vIXG3hmy+zt+pYG84p
+	JnLwH6tMPpXjgCHTrYAZ3AgMerdBr8qCs382VleKjRokRwzoeBp0Xn7ubJG9iGjpm3tg=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -53,9 +53,9 @@ Cc: julien@xen.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 4/7] xen/arm32: heap: Rework adr_l so it doesn't rely on where Xen is loaded
-Date: Fri, 12 Aug 2022 20:24:43 +0100
-Message-Id: <20220812192448.43016-5-julien@xen.org>
+Subject: [PATCH 5/7] xen/arm32: head: Move earlyprintk messages to .rodata.str
+Date: Fri, 12 Aug 2022 20:24:44 +0100
+Message-Id: <20220812192448.43016-6-julien@xen.org>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220812192448.43016-1-julien@xen.org>
 References: <20220812192448.43016-1-julien@xen.org>
@@ -64,141 +64,60 @@ Content-Transfer-Encoding: 8bit
 
 From: Julien Grall <jgrall@amazon.com>
 
-At the moment, the macro addr_l needs to know whether the caller
-is running with the MMU on. This is fine today because there are
-only two possible cases:
- 1) MMU off
- 2) MMU on and linked to the virtual address
+At the moment, the strings are in text right after each use because
+the instruction 'adr' has specific requirement on the location
+and the compiler will forbid cross section label.
 
-This is still cumbersome to use for the developer as they need
-to know if the MMU is on.
+The macro 'adr_l' was recently reworked so the caller doesn't need
+to know whether the MMU is on. This makes it easier to use where
+instructions can be run in both context.
 
-Thankfully, Linux developpers came up with a great way to allow
-adr_l to work within the range +/- 4GB of PC by emitting a PC-relative
-reference [1].
-
-Re-use the same approach on Arm and drop the parameter 'mmu'.
-
-[1] 0b1674638a5c ("ARM: assembler: introduce adr_l, ldr_l and str_l macros")
+This also means that the strings don't need to be part of .text
+anymore. So move them to .rodata.str.
 
 Signed-off-by: Julien Grall <jgrall@amazon.com>
-
-----
-    I haven't added an Origin tag because this is quite different
-    from the Linux commit. I am happy to add one if this is desired..
 ---
- xen/arch/arm/arm32/head.S | 38 +++++++++++++++-----------------------
- 1 file changed, 15 insertions(+), 23 deletions(-)
+ xen/arch/arm/arm32/head.S | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index 50f6fa4eb38d..27d02ac8d68f 100644
+index 27d02ac8d68f..a558c2a6876e 100644
 --- a/xen/arch/arm/arm32/head.S
 +++ b/xen/arch/arm/arm32/head.S
-@@ -49,20 +49,16 @@
- .endm
+@@ -93,13 +93,10 @@
+  */
+ #define PRINT(_s)           \
+         mov   r3, lr       ;\
+-        adr   r0, 98f      ;\
++        adr_l r0, 98f      ;\
+         bl    puts         ;\
+         mov   lr, r3       ;\
+-        b     99f          ;\
+-98:     .asciz _s          ;\
+-        .align 2           ;\
+-99:
++        RODATA_STR(98, _s)
  
  /*
-- * There are no easy way to have a PC relative address within the range
-- * +/- 4GB of the PC.
-+ * Pseudo-op for PC relative adr <reg>, <symbol> where <symbol> is
-+ * within the range +/- 4GB of the PC.
-  *
-- * This macro workaround it by asking the user to tell whether the MMU
-- * has been turned on or not.
-- *
-- * When the MMU is turned off, we need to apply the physical offset
-- * (r10) in order to find the associated physical address.
-+ * @dst: destination register
-+ * @sym: name of the symbol
+  * Macro to print the value of register \rb
+@@ -736,7 +733,7 @@ ENDPROC(puts)
+  * Clobbers r0-r3
   */
--.macro adr_l, dst, sym, mmu
--        ldr   \dst, =\sym
--        .if \mmu == 0
--        add   \dst, \dst, r10
--        .endif
-+.macro adr_l, dst, sym
-+        mov_w \dst, \sym - .Lpc\@
-+        .set  .Lpc\@, .+ 8          /* PC bias */
-+        add   \dst, \dst, pc
- .endm
+ putn:
+-        adr   r1, hex
++        adr_l r1, hex
+         mov   r3, #8
+ 1:
+         early_uart_ready r11, r2
+@@ -749,8 +746,7 @@ putn:
+         mov   pc, lr
+ ENDPROC(putn)
  
- .macro load_paddr rb, sym
-@@ -383,7 +379,6 @@ ENDPROC(cpu_init)
-  * tbl:     table symbol to point to
-  * virt:    virtual address
-  * lvl:     page-table level
-- * mmu:     Is the MMU turned on/off. If not specified it will be off
-  *
-  * Preserves \virt
-  * Clobbers r1 - r4
-@@ -392,7 +387,7 @@ ENDPROC(cpu_init)
-  *
-  * Note that \virt should be in a register other than r1 - r4
-  */
--.macro create_table_entry, ptbl, tbl, virt, lvl, mmu=0
-+.macro create_table_entry, ptbl, tbl, virt, lvl
-         get_table_slot r1, \virt, \lvl  /* r1 := slot in \tlb */
-         lsl   r1, r1, #3                /* r1 := slot offset in \tlb */
+-hex:    .ascii "0123456789abcdef"
+-        .align 2
++RODATA_STR(hex, "0123456789abcdef")
  
-@@ -402,7 +397,7 @@ ENDPROC(cpu_init)
-         orr   r2, r2, r4             /*           + \tlb paddr */
-         mov   r3, #0
- 
--        adr_l r4, \ptbl, \mmu
-+        adr_l r4, \ptbl
- 
-         strd  r2, r3, [r4, r1]
- .endm
-@@ -415,17 +410,14 @@ ENDPROC(cpu_init)
-  * virt:    virtual address
-  * phys:    physical address
-  * type:    mapping type. If not specified it will be normal memory (PT_MEM_L3)
-- * mmu:     Is the MMU turned on/off. If not specified it will be off
-  *
-  * Preserves \virt, \phys
-  * Clobbers r1 - r4
-  *
-- * * Also use r10 for the phys offset.
-- *
-  * Note that \virt and \paddr should be in other registers than r1 - r4
-  * and be distinct.
-  */
--.macro create_mapping_entry, ptbl, virt, phys, type=PT_MEM_L3, mmu=0
-+.macro create_mapping_entry, ptbl, virt, phys, type=PT_MEM_L3
-         mov_w r2, XEN_PT_LPAE_ENTRY_MASK
-         lsr   r1, \virt, #THIRD_SHIFT
-         and   r1, r1, r2             /* r1 := slot in \tlb */
-@@ -438,7 +430,7 @@ ENDPROC(cpu_init)
-         orr   r2, r2, r4             /*          + PAGE_ALIGNED(phys) */
-         mov   r3, #0
- 
--        adr_l r4, \ptbl, \mmu
-+        adr_l r4, \ptbl
- 
-         strd  r2, r3, [r4, r1]
- .endm
-@@ -468,7 +460,7 @@ create_page_tables:
-         create_table_entry boot_second, boot_third, r0, 2
- 
-         /* Setup boot_third: */
--        adr_l r4, boot_third, mmu=0
-+        adr_l r4, boot_third
- 
-         lsr   r2, r9, #THIRD_SHIFT  /* Base address for 4K mapping */
-         lsl   r2, r2, #THIRD_SHIFT
-@@ -632,11 +624,11 @@ setup_fixmap:
- #if defined(CONFIG_EARLY_PRINTK)
-         /* Add UART to the fixmap table */
-         ldr   r0, =EARLY_UART_VIRTUAL_ADDRESS
--        create_mapping_entry xen_fixmap, r0, r11, type=PT_DEV_L3, mmu=1
-+        create_mapping_entry xen_fixmap, r0, r11, type=PT_DEV_L3
- #endif
-         /* Map fixmap into boot_second */
-         mov_w r0, FIXMAP_ADDR(0)
--        create_table_entry boot_second, xen_fixmap, r0, 2, mmu=1
-+        create_table_entry boot_second, xen_fixmap, r0, 2
-         /* Ensure any page table updates made above have occurred. */
-         dsb   nshst
+ #else  /* CONFIG_EARLY_PRINTK */
  
 -- 
 2.37.1
