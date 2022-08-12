@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DFA459121D
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 16:23:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.385725.621431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A280359122F
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 16:29:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.385735.621442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMVYn-0007Vz-U4; Fri, 12 Aug 2022 14:22:49 +0000
+	id 1oMVeK-0008CH-Jv; Fri, 12 Aug 2022 14:28:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 385725.621431; Fri, 12 Aug 2022 14:22:49 +0000
+Received: by outflank-mailman (output) from mailman id 385735.621442; Fri, 12 Aug 2022 14:28:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMVYn-0007Tq-R8; Fri, 12 Aug 2022 14:22:49 +0000
-Received: by outflank-mailman (input) for mailman id 385725;
- Fri, 12 Aug 2022 14:22:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMVYm-0007Tg-3H; Fri, 12 Aug 2022 14:22:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMVYm-0003eR-2W; Fri, 12 Aug 2022 14:22:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMVYl-0003pB-OH; Fri, 12 Aug 2022 14:22:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oMVYl-0002Gr-Nn; Fri, 12 Aug 2022 14:22:47 +0000
+	id 1oMVeK-00089L-Fy; Fri, 12 Aug 2022 14:28:32 +0000
+Received: by outflank-mailman (input) for mailman id 385735;
+ Fri, 12 Aug 2022 14:28:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=U57A=YQ=citrix.com=prvs=216127e06=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oMVeJ-00089F-Ns
+ for xen-devel@lists.xenproject.org; Fri, 12 Aug 2022 14:28:31 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 07678af8-1a4b-11ed-924f-1f966e50362f;
+ Fri, 12 Aug 2022 16:28:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,91 +36,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9J4OM5eDM4CYDLVJbO7MUcO7V7WRYx5DpCVRIgWAJfM=; b=BV4P6nFNT9B/MEG0psN8jpT/iy
-	8Z/q6m9/DBkSOiIPM0W0QnT0BlGb8o35yv/srscPXxdiUINQ5a6vI/lCl2LzX3UwQ83N6b0QdkBYU
-	6I99lx9TIkGUOd940lPtQuCcO6GU3Hg7JSDpSoOLQo+BVmuS94mKvPdsf7Hp3MS5zOMI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172429-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 07678af8-1a4b-11ed-924f-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1660314508;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=05dqAkiTBhpyxGoV4e1wykpykEwo5G6nfwS+XlTPG4U=;
+  b=N/Fjzyerz/3o2T5KckB+FJhsNYM603zIDbbA051t2lN4ktlcKW47jwn+
+   R4tAFMwqR6RajkqAGZldAF7nPtIJINVF3IoUPEyj/jVq/l8wgyop1ZQjY
+   P+ErELeCf+pitGAj7QhcETIFHm+V0NByt/DBqMOZpWcW5JRi4zI3ZSp7P
+   s=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 78405149
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:00Z5nKz3Fv2wBqMWADh6t+czxirEfRIJ4+MujC+fZmUNrF6WrkVTy
+ 2UXDW3VOKuJajD0Kdp+b4m0pE8FsZeEyNNhSAtl+SAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnj/0bv676yEUOZigHtLUEPTDNj16WThqQSIgjQMLs+Mii8tjjMPR7zml4
+ LsemOWCfg7+s9JIGjhMsfjb+Eo15K6aVA4w5TTSW9ga5DcyqFFNZH4vDfnZB2f1RIBSAtm7S
+ 47rpF1u1jqEl/uFIorNfofTKiXmcJaLVeS9oiM+t5yZqgpDvkQPPpMTb5LwX6v1ZwKhxLidw
+ P0V3XC5pJxA0qfkwIzxWDEAe81y0DEvFBYq7hFTvOTKp3AqfUcAzN1QI3sqZIYl99xQOkFx2
+ Oc6eCkWYSqc0rfeLLKTEoGAh+wmJcjveogepmth3XfSCvNOrZLrGvuQo4UChXFp254ITa22i
+ 8kxMFKDaDzJZQFPPVEGToozhu6yilH0ciFCqULTrq0yi4TW5FMhjOCwaYaEEjCMbfprl2LEm
+ 0vsxW3WKyk1EtaTzROGyn3504cjmgukAdlPRdVU7MVCn1m71mEVThoMWjOTsfS/z0KzRd9bA
+ 0gV4TY167g/8lSxSdvwVAH+p2SL1jYeUddNF+wx6CmW17HZpQ2eAwAsSiNKYZoovck9SDguy
+ 3eAhdavDjtq2IB5UlrEqO3S92nrf3FIcylSPkfoUDfp/fHdj7sv1xnyQ+xEK46Ko8bXSSjrz
+ AqV+X1Wa6oosSIb60mq1QmZ3Wr29saZH1NdChb/BTz8sF4gDGKxT8nxsAWAs64dRGqMZgPZ1
+ EXojfRy+wzn4XulsCWWCNsAE7iyjxpuGG2N2AU/d3XNGtnExpJCQWyzyGsnTKuRGpxYEQIFm
+ WeK0e+r2LddPWGxcYh8aJ+rBsIhwMDITIq7DqmJMIceOMchLWdrGR2CgmbOt10BbWB2yf1vU
+ XtlWZ/E4Ykm5VRPk2PtGrZ1PU4DzSEi32LDLa3GI+Cc+ePHPBa9FOZaWGZim8hjs8toVi2Jr
+ IsEXyZLoj0DONDDjt7/rtNKcgpbcSlkbX00wuQOHtO+zsNdMDlJI5fsLXkJIOSJQ4w9ej/0w
+ 0yA
+IronPort-HdrOrdr: A9a23:vNEqLK2XgKyyxieTtczi7QqjBLAkLtp133Aq2lEZdPRUGvb4qy
+ mLpoV96faUskd0ZJhOo7y90cW7Lk80sKQFh7X5Xo3SOTUO2lHYT72KhLGKq1aLdhEWtNQtt5
+ uIG5IOceEYZmIbsS+V2meFL+o=
+X-IronPort-AV: E=Sophos;i="5.93,233,1654574400"; 
+   d="scan'208";a="78405149"
+Date: Fri, 12 Aug 2022 15:28:16 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Luca Fancellu <luca.fancellu@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Roger Pau =?iso-8859-1?Q?Monn=E9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v4 02/32] tools/firmware/hvmloader: rework Makefile
+Message-ID: <YvZjgPEW8uQWp+so@perard.uk.xensource.com>
+References: <20220811164845.38083-1-anthony.perard@citrix.com>
+ <20220811164845.38083-3-anthony.perard@citrix.com>
+ <df267b25-a51a-a773-5845-534104540208@suse.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 172429: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=bd06717863ed6cba979fe5300433619aba340403
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 12 Aug 2022 14:22:47 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <df267b25-a51a-a773-5845-534104540208@suse.com>
 
-flight 172429 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172429/
+On Fri, Aug 12, 2022 at 03:36:12PM +0200, Jan Beulich wrote:
+> On 11.08.2022 18:48, Anthony PERARD wrote:
+> > Setup proper dependencies with libacpi so we don't need to run "make
+> > hvmloader" in the "all" target. ("build.o" new prerequisite isn't
+> > exactly proper but a side effect of building the $(DSDT_FILES) is to
+> > generate the "ssdt_*.h" needed by "build.o".)
+> > 
+> > Make use if "-iquote" instead of a plain "-I".
+> > 
+> > For "roms.inc" target, use "$(SHELL)" instead of plain "sh". And use
+> > full path to "mkhex" instead of a relative one. Lastly, add "-f" flag
+> > to "mv" to avoid a prompt in case the target already exist and we
+> > don't have write permission.
+> > 
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> > Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> with one nit (which I'd be happy to take care of while committing):
+> 
+> > @@ -73,12 +72,18 @@ smbios.o: CFLAGS += -D__SMBIOS_DATE__="\"$(SMBIOS_REL_DATE)\""
+> >  ACPI_PATH = ../../libacpi
+> >  DSDT_FILES = dsdt_anycpu.c dsdt_15cpu.c dsdt_anycpu_qemu_xen.c
+> >  ACPI_OBJS = $(patsubst %.c,%.o,$(DSDT_FILES)) build.o static_tables.o
+> > -$(ACPI_OBJS): CFLAGS += -I. -DLIBACPI_STDUTILS=\"$(CURDIR)/util.h\"
+> > +$(ACPI_OBJS): CFLAGS += -iquote . -DLIBACPI_STDUTILS=\"$(CURDIR)/util.h\"
+> >  CFLAGS += -I$(ACPI_PATH)
+> >  vpath build.c $(ACPI_PATH)
+> >  vpath static_tables.c $(ACPI_PATH)
+> >  OBJS += $(ACPI_OBJS)
+> >  
+> > +$(DSDT_FILES): acpi
+> > +
+> > +# Add DSDT_FILES as a prerequisite of "build.o" so that make will also
+> > +# generates the "ssdt_*.h" headers needed by "build.o".
+> 
+> s/generates/generate/ ?
 
-Regressions :-(
+Yes, thanks.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
-
-version targeted for testing:
- ovmf                 bd06717863ed6cba979fe5300433619aba340403
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
-
-Last test of basis   172136  2022-08-04 06:43:42 Z    8 days
-Failing since        172151  2022-08-05 02:40:28 Z    7 days   71 attempts
-Testing same since   172416  2022-08-12 07:10:43 Z    0 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 531 lines long.)
+-- 
+Anthony PERARD
 
