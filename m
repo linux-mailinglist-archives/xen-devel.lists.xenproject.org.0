@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EDE8590D7C
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 10:38:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.385402.621034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 832A9590D88
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 10:41:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.385413.621044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMQBW-00004r-Jf; Fri, 12 Aug 2022 08:38:26 +0000
+	id 1oMQE5-0001aG-0s; Fri, 12 Aug 2022 08:41:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 385402.621034; Fri, 12 Aug 2022 08:38:26 +0000
+Received: by outflank-mailman (output) from mailman id 385413.621044; Fri, 12 Aug 2022 08:41:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMQBW-0008U4-GJ; Fri, 12 Aug 2022 08:38:26 +0000
-Received: by outflank-mailman (input) for mailman id 385402;
- Fri, 12 Aug 2022 08:38:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oMQE4-0001Xu-U9; Fri, 12 Aug 2022 08:41:04 +0000
+Received: by outflank-mailman (input) for mailman id 385413;
+ Fri, 12 Aug 2022 08:41:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Og4R=YQ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oMQBU-0008SV-WD
- for xen-devel@lists.xenproject.org; Fri, 12 Aug 2022 08:38:25 +0000
+ id 1oMQE3-0001Xo-Do
+ for xen-devel@lists.xenproject.org; Fri, 12 Aug 2022 08:41:03 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f7f1f26-1a1a-11ed-924f-1f966e50362f;
- Fri, 12 Aug 2022 10:38:22 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7f2d2380-1a1a-11ed-bd2e-47488cf2e6aa;
+ Fri, 12 Aug 2022 10:41:02 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9C5375D8C1;
- Fri, 12 Aug 2022 08:38:21 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 29E765D8C6;
+ Fri, 12 Aug 2022 08:41:02 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7084513305;
- Fri, 12 Aug 2022 08:38:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B8C1E13305;
+ Fri, 12 Aug 2022 08:41:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id a+vpGX0R9mIYKgAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 12 Aug 2022 08:38:21 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id hDiZKx0S9mJQKwAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 12 Aug 2022 08:41:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,58 +51,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f7f1f26-1a1a-11ed-924f-1f966e50362f
+X-Inumbo-ID: 7f2d2380-1a1a-11ed-bd2e-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1660293501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1660293662; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kV1UzYIZx69PN5iFgfhSXyDtj/XNGOwO+E2oqRdSLB0=;
-	b=gfp6NkLdUbrvQNINTunx+CdJPWZ1t/IT3FQQcc9GniJMHYCfy9/eYN8VAHHBGZpcj18J0k
-	Rge0dQZ6ob7RHJcbzm+uBD7s/x698RVTVZ0MOXF5wlls5i8Btw9cCWHQAtsmbTkYwLmQWJ
-	8QY61seQF1U0+cihv297LUUIsitP5mA=
-Message-ID: <e0796434-08dd-4027-bca2-cb56f801ae7a@suse.com>
-Date: Fri, 12 Aug 2022 10:38:20 +0200
+	bh=lHWGHA6Azxd6lwN/7a75aIRu75opDe/ZR3+gBr6N+xY=;
+	b=dt2brvQHNN660Af1cB2CphyCzGc4KhGItUoAvkknQAvBdiirX4130qS2EltSZgD8L1YZVB
+	ZlyKNJ5OrQ1K0UNU7vjt6CKpay0sM58t8TwDpswuHA7juJjJLTMj3dL+606rlQlBQ3AEo9
+	PcDggJ7tmggeQvpHs2Ek38PZQIXIvNs=
+Message-ID: <1720c5b3-e310-4676-56e9-e9403b481a01@suse.com>
+Date: Fri, 12 Aug 2022 10:41:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
-Subject: Re: [PATCH] xen/pciback: Fix comment typo
+Subject: Re: [PATCH 2/4] xen: remove XEN_SCRUB_PAGES in xen.config
 Content-Language: en-US
-To: Jason Wang <wangborong@cdjrlc.com>, oleksandr_tyshchenko@epam.com
-Cc: sstabellini@kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20220811120918.17961-1-wangborong@cdjrlc.com>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20220810050712.9539-1-lukas.bulwahn@gmail.com>
+ <20220810050712.9539-3-lukas.bulwahn@gmail.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220811120918.17961-1-wangborong@cdjrlc.com>
+In-Reply-To: <20220810050712.9539-3-lukas.bulwahn@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------cQjZJI1HhfMMmCvzSghYt6x3"
+ boundary="------------np34PinFKM6YfezFikcTz1pE"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------cQjZJI1HhfMMmCvzSghYt6x3
-Content-Type: multipart/mixed; boundary="------------l7vOvYX0w8dv0wq7c7NxyknY";
+--------------np34PinFKM6YfezFikcTz1pE
+Content-Type: multipart/mixed; boundary="------------6E6SafVgTYFlX10kdALk9Ltc";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Jason Wang <wangborong@cdjrlc.com>, oleksandr_tyshchenko@epam.com
-Cc: sstabellini@kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Message-ID: <e0796434-08dd-4027-bca2-cb56f801ae7a@suse.com>
-Subject: Re: [PATCH] xen/pciback: Fix comment typo
-References: <20220811120918.17961-1-wangborong@cdjrlc.com>
-In-Reply-To: <20220811120918.17961-1-wangborong@cdjrlc.com>
+To: Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <1720c5b3-e310-4676-56e9-e9403b481a01@suse.com>
+Subject: Re: [PATCH 2/4] xen: remove XEN_SCRUB_PAGES in xen.config
+References: <20220810050712.9539-1-lukas.bulwahn@gmail.com>
+ <20220810050712.9539-3-lukas.bulwahn@gmail.com>
+In-Reply-To: <20220810050712.9539-3-lukas.bulwahn@gmail.com>
 
---------------l7vOvYX0w8dv0wq7c7NxyknY
-Content-Type: multipart/mixed; boundary="------------3D0uXZfg3pUrj61LN0IDM3Zq"
+--------------6E6SafVgTYFlX10kdALk9Ltc
+Content-Type: multipart/mixed; boundary="------------Q0YlSQvQUW0uyXUfiy8CMcD6"
 
---------------3D0uXZfg3pUrj61LN0IDM3Zq
+--------------Q0YlSQvQUW0uyXUfiy8CMcD6
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTEuMDguMjIgMTQ6MDksIEphc29uIFdhbmcgd3JvdGU6DQo+IFRoZSBkb3VibGUgYHRo
-ZScgaXMgZHVwbGljYXRlZCBpbiB0aGUgY29tbWVudCwgcmVtb3ZlIG9uZS4NCj4gDQo+IFNp
-Z25lZC1vZmYtYnk6IEphc29uIFdhbmcgPHdhbmdib3JvbmdAY2RqcmxjLmNvbT4NCg0KUmV2
-aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2Vu
-DQo=
---------------3D0uXZfg3pUrj61LN0IDM3Zq
+T24gMTAuMDguMjIgMDc6MDcsIEx1a2FzIEJ1bHdhaG4gd3JvdGU6DQo+IENvbW1pdCAxOTdl
+Y2IzODAyYzAgKCJ4ZW4vYmFsbG9vbjogYWRkIHJ1bnRpbWUgY29udHJvbCBmb3Igc2NydWJi
+aW5nDQo+IGJhbGxvb25lZCBvdXQgcGFnZXMiKSBjaGFuZ2VkIGNvbmZpZyBYRU5fU0NSVUJf
+UEFHRVMgdG8gY29uZmlnDQo+IFhFTl9TQ1JVQl9QQUdFU19ERUZBVUxULiBBcyB4ZW4uY29u
+ZmlnIHNldHMgJ1hFTl9CQUxMT09OPXknIGFuZA0KPiBYRU5fU0NSVUJfUEFHRVNfREVGQVVM
+VCBkZWZhdWx0cyB0byB5ZXMsIHRoZXJlIGlzIG5vIGZ1cnRoZXIgbmVlZCB0byBzZXQNCj4g
+dGhpcyBjb25maWcgaW4gdGhlIHhlbi5jb25maWcgZmlsZS4NCj4gDQo+IFJlbW92ZSBzZXR0
+aW5nIFhFTl9TQ1JVQl9QQUdFUyBpbiB4ZW4uY29uZmlnLCB3aGljaCBpcyB3aXRob3V0DQo+
+IGVmZmVjdCBzaW5jZSB0aGUgY29tbWl0IGFib3ZlIGFueXdheS4NCj4gDQo+IFNpZ25lZC1v
+ZmYtYnk6IEx1a2FzIEJ1bHdhaG4gPGx1a2FzLmJ1bHdhaG5AZ21haWwuY29tPg0KDQpSZXZp
+ZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4N
+Cg==
+--------------Q0YlSQvQUW0uyXUfiy8CMcD6
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -160,25 +181,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------3D0uXZfg3pUrj61LN0IDM3Zq--
+--------------Q0YlSQvQUW0uyXUfiy8CMcD6--
 
---------------l7vOvYX0w8dv0wq7c7NxyknY--
+--------------6E6SafVgTYFlX10kdALk9Ltc--
 
---------------cQjZJI1HhfMMmCvzSghYt6x3
+--------------np34PinFKM6YfezFikcTz1pE
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmL2EX0FAwAAAAAACgkQsN6d1ii/Ey9Z
-RAf8CnRHO/iiG/CpxnSMmi+IP28dSfLliv2h7FD4URwh7QQrfzwaYmm/bMqMEdZjdrFOfogEpfVI
-kmO16o05H6qDRAZOwmzFNDURurX5jsKxt9YiSrJyQnSGoCvXMd3AsruWx99nxjAZU13+jmuwdMCk
-kjR/2eJ1LiZUFbtKON67g+62EtS8oOPKl2zPKe3fDUQtZSFAcN31sRKhoPTyypDgQg96ThX0PoFB
-jownA9UK88zhlRZMBwMuzZixOGP9UwSoPGr9jh7HtsEfeIcB3KvaKQ6DjegqbIlKLI20lWoZsScK
-7bVgvUw2gr0ekP/jHZa7U3EIG8wmiBTxzg+5DgE4DQ==
-=UWzH
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmL2Eh0FAwAAAAAACgkQsN6d1ii/Ey8V
+2ggAgvummHJkzpONwPpRrirD3MvI0Sv/HexW/qy4d1LhTrM9eNcGNvp9Lhx9mPfsIY6+Kk6JjVeh
+A7Jclj9jhWewE0ZOAqlT6kkxNLpzSos+jyCqVPibY1+mMmqa6L6rqQxqjQTzq82h7xRtao/ivyfZ
+GYUQsgX7ngKNVup1PJrxWi3Hds4FvZW8YRMYMDJQwfutGxw456+u/zD7xr6krD+yyBlxeMvsfPXn
+yTtyFxUY8s0++OceF2Ia8I8m68L9l9jrlAk/WTDOizsUP2jEot0tN0jqmNB9eV78N6BmqJJlGNpo
+eHV/2qhG9Wt22+JDfMetHsrtb657GyxA7NRDHhwjFw==
+=ctuk
 -----END PGP SIGNATURE-----
 
---------------cQjZJI1HhfMMmCvzSghYt6x3--
+--------------np34PinFKM6YfezFikcTz1pE--
 
