@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31BA35915EF
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F8B5915F0
 	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 21:25:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.385862.621691 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.385863.621705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMaHU-0001l1-Hg; Fri, 12 Aug 2022 19:25:16 +0000
+	id 1oMaHW-00029O-88; Fri, 12 Aug 2022 19:25:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 385862.621691; Fri, 12 Aug 2022 19:25:16 +0000
+Received: by outflank-mailman (output) from mailman id 385863.621705; Fri, 12 Aug 2022 19:25:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMaHU-0001fu-4i; Fri, 12 Aug 2022 19:25:16 +0000
-Received: by outflank-mailman (input) for mailman id 385862;
+	id 1oMaHV-00025t-Od; Fri, 12 Aug 2022 19:25:17 +0000
+Received: by outflank-mailman (input) for mailman id 385863;
  Fri, 12 Aug 2022 19:25:15 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oMaHT-0001Zh-43
+ (envelope-from <julien@xen.org>) id 1oMaHT-0001c6-Cy
  for xen-devel@lists.xenproject.org; Fri, 12 Aug 2022 19:25:15 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oMaHS-0000yh-2I; Fri, 12 Aug 2022 19:25:14 +0000
+ id 1oMaHT-0000yr-3l; Fri, 12 Aug 2022 19:25:15 +0000
 Received: from 54-240-197-224.amazon.com ([54.240.197.224]
  helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oMaHR-0006n6-Qr; Fri, 12 Aug 2022 19:25:14 +0000
+ id 1oMaHS-0006n6-SF; Fri, 12 Aug 2022 19:25:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,9 +43,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=eGtlPOnezZCPLrLes6dERbD5TA/IOWPTENXfEX+3CEs=; b=6Te1Jx2dnT6deYglAWnLaUUau3
-	U/r15cOgOvWaXvMcF/a2mzL/7pyf8Rm4JGqCykyoOIXjqAcwWlGqtMDz0XdHLsceAKfT3bkQYD4v0
-	uOATOoul/JA3wyyWq3riti4jsIA1JPT+uXkQirm1j/5103YUwlLmCN5N5xgc4mu1b0NM=;
+	bh=N0+B5XI5k/0P7I6pJAFTgtxvabGcKL0aymNxJrmp098=; b=7DIcsA5igRjgb1+LpFavAWnCwf
+	wBTHUqkSDjwyxf9Xaylx9d33crE1BD4l1az20wETg1Ik5LUi85syQEujQh5AXegA7kgzuHIDIIveJ
+	PWUdDnq80nOUhbGp6YcbBvpdOjiDc8ExeqedyidYHN67sxCuQfPHlwCcSonFdbAc1/Hg=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -53,9 +53,9 @@ Cc: julien@xen.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 6/7] xen/arm: Tweak the dump page-table walk output
-Date: Fri, 12 Aug 2022 20:24:45 +0100
-Message-Id: <20220812192448.43016-7-julien@xen.org>
+Subject: [PATCH 7/8] patch arm32-tweak-enable-mmu.patch
+Date: Fri, 12 Aug 2022 20:24:46 +0100
+Message-Id: <20220812192448.43016-8-julien@xen.org>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20220812192448.43016-1-julien@xen.org>
 References: <20220812192448.43016-1-julien@xen.org>
@@ -64,40 +64,95 @@ Content-Transfer-Encoding: 8bit
 
 From: Julien Grall <jgrall@amazon.com>
 
-Currently the output is looking like:
-
-(XEN) 1ST[0x1] = 0x000000004015ff7f
-(XEN) 2ND[0x1f] = 0x00500000bfe00f7d
-
-The content of the entries are not aligned making a bit trickier to
-read (I appreciate this is a matter of taste).
-
-Align the values by forcing the index to be always printed using
-3 characters (enough to cover 512 in hexadecimal).
-
-New output:
-
-(XEN) 1ST[0x001] = 0x000000004015ff7f
-(XEN) 2ND[0x01f] = 0x00500000bfe00f7d
-
-Signed-off-by: Julien Grall <jgrall@amazon.com>
 ---
- xen/arch/arm/mm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/arch/arm/arm32/head.S | 50 +++++++++++++++++++++++----------------
+ 1 file changed, 30 insertions(+), 20 deletions(-)
 
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index b42cddb1b446..c81c706c8b23 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -234,7 +234,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+index a558c2a6876e..a914ffab98a5 100644
+--- a/xen/arch/arm/arm32/head.S
++++ b/xen/arch/arm/arm32/head.S
+@@ -167,19 +167,12 @@ past_zImage:
+         bl    check_cpu_mode
+         bl    cpu_init
+         bl    create_page_tables
+-        bl    enable_mmu
  
-         pte = mapping[offsets[level]];
+-        /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+-        ldr   r0, =primary_switched
+-        mov   pc, r0
++        /* Address in the runtime mapping to jump to after the MMU is enabled */
++        mov_w lr, primary_switched
++        b     enable_mmu
++
+ primary_switched:
+-        /*
+-         * The 1:1 map may clash with other parts of the Xen virtual memory
+-         * layout. As it is not used anymore, remove it completely to
+-         * avoid having to worry about replacing existing mapping
+-         * afterwards.
+-         */
+-        bl    remove_identity_mapping
+         bl    setup_fixmap
+ #ifdef CONFIG_EARLY_PRINTK
+         /* Use a virtual address to access the UART. */
+@@ -223,12 +216,10 @@ GLOBAL(init_secondary)
+         bl    check_cpu_mode
+         bl    cpu_init
+         bl    create_page_tables
+-        bl    enable_mmu
+-
  
--        printk("%s[0x%x] = 0x%"PRIpaddr"\n",
-+        printk("%s[0x%03x] = 0x%"PRIpaddr"\n",
-                level_strs[level], offsets[level], pte.bits);
+-        /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+-        ldr   r0, =secondary_switched
+-        mov   pc, r0
++        /* Address in the runtime mapping to jump to after the MMU is enabled */
++        mov_w lr, secondary_switched
++        b     enable_mmu
+ secondary_switched:
+         /*
+          * Non-boot CPUs need to move on to the proper pagetables, which were
+@@ -523,9 +514,11 @@ virtphys_clash:
+ ENDPROC(create_page_tables)
  
-         if ( level == 3 || !pte.walk.valid || !pte.walk.table )
+ /*
+- * Turn on the Data Cache and the MMU. The function will return on the 1:1
+- * mapping. In other word, the caller is responsible to switch to the runtime
+- * mapping.
++ * Turn on the Data Cache and the MMU. The function will return
++ * to the virtual address provided in LR (e.g. the runtime mapping).
++ *
++ * Inputs:
++ *   lr : Virtual address to return to
+  *
+  * Clobbers r0 - r3
+  */
+@@ -551,7 +544,24 @@ enable_mmu:
+         dsb                          /* Flush PTE writes and finish reads */
+         mcr   CP32(r0, HSCTLR)       /* now paging is enabled */
+         isb                          /* Now, flush the icache */
+-        mov   pc, lr
++
++        /*
++         * The MMU is turned on and we are in the 1:1 mapping. Switch
++         * to the runtime mapping.
++         */
++        mov_w r0, 1f
++        mov   pc, r0
++1:
++        /*
++         * The 1:1 map may clash with other parts of the Xen virtual memory
++         * layout. As it is not used anymore, remove it completely to
++         * avoid having to worry about replacing existing mapping
++         * afterwards.
++         *
++         * On return this will jump to the virtual address requested by
++         * the caller.
++         */
++        b     remove_identity_mapping
+ ENDPROC(enable_mmu)
+ 
+ /*
 -- 
 2.37.1
 
