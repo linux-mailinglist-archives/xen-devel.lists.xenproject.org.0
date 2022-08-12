@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8974590FDC
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 13:00:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.385571.621250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10D52590FDE
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Aug 2022 13:08:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.385582.621262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMSP6-000787-Pd; Fri, 12 Aug 2022 11:00:36 +0000
+	id 1oMSWT-0007tA-Px; Fri, 12 Aug 2022 11:08:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 385571.621250; Fri, 12 Aug 2022 11:00:36 +0000
+Received: by outflank-mailman (output) from mailman id 385582.621262; Fri, 12 Aug 2022 11:08:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMSP6-00075o-Mh; Fri, 12 Aug 2022 11:00:36 +0000
-Received: by outflank-mailman (input) for mailman id 385571;
- Fri, 12 Aug 2022 11:00:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oMSWT-0007pi-Mp; Fri, 12 Aug 2022 11:08:13 +0000
+Received: by outflank-mailman (input) for mailman id 385582;
+ Fri, 12 Aug 2022 11:08:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMSP5-00075e-A4; Fri, 12 Aug 2022 11:00:35 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMSP5-00006r-5k; Fri, 12 Aug 2022 11:00:35 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMSP4-0001w6-Ui; Fri, 12 Aug 2022 11:00:35 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oMSP4-0007so-UF; Fri, 12 Aug 2022 11:00:34 +0000
+ (envelope-from <SRS0=Yzoh=YQ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oMSWR-0007pc-Qm
+ for xen-devel@lists.xenproject.org; Fri, 12 Aug 2022 11:08:11 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70088.outbound.protection.outlook.com [40.107.7.88])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0d16d59f-1a2f-11ed-924f-1f966e50362f;
+ Fri, 12 Aug 2022 13:08:10 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by HE1PR0402MB2825.eurprd04.prod.outlook.com (2603:10a6:3:d4::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Fri, 12 Aug
+ 2022 11:08:08 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2d5d:bae0:430f:70ad]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2d5d:bae0:430f:70ad%4]) with mapi id 15.20.5525.010; Fri, 12 Aug 2022
+ 11:08:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,289 +46,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=hgpq0s9ekKk4f2UjjZVyNuachu84Jks4VRG3YXc37FE=; b=3xbkGeryzeXYM02Y2ZYG8VQVPo
-	Gze40bbcKRrGF8QtWTnYTD2W7CHLiwLatdcUEMlw7qJZLH7yWYCCxl1agawxJ1kE2RxaKeOYsyuTn
-	bSMiB4u1DZb2jga7x6bwNvxardkDr4Nl2FR9e/APkbqNdX8nM3jjhxy/ZvePjnG3jpJE=;
-To: xen-devel@lists.xenproject.org
-Subject: [qemu-mainline bisection] complete build-armhf-libvirt
-Message-Id: <E1oMSP4-0007so-UF@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 12 Aug 2022 11:00:34 +0000
+X-Inumbo-ID: 0d16d59f-1a2f-11ed-924f-1f966e50362f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LXe4kLZyyWURuzZcQYuqgVrA31y+1yt0lQDPCBYUmva5dBUyZbrZXJ6j5NrgMcfQN397A1lKHp/OXPDP6v5FZm7PgB50D1pdILqccCHj6MT/vsqSxM799A7XdJd3gt9ndk0vtXrN4MgYJs8pGDDOaCotGkePDGFlag5hHNH4w8Gf2JMWnVNseFakUyYbvz/RnpEmXjVPnsI7o9vA2S/o5LlvNorXyxLgHIrwuljqNZmyBKesF69UkHYOHQSwKltHPQttMaU8Ns9wmpBNqsiwMd+iSNrJ4jZqSi/Ds8oPaWE4PJgDMT8TrgM8Oxq9SQXfqjjFEklCJKcwM47v5vsEhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WwiCXNhylA79WLyOxDZn0OgicSVqUfhyODZ5kPzLKe4=;
+ b=TCF9DqXg/WKjuyj7rkmoDbe6Na8Zs+rR4Thr7Adiu+6NPxSMVELpzpgPEaQooHb4qQF1e6/VRDuT2b3KV5MadQlwQj5IY6eIvMNGun2RG9ZS/p3OJ9KEdXBtvHU5lVNL+6sdA18oBY7t2W5Gvj3RCIvfMkfrdqxl+8NvLvTSaBU53DP9kA4OYzoCcV0otvliWmIslZRyD+uTV1ptxt3RNngPtgPox172iC+VgNdqA1jut77iIQhkFzbRf8iUcJcbJplJqprokKJ1UEoCDMEWLpVso4ib9QYjCNwM0hmD65TdsqeZUjTqAIlwJC0Qn4Up1qqDrbiy7duP6qRndt4rYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WwiCXNhylA79WLyOxDZn0OgicSVqUfhyODZ5kPzLKe4=;
+ b=I2/dcrD6j02bSdQOAa3CuFYNg1Ro6dDOhFxv3HX2CtrrPQ25zP/7B5cDaq8DAjQXHEyIq5IlrHq/FI7ebka6oxFzKjQeAB5rIioSJKajkdUQcBY3vGZOOLtuzjYmw1g0RfYdCXsJyfIUWxH+eaD3Wcy5q8CXASScsuZtkUGBhtGfMSkHzp69u/j5XvBuwm//9mU353gyzwVk93N7ZU9O9yf40eZ5JvY0f83HKUAr7m/Y14VE2dmc6LbR7mrvuwPPkL6ygDAJOqDAhvrjShYlUErLYbXvDDxy17ECSvlFn806CBCDXk/kE58O9MlzvqH61d8x7M2J+pYAC3FlHj+BUg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <841ab214-b59c-d08e-dc3c-778a7e420723@suse.com>
+Date: Fri, 12 Aug 2022 13:08:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH v9 8/8] xen: retrieve reserved pages on populate_physmap
+Content-Language: en-US
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Penny Zheng <Penny.Zheng@arm.com>
+Cc: Wei Chen <Wei.Chen@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20220720054611.2695787-1-Penny.Zheng@arm.com>
+ <20220720054611.2695787-9-Penny.Zheng@arm.com>
+ <d050bcf4-f71d-423d-a157-4243548f47a6@suse.com>
+ <DU2PR08MB7325EB83FDD208467A493557F7629@DU2PR08MB7325.eurprd08.prod.outlook.com>
+ <99e65678-c394-01f1-9f49-827388f2fff6@suse.com>
+ <DU2PR08MB7325A733C5B374ED899A2007F7629@DU2PR08MB7325.eurprd08.prod.outlook.com>
+ <14ce6b41-c422-abac-4b59-541511d75cae@suse.com>
+ <DU2PR08MB732531F03BB6F436FCC79673F7629@DU2PR08MB7325.eurprd08.prod.outlook.com>
+ <21CCFB81-D43F-48D9-8EC0-A8CD08835261@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <21CCFB81-D43F-48D9-8EC0-A8CD08835261@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0123.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0004881b-955d-4e1e-f81a-08da7c52efee
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB2825:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Z/0UJPvYvIFmHn2tlgJsTK3jn++Q8XhSRl0gHgqtZpd8olD6at1YVtWthIVr7AjLoZaB57xMzN6u1W4UQ74Azy33V9Ys/IofPnl4ds4FjlPxD0eMR0xd7ulDcLDoqJg9o9iaFbyYse/VQl8VISNhxbVFl941fWJO6oqCvD3/uJEysV4N31a17faL2PjTDDrKZQQ9tQMP3YkoGzpI1bkmiCJ5y8DJklIOeS8e+qectR4VePd/aDpsNlB+M6m62JTG+v7UHvU43a0HcxwSCr0ylwH91wuVmKDcMTQ/a5KgvuNyEKbgyOuI0sn9WbLqahktKOQJGLDjCTzgPsIPTxNt28quxaxbUafSryQzqscUfNXfgAZWRaR87IEhpn62mlO8gglE3N5kbmGUXbmmh1kd/VL4cVbr/1GMqaDCpKYOxzb2EL77OfqsZMsvv4uoNnJNlegEvpEyZ3l4mQK74og067WDG+EUCZwb6atrmMFjQnlg5mpKraECEkR38HsjUx6B0s8gHbG8EvJ7FKXSPphEUthWvG5FFcpabeniZY0eaPE+kFj123PhDdL/AOwBg9ThXwxHsQUQbvGlUH8fsuBhAzZ9eEPWEt0vQiVXIWzjrvtgBSQp/sAj7ChSMbquAfM92id2u/BR0I8i4icjQfs6DD8kFpbFSibvQFIbsY/4wdNBDs1i5dN+tw5050sqV0EYZ2mornbg5atDftCRSgGvS5VcZzI10dEuweWvGJ5qwYFxw8CdENfx25bd+AXTRHa+aLItOSE3ih2YXK7Z5dZIE2wL+fmhFNss3qTEB4qraKQ24j4DkTDPkbrk+tY5HbB/xrbnMSYZ9haHZj/rhKprhQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(136003)(346002)(396003)(39860400002)(376002)(6666004)(478600001)(41300700001)(6486002)(26005)(53546011)(83380400001)(6506007)(6512007)(2616005)(2906002)(5660300002)(186003)(316002)(54906003)(8676002)(4326008)(31686004)(86362001)(66556008)(66476007)(66946007)(31696002)(36756003)(110136005)(38100700002)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RE0vaWppS2x0cGpzdkJxeEh5MFhITzNNd0I0bzFXOURVdmIrbm1ScTh4V2tJ?=
+ =?utf-8?B?cTJUM1c1SXhjanh3STA5MHdrOWtuZzZNTFRhUDlIc3BCRHE2U3NLYTNKV1hj?=
+ =?utf-8?B?dVY2MTNFdVZCYTdyOWZlNW5QV1FCWDB1cXAwUXBsa1Q3T1R1TElHRy9DQlly?=
+ =?utf-8?B?cTg1MTJLdUhheDBMWWJ2SVpmaVhIODhxbUVSTndGMzIzcTZTSWxRaFg3K0NG?=
+ =?utf-8?B?b0ptR2Z6Z21ub3RHK2wxRDlmWUd1RGVyWVlleWtjbnFKaXlXL2h6Y0t6Ni9l?=
+ =?utf-8?B?RmxlQlVFc2hSbkgxNlh3WWVwK21PYUVtTjNBeElNbTBuSm1wT3l5SEpPU3FM?=
+ =?utf-8?B?RGYrZW1xdkYrdkpnaHhrUmxtOFJBYktJZDhWSXdTd1EwMXIxZ1h6S0t3N2tY?=
+ =?utf-8?B?NXZLVWgrREZmSTAxa3NKczNSeFRDeDhoOHFwc3VNQWxMYlFtSThLY0IyODNQ?=
+ =?utf-8?B?dVE4REZQUDkrREVCNWRmNTRTN1c1S2MrUGtOeDYreldpVURDRHhGZmhkWmkz?=
+ =?utf-8?B?Z1NJL1lRZ1pYRXlIdGZPQ3M0L01qZkVrN1VINERMUWlBMGg2N0FzT3NkV1lx?=
+ =?utf-8?B?MHc3aUdBZHFhaUNyQmRiTnJhd0xUMkhwOVNoamQvd2hHc2NqeS8vYm1OQXll?=
+ =?utf-8?B?a21WSkY4WFJWOE5XS1BoQ1VpR3dqY3lQYy95VjloZ1EyWDAvNiswdmw5R3hw?=
+ =?utf-8?B?ZXg1YXJWeVVCOW1nVnl0bUZXaGRqaTNrbzNydG1WYVMzQmhjY3R0UUk1djZl?=
+ =?utf-8?B?SzFOS0xuZkdhc1NpcnMrWFRzU0oyOUpLN2xlRVZ1NFFWZjRkNlpxK1Vhc0k3?=
+ =?utf-8?B?Z1F3bCt5bms2RHhvakFET1dIcTFYRHBvMkZVMHpBc1MyYW1CZ3BnNkdsVThH?=
+ =?utf-8?B?RHhqU3dONDN1dCt2VDRUSU5hSFFBL1JVOTdPWHlZRnphSGM0a3JkN1liY0dm?=
+ =?utf-8?B?enJpWW4rOGdFa21OUzJaaVJnMk5YSVV6Ui9majRvSW5Tam5yT3lNTFJqcXVP?=
+ =?utf-8?B?RkRQelRKaXBFZzdXYUs3b29sNk1pUEJ5R0JMTzZNZUhkTTJMRk9nOS9RM3JE?=
+ =?utf-8?B?TjRkL2tnaENLZGdjV1NnaGs2R0FSTENFUENPTjBVbDJ5R0dDdFloQVJPUjJX?=
+ =?utf-8?B?WEpzZU40dXlOOVB4c1dSTmltT2RXRjIxQVVHM1k5WFBPelgrNnl2Q0R6a1pU?=
+ =?utf-8?B?enVSVGl0NlQyZkRHRzd3MGxHOFZON0VzN1d3NUhjb3lwdlhjUzM5SC9TRW5M?=
+ =?utf-8?B?WWorZVRqd1doMmJGSTNRUXhuNFdJQkRJeDBlN2k3UUthY3NSc0xLME51eC9D?=
+ =?utf-8?B?MndWY25nU2xuelJyWjZ1VkJRNXg2dnlMQnZKL3RrM3pxNFhxV2VFWjVLeHNo?=
+ =?utf-8?B?Qm9NNms1S1RFbjFGSnFrQld4NlFxN2FvVzBYRUFLRkRjdHBUTkw2S2ZuL1U2?=
+ =?utf-8?B?dlM0YnF1bkdiV2p5VUxqQzBLQjZPZjIzK0hIdXVUUEtLK29ENFp3Tzg2cVpr?=
+ =?utf-8?B?dVBxZXNaUjRtRXR1dTlZa0lqQ1JHT1ZMUkR0M0pvUjZHek5oakVLb1BsRmFx?=
+ =?utf-8?B?elJRQ2dlcldDT2tRNXdwdHNodjdpb3hBbDNSTHZ1SmtyRWF3WWRoajJQUGlD?=
+ =?utf-8?B?S0Z3MXBzNHByNUdGUUJoYkIzRk9NaXJkRlZ6S2lSZVFnc2F5UkllY0hIUFlV?=
+ =?utf-8?B?OVZHb2RHeExFWHFjNStuQXNkUklVa1o1S2ZZVG1SQXdOUUYvK2JQYnMrcDBK?=
+ =?utf-8?B?NG9pNW1SSjcxaG1kV0Vkb1FrUENiUnNvOTh6R3UxancrRGZsK2JmODg5UHFJ?=
+ =?utf-8?B?elBpcEd2ZEYrdDNUODF4NFNQZGkrUUlsc1FFNVRSUUhRWm9KcmVIUkhHQjJj?=
+ =?utf-8?B?bEFTVzBLMDAra3FqazdiWm4zY3pXSmdtMFZwWkhmZ1Njc3J5dTFHSjVMSGFk?=
+ =?utf-8?B?TG8vTk1OU0FSSm1wVUxCTDgyNU1XR05GNmhlbXdtTzgyVzNuQ1d1cklIOENQ?=
+ =?utf-8?B?aUNxb1pCM1NHdzRZWTVuOTUyNmtMTXhnNFY0a0FMcjBUUjBHNjNwUTRiZDRN?=
+ =?utf-8?B?U3N4VGJ0NGp0UjhNRGF3UHUrTDJ3Q2dlaFl0bkkrWjVpNDIzaUpKWWMxQVpw?=
+ =?utf-8?Q?/2vyNuqe4cepMcC7jlx2jwl7J?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0004881b-955d-4e1e-f81a-08da7c52efee
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2022 11:08:08.2330
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LDX03Iugldxkh/WrGLCIeOUMXdVFX00vyx7waCkm7nu1Eo8Wu1JSWQE4h3BGg8XWWc+MwZ5H3S1QNsCAS6/0UQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0402MB2825
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-armhf-libvirt
-testid libvirt-build
+On 12.08.2022 11:53, Bertrand Marquis wrote:
+>> On 9 Aug 2022, at 09:58, Penny Zheng <Penny.Zheng@arm.com> wrote:
+>>> -----Original Message-----
+>>> From: Jan Beulich <jbeulich@suse.com>
+>>> Sent: Tuesday, August 9, 2022 4:27 PM
+>>>
+>>> On 09.08.2022 10:07, Penny Zheng wrote:
+>>>>> -----Original Message-----
+>>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>>> Sent: Tuesday, August 9, 2022 3:59 PM
+>>>>>
+>>>>> On 09.08.2022 09:53, Penny Zheng wrote:
+>>>>>>> -----Original Message-----
+>>>>>>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf
+>>>>>>> Of Jan Beulich
+>>>>>>> Sent: Monday, July 25, 2022 11:44 PM
+>>>>>>>
+>>>>>>> On 20.07.2022 07:46, Penny Zheng wrote:
+>>>>>>>> When a static domain populates memory through populate_physmap
+>>> at
+>>>>>>>> runtime, it shall retrieve reserved pages from resv_page_list to
+>>>>>>>> make sure that guest RAM is still restricted in statically
+>>>>>>>> configured memory
+>>>>>>> regions.
+>>>>>>>> This commit also introduces a new helper acquire_reserved_page to
+>>>>>>>> make
+>>>>>>> it work.
+>>>>>>>>
+>>>>>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>>>>>>> ---
+>>>>>>>> v9 changes:
+>>>>>>>> - Use ASSERT_ALLOC_CONTEXT() in acquire_reserved_page
+>>>>>>>> - Add free_staticmem_pages to undo prepare_staticmem_pages when
+>>>>>>>> assign_domstatic_pages fails
+>>>>>>>
+>>>>>>> May I suggest to re-consider naming of the various functions?
+>>>>>>> Undoing what "prepare" did by "free" is, well, counterintuitive.
+>>>>>>>
+>>>>>>
+>>>>>> How about change the name "prepare_staticmem_pages" to
+>>>>> "allocate_staticmem_pages"?
+>>>>>
+>>>>> Perhaps - if what the function does really resembles allocation in some
+>>> way.
+>>>>> So far I wasn't really certain in that regard, and hence I was
+>>>>> wondering whether "prepare" doesn't better describe what it does, but
+>>>>> then its inverse also doesn't really "free" anything.
+>>>>>
+>>>>
+>>>> Hmmmm, “prepare” with “destroy” in its inverse? Do you have any
+>>> suggestion in mind?
+>>>
+>>> To be honest I was hoping you would make an attempt at finding a suitable
+>>> pair of verbs. To me "destroy" is more the opposite of "create", and I'm
+>>> unable to think of a good opposite of "prepare" (short of resorting to
+>>> "unprepare"); if I really needed to come up with something then it would
+>>> likely be "cleanup", albeit I'd not be overly happy with that either.
+>>>
+>>
+>> Maybe unprepare is better here, I was searching linux code for the help, and
+>> they are using prepare/unprepare as a pair of verbs a lot in drivers codes.
+>>
+>> For the renaming here, I suggest to fix it with a new commit, since free_staticmem_pages
+>> has already been merged.
+> 
+> I think that unprepare is ok and it make sense to do this in an independent patch.
+> 
+> @jan: can you confirm that you agree with this way to go ?
 
-Tree: libvirt git://xenbits.xen.org/libvirt.git
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+I don't mind this, yes.
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  66dd1c62b2a3c707bd5c55750d10a8223fbd577f
-  Bug not present: f732240fd3bac25116151db5ddeb7203b62e85ce
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/172352/
-
-
-  commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
-  Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-  Date:   Fri Jul 15 22:20:24 2022 +0300
-  
-      libxl: Add support for Virtio disk configuration
-      
-      This patch adds basic support for configuring and assisting virtio-mmio
-      based virtio-disk backend (emulator) which is intended to run out of
-      Qemu and could be run in any domain.
-      Although the Virtio block device is quite different from traditional
-      Xen PV block device (vbd) from the toolstack's point of view:
-       - as the frontend is virtio-blk which is not a Xenbus driver, nothing
-         written to Xenstore are fetched by the frontend currently ("vdev"
-         is not passed to the frontend). But this might need to be revised
-         in future, so frontend data might be written to Xenstore in order to
-         support hotplugging virtio devices or passing the backend domain id
-         on arch where the device-tree is not available.
-       - the ring-ref/event-channel are not used for the backend<->frontend
-         communication, the proposed IPC for Virtio is IOREQ/DM
-      it is still a "block device" and ought to be integrated in existing
-      "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
-      logic to deal with Virtio devices as well.
-      
-      For the immediate purpose and an ability to extend that support for
-      other use-cases in future (Qemu, virtio-pci, etc) perform the following
-      actions:
-      - Add new disk backend type (LIBXL_DISK_BACKEND_STANDALONE) and reflect
-        that in the configuration
-      - Introduce new disk "specification" and "transport" fields to struct
-        libxl_device_disk. Both are written to the Xenstore. The transport
-        field is only used for the specification "virtio" and it assumes
-        only "mmio" value for now.
-      - Introduce new "specification" option with "xen" communication
-        protocol being default value.
-      - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
-        one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
-      
-      An example of domain configuration for Virtio disk:
-      disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=standalone, specification=virtio']
-      
-      Nothing has changed for default Xen disk configuration.
-      
-      Please note, this patch is not enough for virtio-disk to work
-      on Xen (Arm), as for every Virtio device (including disk) we need
-      to allocate Virtio MMIO params (IRQ and memory region) and pass
-      them to the backend, also update Guest device-tree. The subsequent
-      patch will add these missing bits. For the current patch,
-      the default "irq" and "base" are just written to the Xenstore.
-      This is not an ideal splitting, but this way we avoid breaking
-      the bisectability.
-      
-      Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-      Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-      Acked-by: George Dunlap <george.dunlap@citrix.com>
-      Tested-by: Jiamei Xie <jiamei.xie@arm.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-armhf-libvirt.libvirt-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-armhf-libvirt.libvirt-build --summary-out=tmp/172418.bisection-summary --basis-template=172123 --blessings=real,real-bisect,real-retry qemu-mainline build-armhf-libvirt libvirt-build
-Searching for failure / basis pass:
- 172389 fail [host=cubietruck-gleizes] / 172123 [host=cubietruck-braque] 172103 ok.
-Failure / basis pass flights: 172389 / 172103
-Tree: libvirt git://xenbits.xen.org/libvirt.git
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 a6b1c53e79d08a99a28cc3e67a3e1a7c34102d6b 46de2eec93bffa0706e6229c0da2919763c8eb04 d7c3c845c44e097d6c980001e108da0bb84ed16f
-Basis pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/libvirt.git#2c846fa6bcc11929c9fb857a22430fb9945654ad-2c846fa6bcc11929c9fb857a22430fb9945654ad https://gitlab.com/keycodemap/keycodemapdb.git#27acf0ef828bf719b2053ba398b195829413dbdd-27acf0ef828bf719b2053ba398b195829413dbdd git://xenbits.xen.org/osstest/ovmf.git#0dc9b78a46813d61533b2bb0f7ef897a06a273be-444260d45ec2a84e8f8c192b3539a3cd5591d009 git://git.qemu.org/qemu.git#d2656dd577754129f86328f95e6ee4a241913d6f-a6b1c53e79d\
- 08a99a28cc3e67a3e1a7c34102d6b git://xenbits.xen.org/osstest/seabios.git#46de2eec93bffa0706e6229c0da2919763c8eb04-46de2eec93bffa0706e6229c0da2919763c8eb04 git://xenbits.xen.org/xen.git#f732240fd3bac25116151db5ddeb7203b62e85ce-d7c3c845c44e097d6c980001e108da0bb84ed16f
-Loaded 64885 nodes in revision graph
-Searching for test results:
- 172103 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
- 172123 [host=cubietruck-braque]
- 172148 [host=cubietruck-picasso]
- 172164 [host=cubietruck-picasso]
- 172197 [host=cubietruck-picasso]
- 172217 [host=cubietruck-braque]
- 172241 [host=cubietruck-braque]
- 172252 [host=cubietruck-braque]
- 172258 [host=cubietruck-braque]
- 172261 [host=cubietruck-braque]
- 172267 [host=cubietruck-braque]
- 172260 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 c669f22f1a47897e8d1d595d6b8a59a572f9158c 46de2eec93bffa0706e6229c0da2919763c8eb04 6d6aee437e37fced0c49be97e08c30da873690fc
- 172269 [host=cubietruck-braque]
- 172273 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
- 172276 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 c669f22f1a47897e8d1d595d6b8a59a572f9158c 46de2eec93bffa0706e6229c0da2919763c8eb04 6d6aee437e37fced0c49be97e08c30da873690fc
- 172272 [host=cubietruck-braque]
- 172277 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 e3fdb13e8851be570db41a50589ce82d11d61c12 46de2eec93bffa0706e6229c0da2919763c8eb04 a0aeab27ee0e1e221181a3083908dc2d4e1553ee
- 172280 [host=cubietruck-braque]
- 172284 [host=cubietruck-braque]
- 172281 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 c669f22f1a47897e8d1d595d6b8a59a572f9158c 46de2eec93bffa0706e6229c0da2919763c8eb04 6d6aee437e37fced0c49be97e08c30da873690fc
- 172288 [host=cubietruck-braque]
- 172295 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 0ee33dd0cee1f9a239d561f1a91e6ea493d1f5a9 46de2eec93bffa0706e6229c0da2919763c8eb04 7c5b25c3038abc2dc8353f56ed67d2c4fcd43d79
- 172290 [host=cubietruck-picasso]
- 172297 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 7451fdeb696df1fec33d7e5d6de8fa6676afee27
- 172300 [host=cubietruck-picasso]
- 172303 [host=cubietruck-picasso]
- 172298 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 c669f22f1a47897e8d1d595d6b8a59a572f9158c 46de2eec93bffa0706e6229c0da2919763c8eb04 6d6aee437e37fced0c49be97e08c30da873690fc
- 172304 [host=cubietruck-picasso]
- 172308 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 5b04fe78646a8222626996113c9d1e598cb84831
- 172312 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 37339ba9ef46cf55e077ca50235279f058b01779
- 172307 [host=cubietruck-picasso]
- 172317 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 2128143c114c52c7536e37c32935fdd77f23edc1
- 172321 [host=cubietruck-picasso]
- 172323 [host=cubietruck-picasso]
- 172319 fail irrelevant
- 172328 [host=cubietruck-picasso]
- 172333 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
- 172334 fail irrelevant
- 172340 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
- 172332 fail irrelevant
- 172344 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
- 172349 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
- 172350 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
- 172345 [host=cubietruck-picasso]
- 172352 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
- 172357 [host=cubietruck-picasso]
- 172358 [host=cubietruck-picasso]
- 172360 [host=cubietruck-picasso]
- 172355 [host=cubietruck-picasso]
- 172364 [host=cubietruck-picasso]
- 172367 [host=cubietruck-picasso]
- 172372 [host=cubietruck-picasso]
- 172366 fail irrelevant
- 172377 [host=cubietruck-picasso]
- 172380 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
- 172379 [host=cubietruck-braque]
- 172383 fail irrelevant
- 172388 [host=cubietruck-braque]
- 172392 [host=cubietruck-braque]
- 172393 [host=cubietruck-braque]
- 172389 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 a6b1c53e79d08a99a28cc3e67a3e1a7c34102d6b 46de2eec93bffa0706e6229c0da2919763c8eb04 d7c3c845c44e097d6c980001e108da0bb84ed16f
- 172397 [host=cubietruck-braque]
- 172411 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
- 172418 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 444260d45ec2a84e8f8c192b3539a3cd5591d009 a6b1c53e79d08a99a28cc3e67a3e1a7c34102d6b 46de2eec93bffa0706e6229c0da2919763c8eb04 d7c3c845c44e097d6c980001e108da0bb84ed16f
-Searching for interesting versions
- Result found: flight 172103 (pass), for basis pass
- Result found: flight 172389 (fail), for basis failure (at ancestor ~1)
- Repro found: flight 172411 (pass), for basis pass
- Repro found: flight 172418 (fail), for basis failure
- 0 revisions at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd 0dc9b78a46813d61533b2bb0f7ef897a06a273be d2656dd577754129f86328f95e6ee4a241913d6f 46de2eec93bffa0706e6229c0da2919763c8eb04 f732240fd3bac25116151db5ddeb7203b62e85ce
-No revisions left to test, checking graph state.
- Result found: flight 172103 (pass), for last pass
- Result found: flight 172340 (fail), for first failure
- Repro found: flight 172344 (pass), for last pass
- Repro found: flight 172349 (fail), for first failure
- Repro found: flight 172350 (pass), for last pass
- Repro found: flight 172352 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  66dd1c62b2a3c707bd5c55750d10a8223fbd577f
-  Bug not present: f732240fd3bac25116151db5ddeb7203b62e85ce
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/172352/
-
-
-  commit 66dd1c62b2a3c707bd5c55750d10a8223fbd577f
-  Author: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-  Date:   Fri Jul 15 22:20:24 2022 +0300
-  
-      libxl: Add support for Virtio disk configuration
-      
-      This patch adds basic support for configuring and assisting virtio-mmio
-      based virtio-disk backend (emulator) which is intended to run out of
-      Qemu and could be run in any domain.
-      Although the Virtio block device is quite different from traditional
-      Xen PV block device (vbd) from the toolstack's point of view:
-       - as the frontend is virtio-blk which is not a Xenbus driver, nothing
-         written to Xenstore are fetched by the frontend currently ("vdev"
-         is not passed to the frontend). But this might need to be revised
-         in future, so frontend data might be written to Xenstore in order to
-         support hotplugging virtio devices or passing the backend domain id
-         on arch where the device-tree is not available.
-       - the ring-ref/event-channel are not used for the backend<->frontend
-         communication, the proposed IPC for Virtio is IOREQ/DM
-      it is still a "block device" and ought to be integrated in existing
-      "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
-      logic to deal with Virtio devices as well.
-      
-      For the immediate purpose and an ability to extend that support for
-      other use-cases in future (Qemu, virtio-pci, etc) perform the following
-      actions:
-      - Add new disk backend type (LIBXL_DISK_BACKEND_STANDALONE) and reflect
-        that in the configuration
-      - Introduce new disk "specification" and "transport" fields to struct
-        libxl_device_disk. Both are written to the Xenstore. The transport
-        field is only used for the specification "virtio" and it assumes
-        only "mmio" value for now.
-      - Introduce new "specification" option with "xen" communication
-        protocol being default value.
-      - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
-        one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
-      
-      An example of domain configuration for Virtio disk:
-      disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=standalone, specification=virtio']
-      
-      Nothing has changed for default Xen disk configuration.
-      
-      Please note, this patch is not enough for virtio-disk to work
-      on Xen (Arm), as for every Virtio device (including disk) we need
-      to allocate Virtio MMIO params (IRQ and memory region) and pass
-      them to the backend, also update Guest device-tree. The subsequent
-      patch will add these missing bits. For the current patch,
-      the default "irq" and "base" are just written to the Xenstore.
-      This is not an ideal splitting, but this way we avoid breaking
-      the bisectability.
-      
-      Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-      Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-      Acked-by: George Dunlap <george.dunlap@citrix.com>
-      Tested-by: Jiamei Xie <jiamei.xie@arm.com>
-
-Revision graph left in /home/logs/results/bisect/qemu-mainline/build-armhf-libvirt.libvirt-build.{dot,ps,png,html,svg}.
-----------------------------------------
-172418: tolerable FAIL
-
-flight 172418 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172418/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build           fail baseline untested
-
-
-jobs:
- build-armhf                                                  pass    
- build-armhf-libvirt                                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+Jan
 
