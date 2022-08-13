@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E53395918F2
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Aug 2022 07:54:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.386195.622102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6D0D59195C
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Aug 2022 10:05:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.386217.622126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMk67-0002cy-FN; Sat, 13 Aug 2022 05:54:11 +0000
+	id 1oMm8L-0007TU-H3; Sat, 13 Aug 2022 08:04:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 386195.622102; Sat, 13 Aug 2022 05:54:11 +0000
+Received: by outflank-mailman (output) from mailman id 386217.622126; Sat, 13 Aug 2022 08:04:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMk67-0002aB-Cc; Sat, 13 Aug 2022 05:54:11 +0000
-Received: by outflank-mailman (input) for mailman id 386195;
- Sat, 13 Aug 2022 05:54:09 +0000
+	id 1oMm8L-0007Q8-Dk; Sat, 13 Aug 2022 08:04:37 +0000
+Received: by outflank-mailman (input) for mailman id 386217;
+ Sat, 13 Aug 2022 08:04:36 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMk65-0002a1-Ew; Sat, 13 Aug 2022 05:54:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oMm8K-0007Q2-2h
+ for xen-devel@lists.xenproject.org; Sat, 13 Aug 2022 08:04:36 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMk65-0003Hq-BS; Sat, 13 Aug 2022 05:54:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oMk64-0007BF-QN; Sat, 13 Aug 2022 05:54:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oMk64-0004Lm-Pw; Sat, 13 Aug 2022 05:54:08 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oMm8G-00066i-B5; Sat, 13 Aug 2022 08:04:32 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oMm8G-0000Uu-5C; Sat, 13 Aug 2022 08:04:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,334 +39,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=3e8YKNKNSZ6rKeIgj6sdiJHXQJKpbdDnLebVpg//YPQ=; b=PzjLEhQM9fTpfWhpR9YAXcXOxd
-	+Od721UEb0S3u/isRqmiS3dG0Hz/LE03KTRh0zByy6k14SlnqY2xs6JMpLlcAnnFo24ixjtPdXthU
-	iHdvOGQ7sYHMM5eYcvGpAUHPETVxwN0s0gXc5PtLPa1EZegne1ahbQ/7hxpC6mqskTSI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172453-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=4w0akH7vRku4wkHl73frdEYnb4a+1J6Xsn0B4dwmX3k=; b=5ETNv4pDnQ6gK2rL02AmQrztT6
+	zBV4r3hm2glttF9AuOO2+V83VVxJ1YYULDjY+NSq0nhT/4zH1AEvlIZfMeg/ePOKKc+3lVNyclzf8
+	mwFbBEFYS6YbWOj7S4O9hztBB5NIqT6omU8D6SuGMyq+ySvzRbaVX8d5LwI0nGbNIG0Q=;
+Message-ID: <a604ce43-2b3f-7ac3-36a1-913a66f036d2@xen.org>
+Date: Sat, 13 Aug 2022 09:04:29 +0100
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 172453: regressions - trouble: blocked/broken/fail/pass
-X-Osstest-Failures:
-    linux-5.4:test-amd64-amd64-xl-credit2:<job status>:broken:regression
-    linux-5.4:build-i386-libvirt:libvirt-build:fail:regression
-    linux-5.4:build-amd64-libvirt:libvirt-build:fail:regression
-    linux-5.4:build-arm64-libvirt:libvirt-build:fail:regression
-    linux-5.4:build-armhf-libvirt:libvirt-build:fail:regression
-    linux-5.4:test-amd64-amd64-xl-credit2:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-i386-pair:xen-install/dst_host:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start:fail:heisenbug
-    linux-5.4:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=de0cd3ea700d1e8ed76705d02e33b524cbb84cf3
-X-Osstest-Versions-That:
-    linux=8d8935e76f6f419ef2f7617de252f258b6a597d3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 13 Aug 2022 05:54:08 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.12.0
+To: Stefano Stabellini <sstabellini@kernel.org>, bertrand.marquis@arm.com
+Cc: george.dunlap@citrix.com, andrew.cooper3@citrix.com,
+ Volodymyr_Babchuk@epam.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2208121758520.3790@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] add SPDX to arch/arm/*.c
+In-Reply-To: <alpine.DEB.2.22.394.2208121758520.3790@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 172453 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172453/
+Hi Stefano,
 
-Regressions :-(
+On 13/08/2022 01:59, Stefano Stabellini wrote:
+> Add SPDX license information to all the *.c files under arch/arm.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+> 
+> We need to start from somewhere and I thought arch/arm/*.c would be a
+> good place to start.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-credit2     <job status>                 broken
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172128
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172128
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 172128
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 172128
+Thanks for doing it. This will make easier to understand the license in 
+each file. There are a couple of places below where the SDPX tag is 
+incorrect. How did you figure out the which license to use?
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-credit2   5 host-install(5)          broken pass in 172422
- test-amd64-i386-pair         11 xen-install/dst_host       fail pass in 172422
- test-armhf-armhf-xl-rtds     14 guest-start                fail pass in 172422
+Also, I think we should consider to add a section about SPDX in our 
+coding style so new files are using it. So we don't end up with a mix in 
+arch/arm/*.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-rtds 18 guest-start/debian.repeat fail in 172422 like 172128
- test-armhf-armhf-xl-rtds    15 migrate-support-check fail in 172422 never pass
- test-armhf-armhf-xl-rtds 16 saverestore-support-check fail in 172422 never pass
- test-armhf-armhf-xl-vhd      13 guest-start                  fail  like 172108
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172108
- test-armhf-armhf-xl-credit1  14 guest-start                  fail  like 172128
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172128
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172128
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 172128
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 172128
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172128
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172128
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 172128
- test-armhf-armhf-xl-credit2  14 guest-start                  fail  like 172128
- test-armhf-armhf-xl-multivcpu 14 guest-start                  fail like 172128
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 172128
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+> 
+> diff --git a/xen/arch/arm/alternative.c b/xen/arch/arm/alternative.c
+> index f03cd943c6..8115f89408 100644
+> --- a/xen/arch/arm/alternative.c
+> +++ b/xen/arch/arm/alternative.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: GPL-2.0
 
-version targeted for testing:
- linux                de0cd3ea700d1e8ed76705d02e33b524cbb84cf3
-baseline version:
- linux                8d8935e76f6f419ef2f7617de252f258b6a597d3
+Technically, this is a comment. So this should be /* ... */ to follow 
+Xen coding style. Also...
 
-Last test of basis   172128  2022-08-04 02:00:25 Z    9 days
-Testing same since   172384  2022-08-11 11:13:58 Z    1 days    4 attempts
+>   /*
+>    * alternative runtime patching
+>    * inspired by the x86 version
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alexei Starovoitov <ast@kernel.org>
-  Alexey Kardashevskiy <aik@ozlabs.ru>
-  Benjamin Herrenschmidt <benh@kernel.crashing.org>
-  Borislav Petkov <bp@suse.de>
-  Chen-Yu Tsai <wenst@chromium.org>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniel Lezcano <daniel.lezcano@linaro.org>
-  Daniel Sneddon <daniel.sneddon@linux.intel.com>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Hans Verkuil <hverkuil-cisco@xs4all.nl>
-  Jakub Sitnicki <jakub@cloudflare.com>
-  Jean-Philippe Brucker <jean-philippe@linaro.org>
-  John Fastabend <john.fastabend@gmail.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Mark-PK Tsai <mark-pk.tsai@mediatek.com>
-  Mauro Carvalho Chehab <mchehab@kernel.org>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Ning Qiang <sohu0106@126.com>
-  Ovidiu Panait <ovidiu.panait@windriver.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Raghavendra Rao Ananta <rananta@google.com>
-  Sasha Levin <sashal@kernel.org>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Stanislav Fomichev <sdf@google.com>
-  Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  Tony Luck <tony.luck@intel.com>
-  Werner Sembach <wse@tuxedocomputers.com>
+... this comment contains information about the license. As you add the 
+SPDX, the "long" version should be removed. This would also make easier 
+to verify the SPDX you add match existing license.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  broken  
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         fail    
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 blocked 
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      fail    
- test-amd64-i386-xl-vhd                                       pass    
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index ec81a45de9..7c986ecb18 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: GPL-2.0
+>   /*
+>    * Early Device Tree
+>    *
+> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+> index ae649d16ef..887b5426c7 100644
+> --- a/xen/arch/arm/cpuerrata.c
+> +++ b/xen/arch/arm/cpuerrata.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: GPL-2.0
 
+This file had no explicit license. I had a look at the 'git log' and 
+AFAICT this was either new code and came from Linux. So this looks fine 
+to add GPLv2 here.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>   #include <xen/cpu.h>
+>   #include <xen/cpumask.h>
+>   #include <xen/init.h>
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index 62d5e1770a..a6253cb57f 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: GPL-2.0
+>   /*
+>    * Contains CPU feature definitions
+>    *
+> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
+> index f5f6562600..f586c3d781 100644
+> --- a/xen/arch/arm/decode.c
+> +++ b/xen/arch/arm/decode.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: GPL-2.0
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+This tag doesn't match the license below. It is currently GPLv2+. I 
+don't think you can change it without consulting the author. But if it 
+is, then it should be mentioned in the commit message.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I remember we discussed in the past that some files were GPLv2+. But I 
+can't remember what was the outcome (I can't find the thread). IIRC 
+GPLv2+ is a lot more restrictive than GPLv2 and could prevent some 
+companies to contribute.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+[...]
 
-broken-job test-amd64-amd64-xl-credit2 broken
-broken-step test-amd64-amd64-xl-credit2 host-install(5)
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 2cd481979c..1a2dac95a9 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -1,3 +1,4 @@
+> +// SPDX-License-Identifier: GPL-2.0
 
-Not pushing.
+Same here about GPLv2+. Please go through the rest of the files to 
+confirm the license.
 
-(No revision log; it would be 612 lines long.)
+Cheers,
+
+-- 
+Julien Grall
 
