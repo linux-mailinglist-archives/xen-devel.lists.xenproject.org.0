@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73023591C21
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Aug 2022 19:21:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.386365.622332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02B98591C47
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Aug 2022 20:31:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.386373.622342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMuoZ-0007Ka-Nd; Sat, 13 Aug 2022 17:20:47 +0000
+	id 1oMvuG-0005nj-Qp; Sat, 13 Aug 2022 18:30:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 386365.622332; Sat, 13 Aug 2022 17:20:47 +0000
+Received: by outflank-mailman (output) from mailman id 386373.622342; Sat, 13 Aug 2022 18:30:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oMuoZ-0007Hi-Kn; Sat, 13 Aug 2022 17:20:47 +0000
-Received: by outflank-mailman (input) for mailman id 386365;
- Sat, 13 Aug 2022 17:20:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oMvuG-0005kd-Nb; Sat, 13 Aug 2022 18:30:44 +0000
+Received: by outflank-mailman (input) for mailman id 386373;
+ Sat, 13 Aug 2022 18:30:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j5iD=YR=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1oMuoV-0007HJ-FV
- for xen-devel@lists.xenproject.org; Sat, 13 Aug 2022 17:20:46 +0000
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 41e03e1f-1b2c-11ed-924f-1f966e50362f;
- Sat, 13 Aug 2022 19:20:42 +0200 (CEST)
-Received: from zn.tnic (p2e55d27b.dip0.t-ipconnect.de [46.85.210.123])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 25C451EC064C;
- Sat, 13 Aug 2022 19:20:37 +0200 (CEST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oMvuE-0005kA-W6; Sat, 13 Aug 2022 18:30:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oMvuE-0000e1-Tf; Sat, 13 Aug 2022 18:30:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oMvuE-0001Hi-Iy; Sat, 13 Aug 2022 18:30:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oMvuE-00055Q-IU; Sat, 13 Aug 2022 18:30:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,52 +42,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41e03e1f-1b2c-11ed-924f-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1660411237;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
-	bh=rFJUbH12jSbptwlGtNVGv3gua2WyWKxARb6tx5OOFhw=;
-	b=dir4FhiJgml+Icpb1kS9IZrrov2qYQPKTI90LtVrPHmfYvZeNwKxTEoQqW6tlCnahQBXT3
-	BjO9lEDUDTLUrsMpF8NsxRK/zfxCK4ei/1x06xe4/Yzn/hq7Mkd0K41Qd3JAlC7gZ/oU7k
-	M2NpnCUoEJfO43eMfQjS2g/hvHRylvM=
-Date: Sat, 13 Aug 2022 19:20:33 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Chuck Zmudzinski <brchuckz@netscape.net>
-Cc: Juergen Gross <jgross@suse.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	x86@kernel.org, linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	regressions@lists.linux.dev
-Subject: Re: PING [PATCH 3/3] x86: decouple pat and mtrr handling
-Message-ID: <YvfdYS81vU66tQSs@zn.tnic>
-References: <20220715142549.25223-1-jgross@suse.com>
- <20220715142549.25223-4-jgross@suse.com>
- <YtbKf51S4lTaziKm@zn.tnic>
- <d838264a-bcd0-29e2-3b23-5427ee0ee041@netscape.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9SwkR67NVRentgxo9PDcK+RVVV71zKkpf0SH3qwULzM=; b=o5cae5RHrxaHSv5fax6uyj1kvq
+	ZFEiT3bWHFJFWLCmDYLJPfe4LZSRABeqjJk7aZwl1QLuRDmj6dAvs7AeJcqRL3dpIbdgapE8cAu8D
+	ynHxbBw5MlL1aowI5YUaaixr9kHTrWYok5vlLhkdf7S3UunHrpcXNy/WIvdkLqN5q7Y4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172490-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <d838264a-bcd0-29e2-3b23-5427ee0ee041@netscape.net>
+Subject: [ovmf test] 172490: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=bd06717863ed6cba979fe5300433619aba340403
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 13 Aug 2022 18:30:42 +0000
 
-On Sat, Aug 13, 2022 at 12:56:44PM -0400, Chuck Zmudzinski wrote:
-> Why has Juergen not at least responded in some way to the
-> comments that Boris has made here? Why has Boris not
-> pinged Juergen by now,
+flight 172490 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172490/
 
-How about: it is summer here and people usually take their vacations
-during that time and everything takes a bit longer than usual?
+Regressions :-(
 
--- 
-Regards/Gruss,
-    Boris.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-https://people.kernel.org/tglx/notes-about-netiquette
+version targeted for testing:
+ ovmf                 bd06717863ed6cba979fe5300433619aba340403
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z    9 days
+Failing since        172151  2022-08-05 02:40:28 Z    8 days   81 attempts
+Testing same since   172416  2022-08-12 07:10:43 Z    1 days   13 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 531 lines long.)
 
