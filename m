@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1320592B4D
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Aug 2022 11:57:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.387244.623399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 619D2592DD1
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Aug 2022 13:04:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.387255.623416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNWpR-0002zu-Lr; Mon, 15 Aug 2022 09:56:13 +0000
+	id 1oNXtI-0001XA-Qi; Mon, 15 Aug 2022 11:04:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 387244.623399; Mon, 15 Aug 2022 09:56:13 +0000
+Received: by outflank-mailman (output) from mailman id 387255.623416; Mon, 15 Aug 2022 11:04:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNWpR-0002xB-JC; Mon, 15 Aug 2022 09:56:13 +0000
-Received: by outflank-mailman (input) for mailman id 387244;
- Mon, 15 Aug 2022 09:56:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oNXtI-0001Tl-No; Mon, 15 Aug 2022 11:04:16 +0000
+Received: by outflank-mailman (input) for mailman id 387255;
+ Mon, 15 Aug 2022 11:04:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oNWpP-0002x1-Mo; Mon, 15 Aug 2022 09:56:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oNWpP-0001jH-Jz; Mon, 15 Aug 2022 09:56:11 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oNWpP-0006DM-6z; Mon, 15 Aug 2022 09:56:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oNWpP-0005C6-6V; Mon, 15 Aug 2022 09:56:11 +0000
+ (envelope-from <SRS0=dGwN=YT=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oNXtH-0001TU-2N
+ for xen-devel@lists.xenproject.org; Mon, 15 Aug 2022 11:04:15 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fee88ed6-1c89-11ed-bd2e-47488cf2e6aa;
+ Mon, 15 Aug 2022 13:04:13 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D204D337AA;
+ Mon, 15 Aug 2022 11:04:12 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A47013A93;
+ Mon, 15 Aug 2022 11:04:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 05dJICwo+mLHBgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 15 Aug 2022 11:04:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +51,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=usGTfF2/M+I9Zt8rFmN5aBxPh2qIXWKKx4YHUOiYXiM=; b=Pxyb/BXJW6mSjqmrJvGI/3olhV
-	r9swus6I4RR3b1sgc9P+sscObcwJyFLvUCQS8IkOhaOlThwsgz457I9MB9eoV13N47siAGG1fYFye
-	bhPGIyFpO+e0hU6/ztoVQXhpnyxhx8mtPgmWeyqA948AfxvBaa14EMO/kMABYIKUaBgQ=;
+X-Inumbo-ID: fee88ed6-1c89-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1660561452; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=lc22WrfxTsd+Zrwt7FMEj+OB2Evxs9hgxovNPNGYDJ8=;
+	b=inr1PsrcTBuHJVo8w7Bt7QY22RHYmX/mRx2KY+c+ufCw22kMUW/ZPrHWH0ms3ignJDRQ81
+	ThWYjyLzD5RBkozKLhEL3IYcHHkU21WCHI5PK/FVz2j6MIdiaGiaf7jIUGcfJocrwjtlSm
+	wKs3LPB7JlwJrCDIuef9rlQXMwL1cFM=
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172536-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Juergen Gross <jgross@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 0/3] xen/sched: fix cpu hotplug
+Date: Mon, 15 Aug 2022 13:04:07 +0200
+Message-Id: <20220815110410.19872-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 172536: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=7547268c359eeef1a4d8e578c612e7cc9350992d
-X-Osstest-Versions-That:
-    xen=3dc26edbb5417d90d32df6aa70d7c4187dd9966e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 15 Aug 2022 09:56:11 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 172536 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172536/
+A recent change in the hypervisor memory allocation framework led to
+crashes when unplugging host cpus.
 
-Failures :-/ but no regressions.
+This was due to the (correct) assertion that allocating and freeing
+memory is allowed with enabled interrupts only. As the main cpu unplug
+operation is done in stop-machine context, this assertion triggers in
+debug builds.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- build-amd64-libvirt           6 libvirt-build                fail  like 172446
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Correct that by pre-allocating all needed memory while interrupts are
+still on, and free memory after interrupts are enabled again.
 
-version targeted for testing:
- xen                  7547268c359eeef1a4d8e578c612e7cc9350992d
-baseline version:
- xen                  3dc26edbb5417d90d32df6aa70d7c4187dd9966e
+Changes in V2:
+- addressed all comments
 
-Last test of basis   172446  2022-08-12 18:00:29 Z    2 days
-Testing same since   172536  2022-08-15 07:01:55 Z    0 days    1 attempts
+Juergen Gross (3):
+  xen/sched: introduce cpupool_update_node_affinity()
+  xen/sched: carve out memory allocation and freeing from
+    schedule_cpu_rm()
+  xen/sched: fix cpu hotplug
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
+ xen/common/sched/core.c    | 204 +++++++++++++++++++++++--------------
+ xen/common/sched/cpupool.c |  91 ++++++++++++-----
+ xen/common/sched/private.h |  21 +++-
+ xen/include/xen/sched.h    |   9 +-
+ 4 files changed, 225 insertions(+), 100 deletions(-)
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     blocked 
+-- 
+2.35.3
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   3dc26edbb5..7547268c35  7547268c359eeef1a4d8e578c612e7cc9350992d -> smoke
 
