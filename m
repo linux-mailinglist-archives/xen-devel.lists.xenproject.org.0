@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D08593367
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Aug 2022 18:44:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.387694.624042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC32D59336D
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Aug 2022 18:46:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.387702.624054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNdCT-00041u-VM; Mon, 15 Aug 2022 16:44:25 +0000
+	id 1oNdEF-0004fU-EZ; Mon, 15 Aug 2022 16:46:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 387694.624042; Mon, 15 Aug 2022 16:44:25 +0000
+Received: by outflank-mailman (output) from mailman id 387702.624054; Mon, 15 Aug 2022 16:46:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNdCT-0003z8-SZ; Mon, 15 Aug 2022 16:44:25 +0000
-Received: by outflank-mailman (input) for mailman id 387694;
- Mon, 15 Aug 2022 16:44:24 +0000
+	id 1oNdEF-0004cc-Bk; Mon, 15 Aug 2022 16:46:15 +0000
+Received: by outflank-mailman (input) for mailman id 387702;
+ Mon, 15 Aug 2022 16:46:14 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oNdCS-0003z2-99
- for xen-devel@lists.xenproject.org; Mon, 15 Aug 2022 16:44:24 +0000
+ (envelope-from <julien@xen.org>) id 1oNdEE-0004cU-2R
+ for xen-devel@lists.xenproject.org; Mon, 15 Aug 2022 16:46:14 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oNdCR-0001FY-UQ; Mon, 15 Aug 2022 16:44:23 +0000
+ id 1oNdEA-0001Iw-5l; Mon, 15 Aug 2022 16:46:10 +0000
 Received: from 54-240-197-225.amazon.com ([54.240.197.225]
  helo=[10.95.149.129]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oNdCR-0000P5-O6; Mon, 15 Aug 2022 16:44:23 +0000
+ id 1oNdE9-0000R1-Uj; Mon, 15 Aug 2022 16:46:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,101 +42,60 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=lYkOHBE5nKzIhvD+AVcWXwGZcoujkJldrbnr3dE6HO0=; b=FZnsANy98qjO+x2BeoypKhkaxO
-	g5zs5OOkguhzpXnzUrctKMCguOuLjYtAJCPmHhuTSPGSYrNoVpcEQo2MhHSqplI8gV09xb3n0tvrq
-	5uadMwUJfWyUHRVhk0hd1C7wRnSmLX34laCYVWYzR2TameLQe0yWW4Clmr72F5KtjU2g=;
-Message-ID: <3136c797-652b-97c9-b356-b49fe53a40b5@xen.org>
-Date: Mon, 15 Aug 2022 17:44:21 +0100
+	bh=F9VyOrKpDtsCX0+ROqFeK4KujX0h3i2iD2RK7vKil9M=; b=2ZCifON7UesPziPVYSgO4+K9wB
+	vHUcx1lj8WslY4C/MDPSVzU3bBiJvddNBHVQNd3Q7WsDQvodJv56G3wOvDda5I48o9DRtM3vLQUL1
+	habIig42nrr9hNomAtjklllkBxOFW7Del95AatYsV6tuGtUZSkFbvzmWN4VV3KUW3hcw=;
+Message-ID: <ca61e334-3b4e-de50-c993-9439fe4d1d4b@xen.org>
+Date: Mon, 15 Aug 2022 17:46:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.1.2
-Subject: Re: [PATCH 2/7] xen/arm64: head: Introduce get_table_slot() and use
- it
+Subject: Re: [PATCH 5/7] xen/arm32: head: Move earlyprintk messages to
+ .rodata.str
 Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
 References: <20220812192448.43016-1-julien@xen.org>
- <20220812192448.43016-3-julien@xen.org>
- <8FA138D1-CBF2-4BAB-9283-2573A6A09C79@arm.com>
+ <20220812192448.43016-6-julien@xen.org>
+ <432ffaec-c537-0337-5812-18385ccbb534@suse.com>
+ <94843cc5-919b-68cf-31d2-a8625d9342d7@xen.org>
+ <ff329cf5-689e-89f1-c82a-7df6dbf11446@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <8FA138D1-CBF2-4BAB-9283-2573A6A09C79@arm.com>
+In-Reply-To: <ff329cf5-689e-89f1-c82a-7df6dbf11446@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+Hi Jan,
 
-
-On 15/08/2022 15:45, Bertrand Marquis wrote:
-> Hi Julien,
-
-Hi Bertrand,
-
->> On 12 Aug 2022, at 20:24, Julien Grall <julien@xen.org> wrote:
+On 15/08/2022 09:21, Jan Beulich wrote:
+> On 15.08.2022 10:17, Julien Grall wrote:
+>> On 15/08/2022 07:43, Jan Beulich wrote:
+>>> On 12.08.2022 21:24, Julien Grall wrote:
+>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>
+>>>> At the moment, the strings are in text right after each use because
+>>>> the instruction 'adr' has specific requirement on the location
+>>>> and the compiler will forbid cross section label.
+>>>>
+>>>> The macro 'adr_l' was recently reworked so the caller doesn't need
+>>>> to know whether the MMU is on. This makes it easier to use where
+>>>> instructions can be run in both context.
+>>>>
+>>>> This also means that the strings don't need to be part of .text
+>>>> anymore. So move them to .rodata.str.
+>>>
+>>> Wouldn't they better live somewhere in .init* ?
 >>
->> From: Julien Grall <jgrall@amazon.com>
->>
->> There are a few places in the code that need to find the slot
->> at a given page-table level.
->>
->> So create a new macro get_table_slot() for that. This will reduce
->> the effort to figure out whether the code is doing the right thing.
->>
->> Take the opportunity to use 'ubfx'. The only benefits is reducing
->> the number of instructions from 2 to 1.
->>
->> The new macro is used everywhere we need to compute the slot. This
->> requires to tweak the parameter of create_table_entry() to pass
->> a level rather than shift.
->>
->> Note, for slot 0 the code is currently skipping the masking part. While
->> this is fine, it is safer to mask it as technically slot 0 only covers
->> bit 48 - 39 bit (assuming 4KB page granularity).
->>
->> Take the opportunity to correct the comment when finding the second
->> slot for the identity mapping (we are computing the second slot
->> rather than first).
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Thanks!
-
->>
->> ----
->>
->>     This patch also has the benefits to reduce the number
->>     of use of {ZEROETH, FIRST, SECOND, THIRD}_SHIFT. The next
->>     patch for arm32 will reduce further.
->> ---
->> xen/arch/arm/arm64/head.S | 55 +++++++++++++++++++++------------------
->> 1 file changed, 30 insertions(+), 25 deletions(-)
->>
->> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
->> index 26cc7705f556..ad014716db6f 100644
->> --- a/xen/arch/arm/arm64/head.S
->> +++ b/xen/arch/arm/arm64/head.S
->> @@ -493,13 +493,24 @@ cpu_init:
->>          ret
->> ENDPROC(cpu_init)
->>
->> +/*
->> + * Macro to find the slot number at a given page-table level
->> + *
->> + * slot:     slot computed
->> + * virt:     virtual address
->> + * lvl:      page-table level
->> + */
->> +.macro get_table_slot, slot, virt, lvl
->> +        ubfx  \slot, \virt, #XEN_PT_LEVEL_SHIFT(\lvl), #XEN_PT_LPAE_SHIFT
->> +.endm
->> +
+>> PRINT() is also used in path for secondary bring-up. So this could be
+>> used after .init (even though today CPU hotplug doesn't work on Arm).
 > 
-> Crawling through the macros to verify the code was not that easy.
-> This is not related to this patch but XEN_PT_* macros could really do with more comments.
-
-To me, the name of the macros are self-explaining. So I am not entirely 
-what to write in the comments. Please suggest.
+> Then the term "earlyprintk" looks to be misleading?
+I can't think of a better name. "early" could also be interpreted as 
+"early CPU bring-up".
 
 Cheers,
 
