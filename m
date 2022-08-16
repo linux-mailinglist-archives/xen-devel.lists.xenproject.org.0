@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14E8059567C
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 11:34:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388141.624736 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C55E5956FD
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 11:48:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388151.624747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNsxU-0007iJ-Dh; Tue, 16 Aug 2022 09:34:00 +0000
+	id 1oNtAq-0000ng-Nj; Tue, 16 Aug 2022 09:47:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388141.624736; Tue, 16 Aug 2022 09:34:00 +0000
+Received: by outflank-mailman (output) from mailman id 388151.624747; Tue, 16 Aug 2022 09:47:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNsxU-0007fM-AJ; Tue, 16 Aug 2022 09:34:00 +0000
-Received: by outflank-mailman (input) for mailman id 388141;
- Tue, 16 Aug 2022 09:33:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oNsxT-0007f8-An; Tue, 16 Aug 2022 09:33:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oNsxT-0002Tf-A3; Tue, 16 Aug 2022 09:33:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oNsxS-0001Ge-Ph; Tue, 16 Aug 2022 09:33:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oNsxS-00048o-Ov; Tue, 16 Aug 2022 09:33:58 +0000
+	id 1oNtAq-0000lK-KN; Tue, 16 Aug 2022 09:47:48 +0000
+Received: by outflank-mailman (input) for mailman id 388151;
+ Tue, 16 Aug 2022 09:43:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9yN+=YU=virtuozzo.com=alexander.atanasov@srs-se1.protection.inumbo.net>)
+ id 1oNt6E-0000h4-99
+ for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 09:43:02 +0000
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d0c2921e-1d47-11ed-bd2e-47488cf2e6aa;
+ Tue, 16 Aug 2022 11:43:00 +0200 (CEST)
+Received: from dev011.ch-qa.sw.ru ([172.29.1.16])
+ by relay.virtuozzo.com with esmtp (Exim 4.95)
+ (envelope-from <alexander.atanasov@virtuozzo.com>)
+ id 1oNt3h-00FxfB-Cg; Tue, 16 Aug 2022 11:41:36 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,95 +40,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=pPKhwa09zkHjXqFSjsRA27IsvowKGASKSBZlbY+PV7A=; b=DFuq2MOvlwW6HZM/aW7wo7RA38
-	psKMujNG1s89suAX2GcHlwJ/R/My6G8+TVPhSfOaQYcCVo52pC72284P1NxrooeqhuDwqDS7h+R6i
-	8fWThhmb1w8gT+UVNBXkxthtO8GBsIkYYw3SfNdE/TQoZ+7fJLN2mzxSfBGUN/6tBYwY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172560-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d0c2921e-1d47-11ed-bd2e-47488cf2e6aa
+From: Alexander Atanasov <alexander.atanasov@virtuozzo.com>
+To: 
+Cc: kernel@openvz.org,
+	Alexander Atanasov <alexander.atanasov@virtuozzo.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Nadav Amit <namit@vmware.com>,
+	pv-drivers@vmware.com,
+	Jason Wang <jasowang@redhat.com>,
+	virtualization@lists.linux-foundation.org,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	linux-hyperv@vger.kernel.org,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v2 0/4] Make balloon drivers memory changes known to the rest of the kernel
+Date: Tue, 16 Aug 2022 12:41:13 +0300
+Message-Id: <20220816094117.3144881-1-alexander.atanasov@virtuozzo.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Subject: [ovmf test] 172560: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=2812668bfc121ee792cf3302195176ef4a2ad0bc
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 16 Aug 2022 09:33:58 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 172560 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172560/
+Currently balloon drivers (Virtio,XEN, HyperV, VMWare, ...)
+inflate and deflate the guest memory size but there is no
+way to know how much the memory size is changed by them.
 
-Regressions :-(
+A common use of the ballooning is to emulate [1]
+hot plug and hot unplug - due to the complexity of the later.
+Hotplug has a notifier and one can also check the updated
+memory size.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+To improve this add InflatedTotal and InflatedFree
+to /proc/meminfo and implement a balloon notifier.
 
-version targeted for testing:
- ovmf                 2812668bfc121ee792cf3302195176ef4a2ad0bc
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+Amount of inflated memory can be used:
+ - si_meminfo(..) users can improve calculations
+ - adjust cache/buffer sizes 
+ - adjust object/connection limits
+ - as a hint for the oom a killer
+ - by user space software that monitors memory pressure
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   12 days
-Failing since        172151  2022-08-05 02:40:28 Z   11 days  100 attempts
-Testing same since   172560  2022-08-16 03:20:18 Z    0 days    1 attempts
+Patches for the other balloon drivers will be done next.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+Alexander Atanasov (4):
+  Make place for common balloon code
+  Enable balloon drivers to report inflated memory
+  Display inflated memory to users
+  drivers: virtio: balloon - update inflated memory
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ Documentation/filesystems/proc.rst            |  6 +++
+ MAINTAINERS                                   |  4 +-
+ arch/powerpc/platforms/pseries/cmm.c          |  2 +-
+ drivers/misc/vmw_balloon.c                    |  2 +-
+ drivers/virtio/virtio_balloon.c               |  7 +++-
+ fs/proc/meminfo.c                             | 10 +++++
+ ...{balloon_compaction.h => balloon_common.h} | 20 +++++++++-
+ mm/Makefile                                   |  2 +-
+ mm/{balloon_compaction.c => balloon_common.c} | 38 ++++++++++++++++++-
+ mm/migrate.c                                  |  2 +-
+ mm/vmscan.c                                   |  2 +-
+ 11 files changed, 84 insertions(+), 11 deletions(-)
+ rename include/linux/{balloon_compaction.h => balloon_common.h} (90%)
+ rename mm/{balloon_compaction.c => balloon_common.c} (89%)
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cc: Michael S. Tsirkin <mst@redhat.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Wei Liu <wei.liu@kernel.org>
+Cc: Nadav Amit <namit@vmware.com>
+Cc: pv-drivers@vmware.com
+Cc: Jason Wang <jasowang@redhat.com>
+Cc: virtualization@lists.linux-foundation.org
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>
+Cc: Haiyang Zhang <haiyangz@microsoft.com>
+Cc: Stephen Hemminger <sthemmin@microsoft.com>
+Cc: Dexuan Cui <decui@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org
 
 
-Not pushing.
+-- 
+2.31.1
 
-(No revision log; it would be 674 lines long.)
 
