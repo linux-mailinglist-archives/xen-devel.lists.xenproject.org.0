@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A501059627D
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 20:31:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388490.625152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A3D45962C9
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 21:00:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388498.625163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oO1LW-0002gn-KC; Tue, 16 Aug 2022 18:31:22 +0000
+	id 1oO1nC-0005CG-Rp; Tue, 16 Aug 2022 18:59:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388490.625152; Tue, 16 Aug 2022 18:31:22 +0000
+Received: by outflank-mailman (output) from mailman id 388498.625163; Tue, 16 Aug 2022 18:59:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oO1LW-0002eO-HB; Tue, 16 Aug 2022 18:31:22 +0000
-Received: by outflank-mailman (input) for mailman id 388490;
- Tue, 16 Aug 2022 18:31:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oO1nC-00059P-Op; Tue, 16 Aug 2022 18:59:58 +0000
+Received: by outflank-mailman (input) for mailman id 388498;
+ Tue, 16 Aug 2022 18:59:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dq/F=YU=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1oO1LU-0002eF-7A
- for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 18:31:20 +0000
-Received: from sonic303-25.consmr.mail.gq1.yahoo.com
- (sonic303-25.consmr.mail.gq1.yahoo.com [98.137.64.206])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c94c683-1d91-11ed-9250-1f966e50362f;
- Tue, 16 Aug 2022 20:31:17 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic303.consmr.mail.gq1.yahoo.com with HTTP; Tue, 16 Aug 2022 18:31:14 +0000
-Received: by hermes--production-bf1-7586675c46-7c7p2 (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 624f3e4bccaf700bc143e57e0451f3fc; 
- Tue, 16 Aug 2022 18:31:09 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1oO1nB-00059H-Ax
+ for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 18:59:57 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oO1nB-0004Pk-0e; Tue, 16 Aug 2022 18:59:57 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oO1nA-0001Am-O1; Tue, 16 Aug 2022 18:59:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +40,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c94c683-1d91-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1660674674; bh=q8wWOcwuIWp7jF+m+JG95FVHbs3q4ng16JE8P5IIOdI=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=K9QvIDtw9DoDRMNBYJRJtjej7x2KlWO/3XSw1i5V7/XXAQl+8qXuNkK+AiaNNxWr3mdFa8iYnB0Qz9inrjU7KRffjWYiGvnNboWDQ03jvBG353PDLGlK+hZHs8sDQ8V8cKXX+TMuSOccfavZ3Lsnzhh7Sj+V0JfVjAUONxtia6AMNk/fFVeOqmBdIoi73E3AFbS0ijle45g9MjEKeW39KpLYpFfQWcVmu2NufVbfjQ683b7aFwQKyVPEnKz09+BIHFAW2wUR6R9j130AdFpxC2kjiUzRRujI86MY89JAIqLvs4YMxT8o6Hs+WpXqKYWD30DOTrw4pMSwEGt2Mp5QRA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1660674674; bh=TsO9OnmVcK62vUwmvFbeK1iVzVOZ3JC5TnUELQbCFUp=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=A4AkXtjlW3Th1SyLhdJg+sWu5of8cenfYMNTs+X/JsChEY4t+VmzwIz5qrN1Q+dW7G5ilNaQk5XXcRlmVkdzYZMZywqyLvyyuqGkjH7LLQ5g5HoKo1OX9PPTy6W1oxpMDIOOZrk7JKsYdbzBdcv3w7rFvTnaPx/EQ3a5l8cslRg8ts7tS7RwBEi+OKyqSV4pJREpzTMmLlhlUEzEZ9xijpRgKBp0N42gClw0PVDwlbResaV4WK5fjZv2+DO5ARn7BBZ5vD+2BUiasmsd2E+VGahIiUhYg/hYJHLJzYXTed5LMQvE0Anw0/2fxK/C5fAhyWr05E6/fTH7HePOYzGXzA==
-X-YMail-OSG: .7H3UH4VM1ndSNL34UPAvb5VXC65DpJI_1A2nLTus0F8VmAcAtvonzuYw35.BwF
- Z0KxPlW7ZsFn6ntVRzNmw1hntiywuPKaKJEHJTVDBPmkqZOnEP2SPThPYE1N8uk0ed.cyC5iahSZ
- lGBnevXcFJv0kEm57GY473Hr_EvENwFBrgHzGEsQIi.evuuAkjNprYlVuHBSDRphu.0XcfdKAd2.
- jroHN0yZeOwKCIfIbwkLZ4HdFk8QzlRlDZok7oRypkw3eCe5YZ.SK8wpsTAdon7CRXuM8HHLF2rp
- 7pgp961q2jQ3MGvt_wU8AYmRwFtjs8sRnlxc1LoClxXF5F6DWkrVFwKSesA4hN4eNNhDV8zeQoMg
- TcEVQdWJZfnOjFkvWPzTfXHRDNVgGOUL5Shmah7KcoCB6.nybM9E7TCNTUhvupSip1.QMMOF1b7s
- tXYFcutVyj8ixjoCoLpM2G9mtA1CeBHPg4g247ACahtQI8YdANpqkb3Ludvi5MHnCwge77PcE8Xu
- aj5oYSxBxsPZWsURJm7Ewh9yoHzetF25Dn4VihhsFqftv1j.firKa0XDzXhbPZDWgvz9reE5Xbv0
- QXwaX67GiQPWqBzvigKUmoBwPAfqj9LDADk8yIWQIIWYQ6qQdg8lGdiIeXIyKEA0ZJViLBEh.ESo
- S1JrKwJglEVo4sZ7tDTS_IZRvkI0eISOYVSC1BYyTWDmSKmWtvj31PpdSq6UBIGe7mupgP6MkuMT
- jglj5iDHyAcVQD7s.7ySIHu9m.Gwq7l0RIi_AW6yobDI5ORG1Fbid65H69cDppBOpPGFogW0LsrY
- 2GXjEj9DLmpZRyKCj19tyyB6kYl5j3WHK0F3zm8mA33Q1PdhpG60ER3TYUH0Vs6LBaxsfH4uz2To
- kNDbNNo0KX9S.UV1jUM0_PsXJBDQamJ1wYIAxQ4ZR1YZuNEf5vskPVnC7THYLQWLsTn8zCD7kLXT
- FLPpi7E4iSLGGLkoS9yV98yp09RvfDiHqq8uVdwJCzpb_w5VovK2yjqFDYOqj57t2zsWfcZFCuht
- k_aHdQA_zQUtWMnHREOTtjCIihxWJWyhjLvX8POb6zGRIH0iv4PxhUnWbVrRRJR_1OPVi8o3wSXs
- 9Cx0Egwn4lZBXAPCYOlzwGSyO0YZuJUcO81OuU_B9MwwpyzMWRAGsFCFPxFwCakuxNQ2u8wue3LR
- .dVMc02fn62607azoPfTCb4x7wmIhJPXICl3YpWbfJcAM.IjxLI7P568wJYdg9UG66rJcE1GS9Cc
- sK0ixqn.WlsrwYBvWr2m9yvluinGHWL09uwtukrU3J2SQI13sXses6McK3yBVkQvsQfr9c73eoXZ
- kBVT9CHJ184MwZv97IvdxhzePfzOJTmwAHj4RFCzr3_2sQr04a76emgeWL0fVy1SA6laUvWxwpE.
- .kKsay.yQ_0uQBW78iEFqS3nbcs9yNR4.Dc6_reZ127hZF0hs.l2ElmnvvFEbMLbUrVnk7wlhX3F
- cerH_k6jsNeOvqmmLbDWnsvYgRfLbx0YpLFvlFxTc6nd.Yx5KXSzeUjk_kqDolZi5Qf2XYmcC97T
- 1MT53KfJPEZWo8ITgQkEHrFiOmwV6JUitocqsskV0mP1lDCWy.7UGfstiavQJZtgtj8_X4oMaCJr
- Oy88R.eujP97lvb4qvAJd4duiDc5V7LBv5VpGuvMPQA9PSWNwg_kPCnwiROL7L7W6uSlI.wCtHCZ
- zaJOnIW785yLK.YJHT1rwaHUnLust063YDvjhUBPP8p_7YSw44bxY7DFSOCj7jgEPyDEvrFy.5NM
- Zz9Y_ZLYr88oo973XwIQCfAFogR7XkgZdR_Umzk2dkBLjCmF9nVPeibakL8uhwSHoUs6VmdnWxeS
- SZKUpcpKCgd_1cLbztdEHmI4tIDw14v_C9ynRQSLnVtG0M2D_p6LNpf_F3tCeF7Inap_EEcpIPVs
- 1kL02wEJbfKytQITMOJTxh3PCafwyGVF5qaFlz6oojdKuYBW0Sl_jXoEJD0OY6S727LruHNnTuTP
- z_f6O84jF7VIZ8bI7hXxyRrjLHXrYKYzYTxL8S3pRSxfwHZi3ou3ipmhw3q.Q_cGGn7unbESaXPd
- qStsh7KwbORv1d9JJNs3W2oV4tgmtE3_OQ.4TbTZfsx.GVAlIxc5w5wvq3HgZ78YsWhyo2p06cJg
- 0c3ooMQcnjdq1sxreX0wIPlmRiUC8CCkojpMXaxFlUGFGYmHmoUTIVv3ReURDadGt4l2Legy_eMZ
- d2rwOiM71qaRgmQvN50s-
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <a47b2321-4809-f8bc-9eb3-45269ef79ff3@netscape.net>
-Date: Tue, 16 Aug 2022 14:31:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=D98GVDZfQ8TCxXBLkFuwake+DQisiai93uMoMlFu4B0=; b=OISsjH
+	fAKMW6PRWj6Oo5hq+5kicslYSUXJO5gJYxnlhM6jKmLnwKEXB4EOjChVZnuq6v3e8WhfzazCXYaZ/
+	VtNrkOyX9cwj84dnsexNHlXn48Cu39hLNcSFGuQEzKsom+DjSBJ8AoOnhewGTTA4AsguX5zY55Zzk
+	FwFOUrBoARc=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH for-4.17] xen/arm: Support properly __ro_after_init on Arm
+Date: Tue, 16 Aug 2022 19:59:54 +0100
+Message-Id: <20220816185954.31945-1-julien@xen.org>
+X-Mailer: git-send-email 2.37.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Subject: Re: PING [PATCH 3/3] x86: decouple pat and mtrr handling
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Juergen Gross <jgross@suse.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
- x86@kernel.org, linux-kernel@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, regressions@lists.linux.dev
-References: <20220715142549.25223-1-jgross@suse.com>
- <20220715142549.25223-4-jgross@suse.com> <YtbKf51S4lTaziKm@zn.tnic>
- <d838264a-bcd0-29e2-3b23-5427ee0ee041@netscape.net>
- <YvfdYS81vU66tQSs@zn.tnic>
- <3de36953-9b8a-d040-c8dd-44af1ae2d56d@netscape.net>
- <YvgcIu/Y1GMD5WNo@zn.tnic>
- <6e709192-064d-fdfb-8596-6474d891dd7f@netscape.net>
-Content-Language: en-US
-In-Reply-To: <6e709192-064d-fdfb-8596-6474d891dd7f@netscape.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.20531 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Transfer-Encoding: 8bit
 
-On 8/13/2022 6:41 PM, Chuck Zmudzinski wrote:
-> On 8/13/2022 5:48 PM, Borislav Petkov wrote:
-> > On Sat, Aug 13, 2022 at 05:40:34PM -0400, Chuck Zmudzinski wrote:
-> > > I did a search for Juergen Gross on lkml and he is active submitting and
-> > > reviewing patches during the past few weeks. However, he is ignoring
-> > > comments on his patch to fix this regression.
-> >
-> > Please stop this non-sense and be patient. We will fix this soon. For
-> > the time being you can use Jan's patch locally.
-> >
+From: Julien Grall <jgrall@amazon.com>
 
-Hi Boris,
+__ro_after_init was introduced recently to prevent modifying
+some variables after init.
 
-I see you have signed off on Jan's patch with a slight modification as
-the short-term fix that is also tagged to be backported to stable. Thank you!
-I hope no other problems or objections pop up and Linus will merge it into
-the mainline kernel soon. Please forgive me for my impatience.
+At the moment, on Arm, the variables will still be accessible
+because the region permission is not updated.
 
-Best regards,
+Address that, but moving the sections .data.ro_after_init
+out of .data and then mark the region read-only once we finish
+to boot.
 
-Chuck
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+---
+
+This patch is targeting Xen 4.17. There are quite a few arm
+specific variables that could be switch to use __ro_after_init.
+
+This is not addressed by the commit. We could consider to switch
+some of them for Xen 4.17. So the benefits for now is any common
+variables using __ro_after_init.
+---
+ xen/arch/arm/include/asm/setup.h |  2 ++
+ xen/arch/arm/setup.c             | 14 ++++++++++++++
+ xen/arch/arm/xen.lds.S           |  7 +++++++
+ 3 files changed, 23 insertions(+)
+
+diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+index 2bb01ecfa88f..5815ccf8c5cc 100644
+--- a/xen/arch/arm/include/asm/setup.h
++++ b/xen/arch/arm/include/asm/setup.h
+@@ -137,6 +137,8 @@ u32 device_tree_get_u32(const void *fdt, int node,
+ int map_range_to_domain(const struct dt_device_node *dev,
+                         u64 addr, u64 len, void *data);
+ 
++extern const char __ro_after_init_start[], __ro_after_init_end[];
++
+ #endif
+ /*
+  * Local variables:
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 500307edc08d..5bde321b9d07 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -75,10 +75,24 @@ domid_t __read_mostly max_init_domid;
+ 
+ static __used void init_done(void)
+ {
++    int rc;
++
+     /* Must be done past setting system_state. */
+     unregister_init_virtual_region();
+ 
+     free_init_memory();
++
++    /*
++     * We have finished to boot. Mark the section .data.ro_after_init
++     * read-only.
++     */
++    rc = modify_xen_mappings((unsigned long)&__ro_after_init_start,
++                             (unsigned long)&__ro_after_init_end,
++                             PAGE_HYPERVISOR_RO);
++    if ( rc )
++        panic("Unable to mark the .data.ro_after_init section read-only (rc = %d)\n",
++              rc);
++
+     startup_cpu_idle_loop();
+ }
+ 
+diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
+index 1e986e211f68..92c298405259 100644
+--- a/xen/arch/arm/xen.lds.S
++++ b/xen/arch/arm/xen.lds.S
+@@ -83,6 +83,13 @@ SECTIONS
+   _erodata = .;                /* End of read-only data */
+ 
+   . = ALIGN(PAGE_SIZE);
++  .data.ro_after_init : {
++      __ro_after_init_start = .;
++      *(.data.ro_after_init)
++      . = ALIGN(PAGE_SIZE);
++      __ro_after_init_end = .;
++  } : text
++
+   .data.read_mostly : {
+        /* Exception table */
+        __start___ex_table = .;
+-- 
+2.37.1
+
 
