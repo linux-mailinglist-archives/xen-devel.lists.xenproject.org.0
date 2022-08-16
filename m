@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 936A1594EBE
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 04:38:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.387861.624356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4A2D594F03
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 05:19:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.387916.624390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNmSo-0002Bc-4g; Tue, 16 Aug 2022 02:37:54 +0000
+	id 1oNn5s-0008UB-LG; Tue, 16 Aug 2022 03:18:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 387861.624356; Tue, 16 Aug 2022 02:37:54 +0000
+Received: by outflank-mailman (output) from mailman id 387916.624390; Tue, 16 Aug 2022 03:18:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNmSo-00028U-1u; Tue, 16 Aug 2022 02:37:54 +0000
-Received: by outflank-mailman (input) for mailman id 387861;
- Tue, 16 Aug 2022 02:37:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YdlV=YU=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1oNmSm-0008P8-Ej
- for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 02:37:52 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 6c45e917-1d0c-11ed-bd2e-47488cf2e6aa;
- Tue, 16 Aug 2022 04:37:51 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9630C106F;
- Mon, 15 Aug 2022 19:37:51 -0700 (PDT)
-Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
- [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2CE423F70D;
- Mon, 15 Aug 2022 19:37:46 -0700 (PDT)
+	id 1oNn5s-0008SI-Hq; Tue, 16 Aug 2022 03:18:16 +0000
+Received: by outflank-mailman (input) for mailman id 387916;
+ Tue, 16 Aug 2022 03:18:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oNn5r-0008S8-05; Tue, 16 Aug 2022 03:18:15 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oNn5q-0003J7-Ub; Tue, 16 Aug 2022 03:18:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oNn5q-0008QX-DS; Tue, 16 Aug 2022 03:18:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oNn5q-0000sS-Ck; Tue, 16 Aug 2022 03:18:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,121 +42,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c45e917-1d0c-11ed-bd2e-47488cf2e6aa
-From: Penny Zheng <Penny.Zheng@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=2z7za2tJUdJ+R4Qq1AAuj31mx2wPB6juyz+eKD/UFss=; b=6Gq0OGM/k6N7IMBiM0yvFK2r4l
+	xnwlPannwszoE8NK6zvwNYyTyj21kMz8atESzFDly2NkkDIJaxBdGjLgBURKz6lQcfbREy+ZhUNsn
+	oFGEnBhZBL3lZye1z0F1cQXHwvX7IxtfZxhBWuDpwrb3IfAuXGJzyDizC4JprGdr+WWI=;
 To: xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com,
-	Penny Zheng <Penny.Zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v10 9/9] xen: rename free_staticmem_pages to unprepare_staticmem_pages
-Date: Tue, 16 Aug 2022 10:36:58 +0800
-Message-Id: <20220816023658.3551936-10-Penny.Zheng@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220816023658.3551936-1-Penny.Zheng@arm.com>
-References: <20220816023658.3551936-1-Penny.Zheng@arm.com>
-MIME-Version: 1.0
+Message-ID: <osstest-172552-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 172552: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=809b5a3d2a3b7732459dd63c9382fe6ec42d1856
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 16 Aug 2022 03:18:14 +0000
 
-The name of free_staticmem_pages is inappropriate, considering it is
-the opposite of function prepare_staticmem_pages.
+flight 172552 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172552/
 
-Rename free_staticmem_pages to unprepare_staticmem_pages.
+Regressions :-(
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
----
-v10 changes:
-- new commit
----
- xen/arch/arm/setup.c    |  3 ++-
- xen/common/page_alloc.c | 15 +++++++++------
- xen/include/xen/mm.h    |  4 ++--
- 3 files changed, 13 insertions(+), 9 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 500307edc0..4662997c7e 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -639,7 +639,8 @@ static void __init init_staticmem_pages(void)
-             if ( mfn_x(bank_end) <= mfn_x(bank_start) )
-                 return;
- 
--            free_staticmem_pages(mfn_to_page(bank_start), bank_pages, false);
-+            unprepare_staticmem_pages(mfn_to_page(bank_start),
-+                                      bank_pages, false);
-         }
-     }
- #endif
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 9c6d369d10..7306d69129 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -2693,9 +2693,12 @@ struct domain *get_pg_owner(domid_t domid)
- }
- 
- #ifdef CONFIG_STATIC_MEMORY
--/* Equivalent of free_heap_pages to free nr_mfns pages of static memory. */
--void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
--                          bool need_scrub)
-+/*
-+ * It is the opposite of prepare_staticmem_pages, and it aims to unprepare
-+ * nr_mfns pages of static memory.
-+ */
-+void unprepare_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-+                               bool need_scrub)
- {
-     mfn_t mfn = page_to_mfn(pg);
-     unsigned long i;
-@@ -2740,7 +2743,7 @@ void free_domstatic_page(struct page_info *page)
- 
-     drop_dom_ref = !domain_adjust_tot_pages(d, -1);
- 
--    free_staticmem_pages(page, 1, scrub_debug);
-+    unprepare_staticmem_pages(page, 1, scrub_debug);
- 
-     /* Add page on the resv_page_list *after* it has been freed. */
-     page_list_add_tail(page, &d->resv_page_list);
-@@ -2848,7 +2851,7 @@ static int assign_domstatic_pages(struct domain *d, struct page_info *pg,
- 
-     if ( assign_pages(pg, nr_mfns, d, memflags) )
-     {
--        free_staticmem_pages(pg, nr_mfns, memflags & MEMF_no_scrub);
-+        unprepare_staticmem_pages(pg, nr_mfns, memflags & MEMF_no_scrub);
-         return -EINVAL;
-     }
- 
-@@ -2902,7 +2905,7 @@ mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags)
-     return page_to_mfn(page);
- 
-  fail_assign:
--    free_staticmem_pages(page, 1, memflags & MEMF_no_scrub);
-+    unprepare_staticmem_pages(page, 1, memflags & MEMF_no_scrub);
-  fail:
-     spin_lock(&d->page_alloc_lock);
-     page_list_add_tail(page, &d->resv_page_list);
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 5d29aea7ad..a925028ab3 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -86,8 +86,8 @@ bool scrub_free_pages(void);
- #define FREE_XENHEAP_PAGE(p) FREE_XENHEAP_PAGES(p, 0)
- 
- /* These functions are for static memory */
--void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
--                          bool need_scrub);
-+void unprepare_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-+                               bool need_scrub);
- void free_domstatic_page(struct page_info *page);
- int acquire_domstatic_pages(struct domain *d, mfn_t smfn, unsigned int nr_mfns,
-                             unsigned int memflags);
--- 
-2.25.1
+version targeted for testing:
+ ovmf                 809b5a3d2a3b7732459dd63c9382fe6ec42d1856
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
+Last test of basis   172136  2022-08-04 06:43:42 Z   11 days
+Failing since        172151  2022-08-05 02:40:28 Z   11 days   99 attempts
+Testing same since   172540  2022-08-15 09:40:43 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 648 lines long.)
 
