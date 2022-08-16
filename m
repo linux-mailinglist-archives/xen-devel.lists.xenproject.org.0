@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA8BB595E76
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 16:42:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388336.624966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 793D5595EE6
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 17:21:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388345.624976 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNxl8-0005xQ-Jq; Tue, 16 Aug 2022 14:41:34 +0000
+	id 1oNyMt-0001ia-KY; Tue, 16 Aug 2022 15:20:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388336.624966; Tue, 16 Aug 2022 14:41:34 +0000
+Received: by outflank-mailman (output) from mailman id 388345.624976; Tue, 16 Aug 2022 15:20:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNxl8-0005vK-Gm; Tue, 16 Aug 2022 14:41:34 +0000
-Received: by outflank-mailman (input) for mailman id 388336;
- Tue, 16 Aug 2022 14:41:33 +0000
+	id 1oNyMt-0001g5-Hv; Tue, 16 Aug 2022 15:20:35 +0000
+Received: by outflank-mailman (input) for mailman id 388345;
+ Tue, 16 Aug 2022 15:20:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gn2R=YU=leemhuis.info=regressions@srs-se1.protection.inumbo.net>)
- id 1oNxl7-0005vE-Iq
- for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 14:41:33 +0000
-Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
- [2a01:488:42:1000:50ed:8234::])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84441016-1d71-11ed-9250-1f966e50362f;
- Tue, 16 Aug 2022 16:41:31 +0200 (CEST)
-Received: from [2a02:8108:963f:de38:eca4:7d19:f9a2:22c5]; authenticated
- by wp530.webpack.hosteurope.de running ExIM with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- id 1oNxkr-0006js-Lz; Tue, 16 Aug 2022 16:41:17 +0200
+ <SRS0=REbT=YU=citrix.com=prvs=22068c4b7=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oNyMs-0001fz-KZ
+ for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 15:20:34 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6d3b984-1d76-11ed-9250-1f966e50362f;
+ Tue, 16 Aug 2022 17:20:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,80 +36,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84441016-1d71-11ed-9250-1f966e50362f
-Message-ID: <6b40ecc3-a2d3-3efd-4a19-2faf737f098b@leemhuis.info>
-Date: Tue, 16 Aug 2022 16:41:16 +0200
+X-Inumbo-ID: f6d3b984-1d76-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1660663232;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YSnMcxQ9HrAflODWsdf//EDlkMtOxbLqr6KuuDOSUUg=;
+  b=NYkXlfZV/mwkch/QhY1u14edrhK+bBPVlqeH4qIEpVMSn0rpNUHbdjNz
+   QOYYcFOQC9tfwY0q6xOz84NeZDL9A4QrG6hR/WruD+L3arAYZOzqgGPC1
+   W7P3TsBr20xxASncr+peGwQ0hdFSJbWuvW1B8ujLcmtncq61J5NkuAqcr
+   4=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 77957982
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:d02LtqLI9Hnrbvn6FE+RG5UlxSXFcZb7ZxGr2PjKsXjdYENSgWFSy
+ jAcUG+Fb66OY2D1fdxzbom280JV6sCHnNZrGgNlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokf0/0vraP65xZVF/fngbqLmD+LZMTxGSwZhSSMw4TpugOd8iYNz6TSDK1rlV
+ eja/ouOYzdJ5xYuajhOs/La9ks11BjPkGhwUmIWNKgjUGD2zxH5PLpHTYmtIn3xRJVjH+LSb
+ 44vG5ngows1Vz90Yj+Uuu6Tnn8iG9Y+DiDX4pZiYICwgwAqm8AH+v1T2Mzwy6tgo27hc9hZk
+ L2hvHErIOsjFvWkdO81C3G0H8ziVEHvFXCuzXWX6KSuI0P6n3TEwvdzIkcoG4ojy/9rWGZ08
+ 800cz9UV0XW7w626OrTpuhEg80iKI/gPZ8Fu2EmxjbcZRokacmdGeOQv4YehWpuwJAVdRrdT
+ 5NxhT5HZRLcYxpJKxEPBYg3huuAjXjjaTxI7lmSoMLb5kCMk10sj+m9arI5fPSTRvlaw02Kh
+ 1vP4kHWJT0xboCGjhCspyfEaujnwnqgBdN6+KeD3uVxnFSZy2gXCRsXfVi2u/+0jgi5Qd03A
+ 0YZ4DY0pK4+skmiVMDgXgaQqWSB+BUbXrJ4Leo+7w2cz7vO1CyQDGMEUz1pZcQvsYk9QjlC/
+ kCEnpXiBTFpmLSPTDSW8bL8hTGvPSkYK0cSaClCShEKi/HzrYd2gh/RQ9JLFK+uksazCTz22
+ yqNriU1m/MUl8Fj/6ex8E3DgjmsjoPUVQNz7QLSNl9J9SsgOtTjPdbxrwGGs7AQd+51U2Vto
+ lAFmdWw6v4oCqq8jTDUR98LLZ3y6K+8ZWi0bUFUI3Uxy9i80yf9I9gOu2sidRoB3tUsImGwP
+ hKK0e9FzNoKZSbxM/cqC26kI55ypZUMA+gJQRw9gjBmRpFqPDGK8yh1DaJ79zC8yRN8+U3T1
+ HryTCpNMZr5If4+pNZOb71BuYLHPwhnrY8pebj1zg68zZ2Vb2OPRLEOPTOmN75ntP7U8FuNr
+ Y0EZ6NmLimzt8WvChQ7DKZJdQxaRZTFLcqeRzNrmh6rfVM9RTBJ5w75yrI9YY1195loehPz1
+ ijkAidwlQug7UAr3C3QNRiPnpuzAsskxZ/6VARwVWuVN48LONz/sv9OJ8pvFVTlncQ6pcNJo
+ zA+U53oKpxypv7voWt1gUXVxGC6SCmWuA==
+IronPort-HdrOrdr: A9a23:djcut6phdIQ9oy6TGIMkm7AaV5oreYIsimQD101hICG8cqSj+f
+ xGuM5rsSMc6QxhPU3I9ursBEDtex/hHNtOkO4s1NSZLWvbUQmTTL2KhLGKq1aLJ8S9zJ8/6U
+ 4JSdkZNDSaNzlHZKjBjzWFLw==
+X-IronPort-AV: E=Sophos;i="5.93,241,1654574400"; 
+   d="scan'208";a="77957982"
+Date: Tue, 16 Aug 2022 16:20:02 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Julien Grall <julien@xen.org>
+CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, "Wei
+ Chen" <wei.chen@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: [XEN PATCH] build: Fix x86 build without EFI
+Message-ID: <Yvu1oi0RLNfpR52M@perard.uk.xensource.com>
+References: <20220816103043.32662-1-anthony.perard@citrix.com>
+ <741163de-607f-dbfd-e9f8-ef3072a16de6@xen.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.1.0
-Subject: Re: [PATCH 0/3] x86: make pat and mtrr independent from each other
-To: Chuck Zmudzinski <brchuckz@netscape.net>
-Cc: jbeulich@suse.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, regressions@lists.linux.dev,
- xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- Juergen Gross <jgross@suse.com>
-References: <20220715142549.25223-1-jgross@suse.com>
- <efbde93b-e280-0e40-798d-dc7bf8ca83cf@leemhuis.info>
- <a0ce2f59-b653-fa8b-a016-1335f05c86ae@netscape.net>
- <32ed59c9-c894-c426-dd27-3602625cf3b1@netscape.net>
- <c88ea08c-a9d5-ef6a-333a-db9e00c6da6f@suse.com>
- <bd66b5bc-4d07-d968-f46c-40cf624499a7@netscape.net>
- <a29a66e0-2075-8084-84ad-8bd3e8a9fd4a@netscape.net>
- <a7d10605-87e3-c4bd-4a76-f07a04f5751c@leemhuis.info>
- <8d148826-62a5-95f9-8662-be14f56a6336@netscape.net>
-Content-Language: en-US
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-In-Reply-To: <8d148826-62a5-95f9-8662-be14f56a6336@netscape.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-bounce-key: webpack.hosteurope.de;regressions@leemhuis.info;1660660891;1f536560;
-X-HE-SMSGID: 1oNxkr-0006js-Lz
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <741163de-607f-dbfd-e9f8-ef3072a16de6@xen.org>
 
-On 15.08.22 20:17, Chuck Zmudzinski wrote:
-> On 8/15/2022 2:00 PM, Thorsten Leemhuis wrote:
->
->> the right people have the issue on their radar again; give them time to
->> breath and work out a solution: it's not something that can be fixed
->> easily within a few minutes by one person alone, as previous discussions
->> have shown (also keep in mind that the merge window was open until
->> yesterday, which keeps many maintainers quite busy).
->>
->> And FWIW: I've seen indicators that a solution to resolve this is
->> hopefully pretty close now.
+On Tue, Aug 16, 2022 at 12:01:40PM +0100, Julien Grall wrote:
+> >   xen/common/efi/{stub.c => common_stub.c} | 6 ++++++
 > 
-> That's good to know. But I must ask, can you provide a link to a public
-> discussion that indicates a fix is close?
+> I haven't looked at the rest of the patch. However, I think you also want to
+> update .gitignore to excluse arch/*/efi/common_stub.c.
+> 
+> Also, I am thinking to drop my patch [1] which update .gitignore as this
+> will become moot with this change. Let me know what you think.
 
-I just searched for the commit id of the culprit yesterday like this:
-https://lore.kernel.org/all/?q=bdd8b6c982*
+Sound good,
 
-Which brought me to this message, which looks like Boris applied a
-slightly(?) modified version of Jan's patch to a branch that afaik is
-regularly pushed to Linus:
-https://lore.kernel.org/all/166055884287.401.612271624942869534.tip-bot2@tip-bot2/
+Thanks,
 
-So unless problems show up in linux-next I expect this will land in
-master soon (and a bit later be backported to stable due to the CC
-stable tag).
-
-> Or do you know a fix is close
-> because of private discussions? That distinction is important to me
-> because open source software is much less useful to me if the solutions
-> to problems are not discussed openly (except, of course, for solutions
-> to security vulnerabilities that are not yet public).
-
-You IMHO are expecting a bit too much here IMHO. Solutions to problems
-in open source software get discussed on various, sometimes private
-channels all the time. Just take conferences for example, where people
-discuss them during talks, meetings, or in one-to-ones over coffee;
-sometimes they are the only way to solve complex problems. But as you
-can see from above link it's not like anybody is trying to sneak things
-into the kernel.
-
-Ciao, Thorsten
+-- 
+Anthony PERARD
 
