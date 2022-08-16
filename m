@@ -2,64 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E03545953C9
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 09:29:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388012.624538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CC745953D1
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 09:32:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388021.624549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNr0j-0004OI-7M; Tue, 16 Aug 2022 07:29:13 +0000
+	id 1oNr3x-0005sG-QP; Tue, 16 Aug 2022 07:32:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388012.624538; Tue, 16 Aug 2022 07:29:13 +0000
+Received: by outflank-mailman (output) from mailman id 388021.624549; Tue, 16 Aug 2022 07:32:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNr0j-0004Lu-4I; Tue, 16 Aug 2022 07:29:13 +0000
-Received: by outflank-mailman (input) for mailman id 388012;
- Tue, 16 Aug 2022 07:29:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oNr3x-0005pc-NC; Tue, 16 Aug 2022 07:32:33 +0000
+Received: by outflank-mailman (input) for mailman id 388021;
+ Tue, 16 Aug 2022 07:32:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F5ti=YU=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1oNr0h-0004Lo-HL
- for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 07:29:11 +0000
+ id 1oNr3v-0005pW-Pf
+ for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 07:32:31 +0000
 Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2052.outbound.protection.outlook.com [40.107.20.52])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18d6127e-1d35-11ed-924f-1f966e50362f;
- Tue, 16 Aug 2022 09:29:01 +0200 (CEST)
-Received: from AS9PR04CA0179.eurprd04.prod.outlook.com (2603:10a6:20b:530::21)
- by VI1PR0801MB1709.eurprd08.prod.outlook.com (2603:10a6:800:59::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.25; Tue, 16 Aug
- 2022 07:28:58 +0000
-Received: from AM7EUR03FT062.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:530:cafe::2d) by AS9PR04CA0179.outlook.office365.com
- (2603:10a6:20b:530::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.19 via Frontend
- Transport; Tue, 16 Aug 2022 07:28:58 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT062.mail.protection.outlook.com (100.127.140.99) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5525.11 via Frontend Transport; Tue, 16 Aug 2022 07:28:57 +0000
-Received: ("Tessian outbound 6a3290ff1310:v123");
- Tue, 16 Aug 2022 07:28:57 +0000
-Received: from 224bccac7c87.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 68FA9E83-DCD7-4EDF-959B-D0323539AE24.1; 
- Tue, 16 Aug 2022 07:28:51 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 224bccac7c87.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 16 Aug 2022 07:28:51 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by PAXPR08MB6479.eurprd08.prod.outlook.com (2603:10a6:102:157::14)
+ (mail-db8eur05on2071.outbound.protection.outlook.com [40.107.20.71])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 95ade6d3-1d35-11ed-bd2e-47488cf2e6aa;
+ Tue, 16 Aug 2022 09:32:30 +0200 (CEST)
+Received: from AS9PR06CA0768.eurprd06.prod.outlook.com (2603:10a6:20b:484::23)
+ by AM0PR08MB5396.eurprd08.prod.outlook.com (2603:10a6:208:182::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.10; Tue, 16 Aug
- 2022 07:28:50 +0000
+ 2022 07:32:28 +0000
+Received: from AM7EUR03FT036.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:484:cafe::61) by AS9PR06CA0768.outlook.office365.com
+ (2603:10a6:20b:484::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.13 via Frontend
+ Transport; Tue, 16 Aug 2022 07:32:28 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT036.mail.protection.outlook.com (100.127.140.93) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5525.11 via Frontend Transport; Tue, 16 Aug 2022 07:32:27 +0000
+Received: ("Tessian outbound 63c09d5d38ac:v123");
+ Tue, 16 Aug 2022 07:32:27 +0000
+Received: from e3c4ff781aa7.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 156127E4-A732-46EF-8760-8EC5616CB6A6.1; 
+ Tue, 16 Aug 2022 07:32:20 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id e3c4ff781aa7.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 16 Aug 2022 07:32:20 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by DB8PR08MB5433.eurprd08.prod.outlook.com (2603:10a6:10:118::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.15; Tue, 16 Aug
+ 2022 07:32:17 +0000
 Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
  ([fe80::f474:4549:1f7a:b89a]) by AM6PR08MB3784.eurprd08.prod.outlook.com
  ([fe80::f474:4549:1f7a:b89a%4]) with mapi id 15.20.5504.025; Tue, 16 Aug 2022
- 07:28:49 +0000
+ 07:32:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,14 +71,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18d6127e-1d35-11ed-924f-1f966e50362f
+X-Inumbo-ID: 95ade6d3-1d35-11ed-bd2e-47488cf2e6aa
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=kkGqmuE996UwnEclatOcTMz72SJFyytdXhhJl58bWT5mFmC4bsmhG0yluII9hjlhu2ntwu5b/jw85o+US65Irg8r00LboWAsRX1IzAo2/cWIn1ihvJgA7E9bR7YMapkF6fnTFQjJ4o7gabPXO6S4hsK8+Lufa5ESj3RGVLYSmLmT7/Co49c9ISFSQ9nlUcjRcS8ouzZ46qd6ibNR4WlWrlYm9tsAKgaC4+pQPLDpRiLXWeWzxg51lqU6hT4R1Q0B3hCOe6r48LkSrdqKUrfmB++jMVbBxJgPHzfqWulUWy9IjlZK71BIhzLeN7uYgkj8oDnNR3MAebctYbX+I+RXwg==
+ b=Rk4xSC09Zrb1aMzpdqpcSaayhk0ShmzjjhY4GeF53yJESI50FOx910RETu5cC1xisXx2op/0ELOR6La/pOkAMsmVpP47aB2sqvlEX8ggbPGTn8bhpC8A1O99bWioYYjJ7+Av0KS7TYO//fTQNOXq3gAQ0KdRRFxNwJYQJBAQqELg5vcuXuPlczIxaZcLEd2JwmdAiKTFHAEx1oD6l0QO/hmtJyVZmab+JFm3ucoLchjmC9IrXyFJPI+t8vsIpx11jrtnAZ4Zb6CjO5H5xVdNBTKNo3ME8p8ixPttzPOb9L2BE2y6FgA6PuPeMQGDR209cePdzRexaeehT0Dc96PrbA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VPapwNYuZ+DBoI0CbtiBl4Dh5gmTwk6+D+SKzNwRh4E=;
- b=bgWSfjkM6QA23UvjAX2tAUW389OYcB/6rhvq09pm2ltDDT7bMdiSwpsN5R3hoaw+zk2j8Gc6pvbkdNHnbPHL2uxmGay326GCdQE6m4nHhgpQM5w3V+zhEfLK8ZPsfx2rn2e+wdgHiRcNJkCquf7WeRcPKUjcAyr21Lnb7j/v9C2VOvZiiKB5njGzLu+fgqtvr3cbHR/CF0GV9SUB1xf0MiHw7IQa1G+HuaBLejvkB1ld3FaUJrxA6AuzdhU0NP0uTOAoZt9jGBY53+j35STb2meJmcvWonf2yzTjtJttkF4KRcWHdZiiUOf8CUAoghJJEDlb9uLXvL7QvK8Tby3Kjw==
+ bh=eGiGwUcULGuBmNzvtT11Xp+cYSLxlwnLgLpktrDTSEI=;
+ b=XwLY9iBUnptkDfQ4Yd2Yg7kDC+nOF9wA7bZSEafl6FwsJULq3ew/BWbXJs5tsV9sVwLdb4JcH/fAg1shiXtqF0iaqgCHGpsK4PFXV5RGz6QbbctKv/0dv+qZHd9w3TRe6V5mksDQCnW5EQ7SaLgQJQRARB7LyZOnUuQ3rSUDo/UPX/1G+60TuPbaYCB/JSdSLKjqQQHX4DQdhF54HM/OA8X5nPMBUEk8I4zUM5aaSwxAXLukr/iT2N57kjTzVcvoknOH+83tE+rCvRI9MfShG2S2nmPf6u0DoMMvZrbaSpv7rmP33zOw0ZKPd8FGehSSu7mNzxKu+VoOJW7uKyqAMA==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -88,8 +88,8 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VPapwNYuZ+DBoI0CbtiBl4Dh5gmTwk6+D+SKzNwRh4E=;
- b=RgNSyIpb3fCPXhFFtRg42UucxcVdGmiBCenu9PEMYYr0wGiS7w2B4xcm5zzdS9JNkUY5Vy/2N8zF8J1+DPMA6JrQ8OahSGxhlX+os0aQG/LC8SiDsGdaRyhstCoG0Y5E05Nj68AgaeJv9skFhv7WOhUTNHB41cah3uXQ53q3Dls=
+ bh=eGiGwUcULGuBmNzvtT11Xp+cYSLxlwnLgLpktrDTSEI=;
+ b=SHFjr9NpphG6oj8uWF3C6hdWOVLWmaBKe+OXdYBxJu7waW7iMljrhIw8T7Vjk5voymhDU3DXILJDWyGLjmxbr3K1P4zzXr/VBGC3jyLbgLVPhHScWdaLpR6tqIK9eEWGbl6iEn6HpJEVnDMEhVpAIR4JpW+8UB8vR2qxQ9YC8jw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -98,40 +98,42 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
  pr=C
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 7d97e9debdc44ce3
+X-CR-MTA-CID: 8249ce0e93bf4e9d
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XzcMAg0M61gcdDfveGJThRAVAMa9PEyUw4znzTqFXmSxBFChg7uyyAI8GXPGorR3NQbXznDRxbpyir2U6PUkUkt/4eF4b/zmKNkvoIOQKw7q+fvChiM2d9yVexQTzcjg6HkdEtQkm0byNJijRuls6FM+iGuxgr+yCcdUi7vxM7dOW+eZAS9vK4I4ZzHF6HhMBvC0j9NUdrGfObclrXaeRrQjtjn1FvQ/tul6muUzm1KK5+8V1QkUgJFZZLbEDKAxaxNuwZ0Z2r/WI2/8nJInbfT5gkK1TSXbS9kPRhrbS86NfF56rGfW21ZNrtkfY5jx9ZiAq0yRSrfKL17PWLpQVA==
+ b=jmho0aDm3OpAawUnAbrzkk/slyRdF4YgZIcpw1x/1N9aPBQ8JrCWqGk4Sky/rZK7KNB11eDFaQaJAVeCoORouNxvGwuTRl+8HgcPPgAcNZMIT425j1/TdsoyDzkahxLAthDk11GFodlhFtxCIrlDmePRD8xsw4TpR/d1xEdSPTeuSIeRYwiL0gfXvLrN2wJrVPtP6Jgcj96DGndZiqHLaS3hqAl8bzA1W95k4BOuhvCb9nEpV8ZRfFHthBXJ5QbXfe4EvJZNU1QVULCrpK9T0owpT4dhcc661pLH6S+eRwFpffLQFBHacRWUQCObGI928+CTDswxpJFkTpT5UjxFVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VPapwNYuZ+DBoI0CbtiBl4Dh5gmTwk6+D+SKzNwRh4E=;
- b=jyePh+Tq5RCFJjNp/xKloD30HpHV7QlN4Htj1OpbJ37i2FawRsTuQpt00RIpIHqp6snWFoseC2gmu4evGMxqxzXxKupAun5qA0M3NZxnaTfwbCwsal8fZ0mC//zR71uBEX6d+m1q9XSgcMWVOL58SkBxBjhr7rmqrwYetMf8BrbUsb4x2Hs0CVly6eeAPWBlH77Qt4cpVzBWuQImASsHi+ajtgNO3MKqsbJ3wisYr+C+RTP/JlmuUsz6ik8GEbfBoH2kP/w/8DnQNu8qIsbDy3YEpBrlkfU7jiRyl24ehhad/rwlqCWEqwmyYfn4K2MTnGckCgPmNHVK6zFWAnw/lA==
+ bh=eGiGwUcULGuBmNzvtT11Xp+cYSLxlwnLgLpktrDTSEI=;
+ b=gJa+J7No3Ia/5brXcQckvOU6uyXfVuqew5gBoA/ZQO/W9lZVel6EelVpX0jz50V/kfaL82XLUHhoQ/KNVhATAK1iLr86x8aaJk49dFsYqkhn/7xCRRDMn0cNUJu1H3QaNzATrjP8jNNduOaH3+4NqRPZ/+9rBUb+C37rtOU+X6xQRsEggXamb47Ira47M4W23ioGXhgC9GddsyNXRGWQWTRbT3rmIxHnC/S1MGnWdv9zmiLtYZBsSOcMukJsWIUx41cFbbKlhUllrYaxOKh70+miHS4UyVUMzPX7xn1IRgGFR7epMPMkGSWOSj/NKUFQfouvbJQir9yqapx4afuKqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VPapwNYuZ+DBoI0CbtiBl4Dh5gmTwk6+D+SKzNwRh4E=;
- b=RgNSyIpb3fCPXhFFtRg42UucxcVdGmiBCenu9PEMYYr0wGiS7w2B4xcm5zzdS9JNkUY5Vy/2N8zF8J1+DPMA6JrQ8OahSGxhlX+os0aQG/LC8SiDsGdaRyhstCoG0Y5E05Nj68AgaeJv9skFhv7WOhUTNHB41cah3uXQ53q3Dls=
+ bh=eGiGwUcULGuBmNzvtT11Xp+cYSLxlwnLgLpktrDTSEI=;
+ b=SHFjr9NpphG6oj8uWF3C6hdWOVLWmaBKe+OXdYBxJu7waW7iMljrhIw8T7Vjk5voymhDU3DXILJDWyGLjmxbr3K1P4zzXr/VBGC3jyLbgLVPhHScWdaLpR6tqIK9eEWGbl6iEn6HpJEVnDMEhVpAIR4JpW+8UB8vR2qxQ9YC8jw=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: xen-devel <xen-devel@lists.xenproject.org>, Julien Grall
-	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 7/7] xen/arm32: traps: Dump more information for
- hypervisor data abort
-Thread-Topic: [PATCH 7/7] xen/arm32: traps: Dump more information for
- hypervisor data abort
-Thread-Index: AQHYroFFG1SBMYgirU+4BTxPWgpRqa2wLhCAgAAHIICAAPF0gA==
-Date: Tue, 16 Aug 2022 07:28:49 +0000
-Message-ID: <73D6802A-8557-42A7-94F2-9F696919283D@arm.com>
-References: <20220812192448.43016-1-julien@xen.org>
- <20220812192448.43016-9-julien@xen.org>
- <C817E0AC-5A5F-46AD-8D1C-A472F9C004CF@arm.com>
- <8d60c472-8ac0-bc45-4eef-6f14d2afa668@xen.org>
-In-Reply-To: <8d60c472-8ac0-bc45-4eef-6f14d2afa668@xen.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>, "george.dunlap@citrix.com"
+	<george.dunlap@citrix.com>, "andrew.cooper3@citrix.com"
+	<andrew.cooper3@citrix.com>, "Volodymyr_Babchuk@epam.com"
+	<Volodymyr_Babchuk@epam.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
+	"wl@xen.org" <wl@xen.org>, "roger.pau@citrix.com" <roger.pau@citrix.com>
+Subject: Re: [PATCH] add SPDX to arch/arm/*.c
+Thread-Topic: [PATCH] add SPDX to arch/arm/*.c
+Thread-Index: AQHYrq/rjydG2NzoBE6skSmHVGc0Aq2seUCAgAP1yICAALg2AA==
+Date: Tue, 16 Aug 2022 07:32:17 +0000
+Message-ID: <655CFF12-6B2E-4604-A604-E614F5B3DBDE@arm.com>
+References:
+ <alpine.DEB.2.22.394.2208121758520.3790@ubuntu-linux-20-04-desktop>
+ <a604ce43-2b3f-7ac3-36a1-913a66f036d2@xen.org>
+ <alpine.DEB.2.22.394.2208151319370.3790@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2208151319370.3790@ubuntu-linux-20-04-desktop>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -139,98 +141,329 @@ X-MS-TNEF-Correlator:
 x-mailer: Apple Mail (2.3696.120.41.1.1)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: c499eef8-6d57-49d8-1360-08da7f58fb5a
+X-MS-Office365-Filtering-Correlation-Id: 70c78e0a-92f6-41c7-105c-08da7f597882
 x-ms-traffictypediagnostic:
-	PAXPR08MB6479:EE_|AM7EUR03FT062:EE_|VI1PR0801MB1709:EE_
+	DB8PR08MB5433:EE_|AM7EUR03FT036:EE_|AM0PR08MB5396:EE_
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- I83kgVeC1ScIFW5vQyHJnt6W1Y/hO5voOiYVJI5M3c/2umNgQQalHQMwxjwOxT3O85MCSEHhEmfenhvlm7Slw75yfTNuKa7zpjBYjz2wBVl87ZRwXu7triqbeXh7yhrj2koHiJndqTQU3cBPJLb2vpwUtoMt2NLj3Dqg5KxyOYjjX5yeS5iLh7dPHWd9WTJnKslG4PNRoXeYUcGapv3zogJ6oC+G+Ywu4JST5CqrTI6O5Gpwd6IV3fp88X4/ljOw4YykNAT7uFqeXhsvA2CU+iX4hYwAp0ltFghv94w+TS8OtCdz57MmP4G+Dc+/Jsu/GbsAHMJA0X+yzagTQoWfm+uURLtonRu/7ncIRlPM3Vc5EjXTHNsiu6XeSHrfWrBR4PBPvBPm/iNYFQopSb/FOfdTYBYboAdqH8mBRvskU8O3tSNLJoEw+1M8/TWcpu+O+YntHXhQFKRYh8dSDcl9+GKggV6lQIjVfGO9IxaXPtb/8zvuxk/QAjo75Ur78lJzus2MsCyHGQlL7/XQPtReFbv2C+N0XWMt0q8gENz80dX6dJdsc3KqnELtXMbmvviMC/8/olh3hMpsapDlW0r9XwQ6rMQWjyoc5kWqInaLQHJ0Y81U0kM/qMrn0Mt7hWqd18cGQOyQXUQ/jYz+xTbp04vOQWmRK4O74t/3vm4xdp/WSgwWpKoW+aOrrekjn/txrx5oZ7BgSQWq+MRzYjv4Dkv/BtStzAt9fup77IZ//LNzOjayL7jEOLORfi22AKjTNEOlANP34Cyj3pygu23to8uaYflk68IY+OBZGV6lbZPy0/rYjelyYbNjg+NnWsmDOpMGtCd9lmKiiqrDbZTiDg==
+ TLhGH8ytj4xmeUIHpxhpxD4a6qMDL/qSSPxbWYLAZbAGQ50Ld8dNONvDwNKeaIECx5gTW9BQ9LbZirUJ+vNjIP9M565mHJUkYBb1vU/9OW1pMtPvgLaX1Pu97iJMvRgm8xfnp4LtmEe5/s/BTc2twfB5ujIFM3LfyOI9EjP4nTK2QFHkm3o3Fvm+7UzOoXba74wqeWtg3BAkpO150ylUiPvCdW8VVRSbdlPPhtE7ATiby2/KEXobn5FLB/qtc7HlQMp7oJaU4G5PAckRhStus4PSVqin8EHXc2E0jAmyAQKa4tl20DDG6pJujS1eHqaeze3cXvz3wXQkdTAgaARgOw/8l7YUIJdVOYGRltqwkPCdZoMnpiSNMV1NWjfcgreDDFolhSb2/9Vbp5oL5tZiyOI5X13CwoEBGYdKdZO03nr/8iVGmmVPEhFJiW+MCDpKdZHz33RGBzt+ZZ5XUuS/VKm/a4VR11Sp1EuGj8Tm0CnEI6YSvm4Cijs36/Xc1ar4BRcMEv6n2YNT5XqxzRlmd5lgjG1AnxXeDfoxsX1JaWACoDIuUikuQiGSjfqfhDDWTmDiaC8i8rFUxBVcC/pJjBtiRgP5cn80FoKGaiTY4yRa2EjjZv7VRbTH4KAuwa5ZiXge/LefziIgGccEqQNELIfvx25sUYDU1yM17UrYOAkGZRzEMXGbmnZieQyLxb7BPOk8aMqETxFwpHDbZn6U2x1p6u/Anuk0Ca1wd2xSQhTtAI6J9rEpxs0odt8kK3aQ+ON17xM3+3CATW663TtOLHCYs6NqEquztMXVfnviZ/CdLNA0WeBRRhBAD3W2t2onV4IZhDpzXyATVk1Dfz22E4/lbA7/465GyriBy1zJv02DSfwvOehrypKziA5B/K/zAjVectX1hpebgUN26DVBsg==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(346002)(136003)(366004)(39860400002)(396003)(376002)(26005)(6512007)(36756003)(91956017)(54906003)(33656002)(8936002)(5660300002)(41300700001)(478600001)(53546011)(2906002)(6506007)(2616005)(86362001)(186003)(38070700005)(83380400001)(6916009)(316002)(76116006)(6486002)(66556008)(71200400001)(8676002)(4326008)(66476007)(64756008)(66446008)(66946007)(38100700002)(122000001)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(136003)(396003)(346002)(366004)(39860400002)(376002)(83380400001)(8936002)(8676002)(54906003)(64756008)(66446008)(66556008)(4326008)(6486002)(66946007)(66476007)(71200400001)(38070700005)(316002)(91956017)(86362001)(76116006)(122000001)(6916009)(38100700002)(478600001)(33656002)(2906002)(6512007)(2616005)(53546011)(36756003)(186003)(5660300002)(26005)(41300700001)(6506007)(2004002)(21314003)(45980500001);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <DF84874566AC6D448C3D37313F0245BA@eurprd08.prod.outlook.com>
+Content-ID: <6EEE747FCD904F43B9C8858A7D41362F@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6479
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5433
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT062.eop-EUR03.prod.protection.outlook.com
+ AM7EUR03FT036.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	03726870-2493-4547-2c0d-08da7f58f6b8
+	8b81e219-8ada-4492-ba9c-08da7f597232
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	XATJMaHUQzM2vfNXlWsAJi0grun84GT0NWkwta5lU6ptQcRDqN6Jv0NbXZ0ca4bAvfq+jAMhtx3Skj6yWXa5wYH732lUBZVW05JWSzL38WmdG1A3cZwpJXvIwKSGv6UsEcz89ZYVUnM6wI/kn7OYogC3xdEWOz3JKHr1GWcr+ThEGT1Np54PZCaPLojA6hV/wzIXWmo1wzlE0BKfMItf8IVVcE6rRcBe+Vm1j1FBlKE2onRwrdhcQtSKyyZFLAI47vOnZFLbEULY8smztblMnZGHHkEd/9rHHmfaOyZrx0VKP7MEYsvpqzemJu5fJLpP4SSwiMU6BKHwdHYOOT9a9WNMjoDJFSrTjcSo6FKxLYzk/gPFyjdy1KF5RsIBw+yEx5HOIGkPFR/zXiGbiEBouHchrPqpHIxKKVT9hfNAipcEmY5i3H6rPHnNbMqeR9sxXShZfcH4qS2WWEsXwHruAkIEowhIAdhi+9eOrlG+z1X7gRm6LQXnv68X4W/gXUFj57DpQ8XW0s0HPxve6Ig9+M1SWMInPzw4+iNFqHH41/P4eSrBBDuLDy1J8dC5CBfELx4K6cd4hnO8sFC6XFiemPgnI0ogG1+nU623156fOxZV5b0DHmWHreI9FokBScYGTW5IMqgFj5SHXPRddNCRIl8l7H87escvZBJ9dJQrKLzjFVqYdgLj5nHHwGSX1SzbwrZGahPyZ90BkOaJU7A32+QmMLpMD0Tje4n8CbUumm3pt4yEyM4XIrIKtITA7mkg9rnAJlS+rpON80BsiNES0M7m7YtGIvfz1vYk+iSza1BQHoG45Z3lRATUmYcg4CDX
+	1kqyHMxEKe94hgPioGFJAfHvwQ2KwGAoqvt8kz1ttUoUcwg4Ja2yYa01janRDd6bgKw6P0Uo3sgJvBdok+/kCfacb0FCSZwAG33cFyC/rSxPmut0e2LQC+iUTklMkOnd2LqkbjrsnZPAE3IRhCfqSeN7LM9XoP80euwogYE3hLf8fZopd1c/wlmuCgSWpP5qUdykxKWYTwOJqayEeJ9nkrVjOAlqLwhMfJlC+HPgTn6gT71VP2ocvKCQkSoU+sS3MUeZIIRW3arOSpj+8Va/BU5u0xn2s2uRUdLI1O4ZZyixMFiZnHLah8TPDY2Brycw7HUPc0pMWW/j6qLyK8jyP81Akey6HwkxX3Mgmtuwb7+BqgJ9hRwBDnx+FGZium5FWsxVshh1oRFz+i4u5flEZCOo0oSdgN+ixrVCroSDv9woUW1B7uEkaNcH4UZtmw37VGCvNOSrazMOo/yWxaooIuxRrp0582Hora9RJ/nimlbnXLFo6+3qKsvsnByNDIcn3yltmPbfQzfuGXNNiloC6NGcDuy7N8Z05/XbvvvbwVl/ixTd9SRmSo8BMHhocLjGED96exxecvDuiL2OGLV7xFOF/ccxtkwc//0DLsfBIQrjXlw2FzvMWJNVYx36eonOUFr9Y2mMNj0GJ+vetDaaaWT4yBvJWHMqgGxxzgxiw/YPrdNJZZId4TnvwB4465IyqZUgy3hIA26P4Q7hgrfTTlc2BD/06F4Q3Zh3k5PepM0pvctV83LiKxXv3/aats0PIL6KC2KgwFbNo/37t2bf6tHBU6WY7BqQNutJMsflk1tDokZAeKgIPvvyAbI86TJN1x1gIvYQqbvVL8gLcamqOnhpz7SmWBQuFz3r79p3yjQLiUju72UQlbYMqMNYPmLm
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(396003)(346002)(136003)(39860400002)(376002)(36840700001)(40470700004)(46966006)(186003)(6506007)(6512007)(40460700003)(41300700001)(53546011)(356005)(33656002)(26005)(478600001)(47076005)(82740400003)(336012)(40480700001)(82310400005)(81166007)(36860700001)(86362001)(107886003)(83380400001)(70206006)(5660300002)(2616005)(70586007)(316002)(8936002)(6486002)(2906002)(54906003)(4326008)(8676002)(6862004)(36756003);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(136003)(396003)(39860400002)(376002)(346002)(40470700004)(36840700001)(46966006)(186003)(33656002)(36756003)(26005)(356005)(53546011)(86362001)(107886003)(47076005)(6506007)(336012)(81166007)(6512007)(70586007)(2616005)(82740400003)(83380400001)(41300700001)(478600001)(54906003)(6486002)(70206006)(5660300002)(316002)(2906002)(6862004)(8676002)(8936002)(36860700001)(40460700003)(40480700001)(4326008)(82310400005)(2004002)(21314003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2022 07:28:57.6555
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2022 07:32:27.6171
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c499eef8-6d57-49d8-1360-08da7f58fb5a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70c78e0a-92f6-41c7-105c-08da7f597882
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT062.eop-EUR03.prod.protection.outlook.com
+	AM7EUR03FT036.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0801MB1709
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5396
 
-Hi Julien,
+Hi Stefano,
 
-> On 15 Aug 2022, at 18:04, Julien Grall <julien@xen.org> wrote:
+> On 15 Aug 2022, at 21:32, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> + Xen maintainers and committers
 >=20
 >=20
+> For context, I wrote a patch to introduce SPDX tags starting from
+> arch/arm/*.c.
 >=20
-> On 15/08/2022 17:39, Bertrand Marquis wrote:
->> Hi Julien,
+> Julien rightfully pointed out that it should be added to our coding
+> style. He is right. Also as I was reading his replies, I realized there
+> are a couple of minor coding style things to agree as a group first.
+> I'll highlighted them here and suggested a proposal. I am happy to go
+> with the preference of the majority.
 >=20
-> Hi Bertrand,
 >=20
->>> On 12 Aug 2022, at 20:24, Julien Grall <julien@xen.org> wrote:
->>>=20
->>> From: Julien Grall <jgrall@amazon.com>
->>>=20
->>> Unlike arm64, on arm32 there are no extra information dumped (e.g.
->>> page table walk) for hypervisor data abort.
->> The code in arch/arm/traps.c has nothing arm32 specific like that so
->> could you explain this statement ?
->> Here the arm32 code will call the generic function which has only
->> something specific for BRK handling but the rest is generic.
+> ## comment format // vs /*
 >=20
-> The statement is not related to the code but the console output. On arm64=
-, a data abort will decode the HSR and provide a dump of the page-table wal=
-k.
+> In this patch I used:
+> // SPDX-License-Identifier: GPL-2.0
 >=20
-> This doesn't happen on arm32 because Xen will call do_unexpected_trap(). =
-So the only information we have is the HSR and FAR. This is not very helpfu=
-l for debugging page-table walk.
+> But our comment format is actually /* xxx */. I think it is fair to
+> use /* xxx */ as Julien requested:
 >=20
-> After this patch, the same information will be printed on arm32 and arm64=
-.
+> /* SPDX-License-Identifier: GPL-2.0 */
+>=20
+> Unless there are any concerns, I'll change the patch to /* SPDX... */
+>=20
 
-Ok then this is what I understood. Your commit message is maybe a bit uncle=
-ar.
+Agree
 
-I would add a sentence like that: Call do_trap_hyp_sync for hypervisor data=
- aborts on arm32 to have the same information than on arm64.
+>=20
+> ## blank line after SPDX
+>=20
+> In this series, I didn't add a blank line after the new SPDX comment, no
+> matter if the following line was an #include or another comment. Now I am
+> thinking it would be best to add a blank line, as follows:
+>=20
+> ---
+> /* SPDX-License-Identifier: GPL-2.0 */
+>=20
+> #include <xen/bitops.h>
+> ---
+>=20
+> Or:
+>=20
+> ---
+> /* SPDX-License-Identifier: GPL-2.0 */
+>=20
+> /*
+> * xen/arch/arm/device.c
+> *
+> ---
+>=20
+> Let me know if that's OK for you.
 
-This can be done on commit so feel free to add my:
+Agree.
+Makes things clearer I think.
 
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>=20
+>=20
+> ## Original copyright text
+>=20
+> As we add the new SDPX tag, It makes sense to remove the older copyright
+> text at the top of the file, e.g.:
+>=20
+> diff --git a/xen/arch/arm/alternative.c b/xen/arch/arm/alternative.c
+> index f03cd943c6..d0a409e4fd 100644
+> --- a/xen/arch/arm/alternative.c
+> +++ b/xen/arch/arm/alternative.c
+> @@ -1,20 +1,10 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> /*
+>  * alternative runtime patching
+>  * inspired by the x86 version
+>  *
+>  * Copyright (C) 2014-2016 ARM Ltd.
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License version 2 as
+> - * published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+>  */
+>=20
+> #include <xen/init.h>
+>=20
+>=20
+> Now the question is whether we want to keep what's left:
+>=20
+> /*
+> * alternative runtime patching
+> * inspired by the x86 version
+> *
+> * Copyright (C) 2014-2016 ARM Ltd.
+> */
+>=20
+> The Copyright line is not useful and often stale. Also the other comment
+> is not very interesting in most cases (I am referring to "alternative
+> runtime patching inspired by the x86 version"), although I realize this
+> is going to be a on case-by-case basis.
+>=20
+> My suggestion is to get rid of it all unless useful (in most cases it is
+> not useful), leading to:
+>=20
+>=20
+> diff --git a/xen/arch/arm/alternative.c b/xen/arch/arm/alternative.c
+> index f03cd943c6..e363176d1f 100644
+> --- a/xen/arch/arm/alternative.c
+> +++ b/xen/arch/arm/alternative.c
+> @@ -1,21 +1,4 @@
+> -/*
+> - * alternative runtime patching
+> - * inspired by the x86 version
+> - *
+> - * Copyright (C) 2014-2016 ARM Ltd.
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License version 2 as
+> - * published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> - */
+> +/* SPDX-License-Identifier: GPL-2.0 */
+>=20
+> #include <xen/init.h>
+> #include <xen/types.h>
+>=20
+>=20
+> Do you guys agree?
+
+Removing the copyright would probably require an agreement from the origina=
+l implementer.
+To prevent troubles and round of questions I would keep the comment and cop=
+yright for now.
 
 Cheers
 Bertrand
 
 >=20
+>=20
 > Cheers,
 >=20
-> --=20
-> Julien Grall
+> Stefano
+>=20
+>=20
+> P.S.
+> Julien, I'll reply to your other points separately to avoid confusion.
+>=20
+>=20
+> On Sat, 13 Aug 2022, Julien Grall wrote:
+>> Hi Stefano,
+>>=20
+>> On 13/08/2022 01:59, Stefano Stabellini wrote:
+>>> Add SPDX license information to all the *.c files under arch/arm.
+>>>=20
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>> ---
+>>>=20
+>>> We need to start from somewhere and I thought arch/arm/*.c would be a
+>>> good place to start.
+>>=20
+>> Thanks for doing it. This will make easier to understand the license in =
+each
+>> file. There are a couple of places below where the SDPX tag is incorrect=
+. How
+>> did you figure out the which license to use?
+>>=20
+>> Also, I think we should consider to add a section about SPDX in our codi=
+ng
+>> style so new files are using it. So we don't end up with a mix in arch/a=
+rm/*.
+>>=20
+>>>=20
+>>> diff --git a/xen/arch/arm/alternative.c b/xen/arch/arm/alternative.c
+>>> index f03cd943c6..8115f89408 100644
+>>> --- a/xen/arch/arm/alternative.c
+>>> +++ b/xen/arch/arm/alternative.c
+>>> @@ -1,3 +1,4 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>=20
+>> Technically, this is a comment. So this should be /* ... */ to follow Xe=
+n
+>> coding style. Also...
+>>=20
+>>>  /*
+>>>   * alternative runtime patching
+>>>   * inspired by the x86 version
+>>=20
+>> ... this comment contains information about the license. As you add the =
+SPDX,
+>> the "long" version should be removed. This would also make easier to ver=
+ify
+>> the SPDX you add match existing license.
+>>=20
+>>> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+>>> index ec81a45de9..7c986ecb18 100644
+>>> --- a/xen/arch/arm/bootfdt.c
+>>> +++ b/xen/arch/arm/bootfdt.c
+>>> @@ -1,3 +1,4 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>>  /*
+>>>   * Early Device Tree
+>>>   *
+>>> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+>>> index ae649d16ef..887b5426c7 100644
+>>> --- a/xen/arch/arm/cpuerrata.c
+>>> +++ b/xen/arch/arm/cpuerrata.c
+>>> @@ -1,3 +1,4 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>=20
+>> This file had no explicit license. I had a look at the 'git log' and AFA=
+ICT
+>> this was either new code and came from Linux. So this looks fine to add =
+GPLv2
+>> here.
+>>=20
+>>>  #include <xen/cpu.h>
+>>>  #include <xen/cpumask.h>
+>>>  #include <xen/init.h>
+>>> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+>>> index 62d5e1770a..a6253cb57f 100644
+>>> --- a/xen/arch/arm/cpufeature.c
+>>> +++ b/xen/arch/arm/cpufeature.c
+>>> @@ -1,3 +1,4 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>>  /*
+>>>   * Contains CPU feature definitions
+>>>   *
+>>> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
+>>> index f5f6562600..f586c3d781 100644
+>>> --- a/xen/arch/arm/decode.c
+>>> +++ b/xen/arch/arm/decode.c
+>>> @@ -1,3 +1,4 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>=20
+>> This tag doesn't match the license below. It is currently GPLv2+. I don'=
+t
+>> think you can change it without consulting the author. But if it is, the=
+n it
+>> should be mentioned in the commit message.
+>>=20
+>> I remember we discussed in the past that some files were GPLv2+. But I c=
+an't
+>> remember what was the outcome (I can't find the thread). IIRC GPLv2+ is =
+a lot
+>> more restrictive than GPLv2 and could prevent some companies to contribu=
+te.
+>>=20
+>> [...]
+>>=20
+>>> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+>>> index 2cd481979c..1a2dac95a9 100644
+>>> --- a/xen/arch/arm/domain.c
+>>> +++ b/xen/arch/arm/domain.c
+>>> @@ -1,3 +1,4 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>=20
+>> Same here about GPLv2+. Please go through the rest of the files to confi=
+rm the
+>> license.
+>>=20
+>> Cheers,
+>>=20
+>> --=20
+>> Julien Grall
+>>=20
 
 
