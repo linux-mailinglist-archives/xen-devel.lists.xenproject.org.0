@@ -2,42 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90E165957D0
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 12:16:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388198.624802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F1A559584E
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 12:31:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388207.624813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNtcO-0006Y5-A0; Tue, 16 Aug 2022 10:16:16 +0000
+	id 1oNtqk-0000Sd-Gd; Tue, 16 Aug 2022 10:31:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388198.624802; Tue, 16 Aug 2022 10:16:16 +0000
+Received: by outflank-mailman (output) from mailman id 388207.624813; Tue, 16 Aug 2022 10:31:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oNtcO-0006Ve-77; Tue, 16 Aug 2022 10:16:16 +0000
-Received: by outflank-mailman (input) for mailman id 388198;
- Tue, 16 Aug 2022 10:16:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oNtqk-0000Q2-DK; Tue, 16 Aug 2022 10:31:06 +0000
+Received: by outflank-mailman (input) for mailman id 388207;
+ Tue, 16 Aug 2022 10:31:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q2cu=YU=citrix.com=prvs=2209968cd=Jane.Malalane@srs-se1.protection.inumbo.net>)
- id 1oNtcM-0006VW-L1
- for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 10:16:14 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73a544c3-1d4c-11ed-9250-1f966e50362f;
- Tue, 16 Aug 2022 12:16:13 +0200 (CEST)
-Received: from mail-dm6nam12lp2172.outbound.protection.outlook.com (HELO
- NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.172])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 16 Aug 2022 06:16:04 -0400
-Received: from DM5PR03MB3386.namprd03.prod.outlook.com (2603:10b6:4:46::36) by
- SA1PR03MB6388.namprd03.prod.outlook.com (2603:10b6:806:1c3::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5504.15; Tue, 16 Aug
- 2022 10:16:02 +0000
-Received: from DM5PR03MB3386.namprd03.prod.outlook.com
- ([fe80::81f3:95a3:4853:a11f]) by DM5PR03MB3386.namprd03.prod.outlook.com
- ([fe80::81f3:95a3:4853:a11f%7]) with mapi id 15.20.5504.028; Tue, 16 Aug 2022
- 10:16:01 +0000
+ <SRS0=REbT=YU=citrix.com=prvs=22068c4b7=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oNtqi-0000Pw-8x
+ for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 10:31:04 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 85c738b6-1d4e-11ed-bd2e-47488cf2e6aa;
+ Tue, 16 Aug 2022 12:31:02 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,184 +36,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73a544c3-1d4c-11ed-9250-1f966e50362f
+X-Inumbo-ID: 85c738b6-1d4e-11ed-bd2e-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1660644973;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=EK2XNmUVALpfgvKkGoF4lSj8egYU2wJe1cZ+o5AYVLA=;
-  b=fnWyNm4hnjILUgbPjuIJ2mTHUJn1V2wsMPGfI/0Jx49kUaJIeZ9Kkl/t
-   WacVtncACWjUoEfWee7qBWuBizOzN5+m/X2w4yh8htt2ZcO7fiEVR6GSj
-   1AbnIYnOnKf8fvg5q6lDVPCEmQTu7q+C8NO+V3A45mClabOeiuKHjTttO
+  d=citrix.com; s=securemail; t=1660645862;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=CMoczpc6X4iEunS95Yl7Wr1c3lXS41rgyeZZWmsl8+4=;
+  b=NKSk2KnoD5GJkFqUDRgRkSB8AIh4ZaVjxNGnkdlSLqqX5pcpflOi1b7X
+   1vN0SNM9hgdOFgcjpcilVryEnx9AqsLit1691S0PoaR+2S90CXhL3NSJn
+   YrWM5L6pKHKemtcDybtFgysfu1kQeC0/13jPuSl+o+XmODD0wiSx9xcrB
    E=;
-X-IronPort-RemoteIP: 104.47.59.172
-X-IronPort-MID: 80736191
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:ZhHj9KN88vgKWGDvrR1jlsFynXyQoLVcMsEvi/4bfWQNrUorhWRTy
- TQZXj+EPa7ZZjP1eopwaoy+9k4Cup6Ax4VnTQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdleF+lH3dOCJQUBUjcmgXqD7BPPPJhd/TAplTDZJoR94kqsyj5UAbeKRWmthg
- vuv5ZyEULOZ82QsaDhMu/vd8EoHUMna41v0gHRvPZing3eG/5UlJMp3Db28KXL+Xr5VEoaSL
- woU5Ojklo9x105F5uKNyt4XQGVTKlLhFVHmZk5tc7qjmnB/Shkaic7XAha+hXB/0F1ll/gpo
- DlEWAfZpQ0BZsUgk8xFO/VU/r0X0QSrN9YrLFDm2fF/wXEqfFP87O1MIVkcY7YY+9R4LTANz
- uUpdRIkO0Xra+KemNpXS8FKr+F6dozHGd1avXttizbEEfwhXJbPBb3Q4sNV1ysxgcYIGuvCY
- 80eanxkaxGojx9nYw9LTs5h2rr5wCCgKVW0q3rMzUYzy0raygE39bHpOd7cfNGiTsRJhEeI4
- GnB+gwVBzlKbIPEl2PUqxpAgMfuzCLdCKIJS4GzzaF2hn23z2giBgUvAA7TTf6RzxTWt8hkA
- 04e9zcqrKMy3Fe2VdS7VBq9yFaGoxodVtx4A+A8rgaXxcL8+B2FD2IJSjpAbt0Ot8IsQzEuk
- FiTkLvBGjhHoLCTD3WH+d+8vT60fCQYM2IGTSsFVhcepcnuppkpiRDCRcolF7S65uAZAhn1y
- jGO6SQ72bMaiJdR073hpA+dxTWxupLOUwg5oB3NWX6o5R94Y4jjYJG07V/c7rBLK4PxokS9g
- UXoUvO2tIgmZaxhXgTUKAnRNNlFP8q4DQA=
-IronPort-HdrOrdr: A9a23:P3aAd6uMBXcCupk5f815029a7skC2oMji2hC6mlwRA09TyXGra
- 2TdaUgvyMc1gx7ZJh5o6H6BEGBKUmslqKceeEqTP2ftXrdyRGVxeZZnMbfKlzbambDH4tmuZ
- uIHJIOb+EYYWIasS++2njBLz9C+qjKzEnLv5a5854Fd2gDBM9dBkVCe3+m+yZNNWt77O8CZf
- 6hD7181l+dkBosDviTNz0gZazuttfLnJXpbVotHBg88jSDijuu9frTDwWY9g12aUIA/Z4StU
- z+1yDp7KSqtP+2jjXG0XXI0phQkNz9jvNeGc23jNQPIDmEsHfoWG0hYczDgNkGmpDs1L8Yqq
- iIn/7mBbU215rlRBD3nfIq4Xim7N9h0Q6l9bbSuwqfnSWwfkNHNyMGv/MXTvKR0TtegPhslK
- 1MxG6XrJxREFfJmzn8/cHBU1VwmlOzumdKq59ks5Vza/prVFZql/1pwGpFVJMbWC7q4oEuF+
- djSMna+fZNaFufK3TUpHNmztCgVmk6Wk7ueDlLhuWFlzxN2HxpxUoRw8IS2n8G6ZImUpFBo+
- DJKL5hmr1CRtIfKah9GOACS82qDXGle2OEDEuCZVD8UK0XMXPErJD6pL0z+eGxYZQNiIA/nZ
- zQOWkowFLau3iee/Fm8Kc7gywlGl/NIwgF4vsul6RRq/n7WKfhNzGFRRQnj9agys9vcfHmZw
- ==
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 78188457
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:o0QrCa/jaeH32dZNH1HIDrUDSn6TJUtcMsCJ2f8bNWPcYEJGY0x3y
+ mMeCD2Gb/uOamD3L9giaIy+/E1SvpOAxtU2HQRqpH88E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si+Fa+Sn9z8kvU2xbuKUIPbePSxsThNTRi4kiBZy88Y0mYctitWia++3k
+ YqaT/b3ZRn0gFaYDkpOs/jZ8EM24qyr0N8llgdWic5j7Qe2e0Y9VPrzFYnpR1PkT49dGPKNR
+ uqr5NlVKUuAon/Bovv8+lrKWhViroz6ZGBiuVIPM0SWuTBQpzRa70oOHKF0hXG7Kdm+t4sZJ
+ N1l7fRcQOqyV0HGsLx1vxJwS0mSMUDakVNuzLfWXcG7liX7n3XQL/pGUhwWPrQ589ZLI2By3
+ 6AjeA4Uaw2xvrfjqF67YrEEasULKcDqOMUUu216zCGfBvEjKXzBa/yUv5kChm52350QW6aFD
+ yYaQWMHgBDoahtTOlARGdQmkf2hnHXXeDxEslOF46Ew5gA/ySQugOG9YIaIJbRmQ+0MphaZn
+ FL/0l3pQSAROOWw72e52XeV07qncSTTB9tJSezQGuRRqF+Owm0eDjUGWF39puO24ma0VshDM
+ UUS9mwrpLIr6U2wZtDnWluzp3vsliAbX91cAugr8janw6Df4xuaLmUcRzsHY9sj3OctXiAj3
+ FKNm9LvBBRsvaeTRHbb8a2bxRuiNC5QIWIcaCssSQoe/8KlsIw1lgjITNtoDOiylNKdMTP6z
+ i2OrSM+r64OlsNN3KK+lXjYjjPqrZjESCY8/ACRVWWghj6Vf6b8OdbuswKCq68dcsDJFTFto
+ UToheDAscANNLCEpBCvQdknQIr52e+ALQ/l1AsH84Yay9i9x5KyVdkOvmkgfx01Y5tslSzBO
+ xGK514IjHNHFD7zNPIsPdrsYyg/5fK4fekJQMw4eTanjnJZUAactB9jakeLt4wGuBh9yPpvU
+ Xt3nCvFMJr7NUiE5GDvLwvl+eV3rh3SPEuKLXwB8zyp0KCFeFmeQqofPV2FY4gRtf3a+FiFo
+ 4gHaZDRm32ztdEShQGGmbP/0HhQdSRrbXwIg5Y/mhG/zvpORzh6Vq65LUIJcI15haVF/tr1E
+ oWGchYBkDLX2CyYQThmn1g5N9sDq74j8i9gVcHtVH70s0UejXGHt/1CKsVpLOh2pISOD5dcF
+ pE4RilJOdwXIhyvxtjXRcOVQFBKHPhzuT+zAg==
+IronPort-HdrOrdr: A9a23:FJjLa6gMKYQJHbUiiZH953L5oHBQXtYji2hC6mlwRA09TySZ//
+ rBoB19726RtN9xYgBHpTnuAsm9qB/nmaKdgrNhWItKPjOW21dARbsKheCJrgEIcxeOkdK1vp
+ 0AT0ERMrLN5CBB/KTH3DU=
 X-IronPort-AV: E=Sophos;i="5.93,240,1654574400"; 
-   d="scan'208";a="80736191"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P9+qI3AZYtobN7JrqI3htKai6/k2022B3glcTfku5laVHAXNNKLOt5koz2zPqcky9ThWHEmCkrkdddROb8UK3OXE1duP2S90pm1U0ELia8P8BLZx8GTDogO8xOnJFCD5fNqmHGL+BvyFdIcBCF96ObhgfqK4XkicvHtBpiGaLzgvj12sW/AOGvKG6Ogq82FrPuXU/07DuYcLC5EkbTJ7jz8GccTcikwFZFx/7uCNNG0UQF/xw+UsIPWaErn4LNzBbZJT1I+CoWUIFjGSpl3/luu1qU/YWWcRwOTqURy8Qqe2AH0+YHPJbFd/aSJTZbRVq7/tOS4e4PzUdbeBinnE+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EK2XNmUVALpfgvKkGoF4lSj8egYU2wJe1cZ+o5AYVLA=;
- b=MMdtL5Z0AzJ9Jr4P4uwPuV9iKkaBNyG9z5wVooXpKFWBXKV4kLigNq3+guZXeY8zu8WL4XFDQ8Ed/+rNnvxq+Uv0tlVauYdKHKvUSaLzgdONbwYM0EFGt63GhguCiq55U5u+aMESkk/Yj/Z4EoD6r9CWjLRNLxHt2f7rC/QVisdyaoBDdS7AvRS2xTqGHQBgew0fClHF7Vfz7Z6ZIZPgcaZBDtlBWcE0Vr0d+lcVZvIOaNMDTqgZMdufOK/sVrRV03O8N3FqT8+ijfItopu4ljkGtI8HX75+bCytltvpYLXidIvDZz3kpWw0juxZsLs7cfd6dUiuoBwNeIEj06/4BQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EK2XNmUVALpfgvKkGoF4lSj8egYU2wJe1cZ+o5AYVLA=;
- b=f96EIsjzjRYMuEG1oaxVlPBcXFo44FliOZ4F4riKst/N/MCLtOtOKR8CEPVi2MwRMeAQkeAG6crgODtgnP/MFbdaKU5atywR0ZZkwQlHXJubwZ/8QDHvuOUjtNG7tTXXjIkxqenEE/H9fda+UNTuaxJuDFF9UdIIWOUJoFz9Q10=
-From: Jane Malalane <Jane.Malalane@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <Andrew.Cooper3@citrix.com>, George Dunlap
-	<George.Dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 2/4] xen: Port linkage.h from kernel code
-Thread-Topic: [PATCH 2/4] xen: Port linkage.h from kernel code
-Thread-Index: AQHYqBOcTorV7/AaXU+jvacxRyO/Ya2gCkGAgBFX74A=
-Date: Tue, 16 Aug 2022 10:16:01 +0000
-Message-ID: <a9a16f4f-a891-0801-69f9-5ce66acbc672@citrix.com>
-References: <20220804150424.17584-1-jane.malalane@citrix.com>
- <20220804150424.17584-3-jane.malalane@citrix.com>
- <2bd30d03-1918-02c7-02b2-cff8d58c99b0@suse.com>
-In-Reply-To: <2bd30d03-1918-02c7-02b2-cff8d58c99b0@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f9eb7c0c-041b-41da-b32e-08da7f70523f
-x-ms-traffictypediagnostic: SA1PR03MB6388:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 8nqT9uQeyaL4KiznPWGcwKrEb1hvdJmZ67OCE3uGiNkvaW3p9CQp0byB7+0ZUWuCmeedSXimqcbAdC17wyA7AABIhwQ1IoaXU8HYmpQclFa13Rtuh4bEXoV/UFQM0UBt+LicCDHw5zI2axh4P0IYpi/HBM9NWzCW2tyGzCC+K1W4nK/qmLq12pYL3ttUYSr3Ee7o7BBI1R0ZH/I6ZvOF3Iuaey5QqmCrXkwn81HBsJGGUDZFcT2nZBGyo749MgtFBDlfY+s+WvqUr4GTO5lurEJ2lKIpBKHw4LQsWIbSKtmfgkKtpAZ6nfDMDUW38KtEgyxSqIIEXVj5ahayLP8w8NAxcuiGFFuPC4W2nsJRsQ/vQJs9NX37yGLIyA5/E48Ji37BxNTiUEGKkqnf02mQgBEUmJytfre/ynLOKPVhKz9f8sNlao4qW2jHawTDRfGK/JCQBDGipENxLPuWcRB/+1LU0QJYQ595EIteA0PgHHLsP8VasycKTQaXfVhjIQJdNFVwptIv+yrF9JtFBHr7oIOYoeJI/vpUe97fpe29ub3nmeh6huZSceN5TnGyImMhcy6064cXv6iMfGrvzJHT0GmSGvi9tNF4T/zPQok638xDTv0Lg+DhXvt942MXlGmv/0p0adFdDfgGvWfC4JAN0YqXzLZmLLnE0C2kdhKonxc9/xtexKqNsik1coxrvzrC/2u+FkxBeMUSBQTfuQbSQSwmijeubgmUl6tYmbJYYidUR8uUoEoor0PK1EQB8/xwnWqP5nnyfHqhUnDxm/QSac2jKWM5oQZyDPFp8QyfrAXkMtScyOaEQVNsbCO3s46cUetJux0dbKBdnIkZ/hHF8w==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM5PR03MB3386.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(39860400002)(376002)(136003)(346002)(366004)(396003)(6916009)(186003)(83380400001)(66946007)(64756008)(2616005)(38070700005)(478600001)(66446008)(8676002)(316002)(6486002)(4326008)(71200400001)(66556008)(91956017)(36756003)(66476007)(54906003)(38100700002)(122000001)(76116006)(86362001)(31696002)(8936002)(5660300002)(6512007)(26005)(82960400001)(6506007)(41300700001)(55236004)(2906002)(53546011)(31686004)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bWVjMy9zWGhXS1IrWUMrempBUXpaTGFZZWZTb3BRTStrNExpK3c0Zm9yaUE5?=
- =?utf-8?B?YmswckVZQ0pDSGZLdGcrTFdNdGVaMGdKWmdlNVdKandXa0JEcjdrWmlPN1gr?=
- =?utf-8?B?TS9xMC9pSUlnV2E5MGJwUHR0bTNyNFZWK0NjYW1TblVsN01WM3ZiVTY0NENZ?=
- =?utf-8?B?YWJGdGMwaU1QV3l2bnJCd0dCcVlHZUtUNDNjejhoTkxIWVBaWWR6bmgrMDhT?=
- =?utf-8?B?VHF5azZTKzZaM25wUFFvK1B0aXFoTHlZeVJnTS9ZOXhUUUFBTjVZVHJpaEsx?=
- =?utf-8?B?OXN0eXR0eEVpL1NSd3FtOXh5b2ZwaHVjQ3pqbmxWa3BUZ2tRdFFQeHZpR3Bj?=
- =?utf-8?B?SVhQenJiWXh2cmQvUllOdFJKWUJPanNiYnArUUh4N1NYTjBXWXBjS2ZVek8w?=
- =?utf-8?B?WFRDRDFVYmNYYU1IM090VFRaUDltU0NTVlB4K1BDQXFGU0FiVmkzRFVTcm1X?=
- =?utf-8?B?MzlXc0lMQmI2ZisvaHVCalZwZXlORmY5aGpEMUhVWDB6ZGhmdEg1Q2lhMnhl?=
- =?utf-8?B?OFFYN3FtVUVIcG1GYkRLeXNOek45djhPRmdMWGdDTFR6RXBZc3BvajBXcUdB?=
- =?utf-8?B?c3B5VUlCZVN4Q1h0R2J5M3BDSnhFaElab1loZEpjYTQzb1ZLVjVycU00R2VT?=
- =?utf-8?B?SFQ5TzM1Y1hHQ2p3aUljQTBpQUh6cENwZFRlandmRkRJVVlKZUY1TDZSazlE?=
- =?utf-8?B?S1o3MVEvT0ZJdEUrYTU2aHUzY0JBUnpPaGgzeDNmUWhMcStWMkM2cCtFWE1Y?=
- =?utf-8?B?NDBDOWVwekxlRGxvSnFZc2FlNjM2RUx2QjdXZzk2WWZTeFdLbDZvYXdTamd4?=
- =?utf-8?B?eW80YnRwczB3UEFmNlpyUitrL0N5Z2dvd0VWN0ZnSkh1cjAydFgwMUVZN1ZD?=
- =?utf-8?B?Z3ptSmRmS1NTZkVoRVptZ0J1dkE0LzhvNkFLRlNEMjZDVzhYWmFuUjNUT1pv?=
- =?utf-8?B?Z0xra2hsMmp0NXpIZTg3VytLd1hWKzFEZWRxTGo3aExEcXcvTmdnQVBraFZG?=
- =?utf-8?B?a29nUWk5amRYZ3ZyclpkdHViT2JnRlBMalNab3ZWTEZLak5jQTEweUlsSDdm?=
- =?utf-8?B?MmhmZUptU1ZxWnVobHg3bi9LNGcrQzFlSGlBaHhpVHpDY0VudjJoVkVXYWlj?=
- =?utf-8?B?MU1zdTVwTjRRY0FGcXlnQ0hpV25HQjZ3ek1HaThDYk5ZSzU0QzdMd2ZXNWdi?=
- =?utf-8?B?N2w4YkxPN2htazRCVk9oYmhBSUc0Z2F2dG1RVzRVbFBWVXE2Wm9FS00xVXZx?=
- =?utf-8?B?WjQ0d2VQRFBiU1Z0bTJKamlXeTFZcDd6M3ZpMFdpenRZR0JKdW5OdlFEQUhI?=
- =?utf-8?B?cWhYMnc5Zkx4dG9UR2o4SzBZUEtUZUwraU5lWG9pakoyZnZBckl3dWxnblBo?=
- =?utf-8?B?ZXdiK3FSUGhOcmoyUXBMV3V1WlVhMHJhMTJNSlhFbjJCMHlXYUlOQisrRnN6?=
- =?utf-8?B?MDN2ZmZhRyt2eXhzdVNsQU0wakdRWGhxQ3dGOVdBWkFqSE9KSjV5eVlxOEJU?=
- =?utf-8?B?QmpQeGd5Mm5jeWNzR1V6bHg1cWd3UzZRa1ZBOXdUVjVkYWlLdHZLVElFYVNS?=
- =?utf-8?B?VjRyZkg3dGtiVHJNQ0dUK2dNQnJ5OUpuSVdWbCtDUWVHQzJnQ0VraHFudDQw?=
- =?utf-8?B?UXQ2WUw1UDU2ZzJkNzVwejF2RDJla0VmTkhzMWR0U2ZzUkxTTTExdFowOUN2?=
- =?utf-8?B?UTVGQTd0UmpLMEVoTmVacFdBMmw2N0JnV3ZYamFrSUdVbjY2bmttYjZDcitl?=
- =?utf-8?B?K0xtSVhkSTNaa0ZCTGZUbFRFbVZVajQ3aE1Jd2RXYWY5UUplQW1RdXZSbjBT?=
- =?utf-8?B?T2UwZ2gybDlQQXNvek1tSVROZnk2UnNSd1Yzd2N2WUU2U2Z5eWxkZXZ0TFBF?=
- =?utf-8?B?NS9lWUd5eE14dXNFQU9tQ1hXZmN2cjFqeDVhWjdtQjVpSGUrMndVRjEyNzBF?=
- =?utf-8?B?ajczTE1NQnh3cVlveXZjcTR5WW5FR2o1czkrcks4TDJhR1FtZWx5TFFNOGZh?=
- =?utf-8?B?WDRJaEs5eGZVemNlckZZcnNocjgxbk9URVA1TkRacGJNK05haFJ6UFBNTm5T?=
- =?utf-8?B?UldyNnlTbHgxUDZYQWJ1Tmlldk84dk1UNDA2QWZHSzFRU0JFU0FXZWNQM3ZJ?=
- =?utf-8?B?QUFjeXZpUlpTM0VjYkR6R055a284LzJPL1JzV1l4WG04bE1wWTVoYTJPZko4?=
- =?utf-8?B?Z0E9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <475E2ADF090EB24B9EB6817F6B6B900A@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+   d="scan'208";a="78188457"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Wei Chen <wei.chen@arm.com>, "Anthony
+ PERARD" <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH] build: Fix x86 build without EFI
+Date: Tue, 16 Aug 2022 11:30:43 +0100
+Message-ID: <20220816103043.32662-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR03MB3386.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9eb7c0c-041b-41da-b32e-08da7f70523f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Aug 2022 10:16:01.9005
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Dpo/gQkmZlbm6PNUkMWzyOw21X8GMYEDHaU8W946Y6kEU9ljFSr8mPB6NiWw34qJ8TeQiNqSYtdxi0e3Enz+j1jQ8ax62oo5dgKbwYKuCWo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6388
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-T24gMDUvMDgvMjAyMiAxMDoyNCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+IE9uIDA0LjA4LjIwMjIg
-MTc6MDQsIEphbmUgTWFsYWxhbmUgd3JvdGU6DQo+PiBTdWdnZXN0ZWQtYnk6IEFuZHJldyBDb29w
-ZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+DQo+PiBTaWduZWQtb2ZmLWJ5OiBKYW5lIE1h
-bGFsYW5lIDxqYW5lLm1hbGFsYW5lQGNpdHJpeC5jb20+DQo+IA0KPiBJbiB0aGUgdGl0bGUgeW91
-IHNheSAicG9ydCIsIGJ1dCB0aGVuIHlvdSBkb24ndCBzYXkgd2hhdCBjdXN0b21pemF0aW9uDQo+
-IHlvdSd2ZSBkb25lIGJleW9uZCB0aGUgb2J2aW91cyBhZGp1c3RtZW50IG9mIGluY2x1c2lvbiBn
-dWFyZCBhbmQNCj4gYWRqdXN0bWVudCAoYWN0dWFsbHkgcmVtb3ZhbCkgb2YgI2luY2x1ZGUtcy4g
-SG93IG11Y2ggY3VzdG9taXphdGlvbiB3ZQ0KPiB3YW50IHRvIGRvIGlzIGltcG9ydGFudCBoZXJl
-LCBhZnRlciBhbGwuIEkgbm90aWNlIHlvdSBkaWQsIGZvciBleGFtcGxlLA0KPiBhZGQgbmV3IGZs
-YXZvcnMgb2YgU1lNX0lOTkVSX0xBQkVMLCBidXQgdGhlbiB5b3UgZGlkbid0IGFkZCBhbnl0aGlu
-ZyB0bw0KPiB1c2UgLmhpZGRlbiAod2hpY2ggSSBoYXZlIHF1ZXVlZCBhcyBhIG5ldyBwYXRjaCBv
-biB0b3Agb2YgYSBzdXBwb3NlZCB2Mg0KPiBvZiAieDg2OiBhbm5vdGF0ZSBlbnRyeSBwb2ludHMg
-d2l0aCB0eXBlIGFuZCBzaXplIikuIEF0IHRoZSBzYW1lIHRpbWUNCj4geW91J3ZlIGxlZnQgaW4g
-b2JqdG9vbCByZWxhdGVkIGNvbW1lbnRhcnksIHdoZW4gd2UgZG9uJ3QgdXNlIHRoYXQgdG9vbA0K
-PiAoYW5kIG5vLW9uZSBrbm93cyBpZiB3ZSBldmVyIHdpbGwpLg0KPiANCj4gSSdtIGZ1cnRoZXIg
-bm90IHN1cmUgSSBhZ3JlZSB3aXRoIHRoZSBuYW1pbmcgb2Ygc29tZSBvZiB5b3VyIGFkZGl0aW9u
-cywNCj4gYXMgdGhleSBhcHBlYXIgdG8gbm90IHJlYWxseSBmaXQgd2l0aCB0aGUgbmFtaW5nIG1v
-ZGVsIHVzZWQgZWxzZXdoZXJlLg0KPiBZb3VyIGFkZGl0aW9ucyBhbHNvIGxvb2sgdG8gbm90IGFs
-d2F5cyBtYXRjaCBzdHlsZSB1c2VkIGVsc2V3aGVyZSBpbg0KPiB0aGlzIGZpbGUuDQo+IA0KPiBZ
-b3UgZnVydGhlciB3YW50IHRvIG1lbnRpb24gd2hhdCBMaW51eCB2ZXJzaW9uIHRoaXMgd2FzIGRl
-cml2ZWQgZnJvbSwNCj4gdG8gbWFrZSBpdCBlYXNpZXIgdG8gZGV0ZXJtaW5lIHdoYXQgaW5jcmVt
-ZW50YWwgY2hhbmdlcyB0byBwb3J0IG92ZXINCj4gc3Vic2VxdWVudGx5Lg0KPiANCj4gT3ZlcmFs
-bCBJJ20gbm90IGNvbnZpbmNlZCB0aGlzIGlzIGEgbW9kZWwgd2Ugd2FudCB0byBnbyB3aXRoLCBm
-aXJzdA0KPiBhbmQgZm9yZW1vc3QgYmVjYXVzZSB0aGUgY29tbW9ubHkgdXNlZCBtYWNybyBuYW1l
-cyBhcmUgdG9vIGxvbmcgZm9yDQo+IG15IHRhc3RlLiBXaGF0J3Mgd3Jvbmcgd2l0aCBFTlRSWSgp
-IGFuZCBFTkRQUk9DKCkgLyBFTkREQVRBKCk/DQpIaSBKYW4sDQoNClNpbmNlIEkgaGF2ZSBubyBw
-YXJ0aWN1bGFyIG9waW5pb24gb24gdGhpcyBJIHdlbnQgdGhyb3VnaCB0aGUgZGlzY3Vzc2lvbiAN
-CnRoYXQgdG9vayBwbGFjZSBiZWZvcmUgdGhvc2UgbWFjcm9zIHdlcmUgaW50cm9kdWNlZCBpbiBM
-aW51eC4gT25lIG9mIHRoZSANCnBvaW50cyBtYWRlIHdhcyB0aGF0IFBST0Mgd2FzIGFuIGFtYmln
-dW91cyB0ZXJtIHRvIHVzZSwgc2luY2UgQyANCmZ1bmN0aW9ucyBhcmUgbm90IGFjdHVhbGx5IHBy
-b2NlZHVyZXMsIGF0IGxlYXN0IG5vdCBhbGwuIFRoZSBvdGhlciB3YXMgDQp0aGF0IHVzaW5nIFNU
-QVJUL0VORCBtYXJrZXJzIG1ha2UgaXQgZWFzaWVyIGZvciBhIGRldmVsb3BlciB0byByZW1lbWJl
-ciANCnRvIGFkZCB0aGUgRU5EIG1hcmtlciwgYW5kIGV2ZW50aG91Z2ggeW91IHN1Z2dlc3QgdXNp
-bmcgRU5UUlkgYW5kIG5vdCANCmp1c3QgUFJPQyBhcyB0aGUgc3RhcnQgbWFya2VyLCBTVEFSVCBt
-aWdodCBzdGlsbCBiZSBjbGVhcmVyLg0KDQpJIHdlbGNvbWUgb3RoZXIgaW5wdXQuDQoNClRoYW5r
-IHlvdSBmb3IgeW91ciByZXZpZXcsDQoNCkphbmUu
+We can't have a source file with the same name that exist in both the
+common code and in the arch specific code for efi/. This can lead to
+comfusion in make and it can pick up the wrong source file. This issue
+lead to a failure to build a pv-shim for x86 out-of-tree, as this is
+one example of an x86 build using the efi/stub.c.
+
+The issue is that in out-of-tree, make might find x86/efi/stub.c via
+VPATH, but as the target needs to be rebuilt due to FORCE, make
+actually avoid changing the source tree and rebuilt the target with
+VPATH ignored, so $@ lead to the build tree where "stub.c" dosen't
+exist yet so a link is made to "common/stub.c".
+
+Rework the new common/stub.c file to have a different name than the
+already existing one. And build both *stub.c as two different objects.
+This mean we have to move some efi_compat_* aliases which are probably
+useless for Arm.
+
+Avoid using $(EFIOBJ-y) as an alias for $(clean-files), add
+common_stub.c directly to $(clean-files).
+
+Fixes: 7f96859b0d00 ("xen: reuse x86 EFI stub functions for Arm")
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+
+For the cflag addition in non-ARM_EFI, I was tempted to apply it to
+the whole directory instead of just stub.o. (Even if there's only a
+single object). I think that would be enough to overwrite the
+-fshort-wchar from efi-common.mk, but I forgot what cflags come after
+that. But adding it to just one object mean that it's added at the
+last possible moment.
+---
+ xen/arch/arm/efi/Makefile                | 8 ++------
+ xen/arch/x86/efi/Makefile                | 2 +-
+ xen/common/efi/efi-common.mk             | 4 ++--
+ xen/arch/x86/efi/stub.c                  | 7 -------
+ xen/common/efi/{stub.c => common_stub.c} | 6 ++++++
+ 5 files changed, 11 insertions(+), 16 deletions(-)
+ rename xen/common/efi/{stub.c => common_stub.c} (67%)
+
+diff --git a/xen/arch/arm/efi/Makefile b/xen/arch/arm/efi/Makefile
+index bd954a3b2d..8e463d156a 100644
+--- a/xen/arch/arm/efi/Makefile
++++ b/xen/arch/arm/efi/Makefile
+@@ -4,12 +4,8 @@ ifeq ($(CONFIG_ARM_EFI),y)
+ obj-y += $(EFIOBJ-y)
+ obj-$(CONFIG_ACPI) +=  efi-dom0.init.o
+ else
+-# Add stub.o to EFIOBJ-y to re-use the clean-files in
+-# efi-common.mk. Otherwise the link of stub.c in arm/efi
+-# will not be cleaned in "make clean".
+-EFIOBJ-y += stub.o
+-obj-y += stub.o
++obj-y += common_stub.o
+ 
+-$(obj)/stub.o: CFLAGS-y += -fno-short-wchar
++$(obj)/common_stub.o: CFLAGS-y += -fno-short-wchar
+ 
+ endif
+diff --git a/xen/arch/x86/efi/Makefile b/xen/arch/x86/efi/Makefile
+index 034ec87895..bbabfc3795 100644
+--- a/xen/arch/x86/efi/Makefile
++++ b/xen/arch/x86/efi/Makefile
+@@ -11,7 +11,7 @@ $(obj)/boot.init.o: $(obj)/buildid.o
+ $(call cc-option-add,cflags-stack-boundary,CC,-mpreferred-stack-boundary=4)
+ $(addprefix $(obj)/,$(EFIOBJ-y)): CFLAGS_stack_boundary := $(cflags-stack-boundary)
+ 
+-obj-y := stub.o
++obj-y := common_stub.o stub.o
+ obj-$(XEN_BUILD_EFI) := $(filter-out %.init.o,$(EFIOBJ-y))
+ obj-bin-$(XEN_BUILD_EFI) := $(filter %.init.o,$(EFIOBJ-y))
+ extra-$(XEN_BUILD_EFI) += buildid.o relocs-dummy.o
+diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
+index ec2c34f198..5d5c427e8b 100644
+--- a/xen/common/efi/efi-common.mk
++++ b/xen/common/efi/efi-common.mk
+@@ -9,9 +9,9 @@ CFLAGS-y += -iquote $(srcdir)
+ # e.g.: It transforms "dir/foo/bar" into successively
+ #       "dir foo bar", ".. .. ..", "../../.."
+ $(obj)/%.c: $(srctree)/common/efi/%.c FORCE
+-	$(Q)test -f $@ || \
+-	    ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/source/common/efi/$(<F) $@
++	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/source/common/efi/$(<F) $@
+ 
+ clean-files += $(patsubst %.o, %.c, $(EFIOBJ-y:.init.o=.o) $(EFIOBJ-))
++clean-files += common_stub.c
+ 
+ .PRECIOUS: $(obj)/%.c
+diff --git a/xen/arch/x86/efi/stub.c b/xen/arch/x86/efi/stub.c
+index f2365bc041..2cd5c8d4dc 100644
+--- a/xen/arch/x86/efi/stub.c
++++ b/xen/arch/x86/efi/stub.c
+@@ -8,7 +8,6 @@
+ #include <efi/eficon.h>
+ #include <efi/efidevp.h>
+ #include <efi/efiapi.h>
+-#include "../../../common/efi/stub.c"
+ 
+ /*
+  * Here we are in EFI stub. EFI calls are not supported due to lack
+@@ -55,9 +54,3 @@ bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
+ }
+ 
+ void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e) { }
+-
+-int efi_compat_get_info(uint32_t idx, union compat_pf_efi_info *)
+-    __attribute__((__alias__("efi_get_info")));
+-
+-int efi_compat_runtime_call(struct compat_pf_efi_runtime_call *)
+-    __attribute__((__alias__("efi_runtime_call")));
+diff --git a/xen/common/efi/stub.c b/xen/common/efi/common_stub.c
+similarity index 67%
+rename from xen/common/efi/stub.c
+rename to xen/common/efi/common_stub.c
+index 15694632c2..4dc724b2ac 100644
+--- a/xen/common/efi/stub.c
++++ b/xen/common/efi/common_stub.c
+@@ -30,3 +30,9 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *op)
+ {
+     return -ENOSYS;
+ }
++
++int efi_compat_get_info(uint32_t idx, union compat_pf_efi_info *)
++    __attribute__((__alias__("efi_get_info")));
++
++int efi_compat_runtime_call(struct compat_pf_efi_runtime_call *)
++    __attribute__((__alias__("efi_runtime_call")));
+-- 
+Anthony PERARD
+
 
