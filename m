@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A38D6596127
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 19:29:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388443.625094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 010D159615D
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Aug 2022 19:43:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388453.625108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oO0N4-0001op-OS; Tue, 16 Aug 2022 17:28:54 +0000
+	id 1oO0az-0004EO-4h; Tue, 16 Aug 2022 17:43:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388443.625094; Tue, 16 Aug 2022 17:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 388453.625108; Tue, 16 Aug 2022 17:43:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oO0N4-0001mg-Jy; Tue, 16 Aug 2022 17:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 388443;
- Tue, 16 Aug 2022 17:28:53 +0000
+	id 1oO0az-0004B5-1Y; Tue, 16 Aug 2022 17:43:17 +0000
+Received: by outflank-mailman (input) for mailman id 388453;
+ Tue, 16 Aug 2022 17:43:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dq/F=YU=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1oO0N2-0001ma-Ld
- for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 17:28:53 +0000
-Received: from sonic316-54.consmr.mail.gq1.yahoo.com
- (sonic316-54.consmr.mail.gq1.yahoo.com [98.137.69.30])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NbGa=YU=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1oO0ax-0004Az-7A
+ for xen-devel@lists.xenproject.org; Tue, 16 Aug 2022 17:43:15 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e25cfc5f-1d88-11ed-9250-1f966e50362f;
- Tue, 16 Aug 2022 19:28:48 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic316.consmr.mail.gq1.yahoo.com with HTTP; Tue, 16 Aug 2022 17:28:46 +0000
-Received: by hermes--production-bf1-7586675c46-6jlzf (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID f5181726492e835e0f6b4b78a77ba927; 
- Tue, 16 Aug 2022 17:28:40 +0000 (UTC)
+ id e71dba47-1d8a-11ed-9250-1f966e50362f;
+ Tue, 16 Aug 2022 19:43:14 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id fy5so20286336ejc.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Aug 2022 10:43:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,120 +39,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e25cfc5f-1d88-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1660670926; bh=KCxALGeHtNmf+3+P8Y4LRK3Lfy1e+K4XtBP8EuNrVm4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=M4nhksOD3u9NZzS/9aLZOPrS6gLu5DR9iCwBT0C8drb4ZlMuS+MFHgE/y3HhwbYtUufLeMsO31b+hYR37uYZSGVnBBH6fDqKcTRT4EIzXc7ueBlfFRunsEQT87PQ5TLV3os5wZbDwUHcRFLzjozujwVLwzPkUZUE4kLwvhzqwwZVNSShfKeXsFjc5r3W85iafy8GOx9Wgf5orhU7Av7jE0dHvpoDBvGHR+JFYO4qhtCc2qQAsQKDUy0B81Zzst1p1hsWpdergS8lwxz0c+8gJOKVZPz3kT8L/bA0N2EhNZuWHThFeSZkIw5qz/AH5+fAdABtazbmwviscGXy78hmmg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1660670926; bh=bkF1+RMhS2K5zivCW5WL/yunorG7Ih+jBW05ZZmojUM=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=UPZ2XB8BTTjE3rUkAUIy1MR7E9Ngk3JICAFA8AELE9jVzjnwXfU3S7U/tmvWPd/Rfk+HBAQoZ18ey/H26fG8LPI48G12a4eRYf+UE2I3Queq6q91qjdnB53NJEJrOtKa+z4qVqcytEbsbUnv2576gxCV1AqWTQln09NPY+6xYRBdjtfmXqPn7o05nOP7prZXwD3asNA8D4PXj8mlFJQRVXdqKSsauEQUZ7ajUILRScusnku2gSfAf5IRhuYlngDEukcKeYUEDIJyHhDWite+2CVkyXtnWZ/YxFQ/X36E9gPpZdvx5EAkmZibxjqkAPoFJQl3vsLzMwrBgEf0As+Vhg==
-X-YMail-OSG: eOwkS4MVM1myXdKg7_PGSnkSBeSzvsuUpKD7HJgzqIWkOcngW8.D1i9kBHAfCPh
- _RwIcAx_fxxLIYYnvtNAPVGk9tKKGSbNnJ6w.EvnEnNjiz5AabaFjIQTpb.nPOxWaVTIU_TtNJnj
- yoOxs6SGGqBf4vs0MVBswIC1ypaVPSI8jiGEUgcVKMN4QXOa2YRBlQxqm_3YIflnNnLDl6zvc.ZJ
- BtZ0rN77G8MBmQ6mb4Zvgy.z5oR6CaC4rteXNkibPa3yfZ8guysNECNrfMPoEaPVx1agKJGwPU3Y
- Xo6uIuq2Ha8s1g9VBoDdLKRgHSVZI_XMGIJtrHS46OQ5XHtuxSGz29yX3evsokvW.LxM3K6qTT62
- 6vOUlJCKu6yW5WgsaENFeqCH3ASZVzKMgfE4NjFpTNM6NwKxHBYyeFy6GH8TWe74pLkawTz5.OwA
- qFyUC8Oks2nUYybY20sCfjd01sL3Hj6VUEN8AkJQEH1ufT4wkVDTgfu8kwSA7d5thElsmrvfqppj
- ut2N5nsxmvEfnm6S5BAGX1d8naDAEh1Kw15JTX4NwOEJp3qB4rEZ0nms9W4ynkPlgQki3ePyHo2n
- OgH1xWtbHiEjFoBag8ngTuFXZqWUFYPhoFQmnnx.v.aIQfWWx1.jDoJ1T6o21EUrhCMF4qaZfL2p
- jJyX8QFDyTIZGXHdqRJPW3BEOYUGupQWWW3934M_mmRIH_z4_aTAslk5_mPwCe3opgRqzKOHbmut
- xkJfvk0FI8M.mIwPRobNEDrLyELGKf51dN4DRtH9qSb8r12Ej.9Nahz7krJ.nXTLvWXCPsE0JpmX
- e6eIrlwj3pExi38ZlD4iKHwVS.TBikSSvjRhDy.ycw_FCi_evtm.64JSSKObgQPOZvcgSPnpgL2w
- 0b4JL217wlYu_8ngi.jsOPzKr7Ledlqgj6IvcIn9l6zOs7DbffkdaKTXmfuXtTMHtw7zTWSPdC1v
- quyNdM_71gqk8HuvM2dMTBE.CjzMlBnEWRNwKLcZjnodkAifgXI3O685vbU6aYu7Ckgy_gDHncHC
- IkAudF_0yTrG3tu_mrc08Rcw1r7v90mGQLqVWEZ5wr3MQX.iT7i_O5HcPueDz1ECvhnPVT2JPLoZ
- eb28Eac9z.0y2Nv9cndKScZJhdVBIuV1NkkMPTMERW9AeBoUMRSpDn8kSl3yU0J0oULz3JKC1OQU
- u46g9cao0q8e56Z1H.up_tlm0DGGLTXaU4NXeFAjSOjs.h0yAhJh4RsQPatclGSUj4Il3eXMkNor
- cCU4dU5lvNZYJxA.5KBdx_CE21W4mKHpfvYu6xsuawCM3053t027pbXXHtWnHWsK_K1.Zn_4iZRx
- _Ry79F8PYo1WzQqIvlOx8gGrTaiRkDhdLa_KgwepDFpl5xD8sOhR1cSfyiZs9hTfNLyvvXRNTN4o
- RWd0N64Cdu0jMGBbQ.pCOsRJa.bT9kPbR5H6JROPnTsCU8mdqNFwbK5M_LgtCwWAqbtkDy8.lgFc
- sUz1mGrrFJPqq476R0MELwKvKxgn0WgA7tYarBcEJu_H9rjcUX8wmIcdWkeTi_B29JOqv7NDkG.b
- 3.9qPDAohRnUK7mFgbbXZvFSs9FGmvsbwpgMVxQd2wldCBPo5HmXtO_gOn0TKJKZq8In96CbjWhj
- 9qHdWQLvLPyYW5VJH1OqU7NcgLMu82w9EPt4INTIDRrOjjduwygCGVp4NO2mbJ0ncGVjhNSOhwGG
- WzroZwl4kI6EyLdHR_9ByoZPDiX8ZwnndqMvB2AQlH8znUAwSmWknyKxBIxaFwtPEWvYgiR0Jssi
- 345DCR6mFXP2jlEnOzeLib48xo4psO2yq7Q4I9oSPqzI3VFXYiE6pd.x2uHNzLhKApXYmbj1NT1P
- FvyEYgKIixMKag0lVIXMfkWg2N.vWl29mwpLks0GSufqDaore2rJxFLT_txsRHR4uB5jhUGLXvSB
- 479jMtNfcoutSQvFjpMTAqBj12_xK_A66ItvWaNOPs.aghuwijBAuPsPQST9LBur4RiZERTKu.CD
- _aGZ2ButJUkh3ldMkUY5HelBig.xSGusNci5BNCHrerFW9gxeoYL2MkPZrUJA50ltUV1Khe5I._I
- doYNLsdtZWuBJwVtolqPq.aVs5Qk0e_Vw9UG4jBT_Vqy3HQJ0yPkhXeBB8efX4Re1Hv88l_ygIfN
- ZpKi81dSiYCUlbujzMAscqZyj8kmQmT16UDgkJv3y_8eZ18E3DiSUputUK0Tx7hf1d8xrFW1QMj.
- aK.gbRODmwrBrGAjMqcvS
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <5c40a423-f70a-abb8-360c-a601c5b157fe@netscape.net>
-Date: Tue, 16 Aug 2022 13:28:36 -0400
+X-Inumbo-ID: e71dba47-1d8a-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc;
+        bh=WXX4x+IKpAZ3iCSL+4AM/XfhvHo3b+sFbJ4bZV78QsI=;
+        b=BRFTG8PlKxlau44fAxmTJdY5pze60IbGKWB+L5CLIPCgaSCrl3P4aTq5nerYjxfTbk
+         eybDqxF8zupukl/4HbGxsFRBG9WJDaCfwjoGpP93xlUroO9HoizDMFVpauSrd/sdIcYS
+         okAkeuUia6c94Nu6RrgNWLZ3g8UzL7I9NlvDayHs9tu5HX/cR13XA4sKMemkeVS0Bvti
+         ZQ7wd/dYMB6dqbZHuF0hZh+F8YgdcgY+wzlKBvOJKsXF3LEHBN9mre4qYbeAFLCVjnw8
+         HjvaDTMOIUlerdh4p47kDpVBifHZ2sG6qF4RE22Qou1JCeyAy6SzEhRYIW+/nxCHC3VW
+         fyLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc;
+        bh=WXX4x+IKpAZ3iCSL+4AM/XfhvHo3b+sFbJ4bZV78QsI=;
+        b=ejgTR1hJGHFA/xdTiB/FqYCMCsjLnamRvd8BnQM0wgslSEcQQ/reOYW35MPbsbQX0r
+         qvKoxl0QajteQm7nGminC3p4Cf2yNBhYGZDExNlxp8UCQ2LiWmlrdd1FKdf71hs8Ph93
+         xE3BsGw46twMwZhcStp1KCvUOVbtZ/Yx0U19tIEyTLVfSPqAvAW4KW7vUwe22eyXQYye
+         L14Ws1N0kGUXvQyr36frVZRz3sxCujh+ACMyxmoooH+gqMWGf+YqB1I1wo38HKSTHovA
+         opOJX0jiPySoi2KI/Gq+vmlurGl5Bwv3DziPtkP2xI0obiYgp0ok+wRAPvErY7+DI4U6
+         7ECw==
+X-Gm-Message-State: ACgBeo2o2a+QQFPdWBay/W6SZtl/pVzqoxrmCpREk9FVfQURlKt5NTAW
+	T34ioskn26lWkb/7fE31JyUGNZuqcs9oTy4yoC3SNL09
+X-Google-Smtp-Source: AA6agR6+RZpW1liG7KjliGOz9c+nVXJGuEzoWWzFkcMqFl4Kfr6JTdK+ORndV4HgDaKSH9FgOjcttMG9/7TpByarNFM=
+X-Received: by 2002:a17:907:6d8f:b0:730:b108:5062 with SMTP id
+ sb15-20020a1709076d8f00b00730b1085062mr14327987ejc.461.1660671793540; Tue, 16
+ Aug 2022 10:43:13 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.1.2
-Subject: Re: [PATCH 0/3] x86: make pat and mtrr independent from each other
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: jbeulich@suse.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, regressions@lists.linux.dev,
- xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- Juergen Gross <jgross@suse.com>
-References: <20220715142549.25223-1-jgross@suse.com>
- <efbde93b-e280-0e40-798d-dc7bf8ca83cf@leemhuis.info>
- <a0ce2f59-b653-fa8b-a016-1335f05c86ae@netscape.net>
- <32ed59c9-c894-c426-dd27-3602625cf3b1@netscape.net>
- <c88ea08c-a9d5-ef6a-333a-db9e00c6da6f@suse.com>
- <bd66b5bc-4d07-d968-f46c-40cf624499a7@netscape.net>
- <a29a66e0-2075-8084-84ad-8bd3e8a9fd4a@netscape.net>
- <a7d10605-87e3-c4bd-4a76-f07a04f5751c@leemhuis.info>
- <8d148826-62a5-95f9-8662-be14f56a6336@netscape.net>
- <6b40ecc3-a2d3-3efd-4a19-2faf737f098b@leemhuis.info>
- <be9d077c-ed4d-d5e3-a134-33afff027af4@netscape.net>
- <6294958a-177a-5c67-47c6-3a95c23ac58e@leemhuis.info>
-Content-Language: en-US
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-In-Reply-To: <6294958a-177a-5c67-47c6-3a95c23ac58e@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.20531 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+References: <20220809140633.23537-1-dpsmith@apertussolutions.com>
+In-Reply-To: <20220809140633.23537-1-dpsmith@apertussolutions.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 16 Aug 2022 13:43:01 -0400
+Message-ID: <CAKf6xpur5sESPxgDEmY=PsnDDmuZ898UbaAECccGuQuyetjHEQ@mail.gmail.com>
+Subject: Re: [PATCH v12] xsm: refactor flask sid alloc and domain check
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/16/2022 12:53 PM, Thorsten Leemhuis wrote:
-> On 16.08.22 18:16, Chuck Zmudzinski wrote:
-> > On 8/16/2022 10:41 AM, Thorsten Leemhuis wrote:
-> >> On 15.08.22 20:17, Chuck Zmudzinski wrote:
-> >>> On 8/15/2022 2:00 PM, Thorsten Leemhuis wrote:
-> >>>
-> >>>> And FWIW: I've seen indicators that a solution to resolve this is
-> >>>> hopefully pretty close now.
-> >>> That's good to know. But I must ask, can you provide a link to a public
-> >>> discussion that indicates a fix is close?
-> >> I just searched for the commit id of the culprit yesterday like this:
-> >> https://lore.kernel.org/all/?q=bdd8b6c982*
-> >>
-> >> Which brought me to this message, which looks like Boris applied a
-> >> slightly(?) modified version of Jan's patch to a branch that afaik is
-> >> regularly pushed to Linus:
-> >> https://lore.kernel.org/all/166055884287.401.612271624942869534.tip-bot2@tip-bot2/
-> >>
-> >> So unless problems show up in linux-next I expect this will land in
-> >> master soon (and a bit later be backported to stable due to the CC
-> >> stable tag).
-> > 
-> > OK, that's exactly the kind of thing I am looking for. It would be
-> > nice if regzbot could have found that patch in that tree and
-> > display it in the web interface as a notable patch. Currently,
-> > regzbot is only linking to a dead patch that does not even fix
-> > the regression as a notable patch associated with this regression.
-> > 
-> > If regzbot is not yet smart enough to find it, could you take the
-> > time to manually intervene with a regzbot command so that
-> > patch is displayed as a notable patch for this regression?
+Hi,
+
+I think you should change the title to "xsm/flask: Boot-time labeling
+for multiple domains".  Refactor implies no functional change, and
+this is a functional change.  With this, I think the commit message
+should be re-written to focus on the "why" of the new labeling policy.
+
+On Tue, Aug 9, 2022 at 10:06 AM Daniel P. Smith
+<dpsmith@apertussolutions.com> wrote:
 >
-> regzbot will notice when the patch hit's Linux next,
+> The function flask_domain_alloc_security() allocates the security context and
+> assigns an initial SID for the domain under construction. When it came to SID
+> assignment of the initial domain, flask_domain_alloc_security() would assign
+> unlabeled_t. Then in flask_domain_create() it would be switched to dom0_t.
+> This logic worked under the assumption that the first domain constructed would
+> be the hypervisor constructing dom0 and all other domains would be constructed
+> by a toolstack, which would provide a SID. The introduction of dom0less and
+> subsequently hyperlaunch violates this assumption, as non-privileged domain may
+> be constructed before the initial domain or no initial domain may be
+> constructed at all. It is not possible currently for dom0less to express domain
+> labels in the domain configuration, as such the FLASK policy must employ a
+> sensible initial SID assignment that can differentiate between hypervisor and
+> toolstack domain construction.  With the introduction of xenboot_t it is now
+> possible to distinguish when the hypervisor is in the boot state, and thus any
+> domain construction happening at this time is being initiated by the
+> hypervisor.
 
-IIUC, regzbot might not notice because the patch lacks a Link: tag
-to the original regression report. The Link tag is to Jan's patch
-that was posted sometime in April, I think, which also lacks the
-Link tag to the original report of the regression which did not
-happen until May 4. If regzbot is smart enough to notice that the
-patch also has a Fixes: tag for the commit that was identified as
-bad in the original regression report, then I expect regzbot will
-find it.
+The problem this commit is addressing is "flask can only label a
+single dom0_t at boot, and this is incompatible with dom0less and
+hyperlaunch".
 
-Best regards,
+ISTM that dom0less device tree could gain a node for the security
+label, and Hyperlaunch already supports labels.  But a goal of this
+patch is to make it work without changing dom0less?  And it may be
+worth more directly stating that dom0less panics today since the domU
+fails to build with unlabeled_t.
 
-Chuck
+Also a motivation was to align Flask labels to match the dummy policy
+with dom0/domU, correct?  That would be worth adding.
+
+> This commit addresses the above situation by using a check to confirm if the
+> hypervisor is under the xenboot_t context in flask_domain_alloc_security().
+> When that is the case, it will inspect the domain's is_privileged field to
+> determine whether an initial label of dom0_t or domU_t should be set for the
+> domain. The logic for flask_domain_create() was changed to allow the incoming
+> SID to override the initial label.
+
+AFAICT, the labeling policy needs to handle these three cases:
+1) Traditional domain 0 (x86 or arm)
+Single domain - domid == 0 && privileged
+
+2) dom0less (arm)
+Possibly a single dom0 - domid == 0 && privileged
+Multiple domUs - domid > 0 && not privileged
+Notably, it takes care not to create a domU with domid 0.
+
+3) Hyperlaunch (x86 or arm)
+Potentially anything?  I don't know what you envision for this.
+
+When it was only dom0, it was easy to put a heuristic in flask to
+label the first domain as dom0_t.  With dom0less, the heuristic can be
+expanded to include domid > 0 -> domU_t.  With hyperlaunch, I'm not
+sure.  Is there something it needs that wouldn't be covered?
+
+dom0_t being a singleton emphasized for me that using only
+is_privileged for the check isn't quite right.  Does hyperlaunch need
+domid != 0 && is_privileged to get assigned dom0_t?  That could still
+be done explicitly, but just not implicitly by the above.
+
+> The base policy was adjusted to allow the idle domain under the xenboot_t
+> context the ability to construct domains of both types, dom0_t and domu_t.
+
+I suppose if someone doesn't want to use domU_t/dom0_t, then they
+could remove the xenboot_t allow rules which would defacto require
+explicit labels.
+
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+
+
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -182,7 +182,15 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
+>          dsec->sid = SECINITSID_DOMIO;
+>          break;
+>      default:
+> -        dsec->sid = SECINITSID_UNLABELED;
+> +        if ( domain_sid(current->domain) == SECINITSID_XENBOOT )
+> +        {
+> +            if ( d->is_privileged )
+
+The policy outlined above would change this line to:
+    if ( d->is_privileged && d->domid == 0 )
+
+> +                dsec->sid = SECINITSID_DOM0;
+> +            else
+> +                dsec->sid = SECINITSID_DOMU;
+> +        }
+> +        else
+> +            dsec->sid = SECINITSID_UNLABELED;
+>      }
+>
+>      dsec->self_sid = dsec->sid;
+> @@ -550,20 +558,36 @@ static int cf_check flask_domain_create(struct domain *d, uint32_t ssidref)
+>      struct domain_security_struct *dsec = d->ssid;
+>      static int dom0_created = 0;
+>
+> -    if ( is_idle_domain(current->domain) && !dom0_created )
+
+This old check only applied at boot time to label the first domain as
+dom0_t, but it didn't restrict runtime labeling...
+
+> +    /*
+> +     * The dom0_t label is expressed as a singleton label in the base policy.
+> +     * This cannot be enforced by the security server, therefore it will be
+> +     * enforced here.
+> +     */
+> +    if ( ssidref == SECINITSID_DOM0 )
+>      {
+
+...this new one restricts runtime labeling with dom0_t.  It's an
+unusual case, so making the code change is (probably) fine.   But it
+should at least be mentioned in the commit message.
+
+However, if the boot time policy adds "domid == 0" to the dom0_t
+assignment, then the dom0_created code can go away.
+
+Regards,
+Jason
 
