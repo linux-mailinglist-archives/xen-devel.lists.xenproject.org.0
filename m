@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F073A596BC9
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Aug 2022 11:07:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388763.625512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38CBC596BE7
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Aug 2022 11:15:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388773.625522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOF0w-0005X2-Oo; Wed, 17 Aug 2022 09:07:02 +0000
+	id 1oOF8k-0006yg-JI; Wed, 17 Aug 2022 09:15:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388763.625512; Wed, 17 Aug 2022 09:07:02 +0000
+Received: by outflank-mailman (output) from mailman id 388773.625522; Wed, 17 Aug 2022 09:15:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOF0w-0005Tq-LS; Wed, 17 Aug 2022 09:07:02 +0000
-Received: by outflank-mailman (input) for mailman id 388763;
- Wed, 17 Aug 2022 09:07:01 +0000
+	id 1oOF8k-0006wg-GH; Wed, 17 Aug 2022 09:15:06 +0000
+Received: by outflank-mailman (input) for mailman id 388773;
+ Wed, 17 Aug 2022 09:15:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOF0v-0005Tg-9W; Wed, 17 Aug 2022 09:07:01 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oOF8j-0006wa-7U
+ for xen-devel@lists.xenproject.org; Wed, 17 Aug 2022 09:15:05 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOF0v-0002dL-6j; Wed, 17 Aug 2022 09:07:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOF0u-0006h0-Vw; Wed, 17 Aug 2022 09:07:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oOF0u-0000ca-VR; Wed, 17 Aug 2022 09:07:00 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oOF8e-0002n5-8W; Wed, 17 Aug 2022 09:15:00 +0000
+Received: from [54.239.6.187] (helo=[10.7.237.25])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oOF8e-0008Fc-2J; Wed, 17 Aug 2022 09:15:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,96 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=bbxRV7hY/cdhllsaHsClYPMDRJ2zlrKEvIatcqqOW2M=; b=s0ypImXCP3iJOHijWF2n9BPJEC
-	LGq0TKn3tzwuI3BmhBqSbGp1wX/XnOTVMTIAN1mtAEpOpuJePwLQAgvdzVOJVN+gsPKfm6tHamfdx
-	i5HyVQnVqnMacwDbu9b9Q2fG0qAckbumv8723d+vK5uX+Cc31klznmJ3VaUEqCc+dW2g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172592-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=0juTsaRrghihW+N6xhpiokCRY9dq6/5RTon/Hb7/MA4=; b=OTC9BGMQyr+vqlgFYGPSom/4le
+	xulZksg7UEbySQ6m7uNYDgzGiucU56G2vlWz30jz17ePhJhY01HgwPKrIzp4TnkqzVITwZH9On40s
+	ZsSitswAfNb4ZRT+Ubg+oTn+HPKhkimH/M9JXPLfKpdeDINhjPqyAzN1oevDZqk76dQk=;
+Message-ID: <10fb8b11-1cb2-9394-f9fc-2eb6dd84543f@xen.org>
+Date: Wed, 17 Aug 2022 10:14:58 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 172592: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=3f282f451023234e16510516fbad20cd0ca04847
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 17 Aug 2022 09:07:00 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.1.2
+Subject: Re: [PATCH for-4.17] xen/arm: Support properly __ro_after_init on Arm
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20220816185954.31945-1-julien@xen.org>
+ <da0126fb-d357-bde3-f362-32c7d3b51ee4@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <da0126fb-d357-bde3-f362-32c7d3b51ee4@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 172592 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172592/
+Hi Jan,
 
-Regressions :-(
+On 17/08/2022 09:37, Jan Beulich wrote:
+> On 16.08.2022 20:59, Julien Grall wrote:
+>> --- a/xen/arch/arm/setup.c
+>> +++ b/xen/arch/arm/setup.c
+>> @@ -75,10 +75,24 @@ domid_t __read_mostly max_init_domid;
+>>   
+>>   static __used void init_done(void)
+>>   {
+>> +    int rc;
+>> +
+>>       /* Must be done past setting system_state. */
+>>       unregister_init_virtual_region();
+>>   
+>>       free_init_memory();
+>> +
+>> +    /*
+>> +     * We have finished to boot. Mark the section .data.ro_after_init
+>> +     * read-only.
+>> +     */
+>> +    rc = modify_xen_mappings((unsigned long)&__ro_after_init_start,
+>> +                             (unsigned long)&__ro_after_init_end,
+>> +                             PAGE_HYPERVISOR_RO);
+>> +    if ( rc )
+>> +        panic("Unable to mark the .data.ro_after_init section read-only (rc = %d)\n",
+>> +              rc);
+> 
+> Just wondering - is this really worth panic()ing?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+The function should never fails and it sounds wrong to me to continue in 
+the unlikely case it will fail.
 
-version targeted for testing:
- ovmf                 3f282f451023234e16510516fbad20cd0ca04847
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+> 
+>> --- a/xen/arch/arm/xen.lds.S
+>> +++ b/xen/arch/arm/xen.lds.S
+>> @@ -83,6 +83,13 @@ SECTIONS
+>>     _erodata = .;                /* End of read-only data */
+>>   
+>>     . = ALIGN(PAGE_SIZE);
+>> +  .data.ro_after_init : {
+>> +      __ro_after_init_start = .;
+>> +      *(.data.ro_after_init)
+>> +      . = ALIGN(PAGE_SIZE);
+>> +      __ro_after_init_end = .;
+>> +  } : text
+> 
+> Again just wondering: Wouldn't it be an option to avoid the initial
+> page size alignment (and the resulting padding) here, simply making
+> .data.ro_after_init part of .rodata and do the earlier write-protection
+> only up to (but excluding) the page containing __ro_after_init_start?
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   13 days
-Failing since        172151  2022-08-05 02:40:28 Z   12 days  108 attempts
-Testing same since   172582  2022-08-16 22:43:35 Z    0 days    3 attempts
+So both this question and the previous one will impair the security of 
+Xen on Arm (even though the later is only at boot time).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+This is not something I will support just because we are going to save < 
+PAGE_SIZE. If we are concern of the size wasted, then there are other 
+way to mitigate it (i.e. moving more variables to __ro_after_init).
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Cheers,
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 720 lines long.)
+-- 
+Julien Grall
 
