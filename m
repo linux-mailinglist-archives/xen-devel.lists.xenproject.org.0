@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F8BC5972E3
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Aug 2022 17:27:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389063.625874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A6305972E5
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Aug 2022 17:28:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389070.625886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOKwd-0000e2-FV; Wed, 17 Aug 2022 15:26:59 +0000
+	id 1oOKxb-0001CH-Qm; Wed, 17 Aug 2022 15:27:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389063.625874; Wed, 17 Aug 2022 15:26:59 +0000
+Received: by outflank-mailman (output) from mailman id 389070.625886; Wed, 17 Aug 2022 15:27:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOKwd-0000bD-By; Wed, 17 Aug 2022 15:26:59 +0000
-Received: by outflank-mailman (input) for mailman id 389063;
- Wed, 17 Aug 2022 15:26:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oOKxb-00018m-Mo; Wed, 17 Aug 2022 15:27:59 +0000
+Received: by outflank-mailman (input) for mailman id 389070;
+ Wed, 17 Aug 2022 15:27:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ctqM=YV=citrix.com=prvs=221f02cfb=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1oOKwb-0000b7-S7
- for xen-devel@lists.xenproject.org; Wed, 17 Aug 2022 15:26:57 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06712248-1e41-11ed-9250-1f966e50362f;
- Wed, 17 Aug 2022 17:26:56 +0200 (CEST)
-Received: from mail-mw2nam10lp2108.outbound.protection.outlook.com (HELO
- NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.108])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 17 Aug 2022 11:26:53 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by CH2PR03MB5334.namprd03.prod.outlook.com (2603:10b6:610:92::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.19; Wed, 17 Aug
- 2022 15:26:52 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::b9c9:c866:817c:60dd]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::b9c9:c866:817c:60dd%4]) with mapi id 15.20.5504.027; Wed, 17 Aug 2022
- 15:26:51 +0000
+ <SRS0=Di75=YV=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1oOKxZ-00012D-35
+ for xen-devel@lists.xenproject.org; Wed, 17 Aug 2022 15:27:57 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 29c72b84-1e41-11ed-bd2e-47488cf2e6aa;
+ Wed, 17 Aug 2022 17:27:55 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id B3F43320095D;
+ Wed, 17 Aug 2022 11:27:52 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Wed, 17 Aug 2022 11:27:53 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 17 Aug 2022 11:27:50 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,163 +43,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06712248-1e41-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1660750016;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=ENQoa+z9s6Pk0E90TGtnLLF1MfGKkWOEGZoQbSxQrXc=;
-  b=RMU7tQBJtLRbDcDF1lULkkaUoODwB1nev0CmXNMym6r22gDw36VBvHgP
-   3wQLFmSHvpm8JxzYm2gx1N44h5RmioMq2/Etax8qT3fc0lJTGVlTqewf2
-   BbKNNj64JYUMo+VRCT0CziTQ0by65P5RHy92X7QY5FiFLaIaH38SMn/2N
-   M=;
-X-IronPort-RemoteIP: 104.47.55.108
-X-IronPort-MID: 78744618
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:G1CMuKABC37hThVW/+jiw5YqxClBgxIJ4kV8jS/XYbTApDMhhjJVn
- 2VODWrTPfeOMzP9f4slbIrjpBhQ7cLcy4AwQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E3ratANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq3uU0meaEu/Dga++2k
- Y608pa31GONgWYuaDpEsv3b8XuDgdyp0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSq
- zHrlezREsvxpn/BO/v9+lrJWhRiro36ZGBivkF+Sam66iWukwRpukoN2FjwXm8M49mBt4gZJ
- NygLvVcQy9xVkHHsLx1vxW1j0iSlECJkVPKCSHXjCCd86HJW0L2k+hjMkxtAZIRxN5KOFNxx
- O1JFT9YO3hvh8ruqF66Ys9Fo517aezUZsYYsHwmyizFB/E7R5yFW7/N+dJTwDY3gIZJAOraY
- M0aLzFoaXwsYTUWYgtRVM14wbru3yGvG9FbgAv9Sa4fym7f1gFulpPqN8LYYIeiTsRJhEeI4
- GnB+gwVBzlFZIPDlWTcohpAgMfzvSXkB6c4GoGT+69XmGeB1HxMVw8JAA7TTf6RzxTWt8hkA
- 1wZ/G8ioLY/8GSvT8LhRFuorXicpBkeVtFMVeog52mlyKDZ/gKYDWgsVSNaZZots8pebT430
- l6Emfv5CDopt6eaIVqG7audpz62PSkTLEcBaDUCQA9D5MPsyKksijrfQ9AlF7S65uAZAhn1y
- jGO6S0h3bMaiJdT073hpAiXxTWxupLOUwg5oB3NWX6o5R94Y4jjYJG07V/c7rBLK4PxokS9g
- UXoUvO2tIgmZaxhXgTUKAnRNNlFP8q4DQA=
-IronPort-HdrOrdr: A9a23:DT4ii6xjZLyZe0ImjW9HKrPxBOgkLtp133Aq2lEZdPULSKGlfp
- GV9sjziyWetN9IYgBapTiBUJPwIk81bfZOkMQs1MSZLXPbUQyTXc1fBOrZsnfd8kjFmtK1up
- 0QFJSWZOeQMbE+t7eD3ODaKadu/DDkytHPuQ629R4EIm9XguNbnn5E422gYy9LrXx9dP4E/e
- 2nl696TlSbGUg/X4CePD0oTuLDr9rEmNbPZgMHPQcu7E2jnC6l87nzFjmfx1M7XylUybkv3G
- DZm0ihj5/T8s2T+1v57Sv+/p5WkNzuxp9qA9GNsNEcLnHBmxulf4NoXpyFpXQQrPu04Fgnvd
- HQq1MLPth16VnWYmapyCGdlTXI4XIL0TvP2FWYiXzsrYjSXzQhEfdMgopfb1/w91cglMsU6t
- MJ40up875sST/QliX04NbFEztwkFCvnHYkmekPy1RCTIolbqNLp4B3xjIWLH5AJlO+1GkUKp
- goMCju3ocRTbpcVQGBgoBb+q3pYp30JGbffqFNgL3P79EcpgEF86JR/r1iop5HzuN8d3AM3Z
- W7Dkwj/os+MfM+fOZzAvwMTtCwDXGISRXQMHiKKVCiD60fPWnRwqSHqYndydvaD6Dg9qFC7q
- jpQRddryo/akjuAcqB0NlC9Q3MWny0WXDoxttF75Z0t7XgTP6zWBfzA2wGgo+lubESE8fbU/
- G8NNZfBOLiN3LnHcJM0xflU5dfJHECWIkeu8o9WViJvsXXQ7ea/tDzYbLWPv7gADwkUmTwDj
- 8KWyXyPtxJ6gSxVnrxkHHqKgfQk4zEjOdN+YThjpguIdI2R/xxWyAu+CeEz9DOLyFeuaore0
- Y7KK/7k8qA1BuLwVo=
-X-IronPort-AV: E=Sophos;i="5.93,243,1654574400"; 
-   d="scan'208";a="78744618"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UDjYQ4h0ThIu7KH7jzf1u4SIEprKQx6kQXtIPugQTiaS78sd5MNOkei8LIALtpaRqsL+IlLq4JvRuIBQACdo+px3yqeF9pvs/NFqZuZw/2zxWYnr6DoUDYzfPPmMQod/h6la/mGt1qLI2D2Mq3OvBhWoO6Ys3+kdDQpTefopcSKLO1EnAuRDHENN5SQcBOHJ8aPsfH2Ytg8XMNLbDbSkqDcV9E7RJAKRU/nBLLBHXMMmfRc5xPoRtefEw8hJ7Zq4Y3hA3960BXLBaX72PvXI+YcnIdHGSIAStXTM1hx7L8jCEbsRpbGs2U7xSeRO0jS9BlvmCkpHwYpwCUlBJbVVaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ENQoa+z9s6Pk0E90TGtnLLF1MfGKkWOEGZoQbSxQrXc=;
- b=d+WOCIXd2jGaWLX0Ys7v/TB/4QlCfEebIyEavDe8pQYqXlS2UucZ20y9K2E+rKpusdvACeQLY5ksFbsQHf01EWB/LRTmly6zmhZYvCwaDppkQ/ZdO4sNWwxvL9XZXW5VWzFv3vh2zRkkStWT4nMCpp7N/kRax8TyLsPV9rweuMptZP5l2itWVPybUdBdCwKZYr7Kz6dwI8tEWtt+zBaHzB4F418p7A6iO1UE8oUhYmiDQiCb0FeoYqJlG+7nAfey1etrdww3eVkuJ4AXd3VDLYnLZcyW4a89TfMpWVeTZb7Vl+5OOnWPk5fDwjpCxJv0f70R9y3F69BgLMfRdAhFJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ENQoa+z9s6Pk0E90TGtnLLF1MfGKkWOEGZoQbSxQrXc=;
- b=k+eyNKU9gSSTWCtYmvyV4WirL+R3JbLRS9P/JYGspzP6MrSA+bqC8zoAf2hlHwCYHZbnTzqUQRHtG3j61sY6uQab4Lg2MNzxsGeJmnNTQJZWCINFsBkoAcU2ZtdfcqsbudU40+kNEk7PUT7hDRMc3plL/AOcrx+WIggPT0fRWwA=
-From: Andrew Cooper <Andrew.Cooper3@citrix.com>
-To: Anthony Perard <anthony.perard@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH] build: Fix missing MAKEFLAGS --no-print-directory
-Thread-Topic: [XEN PATCH] build: Fix missing MAKEFLAGS --no-print-directory
-Thread-Index: AQHYsk0DvrenaFtsHkyhk5kQsY6xbq2zNvGA
-Date: Wed, 17 Aug 2022 15:26:51 +0000
-Message-ID: <84e0f00b-0655-e6a4-ee3a-bdf5114b39a4@citrix.com>
-References: <20220817152106.56601-1-anthony.perard@citrix.com>
-In-Reply-To: <20220817152106.56601-1-anthony.perard@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3396b671-bd0c-499b-81e3-08da8064e8bb
-x-ms-traffictypediagnostic: CH2PR03MB5334:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- Wc6u10g2MPPtD89iJsp+2rvN48Wmf3ttifUL53p6LadG2sd8POh97FoeKEfOUfTTNxSeaswPrNKRgCu7hTc3U/MnsSBQXNidDTBkr6Ueg/IRxCFg3OMWZgbpQwCHDUeO262Gz04G85EPpSq3JTFuV7y6pKRfU7hqagmkF7P5a/fVVzYlQfi5qqINr7f7OWiUf6D3fz64JRihjZgfP70O2OMhIzxSyavoUiQX+PpuxxRpqqrsqulDneo0rEMoj67icvr23onp4SxV4aqm7FMUjb323jU5wv/8S4RoFLrV7WxSKMToqCBIbWlzIo9E3PC+t0RjD+4NDtaNLMLxu/nvtCOZ5u1A/tTGIDEFUIapOKy88iVSEFkaIWpeguMkMN6/Ei+ktGBagEq2EKbSJvFX9N3/gd4yyiwfCPhUi5cnkjWrP3FMh7rH3SrXOHW8ZiO0HG5ZewjnRAHXD0IorGuxpSzhdB1dSOyG8AMTRt8SWwFY1vSrHcVtitzGM/jwWFM7bKgI0YBY6emXjnNjGqcWtJFzsOWVxgaB25DiK3/IXUiRGKbdpUKIc9kDjpNzujvDbfgdw3fGCDnOdzluHBEyzLYU+p+kh2DMz683NG7wFixi/Z7X7/13glLNb4Azk5Nb2CE8iXGmD7ZTigyVgqWI95sdwJBgEAciHSE1XDY3w01BR0G6dLeYN7iEhRCmxk1EdoNennXA40oRGEtgufhItcdJZZVFWPUGofG2MipnyClTg4AzzqteQhaXPrGJzv+xmxf2Ao6vZU8Au4DIYbjhxIvIA5eibmsK3JUkTQ0VP9pKbIr+/Sg6pDig+8PBHKWoRkgTbyTGKO5Pc91x0+uUnE1IF9MNjg/2b1gc2viwSPqcPC4bS9C7O9OQV9QrgqhbKcGLQ+d6QRFaycx0Hp+jogrpuQNot9UFf1GOi4ZikT0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(39860400002)(346002)(376002)(136003)(366004)(396003)(4744005)(2906002)(478600001)(41300700001)(66446008)(91956017)(66556008)(76116006)(66476007)(66946007)(4326008)(8676002)(64756008)(6486002)(316002)(71200400001)(86362001)(36756003)(31686004)(31696002)(26005)(6506007)(6512007)(110136005)(53546011)(54906003)(82960400001)(38070700005)(38100700002)(2616005)(5660300002)(8936002)(122000001)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?L3ViSTdrUjdsV01iaUlHUFdxZ3ZQbUg3eVUwNEpZbjFWeVhiL0VuQ1ZCb2JY?=
- =?utf-8?B?bmY4RmJTMXJ3ZzhoV2tCVkw4UUtLMllmOXdaVmlkNnVMWkZ4VkN0d05FYTE5?=
- =?utf-8?B?ZGlERDlraWhmbDZvTFFRWU9Na1lnc2QwRFFWemlMckE0Z1V0bEo3TXFwendn?=
- =?utf-8?B?V1JFY1BqclFSbFFoNmhjNmszQ3AvQ085cU9aZjMvOUNEbHNLdk1nZXVWZEF3?=
- =?utf-8?B?bFJUeVBPQTQ3Q3hkRTdPc1J5Z2ZMWUhDeEJxR0o0WDdiR2h0b0s3QlQ3WUwy?=
- =?utf-8?B?ZFV5cUUrUmFPbjk4MEQvRWt6OVEzZGJ5RXhhWmdxRTNVcy9Zc243UWdtOWNw?=
- =?utf-8?B?aDBuQVhPSzBzM2tBb0wvWkdLVTlvOFNZQ0pDUktJeUY3d3NqSjlUcVVXU1JR?=
- =?utf-8?B?VE0zblpGV2dqaVdIdWVGTVdnY3FteHl6SUVjRXFBZ3NzZkdid2dJK2Q2R28z?=
- =?utf-8?B?eUFFeVRmdWZsVXBxNHNYWjcrQ2pROGJMcG1aTi83VnQ3OU5YMmZoREc0MkRL?=
- =?utf-8?B?M1g3YWwyYTZaY3hzKy8wRktjZ0M0RWVtelM5dVJqQkNwMVZOWndIN1U3UzVs?=
- =?utf-8?B?bW11anRrYnpIZVVHNjdVMW9jeitWdVlydW14azNPYkYvSkFiWVV1aVhoL0hM?=
- =?utf-8?B?cldFNHJKdTNSUEVMZGMzTW9zYmVpaGE3Nk5RUFlKak5ETlR2K2wveVFNZlZn?=
- =?utf-8?B?ZVRZS1N0aVVveHM1NUdIVHFNVDF5RFhRSFFSdUxGcXRCNnRBcUlOQjZlSVdT?=
- =?utf-8?B?elpNUXZLRGtEZTJqS2NqYXRFL29tNUhtK3dwdmQ5YkpDVVV0ZDQzRHhTZ0JN?=
- =?utf-8?B?dTBQMVZENFVpR0VoWHFZd09KUDczTDBBWVdXQ3dMQjk1SkxPTC9EaG40UEFZ?=
- =?utf-8?B?RHJTT1lJS05OYmJZMjhrcFZTOVdXSU1nTE1GdGpJTXlPbnZhK2lBNUI2N25t?=
- =?utf-8?B?UkNlNVZMUFAwZTg4Y2VoM0JtdG1IckxlWFFsSExPODRyOEZiRkhsQk9KdnFD?=
- =?utf-8?B?THBVVG54YkdINlY1aG0zcHlOQUhSNXN3R0FuekVBbkczMVNrclRzQ1ozOUc2?=
- =?utf-8?B?S1lDTzhQTjFGc3JDWERFS1BBTk9KSGxWNzE3RndmeHM3M3FPSDBnRkwzUnJo?=
- =?utf-8?B?UkVabFlLZDIzajMvL1djYzFyd0RiczN4cTlVWE53ajM4Ynh1a2oyZlYzT2lB?=
- =?utf-8?B?MzZTbk5CV3pDWWRZV0pNV2hJSjZWZ2xEd29iQi9Ka0JhWmdKcmE5WFlIajY2?=
- =?utf-8?B?WXpkNWExaHMxNmU2YTlvN0srNU5XN0MxSjQ2L29SVlZWVWpHY0xlY2Q0UmR2?=
- =?utf-8?B?a3hZdHBFVmNsM1dSdEJuM21ObXNiVkt1a0ZsdUhEa1lCM01HS05xNWhZMFI0?=
- =?utf-8?B?aC96ek1PeUdJeHNLRjZwTUtqZU9tT3Yrek9xSGRCS20vT3gwTmh0bjVITDRp?=
- =?utf-8?B?NWdZaVd1UjdPVHEyeUM4R3FXWFlsUUtkUGlkRGx3c0xMclB5K3pRN1J1N29W?=
- =?utf-8?B?c1VibWQySHN1VFRSS1pnTnRaRUZzRnRhUG0vd3FZektCRTkrRXFuS0NxMVV1?=
- =?utf-8?B?NkhuQjdyc3J5R21qcWRuRlRKWHUwQ0tiNFJ3WFpkSFBodlNMcFFITDYzc0pQ?=
- =?utf-8?B?UkdVUzdYT0hCSFhLa2J2VzFkVlR5bldNK2lnTUhDU3A4WnlOMXhZV0pNQXdv?=
- =?utf-8?B?U3BYMGpLZXR0RFlPR1NHRnZ3Z1NZNzdVVytxejEwOGFjVkZ5SU5mL2JkYjJp?=
- =?utf-8?B?a1AvN1A0d0lPV2FNdkJLSzFLcjNsckw3bE1CQ1dVRlpSS3Q2MUt4Uy83cEpr?=
- =?utf-8?B?R1VWR2JDU3p3NEUxcjhRZGs3ZW1JQlkzNk5pcFFxbjBVZnpkM2JqS09CYlo0?=
- =?utf-8?B?RkFCOHI0eVZndmRHdWZJK1ZzQWFxZko3SE9Odyt0T3VYRGIrdXFsUW9iUnFi?=
- =?utf-8?B?T3VBWmdqSUpPaFBJcGJyU0VvdHFYZWZ5RW9PSTBKWlEyY1pLWk4weElIZUtG?=
- =?utf-8?B?ak5PUkpRSlRDQzZ0SUFVazlxWVN3bnBTUXBKY1d0UTlCMitSU2grbnBjQTd4?=
- =?utf-8?B?K2FTUjdiZFFRNmxTOWlrM0FsVzlpZzlUSzJKdWJlc1FSeHJDM3lKdi91T0JD?=
- =?utf-8?Q?+MziDpaXKmvYB5b/la9pVRk0f?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2C09B7328CBECA44ADA98B92769CBD49@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 29c72b84-1e41-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1660750072; x=
+	1660836472; bh=/phj973pQy9PADy4yrfTn9/lln+0IgCl4wIlRpnRngo=; b=t
+	Thf72vMG5gRMutkRt8KAsLsCwUkE9vgwf3YqVh7KjfuEzZz6CKoAIS2CbOZKYtvF
+	g8R7VyzcNom+iZwDQRZVD5RftsZayAoHX0iVSyi6B0WD2qZsIlZj+M1oWEmyxqiZ
+	0LUn/DHLKcprx814eUgryupakRiV1sEwJVkaaQOso27J/bxzEzsHkRwCPj47gaq9
+	kA6QIzMM6btEImk6+agpDfqWkRy8lPPx9eV9zvjybs8PFKVNvaI2W8vwI6Znq5fy
+	3a34nKJdOFh2ISyEE+B0cLQ/VM6CL0lpR6r/FL380n/AOk3AU6z+xJKCqJQLeFMT
+	5QgBd0TgvT6jg502yqx3g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1660750072; x=1660836472; bh=/phj973pQy9PADy4yrfTn9/lln+0
+	IgCl4wIlRpnRngo=; b=lNW8A6ob9iaHPl13jN77IvkH/BJZ+uubDZVNQ6FRozRI
+	uapH2+AvTkjO+Qni8HXU9b3wsH3978hFnCUHvnvqg8d/LcwPPC60DUw2lbJL/VDf
+	GQIkdQdclyoX7cE7FER9a0WXrIobeeeejXvxDn7hio2rq5vHc8OD2KqY7sgL4o5u
+	aiinsb+xL38ug8hZeJGADo4T5IeOCUpHJ0abGhux3gbOtDBdXVG1GA9ldNTrLqO0
+	QwlnaG47Gd5AmuAfRwcH9y2cji3PHlTxf8v+29t0uwjKsqH7fqYgM1nS1GKvsfhr
+	Rz3CUoznHxP6b/nrKaipDB+udxQQ51VtJdF6tiAA3w==
+X-ME-Sender: <xms:9wj9YoOZIpB7JTCUn61Avr-vsFYUAXKQcQWhITanlaU_MPqFJR5vdg>
+    <xme:9wj9Yu8qYduS62Ava8TApYxg_ZS3DJFCeI3JaJXX8DKUrx4S_NuibIl7EQ12RaMAq
+    995hnlbzvauxw>
+X-ME-Received: <xmr:9wj9YvRZpoICXERB-boKqVJ99vHmXhrE4s4YeuYIA6_dK-1PERuGb4M9nMeirbaNlOMEng_Im-STVgJGQ_vaxMK6Cm9M2hI_0Zao>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdehiedgkeekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:9wj9YgvxeN_YowkF4ov3L9AbgCTfN2JBhpetges0nDM9HanqbMMGTA>
+    <xmx:9wj9YgdIdsvfJEkRfB6UVKvHIQEIr8LFDeZMkm5xQn_RZMdx9EJkAg>
+    <xmx:9wj9Yk2Rbd_7CIO-hTwPtn4MXAga_xgVGd74jGwdoHQx-hWEUsO0pQ>
+    <xmx:-Aj9Yv7mTxCdYT09Ibeud6JMXSRlTvrpd_zodANu20i8x6cnFQ0w7Q>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 17 Aug 2022 17:27:47 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 11/11] drivers/char: allow driving the rest of XHCI by
+ a domain while Xen uses DbC
+Message-ID: <Yv0I9L/a+xR199r1@mail-itl>
+References: <cover.05bda81c2f5ff91948f96e397b6836bcede71ef8.1660354597.git-series.marmarek@invisiblethingslab.com>
+ <403daba6911a3d40e4774b46ba555f6d76b3c249.1660354597.git-series.marmarek@invisiblethingslab.com>
+ <141cb0d0-3563-1376-a6b0-a977142c1873@suse.com>
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	UiuRzSg2wTWfUBorBp1bFDpxA4a9vkB9bSEWwcBDR03f31iNDBX/gK7vWYtnLGBb7aGsSEqtI+8amKlSKsMcHmf+7tWHo6Fo4+ND4udSnGkTP4CIWvmKKkNBppCqxaU1SHY+EwUOmLBoNnO1EWRGCiu4kahllGJz+hoGAR+VQDp2V8xUosP87oRjRtARAz07MoqfO9x45mRsbLRwKwsW4bFTh3aIQCijO6hXgFsfA8g/YN3bbJ2EDDxRaT6J1lO76vO7hMWf7DkqoX0vopB4yh/voXZiYQLoBS7A0/W2MYpKnpNpI5P/KZb97nKmxgyRJS7q4A9VqustRVfKAjMWGTMEvJre1Dy6agyWTenphz9H0fUjNr/98igPJVyVjvwMN+EdhQjdmrwcpEUNnF7DDlFAP+eATOzzkww0GmKYiVXTucCxmJ7PvUANqOy+V4H652wG0bKi87jRt3x+9Q3y6lBS/7vUCATMDtpCdHjOgQ8Cnr8dYgneIs1X61/goHBTTGvSclsawCHlvkI5OmxWTSN+7l+8ZBIeF5b5YjYei2K2xwJNbuPXbuY/sDwfoynadYQaq4Y0zrZtDfjS/NdNjdpMldcoM64/usmnaNCN18Aq1ZmiQDwKc7/XkNpG1KRJ+5MZGqVTKJAvLAPcOuhWUqx4FzRkpfB3rnoX52yCS1otDy2gfHt1quPd7xv9VUXiPjjSIS+mK2ogsJvDCFh0at0M0rVpDQhf1lf7dKSKSySEDq0TQhWxboYVmqSyGbwrz9w4yyAI/79A2Auue899bEeUDwi9ObxJlAaIPM4r0RROlGcJsxc0NvTqrh1ta0jyo1AoXWg2IVFw+LdR2fNVdgqood8yuGb0VAzYV4liqMxDmud6N21KxoiHmYZ14d22znZ2HXe1arYkFzk6lqe0Y7SoCHpjLtRkhW/gBQzK7vc=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3396b671-bd0c-499b-81e3-08da8064e8bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2022 15:26:51.5721
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9yqTHPXGJtWEBOn04rIPEzsZdIgFYfrxJPvYx85esu2Xhg+PsACpVEliIeu+lNWULXJD66LKNSIz79mSvSqipB1mVr8XWrama4MuDy2Jtpk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5334
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="nSMhtkCqUlOTccdf"
+Content-Disposition: inline
+In-Reply-To: <141cb0d0-3563-1376-a6b0-a977142c1873@suse.com>
 
-T24gMTcvMDgvMjAyMiAxNjoyMSwgQW50aG9ueSBQZXJhcmQgd3JvdGU6DQo+IFdoaWxlIHdlIGFs
-cmVhZHkgaGF2ZSAiLS1uby1wcmludC1kaXJlY3RvcnkiIGFkZGVkIHRvIHRoZSBtYWtlIGZsYWdz
-DQo+IGluIHNvbWUgY2FzZXMsIHRoZXJlJ3Mgb25lIGNhc2Ugd2hlcmUgdGhlIGZsYWdzIGlzIG1p
-c3NpbmcsIHdoZW4gZG9pbmcNCj4gYW4gb3V0LW9mLXRyZWUgYnVpbGQgd2l0aCBPPSwgZS5nLg0K
-PiAgICAgY2QgeGVuOyBtYWtlIE89YnVpbGQNCj4NCj4gV2l0aG91dCBpdCwgd2UganVzdCBoYXZl
-IGxvYWRzIG9mICJFbnRlcmluZyBkaXJlY3RvcnkiIGFuZCAiTGVhdmluZw0KPiBkaXJlY3Rvcnki
-IHdpdGggdGhlIHNhbWUgZGlyZWN0b3J5Lg0KPg0KPiBUaGUgY29tbWVudCBhbmQgbG9jYXRpb24g
-aW4gdGhlIE1ha2VmaWxlIGFyZSBjb3BpZWQgZnJvbSBMaW51eC4NCj4NCj4gUmVwb3J0ZWQtYnk6
-IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+DQo+IFNpZ25lZC1vZmYt
-Ynk6IEFudGhvbnkgUEVSQVJEIDxhbnRob255LnBlcmFyZEBjaXRyaXguY29tPg0KDQpBY2tlZC1i
-eTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4NCg==
+
+--nSMhtkCqUlOTccdf
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Aug 2022 17:27:47 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 11/11] drivers/char: allow driving the rest of XHCI by
+ a domain while Xen uses DbC
+
+On Wed, Aug 17, 2022 at 05:08:35PM +0200, Jan Beulich wrote:
+> On 13.08.2022 03:39, Marek Marczykowski-G=C3=B3recki wrote:
+> > --- a/docs/misc/xen-command-line.pandoc
+> > +++ b/docs/misc/xen-command-line.pandoc
+> > @@ -724,7 +724,7 @@ Available alternatives, with their meaning, are:
+> > =20
+> >  ### dbgp
+> >  > `=3D ehci[ <integer> | @pci<bus>:<slot>.<func> ]`
+> > -> `=3D xhci[ <integer> | @pci<bus>:<slot>.<func> ]`
+> > +> `=3D xhci[ <integer> | @pci<bus>:<slot>.<func> ][,share=3D<bool>|hwd=
+om]`
+> > =20
+> >  Specify the USB controller to use, either by instance number (when goi=
+ng
+> >  over the PCI busses sequentially) or by PCI device (must be on segment=
+ 0).
+> > @@ -732,6 +732,19 @@ over the PCI busses sequentially) or by PCI device=
+ (must be on segment 0).
+> >  Use `ehci` for EHCI debug port, use `xhci` for XHCI debug capability.
+> >  XHCI driver will wait indefinitely for the debug host to connect - make
+> >  sure the cable is connected.
+> > +The `share` option for xhci controls who else can use the controller:
+> > +* `no`: use the controller exclusively for console, even hardware doma=
+in
+> > +  (dom0) cannot use it
+> > +* `hwdom`: hardware domain may use the controller too, ports not used =
+for debug
+> > +  console will be available for normal devices; this is the default
+> > +* `yes`: the controller can be assigned to any domain; it is not safe =
+to assign
+> > +  the controller to untrusted domain
+> > +
+> > +Choosing `share=3Dhwdom` (the default) or `share=3Dno` allows a domain=
+ to reset the
+>=20
+> DYM "... or `share=3Dyes` ..." here?
+
+Yes.
+
+> > --- a/xen/drivers/char/xhci-dbc.c
+> > +++ b/xen/drivers/char/xhci-dbc.c
+> > @@ -23,6 +23,7 @@
+> >  #include <xen/iommu.h>
+> >  #include <xen/mm.h>
+> >  #include <xen/param.h>
+> > +#include <xen/rangeset.h>
+> >  #include <xen/serial.h>
+> >  #include <xen/timer.h>
+> >  #include <xen/types.h>
+> > @@ -232,6 +233,14 @@ struct dbc_work_ring {
+> >      uint64_t dma;
+> >  };
+> > =20
+> > +enum xhci_share {
+> > +    XHCI_SHARE_NONE =3D 0,
+> > +#ifdef CONFIG_XHCI_SHARE
+> > +    XHCI_SHARE_HWDOM,
+> > +    XHCI_SHARE_ANY
+> > +#endif
+> > +};
+>=20
+> Hmm, this suggests that Dom0 cannot use the controller without the Kconfig
+> enabled, which I hope is not the case.=20
+
+It is the case, because you requested reset quirk to be behind
+"experimental" tag in kconfig. This quirk is (currently) necessary even
+if just dom0 uses the controller.
+I'm happy to include the quirk by default, but I got impression you
+wouldn't accept it. And I'd rather avoid marking the whole driver as
+"experimental" (which hides it unless you select UNSUPPORTED) just
+because of a small code necessary to share it with dom0.
+
+> But I notice that patch 1, which
+> was committed already, still uses pci_ro_device() rather than
+> pci_hide_device() (like ehci-dbgp.c does).
+
+>=20
+> > @@ -1128,10 +1181,34 @@ static void __init cf_check dbc_uart_init_posti=
+rq(struct serial_port *port)
+> >      init_timer(&uart->timer, dbc_uart_poll, port, 0);
+> >      set_timer(&uart->timer, NOW() + MILLISECS(1));
+> > =20
+> > -    if ( pci_ro_device(0, uart->dbc.sbdf.bus, uart->dbc.sbdf.devfn) )
+> > -        printk(XENLOG_WARNING
+> > -               "Failed to mark read-only %pp used for XHCI console\n",
+> > -               &uart->dbc.sbdf);
+> > +    switch ( uart->dbc.share )
+> > +    {
+> > +    case XHCI_SHARE_NONE:
+> > +        if ( pci_ro_device(0, uart->dbc.sbdf.bus, uart->dbc.sbdf.devfn=
+) )
+> > +            printk(XENLOG_WARNING
+> > +                   "Failed to mark read-only %pp used for XHCI console=
+\n",
+> > +                   &uart->dbc.sbdf);
+> > +        break;
+> > +#ifdef CONFIG_XHCI_SHARE
+> > +    case XHCI_SHARE_HWDOM:
+> > +        if ( pci_hide_device(0, uart->dbc.sbdf.bus, uart->dbc.sbdf.dev=
+fn) )
+> > +            printk(XENLOG_WARNING
+> > +                   "Failed to hide %pp used for XHCI console\n",
+> > +                   &uart->dbc.sbdf);
+> > +        break;
+> > +    case XHCI_SHARE_ANY:
+> > +        /* Do not hide. */
+> > +        break;
+> > +#endif
+> > +    }
+> > +#ifdef CONFIG_X86
+> > +    if ( rangeset_add_range(mmio_ro_ranges,
+> > +                PFN_DOWN(uart->dbc.xhc_mmio_phys + uart->dbc.xhc_dbc_o=
+ffset),
+> > +                PFN_UP(uart->dbc.xhc_mmio_phys + uart->dbc.xhc_dbc_off=
+set +
+> > +                       sizeof(*uart->dbc.dbc_reg)) - 1) )
+> > +        printk(XENLOG_INFO
+> > +               "Error while adding MMIO range of device to mmio_ro_ran=
+ges\n");
+> > +#endif
+>=20
+> I did comment on this last part before. There very minimum that I'd expect
+> to appear here is a comment as to the issue with other elements living on
+> the same page which a domain's driver may actually find a need to write t=
+o.
+> As said before - as soon as such a report would surface, we'd likely need
+> to add write emulation support for the leading/traling parts of the page(=
+s)
+> that Xen doesn't use itself.
+
+I did included paragraph in the commit message:
+| In any case, to avoid Linux messing with the DbC, mark this MMIO area as
+| read-only. This might cause issues for Linux's driver (if it tries to
+| write something on the same page - like anoter xcap), but makes Xen's
+| use safe. In practice, as of Linux 5.18, it seems to work without
+| issues.
+
+Do you want this as a code comment too?
+
+> > @@ -1202,13 +1279,18 @@ void __init xhci_dbc_uart_init(void)
+> >  {
+> >      struct dbc_uart *uart =3D &dbc_uart;
+> >      struct dbc *dbc =3D &uart->dbc;
+> > -    const char *e;
+> > +    const char *e, *opt;
+> > =20
+> >      if ( strncmp(opt_dbgp, "xhci", 4) )
+> >          return;
+> > =20
+> >      memset(dbc, 0, sizeof(*dbc));
+> > =20
+> > +#ifdef CONFIG_XHCI_SHARE
+> > +    dbc->share =3D XHCI_SHARE_HWDOM;
+> > +#endif
+>=20
+> I think it would be best if the default value was "0"; I can see though
+> that "NONE" being zero also makse sense, if the enum was to be used in
+> boolean context (which afaics it currently isn't).
+>=20
+> > +    e =3D &opt_dbgp[4];
+> >      if ( isdigit(opt_dbgp[4]) )
+> >      {
+> >          dbc->xhc_num =3D simple_strtoul(opt_dbgp + 4, &e, 10);
+> > @@ -1218,7 +1300,7 @@ void __init xhci_dbc_uart_init(void)
+> >          unsigned int bus, slot, func;
+> > =20
+> >          e =3D parse_pci(opt_dbgp + 8, NULL, &bus, &slot, &func);
+> > -        if ( !e || *e )
+> > +        if ( !e || (*e && *e !=3D ',') )
+> >          {
+> >              printk(XENLOG_ERR
+> >                     "Invalid dbgp=3D PCI device spec: '%s'\n",
+> > @@ -1228,6 +1310,41 @@ void __init xhci_dbc_uart_init(void)
+> > =20
+> >          dbc->sbdf =3D PCI_SBDF(0, bus, slot, func);
+> >      }
+> > +    opt =3D e;
+> > +
+> > +#ifdef CONFIG_XHCI_SHARE
+> > +    /* other options */
+> > +    while ( *opt =3D=3D ',' )
+> > +    {
+> > +        opt++;
+> > +        e =3D strchr(opt, ',');
+> > +        if ( !e )
+> > +            e =3D strchr(opt, '\0');
+> > +
+> > +        if ( !strncmp(opt, "share=3D", 6) )
+> > +        {
+> > +            int val =3D parse_bool(opt + 6, e);
+> > +            if ( val =3D=3D -1 && !cmdline_strcmp(opt + 6, "hwdom") )
+>=20
+> Nit: Blank line please between declaration(s) and statement(s).
+>=20
+> Any reason you're using parse_bool() and not parse_boolean() here?
+> That would save you the open-coded strncmp() afaict.
+
+I can probably use parse_boolean() too, but then handling "hwdom"
+variant would be a bit weird. I could skip 'share=3Dhwdom' parsing at all,
+since that's default if the kconfig option is enabled, but I'm not sure
+if that's a good idea.
+
+> Finally a remark seeing the opt_dbgp use here and the identically
+> named option in ehci-dbgp.c, taken together with your multiple-
+> serial-consoles patch: Since the two option consumers are now
+> different, they can't sensibly coexist anymore. There were issues
+> already before - it doesn't seem to be possible this way to run
+> EHCI and XHCI based consoles in parallel. (An exceptional case
+> would be if <integer> for both was intended to be same number.)
+> IOW I think one of the options needs renaming; it was a mistake of
+> mine to not have pointed this out before committing patch 1.
+> Following the name of the source file as well as e.g. the title
+> here - maybe "dbc=3D"?
+
+Yes, I can rename the option here. That requires also registering new
+SERHND_* and inventing new value for console=3D parameter (implemented in
+serial_parse_handle()). "dbc" there too?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--nSMhtkCqUlOTccdf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmL9CPMACgkQ24/THMrX
+1yzL6Qf/WcUZKhQMD0fFXk7Hs2ZQiFvXP/oBGaqlGRHbP4rxU8uV7uQznI1JojQQ
+Hrj+RW5dlyR+RTJDgbzy9Os0aAZqSKi9Y94LzNS6pc9I/NYWoTABOj6ltQSlv8EO
+t2JX1dylfKAWMt0ily/5vGjeiR1ODA4bIrlWfGEQlxhmI7H6Q2y1UYY+rek+e6m8
+UsAfB2CNM5YGlLIfbgh8ne0w9COm6ZmJqJqs25q8jnSOzIqDGE62682h8emBsooP
+wD09k9AFEglHr6YeloE/WXMle346ir6JpbR+zSXNZzP9tu85AI9fXahPh7XENdm0
+w2uJy2VsVRE51txQZQzJG8wtfAJS3w==
+=uviS
+-----END PGP SIGNATURE-----
+
+--nSMhtkCqUlOTccdf--
 
