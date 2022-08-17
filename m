@@ -2,33 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BC815970B0
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Aug 2022 16:16:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388966.625753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F7B95970DE
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Aug 2022 16:24:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388976.625764 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOJqg-0004QX-FX; Wed, 17 Aug 2022 14:16:46 +0000
+	id 1oOJy0-000623-Ah; Wed, 17 Aug 2022 14:24:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388966.625753; Wed, 17 Aug 2022 14:16:46 +0000
+Received: by outflank-mailman (output) from mailman id 388976.625764; Wed, 17 Aug 2022 14:24:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOJqg-0004Ok-CE; Wed, 17 Aug 2022 14:16:46 +0000
-Received: by outflank-mailman (input) for mailman id 388966;
- Wed, 17 Aug 2022 14:16:44 +0000
+	id 1oOJy0-0005yd-7w; Wed, 17 Aug 2022 14:24:20 +0000
+Received: by outflank-mailman (input) for mailman id 388976;
+ Wed, 17 Aug 2022 14:24:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xyl4=YV=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1oOJqe-0004OX-FG
- for xen-devel@lists.xenproject.org; Wed, 17 Aug 2022 14:16:44 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36afbb2b-1e37-11ed-bd2e-47488cf2e6aa;
- Wed, 17 Aug 2022 16:16:42 +0200 (CEST)
-Received: from [10.10.1.154] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1660745797745977.3889293143588;
- Wed, 17 Aug 2022 07:16:37 -0700 (PDT)
+ <SRS0=asjj=YV=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1oOJxz-0005yV-I1
+ for xen-devel@lists.xenproject.org; Wed, 17 Aug 2022 14:24:19 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr140081.outbound.protection.outlook.com [40.107.14.81])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 470b0922-1e38-11ed-bd2e-47488cf2e6aa;
+ Wed, 17 Aug 2022 16:24:18 +0200 (CEST)
+Received: from AM6PR0202CA0051.eurprd02.prod.outlook.com
+ (2603:10a6:20b:3a::28) by AM9PR08MB6770.eurprd08.prod.outlook.com
+ (2603:10a6:20b:300::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.11; Wed, 17 Aug
+ 2022 14:24:15 +0000
+Received: from VE1EUR03FT025.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:3a:cafe::b) by AM6PR0202CA0051.outlook.office365.com
+ (2603:10a6:20b:3a::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.19 via Frontend
+ Transport; Wed, 17 Aug 2022 14:24:15 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT025.mail.protection.outlook.com (10.152.18.74) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5546.15 via Frontend Transport; Wed, 17 Aug 2022 14:24:14 +0000
+Received: ("Tessian outbound 6a3290ff1310:v123");
+ Wed, 17 Aug 2022 14:24:14 +0000
+Received: from 2b4229d21b41.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 520723CA-73A8-44F6-B9D7-93B2FC0BF203.1; 
+ Wed, 17 Aug 2022 14:24:08 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 2b4229d21b41.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 17 Aug 2022 14:24:08 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by AM6PR08MB4488.eurprd08.prod.outlook.com (2603:10a6:20b:71::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5525.10; Wed, 17 Aug
+ 2022 14:24:04 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::f474:4549:1f7a:b89a]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::f474:4549:1f7a:b89a%4]) with mapi id 15.20.5504.025; Wed, 17 Aug 2022
+ 14:24:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,237 +71,271 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36afbb2b-1e37-11ed-bd2e-47488cf2e6aa
-ARC-Seal: i=1; a=rsa-sha256; t=1660745798; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=n0xOp81c6xaSsCBtOQ7Nz4uVCrDX8oJQ0nCuE3l2jVej6LhawQMhb8w7ifTlg/IUZfX7FJbqGYtxGoBhmL1f38A5aQpwbNVfdoc0eb9EE9NRmOVWJY9QbcNRWe3JHHtAVe3NNkZDHtRYjZu28F3coVGw74rESoUiONvbzdoTTVI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1660745798; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=UJCzSNRF6cteYvrdQtGXslVJA1S46wayPZVjNW86Cag=; 
-	b=SX8KZB8dQw4I2C9J5iCyKFPc6krdV75HJg7agznZG2455lcCVzrtPSeq61N768+oaOi8jKatPWcdPOh2t6wVNS5irJ47sz1XhLhx4l108w0xiQfz3u4bBWfhdqw4vPfgpYvQfByS/t2ogVk16vwAn3sbTfAwmcOYKh/sEHMjrTc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1660745798;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=UJCzSNRF6cteYvrdQtGXslVJA1S46wayPZVjNW86Cag=;
-	b=BEyhqMfcaxLdTqNpzelBRSDIz1m3fILXb39g+SgBNFZL7hXtnpvvEnSlR4AA7CDu
-	3SxrsAdugCeUEeaj3Z/KCoA1iHouewfB/VcJsLsBcsWDMlpnNEfk1gf6QjorrqsDRWQ
-	EwB3cZrcMV4yiZkjwKBPjp+PBVBeI2Bx/6EoXo9Q=
-Message-ID: <c3682bb0-4241-d142-b131-1221d1a62b31@apertussolutions.com>
-Date: Wed, 17 Aug 2022 10:15:16 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH v12] xsm: refactor flask sid alloc and domain check
+X-Inumbo-ID: 470b0922-1e38-11ed-bd2e-47488cf2e6aa
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=QOETATqJc3dOpA+q/LGbB2VwCcbfS/9cgFMNOH/0Z1pA4LYzYKmNy6LzCcO1HTQBhQnPLu1I1NkW/Tcm70+zSevP0ulJNyypldD8hLbJT+71MGRB19ctyVtmK64A38lfTaMehuqLJtlCyaHMC++DSJ0lanD9+Cah1ywzo4lBW7/o5v+YxCN6jhZRJiU4m+eC4hhDD6huQm3I2ehvFojGLHeKe9LE9VSfun2t81BW0zAtjmPbslp/TTskxO3hayqEoNbamDM6uF0SUAO5/xmNj9N5LWCwQM8piE2x/LL1PCo2gSKN0nqO/jboUv/+6EGlIOYhBhQmhsJVYq25audnlg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h0l1DSorM3j5cICVZ3WhVkpwVgUcbH9HzCGIK2CTplM=;
+ b=ZSngt7ZLMI+ERuIVeWmSdpEmApXfEphLH9cHvllJAimJAYAXEUiSXba2u4O5v73JhMFMZQGcR1AZ+6w7GIrFlj19iyP+zo8EE9UDjyJxYIiit4dkljmN8ButJehWtunN9Lc2wP3BKzRg4uFpN2k/zdYIVWCdzlp1Ta6LstmzoGYp5jCXSOEVn4etDbCOAUXhIEYNOGvyaHQ6iNTYABjaL/j3oouekVqdLp8W6HoEqH0wlFWaivuj3QiD8qD0K1Lnf0i1hqje5axY3ghNCKJlULk8XSAMERQub+L4eitLWhhfJUXqPjQkCVHxNY2mJ9lBwsonBR+5n4zQvflq/8eSQA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h0l1DSorM3j5cICVZ3WhVkpwVgUcbH9HzCGIK2CTplM=;
+ b=EPMyrLJy8DOBB7WSiLHPgSYviwurj2gusD1W8EU/j6B9L+ytStp/ge83A3g03UbxxjwIwg0n/4g+trHB5duDtdT/063uaa3bsb96iooTzHy8Ce63pjRleFbZowRuzsZUAP2WJ2Ij8b7gyGSzfk+l6XfYoOj5iet0ZUdTcOL9umk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 57f50f28c7d5dfc2
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KwaEOx2w6ocd/i4XGYjEbWtY+BpgiSL8jmQQVavWW92p8PN3adPgqURd/sloPbQcg+u8uvUNcE8w0uxSKNeb1fdmqhlO/iKdgzuzjWzOIUdxN5s51OpOSrHgGSv5ZV3ADcQr7yf91Z228+yxefDEk96GTe0XYgyvtrRIPWrFc2qGGOfjVvSLf8xE9q+d+qhVhz039Bj9iBAHZLV6Bjm516pJdd9lpYbygARw7WI8nzbPGO7be+tPU3d1TgkPPfwG/XatAN0y0lt9J6m88QwFeL2Ew8dLE4VpZuBbhFUv7OcPLriqRYUIl6dn+vGZPGRa8nv3nMwVWFaDgDy3hhYodA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h0l1DSorM3j5cICVZ3WhVkpwVgUcbH9HzCGIK2CTplM=;
+ b=XBt5Tx/928BjcNaja5MD/IsA7QBmbeisYe0T8DxkOv1c6gVjU7rnqAvbbmnxLF37UfTHF2bVtpUxDeW89YyddnKP18ohgWwFutODCv9pjlpmxhSapIOwhq9lg97qRh+e9lBjBqJHH95GaukAKVUMBGpS5Zl2D0t/IMttJPGdjDfVxvyrNz9MPn2Ez4CjXHFMzuXl3XVgVorF8ZmE8nRdXImGVjlFajPD8Bt7O17YriLR4U89JxQzin55Zn3crCStMk5qdUqFG7LleZ4L5YQmfDyvhYoExoWfJWLEXE18PPwnKDXfQ7esxy+8HHzomcSkl539IJqEVex/sGanRQikZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h0l1DSorM3j5cICVZ3WhVkpwVgUcbH9HzCGIK2CTplM=;
+ b=EPMyrLJy8DOBB7WSiLHPgSYviwurj2gusD1W8EU/j6B9L+ytStp/ge83A3g03UbxxjwIwg0n/4g+trHB5duDtdT/063uaa3bsb96iooTzHy8Ce63pjRleFbZowRuzsZUAP2WJ2Ij8b7gyGSzfk+l6XfYoOj5iet0ZUdTcOL9umk=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+CC: xen-devel <xen-devel@lists.xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: Re: [XEN PATCH v2] build: Fix x86 out-of-tree build without EFI
+Thread-Topic: [XEN PATCH v2] build: Fix x86 out-of-tree build without EFI
+Thread-Index: AQHYshn5p8B+wu2e+kaYxiD64FUdFq2zJc0A
+Date: Wed, 17 Aug 2022 14:24:04 +0000
+Message-ID: <8DFC3EF7-4F6C-482A-9D7C-D56EE1AD6A81@arm.com>
+References: <20220816103043.32662-1-anthony.perard@citrix.com>
+ <20220817091540.18949-1-anthony.perard@citrix.com>
+In-Reply-To: <20220817091540.18949-1-anthony.perard@citrix.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20220809140633.23537-1-dpsmith@apertussolutions.com>
- <CAKf6xpur5sESPxgDEmY=PsnDDmuZ898UbaAECccGuQuyetjHEQ@mail.gmail.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <CAKf6xpur5sESPxgDEmY=PsnDDmuZ898UbaAECccGuQuyetjHEQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 2a74693e-44d2-45cd-ff92-08da805c295c
+x-ms-traffictypediagnostic:
+	AM6PR08MB4488:EE_|VE1EUR03FT025:EE_|AM9PR08MB6770:EE_
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ KwWxbb5lBc+BByQHTvLtn845oP6+UWB7BKNIZn/7uvG9QHcSugf+9G0b48qZ856RIksJj6iHD1P2SvKUItDrWKSr49INvgjN2t3oAftoEirtEPmZe0n6WQYHcWJ8Ql8tRu0w6IZCuujbfIheSJALeKiMc8Z+HobKnSyfw4ngp+uVb0N2hZwHK5l6HeG5ZrQHErVa+03Sp//+2VAUeLWr3fuzdDRpfYtKOs5DoxCGObD6fv7695HxlvSwAs/PeSxlqlE5B6T1xtdwzgolFbIgTTVqB2/6G7AcnmbHbvpS9gLNJSlqzyQjCDql3kgrFNrtp7uL0m/whGHUrMD09lpr4bqrrurjfYMQw8SdjlYIX+wFSBAtBpOnCsJ4MchX71UUvNMi4DUqGTlQ6oNGwoqCLxAmm8Sdf+xAqq8PLUviwir23l91EX2PdSG0uXCePMCAktHXjcuvDs1/Zd8QfKl/MMjcdrnrQ2KKORy7NYcclDa8b79UCK0ebnCl+xsUdGv9hodux2TAUclVVx9+raf6byBWIH45NClbHrBYEefIxwnpFr7Ib5iZFkLWpvXq0AjhWbHTWnJO1HKz5fMgGft3L2e0xT7qJYFEadqj8enf8KC6OkjJbNdbuiM8grered9FpswbZN/YnAL66WtJllxgpn34Nols0pNQlmnt8YbbzcirItx/h0e92wBlBC858nQc3EvT7UZ0ed04fXCF2KinnwL2ZFitPB/k7GlCZbCJTty29+Pc79ArIJobx7Qc/UOfvtigaib1+LM/2x6gQfU4jN8ibzcQLW78lpgT+U0JePsJ+Kj/kByM6fFWcHYUy0WZquWVIm98zMm+zV1xF5Tl1g==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(8936002)(26005)(38100700002)(54906003)(53546011)(186003)(41300700001)(71200400001)(2616005)(83380400001)(86362001)(6512007)(6916009)(122000001)(316002)(6506007)(66476007)(6486002)(38070700005)(5660300002)(7416002)(4326008)(33656002)(76116006)(91956017)(66946007)(66446008)(478600001)(64756008)(66556008)(8676002)(2906002)(36756003)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <A1D7CC91F3EB9843885B556ED6B0572A@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4488
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT025.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	3f2bb40a-3954-4488-b389-08da805c2398
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	cMlraxuFrC6X16tSZSjCa+UylxvHOGsv41qBSNSYMWn17GWTJz4sxJtTbLdrBP4OsfMZr9wTHvzhY8i67pSrX/wyJND1aPiRsCGGN9GaSv6+bSDXKUsewC9wUcdDYiOvDCUZiDdSKKU9wWCrJo8iFZMiVi3gpzacxnrVSTIRiZmWI9Sz8/HllOnSCQVMnuMzkO53w8JO/6NBwNAKKhWvYGBtwp16/hvLE7Uqlw+TN4DUWlzVBVjM2CTstP3FCxAO6MxXkA0rP2LotJBdi5BK7eYs6mOTmC02QMfbrpuhc4b5XxhpVD9K7NHy2TOc1cII2oG2L1hRyNkKTS7cBdWmPGJUNM86tvkRxC3bDe6ivAvSjzEk8s4eO4oARlF4NIR3KsnkK3Qol5N3+aGkheVtVzRJ5FXXHxjec21E7xnganhsYHVaYGtljS22eRpDlwbiD4o7LhJQChOTxsCaJfdonMFRMFtppiqVqkPdwKVGlhS0VVT35Qe0Ki2xjBGRFvTH1hXjjvRhyj7mdENBPlzxjFhorooSJ0Rkg5AWbxcXwQIPy+XFlzWXwglAxhGfIglbHVLnnqHiwFYg4m+XOVDwXVM36VpS8fr3bevur3PP1Z0Sdw+MMq7ICaZhMOuHV5nVjL0mE5i9Gh23oc3lbXicL1MBdQrISOUiabCEty/a6rtR62crhfQ4iWDvbb1mq67iXRzU4nnJcueuqk3pcTyckzsL5e0zuoeMJeaHp5Ke8BAM5sQOWzVUndWrSnJRw+vmDdFub9CgTwLY+p4ZE/3PaszWESCyRRMNOxuFfIXHblgzJeAevUPDZ/s71EMCkN0t
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(376002)(136003)(346002)(39860400002)(396003)(40470700004)(46966006)(36840700001)(41300700001)(54906003)(316002)(478600001)(82310400005)(4326008)(70586007)(40460700003)(70206006)(6486002)(40480700001)(8676002)(5660300002)(8936002)(6862004)(26005)(2906002)(36860700001)(107886003)(82740400003)(36756003)(186003)(86362001)(53546011)(6506007)(81166007)(33656002)(356005)(336012)(2616005)(83380400001)(47076005)(6512007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2022 14:24:14.4091
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a74693e-44d2-45cd-ff92-08da805c295c
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT025.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6770
 
-On 8/16/22 13:43, Jason Andryuk wrote:
-> Hi,
-> 
-> I think you should change the title to "xsm/flask: Boot-time labeling
-> for multiple domains".  Refactor implies no functional change, and
-> this is a functional change.  With this, I think the commit message
-> should be re-written to focus on the "why" of the new labeling policy.
+Hi Anthony,
 
-I can rename and expand a bit further.
+> On 17 Aug 2022, at 10:15, Anthony PERARD <anthony.perard@citrix.com> wrot=
+e:
+>=20
+> We can't have a source file with the same name that exist in both the
+> common code and in the arch specific code for efi/. This can lead to
+> comfusion in make and it can pick up the wrong source file. This issue
+> lead to a failure to build a pv-shim for x86 out-of-tree, as this is
+> one example of an x86 build using the efi/stub.c.
+>=20
+> The issue is that in out-of-tree, make might find x86/efi/stub.c via
+> VPATH, but as the target needs to be rebuilt due to FORCE, make
+> actually avoid changing the source tree and rebuilt the target with
+> VPATH ignored, so $@ lead to the build tree where "stub.c" dosen't
+> exist yet so a link is made to "common/stub.c".
+>=20
+> Rework the new common/stub.c file to have a different name than the
+> already existing one, by renaming the existing one. We will take
+> example of efi/boot.c and have the common stub.c include a per-arch
+> stub.h. This at least avoid the need to expose to Arm both alias
+> efi_compat_get_info and efi_compat_runtime_call.
+>=20
+> Avoid using $(EFIOBJ-y) as an alias for $(clean-files), add
+> "stub.c" directly to $(clean-files).
+>=20
+> Also update .gitignore as this was also missing from the original
+> patch.
+>=20
+> Fixes: 7f96859b0d00 ("xen: reuse x86 EFI stub functions for Arm")
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-> On Tue, Aug 9, 2022 at 10:06 AM Daniel P. Smith
-> <dpsmith@apertussolutions.com> wrote:
->>
->> The function flask_domain_alloc_security() allocates the security context and
->> assigns an initial SID for the domain under construction. When it came to SID
->> assignment of the initial domain, flask_domain_alloc_security() would assign
->> unlabeled_t. Then in flask_domain_create() it would be switched to dom0_t.
->> This logic worked under the assumption that the first domain constructed would
->> be the hypervisor constructing dom0 and all other domains would be constructed
->> by a toolstack, which would provide a SID. The introduction of dom0less and
->> subsequently hyperlaunch violates this assumption, as non-privileged domain may
->> be constructed before the initial domain or no initial domain may be
->> constructed at all. It is not possible currently for dom0less to express domain
->> labels in the domain configuration, as such the FLASK policy must employ a
->> sensible initial SID assignment that can differentiate between hypervisor and
->> toolstack domain construction.  With the introduction of xenboot_t it is now
->> possible to distinguish when the hypervisor is in the boot state, and thus any
->> domain construction happening at this time is being initiated by the
->> hypervisor.
-> 
-> The problem this commit is addressing is "flask can only label a
-> single dom0_t at boot, and this is incompatible with dom0less and
-> hyperlaunch".
-> 
-> ISTM that dom0less device tree could gain a node for the security
-> label, and Hyperlaunch already supports labels.  But a goal of this
-> patch is to make it work without changing dom0less?  And it may be
-> worth more directly stating that dom0less panics today since the domU
-> fails to build with unlabeled_t.
-> 
-> Also a motivation was to align Flask labels to match the dummy policy
-> with dom0/domU, correct?  That would be worth adding.
+I do not really like the empty header but I have no better solution so:
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-okay
+Also I did some compilation runs and it works.
 
->> This commit addresses the above situation by using a check to confirm if the
->> hypervisor is under the xenboot_t context in flask_domain_alloc_security().
->> When that is the case, it will inspect the domain's is_privileged field to
->> determine whether an initial label of dom0_t or domU_t should be set for the
->> domain. The logic for flask_domain_create() was changed to allow the incoming
->> SID to override the initial label.
-> 
-> AFAICT, the labeling policy needs to handle these three cases:
-> 1) Traditional domain 0 (x86 or arm)
-> Single domain - domid == 0 && privileged
+Cheers
+Bertrand
 
-On x86 it cannot be assumed that the domid for the initial domain is 
-zero(0). See get_initial_domain_id() for which, afaict, is not a valid 
-call under Arm.
+> ---
+>=20
+> Notes:
+>    v2:
+>    - instead of renaming common/efi/stub.c to common_stub.c; we rename
+>      arch/*/efi/stub.c to stub.h and include it from common/stub.c
+>    - update .gitignore
+>=20
+>    CC: Jan Beulich <jbeulich@suse.com>
+>    CC: Wei Chen <wei.chen@arm.com>
+>=20
+> xen/arch/arm/efi/Makefile           | 4 ----
+> xen/common/efi/efi-common.mk        | 4 ++--
+> xen/arch/arm/efi/stub.h             | 4 ++++
+> xen/arch/x86/efi/{stub.c =3D> stub.h} | 5 ++++-
+> xen/common/efi/stub.c               | 5 +++++
+> .gitignore                          | 1 +
+> 6 files changed, 16 insertions(+), 7 deletions(-)
+> create mode 100644 xen/arch/arm/efi/stub.h
+> rename xen/arch/x86/efi/{stub.c =3D> stub.h} (93%)
+>=20
+> diff --git a/xen/arch/arm/efi/Makefile b/xen/arch/arm/efi/Makefile
+> index bd954a3b2d..ff1bcd6c50 100644
+> --- a/xen/arch/arm/efi/Makefile
+> +++ b/xen/arch/arm/efi/Makefile
+> @@ -4,10 +4,6 @@ ifeq ($(CONFIG_ARM_EFI),y)
+> obj-y +=3D $(EFIOBJ-y)
+> obj-$(CONFIG_ACPI) +=3D  efi-dom0.init.o
+> else
+> -# Add stub.o to EFIOBJ-y to re-use the clean-files in
+> -# efi-common.mk. Otherwise the link of stub.c in arm/efi
+> -# will not be cleaned in "make clean".
+> -EFIOBJ-y +=3D stub.o
+> obj-y +=3D stub.o
+>=20
+> $(obj)/stub.o: CFLAGS-y +=3D -fno-short-wchar
+> diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
+> index ec2c34f198..950f564575 100644
+> --- a/xen/common/efi/efi-common.mk
+> +++ b/xen/common/efi/efi-common.mk
+> @@ -9,9 +9,9 @@ CFLAGS-y +=3D -iquote $(srcdir)
+> # e.g.: It transforms "dir/foo/bar" into successively
+> #       "dir foo bar", ".. .. ..", "../../.."
+> $(obj)/%.c: $(srctree)/common/efi/%.c FORCE
+> -	$(Q)test -f $@ || \
+> -	    ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/so=
+urce/common/efi/$(<F) $@
+> +	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/so=
+urce/common/efi/$(<F) $@
+>=20
+> clean-files +=3D $(patsubst %.o, %.c, $(EFIOBJ-y:.init.o=3D.o) $(EFIOBJ-)=
+)
+> +clean-files +=3D stub.c
+>=20
+> .PRECIOUS: $(obj)/%.c
+> diff --git a/xen/arch/arm/efi/stub.h b/xen/arch/arm/efi/stub.h
+> new file mode 100644
+> index 0000000000..b0a9b03e59
+> --- /dev/null
+> +++ b/xen/arch/arm/efi/stub.h
+> @@ -0,0 +1,4 @@
+> +/*
+> + * Architecture specific implementation for EFI stub code.  This file
+> + * is intended to be included by common/efi/stub.c _only_.
+> + */
+> diff --git a/xen/arch/x86/efi/stub.c b/xen/arch/x86/efi/stub.h
+> similarity index 93%
+> rename from xen/arch/x86/efi/stub.c
+> rename to xen/arch/x86/efi/stub.h
+> index f2365bc041..9d2845b833 100644
+> --- a/xen/arch/x86/efi/stub.c
+> +++ b/xen/arch/x86/efi/stub.h
+> @@ -1,3 +1,7 @@
+> +/*
+> + * Architecture specific implementation for EFI stub code.  This file
+> + * is intended to be included by common/efi/stub.c _only_.
+> + */
+> #include <xen/efi.h>
+> #include <xen/init.h>
+> #include <asm/asm_defns.h>
+> @@ -8,7 +12,6 @@
+> #include <efi/eficon.h>
+> #include <efi/efidevp.h>
+> #include <efi/efiapi.h>
+> -#include "../../../common/efi/stub.c"
+>=20
+> /*
+>  * Here we are in EFI stub. EFI calls are not supported due to lack
+> diff --git a/xen/common/efi/stub.c b/xen/common/efi/stub.c
+> index 15694632c2..854efd9c99 100644
+> --- a/xen/common/efi/stub.c
+> +++ b/xen/common/efi/stub.c
+> @@ -30,3 +30,8 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *op)
+> {
+>     return -ENOSYS;
+> }
+> +
+> +/*
+> + * Include architecture specific implementation here.
+> + */
+> +#include "stub.h"
+> diff --git a/.gitignore b/.gitignore
+> index ed7bd8bdc7..3a91e79672 100644
+> --- a/.gitignore
+> +++ b/.gitignore
+> @@ -311,6 +311,7 @@ xen/arch/*/efi/ebmalloc.c
+> xen/arch/*/efi/efi.h
+> xen/arch/*/efi/pe.c
+> xen/arch/*/efi/runtime.c
+> +xen/arch/*/efi/stub.c
+> xen/arch/*/include/asm/asm-offsets.h
+> xen/common/config_data.S
+> xen/common/config.gz
+> --=20
+> Anthony PERARD
+>=20
 
-> 2) dom0less (arm)
-> Possibly a single dom0 - domid == 0 && privileged
-> Multiple domUs - domid > 0 && not privileged
-> Notably, it takes care not to create a domU with domid 0.
-
-Just to be pedantic, this really should just be labeled as "arm domain 
-construction". As I discovered during all of this, Arm is always capable 
-of building multiple domains at boot. The dom0less construct is really 
-just a mode of the domain builder to never construct/start the initial 
-domain (dom0) if the dom0less flag is set, regardless if there is one 
-defined in the DTB.
-
-> 3) Hyperlaunch (x86 or arm)
-> Potentially anything?  I don't know what you envision for this.
-
-A simplistic way to state it is, remove all assumptions/conventions 
-about domain construction by the hypervisor. Instead, require explicit 
-declarations about what domains the hypervisor should construct.
-
-> When it was only dom0, it was easy to put a heuristic in flask to
-> label the first domain as dom0_t.  With dom0less, the heuristic can be
-> expanded to include domid > 0 -> domU_t.  With hyperlaunch, I'm not
-> sure.  Is there something it needs that wouldn't be covered?
-
-In the current HL series, there is no binding/enforcement/validation of 
-the boot configuration and requirements of the enforcing XSM module. For 
-the case when FLASK is the enforcing XSM module, the domain 
-configuration may not have provided labels for the domains. In this case 
-it would mean either FLASK refuses/fails the domain create check if a 
-SID ref is not provided or a sensible policy/heuristic must be codified.
-
-> dom0_t being a singleton emphasized for me that using only
-> is_privileged for the check isn't quite right.  Does hyperlaunch need
-> domid != 0 && is_privileged to get assigned dom0_t?  That could still
-> be done explicitly, but just not implicitly by the above.
-
-I agree it is not quite right, but more so that it is leveraging the 
-assumption from the basic policy module (dummy policy) that only the 
-initial domain (dom0) will have is_privileged set. As stated above, 
-domid !=0 and is_privileged being set already exists for PV shim, not 
-something being introduced by HL. HL only expands the possibility for 
-the configuration to be built outside PV shim.
-
-With that said, unless I am missing something, the heuristic below will 
-enforce the singleton. While it is possible that 
-flask_domain_alloc_security() would allocate a security context for more 
-than one domain containing the label of dom0_t. The 
-flask_domain_create() check will only allow the first domain with this 
-label to be created, regardless if the domain create was initiated by 
-the hypervisor or by a runtime toolstack.
-
->> The base policy was adjusted to allow the idle domain under the xenboot_t
->> context the ability to construct domains of both types, dom0_t and domu_t.
-> 
-> I suppose if someone doesn't want to use domU_t/dom0_t, then they
-> could remove the xenboot_t allow rules which would defacto require
-> explicit labels.
-
-Correct, this is why I pushed for the rules to be in the policy instead 
-of in the code. If someone wants to use HL to do something custom, they 
-can define their desired types, including dropping the dom0_t type, in 
-policy and explicitly provided labels to domain in the boot configuration.
-
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> 
-> 
->> --- a/xen/xsm/flask/hooks.c
->> +++ b/xen/xsm/flask/hooks.c
->> @@ -182,7 +182,15 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
->>           dsec->sid = SECINITSID_DOMIO;
->>           break;
->>       default:
->> -        dsec->sid = SECINITSID_UNLABELED;
->> +        if ( domain_sid(current->domain) == SECINITSID_XENBOOT )
->> +        {
->> +            if ( d->is_privileged )
-> 
-> The policy outlined above would change this line to:
->      if ( d->is_privileged && d->domid == 0 )
-
-As mentioned above, d->domid == 0, is not a valid assumption even before 
-the introduction of HL.
-
->> +                dsec->sid = SECINITSID_DOM0;
->> +            else
->> +                dsec->sid = SECINITSID_DOMU;
->> +        }
->> +        else
->> +            dsec->sid = SECINITSID_UNLABELED;
->>       }
->>
->>       dsec->self_sid = dsec->sid;
->> @@ -550,20 +558,36 @@ static int cf_check flask_domain_create(struct domain *d, uint32_t ssidref)
->>       struct domain_security_struct *dsec = d->ssid;
->>       static int dom0_created = 0;
->>
->> -    if ( is_idle_domain(current->domain) && !dom0_created )
-> 
-> This old check only applied at boot time to label the first domain as
-> dom0_t, but it didn't restrict runtime labeling...
-> 
->> +    /*
->> +     * The dom0_t label is expressed as a singleton label in the base policy.
->> +     * This cannot be enforced by the security server, therefore it will be
->> +     * enforced here.
->> +     */
->> +    if ( ssidref == SECINITSID_DOM0 )
->>       {
-> 
-> ...this new one restricts runtime labeling with dom0_t.  It's an
-> unusual case, so making the code change is (probably) fine.   But it
-> should at least be mentioned in the commit message.
-
-Correct, this makes a stronger/hard enforcement that only one domain can 
-ever be labeled as dom0_t. As mentioned, previously it was only checked 
-when the idle domain was doing the construction. Which made it possible 
-to construct multiple domains labeled as dom0_t, as long as the policy 
-was altered to allow a domain type to construction domains of type 
-dom0_t. IMHO, if there is a desire to enable configurations with 
-multiple all-privileged domains, then that configuration should define a 
-different domain type and use HL to have the initial domain constructed 
-with that type. The type dom0_t is special, mostly to align with 
-historical expectations/conventions, and should not be repurposed by 
-custom FLASK policies.
-
-> However, if the boot time policy adds "domid == 0" to the dom0_t
-> assignment, then the dom0_created code can go away.
-
-I disagree because "domid == 0" is not a valid check and IMHO the 
-enforcement of dom0_t being a singleton should be as strong as possible.
-
-> Regards,
-> Jason
-
-v/r,
-dps
 
