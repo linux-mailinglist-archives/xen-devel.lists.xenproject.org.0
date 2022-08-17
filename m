@@ -2,33 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46FC059682B
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Aug 2022 06:29:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.388645.625368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B44B596841
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Aug 2022 06:44:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.388657.625378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOAfm-0005hu-3p; Wed, 17 Aug 2022 04:28:54 +0000
+	id 1oOAuK-000840-CV; Wed, 17 Aug 2022 04:43:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 388645.625368; Wed, 17 Aug 2022 04:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 388657.625378; Wed, 17 Aug 2022 04:43:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOAfm-0005fo-17; Wed, 17 Aug 2022 04:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 388645;
- Wed, 17 Aug 2022 04:28:52 +0000
+	id 1oOAuK-00081z-9j; Wed, 17 Aug 2022 04:43:56 +0000
+Received: by outflank-mailman (input) for mailman id 388657;
+ Wed, 17 Aug 2022 04:43:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aIU2=YV=gmail.com=lukas.bulwahn@srs-se1.protection.inumbo.net>)
- id 1oOAfk-0005fi-47
- for xen-devel@lists.xenproject.org; Wed, 17 Aug 2022 04:28:52 +0000
-Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
- [2607:f8b0:4864:20::1135])
+ id 1oOAuI-00081t-Dt
+ for xen-devel@lists.xenproject.org; Wed, 17 Aug 2022 04:43:54 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17e2f0ea-1de5-11ed-bd2e-47488cf2e6aa;
- Wed, 17 Aug 2022 06:28:51 +0200 (CEST)
-Received: by mail-yw1-x1135.google.com with SMTP id
- 00721157ae682-32a09b909f6so202543307b3.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Aug 2022 21:28:50 -0700 (PDT)
+ id 31f7be3c-1de7-11ed-bd2e-47488cf2e6aa;
+ Wed, 17 Aug 2022 06:43:53 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id a4so3117856wrq.1
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Aug 2022 21:43:53 -0700 (PDT)
+Received: from felia.fritz.box
+ (200116b82633f20060f31b3eb0891b8b.dip.versatel-1u1.de.
+ [2001:16b8:2633:f200:60f3:1b3e:b089:1b8b])
+ by smtp.gmail.com with ESMTPSA id
+ bd22-20020a05600c1f1600b003a2f6367049sm735112wmb.48.2022.08.16.21.43.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 16 Aug 2022 21:43:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,70 +46,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17e2f0ea-1de5-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 31f7be3c-1de7-11ed-bd2e-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc;
-        bh=Fd64ZTYpBZ+RIWsrdcx55o1cFYfsxNqJQSrJeLxKjSQ=;
-        b=Ad99UETspLmbHH9gsu+1FAFTvXlfJoLpaNP0OL9t4xxoVylZiSsMLzp4nPYGIA1UFH
-         IOKL84hR+P6bSU7poN6ScvoslZBqCCZJ+q/m/a3E+GfVFccj2tMmQaejOqlhVckdRP2K
-         5/9xgAqY2UHzw7qhAf13K6clzbiIjuZIaU9rLdrg2XKbT27K6Kn7nQXLXk6No6K9C0q0
-         3d/ppwe3m4L4fPgoXWluWqPvm1Y7d2cz6MIvl/hxiWZkTiTtseK7FvlK4sQobx0QkTNJ
-         3X89MouRVjqTxcepKwydY0yX7qth747/NNwCTIg0LL55+5UtSw6tC3MfVpOTZXRRo7al
-         TUyw==
+        h=message-id:date:subject:cc:to:from:from:to:cc;
+        bh=UACsgzg4zvHRWZAiY2XTwdGkhFZ7nkJOvMvp+H83efU=;
+        b=LxqfgrQRxH9cVxBmy6mNpakfLl7UYj9+tXLCNREcdEntLd0pdXuOO3BbgYC3UKVYlp
+         Aqg0rsH3md+ygovnda3zH2j0KA8RKTQNF6MAObW85HYTx3mB2byTk62ZOWkI8Hm+edNU
+         ZCu9SgkqMRskKZ6weJ2ZwcMulfOBk6f2q7cfCrJSeTLOOTEmKjySI7xec7gQFbdiLSHi
+         0fWObg+Wybl3M5AMhn+rAWXaAEoAe2BFIVOmNz+j4O3oa3TsXAhi9tzJdtrhO4i/yxHU
+         gK5WljdrHM+Dw20qNI3tnouNv1eh7+PaGywVliEGMyOVhHhYyYkoamHWA09Ozshl43bD
+         g5zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc;
-        bh=Fd64ZTYpBZ+RIWsrdcx55o1cFYfsxNqJQSrJeLxKjSQ=;
-        b=dygi7+0aNN4Ljw0NQc4lqCFk1QD+KvFB+2PznFHSdGB8I/FcR/2Ai8JA4aamO0Zeph
-         +7VUeBaT/botgRifdhXZPH2/JIaLlZpnYYkW1W4tQEdg6hENQQTqVNCqX30vg6w2F1HD
-         XlgzhisE0pJHHmRZgybiaKXZ58NG8B8lrFFv80cTwNvUmb6I+ytEPFPBD7TLrFaLaZZd
-         l4UJyvqE5ueFGSQtBq+6UuS+PV5OsIg64QBXYS/ZaJhIE90QVq4CmDKf9op3gs4+2Cv9
-         GQzuq3/0Hd9xCMkWKl7tpfVzFbjD6wQYctCcB6cJm7WB8MZLuX5H0rioKBjMlA7vusnl
-         S95Q==
-X-Gm-Message-State: ACgBeo1qXI4FSC8oUJ3gPb46hXxoZG23UPA507NVZUWn51uFhk3oCghp
-	c9DisfrGe3RUMsI7LS+ocLik91OBGoT/zhKv04E=
-X-Google-Smtp-Source: AA6agR7r3Vz1IkV8JjjkI722lpR7xQMTMFPwTM97y2R48sSD8HSCg6dN1OoUe4zjtP1cNX3v/pKyZCb6n0V55d2IfQo=
-X-Received: by 2002:a25:6885:0:b0:68b:b381:facf with SMTP id
- d127-20020a256885000000b0068bb381facfmr7872999ybc.318.1660710529892; Tue, 16
- Aug 2022 21:28:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220810050712.9539-1-lukas.bulwahn@gmail.com>
- <20220810050712.9539-2-lukas.bulwahn@gmail.com> <d8930edf-d138-6ef2-81c3-ff4d9003066b@suse.com>
-In-Reply-To: <d8930edf-d138-6ef2-81c3-ff4d9003066b@suse.com>
+        h=message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+        bh=UACsgzg4zvHRWZAiY2XTwdGkhFZ7nkJOvMvp+H83efU=;
+        b=wV76DD7SUXV77VyEh6qGthUUTNsh1BYqbHnCqqZxHvupEba6cvKROEPp1ktFIQaT2h
+         SYMy1Y7fqb5Q2MGd07IrFKkkbbVS9zW40e8QiU2MjhA7KEnIt+1nIONtsBtovYudVOkF
+         KOe83iBmjVRnU1TGugTHmubnbKv5HX+kvmTb9H1sqqCT+jQBBH4ATeQoTzEBVDalByJU
+         nZyTdhdiFU/brws2oqVNFXOHMd0f/kd8HeQ7bQEA3RFce3GQ2RUhwm+WwKwfZAWXz60D
+         cna3r1q8zgT24omzfIIUgELcS9QvfmLmvDXHIZbBDVPeg7KPkELvkIjUtWlugZ51M0HJ
+         Q3dA==
+X-Gm-Message-State: ACgBeo3c32IQaaHt50i4nmI4uFQwJo7zhtpPwan4JZbO8TcjHo/sR/wn
+	zhCauT3ACHAxB8oEJYHPAYY=
+X-Google-Smtp-Source: AA6agR5q4ITliuREdqBZMGN+ngSPk5+CneCGqoC3bxyecQ+Oy/RJSsdqRjd7lrglFQLV9L2r1hKpvg==
+X-Received: by 2002:a05:6000:1a88:b0:222:ca4d:f0d2 with SMTP id f8-20020a0560001a8800b00222ca4df0d2mr13922194wry.610.1660711432645;
+        Tue, 16 Aug 2022 21:43:52 -0700 (PDT)
 From: Lukas Bulwahn <lukas.bulwahn@gmail.com>
-Date: Wed, 17 Aug 2022 06:28:39 +0200
-Message-ID: <CAKXUXMx2HvR5SYxpvH3=LSzv_v6S65n-F4FyUSD=STpAgSYcOw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] xen: x86: set the config XEN_512GB after config change
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, X86 ML <x86@kernel.org>, 
-	"H . Peter Anvin" <hpa@zytor.com>, kernel-janitors <kernel-janitors@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Juergen Gross <jgross@suse.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+To: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lukas Bulwahn <lukas.bulwahn@gmail.com>
+Subject: [PATCH v2] xen: x86: remove setting the obsolete config XEN_MAX_DOMAIN_MEMORY
+Date: Wed, 17 Aug 2022 06:43:33 +0200
+Message-Id: <20220817044333.22310-1-lukas.bulwahn@gmail.com>
+X-Mailer: git-send-email 2.17.1
 
-On Wed, Aug 10, 2022 at 9:07 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 10.08.2022 07:07, Lukas Bulwahn wrote:
-> > --- a/arch/x86/configs/xen.config
-> > +++ b/arch/x86/configs/xen.config
-> > @@ -14,7 +14,7 @@ CONFIG_CPU_FREQ=y
-> >
-> >  # x86 xen specific config options
-> >  CONFIG_XEN_PVH=y
-> > -CONFIG_XEN_MAX_DOMAIN_MEMORY=500
-> > +CONFIG_XEN_512GB=y
->
-> Does this actually need setting here? The option's default is y, so
-> it ought to be turned on "automatically". Hence I think it's only
-> the stale line which wants deleting.
->
+Commit c70727a5bc18 ("xen: allow more than 512 GB of RAM for 64 bit
+pv-domains") from July 2015 replaces the config XEN_MAX_DOMAIN_MEMORY with
+a new config XEN_512GB, but misses to adjust arch/x86/configs/xen.config.
+As XEN_512GB defaults to yes, there is no need to explicitly set any config
+in xen.config.
 
-Jan, that makes sense. I will send a patch v2 to do so.
+Just remove setting the obsolete config XEN_MAX_DOMAIN_MEMORY.
 
-Lukas
+Signed-off-by: Lukas Bulwahn <lukas.bulwahn@gmail.com>
+---
+ arch/x86/configs/xen.config | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/x86/configs/xen.config b/arch/x86/configs/xen.config
+index d9fc7139fd46..581296255b39 100644
+--- a/arch/x86/configs/xen.config
++++ b/arch/x86/configs/xen.config
+@@ -14,7 +14,6 @@ CONFIG_CPU_FREQ=y
+ 
+ # x86 xen specific config options
+ CONFIG_XEN_PVH=y
+-CONFIG_XEN_MAX_DOMAIN_MEMORY=500
+ CONFIG_XEN_SAVE_RESTORE=y
+ # CONFIG_XEN_DEBUG_FS is not set
+ CONFIG_XEN_MCE_LOG=y
+-- 
+2.17.1
+
 
