@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 776FF598869
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 18:15:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389678.626767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A48D5988C0
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 18:25:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389686.626779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOiAj-00076d-3q; Thu, 18 Aug 2022 16:15:05 +0000
+	id 1oOiKA-00007z-1Y; Thu, 18 Aug 2022 16:24:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389678.626767; Thu, 18 Aug 2022 16:15:05 +0000
+Received: by outflank-mailman (output) from mailman id 389686.626779; Thu, 18 Aug 2022 16:24:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOiAj-00074t-0m; Thu, 18 Aug 2022 16:15:05 +0000
-Received: by outflank-mailman (input) for mailman id 389678;
- Thu, 18 Aug 2022 16:15:03 +0000
+	id 1oOiK9-00005m-TK; Thu, 18 Aug 2022 16:24:49 +0000
+Received: by outflank-mailman (input) for mailman id 389686;
+ Thu, 18 Aug 2022 16:24:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X6Qq=YW=citrix.com=prvs=222213ea0=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oOiAh-00074n-EO
- for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 16:15:03 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e855d525-1f10-11ed-9250-1f966e50362f;
- Thu, 18 Aug 2022 18:15:01 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+/fD=YW=kernel.org=ardb@srs-se1.protection.inumbo.net>)
+ id 1oOiK8-00005g-NR
+ for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 16:24:48 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 45eb6ab2-1f12-11ed-9250-1f966e50362f;
+ Thu, 18 Aug 2022 18:24:47 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BB93A615A1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 16:24:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B039C43470
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 16:24:45 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id h24so2311300wrb.8
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 09:24:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,109 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e855d525-1f10-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1660839301;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Gri3MvPbgfl7cI9dRT1xhkuvRarOs0m7ELMQIrz2GkE=;
-  b=DxubGOR1InGGY9GF6OdHYqBi0LRXLm0rcU95toVSpsCQ9uAjgTDT8CZ3
-   mHryW8DbS48MaIHZUpTpb4+ZREosd2/uYC9y2x0PTQKiixiKD9SMpsYnA
-   1SIO0F755q9Api47nXz2sgelY1TfU+3MU2iwP7bN3Uj8n4/787kFLwNls
-   Q=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 2.7
-X-MesageID: 78411177
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: =?us-ascii?q?A9a23=3AlL/D66vRNPJGRxRLjWJ1qWxQJefnOphVZsZKJ?=
- =?us-ascii?q?smfNk3eNXix3RfKay+QfFakzPnuH4fhePpUhzShtGjaYWPAbuTZfVBMRd9am?=
- =?us-ascii?q?F36WO5As2H2EY7O/LAOr6O2LxVlbeFmEEAeofEN7L0BlDFnloQm7waH9WG89?=
- =?us-ascii?q?KSo7thphodbAmtSxXtCHCObvTUg0HPpZRQwE3djsloTHGEg8aifjAQp7RFS9?=
- =?us-ascii?q?QBxZqTfWMuBe9Uix1tqBj4wnf5/WvX6KdPaqHDlfkO/tnO8PBmWQWGoc3+6I?=
- =?us-ascii?q?tZlJQayNY9dzsYvSAaY1Qidy0e3uIvN/o78vOlA3NWrMkDvbLhP3AU4qJyG6?=
- =?us-ascii?q?22UseDzs6qhiBt+22FB5xXBAxx1yNgDGnA6Gu93n8RSaBQeDbdBmtTVm5d7d?=
- =?us-ascii?q?pWxP4urH5yxdUObhA0J/nw7YhO1gTiczoFWl/5eOWrhEkwnXuryTHW+Fux9P?=
- =?us-ascii?q?5lgpZTAmc+j2AGBCPPtrMJp88+9Uzc64hdjEt1UhkNBierkNm+EgCLib7pId?=
- =?us-ascii?q?mGCHkqpgeZj/OauCXUCudKx390+YtOR+rcFc+0Syp6W6dDDdEuv5dZaV/FOM?=
- =?us-ascii?q?P+w3mAKs3pHK/yFz0g3hjMTAoDEMSXcU/gC0rCslzJh9F8CX4hBbrjgX7kAc?=
- =?us-ascii?q?LIyL96uSzrTxYPcHW1rp8AKd5BbbOxEbbrjwZuXlNMRG/SF9fGfrIvz7zM3K?=
- =?us-ascii?q?KvTi+73WmdKGeR5rArc54GkJxFkj5s9MvW0fiKCNdXD3I4yDDZAbyKSOcFK2?=
- =?us-ascii?q?yp8iyElFEb6gXcMc/DI92VMZxXhEuZfMcd6mEncR67snZ0CKEWl3tGgFoeBb?=
- =?us-ascii?q?uNDPsQMa9AzUH3WsvZFLlS7KrybEybD/q7ylS7HVazaPg8lM3yAV0HeGtRFs?=
- =?us-ascii?q?Tn44a9JtrIgbCsF96DdWiNCf2HppzzaodOTQqsTB7iEnknqaOxM2OuDPXs7X?=
- =?us-ascii?q?ZwbP7jQrow1OwdbKRck0DnD9yeSeC4H8F8j6NNuila4StX2tjKcrCIQwRU/0?=
- =?us-ascii?q?/Oc35Hpq5uD3B/JWaDakZea2qdvu8UKW70c9t0owDCHv3u42o+yjT/9UEHRE?=
- =?us-ascii?q?ZEcJxDkZ4cAOLTYthJtlbzqXE6TgHI251qNNU06T7JhSJDNv9OwKRtfTOz/O?=
- =?us-ascii?q?nbBHH7QO/GRwz76/mhGpgs+nbQkxEjNfEK9/rxsZQoggc7XpmIvFfjgSMILB?=
- =?us-ascii?q?XQeSzdNmX0PRsIgTOOFppoc4ic2jV0yC3WSxnerIBO2+5hWjS5m0RTOvZ30Z?=
- =?us-ascii?q?K0FBH6t1VII0KADvbVF3+ME8VCIZKpKSE6AbimRSqJCAbMVHhJ5yHH0EBtqq?=
- =?us-ascii?q?TFwCzIlLjwz3e8bS68Q2IRDZtV0054DvBVdI4Gq6leB6INZUy8TT4AsPN7DV?=
- =?us-ascii?q?iSbLNTzZgWNB9vza/3weLzWIRDANZLu09RNCwpRWODMpxMekyCwKhuJ7Yhj2?=
- =?us-ascii?q?mGbrjKRFqZg2zoryc5tFBtCeOENTtSuONEiTljHZiuNGzZ1dGtsA3CshJF55?=
- =?us-ascii?q?gf+9IVbeGzNiFbZDU4oxPQ57RVmunzaP9ISHc2EeH9WYVr6jE06soChlVQst?=
- =?us-ascii?q?t8sCqgfTtB8+CnIXOXLsQYLLUp76D5GrjRT2A09BBuCDd+T1Y9AujRzKqfaP?=
- =?us-ascii?q?vP5uQg1FPkw3Zre9cbjJjpbPztZnxPmfHQ1qcP7MxZDnJz9k1lIn9oMH2r0Y?=
- =?us-ascii?q?a87Lo3BDqDp/iulK7U1kPECgCryaXb6TlLGm2++0HECrY26p7m3g6+iIFrJ4?=
- =?us-ascii?q?jVvCOLjqyBkx/PPgucr3bChDdIf+wdQZZoJX1mfAPRbN3sI2O+bpOcPedRjL?=
- =?us-ascii?q?PxcgkFP4zNBgrUFK3Y7qS3l+sQ+HSxNP2YbbRlo/+ZwrpBkEBAxcI9QlFit7?=
- =?us-ascii?q?ag/q+1Qrh47B+FdGEM+SDZv7Xzo/CcDNBOVWzosgoMP4o1KluLl9grOE6+fi?=
- =?us-ascii?q?P9vsSmpLILGu3mE+weZoU1VMhBejLNZqU3USQatAb64EBMOkrKN1QhOiziuk?=
- =?us-ascii?q?w9prLAcZItAYGWHkR/HBafIL9SAFsXFuDWr7mvISCdy7rRSQlpOZqSAEOyOt?=
- =?us-ascii?q?Nym3+0Jn+Kx0soW6dLjf/KmOxnQirn+hY4/Ug4C+3e7W66x+QkIeatH+vh0y?=
- =?us-ascii?q?gy3Lw0v2mAss6ejWTGROkZ+HCfxprNjlWLUw+NcXO3kZXD9jpI4AxpkMBYWK?=
- =?us-ascii?q?JJeBYPtYSVlP30bYf3yGo1vg1RQT0JFHLhkwhmFN1R2cqMnEdJA7ZqtO4waj?=
- =?us-ascii?q?s4vvsK9vHZ1H7euuygj1TueRbfQ0Dvm3zhFKN8WNxJ+3m9XYi3FsXHbxOvvC?=
- =?us-ascii?q?yCpzyYBZVTz0u6SNwCTT8UoSB00XRGy25c6B6/QVkA/9V5LMjlJzyRUgM5Ir?=
- =?us-ascii?q?VlruTVEiDwjtek5m73aywQgELGghu5cKHUiVcYSwZEU0Bq29Rr7Ia6OhZWcJ?=
- =?us-ascii?q?z3G4RP4DwO/kKAvSlpiLCTzPWwJv+y75U450JunSd5l/eAs93xKAdlLvN5gW?=
- =?us-ascii?q?9uVbMXJ11OFmktx+jJJ4QwJTxI+5OWsWAcXGcbib/Q7YXLX6nWWhg0+vdVJo?=
- =?us-ascii?q?b3Jpfl5kEk51i3D4nuSDBpV+0FGXnpY9oARM7LBQcuHOJVC1EVHmOVWYD4DC?=
- =?us-ascii?q?WU1fk1ui12L+StYz5ezUsoMGTWpbeYrqlxee1O1Vyxhmv7U0+036A8TKNRdi?=
- =?us-ascii?q?QXXit1jbxiNHArat0o/36NVwh5jY4fwrKOSN0awiE+qwXa6bf3punVj/eKUV?=
- =?us-ascii?q?tK69B8hXxbkxmH0rX5G99FG4ZqBc45xZAS3+cJIfrmBG9HkfQbusSDN3w4MN?=
- =?us-ascii?q?epBnvoZ?=
-X-IronPort-AV: E=Sophos;i="5.93,247,1654574400"; 
-   d="scan'208";a="78411177"
-Date: Thu, 18 Aug 2022 17:14:56 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei Liu
-	<wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 3/3] libxl: use time_t for qmp_synchronous_send()'s last
- parameter
-Message-ID: <Yv5lgAUjrMj0ofEI@perard.uk.xensource.com>
-References: <68e71e3b-19a7-e062-9ebe-2e6f6aae0549@suse.com>
- <9ac207d1-8a20-b880-e564-57494bc5b551@suse.com>
+X-Inumbo-ID: 45eb6ab2-1f12-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1660839885;
+	bh=NXFD9jFkOQ6+Ym6W8+5vTdTbJMZRvb8Xi37Aa0qPDYU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=SK+45akmrq80tGoEvjjGSX6UyHnCDueQbDBWTKVIVffhTMxnJ6f+l2ea7KY6QByxM
+	 8ZXRPDfKSyBBsEO96mmYRg32nAJkHjOXGDvYd7gADdDqheXyuTWJrahBR1/CelfxLs
+	 Bi1WlxixdnwizltoEtTfZLFGp8VmaCOQ4YutwaEu2rXuoM5ScrbO/AV7QtYPy1sKQs
+	 5NZQZut1nXPrIkdulb2G8drsfNJUvOq+L92PXUzQGYD3njCUS32yptmbD5qA/TUmrQ
+	 63VWO9gHJXJHcW7/+gwFpU5Qrep+MN0XgRzmMb4ImNOmXW0UhxD5AfW62YO23pjsaq
+	 ikGXQ7PHIWwCw==
+X-Gm-Message-State: ACgBeo03WJ1r3gHB3ALGVUc7DxSTXe8hvnUuzu75lzocKnhUGzN5mUzJ
+	5/NxKi74lt4ERi/voj6ilJemvBfYk8e8K7usFx8=
+X-Google-Smtp-Source: AA6agR4wUmC0VZaVWOkODMq7wCo33c0WNoc1EQUBvcV58Uj/gxzyfvOquzmU4k+F5Gi10pye8Gb1/ldyRBsRrfebkwc=
+X-Received: by 2002:a5d:64e9:0:b0:220:7dd7:63eb with SMTP id
+ g9-20020a5d64e9000000b002207dd763ebmr2078232wri.590.1660839883321; Thu, 18
+ Aug 2022 09:24:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <9ac207d1-8a20-b880-e564-57494bc5b551@suse.com>
+References: <20220817105720.111618-1-leo.yan@linaro.org> <fd24b049-abf2-34e8-e0b0-2c2d2d1e1b0f@suse.com>
+ <CAMj1kXEDxHC6RgKfcmpXGDxwQ0mTKG146D8dJnrwJ1cWWXZ=3g@mail.gmail.com>
+ <Yv4DMuQHbGNhqAP4@leoy-yangtze.lan> <CAMj1kXHkWH7tkpuPLLjWszOVTQ-Cr3Zcbj8w0bogSd0Y_hso0g@mail.gmail.com>
+ <99e460f1-ca5f-b520-69e0-b250915fd591@xen.org> <Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
+In-Reply-To: <Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Thu, 18 Aug 2022 18:24:31 +0200
+X-Gmail-Original-Message-ID: <CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
+Message-ID: <CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
+Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
+To: Leo Yan <leo.yan@linaro.org>
+Cc: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>, Marc Zyngier <maz@kernel.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Rahul Singh <Rahul.Singh@arm.com>, 
+	Peter Griffin <peter.griffin@linaro.org>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Julien Grall <jgrall@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Aug 18, 2022 at 04:07:16PM +0200, Jan Beulich wrote:
-> "int" is not a suitable type to hold / receive "time_t" values.
-> 
-> The parameter is presently unused, so no functional change.
-> 
-> Coverity ID: 1509377
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Thu, 18 Aug 2022 at 17:49, Leo Yan <leo.yan@linaro.org> wrote:
+>
+> On Thu, Aug 18, 2022 at 11:04:48AM +0100, Julien Grall wrote:
+>
+> [...]
+>
+> > > > Seems it's broken for kdump/kexec if kernel boots with using DT?
+> > > >
+> > >
+> > > EFI supports both DT and ACPI boot, but only ACPI *requires* EFI.
+> > >
+> > > So DT boot on hardware with affected GICv3 implementations works fine
+> > > with kdump/kexec as long as EFI is being used. Using non-EFI boot and
+> > > kexec on such systems will likely result in a splat on the second
+> > > kernel, unless there is another mechanism being used to reserve the
+> > > memory in DT as well.
+> > >
+> > > Maybe we should wire up the EFI_PARAVIRT flag for Xen dom0 on arm64,
+> > > so that we can filter out the call above. That would mean that
+> > > Xen/arm64/dom0/kexec on affected hardware would result in a splat in
+> > > the second kernel as well, but whether that matters depends on your
+> > > support scope.
+> >
+> > In the context of Xen, dom0 doesn't have direct access to the host ITS
+> > because we are emulating it. So I think it doesn't matter for us because we
+> > can fix our implementation if it is affected.
+> >
+> > That said, kexec-ing dom0 (or any other domain) on Xen on Arm would require
+> > some work to be supported. OOI, @leo is it something you are investigating?
+>
+>
+> Now I am working on automative reference platform; the first thing for
+> me is to resolve the kernel oops.
+>
+> For long term, I think the kexec/kdump would be important to be
+> supported, to be clear, so far supporting kexec/kdump for Xen/Linux is
+> not priority for my work.
+>
+> Also thanks a lot for Ard and Mark's replying. To be honest, I missed
+> many prerequisites (e.g. redistributor configurations for GIC in
+> hypervisor) and seems Xen uses a different way by emulating GICv3
+> controller for guest OS.  So now I am bit puzzle what's for next step
+> or just keep as it is?
+>
 
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+If i understand Julien's remark correctly, the dom0 GICv3 is emulated,
+and so it should not suffer from the issue that we are working around
+here.
 
-> ---
-> An obvious alternative would be to drop the parameter for being unused,
-> but I assume there were plans to use it in some way.
+Given that this workaround is still the sole user of the MEMRESERVE
+API, we would like to remain free to rip it out and replace it
+completely if we need to, and so implementing it in Xen is a bad idea,
+especially if the issue in question does not even exist in your case.
+This means that even if you do decide to support kexec, things should
+work fine in spite of this warning regarding the failure to perform
+the memory reservation, as the GIC can simply be reconfigured.
 
-I'd rather drop the function all together instead, it doesn't get much
-use these days as it's been replaced in many cases.
-
-On the other hand, there seems to be only one call site, it would
-be only one extra change to drop it, so that would be one way to fix
-this. As you wish.
-
-Thanks,
-
--- 
-Anthony PERARD
+So perhaps we should just [conditionally] tone down the warning?
 
