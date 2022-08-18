@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B64A65989A5
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 19:10:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389720.626822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99030598A75
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 19:32:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389728.626835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOj2f-00071R-AL; Thu, 18 Aug 2022 17:10:49 +0000
+	id 1oOjNA-00019M-8A; Thu, 18 Aug 2022 17:32:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389720.626822; Thu, 18 Aug 2022 17:10:49 +0000
+Received: by outflank-mailman (output) from mailman id 389728.626835; Thu, 18 Aug 2022 17:32:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOj2f-0006z0-7H; Thu, 18 Aug 2022 17:10:49 +0000
-Received: by outflank-mailman (input) for mailman id 389720;
- Thu, 18 Aug 2022 17:10:48 +0000
+	id 1oOjNA-00015t-4v; Thu, 18 Aug 2022 17:32:00 +0000
+Received: by outflank-mailman (input) for mailman id 389728;
+ Thu, 18 Aug 2022 17:31:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOj2e-0006yq-CY; Thu, 18 Aug 2022 17:10:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oOjN8-00015n-Oj
+ for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 17:31:58 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOj2e-0004OI-Bg; Thu, 18 Aug 2022 17:10:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOj2e-0001Lj-2F; Thu, 18 Aug 2022 17:10:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oOj2e-0001zK-1m; Thu, 18 Aug 2022 17:10:48 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oOjN7-0004jd-Jw; Thu, 18 Aug 2022 17:31:57 +0000
+Received: from [54.239.6.188] (helo=[192.168.18.101])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oOjN7-0003me-AP; Thu, 18 Aug 2022 17:31:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,97 +39,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=FXTQiIe2DsoOq2Uy68m4FNZ7pwggEDOOkkd/hX4CYjQ=; b=ehkXlVl9YZ9XFCvIePU7wgDQI9
-	jiVEnv3XvrpKTI0o7EdbtbFar7WvwxHmrNBRBrKxdmhcva8rMsSDMg+rc4tPU9G7VbWwi6FYPJN2Z
-	YILN/GAYMGFltv2sPecaL2Dwcl0YLzql5bf7yjDuVIVP9cnPrT4WRf76V0Ip4hOZubXk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172624-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Gyf8AkCtfRkz5Ysm17b3lVHO+SZqEfSYBO+4zROdmRk=; b=xWlIGfI/H3vqpPdYI/zGO2964I
+	/3+6nJRwnX4Q90F5dzB/H46YNAtxz9FfN9BYzAkekjUCnDa7HN6yXtxQQw0W0rjsjZLSxGFYIg5Y6
+	lNzl5zF+jxMtHyixacBH7fhasSTks01IH4G4eYk55E+wUbDrSpCXi2BkBIqvkzBIDZxw=;
+Message-ID: <1527cfdf-5018-d495-cff7-528a278e1f67@xen.org>
+Date: Thu, 18 Aug 2022 18:31:54 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 172624: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=68bf712d4f5928af4c426dc82d27b9783e499d93
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 18 Aug 2022 17:10:48 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.1.2
+Subject: Re: [PATCH v5 1/9] xen/arm: smccc: add support for SMCCCv1.2 extended
+ input/output registers
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Jens Wiklander <jens.wiklander@linaro.org>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Wei Liu <wl@xen.org>, Luca Fancellu <Luca.Fancellu@arm.com>
+References: <20220818105601.1896082-1-jens.wiklander@linaro.org>
+ <20220818105601.1896082-2-jens.wiklander@linaro.org>
+ <EC23C48B-C9ED-4BD0-BD6D-4967A2509B2B@arm.com>
+ <4613f385-b11e-6d4f-42df-2febac4440d1@xen.org>
+ <D8557FC4-C3B1-4F40-A264-2D8DE68E71CD@arm.com>
+Content-Language: en-US
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <D8557FC4-C3B1-4F40-A264-2D8DE68E71CD@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 172624 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172624/
+Hi Bertrand,
 
-Regressions :-(
+On 18/08/2022 16:55, Bertrand Marquis wrote:
+>> On 18 Aug 2022, at 15:31, Julien Grall <julien@xen.org> wrote:
+>>>> +/*
+>>>> + * void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
+>>>> + *                        struct arm_smccc_1_2_regs *res)
+>>>> + */
+>>>> +ENTRY(arm_smccc_1_2_smc)
+>>>> +    /* Save `res` and free a GPR that won't be clobbered */
+>>> The comment here should be fixed, you are clobbering x19 hence you need to save it.
+>>
+>> The comment is correct. x19 is one of the few registers that will not be clobbered by the SMC call. But we still need a register below to store 'args', so we need to free it (what you call clobber).
+> 
+> Adding “by SMC call" would make this more clear
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+I would be fine with that.
 
-version targeted for testing:
- ovmf                 68bf712d4f5928af4c426dc82d27b9783e499d93
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+Cheers,
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   14 days
-Failing since        172151  2022-08-05 02:40:28 Z   13 days  117 attempts
-Testing same since   172621  2022-08-18 09:12:57 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 780 lines long.)
+-- 
+Julien Grall
 
