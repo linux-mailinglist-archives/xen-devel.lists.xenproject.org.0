@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EFBD5981C4
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 12:56:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389435.626371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BAB35981C5
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 12:56:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389436.626378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOdCE-0004vF-Ii; Thu, 18 Aug 2022 10:56:18 +0000
+	id 1oOdCF-00051c-05; Thu, 18 Aug 2022 10:56:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389435.626371; Thu, 18 Aug 2022 10:56:18 +0000
+Received: by outflank-mailman (output) from mailman id 389436.626378; Thu, 18 Aug 2022 10:56:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOdCE-0004qk-BJ; Thu, 18 Aug 2022 10:56:18 +0000
-Received: by outflank-mailman (input) for mailman id 389435;
- Thu, 18 Aug 2022 10:56:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oOdCE-0004va-PS; Thu, 18 Aug 2022 10:56:18 +0000
+Received: by outflank-mailman (input) for mailman id 389436;
+ Thu, 18 Aug 2022 10:56:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=avir=YW=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1oOdCC-00040G-Q1
- for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 10:56:16 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6177fd63-1ee4-11ed-bd2e-47488cf2e6aa;
- Thu, 18 Aug 2022 12:56:15 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id v2so1633870lfi.6
- for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 03:56:15 -0700 (PDT)
+ id 1oOdCD-0003wI-Iw
+ for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 10:56:17 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6239e1c2-1ee4-11ed-9250-1f966e50362f;
+ Thu, 18 Aug 2022 12:56:16 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id u9so1609894lfg.11
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 03:56:16 -0700 (PDT)
 Received: from jade.urgonet (h-79-136-84-253.A175.priv.bahnhof.se.
  [79.136.84.253]) by smtp.gmail.com with ESMTPSA id
- y27-20020a0565123f1b00b0048a85334a11sm176837lfa.143.2022.08.18.03.56.13
+ y27-20020a0565123f1b00b0048a85334a11sm176837lfa.143.2022.08.18.03.56.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Aug 2022 03:56:14 -0700 (PDT)
+ Thu, 18 Aug 2022 03:56:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6177fd63-1ee4-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 6239e1c2-1ee4-11ed-9250-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc;
-        bh=RqLPpxdovNEtqVVomQKo0f/+VcrD0Wl7yhZbLe6C164=;
-        b=Lp1ORXUIjjXBCUXHShI8Om/tw8A1apy/1D3pCmrxB0crbU1iArP/n64p5uj2MEI7Xv
-         uSUUu9C7ksDzqCDWFSS4BRi7VpLSjajxGm/MNvtxBhDFn9+VyVO3t260ZR6oteTFWCJq
-         isl9s4PGxKp72kurHkMEF4dJ9os5+22ovajPNrUUDUEnjXpEvgavEUnQ7kGemo6F9kVJ
-         XnoqxpGZIVUscVymiGvTXbQzyDJsxhPwlIP3RSj6EyLl63tM0U6EPZCwi/81/D872MtX
-         J+yRBVDXY9XA1BdlYNOWoypmp1GxFaTHfe5pRC0tbYcP4JSa/uIPJ7PCybi6brX25rOB
-         ZA4w==
+        bh=pbpcq5/7brehKyi97FiJOw5kIYqiG7iSR5D6amj2SQs=;
+        b=Hzks//CH+GAmvxbeDIuYTF4c0sxqyUup/iwBIo8HeMGduxcixNKiog8NS8Vk7i8PUF
+         G84LvY8S4zlfNXNAbsCN9bmRDaEbz8M48tnIcxRpt9QZHJbuvGZmdcevcGdEezza+A9E
+         0ylJ/N9eQUzoJ1xNyKjtURPXHRSc3SceM/7mcF7OwyzbYNFzM1imqgUtIXOCfdCCnkZG
+         z1KjuXM54syqdAkiU5hpLNKHQ+hyGJkB01XhPml+PHLOLTIs2TDi30jETR1jvDWN+Hqa
+         rslM34U4A3WWKo4lV8rNLAJRGDcsupCZ1N5nC+OFOMQfUleRVk2D2c559zW/ivRcoWeY
+         seSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
-        bh=RqLPpxdovNEtqVVomQKo0f/+VcrD0Wl7yhZbLe6C164=;
-        b=I/2FCdLbc9qJiDbx5n3CwfhssEGvZvVrChO1qlvNgu+Vw/HWXsZEw1EhrSHmgCJNlc
-         fhL0pfT8DcUTDDGK13wZTn1FZPnW91qlD/+hneaa6DhhWUpJrD+0QYjYH6x5CsKOuGO4
-         wkYeif65VLNueiTCnZdFYzVQzUcSAO0Rq8uA66gs4QMHyBcZLhg2ok0Odo0Dh4qcmWi+
-         1rcjtw38NgaMEKM2N8PprExmCGu9Xx3vS4/V9ChRvMOTlCiidW1k6AET6b21aNK7xgU4
-         27XF19k55A7vsEeCT27iGLbrtmcEgVxi1fyGH09ux9N13S4yAOj/U134l0HCZlcWxTE1
-         I4mg==
-X-Gm-Message-State: ACgBeo0VlRA4IDkfIu94rW1GtOku76NLXnbd90dQuA2KSeGcBd+fLDcO
-	w++mYLkPXrxDBeIMrh/AjBRTh5YAWYdPCw==
-X-Google-Smtp-Source: AA6agR77pQ1Wf7XELicTm8GscshX5rkOP1HAPfqJBcdxXXUKqTKbAC6wgXFuxEEukIq/phOhpa6Klg==
-X-Received: by 2002:a05:6512:128d:b0:48b:465f:5da8 with SMTP id u13-20020a056512128d00b0048b465f5da8mr743679lfs.683.1660820174868;
-        Thu, 18 Aug 2022 03:56:14 -0700 (PDT)
+        bh=pbpcq5/7brehKyi97FiJOw5kIYqiG7iSR5D6amj2SQs=;
+        b=4hp8fz2H9nJmf7ORVaYfFf9/6CcjP2ZBiF6eLsEP45KHq8k1HHI34TYR6ESl9GgjQL
+         wJ4awcNIZtrXAs3wsnCXPsRqhXnJxTsHC4ifqHDmnUt44M6TkhFCTFrx9p/gccxcoZ/z
+         srOwA8AH1Gow5+qh4VQs19rEHIkZhLUKw6Lk1LCmXdq5myXhij9ADlfxwTBGUUZNBoYe
+         ykTLqe342IVi1Rd0cuZRReSY7jcKkavM6p5Zzcfxf/R6tgQ8gTRKyGawyfQ8hKm5QChu
+         M12bYCQaYG7uglqa+c3TVNj8xoZld2jUredU6QHQGEimBoPWt4hHKCUqVpWYk9d306CH
+         J/JA==
+X-Gm-Message-State: ACgBeo3fp+E62O+VD8MseyhC4VZaF7spkI3MJgLZMfviKbo2QNaSGBJL
+	ylaoh6Io7UqEKeBxoX26HDQ3jjHuI/jfUA==
+X-Google-Smtp-Source: AA6agR7U+SP50b6NDvV90q44cjvslfWk0ewjS13Rru+OntMtSOCiHAIq6+4aHIelV/FC4u4NnojeDQ==
+X-Received: by 2002:a05:6512:25a3:b0:48a:e7e7:eea3 with SMTP id bf35-20020a05651225a300b0048ae7e7eea3mr726381lfb.205.1660820176237;
+        Thu, 18 Aug 2022 03:56:16 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -82,181 +82,119 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Jens Wiklander <jens.wiklander@linaro.org>
-Subject: [PATCH v5 4/9] xen/arm: ffa: add direct request support
-Date: Thu, 18 Aug 2022 12:55:56 +0200
-Message-Id: <20220818105601.1896082-5-jens.wiklander@linaro.org>
+Subject: [PATCH v5 5/9] xen/arm: ffa: map SPMC rx/tx buffers
+Date: Thu, 18 Aug 2022 12:55:57 +0200
+Message-Id: <20220818105601.1896082-6-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20220818105601.1896082-1-jens.wiklander@linaro.org>
 References: <20220818105601.1896082-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Adds support for sending a FF-A direct request.
+When initializing the FF-A mediator map the RX and TX buffers shared with
+the SPMC.
 
-[1] https://developer.arm.com/documentation/den0077/latest
+These buffer are later used to to transmit data that cannot be passed in
+registers only.
+
 Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 ---
- xen/arch/arm/ffa.c | 119 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 119 insertions(+)
+ xen/arch/arm/ffa.c | 57 +++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 56 insertions(+), 1 deletion(-)
 
 diff --git a/xen/arch/arm/ffa.c b/xen/arch/arm/ffa.c
-index b85c492928d2..cd5eefb437f8 100644
+index cd5eefb437f8..b1bf5538b111 100644
 --- a/xen/arch/arm/ffa.c
 +++ b/xen/arch/arm/ffa.c
-@@ -189,6 +189,7 @@
- 
- struct ffa_ctx {
-     uint32_t guest_vers;
-+    bool interrupted;
- };
- 
+@@ -195,6 +195,15 @@ struct ffa_ctx {
  /* Negotiated FF-A version to use with the SPMC */
-@@ -214,6 +215,55 @@ static bool ffa_get_version(uint32_t *vers)
-     return true;
+ static uint32_t ffa_version __read_mostly;
+ 
++/*
++ * Our rx/tx buffers shared with the SPMC.
++ *
++ * ffa_page_count is the number of pages used in each of these buffers.
++ */
++static void *ffa_rx __read_mostly;
++static void *ffa_tx __read_mostly;
++static unsigned int ffa_page_count __read_mostly;
++
+ static bool ffa_get_version(uint32_t *vers)
+ {
+     const struct arm_smccc_1_2_regs arg = {
+@@ -264,6 +273,17 @@ static bool check_mandatory_feature(uint32_t id)
+     return !ret;
  }
  
-+static int32_t get_ffa_ret_code(const struct arm_smccc_1_2_regs *resp)
++static int32_t ffa_rxtx_map(register_t tx_addr, register_t rx_addr,
++                            uint32_t page_count)
 +{
-+    switch ( resp->a0 )
-+    {
-+    case FFA_ERROR:
-+        if ( resp->a2 )
-+            return resp->a2;
-+        else
-+            return FFA_RET_NOT_SUPPORTED;
-+    case FFA_SUCCESS_32:
-+    case FFA_SUCCESS_64:
-+        return FFA_RET_OK;
-+    default:
-+        return FFA_RET_NOT_SUPPORTED;
-+    }
-+}
++    uint32_t fid = FFA_RXTX_MAP_32;
 +
-+static int32_t ffa_simple_call(uint32_t fid, register_t a1, register_t a2,
-+                               register_t a3, register_t a4)
-+{
-+    const struct arm_smccc_1_2_regs arg = {
-+        .a0 = fid,
-+        .a1 = a1,
-+        .a2 = a2,
-+        .a3 = a3,
-+        .a4 = a4,
-+    };
-+    struct arm_smccc_1_2_regs resp;
++    if ( IS_ENABLED(CONFIG_ARM_64) )
++        fid = FFA_RXTX_MAP_64;
 +
-+    arm_smccc_1_2_smc(&arg, &resp);
-+
-+    return get_ffa_ret_code(&resp);
-+}
-+
-+static int32_t ffa_features(uint32_t id)
-+{
-+    return ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
-+}
-+
-+static bool check_mandatory_feature(uint32_t id)
-+{
-+    uint32_t ret = ffa_features(id);
-+
-+    if (ret)
-+        printk(XENLOG_ERR "ffa: mandatory feature id %#x missing\n", id);
-+
-+    return !ret;
++    return ffa_simple_call(fid, tx_addr, rx_addr, page_count, 0);
 +}
 +
  static u16 get_vm_id(const struct domain *d)
  {
      /* +1 since 0 is reserved for the hypervisor in FF-A */
-@@ -255,6 +305,66 @@ static void handle_version(struct cpu_user_regs *regs)
-     set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
- }
- 
-+static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
-+{
-+    struct arm_smccc_1_2_regs arg = { .a0 = fid, };
-+    struct arm_smccc_1_2_regs resp = { };
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+    uint32_t src_dst;
-+    uint64_t mask;
-+
-+    if ( smccc_is_conv_64(fid) )
-+        mask = GENMASK_ULL(63, 0);
-+    else
-+        mask = GENMASK_ULL(31, 0);
-+
-+    src_dst = get_user_reg(regs, 1);
-+    if ( (src_dst >> 16) != get_vm_id(d) )
-+    {
-+        resp.a0 = FFA_ERROR;
-+        resp.a2 = FFA_RET_INVALID_PARAMETERS;
-+        goto out;
-+    }
-+
-+    arg.a1 = src_dst;
-+    arg.a2 = get_user_reg(regs, 2) & mask;
-+    arg.a3 = get_user_reg(regs, 3) & mask;
-+    arg.a4 = get_user_reg(regs, 4) & mask;
-+    arg.a5 = get_user_reg(regs, 5) & mask;
-+    arg.a6 = get_user_reg(regs, 6) & mask;
-+    arg.a7 = get_user_reg(regs, 7) & mask;
-+
-+    while ( true )
-+    {
-+        arm_smccc_1_2_smc(&arg, &resp);
-+
-+        switch ( resp.a0 )
-+        {
-+        case FFA_INTERRUPT:
-+            ctx->interrupted = true;
-+            goto out;
-+        case FFA_ERROR:
-+        case FFA_SUCCESS_32:
-+        case FFA_SUCCESS_64:
-+        case FFA_MSG_SEND_DIRECT_RESP_32:
-+        case FFA_MSG_SEND_DIRECT_RESP_64:
-+            goto out;
-+        default:
-+            /* Bad fid, report back. */
-+            memset(&arg, 0, sizeof(arg));
-+            arg.a0 = FFA_ERROR;
-+            arg.a1 = src_dst;
-+            arg.a2 = FFA_RET_NOT_SUPPORTED;
-+            continue;
-+        }
-+    }
-+
-+out:
-+    set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 & mask,
-+             resp.a4 & mask, resp.a5 & mask, resp.a6 & mask, resp.a7 & mask);
-+}
-+
- bool ffa_handle_call(struct cpu_user_regs *regs, uint32_t fid)
+@@ -425,6 +445,7 @@ int ffa_relinquish_resources(struct domain *d)
+ static int __init ffa_init(void)
  {
-     struct domain *d = current->domain;
-@@ -271,6 +381,12 @@ bool ffa_handle_call(struct cpu_user_regs *regs, uint32_t fid)
-     case FFA_ID_GET:
-         set_regs_success(regs, get_vm_id(d), 0);
-         return true;
-+    case FFA_MSG_SEND_DIRECT_REQ_32:
-+#ifdef CONFIG_ARM_64
-+    case FFA_MSG_SEND_DIRECT_REQ_64:
-+#endif
-+        handle_msg_send_direct_req(regs, fid);
-+        return true;
+     uint32_t vers;
++    int e;
+     unsigned int major_vers;
+     unsigned int minor_vers;
  
-     default:
-         printk(XENLOG_ERR "ffa: unhandled fid 0x%x\n", fid);
-@@ -346,6 +462,9 @@ static int __init ffa_init(void)
+@@ -462,11 +483,45 @@ static int __init ffa_init(void)
      printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
             major_vers, minor_vers);
  
-+    if ( !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+-    if ( !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
++    if (
++#ifdef CONFIG_ARM_64
++         !check_mandatory_feature(FFA_RXTX_MAP_64) ||
++#endif
++#ifdef CONFIG_ARM_32
++         !check_mandatory_feature(FFA_RXTX_MAP_32) ||
++#endif
++         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
++         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
 +        return 0;
 +
++    ffa_rx = alloc_xenheap_pages(0, 0);
++    if ( !ffa_rx )
+         return 0;
+ 
++    ffa_tx = alloc_xenheap_pages(0, 0);
++    if ( !ffa_tx )
++        goto err_free_ffa_rx;
++
++    e = ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), 1);
++    if ( e )
++    {
++        printk(XENLOG_ERR "ffa: Failed to map rxtx: error %d\n", e);
++        goto err_free_ffa_tx;
++    }
++    ffa_page_count = 1;
      ffa_version = vers;
  
++    return 0;
++
++err_free_ffa_tx:
++    free_xenheap_pages(ffa_tx, 0);
++    ffa_tx = NULL;
++err_free_ffa_rx:
++    free_xenheap_pages(ffa_rx, 0);
++    ffa_rx = NULL;
++    ffa_page_count = 0;
++    ffa_version = 0;
++
      return 0;
+ }
+ 
 -- 
 2.31.1
 
