@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB3E6598E8A
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 23:03:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389788.626922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69940598F88
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 23:32:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389796.626933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOmet-0000Br-1x; Thu, 18 Aug 2022 21:02:31 +0000
+	id 1oOn6s-0003XR-Cb; Thu, 18 Aug 2022 21:31:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389788.626922; Thu, 18 Aug 2022 21:02:31 +0000
+Received: by outflank-mailman (output) from mailman id 389796.626933; Thu, 18 Aug 2022 21:31:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOmes-000087-VC; Thu, 18 Aug 2022 21:02:30 +0000
-Received: by outflank-mailman (input) for mailman id 389788;
- Thu, 18 Aug 2022 21:02:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wIxV=YW=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1oOmer-000081-C9
- for xen-devel@lists.xen.org; Thu, 18 Aug 2022 21:02:29 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 111e741c-1f39-11ed-9250-1f966e50362f;
- Thu, 18 Aug 2022 23:02:28 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id j7so3070785wrh.3
- for <xen-devel@lists.xen.org>; Thu, 18 Aug 2022 14:02:28 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- j7-20020a5d4647000000b002237fd66585sm2221781wrs.92.2022.08.18.14.02.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Aug 2022 14:02:26 -0700 (PDT)
+	id 1oOn6s-0003Ub-9V; Thu, 18 Aug 2022 21:31:26 +0000
+Received: by outflank-mailman (input) for mailman id 389796;
+ Thu, 18 Aug 2022 21:31:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oOn6r-0003UR-5V; Thu, 18 Aug 2022 21:31:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oOn6r-0000Y1-2K; Thu, 18 Aug 2022 21:31:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oOn6q-0002Wk-7m; Thu, 18 Aug 2022 21:31:24 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oOn6q-0004D3-7I; Thu, 18 Aug 2022 21:31:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,170 +42,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 111e741c-1f39-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc;
-        bh=GuQcyuaGKDKPP224Chrcs1vbmjpflnRjYi6Mym3IeHw=;
-        b=NlvXeejX/qutyflmRu3qCodOKO8PW59n/XOJvStv2FP37/oRez0mLoSRPGuDM4suEk
-         3AfwmZM0qa7TSRCpfOYYCvnUZn9QF+S7th2hGItgrknUcdDmSk5nf1h1ysrb1CNWKtbw
-         9s9/CgYFl+tHcogMj/ee+RKfW00jdMZ1ByxCkyow9sDJ8fe7ab2jI3f2SnC+7LSKkI9G
-         RWwihkMZIh6hIaT0zLB3yO2tLjYXkdbhku1bBdaDB4wFq5PeXbsCQDEBuTgODrKkLTFy
-         YS57gqoWI75bvp4/BfjfccMyhBn7Xy7p8EotZ2G83qyQU8Qeyv0ZxbGg56Mg2v1NiMHE
-         hEYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc;
-        bh=GuQcyuaGKDKPP224Chrcs1vbmjpflnRjYi6Mym3IeHw=;
-        b=Pcof9eTZhOYWPP9Bo4P103KuygfkiismGMYbIyLbIWQNDuhomMtkumFL70KrFfc7B1
-         KAQP4CiM1SHk7YficE5b32oOv0Kpg5mtjdAvCSKPvRSbIZgICtk0jfwWDeOXboRLBWpu
-         gHSxw+X9AS0G7IGjuxnLHqz9cNQgsLOGGXvBRcTmlL3Q29b3e9s+9LL+xoKkKL9B3JOn
-         lh7gEQYsiD7Lk+BR9QJ808jwRQrRIBd2rapJPUgx2LTIZEg6E7rQono1278ZpkL7lpFO
-         0GHcm88HO/lJaO+TtOlqx3P6zi21LXIk0ZE5XlKqVI11JrEMvY8l5DdRlLWvT8mD6/Mi
-         Qf6Q==
-X-Gm-Message-State: ACgBeo2K+0VNpby/TpC7nmK0Eun++MEOdpgTggoQXHYCtPdWY7vQyv9e
-	YD1pP3quOq2iFpagaiOAVVY=
-X-Google-Smtp-Source: AA6agR6AhPnloSJ5B8pT4LRfWSb+WRtS9syx/igkP2UDB2rRnWkqvdNA0f0PsecUoVnZOvE4Ii3qng==
-X-Received: by 2002:a5d:5e93:0:b0:225:24f5:ed2a with SMTP id ck19-20020a5d5e93000000b0022524f5ed2amr2426292wrb.81.1660856547540;
-        Thu, 18 Aug 2022 14:02:27 -0700 (PDT)
-Message-ID: <bc9df506-ebb3-47f4-0c4d-58aadb00292c@gmail.com>
-Date: Fri, 19 Aug 2022 00:02:25 +0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=vcTYV/OnmwAFwqL9eLeRdjW8Mu2XviT+a6cba+16Le8=; b=rBfp1GhQIP8tBHgYGO3E2Eh4dz
+	lCkvp75OD1sB5sH+iwYIMemiIDJvWj0hlrkpmdfw7DmcSbLafI4szYKYAnXlAsg60wzv+9KmyTYen
+	tKtPkXUSehVAkltJ64+J6VzmNDggNPLqS1wqPUvQ0Hb3OQ8dMrCXuzcjiv7WajfNU2UA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172629-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V4 6/6] libxl: Allocate MMIO params for GPIO device and
- update DT
-Content-Language: en-US
-To: Viresh Kumar <viresh.kumar@linaro.org>, xen-devel@lists.xen.org
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
- <alex.bennee@linaro.org>, Stefano Stabellini
- <stefano.stabellini@xilinx.com>, Mathieu Poirier
- <mathieu.poirier@linaro.com>, Mike Holmes <mike.holmes@linaro.org>,
- Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
- Julien Grall <julien@xen.org>
-References: <cover.1660023094.git.viresh.kumar@linaro.org>
- <f4c77a566ce2a141e2044c859798a11152ce1928.1660023094.git.viresh.kumar@linaro.org>
-From: Oleksandr <olekstysh@gmail.com>
-In-Reply-To: <f4c77a566ce2a141e2044c859798a11152ce1928.1660023094.git.viresh.kumar@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 172629: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=68bf712d4f5928af4c426dc82d27b9783e499d93
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 18 Aug 2022 21:31:24 +0000
+
+flight 172629 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172629/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+
+version targeted for testing:
+ ovmf                 68bf712d4f5928af4c426dc82d27b9783e499d93
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z   14 days
+Failing since        172151  2022-08-05 02:40:28 Z   13 days  118 attempts
+Testing same since   172621  2022-08-18 09:12:57 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-On 09.08.22 08:34, Viresh Kumar wrote:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Hello Viresh
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> This patch allocates Virtio MMIO params (IRQ and memory region) and pass
-> them to the backend, also update Guest device-tree based on Virtio GPIO
-> DT bindings [1].
->
-> [1] https://www.kernel.org/doc/Documentation/devicetree/bindings/gpio/gpio-virtio.yaml
->
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
->   tools/libs/light/libxl_arm.c | 51 ++++++++++++++++++++++++++++++++++++
->   1 file changed, 51 insertions(+)
->
-> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> index 93ea8e3d3fa3..c0ffb7f179d4 100644
-> --- a/tools/libs/light/libxl_arm.c
-> +++ b/tools/libs/light/libxl_arm.c
-> @@ -119,6 +119,15 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->               return rc;
->       }
->   
-> +    for (i = 0; i < d_config->num_gpios; i++) {
-> +        libxl_device_gpio *gpio = &d_config->gpios[i];
-> +
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Nit: This blank line is not needed, I think
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> +    int rc = alloc_virtio_mmio_params(gc, &gpio->base, &gpio->irq,
-> +            &virtio_mmio_base, &virtio_mmio_irq);
+Not pushing.
 
-Nit: Something wrong with the indentation and looks like the blank line 
-is needed here.
-
-
-> +    if (rc)
-> +        return rc;
-> +    }
-> +
->       /*
->        * Every virtio-mmio device uses one emulated SPI. If Virtio devices are
->        * present, make sure that we allocate enough SPIs for them.
-> @@ -976,6 +985,38 @@ static int make_virtio_mmio_node_i2c(libxl__gc *gc, void *fdt, uint64_t base,
->       return fdt_end_node(fdt);
->   }
->   
-> +static int make_virtio_mmio_node_gpio(libxl__gc *gc, void *fdt, uint64_t base,
-> +                                      uint32_t irq, uint32_t backend_domid)
-> +{
-> +    int res;
-> +
-> +    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid);
-> +    if (res) return res;
-> +
-> +    res = fdt_begin_node(fdt, "gpio");
-> +    if (res) return res;
-> +
-> +    res = fdt_property_compat(gc, fdt, 1, "virtio,device29");
-> +    if (res) return res;
-> +
-> +    res = fdt_property(fdt, "gpio-controller", NULL, 0);
-> +    if (res) return res;
-> +
-> +    res = fdt_property_cell(fdt, "#gpio-cells", 2);
-> +    if (res) return res;
-> +
-> +    res = fdt_property(fdt, "interrupt-controller", NULL, 0);
-> +    if (res) return res;
-> +
-> +    res = fdt_property_cell(fdt, "#interrupt-cells", 2);
-> +    if (res) return res;
-> +
-> +    res = fdt_end_node(fdt);
-> +    if (res) return res;
-> +
-> +    return fdt_end_node(fdt);
-> +}
-> +
->   static const struct arch_info *get_arch_info(libxl__gc *gc,
->                                                const struct xc_dom_image *dom)
->   {
-> @@ -1308,6 +1349,16 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
->                                              i2c->backend_domid) );
->           }
->   
-> +        for (i = 0; i < d_config->num_gpios; i++) {
-> +            libxl_device_gpio *gpio = &d_config->gpios[i];
-> +
-> +            if (gpio->backend_domid != LIBXL_TOOLSTACK_DOMID)
-> +                iommu_needed = true;
-> +
-> +            FDT( make_virtio_mmio_node_gpio(gc, fdt, gpio->base, gpio->irq,
-> +                                            gpio->backend_domid) );
-> +        }
-> +
->           /*
->            * Note, this should be only called after creating all virtio-mmio
->            * device nodes
-
-
-Preferably with above fixed:
-
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+(No revision log; it would be 780 lines long.)
 
