@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9287F597EDB
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 09:02:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389327.626149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1831597F45
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 09:35:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389340.626189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOZXl-00070n-HN; Thu, 18 Aug 2022 07:02:17 +0000
+	id 1oOa2n-0002BT-A3; Thu, 18 Aug 2022 07:34:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389327.626149; Thu, 18 Aug 2022 07:02:17 +0000
+Received: by outflank-mailman (output) from mailman id 389340.626189; Thu, 18 Aug 2022 07:34:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOZXl-0006yS-Ec; Thu, 18 Aug 2022 07:02:17 +0000
-Received: by outflank-mailman (input) for mailman id 389327;
- Thu, 18 Aug 2022 07:02:16 +0000
+	id 1oOa2n-00028x-6M; Thu, 18 Aug 2022 07:34:21 +0000
+Received: by outflank-mailman (input) for mailman id 389340;
+ Thu, 18 Aug 2022 07:34:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1x1s=YW=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oOZXk-0006yM-N0
- for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 07:02:16 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2082.outbound.protection.outlook.com [40.107.21.82])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3bNE=YW=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1oOa2l-00028p-VE
+ for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 07:34:20 +0000
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [2607:f8b0:4864:20::1031])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b0bf1d1a-1ec3-11ed-9250-1f966e50362f;
- Thu, 18 Aug 2022 09:02:15 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM8PR04MB7393.eurprd04.prod.outlook.com (2603:10a6:20b:1d2::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.16; Thu, 18 Aug
- 2022 07:02:13 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2d5d:bae0:430f:70ad]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2d5d:bae0:430f:70ad%4]) with mapi id 15.20.5525.010; Thu, 18 Aug 2022
- 07:02:13 +0000
+ id 2ac06401-1ec8-11ed-9250-1f966e50362f;
+ Thu, 18 Aug 2022 09:34:18 +0200 (CEST)
+Received: by mail-pj1-x1031.google.com with SMTP id pm17so900801pjb.3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 00:34:18 -0700 (PDT)
+Received: from leoy-yangtze.lan (173.242.127.92.16clouds.com. [173.242.127.92])
+ by smtp.gmail.com with ESMTPSA id
+ f17-20020a170902ce9100b00172913c0e44sm722613plg.28.2022.08.18.00.34.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Aug 2022 00:34:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,128 +44,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0bf1d1a-1ec3-11ed-9250-1f966e50362f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cE8MyhorDAUUPlPj21MKfWhjNKXBbKNIbfMf5DmSbjmWz4OkKT9uVwANThRJIU+xfOtJ/X0kbdTfFWvBXIibA5a6BMnqJoASPiwMSBei6uMIedfpsrA+dJbo+DdungXQVqVfq4JNhF9qoJbWZL/tf/9AZfS+0hSdHNYelqtsU46U3X345Ss2CN7JquOlzyR2Pokok4cNZOwCPAXaL7IQQpfDM9kGL6AYAn7Rwh7hxGrVyrgtOSbyg6I4sxIX6ZXuxg8bRRh46BysZW9fjKNHBV0jy2A2Qlysrpd9lCytnfpwKbqXTiQaEDUXjjiTRSXfoG7SH29V78cssqv5ied0Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FrWE1RnCb0Dx7PR3hCHuJ5jBVxaFzwCovy+rvhDN4KI=;
- b=mkpbKBkxfu2slBEuVM58nRY3+rfxOggMNbXZjmdQ35U3kCP7RWsB80Ca149lHg0nRO70X2zxIYqQltQWDNJiYWkrKJwuXAHAwYGjvl9FPDPR5NRa16a8lB4dyNqoDHjcnY0QXiryWczsfsrWGuqPjN7XA+o7TgVA1tBn7nHviDYVq7K/+Su+1wXSiw/AzrHmJZTo7MT4rX+oyp3UlCuHpGOSQDPCL19+QxPjmplKfbYDgl917W7e1RK11IymCgjqgSAukGVGKrq6O65pSaRhAkHQF59cr9v6iy5MHrNSc+AJd1Q9eKzUMCcj+0lnUgkH9A4pbm8RHvccLeIziYHQfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FrWE1RnCb0Dx7PR3hCHuJ5jBVxaFzwCovy+rvhDN4KI=;
- b=H0QWxqa8GIxXSGb2cexsk4Q0m+cIWjuT4857Oahl4PnGl7JXs8u54YIWPf0DZJk3OCENyGmzsXqVIgm9mp0Pt7zFWEREoUVIx9+Hbjk1oZbufbL4zpF6xeu4ae91umE/qhM06O07RKHEHHD/N+6WgwAanoLuT2JB2ORLemGZeSr5Pj7YhzZPB5Q1hb5CTYWNFvIQI+6nkSOcPaKKo6PC0PTjp6rtpKxGu/7JBeI7CmZiHgWEUT94q/auYzONz+aoIlW9fth4nBQapCmPR4Z6iMcVNL0yfRzxCrjRZCbya8Or2gsavsI6HwiMzCW9yYPyHbaBpSGmKdgwdRa9BYIq6Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <499daffa-b1c6-3868-c164-65335963922c@suse.com>
-Date: Thu, 18 Aug 2022 09:02:11 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH] Use direct I/O for loop devices
-Content-Language: en-US
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>
-References: <20220817204634.1886-1-demi@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220817204634.1886-1-demi@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS9PR04CA0050.eurprd04.prod.outlook.com
- (2603:10a6:20b:46a::35) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 2ac06401-1ec8-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc;
+        bh=bp7TPSBfYTwE/+GP2l5HZka91zj/Q9y/P/5H/7Xrd9w=;
+        b=qgS4eXfGP5IsxAoTBNkWU9ZaugSQjmdVnPE3wH2WKk65K4qq2zCWUsDVGRSSFqnRUD
+         jJAX0tlIjUWNPIAho7NrQ9G/QpVJxEE7QVPnRRNcDi9j4kWyUX7Z4rt/WLTPjsrZc77O
+         bUVurWGXCI41kriNaFJ988o0rr9R5c2Z7JGlcU3rvIg0AwsXc5EnW5SCWtgNGwgbxrxc
+         XhDC/4F7oLOyGz10InVU3i/41u+2MNJNisteM9imGJQW7oT8Cl2dENI+J2K32Ln4lVZi
+         VGWCxA8Ay9DBvS3A51qJBKr4DJHyvASKfNwguedYsFWinRthq7U8PG6VHSEwFLDYfZG3
+         qwQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+        bh=bp7TPSBfYTwE/+GP2l5HZka91zj/Q9y/P/5H/7Xrd9w=;
+        b=xlSBTD3GJP0zpwUnRrMsBLzEwR5h+/uNr+W3wnLNUcFYBrRis4gWaO3qjMpcOmy1MA
+         dNo36wTZfKzTEPwcVIANdOk/yE7ZiKJL1zI+fAc7NtLtuVSLgk1FpBqXVLrtBWX2ijQJ
+         +8NdyJOG1KkdYdcEFXp1XHCKwEN6M55CRFBIGHjOtd7MByBoBLsr6+rzk9tZ2katCxa8
+         73jVxUM1tzva5rpB/TAUwWukv30C7YMPuMAzXwM7/VKcQSH1pRarSjCaDqD25gUdxSL5
+         Ocy0D3Zqb72fxRR6TqzqnvKY3KtlpAKLx6O/VsAOEVUkiYnp67t8XerNJWZ0/uYS9DE7
+         PHQw==
+X-Gm-Message-State: ACgBeo05ZfwUeFLMT/vvrLSEQU48euTekemAkjeLfwRrIKuQNXgUXYPk
+	tHQUPdYbBahEr1Ba7zO3kLf4SQ==
+X-Google-Smtp-Source: AA6agR46sZy8mZTwA35JUqovr2G0i8DhxuYxVWw/CzHH0koyhrDBwRv1ym1qgmIJl8hV93QsxfTxXg==
+X-Received: by 2002:a17:90b:1c85:b0:1f1:d78a:512b with SMTP id oo5-20020a17090b1c8500b001f1d78a512bmr7481635pjb.92.1660808056904;
+        Thu, 18 Aug 2022 00:34:16 -0700 (PDT)
+Date: Thu, 18 Aug 2022 15:34:11 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Rahul Singh <Rahul.Singh@arm.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
+Message-ID: <Yv3rc7vNCmTrFdgB@leoy-yangtze.lan>
+References: <20220817105720.111618-1-leo.yan@linaro.org>
+ <fd24b049-abf2-34e8-e0b0-2c2d2d1e1b0f@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a886a51c-0c3d-44be-025c-08da80e79402
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7393:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	xwERNfdHSxe3oTbFIa6lYVYkRGWh2RaE+Tt4ZvuV2YDqIzegPKthtRZPbeQYK0nEJtpz+VKN91JUtzVir6DAKJjXUpVO9PWshFk1q3wBPgKyX+vbwPIxWg2OGo4oBp588TE+j/aqwmdtmIr43HzKA+eM97gBG6Ij93h2MzkvZcvWQQ5ePsStqKhUxytN/h9IWV/Ms0R+igwMUJs6gxBoICOzuv7zvHw7CAG7tazKmHM86gI4JP7yhIQSvT04/Et89GF1/8xouBJAV66t1n2tY8+XdQPrKvLuyBzHVuWIXAaUgM7uCnOYljk0fsyYsB9/d5O6AodFximiTVHeP/h22EXFY2WPByi5KZefX1TJUtuM/0kKq/UM1drmOIo5pRFmHHNQfkTsOz5fn8j1LMWDVUj5mpWbUyaKzuRRSqXBOEddurwUbHF34qVTYZRJuAvUzXaobEeQghNSBdAnMqIwWahz6KNSQR1AdoutEG6IXqxS5SSgcX3szdk6FanM3Vq9H8U3mppnJyxpOt7aDwM95Udim2+7XEBuBzrQIWU2buoxGfIZDAlTSGHwV+dsKR+LtnJcOs2RZPooDcmkgbsLJpSDFM/MKrlpL4RDfMcsc62DxgTsy+OkUg6OWOJFVc4Sv7lWxonSNbXOKnCKAvcNmNysbwddo+a7pe4Z/OS0Uj+hari/rWG0U5amI+OTTeVi9tAhEpZreKOO7yb15u3MK42EAliuCeKi5MbXDf/Cx22fQ/4xHufKsE2Ix4SR98YlulHEqBEXFtzf1/9i+EEsH/g1iyi/LFPCXF2v05reudM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(366004)(396003)(39860400002)(346002)(376002)(31686004)(53546011)(38100700002)(2906002)(6506007)(41300700001)(26005)(83380400001)(2616005)(186003)(6512007)(36756003)(4326008)(86362001)(66946007)(8676002)(66556008)(31696002)(66476007)(6916009)(316002)(54906003)(8936002)(5660300002)(6486002)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RVUvWFprQUJNUXlVY0RPemNsNkFIdXA1c3kxcDgxM2RNYnhSZ1JiZmZ1T3di?=
- =?utf-8?B?Z25aZWM0Q0F3UVBGaFpoc3dURUNVcVkweUpDbWpKRmEyU0FSWDZ1RFowWG84?=
- =?utf-8?B?RjBNMzIxaVNKYXRqc0NGUVJKcVVCMjhnVXNKOTJKNmZlZ2JZZWx0enVBaldz?=
- =?utf-8?B?RWVCMThYWUVwZVMxWjZ1MVpaVU45SHRkcDR2YW8rY2h1c3MvUnhwWXl1RElw?=
- =?utf-8?B?TDZ1Kzd0aW93ZVVzVnZnSDhPeWIxM2NDUVdwZVA2OE8razBqR3BaV1BSandC?=
- =?utf-8?B?YlJuYjdTUXVWUjFoTlkyL1BVTTNwKzg1TVErOHpnUUZYL2dGNjM5cjBRaExz?=
- =?utf-8?B?bkhHa296K2dvbkdIVVgrU2Y5RnMyYkQwWkJ2VGZOV01PK2hyMi8vY0NYT1ZU?=
- =?utf-8?B?WDI3RVZvTlZlRHVCRmRlSGcwMnlLZDdPcHZrMCtPVktGYXh3akpGZWZ3U3V6?=
- =?utf-8?B?M0tOVlgzSG4yT2VRNTU4bGw3WndRcUcweEdWbGZRbUNMMS9FUXhQN3hVQzdt?=
- =?utf-8?B?bE5hSlVKa3YrQW9jSUowRTJPdERQLzBIYTBvaDBaNU4zenNIUktpaksyc3pE?=
- =?utf-8?B?OVpmRkd6Y1BHQ3dRdStBRFAxWTVSWEx5ckZZU2piSnJ0ZGI5NGJhaWlIUGRB?=
- =?utf-8?B?Q2pUNHJNZGNsQm5IUll4S1poeUt2MWs2UkpxeWltajN0TC9IK25iNmVTOVZn?=
- =?utf-8?B?TWVNdXBkUDdVYmJWa01oM3dhOTV2dmtFeXB1Vm1VWnJQY3BXRlAzZUFEL1p0?=
- =?utf-8?B?aEFOWUNPQk1qQmpHNmNoR2FmWGxnSTU1Q2c1Y0FTQXN3Vmp2SjRSQ3YzK3ZX?=
- =?utf-8?B?MDBBSnhsbERGcGFjdzZob05MdzJXYm11TmxReEVwOXAySW1xOWlvMWpOUURK?=
- =?utf-8?B?M0JCWkRKTDE3bERmaVlvVlg2dFdybWlEVmd5TDBLYmpDcDNraXZab2JybUEw?=
- =?utf-8?B?NUxWSS8rWDZvMGNTeWdnbVBrd09FbjBvOG5sVjU4Y1dQRno0dUJIRmRnazNS?=
- =?utf-8?B?Y1VsM0szako5SWpDejMwUGF6MzYycTZtMTJkQ1Q0VHNmeTYrM3JXbkFIVFgw?=
- =?utf-8?B?amFRTVA3QVRudVdFZGpXc3VKMUFJRExhUmJ0bzRQVkhudGsvZHVjZkViY01u?=
- =?utf-8?B?a3VTS2VrcXFENlFWYzQvQnkzMVZoU3ZiNEZMU1duSjFDem9LNE51cW1scG0x?=
- =?utf-8?B?b0pVM0RqUjdPaGR6c0ZWQW9DRHNrSFlVM3ROTEJ6RHFlMFFqMjFaYTAvN0hB?=
- =?utf-8?B?TWJtbFJYZkNTcTRQRVRWUG9zdmE3dXVNZjZhaHRYYVBBYWQ5U1B6cVVFdXFM?=
- =?utf-8?B?aHZHekQyWXNwdlRwYVlTa2JCQzM0bUxWdERXT04xWmVQRUpUYXhGeXcvdjVU?=
- =?utf-8?B?dVIwVGM0NDExbEtqTkRwTy9OaFhNWjUrQlBKRmlnQVhMVE1kR1Fsem15dUdy?=
- =?utf-8?B?Z1Z6Qjd6QjJJOTlNUFUzT0xiSHI4WGxHMEVRU0RnVnVxU0NueGEwY1I4amtt?=
- =?utf-8?B?d3ZFUU1qdk9TYk5nSzBjNzZZZEpVRkdvanI3VjJ5cmIrN2RhYTBmVlJGdEll?=
- =?utf-8?B?aVhVbDRPeE1IMkFFNGJWNzF0eElDNnJ2ZTJxYTkySXlXeUJDWSs2ZzJSNXM3?=
- =?utf-8?B?RXZhU2hRTTYwVWRGSERQSUJMcGVpaDNhN3pNWG9HWEMwRFJNQ0Y0SHlDMUFR?=
- =?utf-8?B?S0xXK1RVTlpHdTlpSnFUMXdWQzhNOVc2YWdVMisvYzdRckdCMkRacncreElH?=
- =?utf-8?B?R2Vxb3JiSUxXQ29mS2g1VlQ0ejg1RWhVbWNQU0FFKzJ4V1FZNVorTFR5MnBr?=
- =?utf-8?B?cFFXcExmbTNrNGdLR1k0ZjhyV08rUW11OVRiSWRPRldtUmZqQ1hBZGpuaW1s?=
- =?utf-8?B?ZUpjaU1pelorOFZHTzRhRUVtY2QvWHJYUUpJK3NlME5XTXJSSXNkUldyM2V6?=
- =?utf-8?B?UlhSV3QraWIzVGcrck53dUFiV3FHeW8wb0hGZDVLLzgxVzRpYXBTRHlET1BD?=
- =?utf-8?B?bllnc2l1dmI1eE5PVXRwRVZaNVFqNjV1VzMwVWx4UlEzajVGMkVnRCtmNW02?=
- =?utf-8?B?UlNjR213SWsxa0d3ZVJYVC9GSnNsb29NUi8wRzEzSDREWFgyUmtwcUU0bkJZ?=
- =?utf-8?Q?zgnIIfdMJmRCz0XcTj5Vs+cLw?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a886a51c-0c3d-44be-025c-08da80e79402
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2022 07:02:13.6556
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lH/eiYL/LJvzjzC9fDV7IBBsuKTUAsn+LH99s9gK5RfWEKuPYnYIyEIvaux4IoqEMCs8dBzKGXLSusUJHxoJtw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7393
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fd24b049-abf2-34e8-e0b0-2c2d2d1e1b0f@suse.com>
 
-On 17.08.2022 22:46, Demi Marie Obenour wrote:
-> This is a huge performance improvement for two reasons:
+On Wed, Aug 17, 2022 at 03:17:53PM +0200, Jan Beulich wrote:
+
+[...]
+
+> Please make sure you Cc all maintainers of all files that you touch.
+> Albeit, see below, you could indeed have avoided Cc-ing me if you
+> hadn't misplaced stuff in two of the headers that you fiddle with.
+
+Sorry for this.  When I send a new patch in next time, I will use
+./scripts/get_maintainer.pl to find out the maintainers.
+
+> > --- a/xen/arch/arm/efi/efi-dom0.c
+> > +++ b/xen/arch/arm/efi/efi-dom0.c
+> > @@ -38,7 +38,7 @@ size_t __init estimate_efi_size(unsigned int mem_nr_banks)
+> >  {
+> >      size_t size;
+> >      size_t est_size = sizeof(EFI_SYSTEM_TABLE);
+> > -    size_t ect_size = sizeof(EFI_CONFIGURATION_TABLE);
+> > +    size_t ect_size = sizeof(EFI_CONFIGURATION_TABLE) * 2;
+> >      size_t emd_size = sizeof(EFI_MEMORY_DESCRIPTOR);
+> >      size_t fw_vendor_size = sizeof(xen_efi_fw_vendor);
+> >      unsigned int acpi_mem_nr_banks = 0;
+> > @@ -63,7 +63,8 @@ void __init acpi_create_efi_system_table(struct domain *d,
+> >  
+> >      table_addr = d->arch.efi_acpi_gpa
+> >                   + acpi_get_table_offset(tbl_add, TBL_EFIT);
+> > -    table_size = sizeof(EFI_SYSTEM_TABLE) + sizeof(EFI_CONFIGURATION_TABLE)
+> > +    table_size = sizeof(EFI_SYSTEM_TABLE)
+> > +	         + sizeof(EFI_CONFIGURATION_TABLE) * 2
+> >                   + sizeof(xen_efi_fw_vendor);
 > 
-> 1. It uses the filesystem’s asynchronous I/O support, rather than using
->    synchronous I/O.
-> 2. It bypasses the page cache, removing a redundant layer of caching and
->    associated overhead.
-> ---
->  tools/hotplug/Linux/block | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Nit: Indentation.
+
+Will fix.
+
+> > @@ -75,7 +76,7 @@ void __init acpi_create_efi_system_table(struct domain *d,
+> >      efi_sys_tbl->Hdr.HeaderSize = table_size;
+> >  
+> >      efi_sys_tbl->FirmwareRevision = 1;
+> > -    efi_sys_tbl->NumberOfTableEntries = 1;
+> > +    efi_sys_tbl->NumberOfTableEntries = 2;
 > 
-> diff --git a/tools/hotplug/Linux/block b/tools/hotplug/Linux/block
-> index 2691b56951c9b82094471a141b9e0bed04abb929..75785f3a5422c4a5f962a4cd4f6acae5080d036d 100644
-> --- a/tools/hotplug/Linux/block
-> +++ b/tools/hotplug/Linux/block
-> @@ -330,7 +330,7 @@ mount it read-write in a guest domain."
->          else
->            roflag=''
->          fi
-> -        do_or_die losetup $roflag "$loopdev" "$file"
-> +        do_or_die losetup --direct-io=on $roflag "$loopdev" "$file"
+> This is the 3rd magic "2" - I think there wants to be some consolidation,
+> such that it becomes obvious which "2"-s really are the same (and would
+> change together if, like you do here, another entry is needed).
 
-I guess you want to first check (maybe in tools/configure) that losetup
-actually supports that option. The old-ish one I'm looking at doesn't,
-according to its --help output at least.
+I will define a macro for the number of configuration table and add
+comment for it.
 
-Jan
+> > @@ -86,6 +87,18 @@ void __init acpi_create_efi_system_table(struct domain *d,
+> >      efi_conf_tbl->VendorTable = (VOID *)tbl_add[TBL_RSDP].start;
+> >      efi_sys_tbl->ConfigurationTable = (EFI_CONFIGURATION_TABLE *)(table_addr
+> >                                                                    + offset);
+> > +
+> > +    /*
+> > +     * Configuration table for MEMRESERVE is used in Linux kernel for
+> > +     * reserving pages, its main purpose is used for kexec/kdump to
+> > +     * reserve persistent pages (e.g. GIC pending pages) for the secondary
+> > +     * kernel.
+> > +     */
+> > +    offset += sizeof(EFI_CONFIGURATION_TABLE);
+> > +    efi_conf_tbl = (EFI_CONFIGURATION_TABLE *)(base_ptr + offset);
+> > +    efi_conf_tbl->VendorGuid = (EFI_GUID)LINUX_EFI_MEMRESERVE_TABLE_GUID;
+> > +    efi_conf_tbl->VendorTable = (VOID *)tbl_add[TBL_MRSV].start;
+> > +
+> >      xz_crc32_init();
+> >      efi_sys_tbl->Hdr.CRC32 = xz_crc32((uint8_t *)efi_sys_tbl,
+> >                                        efi_sys_tbl->Hdr.HeaderSize, 0);
+> 
+> Rather than adjusting offset and calculating efi_conf_table fdrom scratch,
+> perhaps better simply efi_conf_table++? That way there would be one less
+> cast, which are always somewhat risky.
+
+Yeah, using "efi_conf_table++" is much better.  Will do.
+
+> > --- a/xen/include/acpi/actbl.h
+> > +++ b/xen/include/acpi/actbl.h
+> > @@ -302,6 +302,23 @@ struct acpi_table_fadt {
+> >  #define ACPI_FADT_HW_REDUCED        (1<<20)	/* 20: [V5] ACPI hardware is not implemented (ACPI 5.0) */
+> >  #define ACPI_FADT_LOW_POWER_S0      (1<<21)	/* 21: [V5] S0 power savings are equal or better than S3 (ACPI 5.0) */
+> >  
+> > +/*******************************************************************************
+> > + *
+> > + * MEMRESERVE - Dummy entry for memory reserve configuration table
+> > + *
+> > + ******************************************************************************/
+> > +
+> > +struct acpi_table_memreserve {
+> > +	int size;		/* allocated size of the array */
+> > +	int count;		/* number of entries used */
+> > +	u64 next;		/* pa of next struct instance */
+> > +	struct {
+> > +		u64 base;
+> > +		u64 size;
+> > +	} entry[];
+> > +};
+> 
+> This header holds ACPI spec defined data structures. This one looks
+> to be a Linux one, and hence shouldn't be defined here. You use it
+> in a single CU only, so I see no reason to define it there.
+
+Okay, I will define the structure in the arm specific file, e.g. I
+move it to the file xen/arch/arm/acpi/domain_build.c.
+
+> Furthermore - what if Linux decided to change their structure? Or
+> is there a guarantee that they won't? Generally such structures
+> belong in the public interface, guaranteeing forward compatibility
+> even if Linux decided to change / extend theirs (at which point
+> consuming code there would need to do translation, but maybe using
+> a Xen-defined struct [plus translation in Linux] right away would
+> be best).
+
+I saw Ard has helped to answer this question in his email.  As Ard
+said, the general way is to rely on Linux EFI stub to allocate the
+data structure for MEMRESERVE configuration table.
+
+Given Xen uses pseudo EFI booting (the ACPI table is passed via DT), in
+short term I don't think Xen can support Linux EFI stub, so we need to
+maintain this structure in Xen as well.
+
+This structure eventually will not change frequently, so I assume
+later we will have little effort for maintainence it.
+
+> Finally, style-wise, please don't use u64 in new code anymore; we
+> are trying hard to move over to standard uint<N>_t types. Plus,
+> unless indeed mandated by Linux, please avoid signed types for
+> fields (or variables) which can never go negative.
+
+Sure, will follow this and update the data structure.
+
+> > +
+> > +
+> >  /* Values for preferred_profile (Preferred Power Management Profiles) */
+> 
+> Please don't add double blank lines anywhere.
+
+Will do.
+
+> > --- a/xen/include/efi/efiapi.h
+> > +++ b/xen/include/efi/efiapi.h
+> > @@ -882,6 +882,8 @@ typedef struct _EFI_BOOT_SERVICES {
+> >  #define SAL_SYSTEM_TABLE_GUID    \
+> >      { 0xeb9d2d32, 0x2d88, 0x11d3, {0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1, 0x4d} }
+> >  
+> > +#define LINUX_EFI_MEMRESERVE_TABLE_GUID    \
+> > +    { 0x888eb0c6, 0x8ede, 0x4ff5, {0xa8, 0xf0, 0x9a, 0xee, 0x5c, 0xb9, 0x77, 0xc2} }
+> 
+> This header holds EFI spec mandated definitions (generally taken
+> from the gnu-efi project), when this one again looks to be a Linux
+> one (and again looks to be used in only a single CU).
+
+I will move this macro into the file xen/arch/arm/efi/efi-dom0.c, so
+far only Arm64 platform uses it.
+
+Thanks,
+Leo
 
