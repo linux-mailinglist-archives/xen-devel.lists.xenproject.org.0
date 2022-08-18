@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEADB59859D
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 16:20:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389606.626647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 595E15985A7
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 16:24:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389612.626658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOgNR-0006VB-0A; Thu, 18 Aug 2022 14:20:05 +0000
+	id 1oOgRf-0007HD-FR; Thu, 18 Aug 2022 14:24:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389606.626647; Thu, 18 Aug 2022 14:20:04 +0000
+Received: by outflank-mailman (output) from mailman id 389612.626658; Thu, 18 Aug 2022 14:24:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOgNQ-0006TC-TP; Thu, 18 Aug 2022 14:20:04 +0000
-Received: by outflank-mailman (input) for mailman id 389606;
- Thu, 18 Aug 2022 14:20:03 +0000
+	id 1oOgRf-0007Ep-Cf; Thu, 18 Aug 2022 14:24:27 +0000
+Received: by outflank-mailman (input) for mailman id 389612;
+ Thu, 18 Aug 2022 14:24:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=U+fg=YW=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oOgNP-00066t-C1
- for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 14:20:03 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8f84b6f-1f00-11ed-bd2e-47488cf2e6aa;
- Thu, 18 Aug 2022 16:20:02 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 97B7A3EE87;
- Thu, 18 Aug 2022 14:20:01 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F6A0139B7;
- Thu, 18 Aug 2022 14:20:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4g3HGZFK/mJodwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 18 Aug 2022 14:20:01 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zfC2=YW=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1oOgRd-0007Ej-Vu
+ for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 14:24:25 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 74faefcc-1f01-11ed-bd2e-47488cf2e6aa;
+ Thu, 18 Aug 2022 16:24:24 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 509CD5C0106;
+ Thu, 18 Aug 2022 10:24:23 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Thu, 18 Aug 2022 10:24:23 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 18 Aug 2022 10:24:22 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,142 +43,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8f84b6f-1f00-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1660832401; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WgRzSCz2t4nmQQpEq8xIDlYry9tl2BsmzDyM63QkRHI=;
-	b=rRWc1gxAL8Lf/Wz/1ynvcqnKmPFsdwW6eVoczejnXfOMmu4Hr3rdKEXU5vhhWkTDAxWx/W
-	H18WgQF49K3pBO+NRqCW4DRDG9m2vyRUk0u0qDaoiZKWyVFs5OrUwuUSp7LyyAYkUbJ63z
-	WQrwXtl6jpPc9dLIGYD9EauHXJZvxdQ=
-Message-ID: <6dcce6b3-7da3-1c65-0aa2-f69854619226@suse.com>
-Date: Thu, 18 Aug 2022 16:20:01 +0200
+X-Inumbo-ID: 74faefcc-1f01-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1660832663; x=
+	1660919063; bh=7ueH7NUObNfB3dhP/mqJuxuTnkQaAwKFZQyXwvFi7Ww=; b=B
+	Z1Fin4Cs2G7JJtQierYdDE0CceNV7/9pMfelowm0TcsWwGBJBFT54+kyZ0Ot75bB
+	2tGsIYW/Y2umsilfsSwXYrhYnR+J3txOHXm61EIzJIJyX7NV97DoOhOidNFknsAB
+	cH3o/A+R2HQ6ltDVjv2/1g7X25bAf4IbKFZVs5zLoygAEQqsXcpImapSvqMC2Ap2
+	gQEVssXLpqnl0ujy7tpeOsF7SVI75N/s4HO8VObaua5Tx2+jy7gd5MOgBXKWC+Fd
+	YlvH9+rVGVQMxLOVTHAHo676GubcHXndX7I8aCl5yYPQg5lEJ8+EEykG5t4ij+BK
+	qx6Wks7Ib9nDS0nN3Ny8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1660832663; x=1660919063; bh=7ueH7NUObNfB3dhP/mqJuxuTnkQa
+	AwKFZQyXwvFi7Ww=; b=YNL6VPbghN8qmnS+7LsXjNx1xU6e1EZcpEpc+pi4z0BG
+	bvZUx0f0E8KKkZMOXI1vRAXmqb8tROsq8Od6/QMh0BPWf/OfA+UFGVNwKq/6cVWo
+	Z45lYSaOBM4cwP5j9a6vrsy5Yy6eGn5F/b5dkfWJpOnTDTqhTnsJLrViWkn4EjzO
+	61nTANuOy2YggZtSPp5qdzFcYbt6d7TVsQ6s66gXnTB9p4PRcU70nMcbwvs//svH
+	h2r0iMxNBAykO3Np/Zwi7P6DPdh3yeBcvHXWwUyDPLw21OQ4Y1XD3Qbuw3pfWc7u
+	AgvoYc5cDzRbUfZLrk37R+tCGPeje1bUmGwMIKRAAg==
+X-ME-Sender: <xms:l0v-Ymn-Fy1L0Jr9bhuLlZC7nY_QvHa0xZpKAVbuCCRkoEe2-5h4nQ>
+    <xme:l0v-Yt3Ei6BfN54akGTI95zVpcHg4uQ_lsDfPd2TrLm8a7vMJn1eF36SSC4vOySbg
+    2QWl078Vpd7F-M>
+X-ME-Received: <xmr:l0v-Ykq4fQfGzN_xYYGvrnUsxcIJDEPbT8BPqIzoaajyPzX_nloOepQiGmPq>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdehledgheduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
+    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+    lhgrsgdrtghomh
+X-ME-Proxy: <xmx:l0v-YqlfNXkz_SATEmFjpOlj9UL5zE4y4sxVNTqe6m286McqkKt9Aw>
+    <xmx:l0v-Yk1Vu4lAUZ7lvvi9jxC__2miHyYCDe1dey5hoFN1MrWSmudIXA>
+    <xmx:l0v-YhscSd31TnWkiFn5oYUTep3yBn9lNx-b8qDrww-sQgihaC5j_Q>
+    <xmx:l0v-YiDfDP9R9KDsLJ39FzGPgOSS2dRUeSqIG9ruGdjaKUJokjELSw>
+Feedback-ID: iac594737:Fastmail
+Date: Thu, 18 Aug 2022 10:24:01 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Use direct I/O for loop devices
+Message-ID: <Yv5LlJQWkHTq07QH@itl-email>
+References: <20220817204634.1886-1-demi@invisiblethingslab.com>
+ <499daffa-b1c6-3868-c164-65335963922c@suse.com>
+ <Yv5HC/MA2LUHNYKO@itl-email>
+ <b7e4433c-a1e2-03d0-20bd-e17ace99f640@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 3/3] libxl: use time_t for qmp_synchronous_send()'s last
- parameter
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
-References: <68e71e3b-19a7-e062-9ebe-2e6f6aae0549@suse.com>
- <9ac207d1-8a20-b880-e564-57494bc5b551@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <9ac207d1-8a20-b880-e564-57494bc5b551@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------k0uXMVaZhHsDzuGJIGPXjw9D"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m1R7U2xm5hsa22/E"
+Content-Disposition: inline
+In-Reply-To: <b7e4433c-a1e2-03d0-20bd-e17ace99f640@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------k0uXMVaZhHsDzuGJIGPXjw9D
-Content-Type: multipart/mixed; boundary="------------hHnpelCXkx0xglbk8cir9PY0";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
-Message-ID: <6dcce6b3-7da3-1c65-0aa2-f69854619226@suse.com>
-Subject: Re: [PATCH 3/3] libxl: use time_t for qmp_synchronous_send()'s last
- parameter
-References: <68e71e3b-19a7-e062-9ebe-2e6f6aae0549@suse.com>
- <9ac207d1-8a20-b880-e564-57494bc5b551@suse.com>
-In-Reply-To: <9ac207d1-8a20-b880-e564-57494bc5b551@suse.com>
 
---------------hHnpelCXkx0xglbk8cir9PY0
-Content-Type: multipart/mixed; boundary="------------7tHLNpMr50ggJ2Tlcn50kO8C"
-
---------------7tHLNpMr50ggJ2Tlcn50kO8C
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTguMDguMjIgMTY6MDcsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiAiaW50IiBpcyBub3Qg
-YSBzdWl0YWJsZSB0eXBlIHRvIGhvbGQgLyByZWNlaXZlICJ0aW1lX3QiIHZhbHVlcy4NCj4g
-DQo+IFRoZSBwYXJhbWV0ZXIgaXMgcHJlc2VudGx5IHVudXNlZCwgc28gbm8gZnVuY3Rpb25h
-bCBjaGFuZ2UuDQo+IA0KPiBDb3Zlcml0eSBJRDogMTUwOTM3Nw0KPiBTaWduZWQtb2ZmLWJ5
-OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQoNClJldmlld2VkLWJ5OiBKdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQoNClRoZSBzZXZlcml0eSBvZiB0aGlzIGlz
-c3VlIGlzIHJhdGhlciBsb3cgSU1PLiBBIHRpbWVvdXQgb2YgbW9yZSB0aGFuDQo2MCB5ZWFy
-cyBub3QgYmVpbmcgaGFuZGxlZCBjb3JyZWN0bHkgc2VlbXMgdG8gaGF2ZSBubyByZWxldmFu
-Y2UgYXQgYWxsLg0KDQoNCkp1ZXJnZW4NCg==
---------------7tHLNpMr50ggJ2Tlcn50kO8C
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+--m1R7U2xm5hsa22/E
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 18 Aug 2022 10:24:01 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Use direct I/O for loop devices
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Thu, Aug 18, 2022 at 04:12:10PM +0200, Jan Beulich wrote:
+> On 18.08.2022 16:04, Demi Marie Obenour wrote:
+> > On Thu, Aug 18, 2022 at 09:02:11AM +0200, Jan Beulich wrote:
+> >> On 17.08.2022 22:46, Demi Marie Obenour wrote:
+> >>> --- a/tools/hotplug/Linux/block
+> >>> +++ b/tools/hotplug/Linux/block
+> >>> @@ -330,7 +330,7 @@ mount it read-write in a guest domain."
+> >>>          else
+> >>>            roflag=3D''
+> >>>          fi
+> >>> -        do_or_die losetup $roflag "$loopdev" "$file"
+> >>> +        do_or_die losetup --direct-io=3Don $roflag "$loopdev" "$file"
+> >>
+> >> I guess you want to first check (maybe in tools/configure) that losetup
+> >> actually supports that option. The old-ish one I'm looking at doesn't,
+> >> according to its --help output at least.
+> >=20
+> > What version are you referring to?
+>=20
+> The tool itself doesn't recognize --version. It originates from
+> util-linux 2.19.1 from all I can tell.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+I see.  Qubes OS doesn=E2=80=99t need to support such old versions.  Are you
+referring to=20
 
---------------7tHLNpMr50ggJ2Tlcn50kO8C--
+> > In Qubes OS the current plan is to use a block =E2=80=9Cscript=E2=80=9D=
+ written in C, to
+> > improve performance and (when combined with kernel patches) eliminate
+> > race conditions.  This code could be made a wrapper for the C version.
+>=20
+> Is this relevant here in some way I don't recognize, or did you say this
+> only to provide some further background info?
 
---------------hHnpelCXkx0xglbk8cir9PY0--
+If the C code becomes part of the toolstack it would avoid needing to
+call into losetup.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
---------------k0uXMVaZhHsDzuGJIGPXjw9D
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--m1R7U2xm5hsa22/E
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmL+SpEFAwAAAAAACgkQsN6d1ii/Ey9l
-Dgf+OkIaM3tReRrJgUS/4YD8X9YbvEauVXB3A9KKhD1W8u58NM19FgvWuGWwyR8L6gRBR5tkzGlh
-1ZQZFHQuX+2H3fsEj37p7fWZ5vQvYXkv8TChZSYyJBUwbBowhzpox+9UyXK/P1K6LsJnXadS9EB3
-Jw21S2ii/ybd4wNaFlJLdz+MVgX++oe418P6C/yuoIVQoIu8f6mEIX54oRR9xwrJQMaoX0T28Pz5
-qflwgETdexxishLqN358VxJciHBfbOmb9kqaPaxf/QNYYAKtv0rnbGQYXrzjwjQGHlios9Ak8hBH
-CaxrjbASFFQ3hAFBnpnwTE9Wu7yKJXyeiu22cR6ydw==
-=+KSa
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmL+S5QACgkQsoi1X/+c
+IsESWQ/9HP38OLGHK24PUlxDPb3xI4k5IkCcCRNjO9zhERgHWFZPDxEVN40AAj1V
+JdcABEkEw+Y3JZ14oOU2/RDEpYVJfJV3bchamiYq+vnOu72NZaQz04FrOo/we1vH
+a6jXHe9H8ncZmd6RmQnK+ViFh6s9JsBRZ8h1nNrNjKcoNphhnwtIMYIUMRrRicIb
+qFjXEVULEAyR4e5peF1mxwbQ/sFMB1gArot03S5DGwfUw9o4mS9kIGrL0eX3n5MH
+uGr7lJzl8hPwnTUtl6x+eYCXEVanQ3AeKsTykYsB8uOwp1ED1F9DAl+LQK/MqNXq
+AH6O1vcw0QI2xLuLVT+H4mxkE0AeIjcQwwpkxJCvXtsI7w/C+lQjQyFSz9WTTYT2
++5c/JGF3U4naa/TRkXAx7vOFW/9O19VrhkHs3HrrbnPsPl36wG9quwUNA8bA2pXG
+9F6kkALzU03Lw8HIR3cnPQGRnJXurJ6utjvToSPE7mMrIB4s1iEnTXd2PtAZc+eI
+JrXsdIDHMJtXqLZmKU9a+N3ixdKr2Pf4wIqR4Lz2Owa+tWJJeAdU15MI4zZujOto
+L+9t5W1YYIxFV2MwRq7epg9T3WDRVnsPF3Oa2F+9yw539bj41cfixqUawbycvHOt
+wXzbGGl4htiXAFadv4WnH8n21fMQP5oSKyFi+1mZ6u0kMepSeoA=
+=UMum
 -----END PGP SIGNATURE-----
 
---------------k0uXMVaZhHsDzuGJIGPXjw9D--
+--m1R7U2xm5hsa22/E--
 
