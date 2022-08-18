@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A48D5988C0
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 18:25:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389686.626779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 212F85988F5
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Aug 2022 18:34:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389693.626790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOiKA-00007z-1Y; Thu, 18 Aug 2022 16:24:50 +0000
+	id 1oOiTa-0001iS-2a; Thu, 18 Aug 2022 16:34:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389686.626779; Thu, 18 Aug 2022 16:24:50 +0000
+Received: by outflank-mailman (output) from mailman id 389693.626790; Thu, 18 Aug 2022 16:34:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOiK9-00005m-TK; Thu, 18 Aug 2022 16:24:49 +0000
-Received: by outflank-mailman (input) for mailman id 389686;
- Thu, 18 Aug 2022 16:24:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+/fD=YW=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1oOiK8-00005g-NR
- for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 16:24:48 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45eb6ab2-1f12-11ed-9250-1f966e50362f;
- Thu, 18 Aug 2022 18:24:47 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BB93A615A1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 16:24:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B039C43470
- for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 16:24:45 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id h24so2311300wrb.8
- for <xen-devel@lists.xenproject.org>; Thu, 18 Aug 2022 09:24:45 -0700 (PDT)
+	id 1oOiTZ-0001fb-VT; Thu, 18 Aug 2022 16:34:33 +0000
+Received: by outflank-mailman (input) for mailman id 389693;
+ Thu, 18 Aug 2022 16:34:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=X6Qq=YW=citrix.com=prvs=222213ea0=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oOiTZ-0001fV-1j
+ for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 16:34:33 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a21faf50-1f13-11ed-bd2e-47488cf2e6aa;
+ Thu, 18 Aug 2022 18:34:31 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,97 +36,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45eb6ab2-1f12-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1660839885;
-	bh=NXFD9jFkOQ6+Ym6W8+5vTdTbJMZRvb8Xi37Aa0qPDYU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=SK+45akmrq80tGoEvjjGSX6UyHnCDueQbDBWTKVIVffhTMxnJ6f+l2ea7KY6QByxM
-	 8ZXRPDfKSyBBsEO96mmYRg32nAJkHjOXGDvYd7gADdDqheXyuTWJrahBR1/CelfxLs
-	 Bi1WlxixdnwizltoEtTfZLFGp8VmaCOQ4YutwaEu2rXuoM5ScrbO/AV7QtYPy1sKQs
-	 5NZQZut1nXPrIkdulb2G8drsfNJUvOq+L92PXUzQGYD3njCUS32yptmbD5qA/TUmrQ
-	 63VWO9gHJXJHcW7/+gwFpU5Qrep+MN0XgRzmMb4ImNOmXW0UhxD5AfW62YO23pjsaq
-	 ikGXQ7PHIWwCw==
-X-Gm-Message-State: ACgBeo03WJ1r3gHB3ALGVUc7DxSTXe8hvnUuzu75lzocKnhUGzN5mUzJ
-	5/NxKi74lt4ERi/voj6ilJemvBfYk8e8K7usFx8=
-X-Google-Smtp-Source: AA6agR4wUmC0VZaVWOkODMq7wCo33c0WNoc1EQUBvcV58Uj/gxzyfvOquzmU4k+F5Gi10pye8Gb1/ldyRBsRrfebkwc=
-X-Received: by 2002:a5d:64e9:0:b0:220:7dd7:63eb with SMTP id
- g9-20020a5d64e9000000b002207dd763ebmr2078232wri.590.1660839883321; Thu, 18
- Aug 2022 09:24:43 -0700 (PDT)
+X-Inumbo-ID: a21faf50-1f13-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1660840471;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6QhUF7mYchBj2qnKz25srQ7Hjg4JdaxQNZLFSH7v0jc=;
+  b=d4mEv1oxv8M1qM3lKuUXMCjbiPDK9KwmMBF+2mS8ZyDq450U4veQD4ic
+   nQnnHASY7K+4bcZDlBv6tedlIJ6AGiWN7UfyS8Kq8knU0hqA6u78rshc1
+   5MjdWcHrOOBkEBnyF5MjPlOcbNjTmO5KIOYie6roHb0UIH7gvIi1lyz/j
+   8=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 77631075
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:BzRSi6kheibixv9m5zKeor7o5gz1JkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIcXGjQbqmKMzajf4t0a9vk/BkA75Hcn9RrHQJu/yE8QSMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8mk/ngqoPUUIbsIjp2SRJvVBAvgBdin/9RqoNziJ2yDhjlV
+ ena+qUzA3f4nW8vWo4ow/jb8kk37K2i4GhwUmEWPpingnePzxH5M7pHTU2BByOQapVZGOe8W
+ 9HCwNmRlo8O105wYj8Nuu+TnnwiGtY+DyDX4pZlc/HKbix5jj4zys4G2M80Mi+7vdkrc+dZk
+ 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzdFSfqV/wmWfG0YAzcmCA2ktI6oF8P5ODV0Vz
+ sZfCgkWLRW9vcu5lefTpulE3qzPLeHuNYIb/Hph0SvYHbAtRpWrr6fivIECmm1q34YXQKiYN
+ 5FxhTlHNXwsZzVGPEsXD5Qv2v+lnHDlfxVTqU6PpLpx6G/WpOB0+OeyboGMIoPXLSlTtknD+
+ U7ioU/7OAlAMMa4ziCa1VCvntaayEsXX6pNTeblp5aGmma72Wg7GBAQE1yhrpGRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JSGeAn7ACGyoLP/h2UQGMDS1Z8hMcO7ZFsA2Zwj
+ xnQwo2vVWcHXKCppWy17amzsDmqACQpdlQ4Ig09VkgA3ePKr9Rm5v7QdeqPAJJZn/WsR2+on
+ WvQ8Hlj71kApZVVjvvmpDgrlxrp/8GUFVBtu207S0r/tmtEiJiZi5tEALQxxdJJN86nQ1aIp
+ xDocODOvblVXflheMFgKdjh/Y1FBN7faVUweXY1Q/EcG82FohZPh7x47jBkP1tOOc0ZYzLva
+ 0K7kVoPuscMYiLwNfAoP9LZ5yEWIU7IT4yNuhf8P7JzjmVZLlfbrEmCm2bKt4wSrKTcuf5mY
+ srKGSpdJX0bFb5m3FKLegvp6pdyn3hW7T6CGvjGI+GPi+X2iIi9FehYazNjr4kRsMu5neki2
+ 4wOaZPVkE4HCbeWj+u+2dd7EG3m5EMTXfjew/G7vMbZSua6MAnN08Ps/I4=
+IronPort-HdrOrdr: A9a23:9T+Oiagxj7lZF90qdA0NnFD8C3BQXtgji2hC6mlwRA09TySZ//
+ rOoB0+726StN9xYgBFpTnuAsW9qB/nmqKdpLNhW4tKPzOW3VdATrsSjrcKqgeIc0aVm9K1l5
+ 0QEZSWYOeAdGSS5vyb3ODXKbgd/OU=
+X-IronPort-AV: E=Sophos;i="5.93,247,1654574400"; 
+   d="scan'208";a="77631075"
+Date: Thu, 18 Aug 2022 17:34:05 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [PATCH 1/3] xenbaked: properly use time_t in dump_stats()
+Message-ID: <Yv5p/a/hFa+zxXMH@perard.uk.xensource.com>
+References: <68e71e3b-19a7-e062-9ebe-2e6f6aae0549@suse.com>
+ <c87ae25d-5aa8-bb70-7d2b-ea6485a01f59@suse.com>
 MIME-Version: 1.0
-References: <20220817105720.111618-1-leo.yan@linaro.org> <fd24b049-abf2-34e8-e0b0-2c2d2d1e1b0f@suse.com>
- <CAMj1kXEDxHC6RgKfcmpXGDxwQ0mTKG146D8dJnrwJ1cWWXZ=3g@mail.gmail.com>
- <Yv4DMuQHbGNhqAP4@leoy-yangtze.lan> <CAMj1kXHkWH7tkpuPLLjWszOVTQ-Cr3Zcbj8w0bogSd0Y_hso0g@mail.gmail.com>
- <99e460f1-ca5f-b520-69e0-b250915fd591@xen.org> <Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
-In-Reply-To: <Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Thu, 18 Aug 2022 18:24:31 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
-Message-ID: <CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
-Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
-To: Leo Yan <leo.yan@linaro.org>
-Cc: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>, Marc Zyngier <maz@kernel.org>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>, Rahul Singh <Rahul.Singh@arm.com>, 
-	Peter Griffin <peter.griffin@linaro.org>, xen-devel <xen-devel@lists.xenproject.org>, 
-	Julien Grall <jgrall@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <c87ae25d-5aa8-bb70-7d2b-ea6485a01f59@suse.com>
 
-On Thu, 18 Aug 2022 at 17:49, Leo Yan <leo.yan@linaro.org> wrote:
->
-> On Thu, Aug 18, 2022 at 11:04:48AM +0100, Julien Grall wrote:
->
-> [...]
->
-> > > > Seems it's broken for kdump/kexec if kernel boots with using DT?
-> > > >
-> > >
-> > > EFI supports both DT and ACPI boot, but only ACPI *requires* EFI.
-> > >
-> > > So DT boot on hardware with affected GICv3 implementations works fine
-> > > with kdump/kexec as long as EFI is being used. Using non-EFI boot and
-> > > kexec on such systems will likely result in a splat on the second
-> > > kernel, unless there is another mechanism being used to reserve the
-> > > memory in DT as well.
-> > >
-> > > Maybe we should wire up the EFI_PARAVIRT flag for Xen dom0 on arm64,
-> > > so that we can filter out the call above. That would mean that
-> > > Xen/arm64/dom0/kexec on affected hardware would result in a splat in
-> > > the second kernel as well, but whether that matters depends on your
-> > > support scope.
-> >
-> > In the context of Xen, dom0 doesn't have direct access to the host ITS
-> > because we are emulating it. So I think it doesn't matter for us because we
-> > can fix our implementation if it is affected.
-> >
-> > That said, kexec-ing dom0 (or any other domain) on Xen on Arm would require
-> > some work to be supported. OOI, @leo is it something you are investigating?
->
->
-> Now I am working on automative reference platform; the first thing for
-> me is to resolve the kernel oops.
->
-> For long term, I think the kexec/kdump would be important to be
-> supported, to be clear, so far supporting kexec/kdump for Xen/Linux is
-> not priority for my work.
->
-> Also thanks a lot for Ard and Mark's replying. To be honest, I missed
-> many prerequisites (e.g. redistributor configurations for GIC in
-> hypervisor) and seems Xen uses a different way by emulating GICv3
-> controller for guest OS.  So now I am bit puzzle what's for next step
-> or just keep as it is?
->
+On Thu, Aug 18, 2022 at 04:05:37PM +0200, Jan Beulich wrote:
+> "int" is not a suitable type to convert time()'s return value to. Avoid
+> casts and other extra fiddling by using difftime(), on the assumption
+> that the overhead of using "double" doesn't matter here.
 
-If i understand Julien's remark correctly, the dom0 GICv3 is emulated,
-and so it should not suffer from the issue that we are working around
-here.
+dump_stats() seems to be only used once, so it's probably fine.
 
-Given that this workaround is still the sole user of the MEMRESERVE
-API, we would like to remain free to rip it out and replace it
-completely if we need to, and so implementing it in Xen is a bad idea,
-especially if the issue in question does not even exist in your case.
-This means that even if you do decide to support kexec, things should
-work fine in spite of this warning regarding the failure to perform
-the memory reservation, as the GIC can simply be reconfigured.
+> Coverity ID: 1509374
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> --- unstable.orig/tools/xenmon/xenbaked.c	2022-01-06 16:12:39.000000000 +0100
+> +++ unstable/tools/xenmon/xenbaked.c	2022-08-18 15:36:39.918706853 +0200
+> @@ -230,11 +230,7 @@ static void check_gotten_sum(void)
+>  static void dump_stats(void) 
+>  {
+>      stat_map_t *smt = stat_map;
+> -    time_t end_time, run_time;
+> -
+> -    time(&end_time);
+> -
+> -    run_time = end_time - start_time;
+> +    double run_time = difftime(time(NULL), start_time);
+>  
+>      printf("Event counts:\n");
+>      while (smt->text != NULL) {
+> @@ -242,13 +238,11 @@ static void dump_stats(void)
+>          smt++;
+>      }
+>  
+> -    printf("processed %d total records in %d seconds (%ld per second)\n",
+> -           rec_count, (int)run_time,
+> -           run_time ? (long)(rec_count/run_time) : 0L);
+> +    printf("processed %d total records in %0f seconds (%0f per second)\n",
 
-So perhaps we should just [conditionally] tone down the warning?
+Did you want to write "%.0f" or even "%.f" instead of "%0f"? It seems
+that the '0' here mean '0'-padded, but without field width there would
+be nothing to pad. I'm guessing you would want printf to write something
+like "266 seconds" instead of "266.646168 seconds". Am I missing
+something ?
+
+> +           rec_count, run_time, run_time ? rec_count / run_time : 0);
+>  
+> -    printf("woke up %d times in %d seconds (%ld per second)\n",
+> -           wakeups, (int) run_time,
+> -           run_time ? (long)(wakeups/run_time) : 0L);
+> +    printf("woke up %d times in %0f seconds (%0f per second)\n",
+> +           wakeups, run_time, run_time ? wakeups / run_time : 0);
+>  
+>      check_gotten_sum();
+>  }
+> 
+
+-- 
+Anthony PERARD
 
