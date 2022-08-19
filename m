@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9990459A6A9
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 21:44:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390437.627871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E05059A6A6
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 21:44:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390436.627865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oP7uw-0004u3-3Q; Fri, 19 Aug 2022 19:44:30 +0000
+	id 1oP7uv-0004lz-QV; Fri, 19 Aug 2022 19:44:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390437.627871; Fri, 19 Aug 2022 19:44:30 +0000
+Received: by outflank-mailman (output) from mailman id 390436.627865; Fri, 19 Aug 2022 19:44:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oP7uv-0004mW-Vi; Fri, 19 Aug 2022 19:44:29 +0000
-Received: by outflank-mailman (input) for mailman id 390437;
+	id 1oP7uv-0004ja-LO; Fri, 19 Aug 2022 19:44:29 +0000
+Received: by outflank-mailman (input) for mailman id 390436;
  Fri, 19 Aug 2022 19:44:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Yp9C=YX=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1oP7uu-0004jJ-O6
+ id 1oP7uu-0004jK-8c
  for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 19:44:28 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 54387ee2-1ff7-11ed-9250-1f966e50362f;
- Fri, 19 Aug 2022 21:44:25 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id e21so2001078edc.7
- for <xen-devel@lists.xenproject.org>; Fri, 19 Aug 2022 12:44:25 -0700 (PDT)
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 558633b9-1ff7-11ed-bd2e-47488cf2e6aa;
+ Fri, 19 Aug 2022 21:44:27 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id w3so6858614edc.2
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Aug 2022 12:44:27 -0700 (PDT)
 Received: from uni.. (adsl-47.176.58.181.tellas.gr. [176.58.181.47])
  by smtp.googlemail.com with ESMTPSA id
- r17-20020a1709061bb100b00731745a7e62sm2695059ejg.28.2022.08.19.12.44.22
+ r17-20020a1709061bb100b00731745a7e62sm2695059ejg.28.2022.08.19.12.44.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Aug 2022 12:44:23 -0700 (PDT)
+ Fri, 19 Aug 2022 12:44:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,70 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54387ee2-1ff7-11ed-9250-1f966e50362f
+X-Inumbo-ID: 558633b9-1ff7-11ed-bd2e-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc;
-        bh=+iXUh+ly3q7kTPvB48H2wMf09H72FCO7C0IVYZo0oO8=;
-        b=B+aiSCje4l4vPdNaIjXtq1BHl63IYACV0YzKTpqO31Fj2Npfox+TQeEPbUF8rT7H1q
-         GDMsl/+PndSO6DsxLpj38Zm8ZcLrO+NK2smo/Mp04hfh4D7PzPAsBVy9tR52MxW24dkG
-         tAj/oNXN1QaGtaoqreLZvqb0oqS8imU6azMDlwpYw8Wg0mfPsYMJ41ClFSfUBAJWAA26
-         yl7BGzq2Q7bXbsGiefye7FlF/PmYx4npUghat/j9nwURR8Xi281WvcCYeOMxOJ6HNUfW
-         d77WZH6OOY9C4KLvvy2DmlFCoKMDEeguG2058TFgxAOLe94QtA7C9KTEcWCEP5VmXusi
-         jRpw==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc;
+        bh=gpTcdGFtIggM/ndfLTOOJqJh1Gq2EXeW+frcQK8u79M=;
+        b=dtaR3prsgnjJDmkr7VI0C4cWEqVDMSufqNJmumXQDW6cYpg1+ydZms5U+Ro51MXB5t
+         jo6f7iofh9BCu5a7fDaW18oVUAFeYaLiHsDf+JxnBCHVS1+W+1W20RKbHHqhYhQ1S4tP
+         ndKBkqHMhdvVqgQW1r/YrADrAsmB4eSkpNuRagkM0FYdUcJyWYt2opGdRNe1icyRm7KC
+         2sdcaC5feSQKirxeJ0PX6ZvwGikfmSpYX+hopRPwwUalqNGxKrdOHI3SrJSem3hNnW7e
+         TPTgl2OiiF7AOIGnQc5HCjCJ40jlluGlk2JspR/nzkwDtkl3HutsPjKVdB4q4aePzw8D
+         OGAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc;
-        bh=+iXUh+ly3q7kTPvB48H2wMf09H72FCO7C0IVYZo0oO8=;
-        b=2L99lxHPOx3RRCSeAysy1HV82QJ6cq3Lm015fcoxs1cYgO6qYOjgg0WmsCgzlb1l14
-         5O7Qx2Av7pl3eVxTEn6DMCLqPaWwZS3zgxBzLQ1PWtnkLAbPGmcJp9PFqdfvYjobTw/1
-         WC/XTQ+sm2XBkPeF6+adOAMGyTancI7KJ8I42AaNoWtcyiEuBx1227FV07gJKlZYvfVT
-         0yDZ36uzjhKBb7jh5dAMQ38hWQjJneyPsV4PPm5APJFP6d8zzR3oEJSVZCCqmc5fywhm
-         LqAA+uV+FsW2lmK+5orku70IE58q4s+SXQS4Yphhr3fNxb6460uEK3CQiMFOK5lHmIpG
-         D2LA==
-X-Gm-Message-State: ACgBeo1yJnXCZWzJqYQz8VBFl5u88biymg8E8rYk8umWgnfavc4BHSsD
-	87UxjXi3RFLFv3Wzj49XSJyzVrok/9M=
-X-Google-Smtp-Source: AA6agR72LdtB5UQUlBPODzMyHks5cfiMyCkdYYCp/gd/V8DP8gEKKfchu1fMq1hEg8Iy9WAfjJNYqA==
-X-Received: by 2002:a05:6402:3552:b0:43d:a57d:22e9 with SMTP id f18-20020a056402355200b0043da57d22e9mr7201976edd.119.1660938264363;
-        Fri, 19 Aug 2022 12:44:24 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc;
+        bh=gpTcdGFtIggM/ndfLTOOJqJh1Gq2EXeW+frcQK8u79M=;
+        b=JifNCpKhn4P3yCNzugmMKrSidCGAe2Dz4HpMh7yfdyA+dxe8F5Kb/iG7yCbExgb8uS
+         r0MQW2YuVip0AjZ+QY/3GWbMAueBOJn/RSvdtMQGBMjshGKJDC8BgpeprHal0R1GHtv+
+         6ge6oi3c5ay83Ch+b4aTADcV4fXUxYFuAbQNqiYg7fP3HMYwK5ug2jpV9wvDMmEXCt2n
+         umjIOQ6ppoODX/1iMYiNsPbpjFPlP8b5qH4Nf0ADnmkKHPYUopjAvKmVoByQ/aryeZlY
+         SHt4MQbo0buN4LYLZwCS4NQRRFC6vIRGG/QsiELTlGS9XdhTfyO7xuwtJ3gf9pkfDL5D
+         S3Ag==
+X-Gm-Message-State: ACgBeo24GGTGYwuLhgtOVevWtovBIuI1dlAyFFQrlumlOg/yJ7O6ev7+
+	/shj3fnoYTkmOmIK9YlrEe7FpvygD0A=
+X-Google-Smtp-Source: AA6agR74rrbOHONcU0veZ6EMafv63MPWQH4nz6HQlpQSSKjLWTEQwOqaIF7pExtS3v5N87nnzPRrNg==
+X-Received: by 2002:a05:6402:2753:b0:43a:d6f2:9839 with SMTP id z19-20020a056402275300b0043ad6f29839mr7013799edd.73.1660938266474;
+        Fri, 19 Aug 2022 12:44:26 -0700 (PDT)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 0/7] Fix MISRA C 2012 Rule 20.7 violations
-Date: Fri, 19 Aug 2022 22:43:52 +0300
-Message-Id: <20220819194359.1196539-1-burzalodowa@gmail.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH 1/7] xen/arm: gic_v3_its: Fix MISRA C 2012 Rule 20.7 violations
+Date: Fri, 19 Aug 2022 22:43:53 +0300
+Message-Id: <20220819194359.1196539-2-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220819194359.1196539-1-burzalodowa@gmail.com>
+References: <20220819194359.1196539-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Xenia Ragiadakou (7):
-  xen/arm: gic_v3_its: Fix MISRA C 2012 Rule 20.7 violations
-  xsm/flask: sidtab: Fix MISRA C 2012 Rule 20.7 violations
-  xen/elf: Fix MISRA C 2012 Rule 20.7 violations
-  xen/vgic: Fix MISRA C 2012 Rule 20.7 violation
-  xen/rbtree: Fix MISRA C 2012 Rule 20.7 violation
-  xen/arm: processor: Fix MISRA C 2012 Rule 20.7 violations
-  xen/device_tree: Fix MISRA C 2012 Rule 20.7 violations
+In macros GITS_TYPER_DEVICE_ID_BITS(), GITS_TYPER_EVENT_ID_BITS() and
+GITS_BASER_ENTRY_SIZE(), add parentheses around the macro parameter to
+prevent against unintended expansions.
+Realign subsequent lines, if any.
 
+Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+---
  xen/arch/arm/include/asm/gic_v3_its.h | 10 +++++-----
- xen/arch/arm/include/asm/new_vgic.h   |  2 +-
- xen/arch/arm/include/asm/processor.h  |  4 ++--
- xen/include/xen/device_tree.h         |  6 +++---
- xen/include/xen/elfstructs.h          |  4 ++--
- xen/lib/rbtree.c                      |  2 +-
- xen/xsm/flask/ss/sidtab.c             |  8 ++++----
- 7 files changed, 18 insertions(+), 18 deletions(-)
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/include/asm/gic_v3_its.h
+index 94e5cb99c5..168617097f 100644
+--- a/xen/arch/arm/include/asm/gic_v3_its.h
++++ b/xen/arch/arm/include/asm/gic_v3_its.h
+@@ -46,13 +46,13 @@
+ #define GITS_TYPER_PTA                  BIT(19, UL)
+ #define GITS_TYPER_DEVIDS_SHIFT         13
+ #define GITS_TYPER_DEVIDS_MASK          (0x1fUL << GITS_TYPER_DEVIDS_SHIFT)
+-#define GITS_TYPER_DEVICE_ID_BITS(r)    (((r & GITS_TYPER_DEVIDS_MASK) >> \
+-                                               GITS_TYPER_DEVIDS_SHIFT) + 1)
++#define GITS_TYPER_DEVICE_ID_BITS(r)    ((((r) & GITS_TYPER_DEVIDS_MASK) >> \
++                                                 GITS_TYPER_DEVIDS_SHIFT) + 1)
+ 
+ #define GITS_TYPER_IDBITS_SHIFT         8
+ #define GITS_TYPER_IDBITS_MASK          (0x1fUL << GITS_TYPER_IDBITS_SHIFT)
+-#define GITS_TYPER_EVENT_ID_BITS(r)     (((r & GITS_TYPER_IDBITS_MASK) >> \
+-                                               GITS_TYPER_IDBITS_SHIFT) + 1)
++#define GITS_TYPER_EVENT_ID_BITS(r)     ((((r) & GITS_TYPER_IDBITS_MASK) >> \
++                                                 GITS_TYPER_IDBITS_SHIFT) + 1)
+ 
+ #define GITS_TYPER_ITT_SIZE_SHIFT       4
+ #define GITS_TYPER_ITT_SIZE_MASK        (0xfUL << GITS_TYPER_ITT_SIZE_SHIFT)
+@@ -75,7 +75,7 @@
+ #define GITS_BASER_TYPE_RESERVED7       7UL
+ #define GITS_BASER_ENTRY_SIZE_SHIFT     48
+ #define GITS_BASER_ENTRY_SIZE(reg)                                       \
+-                        (((reg >> GITS_BASER_ENTRY_SIZE_SHIFT) & 0x1f) + 1)
++                        ((((reg) >> GITS_BASER_ENTRY_SIZE_SHIFT) & 0x1f) + 1)
+ #define GITS_BASER_SHAREABILITY_SHIFT   10
+ #define GITS_BASER_PAGE_SIZE_SHIFT      8
+ #define GITS_BASER_SIZE_MASK            0xff
 -- 
 2.34.1
 
