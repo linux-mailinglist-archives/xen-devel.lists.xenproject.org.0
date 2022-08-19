@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A125F599963
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 12:03:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390192.627489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD116599964
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 12:04:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390202.627500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOyqa-0000VY-NB; Fri, 19 Aug 2022 10:03:24 +0000
+	id 1oOyr9-00015l-Vq; Fri, 19 Aug 2022 10:03:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390192.627489; Fri, 19 Aug 2022 10:03:24 +0000
+Received: by outflank-mailman (output) from mailman id 390202.627500; Fri, 19 Aug 2022 10:03:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOyqa-0000Tj-Jn; Fri, 19 Aug 2022 10:03:24 +0000
-Received: by outflank-mailman (input) for mailman id 390192;
- Fri, 19 Aug 2022 10:03:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oOyr9-00012l-T0; Fri, 19 Aug 2022 10:03:59 +0000
+Received: by outflank-mailman (input) for mailman id 390202;
+ Fri, 19 Aug 2022 10:03:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sWlb=YX=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1oOyqZ-0008OP-IC
- for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 10:03:23 +0000
+ id 1oOyr8-0000LK-MF
+ for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 10:03:58 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 2850d0f7-1fa6-11ed-bd2e-47488cf2e6aa;
- Fri, 19 Aug 2022 12:03:22 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 3d96aeb3-1fa6-11ed-9250-1f966e50362f;
+ Fri, 19 Aug 2022 12:03:57 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3C83F1042;
- Fri, 19 Aug 2022 03:03:23 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 083A11042;
+ Fri, 19 Aug 2022 03:03:59 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 378EB3F70D;
- Fri, 19 Aug 2022 03:03:20 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DB71B3F70D;
+ Fri, 19 Aug 2022 03:03:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,143 +43,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2850d0f7-1fa6-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 3d96aeb3-1fa6-11ed-9250-1f966e50362f
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
-	Julien Grall <jgrall@amazon.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 1/7] xen/evtchn: Make sure all buckets below d->valid_evtchns are allocated
-Date: Fri, 19 Aug 2022 11:02:38 +0100
-Message-Id: <710e9e6477270212136d6f2047fd15a033fa7d71.1660902588.git.rahul.singh@arm.com>
+	Wei Liu <wl@xen.org>,
+	Stanislav Kinsburskii <staskins@amazon.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v2 2/7] xen/evtchn: Add an helper to reserve/allocate a port
+Date: Fri, 19 Aug 2022 11:02:39 +0100
+Message-Id: <a6835a7c7223635da27d4e7db002eae5d21417b8.1660902588.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1660902588.git.rahul.singh@arm.com>
 References: <cover.1660902588.git.rahul.singh@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Julien Grall <jgrall@amazon.com>
+In a follow-up patch we will be able to either reserve or allocate a
+port for various event channel helpers.
 
-Since commit 01280dc19cf3 "evtchn: simplify port_is_valid()", the event
-channels code assumes that all the buckets below d->valid_evtchns are
-always allocated.
+A new wrapper is introduced to either reserved a given port or allocate
+an empty one if zero.
 
-This assumption hold in most of the situation because a guest is not
-allowed to chose the port. Instead, it will be the first free from port
-0.
+Take the opportunity to replace the open-coded version in
+evtchn_bind_virq().
 
-When using Guest Transparent Migration and LiveUpdate, we will only
-preserve ports that are currently in use. As a guest can open/close
-event channels, this means the ports may be sparse.
-
-The existing implementation of evtchn_allocate_port() is not able to
-deal with such situation and will end up to override bucket or/and leave
-some bucket unallocated. The latter will result to a droplet crash if
-the event channel belongs to an unallocated bucket.
-
-This can be solved by making sure that all the buckets below
-d->valid_evtchns are allocated. There should be no impact for most of
-the situation but LM/LU as only one bucket would be allocated. For
-LM/LU, we may end up to allocate multiple buckets if ports in use are
-sparse.
-
-A potential alternative is to check that the bucket is valid in
-is_port_valid(). This should still possible to do it without taking
-per-domain lock but will result a couple more of memory access.
-
+Signed-off-by: Stanislav Kinsburskii <staskins@amazon.com>
 Signed-off-by: Julien Grall <jgrall@amazon.com>
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
 Changes in v2:
- - new patch in this version to fix the security issue
+ - new patch in this version
 ---
 ---
- xen/common/event_channel.c | 56 ++++++++++++++++++++++++--------------
- 1 file changed, 35 insertions(+), 21 deletions(-)
+ xen/common/event_channel.c | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
 diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index c2c6f8c151..dbe0a27311 100644
+index dbe0a27311..194f5346fb 100644
 --- a/xen/common/event_channel.c
 +++ b/xen/common/event_channel.c
-@@ -193,6 +193,15 @@ static struct evtchn *alloc_evtchn_bucket(struct domain *d, unsigned int port)
-     return NULL;
+@@ -304,6 +304,18 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
+     xsm_evtchn_close_post(chn);
  }
  
-+/*
-+ * Allocate a given port and ensure all the buckets up to that ports
-+ * have been allocated.
-+ *
-+ * The last part is important because the rest of the event channel code
-+ * relies on all the buckets up to d->valid_evtchns to be valid. However,
-+ * event channels may be sparsed when restoring a domain during Guest
-+ * Transparent Migration and Live Update.
-+ */
- int evtchn_allocate_port(struct domain *d, evtchn_port_t port)
- {
-     if ( port > d->max_evtchn_port || port >= max_evtchns(d) )
-@@ -207,30 +216,35 @@ int evtchn_allocate_port(struct domain *d, evtchn_port_t port)
-     }
-     else
-     {
--        struct evtchn *chn;
--        struct evtchn **grp;
--
--        if ( !group_from_port(d, port) )
-+        do
-         {
--            grp = xzalloc_array(struct evtchn *, BUCKETS_PER_GROUP);
--            if ( !grp )
--                return -ENOMEM;
--            group_from_port(d, port) = grp;
--        }
-+            struct evtchn *chn;
-+            struct evtchn **grp;
-+            unsigned int alloc_port = read_atomic(&d->valid_evtchns);
- 
--        chn = alloc_evtchn_bucket(d, port);
--        if ( !chn )
--            return -ENOMEM;
--        bucket_from_port(d, port) = chn;
-+            if ( !group_from_port(d, alloc_port) )
-+            {
-+                grp = xzalloc_array(struct evtchn *, BUCKETS_PER_GROUP);
-+                if ( !grp )
-+                    return -ENOMEM;
-+                group_from_port(d, alloc_port) = grp;
-+            }
- 
--        /*
--         * d->valid_evtchns is used to check whether the bucket can be
--         * accessed without the per-domain lock. Therefore,
--         * d->valid_evtchns should be seen *after* the new bucket has
--         * been setup.
--         */
--        smp_wmb();
--        write_atomic(&d->valid_evtchns, d->valid_evtchns + EVTCHNS_PER_BUCKET);
-+            chn = alloc_evtchn_bucket(d, alloc_port);
-+            if ( !chn )
-+                return -ENOMEM;
-+            bucket_from_port(d, alloc_port) = chn;
++static int evtchn_get_port(struct domain *d, evtchn_port_t port)
++{
++    int rc;
 +
-+            /*
-+             * d->valid_evtchns is used to check whether the bucket can be
-+             * accessed without the per-domain lock. Therefore,
-+             * d->valid_evtchns should be seen *after* the new bucket has
-+             * been setup.
-+             */
-+            smp_wmb();
-+            write_atomic(&d->valid_evtchns,
-+                         d->valid_evtchns + EVTCHNS_PER_BUCKET);
-+        } while ( port >= read_atomic(&d->valid_evtchns) );
-     }
++    if ( port != 0 )
++        rc = evtchn_allocate_port(d, port);
++    else
++        rc = get_free_port(d);
++
++    return rc ?: port;
++}
++
+ int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+ {
+     struct evtchn *chn;
+@@ -461,19 +473,10 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
+     if ( read_atomic(&v->virq_to_evtchn[virq]) )
+         ERROR_EXIT(-EEXIST);
  
-     write_atomic(&d->active_evtchns, d->active_evtchns + 1);
+-    if ( port != 0 )
+-    {
+-        if ( (rc = evtchn_allocate_port(d, port)) != 0 )
+-            ERROR_EXIT(rc);
+-    }
+-    else
+-    {
+-        int alloc_port = get_free_port(d);
+-
+-        if ( alloc_port < 0 )
+-            ERROR_EXIT(alloc_port);
+-        port = alloc_port;
+-    }
++    port = rc = evtchn_get_port(d, port);
++    if ( rc < 0 )
++        ERROR_EXIT(rc);
++    rc = 0;
+ 
+     chn = evtchn_from_port(d, port);
+ 
 -- 
 2.25.1
 
