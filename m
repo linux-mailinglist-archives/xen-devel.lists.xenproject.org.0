@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 697875998DA
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 11:45:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390175.627457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF47E599911
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 11:58:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390183.627468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOyZW-0005M4-Le; Fri, 19 Aug 2022 09:45:46 +0000
+	id 1oOylF-0006wi-Sa; Fri, 19 Aug 2022 09:57:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390175.627457; Fri, 19 Aug 2022 09:45:46 +0000
+Received: by outflank-mailman (output) from mailman id 390183.627468; Fri, 19 Aug 2022 09:57:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOyZW-0005KH-IB; Fri, 19 Aug 2022 09:45:46 +0000
-Received: by outflank-mailman (input) for mailman id 390175;
- Fri, 19 Aug 2022 09:45:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOyZV-0005K7-0v; Fri, 19 Aug 2022 09:45:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOyZU-0005MF-UQ; Fri, 19 Aug 2022 09:45:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oOyZU-0005ZX-CH; Fri, 19 Aug 2022 09:45:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oOyZU-00079J-Bu; Fri, 19 Aug 2022 09:45:44 +0000
+	id 1oOylF-0006tZ-PG; Fri, 19 Aug 2022 09:57:53 +0000
+Received: by outflank-mailman (input) for mailman id 390183;
+ Fri, 19 Aug 2022 09:57:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Wa9Z=YX=citrix.com=prvs=223f339b3=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oOylE-0006tT-5V
+ for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 09:57:52 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 61a702c2-1fa5-11ed-bd2e-47488cf2e6aa;
+ Fri, 19 Aug 2022 11:57:50 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,97 +36,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XbHyeLmW25ecB6JRsKlC+kjWp/sAjYyKsSpONiwpxVQ=; b=Mb/aFjiIZgZ9U2aSZY7Szf64LP
-	2J9YCdsBGW9wpcyeRQzN55gAq4tz6VG4G3A8+EbbsWRRx5Xodvr1z7Wq/be+3KLNrXn1tI8WpWY8v
-	97mdqqw8vqIODK2eSkxjeDJfHs07SXeseoR3CSGlKwirejlz4JEIOalwSAuS4uz1EPIs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172639-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 61a702c2-1fa5-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1660903070;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=3UX244bnja2K5yF8+nlGJXPyNsgo4YFbgICV28eW0WA=;
+  b=VZ4D1/ydVyzlaMmNWPbTTPRlZc2MrXjfDJM55f/19uykM+sjs9m/+ADA
+   E5XHKzD7dgSCLkpUpIt+TPyETjyZV+QwsQlf4F8SIlJA7qr+y1XjBJzU0
+   PLdpn/TGeMLoxtZPW+wKXw1xcEmF6cos+8BQsVMMNTrW0wndb7kqH+0QJ
+   A=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 77684626
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:6iwOEqllIxHs8hBa4M3QKj7o5gy5JkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIeXjyFM6nbajGmKot3O4iw8kMPu8Tcx9dkSFE//3phESMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8mk/ngqoPUUIbsIjp2SRJvVBAvgBdin/9RqoNziJ2yDhjlV
+ ena+qUzA3f4nW8vWo4ow/jb8kk37K2i4GhwUmEWPpingnePzxH5M7pHTU2BByOQapVZGOe8W
+ 9HCwNmRlo8O105wYj8Nuu+TnnwiGtY+DyDX4pZlc/HKbix5jj4zys4G2M80Mi+7vdkrc+dZk
+ 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzdFSfqV/wmWfG0YAzcmCA2kpF4E34v00H1pg/
+ MMJJj1QNw+AveKplefTpulE3qzPLeHuNYIb/Hph0SvYHbAtRpWrr6fivIECmm1q34YXQKiYN
+ 5FxhTlHNXwsZzVGPEsXD5Qv2v+lnHDlfxVTqU6PpLpx6G/WpOB0+OeyboqJJIbULSlTtn2+i
+ CHq4TrGPi4lFse66xW9zWOrg/CayEsXX6pNTeblp5aGmma7wm0ZFhwMEF+6uuWRkEOyW9tDb
+ UcT/0IGqqw/91eiSNXnaAGpu36PvhMaWN14HvUz7UeGza+8ywSEAmkJSBZRZdpgs9U5LRQvz
+ kWIgdT7AxR1vbGVQG7b/bCRxRu1PSUWNnMTfi8sQg4M4t2lq4Y25jrfQ9AmHKOrg9ndHTDr3
+ yvMvCU4n68Uj8MAy+O851+vvt63jsGXFEhvvFyRBz/7qFMiDGK4W2C2wUfx4dlYN8WHdXeIg
+ 2kKlpXH8+M0DY7YwURhX94x8KGVC+etaWOC2Q4wQ8BxqVxB6Fb4I9kOvWgWyFNBd59dJGS3O
+ BK7VRZ5vsc7AZe8UUNgj2td4ewOxLOoK9nqX+u8gjFmMskoL1/vEM2DiCetM4HRfKsEy/hX1
+ W+zK5rEMJrjIf0PIMCKb+kcy6Q34Ss12HneQ5v2pzz+j+TGNCLKFuZZbgvVBgzc0E9jiFS9z
+ jqiH5HSl0U3vBPWOUE7DrL/3XhVdCNmVPgaWuRcd/KZIxoOJVzN/8T5mOp5E6Q4zvs9qws91
+ iviMqOu4Aag2CavxMTjQiwLVY4Dqr4m/SxjYHxyZgrzs5XhCK72hJoim1IMVeFP3IReITRcF
+ pHpp+3o7ixzdwn6
+IronPort-HdrOrdr: A9a23:V5mYtKA9SlUdBDPlHemU55DYdb4zR+YMi2TC1yhKKCC9Vvbo8P
+ xG+85rsyMc6QxhPE3I9urtBEDtexzhHNtOkPAs1NSZLWzbUQmTXeJfBOLZqlWKcUDDH6xmpM
+ VdmsBFeaXN5DNB7foSjjPXL+od
+X-IronPort-AV: E=Sophos;i="5.93,247,1654574400"; 
+   d="scan'208";a="77684626"
+Date: Fri, 19 Aug 2022 10:57:41 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Michal =?iso-8859-1?B?UHLtdm96bu1r?= <mprivozn@redhat.com>
+CC: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	<xen-devel@lists.xenproject.org>, <libvir-list@redhat.com>, "Oleksandr
+ Tyshchenko" <oleksandr_tyshchenko@epam.com>, Julien Grall <julien@xen.org>
+Subject: Re: [libvirt PATCH] libxl: Fix build with recent Xen that introduces
+ new disk backend type
+Message-ID: <Yv9elYoCbkUP0pzX@perard.uk.xensource.com>
+References: <20220729155024.3327364-1-olekstysh@gmail.com>
+ <d29b2ad1-fa32-4897-a113-c8a0864c6630@redhat.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 172639: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=68bf712d4f5928af4c426dc82d27b9783e499d93
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 19 Aug 2022 09:45:44 +0000
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d29b2ad1-fa32-4897-a113-c8a0864c6630@redhat.com>
 
-flight 172639 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172639/
+On Mon, Aug 01, 2022 at 10:23:48AM +0200, Michal Prívozník wrote:
+> Ah, I couldn't find the commit in master, and it's simply because it's
+> not there yet. It's in staging:
+> 
+> https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;f=tools/libs/light/libxl_types.idl;h=66dd1c62b2a3c707bd5c55750d10a8223fbd577f
+> 
+> The patch looks correct. Do you have any estimate when it can be merged
+> into master? I'm not sure what our, libvirt, rules about xen staging
+> are, but for qemu we require master (even unreleased yet).
 
-Regressions :-(
+Hi Michal,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+Now that the commit is "master", do you think this libvirt patch could
+be committed?
 
-version targeted for testing:
- ovmf                 68bf712d4f5928af4c426dc82d27b9783e499d93
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+Thanks,
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   15 days
-Failing since        172151  2022-08-05 02:40:28 Z   14 days  122 attempts
-Testing same since   172621  2022-08-18 09:12:57 Z    1 days    7 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 780 lines long.)
+-- 
+Anthony PERARD
 
