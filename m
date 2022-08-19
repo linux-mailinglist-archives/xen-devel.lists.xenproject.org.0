@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C67DC599716
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 10:25:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390126.627369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13064599717
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 10:27:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390131.627380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOxJR-0001oi-5m; Fri, 19 Aug 2022 08:25:05 +0000
+	id 1oOxLt-0002P5-Ip; Fri, 19 Aug 2022 08:27:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390126.627369; Fri, 19 Aug 2022 08:25:05 +0000
+Received: by outflank-mailman (output) from mailman id 390131.627380; Fri, 19 Aug 2022 08:27:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOxJR-0001mp-2i; Fri, 19 Aug 2022 08:25:05 +0000
-Received: by outflank-mailman (input) for mailman id 390126;
- Fri, 19 Aug 2022 08:25:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oOxJP-0001mj-F2
- for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 08:25:03 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oOxJL-0003wN-Tt; Fri, 19 Aug 2022 08:24:59 +0000
-Received: from [54.239.6.188] (helo=[192.168.16.114])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oOxJL-00060z-NZ; Fri, 19 Aug 2022 08:24:59 +0000
+	id 1oOxLt-0002Ml-FT; Fri, 19 Aug 2022 08:27:37 +0000
+Received: by outflank-mailman (input) for mailman id 390131;
+ Fri, 19 Aug 2022 08:27:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Wa9Z=YX=citrix.com=prvs=223f339b3=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oOxLs-0002Mf-1f
+ for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 08:27:36 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c5602112-1f98-11ed-9250-1f966e50362f;
+ Fri, 19 Aug 2022 10:27:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,76 +36,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=o56dPTr/D22M97W7BQViEwyWF5tFKkxkadlFNgEq9+g=; b=5hLW4FeHoB2HH4civRtmmA7u7Z
-	EAtbOYpCj1CohIqv8in/b3aPtou2QH5eKusrtRKqFSrpI4FeBR4BtWMskC2rP/Ert8lTkLSKsdA5A
-	K6/NyqhLLXRZLBhK/0PmOjCTDVOxEsidT1oHNZLaKgsk68IdWPsyh02WOkzmoY+x3GJg=;
-Message-ID: <fa02a09b-ee7e-b1aa-d183-377aa18a591f@xen.org>
-Date: Fri, 19 Aug 2022 09:24:57 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.1.2
-Subject: Re: [PATCH 2/2] Arm32: tidy the memset() macro
-Content-Language: en-US
+X-Inumbo-ID: c5602112-1f98-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1660897654;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0vbLNEDBddnSMh0BLDSY+nEmsJhF/tinWER1wLXptJw=;
+  b=gM9bV9nRLP50A5CjpL/sUnHUAN/3qjOaJ9Qzz0Tbvyu+66CXeQLSeTKU
+   zmqXLQznryu90FLuh/MMo+96iITU8/xZ/jqUpwKnNBrap2O2qVIXdEuqe
+   dfuyC9FAWrK8+/RRZ9klxhEeeOxrBbabCOQzWbQXJhk2IVMZfLtQGwXZV
+   w=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 78194798
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Czyd96kSxmpaXjult/z/sJ7o5gzvJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIfUT+Fb/7cYjagLdh0YIi+804GuZbdnYVnGlFk+Sg0RCMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8mk/ngqoPUUIbsIjp2SRJvVBAvgBdin/9RqoNziJ2yDhjlV
+ ena+qUzA3f4nW8vWo4ow/jb8kk37K2i4GhwUmEWPpingnePzxH5M7pHTU2BByOQapVZGOe8W
+ 9HCwNmRlo8O105wYj8Nuu+TnnwiGtY+DyDX4pZlc/HKbix5jj4zys4G2M80Mi+7vdkrc+dZk
+ 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzdFSfqV/wmWfG0YAzcmCA2kRI7wow9dqOF1n9
+ M4UaxQfaEiMmOGPlefTpulE3qzPLeHuNYIb/Hph0SvYHbAtRpWrr6fivIECmm1q34YXQKiYN
+ 5FxhTlHNXwsZzVGPEsXD5Qv2v+lnHDlfxVTqU6PpLpx6G/WpOB0+Oe9aYuJJY3aLSlTtkqU+
+ U/B+WD7OU9ZOeCWzAiro2D2vMaayEsXX6pNTeblp5aGmma72Wg7GBAQE1yhrpGRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JSGeAn7ACGyoLP/h2UQGMDS1Z8hMcO7ZFsA2Zwj
+ xnQwo2vVWcHXKCppWy10amlnQqDJBEpBG4waWwgXw1d7MbgmdRm5v7QdeqPAJJZn/WsR2+ok
+ 2/W9Xhg71kApZVVjvvmpDgrlxrp/8GUFVBtu207S0r/tmtEiJiZi5tEALQxxdJJN86nQ1aIp
+ xDocODOvblVXflheMFgKdjh/Y1FBN7faVUweXY1Q/EcG82FohZPh7x47jBkP1tOOc0ZYzLva
+ 0K7kVoPuscDYCT1PPMpM9nZ5yEWIU/IRLzYug38NIISMvCdiifclM2RWaJg9z+0yxV9+U3OE
+ ZyabdytHR4nNEiT9xLvHr91+eJ6mUgDKZb7H8+TI+KPjeXDPxZ4iN4tbDOzUwzOxPrU/l2Io
+ 4gEa5DiJtc2eLSWXxQ7OLU7dTgiRUXXz7ivwyCLXoZv+jZbJVw=
+IronPort-HdrOrdr: A9a23:H2liK6s88TSIN3Q4ivxUGtUk7skDdNV00zEX/kB9WHVpmszxra
+ GTddAgpHjJYVcqKRUdcL+7VJVoLUmyyXcx2/h2AV7AZniChILLFvAA0WKK+VSJcEeSygce79
+ YDT0EXMqyIMbEQt6bHCWeDfeod/A==
+X-IronPort-AV: E=Sophos;i="5.93,247,1654574400"; 
+   d="scan'208";a="78194798"
+Date: Fri, 19 Aug 2022 09:27:18 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <8e5df72f-2ed8-3bec-18ff-3da228ab9ee0@suse.com>
- <80abb94d-67d1-ef71-afbc-4d0bd9d8a557@suse.com>
- <6da837d7-4784-f517-5c24-2bbe6a2af2be@xen.org>
- <1e5496f9-47f1-3cf4-794a-9a840ee7c59f@suse.com>
- <acdebd64-0f0e-b391-271b-0725e4a56c43@xen.org>
- <f0e42732-87fd-396c-5d79-2087666b0eda@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <f0e42732-87fd-396c-5d79-2087666b0eda@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [PATCH v2] xenbaked: properly use time_t in dump_stats()
+Message-ID: <Yv9JZtKzr69Osxbr@perard.uk.xensource.com>
+References: <68e71e3b-19a7-e062-9ebe-2e6f6aae0549@suse.com>
+ <c3b8c742-928f-80af-3cf4-4962b96721e1@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <c3b8c742-928f-80af-3cf4-4962b96721e1@suse.com>
 
-Hi Jan,
-
-On 19/08/2022 09:11, Jan Beulich wrote:
-> On 19.08.2022 10:06, Julien Grall wrote:
->> On 19/08/2022 09:02, Jan Beulich wrote:
->>> On 19.08.2022 09:58, Julien Grall wrote:
->>>> On 19/08/2022 08:50, Jan Beulich wrote:
->>>>> - add parentheses where they were missing (MISRA)
->>>>> - make sure to evaluate also v exactly once (MISRA)
->>>>> - remove excess parentheses
->>>>> - rename local variables to not have leading underscores
->>>>> - apply Xen coding style
->>>>
->>>> This code has been taken from Linux. From you write above, I don't see
->>>> any strong reason for us to modify it (even if it is small).
->>>
->>> At least the MISRA issues want addressing, I suppose. Plus I wasn't
->>> able to spot the macro in Linux anymore (nor __memzero()), so to me
->>> there seemed to be little point to consider keeping anything "in sync"
->>> here.
->> I read the last part as we want a re-sync of the code (we haven't done
->> one in the past couple of years).
+On Fri, Aug 19, 2022 at 09:59:26AM +0200, Jan Beulich wrote:
+> "int" is not a suitable type to convert time()'s return value to. Avoid
+> casts and other extra fiddling by using difftime(), on the assumption
+> that the overhead of using "double" doesn't matter here.
 > 
-> I'm afraid I'm now really confused: Which last part? I don't see how
-> any of what I have said could be read that way. Quite the opposite:
-> By stating that Linux doesn't have this macro anymore, isn't it quite
-> clear that there's nothing to re-sync against?
-Your view here if we will never re-sync the code. This is incorrect, we 
-still want to keep it close so we can benefit from improvement in the 
-Linux code. So if you start tweaking the code just for coding style 
-purpose, it will just make it more difficult for us (I appreciate this 
-is limited here).
+> Coverity ID: 1509374
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v2: Properly use %.0f everywhere.
 
-In this case, Linux has removed __memzero() is patch ff5fdafc9e97 "ARM: 
-8745/1: get rid of __memzero()" because the performance difference with 
-memset() was limited. For Xen, I think we should also remove the function.
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
-With that, this patch becomes pointless.
-
-Cheers,
+Thanks,
 
 -- 
-Julien Grall
+Anthony PERARD
 
