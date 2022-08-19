@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 010F0599454
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 07:08:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.389794.627140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC4E599434
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 06:43:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.389994.627130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOuF1-0004oc-TB; Fri, 19 Aug 2022 05:08:19 +0000
+	id 1oOtpq-00020u-Su; Fri, 19 Aug 2022 04:42:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 389794.627140; Fri, 19 Aug 2022 05:08:19 +0000
+Received: by outflank-mailman (output) from mailman id 389994.627130; Fri, 19 Aug 2022 04:42:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOuF1-0004me-QO; Fri, 19 Aug 2022 05:08:19 +0000
-Received: by outflank-mailman (input) for mailman id 389794;
- Thu, 18 Aug 2022 21:03:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bq4D=YW=sang-engineering.com=wsa+renesas@srs-se1.protection.inumbo.net>)
- id 1oOmg7-0000j2-L6
- for xen-devel@lists.xenproject.org; Thu, 18 Aug 2022 21:03:49 +0000
-Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f0c85be-1f39-11ed-bd2e-47488cf2e6aa;
- Thu, 18 Aug 2022 23:03:46 +0200 (CEST)
-Received: (qmail 3961846 invoked from network); 18 Aug 2022 23:01:23 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 18 Aug 2022 23:01:23 +0200
+	id 1oOtpq-0001z5-Q9; Fri, 19 Aug 2022 04:42:18 +0000
+Received: by outflank-mailman (input) for mailman id 389994;
+ Fri, 19 Aug 2022 04:42:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oOtpo-0001yv-UU; Fri, 19 Aug 2022 04:42:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oOtpo-0007VU-R3; Fri, 19 Aug 2022 04:42:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oOtpo-0002AK-Ep; Fri, 19 Aug 2022 04:42:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oOtpo-0000PH-EJ; Fri, 19 Aug 2022 04:42:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,68 +42,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f0c85be-1f39-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple; d=sang-engineering.com; h=
-	from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding; s=k1; bh=ZiEaQ3rq2K8UtxGRAAvuo4eqxmg
-	TC79fZdy10l2+f1U=; b=Jc02JNR4r2dlq3qjOIJ+Rewxz+C4YGZbCOS4zz2boLr
-	G0cQw/dGcNBpxGsgjYtTGxkFab3JaZId7EDtc15lcUxEej9oaL8osjvJwCLQWj+R
-	hMN6pkJaKQJn1QHIKmtxPE8m06uAoBLidVhh89p0jaLjQifJ1odc5cYa9hhz0ZI0
-	=
-X-UD-Smtp-Session: l3s3148p1@MWKtSIrmqq4ucref
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-kernel@vger.kernel.org
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org,
-	linux-scsi@vger.kernel.org
-Subject: [PATCH] xen: move from strlcpy with unused retval to strscpy
-Date: Thu, 18 Aug 2022 23:01:22 +0200
-Message-Id: <20220818210122.7613-1-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.35.1
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=w8CYRsJSZAOP2LKtqvitX5hZUP2tAFjT/Jck6hobEG8=; b=gnFssE/6+l/3hpffQnQDZzh+Tv
+	CbCRyYQXdzhr+v5EGdWktcPv4ta2tJUi8sdYXMlWi1XtZGmrYS2zIrSji2o5kRcvtZpmB+xQ7Gm1A
+	3toYQ7JjOPOskHHuxoCTP688uVWCW5uh1yIpgwQtutojpP3mda8RuYYI4/dVukvB5i0Q=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172635-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 172635: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=68bf712d4f5928af4c426dc82d27b9783e499d93
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Aug 2022 04:42:16 +0000
 
-Follow the advice of the below link and prefer 'strscpy' in this
-subsystem. Conversion is 1:1 because the return value is not used.
-Generated by a coccinelle script.
+flight 172635 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172635/
 
-Link: https://lore.kernel.org/r/CAHk-=wgfRnXz0W3D37d01q3JFkr_i_uTL=V6A6G1oUZcprmknw@mail.gmail.com/
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
- drivers/xen/xen-scsiback.c                 | 2 +-
- drivers/xen/xenbus/xenbus_probe_frontend.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Regressions :-(
 
-diff --git a/drivers/xen/xen-scsiback.c b/drivers/xen/xen-scsiback.c
-index 7a0c93acc2c5..d3dcda344989 100644
---- a/drivers/xen/xen-scsiback.c
-+++ b/drivers/xen/xen-scsiback.c
-@@ -1121,7 +1121,7 @@ static void scsiback_do_1lun_hotplug(struct vscsibk_info *info, int op,
- 				"%s: writing %s", __func__, state);
- 		return;
- 	}
--	strlcpy(phy, val, VSCSI_NAMELEN);
-+	strscpy(phy, val, VSCSI_NAMELEN);
- 	kfree(val);
- 
- 	/* virtual SCSI device */
-diff --git a/drivers/xen/xenbus/xenbus_probe_frontend.c b/drivers/xen/xenbus/xenbus_probe_frontend.c
-index 07b010a68fcf..f44d5a64351e 100644
---- a/drivers/xen/xenbus/xenbus_probe_frontend.c
-+++ b/drivers/xen/xenbus/xenbus_probe_frontend.c
-@@ -40,7 +40,7 @@ static int frontend_bus_id(char bus_id[XEN_BUS_ID_SIZE], const char *nodename)
- 		return -EINVAL;
- 	}
- 
--	strlcpy(bus_id, nodename + 1, XEN_BUS_ID_SIZE);
-+	strscpy(bus_id, nodename + 1, XEN_BUS_ID_SIZE);
- 	if (!strchr(bus_id, '/')) {
- 		pr_warn("bus_id %s no slash\n", bus_id);
- 		return -EINVAL;
--- 
-2.35.1
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
+version targeted for testing:
+ ovmf                 68bf712d4f5928af4c426dc82d27b9783e499d93
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z   14 days
+Failing since        172151  2022-08-05 02:40:28 Z   14 days  121 attempts
+Testing same since   172621  2022-08-18 09:12:57 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 780 lines long.)
 
