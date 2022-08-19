@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C9E59A843
-	for <lists+xen-devel@lfdr.de>; Sat, 20 Aug 2022 00:20:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390521.628024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79B6A59A844
+	for <lists+xen-devel@lfdr.de>; Sat, 20 Aug 2022 00:25:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390527.628034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oPAM7-0002fe-15; Fri, 19 Aug 2022 22:20:43 +0000
+	id 1oPAQ7-0003Jb-HZ; Fri, 19 Aug 2022 22:24:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390521.628024; Fri, 19 Aug 2022 22:20:42 +0000
+Received: by outflank-mailman (output) from mailman id 390527.628034; Fri, 19 Aug 2022 22:24:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oPAM6-0002d4-Tp; Fri, 19 Aug 2022 22:20:42 +0000
-Received: by outflank-mailman (input) for mailman id 390521;
- Fri, 19 Aug 2022 22:20:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oPAQ7-0003GH-Eu; Fri, 19 Aug 2022 22:24:51 +0000
+Received: by outflank-mailman (input) for mailman id 390527;
+ Fri, 19 Aug 2022 22:24:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c1Kg=YX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oPAM4-0002cu-Rf
- for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 22:20:40 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27b5e906-200d-11ed-bd2e-47488cf2e6aa;
- Sat, 20 Aug 2022 00:20:39 +0200 (CEST)
+ id 1oPAQ6-0003GB-E0
+ for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 22:24:50 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bbcddaeb-200d-11ed-9250-1f966e50362f;
+ Sat, 20 Aug 2022 00:24:48 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AAD1D617A8;
- Fri, 19 Aug 2022 22:20:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D14CAC433B5;
- Fri, 19 Aug 2022 22:20:37 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 9EF4BCE272C;
+ Fri, 19 Aug 2022 22:24:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5C4C433C1;
+ Fri, 19 Aug 2022 22:24:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,68 +43,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27b5e906-200d-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: bbcddaeb-200d-11ed-9250-1f966e50362f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1660947638;
-	bh=oN5/OXkTIuNMXy07I8nXi0x7huXUNwDLSBvqF4ZXMUw=;
+	s=k20201202; t=1660947885;
+	bh=1pExlr3/CUUTkws63WtVt3rc7lFbr5e5Mw3m4hXqvAg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=UfoaNufM7s+Z0aCKGW7IS5p1bA4RmMU2jyMPgzFem7nt3YuMApsATlGBxnIBLKZy0
-	 L9ai9UDcsSSpcezjXPK1g0+1VlRyCrdm1GQbsBb9uL9SgGh2SNR97en2ltLt7Q5jim
-	 Zxuu4i4YlHycdSHUbpTgmHkmzWIJMw1RdoJ25VSJqa+y/z1MCsB7VNZKrEpZ0VZFiC
-	 zSsmTSlGuAmF/wvYpLVLxreepaXk1S/hZP73gR4iyo4F88pGl7jcoOB/mXgIty3VS4
-	 IVqhLpSFQE7HYA3BfgNK3S3MusiuM5DNagP7E+nVZX98i7pFn5f8zUDR9MXP2o2C9z
-	 IkmDcLIU3iyzQ==
-Date: Fri, 19 Aug 2022 15:20:37 -0700 (PDT)
+	b=LbQ2lEND8+Cs22UirQbfSE/PN7dij/XrZyjV4nGZKBkzcy2ZQ/wMXnBuyO/wDPrF+
+	 MNFH6LGISjhYxZ2EOHNou98ygLfrWFZ+jh/TN9sakzicxpOqW2d1YlJ0zvBa/wwT3s
+	 dUr2SCphUDCMQR1K2peBbHf5S19tiXx62NLpxzojOXf8qLMVF6gb+zR/5gMpGgxBCm
+	 3ZYqz8B0l099A6TBuCEuqC/MJGZPRDdUf+FMExkjJgs/JPPtNGysazFNPZArxgI/e5
+	 mD2YswwJYxfuPOXpfDkmq9n2XnMlJE1eH5JrXybE/rkjBNMa4KTu+IzlZc/PrKZiMj
+	 orOWEljUh2B2A==
+Date: Fri, 19 Aug 2022 15:24:43 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Xenia Ragiadakou <burzalodowa@gmail.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 7/7] xen/device_tree: Fix MISRA C 2012 Rule 20.7
- violations
-In-Reply-To: <20220819194359.1196539-8-burzalodowa@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2208191519320.3790@ubuntu-linux-20-04-desktop>
-References: <20220819194359.1196539-1-burzalodowa@gmail.com> <20220819194359.1196539-8-burzalodowa@gmail.com>
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <stefano.stabellini@amd.com>, 
+    xen-devel@lists.xenproject.org, sstabellini@kernel.org, wl@xen.org, 
+    jbeulich@suse.com, george.dunlap@citrix.com, andrew.cooper3@citrix.com, 
+    bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com, roger.pau@citrix.com
+Subject: Re: [PATCH v2 1/3] Add SPDX to CODING_STYLE
+In-Reply-To: <fb2e6b9d-8ffc-a7f2-8411-3751dc8d4022@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2208191522310.3790@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2208181453530.3790@ubuntu-linux-20-04-desktop> <20220818220320.2538705-1-stefano.stabellini@amd.com> <fb2e6b9d-8ffc-a7f2-8411-3751dc8d4022@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 19 Aug 2022, Xenia Ragiadakou wrote:
-> In macros dt_for_each_property_node(), dt_for_each_device_node() and
-> dt_for_each_child_node(), add parentheses around the macro parameters that
-> have the arrow operator applied, to prevent against unintended expansions.
+On Fri, 19 Aug 2022, Julien Grall wrote:
+> Hi Stefano,
 > 
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
->  xen/include/xen/device_tree.h | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
+> On 18/08/2022 23:03, Stefano Stabellini wrote:
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > ---
+> >   CODING_STYLE | 10 ++++++++++
+> >   1 file changed, 10 insertions(+)
+> > 
+> > diff --git a/CODING_STYLE b/CODING_STYLE
+> > index 3386ee1d90..5faf274b3a 100644
+> > --- a/CODING_STYLE
+> > +++ b/CODING_STYLE
+> > @@ -14,6 +14,16 @@ explicitly (e.g. tools/libxl/CODING_STYLE) but often
+> > implicitly (Linux
+> >   coding style is fairly common). In general you should copy the style
+> >   of the surrounding code. If you are unsure please ask.
+> >   +SPDX
+> > +----
+> > +
+> > +New files should start with a single-line SPDX comment to express the
+> > +license, e.g.:
+> > +
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +
+> > +See LICENSES/ for a list of licenses and SPDX tags currently used.
+> > +
 > 
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index 430a1ef445..6e4391c126 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -222,13 +222,13 @@ dt_find_interrupt_controller(const struct dt_device_match *matches);
->  #define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
->  
->  #define dt_for_each_property_node(dn, pp)                   \
-> -    for ( pp = dn->properties; pp != NULL; pp = pp->next )
-> +    for ( pp = (dn)->properties; pp != NULL; pp = (pp)->next )
->  
->  #define dt_for_each_device_node(dt, dn)                     \
-> -    for ( dn = dt; dn != NULL; dn = dn->allnext )
-> +    for ( dn = dt; dn != NULL; dn = (dn)->allnext )
->  
->  #define dt_for_each_child_node(dt, dn)                      \
-> -    for ( dn = dt->child; dn != NULL; dn = dn->sibling )
-> +    for ( dn = (dt)->child; dn != NULL; dn = (dn)->sibling )
->  
->  /* Helper to read a big number; size is in cells (not bytes) */
->  static inline u64 dt_read_number(const __be32 *cell, int size)
-> -- 
-> 2.34.1
+> A user reading CODING_STYLE and CONTRIBUTING may think they need to also add
+> the full license (see the section "COMMON COPYRIGHT NOTICES").
 > 
+> So as we are going to promote SPDX, we should update CONTRIBUTING to reflect
+> that the full license should not be present copied.
+
+Yes good idea. Should I just remove the entire "COMMON COPYRIGHT
+NOTICES" section? With SPDX there is really no value in having
+sample copyright notices, I think I should take it all out.
 
