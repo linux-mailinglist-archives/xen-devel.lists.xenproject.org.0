@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42D3559996B
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 12:06:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390217.627545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81AB159996C
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 12:06:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390218.627556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOytL-0002ud-79; Fri, 19 Aug 2022 10:06:15 +0000
+	id 1oOytN-0003EC-I5; Fri, 19 Aug 2022 10:06:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390217.627545; Fri, 19 Aug 2022 10:06:15 +0000
+Received: by outflank-mailman (output) from mailman id 390218.627556; Fri, 19 Aug 2022 10:06:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oOytL-0002s6-3K; Fri, 19 Aug 2022 10:06:15 +0000
-Received: by outflank-mailman (input) for mailman id 390217;
- Fri, 19 Aug 2022 10:06:13 +0000
+	id 1oOytN-0003Bd-Dc; Fri, 19 Aug 2022 10:06:17 +0000
+Received: by outflank-mailman (input) for mailman id 390218;
+ Fri, 19 Aug 2022 10:06:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sWlb=YX=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1oOytJ-0002G7-EC
- for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 10:06:13 +0000
+ id 1oOytL-0002G7-NL
+ for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 10:06:15 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 8d9f2eed-1fa6-11ed-bd2e-47488cf2e6aa;
- Fri, 19 Aug 2022 12:06:12 +0200 (CEST)
+ id 8f101441-1fa6-11ed-bd2e-47488cf2e6aa;
+ Fri, 19 Aug 2022 12:06:14 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3CFF71042;
- Fri, 19 Aug 2022 03:06:13 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B42D2175A;
+ Fri, 19 Aug 2022 03:06:15 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 879A43F70D;
- Fri, 19 Aug 2022 03:06:10 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 259E53F70D;
+ Fri, 19 Aug 2022 03:06:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d9f2eed-1fa6-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 8f101441-1fa6-11ed-bd2e-47488cf2e6aa
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
@@ -51,20 +51,20 @@ Cc: bertrand.marquis@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 6/7] xen: introduce xen-evtchn dom0less property
-Date: Fri, 19 Aug 2022 11:02:43 +0100
-Message-Id: <02993cf398573adf9e9bad62aa8d6e753b2c6ab9.1660902588.git.rahul.singh@arm.com>
+Subject: [PATCH v2 7/7] xen/arm: introduce new xen,enhanced property value
+Date: Fri, 19 Aug 2022 11:02:44 +0100
+Message-Id: <2fb69ff7cf9a36dd1294da4f9f4b968ff7076d42.1660902588.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1660902588.git.rahul.singh@arm.com>
 References: <cover.1660902588.git.rahul.singh@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce a new sub-node under /chosen node to establish static event
-channel communication between domains on dom0less systems.
+Introduce a new "xen,enhanced" dom0less property value "evtchn" to
+enable/disable event-channel interfaces for dom0less guests.
 
-An event channel will be created beforehand to allow the domains to
-send notifications to each other.
+The configurable option is for domUs only. For dom0 we always set the
+corresponding property in the Xen code to true.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
@@ -72,304 +72,220 @@ Changes in v2:
  - no change
 ---
 ---
- docs/misc/arm/device-tree/booting.txt |  63 +++++++++++-
- xen/arch/arm/domain_build.c           | 136 ++++++++++++++++++++++++++
- xen/arch/arm/include/asm/domain.h     |   1 +
- xen/arch/arm/include/asm/setup.h      |   1 +
- xen/arch/arm/setup.c                  |   2 +
- 5 files changed, 202 insertions(+), 1 deletion(-)
+ xen/arch/arm/domain_build.c       | 149 ++++++++++++++++--------------
+ xen/arch/arm/include/asm/kernel.h |   3 +
+ 2 files changed, 82 insertions(+), 70 deletions(-)
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index 98253414b8..ec7dbcaf8f 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -212,7 +212,7 @@ with the following properties:
-     enable only selected interfaces.
- 
- Under the "xen,domain" compatible node, one or more sub-nodes are present
--for the DomU kernel and ramdisk.
-+for the DomU kernel, ramdisk and static event channel.
- 
- The kernel sub-node has the following properties:
- 
-@@ -254,11 +254,43 @@ The ramdisk sub-node has the following properties:
-     property because it will be created by the UEFI stub on boot.
-     This option is needed only when UEFI boot is used.
- 
-+The static event channel sub-node has the following properties:
-+
-+- compatible
-+
-+    "xen,evtchn"
-+
-+- xen,evtchn
-+
-+    The property is tuples of two numbers
-+    (local-evtchn link-to-foreign-evtchn) where:
-+
-+    local-evtchn is an integer value that will be used to allocate local port
-+    for a domain to send and receive event notifications to/from the remote
-+    domain. Maximum supported value is 2^17 for FIFO ABI and 4096 for 2L ABI.
-+    It is recommended to use low event channel ID.
-+
-+    link-to-foreign-evtchn is a single phandle to a remote evtchn to which
-+    local-evtchn will be connected.
- 
- Example
- =======
- 
- chosen {
-+
-+    module@0 {
-+        compatible = "multiboot,kernel", "multiboot,module";
-+        xen,uefi-binary = "...";
-+        bootargs = "...";
-+
-+        /* one sub-node per local event channel */
-+        ec1: evtchn@1 {
-+            compatible = "xen,evtchn-v1";
-+            /* local-evtchn link-to-foreign-evtchn */
-+            xen,evtchn = <0xa &ec2>;
-+        };
-+    };
-+
-     domU1 {
-         compatible = "xen,domain";
-         #address-cells = <0x2>;
-@@ -277,6 +309,23 @@ chosen {
-             compatible = "multiboot,ramdisk", "multiboot,module";
-             reg = <0x0 0x4b000000 0xffffff>;
-         };
-+
-+        /* one sub-node per local event channel */
-+        ec2: evtchn@2 {
-+            compatible = "xen,evtchn-v1";
-+            /* local-evtchn link-to-foreign-evtchn */
-+            xen,evtchn = <0xa &ec1>;
-+        };
-+
-+        ec3: evtchn@3 {
-+            compatible = "xen,evtchn-v1";
-+            xen,evtchn = <0xb &ec5>;
-+        };
-+
-+        ec4: evtchn@4 {
-+            compatible = "xen,evtchn-v1";
-+            xen,evtchn = <0xc &ec6>;
-+        };
-     };
- 
-     domU2 {
-@@ -296,6 +345,18 @@ chosen {
-             compatible = "multiboot,ramdisk", "multiboot,module";
-             reg = <0x0 0x4d000000 0xffffff>;
-         };
-+
-+        /* one sub-node per local event channel */
-+        ec5: evtchn@5 {
-+            compatible = "xen,evtchn-v1";
-+            /* local-evtchn link-to-foreign-evtchn */
-+            xen,evtchn = <0xb &ec3>;
-+        };
-+
-+        ec6: evtchn@6 {
-+            compatible = "xen,evtchn-v1";
-+            xen,evtchn = <0xd &ec4>;
-+        };
-     };
- };
- 
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 11a8c6b8b5..5101bca979 100644
+index 5101bca979..bd8b8475b7 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -3052,6 +3052,141 @@ void __init evtchn_allocate(struct domain *d)
-     d->arch.hvm.params[HVM_PARAM_CALLBACK_IRQ] = val;
- }
+@@ -1396,85 +1396,92 @@ static int __init make_hypervisor_node(struct domain *d,
+     if ( res )
+         return res;
  
-+static const void *__init get_evtchn_dt_property(
-+        const struct dt_device_node *np)
-+{
-+    const void *prop = NULL;
-+    uint32_t len;
-+
-+    prop = dt_get_property(np, "xen,evtchn", &len);
-+    if ( !prop )
-+        return NULL;
-+
-+    if ( !len )
-+    {
-+        printk(XENLOG_ERR "xen,evtchn property cannot be empty.\n");
-+        return ERR_PTR(-EINVAL);
-+    }
-+
-+    return prop;
-+}
-+
-+static int __init allocate_domain_evtchn(const struct dt_device_node *node)
-+{
-+    const void *prop = NULL;
-+    const __be32 *cell;
-+    uint32_t domU1_port, domU2_port, remote_phandle;
-+    const struct dt_device_node *evtchn_node, *remote_node;
-+    struct evtchn_alloc_unbound alloc_unbound;
-+    struct evtchn_bind_interdomain bind_interdomain;
-+    int rc;
-+
-+    dt_for_each_child_node(node, evtchn_node)
-+    {
-+        struct domain *d, *d1 = NULL, *d2 = NULL;
-+
-+        if ( !dt_device_is_compatible(evtchn_node, "xen,evtchn-v1") )
-+            continue;
-+
-+        prop = get_evtchn_dt_property(evtchn_node);
-+        /* If the property is not found, return without errors */
-+        if ( !prop || IS_ERR(prop) )
-+            return IS_ERR(prop) ? PTR_ERR(prop) : 0;
-+
-+        cell = (const __be32 *)prop;
-+        domU1_port = dt_next_cell(1, &cell);
-+        remote_phandle = dt_next_cell(1, &cell);
-+
-+        remote_node = dt_find_node_by_phandle(remote_phandle);
-+        if ( !remote_node )
+-    if ( !opt_ext_regions )
+-    {
+-        printk(XENLOG_INFO "%pd: extended regions support is disabled\n", d);
+-        nr_ext_regions = 0;
+-    }
+-    else if ( is_32bit_domain(d) )
+-    {
+-        printk(XENLOG_WARNING
+-               "%pd: extended regions not supported for 32-bit guests\n", d);
+-        nr_ext_regions = 0;
+-    }
+-    else
++    if ( kinfo->dom0less_enhanced )
+     {
+-        ext_regions = xzalloc(struct meminfo);
+-        if ( !ext_regions )
+-            return -ENOMEM;
+-
+-        if ( is_domain_direct_mapped(d) )
++        if ( !opt_ext_regions )
+         {
+-            if ( !is_iommu_enabled(d) )
+-                res = find_unallocated_memory(kinfo, ext_regions);
+-            else
+-                res = find_memory_holes(kinfo, ext_regions);
++            printk(XENLOG_INFO
++                   "%pd: extended regions support is disabled\n", d);
++            nr_ext_regions = 0;
+         }
+-        else
++        else if ( is_32bit_domain(d) )
+         {
+-            res = find_domU_holes(kinfo, ext_regions);
++            printk(XENLOG_WARNING
++                   "%pd: extended regions not supported for 32-bit guests\n", d);
++            nr_ext_regions = 0;
+         }
++        else
 +        {
-+            printk(XENLOG_ERR
-+                   "evtchn: could not find remote evtchn phandle\n");
-+            return -EINVAL;
-+        }
-+
-+        prop = get_evtchn_dt_property(remote_node);
-+        /* If the property is not found, return without errors */
-+        if ( !prop || IS_ERR(prop) )
-+            return IS_ERR(prop) ? PTR_ERR(prop) : 0;
-+
-+        cell = (const __be32 *)prop;
-+        domU2_port = dt_next_cell(1, &cell);
-+        remote_phandle = dt_next_cell(1, &cell);
-+
-+        if ( evtchn_node->phandle != remote_phandle )
-+        {
-+            printk(XENLOG_ERR "xen,evtchn property is not setup correctly.\n");
-+            return -EINVAL;
-+        }
-+
-+        for_each_domain ( d )
-+        {
-+            if ( d->arch.node == node )
++            ext_regions = xzalloc(struct meminfo);
++            if ( !ext_regions )
++                return -ENOMEM;
+ 
+-        if ( res )
+-            printk(XENLOG_WARNING "%pd: failed to allocate extended regions\n",
+-                   d);
+-        nr_ext_regions = ext_regions->nr_banks;
+-    }
++            if ( is_domain_direct_mapped(d) )
 +            {
-+                d1 = d;
-+                continue;
++                if ( !is_iommu_enabled(d) )
++                    res = find_unallocated_memory(kinfo, ext_regions);
++                else
++                    res = find_memory_holes(kinfo, ext_regions);
 +            }
-+            if ( d->arch.node == dt_get_parent(remote_node) )
-+                d2 = d;
++            else
++            {
++                res = find_domU_holes(kinfo, ext_regions);
++            }
+ 
+-    reg = xzalloc_array(__be32, (nr_ext_regions + 1) * (addrcells + sizecells));
+-    if ( !reg )
+-    {
+-        xfree(ext_regions);
+-        return -ENOMEM;
+-    }
++            if ( res )
++                printk(XENLOG_WARNING
++                       "%pd: failed to allocate extended regions\n", d);
++            nr_ext_regions = ext_regions->nr_banks;
 +        }
-+
-+        if ( !d1 && dt_device_is_compatible(node, "multiboot,kernel") )
-+            d1 = hardware_domain;
-+
-+        if ( !d2 && dt_device_is_compatible(dt_get_parent(remote_node),
-+                                            "multiboot,kernel") )
-+            d2 = hardware_domain;
-+
-+        if ( !d1 || !d2 )
+ 
+-    /* reg 0 is grant table space */
+-    cells = &reg[0];
+-    dt_child_set_range(&cells, addrcells, sizecells,
+-                       kinfo->gnttab_start, kinfo->gnttab_size);
+-    /* reg 1...N are extended regions */
+-    for ( i = 0; i < nr_ext_regions; i++ )
+-    {
+-        u64 start = ext_regions->bank[i].start;
+-        u64 size = ext_regions->bank[i].size;
++        reg = xzalloc_array(__be32, (nr_ext_regions + 1) * (addrcells + sizecells));
++        if ( !reg )
 +        {
-+            printk(XENLOG_ERR "evtchn: could not find domains\n" );
-+            return -EINVAL;
++            xfree(ext_regions);
++            return -ENOMEM;
 +        }
-+
-+        alloc_unbound.dom = d1->domain_id;
-+        alloc_unbound.remote_dom = d2->domain_id;
-+
-+        rc = evtchn_alloc_unbound(&alloc_unbound, domU1_port);
-+        if ( rc < 0 && rc != -EBUSY )
+ 
+-        printk("%pd: extended region %d: %#"PRIx64"->%#"PRIx64"\n",
+-               d, i, start, start + size);
++        /* reg 0 is grant table space */
++        cells = &reg[0];
++        dt_child_set_range(&cells, addrcells, sizecells,
++                           kinfo->gnttab_start, kinfo->gnttab_size);
++        /* reg 1...N are extended regions */
++        for ( i = 0; i < nr_ext_regions; i++ )
 +        {
-+            printk(XENLOG_ERR
-+                   "evtchn_alloc_unbound() failure (Error %d) \n", rc);
-+            return rc;
++            u64 start = ext_regions->bank[i].start;
++            u64 size = ext_regions->bank[i].size;
+ 
+-        dt_child_set_range(&cells, addrcells, sizecells, start, size);
+-    }
++            printk("%pd: extended region %d: %#"PRIx64"->%#"PRIx64"\n",
++                   d, i, start, start + size);
+ 
+-    res = fdt_property(fdt, "reg", reg,
+-                       dt_cells_to_size(addrcells + sizecells) *
+-                       (nr_ext_regions + 1));
+-    xfree(ext_regions);
+-    xfree(reg);
++            dt_child_set_range(&cells, addrcells, sizecells, start, size);
 +        }
-+
-+        bind_interdomain.remote_dom  = d1->domain_id;
-+        bind_interdomain.remote_port = domU1_port;
-+
-+        rc = evtchn_bind_interdomain(&bind_interdomain, d2, domU2_port);
-+        if ( rc < 0 && rc != -EBUSY )
-+        {
-+            printk(XENLOG_ERR
-+                   "evtchn_bind_interdomain() failure (Error %d) \n", rc);
-+            return rc;
-+        }
+ 
+-    if ( res )
+-        return res;
++        res = fdt_property(fdt, "reg", reg,
++                           dt_cells_to_size(addrcells + sizecells) *
++                           (nr_ext_regions + 1));
++        xfree(ext_regions);
++        xfree(reg);
+ 
+-    BUG_ON(d->arch.evtchn_irq == 0);
++        if ( res )
++            return res;
 +    }
-+
-+    return 0;
-+}
-+
-+void __init allocate_static_evtchn(void)
-+{
-+    struct dt_device_node *node;
-+    const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
-+
-+    BUG_ON(chosen == NULL);
-+    dt_for_each_child_node(chosen, node)
+ 
+-    /*
+-     * Interrupt event channel upcall:
+-     *  - Active-low level-sensitive
+-     *  - All CPUs
+-     *  TODO: Handle properly the cpumask;
+-     */
+-    set_interrupt(intr, d->arch.evtchn_irq, 0xf, DT_IRQ_TYPE_LEVEL_LOW);
+-    res = fdt_property_interrupts(kinfo, &intr, 1);
+-    if ( res )
+-        return res;
++    if ( kinfo->dom0less_evtchn )
 +    {
-+        if ( dt_device_is_compatible(node, "xen,domain") ||
-+             dt_device_is_compatible(node, "multiboot,kernel") )
-+        {
-+            if ( allocate_domain_evtchn(node) != 0 )
-+                panic("Could not set up domains evtchn\n");
-+        }
++        BUG_ON(d->arch.evtchn_irq == 0);
++
++        /*
++         * Interrupt event channel upcall:
++         *  - Active-low level-sensitive
++         *  - All CPUs
++         *  TODO: Handle properly the cpumask;
++        */
++        set_interrupt(intr, d->arch.evtchn_irq, 0xf, DT_IRQ_TYPE_LEVEL_LOW);
++        res = fdt_property_interrupts(kinfo, &intr, 1);
++        if ( res )
++            return res;
 +    }
-+}
+ 
+     res = fdt_end_node(fdt);
+ 
+@@ -2891,7 +2898,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+             goto err;
+     }
+ 
+-    if ( kinfo->dom0less_enhanced )
++    if ( kinfo->dom0less_enhanced || kinfo->dom0less_evtchn )
+     {
+         ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
+         if ( ret )
+@@ -3343,11 +3350,11 @@ static int __init construct_domU(struct domain *d,
+          rc == -ENODATA ||
+          (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
+     {
+-        if ( hardware_domain )
+-            kinfo.dom0less_enhanced = true;
+-        else
+-            panic("Tried to use xen,enhanced without dom0\n");
++        kinfo.dom0less_enhanced = true;
++        kinfo.dom0less_evtchn = true;
+     }
++    else if ( rc == 0 && !strcmp(dom0less_enhanced, "evtchn") )
++        kinfo.dom0less_evtchn = true;
+ 
+     if ( vcpu_create(d, 0) == NULL )
+         return -ENOMEM;
+@@ -3526,6 +3533,8 @@ static int __init construct_dom0(struct domain *d)
+ 
+     kinfo.unassigned_mem = dom0_mem;
+     kinfo.d = d;
++    kinfo.dom0less_enhanced = true;
++    kinfo.dom0less_evtchn = true;
+ 
+     rc = kernel_probe(&kinfo, NULL);
+     if ( rc < 0 )
+diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+index c4dc039b54..7cff19b997 100644
+--- a/xen/arch/arm/include/asm/kernel.h
++++ b/xen/arch/arm/include/asm/kernel.h
+@@ -39,6 +39,9 @@ struct kernel_info {
+     /* Enable PV drivers */
+     bool dom0less_enhanced;
+ 
++    /* Enable event-channel interface */
++    bool dom0less_evtchn;
 +
- static void __init find_gnttab_region(struct domain *d,
-                                       struct kernel_info *kinfo)
- {
-@@ -3358,6 +3493,7 @@ void __init create_domUs(void)
-             panic("Error creating domain %s\n", dt_node_name(node));
+     /* GIC phandle */
+     uint32_t phandle_gic;
  
-         d->is_console = true;
-+        d->arch.node = node;
- 
-         if ( construct_domU(d, node) != 0 )
-             panic("Could not set up domain %s\n", dt_node_name(node));
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index cd9ce19b4b..51192b28ee 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -105,6 +105,7 @@ struct arch_domain
- #endif
- 
-     bool directmap;
-+    struct dt_device_node *node;
- }  __cacheline_aligned;
- 
- struct arch_vcpu
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index 2bb01ecfa8..bac876e68e 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -106,6 +106,7 @@ int acpi_make_efi_nodes(void *fdt, struct membank tbl_add[]);
- 
- void create_domUs(void);
- void create_dom0(void);
-+void allocate_static_evtchn(void);
- 
- void discard_initial_modules(void);
- void fw_unreserved_regions(paddr_t s, paddr_t e,
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 500307edc0..8eead619ae 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -1063,6 +1063,8 @@ void __init start_xen(unsigned long boot_phys_offset,
-     if ( acpi_disabled )
-         create_domUs();
- 
-+    allocate_static_evtchn();
-+
-     /*
-      * This needs to be called **before** heap_init_late() so modules
-      * will be scrubbed (unless suppressed).
 -- 
 2.25.1
 
