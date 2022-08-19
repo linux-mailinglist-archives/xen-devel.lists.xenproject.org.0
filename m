@@ -2,35 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4A7D599B07
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 13:40:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390267.627597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FD98599B95
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Aug 2022 14:11:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390283.627606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oP0M9-0006d8-Tj; Fri, 19 Aug 2022 11:40:05 +0000
+	id 1oP0pL-0001pd-Bq; Fri, 19 Aug 2022 12:10:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390267.627597; Fri, 19 Aug 2022 11:40:05 +0000
+Received: by outflank-mailman (output) from mailman id 390283.627606; Fri, 19 Aug 2022 12:10:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oP0M9-0006Ze-PQ; Fri, 19 Aug 2022 11:40:05 +0000
-Received: by outflank-mailman (input) for mailman id 390267;
- Fri, 19 Aug 2022 11:40:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oP0pL-0001nO-8w; Fri, 19 Aug 2022 12:10:15 +0000
+Received: by outflank-mailman (input) for mailman id 390283;
+ Fri, 19 Aug 2022 12:10:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oP0M9-0006WG-2e; Fri, 19 Aug 2022 11:40:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oP0M8-0007T0-Tw; Fri, 19 Aug 2022 11:40:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oP0M8-0002Gu-9U; Fri, 19 Aug 2022 11:40:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oP0M8-0008Ix-92; Fri, 19 Aug 2022 11:40:04 +0000
+ (envelope-from <SRS0=CGmR=YX=kernel.org=maz@srs-se1.protection.inumbo.net>)
+ id 1oP0pJ-0001nI-JP
+ for xen-devel@lists.xenproject.org; Fri, 19 Aug 2022 12:10:13 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e055e6bb-1fb7-11ed-9250-1f966e50362f;
+ Fri, 19 Aug 2022 14:10:12 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7D830B82780;
+ Fri, 19 Aug 2022 12:10:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FF82C433D6;
+ Fri, 19 Aug 2022 12:10:10 +0000 (UTC)
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=wait-a-minute.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1oP0pD-004Gt6-Sr;
+ Fri, 19 Aug 2022 13:10:07 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,97 +49,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=pJ6AVPURsbY8jiihVJj+tjtWhnaAwYFLEmn77fyl1BU=; b=skwHMllJjnBVeX2ZX23SH84yjv
-	AaurdaXiTvXYx8RM3CzG5s2HdTn9GRkvNZaKEBJBWsqC1Qgi0nWiv85tsaeIghnIN/c0/OAjFR1FD
-	H9FJcJc7J4a6ZFzFkNwOC0POCEjZP8lO/hZfee34qgbWDXu0AJg9c7/QdPcoZipBFr58=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172642-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 172642: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=e2ac68a23b4954d5c0399913a1df3dd9fd90315d
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 19 Aug 2022 11:40:04 +0000
+X-Inumbo-ID: e055e6bb-1fb7-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1660911010;
+	bh=Jdeg0gNIfmZu7A5fH6TqlhRryFzCX+dbWQbMVpqnCuc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=lt4xMrpRqrdexvF/P0b4rlfGd4+mpXcobY4n9C7K/cutVbGptdASvCjplv3iE3Ez/
+	 CDunY7nr0KGKRdZkcrYiKrmXOvpCKW2yCUFqgOsf5F/YAMgoWJtme+3VOM/QeTO9x6
+	 yZ/Q8IC1p2DZmZ8oeXVk8UYCq1yiAy82Py3eWU9sJ6pcahCiqPcm3k6suFI/VpKq3f
+	 2iUY9c9W+IZGG7KvWgCW1jOEuB0S0ikaqqNTtpYpf/12SX0FlULWxompZB4JcH77er
+	 oS/koeGRj5JxwaiDef63QNxBLl9w5ddO7Jx0TwtYEgx3lasoLDvfPS3ycXSRTpJQ72
+	 +bzVoXKnT/6gQ==
+Date: Fri, 19 Aug 2022 13:10:10 +0100
+Message-ID: <871qtcsacd.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Leo Yan <leo.yan@linaro.org>,
+	Julien Grall <julien@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Rahul Singh <Rahul.Singh@arm.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
+In-Reply-To: <CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
+References: <20220817105720.111618-1-leo.yan@linaro.org>
+	<fd24b049-abf2-34e8-e0b0-2c2d2d1e1b0f@suse.com>
+	<CAMj1kXEDxHC6RgKfcmpXGDxwQ0mTKG146D8dJnrwJ1cWWXZ=3g@mail.gmail.com>
+	<Yv4DMuQHbGNhqAP4@leoy-yangtze.lan>
+	<CAMj1kXHkWH7tkpuPLLjWszOVTQ-Cr3Zcbj8w0bogSd0Y_hso0g@mail.gmail.com>
+	<99e460f1-ca5f-b520-69e0-b250915fd591@xen.org>
+	<Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
+	<CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: ardb@kernel.org, leo.yan@linaro.org, julien@xen.org, jbeulich@suse.com, Bertrand.Marquis@arm.com, Rahul.Singh@arm.com, peter.griffin@linaro.org, xen-devel@lists.xenproject.org, jgrall@amazon.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-flight 172642 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172642/
+On Thu, 18 Aug 2022 17:24:31 +0100,
+Ard Biesheuvel <ardb@kernel.org> wrote:
+> 
+> On Thu, 18 Aug 2022 at 17:49, Leo Yan <leo.yan@linaro.org> wrote:
+> >
+> > On Thu, Aug 18, 2022 at 11:04:48AM +0100, Julien Grall wrote:
+> >
+> > [...]
+> >
+> > > > > Seems it's broken for kdump/kexec if kernel boots with using DT?
+> > > > >
+> > > >
+> > > > EFI supports both DT and ACPI boot, but only ACPI *requires* EFI.
+> > > >
+> > > > So DT boot on hardware with affected GICv3 implementations works fine
+> > > > with kdump/kexec as long as EFI is being used. Using non-EFI boot and
+> > > > kexec on such systems will likely result in a splat on the second
+> > > > kernel, unless there is another mechanism being used to reserve the
+> > > > memory in DT as well.
+> > > >
+> > > > Maybe we should wire up the EFI_PARAVIRT flag for Xen dom0 on arm64,
+> > > > so that we can filter out the call above. That would mean that
+> > > > Xen/arm64/dom0/kexec on affected hardware would result in a splat in
+> > > > the second kernel as well, but whether that matters depends on your
+> > > > support scope.
+> > >
+> > > In the context of Xen, dom0 doesn't have direct access to the host ITS
+> > > because we are emulating it. So I think it doesn't matter for us because we
+> > > can fix our implementation if it is affected.
+> > >
+> > > That said, kexec-ing dom0 (or any other domain) on Xen on Arm would require
+> > > some work to be supported. OOI, @leo is it something you are investigating?
+> >
+> >
+> > Now I am working on automative reference platform; the first thing for
+> > me is to resolve the kernel oops.
+> >
+> > For long term, I think the kexec/kdump would be important to be
+> > supported, to be clear, so far supporting kexec/kdump for Xen/Linux is
+> > not priority for my work.
+> >
+> > Also thanks a lot for Ard and Mark's replying. To be honest, I missed
+> > many prerequisites (e.g. redistributor configurations for GIC in
+> > hypervisor) and seems Xen uses a different way by emulating GICv3
+> > controller for guest OS.  So now I am bit puzzle what's for next step
+> > or just keep as it is?
+> >
+> 
+> If i understand Julien's remark correctly, the dom0 GICv3 is emulated,
+> and so it should not suffer from the issue that we are working around
+> here.
 
-Regressions :-(
+The problem is that there is no way to distinguish a system that
+suffers from GICR LPI tables being immutable from one that allows the
+LPI configuration being changed (either because the HW allows it or
+because the hypervisor plays other games).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+Once you're in the secondary kernel with the RDs enabled, you have
+already lost if there is a chance you could have reused this memory,
+and that's irrespective of being a guest or bare metal (interrupt
+delivery should still work during kexec).
 
-version targeted for testing:
- ovmf                 e2ac68a23b4954d5c0399913a1df3dd9fd90315d
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+> Given that this workaround is still the sole user of the MEMRESERVE
+> API, we would like to remain free to rip it out and replace it
+> completely if we need to, and so implementing it in Xen is a bad idea,
+> especially if the issue in question does not even exist in your case.
+> This means that even if you do decide to support kexec, things should
+> work fine in spite of this warning regarding the failure to perform
+> the memory reservation, as the GIC can simply be reconfigured.
+> 
+> So perhaps we should just [conditionally] tone down the warning?
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   15 days
-Failing since        172151  2022-08-05 02:40:28 Z   14 days  123 attempts
-Testing same since   172642  2022-08-19 10:13:12 Z    0 days    1 attempts
+What we could do instead is to have some form of kexec hook that tries
+to go and turn the RDs off before jumping into the secondary kernel.
+If the hypervisor allows this (and honours the GICR_CTLR.EnableLPI
+bit), then there won't be any screaming in the secondary kernel.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+This is probably a new infrastructure though, as I don't think we have
+anything of the sort at the moment.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Thanks,
 
+	M.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 803 lines long.)
+-- 
+Without deviation from the norm, progress is not possible.
 
