@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C67F59ACDA
-	for <lists+xen-devel@lfdr.de>; Sat, 20 Aug 2022 11:26:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390688.628285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 949A359ACF1
+	for <lists+xen-devel@lfdr.de>; Sat, 20 Aug 2022 11:32:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390748.628301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oPKjl-0000Yb-0s; Sat, 20 Aug 2022 09:25:49 +0000
+	id 1oPKpy-0005JU-GX; Sat, 20 Aug 2022 09:32:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390688.628285; Sat, 20 Aug 2022 09:25:48 +0000
+Received: by outflank-mailman (output) from mailman id 390748.628301; Sat, 20 Aug 2022 09:32:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oPKjk-0000Nn-OH; Sat, 20 Aug 2022 09:25:48 +0000
-Received: by outflank-mailman (input) for mailman id 390688;
- Sat, 20 Aug 2022 09:25:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oPKpy-0005HI-DW; Sat, 20 Aug 2022 09:32:14 +0000
+Received: by outflank-mailman (input) for mailman id 390748;
+ Sat, 20 Aug 2022 09:32:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cfLG=YY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oPKjh-0006NK-KR
- for xen-devel@lists.xenproject.org; Sat, 20 Aug 2022 09:25:45 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e930528-206a-11ed-9250-1f966e50362f;
- Sat, 20 Aug 2022 11:25:40 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 134593436B;
- Sat, 20 Aug 2022 09:25:40 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B69C913B04;
- Sat, 20 Aug 2022 09:25:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kMxPK5OoAGPJMAAAMHmgww
- (envelope-from <jgross@suse.com>); Sat, 20 Aug 2022 09:25:39 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oPKpw-0005H8-V1; Sat, 20 Aug 2022 09:32:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oPKpw-0005zk-TB; Sat, 20 Aug 2022 09:32:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oPKpw-0002LY-F2; Sat, 20 Aug 2022 09:32:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oPKpw-0000iy-Bt; Sat, 20 Aug 2022 09:32:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,400 +42,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e930528-206a-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1660987540; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g4lisHKlxJMHmN7MLyKucg4rSOW6FXqUJI1lqd+zyHc=;
-	b=kj/w/8TFOzdZqNCcGJL3EtijbDuNmVRNPtYFAVa+o2+bHMrLc2NUQO5X7c9Uz0/bo4sulB
-	6HUH5C1stD/XQS2cK7zTpGrumqWbYpRgUWWyTNAmA8ZhQKZxFHXoo4Ld4crAlpgQQWI1VH
-	6t8torGRK2oftr9UT8AMdU/X+ZFoJGU=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: [PATCH v2 10/10] x86: decouple pat and mtrr handling
-Date: Sat, 20 Aug 2022 11:25:33 +0200
-Message-Id: <20220820092533.29420-11-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220820092533.29420-1-jgross@suse.com>
-References: <20220820092533.29420-1-jgross@suse.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=eWhVjE3Sxfs2upChbJ0FecqRM3bNNmk1znsl4yhZjOw=; b=m+QhgNKP5XyF9HIaTivyLtBzEf
+	m0EVWW2kdM4/IgLed3rxWuR+v7ioc1ysdx7i96SKSxrfsmJAZseRf9tF8SwgnJIVzQEsUuo8odWpR
+	eMBUKiyQUyhjmKwNc2hpG+SiuLPP7xoaJ+31fJcJOVTFF4SGWjo0FMVL1rsjdXd+LKZ4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172662-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 172662: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=e2ac68a23b4954d5c0399913a1df3dd9fd90315d
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 20 Aug 2022 09:32:12 +0000
 
-Today PAT is usable only with MTRR being active, with some nasty tweaks
-to make PAT usable when running as Xen PV guest, which doesn't support
-MTRR.
+flight 172662 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172662/
 
-The reason for this coupling is, that both, PAT MSR changes and MTRR
-changes, require a similar sequence and so full PAT support was added
-using the already available MTRR handling.
+Regressions :-(
 
-Xen PV PAT handling can work without MTRR, as it just needs to consume
-the PAT MSR setting done by the hypervisor without the ability and need
-to change it. This in turn has resulted in a convoluted initialization
-sequence and wrong decisions regarding cache mode availability due to
-misguiding PAT availability flags.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-Fix all of that by allowing to use PAT without MTRR and by reworking
-the current PAT initialization sequence to match better with the newly
-introduced generic cache initialization.
+version targeted for testing:
+ ovmf                 e2ac68a23b4954d5c0399913a1df3dd9fd90315d
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-This removes the need of the recently added pat_force_disabled flag, so
-remove the remnants of the patch adding it.
+Last test of basis   172136  2022-08-04 06:43:42 Z   16 days
+Failing since        172151  2022-08-05 02:40:28 Z   15 days  130 attempts
+Testing same since   172642  2022-08-19 10:13:12 Z    0 days    8 attempts
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- former patch 3 completely reworked
----
- arch/x86/include/asm/memtype.h  |   5 +-
- arch/x86/kernel/cpu/cacheinfo.c |   3 +-
- arch/x86/kernel/cpu/mtrr/mtrr.c |  13 +---
- arch/x86/kernel/setup.c         |  13 +---
- arch/x86/mm/pat/memtype.c       | 127 ++++++++++----------------------
- 5 files changed, 45 insertions(+), 116 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-diff --git a/arch/x86/include/asm/memtype.h b/arch/x86/include/asm/memtype.h
-index 9ca760e430b9..113b2fa51849 100644
---- a/arch/x86/include/asm/memtype.h
-+++ b/arch/x86/include/asm/memtype.h
-@@ -6,9 +6,8 @@
- #include <asm/pgtable_types.h>
- 
- extern bool pat_enabled(void);
--extern void pat_disable(const char *reason);
--extern void pat_init(void);
--extern void init_cache_modes(void);
-+extern void pat_bp_init(void);
-+extern void pat_cpu_init(void);
- 
- extern int memtype_reserve(u64 start, u64 end,
- 		enum page_cache_mode req_pcm, enum page_cache_mode *ret_pcm);
-diff --git a/arch/x86/kernel/cpu/cacheinfo.c b/arch/x86/kernel/cpu/cacheinfo.c
-index 4946f93eb16f..08130919d55d 100644
---- a/arch/x86/kernel/cpu/cacheinfo.c
-+++ b/arch/x86/kernel/cpu/cacheinfo.c
-@@ -1135,7 +1135,7 @@ static void cache_cpu_init(void)
- 
- 	/* Set PAT. */
- 	if (cache_generic & CACHE_GENERIC_PAT)
--		pat_init();
-+		pat_cpu_init();
- 
- 	cache_enable();
- 	local_irq_restore(flags);
-@@ -1154,6 +1154,7 @@ static int cache_rendezvous_handler(void *unused)
- void __init cache_bp_init(void)
- {
- 	mtrr_bp_init();
-+	pat_bp_init();
- 
- 	if (cache_generic)
- 		cache_cpu_init();
-diff --git a/arch/x86/kernel/cpu/mtrr/mtrr.c b/arch/x86/kernel/cpu/mtrr/mtrr.c
-index 38531e021581..90aa15610692 100644
---- a/arch/x86/kernel/cpu/mtrr/mtrr.c
-+++ b/arch/x86/kernel/cpu/mtrr/mtrr.c
-@@ -727,24 +727,15 @@ void __init mtrr_bp_init(void)
- 			mtrr_enabled = get_mtrr_state();
- 
- 			if (mtrr_enabled) {
--				cache_generic |= CACHE_GENERIC_MTRR |
--						 CACHE_GENERIC_PAT;
-+				cache_generic |= CACHE_GENERIC_MTRR;
- 				changed_by_mtrr_cleanup =
- 					mtrr_cleanup(phys_addr);
- 			}
- 		}
- 	}
- 
--	if (!mtrr_enabled) {
-+	if (!mtrr_enabled)
- 		pr_info("Disabled\n");
--
--		/*
--		 * PAT initialization relies on MTRR's rendezvous handler.
--		 * Skip PAT init until the handler can initialize both
--		 * features independently.
--		 */
--		pat_disable("MTRRs disabled, skipping PAT initialization too.");
--	}
- }
- 
- /**
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index e0e185ee0229..aacaa96f0195 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -1075,23 +1075,12 @@ void __init setup_arch(char **cmdline_p)
- 	max_pfn = e820__end_of_ram_pfn();
- 
- 	/* update e820 for memory not covered by WB MTRRs */
--	if (IS_ENABLED(CONFIG_MTRR))
--		cache_bp_init();
--	else
--		pat_disable("PAT support disabled because CONFIG_MTRR is disabled in the kernel.");
--
-+	cache_bp_init();
- 	if (mtrr_trim_uncached_memory(max_pfn))
- 		max_pfn = e820__end_of_ram_pfn();
- 
- 	max_possible_pfn = max_pfn;
- 
--	/*
--	 * This call is required when the CPU does not support PAT. If
--	 * mtrr_bp_init() invoked it already via pat_init() the call has no
--	 * effect.
--	 */
--	init_cache_modes();
--
- 	/*
- 	 * Define random base addresses for memory sections after max_pfn is
- 	 * defined and before each memory section base is used.
-diff --git a/arch/x86/mm/pat/memtype.c b/arch/x86/mm/pat/memtype.c
-index 66a209f7eb86..891f7c5f0f09 100644
---- a/arch/x86/mm/pat/memtype.c
-+++ b/arch/x86/mm/pat/memtype.c
-@@ -43,6 +43,7 @@
- #include <linux/rbtree.h>
- 
- #include <asm/cacheflush.h>
-+#include <asm/cacheinfo.h>
- #include <asm/processor.h>
- #include <asm/tlbflush.h>
- #include <asm/x86_init.h>
-@@ -60,41 +61,34 @@
- #undef pr_fmt
- #define pr_fmt(fmt) "" fmt
- 
--static bool __read_mostly pat_bp_initialized;
- static bool __read_mostly pat_disabled = !IS_ENABLED(CONFIG_X86_PAT);
--static bool __initdata pat_force_disabled = !IS_ENABLED(CONFIG_X86_PAT);
--static bool __read_mostly pat_bp_enabled;
--static bool __read_mostly pat_cm_initialized;
-+static u64 __read_mostly pat_msr_val;
- 
- /*
-  * PAT support is enabled by default, but can be disabled for
-  * various user-requested or hardware-forced reasons:
-  */
--void pat_disable(const char *msg_reason)
-+static void __init pat_disable(const char *msg_reason)
- {
- 	if (pat_disabled)
- 		return;
- 
--	if (pat_bp_initialized) {
--		WARN_ONCE(1, "x86/PAT: PAT cannot be disabled after initialization\n");
--		return;
--	}
--
- 	pat_disabled = true;
- 	pr_info("x86/PAT: %s\n", msg_reason);
-+
-+	cache_generic &= ~CACHE_GENERIC_PAT;
- }
- 
- static int __init nopat(char *str)
- {
- 	pat_disable("PAT support disabled via boot option.");
--	pat_force_disabled = true;
- 	return 0;
- }
- early_param("nopat", nopat);
- 
- bool pat_enabled(void)
- {
--	return pat_bp_enabled;
-+	return !pat_disabled;
- }
- EXPORT_SYMBOL_GPL(pat_enabled);
- 
-@@ -192,7 +186,8 @@ enum {
- 
- #define CM(c) (_PAGE_CACHE_MODE_ ## c)
- 
--static enum page_cache_mode pat_get_cache_mode(unsigned pat_val, char *msg)
-+static enum page_cache_mode __init pat_get_cache_mode(unsigned int pat_val,
-+						      char *msg)
- {
- 	enum page_cache_mode cache;
- 	char *cache_mode;
-@@ -219,14 +214,12 @@ static enum page_cache_mode pat_get_cache_mode(unsigned pat_val, char *msg)
-  * configuration.
-  * Using lower indices is preferred, so we start with highest index.
-  */
--static void __init_cache_modes(u64 pat)
-+static void __init init_cache_modes(u64 pat)
- {
- 	enum page_cache_mode cache;
- 	char pat_msg[33];
- 	int i;
- 
--	WARN_ON_ONCE(pat_cm_initialized);
--
- 	pat_msg[32] = 0;
- 	for (i = 7; i >= 0; i--) {
- 		cache = pat_get_cache_mode((pat >> (i * 8)) & 7,
-@@ -234,34 +227,11 @@ static void __init_cache_modes(u64 pat)
- 		update_cache_mode_entry(i, cache);
- 	}
- 	pr_info("x86/PAT: Configuration [0-7]: %s\n", pat_msg);
--
--	pat_cm_initialized = true;
- }
- 
- #define PAT(x, y)	((u64)PAT_ ## y << ((x)*8))
- 
--static void pat_bp_init(u64 pat)
--{
--	u64 tmp_pat;
--
--	if (!boot_cpu_has(X86_FEATURE_PAT)) {
--		pat_disable("PAT not supported by the CPU.");
--		return;
--	}
--
--	rdmsrl(MSR_IA32_CR_PAT, tmp_pat);
--	if (!tmp_pat) {
--		pat_disable("PAT support disabled by the firmware.");
--		return;
--	}
--
--	wrmsrl(MSR_IA32_CR_PAT, pat);
--	pat_bp_enabled = true;
--
--	__init_cache_modes(pat);
--}
--
--static void pat_ap_init(u64 pat)
-+void pat_cpu_init(void)
- {
- 	if (!boot_cpu_has(X86_FEATURE_PAT)) {
- 		/*
-@@ -271,30 +241,35 @@ static void pat_ap_init(u64 pat)
- 		panic("x86/PAT: PAT enabled, but not supported by secondary CPU\n");
- 	}
- 
--	wrmsrl(MSR_IA32_CR_PAT, pat);
-+	wrmsrl(MSR_IA32_CR_PAT, pat_msr_val);
- }
- 
--void __init init_cache_modes(void)
-+/**
-+ * pat_bp_init - Initialize the PAT MSR value and PAT table
-+ *
-+ * This function initializes PAT MSR value and PAT table with an OS-defined
-+ * value to enable additional cache attributes, WC, WT and WP.
-+ *
-+ * This function prepares the calls of pat_cpu_init() via cache_cpu_init()
-+ * on all cpus.
-+ */
-+void __init pat_bp_init(void)
- {
- 	u64 pat = 0;
-+	struct cpuinfo_x86 *c = &boot_cpu_data;
- 
--	if (pat_cm_initialized)
--		return;
-+#ifndef CONFIG_X86_PAT
-+	pr_info_once("x86/PAT: PAT support disabled because CONFIG_X86_PAT is disabled in the kernel.\n");
-+#endif
- 
--	if (boot_cpu_has(X86_FEATURE_PAT)) {
--		/*
--		 * CPU supports PAT. Set PAT table to be consistent with
--		 * PAT MSR. This case supports "nopat" boot option, and
--		 * virtual machine environments which support PAT without
--		 * MTRRs. In specific, Xen has unique setup to PAT MSR.
--		 *
--		 * If PAT MSR returns 0, it is considered invalid and emulates
--		 * as No PAT.
--		 */
-+	if (!boot_cpu_has(X86_FEATURE_PAT))
-+		pat_disable("PAT not supported by the CPU.");
-+	else
- 		rdmsrl(MSR_IA32_CR_PAT, pat);
--	}
- 
- 	if (!pat) {
-+		pat_disable("PAT support disabled by the firmware.");
-+
- 		/*
- 		 * No PAT. Emulate the PAT table that corresponds to the two
- 		 * cache bits, PWT (Write Through) and PCD (Cache Disable).
-@@ -315,38 +290,14 @@ void __init init_cache_modes(void)
- 		 */
- 		pat = PAT(0, WB) | PAT(1, WT) | PAT(2, UC_MINUS) | PAT(3, UC) |
- 		      PAT(4, WB) | PAT(5, WT) | PAT(6, UC_MINUS) | PAT(7, UC);
--	} else if (!pat_force_disabled && cpu_feature_enabled(X86_FEATURE_HYPERVISOR)) {
--		/*
--		 * Clearly PAT is enabled underneath. Allow pat_enabled() to
--		 * reflect this.
--		 */
--		pat_bp_enabled = true;
- 	}
- 
--	__init_cache_modes(pat);
--}
--
--/**
-- * pat_init - Initialize the PAT MSR and PAT table on the current CPU
-- *
-- * This function initializes PAT MSR and PAT table with an OS-defined value
-- * to enable additional cache attributes, WC, WT and WP.
-- *
-- * This function must be called on all CPUs using the specific sequence of
-- * operations defined in Intel SDM. mtrr_rendezvous_handler() provides this
-- * procedure for PAT.
-- */
--void pat_init(void)
--{
--	u64 pat;
--	struct cpuinfo_x86 *c = &boot_cpu_data;
--
--#ifndef CONFIG_X86_PAT
--	pr_info_once("x86/PAT: PAT support disabled because CONFIG_X86_PAT is disabled in the kernel.\n");
--#endif
-+	/* Xen PV doesn't allow to set PAT MSR, but all cache modes are fine. */
-+	if (pat_disabled || cpu_feature_enabled(X86_FEATURE_XENPV)) {
-+		init_cache_modes(pat);
- 
--	if (pat_disabled)
- 		return;
-+	}
- 
- 	if ((c->x86_vendor == X86_VENDOR_INTEL) &&
- 	    (((c->x86 == 0x6) && (c->x86_model <= 0xd)) ||
-@@ -404,12 +355,10 @@ void pat_init(void)
- 		      PAT(4, WB) | PAT(5, WP) | PAT(6, UC_MINUS) | PAT(7, WT);
- 	}
- 
--	if (!pat_bp_initialized) {
--		pat_bp_init(pat);
--		pat_bp_initialized = true;
--	} else {
--		pat_ap_init(pat);
--	}
-+	pat_msr_val = pat;
-+	cache_generic |= CACHE_GENERIC_PAT;
-+
-+	init_cache_modes(pat);
- }
- 
- #undef PAT
--- 
-2.35.3
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 803 lines long.)
 
