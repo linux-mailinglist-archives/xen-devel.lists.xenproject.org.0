@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EDE659AF98
-	for <lists+xen-devel@lfdr.de>; Sat, 20 Aug 2022 20:37:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.390854.628461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C89C259AFC1
+	for <lists+xen-devel@lfdr.de>; Sat, 20 Aug 2022 20:44:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.390861.628472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oPTLV-0003HH-Qe; Sat, 20 Aug 2022 18:37:21 +0000
+	id 1oPTSA-0004pL-Lf; Sat, 20 Aug 2022 18:44:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 390854.628461; Sat, 20 Aug 2022 18:37:21 +0000
+Received: by outflank-mailman (output) from mailman id 390861.628472; Sat, 20 Aug 2022 18:44:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oPTLV-0003FT-Nn; Sat, 20 Aug 2022 18:37:21 +0000
-Received: by outflank-mailman (input) for mailman id 390854;
- Sat, 20 Aug 2022 18:37:20 +0000
+	id 1oPTSA-0004mb-Iv; Sat, 20 Aug 2022 18:44:14 +0000
+Received: by outflank-mailman (input) for mailman id 390861;
+ Sat, 20 Aug 2022 18:44:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oPTLU-0003FN-2H
- for xen-devel@lists.xenproject.org; Sat, 20 Aug 2022 18:37:20 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oPTS9-0004mR-2s; Sat, 20 Aug 2022 18:44:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oPTLS-0007eB-Jr; Sat, 20 Aug 2022 18:37:18 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oPTLS-0001EX-Dm; Sat, 20 Aug 2022 18:37:18 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oPTS8-0007p3-Sr; Sat, 20 Aug 2022 18:44:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oPTS8-00037v-G4; Sat, 20 Aug 2022 18:44:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oPTS8-00063V-DP; Sat, 20 Aug 2022 18:44:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,61 +42,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Qoqbm2zDLw3CUuUdlbr+mO1VSiV7fzvIPwRlJ6KFK+4=; b=a3xD0PjRu+Agm28MuTs669Mp+4
-	SNyAzK3DFxyRpQ5LgCxHSY9myDSJIq6n18AzFBA0vASNFx/vCDkZKK8nXqk4ivhNMtV3pGFG9IHOL
-	zvXEjZRpj+meDfzvuPmJAi5//HyzH4pIKjtdlIiXWYaLOhgvljgdFftb+lQjH1fzrVw0=;
-Message-ID: <120f5e8a-d4af-c7ea-b29a-c34331b67858@xen.org>
-Date: Sat, 20 Aug 2022 19:37:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=vJlQZ6cZpZh718NDi2gQrG0Dj1zVgyThGOqxVkJ6ooM=; b=tPo49iZbXoYiLENw/SNTuEfAlr
+	zulMXZ+/MKZje95DakcpJdB6VOcPSx3/5bvEOro9Yo0ivMyyfJlEuvgi8ueuIkTyduBjMnjBc0hWi
+	R7gZs++5SpAd0U3/megpHWQezMApYiOj+4BZC+OWPbjG+m46xvDBgzvfXGVZ/SMsV73o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172671-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.12.0
-Subject: Re: [PATCH v2 2/3] Add licenses under LICENSES
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org, wl@xen.org, jbeulich@suse.com,
- george.dunlap@citrix.com, andrew.cooper3@citrix.com,
- bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com, roger.pau@citrix.com
-References: <alpine.DEB.2.22.394.2208181453530.3790@ubuntu-linux-20-04-desktop>
- <20220818220320.2538705-2-stefano.stabellini@amd.com>
- <835a1093-1280-1442-9e11-f9f5bbf9f635@xen.org>
- <alpine.DEB.2.22.394.2208191524590.3790@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2208191524590.3790@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 172671: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=e2ac68a23b4954d5c0399913a1df3dd9fd90315d
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 20 Aug 2022 18:44:12 +0000
 
-Hi Stefano,
+flight 172671 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172671/
 
-On 19/08/2022 23:27, Stefano Stabellini wrote:
-> On Fri, 19 Aug 2022, Julien Grall wrote:
->> Hi Stefano,
->>
->> On 18/08/2022 23:03, Stefano Stabellini wrote:
->>> Add the individual licenses under a new top-level directory named
->>> "LICENSES". Each license file includes its related SPDX tags.
->>
->> We already have a copy of the licenses in COPYING/CONTRIBUTING. I don't
->> particularly mind where you want to keep the licenses but I don't want them
->> duplicated.
-> 
-> Yes I think it makes sense to remove as part of this series:
-> - the "COMMON COPYRIGHT NOTICES" section from CONTRIBUTING
+Regressions :-(
 
-See my answer on patch 1 as wel.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-> - the full copy of the GPL at the bottom of COPYING
+version targeted for testing:
+ ovmf                 e2ac68a23b4954d5c0399913a1df3dd9fd90315d
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-There are a dozen of COPYING files. I think we should update so they 
-reference to licenses for the full text.
+Last test of basis   172136  2022-08-04 06:43:42 Z   16 days
+Failing since        172151  2022-08-05 02:40:28 Z   15 days  133 attempts
+Testing same since   172642  2022-08-19 10:13:12 Z    1 days   11 attempts
 
-Note that I don't think we should consolidate to a single COPYING file 
-because the preferred license differs per directory.
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-Cheers,
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 803 lines long.)
 
