@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA81B59BBB2
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Aug 2022 10:32:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.391235.628965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 920F959BC87
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Aug 2022 11:16:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.391243.628975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQ2rJ-0004w5-EC; Mon, 22 Aug 2022 08:32:33 +0000
+	id 1oQ3Ws-0000tg-Km; Mon, 22 Aug 2022 09:15:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 391235.628965; Mon, 22 Aug 2022 08:32:33 +0000
+Received: by outflank-mailman (output) from mailman id 391243.628975; Mon, 22 Aug 2022 09:15:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQ2rJ-0004sp-BN; Mon, 22 Aug 2022 08:32:33 +0000
-Received: by outflank-mailman (input) for mailman id 391235;
- Mon, 22 Aug 2022 08:32:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GtSS=Y2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oQ2rH-0004sj-T8
- for xen-devel@lists.xenproject.org; Mon, 22 Aug 2022 08:32:31 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5c5a292-21f4-11ed-9250-1f966e50362f;
- Mon, 22 Aug 2022 10:32:30 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6C03934037;
- Mon, 22 Aug 2022 08:32:29 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 14EFA1332D;
- Mon, 22 Aug 2022 08:32:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Z4gxAx0/A2OYWQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 22 Aug 2022 08:32:29 +0000
+	id 1oQ3Ws-0000rU-Hv; Mon, 22 Aug 2022 09:15:30 +0000
+Received: by outflank-mailman (input) for mailman id 391243;
+ Mon, 22 Aug 2022 09:15:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J63M=Y2=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1oQ3Wq-0000rO-P0
+ for xen-devel@lists.xen.org; Mon, 22 Aug 2022 09:15:29 +0000
+Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
+ [2607:f8b0:4864:20::102e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f465aaae-21fa-11ed-bd2e-47488cf2e6aa;
+ Mon, 22 Aug 2022 11:15:27 +0200 (CEST)
+Received: by mail-pj1-x102e.google.com with SMTP id e19so9119359pju.1
+ for <xen-devel@lists.xen.org>; Mon, 22 Aug 2022 02:15:25 -0700 (PDT)
+Received: from localhost ([122.171.18.80]) by smtp.gmail.com with ESMTPSA id
+ z10-20020aa7990a000000b005364e0ec330sm4228931pff.59.2022.08.22.02.15.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 22 Aug 2022 02:15:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,163 +43,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5c5a292-21f4-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1661157149; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YBMHlxVmRfLJjdcsb9JN2XfRkOc0r2io3/c8PMrp5Zg=;
-	b=icJfnhFkDLsHocZk0v+61JzDhs9YtDK9r/QFfn0l5WsTz3uwZAThEcJAyrMe7szDxbwzs0
-	pLqOIh3CC46WUnTEjvZT8GG7njXN6FGyUSbxPwc3twKBNym10lIE6cFqiP/gw21VL72t4H
-	3FmcZO2SU8CI87FbwEcg9LbX9d6Ok68=
-Message-ID: <e2ea61ad-3ff3-2ba7-3426-834b87fe85a3@suse.com>
-Date: Mon, 22 Aug 2022 10:32:28 +0200
+X-Inumbo-ID: f465aaae-21fa-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc;
+        bh=ZGoeLoISjkh8I8Us9ozpNp2hr0tF1YoaAFC9nA49KH0=;
+        b=LJn8Mn3+diW1PM3kh7W4P2/HpjGg2v5JMAxeQWImodQgdKy3RHcHiuCagcQG8r09rC
+         waMGm8hVq/RUhMcpwsrMTUcL0N71WnigZR8RVVvg2zO30AoLW1vP7cHM9eFoyY4qq5G7
+         xWgFASj1nVWIDkApTmquR47n6g6RuR55G/CSWJ7+uRSnLkrSOrhgujHnhw2icGiLTnp8
+         2P8C24PMv5sozxAVkADYuHZARfB0RiEhEflQh1J070FC55UP1WBzmJLu4F5iNgAGw6Hr
+         UWCIlsJXkd4Z2A9e87Ll/s9DDI9zQpq7GzCip1V2iHzeCFzYaO/C6+veFaDkuSZQRy3S
+         Ap/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc;
+        bh=ZGoeLoISjkh8I8Us9ozpNp2hr0tF1YoaAFC9nA49KH0=;
+        b=4bspuEKK9889fpBGFsTzlas6eUGYHQshDFIpibxOMdZO0GywBO3spyydFcHtvHHDeL
+         NAaKtkmkyZRvMk7jPciTVz+vFicqQ0U+gy+p/aTdWlnt185WA+hcFibtJIqdJOjuDyfR
+         c6GMOEO4/24x5ZsNi/XTTNPGpxIzI0QrwfsR6KXfZk4Sri+pVeAyRAnT305/tWYtAMxg
+         YzDWpH/wm+9GtgSuNaBh/30QOyCDtaS5c06B/uBI5BwYb0YOsklWBwpd1A2IiwiVYn9E
+         viBV8dbRS9G1oOEYbZHSsU8bDyWuDWF1RT3dQEYaY7swwVSW3J8FWJLEHgtVMHToru50
+         1F5w==
+X-Gm-Message-State: ACgBeo28DQwSpxBM2JC8LaRQG2PAyu+NP9a6TTu6qBohPFPmSBCoteoQ
+	fUqS3Mb2Pm/JA+j1LrVHHk5yctI22P/qGA==
+X-Google-Smtp-Source: AA6agR4lVFv0o+CZLjjdxRTv6irG4QATfETPJDdOM7YoXPn2RqHlyiQ4t/rSfazokICXBS637EgoBw==
+X-Received: by 2002:a17:903:24e:b0:172:6c9d:14e0 with SMTP id j14-20020a170903024e00b001726c9d14e0mr19492500plh.84.1661159723709;
+        Mon, 22 Aug 2022 02:15:23 -0700 (PDT)
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: xen-devel@lists.xen.org
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.com>,
+	Mike Holmes <mike.holmes@linaro.org>,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	Wei Liu <wl@xen.org>,
+	Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>,
+	anthony.perard@citrix.com
+Subject: [PATCH V5 0/6] Virtio toolstack support for I2C and GPIO on Arm
+Date: Mon, 22 Aug 2022 14:45:12 +0530
+Message-Id: <cover.1661159474.git.viresh.kumar@linaro.org>
+X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 01/10] x86/mtrr: fix MTRR fixup on APs
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, stable@vger.kernel.org
-References: <20220820092533.29420-1-jgross@suse.com>
- <20220820092533.29420-2-jgross@suse.com> <YwIkV7mYAC4Ebbwb@zn.tnic>
- <YwKmcFuKlq3/MzVi@zn.tnic> <f205da1c-db33-299c-5fc6-922a8ebd1983@suse.com>
- <YwM+GPu8hFowl2R7@zn.tnic>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <YwM+GPu8hFowl2R7@zn.tnic>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------TqzcXoH02scFtcsznY39KkrM"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------TqzcXoH02scFtcsznY39KkrM
-Content-Type: multipart/mixed; boundary="------------0VUZCoAFrKER0Qjvl6TZZK0W";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, stable@vger.kernel.org
-Message-ID: <e2ea61ad-3ff3-2ba7-3426-834b87fe85a3@suse.com>
-Subject: Re: [PATCH v2 01/10] x86/mtrr: fix MTRR fixup on APs
-References: <20220820092533.29420-1-jgross@suse.com>
- <20220820092533.29420-2-jgross@suse.com> <YwIkV7mYAC4Ebbwb@zn.tnic>
- <YwKmcFuKlq3/MzVi@zn.tnic> <f205da1c-db33-299c-5fc6-922a8ebd1983@suse.com>
- <YwM+GPu8hFowl2R7@zn.tnic>
-In-Reply-To: <YwM+GPu8hFowl2R7@zn.tnic>
+Hello,
 
---------------0VUZCoAFrKER0Qjvl6TZZK0W
-Content-Type: multipart/mixed; boundary="------------Z9SNFeC13wkqDPMRx3a68VCc"
+This patchset adds toolstack support for I2C and GPIO virtio devices. This is
+inspired from the work done by Oleksandr for the Disk device.
 
---------------Z9SNFeC13wkqDPMRx3a68VCc
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+This is developed as part of Linaro's Project Stratos, where we are working
+towards Hypervisor agnostic Rust based backend [1].
 
-T24gMjIuMDguMjIgMTA6MjgsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gTW9uLCBB
-dWcgMjIsIDIwMjIgYXQgMDc6MTc6NDBBTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
-Cj4+IEFuZCB0aGVuIHRoZXJlIGlzIG10cnJfc3RhdGVfd2FybigpIGluIGFyY2gveDg2L2tl
-cm5lbC9jcHUvbXRyci9nZW5lcmljLmMNCj4+IHdoaWNoIGhhcyBhIGNvbW1lbnQgc2F5aW5n
-Og0KPj4NCj4+IC8qIFNvbWUgQklPUydzIGFyZSBtZXNzZWQgdXAgYW5kIGRvbid0IHNldCBh
-bGwgTVRSUnMgdGhlIHNhbWUhICovDQo+IA0KPiBUaGF0IHRoaW5nIGFsc28gc2F5czoNCj4g
-DQo+ICAgICAgICAgIHByX2luZm8oIm10cnI6IHByb2JhYmx5IHlvdXIgQklPUyBkb2VzIG5v
-dCBzZXR1cCBhbGwgQ1BVcy5cbiIpOw0KPiAgICAgICAgICBwcl9pbmZvKCJtdHJyOiBjb3Jy
-ZWN0ZWQgY29uZmlndXJhdGlvbi5cbiIpOw0KPiANCj4gYmVjYXVzZSBpdCdsbCBnbyBhbmQg
-Zm9yY2Ugb24gYWxsIENQVXMgdGhlIE1UUlIgc3RhdGUgaXQgcmVhZCBmcm9tIHRoZQ0KPiBC
-U1AgaW4gbXRycl9icF9pbml0LT5nZXRfbXRycl9zdGF0ZS4NCj4gDQo+PiBZZXMsIHRoZSBj
-aGFuY2VzIGFyZSBzbGltIHRvIGhpdCBzdWNoIGEgYm94LA0KPiANCj4gV2VsbCwgbXkgd29y
-a3N0YXRpb24gc2F5czoNCj4gDQo+ICQgZG1lc2cgfCBncmVwIC1pIG10cnINCj4gWyAgICAw
-LjM5MTUxNF0gbXRycjogeW91ciBDUFVzIGhhZCBpbmNvbnNpc3RlbnQgdmFyaWFibGUgTVRS
-UiBzZXR0aW5ncw0KPiBbICAgIDAuMzk1MTk5XSBtdHJyOiBwcm9iYWJseSB5b3VyIEJJT1Mg
-ZG9lcyBub3Qgc2V0dXAgYWxsIENQVXMuDQo+IFsgICAgMC4zOTkxOTldIG10cnI6IGNvcnJl
-Y3RlZCBjb25maWd1cmF0aW9uLg0KPiANCj4gYnV0IHRoYXQncyB0aGUgdmFyaWFibGUgTVRS
-UnMuDQo+IA0KPj4gYnV0IHlvdXIgcmVhc29uaW5nIHN1Z2dlc3RzIEkgc2hvdWxkIHJlbW92
-ZSB0aGUgcmVsYXRlZCBjb2RlPw0KPiANCj4gTXkgcmVhc29uaW5nIHNheXMgeW91IHNob3Vs
-ZCBub3QgZG8gYW55dGhpbmcgYXQgYWxsIGhlcmUgLSB3b3JrcyBhcw0KPiBhZHZlcnRpemVk
-LiA6LSkNCj4gDQoNCkFuZCB3aGF0IGFib3V0IHRoZToNCg0KICAgcHJfd2FybigibXRycjog
-eW91ciBDUFVzIGhhZCBpbmNvbnNpc3RlbnQgTVRSUmRlZlR5cGUgc2V0dGluZ3NcbiIpOw0K
-DQpUaGlzIGlzIHRoZSBjYXNlIHRoZSBwYXRjaCB3b3VsZCBmaXguDQoNCg0KSnVlcmdlbg0K
+This is based of origin/staging (commit f6cd15188e09 ("amd/msr: implement
+VIRT_SPEC_CTRL for HVM guests using legacy SSBD")) which already has Oleksandr's
+patches applied.
 
---------------Z9SNFeC13wkqDPMRx3a68VCc
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+V4->V5:
+- Fixed indentation at few places.
+- Removed/added blank lines.
+- Added few comments.
+- Added review tags from Oleksandr.
+- Rebased over latest staging branch.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+V3->V4:
+- Update virtio_enabled independently of all devices, so we don't miss setting
+  it to true.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+- Add iommu handling for i2c/gpio and move it as part of
+  make_virtio_mmio_node_common(), which gets backend_domid parameter as a
+  result.
 
---------------Z9SNFeC13wkqDPMRx3a68VCc--
+V2->V3:
+- Rebased over latest tree and made changes according to changes in Oleksandr's
+  patches from sometime back.
+- Minor cleanups.
 
---------------0VUZCoAFrKER0Qjvl6TZZK0W--
+V1->V2:
+- Patches 3/6 and 4/6 are new.
+- Patches 5/6 and 6/6 updated based on the above two patches.
+- Added link to the bindings for I2C and GPIO.
+- Rebased over latest master branch.
 
---------------TqzcXoH02scFtcsznY39KkrM
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+Thanks.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmMDPxwFAwAAAAAACgkQsN6d1ii/Ey83
-cAgAhiIUUi99IKd0SSNSDWWivhDoNdBoM+lDglLgfwGduXBvtAEVAzKB7gnRPq/aIxDdvOyDtZ3+
-9kRwwahRjvPZS7xStuCFZgfsh7RJrWI29QNzJUGJ7RpaoWZn1RjeMIOcKhjqULlvJ1xS8L4/jp2S
-Me+JbtuDDYc4+2PrdvcyflPCzZEmF93fJaWkM+MpjCMy9OvsLjolZVnMODa0tyxWP8mC1lwCVmsy
-nxzQxST1HfZ29Sgct8eXpUD2LnhQLrJitt6295FNjTkBI1akijLMLil2Dyxr3JSqmA3wJVXl0EtU
-734MXSjm+Au+VzQzUH48WDbiaLZ/jGVFJnfoRLdBLg==
-=ppbM
------END PGP SIGNATURE-----
+--
+Viresh
 
---------------TqzcXoH02scFtcsznY39KkrM--
+[1] https://lore.kernel.org/xen-devel/20220414092358.kepxbmnrtycz7mhe@vireshk-i7/
+
+Viresh Kumar (6):
+  libxl: Add support for Virtio I2C device
+  libxl: Add support for Virtio GPIO device
+  libxl: arm: Create alloc_virtio_mmio_params()
+  libxl: arm: Split make_virtio_mmio_node()
+  libxl: Allocate MMIO params for I2c device and update DT
+  libxl: Allocate MMIO params for GPIO device and update DT
+
+ tools/golang/xenlight/helpers.gen.go      | 212 ++++++++++++++++++++
+ tools/golang/xenlight/types.gen.go        |  54 ++++++
+ tools/include/libxl.h                     |  64 ++++++
+ tools/include/libxl_utils.h               |   6 +
+ tools/libs/light/Makefile                 |   2 +
+ tools/libs/light/libxl_arm.c              | 175 ++++++++++++++---
+ tools/libs/light/libxl_create.c           |  26 +++
+ tools/libs/light/libxl_dm.c               |  34 +++-
+ tools/libs/light/libxl_gpio.c             | 226 ++++++++++++++++++++++
+ tools/libs/light/libxl_i2c.c              | 226 ++++++++++++++++++++++
+ tools/libs/light/libxl_internal.h         |   2 +
+ tools/libs/light/libxl_types.idl          |  48 +++++
+ tools/libs/light/libxl_types_internal.idl |   2 +
+ tools/ocaml/libs/xl/genwrap.py            |   2 +
+ tools/ocaml/libs/xl/xenlight_stubs.c      |   2 +
+ tools/xl/Makefile                         |   2 +-
+ tools/xl/xl.h                             |   6 +
+ tools/xl/xl_cmdtable.c                    |  30 +++
+ tools/xl/xl_gpio.c                        | 142 ++++++++++++++
+ tools/xl/xl_i2c.c                         | 142 ++++++++++++++
+ tools/xl/xl_parse.c                       | 160 +++++++++++++++
+ tools/xl/xl_parse.h                       |   2 +
+ tools/xl/xl_sxp.c                         |   4 +
+ 23 files changed, 1539 insertions(+), 30 deletions(-)
+ create mode 100644 tools/libs/light/libxl_gpio.c
+ create mode 100644 tools/libs/light/libxl_i2c.c
+ create mode 100644 tools/xl/xl_gpio.c
+ create mode 100644 tools/xl/xl_i2c.c
+
+-- 
+2.31.1.272.g89b43f80a514
+
 
