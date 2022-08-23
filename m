@@ -2,32 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D918959DAC5
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Aug 2022 12:53:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.391897.629922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C343459DAE1
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Aug 2022 13:23:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.391903.629932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQRWw-0005Ts-92; Tue, 23 Aug 2022 10:53:10 +0000
+	id 1oQRza-0000dm-Ko; Tue, 23 Aug 2022 11:22:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 391897.629922; Tue, 23 Aug 2022 10:53:10 +0000
+Received: by outflank-mailman (output) from mailman id 391903.629932; Tue, 23 Aug 2022 11:22:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQRWw-0005RE-62; Tue, 23 Aug 2022 10:53:10 +0000
-Received: by outflank-mailman (input) for mailman id 391897;
- Tue, 23 Aug 2022 10:53:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oQRWu-0005R3-6V
- for xen-devel@lists.xenproject.org; Tue, 23 Aug 2022 10:53:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oQRWp-000130-G1; Tue, 23 Aug 2022 10:53:03 +0000
-Received: from [54.239.6.189] (helo=[192.168.28.231])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oQRWp-0002aa-8x; Tue, 23 Aug 2022 10:53:03 +0000
+	id 1oQRza-0000ap-I4; Tue, 23 Aug 2022 11:22:46 +0000
+Received: by outflank-mailman (input) for mailman id 391903;
+ Tue, 23 Aug 2022 11:22:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yuKU=Y3=citrix.com=prvs=227d21510=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1oQRzZ-0000aj-9z
+ for xen-devel@lists.xenproject.org; Tue, 23 Aug 2022 11:22:45 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e6d029bb-22d5-11ed-bd2e-47488cf2e6aa;
+ Tue, 23 Aug 2022 13:22:43 +0200 (CEST)
+Received: from mail-bn7nam10lp2102.outbound.protection.outlook.com (HELO
+ NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.102])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 23 Aug 2022 07:22:36 -0400
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by SJ0PR03MB5520.namprd03.prod.outlook.com (2603:10b6:a03:282::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.19; Tue, 23 Aug
+ 2022 11:22:34 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::b9c9:c866:817c:60dd]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::b9c9:c866:817c:60dd%4]) with mapi id 15.20.5546.022; Tue, 23 Aug 2022
+ 11:22:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,206 +49,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=30mYuN8vAXBg0yHcYFvMU0dNMKY8innTZeCBg0JOzxs=; b=UkIjL7gXRkP2ShzdqlGzj6S9xw
-	RG2bNGPMjn4WOnOmOMMhHr8Cck/R4jG/V78fBlth/kE2eepB9YhD6jauCMnikGe0bTsjoCTCoToSC
-	hqI+5W+aar56xT9AN5+yjgVQkG2F0NQQoTo6/QlIv+oYnkRBHKzmvFkBkVbLz363KA2w=;
-Message-ID: <d3c6c012-01fd-e4e6-9796-a8c19162c741@xen.org>
-Date: Tue, 23 Aug 2022 11:53:00 +0100
+X-Inumbo-ID: e6d029bb-22d5-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1661253763;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=BUFgE0xhnrsK70qkS6KkhyqAO0lsENOSNT8Fwm9oFsY=;
+  b=FEGp9wGwKy7JM5IbjRW4kg6sGgXyrtx0AfoV+9f2FzSnf0tb5ED6YV72
+   iSzncQAQrL9unahqGca33TNKmm8ibO0uEoHT+OGfAFfHoyqyJ9B1jmjX4
+   7/n2wKagDDLs+2iDl58emelseGewrYPBMV5VtVtipgI1hfMfU+KY5E8qT
+   0=;
+X-IronPort-RemoteIP: 104.47.70.102
+X-IronPort-MID: 81248586
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:O+3h3qv6p8gbK8TZsyc3/ral5+fnVE9fMUV32f8akzHdYApBsoF/q
+ tZmKWjQPauDMWGnc94naIqyoUwE65LQzoRqTQpsrX83EHsQ+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZhSAgk/vOHtIQMcacUghpXwhoVSw9vhxqnu89k+ZAjMOwRgiAo
+ rsemeWGULOe82MyYzl8B56r8ks15qyi4mhA5DTSWNgQ1LPgvyhNZH4gDfnZw0vQGuF8AuO8T
+ uDf+7C1lkuxE8AFU47Nfh7TKyXmc5aKVeS8oiM+t5uK23CukhcawKcjXMfwXG8M49m/c3Kd/
+ /0W3XC4YV9B0qQhA43xWTEAe811FfUuFLMqvRFTGCFcpqHLWyKE/hlgMK05FdxE4upQA2F/z
+ uxbIh5cQCKK2+emh5vuH4GAhux7RCXqFKU2nyg4iBv/UrMhS52FRLjW79hF2jt2ntpJAfvVe
+ 8seb3xocQjEZBpMfFwQDfrSns/x3iW5L2Ie9wrT/PJti4TQ5FUZPLzFGdzZYNGVA+5SmV6Vv
+ Dnu9GXlGBAKcteYzFJp91r837WTzX6rBur+EpWg8aVap2fO71A5I0wOf1u0+uvohkWHDoc3x
+ 0s8v3BGQbIJ3E6hQ8T5Xha4iGWZpRNaUN1Ve8Ul7Cmdx6yS5ByWbkAUQzgEZNE4ucseQT0xy
+ kTPj97vHSZosrCeVTSa7Lj8kN+pES0cLGtHbylbSwIAuoHnuNtq1kiJSct/GqmoiNGzASv33
+ z2BsCk5gfMUkNIP0KK4u1vAhlpAu6T0c+L83S2PNkrN0++zTNfNi1CAgbQD0ct9EQ==
+IronPort-HdrOrdr: A9a23:15Imxq/02S5oErWgmv9uk+F7db1zdoMgy1knxilNoENuH/Bwxv
+ rFoB1E73TJYW4qKQodcdDpAtjifZtFnaQFrLX5To3SJjUO31HYYL2KjLGSiQEIfheTygcz79
+ YGT0ETMrzN5B1B/L7HCWqDYpkdKbu8gcaVbI7lph8DIz2CKZsQljuRYTzrcHGeMTM2YabRY6
+ Dsg/avyQDBRV0nKuCAQlUVVenKoNPG0Lj8ZwQdOhIh4A6SyRu19b/TCXGjr1YjegIK5Y1n3X
+ nOkgT/6Knmmeq80AXg22ja6IkTsMf9y+FEGNeHhqEuW3XRY0eTFcdcso+5zXUISdKUmRIXeR
+ 730lAd1vFImjHsl6eO0F3QMkfboW8TAjTZuCKlaDPY0LDErXQBeoR8bMtiA2XkAwBLhqAC7I
+ tbm22erJZZFhXGgWD04MXJTQhjkg6urWMlivN7tQ0XbWIyUs4nkWUkxjIiLL4QWCbhrIw3Gu
+ hnC8/RoP5QbFOBdnjc+m1i2salUHg/FgqPBhFqgL3f7xFG2HRii0cIzs0WmXkNsJo7Vplf/u
+ zBdqBljqtHQMMaZb90QO0BXcy0AGrQRg+kChPbHX33UKUcf37doZ/+57s4oOmsZZwT1ZM33I
+ /MVVtJ3FRCD34Gyff+qaGj3iq9MFlVBw6du/22z6IJyYHUVf7sLTCJTkwono+pv+gfa/erKc
+ qOBA==
+X-IronPort-AV: E=Sophos;i="5.93,257,1654574400"; 
+   d="scan'208";a="81248586"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=c84AEO8zW60S4Rbf+xltKmMGyP7dRRSBFmAtFuaJgVzALWGfBi/N7yStBnk7phVpFmXCyQxaVdeJ8IO3SDM/rvhS1eS7UxEKzVdABB0MEumespoDpeusoQ8IJ0+xbovXuplJbZP5BCiKF5PhqJmnspzmtMtxWoVhMvoUuzvV167dTjpfPiiAoYzXEa0+r5ucsPYpqfgnJJaJSuSuSwdGVu2wTJiqVZzqkDTYMPg0RZHKyIPqHsRZebDmbBSF5Y6+MaQ6CaaBX/HWa9xYfnl4ZBOtJ0fo71MCL2azWfNEuz+JG5nfzNCPsFg1SbC/qEkkcNFPnLlqVKSUnHpVxmnlCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BUFgE0xhnrsK70qkS6KkhyqAO0lsENOSNT8Fwm9oFsY=;
+ b=FJQ5IAXM4tvx3r6Z6qEdLtc9D1khN3l7ncb0m0U1EM9nJHvVkob6r8UfRHQofGpif4Fav9Gqf84P1ne5B5dCvVXU8sOyxTJJWGwz4fw/5s2tv8WrE1dHdIk1AO8wtdt/D49WfkMQbr743khiVfPdw1k9JNN+3RHLRSTTB6PN8S14DjaiobKkTev9YgEDOWLLLQrf1E++Fenc41e6MtSpTrYhrFD1Ha2uVfMNLdOdYptbNKsd+xzXgHFU9FGEG4hPn3xSkg6FL8nwM3JtQH8jDw8s7ssZt5y9jLbnUDez6ubka96AkOFupzogb/7Z6vqs0YrkwcDa15IqRjdxJzImqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BUFgE0xhnrsK70qkS6KkhyqAO0lsENOSNT8Fwm9oFsY=;
+ b=CXrX6ZUc57Li63WWt5ulV4+bKDi3bbqg7NDntwwc8befzYdajN8qH6Ll04rOwWbX+jKhnENXQO8w4Jv5afltfDtGuSRP/wXR+8pxke6qGyE266+CVk56q0JY3tfpsLauM28SRIs7Ej4YpH1yyhDl7uCeaZjsAQWoO+P80UV5L5U=
+From: Andrew Cooper <Andrew.Cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] x86/entry: Fix !PV build
+Thread-Topic: [PATCH] x86/entry: Fix !PV build
+Thread-Index: AQHYtijd2GWqlgMr1kW/Og84JT0UAK266uwAgAFuCgA=
+Date: Tue, 23 Aug 2022 11:22:34 +0000
+Message-ID: <a4d2f21d-4085-0f8c-717c-f9618913b0bd@citrix.com>
+References: <20220822131204.25814-1-andrew.cooper3@citrix.com>
+ <12fc8d64-89c9-39fc-3abc-0994bdac6d19@suse.com>
+In-Reply-To: <12fc8d64-89c9-39fc-3abc-0994bdac6d19@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 435e5a0b-b712-413c-6d8c-08da84f9c6ce
+x-ms-traffictypediagnostic: SJ0PR03MB5520:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ BqYcHXZc0YYJyfUca37SZxauPLv9gEECjOQP4gZdtnAwAFXN5ZHgsBQ8MQ+1rx08t8/UjPvKXSuGlcM81qlu/PdPOvXeZipyqVxlNwoEWyOW8pLSL3SSFFPSosUNiAos2T0sEmvk1Hwdop9zdQ6EB+LQvnyPfHOSvMow4CRNPsXpgHXprEmmHYpiXGfYBXVkJzHj5RV/gVtumzyuQ2CpNQJdR7eUpxz5DJyo4SREnU7rS2AUiUVizTKdh/jdSMkrHLRHv9XPxK8nTZOgU3QNQ5MbxXol7zoY1bJ/P0S91vmaDHSjtvid/PDS15t24lpsR1iFqSsDPm2+tFinAcIT4PAJO3b1ZhyyyWgDDrRvUf+f+Og7oft31g/6EvmzHmqLeTxrf6cWShOFPYG3iqftM47bvI9gAEHvRnUraNteNAFqCuvZaKibCIzhhHKol9cf2WZ1z3fMeBe1J/v/IdG7KBL47gBsDsgkB1C/v3huYRl1J5FkSlq19LPJ8R4Ks7QQQcwK66iaVJ68G4w28avzbWTocUGYx/IzeJ/Oa1QgZoQNcxKPecEwP958PBr+zsDtMfHU5f23xkkFIUE52nihuBV1outEI1beCp+7G62rWCtnrVJ0eRiaaaJLbxEQ/vYePoxX3/LbvZxriF5aeLV2A9DhYJco/79wJY7LBr8jt1XE5YJUwdKav0KLEgT7zybWScxvoGX8bGmpsfjTTGrZ+U8apZTJa2q7cQKEUwk0ebg++ZqwuhoXSoOjsFzXl3t26PlqyIH9R1DHfmM2xSkau9du6KbuYv+vshnXkmnkYF2o1emGHrF5RnADUeVL0sBzZpcN2x0+tY3BxWpdNnnkdg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(346002)(366004)(396003)(39860400002)(136003)(6506007)(54906003)(86362001)(8676002)(64756008)(6916009)(66556008)(66446008)(4326008)(26005)(36756003)(5660300002)(2906002)(31686004)(6512007)(31696002)(186003)(2616005)(53546011)(41300700001)(478600001)(82960400001)(6486002)(8936002)(38070700005)(83380400001)(91956017)(66946007)(316002)(71200400001)(76116006)(66476007)(122000001)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?QUFyTUVTYk1XYmJtYkdpeGUxTDB5a29pQlo0dEozdmtiSW1lRmJ4WUo5WS9Z?=
+ =?utf-8?B?TnNPVFhRekE1VnUzVnpaZCsyRWtKNHp3TWhWUVRReU41THVxMExJL3VpUVd1?=
+ =?utf-8?B?N2pJeHFGQ3BOT2Zzb0g1MmV3SjlhMSs5RktsQ1YvVVlObGdGT1JHQ3VCd08w?=
+ =?utf-8?B?c0o4Qkd6VkdDOWk2Wnljc0wvbDlsU2x5RkJySnZJczAzMFU0UG50VzZvb1Y3?=
+ =?utf-8?B?UGtKb3NwdGo2UjVDYm5VKzdLa0MzNkVyUThudVZUbUdjdkpBUkJ3ZHd0bUpo?=
+ =?utf-8?B?aFp1RDhZS3JXdzFSK3NvUUF1UjlIaHhvKytWbVZzQVdRc3IwdGxkYm5NdHox?=
+ =?utf-8?B?cElyR2pMV3JidmFIaXJWTG9MYVdXVTNiTmJIV3VnVDZhOFhuUnhqNThHYmZM?=
+ =?utf-8?B?Qkd2VzFSNC9LSDhGYklVbFlaNjFBNGk2N3Zwb0dZOVJSVTQwYmJtWUVFbW4x?=
+ =?utf-8?B?YURyV0dFQUdiZEZtNkpOYjRlY1hJbWI1Q3Z4eGlMSkJWM1lCL1MyTmxiVzdT?=
+ =?utf-8?B?L1pYY1NUVzU0UnFqcUY2ZEp5N0tGSmZZME1YalF2b0tUaGVZN0ozbS8yMXlW?=
+ =?utf-8?B?OE1BdnFxWExyb3JDbVRrM2crY0hTdmVwZndxVmI0NVFkakhuRWk0ajlHK0Ir?=
+ =?utf-8?B?MTFVTkpLNzNPZ1NoQnlXN1lGMm9Zck9ENUk3dFU5WnYreFFUY0pWdng4U0dx?=
+ =?utf-8?B?TDRYQ1JzMFJ1cGZGN3Y5TCtzV2RjR0NnblhEeGE1c0o4d2VVejNOODlZQkpJ?=
+ =?utf-8?B?QVg2SWd6eEJyNmlvZ0lUWjBNaGVkbUdMVnU5QnQvc1ZCNUlqbk1yb1JNekFm?=
+ =?utf-8?B?RGlkN2plRitpaEZJZlg4cEpKWjBBK0dRVUhqb1lyRjVCcjRTOG1nb3lkSHZO?=
+ =?utf-8?B?cmZzWFF0UjByMjBtT3dnMFE4NDFaWkVQNUF0RS92dnkrdHhaYyt2ZWRiSE1u?=
+ =?utf-8?B?SldVTmp1alpIbGpxWTZpTG9oWnY2N0E5dHJPbjRWcVllY1dwTHRNZ3BOdE9B?=
+ =?utf-8?B?YTM5UG5IRmkyRFdJNzFtVVFKWCtHVWxadmYrSDZOd2lVMWVCb2xYY2RiTHRt?=
+ =?utf-8?B?Y0pzeVdXYU94bDMzbXljeGxoOHU5SkpjV1pXek1aNjJPV1RvZU5aUWhlNm5U?=
+ =?utf-8?B?d2xGOU1vcGNxSm1tbU9QUlh4K0tDVE9qUlJLRi9rajZnUis1c0RvR05pbVNm?=
+ =?utf-8?B?dWVKTEx2TEpxSHBEa2M1aXNQZmRad29DVlArWUltMzN0RUJoRndDVHJMUkZF?=
+ =?utf-8?B?dVZPY3JLb2ZEUXA4N1FJcW1vZFZLc1p4ejFFQlAySDNzNFlFSCt4ak1jV0ll?=
+ =?utf-8?B?b2h2WUM3NGcrTUxvUThjSnBEa2txTmJoVkZDUVd2Zzh2d0FkeVNaRjdNdldM?=
+ =?utf-8?B?K013bEkzQmVTUzlYS0ZxM2pxcUkwNlBvVjBtNG01Y2hOaWl3TERFaWpuKzRr?=
+ =?utf-8?B?Rk4xZzlUWWJqQlZEa1dBUWlwY2Z4L1NjZDBxdVZBVGVhSndkTU9XR0RVZlRG?=
+ =?utf-8?B?NTNXYjEraXh5K0V4VFNNSTJSR2o4YWNHaTRZVkZaNzNnNzZYMHhISTljbmQv?=
+ =?utf-8?B?N0duZ0JQSHdpdVMwMC9pMC9zc3RYdHE2S1FNVjZickRLOGhRY2JhVlkwVldx?=
+ =?utf-8?B?WjdnUFVSREtlWnBRdlhMcXFaNVZtY0RRZWlSTmxpNVRJcGMwOEVUazdkRktv?=
+ =?utf-8?B?SWtYNWZ4dFBtQmIvQ2hvSnh6V3VJZE1YcnBvN1d2eFBzZThvWFVodU5aWkpu?=
+ =?utf-8?B?dGFZTXVmbnN6T24yZWp5a0tDbk1TeXlKZ2h0UkhwTHBjTkhDc2Ntc2tXRmlU?=
+ =?utf-8?B?dk9XaUl3cW1yNytDZUwxN0FlQ2FJOWVDbmM4cFdoRmM0VzBWMVREMlhaTi9k?=
+ =?utf-8?B?K2FNa3Y3U0UyVkZGaTlMV3BUNytST2x3RzMvZjFTZU4weTZZSVI1Rjd1clNN?=
+ =?utf-8?B?czZQNTBzUnM4LzIrcDJMZXpEcWM1UGduNlhibnBzVC9hVkxKK2pEZ01RM0ZW?=
+ =?utf-8?B?RlpObHdIdVFzbnh4d0hDOFNvL3ZkeS9QQlJRaTdsWUsyUDJQUVlMNysyWDZl?=
+ =?utf-8?B?QWlFSmNDYlI5eEh0aUxRK3RROFhRTzVxQVVtak1SL1J6NDZndzBtY0lEK3d1?=
+ =?utf-8?Q?XWQko0kvDz7hrxcP/MXfG4Ea8?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E4039816F51AF547951E1FAC6B0241F1@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.1.2
-Subject: Re: [PATCH v2 3/3] add SPDX to arch/arm/*.c
-Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "wl@xen.org" <wl@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
- "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>
-References: <alpine.DEB.2.22.394.2208181453530.3790@ubuntu-linux-20-04-desktop>
- <20220818220320.2538705-3-stefano.stabellini@amd.com>
- <61b01c8b-1f98-e559-f971-f081a25e0b93@xen.org>
- <alpine.DEB.2.22.394.2208191528050.3790@ubuntu-linux-20-04-desktop>
- <f235f6f8-d585-4e24-7fc8-3f2df9240c9d@xen.org>
- <AD1F6CD4-5679-4B2E-AA80-0DACD0F09709@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AD1F6CD4-5679-4B2E-AA80-0DACD0F09709@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 435e5a0b-b712-413c-6d8c-08da84f9c6ce
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Aug 2022 11:22:34.3330
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: P5GONhOFCMPXvbqZi9RTgB6E/cxeA/SDfOwW5k3gSVRhRwZebLthv6kxOkcCA3DrvBd0XEI+St9TamyaqYayCdQHAzxcaiMg85Cu3/XCaQ8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5520
 
-
-
-On 23/08/2022 11:23, Bertrand Marquis wrote:
-> Hi Julien,
-
-Hi Bertrand,
-
->> On 20 Aug 2022, at 20:08, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Stefano,
->>
->> On 19/08/2022 23:53, Stefano Stabellini wrote:
->>> On Fri, 19 Aug 2022, Julien Grall wrote:
->>>> On 18/08/2022 23:03, Stefano Stabellini wrote:
->>>>> Add SPDX license information to all the *.c files under arch/arm.
->>>>
->>>> There are some of the files below that didn't have copyright. It would be
->>>> worth explaining in the commit message which license you selected and how.
->>>> AFAICT you assumed they were GPLv2 but I am not sure this is correct at least
->>>> one of them.
->>> My goal is not to change the existing license on any of the files, even
->>> if the existing license is imprecise. By what is written under COPYING,
->>> everything not explicitly listed is GPL-2.0. I only reflected today's
->>> reality. I think it is best if we keep mechanical changes separate from
->>> "smart" changes, especially on a series like this introducing many
->>> mechanical changes.  More on this at the bottom.
->>
->> I will answer to this at the bottom.
->>
->>>> [...]
->>>>
->>>>> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
->>>>> index f5f6562600..2537dbebc1 100644
->>>>> --- a/xen/arch/arm/decode.c
->>>>> +++ b/xen/arch/arm/decode.c
->>>>> @@ -1,3 +1,4 @@
->>>>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->>>>
->>>> This license is not part of LICENSES. Was it intended?
->>> It is: the tag is described as part of LICENSES/GPL-2.0.
->>
->> Ah! I was looking as the list of files and didn't look for the tag. Thanks for the pointer :).
->>
->>>> If yes, this should be mentioned in one of the commit message (possible patch
->>>> #2) and maybe in CONTRIBUTING (to tell user to not use it for new files)
->>>> because one could expect all the LICENSES to be listed.
->>> It could make sense to say that:
->>> /* SPDX-License-Identifier: GPL-2.0 */
->>> is recommended for new files.
->>
->> So I was reading through xen/COPYING and we already have something like that:
->>
->> "Note that the only valid version of the GPL as far as Xen is concerned
->> is _this_ particular version of the license (i.e., *only* v2, not v2.2
->> or v3.x or whatever), unless explicitly otherwise stated."
->>
->> So nothing to add here unless you want to tell the contributor which tag correspond to GPLv2.
->>
->>>>>    /*
->>>>>     * xen/arch/arm/decode.c
->>>>>     *
->>>>> @@ -5,16 +6,6 @@
->>>>>     *
->>>>>     * Julien Grall <julien.grall@linaro.org>
->>>>>     * Copyright (C) 2013 Linaro Limited.
->>>>> - *
->>>>> - * This program is free software; you can redistribute it and/or modify
->>>>> - * it under the terms of the GNU General Public License as published by
->>>>> - * the Free Software Foundation; either version 2 of the License, or
->>>>> - * (at your option) any later version.
->>>>> - *
->>>>> - * This program is distributed in the hope that it will be useful,
->>>>> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
->>>>> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->>>>> - * GNU General Public License for more details.
->>>>>     */
->>>>>      #include <xen/guest_access.h>
->>>>
->>>> [...]
->>>>
->>>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>>>> index 3fd1186b53..b29bdf3aa6 100644
->>>>> --- a/xen/arch/arm/domain_build.c
->>>>> +++ b/xen/arch/arm/domain_build.c
->>>>> @@ -1,3 +1,4 @@
->>>>> +/* SPDX-License-Identifier: GPL-2.0 */
->>>>
->>>> AFAIU, the assumption is all the files with no copyright are GPLv2. That works
->>>> here. But ...
->>>>
->>>>>    #include <xen/init.h>
->>>>>    #include <xen/compile.h>
->>>>>    #include <xen/lib.h>
->>>>> diff --git a/xen/arch/arm/domain_page.c b/xen/arch/arm/domain_page.c
->>>>> index 71182575f9..47405e0866 100644
->>>>> --- a/xen/arch/arm/domain_page.c
->>>>> +++ b/xen/arch/arm/domain_page.c
->>>>> @@ -1,3 +1,4 @@
->>>>> +/* SPDX-License-Identifier: GPL-2.0 */
->>>>
->>>> .... this file was split from mm.c which is gpl-2.0-or-later. So I don't think
->>>> we can use GPL-2.0 here.
->>> Well spotted! Effectively this file is now declared as GPL 2.0 only,
->>> given what is stated in COPYING. The code in domain_page has lost "or
->>> later" with the loss of the copyright header.
->>
->> Yes. This was an oversight from me when I split the code a few weeks ago.
->>
->>> So if there were new contributions to this file after its creation, they
->>> would have been GPL-2.0 only contributions, and it would have been
->>> impossible to go back to GPL-2.0-or-later without asking the copyright
->>> owners of the new changes.
->>> In this case thankfully there are no new contributions since the split
->>> of the file, so I can fix it by using the SPDX GPL-2.0-or-later tag
->>> without problems. I'll do it in the next version of the series.
->>> Xen is not saying: "if there is no copyright header it might be GPLv2
->>> but you need to look it up". Xen is actively saying: "if there is no
->>> copyright header it is GPLv2". Not up for discussion. Given that as a
->>> whole Xen is GPLv2, the only possibility is that the file without a
->>> copyright header used to be:
->>> - GPLv2 or later
->>> - dual license GPL and another compatible license (e.g. BSD)
->>> Either way, with the loss of the copyright header, the file becomes
->>> immediately GPLv2 only.
->>> Does it make sense?
->>> This is why I think it is best to keep copyright discussions out of the
->>> SPDX patches review and limit ourselves to mechanical changes.
->>
->> Yes I agree this series should be mechanical (baring the file that is contain GPLv2+ code).
->>
->> I am putting some thoughts below (they can be split in a separate thread if you prefer).
->>
->> This is not the first time this topic is brought up and probably not the last as long as we have file using GPLv2+.
->>
->> IIRC from past discussion there are two broads concern with GPLv2+:
->>   - We are leaving the choice of which license applies to the person copying the code. So if a new version is released that is less favorable to the initial contributor, then we have no leverage.
->>   - Some companies are rather cautious to contribute code that my be licensed under GPLv3 (would be allowed with GPLv2+).
->>
->> The later is particularly a problem because not many people realize that a fair part of Xen on Arm is GPLv2+. I never really understood why we chose that (this was before my time) but this got spread as the existing copyright was added to a new file. Admittely, the contributor should be more cautious. But I would not say this is trivial to spot the difference.
->>
->> I would like to consider to re-license all the GPLv2+ files to GPLv2. AFAIU, this would mean we would need to ask the permission for every comapany that contributed to the file. Do you know if this was done before in Xen Project?
-> 
-> If I am understanding right, GPLv2+ means that someone could relicense the files to GPLv3 if he wants which is more restrictive.
-> Why do you want to move those back to GPLv2 ?
-The main difference between GPLv2 and GPLv3 is the patent section. This 
-has caused some concerns in the past when a stakeholder want to 
-contribute to Xen Project.
-
-While looking through at previous discussion, I found the original 
-discussion [1] which contains a lot more details.
-
-Cheers,
-
-[1] 
-https://patchwork.kernel.org/project/xen-devel/patch/1474985810-12289-1-git-send-email-lars.kurth@citrix.com/#19650817
-
-> 
-> Cheers
-> Bertrand
-> 
->>
->> Cheers,
->>
->> -- 
->> Julien Grall
-> 
-
--- 
-Julien Grall
+T24gMjIvMDgvMjAyMiAxNDozMiwgSmFuIEJldWxpY2ggd3JvdGU6DQo+IE9uIDIyLjA4LjIwMjIg
+MTU6MTIsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+PiBlYXJseV9wYWdlX2ZhdWx0KCkgbmVlZHMg
+dG8gb3V0c2lkZSBvZiAjaWZkZWYgQ09ORklHX1BWDQo+Pg0KPj4gU3BvdHRlZCBieSBHaXRsYWIg
+Q0kuDQo+Pg0KPj4gRml4ZXM6IGZlM2Y1MDcyNmU4NyAoIng4Ni9lbnRyeTogbW92ZSAuaW5pdC50
+ZXh0IHNlY3Rpb24gaGlnaGVyIHVwIGluIHRoZSBjb2RlIGZvciByZWFkYWJpbGl0eSIpDQo+PiBT
+aWduZWQtb2ZmLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPg0K
+PiBNYWtlcyBtZSB3b25kZXIgd2hldGhlciB0aGUgb3JpZ2luYWwgY2hhbmdlIHRoZW4gcmVhbGx5
+IHdhcyB3b3J0aCBpdC4NCg0KSXQgd2FzLCBJTU8uwqAgSW4gaXQncyBwcmV2aW91cyBsb2NhdGlv
+biwgaXQgd2FzIGEgc2luZ2xlIGFyZWEgb2Ygbm9uDQoudGV4dC5lbnRyeSBoaWRkZW4gaW4gYSBs
+YXJnZSAudGV4dC5lbnRyeSBibG9jay4NCg0KPg0KPj4gLS0tIGEveGVuL2FyY2gveDg2L3g4Nl82
+NC9lbnRyeS5TDQo+PiArKysgYi94ZW4vYXJjaC94ODYveDg2XzY0L2VudHJ5LlMNCj4+IEBAIC0y
+Miw2ICsyMiwxNyBAQA0KPj4gICNlbmRpZg0KPj4gIC5lbmRtDQo+PiAgDQo+PiArICAgICAgICAu
+c2VjdGlvbiAuaW5pdC50ZXh0LCAiYXgiLCBAcHJvZ2JpdHMNCj4+ICtFTlRSWShlYXJseV9wYWdl
+X2ZhdWx0KQ0KPj4gKyAgICAgICAgRU5EQlI2NA0KPj4gKyAgICAgICAgbW92bCAgJFRSQVBfcGFn
+ZV9mYXVsdCwgNCglcnNwKQ0KPj4gKyAgICAgICAgU0FWRV9BTEwNCj4+ICsgICAgICAgIG1vdnEg
+ICVyc3AsICVyZGkNCj4+ICsgICAgICAgIGNhbGwgIGRvX2Vhcmx5X3BhZ2VfZmF1bHQNCj4+ICsg
+ICAgICAgIGptcCAgIHJlc3RvcmVfYWxsX3hlbg0KPj4gKw0KPj4gKyAgICAgICAgLnRleHQNCj4+
+ICsNCj4+ICAjaWZkZWYgQ09ORklHX1BWDQo+PiAgLyogJXJieDogc3RydWN0IHZjcHUgKi8NCj4+
+ICBzd2l0Y2hfdG9fa2VybmVsOg0KPiBSYXRoZXIgdGhhbiBwdXR0aW5nIGl0IGF0IHRoZSB2ZXJ5
+IHRvcCBvZiB0aGUgZmlsZSwgbWF5IEkgc3VnZ2VzdCB0byBwdXQNCj4gaXQgaW1tZWRpYXRlbHkg
+YWZ0ZXINCj4NCj4gLyogLS0tIENPREUgQkVMT1cgVEhJUyBMSU5FIChNT1NUTFkpIE5PVCBHVUVT
+VCBSRUxBVEVEIC0tLSAqLw0KPg0KPiBvciB5ZXQgYSBmZXcgbW9yZSBsaW5lcyBkb3duIGJldHdl
+ZW4gY29udGludWVfcHZfZG9tYWluIGFuZA0KPiByZXN0b3JlX2FsbF94ZW4/IFdoaWNoLCBhcyBh
+IG1pbm9yIGdhaW4sIHRoZW4gYWxzbyBkb2Vzbid0IHJlcXVpcmUgeW91DQo+IHRvIGFkZCBhIG5l
+dyAudGV4dCAob3Igb3RoZXIgc2VjdGlvbikgZGlyZWN0aXZlLiBQcmVmZXJhYmx5IHRoYXQgd2F5
+DQo+IEFja2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQoNCkRvbmUuwqAg
+VGhhbmtzLg0KDQp+QW5kcmV3DQo=
 
