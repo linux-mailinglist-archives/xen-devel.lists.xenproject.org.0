@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E540059F5F1
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 11:12:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.392300.630556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C79559F618
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 11:20:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.392306.630566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQmQn-0007f6-3t; Wed, 24 Aug 2022 09:12:13 +0000
+	id 1oQmXl-0008MY-S5; Wed, 24 Aug 2022 09:19:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 392300.630556; Wed, 24 Aug 2022 09:12:13 +0000
+Received: by outflank-mailman (output) from mailman id 392306.630566; Wed, 24 Aug 2022 09:19:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQmQn-0007bd-0o; Wed, 24 Aug 2022 09:12:13 +0000
-Received: by outflank-mailman (input) for mailman id 392300;
- Wed, 24 Aug 2022 09:12:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oQmQl-0007bX-Ed
- for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 09:12:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oQmQl-0000O9-2O; Wed, 24 Aug 2022 09:12:11 +0000
-Received: from [54.239.6.185] (helo=[192.168.29.89])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oQmQk-0000eZ-Rg; Wed, 24 Aug 2022 09:12:10 +0000
+	id 1oQmXl-0008JA-OP; Wed, 24 Aug 2022 09:19:25 +0000
+Received: by outflank-mailman (input) for mailman id 392306;
+ Wed, 24 Aug 2022 09:19:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ex+Y=Y4=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1oQmXk-0008Ia-NM
+ for xen-devel@lists.xen.org; Wed, 24 Aug 2022 09:19:24 +0000
+Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
+ [2607:f8b0:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d6b43916-238d-11ed-9250-1f966e50362f;
+ Wed, 24 Aug 2022 11:19:22 +0200 (CEST)
+Received: by mail-pf1-x42f.google.com with SMTP id 83so10204053pfw.6
+ for <xen-devel@lists.xen.org>; Wed, 24 Aug 2022 02:19:23 -0700 (PDT)
+Received: from localhost ([122.171.18.80]) by smtp.gmail.com with ESMTPSA id
+ r6-20020a634406000000b0042a6dde1d66sm7430131pga.43.2022.08.24.02.19.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Aug 2022 02:19:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,56 +43,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=QiHRl3RIqzXnjebnN1ENkRNyAHOBjxUqBnDH+nC8cbA=; b=jtqvDVQPuVEUeLrmsQrgOnVZfK
-	KsYOel7znTZw/pg2SR7PofLO8v0p7wce9mzElwd/4sqkrvmDPXSvhr8GCjVAy2O9CW+wN5++bEtsL
-	LH43kgCIdsf0OKlXSnPpOeAyn00N9kVqtuoYOUYFVu5aYWoy9BCjkesmcpnTiZEssp6w=;
-Message-ID: <e1742e37-78a3-8de8-6cf1-b16bc2bab91c@xen.org>
-Date: Wed, 24 Aug 2022 10:12:08 +0100
+X-Inumbo-ID: d6b43916-238d-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc;
+        bh=2yKVEzl32zJIBiFaKTktMQRB347BQAs/vumQW+vaaUk=;
+        b=O0PYVV9YkUAbuUHpw071Bsaw8P7bRVM0EnCZkhhKPWopL6gWUJlnK2bMrpQ07ZgfET
+         dWJbt9pGPSqGDztRJelUHuR9mpet6x/BsnsuDmNsMW+lgTP8rnfAlEfwwI4M2MNieDEe
+         N0w+gvhkXtrqjEzvkCH/o7UFiu7sAzWz+CG8Dm7wicyXkaHYLjKzuQNBMwxNOTCXZC9P
+         g+LaRrM6TAp+jvXPLej6+JZW/5Dmmf1/IIjVuVVO/Y2HKslsNZtv9yG5IPYQjjZz73DN
+         vX8bGkPz2QMxdT7IW0vqNfstGhJ20oq1AHLan0vxOhJbXUPP/9+LktKClp7Ot37DMndc
+         O49A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+        bh=2yKVEzl32zJIBiFaKTktMQRB347BQAs/vumQW+vaaUk=;
+        b=ngM1g2kH/xN2GgFY0JkMX6nZG5nK85u4KCUX6z1JsQ6zySz0lzmqq7vVyY3uSJjewa
+         BjZN9JE0qmRVDhK3fRzsJBqETF2B9ReKBgCaPJFxStu4UJIU08qmuiF2aIDcJp+6YEje
+         mZE4K8ihTw3jCXrRdw8KLXsX5DRBTQI42hhZ84EPP+9dZcsXmxhMg6CUCDgzy7u8LaQT
+         4gDsiwyGs90AkpopYbb73A2X0OGPdoitgfYsj5UAPMoHIu91DT9Mh4fr+7U7IaIW5OmE
+         Nqv/cbkOOaAyCGCJ2YeR6X1eDTHJMkrg9ag1Pk1bVejVuzAAGmBfseW3Y+T5ILTGE2+K
+         oZFw==
+X-Gm-Message-State: ACgBeo3bCypPagAbF0MgdRJch+mZC+PBOF1UROXhrz53N6JEdjU9SQeI
+	5gqgZujUymB/bk0sLa0RXseGUw==
+X-Google-Smtp-Source: AA6agR6GwXeHfFFdESqUXfiilX1UrEfHcITfLQ4AfuM15Kvn4hlq5awrIDfA1iWRcjgKMmkilye4QA==
+X-Received: by 2002:a05:6a00:99b:b0:536:754a:ab31 with SMTP id u27-20020a056a00099b00b00536754aab31mr15879381pfg.45.1661332761833;
+        Wed, 24 Aug 2022 02:19:21 -0700 (PDT)
+Date: Wed, 24 Aug 2022 14:49:18 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, alex.bennee@linaro.org,
+	xen-devel@lists.xen.org, Stratos-dev@op-lists.linaro.org,
+	mathieu.poirier@linaro.com, christopher.w.clark@gmail.com,
+	boris.ostrovsky@oracle.com, gregkh@linuxfoundation.org,
+	vincent.guittot@linaro.org, olekstysh@gmail.com
+Subject: Re: Understanding osdep_xenforeignmemory_map mmap behaviour
+Message-ID: <20220824091918.szrd6e6ll6h6u2pw@vireshk-i7>
+References: <alpine.DEB.2.22.394.2203231838130.2910984@ubuntu-linux-20-04-desktop>
+ <57549560-879d-f705-8693-9bfdc73e3f7f@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.1.2
-Subject: Re: [PATCH v10 6/9] xen: unpopulate memory when domain is static
-Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20220816023658.3551936-1-Penny.Zheng@arm.com>
- <20220816023658.3551936-7-Penny.Zheng@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220816023658.3551936-7-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <57549560-879d-f705-8693-9bfdc73e3f7f@suse.com>
 
-Hi Penny,
-
-On 16/08/2022 03:36, Penny Zheng wrote:
-> Today when a domain unpopulates the memory on runtime, they will always
-> hand the memory back to the heap allocator. And it will be a problem if domain
-> is static.
+On 24-03-22, 06:12, Juergen Gross wrote:
+> For a rather long time we were using "normal" user pages for this purpose,
+> which were just locked into memory for doing the hypercall.
 > 
-> Pages as guest RAM for static domain shall be reserved to only this domain
-> and not be used for any other purposes, so they shall never go back to heap
-> allocator.
+> Unfortunately there have been very rare problems with that approach, as
+> the Linux kernel can set a user page related PTE to invalid for short
+> periods of time, which led to EFAULT in the hypervisor when trying to
+> access the hypercall data.
 > 
-> This commit puts reserved pages on the new list resv_page_list only after
-> having taken them off the "normal" list, when the last ref dropped.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> In Linux this can avoided only by using kernel memory, which is the
+> reason why the hypercall buffers are allocated and mmap()-ed through the
+> privcmd driver.
 
-Other than Jan's comment:
+Hi Juergen,
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+I understand why we moved from user pages to kernel pages, but I don't
+fully understand why we need to make two separate calls to map the
+guest memory, i.e. mmap() followed by ioctl(IOCTL_PRIVCMD_MMAPBATCH).
 
-AFAICT, patch #2 needs some tweak. So I assuming this will need a 
-respin. If not, I can possibly handle the change while committing if you 
-provide a new version of the commit message.
+Why aren't we doing all of it from mmap() itself ? I hacked it up to
+check on it and it works fine if we do it all from mmap() itself.
 
-Cheers,
+Aren't we abusing the Linux userspace ABI here ? As standard userspace
+code would expect just mmap() to be enough to map the memory. Yes, the
+current user, Xen itself, is adapted to make two calls, but it breaks
+as soon as we want to use something that relies on Linux userspace
+ABI.
+
+For instance, in our case, where we are looking to create
+hypervisor-agnostic virtio backends, the rust-vmm library [1] issues
+mmap() only and expects it to work. It doesn't know it is running on a
+Xen system, and it shouldn't know that as well.
+
+Thanks.
 
 -- 
-Julien Grall
+viresh
+
+[1] https://github.com/rust-vmm/vm-memory/blob/main/src/mmap_unix.rs#L170
 
