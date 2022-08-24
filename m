@@ -2,36 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ADE15A00A6
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 19:45:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.392900.631526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B8715A00BA
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 19:51:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.392906.631536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQuQx-0004QV-Vu; Wed, 24 Aug 2022 17:44:55 +0000
+	id 1oQuXE-0005pm-LR; Wed, 24 Aug 2022 17:51:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 392900.631526; Wed, 24 Aug 2022 17:44:55 +0000
+Received: by outflank-mailman (output) from mailman id 392906.631536; Wed, 24 Aug 2022 17:51:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQuQx-0004NX-Sb; Wed, 24 Aug 2022 17:44:55 +0000
-Received: by outflank-mailman (input) for mailman id 392900;
- Wed, 24 Aug 2022 17:44:54 +0000
+	id 1oQuXE-0005nF-IW; Wed, 24 Aug 2022 17:51:24 +0000
+Received: by outflank-mailman (input) for mailman id 392906;
+ Wed, 24 Aug 2022 17:51:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8soK=Y4=kernel.org=sj@srs-se1.protection.inumbo.net>)
- id 1oQuQw-0004NR-Ej
- for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 17:44:54 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73b6f64b-23d4-11ed-9250-1f966e50362f;
- Wed, 24 Aug 2022 19:44:50 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5C92161528;
- Wed, 24 Aug 2022 17:44:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546FAC433C1;
- Wed, 24 Aug 2022 17:44:48 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MeM+=Y4=epam.com=prvs=0235cd059d=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1oQuXD-0005n7-8p
+ for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 17:51:23 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c5d0d60-23d5-11ed-9250-1f966e50362f;
+ Wed, 24 Aug 2022 19:51:21 +0200 (CEST)
+Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27OE4FHY028505;
+ Wed, 24 Aug 2022 17:50:47 GMT
+Received: from eur02-ve1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2059.outbound.protection.outlook.com [104.47.6.59])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3j5jafj76j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Aug 2022 17:50:47 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
+ by DB6PR0301MB2455.eurprd03.prod.outlook.com (2603:10a6:4:5a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Wed, 24 Aug
+ 2022 17:50:43 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::f575:76e9:4a40:7387]) by DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::f575:76e9:4a40:7387%2]) with mapi id 15.20.5546.022; Wed, 24 Aug 2022
+ 17:50:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,214 +53,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73b6f64b-23d4-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1661363088;
-	bh=umo1O/ZghnceXqQ1qpVYaFZemPO33EDuodemYwMiPy0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BVKUIhTf6OhXV4INuNnDni6cMxttTGrj5M+lywS4IUZEtYKLO03+2ngwttxirlEW2
-	 0HS9vu7Se4D4lmWfsowCJTCNc9lvk7jiT0zT1xjK6MqahwMO1IqYcxzdCnvvaJZtpE
-	 6sIZw52ZB67O/xAlHqGJAumgZHwlW24Z2v2JgJqBAqaWWQ4W+ePjakR8kfJSOo0x4w
-	 Ht9z8TGIPd5rNvOhkfKbEhab35umcEM+Vea/d+gKERhCF0o1D4coa6NIqQNpq4RwK1
-	 v8BbakmxYBsPXldYea5zObXHbOWG68hTZkBJAzdKqF/luKDnNIY6mGXDMnGvXKX7+X
-	 w8PmxBxCBVDmA==
-From: SeongJae Park <sj@kernel.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	SeongJae Park <sjpark@amazon.com>,
-	Maximilian Heyne <mheyne@amazon.de>
-Subject: =?UTF-8?q?Re=3A=20=E2=80=9CBackend=20has=20not=20unmapped=20grant=E2=80=9D=20errors?=
-Date: Wed, 24 Aug 2022 17:44:42 +0000
-Message-Id: <20220824174442.105245-1-sj@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <bd818aba-4857-bc07-dc8a-e9b2f8c5f7cd@suse.com>
-References: 
+X-Inumbo-ID: 5c5d0d60-23d5-11ed-9250-1f966e50362f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oFcw82MWSTnzXyi831dlFU//cr7Day3lJTLWqCdInZnJIJ/azHX6xFX3b7pIMLHOKtKzp1qxE8howkK4jTUD5RfsZIiTGvzT+FT7ktgC9BYp59J6TNUFphLvK2mjExZ1+MlEkduEnWughJ5IBbBUGUw6USGHebXO0orU/Sbobed7gibzBDHKNH1hhj6mLY0JsltTkvD9/7LMvuhWHmGyaytET8ISEjutGMESxx9CisemRD96cNGy/GSJcOhG+c+mKFRZCSqOKVdEHxwHWqJ1sovHcPkTkNhulZtF3moXRBojYBSmBIK71qdhylmKvdV03hHjibZN8S9sa3aYEB11vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LM8kc3a0fmuHvGUBGoYLxN9QFvztpogZ8mFPitAQs/U=;
+ b=ik3RoHnLl/Rz0US9u4ALdbDQAJQF5Iqg7Sf9SyN+ZLepj0scXpbG/lwzzmPnXFztA3hvqVs8NAleWLghAG0uxqAvKkbcvPb3vcu1MT5RXW2dT8FJTNVJ6INohVp7Kd7wnezzCIr+il+dkKio6Od0OD9tXzl+cC85/qxO0UQPI92Hrj81k9MMp3YH/QvvLV6OQIsimGGP21/56kSEnMMPbwOJSGT2QT2WN6CvaL0IWAJ+VVff97W+6fYz2BNFkU4D1ZJ1gEKKHRdvYFkogT4AvWrBIIrCcG9TY6+JgJzzaUrRdcLywqZctORJyrmjaJaqolCIlxalcWPJDmnBdicZ4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LM8kc3a0fmuHvGUBGoYLxN9QFvztpogZ8mFPitAQs/U=;
+ b=n1p2mRKJZU+3TDm5vq4rbL1wyLyLB2KOl0HHRwY7gntgFCAvxC15i9BQapf3kh7sKxAEJoV6p5ISmCP9QuGh0jR/muGFQ61UuuHfjqMhUS4bWuPqx+tu7bM7onTh35uMYjzXvkwJFvvUIe4cPLAbux4kqkOCgehRE0cVfYG92HQo1W3vHGrS2XeDNzQviMJjvYoV2uqoZi8Cx4tqk0EajgL+wPnbrvOFJQgdtDc9qeUDHWlTdFmSzGOhDHR/kvVtPv+UmNZhidvTm7DZR2PKBM7ChhL+7fn7cZdr/eL+L3u1X3/TMkOd4+ZNEuFMt5GEH5vKhiE3bqRYA38EV91Xpg==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: Juergen Gross <jgross@suse.com>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+        "stable@vger.kernel.org"
+	<stable@vger.kernel.org>,
+        Rustam Subkhankulov <subkhankulov@ispras.ru>
+Subject: Re: [PATCH] xen/privcmd: fix error exit of privcmd_ioctl_dm_op()
+Thread-Topic: [PATCH] xen/privcmd: fix error exit of privcmd_ioctl_dm_op()
+Thread-Index: AQHYt8WobNhf1hcK4Em8o6Kwco0uKK2+VHwA
+Date: Wed, 24 Aug 2022 17:50:43 +0000
+Message-ID: <ea8e2e7d-cfbd-08a5-7ba3-a51e4e3d3294@epam.com>
+References: <20220824142634.20966-1-jgross@suse.com>
+In-Reply-To: <20220824142634.20966-1-jgross@suse.com>
+Accept-Language: en-US, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b44ef4fa-1c54-4e0a-b6b4-08da85f92aaa
+x-ms-traffictypediagnostic: DB6PR0301MB2455:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ MrQf2deX1ZlLXediEgndyWk520xjSCyXgE78RudOyTia3FJea7kJy+Qb4asTfwyY3Xq4IMny+el9NdGeCNWvyC7XFrIr0keDSjcq23b50EXhy90Dpa0KO/GpzAH+E1Pb4AbnoFOGeM1UCUzuNN02kOGiGL+NV1DbRt+7gEaMJ00N/r99nyJtRtucOi7k1umE1gWSJY6DWv3GzxRaLlNKBNlI9EA28gtllvjvfJjjvBy9G1ysUkUd5IDtGbBXAzZqjB8yGsQ/+tAfw/xDoAtZBYrXOZ7QfmAFxdYl31ND4zGTBAaHG82NFT01Iy7rT0Zp4+zisyA6dbGfTOdJDNpqwA4eIPjmYG3yhZVhlH1LObog4cHIhCsE+c5NNSDddKiBlC4yoxgGf6S923h3N7Z5oD6d5zihkNav60IQ1b/G1CEQSqtJAtbyCSgnempg6UftGIJ/+FohbTOzL0I5Ri9e6rIw+o2SuvK52T5L9jXrTJB7QfQU3cx7Fio2Bf9oW13sh0k6SxxSfnTMRsQVBu57tEXXC0LwLpRq/xIixoowURGzHAuE2agzvxs88qdt9CfrSJYfUjFfpWN89tG12lJGi5QfQr6+AKuGOlWJAGDmwWWwQ4+58ZZoCN+zXvfbFEEeSO4rc6oV8JBI+Uo/nxlzc+WW+7UJ25ZNkPiFYLNOnm+RzIrD3t+SQBJChyTJtUBvDc5zqYA3+/Tu3VtMZuJgui+JuJkyTPzRcv0Uq3ZLsl+gUSbzzm9uSdE1S0YVEcEkc5y0Ux5xbElbwuYOuBxmnnFfA0RdPK2wofNMUcsN0w0=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(366004)(396003)(376002)(346002)(39860400002)(136003)(91956017)(83380400001)(76116006)(4326008)(66946007)(8676002)(66476007)(66556008)(5660300002)(64756008)(66446008)(38070700005)(2616005)(478600001)(41300700001)(2906002)(6486002)(26005)(71200400001)(186003)(38100700002)(55236004)(54906003)(31686004)(6512007)(31696002)(53546011)(122000001)(110136005)(36756003)(8936002)(316002)(86362001)(6506007)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?U0cwMlhVaDdlZHljV2pjOG5YdXNGa3dJTVBsQ2Z4c1M5OW1Rd2VsQXVYNmo1?=
+ =?utf-8?B?RFNMajdaU0tDUE13WDlUQmN5SkJuM0dCejFVSUlWd2RiVWllaks5YWtSaExD?=
+ =?utf-8?B?bTUzcjhhUTJhYVZVWnlKRjNTMXN3aU9STkY5eGVZdnZZT2NjbkZuTmhuTzNE?=
+ =?utf-8?B?dzFhYXR2Um5icUdEaDhJcldxY1Y0NTlYbDNDNUxnMThGYXp0Sld5QWNIYjJ1?=
+ =?utf-8?B?d1VwczN4VXlVbVhpRVhWcFVHK1NYaG1pZGQ1cGxUb01rR1I4N1c5TjFCUzN0?=
+ =?utf-8?B?Z2ozR0hRbk5NSFdwTUVqTWtmYTRpekpyVG5RcDZXWGh1aWxFTzlGakdCQ21W?=
+ =?utf-8?B?LzlsNEZ3aURhcmNKRFhtVkxaMWFJRFlWWk9SOEk5dGpEbEpneGtuVGQ5Y1Bq?=
+ =?utf-8?B?Mjlqb1B4YUM4cTFCclVockprb3pqM0VrczNaMy9xQy96QkRuczVXSEtPM0xo?=
+ =?utf-8?B?M1NYOGJQbUR0MU83QWY4N2xCU3MrMnd2ODZxU0hpcE5XM3JlT3R1OUs4MGtT?=
+ =?utf-8?B?VHZ0MHgvcitKT2VwOVZsUmZWS0ZNQ01vdmEydldNZEJ3amhONUhmMjl3V0VZ?=
+ =?utf-8?B?RWRCclU3a3p6NURYWlRGYUdNRGpZeEFYWkpyZTNCMnVISFpXT3hxWCtCRHAx?=
+ =?utf-8?B?dDNBbytzOWN0TGk2QjdGUzU2ZnUyZ2NMNW9nZytvd2Q3WVFXYUxmSnFsdGkr?=
+ =?utf-8?B?WTF3ZjhoL1h1aUZPYSttS3Q2cHpSUVNHa2JyczA0bzRjZ1FMRlVWRjNnQnAz?=
+ =?utf-8?B?a3g3MFR0NkU3MTl6YVhmYkFMbXRLQUlWL2FHbEhWU050a1YzTXJXaDdkZ0xB?=
+ =?utf-8?B?QVNOSW9IY1BqNlp4UmpmdDg4OGdrV255Mm5FZnJNdlEyR0lzL21tYkxseUJI?=
+ =?utf-8?B?WnY5SnFGOFlwbEVJbjMxbWFERkJ2UC91a1Rhdnd5ZXZjNlZsZnp2emRVNDF1?=
+ =?utf-8?B?a3hGOGx0NTVUOG9UWTB0T2NSUEdNRS9abTJuUVRpQlRSK1dlN05keXVqWHBK?=
+ =?utf-8?B?b2k1NUJBZDlDV2ZZMXNSanhPbDBpRDAzTHZmT0JTbUNWV05lZTVndVQwcDh0?=
+ =?utf-8?B?c0JYelYreUdndWlrZTZIL2g2b1BoQ1RRcm1GVGF6OEk1U1BvclVabWRQNFp1?=
+ =?utf-8?B?ckRXSE5XYWk4ejF4Si9GVXV4YVovUkJVRVJ3djBTeHIxY2lSRGxqZU0yQVdq?=
+ =?utf-8?B?c3ppV3k0UVRrbGJmYS9RZVo5aGlyMy85STl0QlR5by95ZE1DakVQU3V6SjQ5?=
+ =?utf-8?B?RHVpN0dUWnV3OStnSXF5bjJnUDlrSVRpT2JPcG9PcXJwVDFvNU9uTWxrTGV3?=
+ =?utf-8?B?K1VjNjkrQkJEVi9zYUg3UTQ1VXV6akVDWG5TbkRPNmV2Q2lDNk5JWHVUNUpv?=
+ =?utf-8?B?T2lhb28rcm9adEhLa0twNHpjMVJ0YkRtSWJ6M0dwanJUZTJzSUpEUlZ3TGw4?=
+ =?utf-8?B?a09ya1BHa2FZTWlzZ2Rxckp2ek4rTVpOdzZ2Z3NSbkYzRy85MGNJSmc0VWM2?=
+ =?utf-8?B?WGtrZTd4Z2l4UWNUZ3BDK1RpQmY1aEN1YWQvOXNEaGx2OWZoaG5GaHBLWjNG?=
+ =?utf-8?B?MnFYazRKQ0MweDk1Zk4zU1hFL1ZIMGllVC96K2hIQnlPWU5JbmliSUlsS21p?=
+ =?utf-8?B?SXhUeVQyVXpKSjZrNERuOTAvQWlZVFN0R0c5UnJ1Rk1rQUt4Qlc5cVpFbCtU?=
+ =?utf-8?B?MjVIZDlxTFNFU0djdmozekdTOUxoaU1HMnJ5M1F6MFhYa1BoUUc3YndMSTF6?=
+ =?utf-8?B?OHRFN1VVdCtmd2NpTHZrN1k2RWx3a0lhOXNFdFVBbUVmZFpyTE5QMmxCNGsz?=
+ =?utf-8?B?eTladlVab0dCZlZVQzFVTmF2ZjlLTGlwbEdNT0FmWkZFKzJQZWoxaEFXTGd2?=
+ =?utf-8?B?dW1pcFVMSkI1dnhqM0REK3BmZmlpYmRiRkZoS3JsVzQvSS9oUkxmRVQ2SG5x?=
+ =?utf-8?B?U3RJNzZYVUo4WGpEY1c1TUxyMmwvWmlWclpORTBzZDJaNkwvSmpGK1VjSzhT?=
+ =?utf-8?B?clBaeDJtQnJUTEJlc3RpUitWbURPeFExQ0djcmZIOTcrblE0OGRNOUxuWGVQ?=
+ =?utf-8?B?QjRlZlQweUtSMHpOZ2h6MGhiNUJ5dDh4YXd6S3FpZ29Lb20yallNYXp5TDU0?=
+ =?utf-8?B?c3dkRi9XczVkSEhOaTBtWS83ejVyNzFONDBvTkZCM1VlQXZIMDFvZ3ZuZlRs?=
+ =?utf-8?Q?qESbD96I5JqNNoPVhZlZc7E=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E741A59A6DF1D24489F3BBDF2A9FA77A@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b44ef4fa-1c54-4e0a-b6b4-08da85f92aaa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2022 17:50:43.5215
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kfJgHuXAgXWc+hZNj2fwR5DWNYdVxyRvEaI6Ruh+6rG7k5VttgMyzkQuLcCbXQ8oqjygAX8IKOnSL2a7jMbLk6gWYkl+VKmf69UOFSK9n5w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0301MB2455
+X-Proofpoint-GUID: kBSriJtv2AQv97Cs2bmXBywe4CnN86_X
+X-Proofpoint-ORIG-GUID: kBSriJtv2AQv97Cs2bmXBywe4CnN86_X
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-08-24_10,2022-08-22_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 lowpriorityscore=0 mlxscore=0
+ malwarescore=0 suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011
+ spamscore=0 priorityscore=1501 adultscore=0 phishscore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2208240065
 
-Hello,
-
-On Wed, 24 Aug 2022 08:02:40 +0200 Juergen Gross <jgross@suse.com> wrote:
-
-> 
-> [-- Attachment #1.1.1: Type: text/plain, Size: 4312 bytes --]
-> 
-> On 24.08.22 02:20, Marek Marczykowski-Górecki wrote:
-> > FWIW, I hit this issue twice already in this week CI run, while it never
-> > happened before. The difference compared to previous run is Linux
-> > 5.15.57 vs 5.15.61. The latter reports persistent grants disabled. The
-> > only related commits I see there are three commits indeed related to
-> > persistent grants:
-> > 
-> >    c98e956ef489 xen-blkfront: Apply 'feature_persistent' parameter when connect
-> >    ef26b5d530d4 xen-blkback: Apply 'feature_persistent' parameter when connect
-> >    7304be4c985d xen-blkback: fix persistent grants negotiation
-> > 
-> > But none of the commit messages suggests intentional disabling it
-> > without explicit request for doing so. I did not requested disabling it
-> > in toolstack (although I have set backend as "trusted" - XSA-403).
-> > I have confirmed it's the frontend version that matters. Running older
-> > frontend kernel with 5.15.61 backend results in persistent grants
-> > enabled (and both frontend and backend xenstore "feature-persistent"
-> > entries are "1" in this case).
-> 
-> This is a mess.
-> 
-> I think the main problem seems to be that the feature negotiation process
-> isn't specified in a sane way.
-> 
->  From the blkif.h header:
-> 
-> Backend-side:
->   * feature-persistent
->   *      Values:         0/1 (boolean)
->   *      Default Value:  0
->   *      Notes: 7
->   *
->   *      A value of "1" indicates that the backend can keep the grants used
->   *      by the frontend driver mapped, so the same set of grants should be
->   *      used in all transactions. The maximum number of grants the backend
->   *      can map persistently depends on the implementation, but ideally it
->   *      should be RING_SIZE * BLKIF_MAX_SEGMENTS_PER_REQUEST. Using this
->   *      feature the backend doesn't need to unmap each grant, preventing
->   *      costly TLB flushes. The backend driver should only map grants
->   *      persistently if the frontend supports it. If a backend driver chooses
->   *      to use the persistent protocol when the frontend doesn't support it,
->   *      it will probably hit the maximum number of persistently mapped grants
->   *      (due to the fact that the frontend won't be reusing the same grants),
->   *      and fall back to non-persistent mode. Backend implementations may
->   *      shrink or expand the number of persistently mapped grants without
->   *      notifying the frontend depending on memory constraints (this might
->   *      cause a performance degradation).
-> 
-> Frontend-side:
->   * feature-persistent
->   *      Values:         0/1 (boolean)
->   *      Default Value:  0
->   *      Notes: 7, 8, 9
->   *
->   *      A value of "1" indicates that the frontend will reuse the same grants
->   *      for all transactions, allowing the backend to map them with write
->   *      access (even when it should be read-only). If the frontend hits the
->   *      maximum number of allowed persistently mapped grants, it can fallback
->   *      to non persistent mode. This will cause a performance degradation,
->   *      since the the backend driver will still try to map those grants
->   *      persistently. Since the persistent grants protocol is compatible with
->   *      the previous protocol, a frontend driver can choose to work in
->   *      persistent mode even when the backend doesn't support it.
-> 
-> Those definitions don't make clear, which side is the one to decide whether
-> the feature should be used or not. In my understanding the related drivers
-> should just advertise their setting (the _ability_ to use the feature), and
-> it should be used only if both sides have written a "1".
-> 
-> With above patches applied, the frontend will set 'feature-persistent' in
-> Xenstore only, if the backend has done so, but the backend will set it
-> only, if the frontend has done it. This results in persistent grants
-> always being disabled.
-
-Sorry for making the mess, and thank you for the kind report and detailed
-explanation of the problem.
-
-> 
-> This is wrong, as the value written should not reflect the current state
-> of the interface. That state should be set according to both sides' value,
-> probably a cached one on the blkback side (using a new flag for caching it,
-> not the current state).
-
-Agreed.  So, I think the issue comes from the fact that we are using one field,
-which was a place for saving only the negotiation result, for yet another
-purpose: caching of the parameter value.  As a result, the advertisement, which
-should follow only the parameter value, becomes inconsistent.
-
-How about simply adding another field for the caching purpose, so that the
-advertisation could be done regardless of the negotiation?  For example:
-
-diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-blkback/common.h
-index bda5c815e441..a28473470e66 100644
---- a/drivers/block/xen-blkback/common.h
-+++ b/drivers/block/xen-blkback/common.h
-@@ -226,6 +226,9 @@ struct xen_vbd {
- 	sector_t		size;
- 	unsigned int		flush_support:1;
- 	unsigned int		discard_secure:1;
-+	/* Connect-time cached feature_persistent parameter value */
-+	unsigned int		feature_gnt_persistent_parm:1;
-+	/* Persistent grants feature negotiation result */
- 	unsigned int		feature_gnt_persistent:1;
- 	unsigned int		overflow_max_grants:1;
- };
-diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index ee7ad2fb432d..c0227dfa4688 100644
---- a/drivers/block/xen-blkback/xenbus.c
-+++ b/drivers/block/xen-blkback/xenbus.c
-@@ -907,7 +907,7 @@ static void connect(struct backend_info *be)
- 	xen_blkbk_barrier(xbt, be, be->blkif->vbd.flush_support);
- 
- 	err = xenbus_printf(xbt, dev->nodename, "feature-persistent", "%u",
--			be->blkif->vbd.feature_gnt_persistent);
-+			be->blkif->vbd.feature_gnt_persistent_parm);
- 	if (err) {
- 		xenbus_dev_fatal(dev, err, "writing %s/feature-persistent",
- 				 dev->nodename);
-@@ -1085,7 +1085,9 @@ static int connect_ring(struct backend_info *be)
- 		return -ENOSYS;
- 	}
- 
--	blkif->vbd.feature_gnt_persistent = feature_persistent &&
-+	blkif->vbd.feature_gnt_persistent_parm = feature_persistent;
-+	blkif->vbd.feature_gnt_persistent =
-+		blkif->vbd.feature_gnt_persistent_parm &&
- 		xenbus_read_unsigned(dev->otherend, "feature-persistent", 0);
- 
- 	blkif->vbd.overflow_max_grants = 0;
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 8e56e69fb4c4..dfae08115450 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -213,6 +213,9 @@ struct blkfront_info
- 	unsigned int feature_fua:1;
- 	unsigned int feature_discard:1;
- 	unsigned int feature_secdiscard:1;
-+	/* Connect-time cached feature_persistent parameter */
-+	unsigned int feature_persistent_parm:1;
-+	/* Persistent grants feature negotiation result */
- 	unsigned int feature_persistent:1;
- 	unsigned int bounce:1;
- 	unsigned int discard_granularity;
-@@ -1848,7 +1851,7 @@ static int talk_to_blkback(struct xenbus_device *dev,
- 		goto abort_transaction;
- 	}
- 	err = xenbus_printf(xbt, dev->nodename, "feature-persistent", "%u",
--			info->feature_persistent);
-+			info->feature_persistent_parm);
- 	if (err)
- 		dev_warn(&dev->dev,
- 			 "writing persistent grants feature to xenbus");
-@@ -2281,7 +2284,8 @@ static void blkfront_gather_backend_features(struct blkfront_info *info)
- 	if (xenbus_read_unsigned(info->xbdev->otherend, "feature-discard", 0))
- 		blkfront_setup_discard(info);
- 
--	if (feature_persistent)
-+	info->feature_persistent_parm = feature_persistent;
-+	if (info->feature_persistent_parm)
- 		info->feature_persistent =
- 			!!xenbus_read_unsigned(info->xbdev->otherend,
- 					       "feature-persistent", 0);
-
-
-Thanks,
-SJ
-
-> 
-> The blkif.h comments should be updated to make it clear that the values in
-> Xenstore don't reflect the state of the connection, but the availability of
-> the feature in the related driver.
-> 
-> Comments?
-> 
-> 
-> Juergen
+DQpPbiAyNC4wOC4yMiAxNzoyNiwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCg0KSGVsbG8gSnVlcmdl
+bg0KDQo+IFRoZSBlcnJvciBleGl0IG9mIHByaXZjbWRfaW9jdGxfZG1fb3AoKSBpcyBjYWxsaW5n
+IHVubG9ja19wYWdlcygpDQo+IHBvdGVudGlhbGx5IHdpdGggcGFnZXMgYmVpbmcgTlVMTCwgbGVh
+ZGluZyB0byBhIE5VTEwgZGVyZWZlcmVuY2UuDQo+DQo+IEZpeCB0aGF0IGJ5IGNhbGxpbmcgdW5s
+b2NrX3BhZ2VzIG9ubHkgaWYgbG9ja19wYWdlcygpIHdhcyBhdCBsZWFzdA0KPiBwYXJ0aWFsbHkg
+c3VjY2Vzc2Z1bC4NCj4NCj4gQ2M6IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPg0KPiBGaXhlczog
+YWI1MjBiZThjZDVkICgieGVuL3ByaXZjbWQ6IEFkZCBJT0NUTF9QUklWQ01EX0RNX09QIikNCj4g
+UmVwb3J0ZWQtYnk6IFJ1c3RhbSBTdWJraGFua3Vsb3YgPHN1YmtoYW5rdWxvdkBpc3ByYXMucnU+
+DQo+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpS
+ZXZpZXdlZC1ieTogT2xla3NhbmRyIFR5c2hjaGVua28gPG9sZWtzYW5kcl90eXNoY2hlbmtvQGVw
+YW0uY29tPg0KDQoNCj4gLS0tDQo+ICAgZHJpdmVycy94ZW4vcHJpdmNtZC5jIHwgNSArKystLQ0K
+PiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+DQo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi9wcml2Y21kLmMgYi9kcml2ZXJzL3hlbi9wcml2Y21k
+LmMNCj4gaW5kZXggMzM2OTczNDEwOGFmLi5lYzg3OTY4YjQ0NTkgMTAwNjQ0DQo+IC0tLSBhL2Ry
+aXZlcnMveGVuL3ByaXZjbWQuYw0KPiArKysgYi9kcml2ZXJzL3hlbi9wcml2Y21kLmMNCj4gQEAg
+LTY3OSw3ICs2NzksNyBAQCBzdGF0aWMgbG9uZyBwcml2Y21kX2lvY3RsX2RtX29wKHN0cnVjdCBm
+aWxlICpmaWxlLCB2b2lkIF9fdXNlciAqdWRhdGEpDQo+ICAgCXJjID0gbG9ja19wYWdlcyhrYnVm
+cywga2RhdGEubnVtLCBwYWdlcywgbnJfcGFnZXMsICZwaW5uZWQpOw0KPiAgIAlpZiAocmMgPCAw
+KSB7DQo+ICAgCQlucl9wYWdlcyA9IHBpbm5lZDsNCj4gLQkJZ290byBvdXQ7DQo+ICsJCWdvdG8g
+dW5sb2NrOw0KPiAgIAl9DQo+ICAgDQo+ICAgCWZvciAoaSA9IDA7IGkgPCBrZGF0YS5udW07IGkr
+Kykgew0KPiBAQCAtNjkxLDggKzY5MSw5IEBAIHN0YXRpYyBsb25nIHByaXZjbWRfaW9jdGxfZG1f
+b3Aoc3RydWN0IGZpbGUgKmZpbGUsIHZvaWQgX191c2VyICp1ZGF0YSkNCj4gICAJcmMgPSBIWVBF
+UlZJU09SX2RtX29wKGtkYXRhLmRvbSwga2RhdGEubnVtLCB4YnVmcyk7DQo+ICAgCXhlbl9wcmVl
+bXB0aWJsZV9oY2FsbF9lbmQoKTsNCj4gICANCj4gLW91dDoNCj4gKyB1bmxvY2s6DQo+ICAgCXVu
+bG9ja19wYWdlcyhwYWdlcywgbnJfcGFnZXMpOw0KPiArIG91dDoNCj4gICAJa2ZyZWUoeGJ1ZnMp
+Ow0KPiAgIAlrZnJlZShwYWdlcyk7DQo+ICAgCWtmcmVlKGtidWZzKTsNCg0KLS0gDQpSZWdhcmRz
+LA0KDQpPbGVrc2FuZHIgVHlzaGNoZW5rbw0K
 
