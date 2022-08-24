@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA73459FC7F
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 16:01:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.392731.631269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2890559FD16
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 16:20:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.392738.631281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQqwE-0003lC-6h; Wed, 24 Aug 2022 14:00:58 +0000
+	id 1oQrE7-0005Tb-R1; Wed, 24 Aug 2022 14:19:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 392731.631269; Wed, 24 Aug 2022 14:00:58 +0000
+Received: by outflank-mailman (output) from mailman id 392738.631281; Wed, 24 Aug 2022 14:19:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQqwE-0003iI-3Z; Wed, 24 Aug 2022 14:00:58 +0000
-Received: by outflank-mailman (input) for mailman id 392731;
- Wed, 24 Aug 2022 14:00:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jRce=Y4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oQqwC-0003hy-F8
- for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 14:00:56 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2bf8e712-23b5-11ed-bd2e-47488cf2e6aa;
- Wed, 24 Aug 2022 16:00:55 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E7FE4343AF;
- Wed, 24 Aug 2022 14:00:54 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9F15113780;
- Wed, 24 Aug 2022 14:00:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fh9KJRYvBmN0egAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 24 Aug 2022 14:00:54 +0000
+	id 1oQrE7-0005Q6-MP; Wed, 24 Aug 2022 14:19:27 +0000
+Received: by outflank-mailman (input) for mailman id 392738;
+ Wed, 24 Aug 2022 14:17:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QLoP=Y4=gmail.com=vsuneja63@srs-se1.protection.inumbo.net>)
+ id 1oQrBo-0005Mq-H1
+ for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 14:17:04 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5e3e00e4-23b7-11ed-9250-1f966e50362f;
+ Wed, 24 Aug 2022 16:16:38 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id gb36so33778467ejc.10
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Aug 2022 07:17:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,153 +39,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2bf8e712-23b5-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1661349654; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EMwlVtQt2OIfrSiPHzl8Gk7eSfWyMsUviH2UaB+i6K0=;
-	b=iT0PrH5W2FmGkokq5MNwvycNd872PXNFYC3I3HWHP8KBZArLOJg+OSy3hKwoygleg1tGys
-	/9KQlrJB++eVotJqU1St2rH0jtPcyvxtv9Qy4sqyiwj1JgiIhMv2vYfJa8XTzEFyPCQHAe
-	0T3EFSoNFXFEzMop/1VDYR3xtJjj+AY=
-Message-ID: <0fcf74d8-774f-1999-d508-b8349096d83e@suse.com>
-Date: Wed, 24 Aug 2022 16:00:54 +0200
+X-Inumbo-ID: 5e3e00e4-23b7-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc;
+        bh=7QHuSojGFQRvWl2p78e2Ua+ZUBeqHobkB6L/jbtO/AU=;
+        b=kgLOVa2NrvMvbgip0JZOHUgtXOpxzfrGo0VX8djfrfIeCJiatszPPt8USdglbGoLde
+         lnLTKw+QtUexotyKbYGSLyUb+PBJNMTnAdOgXRD5Xrg6Xv2c25cJ943t4b4HnIZudX8/
+         jIBsM7x0D3gG7qGcylzfOfdXIv3JWUkXsVOJtH+WuKEHnwc/+8ZCx/yG0pIGrwFKM1nV
+         RmjSJybZjbL+eKUDaEU72VZWqhiQKWfUjUU2lJkMUeN7M8m+7sn6KPMfI27ECOyO/S7i
+         F/LG94jBCk1fBli7gW+VbeTnCSYH7bzd2z43n4VtwMQfBTu8GUIHmnaEvTXxD99SGh2k
+         +oYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc;
+        bh=7QHuSojGFQRvWl2p78e2Ua+ZUBeqHobkB6L/jbtO/AU=;
+        b=rMD/FRKyesRBK8P39HVhD64Asmcs2PF9Tlb93ufxNHmxXX7PCOAc4+/tvhrCA5bL7O
+         NrJ+a0gcITNJEi6YT8ii9Z2AtDOiEpBvhpTrTLCciTWs1fK2y6KJIBfedXS3h9SA432+
+         IAZhQmEUfXcEhQ1UXmaCqFeju449tS0TQesCnEzrduIMdegPiPTrn4vd5MmeaPsYylEg
+         hmkBfhrzLYpa1ahodPVl3kZTQp6y8VywujSVyNgm0t+ESp1fN373aE/1pGUUfhuVAySK
+         d18geaWaWX+TX3J94fZD1o2HHVdKO9qIErxIWj0kwo4oFFH0cZskwzua4Bo8x5Qcsq9q
+         K0/Q==
+X-Gm-Message-State: ACgBeo3lkS3ZMF+3H0Qk2PdtcMh4NRsBDM5+YL0jxQo9x76ZGd15AhQ1
+	h30Pt6YgoMPpleb+WNzJxYsDHFc95OotIvtOkkOHOHncZ39LyQ==
+X-Google-Smtp-Source: AA6agR6uHrlibcygtAfyfid9cXZ7bd8Z5jmly6ygn7BznzG7WY0OWhbmbL9KwXIkMM+yqS1mSCVsWb+6K/j+8yNiDLM=
+X-Received: by 2002:a17:907:2d23:b0:730:acf0:4907 with SMTP id
+ gs35-20020a1709072d2300b00730acf04907mr3126627ejc.700.1661350622388; Wed, 24
+ Aug 2022 07:17:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [POSSIBLE BUG] Dereferencing of NULL pointer
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- Rustam Subkhankulov <subkhankulov@ispras.ru>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Alexey Khoroshilov <khoroshilov@ispras.ru>, ldv-project@linuxtesting.org
-References: <6228a437bb9d7f677f5e97973518bcd555bc2a07.camel@ispras.ru>
- <0f5f26d2-2b22-2a0d-8bb2-ee2e729ada3f@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <0f5f26d2-2b22-2a0d-8bb2-ee2e729ada3f@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------vAC30YhXUtP7gZKpLqbO92pV"
+From: Vipul Suneja <vsuneja63@gmail.com>
+Date: Wed, 24 Aug 2022 19:46:50 +0530
+Message-ID: <CALAP8f_L0ggPP=a6Xrywge2-ZTa3msqj0UKN8L66cC6ypNOAfw@mail.gmail.com>
+Subject: Porting xen on rpi4
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, julien@xen.org
+Content-Type: multipart/alternative; boundary="000000000000b1e5de05e6fd556e"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------vAC30YhXUtP7gZKpLqbO92pV
-Content-Type: multipart/mixed; boundary="------------q7angtWVae4m26mvtfP6b0Ey";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- Rustam Subkhankulov <subkhankulov@ispras.ru>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Alexey Khoroshilov <khoroshilov@ispras.ru>, ldv-project@linuxtesting.org
-Message-ID: <0fcf74d8-774f-1999-d508-b8349096d83e@suse.com>
-Subject: Re: [POSSIBLE BUG] Dereferencing of NULL pointer
-References: <6228a437bb9d7f677f5e97973518bcd555bc2a07.camel@ispras.ru>
- <0f5f26d2-2b22-2a0d-8bb2-ee2e729ada3f@suse.com>
-In-Reply-To: <0f5f26d2-2b22-2a0d-8bb2-ee2e729ada3f@suse.com>
+--000000000000b1e5de05e6fd556e
+Content-Type: text/plain; charset="UTF-8"
 
---------------q7angtWVae4m26mvtfP6b0Ey
-Content-Type: multipart/mixed; boundary="------------ASs8fx3CAUGuN4DNwsAWzQb6"
+Hi,
 
---------------ASs8fx3CAUGuN4DNwsAWzQb6
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+I am porting xen hypervisor on rpi4 with yocto kirkstone sources. Followed
+the basic steps to build xen-image-minimal & xen-guest-image-minimal. I
+could flash sd card with xen minimal image & could see dom0 up. I copied
+"Image", "xen-guest-image-minimal" .ext3 file & guest.cfg to "/home/root".
+After that created a bridge with below step:
 
-T24gMjQuMDguMjIgMTU6NTksIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyMC4wOC4yMDIy
-IDE5OjMwLCBSdXN0YW0gU3Via2hhbmt1bG92IHdyb3RlOg0KPj4gVmVyc2lvbjogNi4wLXJj
-MQ0KPj4NCj4+IERlc2NyaXB0aW9uOg0KPj4NCj4+IEluIGZ1bmN0aW9uICdwcml2Y21kX2lv
-Y3RsX2RtX29wJyAoZHJpdmVycy94ZW4vcHJpdmNtZC5jOiA2MTUpcmV0dXJuDQo+PiB2YWx1
-ZSBvZiAna2NhbGxvYycgd2l0aCBHRlBfS0VSTkVMIGZsYWcgaXMgYXNzaWduZWQgdG8gInBh
-Z2VzIg0KPj4gdmFyaWFibGUuIEdGUF9LRVJORUwgZmxhZyBkb2VzIG5vdCBndWFyYW50ZWUs
-IHRoYXQgdGhlIHJldHVybiB2YWx1ZQ0KPj4gd2lsbCBub3QgYmUgTlVMTC4gSW4gdGhhdCBj
-YXNlLCB0aGVyZSBpcyBhIGp1bXAgdG8gdGhlICJvdXQiIGxhYmVsLg0KPiANCj4gVGhlIHBy
-b2JsZW0gaXMgd2lkZXIgdGhhbiB0aGF0LCBiZWNhdXNlIGVhcmxpZXIgZXJyb3JzIHdvdWxk
-IGFsc28NCj4gbGVhZCB0byAib3V0IiAoZS5nLiBhZnRlciBjb3B5X2Zyb21fdXNlcigpIGZh
-aWxlZCkuIFBsdXMgSSBndWVzcw0KPiB1bmxvY2tfcGFnZXMoKSBzaG91bGRuJ3QgYmUgY2Fs
-bGVkIGF0IGFsbCAob3Igd2l0aCBpdHMgMm5kIGFyZyBzZXQNCj4gdG8gemVybykgYmVmb3Jl
-IGxvY2tfcGFnZXMoKSB3YXMgYWN0dWFsbHkgY2FsbGVkLiBCdXQgSSBhZ3JlZSB3aXRoDQo+
-IHRoZSBmdXJ0aGVyIGFuYWx5c2lzIGJlbG93LiBXb3VsZCB5b3UgbWluZCBzZW5kaW5nIGEg
-cGF0Y2g/DQoNCkp1c3Qgc3RhcnRlZCB3cml0aW5nIGl0LiA6LSkNCg0KDQpKdWVyZ2VuDQo=
+killall -SIGUSR2 udhcpc
+brctl addbr xenbr0
+brctl addif xenbr0 eth0
+killall udhcpc
+udhcpc -R -b -p /var/run/udhcpc.xenbr0.pid -i xenbr0
 
---------------ASs8fx3CAUGuN4DNwsAWzQb6
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+Could see the xenbr0 interface up.
+After that while mounting the guest file system it shows no such file or
+directory but the file is already there.
+
+
+*[23:40:15] <Guest9046> root@raspberrypi4-64:~# ls -l**[23:40:15]
+<Guest9046> -rw-r--r--    1 root     root      24652288 Mar  9 12:36 Image*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*[23:40:15] <Guest9046> -rw-r--r--    1 root     root           247 Mar  9
+12:37 guest1.cfg[23:40:15] <Guest9046> -rw-r--r--    1 root     root
+868220928 Mar  9 12:39
+xen-guest-image-minimal-raspberrypi4-64.ext3[23:40:15] <Guest9046>
+root@raspberrypi4-64:~# chmod 0777
+xen-guest-image-minimal-raspberrypi4-64.ext3[23:40:15] <Guest9046>
+root@raspberrypi4-64:~# ls -l[23:40:15] <Guest9046> -rw-r--r--    1 root
+  root      24652288 Mar  9 12:36 Image[23:40:15] <Guest9046> -rw-r--r--
+ 1 root     root           247 Mar  9 12:37 guest1.cfg[23:40:15]
+<Guest9046> -rwxrwxrwx    1 root     root     868220928 Mar  9 12:39
+xen-guest-image-minimal-raspberrypi4-64.ext3[23:40:15] <Guest9046>
+root@raspberrypi4-64:~# losetup /dev/loop0
+xen-guest-image-minimal-raspberrypi4-64.ext3[23:40:15] <Guest9046> losetup:
+xen-guest-image-minimal-raspberrypi4-64.ext3: No such file or
+directory[23:40:15] <Guest9046> root@raspberrypi4-64:~# losetup /dev/loop0
+/home/root/xen-guest-image-minimal-raspberrypi4-64.ext3[23:40:15]
+<Guest9046> losetup:
+/home/root/xen-guest-image-minimal-raspberrypi4-64.ext3: No such file or
+directory[23:40:15] <Guest9046> root@raspberrypi4-64:~#[23:40:15]
+<Guest9046> root@raspberrypi4-64:~#[23:40:15] <Guest9046>
+root@raspberrypi4-64:~#[23:40:15] <Guest9046> root@raspberrypi4-64:~#
+losetup /dev/loop0
+/home/root/xen-guest-image-minimal-raspberrypi4-64.ext3[23:40:15]
+<Guest9046> losetup:
+/home/root/xen-guest-image-minimal-raspberrypi4-64.ext3: No such file or
+directory*
+
+*Any input on this issue will be really helpful, expecting your response.*
+
+Thanks & Regards,
+Vipul Kumar
+
+--000000000000b1e5de05e6fd556e
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+<div dir=3D"ltr">Hi,<div><br></div><div>I am porting xen hypervisor on rpi4=
+ with yocto=20
+kirkstone sources. Followed the basic steps to build xen-image-minimal=20
+&amp; xen-guest-image-minimal. I could flash sd card with xen minimal=20
+image &amp; could see dom0 up. I copied &quot;Image&quot;,=20
+&quot;xen-guest-image-minimal&quot; .ext3 file &amp; guest.cfg to &quot;/ho=
+me/root&quot;.=20
+After that created a bridge with below step:</div><div><br></div>killall -S=
+IGUSR2 udhcpc<br>brctl addbr xenbr0<br>brctl addif xenbr0 eth0<br>killall u=
+dhcpc<br><div>udhcpc -R -b -p /var/run/udhcpc.xenbr0.pid -i xenbr0=C2=A0</d=
+iv><div><br></div><div>Could see the xenbr0 interface up.</div><div>After t=
+hat while mounting the guest file system it shows no such file or directory=
+ but the file is already there.</div><div><b><br></b></div><div><b>[23:40:1=
+5] &lt;Guest9046&gt; root@raspberrypi4-64:~# ls -l<br></b><b>[23:40:15] &lt=
+;Guest9046&gt; -rw-r--r-- =C2=A0 =C2=A01 root =C2=A0 =C2=A0 root =C2=A0 =C2=
+=A0 =C2=A024652288 Mar =C2=A09 12:36 Image</b><b><br></b></div><div><b>[23:=
+40:15] &lt;Guest9046&gt; -rw-r--r-- =C2=A0 =C2=A01 root =C2=A0 =C2=A0 root =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 247 Mar =C2=A09 12:37 guest1.cfg<br>[23:=
+40:15] &lt;Guest9046&gt; -rw-r--r-- =C2=A0 =C2=A01 root =C2=A0 =C2=A0 root =
+=C2=A0 =C2=A0 868220928 Mar =C2=A09 12:39 xen-guest-image-minimal-raspberry=
+pi4-64.ext3<br>[23:40:15] &lt;Guest9046&gt; root@raspberrypi4-64:~# chmod 0=
+777 xen-guest-image-minimal-raspberrypi4-64.ext3<br>[23:40:15] &lt;Guest904=
+6&gt; root@raspberrypi4-64:~# ls -l<br>[23:40:15] &lt;Guest9046&gt; -rw-r--=
+r-- =C2=A0 =C2=A01 root =C2=A0 =C2=A0 root =C2=A0 =C2=A0 =C2=A024652288 Mar=
+ =C2=A09 12:36 Image<br>[23:40:15] &lt;Guest9046&gt; -rw-r--r-- =C2=A0 =C2=
+=A01 root =C2=A0 =C2=A0 root =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 247 Mar =C2=
+=A09 12:37 guest1.cfg<br>[23:40:15] &lt;Guest9046&gt; -rwxrwxrwx =C2=A0 =C2=
+=A01 root =C2=A0 =C2=A0 root =C2=A0 =C2=A0 868220928 Mar =C2=A09 12:39 xen-=
+guest-image-minimal-raspberrypi4-64.ext3<br>[23:40:15] &lt;Guest9046&gt; ro=
+ot@raspberrypi4-64:~# losetup /dev/loop0 xen-guest-image-minimal-raspberryp=
+i4-64.ext3<br>[23:40:15] &lt;Guest9046&gt; losetup: xen-guest-image-minimal=
+-raspberrypi4-64.ext3: No such file or directory<br>[23:40:15] &lt;Guest904=
+6&gt; root@raspberrypi4-64:~# losetup /dev/loop0 /home/root/xen-guest-image=
+-minimal-raspberrypi4-64.ext3<br>[23:40:15] &lt;Guest9046&gt; losetup: /hom=
+e/root/xen-guest-image-minimal-raspberrypi4-64.ext3: No such file or direct=
+ory<br>[23:40:15] &lt;Guest9046&gt; root@raspberrypi4-64:~#<br>[23:40:15] &=
+lt;Guest9046&gt; root@raspberrypi4-64:~#<br>[23:40:15] &lt;Guest9046&gt; ro=
+ot@raspberrypi4-64:~#<br>[23:40:15] &lt;Guest9046&gt; root@raspberrypi4-64:=
+~# losetup /dev/loop0 /home/root/xen-guest-image-minimal-raspberrypi4-64.ex=
+t3<br>[23:40:15] &lt;Guest9046&gt; losetup: /home/root/xen-guest-image-mini=
+mal-raspberrypi4-64.ext3: No such file or directory</b><br></div><div><b><b=
+r></b></div><div><b>Any input on this issue will be really helpful, expecti=
+ng your response.</b></div><div><b><br></b></div><div>Thanks &amp; Regards,=
+</div><div>Vipul Kumar</div></div>
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------ASs8fx3CAUGuN4DNwsAWzQb6--
-
---------------q7angtWVae4m26mvtfP6b0Ey--
-
---------------vAC30YhXUtP7gZKpLqbO92pV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmMGLxYFAwAAAAAACgkQsN6d1ii/Ey+T
-sAf/Uy/hpnBgQFLaiHGSNN/9BbmPjRgoUL6VxejEEYHJa7Dk/fpezDK4E1Q2gz6b651PzoeXuGfX
-Y86Y5Tc2qsbvtXmxZCDZ6se6Qw+Nmdj/AeDKYmx+E+o19FXzmqofyN0NsiPhHHSOlT17WaneYQ2D
-z7MkTmKGRZx+xRs2CbwFV2DwYZ9neOhu95xTPGxE8/eL4RVUe5Dd/xLV8rdJBSTyWpBH3b1r/yJr
-58ws8gv5VELkKm9VeXQOhwe72XOVQCHtScHqyOIUGLidu653hJ1zhl7qQ0LdyjCL34M2X2/3z/20
-dRPAtCekld8FQ0HJiu1EW395YCubiyL0y0SzBSJtoA==
-=Eily
------END PGP SIGNATURE-----
-
---------------vAC30YhXUtP7gZKpLqbO92pV--
+--000000000000b1e5de05e6fd556e--
 
