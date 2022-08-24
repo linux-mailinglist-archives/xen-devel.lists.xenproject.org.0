@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E13905A031F
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 23:05:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.392945.631595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C954B5A0320
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 23:06:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.392952.631606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQxYf-0001Fz-Kz; Wed, 24 Aug 2022 21:05:05 +0000
+	id 1oQxaD-0001pZ-Ub; Wed, 24 Aug 2022 21:06:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 392945.631595; Wed, 24 Aug 2022 21:05:05 +0000
+Received: by outflank-mailman (output) from mailman id 392952.631606; Wed, 24 Aug 2022 21:06:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQxYf-0001D0-HV; Wed, 24 Aug 2022 21:05:05 +0000
-Received: by outflank-mailman (input) for mailman id 392945;
- Wed, 24 Aug 2022 21:05:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oQxaD-0001n9-Rk; Wed, 24 Aug 2022 21:06:41 +0000
+Received: by outflank-mailman (input) for mailman id 392952;
+ Wed, 24 Aug 2022 21:06:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YMFn=Y4=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1oQxYd-0001Cu-UW
- for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 21:05:04 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69e17ddc-23f0-11ed-bd2e-47488cf2e6aa;
- Wed, 24 Aug 2022 23:05:01 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id C54143200959;
- Wed, 24 Aug 2022 17:04:57 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 24 Aug 2022 17:04:58 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 24 Aug 2022 17:04:56 -0400 (EDT)
+ <SRS0=NROC=Y4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oQxaC-0001n1-No
+ for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 21:06:40 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a547744f-23f0-11ed-9250-1f966e50362f;
+ Wed, 24 Aug 2022 23:06:39 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6E945B825EE;
+ Wed, 24 Aug 2022 21:06:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8078FC433D6;
+ Wed, 24 Aug 2022 21:06:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,111 +43,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69e17ddc-23f0-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1661375097; x=1661461497; bh=yE/a49KCDC/wAg21Ynv+sCjtM31EEPC4C76
-	5bis3j/g=; b=kZO7wjDNGYf9uWymjyupq6f+U+MYCAetEv9DeFYeLrHZ8eTJUhW
-	vRY++HEiFm6EBVZxLaUJAZCAgiVolePolcDfXjnAiplGCgd5/LvbY24yGohR+tcn
-	udM/C2fTHY0xVym2BiDJbc9v06hb8P2InGdsdbzOZC/9MC5N5aFCow9HMThAOpQx
-	cGK7dycmN4m53ST2g1Guj82Kkl1jURUYqr8xGuZTo9zp0KRQHpmTVejPz/4Tt/ka
-	LH0Zumd+zIhkSw5fAhY+a6VUqIoNsqzy8Y5o04JjOKtFmjtzascJn5iZHtG5kknK
-	faAacLI9cP0J7UwsVA6B5B45X0LxL+cE+jg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1661375097; x=1661461497; bh=yE/a49KCDC/wA
-	g21Ynv+sCjtM31EEPC4C765bis3j/g=; b=WgpGHq4CuC7CJD6ShkOfng5Oozv7D
-	8HtBkWEHeEVvb8364x84L3RN7iiHXK85bT+5jtM+qkKDqx6XjWImeWXYtWV1tbCI
-	y75T2VgnnW4tTvdBMR8IQjzTaSO6Tj1WCQZJKRVIpIr1V/QX8YwtPQTMHxKP08jb
-	/NHPlFZSlMqTsvrJLFMpkajfS1iurGzL+Zyi0Uj9YXHAhJ2bzZWg2m6JDrRAb2nQ
-	3OSOeUaYwuPGZo5uEIqJDL8ElLOegrq3sgTHkKDZgaRbYnSMlK7/CLpH7LzyQdhE
-	94I7CVYeXnhFEuY/5p1IuchAiebYQ9I4pdIDBY3LkS2QIFrZ55EYng3Yw==
-X-ME-Sender: <xms:eZIGY6QXwd8BPKEqvr2qjVLLg-MMzICxM2h__-Aolcd2Y-xBqOwQoA>
-    <xme:eZIGY_yEmguTJ8iP1xCIWRfp0X55-ib_LOmaTQoLmIj4yPgNZhqpzdZ8WDVf2RbpZ
-    nKZ9STr0vb5igo>
-X-ME-Received: <xmr:eZIGY31f9ds9o9gEyFp_nkr032QXXfL65rl9tyRYRJsRktGHz7WBnk5D9rTHANZovius_usQWl9M>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejuddgudeitdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhephfeggfeiiedtieejgedutdekgfet
-    geehheegteekvefhfefgudehtdevleegueegnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:eZIGY2BiY81HHZXk8ujuFvGSjNZo9xp4CU6GTvlR7xJEFNbBXS3rrg>
-    <xmx:eZIGYzjnduqudKkmN09PYUV_eM0Z5oM1b9mcsMIaR_vqabpNCLZCxw>
-    <xmx:eZIGYypf4-BBOfwDLLpeauBrho49wp2OHttuaaPC0uAJ6nrpeWmIsQ>
-    <xmx:eZIGY7ZZICd4H97seje80nyj8C4Cfw0QEE8va33gT94V4qKz6VtFmg>
-Feedback-ID: iac594737:Fastmail
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Xen developer discussion <xen-devel@lists.xenproject.org>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH] Make XEN_FW_EFI_MEM_INFO easier to use
-Date: Wed, 24 Aug 2022 17:04:52 -0400
-Message-Id: <20220824210452.3089-1-demi@invisiblethingslab.com>
-X-Mailer: git-send-email 2.37.2
+X-Inumbo-ID: a547744f-23f0-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1661375197;
+	bh=jbAXo48ccPs9T0sKvcpPPfTDFKLUxIWCa7gTYyvthR8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=nFP2PGj/Zkk25Vp3qUI8heI093dgaVF+qk8DHsVm90/sWcJukdMAHpnmWow/WWCUL
+	 +7pHwDmza0O2620lJObODGjmwtlb2gHdPWDXQp2bGz4vQ/lyvazsfca6uF3pUlBRlP
+	 C/sLSYyZIyiZkRGIJgCUFXVo8GtVYiTnzzsgHWTfv5aLzYM9ESz39z5tIN0uZ3xt/7
+	 a60ivjr6QOqll9fK1vhu+71eXJDOgJ8winWPlhO6+9/a67jf+6dy6ZGznKALo9i3W8
+	 fAO3S6OBokee6Cdn0+ALdW6uq8eZsQTk8szSNlamscXRwQBbPKdQIgbjISn03yt36g
+	 nzB+hRyImyWtA==
+Date: Wed, 24 Aug 2022 14:06:34 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Vipul Suneja <vsuneja63@gmail.com>
+cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
+    "julien@xen.org" <julien@xen.org>
+Subject: Re: Porting xen on rpi4
+In-Reply-To: <CALAP8f_=NztOC9FKYnrCyknOM4jf27cRqjJ9+7UqOEH6qCAD8Q@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2208241401110.15247@ubuntu-linux-20-04-desktop>
+References: <CALAP8f_L0ggPP=a6Xrywge2-ZTa3msqj0UKN8L66cC6ypNOAfw@mail.gmail.com> <2992A27C-B9F7-43BB-A7EA-CC5A3C8B5B22@arm.com> <CALAP8f_=NztOC9FKYnrCyknOM4jf27cRqjJ9+7UqOEH6qCAD8Q@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-994484074-1661374995=:15247"
+Content-ID: <alpine.DEB.2.22.394.2208241403220.15247@ubuntu-linux-20-04-desktop>
 
-The XEN_FW_EFI_MEM_INFO platform op has very surprising behavior: it
-only sets info->mem.size if the initial value was *larger* than the size
-of the memory region.  This is not particularly useful and cost me most
-of a day of debugging.  It also has some integer overflow problems,
-though as the data comes from dom0 or the firmware (both of which are
-trusted) these are not security issues.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Fix both of these problems by unconditionally setting the memory region
-size and by computing it in a way that is immune to integer overflow.
-The new code is slightly longer, but it is much easier to understand and
-use.
----
- xen/common/efi/runtime.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+--8323329-994484074-1661374995=:15247
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2208241403221.15247@ubuntu-linux-20-04-desktop>
 
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index a8fc2b99ae098d74af1978bdf58212eb99cce70f..a086850c9b0bbb6e4dd3ccca647c09d346f87c55 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -269,19 +269,21 @@
-     case XEN_FW_EFI_MEM_INFO:
-         for ( i = 0; i < efi_memmap_size; i += efi_mdesc_size )
-         {
-+            uint64_t len;
-             EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
--            u64 len = desc->NumberOfPages << EFI_PAGE_SHIFT;
-+
-+            if ( desc->NumberOfPages > (UINT64_MAX >> EFI_PAGE_SHIFT) )
-+                len = UINT64_MAX;
-+            else
-+                len = desc->NumberOfPages << EFI_PAGE_SHIFT;
+On Wed, 24 Aug 2022, Vipul Suneja wrote:
+> Hi Bertrand,
+> Thanks for your response!
+> 
+> I builded the guest image on yocto kirkstone source which has FSTYPE ext3. Guest image generated is
+> xen-guest-image-minimal-raspberrypi4-64.ext3.
+> Below is the content of guest.cfg file
+> 
+>    kernel = "/home/root/Image" 
+>    cmdline = "console=hvc0 earlyprintk=xen sync_console root=/dev/xvda" 
+>    memory = "256" 
+>    name = "guest1" 
+>    vcpus = 1 
+>    serial="pty" 
+>    disk = [ 'phy:/dev/loop0,xvda,w' ] 
+>    vif=[ 'mac=00:11:22:66:88:22,bridge=xenbr0,type=netfront', ]
+> 
+> I am trying to mount xen-guest-image-minimal-raspberrypi4-64.ext3 to a virtual device & then will run the guest VM by command "xl create -c
+> guest.cfg". But facing issue while trying to mount. 
+
+You don't actually need to mount
+xen-guest-image-minimal-raspberrypi4-64.ext3 anywhere to use it to run
+your guest VM with "xl create". 
+
+It is enough to do this instead, as Bertrand suggested:
+
+disk=["file:/path/to/file/xen-guest-image-minimal-raspberrypi4-64.ext3,xvda,w"]
+
+No need to call losetup or mount. Just xl create -c.
+
+More answers below.
+
+
+> Regards,
+> Vipul Kumar
+> 
+> On Wed, Aug 24, 2022 at 8:06 PM Bertrand Marquis <Bertrand.Marquis@arm.com> wrote:
+>       Hi Vipul,
+> 
+>       > On 24 Aug 2022, at 15:16, Vipul Suneja <vsuneja63@gmail.com> wrote:
+>       >
+>       > Hi,
+>       >
+>       > I am porting xen hypervisor on rpi4 with yocto kirkstone sources. Followed the basic steps to build xen-image-minimal &
+>       xen-guest-image-minimal. I could flash sd card with xen minimal image & could see dom0 up. I copied "Image",
+>       "xen-guest-image-minimal" .ext3 file & guest.cfg to "/home/root". After that created a bridge with below step:
+>       >
+>       > killall -SIGUSR2 udhcpc
+>       > brctl addbr xenbr0
+>       > brctl addif xenbr0 eth0
+>       > killall udhcpc
+>       > udhcpc -R -b -p /var/run/udhcpc.xenbr0.pid -i xenbr0
+>       >
+>       > Could see the xenbr0 interface up.
+>       > After that while mounting the guest file system it shows no such file or directory but the file is already there.
+>       >
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~# ls -l
+>       > [23:40:15] <Guest9046> -rw-r--r--    1 root     root      24652288 Mar  9 12:36 Image
+>       > [23:40:15] <Guest9046> -rw-r--r--    1 root     root           247 Mar  9 12:37 guest1.cfg
+>       > [23:40:15] <Guest9046> -rw-r--r--    1 root     root     868220928 Mar  9 12:39 xen-guest-image-minimal-raspberrypi4-64.ext3
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~# chmod 0777 xen-guest-image-minimal-raspberrypi4-64.ext3
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~# ls -l
+>       > [23:40:15] <Guest9046> -rw-r--r--    1 root     root      24652288 Mar  9 12:36 Image
+>       > [23:40:15] <Guest9046> -rw-r--r--    1 root     root           247 Mar  9 12:37 guest1.cfg
+>       > [23:40:15] <Guest9046> -rwxrwxrwx    1 root     root     868220928 Mar  9 12:39 xen-guest-image-minimal-raspberrypi4-64.ext3
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~# losetup /dev/loop0 xen-guest-image-minimal-raspberrypi4-64.ext3
+>       > [23:40:15] <Guest9046> losetup: xen-guest-image-minimal-raspberrypi4-64.ext3: No such file or directory
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~# losetup /dev/loop0 /home/root/xen-guest-image-minimal-raspberrypi4-64.ext3
+>       > [23:40:15] <Guest9046> losetup: /home/root/xen-guest-image-minimal-raspberrypi4-64.ext3: No such file or directory
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~#
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~#
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~#
+>       > [23:40:15] <Guest9046> root@raspberrypi4-64:~# losetup /dev/loop0 /home/root/xen-guest-image-minimal-raspberrypi4-64.ext3
+>       > [23:40:15] <Guest9046> losetup: /home/root/xen-guest-image-minimal-raspberrypi4-64.ext3: No such file or directory
+
+It looks like either
+/home/root/xen-guest-image-minimal-raspberrypi4-64.ext3 doesn't exist or
+/dev/loop0 doesn't exist
+
  
-             if ( info->mem.addr >= desc->PhysicalStart &&
--                 info->mem.addr < desc->PhysicalStart + len )
-+                 info->mem.addr - desc->PhysicalStart < len )
-             {
-                 info->mem.type = desc->Type;
-                 info->mem.attr = desc->Attribute;
--                if ( info->mem.addr + info->mem.size < info->mem.addr ||
--                     info->mem.addr + info->mem.size >
--                     desc->PhysicalStart + len )
--                    info->mem.size = desc->PhysicalStart + len -
--                                     info->mem.addr;
-+                info->mem.size = len - (info->mem.addr - desc->PhysicalStart);
-+
-                 return 0;
-             }
-         }
--- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+>       Why do you want to mount the file system ?
+> 
+>       Anyway this is not related to Xen, I guess you could start without xen and still not manage to mount the file like that (linux
+>       configuration issue ?)
+> 
+>       What is the content of you guest.cfg
+>       How do you want to pass the guest root file system ?
+> 
+>       Yocto should actually generate an img file and you could use it by having something like this in your guest.cfg:
+>       disk=["file:/home/root/guest1.img,xvda,w”]
+> 
+>       Cheers
+>       Bertrand
+> 
+>       >
+>       > Any input on this issue will be really helpful, expecting your response.
+>       >
+>       > Thanks & Regards,
+>       > Vipul Kumar
+> 
+> 
+> 
+--8323329-994484074-1661374995=:15247--
 
