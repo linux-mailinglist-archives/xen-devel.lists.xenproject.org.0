@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7EB859FDBA
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 17:01:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.392820.631413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D19A259FE34
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 17:24:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.392826.631423 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQrsq-0000DF-Gl; Wed, 24 Aug 2022 15:01:32 +0000
+	id 1oQsEI-0002ej-A7; Wed, 24 Aug 2022 15:23:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 392820.631413; Wed, 24 Aug 2022 15:01:32 +0000
+Received: by outflank-mailman (output) from mailman id 392826.631423; Wed, 24 Aug 2022 15:23:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQrsq-0000AZ-Cb; Wed, 24 Aug 2022 15:01:32 +0000
-Received: by outflank-mailman (input) for mailman id 392820;
- Wed, 24 Aug 2022 15:01:30 +0000
+	id 1oQsEI-0002cM-5M; Wed, 24 Aug 2022 15:23:42 +0000
+Received: by outflank-mailman (input) for mailman id 392826;
+ Wed, 24 Aug 2022 15:23:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oQrso-0000A0-4w
- for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 15:01:30 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oQsEH-0002cC-G7; Wed, 24 Aug 2022 15:23:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oQrsn-0006rw-Ui; Wed, 24 Aug 2022 15:01:29 +0000
-Received: from [54.239.6.185] (helo=[192.168.29.89])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oQrsn-0000FB-OA; Wed, 24 Aug 2022 15:01:29 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oQsEH-0007EF-Dd; Wed, 24 Aug 2022 15:23:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oQsEG-0003w1-VM; Wed, 24 Aug 2022 15:23:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oQsEG-0004Jk-Ux; Wed, 24 Aug 2022 15:23:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,44 +42,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=85vYf+BEEqubasSHdQXzaUUUYVxS/rgG4MhODPLo7JU=; b=upafYz2dUuXf6DANDA3tgOaaCv
-	YyIRelYHrcNSt6DzXqvaI1oUC9dg7QIz+qeAe/nN2JeTx4aKoUja2tX14MGQbEz9Wcllu3mkqYxCr
-	WvyVPnU0D0dwEM1Tu0Tfj6S0mcIQhfnowjJUkMlmHJP1oqL5OERrPhe1YXMRpbWxc0fQ=;
-Message-ID: <0a057b2d-a9e9-af47-a48d-511b31208ccc@xen.org>
-Date: Wed, 24 Aug 2022 16:01:27 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FgB+IZLSA1t2ROF/FLP2JKvI0S2cUD4aTobq+4vOw4A=; b=ZhZa6vvLZbtuaqhf3mGm3yKuNx
+	0MQ+hOdCpT5NSDiztu05wLYkTP4FSXplW1O2CKYMXB5yciQq6Py1sLtXXO0i4zlIcLhGgPD6w5dSH
+	ImqKkNZTQmVVBNDQuezdpExNAZaqnEgFKIKVtd784+1Ee4O7htdKa1Ra4BFENc2b4Ukw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172753-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.1.2
-Subject: Re: [PATCH 04/10] xen/arm: smmuv3: Move definitions to a header
-Content-Language: en-US
-To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1661331102.git.rahul.singh@arm.com>
- <e8ad3eed5474f2f09ef4fcca1ce0d1a669baca2b.1661331102.git.rahul.singh@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <e8ad3eed5474f2f09ef4fcca1ce0d1a669baca2b.1661331102.git.rahul.singh@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 172753: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=4d83ee04f44a8dc9e6425a719b39c9d378730ca1
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 24 Aug 2022 15:23:40 +0000
 
-Hi,
+flight 172753 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172753/
 
-On 24/08/2022 14:53, Rahul Singh wrote:
-> Allow sharing structure definitions with the upcoming virtual
-> smmuv3 support for Arm SMMUv3, by moving them to a separate header.
+Regressions :-(
 
-I haven't seen this feature posted yet. So I can't tell how this will 
-allow sharing. I guess you will introduce a new file?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-In any case, I would suggest to either delay this patch until you send 
-your work or find a different reason to split it (I can't think of one yet).
+version targeted for testing:
+ ovmf                 4d83ee04f44a8dc9e6425a719b39c9d378730ca1
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-Cheers,
+Last test of basis   172136  2022-08-04 06:43:42 Z   20 days
+Failing since        172151  2022-08-05 02:40:28 Z   19 days  160 attempts
+Testing same since   172746  2022-08-24 05:42:04 Z    0 days    3 attempts
 
--- 
-Julien Grall
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 926 lines long.)
 
