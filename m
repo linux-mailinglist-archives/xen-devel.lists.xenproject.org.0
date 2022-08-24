@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C60A59FA41
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 14:47:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.392553.630986 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C29FF59FAB2
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 15:00:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.392570.631008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQpme-0006vz-QH; Wed, 24 Aug 2022 12:47:00 +0000
+	id 1oQpyp-0000fX-Ed; Wed, 24 Aug 2022 12:59:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 392553.630986; Wed, 24 Aug 2022 12:47:00 +0000
+Received: by outflank-mailman (output) from mailman id 392570.631008; Wed, 24 Aug 2022 12:59:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQpme-0006td-Mz; Wed, 24 Aug 2022 12:47:00 +0000
-Received: by outflank-mailman (input) for mailman id 392553;
- Wed, 24 Aug 2022 12:46:59 +0000
+	id 1oQpyp-0000dX-Ae; Wed, 24 Aug 2022 12:59:35 +0000
+Received: by outflank-mailman (input) for mailman id 392570;
+ Wed, 24 Aug 2022 12:59:33 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oQpmd-0006tP-BD; Wed, 24 Aug 2022 12:46:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oQpyn-0000dR-RF
+ for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 12:59:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oQpmd-0004Ji-6j; Wed, 24 Aug 2022 12:46:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oQpmc-0003ph-OH; Wed, 24 Aug 2022 12:46:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oQpmc-0005DN-Nt; Wed, 24 Aug 2022 12:46:58 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oQpyn-0004VW-GN; Wed, 24 Aug 2022 12:59:33 +0000
+Received: from [54.239.6.185] (helo=[192.168.29.89])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oQpyn-0002jv-8Y; Wed, 24 Aug 2022 12:59:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,103 +39,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=oveTJtvpXpPa2o1eO7nEbKTsJbQITjP3LnKN55LBc0I=; b=kTGPHi1YCwZXmXwgjTGXKY2ar8
-	te1MsJjTEeHQ4z1DcCF5VmqRr0tSegoXJXXF4ENQb/JENArLBWQTXVgbUsy/boi6g/a5HHchmlUwC
-	FipLqUOsi/QeseFBAV+R9RnPafVhgf7iOs0QrnHHgJN7mWEV/3/w/TnFlpd8lWjOOPpo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172750-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=jVRbZi4gCLpevPSV5bHidy9TBmcS6mn/Sxzue6M7BAE=; b=lZvL8Jw3Wk/0yfEu5E19/DJIuI
+	X9Bgl1hwvIDPMvZxSvbSzYZFZCc2qti1NjIl7zrlRrRDMyHWsBNhXuy2Q3AuOOZpqtGK2KoGcQkUf
+	4nCUroYEof9dUJS19Yeq4hW4/OCuSmLoEBjtTm4D8Bh+YwHA/6CvrZyxLwACXGJy0UWM=;
+Message-ID: <c9330b72-193c-5478-9bad-9593ac7398a9@xen.org>
+Date: Wed, 24 Aug 2022 13:59:31 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 172750: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=4d83ee04f44a8dc9e6425a719b39c9d378730ca1
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 24 Aug 2022 12:46:58 +0000
-
-flight 172750 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172750/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
-
-version targeted for testing:
- ovmf                 4d83ee04f44a8dc9e6425a719b39c9d378730ca1
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
-
-Last test of basis   172136  2022-08-04 06:43:42 Z   20 days
-Failing since        172151  2022-08-05 02:40:28 Z   19 days  159 attempts
-Testing same since   172746  2022-08-24 05:42:04 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.1.2
+Subject: Re: [PATCH v2 7/7] xen/arm: introduce new xen,enhanced property value
+Content-Language: en-US
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1660902588.git.rahul.singh@arm.com>
+ <2fb69ff7cf9a36dd1294da4f9f4b968ff7076d42.1660902588.git.rahul.singh@arm.com>
+ <d5ed6097-8a08-eb4d-35a0-ab28f82b881f@xen.org>
+ <1E823DBF-8576-4E26-B12D-B69CE581F36F@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <1E823DBF-8576-4E26-B12D-B69CE581F36F@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 24/08/2022 13:15, Rahul Singh wrote:
+> Hi Julien,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hi Rahul,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> Please let me know your view on this.
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index bfe7bc6b36..a1e23eee59 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -3562,12 +3562,7 @@ static int __init construct_domU(struct domain *d,
+>     if ( rc == -EILSEQ ||
+>       rc == -ENODATA ||
+>       (rc == 0 && !strcmp(dom0less_enhanced, “enabled”)) )
+> -  {
+> -    if ( hardware_domain )
+>         kinfo.dom0less_enhanced = true;
+> -    else
+> -      panic(“Tried to use xen,enhanced without dom0\n”);
+> -  }
 
+You can't use "xen,enhanced" without dom0. In fact, you will end up to 
+dereference NULL in alloc_xenstore_evtchn(). That's because 
+"xen,enhanced" means the domain will be able to use Xenstored.
 
-Not pushing.
+Now if you want to support your feature without a dom0. Then I think we 
+want to introduce an option which would be the same as "xen,enhanced" 
+but doesn't expose Xenstored.
 
-(No revision log; it would be 926 lines long.)
+Cheers,
+
+-- 
+Julien Grall
 
