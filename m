@@ -2,44 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD3FF59F62A
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 11:27:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.392312.630576 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 355A259F62E
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 11:28:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.392318.630588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQmfQ-0001Ox-JX; Wed, 24 Aug 2022 09:27:20 +0000
+	id 1oQmgG-0001xk-TW; Wed, 24 Aug 2022 09:28:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 392312.630576; Wed, 24 Aug 2022 09:27:20 +0000
+Received: by outflank-mailman (output) from mailman id 392318.630588; Wed, 24 Aug 2022 09:28:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQmfQ-0001M0-Ge; Wed, 24 Aug 2022 09:27:20 +0000
-Received: by outflank-mailman (input) for mailman id 392312;
- Wed, 24 Aug 2022 09:27:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jRce=Y4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oQmfP-0001Lu-81
- for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 09:27:19 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f1d978bc-238e-11ed-9250-1f966e50362f;
- Wed, 24 Aug 2022 11:27:17 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2C80A2025A;
- Wed, 24 Aug 2022 09:27:17 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AF93513780;
- Wed, 24 Aug 2022 09:27:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2l1cKfTuBWOMAQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 24 Aug 2022 09:27:16 +0000
+	id 1oQmgG-0001ux-Qh; Wed, 24 Aug 2022 09:28:12 +0000
+Received: by outflank-mailman (input) for mailman id 392318;
+ Wed, 24 Aug 2022 09:28:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jsFi=Y4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1oQmgE-0001nJ-UU
+ for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 09:28:11 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1078390e-238f-11ed-bd2e-47488cf2e6aa;
+ Wed, 24 Aug 2022 11:28:09 +0200 (CEST)
+Received: from DM6PR07CA0130.namprd07.prod.outlook.com (2603:10b6:5:330::22)
+ by CH2PR12MB4119.namprd12.prod.outlook.com (2603:10b6:610:aa::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5546.21; Wed, 24 Aug
+ 2022 09:28:06 +0000
+Received: from DM6NAM11FT100.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:330:cafe::1a) by DM6PR07CA0130.outlook.office365.com
+ (2603:10b6:5:330::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
+ Transport; Wed, 24 Aug 2022 09:28:06 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT100.mail.protection.outlook.com (10.13.172.247) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5566.15 via Frontend Transport; Wed, 24 Aug 2022 09:28:05 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 24 Aug
+ 2022 04:28:05 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 24 Aug
+ 2022 04:28:05 -0500
+Received: from [10.71.192.107] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
+ Transport; Wed, 24 Aug 2022 04:28:03 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,186 +62,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1d978bc-238e-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1661333237; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NqorV2o3cAm6KW/WZYcuOig7YwnnMQJG6cFEbpXaXMw=;
-	b=t9wKP7qowZUJIpUUCuhQ5gOB5EGh3hR3rqrWzATX6gpEP7+06Z3+9gk9Oj0brRXnk48y6p
-	Zq88iUM50YQ+T2C62smh8Z5g5rFj0PTqsO/IYTsBW3s1ux7JJfD/NPoR/gRi8DmBU70H9X
-	bVKtluqeCnDbIYf+lr7PWGXHXWglKlg=
-Message-ID: <677b1763-7cd2-e867-9e28-db0779bb6785@suse.com>
-Date: Wed, 24 Aug 2022 11:27:16 +0200
+X-Inumbo-ID: 1078390e-238f-11ed-bd2e-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hmqpe5JdivjqHPwbA85Aen88JVRjxXs9QzFsa8lzSEn4cDFAqrGKvB7BrGF5cVdYQvD5BoiD4aG7AH802d+31Gr2FUDb8427B3ovOFC9ONBBPGeTyzwO5yAG8uvx2S2SqAXoMugfUfXudPU/LVhTHjUE1F4TgPgMSKsjxVZLBNSbOnnnJ1YLHqlzTHWYOHKVjqFQBwPYa+p2kyqDVmn0Jup0lup4EAYlBjrei62cJ5p1YWDW96bZLJBftWCOXuvR0BllqHyeTdsp+JtinmKcO/ykuo1oe4fEKQ+kmeynX70F4qRieoPICBJk55vn9xTUDIvW15A65ZdxBgriMhaZpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IwrNcJmYDxM9OXJPJDeU2D+KtfWhHkER3BZrVbvjv2A=;
+ b=RgBFIu6OQ/70cBIdWqzubvbzRlXbvV7Mhvx9S/xWGyFe+AflD7mH3eFaHpo3CsLVWiHiAlkEE5Nrt+uuuwtn+iySB3PZxqdrH+avA+xwr4vp59xyFRCGSF59BUfUyHo5XEv+4l2+arIe0oiY5ax4QMlnYmdNYcZVpclhvixlf9DGkT0zkRWQXoT4Wc2FRlWkg2pM/T15PuWTAUzwg2Qr1V9WVS88FqQ5HoWZoniylxqCTSEwaOKu4pCx6Z+4wHRoQRXn8p4sZ0jrvZ9WsGLI5Tiio+gUbMf7D92PBYJMaNyDO6eoxrMsOj6Oi3D7w5msluye3xb9A+uoFvg1CUojtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linaro.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IwrNcJmYDxM9OXJPJDeU2D+KtfWhHkER3BZrVbvjv2A=;
+ b=AcZV7CLUbTtMl1Bu5Mw8HYzEHrAX/AScwc9mZIqMmlARtz0PEKFCyJ/pDkfcGsVvAi+t2E0SxGZ78YTX+YTQmb2TsmPD6j4TfCBb0V+p5gKy2kRgs69gKUyEhblGy3mFkSz+9CpVARuNh3PYhWJCWoJcOCQEcA2x5CrMZOt92wU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <24ba49bb-66b5-a1e4-cef4-e30b438b3c04@amd.com>
+Date: Wed, 24 Aug 2022 11:28:02 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v10 2/9] xen: do not free reserved memory into heap
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.1.2
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Penny Zheng <Penny.Zheng@arm.com>
-Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-References: <20220816023658.3551936-1-Penny.Zheng@arm.com>
- <20220816023658.3551936-3-Penny.Zheng@arm.com>
- <6c2d0111-3ac3-83aa-145f-432f5fae0167@suse.com>
- <8430ec87-bbd2-d074-b313-84d5f31def1e@xen.org>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <8430ec87-bbd2-d074-b313-84d5f31def1e@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------dWsQyMMwOfYb90F8g0l7pbKM"
+To: Jens Wiklander <jens.wiklander@linaro.org>,
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	<Bertrand.Marquis@arm.com>, Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH v5 3/9] xen/arm: add a primitive FF-A mediator
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 06021927-f0e5-48ac-afef-08da85b2f365
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4119:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	pvyjcaR2tXTh3HkrAQYkxsF+mR6zrYv0YKxoFOf2n1HxB8viKSMJ7RPIgMb7hRZL1Ln89/3ToAhRHU7mcrJ+2WxxqbDw6fclnZRXItxZb0doLfAat4v3A9HGCxeHgaG+KN0mLC9LsJkS+Hayx9HZDH6mYlMCfhE7d7rk93eXvkN0uLKj1Rvq+L1YDteH38EE6zWybm1hRFe2RIbkK5t75l6h/OFNpPVxVJ8OvkcUcDeISdeZupAvkqQe+gcRCSaNbwkmSwYogDD2PWeXzvSYQReCBIAyM3Pb7wSj9xpxR8A/mTXu6Qikl20shQ5KJwFGrRI72Msi915r7LnN5tn4N/om4Rjs0ULiCpCbtnd/80Nz9mfaQG1Jq+NyGpnf2LYUyMms5oxG4ZwRtKj9kuqmmCYEb50HBTLuUyGcwuTtb3hUClQc+4yUbgD/Cn/rq2jdnGt20fykkc21w/PquLKX14uvdtPWOFYlzWg4gOoIxsz0NLbr6J/RJvld2vxR+BNue+jr7f2dBVY0vaL8O5TRyqRg6+Tul+r2TA/lKE2Qbch4nIFiNmDM2zBwAxVJg19pPs+O6by19mBso89C4LZGsVGIIbfdRrI8smsIbiGNRal6QirwLTeA4tLvM4GIZuQ92H1Tjq76qAFhV1qZ9WAkhYV7NMZaMdXf9lZ4kt69kQooceIFl0MXaNqg5qlBAuEUTVqX4rlpWnPfhwHb1WUIkUHLh2AyyuO9GOprC1MxDPZ00i8tDf7y2idPJojwkPL9zwGwoOqJNoqCCR7wbOIE/YJlW4/dYZKZsDs6zD5cYX1avy2KpZd9HhRvkKU5GSahIGtRVnJjFfgE7vvasN0XArpaJ+MR0mSPtgZjquF4qXY=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230016)(4636009)(376002)(396003)(39860400002)(346002)(136003)(36840700001)(40470700004)(46966006)(5660300002)(2906002)(53546011)(478600001)(82310400005)(86362001)(336012)(26005)(36860700001)(966005)(31696002)(41300700001)(356005)(8936002)(426003)(186003)(44832011)(47076005)(83380400001)(82740400003)(2616005)(316002)(16576012)(40460700003)(8676002)(4326008)(36756003)(70206006)(70586007)(54906003)(110136005)(31686004)(81166007)(40480700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2022 09:28:05.9453
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06021927-f0e5-48ac-afef-08da85b2f365
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT100.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4119
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------dWsQyMMwOfYb90F8g0l7pbKM
-Content-Type: multipart/mixed; boundary="------------cvaJCzThN0Q84027mmYizvrS";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Penny Zheng <Penny.Zheng@arm.com>
-Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-Message-ID: <677b1763-7cd2-e867-9e28-db0779bb6785@suse.com>
-Subject: Re: [PATCH v10 2/9] xen: do not free reserved memory into heap
-References: <20220816023658.3551936-1-Penny.Zheng@arm.com>
- <20220816023658.3551936-3-Penny.Zheng@arm.com>
- <6c2d0111-3ac3-83aa-145f-432f5fae0167@suse.com>
- <8430ec87-bbd2-d074-b313-84d5f31def1e@xen.org>
-In-Reply-To: <8430ec87-bbd2-d074-b313-84d5f31def1e@xen.org>
+Hi Jens,
 
---------------cvaJCzThN0Q84027mmYizvrS
-Content-Type: multipart/mixed; boundary="------------ENevu0fL4lNIIl3MdanTUFVl"
+On 18/08/2022 12:55, Jens Wiklander wrote:
+> Adds a FF-A version 1.1 [1] mediator to communicate with a Secure
+> Partition in secure world.
+> 
+> This commit brings in only the parts needed to negotiate FF-A version
+> number with guest and SPMC.
+> 
+> A guest configuration variable "ffa_enabled" is used to indicate if a guest
+> is trusted to use FF-A.
+> 
+> This is loosely based on the TEE mediator framework and the OP-TEE
+> mediator.
+> 
+> [1] https://developer.arm.com/documentation/den0077/latest
+> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> ---
+>  SUPPORT.md                        |   7 +
+>  docs/man/xl.cfg.5.pod.in          |  15 ++
+>  tools/include/libxl.h             |   6 +
+>  tools/libs/light/libxl_arm.c      |   3 +
+>  tools/libs/light/libxl_types.idl  |   1 +
+>  tools/xl/xl_parse.c               |   3 +
+>  xen/arch/arm/Kconfig              |  11 +
+>  xen/arch/arm/Makefile             |   1 +
+>  xen/arch/arm/domain.c             |  10 +
+>  xen/arch/arm/domain_build.c       |   1 +
+>  xen/arch/arm/ffa.c                | 354 ++++++++++++++++++++++++++++++
+>  xen/arch/arm/include/asm/domain.h |   4 +
+>  xen/arch/arm/include/asm/ffa.h    |  71 ++++++
+>  xen/arch/arm/vsmc.c               |  17 +-
+>  xen/include/public/arch-arm.h     |   2 +
+>  15 files changed, 503 insertions(+), 3 deletions(-)
+>  create mode 100644 xen/arch/arm/ffa.c
+>  create mode 100644 xen/arch/arm/include/asm/ffa.h
+> 
+> diff --git a/SUPPORT.md b/SUPPORT.md
+> index 70e98964cbc0..215bb3c9043b 100644
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -785,6 +785,13 @@ that covers the DMA of the device to be passed through.
+>  
+>  No support for QEMU backends in a 16K or 64K domain.
+>  
+> +### ARM: Firmware Framework for Arm A-profile (FF-A) Mediator
+> +
+> +    Status, Arm64: Tech Preview
+> +
+> +There are still some code paths where a vCPU may hog a pCPU longer than
+> +necessary. The FF-A mediator is not yet implemented for Arm32.
+> +
+>  ### ARM: Guest Device Tree support
+>  
+>      Status: Supported
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index b98d1613987e..234c036aecb1 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -1616,6 +1616,21 @@ This feature is a B<technology preview>.
+>  
+>  =back
+>  
+> +=item B<ffa_enabled=BOOLEAN>
+Looking at other config options, we usually have <feature>=BOOLEAN (without _enabled), so
+I would just stick to "ffa". This would require changes in other places accordingly.
 
---------------ENevu0fL4lNIIl3MdanTUFVl
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> +
+> +B<Arm only.> Allow a guest to communicate via FF-A with Secure Partitions
+> +(SP), default false.
+> +
+> +Currently is only a small subset of the FF-A specification supported. Just
+Should be:
+"Currently only a small subset of the FF-A specification is supported"
 
-T24gMjQuMDguMjIgMTE6MDMsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGksDQo+IA0KPiBP
-biAxNi8wOC8yMDIyIDA3OjQwLCBKYW4gQmV1bGljaCB3cm90ZToNCj4+IE9uIDE2LjA4LjIw
-MjIgMDQ6MzYsIFBlbm55IFpoZW5nIHdyb3RlOg0KPj4+ICt2b2lkIGZyZWVfZG9tc3RhdGlj
-X3BhZ2Uoc3RydWN0IHBhZ2VfaW5mbyAqcGFnZSkNCj4+PiArew0KPj4+ICvCoMKgwqAgc3Ry
-dWN0IGRvbWFpbiAqZCA9IHBhZ2VfZ2V0X293bmVyKHBhZ2UpOw0KPj4+ICvCoMKgwqAgYm9v
-bCBkcm9wX2RvbV9yZWY7DQo+Pj4gKw0KPj4+ICvCoMKgwqAgaWYgKCB1bmxpa2VseSghZCkg
-KQ0KPj4+ICvCoMKgwqAgew0KPj4+ICvCoMKgwqDCoMKgwqDCoCBBU1NFUlRfVU5SRUFDSEFC
-TEUoKTsNCj4+PiArwqDCoMKgwqDCoMKgwqAgcHJpbnRrKCJUaGUgYWJvdXQtdG8tZnJlZSBz
-dGF0aWMgcGFnZSAlIlBSSV9tZm4iIG11c3QgYmUgb3duZWQgYnkgYSANCj4+PiBkb21haW5c
-biIsDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbWZuX3gocGFnZV90b19t
-Zm4ocGFnZSkpKTsNCj4+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuOw0KPj4+ICvCoMKgwqAg
-fQ0KPj4NCj4+IEZvciB0aGUgbWVzc2FnZSB0byBiZSB1c2VmdWwgYXMgYSBoaW50IGlmIHRo
-ZSBhc3NlcnRpb24gdHJpZ2dlcnMsIGl0DQo+PiB3YW50cyBwcmludGluZyBhaGVhZCBvZiB0
-aGUgYXNzZXJ0aW9uLiBJIGFsc28gdGhpbmsgaXQgd2FudHMgdG8gYmUgYQ0KPj4gWEVOTE9H
-X0dfKiBraW5kIG9mIGxvZyBsZXZlbCwgc28gaXQgd291bGQgYmUgcmF0ZSBsaW1pdGVkIGJ5
-IGRlZmF1bHQNCj4+IGluIHJlbGVhc2UgYnVpbGRzLiBKdXN0IHRvIGJlIG9uIHRoZSBzYWZl
-IHNpZGUuDQo+IA0KPiArMQ0KPiANCj4+IChJJ20gbm90IGluIGZhdm9yIG9mDQo+PiB0aGUg
-bG9nIG1lc3NhZ2UgaW4gdGhlIGZpcnN0IHBsYWNlLCBidXQgSSBkbyBrbm93IHRoYXQgSnVs
-aWVuIGhhZA0KPj4gYXNrZWQgZm9yIG9uZS4pDQo+IFRCSCwgSSB0aGluayBhbGwgQVNTRVJU
-X1VOUkVBQ0hBQkxFKCkgcGF0aHMgc2hvdWxkIGJlIGFjY29tcGFuaWVkIHdpdGggYSANCj4g
-cHJpbnRrKCkuIFRoaXMgd291bGQgYWxzbyBhbGxvdyB1cyB0byBjYXRjaCBpc3N1ZSBpbiBw
-cm9kdWN0aW9uIHJhdGhlciB0aGFuIGluIA0KPiBvbmx5IGluIGRlYnVnLg0KDQpXaGF0IGFi
-b3V0IHNvbWV0aGluZyBsaWtlIHRoZSBmb2xsb3dpbmcgdGhlbj8NCg0KLS0tIGEveGVuL2lu
-Y2x1ZGUveGVuL2xpYi5oDQorKysgYi94ZW4vaW5jbHVkZS94ZW4vbGliLmgNCkBAIC00MCw2
-ICs0MCwxNiBAQA0KICAgICAgdW5saWtlbHkocmV0X3dhcm5fb25fKTsgICAgICAgICAgICAg
-XA0KICB9KQ0KDQorI2RlZmluZSBXQVJOX09OQ0UoKSBkbyB7ICAgICAgICAgICAgICAgIFwN
-CisgICAgc3RhdGljIGJvb2wgd2FybmVkID0gZmFsc2U7ICAgICAgICAgXA0KKyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcDQorICAgIGlmICggIXdhcm5lZCAp
-ICAgICAgICAgICAgICAgICAgICAgIFwNCisgICAgeyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgXA0KKyAgICAgICAgd2FybmVkID0gdHJ1ZTsgICAgICAgICAgICAgICAg
-ICBcDQorICAgICAgICBXQVJOKCk7ICAgICAgICAgICAgICAgICAgICAgICAgIFwNCisgICAg
-fSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KK30gd2hpbGUgKDApDQor
-DQogIC8qIEFsbCBjbGFuZyB2ZXJzaW9ucyBzdXBwb3J0ZWQgYnkgWGVuIGhhdmUgX1N0YXRp
-Y19hc3NlcnQuICovDQogICNpZiBkZWZpbmVkKF9fY2xhbmdfXykgfHwgXA0KICAgICAgKF9f
-R05VQ19fID4gNCB8fCAoX19HTlVDX18gPT0gNCAmJiBfX0dOVUNfTUlOT1JfXyA+PSA2KSkN
-CkBAIC02Myw3ICs3Myw3IEBADQogICNkZWZpbmUgQVNTRVJUX1VOUkVBQ0hBQkxFKCkgYXNz
-ZXJ0X2ZhaWxlZCgidW5yZWFjaGFibGUiKQ0KICAjZWxzZQ0KICAjZGVmaW5lIEFTU0VSVChw
-KSBkbyB7IGlmICggMCAmJiAocCkgKSB7fSB9IHdoaWxlICgwKQ0KLSNkZWZpbmUgQVNTRVJU
-X1VOUkVBQ0hBQkxFKCkgZG8geyB9IHdoaWxlICgwKQ0KKyNkZWZpbmUgQVNTRVJUX1VOUkVB
-Q0hBQkxFKCkgV0FSTl9PTkNFKCkNCiAgI2VuZGlmDQoNCiAgI2RlZmluZSBBQlMoX3gpICh7
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KDQoNCkp1ZXJnZW4NCg==
---------------ENevu0fL4lNIIl3MdanTUFVl
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> +enough to communicate with OP-TEE. In general all the basic things and
+"basic things" sounds a bit ambiguous.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> index 2a42da2f7d78..bf4544bef399 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -646,6 +646,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+Applying this patch results in a failure here so you need to rebase it on top of latest status.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Also, FWICS (can be checked by the toolstack maintainers) you are missing the required
+changes in:
+ - tools/golang/xenlight/helpers.gen.go
+ - tools/golang/xenlight/types.gen.go
+ - tools/ocaml/libs/xc/xenctrl.ml
+ - tools/ocaml/libs/xc/xenctrl.mli
 
---------------ENevu0fL4lNIIl3MdanTUFVl--
-
---------------cvaJCzThN0Q84027mmYizvrS--
-
---------------dWsQyMMwOfYb90F8g0l7pbKM
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmMF7vQFAwAAAAAACgkQsN6d1ii/Ey8t
-+wf7BfS7/ntUMfo4rY0DaVElQsE8rZBxw0w2DubKqMg4ZFFicjhdBetJA3T5A52JBSvi7p4KQdXI
-3/sBrg/fZfCSQegAE1EHpLZ3fsD7l3J7hyj2QVURnhIAccns6TjQiiGx/ohH6/62M6RQP8PrVcfm
-lphnpWXvb/QQkY8iJg7iRDYqlsY/aUdFzuY6quzJtI3WJGUJm3z1iDmtPVsDebs3BLDMkap2iD1R
-JhorGNj/LvT8k3a9UknWmrz0Xyu+bMQ7ezBoC59wUT8B4NUdiUPrng5uze9Z9MxNa9DxY4DvgsZP
-rkJpY6KH+8qd4qyjc9ZVCf00fYw9eR4E8g2FNWnRfg==
-=nG6J
------END PGP SIGNATURE-----
-
---------------dWsQyMMwOfYb90F8g0l7pbKM--
+~Michal
 
