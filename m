@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E92C059FE5D
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 17:30:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.392841.631445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A22BB59FE72
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Aug 2022 17:37:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.392858.631460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQsKQ-0003zz-FJ; Wed, 24 Aug 2022 15:30:02 +0000
+	id 1oQsR7-0005TB-6h; Wed, 24 Aug 2022 15:36:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 392841.631445; Wed, 24 Aug 2022 15:30:02 +0000
+Received: by outflank-mailman (output) from mailman id 392858.631460; Wed, 24 Aug 2022 15:36:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oQsKQ-0003vo-At; Wed, 24 Aug 2022 15:30:02 +0000
-Received: by outflank-mailman (input) for mailman id 392841;
- Wed, 24 Aug 2022 15:30:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DC3Q=Y4=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1oQsKO-0003uF-Pa
- for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 15:30:00 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 9d7a1889-23c1-11ed-bd2e-47488cf2e6aa;
- Wed, 24 Aug 2022 17:29:59 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5A6B6106F;
- Wed, 24 Aug 2022 08:30:03 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4EE3E3F67D;
- Wed, 24 Aug 2022 08:29:58 -0700 (PDT)
+	id 1oQsR7-0005Qu-3w; Wed, 24 Aug 2022 15:36:57 +0000
+Received: by outflank-mailman (input) for mailman id 392858;
+ Wed, 24 Aug 2022 15:36:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1oQsR5-0005Qo-Ld
+ for xen-devel@lists.xenproject.org; Wed, 24 Aug 2022 15:36:55 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oQsR5-0007T2-9E; Wed, 24 Aug 2022 15:36:55 +0000
+Received: from [54.239.6.185] (helo=[192.168.29.89])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oQsR5-0001oN-2z; Wed, 24 Aug 2022 15:36:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,148 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d7a1889-23c1-11ed-bd2e-47488cf2e6aa
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v1] x86/public: move XEN_ACPI_ in a new header
-Date: Wed, 24 Aug 2022 16:29:45 +0100
-Message-Id: <b79164d207113af05417536438b786850875edb1.1661353272.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.25.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=FT86BBlkB/8YqApABrhf3exntKJZ8d6SowYFvEjWfRg=; b=Hn2Dmyr36XjXmuwliXUDK+kTyL
+	+CRwMf4bgD0+S5i+eMvyiODFhNKVSvRfdYyX4XFMQmlSkJzzqpEGDhHxjs5XTeKAEpPiwZjz4+ekv
+	RadGQCz8srQrhiQ2SjVBuplLmeiIseAPrcAKj+TSVo0a9cOFv3JXZzKpp5G5WX/M0wLA=;
+Message-ID: <685e53cc-1b83-8d66-7086-dad4135c0587@xen.org>
+Date: Wed, 24 Aug 2022 16:36:53 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.1.2
+Subject: Re: [PATCH v2 7/7] xen/arm: introduce new xen,enhanced property value
+Content-Language: en-US
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1660902588.git.rahul.singh@arm.com>
+ <2fb69ff7cf9a36dd1294da4f9f4b968ff7076d42.1660902588.git.rahul.singh@arm.com>
+ <d5ed6097-8a08-eb4d-35a0-ab28f82b881f@xen.org>
+ <1E823DBF-8576-4E26-B12D-B69CE581F36F@arm.com>
+ <c9330b72-193c-5478-9bad-9593ac7398a9@xen.org>
+ <3D33311C-5FBA-4C46-A18F-105DE814C306@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3D33311C-5FBA-4C46-A18F-105DE814C306@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-When Xen is compiled for x86 on an arm machine, libacpi build is failing
-due to a wrong include path:
-- arch-x86/xen.h includes xen.h
-- xen.h includes arch-arm.h (as __i386__ and __x86_64__ are not defined
-but arm ones are).
+On 24/08/2022 15:42, Rahul Singh wrote:
+>> On 24 Aug 2022, at 1:59 pm, Julien Grall <julien@xen.org> wrote:
+>>
+>>
+>>
+>> On 24/08/2022 13:15, Rahul Singh wrote:
+>>> Hi Julien,
+>>
+>> Hi Rahul,
+>>
+>>> Please let me know your view on this.
+>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>>> index bfe7bc6b36..a1e23eee59 100644
+>>> --- a/xen/arch/arm/domain_build.c
+>>> +++ b/xen/arch/arm/domain_build.c
+>>> @@ -3562,12 +3562,7 @@ static int __init construct_domU(struct domain *d,
+>>>     if ( rc == -EILSEQ ||
+>>>       rc == -ENODATA ||
+>>>       (rc == 0 && !strcmp(dom0less_enhanced, “enabled”)) )
+>>> -  {
+>>> -    if ( hardware_domain )
+>>>         kinfo.dom0less_enhanced = true;
+>>> -    else
+>>> -      panic(“Tried to use xen,enhanced without dom0\n”);
+>>> -  }
+>>
+>> You can't use "xen,enhanced" without dom0. In fact, you will end up to dereference NULL in alloc_xenstore_evtchn(). That's because "xen,enhanced" means the domain will be able to use Xenstored.
+>>
+>> Now if you want to support your feature without a dom0. Then I think we want to introduce an option which would be the same as "xen,enhanced" but doesn't expose Xenstored.
+> 
+> If we modify the patch as below we can use the "xen,enhanced" for domUs without dom0.
+> I tested the patch and its works fine. Do you see any issue with this approach?
 
-To solve this issue move XEN_ACPI_ definitions in a new header
-guest-acpi.h that can be included cleanly by mk_dsdt.c
+Yes. For two reasons:
+  1) It is muddying the meaning of "xen,enhanced". In particular a user 
+may not realize that Xenstore is not available if dom0 is not present.
+  2) It would be more complicated to handle the case where Xenstored 
+lives in a non-dom0 domain. I am not aware of anyone wanting this on Arm 
+yet, but I don't want to close the door.
 
-Previous users needing any of the XEN_ACPI_ definitions will now need to
-include arch-x86/guest-acpi.h instead of arch-x86/xen.h
+So if you want to support create "xen,xen" without all the rest. Then I 
+think we need a different property value. I don't have a good suggestion 
+for the name.
 
-Fixes: d6ac8e22c7c5 ("acpi/x86: define ACPI IO registers for PVH
-guests")
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
-The x86 header is including ../xen.h before the ifndef/define so that it
-gets included back by xen.h. This is wrongly making the assumption that
-we are using an x86 compiler which is not the case when building the
-tools for x86 on an arm host.
-Moving the definitions to an independent header is making things cleaner
-but some might need to include a new header but the risk is low.
+Cheers,
 
-For the release manager:
-- risk: very low, the definitions moved are only used in mk_dsdt and
-external users would just have to include the new header.
-- advantage: we can now compile xen for x86 on arm build machines
----
-Changes in v1:
-- was "libacpi: Fix cross building x86 on arm"
-- move XEN_ACPI_ definitions in a new header guest-acpi.h
-- adapt mk_dsdt.c
-- remove todo in public header
----
- tools/libacpi/mk_dsdt.c                  |  2 +-
- xen/include/public/arch-x86/guest-acpi.h | 50 ++++++++++++++++++++++++
- xen/include/public/arch-x86/xen.h        |  6 ---
- 3 files changed, 51 insertions(+), 7 deletions(-)
- create mode 100644 xen/include/public/arch-x86/guest-acpi.h
-
-diff --git a/tools/libacpi/mk_dsdt.c b/tools/libacpi/mk_dsdt.c
-index c5ba4c0b2fd3..1176da80ef44 100644
---- a/tools/libacpi/mk_dsdt.c
-+++ b/tools/libacpi/mk_dsdt.c
-@@ -18,7 +18,7 @@
- #include <stdlib.h>
- #include <stdbool.h>
- #if defined(CONFIG_X86)
--#include <xen/arch-x86/xen.h>
-+#include <xen/arch-x86/guest-acpi.h>
- #include <xen/hvm/hvm_info_table.h>
- #elif defined(CONFIG_ARM_64)
- #include <xen/arch-arm.h>
-diff --git a/xen/include/public/arch-x86/guest-acpi.h b/xen/include/public/arch-x86/guest-acpi.h
-new file mode 100644
-index 000000000000..eb288faf7bba
---- /dev/null
-+++ b/xen/include/public/arch-x86/guest-acpi.h
-@@ -0,0 +1,50 @@
-+/******************************************************************************
-+ * arch-x86/xen-acpi.h
-+ *
-+ * XEN ACPI interface to x86 Xen.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a copy
-+ * of this software and associated documentation files (the "Software"), to
-+ * deal in the Software without restriction, including without limitation the
-+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-+ * sell copies of the Software, and to permit persons to whom the Software is
-+ * furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-+ * DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#ifndef __XEN_PUBLIC_ARCH_X86_XEN_ACPI_H__
-+#define __XEN_PUBLIC_ARCH_X86_XEN_ACPI_H__
-+
-+#if defined(__XEN__) || defined(__XEN_TOOLS__)
-+
-+/* Location of online VCPU bitmap. */
-+#define XEN_ACPI_CPU_MAP             0xaf00
-+#define XEN_ACPI_CPU_MAP_LEN         ((HVM_MAX_VCPUS + 7) / 8)
-+
-+/* GPE0 bit set during CPU hotplug */
-+#define XEN_ACPI_GPE0_CPUHP_BIT      2
-+
-+#endif
-+
-+#endif /* __XEN_PUBLIC_ARCH_X86_XEN_ACPI_H__ */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
-index 58a1e87ee971..546dd4496ac6 100644
---- a/xen/include/public/arch-x86/xen.h
-+++ b/xen/include/public/arch-x86/xen.h
-@@ -325,12 +325,6 @@ struct xen_arch_domainconfig {
- /* Max  XEN_X86_* constant. Used for ABI checking. */
- #define XEN_X86_MISC_FLAGS_MAX XEN_X86_ASSISTED_X2APIC
- 
--/* Location of online VCPU bitmap. */
--#define XEN_ACPI_CPU_MAP             0xaf00
--#define XEN_ACPI_CPU_MAP_LEN         ((HVM_MAX_VCPUS + 7) / 8)
--
--/* GPE0 bit set during CPU hotplug */
--#define XEN_ACPI_GPE0_CPUHP_BIT      2
- #endif
- 
- /*
 -- 
-2.25.1
-
+Julien Grall
 
