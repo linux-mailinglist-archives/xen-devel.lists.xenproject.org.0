@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BC305A181D
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Aug 2022 19:45:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.393552.632578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0D155A1864
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Aug 2022 20:09:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.393558.632590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRGuX-0007l6-CK; Thu, 25 Aug 2022 17:44:57 +0000
+	id 1oRHI6-0001uN-Bm; Thu, 25 Aug 2022 18:09:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 393552.632578; Thu, 25 Aug 2022 17:44:57 +0000
+Received: by outflank-mailman (output) from mailman id 393558.632590; Thu, 25 Aug 2022 18:09:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRGuX-0007jJ-9Z; Thu, 25 Aug 2022 17:44:57 +0000
-Received: by outflank-mailman (input) for mailman id 393552;
- Thu, 25 Aug 2022 17:44:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oRHI6-0001rH-8k; Thu, 25 Aug 2022 18:09:18 +0000
+Received: by outflank-mailman (input) for mailman id 393558;
+ Thu, 25 Aug 2022 18:09:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SRxw=Y5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oRGuV-0007jD-FP
- for xen-devel@lists.xenproject.org; Thu, 25 Aug 2022 17:44:55 +0000
+ id 1oRHI4-0001rB-2q
+ for xen-devel@lists.xenproject.org; Thu, 25 Aug 2022 18:09:16 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9fe740ff-249d-11ed-9250-1f966e50362f;
- Thu, 25 Aug 2022 19:44:53 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 067a0d0e-24a1-11ed-bd2e-47488cf2e6aa;
+ Thu, 25 Aug 2022 20:09:14 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6E8E161CD7;
- Thu, 25 Aug 2022 17:44:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10ACDC433C1;
- Thu, 25 Aug 2022 17:44:50 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0F9DD61CBF;
+ Thu, 25 Aug 2022 18:09:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6221AC43140;
+ Thu, 25 Aug 2022 18:09:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,246 +43,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9fe740ff-249d-11ed-9250-1f966e50362f
+X-Inumbo-ID: 067a0d0e-24a1-11ed-bd2e-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1661449491;
-	bh=J4BIvOm5MbO5BSvg9puoqzgmrBzXqpZu3oUs+H5B2RA=;
+	s=k20201202; t=1661450952;
+	bh=aIGgYcs1PlaJZMkE8Y3/dAoZJGGRaqoCWcaaKdwhScg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rEPyQhvpvjUXZ3RwoUUDagQ3XejfmOsSEG6jWJZlCLcwa79dRRqyw/uEDt52ZkHxW
-	 RmE8H5cZKIv13+xH0G5bYYR9HIA5U83LjJ7NpfPFbDh4/pEKGagERcB6/3vmtUu9d8
-	 KVHFIRhF6X6mRYAqYAZHl0esk7DI8Vop2aYJj3Mh4Cxh0Ij6CzClyHQr6ETWXSpsVq
-	 pbnzGdkGntRmWXyyFwhfGxHND9JeJeBLolbmlCewmQ8giLKrUk4JIU/NX+4vb5eu+O
-	 vDuKLyunyKBs2FMoPIivUJcu8pFyJiuOYujJoda/7yarNcJA01nyl0+ui6+IH8JFbc
-	 +80KMIHAJmxsw==
-Date: Thu, 25 Aug 2022 10:44:37 -0700 (PDT)
+	b=CfhbH//vOq7dzlEWQ/UTOnzItNHh3V1i8NGi/8YeT+sJ0fkLeb7t5+50K53VkUty6
+	 x7NI1wzkEMRMkioACKl3XdSPLLubUs05ueit3Ii68KUHex6NXNwoIDU7vtzrCwbT06
+	 6HBKawxktjzR+SSYNY5WcShCTEy/UhMXFJn+KwN8EoM2on2sy92GC254JVWkuG2gzc
+	 +x4QGYFWU4tgYGQlBsCGvBnBTlj9j3znlVW/3I1v9OEFZG36ty4+ZdLPGLzdhyHdeX
+	 TVmCBE5HEiEnlIvlODW8wdKu55tG2Hjx3Nj2qLNka8vFHEKZlYSin9QMv6VMDeHPUl
+	 fYh2sVwcgHXjw==
+Date: Thu, 25 Aug 2022 11:09:10 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Rahul Singh <Rahul.Singh@arm.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 7/7] xen/arm: introduce new xen,enhanced property
- value
-In-Reply-To: <35C21FDE-5648-425A-9399-1C5E2B9A37FB@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2208251042040.733916@ubuntu-linux-20-04-desktop>
-References: <cover.1660902588.git.rahul.singh@arm.com> <2fb69ff7cf9a36dd1294da4f9f4b968ff7076d42.1660902588.git.rahul.singh@arm.com> <d5ed6097-8a08-eb4d-35a0-ab28f82b881f@xen.org> <1E823DBF-8576-4E26-B12D-B69CE581F36F@arm.com> <c9330b72-193c-5478-9bad-9593ac7398a9@xen.org>
- <3D33311C-5FBA-4C46-A18F-105DE814C306@arm.com> <685e53cc-1b83-8d66-7086-dad4135c0587@xen.org> <474E0887-7EFC-4A0C-9815-DFBDAE9A93A9@arm.com> <alpine.DEB.2.22.394.2208241439220.15247@ubuntu-linux-20-04-desktop> <da07bb5d-98c3-9c94-a1f0-6021e398f898@xen.org>
- <alpine.DEB.2.22.394.2208241810390.15247@ubuntu-linux-20-04-desktop> <646CFFC2-9259-45C8-89AB-D59AA5B0DBC1@arm.com> <32a74a0a-9f4f-7b3a-622b-6fb5e9a097b0@xen.org> <35C21FDE-5648-425A-9399-1C5E2B9A37FB@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Xenia Ragiadakou <burzalodowa@gmail.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
+    andrew.cooper3@citrix.com, bertrand.marquis@arm.com, roger.pau@citrix.com, 
+    roberto.bagnara@bugseng.com
+Subject: Re: [PATCH 7/7] xen/device_tree: Fix MISRA C 2012 Rule 20.7
+ violations
+In-Reply-To: <2ff949e4-5f02-f476-7b14-252252d1b8b5@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2208251045380.733916@ubuntu-linux-20-04-desktop>
+References: <20220819194359.1196539-1-burzalodowa@gmail.com> <20220819194359.1196539-8-burzalodowa@gmail.com> <9b053c3f-0274-a63b-2a6b-a1715c639092@suse.com> <25e4c770-9b97-a96d-5f5a-fea815bf9737@gmail.com> <7d32d3d3-daa6-5492-02fb-db6ca5f154c9@suse.com>
+ <852c68d0-bda1-e56e-85c0-500c498054a0@gmail.com> <2ff949e4-5f02-f476-7b14-252252d1b8b5@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2015273853-1661449491=:733916"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+CC MISRA C working group
 
---8323329-2015273853-1661449491=:733916
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Short summary: we are discussing whether the following is sufficient to
+address MISRA C Rule 20.7, and also in general for safety:
 
-On Thu, 25 Aug 2022, Bertrand Marquis wrote:
-> > On 25 Aug 2022, at 10:37, Julien Grall <julien@xen.org> wrote:
-> > On 25/08/2022 08:39, Bertrand Marquis wrote:
-> >> Hi,
-> >>> On 25 Aug 2022, at 02:10, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> >>> 
-> >>> On Wed, 24 Aug 2022, Julien Grall wrote:
-> >>>> On 24/08/2022 22:59, Stefano Stabellini wrote:
-> >>>>> On Wed, 24 Aug 2022, Rahul Singh wrote:
-> >>>>>>> On 24 Aug 2022, at 4:36 pm, Julien Grall <julien@xen.org> wrote:
-> >>>>>>> On 24/08/2022 15:42, Rahul Singh wrote:
-> >>>>>>>>> On 24 Aug 2022, at 1:59 pm, Julien Grall <julien@xen.org> wrote:
-> >>>>>>>>> 
-> >>>>>>>>> 
-> >>>>>>>>> 
-> >>>>>>>>> On 24/08/2022 13:15, Rahul Singh wrote:
-> >>>>>>>>>> Hi Julien,
-> >>>>>>>>> 
-> >>>>>>>>> Hi Rahul,
-> >>>>>>>>> 
-> >>>>>>>>>> Please let me know your view on this.
-> >>>>>>>>>> diff --git a/xen/arch/arm/domain_build.c
-> >>>>>>>>>> b/xen/arch/arm/domain_build.c
-> >>>>>>>>>> index bfe7bc6b36..a1e23eee59 100644
-> >>>>>>>>>> --- a/xen/arch/arm/domain_build.c
-> >>>>>>>>>> +++ b/xen/arch/arm/domain_build.c
-> >>>>>>>>>> @@ -3562,12 +3562,7 @@ static int __init construct_domU(struct
-> >>>>>>>>>> domain *d,
-> >>>>>>>>>>    if ( rc == -EILSEQ ||
-> >>>>>>>>>>      rc == -ENODATA ||
-> >>>>>>>>>>      (rc == 0 && !strcmp(dom0less_enhanced, “enabled”)) )
-> >>>>>>>>>> -  {
-> >>>>>>>>>> -    if ( hardware_domain )
-> >>>>>>>>>>        kinfo.dom0less_enhanced = true;
-> >>>>>>>>>> -    else
-> >>>>>>>>>> -      panic(“Tried to use xen,enhanced without dom0\n”);
-> >>>>>>>>>> -  }
-> >>>>>>>>> 
-> >>>>>>>>> You can't use "xen,enhanced" without dom0. In fact, you will end up
-> >>>>>>>>> to dereference NULL in alloc_xenstore_evtchn(). That's because
-> >>>>>>>>> "xen,enhanced" means the domain will be able to use Xenstored.
-> >>>>>>>>> 
-> >>>>>>>>> Now if you want to support your feature without a dom0. Then I think
-> >>>>>>>>> we want to introduce an option which would be the same as
-> >>>>>>>>> "xen,enhanced" but doesn't expose Xenstored.
-> >>>>>>>> If we modify the patch as below we can use the "xen,enhanced" for
-> >>>>>>>> domUs without dom0.
-> >>>>>>>> I tested the patch and its works fine. Do you see any issue with this
-> >>>>>>>> approach?
-> >>>>>>> 
-> >>>>>>> Yes. For two reasons:
-> >>>>>>> 1) It is muddying the meaning of "xen,enhanced". In particular a user
-> >>>>>>> may not realize that Xenstore is not available if dom0 is not present.
-> >>>>>>> 2) It would be more complicated to handle the case where Xenstored lives
-> >>>>>>> in a non-dom0 domain. I am not aware of anyone wanting this on Arm yet,
-> >>>>>>> but I don't want to close the door.
-> >>>>>>> 
-> >>>>>>> So if you want to support create "xen,xen" without all the rest. Then I
-> >>>>>>> think we need a different property value. I don't have a good suggestion
-> >>>>>>> for the name.
-> >>>>>> 
-> >>>>>> Is that okay if we use the earlier approach, when user set  "xen,enhanced
-> >>>>>> = evtchn” we will not call alloc_xenstore_evtchn()
-> >>>>>> but we create hypervisor node with all fields.
-> >>>>> 
-> >>>>> Thinking more about this, today xen,enhanced has the implication that:
-> >>>>> 
-> >>>>> - the guest will get a regular and complete "xen,xen" node in device tree
-> >>>>> - xenstore and PV drivers will be available (full Xen interfaces support)
-> >>>>> 
-> >>>>> We don't necessarely imply that dom0 is required (from a domU point of
-> >>>>> view) but we do imply that xenstore+evtchn+gnttab will be available to
-> >>>>> the domU.
-> >>>>> 
-> >>>>> Now, static event channels are different. They don't require xenstore
-> >>>>> and they don't require gnttab.
-> >>>>> 
-> >>>>> It is as if the current xen,enhanced node actually meant:
-> >>>>> 
-> >>>>>   xen,enhanced = "xenstore,gnttab,evtchn";
-> >>>> 
-> >>>> Correct.
-> >>>> 
-> >>>>> 
-> >>>>> and now we are only enabling a subset:
-> >>>>> 
-> >>>>>   xen,enhanced = "evtchn";
-> >>>>> 
-> >>>>> Is that a correct understanding?
-> >>>> 
-> >>>> Yes with some cavears (see below).
-> >>>> 
-> >>>>> 
-> >>>>> 
-> >>>>> If so, we can clarify that:
-> >>>>> 
-> >>>>>   xen,enhanced;
-> >>>>> 
-> >>>>> it is a convenient shortend for:
-> >>>>> 
-> >>>>>   xen,enhanced = "xenstore,gnttab,evtchn";
-> >>>>> 
-> >>>>> and that other combinations are also acceptable, e.g.:
-> >>>>> 
-> >>>>>   xen,enhanced = "gnttab";
-> >>>>>   xen,enhanced = "evtchn";
-> >>>>>   xen,enhanced = "evtchn,gnttab";
-> >>>>> 
-> >>>>> It is OK to panic if the user specifies an option that is currently
-> >>>>> unsupported (e.g. "gnttab").
-> >>>> 
-> >>>> So today, if you create the node "xen,xen", the guest will expect to be able
-> >>>> to use both grant-table and event channel.
-> >>>> 
-> >>>> Therefore, in the list above, the only configuration we can sensibly support
-> >>>> without any major rework is "evtchn,gnttab".
-> >>>> 
-> >>>> If we want to support "evtchn" or "gnttab" only. Then we likely need to define
-> >>>> a new binding (or new version) because neither "regs" nor "interrupts" are
-> >>>> optional (although a guest OS is free to ignore them).
-> >>> 
-> >>> Yes I think you are right. I also broadly agree with the rest of your
-> >>> reply.
-> >>> 
-> >>> Thinking about it and given the above, we only need 2 "levels" of
-> >>> enhancement:
-> >>> 
-> >>> 1) everything: xenstore, gnttab, evtchn
-> >>> 2) gnttab, evtchn, but not xenstore
-> >>> 
-> >>> Nothing else is really possible because, as Julien pointed out,
-> >>> "xen,enhanced" implies the xen,xen node in the domU device tree and in
-> >>> turn that node implies both evtchn and gnttab.
-> >> So we could say that xen,enhanced always includes gnttab and Xenstore is optional.
+
+ #define dt_for_each_property_node(dn, pp)                   \
+-    for ( pp = dn->properties; pp != NULL; pp = pp->next )
++    for ( pp = (dn)->properties; pp != NULL; pp = (pp)->next )
+
+
+as you can see "dn" has been parenthesizing because is used as a rhs,
+while "pp" has *not* because it is used as lhs.
+
+More below.
+
+
+On Thu, 25 Aug 2022, Jan Beulich wrote:
+> On 25.08.2022 10:02, Xenia Ragiadakou wrote:
+> > On 8/22/22 14:48, Jan Beulich wrote:
+> >> On 22.08.2022 12:43, Xenia Ragiadakou wrote:
+> >>> On 8/22/22 12:59, Jan Beulich wrote:
+> >>>> On 19.08.2022 21:43, Xenia Ragiadakou wrote:
+> >>>>> In macros dt_for_each_property_node(), dt_for_each_device_node() and
+> >>>>> dt_for_each_child_node(), add parentheses around the macro parameters that
+> >>>>> have the arrow operator applied, to prevent against unintended expansions.
+> >>>>
+> >>>> Why is this relevant only when -> is used? For comparisons and the rhs of
+> >>>> assignments it's as relevant, ad even for the lhs of assignments I doubt
+> >>>> it can be generally omitted.
+> >>>
+> >>> Yes, I agree with you but some older patches that I sent that were
+> >>> adding parentheses around the lhs of the assignments were not accepted
+> >>> and I thought that the rhs of the assignments as well these comparisons
+> >>> fall to the same category.
+> >>>
+> >>> Personally, I would expect to see parentheses, also, around the macro
+> >>> parameters that are used as the lhs or the rhs of assignments, the
+> >>> operands of comparison or the arguments of a function.
+> >>> Not only because they can prevent against unintentional bugs but because
+> >>> the parentheses help me to identify more easily the macro parameters
+> >>> when reading a macro definition. I totally understand that for other
+> >>> people parentheses may reduce readability.
+> >>
+> >> Afair Julien's comments were very specific to the lhs of assignments.
+> >> So at the very least everything else ought to be parenthesized imo.
+> >>
 > > 
-> > Not really, Xenstore has always been part of the story in Xen. So I think making it optional for "xen,enhanced" is going to make more difficult for user to understand what the meaning of the option (in particular that in the future we may want to support Xenstored in a separate domain).
+> > So, IIUC, the only deviations from the MISRA C 2012 Rule 20.7 will be 
+> > for macro parameters used as the lhs of assignments and function arguments?
 > 
-> Sorry wrong formulation, here I was meaning that we just need a solution to disable Xenstore (should still be here by default when supported).
+> Afaic I don't consider that discussion settled.
 > 
-> > 
-> >>> So I think we just need to add a way to express 2). We could do
-> >>> something like:
-> >>> 
-> >>>  xen,enhanced = "evtchn,gnttab";
-> >> I am a bit puzzled here as gnttab is always there.
-> > 
-> > What do you mean?
+> > This feels a bit of a hack to parenthesize the macro parameters that are 
+> > used as the rhs of an assignment but not those used as the lhs.
 > 
-> Asking the user to specify gnttab in the list even though it is not supported to not have it in the list.
+> lhs and rhs of assignments are quite different, and hence making such a
+> distinction wouldn't look to be a "hack" to me. In fact I've always
+> considered this part of the language somewhat strange: To me
+> parenthesizing e.g. an identifier already makes it (visually) an
+> rvalue. Leaving aside odd (and easy to spot as odd) uses at the call
+> sizes, I don't think I can come up with a case where parentheses are
+> really needed. Anything needing parenthesizing actually yields an
+> rvalue afaics, thus causing a diagnostic anyway.
+
+Although I can see where you are coming from, parenthesizing an
+identifier doesn't actually make it an rvalue. Also it is a lot simpler
+to understand, review, and apply a policy that says:
+
+"all macro parameters are parenthesized"
+
+compared to a policy that says:
+
+"most macro paremeters are parenthesized, let's go into the details of
+which ones are parenthesized and which ones are not, including examples
+and corner cases"
+
+For simplicity, I would go with the simplest version, the MISRA version.
+
+I am assuming that the MISRA Rule 20.7 requires that "pp" is also
+parenthesized. Roberto, is that correct?
+
+
+> >  From previous discussions on the topic, I understood that the 
+> > parentheses are considered needed only when they eliminate operator 
+> > precedence problems, while for the wrong parameter format bugs we can 
+> > rely on the reviewers.
+> > 
+> > I think we need to decide if the rule will be applied as is and if not 
+> > which will be the deviations along with their justification and add it 
+> > to the document.
 > 
-> > 
-> >>> 
-> >>> Or we could use a new separate option like Julien initially suggested,
-> >>> e.g.:
-> >>> 
-> >>>  xen,enhanced-no-xenstore;
-> >>> 
-> >>> "xen,enhanced-no-xenstore" is a terrible name actually, but just to
-> >>> explain what I am thinking :-)
-> >> I think most common use case will be to have all, so make sense to allow to disable Xenstore.
-> >> How about:
-> >> xen,enhanced = “no-xenstore” ?
-> > 
-> > I would be fine with it.
+> Yes. But this shouldn't hinder adjustments for all other, non-
+> controversial cases.
 
-We have agreement on this, so I would say let's keep it simple and go
-with this option.
+It looks like we need a discussion and see where the majority of the
+team is on this issue. I prefer the original MISRA version for
+simplicity, but I also think it is OK if we make a small customization
+to it. In that case, we would add the extra explanation and details to
+docs/misra/rules.rst.
+
+However, as we make the decision we also need to take into account that
+if we don't go with the vanilla MISRA rule, there is a price to pay: all
+the MISRA scanners, including cppcheck, Eclair, Coverity and others would
+probably still flag these issues as violations polluting the results
+and making the scanners less useful. We might have to mark each
+"deviation" with a one-line in-code comment on top, or we would have to
+disable automatic scanning for Rule 20.7 altogether. Either option is
+not great.
+
+This is actually the main reason why I prefer the vanillay MISRA
+version: even if the resulting style might not be as good the the custom
+version, we don't need to worry about reviewing this rule because we can
+easily get automatic scans for it.
 
 
-> >> An other solution is to keep xen,enhanced as it is and introduce a new option:
-> >> Xen,no-xenstore
-> > 
-> > I don't like the idea of introducing yet another option.
-> > 
-> >> At the end Xenstore cannot be used if there is no Dom0 and that we can detect easily.
-> >> Also there is no solution at this stage to have an other domain then Dom0 providing
-> >> Xenstore (maybe in the long term someone will want to introduce that and we will need
-> >> a way to specify which domain is handling it).
-> >> So I still think that we could just say that Xenstore can only be active if there is a Dom0
-> >> and just disable Xenstore automatically if it is not the case.
-> > 
-> > See above about disabling Xenstore automatically.
-> 
-> Right now Xenstore can only work with a dom0 and if someone wants to have an other domain to provide it we would need a way to specify which one in the configuration.
-> So in a configuration without dom0, I still think that not enabling Xenstore automatically is ok.
-> 
-> > 
-> >> If there is a dom0 and someone wants a guest without Xenstore, then we would need to
-> >> have the no-xenstore support.
-> >> But is it a use case ?
-> > 
-> > Do you mean when "xen,enhanced" is specified? If yes, this could be useful if one want to limit the interface exposed to the guest.
-> 
-> How about the following:
-> Xen,enhanced: gnttab, events and Xenstore if there is a dom0
-> Xen,enhanced = “[no-]xenstore,[no-]evtchn,[no-]gnttab” for when the user wants to explicitly specify what he wants (and Xen stopping on unsupported configuration).
->    In this I would allow to provide any combinations of the 3
+But first, let's confirm whether this change:
 
-I am OK with what you wrote as well, but considering the additional
-complexity that no-gnttab and no-evtchn entail given that they cannot be
-actually disabled today, I suggest to keep it simple and go with:
 
-xen,enhanced = "no-xenstore"
+ #define dt_for_each_property_node(dn, pp)                   \
+-    for ( pp = dn->properties; pp != NULL; pp = pp->next )
++    for ( pp = (dn)->properties; pp != NULL; pp = (pp)->next )
 
---8323329-2015273853-1661449491=:733916--
+
+is sufficient to make the violation go away in Eclair or cppcheck.  I am
+assuming it is not sufficient, but let's confirm.
 
