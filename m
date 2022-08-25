@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CF495A0F79
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Aug 2022 13:42:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.393325.632199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02ED45A0F97
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Aug 2022 13:51:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.393331.632210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRBFl-0004DM-IE; Thu, 25 Aug 2022 11:42:29 +0000
+	id 1oRBNq-0005wt-AN; Thu, 25 Aug 2022 11:50:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 393325.632199; Thu, 25 Aug 2022 11:42:29 +0000
+Received: by outflank-mailman (output) from mailman id 393331.632210; Thu, 25 Aug 2022 11:50:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRBFl-0004BZ-Dh; Thu, 25 Aug 2022 11:42:29 +0000
-Received: by outflank-mailman (input) for mailman id 393325;
- Thu, 25 Aug 2022 11:42:27 +0000
+	id 1oRBNq-0005v8-6R; Thu, 25 Aug 2022 11:50:50 +0000
+Received: by outflank-mailman (input) for mailman id 393331;
+ Thu, 25 Aug 2022 11:50:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kueA=Y5=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1oRBFj-0004BP-U0
- for xen-devel@lists.xenproject.org; Thu, 25 Aug 2022 11:42:27 +0000
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=azg/=Y5=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1oRBNo-0005v2-VW
+ for xen-devel@lists.xenproject.org; Thu, 25 Aug 2022 11:50:49 +0000
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [2607:f8b0:4864:20::102d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd7f2cb0-246a-11ed-bd2e-47488cf2e6aa;
- Thu, 25 Aug 2022 13:42:25 +0200 (CEST)
-Received: from zn.tnic (p200300ea971b98f5329c23fffea6a903.dip0.t-ipconnect.de
- [IPv6:2003:ea:971b:98f5:329c:23ff:fea6:a903])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 3CAC01EC050F;
- Thu, 25 Aug 2022 13:42:21 +0200 (CEST)
+ id 28388815-246c-11ed-bd2e-47488cf2e6aa;
+ Thu, 25 Aug 2022 13:50:47 +0200 (CEST)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ x63-20020a17090a6c4500b001fabbf8debfso4650606pjj.4
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Aug 2022 04:50:47 -0700 (PDT)
+Received: from leoy-huanghe
+ (ec2-54-176-161-147.us-west-1.compute.amazonaws.com. [54.176.161.147])
+ by smtp.gmail.com with ESMTPSA id
+ o15-20020aa7978f000000b00536aa488062sm8463597pfp.163.2022.08.25.04.50.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Aug 2022 04:50:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +46,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd7f2cb0-246a-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1661427741;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
-	bh=vh+yXND8jbqs07msgUgEfuD6EdfdarrOdj9azKZ93v4=;
-	b=koVZ3WzX+coXmWuagCZ7A8QrddQqqwpUDOeKr40npBAQboceootNSjcsAzr0pEAXw4lDw9
-	5VpOzdHcnyYMY/80uuoArWZA/m195ycE8cDnn4jx/3lRI8xKhJdFycHBSetEeSG/lU+xm0
-	vEfnoVvR1SE0PfWH84erqcR76X4O0rQ=
-Date: Thu, 25 Aug 2022 13:42:16 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH v2 02/10] x86/mtrr: remove unused cyrix_set_all() function
-Message-ID: <YwdgGFJWTV1YF3n2@zn.tnic>
-References: <20220820092533.29420-1-jgross@suse.com>
- <20220820092533.29420-3-jgross@suse.com>
- <YwdPb4pWqppgzIpm@zn.tnic>
- <aff049cb-ebdd-68ad-5597-d22f87026297@suse.com>
+X-Inumbo-ID: 28388815-246c-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc;
+        bh=f6U4ammSmk7a8LknE/FKPUrZWZSZeyaoY6LMD8M2AuQ=;
+        b=sTxS4aJAs5ZbNygSe/5NCyx8Os9LZZeBBaIe4iGFVyt7xlFGdOt9yrim8PBPZsQQQq
+         S2dY4D7WLcnRrAd2dOs1NmgrpLeQGkpBgHVNnEz3XelIsA/Ed+H8Y81p/0ZuhoWN/+By
+         NhlEcbQ4nCthLhL9w4P0/5neKkl1QDxqysg5KVwX5H7p+FnKhR3xLTHr9Gz/klXRMLVJ
+         32ov/FxMWoO1FFvWnU2hjrIiH261HqR0fx+VAfkY4NLGCxYAuLgP5kTdoKWDZq9Yxznc
+         z3KQl8xPzKOsSQRhRyunBrhFVbaHnKCFoiljAzLfDGsGRGCIL0jH2h+uXPIuiyL5lqnv
+         b1OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+        bh=f6U4ammSmk7a8LknE/FKPUrZWZSZeyaoY6LMD8M2AuQ=;
+        b=hNIvSJwPJvnRo7XeWwj6a/aydcyFnEFmegvCeOqwvY8lKuVltN7890JFN5hPwWV8hi
+         WtpM98mXBeh46Qmhet3a/JBQwTkOlZyQ+x+fpsNfF2XrSqJFCxLaiMimX5QGq03l2PXx
+         bZIkG7He7Iblft83I4NtwTKxYUh0hnDXiOro89O6XypW7fgqLSER14QsfZs7hKMRr4Xh
+         HFKbMix4/idQFYuTy8PY9tkb40qzpg1Jpa+Sxoev1p1i/Pl6Q4dFIvvUvv2273YrAjAr
+         AOCv2eWJrdATA5EtRUafWZMpTIP1g7aetYdY8J0DnhGIJxPnfxG9McaNvvEYWC7gwMSu
+         FPMw==
+X-Gm-Message-State: ACgBeo14G+dxqUgDiNTmmXufFBdJgpNdfN8YCD7wIkUIodX5e0mS7BCc
+	xMtO6XL8p8jZW2+Ce2oP2fCrpQ==
+X-Google-Smtp-Source: AA6agR4ZvRRlyiaivdt6hGkSvLwVGJPP+UGM9W2sbJ2wtHEPVdD8BRdB6kQZPAUzMWDFZ0Hs4WGcyw==
+X-Received: by 2002:a17:902:d4c9:b0:172:f480:bdd with SMTP id o9-20020a170902d4c900b00172f4800bddmr3402683plg.170.1661428246047;
+        Thu, 25 Aug 2022 04:50:46 -0700 (PDT)
+Date: Thu, 25 Aug 2022 19:50:38 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Julien Grall <julien@xen.org>
+Cc: Marc Zyngier <maz@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Rahul Singh <Rahul.Singh@arm.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Julien Grall <jgrall@amazon.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
+Message-ID: <YwdiDr2uLXGEl2TC@leoy-huanghe>
+References: <fd24b049-abf2-34e8-e0b0-2c2d2d1e1b0f@suse.com>
+ <CAMj1kXEDxHC6RgKfcmpXGDxwQ0mTKG146D8dJnrwJ1cWWXZ=3g@mail.gmail.com>
+ <Yv4DMuQHbGNhqAP4@leoy-yangtze.lan>
+ <CAMj1kXHkWH7tkpuPLLjWszOVTQ-Cr3Zcbj8w0bogSd0Y_hso0g@mail.gmail.com>
+ <99e460f1-ca5f-b520-69e0-b250915fd591@xen.org>
+ <Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
+ <CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
+ <871qtcsacd.wl-maz@kernel.org>
+ <Ywcr1849LiEHezd3@leoy-huanghe>
+ <12a8c169-55aa-5e9f-19f8-acd77ea2a8fe@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aff049cb-ebdd-68ad-5597-d22f87026297@suse.com>
+In-Reply-To: <12a8c169-55aa-5e9f-19f8-acd77ea2a8fe@xen.org>
 
-On Thu, Aug 25, 2022 at 12:41:05PM +0200, Juergen Gross wrote:
-> Maybe the alternative reasoning is much faster to understand: if the
-> Cyrix set_all() could be called, the AMD and Centaur ones would be callable,
-> too.
+On Thu, Aug 25, 2022 at 10:07:18AM +0100, Julien Grall wrote:
 
-Right.
+[...]
 
-> Those being called would result in a NULL deref, so why should we keep
-> the Cyrix one?
+> > Xen directly passes ACPI MADT table from UEFI to Linux kernel to Dom0,
+> > (see functions acpi_create_madt() and gic_make_hwdom_madt()), which
+> > means the Linux kernel Dom0 uses the same ACPI table to initialize GICv3
+> > driver, but since Linux kernel Dom0 accesses GIC memory region as IPA,
+> > it still trap to Xen in EL2 for stage 2 translation, so finally Xen
+> > can emulate the GICv3 device for Dom0.
+> 
+> In the default setup, dom0 is also the hardware domain. So it owns all of
+> the devices but the ones used by Xen (e.g. interrupt controller, SMMU).
+> 
+> Therefore, dom0 will use the same memory layout as the host. At which point,
+> it is a lot more convenient to re-use the host ACPI tables and rewrite only
+> what's necessary.
 
-I know you're eager to remove dead code - I'd love that too. But before
-we do that, we need to find out whether some Cyrix hw out there would
-not need this.
+We cannot purely talk about interrupt handling without connecting with
+device driver model.
 
-I know, I know, they should've complained by now ... maybe they have but
-we haven't heard about it.
+Seems to me, to support para virtualization driver model (like virtio),
+Dom0 needs to provide the device driver backend, and DomUs enables
+the forend device drivers.  In this case, the most hardware interrupts
+(SPIs) are routed to Dom0.
 
-What it most likely looks like is that those machines - a commit from
-before git
+To support passthrough driver model (VFIO), Xen needs to configure the
+hardware GICv3 to directly route hardware interrupt to the virtual CPU
+interface.
 
-commit 8fbdcb188e31ac901e216b466b97e90e8b057daa
-Author: Dave Jones <davej@suse.de>
-Date:   Wed Aug 14 21:14:22 2002 -0700
+But here I still cannot create the concept that how GIC RD tables play
+roles to support the para virtualization or passthrough mode.
 
-    [PATCH] Modular x86 MTRR driver.
-
-talks about
-
-+/*
-+ * On Cyrix 6x86(MX) and M II the ARR3 is special: it has connection
-+ * with the SMM (System Management Mode) mode. So we need the following:
-+ * Check whether SMI_LOCK (CCR3 bit 0) is set
-+ *   if it is set, write a warning message: ARR3 cannot be changed!
-+ *     (it cannot be changed until the next processor reset)
-
-which sounds like old rust. And which no one uses or such machines are
-long dead already.
-
-Wikipedia says:
-
-https://en.wikipedia.org/wiki/Cyrix_6x86
-
-"The Cyrix 6x86 is a line of sixth-generation, 32-bit x86
-microprocessors designed and released by Cyrix in 1995..."
-
-So I'm thinking removing it would be ok...
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Thanks,
+Leo
 
