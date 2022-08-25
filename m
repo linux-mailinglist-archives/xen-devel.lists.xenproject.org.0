@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0120E5A101C
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Aug 2022 14:14:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.393381.632299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1DF5A1024
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Aug 2022 14:16:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.393387.632311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRBkj-0003PO-6L; Thu, 25 Aug 2022 12:14:29 +0000
+	id 1oRBmZ-000407-JU; Thu, 25 Aug 2022 12:16:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 393381.632299; Thu, 25 Aug 2022 12:14:29 +0000
+Received: by outflank-mailman (output) from mailman id 393387.632311; Thu, 25 Aug 2022 12:16:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRBkj-0003Mu-3e; Thu, 25 Aug 2022 12:14:29 +0000
-Received: by outflank-mailman (input) for mailman id 393381;
- Thu, 25 Aug 2022 12:14:27 +0000
+	id 1oRBmZ-0003yI-Fs; Thu, 25 Aug 2022 12:16:23 +0000
+Received: by outflank-mailman (input) for mailman id 393387;
+ Thu, 25 Aug 2022 12:16:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2f78=Y5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oRBkh-0003Mh-O1
- for xen-devel@lists.xenproject.org; Thu, 25 Aug 2022 12:14:27 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-eopbgr80077.outbound.protection.outlook.com [40.107.8.77])
+ id 1oRBmX-0003y4-Bw
+ for xen-devel@lists.xenproject.org; Thu, 25 Aug 2022 12:16:21 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2076.outbound.protection.outlook.com [40.107.20.76])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72ea209e-246f-11ed-9250-1f966e50362f;
- Thu, 25 Aug 2022 14:14:21 +0200 (CEST)
+ id b094a424-246f-11ed-9250-1f966e50362f;
+ Thu, 25 Aug 2022 14:16:04 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB7PR04MB4761.eurprd04.prod.outlook.com (2603:10a6:10:23::32) with
- Microsoft SMTP Server (version=TLS1_2,
+ by VI1PR04MB4608.eurprd04.prod.outlook.com (2603:10a6:803:72::24)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Thu, 25 Aug
- 2022 12:14:24 +0000
+ 2022 12:16:15 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2d5d:bae0:430f:70ad]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2d5d:bae0:430f:70ad%4]) with mapi id 15.20.5566.015; Thu, 25 Aug 2022
- 12:14:24 +0000
+ 12:16:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,188 +46,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72ea209e-246f-11ed-9250-1f966e50362f
+X-Inumbo-ID: b094a424-246f-11ed-9250-1f966e50362f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mXKAH+1ExCvZIFRpLbJP7QWQaUTHrd1X7N9Eor36bskhyEvlaJb6v92Nd9TwRexK8OsUWiIWPkj7W2aYHVXGyd9hhHHt+XRHYhDqRK4+F2ttFdqD5aAOnCxb547ITXyTBBSN6xUdymAJaz5yNNcDhGMVkprcHg0FNu0eEtm24n2uy0PKhY3lucfseFftaoTdb8sxetjoq4JnTvRlJ9yZ84xCVUVVYOB545DArPr39GDqRjcprYB2TbswB/dvPBS8J0FnE8Zvcb7UQys0Gftg2DiFh5JfeEwv1EHl0YgjTMINQWpC4UyvZhcRiLZGV54GIHE4ECjcXLJK6I24TARmJw==
+ b=JxoLbjgY4+FKTcPca2QvY5N6LOAPJuPXGIu4PlkydHdZUEZ6YkYmVlKSDia3IlZS7104tH69sF4ZtRfPRsl1GGgbGrtej5FaAINArbkIRK/LBOqysZO+2hhpvdS4AfEkfu4d3xjbCKu4IvjdJgiiFihzkYDSvTn+VhAtrb3xegJCkyBCbZ4WDQQwg6xSfQ50uQcpr3Ce+ptKXAxMkK7Ii27AiVpfH3agqkEGI/RQTVF22K8FBHXa0cOfdf/x33Wkg/OzW2NzlMyCjC3b+BzEevCTlP0vyL7M4A07mAt+IHAIibk1XNY1rwJj1Wpvxp/bNJOE2zP9Z0sOfy0IJ92iww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4AmoUbQ6pH/b51sOzjlF0OcJwOkkHcGX4j2xUzL2BQI=;
- b=FvOqMBvrb91W/v1c7zC8txe98Ud9WqT9bp5PjDqJNzAB7F0RhyX8sg7oXaWS07dP9sgG0yO+SF7ZH4tS+w3Lnu4qGmujOwBFpf7mk6siNDArAH1mylNB79vC+ehDh5+ZyRbsSERpBBunAHzb6iy2dH56sYIJUaK0/LbpniFOrGlUiI3b8v3QrWlsybKrjNAmvgi6Oxn4Ozj7baVzyb8JilsJHfc5bj9Q+8d0+CnnQxcEINGHkOgDVDHh1BNDztujqE+K9rWLbwF4I5kxQAbBK6dGj5LdIexgfo8cz9Fc7mBoLha4VXEOlYsTXY1EZz8BT5Vd4l1lAji6rpLZqrAGfA==
+ bh=XXr/kIxs5MFrdfZ0vbIbMooer7uXNe3YgL3e1rWZLJo=;
+ b=he9xbj4L1S8MjntZ7lNgPUjbHiy+a/tbJJEihxpy+XJni5oVgzaZYOPSneTSRnYsFLj0vUPbl1LXPGPWJPnZrgXAjiiPADko+/632S9qISeblxljTzaJ91b6xJ3eXr4xehDuW4l7A1A8gDjpy+scrEBivyO4kVwOtU60LCSQP6yjqZOhgUlg16Z2dTCJHrXrr7jcHN5uEXRWBQ3dOE+99tlzCcHnUuxBoOW+cXSV2C8K/KWoTDq62sXnFJhUlciCFmpRrgFcPvLL5BPG7NqKBBHpXlRjiOuZ4RsnSbRIRLAo0hed9HsG5gIRbmhyToCjEqxMWK66vMVcyretdri9GA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4AmoUbQ6pH/b51sOzjlF0OcJwOkkHcGX4j2xUzL2BQI=;
- b=f8KZvOtuH+5mffhFBCm3QAYzrUPNInn5ugJn/zJ/CRbO1LE01xRjbc9BtATFg7O2BjmWyo9i+EiqLAc6F5gbLCDxZCg0EpjuLp4Q5WNz7M+jpkJWegzd20KL1Cf5Ye0encwAvr2mzgRpTrsU/Vuu6lUY2/wsS2d1X1HBPVB7OpNFiUQzMt6dHscTSaRr+I3nhX5Pr2DXvWQL/nhuMrwiWqgG5OJWNpu6CYyOpR0s1Kya6d/i/irUYgj69EEX3QtJXT8rThYq2N9L1AEU7ARqIh+GX/iqkLEMRjGcssKOk5dUkz6dIJwfLA+yQj04x82B2Cohz3zrt3jSRTi0Iy435Q==
+ bh=XXr/kIxs5MFrdfZ0vbIbMooer7uXNe3YgL3e1rWZLJo=;
+ b=PUL9A3YWUdeG+AEvy73kEN5JgLtSpwfOUWdGa0HBSx00WphNDSjR6Sv6qHQD0g3u7MABP27Ij+CrOA1rHF8tebN3sbkpWrqTZxcW8GLmFd0udu9od3mSnwjaS9sGGpsF0I3twkW/WHeEJED49ykIquUwzUIzqVS2DPhoNtU+ggZviNI/+WU6XqUtaEvykCESiYaGmk/D+4dBm5KJxx5bDC5+I/xh27mHuakBtkMRA5NrtVRNIk81PS1r79AgXR+8nKotOVOWRgkYxCiNt/catjpvs/UbKjuFa/bMpeJ5aepJOeM9C/HMHhC52z6wJYoqhbUbNulNZKeUv0p3MF6YnQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <392cae07-d8da-8ecf-4356-cd5c6f983629@suse.com>
-Date: Thu, 25 Aug 2022 14:14:22 +0200
+Message-ID: <0ffb0d35-c1cc-69a9-b42b-e183756e0f03@suse.com>
+Date: Thu, 25 Aug 2022 14:16:13 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.13.0
-Subject: Re: [PATCH v3 4/6] xen/x86: use arch_get_ram_range to get information
- from E820 map
+Subject: Re: [PATCH v3] xen/privcmd: fix error exit of privcmd_ioctl_dm_op()
 Content-Language: en-US
-To: Wei Chen <wei.chen@arm.com>
-Cc: nd@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20220822025810.2240707-1-wei.chen@arm.com>
- <20220822025810.2240707-5-wei.chen@arm.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ stable@vger.kernel.org, Rustam Subkhankulov <subkhankulov@ispras.ru>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20220825114004.24843-1-jgross@suse.com>
+ <744be7c4-8e00-7876-5819-a1d07d3d423f@suse.com>
+ <6aa83215-49fe-56c7-1a77-0a63a663c99f@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220822025810.2240707-5-wei.chen@arm.com>
+In-Reply-To: <6aa83215-49fe-56c7-1a77-0a63a663c99f@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0105.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a9::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6PR04CA0014.eurprd04.prod.outlook.com
+ (2603:10a6:20b:92::27) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0d1b1df9-6b01-4e31-1eba-08da86935966
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4761:EE_
+X-MS-Office365-Filtering-Correlation-Id: 008a4a19-faf4-4006-c41b-08da86939b65
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4608:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	YZD5Zki7JPEevc5HNj2fDtYVnEXTNOMobIOvpZA3DLMtN6BAoLu8g47nGwa41ZgF0P0eqcoalEQ3Seeyt7Odk1e0wYyvxXiH7IDXDDsc/5uYBWKGacmS7kPVqGDmSH+uRtls/Xg84El3uRker69wWXo+fGMWfTlAIidx++fWtzpdNvmVMRn8EKJKFhplnqNTMVihOC7Fr5b1CZweaGf5YxdIYArTpMTThYGtJ3vGsjg9aOlp3pC2v1EbZOadXd5gFOVgC5cXZD+Fia7xp1O+LqN4t4Q4NMCS1ix5B3HtQj1Wp8WlAGv6o+3s+rBsus5SugEngVe+9lob6ZMFl163y8ARhbVy+HuSmj1peK3P0ILnG5ewSEiGJ7xkATjnRMBlzNfx21KqhC9lMmZva2yMWUrwWeILR82rTd0WTdrDgDdlKgry+thKtaxlP/twvQouyPvjeWdfiNdIfUvC/q+ysH4fMoGg5wbN3D3a8M+hgkG44XHt8DrF2diKWHEcmHs6E8Lq0HFfxg0orf7zpt745ogzKPbDwxoLLG39hnPxpgdeD8qr+APK5sYqko9Ofh3vQkoR4qD/tNeSQz25Y+QtZcERmwmKYROfxfEr7qiT9eS1T8/VaHDA9S0fZcXAL5cU6k8gNeJ+sinkViO/q2OWVzCnB24NJAxFkzAeIRX+w/ZLDcAz8akZCwWIZqlhUJxoegOuK1cbj2siqyhC1drOakPG9PlDhuJ7lTeF5YHgLgRlpxj9GNSNGJeWwwgbx4T73KTKSwkEV0E+GlcrIlcq0QiOXtQxKH3o6JnOLo2UtJ8=
+	R6hZREYf93e8JKx8t3JwgEyN3YwGN/qgDpqHqgrA+9LHMcU3JRkrf6s7K/T5DTf7cpJ+s6SDsSy7wKpWYRT7mK/OwJUI6tY/EDtpYlOYAM5nAjzChWLTS3bXySYpTbmDT2Wjyf197Gt9GCP1kigH62C6JkmwicOG8yjUfrkcjWIfidjIStqsnQvudmc1g7XRbo+pqGLwjV27+/EIKPRWtP01zNjQevMbe/+ohRDqI7iZYDOotfe/JXwK8eM5kWldom7pSTYx2Kpe47ZIA4f6Q/9TZ8wQsfxdzdhCZXB+gQWJFO81wzXA0uF8SMjli/H3F8kLdwmHshODdOYiwi2TSIguuuyNvaiRTaE08u1KTtfeFljiGyS99bKwBrlsX+qZJXvi5FbWnykGwWecoRrhOeullNbDos7oS2topnyQM8GD6eUPV2wAMBaKR1LCC9fKBlL0hyKpXENDdKD9ySoPQVIoDbdkXWYfKSGGMgKr3NP1prMb5CyW6hVaVqdVoCw0TStR2Lvi3rQWXl7PUT+B8/4zIC48z/9w4qP0SJGN3tA6JYvPx7MxAo3RJlxp+oPFrvG9kAJggnkubMqxf0MPkI2WPAVEzwCgvCuD9EqdMpTfgzg3MI656C6fuDHC8UAdFlknbIq7DqD0N+CuCUk0zX2p/8KDeZiaXMo6wtFsfSGQuRu40Yd5i5VE6CG0lJlHCyWdIZ57BS5tLZa+oEovvuPWZUA1zVbtTCPcoOf9uYq877rKs7OohY2pTbAMRDn+hZZLeTt264tQX21vxdKlG+1ZFBJqR3CzLXnUdha/Hgk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(376002)(136003)(366004)(346002)(396003)(54906003)(8936002)(41300700001)(6916009)(36756003)(5660300002)(6486002)(31686004)(4326008)(478600001)(316002)(66946007)(66476007)(66556008)(8676002)(2616005)(6506007)(26005)(6512007)(53546011)(2906002)(86362001)(38100700002)(186003)(31696002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(136003)(346002)(376002)(366004)(39860400002)(66556008)(38100700002)(86362001)(31686004)(66946007)(36756003)(31696002)(8676002)(66476007)(4326008)(186003)(83380400001)(53546011)(26005)(2616005)(6512007)(6506007)(41300700001)(478600001)(6486002)(316002)(37006003)(6636002)(54906003)(2906002)(5660300002)(6862004)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bk1wamhLNzZ5cW96MkEwS0JFSXUxRm9lTk41c0JGTHA5N3V3eG4wT1ovVm9I?=
- =?utf-8?B?emJzZnk0ZVJoU1pxR3hTKytqNkkwSitRck5nTUxlaUEzbjdjd1FDakNUZStO?=
- =?utf-8?B?M00rL2xaYm8rYjdiU2w4b2dzT3BNcGZxQllKRUhrU1VsU2ZHZDlHOS9mL3RL?=
- =?utf-8?B?UnBYV1hKbkRHL3kwTDdaZzBLUE1McXRPQVFreVVHMGhvb1ZFeWMvQVRpOGpN?=
- =?utf-8?B?ZERsWm1ERENNR0VleTI2THlFNHJUSmFPM0VHM1lDamlqZlVLdmE1c3BERzNZ?=
- =?utf-8?B?K2NyN1QyeHlYTDArd2JtditOUEFhaGpxU0J6azF6bjRWS3Y0bXhNU282Q3pX?=
- =?utf-8?B?Qkx5Rk91TWZObnAwM1I2N0Q2WGhZRy9wQWF5amVKcmMzUExnR25HVmozd3F1?=
- =?utf-8?B?OC83VnNaYzlvWkRvR1JoK3dZbWh3Tk1OVGFGa3dnREZVc3dvMGtyaFRmekx0?=
- =?utf-8?B?c2g2b0QrMG42cmN1d29SRlNYcjRBS3VnREk5R2VvcVp4WkJMNXhzT004SEhV?=
- =?utf-8?B?bG1pb0J1RThGa3NRSGs3b1RNbThZN1BmbUQxdGVheXZoQzVUUmMyKzF3R2s3?=
- =?utf-8?B?dlM1cFUxTzljZUtUMnQ0ODJ1T094T0pwRlRwMWNPUktuN0NsOEJXd2FxQVYz?=
- =?utf-8?B?K3NUeThwTlZsZVlldk56SlpOdElxMzBaTjZ0UUwxZ0w2czhEVloraXNVMXZx?=
- =?utf-8?B?ZXJOMnpMTGNJVWJualBVVVVPVEkvbkhEY0cvdFJ3ZkhXbG80Znd0SmsxQnVM?=
- =?utf-8?B?UVNhTEY5djBEOGdCbE9EeUcvOWZ4VythamlQZlJvWUVZR2RtUzNkSmNvYWNk?=
- =?utf-8?B?WmUvT21jd21keFk0cTFnMGhpQ1puNjNadnZSeExDSTZkTkxwaFBUZU5zS3ps?=
- =?utf-8?B?VGR5K0JwMEN2U1VoUjFMWlRoQnRreHlqTXBGaUJoUHF0WjFSemZJeCsxMWJY?=
- =?utf-8?B?c0wxY29GeGpFWFNwVzJaamdQT2IxSjNjSU1Cd3lVbmxUb2d1bWZFRE9jbW1p?=
- =?utf-8?B?RUttaGVIdHp3dlFPa01rdUpnNDJ1Q0pNZmZKRGtQTkVMZGpkYitOR1hnb25j?=
- =?utf-8?B?dnM0ZDMxOWZYT0Fmb0pEdW1aRmI5NlZWaUdYa2V1WTNHSHEyN0dkdUpGWWg5?=
- =?utf-8?B?NHE4MDBOTzhQU1Q0Rzk1N0ZRUG16Q0ZmcGd3V0Q4MTlPL1NkeGdVdWFHcUY2?=
- =?utf-8?B?Wnc3aXhVb2pBSGVCUE92aXNVaVY0cE1ZRG53QnhqZGlwN1hQUlBjY3NUSlpa?=
- =?utf-8?B?VkJhbkJrYXNERzAxT204bml1aHlBWitnMUtyUkc2VllGVWxpU0hac3Zmd3h1?=
- =?utf-8?B?U0VIeTZpRVRXZGU5ZjgzUUNjUWI5SzczSWNaTkliaTBLRWVOTnJUb2VkcElq?=
- =?utf-8?B?cTVMWVAwR0grZytlV1FOazk3Zk80WkV5R1JCbmVEWGNVRVRYUzVDMkRrNmJu?=
- =?utf-8?B?ZTFDSkZUVE94TDl4WnRaaU9CNGpDakFna3Q3K1lnRFY2WkVJbGUvaUVnd1R2?=
- =?utf-8?B?dk80anEyc3dOUG9mOU5Oc1B0d3hLQlJYblh0ckJOY3MxbzY0SEt5TEdDckZN?=
- =?utf-8?B?c2RJS2FXTnlDb1krNkdSU205ZElrS2dmZUJLV2JtOEZYcEdtY0hxOGE1Z1dZ?=
- =?utf-8?B?dHFwRmxCQzFTeFVLWXhXSEtRS1dOZ0t5dDBoVXNlUVJYNjkxenduRURTTSsx?=
- =?utf-8?B?eUE2d2V1RkRqQnkzdjd1TGJNYUY2TDJkZHlvU3ZQU05UQUlKT3pyMEZIMTRm?=
- =?utf-8?B?N2hPVHZXRlRxVk9oZzJRZ2tZSFA0VmdLU25MMGRrMnlDN0QxY2xrdlMyemhP?=
- =?utf-8?B?NGpLMytHQ0dLaTNXYzY4YTN3WC9QNXhjeHI0Q0tyS2h3b2xmZUwzNVBKK1hB?=
- =?utf-8?B?ODhCbjJ6cjdONUVqenNqUUlLenZOUnEwd3o2Kzk3MGdJckRvbXZubDBQRTRI?=
- =?utf-8?B?U0FCRXc4ajNsMm8yT1ZsR24rbjVGemRDemY3ZEhDNDBmWm1QaWZvRDBqa3Fi?=
- =?utf-8?B?aUJCSlkxWUhLcUJhUmllV3RMUzlCOFZuVmpJU1JDdU8xZTFUeXFDSENPVkll?=
- =?utf-8?B?NEphbVQxRmVvVHBYM3cwZFplNWU3NDB0UTg4aVVvSldZeE1NbE9uTDBrbE5K?=
- =?utf-8?Q?cA2uudc4D917TM3Rot8VyC79E?=
+	=?utf-8?B?OHliTFNiMzloMjdwYWt6S1ZkSkdUTzZqd2FjM0E5akh3UlBlUXZhdVBMRDlN?=
+ =?utf-8?B?L1htS2xKQVB1Z1V1enh0dmcvK1RXOUphOVRLVGNtYm83aW9yRk1pNGNIanhj?=
+ =?utf-8?B?cDd3dWlLWnhpVGU1R2FYMGUzU0ZvU1UzRmY3S1h6c0h2cEltbzh6OVBwWlk3?=
+ =?utf-8?B?dTRGcDBhUVR0aDRrQlk4S3FwM3ZXSWFjRC94NG11aWNiR3UzZ09walhQMHh6?=
+ =?utf-8?B?eGx4UkNqUFJEN3cwTEdEY1ZZS0NJdDIvUEdWRDNUU1B2aE5lNmg3K0x3emRI?=
+ =?utf-8?B?aW5leEFIK01TTE1FZ3RhbzhvMnFwUEpSUU85TVJibWVPdmdOSDh3cld3Rjl2?=
+ =?utf-8?B?dHBVVTNqaHlDUkdTNmJWSTdHd0N5bkRLNktZTTdWSmc4ZVBUYXpOU0F0aUV3?=
+ =?utf-8?B?V0dyRHhIVmNCVWlnNkhockpJOFlPeEJQdXhzMktSS2hwN1JJSkhWMHR4clB1?=
+ =?utf-8?B?eGpZaFZzdDZUZDQ4NW8rWDA2K3ErZXFBVjBDUE1BRzhXcUlHMnF2cXlDbFRm?=
+ =?utf-8?B?alBQWHZQTVRlSFdlTTAvdGhYeENXVWFJQmVGUVc0VEdnZjU1cnduVkJ3U3d6?=
+ =?utf-8?B?K0d0S2dEM3FOQ3VhcEpKamI3ekJnMkJPeUxlcFJNK1RFT210Z01MNHNZd0Na?=
+ =?utf-8?B?RjhZaC83ZUhoVis2UVJodXNkeFZsY0tpWVF2UUN5a2lnaHlXUm9hNFM1OW9E?=
+ =?utf-8?B?RitqVFJqVFJVbVlvUERPUzBLcitSMllZVUV5U3JFeHd1WDc5YW1mOFFRU05w?=
+ =?utf-8?B?SElKY2YyQW5lRkhTM2wzTm41bmg2cTJsSnpzR3BvSGdLT28rUHREbWlGRCtC?=
+ =?utf-8?B?bHhVMmdIZGY2dXJWQjlyVFhCZUtLSDdLU2Q3eXpxV1JJZHhCcGgxaEtuQnYx?=
+ =?utf-8?B?TVVSTUZhLzNLVk9mVjVwOHk1djhuZjZjU2RydGM3Y2N5VW8zSXZHYWIxaW5S?=
+ =?utf-8?B?alBhcStBSzh2aTNZanBHS0pKamc2bExsNHN5Rll0d2k3TXNQTzVVMlpqQjhB?=
+ =?utf-8?B?RU1CeTZqcElOTVVlOWlpb3V5OTh3Q3d2dkR4dFFyR2RGRTlHcnI0cnppNTRP?=
+ =?utf-8?B?MkkzQjkwR2E0dTBnQnFsdFVsZEhvb3pUK2s1ZkYyaGZFREprVWlOZXBaUUxW?=
+ =?utf-8?B?dmhSNVBkemdWaTJFMGNmcjE3MGRoUi9USlBOV0JmM3lFaVNnbDk5T0pSdzdQ?=
+ =?utf-8?B?WGV0ZHBrY0JaWEtVa3Rtakk5SGQ0VUZXK3hmaGFvVW1hdmZtYVEzUE10dnF2?=
+ =?utf-8?B?ekw2ZjBja0F3Ny9jK3M2K285TThKbDdtRkZ2ZlloKytPaVRwVlNvRWhmd3BN?=
+ =?utf-8?B?bkpJeEtPZ3RHamRJNGhrSDQ5QVppSnZVWDhtRk9LVjhOOGpoRWVXdm5qNmlY?=
+ =?utf-8?B?c1dNSTl1UW9ZNEs3VDdiaXArWWFhTVV6SGc3QVNwRjRYcm5uSmNYa0JqV0Qv?=
+ =?utf-8?B?ZnNKKzk0SEF6TXM0dmJEeUM4bG5UTnBQQk5KUGgzb3B2bDZKNS9obURhWXJm?=
+ =?utf-8?B?WUd0RzVwOVhmRXpXV3k3OFU2am1hU0VYWlArNjNBV0tCT2RxZS9hczhQdVNu?=
+ =?utf-8?B?ZFdDT2kwdEk2REtMYXZwSnE4cmhNUzBSZlJIRkJRQ1dPSS9hSFRCOWpSNnk5?=
+ =?utf-8?B?TEJRQ1licHNBTFcrTzM0OXllbEl2bnJyL21melB6UnE2cTRPYUJOa3lTbmt0?=
+ =?utf-8?B?ckNKUFdJeVlBN3MwVmU2T3BJT3BtMG43MzZQeDlITjZWdi9GdnphZ2RBMmFa?=
+ =?utf-8?B?RTVGQ3NrZGtEOENzMStmTHJoKzMrYXFLTlBCUWFjMkIybnNheFpTZUdQeHdF?=
+ =?utf-8?B?eXdDTVlLVmJXeHVScVIxamxlUFhYdlZ5Z000REhIK0c1KzNQOHdKTU5pZU9a?=
+ =?utf-8?B?djFtOWVoSE5wcTdDeHAzQWorWHdkTEF4UG1VQUQxQTQyOHQ3VlBWbVZaakVR?=
+ =?utf-8?B?eUViZXBhK1lDYWQ0NGczTVhTNVdURmlodnFnWm5TNXAvVFptWGRuT0RqY2Vv?=
+ =?utf-8?B?MXZ3aGZ2TGVkSUR6QTI5M3pSMGJqMmE3eWx3bEhLTytkMUYxTkYycmRwZmN5?=
+ =?utf-8?B?OGl5NXNNVnFhcEhBYmIwckhxWitxK0lVQ2c3ZGlvYzNhMTY2ZGxaeXd3NWpW?=
+ =?utf-8?Q?Sv22AYramazmBlV4OmPeRzlbn?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d1b1df9-6b01-4e31-1eba-08da86935966
+X-MS-Exchange-CrossTenant-Network-Message-Id: 008a4a19-faf4-4006-c41b-08da86939b65
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2022 12:14:24.5619
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2022 12:16:15.2892
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q6jyOfeFQ+cCgGMZ8VRrLf+1JOtnddZGeu3rWWyaZ7bgqvOaJ8V8/seeqwx4RBAZ2xWRRtPXEF0TyLI9RKY8Sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4761
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9IByAxW6AbYr5u+SYrSp5ovdjNjMPCOKdLvqMOTBCWBe/ZbBm+MVdgsK0iFiqMvK8Fz6DzvmIFTVJ0buBfYccA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4608
 
-On 22.08.2022 04:58, Wei Chen wrote:
-> @@ -96,3 +97,27 @@ unsigned int __init arch_get_dma_bitsize(void)
->                   flsl(node_start_pfn(node) + node_spanned_pages(node) / 4 - 1)
->                   + PAGE_SHIFT, 32);
->  }
-> +
-> +/*
-> + * This function provides the ability for caller to get one RAM entry
-> + * from architectural memory map by index.
-> + *
-> + * This function will return zero if it can return a proper RAM entry.
-> + * otherwise it will return -ENOENT for out of scope index, or return
-> + * -EINVAL for non-RAM type memory entry.
-> + *
-> + * Note: the range is exclusive at the end, e.g. [start, end).
-> + */
-> +int __init arch_get_ram_range(unsigned int idx, paddr_t *start, paddr_t *end)
+On 25.08.2022 14:10, Juergen Gross wrote:
+> On 25.08.22 13:58, Jan Beulich wrote:
+>> On 25.08.2022 13:40, Juergen Gross wrote:
+>>> --- a/drivers/xen/privcmd.c
+>>> +++ b/drivers/xen/privcmd.c
+>>> @@ -581,7 +581,7 @@ static int lock_pages(
+>>>   	struct privcmd_dm_op_buf kbufs[], unsigned int num,
+>>>   	struct page *pages[], unsigned int nr_pages, unsigned int *pinned)
+>>>   {
+>>> -	unsigned int i;
+>>> +	unsigned int i, off = 0;
+>>>   
+>>>   	for (i = 0; i < num; i++) {
+>>>   		unsigned int requested;
+>>> @@ -589,19 +589,23 @@ static int lock_pages(
+>>>   
+>>>   		requested = DIV_ROUND_UP(
+>>>   			offset_in_page(kbufs[i].uptr) + kbufs[i].size,
+>>> -			PAGE_SIZE);
+>>> +			PAGE_SIZE) - off;
+>>>   		if (requested > nr_pages)
+>>>   			return -ENOSPC;
+>>>   
+>>>   		page_count = pin_user_pages_fast(
+>>> -			(unsigned long) kbufs[i].uptr,
+>>> +			(unsigned long)kbufs[i].uptr + off * PAGE_SIZE,
+>>>   			requested, FOLL_WRITE, pages);
+>>> -		if (page_count < 0)
+>>> -			return page_count;
+>>> +		if (page_count <= 0)
+>>> +			return page_count ? : -EFAULT;
+>>>   
+>>>   		*pinned += page_count;
+>>>   		nr_pages -= page_count;
+>>>   		pages += page_count;
+>>> +
+>>> +		off = requested - page_count;
+>>> +		if (off)
+>>> +			i--;
+>>>   	}
+>>
+>> Initially I thought this would go wrong only on the 3rd iteration, but
+>> meanwhile I think it's wrong already on the 2nd. What I think you need
+>> is
+>>
+>> 		if (page_count < requested)
+>> 			i--;
+>> 		off += page_count;
+>>
+>> or with the i++ from the loop header absorbed here
+>>
+>> 		if (page_count == requested)
+>> 			i++;
+>> 		off += page_count;
+>>
+>> Plus of course off needs resetting to zero whenever i advances. I.e.
+>>
+>> 		if (page_count == requested) {
+>> 			i++;
+>> 			off = 0;
+>> 		} else {
+>> 			off += page_count;
+>> 		}
+> 
+> Yeah, or:
+> 
+> 		off = (page_count == requested) ? 0 : off + page_count;
+> 		i += !off;
 
-Since the comment is intended to apply to all architectures providing,
-I think it should go with the declaration (once) rather than the
-definition (at least one instance per arch).
-
-> +{
-> +    if ( idx >= e820.nr_map )
-> +        return -ENOENT;
-> +
-> +    if ( e820.map[idx].type != E820_RAM )
-> +        return -EINVAL;
-
-EINVAL is so heavily (over)loaded that I'm inclined to ask to use e.g.
--ENODATA here.
-
-> --- a/xen/arch/x86/srat.c
-> +++ b/xen/arch/x86/srat.c
-> @@ -428,18 +428,22 @@ acpi_numa_memory_affinity_init(const struct acpi_srat_mem_affinity *ma)
->     Make sure the PXMs cover all memory. */
->  static int __init nodes_cover_memory(void)
->  {
-> -	int i;
-> +	unsigned int i;
->  
-> -	for (i = 0; i < e820.nr_map; i++) {
-> +	for (i = 0; ; i++) {
->  		int j, found;
->  		paddr_t start, end;
->  
-> -		if (e820.map[i].type != E820_RAM) {
-> +		/* Try to loop memory map from index 0 to end to get RAM ranges. */
-> +		found = arch_get_ram_range(i, &start, &end);
-> +
-> +		/* Index relate entry is not RAM, skip it. */
-> +		if (found == -EINVAL)
->  			continue;
-> -		}
->  
-> -		start = e820.map[i].addr;
-> -		end = e820.map[i].addr + e820.map[i].size;
-> +		/* Reach the end of arch's memory map */
-> +		if (found == -ENOENT)
-> +			break;
-
-What if an arch returns a 3rd error indicator? The way you've written
-it code below would assume success and use uninitialized data. I'd
-like to suggest to only special-case -ENOENT and treat all other
-errors the same. But of course the variable (re)used doesn't really
-fit that:
-
-		/* Reach the end of arch's memory map */
-		if (found == -ENOENT)
-			break;
-
-		/* Index relate entry is not RAM, skip it. */
-		if (found)
-			continue;
-
-because here really you mean "not found". Since in fact "found" would
-want to be of "bool" type in the function, and "j" would want to be
-"unsigned int" just like "i" is, I recommend introducing a new local
-variable, e.g. "err".
+I wasn't daring to suggest something like that ;-)
 
 Jan
-
->  		do {
->  			found = 0;
 
