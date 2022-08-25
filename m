@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42A245A1356
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Aug 2022 16:20:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.393435.632387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 474F65A13A5
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Aug 2022 16:32:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.393442.632399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRDhd-0002lE-5Q; Thu, 25 Aug 2022 14:19:25 +0000
+	id 1oRDto-0005Cb-CV; Thu, 25 Aug 2022 14:32:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 393435.632387; Thu, 25 Aug 2022 14:19:25 +0000
+Received: by outflank-mailman (output) from mailman id 393442.632399; Thu, 25 Aug 2022 14:32:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRDhd-0002iU-2Q; Thu, 25 Aug 2022 14:19:25 +0000
-Received: by outflank-mailman (input) for mailman id 393435;
- Thu, 25 Aug 2022 14:19:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oRDto-00059H-95; Thu, 25 Aug 2022 14:32:00 +0000
+Received: by outflank-mailman (input) for mailman id 393442;
+ Thu, 25 Aug 2022 14:31:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=K3TS=Y5=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oRDhb-0002iO-3W
- for xen-devel@lists.xenproject.org; Thu, 25 Aug 2022 14:19:23 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0e6d7e5-2480-11ed-9250-1f966e50362f;
- Thu, 25 Aug 2022 16:19:06 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C8D465BE56;
- Thu, 25 Aug 2022 14:19:20 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8E14413517;
- Thu, 25 Aug 2022 14:19:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XCoxIeiEB2M8SAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 25 Aug 2022 14:19:20 +0000
+ (envelope-from <julien@xen.org>) id 1oRDtm-00059B-2y
+ for xen-devel@lists.xenproject.org; Thu, 25 Aug 2022 14:31:58 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oRDtk-00086H-Gp; Thu, 25 Aug 2022 14:31:56 +0000
+Received: from [54.239.6.188] (helo=[192.168.11.158])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oRDtk-0002C0-AK; Thu, 25 Aug 2022 14:31:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,122 +39,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0e6d7e5-2480-11ed-9250-1f966e50362f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1661437160; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sNKQlGDAZqQferZnNmp0WSqatXflduAzkdFeb31EiP0=;
-	b=sZhw/MifAZ9FmVNdpEIeJr63FRoVAiv5dCw037wAAehLMI2JBd1YOH7DY7jAQvDEFppZS5
-	Zutm6Gs1TXuG7MekvCt8ADUq28/EbOU5OjEgnfDVPV583ehUMykLGYu14gmz/0EDjqm8kR
-	R7km1sxINwFnA7KxTi+0X0MlcG9X2l8=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	stable@vger.kernel.org,
-	Rustam Subkhankulov <subkhankulov@ispras.ru>
-Subject: [PATCH v4] xen/privcmd: fix error exit of privcmd_ioctl_dm_op()
-Date: Thu, 25 Aug 2022 16:19:18 +0200
-Message-Id: <20220825141918.3581-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=GrjSGEHegGmhgEV2ArvhYIxbRPJYzfXsAF02yXUp4P4=; b=YaDW9Ug/F0MdvVS1pT5RJKHgsQ
+	xvcqlvCs3hsFmZJR5AxC9UI8plsyo7BC6N0NdjkxovNMyrbP6DZ+mAy//+sJcS1TOJe7tVRL8vWdV
+	emVK8MNd0DkpduuBBpwvIBn6wZZLHh1RcV5egDeHkywuQCeueX1QQ4ck5TZNiiQqoimk=;
+Message-ID: <6c14c923-0ab1-5a07-0e3b-4df2956d7ec4@xen.org>
+Date: Thu, 25 Aug 2022 15:31:54 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.0
+Subject: Re: [PATCH v2] Arm32: correct string.h functions for "int" ->
+ "unsigned char" conversion
+Content-Language: en-US
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+References: <8e5df72f-2ed8-3bec-18ff-3da228ab9ee0@suse.com>
+ <031ce9f6-ede4-f371-da04-ff8c2df209dc@suse.com>
+ <43F406AE-988F-4429-B8CB-F47DBD599B43@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <43F406AE-988F-4429-B8CB-F47DBD599B43@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The error exit of privcmd_ioctl_dm_op() is calling unlock_pages()
-potentially with pages being NULL, leading to a NULL dereference.
 
-Additionally lock_pages() doesn't check for pin_user_pages_fast()
-having been completely successful, resulting in potentially not
-locking all pages into memory. This could result in sporadic failures
-when using the related memory in user mode.
 
-Fix all of that by calling unlock_pages() always with the real number
-of pinned pages, which will be zero in case pages being NULL, and by
-checking the number of pages pinned by pin_user_pages_fast() matching
-the expected number of pages.
+On 24/08/2022 13:44, Bertrand Marquis wrote:
+>> On 24 Aug 2022, at 13:33, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> While Arm64 does so uniformly, for Arm32 only strchr() currently handles
+>> this properly. Add the necessary conversion also to strrchr(), memchr(),
+>> and memset().
+>>
+>> As to the placement in memset(): Putting the new insn at the beginning
+>> of the function is apparently deemed more "obvious". It could be placed
+>> later, as the code reachable without ever making it to the "1" label
+>> only ever does byte stores.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Cc: <stable@vger.kernel.org>
-Fixes: ab520be8cd5d ("xen/privcmd: Add IOCTL_PRIVCMD_DM_OP")
-Reported-by: Rustam Subkhankulov <subkhankulov@ispras.ru>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- use "pinned" as parameter for unlock_pages() (Jan Beulich)
-- drop label "unlock" again (Jan Beulich)
-- add check for complete success of pin_user_pages_fast()
-V3:
-- continue after partial success of pin_user_pages_fast() (Jan Beulich)
-V4:
-- fix case of multiple partial successes for one buffer (Jan Beulich)
----
- drivers/xen/privcmd.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+It is now committed.
 
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index 3369734108af..e88e8f6f0a33 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -581,27 +581,30 @@ static int lock_pages(
- 	struct privcmd_dm_op_buf kbufs[], unsigned int num,
- 	struct page *pages[], unsigned int nr_pages, unsigned int *pinned)
- {
--	unsigned int i;
-+	unsigned int i, off = 0;
- 
--	for (i = 0; i < num; i++) {
-+	for (i = 0; i < num; ) {
- 		unsigned int requested;
- 		int page_count;
- 
- 		requested = DIV_ROUND_UP(
- 			offset_in_page(kbufs[i].uptr) + kbufs[i].size,
--			PAGE_SIZE);
-+			PAGE_SIZE) - off;
- 		if (requested > nr_pages)
- 			return -ENOSPC;
- 
- 		page_count = pin_user_pages_fast(
--			(unsigned long) kbufs[i].uptr,
-+			(unsigned long)kbufs[i].uptr + off * PAGE_SIZE,
- 			requested, FOLL_WRITE, pages);
--		if (page_count < 0)
--			return page_count;
-+		if (page_count <= 0)
-+			return page_count ? : -EFAULT;
- 
- 		*pinned += page_count;
- 		nr_pages -= page_count;
- 		pages += page_count;
-+
-+		off = (requested == page_count) ? 0 : off + page_count;
-+		i += !off;
- 	}
- 
- 	return 0;
-@@ -677,10 +680,8 @@ static long privcmd_ioctl_dm_op(struct file *file, void __user *udata)
- 	}
- 
- 	rc = lock_pages(kbufs, kdata.num, pages, nr_pages, &pinned);
--	if (rc < 0) {
--		nr_pages = pinned;
-+	if (rc < 0)
- 		goto out;
--	}
- 
- 	for (i = 0; i < kdata.num; i++) {
- 		set_xen_guest_handle(xbufs[i].h, kbufs[i].uptr);
-@@ -692,7 +693,7 @@ static long privcmd_ioctl_dm_op(struct file *file, void __user *udata)
- 	xen_preemptible_hcall_end();
- 
- out:
--	unlock_pages(pages, nr_pages);
-+	unlock_pages(pages, pinned);
- 	kfree(xbufs);
- 	kfree(pages);
- 	kfree(kbufs);
+Cheers,
+
 -- 
-2.35.3
-
+Julien Grall
 
