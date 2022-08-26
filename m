@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 562AD5A28F9
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Aug 2022 16:00:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.393898.633098 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34D435A2926
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Aug 2022 16:14:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.393904.633110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRZs7-0001mm-HK; Fri, 26 Aug 2022 13:59:43 +0000
+	id 1oRa5g-0004CC-QG; Fri, 26 Aug 2022 14:13:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 393898.633098; Fri, 26 Aug 2022 13:59:43 +0000
+Received: by outflank-mailman (output) from mailman id 393904.633110; Fri, 26 Aug 2022 14:13:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRZs7-0001kZ-ET; Fri, 26 Aug 2022 13:59:43 +0000
-Received: by outflank-mailman (input) for mailman id 393898;
- Fri, 26 Aug 2022 13:59:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oRa5g-00048j-Na; Fri, 26 Aug 2022 14:13:44 +0000
+Received: by outflank-mailman (input) for mailman id 393904;
+ Fri, 26 Aug 2022 14:13:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oRZs6-0001kT-Gw
- for xen-devel@lists.xenproject.org; Fri, 26 Aug 2022 13:59:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oRZs6-0001ZY-1h; Fri, 26 Aug 2022 13:59:42 +0000
-Received: from [54.239.6.187] (helo=[192.168.16.85])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oRZs5-00059X-Q3; Fri, 26 Aug 2022 13:59:41 +0000
+ (envelope-from <SRS0=cVPj=Y6=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oRa5e-00048d-Rc
+ for xen-devel@lists.xenproject.org; Fri, 26 Aug 2022 14:13:43 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70084.outbound.protection.outlook.com [40.107.7.84])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49782364-2549-11ed-bd2e-47488cf2e6aa;
+ Fri, 26 Aug 2022 16:13:41 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB6PR0402MB2934.eurprd04.prod.outlook.com (2603:10a6:4:9b::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Fri, 26 Aug
+ 2022 14:13:39 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2d5d:bae0:430f:70ad]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2d5d:bae0:430f:70ad%4]) with mapi id 15.20.5566.015; Fri, 26 Aug 2022
+ 14:13:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,336 +46,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=gPqyOPs2qnF6T77KS0SX79FEZfQKiJqON1mv7r57apU=; b=1VHgvhBcVHjQvE+gx/rWnU8TPR
-	Zm88HK/L906HVkrVdq+JxahLQUqvBUy5d+s3j/4l/vDskZJtFrOjUpw6sOnTpL/acZqS5cKzB1507
-	T8BRT6/WUQj4UyfVZxndihpALw7RNG9K/6B3GDzdveE+xQZzFrB6mUH7Nb5yL6h4gfFk=;
-Message-ID: <b5d92f89-4231-e4e8-b219-80fd2911a944@xen.org>
-Date: Fri, 26 Aug 2022 14:59:39 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.0
-Subject: Re: [PATCH v6 2/9] xen/arm: allocate static shared memory to the
- default owner dom_io
+X-Inumbo-ID: 49782364-2549-11ed-bd2e-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PqPrZF0xzWAPn09+pZIhij8Jo08cjhtdouZ4oGYJ9L5G31MXiMFV3zRcNM9MpiZVh4uxKKMylw4/eYPr9fYU99/rq4fKDwzWOFC3s+3iCxRIABHY8dNBShyxURpdsbGwOc+xeW72y75x8K4QGB1pWm6vtPmszj6b1agYt2o2u1olnptU60Keaw5McAmkkdpHBwmNk/nZLG/f/8cvRA7var+SyY19gVLZQHLNnC/0Sr6zPT/TeIODSvmhjKso9mkHs1AizMI1EPXZD1RtiNUY4SBsEwN0V1pz0P6Kf1pe95UBTlJU6WMIO/YRiwVe65qAJ+r8hxPWHG1sd9Li0Qfgjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oDSqoc/kHXcDb3Zoc/tNtgIufqo0db/FBmvIaxl2+OI=;
+ b=fBmkR8tnbUWarl6NtWDB/S8vSz+l8zj++Ec9Xir4vbigfCjv0UOB/N7Hdn3TYxPQNVtQJl1OwcWBIqjMS2nxogGrf264s0ubn0UVGHwZhwnM8QWLcH5ajTDvDfCJvswq4Rt5qQjlSAV6uOATQJ6UhYxgkU6jWwNWnnnxnpDwxvAHTQIchNvCNSBr1b8oNovVdV/g/A/A+Kx2QzGOVeANjcMlULSnO6X6eyzT2ZEZ0eHnOGEgEqPfyNN29aRvh5mzNLqR8WLVdC0o5b7z/N6MatCcI9nYUT2MqmoCTm7Vb/coVpzqTtnKyKOfjtCEUFKwvB+4NDqqQILKCk89qUdHnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oDSqoc/kHXcDb3Zoc/tNtgIufqo0db/FBmvIaxl2+OI=;
+ b=bUEhMrUnQ1RQ1FN5EmrWQgdaGPRXASWoqzpbDS/yXQpfOXaRmxOFMpIcKvoTUdNM7ViI5HKGArdhlocQmRlixmfWPv/FdYwilsPa+1sYP+F0YcKCFSm5iwefGX0+2PHjWDn37NxptH5eBCNrsMmmUYWYXap6bPJRUw4oaVTsa4ckBtAccpxJwoVFjR5v2hQo+sHd4JdYfZ/5CK2JsdJ6rrTYvBD1FVcV9NeT20gJaOLMpN1/JsvaKQhsIna6iJkh5029ows/InKpMECFQB7j24mevK9VqmTMW15qZEpQLjK77GQtn4OoXZeV+J5l/sTur/kldaiPON7Yd31uki/XEw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <5da3c51d-a43b-a967-6f0f-22c1d3ba497d@suse.com>
+Date: Fri, 26 Aug 2022 16:13:36 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+Subject: Re: [PATCH 07/12] xen/common: add colored heap info debug-key
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20220721132115.3015761-1-Penny.Zheng@arm.com>
- <20220721132115.3015761-3-Penny.Zheng@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220721132115.3015761-3-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
+ stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it,
+ andrea.bastoni@minervasys.tech, lucmiccio@gmail.com,
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
+ <20220826125111.152261-8-carlo.nonato@minervasys.tech>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220826125111.152261-8-carlo.nonato@minervasys.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0148.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:95::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fa2861ed-3295-4a3e-6dfd-08da876d2bda
+X-MS-TrafficTypeDiagnostic: DB6PR0402MB2934:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	3ShuyUDIiKZjHl7sRCrSOpv0MEas1ZFGIP3J0nlcDDZPO6dUb5DA2ARTqB1FYuInYOcBc4nGCMT6zZQ5CcWuc588fzgmwq7zhA4xZ5WdcHi42MlF3N3ZWQB3SqHSlWcv4ls1qmUXXUXpMIqDa7ngJsky4Z+GGnros+MNSRT732TSVOXt8QO5vpda4po/Lh3f6RxsCEu4KCOPkC5Uz0vRJHMdsucvu7LtB56wt3JCphY1n4dzIpf8BtVxhl9lrSMOg6b+n0mD2ExoZFLru27BLEp5QrmqOZKSaB1Q2Nu5JzgdMP4nZmq+3drOEIWEJtJPS0DfmCweXKComS+gDDFXW9FFgyvnN/+F7KyBE2zedc/xhVgjMSf4KVn+cqt0zpPw0nECOpGP+XrEDs0qxAu3sDYKOChpQ1N/xa+/NMVmVoyRgT0VQVuW6u7srEqQlag4TLSAIZlgbkjcIQE8aspnGENwAHR3vkCdq0Djk5ZaAuisMy2lVpmRycHLsU84t6MMiPAJf7UEvlSo/Hhr+AhdBPSDKtgqYI9MxTjCRuZsjXxmycTULsrPinTRM7mO54eyxut4texadJ0F4Ib0opb9XFBQN6cNAUSDO8C6jl8QF4uH1F2uW6A/AoLatYG2UkDuTti4b+ig6UkWu+f4a6vBc1nQWXyr+GpKHqjSdGvrZ6yXWeoL6oDHnXGL98LJP5BMNkVOkY2B+GkU0MdhHymDefgfJRDf0t/l320j/9+Ztf3nRbnZoTaSb4PJIhs8/U3bAh4u3+kdXpcA9O1CN8OlxZhrfG3irzecPXt7coBxxC0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(39860400002)(376002)(136003)(396003)(346002)(31696002)(38100700002)(66476007)(66556008)(6916009)(316002)(4326008)(2906002)(66946007)(53546011)(8936002)(26005)(5660300002)(7416002)(6512007)(2616005)(186003)(6666004)(86362001)(31686004)(6506007)(478600001)(6486002)(8676002)(36756003)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d1JMMUdHODR1ZGdWWFNoeEdvSHVNVXdjSGYxTFFSYVBwd0pXYUxRdE1BRlBL?=
+ =?utf-8?B?aHlHL0J2TThTZnYwMm9Cc1ZlWXdNcmVCNUxRY09DWTdHTnBMMktuR1NPV3k4?=
+ =?utf-8?B?cXh3Mk4zTm9peDdyZjVzY1doK3FkUnRJV2VnU2srSlVNRDZRQU5xZFBWaGRR?=
+ =?utf-8?B?VUVwTnpoVEFhbXJwNCthb0diWlBZU0MxTUltTUlrdjBMcjBIaU1ud1hWODVS?=
+ =?utf-8?B?ZTZCaE8yajhmY3dwRlVuMTlGUmhsWlhvUWh5ditOOWIxMEdUNzNJQW9GcEF0?=
+ =?utf-8?B?SGRPeWFlRE9XYnlSMHNaczhxS01VVk1STzRUR1d4amNkK2l6dFJ3b3psdkNn?=
+ =?utf-8?B?dzQ3MjdiY0RzWUIyQTB0U2dKYU81Q0UwVENkREdwbk85VThPZmZiMlpYbWtk?=
+ =?utf-8?B?WVhsMGNmSGEwdjljNHd4RWNDaGxrOEViVUpHbGF6WmlpUTdlQlM0L08rYXl3?=
+ =?utf-8?B?T1p5dERORy91Z1JiUlV6VjF5VEVhUUg3YVVkcUwxdVZhMytJRDErZG91aHdT?=
+ =?utf-8?B?UUZPcnJFVHVxQUtoYUIyNENiT3VLczBIRjhQaURtdzV5QTd5OHZodm5JNHFR?=
+ =?utf-8?B?Ui9CZG9oWlR4UFBIdHlmSk8yRElRbERpUG5OUFhBdEdLdUZHOVFnUGVYaEpk?=
+ =?utf-8?B?b2w4dHV6c2k0NjZUUVUwU3E1cUtQeTFGSlNPMnIvU2QrYld4a2VLOFBlT3Rz?=
+ =?utf-8?B?OHVjYkkxMC9WbTNsUXVONktIMHJBMjRqVHBUTWtqWXJYZlVmM08vQldTUjA2?=
+ =?utf-8?B?azdHU1cyN0VMZzU4RnVYTXhpRVhFUnoxN3NkRHVmSjVXZXRBNjBFNnJxK1BG?=
+ =?utf-8?B?cUVBOVRzcVBaVS9laUpYVmFBOFNvSFFtSVRYSEtZbHVDcFROWHI0eDM5UnZL?=
+ =?utf-8?B?NzU1RmhsRTl2Z28yeENJZWpVZlY0d3ZwclRrdWlMbkxCNXdnRGl5RGx4OFhG?=
+ =?utf-8?B?NG1IbU13Rmt1ejdLQmNhNVpVS25ob1JYMHVkU3M3aXlvazYrK2NLUEVyaGVl?=
+ =?utf-8?B?WDFQNEN3MHBDb2kxQm1YKzRZSmVsT0J1ZmNONWRBbWtwZUxyeWNvc2gvVDJs?=
+ =?utf-8?B?UjA3RWVMVlAzWlVGNXE3S251T0YzTEZhTzQ2NkdRL3JUb0Q0SnpLQ3BQWUdv?=
+ =?utf-8?B?NGZ1c1BLNWY2MFhwcXRPK1F2RDlIZFViOUhEaEdYYy8zM01CWTVXS0h5Rm02?=
+ =?utf-8?B?WnhGeDY3QUtqRTJqTm56T3VGa1F2a0FmUDRRWXNVSXNXVmd0NXZhQ3laOGFE?=
+ =?utf-8?B?VzdjRk9GL1RxTTVmTnBCU2gzOWIydi9ieDdaM01UV0d1UmNqVENvUURWMFRS?=
+ =?utf-8?B?T3RWbTl0UWhMdk94MlJGUlo4d2g2NzhLRkQ5WWdudU5nWkorckxTVzBXVWN4?=
+ =?utf-8?B?TkVUYVlFSEd6aGVxYSt0THJnYWN2RzVxSm1uYk0xKy84aVJiRzAxNE93eDBP?=
+ =?utf-8?B?VjEvQzd2Sng1a0dsNTdqK0JmaHlWVFhoS0hxYzUvaUlJR3VhVDUwU1BLZUpK?=
+ =?utf-8?B?N25OZEN3OEViaXkyZ3lRcFlRNFFBd2ROdDJCbDdvVWFub0JxV2ppOGFyNHlj?=
+ =?utf-8?B?QTBZWjcvRU02aUhhTVdDUlEvZ2VlcndtZkdvd294RDc1MzU3WGVGVVhCaUJz?=
+ =?utf-8?B?RE9WMzRabGdiK0R1enhMeWlLZnFSZzBaNmlxQ2F4UVBBNmdtWVM0cFBmZ0I0?=
+ =?utf-8?B?d1pCaVdVMnRHUGxhVkJYeXJPOFJXUmJjZ2lkRk9Reno2YmVUOXFISEc5bXNG?=
+ =?utf-8?B?Y1hXWkxGanZyZzdSZnozRTNwUHZHMGtxV3VqOTlRdlhyN2ZxNGNNTjFnVFVH?=
+ =?utf-8?B?WmhkZTNENWhOUkJDL3A4WlU4ZkM2YjJFM3BRTGZMQ0d0UGQ4UEJlbDdnK2ZZ?=
+ =?utf-8?B?TXN1OXdwZFM5VmQ1Z2xRSVlvN3NoeVJaaXdvYlh4OTB4bWsvZ1JwTjlBQW8w?=
+ =?utf-8?B?b2pKbDVuNXA0WThQZG4renJ3VTBsaFZWRjUwTUx6WjhSOHJvVVFZdi9GblJM?=
+ =?utf-8?B?VCs1MnkwdncraFo5M01YRGlrd2ZwZ0NnZFFkaXBTTTQ2U2RoeDFWNlVxYWRN?=
+ =?utf-8?B?MUhlamc4bnhtSklCODZFUko5NlZTQU85cFA0NjJqVytLRGtLR0V1d25NWUF4?=
+ =?utf-8?Q?xgMvXgShnueuZLVPM3saL/IFx?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa2861ed-3295-4a3e-6dfd-08da876d2bda
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2022 14:13:39.2485
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0WQ2No1HfixBX90dwjMiaI+x+N1MPPIXHTzF+dKJRcsdXJDMMP6QW09JMNt3viK2I7H+3hClaRyP63G3qk7N9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2934
 
-Hi Penny,
-
-On 21/07/2022 14:21, Penny Zheng wrote:
-> From: Penny Zheng <penny.zheng@arm.com>
-> 
-> This commit introduces process_shm to cope with static shared memory in
-> domain construction.
-> 
-> DOMID_IO will be the default owner of memory pre-shared among multiple domains
-> at boot time, when no explicit owner is specified.
-> 
-> This commit only considers allocating static shared memory to dom_io
-> when owner domain is not explicitly defined in device tree, all the left,
-> including the "borrower" code path, the "explicit owner" code path, shall
-> be introduced later in the following patches.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> ---
-> v6 change:
-> - use if-array to check psize, pbase and gbase are suitably aligned and
-> valid
-> - use mfn_valid to check (pbase, pbase + psize)
-> - check d->max_pages will not overflow
-> - refine acquire_shared_memory_bank to not reuse acquire_static_memory_bank,
-> then input pbase and psize do not need to be used as a pointer.
-> - use if-array to check if page owner is dom_io
-> - in-code comment refinement
-> ---
-> v5 change:
-> - refine in-code comment
-> ---
-> v4 change:
-> - no changes
-> ---
-> v3 change:
-> - refine in-code comment
-> ---
-> v2 change:
-> - instead of introducing a new system domain, reuse the existing dom_io
-> - make dom_io a non-auto-translated domain, then no need to create P2M
-> for it
-> - change dom_io definition and make it wider to support static shm here too
-> - introduce is_shm_allocated_to_domio to check whether static shm is
-> allocated yet, instead of using shm_mask bitmap
-> - add in-code comment
-> ---
->   xen/arch/arm/domain_build.c | 155 ++++++++++++++++++++++++++++++++++++
->   xen/common/domain.c         |   3 +
->   2 files changed, 158 insertions(+)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 3fd1186b53..ff2aebaf28 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -759,6 +759,155 @@ static void __init assign_static_memory_11(struct domain *d,
->       panic("Failed to assign requested static memory for direct-map domain %pd.",
->             d);
->   }
-> +
-> +#ifdef CONFIG_STATIC_SHM
-> +/*
-> + * This function checks whether the static shared memory region is
-> + * already allocated to dom_io.
-> + */
-> +static bool __init is_shm_allocated_to_domio(paddr_t pbase)
+On 26.08.2022 14:51, Carlo Nonato wrote:
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -605,6 +605,27 @@ static struct page_info *alloc_col_domheap_page(struct domain *d,
+>      return pg;
+>  }
+>  
+> +static void dump_col_heap(unsigned char key)
 > +{
-> +    struct page_info *page;
+> +    struct page_info *pg;
+
+const and perhaps move into the loop's scope?
+
+> +    unsigned long pages;
+> +    unsigned int color;
 > +
-> +    page = maddr_to_page(pbase);
-> +    if ( page_get_owner(page) == NULL )
-
-Sorry, I should have stopped the issue with the call before. 
-page_get_owner() can only be called for pages that are marked inuse. 
-This is because the field "domain" is part of an union.
-
-So I think you want to use page_get_owner_and_reference() here. The 
-reference will have to be dropped using put_page(). I think it should be 
-fine to do within the same function because we are still at init and 
-therefore the page owner shouldn't change. I would explain that in a 
-comment.
-
-> +        return false;
+> +    printk("'%c' pressed -> dumping coloring heap info\n", key);
 > +
-> +    if ( page_get_owner(page) != dom_io )
-
-Let's not duplicate the call to page_get_owner(). You can use the result 
-from the caller above and drop the reference afterwards (see above).
-
+> +    for ( color = 0; color < get_max_colors(); color++ )
 > +    {
-> +        printk(XENLOG_ERR
-> +               "shm memory node has already been allocated to a specific owner %pd, Please check your configuration\n",
-> +               page_get_owner(page));
-> +        return false;
-> +    }
-> +
-> +    return true;
-> +}
-> +
-> +static mfn_t __init acquire_shared_memory_bank(struct domain *d,
-> +                                               paddr_t pbase, paddr_t psize)
-> +{
-> +    mfn_t smfn;
-> +    unsigned long nr_pfns;
-> +    int res;
-> +
-> +    /*
-> +     * Pages of statically shared memory shall be included
-> +     * into domain_tot_pages().
-> +     */
-> +    nr_pfns = PFN_DOWN(psize);
-> +    if ( (UINT_MAX - d->max_pages) < nr_pfns )
-> +    {
-> +        printk(XENLOG_ERR "%pd: Over-allocation for d->max_pages: %lu.\n",
-> +               d, nr_pfns);
-> +        return INVALID_MFN;
-> +    }
-> +    d->max_pages += nr_pfns;
-> +
-> +    smfn = maddr_to_mfn(pbase);
-> +    res = acquire_domstatic_pages(d, smfn, nr_pfns, 0);
-> +    if ( res )
-> +    {
-> +        printk(XENLOG_ERR
-> +               "%pd: failed to acquire static memory: %d.\n", d, res);
-
-Should not we adjust "d->max_pages" if acquire_domstatic_pages() fails?
-
-> +        return INVALID_MFN;
-> +    }
-> +
-> +    return smfn;
-> +}
-> +
-> +static int __init allocate_shared_memory(struct domain *d,
-> +                                         u32 addr_cells, u32 size_cells,
-> +                                         paddr_t pbase, paddr_t psize)
-> +{
-> +    mfn_t smfn;
-> +
-> +    dprintk(XENLOG_INFO,
-> +            "%pd: allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
-> +            d, pbase, pbase + psize);
-> +
-> +    smfn = acquire_shared_memory_bank(d, pbase, psize);
-> +    if ( mfn_eq(smfn, INVALID_MFN) )
-> +        return -EINVAL;
-> +
-> +    /*
-> +     * DOMID_IO is the domain, like DOMID_XEN, that is not auto-translated.
-
-It is not quite clear why DOMID_XEN is mentioned here. Yes, it is 
-auto-translated like DOMID_IO, but code doesn't care about that here.
-
-> +     * It sees RAM 1:1 and we do not need to create P2M mapping for it
-> +     */
-
-The overall comment reads a bit odd without the implement for non-dom0. 
-I don't have a good suggestion other than have a different comment for 
-now and rewording it. But that's just churn.
-
-Regarding the current comment I would suggest the following:
-
-DOMID_IO is auto-translated (i.e. it seems RAM 1:1). So we do not need 
-to create mapping in the P2M.
-
-> +    ASSERT(d == dom_io);
-> +    return 0;
-> +}
-> +
-> +static int __init process_shm(struct domain *d,
-> +                              const struct dt_device_node *node)
-> +{
-> +    struct dt_device_node *shm_node;
-> +
-> +    dt_for_each_child_node(node, shm_node)
-> +    {
-> +        const struct dt_property *prop;
-> +        const __be32 *cells;
-> +        uint32_t addr_cells, size_cells;
-> +        paddr_t gbase, pbase, psize;
-> +        int ret = 0;
-> +        unsigned int i;
-> +
-> +        if ( !dt_device_is_compatible(shm_node, "xen,domain-shared-memory-v1") )
-> +            continue;
-> +
-> +        /*
-> +         * xen,shared-mem = <pbase, psize, gbase>;
-> +         * TODO: pbase is optional.
-> +         */
-> +        addr_cells = dt_n_addr_cells(shm_node);
-> +        size_cells = dt_n_size_cells(shm_node);
-> +        prop = dt_find_property(shm_node, "xen,shared-mem", NULL); > +        ASSERT(prop);
-
-I would suggest to switch to BUG_ON() because this is init code. So 
-better to be obvious.
-
-> +        cells = (const __be32 *)prop->value;
-> +        device_tree_get_reg(&cells, addr_cells, size_cells, &pbase, &psize);
-> +        gbase = dt_read_number(cells, addr_cells);
-> +        if ( !IS_ALIGNED(pbase, PAGE_SIZE) || !IS_ALIGNED(gbase, PAGE_SIZE) )
+> +        printk("Heap[%u]: ", color);
+> +        pages = 0;
+> +        page_list_for_each( pg, colored_pages(color) )
 > +        {
-> +            printk("%pd: physical address 0x%"PRIpaddr", or guest address 0x%"PRIpaddr" is not suitably aligned.\n",
-> +                   d, pbase, gbase);
-> +            return -EINVAL;
+> +            BUG_ON(!(page_to_color(pg) == color));
+> +            pages++;
 > +        }
-> +        if ( !IS_ALIGNED(psize, PAGE_SIZE) )
-> +        {
-> +            printk("%pd: size 0x%"PRIpaddr" is not suitably aligned\n",
-> +                   d, psize);
-> +            return -EINVAL;
-> +        }
-> +
-> +        for ( i = 0; i < PFN_DOWN(psize); i++ )
-> +            if ( !mfn_valid(mfn_add(maddr_to_mfn(pbase), i)) )
-> +            {
-> +                printk("%pd: invalid physical address 0x%"PRI_mfn"\n",
-> +                       d, mfn_x(mfn_add(maddr_to_mfn(pbase), i)));
-> +                return -EINVAL;
-> +            }
-> +
-> +        /* TODO: Consider owner domain is not the default dom_io. */
-> +        /*
-> +         * Per static shared memory region could be shared between multiple
-> +         * domains.
 
-Well, it would not be shared memory otherwise :). I think here you are 
-referring to the fact that the owner may be DOMID_IO *and* the area 
-still shared with multiple borrower.
+This is a very inefficient way for obtaining a count. On a large
+system this loop is liable to take excessively long. I'm inclined
+to say that even adding a call to process_pending_softirqs() isn't
+going to make this work reasonably.
 
-> +         * In case re-allocating the same shared memory region, we check
-> +         * if it is already allocated to the default owner dom_io before
-> +         * the actual allocation.
-> +         */
+I'm also not convinced of having BUG_ON() in keyhandler functions
+which are supposed to only dump state.
 
-I think it would be worth explaining in the commit message that DOMID_IO 
-is not a "real" domain. This is why you need to check whether the shared 
-area has been reserved. So how about replacing the two paragraphs with:
-
-"DOMID_IO is a fake domain and is not described in the Device-Tree. 
-Therefore When the owner of the shared region is DOMID_IO, we will only 
-find the borrowers."
-
-> +        if ( !is_shm_allocated_to_domio(pbase) )
-> +        {
-> +            /* Allocate statically shared pages to the default owner dom_io. */
-
-This is mostly repeating the line below. How about:
-
-"We found the first borrower of the region, the owner was not specified 
-so they should be assign to dom0".
-
-> +            ret = allocate_shared_memory(dom_io, addr_cells, size_cells,
-> +                                         pbase, psize);
-
-While proposing some comments above, I realized that this function is 
-not really allocating memory. It is assigning a set of pages to domain.
-
-So may I suggest to rename it to assign_shared_memory()? Or maybe 
-acquire_shared_memory()?
-
-> +            if ( ret )
-> +                return ret;
-> +        }
-> +    }
-> +
-> +    return 0;
-> +}
-> +#endif /* CONFIG_STATIC_SHM */
->   #else
->   static void __init allocate_static_memory(struct domain *d,
->                                             struct kernel_info *kinfo,
-> @@ -3236,6 +3385,12 @@ static int __init construct_domU(struct domain *d,
->       else
->           assign_static_memory_11(d, &kinfo, node);
->   
-> +#ifdef CONFIG_STATIC_SHM
-> +    rc = process_shm(d, node);
-> +    if ( rc < 0 )
-> +        return rc;
+> @@ -2853,6 +2874,9 @@ static void cf_check dump_heap(unsigned char key)
+>  static __init int cf_check register_heap_trigger(void)
+>  {
+>      register_keyhandler('H', dump_heap, "dump heap info", 1);
+> +#ifdef CONFIG_CACHE_COLORING
+> +    register_keyhandler('k', dump_col_heap, "dump coloring heap info", 1);
 > +#endif
-> +
->       /*
->        * Base address and irq number are needed when creating vpl011 device
->        * tree node in prepare_dtb_domU, so initialization on related variables
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 618410e3b2..c8564113e9 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -780,6 +780,9 @@ void __init setup_system_domains(void)
->        * This domain owns I/O pages that are within the range of the page_info
->        * array. Mappings occur at the priv of the caller.
->        * Quarantined PCI devices will be associated with this domain.
-> +     *
-> +     * DOMID_IO is also the default owner of memory pre-shared among multiple
-> +     * domains at boot time.
->        */
->       dom_io = domain_create(DOMID_IO, NULL, 0);
->       if ( IS_ERR(dom_io) )
 
-Cheers,
+I question the consuming of a separate key for this purpose: What's
+wrong with adding the functionality to dump_heap()?
 
--- 
-Julien Grall
+Jan
 
