@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 119BD5A2DEF
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Aug 2022 20:03:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.394006.633253 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C1A65A2E19
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Aug 2022 20:16:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.394013.633263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRdeU-0007UJ-02; Fri, 26 Aug 2022 18:01:54 +0000
+	id 1oRdsP-0000a1-83; Fri, 26 Aug 2022 18:16:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 394006.633253; Fri, 26 Aug 2022 18:01:53 +0000
+Received: by outflank-mailman (output) from mailman id 394013.633263; Fri, 26 Aug 2022 18:16:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRdeT-0007RH-TO; Fri, 26 Aug 2022 18:01:53 +0000
-Received: by outflank-mailman (input) for mailman id 394006;
- Fri, 26 Aug 2022 18:01:52 +0000
+	id 1oRdsP-0000Wz-5M; Fri, 26 Aug 2022 18:16:17 +0000
+Received: by outflank-mailman (input) for mailman id 394013;
+ Fri, 26 Aug 2022 18:16:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kmTq=Y6=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1oRdeS-0007RB-As
- for xen-devel@lists.xenproject.org; Fri, 26 Aug 2022 18:01:52 +0000
+ id 1oRdsN-0000Wt-SH
+ for xen-devel@lists.xenproject.org; Fri, 26 Aug 2022 18:16:15 +0000
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
  [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2748229f-2569-11ed-bd2e-47488cf2e6aa;
- Fri, 26 Aug 2022 20:01:49 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 83D115C005A;
- Fri, 26 Aug 2022 14:01:47 -0400 (EDT)
+ id 0c41081c-256b-11ed-bd2e-47488cf2e6aa;
+ Fri, 26 Aug 2022 20:15:22 +0200 (CEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4B1CF5C04C2;
+ Fri, 26 Aug 2022 14:15:21 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 26 Aug 2022 14:01:47 -0400
+ by compute1.internal (MEProxy); Fri, 26 Aug 2022 14:15:21 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 26 Aug 2022 14:01:46 -0400 (EDT)
+ 26 Aug 2022 14:15:20 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2748229f-2569-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 0c41081c-256b-11ed-bd2e-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1661536907; x=
-	1661623307; bh=4ZXRyN/6PHKsITnMYINhCH0rT/aFKu8us2ywc2yLlP8=; b=r
-	lN/Qgp4Ox4hRkAMkIleMZWd3BQFtE22obvxFQz6e5uIHUX2Qhc9onokA6JNj6i37
-	qUUWf3061ZOc6dPK6xruRt4U0tI7mis4iaEoMJgOaT9i7pl2694VUoLC6XlpAq9C
-	Fe7rBunn4SRpRMg87pcsOi/ZNUQna17Y9u/SDugETJsQFhh9S7pI3F4B+sF6crDK
-	DAuMHFS1KEg4omYJjmTMkDbklI1DbGVL3OFC7WbnMGY5+NsQwYadn08lyYQeXcKz
-	eF13MnTyW58glKdS1JR9Oo1M6kmrD8/NdEIouAWs5me6TKFty7b36H1wOczQhOo1
-	vrM6W5RrSbb0Sc5AWwjWQ==
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1661537721; x=
+	1661624121; bh=L1ltJ2hOmX5IYfZVtSYNVObad6mBdP3ftS5EqeH6HsM=; b=s
+	5mYwyctMqZFI1drS2qYXkrf4FvW6MikYWwEZTGKxx3rd9EsF6eUDM7BSdXPG/cv+
+	BNBB/sTCMmBZMdpUB2rs3CHP6N3CfqRXC/VAhWQ87gxPEIs4K0aFdsW8sqMxxSqY
+	1D76ODepsbOirsf3tREG8W+KX3+ZD3CW0gXFudRXyx6NaWbhh/DBi9Jq4cy/b3Zj
+	XK2qJsX7xglCkx9e69IUkgfebtLjnRSK89VH9wKdu+OQL12YEghDN2vesUbgZOoV
+	0Om8up/OhF1a3Ul2AZ6yfU/W8T65h0p0eCNqli+UlRtdt/b0svt/xGm9JHLPGYBh
+	RvErjLRRcqNII2aJZLkaA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
 	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
 	:mime-version:references:reply-to:sender:subject:subject:to:to
 	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1661536907; x=1661623307; bh=4ZXRyN/6PHKsITnMYINhCH0rT/aF
-	Ku8us2ywc2yLlP8=; b=L9FlE9ul12nEuEC58bhyKNhS70s04eTVfzKbu4p/fN4N
-	Ihz9P298WwGN/bYbzFmBnqz02kby9wy3LeupppoB5houwB8GPiLZQQX2FLyvhVFF
-	zVJPb3W5UZFnWQAmQ/cdOYDL9qhZjwmNzJzhlsVo+BS+67btWEF4DLoSeb4+E3SH
-	QZBB5mlYiF6GKgwapsFcQ/Hy9XN0bMh2Sodsx35PP6uTsDuRiw9JvmSzqg6Qi06H
-	SOa0V6BZPIA4JMgBiMJS0BTTWj6iWu1GijZEIhpeVYHRgRLJs4PvQQXi7ksw73iP
-	3RSCs1TsspiazogWnaSp+pQL1IoaUzUE655xyE1YDw==
-X-ME-Sender: <xms:iwoJY55NzO8Vt9zEuykAJRZlnv7zeV4duwcK0GW3taDfvF4vlKO_hQ>
-    <xme:iwoJY24cV4H7r1Lmx02voPSX555_C0SVuOFbP5_GxhMn2ep3SHZj0wOEn73HLqKYs
-    2E2aoV-To5156Y>
-X-ME-Received: <xmr:iwoJYwdHauY1-FaOTKVRAGqXvtDlhXpGro8ICoR6WzuK0FxJYqC-0ztxajVF>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejhedguddulecutefuodetggdotefrod
+	fm1; t=1661537721; x=1661624121; bh=L1ltJ2hOmX5IYfZVtSYNVObad6mB
+	dP3ftS5EqeH6HsM=; b=WZCa8vg93LC8nwZZ9C64/oAWUMz6qqvo/xJC5ymRirQB
+	eWZmFtgAdVLEdrnXuj1ge+qzVtvUJAg9tYnujgb+E1qAV1XWegV8z9/1xMuMHZfS
+	vqaE1jzI8c/GmZFl240h+GSond7djkwsDsa5Am9o03DhuCcfaAJ6PfiR334YGmWY
+	azyQ8S0NnBv0zXRDP1zmH5lKmxO2MC3DvMQqU0DZvcgl5MAd499B1UkBCycmhspU
+	mNghjq7l+gnMUQ0WJhOpd86gxh8D0EkSODNo2UycRuEfQpW1FtCoYuIyoZeFX6J7
+	X5q8/MeBvJM4YnXXd8ejP1mFmJx35998f/cq30gaCg==
+X-ME-Sender: <xms:uQ0JY87g7FuCfT6g4yqQizVQmFoc0rilkObLFyZUWbYtfcuu7zyZ8g>
+    <xme:uQ0JY97nsh_2QdszWOiY0P8DtXH-Vv-oEuxkqpobvKJBWG2Ewf1d9hAl6EhprPYTi
+    jGbRlLkPJYgmJg>
+X-ME-Received: <xmr:uQ0JY7eFhnc1RttVI4GuA5kznqzlNjVDmLKUAO2Xg53nLBafnCR_gOhtpDC1>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejhedguddvudcutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
     necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
     enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghm
@@ -80,119 +80,97 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejhedguddulecutefuodetgg
     geejgeffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtne
     curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
     shhlrggsrdgtohhm
-X-ME-Proxy: <xmx:iwoJYyL0Z2gideEIq_sT4AwxbVgTaYLdWbKW0X84Gxy1o2C7AS6rBQ>
-    <xmx:iwoJY9JCNaE2sHJZgMNW8CA340lq3V7MrULGmCet7SaGn3ewacXl-A>
-    <xmx:iwoJY7y7NLQA0_lINcm6kXi-oxe1mMLLqfER1GzRakvkTmM3ZvCeQA>
-    <xmx:iwoJY7jLSEODOCfwPCe0qwbeRCAk6ucGspsO12s6KnVTiAt9yDUamQ>
+X-ME-Proxy: <xmx:uQ0JYxLFAPxWgvMdWmGhmSWX3gnNKPd--ME2IDp4U5QB0Ura7yGfEg>
+    <xmx:uQ0JYwLZPYKnCXzI1pxf7JU4iShLc8-hQyemKX6eacaZtgQFYQmlAw>
+    <xmx:uQ0JYyzOC1C2lj7IEzgG2hJNVbUKY0KcnCgnrAB-YFWEryDuGDHRjQ>
+    <xmx:uQ0JY6wCJBpbcOV9Fr3pediq9NpWcV_sVPLOch3EpCEaxFRYaENYDQ>
 Feedback-ID: iac594737:Fastmail
-Date: Fri, 26 Aug 2022 14:01:44 -0400
+Date: Fri, 26 Aug 2022 14:15:18 -0400
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, Ard Biesheuvel <ardb@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH] Add support for ESRT loading under Xen
-Message-ID: <YwkKiFIKHG4IcCmH@itl-email>
-Mail-Followup-To: Jan Beulich <jbeulich@suse.com>,
-	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, Ard Biesheuvel <ardb@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20220825215218.1606-1-demi@invisiblethingslab.com>
- <c2a22672-b9dd-7aa4-b61e-ccb0faaa3b01@suse.com>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Make XEN_FW_EFI_MEM_INFO easier to use
+Message-ID: <YwkNt9w4T3H38D8K@itl-email>
+References: <20220824210452.3089-1-demi@invisiblethingslab.com>
+ <df443aab-a2eb-75c2-3a4d-df6d093b5788@suse.com>
+ <YwfdpPH9PyPXlMAa@itl-email>
+ <ab973fa7-85db-af53-9d4c-cfb8c2099135@suse.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ADaG3VrA093Bc+/S"
+	protocol="application/pgp-signature"; boundary="2bklL058a8q/yZrL"
 Content-Disposition: inline
-In-Reply-To: <c2a22672-b9dd-7aa4-b61e-ccb0faaa3b01@suse.com>
+In-Reply-To: <ab973fa7-85db-af53-9d4c-cfb8c2099135@suse.com>
 
 
---ADaG3VrA093Bc+/S
+--2bklL058a8q/yZrL
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 26 Aug 2022 14:01:44 -0400
+Date: Fri, 26 Aug 2022 14:15:18 -0400
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, Ard Biesheuvel <ardb@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH] Add support for ESRT loading under Xen
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Make XEN_FW_EFI_MEM_INFO easier to use
 
-On Fri, Aug 26, 2022 at 09:53:29AM +0200, Jan Beulich wrote:
-> On 25.08.2022 23:52, Demi Marie Obenour wrote:
-> > @@ -40,6 +41,38 @@
-> > =20
-> >  #define efi_data(op)	(op.u.efi_runtime_call)
-> > =20
-> > +static_assert(XEN_PAGE_SHIFT =3D=3D EFI_PAGE_SHIFT,
-> > +              "Mismatch between EFI_PAGE_SHIFT and XEN_PAGE_SHIFT");
-> > +
-> > +bool xen_efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *md)
-> > +{
-> > +	struct xen_platform_op op =3D {
-> > +		.cmd =3D XENPF_firmware_info,
-> > +		.u.firmware_info =3D {
-> > +			.type =3D XEN_FW_EFI_INFO,
-> > +			.index =3D XEN_FW_EFI_MEM_INFO,
-> > +			.u.efi_info.mem.addr =3D phys_addr,
-> > +			.u.efi_info.mem.size =3D ((u64)-1ULL) - phys_addr,
-> > +		}
-> > +	};
-> > +	union xenpf_efi_info *info =3D &op.u.firmware_info.u.efi_info;
-> > +	int rc;
-> > +
-> > +	memset(md, 0, sizeof(*md)); /* initialize md even on failure */
-> > +	rc =3D HYPERVISOR_platform_op(&op);
-> > +	if (rc) {
-> > +		pr_warn("Could not obtain information on address %llu from Xen: "
-> > +			"error %d\n", phys_addr, rc);
-> > +		return false;
-> > +	}
-> > +
-> > +	md->attribute =3D info->mem.attr;
-> > +	md->type =3D info->mem.type;
-> > +	md->num_pages =3D info->mem.size >> XEN_PAGE_SHIFT;
-> > +	md->phys_addr =3D info->mem.addr;
+On Fri, Aug 26, 2022 at 09:18:50AM +0200, Jan Beulich wrote:
+> On 25.08.2022 22:36, Demi Marie Obenour wrote:
+> > On Thu, Aug 25, 2022 at 09:59:56AM +0200, Jan Beulich wrote:
+> >> On 24.08.2022 23:04, Demi Marie Obenour wrote:
+> >>> Fix both of these problems by unconditionally setting the memory regi=
+on
+> >>> size
+> >>
+> >> If you were to report a larger ending address, why would you not also
+> >> report a smaller starting address?
+> >>
+> >> But before you go that route - I don't think we can change the API
+> >> now that it has been in use this way for many years. If a "give me
+> >> the full enclosing range" variant is wanted, it will need to be
+> >> fully separate.
+> >=20
+> > Does anyone use this API?
 >=20
-> As indicated in reply to your patch changing XEN_FW_EFI_MEM_INFO in
-> the hypervisor: While this may fit the ESRT purpose, the address you
-> return here is not necessarily the start of the region, and hence
-> this function is not a general Xen replacement for the non-Xen
-> function. Therefore I think it also shouldn't give the impression of
-> doing so.
+> The XenoLinux forward port of ours did, and upstream Linux still wrongly
+> doesn't. The two functions efi_mem_type() and efi_mem_attributes() still
+> wrongly fail there when running on Xen.
+>=20
+> But how does this matter? Even if we were unaware of any users of the API,
+> we can't know there are none.
+>=20
+> As an aside: Something's odd with your reply. When I opened the window to
+> write this reply, Marek and the list were put into To: (instead of Cc:)
+> and you were dropped altogether. I can only guess that this is what
+> Thunderbird made of the Mail-Followup-To: tag which your mail has.
 
-Is this just a matter of renaming the function?  Is it possible to
-implement the original function with the current hypervisor?
+Probably?  Mutt generated the header because I had (incorrectly)
+told it that I am subscribed to xen-devel.  Is it best to leave this
+header unset?
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
 
---ADaG3VrA093Bc+/S
+--2bklL058a8q/yZrL
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmMJCogACgkQsoi1X/+c
-IsEOXA/+KcxojsYfgCdCpNKkR9XEwx/tYKqs5TYjfEtdS8+dyEV3WCb90RA95rJf
-nPCqsC3lqKs1xKCZCVQ9Qnsk0PtD+NBfjUnPDNZxSXOanSrfHTlqCE5v73Wsx3U9
-vDOgx8fpvsR7pLQJ1nD56zKgomKkHJw1sv+Ac+y85CdZDkCB4JHPnobHx7cRsrg7
-7+ZQbU3HdHQc655XDIK6a5HisFsLDvwHHCAPFUeyq3VEfFIWTuXBnYxVRgb2VGF8
-uwfuQ13QaS8yu+yTQ444X4N/vwTj0ZGwjHdwS8UGM1skUcW4NSig5ymt4MAlIfnr
-SdHutMhenm0+JuKwg9QNTbNb2q3XRKH+9FJ1tCX3fFirqz6H07PNLVKMJKM4VHbz
-DAREFZtuFRtxxeymiSmrxJkNNByDXOwx5JdxEPZYAHhHOT13NCpv4M/I0UihEkXU
-0Z6sUYHKam/XhYUtC08K9KQWt/65f7PjouulEp60cL7U14yZKi/yHzhGugWzPUUl
-/6lXXaICO9JohvISVWlnfvYDyMrzXgo3MSGBk3ByUDzNaaby+xPyS4aTsmOHW91G
-Jr5JUFNVRR6gAJO1UX5ZzH7b64ybpCzBC/DRMtTyhZnBkuv9dG0E8G45zyw06BoZ
-ltToA0VyXeJcPm2hpB6RqtcPT+ZacoRO9vE/D4ihNruF+9cw1pg=
-=t2WL
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmMJDbcACgkQsoi1X/+c
+IsHiChAAsvOn4zFvCNKwO7CyAHNveQa6jZDW5QdBS+nK95hdoffrGJ7uLz5FRocq
+yGzwtSPDfOJKJ62z/5dFZUqPvHbm6mUCFAwWYRW4O2deeNsvK+rnonJQUqFCjzwF
+HntNBb+LfsrpmlYqpG/oHxJucb8VzFbx9I+eMtzY+Ao/RbVqZu9xXK0DqdGhA3my
+t6FkURZt3NhAJ+1UW7huPPVLItRqGrkem4r72eFCjJ5quweeB+LueuCEqetqcP1s
+w6jX4brkMObChcd0tMONpSLoeEWo3i1rZz/2HlqG+4VZGgVy1XqXb8BDlnr7t8Xa
+iq7XmtKB1cGSgCO2kBn73EJt1ZeFjCb1ipHF+f/BqXKC0DDLb3PzxwS+sOoLzVeR
+K7Yddq2ZKZZOABYy5SVEhbB4v94T/JsVTtP4WIGL6TALIfxhyHByrm6JXQmi2TZI
+xu/972ULagC7iB6xVvjIORQuAVFWEkmVDXM96dzrJbvb1Tlw/BDrXqNC2HslyAD7
+jbMaRmxatSD3xcyX15gYIvNw78ZrmQEDRajTerWHp7rE8Uff5bRl/h6jnCkYl/dj
++rEhv7lO0x52GKxcP9D6IYYnOlAAmWCP0g8alrtvT39Qemdeai5aG6O6+A0UwNsd
+7VlVSE3TL9lls0YxydcUHJ5e7MlsX+2hiEFXmxaVl/Vy3oQqMgs=
+=3kbp
 -----END PGP SIGNATURE-----
 
---ADaG3VrA093Bc+/S--
+--2bklL058a8q/yZrL--
 
