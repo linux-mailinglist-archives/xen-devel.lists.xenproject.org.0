@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3F465A3590
-	for <lists+xen-devel@lfdr.de>; Sat, 27 Aug 2022 09:23:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.394113.633409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13AB55A35D8
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Aug 2022 10:32:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.394125.633421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRq8a-0003HP-0N; Sat, 27 Aug 2022 07:21:48 +0000
+	id 1oRrDM-0002CF-Fm; Sat, 27 Aug 2022 08:30:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 394113.633409; Sat, 27 Aug 2022 07:21:47 +0000
+Received: by outflank-mailman (output) from mailman id 394125.633421; Sat, 27 Aug 2022 08:30:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oRq8Z-0003Ez-TW; Sat, 27 Aug 2022 07:21:47 +0000
-Received: by outflank-mailman (input) for mailman id 394113;
- Sat, 27 Aug 2022 07:21:46 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oRrDM-0002AR-Bb; Sat, 27 Aug 2022 08:30:48 +0000
+Received: by outflank-mailman (input) for mailman id 394125;
+ Sat, 27 Aug 2022 08:30:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oRq8Y-0003Ep-Es; Sat, 27 Aug 2022 07:21:46 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oRq8Y-0004Ra-Cs; Sat, 27 Aug 2022 07:21:46 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oRq8X-00043G-Tm; Sat, 27 Aug 2022 07:21:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oRq8X-0007Jq-TR; Sat, 27 Aug 2022 07:21:45 +0000
+ (envelope-from <SRS0=GKzt=Y7=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oRrDL-0002AL-B9
+ for xen-devel@lists.xenproject.org; Sat, 27 Aug 2022 08:30:47 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8b768b07-25e2-11ed-bd2e-47488cf2e6aa;
+ Sat, 27 Aug 2022 10:30:45 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BA1E61FA82;
+ Sat, 27 Aug 2022 08:30:44 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8F2FF1341F;
+ Sat, 27 Aug 2022 08:30:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id TEqAITTWCWN+CgAAMHmgww
+ (envelope-from <jgross@suse.com>); Sat, 27 Aug 2022 08:30:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,103 +51,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XFp9jcs/q3f5l+m7ghYLF4o0NUOWYtLB0jzJtHkQQ3E=; b=gxvE/Y6tjb0k+gsQOAurGeyCD4
-	ovqs1bEha2LtObuMwcZcf5mn1iu+xaC0iD4woqb/OHWjziDpPIrLag5QoUi8xdwv5s5w5Z9rtPs5R
-	xYCZKxT1hpMZoQknxoU6s6ljlCSjPXedhQrUTc2QnGU0pBGZKAby0ZkKTSnUvu8eVW1o=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172806-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8b768b07-25e2-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1661589044; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=QFtJgi7SuZq8TP8XBsbv6JKb1wtY2N+Odb/y/cSybqg=;
+	b=mUlKFSVIs4zmpbiR8nLXQSrIJVYUfgdHXWLxI8YOILZ3FHacm95z4rtxzMBf3+4M/r8nc+
+	JWKkkTBls+8xHF1fOC5IdJUKlurBA+jvxvQ8WEkxXMwuT9koK3zPOFAF8GqdBFJNB42rrI
+	IZLpiUZdd9EcK40/RUZgHn2zDTX2Mq0=
+From: Juergen Gross <jgross@suse.com>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	sstabellini@kernel.org
+Subject: [GIT PULL] xen: branch for v6.0-rc3
+Date: Sat, 27 Aug 2022 10:30:44 +0200
+Message-Id: <20220827083044.5631-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Subject: [ovmf test] 172806: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=0ede7cad73dda686afa2ea0eb2a787f48ec666aa
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 27 Aug 2022 07:21:45 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 172806 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172806/
+Linus,
 
-Regressions :-(
+Please git pull the following tag:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+ git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.0-rc3-tag
 
-version targeted for testing:
- ovmf                 0ede7cad73dda686afa2ea0eb2a787f48ec666aa
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+xen: branch for v6.0-rc3
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   23 days
-Failing since        172151  2022-08-05 02:40:28 Z   22 days  180 attempts
-Testing same since   172773  2022-08-25 13:41:54 Z    1 days   13 attempts
+It contains the following patches:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+- 2 minor cleanups
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+- a fix of the xen/privcmd driver avoiding a possible NULL dereference
+  in an error case
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Thanks.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Juergen
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+ arch/x86/configs/xen.config                |  1 -
+ drivers/xen/privcmd.c                      | 21 +++++++++++----------
+ drivers/xen/xen-scsiback.c                 |  2 +-
+ drivers/xen/xenbus/xenbus_probe_frontend.c |  2 +-
+ 4 files changed, 13 insertions(+), 13 deletions(-)
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Juergen Gross (1):
+      xen/privcmd: fix error exit of privcmd_ioctl_dm_op()
 
+Lukas Bulwahn (1):
+      xen: x86: remove setting the obsolete config XEN_MAX_DOMAIN_MEMORY
 
-Not pushing.
-
-(No revision log; it would be 962 lines long.)
+Wolfram Sang (1):
+      xen: move from strlcpy with unused retval to strscpy
 
