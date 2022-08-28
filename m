@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 429825A3AE5
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Aug 2022 04:39:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.394263.633603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD335A3B1B
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Aug 2022 04:52:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.394271.633614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oS8Cx-0007q9-PX; Sun, 28 Aug 2022 02:39:31 +0000
+	id 1oS8PB-0001gH-TD; Sun, 28 Aug 2022 02:52:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 394263.633603; Sun, 28 Aug 2022 02:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 394271.633614; Sun, 28 Aug 2022 02:52:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oS8Cx-0007o6-Lu; Sun, 28 Aug 2022 02:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 394263;
- Sun, 28 Aug 2022 02:39:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oS8Cw-0007nw-Ah; Sun, 28 Aug 2022 02:39:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oS8Cw-0000Bl-5t; Sun, 28 Aug 2022 02:39:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oS8Cv-000293-F9; Sun, 28 Aug 2022 02:39:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oS8Cv-0005d0-Ek; Sun, 28 Aug 2022 02:39:29 +0000
+	id 1oS8PB-0001dm-Q5; Sun, 28 Aug 2022 02:52:09 +0000
+Received: by outflank-mailman (input) for mailman id 394271;
+ Sun, 28 Aug 2022 02:52:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=v2YP=ZA=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1oS8PA-0001dg-5h
+ for xen-devel@lists.xenproject.org; Sun, 28 Aug 2022 02:52:08 +0000
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65c1d989-267c-11ed-bd2e-47488cf2e6aa;
+ Sun, 28 Aug 2022 04:52:05 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 020895C00A5;
+ Sat, 27 Aug 2022 22:52:04 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Sat, 27 Aug 2022 22:52:04 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 27 Aug 2022 22:52:03 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,103 +43,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=aWxZDMT38qXdpulbhNZXft9Vp5jjM2WppKA3i46dbBU=; b=cpnhnhqKCTgsBUCxNvJhGaXDYc
-	rXFeYEzpKOS4SR/rijUE160CB6zuPBRQ9cuYJZxEF1BNolyXTZcxnJHhD34iUtDgGZNFFZOn8eEuI
-	W4TNQN4BKhVSb5dFvhzP8b/V7LLVdWfwwJYjIl3iBhryBomprVMtnF8VOtpsap1Nq59c=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172821-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 65c1d989-267c-11ed-bd2e-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm1; t=1661655123; x=
+	1661741523; bh=G8lfY+HnYPQ+yHzLmohUyXRmKIDZHR6G1hUMBfrHJO4=; b=F
+	9sv+8hYma89nPnIBgqE14qajzvG2iT24p/XcACk8xtcIg2kyz263vPY37ewp84Yc
+	EU3O9j5UH7Q43aEbQiDQkSwGQ7k3CiQVA7R22g1kvriR5Ssgz9lgPhW/pI8qDDcT
+	8xA16j0bcmVweJYl25+VNPH5cdUT4bmFey4N8JBKYToR2Q84HksRhesC9metNF+I
+	3m1BkbY7osFWjB+9AHQ0sOIL1B9ie/uS4KUwhn/VJQxng/3LRMAs0bdeYFABybrF
+	hNtW9eDyfnsBySSfH0OtBAnwhe5392m4L6Y8jUcmlMeWSTixFnhNAMzxZFryaWGu
+	4q3Gq7pidm+03hzUrQmTQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1661655123; x=1661741523; bh=G8lfY+HnYPQ+yHzLmohUyXRmKIDZHR6G1hU
+	MBfrHJO4=; b=yKesZYmxza4UdYJldlVths0Tj3MhSxCOxDHuaMib7E2ly+U7J3U
+	MLF7f3d+mgitXPPyuCQEAd7QGlqptVR9MNQT0dzMEVmaGNfm/zTncLDC3I9ItKTD
+	gJZI9LqUd9BvaoWpZiDHhqY+cSoKRr/kNlN21cAHQeaWdMDjwL2BD5g982RDUbwt
+	SQ8uiECo4Pn5exJ0cWA+hP++58YTNaS1YUzW7a+HtQmlG78yFIwIVRhHUr1prM0d
+	3GAoFC9vETaZtApC2x+U3xgAi7IUSV3AFtAtVtpVh/X4Dt3QwjhmV4sfl0nkuGnm
+	V2KGsB1v8gKcelGhlDOGCkmceuU/iY50i3A==
+X-ME-Sender: <xms:U9gKY0gZdOl7iv8oI0k0LvXRhgCNLPhkfNT7ZmgkgbIMnJeueFj9HQ>
+    <xme:U9gKY9CPe7sXHpnetV76TZ17OrZ3l1V6-P3VvOxkEa9qQS5ELorEYOGJsmQuoHvxl
+    KQt4KcdAT3EAzQ>
+X-ME-Received: <xmr:U9gKY8Fz8cEPC2K0C1b_PT_3v9raqvF5tBIAZ1WU_4hKj56AyuC9FHnhfQslXYZFRA7NzHBEmhp_>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdejkedgieeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvvefufffkofgggfestdekredtredttdenucfhrhhomhepffgvmhhiucfo
+    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomheqnecuggftrfgrthhtvghrnhepvdefgeekvdekgfffgeekhfeijedtffek
+    hefhleehfeejueetgfelgefgtdevieelnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+    hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
+    sgdrtghomh
+X-ME-Proxy: <xmx:U9gKY1Qbndr5VGvk6z2sVLY-XkgSAZMWNUqjn4rKPNsjyhWXwb2LHA>
+    <xmx:U9gKYxzfJYESviD3mUJaDHuo-goheHNoGBl0BvHx5Uwz1dMx4EiudA>
+    <xmx:U9gKYz7DSXoyWMidDzmfAtoMyZDSqOE_4ZgR2nPsEZo5fmKMNVUxbw>
+    <xmx:U9gKY0rsPdIXTVuCyYOX5_9fkTLhBUU07YBb7_Vjs72y4op4CSEMhQ>
+Feedback-ID: iac594737:Fastmail
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	linux-efi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v2] Add support for ESRT loading under Xen
+Date: Sat, 27 Aug 2022 22:51:58 -0400
+Message-Id: <20220828025158.1455-1-demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Subject: [ovmf test] 172821: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=0ede7cad73dda686afa2ea0eb2a787f48ec666aa
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 28 Aug 2022 02:39:29 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 172821 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172821/
+This is needed for fwupd to work in Qubes OS.
 
-Regressions :-(
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+Changes since v1:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+- Use a different type (struct xen_efi_mem_info) for memory information
+  provided by Xen, as Xen reports it in a different way than the
+  standard Linux functions do.
 
-version targeted for testing:
- ovmf                 0ede7cad73dda686afa2ea0eb2a787f48ec666aa
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+ drivers/firmware/efi/esrt.c | 49 +++++++++++++++++++++++++++----------
+ drivers/xen/efi.c           | 32 ++++++++++++++++++++++++++
+ include/linux/efi.h         | 18 ++++++++++++++
+ 3 files changed, 86 insertions(+), 13 deletions(-)
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   23 days
-Failing since        172151  2022-08-05 02:40:28 Z   22 days  187 attempts
-Testing same since   172773  2022-08-25 13:41:54 Z    2 days   20 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 962 lines long.)
+diff --git a/drivers/firmware/efi/esrt.c b/drivers/firmware/efi/esrt.c
+index 2a2f52b017e736dd995c69e8aeb5fbd7761732e5..c0fc149a838044cc16bb08a374a0c8ea6b7dcbff 100644
+--- a/drivers/firmware/efi/esrt.c
++++ b/drivers/firmware/efi/esrt.c
+@@ -243,27 +243,50 @@ void __init efi_esrt_init(void)
+ 	void *va;
+ 	struct efi_system_resource_table tmpesrt;
+ 	size_t size, max, entry_size, entries_size;
+-	efi_memory_desc_t md;
+-	int rc;
+ 	phys_addr_t end;
+-
+-	if (!efi_enabled(EFI_MEMMAP))
+-		return;
++	uint32_t type;
+ 
+ 	pr_debug("esrt-init: loading.\n");
+ 	if (!esrt_table_exists())
+ 		return;
+ 
+-	rc = efi_mem_desc_lookup(efi.esrt, &md);
+-	if (rc < 0 ||
+-	    (!(md.attribute & EFI_MEMORY_RUNTIME) &&
+-	     md.type != EFI_BOOT_SERVICES_DATA &&
+-	     md.type != EFI_RUNTIME_SERVICES_DATA)) {
+-		pr_warn("ESRT header is not in the memory map.\n");
++	if (efi_enabled(EFI_MEMMAP)) {
++		efi_memory_desc_t md;
++
++		if (efi_mem_desc_lookup(efi.esrt, &md) < 0 ||
++		    (!(md.attribute & EFI_MEMORY_RUNTIME) &&
++		     md.type != EFI_BOOT_SERVICES_DATA &&
++		     md.type != EFI_RUNTIME_SERVICES_DATA)) {
++			pr_warn("ESRT header is not in the memory map.\n");
++			return;
++		}
++
++		type = md.type;
++		max = efi_mem_desc_end(&md);
++	} else if (IS_ENABLED(CONFIG_XEN_EFI) && efi_enabled(EFI_PARAVIRT)) {
++		struct xen_efi_mem_info info;
++
++		if (!xen_efi_mem_info_query(efi.esrt, &info)) {
++			pr_warn("Failed to lookup ESRT header in Xen memory map\n");
++			return;
++		}
++
++		type = info.type;
++		max = info.addr + info.size;
++
++		/* Recent Xen versions relocate the ESRT to memory of type
++		 * EfiRuntimeServicesData, which Xen will not reuse.  If the ESRT
++		 * is not in EfiRuntimeServicesData memory, it has not been reserved
++		 * by Xen and might be allocated to other guests, so it cannot
++		 * safely be used. */
++		if (type != EFI_RUNTIME_SERVICES_DATA) {
++			pr_warn("Xen did not reserve ESRT, ignoring it\n");
++			return;
++		}
++	} else {
+ 		return;
+ 	}
+ 
+-	max = efi_mem_desc_end(&md);
+ 	if (max < efi.esrt) {
+ 		pr_err("EFI memory descriptor is invalid. (esrt: %p max: %p)\n",
+ 		       (void *)efi.esrt, (void *)max);
+@@ -333,7 +356,7 @@ void __init efi_esrt_init(void)
+ 
+ 	end = esrt_data + size;
+ 	pr_info("Reserving ESRT space from %pa to %pa.\n", &esrt_data, &end);
+-	if (md.type == EFI_BOOT_SERVICES_DATA)
++	if (type == EFI_BOOT_SERVICES_DATA)
+ 		efi_mem_reserve(esrt_data, esrt_data_size);
+ 
+ 	pr_debug("esrt-init: loaded.\n");
+diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
+index d1ff2186ebb48a7c0981ecb6d4afcbbb25ffcea0..b313f213822f0fd5ba6448f6f6f453cfda4c7e23 100644
+--- a/drivers/xen/efi.c
++++ b/drivers/xen/efi.c
+@@ -26,6 +26,7 @@
+ 
+ #include <xen/interface/xen.h>
+ #include <xen/interface/platform.h>
++#include <xen/page.h>
+ #include <xen/xen.h>
+ #include <xen/xen-ops.h>
+ 
+@@ -40,6 +41,37 @@
+ 
+ #define efi_data(op)	(op.u.efi_runtime_call)
+ 
++static_assert(XEN_PAGE_SHIFT == EFI_PAGE_SHIFT,
++              "Mismatch between EFI_PAGE_SHIFT and XEN_PAGE_SHIFT");
++
++bool xen_efi_mem_info_query(u64 phys_addr, struct xen_efi_mem_info *md)
++{
++	struct xen_platform_op op = {
++		.cmd = XENPF_firmware_info,
++		.u.firmware_info = {
++			.type = XEN_FW_EFI_INFO,
++			.index = XEN_FW_EFI_MEM_INFO,
++			.u.efi_info.mem.addr = phys_addr,
++			.u.efi_info.mem.size = ((u64)-1ULL) - phys_addr,
++		}
++	};
++	union xenpf_efi_info *info = &op.u.firmware_info.u.efi_info;
++	int rc;
++
++	memset(md, 0, sizeof(*md)); /* initialize md even on failure */
++	rc = HYPERVISOR_platform_op(&op);
++	if (rc) {
++		pr_warn("Could not obtain information on address %llu from Xen: "
++			"error %d\n", phys_addr, rc);
++		return false;
++	}
++	md->addr = info->mem.addr;
++	md->size = info->mem.size;
++	md->attr = info->mem.attr;
++	md->type = info->mem.type;
++	return true;
++}
++
+ static efi_status_t xen_efi_get_time(efi_time_t *tm, efi_time_cap_t *tc)
+ {
+ 	struct xen_platform_op op = INIT_EFI_OP(get_time);
+diff --git a/include/linux/efi.h b/include/linux/efi.h
+index d2b84c2fec39f0268324d1a38a73ed67786973c9..0598869cdc924aef0e2b9cacc4450b728e1a98c7 100644
+--- a/include/linux/efi.h
++++ b/include/linux/efi.h
+@@ -1327,1 +1327,19 @@ struct linux_efi_coco_secret_area {
++/* Result of a XEN_FW_EFI_MEM_INFO query */
++struct xen_efi_mem_info {
++    uint64_t addr; /* address queried */
++    uint64_t size; /* remaining bytes in memory region */
++    uint64_t attr; /* attributes */
++    uint32_t type; /* type */
++};
++
++#if IS_ENABLED(CONFIG_XEN_EFI)
++extern bool xen_efi_mem_info_query(u64 phys_addr, struct xen_efi_mem_info *out_md);
++#else
++static inline bool xen_efi_mem_info_query(u64 phys_addr, struct xen_efi_mem_info *out_md)
++{
++	BUILD_BUG();
++	return false;
++}
++#endif
++
+ #endif /* _LINUX_EFI_H */
+-- 
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
