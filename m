@@ -2,64 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68F035A4569
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Aug 2022 10:48:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.394491.633910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 621DA5A45B1
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Aug 2022 11:04:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.394498.633921 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oSaQI-0007Vb-HR; Mon, 29 Aug 2022 08:47:10 +0000
+	id 1oSagk-0001VN-2v; Mon, 29 Aug 2022 09:04:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 394491.633910; Mon, 29 Aug 2022 08:47:10 +0000
+Received: by outflank-mailman (output) from mailman id 394498.633921; Mon, 29 Aug 2022 09:04:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oSaQI-0007SG-CR; Mon, 29 Aug 2022 08:47:10 +0000
-Received: by outflank-mailman (input) for mailman id 394491;
- Mon, 29 Aug 2022 08:47:09 +0000
+	id 1oSagj-0001Ru-Vq; Mon, 29 Aug 2022 09:04:09 +0000
+Received: by outflank-mailman (input) for mailman id 394498;
+ Mon, 29 Aug 2022 09:04:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Emil=ZB=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
- id 1oSaQH-0007SA-EO
- for xen-devel@lists.xenproject.org; Mon, 29 Aug 2022 08:47:09 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60085.outbound.protection.outlook.com [40.107.6.85])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=O3Zu=ZB=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
+ id 1oSagi-0001Rn-5M
+ for xen-devel@lists.xenproject.org; Mon, 29 Aug 2022 09:04:08 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 286a4539-2777-11ed-9250-1f966e50362f;
- Mon, 29 Aug 2022 10:47:05 +0200 (CEST)
-Received: from AM6PR08CA0038.eurprd08.prod.outlook.com (2603:10a6:20b:c0::26)
- by AS4PR08MB7405.eurprd08.prod.outlook.com (2603:10a6:20b:4e0::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Mon, 29 Aug
- 2022 08:47:03 +0000
-Received: from AM7EUR03FT038.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:c0:cafe::78) by AM6PR08CA0038.outlook.office365.com
- (2603:10a6:20b:c0::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
- Transport; Mon, 29 Aug 2022 08:47:03 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT038.mail.protection.outlook.com (100.127.140.120) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5566.15 via Frontend Transport; Mon, 29 Aug 2022 08:47:02 +0000
-Received: ("Tessian outbound c883b5ba7b70:v123");
- Mon, 29 Aug 2022 08:47:02 +0000
-Received: from 61d029a8a4ac.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 9888F35F-5E34-4576-ADC7-13F6482207B2.1; 
- Mon, 29 Aug 2022 08:46:56 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 61d029a8a4ac.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 29 Aug 2022 08:46:56 +0000
-Received: from PAXPR08MB7420.eurprd08.prod.outlook.com (2603:10a6:102:2b9::9)
- by AS8PR08MB6614.eurprd08.prod.outlook.com (2603:10a6:20b:338::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15; Mon, 29 Aug
- 2022 08:46:54 +0000
-Received: from PAXPR08MB7420.eurprd08.prod.outlook.com
- ([fe80::5d27:806b:5d1f:f63]) by PAXPR08MB7420.eurprd08.prod.outlook.com
- ([fe80::5d27:806b:5d1f:f63%2]) with mapi id 15.20.5566.021; Mon, 29 Aug 2022
- 08:46:53 +0000
+ id 8929c316-2779-11ed-9250-1f966e50362f;
+ Mon, 29 Aug 2022 11:04:06 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id bu22so8973914wrb.3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Aug 2022 02:04:06 -0700 (PDT)
+Received: from horizon.home (lfbn-gre-1-214-221.w90-112.abo.wanadoo.fr.
+ [90.112.175.221]) by smtp.gmail.com with ESMTPSA id
+ i20-20020a05600c2d9400b003a342933727sm8040952wmg.3.2022.08.29.02.04.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Aug 2022 02:04:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,151 +44,422 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 286a4539-2777-11ed-9250-1f966e50362f
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=mJLzIN/O7YwDzfm4ARt+9dkYuc2yCp07+l2Iek/JzRizIoOvh/juj3y2OLu0GxbmculbHrMUIm8eJJodcGLutnzxKoDMBSYd8xArp4iHa0UmrbTV9SQQ+W2nzHGDbft3jQdBou+GPwFR6d9C9b1cJkxN2Ma63PQNJ45bVoJLp5L7B1cQ+P3LYqKIwUj8LnJ4IgxN7U9JoOMUTgntfwU8ex4oj0CkcYeHlbrvKa7ChwfdYIMVZnN5vRKpeBCoxFBUylblWAf9GjBTKCikfI8cP3DYx4UfaFdTUjvXAPWMcZpv8iFrwSZZ7bCm3QEC9kowarcfOhtINhTCrMFZ/NohQQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j1YcX7aTy6VetbRllemKCAlm2k0/XB/FgLBgsk2WXsA=;
- b=CnyW166dbflaSS5ewV2Ikg7ue/6qLoumrxPVlvtEL71QyTJMJVIq1dHz+VW5/bvNf2Ao1jlcS2q6i8/QvmHYCBpTV4A5gJ02s9FCGnUbRGZMWsVl2lcXstJvYVwBBtY1KQIzNCsWEQX2gjgaXpK00yyZBhmMw+s1B+P1N0RK4v0SwRrHh++jCktG010ilTPHNAVQzwtEq9RMp2C+xSquWPWH3lIMSRU9TsD0R3sMnDgR9HZW82Dcx+BbkD2+LogAb9FrZ+zb0iqAW4v4Gy32eoVdAT+v8ndGad1HIdIfmiKSxgWKhCzJGwecEC5q+T/wuw16sY4kWFK1DRCukx+Kcw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j1YcX7aTy6VetbRllemKCAlm2k0/XB/FgLBgsk2WXsA=;
- b=lnsFtk68BH4G27YxTpudJc8nNgj9S9V3dBJrI6Kz870SpWhWubi6H3Gf4U1yz34p+jU+13a2rDyF5lm1+DAYDdJ1jGTxUozz6TmMHsCa1ERf8+nHycizXnjg+ARMSR5d8GUZOffkOqTGbrLImVM+yQ8zK9YSNeGWcsSgXgcm6uo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YLEMHZeBOS+TYj5xCFZ9y5guOgNShNP4H2zzZsIDjasc4pi2Ug2hKRNomydS3rLD5HHr8PHb6q1KVjr3yzMy+UNIL//yk8SC5kNDO+ozMDq+Sc1d0dHBvTjMNHQ1fDk+EEeadv1w4eC53vBv2cRw+PO8syU+HdBd+ybQt2l1N1AvGSSajatA/7RWwDjs0M4rZXGmbGin7Z+RBKXb5RoVLTxRC5SVlxJsVgfcFoirS3gn8wN/8tvYRxOJZ8Nln7P/1n9raJLGt/w0/NzVCm+Za0zrQxoKHF4fqHAwwBMq+TvrscdEzibBN+1W6YreAPwonAOMJ+6sk/soXKBwxoD8Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j1YcX7aTy6VetbRllemKCAlm2k0/XB/FgLBgsk2WXsA=;
- b=b9wr4IAkHdVZQ3SNL6uVDYquVxQMjcPbvpMrRz/axO/f+R5fPKQ8IFeHFVhdZvsHdcifnhg7WP6P/n/z0CMTnLakKE+Vu3iA8//Rr+x23IRf2HFnWE8EZppRqVbp3jTzK6Pjnfn8BlkAJkqzT/hzzwdsFESJQlnOLGdDmG13ZZP/ZUeA1IebGKIh2pj+EEVpGxeWkypVVTA0N3BwAJ0XgnUdqfdOzR8GPhw5HloZZ0nW9S/FLcliDo4RVuUOSIP1n11e+d382ol5nDlSb1MNonRlmwuDRi1LSKZ8RkiQl63IUCFi/p1uYBv23tu05HcjWdSZxw7hPXMYaY3k800QTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j1YcX7aTy6VetbRllemKCAlm2k0/XB/FgLBgsk2WXsA=;
- b=lnsFtk68BH4G27YxTpudJc8nNgj9S9V3dBJrI6Kz870SpWhWubi6H3Gf4U1yz34p+jU+13a2rDyF5lm1+DAYDdJ1jGTxUozz6TmMHsCa1ERf8+nHycizXnjg+ARMSR5d8GUZOffkOqTGbrLImVM+yQ8zK9YSNeGWcsSgXgcm6uo=
-From: Wei Chen <Wei.Chen@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: nd <nd@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v3 1/6] xen/x86: Provide helpers for common code to access
- acpi_numa
-Thread-Topic: [PATCH v3 1/6] xen/x86: Provide helpers for common code to
- access acpi_numa
-Thread-Index: AQHYtdMuStODhqLRIUWXc955/EIfNq2/bFqAgAYumSA=
-Date: Mon, 29 Aug 2022 08:46:53 +0000
-Message-ID:
- <PAXPR08MB7420CC962329E885F2D3990F9E769@PAXPR08MB7420.eurprd08.prod.outlook.com>
-References: <20220822025810.2240707-1-wei.chen@arm.com>
- <20220822025810.2240707-2-wei.chen@arm.com>
- <784c1d55-be94-eef9-eb96-fd8fd902db12@suse.com>
-In-Reply-To: <784c1d55-be94-eef9-eb96-fd8fd902db12@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: 1E639C232A3B3547A96F334FE04DE5F2.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 08ec7b58-a8d5-4531-c536-08da899b0b49
-x-ms-traffictypediagnostic:
-	AS8PR08MB6614:EE_|AM7EUR03FT038:EE_|AS4PR08MB7405:EE_
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- PBdwyORjWqkCjNb/DLRUxUEw2FVKpISEl1onqEyBCEdabc3f7uSH7sTNyoTMXTzC5CghBL3FKgU5p4Q7vJm4yzSSEhf+FnR4AwT3PKLetjVDM2lCzJtFE31dgbhJNMyIB3sCjtqBXfnmePqQpRAhrbzrAoPrRKF7VTQgkq3pMH9NKTUIC3a5AOfNrlL8z9zKlje/99XUfBLr35cODO/zL//+62diYh0phUzKfmmQVQl+PPYkzw6oxvJdvpPpTM5uTFV+S7BP8Glc8ghfqHwmDNbb1+y5x8yu2Z0Hrvcc9x/wWMiDClgUj8FkIT+hbf7a13WeHgVrNL4e3GlmcCO2ABax5LQ3agQlBMsRXmIs/HQHbyfxJtXVzMcXJ+zdfraUltB/F3pPpEaADOH2SJsj5jhbly5ifA4kHTen8ruS8ZswkHb8EtqusyXqv3jFC5aGByP2nEuf0NCKphDgTRzco8s0cySpvVo4L+C3F/OERc4/LcAqrVxftAaKpt0qLeJ+oi+hnL8P+3P1vF4n3D3ApBi3V+uM998ooXx6ZG5V1DK68GgCpIdvLrKYhgJtznVC2a0rO4Q9O4WAugT0CzNVaFXMTbzGao7Z04D2zAPAw8I1LscO/qhXISlH97gsFE8aXyLWAw6w4JMAZ676jtIPCsDMgtHR0MRL25EDAukHliULcpADJo9ltwfC1Td/l0+yB4mzRTcVnjw1uI7giyzvSc9xCZBwO+dTnF2GN5apawEzq89bc9oWAQHy7b/aKJCDcn7b6TtrjxzStmSjG3yEoQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB7420.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(346002)(39860400002)(366004)(396003)(136003)(33656002)(6916009)(71200400001)(316002)(26005)(9686003)(2906002)(83380400001)(53546011)(6506007)(7696005)(186003)(86362001)(38070700005)(55016003)(54906003)(122000001)(478600001)(5660300002)(41300700001)(8936002)(38100700002)(52536014)(4326008)(66556008)(66476007)(66446008)(66946007)(64756008)(76116006)(8676002);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 8929c316-2779-11ed-9250-1f966e50362f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc;
+        bh=83hCYhTpJUqzvF+GGXyp/XooWdmfFOGxjThsG0346Fs=;
+        b=BUix1ueGWHzJsQXFMXC0m/byILtaD6UlvwnP8MOyYIE/m5bYmFXHqQaEoh3zQ5osLY
+         g+axCmjKplejM5EjgfXJdn18QkHkObF2tg0VJcta1tu3VNcfQGtMnaHDdp8uCZjsO6pr
+         75dcsJneR+Qm54fKlg713U/ug/YZwELUAXn193hXYJq43LlK4QU0L+w3BO4h4KGrnLaE
+         x/idDrxE4t3RNzh4YEZw8ocbKiBfJ9YR3SYD4SLHV85nmOgEY98a1rjWzRstdh3E4cuN
+         gBylGtTaOWJpW/OJ1x0shZTLDfiuFLKBp7y+hqjjQkOFJw33DoCwm2UGm8JKG4EuQPWZ
+         W8YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc;
+        bh=83hCYhTpJUqzvF+GGXyp/XooWdmfFOGxjThsG0346Fs=;
+        b=BS0YKqWkunnuntmTSsBh0A4BeRWPeG8130pnlwYc4yrxeGajc81RSEY32dBA3j973N
+         GBz57twJJN1Jvl1STQWxFn9rxBYT/Oc/GBWcTIMGeH5taMziLXyj11KVgCPjl3PsKKSr
+         HOv/9wxXQ3nIdW7YX/oomQlsxYkIHxAZ+KnWGdjNUdj0poGFB/R8YxjCFkaCjXGQA9jd
+         yS+LlxmIq04CzBJqH/sXP69NrZBOCs7q7qSW+ThVb3hbjL15xCsXRRBrjDutyiUeafqb
+         OtUqVnQuEVzGZMe+yMmiCdFbhJH2EtQp5AM8SaTP6TOgwIQsmMjWnLGVvtEKLOepittE
+         J5rg==
+X-Gm-Message-State: ACgBeo3vWdvBUm/cTxbI9OpIC9D2fKCZJ79bINa6JmGGfLUjuCdCRHAZ
+	oiMPE/p8GQ6JKpJXZqPfJgdv1Y0Mn8jEwg==
+X-Google-Smtp-Source: AA6agR7EpcQJZZo2h4d09GzYa1az9k0Q1inlGRocyeDFqQY/Q8tOViag0CV1g2y7fu5aawuDgqDxdw==
+X-Received: by 2002:adf:ffcc:0:b0:226:df89:73d2 with SMTP id x12-20020adfffcc000000b00226df8973d2mr446544wrs.612.1661763845519;
+        Mon, 29 Aug 2022 02:04:05 -0700 (PDT)
+From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
+X-Google-Original-From: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
+To: xen-devel@lists.xenproject.org
+Cc: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [RFC PATCH v1] xen/docs: Document acquire resource interface
+Date: Mon, 29 Aug 2022 11:03:51 +0200
+Message-Id: <d28893ed5c617f6e350f755508f10ba5a12e7098.1661763622.git.matias.vara@vates.fr>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6614
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT038.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	eaaaa247-f1f1-4501-c8ea-08da899b05b0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	VoDMhaD23NaMdxedDz4KLWRqe61h9uIz2L0+HQEzoAIiXyFk7nE/sRR/QnSXV5fym6JaeE/2EWME9zrse+0vIGOqD+yvyHImct3ZpTTIGlIhL/gA/oOaqIFN6aagg1g1B0WGjz4L026sATHO/QVo2NdRHukHHZiyrm3W8mhRTbPoOxwvpRKXIWUMFjNd8Gk93kL++hdj6gftB4u1q5LMOw9rxGdqiq32uouKPGkAX0nGtZna8um1lb2QWe093DN68QGH4hIUNcKDUkLDJ0dQaHL4FSxApAmM4y51mCgTei0LrF4nzfgeX0z/rQVVM/CmZ/33QNOUfnD9hTBeGC0qZIGWkhobmGSbQglRMOj4Ear8px2iOj7SCb6Hq4C07/GlmMYtYa3fAN8C8PMPlWtPa2uxE2a0BNS0Xt9mQgIJWm/IFjcY9sZ0gnry0S49rxdX2968cH8Iy+N08TfAHXAE8Y1ALUrr/36B/7Ot9L9Qm4yJtf6EVRtyO60AUWDNvIOdqkK3LljurWj0YPvyNsPu5Ib2M9jQKMsIlU0EMNWBh2+R17YCQuKcNd93QKIQTEjPWxGeyLHUOzbyNrmVGvxLfeimGYMN0qDfEgUdMIVmXxMFXAgY/2q111DPE8l6ZAGdum+gt/IoAU7BkcsbRSm5N5kyZrUww1FYR9ecRIJldJCNvGBycKTCfI9eK47G6OfR5nUejifCU9xeqlc8F1fPh3vt03G6BcAeBpv+8nd/MBE2vF2l2yHtRp34zdi0rwTv5lCjj1bRo705/GAf/p959g==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(376002)(39860400002)(136003)(346002)(396003)(40470700004)(36840700001)(46966006)(53546011)(52536014)(7696005)(26005)(6506007)(478600001)(9686003)(41300700001)(47076005)(83380400001)(186003)(336012)(2906002)(5660300002)(6862004)(8936002)(40460700003)(55016003)(54906003)(40480700001)(82310400005)(316002)(8676002)(70206006)(4326008)(70586007)(356005)(81166007)(82740400003)(86362001)(36860700001)(33656002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2022 08:47:02.8041
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08ec7b58-a8d5-4531-c536-08da899b0b49
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT038.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7405
+Content-Transfer-Encoding: 8bit
 
-SGkgSmFuLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEphbiBCZXVs
-aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gU2VudDogMjAyMuW5tDjmnIgyNeaXpSAxODoxOA0K
-PiBUbzogV2VpIENoZW4gPFdlaS5DaGVuQGFybS5jb20+DQo+IENjOiBuZCA8bmRAYXJtLmNvbT47
-IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+OyBSb2dlciBQYXUNCj4g
-TW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT47IFdlaSBMaXUgPHdsQHhlbi5vcmc+OyB4ZW4t
-DQo+IGRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjMg
-MS82XSB4ZW4veDg2OiBQcm92aWRlIGhlbHBlcnMgZm9yIGNvbW1vbiBjb2RlIHRvDQo+IGFjY2Vz
-cyBhY3BpX251bWENCj4gDQo+IE9uIDIyLjA4LjIwMjIgMDQ6NTgsIFdlaSBDaGVuIHdyb3RlOg0K
-PiA+IC0tLSBhL3hlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9udW1hLmgNCj4gPiArKysgYi94ZW4v
-YXJjaC94ODYvaW5jbHVkZS9hc20vbnVtYS5oDQo+ID4gQEAgLTMyLDggKzMyLDkgQEAgZXh0ZXJu
-IHZvaWQgbnVtYV9hZGRfY3B1KGludCBjcHUpOw0KPiA+ICBleHRlcm4gdm9pZCBudW1hX2luaXRf
-YXJyYXkodm9pZCk7DQo+ID4gIGV4dGVybiBib29sIG51bWFfb2ZmOw0KPiA+DQo+ID4gLQ0KPiA+
-IC1leHRlcm4gaW50IHNyYXRfZGlzYWJsZWQodm9pZCk7DQo+ID4gK2V4dGVybiBpbnQgYXJjaF9u
-dW1hX3NldHVwKGNvbnN0IGNoYXIgKm9wdCk7DQo+ID4gK2V4dGVybiBib29sIGFyY2hfbnVtYV9k
-aXNhYmxlZChib29sIGluaXRfYXNfZGlzYWJsZSk7DQo+IA0KPiBXaGF0IGlzIHRoZSBwYXJhbWV0
-ZXIgbmFtZSBpbnRlbmRlZCB0byBtZWFuPyBTaW5jZSB0aGUgb25seSBjYWxsZXINCj4gcGFzc2Vz
-ICJmYWxzZSIsIHRoaXMgYWxzbyBpc24ndCByZWFsbHkgcG9zc2libGUgdG8gZ3Vlc3MgZnJvbSB0
-aGUNCj4gdXNlKHMpIGluIHRoaXMgcGF0Y2guIEluIGFueSBldmVudCBwZXJoYXBzIGJlc3QgZm9y
-IHRoZSBwYXJhbWV0ZXINCj4gdG8gYmUgaW50cm9kdWNlZCBvbmx5IG9uY2UgaXQncyBhY3R1YWxs
-eSBuZWVkZWQuDQo+IA0KDQpUaGlzIHBhcmFtZXRlciB3aWxsIGJlIHVzZWQgaW4gcGF0Y2gjNSBh
-bmQgc2V0IHRvIHRydWUsIEkgd2lsbCBpbnRyb2R1Y2UNCnRoaXMgcGFyYW1ldGVyIGluIHRoYXQg
-cGF0Y2guDQoNCj4gPiAtLS0gYS94ZW4vYXJjaC94ODYvbnVtYS5jDQo+ID4gKysrIGIveGVuL2Fy
-Y2gveDg2L251bWEuYw0KPiA+IEBAIC01MCw5ICs1MCwzMSBAQCBub2RlbWFza190IF9fcmVhZF9t
-b3N0bHkgbm9kZV9vbmxpbmVfbWFwID0geyB7IFswXSA9DQo+IDFVTCB9IH07DQo+ID4gIGJvb2wg
-bnVtYV9vZmY7DQo+ID4gIHM4IGFjcGlfbnVtYSA9IDA7DQo+ID4NCj4gPiAtaW50IHNyYXRfZGlz
-YWJsZWQodm9pZCkNCj4gPiAraW50IF9faW5pdCBhcmNoX251bWFfc2V0dXAoY29uc3QgY2hhciAq
-b3B0KQ0KPiA+ICB7DQo+ID4gLSAgICByZXR1cm4gbnVtYV9vZmYgfHwgYWNwaV9udW1hIDwgMDsN
-Cj4gPiArI2lmZGVmIENPTkZJR19BQ1BJX05VTUENCj4gPiArICAgIGlmICggIXN0cm5jbXAob3B0
-LCAibm9hY3BpIiwgNikgKQ0KPiA+ICsgICAgew0KPiA+ICsgICAgICAgIG51bWFfb2ZmID0gZmFs
-c2U7DQo+ID4gKyAgICAgICAgYWNwaV9udW1hID0gLTE7DQo+ID4gKyAgICAgICAgcmV0dXJuIDA7
-DQo+IA0KPiBXaXRoIHRoaXMgInJldHVybiIgLi4uDQo+IA0KPiA+ICsgICAgfQ0KPiA+ICsgICAg
-ZWxzZQ0KPiANCj4gLi4uIHRoaXMgImVsc2UiIGlzIHVubmVjZXNzYXJ5IGFuZCBoZW5jZSB3b3Vs
-ZCBiZXR0ZXIgYmUgZHJvcHBlZCwNCj4gbm90IHRoZSBsZWFzdCB0byAuLi4NCj4gDQo+ID4gKyNl
-bmRpZg0KPiA+ICsgICAgcmV0dXJuIC1FSU5WQUw7DQo+IA0KPiAuLi4gYXZvaWQgdGhlIG90aGVy
-d2lzZSBhbWJpZ3VvdXMgaW5kZW50YXRpb24gb2YgdGhpcyBsaW5lLg0KPiANCg0KVGhpcyBpcyBh
-IGdvb2Qgc3VnZ2VzdGlvbiwgY3VycmVudCBpbmRlbnRhdGlvbiBsb29rcyB3ZWlyZCwgSSB3aWxs
-IGZpeCBhYm92ZSAzDQppbiBuZXh0IHZlcnNpb24uDQoNClRoYW5rcywNCldlaSBDaGUNCg0KPiBK
-YW4NCg==
+This commit creates a new doc to document the acquire resource interface. This
+is a reference document.
+
+Signed-off-by: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
+---
+Changes in v1:
+- correct documentation about how mfns are allocated
+- correct documentation about how mfns are released
+- use the wording tool instead of pv tool
+- fix typos
+---
+ .../acquire_resource_reference.rst            | 338 ++++++++++++++++++
+ docs/hypervisor-guide/index.rst               |   2 +
+ 2 files changed, 340 insertions(+)
+ create mode 100644 docs/hypervisor-guide/acquire_resource_reference.rst
+
+diff --git a/docs/hypervisor-guide/acquire_resource_reference.rst b/docs/hypervisor-guide/acquire_resource_reference.rst
+new file mode 100644
+index 0000000000..d1989d2fd4
+--- /dev/null
++++ b/docs/hypervisor-guide/acquire_resource_reference.rst
+@@ -0,0 +1,338 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Acquire resource reference
++==========================
++
++Acquire resource allows you to share a resource between Xen and dom0.
++Resources are generally represented by pages that are mapped into user-space.
++These pages are accessed by Xen and belong to a domU. This document describes
++the api to build tools to access these resources. The document also describes
++the software components required to create and expose a domain's resource. This
++is not a tutorial or a how-to guide. It merely describes the machinery that is
++already described in the code itself.
++
++.. warning::
++
++    The code in this document may already be out of date, however it may
++    be enough to illustrate how the acquire resource interface works.
++
++
++Tool API
++-----------
++
++This section describes the api to map a resource in a user-space tool in dom0.
++The api is based on the following functions:
++
++* xenforeignmemory_open()
++
++* xenforeignmemory_resource_size()
++
++* xenforeignmemory_map_resource()
++
++* xenforeignmemory_unmap_resource()
++
++The ``xenforeignmemory_open()`` function gets the handler that is used by the
++rest of the functions:
++
++.. code-block:: c
++
++   fh = xenforeignmemory_open(NULL, 0);
++
++The ``xenforeignmemory_resource_size()`` function gets the size of the resource.
++For example, in the following code, we get the size of the
++``XENMEM_RESOURCE_VMTRACE_BUF``:
++
++.. code-block:: c
++
++    rc = xenforeignmemory_resource_size(fh, domid, XENMEM_resource_vmtrace_buf, vcpu, &size);
++
++The size of the resource is returned in ``size`` in bytes.
++
++The ``xenforeignmemory_map_resource()`` function maps a domain's resource. The
++function is declared as follows:
++
++.. code-block:: c
++
++    xenforeignmemory_resource_handle *xenforeignmemory_map_resource(
++        xenforeignmemory_handle *fmem, domid_t domid, unsigned int type,
++        unsigned int id, unsigned long frame, unsigned long nr_frames,
++        void **paddr, int prot, int flags);
++
++The size of the resource is in number of frames. For example, **QEMU** uses it
++to map the ioreq server between the domain and QEMU:
++
++.. code-block:: c
++
++    fres = xenforeignmemory_map_resource(xen_fmem, xen_domid, XENMEM_resource_ioreq_server,
++         state->ioservid, 0, 2, &addr, PROT_READ | PROT_WRITE, 0);
++
++
++The third parameter corresponds with the resource that we request from the
++domain, e.g., ``XENMEM_resource_ioreq_server``. The seventh parameter returns a
++pointer-to-pointer to the address of the mapped resource.
++
++Finally, the ``xenforeignmemory_unmap_resource()`` function unmaps the region:
++
++.. code-block:: c
++    :caption: tools/misc/xen-vmtrace.c
++
++    if ( fres && xenforeignmemory_unmap_resource(fh, fres) )
++        perror("xenforeignmemory_unmap_resource()");
++
++Exposing a domain's resource
++---------------------------------
++
++In this section, we describe how to build a new resource and expose it to dom0.
++Resources are defined in ``xen/include/public/memory.h``. In Xen-4.16, there
++are three resources:
++
++.. code-block:: c
++    :caption: xen/include/public/memory.h
++
++    #define XENMEM_resource_ioreq_server 0
++    #define XENMEM_resource_grant_table 1
++    #define XENMEM_resource_vmtrace_buf 2
++
++The ``resource_max_frames()`` function returns the size of a resource. The
++resource may provide a handler to get the size. This is the definition of the
++``resource_max_frame()`` function:
++
++.. code-block:: c
++    :linenos:
++    :caption: xen/common/memory.c
++
++    static unsigned int resource_max_frames(const struct domain *d,
++                                            unsigned int type, unsigned int id)
++    {
++        switch ( type )
++        {
++        case XENMEM_resource_grant_table:
++            return gnttab_resource_max_frames(d, id);
++
++        case XENMEM_resource_ioreq_server:
++            return ioreq_server_max_frames(d);
++
++        case XENMEM_resource_vmtrace_buf:
++            return d->vmtrace_size >> PAGE_SHIFT;
++
++        default:
++            return -EOPNOTSUPP;
++        }
++    }
++
++The ``_acquire_resource()`` function invokes the corresponding handler that maps
++the resource. The handler relies on ``type`` to select the correct handler:
++
++.. code-block:: c
++    :linenos:
++    :caption: xen/common/memory.c
++
++    static int _acquire_resource(
++        struct domain *d, unsigned int type, unsigned int id, unsigned int frame,
++        unsigned int nr_frames, xen_pfn_t mfn_list[])
++    {
++        switch ( type )
++        {
++        case XENMEM_resource_grant_table:
++            return gnttab_acquire_resource(d, id, frame, nr_frames, mfn_list);
++
++        case XENMEM_resource_ioreq_server:
++            return acquire_ioreq_server(d, id, frame, nr_frames, mfn_list);
++
++        case XENMEM_resource_vmtrace_buf:
++            return acquire_vmtrace_buf(d, id, frame, nr_frames, mfn_list);
++
++        default:
++            return -EOPNOTSUPP;
++        }
++    }
++
++Note that if a new resource has to be added, these two functions need to be
++modified. These handlers have the common declaration:
++
++.. code-block:: c
++    :linenos:
++    :caption: xen/common/memory.c
++
++    static int acquire_vmtrace_buf(
++        struct domain *d, unsigned int id, unsigned int frame,
++        unsigned int nr_frames, xen_pfn_t mfn_list[])
++    {
++
++The function returns in ``mfn_list[]`` a number of ``nr_frames`` of pointers to
++mfn pages. These pages are designed to be mapped contiguously. For example, for
++the ``XENMEM_resource_vmtrace_buf`` resource, the handler is defined as
++follows:
++
++.. code-block:: c
++    :linenos:
++    :caption: xen/common/memory.c
++
++    static int acquire_vmtrace_buf(
++        struct domain *d, unsigned int id, unsigned int frame,
++        unsigned int nr_frames, xen_pfn_t mfn_list[])
++    {
++        const struct vcpu *v = domain_vcpu(d, id);
++        unsigned int i;
++        mfn_t mfn;
++
++        if ( !v )
++            return -ENOENT;
++
++        if ( !v->vmtrace.pg ||
++             (frame + nr_frames) > (d->vmtrace_size >> PAGE_SHIFT) )
++            return -EINVAL;
++
++        mfn = page_to_mfn(v->vmtrace.pg);
++
++        for ( i = 0; i < nr_frames; i++ )
++            mfn_list[i] = mfn_x(mfn) + frame + i;
++
++        return nr_frames;
++    }
++
++Note that the handler only returns the mfn pages that have been previously
++allocated in ``vmtrace.pg``. The allocation of the resource happens during the
++instantiation of the vcpu. A set of pages is allocated during the instantiation
++of each vcpu. For allocating the page, we use the domheap with the
++``MEMF_no_refcount`` flag:
++
++.. code-block:: c
++
++    v->vmtrace.pg = alloc_domheap_page(s->target, MEMF_no_refcount);
++
++This allocates a page with the `PGC_allocated` bit set and a single reference
++count. Then, we grab a general reference count as well as a writable type count,
++so that it does not get used as a special page.
++
++.. code-block:: c
++
++    for ( i = 0; i < (d->vmtrace_size >> PAGE_SHIFT); i++ )
++        if ( unlikely(!get_page_and_type(&pg[i], d, PGT_writable_page)) )
++            /*
++             * The domain can't possibly know about this page yet, so failure
++             * here is a clear indication of something fishy going on.
++             */
++            goto refcnt_err;
++
++To access the pages in the context of Xen, we map the page by
++using:
++
++.. code-block:: c
++
++    va_page = __map_domain_page_global(page);
++
++The ``va_page`` pointer is used in the context of Xen.
++
++To release the page, we first unmap the frame with ``unmap_domheap_map()``, and we drop first the allocation and second the own type count, thus:
++
++.. code-block:: c
++
++    put_page_alloc_ref(pg);
++    put_page_and_type(pg);
++
++Note that we cannot free the page until all references have dropped and that includes the reference from tools in dom0. The ``put_page()`` brings the reference count to 0 thus automatically freeing the page.
++
++Acquire Resources
++-----------------
++
++This section briefly describes the resources that rely on the acquire resource
++interface. These resources are mapped by tools like QEMU.
++
++Intel Processor Trace (IPT)
++```````````````````````````
++
++This resource is named ``XENMEM_resource_vmtrace_buf`` and its size in bytes is
++set in ``d->vmtrace_size``. It contains the traces generated by the IPT. These
++traces are generated by each vcpu. The pages are allocated during
++``vcpu_create()``. The pages are stored in the ``vcpu`` structure in
++``sched.h``:
++
++.. code-block:: c
++
++   struct {
++        struct page_info *pg; /* One contiguous allocation of d->vmtrace_size */
++    } vmtrace;
++
++During ``vcpu_create()``, the pg is allocated by using the per-domain heap:
++
++.. code-block:: c
++
++    pg = alloc_domheap_pages(d, get_order_from_bytes(d->vmtrace_size), MEMF_no_refcount);
++
++For a given vcpu, the page is loaded into the guest at
++``vmx_restore_guest_msrs()``:
++
++.. code-block:: c
++    :caption: xen/arch/x86/hvm/vmx/vmx.c
++
++    wrmsrl(MSR_RTIT_OUTPUT_BASE, page_to_maddr(v->vmtrace.pg));
++
++The releasing of the pages happens during the vcpu teardown.
++
++Grant Table
++```````````
++
++The grant tables are represented by the ``XENMEM_resource_grant_table``
++resource. Grant tables are special since guests can map grant tables. Dom0 also
++needs to write into the grant table to set up the grants for xenstored and
++xenconsoled. When acquiring the resource, the pages are allocated from the xen
++heap in ``gnttab_get_shared_frame_mfn()``:
++
++.. code-block:: c
++    :linenos:
++    :caption: xen/common/grant_table.c
++
++    gt->shared_raw[i] = alloc_xenheap_page()
++    share_xen_page_with_guest(virt_to_page(gt->shared_raw[i]), d, SHARE_rw);
++
++Then, pages are shared with the guest. These pages are then converted from virt
++to mfn before returning:
++
++.. code-block:: c
++    :linenos:
++
++    for ( i = 0; i < nr_frames; ++i )
++         mfn_list[i] = virt_to_mfn(vaddrs[frame + i]);
++
++Ioreq server
++````````````
++
++The ioreq server is represented by the ``XENMEM_resource_ioreq_server``
++resource. An ioreq server provides emulated devices to HVM and PVH guests. The
++allocation is done in ``ioreq_server_alloc_mfn()``. The following code partially
++shows the allocation of the pages that represent the ioreq server:
++
++.. code-block:: c
++    :linenos:
++    :caption: xen/common/ioreq.c
++
++    page = alloc_domheap_page(s->target, MEMF_no_refcount);
++
++    iorp->va = __map_domain_page_global(page);
++    if ( !iorp->va )
++        goto fail;
++
++    iorp->page = page;
++    clear_page(iorp->va);
++    return 0;
++
++The function above is invoked from ``ioreq_server_get_frame()`` which is called
++from ``acquire_ioreq_server()``. For acquiring, the function returns the
++allocated pages as follows:
++
++.. code-block:: c
++
++    *mfn = page_to_mfn(s->bufioreq.page);
++
++The ``ioreq_server_free_mfn()`` function releases the pages as follows:
++
++.. code-block:: c
++    :linenos:
++    :caption: xen/common/ioreq.c
++
++    unmap_domain_page_global(iorp->va);
++    iorp->va = NULL;
++
++    put_page_alloc_ref(page);
++    put_page_and_type(page);
+diff --git a/docs/hypervisor-guide/index.rst b/docs/hypervisor-guide/index.rst
+index e4393b0697..961a11525f 100644
+--- a/docs/hypervisor-guide/index.rst
++++ b/docs/hypervisor-guide/index.rst
+@@ -9,3 +9,5 @@ Hypervisor documentation
+    code-coverage
+ 
+    x86/index
++
++   acquire_resource_reference
+-- 
+2.25.1
+
 
