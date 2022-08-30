@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8252D5A7446
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Aug 2022 05:10:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.395344.634922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AA2E5A755F
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Aug 2022 07:06:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.395163.634945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTE7D-0004Gf-KT; Wed, 31 Aug 2022 03:10:07 +0000
+	id 1oTFv5-0007bD-4x; Wed, 31 Aug 2022 05:05:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 395344.634922; Wed, 31 Aug 2022 03:10:07 +0000
+Received: by outflank-mailman (output) from mailman id 395163.634945; Wed, 31 Aug 2022 05:05:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTE7D-0004Cy-Gj; Wed, 31 Aug 2022 03:10:07 +0000
-Received: by outflank-mailman (input) for mailman id 395344;
- Wed, 31 Aug 2022 03:10:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTE7B-000421-6G; Wed, 31 Aug 2022 03:10:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTE7B-00046G-36; Wed, 31 Aug 2022 03:10:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTE7A-0003qt-Nm; Wed, 31 Aug 2022 03:10:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oTE7A-0004Iq-ML; Wed, 31 Aug 2022 03:10:04 +0000
+	id 1oTFv5-0007ZQ-1z; Wed, 31 Aug 2022 05:05:43 +0000
+Received: by outflank-mailman (input) for mailman id 395163;
+ Tue, 30 Aug 2022 21:49:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2bUK=ZC=flex--surenb.bounces.google.com=35IUOYwYKCUk352pymrzzrwp.nzx8py-op6pwwt343.8py02zupn4.z2r@srs-se1.protection.inumbo.net>)
+ id 1oT96t-0008CX-EV
+ for xen-devel@lists.xenproject.org; Tue, 30 Aug 2022 21:49:27 +0000
+Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
+ [2607:f8b0:4864:20::1149])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d406446-28ad-11ed-a60c-1f1ba7de4fb0;
+ Tue, 30 Aug 2022 23:49:25 +0200 (CEST)
+Received: by mail-yw1-x1149.google.com with SMTP id
+ 00721157ae682-33f8988daecso180733297b3.12
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Aug 2022 14:49:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,315 +40,369 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mVc0+/37m69AfIxZP91Ank/ea2psI6cqJDh0yl/ewyw=; b=z73jBT8NzDkxqzixlh0vvuVCdF
-	B8OtuzbM9jQuLUDnASW1ko8DovCgWzOzOct4eDtG8ECeh2e3b1ISJlBo/teQNQokDNTvvTmJU7Ahq
-	KL8oEWbZUaMNVWzb27AIf9n6yv9oqELIMgDAONlrRbChGI+/Av9XTOUKpkzYSgnrAPVE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172875-mainreport@xen.org>
+X-Inumbo-ID: 9d406446-28ad-11ed-a60c-1f1ba7de4fb0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=cc:to:from:subject:message-id:mime-version:date:from:to:cc;
+        bh=1lX3k8bH6+3ighIlH+rh55fF9o5O4fyOugMRXdd7M+o=;
+        b=TLaJItWbDQbvhKHzG038LNGm0CScYZSKmwQZZ5uimu3NF1cUdVRiMphTcTUfMFGxbA
+         5MXDa00pC4jx1dox6rXbqMWBtWC4G64n3rtvQ9WFmciJtHtJLVCWET5Kdb7EyuzkVYPX
+         i4J0Y6C4bz8XfJq1YpoTofkF51DS5zPKbupPaaT66wch8+NkTWL2E1S5s0ZkHIotLxVb
+         lHmExQmnrBRVXZ4L6czz/14NhyHQZKxDWFmpYXVuNp5UTUZUPBV0MZqwCFaN6+K53hjG
+         Et4iC4dnJNUgJmAGWozRlGh2FkpEq40YiSSTQfp1Q8IZTvSW9ersWg+tDXVZ8w+7HE/r
+         XOYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+         :from:to:cc;
+        bh=1lX3k8bH6+3ighIlH+rh55fF9o5O4fyOugMRXdd7M+o=;
+        b=187CK/R60xuaTW1ISV4Fp14/xC57/neI/yBS6tA2EzU01D9x2KSGpyzj1p2PsvbFwz
+         5Twh9LHI14ayHulfHJtP32/ohMrLIcJOiUJj2WLpFOC/tBc27cFwZtvW0t172XbXoOQ3
+         ZXj36WHlxh3cHEudVUvb5UsYxlvXoJgwpK27ijfLDV2f40W0JFXmbIXyVhUBoyKzVXJj
+         Ct6aXoJIEH4aJtWa2ul9qWIGSwHd6cAl/76OOzbCeZAQM3rbmGTlpCAP3mgo7XiD3ubD
+         br7xqOr6dw2n4x6lcCACAac+MbQrLuTgvo9QLJ8Y9WxciI9fznq0ZusVPXwHswC4gZ02
+         YZdw==
+X-Gm-Message-State: ACgBeo0isDHBG9p2f24+oWoCeF1NsqWtwW++fYm1+jgABlPdBBkVCP+w
+	U2ksxC0HBBhZLuHye+0RONXxBqXpzBc=
+X-Google-Smtp-Source: AA6agR5j08Skk81v71QmaDi/WT6bCECv+zqPYuRoUXIcSYHRwqbk8VPDDLd37sGsnmTNsd8iQzIrOAzDMtY=
+X-Received: from surenb-desktop.mtv.corp.google.com ([2620:15c:211:200:a005:55b3:6c26:b3e4])
+ (user=surenb job=sendgmr) by 2002:a81:7992:0:b0:336:8015:4889 with SMTP id
+ u140-20020a817992000000b0033680154889mr16036203ywc.80.1661896164558; Tue, 30
+ Aug 2022 14:49:24 -0700 (PDT)
+Date: Tue, 30 Aug 2022 14:48:49 -0700
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.37.2.672.g94769d06f0-goog
+Message-ID: <20220830214919.53220-1-surenb@google.com>
+Subject: [RFC PATCH 00/30] Code tagging framework and applications
+From: Suren Baghdasaryan <surenb@google.com>
+To: akpm@linux-foundation.org
+Cc: kent.overstreet@linux.dev, mhocko@suse.com, vbabka@suse.cz, 
+	hannes@cmpxchg.org, roman.gushchin@linux.dev, mgorman@suse.de, 
+	dave@stgolabs.net, willy@infradead.org, liam.howlett@oracle.com, 
+	void@manifault.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	ldufour@linux.ibm.com, peterx@redhat.com, david@redhat.com, axboe@kernel.dk, 
+	mcgrof@kernel.org, masahiroy@kernel.org, nathan@kernel.org, 
+	changbin.du@intel.com, ytcoode@gmail.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	bristot@redhat.com, vschneid@redhat.com, cl@linux.com, penberg@kernel.org, 
+	iamjoonsoo.kim@lge.com, 42.hyeyoo@gmail.com, glider@google.com, 
+	elver@google.com, dvyukov@google.com, shakeelb@google.com, 
+	songmuchun@bytedance.com, arnd@arndb.de, jbaron@akamai.com, 
+	rientjes@google.com, minchan@google.com, kaleshsingh@google.com, 
+	surenb@google.com, kernel-team@android.com, linux-mm@kvack.org, 
+	iommu@lists.linux.dev, kasan-dev@googlegroups.com, io-uring@vger.kernel.org, 
+	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org, 
+	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [linux-5.4 test] 172875: regressions - FAIL
-X-Osstest-Failures:
-    linux-5.4:build-i386-libvirt:libvirt-build:fail:regression
-    linux-5.4:build-amd64-libvirt:libvirt-build:fail:regression
-    linux-5.4:build-arm64-libvirt:libvirt-build:fail:regression
-    linux-5.4:build-armhf-libvirt:libvirt-build:fail:regression
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start:fail:heisenbug
-    linux-5.4:test-armhf-armhf-examine:reboot:fail:heisenbug
-    linux-5.4:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=684cc17be897de3b0fd2e5a021a702f68046d9fe
-X-Osstest-Versions-That:
-    linux=8d8935e76f6f419ef2f7617de252f258b6a597d3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 31 Aug 2022 03:10:04 +0000
 
-flight 172875 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172875/
+===========================
+Code tagging framework
+===========================
+Code tag is a structure identifying a specific location in the source code
+which is generated at compile time and can be embedded in an application-
+specific structure. Several applications of code tagging are included in
+this RFC, such as memory allocation tracking, dynamic fault injection,
+latency tracking and improved error code reporting.
+Basically, it takes the old trick of "define a special elf section for
+objects of a given type so that we can iterate over them at runtime" and
+creates a proper library for it.
 
-Regressions :-(
+===========================
+Memory allocation tracking
+===========================
+The goal for using codetags for memory allocation tracking is to minimize
+performance and memory overhead. By recording only the call count and
+allocation size, the required operations are kept at the minimum while
+collecting statistics for every allocation in the codebase. With that
+information, if users are interested in mode detailed context for a
+specific allocation, they can enable more in-depth context tracking,
+which includes capturing the pid, tgid, task name, allocation size,
+timestamp and call stack for every allocation at the specified code
+location.
+Memory allocation tracking is implemented in two parts:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172128
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172128
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 172128
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 172128
+part1: instruments page and slab allocators to record call count and total
+memory allocated at every allocation in the source code. Every time an
+allocation is performed by an instrumented allocator, the codetag at that
+location increments its call and size counters. Every time the memory is
+freed these counters are decremented. To decrement the counters upon free,
+allocated object needs a reference to its codetag. Page allocators use
+page_ext to record this reference while slab allocators use memcg_data of
+the slab page.
+The data is exposed to the user space via a read-only debugfs file called
+alloc_tags.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-rtds     14 guest-start      fail in 172866 pass in 172875
- test-armhf-armhf-examine      8 reboot                     fail pass in 172866
+Usage example:
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit1 18 guest-start/debian.repeat fail in 172866 blocked in 172128
- test-armhf-armhf-xl-multivcpu 14 guest-start        fail in 172866 like 172128
- test-armhf-armhf-xl-credit1 15 migrate-support-check fail in 172866 never pass
- test-armhf-armhf-xl-credit1 16 saverestore-support-check fail in 172866 never pass
- test-armhf-armhf-xl-multivcpu 18 guest-start/debian.repeat    fail like 172108
- test-armhf-armhf-xl-credit2  18 guest-start/debian.repeat    fail  like 172108
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172108
- test-armhf-armhf-xl-credit1  14 guest-start                  fail  like 172128
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172128
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172128
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 172128
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 172128
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172128
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172128
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 172128
- test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 172128
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 172128
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+$ sort -hr /sys/kernel/debug/alloc_tags|head
+  153MiB     8599 mm/slub.c:1826 module:slub func:alloc_slab_page
+ 6.08MiB      49 mm/slab_common.c:950 module:slab_common func:_kmalloc_order
+ 5.09MiB     6335 mm/memcontrol.c:2814 module:memcontrol func:alloc_slab_obj_exts
+ 4.54MiB      78 mm/page_alloc.c:5777 module:page_alloc func:alloc_pages_exact
+ 1.32MiB      338 include/asm-generic/pgalloc.h:63 module:pgtable func:__pte_alloc_one
+ 1.16MiB      603 fs/xfs/xfs_log_priv.h:700 module:xfs func:xlog_kvmalloc
+ 1.00MiB      256 mm/swap_cgroup.c:48 module:swap_cgroup func:swap_cgroup_prepare
+  734KiB     5380 fs/xfs/kmem.c:20 module:xfs func:kmem_alloc
+  640KiB      160 kernel/rcu/tree.c:3184 module:tree func:fill_page_cache_func
+  640KiB      160 drivers/char/virtio_console.c:452 module:virtio_console func:alloc_buf
 
-version targeted for testing:
- linux                684cc17be897de3b0fd2e5a021a702f68046d9fe
-baseline version:
- linux                8d8935e76f6f419ef2f7617de252f258b6a597d3
+part2: adds support for the user to select a specific code location to capture
+allocation context. A new debugfs file called alloc_tags.ctx is used to select
+which code location should capture allocation context and to read captured
+context information.
 
-Last test of basis   172128  2022-08-04 02:00:25 Z   27 days
-Failing since        172384  2022-08-11 11:13:58 Z   19 days   41 attempts
-Testing same since   172776  2022-08-25 17:42:45 Z    5 days   12 attempts
+Usage example:
 
-------------------------------------------------------------
-401 people touched revisions under test,
-not listing them all
+$ cd /sys/kernel/debug/
+$ echo "file include/asm-generic/pgalloc.h line 63 enable" > alloc_tags.ctx
+$ cat alloc_tags.ctx
+  920KiB      230 include/asm-generic/pgalloc.h:63 module:pgtable func:__pte_alloc_one
+    size: 4096
+    pid: 1474
+    tgid: 1474
+    comm: bash
+    ts: 175332940994
+    call stack:
+         pte_alloc_one+0xfe/0x130
+         __pte_alloc+0x22/0xb0
+         copy_page_range+0x842/0x1640
+         dup_mm+0x42d/0x580
+         copy_process+0xfb1/0x1ac0
+         kernel_clone+0x92/0x3e0
+         __do_sys_clone+0x66/0x90
+         do_syscall_64+0x38/0x90
+         entry_SYSCALL_64_after_hwframe+0x63/0xcd
+...
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     fail    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 blocked 
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+NOTE: slab allocation tracking is not yet stable and has a leak that
+shows up in long-running tests. We are working on fixing it and posting
+the RFC early to collect some feedback and to have a reference code in
+public before presenting the idea at LPC2022.
+
+===========================
+Dynamic fault injection
+===========================
+Dynamic fault injection lets you do fault injection with a single call
+to dynamic_fault(), with a debugfs interface similar to dynamic_debug.
+
+Calls to dynamic_fault are listed in debugfs and can be enabled at
+runtime (oneshot mode or a defined frequency are also available). This
+patch also uses the memory allocation wrapper macros introduced by the
+memory allocation tracking patches to add distinct fault injection
+points for every memory allocation in the kernel.
+
+Example fault injection points, after hooking memory allocation paths:
+
+  fs/xfs/libxfs/xfs_iext_tree.c:606 module:xfs func:xfs_iext_realloc_rootclass:memory disabled "
+  fs/xfs/libxfs/xfs_inode_fork.c:503 module:xfs func:xfs_idata_reallocclass:memory disabled "
+  fs/xfs/libxfs/xfs_inode_fork.c:399 module:xfs func:xfs_iroot_reallocclass:memory disabled "
+  fs/xfs/xfs_buf.c:373 module:xfs func:xfs_buf_alloc_pagesclass:memory disabled "
+  fs/xfs/xfs_iops.c:497 module:xfs func:xfs_vn_get_linkclass:memory disabled "
+  fs/xfs/xfs_mount.c:85 module:xfs func:xfs_uuid_mountclass:memory disabled "
+
+===========================
+Latency tracking
+===========================
+This lets you instrument code for measuring latency with just two calls
+to code_tag_time_stats_start() and code_tag_time_stats_finish(), and
+makes statistics available in debugfs on a per-callsite basis.
+
+Recorded statistics include total count, frequency/rate, average
+duration, max duration, and event duration quantiles.
+
+Additionally, this patch instruments prepare_to_wait() and finish_wait().
+
+Example output:
+
+  fs/xfs/xfs_extent_busy.c:589 module:xfs func:xfs_extent_busy_flush
+  count:          61
+  rate:           0/sec
+  frequency:    19 sec
+  avg duration:   632 us
+  max duration:   2 ms
+  quantiles (us): 274 288 288 296 296 296 296 336 336 336 336 336 336 336 336
+
+===========================
+Improved error codes
+===========================
+Ever waste hours trying to figure out which line of code from some
+obscure module is returning you -EINVAL and nothing else?
+
+What if we had... more error codes?
+
+This patch adds ERR(), which returns a unique error code that is related
+to the error code that passed to it: the original error code can be
+recovered with error_class(), and errname() (as well as %pE) returns an
+error string that includes the file and line number of the ERR() call.
+
+Example output:
+
+  VFS: Cannot open root device "sda" or unknown-block(8,0): error -EINVAL at fs/ext4/super.c:4387
+
+===========================
+Dynamic debug conversion to code tagging
+===========================
+There are several open coded implementations of the "define a special elf
+section for objects and iterate" technique that should be converted to
+code tagging. This series just converts dynamic debug; there are others
+(multiple in ftrace, in particular) that should also be converted.
+
+===========================
+
+The patchset applies cleanly over Linux 6.0-rc3
+The tree for testing is published at:
+https://github.com/surenbaghdasaryan/linux/tree/alloc_tags_rfc
+
+The structure of the patchset is:
+- code tagging framework (patches 1-6)
+- page allocation tracking (patches 7-10)
+- slab allocation tracking (patch 11-16)
+- allocation context capture (patch 17-21)
+- dynamic fault injection (patch 22)
+- latency tracking (patch 23-27)
+- improved error codes (patch 28)
+- dynamic debug conversion to code tagging (patch 29)
+- MAINTAINERS update (patch 30)
+
+Next steps:
+- track and fix slab allocator leak mentioned earlier;
+- instrument more allocators: vmalloc, per-cpu allocations, others?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Kent Overstreet (14):
+  lib/string_helpers: Drop space in string_get_size's output
+  Lazy percpu counters
+  scripts/kallysms: Always include __start and __stop symbols
+  lib/string.c: strsep_no_empty()
+  codetag: add codetag query helper functions
+  Code tagging based fault injection
+  timekeeping: Add a missing include
+  wait: Clean up waitqueue_entry initialization
+  lib/time_stats: New library for statistics on events
+  bcache: Convert to lib/time_stats
+  Code tagging based latency tracking
+  Improved symbolic error names
+  dyndbg: Convert to code tagging
+  MAINTAINERS: Add entries for code tagging & related
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Suren Baghdasaryan (16):
+  kernel/module: move find_kallsyms_symbol_value declaration
+  lib: code tagging framework
+  lib: code tagging module support
+  lib: add support for allocation tagging
+  lib: introduce page allocation tagging
+  change alloc_pages name in dma_map_ops to avoid name conflicts
+  mm: enable page allocation tagging for __get_free_pages and
+    alloc_pages
+  mm: introduce slabobj_ext to support slab object extensions
+  mm: introduce __GFP_NO_OBJ_EXT flag to selectively prevent slabobj_ext
+    creation
+  mm/slab: introduce SLAB_NO_OBJ_EXT to avoid obj_ext creation
+  mm: prevent slabobj_ext allocations for slabobj_ext and kmem_cache
+    objects
+  lib: introduce slab allocation tagging
+  mm: enable slab allocation tagging for kmalloc and friends
+  move stack capture functionality into a separate function for reuse
+  lib: introduce support for storing code tag context
+  lib: implement context capture support for page and slab allocators
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+ MAINTAINERS                         |  34 ++
+ arch/x86/kernel/amd_gart_64.c       |   2 +-
+ drivers/iommu/dma-iommu.c           |   2 +-
+ drivers/md/bcache/Kconfig           |   1 +
+ drivers/md/bcache/bcache.h          |   1 +
+ drivers/md/bcache/bset.c            |   8 +-
+ drivers/md/bcache/bset.h            |   1 +
+ drivers/md/bcache/btree.c           |  12 +-
+ drivers/md/bcache/super.c           |   3 +
+ drivers/md/bcache/sysfs.c           |  43 ++-
+ drivers/md/bcache/util.c            |  30 --
+ drivers/md/bcache/util.h            |  57 ---
+ drivers/xen/grant-dma-ops.c         |   2 +-
+ drivers/xen/swiotlb-xen.c           |   2 +-
+ include/asm-generic/codetag.lds.h   |  18 +
+ include/asm-generic/vmlinux.lds.h   |   8 +-
+ include/linux/alloc_tag.h           |  84 +++++
+ include/linux/codetag.h             | 159 +++++++++
+ include/linux/codetag_ctx.h         |  48 +++
+ include/linux/codetag_time_stats.h  |  54 +++
+ include/linux/dma-map-ops.h         |   2 +-
+ include/linux/dynamic_debug.h       |  11 +-
+ include/linux/dynamic_fault.h       |  79 +++++
+ include/linux/err.h                 |   2 +-
+ include/linux/errname.h             |  50 +++
+ include/linux/gfp.h                 |  10 +-
+ include/linux/gfp_types.h           |  12 +-
+ include/linux/io_uring_types.h      |   2 +-
+ include/linux/lazy-percpu-counter.h |  67 ++++
+ include/linux/memcontrol.h          |  23 +-
+ include/linux/module.h              |   1 +
+ include/linux/page_ext.h            |   3 +-
+ include/linux/pgalloc_tag.h         |  63 ++++
+ include/linux/sbitmap.h             |   6 +-
+ include/linux/sched.h               |   6 +-
+ include/linux/slab.h                | 136 +++++---
+ include/linux/slab_def.h            |   2 +-
+ include/linux/slub_def.h            |   4 +-
+ include/linux/stackdepot.h          |   3 +
+ include/linux/string.h              |   1 +
+ include/linux/time_stats.h          |  44 +++
+ include/linux/timekeeping.h         |   1 +
+ include/linux/wait.h                |  72 ++--
+ include/linux/wait_bit.h            |   7 +-
+ init/Kconfig                        |   5 +
+ kernel/dma/mapping.c                |   4 +-
+ kernel/module/internal.h            |   3 -
+ kernel/module/main.c                |  27 +-
+ kernel/sched/wait.c                 |  15 +-
+ lib/Kconfig                         |   6 +
+ lib/Kconfig.debug                   |  46 +++
+ lib/Makefile                        |  10 +
+ lib/alloc_tag.c                     | 391 +++++++++++++++++++++
+ lib/codetag.c                       | 519 ++++++++++++++++++++++++++++
+ lib/codetag_time_stats.c            | 143 ++++++++
+ lib/dynamic_debug.c                 | 452 +++++++++---------------
+ lib/dynamic_fault.c                 | 372 ++++++++++++++++++++
+ lib/errname.c                       | 103 ++++++
+ lib/lazy-percpu-counter.c           | 141 ++++++++
+ lib/pgalloc_tag.c                   |  22 ++
+ lib/stackdepot.c                    |  68 ++++
+ lib/string.c                        |  19 +
+ lib/string_helpers.c                |   3 +-
+ lib/time_stats.c                    | 236 +++++++++++++
+ mm/kfence/core.c                    |   2 +-
+ mm/memcontrol.c                     |  62 ++--
+ mm/mempolicy.c                      |   4 +-
+ mm/page_alloc.c                     |  13 +-
+ mm/page_ext.c                       |   6 +
+ mm/page_owner.c                     |  54 +--
+ mm/slab.c                           |   4 +-
+ mm/slab.h                           | 125 ++++---
+ mm/slab_common.c                    |  49 ++-
+ mm/slob.c                           |   2 +
+ mm/slub.c                           |   7 +-
+ scripts/kallsyms.c                  |  13 +
+ scripts/module.lds.S                |   7 +
+ 77 files changed, 3406 insertions(+), 703 deletions(-)
+ create mode 100644 include/asm-generic/codetag.lds.h
+ create mode 100644 include/linux/alloc_tag.h
+ create mode 100644 include/linux/codetag.h
+ create mode 100644 include/linux/codetag_ctx.h
+ create mode 100644 include/linux/codetag_time_stats.h
+ create mode 100644 include/linux/dynamic_fault.h
+ create mode 100644 include/linux/lazy-percpu-counter.h
+ create mode 100644 include/linux/pgalloc_tag.h
+ create mode 100644 include/linux/time_stats.h
+ create mode 100644 lib/alloc_tag.c
+ create mode 100644 lib/codetag.c
+ create mode 100644 lib/codetag_time_stats.c
+ create mode 100644 lib/dynamic_fault.c
+ create mode 100644 lib/lazy-percpu-counter.c
+ create mode 100644 lib/pgalloc_tag.c
+ create mode 100644 lib/time_stats.c
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-- 
+2.37.2.672.g94769d06f0-goog
 
-
-Not pushing.
-
-(No revision log; it would be 11210 lines long.)
 
