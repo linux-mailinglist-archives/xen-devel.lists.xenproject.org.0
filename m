@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 055C15A648E
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Aug 2022 15:23:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.395050.634616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B1565A6735
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Aug 2022 17:22:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.395073.634631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oT1CI-0006Al-Iq; Tue, 30 Aug 2022 13:22:30 +0000
+	id 1oT33M-0000yP-4z; Tue, 30 Aug 2022 15:21:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 395050.634616; Tue, 30 Aug 2022 13:22:30 +0000
+Received: by outflank-mailman (output) from mailman id 395073.634631; Tue, 30 Aug 2022 15:21:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oT1CI-00068r-G7; Tue, 30 Aug 2022 13:22:30 +0000
-Received: by outflank-mailman (input) for mailman id 395050;
- Tue, 30 Aug 2022 13:06:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8i5b=ZC=gmail.com=oleshiiwood@srs-se1.protection.inumbo.net>)
- id 1oT0wq-0004MW-QR
- for xen-devel@lists.xen.org; Tue, 30 Aug 2022 13:06:32 +0000
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [2607:f8b0:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9094321d-2864-11ed-bd2e-47488cf2e6aa;
- Tue, 30 Aug 2022 15:06:31 +0200 (CEST)
-Received: by mail-pl1-x631.google.com with SMTP id j5so7169057plj.5
- for <xen-devel@lists.xen.org>; Tue, 30 Aug 2022 06:06:31 -0700 (PDT)
+	id 1oT33M-0000uy-1z; Tue, 30 Aug 2022 15:21:24 +0000
+Received: by outflank-mailman (input) for mailman id 395073;
+ Tue, 30 Aug 2022 15:21:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oT33J-0000ul-RL; Tue, 30 Aug 2022 15:21:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oT33J-0000Zb-OD; Tue, 30 Aug 2022 15:21:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oT33J-0004B1-Ad; Tue, 30 Aug 2022 15:21:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oT33J-0001PD-9j; Tue, 30 Aug 2022 15:21:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,202 +42,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9094321d-2864-11ed-bd2e-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc;
-        bh=8LHc0WpHLu9wlZtjdiUeM67gKfqRlIHOCxKlnTrSOK8=;
-        b=ajAxEpml0f2QRLsiciAQ6IfS4JKXWGLoiwjU3WAp3qFHg6AQ3MnoBP1XBUN7g6lgNE
-         MM+6ciTInr+tQmUElIuH4+HfCI4WtenQ36f/Do9GszVgXMNVYptOoEsZJzYHkDrf9mhT
-         7jB+BJTqhMXFNLyUviBhQMEOUri4m11cvMwdPKSmbUasW7yKWeTxMbMBKr7sRmFqup9s
-         0HfIsQqDfZGHND9CnDZMWcvrkPkmjgSm/7sxdauOiWR1K3aNzYvvCqwwQG70kKR7krpe
-         aXf2znYbg5LOwvqxU6GNHcapW04IYRhPz72qzB43/KGNy84g5xCRkjqrI9WI+7v5H8PK
-         MicA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc;
-        bh=8LHc0WpHLu9wlZtjdiUeM67gKfqRlIHOCxKlnTrSOK8=;
-        b=XadAtDaZAXFEZgwyyXeIDiLq5hQnbqZGsKtN9az2zRamTid2KJ07PAvdjeRnlqn+7T
-         siA4MFtpOslhVppSVtVIBwiBZDSeQRXuWzbD4cSHC8m1fuLYcLFp7GgI7acoJphI3Qtq
-         uBMSOlmuLkd1YY+4E/Z/UMCTxeKLxX9g28zC9tZSR5r5fKHeTZ35K5LhgmiME3VHoHDo
-         TFWEYGHkmMm1qu+i935BxkJoLZV9FyueHtSLSyuGUw5U9r3AF7bjbLPMVJlLVZFD+PeB
-         S7yR/UobqZvJ5obYAuUN2TUqSoXNiA4VR5OId1anDNnXGqK3K0GtKSL5EYKO6kA9LXXM
-         PyPw==
-X-Gm-Message-State: ACgBeo3ZIneHKSWS5w7NmC6z3oF4UXgVWCoQZRxmQ5PXNEeZs7qJIV6p
-	3NuVlzSmJETmegMJQn+x9ClVVrLu6+s8Wi9N/pnojGdSeRpT+A==
-X-Google-Smtp-Source: AA6agR4jnShZCZroGR4L87MWGkf2IxfhhPgCjlB72kpmwK3tM+2eu+mMxZKCjeK+3ysZMq0xhWV4R/ENsN4/UrrASCk=
-X-Received: by 2002:a17:90a:7644:b0:1fd:ecc8:9975 with SMTP id
- s4-20020a17090a764400b001fdecc89975mr7128895pjl.219.1661864789589; Tue, 30
- Aug 2022 06:06:29 -0700 (PDT)
-MIME-Version: 1.0
-From: Oleshii Wood <oleshiiwood@gmail.com>
-Date: Tue, 30 Aug 2022 16:09:49 +0300
-Message-ID: <CA+SAi2s6ZfY87dR2noYkKiH_QwJMXKbj_6404Hmru-t==vSAhw@mail.gmail.com>
-Subject: Xen in ARM environment networking overload issue
-To: xen-devel@lists.xen.org
-Content-Type: multipart/alternative; boundary="00000000000072c5a405e7750c05"
-
---00000000000072c5a405e7750c05
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7MyFKS5lVJBm/4GrV6DtXsP3mYpRxlb1VyLNQi1WUDc=; b=V7IZ0senVQz0ZQSwLnjo71+eUG
+	9J0t83RYMBrxLxAmAnMMPrN1uyJz7UFZ9tZ4Dd/bpoURwRd6iSqmeYGtqqJk8SKtSy/8ddBjM6wK+
+	R86TyrkHQp2mKncH5+Zc4XcjnaSwqSSJZaB9RIY1o6R41UJ9CAiXtRq9PpPo0r+Sw390=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172865-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 172865: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:build-amd64-libvirt:libvirt-build:fail:regression
+    linux-linus:build-arm64-libvirt:libvirt-build:fail:regression
+    linux-linus:build-i386-libvirt:libvirt-build:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:build-armhf-libvirt:libvirt-build:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=dcf8e5633e2e69ad60b730ab5905608b756a032f
+X-Osstest-Versions-That:
+    linux=b44f2fd87919b5ae6e1756d4c7ba2cbba22238e1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 30 Aug 2022 15:21:21 +0000
 
-Hello guys,
+flight 172865 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172865/
 
-The same issue migh be found by link
-https://xen.markmail.org/message/3w4oqeu5z7ryfbsb?q=xen_add_phys_to_mach_entry&page=1
+Regressions :-(
 
-DOM0/DOMU kernels version 5.15.19
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172133
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 172133
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172133
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 172133
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 172133
 
-Two XENified guests. They are equal. They both have the same configuration.
-It is enough to have one DomU and Dom0.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172133
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172133
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172133
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172133
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172133
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-Part of DomU configuration.
-type = "pvh"
-memory = 1024
-vcpus = 1
+version targeted for testing:
+ linux                dcf8e5633e2e69ad60b730ab5905608b756a032f
+baseline version:
+ linux                b44f2fd87919b5ae6e1756d4c7ba2cbba22238e1
 
-It is not necessary to repeat full custom board configuration with all the
-bridges.
-It is enough to connect DomU with some external machine or with Dom0
-through the network.
+Last test of basis   172133  2022-08-04 05:14:48 Z   26 days
+Failing since        172152  2022-08-05 04:01:26 Z   25 days   58 attempts
+Testing same since   172865  2022-08-30 04:54:06 Z    0 days    1 attempts
 
-You should have a perf3 compiled package on both ends.
-on Dom0 or external host you issue command:
-perf3 -s &
+------------------------------------------------------------
+1589 people touched revisions under test,
+not listing them all
 
-on DomU you issue the command:
-perf3 -c [Dom0 or external host ip address] -k 400K -b 0
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-libvirt-raw                                 blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-After enough short time you will see in your DomU kernel messages or in
-your xen console something like
-[ 2385.999011] xen_add_phys_to_mach_entry: cannot add
-pfn=0x000000000003e0de -> mfn=0x00000000008031f2: pfn=0x000000000003e0de ->
-mfn=0x00000000008044a0 already exists
-[ 2355.968172] xen_add_phys_to_mach_entry: cannot add
-pfn=0x000000000003bfca -> mfn=0x000000000080319c: pfn=0x000000000003bfca ->
-mfn=0x0000000000803276 already exists
-[ 2323.002652] xen_add_phys_to_mach_entry: cannot add
-pfn=0x000000000003b80e -> mfn=0x000000000080447d: pfn=0x000000000003b80e ->
-mfn=0x00000000008032a7 already exists
-[ 2302.036336] xen_add_phys_to_mach_entry: cannot add
-pfn=0x000000000003e0de -> mfn=0x0000000000803105: pfn=0x000000000003e0de ->
-mfn=0x00000000008044a0 already exists
-[ 2273.758169] xen_add_phys_to_mach_entry: cannot add
-pfn=0x000000000003b80e -> mfn=0x00000000008033fc: pfn=0x000000000003b80e ->
-mfn=0x00000000008032a7 already exists
-[ 2252.254857] xen_add_phys_to_mach_entry: cannot add
-pfn=0x000000000003b80e -> mfn=0x00000000008032f0: pfn=0x000000000003b80e ->
-mfn=0x00000000008032a7 already exists
 
-You will have a lot of those messages.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Involved files
-arch/arm/xen/p2m.c
-drivers/net/xen-netback/netback.c
-drivers/net/xen-netback/common.h
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-This problem arrived in the p2m.c file in the xen_add_phys_to_mach_entry
-function
-This function adds a new mapping XEN page pfn to the DomU gfn.
-It does via red/black tree
-Xen netback adapter structure placed in the common.h file. It contains
-xenvif_queue structure.
-There are some involved members from this structure.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-struct xenvif_queue {
-...
-struct page *mmap_pages[MAX_PENDING_REQS];
-pending_ring_idx_t pending_cons;
-...
-u16 pending_ring[MAX_PENDING_REQS];
-...
-struct page *pages_to_map[MAX_PENDING_REQS];
-...
-}
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-All the pages are stored in the xenvif_queue->mmap_pages
-They are allocated by their indexes. Those ones are stored
-sequentially in the xenvif_queue->pending_ring.
-Pages allocation depends on xenvif_queue->pending_cons.
-This value rounded up to MAX_PENDING_REQS value.
-Pages allocated for the request cyclically.
-When an intensive network traffic is in progress especially
-when a packets flow density has been growing, sooner or later
-we will run into the case when we do not have enough free pages.
-MAX_PENDING_REQS in our case is 256
-This case arrives in the netback.c xenvif_tx_action->gnttab_map_refs call.
-Main work is in the xenvif_tx_build_gops.
-xenvif_tx_action is issued in NAPI context.
-So we could say it is something like the interrupt bottom half.
-This message is produced when the issued pfn is presented in the red/black
-tree.
-It is produced unconditionally. In  the above mentioned condition this
-output
-degrades the performance drastically.
-I may offer a patch which decreases the amount of messages.
 
-Regards,
-Oleg
+Not pushing.
 
---00000000000072c5a405e7750c05
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello guys,<br></div><div><br></div>The same issue mi=
-gh be found by link<br><a href=3D"https://xen.markmail.org/message/3w4oqeu5=
-z7ryfbsb?q=3Dxen_add_phys_to_mach_entry&amp;page=3D1">https://xen.markmail.=
-org/message/3w4oqeu5z7ryfbsb?q=3Dxen_add_phys_to_mach_entry&amp;page=3D1</a=
-><br><br>DOM0/DOMU kernels version	5.15.19<br><br>Two XENified guests. They=
- are equal. They both have the same configuration. It is enough to have one=
- DomU and Dom0.<br><br>Part of DomU configuration.<br>type =3D &quot;pvh&qu=
-ot;<br>memory =3D 1024<br>vcpus =3D 1<br><br>It is not necessary to repeat =
-full custom board configuration with all the bridges.<br>It is enough to co=
-nnect DomU with some external machine or with Dom0 through the network.<br>=
-<br>You should have a perf3 compiled package on both ends.<br>on Dom0 or ex=
-ternal host you issue command:<br>perf3 -s &amp;<br><br>on DomU you issue t=
-he command:<br>perf3 -c [Dom0 or external host ip address] -k 400K -b 0<br>=
-<br>After enough short time you will see in your DomU kernel messages or in=
- your xen console something like<br>[ 2385.999011] xen_add_phys_to_mach_ent=
-ry: cannot add pfn=3D0x000000000003e0de -&gt; mfn=3D0x00000000008031f2: pfn=
-=3D0x000000000003e0de -&gt; mfn=3D0x00000000008044a0 already exists<br>[ 23=
-55.968172] xen_add_phys_to_mach_entry: cannot add pfn=3D0x000000000003bfca =
--&gt; mfn=3D0x000000000080319c: pfn=3D0x000000000003bfca -&gt; mfn=3D0x0000=
-000000803276 already exists<br>[ 2323.002652] xen_add_phys_to_mach_entry: c=
-annot add pfn=3D0x000000000003b80e -&gt; mfn=3D0x000000000080447d: pfn=3D0x=
-000000000003b80e -&gt; mfn=3D0x00000000008032a7 already exists<br>[ 2302.03=
-6336] xen_add_phys_to_mach_entry: cannot add pfn=3D0x000000000003e0de -&gt;=
- mfn=3D0x0000000000803105: pfn=3D0x000000000003e0de -&gt; mfn=3D0x000000000=
-08044a0 already exists<br>[ 2273.758169] xen_add_phys_to_mach_entry: cannot=
- add pfn=3D0x000000000003b80e -&gt; mfn=3D0x00000000008033fc: pfn=3D0x00000=
-0000003b80e -&gt; mfn=3D0x00000000008032a7 already exists<br>[ 2252.254857]=
- xen_add_phys_to_mach_entry: cannot add pfn=3D0x000000000003b80e -&gt; mfn=
-=3D0x00000000008032f0: pfn=3D0x000000000003b80e -&gt; mfn=3D0x0000000000803=
-2a7 already exists<br><br>You will have a lot of those messages.<br><br>Inv=
-olved files<br>arch/arm/xen/p2m.c<br>drivers/net/xen-netback/netback.c<br>d=
-rivers/net/xen-netback/common.h<br><br>This problem arrived in the p2m.c fi=
-le in the xen_add_phys_to_mach_entry function<br>This function adds a new m=
-apping XEN page pfn to the DomU gfn.<br>It does via red/black tree<br>Xen n=
-etback adapter structure placed in the common.h file. It contains xenvif_qu=
-eue structure.<br>There are some involved members from this structure.<br><=
-br>struct xenvif_queue {<br>	...<br>	struct page *mmap_pages[MAX_PENDING_RE=
-QS];<br>	pending_ring_idx_t pending_cons;<br>	...<br>	u16 pending_ring[MAX_=
-PENDING_REQS];<br>	...<br>	struct page *pages_to_map[MAX_PENDING_REQS];<br>=
-	...<br>}<br><div><br></div><div>All the pages are stored in the xenvif_que=
-ue-&gt;mmap_pages</div>They are allocated by their indexes. Those ones are =
-stored<br>sequentially in the xenvif_queue-&gt;pending_ring.<br>Pages alloc=
-ation depends on xenvif_queue-&gt;pending_cons.<br>This value rounded up to=
- MAX_PENDING_REQS value.<br>Pages allocated for the request cyclically.<br>=
-When an intensive network traffic is in progress especially<br>when a packe=
-ts flow density has been growing, sooner or later<br>we will run into the c=
-ase when we do not have enough free pages.<br>MAX_PENDING_REQS in our case =
-is 256<br>This case arrives in the netback.c xenvif_tx_action-&gt;gnttab_ma=
-p_refs call.<br>Main work is in the xenvif_tx_build_gops.<br>xenvif_tx_acti=
-on is issued in NAPI context.<br>So we could say it is something like the i=
-nterrupt bottom half.<br>This message is produced when the issued pfn is pr=
-esented in the red/black tree.<br>It is produced unconditionally. In =C2=A0=
-the above mentioned condition this output<br>degrades the performance drast=
-ically.<br>I may offer a patch which decreases the amount of messages.<br><=
-br><div>Regards,</div><div>Oleg<br></div></div>
-
---00000000000072c5a405e7750c05--
+(No revision log; it would be 164572 lines long.)
 
