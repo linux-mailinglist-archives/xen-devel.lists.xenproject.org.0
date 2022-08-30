@@ -2,55 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F84F5A5CA0
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Aug 2022 09:12:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.394829.634388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E8BF5A5CC5
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Aug 2022 09:20:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.394835.634399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oSvOp-0003oK-Uk; Tue, 30 Aug 2022 07:11:03 +0000
+	id 1oSvXF-0004VN-RF; Tue, 30 Aug 2022 07:19:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 394829.634388; Tue, 30 Aug 2022 07:11:03 +0000
+Received: by outflank-mailman (output) from mailman id 394835.634399; Tue, 30 Aug 2022 07:19:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oSvOp-0003m8-Rk; Tue, 30 Aug 2022 07:11:03 +0000
-Received: by outflank-mailman (input) for mailman id 394829;
- Tue, 30 Aug 2022 07:11:02 +0000
+	id 1oSvXF-0004SE-Nz; Tue, 30 Aug 2022 07:19:45 +0000
+Received: by outflank-mailman (input) for mailman id 394835;
+ Tue, 30 Aug 2022 07:19:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bSYc=ZC=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oSvOo-0003lz-Ci
- for xen-devel@lists.xenproject.org; Tue, 30 Aug 2022 07:11:02 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2044.outbound.protection.outlook.com [40.107.223.44])
+ id 1oSvXD-0004S8-Pt
+ for xen-devel@lists.xenproject.org; Tue, 30 Aug 2022 07:19:43 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e604d2cf-2832-11ed-bd2e-47488cf2e6aa;
- Tue, 30 Aug 2022 09:11:00 +0200 (CEST)
-Received: from DM6PR10CA0014.namprd10.prod.outlook.com (2603:10b6:5:60::27) by
- MN0PR12MB6077.namprd12.prod.outlook.com (2603:10b6:208:3cb::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5566.19; Tue, 30 Aug 2022 07:10:56 +0000
-Received: from DM6NAM11FT026.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:60:cafe::5e) by DM6PR10CA0014.outlook.office365.com
- (2603:10b6:5:60::27) with Microsoft SMTP Server (version=TLS1_2,
+ id 1dd53444-2834-11ed-bd2e-47488cf2e6aa;
+ Tue, 30 Aug 2022 09:19:42 +0200 (CEST)
+Received: from DM6PR02CA0139.namprd02.prod.outlook.com (2603:10b6:5:332::6) by
+ MN0PR12MB6079.namprd12.prod.outlook.com (2603:10b6:208:3c9::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.21; Tue, 30 Aug
+ 2022 07:19:38 +0000
+Received: from DM6NAM11FT078.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:332:cafe::92) by DM6PR02CA0139.outlook.office365.com
+ (2603:10b6:5:332::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5566.15 via Frontend
- Transport; Tue, 30 Aug 2022 07:10:56 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT026.mail.protection.outlook.com (10.13.172.161) with Microsoft SMTP
+ Transport; Tue, 30 Aug 2022 07:19:38 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT078.mail.protection.outlook.com (10.13.173.183) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5566.15 via Frontend Transport; Tue, 30 Aug 2022 07:10:56 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5566.15 via Frontend Transport; Tue, 30 Aug 2022 07:19:38 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 30 Aug
- 2022 02:10:53 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 30 Aug
- 2022 02:10:42 -0500
-Received: from [10.71.192.107] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Tue, 30 Aug 2022 02:10:41 -0500
+ 2022 02:19:37 -0500
+Received: from [10.71.192.107] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
+ Transport; Tue, 30 Aug 2022 02:19:36 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,138 +58,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e604d2cf-2832-11ed-bd2e-47488cf2e6aa
+X-Inumbo-ID: 1dd53444-2834-11ed-bd2e-47488cf2e6aa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VAlOeHbF62y4YAbcOZuMngzitiiCgtXAd0bEGhvixZZtI7U1i+fHnXlngeIqzVunlaFiM2me457X3R1WUGqk95Luw0UgoZuvaPOXt0jlVf8H/TmnDud4fWf6icQPilRccOkMKyG+AznFlgKH0swnr0cS/HnTP97+3tWaCmCXh26mu7zEbHth8WFNiZe/sMnGWE2LT8plW8TyF6RHXaz/c79HuK4Or+1wATmmuYKIRI5IYCVjdQsu3zXFdfmDcM5JR7ZTt0zgfZkRw7f+qlDf3aWKFT8gchVxck0jpu3WqCYkwckN4ztomGeDbn5uUBYd23BcquZ3GVOorL+lSiyyNw==
+ b=RX6TB4n6IQuHCjgmgoq1EoDiW8QjYZIaaTDuhc4gGsPlTTEqed8SLOYlTTPU7MtKxNTOGJq6N/PdROnemW7F/zb3EYdZzk8t93Oyh99ZcfkbylvevRDGSmCe38/Gl/1RKTnXagR8LziKUOQ2WwIexg+kJmRa3AalJNuSrwcWRP22dh5Y5FEJzJRnHNm3ogjeTBrycj2EuzOHIgEJyE+9LHfOFi5u7F7bWCdqXLuC0E1JIzBivxFDtDkCwvFAfTiQZlTFNKm4OANZlgzqEQaOquzI5KrZY4VB9jgFo8AIM3vbW0WCb6qcFxduPx+ujTba+q3Jk7B6mWSvcCoE3PKH+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ECVxWzbQf30V0mfSPDDiyEcG2uJMSylwj6gohYM28v0=;
- b=FURrR3sgpwVks212SVAW1ImRxSisQsHOOvMb52F1jmyzUz0z4bSrHMlMU57tk76/6W+PNNcQSCLyND2mnpsKTSgFAKaXKy1dLYkgj08R7PXiQ//HXntXA5TlYrvsLQr1kC/wzLqvpGRLCg4sbDy6DkAdm7G7Rn+S9w02hGtNecfmZ6ALncAdPN/o6UZSFXNYh/bfGcwWUk/T7r6jooU+8xbUfbh6/AJi9ro/CyfZdd+5bRwYtd84tKiCLc+bjKIsmdGt7/juKkoo8rQI7kMyE4jQDFDU+AeAhO7oNo3KS7beWpTwCm31/sVYt8qelweu//oDV2JbCQAjOCO+oNGIVA==
+ bh=+s79t06qftNBONqpmUuRjtwq3E7kANLOmTWqdqpg+Ko=;
+ b=mJW2v2mdribHouIU23+JEel6By5pvk4SOj9miKgJziZQR/+/zOt4xFovsi3YIX+XGtBFl47G4eo4EsxrbLxU/Y3LdW3u5EXM9Mq5leqp2TsvYBhI2lhNR70aVITu6Jt8XQtz6SmlrZyXta+Bkt8CMvEi8zzH0z8JUNGEi+mtb3sBbqQzLcPyyUzNDE224Pn3ParQDwKvyCVPSBWTlPiIGg6eRAue6Lsm9pkv+pdxBA5taEGckC9Px2NPeKwGkyRb7qxAK1JNRvuNtgpYSguT18relUo+kYo8TmJ/CQDBYw8I/EYEi/X/b9axttjVc2/MeLkoKfRwzNv9TDEG0lVO+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ECVxWzbQf30V0mfSPDDiyEcG2uJMSylwj6gohYM28v0=;
- b=WQpf9RQdMLGe2d5aFkzSJ0iz1qVwjFbrzBCkiSHNZN9mP26f+A8eR7Mw8XJRA5o4xpD17uObnw9UYkcGvkr+AEELomhZe7QIy1vwziu4lp5urw58JBLl9wZs2QXlm7j7iYKfXIMB7fCAxQ+YWiRFvGyMdMzi/StTFvQxDMX3HRw=
+ bh=+s79t06qftNBONqpmUuRjtwq3E7kANLOmTWqdqpg+Ko=;
+ b=1c8ThOBTnZx/sA2nEsZpVqqO5ssYJ5mzyYucJjpuXPxX68U3pzQ61FCUQHifdhaoYkIAQk0I4HCjqhCG92yaxwSoeWoRoj+mvZpcCqmWKcWU0Lpmepvjjd13H0IGyhlbsU66as1ueaKZ2LFqK3LoPjx9i4zo5EcRFgUZnyH+RiM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <9dd32db7-19af-a88c-b09b-fe94828cab93@amd.com>
-Date: Tue, 30 Aug 2022 09:10:41 +0200
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <bc5eb855-0137-130b-e30b-7f4417798a93@amd.com>
+Date: Tue, 30 Aug 2022 09:19:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.0
-Subject: Re: [PATCH 1/2] docs, xen/arm: Introduce reserved heap memory
+Subject: Re: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and heap
+ allocator
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-To: Henry Wang <Henry.Wang@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Julien
- Grall" <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei
- Chen <Wei.Chen@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"Penny Zheng" <Penny.Zheng@arm.com>
+To: Henry Wang <Henry.Wang@arm.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen
+	<Wei.Chen@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20220824073127.16762-1-Henry.Wang@arm.com>
- <20220824073127.16762-2-Henry.Wang@arm.com>
- <af2f8888-7223-429e-cc7e-b0950f759608@amd.com>
- <AS8PR08MB7991A2A6EF808136FBF090F392729@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <alpine.DEB.2.22.394.2208291745550.1134492@ubuntu-linux-20-04-desktop>
- <AS8PR08MB7991EC7FAD3D1EDBD379D9C892799@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <e02175e4-0930-012e-8e79-d4ac8d3be78b@amd.com>
-In-Reply-To: <e02175e4-0930-012e-8e79-d4ac8d3be78b@amd.com>
+ <20220824073127.16762-3-Henry.Wang@arm.com>
+ <59f69736-a18c-9d08-94dd-791bd264d671@amd.com>
+ <AS8PR08MB7991CD1C466399A96B7F45C392799@AS8PR08MB7991.eurprd08.prod.outlook.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <AS8PR08MB7991CD1C466399A96B7F45C392799@AS8PR08MB7991.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 03776931-2e5c-4b4f-c849-08da8a56c8bd
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6077:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7036ffdf-3bd7-40b3-3208-08da8a57ff9d
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6079:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	uhiwSpzul4lhNUQs6SQIxmhvWm+zHwlJN4qCGGlfQVIN3MuBvRcLMtUM8TG8BjdXlaiyx+JnD/xf8VvUsnHJoRqdTI089eafIEkPb4TKjqaNSHjbSpx8MIaZttANatlmBzwZeID208muS1PJrnp6rwRUZ0wz9vrsp9vXThdAOyqBsYGhvn/z2F1jpc8PvwH2vZKRxq6vWjU6E8uptgbOGCzDrJvOg52XjvKEXBx8qqcXWmDSj9hZpGaWBYJXtzKLn+eyCf+rVE3T32JuXIRJPf8Rwq6quoBJOmtfrfGnZbTCJu9ZOBnaGapmaSVXglL7I4QFidOnYltWd7mbjc4XPtsiqJljO/Nc0xntmjy8Cl0Qga5vm7IPuZqjuEPCMGHF0Zh3dusViMjMSjyfgaART03cAI36aghBxENDx/mmejv0iZpV7MLkxklnau0ATNpGY3MeHtlPRQUIlrImnzxhLbCWHXNUWS9wToYhelUQn6CQq9WO8/nP4cISYS3Gn0fHLEmUo2KMJMlyrhEb12UIDEqKg1QznglBkVoQcJVaWLfKFsrituzpM6ePlBTyoJ/8Dd6g6HpmEpLPsydD/RhO9RQEqygJImUL+0S4uE9t75aSmtF5d+m76AJ7R4cOrktxR+Ev4nwQkJP7KmkvBDGCN/yUrwNkkHyrzTvnfW4FGpFBisSjVLTi/PfokjKyaqinXPQVNtPB+fD4l1Mgfyj6wGuvNRFTWKm+6t80EB3HKB/SgNwc4ijM0v3IeT9Nv5mjiLOmkITlKmRd/eF2Gl6c1jJzlkwzVBorViW30T7xGzw/PWMBHCbGni6wL9UeHVZLId3s+0Lpyo2QTRf3AKD3rQ==
+	2EfArdcIbccRGSxVp8G913+fsbeYCXF95TAL5bfhzLB+6BODY9bhnEiuMtB8s1E7eMq5G8aFTELHPwiUJMeuGWV+UoHQ0ZssWK7KvjZJdD1eh08AU1yvbYhBvYTFYm94mEax1PqtmxEmTJ3kZLByuFWDE0zBb9LwQYEd0NYOuhQv01mfclXGuAa6+XljuiRKPBtIBQCJGbZhvNqV8U4OjmMH/lsGUZNoMPXJpCEJSZYXmVK/eBHhV8iij3/tSUS1Agk4G7OmMAcJzFY2DVcTjYpAygPSOZqmwh/SvE2I2XNAO8BpTd5s9SfOVdFVIwSQ2y7G1rFvvuuwB29qsp/szhif9e7SUkF8Ea8nMn/2V6ks9z6kTxKhGSRJOrxxHV7nmNZH2pYXoWvv35BGdLswpHqGIMxWRJc5lCiO/WH0tB5fF86ejDQ1RQqyE9Zc8IcL7p+hHP8sfLc+FRaKatMGN+y4K6mLTQkghn8OawoChwV04aSdq63fuf+WmfGG6yW64yPyWPgxZcjoUVwp5yYHiHp+Cdp2xSZsXjn4UeujXCX14MFMkkh5A21yhs7lagSEoWaZAUKICQGhAnbGk5Uyl0deEBd1LpYTb+uqu1ckS2cNqJA583CHuIapPRrtBwOmyFl7jWNdVZUZHeZZHRWZun7gQhgz2ZUlSmYBBS6Ml03rSZz1poPBnoijrYPhT83eg6vJphvvi2gmTdfi5QrHG19OG+zYx637ttAQPmAe7odU6wkM1xCWli3mmnbcBbOkK4IOdlL9twERWrSsKzthlXlyrC9iw2xHWfUDz4CHqgw5GInjiEz5+kvizMlHhctmFtvu9zZ6Pf8mAbDBU6OYVA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230016)(4636009)(136003)(39860400002)(346002)(396003)(376002)(46966006)(40470700004)(36840700001)(31686004)(356005)(36860700001)(81166007)(36756003)(82740400003)(110136005)(4326008)(16576012)(70206006)(44832011)(5660300002)(70586007)(54906003)(82310400005)(8936002)(8676002)(83380400001)(40460700003)(31696002)(26005)(316002)(336012)(40480700001)(186003)(53546011)(2906002)(2616005)(478600001)(426003)(47076005)(41300700001)(86362001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230016)(4636009)(396003)(39860400002)(136003)(376002)(346002)(40470700004)(46966006)(36840700001)(478600001)(16576012)(70206006)(70586007)(110136005)(54906003)(2906002)(31696002)(81166007)(31686004)(316002)(82740400003)(356005)(86362001)(2616005)(36756003)(83380400001)(186003)(53546011)(40460700003)(426003)(41300700001)(336012)(47076005)(26005)(8676002)(4326008)(5660300002)(82310400005)(40480700001)(36860700001)(8936002)(44832011)(43740500002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2022 07:10:56.4954
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2022 07:19:38.0532
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03776931-2e5c-4b4f-c849-08da8a56c8bd
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7036ffdf-3bd7-40b3-3208-08da8a57ff9d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT026.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT078.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6077
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6079
 
-On 30/08/2022 08:29, Michal Orzel wrote:
-> Hi Henry,
+Hi Henry,
+
+On 30/08/2022 08:11, Henry Wang wrote:
 > 
-> On 30/08/2022 02:58, Henry Wang wrote:
+> Hi Michal,
+> 
+> Sorry about the late reply - I had a couple of days off. Thank you very
+> much for the review! I will add my reply and answer some of your
+> questions below.
+> 
+>> -----Original Message-----
+>> From: Michal Orzel <michal.orzel@amd.com>
+>> Subject: Re: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and
+>> heap allocator
 >>
->> Hi Stefano and Michal,
->>
->>> -----Original Message-----
->>> From: Stefano Stabellini <sstabellini@kernel.org>
->>> Sent: Tuesday, August 30, 2022 8:47 AM
->>> To: Henry Wang <Henry.Wang@arm.com>
->>> Cc: Michal Orzel <michal.orzel@amd.com>; xen-devel@lists.xenproject.org;
->>> Stefano Stabellini <sstabellini@kernel.org>; Julien Grall <julien@xen.org>;
->>> Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
->>> <Wei.Chen@arm.com>; Volodymyr Babchuk
->>> <Volodymyr_Babchuk@epam.com>; Penny Zheng <Penny.Zheng@arm.com>
->>> Subject: RE: [PATCH 1/2] docs, xen/arm: Introduce reserved heap memory
+>>> This commit firstly adds a global variable `reserved_heap`.
+>>> This newly introduced global variable is set at the device tree
+>>> parsing time if the reserved heap ranges are defined in the device
+>>> tree chosen node.
 >>>
->>> On Thu, 25 Aug 2022, Henry Wang wrote:
->>>>>>                                         const char *name,
->>>>>>                                         u32 address_cells, u32 size_cells)
->>>>>>  {
->>>>>> @@ -301,16 +303,40 @@ static void __init process_chosen_node(const
->>>>> void *fdt, int node,
->>>>>>      paddr_t start, end;
->>>>>>      int len;
->>>>>>
->>>>>> +    if ( fdt_get_property(fdt, node, "xen,static-mem", NULL) )
->>>>>> +    {
->>>>>> +        u32 address_cells = device_tree_get_u32(fdt, node,
->>>>>> +                                                "#xen,static-mem-address-cells",
->>>>>> +                                                0);
->>>>>> +        u32 size_cells = device_tree_get_u32(fdt, node,
->>>>>> +                                             "#xen,static-mem-size-cells", 0);
->>>>>> +        int rc;
->>>>>> +
->>>>>> +        printk("Checking for reserved heap in /chosen\n");
->>>>>> +        if ( address_cells < 1 || size_cells < 1 )
->>>>> address_cells and size_cells cannot be negative so you could just check if
->>>>> there are 0.
->>>>
->>>> In bootfdt.c function device_tree_get_meminfo(), the address and size cells
->>>> are checked using <1 instead of =0. I agree they cannot be negative, but I
->>> am
->>>> not very sure if there were other reasons to do the "<1" check in
->>>> device_tree_get_meminfo(). Are you fine with we don't keep the
->>> consistency
->>>> here?
->>>
->>> I would keep the < 1 check but it doesn't make much difference either
->>> way
->>
->> I also would prefer to keep these two places consistent and I agree Michal is
->> making a good point.
-> I'm ok with that so let's keep the consistency.
-Actually, why do we want to duplicate exactly the same check in process_chosen_node that is already
-present in device_tree_get_meminfo? There is no need for that so just remove it from process_chosen_node.
+>> Did you consider putting reserved_heap into bootinfo structure?
+> 
+> Actually I did, but I saw current bootinfo only contains some structs so
+> I was not sure if this is the preferred way, but since you are raising this
+> question, I will follow this method in v2.
+This is what I think would be better but maintainers will have a decisive vote.
 
 > 
->>
->> Kind regards,
->> Henry
->>
+>> It would help to avoid introducing new global variables that are only used
+>> in places making use of the bootinfo anyway.
 > 
-> ~Michal
+> Ack.
+> 
+>>
+>>> +        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
+>>> +        {
+>>> +            if ( bootinfo.reserved_mem.bank[i].xen_heap )
+>>> +            {
+>>> +                bank_start = bootinfo.reserved_mem.bank[i].start;
+>>> +                bank_size = bootinfo.reserved_mem.bank[i].size;
+>>> +                bank_end = bank_start + bank_size;
+>>> +
+>>> +                reserved_heap_size += bank_size;
+>>> +                reserved_heap_start = min(reserved_heap_start, bank_start);
+>> You do not need reserved_heap_start as you do not use it at any place later
+>> on.
+>> In your current implementation you just need reserved_heap_size and
+>> reserved_heap_end.
+> 
+> Good point, thank you and I will remove in v2.
+> 
+>>
+>>>      /*
+>>>       * If the user has not requested otherwise via the command line
+>>>       * then locate the xenheap using these constraints:
+>>> @@ -743,7 +766,8 @@ static void __init setup_mm(void)
+>>>       * We try to allocate the largest xenheap possible within these
+>>>       * constraints.
+>>>       */
+>>> -    heap_pages = ram_pages;
+>>> +    heap_pages = !reserved_heap ? ram_pages : reserved_heap_pages;
+>> I must say that the reverted logic is harder to read. This is a matter of taste
+>> but
+>> please consider the following:
+>> heap_pages = reserved_heap ? reserved_heap_pages : ram_pages;
+>> The same applies to ...
+> 
+> Sure, I will use the way you suggested.
+> 
+>>
+>>> +
+>>>      if ( opt_xenheap_megabytes )
+>>>          xenheap_pages = opt_xenheap_megabytes << (20-PAGE_SHIFT);
+>>>      else
+>>> @@ -755,17 +779,21 @@ static void __init setup_mm(void)
+>>>
+>>>      do
+>>>      {
+>>> -        e = consider_modules(ram_start, ram_end,
+>>> +        e = !reserved_heap ?
+>> ... here.
+> 
+> And here :))
+> 
+>>
+>>> +            consider_modules(ram_start, ram_end,
+>>>                               pfn_to_paddr(xenheap_pages),
+>>> -                             32<<20, 0);
+>>> +                             32<<20, 0) :
+>>> +            reserved_heap_end;
+>>> +
+>>>          if ( e )
+>>>              break;
+>>>
+>>>          xenheap_pages >>= 1;
+>>>      } while ( !opt_xenheap_megabytes && xenheap_pages > 32<<(20-
+>> PAGE_SHIFT) );
+>>>
+>>> -    if ( ! e )
+>>> -        panic("Not not enough space for xenheap\n");
+>>> +    if ( ! e ||
+>>> +         ( reserved_heap && reserved_heap_pages < 32<<(20-PAGE_SHIFT) ) )
+>> I'm not sure about this. You are checking if the size of the reserved heap is
+>> less than 32MB
+>> and this has nothing to do with the following panic message.
+> 
+> Hmmm, I am not sure if I understand your question correctly, so here there
+> are actually 2 issues:
+> (1) The double not in the panic message.
+> (2) The size of xenheap.
+> 
+> If you check the comment of the xenheap constraints above, one rule of the
+> xenheap size is it "must be at least 32M". If I am not mistaken, we need to
+> follow the same rule with the reserved heap setup, so here we need to check
+> the size and if <32M then panic.
+This is totally fine. What I mean is that the check you introduced does not correspond
+to the panic message below. In case of reserved heap, its size is selected by the user.
+"Not enough space for xenheap" means that there is not enough space to be reserved for heap,
+meaning its size is too large. But your check is about size being too small.
+
+> 
+>>
+>>> +        panic("Not enough space for xenheap\n");
+>>>
+>>>      domheap_pages = heap_pages - xenheap_pages;
+>>>
+>>> @@ -810,9 +838,9 @@ static void __init setup_mm(void)
+>>>  static void __init setup_mm(void)
+>>>  {
+>>>      const struct meminfo *banks = &bootinfo.mem;
+>>> -    paddr_t ram_start = ~0;
+>>> -    paddr_t ram_end = 0;
+>>> -    paddr_t ram_size = 0;
+>>> +    paddr_t ram_start = ~0, bank_start = ~0;
+>>> +    paddr_t ram_end = 0, bank_end = 0;
+>>> +    paddr_t ram_size = 0, bank_size = 0;
+>>>      unsigned int i;
+>>>
+>>>      init_pdx();
+>>> @@ -821,17 +849,36 @@ static void __init setup_mm(void)
+>>>       * We need some memory to allocate the page-tables used for the
+>> xenheap
+>>>       * mappings. But some regions may contain memory already allocated
+>>>       * for other uses (e.g. modules, reserved-memory...).
+>>> -     *
+>>> +     * If reserved heap regions are properly defined, (only) add these
+>> regions
+>> How can you say at this stage whether the reserved heap regions are defined
+>> properly?
+> 
+> Because if the reserved heap regions are not properly defined, in the device
+> tree parsing phase the global variable "reserved_heap" can never be true.
+> 
+> Did I understand your question correctly? Or maybe we need to change the
+> wording here in the comment?
+
+FWICS, reserved_heap will be set to true even if a user describes an empty region
+for reserved heap. This cannot be consider a properly defined region for a heap.
+
+~Michal
 
