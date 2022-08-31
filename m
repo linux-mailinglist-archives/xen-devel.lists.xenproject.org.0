@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 548835A7FA0
+	by mail.lfdr.de (Postfix) with ESMTPS id 084825A7F9E
 	for <lists+xen-devel@lfdr.de>; Wed, 31 Aug 2022 16:11:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.395685.635525 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.395689.635566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTOR3-0003gl-TX; Wed, 31 Aug 2022 14:11:17 +0000
+	id 1oTOR9-0004rb-W3; Wed, 31 Aug 2022 14:11:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 395685.635525; Wed, 31 Aug 2022 14:11:17 +0000
+Received: by outflank-mailman (output) from mailman id 395689.635566; Wed, 31 Aug 2022 14:11:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTOR3-0003eC-P8; Wed, 31 Aug 2022 14:11:17 +0000
-Received: by outflank-mailman (input) for mailman id 395685;
- Wed, 31 Aug 2022 14:11:16 +0000
+	id 1oTOR9-0004kb-Mm; Wed, 31 Aug 2022 14:11:23 +0000
+Received: by outflank-mailman (input) for mailman id 395689;
+ Wed, 31 Aug 2022 14:11:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jA7u=ZD=epam.com=prvs=1242718080=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1oTOR2-0002bv-GY
- for xen-devel@lists.xenproject.org; Wed, 31 Aug 2022 14:11:16 +0000
+ id 1oTOR7-0002bv-S2
+ for xen-devel@lists.xenproject.org; Wed, 31 Aug 2022 14:11:22 +0000
 Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
  [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c5e52b94-2936-11ed-934f-f50d60e1c1bd;
- Wed, 31 Aug 2022 16:11:15 +0200 (CEST)
+ id c8dfbfd1-2936-11ed-934f-f50d60e1c1bd;
+ Wed, 31 Aug 2022 16:11:20 +0200 (CEST)
 Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27VBo4G7032537;
- Wed, 31 Aug 2022 14:11:02 GMT
+ by mx0a-0039f301.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 27VBo4G8032537;
+ Wed, 31 Aug 2022 14:11:03 GMT
 Received: from eur04-vi1-obe.outbound.protection.outlook.com
  (mail-vi1eur04lp2055.outbound.protection.outlook.com [104.47.14.55])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ja427h4rd-1
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ja427h4rd-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 31 Aug 2022 14:11:02 +0000
+ Wed, 31 Aug 2022 14:11:03 +0000
 Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
  by VI1PR03MB6301.eurprd03.prod.outlook.com (2603:10a6:800:133::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Wed, 31 Aug
- 2022 14:10:58 +0000
+ 2022 14:10:59 +0000
 Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
  ([fe80::9190:c0a7:bd87:f01f]) by VI1PR03MB3710.eurprd03.prod.outlook.com
  ([fe80::9190:c0a7:bd87:f01f%6]) with mapi id 15.20.5566.019; Wed, 31 Aug 2022
- 14:10:58 +0000
+ 14:10:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,21 +53,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5e52b94-2936-11ed-934f-f50d60e1c1bd
+X-Inumbo-ID: c8dfbfd1-2936-11ed-934f-f50d60e1c1bd
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UHLzhARZ3j7+xnnsuQFIQQN+n+ZdvTlTzOu9zEs1/N2OtZB3taJ8vePbWuUdYVtr4O4Y3H4Ay5llADx5z/p6kAyLs0fFTlXiom32AZdLtW+iBx7qL69qwv7nkb8A93JYYWL5vWiebif56fb/qLCrUpgEKysCHshF4TRxOcl8Ze9SCrjuln5mcr6Loqdk1QBHj9gs9Gs8ajCefYibMDEmyrjAfPZm19iSnsUstFq0L054gnKvICE1qku6pZmMhdPH5y0UE0tVsz6T+qDWmTf99mpgPVw2lwyVjwTdVQNZIUEncGyKxBi8HahKw85oRd0/qgV1+T5mjl8i+obwzB4xRA==
+ b=kGiWyStxJ96eYQkm55zDqFJw0GRO0iQYLfvQE6OqmcZTWWmKiil0WB5ZIdgG9ubUeOCj9U8/ESnCpVYZm3iseR+75r+E9RoxqqVgJjNSnojNxEWHhXCNS+m5NgWAqbMA15DkFHVlgJ3gVwb802PhQXYL0T5vEMdE6pfiYWTR2kpUhxcu8o0+u2iOlEbGSw8tMNKSZQwYMhAZGy9eY+lOCZoSJrBkIhTjBChB/eAN6NFBRQlbCLklX00+slewnNg24htSvKEAx+Dt+MbiK78nRbf/T0t+Dw8KlXePqzEV1Tb3c6NuN4F7POvGG5bczMECO/Zkh/14TSxwkLliJmJU+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v4xC1JfZlgWk3CJQOkTA5B8aIbW9nZkyrpRTyJGvH5Y=;
- b=myd6bQ0jSdM7chfuDzz9+bApsfrbDgaZ5jIWOHFYOyNdd9d9tmN3zmsXN+gjz2kqUQiwEVT5HnEPmrvQH9UUn3JqfyiLLsWRPm2I5aPcj8pNNtbTCE92bPsAa8HH5TjOqmsBaZTg1etDYvgXjCFX+LSkln8M9n/NMa0GX0TcV45ictd61Femn5hlluTZrIpAmC8NTFew+2KO2S1Op75ZDSBeObMwr6EnTXdOEHaBBhZx7XW8XOdo0EWvGEL1pU0/+eKIgncSaeNKxoqAKrc5oIUw4FcL47pEgGHpj1FdhjE+mhFQLwBJ7GP+wIQMMOS9+BUtk5ZLjCcGHgR47gXJdQ==
+ bh=25h/2px3CnbvvwOgU10bnc4euxiVjUY+0mEFpTjlpHY=;
+ b=W+EQP9Q4xZBTySrx+LKwNp26AU7ZRjgnyW/v6k4phljBqbPVVBNA9HVJLEUWzN6WvxfN9rYOqQbVHoEMyE6fgc0dbfr0dAFrjM4mXum54IQ5rIgz5xI8VsGS7gwnClF3ZijWdKnUYlXaTvVMV++AdxCT7Brp9PbwCw4BIooqscnMBsnf0ucRtBp9VJBgSyXO2akrhs1d9naBFBOnNNKS0h3jOTHPme/u/hYTPjfJLdieFptsEW6+zgLz2d1mXGRLYltXtWwMWMZKXVrTg3hn8TOnZDESmEJFCGhzQ5UTd4Z2SvEPQ9oExArCLpjosW4fwrt97SGbptt2i59GGtevFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v4xC1JfZlgWk3CJQOkTA5B8aIbW9nZkyrpRTyJGvH5Y=;
- b=hBWuGgt4QJbE63nR2ExllpGU1pnlXSepWtusAR55nBtnPF99ZnkTA4D+KuVzN2wLdfraqZIjbSNi2Xt17VmwKO8RSn6XSa/9BCmH+/rljYQsdf2KrKjchd6LQKFqdDjxdu2zB6taw3GzrobnyM8gz8uNe3ImRrDrX4K7OvQxEcWRsWkPuHPq4Nl4/ZSa/y2F3dVbtYd6y/MZRQwGJMh+s9AI8M0hznKpNE06CuBfPCk5BS2FdRw0PwN879nqumFsMJyIZ58xSR9TviuSQIej5QVPfyDobZyNCuJoOULxSC4zPZ2mN6WIqMnbTjm3rIjpQt/p8aiUHFNbkYXRnbZH1Q==
+ bh=25h/2px3CnbvvwOgU10bnc4euxiVjUY+0mEFpTjlpHY=;
+ b=XZ022wzN7S6uILbrCuuwT00g3JAKildyTTZ52yq4C0b2oKEvEiZy5F7TWlJOXm4rPnYD2yAiw6UCtvZFUl52picBNi8XHzeZach8jWZk91XyxClBloZSiM+yJzw+Q7yC94VvEiIp+yI2TY+/lOrBxnA/9KOR0bVihZHQn1r9knKDZiiAdn8zR3FMPfZE4Qy84bbBGYjdMAPg+6K38RjrVi9irgIcgGk2sZxAKqYto3BmiFtlUeQlBfcJDkBxQ4DmzOBFSalviB0Zp4WVJiysvf2S8CdyMooPEst6iMhEsV6HOOpbmRm3xeL/4oLyrKBCvaUiar4K81VgfzExKrHQdA==
 From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
@@ -84,56 +84,58 @@ CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
 	<paul@xen.org>,
         =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
         Kevin Tian <kevin.tian@intel.com>
-Subject: [RFC PATCH 00/10] Rework PCI locking
-Thread-Topic: [RFC PATCH 00/10] Rework PCI locking
-Thread-Index: AQHYvUN+anJUcYxp10mJv57QVAD0ow==
+Subject: [RFC PATCH 01/10] xen: pci: add per-domain pci list lock
+Thread-Topic: [RFC PATCH 01/10] xen: pci: add per-domain pci list lock
+Thread-Index: AQHYvUN+sHWq0w//vE+eH46Zd/aTJw==
 Date: Wed, 31 Aug 2022 14:10:58 +0000
-Message-ID: <20220831141040.13231-1-volodymyr_babchuk@epam.com>
+Message-ID: <20220831141040.13231-2-volodymyr_babchuk@epam.com>
+References: <20220831141040.13231-1-volodymyr_babchuk@epam.com>
+In-Reply-To: <20220831141040.13231-1-volodymyr_babchuk@epam.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-mailer: git-send-email 2.37.1
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0afc25ac-49bb-4a9f-b3ec-08da8b5aa0a2
+x-ms-office365-filtering-correlation-id: 11e52c0a-185d-407a-fde0-08da8b5aa0ee
 x-ms-traffictypediagnostic: VI1PR03MB6301:EE_
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- U+qbdwdeFf5DoZztrJDFvZYAyoR2nTYBJ0W//lX57GCVg8VpicbvIDMxMjCg5Jvn0Uw6GHfnjWOiq1fgsAZJJHDqigChT+S/z+2swnHHrWGdnHj7qxySJGAoIYfTZHE3K6EKGY1l3Ub7YdRXRSqPJ416SIgoIu4Y+HzfstmrDcDlgqDq0NMEt8t9oZjxC/mC3Ei59HU30ufjWf91AxJ17UziYlSrzhP0M14+RaLzTB6vdfXZkEj3x8SWMcD7Fzf//rzIz37Ewvrixyu2cJtqQgg6D0a7enB605G9pwK5ue/rw6/ZtEBHOJAPGMGI58YbWa5B/gX0g+yVSv81D5kUk2wr9fuZdOthwmetpx6Xae6rQhOjoCEL9G1F907IXRkKyF4Q+cFmYND/MbolALz/sakcckX6Soaxmfp3TCOgRVMofHfvkBaMRgPeliuVnsWdvmJ4H1EWBxtqo7lPUkqejfDNZV0IqN3aoaJ0mBUaRduhRa/Ilr5FNtA9vRucEyDHpDSJEtVxER9IhiZoTeL0DmDc9FGVHm0IiPeo+gihcQ7PF+bqg0bGSig3pQsH8zsSpv5vj4/G21vBPcR6+WfsZu95ZEj/kYXTAZJRnwtAh5n5vhLHx6+PNDky1WUZp/A/EnT+vrJOZuGgMahRaTtK1bCvbc5AiM87u3c8gt1Y0JNuOyvfZVdKP2wWbGt6vaZPfvaR5Gl1vu+mLDsSGynsi9xDbL7JPxTQRfRH+fdRxS7DNw+nWAWH+4h3UhLBl2AZH4KYEvOq8MWPKJcEc/nmbw==
+ O6cVO4Wn0KOBsr+G4queNNIxca/x5e3lDSpNf8YZI/CxvhGzF3Ep5hTJKWp0c+zULKaIiLkfQv7TU8LqZP7XKkkfC3YhNCpxxwdOnpkEc1+XsF/IhkU9iQ15LGJXLOOqqRzEtCEw/n8fL7oy2G3YzoDdW5CS6HQsixUGnX+UyXEpG/4Cv/LQBqVJsho8OUSR/7W1VRwvWVNM6wADuN8kW3zoEAN+zz2N93gEP9pme3rtlYwmF17QHxSZKA43gWboRzXrlN4MCxDv2PCmL9asa5jzFJSn+XIlNF5lYS5Ke8+PPdW7LUv6wPYnb24869Nw6GWP6ekNoD5+kfIvGcu5c+x6LKK0bBTblxDlZ/+x3FjNUmz91OcIobTslJcROI01DsJNAdnIw0wALp6PdQtJxOowkRPwQLYnmw7nt5001DbEyjpx6Ss7zDJxycRnbYvoohi4Im0K0zWKJWogiVqbUD3SXdJAcgfzCG9KFOix+IrSBse9DW6lLl2NHEmKH9hPJm7vkwLIKW9HNlJH9M8Q4KFB/B+OuTFA6pQxDUQIuzn7ALebCcndZGWSINBgvYZ0U/CcgMa/lyZTGpeVjCTwBR38Un0J6/xcF6qzLSzYsXupapq9mP8OZ6shOGnG5jsOGbVaf/5a5kMwiiqICh+kATx8xrvdaMhdFgwc5UjwcExOj9PQx5JBL8l6rPQZMDaINdBDFMysO4B2VEpUfMTPlgSzStnoIoMoECoc8ANbVM2jeoncVXetmLgwzekSm8aK/f59i7Ip9MOeQv0ps5rs7g==
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(346002)(39860400002)(366004)(376002)(396003)(136003)(4326008)(66556008)(76116006)(66946007)(38070700005)(66476007)(8676002)(2906002)(66446008)(64756008)(54906003)(1076003)(186003)(83380400001)(2616005)(5660300002)(91956017)(7416002)(8936002)(316002)(36756003)(6916009)(6486002)(478600001)(71200400001)(86362001)(55236004)(26005)(41300700001)(6512007)(6506007)(122000001)(38100700002);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(346002)(39860400002)(366004)(376002)(396003)(136003)(4326008)(66556008)(76116006)(66946007)(38070700005)(66476007)(8676002)(2906002)(66446008)(64756008)(54906003)(1076003)(186003)(83380400001)(2616005)(5660300002)(91956017)(7416002)(8936002)(316002)(36756003)(6916009)(30864003)(6486002)(478600001)(71200400001)(86362001)(55236004)(26005)(41300700001)(6512007)(6506007)(122000001)(38100700002);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?ng/KlPWBkb4GXVaiVk6BldJXFuEqDgbMn6QKEmXgR4jV36j8nUB1aJlRLB?=
- =?iso-8859-1?Q?1LMVIrw+TwxosRNOGBkJsUor1+L0BvRyPE/C49v0q6oWxgx7PidOlN2iPC?=
- =?iso-8859-1?Q?PJkOY9hGDd7AMg9ghgma4dIiepNS7miG7OL1Xi5sLmJMk2euHkf6ut8PAm?=
- =?iso-8859-1?Q?+2tr9/nBJVH2uMJlzGyE3lF6sEMt0PlVAio5DQDr9zje3sKoHexjNGOJmA?=
- =?iso-8859-1?Q?mXOQY0tNg70zSOveBA8rr91nOszkTAOCBOrN/iScGspjEkCvmYUjD/7yUl?=
- =?iso-8859-1?Q?nXmMBAqfmNrVUeiRihNV0mPOlcnjkpTYL5QZe6o1dmaxTopP0cOmXTHdUt?=
- =?iso-8859-1?Q?DtcldVE4R6X/zsEpC7cA667qZ2Zi4eXa2q2LnGWvh2kSpWa3C20eO1x1H5?=
- =?iso-8859-1?Q?fqMoQOKROsSg1wOfGWoNu+Gn++KUtMTEIcoDnCwD9ZkcdMUzm3jgAzJShi?=
- =?iso-8859-1?Q?vhuA9JmPh5bJa1kVw8Wi4Ea7bW6rFdsfv1FETItTwt7KWE4ISZjs7mz/Vo?=
- =?iso-8859-1?Q?Ji1zShNXv7Azj6OryHy9t4ZFT25JCAQMKJkR8pzesxuIyf94lOaemkZzvf?=
- =?iso-8859-1?Q?JSOmBbAS2DjlIEVpHgZ8MaGLBmQZrELwuveOSNx8QvLgSCb/UyXxnQbS6d?=
- =?iso-8859-1?Q?/0gAafrZb0IriCq6FtQsV1Hcy4zY34Hfh1JZoj+vZhdGDG2BUYSo9BP+nT?=
- =?iso-8859-1?Q?6V71UlTNEodJ7cNxzRku6AhbCbjk50CJpqjTuQ78a2O7FrQGAdgYvE9kFU?=
- =?iso-8859-1?Q?YGRMxbnWYJJAcp44ORc2YGjM1KWWs7Opofo39UHeP4BIx5hjgQ3TohzuDN?=
- =?iso-8859-1?Q?My0WsovYWj4CRzDroj6NsOCM+JSZ/hSSKsHNp6q/KaAMi27QlMtU0HdVF5?=
- =?iso-8859-1?Q?qmGnBnZzuTbJy+aRq6BHNCpSNSS3UdCW0tDUFC7CjZOUDmJw81h3rCk8ON?=
- =?iso-8859-1?Q?039qJKDrgxewFsvQ46Dfr2ql2nq8MY7TsaheMoL378v6XcltWHjN5zTWBA?=
- =?iso-8859-1?Q?73py/NP9kJFI4tcdO84NtwNHcpgNeh5/FTIH4hg8g6EXcpGbI0c0CrXqsr?=
- =?iso-8859-1?Q?J3bBmRtN5NujQO0QX0bHmKGPnqKGRw8LhAeb/35uprLtHrUekH1G/sS8TK?=
- =?iso-8859-1?Q?I/lKCCF1qZwMxAA6+XtEg3dK2f5F0GdJEI7jV9kZgvbxtRrdczx1pJ57yS?=
- =?iso-8859-1?Q?68tvFy26P4SIzKzpVjoCz5AUzTQrSmD1IZGG5LXfkiFynp0zjoWogL2cVW?=
- =?iso-8859-1?Q?6V1Y/NNqBBwPJ0T9QwRCx0/k+uPaff5uHI/SvsOBKw04XMogAZnhZPBbOX?=
- =?iso-8859-1?Q?T8EaA8dzljf+siCkDJvcT+ZxZ3ei2dacGkhczYEzbug5cybj6EE9Cx/rWO?=
- =?iso-8859-1?Q?F5/d7/xc0go2tdINwl0v0gHO7JziHrzc0BCmDg/9tyPmtb8bZHET11r6aq?=
- =?iso-8859-1?Q?tt+Cmn7Rs1o7+rl40K3coH17RU4DbfyFDOWof2B+k3TCHQ6FuEtwswBfPY?=
- =?iso-8859-1?Q?g8tUkPbnrFBu5TyOGdcrL+7CPmrsiNi3+H0Sry9uNS2Yhyf/XQuzvVAmqW?=
- =?iso-8859-1?Q?8u/TMLHxSqN/1Cm7lybCuLQSbwpkM539WreODX/hPm/YYnN4OsgDNznz08?=
- =?iso-8859-1?Q?08F2n7pFmwMtUdbC2BjebvYTUVofo9eYixQ/w7dgsJJ/WbcIQvKT+/+g?=
+ =?iso-8859-1?Q?j8B963qYf7prYz6OAn7DZGHoUFazNkkji6ZFWreDgWiJL80elKDkJVUkCH?=
+ =?iso-8859-1?Q?d3FE3Z+slL6SGOlzpqAmKfOa+cOCVVBZh0EIIY/5HcN9gmOB1ZTz+bd36r?=
+ =?iso-8859-1?Q?gt2Y0NZJuoNWxDgLDo36sWUz7izpvNo3HTUZl1rBJt9YbvVfzIqfUbmn8q?=
+ =?iso-8859-1?Q?sSe5CNkQ6XHfPpi+nYMCA9rqgG5rEUerNdZzI+9CKidz9hxKsAJMPJUkE7?=
+ =?iso-8859-1?Q?R3h3iE/UAS2sYyE/RDg8RC0bo8XWfTTBeh7papA4Hkjhs8J+yrZ3AgHT9B?=
+ =?iso-8859-1?Q?vIV6cFVoq6BGlBQHCwjmq9CAw5F2LkYJ9MeL+UILtrVcZ2mIS00X5tTfYK?=
+ =?iso-8859-1?Q?smtT1iPql9GM0EqNea5cuNkqTcriqgN6Y+RShw1pZk0QClEFEdA3oeryMW?=
+ =?iso-8859-1?Q?ZDWK3mII18e0r6/1C8fOCri+uDEHxLAgejeXMgoB+++roemiq6goyuJCkK?=
+ =?iso-8859-1?Q?asAWOYG0f/fLL1PKMADiv4+clAvY1ouruNAELEGKu09DndnwEFM3/6f1qI?=
+ =?iso-8859-1?Q?Vusia1SAD1qBRengakT8jqY2dppAgNstrxFa7BpZlwkULJ7exqFH2a2jvZ?=
+ =?iso-8859-1?Q?9e70h99nKqmOBDvCSwu3OCRvt33zbGdclNHkOFLpLHpulLWe4cdHm8cdO3?=
+ =?iso-8859-1?Q?XR7vASo9TcKikshUbiXY7pbctzobYJ7OmolHnSebT0cu2+5KeG+K9xSj/F?=
+ =?iso-8859-1?Q?W6uNO4+Zbbx/k+nMB2JFkWvu95ZqjjFsISYbsmNJayJ23pcsVlEs5Km4sL?=
+ =?iso-8859-1?Q?i/UiB/lrzbpWJQ3tMgHQkqiHQz56LvTX2gdxtjw9eoc9BsVEspSSuuCfkK?=
+ =?iso-8859-1?Q?rkiI64y8vxAahK2fVgc/Yt3TdF3GxIiCCSwCPhX9iIhbKb8p+nodFFnLlO?=
+ =?iso-8859-1?Q?roEi7vKWekuPcr33huF0KGzOyrq9RE6cp7ibGF19zZsHWOJ6hoicRKB7LS?=
+ =?iso-8859-1?Q?dj2yS+AaRQPgqj0PC4p0HSbTQuMZrGSfGcJ3bwN7nH3uWBlpfELXpS/gZO?=
+ =?iso-8859-1?Q?KgmKNwwaavsDR2JRt992pxpiSwe85h1cf/roEbubKVf+oYXjAD8I5oivjY?=
+ =?iso-8859-1?Q?IigkuQO5WugV/w54J9SOSHnLe9rgD2Uf/AdhlcM9nXm3KvUvFj8Trv6TM0?=
+ =?iso-8859-1?Q?POFiZYO6MrrmeyHwba+4qVxb5Wo0XNAG2d7RjBG15hFWdliQh0fm5QGuoe?=
+ =?iso-8859-1?Q?WpeMQDt5jW1zlB5BdwSzzq1YOwbKbsY0xxIljMavDlYJmaC35mMB2yidYR?=
+ =?iso-8859-1?Q?t3xbTwGrHbL2GOGzORZiVIbWN09A8pId2v418yhMUVDWkPXGSFhy/FbH6v?=
+ =?iso-8859-1?Q?8uh0G5PgWbLiV+d0CaVFDtrSsKi41FUFBsJgllDSrH+eAzv+z1DqqDNETA?=
+ =?iso-8859-1?Q?uHsKKTouOdONB2f41h/S2UxaE1V4YmeIJJxByjoodJzWHOL/d+4KO108Yf?=
+ =?iso-8859-1?Q?xPhzElSyWcM9rXQblaj2XkyeezvPUHgHi3Fwc7SPkyvLpLJ0P8aTaF2yQc?=
+ =?iso-8859-1?Q?3zBN4ZAZBG6vq6z4OcniIbKmZfFdI1URMEsqUlO/pmQDdGOqdczkMsjFMT?=
+ =?iso-8859-1?Q?Hwt1+oKlAJnpP0INqqxDcbAskVPu/4GIJSK4otPPps3ax/aaZO6kQJT2ey?=
+ =?iso-8859-1?Q?zqoLRz2qQbhCPZTLfRGoQ1MP/TP2tTSyPWHM3gk4WK94Mgaj8+XSwwFA?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -141,121 +143,422 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0afc25ac-49bb-4a9f-b3ec-08da8b5aa0a2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2022 14:10:58.4525
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11e52c0a-185d-407a-fde0-08da8b5aa0ee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2022 14:10:58.9056
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YZQ4LqA+0F0nibU6tU8cbORDaFcSnAWWwj48/L6CGahpAdH21oobVVw0a9o/chrbl5TAgnxtwx8mVsiZXMkRtROtjrLL2oySc78Ti2kbI7Q=
+X-MS-Exchange-CrossTenant-userprincipalname: Fd8Z4dAKIksYfLRLWQ4jPRXzhMktFgigUaWYBlilYF70wg0rxCj6n2GPUDtGB+vF8GJm9LdeMjXjVW9cxilT9I+4pfb7wVsMBTSdOfmTnkM=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6301
-X-Proofpoint-GUID: cx3ljss_nboiaWyYXt1L8ZGTFtwhV7Rh
-X-Proofpoint-ORIG-GUID: cx3ljss_nboiaWyYXt1L8ZGTFtwhV7Rh
+X-Proofpoint-GUID: yiKzlP3Rj-7UJUd3WzViieXMPjjVUZ3K
+X-Proofpoint-ORIG-GUID: yiKzlP3Rj-7UJUd3WzViieXMPjjVUZ3K
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
  definitions=2022-08-31_08,2022-08-31_03,2022-06-22_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0 adultscore=0
- clxscore=1011 mlxscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
- suspectscore=0 priorityscore=1501 bulkscore=0 mlxlogscore=698 spamscore=0
+ clxscore=1015 mlxscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 mlxlogscore=999 spamscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
  definitions=main-2208310070
 
-Hello,
+domain->pdevs_lock protects access to domain->pdev_list.
+As this, it should be used when we are adding, removing on enumerating
+PCI devices assigned to a domain.
 
-This is yet another take to a PCI locking rework. This approach
-was suggest by Jan Beulich who proposed to use a reference
-counter to control lifetime of pci_dev objects.
+This enables more granular locking instead of one huge pcidevs_lock that
+locks entire PCI subsystem. Please note that pcidevs_lock() is still
+used, we are going to remove it in subsequent patches.
 
-When I started added reference counting it quickly became clear
-that this approach can provide more granular locking insted of
-huge pcidevs_lock() which is used right now. I studied how this
-lock used and what it protects. And found the following:
+Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+---
+ xen/common/domain.c                         |  1 +
+ xen/drivers/passthrough/amd/iommu_cmd.c     |  4 ++-
+ xen/drivers/passthrough/amd/pci_amd_iommu.c |  7 ++++-
+ xen/drivers/passthrough/pci.c               | 29 ++++++++++++++++++++-
+ xen/drivers/passthrough/vtd/iommu.c         |  9 +++++--
+ xen/drivers/vpci/header.c                   |  3 +++
+ xen/drivers/vpci/msi.c                      |  7 ++++-
+ xen/drivers/vpci/vpci.c                     |  4 +--
+ xen/include/xen/pci.h                       |  2 +-
+ xen/include/xen/sched.h                     |  1 +
+ 10 files changed, 58 insertions(+), 9 deletions(-)
 
-0. Comment in pci.h states the following:
-
- 153 /*
- 154  * The pcidevs_lock protect alldevs_list, and the assignment for the
- 155  * devices, it also sync the access to the msi capability that is not
- 156  * interrupt handling related (the mask bit register).
- 157  */
-
-But in reality it does much more. Here is what I found:
-
-1. Lifetime of pci_dev struct
-
-2. Access to pseg->alldevs_list
-
-3. Access to domain->pdev_list
-
-4. Access to iommu->ats_list
-
-5. Access to MSI capability
-
-6. Some obsucure stuff in IOMMU drivers: there are places that
-are guarded by pcidevs_lock() but it seems that nothing
-PCI-related happens there.
-
-7. Something that I probably overlooked
-
-Anyways, I tried to get rid of global mighty pcidevs_lock() by
-reworking items 1-5.
-
-This patch series does exactly this: adds separate lock for each
-of the lists, lock for struct pci_dev itself, adds reference
-counting, then removes pcidevs_lock() entirely. I do understand
-that I should not remove locks when there are locking fixes for
-items 6-7. But this is why it is an RFC. I want to discuss if my
-approach is legit and get some guidance from maintainers on what
-should be done in addition to the presented changes.
-
-
-Volodymyr Babchuk (10):
-  xen: pci: add per-domain pci list lock
-  xen: pci: add pci_seg->alldevs_lock
-  xen: pci: introduce ats_list_lock
-  xen: add reference counter support
-  xen: pci: introduce reference counting for pdev
-  xen: pci: print reference counter when dumping pci_devs
-  xen: pci: add per-device locking
-  xen: pci: remove pcidev_[un]lock[ed] calls
-  [RFC only] xen: iommu: remove last  pcidevs_lock() calls in iommu
-  [RFC only] xen: pci: remove pcidev_lock() function
-
- xen/arch/x86/domctl.c                       |   8 -
- xen/arch/x86/hvm/vioapic.c                  |   2 -
- xen/arch/x86/hvm/vmsi.c                     |  20 +-
- xen/arch/x86/irq.c                          |  11 +-
- xen/arch/x86/msi.c                          |  68 ++++-
- xen/arch/x86/pci.c                          |   8 +-
- xen/arch/x86/physdev.c                      |  24 +-
- xen/common/domain.c                         |   1 +
- xen/common/sysctl.c                         |   7 +-
- xen/drivers/char/ns16550.c                  |   4 -
- xen/drivers/passthrough/amd/iommu.h         |   1 +
- xen/drivers/passthrough/amd/iommu_cmd.c     |   4 +-
- xen/drivers/passthrough/amd/iommu_detect.c  |   1 +
- xen/drivers/passthrough/amd/iommu_init.c    |  19 +-
- xen/drivers/passthrough/amd/iommu_map.c     |  11 +-
- xen/drivers/passthrough/amd/pci_amd_iommu.c |  19 +-
- xen/drivers/passthrough/msi.c               |   8 +-
- xen/drivers/passthrough/pci.c               | 267 +++++++++++---------
- xen/drivers/passthrough/vtd/intremap.c      |   2 -
- xen/drivers/passthrough/vtd/iommu.c         |  33 +--
- xen/drivers/passthrough/vtd/iommu.h         |   1 +
- xen/drivers/passthrough/vtd/qinval.c        |   3 +
- xen/drivers/passthrough/vtd/quirks.c        |   2 +
- xen/drivers/passthrough/vtd/x86/ats.c       |   3 +
- xen/drivers/passthrough/x86/iommu.c         |   5 -
- xen/drivers/video/vga.c                     |  12 +-
- xen/drivers/vpci/header.c                   |   3 +
- xen/drivers/vpci/msi.c                      |   7 +-
- xen/drivers/vpci/vpci.c                     |  10 +-
- xen/include/xen/pci.h                       |  36 ++-
- xen/include/xen/refcnt.h                    |  28 ++
- xen/include/xen/sched.h                     |   1 +
- 32 files changed, 380 insertions(+), 249 deletions(-)
- create mode 100644 xen/include/xen/refcnt.h
-
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 7062393e37..4611141b87 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -618,6 +618,7 @@ struct domain *domain_create(domid_t domid,
+=20
+ #ifdef CONFIG_HAS_PCI
+     INIT_LIST_HEAD(&d->pdev_list);
++    spin_lock_init(&d->pdevs_lock);
+ #endif
+=20
+     /* All error paths can depend on the above setup. */
+diff --git a/xen/drivers/passthrough/amd/iommu_cmd.c b/xen/drivers/passthro=
+ugh/amd/iommu_cmd.c
+index 40ddf366bb..47c45398d4 100644
+--- a/xen/drivers/passthrough/amd/iommu_cmd.c
++++ b/xen/drivers/passthrough/amd/iommu_cmd.c
+@@ -308,11 +308,12 @@ void amd_iommu_flush_iotlb(u8 devfn, const struct pci=
+_dev *pdev,
+     flush_command_buffer(iommu, iommu_dev_iotlb_timeout);
+ }
+=20
+-static void amd_iommu_flush_all_iotlbs(const struct domain *d, daddr_t dad=
+dr,
++static void amd_iommu_flush_all_iotlbs(struct domain *d, daddr_t daddr,
+                                        unsigned int order)
+ {
+     struct pci_dev *pdev;
+=20
++    spin_lock(&d->pdevs_lock);
+     for_each_pdev( d, pdev )
+     {
+         u8 devfn =3D pdev->devfn;
+@@ -323,6 +324,7 @@ static void amd_iommu_flush_all_iotlbs(const struct dom=
+ain *d, daddr_t daddr,
+         } while ( devfn !=3D pdev->devfn &&
+                   PCI_SLOT(devfn) =3D=3D PCI_SLOT(pdev->devfn) );
+     }
++    spin_unlock(&d->pdevs_lock);
+ }
+=20
+ /* Flush iommu cache after p2m changes. */
+diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/pass=
+through/amd/pci_amd_iommu.c
+index 4ba8e764b2..64c016491d 100644
+--- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
++++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+@@ -96,20 +96,25 @@ static int __must_check allocate_domain_resources(struc=
+t domain *d)
+     return rc;
+ }
+=20
+-static bool any_pdev_behind_iommu(const struct domain *d,
++static bool any_pdev_behind_iommu(struct domain *d,
+                                   const struct pci_dev *exclude,
+                                   const struct amd_iommu *iommu)
+ {
+     const struct pci_dev *pdev;
+=20
++    spin_lock(&d->pdevs_lock);
+     for_each_pdev ( d, pdev )
+     {
+         if ( pdev =3D=3D exclude )
+             continue;
+=20
+         if ( find_iommu_for_device(pdev->seg, pdev->sbdf.bdf) =3D=3D iommu=
+ )
++	{
++	    spin_unlock(&d->pdevs_lock);
+             return true;
++	}
+     }
++    spin_unlock(&d->pdevs_lock);
+=20
+     return false;
+ }
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index cdaf5c247f..4366f8f965 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -523,7 +523,9 @@ static void __init _pci_hide_device(struct pci_dev *pde=
+v)
+     if ( pdev->domain )
+         return;
+     pdev->domain =3D dom_xen;
++    spin_lock(&dom_xen->pdevs_lock);
+     list_add(&pdev->domain_list, &dom_xen->pdev_list);
++    spin_unlock(&dom_xen->pdevs_lock);
+ }
+=20
+ int __init pci_hide_device(unsigned int seg, unsigned int bus,
+@@ -595,7 +597,7 @@ struct pci_dev *pci_get_real_pdev(pci_sbdf_t sbdf)
+     return pdev;
+ }
+=20
+-struct pci_dev *pci_get_pdev(const struct domain *d, pci_sbdf_t sbdf)
++struct pci_dev *pci_get_pdev(struct domain *d, pci_sbdf_t sbdf)
+ {
+     struct pci_dev *pdev;
+=20
+@@ -620,9 +622,16 @@ struct pci_dev *pci_get_pdev(const struct domain *d, p=
+ci_sbdf_t sbdf)
+                 return pdev;
+     }
+     else
++    {
++        spin_lock(&d->pdevs_lock);
+         list_for_each_entry ( pdev, &d->pdev_list, domain_list )
+             if ( pdev->sbdf.bdf =3D=3D sbdf.bdf )
++            {
++                spin_unlock(&d->pdevs_lock);
+                 return pdev;
++            }
++        spin_unlock(&d->pdevs_lock);
++    }
+=20
+     return NULL;
+ }
+@@ -817,7 +826,9 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+     if ( !pdev->domain )
+     {
+         pdev->domain =3D hardware_domain;
++        spin_lock(&hardware_domain->pdevs_lock);
+         list_add(&pdev->domain_list, &hardware_domain->pdev_list);
++        spin_unlock(&hardware_domain->pdevs_lock);
+=20
+         /*
+          * For devices not discovered by Xen during boot, add vPCI handler=
+s
+@@ -827,7 +838,9 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+         if ( ret )
+         {
+             printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
++            spin_lock(&pdev->domain->pdevs_lock);
+             list_del(&pdev->domain_list);
++            spin_unlock(&pdev->domain->pdevs_lock);
+             pdev->domain =3D NULL;
+             goto out;
+         }
+@@ -835,7 +848,9 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+         if ( ret )
+         {
+             vpci_remove_device(pdev);
++            spin_lock(&pdev->domain->pdevs_lock);
+             list_del(&pdev->domain_list);
++            spin_unlock(&pdev->domain->pdevs_lock);
+             pdev->domain =3D NULL;
+             goto out;
+         }
+@@ -885,7 +900,11 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+             pci_cleanup_msi(pdev);
+             ret =3D iommu_remove_device(pdev);
+             if ( pdev->domain )
++            {
++                spin_lock(&pdev->domain->pdevs_lock);
+                 list_del(&pdev->domain_list);
++                spin_unlock(&pdev->domain->pdevs_lock);
++            }
+             printk(XENLOG_DEBUG "PCI remove device %pp\n", &pdev->sbdf);
+             free_pdev(pseg, pdev);
+             break;
+@@ -967,12 +986,14 @@ int pci_release_devices(struct domain *d)
+         pcidevs_unlock();
+         return ret;
+     }
++    spin_lock(&d->pdevs_lock);
+     list_for_each_entry_safe ( pdev, tmp, &d->pdev_list, domain_list )
+     {
+         bus =3D pdev->bus;
+         devfn =3D pdev->devfn;
+         ret =3D deassign_device(d, pdev->seg, bus, devfn) ?: ret;
+     }
++    spin_unlock(&d->pdevs_lock);
+     pcidevs_unlock();
+=20
+     return ret;
+@@ -1194,7 +1215,9 @@ static int __hwdom_init cf_check _setup_hwdom_pci_dev=
+ices(
+             if ( !pdev->domain )
+             {
+                 pdev->domain =3D ctxt->d;
++                spin_lock(&pdev->domain->pdevs_lock);
+                 list_add(&pdev->domain_list, &ctxt->d->pdev_list);
++                spin_unlock(&pdev->domain->pdevs_lock);
+                 setup_one_hwdom_device(ctxt, pdev);
+             }
+             else if ( pdev->domain =3D=3D dom_xen )
+@@ -1556,6 +1579,7 @@ static int iommu_get_device_group(
+         return group_id;
+=20
+     pcidevs_lock();
++    spin_lock(&d->pdevs_lock);
+     for_each_pdev( d, pdev )
+     {
+         unsigned int b =3D pdev->bus;
+@@ -1571,6 +1595,7 @@ static int iommu_get_device_group(
+         if ( sdev_id < 0 )
+         {
+             pcidevs_unlock();
++            spin_unlock(&d->pdevs_lock);
+             return sdev_id;
+         }
+=20
+@@ -1581,6 +1606,7 @@ static int iommu_get_device_group(
+             if ( unlikely(copy_to_guest_offset(buf, i, &bdf, 1)) )
+             {
+                 pcidevs_unlock();
++                spin_unlock(&d->pdevs_lock);
+                 return -EFAULT;
+             }
+             i++;
+@@ -1588,6 +1614,7 @@ static int iommu_get_device_group(
+     }
+=20
+     pcidevs_unlock();
++    spin_unlock(&d->pdevs_lock);
+=20
+     return i;
+ }
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/=
+vtd/iommu.c
+index 62e143125d..fff1442265 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -183,12 +183,13 @@ static void cleanup_domid_map(domid_t domid, struct v=
+td_iommu *iommu)
+     }
+ }
+=20
+-static bool any_pdev_behind_iommu(const struct domain *d,
++static bool any_pdev_behind_iommu(struct domain *d,
+                                   const struct pci_dev *exclude,
+                                   const struct vtd_iommu *iommu)
+ {
+     const struct pci_dev *pdev;
+=20
++    spin_lock(&d->pdevs_lock);
+     for_each_pdev ( d, pdev )
+     {
+         const struct acpi_drhd_unit *drhd;
+@@ -198,8 +199,12 @@ static bool any_pdev_behind_iommu(const struct domain =
+*d,
+=20
+         drhd =3D acpi_find_matched_drhd_unit(pdev);
+         if ( drhd && drhd->iommu =3D=3D iommu )
++        {
++            spin_unlock(&d->pdevs_lock);
+             return true;
++        }
+     }
++    spin_unlock(&d->pdevs_lock);
+=20
+     return false;
+ }
+@@ -208,7 +213,7 @@ static bool any_pdev_behind_iommu(const struct domain *=
+d,
+  * If no other devices under the same iommu owned by this domain,
+  * clear iommu in iommu_bitmap and clear domain_id in domid_bitmap.
+  */
+-static void check_cleanup_domid_map(const struct domain *d,
++static void check_cleanup_domid_map(struct domain *d,
+                                     const struct pci_dev *exclude,
+                                     struct vtd_iommu *iommu)
+ {
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index a1c928a0d2..a59aa7ad0b 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -267,6 +267,7 @@ static int modify_bars(const struct pci_dev *pdev, uint=
+16_t cmd, bool rom_only)
+      * Check for overlaps with other BARs. Note that only BARs that are
+      * currently mapped (enabled) are checked for overlaps.
+      */
++    spin_lock(&pdev->domain->pdevs_lock);
+     for_each_pdev ( pdev->domain, tmp )
+     {
+         if ( tmp =3D=3D pdev )
+@@ -306,11 +307,13 @@ static int modify_bars(const struct pci_dev *pdev, ui=
+nt16_t cmd, bool rom_only)
+                 printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n=
+",
+                        start, end, rc);
+                 rangeset_destroy(mem);
++                spin_unlock( &pdev->domain->pdevs_lock);
+                 return rc;
+             }
+         }
+     }
+=20
++    spin_unlock( &pdev->domain->pdevs_lock);
+     ASSERT(dev);
+=20
+     if ( system_state < SYS_STATE_active )
+diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+index 8f2b59e61a..8969c335b0 100644
+--- a/xen/drivers/vpci/msi.c
++++ b/xen/drivers/vpci/msi.c
+@@ -265,7 +265,7 @@ REGISTER_VPCI_INIT(init_msi, VPCI_PRIORITY_LOW);
+=20
+ void vpci_dump_msi(void)
+ {
+-    const struct domain *d;
++    struct domain *d;
+=20
+     rcu_read_lock(&domlist_read_lock);
+     for_each_domain ( d )
+@@ -277,6 +277,9 @@ void vpci_dump_msi(void)
+=20
+         printk("vPCI MSI/MSI-X d%d\n", d->domain_id);
+=20
++        if ( !spin_trylock(&d->pdevs_lock) )
++            continue;
++
+         for_each_pdev ( d, pdev )
+         {
+             const struct vpci_msi *msi;
+@@ -326,6 +329,8 @@ void vpci_dump_msi(void)
+             spin_unlock(&pdev->vpci->lock);
+             process_pending_softirqs();
+         }
++        spin_unlock(&d->pdevs_lock);
++
+     }
+     rcu_read_unlock(&domlist_read_lock);
+ }
+diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+index 3467c0de86..7d1f9fd438 100644
+--- a/xen/drivers/vpci/vpci.c
++++ b/xen/drivers/vpci/vpci.c
+@@ -312,7 +312,7 @@ static uint32_t merge_result(uint32_t data, uint32_t ne=
+w, unsigned int size,
+=20
+ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
+ {
+-    const struct domain *d =3D current->domain;
++    struct domain *d =3D current->domain;
+     const struct pci_dev *pdev;
+     const struct vpci_register *r;
+     unsigned int data_offset =3D 0;
+@@ -415,7 +415,7 @@ static void vpci_write_helper(const struct pci_dev *pde=
+v,
+ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+                 uint32_t data)
+ {
+-    const struct domain *d =3D current->domain;
++    struct domain *d =3D current->domain;
+     const struct pci_dev *pdev;
+     const struct vpci_register *r;
+     unsigned int data_offset =3D 0;
+diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+index 5975ca2f30..19047b4b20 100644
+--- a/xen/include/xen/pci.h
++++ b/xen/include/xen/pci.h
+@@ -177,7 +177,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+ int pci_remove_device(u16 seg, u8 bus, u8 devfn);
+ int pci_ro_device(int seg, int bus, int devfn);
+ int pci_hide_device(unsigned int seg, unsigned int bus, unsigned int devfn=
+);
+-struct pci_dev *pci_get_pdev(const struct domain *d, pci_sbdf_t sbdf);
++struct pci_dev *pci_get_pdev(struct domain *d, pci_sbdf_t sbdf);
+ struct pci_dev *pci_get_real_pdev(pci_sbdf_t sbdf);
+ void pci_check_disable_device(u16 seg, u8 bus, u8 devfn);
+=20
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 1cf629e7ec..0775228ba9 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -457,6 +457,7 @@ struct domain
+=20
+ #ifdef CONFIG_HAS_PCI
+     struct list_head pdev_list;
++    spinlock_t pdevs_lock;
+ #endif
+=20
+ #ifdef CONFIG_HAS_PASSTHROUGH
 --=20
 2.36.1
 
