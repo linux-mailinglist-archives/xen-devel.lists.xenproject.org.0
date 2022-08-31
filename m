@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C2A95A873A
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Aug 2022 22:08:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396046.636025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F99A5A8836
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Aug 2022 23:39:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396056.636036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTU04-00035y-OP; Wed, 31 Aug 2022 20:07:48 +0000
+	id 1oTVPl-0003JX-Ap; Wed, 31 Aug 2022 21:38:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396046.636025; Wed, 31 Aug 2022 20:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 396056.636036; Wed, 31 Aug 2022 21:38:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTU04-00033W-LL; Wed, 31 Aug 2022 20:07:48 +0000
-Received: by outflank-mailman (input) for mailman id 396046;
- Wed, 31 Aug 2022 20:07:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oTVPl-0003HR-7k; Wed, 31 Aug 2022 21:38:25 +0000
+Received: by outflank-mailman (input) for mailman id 396056;
+ Wed, 31 Aug 2022 21:38:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTU03-00033M-TP; Wed, 31 Aug 2022 20:07:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTU03-0006Jy-Rj; Wed, 31 Aug 2022 20:07:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTU03-0001Iy-G8; Wed, 31 Aug 2022 20:07:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oTU03-00088S-FZ; Wed, 31 Aug 2022 20:07:47 +0000
+ (envelope-from <SRS0=q2E5=ZD=google.com=surenb@srs-se1.protection.inumbo.net>)
+ id 1oTVPj-0003H5-DV
+ for xen-devel@lists.xenproject.org; Wed, 31 Aug 2022 21:38:23 +0000
+Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
+ [2607:f8b0:4864:20::112b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3b66d74e-2975-11ed-82f2-63bd783d45fa;
+ Wed, 31 Aug 2022 23:38:21 +0200 (CEST)
+Received: by mail-yw1-x112b.google.com with SMTP id
+ 00721157ae682-3378303138bso319420917b3.9
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Aug 2022 14:38:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,112 +40,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=g27J/5kyPMJrrrEmIUyCiBj2yeBaU532WgCA5JJseJU=; b=2rkF/3cKKlRVWr5HCGpX5yb5hF
-	x9RLPMHcgxpKaPqL2PSQ+2YwnSUIYMU55P+FKHakwsRNKr4PxpEqkCTt3/9ES4cPOo4OYFWbBhRfO
-	PKobo5hFOj3pw9AcxGj30XIXhZA0Ay2oSbfCS47j0G6VQYIEZPzEqguRcZJ+np/RPZxQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172896-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 3b66d74e-2975-11ed-82f2-63bd783d45fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=6E7G6kJMNs5Us6NEnCBcT2HO6AKiMVb4bH/0vpPA/4U=;
+        b=kAtSEhj7BWkD6SMRdd1t39qS+hQKouRS4qaWZ/zCB6oGUrFNrc2cBDYGv9jQ+MdF0J
+         uxQpVt2B9TyIrWXDxJ2lE/5kGqIlaGR3KL1ZUwaFBmwiXzmcYyLDuUovokIJ5gP+z9l0
+         0yNTpmhlKudmxd6FSbYJNy7iPqg2dLLVGTx3y1J7sDru+O7/1p0gaM3HCn5KVfOBeHdH
+         7y51BAxidLFb2zqNvKSOOe8d+T3vU43qoJCQXNWAECkcBOpBA8zLImxhZz3blz38Sv8b
+         A0VOTCczeuCjB41nhG0Ij40swVSwGGlY/9vVEbUAh5KhCZEJca7FVQKBTYw0uiQMXn3I
+         8fkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=6E7G6kJMNs5Us6NEnCBcT2HO6AKiMVb4bH/0vpPA/4U=;
+        b=SjSD5UUXSeudoWp25IZmfx4bpwCRYnX+TPy2VmQ0oPrzujTezQI1CoUL/bYvH7SVVm
+         MRWKCUiTtnsfwpcztwy6E87O7/ryzx9EnS+YarBexwq/4EysjoKNjlOt59xctfbZ6Bhd
+         2PCeAJOoBsd0MJG20hAS5pmKh9sm6j4FL8L0mVYb8IcOKeigVk2IlaJCs2/kG/uGezx2
+         WbPFnknimaU/74rTC3Ow+7CztNHIPirkbS12iuu7dLJU9mBJhxNIgLZWvw11TyQu2rz9
+         OGR6CDCUepOIFK3L5rMgMA6/jWqFkXnQiL9fYdys4v568ulugsrz4B/U+ZVamXQwy64Q
+         6jGw==
+X-Gm-Message-State: ACgBeo35tQMd0lYS03Jt0fbRvVM/r8maZAhYXvFBrBuWQH4Jjl2EL6TU
+	eMIAaxwpcOO1fGkCssTr4+QYyrya8S0ml+MGcMN1yg==
+X-Google-Smtp-Source: AA6agR71/tBRa7ErmmsvPBq7WvGBz62OVsrJ1soclQl+ncNHwGSnn/9fM5Y5i7G0A989GWlS6M/O5IwMTPKxavhJCfc=
+X-Received: by 2002:a81:85c3:0:b0:33d:a4d9:4599 with SMTP id
+ v186-20020a8185c3000000b0033da4d94599mr19726685ywf.237.1661981899638; Wed, 31
+ Aug 2022 14:38:19 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 172896: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=31a94f7fba2a2c1244fc35b6f631e235e267715b
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 31 Aug 2022 20:07:47 +0000
+References: <20220830214919.53220-1-surenb@google.com> <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
+ <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan> <20220831101948.f3etturccmp5ovkl@suse.de>
+ <Yw88RFuBgc7yFYxA@dhcp22.suse.cz> <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
+ <CAJD7tkaev9B=UDYj2RL6pz-1454J8tv4gEr9y-2dnCksoLK0bw@mail.gmail.com>
+In-Reply-To: <CAJD7tkaev9B=UDYj2RL6pz-1454J8tv4gEr9y-2dnCksoLK0bw@mail.gmail.com>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 31 Aug 2022 14:38:08 -0700
+Message-ID: <CAJuCfpELZBoM8uG9prkra1sJ7tDiy_eF9TwetXSSN3XDssp8CQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+To: Yosry Ahmed <yosryahmed@google.com>
+Cc: Kent Overstreet <kent.overstreet@linux.dev>, Michal Hocko <mhocko@suse.com>, 
+	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@suse.cz>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Matthew Wilcox <willy@infradead.org>, 
+	"Liam R. Howlett" <liam.howlett@oracle.com>, David Vernet <void@manifault.com>, 
+	Juri Lelli <juri.lelli@redhat.com>, Laurent Dufour <ldufour@linux.ibm.com>, 
+	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>, Jens Axboe <axboe@kernel.dk>, 
+	mcgrof@kernel.org, masahiroy@kernel.org, nathan@kernel.org, 
+	changbin.du@intel.com, ytcoode@gmail.com, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Benjamin Segall <bsegall@google.com>, 
+	Daniel Bristot de Oliveira <bristot@redhat.com>, Valentin Schneider <vschneid@redhat.com>, 
+	Christoph Lameter <cl@linux.com>, Pekka Enberg <penberg@kernel.org>, Joonsoo Kim <iamjoonsoo.kim@lge.com>, 
+	42.hyeyoo@gmail.com, Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
+	dvyukov@google.com, Shakeel Butt <shakeelb@google.com>, 
+	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de, jbaron@akamai.com, 
+	David Rientjes <rientjes@google.com>, Minchan Kim <minchan@google.com>, 
+	Kalesh Singh <kaleshsingh@google.com>, kernel-team <kernel-team@android.com>, 
+	Linux-MM <linux-mm@kvack.org>, iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
+	io-uring@vger.kernel.org, linux-arch@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org, 
+	linux-modules@vger.kernel.org, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 172896 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172896/
+On Wed, Aug 31, 2022 at 1:56 PM Yosry Ahmed <yosryahmed@google.com> wrote:
+>
+> On Wed, Aug 31, 2022 at 12:02 PM Kent Overstreet
+> <kent.overstreet@linux.dev> wrote:
+> >
+> > On Wed, Aug 31, 2022 at 12:47:32PM +0200, Michal Hocko wrote:
+> > > On Wed 31-08-22 11:19:48, Mel Gorman wrote:
+> > > > Whatever asking for an explanation as to why equivalent functionality
+> > > > cannot not be created from ftrace/kprobe/eBPF/whatever is reasonable.
+> > >
+> > > Fully agreed and this is especially true for a change this size
+> > > 77 files changed, 3406 insertions(+), 703 deletions(-)
+> >
+> > In the case of memory allocation accounting, you flat cannot do this with ftrace
+> > - you could maybe do a janky version that isn't fully accurate, much slower,
+> > more complicated for the developer to understand and debug and more complicated
+> > for the end user.
+> >
+> > But please, I invite anyone who's actually been doing this with ftrace to
+> > demonstrate otherwise.
+> >
+> > Ftrace just isn't the right tool for the job here - we're talking about adding
+> > per callsite accounting to some of the fastest fast paths in the kernel.
+> >
+> > And the size of the changes for memory allocation accounting are much more
+> > reasonable:
+> >  33 files changed, 623 insertions(+), 99 deletions(-)
+> >
+> > The code tagging library should exist anyways, it's been open coded half a dozen
+> > times in the kernel already.
+> >
+> > And once we've got that, the time stats code is _also_ far simpler than doing it
+> > with ftrace would be. If anyone here has successfully debugged latency issues
+> > with ftrace, I'd really like to hear it. Again, for debugging latency issues you
+> > want something that can always be on, and that's not cheap with ftrace - and
+> > never mind the hassle of correlating start and end wait trace events, builting
+> > up histograms, etc. - that's all handled here.
+> >
+> > Cheap, simple, easy to use. What more could you want?
+> >
+>
+> This is very interesting work! Do you have any data about the overhead
+> this introduces, especially in a production environment? I am
+> especially interested in memory allocations tracking and detecting
+> leaks.
 
-Regressions :-(
+I had the numbers for my previous implementation, before we started using the
+lazy percpu counters but that would not apply to the new implementation. I'll
+rerun the measurements and will post the exact numbers in a day or so.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
-
-version targeted for testing:
- ovmf                 31a94f7fba2a2c1244fc35b6f631e235e267715b
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
-
-Last test of basis   172136  2022-08-04 06:43:42 Z   27 days
-Failing since        172151  2022-08-05 02:40:28 Z   26 days  214 attempts
-Testing same since   172896  2022-08-31 17:13:15 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Bob Feng <bob.c.feng@intel.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1231 lines long.)
+> (Sorry if you already posted this kind of data somewhere that I missed)
 
