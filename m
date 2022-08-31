@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9079D5A8161
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Aug 2022 17:37:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.395782.635634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A97215A8213
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Aug 2022 17:45:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.395788.635645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTPmU-0001i0-9P; Wed, 31 Aug 2022 15:37:30 +0000
+	id 1oTPuF-0003AP-3C; Wed, 31 Aug 2022 15:45:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 395782.635634; Wed, 31 Aug 2022 15:37:30 +0000
+Received: by outflank-mailman (output) from mailman id 395788.635645; Wed, 31 Aug 2022 15:45:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTPmU-0001fg-6n; Wed, 31 Aug 2022 15:37:30 +0000
-Received: by outflank-mailman (input) for mailman id 395782;
- Wed, 31 Aug 2022 15:37:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oTPuF-00037u-0J; Wed, 31 Aug 2022 15:45:31 +0000
+Received: by outflank-mailman (input) for mailman id 395788;
+ Wed, 31 Aug 2022 15:45:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q2E5=ZD=google.com=surenb@srs-se1.protection.inumbo.net>)
- id 1oTPmR-0001fa-U8
- for xen-devel@lists.xenproject.org; Wed, 31 Aug 2022 15:37:27 +0000
-Received: from mail-yw1-x112e.google.com (mail-yw1-x112e.google.com
- [2607:f8b0:4864:20::112e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d08fdd7f-2942-11ed-934f-f50d60e1c1bd;
- Wed, 31 Aug 2022 17:37:27 +0200 (CEST)
-Received: by mail-yw1-x112e.google.com with SMTP id
- 00721157ae682-33dce2d4bc8so310830027b3.4
- for <xen-devel@lists.xenproject.org>; Wed, 31 Aug 2022 08:37:26 -0700 (PDT)
+ id 1oTPuD-00037o-OX
+ for xen-devel@lists.xenproject.org; Wed, 31 Aug 2022 15:45:29 +0000
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
+ [2607:f8b0:4864:20::b2b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ef9ad90f-2943-11ed-82f2-63bd783d45fa;
+ Wed, 31 Aug 2022 17:45:28 +0200 (CEST)
+Received: by mail-yb1-xb2b.google.com with SMTP id t184so4739990yba.4
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Aug 2022 08:45:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,43 +39,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d08fdd7f-2942-11ed-934f-f50d60e1c1bd
+X-Inumbo-ID: ef9ad90f-2943-11ed-82f2-63bd783d45fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc;
-        bh=Z5bWT124P9msiKtHJxXWtamGxGE9nU7NFSbNkXeVir4=;
-        b=q4yt7LQZaKZTdzRnqOfBDWuxDUawgahY2C4+8NClZrlVWpZiq8b8wuUtt2FXanHGEc
-         GKUHZeMZM5jPluxM3gpqfRkq+ZEpQLG+BNvz98YUVO6qqcwbNq/QfwpxfY1bBqJ/PbUe
-         qN9rURlcwiX2U8yaFrSKUwROmM3LF8ndCfS6j0AHC4HsQL8z7s2/MCCQMTRvX3Ne6rDh
-         NX1iVO84IZTdrxORhVNpFjbUB389eDGDLX9acAC39/jQL/Xkcw+zdEhsbVQSkIB5PGSl
-         3MgCLAYUQZJEhdAOCDXe/UR2KtUxqwQZuMK/LjLdJHtYQZbxs0yHQAWgM70EmS5KjdKg
-         raEQ==
+        bh=Yg5lEIxwkC8L9g2KyGsqswRBhk4gAo50nJ7nWIpcdXc=;
+        b=f3+0Eh/W8OX4KuooBQ0WgBNbVwjJbAXBKTWgD/1rnSxw8Or+o0OJFGSWtlhyJfP9gD
+         QCFEtC0rc3uk17x5AtGX0ukxT/fwVuDehIBS7C3A9pMG33oU0ZJGMmly+vrXS5p4by0+
+         jDT69+FR9RtMW6e1SjrFZnroYNBot0xZKZX0R51jheU+mrpvrFLrGntTcPsTHaijk6mV
+         iKPavpo7jboK8+tsNQ9Az/YAZSJr40a0Ai7H69DS5U2PS7wmYchRHvmW2/w/UajBDN7Y
+         I8Esb137FVo77guaGTuDVZBl6klQw58Xua4rWyO6cGYeV+DdQ1NJpxEpQh+0pcY1wICS
+         8E3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc;
-        bh=Z5bWT124P9msiKtHJxXWtamGxGE9nU7NFSbNkXeVir4=;
-        b=zdcNOLTcMAXA0StKP1UULObe6VVNOQf0UEKdh6dh9A+KXIoHI4U0OjypOAgw7PJfbQ
-         hunWXG9dwoNlLP3fjMwwmqmskZqxaAs3xC2bqOy+lzgQl1B6ir+HfgEAf4XUxja2t7yu
-         9wjP5BTFAPetVPGZ3yq8uC8pFFltZrwSDBjCua8eDqyU0C8W1ddoB7amAvp+wQ3K6xjd
-         S9oSClO3axNXkLuxGXX45Bi0Wr9ipSXC6amCWNhsp1C/OlPNr+6vgduUPg5lvi7wBJ6U
-         AaXHObkwnxGGV6laSYETF3X05EYYSUSJVl9Ko0TezJ00sC92kexyE77NEGDMh0gXPzMF
-         Qn3Q==
-X-Gm-Message-State: ACgBeo1VUJD5Wh7qdM+QL5nsc1F0Nsk+Ytudlio8c5vrWkiZ0WnDKo8C
-	1wFQMy7mO952ojWOs3AqCZzuTG94Hqe002tuDXvrbA==
-X-Google-Smtp-Source: AA6agR4eyfrVHwFKMQTAM4+K85p4B7I6c+zSy9tLGnKDo68fc8kY3s9yyQtJtbnPccojelXd5+hkkFEpEU7+woAq0vg=
-X-Received: by 2002:a81:7784:0:b0:33d:ca62:45f5 with SMTP id
- s126-20020a817784000000b0033dca6245f5mr18452862ywc.180.1661960245620; Wed, 31
- Aug 2022 08:37:25 -0700 (PDT)
+        bh=Yg5lEIxwkC8L9g2KyGsqswRBhk4gAo50nJ7nWIpcdXc=;
+        b=ZNkhcjE/OhJid9CE+wSNkeEV+8oh1SJ5IjPKcpwsaL5pKFdcz/GC3b+pxMqcE0t9IZ
+         p8qKsglXl8MBO/omo0zAbiavWGn+0a19vJscdJ5umCmRGJrrtu8oHHOe+SqPWLb4hYde
+         dclLLqoRfv5YXBBjw5MaxhO5C88O6d7ivdaqe/x0Vok+C1o5mqbb0o3lZXXxKvjRXJj5
+         QTW1EUYBpmSa6JAdqgAm7cRAbBNujumMnKFHA15nRDEW28q6IC8BIZS76flKJ0YdcEc8
+         eNJ1PJMlZnefd1LyoDJPoQB18ZdCtW5WWstb1LHSS9iIQcbtqC4M6ZYiJ4JW/AAfjT7I
+         sZbg==
+X-Gm-Message-State: ACgBeo2obFn3tPjiStQsocV5W+6GlJauaubqrXc0CwESeGb4fJlaRZyN
+	5EkxLPcTC0rRJb8FIG6IXppr8uVCw1BVymOOFVle9g==
+X-Google-Smtp-Source: AA6agR7eJQcze4oyVJ5u+oBz3mWkBzYq0MHuMfNSxceWOgOVlxBCkZ6NIfrADtyTqEPi+FGZK0IDnHN5ZKC4stom7pQ=
+X-Received: by 2002:a05:6902:705:b0:695:b3b9:41bc with SMTP id
+ k5-20020a056902070500b00695b3b941bcmr16070987ybt.426.1661960727041; Wed, 31
+ Aug 2022 08:45:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220830214919.53220-1-surenb@google.com> <20220830214919.53220-4-surenb@google.com>
- <20220831100249.f2o27ri7ho4ma3pe@suse.de>
-In-Reply-To: <20220831100249.f2o27ri7ho4ma3pe@suse.de>
+References: <20220830214919.53220-1-surenb@google.com> <20220830214919.53220-11-surenb@google.com>
+ <20220831101103.fj5hjgy3dbb44fit@suse.de>
+In-Reply-To: <20220831101103.fj5hjgy3dbb44fit@suse.de>
 From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 31 Aug 2022 08:37:14 -0700
-Message-ID: <CAJuCfpHpBCUma_=AdTQ+UkfSkfkov2JbKfxLdp5K9_MoonkT7g@mail.gmail.com>
-Subject: Re: [RFC PATCH 03/30] Lazy percpu counters
+Date: Wed, 31 Aug 2022 08:45:16 -0700
+Message-ID: <CAJuCfpHwUUc_VphqBY9KmWvZJDrsBG6Za+kG_MW=J-abjuM4Lw@mail.gmail.com>
+Subject: Re: [RFC PATCH 10/30] mm: enable page allocation tagging for
+ __get_free_pages and alloc_pages
 To: Mel Gorman <mgorman@suse.de>
 Cc: Andrew Morton <akpm@linux-foundation.org>, Kent Overstreet <kent.overstreet@linux.dev>, 
 	Michal Hocko <mhocko@suse.com>, Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>, 
@@ -102,28 +102,111 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Kent Overstreet <kent.overstreet@
 	linux-modules@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Aug 31, 2022 at 3:02 AM Mel Gorman <mgorman@suse.de> wrote:
+On Wed, Aug 31, 2022 at 3:11 AM Mel Gorman <mgorman@suse.de> wrote:
 >
-> On Tue, Aug 30, 2022 at 02:48:52PM -0700, Suren Baghdasaryan wrote:
-> > From: Kent Overstreet <kent.overstreet@linux.dev>
+> On Tue, Aug 30, 2022 at 02:48:59PM -0700, Suren Baghdasaryan wrote:
+> > Redefine alloc_pages, __get_free_pages to record allocations done by
+> > these functions. Instrument deallocation hooks to record object freeing.
 > >
-> > This patch adds lib/lazy-percpu-counter.c, which implements counters
-> > that start out as atomics, but lazily switch to percpu mode if the
-> > update rate crosses some threshold (arbitrarily set at 256 per second).
+> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > +#ifdef CONFIG_PAGE_ALLOC_TAGGING
+> > +
+> >  #include <linux/alloc_tag.h>
+> >  #include <linux/page_ext.h>
 > >
-> > Signed-off-by: Kent Overstreet <kent.overstreet@linux.dev>
+> > @@ -25,4 +27,37 @@ static inline void pgalloc_tag_dec(struct page *page, unsigned int order)
+> >               alloc_tag_sub(get_page_tag_ref(page), PAGE_SIZE << order);
+> >  }
+> >
+> > +/*
+> > + * Redefinitions of the common page allocators/destructors
+> > + */
+> > +#define pgtag_alloc_pages(gfp, order)                                        \
+> > +({                                                                   \
+> > +     struct page *_page = _alloc_pages((gfp), (order));              \
+> > +                                                                     \
+> > +     if (_page)                                                      \
+> > +             alloc_tag_add(get_page_tag_ref(_page), PAGE_SIZE << (order));\
+> > +     _page;                                                          \
+> > +})
+> > +
 >
-> Why not use percpu_counter? It has a per-cpu counter that is synchronised
-> when a batch threshold (default 32) is exceeded and can explicitly sync
-> the counters when required assuming the synchronised count is only needed
-> when reading debugfs.
+> Instead of renaming alloc_pages, why is the tagging not done in
+> __alloc_pages()? At least __alloc_pages_bulk() is also missed. The branch
+> can be guarded with IS_ENABLED.
 
-The intent is to use atomic counters for places that are not updated very often.
-This would save memory required for the counters. Originally I had a config
-option to choose which counter type to use but with lazy counters we sacrifice
-memory for performance only when needed while keeping the other counters
-small.
+Hmm. Assuming all the other allocators using __alloc_pages are inlined, that
+should work. I'll try that and if that works will incorporate in the
+next respin.
+Thanks!
 
+I don't think IS_ENABLED is required because the tagging functions are already
+defined as empty if the appropriate configs are not enabled. Unless I
+misunderstood
+your node.
+
+>
+> > +#define pgtag_get_free_pages(gfp_mask, order)                                \
+> > +({                                                                   \
+> > +     struct page *_page;                                             \
+> > +     unsigned long _res = _get_free_pages((gfp_mask), (order), &_page);\
+> > +                                                                     \
+> > +     if (_res)                                                       \
+> > +             alloc_tag_add(get_page_tag_ref(_page), PAGE_SIZE << (order));\
+> > +     _res;                                                           \
+> > +})
+> > +
+>
+> Similar, the tagging could happen in a core function instead of a wrapper.
+>
+> > +#else /* CONFIG_PAGE_ALLOC_TAGGING */
+> > +
+> > +#define pgtag_alloc_pages(gfp, order) _alloc_pages(gfp, order)
+> > +
+> > +#define pgtag_get_free_pages(gfp_mask, order) \
+> > +     _get_free_pages((gfp_mask), (order), NULL)
+> > +
+> > +#define pgalloc_tag_dec(__page, __size)              do {} while (0)
+> > +
+> > +#endif /* CONFIG_PAGE_ALLOC_TAGGING */
+> > +
+> >  #endif /* _LINUX_PGALLOC_TAG_H */
+> > diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> > index b73d3248d976..f7e6d9564a49 100644
+> > --- a/mm/mempolicy.c
+> > +++ b/mm/mempolicy.c
+> > @@ -2249,7 +2249,7 @@ EXPORT_SYMBOL(vma_alloc_folio);
+> >   * flags are used.
+> >   * Return: The page on success or NULL if allocation fails.
+> >   */
+> > -struct page *alloc_pages(gfp_t gfp, unsigned order)
+> > +struct page *_alloc_pages(gfp_t gfp, unsigned int order)
+> >  {
+> >       struct mempolicy *pol = &default_policy;
+> >       struct page *page;
+> > @@ -2273,7 +2273,7 @@ struct page *alloc_pages(gfp_t gfp, unsigned order)
+> >
+> >       return page;
+> >  }
+> > -EXPORT_SYMBOL(alloc_pages);
+> > +EXPORT_SYMBOL(_alloc_pages);
+> >
+> >  struct folio *folio_alloc(gfp_t gfp, unsigned order)
+> >  {
+> > diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> > index e5486d47406e..165daba19e2a 100644
+> > --- a/mm/page_alloc.c
+> > +++ b/mm/page_alloc.c
+> > @@ -763,6 +763,7 @@ static inline bool pcp_allowed_order(unsigned int order)
+> >
+> >  static inline void free_the_page(struct page *page, unsigned int order)
+> >  {
+> > +
+> >       if (pcp_allowed_order(order))           /* Via pcp? */
+> >               free_unref_page(page, order);
+> >       else
+>
+> Spurious wide-space change.
 >
 > --
 > Mel Gorman
