@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C078E5A9DC5
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 19:09:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396852.637202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6BA85A9DC4
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 19:09:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396853.637213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTngP-0003Ar-0u; Thu, 01 Sep 2022 17:08:49 +0000
+	id 1oTngV-0003R7-9Z; Thu, 01 Sep 2022 17:08:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396852.637202; Thu, 01 Sep 2022 17:08:48 +0000
+Received: by outflank-mailman (output) from mailman id 396853.637213; Thu, 01 Sep 2022 17:08:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTngO-00037O-UN; Thu, 01 Sep 2022 17:08:48 +0000
-Received: by outflank-mailman (input) for mailman id 396852;
- Thu, 01 Sep 2022 17:08:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oTngV-0003OA-6W; Thu, 01 Sep 2022 17:08:55 +0000
+Received: by outflank-mailman (input) for mailman id 396853;
+ Thu, 01 Sep 2022 17:08:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5F1A=ZE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oTngN-00037F-Af
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 17:08:47 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc40969f-2a18-11ed-934f-f50d60e1c1bd;
- Thu, 01 Sep 2022 19:08:45 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E32CB61FD9;
- Thu,  1 Sep 2022 17:08:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C0EC433D6;
- Thu,  1 Sep 2022 17:08:42 +0000 (UTC)
+ <SRS0=3ocd=ZE=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1oTngU-0003Nk-AY
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 17:08:54 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c1525dd0-2a18-11ed-82f2-63bd783d45fa;
+ Thu, 01 Sep 2022 19:08:53 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id p16so7356638lfd.6
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Sep 2022 10:08:53 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ b24-20020a196458000000b004946b7593fesm1530625lfj.198.2022.09.01.10.08.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 01 Sep 2022 10:08:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,219 +44,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc40969f-2a18-11ed-934f-f50d60e1c1bd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662052123;
-	bh=VpjvON3sVPsd8U1rNg088Qqso0kdxHxvxaDSoUjwo6Q=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=JPOXyE/1a34n0qCijYduvy1yyOHswBgj6+ZbJvhWZi67Scw8XpCocJkIcOWFjsd5r
-	 YTnnQxsSwiGXNW6iLB88dwKibViXWklPk9pnDlV0TLEH4fJwyd48Gu3Sq74c/FaI1F
-	 4uSwWkVX5pX762uj1qDQ4egLxrrHbHQRLU4OK9yOjUVzjBtWORO8tZxoskrlE5jXqP
-	 6aUqWvqm+Rv2WzZx1zmRYkr2t8X2ESgV0STlyAeN+F7aPiJx9WBoYykvk5lQ+WiwQp
-	 +WiuuMwRPjNsxd6ZEwZrM1mbK+cuIG9HXwAowN8nLX0GwJ8xTTgYhtCHrcIteTba3d
-	 FD2C6COKiTGxQ==
-Date: Thu, 1 Sep 2022 10:08:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Henry Wang <Henry.Wang@arm.com>
-cc: Julien Grall <julien@xen.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: RE: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and heap
- allocator
-In-Reply-To: <AS8PR08MB79913A96E64B31A02C985EB5927B9@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Message-ID: <alpine.DEB.2.22.394.2209011003570.2375071@ubuntu-linux-20-04-desktop>
-References: <20220824073127.16762-1-Henry.Wang@arm.com> <20220824073127.16762-3-Henry.Wang@arm.com> <50bc7ce9-dc98-127b-d0db-40bf82929fc7@xen.org> <AS8PR08MB79913A96E64B31A02C985EB5927B9@AS8PR08MB7991.eurprd08.prod.outlook.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: c1525dd0-2a18-11ed-82f2-63bd783d45fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date;
+        bh=XHRSQt/qwfKAxSmI7aXeTf1nP69MrNsfm23ssLVEMSw=;
+        b=Ad5nZI8x9wXYvgsrpUul+9H+J2uTZUvQzH6jfQrBJuRdSfRqIL+2UB5Juja3Z8vrg0
+         AThC5Y2WomHCQoxYFfH+ONEHQMmownrTFqZ/jRHrJloRPFqun97cP9RFWdQwEs8BQiGk
+         JW6Qs5XjF1Zgi2b7Kwv9MUvh+k4F71YwpLE2hdbRQS1hmsWM7FmpJUiDDPQ52qahZ8Cp
+         Lh6fSh4j2bdBqSPqTJomXZoW2lIu8m7Gn3HuVqpsIn6pIltUbhspTWfnBRIQGEgQtHqX
+         2NTWBtMGm6HXTdIsZFI8BpSJYZlH0S05tEPquyNPpgDMh4FVBTebS/Fnn7QzwrxWucem
+         Eakw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date;
+        bh=XHRSQt/qwfKAxSmI7aXeTf1nP69MrNsfm23ssLVEMSw=;
+        b=jslhkIH5YiQs96OaMBXhKWnhLYsU+XonsW5+zP2oQlIYCUaHGE8TCH1cRVBSSlLBU6
+         u9Cb/omWRWUy7QfuCk/NvKANkGDz2Pji7ofSOb6edMb4q06Usj5kOM6OBbBZddwgqnKu
+         lljRU53hif3/fckW6NR4JwG9Kd46FuT7V3SlpH/e98UySlZkF536QGz6q+n38U+SOQsb
+         3NqbJjb72f73GfKB0wnKhxd45kVoJUMNyRyS+YzHiiGDpPl76EFMF0r87sjenAR3gWu8
+         5+LmAHis7EEQ1c6op3cY5ZerDfM2L1pz7yjLg+KLBYFmPICh6PC99gETXNsXyV0DFF8n
+         aE2w==
+X-Gm-Message-State: ACgBeo3WPrV7XrbHaDb5XGy1yDgHDydVkq2nGWy7Vso8xVJE3IztPG1S
+	xzx/lqoU4P+aAvjMeYlYCiM=
+X-Google-Smtp-Source: AA6agR5qFFWYKYd9wrwVtRkdhp4cNqAAOSZACbtKbCCEnz2fGG6WEzP9ReFzM1m6oJg7Es2NFP2lhw==
+X-Received: by 2002:a05:6512:c03:b0:494:9f7b:7f84 with SMTP id z3-20020a0565120c0300b004949f7b7f84mr915591lfu.278.1662052132425;
+        Thu, 01 Sep 2022 10:08:52 -0700 (PDT)
+Message-ID: <b2ffc383-a1b8-efc5-9227-4587f4af8c8f@gmail.com>
+Date: Thu, 1 Sep 2022 20:08:50 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Thu, 1 Sep 2022, Henry Wang wrote:
-> > -----Original Message-----
-> > From: Julien Grall <julien@xen.org>
-> > Subject: Re: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and
-> > heap allocator
-> > 
-> > Hi Henry,
-> > 
-> > On 24/08/2022 08:31, Henry Wang wrote:
-> > > This commit firstly adds a global variable `reserved_heap`.
-> > > This newly introduced global variable is set at the device tree
-> > > parsing time if the reserved heap ranges are defined in the device
-> > > tree chosen node.
-> > >
-> > > For Arm32, In `setup_mm`, if the reserved heap is enabled, we use
-> > > the reserved heap region for both domheap and xenheap allocation.
-> > >
-> > > For Arm64, In `setup_mm`, if the reserved heap is enabled and used,
-> > > we make sure that only these reserved heap pages are added to the
-> > > boot allocator. These reserved heap pages in the boot allocator are
-> > > added to the heap allocator at `end_boot_allocator()`.
-> > >
-> > > If the reserved heap is disabled, we stick to current page allocation
-> > > strategy at boot time.
-> > >
-> > > Also, take the chance to correct a "double not" print in Arm32
-> > > `setup_mm()`.
-> > >
-> > > Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-> > > ---
-> > > With reserved heap enabled, for Arm64, naming of global variables such
-> > > as `xenheap_mfn_start` and `xenheap_mfn_end` seems to be ambiguous,
-> > > wondering if we should rename these variables.
-> > > ---
-> > > Changes from RFC to v1:
-> > > - Rebase on top of latest `setup_mm()` changes.
-> > > - Added Arm32 logic in `setup_mm()`.
-> > > ---
-> > >   xen/arch/arm/bootfdt.c           |  2 +
-> > >   xen/arch/arm/include/asm/setup.h |  2 +
-> > >   xen/arch/arm/setup.c             | 79 +++++++++++++++++++++++++-------
-> > >   3 files changed, 67 insertions(+), 16 deletions(-)
-> > >
-> > > diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-> > > index 33704ca487..ab73b6e212 100644
-> > > --- a/xen/arch/arm/bootfdt.c
-> > > +++ b/xen/arch/arm/bootfdt.c
-> > > @@ -325,6 +325,8 @@ static int __init process_chosen_node(const void
-> > *fdt, int node,
-> > >                                        true);
-> > >           if ( rc )
-> > >               return rc;
-> > > +
-> > > +        reserved_heap = true;
-> > >       }
-> > >
-> > >       printk("Checking for initrd in /chosen\n");
-> > > diff --git a/xen/arch/arm/include/asm/setup.h
-> > b/xen/arch/arm/include/asm/setup.h
-> > > index e80f3d6201..00536a6d55 100644
-> > > --- a/xen/arch/arm/include/asm/setup.h
-> > > +++ b/xen/arch/arm/include/asm/setup.h
-> > > @@ -92,6 +92,8 @@ extern struct bootinfo bootinfo;
-> > >
-> > >   extern domid_t max_init_domid;
-> > >
-> > > +extern bool reserved_heap;
-> > > +
-> > >   void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
-> > >
-> > >   size_t estimate_efi_size(unsigned int mem_nr_banks);
-> > > diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> > > index 500307edc0..fe76cf6325 100644
-> > > --- a/xen/arch/arm/setup.c
-> > > +++ b/xen/arch/arm/setup.c
-> > > @@ -73,6 +73,8 @@ integer_param("xenheap_megabytes",
-> > opt_xenheap_megabytes);
-> > >
-> > >   domid_t __read_mostly max_init_domid;
-> > >
-> > > +bool __read_mostly reserved_heap;
-> > > +
-> > >   static __used void init_done(void)
-> > >   {
-> > >       /* Must be done past setting system_state. */
-> > > @@ -699,8 +701,10 @@ static void __init populate_boot_allocator(void)
-> > >   #ifdef CONFIG_ARM_32
-> > >   static void __init setup_mm(void)
-> > >   {
-> > > -    paddr_t ram_start, ram_end, ram_size, e;
-> > > -    unsigned long ram_pages;
-> > > +    paddr_t ram_start, ram_end, ram_size, e, bank_start, bank_end,
-> > bank_size;
-> > > +    paddr_t reserved_heap_start = ~0, reserved_heap_end = 0,
-> > > +            reserved_heap_size = 0;
-> > > +    unsigned long ram_pages, reserved_heap_pages = 0;
-> > >       unsigned long heap_pages, xenheap_pages, domheap_pages;
-> > >       unsigned int i;
-> > >       const uint32_t ctr = READ_CP32(CTR);
-> > > @@ -720,9 +724,9 @@ static void __init setup_mm(void)
-> > >
-> > >       for ( i = 1; i < bootinfo.mem.nr_banks; i++ )
-> > >       {
-> > > -        paddr_t bank_start = bootinfo.mem.bank[i].start;
-> > > -        paddr_t bank_size = bootinfo.mem.bank[i].size;
-> > > -        paddr_t bank_end = bank_start + bank_size;
-> > > +        bank_start = bootinfo.mem.bank[i].start;
-> > > +        bank_size = bootinfo.mem.bank[i].size;
-> > > +        bank_end = bank_start + bank_size;
-> > >
-> > >           ram_size  = ram_size + bank_size;
-> > >           ram_start = min(ram_start,bank_start);
-> > > @@ -731,6 +735,25 @@ static void __init setup_mm(void)
-> > >
-> > >       total_pages = ram_pages = ram_size >> PAGE_SHIFT;
-> > >
-> > > +    if ( reserved_heap )
-> > > +    {
-> > > +        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-> > > +        {
-> > > +            if ( bootinfo.reserved_mem.bank[i].xen_heap )
-> > > +            {
-> > > +                bank_start = bootinfo.reserved_mem.bank[i].start;
-> > > +                bank_size = bootinfo.reserved_mem.bank[i].size;
-> > > +                bank_end = bank_start + bank_size;
-> > > +
-> > > +                reserved_heap_size += bank_size;
-> > > +                reserved_heap_start = min(reserved_heap_start, bank_start);
-> > > +                reserved_heap_end = max(reserved_heap_end, bank_end);
-> > > +            }
-> > > +        }
-> > > +
-> > > +        reserved_heap_pages = reserved_heap_size >> PAGE_SHIFT;
-> > > +    }
-> > > +
-> > >       /*
-> > >        * If the user has not requested otherwise via the command line
-> > >        * then locate the xenheap using these constraints:
-> > > @@ -743,7 +766,8 @@ static void __init setup_mm(void)
-> > >        * We try to allocate the largest xenheap possible within these
-> > >        * constraints.
-> > >        */
-> > > -    heap_pages = ram_pages;
-> > > +    heap_pages = !reserved_heap ? ram_pages : reserved_heap_pages;
-> > > +
-> > >       if ( opt_xenheap_megabytes )
-> > >           xenheap_pages = opt_xenheap_megabytes << (20-PAGE_SHIFT);
-> > >       else
-> > > @@ -755,17 +779,21 @@ static void __init setup_mm(void)
-> > >
-> > >       do
-> > >       {
-> > > -        e = consider_modules(ram_start, ram_end,
-> > > +        e = !reserved_heap ?
-> > > +            consider_modules(ram_start, ram_end,
-> > >                                pfn_to_paddr(xenheap_pages),
-> > > -                             32<<20, 0);
-> > > +                             32<<20, 0) :
-> > > +            reserved_heap_end;
-> > 
-> > Not entirely related to this series. Now the assumption is the admin
-> > will make sure that none of the reserved regions will overlap.
-> > 
-> > Do we have any tool to help the admin to verify it? If yes, can we have
-> > a pointer in the documentation? If not, should this be done in Xen?
-> 
-> In the RFC we had the same discussion of this issue [1] and I think a
-> follow-up series might needed to do the overlap check if we want to
-> do that in Xen. For the existing tool, I am thinking of ImageBuilder, but
-> I am curious about Stefano's opinion.
-
-Yes, ImageBuilder is a good option and we moved ImageBuilder under Xen
-Project to make it easier for people to contribute to it:
-
-https://gitlab.com/xen-project/imagebuilder
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v3 2/2] xen/pci: replace call to is_memory_hole to
+ pci_check_bar
+Content-Language: en-US
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Paul Durrant <paul@xen.org>
+References: <cover.1662024325.git.rahul.singh@arm.com>
+ <e30beac1480f03b51933d8016ad9aed8855ffc18.1662024325.git.rahul.singh@arm.com>
+From: Oleksandr <olekstysh@gmail.com>
+In-Reply-To: <e30beac1480f03b51933d8016ad9aed8855ffc18.1662024325.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-> > Also, what happen with UEFI? Is it easy to guarantee the region will not
-> > be used?
-> 
-> For now I think it is not easy to guarantee that, do you have some ideas
-> in mind? I think I can follow this in above follow-up series to improve things. 
+On 01.09.22 12:29, Rahul Singh wrote:
 
-For clarity, are we worried that the region is used by the bootloader
-for other things? For instance U-Boot or Tianocore placing some
-firmware tables inside the range specified for xenheap?
+Hello Rahul
+
+> is_memory_hole was implemented for x86 and not for ARM when introduced.
+> Replace is_memory_hole call to pci_check_bar as function should check
+> if device BAR is in defined memory range. Also, add an implementation
+> for ARM which is required for PCI passthrough.
+>
+> On x86, pci_check_bar will call is_memory_hole which will check if BAR
+> is not overlapping with any memory region defined in the memory map.
+>
+> On ARM, pci_check_bar will go through the host bridge ranges and check
+> if the BAR is in the range of defined ranges.
+>
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+
+
+Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+
+Thanks!
+
+
+> ---
+> Changes in v3:
+>   - fix minor comments
+> ---
+>   xen/arch/arm/include/asm/pci.h     |  2 ++
+>   xen/arch/arm/pci/pci-host-common.c | 43 ++++++++++++++++++++++++++++++
+>   xen/arch/x86/include/asm/pci.h     | 10 +++++++
+>   xen/drivers/passthrough/pci.c      |  8 +++---
+>   4 files changed, 59 insertions(+), 4 deletions(-)
+>
+> diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
+> index 80a2431804..8cb46f6b71 100644
+> --- a/xen/arch/arm/include/asm/pci.h
+> +++ b/xen/arch/arm/include/asm/pci.h
+> @@ -126,6 +126,8 @@ int pci_host_iterate_bridges_and_count(struct domain *d,
+>   
+>   int pci_host_bridge_mappings(struct domain *d);
+>   
+> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
+> +
+>   #else   /*!CONFIG_HAS_PCI*/
+>   
+>   struct arch_pci_dev { };
+> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+> index 89ef30028e..0eb121666d 100644
+> --- a/xen/arch/arm/pci/pci-host-common.c
+> +++ b/xen/arch/arm/pci/pci-host-common.c
+> @@ -24,6 +24,16 @@
+>   
+>   #include <asm/setup.h>
+>   
+> +/*
+> + * struct to hold pci device bar.
+> + */
+> +struct pdev_bar
+> +{
+> +    mfn_t start;
+> +    mfn_t end;
+> +    bool is_valid;
+> +};
+> +
+>   /*
+>    * List for all the pci host bridges.
+>    */
+> @@ -363,6 +373,39 @@ int __init pci_host_bridge_mappings(struct domain *d)
+>       return 0;
+>   }
+>   
+> +static int is_bar_valid(const struct dt_device_node *dev,
+> +                        uint64_t addr, uint64_t len, void *data)
+> +{
+> +    struct pdev_bar *bar_data = data;
+> +    unsigned long s = mfn_x(bar_data->start);
+> +    unsigned long e = mfn_x(bar_data->end);
+> +
+> +    if ( (s <= e) && (s >= PFN_DOWN(addr)) && (e <= PFN_UP(addr + len - 1)) )
+> +        bar_data->is_valid =  true;
+> +
+> +    return 0;
+> +}
+> +
+> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
+> +{
+> +    int ret;
+> +    const struct dt_device_node *dt_node;
+> +    struct pdev_bar bar_data =  {
+> +        .start = start,
+> +        .end = end,
+> +        .is_valid = false
+> +    };
+> +
+> +    dt_node = pci_find_host_bridge_node(pdev);
+> +    if ( !dt_node )
+> +        return false;
+> +
+> +    ret = dt_for_each_range(dt_node, &is_bar_valid, &bar_data);
+> +    if ( ret < 0 )
+> +        return false;
+> +
+> +    return bar_data.is_valid;
+> +}
+>   /*
+>    * Local variables:
+>    * mode: C
+> diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
+> index c8e1a9ecdb..f4a58c8acf 100644
+> --- a/xen/arch/x86/include/asm/pci.h
+> +++ b/xen/arch/x86/include/asm/pci.h
+> @@ -57,4 +57,14 @@ static always_inline bool is_pci_passthrough_enabled(void)
+>   
+>   void arch_pci_init_pdev(struct pci_dev *pdev);
+>   
+> +static inline bool pci_check_bar(const struct pci_dev *pdev,
+> +                                 mfn_t start, mfn_t end)
+> +{
+> +    /*
+> +     * Check if BAR is not overlapping with any memory region defined
+> +     * in the memory map.
+> +     */
+> +    return is_memory_hole(start, end);
+> +}
+> +
+>   #endif /* __X86_PCI_H__ */
+> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+> index cdaf5c247f..149f68bb6e 100644
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -304,8 +304,8 @@ static void check_pdev(const struct pci_dev *pdev)
+>           if ( rc < 0 )
+>               /* Unable to size, better leave memory decoding disabled. */
+>               return;
+> -        if ( size && !is_memory_hole(maddr_to_mfn(addr),
+> -                                     maddr_to_mfn(addr + size - 1)) )
+> +        if ( size && !pci_check_bar(pdev, maddr_to_mfn(addr),
+> +                                    maddr_to_mfn(addr + size - 1)) )
+>           {
+>               /*
+>                * Return without enabling memory decoding if BAR position is not
+> @@ -331,8 +331,8 @@ static void check_pdev(const struct pci_dev *pdev)
+>   
+>           if ( rc < 0 )
+>               return;
+> -        if ( size && !is_memory_hole(maddr_to_mfn(addr),
+> -                                     maddr_to_mfn(addr + size - 1)) )
+> +        if ( size && !pci_check_bar(pdev, maddr_to_mfn(addr),
+> +                                    maddr_to_mfn(addr + size - 1)) )
+>           {
+>               printk(warn, &pdev->sbdf, "ROM ", PFN_DOWN(addr),
+>                      PFN_DOWN(addr + size - 1));
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
