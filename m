@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B3585A9BE0
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 17:40:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396798.637114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861635A9BE1
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 17:40:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396799.637126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTmIV-0006nk-Go; Thu, 01 Sep 2022 15:40:03 +0000
+	id 1oTmIc-0007bm-R9; Thu, 01 Sep 2022 15:40:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396798.637114; Thu, 01 Sep 2022 15:40:03 +0000
+Received: by outflank-mailman (output) from mailman id 396799.637126; Thu, 01 Sep 2022 15:40:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTmIV-0006kS-D2; Thu, 01 Sep 2022 15:40:03 +0000
-Received: by outflank-mailman (input) for mailman id 396798;
- Thu, 01 Sep 2022 15:40:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oTmIc-0007YH-NE; Thu, 01 Sep 2022 15:40:10 +0000
+Received: by outflank-mailman (input) for mailman id 396799;
+ Thu, 01 Sep 2022 15:40:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=86q5=ZE=google.com=surenb@srs-se1.protection.inumbo.net>)
- id 1oTmIU-0006Y1-2f
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 15:40:02 +0000
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [2607:f8b0:4864:20::b35])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56c71e21-2a0c-11ed-82f2-63bd783d45fa;
- Thu, 01 Sep 2022 17:40:01 +0200 (CEST)
-Received: by mail-yb1-xb35.google.com with SMTP id 130so9146650ybw.8
- for <xen-devel@lists.xenproject.org>; Thu, 01 Sep 2022 08:40:00 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1oTmIb-0007Xn-Cj
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 15:40:09 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oTmIb-0006nR-2z; Thu, 01 Sep 2022 15:40:09 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.12.167]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oTmIa-0000id-Sh; Thu, 01 Sep 2022 15:40:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,141 +39,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56c71e21-2a0c-11ed-82f2-63bd783d45fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=3cE853tliEpPWpHjkdjBsm55bguibJ1NOZ2l+ytqvIs=;
-        b=CNR1NtmysqZN43aw5siPQxQB15yoyKxn0UtAt1eFrCVSTrqVXrck0MJQ5rF0EE8Iqy
-         FECYDZNtaf4xFqIfRFeGfncBEzgsXCtgfPFQ9NnPdVRFkAf7PTRy+isa8Q/3u9s63jFF
-         Bkv08GJGttRtk8ihR4u9G9sfgOvnbQBOURRSewgh7NzkPEQgVbW8k9NY5ToRU0fk16sO
-         KDQeEwKDvn2AZgblfu2tmDll7zNnUGlKeUzAPAS8k31d+CGKhmmtzNe2LpeGY2e9A3T2
-         OyHR4dbvshaM9SSwkyP8U36LLaknoM2MMTtTCDpp5f48zXa2ecNcsCYbrEUZ3+gtqLOE
-         C5XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=3cE853tliEpPWpHjkdjBsm55bguibJ1NOZ2l+ytqvIs=;
-        b=vMFBFQ9gaUDuAiOK6XxdMiUg+fSEUI34GgK0Re70nYnkYJbAXte5DdiW3AbqGaHD1E
-         RUPDTd1a6F7c/hvxCHJQlTead4MajdAmiqekUEBnTgJuvRh60Q3mQT0AQNxnPrJegHcv
-         NBULDWW78/w9s27bakyQst/yrp2pGxPk2abHXPSk1HCFHi7XL1W9x/FgtYl9Ifr4KWPg
-         nvLE1EhJ+jjJMgWHxU1Q6Ot/NFxWkJiVWFpOsr+acyN9ClGtD/+/2Cw6vX0fIa0ZTF9O
-         MhwnmpVyFLTr0252Cf/WNrtUEgg7LgsAJiXcoJi6qQ97DAzkFhdYy99ygJon87iMGOK2
-         EnMg==
-X-Gm-Message-State: ACgBeo3Fzx9Vu7HsPy5gNv+3oF3S1ML6830fVqL4bY+fHAkgzWhKegch
-	9wYA/fIePfNneLMOai9dqCcYMhw9fpjtoIQ0/Oui+w==
-X-Google-Smtp-Source: AA6agR5aFHV5oWy3bOo2eVd0PIajtlCyUMrAF/y9Oh7oqrhvwnrJM9jnSE6k3ZmfRfh8uK89oJZlft1zkj3aGLobpWw=
-X-Received: by 2002:a25:b983:0:b0:695:d8b4:a5a3 with SMTP id
- r3-20020a25b983000000b00695d8b4a5a3mr20405655ybg.553.1662046799565; Thu, 01
- Sep 2022 08:39:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=KPRpPBebM4gjx9WMpJsAaLLlk7R/JZF85jsc/EGU+0k=; b=z6arhtJ4qNfD5LWuXvnlrPPWx3
+	XGNa7fw3AvFaH13zC8wqJnZaIa/K88/Z+qm07ueKqrgeKTyjxrDmLS3kueoh73AAn/70BIvAusf3U
+	xhCTUvYjfBn52Z8l4IbPfU/jTTe5bHjYE5PXmoJBPT7qPXLKnMoF4qkECc0BR35P+hwk=;
+Message-ID: <3b58faef-d87d-3381-f54d-8ccdc0ea105f@xen.org>
+Date: Thu, 1 Sep 2022 16:40:06 +0100
 MIME-Version: 1.0
-References: <20220830214919.53220-1-surenb@google.com> <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
- <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan> <20220831101948.f3etturccmp5ovkl@suse.de>
- <Yw88RFuBgc7yFYxA@dhcp22.suse.cz> <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
- <404e947a-e1b2-0fae-8b4f-6f2e3ba6328d@redhat.com> <20220901142345.agkfp2d5lijdp6pt@moria.home.lan>
- <78e55029-0eaf-b4b3-7e86-1086b97c60c6@redhat.com>
-In-Reply-To: <78e55029-0eaf-b4b3-7e86-1086b97c60c6@redhat.com>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 1 Sep 2022 08:39:48 -0700
-Message-ID: <CAJuCfpEgWx4mmiSCvcMOF0+Luyw1w-hVyLV-cvhbxnwsN6qg0g@mail.gmail.com>
-Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-To: David Hildenbrand <david@redhat.com>
-Cc: Kent Overstreet <kent.overstreet@linux.dev>, Michal Hocko <mhocko@suse.com>, 
-	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@suse.cz>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Matthew Wilcox <willy@infradead.org>, 
-	"Liam R. Howlett" <liam.howlett@oracle.com>, David Vernet <void@manifault.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Laurent Dufour <ldufour@linux.ibm.com>, 
-	Peter Xu <peterx@redhat.com>, Jens Axboe <axboe@kernel.dk>, mcgrof@kernel.org, 
-	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com, 
-	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Benjamin Segall <bsegall@google.com>, Daniel Bristot de Oliveira <bristot@redhat.com>, 
-	Valentin Schneider <vschneid@redhat.com>, Christopher Lameter <cl@linux.com>, Pekka Enberg <penberg@kernel.org>, 
-	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com, 
-	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Shakeel Butt <shakeelb@google.com>, Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de, 
-	jbaron@akamai.com, David Rientjes <rientjes@google.com>, Minchan Kim <minchan@google.com>, 
-	Kalesh Singh <kaleshsingh@google.com>, kernel-team <kernel-team@android.com>, 
-	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
-	io-uring@vger.kernel.org, linux-arch@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org, 
-	linux-modules@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.0
+Subject: Re: [PATCH v6 1/9] xen/arm: introduce static shared memory
+Content-Language: en-US
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220721132115.3015761-1-Penny.Zheng@arm.com>
+ <20220721132115.3015761-2-Penny.Zheng@arm.com>
+ <ce6c2e20-2d5f-dccc-e4d0-0e8ce92caeb4@xen.org>
+ <AM0PR08MB453055962750CBD525997CE7F7769@AM0PR08MB4530.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <AM0PR08MB453055962750CBD525997CE7F7769@AM0PR08MB4530.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 1, 2022 at 8:07 AM David Hildenbrand <david@redhat.com> wrote:
->
-> On 01.09.22 16:23, Kent Overstreet wrote:
-> > On Thu, Sep 01, 2022 at 10:05:03AM +0200, David Hildenbrand wrote:
-> >> On 31.08.22 21:01, Kent Overstreet wrote:
-> >>> On Wed, Aug 31, 2022 at 12:47:32PM +0200, Michal Hocko wrote:
-> >>>> On Wed 31-08-22 11:19:48, Mel Gorman wrote:
-> >>>>> Whatever asking for an explanation as to why equivalent functionality
-> >>>>> cannot not be created from ftrace/kprobe/eBPF/whatever is reasonable.
-> >>>>
-> >>>> Fully agreed and this is especially true for a change this size
-> >>>> 77 files changed, 3406 insertions(+), 703 deletions(-)
-> >>>
-> >>> In the case of memory allocation accounting, you flat cannot do this with ftrace
-> >>> - you could maybe do a janky version that isn't fully accurate, much slower,
-> >>> more complicated for the developer to understand and debug and more complicated
-> >>> for the end user.
-> >>>
-> >>> But please, I invite anyone who's actually been doing this with ftrace to
-> >>> demonstrate otherwise.
-> >>>
-> >>> Ftrace just isn't the right tool for the job here - we're talking about adding
-> >>> per callsite accounting to some of the fastest fast paths in the kernel.
-> >>>
-> >>> And the size of the changes for memory allocation accounting are much more
-> >>> reasonable:
-> >>>  33 files changed, 623 insertions(+), 99 deletions(-)
-> >>>
-> >>> The code tagging library should exist anyways, it's been open coded half a dozen
-> >>> times in the kernel already.
-> >>
-> >> Hi Kent,
-> >>
-> >> independent of the other discussions, if it's open coded already, does
-> >> it make sense to factor that already-open-coded part out independently
-> >> of the remainder of the full series here?
-> >
-> > It's discussed in the cover letter, that is exactly how the patch series is
-> > structured.
->
-> Skimming over the patches (that I was CCed on) and skimming over the
-> cover letter, I got the impression that everything after patch 7 is
-> introducing something new instead of refactoring something out.
+Hi Penny,
 
-Hi David,
-Yes, you are right, the RFC does incorporate lots of parts which can
-be considered separately. They are sent together to present the
-overall scope of the proposal but I do intend to send them separately
-once we decide if it's worth working on.
-Thanks,
-Suren.
+On 29/08/2022 07:57, Penny Zheng wrote:
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: Friday, August 26, 2022 9:17 PM
+>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org
+>> Cc: Stefano Stabellini <sstabellini@kernel.org>; Bertrand Marquis
+>> <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+>> <Volodymyr_Babchuk@epam.com>
+>> Subject: Re: [PATCH v6 1/9] xen/arm: introduce static shared memory
+>>
+>> Hi Penny,
+>>
+> 
+> Hi Julien
+>   
+>> On 21/07/2022 14:21, Penny Zheng wrote:
+>>> From: Penny Zheng <penny.zheng@arm.com>
+>>>
+>>> This patch series introduces a new feature: setting up static shared
+>>> memory on a dom0less system, through device tree configuration.
+>>>
+>>> This commit parses shared memory node at boot-time, and reserve it in
+>>> bootinfo.reserved_mem to avoid other use.
+>>>
+>>> This commits proposes a new Kconfig CONFIG_STATIC_SHM to wrap
+>>> static-shm-related codes, and this option depends on static memory(
+>>> CONFIG_STATIC_MEMORY). That's because that later we want to reuse a
+>>> few helpers, guarded with CONFIG_STATIC_MEMORY, like
+>>> acquire_staticmem_pages, etc, on static shared memory.
+>>>
+>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>> ---
+>>> v6 change:
+>>> - when host physical address is ommited, output the error message
+>>> since xen doesn't support it at the moment
+>>> - add the following check: 1) The shm ID matches and the region
+>>> exactly match
+>>> 2) The shm ID doesn't match and the region doesn't overlap
+>>> - change it to "unsigned int" to be aligned with nr_banks
+>>> - check the len of the property to confirm is it big enough to contain
+>>> "paddr", "size", and "gaddr"
+>>> - shm_id defined before nr_shm_domain, so we could re-use the existing
+>>> hole and avoid increasing the size of the structure.
+>>> - change "nr_shm_domain" to "nr_shm_borrowers", to not increment if
+>>> the role is owner in parsing code
+>>> - make "xen,shm_id" property as arbitrary string, with a strict limit
+>>> on the number of characters, MAX_SHM_ID_LENGTH
+>>> ---
+>>> v5 change:
+>>> - no change
+>>> ---
+>>> v4 change:
+>>> - nit fix on doc
+>>> ---
+>>> v3 change:
+>>> - make nr_shm_domain unsigned int
+>>> ---
+>>> v2 change:
+>>> - document refinement
+>>> - remove bitmap and use the iteration to check
+>>> - add a new field nr_shm_domain to keep the number of shared domain
+>>> ---
+>>>    docs/misc/arm/device-tree/booting.txt | 124 ++++++++++++++++++++
+>>>    xen/arch/arm/Kconfig                  |   6 +
+>>>    xen/arch/arm/bootfdt.c                | 157 ++++++++++++++++++++++++++
+>>>    xen/arch/arm/include/asm/setup.h      |   9 ++
+>>>    4 files changed, 296 insertions(+)
+>>>
+>>> diff --git a/docs/misc/arm/device-tree/booting.txt
+>>> b/docs/misc/arm/device-tree/booting.txt
+>>> index 98253414b8..8013fb98fe 100644
+>>> --- a/docs/misc/arm/device-tree/booting.txt
+>>> +++ b/docs/misc/arm/device-tree/booting.txt
+>>> @@ -378,3 +378,127 @@ device-tree:
+>>>
+>>>    This will reserve a 512MB region starting at the host physical address
+>>>    0x30000000 to be exclusively used by DomU1.
+>>> +
+>>> +Static Shared Memory
+>>> +====================
+>>> +
+>>> +The static shared memory device tree nodes allow users to statically
+>>> +set up shared memory on dom0less system, enabling domains to do
+>>> +shm-based communication.
+>>> +
+>>> +- compatible
+>>> +
+>>> +    "xen,domain-shared-memory-v1"
+>>> +
+>>> +- xen,shm-id
+>>> +
+>>> +    An arbitrary string that represents the unique identifier of the shared
+>>> +    memory region, with a strict limit on the number of characters(\0
+>> included),
+>>> +    `MAX_SHM_ID_LENGTH(16)`. e.g. "xen,shm-id = "my-shared-mem-1"".
+>>> +
+>>> +- xen,shared-mem
+>>> +
+>>> +    An array takes a physical address, which is the base address of the
+>>> +    shared memory region in host physical address space, a size, and a
+>> guest
+>>> +    physical address, as the target address of the mapping.
+>>> +    e.g. xen,shared-mem = < [host physical address] [size] [guest
+>>> + address] >
+>>
+>> Your implementation below is checking for overlap and also have some
+>> restriction. Can they be documented in the binding?
+>>
+>>> +
+>>> +    The number of cells for the host address (and size) is the same as the
+>>> +    guest pseudo-physical address and they are inherited from the parent
+>> node.
+>>
+>> In v5, we discussed to have the host address optional. However, the binding
+>> has not been updated to reflect that. Note that I am not asking to implement,
+>> but instead request that the binding can be used for such setup.
+>>
+> 
+> How about:
+> "
+> Host physical address could be omitted by users, and let Xen decide where it locates.
+> "
 
->
-> >
-> >> [I didn't immediately spot if this series also attempts already to
-> >> replace that open-coded part]
-> >
-> > Uh huh.
-> >
-> > Honestly, some days it feels like lkml is just as bad as slashdot, with people
-> > wanting to get in their two cents without actually reading...
->
-> ... and of course you had to reply like that. I should just have learned
-> from my last upstream experience with you and kept you on my spam list.
->
-> Thanks, bye
->
-> --
-> Thanks,
->
-> David / dhildenb
->
+I am fine with that.
+
+> Do you think I shall further point out that right now, this part feature is not implemented
+> in codes?
+
+I have made a couple of suggestion for the code. But I think the binding 
+would look a bit odd without the host physical address. We would now have:
+
+< [size] [guest address]>
+
+I think it would be more natural if we had
+
+<[guest address] [size]>
+
+And
+
+<[guest address] [size] [host physical address]>
+
+> 
+>>> a/xen/arch/arm/include/asm/setup.h
+>> b/xen/arch/arm/include/asm/setup.h
+>>> index 2bb01ecfa8..39d4e93b8b 100644
+>>> --- a/xen/arch/arm/include/asm/setup.h
+>>> +++ b/xen/arch/arm/include/asm/setup.h
+>>> @@ -23,10 +23,19 @@ typedef enum {
+>>>    }  bootmodule_kind;
+>>>
+>>>
+>>> +#ifdef CONFIG_STATIC_SHM
+>>> +/* Indicates the maximum number of characters(\0 included) for shm_id
+>>> +*/ #define MAX_SHM_ID_LENGTH 16 #endif
+>>
+>> Is the #ifdef really needed?
+>>
+>>> +
+>>>    struct membank {
+>>>        paddr_t start;
+>>>        paddr_t size;
+>>>        bool xen_domain; /* whether the memory bank is bound to a Xen
+>>> domain. */
+>>> +#ifdef CONFIG_STATIC_SHM
+>>> +    char shm_id[MAX_SHM_ID_LENGTH];
+>>> +    unsigned int nr_shm_borrowers;
+>>> +#endif
+>>>    };
+>>
+>> If I calculated right, the structure will grow from 24 to 40 bytes. At the
+>> moment, this is protected with CONFIG_STATIC_SHM which is unsupported.
+>> However, I think we will need to do something as we can't continue to grow
+>> 'membank' like that.
+>>
+>> I don't have a quick suggestion for 4.17 (the feature freeze is in a week). Long
+>> term, I think we will want to consider to move the shm ID in a separate array
+>> that could be referenced here.
+>>
+>> The other solution would be to have the shared memory regions in a
+>> separate array. They would have their own structure which would either
+>> embedded "membank" or contain a pointer/index to the bank.
+>>
+> 
+> Ok, so other than this fixing, others will be addressed in the next serie. And this
+> part fixing will be introduced in a new follow-up patch serie after 4.17 release.
+> 
+> I'm in favor of introducing a new structure to contain shm-related data and let
+> 'membank' contains a pointer to it, like
+> ```
+>   +struct shm_membank {
+> +    char shm_id[MAX_SHM_ID_LENGTH];
+> +    unsigned int nr_shm_borrowers;
+> +}
+> +
+>   struct membank {
+>       paddr_t start;
+>       paddr_t size;
+>       bool xen_domain; /* whether the memory bank is bound to a Xen domain. */
+> +    struct shm_membank *shm;
+>   };
+> ```
+> Then every time we introduce a new feature here, following this strategy, 'membank' will
+> at most grow 8 bytes for the reference.
+
+Be aware that we are very early in Xen and therefore dynamically 
+allocating memory is not possible. Therefore 'shm_membank' would most 
+likely need to be static.
+
+At which point, this could be an index.
+
+> 
+> I'm open to the discussion and will let it decide what it finally will be. ;)
+
+My original idea was to have 'shm_membank' pointing to the 'membank' 
+rather than the other way around. But I don't have a strong argument 
+either way.
+
+So I would need to see the resulting code. Anyway, that's for post-4.17.
+
+Cheers,
+
+-- 
+Julien Grall
 
