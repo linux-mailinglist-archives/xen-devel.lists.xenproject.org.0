@@ -2,43 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 002805A90C0
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 09:43:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396294.636391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 351EB5A917A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 10:02:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396312.636404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTeqw-0000Vr-Qf; Thu, 01 Sep 2022 07:43:06 +0000
+	id 1oTf91-0003V7-U6; Thu, 01 Sep 2022 08:01:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396294.636391; Thu, 01 Sep 2022 07:43:06 +0000
+Received: by outflank-mailman (output) from mailman id 396312.636404; Thu, 01 Sep 2022 08:01:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTeqw-0000T6-Nv; Thu, 01 Sep 2022 07:43:06 +0000
-Received: by outflank-mailman (input) for mailman id 396294;
- Thu, 01 Sep 2022 07:43:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nAYD=ZE=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1oTeqv-0000Ss-Ho
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 07:43:05 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b467620a-29c9-11ed-934f-f50d60e1c1bd;
- Thu, 01 Sep 2022 09:43:04 +0200 (CEST)
-Received: from j130084.upc-j.chello.nl ([24.132.130.84]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1oTeqK-008Lun-Me; Thu, 01 Sep 2022 07:42:29 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 42B7B3004C3;
- Thu,  1 Sep 2022 09:42:27 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 344DD2B871FC3; Thu,  1 Sep 2022 09:42:27 +0200 (CEST)
+	id 1oTf91-0003T9-RH; Thu, 01 Sep 2022 08:01:47 +0000
+Received: by outflank-mailman (input) for mailman id 396312;
+ Thu, 01 Sep 2022 08:01:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1oTf90-0003T3-RQ
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 08:01:46 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oTf8z-00071U-Lu; Thu, 01 Sep 2022 08:01:45 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.12.167]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oTf8z-00068V-DH; Thu, 01 Sep 2022 08:01:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,66 +39,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b467620a-29c9-11ed-934f-f50d60e1c1bd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=3R95H7o4Ps0Xt8Fb2RGRK8ftexUpMSTfRccKzarlwv8=; b=cEnZuv0S8882sMY0V4idR0aM/6
-	NqpoeC6HiiPZCRZB+q7pbcmjTYQVGKdLFuTqWdD9tmZbQHkl7gb/6TKBz1e8MgkX++zFc6yHPCNUW
-	bF6DamNCBPgsv8c5UHXFsxGkgdo7kirLBRuOzs8d0ba612Y0O3wFEdbPjoyu0lGF3zXvBlqZddz+S
-	SWvUETxD7iVku0Jt2FQC4wu6ha6Jn/Ir6zDNcVvdMDjBBsn19vlk5tNNqFTmcAHigv3R4+n+4+5j8
-	xTOiNNQQ6LoUNOPzLwFnQUrP5b7WKw+VwsS5V6FUynhnpOpiazug3AhcURUgxPCTLrmgmxVUKs64W
-	VGRwP+zg==;
-Date: Thu, 1 Sep 2022 09:42:27 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kent Overstreet <kent.overstreet@linux.dev>
-Cc: Mel Gorman <mgorman@suse.de>, Suren Baghdasaryan <surenb@google.com>,
-	akpm@linux-foundation.org, mhocko@suse.com, vbabka@suse.cz,
-	hannes@cmpxchg.org, roman.gushchin@linux.dev, dave@stgolabs.net,
-	willy@infradead.org, liam.howlett@oracle.com, void@manifault.com,
-	juri.lelli@redhat.com, ldufour@linux.ibm.com, peterx@redhat.com,
-	david@redhat.com, axboe@kernel.dk, mcgrof@kernel.org,
-	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
-	ytcoode@gmail.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	bristot@redhat.com, vschneid@redhat.com, cl@linux.com,
-	penberg@kernel.org, iamjoonsoo.kim@lge.com, 42.hyeyoo@gmail.com,
-	glider@google.com, elver@google.com, dvyukov@google.com,
-	shakeelb@google.com, songmuchun@bytedance.com, arnd@arndb.de,
-	jbaron@akamai.com, rientjes@google.com, minchan@google.com,
-	kaleshsingh@google.com, kernel-team@android.com, linux-mm@kvack.org,
-	iommu@lists.linux.dev, kasan-dev@googlegroups.com,
-	io-uring@vger.kernel.org, linux-arch@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-Message-ID: <YxBiY5hDUSE4ZqKM@hirez.programming.kicks-ass.net>
-References: <20220830214919.53220-1-surenb@google.com>
- <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
- <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
- <20220831101948.f3etturccmp5ovkl@suse.de>
- <20220831155941.q5umplytbx6offku@moria.home.lan>
- <YxBZv1pZ6N2vwcP3@hirez.programming.kicks-ass.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=/4YkO97ZB0+YoJBbEkhrVQnDzircAx4hOywRswGhpL0=; b=NKRnPbdEsufPgxbDJTF5oFMu2G
+	0muY5gJRVLICZiX6yQbY9fez6n70lesv7burqiCyFLRr3DI60m6G6BHqe4lDXujhwqQukwDNu//l/
+	QZWydy9lzdQuHkVttRsxmWt79A54Zk9ORzLWvUnm9vBHA8Y6UAt6FslD3S5oj9YZA3pM=;
+Message-ID: <93678e83-cec1-7e5f-89da-074480efa9d5@xen.org>
+Date: Thu, 1 Sep 2022 09:01:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YxBZv1pZ6N2vwcP3@hirez.programming.kicks-ass.net>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.0
+Subject: Re: [PATCH v11 0/6] populate/unpopulate memory when domain on static
+ allocation
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Penny Zheng <Penny.Zheng@arm.com>
+Cc: xen-devel@lists.xenproject.org, wei.chen@arm.com,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <20220831024041.468757-1-Penny.Zheng@arm.com>
+ <alpine.DEB.2.22.394.2208311542310.2375071@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2208311542310.2375071@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 01, 2022 at 09:05:36AM +0200, Peter Zijlstra wrote:
-> On Wed, Aug 31, 2022 at 11:59:41AM -0400, Kent Overstreet wrote:
-> 
-> > Also, ftrace can drop events. Not really ideal if under system load your memory
-> > accounting numbers start to drift.
-> 
-> You could attach custom handlers to tracepoints. If you were to replace
-> these unconditional code hooks of yours with tracepoints then you could
-> conditionally (say at boot) register custom handlers that do the
-> accounting you want.
-> 
-> Nobody is mandating you use the ftrace ringbuffer to consume tracepoints.
-> Many people these days attach eBPF scripts to them and do whatever they
-> want.
+Hi Stefano,
 
-Look at kernel/trace/blktrace.c for a fine in-kernel !BFP example of this.
+On 31/08/2022 23:44, Stefano Stabellini wrote:
+> I looked at the series and patches 1-5 are ready to be committed.
+> 
+> Patch 6 needs an Ack, preferably from Jan as Jan had questions on this
+> patch in v9.
+> 
+> I plan to commit patches 1-5 in the next couple of days (and ideally
+> patch 6 too if an Ack comes from Jan).
+
+IIRC Jan is away this week. So I will have a look at the patch later today.
+
+Please don't commit patch #1-5 until patch #6 is ready as they don't 
+make sense to be merged alone.
+
+Cheers,
+
+-- 
+Julien Grall
 
