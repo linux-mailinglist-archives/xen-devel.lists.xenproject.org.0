@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2380A5AA316
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 00:31:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396974.637390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E65335AA326
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 00:34:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396985.637401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTshv-0000Nf-Or; Thu, 01 Sep 2022 22:30:43 +0000
+	id 1oTslH-00014f-Ci; Thu, 01 Sep 2022 22:34:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396974.637390; Thu, 01 Sep 2022 22:30:43 +0000
+Received: by outflank-mailman (output) from mailman id 396985.637401; Thu, 01 Sep 2022 22:34:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTshv-0000LA-L5; Thu, 01 Sep 2022 22:30:43 +0000
-Received: by outflank-mailman (input) for mailman id 396974;
- Thu, 01 Sep 2022 22:30:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oTslH-00011P-9s; Thu, 01 Sep 2022 22:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 396985;
+ Thu, 01 Sep 2022 22:34:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTshu-0000L0-9q; Thu, 01 Sep 2022 22:30:42 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTshu-0005tT-56; Thu, 01 Sep 2022 22:30:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oTsht-0000dk-Ov; Thu, 01 Sep 2022 22:30:41 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oTsht-0000Ex-OV; Thu, 01 Sep 2022 22:30:41 +0000
+ (envelope-from <SRS0=hZ//=ZE=goodmis.org=rostedt@kernel.org>)
+ id 1oTslF-00011I-Nl
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 22:34:09 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2fd40133-2a46-11ed-934f-f50d60e1c1bd;
+ Fri, 02 Sep 2022 00:34:06 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7F34562017;
+ Thu,  1 Sep 2022 22:34:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A46C433C1;
+ Thu,  1 Sep 2022 22:33:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,247 +44,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=r/n7mjhMolTf8AsiGp5nNX0OnPWVFHULOsUSDQ6AxBk=; b=NksrGA/vf5Jm9XsLmjOnvqGCNE
-	6aaEFrIc9cxwUoq8QB2Ezw5qhSk1mtCkxzr/cwp8w1gNj+4eBK7a7WszQzlbkh3wCq9J9WozUNVzq
-	rVDzAXYRDjMvUIfdL+CQegCOwdjggF/9wKjrgR5iP/WO0R0UuOtqZZ9JRlGdsBQiJcoA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172911-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2fd40133-2a46-11ed-934f-f50d60e1c1bd
+Date: Thu, 1 Sep 2022 18:34:30 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
+ mhocko@suse.com, vbabka@suse.cz, hannes@cmpxchg.org,
+ roman.gushchin@linux.dev, mgorman@suse.de, dave@stgolabs.net,
+ willy@infradead.org, liam.howlett@oracle.com, void@manifault.com,
+ peterz@infradead.org, juri.lelli@redhat.com, ldufour@linux.ibm.com,
+ peterx@redhat.com, david@redhat.com, axboe@kernel.dk, mcgrof@kernel.org,
+ masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
+ ytcoode@gmail.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+ bsegall@google.com, bristot@redhat.com, vschneid@redhat.com, cl@linux.com,
+ penberg@kernel.org, iamjoonsoo.kim@lge.com, 42.hyeyoo@gmail.com,
+ glider@google.com, elver@google.com, dvyukov@google.com,
+ shakeelb@google.com, songmuchun@bytedance.com, arnd@arndb.de,
+ jbaron@akamai.com, rientjes@google.com, minchan@google.com,
+ kaleshsingh@google.com, kernel-team@android.com, linux-mm@kvack.org,
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com,
+ io-uring@vger.kernel.org, linux-arch@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 27/30] Code tagging based latency tracking
+Message-ID: <20220901183430.120311ce@gandalf.local.home>
+In-Reply-To: <20220901215438.gy3bgqa4ghhm6ztm@moria.home.lan>
+References: <20220830214919.53220-1-surenb@google.com>
+	<20220830214919.53220-28-surenb@google.com>
+	<20220901173844.36e1683c@gandalf.local.home>
+	<20220901215438.gy3bgqa4ghhm6ztm@moria.home.lan>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Subject: [linux-linus test] 172911: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-amd64-libvirt:libvirt-build:fail:regression
-    linux-linus:build-arm64-libvirt:libvirt-build:fail:regression
-    linux-linus:build-i386-libvirt:libvirt-build:fail:regression
-    linux-linus:build-armhf-libvirt:libvirt-build:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=c5e4d5e99162ba8025d58a3af7ad103f155d2df7
-X-Osstest-Versions-That:
-    linux=b44f2fd87919b5ae6e1756d4c7ba2cbba22238e1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 01 Sep 2022 22:30:41 +0000
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-flight 172911 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172911/
+On Thu, 1 Sep 2022 17:54:38 -0400
+Kent Overstreet <kent.overstreet@linux.dev> wrote:
+> 
+> So this looks like it's gotten better since I last looked, but it's still not
+> there yet.
+> 
+> Part of the problem is that the tracepoints themselves are in the wrong place:
+> your end event is when a task is woken up, but that means spurious wakeups will
 
-Regressions :-(
+The end event is when a task is scheduled onto the CPU. The start event is
+the first time it is woken up.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172133
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 172133
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172133
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 172133
+> cause one wait_event() call to be reported as multiple smaller waits, not one
+> long wait - oops, now I can't actually find the thing that's causing my
+> multi-second delay.
+> 
+> Also, in your example you don't have it broken out by callsite. That would be
+> the first thing I'd need for any real world debugging.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172133
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172133
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172133
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172133
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172133
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+OK, how about this (currently we can only have 3 keys, but you can create
+multiple histograms on the same event).
 
-version targeted for testing:
- linux                c5e4d5e99162ba8025d58a3af7ad103f155d2df7
-baseline version:
- linux                b44f2fd87919b5ae6e1756d4c7ba2cbba22238e1
+ # echo 'hist:keys=comm,stacktrace,delta.buckets=10:sort=delta' > /sys/kernel/tracing/events/synthetic/wakeup_lat/trigger
 
-Last test of basis   172133  2022-08-04 05:14:48 Z   28 days
-Failing since        172152  2022-08-05 04:01:26 Z   27 days   63 attempts
-Testing same since   172902  2022-08-31 23:12:06 Z    0 days    2 attempts
+(notice the "stacktrace" in the keys)
 
-------------------------------------------------------------
-1599 people touched revisions under test,
-not listing them all
+# cat /sys/kernel/tracing/events/synthetic/wakeup_lat/hist
+# event histogram
+#
+# trigger info: hist:keys=comm,stacktrace,delta.buckets=10:vals=hitcount:sort=delta.buckets=10:size=2048 [active]
+#
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-amd64-amd64-libvirt-raw                                 blocked 
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+{ comm: migration/2                                       , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 10-19} hitcount:          7
+{ comm: migration/5                                       , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 10-19} hitcount:          7
+{ comm: migration/1                                       , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 10-19} hitcount:          7
+{ comm: migration/7                                       , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 10-19} hitcount:          7
+{ comm: migration/0                                       , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         start_kernel+0x595/0x5be
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 10-19} hitcount:          7
+{ comm: migration/4                                       , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 10-19} hitcount:          7
+{ comm: rtkit-daemon                                      , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         preempt_schedule_common+0x2d/0x70
+         preempt_schedule_thunk+0x16/0x18
+         _raw_spin_unlock_irq+0x2e/0x40
+         eventfd_write+0xc8/0x290
+         vfs_write+0xc0/0x2a0
+         ksys_write+0x5f/0xe0
+         do_syscall_64+0x3b/0x90
+         entry_SYSCALL_64_after_hwframe+0x61/0xcb
+, delta: ~ 10-19} hitcount:          1
+{ comm: migration/6                                       , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 10-19} hitcount:          7
+{ comm: rtkit-daemon                                      , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 20-29} hitcount:          1
+{ comm: rtkit-daemon                                      , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         preempt_schedule_common+0x2d/0x70
+         preempt_schedule_thunk+0x16/0x18
+         _raw_spin_unlock_irq+0x2e/0x40
+         eventfd_write+0xc8/0x290
+         vfs_write+0xc0/0x2a0
+         ksys_write+0x5f/0xe0
+         do_syscall_64+0x3b/0x90
+         entry_SYSCALL_64_after_hwframe+0x61/0xcb
+, delta: ~ 30-39} hitcount:          1
+{ comm: rtkit-daemon                                      , stacktrace:
+         event_hist_trigger+0x290/0x2b0
+         event_triggers_call+0x52/0xe0
+         trace_event_buffer_commit+0x193/0x240
+         trace_event_raw_event_sched_switch+0x120/0x180
+         __traceiter_sched_switch+0x39/0x50
+         __schedule+0x310/0x700
+         schedule_idle+0x26/0x40
+         do_idle+0xb4/0xd0
+         cpu_startup_entry+0x19/0x20
+         secondary_startup_64_no_verify+0xc2/0xcb
+, delta: ~ 40-49} hitcount:          1
+
+Totals:
+    Hits: 53
+    Entries: 11
+    Dropped: 0
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Not the prettiest thing to read. But hey, we got the full stack of where
+these latencies happened!
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Yes, it adds some overhead when the events are triggered due to the
+stacktrace code, but it's extremely useful information.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> 
+> So, it looks like tracing has made some progress over the past 10 years,
+> but for debugging latency issues it's still not there yet in general. I
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I call BS on that statement. Just because you do not know what has been
+added to the kernel in the last 10 years (like you had no idea about
+seq_buf and that was added in 2014) means to me that you are totally
+clueless on what tracing can and can not do.
+
+It appears to me that you are too focused on inventing your own wheel that
+does exactly what you want before looking to see how things are today. Just
+because something didn't fit your needs 10 years ago doesn't mean that it
+can't fit your needs today.
 
 
-Not pushing.
+> will definitely remember function latency tracing the next time I'm doing
+> performance work, but I expect that to be far too heavy to enable on a
+> live server.
 
-(No revision log; it would be 165102 lines long.)
+I run it on production machines all the time. With the filtering in place
+it has very little overhead. Mostly in the noise. The best part is that it
+has practically zero overhead (but can add some cache pressure) when it's
+off, and can be turned on at run time.
+
+The tracing infrastructure is very modular, you can use parts of it that
+you need, without the overhead of other parts. Like you found out this week
+that tracepoints are not the same as trace events. Because tracepoints are
+just a hook in the code that anything can attach to (that's what Daniel's
+RV work does). Trace events provide the stored data to be recorded.
+
+I will note that the current histogram code overhead has increased due to
+retpolines, but I have code to convert them from indirect calls to direct
+calls via a switch statement which drops the overhead by 20%!
+
+  https://lore.kernel.org/all/20220823214606.344269352@goodmis.org/
+
+
+> 
+> This thing is only a couple hundred lines of code though, so perhaps
+> tracing shouldn't be the only tool in our toolbox :)
+
+I'm already getting complaints from customers/users that are saying there's
+too many tools in the toolbox already. (Do we use ftrace/perf/bpf?). The
+idea is to have the tools using mostly the same infrastructure, and not be
+100% off on its own, unless there's a clear reason to invent a new wheel
+that several people are asking for, not just one or two.
+
+-- Steve
 
