@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42D155AA739
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 07:29:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396972.637836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0A355AA73B
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 07:29:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.397000.637843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTzED-0003FB-D6; Fri, 02 Sep 2022 05:28:29 +0000
+	id 1oTzED-0003Le-Nm; Fri, 02 Sep 2022 05:28:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396972.637836; Fri, 02 Sep 2022 05:28:29 +0000
+Received: by outflank-mailman (output) from mailman id 397000.637843; Fri, 02 Sep 2022 05:28:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTzED-0003Cs-9Z; Fri, 02 Sep 2022 05:28:29 +0000
-Received: by outflank-mailman (input) for mailman id 396972;
- Thu, 01 Sep 2022 22:27:55 +0000
+	id 1oTzED-0003F9-Hx; Fri, 02 Sep 2022 05:28:29 +0000
+Received: by outflank-mailman (input) for mailman id 397000;
+ Thu, 01 Sep 2022 22:54:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M97J=ZE=linux.dev=roman.gushchin@srs-se1.protection.inumbo.net>)
- id 1oTsfC-0007tv-Sa
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 22:27:55 +0000
-Received: from out2.migadu.com (out2.migadu.com [188.165.223.204])
+ id 1oTt4s-0003zw-D8
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 22:54:26 +0000
+Received: from out1.migadu.com (out1.migadu.com [91.121.223.63])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 518cf5af-2a45-11ed-82f2-63bd783d45fa;
- Fri, 02 Sep 2022 00:27:53 +0200 (CEST)
+ id 059e4dde-2a49-11ed-82f2-63bd783d45fa;
+ Fri, 02 Sep 2022 00:54:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,23 +36,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 518cf5af-2a45-11ed-82f2-63bd783d45fa
-Date: Thu, 1 Sep 2022 15:27:27 -0700
+X-Inumbo-ID: 059e4dde-2a49-11ed-82f2-63bd783d45fa
+Date: Thu, 1 Sep 2022 15:53:57 -0700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1662071272;
+	t=1662072863;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=b1dqv/ByZCeKtjIN7qAh4WTPe6OgIYJaSbL14h63ejE=;
-	b=bPfcK47fQmtHNFob8GO9qIi7EZXfoe+hOaMo2O4o8g+RsQj0PRQRLbLh445WIZSWHQmRJV
-	LBroBJTCjF+9G5EQfhS7vnCo2+GliQ+zE+1OzI+y/mfqfGmc828gVfAcGLWPRyK/BsjEWu
-	UCE5u2mL8EZXYlZBvRfTopuCwq247po=
+	bh=HsNTuFQ7XbCclBZlUbN3U5MkNcD4kydlxiKj9ag/mqM=;
+	b=oPzrWlMu1zttBKXqMooMVKLQBDEeBWlyjX9vsDJkAXG+i91talZG3CnOLGZqJ/j7NVGRKB
+	wZTWLVRasLoef5Won/PgGguSqmh0FC7JUNFBw6OgxkY16iM6YRuGaquB3T/TIBb4G8gtzw
+	fhM8xA0vhhBp50IAflanG0eJ5LKzxK0=
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 From: Roman Gushchin <roman.gushchin@linux.dev>
-To: Yosry Ahmed <yosryahmed@google.com>
-Cc: Kent Overstreet <kent.overstreet@linux.dev>,
-	Michal Hocko <mhocko@suse.com>, Mel Gorman <mgorman@suse.de>,
-	Peter Zijlstra <peterz@infradead.org>,
+To: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Yosry Ahmed <yosryahmed@google.com>, Michal Hocko <mhocko@suse.com>,
+	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>,
 	Suren Baghdasaryan <surenb@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Vlastimil Babka <vbabka@suse.cz>,
@@ -78,7 +77,7 @@ Cc: Kent Overstreet <kent.overstreet@linux.dev>,
 	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
 	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-Message-ID: <YxExz+c1k3nbQMh4@P9FQF9L96D.corp.robot.car>
+Message-ID: <YxE4BXw5i+BkxxD8@P9FQF9L96D.corp.robot.car>
 References: <20220830214919.53220-1-surenb@google.com>
  <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
  <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
@@ -86,66 +85,61 @@ References: <20220830214919.53220-1-surenb@google.com>
  <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
  <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
  <CAJD7tkaev9B=UDYj2RL6pz-1454J8tv4gEr9y-2dnCksoLK0bw@mail.gmail.com>
+ <YxExz+c1k3nbQMh4@P9FQF9L96D.corp.robot.car>
+ <20220901223720.e4gudprscjtwltif@moria.home.lan>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAJD7tkaev9B=UDYj2RL6pz-1454J8tv4gEr9y-2dnCksoLK0bw@mail.gmail.com>
+In-Reply-To: <20220901223720.e4gudprscjtwltif@moria.home.lan>
 X-Migadu-Flow: FLOW_OUT
 X-Migadu-Auth-User: linux.dev
 
-On Wed, Aug 31, 2022 at 01:56:08PM -0700, Yosry Ahmed wrote:
-> On Wed, Aug 31, 2022 at 12:02 PM Kent Overstreet
-> <kent.overstreet@linux.dev> wrote:
-> >
-> > On Wed, Aug 31, 2022 at 12:47:32PM +0200, Michal Hocko wrote:
-> > > On Wed 31-08-22 11:19:48, Mel Gorman wrote:
-> > > > Whatever asking for an explanation as to why equivalent functionality
-> > > > cannot not be created from ftrace/kprobe/eBPF/whatever is reasonable.
-> > >
-> > > Fully agreed and this is especially true for a change this size
-> > > 77 files changed, 3406 insertions(+), 703 deletions(-)
-> >
-> > In the case of memory allocation accounting, you flat cannot do this with ftrace
-> > - you could maybe do a janky version that isn't fully accurate, much slower,
-> > more complicated for the developer to understand and debug and more complicated
-> > for the end user.
-> >
-> > But please, I invite anyone who's actually been doing this with ftrace to
-> > demonstrate otherwise.
-> >
-> > Ftrace just isn't the right tool for the job here - we're talking about adding
-> > per callsite accounting to some of the fastest fast paths in the kernel.
-> >
-> > And the size of the changes for memory allocation accounting are much more
-> > reasonable:
-> >  33 files changed, 623 insertions(+), 99 deletions(-)
-> >
-> > The code tagging library should exist anyways, it's been open coded half a dozen
-> > times in the kernel already.
-> >
-> > And once we've got that, the time stats code is _also_ far simpler than doing it
-> > with ftrace would be. If anyone here has successfully debugged latency issues
-> > with ftrace, I'd really like to hear it. Again, for debugging latency issues you
-> > want something that can always be on, and that's not cheap with ftrace - and
-> > never mind the hassle of correlating start and end wait trace events, builting
-> > up histograms, etc. - that's all handled here.
-> >
-> > Cheap, simple, easy to use. What more could you want?
-> >
+On Thu, Sep 01, 2022 at 06:37:20PM -0400, Kent Overstreet wrote:
+> On Thu, Sep 01, 2022 at 03:27:27PM -0700, Roman Gushchin wrote:
+> > On Wed, Aug 31, 2022 at 01:56:08PM -0700, Yosry Ahmed wrote:
+> > > This is very interesting work! Do you have any data about the overhead
+> > > this introduces, especially in a production environment? I am
+> > > especially interested in memory allocations tracking and detecting
+> > > leaks.
+> > 
+> > +1
+> > 
+> > I think the question whether it indeed can be always turned on in the production
+> > or not is the main one. If not, the advantage over ftrace/bpf/... is not that
+> > obvious. Otherwise it will be indeed a VERY useful thing.
 > 
-> This is very interesting work! Do you have any data about the overhead
-> this introduces, especially in a production environment? I am
-> especially interested in memory allocations tracking and detecting
-> leaks.
+> Low enough overhead to run in production was my primary design goal.
+> 
+> Stats are kept in a struct that's defined at the callsite. So this adds _no_
+> pointer chasing to the allocation path, unless we've switch to percpu counters
+> at that callsite (see the lazy percpu counters patch), where we need to deref
+> one percpu pointer to save an atomic.
+> 
+> Then we need to stash a pointer to the alloc_tag, so that kfree() can find it.
+> For slab allocations this uses the same storage area as memcg, so for
+> allocations that are using that we won't be touching any additional cachelines.
+> (I wanted the pointer to the alloc_tag to be stored inline with the allocation,
+> but that would've caused alignment difficulties).
+> 
+> Then there's a pointer deref introduced to the kfree() path, to get back to the
+> original alloc_tag and subtract the allocation from that callsite. That one
+> won't be free, and with percpu counters we've got another dependent load too -
+> hmm, it might be worth benchmarking with just atomics, skipping the percpu
+> counters.
+> 
+> So the overhead won't be zero, I expect it'll show up in some synthetic
+> benchmarks, but yes I do definitely expect this to be worth enabling in
+> production in many scenarios.
 
-+1
+I'm somewhat sceptical, but I usually am. And in this case I'll be really happy
+to be wrong.
 
-I think the question whether it indeed can be always turned on in the production
-or not is the main one. If not, the advantage over ftrace/bpf/... is not that
-obvious. Otherwise it will be indeed a VERY useful thing.
+On a bright side, maybe most of the overhead will come from few allocations,
+so an option to explicitly exclude them will do the trick.
 
-Also, there is a lot of interesting stuff within this patchset, which
-might be useful elsewhere. So thanks to Kent and Suren for this work!
+I'd suggest to run something like iperf on a fast hardware. And maybe some
+io_uring stuff too. These are two places which were historically most sensitive
+to the (kernel) memory accounting speed.
 
 Thanks!
 
