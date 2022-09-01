@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD8215A9D2B
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 18:33:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396846.637190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C078E5A9DC5
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 19:09:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396852.637202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTn6v-0008BA-6D; Thu, 01 Sep 2022 16:32:09 +0000
+	id 1oTngP-0003Ar-0u; Thu, 01 Sep 2022 17:08:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396846.637190; Thu, 01 Sep 2022 16:32:09 +0000
+Received: by outflank-mailman (output) from mailman id 396852.637202; Thu, 01 Sep 2022 17:08:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTn6v-00088X-3G; Thu, 01 Sep 2022 16:32:09 +0000
-Received: by outflank-mailman (input) for mailman id 396846;
- Thu, 01 Sep 2022 16:32:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oTngO-00037O-UN; Thu, 01 Sep 2022 17:08:48 +0000
+Received: by outflank-mailman (input) for mailman id 396852;
+ Thu, 01 Sep 2022 17:08:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j4CE=ZE=linux.dev=kent.overstreet@srs-se1.protection.inumbo.net>)
- id 1oTn6s-00088R-FK
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 16:32:06 +0000
-Received: from out1.migadu.com (out1.migadu.com [91.121.223.63])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c0d35bc-2a13-11ed-82f2-63bd783d45fa;
- Thu, 01 Sep 2022 18:32:03 +0200 (CEST)
+ <SRS0=5F1A=ZE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oTngN-00037F-Af
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 17:08:47 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bc40969f-2a18-11ed-934f-f50d60e1c1bd;
+ Thu, 01 Sep 2022 19:08:45 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E32CB61FD9;
+ Thu,  1 Sep 2022 17:08:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C0EC433D6;
+ Thu,  1 Sep 2022 17:08:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,164 +43,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c0d35bc-2a13-11ed-82f2-63bd783d45fa
-Date: Thu, 1 Sep 2022 12:31:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1662049922;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lF0nzK0I3dkKY+VmvooE06KpjT5GF7za7apoY2ziCzA=;
-	b=b+mGQz7e+S8nXflcP/Umq6k8mCFjCcajhS+oAKrOSAu3dWGCTZFUhafPBFCwtky43SVO1A
-	9liE+TRIsb/HqXx3Llx9NtT4cCnU5G225wc5/aVXkK7HBe0kN/DeWe/oPRR6yMuknOrEyX
-	Th1UnEJvMcgJF/T8At8EC/TVB4d1otU=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Kent Overstreet <kent.overstreet@linux.dev>
-To: Mel Gorman <mgorman@suse.de>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
-	mhocko@suse.com, vbabka@suse.cz, hannes@cmpxchg.org,
-	roman.gushchin@linux.dev, dave@stgolabs.net, willy@infradead.org,
-	liam.howlett@oracle.com, void@manifault.com, juri.lelli@redhat.com,
-	ldufour@linux.ibm.com, peterx@redhat.com, david@redhat.com,
-	axboe@kernel.dk, mcgrof@kernel.org, masahiroy@kernel.org,
-	nathan@kernel.org, changbin.du@intel.com, ytcoode@gmail.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, bristot@redhat.com,
-	vschneid@redhat.com, cl@linux.com, penberg@kernel.org,
-	iamjoonsoo.kim@lge.com, 42.hyeyoo@gmail.com, glider@google.com,
-	elver@google.com, dvyukov@google.com, shakeelb@google.com,
-	songmuchun@bytedance.com, arnd@arndb.de, jbaron@akamai.com,
-	rientjes@google.com, minchan@google.com, kaleshsingh@google.com,
-	kernel-team@android.com, linux-mm@kvack.org, iommu@lists.linux.dev,
-	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
-	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-Message-ID: <20220901163155.sz4dqtubicdvzmsw@moria.home.lan>
-References: <20220830214919.53220-1-surenb@google.com>
- <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
- <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
- <20220831101948.f3etturccmp5ovkl@suse.de>
- <20220831155941.q5umplytbx6offku@moria.home.lan>
- <20220901110501.o5rq5yzltomirxiw@suse.de>
+X-Inumbo-ID: bc40969f-2a18-11ed-934f-f50d60e1c1bd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1662052123;
+	bh=VpjvON3sVPsd8U1rNg088Qqso0kdxHxvxaDSoUjwo6Q=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=JPOXyE/1a34n0qCijYduvy1yyOHswBgj6+ZbJvhWZi67Scw8XpCocJkIcOWFjsd5r
+	 YTnnQxsSwiGXNW6iLB88dwKibViXWklPk9pnDlV0TLEH4fJwyd48Gu3Sq74c/FaI1F
+	 4uSwWkVX5pX762uj1qDQ4egLxrrHbHQRLU4OK9yOjUVzjBtWORO8tZxoskrlE5jXqP
+	 6aUqWvqm+Rv2WzZx1zmRYkr2t8X2ESgV0STlyAeN+F7aPiJx9WBoYykvk5lQ+WiwQp
+	 +WiuuMwRPjNsxd6ZEwZrM1mbK+cuIG9HXwAowN8nLX0GwJ8xTTgYhtCHrcIteTba3d
+	 FD2C6COKiTGxQ==
+Date: Thu, 1 Sep 2022 10:08:42 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Henry Wang <Henry.Wang@arm.com>
+cc: Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: RE: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and heap
+ allocator
+In-Reply-To: <AS8PR08MB79913A96E64B31A02C985EB5927B9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2209011003570.2375071@ubuntu-linux-20-04-desktop>
+References: <20220824073127.16762-1-Henry.Wang@arm.com> <20220824073127.16762-3-Henry.Wang@arm.com> <50bc7ce9-dc98-127b-d0db-40bf82929fc7@xen.org> <AS8PR08MB79913A96E64B31A02C985EB5927B9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220901110501.o5rq5yzltomirxiw@suse.de>
-X-Migadu-Flow: FLOW_OUT
-X-Migadu-Auth-User: linux.dev
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Sep 01, 2022 at 12:05:01PM +0100, Mel Gorman wrote:
-> As pointed out elsewhere, attaching to the tracepoint and recording relevant
-> state is an option other than trying to parse a raw ftrace feed. For memory
-> leaks, there are already tracepoints for page allocation and free that could
-> be used to track allocations that are not freed at a given point in time.
-
-Page allocation tracepoints are not sufficient for what we're trying to do here,
-and a substantial amount of effort in this patchset has gone into just getting
-the hooking locations right - our memory allocation interfaces are not trivial.
-
-That's something people should keep in mind when commenting on the size of this
-patchset, since that's effort that would have to be spent for /any/ complete
-solution, be in tracepoint based or no.
-
-Additionally, we need to be able to write assertions that verify that our hook
-locations are correct, that allocations or frees aren't getting double counted
-or missed - highly necessary given the maze of nested memory allocation
-interfaces we have (i.e. slab.h), and it's something a tracepoint based
-implementation would have to account for - otherwise, a tool isn't very useful
-if you can't trust the numbers it's giving you.
-
-And then you have to correlate the allocate and free events, so that you know
-which allocate callsite to decrement the amount freed from.
-
-How would you plan on doing that with tracepoints?
-
-> There is also the kernel memory leak detector although I never had reason
-> to use it (https://www.kernel.org/doc/html/v6.0-rc3/dev-tools/kmemleak.html)
-> and it sounds like it would be expensive.
-
-Kmemleak is indeed expensive, and in the past I've had issues with it not
-catching everything (I've noticed the kmemleak annotations growing, so maybe
-this is less of an issue than it was).
-
-And this is a more complete solution (though not something that could strictly
-replace kmemleak): strict memory leaks aren't the only issue, it's also drivers
-unexpectedly consuming more memory than expected.
-
-I'll bet you a beer that when people have had this awhile, we're going to have a
-bunch of bugs discovered and fixed along the lines of "oh hey, this driver
-wasn't supposed to be using this 1 MB of memory, I never noticed that before".
-
-> > > It's also unclear *who* would enable this. It looks like it would mostly
-> > > have value during the development stage of an embedded platform to track
-> > > kernel memory usage on a per-application basis in an environment where it
-> > > may be difficult to setup tracing and tracking. Would it ever be enabled
-> > > in production? Would a distribution ever enable this? If it's enabled, any
-> > > overhead cannot be disabled/enabled at run or boot time so anyone enabling
-> > > this would carry the cost without never necessarily consuming the data.
+On Thu, 1 Sep 2022, Henry Wang wrote:
+> > -----Original Message-----
+> > From: Julien Grall <julien@xen.org>
+> > Subject: Re: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and
+> > heap allocator
 > > 
-> > The whole point of this is to be cheap enough to enable in production -
-> > especially the latency tracing infrastructure. There's a lot of value to
-> > always-on system visibility infrastructure, so that when a live machine starts
-> > to do something wonky the data is already there.
+> > Hi Henry,
 > > 
+> > On 24/08/2022 08:31, Henry Wang wrote:
+> > > This commit firstly adds a global variable `reserved_heap`.
+> > > This newly introduced global variable is set at the device tree
+> > > parsing time if the reserved heap ranges are defined in the device
+> > > tree chosen node.
+> > >
+> > > For Arm32, In `setup_mm`, if the reserved heap is enabled, we use
+> > > the reserved heap region for both domheap and xenheap allocation.
+> > >
+> > > For Arm64, In `setup_mm`, if the reserved heap is enabled and used,
+> > > we make sure that only these reserved heap pages are added to the
+> > > boot allocator. These reserved heap pages in the boot allocator are
+> > > added to the heap allocator at `end_boot_allocator()`.
+> > >
+> > > If the reserved heap is disabled, we stick to current page allocation
+> > > strategy at boot time.
+> > >
+> > > Also, take the chance to correct a "double not" print in Arm32
+> > > `setup_mm()`.
+> > >
+> > > Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> > > ---
+> > > With reserved heap enabled, for Arm64, naming of global variables such
+> > > as `xenheap_mfn_start` and `xenheap_mfn_end` seems to be ambiguous,
+> > > wondering if we should rename these variables.
+> > > ---
+> > > Changes from RFC to v1:
+> > > - Rebase on top of latest `setup_mm()` changes.
+> > > - Added Arm32 logic in `setup_mm()`.
+> > > ---
+> > >   xen/arch/arm/bootfdt.c           |  2 +
+> > >   xen/arch/arm/include/asm/setup.h |  2 +
+> > >   xen/arch/arm/setup.c             | 79 +++++++++++++++++++++++++-------
+> > >   3 files changed, 67 insertions(+), 16 deletions(-)
+> > >
+> > > diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> > > index 33704ca487..ab73b6e212 100644
+> > > --- a/xen/arch/arm/bootfdt.c
+> > > +++ b/xen/arch/arm/bootfdt.c
+> > > @@ -325,6 +325,8 @@ static int __init process_chosen_node(const void
+> > *fdt, int node,
+> > >                                        true);
+> > >           if ( rc )
+> > >               return rc;
+> > > +
+> > > +        reserved_heap = true;
+> > >       }
+> > >
+> > >       printk("Checking for initrd in /chosen\n");
+> > > diff --git a/xen/arch/arm/include/asm/setup.h
+> > b/xen/arch/arm/include/asm/setup.h
+> > > index e80f3d6201..00536a6d55 100644
+> > > --- a/xen/arch/arm/include/asm/setup.h
+> > > +++ b/xen/arch/arm/include/asm/setup.h
+> > > @@ -92,6 +92,8 @@ extern struct bootinfo bootinfo;
+> > >
+> > >   extern domid_t max_init_domid;
+> > >
+> > > +extern bool reserved_heap;
+> > > +
+> > >   void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
+> > >
+> > >   size_t estimate_efi_size(unsigned int mem_nr_banks);
+> > > diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> > > index 500307edc0..fe76cf6325 100644
+> > > --- a/xen/arch/arm/setup.c
+> > > +++ b/xen/arch/arm/setup.c
+> > > @@ -73,6 +73,8 @@ integer_param("xenheap_megabytes",
+> > opt_xenheap_megabytes);
+> > >
+> > >   domid_t __read_mostly max_init_domid;
+> > >
+> > > +bool __read_mostly reserved_heap;
+> > > +
+> > >   static __used void init_done(void)
+> > >   {
+> > >       /* Must be done past setting system_state. */
+> > > @@ -699,8 +701,10 @@ static void __init populate_boot_allocator(void)
+> > >   #ifdef CONFIG_ARM_32
+> > >   static void __init setup_mm(void)
+> > >   {
+> > > -    paddr_t ram_start, ram_end, ram_size, e;
+> > > -    unsigned long ram_pages;
+> > > +    paddr_t ram_start, ram_end, ram_size, e, bank_start, bank_end,
+> > bank_size;
+> > > +    paddr_t reserved_heap_start = ~0, reserved_heap_end = 0,
+> > > +            reserved_heap_size = 0;
+> > > +    unsigned long ram_pages, reserved_heap_pages = 0;
+> > >       unsigned long heap_pages, xenheap_pages, domheap_pages;
+> > >       unsigned int i;
+> > >       const uint32_t ctr = READ_CP32(CTR);
+> > > @@ -720,9 +724,9 @@ static void __init setup_mm(void)
+> > >
+> > >       for ( i = 1; i < bootinfo.mem.nr_banks; i++ )
+> > >       {
+> > > -        paddr_t bank_start = bootinfo.mem.bank[i].start;
+> > > -        paddr_t bank_size = bootinfo.mem.bank[i].size;
+> > > -        paddr_t bank_end = bank_start + bank_size;
+> > > +        bank_start = bootinfo.mem.bank[i].start;
+> > > +        bank_size = bootinfo.mem.bank[i].size;
+> > > +        bank_end = bank_start + bank_size;
+> > >
+> > >           ram_size  = ram_size + bank_size;
+> > >           ram_start = min(ram_start,bank_start);
+> > > @@ -731,6 +735,25 @@ static void __init setup_mm(void)
+> > >
+> > >       total_pages = ram_pages = ram_size >> PAGE_SHIFT;
+> > >
+> > > +    if ( reserved_heap )
+> > > +    {
+> > > +        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
+> > > +        {
+> > > +            if ( bootinfo.reserved_mem.bank[i].xen_heap )
+> > > +            {
+> > > +                bank_start = bootinfo.reserved_mem.bank[i].start;
+> > > +                bank_size = bootinfo.reserved_mem.bank[i].size;
+> > > +                bank_end = bank_start + bank_size;
+> > > +
+> > > +                reserved_heap_size += bank_size;
+> > > +                reserved_heap_start = min(reserved_heap_start, bank_start);
+> > > +                reserved_heap_end = max(reserved_heap_end, bank_end);
+> > > +            }
+> > > +        }
+> > > +
+> > > +        reserved_heap_pages = reserved_heap_size >> PAGE_SHIFT;
+> > > +    }
+> > > +
+> > >       /*
+> > >        * If the user has not requested otherwise via the command line
+> > >        * then locate the xenheap using these constraints:
+> > > @@ -743,7 +766,8 @@ static void __init setup_mm(void)
+> > >        * We try to allocate the largest xenheap possible within these
+> > >        * constraints.
+> > >        */
+> > > -    heap_pages = ram_pages;
+> > > +    heap_pages = !reserved_heap ? ram_pages : reserved_heap_pages;
+> > > +
+> > >       if ( opt_xenheap_megabytes )
+> > >           xenheap_pages = opt_xenheap_megabytes << (20-PAGE_SHIFT);
+> > >       else
+> > > @@ -755,17 +779,21 @@ static void __init setup_mm(void)
+> > >
+> > >       do
+> > >       {
+> > > -        e = consider_modules(ram_start, ram_end,
+> > > +        e = !reserved_heap ?
+> > > +            consider_modules(ram_start, ram_end,
+> > >                                pfn_to_paddr(xenheap_pages),
+> > > -                             32<<20, 0);
+> > > +                             32<<20, 0) :
+> > > +            reserved_heap_end;
+> > 
+> > Not entirely related to this series. Now the assumption is the admin
+> > will make sure that none of the reserved regions will overlap.
+> > 
+> > Do we have any tool to help the admin to verify it? If yes, can we have
+> > a pointer in the documentation? If not, should this be done in Xen?
 > 
-> Sure, there is value but nothing stops the tracepoints being attached as
-> a boot-time service where interested. For latencies, there is already
-> bpf examples for tracing individual function latency over time e.g.
-> https://github.com/iovisor/bcc/blob/master/tools/funclatency.py although
-> I haven't used it recently.
+> In the RFC we had the same discussion of this issue [1] and I think a
+> follow-up series might needed to do the overlap check if we want to
+> do that in Xen. For the existing tool, I am thinking of ImageBuilder, but
+> I am curious about Stefano's opinion.
 
-So this is cool, I'll check it out today.
+Yes, ImageBuilder is a good option and we moved ImageBuilder under Xen
+Project to make it easier for people to contribute to it:
 
-Tracing of /function/ latency is definitely something you'd want tracing/kprobes
-for - that's way more practical than any code tagging-based approach. And if the
-output is reliable and useful I could definitely see myself using this, thank
-you.
+https://gitlab.com/xen-project/imagebuilder
 
-But for data collection where it makes sense to annotate in the source code
-where the data collection points are, I see the code-tagging based approach as
-simpler - it cuts out a whole bunch of indirection. The diffstat on the code
-tagging time stats patch is
 
- 8 files changed, 233 insertions(+), 6 deletions(-)
+> > Also, what happen with UEFI? Is it easy to guarantee the region will not
+> > be used?
+> 
+> For now I think it is not easy to guarantee that, do you have some ideas
+> in mind? I think I can follow this in above follow-up series to improve things. 
 
-And that includes hooking wait.h - this is really simple, easy stuff.
-
-The memory allocation tracking patches are more complicated because we've got a
-ton of memory allocation interfaces and we're aiming for strict correctness
-there - because that tool needs strict correctness in order to be useful.
-
-> Live parsing of ftrace is possible, albeit expensive.
-> https://github.com/gormanm/mmtests/blob/master/monitors/watch-highorder.pl
-> tracks counts of high-order allocations and dumps a report on interrupt as
-> an example of live parsing ftrace and only recording interesting state. It's
-> not tracking state you are interested in but it demonstrates it is possible
-> to rely on ftrace alone and monitor from userspace. It's bit-rotted but
-> can be fixed with
-
-Yeah, if this is as far as people have gotten with ftrace on memory allocations
-than I don't think tracing is credible here, sorry.
-
-> The ease of use is a criticism as there is effort required to develop
-> the state tracking of in-kernel event be it from live parsing ftrace,
-> attaching to tracepoints with systemtap/bpf/whatever and the like. The
-> main disadvantage with an in-kernel implementation is three-fold. First,
-> it doesn't work with older kernels without backports. Second, if something
-> slightly different it needed then it's a kernel rebuild.  Third, if the
-> option is not enabled in the deployed kernel config then you are relying
-> on the end user being willing to deploy a custom kernel.  The initial
-> investment in doing memory leak tracking or latency tracking by attaching
-> to tracepoints is significant but it works with older kernels up to a point
-> and is less sensitive to the kernel config options selected as features
-> like ftrace are often selected.
-
-The next version of this patch set is going to use the alternatives mechanism to
-add a boot parameter.
-
-I'm not interested in backporting to older kernels - eesh. People on old
-enterprise kernels don't always get all the new shiny things :)
+For clarity, are we worried that the region is used by the bootloader
+for other things? For instance U-Boot or Tianocore placing some
+firmware tables inside the range specified for xenheap?
 
