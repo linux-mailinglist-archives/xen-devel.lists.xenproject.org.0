@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D5C65A9544
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 13:01:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396500.636651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28A235A9555
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 13:05:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396508.636663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oThvU-0006VR-FR; Thu, 01 Sep 2022 11:00:00 +0000
+	id 1oTi0a-0007y4-5W; Thu, 01 Sep 2022 11:05:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396500.636651; Thu, 01 Sep 2022 11:00:00 +0000
+Received: by outflank-mailman (output) from mailman id 396508.636663; Thu, 01 Sep 2022 11:05:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oThvU-0006TJ-Ca; Thu, 01 Sep 2022 11:00:00 +0000
-Received: by outflank-mailman (input) for mailman id 396500;
- Thu, 01 Sep 2022 10:59:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oTi0a-0007uY-1X; Thu, 01 Sep 2022 11:05:16 +0000
+Received: by outflank-mailman (input) for mailman id 396508;
+ Thu, 01 Sep 2022 11:05:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oThvT-0006T9-7e; Thu, 01 Sep 2022 10:59:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oThvT-0001dl-3Y; Thu, 01 Sep 2022 10:59:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oThvS-0005QL-Os; Thu, 01 Sep 2022 10:59:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oThvS-0004NH-OS; Thu, 01 Sep 2022 10:59:58 +0000
+ (envelope-from <SRS0=ZJ2F=ZE=suse.de=mgorman@srs-se1.protection.inumbo.net>)
+ id 1oTi0Y-0007uS-5x
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 11:05:14 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f3312bd1-29e5-11ed-82f2-63bd783d45fa;
+ Thu, 01 Sep 2022 13:05:12 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 0601C22679;
+ Thu,  1 Sep 2022 11:05:12 +0000 (UTC)
+Received: from suse.de (unknown [10.163.43.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 314B12C142;
+ Thu,  1 Sep 2022 11:05:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,247 +44,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AeP1sTRHxd/dVAZa9PQyFJ80X0MtsZoAnjLXB+hGK+A=; b=JTEKpSO+aU/yi1Ab1Od+ALr1qw
-	daeJLvbprfWfTCaVfcDOEst22h6Lm+G/3Luv5sgAQQc1vpbhikgi4ccP0XwATsxNMScC9QbkGgsSZ
-	HWDQHgMtuhCgdPRo8Z1SSiNxCd4bl4uTI6Cu15WeqZDCPPFrLxoGSqNKbF/klYuEtQMs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-172902-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f3312bd1-29e5-11ed-82f2-63bd783d45fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1662030312; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8Mq+Xr0OI+bfUf9L9MD4E1lYUlcZgNZF3vEeJl7iivY=;
+	b=qxrx6Job1q9NhDr8jWgNkmZI/DIOO/4e7B7RmUvgkYmx7g2HD/fgMwo5Yk3h0VlLoTt148
+	XYp7yip2SBIiuI+n/MfaQLawKmE1HR8l9pazuynzZByPC2unjCGeYASa4WYFvbNUExE7dA
+	7MiaajpJfHroyIAEi/eiNxfkWvr+0Tc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1662030312;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8Mq+Xr0OI+bfUf9L9MD4E1lYUlcZgNZF3vEeJl7iivY=;
+	b=aI8rpCPzOEsCk4iUnJ8AJ2D/wDZBIW/Yuzt0mzTQGVVpTTlaSfJwPqq4wfJerDAgBO140w
+	J3d/FttUmGmZwoAQ==
+Date: Thu, 1 Sep 2022 12:05:01 +0100
+From: Mel Gorman <mgorman@suse.de>
+To: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
+	mhocko@suse.com, vbabka@suse.cz, hannes@cmpxchg.org,
+	roman.gushchin@linux.dev, dave@stgolabs.net, willy@infradead.org,
+	liam.howlett@oracle.com, void@manifault.com, juri.lelli@redhat.com,
+	ldufour@linux.ibm.com, peterx@redhat.com, david@redhat.com,
+	axboe@kernel.dk, mcgrof@kernel.org, masahiroy@kernel.org,
+	nathan@kernel.org, changbin.du@intel.com, ytcoode@gmail.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, bristot@redhat.com,
+	vschneid@redhat.com, cl@linux.com, penberg@kernel.org,
+	iamjoonsoo.kim@lge.com, 42.hyeyoo@gmail.com, glider@google.com,
+	elver@google.com, dvyukov@google.com, shakeelb@google.com,
+	songmuchun@bytedance.com, arnd@arndb.de, jbaron@akamai.com,
+	rientjes@google.com, minchan@google.com, kaleshsingh@google.com,
+	kernel-team@android.com, linux-mm@kvack.org, iommu@lists.linux.dev,
+	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
+	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+Message-ID: <20220901110501.o5rq5yzltomirxiw@suse.de>
+References: <20220830214919.53220-1-surenb@google.com>
+ <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
+ <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
+ <20220831101948.f3etturccmp5ovkl@suse.de>
+ <20220831155941.q5umplytbx6offku@moria.home.lan>
 MIME-Version: 1.0
-Subject: [linux-linus test] 172902: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-amd64-libvirt:libvirt-build:fail:regression
-    linux-linus:build-arm64-libvirt:libvirt-build:fail:regression
-    linux-linus:build-i386-libvirt:libvirt-build:fail:regression
-    linux-linus:build-armhf-libvirt:libvirt-build:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=c5e4d5e99162ba8025d58a3af7ad103f155d2df7
-X-Osstest-Versions-That:
-    linux=b44f2fd87919b5ae6e1756d4c7ba2cbba22238e1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 01 Sep 2022 10:59:58 +0000
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
+In-Reply-To: <20220831155941.q5umplytbx6offku@moria.home.lan>
 
-flight 172902 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/172902/
+On Wed, Aug 31, 2022 at 11:59:41AM -0400, Kent Overstreet wrote:
+> On Wed, Aug 31, 2022 at 11:19:48AM +0100, Mel Gorman wrote:
+> > On Wed, Aug 31, 2022 at 04:42:30AM -0400, Kent Overstreet wrote:
+> > > On Wed, Aug 31, 2022 at 09:38:27AM +0200, Peter Zijlstra wrote:
+> > > > On Tue, Aug 30, 2022 at 02:48:49PM -0700, Suren Baghdasaryan wrote:
+> > > > > ===========================
+> > > > > Code tagging framework
+> > > > > ===========================
+> > > > > Code tag is a structure identifying a specific location in the source code
+> > > > > which is generated at compile time and can be embedded in an application-
+> > > > > specific structure. Several applications of code tagging are included in
+> > > > > this RFC, such as memory allocation tracking, dynamic fault injection,
+> > > > > latency tracking and improved error code reporting.
+> > > > > Basically, it takes the old trick of "define a special elf section for
+> > > > > objects of a given type so that we can iterate over them at runtime" and
+> > > > > creates a proper library for it.
+> > > > 
+> > > > I might be super dense this morning, but what!? I've skimmed through the
+> > > > set and I don't think I get it.
+> > > > 
+> > > > What does this provide that ftrace/kprobes don't already allow?
+> > > 
+> > > You're kidding, right?
+> > 
+> > It's a valid question. From the description, it main addition that would
+> > be hard to do with ftrace or probes is catching where an error code is
+> > returned. A secondary addition would be catching all historical state and
+> > not just state since the tracing started.
+> 
+> Catching all historical state is pretty important in the case of memory
+> allocation accounting, don't you think?
+> 
 
-Regressions :-(
+Not always. If the intent is to catch a memory leak that gets worse over
+time, early boot should be sufficient. Sure, there might be drivers that leak
+memory allocated at init but if it's not a growing leak, it doesn't matter.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172133
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 172133
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172133
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 172133
+> Also, ftrace can drop events. Not really ideal if under system load your memory
+> accounting numbers start to drift.
+> 
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172133
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172133
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172133
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172133
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172133
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+As pointed out elsewhere, attaching to the tracepoint and recording relevant
+state is an option other than trying to parse a raw ftrace feed. For memory
+leaks, there are already tracepoints for page allocation and free that could
+be used to track allocations that are not freed at a given point in time.
+There is also the kernel memory leak detector although I never had reason
+to use it (https://www.kernel.org/doc/html/v6.0-rc3/dev-tools/kmemleak.html)
+and it sounds like it would be expensive.
 
-version targeted for testing:
- linux                c5e4d5e99162ba8025d58a3af7ad103f155d2df7
-baseline version:
- linux                b44f2fd87919b5ae6e1756d4c7ba2cbba22238e1
+> > It's also unclear *who* would enable this. It looks like it would mostly
+> > have value during the development stage of an embedded platform to track
+> > kernel memory usage on a per-application basis in an environment where it
+> > may be difficult to setup tracing and tracking. Would it ever be enabled
+> > in production? Would a distribution ever enable this? If it's enabled, any
+> > overhead cannot be disabled/enabled at run or boot time so anyone enabling
+> > this would carry the cost without never necessarily consuming the data.
+> 
+> The whole point of this is to be cheap enough to enable in production -
+> especially the latency tracing infrastructure. There's a lot of value to
+> always-on system visibility infrastructure, so that when a live machine starts
+> to do something wonky the data is already there.
+> 
 
-Last test of basis   172133  2022-08-04 05:14:48 Z   28 days
-Failing since        172152  2022-08-05 04:01:26 Z   27 days   62 attempts
-Testing same since   172902  2022-08-31 23:12:06 Z    0 days    1 attempts
+Sure, there is value but nothing stops the tracepoints being attached as
+a boot-time service where interested. For latencies, there is already
+bpf examples for tracing individual function latency over time e.g.
+https://github.com/iovisor/bcc/blob/master/tools/funclatency.py although
+I haven't used it recently.
 
-------------------------------------------------------------
-1599 people touched revisions under test,
-not listing them all
+Live parsing of ftrace is possible, albeit expensive.
+https://github.com/gormanm/mmtests/blob/master/monitors/watch-highorder.pl
+tracks counts of high-order allocations and dumps a report on interrupt as
+an example of live parsing ftrace and only recording interesting state. It's
+not tracking state you are interested in but it demonstrates it is possible
+to rely on ftrace alone and monitor from userspace. It's bit-rotted but
+can be fixed with
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-amd64-amd64-libvirt-raw                                 blocked 
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+diff --git a/monitors/watch-highorder.pl b/monitors/watch-highorder.pl
+index 8c80ae79e556..fd0d477427df 100755
+--- a/monitors/watch-highorder.pl
++++ b/monitors/watch-highorder.pl
+@@ -52,7 +52,7 @@ my $regex_pagealloc;
+ 
+ # Static regex used. Specified like this for readability and for use with /o
+ #                      (process_pid)     (cpus      )   ( time  )   (tpoint    ) (details)
+-my $regex_traceevent = '\s*([a-zA-Z0-9-]*)\s*(\[[0-9]*\])\s*([0-9.]*):\s*([a-zA-Z_]*):\s*(.*)';
++my $regex_traceevent = '\s*([a-zA-Z0-9-]*)\s*(\[[0-9]*\])\s*([0-9. ]*):\s*([a-zA-Z_]*):\s*(.*)';
+ my $regex_statname = '[-0-9]*\s\((.*)\).*';
+ my $regex_statppid = '[-0-9]*\s\(.*\)\s[A-Za-z]\s([0-9]*).*';
+ 
+@@ -73,6 +73,7 @@ sub generate_traceevent_regex {
+ 				$regex =~ s/%p/\([0-9a-f]*\)/g;
+ 				$regex =~ s/%d/\([-0-9]*\)/g;
+ 				$regex =~ s/%lu/\([0-9]*\)/g;
++				$regex =~ s/%lx/\([0-9a-zA-Z]*\)/g;
+ 				$regex =~ s/%s/\([A-Z_|]*\)/g;
+ 				$regex =~ s/\(REC->gfp_flags\).*/REC->gfp_flags/;
+ 				$regex =~ s/\",.*//;
 
+Example output
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+3 instances order=2 normal gfp_flags=GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_ZERO
+ => trace_event_raw_event_mm_page_alloc+0x7d/0xc0 <ffffffffb1caeccd>
+ => __alloc_pages+0x188/0x250 <ffffffffb1cee8a8>
+ => kmalloc_large_node+0x3f/0x80 <ffffffffb1d1cd3f>
+ => __kmalloc_node+0x321/0x420 <ffffffffb1d22351>
+ => kvmalloc_node+0x46/0xe0 <ffffffffb1ca4906>
+ => ttm_sg_tt_init+0x88/0xb0 [ttm] <ffffffffc03a02c8>
+ => amdgpu_ttm_tt_create+0x4f/0x80 [amdgpu] <ffffffffc04cff0f>
+ => ttm_tt_create+0x59/0x90 [ttm] <ffffffffc03a03b9>
+ => ttm_bo_handle_move_mem+0x7e/0x1c0 [ttm] <ffffffffc03a0d9e>
+ => ttm_bo_validate+0xc5/0x140 [ttm] <ffffffffc03a2095>
+ => ttm_bo_init_reserved+0x17b/0x200 [ttm] <ffffffffc03a228b>
+ => amdgpu_bo_create+0x1a3/0x470 [amdgpu] <ffffffffc04d36c3>
+ => amdgpu_bo_create_user+0x34/0x60 [amdgpu] <ffffffffc04d39c4>
+ => amdgpu_gem_create_ioctl+0x131/0x3a0 [amdgpu] <ffffffffc04d94f1>
+ => drm_ioctl_kernel+0xb5/0x140 <ffffffffb21652c5>
+ => drm_ioctl+0x224/0x3e0 <ffffffffb2165574>
+ => amdgpu_drm_ioctl+0x49/0x80 [amdgpu] <ffffffffc04bd2d9>
+ => __x64_sys_ioctl+0x8a/0xc0 <ffffffffb1d7c2da>
+ => do_syscall_64+0x5c/0x90 <ffffffffb253016c>
+ => entry_SYSCALL_64_after_hwframe+0x63/0xcd <ffffffffb260009b>
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+3 instances order=1 normal gfp_flags=GFP_NOWAIT|__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_COMP|__GFP_ACCOUNT
+ => trace_event_raw_event_mm_page_alloc+0x7d/0xc0 <ffffffffb1caeccd>
+ => __alloc_pages+0x188/0x250 <ffffffffb1cee8a8>
+ => __folio_alloc+0x17/0x50 <ffffffffb1cef1a7>
+ => vma_alloc_folio+0x8f/0x350 <ffffffffb1d11e4f>
+ => __handle_mm_fault+0xa1e/0x1120 <ffffffffb1cc80ee>
+ => handle_mm_fault+0xb2/0x280 <ffffffffb1cc88a2>
+ => do_user_addr_fault+0x1b9/0x690 <ffffffffb1a89949>
+ => exc_page_fault+0x67/0x150 <ffffffffb2534627>
+ => asm_exc_page_fault+0x22/0x30 <ffffffffb2600b62>
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+It's not tracking leaks because that is not what I was intrested in at
+the time but could using the same method and recording PFNs that were
+allocated, their call site but not freed. These days, this approach may
+be a bit unexpected but it was originally written 13 years ago. It could
+have been done with systemtap back then but my recollection was that it
+was difficult to keep systemtap working with rc kernels.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> What we've built here this is _far_ cheaper than anything that could be done
+> with ftrace.
+> 
+> > It might be an ease-of-use thing. Gathering the information from traces
+> > is tricky and would need combining multiple different elements and that
+> > is development effort but not impossible.
+> > 
+> > Whatever asking for an explanation as to why equivalent functionality
+> > cannot not be created from ftrace/kprobe/eBPF/whatever is reasonable.
+> 
+> I think perhaps some of the expectation should be on the "ftrace for
+> everything!" people to explain a: how their alternative could be even built and
+> b: how it would compare in terms of performance and ease of use.
+> 
 
+The ease of use is a criticism as there is effort required to develop
+the state tracking of in-kernel event be it from live parsing ftrace,
+attaching to tracepoints with systemtap/bpf/whatever and the like. The
+main disadvantage with an in-kernel implementation is three-fold. First,
+it doesn't work with older kernels without backports. Second, if something
+slightly different it needed then it's a kernel rebuild.  Third, if the
+option is not enabled in the deployed kernel config then you are relying
+on the end user being willing to deploy a custom kernel.  The initial
+investment in doing memory leak tracking or latency tracking by attaching
+to tracepoints is significant but it works with older kernels up to a point
+and is less sensitive to the kernel config options selected as features
+like ftrace are often selected.
 
-Not pushing.
-
-(No revision log; it would be 165102 lines long.)
+-- 
+Mel Gorman
+SUSE Labs
 
