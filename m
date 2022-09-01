@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A235A9555
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 13:05:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396508.636663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9045A958D
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 13:17:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396516.636674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTi0a-0007y4-5W; Thu, 01 Sep 2022 11:05:16 +0000
+	id 1oTiCA-0001Af-AM; Thu, 01 Sep 2022 11:17:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396508.636663; Thu, 01 Sep 2022 11:05:16 +0000
+Received: by outflank-mailman (output) from mailman id 396516.636674; Thu, 01 Sep 2022 11:17:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTi0a-0007uY-1X; Thu, 01 Sep 2022 11:05:16 +0000
-Received: by outflank-mailman (input) for mailman id 396508;
- Thu, 01 Sep 2022 11:05:14 +0000
+	id 1oTiCA-00018s-7N; Thu, 01 Sep 2022 11:17:14 +0000
+Received: by outflank-mailman (input) for mailman id 396516;
+ Thu, 01 Sep 2022 11:17:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZJ2F=ZE=suse.de=mgorman@srs-se1.protection.inumbo.net>)
- id 1oTi0Y-0007uS-5x
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 11:05:14 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f3312bd1-29e5-11ed-82f2-63bd783d45fa;
- Thu, 01 Sep 2022 13:05:12 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 0601C22679;
- Thu,  1 Sep 2022 11:05:12 +0000 (UTC)
-Received: from suse.de (unknown [10.163.43.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 314B12C142;
- Thu,  1 Sep 2022 11:05:08 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LpUB=ZE=citrix.com=prvs=236e65341=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1oTiC7-00018m-PS
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 11:17:11 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9cc091b6-29e7-11ed-82f2-63bd783d45fa;
+ Thu, 01 Sep 2022 13:17:08 +0200 (CEST)
+Received: from mail-dm6nam10lp2105.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.105])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 01 Sep 2022 07:17:04 -0400
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by BL1PR03MB6101.namprd03.prod.outlook.com (2603:10b6:208:308::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.12; Thu, 1 Sep
+ 2022 11:17:03 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::b9c9:c866:817c:60dd]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::b9c9:c866:817c:60dd%4]) with mapi id 15.20.5588.012; Thu, 1 Sep 2022
+ 11:17:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,228 +49,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3312bd1-29e5-11ed-82f2-63bd783d45fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1662030312; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8Mq+Xr0OI+bfUf9L9MD4E1lYUlcZgNZF3vEeJl7iivY=;
-	b=qxrx6Job1q9NhDr8jWgNkmZI/DIOO/4e7B7RmUvgkYmx7g2HD/fgMwo5Yk3h0VlLoTt148
-	XYp7yip2SBIiuI+n/MfaQLawKmE1HR8l9pazuynzZByPC2unjCGeYASa4WYFvbNUExE7dA
-	7MiaajpJfHroyIAEi/eiNxfkWvr+0Tc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1662030312;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8Mq+Xr0OI+bfUf9L9MD4E1lYUlcZgNZF3vEeJl7iivY=;
-	b=aI8rpCPzOEsCk4iUnJ8AJ2D/wDZBIW/Yuzt0mzTQGVVpTTlaSfJwPqq4wfJerDAgBO140w
-	J3d/FttUmGmZwoAQ==
-Date: Thu, 1 Sep 2022 12:05:01 +0100
-From: Mel Gorman <mgorman@suse.de>
-To: Kent Overstreet <kent.overstreet@linux.dev>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
-	mhocko@suse.com, vbabka@suse.cz, hannes@cmpxchg.org,
-	roman.gushchin@linux.dev, dave@stgolabs.net, willy@infradead.org,
-	liam.howlett@oracle.com, void@manifault.com, juri.lelli@redhat.com,
-	ldufour@linux.ibm.com, peterx@redhat.com, david@redhat.com,
-	axboe@kernel.dk, mcgrof@kernel.org, masahiroy@kernel.org,
-	nathan@kernel.org, changbin.du@intel.com, ytcoode@gmail.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, bristot@redhat.com,
-	vschneid@redhat.com, cl@linux.com, penberg@kernel.org,
-	iamjoonsoo.kim@lge.com, 42.hyeyoo@gmail.com, glider@google.com,
-	elver@google.com, dvyukov@google.com, shakeelb@google.com,
-	songmuchun@bytedance.com, arnd@arndb.de, jbaron@akamai.com,
-	rientjes@google.com, minchan@google.com, kaleshsingh@google.com,
-	kernel-team@android.com, linux-mm@kvack.org, iommu@lists.linux.dev,
-	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
-	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-Message-ID: <20220901110501.o5rq5yzltomirxiw@suse.de>
-References: <20220830214919.53220-1-surenb@google.com>
- <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
- <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
- <20220831101948.f3etturccmp5ovkl@suse.de>
- <20220831155941.q5umplytbx6offku@moria.home.lan>
+X-Inumbo-ID: 9cc091b6-29e7-11ed-82f2-63bd783d45fa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1662031027;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=1XeAqMZOQn8rtmQbiOmOwn6tHWrlcUZaXrWPVJfxQso=;
+  b=H1CSfbkfZKsz7yyscqJihxlYDxZv6cKUAnWBDyIkFhLrntuyurTN+Wm9
+   Rzj/ifk2hr66xw5kuWPvDB6uQH/oCkO295I1anfaMXs1yKNdAZDhr5Zgl
+   VGSMCRd5kJdOlb+F5WysH/m5pAJqlfLq/9VMou1vHqNWgAfAUW9Fv7St+
+   g=;
+X-IronPort-RemoteIP: 104.47.58.105
+X-IronPort-MID: 79547364
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:ScAj/qt11Wc6c3I1Tb/LOJjEn+fnVHFfMUV32f8akzHdYApBsoF/q
+ tZmKTuPPfiDY2DwLdlyaojg80JV7MDcyIJhSQNkrS9gHi5A+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZhSAgk/vOHtIQMcacUghpXwhoVSw9vhxqnu89k+ZAjMOwRgiAo
+ rsemeWGULOe82MyYzl8B56r8ks15qyj4GpA5zTSWNgQ1LPgvyhNZH4gDfnZw0vQGuF8AuO8T
+ uDf+7C1lkuxE8AFU47Nfh7TKyXmc5aKVeS8oiM+t5uK23CukhcawKcjXMfwXG8M49m/c3Kd/
+ /0W3XC4YV9B0qQhA43xWTEAe811FfUuFLMqvRFTGCFcpqHLWyKE/hlgMK05FYwx+bxQMHhyz
+ sw3GjExTAivjv+Uwb3uH4GAhux7RCXqFKU2nyg4iB38U7MhS52FRLjW79hF2jt2ntpJAfvVe
+ 8seb3xocQjEZBpMfFwQDfrSns/x3iW5L2Ie9QLT/PJqi4TQ5FUZPLzFGdzZYNGVA+5SmV6Vv
+ Dnu9GXlGBAKcteYzFJp91rz17KTwnilBOr+EpXj691B0HKw21YcJxhKVAeVgeKBkEuhDoc3x
+ 0s8v3BGQbIJ3E6kVN7mRDWjvWWJ+BUbXrJ4A+A8rQ2A1KfQywKYHXQfCC5MbsQ8s807TiBs0
+ UWG9/vlCzVgv7ySTXO17aqPoHW5Pi19EIMZTSoNTA9A79y9pog210rLVow6SPPzicDpEzbtx
+ TzMtDI5m7gYkc8M0eO84EzDhDWv4JPOS2bZ+znqY45s1SshDKbNWmBiwQKzASpoRGpBcmS8g
+ Q==
+IronPort-HdrOrdr: A9a23:cqR5dqMhuEvU6sBcT2L155DYdb4zR+YMi2TDiHoddfUFSKalfp
+ 6V98jzjSWE8wr4WBkb6LO90DHpewKQyXcH2/hqAV7EZnirhILIFvAp0WKG+VHd8kLFh4lgPM
+ tbEpSWTeeAdWSS7vyKrzVQcexQpuVvmZrA7Yix854ud3ASV0gK1XYaNu/vKDwTeOAwP+tdKH
+ Pz3Kp6jgvlXU5SQtWwB3EDUeSGjcbMjojabRkPAANiwBWSjBuzgYSKUiSw71M7aXdi0L0i+W
+ /Kn0jS/aO4qcy2zRfayiv684lWot380dFObfb8yvT9aw+cyTpAVr4RHoFqjwpF5N1HL2xa1+
+ Ukli1QffibLUmhOF1d7yGdgjUImwxelkMKgWXo/UcL5/aJCg7SQvAx+76wOHHimjUdlcA536
+ RR022DsZ1LSRvGgSTm/tDNEwpnj0yuvBMZ4KcuZlFkIPwjgYVq3Poi1VIQFI1FEDPx6YghHu
+ UrBMbA5OxOeVffa3zCpGFgzNGlQ3x2R369MwM/k93Q1yITkGFyzkMeysBalnAc9IglQ50B4+
+ jfKKxnmLxHU8dTZ6NgA+UKR9exFwX2MFrxGXPXJU6iGLAMOnrLpZKy6LIp5PuycJhN15c2kI
+ SpaiItiYfzQTOaNSSj5uw6zvmWehTNYd3E8LAs27Fp/rvhWbHsLSqPDFgzjsrImYRsPvHm
+X-IronPort-AV: E=Sophos;i="5.93,280,1654574400"; 
+   d="scan'208";a="79547364"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hrBhQ5o417KMBLU2me2mhEG1ne2tKKGfH/tMqj+eMnMOEvWEB2mriuvezjRoAKviCyYjDYKrVuosvtvwK5u8K/vPYVGeqTIroa48J+fJN/ymLMJnsDgn6Kqx6kW10fyGeOwTLHacl6vzfGdeZBKXIgWkZVeB/tkkgxZqny85u5ToTLWRFw9B81rSU+A91ClhF59Zlv8YK7gF1AOJfqsMmQh3y8GUBk53TVsuyKyMoSWUM/+oBH3Dxpyd1CK4Lv2TzFWp1aq1u6DssjtAscmiftZ4AS19xmXM006OAcB+KDU6BwJWncCegouMSlIbSYG9G9oGIh5A42mO/2lFCUIznA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1XeAqMZOQn8rtmQbiOmOwn6tHWrlcUZaXrWPVJfxQso=;
+ b=Ch+VGjZLf3npPrNJLepsxzoVf0sZKIIhI/aUZVdOBhphSXS+bFykY9jb143+ya7ikgIzwtOHtgDZRu+tx7dAgUnAQuo9cGkWmbm+ZZyZNDbKVJWy/uPwg2U8i2PdUH4pPIfFD4LXGuRz5gCtatQQs6G5ED4x8aUB2vQDYi0FNm2C60jZHUut7hPN1YgiR0LtaBUlCZcMAriiI1eAKVVeQtphHtbBI/EIkOUmDmehKSk1wUGFGyUJgUnrhTfwYdPonlkxYB2eJUrbMkvzPNyZ6QBgJu7kzYzbhAFUIb7vDvS4ktSK7MiGDjz5FWixn+ZHwIaUxl/O99dxeZzNCp4WQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1XeAqMZOQn8rtmQbiOmOwn6tHWrlcUZaXrWPVJfxQso=;
+ b=hN6hCRxEaK+bdCBw6pWnCfnAybYanzknL9V/bFEwX2tbDJViNoypbAmY0H5uOExN6n0HYeqePYJhpXDNgQ7+ePtoytUrXlOOoyOiT313i7QQQmjhDwCtl60XU77QpZG6ky7I0nmPQwnO/bziKTcesq0krsjXdbD2hG5Z6nqZNwk=
+From: Andrew Cooper <Andrew.Cooper3@citrix.com>
+To: Juergen Gross <jgross@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: George Dunlap <George.Dunlap@citrix.com>, Dario Faggioli
+	<dfaggioli@suse.com>
+Subject: Re: [PATCH v3 2/3] xen/sched: carve out memory allocation and freeing
+ from schedule_cpu_rm()
+Thread-Topic: [PATCH v3 2/3] xen/sched: carve out memory allocation and
+ freeing from schedule_cpu_rm()
+Thread-Index: AQHYsVjU6cwqlcc3IUyYiKoWS8gK1a3KhgKA
+Date: Thu, 1 Sep 2022 11:17:02 +0000
+Message-ID: <f2f53416-c2bf-4239-4816-685b0c105952@citrix.com>
+References: <20220816101317.23014-1-jgross@suse.com>
+ <20220816101317.23014-3-jgross@suse.com>
+In-Reply-To: <20220816101317.23014-3-jgross@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: dc6f92b7-3099-4ebd-6829-08da8c0b7f08
+x-ms-traffictypediagnostic: BL1PR03MB6101:EE_
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ bwKIwI6G69hy1IPdtcwA2x1q687+39ExLkun7/2pRw6kZ9ki3vpdSx6+AyfwwPi5RANOxpFOryu6PsAgwQlSe+aYiQd6Iqdt1ZGY+RUrl78YaVWuPpjjmQg2BqTP7T1+jl9rPr3OeJWb5WKQBc/fV60yEvvD5+fTiipQA6N9LwSWQxLHXAiNcKK7kcMAw1W6Ke+K8iIssXwZEOG4X61eFoPU1eRCbq+ZvRfn8Byvb/Ruwlx3/buBnrchEL8tr9Y5tKHs/2x076jSTjbnZ+ffzMsrO0gFP+xmVn/M9VUhqGjdBZP1jGVhVnQJkmUqoE9gvkXzTInW1ZKb1b8/qhMt+zhqCQfDn5KwiwM1UPIaWyJ52AXhmNblws/vre1cHF2iDKF0MJK0b7ZBPNgIRb4NgVsIiFOzbYLfhHwGqqJSBPFR40/5jW3TnHEIk1oLbVnvlTldHl7e0ZAludDlgxwo6HABIYuJlxo8bLcX5j4GgsuQk+hTf2K6WXZw4DJ2fYzClsmUO6pfvEOsRrp9jiGBgE2xMg2NLXPwQWqpZey6/VwKvxuy1VGhz0YNgbBbjm9uCW2ZFJkCxYrCKiMmADxc9hHIUUu5fOBO1lovbJ0o8nH4FQXOvTPUCfXyrQhpHAGnwTTcbonYvEOBcWr9E/DJ2UK4Z7BMWOvP1Sb8k5/3k0Cz2AALTatbJ47+ooCgS7iwVzVCBv6zo3Wn1BkfCKG8bQ9s/voHruSu4EDc/WP5mrL9R2KLFpjPZSUJH3tS5qBJHH8b4S4vLz/qXwx5Zyd/C/iw9fQ2d/BqxxWXdEY2TYX7VBqCoAy9aK77nPbahtwRGHSyighStwmeGMSstbDxjA==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(366004)(39860400002)(346002)(136003)(396003)(478600001)(6486002)(53546011)(26005)(6506007)(6512007)(41300700001)(71200400001)(66556008)(66476007)(64756008)(66446008)(76116006)(66946007)(4326008)(8676002)(91956017)(5660300002)(4744005)(8936002)(54906003)(110136005)(2906002)(316002)(82960400001)(38070700005)(38100700002)(36756003)(31696002)(86362001)(31686004)(83380400001)(2616005)(186003)(122000001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?WTFJOElyY3hyOFUrTHFyeEhuSnc0Q3JGbkxKOEFmREJ4RVVxaFRMUGZPVmVO?=
+ =?utf-8?B?VFpHME5qd3podk5lano5SDdJVDlzcDlEQjdXbm53UHFFazJabXZMcXNSNm5a?=
+ =?utf-8?B?ajRMWE1ZN25kQTJla295ZlkyY2Uvc0w5Wkt1UndueVRhRFo3TVlpa2Z2dzIz?=
+ =?utf-8?B?bmlEYU4yZVlYR0ZGVWlSa3ZYbUMyZHYxZ3dHVld5UndKVFp4OFd2Y0U1aitC?=
+ =?utf-8?B?N3RqekhlL2NnRy9ydG5XN1l2blQxbzZZaEhHT3B4bXZ2aU5DV1A5bjRXTjNo?=
+ =?utf-8?B?Qi9BdkhxaFlGSGYyZ2s1REN0Y0t5NnhtQUd6Z2Z2dk92SzNLTXpZM3V1MTJI?=
+ =?utf-8?B?UmhlUFIrTGdpNXZVaGxBMng4eVM3bWJqQU1MWjhlZUIwYW56b3VaN05rT2xB?=
+ =?utf-8?B?SS8vTWhFdzNuUWVRR3dUWlFhU2xoTzVmWjJ1aU1lQmdqcjRsTFk2R1ZtVkE1?=
+ =?utf-8?B?ZWFBbktiOEs1SnlsSzFISVlKQ0ZLSlh1SVVxNWY2SG83Z1ptYUgzOVowd2pi?=
+ =?utf-8?B?YmVpWldnRkZxZGZQeGZGOG52d0NVSzBjcUZNUXp2SkE0NlVpb041ekJ3bVh0?=
+ =?utf-8?B?OVlTdmU5TEV3TDdsWnNNTW1PQTU3NGptS0E1ck5vbStjd08ybk91SEhZSjRZ?=
+ =?utf-8?B?bVpINU1UcTJyQkNZQmhmbkZYUTJWYUVGSFEyUnhYV2g3Y0hwL1g3SXhJeSto?=
+ =?utf-8?B?WHBGdmcxc1VZTGlLRVcvM2lQMzExZ1dCSTZsdUo5REU4ZnJWVnhCTUZoZ29W?=
+ =?utf-8?B?OHFlRWFsMkNxQkQ0T3JGMG0wYzhpL0VTMXRySDZZZUwwcU1QNTRUdStXV29s?=
+ =?utf-8?B?NnR5cTJ6ektIT0JlNzc3UEUrWWYrVDVCYTdxQ0sycm5EaHRIUmFaMklyTUwr?=
+ =?utf-8?B?N2l3UWtNdjNZcGpjYzNRL0srWDRsV0hsRnlIcDU4SW1TK0ozTWRSZ1BPYUcz?=
+ =?utf-8?B?QzBWZit2SHdOR1BPTHVKRWdjbURmdHBDSVlKYVI1RnVSOU80Vlp4VHd2Y1By?=
+ =?utf-8?B?cVk3M0h4YkRlT040eklGejVDZ3BVZzdpQmJwNWFwOHZwVU5wMGZSN3RwblFI?=
+ =?utf-8?B?a2RTZ2hUMHFYNEpzWThtTis3eUZ5aWpwSVhnMG5jRUpaL3JDS216Vnd2UFkx?=
+ =?utf-8?B?eFlBaGtBZ2ZmUzdMd1lkRzRGQlZuc1FvcVc5UkRKREVTa0pmVUhZeHJ5ZzJa?=
+ =?utf-8?B?MXoxaWlISmtNRFlDTHZpYm9yRGJDWVdyWHova0xLVmUvWm9JQks4dW5zbWdy?=
+ =?utf-8?B?Yy9qU09ZdlpZaHNyczNjdDdtN3ZmMkNEOUIrN3NGcVB1Ums5NmNJcFJvVjRL?=
+ =?utf-8?B?L1dOby9oOHlxYUZOSkZVSTFXK1F3QWJFWXdVOGpidGIwNkQvZk83cndqOEts?=
+ =?utf-8?B?TkROTzhocG5MOEE3WHVHS3ZVaGhQcERFeWN6QXZ6OWdLeFY1YnF5ZHk0cDBB?=
+ =?utf-8?B?Tk5OMTh2S3NoSFlUWVc0azRxK1NXVkd1NWFlOUh4N2dVeENVbms4VkFwVlF1?=
+ =?utf-8?B?eFoxbG1SSHA2WWlzSzhUbGVwbkNNK094ZEgzQU1aQThMbXl4bXZSWnBNNEhs?=
+ =?utf-8?B?dkNad0hGU1dZd0J1ZFBnc2hFWFRzY3J4VU5naGdjcGhLUmM4ZGhzaU9IZGN1?=
+ =?utf-8?B?Ym4rSmkxdDFLS29XeDdpL0M2YjRlTi9rNHlUTDlMbU0zbzc4WXAzVWtTM2lu?=
+ =?utf-8?B?R1R4WHRZNUFqejExYi9mRTVMaVBGeGtZcTZaOGRoSjByT2JIQ1owaDExMzN6?=
+ =?utf-8?B?SVlIRktIanQyd3V1Sk1nQ3pnczBWdzVIL0k2Uis0bml6dVQxelRLbytJSWI0?=
+ =?utf-8?B?RU5aMmx0cE9lODJyMzZORkhaOElKWk9QemVrR2IwT3VGam51QXpCb3dsdjMz?=
+ =?utf-8?B?dC8vMTA5aHRwZnBGenNhWVJlQzB1UjloRTEwM28xcDRydkQ5a2Z4eFJUb3Yz?=
+ =?utf-8?B?TEYra2l6cHQrbDl3eFcxcGx1MzBxVnRDeEFZVldBOERoZ25qRktaZ2RHZkJU?=
+ =?utf-8?B?QjlNb2N1WFJEeW9GUmoweFJDemh3U2E5Z0R4U2p3a3FzdzVwQ0RsWlc1Yitz?=
+ =?utf-8?B?QTNDRXc3ZWdTU0ZQM0gwY2JFN3dkZmxCSUNlbWhkZkhCMU90TndsNm1DamFw?=
+ =?utf-8?Q?eG0WQBk7trvN9gIo/07twn6M2?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <990A17905BE2FD45BB98697101413B65@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
-In-Reply-To: <20220831155941.q5umplytbx6offku@moria.home.lan>
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc6f92b7-3099-4ebd-6829-08da8c0b7f08
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2022 11:17:02.9664
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: XMH8jlBrmUmCkxG1HEV+tJZwWkQkjK4nOh0s0yw8aNdiIKzS0mQfHZb4tcFyc6IcBa8Hbj3pP5k6eRcamb7mfhzEjDhprsm9vP7kl/I8oPY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6101
 
-On Wed, Aug 31, 2022 at 11:59:41AM -0400, Kent Overstreet wrote:
-> On Wed, Aug 31, 2022 at 11:19:48AM +0100, Mel Gorman wrote:
-> > On Wed, Aug 31, 2022 at 04:42:30AM -0400, Kent Overstreet wrote:
-> > > On Wed, Aug 31, 2022 at 09:38:27AM +0200, Peter Zijlstra wrote:
-> > > > On Tue, Aug 30, 2022 at 02:48:49PM -0700, Suren Baghdasaryan wrote:
-> > > > > ===========================
-> > > > > Code tagging framework
-> > > > > ===========================
-> > > > > Code tag is a structure identifying a specific location in the source code
-> > > > > which is generated at compile time and can be embedded in an application-
-> > > > > specific structure. Several applications of code tagging are included in
-> > > > > this RFC, such as memory allocation tracking, dynamic fault injection,
-> > > > > latency tracking and improved error code reporting.
-> > > > > Basically, it takes the old trick of "define a special elf section for
-> > > > > objects of a given type so that we can iterate over them at runtime" and
-> > > > > creates a proper library for it.
-> > > > 
-> > > > I might be super dense this morning, but what!? I've skimmed through the
-> > > > set and I don't think I get it.
-> > > > 
-> > > > What does this provide that ftrace/kprobes don't already allow?
-> > > 
-> > > You're kidding, right?
-> > 
-> > It's a valid question. From the description, it main addition that would
-> > be hard to do with ftrace or probes is catching where an error code is
-> > returned. A secondary addition would be catching all historical state and
-> > not just state since the tracing started.
-> 
-> Catching all historical state is pretty important in the case of memory
-> allocation accounting, don't you think?
-> 
-
-Not always. If the intent is to catch a memory leak that gets worse over
-time, early boot should be sufficient. Sure, there might be drivers that leak
-memory allocated at init but if it's not a growing leak, it doesn't matter.
-
-> Also, ftrace can drop events. Not really ideal if under system load your memory
-> accounting numbers start to drift.
-> 
-
-As pointed out elsewhere, attaching to the tracepoint and recording relevant
-state is an option other than trying to parse a raw ftrace feed. For memory
-leaks, there are already tracepoints for page allocation and free that could
-be used to track allocations that are not freed at a given point in time.
-There is also the kernel memory leak detector although I never had reason
-to use it (https://www.kernel.org/doc/html/v6.0-rc3/dev-tools/kmemleak.html)
-and it sounds like it would be expensive.
-
-> > It's also unclear *who* would enable this. It looks like it would mostly
-> > have value during the development stage of an embedded platform to track
-> > kernel memory usage on a per-application basis in an environment where it
-> > may be difficult to setup tracing and tracking. Would it ever be enabled
-> > in production? Would a distribution ever enable this? If it's enabled, any
-> > overhead cannot be disabled/enabled at run or boot time so anyone enabling
-> > this would carry the cost without never necessarily consuming the data.
-> 
-> The whole point of this is to be cheap enough to enable in production -
-> especially the latency tracing infrastructure. There's a lot of value to
-> always-on system visibility infrastructure, so that when a live machine starts
-> to do something wonky the data is already there.
-> 
-
-Sure, there is value but nothing stops the tracepoints being attached as
-a boot-time service where interested. For latencies, there is already
-bpf examples for tracing individual function latency over time e.g.
-https://github.com/iovisor/bcc/blob/master/tools/funclatency.py although
-I haven't used it recently.
-
-Live parsing of ftrace is possible, albeit expensive.
-https://github.com/gormanm/mmtests/blob/master/monitors/watch-highorder.pl
-tracks counts of high-order allocations and dumps a report on interrupt as
-an example of live parsing ftrace and only recording interesting state. It's
-not tracking state you are interested in but it demonstrates it is possible
-to rely on ftrace alone and monitor from userspace. It's bit-rotted but
-can be fixed with
-
-diff --git a/monitors/watch-highorder.pl b/monitors/watch-highorder.pl
-index 8c80ae79e556..fd0d477427df 100755
---- a/monitors/watch-highorder.pl
-+++ b/monitors/watch-highorder.pl
-@@ -52,7 +52,7 @@ my $regex_pagealloc;
- 
- # Static regex used. Specified like this for readability and for use with /o
- #                      (process_pid)     (cpus      )   ( time  )   (tpoint    ) (details)
--my $regex_traceevent = '\s*([a-zA-Z0-9-]*)\s*(\[[0-9]*\])\s*([0-9.]*):\s*([a-zA-Z_]*):\s*(.*)';
-+my $regex_traceevent = '\s*([a-zA-Z0-9-]*)\s*(\[[0-9]*\])\s*([0-9. ]*):\s*([a-zA-Z_]*):\s*(.*)';
- my $regex_statname = '[-0-9]*\s\((.*)\).*';
- my $regex_statppid = '[-0-9]*\s\(.*\)\s[A-Za-z]\s([0-9]*).*';
- 
-@@ -73,6 +73,7 @@ sub generate_traceevent_regex {
- 				$regex =~ s/%p/\([0-9a-f]*\)/g;
- 				$regex =~ s/%d/\([-0-9]*\)/g;
- 				$regex =~ s/%lu/\([0-9]*\)/g;
-+				$regex =~ s/%lx/\([0-9a-zA-Z]*\)/g;
- 				$regex =~ s/%s/\([A-Z_|]*\)/g;
- 				$regex =~ s/\(REC->gfp_flags\).*/REC->gfp_flags/;
- 				$regex =~ s/\",.*//;
-
-Example output
-
-3 instances order=2 normal gfp_flags=GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_ZERO
- => trace_event_raw_event_mm_page_alloc+0x7d/0xc0 <ffffffffb1caeccd>
- => __alloc_pages+0x188/0x250 <ffffffffb1cee8a8>
- => kmalloc_large_node+0x3f/0x80 <ffffffffb1d1cd3f>
- => __kmalloc_node+0x321/0x420 <ffffffffb1d22351>
- => kvmalloc_node+0x46/0xe0 <ffffffffb1ca4906>
- => ttm_sg_tt_init+0x88/0xb0 [ttm] <ffffffffc03a02c8>
- => amdgpu_ttm_tt_create+0x4f/0x80 [amdgpu] <ffffffffc04cff0f>
- => ttm_tt_create+0x59/0x90 [ttm] <ffffffffc03a03b9>
- => ttm_bo_handle_move_mem+0x7e/0x1c0 [ttm] <ffffffffc03a0d9e>
- => ttm_bo_validate+0xc5/0x140 [ttm] <ffffffffc03a2095>
- => ttm_bo_init_reserved+0x17b/0x200 [ttm] <ffffffffc03a228b>
- => amdgpu_bo_create+0x1a3/0x470 [amdgpu] <ffffffffc04d36c3>
- => amdgpu_bo_create_user+0x34/0x60 [amdgpu] <ffffffffc04d39c4>
- => amdgpu_gem_create_ioctl+0x131/0x3a0 [amdgpu] <ffffffffc04d94f1>
- => drm_ioctl_kernel+0xb5/0x140 <ffffffffb21652c5>
- => drm_ioctl+0x224/0x3e0 <ffffffffb2165574>
- => amdgpu_drm_ioctl+0x49/0x80 [amdgpu] <ffffffffc04bd2d9>
- => __x64_sys_ioctl+0x8a/0xc0 <ffffffffb1d7c2da>
- => do_syscall_64+0x5c/0x90 <ffffffffb253016c>
- => entry_SYSCALL_64_after_hwframe+0x63/0xcd <ffffffffb260009b>
-
-3 instances order=1 normal gfp_flags=GFP_NOWAIT|__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_COMP|__GFP_ACCOUNT
- => trace_event_raw_event_mm_page_alloc+0x7d/0xc0 <ffffffffb1caeccd>
- => __alloc_pages+0x188/0x250 <ffffffffb1cee8a8>
- => __folio_alloc+0x17/0x50 <ffffffffb1cef1a7>
- => vma_alloc_folio+0x8f/0x350 <ffffffffb1d11e4f>
- => __handle_mm_fault+0xa1e/0x1120 <ffffffffb1cc80ee>
- => handle_mm_fault+0xb2/0x280 <ffffffffb1cc88a2>
- => do_user_addr_fault+0x1b9/0x690 <ffffffffb1a89949>
- => exc_page_fault+0x67/0x150 <ffffffffb2534627>
- => asm_exc_page_fault+0x22/0x30 <ffffffffb2600b62>
-
-It's not tracking leaks because that is not what I was intrested in at
-the time but could using the same method and recording PFNs that were
-allocated, their call site but not freed. These days, this approach may
-be a bit unexpected but it was originally written 13 years ago. It could
-have been done with systemtap back then but my recollection was that it
-was difficult to keep systemtap working with rc kernels.
-
-> What we've built here this is _far_ cheaper than anything that could be done
-> with ftrace.
-> 
-> > It might be an ease-of-use thing. Gathering the information from traces
-> > is tricky and would need combining multiple different elements and that
-> > is development effort but not impossible.
-> > 
-> > Whatever asking for an explanation as to why equivalent functionality
-> > cannot not be created from ftrace/kprobe/eBPF/whatever is reasonable.
-> 
-> I think perhaps some of the expectation should be on the "ftrace for
-> everything!" people to explain a: how their alternative could be even built and
-> b: how it would compare in terms of performance and ease of use.
-> 
-
-The ease of use is a criticism as there is effort required to develop
-the state tracking of in-kernel event be it from live parsing ftrace,
-attaching to tracepoints with systemtap/bpf/whatever and the like. The
-main disadvantage with an in-kernel implementation is three-fold. First,
-it doesn't work with older kernels without backports. Second, if something
-slightly different it needed then it's a kernel rebuild.  Third, if the
-option is not enabled in the deployed kernel config then you are relying
-on the end user being willing to deploy a custom kernel.  The initial
-investment in doing memory leak tracking or latency tracking by attaching
-to tracepoints is significant but it works with older kernels up to a point
-and is less sensitive to the kernel config options selected as features
-like ftrace are often selected.
-
--- 
-Mel Gorman
-SUSE Labs
+T24gMTYvMDgvMjAyMiAxMToxMywgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4gZGlmZiAtLWdpdCBh
+L3hlbi9jb21tb24vc2NoZWQvY29yZS5jIGIveGVuL2NvbW1vbi9zY2hlZC9jb3JlLmMNCj4gaW5k
+ZXggZjZlZWQ4ODkzMC4uMjI4NDcwYWM0MSAxMDA2NDQNCj4gLS0tIGEveGVuL2NvbW1vbi9zY2hl
+ZC9jb3JlLmMNCj4gKysrIGIveGVuL2NvbW1vbi9zY2hlZC9jb3JlLmMNCj4gQEAgLTMyMzcsNiAr
+MzIzNyw3NSBAQCBvdXQ6DQo+ICAgICAgcmV0dXJuIHJldDsNCj4gIH0NCj4gIA0KPiArLyoNCj4g
+KyAqIEFsbG9jYXRlIGFsbCBtZW1vcnkgbmVlZGVkIGZvciBzY2hlZHVsZV9jcHVfcm1fZnJlZSgp
+LCB3aGljaCBjYW4ndCBkbyB0aGF0DQo+ICsgKiBkdWUgdG8gYmUgY2FsbGVkIGluIHN0b3BfbWFj
+aGluZSgpIGNvbnRleHQgd2l0aCBpbnRlcnJ1cHRzIGRpc2FibGVkLg0KDQpBcyBhIG1pbm9yIG9i
+c2VydmF0aW9uLCB0aGlzIGlzIGF3a3dhcmQgZ3JhbW1hci7CoCBJJ2Qgc3VnZ2VzdCAiLi4uDQpu
+ZWVkZWQgZm9yIGZyZWVfY3B1X3JtX2RhdGEoKSwgYXMgYWxsb2NhdGlvbnMgY2Fubm90IGJlIG1h
+ZGUgaW4NCnN0b3BfbWFjaGluZSgpIGNvbnRleHQiLg0KDQp+QW5kcmV3DQo=
 
