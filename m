@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 591995A9F84
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 21:01:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396907.637299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E71D15A9FB2
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 21:16:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396916.637309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTpQ4-0001X5-VY; Thu, 01 Sep 2022 19:00:04 +0000
+	id 1oTpfB-0003RC-8G; Thu, 01 Sep 2022 19:15:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396907.637299; Thu, 01 Sep 2022 19:00:04 +0000
+Received: by outflank-mailman (output) from mailman id 396916.637309; Thu, 01 Sep 2022 19:15:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTpQ4-0001TX-S9; Thu, 01 Sep 2022 19:00:04 +0000
-Received: by outflank-mailman (input) for mailman id 396907;
- Thu, 01 Sep 2022 19:00:04 +0000
+	id 1oTpfB-0003O8-5S; Thu, 01 Sep 2022 19:15:41 +0000
+Received: by outflank-mailman (input) for mailman id 396916;
+ Thu, 01 Sep 2022 19:15:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nAYD=ZE=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1oTpQ3-0001A8-Ap
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 19:00:03 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KN2J=ZE=suse.com=mhocko@srs-se1.protection.inumbo.net>)
+ id 1oTpfA-0003O2-7U
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 19:15:40 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47c71bfb-2a28-11ed-82f2-63bd783d45fa;
- Thu, 01 Sep 2022 21:00:01 +0200 (CEST)
-Received: from j130084.upc-j.chello.nl ([24.132.130.84]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1oTpPP-008Swy-VE; Thu, 01 Sep 2022 18:59:24 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
+ id 76a338e9-2a2a-11ed-82f2-63bd783d45fa;
+ Thu, 01 Sep 2022 21:15:39 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 8F5993002C7;
- Thu,  1 Sep 2022 20:59:20 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 729172B8B840F; Thu,  1 Sep 2022 20:59:20 +0200 (CEST)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 164EB33749;
+ Thu,  1 Sep 2022 19:15:38 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E01CE13A79;
+ Thu,  1 Sep 2022 19:15:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id fSsfNtkEEWNbVwAAMHmgww
+ (envelope-from <mhocko@suse.com>); Thu, 01 Sep 2022 19:15:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,67 +51,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47c71bfb-2a28-11ed-82f2-63bd783d45fa
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=qo1Y7wjVRM1IPrvgDfwSP6kiSpx5CHm6THH/U/nXDvQ=; b=Cn40tdhd1E1TwjC2GqnrK/VMBS
-	bok5IW5dPqC9b0Puyc5kB0GIPwBvnyb6nAzkLqRz8cvGe+hZxxiWfH5MRjXqCuiD8wRV3vAuxJP+J
-	rBin1pHHm0PdKxLBfMtFhMb+NWLGsCy4r7eBzhOiR3RJwsipcHoCKo1LbfkIAxXUeO3hEsfIiXhrq
-	k8QoRcUNeRFsus+I7Ba6wWsVhV63eeopBg9ahpU9S/Ox/FDoVHSGM37kZ29behPJVXZzWay4XLu5T
-	q0+gdXxrW0zeerMoRET2yGibvMP6RcQg1rpJRDmnkL9WKUV+AjGLfBnI/ialwweB0bUk0PRwtZdkh
-	fjN9qgsg==;
-Date: Thu, 1 Sep 2022 20:59:20 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kent Overstreet <kent.overstreet@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
-	mhocko@suse.com, vbabka@suse.cz, hannes@cmpxchg.org,
-	roman.gushchin@linux.dev, mgorman@suse.de, dave@stgolabs.net,
-	willy@infradead.org, liam.howlett@oracle.com, void@manifault.com,
-	juri.lelli@redhat.com, ldufour@linux.ibm.com, peterx@redhat.com,
-	david@redhat.com, axboe@kernel.dk, mcgrof@kernel.org,
+X-Inumbo-ID: 76a338e9-2a2a-11ed-82f2-63bd783d45fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1662059738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZXQSRqer3+FtfHBMGJ4s/SGRUTOoWiBwBxr7NnCmrIE=;
+	b=HIwU2YpwnrE5NOlkMJL4ArkkguYGM6Uuv9mVzuDeMrV+CL1O1JAjH2PyiZhwzHs5d6Wd1L
+	EizrfQTDfPcrC+OaDzCXbjkbXhZ3LjWuJBCYcYu92bDTSWDpbgxXjkuDAaz/tyPrX55oN0
+	b8fl7WeD5/bzHreO5sHpMhB/5J3nk9g=
+Date: Thu, 1 Sep 2022 21:15:34 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Kent Overstreet <kent.overstreet@linux.dev>,
+	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Matthew Wilcox <willy@infradead.org>,
+	"Liam R. Howlett" <liam.howlett@oracle.com>,
+	David Vernet <void@manifault.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Laurent Dufour <ldufour@linux.ibm.com>,
+	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, mcgrof@kernel.org,
 	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
-	ytcoode@gmail.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	bristot@redhat.com, vschneid@redhat.com, cl@linux.com,
-	penberg@kernel.org, iamjoonsoo.kim@lge.com, 42.hyeyoo@gmail.com,
-	glider@google.com, elver@google.com, dvyukov@google.com,
-	shakeelb@google.com, songmuchun@bytedance.com, arnd@arndb.de,
-	jbaron@akamai.com, rientjes@google.com, minchan@google.com,
-	kaleshsingh@google.com, kernel-team@android.com, linux-mm@kvack.org,
-	iommu@lists.linux.dev, kasan-dev@googlegroups.com,
-	io-uring@vger.kernel.org, linux-arch@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 03/30] Lazy percpu counters
-Message-ID: <YxEBCCA4qaMbbKYA@hirez.programming.kicks-ass.net>
+	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Benjamin Segall <bsegall@google.com>,
+	Daniel Bristot de Oliveira <bristot@redhat.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Christopher Lameter <cl@linux.com>,
+	Pekka Enberg <penberg@kernel.org>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, dvyukov@google.com,
+	Shakeel Butt <shakeelb@google.com>,
+	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de,
+	jbaron@akamai.com, David Rientjes <rientjes@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	kernel-team <kernel-team@android.com>,
+	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev,
+	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
+	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+Message-ID: <YxEE1vOwRPdzKxoq@dhcp22.suse.cz>
 References: <20220830214919.53220-1-surenb@google.com>
- <20220830214919.53220-4-surenb@google.com>
- <YxBWczNCbZbj+reQ@hirez.programming.kicks-ass.net>
- <20220901143219.n7jg7cbp47agqnwn@moria.home.lan>
+ <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
+ <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
+ <20220831101948.f3etturccmp5ovkl@suse.de>
+ <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
+ <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
+ <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
+ <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220901143219.n7jg7cbp47agqnwn@moria.home.lan>
+In-Reply-To: <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
 
-On Thu, Sep 01, 2022 at 10:32:19AM -0400, Kent Overstreet wrote:
-> On Thu, Sep 01, 2022 at 08:51:31AM +0200, Peter Zijlstra wrote:
-> > On Tue, Aug 30, 2022 at 02:48:52PM -0700, Suren Baghdasaryan wrote:
-> > > +static void lazy_percpu_counter_switch_to_pcpu(struct raw_lazy_percpu_counter *c)
-> > > +{
-> > > +	u64 __percpu *pcpu_v = alloc_percpu_gfp(u64, GFP_ATOMIC|__GFP_NOWARN);
-> > 
-> > Realize that this is incorrect when used under a raw_spinlock_t.
+On Thu 01-09-22 08:33:19, Suren Baghdasaryan wrote:
+> On Thu, Sep 1, 2022 at 12:18 AM Michal Hocko <mhocko@suse.com> wrote:
+[...]
+> > So I find Peter's question completely appropriate while your response to
+> > that not so much! Maybe ftrace is not the right tool for the intented
+> > job. Maybe there are other ways and it would be really great to show
+> > that those have been evaluated and they are not suitable for a), b) and
+> > c) reasons.
 > 
-> Can you elaborate?
+> That's fair.
+> For memory tracking I looked into using kmemleak and page_owner which
+> can't match the required functionality at an overhead acceptable for
+> production and pre-production testing environments.
 
-required lock order: raw_spinlock_t < spinlock_t < mutex
+Being more specific would be really helpful. Especially when your cover
+letter suggests that you rely on page_owner/memcg metadata as well to
+match allocation and their freeing parts.
 
-allocators lives at spinlock_t.
+> traces + BPF I
+> haven't evaluated myself but heard from other members of my team who
+> tried using that in production environment with poor results. I'll try
+> to get more specific information on that.
 
-Also see CONFIG_PROVE_RAW_LOCK_NESTING and there might be a document
-mentioning all this somewhere.
+That would be helpful as well.
 
-Additionally, this (obviously) also isn't NMI safe.
+> > E.g. Oscar has been working on extending page_ext to track number of
+> > allocations for specific calltrace[1]. Is this 1:1 replacement? No! But
+> > it can help in environments where page_ext can be enabled and it is
+> > completely non-intrusive to the MM code.
+> 
+> Thanks for pointing out this work. I'll need to review and maybe
+> profile it before making any claims.
+> 
+> >
+> > If the page_ext overhead is not desirable/acceptable then I am sure
+> > there are other options. E.g. kprobes/LivePatching framework can hook
+> > into functions and alter their behavior. So why not use that for data
+> > collection? Has this been evaluated at all?
+> 
+> I'm not sure how I can hook into say alloc_pages() to find out where
+> it was called from without capturing the call stack (which would
+> introduce an overhead at every allocation). Would love to discuss this
+> or other alternatives if they can be done with low enough overhead.
+
+Yes, tracking back the call trace would be really needed. The question
+is whether this is really prohibitively expensive. How much overhead are
+we talking about? There is no free lunch here, really.  You either have
+the overhead during runtime when the feature is used or on the source
+code level for all the future development (with a maze of macros and
+wrappers).
+
+Thanks!
+-- 
+Michal Hocko
+SUSE Labs
 
