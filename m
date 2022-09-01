@@ -2,32 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 944155A9BC7
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 17:33:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396782.637089 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CFF15A9BCD
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 17:35:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396791.637103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTmCE-0005C0-Cw; Thu, 01 Sep 2022 15:33:34 +0000
+	id 1oTmEJ-0005rv-UD; Thu, 01 Sep 2022 15:35:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396782.637089; Thu, 01 Sep 2022 15:33:34 +0000
+Received: by outflank-mailman (output) from mailman id 396791.637103; Thu, 01 Sep 2022 15:35:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTmCE-00059A-A2; Thu, 01 Sep 2022 15:33:34 +0000
-Received: by outflank-mailman (input) for mailman id 396782;
- Thu, 01 Sep 2022 15:33:33 +0000
+	id 1oTmEJ-0005og-RE; Thu, 01 Sep 2022 15:35:43 +0000
+Received: by outflank-mailman (input) for mailman id 396791;
+ Thu, 01 Sep 2022 15:35:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=86q5=ZE=google.com=surenb@srs-se1.protection.inumbo.net>)
- id 1oTmCD-000594-Ck
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 15:33:33 +0000
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [2607:f8b0:4864:20::b2c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f2518da-2a0b-11ed-934f-f50d60e1c1bd;
- Thu, 01 Sep 2022 17:33:32 +0200 (CEST)
-Received: by mail-yb1-xb2c.google.com with SMTP id t184so9125033yba.4
- for <xen-devel@lists.xenproject.org>; Thu, 01 Sep 2022 08:33:32 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Q6x2=ZE=oracle.com=dan.carpenter@srs-se1.protection.inumbo.net>)
+ id 1oTmEH-0005oV-MX
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 15:35:42 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b974762a-2a0b-11ed-934f-f50d60e1c1bd;
+ Thu, 01 Sep 2022 17:35:37 +0200 (CEST)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 281FIgfF028411;
+ Thu, 1 Sep 2022 15:35:31 GMT
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3j79pc49nb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 01 Sep 2022 15:35:31 +0000
+Received: from pps.filterd
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
+ with ESMTP id 281E1TW1036927; Thu, 1 Sep 2022 15:35:31 GMT
+Received: from nam04-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04lp2041.outbound.protection.outlook.com [104.47.74.41])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3jarpb6jyn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 01 Sep 2022 15:35:31 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28) by DS0PR10MB6030.namprd10.prod.outlook.com
+ (2603:10b6:8:ce::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Thu, 1 Sep
+ 2022 15:35:29 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::209e:de4d:68ea:c026]) by MWHPR1001MB2365.namprd10.prod.outlook.com
+ ([fe80::209e:de4d:68ea:c026%3]) with mapi id 15.20.5566.021; Thu, 1 Sep 2022
+ 15:35:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,186 +63,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f2518da-2a0b-11ed-934f-f50d60e1c1bd
+X-Inumbo-ID: b974762a-2a0b-11ed-934f-f50d60e1c1bd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : content-type : mime-version; s=corp-2022-7-12;
+ bh=k3jhOi/18aqXzObtn/UvjH1Vjp+lrALC3R1MFoWRLIk=;
+ b=HSqO1mOCyzjuJX9MEYDOVD1AdEd2ddoCQCZJxoYyPgNraY34bcpCZxrCFKOMhIbzg/ex
+ 9EnHztMUxgyewaO3PIJvSqLfDrMYu8mK2l8rFiVZzEbRsqWYR2NeyKABXVqMLZ9LItzl
+ S9INAOmo3bEMAW3KSR2nJZh+ocGejzFsKlWeEJnsTg/+tNcNbEavMMXqBiCMFAqDPAaz
+ pGpE42Ics+96OqzQvdmcREJGQr/RUJPLAHnh5RBQ4qEajLWtFg5e6yJaoI57O5dREJQP
+ X10GVEHcMqfmQuXfWMtR9fRjTJl+Pkpx7DpVoMg+Tch67pCIU6pc+741+w4Zejh4swm1 FQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iecDb0ZbHR0gPXmS1viD1Nw0QW+2ArTkrHcjfMOuZbdVu0GEX7d5RlBkvcMEBB/dXc1n4zIWJy5odyRsKojgh0JKZtFXxxGEiZW0xW8u81p3lT+wqwASWXH31J/oaCyAMOWzpCBOY970AW/JXoEaE/znfYYI+udECLLmoKn9Pelp1nmZQJtziMOqNqaWddI6WoA+KxPb8HrVKaD5tPIzpXfaFxZJWuOa7OuRjsdQSXPQZtkCcak7wZ0zYt3DtqykKQR3SbnhEx/keBV8Z7Sx0ZFPmrIBROa+w3oQ8RSgLo+dvVDT2pEUKkXUWyq4oEKremXyfRRYhjPc911wwnEMTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k3jhOi/18aqXzObtn/UvjH1Vjp+lrALC3R1MFoWRLIk=;
+ b=BrYkeh+8x/FnBZPYgICsZelEnu3wAwbY2i6nZx9I1+iaF4kN/kcmfPL+MzRrZeTxlcDksHZMpvxgdTDJLk+KFTRoIyf4Si3ZUwt2ph8knp1BlnF5RqL4/ORsugA0C6tYk80pqbgUEHgrNtTJBbfa/DEFnCc/OVFIsFm8oO3MwuBeh9B9KEYLLKWRBWQwn72HsipYZ8qDzSUMcBZyOJeOF6vqA4oRjuOQxvC9UsyeiLY8fGsyI5IdZoLMUTYxySSKqrwmLBSpCFnkAACSOBrbp8N/cJbxKQox8Mhj6GJYWpVKjdyRlX6Agrvn6zXGZe4NbvjeTmbQqmaWGItlpCMAWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=cuZ+nGX7dbAKHVSMzM9WDnRxW6f4Hrbmbun1Vl7XZUY=;
-        b=nPy2aaUnPlKN9168rAezb9LSPcW4fo9+X5T3qYP77vPFcpzl+GhEzMZUxcz6J/8TiE
-         IizY0PKy2tILVlboBx4hOHtK6o3BgdgdGqsyzqTvhnIsClaTwjg++DGXEdjbBPa8JR6s
-         MIO2ZCktfdOzY88zke9nN4gcVwpbigx1IRCHgdE2F2Mq1597r9VFdc/4HIbMkV/CeG8x
-         zsKr4C+BAyJ34f5F1Hb/vV3IvHxRb8IEQg4iOBO9diUXfW6M3nrOExLvEuVNGqzKErqg
-         hzqElImWPPWWViyded2pBo3h+cgyvOivEpW732ttVGvmx+I0KmbeGYZvy64qW3Me0ncH
-         pw1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=cuZ+nGX7dbAKHVSMzM9WDnRxW6f4Hrbmbun1Vl7XZUY=;
-        b=cCH507uoVpiOaVv1wxBkBLErqClVaIPdoJRT72yjptjG8uuKrl+Jx+7RSlWXjBNEwY
-         ZvBh/Cbk+PSsUnY71UjziNZo0Q2Q83NcuD+7/JFoYlgsDiz3l9JEMGmi9SAXcgITI5kb
-         kw5y+QPbmXyrr3mn5yFuGhISAyzTcNBv1QjYHEEOODBJ9DzeFlzvAAQMlJ92GGrREdjD
-         FAqPSHwpGBJrhwP3H3Yz2qPFIpUMjeITpVswlE4HO5rR9vd30MhqvzB19IMM6JPe8eE3
-         X2hWp4XzGIvoiPFS8jw25BmCkgkx1w+oJhaGiYR31qgi9uvHqqoz9mCkceSn4nZ4BH8C
-         6zvQ==
-X-Gm-Message-State: ACgBeo1jxIzZMBjEZTTXNXo5yUi5DosB7xWQh39/EkzJleRluneg+DWL
-	y51uKbC6Y2Qxo0+EymNuBKgjFLp4lYfBf+LAUEGHZQ==
-X-Google-Smtp-Source: AA6agR7nkVcaAE7evofOhQO8CQyYLS6FGoseisRuE7p9aju3ICNx4/ZUVa/hlS8HLwBhdw8j7iOCWiWLZKuRzYzC+BI=
-X-Received: by 2002:a05:6902:705:b0:695:b3b9:41bc with SMTP id
- k5-20020a056902070500b00695b3b941bcmr19699146ybt.426.1662046410779; Thu, 01
- Sep 2022 08:33:30 -0700 (PDT)
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k3jhOi/18aqXzObtn/UvjH1Vjp+lrALC3R1MFoWRLIk=;
+ b=MfMFIaWq1dZHp6MhDWuOBdf0xGewH2sfuDlwKb6cwhNuFe9Kfd+VKnij9dUyq2p4NC4vu/1ugYUPM+97E3OENfSvP/k1nS/uXGE8Kehon4Iw3BDjwHU0SgD3/BTTkThCieoRdNGnNVwaOsa5rbLR5w3lviNu6itU+PpfWtk4pUw=
+Date: Thu, 1 Sep 2022 18:35:20 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        xen-devel@lists.xenproject.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] xen/grants: prevent integer overflow in
+ gnttab_dma_alloc_pages()
+Message-ID: <YxDROJqu/RPvR0bi@kili>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-ClientProxiedBy: ZR0P278CA0057.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:21::8) To MWHPR1001MB2365.namprd10.prod.outlook.com
+ (2603:10b6:301:2d::28)
 MIME-Version: 1.0
-References: <20220830214919.53220-1-surenb@google.com> <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
- <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan> <20220831101948.f3etturccmp5ovkl@suse.de>
- <Yw88RFuBgc7yFYxA@dhcp22.suse.cz> <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
- <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
-In-Reply-To: <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 1 Sep 2022 08:33:19 -0700
-Message-ID: <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
-Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-To: Michal Hocko <mhocko@suse.com>
-Cc: Kent Overstreet <kent.overstreet@linux.dev>, Mel Gorman <mgorman@suse.de>, 
-	Peter Zijlstra <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>, 
-	Matthew Wilcox <willy@infradead.org>, "Liam R. Howlett" <liam.howlett@oracle.com>, 
-	David Vernet <void@manifault.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	Laurent Dufour <ldufour@linux.ibm.com>, Peter Xu <peterx@redhat.com>, 
-	David Hildenbrand <david@redhat.com>, Jens Axboe <axboe@kernel.dk>, mcgrof@kernel.org, 
-	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com, 
-	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Benjamin Segall <bsegall@google.com>, Daniel Bristot de Oliveira <bristot@redhat.com>, 
-	Valentin Schneider <vschneid@redhat.com>, Christopher Lameter <cl@linux.com>, Pekka Enberg <penberg@kernel.org>, 
-	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com, 
-	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, dvyukov@google.com, 
-	Shakeel Butt <shakeelb@google.com>, Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de, 
-	jbaron@akamai.com, David Rientjes <rientjes@google.com>, Minchan Kim <minchan@google.com>, 
-	Kalesh Singh <kaleshsingh@google.com>, kernel-team <kernel-team@android.com>, 
-	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
-	io-uring@vger.kernel.org, linux-arch@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org, 
-	linux-modules@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 77eaa148-93f1-48ad-e950-08da8c2f999a
+X-MS-TrafficTypeDiagnostic: DS0PR10MB6030:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	pMEBtgElVZNcTC7vK2IGsTdnLdfXnTJles9buPnuiDfGSyW8R/eHx7lUva+HROlYB2/3uctLeMIhoS1y06/ztu3BCuZiQTmiCzwH7jZPVx+yTtLax5Gxe4pc3Uh4h7DmJlwFgAHCwlVcxAFmxvI5vOZfiwe9RfCCaq6Xb+mNKzpeXH8YHFYnY0MTy9hBMjwBMdmA/qR72rF+JJYxQsUbAGXG1DLh2HYSBmTL8rEF9LptGkHLJqAnbpqNNMm8cUDBA5SHUHWMpnWfnCZD2EGhu3KWGOuIrh2U2UphGNc3XLwk+vtJ+iyX+ItW8SfUgmdO+WAXjlX49jVPRitOoQUVDdMEWfsNuP7K4WUGA0sKhHqLJQBO00ESKz+aIBcZFFHhUUfTIVgeKfQe035W8ZaFmJX3/kd3xdMLWIZ6vp78RdFojEYp/1NMqRg50jpgEhRLlkrB2QMgdllCKU5RNnohoawtb474xPkfsPk+FIvVfOw4L6PfcYp1S92h1dPhmgRUOFIWL1cJb74nmTL3920tbBbovT52s6TaKqBh1eQebE7pfoS5SslHnQyP0rVQlgPR7IPDR3ayXZ1VsZHY2ofjat4+0O5ggjED1M/QIK70ErXHYZyXU6dF2s9/iYCnE945gMgXhU3BlaoOVpPFvkM4A/L52OJDHa92J9g6sXMDOLnVlXQCkjvxv0eVJZWUR2dcGHYOwsNI8p1xJ2icMjZNvJX0qO/eBdFP0ebhNHUrab3bdQmyfMom5sib7fIZci7YOS9cq5tzLbFw5i/1XZcEBA==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2365.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(7916004)(136003)(366004)(39860400002)(396003)(346002)(376002)(6506007)(33716001)(66476007)(66556008)(4326008)(8676002)(6666004)(52116002)(316002)(8936002)(6512007)(26005)(86362001)(478600001)(6486002)(38350700002)(6916009)(38100700002)(54906003)(41300700001)(186003)(2906002)(66946007)(9686003)(4744005)(44832011)(5660300002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?Wqq5pH6n1jT5FpG05kp42IfyeWga2HrVWYvd7L3Cq4cUzpa/Sf8jXcOSW47P?=
+ =?us-ascii?Q?a1oFz1b3JylFHsJZ4/KSnhExzbG3iIX3mYmbvYECkK4Q3w1vEIlMQ+SDMtby?=
+ =?us-ascii?Q?BS5upisidMAlUo+0LIiOTmclMcV/OHGxfUOmSHxh1FFJGFJn1ubMH/lS7XkA?=
+ =?us-ascii?Q?B1Z78jS+76KXCKitSPSpp5yvCGfcMSNstkvFgWDmtsYlJG+8aRptBa4Pl2uq?=
+ =?us-ascii?Q?InJe0f/3PASjyBOzJ08NS8z0KMtB95UHXkdrKCHwgj4iKsMpKvVcZRxzBHfM?=
+ =?us-ascii?Q?JLQqu8L7Rsdx5KIPptCjZ7ZRm0YLC86XAY0+oCZaQFeAKXfQyfoTxlNwBqmC?=
+ =?us-ascii?Q?+yEjy5p2CaA2xBvHl4WW0rEClaPOCHf+aY5kf7DhAy9oxCTExH4kVOB0diNQ?=
+ =?us-ascii?Q?qglsLpXqcDga9bZwcpgFqlD6zcXQRT578XaTspnb+4I32165+rSW654wBhjE?=
+ =?us-ascii?Q?ryq8FGAraizMVstBKkvow8a3WTFxEwpwMUfXK1c14WiWZufIZbOu+9ds50B8?=
+ =?us-ascii?Q?2VMpH5UzBclTouIm5OLEfDMmS43WcXKOVsC3L7bQkv0Si3HfaujTGiFif+Ue?=
+ =?us-ascii?Q?v+B/6SmDG0E/Yy0VHnIWyGJ9EiY7X8ABlK3osFLHzcqN+RujFvC1EAHrF/KJ?=
+ =?us-ascii?Q?htZVh1nYVCcbKjvIIbRKmc7ekycdc1bJ600EX/a9yM+j2G6ziTU+B1FDbHUX?=
+ =?us-ascii?Q?dTjtIp5VEYVVIosGYrTba2wiBOr5NmoHB+PIcu6iWEqC7GBqeeRITiGKT3k2?=
+ =?us-ascii?Q?D848WrIWIm6FcwElghgErzWTOSTkdWSYM2obM3CI2+nzX2RUVN9kyj6TODsu?=
+ =?us-ascii?Q?0/XQa2xNSvq8IqJM0IQQZaMAXNvX/1w6EQmq+skWv8fQkFn6q4fPeRBMDcNm?=
+ =?us-ascii?Q?7B53eq0wfw0rJ/hQF3gH+q9JAzv2RwhS5YqEQMmZlMKH6QQNg7unEooU9+aQ?=
+ =?us-ascii?Q?wGT5piQmicdXxe4EfM1UnZznx5ovn4LkumvpbOsgjkNy5UpU8DKEG3Dhwqpq?=
+ =?us-ascii?Q?8vSMilLIL6NZwp65i0i1OjKQWOFYOA0ngVTZCXHdHttnc0dPwXs3hl5sC2SV?=
+ =?us-ascii?Q?7JjkZA1nYqDR/Agw2xKpEgVKaaEaKKtRVO9PrtqUyHoNz00RTwWcBFUpM0Wy?=
+ =?us-ascii?Q?HTo+vDLFdBx6whteautV8ac3UO9j5o5V4qoLzFF45b2ZOIw1SembGMRyi5UJ?=
+ =?us-ascii?Q?V+y1DNJMFsCTSo8vcZHyvJ9B9/KFCqnpBkyFfVlp0WNLIROmu0rTw0hsusKp?=
+ =?us-ascii?Q?cSSaefDyusjpDmK7SojNbBTi/4GkVSnOpZYf3bTzZOc6BscAgFKDX4W2VXph?=
+ =?us-ascii?Q?lBdWWum1xJAAXYZNToYzaBidWECBgnt74s6jiBufgAF/IZ4uLtydl7qvZfcS?=
+ =?us-ascii?Q?wXqtaYoRYph+Rl2PshrC/kU4YshxptaUR+LLUx+t4aEB41kOGYyte1sja7ZR?=
+ =?us-ascii?Q?JNKMhPLQLcofHn6kDvLXkplj+km9o3ojM//VQxjy7J267LFiRGA0GdxgrtE/?=
+ =?us-ascii?Q?f31o9PHcdDp8RLSK8d/rehnFlval3FlsNRX1NyIsXweSLZon5FbOyRYtQXHE?=
+ =?us-ascii?Q?IdWGUi7bmcbQpqe9YbGb6zDk+MScoIYfaaw73DPJeBrIDjR1NyxNa75x68I/?=
+ =?us-ascii?Q?kg=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77eaa148-93f1-48ad-e950-08da8c2f999a
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2022 15:35:29.6014
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SRUbNFHeRBDsjfn3i3hC7aUv3/Xzwx6qQBYgAPHQjgs5I2tFEf5c8fEccMLAqVOcopX9bSCKJ5PQxanHMdtxpS3T4mNGBAKV9Pylbjc2bZ8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB6030
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.517,FMLib:17.11.122.1
+ definitions=2022-09-01_10,2022-08-31_03,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 mlxscore=0 phishscore=0
+ spamscore=0 adultscore=0 suspectscore=0 mlxlogscore=999 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2207270000
+ definitions=main-2209010070
+X-Proofpoint-ORIG-GUID: xivjyUq_5x4pYqFe-WbC4hN2Nwk1Q1ar
+X-Proofpoint-GUID: xivjyUq_5x4pYqFe-WbC4hN2Nwk1Q1ar
 
-On Thu, Sep 1, 2022 at 12:18 AM Michal Hocko <mhocko@suse.com> wrote:
->
-> On Wed 31-08-22 15:01:54, Kent Overstreet wrote:
-> > On Wed, Aug 31, 2022 at 12:47:32PM +0200, Michal Hocko wrote:
-> > > On Wed 31-08-22 11:19:48, Mel Gorman wrote:
-> > > > Whatever asking for an explanation as to why equivalent functionality
-> > > > cannot not be created from ftrace/kprobe/eBPF/whatever is reasonable.
-> > >
-> > > Fully agreed and this is especially true for a change this size
-> > > 77 files changed, 3406 insertions(+), 703 deletions(-)
-> >
-> > In the case of memory allocation accounting, you flat cannot do this with ftrace
-> > - you could maybe do a janky version that isn't fully accurate, much slower,
-> > more complicated for the developer to understand and debug and more complicated
-> > for the end user.
-> >
-> > But please, I invite anyone who's actually been doing this with ftrace to
-> > demonstrate otherwise.
-> >
-> > Ftrace just isn't the right tool for the job here - we're talking about adding
-> > per callsite accounting to some of the fastest fast paths in the kernel.
-> >
-> > And the size of the changes for memory allocation accounting are much more
-> > reasonable:
-> >  33 files changed, 623 insertions(+), 99 deletions(-)
-> >
-> > The code tagging library should exist anyways, it's been open coded half a dozen
-> > times in the kernel already.
-> >
-> > And once we've got that, the time stats code is _also_ far simpler than doing it
-> > with ftrace would be. If anyone here has successfully debugged latency issues
-> > with ftrace, I'd really like to hear it. Again, for debugging latency issues you
-> > want something that can always be on, and that's not cheap with ftrace - and
-> > never mind the hassle of correlating start and end wait trace events, builting
-> > up histograms, etc. - that's all handled here.
-> >
-> > Cheap, simple, easy to use. What more could you want?
->
-> A big ad on a banner. But more seriously.
->
-> This patchset is _huge_ and touching a lot of different areas. It will
-> be not only hard to review but even harder to maintain longterm. So
-> it is completely reasonable to ask for potential alternatives with a
-> smaller code footprint. I am pretty sure you are aware of that workflow.
+The change from kcalloc() to kvmalloc() means that arg->nr_pages
+might now be large enough that the "args->nr_pages << PAGE_SHIFT" can
+result in an integer overflow.
 
-The patchset is huge because it introduces a reusable part (the first
-6 patches introducing code tagging) and 6 different applications in
-very different areas of the kernel. We wanted to present all of them
-in the RFC to show the variety of cases this mechanism can be reused
-for. If the code tagging is accepted, each application can be posted
-separately to the appropriate group of people. Hopefully that makes it
-easier to review. Those first 6 patches are not that big and are quite
-isolated IMHO:
+Fixes: b3f7931f5c61 ("xen/gntdev: switch from kcalloc() to kvcalloc()")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/xen/grant-table.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- include/linux/codetag.h             |  83 ++++++++++
- include/linux/lazy-percpu-counter.h |  67 ++++++++
- include/linux/module.h              |   1 +
- kernel/module/internal.h            |   1 -
- kernel/module/main.c                |   4 +
- lib/Kconfig                         |   3 +
- lib/Kconfig.debug                   |   4 +
- lib/Makefile                        |   3 +
- lib/codetag.c                       | 248 ++++++++++++++++++++++++++++
- lib/lazy-percpu-counter.c           | 141 ++++++++++++++++
- lib/string_helpers.c                |   3 +-
- scripts/kallsyms.c                  |  13 ++
+diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+index 738029de3c67..e1ec725c2819 100644
+--- a/drivers/xen/grant-table.c
++++ b/drivers/xen/grant-table.c
+@@ -1047,6 +1047,9 @@ int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
+ 	size_t size;
+ 	int i, ret;
+ 
++	if (args->nr_pages < 0 || args->nr_pages > (INT_MAX >> PAGE_SHIFT))
++		return -ENOMEM;
++
+ 	size = args->nr_pages << PAGE_SHIFT;
+ 	if (args->coherent)
+ 		args->vaddr = dma_alloc_coherent(args->dev, size,
+-- 
+2.35.1
 
->
-> So I find Peter's question completely appropriate while your response to
-> that not so much! Maybe ftrace is not the right tool for the intented
-> job. Maybe there are other ways and it would be really great to show
-> that those have been evaluated and they are not suitable for a), b) and
-> c) reasons.
-
-That's fair.
-For memory tracking I looked into using kmemleak and page_owner which
-can't match the required functionality at an overhead acceptable for
-production and pre-production testing environments. traces + BPF I
-haven't evaluated myself but heard from other members of my team who
-tried using that in production environment with poor results. I'll try
-to get more specific information on that.
-
->
-> E.g. Oscar has been working on extending page_ext to track number of
-> allocations for specific calltrace[1]. Is this 1:1 replacement? No! But
-> it can help in environments where page_ext can be enabled and it is
-> completely non-intrusive to the MM code.
-
-Thanks for pointing out this work. I'll need to review and maybe
-profile it before making any claims.
-
->
-> If the page_ext overhead is not desirable/acceptable then I am sure
-> there are other options. E.g. kprobes/LivePatching framework can hook
-> into functions and alter their behavior. So why not use that for data
-> collection? Has this been evaluated at all?
-
-I'm not sure how I can hook into say alloc_pages() to find out where
-it was called from without capturing the call stack (which would
-introduce an overhead at every allocation). Would love to discuss this
-or other alternatives if they can be done with low enough overhead.
-Thanks,
-Suren.
-
->
-> And please note that I am not claiming the presented work is approaching
-> the problem from a wrong direction. It might very well solve multiple
-> problems in a single go _but_ the long term code maintenance burden
-> really has to to be carefully evaluated and if we can achieve a
-> reasonable subset of the functionality with an existing infrastructure
-> then I would be inclined to sacrifice some portions with a considerably
-> smaller code footprint.
->
-> [1] http://lkml.kernel.org/r/20220901044249.4624-1-osalvador@suse.de
->
-> --
-> Michal Hocko
-> SUSE Labs
 
