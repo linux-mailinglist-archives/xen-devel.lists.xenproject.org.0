@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E65335AA326
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 00:34:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396985.637401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12F515AA333
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 00:37:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396993.637413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTslH-00014f-Ci; Thu, 01 Sep 2022 22:34:11 +0000
+	id 1oTsoV-0001gF-TZ; Thu, 01 Sep 2022 22:37:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396985.637401; Thu, 01 Sep 2022 22:34:11 +0000
+Received: by outflank-mailman (output) from mailman id 396993.637413; Thu, 01 Sep 2022 22:37:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTslH-00011P-9s; Thu, 01 Sep 2022 22:34:11 +0000
-Received: by outflank-mailman (input) for mailman id 396985;
- Thu, 01 Sep 2022 22:34:09 +0000
+	id 1oTsoV-0001cz-Q9; Thu, 01 Sep 2022 22:37:31 +0000
+Received: by outflank-mailman (input) for mailman id 396993;
+ Thu, 01 Sep 2022 22:37:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hZ//=ZE=goodmis.org=rostedt@kernel.org>)
- id 1oTslF-00011I-Nl
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 22:34:09 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=j4CE=ZE=linux.dev=kent.overstreet@srs-se1.protection.inumbo.net>)
+ id 1oTsoV-0001ct-99
+ for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 22:37:31 +0000
+Received: from out1.migadu.com (out1.migadu.com [91.121.223.63])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fd40133-2a46-11ed-934f-f50d60e1c1bd;
- Fri, 02 Sep 2022 00:34:06 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7F34562017;
- Thu,  1 Sep 2022 22:34:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A46C433C1;
- Thu,  1 Sep 2022 22:33:59 +0000 (UTC)
+ id a8d027da-2a46-11ed-934f-f50d60e1c1bd;
+ Fri, 02 Sep 2022 00:37:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,272 +36,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fd40133-2a46-11ed-934f-f50d60e1c1bd
-Date: Thu, 1 Sep 2022 18:34:30 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Kent Overstreet <kent.overstreet@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
- mhocko@suse.com, vbabka@suse.cz, hannes@cmpxchg.org,
- roman.gushchin@linux.dev, mgorman@suse.de, dave@stgolabs.net,
- willy@infradead.org, liam.howlett@oracle.com, void@manifault.com,
- peterz@infradead.org, juri.lelli@redhat.com, ldufour@linux.ibm.com,
- peterx@redhat.com, david@redhat.com, axboe@kernel.dk, mcgrof@kernel.org,
- masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
- ytcoode@gmail.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
- bsegall@google.com, bristot@redhat.com, vschneid@redhat.com, cl@linux.com,
- penberg@kernel.org, iamjoonsoo.kim@lge.com, 42.hyeyoo@gmail.com,
- glider@google.com, elver@google.com, dvyukov@google.com,
- shakeelb@google.com, songmuchun@bytedance.com, arnd@arndb.de,
- jbaron@akamai.com, rientjes@google.com, minchan@google.com,
- kaleshsingh@google.com, kernel-team@android.com, linux-mm@kvack.org,
- iommu@lists.linux.dev, kasan-dev@googlegroups.com,
- io-uring@vger.kernel.org, linux-arch@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 27/30] Code tagging based latency tracking
-Message-ID: <20220901183430.120311ce@gandalf.local.home>
-In-Reply-To: <20220901215438.gy3bgqa4ghhm6ztm@moria.home.lan>
+X-Inumbo-ID: a8d027da-2a46-11ed-934f-f50d60e1c1bd
+Date: Thu, 1 Sep 2022 18:37:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1662071848;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V/P7j4Y+xJUBAt6fEYfNoKfACstBZQ8E1OFd7bHElGY=;
+	b=RyUvH2zz81kL6tcYdp2BW6QKmetndFvVS3i7VcCPOcaijLcz0TfOGgBaq909SL/Y1jdlP0
+	/Retvz17eFHQUiP5AcXQOlPHDOkvuT6UrIyhDdDGO5y36J1883WvsJluGTqXU9etuyqcdH
+	dSwrFVK7mCUuYhH+U9EIxQUe3RmbsW8=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Kent Overstreet <kent.overstreet@linux.dev>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Yosry Ahmed <yosryahmed@google.com>, Michal Hocko <mhocko@suse.com>,
+	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Johannes Weiner <hannes@cmpxchg.org>, dave@stgolabs.net,
+	Matthew Wilcox <willy@infradead.org>, liam.howlett@oracle.com,
+	void@manifault.com, juri.lelli@redhat.com, ldufour@linux.ibm.com,
+	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
+	axboe@kernel.dk, mcgrof@kernel.org, masahiroy@kernel.org,
+	nathan@kernel.org, changbin.du@intel.com, ytcoode@gmail.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	Steven Rostedt <rostedt@goodmis.org>, bsegall@google.com,
+	bristot@redhat.com, vschneid@redhat.com,
+	Christoph Lameter <cl@linux.com>, Pekka Enberg <penberg@kernel.org>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com,
+	glider@google.com, elver@google.com, dvyukov@google.com,
+	Shakeel Butt <shakeelb@google.com>,
+	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de,
+	jbaron@akamai.com, David Rientjes <rientjes@google.com>,
+	minchan@google.com, kaleshsingh@google.com, kernel-team@android.com,
+	Linux-MM <linux-mm@kvack.org>, iommu@lists.linux.dev,
+	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
+	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+Message-ID: <20220901223720.e4gudprscjtwltif@moria.home.lan>
 References: <20220830214919.53220-1-surenb@google.com>
-	<20220830214919.53220-28-surenb@google.com>
-	<20220901173844.36e1683c@gandalf.local.home>
-	<20220901215438.gy3bgqa4ghhm6ztm@moria.home.lan>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+ <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
+ <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
+ <20220831101948.f3etturccmp5ovkl@suse.de>
+ <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
+ <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
+ <CAJD7tkaev9B=UDYj2RL6pz-1454J8tv4gEr9y-2dnCksoLK0bw@mail.gmail.com>
+ <YxExz+c1k3nbQMh4@P9FQF9L96D.corp.robot.car>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YxExz+c1k3nbQMh4@P9FQF9L96D.corp.robot.car>
+X-Migadu-Flow: FLOW_OUT
+X-Migadu-Auth-User: linux.dev
 
-On Thu, 1 Sep 2022 17:54:38 -0400
-Kent Overstreet <kent.overstreet@linux.dev> wrote:
+On Thu, Sep 01, 2022 at 03:27:27PM -0700, Roman Gushchin wrote:
+> On Wed, Aug 31, 2022 at 01:56:08PM -0700, Yosry Ahmed wrote:
+> > This is very interesting work! Do you have any data about the overhead
+> > this introduces, especially in a production environment? I am
+> > especially interested in memory allocations tracking and detecting
+> > leaks.
 > 
-> So this looks like it's gotten better since I last looked, but it's still not
-> there yet.
+> +1
 > 
-> Part of the problem is that the tracepoints themselves are in the wrong place:
-> your end event is when a task is woken up, but that means spurious wakeups will
+> I think the question whether it indeed can be always turned on in the production
+> or not is the main one. If not, the advantage over ftrace/bpf/... is not that
+> obvious. Otherwise it will be indeed a VERY useful thing.
 
-The end event is when a task is scheduled onto the CPU. The start event is
-the first time it is woken up.
+Low enough overhead to run in production was my primary design goal.
 
-> cause one wait_event() call to be reported as multiple smaller waits, not one
-> long wait - oops, now I can't actually find the thing that's causing my
-> multi-second delay.
-> 
-> Also, in your example you don't have it broken out by callsite. That would be
-> the first thing I'd need for any real world debugging.
+Stats are kept in a struct that's defined at the callsite. So this adds _no_
+pointer chasing to the allocation path, unless we've switch to percpu counters
+at that callsite (see the lazy percpu counters patch), where we need to deref
+one percpu pointer to save an atomic.
 
-OK, how about this (currently we can only have 3 keys, but you can create
-multiple histograms on the same event).
+Then we need to stash a pointer to the alloc_tag, so that kfree() can find it.
+For slab allocations this uses the same storage area as memcg, so for
+allocations that are using that we won't be touching any additional cachelines.
+(I wanted the pointer to the alloc_tag to be stored inline with the allocation,
+but that would've caused alignment difficulties).
 
- # echo 'hist:keys=comm,stacktrace,delta.buckets=10:sort=delta' > /sys/kernel/tracing/events/synthetic/wakeup_lat/trigger
+Then there's a pointer deref introduced to the kfree() path, to get back to the
+original alloc_tag and subtract the allocation from that callsite. That one
+won't be free, and with percpu counters we've got another dependent load too -
+hmm, it might be worth benchmarking with just atomics, skipping the percpu
+counters.
 
-(notice the "stacktrace" in the keys)
-
-# cat /sys/kernel/tracing/events/synthetic/wakeup_lat/hist
-# event histogram
-#
-# trigger info: hist:keys=comm,stacktrace,delta.buckets=10:vals=hitcount:sort=delta.buckets=10:size=2048 [active]
-#
-
-{ comm: migration/2                                       , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 10-19} hitcount:          7
-{ comm: migration/5                                       , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 10-19} hitcount:          7
-{ comm: migration/1                                       , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 10-19} hitcount:          7
-{ comm: migration/7                                       , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 10-19} hitcount:          7
-{ comm: migration/0                                       , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         start_kernel+0x595/0x5be
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 10-19} hitcount:          7
-{ comm: migration/4                                       , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 10-19} hitcount:          7
-{ comm: rtkit-daemon                                      , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         preempt_schedule_common+0x2d/0x70
-         preempt_schedule_thunk+0x16/0x18
-         _raw_spin_unlock_irq+0x2e/0x40
-         eventfd_write+0xc8/0x290
-         vfs_write+0xc0/0x2a0
-         ksys_write+0x5f/0xe0
-         do_syscall_64+0x3b/0x90
-         entry_SYSCALL_64_after_hwframe+0x61/0xcb
-, delta: ~ 10-19} hitcount:          1
-{ comm: migration/6                                       , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 10-19} hitcount:          7
-{ comm: rtkit-daemon                                      , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 20-29} hitcount:          1
-{ comm: rtkit-daemon                                      , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         preempt_schedule_common+0x2d/0x70
-         preempt_schedule_thunk+0x16/0x18
-         _raw_spin_unlock_irq+0x2e/0x40
-         eventfd_write+0xc8/0x290
-         vfs_write+0xc0/0x2a0
-         ksys_write+0x5f/0xe0
-         do_syscall_64+0x3b/0x90
-         entry_SYSCALL_64_after_hwframe+0x61/0xcb
-, delta: ~ 30-39} hitcount:          1
-{ comm: rtkit-daemon                                      , stacktrace:
-         event_hist_trigger+0x290/0x2b0
-         event_triggers_call+0x52/0xe0
-         trace_event_buffer_commit+0x193/0x240
-         trace_event_raw_event_sched_switch+0x120/0x180
-         __traceiter_sched_switch+0x39/0x50
-         __schedule+0x310/0x700
-         schedule_idle+0x26/0x40
-         do_idle+0xb4/0xd0
-         cpu_startup_entry+0x19/0x20
-         secondary_startup_64_no_verify+0xc2/0xcb
-, delta: ~ 40-49} hitcount:          1
-
-Totals:
-    Hits: 53
-    Entries: 11
-    Dropped: 0
-
-
-Not the prettiest thing to read. But hey, we got the full stack of where
-these latencies happened!
-
-Yes, it adds some overhead when the events are triggered due to the
-stacktrace code, but it's extremely useful information.
-
-> 
-> So, it looks like tracing has made some progress over the past 10 years,
-> but for debugging latency issues it's still not there yet in general. I
-
-I call BS on that statement. Just because you do not know what has been
-added to the kernel in the last 10 years (like you had no idea about
-seq_buf and that was added in 2014) means to me that you are totally
-clueless on what tracing can and can not do.
-
-It appears to me that you are too focused on inventing your own wheel that
-does exactly what you want before looking to see how things are today. Just
-because something didn't fit your needs 10 years ago doesn't mean that it
-can't fit your needs today.
-
-
-> will definitely remember function latency tracing the next time I'm doing
-> performance work, but I expect that to be far too heavy to enable on a
-> live server.
-
-I run it on production machines all the time. With the filtering in place
-it has very little overhead. Mostly in the noise. The best part is that it
-has practically zero overhead (but can add some cache pressure) when it's
-off, and can be turned on at run time.
-
-The tracing infrastructure is very modular, you can use parts of it that
-you need, without the overhead of other parts. Like you found out this week
-that tracepoints are not the same as trace events. Because tracepoints are
-just a hook in the code that anything can attach to (that's what Daniel's
-RV work does). Trace events provide the stored data to be recorded.
-
-I will note that the current histogram code overhead has increased due to
-retpolines, but I have code to convert them from indirect calls to direct
-calls via a switch statement which drops the overhead by 20%!
-
-  https://lore.kernel.org/all/20220823214606.344269352@goodmis.org/
-
-
-> 
-> This thing is only a couple hundred lines of code though, so perhaps
-> tracing shouldn't be the only tool in our toolbox :)
-
-I'm already getting complaints from customers/users that are saying there's
-too many tools in the toolbox already. (Do we use ftrace/perf/bpf?). The
-idea is to have the tools using mostly the same infrastructure, and not be
-100% off on its own, unless there's a clear reason to invent a new wheel
-that several people are asking for, not just one or two.
-
--- Steve
+So the overhead won't be zero, I expect it'll show up in some synthetic
+benchmarks, but yes I do definitely expect this to be worth enabling in
+production in many scenarios.
 
