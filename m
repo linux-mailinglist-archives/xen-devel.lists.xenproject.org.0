@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C393A5AA1CA
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Sep 2022 23:55:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.396965.637379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2380A5AA316
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 00:31:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.396974.637390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTs9D-0004a5-Ss; Thu, 01 Sep 2022 21:54:51 +0000
+	id 1oTshv-0000Nf-Or; Thu, 01 Sep 2022 22:30:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 396965.637379; Thu, 01 Sep 2022 21:54:51 +0000
+Received: by outflank-mailman (output) from mailman id 396974.637390; Thu, 01 Sep 2022 22:30:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oTs9D-0004YD-QE; Thu, 01 Sep 2022 21:54:51 +0000
-Received: by outflank-mailman (input) for mailman id 396965;
- Thu, 01 Sep 2022 21:54:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j4CE=ZE=linux.dev=kent.overstreet@srs-se1.protection.inumbo.net>)
- id 1oTs9B-0004Y7-Br
- for xen-devel@lists.xenproject.org; Thu, 01 Sep 2022 21:54:50 +0000
-Received: from out0.migadu.com (out0.migadu.com [94.23.1.103])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b20260fb-2a40-11ed-82f2-63bd783d45fa;
- Thu, 01 Sep 2022 23:54:47 +0200 (CEST)
+	id 1oTshv-0000LA-L5; Thu, 01 Sep 2022 22:30:43 +0000
+Received: by outflank-mailman (input) for mailman id 396974;
+ Thu, 01 Sep 2022 22:30:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oTshu-0000L0-9q; Thu, 01 Sep 2022 22:30:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oTshu-0005tT-56; Thu, 01 Sep 2022 22:30:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oTsht-0000dk-Ov; Thu, 01 Sep 2022 22:30:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oTsht-0000Ex-OV; Thu, 01 Sep 2022 22:30:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,126 +42,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b20260fb-2a40-11ed-82f2-63bd783d45fa
-Date: Thu, 1 Sep 2022 17:54:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1662069286;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cwEaHM2MLzWFSTyYX5D3U7h9xVWN0G5HRpYdRjufwn0=;
-	b=Twh7nBps+XmX0981JwFQK7PMJW17CAHEz4A60UGJ6tfnVJLg6TZy5G0xn6V03JWw5jzP+B
-	3RE93gZ+MZBUwxCNryz2EldJWBau/or+sfFVuw+2kP1flYXFxRkrg7pE3b74SSfBEB2oWB
-	lummEMiyswsHuVB+uMrViWPiyxSgtyk=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Kent Overstreet <kent.overstreet@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org,
-	mhocko@suse.com, vbabka@suse.cz, hannes@cmpxchg.org,
-	roman.gushchin@linux.dev, mgorman@suse.de, dave@stgolabs.net,
-	willy@infradead.org, liam.howlett@oracle.com, void@manifault.com,
-	peterz@infradead.org, juri.lelli@redhat.com, ldufour@linux.ibm.com,
-	peterx@redhat.com, david@redhat.com, axboe@kernel.dk,
-	mcgrof@kernel.org, masahiroy@kernel.org, nathan@kernel.org,
-	changbin.du@intel.com, ytcoode@gmail.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	bsegall@google.com, bristot@redhat.com, vschneid@redhat.com,
-	cl@linux.com, penberg@kernel.org, iamjoonsoo.kim@lge.com,
-	42.hyeyoo@gmail.com, glider@google.com, elver@google.com,
-	dvyukov@google.com, shakeelb@google.com, songmuchun@bytedance.com,
-	arnd@arndb.de, jbaron@akamai.com, rientjes@google.com,
-	minchan@google.com, kaleshsingh@google.com, kernel-team@android.com,
-	linux-mm@kvack.org, iommu@lists.linux.dev,
-	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
-	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 27/30] Code tagging based latency tracking
-Message-ID: <20220901215438.gy3bgqa4ghhm6ztm@moria.home.lan>
-References: <20220830214919.53220-1-surenb@google.com>
- <20220830214919.53220-28-surenb@google.com>
- <20220901173844.36e1683c@gandalf.local.home>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=r/n7mjhMolTf8AsiGp5nNX0OnPWVFHULOsUSDQ6AxBk=; b=NksrGA/vf5Jm9XsLmjOnvqGCNE
+	6aaEFrIc9cxwUoq8QB2Ezw5qhSk1mtCkxzr/cwp8w1gNj+4eBK7a7WszQzlbkh3wCq9J9WozUNVzq
+	rVDzAXYRDjMvUIfdL+CQegCOwdjggF/9wKjrgR5iP/WO0R0UuOtqZZ9JRlGdsBQiJcoA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172911-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220901173844.36e1683c@gandalf.local.home>
-X-Migadu-Flow: FLOW_OUT
-X-Migadu-Auth-User: linux.dev
+Subject: [linux-linus test] 172911: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:build-amd64-libvirt:libvirt-build:fail:regression
+    linux-linus:build-arm64-libvirt:libvirt-build:fail:regression
+    linux-linus:build-i386-libvirt:libvirt-build:fail:regression
+    linux-linus:build-armhf-libvirt:libvirt-build:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=c5e4d5e99162ba8025d58a3af7ad103f155d2df7
+X-Osstest-Versions-That:
+    linux=b44f2fd87919b5ae6e1756d4c7ba2cbba22238e1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 01 Sep 2022 22:30:41 +0000
 
-On Thu, Sep 01, 2022 at 05:38:44PM -0400, Steven Rostedt wrote:
-> On Tue, 30 Aug 2022 14:49:16 -0700
-> Suren Baghdasaryan <surenb@google.com> wrote:
-> 
-> > From: Kent Overstreet <kent.overstreet@linux.dev>
-> > 
-> > This adds the ability to easily instrument code for measuring latency.
-> > To use, add the following to calls to your code, at the start and end of
-> > the event you wish to measure:
-> > 
-> >   code_tag_time_stats_start(start_time);
-> >   code_tag_time_stats_finish(start_time);
-> 
-> So you need to modify the code to see what you want?
+flight 172911 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172911/
 
-Figuring out the _correct_ place to measure is often a significant amount of the
-total effort.
+Regressions :-(
 
-Having done so once, why not annotate that in the source code?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172133
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 172133
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172133
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 172133
 
-> For function length you could just do something like this:
-> 
->  # cd /sys/kernel/tracing
->  # echo __skb_wait_for_more_packets > set_ftrace_filter
->  # echo 1 > function_profile_enabled
->  # cat trace_stat/function*
->   Function                               Hit    Time            Avg             s^2
->   --------                               ---    ----            ---             ---
->   __skb_wait_for_more_packets              1    0.000 us        0.000 us        0.000 us    
->   Function                               Hit    Time            Avg             s^2
->   --------                               ---    ----            ---             ---
->   __skb_wait_for_more_packets              1    74.813 us       74.813 us       0.000 us    
->   Function                               Hit    Time            Avg             s^2
->   --------                               ---    ----            ---             ---
->   Function                               Hit    Time            Avg             s^2
->   --------                               ---    ----            ---             ---
-> 
-> The above is for a 4 CPU machine. The s^2 is the square of the standard
-> deviation (makes not having to do divisions while it runs).
-> 
-> But if you are looking for latency between two events (which can be kprobes
-> too, where you do not need to rebuild your kernel):
-> 
-> From: https://man.archlinux.org/man/sqlhist.1.en
-> which comes in: https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/
->   if not already installed on your distro.
-> 
->  # sqlhist -e -n wakeup_lat 'select end.next_comm as comm,start.pid,start.prio,(end.TIMESTAMP_USECS - start.TIMESTAMP_USECS) as delta from sched_waking as start join sched_switch as end on start.pid = end.next_pid where start.prio < 100'
-> 
-> The above creates a synthetic event called "wakeup_lat" that joins two
-> events (sched_waking and sched_switch) when the pid field of sched_waking
-> matches the next_pid field of sched_switch. When there is a match, it will
-> trigger the wakeup_lat event only if the prio of the sched_waking event is
-> less than 100 (which in the kernel means any real-time task). The
-> wakeup_lat event will record the next_comm (as comm field), the pid of
-> woken task and the time delta in microseconds between the two events.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172133
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172133
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172133
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172133
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172133
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-So this looks like it's gotten better since I last looked, but it's still not
-there yet.
+version targeted for testing:
+ linux                c5e4d5e99162ba8025d58a3af7ad103f155d2df7
+baseline version:
+ linux                b44f2fd87919b5ae6e1756d4c7ba2cbba22238e1
 
-Part of the problem is that the tracepoints themselves are in the wrong place:
-your end event is when a task is woken up, but that means spurious wakeups will
-cause one wait_event() call to be reported as multiple smaller waits, not one
-long wait - oops, now I can't actually find the thing that's causing my
-multi-second delay.
+Last test of basis   172133  2022-08-04 05:14:48 Z   28 days
+Failing since        172152  2022-08-05 04:01:26 Z   27 days   63 attempts
+Testing same since   172902  2022-08-31 23:12:06 Z    0 days    2 attempts
 
-Also, in your example you don't have it broken out by callsite. That would be
-the first thing I'd need for any real world debugging.
+------------------------------------------------------------
+1599 people touched revisions under test,
+not listing them all
 
-So, it looks like tracing has made some progress over the past 10 years, but
-for debugging latency issues it's still not there yet in general. I will
-definitely remember function latency tracing the next time I'm doing performance
-work, but I expect that to be far too heavy to enable on a live server.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-libvirt-raw                                 blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-This thing is only a couple hundred lines of code though, so perhaps tracing
-shouldn't be the only tool in our toolbox :)
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 165102 lines long.)
 
