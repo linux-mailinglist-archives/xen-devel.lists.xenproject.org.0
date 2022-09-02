@@ -2,44 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9AA5AA875
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 09:03:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.397366.637917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A72F5AA888
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 09:09:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.397373.637927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU0gb-00081y-Ba; Fri, 02 Sep 2022 07:01:53 +0000
+	id 1oU0nx-0000Ht-3P; Fri, 02 Sep 2022 07:09:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 397366.637917; Fri, 02 Sep 2022 07:01:53 +0000
+Received: by outflank-mailman (output) from mailman id 397373.637927; Fri, 02 Sep 2022 07:09:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU0gb-0007zJ-7r; Fri, 02 Sep 2022 07:01:53 +0000
-Received: by outflank-mailman (input) for mailman id 397366;
- Fri, 02 Sep 2022 07:01:51 +0000
+	id 1oU0nx-0000Ev-0Z; Fri, 02 Sep 2022 07:09:29 +0000
+Received: by outflank-mailman (input) for mailman id 397373;
+ Fri, 02 Sep 2022 07:09:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J2+i=ZF=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oU0gZ-0007zD-DM
- for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 07:01:51 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zTqM=ZF=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1oU0nv-0000Eo-9e
+ for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 07:09:27 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1cf2257f-2a8d-11ed-82f2-63bd783d45fa;
- Fri, 02 Sep 2022 09:01:48 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E1AF034017;
- Fri,  2 Sep 2022 07:01:47 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A646A13328;
- Fri,  2 Sep 2022 07:01:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Tq4fJ1uqEWMVUwAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 02 Sep 2022 07:01:47 +0000
+ id 2cb586e7-2a8e-11ed-82f2-63bd783d45fa;
+ Fri, 02 Sep 2022 09:09:25 +0200 (CEST)
+Received: from BN9PR03CA0501.namprd03.prod.outlook.com (2603:10b6:408:130::26)
+ by SJ0PR12MB5406.namprd12.prod.outlook.com (2603:10b6:a03:3ae::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10; Fri, 2 Sep
+ 2022 07:09:21 +0000
+Received: from BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:130:cafe::2c) by BN9PR03CA0501.outlook.office365.com
+ (2603:10b6:408:130::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10 via Frontend
+ Transport; Fri, 2 Sep 2022 07:09:21 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT025.mail.protection.outlook.com (10.13.177.136) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5588.10 via Frontend Transport; Fri, 2 Sep 2022 07:09:21 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 2 Sep
+ 2022 02:09:20 -0500
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
+ via Frontend Transport; Fri, 2 Sep 2022 02:09:19 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,141 +58,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cf2257f-2a8d-11ed-82f2-63bd783d45fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1662102107; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sbV+FiqQ4NiOM+U9g9WVXNt3yfp7aQHt2tv8AaKog2o=;
-	b=sXru7CJnp43OSHE+Q3gfs7Reml5Ral30qA5NcMVaeaDo9KZXV++Nmo0PZJlCThWGm5emu/
-	985qf4Cg/8Mt/aNZhD8VxxD3yAYuUs59iovYZZ8XAEpFjUzJtWL65nnFHJQrCUXFKRBL03
-	PP1tYD9pDp/Mr+hBu9UpqHefhePfCTA=
-Message-ID: <5b0a0f39-7016-c447-fc45-9f66146f1cd2@suse.com>
-Date: Fri, 2 Sep 2022 09:01:47 +0200
+X-Inumbo-ID: 2cb586e7-2a8e-11ed-82f2-63bd783d45fa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G8Mqk9Cw70LhzI4O9hPQ5FD+jnmcsk2QqVOPv/A/b7Nqnrk9Yi33BZeKLZ3qGcaRsTL7FZDdJph5fQY2BXB5IjzfrAZyPgnhOTv1dwv3FREhuZNY/GiTU1AU86wuP97gyhIloqQMq5yqnnjB2HxYqvWQS+nQapeye/az02yLbpyLgfp8FxyOnye5arh34sbR5GloFBNzjEW7zP/SpgJLzVbrvYnN0zsyb3Y7deM5ft4X1mHHxztrc8NjKSL4IkM63A4c76lCu9KUoC/VSOglk68tOPG1KNg41xk4ctxCrkXuLykKkeR/Ooa/t4EUQDyHXKavuRAnqAHGFDrwe/NiDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4zRZxMNvqrK8pNAflLJKCEsa1l9+8J4LDGYuY4EXPXI=;
+ b=SXxKOdjBEsiLvqlfR+X7Z8F7UUdx6UR80pInifvKrXWMyWPu2yHSYPmr9RH7Dkcs5kftm19It+wr5iU1tKqqm4SEPCmwe4N1ELmYVkl5bp3CqE1zYczzI/v877PW/lZVa7EbVd+FyoeXcdlX1dZeqsKqSn11Ye8kcIaBjSVSLza2Ki8A187Tq9rJV1/ilET7J3ZT1tz5Q5kfxvoKl9+1b8FidVvlRpNgfnAyXI8/Lvsrx6nULfr3AUMPdDxbW1QmQFuVxLzWXafRuc9xquJAyUxsFx+p7xxwqjjfG7wgFhuXFzFkm6pEbbSAQZnGAZdJcdDVD6EALQJF7Tl8FdTLLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4zRZxMNvqrK8pNAflLJKCEsa1l9+8J4LDGYuY4EXPXI=;
+ b=bERAnf871mD/sQaWH2uFkKkbfMRjI2TxaBO2Jj2xLq6UpGmdGmN7/IdAeOGdJau4Hi0GCBjyiXgrGvg3477CtvTmylmInKkcYvQPRhJA9JqqpmeVNSqsyVjc7D179hdfOpQt+1jPxfESzY5lHLlonavQH+e63+SSD9jT2q2yN+s=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [for-4.17 0/3] GitLab CI cleanup and boot time cpupools test
+Date: Fri, 2 Sep 2022 09:09:02 +0200
+Message-ID: <20220902070905.1262-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Subject: Re: [PATCH] xen/grants: prevent integer overflow in
- gnttab_dma_alloc_pages()
-Content-Language: en-US
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org, kernel-janitors@vger.kernel.org
-References: <YxDROJqu/RPvR0bi@kili>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <YxDROJqu/RPvR0bi@kili>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------cRQo4LafssU0J0xeIuAJyvJO"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5647ed1e-b148-4ddf-7534-08da8cb20f3c
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5406:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	rZK17z+F2C/dbh+O0laK3D9m9x+2IxInpuxKqX2hayMBM3tm1jF7g20f8Mxjj9gRHoSf23zD4LTMDcXgmMHBzpC+o+QHA+cQcZAVZI5NsTBN3eKnXcvz77q9MPleOwGF2Ajy7KgGDwi93n7r5B88fLX99ja+AracCTWWQee0zhIGdIvPl1VMFp00o+Ky4w5L1pYwdUbPzEZ9kQZz4cJxjN22Qqfo1BVwkL6hrgM+/KrFH0D07imRaXLyucFldtF2oPaX6JUX2FOptuE7zWCD+5ZZEJd8caAPrYWNsV2ctrCxJZJaWEva/HY+wqLwlyyfKl/m4FZLbeT0VpwOl9NitDThvJE2Y+enj0h37FrCW5W29gF99CLH/iFZZfPvjcRlVUmiMGQ/4xf+elHVrNFhbay1PZftMSTEe5MCKXHOaQGiEupB/ttozobjPO4MtVdQVVrN50e4pjnwPKO9KsZEJO2C4giuPA//CwzerU/dVtwF7Ecm/NKdPCeNWQTK3lIwmTVqIno3Y5wflsbRiKCMmGCh160xsRqdfFsieJOydnX7O7b9pxL00USrJE+cdY4cHOucP7lxyYJUJZ3YbPlb5gbuYeoXhlogKqJFl3zMxayVQmJitapDkDPkKDwtgun2nJHEmGNDpuOJ4q/pKWE5m3V3gmMCuhYMW/llTrEPF+znE8dKzWz8ZjOUzj7Xv+NCqf0Pyp2vGunlKvnVSFBZ0Xgi0U0NKIeu0Z5WeU1wRVUhOLafZhAQfVTyfyNP8zgvxEVi9IptVm8k1HcxUBDJbyyS8sTkPJ5xcZkPB9GTLngZt/1g5hrvzj8eRX8TXZBm
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230016)(4636009)(346002)(376002)(396003)(39860400002)(136003)(36840700001)(46966006)(40470700004)(54906003)(6916009)(41300700001)(336012)(36860700001)(6666004)(82740400003)(8676002)(4326008)(4744005)(5660300002)(44832011)(36756003)(8936002)(70586007)(70206006)(47076005)(356005)(1076003)(2616005)(86362001)(40460700003)(478600001)(2906002)(316002)(26005)(82310400005)(83380400001)(426003)(186003)(40480700001)(81166007)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2022 07:09:21.3409
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5647ed1e-b148-4ddf-7534-08da8cb20f3c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT025.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5406
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------cRQo4LafssU0J0xeIuAJyvJO
-Content-Type: multipart/mixed; boundary="------------fkTq3z0VP8wTMXnXLZNXAXX2";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org, kernel-janitors@vger.kernel.org
-Message-ID: <5b0a0f39-7016-c447-fc45-9f66146f1cd2@suse.com>
-Subject: Re: [PATCH] xen/grants: prevent integer overflow in
- gnttab_dma_alloc_pages()
-References: <YxDROJqu/RPvR0bi@kili>
-In-Reply-To: <YxDROJqu/RPvR0bi@kili>
+This patch series performs a small cleanup before the release and adds
+a test for validating boot time cpupools feature introduced in 4.17.
 
---------------fkTq3z0VP8wTMXnXLZNXAXX2
-Content-Type: multipart/mixed; boundary="------------AajvFlGqY4hdbrcAuSypkoVX"
+Notes for the release manager:
+Benefits:
+ - improved dom0less test coverage
+ - tested feature that is introduced in 4.17
+Risks:
+ - CI pipeline failure
 
---------------AajvFlGqY4hdbrcAuSypkoVX
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Michal Orzel (3):
+  automation: qemu-alpine-arm64-gcc: Use kernel 5.19
+  automation: qemu-smoke-arm64: Silence ifconfig error messages
+  automation: Add a new job for testing boot time cpupools on arm64
 
-T24gMDEuMDkuMjIgMTc6MzUsIERhbiBDYXJwZW50ZXIgd3JvdGU6DQo+IFRoZSBjaGFuZ2Ug
-ZnJvbSBrY2FsbG9jKCkgdG8ga3ZtYWxsb2MoKSBtZWFucyB0aGF0IGFyZy0+bnJfcGFnZXMN
-Cj4gbWlnaHQgbm93IGJlIGxhcmdlIGVub3VnaCB0aGF0IHRoZSAiYXJncy0+bnJfcGFnZXMg
-PDwgUEFHRV9TSElGVCIgY2FuDQo+IHJlc3VsdCBpbiBhbiBpbnRlZ2VyIG92ZXJmbG93Lg0K
-PiANCj4gRml4ZXM6IGIzZjc5MzFmNWM2MSAoInhlbi9nbnRkZXY6IHN3aXRjaCBmcm9tIGtj
-YWxsb2MoKSB0byBrdmNhbGxvYygpIikNCj4gU2lnbmVkLW9mZi1ieTogRGFuIENhcnBlbnRl
-ciA8ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBH
-cm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
---------------AajvFlGqY4hdbrcAuSypkoVX
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+ automation/gitlab-ci/build.yaml               | 11 ------
+ automation/gitlab-ci/test.yaml                | 21 ++++++++++-
+ automation/scripts/build                      |  3 +-
+ automation/scripts/qemu-smoke-arm64.sh        | 35 +++++++++++++------
+ .../kernel/5.9.9-arm64v8.dockerfile           | 34 ------------------
+ 5 files changed, 47 insertions(+), 57 deletions(-)
+ delete mode 100644 automation/tests-artifacts/kernel/5.9.9-arm64v8.dockerfile
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+-- 
+2.25.1
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------AajvFlGqY4hdbrcAuSypkoVX--
-
---------------fkTq3z0VP8wTMXnXLZNXAXX2--
-
---------------cRQo4LafssU0J0xeIuAJyvJO
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmMRqlsFAwAAAAAACgkQsN6d1ii/Ey/Y
-LAf/WuPTgtFX7MUPzC8lcBQxS2xaDfDr2daJDF5ms0Ls/odgnyktNNsgplfNsK4x2ob598B7gvYO
-WFvC7BVywEDmQD2vM6SDcgF0igg2aNxUenSGht+RrJhZuMDa8dT4/noOX+n5WED4cXFQ9IXFeGss
-MsRRkAp2hgU7RZbp5qWpNOxLK7SUlvP4IcQ2F9CFdB12gnbjVr3OtNmdv43Dww38eYr70CIUNgC3
-xOxUiYqe8BwBYd+eDHXiX4vBkygD7AM5BiyBev3+BJ3vXrHRXVLf45j2n8fY1X6E6o9nIbR6J7jJ
-PcmPu9D8m+lSgFlXIXUanZ0O5ZCcAzSjqzKKJxsICg==
-=7Ns1
------END PGP SIGNATURE-----
-
---------------cRQo4LafssU0J0xeIuAJyvJO--
 
