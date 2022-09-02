@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 246E55AB822
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 20:27:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.397886.638603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21B455AB8F6
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 21:50:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.397895.638614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oUBMx-0006GD-Aj; Fri, 02 Sep 2022 18:26:19 +0000
+	id 1oUCes-0005fe-DV; Fri, 02 Sep 2022 19:48:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 397886.638603; Fri, 02 Sep 2022 18:26:19 +0000
+Received: by outflank-mailman (output) from mailman id 397895.638614; Fri, 02 Sep 2022 19:48:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oUBMx-0006DT-7C; Fri, 02 Sep 2022 18:26:19 +0000
-Received: by outflank-mailman (input) for mailman id 397886;
- Fri, 02 Sep 2022 18:26:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oUCes-0005dY-Ah; Fri, 02 Sep 2022 19:48:54 +0000
+Received: by outflank-mailman (input) for mailman id 397895;
+ Fri, 02 Sep 2022 19:48:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EFGg=ZF=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1oUBMu-0006DL-S9
- for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 18:26:17 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ba0a2b88-2aec-11ed-82f2-63bd783d45fa;
- Fri, 02 Sep 2022 20:26:14 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id gb36so5460750ejc.10
- for <xen-devel@lists.xenproject.org>; Fri, 02 Sep 2022 11:26:14 -0700 (PDT)
-Received: from [192.168.1.10] (adsl-47.176.58.181.tellas.gr. [176.58.181.47])
- by smtp.gmail.com with ESMTPSA id
- cb25-20020a170906a45900b00730a1c73288sm1529357ejb.49.2022.09.02.11.26.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Sep 2022 11:26:12 -0700 (PDT)
+ <SRS0=hLnz=ZF=linux.dev=kent.overstreet@srs-se1.protection.inumbo.net>)
+ id 1oUCep-0005dB-R0
+ for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 19:48:52 +0000
+Received: from out1.migadu.com (out1.migadu.com [2001:41d0:2:863f::])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 433f34bf-2af8-11ed-934f-f50d60e1c1bd;
+ Fri, 02 Sep 2022 21:48:49 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,108 +36,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba0a2b88-2aec-11ed-82f2-63bd783d45fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date;
-        bh=RGduPfmV/d+FI45R2V6B1LMc7TO2USYlbHZWxrYrI0A=;
-        b=le+A5EFj1mWH+EY7sl7A9fBof9dsUD4sZYqeQPLQmVAOO8fsNwY+Zf3rB/ppJMGkZ6
-         dc53YtKJ1sUSvr01qC9R6OLKjcu+szK+qg8i5YbUg0ixljNJFeLdv4svMP0t9YsnITDy
-         BYHbUNxu1BX/1hUc37GmLAxiFEq4jqqIOcTZkN4JdkjZ20jRCNVgP9hVZUe+f6RqajmT
-         /a5DaDWA0AmxVPrkpFg9LNSH+sRmsanycetL3L9i3qdS7a3XCVnOgljIJvt2O0f3Yqpn
-         unMDHvgToADnAcSU4+X6799h/GDOJHyBHsYFRTYjqZp33sHNvSh9vmPIf6k8mDLlhp36
-         xdfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date;
-        bh=RGduPfmV/d+FI45R2V6B1LMc7TO2USYlbHZWxrYrI0A=;
-        b=dXZsHvIzwPLZ4MsvwNpb+DALUqLo6Mk+828/oXMZiI5T57TOHnj3aAk0g9VL/pcdr+
-         4SpSC5exnLBUTSyVvmNdDQ8COUIC2GMZuCHolBLSc1cPXFExmlfMgEBWilnwIvubtZNq
-         FoD+JNQissJ/Tvn3PG8XbhBtGLYhoQ3Mpjm+C6wAcvHv+jd+LikLtrt3ZrTN5hfuR2HY
-         2Afx5VUZUFu0qoYGuOGv5kR2Jam1hbyqwkmnotXR+K2ylSXsjT9pFUOG3ELUpxZf+a/V
-         +CKlCaTLhbbqGKpRis7GWfFKPBMqXEifc7mu97s0qzpAvsahxcQAoH9Skmdqydgh7yw5
-         xRzg==
-X-Gm-Message-State: ACgBeo2Fje2vzdJpjOV8ZcwQ9RuibgeJTbuyf1pgWFhQuunPHm+dLT2V
-	PUT2l27CeyHqwnwyY1cbByw=
-X-Google-Smtp-Source: AA6agR4Z2AEWF1UqHkP/VYrLaqLVgKX60scJLKlweK44ANiBEdpFi4GMlx+o+5aQwKi4tK/82Q/+6w==
-X-Received: by 2002:a17:907:72d0:b0:734:b451:c8d9 with SMTP id du16-20020a17090772d000b00734b451c8d9mr27982558ejc.272.1662143173602;
-        Fri, 02 Sep 2022 11:26:13 -0700 (PDT)
-Message-ID: <422ad42f-8bfa-55a9-2e70-4ae857632a94@gmail.com>
-Date: Fri, 2 Sep 2022 21:26:10 +0300
+X-Inumbo-ID: 433f34bf-2af8-11ed-934f-f50d60e1c1bd
+Date: Fri, 2 Sep 2022 15:48:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1662148127;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n3Vt2n+PBD0eNIsvGTR1l3JrOeVtWEjP88FVSBBEvEY=;
+	b=mPyxzHSCWJDs7FY0KQSQlCnTELLgR0D5y3QUtw1jP0xws7G95PlcumsBf40lKyXM7CpTgQ
+	EQ03B0NpMd3GmyUjL7/LRRu2b7P7CYcc/5drjtaORm2I0b47gBiN9Kk3SiUGyi3Al05Eo0
+	A5b6cgfMPf2NEURa1fE7EOtxMOAAjIs=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Kent Overstreet <kent.overstreet@linux.dev>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+	Yosry Ahmed <yosryahmed@google.com>, Michal Hocko <mhocko@suse.com>,
+	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Johannes Weiner <hannes@cmpxchg.org>, dave@stgolabs.net,
+	Matthew Wilcox <willy@infradead.org>, liam.howlett@oracle.com,
+	void@manifault.com, juri.lelli@redhat.com, ldufour@linux.ibm.com,
+	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
+	mcgrof@kernel.org, masahiroy@kernel.org, nathan@kernel.org,
+	changbin.du@intel.com, ytcoode@gmail.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	Steven Rostedt <rostedt@goodmis.org>, bsegall@google.com,
+	bristot@redhat.com, vschneid@redhat.com,
+	Christoph Lameter <cl@linux.com>, Pekka Enberg <penberg@kernel.org>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com,
+	glider@google.com, elver@google.com, dvyukov@google.com,
+	Shakeel Butt <shakeelb@google.com>,
+	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de,
+	jbaron@akamai.com, David Rientjes <rientjes@google.com>,
+	minchan@google.com, kaleshsingh@google.com, kernel-team@android.com,
+	Linux-MM <linux-mm@kvack.org>, iommu@lists.linux.dev,
+	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
+	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+Message-ID: <20220902194839.xqzgsoowous72jkz@moria.home.lan>
+References: <20220831101948.f3etturccmp5ovkl@suse.de>
+ <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
+ <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
+ <CAJD7tkaev9B=UDYj2RL6pz-1454J8tv4gEr9y-2dnCksoLK0bw@mail.gmail.com>
+ <YxExz+c1k3nbQMh4@P9FQF9L96D.corp.robot.car>
+ <20220901223720.e4gudprscjtwltif@moria.home.lan>
+ <YxE4BXw5i+BkxxD8@P9FQF9L96D.corp.robot.car>
+ <20220902001747.qqsv2lzkuycffuqe@moria.home.lan>
+ <YxFWrka+Wx0FfLXU@P9FQF9L96D.lan>
+ <3a41b9fc-05f1-3f56-ecd0-70b9a2912a31@kernel.dk>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 0/7] Fix MISRA C 2012 Rule 20.7 violations
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20220819194359.1196539-1-burzalodowa@gmail.com>
- <alpine.DEB.2.22.394.2208311534070.2375071@ubuntu-linux-20-04-desktop>
- <44eb89f1-67db-6232-e28f-ab380e71b9fc@gmail.com>
- <6A69A0CA-087F-4260-9371-8EEEAD3926A3@arm.com>
- <alpine.DEB.2.22.394.2209011904571.3931@ubuntu-linux-20-04-desktop>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2209011904571.3931@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3a41b9fc-05f1-3f56-ecd0-70b9a2912a31@kernel.dk>
+X-Migadu-Flow: FLOW_OUT
+X-Migadu-Auth-User: linux.dev
 
-
-On 9/2/22 05:07, Stefano Stabellini wrote:
-> On Thu, 1 Sep 2022, Bertrand Marquis wrote:
->> Hi Xenia,
->>
->>> On 1 Sep 2022, at 10:27, Xenia Ragiadakou <burzalodowa@gmail.com> wrote:
->>>
->>>
->>> On 9/1/22 01:35, Stefano Stabellini wrote:
->>>> Patches 1, 4, and 6 are already committed. I plan to commit patches 2, 3
->>>> and 5 in the next couple of days.
->>>> Patch 7 needs further discussions and it is best addressed during the
->>>> next MISRA C sync-up.
->>>
->>> I would like to share here, before the next MISRA C sync, my understandings that will hopefully resolve a wrong impression of mine, that I may have spread around, regarding this rule.
->>> There was a misunderstanding regarding the rule 20.7 from my part and I think that Jan is absolutely right that parenthesizing macro parameters used as function arguments is not required by the rule.
->>>
->>> The rule 20.7 states "Expressions resulting from the expansion of macro parameters shall be enclosed in parentheses" and in the rationale of the rule states "If a macro parameter is not being used as an expression then the parentheses are not necessary because no operators are involved.".
->>>
->>> Initially, based on the title, my understanding was that it requires for the expression resulting from the expansion of the macro to be enclosed in parentheses. Then, based on the rule explanation and the examples given,  my understanding was that it requires the macro parameters that are used as expressions to be enclosed in parentheses.
->>> But, after re-thinking about it, the most probable and what makes more sense, is that it require parentheses around the macro parameters that are part of an expression and not around those that are used as expressions.
->>>
->>> Therefore, macro parameters being used as function arguments are not required to be enclosed in parentheses, because the function arguments are part of an expression list, not of an expression (comma is evaluated as separator, not as operator).
->>> While, macro parameters used as rhs and lhs expressions of the assignment operator are required to be enclosed in parentheses because they are part of an assignment expression.
->>>
->>> I verified that the violation reported by cppcheck is not due to missing parentheses around the function argument (though still I have not understood the origin of the warning). Also, Eclair does not report it.
->>>
->>> Hence, it was a misunderstanding of mine and there is no inconsistency, with respect to this rule, in adding parentheses around macro parameters used as rhs of assignments. The rule does not require adding parentheses around macro parameters used as function arguments and neither cppcheck nor Eclair report violation for missing parentheses around macro parameters used as function arguments.
->>
->>
->> Thanks a lot for the detailed explanation :-)
->>
->> What you say does make sense and I agree with your analysis here, only protect when part of an expression and not use as a subsequent parameter (for a function or an other macro).
+On Fri, Sep 02, 2022 at 06:02:12AM -0600, Jens Axboe wrote:
+> On 9/1/22 7:04 PM, Roman Gushchin wrote:
+> > On Thu, Sep 01, 2022 at 08:17:47PM -0400, Kent Overstreet wrote:
+> >> On Thu, Sep 01, 2022 at 03:53:57PM -0700, Roman Gushchin wrote:
+> >>> I'd suggest to run something like iperf on a fast hardware. And maybe some
+> >>> io_uring stuff too. These are two places which were historically most sensitive
+> >>> to the (kernel) memory accounting speed.
+> >>
+> >> I'm getting wildly inconsistent results with iperf.
+> >>
+> >> io_uring-echo-server and rust_echo_bench gets me:
+> >> Benchmarking: 127.0.0.1:12345
+> >> 50 clients, running 512 bytes, 60 sec.
+> >>
+> >> Without alloc tagging:	120547 request/sec
+> >> With:			116748 request/sec
+> >>
+> >> https://github.com/frevib/io_uring-echo-server
+> >> https://github.com/haraldh/rust_echo_bench
+> >>
+> >> How's that look to you? Close enough? :)
+> > 
+> > Yes, this looks good (a bit too good).
+> > 
+> > I'm not that familiar with io_uring, Jens and Pavel should have a better idea
+> > what and how to run (I know they've workarounded the kernel memory accounting
+> > because of the performance in the past, this is why I suspect it might be an
+> > issue here as well).
 > 
-> Yeah I also agree with your analysis, and many thanks for
-> double-checking the cppcheck and Eclair's reports.
+> io_uring isn't alloc+free intensive on a per request basis anymore, it
+> would not be a good benchmark if the goal is to check for regressions in
+> that area.
 
-Unfortunately in the specific case that I checked, it was not reported 
-because it was actually an argument to a macro, not a function.
-Eclair does report as violations of Rule 20.7 the macro parameters that 
-are used as function arguments and are not enclosed in parentheses.
+Good to know. The benchmark is still a TCP benchmark though, so still useful.
 
-So, one tool reports it as violation and the other one not.
+Matthew suggested
+  while true; do echo 1 >/tmp/foo; rm /tmp/foo; done
 
-The same goes, also, for the case where a macro parameter is used as 
-index to an array. Eclair reports it as violation while cppcheck does not.
+I ran that on tmpfs, and the numbers with and without alloc tagging were
+statistically equal - there was a fair amount of variation, it wasn't a super
+controlled test, anywhere from 38-41 seconds with 100000 iterations (and alloc
+tagging was some of the faster runs).
 
--- 
-Xenia
+But with memcg off, it ran in 32-33 seconds. We're piggybacking on the same
+mechanism memcg uses for stashing per-object pointers, so it looks like that's
+the bigger cost.
 
