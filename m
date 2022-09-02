@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C0A05AA959
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 10:02:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.397417.637983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 773FB5AA962
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 10:05:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.397424.637995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU1cS-0000j5-TS; Fri, 02 Sep 2022 08:01:40 +0000
+	id 1oU1fI-0001La-D6; Fri, 02 Sep 2022 08:04:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 397417.637983; Fri, 02 Sep 2022 08:01:40 +0000
+Received: by outflank-mailman (output) from mailman id 397424.637995; Fri, 02 Sep 2022 08:04:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU1cS-0000gN-QA; Fri, 02 Sep 2022 08:01:40 +0000
-Received: by outflank-mailman (input) for mailman id 397417;
- Fri, 02 Sep 2022 08:01:39 +0000
+	id 1oU1fI-0001I7-9g; Fri, 02 Sep 2022 08:04:36 +0000
+Received: by outflank-mailman (input) for mailman id 397424;
+ Fri, 02 Sep 2022 08:04:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oU1cR-0000gH-TE
- for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 08:01:39 +0000
+ (envelope-from <julien@xen.org>) id 1oU1fH-0001Hz-HA
+ for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 08:04:35 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oU1cR-0001RS-If; Fri, 02 Sep 2022 08:01:39 +0000
+ id 1oU1fH-0001Ts-8k; Fri, 02 Sep 2022 08:04:35 +0000
 Received: from 54-240-197-236.amazon.com ([54.240.197.236]
  helo=[192.168.18.194]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oU1cR-0002UG-Cf; Fri, 02 Sep 2022 08:01:39 +0000
+ id 1oU1fH-0002aB-2r; Fri, 02 Sep 2022 08:04:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,54 +42,78 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=vm3NWXrvJFhnY8zHAUaiPmhnB+G0684b6qiXmr/lis8=; b=yy5z7cQNDmCUZTyvOlTcynoRI5
-	3y66B3cWSUyisJMGeVKchafK4LIgzvoieojx4wDVZK8KNvC1+IMXnNGuTgjUKgUbeKIlJFkUga72s
-	HHjPVkRP2y5qAq36Y6izRSoVK9FPONhzNNq48AVvTzpheGxbIfnsGI8oF6z8rfWf1lig=;
-Message-ID: <56d7a2e6-8749-601b-b163-669401bdfd67@xen.org>
-Date: Fri, 2 Sep 2022 09:01:36 +0100
+	bh=Iww+qkUmQIk4OGAhsIEZ1lk3lfswIjMNRrkLlcu0fXY=; b=XP36nketlO92QFgYOx/Y6pB7dC
+	LSTzlKeY8PqjnREn2dNnkmfwHsjOOofOSMdAPCGT30Z5fMAVauFiE1qwWMKs8edklBA9txmk+vLZt
+	t0rIJ+4iCpdkbl2HINsh6cppq6pSz2oYzndNLXgn47sSxj0B8Rki7NCNoV8o982YAHzs=;
+Message-ID: <ba62b094-d187-8a61-5e7d-e5d3d592ce42@xen.org>
+Date: Fri, 2 Sep 2022 09:04:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH 1/2] docs, xen/arm: Introduce reserved heap memory
-To: Henry Wang <Henry.Wang@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Penny Zheng <Penny.Zheng@arm.com>
-References: <20220824073127.16762-1-Henry.Wang@arm.com>
- <20220824073127.16762-2-Henry.Wang@arm.com>
- <9b5afd5e-ec5c-bac6-9ad0-9dd9663aa705@xen.org>
- <AS8PR08MB7991DCF7AF78FADB95166551927A9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Subject: Re: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and heap
+ allocator
 Content-Language: en-US
+To: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Henry Wang <Henry.Wang@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220824073127.16762-1-Henry.Wang@arm.com>
+ <20220824073127.16762-3-Henry.Wang@arm.com>
+ <50bc7ce9-dc98-127b-d0db-40bf82929fc7@xen.org>
+ <AS8PR08MB79913A96E64B31A02C985EB5927B9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.22.394.2209011003570.2375071@ubuntu-linux-20-04-desktop>
+ <fc0706f6-7635-6b0d-811a-c3ed41f481fc@xen.org>
+ <alpine.DEB.2.22.394.2209011849040.3931@ubuntu-linux-20-04-desktop>
+ <PAXPR08MB74203A415B8F56B83B20B7739E7A9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ <PAXPR08MB74206D3DB72C207F1E2EC2739E7A9@PAXPR08MB7420.eurprd08.prod.outlook.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS8PR08MB7991DCF7AF78FADB95166551927A9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+In-Reply-To: <PAXPR08MB74206D3DB72C207F1E2EC2739E7A9@PAXPR08MB7420.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Henry,
+Hi Wei,
 
-On 02/09/2022 02:28, Henry Wang wrote:
->> This is technically a change in behavior for Xen (we would panic rather
->> than continue). I am happy with the proposal. However, this doesn't seem
->> to be explained in the commit message.
->>
->> That said, I think this should be split in a separate patch along with
->> the ones below (including the prototype changes).
+On 02/09/2022 04:07, Wei Chen wrote:
 > 
-> According to Michal's comment, I've removed the return type and function
-> prototype change in my local v2. So this patch itself is fine. My question now
-> would be, do maintainers think this change of behavior with processing the
-> chosen node be helpful? 
+> 
+>> -----Original Message-----
+>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Wei
+>> Chen
+>> Sent: 2022年9月2日 11:03
+>> To: Stefano Stabellini <sstabellini@kernel.org>; Julien Grall
+>> <julien@xen.org>
+>> Cc: Henry Wang <Henry.Wang@arm.com>; xen-devel@lists.xenproject.org;
+>> Bertrand Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+>> <Volodymyr_Babchuk@epam.com>
+>> Subject: RE: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and
+>> heap allocator
+>>
+>> Hi Julien and Stefano,
+>>
+>>> -----Original Message-----
+>>> From: Stefano Stabellini <sstabellini@kernel.org>
+>>> Sent: 2022年9月2日 9:51
+>>> To: Julien Grall <julien@xen.org>
+>>> Cc: Stefano Stabellini <sstabellini@kernel.org>; Henry Wang
+>>> <Henry.Wang@arm.com>; xen-devel@lists.xenproject.org; Bertrand Marquis
+>>> <Bertrand.Marquis@arm.com>; Wei Chen <Wei.Chen@arm.com>; Volodymyr
+>> Babchuk
+>>> <Volodymyr_Babchuk@epam.com>
+>>> Subject: Re: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and
+>>> heap allocator
+>>>
+>>> On Thu, 1 Sep 2022, Julien Grall wrote:
+>>>> Hi Stefano,
+>>>
+>>
+>>> In any case, I think we can postpone to after the release.
+> 
+> Maybe we can add some notes to say that this feature is still
+> experimental in EFI + DTS boot?
 
-Yes. I think it is saner to stop booting early rather than seen random 
-behavior afterwards.
-
-> Do we prefer an instant panic or current behavior?
-
-I think we should leave that up to the caller. Today, this is a panic() 
-but we may decide differently in the future.
+Why EFI + DTS only? Regardless the discussion about how to properly 
+checking the region, I think this wants to be a tech preview.
 
 Cheers,
 
