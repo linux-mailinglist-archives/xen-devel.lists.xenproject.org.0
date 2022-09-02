@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 773FB5AA962
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 10:05:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.397424.637995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B6A05AA98F
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 10:12:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.397431.638004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU1fI-0001La-D6; Fri, 02 Sep 2022 08:04:36 +0000
+	id 1oU1mK-0002lh-3d; Fri, 02 Sep 2022 08:11:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 397424.637995; Fri, 02 Sep 2022 08:04:36 +0000
+Received: by outflank-mailman (output) from mailman id 397431.638004; Fri, 02 Sep 2022 08:11:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU1fI-0001I7-9g; Fri, 02 Sep 2022 08:04:36 +0000
-Received: by outflank-mailman (input) for mailman id 397424;
- Fri, 02 Sep 2022 08:04:35 +0000
+	id 1oU1mK-0002jN-0z; Fri, 02 Sep 2022 08:11:52 +0000
+Received: by outflank-mailman (input) for mailman id 397431;
+ Fri, 02 Sep 2022 08:11:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oU1fH-0001Hz-HA
- for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 08:04:35 +0000
+ (envelope-from <julien@xen.org>) id 1oU1mI-0002jH-73
+ for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 08:11:50 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oU1fH-0001Ts-8k; Fri, 02 Sep 2022 08:04:35 +0000
+ id 1oU1mH-0001by-Se; Fri, 02 Sep 2022 08:11:49 +0000
 Received: from 54-240-197-236.amazon.com ([54.240.197.236]
  helo=[192.168.18.194]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oU1fH-0002aB-2r; Fri, 02 Sep 2022 08:04:35 +0000
+ id 1oU1mH-00032q-MF; Fri, 02 Sep 2022 08:11:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +42,85 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Iww+qkUmQIk4OGAhsIEZ1lk3lfswIjMNRrkLlcu0fXY=; b=XP36nketlO92QFgYOx/Y6pB7dC
-	LSTzlKeY8PqjnREn2dNnkmfwHsjOOofOSMdAPCGT30Z5fMAVauFiE1qwWMKs8edklBA9txmk+vLZt
-	t0rIJ+4iCpdkbl2HINsh6cppq6pSz2oYzndNLXgn47sSxj0B8Rki7NCNoV8o982YAHzs=;
-Message-ID: <ba62b094-d187-8a61-5e7d-e5d3d592ce42@xen.org>
-Date: Fri, 2 Sep 2022 09:04:33 +0100
+	bh=BWnCXcECXEynU70t6lUAg5HZUVGqJS9CbB/kj6BmBSA=; b=dNYQBtF6Gq5XFNZMWJmaDYKhkG
+	td9IMg3YzxOrufuy/oC0csc6ppngfOwOdXhq0eTtRcy3D17Nhs6GMfoBsonlNrNDW0by5XhwSm2xX
+	owAX3aRvGtvNbnRJIhsXU1H2A/tR8+884LCNREuBadrH4kPVY4Ytg+NgwHicYxWN3E6Y=;
+Message-ID: <3597a89f-98f6-d43a-4dd9-345b155e7216@xen.org>
+Date: Fri, 2 Sep 2022 09:11:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.2.1
 Subject: Re: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and heap
  allocator
 Content-Language: en-US
-To: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: Henry Wang <Henry.Wang@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Henry Wang <Henry.Wang@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20220824073127.16762-1-Henry.Wang@arm.com>
  <20220824073127.16762-3-Henry.Wang@arm.com>
  <50bc7ce9-dc98-127b-d0db-40bf82929fc7@xen.org>
  <AS8PR08MB79913A96E64B31A02C985EB5927B9@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <alpine.DEB.2.22.394.2209011003570.2375071@ubuntu-linux-20-04-desktop>
- <fc0706f6-7635-6b0d-811a-c3ed41f481fc@xen.org>
- <alpine.DEB.2.22.394.2209011849040.3931@ubuntu-linux-20-04-desktop>
- <PAXPR08MB74203A415B8F56B83B20B7739E7A9@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <PAXPR08MB74206D3DB72C207F1E2EC2739E7A9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ <b05106cc-09d8-9a9b-38e5-328cd8caff97@xen.org>
+ <AS8PR08MB799161163796249F1AFC4C06927A9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <PAXPR08MB74206D3DB72C207F1E2EC2739E7A9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+In-Reply-To: <AS8PR08MB799161163796249F1AFC4C06927A9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Wei,
 
-On 02/09/2022 04:07, Wei Chen wrote:
-> 
-> 
+
+On 02/09/2022 04:30, Henry Wang wrote:
+> Hi Julien,
+
+Hi Henry,
+
 >> -----Original Message-----
->> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Wei
->> Chen
->> Sent: 2022年9月2日 11:03
->> To: Stefano Stabellini <sstabellini@kernel.org>; Julien Grall
->> <julien@xen.org>
->> Cc: Henry Wang <Henry.Wang@arm.com>; xen-devel@lists.xenproject.org;
->> Bertrand Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
->> <Volodymyr_Babchuk@epam.com>
->> Subject: RE: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and
->> heap allocator
->>
->> Hi Julien and Stefano,
->>
->>> -----Original Message-----
->>> From: Stefano Stabellini <sstabellini@kernel.org>
->>> Sent: 2022年9月2日 9:51
->>> To: Julien Grall <julien@xen.org>
->>> Cc: Stefano Stabellini <sstabellini@kernel.org>; Henry Wang
->>> <Henry.Wang@arm.com>; xen-devel@lists.xenproject.org; Bertrand Marquis
->>> <Bertrand.Marquis@arm.com>; Wei Chen <Wei.Chen@arm.com>; Volodymyr
->> Babchuk
->>> <Volodymyr_Babchuk@epam.com>
->>> Subject: Re: [PATCH 2/2] xen/arm: Handle reserved heap pages in boot and
->>> heap allocator
+>> From: Julien Grall <julien@xen.org>
+>>>> This code is now becoming quite confusing to understanding. This loop is
+>>>> meant to map the xenheap. If I follow your documentation, it would
+>> mean
+>>>> that only the reserved region should be mapped.
 >>>
->>> On Thu, 1 Sep 2022, Julien Grall wrote:
->>>> Hi Stefano,
->>>
+>>> Yes I think this is the same question that I raised in the scissors line of the
+>>> commit message of this patch.
 >>
->>> In any case, I think we can postpone to after the release.
+>> Sorry I didn't notice the comment after the scissors line. This is the
+>> same question :)
+>>
+>>> What I intend to do is still mapping the whole
+>>> RAM because of the xenheap_* variables that you mentioned in...
+>>>
+>>>>
+>>>> More confusingly, xenheap_* variables will cover the full RAM.
+>>>
+>>> ...here. But only adding the reserved region to the boot allocator so the
+>>> reserved region can become the heap later on. I am wondering if we
+>>> have a more clear way to do that, any suggestions?
+>>
+>> I think your code is correct. It only needs some renaming of the
+>> existing variable (maybe to directmap_*?) to make clear the area is used
+>> to access the RAM easily.
 > 
-> Maybe we can add some notes to say that this feature is still
-> experimental in EFI + DTS boot?
+> Thanks for the clarification. I checked the code and found the xenheap_*
+> variables are:
+> xenheap_virt_start, xenheap_virt_end, xenheap_mfn_start,
+> xenheap_mfn_end, xenheap_base_pdx.
+> 
+> For clarification, do we need to change all of them to directmap_*?
 
-Why EFI + DTS only? Regardless the discussion about how to properly 
-checking the region, I think this wants to be a tech preview.
+Good question.
+
+> 
+> A pure renaming should be easy (and I guess also safe), but maybe I am
+> overthinking because arm32 also uses xenheap_virt_end, xenheap_mfn_start
+> and xenheap_mfn_end. These variables refer to the real xenheap, I am not
+> sure renaming these would reduce the readability for arm32.
+
+So on arm32, only the xenheap is direct mapped today. So I think it 
+would be fine to switch the name to "directmap_*". For extra clarify we 
+could add an alias for arm32 between "xenheap_*" and "directmap_*".
 
 Cheers,
 
