@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 588875AA9A4
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 10:13:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.397438.638015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8722B5AA9C0
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 10:18:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.397447.638026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU1o1-0003Mf-GS; Fri, 02 Sep 2022 08:13:37 +0000
+	id 1oU1rv-000430-3n; Fri, 02 Sep 2022 08:17:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 397438.638015; Fri, 02 Sep 2022 08:13:37 +0000
+Received: by outflank-mailman (output) from mailman id 397447.638026; Fri, 02 Sep 2022 08:17:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU1o1-0003K3-Cf; Fri, 02 Sep 2022 08:13:37 +0000
-Received: by outflank-mailman (input) for mailman id 397438;
- Fri, 02 Sep 2022 08:13:36 +0000
+	id 1oU1rv-000414-11; Fri, 02 Sep 2022 08:17:39 +0000
+Received: by outflank-mailman (input) for mailman id 397447;
+ Fri, 02 Sep 2022 08:17:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oU1nz-0003Jx-V1
- for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 08:13:35 +0000
+ (envelope-from <julien@xen.org>) id 1oU1rt-00040y-RO
+ for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 08:17:37 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oU1nz-0001dh-K7; Fri, 02 Sep 2022 08:13:35 +0000
+ id 1oU1rt-0001iP-Js; Fri, 02 Sep 2022 08:17:37 +0000
 Received: from 54-240-197-228.amazon.com ([54.240.197.228]
  helo=[192.168.18.194]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oU1nz-0003H6-EW; Fri, 02 Sep 2022 08:13:35 +0000
+ id 1oU1rt-0003MO-E1; Fri, 02 Sep 2022 08:17:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,57 +42,69 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nqKqBX88AtQ6oEKESEOaPu9A1+c8RgTpoOjHZ69JxyU=; b=58nwyYRE0T0anXYjhTVpgiTHh6
-	PvwSCm3zhmQuKgybBO2mzSs59a+EX6DOTYeGkeNq6dOIDrz81XV4CKMwZWCt3gAg/5J/79FYTYbFD
-	nT09NHyAP6lbaIc8LcIxLReb0KAiYZdDcRERh5yaHj3J2V6vXaawf9UXhI78zH4VDaoU=;
-Message-ID: <70c3f092-8926-0114-1d8a-944aff12a1f7@xen.org>
-Date: Fri, 2 Sep 2022 09:13:33 +0100
+	bh=mrUUPkAojxseD9SK97O8xr9gtyYPWw2Qjxu+eHjVMxg=; b=RVe6mRoB1Hu2zsviYzOOzh2R/y
+	cU4E6dZiepoLLS1rdRP+PVx3y65i4zZgRLjmR04cvgnT8W3Kjl/j0SGqw4L1iPlZ7GHZeUrkwcCNd
+	syckIwdMwxfZDcOWTlR4AU3gTW835amb3/6xAAo8/+1udjiqJdZN4ZwWaJCKkBzl9FXY=;
+Message-ID: <ab95b330-294c-61d6-8490-593567936f9d@xen.org>
+Date: Fri, 2 Sep 2022 09:17:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH v6 1/9] xen/arm: introduce static shared memory
+Subject: Re: [PATCH v3 6/7] xen/arm: introduce xen-evtchn dom0less property
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220721132115.3015761-1-Penny.Zheng@arm.com>
- <20220721132115.3015761-2-Penny.Zheng@arm.com>
- <ce6c2e20-2d5f-dccc-e4d0-0e8ce92caeb4@xen.org>
- <AM0PR08MB453055962750CBD525997CE7F7769@AM0PR08MB4530.eurprd08.prod.outlook.com>
- <3b58faef-d87d-3381-f54d-8ccdc0ea105f@xen.org>
- <AM0PR08MB4530DD45D81B4238A1011500F77A9@AM0PR08MB4530.eurprd08.prod.outlook.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org,
+ bertrand.marquis@arm.com, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1662023183.git.rahul.singh@arm.com>
+ <3899ada4cc8217b45eab4f8d85492b0d5a6a9580.1662023183.git.rahul.singh@arm.com>
+ <2142aa46-24a0-e0cb-16c0-95e8f6302ce6@xen.org>
+ <alpine.DEB.2.22.394.2209011916190.3931@ubuntu-linux-20-04-desktop>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <AM0PR08MB4530DD45D81B4238A1011500F77A9@AM0PR08MB4530.eurprd08.prod.outlook.com>
+In-Reply-To: <alpine.DEB.2.22.394.2209011916190.3931@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Penny,
+Hi Stefano,
 
-On 02/09/2022 04:26, Penny Zheng wrote:
->>> Do you think I shall further point out that right now, this part
->>> feature is not implemented in codes?
+On 02/09/2022 03:20, Stefano Stabellini wrote:
+>>> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+>>> index 430a1ef445..5579c875d2 100644
+>>> --- a/xen/include/xen/device_tree.h
+>>> +++ b/xen/include/xen/device_tree.h
+>>> @@ -82,6 +82,7 @@ struct dt_device_node {
+>>>        dt_phandle phandle;
+>>>        char *full_name;
+>>>        domid_t used_by; /* By default it's used by dom0 */
+>>> +    bool_t static_evtchn_created;
 >>
->> I have made a couple of suggestion for the code. But I think the binding
->> would look a bit odd without the host physical address. We would now have:
+>> I can see why you want to add the boolean in dt_device_node. However, I
+>> dislike this approach because this feels an abuse of dt_device_node and the
+>> field is only used at boot.
 >>
->> < [size] [guest address]>
+>> So this seems to be a bit of a waste to include it in the structure (even if
+>> we are re-using padding today).
 >>
->> I think it would be more natural if we had
->>
->> <[guest address] [size]>
->>
->> And
->>
->> <[guest address] [size] [host physical address]>
->>
+>> I don't have a solution that is has trivial as this approach. However, at
+>> minimum we should document this is a HACK and should be remove if we need
+>> space in the structure.
 > 
-> Ok, about the binding order change, do you prefer it in v7 or 4.17-post,
-> since it may also need a few code tweak.
+> I would move static_evtchn_created just above (or below) "bool
+> is_protected". It would still re-use the padding and it would be
+> closer to another more similar field of the struct.
+> 
+> The only other option that I can think of would be to use port_is_valid,
+> instead of static_evtchn_created, to check that the port has already
+> been allocated, but we wouldn't be able to tell if it is a static evtchn
+> or simply unavailable for other reasons
 
-The binding will become stable as soon as we release 4.17. So this would 
-need to be fixed before releasing.
+You don't need to know the event channel was statically allocated. If 
+you have access to the event channel, then you can easily find out what 
+is the remote port.
+
+> and it would require more device
+> tree parsing.
+
+The parsing is indeed the big cons. Hence, why I hadn't suggest it.
 
 Cheers,
 
