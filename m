@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 578B25ABB18
-	for <lists+xen-devel@lfdr.de>; Sat,  3 Sep 2022 01:17:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.397956.638690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9035ABB1B
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Sep 2022 01:21:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.397965.638702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oUFuS-0003aD-PC; Fri, 02 Sep 2022 23:17:12 +0000
+	id 1oUFyZ-00051p-F7; Fri, 02 Sep 2022 23:21:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 397956.638690; Fri, 02 Sep 2022 23:17:12 +0000
+Received: by outflank-mailman (output) from mailman id 397965.638702; Fri, 02 Sep 2022 23:21:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oUFuS-0003XB-MI; Fri, 02 Sep 2022 23:17:12 +0000
-Received: by outflank-mailman (input) for mailman id 397956;
- Fri, 02 Sep 2022 23:17:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oUFyZ-000502-BY; Fri, 02 Sep 2022 23:21:27 +0000
+Received: by outflank-mailman (input) for mailman id 397965;
+ Fri, 02 Sep 2022 23:21:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WoFT=ZF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oUFuR-0003X5-A5
- for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 23:17:11 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5dbe5ce5-2b15-11ed-934f-f50d60e1c1bd;
- Sat, 03 Sep 2022 01:17:09 +0200 (CEST)
+ id 1oUFyX-0004zv-Ag
+ for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 23:21:25 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f5efda3c-2b15-11ed-82f2-63bd783d45fa;
+ Sat, 03 Sep 2022 01:21:24 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 55D0261F93;
- Fri,  2 Sep 2022 23:17:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E25AC433D6;
- Fri,  2 Sep 2022 23:17:07 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 53142B82E03;
+ Fri,  2 Sep 2022 23:21:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9624BC433C1;
+ Fri,  2 Sep 2022 23:21:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +43,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dbe5ce5-2b15-11ed-934f-f50d60e1c1bd
+X-Inumbo-ID: f5efda3c-2b15-11ed-82f2-63bd783d45fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662160627;
-	bh=R/leICqXMaRFl4+rtbRuInm1Ze9Hvu1lK1dELb6O9ZQ=;
+	s=k20201202; t=1662160882;
+	bh=r5TBsV1adSVTAfB+81yvtAzFrzkzGu1Ragripsg63lk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Xi5WAFPt2G+jaBzAdQiaJD+BXIxBO3yvGVIEvlpEMk1/dyP/OQ63q4amSvVU1cZx3
-	 QRqtJ9ns3F0sCO5fasrPPFZFcZoxiyj0/YcNMcsAUecDvCbITQdWM+7g6Zwbxwf7Ip
-	 F9P3AlEPP2UTlUhH9M6ORSywH+w0xUCkIuhZOusrum9sxvXLRwTFSU/H4xmu7qqTkl
-	 y8PZ+phvuzsof9EVkYKl/aibeMwNcV6nXebNtmckfAhSMw3yJ3eaQvvRz5nCrZL1pS
-	 M9lTMZBJcpbRqEE6u2ZYBu5GKiDpt3US8gd2v3fPoTIARRFESTyH5ZeuYflj6nWbXX
-	 e119bMBF6+hdA==
-Date: Fri, 2 Sep 2022 16:17:05 -0700 (PDT)
+	b=Rd/DQpMKgpkc+EtpOfa8o6aax+TIXEJOF6IqHFj8FN4lvxW40selvbxW//lIWzBKI
+	 plEerGeaj3KtxCSOjBH4slAPpZsDZ9n6DE0x4T5RCgjp/jFNAjxnP2DE2OONNYUnC1
+	 vF8SKphrRYDx6AM1mktzyQLqhwOGEOEP9U85RUZoTbn6LyHCsHEwutAHQJIONzxz0B
+	 8tzFbpY/6kwF0DTg6xJ3HgahfnWSNWeJXaJlQR7T0dLOKDhJkrWJ90sWfgThuMZ1ez
+	 YojcCRumHJ7AhPT3GQiSxaAvhp1bZwzEVu/A7HkzJbkh8+y1nY6dxQEH6UwMFITYuO
+	 AMOPnMUrNvJgQ==
+Date: Fri, 2 Sep 2022 16:21:18 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Rahul Singh <rahul.singh@arm.com>
 cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Robin Murphy <robin.murphy@arm.com>, 
+    Zhou Wang <wangzhou1@hisilicon.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Will Deacon <will@kernel.org>
-Subject: Re: [PATCH v2 05/10] xen/arm: smmuv3: Remove the page 1 fixup
-In-Reply-To: <5f6f8233ee5c27082aec27dfc06c6f600f0c5d55.1662123432.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2209021616560.3931@ubuntu-linux-20-04-desktop>
-References: <cover.1662123432.git.rahul.singh@arm.com> <5f6f8233ee5c27082aec27dfc06c6f600f0c5d55.1662123432.git.rahul.singh@arm.com>
+Subject: Re: [PATCH v2 03/10] xen/arm: smmuv3: Ensure queue is read after
+ updating prod pointer
+In-Reply-To: <59c24309e2d8494edf414904fe9725b4e7387098.1662123432.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2209021613440.3931@ubuntu-linux-20-04-desktop>
+References: <cover.1662123432.git.rahul.singh@arm.com> <59c24309e2d8494edf414904fe9725b4e7387098.1662123432.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Fri, 2 Sep 2022, Rahul Singh wrote:
-> From: Robin Murphy <robin.murphy@arm.com>
+> From: Zhou Wang <wangzhou1@hisilicon.com>
 > 
-> Backport Linux commit 86d2d9214880. This is the clean backport without
+> Backport Linux commit a76a37777f2c. This is the clean backport without
 > any changes.
 > 
-> Since we now keep track of page 1 via a separate pointer that
-> already encapsulates aliasing to page 0 as necessary, we can remove
-> the clunky fixup routine and simply use the relevant bases directly.
-> The current architecture spec (IHI0070D.a) defines
-> SMMU_{EVENTQ,PRIQ}_{PROD,CONS} as offsets relative to page 1, so the
-> cleanup represents a little bit of convergence as well as just
-> lines of code saved.
+> Reading the 'prod' MMIO register in order to determine whether or
+> not there is valid data beyond 'cons' for a given queue does not
+> provide sufficient dependency ordering, as the resulting access is
+> address dependent only on 'cons' and can therefore be speculated
+> ahead of time, potentially allowing stale data to be read by the
+> CPU.
 > 
-> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+> Use readl() instead of readl_relaxed() when updating the shadow copy
+> of the 'prod' pointer, so that all speculated memory reads from the
+> corresponding queue can occur only from valid slots.
+> 
+> Signed-off-by: Zhou Wang <wangzhou1@hisilicon.com>
+> Link: https://lore.kernel.org/r/1601281922-117296-1-git-send-email-wangzhou1@hisilicon.com
+> [will: Use readl() instead of explicit barrier. Update 'cons' side to match.]
 > Signed-off-by: Will Deacon <will@kernel.org>
-> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 86d2d9214880
+> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git a76a37777f2c
 > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 > ---
 > Changes in v2:
->  - fix commit msg.
+>  - fix commit msg
+>  - add _iomb changes also from the origin patch
 > ---
->  xen/drivers/passthrough/arm/smmu-v3.c | 42 ++++++++++-----------------
->  xen/drivers/passthrough/arm/smmu-v3.h |  8 ++---
->  2 files changed, 20 insertions(+), 30 deletions(-)
+>  xen/arch/arm/include/asm/system.h     |  1 +
+>  xen/drivers/passthrough/arm/smmu-v3.c | 11 +++++++++--
+>  2 files changed, 10 insertions(+), 2 deletions(-)
 > 
+> diff --git a/xen/arch/arm/include/asm/system.h b/xen/arch/arm/include/asm/system.h
+> index 65d5c8e423..fe27cf8c5e 100644
+> --- a/xen/arch/arm/include/asm/system.h
+> +++ b/xen/arch/arm/include/asm/system.h
+> @@ -29,6 +29,7 @@
+>  #endif
+>  
+>  #define smp_wmb()       dmb(ishst)
+> +#define __iomb()        dmb(osh)
+
+We don't have any other #define starting with __ in system.h.
+I wonder if we should call this macro differently or simply iomb().
+
+
+>  #define smp_mb__before_atomic()    smp_mb()
+>  #define smp_mb__after_atomic()     smp_mb()
 > diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-> index 85ad066266..f5485a8a1c 100644
+> index 64d39bb4d3..cee13d1fc7 100644
 > --- a/xen/drivers/passthrough/arm/smmu-v3.c
 > +++ b/xen/drivers/passthrough/arm/smmu-v3.c
-> @@ -235,15 +235,6 @@ static struct arm_smmu_option_prop arm_smmu_options[] = {
->  	{ 0, NULL},
->  };
+> @@ -951,7 +951,7 @@ static void queue_sync_cons_out(struct arm_smmu_queue *q)
+>  	 * Ensure that all CPU accesses (reads and writes) to the queue
+>  	 * are complete before we update the cons pointer.
+>  	 */
+> -	mb();
+> +	__iomb();
+>  	writel_relaxed(q->llq.cons, q->cons_reg);
+>  }
 >  
-> -static inline void __iomem *arm_smmu_page1_fixup(unsigned long offset,
-> -						 struct arm_smmu_device *smmu)
-> -{
-> -	if (offset > SZ_64K)
-> -		return smmu->page1 + offset - SZ_64K;
-> -
-> -	return smmu->base + offset;
-> -}
-> -
->  static struct arm_smmu_domain *to_smmu_domain(struct iommu_domain *dom)
+> @@ -963,8 +963,15 @@ static void queue_inc_cons(struct arm_smmu_ll_queue *q)
+>  
+>  static int queue_sync_prod_in(struct arm_smmu_queue *q)
 >  {
->  	return container_of(dom, struct arm_smmu_domain, domain);
-> @@ -1578,6 +1569,7 @@ static int arm_smmu_dt_xlate(struct device *dev,
->  /* Probing and initialisation functions */
->  static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
->  				   struct arm_smmu_queue *q,
-> +				   void __iomem *page,
->  				   unsigned long prod_off,
->  				   unsigned long cons_off,
->  				   size_t dwords, const char *name)
-> @@ -1606,8 +1598,8 @@ static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
->  			 1 << q->llq.max_n_shift, name);
->  	}
+> +	u32 prod;
+>  	int ret = 0;
+> -	u32 prod = readl_relaxed(q->prod_reg);
+> +
+> +	/*
+> +	 * We can't use the _relaxed() variant here, as we must prevent
+> +	 * speculative reads of the queue before we have determined that
+> +	 * prod has indeed moved.
+> +	 */
+> +	prod = readl(q->prod_reg);
 >  
-> -	q->prod_reg	= arm_smmu_page1_fixup(prod_off, smmu);
-> -	q->cons_reg	= arm_smmu_page1_fixup(cons_off, smmu);
-> +	q->prod_reg	= page + prod_off;
-> +	q->cons_reg	= page + prod_off;
-
-In the original patch it was:
-
--	q->prod_reg	= arm_smmu_page1_fixup(prod_off, smmu);
--	q->cons_reg	= arm_smmu_page1_fixup(cons_off, smmu);
-+	q->prod_reg	= page + prod_off;
-+	q->cons_reg	= page + cons_off;
-
-Specifically the second line seems to be wrong here?
+>  	if (Q_OVF(prod) != Q_OVF(q->llq.prod))
+>  		ret = -EOVERFLOW;
+> -- 
+> 2.25.1
+> 
 
