@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC8485AA9D6
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 10:21:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.397474.638071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94C355AABAC
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Sep 2022 11:42:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.397489.638082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU1vx-00072m-II; Fri, 02 Sep 2022 08:21:49 +0000
+	id 1oU3Ak-0006k2-CS; Fri, 02 Sep 2022 09:41:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 397474.638071; Fri, 02 Sep 2022 08:21:49 +0000
+Received: by outflank-mailman (output) from mailman id 397489.638082; Fri, 02 Sep 2022 09:41:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oU1vx-0006zW-EL; Fri, 02 Sep 2022 08:21:49 +0000
-Received: by outflank-mailman (input) for mailman id 397474;
- Fri, 02 Sep 2022 08:21:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rShR=ZF=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1oU1vv-0006e3-8z
- for xen-devel@lists.xenproject.org; Fri, 02 Sep 2022 08:21:47 +0000
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [2607:f8b0:4864:20::102d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 476cd04a-2a98-11ed-934f-f50d60e1c1bd;
- Fri, 02 Sep 2022 10:21:46 +0200 (CEST)
-Received: by mail-pj1-x102d.google.com with SMTP id
- m10-20020a17090a730a00b001fa986fd8eeso4856201pjk.0; 
- Fri, 02 Sep 2022 01:21:44 -0700 (PDT)
+	id 1oU3Ak-0006ht-9C; Fri, 02 Sep 2022 09:41:10 +0000
+Received: by outflank-mailman (input) for mailman id 397489;
+ Fri, 02 Sep 2022 09:41:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oU3Ai-0006hj-P2; Fri, 02 Sep 2022 09:41:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oU3Ai-00037X-JT; Fri, 02 Sep 2022 09:41:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oU3Ai-00018h-1u; Fri, 02 Sep 2022 09:41:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oU3Ai-0002Fa-1O; Fri, 02 Sep 2022 09:41:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,259 +42,385 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 476cd04a-2a98-11ed-934f-f50d60e1c1bd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=h9T3pk4GTDCw9FXAZGEOSHbembkbx8obAhaOxGlfp6I=;
-        b=LITsmZNARCXxFT4TbsvrTZmZTdp4WSHLEKoV5Drd17BqN7uO/w+uHRHQTD7nJXcmEB
-         aX0k7TkTeeJxmg86oOFmdUcOUPoSoHiraXoel/yfW9krFxUc4aQCD67SEqH7qIk3PSMY
-         +4nNO4QNsmf7Tmv/iG+T/tof3Fw+qpuJ8gn5OkGgj2/MP5cIJZrTTvMUmAUtxy+wljxj
-         ob8lpzmu1yBrJbSGHmlW/wH0Fj+cZTH61Bv8psBBsHzsiq6luu6MY9hI/m8oZtrHMfv0
-         Vwf8fHSWH3er0lPPrxLD9kU9SblD7EsqMzjvoTJ+jBpYAZgVnGkHHTnTYpMt1NgHMHO7
-         Q7Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=h9T3pk4GTDCw9FXAZGEOSHbembkbx8obAhaOxGlfp6I=;
-        b=XC7oRbYunsbvSs/lEl7FIh3aTTq/WC4RuvwaFXCbonIIiN0SkNQSjwnzryeS83I8LE
-         L8yZUal3tSi574ZD13PAH/1kkljzoFS4Etpwp19OQvXJcdUyWTqJ3WGJ9/9VGmVIx2cZ
-         G4k0K+SqEbAx4Arv/NI4ZCXy4++EdFjA1gWIpj3Go6N3Vp+Cu4MeuLIRIBob6ywjiLZB
-         eqO6Jz08xM4WJFBV4IwmRzlqPRAPrpMI82UAy5xjnoH94y/xvp0/qcRpJVK8MBN9VV6W
-         wK1Px+gU3pSFjzHZwuZ317gOrq+yodKj9UIJfSM94baGPFZCscRXssTwHOaHt+dk6rvW
-         ropg==
-X-Gm-Message-State: ACgBeo0fS/IocJU8k7zX4LJfs/vr1CNof/r4vV8CzMYzX/d3uSi5JLxS
-	Hw5TByrDCiw3oUTO+3t1VMYUEoyLYfNv/I1N1Ps=
-X-Google-Smtp-Source: AA6agR5O36MIo0q4j/q9AJUj5ZyoVfCiBnac2fcRNhe7gTmFlsB/mU3nDzR4IAEHGxpzvwn8dKTbobrJCXZS7uM530k=
-X-Received: by 2002:a17:902:e80e:b0:16f:14ea:897b with SMTP id
- u14-20020a170902e80e00b0016f14ea897bmr33803088plg.6.1662106903328; Fri, 02
- Sep 2022 01:21:43 -0700 (PDT)
-MIME-Version: 1.0
-References: <DM6PR12MB42978C6A0680DD661E24D1E59F7B9@DM6PR12MB4297.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB42978C6A0680DD661E24D1E59F7B9@DM6PR12MB4297.namprd12.prod.outlook.com>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Fri, 2 Sep 2022 11:21:31 +0300
-Message-ID: <CAPD2p-kmXvKOV8BH_NqJsZkiAcM8QbasXEdgnYGSKNQd41k0Sw@mail.gmail.com>
-Subject: Re: Enable audio virtualization in Xen
-To: "SHARMA, JYOTIRMOY" <JYOTIRMOY.SHARMA@amd.com>
-Cc: "christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>, 
-	"dpsmith@apertussolutions.com" <dpsmith@apertussolutions.com>, 
-	"Stabellini, Stefano" <stefano.stabellini@amd.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	"xen-users@lists.xenproject.org" <xen-users@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="0000000000008d3af905e7ad6b84"
-
---0000000000008d3af905e7ad6b84
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qv5BQUlPC6ynKZbhC46iDwY4JTbUtzjCBqO+j76ogJU=; b=BD/2onUASjbKFneRTeyys0BN+k
+	+xKuuAOWu7dupNP2yNtUbTWV9kSpEiXyPlXCqUp8Cqv01UIruifkqRZ8eCQJhb8PW+UX3dIUgQwt1
+	grKn+DKd/wdp0l7FUsR4yUGHW4xFMbdmNkRbv6DlPkFlVvjEiCm6y9I2fonDKWuGmpLE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172930-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 172930: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=c8b796aba31b2c97a1a56867062b3bdd0d81923f
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 02 Sep 2022 09:41:08 +0000
 
-On Thu, Sep 1, 2022 at 11:58 AM SHARMA, JYOTIRMOY <JYOTIRMOY.SHARMA@amd.com>
-wrote:
+flight 172930 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172930/
 
-> [AMD Official Use Only - General]
->
-> Hi all,
->
+Regressions :-(
 
-Hello Jyotirmoy.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-[sorry for the possible format issues]
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              c8b796aba31b2c97a1a56867062b3bdd0d81923f
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  784 days
+Failing since        151818  2020-07-11 04:18:52 Z  783 days  765 attempts
+Testing same since   172930  2022-09-02 04:20:43 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Amneesh Singh <natto@weirdnatto.in>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Andrew Melnychenko <andrew@daynix.com>
+  Ani Sinha <ani@anisinha.ca>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brad Laue <brad@brad-x.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Carlos Bilbao <carlos.bilbao@amd.com>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Christophe de Dinechin <dinechin@redhat.com>
+  Christophe Fergeau <cfergeau@redhat.com>
+  Claudio Fontana <cfontana@suse.de>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  David Michael <david@bigbadwolfsecurity.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  dinglimin <dinglimin@cmss.chinamobile.com>
+  Divya Garg <divya.garg@nutanix.com>
+  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Emilio Herrera <ehespinosa57@gmail.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Eugenio Pérez <eperezma@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Florian Schmidt <flosch@nutanix.com>
+  Franck Ridel <fridel@protonmail.com>
+  Gavi Teitz <gavi@nvidia.com>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Haonan Wang <hnwanga1@gmail.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
+  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
+  Ian Wienand <iwienand@redhat.com>
+  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
+  Ivan Teterevkov <ivan.teterevkov@nutanix.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  jason lee <ppark5237@gmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jia Zhou <zhou.jia2@zte.com.cn>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jing Qi <jinqi@redhat.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Joachim Falk <joachim.falk@gmx.de>
+  John Ferlan <jferlan@redhat.com>
+  John Levon <john.levon@nutanix.com>
+  John Levon <levon@movementarian.org>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kim InSoo <simmon@nplob.com>
+  Koichi Murase <myoga.murase@gmail.com>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Lei Yang <yanglei209@huawei.com>
+  Lena Voytek <lena.voytek@canonical.com>
+  Liang Yan <lyan@digitalocean.com>
+  Liang Yan <lyan@digtalocean.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Lubomir Rintel <lkundrak@v3.sk>
+  Ludek Janda <ljanda@redhat.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  luzhipeng <luzhipeng@cestc.cn>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mark Mielke <mark.mielke@gmail.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Martin Pitt <mpitt@debian.org>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Max Goodhart <c@chromakode.com>
+  Maxim Nestratov <mnestratov@virtuozzo.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  minglei.liu <minglei.liu@smartx.com>
+  Moshe Levi <moshele@nvidia.com>
+  Moteen Shah <codeguy.moteen@gmail.com>
+  Moteen Shah <moteenshah.02@gmail.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Chevsky <nchevsky@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nicolas Lécureuil <neoclust@mageia.org>
+  Nicolas Lécureuil <nicolas.lecureuil@siveo.net>
+  Nikolay Shirokovskiy <nikolay.shirokovskiy@openvz.org>
+  Nikolay Shirokovskiy <nshirokovskiy@openvz.org>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Niteesh Dubey <niteesh@linux.ibm.com>
+  Olaf Hering <olaf@aepfle.de>
+  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Or Ozeri <oro@il.ibm.com>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peng Liang <tcx4c70@gmail.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Praveen K Paladugu <prapal@linux.microsoft.com>
+  Prerna Saxena <prerna.saxena@nutanix.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Robin Lee <cheeselee@fedoraproject.org>
+  Rohit Kumar <rohit.kumar3@nutanix.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Davis <scott.davis@starlab.io>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Sergey A <sw@atrus.ru>
+  Sergey A. <sw@atrus.ru>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  shenjiatong <yshxxsjt715@gmail.com>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Simon Rowe <simon.rowe@nutanix.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Temuri Doghonadze <temuri.doghonadze@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tom Wieczorek <tom@bibbu.net>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tu Qiang <tu.qiang35@zte.com.cn>
+  Tuguoyi <tu.guoyi@h3c.com>
+  tuqiang <tu.qiang35@zte.com.cn>
+  Vasiliy Ulyanov <vulyanov@suse.de>
+  Victor Toso <victortoso@redhat.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Vineeth Pillai <viremana@linux.microsoft.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  Wei-Chen Chen <weicche@microsoft.com>
+  William Douglas <william.douglas@intel.com>
+  Xu Chao <xu.chao6@zte.com.cn>
+  Yalan Zhang <yalzhang@redhat.com>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yasuhiko Kamata <belphegor@belbel.or.jp>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  zhanglei <zhanglei@smartx.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Дамјан Георгиевски <gdamjan@gmail.com>
+  김인수 <simmon@nplob.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
->
->
-> Forgot to mention that I am able to play audio from HVM guest with Pulse
-> Audio as back end.
->
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-good.
-
-
-
-> Here is the corresponding HVM configuration:
->
->
->
-> vsnd = [[ 'card, backend=Domain-0, buffer-size=65536, short-name=VCard,
-> long-name=Virtual sound card, sample-rates=44100, sample-formats=s16_le',
-> 'pcm, name=dev1', 'stream, unique-id=pulse, type=P' ]]
->
->
->
-> I have used xen front end and snd_be (along with libxenbe) as back end as
-> suggested by Christopher earlier in this thread.
->
->
->
-> Only when I change unique-id=alsa, audio is not working from HVM guest.
->
->
->
-> If anyone has tried ALSA back end (instead of PA), please let me know what
-> I am missing.
->
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-We use snd_be over pulse and it works fine. I am not too familiar with all
-that sound's internals. But I would suggest looking at the following thread
-where Oleksandr Grytsov (the author of the snd_be) mentioned the need of HW
-parameters matching for alsa [1].
+Not pushing.
 
-I made an experiment with alsa (however I am not 100% sure whether it is
-correct), nevertheless details are below.
-
-I changed guest config to use alsa:
-vsnd = [[ 'card, backend=DomD, buffer-size=65536, short-name=VCard,
-long-name=Virtual sound card,
-sample-rates=8000;11025;16000;22050;32000;44100;48000,
-sample-formats=s16_le',
-     'pcm, name=dev1', 'stream, unique-id=alsa, type=P'
-    ]]
-
-And checked that snd_be started using alsa:
-03.07.22 03:37:17.185 | SndFrontend  | DBG - Parse stream id: alsa
-03.07.22 03:37:17.186 | SndFrontend  | DBG - Create pcm device, type: ALSA,
-device: , propName: , propValue:
-...
-
-With that command running in DomU I heard the audio in headphones:
-root@salvator-x-h3-4x2g-xt-domu:~# cat /dev/urandom | aplay -f S16_LE -c 2
--D hw:0,0
-Playing raw data 'stdin' : Signed 16 bit Little Endian, Rate 8000 Hz, Stereo
-
-This is the output of "aplay -l" in both domains just in case:
-root@salvator-x-h3-4x2g-xt-domd:~# aplay -l
-**** List of PLAYBACK Hardware Devices ****
-card 0: rcarsound [rcar-sound], device 0: rsnd-dai.0-ak4613-hifi
-ak4613-hifi-0 []
- Subdevices: 0/1
- Subdevice #0: subdevice #0
-root@salvator-x-h3-4x2g-xt-domu:~# aplay -l
-**** List of PLAYBACK Hardware Devices ****
-card 0: vsnd [], device 0: dev1 [Virtual card PCM]
-  Subdevices: 1/1
-  Subdevice #0: subdevice #0
-
-Please check your HW params as suggested at [1].
-[1]
-https://lore.kernel.org/xen-devel/CACvf2oW7gHCLdkqYi8w1s7-FBuX8zcAwAnfZa07XhVg-ioaXaQ@mail.gmail.com/
-
-
-
->
->
-> Regards,
->
-> Jyotirmoy
->
->
->
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
---0000000000008d3af905e7ad6b84
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Sep 1, 2022 at 11:58 AM SHARM=
-A, JYOTIRMOY &lt;<a href=3D"mailto:JYOTIRMOY.SHARMA@amd.com" target=3D"_bla=
-nk">JYOTIRMOY.SHARMA@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"g=
-mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
-,204,204);padding-left:1ex"><div>
-
-
-
-
-
-<div lang=3D"EN-US">
-<p align=3D"Left" style=3D"margin:0px"><span style=3D"font-size:10pt;font-f=
-amily:Arial;color:rgb(0,0,255)">[AMD Official Use Only - General]</span></p=
->
-<br>
-<div>
-<p class=3D"MsoNormal">Hi all,</p></div></div></div></blockquote><div><br><=
-/div><div>Hello=C2=A0Jyotirmoy.</div><div><br></div><div>[sorry for the pos=
-sible format issues]</div><div><br></div><div>=C2=A0</div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex"><div><div lang=3D"EN-US"><div><p class=3D"=
-MsoNormal"><u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Forgot to mention that I am able to play audio from =
-HVM guest with Pulse Audio as back end.</p></div></div></div></blockquote><=
-div>=C2=A0</div><div><br></div><div>good.</div><div><br></div><div>=C2=A0</=
-div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
-der-left:1px solid rgb(204,204,204);padding-left:1ex"><div><div lang=3D"EN-=
-US"><div><p class=3D"MsoNormal">Here is the corresponding HVM configuration=
-:<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">vsnd =3D [[ &#39;card, backend=3DDomain-0, buffer-si=
-ze=3D65536, short-name=3DVCard, long-name=3DVirtual sound card, sample-rate=
-s=3D44100, sample-formats=3Ds16_le&#39;, &#39;pcm, name=3Ddev1&#39;, &#39;s=
-tream, unique-id=3Dpulse, type=3DP&#39; ]]<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">I have used xen front end and snd_be (along with lib=
-xenbe) as back end as suggested by Christopher earlier in this thread.<u></=
-u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Only when I change unique-id=3Dalsa, audio is not wo=
-rking from HVM guest.<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">If anyone has tried ALSA back end (instead of PA), p=
-lease let me know what I am missing.</p></div></div></div></blockquote><div=
->=C2=A0</div><div><br></div><div>We use snd_be over pulse and it works fine=
-. I am not too familiar with all that sound&#39;s internals. But I would su=
-ggest looking at the following thread where Oleksandr Grytsov (the author o=
-f the snd_be) mentioned the need of HW parameters matching for alsa [1].</d=
-iv><div><br>I made an experiment with alsa (however I am not 100% sure whet=
-her it is correct), nevertheless details are below.</div><div><br>I changed=
- guest config to use alsa:<br>vsnd =3D [[ &#39;card, backend=3DDomD, buffer=
--size=3D65536, short-name=3DVCard, long-name=3DVirtual sound card, sample-r=
-ates=3D8000;11025;16000;22050;32000;44100;48000, sample-formats=3Ds16_le&#3=
-9;,<br>=C2=A0 =C2=A0 =C2=A0&#39;pcm, name=3Ddev1&#39;, &#39;stream, unique-=
-id=3Dalsa, type=3DP&#39;<br>=C2=A0 =C2=A0 ]]</div><div><br>And checked that=
- snd_be started using alsa:<br>03.07.22 03:37:17.185 | SndFrontend =C2=A0| =
-DBG - Parse stream id: alsa<br>03.07.22 03:37:17.186 | SndFrontend =C2=A0| =
-DBG - Create pcm device, type: ALSA, device: , propName: , propValue:<br>..=
-.</div><div><br>With that command running in DomU I heard the audio in head=
-phones:<br>root@salvator-x-h3-4x2g-xt-domu:~# cat /dev/urandom | aplay -f S=
-16_LE -c 2 -D hw:0,0<br>Playing raw data &#39;stdin&#39; : Signed 16 bit Li=
-ttle Endian, Rate 8000 Hz, Stereo</div><div><br>This is the output of &quot=
-;aplay -l&quot; in both domains just in case:<br>root@salvator-x-h3-4x2g-xt=
--domd:~# aplay -l<br>**** List of PLAYBACK Hardware Devices ****<br>card 0:=
- rcarsound [rcar-sound], device 0: rsnd-dai.0-ak4613-hifi ak4613-hifi-0 []<=
-br>=C2=A0Subdevices: 0/1<br>=C2=A0Subdevice #0: subdevice #0</div><div>root=
-@salvator-x-h3-4x2g-xt-domu:~# aplay -l<br>**** List of PLAYBACK Hardware D=
-evices ****<br>card 0: vsnd [], device 0: dev1 [Virtual card PCM]<br>=C2=A0=
- Subdevices: 1/1<br>=C2=A0 Subdevice #0: subdevice #0</div><div><br>Please =
-check your HW params as suggested at [1].<br>[1] <a href=3D"https://lore.ke=
-rnel.org/xen-devel/CACvf2oW7gHCLdkqYi8w1s7-FBuX8zcAwAnfZa07XhVg-ioaXaQ@mail=
-.gmail.com/">https://lore.kernel.org/xen-devel/CACvf2oW7gHCLdkqYi8w1s7-FBuX=
-8zcAwAnfZa07XhVg-ioaXaQ@mail.gmail.com/</a><br></div><div><br></div><div>=
-=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div><div lan=
-g=3D"EN-US"><div><p class=3D"MsoNormal"><u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Regards,<u></u><u></u></p>
-<p class=3D"MsoNormal">Jyotirmoy<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-</div>
-
-</div></blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=
-=3D"ltr"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><span=
- style=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=
-=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font=
-></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=
-=3D"background-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenk=
-o</font></span></div></div></div></div></div></div></div></div>
-
---0000000000008d3af905e7ad6b84--
+(No revision log; it would be 121804 lines long.)
 
