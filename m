@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F8205ABDA4
-	for <lists+xen-devel@lfdr.de>; Sat,  3 Sep 2022 09:20:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.398062.638825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65B2E5ABDEA
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Sep 2022 10:51:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.398074.638837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oUNQk-0003Pd-3i; Sat, 03 Sep 2022 07:19:02 +0000
+	id 1oUOqd-0004EF-3V; Sat, 03 Sep 2022 08:49:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 398062.638825; Sat, 03 Sep 2022 07:19:02 +0000
+Received: by outflank-mailman (output) from mailman id 398074.638837; Sat, 03 Sep 2022 08:49:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oUNQk-0003Nc-0b; Sat, 03 Sep 2022 07:19:02 +0000
-Received: by outflank-mailman (input) for mailman id 398062;
- Sat, 03 Sep 2022 07:19:00 +0000
+	id 1oUOqd-0004BW-0T; Sat, 03 Sep 2022 08:49:51 +0000
+Received: by outflank-mailman (input) for mailman id 398074;
+ Sat, 03 Sep 2022 08:49:49 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oUNQi-0003ND-Et
- for xen-devel@lists.xenproject.org; Sat, 03 Sep 2022 07:19:00 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oUOqb-0004BM-Am; Sat, 03 Sep 2022 08:49:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oUNQh-00008J-MY; Sat, 03 Sep 2022 07:18:59 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oUNQh-0003x4-Ep; Sat, 03 Sep 2022 07:18:59 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oUOqb-00029W-6X; Sat, 03 Sep 2022 08:49:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oUOqa-00077J-VC; Sat, 03 Sep 2022 08:49:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oUOqa-0001AN-Um; Sat, 03 Sep 2022 08:49:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,128 +42,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=C8J9W6O0KlfOfOALc3DIYjJw189AZ5F+T/9iAqEN80E=; b=3oyZyt3XRQx4AQHhhFNvC7QTvi
-	rMWGLWAplCUVYaoYvLGx4CYGjt665rK86YmSpzgvgRDn9iXXZ0oeQ//y3Yv5DJOYzJlL+821Fr08A
-	dRozJ7Fdqlw5bp0ckhMZzLeyeqBVbkkoHFc7xN6ImkT1FuM8vbvyqXo3Yp/4VgKyozOw=;
-Message-ID: <be43a751-2ceb-df74-7525-b84505d341b8@xen.org>
-Date: Sat, 3 Sep 2022 08:18:56 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7UpiJ8lvvYTEOFR/gcyjJ/lGkVi9njPX2M91xo17Pbc=; b=muvosdVv88fhap3j5MOQ8BvFyP
+	dF8mL+zHR8HdxhlYirmVK+CPoXTvwNnIuzr9yNYWa/yPAktmLSTDCQtBzuvL4Ar4GOlFss2OWebSi
+	BheARmjn/PmoMxAe6VpiV59jKW/5QXtkbEKplRfiyESETQaHnnNua9qAh9JiCyaMjcTc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172952-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>
-References: <cover.1662024325.git.rahul.singh@arm.com>
- <e30beac1480f03b51933d8016ad9aed8855ffc18.1662024325.git.rahul.singh@arm.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v3 2/2] xen/pci: replace call to is_memory_hole to
- pci_check_bar
-In-Reply-To: <e30beac1480f03b51933d8016ad9aed8855ffc18.1662024325.git.rahul.singh@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 172952: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:guest-saverestore.2:fail:heisenbug
+X-Osstest-Versions-This:
+    ovmf=ec87181192f013f4f7ff916b2a39ff2c87b079f3
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 03 Sep 2022 08:49:48 +0000
 
-Hi Rahul,
+flight 172952 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172952/
 
-On 01/09/2022 10:29, Rahul Singh wrote:
-> is_memory_hole was implemented for x86 and not for ARM when introduced.
-> Replace is_memory_hole call to pci_check_bar as function should check
-> if device BAR is in defined memory range. Also, add an implementation
-> for ARM which is required for PCI passthrough.
-> 
-> On x86, pci_check_bar will call is_memory_hole which will check if BAR
-> is not overlapping with any memory region defined in the memory map.
-> 
-> On ARM, pci_check_bar will go through the host bridge ranges and check
-> if the BAR is in the range of defined ranges.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
-> Changes in v3:
->   - fix minor comments
-> ---
->   xen/arch/arm/include/asm/pci.h     |  2 ++
->   xen/arch/arm/pci/pci-host-common.c | 43 ++++++++++++++++++++++++++++++
->   xen/arch/x86/include/asm/pci.h     | 10 +++++++
->   xen/drivers/passthrough/pci.c      |  8 +++---
->   4 files changed, 59 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
-> index 80a2431804..8cb46f6b71 100644
-> --- a/xen/arch/arm/include/asm/pci.h
-> +++ b/xen/arch/arm/include/asm/pci.h
-> @@ -126,6 +126,8 @@ int pci_host_iterate_bridges_and_count(struct domain *d,
->   
->   int pci_host_bridge_mappings(struct domain *d);
->   
-> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
-> +
->   #else   /*!CONFIG_HAS_PCI*/
->   
->   struct arch_pci_dev { };
-> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-> index 89ef30028e..0eb121666d 100644
-> --- a/xen/arch/arm/pci/pci-host-common.c
-> +++ b/xen/arch/arm/pci/pci-host-common.c
-> @@ -24,6 +24,16 @@
->   
->   #include <asm/setup.h>
->   
-> +/*
-> + * struct to hold pci device bar.
-> + */
+Regressions :-(
 
-I find this comment a bit misleading. What you are storing is a
-candidate region. IOW, this may or may not be a PCI device bar.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-Given the current use below, I would rename the structure to something 
-more specific like: pdev_bar_check.
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemuu-ovmf-amd64 17 guest-saverestore.2 fail pass in 172949
 
-> +struct pdev_bar
-> +{
-> +    mfn_t start;
-> +    mfn_t end;
-> +    bool is_valid;
-> +};
-> +
->   /*
->    * List for all the pci host bridges.
->    */
-> @@ -363,6 +373,39 @@ int __init pci_host_bridge_mappings(struct domain *d)
->       return 0;
->   }
->   
-> +static int is_bar_valid(const struct dt_device_node *dev,
-> +                        uint64_t addr, uint64_t len, void *data)
-> +{
-> +    struct pdev_bar *bar_data = data;
-> +    unsigned long s = mfn_x(bar_data->start);
-> +    unsigned long e = mfn_x(bar_data->end);
-> +
-> +    if ( (s <= e) && (s >= PFN_DOWN(addr)) && (e <= PFN_UP(addr + len - 1)) )
+version targeted for testing:
+ ovmf                 ec87181192f013f4f7ff916b2a39ff2c87b079f3
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-AFAICT 's'  and 'e' are provided by pci_check_bar() and will never 
-change. So can we move the check 's <= e' outside of the callback?
+Last test of basis   172136  2022-08-04 06:43:42 Z   30 days
+Failing since        172151  2022-08-05 02:40:28 Z   29 days  231 attempts
+Testing same since   172926  2022-09-02 02:30:44 Z    1 days    9 attempts
 
-> +        bar_data->is_valid =  true;
-> +
-> +    return 0;
-> +}
-> +
-> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
-> +{
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Bob Feng <bob.c.feng@intel.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-Other than the current calls in check_pdev(), do you have plan to use it 
-in more places? The reason I am asking it is this function is 
-non-trivial on Arm (dt_for_each_range() is quite complex).
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1457 lines long.)
 
