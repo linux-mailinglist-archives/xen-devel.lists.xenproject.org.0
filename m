@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B35F25ABB9F
-	for <lists+xen-devel@lfdr.de>; Sat,  3 Sep 2022 02:25:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.398005.638757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE175ABBEB
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Sep 2022 02:53:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.398012.638768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oUGxL-0005bZ-Bq; Sat, 03 Sep 2022 00:24:15 +0000
+	id 1oUHPC-0000OI-L8; Sat, 03 Sep 2022 00:53:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 398005.638757; Sat, 03 Sep 2022 00:24:15 +0000
+Received: by outflank-mailman (output) from mailman id 398012.638768; Sat, 03 Sep 2022 00:53:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oUGxL-0005Yw-8d; Sat, 03 Sep 2022 00:24:15 +0000
-Received: by outflank-mailman (input) for mailman id 398005;
- Sat, 03 Sep 2022 00:24:13 +0000
+	id 1oUHPC-0000Lt-Hl; Sat, 03 Sep 2022 00:53:02 +0000
+Received: by outflank-mailman (input) for mailman id 398012;
+ Sat, 03 Sep 2022 00:53:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o1Rx=ZG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oUGxJ-0005Yq-AT
- for xen-devel@lists.xenproject.org; Sat, 03 Sep 2022 00:24:13 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1oUHPB-0000Ln-L0
+ for xen-devel@lists.xenproject.org; Sat, 03 Sep 2022 00:53:01 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb1a7e45-2b1e-11ed-82f2-63bd783d45fa;
- Sat, 03 Sep 2022 02:24:11 +0200 (CEST)
+ id c118ba4e-2b22-11ed-82f2-63bd783d45fa;
+ Sat, 03 Sep 2022 02:52:59 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1FA0FB82E29;
- Sat,  3 Sep 2022 00:24:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB65C433C1;
- Sat,  3 Sep 2022 00:24:08 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E8F056202C;
+ Sat,  3 Sep 2022 00:52:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B35D2C433D6;
+ Sat,  3 Sep 2022 00:52:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,123 +43,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb1a7e45-2b1e-11ed-82f2-63bd783d45fa
+X-Inumbo-ID: c118ba4e-2b22-11ed-82f2-63bd783d45fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662164648;
-	bh=17z6o1CQ36/VMrWC+vGRVK+1nGFALftB9WB0YaVAIvQ=;
+	s=k20201202; t=1662166377;
+	bh=oXfjIhgKoRIXrpxJE5IbVwJQItA4R8mh+W0/UVGnvfw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=UTZ3qEJIKVD+2vJ9uNrYN9dAul/E9PymIbODiXbRhCQoPN0VhRe5PkazBXQEGlA2H
-	 fRxY0uU+KTcbKkTqfpWtM9tqNgvnAtfkUgnKjUTMty7RD14Y2t/6sEFniIl1eqz4BR
-	 K2LEs9jdZk9pxWhFHM5l/Q27OawI2654uqyurZTmVN7R4t/ycEZs4ga6IJeVeBl/Jn
-	 Vuvf+P1GslJIYVcx45zS6jIGAUkYJPKyJVNH5s9KX/W9Fu1o3aTdNXWPyxBKYPnITB
-	 EfQfYXi/lrOv7wSJT0Qn26KHoi9VgJGX+ZxQG0igMRoXiwx8qCEqkmdXZrpe1zlaSD
-	 v2yjCvdEwV49Q==
-Date: Fri, 2 Sep 2022 17:24:06 -0700 (PDT)
+	b=Vpt00UMGrmfL6hh4qiBVQv8c/m4jwC0mkn3KrVoTAGvk0M4c2XLXMLIbiA8s4p0Qf
+	 hcocKdHYxDCNfbQ9AtoMrdDtqAuyMzgn0APlwNavty7yVnWnaYCDnCPs5frqSQ3dNT
+	 l9XHGBtaQKvA6Eakmw/clPeQhdbW1sQMNRx8Bo0+Qx0xzUSkLLe3hUrvTyZUlinzDp
+	 ZjVQ2+/2tG0QCgar3KcvGldD4EL05IY32ekZRcLeXqEp9RNefn88eE+3jgb1TQFEuj
+	 riEnY4IvVXf/Tv10nknsVb1FRkeFTjWmF8he5HDAn7sSNBv+U7gShsZ9QsQfrUlhx6
+	 zgDYvabzALabQ==
+Date: Fri, 2 Sep 2022 17:52:54 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+To: roberto.bagnara@bugseng.com
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v3 2/2] xen/pci: replace call to is_memory_hole to
- pci_check_bar
-In-Reply-To: <e30beac1480f03b51933d8016ad9aed8855ffc18.1662024325.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2209021719270.3931@ubuntu-linux-20-04-desktop>
-References: <cover.1662024325.git.rahul.singh@arm.com> <e30beac1480f03b51933d8016ad9aed8855ffc18.1662024325.git.rahul.singh@arm.com>
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, burzalodowa@gmail.com
+Subject: Re: [PATCH 0/7] Fix MISRA C 2012 Rule 20.7 violations
+In-Reply-To: <422ad42f-8bfa-55a9-2e70-4ae857632a94@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2209021743150.3931@ubuntu-linux-20-04-desktop>
+References: <20220819194359.1196539-1-burzalodowa@gmail.com> <alpine.DEB.2.22.394.2208311534070.2375071@ubuntu-linux-20-04-desktop> <44eb89f1-67db-6232-e28f-ab380e71b9fc@gmail.com> <6A69A0CA-087F-4260-9371-8EEEAD3926A3@arm.com>
+ <alpine.DEB.2.22.394.2209011904571.3931@ubuntu-linux-20-04-desktop> <422ad42f-8bfa-55a9-2e70-4ae857632a94@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 1 Sep 2022, Rahul Singh wrote:
-> Replace is_memory_hole call to pci_check_bar as function should check
-> if device BAR is in defined memory range. Also, add an implementation
-> for ARM which is required for PCI passthrough.
++Roberto
+
+I think we need Roberto's advice on Rule 20.7. (Full thread below.)
+
+The question is on the interpretation of Rule 20.7. Are parenthesis
+required by Rule 20.7 in the following cases:
+
+- macro parameters used as function arguments 
+- macro parameters used as macro arguments
+- macro parameter used as array index
+- macro parameter used as lhs in assignment
+
+Some of these cases are interesting because they should function
+correctly even without parenthesis, hence the discussion. In particular
+parenthesis don't seem necessary at least for the function argument
+case.
+
+Regardless of the MISRA C interpretation, Xenia noticed that Eclair
+reports violations on these cases (cppcheck does not, I don't know other
+checkers).
+
+
+
+On Fri, 2 Sep 2022, Xenia Ragiadakou wrote:
+> On 9/2/22 05:07, Stefano Stabellini wrote:
+> > On Thu, 1 Sep 2022, Bertrand Marquis wrote:
+> > > Hi Xenia,
+> > > 
+> > > > On 1 Sep 2022, at 10:27, Xenia Ragiadakou <burzalodowa@gmail.com> wrote:
+> > > > 
+> > > > 
+> > > > On 9/1/22 01:35, Stefano Stabellini wrote:
+> > > > > Patches 1, 4, and 6 are already committed. I plan to commit patches 2,
+> > > > > 3
+> > > > > and 5 in the next couple of days.
+> > > > > Patch 7 needs further discussions and it is best addressed during the
+> > > > > next MISRA C sync-up.
+> > > > 
+> > > > I would like to share here, before the next MISRA C sync, my
+> > > > understandings that will hopefully resolve a wrong impression of mine,
+> > > > that I may have spread around, regarding this rule.
+> > > > There was a misunderstanding regarding the rule 20.7 from my part and I
+> > > > think that Jan is absolutely right that parenthesizing macro parameters
+> > > > used as function arguments is not required by the rule.
+> > > > 
+> > > > The rule 20.7 states "Expressions resulting from the expansion of macro
+> > > > parameters shall be enclosed in parentheses" and in the rationale of the
+> > > > rule states "If a macro parameter is not being used as an expression
+> > > > then the parentheses are not necessary because no operators are
+> > > > involved.".
+> > > > 
+> > > > Initially, based on the title, my understanding was that it requires for
+> > > > the expression resulting from the expansion of the macro to be enclosed
+> > > > in parentheses. Then, based on the rule explanation and the examples
+> > > > given,  my understanding was that it requires the macro parameters that
+> > > > are used as expressions to be enclosed in parentheses.
+> > > > But, after re-thinking about it, the most probable and what makes more
+> > > > sense, is that it require parentheses around the macro parameters that
+> > > > are part of an expression and not around those that are used as
+> > > > expressions.
+> > > > 
+> > > > Therefore, macro parameters being used as function arguments are not
+> > > > required to be enclosed in parentheses, because the function arguments
+> > > > are part of an expression list, not of an expression (comma is evaluated
+> > > > as separator, not as operator).
+> > > > While, macro parameters used as rhs and lhs expressions of the
+> > > > assignment operator are required to be enclosed in parentheses because
+> > > > they are part of an assignment expression.
+> > > > 
+> > > > I verified that the violation reported by cppcheck is not due to missing
+> > > > parentheses around the function argument (though still I have not
+> > > > understood the origin of the warning). Also, Eclair does not report it.
+> > > > 
+> > > > Hence, it was a misunderstanding of mine and there is no inconsistency,
+> > > > with respect to this rule, in adding parentheses around macro parameters
+> > > > used as rhs of assignments. The rule does not require adding parentheses
+> > > > around macro parameters used as function arguments and neither cppcheck
+> > > > nor Eclair report violation for missing parentheses around macro
+> > > > parameters used as function arguments.
+> > > 
+> > > 
+> > > Thanks a lot for the detailed explanation :-)
+> > > 
+> > > What you say does make sense and I agree with your analysis here, only
+> > > protect when part of an expression and not use as a subsequent parameter
+> > > (for a function or an other macro).
+> > 
+> > Yeah I also agree with your analysis, and many thanks for
+> > double-checking the cppcheck and Eclair's reports.
 > 
-> On x86, pci_check_bar will call is_memory_hole which will check if BAR
-> is not overlapping with any memory region defined in the memory map.
+> Unfortunately in the specific case that I checked, it was not reported because
+> it was actually an argument to a macro, not a function.
+> Eclair does report as violations of Rule 20.7 the macro parameters that are
+> used as function arguments and are not enclosed in parentheses.
 > 
-> On ARM, pci_check_bar will go through the host bridge ranges and check
-> if the BAR is in the range of defined ranges.
+> So, one tool reports it as violation and the other one not.
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
-> Changes in v3:
->  - fix minor comments
-> ---
->  xen/arch/arm/include/asm/pci.h     |  2 ++
->  xen/arch/arm/pci/pci-host-common.c | 43 ++++++++++++++++++++++++++++++
->  xen/arch/x86/include/asm/pci.h     | 10 +++++++
->  xen/drivers/passthrough/pci.c      |  8 +++---
->  4 files changed, 59 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
-> index 80a2431804..8cb46f6b71 100644
-> --- a/xen/arch/arm/include/asm/pci.h
-> +++ b/xen/arch/arm/include/asm/pci.h
-> @@ -126,6 +126,8 @@ int pci_host_iterate_bridges_and_count(struct domain *d,
->  
->  int pci_host_bridge_mappings(struct domain *d);
->  
-> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
-> +
->  #else   /*!CONFIG_HAS_PCI*/
->  
->  struct arch_pci_dev { };
-> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-> index 89ef30028e..0eb121666d 100644
-> --- a/xen/arch/arm/pci/pci-host-common.c
-> +++ b/xen/arch/arm/pci/pci-host-common.c
-> @@ -24,6 +24,16 @@
->  
->  #include <asm/setup.h>
->  
-> +/*
-> + * struct to hold pci device bar.
-> + */
-> +struct pdev_bar
-> +{
-> +    mfn_t start;
-> +    mfn_t end;
-> +    bool is_valid;
-> +};
-> +
->  /*
->   * List for all the pci host bridges.
->   */
-> @@ -363,6 +373,39 @@ int __init pci_host_bridge_mappings(struct domain *d)
->      return 0;
->  }
->  
-> +static int is_bar_valid(const struct dt_device_node *dev,
-> +                        uint64_t addr, uint64_t len, void *data)
-> +{
-> +    struct pdev_bar *bar_data = data;
-> +    unsigned long s = mfn_x(bar_data->start);
-> +    unsigned long e = mfn_x(bar_data->end);
-> +
-> +    if ( (s <= e) && (s >= PFN_DOWN(addr)) && (e <= PFN_UP(addr + len - 1)) )
-> +        bar_data->is_valid =  true;
-
-
-This patch looks good and you addressed all Jan's comment well. Before I
-ack it, one question.
-
-I know that you made this change to address Jan's comment but using
-PFN_DOWN for the (s >= PFN_DOWN(addr)) check and PFN_UP for the (e <=
-PFN_UP(addr + len - 1)) check means that we are relaxing the
-requirements, aren't we?
-
-I know that this discussion is a bit pointless because addr and len should
-always be page aligned, and if they weren't it would be a mistake. But
-assuming that they are not page aligned, wouldn't we want this check to
-be a strict as possible?
-
-Wouldn't we want to ensure that the [s,e] range is a strict subset of
-[addr,addr+len-1] ? If so we would need to do the following instead:
-
-    if ( (s <= e) && (s >= PFN_UP(addr)) && (e <= PFN_DOWN(addr + len - 1)) )
-        bar_data->is_valid =  true;
+> The same goes, also, for the case where a macro parameter is used as index to
+> an array. Eclair reports it as violation while cppcheck does not.
 
