@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BAC35ACC16
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 09:27:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.398536.639434 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5636C5ACD79
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 10:13:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.398575.639445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oV6Vt-00033a-Gw; Mon, 05 Sep 2022 07:27:21 +0000
+	id 1oV7Dd-0001KG-Aq; Mon, 05 Sep 2022 08:12:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 398536.639434; Mon, 05 Sep 2022 07:27:21 +0000
+Received: by outflank-mailman (output) from mailman id 398575.639445; Mon, 05 Sep 2022 08:12:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oV6Vt-000305-Ce; Mon, 05 Sep 2022 07:27:21 +0000
-Received: by outflank-mailman (input) for mailman id 398536;
- Mon, 05 Sep 2022 07:27:19 +0000
+	id 1oV7Dd-0001I9-81; Mon, 05 Sep 2022 08:12:33 +0000
+Received: by outflank-mailman (input) for mailman id 398575;
+ Mon, 05 Sep 2022 08:12:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cA+y=ZI=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1oV6Vr-0001oQ-PV
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 07:27:19 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 2c22bfe2-2cec-11ed-a016-b9edf5238543;
- Mon, 05 Sep 2022 09:27:18 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 23FEDED1;
- Mon,  5 Sep 2022 00:27:24 -0700 (PDT)
-Received: from entos-skylake.shanghai.arm.com (entos-skylake.shanghai.arm.com
- [10.169.212.207])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E3FBF3F73D;
- Mon,  5 Sep 2022 00:27:43 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OdSv=ZI=suse.com=mhocko@srs-se1.protection.inumbo.net>)
+ id 1oV7Dc-0001I3-2f
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 08:12:32 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7c6a17c2-2cf2-11ed-a016-b9edf5238543;
+ Mon, 05 Sep 2022 10:12:30 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6CC095FCCC;
+ Mon,  5 Sep 2022 08:12:29 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4046313A66;
+ Mon,  5 Sep 2022 08:12:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id vpI8D22vFWNpBAAAMHmgww
+ (envelope-from <mhocko@suse.com>); Mon, 05 Sep 2022 08:12:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,250 +51,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c22bfe2-2cec-11ed-a016-b9edf5238543
-From: Henry Wang <Henry.Wang@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Wei Chen <wei.chen@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 4/4] xen/arm: mm: Rename xenheap_* variable to directmap_*
-Date: Mon,  5 Sep 2022 07:26:35 +0000
-Message-Id: <20220905072635.16294-5-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220905072635.16294-1-Henry.Wang@arm.com>
-References: <20220905072635.16294-1-Henry.Wang@arm.com>
+X-Inumbo-ID: 7c6a17c2-2cf2-11ed-a016-b9edf5238543
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1662365549; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vLBCtbeiMkaT10it/2QfW3oy9NGXJ0931FNcJJeTs+E=;
+	b=hvJuONTlqXa3IZLVuzAZ3mvfimjG/HG5K1UYXiiMd6Jxc7MnBmd8EvFQgw5oSEYQnG/f0V
+	+51wd/30Jfiv7ka9ky5kghqEmUu9AoehBsL4FA/S3udtvnMmZ/ybc1m3/Htxqdr3KL53Wv
+	TIehxfs6fvCI+DApLUGQDHmpY/iq5bI=
+Date: Mon, 5 Sep 2022 10:12:28 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Kent Overstreet <kent.overstreet@linux.dev>,
+	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Matthew Wilcox <willy@infradead.org>,
+	"Liam R. Howlett" <liam.howlett@oracle.com>,
+	David Vernet <void@manifault.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Laurent Dufour <ldufour@linux.ibm.com>,
+	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, mcgrof@kernel.org,
+	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
+	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Benjamin Segall <bsegall@google.com>,
+	Daniel Bristot de Oliveira <bristot@redhat.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Christopher Lameter <cl@linux.com>,
+	Pekka Enberg <penberg@kernel.org>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Shakeel Butt <shakeelb@google.com>,
+	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de,
+	jbaron@akamai.com, David Rientjes <rientjes@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	kernel-team <kernel-team@android.com>,
+	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev,
+	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
+	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+Message-ID: <YxWvbMYLkPoJrQyr@dhcp22.suse.cz>
+References: <20220830214919.53220-1-surenb@google.com>
+ <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
+ <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
+ <20220831101948.f3etturccmp5ovkl@suse.de>
+ <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
+ <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
+ <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
+ <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
+ <YxEE1vOwRPdzKxoq@dhcp22.suse.cz>
+ <CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
 
-With the reserved heap setup, keep using xenheap_* in the function
-setup_xenheap_mappings() will make the code confusing to read,
-because we always need to map the full RAM on Arm64. Therefore,
-renaming all "xenheap_*" variables to "directmap_*" to make clear
-the area is used to access the RAM easily.
+On Sun 04-09-22 18:32:58, Suren Baghdasaryan wrote:
+> On Thu, Sep 1, 2022 at 12:15 PM Michal Hocko <mhocko@suse.com> wrote:
+[...]
+> > Yes, tracking back the call trace would be really needed. The question
+> > is whether this is really prohibitively expensive. How much overhead are
+> > we talking about? There is no free lunch here, really.  You either have
+> > the overhead during runtime when the feature is used or on the source
+> > code level for all the future development (with a maze of macros and
+> > wrappers).
+> 
+> As promised, I profiled a simple code that repeatedly makes 10
+> allocations/frees in a loop and measured overheads of code tagging,
+> call stack capturing and tracing+BPF for page and slab allocations.
+> Summary:
+> 
+> Page allocations (overheads are compared to get_free_pages() duration):
+> 6.8% Codetag counter manipulations (__lazy_percpu_counter_add + __alloc_tag_add)
+> 8.8% lookup_page_ext
+> 1237% call stack capture
+> 139% tracepoint with attached empty BPF program
 
-On Arm32, only the xenheap is direct mapped today. So the renaming
-to "directmap_*" would be still valid for Arm32.
+Yes, I am not surprised that the call stack capturing is really
+expensive comparing to the allocator fast path (which is really highly
+optimized and I suspect that with 10 allocation/free loop you mostly get
+your memory from the pcp lists). Is this overhead still _that_ visible
+for somehow less microoptimized workloads which have to take slow paths
+as well?
 
-No functional change is intended.
+Also what kind of stack unwinder is configured (I guess ORC)? This is
+not my area but from what I remember the unwinder overhead varies
+between ORC and FP.
 
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
----
-Changes from v1 to v2:
-- New commit.
----
- xen/arch/arm/include/asm/config.h |  2 +-
- xen/arch/arm/include/asm/mm.h     | 22 +++++++++++-----------
- xen/arch/arm/mm.c                 | 24 ++++++++++++------------
- xen/arch/arm/setup.c              | 27 ++++++++++++++-------------
- 4 files changed, 38 insertions(+), 37 deletions(-)
-
-diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
-index 2fafb9f228..0fefed1b8a 100644
---- a/xen/arch/arm/include/asm/config.h
-+++ b/xen/arch/arm/include/asm/config.h
-@@ -160,7 +160,7 @@
- #define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (265-256))
- #define DIRECTMAP_VIRT_END     (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
- 
--#define XENHEAP_VIRT_START     xenheap_virt_start
-+#define XENHEAP_VIRT_START     directmap_virt_start
- 
- #define HYPERVISOR_VIRT_END    DIRECTMAP_VIRT_END
- 
-diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index da25251cda..1dcb0a093a 100644
---- a/xen/arch/arm/include/asm/mm.h
-+++ b/xen/arch/arm/include/asm/mm.h
-@@ -150,19 +150,19 @@ struct page_info
- #define _PGC_need_scrub   _PGC_allocated
- #define PGC_need_scrub    PGC_allocated
- 
--extern mfn_t xenheap_mfn_start, xenheap_mfn_end;
--extern vaddr_t xenheap_virt_end;
-+extern mfn_t directmap_mfn_start, directmap_mfn_end;
-+extern vaddr_t directmap_virt_end;
- #ifdef CONFIG_ARM_64
--extern vaddr_t xenheap_virt_start;
--extern unsigned long xenheap_base_pdx;
-+extern vaddr_t directmap_virt_start;
-+extern unsigned long directmap_base_pdx;
- #endif
- 
- #ifdef CONFIG_ARM_32
- #define is_xen_heap_page(page) is_xen_heap_mfn(page_to_mfn(page))
- #define is_xen_heap_mfn(mfn) ({                                 \
-     unsigned long mfn_ = mfn_x(mfn);                            \
--    (mfn_ >= mfn_x(xenheap_mfn_start) &&                        \
--     mfn_ < mfn_x(xenheap_mfn_end));                            \
-+    (mfn_ >= mfn_x(directmap_mfn_start) &&                      \
-+     mfn_ < mfn_x(directmap_mfn_end));                          \
- })
- #else
- #define is_xen_heap_page(page) ((page)->count_info & PGC_xen_heap)
-@@ -263,16 +263,16 @@ static inline paddr_t __virt_to_maddr(vaddr_t va)
- static inline void *maddr_to_virt(paddr_t ma)
- {
-     ASSERT(is_xen_heap_mfn(maddr_to_mfn(ma)));
--    ma -= mfn_to_maddr(xenheap_mfn_start);
-+    ma -= mfn_to_maddr(directmap_mfn_start);
-     return (void *)(unsigned long) ma + XENHEAP_VIRT_START;
- }
- #else
- static inline void *maddr_to_virt(paddr_t ma)
- {
--    ASSERT((mfn_to_pdx(maddr_to_mfn(ma)) - xenheap_base_pdx) <
-+    ASSERT((mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) <
-            (DIRECTMAP_SIZE >> PAGE_SHIFT));
-     return (void *)(XENHEAP_VIRT_START -
--                    (xenheap_base_pdx << PAGE_SHIFT) +
-+                    (directmap_base_pdx << PAGE_SHIFT) +
-                     ((ma & ma_va_bottom_mask) |
-                      ((ma & ma_top_mask) >> pfn_pdx_hole_shift)));
- }
-@@ -315,10 +315,10 @@ static inline struct page_info *virt_to_page(const void *v)
-     unsigned long pdx;
- 
-     ASSERT(va >= XENHEAP_VIRT_START);
--    ASSERT(va < xenheap_virt_end);
-+    ASSERT(va < directmap_virt_end);
- 
-     pdx = (va - XENHEAP_VIRT_START) >> PAGE_SHIFT;
--    pdx += mfn_to_pdx(xenheap_mfn_start);
-+    pdx += mfn_to_pdx(directmap_mfn_start);
-     return frame_table + pdx - frametable_base_pdx;
- }
- 
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index c81c706c8b..7d6814caf2 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -132,12 +132,12 @@ uint64_t init_ttbr;
- static paddr_t phys_offset;
- 
- /* Limits of the Xen heap */
--mfn_t xenheap_mfn_start __read_mostly = INVALID_MFN_INITIALIZER;
--mfn_t xenheap_mfn_end __read_mostly;
--vaddr_t xenheap_virt_end __read_mostly;
-+mfn_t directmap_mfn_start __read_mostly = INVALID_MFN_INITIALIZER;
-+mfn_t directmap_mfn_end __read_mostly;
-+vaddr_t directmap_virt_end __read_mostly;
- #ifdef CONFIG_ARM_64
--vaddr_t xenheap_virt_start __read_mostly;
--unsigned long xenheap_base_pdx __read_mostly;
-+vaddr_t directmap_virt_start __read_mostly;
-+unsigned long directmap_base_pdx __read_mostly;
- #endif
- 
- unsigned long frametable_base_pdx __read_mostly;
-@@ -609,7 +609,7 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
-         panic("Unable to setup the xenheap mappings.\n");
- 
-     /* Record where the xenheap is, for translation routines. */
--    xenheap_virt_end = XENHEAP_VIRT_START + nr_mfns * PAGE_SIZE;
-+    directmap_virt_end = XENHEAP_VIRT_START + nr_mfns * PAGE_SIZE;
- }
- #else /* CONFIG_ARM_64 */
- void __init setup_xenheap_mappings(unsigned long base_mfn,
-@@ -618,12 +618,12 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
-     int rc;
- 
-     /* First call sets the xenheap physical and virtual offset. */
--    if ( mfn_eq(xenheap_mfn_start, INVALID_MFN) )
-+    if ( mfn_eq(directmap_mfn_start, INVALID_MFN) )
-     {
-         unsigned long mfn_gb = base_mfn & ~((FIRST_SIZE >> PAGE_SHIFT) - 1);
- 
--        xenheap_mfn_start = _mfn(base_mfn);
--        xenheap_base_pdx = mfn_to_pdx(_mfn(base_mfn));
-+        directmap_mfn_start = _mfn(base_mfn);
-+        directmap_base_pdx = mfn_to_pdx(_mfn(base_mfn));
-         /*
-          * The base address may not be aligned to the first level
-          * size (e.g. 1GB when using 4KB pages). This would prevent
-@@ -633,13 +633,13 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
-          * Prevent that by offsetting the start of the xenheap virtual
-          * address.
-          */
--        xenheap_virt_start = DIRECTMAP_VIRT_START +
-+        directmap_virt_start = DIRECTMAP_VIRT_START +
-             (base_mfn - mfn_gb) * PAGE_SIZE;
-     }
- 
--    if ( base_mfn < mfn_x(xenheap_mfn_start) )
-+    if ( base_mfn < mfn_x(directmap_mfn_start) )
-         panic("cannot add xenheap mapping at %lx below heap start %lx\n",
--              base_mfn, mfn_x(xenheap_mfn_start));
-+              base_mfn, mfn_x(directmap_mfn_start));
- 
-     rc = map_pages_to_xen((vaddr_t)__mfn_to_virt(base_mfn),
-                           _mfn(base_mfn), nr_mfns,
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 0b4f7cb909..399a695ff6 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -733,11 +733,11 @@ static void __init populate_boot_allocator(void)
- 
- #ifdef CONFIG_ARM_32
-             /* Avoid the xenheap */
--            if ( s < mfn_to_maddr(xenheap_mfn_end) &&
--                 mfn_to_maddr(xenheap_mfn_start) < e )
-+            if ( s < mfn_to_maddr(directmap_mfn_end) &&
-+                 mfn_to_maddr(directmap_mfn_start) < e )
-             {
--                e = mfn_to_maddr(xenheap_mfn_start);
--                n = mfn_to_maddr(xenheap_mfn_end);
-+                e = mfn_to_maddr(directmap_mfn_start);
-+                n = mfn_to_maddr(directmap_mfn_end);
-             }
- #endif
- 
-@@ -859,15 +859,16 @@ static void __init setup_mm(void)
-      * We need some memory to allocate the page-tables used for the
-      * xenheap mappings. So populate the boot allocator first.
-      *
--     * This requires us to set xenheap_mfn_{start, end} first so the Xenheap
-+     * Note that currently xenheap is direct mapped on Arm32.
-+     * This requires us to set directmap_mfn_{start, end} first so the Xenheap
-      * region can be avoided.
-      */
--    xenheap_mfn_start = _mfn((e >> PAGE_SHIFT) - xenheap_pages);
--    xenheap_mfn_end = mfn_add(xenheap_mfn_start, xenheap_pages);
-+    directmap_mfn_start = _mfn((e >> PAGE_SHIFT) - xenheap_pages);
-+    directmap_mfn_end = mfn_add(directmap_mfn_start, xenheap_pages);
- 
-     populate_boot_allocator();
- 
--    setup_xenheap_mappings(mfn_x(xenheap_mfn_start), xenheap_pages);
-+    setup_xenheap_mappings(mfn_x(directmap_mfn_start), xenheap_pages);
- 
-     /* Frame table covers all of RAM region, including holes */
-     setup_frametable_mappings(ram_start, ram_end);
-@@ -882,8 +883,8 @@ static void __init setup_mm(void)
-               smp_processor_id());
- 
-     /* Add xenheap memory that was not already added to the boot allocator. */
--    init_xenheap_pages(mfn_to_maddr(xenheap_mfn_start),
--                       mfn_to_maddr(xenheap_mfn_end));
-+    init_xenheap_pages(mfn_to_maddr(directmap_mfn_start),
-+                       mfn_to_maddr(directmap_mfn_end));
- 
-     init_staticmem_pages();
- }
-@@ -943,9 +944,9 @@ static void __init setup_mm(void)
- 
-     total_pages += ram_size >> PAGE_SHIFT;
- 
--    xenheap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
--    xenheap_mfn_start = maddr_to_mfn(ram_start);
--    xenheap_mfn_end = maddr_to_mfn(ram_end);
-+    directmap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
-+    directmap_mfn_start = maddr_to_mfn(ram_start);
-+    directmap_mfn_end = maddr_to_mfn(ram_end);
- 
-     setup_frametable_mappings(ram_start, ram_end);
-     max_page = PFN_DOWN(ram_end);
+And just to make it clear. I do realize that an overhead from the stack
+unwinding is unavoidable. And code tagging would logically have lower
+overhead as it performs much less work. But the main point is whether
+our existing stack unwiding approach is really prohibitively expensive
+to be used for debugging purposes on production systems. I might
+misremember but I recall people having bigger concerns with page_owner
+memory footprint than the actual stack unwinder overhead.
 -- 
-2.17.1
-
+Michal Hocko
+SUSE Labs
 
