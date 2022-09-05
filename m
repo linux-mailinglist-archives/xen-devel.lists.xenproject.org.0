@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA645ADA5D
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 22:43:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399165.640238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFA125ADA61
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 22:45:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399172.640250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVIva-0004AP-B7; Mon, 05 Sep 2022 20:42:42 +0000
+	id 1oVIxz-0004mV-OM; Mon, 05 Sep 2022 20:45:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399165.640238; Mon, 05 Sep 2022 20:42:42 +0000
+Received: by outflank-mailman (output) from mailman id 399172.640250; Mon, 05 Sep 2022 20:45:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVIva-00047t-79; Mon, 05 Sep 2022 20:42:42 +0000
-Received: by outflank-mailman (input) for mailman id 399165;
- Mon, 05 Sep 2022 20:42:40 +0000
+	id 1oVIxz-0004j2-LA; Mon, 05 Sep 2022 20:45:11 +0000
+Received: by outflank-mailman (input) for mailman id 399172;
+ Mon, 05 Sep 2022 20:45:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=312l=ZI=linux.dev=kent.overstreet@srs-se1.protection.inumbo.net>)
- id 1oVIvX-00047U-Py
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 20:42:40 +0000
-Received: from out2.migadu.com (out2.migadu.com [2001:41d0:2:aacc::])
+ <SRS0=o6AL=ZI=protonmail.com=dylangerdaly@srs-se1.protection.inumbo.net>)
+ id 1oVIxy-0004iw-18
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 20:45:10 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46f7c003-2d5b-11ed-a016-b9edf5238543;
- Mon, 05 Sep 2022 22:42:38 +0200 (CEST)
+ id a0e2e59b-2d5b-11ed-a016-b9edf5238543;
+ Mon, 05 Sep 2022 22:45:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,113 +36,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46f7c003-2d5b-11ed-a016-b9edf5238543
-Date: Mon, 5 Sep 2022 16:42:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1662410556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WiGoaCLsrAtGX5WjZ54R9ZEwhVpr8CfiS3GHCMjFnnI=;
-	b=hnmt3aHZjiqk4ERDUnjQhKqTOVd36AXDvGfghBFkI6MlG+YAV38zdha6mLi0wPB8rg9d9p
-	f+XQ8HrbJOiH4ZgK5Kz3JWnaEEtobK791M/A4ImHaFUKx2pGDzECdjOHQ8Ioeny6lWxRc5
-	3ffslWYfmfssKDR8OUSYZcd0xfFRct0=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Kent Overstreet <kent.overstreet@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Michal Hocko <mhocko@suse.com>,
-	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Matthew Wilcox <willy@infradead.org>,
-	"Liam R. Howlett" <liam.howlett@oracle.com>,
-	David Vernet <void@manifault.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Laurent Dufour <ldufour@linux.ibm.com>,
-	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, mcgrof@kernel.org,
-	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
-	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Benjamin Segall <bsegall@google.com>,
-	Daniel Bristot de Oliveira <bristot@redhat.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Christopher Lameter <cl@linux.com>,
-	Pekka Enberg <penberg@kernel.org>,
-	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
-	Shakeel Butt <shakeelb@google.com>,
-	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de,
-	jbaron@akamai.com, David Rientjes <rientjes@google.com>,
-	Minchan Kim <minchan@google.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	kernel-team <kernel-team@android.com>,
-	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev,
-	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
-	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-Message-ID: <20220905204229.xqrqxmaax37n3ody@moria.home.lan>
-References: <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
- <20220831101948.f3etturccmp5ovkl@suse.de>
- <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
- <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
- <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
- <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
- <YxEE1vOwRPdzKxoq@dhcp22.suse.cz>
- <CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
- <20220905110713.27304149@gandalf.local.home>
- <CAJuCfpF-O6Gz2o7YqCgFHV+KEFuzC-PTUoBHj25DNRkkSmhbUg@mail.gmail.com>
+X-Inumbo-ID: a0e2e59b-2d5b-11ed-a016-b9edf5238543
+Date: Mon, 05 Sep 2022 20:44:57 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1662410707; x=1662669907;
+	bh=dQoZ+1WqtrwsZUeYC0cUYMAtoO/JqTs5qGSoqcwbBYY=;
+	h=Date:To:From:Cc:Reply-To:Subject:Message-ID:In-Reply-To:
+	 References:Feedback-ID:From:To:Cc:Date:Subject:Reply-To:
+	 Feedback-ID:Message-ID;
+	b=iAfzAoJZrSiTxNNjGNmTi3wHMT8Quw5iiHJMv8T8vN2y2BnXRHAi7yAxUgXZ6tOCx
+	 W4MVkaXzRPHMSb7mwJ24nVnkQmDIO0zp5/x9cN90eKoqEMHXU2bvF4bIMMxaTq6oon
+	 EvQRu2dOiwllArI1pdnz58tuvFmeY8buT7SAZKqw3tyMDrqH6PhHxNHWWdnZUT2z+P
+	 YXGrN3cUc/f/mCeb6j6uuxuNLUGV401J/2aiAXAjpOXunKIaiI9sdDdijqtcm6YWEr
+	 nK/G9olb0N7tJA7/jQ5MIX8tnMqHttVnZdf6mqF/eZYgAMQr7fblFeeRm35FCK4QhE
+	 Wy2xXjDohVfFw==
+To: jbeulich@suse.com
+From: Dylanger Daly <dylangerdaly@protonmail.com>
+Cc: xen-devel@lists.xenproject.org, Andrew.Cooper3@citrix.com
+Reply-To: Dylanger Daly <dylangerdaly@protonmail.com>
+Subject: Re: Ryzen 6000 (Mobile)
+Message-ID: <oVx9918j32Qq0eaz3AYm7EEppH78uNE99t-mpatUT-HMih7deIwh66NslpGMDnYSPBmMkhy9ZTtIy9SZHybLMLregOxawLOvInHnBO3CQXA=@protonmail.com>
+In-Reply-To: <941ccb01-adf6-d2ef-9a8a-ea8fdfe69ceb@suse.com>
+References: <wMV4okoInWxTqAaH6sxUug6my9BOlkurOWuCUILGFxoYe96U_-Z-KPjDdacRmuIksOMX-chaAN0lnGj5XevfNJKw6fIVhsSIqBCxGHweK-Q=@protonmail.com> <ahcgeCqoQJKf6ZfqNjJzlj2HrfbP1WIHtoWUchYWvX-AYoV-eapQJzAPmjPXpOU_pfDsYjgXx3K0CzD9Z2eFHhbpBJpJBidXKBWIFSmDa14=@protonmail.com> <55eb8485-0c0d-51cd-c9b8-d517994ec6c6@suse.com> <QUNqwybRmGkA3A2mUhDhAo-9qWFOaa1hpbwQG_GhKmVTf70L7qcvpw7ekgAz1S9N1eWVhFChE8KTll9jxNrPF5r2-RC9O3ao2CXL3PHNBlc=@protonmail.com> <7807b9cf-a09e-a393-ee7a-dc220a68e56e@suse.com> <Zz_iE6KdPdkQ_TjUf-W2ODPIXo2WwXz0JxF5vgPjVuz8uWfJyto5S_nYRzSNrE0jC3r4ILhjkLH_PtW_fmIeTQIQtI6wTZxnUvOl0pr6ne4=@protonmail.com> <3b2ad2ca-3c6c-4dcb-c603-bd5440350f20@suse.com> <2dHPPtixTlkUXYEzNPFRI4ezKHSe1A2VaThMjBpd1aM3NFkZQuyRdfmNWCigm1oXfdKhOwDJGoPBBIMLYtYhQlENV2eFVZ0G9EMOMj5e6UE=@protonmail.com> <941ccb01-adf6-d2ef-9a8a-ea8fdfe69ceb@suse.com>
+Feedback-ID: 21854323:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJuCfpF-O6Gz2o7YqCgFHV+KEFuzC-PTUoBHj25DNRkkSmhbUg@mail.gmail.com>
-X-Migadu-Flow: FLOW_OUT
-X-Migadu-Auth-User: linux.dev
+Content-Type: multipart/alternative;
+ boundary="b1_FDcUmKLDuvCfnQE1xiOCBvZ7ASZpXmWsh7j4rwEXXcA"
 
-On Mon, Sep 05, 2022 at 11:08:21AM -0700, Suren Baghdasaryan wrote:
-> On Mon, Sep 5, 2022 at 8:06 AM Steven Rostedt <rostedt@goodmis.org> wrote:
-> >
-> > On Sun, 4 Sep 2022 18:32:58 -0700
-> > Suren Baghdasaryan <surenb@google.com> wrote:
-> >
-> > > Page allocations (overheads are compared to get_free_pages() duration):
-> > > 6.8% Codetag counter manipulations (__lazy_percpu_counter_add + __alloc_tag_add)
-> > > 8.8% lookup_page_ext
-> > > 1237% call stack capture
-> > > 139% tracepoint with attached empty BPF program
-> >
-> > Have you tried tracepoint with custom callback?
-> >
-> > static void my_callback(void *data, unsigned long call_site,
-> >                         const void *ptr, struct kmem_cache *s,
-> >                         size_t bytes_req, size_t bytes_alloc,
-> >                         gfp_t gfp_flags)
-> > {
-> >         struct my_data_struct *my_data = data;
-> >
-> >         { do whatever }
-> > }
-> >
-> > [..]
-> >         register_trace_kmem_alloc(my_callback, my_data);
-> >
-> > Now the my_callback function will be called directly every time the
-> > kmem_alloc tracepoint is hit.
-> >
-> > This avoids that perf and BPF overhead.
-> 
-> Haven't tried that yet but will do. Thanks for the reference code!
+This is a multi-part message in MIME format.
 
-Is it really worth the effort of benchmarking tracing API overhead here?
+--b1_FDcUmKLDuvCfnQE1xiOCBvZ7ASZpXmWsh7j4rwEXXcA
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-The main cost of a tracing based approach is going to to be the data structure
-for remembering outstanding allocations so that free events can be matched to
-the appropriate callsite. Regardless of whether it's done with BFP or by
-attaching to the tracepoints directly, that's going to be the main overhead.
+SGkgSmFuLAoKSSd2ZSBtYW5hZ2VkIHRvIGZpbmFuZ2xlIGEgdmVyeSB1bnN0YWJsZSBlbnZpcm9u
+bWVudCB0b2dldGhlcgoKV2hhdCBJJ20gc2VlaW5nIGlzIHRoZSBmb2xsb3dpbmc6CgoxLiBBbGwg
+YXBwVk1zIGluY2x1ZGluZyBkb20wIG11c3QgaGF2ZSAxIGNvcmUgYXNzaWduZWQKMi4gVGhpcyBt
+ZWFucyBJJ20gYWJsZSB0byBsYXVuY2ggNCBhcHBWTXMsIGFzIHNvb24gYXMgSSBsYXVuY2ggYSA1
+dGgsIGl0IHB1dHMgYWxsIFBDSWUgZGV2aWNlcyBpbnRvIGEgYmFkIHN0YXRlCjMuIElmIEkgc2h1
+dCB0aGUgNXRoIFZNIGRvd24sIEknbSBhYmxlIHRvIHJlc3RhcnQgc3lzLXVzYiBmb3IgZXhhbXBs
+ZSBhbmQgInJlY292ZXIiIHRoZSBVU0IgQ29udHJvbGxlci4KCkknbSBub3Qg8J+SryBidXQgSSB0
+aGluayB0aGlzIG1lYW5zIGl0J3MgYSBzY2hlZHVsaW5nL2NvcmUgaXNzdWU/CgpJdCBhbG1vc3Qg
+d29ya3Mg8J+kpuKAjeKZgu+4jwoKQ2hlZXJz
+
+--b1_FDcUmKLDuvCfnQE1xiOCBvZ7ASZpXmWsh7j4rwEXXcA
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+
+SGkgSmFuLDxicj48YnI+SSd2ZSBtYW5hZ2VkIHRvIGZpbmFuZ2xlIGEgdmVyeSB1bnN0YWJsZSBl
+bnZpcm9ubWVudCB0b2dldGhlcjxicj48YnI+V2hhdCBJJ20gc2VlaW5nIGlzIHRoZSBmb2xsb3dp
+bmc6PGJyPjxicj4xLiBBbGwgYXBwVk1zIGluY2x1ZGluZyBkb20wIG11c3QgaGF2ZSAxIGNvcmUg
+YXNzaWduZWQ8YnI+Mi4gVGhpcyBtZWFucyBJJ20gYWJsZSB0byBsYXVuY2ggNCBhcHBWTXMsIGFz
+IHNvb24gYXMgSSBsYXVuY2ggYSA1dGgsIGl0IHB1dHMgYWxsIFBDSWUgZGV2aWNlcyBpbnRvIGEg
+YmFkIHN0YXRlPGJyPjMuIElmIEkgc2h1dCB0aGUgNXRoIFZNIGRvd24sIEknbSBhYmxlIHRvIHJl
+c3RhcnQgc3lzLXVzYiBmb3IgZXhhbXBsZSBhbmQgInJlY292ZXIiIHRoZSBVU0IgQ29udHJvbGxl
+ci48YnI+PGJyPkknbSBub3Qg8J+SryBidXQgSSB0aGluayB0aGlzIG1lYW5zIGl0J3MgYSBzY2hl
+ZHVsaW5nL2NvcmUgaXNzdWU/PGJyPjxicj5JdCBhbG1vc3Qgd29ya3Mg8J+kpuKAjeKZgu+4jzxi
+cj48YnI+Q2hlZXJz
+
+
+--b1_FDcUmKLDuvCfnQE1xiOCBvZ7ASZpXmWsh7j4rwEXXcA--
+
 
