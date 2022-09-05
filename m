@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A34165ADBF6
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 01:48:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399259.640370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 447B05ADC00
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 01:51:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399266.640381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVLop-0002g4-FU; Mon, 05 Sep 2022 23:47:55 +0000
+	id 1oVLs2-00047o-VF; Mon, 05 Sep 2022 23:51:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399259.640370; Mon, 05 Sep 2022 23:47:55 +0000
+Received: by outflank-mailman (output) from mailman id 399266.640381; Mon, 05 Sep 2022 23:51:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVLop-0002eH-Cl; Mon, 05 Sep 2022 23:47:55 +0000
-Received: by outflank-mailman (input) for mailman id 399259;
- Mon, 05 Sep 2022 23:47:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oVLs2-000443-Rx; Mon, 05 Sep 2022 23:51:14 +0000
+Received: by outflank-mailman (input) for mailman id 399266;
+ Mon, 05 Sep 2022 23:51:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=312l=ZI=linux.dev=kent.overstreet@srs-se1.protection.inumbo.net>)
- id 1oVLom-0002eB-Kp
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 23:47:53 +0000
-Received: from out2.migadu.com (out2.migadu.com [188.165.223.204])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 271acfe5-2d75-11ed-a016-b9edf5238543;
- Tue, 06 Sep 2022 01:47:51 +0200 (CEST)
+ id 1oVLs1-00043x-DZ
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 23:51:13 +0000
+Received: from out1.migadu.com (out1.migadu.com [91.121.223.63])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9ec23c99-2d75-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 01:51:12 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,22 +36,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 271acfe5-2d75-11ed-a016-b9edf5238543
-Date: Mon, 5 Sep 2022 19:46:49 -0400
+X-Inumbo-ID: 9ec23c99-2d75-11ed-af93-0125da4c0113
+Date: Mon, 5 Sep 2022 19:50:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1662421670;
+	t=1662421870;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=aV58+8xM7vZiC+ARHrNwrMa2NOiuYoscS5I3pyUTgBc=;
-	b=g/enLV1JWMwpy1AyXIuK4kHtWcmra4fxFsTUcPxQ3hUWakh3HZFxjFpnVO9NhK3wjScc9f
-	irWUYVuNDjD8ENf7YkMd2RUCrJ2/ViqqPY2BhztGYYDjlWUSm+DOVdUpVQh8M2jqIup2FQ
-	tYI+IaNim7kGQArVz8zbq85hmG2o2lA=
+	bh=L/QtR7clKwa18sm3kCbVwFkkFjR319r9zDLdSKgBl/k=;
+	b=K0AUlJQwh12ArX3Ivo5AajZFTOnj8fptPh9b/mWIPD8nscGPgO8kw0SNz+Kn/2nIaB9e9i
+	7R3FAk1ULpUqZb/f26WREIzq78CmF0IzVffZPJjJ7RbMsrYAMZ8f5FwzvnmygEisggBmw5
+	5Icx4XHaZKC0M/ASUBy2hcvuJroZdmk=
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 From: Kent Overstreet <kent.overstreet@linux.dev>
-To: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>, Mel Gorman <mgorman@suse.de>,
-	Peter Zijlstra <peterz@infradead.org>,
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Vlastimil Babka <vbabka@suse.cz>,
 	Johannes Weiner <hannes@cmpxchg.org>,
@@ -67,7 +67,6 @@ Cc: Suren Baghdasaryan <surenb@google.com>, Mel Gorman <mgorman@suse.de>,
 	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
 	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>,
 	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
 	Benjamin Segall <bsegall@google.com>,
 	Daniel Bristot de Oliveira <bristot@redhat.com>,
 	Valentin Schneider <vschneid@redhat.com>,
@@ -88,34 +87,55 @@ Cc: Suren Baghdasaryan <surenb@google.com>, Mel Gorman <mgorman@suse.de>,
 	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
 	LKML <linux-kernel@vger.kernel.org>
 Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-Message-ID: <20220905234649.525vorzx27ybypsn@kmo-framework>
-References: <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
- <20220831101948.f3etturccmp5ovkl@suse.de>
- <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
+Message-ID: <20220905235007.sc4uk6illlog62fl@kmo-framework>
+References: <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
  <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
  <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
  <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
  <YxEE1vOwRPdzKxoq@dhcp22.suse.cz>
- <CAJuCfpHuzJGTA_-m0Jfawc7LgJLt4GztUUY4K9N9-7bFqJuXnw@mail.gmail.com>
- <20220901201502.sn6223bayzwferxv@moria.home.lan>
- <YxW4Ig338d2vQAz3@dhcp22.suse.cz>
+ <CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
+ <20220905110713.27304149@gandalf.local.home>
+ <CAJuCfpF-O6Gz2o7YqCgFHV+KEFuzC-PTUoBHj25DNRkkSmhbUg@mail.gmail.com>
+ <20220905204229.xqrqxmaax37n3ody@moria.home.lan>
+ <20220905181650.71e9d02c@gandalf.local.home>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <YxW4Ig338d2vQAz3@dhcp22.suse.cz>
+In-Reply-To: <20220905181650.71e9d02c@gandalf.local.home>
 X-Migadu-Flow: FLOW_OUT
 X-Migadu-Auth-User: linux.dev
 
-On Mon, Sep 05, 2022 at 10:49:38AM +0200, Michal Hocko wrote:
-> This is really my main concern about this whole work. Not only it adds a
-> considerable maintenance burden to the core MM because
+On Mon, Sep 05, 2022 at 06:16:50PM -0400, Steven Rostedt wrote:
+> On Mon, 5 Sep 2022 16:42:29 -0400
+> Kent Overstreet <kent.overstreet@linux.dev> wrote:
+> 
+> > > Haven't tried that yet but will do. Thanks for the reference code!  
+> > 
+> > Is it really worth the effort of benchmarking tracing API overhead here?
+> > 
+> > The main cost of a tracing based approach is going to to be the data structure
+> > for remembering outstanding allocations so that free events can be matched to
+> > the appropriate callsite. Regardless of whether it's done with BFP or by
+> > attaching to the tracepoints directly, that's going to be the main overhead.
+> 
+> The point I was making here is that you do not need your own hooking
+> mechanism. You can get the information directly by attaching to the
+> tracepoint.
+> 
+> > > static void my_callback(void *data, unsigned long call_site,
+> > >                         const void *ptr, struct kmem_cache *s,
+> > >                         size_t bytes_req, size_t bytes_alloc,
+> > >                         gfp_t gfp_flags)
+> > > {
+> > >         struct my_data_struct *my_data = data;
+> > >
+> > >         { do whatever }
+> > > }
+> 
+> The "do whatever" is anything you want to do.
+> 
+> Or is the data structure you create with this approach going to be too much
+> overhead? How hard is it for a hash or binary search lookup?
 
-[citation needed]
-
-> it adds on top of
-> our existing allocator layers complexity but it would need to spread beyond
-> MM to be useful because it is usually outside of MM where leaks happen.
-
-If you want the tracking to happen at a different level of the call stack, just
-call _kmalloc() directly and call alloc_tag_add()/sub() yourself.
+If you don't think it's hard, go ahead and show us.
 
