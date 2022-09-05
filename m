@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DD1E5ACEDC
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 11:32:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.398671.639577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9A55ACF57
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 11:59:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.398678.639587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oV8S3-0007gj-AQ; Mon, 05 Sep 2022 09:31:31 +0000
+	id 1oV8sn-0001nw-CZ; Mon, 05 Sep 2022 09:59:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 398671.639577; Mon, 05 Sep 2022 09:31:31 +0000
+Received: by outflank-mailman (output) from mailman id 398678.639587; Mon, 05 Sep 2022 09:59:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oV8S3-0007eS-65; Mon, 05 Sep 2022 09:31:31 +0000
-Received: by outflank-mailman (input) for mailman id 398671;
- Mon, 05 Sep 2022 09:31:29 +0000
+	id 1oV8sn-0001m9-9p; Mon, 05 Sep 2022 09:59:09 +0000
+Received: by outflank-mailman (input) for mailman id 398678;
+ Mon, 05 Sep 2022 09:59:08 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oV8S1-0007eK-BO
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 09:31:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oV8sm-0001lz-3L; Mon, 05 Sep 2022 09:59:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oV8Ry-0006NG-TT; Mon, 05 Sep 2022 09:31:26 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.1.223]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oV8Ry-0005LJ-Jv; Mon, 05 Sep 2022 09:31:26 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oV8sm-0006oa-0G; Mon, 05 Sep 2022 09:59:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oV8sl-0000qh-Jt; Mon, 05 Sep 2022 09:59:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oV8sl-0005z1-JN; Mon, 05 Sep 2022 09:59:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,102 +42,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=5FgliYH0x1QTvE9lSa2XHpn9O4R/3vC2uFHrycBrS2c=; b=qcStOTPFMSdZij4xK8jtIGfEJh
-	z8+eqNXcHNJVfGjvzJCLHXMneXcIae2kdPafYAobTLXd/03YNMpTmTzSrpVlruN/kwRTQw+wxddjN
-	xp2qZulP4+xYo/mAY0X/p0NtG7v8etN91nwvGE1Av/ghsQZvxmeTDvWMdeg3cLCVzsBw=;
-Message-ID: <5f0bf815-3236-2262-62b4-cd3d99bb60ff@xen.org>
-Date: Mon, 5 Sep 2022 10:31:24 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=XxKxXtJN2GvygE51PsX5KBfon+BzKDxmB1rA+xalkWo=; b=07uPV390CJyoqZtvvTyBNCtatI
+	g1vg4WK2VYkXW2b0lvtAgF7ueLDX3J/RfDJF4VD3qnnNjSyUw9gKm6omZbaLfR502S7TIh2xy29Fa
+	9+StcgNZnxX0mEpSGLzK5lPpQ9uRmGRNy71xRs8lUcTjtWu0xBrzNndloU30/OuuUt9c=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-172998-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH v2 03/10] xen/arm: smmuv3: Ensure queue is read after
- updating prod pointer
-Content-Language: en-US
-To: Rahul Singh <Rahul.Singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Zhou Wang <wangzhou1@hisilicon.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Will Deacon <will@kernel.org>
-References: <cover.1662123432.git.rahul.singh@arm.com>
- <59c24309e2d8494edf414904fe9725b4e7387098.1662123432.git.rahul.singh@arm.com>
- <alpine.DEB.2.22.394.2209021613440.3931@ubuntu-linux-20-04-desktop>
- <FB788985-2DE3-406D-9282-56B8C9E4B1C1@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <FB788985-2DE3-406D-9282-56B8C9E4B1C1@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 172998: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=08522341c4935f27cd7d3dbfd38ffa8329cdc2cb
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 05 Sep 2022 09:59:07 +0000
+
+flight 172998 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/172998/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+
+version targeted for testing:
+ ovmf                 08522341c4935f27cd7d3dbfd38ffa8329cdc2cb
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z   32 days
+Failing since        172151  2022-08-05 02:40:28 Z   31 days  246 attempts
+Testing same since   172995  2022-09-05 03:33:08 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Bob Feng <bob.c.feng@intel.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Foster Nong <foster.nong@intel.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 05/09/2022 10:18, Rahul Singh wrote:
->> On 3 Sep 2022, at 12:21 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>
->> On Fri, 2 Sep 2022, Rahul Singh wrote:
->>> From: Zhou Wang <wangzhou1@hisilicon.com>
->>>
->>> Backport Linux commit a76a37777f2c. This is the clean backport without
->>> any changes.
->>>
->>> Reading the 'prod' MMIO register in order to determine whether or
->>> not there is valid data beyond 'cons' for a given queue does not
->>> provide sufficient dependency ordering, as the resulting access is
->>> address dependent only on 'cons' and can therefore be speculated
->>> ahead of time, potentially allowing stale data to be read by the
->>> CPU.
->>>
->>> Use readl() instead of readl_relaxed() when updating the shadow copy
->>> of the 'prod' pointer, so that all speculated memory reads from the
->>> corresponding queue can occur only from valid slots.
->>>
->>> Signed-off-by: Zhou Wang <wangzhou1@hisilicon.com>
->>> Link: https://lore.kernel.org/r/1601281922-117296-1-git-send-email-wangzhou1@hisilicon.com
->>> [will: Use readl() instead of explicit barrier. Update 'cons' side to match.]
->>> Signed-off-by: Will Deacon <will@kernel.org>
->>> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git a76a37777f2c
->>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->>> ---
->>> Changes in v2:
->>> - fix commit msg
->>> - add _iomb changes also from the origin patch
->>> ---
->>> xen/arch/arm/include/asm/system.h     |  1 +
->>> xen/drivers/passthrough/arm/smmu-v3.c | 11 +++++++++--
->>> 2 files changed, 10 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/include/asm/system.h b/xen/arch/arm/include/asm/system.h
->>> index 65d5c8e423..fe27cf8c5e 100644
->>> --- a/xen/arch/arm/include/asm/system.h
->>> +++ b/xen/arch/arm/include/asm/system.h
->>> @@ -29,6 +29,7 @@
->>> #endif
->>>
->>> #define smp_wmb()       dmb(ishst)
->>> +#define __iomb()        dmb(osh)
->>
->> We don't have any other #define starting with __ in system.h.
->> I wonder if we should call this macro differently or simply iomb().
->   
-> I think either iomb() or dma_mb() will be the right name.
-> Please let me know your view on this.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-It is not 100% clear why Linux went with __iomb() rather than iomb(). 
-But I would prefer to keep the __* version to match Linux.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-If the others really want to drop the __. Then I think it should be name 
-iomb(). The rationale is while __iomb() is an alias to dma_mb(), the 
-__iormb() behaves differently compare to dma_mb() (I haven't into 
-details why).
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-So if it was a read barrier, we would likely want to use the iormb() 
-semantic. This will keep the terminology consistent with Linux (even if 
-we remove the __).
 
-Cheers,
+Not pushing.
 
--- 
-Julien Grall
+(No revision log; it would be 1474 lines long.)
 
