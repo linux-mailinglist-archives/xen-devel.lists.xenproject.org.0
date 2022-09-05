@@ -2,44 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5636C5ACD79
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 10:13:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.398575.639445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B260A5ACDF1
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 10:45:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.398583.639456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oV7Dd-0001KG-Aq; Mon, 05 Sep 2022 08:12:33 +0000
+	id 1oV7iv-0004nJ-RN; Mon, 05 Sep 2022 08:44:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 398575.639445; Mon, 05 Sep 2022 08:12:33 +0000
+Received: by outflank-mailman (output) from mailman id 398583.639456; Mon, 05 Sep 2022 08:44:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oV7Dd-0001I9-81; Mon, 05 Sep 2022 08:12:33 +0000
-Received: by outflank-mailman (input) for mailman id 398575;
- Mon, 05 Sep 2022 08:12:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OdSv=ZI=suse.com=mhocko@srs-se1.protection.inumbo.net>)
- id 1oV7Dc-0001I3-2f
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 08:12:32 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7c6a17c2-2cf2-11ed-a016-b9edf5238543;
- Mon, 05 Sep 2022 10:12:30 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6CC095FCCC;
- Mon,  5 Sep 2022 08:12:29 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4046313A66;
- Mon,  5 Sep 2022 08:12:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vpI8D22vFWNpBAAAMHmgww
- (envelope-from <mhocko@suse.com>); Mon, 05 Sep 2022 08:12:29 +0000
+	id 1oV7iv-0004kZ-Nq; Mon, 05 Sep 2022 08:44:53 +0000
+Received: by outflank-mailman (input) for mailman id 398583;
+ Mon, 05 Sep 2022 08:44:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZxbR=ZI=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1oV7iu-0004kT-3z
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 08:44:52 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 002f866a-2cf7-11ed-af93-0125da4c0113;
+ Mon, 05 Sep 2022 10:44:50 +0200 (CEST)
+Received: from DS7PR06CA0010.namprd06.prod.outlook.com (2603:10b6:8:2a::17) by
+ IA1PR12MB6353.namprd12.prod.outlook.com (2603:10b6:208:3e3::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5588.17; Mon, 5 Sep 2022 08:44:46 +0000
+Received: from DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2a:cafe::c4) by DS7PR06CA0010.outlook.office365.com
+ (2603:10b6:8:2a::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.10 via Frontend
+ Transport; Mon, 5 Sep 2022 08:44:46 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT017.mail.protection.outlook.com (10.13.172.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5588.10 via Frontend Transport; Mon, 5 Sep 2022 08:44:46 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 5 Sep
+ 2022 03:44:45 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 5 Sep
+ 2022 03:44:45 -0500
+Received: from [10.71.192.107] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
+ Transport; Mon, 5 Sep 2022 03:44:44 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,112 +62,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c6a17c2-2cf2-11ed-a016-b9edf5238543
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1662365549; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vLBCtbeiMkaT10it/2QfW3oy9NGXJ0931FNcJJeTs+E=;
-	b=hvJuONTlqXa3IZLVuzAZ3mvfimjG/HG5K1UYXiiMd6Jxc7MnBmd8EvFQgw5oSEYQnG/f0V
-	+51wd/30Jfiv7ka9ky5kghqEmUu9AoehBsL4FA/S3udtvnMmZ/ybc1m3/Htxqdr3KL53Wv
-	TIehxfs6fvCI+DApLUGQDHmpY/iq5bI=
-Date: Mon, 5 Sep 2022 10:12:28 +0200
-From: Michal Hocko <mhocko@suse.com>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Kent Overstreet <kent.overstreet@linux.dev>,
-	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Matthew Wilcox <willy@infradead.org>,
-	"Liam R. Howlett" <liam.howlett@oracle.com>,
-	David Vernet <void@manifault.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Laurent Dufour <ldufour@linux.ibm.com>,
-	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, mcgrof@kernel.org,
-	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
-	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Benjamin Segall <bsegall@google.com>,
-	Daniel Bristot de Oliveira <bristot@redhat.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Christopher Lameter <cl@linux.com>,
-	Pekka Enberg <penberg@kernel.org>,
-	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
-	Shakeel Butt <shakeelb@google.com>,
-	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de,
-	jbaron@akamai.com, David Rientjes <rientjes@google.com>,
-	Minchan Kim <minchan@google.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	kernel-team <kernel-team@android.com>,
-	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev,
-	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
-	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-Message-ID: <YxWvbMYLkPoJrQyr@dhcp22.suse.cz>
-References: <20220830214919.53220-1-surenb@google.com>
- <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
- <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
- <20220831101948.f3etturccmp5ovkl@suse.de>
- <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
- <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
- <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
- <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
- <YxEE1vOwRPdzKxoq@dhcp22.suse.cz>
- <CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
+X-Inumbo-ID: 002f866a-2cf7-11ed-af93-0125da4c0113
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WlamoT03TVZfAQy1b1O06AxxseBENk/QEv+4k15SzhxOZ4AcGNudTnSvmlWi7qZ80O3oxXvbv/pQpAj59mhHmprWW6arUlzkSI02R1VOL+obt4j6nNclutLD2Yh/Kv8ryJcrK4Uqc2rj9c4plzn7gfVCVEmzA9+TzY2/4XlhZwhKBteVlBxLelPkbfvOsdQ9o75XiIkRdgORd49oVXWsdyB0UpsniJyvviN8oZw0de/nhYob6Ukc7rz4qXDMYMGNjfI1eGsKtQ6UUaUBS/ITCKx6trJoUDWghdO+geilP/qBBaRnp2WOiNmov4A09nheAWZ24AFOmU0w/aDfPNkXQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AwDs2ed147tl2UT5ygQg74PPniA3YTFZLRnX5MVHE6o=;
+ b=C/IY7D+/zaetrOW5aKAKO389REACpgw0mWSIU6OxSJ77fommDWaPVnisMC1m3iEKh7UGUPRHY9DeSerR7aU7ZYwdkDRdpA3CCx7g/aVnfop2y/JcOvnhgs01UUorUWjrTqef5Nwi1fT2nJ6w9JSjyhTJnYIdx04IBjtVPoavIqeAZkXZqhPRudiI4s0YNySsc6xvd6plEa/JGTgBcGdNLZ4RdACTdYO9WoNW6eU119OAa5aBS7cw3djhphvKMyq3g6C5ylCBbuCKTOJe8kLYdMuypvKWAwISMDPxrFZd4r8MInq0zmVl7zRAXyQBa/N2nEGhZ7qnf3mOgyqZAwwMFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AwDs2ed147tl2UT5ygQg74PPniA3YTFZLRnX5MVHE6o=;
+ b=wfLLHFaJaBXA88T3/PLrOlvRaCOXcHjAi6iYhdjQ0sNgxjiAPCPai4uaWvvNz90TixHKd9C4l3mFWugDD+MiV8oIb/NvWQrvxZo25no27LM6cTxUgG4fkY5wTv6xvQKjP0VcslJhYa6uFMRQnpOe0SfxBLy6m+vCTxEB6Fc3t5c=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <98b712c1-2a02-9baa-b816-3c28cccaf74e@amd.com>
+Date: Mon, 5 Sep 2022 10:44:43 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.1
+Subject: Re: [for-4.17 3/3] automation: Add a new job for testing boot time
+ cpupools on arm64
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>
+References: <20220902070905.1262-1-michal.orzel@amd.com>
+ <20220902070905.1262-4-michal.orzel@amd.com>
+ <alpine.DEB.2.22.394.2209021645160.3931@ubuntu-linux-20-04-desktop>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2209021645160.3931@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 703fa30f-85cd-42f0-13b1-08da8f1ae2b4
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6353:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	cxzsgH9RhCwuxGqj6X2f7zX3sSSDYOgbDUvk14GW7AVSUQgs4c2j0/hUsOX/Pi10z3jpemHSwZKGK1j3Bg28dxO/bzCB1CBgett7xW5eyOEJxmGKLj0m5SQtH00ukov5FYbbMug3AmAx0j90KrDPOS796D23VZfT+H/TSQl+mr2s63NNRPnkiEwjuDwHmKwmnf1DwfKF/tnV1+uFmTnRuTfW6ENuy9uFmdiwY3Gi1Oer6hA7PCdfXa8QhVbXWMi/OBAN0ZeLNP9aPEctam8UsFptIi0pFQcDFqKzHDRTS7v13BytCPua7G1hkTqNitqob0nhisDB2+RZtJ8CF6lZMDoB1L/OvCp+PGV61NfrMisGSvhuZXm3g58iVfq7ByjpH3+bxXxLVySBc+sNlNk7GrY+tvQZiNmKYItZanAl/n2+ZfTelTtYLF2LUgk/z8Wp57VMDVyLmvO4Iq5smkb7S2N1XOIj7rKCPiT4abG9og0e4B+qXOXiQYEmUD48UnVCnR9QgLeGsyE7ud2K0t4K739RJzuUOfE9a9PmoY94cMhsyUAAZea9pX4fyC/Focf67/z53DfSRVT94RRzu5lVQQBLYVeLG+0mFla8Hc4Kp/Qdg4zNGxzNatGI3QLctMbstRvIOFM+SXRHVQdhnYV4btaSVM1ETFCCd3oUWFrOdb3mARhzZpb6FF8Ql+M75DOa4rrgHNFcmHogykETlpxjS5ioET109z8S5shphjzMkmHf8IWI8v/8BHEsLp0asTgHFuqbg3nkxrkZevmMZX9oSPZ/SKYrUtUmW8ys8hYgTjWEmicbk8vuSjSLOs6qL882FqlJDQOHcRvmz6cEl7+AhWpTSH3G5P2uDH/pL3Drr0Q=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230016)(4636009)(346002)(376002)(396003)(136003)(39860400002)(40470700004)(36840700001)(46966006)(336012)(186003)(2616005)(47076005)(426003)(82740400003)(8936002)(83380400001)(36860700001)(44832011)(5660300002)(70586007)(70206006)(4326008)(40480700001)(82310400005)(2906002)(8676002)(41300700001)(478600001)(40460700003)(26005)(316002)(16576012)(6916009)(54906003)(53546011)(31686004)(81166007)(36756003)(86362001)(31696002)(356005)(157313001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2022 08:44:46.0783
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 703fa30f-85cd-42f0-13b1-08da8f1ae2b4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6353
 
-On Sun 04-09-22 18:32:58, Suren Baghdasaryan wrote:
-> On Thu, Sep 1, 2022 at 12:15 PM Michal Hocko <mhocko@suse.com> wrote:
-[...]
-> > Yes, tracking back the call trace would be really needed. The question
-> > is whether this is really prohibitively expensive. How much overhead are
-> > we talking about? There is no free lunch here, really.  You either have
-> > the overhead during runtime when the feature is used or on the source
-> > code level for all the future development (with a maze of macros and
-> > wrappers).
+Hi Stefano,
+
+On 03/09/2022 01:49, Stefano Stabellini wrote:
 > 
-> As promised, I profiled a simple code that repeatedly makes 10
-> allocations/frees in a loop and measured overheads of code tagging,
-> call stack capturing and tracing+BPF for page and slab allocations.
-> Summary:
 > 
-> Page allocations (overheads are compared to get_free_pages() duration):
-> 6.8% Codetag counter manipulations (__lazy_percpu_counter_add + __alloc_tag_add)
-> 8.8% lookup_page_ext
-> 1237% call stack capture
-> 139% tracepoint with attached empty BPF program
+> Currently this test fails with:
+> 
+> + fdtput binaries/virt-gicv2.dtb -p -t s /pl061@9030000 status disabled
+> + [[ boot-cpupools == \b\o\o\t\-\c\p\u\p\o\o\l\s ]]
+> ++ fdtget binaries/virt-gicv2.dtb -t x /cpus/cpu@1 phandle
+> Error at 'phandle': FDT_ERR_NOTFOUND
+My bad. The qemu version used by CI does not generate phandles for cpus.
+So the fix is very straightforward and requires putting custom phandle for cpu@1.
 
-Yes, I am not surprised that the call stack capturing is really
-expensive comparing to the allocator fast path (which is really highly
-optimized and I suspect that with 10 allocation/free loop you mostly get
-your memory from the pcp lists). Is this overhead still _that_ visible
-for somehow less microoptimized workloads which have to take slow paths
-as well?
+diff --git a/automation/scripts/qemu-smoke-arm64.sh b/automation/scripts/qemu-smoke-arm64.sh
+index c2184850293c..158d5665d71d 100755
+--- a/automation/scripts/qemu-smoke-arm64.sh
++++ b/automation/scripts/qemu-smoke-arm64.sh
+@@ -50,8 +50,9 @@ fdtput binaries/virt-gicv2.dtb -p -t s /pl061@9030000 status disabled
+ 
+ if [[ "${test_variant}" == "boot-cpupools" ]]; then
+     # Create cpupool node and assign it to domU0
+-    cpu_phandle="$(fdtget binaries/virt-gicv2.dtb -t x /cpus/cpu@1 phandle)"
++    cpu_phandle="0xfffffe"
+     cpupool_phandle="0xffffff"
++    fdtput binaries/virt-gicv2.dtb -p -t x /cpus/cpu@1 phandle $cpu_phandle
+     fdtput binaries/virt-gicv2.dtb -p -t s /chosen/cpupool compatible xen,cpupool
+     fdtput binaries/virt-gicv2.dtb -p -t x /chosen/cpupool cpupool-cpus $cpu_phandle
+     fdtput binaries/virt-gicv2.dtb -p -t x /chosen/cpupool phandle $cpupool_phandle
 
-Also what kind of stack unwinder is configured (I guess ORC)? This is
-not my area but from what I remember the unwinder overhead varies
-between ORC and FP.
+> 
+> Given my other comment below, I would leave this code as is.
+> 
+> 
+>> +if [[ "${test_variant}" == "boot-cpupools" ]]; then
+>> +    # Create cpupool node and assign it to domU0
+>> +    cpu_phandle="$(fdtget binaries/virt-gicv2.dtb -t x /cpus/cpu@1 phandle)"
+>> +    cpupool_phandle="0xffffff"
+>> +    fdtput binaries/virt-gicv2.dtb -p -t s /chosen/cpupool compatible xen,cpupool
+>> +    fdtput binaries/virt-gicv2.dtb -p -t x /chosen/cpupool cpupool-cpus $cpu_phandle
+>> +    fdtput binaries/virt-gicv2.dtb -p -t x /chosen/cpupool phandle $cpupool_phandle
+>> +    fdtput binaries/virt-gicv2.dtb -p -t x /chosen/domU0 domain-cpupool $cpupool_phandle
+>> +
+>> +    # Check if domU0 (id=1) is assigned to Pool-1
+>> +    passed="${test_variant} test passed"
+>> +    dom0_check="if xl list -c 1 | grep -q Pool-1; then echo ${passed}; fi"
+>> +fi
+> 
+> I would prefer to keep the device tree editing here to a minimum and
+> instead add boot-cpupool support in ImageBuilder and add CPUPOOL* config
+> options to the existing config file for ImageBuilder created in this
+> file below. This way, we keep this test cleaner and we help more the
+> user by proving a way to set boot-cpupools more easily in general, also
+> useful outside gitlab-ci.
 
-And just to make it clear. I do realize that an overhead from the stack
-unwinding is unavoidable. And code tagging would logically have lower
-overhead as it performs much less work. But the main point is whether
-our existing stack unwiding approach is really prohibitively expensive
-to be used for debugging purposes on production systems. I might
-misremember but I recall people having bigger concerns with page_owner
-memory footprint than the actual stack unwinder overhead.
--- 
-Michal Hocko
-SUSE Labs
+I agree that ImageBuilder is a great tool. However, I would opt for keeping what I did because of the following:
+- current release schedule (we could benefit from having a test for 4.17 feature instead of waiting for the corresponding
+  change to be done in ImageBuilder first and tested),
+- test is already prepared and requires just a trivial fix,
+- we should not enforce users willing to add tests to gitlab-ci to always prepare the ImageBuilder changes first.
+  ImageBuilder is not meant to support all the features strictly because some of them require too much
+  end-user knowledge and digging into device tree (it should stay as simple as possible),
+- all in all we need to have a way to modify the dtb and fdtput is certainly better than sed as it does not
+  require additional steps for decompilation/compilation and its commands look more clean than using sed transformation.
+
+Let me know what you think.
+
+On a side note, I can add boot-time cpupools support in ImageBuilder to my TODO list so that we can check if this is something
+ImageBuilder should support. If yes, we can modify this test after the release.
+I can already think of the following IB config options that would need to be introduced to properly support boot-time cpupools:
+CPUPOOL[number] = "<list_of_cpus> <scheduler>" - to create cpupools
+NUM_CPUPOOLS = "<number>" - to keep the number of created cpupools
+DOMU_CPUPOOL[number] = "CPUPOOL[number]" - to assing domU to one of the created cpupools
+So we already have 3 new options and the number of required sanity checks I can think of is significant.
+Even then, we could easily trigger a failure e.g. if user assigns cpus of different type and does not pass hmp-unsafe=1.
+
+
+~Michal
 
