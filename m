@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 317305ADB52
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 00:17:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399198.640292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE19B5ADB5A
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 00:20:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399210.640303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVKPI-0006rB-A0; Mon, 05 Sep 2022 22:17:28 +0000
+	id 1oVKRV-0007fu-LK; Mon, 05 Sep 2022 22:19:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399198.640292; Mon, 05 Sep 2022 22:17:28 +0000
+Received: by outflank-mailman (output) from mailman id 399210.640303; Mon, 05 Sep 2022 22:19:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVKPI-0006oq-6b; Mon, 05 Sep 2022 22:17:28 +0000
-Received: by outflank-mailman (input) for mailman id 399198;
- Mon, 05 Sep 2022 22:17:27 +0000
+	id 1oVKRV-0007di-Ie; Mon, 05 Sep 2022 22:19:45 +0000
+Received: by outflank-mailman (input) for mailman id 399210;
+ Mon, 05 Sep 2022 22:19:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+J0v=ZI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oVKPH-0006nC-1v
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 22:17:27 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1oVKRU-0007dc-Bd
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 22:19:44 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85316080-2d68-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 00:17:25 +0200 (CEST)
+ id d74b82b8-2d68-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 00:19:43 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B7BFFB81118;
- Mon,  5 Sep 2022 22:17:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25FF2C433D6;
- Mon,  5 Sep 2022 22:17:23 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B7101B81598;
+ Mon,  5 Sep 2022 22:19:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A02C433D7;
+ Mon,  5 Sep 2022 22:19:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,123 +43,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85316080-2d68-11ed-af93-0125da4c0113
+X-Inumbo-ID: d74b82b8-2d68-11ed-af93-0125da4c0113
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662416243;
-	bh=BDxNCKqD202DtOlDDp0107b8qH36zNff1JZExZDyU4Y=;
+	s=k20201202; t=1662416381;
+	bh=2zCGslPKOq0qjEIEfD18prRPd7UwxPKZojQ4MBgjtHM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=EOLXwLX87BKRwz85nHVPuPx2FI3ka/aSyKU7U1uWJhBYnuNOVu61LaXOKRDJYZRTE
-	 51Sxg3pM0V0x4ERvBUWGuttJbfIGbq7x1kYewet1RxrrFLKiBMf/aWWu5X4ARx19YF
-	 6eji5Ceh6aykBKY+fSbbyPo9HgNxh/j6GTczNtZndwrZ2/kcbpNkuz/g/fWEB1gfj9
-	 +y636yLfAHbP0VLz0+HxPfGM6GCGq6QT+UfEBa5XOjAlmhjlx5M6ntFCuK8dxFMJ1W
-	 bTpn9hTAR+XYDCPWgT4WPzooQauRI3egfYQx7GxCz+kbOfo5BQCL6d0SuNMqzzZQvP
-	 CTZX6pzcxE7Qw==
-Date: Mon, 5 Sep 2022 15:17:22 -0700 (PDT)
+	b=tKP46uVhbhNgBVwHssDzVyIeWjXXbkxsoG8qrcx5Cdcuyf4NkO1heJqnZ9YIqU8Qa
+	 Md1IffVcq5ynecUTNKljW98fW2Y2+Xbdu1/fm2TwzKDLOv5FZEdRe00OCa8yKxKV5G
+	 MZHpSVkDhcZyRHJsJJFvu++A9VknQEK4UwoGtD6WMNea12EDKdU18+PyeAT7821259
+	 Y7WSNe/mXu2/8CtUePlWylvAKjKlPFuF16IYqVb6PwPdZr65ZTp4N4/QsM8psXXeK6
+	 AARKuP6gF6JZ2RB6Q9k8ONiz8mPx4/vuQDOz3py/mdDbZwkV07TKZzdnL1ZUY543Sl
+	 2jhyoYqSE+awQ==
+Date: Mon, 5 Sep 2022 15:19:40 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Rahul Singh <Rahul.Singh@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Zhou Wang <wangzhou1@hisilicon.com>, 
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, Robin Murphy <robin.murphy@arm.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Will Deacon <will@kernel.org>
-Subject: Re: [PATCH v2 03/10] xen/arm: smmuv3: Ensure queue is read after
- updating prod pointer
-In-Reply-To: <8ae636bb-9508-9477-af0e-d30440782dbf@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2209051517130.3931@ubuntu-linux-20-04-desktop>
-References: <cover.1662123432.git.rahul.singh@arm.com> <59c24309e2d8494edf414904fe9725b4e7387098.1662123432.git.rahul.singh@arm.com> <alpine.DEB.2.22.394.2209021613440.3931@ubuntu-linux-20-04-desktop> <FB788985-2DE3-406D-9282-56B8C9E4B1C1@arm.com>
- <5f0bf815-3236-2262-62b4-cd3d99bb60ff@xen.org> <71FC45C0-2F78-4CB7-AAB7-5B2C357F2C74@arm.com> <8ae636bb-9508-9477-af0e-d30440782dbf@xen.org>
+Subject: Re: [PATCH v3 05/10] xen/arm: smmuv3: Remove the page 1 fixup
+In-Reply-To: <6a8cb40d46ab3e688df1f037e4fdacdcd98e3c6a.1662394710.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2209051519270.3931@ubuntu-linux-20-04-desktop>
+References: <cover.1662394710.git.rahul.singh@arm.com> <6a8cb40d46ab3e688df1f037e4fdacdcd98e3c6a.1662394710.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1967879923-1662416243=:3931"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1967879923-1662416243=:3931
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Mon, 5 Sep 2022, Julien Grall wrote:
-> On 05/09/2022 11:23, Bertrand Marquis wrote:
-> > > On 5 Sep 2022, at 10:31, Julien Grall <julien@xen.org> wrote:
-> > > On 05/09/2022 10:18, Rahul Singh wrote:
-> > > > > On 3 Sep 2022, at 12:21 am, Stefano Stabellini
-> > > > > <sstabellini@kernel.org> wrote:
-> > > > > 
-> > > > > On Fri, 2 Sep 2022, Rahul Singh wrote:
-> > > > > > From: Zhou Wang <wangzhou1@hisilicon.com>
-> > > > > > 
-> > > > > > Backport Linux commit a76a37777f2c. This is the clean backport
-> > > > > > without
-> > > > > > any changes.
-> > > > > > 
-> > > > > > Reading the 'prod' MMIO register in order to determine whether or
-> > > > > > not there is valid data beyond 'cons' for a given queue does not
-> > > > > > provide sufficient dependency ordering, as the resulting access is
-> > > > > > address dependent only on 'cons' and can therefore be speculated
-> > > > > > ahead of time, potentially allowing stale data to be read by the
-> > > > > > CPU.
-> > > > > > 
-> > > > > > Use readl() instead of readl_relaxed() when updating the shadow copy
-> > > > > > of the 'prod' pointer, so that all speculated memory reads from the
-> > > > > > corresponding queue can occur only from valid slots.
-> > > > > > 
-> > > > > > Signed-off-by: Zhou Wang <wangzhou1@hisilicon.com>
-> > > > > > Link:
-> > > > > > https://lore.kernel.org/r/1601281922-117296-1-git-send-email-wangzhou1@hisilicon.com
-> > > > > > [will: Use readl() instead of explicit barrier. Update 'cons' side
-> > > > > > to match.]
-> > > > > > Signed-off-by: Will Deacon <will@kernel.org>
-> > > > > > Origin:
-> > > > > > git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> > > > > > a76a37777f2c
-> > > > > > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> > > > > > ---
-> > > > > > Changes in v2:
-> > > > > > - fix commit msg
-> > > > > > - add _iomb changes also from the origin patch
-> > > > > > ---
-> > > > > > xen/arch/arm/include/asm/system.h     |  1 +
-> > > > > > xen/drivers/passthrough/arm/smmu-v3.c | 11 +++++++++--
-> > > > > > 2 files changed, 10 insertions(+), 2 deletions(-)
-> > > > > > 
-> > > > > > diff --git a/xen/arch/arm/include/asm/system.h
-> > > > > > b/xen/arch/arm/include/asm/system.h
-> > > > > > index 65d5c8e423..fe27cf8c5e 100644
-> > > > > > --- a/xen/arch/arm/include/asm/system.h
-> > > > > > +++ b/xen/arch/arm/include/asm/system.h
-> > > > > > @@ -29,6 +29,7 @@
-> > > > > > #endif
-> > > > > > 
-> > > > > > #define smp_wmb()       dmb(ishst)
-> > > > > > +#define __iomb()        dmb(osh)
-> > > > > 
-> > > > > We don't have any other #define starting with __ in system.h.
-> > > > > I wonder if we should call this macro differently or simply iomb().
-> > > >   I think either iomb() or dma_mb() will be the right name.
-> > > > Please let me know your view on this.
-> > > 
-> > > It is not 100% clear why Linux went with __iomb() rather than iomb(). But
-> > > I would prefer to keep the __* version to match Linux.
-> > > 
-> > > If the others really want to drop the __. Then I think it should be name
-> > > iomb(). The rationale is while __iomb() is an alias to dma_mb(), the
-> > > __iormb() behaves differently compare to dma_mb() (I haven't into details
-> > > why).
-> > > 
-> > > So if it was a read barrier, we would likely want to use the iormb()
-> > > semantic. This will keep the terminology consistent with Linux (even if we
-> > > remove the __).
-> > 
-> > We need the __iomb as “linux compatibility” in fact so I would suggest for
-> > now to only introduce it at the beginning of smmu-v3.c with other linux
-> > compatibility stuff to prevent adding this to Xen overall.
+On Mon, 5 Sep 2022, Rahul Singh wrote:
+> From: Robin Murphy <robin.murphy@arm.com>
 > 
-> I would be fine with that.
+> Backport Linux commit 86d2d9214880. This is the clean backport without
+> any changes.
+> 
+> Since we now keep track of page 1 via a separate pointer that
+> already encapsulates aliasing to page 0 as necessary, we can remove
+> the clunky fixup routine and simply use the relevant bases directly.
+> The current architecture spec (IHI0070D.a) defines
+> SMMU_{EVENTQ,PRIQ}_{PROD,CONS} as offsets relative to page 1, so the
+> cleanup represents a little bit of convergence as well as just
+> lines of code saved.
+> 
+> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 86d2d9214880
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 
-+1
---8323329-1967879923-1662416243=:3931--
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+> Changes in v3:
+>  - fix "q->cons_reg = page + cons_off"
+> Changes in v2:
+>  - fix commit msg.
+> ---
+>  xen/drivers/passthrough/arm/smmu-v3.c | 42 ++++++++++-----------------
+>  xen/drivers/passthrough/arm/smmu-v3.h |  8 ++---
+>  2 files changed, 20 insertions(+), 30 deletions(-)
+> 
+> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
+> index e65b226b85..272adebb0b 100644
+> --- a/xen/drivers/passthrough/arm/smmu-v3.c
+> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
+> @@ -238,15 +238,6 @@ static struct arm_smmu_option_prop arm_smmu_options[] = {
+>  	{ 0, NULL},
+>  };
+>  
+> -static inline void __iomem *arm_smmu_page1_fixup(unsigned long offset,
+> -						 struct arm_smmu_device *smmu)
+> -{
+> -	if (offset > SZ_64K)
+> -		return smmu->page1 + offset - SZ_64K;
+> -
+> -	return smmu->base + offset;
+> -}
+> -
+>  static struct arm_smmu_domain *to_smmu_domain(struct iommu_domain *dom)
+>  {
+>  	return container_of(dom, struct arm_smmu_domain, domain);
+> @@ -1581,6 +1572,7 @@ static int arm_smmu_dt_xlate(struct device *dev,
+>  /* Probing and initialisation functions */
+>  static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
+>  				   struct arm_smmu_queue *q,
+> +				   void __iomem *page,
+>  				   unsigned long prod_off,
+>  				   unsigned long cons_off,
+>  				   size_t dwords, const char *name)
+> @@ -1609,8 +1601,8 @@ static int arm_smmu_init_one_queue(struct arm_smmu_device *smmu,
+>  			 1 << q->llq.max_n_shift, name);
+>  	}
+>  
+> -	q->prod_reg	= arm_smmu_page1_fixup(prod_off, smmu);
+> -	q->cons_reg	= arm_smmu_page1_fixup(cons_off, smmu);
+> +	q->prod_reg	= page + prod_off;
+> +	q->cons_reg	= page + cons_off;
+>  	q->ent_dwords	= dwords;
+>  
+>  	q->q_base  = Q_BASE_RWA;
+> @@ -1627,16 +1619,16 @@ static int arm_smmu_init_queues(struct arm_smmu_device *smmu)
+>  
+>  	/* cmdq */
+>  	spin_lock_init(&smmu->cmdq.lock);
+> -	ret = arm_smmu_init_one_queue(smmu, &smmu->cmdq.q, ARM_SMMU_CMDQ_PROD,
+> -				      ARM_SMMU_CMDQ_CONS, CMDQ_ENT_DWORDS,
+> -				      "cmdq");
+> +	ret = arm_smmu_init_one_queue(smmu, &smmu->cmdq.q, smmu->base,
+> +					  ARM_SMMU_CMDQ_PROD, ARM_SMMU_CMDQ_CONS,
+> +					  CMDQ_ENT_DWORDS, "cmdq");
+>  	if (ret)
+>  		return ret;
+>  
+>  	/* evtq */
+> -	ret = arm_smmu_init_one_queue(smmu, &smmu->evtq.q, ARM_SMMU_EVTQ_PROD,
+> -				      ARM_SMMU_EVTQ_CONS, EVTQ_ENT_DWORDS,
+> -				      "evtq");
+> +	ret = arm_smmu_init_one_queue(smmu, &smmu->evtq.q, smmu->page1,
+> +					  ARM_SMMU_EVTQ_PROD, ARM_SMMU_EVTQ_CONS,
+> +					  EVTQ_ENT_DWORDS, "evtq");
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -1644,9 +1636,9 @@ static int arm_smmu_init_queues(struct arm_smmu_device *smmu)
+>  	if (!(smmu->features & ARM_SMMU_FEAT_PRI))
+>  		return 0;
+>  
+> -	return arm_smmu_init_one_queue(smmu, &smmu->priq.q, ARM_SMMU_PRIQ_PROD,
+> -				       ARM_SMMU_PRIQ_CONS, PRIQ_ENT_DWORDS,
+> -				       "priq");
+> +	return arm_smmu_init_one_queue(smmu, &smmu->priq.q, smmu->page1,
+> +					   ARM_SMMU_PRIQ_PROD, ARM_SMMU_PRIQ_CONS,
+> +					   PRIQ_ENT_DWORDS, "priq");
+>  }
+>  
+>  static int arm_smmu_init_l1_strtab(struct arm_smmu_device *smmu)
+> @@ -2090,10 +2082,8 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+>  
+>  	/* Event queue */
+>  	writeq_relaxed(smmu->evtq.q.q_base, smmu->base + ARM_SMMU_EVTQ_BASE);
+> -	writel_relaxed(smmu->evtq.q.llq.prod,
+> -		       arm_smmu_page1_fixup(ARM_SMMU_EVTQ_PROD, smmu));
+> -	writel_relaxed(smmu->evtq.q.llq.cons,
+> -		       arm_smmu_page1_fixup(ARM_SMMU_EVTQ_CONS, smmu));
+> +	writel_relaxed(smmu->evtq.q.llq.prod, smmu->page1 + ARM_SMMU_EVTQ_PROD);
+> +	writel_relaxed(smmu->evtq.q.llq.cons, smmu->page1 + ARM_SMMU_EVTQ_CONS);
+>  
+>  	enables |= CR0_EVTQEN;
+>  	ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> @@ -2108,9 +2098,9 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+>  		writeq_relaxed(smmu->priq.q.q_base,
+>  			       smmu->base + ARM_SMMU_PRIQ_BASE);
+>  		writel_relaxed(smmu->priq.q.llq.prod,
+> -			       arm_smmu_page1_fixup(ARM_SMMU_PRIQ_PROD, smmu));
+> +			       smmu->page1 + ARM_SMMU_PRIQ_PROD);
+>  		writel_relaxed(smmu->priq.q.llq.cons,
+> -			       arm_smmu_page1_fixup(ARM_SMMU_PRIQ_CONS, smmu));
+> +			       smmu->page1 + ARM_SMMU_PRIQ_CONS);
+>  
+>  		enables |= CR0_PRIQEN;
+>  		ret = arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthrough/arm/smmu-v3.h
+> index c45d2f16c4..0742bc393f 100644
+> --- a/xen/drivers/passthrough/arm/smmu-v3.h
+> +++ b/xen/drivers/passthrough/arm/smmu-v3.h
+> @@ -130,15 +130,15 @@
+>  #define ARM_SMMU_CMDQ_CONS		0x9c
+>  
+>  #define ARM_SMMU_EVTQ_BASE		0xa0
+> -#define ARM_SMMU_EVTQ_PROD		0x100a8
+> -#define ARM_SMMU_EVTQ_CONS		0x100ac
+> +#define ARM_SMMU_EVTQ_PROD		0xa8
+> +#define ARM_SMMU_EVTQ_CONS		0xac
+>  #define ARM_SMMU_EVTQ_IRQ_CFG0		0xb0
+>  #define ARM_SMMU_EVTQ_IRQ_CFG1		0xb8
+>  #define ARM_SMMU_EVTQ_IRQ_CFG2		0xbc
+>  
+>  #define ARM_SMMU_PRIQ_BASE		0xc0
+> -#define ARM_SMMU_PRIQ_PROD		0x100c8
+> -#define ARM_SMMU_PRIQ_CONS		0x100cc
+> +#define ARM_SMMU_PRIQ_PROD		0xc8
+> +#define ARM_SMMU_PRIQ_CONS		0xcc
+>  #define ARM_SMMU_PRIQ_IRQ_CFG0		0xd0
+>  #define ARM_SMMU_PRIQ_IRQ_CFG1		0xd8
+>  #define ARM_SMMU_PRIQ_IRQ_CFG2		0xdc
+> -- 
+> 2.25.1
+> 
 
