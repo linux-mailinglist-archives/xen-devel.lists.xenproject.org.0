@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA80C5AD5A0
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 17:00:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.398905.639891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDBF25AD5BC
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 17:07:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.398913.639901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVDZG-0003JY-Bc; Mon, 05 Sep 2022 14:59:18 +0000
+	id 1oVDgW-0004lc-2Z; Mon, 05 Sep 2022 15:06:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 398905.639891; Mon, 05 Sep 2022 14:59:18 +0000
+Received: by outflank-mailman (output) from mailman id 398913.639901; Mon, 05 Sep 2022 15:06:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVDZG-0003GS-7m; Mon, 05 Sep 2022 14:59:18 +0000
-Received: by outflank-mailman (input) for mailman id 398905;
- Mon, 05 Sep 2022 14:59:16 +0000
+	id 1oVDgV-0004jS-W2; Mon, 05 Sep 2022 15:06:47 +0000
+Received: by outflank-mailman (input) for mailman id 398913;
+ Mon, 05 Sep 2022 15:06:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RjDm=ZI=citrix.com=prvs=240d055ed=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oVDZE-0003GM-9p
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 14:59:16 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c0bb098-2d2b-11ed-af93-0125da4c0113;
- Mon, 05 Sep 2022 16:59:11 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=a78l=ZI=goodmis.org=rostedt@kernel.org>)
+ id 1oVDgU-0004jM-Ce
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 15:06:46 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5a7f3d8a-2d2c-11ed-af93-0125da4c0113;
+ Mon, 05 Sep 2022 17:06:44 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 00378B8119C;
+ Mon,  5 Sep 2022 15:06:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AC4C433D6;
+ Mon,  5 Sep 2022 15:06:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,101 +43,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c0bb098-2d2b-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1662389951;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SUYhBjSo65ns5zJUnqPMv2slbVg/QCx9SuyguzqTMdk=;
-  b=RYW1kIpi9CFsOCyZaZK6txvjntTwGagma3YfQpIQ/7lq7tnMRI6XsH0K
-   8qbA5R1egJdIUDo5MzlyDxUUS7WfDblLO790VQsLsWsmWFmGLlwpeuKqi
-   8acy9CbQffKiwDG8viBAZNq1EFMLjVdcl2NGJRmP5jS9XwbrnSJGL5ixX
-   U=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 2.7
-X-MesageID: 80220326
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:rd93w6lb6LLuyGzOfyJm+Hro5gyIIURdPkR7XQ2eYbSJt1+Wr1Gzt
- xJLCz2Fb/ncZTOhetlwOdyxoxlUuZ6DmtVrSFFspXs2RCMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8mk/ngqoPUUIbsIjp2SRJvVBAvgBdin/9RqoNziJ2yDhjlV
- ena+qUzA3f4nW8vWo4ow/jb8kk37ayv4GpwUmEWPpingnePzxH5M7pHTU2BByOQapVZGOe8W
- 9HCwNmRlo8O105wYj8Nuu+TnnwiGtY+DyDX4pZlc/HKbix5jj4zys4G2M80Mi+7vdkrc+dZk
- 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzdFSfqV/wmWfG0YAzcmCA2kqNI0nyNtyIFh35
- NckOB89VkG/3MSflefTpulE3qzPLeHuNYIb/Hph0SvYHbAtRpWrr6fivIECmm1q34YXQKiYN
- 5FxhTlHNXwsZzVGPEsXD5Qv2v+lnHDlfxVTqU6PpLpx6G/WpOB0+Oi1aoCNIYbULSlTth28i
- VDG/HniPgATG//FwBe9yy3y1vCayEsXX6pNTeblp5aGmma7xGYeFRkXXluTuuSihwi1XNc3A
- 0cU4Cs1sa8q9EGxCMa7VBmxun2ssRsVWt4WGOo/gCmGyrDV+BqeHmgJVHhKbNU8t+ctWTUw0
- laD2dLubRRjqKaQSG6d3r6MoCmuJDMOKmsfeS4DSxBD6N7myKk3jw/QQ/5mEaWvicbyFy22y
- DePxAAhg50DgMhN0L+0lXjXjjTpqpXXQwod4gTMQnnj/g5/fJSiZYGj9R7c9/koBKyUVEWbt
- X4I3e2X9vkTDIqlnTaIBu4KGdmB5fmfNybHqUVyBJRn/DOok1adeoRX7CB7NV1eGM8Ocj/0Y
- 2feoQpUopRUOROCTaJxeZP3NM0swoDpD9GjXffRBvJVeYR4fgKD+CBoZGaT0nrrnUxqlrswU
- b+ZbMKtAHAyGalhij2sSI8107AxzyQ67WrWTIL8yVKs1r/2TGWJRLkMNlzIdfww5q6ApATT8
- v5PNs+LzQUZW+r7ChQ76qZKcwpMdyJiQ8mr9YoHLYZvPzaKBkk9Av/u844kWrVcjo9phsj4x
- iCBAWlxnQ+XaWL8FemaVpxyQOqxA8wn/SlqY3JE0UWAgCZ6P9v2hEsLX95uJOR8qrQ+pRJhZ
- 6NdE/hsFMijXdguF941SZDm5LJvex2w7e5lF3r0OWNvF3KMquGgxzMFQucM3HNUZsZPnZFiy
- 4BMLyuCKXb5eyxsDdzNdNWkxE6rsH4WlYpaBhWWeIIKJhiwqdE1cUQda8PbxOlVcH3+Ksayj
- V7KUX/0W8GWy2PKzDU5rf/d9Nr4ewePNkFbA3Pa/d6LCMUuxUL6mNcobQp9VWqCPI8C0Pn9O
- L49IjCVGKFvoWumRKIlSeY1kP9luoOyz1KYpyw9dEj2g52QIusIChG7MQNn78WhGpcxVdOKZ
- 3+y
-IronPort-HdrOrdr: A9a23:mt0LdKygZ/VlHQAOtJoHKrPwLr1zdoMgy1knxilNoRw8SK2lfu
- SV7ZMmPH7P+VIssR4b9exoVJPufZqYz+8S3WBzB8bGYOCFghrKEGgK1+KLqFeMJ8S9zJ8+6U
- 4JSdkGNDSaNzhHZKjBjjWFLw==
-X-IronPort-AV: E=Sophos;i="5.93,291,1654574400"; 
-   d="scan'208";a="80220326"
-Date: Mon, 5 Sep 2022 15:59:03 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Henry Wang <Henry.Wang@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Daniel
- P. Smith" <dpsmith@apertussolutions.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	"christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>,
-	"christopher.clark@starlab.io" <christopher.clark@starlab.io>, "Bertrand
- Marquis" <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>, "Julien
- Grall" <jgrall@amazon.com>, Stefano Stabellini
-	<stefano.stabellini@xilinx.com>, "sstabellini@kernel.org"
-	<sstabellini@kernel.org>, "jgross@suse.com" <jgross@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Roger Pau =?iso-8859-1?Q?Monn=E9?=
-	<roger.pau@citrix.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "Wei
- Liu" <wl@xen.org>, "Wei Liu (LSG)" <liuwe@microsoft.com>
-Subject: Re: Xen 4.17 release: Current status before the feature freeze
-Message-ID: <YxYOt4+D5VtkMscV@perard.uk.xensource.com>
-References: <AS8PR08MB799103D2B44302893AE39A97927F9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+X-Inumbo-ID: 5a7f3d8a-2d2c-11ed-af93-0125da4c0113
+Date: Mon, 5 Sep 2022 11:07:13 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>, Kent Overstreet
+ <kent.overstreet@linux.dev>, Mel Gorman <mgorman@suse.de>, Peter Zijlstra
+ <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Vlastimil Babka <vbabka@suse.cz>, Johannes Weiner <hannes@cmpxchg.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Davidlohr Bueso
+ <dave@stgolabs.net>, Matthew Wilcox <willy@infradead.org>, "Liam R.
+ Howlett" <liam.howlett@oracle.com>, David Vernet <void@manifault.com>, Juri
+ Lelli <juri.lelli@redhat.com>, Laurent Dufour <ldufour@linux.ibm.com>,
+ Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>, Jens
+ Axboe <axboe@kernel.dk>, mcgrof@kernel.org, masahiroy@kernel.org,
+ nathan@kernel.org, changbin.du@intel.com, ytcoode@gmail.com, Vincent
+ Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
+ <dietmar.eggemann@arm.com>, Benjamin Segall <bsegall@google.com>, Daniel
+ Bristot de Oliveira <bristot@redhat.com>, Valentin Schneider
+ <vschneid@redhat.com>, Christopher Lameter <cl@linux.com>, Pekka Enberg
+ <penberg@kernel.org>, Joonsoo Kim <iamjoonsoo.kim@lge.com>,
+ 42.hyeyoo@gmail.com, Alexander Potapenko <glider@google.com>, Marco Elver
+ <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, Shakeel Butt
+ <shakeelb@google.com>, Muchun Song <songmuchun@bytedance.com>,
+ arnd@arndb.de, jbaron@akamai.com, David Rientjes <rientjes@google.com>,
+ Minchan Kim <minchan@google.com>, Kalesh Singh <kaleshsingh@google.com>,
+ kernel-team <kernel-team@android.com>, linux-mm <linux-mm@kvack.org>,
+ iommu@lists.linux.dev, kasan-dev@googlegroups.com,
+ io-uring@vger.kernel.org, linux-arch@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+ linux-modules@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+Message-ID: <20220905110713.27304149@gandalf.local.home>
+In-Reply-To: <CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
+References: <20220830214919.53220-1-surenb@google.com>
+	<Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
+	<20220831084230.3ti3vitrzhzsu3fs@moria.home.lan>
+	<20220831101948.f3etturccmp5ovkl@suse.de>
+	<Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
+	<20220831190154.qdlsxfamans3ya5j@moria.home.lan>
+	<YxBc1xuGbB36f8zC@dhcp22.suse.cz>
+	<CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
+	<YxEE1vOwRPdzKxoq@dhcp22.suse.cz>
+	<CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <AS8PR08MB799103D2B44302893AE39A97927F9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 05, 2022 at 03:44:33AM +0000, Henry Wang wrote:
-> ** Blocker List **:
-> 2. The fix of libvirt after the virtio support in toolstack
-> Status: The OSSTEST seems to work properly, apart from what Jan
-> asked in IRC - the qemu and omvf OSSTEST might need a force push.
-> (I am not sure if this has been fixed so I just carried this)
+On Sun, 4 Sep 2022 18:32:58 -0700
+Suren Baghdasaryan <surenb@google.com> wrote:
 
-The build fix for libvirt have been applied to the project libvirt.
+> Page allocations (overheads are compared to get_free_pages() duration):
+> 6.8% Codetag counter manipulations (__lazy_percpu_counter_add + __alloc_tag_add)
+> 8.8% lookup_page_ext
+> 1237% call stack capture
+> 139% tracepoint with attached empty BPF program
 
-osstest needs to be updated to be able to build recent version of
-libvirt. But we'll have to wait until Roger is back to update osstest
-(patch for osstest are available).
+Have you tried tracepoint with custom callback?
 
-Once osstest is updated, it should be able to test the recent version of
-libvirt and then start to use it with other branch (qemu and ovmf).
-I don't think a force push for qemu and ovmf is necessary, and fairly
-soon not needed.
+static void my_callback(void *data, unsigned long call_site,
+			const void *ptr, struct kmem_cache *s,
+			size_t bytes_req, size_t bytes_alloc,
+			gfp_t gfp_flags)
+{
+	struct my_data_struct *my_data = data;
 
+	{ do whatever }
+}
 
-> ** Common **:
-> 10. [XEN,v2] build: Fix x86 out-of-tree build without EFI
-> https://patchwork.kernel.org/project/xen-devel/list/?series=668331
-> Status: Reviewed but not merged.
+[..]
+	register_trace_kmem_alloc(my_callback, my_data);
 
-I believe this should be a blocker. And the status might be that I need
-to update the patch.
+Now the my_callback function will be called directly every time the
+kmem_alloc tracepoint is hit.
 
-Cheers,
+This avoids that perf and BPF overhead.
 
--- 
-Anthony PERARD
+-- Steve
 
