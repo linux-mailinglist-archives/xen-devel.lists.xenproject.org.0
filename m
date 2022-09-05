@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F77A5ACC15
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 09:27:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.398534.639423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BAC35ACC16
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 09:27:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.398536.639434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oV6Vq-0002fZ-2F; Mon, 05 Sep 2022 07:27:18 +0000
+	id 1oV6Vt-00033a-Gw; Mon, 05 Sep 2022 07:27:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 398534.639423; Mon, 05 Sep 2022 07:27:18 +0000
+Received: by outflank-mailman (output) from mailman id 398536.639434; Mon, 05 Sep 2022 07:27:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oV6Vp-0002bZ-Td; Mon, 05 Sep 2022 07:27:17 +0000
-Received: by outflank-mailman (input) for mailman id 398534;
- Mon, 05 Sep 2022 07:27:15 +0000
+	id 1oV6Vt-000305-Ce; Mon, 05 Sep 2022 07:27:21 +0000
+Received: by outflank-mailman (input) for mailman id 398536;
+ Mon, 05 Sep 2022 07:27:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cA+y=ZI=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1oV6Vn-0001oQ-M0
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 07:27:15 +0000
+ id 1oV6Vr-0001oQ-PV
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 07:27:19 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 29a410c7-2cec-11ed-a016-b9edf5238543;
- Mon, 05 Sep 2022 09:27:14 +0200 (CEST)
+ id 2c22bfe2-2cec-11ed-a016-b9edf5238543;
+ Mon, 05 Sep 2022 09:27:18 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EA22BED1;
- Mon,  5 Sep 2022 00:27:19 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 23FEDED1;
+ Mon,  5 Sep 2022 00:27:24 -0700 (PDT)
 Received: from entos-skylake.shanghai.arm.com (entos-skylake.shanghai.arm.com
  [10.169.212.207])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B4F9A3F73D;
- Mon,  5 Sep 2022 00:27:39 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E3FBF3F73D;
+ Mon,  5 Sep 2022 00:27:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29a410c7-2cec-11ed-a016-b9edf5238543
+X-Inumbo-ID: 2c22bfe2-2cec-11ed-a016-b9edf5238543
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -52,277 +52,240 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Wei Chen <wei.chen@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 3/4] xen/arm: Handle reserved heap pages in boot and heap allocator
-Date: Mon,  5 Sep 2022 07:26:34 +0000
-Message-Id: <20220905072635.16294-4-Henry.Wang@arm.com>
+Subject: [PATCH v2 4/4] xen/arm: mm: Rename xenheap_* variable to directmap_*
+Date: Mon,  5 Sep 2022 07:26:35 +0000
+Message-Id: <20220905072635.16294-5-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220905072635.16294-1-Henry.Wang@arm.com>
 References: <20220905072635.16294-1-Henry.Wang@arm.com>
 
-This commit firstly adds a bool field `reserved_heap` to bootinfo.
-This newly introduced field is set at the device tree parsing time
-if the reserved heap ranges are defined in the device tree chosen
-node.
+With the reserved heap setup, keep using xenheap_* in the function
+setup_xenheap_mappings() will make the code confusing to read,
+because we always need to map the full RAM on Arm64. Therefore,
+renaming all "xenheap_*" variables to "directmap_*" to make clear
+the area is used to access the RAM easily.
 
-For Arm32, In `setup_mm`, if the reserved heap is enabled, we use
-the reserved heap region for both domheap and xenheap allocation.
-Note that the xenheap on Arm32 should be always contiguous, so also
-add a helper fit_xenheap_in_reserved_heap() for Arm32 to find the
-required xenheap in the reserved heap regions.
+On Arm32, only the xenheap is direct mapped today. So the renaming
+to "directmap_*" would be still valid for Arm32.
 
-For Arm64, In `setup_mm`, if the reserved heap is enabled and used,
-we make sure that only these reserved heap pages are added to the
-boot allocator. These reserved heap pages in the boot allocator are
-added to the heap allocator at `end_boot_allocator()`.
-
-If the reserved heap is disabled, we stick to current page allocation
-strategy at boot time.
-
-Also, take the chance to correct a "double not" print in Arm32
-`setup_mm()` and replace the open-coding address ~0 by INVALID_PADDR.
+No functional change is intended.
 
 Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 ---
 Changes from v1 to v2:
-- Move the global bool `reserved_heap` to bootinfo.
-- Replace the open open-coding address ~0 by INVALID_PADDR.
-- Do not use reverted logic in heap_pages calculation.
-- Remove unused Arm32 reserved_heap_start variable.
-- Decouple the arm32 reserved heap too small size check with region
-  end check.
-- Reuse the arm32 original xenheap finding logic with the new helper
-  to make sure xenheap on arm32 is contiguous.
-Changes from RFC to v1:
-- Rebase on top of latest `setup_mm()` changes.
-- Added Arm32 logic in `setup_mm()`.
+- New commit.
 ---
- xen/arch/arm/bootfdt.c           |   2 +
- xen/arch/arm/include/asm/setup.h |   1 +
- xen/arch/arm/setup.c             | 116 +++++++++++++++++++++++++++----
- 3 files changed, 104 insertions(+), 15 deletions(-)
+ xen/arch/arm/include/asm/config.h |  2 +-
+ xen/arch/arm/include/asm/mm.h     | 22 +++++++++++-----------
+ xen/arch/arm/mm.c                 | 24 ++++++++++++------------
+ xen/arch/arm/setup.c              | 27 ++++++++++++++-------------
+ 4 files changed, 38 insertions(+), 37 deletions(-)
 
-diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-index 3796a4bd75..616bf5ce47 100644
---- a/xen/arch/arm/bootfdt.c
-+++ b/xen/arch/arm/bootfdt.c
-@@ -322,6 +322,8 @@ static int __init process_chosen_node(const void *fdt, int node,
-                                      &bootinfo.reserved_mem, MEMBANK_RSVD_HEAP);
-         if ( rc )
-             return rc;
-+
-+        bootinfo.reserved_heap = true;
+diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+index 2fafb9f228..0fefed1b8a 100644
+--- a/xen/arch/arm/include/asm/config.h
++++ b/xen/arch/arm/include/asm/config.h
+@@ -160,7 +160,7 @@
+ #define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (265-256))
+ #define DIRECTMAP_VIRT_END     (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
+ 
+-#define XENHEAP_VIRT_START     xenheap_virt_start
++#define XENHEAP_VIRT_START     directmap_virt_start
+ 
+ #define HYPERVISOR_VIRT_END    DIRECTMAP_VIRT_END
+ 
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index da25251cda..1dcb0a093a 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -150,19 +150,19 @@ struct page_info
+ #define _PGC_need_scrub   _PGC_allocated
+ #define PGC_need_scrub    PGC_allocated
+ 
+-extern mfn_t xenheap_mfn_start, xenheap_mfn_end;
+-extern vaddr_t xenheap_virt_end;
++extern mfn_t directmap_mfn_start, directmap_mfn_end;
++extern vaddr_t directmap_virt_end;
+ #ifdef CONFIG_ARM_64
+-extern vaddr_t xenheap_virt_start;
+-extern unsigned long xenheap_base_pdx;
++extern vaddr_t directmap_virt_start;
++extern unsigned long directmap_base_pdx;
+ #endif
+ 
+ #ifdef CONFIG_ARM_32
+ #define is_xen_heap_page(page) is_xen_heap_mfn(page_to_mfn(page))
+ #define is_xen_heap_mfn(mfn) ({                                 \
+     unsigned long mfn_ = mfn_x(mfn);                            \
+-    (mfn_ >= mfn_x(xenheap_mfn_start) &&                        \
+-     mfn_ < mfn_x(xenheap_mfn_end));                            \
++    (mfn_ >= mfn_x(directmap_mfn_start) &&                      \
++     mfn_ < mfn_x(directmap_mfn_end));                          \
+ })
+ #else
+ #define is_xen_heap_page(page) ((page)->count_info & PGC_xen_heap)
+@@ -263,16 +263,16 @@ static inline paddr_t __virt_to_maddr(vaddr_t va)
+ static inline void *maddr_to_virt(paddr_t ma)
+ {
+     ASSERT(is_xen_heap_mfn(maddr_to_mfn(ma)));
+-    ma -= mfn_to_maddr(xenheap_mfn_start);
++    ma -= mfn_to_maddr(directmap_mfn_start);
+     return (void *)(unsigned long) ma + XENHEAP_VIRT_START;
+ }
+ #else
+ static inline void *maddr_to_virt(paddr_t ma)
+ {
+-    ASSERT((mfn_to_pdx(maddr_to_mfn(ma)) - xenheap_base_pdx) <
++    ASSERT((mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) <
+            (DIRECTMAP_SIZE >> PAGE_SHIFT));
+     return (void *)(XENHEAP_VIRT_START -
+-                    (xenheap_base_pdx << PAGE_SHIFT) +
++                    (directmap_base_pdx << PAGE_SHIFT) +
+                     ((ma & ma_va_bottom_mask) |
+                      ((ma & ma_top_mask) >> pfn_pdx_hole_shift)));
+ }
+@@ -315,10 +315,10 @@ static inline struct page_info *virt_to_page(const void *v)
+     unsigned long pdx;
+ 
+     ASSERT(va >= XENHEAP_VIRT_START);
+-    ASSERT(va < xenheap_virt_end);
++    ASSERT(va < directmap_virt_end);
+ 
+     pdx = (va - XENHEAP_VIRT_START) >> PAGE_SHIFT;
+-    pdx += mfn_to_pdx(xenheap_mfn_start);
++    pdx += mfn_to_pdx(directmap_mfn_start);
+     return frame_table + pdx - frametable_base_pdx;
+ }
+ 
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index c81c706c8b..7d6814caf2 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -132,12 +132,12 @@ uint64_t init_ttbr;
+ static paddr_t phys_offset;
+ 
+ /* Limits of the Xen heap */
+-mfn_t xenheap_mfn_start __read_mostly = INVALID_MFN_INITIALIZER;
+-mfn_t xenheap_mfn_end __read_mostly;
+-vaddr_t xenheap_virt_end __read_mostly;
++mfn_t directmap_mfn_start __read_mostly = INVALID_MFN_INITIALIZER;
++mfn_t directmap_mfn_end __read_mostly;
++vaddr_t directmap_virt_end __read_mostly;
+ #ifdef CONFIG_ARM_64
+-vaddr_t xenheap_virt_start __read_mostly;
+-unsigned long xenheap_base_pdx __read_mostly;
++vaddr_t directmap_virt_start __read_mostly;
++unsigned long directmap_base_pdx __read_mostly;
+ #endif
+ 
+ unsigned long frametable_base_pdx __read_mostly;
+@@ -609,7 +609,7 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
+         panic("Unable to setup the xenheap mappings.\n");
+ 
+     /* Record where the xenheap is, for translation routines. */
+-    xenheap_virt_end = XENHEAP_VIRT_START + nr_mfns * PAGE_SIZE;
++    directmap_virt_end = XENHEAP_VIRT_START + nr_mfns * PAGE_SIZE;
+ }
+ #else /* CONFIG_ARM_64 */
+ void __init setup_xenheap_mappings(unsigned long base_mfn,
+@@ -618,12 +618,12 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
+     int rc;
+ 
+     /* First call sets the xenheap physical and virtual offset. */
+-    if ( mfn_eq(xenheap_mfn_start, INVALID_MFN) )
++    if ( mfn_eq(directmap_mfn_start, INVALID_MFN) )
+     {
+         unsigned long mfn_gb = base_mfn & ~((FIRST_SIZE >> PAGE_SHIFT) - 1);
+ 
+-        xenheap_mfn_start = _mfn(base_mfn);
+-        xenheap_base_pdx = mfn_to_pdx(_mfn(base_mfn));
++        directmap_mfn_start = _mfn(base_mfn);
++        directmap_base_pdx = mfn_to_pdx(_mfn(base_mfn));
+         /*
+          * The base address may not be aligned to the first level
+          * size (e.g. 1GB when using 4KB pages). This would prevent
+@@ -633,13 +633,13 @@ void __init setup_xenheap_mappings(unsigned long base_mfn,
+          * Prevent that by offsetting the start of the xenheap virtual
+          * address.
+          */
+-        xenheap_virt_start = DIRECTMAP_VIRT_START +
++        directmap_virt_start = DIRECTMAP_VIRT_START +
+             (base_mfn - mfn_gb) * PAGE_SIZE;
      }
  
-     printk("Checking for initrd in /chosen\n");
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index d0cc556833..22fb950bc8 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -82,6 +82,7 @@ struct bootinfo {
- #ifdef CONFIG_ACPI
-     struct meminfo acpi;
- #endif
-+    bool reserved_heap;
- };
+-    if ( base_mfn < mfn_x(xenheap_mfn_start) )
++    if ( base_mfn < mfn_x(directmap_mfn_start) )
+         panic("cannot add xenheap mapping at %lx below heap start %lx\n",
+-              base_mfn, mfn_x(xenheap_mfn_start));
++              base_mfn, mfn_x(directmap_mfn_start));
  
- struct map_range_data
+     rc = map_pages_to_xen((vaddr_t)__mfn_to_virt(base_mfn),
+                           _mfn(base_mfn), nr_mfns,
 diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 8d3f859982..0b4f7cb909 100644
+index 0b4f7cb909..399a695ff6 100644
 --- a/xen/arch/arm/setup.c
 +++ b/xen/arch/arm/setup.c
-@@ -556,6 +556,43 @@ static paddr_t __init consider_modules(paddr_t s, paddr_t e,
-     }
-     return e;
- }
-+
-+/*
-+ * Find the contiguous xenheap region that fits in the reserved heap region with
-+ * required size and alignment, and return the end address of xenheap.
-+ */
-+static paddr_t __init fit_xenheap_in_reserved_heap(uint32_t size, paddr_t align)
-+{
-+    int i;
-+    paddr_t end = 0, aligned_start, aligned_end;
-+    paddr_t bank_start, bank_size, bank_end;
-+
-+    for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+    {
-+        if ( bootinfo.reserved_mem.bank[i].type == MEMBANK_RSVD_HEAP )
-+        {
-+            bank_start = bootinfo.reserved_mem.bank[i].start;
-+            bank_size = bootinfo.reserved_mem.bank[i].size;
-+            bank_end = bank_start + bank_size;
-+
-+            if ( bank_size < size )
-+                continue;
-+
-+            aligned_end = bank_end & ~(align - 1);
-+            aligned_start = (aligned_end - size) & ~(align - 1);
-+
-+            if ( aligned_start > bank_start )
-+                /*
-+                 * Arm32 allocates xenheap from higher address to lower, so if
-+                 * there are multiple memory banks that satisfy the requirement,
-+                 * use the highest bank.
-+                 */
-+                end = max(end, aligned_end);
-+        }
-+    }
-+
-+    return end;
-+}
+@@ -733,11 +733,11 @@ static void __init populate_boot_allocator(void)
+ 
+ #ifdef CONFIG_ARM_32
+             /* Avoid the xenheap */
+-            if ( s < mfn_to_maddr(xenheap_mfn_end) &&
+-                 mfn_to_maddr(xenheap_mfn_start) < e )
++            if ( s < mfn_to_maddr(directmap_mfn_end) &&
++                 mfn_to_maddr(directmap_mfn_start) < e )
+             {
+-                e = mfn_to_maddr(xenheap_mfn_start);
+-                n = mfn_to_maddr(xenheap_mfn_end);
++                e = mfn_to_maddr(directmap_mfn_start);
++                n = mfn_to_maddr(directmap_mfn_end);
+             }
  #endif
  
- /*
-@@ -713,8 +750,9 @@ static void __init populate_boot_allocator(void)
- #ifdef CONFIG_ARM_32
- static void __init setup_mm(void)
- {
--    paddr_t ram_start, ram_end, ram_size, e;
--    unsigned long ram_pages;
-+    paddr_t ram_start, ram_end, ram_size, e, bank_start, bank_end, bank_size;
-+    paddr_t reserved_heap_end = 0, reserved_heap_size = 0;
-+    unsigned long ram_pages, reserved_heap_pages = 0;
-     unsigned long heap_pages, xenheap_pages, domheap_pages;
-     unsigned int i;
-     const uint32_t ctr = READ_CP32(CTR);
-@@ -734,9 +772,9 @@ static void __init setup_mm(void)
- 
-     for ( i = 1; i < bootinfo.mem.nr_banks; i++ )
-     {
--        paddr_t bank_start = bootinfo.mem.bank[i].start;
--        paddr_t bank_size = bootinfo.mem.bank[i].size;
--        paddr_t bank_end = bank_start + bank_size;
-+        bank_start = bootinfo.mem.bank[i].start;
-+        bank_size = bootinfo.mem.bank[i].size;
-+        bank_end = bank_start + bank_size;
- 
-         ram_size  = ram_size + bank_size;
-         ram_start = min(ram_start,bank_start);
-@@ -745,19 +783,42 @@ static void __init setup_mm(void)
- 
-     total_pages = ram_pages = ram_size >> PAGE_SHIFT;
- 
-+    if ( bootinfo.reserved_heap )
-+    {
-+        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+        {
-+            if ( bootinfo.reserved_mem.bank[i].type == MEMBANK_RSVD_HEAP )
-+            {
-+                bank_start = bootinfo.reserved_mem.bank[i].start;
-+                bank_size = bootinfo.reserved_mem.bank[i].size;
-+                bank_end = bank_start + bank_size;
-+
-+                reserved_heap_size += bank_size;
-+                reserved_heap_end = max(reserved_heap_end, bank_end);
-+            }
-+        }
-+
-+        reserved_heap_pages = reserved_heap_size >> PAGE_SHIFT;
-+        if ( reserved_heap_pages < 32<<(20-PAGE_SHIFT) )
-+            panic("Too small reserved heap region, should be at least 32M\n");
-+    }
-+
-     /*
-      * If the user has not requested otherwise via the command line
-      * then locate the xenheap using these constraints:
+@@ -859,15 +859,16 @@ static void __init setup_mm(void)
+      * We need some memory to allocate the page-tables used for the
+      * xenheap mappings. So populate the boot allocator first.
       *
-      *  - must be 32 MiB aligned
-      *  - must not include Xen itself or the boot modules
--     *  - must be at most 1GB or 1/32 the total RAM in the system if less
-+     *  - must be at most 1GB or 1/32 the total RAM in the system
-+     *    (there is no reserved heap) or 1/32 the total reserved
-+     *    heap region (there is reserved heap) if less
-      *  - must be at least 32M
-      *
-      * We try to allocate the largest xenheap possible within these
-      * constraints.
+-     * This requires us to set xenheap_mfn_{start, end} first so the Xenheap
++     * Note that currently xenheap is direct mapped on Arm32.
++     * This requires us to set directmap_mfn_{start, end} first so the Xenheap
+      * region can be avoided.
       */
--    heap_pages = ram_pages;
-+    heap_pages = bootinfo.reserved_heap ? reserved_heap_pages : ram_pages;
-+
-     if ( opt_xenheap_megabytes )
-         xenheap_pages = opt_xenheap_megabytes << (20-PAGE_SHIFT);
-     else
-@@ -767,9 +828,15 @@ static void __init setup_mm(void)
-         xenheap_pages = min(xenheap_pages, 1UL<<(30-PAGE_SHIFT));
-     }
+-    xenheap_mfn_start = _mfn((e >> PAGE_SHIFT) - xenheap_pages);
+-    xenheap_mfn_end = mfn_add(xenheap_mfn_start, xenheap_pages);
++    directmap_mfn_start = _mfn((e >> PAGE_SHIFT) - xenheap_pages);
++    directmap_mfn_end = mfn_add(directmap_mfn_start, xenheap_pages);
  
-+    /*
-+     * On Arm32, xenheap must be contiguous, look for one of the region
-+     * that matches the above-mentioned xenheap constraints.
-+     */
-     do
-     {
--        e = consider_modules(ram_start, ram_end,
-+        e = bootinfo.reserved_heap ?
-+            fit_xenheap_in_reserved_heap(pfn_to_paddr(xenheap_pages), 32<<20) :
-+            consider_modules(ram_start, ram_end,
-                              pfn_to_paddr(xenheap_pages),
-                              32<<20, 0);
-         if ( e )
-@@ -779,7 +846,7 @@ static void __init setup_mm(void)
-     } while ( !opt_xenheap_megabytes && xenheap_pages > 32<<(20-PAGE_SHIFT) );
+     populate_boot_allocator();
  
-     if ( ! e )
--        panic("Not not enough space for xenheap\n");
-+        panic("Not enough space for xenheap\n");
+-    setup_xenheap_mappings(mfn_x(xenheap_mfn_start), xenheap_pages);
++    setup_xenheap_mappings(mfn_x(directmap_mfn_start), xenheap_pages);
  
-     domheap_pages = heap_pages - xenheap_pages;
+     /* Frame table covers all of RAM region, including holes */
+     setup_frametable_mappings(ram_start, ram_end);
+@@ -882,8 +883,8 @@ static void __init setup_mm(void)
+               smp_processor_id());
  
-@@ -824,9 +891,9 @@ static void __init setup_mm(void)
- static void __init setup_mm(void)
- {
-     const struct meminfo *banks = &bootinfo.mem;
--    paddr_t ram_start = ~0;
--    paddr_t ram_end = 0;
--    paddr_t ram_size = 0;
-+    paddr_t ram_start = INVALID_PADDR, bank_start = INVALID_PADDR;
-+    paddr_t ram_end = 0, bank_end = 0;
-+    paddr_t ram_size = 0, bank_size = 0;
-     unsigned int i;
+     /* Add xenheap memory that was not already added to the boot allocator. */
+-    init_xenheap_pages(mfn_to_maddr(xenheap_mfn_start),
+-                       mfn_to_maddr(xenheap_mfn_end));
++    init_xenheap_pages(mfn_to_maddr(directmap_mfn_start),
++                       mfn_to_maddr(directmap_mfn_end));
  
-     init_pdx();
-@@ -835,17 +902,36 @@ static void __init setup_mm(void)
-      * We need some memory to allocate the page-tables used for the xenheap
-      * mappings. But some regions may contain memory already allocated
-      * for other uses (e.g. modules, reserved-memory...).
--     *
-+     * If there are non-empty reserved heap regions, (only) add these regions
-+     * in the boot allocator.
-+     */
-+    if ( bootinfo.reserved_heap )
-+    {
-+        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+        {
-+            if ( bootinfo.reserved_mem.bank[i].type == MEMBANK_RSVD_HEAP )
-+            {
-+                bank_start = bootinfo.reserved_mem.bank[i].start;
-+                bank_size = bootinfo.reserved_mem.bank[i].size;
-+                bank_end = bank_start + bank_size;
-+
-+                init_boot_pages(bank_start, bank_end);
-+            }
-+        }
-+    }
-+    /*
-+     * No reserved heap regions:
-      * For simplicity, add all the free regions in the boot allocator.
-      */
--    populate_boot_allocator();
-+    else
-+        populate_boot_allocator();
+     init_staticmem_pages();
+ }
+@@ -943,9 +944,9 @@ static void __init setup_mm(void)
  
-     total_pages = 0;
+     total_pages += ram_size >> PAGE_SHIFT;
  
-     for ( i = 0; i < banks->nr_banks; i++ )
-     {
-         const struct membank *bank = &banks->bank[i];
--        paddr_t bank_end = bank->start + bank->size;
-+        bank_end = bank->start + bank->size;
+-    xenheap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
+-    xenheap_mfn_start = maddr_to_mfn(ram_start);
+-    xenheap_mfn_end = maddr_to_mfn(ram_end);
++    directmap_virt_end = XENHEAP_VIRT_START + ram_end - ram_start;
++    directmap_mfn_start = maddr_to_mfn(ram_start);
++    directmap_mfn_end = maddr_to_mfn(ram_end);
  
-         ram_size = ram_size + bank->size;
-         ram_start = min(ram_start, bank->start);
+     setup_frametable_mappings(ram_start, ram_end);
+     max_page = PFN_DOWN(ram_end);
 -- 
 2.17.1
 
