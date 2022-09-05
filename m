@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1DC95AD8D5
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 20:08:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399113.640170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51A165AD8EF
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Sep 2022 20:16:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399120.640181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVGWR-0002cA-Lw; Mon, 05 Sep 2022 18:08:35 +0000
+	id 1oVGe0-00047V-DY; Mon, 05 Sep 2022 18:16:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399113.640170; Mon, 05 Sep 2022 18:08:35 +0000
+Received: by outflank-mailman (output) from mailman id 399120.640181; Mon, 05 Sep 2022 18:16:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVGWR-0002Yi-HV; Mon, 05 Sep 2022 18:08:35 +0000
-Received: by outflank-mailman (input) for mailman id 399113;
- Mon, 05 Sep 2022 18:08:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oVGe0-000438-AQ; Mon, 05 Sep 2022 18:16:24 +0000
+Received: by outflank-mailman (input) for mailman id 399120;
+ Mon, 05 Sep 2022 18:16:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5Tfq=ZI=google.com=surenb@srs-se1.protection.inumbo.net>)
- id 1oVGWQ-0002V4-Mc
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 18:08:34 +0000
-Received: from mail-il1-x134.google.com (mail-il1-x134.google.com
- [2607:f8b0:4864:20::134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1045709-2d45-11ed-af93-0125da4c0113;
- Mon, 05 Sep 2022 20:08:34 +0200 (CEST)
-Received: by mail-il1-x134.google.com with SMTP id s11so4935141ilt.7
- for <xen-devel@lists.xenproject.org>; Mon, 05 Sep 2022 11:08:33 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1oVGdy-000432-F1
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 18:16:22 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVGdy-00083Y-55; Mon, 05 Sep 2022 18:16:22 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.1.223]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVGdx-0000tu-UJ; Mon, 05 Sep 2022 18:16:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,105 +39,353 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1045709-2d45-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=hbTvjCqXtfZwCNAPDugxhLvbO4tPW4uXsytclFMPf88=;
-        b=BWl6tEU0Jv/5Ok7izOy2X+2XFHIjW2yJwE8yMIwADusWnEOeQC8si1U6iks3IFTXtR
-         5tbbeyYCmyTiKFNMcU3D2cV+gb/s5ohOcUII9kU6FU7ji/Zh8BrlwKsCQaRcerXV6BGZ
-         8PlGGmZZYHPvdH+WgSsyR10w9r/j2bW/3D0lAGkx1tIn87fB5RB3pcjDyqMnvPGCsyas
-         uH/yoycyrf5kaO5p9L7J37V/vDYJvxKCrEBpA8AorAMThecIv/vXA5VLdyTk9mhWPhlm
-         xhk4J8Awk+fBDhqAh5Kc3xuDELqvWV7xGoRQ08TJNeQzRqgNOVW6ruxsZF0Lyj7+Dw3B
-         m0Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=hbTvjCqXtfZwCNAPDugxhLvbO4tPW4uXsytclFMPf88=;
-        b=KmxPidMrdXHyzghvYEE28ZN0F2ypzTETgVkhIshJ8oF+f2sVoT23RD+39D/Ccga4xI
-         wFgzHU2tI6DA73lFXrGkstiCKUjVvXVGlnUDOOK19jxX5IoI9rMDZLS8CHbZWUKEpGl7
-         zYLDmS84qP0YjuhcyLcen5gik3vE9ZGtnNHwhgwzZROMF7Dl/MHwkfLURSA6n2j1OOtZ
-         HyaB/m3z0xLQOvbGvknMAMzk4U6gSKL6zOxIiUKeBdS5T16sBemGoCKFTBBRDYEuvh2f
-         0peQHrOcBxlvX0mcLz+6WmG915JoJ0sO2SEwHr+uU0eKeDdrFOPgbp0u3swVA1Cpn0oe
-         bEcQ==
-X-Gm-Message-State: ACgBeo1ux6ZfSENqrsaVXoNasbFyz9vs8rIoTeDVkb8C3RJCYbUAGnQG
-	ST3CgHThiVFjfNbtV4nwNGETsOkSDWAf1bAc+fhllQ==
-X-Google-Smtp-Source: AA6agR4Rv/lC85vS43o4ySf3NvmJunla0lbszDaoWXhv+p4vulk9P6WBBoE0T5B+Wry+ZoXPm1CE94n4VZxipIKzyxQ=
-X-Received: by 2002:a92:ca06:0:b0:2eb:391a:a2a4 with SMTP id
- j6-20020a92ca06000000b002eb391aa2a4mr16719486ils.199.1662401312639; Mon, 05
- Sep 2022 11:08:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=5+clwZw1Mth9Fr8Yi0FaL99UUSFFJfcKM1iBW4AIjEA=; b=K2ZcLb+6tUhhlV0ROmINFb/Mxh
+	03WcRsqCwBu+ri2uDOexfamvhA24gX7uYERBV0veC5QaJWjmkeSi3NVQKq1oZ62CF1kZr6n7gFRlb
+	sjDA/u6N7iUV8xCp09lHW5isvX5177sAg/cKhHJIU8YPpartdv3eb6AezyweqXF8KBTI=;
+Message-ID: <57082fec-e9ce-eeda-d051-d75a4bc35909@xen.org>
+Date: Mon, 5 Sep 2022 19:16:19 +0100
 MIME-Version: 1.0
-References: <20220830214919.53220-1-surenb@google.com> <Yw8P8xZ4zqu121xL@hirez.programming.kicks-ass.net>
- <20220831084230.3ti3vitrzhzsu3fs@moria.home.lan> <20220831101948.f3etturccmp5ovkl@suse.de>
- <Yw88RFuBgc7yFYxA@dhcp22.suse.cz> <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
- <YxBc1xuGbB36f8zC@dhcp22.suse.cz> <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
- <YxEE1vOwRPdzKxoq@dhcp22.suse.cz> <CAJuCfpFrRwXXQ=wAvZ-oUNKXUJ=uUA=fiDrkhRu5VGXcM+=cuA@mail.gmail.com>
- <20220905110713.27304149@gandalf.local.home>
-In-Reply-To: <20220905110713.27304149@gandalf.local.home>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Mon, 5 Sep 2022 11:08:21 -0700
-Message-ID: <CAJuCfpF-O6Gz2o7YqCgFHV+KEFuzC-PTUoBHj25DNRkkSmhbUg@mail.gmail.com>
-Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Michal Hocko <mhocko@suse.com>, Kent Overstreet <kent.overstreet@linux.dev>, 
-	Mel Gorman <mgorman@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@suse.cz>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Matthew Wilcox <willy@infradead.org>, 
-	"Liam R. Howlett" <liam.howlett@oracle.com>, David Vernet <void@manifault.com>, 
-	Juri Lelli <juri.lelli@redhat.com>, Laurent Dufour <ldufour@linux.ibm.com>, 
-	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>, Jens Axboe <axboe@kernel.dk>, 
-	mcgrof@kernel.org, masahiroy@kernel.org, nathan@kernel.org, 
-	changbin.du@intel.com, ytcoode@gmail.com, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Benjamin Segall <bsegall@google.com>, Daniel Bristot de Oliveira <bristot@redhat.com>, 
-	Valentin Schneider <vschneid@redhat.com>, Christopher Lameter <cl@linux.com>, Pekka Enberg <penberg@kernel.org>, 
-	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com, 
-	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Shakeel Butt <shakeelb@google.com>, Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de, 
-	jbaron@akamai.com, David Rientjes <rientjes@google.com>, Minchan Kim <minchan@google.com>, 
-	Kalesh Singh <kaleshsingh@google.com>, kernel-team <kernel-team@android.com>, 
-	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev, kasan-dev@googlegroups.com, 
-	io-uring@vger.kernel.org, linux-arch@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org, 
-	linux-modules@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.1
+Subject: Re: [PATCH v2 3/4] xen/arm: Handle reserved heap pages in boot and
+ heap allocator
+Content-Language: en-US
+To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220905072635.16294-1-Henry.Wang@arm.com>
+ <20220905072635.16294-4-Henry.Wang@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220905072635.16294-4-Henry.Wang@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 5, 2022 at 8:06 AM Steven Rostedt <rostedt@goodmis.org> wrote:
->
-> On Sun, 4 Sep 2022 18:32:58 -0700
-> Suren Baghdasaryan <surenb@google.com> wrote:
->
-> > Page allocations (overheads are compared to get_free_pages() duration):
-> > 6.8% Codetag counter manipulations (__lazy_percpu_counter_add + __alloc_tag_add)
-> > 8.8% lookup_page_ext
-> > 1237% call stack capture
-> > 139% tracepoint with attached empty BPF program
->
-> Have you tried tracepoint with custom callback?
->
-> static void my_callback(void *data, unsigned long call_site,
->                         const void *ptr, struct kmem_cache *s,
->                         size_t bytes_req, size_t bytes_alloc,
->                         gfp_t gfp_flags)
-> {
->         struct my_data_struct *my_data = data;
->
->         { do whatever }
-> }
->
-> [..]
->         register_trace_kmem_alloc(my_callback, my_data);
->
-> Now the my_callback function will be called directly every time the
-> kmem_alloc tracepoint is hit.
->
-> This avoids that perf and BPF overhead.
+Hi Henry,
 
-Haven't tried that yet but will do. Thanks for the reference code!
+On 05/09/2022 08:26, Henry Wang wrote:
+> This commit firstly adds a bool field `reserved_heap` to bootinfo.
+> This newly introduced field is set at the device tree parsing time
+> if the reserved heap ranges are defined in the device tree chosen
+> node.
+> 
+> For Arm32, In `setup_mm`, if the reserved heap is enabled, we use
+> the reserved heap region for both domheap and xenheap allocation.
+> Note that the xenheap on Arm32 should be always contiguous, so also
+> add a helper fit_xenheap_in_reserved_heap() for Arm32 to find the
+> required xenheap in the reserved heap regions.
+> 
+> For Arm64, In `setup_mm`, if the reserved heap is enabled and used,
+> we make sure that only these reserved heap pages are added to the
+> boot allocator. These reserved heap pages in the boot allocator are
+> added to the heap allocator at `end_boot_allocator()`.
+> 
+> If the reserved heap is disabled, we stick to current page allocation
+> strategy at boot time.
+> 
+> Also, take the chance to correct a "double not" print in Arm32
+> `setup_mm()` and replace the open-coding address ~0 by INVALID_PADDR.
+> 
+> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> ---
+> Changes from v1 to v2:
+> - Move the global bool `reserved_heap` to bootinfo.
+> - Replace the open open-coding address ~0 by INVALID_PADDR.
+> - Do not use reverted logic in heap_pages calculation.
+> - Remove unused Arm32 reserved_heap_start variable.
+> - Decouple the arm32 reserved heap too small size check with region
+>    end check.
+> - Reuse the arm32 original xenheap finding logic with the new helper
+>    to make sure xenheap on arm32 is contiguous.
+> Changes from RFC to v1:
+> - Rebase on top of latest `setup_mm()` changes.
+> - Added Arm32 logic in `setup_mm()`.
+> ---
+>   xen/arch/arm/bootfdt.c           |   2 +
+>   xen/arch/arm/include/asm/setup.h |   1 +
+>   xen/arch/arm/setup.c             | 116 +++++++++++++++++++++++++++----
+>   3 files changed, 104 insertions(+), 15 deletions(-)
+> 
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index 3796a4bd75..616bf5ce47 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -322,6 +322,8 @@ static int __init process_chosen_node(const void *fdt, int node,
+>                                        &bootinfo.reserved_mem, MEMBANK_RSVD_HEAP);
+>           if ( rc )
+>               return rc;
+> +
+> +        bootinfo.reserved_heap = true;
+>       }
+>   
+>       printk("Checking for initrd in /chosen\n");
+> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+> index d0cc556833..22fb950bc8 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -82,6 +82,7 @@ struct bootinfo {
+>   #ifdef CONFIG_ACPI
+>       struct meminfo acpi;
+>   #endif
+> +    bool reserved_heap;
+>   };
+>   
+>   struct map_range_data
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 8d3f859982..0b4f7cb909 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -556,6 +556,43 @@ static paddr_t __init consider_modules(paddr_t s, paddr_t e,
+>       }
+>       return e;
+>   }
+> +
+> +/*
+> + * Find the contiguous xenheap region that fits in the reserved heap region with
 
->
-> -- Steve
+There might be multiple. So "Find a contiguous...". I would also drop 
+"xenheap".
+
+> + * required size and alignment, and return the end address of xenheap.
+
+I would write "and return the end address of the region if found 
+otherwise 0".
+
+> + */
+> +static paddr_t __init fit_xenheap_in_reserved_heap(uint32_t size, paddr_t align)
+> +{
+> +    int i;
+
+Please use unsigned int.
+
+> +    paddr_t end = 0, aligned_start, aligned_end;
+> +    paddr_t bank_start, bank_size, bank_end;
+> +
+> +    for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
+> +    {
+> +        if ( bootinfo.reserved_mem.bank[i].type == MEMBANK_RSVD_HEAP )
+NIT: You could avoid the extra indentation by reverting the condition.
+
+> +        {
+> +            bank_start = bootinfo.reserved_mem.bank[i].start;
+> +            bank_size = bootinfo.reserved_mem.bank[i].size;
+> +            bank_end = bank_start + bank_size;
+> +
+> +            if ( bank_size < size )
+> +                continue;
+> +
+> +            aligned_end = bank_end & ~(align - 1);
+> +            aligned_start = (aligned_end - size) & ~(align - 1);
+
+I find the logic a bit confusing. AFAIU, aligned_start could be below 
+the start of the RAM which is not what I would usually expect.
+
+The code works. So no change requested.
+
+
+> +
+> +            if ( aligned_start > bank_start )
+> +                /*
+> +                 * Arm32 allocates xenheap from higher address to lower, so if
+
+This code is also called on arm32. So what are you referring to? Is it 
+consider_modules()?
+
+> +                 * there are multiple memory banks that satisfy the requirement,
+> +                 * use the highest bank.
+> +                 */
+> +                end = max(end, aligned_end);
+> +        }
+> +    }
+> +
+> +    return end;
+> +}
+>   #endif
+>   
+>   /*
+> @@ -713,8 +750,9 @@ static void __init populate_boot_allocator(void)
+>   #ifdef CONFIG_ARM_32
+>   static void __init setup_mm(void)
+>   {
+> -    paddr_t ram_start, ram_end, ram_size, e;
+> -    unsigned long ram_pages;
+> +    paddr_t ram_start, ram_end, ram_size, e, bank_start, bank_end, bank_size;
+> +    paddr_t reserved_heap_end = 0, reserved_heap_size = 0;
+> +    unsigned long ram_pages, reserved_heap_pages = 0;
+>       unsigned long heap_pages, xenheap_pages, domheap_pages;
+>       unsigned int i;
+>       const uint32_t ctr = READ_CP32(CTR);
+> @@ -734,9 +772,9 @@ static void __init setup_mm(void)
+>   
+>       for ( i = 1; i < bootinfo.mem.nr_banks; i++ )
+>       {
+> -        paddr_t bank_start = bootinfo.mem.bank[i].start;
+> -        paddr_t bank_size = bootinfo.mem.bank[i].size;
+> -        paddr_t bank_end = bank_start + bank_size;
+> +        bank_start = bootinfo.mem.bank[i].start;
+> +        bank_size = bootinfo.mem.bank[i].size;
+> +        bank_end = bank_start + bank_size;
+>   
+>           ram_size  = ram_size + bank_size;
+>           ram_start = min(ram_start,bank_start);
+> @@ -745,19 +783,42 @@ static void __init setup_mm(void)
+>   
+>       total_pages = ram_pages = ram_size >> PAGE_SHIFT;
+>   
+> +    if ( bootinfo.reserved_heap )
+> +    {
+> +        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
+> +        {
+> +            if ( bootinfo.reserved_mem.bank[i].type == MEMBANK_RSVD_HEAP )
+> +            {
+> +                bank_start = bootinfo.reserved_mem.bank[i].start;
+> +                bank_size = bootinfo.reserved_mem.bank[i].size;
+> +                bank_end = bank_start + bank_size;
+> +
+> +                reserved_heap_size += bank_size;
+> +                reserved_heap_end = max(reserved_heap_end, bank_end);
+> +            }
+> +        }
+> +
+> +        reserved_heap_pages = reserved_heap_size >> PAGE_SHIFT;
+> +        if ( reserved_heap_pages < 32<<(20-PAGE_SHIFT) )
+> +            panic("Too small reserved heap region, should be at least 32M\n");
+
+This is a bit misleading. 32MB is not sufficient, it also has to be 
+contiguous. So I would drop this panic() completely.
+
+> +    }
+> +
+>       /*
+>        * If the user has not requested otherwise via the command line
+>        * then locate the xenheap using these constraints:
+>        *
+>        *  - must be 32 MiB aligned
+>        *  - must not include Xen itself or the boot modules
+> -     *  - must be at most 1GB or 1/32 the total RAM in the system if less
+> +     *  - must be at most 1GB or 1/32 the total RAM in the system
+> +     *    (there is no reserved heap) or 1/32 the total reserved
+
+Did you forgot to add "if" before "there"?
+
+> +     *    heap region (there is reserved heap) if less
+
+The new wording suggests that the 1GB limit only applies when the admin 
+doesn't specify the reserved heap. However, we don't support larger heap 
+than 1GB. So the limit should also apply for the reserved heap. So how 
+about:
+
+- must be at most 1GB or 1/32 the total RAM in the system (or reserved 
+heap if enabled)
+
+>        *  - must be at least 32M
+>        *
+>        * We try to allocate the largest xenheap possible within these
+>        * constraints.
+>        */
+> -    heap_pages = ram_pages;
+> +    heap_pages = bootinfo.reserved_heap ? reserved_heap_pages : ram_pages;
+
+You can avoid the ternary operation here by setting heap_pages in the 
+'if' above and add a else for the 'ram_pages' part.
+
+In fact, 'ram_pages' could be completely dropped in favor of 'total_pages'.
+
+> +
+>       if ( opt_xenheap_megabytes )
+>           xenheap_pages = opt_xenheap_megabytes << (20-PAGE_SHIFT);
+>       else
+> @@ -767,9 +828,15 @@ static void __init setup_mm(void)
+>           xenheap_pages = min(xenheap_pages, 1UL<<(30-PAGE_SHIFT));
+>       }
+>   
+> +    /*
+> +     * On Arm32, xenheap must be contiguous, look for one of the region
+> +     * that matches the above-mentioned xenheap constraints.
+> +     */
+
+IMHO this is already implied by the large comment above. But if you want 
+to be more obvious, then I think this should belong to the comment above.
+
+>       do
+>       {
+> -        e = consider_modules(ram_start, ram_end,
+> +        e = bootinfo.reserved_heap ?
+> +            fit_xenheap_in_reserved_heap(pfn_to_paddr(xenheap_pages), 32<<20) :
+
+Please use MB(32) in new code.
+
+> +            consider_modules(ram_start, ram_end,
+>                                pfn_to_paddr(xenheap_pages),
+>                                32<<20, 0);
+>           if ( e )
+> @@ -779,7 +846,7 @@ static void __init setup_mm(void)
+>       } while ( !opt_xenheap_megabytes && xenheap_pages > 32<<(20-PAGE_SHIFT) );
+>   
+>       if ( ! e )
+> -        panic("Not not enough space for xenheap\n");
+> +        panic("Not enough space for xenheap\n");
+>   
+>       domheap_pages = heap_pages - xenheap_pages;
+>   
+> @@ -824,9 +891,9 @@ static void __init setup_mm(void)
+>   static void __init setup_mm(void)
+>   {
+>       const struct meminfo *banks = &bootinfo.mem;
+> -    paddr_t ram_start = ~0;
+> -    paddr_t ram_end = 0;
+> -    paddr_t ram_size = 0;
+> +    paddr_t ram_start = INVALID_PADDR, bank_start = INVALID_PADDR;
+> +    paddr_t ram_end = 0, bank_end = 0;
+> +    paddr_t ram_size = 0, bank_size = 0;
+>       unsigned int i;
+>   
+>       init_pdx();
+> @@ -835,17 +902,36 @@ static void __init setup_mm(void)
+>        * We need some memory to allocate the page-tables used for the xenheap
+>        * mappings. But some regions may contain memory already allocated
+>        * for other uses (e.g. modules, reserved-memory...).
+> -     *
+> +     * If there are non-empty reserved heap regions, (only) add these regions
+
+I am not sure what you mean by "non-empty" here. How about something like:
+
+"If a reserved heap was provided by the admin, populate the boot 
+allocator with the corresponding regions only".
+
+> +     * in the boot allocator.
+> +     */
+> +    if ( bootinfo.reserved_heap )
+> +    {
+> +        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
+> +        {
+> +            if ( bootinfo.reserved_mem.bank[i].type == MEMBANK_RSVD_HEAP )
+> +            {
+> +                bank_start = bootinfo.reserved_mem.bank[i].start;
+> +                bank_size = bootinfo.reserved_mem.bank[i].size;
+> +                bank_end = bank_start + bank_size;
+> +
+> +                init_boot_pages(bank_start, bank_end);
+> +            }
+> +        }
+> +    }
+> +    /*
+> +     * No reserved heap regions:
+>        * For simplicity, add all the free regions in the boot allocator.
+>        */
+> -    populate_boot_allocator();
+> +    else
+> +        populate_boot_allocator();
+
+For arm32, shouldn't we also only add the reserved heap (minus the 
+xenheap) to the boot allocator? At which point, I would move the change 
+in populate_boot_allocator().
+
+Cheers,
+
+-- 
+Julien Grall
 
