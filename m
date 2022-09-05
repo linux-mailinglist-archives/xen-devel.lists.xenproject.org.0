@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BFB35ADB64
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 00:25:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399225.640325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C75E65ADB7B
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 00:42:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399236.640337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVKX5-0001JN-Kh; Mon, 05 Sep 2022 22:25:31 +0000
+	id 1oVKmV-0003fl-Vt; Mon, 05 Sep 2022 22:41:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399225.640325; Mon, 05 Sep 2022 22:25:31 +0000
+Received: by outflank-mailman (output) from mailman id 399236.640337; Mon, 05 Sep 2022 22:41:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVKX5-0001Gj-Hy; Mon, 05 Sep 2022 22:25:31 +0000
-Received: by outflank-mailman (input) for mailman id 399225;
- Mon, 05 Sep 2022 22:25:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oVKX3-0001Gc-TA
- for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 22:25:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVKX2-0003zM-I3; Mon, 05 Sep 2022 22:25:28 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVKX2-0003oB-BY; Mon, 05 Sep 2022 22:25:28 +0000
+	id 1oVKmV-0003dk-Ss; Mon, 05 Sep 2022 22:41:27 +0000
+Received: by outflank-mailman (input) for mailman id 399236;
+ Mon, 05 Sep 2022 22:41:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+J0v=ZI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oVKmT-0003dd-T4
+ for xen-devel@lists.xenproject.org; Mon, 05 Sep 2022 22:41:25 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id de1b6056-2d6b-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 00:41:24 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 59B0160ED5;
+ Mon,  5 Sep 2022 22:41:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F492C433D6;
+ Mon,  5 Sep 2022 22:41:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,141 +44,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=aZ+QETFKjDryICpffzfkU/TwRnDas8qPNjdsl2OrVl4=; b=D5rnJiwTSCpk/rxHW7BTPLf+fD
-	3WDtdjUzADm4jx3uegFApnyr5md62f9ud3waWMWGc7TBHvp16mVDICnx8XeaXRWR7gy+3qF3PHW/R
-	z73I0wwpT8uob5FuD20amlA/69UEJQzpBKNBx3OsgOMf+i7MSOIB7COBVbY2r89pPBcI=;
-Message-ID: <057e2a04-545f-0de8-1d42-8b19ae19f009@xen.org>
-Date: Mon, 5 Sep 2022 23:25:25 +0100
+X-Inumbo-ID: de1b6056-2d6b-11ed-af93-0125da4c0113
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1662417681;
+	bh=3HlGoPvoNOu2zy39eHiPtPohjAPnGT+sVn4pFvGIjj0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=c/NNt9LxvljVK1Fp73hlUH4VLO13CKhkRo2g33s3wxkbpNDkmoJM+KaARvioZVn6Q
+	 h601EuNx2KGRS8egy0b1O6c1qu/udAbXt9XxAEy0FklLMs6XQZc7UYyrHvPwToZeyC
+	 FpsiF8SQid58SPErprlVIXX/gWlbqc/aA7jsxWFd0nsyZbi9I1nxctTgNkPFYo3ThK
+	 Q/P6/3Fk8OBYHLTYTE+ZbWXTJxWKrTIGg/ZzIbA2RBWz9ar25v1dhbSBT2CjWlWEMJ
+	 T6m8KdDquDzbHeKcxaiAk7VkD/G0Svzo21aiHqffqy/gdp84M0BCZDW7AvT59w4Jvb
+	 RyrJfUV16+I7g==
+Date: Mon, 5 Sep 2022 15:41:20 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Rahul Singh <Rahul.Singh@arm.com>
+cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3 7/7] xen/arm: introduce new xen,enhanced property
+ value
+In-Reply-To: <EBF5412F-F932-4D25-A2E3-9F53D59ABBCC@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2209051530250.3931@ubuntu-linux-20-04-desktop>
+References: <cover.1662023183.git.rahul.singh@arm.com> <d8dae49b05e6c59715016e0995b1275f3cb6e7fc.1662023183.git.rahul.singh@arm.com> <28b9679c-8223-ae71-d629-4ec31a72dcb2@xen.org> <36A408C8-36C5-4A39-80B4-F564445635C7@arm.com> <616b36ec-5a42-cb9a-2131-3aea1bec7c67@xen.org>
+ <46897765-5063-49CE-8A8A-F4DA50570A08@arm.com> <a669182c-dab1-35b7-9bf7-caac1813e3ad@xen.org> <C27FD0DE-D8FA-4A67-AE0B-DF4030A65127@arm.com> <a14b4d4a-5ae6-4af0-2d00-49bbc688cd4a@xen.org> <6B0D4F4B-C7CC-4C04-9BA4-71976CAA82C5@arm.com>
+ <cf2872c6-23e3-ced4-d7c5-2a5e6ade98ad@xen.org> <1874D575-E3B3-4221-925F-AF71D3EF0289@arm.com> <EBF5412F-F932-4D25-A2E3-9F53D59ABBCC@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-To: Jens Wiklander <jens.wiklander@linaro.org>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand.Marquis@arm.com,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20220818105601.1896082-1-jens.wiklander@linaro.org>
- <20220818105601.1896082-4-jens.wiklander@linaro.org>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v5 3/9] xen/arm: add a primitive FF-A mediator
-In-Reply-To: <20220818105601.1896082-4-jens.wiklander@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-1917976994-1662417118=:3931"
+Content-ID: <alpine.DEB.2.22.394.2209051532110.3931@ubuntu-linux-20-04-desktop>
 
-Hi Jens,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-More remarks.
+--8323329-1917976994-1662417118=:3931
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2209051532111.3931@ubuntu-linux-20-04-desktop>
 
-On 18/08/2022 11:55, Jens Wiklander wrote:
-> +/* Negotiated FF-A version to use with the SPMC */
-> +static uint32_t ffa_version __read_mostly;
+On Mon, 5 Sep 2022, Rahul Singh wrote:
+> > On 5 Sep 2022, at 1:59 pm, Bertrand Marquis <Bertrand.Marquis@arm.com> wrote:
+> > 
+> > Hi Julien,
+> > 
+> >> On 5 Sep 2022, at 13:08, Julien Grall <julien@xen.org> wrote:
+> >> 
+> >> 
+> >> 
+> >> On 05/09/2022 12:54, Bertrand Marquis wrote:
+> >>> Hi Julien,
+> >>>> On 5 Sep 2022, at 12:43, Julien Grall <julien@xen.org> wrote:
+> >>>> 
+> >>>> 
+> >>>> 
+> >>>> On 05/09/2022 12:12, Rahul Singh wrote:
+> >>>>> Hi Julien,
+> >>>> 
+> >>>> Hi Rahul,
+> >>>> 
+> >>>>>> On 2 Sep 2022, at 5:20 pm, Julien Grall <julien@xen.org> wrote:
+> >>>>>> 
+> >>>>>> 
+> >>>>>> 
+> >>>>>> On 02/09/2022 16:54, Rahul Singh wrote:
+> >>>>>>> Hi Julien,
+> >>>>>> 
+> >>>>>> Hi Rahul,
+> >>>>>> 
+> >>>>>>>> On 2 Sep 2022, at 4:05 pm, Julien Grall <julien@xen.org> wrote:
+> >>>>>>>> 
+> >>>>>>>> Hi Bertrand,
+> >>>>>>>> 
+> >>>>>>>> On 02/09/2022 15:51, Bertrand Marquis wrote:
+> >>>>>>>>>> On 1 Sep 2022, at 19:15, Julien Grall <julien@xen.org> wrote:
+> >>>>>>>>>> AFAIU, it is not possible to have *_xenstore = true and *_enhanced = false. I think it would be clearer if ``dom0less_enhanced`` is turned to an enum with 3 values:
+> >>>>>>>>>> - None
+> >>>>>>>>>> - NOXENSTORE/BASIC
+> >>>>>>>>>> - FULLY_ENHANCED
+> >>>>>>>>>> 
+> >>>>>>>>>> If we want to be future proof, I would use a field 'flags' where non-zero means enhanced. Each bit would indicate which features of Xen is exposed.
+> >>>>>>>>> I think that could be a good solution if we do it this way:
+> >>>>>>>>> - define a dom0less feature field and have defines like the following:
+> >>>>>>>>> #define DOM0LESS_GNTTAB
+> >>>>>>>>> #define DOM0LESS_EVENTCHN
+> >>>>>>>>> #define DOM0LESS_XENSTORE >
+> >>>>>>>>> - define dom0less enhanced as the right combination:
+> >>>>>>>>> #define DOM0LESS_ENHANCED = (DOM0LESS_GNTTAB| DOM0LESS_EVENTCHN| DOM0LESS_XENSTORE)
+> >>>>>>>> 
+> >>>>>>>> I would rather introduce DOM0LESS_ENHANCED_BASIC (or similar) instead of defining a bit for gnttab and evtchn. This will avoid the question of why we are introducing bits for both features but not the hypercall...
+> >>>>>>>> 
+> >>>>>>>> As this is an internal interface, it would be easier to modify afterwards.
+> >>>>>>> How about this?
+> >>>>>>> /*
+> >>>>>>> * List of possible features for dom0less domUs
+> >>>>>>> *
+> >>>>>>> * DOM0LESS_ENHANCED_BASIC: Xen PV interfaces, including grant-table and
+> >>>>>>> *                                                          evtchn, will be enabled for the VM.
+> >>>>>> 
+> >>>>>> Technically, the guest can already use the grant-table and evtchn interfaces. This also reads quite odd to me because "including" doesn't tell what's not enabled. So one could assume Xenstored is also enabled. In fact the wording for ``DOM0LESS_ENHANCED`` is what makes it a lot more confusing.
+> >>>>>> 
+> >>>>>> So I would suggest the following wording:
+> >>>>>> 
+> >>>>>> "Notify the OS it is running on top of Xen. All the default features but Xenstore will be available. Note that an OS *must* not rely on the availability of Xen features if this is not set.
+> >>>>>> "
+> >>>>>> 
+> >>>>>> The wording can be updated once we properly disable event channel/grant table when the flag is not set.
+> >>>>>> 
+> >>>>>>> * DOM0LESS_XENSTORE:              Xenstore will be enabled for the VM.
+> >>>>>> 
+> >>>>>> I would make clear this can't be used without the first one.
+> >>>>>> 
+> >>>>>>> * DOM0LESS_ENHANCED:              Xen PV interfaces, including grant-table xenstore >   *                                                          and
+> >>>>>> evtchn, will be enabled for the VM.
+> >>>>>> 
+> >>>>>> See above about "PV interfaces". So I would suggest to reword to:
+> >>>>>> 
+> >>>>>> "Notify the OS it is running on top of Xen. All the default features (including Xenstore) will be available".
+> >>>>>> 
+> >>>>>>> */
+> >>>>>>> #define DOM0LESS_ENHANCED_BASIC BIT(0, UL)
+> >>>>>>> #define DOM0LESS_XENSTORE       BIT(1, UL)
+> >>>>>> 
+> >>>>>> Based on the comment above, I would consider to define DOM0LESS_XENSTORE as bit 0 and 1 set.
+> >>>>>> 
+> >>>>>>> #define DOM0LESS_ENHANCED       (DOM0LESS_ENHANCED_BASIC | DOM0LESS_XENSTORE)
+> >>>>> Bertrand and I discussed this again we came to the conclusion that DOM0LESS_ENHANCED_BASIC is not
+> >>>>> the suitable name as this makes the code unclear and does not correspond to DT settings. We propose this
+> >>>>> please let me know your thoughts.
+> >>>> 
+> >>>> To me the default of "enhanced" should be all Xen features. Anything else should be consider as reduced/basic/minimum. Hence why I still think we need to add it in the name even if this is not what we expose in the DT. In fact...
+> >>>>> /*
+> >>>>> * List of possible features for dom0less domUs
+> >>>>> *
+> >>>>> * DOM0LESS_XENSTORE:              Xenstore will be enabled for the VM. This feature
+> >>>>> *                                                 can't be enabled without the DOM0LESS_ENHANCED.
+> >>>>> * DOM0LESS_ENHANCED:              Notify the OS it is running on top of Xen. All the
+> >>>>> *                                                         default features (including Xenstore) will be
+> >>>>> *                                                         available. Note that an OS *must* not rely on the
+> >>>>> *                                                         availability of Xen features if this is not set.
+> >>>> 
+> >>>> ... what you wrote here match what I wrote above. So it is not clear to me what's the point of having a flag DOM0LESS_XENSTORE.
+> >>> When we looked at the code with the solution using BASIC, it was really not easy to understand.
+> >> 
+> >> I don't quite understand how this is different from ENHANCED, ENHANCED_FULL. In fact, without looking at the documentation, they mean exactly the same...
+> >> 
+> >> The difference between "BASIC" and "ENHANCED" is clear. You know that in one case, you would get less than the other.
+> >> 
+> >>> By the way the comment is wrong and correspond to what should be ENHANCED_FULL here
+> >>> ENHANCED would be the base without Xenstore.
+> >> 
+> >> Thanks for the confirmation. I am afraid, I am strongly against the terminology you proposed (see above why).
+> >> 
+> >> I think BASIC (or similar name) is better. But I am open to suggestion so long it is not "DOM0LESS_ENHANCED" vs "DOM0LESS_ENHANCED_FULL".
+> > 
+> > I do not agree but I think this is only internal and could easily be modified one day if we have more use-cases.
+> > So let’s go for BASIC and unblock this before the feature freeze.
+> > 
+> > Bertrand
+> 
+> Please have a look once if this looks okay.
+> 
+> /*                                                                              
+>  * List of possible features for dom0less domUs                                 
+>  *                                                                              
+>  * DOM0LESS_ENHANCED_BASIC:	Notify the OS it is running on top of Xen. All the  
+>  *                                                          	default features (excluding Xenstore) will be       
+>  *                          					available. Note that an OS *must* not rely on the   
+>  *                          					availability of Xen features if this is not set.    
+>  * DOM0LESS_XENSTORE:       		Xenstore will be enabled for the VM. This feature   
+>  *                          					can't be enabled without the DOM0LESS_ENHANCED_BASIC.                            
+>  * DOM0LESS_ENHANCED:			Notify the OS it is running on top of Xen. All the  
+>  *                          					default features (including Xenstore) will be       
+>  *                          					available. Note that an OS *must* not rely on the   
+>  *                          					availability of Xen features if this is not set.    
+>  */                                                                             
+> #define DOM0LESS_ENHANCED_BASIC     BIT(0, UL)                                  
+> #define DOM0LESS_XENSTORE                  BIT(1, UL)                                  
+> #define DOM0LESS_ENHANCED                 (DOM0LESS_ENHANCED_BASIC  |  DOM0LESS_XENSTORE)
 
-NIT: if this is not meant to be modified after boot, then I would 
-suggest to use __ro_after_init. This was introduced recently and will 
-prevent the variable to be modified after boot.
-> +
-> +static bool ffa_get_version(uint32_t *vers)
+Let me have a chance to propose a naming scheme as well :-)
 
-This is not __init. Is this going to be called at runtime by a domain? 
-If yes...
+I agree with Julien: I prefer this proposal compared to the earlier one
+by Bertrand and Rahul because I think it is a lot clearer and "ENHANCED"
+should mean everything. Also, it makes it easier from a compatibility
+perspective because it matches the current definition.
 
-> +{
-> +    const struct arm_smccc_1_2_regs arg = {
-> +        .a0 = FFA_VERSION,
-> +        .a1 = FFA_MY_VERSION,
-> +    };
-> +    struct arm_smccc_1_2_regs resp;
-> +
-> +    arm_smccc_1_2_smc(&arg, &resp);
-> +    if ( resp.a0 == FFA_RET_NOT_SUPPORTED )
-> +    {
-> +        printk(XENLOG_ERR "ffa: FFA_VERSION returned not supported\n");
+But I also agree with Bertrand that "BASIC" doesn't sound nice. I think
+we should keep "DOM0LESS_ENHANCED" and "DOM0LESS_XENSTORE" as suggested
+here, but replace "DOM0LESS_ENHANCED_BASIC" with something better. Some
+ideas:
 
-... this wants to be a XENLOG_G_ERR to rate limited it. XENLOG_ERR is 
-not by default and will allow a domain to spam Xen console.
+- DOM0LESS_ENHANCED_LIMITED
+- DOM0LESS_ENHANCED_MINI
+- DOM0LESS_ENHANCED_NO_XS
+- DOM0LESS_ENHANCED_GNT_EVTCHN
 
-A rule of thumb is any code reachable for a domain (other than dom0) 
-should use XENLOG_G_* when printing or gprintk(XENLOG_*, ) if you want 
-to print the domain ID and ratelimit. Note that the latter doesn't 
-require the G_* becauce it will add it automatically.
-
-> +        return false;
-> +    }
-> +
-> +    *vers = resp.a0;
-> +
-> +    return true;
-> +}
-> +
-> +static u16 get_vm_id(const struct domain *d)
-> +{
-> +    /* +1 since 0 is reserved for the hypervisor in FF-A */
-> +    return d->domain_id + 1;
-> +}
-> +
-> +static void set_regs(struct cpu_user_regs *regs, register_t v0, register_t v1,
-> +                     register_t v2, register_t v3, register_t v4, register_t v5,
-> +                     register_t v6, register_t v7)
-> +{
-> +        set_user_reg(regs, 0, v0);
-> +        set_user_reg(regs, 1, v1);
-> +        set_user_reg(regs, 2, v2);
-> +        set_user_reg(regs, 3, v3);
-> +        set_user_reg(regs, 4, v4);
-> +        set_user_reg(regs, 5, v5);
-> +        set_user_reg(regs, 6, v6);
-> +        set_user_reg(regs, 7, v7);
-> +}
-> +
-> +static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
-> +                             uint32_t w3)
-> +{
-> +    set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
-> +}
-> +
-> +static void handle_version(struct cpu_user_regs *regs)
-> +{
-> +    struct domain *d = current->domain;
-> +    struct ffa_ctx *ctx = d->arch.ffa;
-> +    uint32_t vers = get_user_reg(regs, 1);
-> +
-> +    if ( vers < FFA_VERSION_1_1 )
-> +        vers = FFA_VERSION_1_0;
-> +    else
-> +        vers = FFA_VERSION_1_1;
-> +
-> +    ctx->guest_vers = vers;
-> +    set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
-> +}
-> +
-> +bool ffa_handle_call(struct cpu_user_regs *regs, uint32_t fid)
-> +{
-> +    struct domain *d = current->domain;
-> +    struct ffa_ctx *ctx = d->arch.ffa;
-> +
-> +    if ( !ctx )
-> +        return false;
-> +
-> +    switch ( fid )
-> +    {
-> +    case FFA_VERSION:
-> +        handle_version(regs);
-> +        return true;
-> +    case FFA_ID_GET:
-> +        set_regs_success(regs, get_vm_id(d), 0);
-> +        return true;
-> +
-> +    default:
-> +        printk(XENLOG_ERR "ffa: unhandled fid 0x%x\n", fid);
-
-This one definitely want to be a XENLOG_G_ERR. But I would use 
-gprintk(XENLOG_ERR, ).
-
-Cheers,
-
--- 
-Julien Grall
+Any of these are better than BASIC from my point of view. Now I am off
+to get the green paint for my shed.
+--8323329-1917976994-1662417118=:3931--
 
