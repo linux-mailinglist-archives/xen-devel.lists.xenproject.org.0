@@ -2,37 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3B1D5AE16A
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:43:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399577.640812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B965AE19D
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:53:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399602.640824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVTEn-0003r3-Uu; Tue, 06 Sep 2022 07:43:13 +0000
+	id 1oVTOR-0005Qc-RC; Tue, 06 Sep 2022 07:53:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399577.640812; Tue, 06 Sep 2022 07:43:13 +0000
+Received: by outflank-mailman (output) from mailman id 399602.640824; Tue, 06 Sep 2022 07:53:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVTEn-0003ol-Rt; Tue, 06 Sep 2022 07:43:13 +0000
-Received: by outflank-mailman (input) for mailman id 399577;
- Tue, 06 Sep 2022 07:43:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CCHN=ZJ=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
- id 1oVTEm-0003o0-2A
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:43:12 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d21f3dd-2db7-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 09:43:09 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id qh18so21226397ejb.7
- for <xen-devel@lists.xenproject.org>; Tue, 06 Sep 2022 00:43:11 -0700 (PDT)
-Received: from leoy-huanghe.lan ([104.245.99.30])
- by smtp.gmail.com with ESMTPSA id
- q3-20020a17090676c300b007030c97ae62sm6150708ejn.191.2022.09.06.00.43.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Sep 2022 00:43:09 -0700 (PDT)
+	id 1oVTOR-0005Nw-O4; Tue, 06 Sep 2022 07:53:11 +0000
+Received: by outflank-mailman (input) for mailman id 399602;
+ Tue, 06 Sep 2022 07:53:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2M6J=ZJ=kernel.org=maz@srs-se1.protection.inumbo.net>)
+ id 1oVTOQ-0005Nq-Fn
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:53:10 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f2a52529-2db8-11ed-a016-b9edf5238543;
+ Tue, 06 Sep 2022 09:53:08 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5B1E0B815A0;
+ Tue,  6 Sep 2022 07:53:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4FDC433D6;
+ Tue,  6 Sep 2022 07:53:07 +0000 (UTC)
+Received: from 82-132-237-87.dab.02.net ([82.132.237.87]
+ helo=wait-a-minute.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1oVTOK-008FVO-Q3;
+ Tue, 06 Sep 2022 08:53:05 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,38 +50,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d21f3dd-2db7-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date;
-        bh=eh9PbLozRnOPRRmksXqXS+0hoLk4T4gMMpNPc3VabkE=;
-        b=p6zSmfxguCCnxrxCAbKkmDokuG7aiSWsL8cAQvxLYyLr/j8V9so6DrUxCVYQnSS7ou
-         cROwDMfQTehuDQEUKQqQ4Rq1lSfcsE+6VHddjAgGpzeng/garJpkCNRZmr3SlruskVYw
-         tKZvGSosIi0oMSi8eyVBxtialyIkGokHsr/VKOJKEjPxQ1fqnLGMteB0vQ7vOfRnyqUu
-         GNplksvDZMP58ovUO160AM0P5vJSS0CPyn7yWrb2OND88m87s6XiBKtQkPBhuS3LLAHh
-         gztlHP+nDf4cLCvFmI9VIY80H44NKkwGDjHErjaHGPy9q6ttmP0XL4IUoicd9cNiXVqj
-         ojZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
-        bh=eh9PbLozRnOPRRmksXqXS+0hoLk4T4gMMpNPc3VabkE=;
-        b=36zoTO9c/nsr2altRjFLhBv0aNeeeVSiM7PdC/vw8JmPkIl0dPlLBoyKsn8AvEHqnd
-         mORJtkqAstnA/QoXsVjlOUYXVRsbKwDLZexZ5Y/hrV5KiMa1mOcAaZe2uubJZYRmLpWw
-         Kx9oMq7dOE5zpgr8lJGqY5pVaFxAsHJUHUltv0gjud3jAglM5oL/nJlKTFMAfpZWS36+
-         Eky6kI6MGYCOkyJV5OhHvCa3v8rjWmwZSl9YSRC2T1YOwZpcIchYsYk445uMm24TCfC6
-         d8CrSWEtHqnimZLbXjsKJ1HQ3/4rlqu/epFZ+HK4MqhgpLzba6NrJ+YQ8gWrK1c0U2jT
-         aAwQ==
-X-Gm-Message-State: ACgBeo2Yws7SsFRjBZhColK3h70W1sAPzNHfajvtl0HgA9l60GFD3vrK
-	ll9A22ieaQc4qKyW8roPtlDKbQ==
-X-Google-Smtp-Source: AA6agR7JcMHkHh8ZUZn6sBc9XLLw2UwJ67ykot+SgRWzq1/xgyoWWEGY6GA1e1ONf1nwKOdT8fXtxg==
-X-Received: by 2002:a17:907:272a:b0:741:8105:49e2 with SMTP id d10-20020a170907272a00b00741810549e2mr28479988ejl.171.1662450190557;
-        Tue, 06 Sep 2022 00:43:10 -0700 (PDT)
-Date: Tue, 6 Sep 2022 15:43:05 +0800
-From: Leo Yan <leo.yan@linaro.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Julien Grall <julien@xen.org>,
+X-Inumbo-ID: f2a52529-2db8-11ed-a016-b9edf5238543
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1662450787;
+	bh=YsUP0GvS/xdqDCHgCtBY2s4ikD0bQL4umny0jSvCzIE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=Qat5r2sr07PCvITo1/BJCVEDhPmDpAVjdSxluUVr1VjM7CdZPn7nOjgoa6Z4AqVbK
+	 PqXZcQIEaykRj5HuQ+tkiUh9H1mB7cpfIzb+OJfocTuSJ/WXe6cKYrP95Ebzz4zrue
+	 Xf7st8AGv+v+gKLNB49WGyjG5U99cP/tUY5gXAeMSi6WBwgqwkvQeiYcv6Yj0v3Vps
+	 FqRlKRy/CHn+9KLNd494mGl+1GJ5MXv9MxjUbQeQMAuKKD0vvs1kFUg66h+kbk/2/I
+	 F08bEVVaeBM8DysYSnM9X80V0pX2Tqukax0HkFCLwRRFoRljRc8YlGgmb3mWt2bO8Y
+	 EwMLmMAWApdTw==
+Date: Tue, 06 Sep 2022 08:53:02 +0100
+Message-ID: <87leqxq6qp.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Leo Yan <leo.yan@linaro.org>
+Cc: Julien Grall <julien@xen.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
 	Jan Beulich <jbeulich@suse.com>,
 	Bertrand Marquis <Bertrand.Marquis@arm.com>,
 	Rahul Singh <Rahul.Singh@arm.com>,
@@ -84,55 +75,156 @@ Cc: Marc Zyngier <maz@kernel.org>, Julien Grall <julien@xen.org>,
 	Julien Grall <jgrall@amazon.com>,
 	Mathieu Poirier <mathieu.poirier@linaro.org>
 Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
-Message-ID: <Yxb6CdYHaymu130v@leoy-huanghe.lan>
-References: <Ywcr1849LiEHezd3@leoy-huanghe>
- <12a8c169-55aa-5e9f-19f8-acd77ea2a8fe@xen.org>
- <YwdiDr2uLXGEl2TC@leoy-huanghe>
- <52f24132-ba2b-d4ab-ebd0-613f673b5658@xen.org>
- <YweJ6ZpRhMkT5bab@leoy-yangtze.lan>
- <CALZQ+UN8cQ4avggxqgjed=DsitfEteQpuhEqb+p747vmeFCyUA@mail.gmail.com>
- <87r10puiey.wl-maz@kernel.org>
- <Yxbz+pOs5+1RkEkx@leoy-huanghe.lan>
- <CAMj1kXFv2AhngPrrE2GWE3fxsL3pd0x8DSzUn-VQL-RrQhXjtw@mail.gmail.com>
- <Yxb2c6aLrcf8e16q@leoy-huanghe.lan>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Yxb2c6aLrcf8e16q@leoy-huanghe.lan>
+In-Reply-To: <Yxbz+pOs5+1RkEkx@leoy-huanghe.lan>
+References: <Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
+	<CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
+	<871qtcsacd.wl-maz@kernel.org>
+	<Ywcr1849LiEHezd3@leoy-huanghe>
+	<12a8c169-55aa-5e9f-19f8-acd77ea2a8fe@xen.org>
+	<YwdiDr2uLXGEl2TC@leoy-huanghe>
+	<52f24132-ba2b-d4ab-ebd0-613f673b5658@xen.org>
+	<YweJ6ZpRhMkT5bab@leoy-yangtze.lan>
+	<CALZQ+UN8cQ4avggxqgjed=DsitfEteQpuhEqb+p747vmeFCyUA@mail.gmail.com>
+	<87r10puiey.wl-maz@kernel.org>
+	<Yxbz+pOs5+1RkEkx@leoy-huanghe.lan>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 82.132.237.87
+X-SA-Exim-Rcpt-To: leo.yan@linaro.org, julien@xen.org, ardb@kernel.org, jbeulich@suse.com, Bertrand.Marquis@arm.com, Rahul.Singh@arm.com, peter.griffin@linaro.org, xen-devel@lists.xenproject.org, jgrall@amazon.com, mathieu.poirier@linaro.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Sep 06, 2022 at 03:27:47PM +0800, Leo Yan wrote:
-> On Tue, Sep 06, 2022 at 09:22:00AM +0200, Ard Biesheuvel wrote:
+On Tue, 06 Sep 2022 08:17:14 +0100,
+Leo Yan <leo.yan@linaro.org> wrote:
 > 
-> [...]
+> Hi Marc,
 > 
-> > > IIUC, you consider the general flow from architecture view, so you prefer
-> > > to ask Xen to implement EFI stub to comply the general flow for EFI
-> > > booting sequence, right?
-> > >
-> > > If the conclusion is to change Xen for support EFI stub, then this
-> > > would be fine for me and I will hold on and leave Xen developers to work
-> > > on it.
-> > >
+> On Tue, Sep 06, 2022 at 07:27:17AM +0100, Marc Zyngier wrote:
+> > On Tue, 06 Sep 2022 03:52:37 +0100,
+> > Leo Yan <leo.yan@linaro.org> wrote:
+> > > 
+> > > On Thu, Aug 25, 2022 at 10:40:41PM +0800, Leo Yan wrote:
+> > > 
+> > > [...]
+> > > 
+> > > > > > But here I still cannot create the concept that how GIC RD tables play
+> > > > > > roles to support the para virtualization or passthrough mode.
+> > > > >
+> > > > > I am not sure what you are actually asking. The pending tables are just
+> > > > > memory you give to the GICv3 to record the state of the interrupts.
+> > > >
+> > > > For more specific, Xen has its own RD pending table, and we can use
+> > > > this pending table to set state for SGI/PPI/LPI for a specific CPU
+> > > > interface.  Xen works as hypervisor, it saves and restores the pending
+> > > > table according to switched in VM context, right?
+> > > >
+> > > > On the other hand, what's the purpose for Linux kernel's GIC RD
+> > > > pending table?  Is it only used for nested virtulisation?  I mean if
+> > > > Linux kernel's GIC RD pending table is not used for the drivers in
+> > > > Dom0 or DomU, then it's useless to pass it from the primary kernel to
+> > > > secondary kernel; as result, we don't need to reserve the persistent
+> > > > memory for the pending table in this case.
+> > > 
+> > > I don't receive further confirmation from Marc, anyway, I tried to cook
+> > > a kernel patch to mute the kernel oops [1].
 > > 
-> > As I mentioned before, proper EFI boot support in Xen would be nice.
-> > *However*, I don't think it makes sense to go through all the trouble
-> > of implementing that just to shut up a warning that doesn't affect Xen
-> > to begin with.
+> > What sort of confirmation do you expect from me? None of what you
+> > write above make much sense in the face of the architecture.
 > 
-> Another option is we can set a bit for xen feature, so Linux kernel
-> can read out the xen feature and make decision if need to reserve
-> memory for RD tables based on the new feature bit.  This is somehow
-> a solution is to create a general protocol between Xen and Linux kernel.
+> Okay, I think have two questions for you:
 > 
-> How about you think for this?
+> - The first question is if we really need to reserve persistent memory
+>   for RD pending table and configuration table when Linux kernel runs
+>   in Xen domain?
 
-Just supplement info.  I tried to set flag EFI_PARAVIRT in Linux
-kernel, but kernel cannot boot up successfully on Arm64.  Seems
-the Linux kernel will not map memory correctly after settting
-this flag.
+I have no idea, and really I don't want to know. The architecture
+doesn't make it safe to reuse that memory, and the driver does the
+right thing by always reserving that memory when the FW is supposed to
+support it.
 
-This is why I didn't move forward with this flag.
+The "oh but it is safe on so and so" approach doesn't scale. If you
+want to have such a thing, just convince people at ARM that it is
+possible to implement a GICv3-compliant system without the RD tables,
+get them to update the architecture to allow this scheme and advertise
+it in a discoverable register. Xen could then implement it, Linux
+could check this bit, and we'd all be a happy family.
 
-Thanks,
-Leo
+Because that's really what this is: it isn't that you don't care about
+the RD tables being reserved. It is that you don't care about them at
+all because they are never used by Xen as the GIC implementation. Your
+approach of "huh, let's not reserve it" just papers over this.
+
+> 
+> - If the first question's answer is no, so it's not necessary to reserve
+>   RD pending table and configuration table for Xen, then what's the good
+>   way to dismiss the kernel oops?
+
+A warning, not an oops.
+
+> 
+> IIUC, you consider the general flow from architecture view, so you prefer
+> to ask Xen to implement EFI stub to comply the general flow for EFI
+> booting sequence, right?
+
+If you want to use ACPI, you use EFI, and not a vague emulation of
+it. If you use DT, you can reserve the memory upfront. The various
+alternatives are in this thread.
+
+> 
+> If the conclusion is to change Xen for support EFI stub, then this
+> would be fine for me and I will hold on and leave Xen developers to work
+> on it.
+> 
+> > > [1] https://lore.kernel.org/lkml/20220906024040.503764-1-leo.yan@linaro.org/T/#u
+> > 
+> > I'm totally baffled by the fact you're trying to add some extra hacks
+> > to Linux just to paper over some of the Xen's own issues.
+> 
+> I have a last question for why kernel reserves RD pending table and
+> configuration table for kexec.  As we know, the primary kernel and
+> the secondary kernel use separate memory regions,
+
+No, you got it wrong. Only with *kdump* do you get separate memory
+regions. kexec reuses all of the memory visible by the primary kernel.
+
+> this means there have
+> no race condition that secondary kernel modifies the tables whilist the
+> GIC accesses the table if the secondary kernel allocates new pages for
+> RD tables.  So only one potential issue I can image is the secondary
+> kernel sets new RD pending table and configuration table, which might
+> introduce inconsistent issue with rest RDs in the system.
+> 
+> Could you confirm if my understanding is correct or not?
+
+It isn't correct.
+
+- There is no race condition. Once the RD tables are configured, they
+  cannot be changed.
+
+- When the kdump kernel boots, none of the primary OS memory is
+  reused, so it is safe to continue and use the same tables in place
+
+- When the kexec kernel boots, all of the memory except for the
+  reserved memory is reused. If your RD tables are used for anything,
+  you'll see memory corruption as the GIC writes pending bits in the
+  pending table, and you'll be unable to configure interrupts
+  correctly.
+
+In conclusion, using kexec with GICv3 is completely unsafe if you
+don't reserve the memory allocated to the RDs.
+
+> Sorry for noise and many questions.  I understand this is a complex
+> and difficult topic for me, and it's very likely that I am absent
+> sufficient knowledge for this part, this is just what I want to
+> learn from the discussion and from you :-)
+
+I suggest you read the architecture spec, which has all the details.
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
 
