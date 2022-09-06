@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 758E35AE112
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:28:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399520.640713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 705465AE14B
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:40:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399534.640736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVT00-0004nY-TI; Tue, 06 Sep 2022 07:27:56 +0000
+	id 1oVTBK-0007J9-5J; Tue, 06 Sep 2022 07:39:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399520.640713; Tue, 06 Sep 2022 07:27:56 +0000
+Received: by outflank-mailman (output) from mailman id 399534.640736; Tue, 06 Sep 2022 07:39:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVT00-0004lB-QY; Tue, 06 Sep 2022 07:27:56 +0000
-Received: by outflank-mailman (input) for mailman id 399520;
- Tue, 06 Sep 2022 07:27:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oVTBK-0007HM-2Q; Tue, 06 Sep 2022 07:39:38 +0000
+Received: by outflank-mailman (input) for mailman id 399534;
+ Tue, 06 Sep 2022 07:39:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CCHN=ZJ=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
- id 1oVSzy-0004l5-Kq
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:27:54 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a1573a9-2db5-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 09:27:51 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id q21so6296364edc.9
- for <xen-devel@lists.xenproject.org>; Tue, 06 Sep 2022 00:27:53 -0700 (PDT)
-Received: from leoy-huanghe.lan ([104.245.99.30])
- by smtp.gmail.com with ESMTPSA id
- bd13-20020a056402206d00b0044e66ee9b62sm4352880edb.42.2022.09.06.00.27.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Sep 2022 00:27:52 -0700 (PDT)
+ <SRS0=YUvx=ZJ=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1oVTBI-0007HG-Ly
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:39:36 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 0d4519ba-2db7-11ed-a016-b9edf5238543;
+ Tue, 06 Sep 2022 09:39:35 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3B7591756;
+ Tue,  6 Sep 2022 00:39:40 -0700 (PDT)
+Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
+ [10.169.190.94])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id ED0623F7D8;
+ Tue,  6 Sep 2022 00:39:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,87 +43,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a1573a9-2db5-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date;
-        bh=r97Hr2tIjhJhFdhmIL0iyamjWyuw56fyzIW/bYy/ves=;
-        b=nj37FT9i8EAIVCZna21mXMP+De91OIM3128LkxFzo9+3RJu4WhovL6P/uhLXEDYS0+
-         GoWnF82Y93/qRsY4r1WnCYaTMB1R1vWKhaV9C7ceC0aYApcj46OI5Zzsu+fb1JFSM708
-         g0R+oECRFy64aOrlIURD4S3exqjvK4J9EMH+9veWtHO5ByPsv3+Bgcw3tEzwsoVu69Z3
-         tn3agyPiBp6A6IOXueVToB8ZHlCy3It6C/kJpJw35UYVALktZlEeFNbHhZwv5D38Opd3
-         F35CdCeFLFA4e9Nrrqnn5kXlGFNer1wiqT5sJTj4kwmlcOE/jAkRT38Q3C7x2mW0Ec5u
-         d88w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
-        bh=r97Hr2tIjhJhFdhmIL0iyamjWyuw56fyzIW/bYy/ves=;
-        b=QiC1Hfglhx4xnxKXxkM5vBUZGaQ5h2AQ7LpNDg1E/zleH8ckEUpUAPH3CMqTeKOjgA
-         VFb1NcGg234NANFt+ebqt9gHIrAbbFjfktfVv1XPFTdro1MzDjaYsABRgS3iny9zsW72
-         4MzDJmtozL8h09BSmgGiuVfhTh3j5+ZLofJd545jxP7p3KN2y8u/u0PlDlWMZp0ZmCIc
-         wAkaoNd4UisOVqc3MnSyp0F//oVrmU+LYwoYsdI5n60PPw1tqM4EKJtBAmUfGu2CwRdc
-         rBItLUDCSmlnQ3WgLCXX/ITcLyzDwkZNm+Co0Q9fnTGZln1C1tn+RfiRu+eecsp33sr4
-         5hhA==
-X-Gm-Message-State: ACgBeo1vmCtkwgZ7kfYey75e039h6sTyByLJvGiuUSsCEPYBXUVPLs8v
-	aYQ7qf1UHpIG1904OBE1cDLLIA==
-X-Google-Smtp-Source: AA6agR4m9A61zk+lILhAE2bAfwnJhWShz293gbKx4fxg9D6A03n23xPygakWw1BdFf+yz/ig9/qZcA==
-X-Received: by 2002:aa7:d98c:0:b0:44e:affc:7000 with SMTP id u12-20020aa7d98c000000b0044eaffc7000mr4439480eds.269.1662449272818;
-        Tue, 06 Sep 2022 00:27:52 -0700 (PDT)
-Date: Tue, 6 Sep 2022 15:27:47 +0800
-From: Leo Yan <leo.yan@linaro.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Julien Grall <julien@xen.org>,
+X-Inumbo-ID: 0d4519ba-2db7-11ed-a016-b9edf5238543
+From: Penny Zheng <Penny.Zheng@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com,
+	Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Rahul Singh <Rahul.Singh@arm.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	Julien Grall <jgrall@amazon.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
-Message-ID: <Yxb2c6aLrcf8e16q@leoy-huanghe.lan>
-References: <871qtcsacd.wl-maz@kernel.org>
- <Ywcr1849LiEHezd3@leoy-huanghe>
- <12a8c169-55aa-5e9f-19f8-acd77ea2a8fe@xen.org>
- <YwdiDr2uLXGEl2TC@leoy-huanghe>
- <52f24132-ba2b-d4ab-ebd0-613f673b5658@xen.org>
- <YweJ6ZpRhMkT5bab@leoy-yangtze.lan>
- <CALZQ+UN8cQ4avggxqgjed=DsitfEteQpuhEqb+p747vmeFCyUA@mail.gmail.com>
- <87r10puiey.wl-maz@kernel.org>
- <Yxbz+pOs5+1RkEkx@leoy-huanghe.lan>
- <CAMj1kXFv2AhngPrrE2GWE3fxsL3pd0x8DSzUn-VQL-RrQhXjtw@mail.gmail.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v12 0/6] populate/unpopulate memory when domain on static allocation
+Date: Tue,  6 Sep 2022 15:39:13 +0800
+Message-Id: <20220906073919.941934-1-Penny.Zheng@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMj1kXFv2AhngPrrE2GWE3fxsL3pd0x8DSzUn-VQL-RrQhXjtw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 06, 2022 at 09:22:00AM +0200, Ard Biesheuvel wrote:
+Today when a domain unpopulates the memory on runtime, they will always
+hand the memory over to the heap allocator. And it will be a problem if it
+is a static domain.
+Pages used as guest RAM for static domain shall always be reserved to this
+domain only, and not be used for any other purposes, so they shall never go
+back to heap allocator.
 
-[...]
+This patch serie intends to fix this issue, by adding pages on the new list
+resv_page_list after having taken them off the "normal" list, when unpopulating
+memory, and retrieving pages from resv page list(resv_page_list) when
+populating memory.
 
-> > IIUC, you consider the general flow from architecture view, so you prefer
-> > to ask Xen to implement EFI stub to comply the general flow for EFI
-> > booting sequence, right?
-> >
-> > If the conclusion is to change Xen for support EFI stub, then this
-> > would be fine for me and I will hold on and leave Xen developers to work
-> > on it.
-> >
-> 
-> As I mentioned before, proper EFI boot support in Xen would be nice.
-> *However*, I don't think it makes sense to go through all the trouble
-> of implementing that just to shut up a warning that doesn't affect Xen
-> to begin with.
+---
+v12 changes:
+- it should be acquire_domstatic_pages() calling unprepare_staticmem_pages()
+on failing
+- add in-code comment
+---
+v11 changes:
+- printing message ahead of the assertion, which should also be
+XENLOG_G_* kind of log level
+- commit message tweak
+- move "xen: rename free_staticmem_pages to unprepare_staticmem_pages" ahead
+of "xen: retrieve reserved pages on populate_physmap"
+- with assignment having failed and the page not exposed to the guest at any
+point, there is no need for scrubbing
+---
+v10 changes:
+- let Arm keep #define PGC_static 0 private, with the generic fallback
+remaining in page_alloc.c
+- change ASSERT(d) to ASSERT_UNREACHABLE() to be more robust looking
+forward, and also add a printk() to log the problem
+- mention the the removal of #ifdef CONFIG_STATIC_MEMORY in commit
+message
+- commit message typo fix
+- Do not skip the list addition in that one special case
+- add lock on the fail path
+- new commit "xen: rename free_staticmem_pages to unprepare_staticmem_pages"
+---
+v9 changes:
+- move free_domheap_page into else-condition
+- considering scrubbing static pages, domain dying case and opt_scrub_domheap
+both do not apply to static pages.
+- as unowned static pages don't make themselves to free_domstatic_page
+at the moment, remove else-condition and add ASSERT(d) at the top of the
+function
+- remove macro helper put_static_page, and just expand its code inside
+free_domstatic_page
+- Use ASSERT_ALLOC_CONTEXT() in acquire_reserved_page
+- Add free_staticmem_pages to undo prepare_staticmem_pages when
+assign_domstatic_pages fails
+- Remove redundant static in error message
+---
+v8 changes:
+- introduce new helper free_domstatic_page
+- let put_page call free_domstatic_page for static page, when last ref
+drops
+- #define PGC_static zero when !CONFIG_STATIC_MEMORY, as it is used
+outside page_alloc.c
+- #ifdef-ary around is_domain_using_staticmem() is not needed anymore
+- order as a parameter is not needed here, as all staticmem operations are
+limited to order-0 regions
+- move d->page_alloc_lock after operation on d->resv_page_list
+- As concurrent free/allocate could modify the resv_page_list, we still
+need the lock
+---
+v7 changes:
+- protect free_staticmem_pages with heap_lock to match its reverse function
+acquire_staticmem_pages
+- IS_ENABLED(CONFIG_STATIC_MEMORY) would not be needed anymore
+- add page on the rsv_page_list *after* it has been freed
+- remove the lock, since we add the page to rsv_page_list after it has
+been totally freed.
+---
+v6 changes:
+- rename PGC_staticmem to PGC_static
+- remove #ifdef aroud function declaration
+- use domain instead of sub-systems
+- move non-zero is_domain_using_staticmem() from ARM header to common
+header
+- move PGC_static !CONFIG_STATIC_MEMORY definition to common header
+- drop the lock before returning
+---
+v5 changes:
+- introduce three new commits
+- In order to avoid stub functions, we #define PGC_staticmem to non-zero only
+when CONFIG_STATIC_MEMORY
+- use "unlikely()" around pg->count_info & PGC_staticmem
+- remove pointless "if", since mark_page_free() is going to set count_info
+to PGC_state_free and by consequence clear PGC_staticmem
+- move #define PGC_staticmem 0 to mm.h
+- guard "is_domain_using_staticmem" under CONFIG_STATIC_MEMORY
+- #define is_domain_using_staticmem zero if undefined
+- extract common codes for assigning pages into a helper assign_domstatic_pages
+- refine commit message
+- remove stub function acquire_reserved_page
+- Alloc/free of memory can happen concurrently. So access to rsv_page_list
+needs to be protected with a spinlock
+---
+v4 changes:
+- commit message refinement
+- miss dropping __init in acquire_domstatic_pages
+- add the page back to the reserved list in case of error
+- remove redundant printk
+- refine log message and make it warn level
+- guard "is_domain_using_staticmem" under CONFIG_STATIC_MEMORY
+- #define is_domain_using_staticmem zero if undefined
+---
+v3 changes:
+- fix possible racy issue in free_staticmem_pages()
+- introduce a stub free_staticmem_pages() for the !CONFIG_STATIC_MEMORY case
+- move the change to free_heap_pages() to cover other potential call sites
+- change fixed width type uint32_t to unsigned int
+- change "flags" to a more descriptive name "cdf"
+- change name from "is_domain_static()" to "is_domain_using_staticmem"
+- have page_list_del() just once out of the if()
+- remove resv_pages counter
+- make arch_free_heap_page be an expression, not a compound statement.
+- move #ifndef is_domain_using_staticmem to the common header file
+- remove #ifdef CONFIG_STATIC_MEMORY-ary
+- remove meaningless page_to_mfn(page) in error log
+---
+v2 changes:
+- let "flags" live in the struct domain. So other arch can take
+advantage of it in the future
+- change name from "is_domain_on_static_allocation" to "is_domain_static()"
+- put reserved pages on resv_page_list after having taken them off
+the "normal" list
+- introduce acquire_reserved_page to retrieve reserved pages from
+resv_page_list
+- forbid non-zero-order requests in populate_physmap
+- let is_domain_static return ((void)(d), false) on x86
+- fix coding style
 
-Another option is we can set a bit for xen feature, so Linux kernel
-can read out the xen feature and make decision if need to reserve
-memory for RD tables based on the new feature bit.  This is somehow
-a solution is to create a general protocol between Xen and Linux kernel.
+Penny Zheng (6):
+  xen: do not free reserved memory into heap
+  xen/arm: introduce CDF_staticmem
+  xen: unpopulate memory when domain is static
+  xen: introduce prepare_staticmem_pages
+  xen: rename free_staticmem_pages to unprepare_staticmem_pages
+  xen: retrieve reserved pages on populate_physmap
 
-How about you think for this?
+ xen/arch/arm/domain_build.c   |   5 +-
+ xen/arch/arm/include/asm/mm.h |   6 +-
+ xen/arch/arm/mm.c             |   5 +-
+ xen/arch/arm/setup.c          |   3 +-
+ xen/common/domain.c           |   4 +
+ xen/common/memory.c           |  23 +++++
+ xen/common/page_alloc.c       | 173 ++++++++++++++++++++++++++--------
+ xen/include/xen/domain.h      |   8 ++
+ xen/include/xen/mm.h          |   8 +-
+ xen/include/xen/sched.h       |   3 +
+ 10 files changed, 192 insertions(+), 46 deletions(-)
 
-Thanks,
-Leo
+-- 
+2.25.1
+
 
