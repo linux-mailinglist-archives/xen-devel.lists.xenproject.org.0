@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 101E25AF771
+	by mail.lfdr.de (Postfix) with ESMTPS id D7D995AF772
 	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:55:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400518.642245 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.400519.642256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgXN-00030e-Ik; Tue, 06 Sep 2022 21:55:17 +0000
+	id 1oVgXY-0003L7-S3; Tue, 06 Sep 2022 21:55:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400518.642245; Tue, 06 Sep 2022 21:55:17 +0000
+Received: by outflank-mailman (output) from mailman id 400519.642256; Tue, 06 Sep 2022 21:55:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgXN-0002yZ-Fy; Tue, 06 Sep 2022 21:55:17 +0000
-Received: by outflank-mailman (input) for mailman id 400518;
- Tue, 06 Sep 2022 21:55:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4s6j=ZJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oVgXM-0002yT-57
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:55:16 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95d68aa6-2e2e-11ed-a016-b9edf5238543;
- Tue, 06 Sep 2022 23:55:14 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 243B8615BB;
- Tue,  6 Sep 2022 21:55:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6CBC433C1;
- Tue,  6 Sep 2022 21:55:11 +0000 (UTC)
+	id 1oVgXY-0003Ho-Nq; Tue, 06 Sep 2022 21:55:28 +0000
+Received: by outflank-mailman (input) for mailman id 400519;
+ Tue, 06 Sep 2022 21:55:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oVgXX-0003HI-6O; Tue, 06 Sep 2022 21:55:27 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oVgXX-00057c-4c; Tue, 06 Sep 2022 21:55:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oVgXW-0001Kv-1p; Tue, 06 Sep 2022 21:55:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oVgXW-00048S-1O; Tue, 06 Sep 2022 21:55:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,154 +42,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95d68aa6-2e2e-11ed-a016-b9edf5238543
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662501312;
-	bh=LuXSCf+/dyfRqqCH7TweTrKu2nhhJw+Y2SyCDFvD4DA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=CPI6K38w81sioYQFUp3mGrbW5/9ZidJ37Rn4C0B2AcGmqJ2BTshCMSXMFqdcp/Nh2
-	 s0UZ9lgRDtErl2uj6A18nrH3wj98oD+8HoeSd+O6HEze1TZIS41GBzMq5kYL1z42JP
-	 nsPBE4mLggnDTPPea8dUonYxkBnywF/fb7+zJFp8TjDCon0bGhXvWM+JYXmeu3aLIV
-	 BhfUcJvVvGMyF/rbysx6n3zqfkoxduf05faMtkTz0aS48vHtC898L+mSV7wdcPvcoQ
-	 z49gwgT3JxJrRno2ZKbtqnFSkHlwhIazRicN4NRFgv2/X+Ge/DulGUcAnL1R8GQLkR
-	 9shzwm/729Tkg==
-Date: Tue, 6 Sep 2022 14:55:10 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Penny Zheng <Penny.Zheng@arm.com>
-cc: xen-devel@lists.xenproject.org, wei.chen@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v7 3/9] xen/arm: allocate static shared memory to a
- specific owner domain
-In-Reply-To: <20220906085941.944592-4-Penny.Zheng@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2209061455020.157835@ubuntu-linux-20-04-desktop>
-References: <20220906085941.944592-1-Penny.Zheng@arm.com> <20220906085941.944592-4-Penny.Zheng@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qhwfN+vuW8JHU5CxRymiDovHn5fvvbjufEXK6BMyTiI=; b=EIYRpgQlvFZfy/7xKpD8tQzRLa
+	7rVSD9HBpH3wg7Y/AMawG1PRFHwn5jBPWJuc0Ww4g/FhCTWhYRpeGWG1QCFXYXgkYnLvmPQwqnl5j
+	joNWVXMSMG3if9QB34oAG5gQkxJIJ1WTCd925pBpdwdC/wFAiLQkh/DNdJqpTiQ3PVEw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173029-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 173029: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=172015009a6acc20357a2698800e13058ba1d3db
+X-Osstest-Versions-That:
+    xen=48f35317c2e2707fc66a839690fe41e6f16180de
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 06 Sep 2022 21:55:26 +0000
 
-On Tue, 6 Sep 2022, Penny Zheng wrote:
-> If owner property is defined, then owner domain of a static shared memory
-> region is not the default dom_io anymore, but a specific domain.
-> 
-> This commit implements allocating static shared memory to a specific domain
-> when owner property is defined.
-> 
-> Coding flow for dealing borrower domain will be introduced later in the
-> following commits.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+flight 173029 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173029/
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ build-amd64-libvirt           6 libvirt-build                fail  like 173026
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  172015009a6acc20357a2698800e13058ba1d3db
+baseline version:
+ xen                  48f35317c2e2707fc66a839690fe41e6f16180de
+
+Last test of basis   173026  2022-09-06 15:00:30 Z    0 days
+Testing same since   173029  2022-09-06 19:01:53 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Bixuan Cui <cuibixuan@huawei.com>
+  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+  Gustavo A. R. Silva <gustavoars@kernel.org>
+  Jan Beulich <jbeulich@suse.com>
+  Jean-Philippe Brucker <jean-philippe@linaro.org>
+  Julien Grall <jgrall@amazon.com>
+  Penny Zheng <penny.zheng@arm.com>
+  Rahul Singh <rahul.singh@arm.com>
+  Robin Murphy <robin.murphy@arm.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Will Deacon <will@kernel.org>
+  Zenghui Yu <yuzenghui@huawei.com>
+  Zhen Lei <thunder.leizhen@huawei.com>
+  Zhou Wang <wangzhou1@hisilicon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-> ---
-> v7 chhanges:
-> - adapt to the previous commits' changes
-> ---
-> v6 change:
-> - fix coding-style
-> - role_str and owner_dom_io shall be defined within the loop
-> ---
-> v5 change:
-> - no change
-> ---
-> v4 change:
-> - no changes
-> ---
-> v3 change:
-> - simplify the code since o_gbase is not used if the domain is dom_io
-> ---
-> v2 change:
-> - P2M mapping is restricted to normal domain
-> - in-code comment fix
-> ---
->  xen/arch/arm/domain_build.c | 36 +++++++++++++++++++++++++++++-------
->  1 file changed, 29 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index be98ff83b1..4be8a00171 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -822,9 +822,11 @@ static mfn_t __init acquire_shared_memory_bank(struct domain *d,
->  
->  static int __init assign_shared_memory(struct domain *d,
->                                         uint32_t addr_cells, uint32_t size_cells,
-> -                                       paddr_t pbase, paddr_t psize)
-> +                                       paddr_t pbase, paddr_t psize,
-> +                                       paddr_t gbase)
->  {
->      mfn_t smfn;
-> +    int ret = 0;
->  
->      dprintk(XENLOG_INFO,
->              "%pd: allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
-> @@ -838,8 +840,18 @@ static int __init assign_shared_memory(struct domain *d,
->       * DOMID_IO is auto-translated (i.e. it seems RAM 1:1). So we do not need
->       * to create mapping in the P2M.
->       */
-> -    ASSERT(d == dom_io);
-> -    return 0;
-> +    if ( d != dom_io )
-> +    {
-> +        ret = guest_physmap_add_pages(d, gaddr_to_gfn(gbase), smfn,
-> +                                      PFN_DOWN(psize));
-> +        if ( ret )
-> +        {
-> +            printk(XENLOG_ERR "Failed to map shared memory to %pd.\n", d);
-> +            return ret;
-> +        }
-> +    }
-> +
-> +    return ret;
->  }
->  
->  static int __init process_shm(struct domain *d,
-> @@ -855,6 +867,8 @@ static int __init process_shm(struct domain *d,
->          paddr_t gbase, pbase, psize;
->          int ret = 0;
->          unsigned int i;
-> +        const char *role_str;
-> +        bool owner_dom_io = true;
->  
->          if ( !dt_device_is_compatible(shm_node, "xen,domain-shared-memory-v1") )
->              continue;
-> @@ -891,20 +905,28 @@ static int __init process_shm(struct domain *d,
->                  return -EINVAL;
->              }
->  
-> -        /* TODO: Consider owner domain is not the default dom_io. */
-> +        /*
-> +         * "role" property is optional and if it is defined explicitly,
-> +         * then the owner domain is not the default "dom_io" domain.
-> +         */
-> +        if ( dt_property_read_string(shm_node, "role", &role_str) == 0 )
-> +            owner_dom_io = false;
-> +
->          /*
->           * DOMID_IO is a fake domain and is not described in the Device-Tree.
->           * Therefore when the owner of the shared region is DOMID_IO, we will
->           * only find the borrowers.
->           */
-> -        if ( !is_shm_allocated_to_domio(pbase) )
-> +        if ( (owner_dom_io && !is_shm_allocated_to_domio(pbase)) ||
-> +             (!owner_dom_io && strcmp(role_str, "owner") == 0) )
->          {
->              /*
->               * We found the first borrower of the region, the owner was not
->               * specified, so they should be assigned to dom_io.
->               */
-> -            ret = assign_shared_memory(dom_io, addr_cells, size_cells,
-> -                                       pbase, psize);
-> +            ret = assign_shared_memory(owner_dom_io ? dom_io : d,
-> +                                       addr_cells, size_cells,
-> +                                       pbase, psize, gbase);
->              if ( ret )
->                  return ret;
->          }
-> -- 
-> 2.25.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   48f35317c2..172015009a  172015009a6acc20357a2698800e13058ba1d3db -> smoke
 
