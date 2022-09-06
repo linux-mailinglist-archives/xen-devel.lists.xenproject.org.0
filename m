@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D44925AE4D3
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 11:54:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399736.641022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E185AE4DF
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 11:58:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399742.641033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVVHj-0004JH-Pm; Tue, 06 Sep 2022 09:54:23 +0000
+	id 1oVVKy-0004zS-9G; Tue, 06 Sep 2022 09:57:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399736.641022; Tue, 06 Sep 2022 09:54:23 +0000
+Received: by outflank-mailman (output) from mailman id 399742.641033; Tue, 06 Sep 2022 09:57:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVVHj-0004GW-My; Tue, 06 Sep 2022 09:54:23 +0000
-Received: by outflank-mailman (input) for mailman id 399736;
- Tue, 06 Sep 2022 09:54:23 +0000
+	id 1oVVKy-0004xJ-5e; Tue, 06 Sep 2022 09:57:44 +0000
+Received: by outflank-mailman (input) for mailman id 399742;
+ Tue, 06 Sep 2022 09:57:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yAEs=ZJ=bounce.vates.fr=bounce-md_30504962.631718cb.v1-4be0d71aa2844790b36dc51616f2ea80@srs-se1.protection.inumbo.net>)
- id 1oVVHi-0004GK-RX
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 09:54:22 +0000
-Received: from mail145-24.atl61.mandrillapp.com
- (mail145-24.atl61.mandrillapp.com [198.2.145.24])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0e75fcc-2dc9-11ed-a016-b9edf5238543;
- Tue, 06 Sep 2022 11:54:21 +0200 (CEST)
-Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail145-24.atl61.mandrillapp.com (Mailchimp) with ESMTP id
- 4MMLMH5spqzGlspCP
- for <xen-devel@lists.xenproject.org>; Tue,  6 Sep 2022 09:54:19 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 4be0d71aa2844790b36dc51616f2ea80; Tue, 06 Sep 2022 09:54:19 +0000
+ <SRS0=lcW6=ZJ=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
+ id 1oVVKx-0004xD-7D
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 09:57:43 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 58af8677-2dca-11ed-a016-b9edf5238543;
+ Tue, 06 Sep 2022 11:57:41 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3C7BED6E;
+ Tue,  6 Sep 2022 02:57:47 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3169B3F534;
+ Tue,  6 Sep 2022 02:57:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,66 +43,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0e75fcc-2dc9-11ed-a016-b9edf5238543
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr;
-	s=mandrill; t=1662458059; x=1662760459; i=andrei.semenov@vates.fr;
-	bh=urDc9A+qx5y028VCP4ahYiB7xtOwiFvSVqTYVaRjrX4=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=Z6KD2qtT+Z2ahFmsa37xdWPqH5K8SLBGt41IjGSa7nWCjuQLjF0uErnqPdjQXQrP8
-	 sarOjwIesHgBxOuHSlN3zw/IJoH2s+IyFQQYNRX4YtrTqrnLfyfgSazcvyke/l2yVV
-	 xoIkzpcPNLsGpKImPREdC6MFAkrq0U2B00e1yIQk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
- i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1662458059; h=From : 
- Subject : To : Cc : Message-Id : Date : MIME-Version : Content-Type : 
- Content-Transfer-Encoding : From : Subject : Date : X-Mandrill-User : 
- List-Unsubscribe; bh=urDc9A+qx5y028VCP4ahYiB7xtOwiFvSVqTYVaRjrX4=; 
- b=mwCBXM+lr9uH7RZxQsa15zRbtIzvdbt1MOsxTZTOz9ekEr2Y4iM3PylJWh2IN3h3ehC0DR
- /E9MHIpXHN7hdHOJ/jWAgVaco1f81EoFDOGzt9j9DpRsOq3NXd7niVjDpk0xFmrZyIRumV7L
- gSe6IOcmZB4EHdd+xgHeY0I4KmkDA=
-From: Andrei Semenov <andrei.semenov@vates.fr>
-Subject: [PATCH v2 0/2] live migration: optimisations
-X-Mailer: git-send-email 2.34.1
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 5cd6f291-6f11-459d-97c0-d09b574c3896
-X-Bm-Transport-Timestamp: 1662458058793
-To: andrei.semenov@vates.fr, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-Message-Id: <cover.1662457291.git.andrei.semenov@vates.fr>
-X-Report-Abuse: Please forward a copy of this message, including all headers, to abuse@mandrill.com
-X-Report-Abuse: You can also report abuse here: http://mandrillapp.com/contact/abuse?id=30504962.4be0d71aa2844790b36dc51616f2ea80
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20220906:md
-Date: Tue, 06 Sep 2022 09:54:19 +0000
+X-Inumbo-ID: 58af8677-2dca-11ed-a016-b9edf5238543
+From: Rahul Singh <rahul.singh@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v4 00/10] xen/arm: smmuv3: Merge Linux fixes to Xen
+Date: Tue,  6 Sep 2022 10:55:47 +0100
+Message-Id: <cover.1662455798.git.rahul.singh@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-This 2 patches implement some optimisations for guests live migraiton. 
+This patch series merge the applicable Linux fixes to Xen.
 
-Andrei Semenov (2):
-  live migration: do not use deffered bitmap when inappropriate
-  live migration: use superpages for physmap population on restore when
-    possible
+Bixuan Cui (1):
+  xen/arm: smmuv3: Change *array into *const array
 
- tools/include/xen-tools/libs.h           |  4 ++
- tools/libs/guest/xg_private.h            |  3 +
- tools/libs/guest/xg_sr_common.h          | 44 +++++++++++-
- tools/libs/guest/xg_sr_restore.c         | 60 +++++++---------
- tools/libs/guest/xg_sr_restore_x86_hvm.c | 88 +++++++++++++++++++++++-
- tools/libs/guest/xg_sr_restore_x86_pv.c  | 22 +++++-
- tools/libs/guest/xg_sr_save.c            | 23 +++----
- tools/libs/guest/xg_sr_save_x86_hvm.c    | 21 ++++++
- tools/libs/guest/xg_sr_save_x86_pv.c     | 39 +++++++++++
- 9 files changed, 247 insertions(+), 57 deletions(-)
+Christophe JAILLET (1):
+  xen/arm: smmuv3: Avoid open coded arithmetic in memory allocation
+
+Gustavo A. R. Silva (1):
+  xen/arm: smmuv3: Fix fall-through warning for Clang
+
+Jean-Philippe Brucker (2):
+  xen/arm: smmuv3: Fix endianness annotations
+  xen/arm: smmuv3: Move definitions to a header
+
+Robin Murphy (1):
+  xen/arm: smmuv3: Remove the page 1 fixup
+
+Zenghui Yu (2):
+  xen/arm: smmuv3: Fix l1 stream table size in the error message
+  xen/arm: smmuv3: Remove the unused fields for PREFETCH_CONFIG command
+
+Zhen Lei (1):
+  xen/arm: smmuv3: Remove unnecessary oom message
+
+Zhou Wang (1):
+  xen/arm: smmuv3: Ensure queue is read after updating prod pointer
+
+ xen/drivers/passthrough/arm/smmu-v3.c | 741 ++------------------------
+ xen/drivers/passthrough/arm/smmu-v3.h | 672 +++++++++++++++++++++++
+ 2 files changed, 708 insertions(+), 705 deletions(-)
+ create mode 100644 xen/drivers/passthrough/arm/smmu-v3.h
 
 -- 
-2.34.1
+2.25.1
 
-
-
-Andrei Semenov | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-w: vates.fr | xcp-ng.org | xen-orchestra.com
 
