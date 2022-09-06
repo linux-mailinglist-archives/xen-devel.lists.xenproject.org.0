@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A231E5AE14C
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:40:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399549.640801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3B1D5AE16A
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:43:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399577.640812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVTBi-0001CG-By; Tue, 06 Sep 2022 07:40:02 +0000
+	id 1oVTEn-0003r3-Uu; Tue, 06 Sep 2022 07:43:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399549.640801; Tue, 06 Sep 2022 07:40:02 +0000
+Received: by outflank-mailman (output) from mailman id 399577.640812; Tue, 06 Sep 2022 07:43:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVTBi-00017v-2K; Tue, 06 Sep 2022 07:40:02 +0000
-Received: by outflank-mailman (input) for mailman id 399549;
- Tue, 06 Sep 2022 07:40:00 +0000
+	id 1oVTEn-0003ol-Rt; Tue, 06 Sep 2022 07:43:13 +0000
+Received: by outflank-mailman (input) for mailman id 399577;
+ Tue, 06 Sep 2022 07:43:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YUvx=ZJ=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1oVTBg-0008BB-3R
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:40:00 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 1a7238db-2db7-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 09:39:56 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C042139F;
- Tue,  6 Sep 2022 00:40:04 -0700 (PDT)
-Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
- [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 77E0C3F73D;
- Tue,  6 Sep 2022 00:40:23 -0700 (PDT)
+ <SRS0=CCHN=ZJ=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1oVTEm-0003o0-2A
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:43:12 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8d21f3dd-2db7-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 09:43:09 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id qh18so21226397ejb.7
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Sep 2022 00:43:11 -0700 (PDT)
+Received: from leoy-huanghe.lan ([104.245.99.30])
+ by smtp.gmail.com with ESMTPSA id
+ q3-20020a17090676c300b007030c97ae62sm6150708ejn.191.2022.09.06.00.43.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Sep 2022 00:43:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,246 +44,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a7238db-2db7-11ed-af93-0125da4c0113
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com,
-	Penny Zheng <Penny.Zheng@arm.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
+X-Inumbo-ID: 8d21f3dd-2db7-11ed-af93-0125da4c0113
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date;
+        bh=eh9PbLozRnOPRRmksXqXS+0hoLk4T4gMMpNPc3VabkE=;
+        b=p6zSmfxguCCnxrxCAbKkmDokuG7aiSWsL8cAQvxLYyLr/j8V9so6DrUxCVYQnSS7ou
+         cROwDMfQTehuDQEUKQqQ4Rq1lSfcsE+6VHddjAgGpzeng/garJpkCNRZmr3SlruskVYw
+         tKZvGSosIi0oMSi8eyVBxtialyIkGokHsr/VKOJKEjPxQ1fqnLGMteB0vQ7vOfRnyqUu
+         GNplksvDZMP58ovUO160AM0P5vJSS0CPyn7yWrb2OND88m87s6XiBKtQkPBhuS3LLAHh
+         gztlHP+nDf4cLCvFmI9VIY80H44NKkwGDjHErjaHGPy9q6ttmP0XL4IUoicd9cNiXVqj
+         ojZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+        bh=eh9PbLozRnOPRRmksXqXS+0hoLk4T4gMMpNPc3VabkE=;
+        b=36zoTO9c/nsr2altRjFLhBv0aNeeeVSiM7PdC/vw8JmPkIl0dPlLBoyKsn8AvEHqnd
+         mORJtkqAstnA/QoXsVjlOUYXVRsbKwDLZexZ5Y/hrV5KiMa1mOcAaZe2uubJZYRmLpWw
+         Kx9oMq7dOE5zpgr8lJGqY5pVaFxAsHJUHUltv0gjud3jAglM5oL/nJlKTFMAfpZWS36+
+         Eky6kI6MGYCOkyJV5OhHvCa3v8rjWmwZSl9YSRC2T1YOwZpcIchYsYk445uMm24TCfC6
+         d8CrSWEtHqnimZLbXjsKJ1HQ3/4rlqu/epFZ+HK4MqhgpLzba6NrJ+YQ8gWrK1c0U2jT
+         aAwQ==
+X-Gm-Message-State: ACgBeo2Yws7SsFRjBZhColK3h70W1sAPzNHfajvtl0HgA9l60GFD3vrK
+	ll9A22ieaQc4qKyW8roPtlDKbQ==
+X-Google-Smtp-Source: AA6agR7JcMHkHh8ZUZn6sBc9XLLw2UwJ67ykot+SgRWzq1/xgyoWWEGY6GA1e1ONf1nwKOdT8fXtxg==
+X-Received: by 2002:a17:907:272a:b0:741:8105:49e2 with SMTP id d10-20020a170907272a00b00741810549e2mr28479988ejl.171.1662450190557;
+        Tue, 06 Sep 2022 00:43:10 -0700 (PDT)
+Date: Tue, 6 Sep 2022 15:43:05 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Julien Grall <julien@xen.org>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v12 6/6] xen: retrieve reserved pages on populate_physmap
-Date: Tue,  6 Sep 2022 15:39:19 +0800
-Message-Id: <20220906073919.941934-7-Penny.Zheng@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220906073919.941934-1-Penny.Zheng@arm.com>
-References: <20220906073919.941934-1-Penny.Zheng@arm.com>
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Rahul Singh <Rahul.Singh@arm.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Julien Grall <jgrall@amazon.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
+Message-ID: <Yxb6CdYHaymu130v@leoy-huanghe.lan>
+References: <Ywcr1849LiEHezd3@leoy-huanghe>
+ <12a8c169-55aa-5e9f-19f8-acd77ea2a8fe@xen.org>
+ <YwdiDr2uLXGEl2TC@leoy-huanghe>
+ <52f24132-ba2b-d4ab-ebd0-613f673b5658@xen.org>
+ <YweJ6ZpRhMkT5bab@leoy-yangtze.lan>
+ <CALZQ+UN8cQ4avggxqgjed=DsitfEteQpuhEqb+p747vmeFCyUA@mail.gmail.com>
+ <87r10puiey.wl-maz@kernel.org>
+ <Yxbz+pOs5+1RkEkx@leoy-huanghe.lan>
+ <CAMj1kXFv2AhngPrrE2GWE3fxsL3pd0x8DSzUn-VQL-RrQhXjtw@mail.gmail.com>
+ <Yxb2c6aLrcf8e16q@leoy-huanghe.lan>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Yxb2c6aLrcf8e16q@leoy-huanghe.lan>
 
-When a static domain populates memory through populate_physmap at runtime,
-it shall retrieve reserved pages from resv_page_list to make sure that
-guest RAM is still restricted in statically configured memory regions.
-This commit also introduces a new helper acquire_reserved_page to make it work.
+On Tue, Sep 06, 2022 at 03:27:47PM +0800, Leo Yan wrote:
+> On Tue, Sep 06, 2022 at 09:22:00AM +0200, Ard Biesheuvel wrote:
+> 
+> [...]
+> 
+> > > IIUC, you consider the general flow from architecture view, so you prefer
+> > > to ask Xen to implement EFI stub to comply the general flow for EFI
+> > > booting sequence, right?
+> > >
+> > > If the conclusion is to change Xen for support EFI stub, then this
+> > > would be fine for me and I will hold on and leave Xen developers to work
+> > > on it.
+> > >
+> > 
+> > As I mentioned before, proper EFI boot support in Xen would be nice.
+> > *However*, I don't think it makes sense to go through all the trouble
+> > of implementing that just to shut up a warning that doesn't affect Xen
+> > to begin with.
+> 
+> Another option is we can set a bit for xen feature, so Linux kernel
+> can read out the xen feature and make decision if need to reserve
+> memory for RD tables based on the new feature bit.  This is somehow
+> a solution is to create a general protocol between Xen and Linux kernel.
+> 
+> How about you think for this?
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
----
-v12 changes:
-- it should be acquire_domstatic_pages() calling unprepare_staticmem_pages()
-on failing
-- add in-code comment
----
-v11 change:
-- with assignment having failed and the page not exposed to the guest at any
-point, there is no need for scrubbing
----
-v10 changes:
-- add lock on the fail path
----
-v9 changes:
-- Use ASSERT_ALLOC_CONTEXT() in acquire_reserved_page
-- Add free_staticmem_pages to undo prepare_staticmem_pages when
-assign_domstatic_pages
-- Remove redundant static in error message
----
-v8 changes:
-- As concurrent free/allocate could modify the resv_page_list, we still
-need the lock
----
-v7 changes:
-- remove the lock, since we add the page to rsv_page_list after it has
-been totally freed.
----
-v6 changes:
-- drop the lock before returning
----
-v5 changes:
-- extract common codes for assigning pages into a helper assign_domstatic_pages
-- refine commit message
-- remove stub function acquire_reserved_page
-- Alloc/free of memory can happen concurrently. So access to rsv_page_list
-needs to be protected with a spinlock
----
-v4 changes：
-- miss dropping __init in acquire_domstatic_pages
-- add the page back to the reserved list in case of error
-- remove redundant printk
-- refine log message and make it warn level
----
-v3 changes:
-- move is_domain_using_staticmem to the common header file
-- remove #ifdef CONFIG_STATIC_MEMORY-ary
-- remove meaningless page_to_mfn(page) in error log
----
-v2 changes:
-- introduce acquire_reserved_page to retrieve reserved pages from
-resv_page_list
-- forbid non-zero-order requests in populate_physmap
-- let is_domain_static return ((void)(d), false) on x86
----
- xen/common/memory.c     | 23 +++++++++++++
- xen/common/page_alloc.c | 74 +++++++++++++++++++++++++++++++++--------
- xen/include/xen/mm.h    |  1 +
- 3 files changed, 84 insertions(+), 14 deletions(-)
+Just supplement info.  I tried to set flag EFI_PARAVIRT in Linux
+kernel, but kernel cannot boot up successfully on Arm64.  Seems
+the Linux kernel will not map memory correctly after settting
+this flag.
 
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index bc89442ba5..ae8163a738 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -245,6 +245,29 @@ static void populate_physmap(struct memop_args *a)
- 
-                 mfn = _mfn(gpfn);
-             }
-+            else if ( is_domain_using_staticmem(d) )
-+            {
-+                /*
-+                 * No easy way to guarantee the retrieved pages are contiguous,
-+                 * so forbid non-zero-order requests here.
-+                 */
-+                if ( a->extent_order != 0 )
-+                {
-+                    gdprintk(XENLOG_WARNING,
-+                             "Cannot allocate static order-%u pages for %pd\n",
-+                             a->extent_order, d);
-+                    goto out;
-+                }
-+
-+                mfn = acquire_reserved_page(d, a->memflags);
-+                if ( mfn_eq(mfn, INVALID_MFN) )
-+                {
-+                    gdprintk(XENLOG_WARNING,
-+                             "%pd: failed to retrieve a reserved page\n",
-+                             d);
-+                    goto out;
-+                }
-+            }
-             else
-             {
-                 page = alloc_domheap_pages(d, a->extent_order, a->memflags);
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 18d34d1b69..215f4c234b 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -2755,9 +2755,8 @@ void free_domstatic_page(struct page_info *page)
-         put_domain(d);
- }
- 
--static bool __init prepare_staticmem_pages(struct page_info *pg,
--                                           unsigned long nr_mfns,
--                                           unsigned int memflags)
-+static bool prepare_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-+                                    unsigned int memflags)
- {
-     bool need_tlbflush = false;
-     uint32_t tlbflush_timestamp = 0;
-@@ -2838,6 +2837,25 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
-     return pg;
- }
- 
-+static int assign_domstatic_pages(struct domain *d, struct page_info *pg,
-+                                  unsigned int nr_mfns, unsigned int memflags)
-+{
-+    if ( !d || (memflags & (MEMF_no_owner | MEMF_no_refcount)) )
-+    {
-+        /*
-+         * Respective handling omitted here because right now
-+         * acquired static memory is only for guest RAM.
-+         */
-+        ASSERT_UNREACHABLE();
-+        return -EINVAL;
-+    }
-+
-+    if ( assign_pages(pg, nr_mfns, d, memflags) )
-+        return -EINVAL;
-+
-+    return 0;
-+}
-+
- /*
-  * Acquire nr_mfns contiguous pages, starting at #smfn, of static memory,
-  * then assign them to one specific domain #d.
-@@ -2853,17 +2871,7 @@ int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
-     if ( !pg )
-         return -ENOENT;
- 
--    if ( !d || (memflags & (MEMF_no_owner | MEMF_no_refcount)) )
--    {
--        /*
--         * Respective handling omitted here because right now
--         * acquired static memory is only for guest RAM.
--         */
--        ASSERT_UNREACHABLE();
--        return -EINVAL;
--    }
--
--    if ( assign_pages(pg, nr_mfns, d, memflags) )
-+    if ( assign_domstatic_pages(d, pg, nr_mfns, memflags) )
-     {
-         unprepare_staticmem_pages(pg, nr_mfns, memflags & MEMF_no_scrub);
-         return -EINVAL;
-@@ -2871,6 +2879,44 @@ int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
- 
-     return 0;
- }
-+
-+/*
-+ * Acquire a page from reserved page list(resv_page_list), when populating
-+ * memory for static domain on runtime.
-+ */
-+mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags)
-+{
-+    struct page_info *page;
-+
-+    ASSERT_ALLOC_CONTEXT();
-+
-+    /* Acquire a page from reserved page list(resv_page_list). */
-+    spin_lock(&d->page_alloc_lock);
-+    page = page_list_remove_head(&d->resv_page_list);
-+    spin_unlock(&d->page_alloc_lock);
-+    if ( unlikely(!page) )
-+        return INVALID_MFN;
-+
-+    if ( !prepare_staticmem_pages(page, 1, memflags) )
-+        goto fail;
-+
-+    if ( assign_domstatic_pages(d, page, 1, memflags) )
-+        goto fail_assign;
-+
-+    return page_to_mfn(page);
-+
-+ fail_assign:
-+    /*
-+     * The page was never accessible by the domain. So scrubbing can be
-+     * skipped
-+     */
-+    unprepare_staticmem_pages(page, 1, false);
-+ fail:
-+    spin_lock(&d->page_alloc_lock);
-+    page_list_add_tail(page, &d->resv_page_list);
-+    spin_unlock(&d->page_alloc_lock);
-+    return INVALID_MFN;
-+}
- #endif
- 
- /*
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 93db3c4418..a925028ab3 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -198,6 +198,7 @@ struct npfec {
- #else
- #define MAX_ORDER 20 /* 2^20 contiguous pages */
- #endif
-+mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags);
- 
- /* Private domain structs for DOMID_XEN, DOMID_IO, etc. */
- extern struct domain *dom_xen, *dom_io;
--- 
-2.25.1
+This is why I didn't move forward with this flag.
 
+Thanks,
+Leo
 
