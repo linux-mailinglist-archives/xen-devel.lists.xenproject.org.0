@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E53C5AE4D2
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 11:54:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399732.641010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D44925AE4D3
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 11:54:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399736.641022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVVHK-0003on-Gh; Tue, 06 Sep 2022 09:53:58 +0000
+	id 1oVVHj-0004JH-Pm; Tue, 06 Sep 2022 09:54:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399732.641010; Tue, 06 Sep 2022 09:53:58 +0000
+Received: by outflank-mailman (output) from mailman id 399736.641022; Tue, 06 Sep 2022 09:54:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVVHK-0003m2-Dl; Tue, 06 Sep 2022 09:53:58 +0000
-Received: by outflank-mailman (input) for mailman id 399732;
- Tue, 06 Sep 2022 09:53:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oVVHJ-0003lw-63
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 09:53:57 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVVHI-0008Pt-Ob; Tue, 06 Sep 2022 09:53:56 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225]
- helo=[192.168.11.176]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVVHI-0003e9-EN; Tue, 06 Sep 2022 09:53:56 +0000
+	id 1oVVHj-0004GW-My; Tue, 06 Sep 2022 09:54:23 +0000
+Received: by outflank-mailman (input) for mailman id 399736;
+ Tue, 06 Sep 2022 09:54:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yAEs=ZJ=bounce.vates.fr=bounce-md_30504962.631718cb.v1-4be0d71aa2844790b36dc51616f2ea80@srs-se1.protection.inumbo.net>)
+ id 1oVVHi-0004GK-RX
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 09:54:22 +0000
+Received: from mail145-24.atl61.mandrillapp.com
+ (mail145-24.atl61.mandrillapp.com [198.2.145.24])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0e75fcc-2dc9-11ed-a016-b9edf5238543;
+ Tue, 06 Sep 2022 11:54:21 +0200 (CEST)
+Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail145-24.atl61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4MMLMH5spqzGlspCP
+ for <xen-devel@lists.xenproject.org>; Tue,  6 Sep 2022 09:54:19 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 4be0d71aa2844790b36dc51616f2ea80; Tue, 06 Sep 2022 09:54:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,150 +43,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=fG7RIjXOPLfhyzD4onYNGManxHoHwmBVxGNiLmP5nLE=; b=rXb/zRrD3pp3iFvgqVDwWtGFPb
-	/4KHpzLHSgrQY+s2v6IeN9qjaP5hece2ufdh/84wJSlBzfm8OGozXMIpRtmr4hYUJDKU4U2sNqWJz
-	Xi/RBXGLNbECkTS7lBCeockNZX++Jff6mFRpj2HOT+tnBvVXg1O/h73nOOC9QG47ftLQ=;
-Message-ID: <6b230e0a-1075-1ce9-9ceb-9d3dd5410f9c@xen.org>
-Date: Tue, 6 Sep 2022 10:53:53 +0100
+X-Inumbo-ID: e0e75fcc-2dc9-11ed-a016-b9edf5238543
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr;
+	s=mandrill; t=1662458059; x=1662760459; i=andrei.semenov@vates.fr;
+	bh=urDc9A+qx5y028VCP4ahYiB7xtOwiFvSVqTYVaRjrX4=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=Z6KD2qtT+Z2ahFmsa37xdWPqH5K8SLBGt41IjGSa7nWCjuQLjF0uErnqPdjQXQrP8
+	 sarOjwIesHgBxOuHSlN3zw/IJoH2s+IyFQQYNRX4YtrTqrnLfyfgSazcvyke/l2yVV
+	 xoIkzpcPNLsGpKImPREdC6MFAkrq0U2B00e1yIQk=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
+ i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1662458059; h=From : 
+ Subject : To : Cc : Message-Id : Date : MIME-Version : Content-Type : 
+ Content-Transfer-Encoding : From : Subject : Date : X-Mandrill-User : 
+ List-Unsubscribe; bh=urDc9A+qx5y028VCP4ahYiB7xtOwiFvSVqTYVaRjrX4=; 
+ b=mwCBXM+lr9uH7RZxQsa15zRbtIzvdbt1MOsxTZTOz9ekEr2Y4iM3PylJWh2IN3h3ehC0DR
+ /E9MHIpXHN7hdHOJ/jWAgVaco1f81EoFDOGzt9j9DpRsOq3NXd7niVjDpk0xFmrZyIRumV7L
+ gSe6IOcmZB4EHdd+xgHeY0I4KmkDA=
+From: Andrei Semenov <andrei.semenov@vates.fr>
+Subject: [PATCH v2 0/2] live migration: optimisations
+X-Mailer: git-send-email 2.34.1
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 5cd6f291-6f11-459d-97c0-d09b574c3896
+X-Bm-Transport-Timestamp: 1662458058793
+To: andrei.semenov@vates.fr, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+Message-Id: <cover.1662457291.git.andrei.semenov@vates.fr>
+X-Report-Abuse: Please forward a copy of this message, including all headers, to abuse@mandrill.com
+X-Report-Abuse: You can also report abuse here: http://mandrillapp.com/contact/abuse?id=30504962.4be0d71aa2844790b36dc51616f2ea80
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20220906:md
+Date: Tue, 06 Sep 2022 09:54:19 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH v3 2/2] xen/pci: replace call to is_memory_hole to
- pci_check_bar
-Content-Language: en-US
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>
-References: <cover.1662024325.git.rahul.singh@arm.com>
- <e30beac1480f03b51933d8016ad9aed8855ffc18.1662024325.git.rahul.singh@arm.com>
- <be43a751-2ceb-df74-7525-b84505d341b8@xen.org>
- <CC75ADF3-C7BA-4AE7-B5C0-22B0EA87F08B@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <CC75ADF3-C7BA-4AE7-B5C0-22B0EA87F08B@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
+This 2 patches implement some optimisations for guests live migraiton. 
 
+Andrei Semenov (2):
+  live migration: do not use deffered bitmap when inappropriate
+  live migration: use superpages for physmap population on restore when
+    possible
 
-On 06/09/2022 10:39, Rahul Singh wrote:
-> Hi Julien,
-> 
->> On 3 Sep 2022, at 8:18 am, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Rahul,
->>
->> On 01/09/2022 10:29, Rahul Singh wrote:
->>> is_memory_hole was implemented for x86 and not for ARM when introduced.
->>> Replace is_memory_hole call to pci_check_bar as function should check
->>> if device BAR is in defined memory range. Also, add an implementation
->>> for ARM which is required for PCI passthrough.
->>> On x86, pci_check_bar will call is_memory_hole which will check if BAR
->>> is not overlapping with any memory region defined in the memory map.
->>> On ARM, pci_check_bar will go through the host bridge ranges and check
->>> if the BAR is in the range of defined ranges.
->>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->>> ---
->>> Changes in v3:
->>>   - fix minor comments
->>> ---
->>>   xen/arch/arm/include/asm/pci.h     |  2 ++
->>>   xen/arch/arm/pci/pci-host-common.c | 43 ++++++++++++++++++++++++++++++
->>>   xen/arch/x86/include/asm/pci.h     | 10 +++++++
->>>   xen/drivers/passthrough/pci.c      |  8 +++---
->>>   4 files changed, 59 insertions(+), 4 deletions(-)
->>> diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
->>> index 80a2431804..8cb46f6b71 100644
->>> --- a/xen/arch/arm/include/asm/pci.h
->>> +++ b/xen/arch/arm/include/asm/pci.h
->>> @@ -126,6 +126,8 @@ int pci_host_iterate_bridges_and_count(struct domain *d,
->>>     int pci_host_bridge_mappings(struct domain *d);
->>>   +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
->>> +
->>>   #else   /*!CONFIG_HAS_PCI*/
->>>     struct arch_pci_dev { };
->>> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
->>> index 89ef30028e..0eb121666d 100644
->>> --- a/xen/arch/arm/pci/pci-host-common.c
->>> +++ b/xen/arch/arm/pci/pci-host-common.c
->>> @@ -24,6 +24,16 @@
->>>     #include <asm/setup.h>
->>>   +/*
->>> + * struct to hold pci device bar.
->>> + */
->>
->> I find this comment a bit misleading. What you are storing is a
->> candidate region. IOW, this may or may not be a PCI device bar.
->>
->> Given the current use below, I would rename the structure to something more specific like: pdev_bar_check.
-> 
-> Ack.
->>
->>> +struct pdev_bar
->>> +{
->>> +    mfn_t start;
->>> +    mfn_t end;
->>> +    bool is_valid;
->>> +};
->>> +
->>>   /*
->>>    * List for all the pci host bridges.
->>>    */
->>> @@ -363,6 +373,39 @@ int __init pci_host_bridge_mappings(struct domain *d)
->>>       return 0;
->>>   }
->>>   +static int is_bar_valid(const struct dt_device_node *dev,
->>> +                        uint64_t addr, uint64_t len, void *data)
->>> +{
->>> +    struct pdev_bar *bar_data = data;
->>> +    unsigned long s = mfn_x(bar_data->start);
->>> +    unsigned long e = mfn_x(bar_data->end);
->>> +
->>> +    if ( (s <= e) && (s >= PFN_DOWN(addr)) && (e <= PFN_UP(addr + len - 1)) )
->>
->> AFAICT 's'  and 'e' are provided by pci_check_bar() and will never change. So can we move the check 's <= e' outside of the callback?
-> 
-> Yes, We can move the check outside the callback but I feel that if we check here then it is more
-> readable that we are checking for all possible values in one statement. Let me know your view on this.
-The readability is really a matter of taste here. But my point is more 
-on the number of time a check is done.
-
-It seems pointless to do the same check N times when you know the values 
-are not going to change. Admittedly, the operation is fast (this is a 
-comparison) and N should be small (?).
-
-However, I think it raises the question on where do you draw the line?
-
-Personally, I think all invariant should be checked outside of 
-callbacks. So the line is very clear.
-
-> 
->>
->>> +        bar_data->is_valid =  true;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
->>> +{
->>
->> Other than the current calls in check_pdev(), do you have plan to use it in more places? The reason I am asking it is this function is non-trivial on Arm (dt_for_each_range() is quite complex).
-> 
-> I don’t see any use of this function in more places. As this function will be called during dom0 boot when the PCI devices are
-> added I don’t see any performance issues. We may need to revisit this function when we add ACPI PCI passthrough support.
-> I will add TODO that we need to revisit this function for ACPI PCI passthrough support.
-
-Thanks.
-
-Cheers,
+ tools/include/xen-tools/libs.h           |  4 ++
+ tools/libs/guest/xg_private.h            |  3 +
+ tools/libs/guest/xg_sr_common.h          | 44 +++++++++++-
+ tools/libs/guest/xg_sr_restore.c         | 60 +++++++---------
+ tools/libs/guest/xg_sr_restore_x86_hvm.c | 88 +++++++++++++++++++++++-
+ tools/libs/guest/xg_sr_restore_x86_pv.c  | 22 +++++-
+ tools/libs/guest/xg_sr_save.c            | 23 +++----
+ tools/libs/guest/xg_sr_save_x86_hvm.c    | 21 ++++++
+ tools/libs/guest/xg_sr_save_x86_pv.c     | 39 +++++++++++
+ 9 files changed, 247 insertions(+), 57 deletions(-)
 
 -- 
-Julien Grall
+2.34.1
+
+
+
+Andrei Semenov | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+w: vates.fr | xcp-ng.org | xen-orchestra.com
 
