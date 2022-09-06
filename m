@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 409635AF6F1
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:37:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400063.641640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1EE5AF712
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:40:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.400242.641960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgFr-0000kk-Po; Tue, 06 Sep 2022 21:37:11 +0000
+	id 1oVgIR-0007td-SR; Tue, 06 Sep 2022 21:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400063.641640; Tue, 06 Sep 2022 21:37:11 +0000
+Received: by outflank-mailman (output) from mailman id 400242.641960; Tue, 06 Sep 2022 21:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgFr-0000dX-Ll; Tue, 06 Sep 2022 21:37:11 +0000
-Received: by outflank-mailman (input) for mailman id 400063;
- Tue, 06 Sep 2022 21:37:10 +0000
+	id 1oVgIR-0007aj-4S; Tue, 06 Sep 2022 21:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 400242;
+ Tue, 06 Sep 2022 21:39:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+HoH=ZJ=citrix.com=prvs=2410c4419=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oVgFq-0000Cs-JZ
- for xen-devel@lists.xen.org; Tue, 06 Sep 2022 21:37:10 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d260ed1-2e03-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 18:43:37 +0200 (CEST)
+ <SRS0=2Xei=ZJ=linux.dev=kent.overstreet@srs-se1.protection.inumbo.net>)
+ id 1oVgH0-0000Cs-2n
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:38:22 +0000
+Received: from out1.migadu.com (out1.migadu.com [91.121.223.63])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c744202b-2e10-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 20:21:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,103 +36,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d260ed1-2e03-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1662482617;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pa1RL658MOY2x+MYF4zQp4voWWRCaFCGRfsvy99OMWo=;
-  b=Vp09P5ZDm4EMHpCzpnc+TFMr3ZFzY4z4KJhdTPfksklee7IgkY1rq33S
-   SbSL34gRg9MFC69F/33iNdtSjAIB9tXSSluneRA9Gke1jd3S5sX8MJjUT
-   b6MRNPpnhI1WRTt+W5R8AjnBXhHgz9MysaRICuVdcsxi2YCAcUGg0dYXu
-   4=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 2.7
-X-MesageID: 80311183
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:EaDUKKI+4Vk12QjLFE+Rt5IlxSXFcZb7ZxGr2PjKsXjdYENShmMEz
- GUYWmmOP/uMMzPwLt9wYI+x9k9Xv8LXytAwQQFlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokf0/0vraP65xZVF/fngbqLmD+LZMTxGSwZhSSMw4TpugOd8iYNz6TSDK1rlV
- eja/ouOYzdJ5xYuajhOs/Pb9ks11BjPkGhwUmIWNKgjUGD2zxH5PLpHTYmtIn3xRJVjH+LSb
- 44vG5ngows1Vz90Yj+Uuu6Tnn8iG9Y+DiDX4pZiYICwgwAqm8AH+v1T2Mzwy6tgo27hc9hZk
- L2hvHErIOsjFvWkdO81C3G0H8ziVEHvFXCuzXWX6KSuI0P6n3TEk7ZILkE0F5Eh0d0sBU5ez
- LscEhUXV0XW7w626OrTpuhEg80iKI/gPZ8Fu2EmxjbcZRokacmdGeOQv4YehWpuwJAVdRrdT
- 5NxhT5HZRLcYxpJKxEPBYg3huuAjXjjaTxI7lmSoMLb5kCDlFcoieG9a7I5fPSlHsly3X+Hj
- FncvHXiOkwkM4KA43mKpyfEaujnwnqgBdN6+KeD3uFuqE2ewCoUEhJ+fVy/rPqill+lW/pQL
- kUV/mwlqq1a3EmqTdS7Xxq8pXOflhodXdNKFKs98g7l4q3Q7gWCD24IVAldeccmv887Qz8t/
- lKRltavDjtq2JWXVHac+7G8vT60fy8PIgcqZyAeShAey8L+u4x1hRXKJv5mGbK1j9DoXyn3w
- iqLoTIWg7QVhNQMka68+DjvnTOqrZXPUkg6+wTLQmW5xgd4Yoe/YMqv81ezxeZNKsOVQ0eMu
- FAAmtOC96YeAJfLkzaCKM0THauk/PbDMyDZiERHG5gn/i6qvXm5cuh4+y1zKk5vNYAfZTbjb
- UvXuAVQzI9SOHqsfel8ZIfZI80uwLimH9njUP3ZRt5PZJFrc0mA5i4GTVWMxWnxl1NpnawhE
- ZCDNMKtFmoBT6BmyjOsQKEay7BD+8wl7TqNH9ahlU3hiOfAIi7OIVsYDLeQRrB6yoGEoi/Jy
- v1kbM+l2ywYVNfbeBCCpOb/Mms2wWgH6YHe8pIJLLbTeVs4RgnNGNeKn+p/JtUNc7B9076Ro
- yrjAhIwJE/X3yWvFOmcVpx0hFoDt75bpGlzAyEjNE3AN5MLMdf2t/d3m3fakNAaGA1fIR1cF
- aNtlz2oWKgnd9g+0211gWPBhIJjbg+3ogmFIjCoZjMyF7Y5GVKTpoe+L1S0rnZXZsZSiSfZi
- +T5vj43vLJZH1gyZCooQKnHI6yNUYg1x7spAhqgzih7c0Tw6ol6QxHMYgsMC5hVcX3+Ks6yj
- Vn+7eEw+baQ+OfYMbDh2ci5kmteO7ImTxoGQzmLse3e2Ouz1jPL/LKsmd2gJVj1PF4YMo37D
- QmJ55kQ6ME6oWs=
-IronPort-HdrOrdr: A9a23:CrupV676w5DMWc3LnAPXwMrXdLJyesId70hD6qhwISY1TiW9rb
- HIoB17726RtN9/Yh0dcLy7V5VoBEmsk6KdgrNhWItKPjOW21dARbsKheCJrgEIWReOlNK1vZ
- 0QCpSWY+eRMbEVt6jH3DU=
-X-IronPort-AV: E=Sophos;i="5.93,294,1654574400"; 
-   d="scan'208";a="80311183"
-Date: Tue, 6 Sep 2022 17:43:30 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-CC: <xen-devel@lists.xen.org>, Vincent Guittot <vincent.guittot@linaro.org>,
-	<stratos-dev@op-lists.linaro.org>, Alex =?iso-8859-1?Q?Benn=E9e?=
-	<alex.bennee@linaro.org>, Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>, Mike Holmes
-	<mike.holmes@linaro.org>, Oleksandr Tyshchenko <olekstysh@gmail.com>, Wei Liu
-	<wl@xen.org>, Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH V5 6/6] libxl: Allocate MMIO params for GPIO device and
- update DT
-Message-ID: <Yxd4srBXfXZKVoxm@perard.uk.xensource.com>
-References: <cover.1661159474.git.viresh.kumar@linaro.org>
- <4a238937ceb803f494e5633a3a779866383bd463.1661159474.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: c744202b-2e10-11ed-af93-0125da4c0113
+Date: Tue, 6 Sep 2022 14:20:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1662488510;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/bRlcVcrWdQKJLJipKk17c91ZfuMwNoEsJqygzANM10=;
+	b=e2VD/HcikFLJhe0V11ErS/Oin4ybn/TXkbGiMkiUOxLxKEWpdcoX4otQ2quaeh2xN9tkEz
+	gJSSZJlOcx5MH/FwRLBQM+nMzvd03D3L1jInmtTiFs1YUwF1FG/7tFAS2gRVdaASeb5tb9
+	7SVVXyTQbLTanYnVJHubYmXd6a/lpqA=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Kent Overstreet <kent.overstreet@linux.dev>
+To: Michal Hocko <mhocko@suse.com>
+Cc: Suren Baghdasaryan <surenb@google.com>, Mel Gorman <mgorman@suse.de>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Matthew Wilcox <willy@infradead.org>,
+	"Liam R. Howlett" <liam.howlett@oracle.com>,
+	David Vernet <void@manifault.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Laurent Dufour <ldufour@linux.ibm.com>,
+	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, mcgrof@kernel.org,
+	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
+	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Benjamin Segall <bsegall@google.com>,
+	Daniel Bristot de Oliveira <bristot@redhat.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Christopher Lameter <cl@linux.com>,
+	Pekka Enberg <penberg@kernel.org>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Shakeel Butt <shakeelb@google.com>,
+	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de,
+	jbaron@akamai.com, David Rientjes <rientjes@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	kernel-team <kernel-team@android.com>,
+	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev,
+	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
+	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+Message-ID: <20220906182058.iijmpzu4rtxowy37@kmo-framework>
+References: <Yw88RFuBgc7yFYxA@dhcp22.suse.cz>
+ <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
+ <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
+ <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
+ <YxEE1vOwRPdzKxoq@dhcp22.suse.cz>
+ <CAJuCfpHuzJGTA_-m0Jfawc7LgJLt4GztUUY4K9N9-7bFqJuXnw@mail.gmail.com>
+ <20220901201502.sn6223bayzwferxv@moria.home.lan>
+ <YxW4Ig338d2vQAz3@dhcp22.suse.cz>
+ <20220905234649.525vorzx27ybypsn@kmo-framework>
+ <Yxb1cxDSyte1Ut/F@dhcp22.suse.cz>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4a238937ceb803f494e5633a3a779866383bd463.1661159474.git.viresh.kumar@linaro.org>
+In-Reply-To: <Yxb1cxDSyte1Ut/F@dhcp22.suse.cz>
+X-Migadu-Flow: FLOW_OUT
+X-Migadu-Auth-User: linux.dev
 
-On Mon, Aug 22, 2022 at 02:45:18PM +0530, Viresh Kumar wrote:
-> This patch allocates Virtio MMIO params (IRQ and memory region) and pass
-> them to the backend, also update Guest device-tree based on Virtio GPIO
-> DT bindings [1].
+On Tue, Sep 06, 2022 at 09:23:31AM +0200, Michal Hocko wrote:
+> On Mon 05-09-22 19:46:49, Kent Overstreet wrote:
+> > On Mon, Sep 05, 2022 at 10:49:38AM +0200, Michal Hocko wrote:
+> > > This is really my main concern about this whole work. Not only it adds a
+> > > considerable maintenance burden to the core MM because
+> > 
+> > [citation needed]
 > 
-> [1] https://www.kernel.org/doc/Documentation/devicetree/bindings/gpio/gpio-virtio.yaml
+> I thought this was clear from the email content (the part you haven't
+> quoted here). But let me be explicit one more time for you.
 > 
-> Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
->  tools/libs/light/libxl_arm.c | 51 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 51 insertions(+)
+> I hope we can agree that in order for this kind of tracking to be useful
+> you need to cover _callers_ of the allocator or in the ideal world
+> the users/owner of the tracked memory (the later is sometimes much
+> harder/impossible to track when the memory is handed over from one peer
+> to another).
 > 
-> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> index 4c1012e56893..86c1e560900f 100644
-> --- a/tools/libs/light/libxl_arm.c
-> +++ b/tools/libs/light/libxl_arm.c
-> @@ -121,6 +121,15 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->              return rc;
->      }
->  
-> +    for (i = 0; i < d_config->num_gpios; i++) {
-> +        libxl_device_gpio *gpio = &d_config->gpios[i];
-> +    int rc = alloc_virtio_mmio_params(gc, &gpio->base, &gpio->irq,
+> It is not particularly useful IMO to see that a large portion of the
+> memory has been allocated by say vmalloc or kvmalloc, right?  How
+> much does it really tell you that a lot of memory has been allocated
+> by kvmalloc or vmalloc? Yet, neither of the two is handled by the
+> proposed tracking and it would require additional code to be added and
+> _maintained_ to cover them. But that would be still far from complete,
+> we have bulk allocator, mempools etc.
 
-Indentation seems wrong here.
+Of course - and even a light skimming of the patch set would see it does indeed
+address this. We still have to do vmalloc and percpu memory allocations, but
+slab is certainly handled and that's the big one.
 
-Also, you could declare "rc" (without an initial value) for the whole
-function rather than declaring it in each for loop scope.
+> As pointed above this just scales poorly and adds to the API space. Not
+> to mention that direct use of alloc_tag_add can just confuse layers
+> below which rely on the same thing.
 
-Then, this patch could be squash into the one that adds GPIO support to
-libxl.
+It might help you make your case if you'd say something about what you'd like
+better.
 
-Thanks,
-
--- 
-Anthony PERARD
+Otherwise, saying "code has to be maintained" is a little bit like saying water
+is wet, and we're all engineers here, I think we know that :)
 
