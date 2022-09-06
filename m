@@ -2,55 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EA145AF713
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:40:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400244.641966 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 070145AF70D
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:39:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.400219.641904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgIS-0008DH-Ro; Tue, 06 Sep 2022 21:39:52 +0000
+	id 1oVgIF-0004vD-FJ; Tue, 06 Sep 2022 21:39:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400244.641966; Tue, 06 Sep 2022 21:39:52 +0000
+Received: by outflank-mailman (output) from mailman id 400219.641904; Tue, 06 Sep 2022 21:39:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgIS-0007tU-7p; Tue, 06 Sep 2022 21:39:52 +0000
-Received: by outflank-mailman (input) for mailman id 400244;
- Tue, 06 Sep 2022 21:39:49 +0000
+	id 1oVgIE-0004jp-MN; Tue, 06 Sep 2022 21:39:38 +0000
+Received: by outflank-mailman (input) for mailman id 400219;
+ Tue, 06 Sep 2022 21:39:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BE3u=ZJ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oVgGw-0000Cs-1s
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:38:18 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o/Pp=ZJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oVgGl-0000Cs-0K
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:38:07 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr00087.outbound.protection.outlook.com [40.107.0.87])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a48817ac-2dc4-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 11:16:52 +0200 (CEST)
-Received: from MW4PR03CA0060.namprd03.prod.outlook.com (2603:10b6:303:8e::35)
- by CH2PR12MB4327.namprd12.prod.outlook.com (2603:10b6:610:7d::13)
+ id 930a3132-2dc5-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 11:23:32 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by VI1PR04MB4893.eurprd04.prod.outlook.com (2603:10a6:803:5c::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.18; Tue, 6 Sep
- 2022 09:16:53 +0000
-Received: from CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8e:cafe::84) by MW4PR03CA0060.outlook.office365.com
- (2603:10b6:303:8e::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.15 via Frontend
- Transport; Tue, 6 Sep 2022 09:16:53 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT087.mail.protection.outlook.com (10.13.174.68) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5588.10 via Frontend Transport; Tue, 6 Sep 2022 09:16:53 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 6 Sep
- 2022 04:16:49 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Tue, 6 Sep
- 2022 02:16:49 -0700
-Received: from [10.71.192.107] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Tue, 6 Sep 2022 04:16:48 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.16; Tue, 6 Sep
+ 2022 09:23:34 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5588.017; Tue, 6 Sep 2022
+ 09:23:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,182 +46,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a48817ac-2dc4-11ed-af93-0125da4c0113
+X-Inumbo-ID: 930a3132-2dc5-11ed-af93-0125da4c0113
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zrcud4zjm0uLzTOtZtqnpcTpBxy39XYDL4qU2Touq1z8gGCjPNSjxNhwN3myTikb0aWtEA3vUCK+BZyknARs+VwiDZrJAr0kAEnc7VFjST0p31cv/9DaCi25SiSuJ2HiwXy6WzRJQ5wcUeHqG7hxibJfJZzUt50yXYOzKNjq0XPGchGbstiascCPRJ3un77gLjmagumJoKwfndMPTa5PNLowg0incw2FW0C8ZAtnuNgDAmWAT1BV/vFOLaHKhhDxWKitd5RAmROptyk0zNYf4liH4p8hx66PF2XLjkEIo8Qan0OQ6/fiLO3OrMpsMn/rlpKxxVJ3N6qAUk7MVWLyPQ==
+ b=gFWbR77luFoFB1moDkvx7RG2MTpRoXKQOpfXG5kdNppOF6fOw/nQGeKQub0L5fJ1ick1JsyfwR7uNJpDr4mnxNTkyz9vp32bxOHTwyGLCdI3kbP3IsOoJNodKvjTwytsCJXaZV4Hz6FCX4fJfrdDRFZ9I/dFW2GqQJ2x/Fr9dkWOByqcVM9SurrLsMYtfZVhESggGw2WiTlkZhzpKl8DxrjkJ3vQcBJzNaXLoyzBOLYtk2sGgrDonYLugPr7xGa6KEmJrOYSXRIQh0IUDMmMmxD5lqUJTZvkknCUy+YF/daqCCrrmtjD+dAEmIqDNkDXg+dyuLpaU+L/fIZiJh60KQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zcADeNm6ohzugDn4jUd/ihSrmEXvgLlWBWbXBvvAnoE=;
- b=dMbXrn6E0y5QcDPTveZ1CVcAHaV1Rcm8Ywq5bWK3s4Ff61Ka4meYj2/CGKFC3NbnlVxqEzxmQSE6VLhdohgZwZxefFlPyEXmbyV3uuxGR7xm8w2SOsg2kb0bioRv1tbuRyB3W2p1Vqt1zmvsrV5q0825GGN3geZ/VDaccUSxgpIuBZCeafsbRs2yhtDntRuQBgvdPLMRPCItyzp75NI/SUhKK3N3sjHoMf7c/g/Ogg1ViJKpQDinUtym8f72TlenXMTsvt9togFHCbohHYUpR9j2KJF4sXspAsaSW/xuDyB8WRfvj+o6ZjK3GemmGDqf7h0NqVb+vf0663nwDIs7Mw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=57/bYk9q+8WaTm2K+86JZhQVBKn50AlbT9LrSB7MjhA=;
+ b=ahdW7lEI/MivnvHD2rEZPi7nKQEVm3SgudmSocf+JkHuDusF+GYUuV+q3zpOeG4IFPln1ZuruSZNQekMWHWJ+BKazWCFibVtfFjRQupxoEH2iztmxhl/tbueRCSEKHJINKhgqWBvDHE2qG0VEQnXCdyA+mFkFX/KOqcT2WTfTOMB0HIlHKQ4NVFYUxlkocqz2MbYO519NIqJ15hfRvqTkgt6AQu7p2ByvZgiUVsXkjcB/0Eo9OoEVlniFqWIGiPyMgSMlXGEyTBy6Y24ZrTTuWdUwHWybbuZV9d1N/zfddbaCP1bsddf7bfQZR7ebvFI2ROzQ94CyFMpOT8ndBrzBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zcADeNm6ohzugDn4jUd/ihSrmEXvgLlWBWbXBvvAnoE=;
- b=V43bjm45nuh3hVpbS2VH+IEXRlX7/TW4jWgrZvyzi209+IsoBca2vJ9HLQypesix3VVKcGzMwPmJUSrDHLbJ1xSWwqsSXFfuTnmjN7pzaqmUTVzcffeZw3g4xIYOKqH9KCz2Sg2yTgOPVF1BU2mcUsZD3i9MIzLU8rvDkji0qdk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <606db72f-2283-6e37-4920-a21da1d70b3d@amd.com>
-Date: Tue, 6 Sep 2022 11:16:47 +0200
-MIME-Version: 1.0
+ bh=57/bYk9q+8WaTm2K+86JZhQVBKn50AlbT9LrSB7MjhA=;
+ b=W3URmduITWsAaApIdxtaJ1Mfq42hhtLbfGOEYGafZCORxC4+HiKZOCkAif1wHkFGMF1Hp2ovBUngT7T3bnn8uCyJ5VO+nGYdRnSc4WBu9IOqg17JxPDpFmxpa5CCFYS+ZmtWW23ZH6z+FUkvwHxwYRpPa4vnjA62hkyQHsHlR/e5O6FlxUikHEGIQZSb5HTxWEgayJhwZpAYOK1JYU9HZxdH6UA6ZnIVFiXbFkZzu0HmXSKMyIO+gYOTSCOftVHPO4q3EButoc0HHsywW4inEx7okoxJik78G9fYWf9le25yePzGZhPUtxbkwSGzSkF84iWeHR9kpTlN8uTkr7lCZA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <ed4ab251-2961-e2f8-3e65-edc1cc7bbfaa@suse.com>
+Date: Tue, 6 Sep 2022 11:23:38 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.1
-Subject: Re: [for-4.17 3/3] automation: Add a new job for testing boot time
- cpupools on arm64
+Subject: Re: [PATCH v6 10/10] drivers/char: use smp barriers in xhci driver
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>
-References: <20220902070905.1262-1-michal.orzel@amd.com>
- <20220902070905.1262-4-michal.orzel@amd.com>
- <alpine.DEB.2.22.394.2209021645160.3931@ubuntu-linux-20-04-desktop>
- <98b712c1-2a02-9baa-b816-3c28cccaf74e@amd.com>
- <alpine.DEB.2.22.394.2209051552230.3931@ubuntu-linux-20-04-desktop>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <alpine.DEB.2.22.394.2209051552230.3931@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.00134d06d2e52e209e9f7778513a27cf0b2a3bd3.1662124370.git-series.marmarek@invisiblethingslab.com>
+ <992c6512e54435a006c6de28515d1242518cb974.1662124370.git-series.marmarek@invisiblethingslab.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <992c6512e54435a006c6de28515d1242518cb974.1662124370.git-series.marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0065.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0bfdd8f3-0238-4bf3-9ac6-08da8fe889f5
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4327:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29c0b282-a13d-4461-c99d-08da8fe9788d
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4893:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	0GoFJ9vkGCYiJ0cSolY6ywRgY0cqIpqbgT9R3K4Baw6uRq9ALt8ga8VZB77LthXac7tTyIIfB9cg6BbHNQi2CEfOzd+3XSRakWMjhC+CqBnRd5vEH9+H2M4+OmjBV84+ae4vCdFnFnegRYHXseEqGL042+dfX6rXboqnEmddrCvcGjq2uDAQGREq1OIcLVBhMlNmVVd6wXklZVGWAPFHu+4vYAGqhAitHR6jElL5tPmxpmuUqi4tgqkH830eNQrGmCo1lbgLXlshDNIwfqijtHElRx5V/E4s9XwRNnVrqfVwkochwNgKHy88quqVsGWkCWNR5tPUmQyhnpiw7MF1qj9sYM6/Dl/8Ec0KFE2uvfgEh2T1n2+VfP73jy2hr/xaZn3FBp/hc2/ldXtjlHcoELTIcmQ/qR3SsVpClTVAVlC2ChtncfycL8h02djm9dqHae5O7qDbnXWwK9QFJNl5q0E+H1Q3Cwf8avGtZgDCOysqx+cWIPEfuaTWIahMvZKdw/Gy5V9eVS/sDR9ca9H8TYRhoB2H/8JIogSXGXZy5081o64kZMUUKVVdSjojkw0D3R/3ONbMLgPw/A9R2AwNE9LNXhMxfiw1+fc+6aGk90IEiUdtAzO4xiQnx2BzgUvRJBQLIcG7/Nx2W4wc/uZysvUTBYoq0iFCt6Iyes2wmA9HvGcO6Qd9pUHHxlkvnVxfcXbcUE88MUui+8rdtJm/KLE0RV2UaRgDcgQia//OAJ/pR8T62I85BtUy94i4X5gypaqXqM1YCi8GCuk5vkm6gJUZuJAflEybK6mCpEO/ixC1t3gkfBY8wcfwBHgS9f3cjP3vbcFujDj9Uow8mtrMB8uOqIOQTICdPO7qx23gzq0=
+	uQWAngC7X5P+tkdi9cuBb7Jt0JnNfawY7s3AEcdSaJ8SyDoRDH3xu61jIzLTmmax4ihE1onjFqFb9NVSMQx5oK/d3NROtTyH+HPXE3tDnZJN8LT6bBn4VZoMMWP+dFo5fRN4D1nD+Qq3I7Nb/GU4Gckj7VObs9KtM6rzYtyDAHx7CVqcuXhqhGRvr8JdNXDrp/+fp/3eRwnpKEsE2fsXxc7KkJ8sqITaQvWzvvu4Y/jY8EEAD4Qlpinso3DMSiJn1V6XZMMbMlWbKfwxAiaFHdPy0dz5qCe7Nr864n+0xebhZEWkNw8NV68dXtLanl3ihmNjRRPiLRk9VjyYVHYXl4dV3xfvoOCRdjmaP4wVUnt6FBFcIs45arFC3WtElsDBoLHrlT9Gl2FhLCoZUo1jgJuIXjooA7aRdEyR5ma4TGHdR5VObwm9ZHIjehewvzrArhLn/M2A5vnQZ/x0N6NxQMfa7VeIwYrUDV4o3mLIsDQKwwdr7oYVu1/o863t2HD0ewANdE7e8yQT1MAV210D3mvtVjQbRpL2AQa884zOzyq9Fe+toICP3TEno1GZgcgDg6DBdJopeaXm8jKfPSrvise8azsimOOH3UAv17wAHYx3wxYW2+gz8xyE+lBZITn0dO/WSH25xJ0qz7kxQzAXkGQH2/FMaTZSmmqAwoA88uofWFD2OHWMRj/7BBj7Ns4WVjSrrHoZmcE6t2YoWYzThusPPNNz2ude6Fn1o8/x80FBmv7uVa0p2xUSC4yn5XruJYnFur/8J5Uhi0asxlAQgxP8QAcOuR0V9d/MTmXosZM=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230016)(4636009)(376002)(346002)(396003)(136003)(39860400002)(40470700004)(36840700001)(46966006)(26005)(2616005)(83380400001)(336012)(40480700001)(2906002)(44832011)(8936002)(5660300002)(41300700001)(36756003)(86362001)(31696002)(426003)(47076005)(31686004)(53546011)(478600001)(186003)(82310400005)(36860700001)(40460700003)(356005)(70586007)(6916009)(8676002)(54906003)(4326008)(316002)(16576012)(70206006)(82740400003)(81166007)(157313001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 09:16:53.4230
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(346002)(376002)(396003)(136003)(39860400002)(366004)(478600001)(83380400001)(2616005)(186003)(4326008)(8676002)(66476007)(66556008)(66946007)(6512007)(31686004)(36756003)(6486002)(41300700001)(53546011)(6506007)(26005)(31696002)(86362001)(8936002)(6916009)(2906002)(54906003)(5660300002)(4744005)(38100700002)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bU1McG1NVzh3c0UweExRVWNPd29Yc0dkelM2ZC9ucHZoUW51ekFCN1BCemE4?=
+ =?utf-8?B?ZzVWT0pEbFd6SVRUNk9nM25aL0ZRcjI0UjdOaDdUUEYwWnNBaTlyZUlLckZJ?=
+ =?utf-8?B?VnRlYitMWmlyOENKY3FpQjlHdkFwSWM0UGZZclRCbXJiY2k3ek93M1A2NzdY?=
+ =?utf-8?B?azhldG5yTEdmTVdyUW9xd2F4Y0Y3TzJ5TzBYcUJ4ZmZIc0lad0QzbVZyei8x?=
+ =?utf-8?B?d2Y2L21PZTlUYXhCSENQNk5HMFMwVXJDNHJtMUtUWXdpZXNhVFJ6T01HWVh3?=
+ =?utf-8?B?N1dsdzlNT1d5R1lyblA2dC96Y05QRmlrdC83ajlETkFTWlA5TFdpaUc0cmIx?=
+ =?utf-8?B?REJRVUNZYncxbk1zakE3VTRHUWE5YmZualJqd2FyQ0dvUkRDSG1WKy9OMkxE?=
+ =?utf-8?B?bjRuVWpNbEpabGJZNGRCRjE1Z0hJUlZoRk44QnQ2b3E0RG10RjZjelZMMytJ?=
+ =?utf-8?B?ODE4QWtRS1Z0cVoxeVBnL1VOOUw5V1VQakhTMDU2N1pBQzJhcDhRV0taRGli?=
+ =?utf-8?B?NVdIeGNwVk5Qa044WFloeU54bEhmOTdvb2VUSzROMFdVY1g5dVN4VkhOZVRt?=
+ =?utf-8?B?VS9DZ25GMWZXLzc1UGd4RTNZcVZycEZNM0JxUXREbllKK2Zqdm9aZDlHN0xm?=
+ =?utf-8?B?SGtkbjY2WG05R2ZlTU9JLzJDK3YvYUQ1NWZGUUZRUmx6c0JUVHQxcTBaSlN0?=
+ =?utf-8?B?YmxKNXFENHRYcVYrL2VKemgybk4yWXh5TVZVa0VkMERSaUVMUFpXUzhwQStJ?=
+ =?utf-8?B?MFBxNXlNQjNYb0FrMUhIeDJZV3dFYkxHNXQxNWxyY2lzZVc2NDgrQmVSS2Zr?=
+ =?utf-8?B?THB3bnJmKzJubG5aOXZkcWE4djhDb0dWbFk3NmdBTmJjZ2xHVWhZR1ZrVFVo?=
+ =?utf-8?B?Nm9lVjdqdStoNDYyTUdZL3l1YldHbGRJMFlpUmEzZGlLbXV2Tzd5SWNPRDBL?=
+ =?utf-8?B?aURRdmgyeWs0OUh4UU5mdkdiellLeCtGWTFIZUprSWFmSitBKzMvRmNrM0w0?=
+ =?utf-8?B?NDlFTlpsNDlRU0lJTUJSMGFvanp0c1FFeXRKSkR2bVFZSlNRbmhWZWFEb3NK?=
+ =?utf-8?B?OEI0cmxaN0xkUm11Vk40a3hqLzFlZE5VVkhiR2F2cjRrNi9KRVk3R3E4STNB?=
+ =?utf-8?B?cTE1eDc3WEVhdEZXUkRWYXpqczJxZmxGeG9HM2xnZElPM0ZrdzJmTVlka2Uy?=
+ =?utf-8?B?Nkk2VnRXcUtYVmFZeDRmbHZZOEN2cUhGK1k1L2tLTTkvRUdZd0VnSlhTMHFI?=
+ =?utf-8?B?RW9rd2h2NXdRalRnUTMzZlVkc2RrV2UvMjJLYnZtanYwQlF6bXFkamw1bHMw?=
+ =?utf-8?B?b1FkSmFwanVDb05HdVVVa2tlbmRJR1hENFJ3cXdmMG9DUU9HcnZnVHlKK2F3?=
+ =?utf-8?B?T1ZNaHh0bkZZcFdzV25XN050NDk4TGx4RllGV1BWRW4wUHl5czdhZHlRVnhW?=
+ =?utf-8?B?bm1ScHMxTDV3emQ0R1R3bktZSS9OTnpJcWoyTmphR28yN1BvS3loRWw1anFS?=
+ =?utf-8?B?dG9aejJMZ21DMnIrY0k3THBQc2VHd2l0b1lsS3lxUXhCbXRjL3Juc2FRbFZo?=
+ =?utf-8?B?akRXbEROZ1lUc3E3bVNSWkVzTU0yZ2FBbXhHUDdJMTd3RU5UMUpDZ3ZqR3h4?=
+ =?utf-8?B?WkExaTFQUUoyMW0vYk1WWXRYakkyVVB4Wk5oSmNvRlBIdlUvZ0tqMlJmTHg3?=
+ =?utf-8?B?Um1tSi9acUl2b25DRE91NithaGw0M2xOTFpYWGwwR1pyODBpQVlFRTBLRWJI?=
+ =?utf-8?B?SlI0QTVSalFEZmZHd2ZwYlFvK2Y2Vll4NWJwNlYrMUlKV3R2STJaQ21IYkFI?=
+ =?utf-8?B?U0dKYThKSjhMTGhoSlE0dUFCclk3eklOOUtXSjBiVUU5SHVpZ3lxakd0cnU5?=
+ =?utf-8?B?Y3VGeEJnSEVTWHh1NDVLLzRWN3ZpSmtMUXN4TXhpZS9TakJlSXJoYkp2bWI5?=
+ =?utf-8?B?aUxFbVFRTUhjM1pKemRyM2xBK29JYSs5ellpMTlZbmdzMTUvMWlvOGkra29r?=
+ =?utf-8?B?KzBDdnJJcktJQnZwSllOdWJxVFVzTnRYU2dNUm03MkcxQk5WVVRvaHVtMWNv?=
+ =?utf-8?B?QzFXd0hCVE1wV2V6Z1JvZlpDNDlienF1OG0zZi8zTU9EcVNTbmdiMnNhSnFE?=
+ =?utf-8?Q?jUq2D6mGyaJF9MxF83bh7+vYe?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29c0b282-a13d-4461-c99d-08da8fe9788d
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 09:23:34.0618
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bfdd8f3-0238-4bf3-9ac6-08da8fe889f5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4327
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fxhzbGuhzZk46zHVbxO+mXvwaAIUjLk3h/2lM66KaNMyGQ0WzGK1MfvHsGfbAUTecHV9Em9aiW9CkQ9o79iTKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4893
 
-Hi Stefano,
+On 02.09.2022 15:17, Marek Marczykowski-Górecki wrote:
+> All (interesting) data is in plain WB cached memory, and the few BAR
+> register that are configured have a UC mapping, which orders properly
+> WRT other writes on x86.
+> 
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-On 06/09/2022 01:21, Stefano Stabellini wrote:
-> 
-> On Mon, 5 Sep 2022, Michal Orzel wrote:
->> Hi Stefano,
->>
->> On 03/09/2022 01:49, Stefano Stabellini wrote:
->>>
->>>
->>> Currently this test fails with:
->>>
->>> + fdtput binaries/virt-gicv2.dtb -p -t s /pl061@9030000 status disabled
->>> + [[ boot-cpupools == \b\o\o\t\-\c\p\u\p\o\o\l\s ]]
->>> ++ fdtget binaries/virt-gicv2.dtb -t x /cpus/cpu@1 phandle
->>> Error at 'phandle': FDT_ERR_NOTFOUND
->> My bad. The qemu version used by CI does not generate phandles for cpus.
->> So the fix is very straightforward and requires putting custom phandle for cpu@1.
->>
->> diff --git a/automation/scripts/qemu-smoke-arm64.sh b/automation/scripts/qemu-smoke-arm64.sh
->> index c2184850293c..158d5665d71d 100755
->> --- a/automation/scripts/qemu-smoke-arm64.sh
->> +++ b/automation/scripts/qemu-smoke-arm64.sh
->> @@ -50,8 +50,9 @@ fdtput binaries/virt-gicv2.dtb -p -t s /pl061@9030000 status disabled
->>
->>  if [[ "${test_variant}" == "boot-cpupools" ]]; then
->>      # Create cpupool node and assign it to domU0
->> -    cpu_phandle="$(fdtget binaries/virt-gicv2.dtb -t x /cpus/cpu@1 phandle)"
->> +    cpu_phandle="0xfffffe"
->>      cpupool_phandle="0xffffff"
->> +    fdtput binaries/virt-gicv2.dtb -p -t x /cpus/cpu@1 phandle $cpu_phandle
->>      fdtput binaries/virt-gicv2.dtb -p -t s /chosen/cpupool compatible xen,cpupool
->>      fdtput binaries/virt-gicv2.dtb -p -t x /chosen/cpupool cpupool-cpus $cpu_phandle
->>      fdtput binaries/virt-gicv2.dtb -p -t x /chosen/cpupool phandle $cpupool_phandle
-> 
-> 
->>> Given my other comment below, I would leave this code as is.
->>>
->>>
->>>> +if [[ "${test_variant}" == "boot-cpupools" ]]; then
->>>> +    # Create cpupool node and assign it to domU0
->>>> +    cpu_phandle="$(fdtget binaries/virt-gicv2.dtb -t x /cpus/cpu@1 phandle)"
->>>> +    cpupool_phandle="0xffffff"
->>>> +    fdtput binaries/virt-gicv2.dtb -p -t s /chosen/cpupool compatible xen,cpupool
->>>> +    fdtput binaries/virt-gicv2.dtb -p -t x /chosen/cpupool cpupool-cpus $cpu_phandle
->>>> +    fdtput binaries/virt-gicv2.dtb -p -t x /chosen/cpupool phandle $cpupool_phandle
->>>> +    fdtput binaries/virt-gicv2.dtb -p -t x /chosen/domU0 domain-cpupool $cpupool_phandle
->>>> +
->>>> +    # Check if domU0 (id=1) is assigned to Pool-1
->>>> +    passed="${test_variant} test passed"
->>>> +    dom0_check="if xl list -c 1 | grep -q Pool-1; then echo ${passed}; fi"
->>>> +fi
->>>
->>> I would prefer to keep the device tree editing here to a minimum and
->>> instead add boot-cpupool support in ImageBuilder and add CPUPOOL* config
->>> options to the existing config file for ImageBuilder created in this
->>> file below. This way, we keep this test cleaner and we help more the
->>> user by proving a way to set boot-cpupools more easily in general, also
->>> useful outside gitlab-ci.
->>
->> I agree that ImageBuilder is a great tool. However, I would opt for keeping what I did because of the following:
->> - current release schedule (we could benefit from having a test for 4.17 feature instead of waiting for the corresponding
->>   change to be done in ImageBuilder first and tested),
->> - test is already prepared and requires just a trivial fix,
->> - we should not enforce users willing to add tests to gitlab-ci to always prepare the ImageBuilder changes first.
->>   ImageBuilder is not meant to support all the features strictly because some of them require too much
->>   end-user knowledge and digging into device tree (it should stay as simple as possible),
->> - all in all we need to have a way to modify the dtb and fdtput is certainly better than sed as it does not
->>   require additional steps for decompilation/compilation and its commands look more clean than using sed transformation.
->>
->> Let me know what you think.
->>
->> On a side note, I can add boot-time cpupools support in ImageBuilder to my TODO list so that we can check if this is something
->> ImageBuilder should support. If yes, we can modify this test after the release.
-> 
-> 
-> Yeah, ImageBuilder doesn't necessarely need to support every feature.
-> However, a tool (if not ImageBuilder, Lopper, or a new ImageBuilder
-> script) should support CPUPOOLs to enable the user.
-> 
-> You are right that ImageBuilder is not necessarely tied with gitlab-ci.
-> This is especially true once we start doing more interface-level
-> testing, such as hypercalls fuzzing with XTF. We are not going to be
-> able to use ImageBuilder to trigger every possible device tree boot time
-> combination, especially the ones that are invalid. We want to be able to
-> test Xen with invalid device tree input as well.
-> 
-> In addition to interface-level testing, we need user-level testing to
-> test features the way we expect a user to use them. This is what
-> ImageBuilder is for and that is why it has been used today in gitlab-ci.
-> On ARM today we only have user-level testing in gitlab-ci, but I'd love
-> to have more interface-level testing, which will surely require more
-> device tree manipulations outside of ImageBuilder.
-> 
-> - user-level tests -> ImageBuilder, common valid configurations
-> - interface-level tests -> not ImageBuilder, various valid and invalid
->                            configurations, maybe automatically generated?
->                            Device tree manipulations expected in gitlab-ci.
-> 
-> 
-> In my view, this test belongs to the "user-level test" category, this is
-> why I would prefer if it was done using the same tool that we expect the
-> user to use. Ideally, it would be ImageBuilder because that is the tool
-> that we have used so far (but it could be a new script under
-> ImageBuilder or Lopper).
-> 
-> But I understand deadlines, release schedule, etc., so if you think it
-> cannot be done properly using ImageBuilder in 2-3 days, then I would
-> take this patch as is, and we can revisit it in the future as you
-> suggested. I am OK with that too.
+As said in reply to Andrew's comment: What about non-x86? Drivers like
+this one, even if presently depending on X86 in Kconfig, shouldn't be
+making assumptions like this. Such is imo only appropriate when a
+driver conceivably would only ever be useful on x86.
 
-Ok, let me see if I can come up with a clean solution in the ImageBuilder.
-
-~Michal
+Jan
 
