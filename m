@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FB145AE148
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:40:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399537.640769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 870B85AE144
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:40:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399542.640779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVTBW-0008En-4R; Tue, 06 Sep 2022 07:39:50 +0000
+	id 1oVTBZ-00006n-DG; Tue, 06 Sep 2022 07:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399537.640769; Tue, 06 Sep 2022 07:39:50 +0000
+Received: by outflank-mailman (output) from mailman id 399542.640779; Tue, 06 Sep 2022 07:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVTBV-0008BG-W5; Tue, 06 Sep 2022 07:39:50 +0000
-Received: by outflank-mailman (input) for mailman id 399537;
- Tue, 06 Sep 2022 07:39:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oVTBZ-0008Vs-8z; Tue, 06 Sep 2022 07:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 399542;
+ Tue, 06 Sep 2022 07:39:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YUvx=ZJ=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1oVTBU-0007HG-9E
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:39:48 +0000
+ id 1oVTBY-0008BB-5e
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:39:52 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 14cfded2-2db7-11ed-a016-b9edf5238543;
- Tue, 06 Sep 2022 09:39:47 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 15e35273-2db7-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 09:39:49 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9596176A;
- Tue,  6 Sep 2022 00:39:52 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BA30C139F;
+ Tue,  6 Sep 2022 00:39:56 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 96A743F73D;
- Tue,  6 Sep 2022 00:40:11 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 772053F73D;
+ Tue,  6 Sep 2022 00:40:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14cfded2-2db7-11ed-a016-b9edf5238543
+X-Inumbo-ID: 15e35273-2db7-11ed-af93-0125da4c0113
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
@@ -56,25 +56,22 @@ Cc: wei.chen@arm.com,
 	Wei Liu <wl@xen.org>,
 	Penny Zheng <penny.zheng@arm.com>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v12 3/6] xen: unpopulate memory when domain is static
-Date: Tue,  6 Sep 2022 15:39:16 +0800
-Message-Id: <20220906073919.941934-4-Penny.Zheng@arm.com>
+Subject: [PATCH v12 4/6] xen: introduce prepare_staticmem_pages
+Date: Tue,  6 Sep 2022 15:39:17 +0800
+Message-Id: <20220906073919.941934-5-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220906073919.941934-1-Penny.Zheng@arm.com>
 References: <20220906073919.941934-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Today when a domain unpopulates the memory on runtime, they will always
-hand the memory back to the heap allocator. And it will be a problem if domain
-is static.
+Later, we want to use acquire_domstatic_pages() for populating memory
+for static domain on runtime, however, there are a lot of pointless work
+(checking mfn_valid(), scrubbing the free part, cleaning the cache...)
+considering we know the page is valid and belong to the guest.
 
-Pages as guest RAM for static domain shall be reserved to only this domain
-and not be used for any other purposes, so they shall never go back to heap
-allocator.
-
-This commit puts reserved page on the new list resv_page_list after
-it has been freed.
+This commit splits acquire_staticmem_pages() in two parts, and
+introduces prepare_staticmem_pages to bypass all "pointless work".
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
@@ -83,98 +80,127 @@ Acked-by: Julien Grall <jgrall@amazon.com>
 v12 changes:
 - no change
 ---
-v11 change:
-- commit message tweak
+v11 changes:
+- no change
 ---
-v10 change:
-- Do not skip the list addition in that one special case
+v10 changes:
+- no change
 ---
-v9 change:
-- remove macro helper put_static_page, and just expand its code inside
-free_domstatic_page
+v9 changes:
+- no change
 ---
 v8 changes:
-- adapt this patch for newly introduced free_domstatic_page
-- order as a parameter is not needed here, as all staticmem operations are
-limited to order-0 regions
-- move d->page_alloc_lock after operation on d->resv_page_list
+- no change
 ---
 v7 changes:
-- Add page on the rsv_page_list *after* it has been freed
+- no change
 ---
 v6 changes:
-- refine in-code comment
-- move PGC_static !CONFIG_STATIC_MEMORY definition to common header
+- adapt to PGC_static
 ---
 v5 changes:
-- adapt this patch for PGC_staticmem
+- new commit
 ---
-v4 changes:
-- no changes
----
-v3 changes:
-- have page_list_del() just once out of the if()
-- remove resv_pages counter
-- make arch_free_heap_page be an expression, not a compound statement.
----
-v2 changes:
-- put reserved pages on resv_page_list after having taken them off
-the "normal" list
----
- xen/common/domain.c     | 4 ++++
- xen/common/page_alloc.c | 7 +++++--
- xen/include/xen/sched.h | 3 +++
- 3 files changed, 12 insertions(+), 2 deletions(-)
+ xen/common/page_alloc.c | 61 ++++++++++++++++++++++++-----------------
+ 1 file changed, 36 insertions(+), 25 deletions(-)
 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 7062393e37..c23f449451 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -604,6 +604,10 @@ struct domain *domain_create(domid_t domid,
-     INIT_PAGE_LIST_HEAD(&d->page_list);
-     INIT_PAGE_LIST_HEAD(&d->extra_page_list);
-     INIT_PAGE_LIST_HEAD(&d->xenpage_list);
-+#ifdef CONFIG_STATIC_MEMORY
-+    INIT_PAGE_LIST_HEAD(&d->resv_page_list);
-+#endif
-+
- 
-     spin_lock_init(&d->node_affinity_lock);
-     d->node_affinity = NODE_MASK_ALL;
 diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 0c50dee4c5..26a2fad4e3 100644
+index 26a2fad4e3..adcc16e4f6 100644
 --- a/xen/common/page_alloc.c
 +++ b/xen/common/page_alloc.c
-@@ -2741,10 +2741,13 @@ void free_domstatic_page(struct page_info *page)
- 
-     drop_dom_ref = !domain_adjust_tot_pages(d, -1);
- 
--    spin_unlock_recursive(&d->page_alloc_lock);
--
-     free_staticmem_pages(page, 1, scrub_debug);
- 
-+    /* Add page on the resv_page_list *after* it has been freed. */
-+    page_list_add_tail(page, &d->resv_page_list);
-+
-+    spin_unlock_recursive(&d->page_alloc_lock);
-+
-     if ( drop_dom_ref )
+@@ -2752,26 +2752,13 @@ void free_domstatic_page(struct page_info *page)
          put_domain(d);
  }
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 1cf629e7ec..956e0f9dca 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -381,6 +381,9 @@ struct domain
-     struct page_list_head page_list;  /* linked list */
-     struct page_list_head extra_page_list; /* linked list (size extra_pages) */
-     struct page_list_head xenpage_list; /* linked list (size xenheap_pages) */
-+#ifdef CONFIG_STATIC_MEMORY
-+    struct page_list_head resv_page_list; /* linked list */
-+#endif
  
+-/*
+- * Acquire nr_mfns contiguous reserved pages, starting at #smfn, of
+- * static memory.
+- * This function needs to be reworked if used outside of boot.
+- */
+-static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
+-                                                         unsigned long nr_mfns,
+-                                                         unsigned int memflags)
++static bool __init prepare_staticmem_pages(struct page_info *pg,
++                                           unsigned long nr_mfns,
++                                           unsigned int memflags)
+ {
+     bool need_tlbflush = false;
+     uint32_t tlbflush_timestamp = 0;
+     unsigned long i;
+-    struct page_info *pg;
+-
+-    ASSERT(nr_mfns);
+-    for ( i = 0; i < nr_mfns; i++ )
+-        if ( !mfn_valid(mfn_add(smfn, i)) )
+-            return NULL;
+-
+-    pg = mfn_to_page(smfn);
+ 
+     spin_lock(&heap_lock);
+ 
+@@ -2782,7 +2769,7 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
+         {
+             printk(XENLOG_ERR
+                    "pg[%lu] Static MFN %"PRI_mfn" c=%#lx t=%#x\n",
+-                   i, mfn_x(smfn) + i,
++                   i, mfn_x(page_to_mfn(pg)) + i,
+                    pg[i].count_info, pg[i].tlbflush_timestamp);
+             goto out_err;
+         }
+@@ -2806,6 +2793,38 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
+     if ( need_tlbflush )
+         filtered_flush_tlb_mask(tlbflush_timestamp);
+ 
++    return true;
++
++ out_err:
++    while ( i-- )
++        pg[i].count_info = PGC_static | PGC_state_free;
++
++    spin_unlock(&heap_lock);
++
++    return false;
++}
++
++/*
++ * Acquire nr_mfns contiguous reserved pages, starting at #smfn, of
++ * static memory.
++ * This function needs to be reworked if used outside of boot.
++ */
++static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
++                                                         unsigned long nr_mfns,
++                                                         unsigned int memflags)
++{
++    unsigned long i;
++    struct page_info *pg;
++
++    ASSERT(nr_mfns);
++    for ( i = 0; i < nr_mfns; i++ )
++        if ( !mfn_valid(mfn_add(smfn, i)) )
++            return NULL;
++
++    pg = mfn_to_page(smfn);
++    if ( !prepare_staticmem_pages(pg, nr_mfns, memflags) )
++        return NULL;
++
      /*
-      * This field should only be directly accessed by domain_adjust_tot_pages()
+      * Ensure cache and RAM are consistent for platforms where the guest
+      * can control its own visibility of/through the cache.
+@@ -2814,14 +2833,6 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
+         flush_page_to_ram(mfn_x(smfn) + i, !(memflags & MEMF_no_icache_flush));
+ 
+     return pg;
+-
+- out_err:
+-    while ( i-- )
+-        pg[i].count_info = PGC_static | PGC_state_free;
+-
+-    spin_unlock(&heap_lock);
+-
+-    return NULL;
+ }
+ 
+ /*
 -- 
 2.25.1
 
