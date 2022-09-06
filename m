@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D72695AF700
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:39:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400138.641783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244585AF750
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:50:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.400394.642123 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgHr-00084H-5a; Tue, 06 Sep 2022 21:39:15 +0000
+	id 1oVgSi-0003AK-G9; Tue, 06 Sep 2022 21:50:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400138.641783; Tue, 06 Sep 2022 21:39:15 +0000
+Received: by outflank-mailman (output) from mailman id 400394.642123; Tue, 06 Sep 2022 21:50:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgHq-00081N-T3; Tue, 06 Sep 2022 21:39:14 +0000
-Received: by outflank-mailman (input) for mailman id 400138;
- Tue, 06 Sep 2022 21:39:14 +0000
+	id 1oVgSi-00037f-Bx; Tue, 06 Sep 2022 21:50:28 +0000
+Received: by outflank-mailman (input) for mailman id 400394;
+ Tue, 06 Sep 2022 21:50:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y6pK=ZJ=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1oVgHG-0000Cs-5N
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:38:38 +0000
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [2607:f8b0:4864:20::435])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o/Pp=ZJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oVgIe-0000Cs-Jr
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:40:04 +0000
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on2069.outbound.protection.outlook.com [40.107.105.69])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4a9f8d7d-2df7-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 17:19:26 +0200 (CEST)
-Received: by mail-pf1-x435.google.com with SMTP id o126so2695771pfb.6
- for <xen-devel@lists.xenproject.org>; Tue, 06 Sep 2022 08:19:25 -0700 (PDT)
+ id 51fdf2d6-2df7-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 17:19:37 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM0PR04MB5538.eurprd04.prod.outlook.com (2603:10a6:208:116::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.12; Tue, 6 Sep
+ 2022 15:19:35 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5588.017; Tue, 6 Sep 2022
+ 15:19:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,182 +46,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a9f8d7d-2df7-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=XWFZ4vpQXZV3nrlkQj2xV+OEMAM0JTmWSZ9iqG0RFzM=;
-        b=tuEY+cBXOGTWnnKi0v2V50lRBvidObSqy8a28X+SQ5zwCK8JJEFavk/Z/NcWwMRAUt
-         tZKhO07uOtxBe8QQo9q8R6pfgtZFSikbotcz9pr1LufvWVUcAy9HmDypTZA0TblKCXe1
-         knDMC8P4/KKlhMBiz4khWgZKQaQfPoE+SSSsGaj8uQzbSKFM7TOPWofZbuPM0BTyxsPu
-         Udrk+mXataxHYELqkPvnLzj06d3cRR8NsfbF3T2SuOIabvPA6oz+j/q8lLU1drBFkeo3
-         ttUw3+x8DePE9kPXgP/9XVXA2pbcTNhT/ub6DrLVweRIuXsI8l60v+kyEwFki93bDyLU
-         xgMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=XWFZ4vpQXZV3nrlkQj2xV+OEMAM0JTmWSZ9iqG0RFzM=;
-        b=qWTDMhfOS7QF+FRvD6eAGhBp7ghbeL4wDkvJnzxANnZYJbKb8Sxf93p8UMF0AyRv9l
-         w+FTdI2eczMgcIMQYJ/eJN7LeMJIuZN8hmUuZoQjtu+6qw4szJ2SXrC93JxYpe/CjIrd
-         pKodkbqlaZzr0wctkZKcDZO3tETJeKkT6zIwRPn5HYbjaLGzMUO1RjC2LPZ9XIuCpfa0
-         RvnBON23aMp2qcMV0MZ6nDIW8Rd19OFMaS3AGvh80zJurh4WUAlaJqAKsHcIx8kp3qjT
-         q5BOQ3L0NGQYKo8KmT/CJWbRVj3ixpuKsNoffvCv6uGYxlBo0VYeWnR0iZLa1mk0tFPP
-         fqlQ==
-X-Gm-Message-State: ACgBeo2UV8zFuCJKyF40Gev9BCrFb8ACP9o5gG678ysGrtvdMtjhNP5w
-	/7PcfG9dctQ1cvmQ8H+fPJqa82Z57A+mTeWrZwra4A==
-X-Google-Smtp-Source: AA6agR5giouvQtvY8QQNPBjopg3XanTewoWbTfcX4JBOo1MdYfK6cJRXpBDlqkeJeMFaQso6UIk48fKNDA4zrFNmR+A=
-X-Received: by 2002:a63:1a23:0:b0:434:4395:8b5a with SMTP id
- a35-20020a631a23000000b0043443958b5amr9763601pga.428.1662477564378; Tue, 06
- Sep 2022 08:19:24 -0700 (PDT)
+X-Inumbo-ID: 51fdf2d6-2df7-11ed-af93-0125da4c0113
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SYMGqPpnjogP8Al98+icrL464+9P70ZKJCnJa/r82Dyp+lFCcv0x/dqqPjGpMWmz1e7SN2H6kPOeD3wzW/TSnWRIvWoHzaGF2uwl6cHXApr2g02VF3PUchaENodAn/E+VrXrRJmTv+EMXUxChNLmj/Ns4flnSkcBEs6kFFmrrJllR98BAg8xECTAem/tD/g3GLp6cx8yHDjgB0+BPGszg06xqTxM7JMEarPnrs90a2xvB1ZDDpOLMdjaWlLVr4/DRryOjST5jolRS4qy4c2dTEexNwzQaXHWR8KYuu4bZ3UPV7Fa+0xYskFj9daKo7VogoC92BJmQV5XmJkzBCuyhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wDEf9qVEL1hTifWUUb4Tp4Q2nMlfRlUG6qWgu15qKVg=;
+ b=SyNWjMDV/pr+03Z6X6Ya9ZNzUbdVrrCyMVcuDUnds/p540nJo5Zyj7s71KuT9WF4bajXmTb/s7YU36i7XT/xU9s2o06EKoWXKYz0JQkFGoo0kSFhajHxnOMfuPQYBtyGbtdzQKTzkRjHbBd8gaHNxt6abBCVktsyacFupP0ZCMUsPqOiEUQYZXIt8wv7QLcEbRkNSlwLN6lueNb+DCxPT70md0juLDKnJhE34wW0VW6sK8Mq2bgARwzfNBPEMK/7MiLnUplx+PGywpWjYDfzyq0IpQ5OHZQspiwAODX/YWUJdqqCQAZADzF8wzAK8W8NUMrtQg9y5aItzFT2jq5tIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wDEf9qVEL1hTifWUUb4Tp4Q2nMlfRlUG6qWgu15qKVg=;
+ b=iqGOwWYCgXg1y4HHPBoYuj/s7aD4mmsJjXh5x0rQIjT2E5o5C8UrEgMVYcqSPJKEmVPUSakkdLT4/k0NMjiOQuLKFzKnJoPvQs0gceYr4tSbIfRgGMh47ccxWpJF+uZEydMSKqYZZ4gcmsPMyR3hDmw3ZvaESSTA+noAe6It7k2ZhNOF+vMsRCQWHglCoSRVxebpWUhJHY81qrVttHZOYlRTHh7isc7ZU3AK5LYwH/mPO1+WmbyT6FiO5u2wW523xmxE6vnkZaKw1kGFF9ajYtzwwf4K8aZXJMmLHnXouZnZ2+7X81mf49w8s8GPGn3ijcDLYIjbrc+ee0js5lTcyg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <788681d2-123b-8af1-0f29-cae0c72a920f@suse.com>
+Date: Tue, 6 Sep 2022 17:19:34 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.1
+Subject: Re: [PATCH v1 1/4] automation: Only filter build-*/ in gitignore
+Content-Language: en-US
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1661352827.git.bertrand.marquis@arm.com>
+ <b51e0e7682cf45e5844de8e0f1ef1593049b6c05.1661352827.git.bertrand.marquis@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <b51e0e7682cf45e5844de8e0f1ef1593049b6c05.1661352827.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0058.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-References: <20220818105601.1896082-1-jens.wiklander@linaro.org>
- <20220818105601.1896082-4-jens.wiklander@linaro.org> <057e2a04-545f-0de8-1d42-8b19ae19f009@xen.org>
-In-Reply-To: <057e2a04-545f-0de8-1d42-8b19ae19f009@xen.org>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 6 Sep 2022 17:19:13 +0200
-Message-ID: <CAHUa44HjjwYJfFdUUkcE9J+DVKisEevWwubE+hRHnw9514HFQw@mail.gmail.com>
-Subject: Re: [PATCH v5 3/9] xen/arm: add a primitive FF-A mediator
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Bertrand.Marquis@arm.com, Anthony PERARD <anthony.perard@citrix.com>, 
-	Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac93ecb6-e7e2-4eae-aec9-08da901b3528
+X-MS-TrafficTypeDiagnostic: AM0PR04MB5538:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	A9ApIci+jiV2kEub7pv5WKd3kL3zkZQ+eWlsTC8SR9ypdK8mY3vEAbBYZ88jc8Op9XlvGyjcxaHoKQpexOzAHYTXoq7IaJ6M3BzvHFtK8DpaOabKU420G/kzdfEIuZntFx33wU5xbbR8J9dkfGCeCk1M71fkVpU9CgEf1PHzStjlR8czFsQDm3ceMIn/4hz0lZ+URVsdLCFP3Won3UuKq0uB89WU5a+OnZRn6FXJfQDlZKNqzcS0xfHi93Xnd1p4kOSrQcsxM8TGy1KmmPXgidr4OQlHnh9WJ60iseiITl9P3xgCewBNA3q2HLC/FD2/ofDOYtDtmAX5CdkdITXk9kmI9F3ZPbY22gCu1HPqedH4o9tObKAnUAgc3vKsw7qTEoIsiE8yEchlDkeLw7yp8IymaCQoT6GqUcvHwdXPMOWchcDtlbdB5P/9ab7VUno0FnQVsUAQMefVBrTnP0a/354KBO2qUqT6AZcPv1wUoznhTAAWBrqEAkG92nkYAn7PuIsnXqmmEmKhao24SQmHceMyxHHoOpShzXYotslknGohcaRcrnc0rVZZTJ2AVfY8qx0pTmqNGoDdmcrkl7fyBP/iYLi19/siHajQYqpUcLofpoyeC1CRZpEJsCVomcZQiNtiaZnK3WsJ4EwbCIQCa3V4d+mEuHoWB5GV3Bz3siCYPQPfZEDxgnxpk+O3z2ITnDmm3FsQ2bpzALByFHVWF1HyDWIq9gXW6JkXvlqu40d5ME8bLMX7+ev9cmJwRCFKYeDfMM7a35IT7ArL5QFWX1aBapalvEL3MhM2ditjxbA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(376002)(136003)(396003)(39860400002)(346002)(8936002)(5660300002)(2906002)(31686004)(66476007)(36756003)(8676002)(558084003)(38100700002)(4326008)(66556008)(66946007)(316002)(6916009)(54906003)(86362001)(31696002)(6506007)(26005)(2616005)(41300700001)(186003)(478600001)(53546011)(6512007)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dDAyZ0N2dUVmRFdVMnNraTZ6eFJpQWJoNGN5dXhWYm93Zkh6QmNaMGdLVHNx?=
+ =?utf-8?B?UFAyNjhXOXJMN0xvZ3ZGRm5tb21RclpTR3VQY3JGcSt0c3FDdEZ6ZEhKRHhT?=
+ =?utf-8?B?ZW5Wc05ESmxuUklCQnZ2d2V2MFFZR0Urd3g3UkN4U1NJZ1BGSUcvdFJXc01j?=
+ =?utf-8?B?Vk1oSmtkQ0NUSzM1bXAvVlhUcjM3cU1nOHpBTzdndUdhV21QTUEzRy9RWXk2?=
+ =?utf-8?B?SnRjZHZ5dWg5dG1oTDV3WHlNQ2NYQ1FsT3JaVnU5VkUyR0N0eERjN0gvZWMw?=
+ =?utf-8?B?dnh1YlpKQXgvK25lTzNYaVBXQjlmY0N4Y21LT0ZXejRXWW9BRnBJR0dKZnha?=
+ =?utf-8?B?VzJNbXdkOUUrRy9wNnJnb05lQXpwa0FSUmdPZmlKejBoY2NmUXhFWHhHbldS?=
+ =?utf-8?B?Um02TFFyaEMzRUhVR2JSSEplMU52Slc1cFZSS3JaTUV1dWQ1eFB4ZHlwZGJn?=
+ =?utf-8?B?MCtENHdsL0NwNE0vVTFBSml6dzg1dCtvWVNKQmhTeC9HRGFCL2M5VnExSGZJ?=
+ =?utf-8?B?V1QvM1NuczUwREFtZGFaQkUzU3NSeUNOTDZjZ3ljc2xlMW13Y05yQ1ovdkdr?=
+ =?utf-8?B?OGFoU215Mlp5OHU0NkdyUG9ZaGQxZWZNdmxvcGhva2MvM1pNUExneWJ6OFkz?=
+ =?utf-8?B?Y1NwWkRsRGZTbGpOQWV5anJzNnFmOEI0aDBCd05WbXAwVjJtMWpmdEEwdnN5?=
+ =?utf-8?B?eXpoOGFvR1J5Y2RJWVNrdWZ4UzU1SHl3dE1XUFd1VTAyaUxEZXJWYkxXRjRm?=
+ =?utf-8?B?eHB0dnBEVlZxaU04bTJyZVdxUlFRZ3pLZHV3bjJTdUJaR2ZSdkx0UWFoNnFX?=
+ =?utf-8?B?U2hUREJIVXRCS2pBSUN3TGh1d1FuenR2VzdYanVlQmVKeUNkN0ozNjVvYURm?=
+ =?utf-8?B?cWJ3K0xRQi9XQXFycmZXbnFTaDNBc3BiMytYWCtic2Vvc1pBcE4vRndpZmhp?=
+ =?utf-8?B?a2JpakZTVC9ScmVLeFBYcU1Sd211MXNaV0pINjBGbXhUTFZkWjBJNWE1Zll5?=
+ =?utf-8?B?M3FRZDkzbFYrVjRlMnM5b3pDaU1ITGs1eUdzZ2ZpVVpURkRCMisrcFJaRno2?=
+ =?utf-8?B?dXVTcHdOZnZaRngzUHo4ZTAveEFKVUpSS1FEcjZkMDQwdStyVjNvSzlVUVZu?=
+ =?utf-8?B?by9wZ0I0VW1ndkVwOTVCVHBEODdNYzZEMjlwcEEwbEdPTTA2aTB5RC9UdXlB?=
+ =?utf-8?B?dTdYc3VlOEYzbUNMK1J1dStTNXhqUU5zMWs1T0ZzQkN5VjhoQk9XL1dOakl6?=
+ =?utf-8?B?OXVrdHVHcTBWbHgxdzg4L3ozNVRnK2dFeTYrSzJ1WFVCekxJSUtoeHpXVlVE?=
+ =?utf-8?B?NlNVUjIzZUNFWk9QL0xRUENFeW1lcVg3em5yV1lUS0dqa3BPcXorSW1wcVdT?=
+ =?utf-8?B?MjBvaysvakZhRUU2Zmc1RDdueklnRG8xeU9DbXhSaDdndUpSeW9xaSsxa0JC?=
+ =?utf-8?B?R1pWNW5nSzA4T0FLbyszVDcxTGxRNmV4TlZNZE9yL0UyTzQ3ZzY2QWpvcU5q?=
+ =?utf-8?B?UVNuQW82U1NTaCtTZ2ZKRVhmOXF5elREYUtOWnMzcTFKVWxHZENaMm4xd2l1?=
+ =?utf-8?B?TVloOHAzdEFjNUZHdVI4VUl1SUlueWZyNWhZTkQ4UnRPaXMzTGtydzJ6RCtu?=
+ =?utf-8?B?VnB0RjRVR0VucGZROTU5b2pVRm9QN3FKNGlBMU8yVWk4SGFkQzc4SVdMZWVD?=
+ =?utf-8?B?NFlqMU50bStmcS9BaW9STDlnYnpsck8rZ3ZYcVRaeTNrTkdkRTJlZFdsUFhn?=
+ =?utf-8?B?UzNZZDdNblExRzJldmpTOW9ROEdJK2JhMmRhWkRsbElGVHRQcnFrNm1jK0ZB?=
+ =?utf-8?B?a2dGMEx6R2ZJYkErL05lTisrSkZ3eTBESlQ4VndkcnRPbXhVYXpiNmFteW8y?=
+ =?utf-8?B?T0Q3bm1EaVlWYXJtVGcvWHg4djdQdU9PTUxRMzN6V0pjNWNXWVY3TFAzR1M5?=
+ =?utf-8?B?L2RNS0k0dVlZekJNTUN4ZlZYb3lUNUhLZk5qRGhnU1h2dlBZWlk3ZjMxWHAy?=
+ =?utf-8?B?MjZQVC91WXRtcDBsdlFNWXl4T3k0d1ZuNjdFakZBR2ZBb3BYbWVWREhDSitV?=
+ =?utf-8?B?MFFzVEo2VG5kWHZITVVnWSt0bnI1b1NtQzh2VnV5Z3hZd2VzVmdScHE2d1NJ?=
+ =?utf-8?Q?mCkowj4y6tzko4fkxH8YWfGxH?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac93ecb6-e7e2-4eae-aec9-08da901b3528
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 15:19:35.8128
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T5sSqjRoWgWOJ/RJ/gtlGqVUYFa4JlwuWdEyoo5kC9O9zeVXBMGN8Bgm6rC34heIGekrkQVzxg1EkqpYBBdylQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5538
 
-Hi Julien,
+On 24.08.2022 16:57, Bertrand Marquis wrote:
+> ...because there are some script in automation corresponding to the
+> build-* filter (build-test.sh and build-each-commit.sh)
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-On Tue, Sep 6, 2022 at 12:25 AM Julien Grall <julien@xen.org> wrote:
->
-> Hi Jens,
->
-> More remarks.
->
-> On 18/08/2022 11:55, Jens Wiklander wrote:
-> > +/* Negotiated FF-A version to use with the SPMC */
-> > +static uint32_t ffa_version __read_mostly;
->
-> NIT: if this is not meant to be modified after boot, then I would
-> suggest to use __ro_after_init. This was introduced recently and will
-> prevent the variable to be modified after boot.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks, I'll update
 
-> > +
-> > +static bool ffa_get_version(uint32_t *vers)
->
-> This is not __init. Is this going to be called at runtime by a domain?
-> If yes...
-
-Correct.
-
->
-> > +{
-> > +    const struct arm_smccc_1_2_regs arg = {
-> > +        .a0 = FFA_VERSION,
-> > +        .a1 = FFA_MY_VERSION,
-> > +    };
-> > +    struct arm_smccc_1_2_regs resp;
-> > +
-> > +    arm_smccc_1_2_smc(&arg, &resp);
-> > +    if ( resp.a0 == FFA_RET_NOT_SUPPORTED )
-> > +    {
-> > +        printk(XENLOG_ERR "ffa: FFA_VERSION returned not supported\n");
->
-> ... this wants to be a XENLOG_G_ERR to rate limited it. XENLOG_ERR is
-> not by default and will allow a domain to spam Xen console.
->
-> A rule of thumb is any code reachable for a domain (other than dom0)
-> should use XENLOG_G_* when printing or gprintk(XENLOG_*, ) if you want
-> to print the domain ID and ratelimit. Note that the latter doesn't
-> require the G_* becauce it will add it automatically.
-
-Thanks for the explanation, I'll update accordingly.
-
->
-> > +        return false;
-> > +    }
-> > +
-> > +    *vers = resp.a0;
-> > +
-> > +    return true;
-> > +}
-> > +
-> > +static u16 get_vm_id(const struct domain *d)
-> > +{
-> > +    /* +1 since 0 is reserved for the hypervisor in FF-A */
-> > +    return d->domain_id + 1;
-> > +}
-> > +
-> > +static void set_regs(struct cpu_user_regs *regs, register_t v0, register_t v1,
-> > +                     register_t v2, register_t v3, register_t v4, register_t v5,
-> > +                     register_t v6, register_t v7)
-> > +{
-> > +        set_user_reg(regs, 0, v0);
-> > +        set_user_reg(regs, 1, v1);
-> > +        set_user_reg(regs, 2, v2);
-> > +        set_user_reg(regs, 3, v3);
-> > +        set_user_reg(regs, 4, v4);
-> > +        set_user_reg(regs, 5, v5);
-> > +        set_user_reg(regs, 6, v6);
-> > +        set_user_reg(regs, 7, v7);
-> > +}
-> > +
-> > +static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
-> > +                             uint32_t w3)
-> > +{
-> > +    set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
-> > +}
-> > +
-> > +static void handle_version(struct cpu_user_regs *regs)
-> > +{
-> > +    struct domain *d = current->domain;
-> > +    struct ffa_ctx *ctx = d->arch.ffa;
-> > +    uint32_t vers = get_user_reg(regs, 1);
-> > +
-> > +    if ( vers < FFA_VERSION_1_1 )
-> > +        vers = FFA_VERSION_1_0;
-> > +    else
-> > +        vers = FFA_VERSION_1_1;
-> > +
-> > +    ctx->guest_vers = vers;
-> > +    set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
-> > +}
-> > +
-> > +bool ffa_handle_call(struct cpu_user_regs *regs, uint32_t fid)
-> > +{
-> > +    struct domain *d = current->domain;
-> > +    struct ffa_ctx *ctx = d->arch.ffa;
-> > +
-> > +    if ( !ctx )
-> > +        return false;
-> > +
-> > +    switch ( fid )
-> > +    {
-> > +    case FFA_VERSION:
-> > +        handle_version(regs);
-> > +        return true;
-> > +    case FFA_ID_GET:
-> > +        set_regs_success(regs, get_vm_id(d), 0);
-> > +        return true;
-> > +
-> > +    default:
-> > +        printk(XENLOG_ERR "ffa: unhandled fid 0x%x\n", fid);
->
-> This one definitely want to be a XENLOG_G_ERR. But I would use
-> gprintk(XENLOG_ERR, ).
-
-I'll update.
-
-Again, thanks for the review.
-
-Cheers,
-Jens
-
->
-> Cheers,
->
-> --
-> Julien Grall
 
