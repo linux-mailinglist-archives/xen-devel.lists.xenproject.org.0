@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AD405AF321
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 19:51:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400021.641552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F6F85AF330
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 19:56:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.400029.641563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVciw-00017Q-5L; Tue, 06 Sep 2022 17:50:58 +0000
+	id 1oVcoP-0001mI-QE; Tue, 06 Sep 2022 17:56:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400021.641552; Tue, 06 Sep 2022 17:50:58 +0000
+Received: by outflank-mailman (output) from mailman id 400029.641563; Tue, 06 Sep 2022 17:56:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVciw-00015R-1W; Tue, 06 Sep 2022 17:50:58 +0000
-Received: by outflank-mailman (input) for mailman id 400021;
- Tue, 06 Sep 2022 17:50:56 +0000
+	id 1oVcoP-0001j0-N4; Tue, 06 Sep 2022 17:56:37 +0000
+Received: by outflank-mailman (input) for mailman id 400029;
+ Tue, 06 Sep 2022 17:56:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVciu-00015H-JT; Tue, 06 Sep 2022 17:50:56 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oVcoN-0001iu-CW
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 17:56:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVciu-0000hS-Ib; Tue, 06 Sep 2022 17:50:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVciu-0001E7-2b; Tue, 06 Sep 2022 17:50:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oVciu-0001iM-28; Tue, 06 Sep 2022 17:50:56 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oVcoM-0000o9-VK; Tue, 06 Sep 2022 17:56:34 +0000
+Received: from 54-240-197-225.amazon.com ([54.240.197.225]
+ helo=[192.168.11.176]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVcoM-0006Bs-PS; Tue, 06 Sep 2022 17:56:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,128 +39,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0f1Ldte6gLO6sx8edsl7I5lgWVKh4IO9StaFO8YbOBU=; b=tS8Cqtt3KseIsLMvNBo459fcvU
-	G3kTcpsaI6b1AeDtNNqLclL3JlP2o25cIbGL2jgsAW6rPVPA2QhFt89A/QORSH5NL9TtGTtPwBrBx
-	v4OSUEcp08fyTfTcUK43RlRtffm1Zt7KIUqBkZG5pkdHoUFno4EW2MD/j+2wV8tU/6sM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173024-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=1YY25Gsv032TcI3kXiyGuPIuU9TCO+941wu9jmBSMp4=; b=tI4LCNpx5PCopXaU3sGH71VZM/
+	8J3gZZP5wYLXyx3onjqcTl1vfmchiUliM56KzYbeTGZwvGDAcpABvojH+R92yCcgY0WXa+akGvdb6
+	iD4bhil/hXHYAWnWC4YuakHl9rrFOXN4ewI2mPISjQ3oBlcUz7lGcmluCsJAo7k+lQXA=;
+Message-ID: <3d6d92f5-6f5e-6250-d693-0f0415e7e5eb@xen.org>
+Date: Tue, 6 Sep 2022 18:56:32 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 173024: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=f7da805b506034f50ebf7d9c2a247a80ee8e987a
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 06 Sep 2022 17:50:56 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.1
+Subject: Re: [PATCH v7 1/9] xen/arm: introduce static shared memory
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220906085941.944592-1-Penny.Zheng@arm.com>
+ <20220906085941.944592-2-Penny.Zheng@arm.com>
+Content-Language: en-US
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220906085941.944592-2-Penny.Zheng@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 173024 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173024/
+Hi Penny,
 
-Regressions :-(
+On 06/09/2022 09:59, Penny Zheng wrote:
+> +    for ( i = 0; i < mem->nr_banks; i++ )
+> +    {
+> +        /*
+> +         * Meet the following check:
+> +         * 1) The shm ID matches and the region exactly match
+> +         * 2) The shm ID doesn't match and the region doesn't overlap
+> +         * with an existing one
+> +         */
+> +        if ( paddr == mem->bank[i].start && size == mem->bank[i].size )
+> +        {
+> +            if ( strncmp(shm_id, mem->bank[i].shm_id, MAX_SHM_ID_LENGTH) == 0 )
+> +                break;
+> +            else
+> +            {
+> +                printk("fdt: xen,shm-id %s does not match for all the nodes using the same region.\n",
+> +                       shm_id);
+> +                return -EINVAL;
+> +            }
+> +        }
+> +        else
+> +        {
+> +            paddr_t end = paddr + size;
+> +            paddr_t bank_end = mem->bank[i].start + mem->bank[i].size;
+> +
+> +            if ( (end <= paddr) || (bank_end <= mem->bank[i].start) )
+> +                printk("fdt: static shared memory region %s overflow\n", shm_id);
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+Why are you continuing here?
 
-version targeted for testing:
- ovmf                 f7da805b506034f50ebf7d9c2a247a80ee8e987a
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+> +
+> +            if ( (end <= mem->bank[i].start) || (paddr >= bank_end) )
+> +            {
+> +                if ( strcmp(shm_id, mem->bank[i].shm_id) != 0 )
+> +                    continue;
+> +                else
+> +                {
+> +                    printk("fdt: different shared memory region could not share the same shm ID %s\n",
+> +                           shm_id);
+> +                    return -EINVAL;
+> +                }
+> +            }
+> +            else
+> +            {
+> +                printk("fdt: shared memory region overlap with an existing entry %#"PRIpaddr" - %#"PRIpaddr"\n",
+> +                        mem->bank[i].start, bank_end);
+> +                return -EINVAL;
+> +            }
+> +        }
+> +    }
+> +
+> +    if ( i == mem->nr_banks )
+> +    {
+> +        if ( i < NR_MEM_BANKS )
+> +        {
+> +            /* Static shared memory shall be reserved from any other use. */
+> +            safe_strcpy(mem->bank[mem->nr_banks].shm_id, shm_id);
+> +            mem->bank[mem->nr_banks].start = paddr;
+> +            mem->bank[mem->nr_banks].size = size;
+> +            mem->bank[mem->nr_banks].xen_domain = true;
+> +            mem->nr_banks++;
+> +        }
+> +        else
+> +        {
+> +            printk("Warning: Max number of supported memory regions reached.\n");
+> +            return -ENOSPC;
+> +        }
+> +    }
+> +    /*
+> +     * keep a count of the number of borrowers, which later may be used
+> +     * to calculate the reference count.
+> +     */
+> +    if ( !owner )
+> +        mem->bank[i].nr_shm_borrowers++;
+> +
+> +    return 0;
+> +}
+> +#else
+> +static int __init process_shm_node(const void *fdt, int node,
+> +                                   uint32_t address_cells, uint32_t size_cells)
+> +{
+> +    printk("CONFIG_STATIC_SHM must be enabled for parsing static shared memory nodes\n");
+> +    WARN();
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   33 days
-Failing since        172151  2022-08-05 02:40:28 Z   32 days  254 attempts
-Testing same since   173024  2022-09-06 14:14:43 Z    0 days    1 attempts
+NIT: The WARN() here seems pointless because the call trace is not deep 
+*and* it would not be printed unless you are using earlyprintk.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Bob Feng <bob.c.feng@intel.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Chen, Xiao X <xiao.x.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Pierre Gondois <pierre.gondois@arm.com>
-  Pranav Madhu <pranav.madhu@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@quicinc.com>
-  Rohit Mathew <rohit.mathew@arm.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Xiao X Chen <xiao.x.chen@intel.com>
-  Yuan Yu <yuanyu@google.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+Anyway, the only reason I am not acking this patch is related to the 
+question I asked above.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Cheers,
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1985 lines long.)
+-- 
+Julien Grall
 
