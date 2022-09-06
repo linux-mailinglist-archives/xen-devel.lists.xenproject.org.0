@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 244585AF750
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:50:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400394.642123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EF755AF742
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:49:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.400301.642004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgSi-0003AK-G9; Tue, 06 Sep 2022 21:50:28 +0000
+	id 1oVgRe-0005Ef-Kz; Tue, 06 Sep 2022 21:49:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400394.642123; Tue, 06 Sep 2022 21:50:28 +0000
+Received: by outflank-mailman (output) from mailman id 400301.642004; Tue, 06 Sep 2022 21:49:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgSi-00037f-Bx; Tue, 06 Sep 2022 21:50:28 +0000
-Received: by outflank-mailman (input) for mailman id 400394;
- Tue, 06 Sep 2022 21:50:26 +0000
+	id 1oVgRe-0005B3-FX; Tue, 06 Sep 2022 21:49:22 +0000
+Received: by outflank-mailman (input) for mailman id 400301;
+ Tue, 06 Sep 2022 21:49:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=o/Pp=ZJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oVgIe-0000Cs-Jr
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:40:04 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on2069.outbound.protection.outlook.com [40.107.105.69])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51fdf2d6-2df7-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 17:19:37 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM0PR04MB5538.eurprd04.prod.outlook.com (2603:10a6:208:116::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.12; Tue, 6 Sep
- 2022 15:19:35 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5588.017; Tue, 6 Sep 2022
- 15:19:35 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WBQK=ZJ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1oVgHo-0000Cs-CJ
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:39:12 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0cab9a6a-2dfb-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 17:46:20 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 16FD53200488;
+ Tue,  6 Sep 2022 11:46:17 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Tue, 06 Sep 2022 11:46:18 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 6 Sep 2022 11:46:15 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,111 +43,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51fdf2d6-2df7-11ed-af93-0125da4c0113
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SYMGqPpnjogP8Al98+icrL464+9P70ZKJCnJa/r82Dyp+lFCcv0x/dqqPjGpMWmz1e7SN2H6kPOeD3wzW/TSnWRIvWoHzaGF2uwl6cHXApr2g02VF3PUchaENodAn/E+VrXrRJmTv+EMXUxChNLmj/Ns4flnSkcBEs6kFFmrrJllR98BAg8xECTAem/tD/g3GLp6cx8yHDjgB0+BPGszg06xqTxM7JMEarPnrs90a2xvB1ZDDpOLMdjaWlLVr4/DRryOjST5jolRS4qy4c2dTEexNwzQaXHWR8KYuu4bZ3UPV7Fa+0xYskFj9daKo7VogoC92BJmQV5XmJkzBCuyhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wDEf9qVEL1hTifWUUb4Tp4Q2nMlfRlUG6qWgu15qKVg=;
- b=SyNWjMDV/pr+03Z6X6Ya9ZNzUbdVrrCyMVcuDUnds/p540nJo5Zyj7s71KuT9WF4bajXmTb/s7YU36i7XT/xU9s2o06EKoWXKYz0JQkFGoo0kSFhajHxnOMfuPQYBtyGbtdzQKTzkRjHbBd8gaHNxt6abBCVktsyacFupP0ZCMUsPqOiEUQYZXIt8wv7QLcEbRkNSlwLN6lueNb+DCxPT70md0juLDKnJhE34wW0VW6sK8Mq2bgARwzfNBPEMK/7MiLnUplx+PGywpWjYDfzyq0IpQ5OHZQspiwAODX/YWUJdqqCQAZADzF8wzAK8W8NUMrtQg9y5aItzFT2jq5tIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wDEf9qVEL1hTifWUUb4Tp4Q2nMlfRlUG6qWgu15qKVg=;
- b=iqGOwWYCgXg1y4HHPBoYuj/s7aD4mmsJjXh5x0rQIjT2E5o5C8UrEgMVYcqSPJKEmVPUSakkdLT4/k0NMjiOQuLKFzKnJoPvQs0gceYr4tSbIfRgGMh47ccxWpJF+uZEydMSKqYZZ4gcmsPMyR3hDmw3ZvaESSTA+noAe6It7k2ZhNOF+vMsRCQWHglCoSRVxebpWUhJHY81qrVttHZOYlRTHh7isc7ZU3AK5LYwH/mPO1+WmbyT6FiO5u2wW523xmxE6vnkZaKw1kGFF9ajYtzwwf4K8aZXJMmLHnXouZnZ2+7X81mf49w8s8GPGn3ijcDLYIjbrc+ee0js5lTcyg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <788681d2-123b-8af1-0f29-cae0c72a920f@suse.com>
-Date: Tue, 6 Sep 2022 17:19:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.1
-Subject: Re: [PATCH v1 1/4] automation: Only filter build-*/ in gitignore
-Content-Language: en-US
-To: Bertrand Marquis <bertrand.marquis@arm.com>
+X-Inumbo-ID: 0cab9a6a-2dfb-11ed-af93-0125da4c0113
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1662479176; x=
+	1662565576; bh=V7/fLWTP7eSQOSpSIE+MW9OQc508pI6balfpUeNEzQo=; b=i
+	cdOFr1alaippbqRJ8AByRl0JHs70eO9yY/jCHb8HKT+9PgnmMUc30FRbMHFCBlUl
+	4ApiuFGwz+bCg/6aW3rfMT9Vhao57CtXx+whNsXqsPcn5saO8kdVvXx/nyv0Ip1Q
+	6nK5XvzIZrzrjK++8kGvLEJ4SXdko8o9cUPawIkLu2cz5lcTZUNG0M1x4oKUTxes
+	UAtrLZ0mFxvOZSX2jEjKd63YleveMceW7K/DU3f9l3ci47im2QE9tJ60zBfZAVJr
+	fPoSbFFi4+c/rQTPu42hnWKryHEF/QBkvmfWMN2mvOpDj7xQRZ9KPDWnNK4uLdnK
+	K7zPojUmuVNpGcpfwGKWg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1662479176; x=1662565576; bh=V7/fLWTP7eSQOSpSIE+MW9OQc508
+	pI6balfpUeNEzQo=; b=NXengI6HxWhkhBAhHesl6KYFhcX3GIyW7LySC7cgT6q6
+	4mJpeNhKqf2WHh1OiTrDSb6tjz1s6w2iLZMHdJygIh/RiJJf7b7KsPsy37f205Po
+	xw0ziCb0/XmuubaLgq8h3y1kRPyVCsZm6up3cKkVTE5B6nTQLhQnYPlb6O0iJxk8
+	VG0kOQzpD8B31XmMUL2KPvNDonSHs8McNhLhNKKyY3LdRlx44p0KVvvUe1wSPlax
+	t9vTeXwySl684h7I3LsAArAQz85GH96TnJcd5VOvEi7e8DgdbrBpCUJ31YmVdT4D
+	gUolqY31Xq0ArhZdcEDJB2w28gzsrB2T9GFA6aK1DQ==
+X-ME-Sender: <xms:SGsXY56NoNICcT8gaJAFGFsj6dvs22dgQFcBv59Pav9fSUEeCD0Ifg>
+    <xme:SGsXY25cNsfIUBrmXYnIS6cGf82DiH43BZetsxoYRabPhMGFDKTRRUO7qS6TqwZPC
+    EgZU4XHATQUBQ>
+X-ME-Received: <xmr:SGsXYweH-DkNCUlfkgVroXjBtnXmgwNKhaVxj_QfA2EeEmOfWeajo_ZOaKAXdxuIR-N1kLAFKHJTS5Gs4O9Uga-_ib3HSNVc_3HX>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrvdelkedgleefucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:SGsXYyI0ecmc5F25WZZesWPZX5I17wmJqKikHwLxE0XfOe9lizL0RQ>
+    <xmx:SGsXY9KCDXUq4ln-i32ggmARsoZkovFNnMib1k-y_c_knZilb-Aqkg>
+    <xmx:SGsXY7z7xzA5zout6w56mXIVFqp6gaDI9EMo8jD-YYLz3OnE54R_cA>
+    <xmx:SGsXY6H30e8OT8FD8yOK56HMvlZNWWn-T0wkh4U7jYAIKjBNiNuyig>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 6 Sep 2022 17:46:12 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1661352827.git.bertrand.marquis@arm.com>
- <b51e0e7682cf45e5844de8e0f1ef1593049b6c05.1661352827.git.bertrand.marquis@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b51e0e7682cf45e5844de8e0f1ef1593049b6c05.1661352827.git.bertrand.marquis@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0058.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 01/10] drivers/char: allow using both dbgp=xhci and
+ dbgp=ehci
+Message-ID: <YxdrRUEJ31ZgmilH@mail-itl>
+References: <cover.00134d06d2e52e209e9f7778513a27cf0b2a3bd3.1662124370.git-series.marmarek@invisiblethingslab.com>
+ <f9c4f0df804ed406dea0e480614a033d5bd434c6.1662124370.git-series.marmarek@invisiblethingslab.com>
+ <08c9df71-0470-c9eb-94f0-776eaacefa5b@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ac93ecb6-e7e2-4eae-aec9-08da901b3528
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5538:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	A9ApIci+jiV2kEub7pv5WKd3kL3zkZQ+eWlsTC8SR9ypdK8mY3vEAbBYZ88jc8Op9XlvGyjcxaHoKQpexOzAHYTXoq7IaJ6M3BzvHFtK8DpaOabKU420G/kzdfEIuZntFx33wU5xbbR8J9dkfGCeCk1M71fkVpU9CgEf1PHzStjlR8czFsQDm3ceMIn/4hz0lZ+URVsdLCFP3Won3UuKq0uB89WU5a+OnZRn6FXJfQDlZKNqzcS0xfHi93Xnd1p4kOSrQcsxM8TGy1KmmPXgidr4OQlHnh9WJ60iseiITl9P3xgCewBNA3q2HLC/FD2/ofDOYtDtmAX5CdkdITXk9kmI9F3ZPbY22gCu1HPqedH4o9tObKAnUAgc3vKsw7qTEoIsiE8yEchlDkeLw7yp8IymaCQoT6GqUcvHwdXPMOWchcDtlbdB5P/9ab7VUno0FnQVsUAQMefVBrTnP0a/354KBO2qUqT6AZcPv1wUoznhTAAWBrqEAkG92nkYAn7PuIsnXqmmEmKhao24SQmHceMyxHHoOpShzXYotslknGohcaRcrnc0rVZZTJ2AVfY8qx0pTmqNGoDdmcrkl7fyBP/iYLi19/siHajQYqpUcLofpoyeC1CRZpEJsCVomcZQiNtiaZnK3WsJ4EwbCIQCa3V4d+mEuHoWB5GV3Bz3siCYPQPfZEDxgnxpk+O3z2ITnDmm3FsQ2bpzALByFHVWF1HyDWIq9gXW6JkXvlqu40d5ME8bLMX7+ev9cmJwRCFKYeDfMM7a35IT7ArL5QFWX1aBapalvEL3MhM2ditjxbA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(366004)(376002)(136003)(396003)(39860400002)(346002)(8936002)(5660300002)(2906002)(31686004)(66476007)(36756003)(8676002)(558084003)(38100700002)(4326008)(66556008)(66946007)(316002)(6916009)(54906003)(86362001)(31696002)(6506007)(26005)(2616005)(41300700001)(186003)(478600001)(53546011)(6512007)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dDAyZ0N2dUVmRFdVMnNraTZ6eFJpQWJoNGN5dXhWYm93Zkh6QmNaMGdLVHNx?=
- =?utf-8?B?UFAyNjhXOXJMN0xvZ3ZGRm5tb21RclpTR3VQY3JGcSt0c3FDdEZ6ZEhKRHhT?=
- =?utf-8?B?ZW5Wc05ESmxuUklCQnZ2d2V2MFFZR0Urd3g3UkN4U1NJZ1BGSUcvdFJXc01j?=
- =?utf-8?B?Vk1oSmtkQ0NUSzM1bXAvVlhUcjM3cU1nOHpBTzdndUdhV21QTUEzRy9RWXk2?=
- =?utf-8?B?SnRjZHZ5dWg5dG1oTDV3WHlNQ2NYQ1FsT3JaVnU5VkUyR0N0eERjN0gvZWMw?=
- =?utf-8?B?dnh1YlpKQXgvK25lTzNYaVBXQjlmY0N4Y21LT0ZXejRXWW9BRnBJR0dKZnha?=
- =?utf-8?B?VzJNbXdkOUUrRy9wNnJnb05lQXpwa0FSUmdPZmlKejBoY2NmUXhFWHhHbldS?=
- =?utf-8?B?Um02TFFyaEMzRUhVR2JSSEplMU52Slc1cFZSS3JaTUV1dWQ1eFB4ZHlwZGJn?=
- =?utf-8?B?MCtENHdsL0NwNE0vVTFBSml6dzg1dCtvWVNKQmhTeC9HRGFCL2M5VnExSGZJ?=
- =?utf-8?B?V1QvM1NuczUwREFtZGFaQkUzU3NSeUNOTDZjZ3ljc2xlMW13Y05yQ1ovdkdr?=
- =?utf-8?B?OGFoU215Mlp5OHU0NkdyUG9ZaGQxZWZNdmxvcGhva2MvM1pNUExneWJ6OFkz?=
- =?utf-8?B?Y1NwWkRsRGZTbGpOQWV5anJzNnFmOEI0aDBCd05WbXAwVjJtMWpmdEEwdnN5?=
- =?utf-8?B?eXpoOGFvR1J5Y2RJWVNrdWZ4UzU1SHl3dE1XUFd1VTAyaUxEZXJWYkxXRjRm?=
- =?utf-8?B?eHB0dnBEVlZxaU04bTJyZVdxUlFRZ3pLZHV3bjJTdUJaR2ZSdkx0UWFoNnFX?=
- =?utf-8?B?U2hUREJIVXRCS2pBSUN3TGh1d1FuenR2VzdYanVlQmVKeUNkN0ozNjVvYURm?=
- =?utf-8?B?cWJ3K0xRQi9XQXFycmZXbnFTaDNBc3BiMytYWCtic2Vvc1pBcE4vRndpZmhp?=
- =?utf-8?B?a2JpakZTVC9ScmVLeFBYcU1Sd211MXNaV0pINjBGbXhUTFZkWjBJNWE1Zll5?=
- =?utf-8?B?M3FRZDkzbFYrVjRlMnM5b3pDaU1ITGs1eUdzZ2ZpVVpURkRCMisrcFJaRno2?=
- =?utf-8?B?dXVTcHdOZnZaRngzUHo4ZTAveEFKVUpSS1FEcjZkMDQwdStyVjNvSzlVUVZu?=
- =?utf-8?B?by9wZ0I0VW1ndkVwOTVCVHBEODdNYzZEMjlwcEEwbEdPTTA2aTB5RC9UdXlB?=
- =?utf-8?B?dTdYc3VlOEYzbUNMK1J1dStTNXhqUU5zMWs1T0ZzQkN5VjhoQk9XL1dOakl6?=
- =?utf-8?B?OXVrdHVHcTBWbHgxdzg4L3ozNVRnK2dFeTYrSzJ1WFVCekxJSUtoeHpXVlVE?=
- =?utf-8?B?NlNVUjIzZUNFWk9QL0xRUENFeW1lcVg3em5yV1lUS0dqa3BPcXorSW1wcVdT?=
- =?utf-8?B?MjBvaysvakZhRUU2Zmc1RDdueklnRG8xeU9DbXhSaDdndUpSeW9xaSsxa0JC?=
- =?utf-8?B?R1pWNW5nSzA4T0FLbyszVDcxTGxRNmV4TlZNZE9yL0UyTzQ3ZzY2QWpvcU5q?=
- =?utf-8?B?UVNuQW82U1NTaCtTZ2ZKRVhmOXF5elREYUtOWnMzcTFKVWxHZENaMm4xd2l1?=
- =?utf-8?B?TVloOHAzdEFjNUZHdVI4VUl1SUlueWZyNWhZTkQ4UnRPaXMzTGtydzJ6RCtu?=
- =?utf-8?B?VnB0RjRVR0VucGZROTU5b2pVRm9QN3FKNGlBMU8yVWk4SGFkQzc4SVdMZWVD?=
- =?utf-8?B?NFlqMU50bStmcS9BaW9STDlnYnpsck8rZ3ZYcVRaeTNrTkdkRTJlZFdsUFhn?=
- =?utf-8?B?UzNZZDdNblExRzJldmpTOW9ROEdJK2JhMmRhWkRsbElGVHRQcnFrNm1jK0ZB?=
- =?utf-8?B?a2dGMEx6R2ZJYkErL05lTisrSkZ3eTBESlQ4VndkcnRPbXhVYXpiNmFteW8y?=
- =?utf-8?B?T0Q3bm1EaVlWYXJtVGcvWHg4djdQdU9PTUxRMzN6V0pjNWNXWVY3TFAzR1M5?=
- =?utf-8?B?L2RNS0k0dVlZekJNTUN4ZlZYb3lUNUhLZk5qRGhnU1h2dlBZWlk3ZjMxWHAy?=
- =?utf-8?B?MjZQVC91WXRtcDBsdlFNWXl4T3k0d1ZuNjdFakZBR2ZBb3BYbWVWREhDSitV?=
- =?utf-8?B?MFFzVEo2VG5kWHZITVVnWSt0bnI1b1NtQzh2VnV5Z3hZd2VzVmdScHE2d1NJ?=
- =?utf-8?Q?mCkowj4y6tzko4fkxH8YWfGxH?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac93ecb6-e7e2-4eae-aec9-08da901b3528
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 15:19:35.8128
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T5sSqjRoWgWOJ/RJ/gtlGqVUYFa4JlwuWdEyoo5kC9O9zeVXBMGN8Bgm6rC34heIGekrkQVzxg1EkqpYBBdylQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5538
-
-On 24.08.2022 16:57, Bertrand Marquis wrote:
-> ...because there are some script in automation corresponding to the
-> build-* filter (build-test.sh and build-each-commit.sh)
-> 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="QVef3WGluHOc9mqh"
+Content-Disposition: inline
+In-Reply-To: <08c9df71-0470-c9eb-94f0-776eaacefa5b@suse.com>
 
 
+--QVef3WGluHOc9mqh
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 6 Sep 2022 17:46:12 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v6 01/10] drivers/char: allow using both dbgp=xhci and
+ dbgp=ehci
+
+On Tue, Sep 06, 2022 at 05:07:27PM +0200, Jan Beulich wrote:
+> On 02.09.2022 15:17, Marek Marczykowski-G=C3=B3recki wrote:
+> > This allows configuring EHCI and XHCI consoles separately,
+> > simultaneously.
+> >=20
+> > This changes string_param() to custom_param() in both ehci and xhci
+> > drivers. Both drivers parse only values applicable to them.
+> >=20
+> > While at it, drop unnecessary memset() of a static variable.
+>=20
+> Are you sure of this? What if there are two "dbgp=3Dxhci,..." options
+> on the command line, the latter intended to override the earlier but
+> malformed. Then ->enabled would be left set from parsing the first
+> instance, afaict.
+
+Right.
+
+> > --- a/docs/misc/xen-command-line.pandoc
+> > +++ b/docs/misc/xen-command-line.pandoc
+> > @@ -409,7 +409,7 @@ The following are examples of correct specification=
+s:
+> >  Specify the size of the console ring buffer.
+> > =20
+> >  ### console
+> > -> `=3D List of [ vga | com1[H,L] | com2[H,L] | pv | dbgp | none ]`
+> > +> `=3D List of [ vga | com1[H,L] | com2[H,L] | pv | dbgp | xhci | none=
+ ]`
+>=20
+> Personally I consider "dbc" more in line with "dbgp", but I'm okay
+> with "xhci". We may want to allow for "ehci" then as an alias of
+> "dbgp", though (in a separate, later patch).
+
+I've changed "dbc" to "xhci", as "dbc" isn't really surfaced to the user
+anywhere else. As in - it requires some deeper knowledge to draw a
+connection between console=3Ddbc and dbgp=3Dxhci. And yes, when going this
+way, "ehci" alias would make sense.
+
+>=20
+> > --- a/xen/drivers/char/ehci-dbgp.c
+> > +++ b/xen/drivers/char/ehci-dbgp.c
+> > @@ -1464,7 +1464,18 @@ static struct uart_driver __read_mostly ehci_dbg=
+p_driver =3D {
+> >  static struct ehci_dbgp ehci_dbgp =3D { .state =3D dbgp_unsafe, .phys_=
+port =3D 1 };
+> > =20
+> >  static char __initdata opt_dbgp[30];
+> > -string_param("dbgp", opt_dbgp);
+> > +
+> > +static int __init parse_ehci_dbgp(const char *opt)
+> > +{
+> > +    if ( strncmp(opt, "ehci", 4) )
+> > +        return 0;
+> > +
+> > +    strlcpy(opt_dbgp, opt, sizeof(opt_dbgp));
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +custom_param("dbgp", parse_ehci_dbgp);
+>=20
+> We commonly don't put a blank line between the function and this
+> construct. (Same again further down then.)
+>=20
+> > --- a/xen/drivers/char/xhci-dbc.c
+> > +++ b/xen/drivers/char/xhci-dbc.c
+> > @@ -245,6 +245,7 @@ struct dbc {
+> >      uint64_t xhc_dbc_offset;
+> >      void __iomem *xhc_mmio;
+> > =20
+> > +    bool enable; /* whether dbgp=3Dxhci was set at all */
+>=20
+> In dbc_init_xhc() there's an assumption that the "sbdf" field is
+> always non-zero. Do you really need this separate flag then?
+
+Not really, sbdf =3D=3D 0 means "find Nth xhci", where N=3Dxhc_num+1 (and
+xhc_num can be zero too). See the "if" at the very top of
+dbc_init_xhc().
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--QVef3WGluHOc9mqh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmMXa0QACgkQ24/THMrX
+1yytjwf/UlINwGQ3CDJK60Agz88bEOg0oOhqZrjAu5H0t+6yypWKZWBmyLkHfnz5
+/oRMJ+fjcy2+S+JFi/8QWna4vg9+uYeLkrpQjHu/0e71EsHhq+FbEX4Pi2LcY/7k
+WCI5NvtIJJyIxhsBNIp4a8+5AtKLCn8m5buboIlta5FNGcoGsceDFoWSiEbfb6Gx
+TUAjXXWse3DzjSeFbe1BeXcN9hKz3+4FD017N3QsLJwcLDXkHDcGwGH1+OURPAQa
+q6ZiMeQ3f0SoR6Z9QVUyPdlyHtSHGw/tXoHgq67r/vM95JeAuua8ijahNlsZu96I
+wx88tuzbtI6G44pNT7t5L4wlmtv+tA==
+=Jbn+
+-----END PGP SIGNATURE-----
+
+--QVef3WGluHOc9mqh--
 
