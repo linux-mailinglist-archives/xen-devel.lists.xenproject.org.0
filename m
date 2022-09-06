@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B90D35AF7CF
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 00:23:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400652.642289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95B45AF826
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 00:56:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.400674.642300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgxq-0000lr-Hi; Tue, 06 Sep 2022 22:22:38 +0000
+	id 1oVhTW-0004hP-3T; Tue, 06 Sep 2022 22:55:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400652.642289; Tue, 06 Sep 2022 22:22:38 +0000
+Received: by outflank-mailman (output) from mailman id 400674.642300; Tue, 06 Sep 2022 22:55:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgxq-0000j9-EZ; Tue, 06 Sep 2022 22:22:38 +0000
-Received: by outflank-mailman (input) for mailman id 400652;
- Tue, 06 Sep 2022 22:22:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4s6j=ZJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oVgxo-0000j3-7b
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 22:22:36 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67af75d8-2e32-11ed-af93-0125da4c0113;
- Wed, 07 Sep 2022 00:22:34 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B8B04616DF;
- Tue,  6 Sep 2022 22:22:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E55C433C1;
- Tue,  6 Sep 2022 22:22:32 +0000 (UTC)
+	id 1oVhTW-0004fD-0S; Tue, 06 Sep 2022 22:55:22 +0000
+Received: by outflank-mailman (input) for mailman id 400674;
+ Tue, 06 Sep 2022 22:55:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oVhTV-0004f3-8M; Tue, 06 Sep 2022 22:55:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oVhTV-0006tj-45; Tue, 06 Sep 2022 22:55:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oVhTU-0004hS-LF; Tue, 06 Sep 2022 22:55:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oVhTU-0002SF-Km; Tue, 06 Sep 2022 22:55:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,187 +42,390 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67af75d8-2e32-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662502953;
-	bh=8n8aMCWIfJIlAuCHcbpzkSDHpKkDTpXTJEtaU2PtQ8I=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=uO1HfR5AenOtZwvziWvYSCFADRYyUkfnabsWDD6nZELMQHf+DbbQMXSKLRWjIbpmm
-	 SoBU9fMEpzqzEuYeIQwFmCh8vWi17ohE1Lxp6mukER0u77s3U9qr7dePcG00pItVAN
-	 XyB/e/I9UHqXQiIqByLmhuVmUIpAy/3uPQr2mwXSjw8fB+x4K3+Pi19CmkcyUc9eqR
-	 JjuL7p6NLaOOosbp3yBoRwYYxC9RDmNwA2yIDP25/pO7AhgOLfQ6lVYyjIPogi1oJC
-	 R3SHy/RxsbjV/LdrWpdSRQPQR71iK4o3zw8fZD9//k/THq0B1vu91REiW49qGW3q3H
-	 swPO0JWCxokzg==
-Date: Tue, 6 Sep 2022 15:22:31 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v4 7/7] xen/arm: introduce xen-evtchn dom0less property
-In-Reply-To: <055660c342c85cd97d6e3a5551c84e62f49dece6.1662462034.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2209061514150.157835@ubuntu-linux-20-04-desktop>
-References: <cover.1662462034.git.rahul.singh@arm.com> <055660c342c85cd97d6e3a5551c84e62f49dece6.1662462034.git.rahul.singh@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Lf9uwMJ4jL4+zMVBuGs5+R7Hn+/3LBJMto/VW2YzVqA=; b=zcNEIFfSjQu2ELPW55cnusJMpV
+	cenJx0qtWjp4HGnQJjnIOc9q7K6yWQXutkuGQ9sgsP33SJDZkzprPGt6d5t3/hucgiziHDhZpFQQx
+	BTQFDLAzKy7JQqAgxYf3fTicdGN9NkCQoXzYqViv18Xn/W5X7oR5kzoWEbdSaDugKVmg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173022-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable test] 173022: FAIL
+X-Osstest-Failures:
+    xen-unstable:test-amd64-amd64-migrupgrade:<job status>:broken:regression
+    xen-unstable:test-amd64-amd64-migrupgrade:host-install/src_host(6):broken:heisenbug
+    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-install:fail:heisenbug
+    xen-unstable:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:heisenbug
+    xen-unstable:test-amd64-i386-freebsd10-amd64:xen-install:fail:heisenbug
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    xen-unstable:build-amd64-libvirt:libvirt-build:fail:nonblocking
+    xen-unstable:build-i386-libvirt:libvirt-build:fail:nonblocking
+    xen-unstable:build-arm64-libvirt:libvirt-build:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:build-armhf-libvirt:libvirt-build:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=d84473689611eed32fd90b27e614f28af767fa3f
+X-Osstest-Versions-That:
+    xen=e997d055929665b12246e89eb092dc79c65de9a4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 06 Sep 2022 22:55:20 +0000
 
-On Tue, 6 Sep 2022, Rahul Singh wrote:
-> Introduce a new sub-node under /chosen node to establish static event
-> channel communication between domains on dom0less systems.
-> 
-> An event channel will be created beforehand to allow the domains to
-> send notifications to each other.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> ---
-> Changes in v4:
->  - move documentation to common place for evtchn node in booting.txt
->  - Add comment why we use dt_device_static_evtchn_created()
->  - check if dt_get_parent() returns NULL
->  - fold process_static_evtchn_node() in alloc_static_evtchn()
-> Changes in v3:
->  - use device-tree used_by to find the domain id of the evtchn node.
->  - add new static_evtchn_create variable in struct dt_device_node to
->    hold the information if evtchn is already created.
->  - fix minor comments
-> Changes in v2:
->  - no change
-> ---
->  docs/misc/arm/device-tree/booting.txt |  98 +++++++++++++++++
+flight 173022 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173022/
 
-I have just reviewed the binding, only three minor comments below.
-Everything looks good.
+Failures and problems with tests :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-migrupgrade    <job status>                 broken  in 173004
+
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-migrupgrade 6 host-install/src_host(6) broken in 173004 pass in 173022
+ test-amd64-i386-xl-qemut-debianhvm-amd64 7 xen-install fail in 173004 pass in 173022
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail in 173004 pass in 173022
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  7 xen-install    fail pass in 173004
+ test-amd64-i386-freebsd10-amd64  7 xen-install             fail pass in 173013
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ build-amd64-libvirt           6 libvirt-build                fail  like 172993
+ build-i386-libvirt            6 libvirt-build                fail  like 172993
+ build-arm64-libvirt           6 libvirt-build                fail  like 172993
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172993
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172993
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172993
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 172993
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 172993
+ build-armhf-libvirt           6 libvirt-build                fail  like 172993
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172993
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 172993
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 172993
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172993
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  d84473689611eed32fd90b27e614f28af767fa3f
+baseline version:
+ xen                  e997d055929665b12246e89eb092dc79c65de9a4
+
+Last test of basis   172993  2022-09-05 01:52:22 Z    1 days
+Testing same since   173004  2022-09-05 14:38:21 Z    1 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Juergen Gross <jgross@suse.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
->  xen/arch/arm/domain_build.c           | 147 ++++++++++++++++++++++++++
->  xen/arch/arm/include/asm/setup.h      |   1 +
->  xen/arch/arm/setup.c                  |   2 +
->  xen/include/xen/device_tree.h         |  16 +++
->  5 files changed, 264 insertions(+)
-> 
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index 1b0dca1454..c8329b73e5 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -382,3 +382,101 @@ device-tree:
->  
->  This will reserve a 512MB region starting at the host physical address
->  0x30000000 to be exclusively used by DomU1.
-> +
-> +Static Event Channel
-> +====================
-> +The event channel communication will be established statically between two
-> +domains (dom0 and domU also). Event channel connection information between
-> +domains will be passed to Xen via the device tree node. The event channel
-> +will be created and established in Xen before the domain started. The domain
-> +doesn???t need to do any operation to establish a connection. Domain only
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-doesn't
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-better to use ASCII if possible
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> +needs hypercall EVTCHNOP_send(local port) to send notifications to the
-> +remote guest.
-> +
-> +There is no need to describe the static event channel info in the domU device
-> +tree. Static event channels are only useful in fully static configurations,
-> +and in those configurations, the domU device tree dynamically generated by Xen
-> +is not needed.
-> +
-> +To enable the event-channel interface for domU guests include the
-> +"xen,enhanced = "no-xenstore"" property in the domU Xen device tree node.
+broken-job test-amd64-amd64-migrupgrade broken
 
-double ""
+Not pushing.
 
+------------------------------------------------------------
+commit d84473689611eed32fd90b27e614f28af767fa3f
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Sep 5 09:00:05 2022 +0200
 
-> +
-> +Under the "xen,domain" compatible node for domU, there needs to be sub-nodes
-> +with compatible "xen,evtchn" that describe the event channel connection
-> +between two domUs. For dom0, there needs to be sub-nodes with compatible
-> +"xen,evtchn" under the chosen node.
-> +
-> +The static event channel node has the following properties:
-> +
-> +- compatible
-> +
-> +    "xen,evtchn"
-> +
-> +- xen,evtchn
-> +
-> +    The property is tuples of two numbers
-> +    (local-evtchn link-to-foreign-evtchn) where:
-> +
-> +    local-evtchn is an integer value that will be used to allocate local port
-> +    for a domain to send and receive event notifications to/from the remote
-> +    domain. Maximum supported value is 2^17 for FIFO ABI and 4096 for 2L ABI.
-> +    It is recommended to use low event channel IDs.
-> +
-> +    link-to-foreign-evtchn is a single phandle to a remote evtchn to which
-> +    local-evtchn will be connected.
-> +
-> +Example
-> +=======
-> +
-> +chosen {
-> +
-> +    /* one sub-node per local event channel */
+    xen/sched: fix cpu hotplug
+    
+    Cpu unplugging is calling schedule_cpu_rm() via stop_machine_run() with
+    interrupts disabled, thus any memory allocation or freeing must be
+    avoided.
+    
+    Since commit 5047cd1d5dea ("xen/common: Use enhanced
+    ASSERT_ALLOC_CONTEXT in xmalloc()") this restriction is being enforced
+    via an assertion, which will now fail.
+    
+    Fix this by allocating needed memory before entering stop_machine_run()
+    and freeing any memory only after having finished stop_machine_run().
+    
+    Fixes: 1ec410112cdd ("xen/sched: support differing granularity in schedule_cpu_[add/rm]()")
+    Reported-by: Gao Ruifeng <ruifeng.gao@intel.com>
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-It would be good to say that this is for dom0 in the comment, e.g.:
+commit d42be6f83480b3ada286dc18444331a816be88a3
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Sep 5 09:00:04 2022 +0200
 
-/* this is for Dom0 */
+    xen/sched: carve out memory allocation and freeing from schedule_cpu_rm()
+    
+    In order to prepare not allocating or freeing memory from
+    schedule_cpu_rm(), move this functionality to dedicated functions.
+    
+    For now call those functions from schedule_cpu_rm().
+    
+    No change of behavior expected.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
+commit a83fa1e2b96ace65b45dde6954d67012633a082b
+Author: Juergen Gross <jgross@suse.com>
+Date:   Mon Sep 5 09:00:03 2022 +0200
 
-> +    ec1: evtchn@1 {
-> +         compatible = "xen,evtchn-v1";
-> +         /* local-evtchn link-to-foreign-evtchn */
-> +         xen,evtchn = <0xa &ec2>;
-> +    };
-> +
-> +    domU1 {
-> +        compatible = "xen,domain";
-> +        #address-cells = <0x2>;
-> +        #size-cells = <0x1>;
-> +        xen,enhanced = "no-xenstore";
-> +
-> +        /* one sub-node per local event channel */
-> +        ec2: evtchn@2 {
-> +            compatible = "xen,evtchn-v1";
-> +            /* local-evtchn link-to-foreign-evtchn */
-> +            xen,evtchn = <0xa &ec1>;
-> +        };
-> +
-> +        ec3: evtchn@3 {
-> +            compatible = "xen,evtchn-v1";
-> +            xen,evtchn = <0xb &ec5>;
-> +        };
-> +
-> +        ec4: evtchn@4 {
-> +            compatible = "xen,evtchn-v1";
-> +            xen,evtchn = <0xc &ec6>;
-> +        };
-> +    };
-> +
-> +    domU2 {
-> +        compatible = "xen,domain";
-> +        #address-cells = <0x2>;
-> +        #size-cells = <0x1>;
-> +        xen,enhanced = "no-xenstore";
-> +
-> +        /* one sub-node per local event channel */
-> +        ec5: evtchn@5 {
-> +            compatible = "xen,evtchn-v1";
-> +            /* local-evtchn link-to-foreign-evtchn */
-> +            xen,evtchn = <0xb &ec3>;
-> +        };
-> +
-> +        ec6: evtchn@6 {
-> +            compatible = "xen,evtchn-v1";
-> +            xen,evtchn = <0xd &ec4>;
-> +        };
-> +    };
-> +};
+    xen/sched: introduce cpupool_update_node_affinity()
+    
+    For updating the node affinities of all domains in a cpupool add a new
+    function cpupool_update_node_affinity().
+    
+    In order to avoid multiple allocations of cpumasks carve out memory
+    allocation and freeing from domain_update_node_affinity() into new
+    helpers, which can be used by cpupool_update_node_affinity().
+    
+    Modify domain_update_node_affinity() to take an additional parameter
+    for passing the allocated memory in and to allocate and free the memory
+    via the new helpers in case NULL was passed.
+    
+    This will help later to pre-allocate the cpumasks in order to avoid
+    allocations in stop-machine context.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Tested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+(qemu changes not included)
 
