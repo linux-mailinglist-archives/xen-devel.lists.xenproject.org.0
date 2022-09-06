@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C164C5AE089
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:07:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399432.640604 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 825065AE11A
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:30:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399442.640724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVSfl-0005JX-FW; Tue, 06 Sep 2022 07:07:01 +0000
+	id 1oVT2S-0006Z2-9H; Tue, 06 Sep 2022 07:30:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399432.640604; Tue, 06 Sep 2022 07:07:01 +0000
+Received: by outflank-mailman (output) from mailman id 399442.640724; Tue, 06 Sep 2022 07:30:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVSfl-0005HF-Ce; Tue, 06 Sep 2022 07:07:01 +0000
-Received: by outflank-mailman (input) for mailman id 399432;
- Tue, 06 Sep 2022 07:07:00 +0000
+	id 1oVT2S-0006Wc-6L; Tue, 06 Sep 2022 07:30:28 +0000
+Received: by outflank-mailman (input) for mailman id 399442;
+ Tue, 06 Sep 2022 07:09:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=o/Pp=ZJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oVSfk-0005H9-5N
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:07:00 +0000
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20047.outbound.protection.outlook.com [40.107.2.47])
+ (envelope-from <SRS0=S2FI=ZJ=vmware.com=akaher@srs-se1.protection.inumbo.net>)
+ id 1oVShx-0005zG-Vq
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:09:18 +0000
+Received: from na01-obe.outbound.protection.outlook.com
+ (mail-westcentralusazlp170100000.outbound.protection.outlook.com
+ [2a01:111:f403:c112::])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f869f1b-2db2-11ed-a016-b9edf5238543;
- Tue, 06 Sep 2022 09:06:59 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB7813.eurprd04.prod.outlook.com (2603:10a6:20b:2a4::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.18; Tue, 6 Sep
- 2022 07:06:56 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5588.017; Tue, 6 Sep 2022
- 07:06:56 +0000
+ id d09e7e7e-2db2-11ed-a016-b9edf5238543;
+ Tue, 06 Sep 2022 09:09:16 +0200 (CEST)
+Received: from PH0PR05MB8703.namprd05.prod.outlook.com (2603:10b6:510:bd::5)
+ by DM6PR05MB4970.namprd05.prod.outlook.com (2603:10b6:5:31::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.5; Tue, 6 Sep
+ 2022 07:09:11 +0000
+Received: from PH0PR05MB8703.namprd05.prod.outlook.com
+ ([fe80::95af:33a4:b350:c335]) by PH0PR05MB8703.namprd05.prod.outlook.com
+ ([fe80::95af:33a4:b350:c335%8]) with mapi id 15.20.5612.012; Tue, 6 Sep 2022
+ 07:09:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,179 +47,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f869f1b-2db2-11ed-a016-b9edf5238543
+X-Inumbo-ID: d09e7e7e-2db2-11ed-a016-b9edf5238543
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eo28dIGOGO5GV/E4gSKb+miXFIAfpbtJVUV+DxzoYj07EudT+JdXoBKCh0M7mR5ECdIPrG5QZqlEHLQL/QVAFNvXkTRzfNepdClyu1xfVllzL3pqFAToxZ2gKyx/93YlqUiWSpSfWWzEqZbNF6JW7p/UunhX7ABaWDJczqq+8VcM1PhVAFAljbgC5b+k23zNUTnm5Y5mtJC3tamAfSsmsHSY58TLnNCrcItaCWO3AVQWblQh227wgoPxaL+qEA/GpQrCpAbJ5Uhm+lguo2gqEmy0rlsz9RS9mLFyEN+uuZyKoZoqiDS4Om03fl9AeBwZGfyTNO80vBzZyHILlnysIw==
+ b=dY1wPXHnrMEnxZciiGfS4XSgRUh/IXWahcmOFtN/+OdybMsqd+W9x/lxWaIUsqZoTHsH4rsItI3kf/WVJyG9N4L1/3650PE0b5ekY7q7/TkyYk1kaFTRV71pcqZg0cYrsNOH50wqJfo+3oaq1+hLEdabZ+g0ZXt8ot9tZR/4nLnlzrX7nNcByzU06t59VYkKLaeR5Ca7notRErd3djgctnEd0RhZjM82yjSahbJ+wXD8lh6GP3XvVrWWQZ0NK6ie5ynRxZ4jtoffE5znaOCBXc1E5adrXc9H20HBkP+h+M2P4AsoPbXJZVz0STnp89ZuoKucMcF56QktfLboXeanuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6I/63x5qAG9k0n9qEXH2a0xgxLGEscX/MDRhYH8wntA=;
- b=FhiKETB9F67rU6VECki6fUTuOuRrqmyFZo3UQM4xmoY5/2nlrU6k/328wh2+4ueZaWSIkvJF34lbel1fRrx3pFoWVqZGe5UBDMAvQgcoId1NyjKq95Bot8xYn3pvjGArAdmdNyCgcBkGwZqgkDX6NIltQSTGeI1+NLvN6KvynHpvRrArGHgbO8bAhzQbMqmeJfFuKp7DGRqmtEApF0U+62itort/7r5sAKcXd952nIIRPsHb6+BjsDXg/KAh9dhP+ptsB442EgTchHi7x4+28Y9+3nYhh5kRZukGGoLy2NsZrbffs0fRn+dE9kpr+JstnX5eWMrV6ba6CW20xamMhQ==
+ bh=tVqjBGkFgXrs31AA2OHw7MU01gBpvRs6t5y6CM6f2Tg=;
+ b=lOjDBVufiEWaMCHFThqVBpo69/Ca31qNmAVV5ydA1N/za1AnL70f597eaeTUBLXh7c5GOQ8Cx1iP3NgeHOT/gpLn9pkmeyCzmcVRxIDxq3GRLtBeaYyTT+bQZt4vVfZGcjnMHn5XMX5nisIerqCYxNqztaQBm686q3OA1EwFNuEh4Uo0fxQoJN1wvBrLQcVSnIaEJZLsd+aYS94sZ8qLcjGPPwAKg/8L83hf9DmRz+kTHdVJEaVbrIdJxk9/TIuA21lA8Db30Mp7jWNW0m40fbeWAT4dB4iZbyzWe270UXcfEKsTJfKpSGMP7n8rD821EzIvoB4/5Vw7pE3xM0srww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
+ dkim=pass header.d=vmware.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6I/63x5qAG9k0n9qEXH2a0xgxLGEscX/MDRhYH8wntA=;
- b=sAUkN14+WHv62c782QgvXpJk7ONIJgX9j4kkGKFGu2KR1OWeQhoY1VeYBUXNWAT9kRwh5T1+gXXqGzk/M7OjK0NxZOzI+mvU7TBYrzFbWIavjOqHBFR9IzCJg4P1ak6LY7carkZqjdOz8R1x/65i611t8e6wnr+czTJaHHRSEhCormglGTGL7OBKlRHOYf4IGA77eyoVVkZ8VYEJXEG0VRCLopCD+4moVbYvvZJxtJaFKtE5KUW/ZeLDAua2Cdq1Xcj2KoJ7GaAFWOF71QskFrPy2ilO+qVEv2SMN1EaIfmiMLYYR1T6nr77VTnmpWYXq9pmtJb7nYvVBPq/3jIQpA==
+ bh=tVqjBGkFgXrs31AA2OHw7MU01gBpvRs6t5y6CM6f2Tg=;
+ b=zn+MsRJlDS55rB9koppwTf9JIKLqRyfwc9/3fsa+EyQq1LsG/Ej88qKLWxqlQ9HMBg9TQdzHm5bHYB8dNb5HZ77UVn+5BWw2vEp6rM6MeB/yDVsMEcgd9VZRx+u8GRb4FhMwPCoBW+1jbfjxu8akK3rfxsEI3r68Bek3vxInxPI=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a02774d0-8ae1-e89a-8d4e-8a5823d05d86@suse.com>
-Date: Tue, 6 Sep 2022 09:07:02 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.1
-Subject: Re: [PATCH v3 2/6] xen/x86: move generically usable NUMA code from
- x86 to common
-Content-Language: en-US
-To: Wei Chen <Wei.Chen@arm.com>
-Cc: nd <nd@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20220822025810.2240707-1-wei.chen@arm.com>
- <20220822025810.2240707-3-wei.chen@arm.com>
- <15c1de02-efa3-5d2d-db3f-1b04de8a1ba4@suse.com>
- <PAXPR08MB74201ABCEC5CCFF65F4C84969E769@PAXPR08MB7420.eurprd08.prod.outlook.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <PAXPR08MB74201ABCEC5CCFF65F4C84969E769@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ header.d=none;dmarc=none action=none header.from=vmware.com;
+From: Ajay Kaher <akaher@vmware.com>
+To: helgaas@kernel.org,
+	bhelgaas@google.com,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com
+Cc: x86@kernel.org,
+	hpa@zytor.com,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rostedt@goodmis.org,
+	srivatsab@vmware.com,
+	srivatsa@csail.mit.edu,
+	amakhalov@vmware.com,
+	vsirnapalli@vmware.com,
+	er.ajay.kaher@gmail.com,
+	willy@infradead.org,
+	namit@vmware.com,
+	linux-hyperv@vger.kernel.org,
+	kvm@vger.kernel.org,
+	jailhouse-dev@googlegroups.com,
+	xen-devel@lists.xenproject.org,
+	acrn-dev@lists.projectacrn.org
+Subject: [PATCH v2] x86/PCI: Prefer MMIO over PIO on VMware hypervisor
+Date: Tue,  6 Sep 2022 12:38:37 +0530
+Message-Id: <1662448117-10807-1-git-send-email-akaher@vmware.com>
+X-Mailer: git-send-email 2.7.4
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0025.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::23) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-ClientProxiedBy: BYAPR05CA0061.namprd05.prod.outlook.com
+ (2603:10b6:a03:74::38) To PH0PR05MB8703.namprd05.prod.outlook.com
+ (2603:10b6:510:bd::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4b57241d-2fdf-4422-d844-08da8fd6626f
-X-MS-TrafficTypeDiagnostic: AS8PR04MB7813:EE_
+X-MS-TrafficTypeDiagnostic: PH0PR05MB8703:EE_|DM6PR05MB4970:EE_
+X-MS-Office365-Filtering-Correlation-Id: 361688ab-6f30-4422-58aa-08da8fd6b2f1
+X-LD-Processed: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	P/7FuLAkt3lRiCQe741iObennzBu6M/T6HTsSVzT6k35YPo/67fSFjplBToI0Q3v98LG10xrXUpdVHAJkLOBxVw0S68fTpun1HV1n0SrWOzK8/r3D9zXdj+x6X5bsL9KK/KPtOpccduHS9JPJESAbTfhK0QWx+Az5uEapg59NCLJzzIFBvkgw7GKOTYHejKWMs4BtR8gOEYZkIVbKFwQ9fL6oGSKfatydzJm2mjmdMAfzG4Jt9wBgjG4K48da6vBUjfvkdIvxB7d+HXlwdftXiiIK/GTl6x8tvpU9yI1sEJ7HGH0UorGQtXlVNFtJIe7P5HBycGPLM8yVCGBHvLH5VowczpVSQAfqf2lJDwI0Qj1fp1KFUnIV7xGYgsCatatwDkmz473EnCEt/KsUNcyEpw0VSIA+9OwHbuY4gtZP0pJtamMWuXyAdTJNvP0yCfVIoQUo6DD4f0F2quGV9+1o+oDv1zeL17997n7HllBtRO3hs25KRQpUC2NV/BV/0IxKm0onR64VEHsR34xhGFPJLrP0uknpUoZl7ypJsw0Mf3sdHND7SefWtsxFQuEU+A9T73PDLd9aq5VzXEuHY9tr7dqIre6TxzWtJnt28PSGGa6flP5QDogejZ+SXsCdZIgARANvtLcMXfsvtSQsUKgiXFKg02tmXZb5Iavx9VYfiGA0PAEGEAHOJKawWFiXq8A3sAvyEoUT9sllPE1QVpfPynMynJvavKJPwo9xdxDXCWCxf80fjMNygwtVBlfzsrO+Oz/TTBhKTb/M8GezkxsTvopMiVjTzUH6K1VnGezKt4=
+ rpEmG/ZTZD41ci8rzga319nfcfWs6F4whtCEkJI1igtHShj/5o1VLFdArTGqtjMdJUQ3j1333o5vV/Px1O0GG2Uj3zj4cq7EBbEGguwtuYnG5WIzK014XG1a0SNRRgHxy+QGhgx78DPW/4hP/rPKdkm46Fq32f/JlnYXfu9fAgz3YWw6gWVRZ1uLE9Wk41ANTglPoqfvyd1FcExNpN3JePJe4sH7NLghX6okgRdiytGbNtziY91ftsvWi29UMKDMINRi6zUmWJZpuv5MPmedTsHEu0m1L1QttboRINoi06f0XUdZXfLYw5MTbIsktHtLW33/6Y46vb4nt2jCe269qOC9cXOy4nQHmZTBL7j4jq4mYUEtRuiKN51HVsLHxts5DVJxTmG3pK/89SJKCisLEDJ6zIC/ib/p3bZ2vvQyJKUfxzcfkErOwElh4SEXu5yJ7swQ8PiEghfIm0g2kc8nFLG3skw8+p01cV3BkoKkxArc7qtWQUDYczpG+TJEs+gZXNp2TfgFvX69zGcuhV16L05T83k9fi5MHBweme39oWZYLD1PXSJ4DBHvkTEXmMrK+OPt6NjIbuCdWOty8rltMwG+zYD4+ZaCzZobICxj/++mWLqADs7AixCOHeN9sNIplsC374NGmwCnH1vmWGSVj29LORst5AuIwRxWUKbF92Q4ee4VRAjEGZOlb+Qd5wTOhuAtFMiJrTWcvOMzkK/VbE/ocOYSloUCw7SUZd4AUcgfrKYFhnkJgpTdnwMIh3oVz6eR6dz2TT9zucNl6YOmTGKhfQFshJnL4y0VEi1NzK3XWey4TwqPevATsZhAuBHb
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(346002)(39860400002)(396003)(366004)(376002)(66946007)(8676002)(478600001)(4326008)(66476007)(5660300002)(8936002)(6486002)(6506007)(83380400001)(66556008)(41300700001)(6512007)(26005)(6666004)(2906002)(86362001)(31696002)(53546011)(31686004)(38100700002)(316002)(36756003)(54906003)(2616005)(6916009)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR05MB8703.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(39860400002)(346002)(366004)(376002)(136003)(396003)(38350700002)(38100700002)(4326008)(8676002)(66946007)(66556008)(66476007)(316002)(2906002)(7416002)(26005)(5660300002)(8936002)(6512007)(52116002)(83380400001)(2616005)(186003)(6666004)(41300700001)(6486002)(6506007)(86362001)(36756003)(478600001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S2F3cENuSTQ4cTlybS90OGNFYTlFcjlGSVRsZXAyL1BVN3pUdVRZYWp5djNw?=
- =?utf-8?B?OXNHZU0wdDBNK25yYXYwSTFqcXM0N0ZMbUVHcWdVdDhoU1FBM21mOGN3eG4x?=
- =?utf-8?B?amdRdnBlNXdYSitvMEE5VUNZWnVpUzBuWlI4eU54eDVNU1lyY3RhNS82Rkx4?=
- =?utf-8?B?blVvYjdIc1djU2h0WW5JclVrNEloYXBERjNXT3lvaXh3VG0rTzlwZDVaSVly?=
- =?utf-8?B?UXNqVGpTdDlDZ3JYL1FtcmtLSmZuMm9DSTBnRlBzV1hldjdiRTRZVmUveFl2?=
- =?utf-8?B?Y3dPdWNNNmRucE1PQjdicjlVUkFaZ2ZLWnp3aC9JMnZHckR4cElBVzNTMnlZ?=
- =?utf-8?B?K1Y2S3g3VnFLWHNVUTMxMlBIY0NmVVFZdyt4S2pCR0Y0NXFDNExzY092TWJs?=
- =?utf-8?B?NVRXNTYvN2dyZTVudVVxazR6U0dKWWp0TjFCU1paU2JzR21BOWlDYVNlQnBW?=
- =?utf-8?B?K2owWS9SUVpuZW40R2tISmpER25LL2NDOHdBbUtYNTl0YXQ3NHY0OFZLK0VI?=
- =?utf-8?B?Z1BucVdBMy9jR2E5Zk90Z2xtUTRQTjVkQm1tT21IWUVCU2gxOVNRNWIxM3VH?=
- =?utf-8?B?KzdiOXhWTUQwdm5jZFpmamp6LzRIdkh6Smt0aWZ3QjVnQ21lMDNvcmFBTGJp?=
- =?utf-8?B?WnBvU0xqSXQrWTM5dU9yejQrTWtYQzJ2U2hQQW9peWtURHVuU2JpRU12TXRB?=
- =?utf-8?B?aENQTHFNaG12bkJ4MDFkdElLY2Vpc0ZtcUdMNnU4ZGFZeXVmTkhZQnc2dGV0?=
- =?utf-8?B?VFRYRWphS1FMVzZGZXBsMjlIRVVNY2ovU2FhVDJHVDlxTFJEa3pZYmNyMHR5?=
- =?utf-8?B?cDNuUGtmQVRIUkxtaXhGcWdMNEprV2lJV3EvQy9oS2ZuQWVxYTV3UEVoeEZD?=
- =?utf-8?B?Mlh3eUpITmtsRnFRa1pXN09Hd3MyVGJSeDZ6ZkEveFVEcWRGRSsxSitiZm93?=
- =?utf-8?B?UXU3REd0U1RtQ3NOb3dxYnBsNWhHbDIyWC91WGJBSFFnOGpoYjI5OWNldWcw?=
- =?utf-8?B?WDVmank2VDF4eVkyYnlBQ0FxUzBLNnRwcno3bm9URjlQL2UzVll0Y1NvR2ZW?=
- =?utf-8?B?OCsxNElPTkVZWDNrYUp1Y29RYUpxRWEvVHYwQ2dBcDZZb2F0YnVjdGUzUXYr?=
- =?utf-8?B?UGNMWUtQNXVUNTZkU2xwMGhNYlE2NDRrV3pxaFB1alBpVHQ5NDZiazRUUVdl?=
- =?utf-8?B?YUl5Y29WQW9LSXV4NGErQUROR2xybGNIVk9Gc3hqd25rMUYxTXNSMy9kYmp3?=
- =?utf-8?B?SWxyK0h1T0VsOUxoQVJ3N09ZZFdmT2J4K0xtNW91K0p2blNWRWxWM2pibXpn?=
- =?utf-8?B?OEZkc3V5T2wrSkRPcTZLcFR4K3B4Q1BNalo0UFczTVJKUkJvZXZSVmI2Zklk?=
- =?utf-8?B?Q2JVRzRHTzB1NkIvNVpabWRlK1pBdEVuODBzU0MrMFNiVFdLamV3Z3F2MmV2?=
- =?utf-8?B?Yit1bmhGaGJ0ajMrSHZJYlBaaGxIV0h4TEowTGxyYkZJWDdrYzlFakZBdVo3?=
- =?utf-8?B?ejRETXZWYUVRWk1IaDAvbzdRbWNKSDBubklTWDVhNDJybEIxbVlDNXA2ekNQ?=
- =?utf-8?B?bVdqTEovTTNmZU1mSmwyeU1SajZBV2NSQUphdnF2ZVlxa04rNk1FYVFyUUdR?=
- =?utf-8?B?WG1sTWFYZ25qZDh4bVJtNFlzd0dxeXdXWnJ1dDVLR0owREV5YUIwd2tqS3A5?=
- =?utf-8?B?R2htZ3djSVZuMC9Zck9YNzVZd1N5SDg0enZ0Ly9WWitWUDVOSCtmdnA3bDFV?=
- =?utf-8?B?VDdPd2E3ck0zRHBVV0Q4aGNOWnNQbDhBZUVVS2ozUiszM0dIQ3lINkVJWnY2?=
- =?utf-8?B?VkM2OHlOZWJFa3RrQ3c0VFYzVXQ3UnZoSkdKTFkrY1N4Tm9ldXlleHBLU29J?=
- =?utf-8?B?YjJuS3ZxZ0FJbFJaY0h0dHBqNVJiZkNjYlFnaFBucGhadmVsS1JuSE5WclJW?=
- =?utf-8?B?blNHdEswdmx4MHU4SVRTY3RxWG1KK0lGUVNNWHQxbXJTQy9Xb3NzS0V2bVpC?=
- =?utf-8?B?Z0wrcEhQbGRnL0o0L2xVSDg3Z2s5MzRLZ0dJclY1RXVQRFo0TG8vT2hnZ2xy?=
- =?utf-8?B?WFFyZ1NFZGZSSFNOSEsxS3lGRVNYU0hiSFlYZEN4dTRYSWJ5N1BkK3pHUkgw?=
- =?utf-8?Q?Bp1oRGkFFZFXmaN+pjw9UzlRR?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b57241d-2fdf-4422-d844-08da8fd6626f
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 07:06:56.4710
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Sw+5/upvWodD0kfflxvI4vt6I9RJRIeMShLSwZk4t680QtGnEoSxa2v9ks0R7Dmxr8P5YrzoYTW6cYgFSS0FzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7813
+ =?utf-8?B?cmthdHdLNFUwaVhQU08zS2ZzaUQwd3ppUUpKM3BFeVVnTDZYTzRjZGQ5NHcy?=
+ =?utf-8?B?Y0kyRWhmVkY3dTZyd1VnWVEyNkNBM3VnU1ZvZE1ZMmFTWDM5Q2l0dGs1WWk0?=
+ =?utf-8?B?UU5zWTVGMU1ianJsdldkNHk2elk0K0xHcEZEWXNrQndlZFV1cmhyeHhVcGhR?=
+ =?utf-8?B?NjRjQnh2MUhkKzRFSThZT093M0U1MUR3OVZhUkFTWmdaSTg1SmUrT3EzYWpz?=
+ =?utf-8?B?cE9oaUdJWjZtb2IrZ1h6SERzSDI2Ni9oaGVaNHBIS1RRNC9YNHAyamNSSjIw?=
+ =?utf-8?B?cHpNaXpsU25RaFJBY0lZcGFkS2JIU2xDNFdvSHpWTjJVcVJsMmZURHBNSWJU?=
+ =?utf-8?B?NjI0NVFSS0NyOGFBdWdBU1pQRTB6eDZZdG1HbzRUdjZQZWVFWExxVlBaMklB?=
+ =?utf-8?B?L3gyNDc5a1ZoczAraXc5d1E4ZDNPYkJhOG1FejNXMFBieEcrVG1zQzg3RkxZ?=
+ =?utf-8?B?VWYxNFM3QnN2QkZTZEg4WWJuUXRrUHJYdTZwYy9GM2JjL1pLNTdtcW5JaVZn?=
+ =?utf-8?B?RkRPTnQ0a1ptKzhuTDdldUhXWk9XNFdXSVpYTWpJSW8rdHBQcno5MEg0MzVX?=
+ =?utf-8?B?bzk3RTBCazl1eFpyTGl0WHFvcnFTaGVqS1pSOUFGWE1KNm9CVWY4Y1hpRVJ3?=
+ =?utf-8?B?VVoxZ1ZzaHliR0VNWW4xTGk3VHRLZnV0djVjVnJTRUUvUmJXNnVUZnpBNGQv?=
+ =?utf-8?B?bEY5QWZQNzRYc2JRdzhQUDNYY2xyVHhJQWsyb1o0QzQ2YlBma3JWUy8rZzdu?=
+ =?utf-8?B?ZGMycC9YRjZTTGsrKzVaTGVaRmIvRlNiaVl0SGVrckRoY2R5cndpVjFoZ2k1?=
+ =?utf-8?B?N3RSQmFBSEpNR2s4QnoySVNOdGFFR0VnOEFTOTB6Q01tZWF4bFRwRTZwaFdv?=
+ =?utf-8?B?Zkl1ZzRNZXZiNS8rSHFESmpZMSt1bUEzUExKUUtPRFpQUzNkaWFQaDUvQnFE?=
+ =?utf-8?B?WXNJa1ZGcndETUkzTmgxem1QUlJWMDhOb2k1R0xTNytwWmh4cXo5d0xvcW9k?=
+ =?utf-8?B?enVhVFFPcndROGliRHlOaXMzdUZiSmFyNFZ3dVptbW82dWg1Q0N6NFNXeHFx?=
+ =?utf-8?B?NHFMazJuSHR5QU8xNXUrNThURTQxV2YzcHFJMWhSN2w5TlV6RklscVVQSTBX?=
+ =?utf-8?B?bUN0aytXbjV4cnpSWDkweXhNOW02UTNMdHZSSFJxN1Z4QmFyQ3FnMFo4bU1i?=
+ =?utf-8?B?c2NVeEp5NlBJR2xlemJ0U2xtUUl1S3RUOG90VUgxck1OeGU4RVZHL2RXL3hJ?=
+ =?utf-8?B?T2duVnJOTWE0Wmt5aUNEYlhWZ1A0Sm4yL3JXdWFiYU9VVGhTUU5iQ2hORUVG?=
+ =?utf-8?B?QWNueGlEVGZsOHpwVnU1cTZQRTZET3l4Z2VaY3VKQy8vRE9Hd2gxaU1HYzIr?=
+ =?utf-8?B?OGMrNHhVOTJETkFxUkpyT2hlSEZqT1ZFeHpFTGxpb0pkSG9tWXA0cHpxcEIv?=
+ =?utf-8?B?NmFiZzVYaWYxM212L01YRFJVR1NiZVNaaTFrOUlUcjk1ZDgzRE00ZWRKazVm?=
+ =?utf-8?B?TTBHeFBqb1ArMEMzSHNOWUlHYmxPM3Z0TlRLUGxoNDNkd3BjWjc1M1NrN2U0?=
+ =?utf-8?B?VjFuK1JYQWt4ZWphSU90TWxIYmhLVGpoWTlpSlhrbWNrWjVWSWllemIzMVF0?=
+ =?utf-8?B?ZnFqcVJ6alFhWVhvVE1DUlE5TmJYWndzc3l2cW1VNVJQSVNhZXNlR3FkVW9k?=
+ =?utf-8?B?WnY2aTRjbWNiZmdVNWlvS3dMdXhndVZxYU13ZEQvc2hLSDFnWG9sZXpDTVB0?=
+ =?utf-8?B?V1FtUHBTcy9RNHRNbzBkSWlENk9CWGFoUjVYWXRWa2hzWkdCeEtnNFhKSjJ2?=
+ =?utf-8?B?VEMxT0Z3QXEySTBjZmppRTBOVlpHQjhKL2VEd3lSY2I2SmpyejRRRElOKzR4?=
+ =?utf-8?B?eHRRZWwwZG1zcHRobDhOVkNIL3dEWGtUSlZ5ZDhEQXFlRG9rY05BR2NhYjVM?=
+ =?utf-8?B?WWpQbUlsckhyb1NZRGxrVXlhTHBzYktvQTVzeWc0MG9JMUg3QzBFVW9qaTJ3?=
+ =?utf-8?B?eTVOUVZjQnI1VmJwQjZIQ1M2YVpVTVA3MW9GWnM2eW1MZ0p0dmUzSzFmZzY1?=
+ =?utf-8?B?ckdBY0FibkhWUHVydFFZVFhtTDZLZDV6emQ0SE5UZVBRVFFBSHdWRDV5ZDh0?=
+ =?utf-8?Q?3d+euH4uv/iBa1JTsHAqiuoX8?=
+X-OriginatorOrg: vmware.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR05MB4970
 
-On 29.08.2022 11:49, Wei Chen wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 2022年8月25日 18:58
->>
->> On 22.08.2022 04:58, Wei Chen wrote:
->>> +nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
->>> +
->>> +bool __read_mostly numa_off;
->>
->> This, otoh, can be, or have I missed a place where it's written by a
->> non-__init function?
->>
-> 
-> I think yes, it will be used in numa_disabled and numa_disabled will
-> be called in cpu_add.
+During boot-time there are many PCI config reads, these could be performed
+either using Port IO instructions (PIO) or memory mapped I/O (MMIO).
 
-In the original code I cannot spot such a path - can you please point
-out how exactly you see numa_disabled() reachable from cpu_add()? I'm
-clearly overlooking something ...
+PIO are less efficient than MMIO, they require twice as many PCI accesses
+and PIO instructions are serializing. As a result, MMIO should be preferred
+when possible over PIO.
 
->>> +bool numa_disabled(void)
->>> +{
->>> +    return numa_off || arch_numa_disabled(false);
->>> +}
->>> +
->>> +/*
->>> + * Given a shift value, try to populate memnodemap[]
->>> + * Returns :
->>> + * 1 if OK
->>> + * 0 if memnodmap[] too small (of shift too small)
->>> + * -1 if node overlap or lost ram (shift too big)
->>> + */
->>> +static int __init populate_memnodemap(const struct node *nodes,
->>> +                                      nodeid_t numnodes, unsigned int
->> shift,
->>
->> I don't think you can use nodeid_t for a variable holding a node count.
->> Think of what would happen if there were 256 nodes, the IDs of which
->> all fit in nodeid_t. (Same again further down.)
->>
-> 
-> If we use u8 as nodeid_t, why there will be 256 nodes to here?
-> And the MAX_NUMNODES has been limited to 64 (using NODES_SHIFT or
-> CONFIG_NR_NUMA_NODES). If we allow 256 nodes, we have to update MAX_NUMNODES
-> and nodeid_t first I think?
+Virtual Machine test result using VMware hypervisor
+1 hundred thousand reads using raw_pci_read() took:
+PIO: 12.809 seconds
+MMIO: 8.517 seconds (~33.5% faster then PIO)
 
-Well, when writing the reply I did forget about MAX_NUMNODES, so yes,
-with that the value can't be larger than 255. Nevertheless I don't
-think a count-of-nodes value should be expressed with nodeid_t. It
-should be simply "unsigned int".
+Currently, when these reads are performed by a virtual machine, they all
+cause a VM-exit, and therefore each one of them induces a considerable
+overhead.
 
->>> +                                      nodeid_t *nodeids)
->>> +{
->>> +    unsigned long spdx, epdx;
->>> +    nodeid_t i;
->>
->> This is likely inefficient for a loop counter variable. Note how you
->> use "unsigned int" in e.g. extract_lsb_from_nodes().
->>
-> 
-> Did you mean u8 for "i" will cause something like unalignment, and will
-> cause loop inefficient. If yes, I will use unsigned int for "i" in next
-> version.
+This overhead can be further improved, by mapping MMIO region of virtual
+machine to memory area that holds the values that the “emulated hardware”
+is supposed to return. The memory region is mapped as "read-only” in the
+NPT/EPT, so reads from these regions would be treated as regular memory
+reads. Writes would still be trapped and emulated by the hypervisor.
 
-There's no issue with mis-alignment afaics, but there still is the
-inefficiency issue requiring the loop variable to be zero-extended
-before being usable as an array. Both x86-64 and aarch64 have the
-zero-extension as a side effect when moving 32-bit quantities (from
-memory or between registers), and arm wouldn't require any zero-
-extension at all then.
+Virtual Machine test result with above changes in VMware hypervisor
+1 hundred thousand read using raw_pci_read() took:
+PIO: 12.809 seconds
+MMIO: 0.010 seconds
 
-Jan
+This helps to reduce virtual machine PCI scan and initialization time by
+~65%. In our case it reduced to ~18 mSec from ~55 mSec.
+
+MMIO is also faster than PIO on bare-metal systems, but due to some bugs
+with legacy hardware and the smaller gains on bare-metal, it seems prudent
+not to change bare-metal behavior.
+
+Signed-off-by: Ajay Kaher <akaher@vmware.com>
+---
+v1 -> v2:
+Limit changes to apply only to VMs [Matthew W.]
+---
+ arch/x86/pci/common.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+
+diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
+index ddb7986..1e5a8f7 100644
+--- a/arch/x86/pci/common.c
++++ b/arch/x86/pci/common.c
+@@ -20,6 +20,7 @@
+ #include <asm/pci_x86.h>
+ #include <asm/setup.h>
+ #include <asm/irqdomain.h>
++#include <asm/hypervisor.h>
+ 
+ unsigned int pci_probe = PCI_PROBE_BIOS | PCI_PROBE_CONF1 | PCI_PROBE_CONF2 |
+ 				PCI_PROBE_MMCONF;
+@@ -57,14 +58,58 @@ int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int devfn,
+ 	return -EINVAL;
+ }
+ 
++#ifdef CONFIG_HYPERVISOR_GUEST
++static int vm_raw_pci_read(unsigned int domain, unsigned int bus, unsigned int devfn,
++						int reg, int len, u32 *val)
++{
++	if (raw_pci_ext_ops)
++		return raw_pci_ext_ops->read(domain, bus, devfn, reg, len, val);
++	if (domain == 0 && reg < 256 && raw_pci_ops)
++		return raw_pci_ops->read(domain, bus, devfn, reg, len, val);
++	return -EINVAL;
++}
++
++static int vm_raw_pci_write(unsigned int domain, unsigned int bus, unsigned int devfn,
++						int reg, int len, u32 val)
++{
++	if (raw_pci_ext_ops)
++		return raw_pci_ext_ops->write(domain, bus, devfn, reg, len, val);
++	if (domain == 0 && reg < 256 && raw_pci_ops)
++		return raw_pci_ops->write(domain, bus, devfn, reg, len, val);
++	return -EINVAL;
++}
++#endif /* CONFIG_HYPERVISOR_GUEST */
++
+ static int pci_read(struct pci_bus *bus, unsigned int devfn, int where, int size, u32 *value)
+ {
++#ifdef CONFIG_HYPERVISOR_GUEST
++	/*
++	 * MMIO is faster than PIO, but due to some bugs with legacy
++	 * hardware, it seems prudent to prefer MMIO for VMs and PIO
++	 * for bare-metal.
++	 */
++	if (!hypervisor_is_type(X86_HYPER_NATIVE))
++		return vm_raw_pci_read(pci_domain_nr(bus), bus->number,
++					 devfn, where, size, value);
++#endif /* CONFIG_HYPERVISOR_GUEST */
++
+ 	return raw_pci_read(pci_domain_nr(bus), bus->number,
+ 				 devfn, where, size, value);
+ }
+ 
+ static int pci_write(struct pci_bus *bus, unsigned int devfn, int where, int size, u32 value)
+ {
++#ifdef CONFIG_HYPERVISOR_GUEST
++	/*
++	 * MMIO is faster than PIO, but due to some bugs with legacy
++	 * hardware, it seems prudent to prefer MMIO for VMs and PIO
++	 * for bare-metal.
++	 */
++	if (!hypervisor_is_type(X86_HYPER_NATIVE))
++		return vm_raw_pci_write(pci_domain_nr(bus), bus->number,
++					  devfn, where, size, value);
++#endif /* CONFIG_HYPERVISOR_GUEST */
++
+ 	return raw_pci_write(pci_domain_nr(bus), bus->number,
+ 				  devfn, where, size, value);
+ }
+-- 
+2.7.4
+
 
