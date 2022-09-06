@@ -2,35 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A89325ADE95
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 06:41:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399360.640502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 080965ADFC3
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 08:28:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399370.640516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVQOT-0003C0-TA; Tue, 06 Sep 2022 04:41:01 +0000
+	id 1oVS3R-0005GX-JB; Tue, 06 Sep 2022 06:27:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399360.640502; Tue, 06 Sep 2022 04:41:01 +0000
+Received: by outflank-mailman (output) from mailman id 399370.640516; Tue, 06 Sep 2022 06:27:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVQOT-0003AD-Po; Tue, 06 Sep 2022 04:41:01 +0000
-Received: by outflank-mailman (input) for mailman id 399360;
- Tue, 06 Sep 2022 04:41:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oVS3R-0005DH-G1; Tue, 06 Sep 2022 06:27:25 +0000
+Received: by outflank-mailman (input) for mailman id 399370;
+ Tue, 06 Sep 2022 06:27:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVQOS-0003A3-T9; Tue, 06 Sep 2022 04:41:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVQOS-0001pc-Qt; Tue, 06 Sep 2022 04:41:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVQOS-0005pO-Dw; Tue, 06 Sep 2022 04:41:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oVQOS-0001VS-BS; Tue, 06 Sep 2022 04:41:00 +0000
+ (envelope-from <SRS0=2M6J=ZJ=kernel.org=maz@srs-se1.protection.inumbo.net>)
+ id 1oVS3P-0005DB-RV
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 06:27:24 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f6b32866-2dac-11ed-a016-b9edf5238543;
+ Tue, 06 Sep 2022 08:27:21 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 706B4B81619;
+ Tue,  6 Sep 2022 06:27:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EEBEC433D6;
+ Tue,  6 Sep 2022 06:27:20 +0000 (UTC)
+Received: from sofa.misterjones.org ([185.219.108.64] helo=why.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1oVS3J-008ET7-P2;
+ Tue, 06 Sep 2022 07:27:17 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,126 +48,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=YxHm1IC0khzmlt6mRxMt4GyZRI7zZYC3RpnOaskgoHY=; b=fyBKbLdP+HBaGttvU4VswLHXqt
-	jwnz1kp3u8lSxFoArrmFmKdpn29VC2jyE6LghRv9kBF7Ro5EXmSnVEYoLCqO8sc5ygnxhaH9X8k4V
-	i7drXlpLmodMYnJHXXQg01o1U40viUnY+bpOFmmdQFEFk0qSDU0O85ug15HOEyM/HTvw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173014-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 173014: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=c05a218a9758225ddf94eedb365633f2154551da
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 06 Sep 2022 04:41:00 +0000
+X-Inumbo-ID: f6b32866-2dac-11ed-a016-b9edf5238543
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1662445640;
+	bh=igFNa4rbBoErHv0XWpIkATD1jfwiBEbsi335mfFwe7w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=PqjCFCDYkb6Dw/p5YNwrg9LJVAoM2erCwaEplExiJbiagUZnruBpROt79ONc/S5ZT
+	 UTsZR0ggiR+8kpYWP182LJE8tEjGUlVQyl1Ln53bU1e62Sl5roUdU0snv5TkIsBggI
+	 cHgBlqXCdHBjjA/7tFTsJJdZmIUPiKAzpXTKw2a0uGhXSQmYRvxgRdY0lby0+dpRkh
+	 Hy6xvm/E6Cjwzcbek8ljv+ThC52mBNyZLPPtgx/RH8BXS/gqkOgt9kaGGPxvy91GYP
+	 eToDuKt30DfcZtX20s5zvCfGjo1oOIv621+N5+E7dlKs0OfheV6Mk+qneNxTE2v5Uw
+	 FYP2qPsAjavEw==
+Date: Tue, 06 Sep 2022 07:27:17 +0100
+Message-ID: <87r10puiey.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Leo Yan <leo.yan@linaro.org>
+Cc: Julien Grall <julien@xen.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Rahul Singh <Rahul.Singh@arm.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Julien Grall <jgrall@amazon.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
+In-Reply-To: <CALZQ+UN8cQ4avggxqgjed=DsitfEteQpuhEqb+p747vmeFCyUA@mail.gmail.com>
+References: <Yv4DMuQHbGNhqAP4@leoy-yangtze.lan>
+	<CAMj1kXHkWH7tkpuPLLjWszOVTQ-Cr3Zcbj8w0bogSd0Y_hso0g@mail.gmail.com>
+	<99e460f1-ca5f-b520-69e0-b250915fd591@xen.org>
+	<Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
+	<CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
+	<871qtcsacd.wl-maz@kernel.org>
+	<Ywcr1849LiEHezd3@leoy-huanghe>
+	<12a8c169-55aa-5e9f-19f8-acd77ea2a8fe@xen.org>
+	<YwdiDr2uLXGEl2TC@leoy-huanghe>
+	<52f24132-ba2b-d4ab-ebd0-613f673b5658@xen.org>
+	<YweJ6ZpRhMkT5bab@leoy-yangtze.lan>
+	<CALZQ+UN8cQ4avggxqgjed=DsitfEteQpuhEqb+p747vmeFCyUA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: leo.yan@linaro.org, julien@xen.org, ardb@kernel.org, jbeulich@suse.com, Bertrand.Marquis@arm.com, Rahul.Singh@arm.com, peter.griffin@linaro.org, xen-devel@lists.xenproject.org, jgrall@amazon.com, mathieu.poirier@linaro.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-flight 173014 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173014/
+On Tue, 06 Sep 2022 03:52:37 +0100,
+Leo Yan <leo.yan@linaro.org> wrote:
+> 
+> On Thu, Aug 25, 2022 at 10:40:41PM +0800, Leo Yan wrote:
+> 
+> [...]
+> 
+> > > > But here I still cannot create the concept that how GIC RD tables play
+> > > > roles to support the para virtualization or passthrough mode.
+> > >
+> > > I am not sure what you are actually asking. The pending tables are just
+> > > memory you give to the GICv3 to record the state of the interrupts.
+> >
+> > For more specific, Xen has its own RD pending table, and we can use
+> > this pending table to set state for SGI/PPI/LPI for a specific CPU
+> > interface.  Xen works as hypervisor, it saves and restores the pending
+> > table according to switched in VM context, right?
+> >
+> > On the other hand, what's the purpose for Linux kernel's GIC RD
+> > pending table?  Is it only used for nested virtulisation?  I mean if
+> > Linux kernel's GIC RD pending table is not used for the drivers in
+> > Dom0 or DomU, then it's useless to pass it from the primary kernel to
+> > secondary kernel; as result, we don't need to reserve the persistent
+> > memory for the pending table in this case.
+> 
+> I don't receive further confirmation from Marc, anyway, I tried to cook
+> a kernel patch to mute the kernel oops [1].
 
-Regressions :-(
+What sort of confirmation do you expect from me? None of what you
+write above make much sense in the face of the architecture.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+> Hope this is not too arbitrary and we can move forward a bit.
+> 
+> Thanks,
+> Leo
+> 
+> [1] https://lore.kernel.org/lkml/20220906024040.503764-1-leo.yan@linaro.org/T/#u
 
-version targeted for testing:
- ovmf                 c05a218a9758225ddf94eedb365633f2154551da
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+I'm totally baffled by the fact you're trying to add some extra hacks
+to Linux just to paper over some of the Xen's own issues.
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   32 days
-Failing since        172151  2022-08-05 02:40:28 Z   32 days  251 attempts
-Testing same since   173009  2022-09-05 15:47:58 Z    0 days    3 attempts
+	M.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Bob Feng <bob.c.feng@intel.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Chen, Xiao X <xiao.x.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Foster Nong <foster.nong@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Pierre Gondois <pierre.gondois@arm.com>
-  Pranav Madhu <pranav.madhu@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@quicinc.com>
-  Rohit Mathew <rohit.mathew@arm.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Xiao X Chen <xiao.x.chen@intel.com>
-  Yuan Yu <yuanyu@google.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1685 lines long.)
+-- 
+Without deviation from the norm, progress is not possible.
 
