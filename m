@@ -2,43 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B965AE19D
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:53:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.399602.640824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C03835AE1A2
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 09:54:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.399609.640835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVTOR-0005Qc-RC; Tue, 06 Sep 2022 07:53:11 +0000
+	id 1oVTPX-0005y2-3y; Tue, 06 Sep 2022 07:54:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 399602.640824; Tue, 06 Sep 2022 07:53:11 +0000
+Received: by outflank-mailman (output) from mailman id 399609.640835; Tue, 06 Sep 2022 07:54:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVTOR-0005Nw-O4; Tue, 06 Sep 2022 07:53:11 +0000
-Received: by outflank-mailman (input) for mailman id 399602;
- Tue, 06 Sep 2022 07:53:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oVTPX-0005vx-17; Tue, 06 Sep 2022 07:54:19 +0000
+Received: by outflank-mailman (input) for mailman id 399609;
+ Tue, 06 Sep 2022 07:54:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2M6J=ZJ=kernel.org=maz@srs-se1.protection.inumbo.net>)
- id 1oVTOQ-0005Nq-Fn
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:53:10 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2a52529-2db8-11ed-a016-b9edf5238543;
- Tue, 06 Sep 2022 09:53:08 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5B1E0B815A0;
- Tue,  6 Sep 2022 07:53:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4FDC433D6;
- Tue,  6 Sep 2022 07:53:07 +0000 (UTC)
-Received: from 82-132-237-87.dab.02.net ([82.132.237.87]
- helo=wait-a-minute.misterjones.org)
- by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
- (envelope-from <maz@kernel.org>) id 1oVTOK-008FVO-Q3;
- Tue, 06 Sep 2022 08:53:05 +0100
+ (envelope-from <julien@xen.org>) id 1oVTPV-0005vl-GN
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 07:54:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVTPT-0005hO-EJ; Tue, 06 Sep 2022 07:54:15 +0000
+Received: from 54-240-197-225.amazon.com ([54.240.197.225]
+ helo=[192.168.11.176]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVTPT-0006W5-7w; Tue, 06 Sep 2022 07:54:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,181 +39,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2a52529-2db8-11ed-a016-b9edf5238543
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662450787;
-	bh=YsUP0GvS/xdqDCHgCtBY2s4ikD0bQL4umny0jSvCzIE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=Qat5r2sr07PCvITo1/BJCVEDhPmDpAVjdSxluUVr1VjM7CdZPn7nOjgoa6Z4AqVbK
-	 PqXZcQIEaykRj5HuQ+tkiUh9H1mB7cpfIzb+OJfocTuSJ/WXe6cKYrP95Ebzz4zrue
-	 Xf7st8AGv+v+gKLNB49WGyjG5U99cP/tUY5gXAeMSi6WBwgqwkvQeiYcv6Yj0v3Vps
-	 FqRlKRy/CHn+9KLNd494mGl+1GJ5MXv9MxjUbQeQMAuKKD0vvs1kFUg66h+kbk/2/I
-	 F08bEVVaeBM8DysYSnM9X80V0pX2Tqukax0HkFCLwRRFoRljRc8YlGgmb3mWt2bO8Y
-	 EwMLmMAWApdTw==
-Date: Tue, 06 Sep 2022 08:53:02 +0100
-Message-ID: <87leqxq6qp.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Leo Yan <leo.yan@linaro.org>
-Cc: Julien Grall <julien@xen.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Rahul Singh <Rahul.Singh@arm.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	Julien Grall <jgrall@amazon.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Subject: Re: [PATCH] xen/arm: acpi: Support memory reserve configuration table
-In-Reply-To: <Yxbz+pOs5+1RkEkx@leoy-huanghe.lan>
-References: <Yv5fii2GvIeHEHZX@leoy-yangtze.lan>
-	<CAMj1kXGZ0ThmPT2FU4M07waB=Q9tXxs81TGTysV5dG5fm0D0Gw@mail.gmail.com>
-	<871qtcsacd.wl-maz@kernel.org>
-	<Ywcr1849LiEHezd3@leoy-huanghe>
-	<12a8c169-55aa-5e9f-19f8-acd77ea2a8fe@xen.org>
-	<YwdiDr2uLXGEl2TC@leoy-huanghe>
-	<52f24132-ba2b-d4ab-ebd0-613f673b5658@xen.org>
-	<YweJ6ZpRhMkT5bab@leoy-yangtze.lan>
-	<CALZQ+UN8cQ4avggxqgjed=DsitfEteQpuhEqb+p747vmeFCyUA@mail.gmail.com>
-	<87r10puiey.wl-maz@kernel.org>
-	<Yxbz+pOs5+1RkEkx@leoy-huanghe.lan>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
- (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 82.132.237.87
-X-SA-Exim-Rcpt-To: leo.yan@linaro.org, julien@xen.org, ardb@kernel.org, jbeulich@suse.com, Bertrand.Marquis@arm.com, Rahul.Singh@arm.com, peter.griffin@linaro.org, xen-devel@lists.xenproject.org, jgrall@amazon.com, mathieu.poirier@linaro.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=a8Wh/kJtL/F/TQEAqDvvb/FehWLQq5CpfEz41666VF8=; b=cFNeC34hQ7X4atEEK4UENrUpwf
+	E1ZiHkOiAxwed3IQGiWqp/TPmAoBW7gwepM8Ow68GlXEmw8qs3AJ1OTx1cvdr8JvH3OYTlToHRU0n
+	oyMwZO37i22JEf0A4bMwjau4G9nXRpBoIMWgdqybRDD0Bd5bX6p2JsRtgMqbxTx33RSQ=;
+Message-ID: <7bf75eba-f5c5-6c63-5c45-10c5d2d20254@xen.org>
+Date: Tue, 6 Sep 2022 08:54:13 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.1
+Subject: Re: [PATCH v3 7/7] xen/arm: introduce new xen,enhanced property value
+Content-Language: en-US
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Rahul Singh <Rahul.Singh@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1662023183.git.rahul.singh@arm.com>
+ <d8dae49b05e6c59715016e0995b1275f3cb6e7fc.1662023183.git.rahul.singh@arm.com>
+ <28b9679c-8223-ae71-d629-4ec31a72dcb2@xen.org>
+ <36A408C8-36C5-4A39-80B4-F564445635C7@arm.com>
+ <616b36ec-5a42-cb9a-2131-3aea1bec7c67@xen.org>
+ <46897765-5063-49CE-8A8A-F4DA50570A08@arm.com>
+ <a669182c-dab1-35b7-9bf7-caac1813e3ad@xen.org>
+ <C27FD0DE-D8FA-4A67-AE0B-DF4030A65127@arm.com>
+ <a14b4d4a-5ae6-4af0-2d00-49bbc688cd4a@xen.org>
+ <6B0D4F4B-C7CC-4C04-9BA4-71976CAA82C5@arm.com>
+ <cf2872c6-23e3-ced4-d7c5-2a5e6ade98ad@xen.org>
+ <1874D575-E3B3-4221-925F-AF71D3EF0289@arm.com>
+ <EBF5412F-F932-4D25-A2E3-9F53D59ABBCC@arm.com>
+ <alpine.DEB.2.22.394.2209051530250.3931@ubuntu-linux-20-04-desktop>
+ <D1317300-F801-47B6-B54A-E0788F6477EF@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <D1317300-F801-47B6-B54A-E0788F6477EF@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 06 Sep 2022 08:17:14 +0100,
-Leo Yan <leo.yan@linaro.org> wrote:
-> 
-> Hi Marc,
-> 
-> On Tue, Sep 06, 2022 at 07:27:17AM +0100, Marc Zyngier wrote:
-> > On Tue, 06 Sep 2022 03:52:37 +0100,
-> > Leo Yan <leo.yan@linaro.org> wrote:
-> > > 
-> > > On Thu, Aug 25, 2022 at 10:40:41PM +0800, Leo Yan wrote:
-> > > 
-> > > [...]
-> > > 
-> > > > > > But here I still cannot create the concept that how GIC RD tables play
-> > > > > > roles to support the para virtualization or passthrough mode.
-> > > > >
-> > > > > I am not sure what you are actually asking. The pending tables are just
-> > > > > memory you give to the GICv3 to record the state of the interrupts.
-> > > >
-> > > > For more specific, Xen has its own RD pending table, and we can use
-> > > > this pending table to set state for SGI/PPI/LPI for a specific CPU
-> > > > interface.  Xen works as hypervisor, it saves and restores the pending
-> > > > table according to switched in VM context, right?
-> > > >
-> > > > On the other hand, what's the purpose for Linux kernel's GIC RD
-> > > > pending table?  Is it only used for nested virtulisation?  I mean if
-> > > > Linux kernel's GIC RD pending table is not used for the drivers in
-> > > > Dom0 or DomU, then it's useless to pass it from the primary kernel to
-> > > > secondary kernel; as result, we don't need to reserve the persistent
-> > > > memory for the pending table in this case.
-> > > 
-> > > I don't receive further confirmation from Marc, anyway, I tried to cook
-> > > a kernel patch to mute the kernel oops [1].
-> > 
-> > What sort of confirmation do you expect from me? None of what you
-> > write above make much sense in the face of the architecture.
-> 
-> Okay, I think have two questions for you:
-> 
-> - The first question is if we really need to reserve persistent memory
->   for RD pending table and configuration table when Linux kernel runs
->   in Xen domain?
+Hi Bertrand,
 
-I have no idea, and really I don't want to know. The architecture
-doesn't make it safe to reuse that memory, and the driver does the
-right thing by always reserving that memory when the FW is supposed to
-support it.
+On 06/09/2022 08:24, Bertrand Marquis wrote:
+>> I agree with Julien: I prefer this proposal compared to the earlier one
+>> by Bertrand and Rahul because I think it is a lot clearer and "ENHANCED"
+>> should mean everything. Also, it makes it easier from a compatibility
+>> perspective because it matches the current definition.
+>>
+>> But I also agree with Bertrand that "BASIC" doesn't sound nice. I think
+>> we should keep "DOM0LESS_ENHANCED" and "DOM0LESS_XENSTORE" as suggested
+>> here, but replace "DOM0LESS_ENHANCED_BASIC" with something better. Some
+>> ideas:
+>>
+>> - DOM0LESS_ENHANCED_LIMITED
+>> - DOM0LESS_ENHANCED_MINI
+> 
+> Personally I do not find those more clear then BASIC
+> 
+>> - DOM0LESS_ENHANCED_NO_XS
+> 
+> This has the problem to be true now but would need renaming if we introduce a definition for an other bit.
 
-The "oh but it is safe on so and so" approach doesn't scale. If you
-want to have such a thing, just convince people at ARM that it is
-possible to implement a GICv3-compliant system without the RD tables,
-get them to update the architecture to allow this scheme and advertise
-it in a discoverable register. Xen could then implement it, Linux
-could check this bit, and we'd all be a happy family.
-
-Because that's really what this is: it isn't that you don't care about
-the RD tables being reserved. It is that you don't care about them at
-all because they are never used by Xen as the GIC implementation. Your
-approach of "huh, let's not reserve it" just papers over this.
+Internal renaming is not a problem.
 
 > 
-> - If the first question's answer is no, so it's not necessary to reserve
->   RD pending table and configuration table for Xen, then what's the good
->   way to dismiss the kernel oops?
-
-A warning, not an oops.
-
+>> - DOM0LESS_ENHANCED_GNT_EVTCHN
 > 
-> IIUC, you consider the general flow from architecture view, so you prefer
-> to ask Xen to implement EFI stub to comply the general flow for EFI
-> booting sequence, right?
+> I would vote for this one as it explicitly state what is in so the bitset system is even more meaningful.
 
-If you want to use ACPI, you use EFI, and not a vague emulation of
-it. If you use DT, you can reserve the memory upfront. The various
-alternatives are in this thread.
+This would be fine if the flag were doing what it is supposed to do (i.e 
+enable grant-table and event-channel only). However, so far, it will 
+expose any Xen features but Xenstore. So of the features are strictly 
+not necessary for the grant-table/event-channel support (e.g. ballooning 
+facilities, runstate...).
 
-> 
-> If the conclusion is to change Xen for support EFI stub, then this
-> would be fine for me and I will hold on and leave Xen developers to work
-> on it.
-> 
-> > > [1] https://lore.kernel.org/lkml/20220906024040.503764-1-leo.yan@linaro.org/T/#u
-> > 
-> > I'm totally baffled by the fact you're trying to add some extra hacks
-> > to Linux just to paper over some of the Xen's own issues.
-> 
-> I have a last question for why kernel reserves RD pending table and
-> configuration table for kexec.  As we know, the primary kernel and
-> the secondary kernel use separate memory regions,
+The name would also really confusing in the definition of ENHANCED 
+(XENSTORE | GNT_EVTCHN). Does this mean the domain cannot use the runstate?
 
-No, you got it wrong. Only with *kdump* do you get separate memory
-regions. kexec reuses all of the memory visible by the primary kernel.
-
-> this means there have
-> no race condition that secondary kernel modifies the tables whilist the
-> GIC accesses the table if the secondary kernel allocates new pages for
-> RD tables.  So only one potential issue I can image is the secondary
-> kernel sets new RD pending table and configuration table, which might
-> introduce inconsistent issue with rest RDs in the system.
-> 
-> Could you confirm if my understanding is correct or not?
-
-It isn't correct.
-
-- There is no race condition. Once the RD tables are configured, they
-  cannot be changed.
-
-- When the kdump kernel boots, none of the primary OS memory is
-  reused, so it is safe to continue and use the same tables in place
-
-- When the kexec kernel boots, all of the memory except for the
-  reserved memory is reused. If your RD tables are used for anything,
-  you'll see memory corruption as the GIC writes pending bits in the
-  pending table, and you'll be unable to configure interrupts
-  correctly.
-
-In conclusion, using kexec with GICv3 is completely unsafe if you
-don't reserve the memory allocated to the RDs.
-
-> Sorry for noise and many questions.  I understand this is a complex
-> and difficult topic for me, and it's very likely that I am absent
-> sufficient knowledge for this part, this is just what I want to
-> learn from the discussion and from you :-)
-
-I suggest you read the architecture spec, which has all the details.
-
-	M.
+Cheers,
 
 -- 
-Without deviation from the norm, progress is not possible.
+Julien Grall
 
