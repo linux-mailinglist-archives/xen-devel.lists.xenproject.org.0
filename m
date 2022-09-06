@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BE035AF745
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:49:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400315.642036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 834BF5AF6F5
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Sep 2022 23:37:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.400066.641672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgRq-0006Lh-Ro; Tue, 06 Sep 2022 21:49:34 +0000
+	id 1oVgFv-0001k8-RE; Tue, 06 Sep 2022 21:37:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400315.642036; Tue, 06 Sep 2022 21:49:34 +0000
+Received: by outflank-mailman (output) from mailman id 400066.641672; Tue, 06 Sep 2022 21:37:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVgRq-0006I6-Mx; Tue, 06 Sep 2022 21:49:34 +0000
-Received: by outflank-mailman (input) for mailman id 400315;
- Tue, 06 Sep 2022 21:49:33 +0000
+	id 1oVgFv-0001fk-Kw; Tue, 06 Sep 2022 21:37:15 +0000
+Received: by outflank-mailman (input) for mailman id 400066;
+ Tue, 06 Sep 2022 21:37:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lcW6=ZJ=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1oVgIY-0000Cs-J3
- for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:39:58 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id e2bdeef3-2de9-11ed-af93-0125da4c0113;
- Tue, 06 Sep 2022 15:43:27 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 194701A2D;
- Tue,  6 Sep 2022 06:43:33 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C62643F7B4;
- Tue,  6 Sep 2022 06:43:25 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o/Pp=ZJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oVgFt-0000Cs-Dd
+ for xen-devel@lists.xenproject.org; Tue, 06 Sep 2022 21:37:13 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2058.outbound.protection.outlook.com [40.107.21.58])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3cf15d02-2ded-11ed-af93-0125da4c0113;
+ Tue, 06 Sep 2022 16:07:27 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by VE1PR04MB6383.eurprd04.prod.outlook.com (2603:10a6:803:11b::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.17; Tue, 6 Sep
+ 2022 14:07:20 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5588.017; Tue, 6 Sep 2022
+ 14:07:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,390 +46,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2bdeef3-2de9-11ed-af93-0125da4c0113
-From: Rahul Singh <rahul.singh@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: rahul.singh@arm.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 7/7] xen/arm: introduce xen-evtchn dom0less property
-Date: Tue,  6 Sep 2022 14:40:45 +0100
-Message-Id: <055660c342c85cd97d6e3a5551c84e62f49dece6.1662462034.git.rahul.singh@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1662462034.git.rahul.singh@arm.com>
-References: <cover.1662462034.git.rahul.singh@arm.com>
+X-Inumbo-ID: 3cf15d02-2ded-11ed-af93-0125da4c0113
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L2Mydo6mFl4YSH4geYRiIB+6IzNVsWosx7YsVjqSmrfuBLSgv35ZP1aiFeS1sGj9u1X3xQn33qOxSN9xixrEDnMewucadncaVzCzm37Z/5xG/1wdaMMOY/gznGspTAXLy5syBe2/46HVxhNYtk6ziIsUvNlVhmudSczZs6XFXlDVHiyFvZTVi4F+sBGPX/2Ey8/K0Y3/xRj71XQrs4yQBm1KLrm3HJBe/MmDfnvVeJZoNY+teAkC/Y5jyGTa2fHBd506IHzRwO333s7WqgJyF8m8bVo7FsIIqR7idYotEgkdQQ5dLSVMBEB610q4C/LrMF0FAbigdjV+hbXJ5DY5EQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IsibSvCp7VNwwiXz4RMjfBGywk5CPpJX+sjS0XubjwA=;
+ b=FKVLH80hWkxvdfjKBYDiXpN6LlDNSSQRxWKegj6uIZnI2GMwnTCVJ5d4/sZFz0kTsSF1JOZ6bwwKNej2T8Iyctli2tTro+yANC8hbESlkyRzQsVlXJXp9drUER/iirD9oGyuXpntHh0sU9RsOEY/mv3473oL7Tox6LAdlFINX38VG0rtI1NWqtGDnxQzl85Dm94iQUeQ5LOobxohVciBl2GM/8FqC9GSBVmj1VC7JUMar8l95Jt48zMGnDgaXzNWIpZ7bUuLKATE6+g8W98gqw1xj+xwnnOViBtm6Am5+56yET9QROuriufwZPKCJZFl/d7bvWt+IdXzdigkDEoM6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IsibSvCp7VNwwiXz4RMjfBGywk5CPpJX+sjS0XubjwA=;
+ b=CthVjGGAHayxla+N6JWhIGVp966rY0VsBFm73V5YCeVR2Ltrj5HfoByTum5ySNQursNrN1E4xDd7cegorOwK3Wh+dw6OJb0NyD1aYWWE5PhNAgcO1LL4f/GHN74AE01C4n28bxoGnEnGqobazvp5VpWJCOdtctPOErbqPb3IkFnY110mnTRiP9JMgHfgXpoDE9bqazZlX2cD0E8Vgt9OzXOmtC0BFq/ys7Zhs1AbR4mCiibxLkT2/HOzEbdITgPAzNe2GxDiDTrD3cxV5ASaRC7BMEz7sNgHStJ4j9RqDiF8dtOUI+/SGMhcuNmn9OJ09XTKzljVl3db1lheffbFGg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <9af0809d-ab7f-09d0-3fa4-5b73fb605fd6@suse.com>
+Date: Tue, 6 Sep 2022 16:07:18 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.1
+Subject: Re: [PATCH v2] x86/public: move XEN_ACPI_ in a new header
+Content-Language: en-US
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <c869f79901968de2d71ab56e1bbb5d43048baf5d.1661420219.git.bertrand.marquis@arm.com>
+ <7dbef184-7e55-51d7-27e1-93153b5f0bc9@suse.com>
+ <AS8PR08MB7991B63FCB602B85E3E0618C92799@AS8PR08MB7991.eurprd08.prod.outlook.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <AS8PR08MB7991B63FCB602B85E3E0618C92799@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0019.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=Y
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: de1d297d-a96b-4525-f936-08da90111cc5
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6383:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	N6y+v385j9B7jCtFaanAZ6xvsq2fwO4d40t+KvFIDmAmDZ3vd0IzEpLhLKbIvzL2KkAXUPPPv7R+gl7xLxlldpl2zHEgYCsfhKuvDAPcSbipi95I7F6kqM5a4DcC7F9197wXc/4bAET4/PjIlLw/bZpZexhuwiqk22DdiEMx9UfY62uuHvEJFlpCMIZDoKWui6q8dcYYOdEJaHtM/HCB2hwkmOXzISmYEmQdQPp6+fppQMIj7O8RvVCytH3RZIuq2B044feN0EelK5A/DsavSBzKGupH+W8gL3JBBUbEDZljtcheVp4Exszt9hfSlyys3T0acu9PVZKfqgjmx6iajf63eurR/Pu8c1iaHS9XYs7lksAjj6NkNkoZPQZgaVTJtaQCqTxxN5U+i6z+Q4Y8W3icf/05VDmVSE3Gjh7Gj+1feIQyKYzqliIJhQCAztEPv3nQIeOFA0oBxYQuT9SL2qqwWIjR1vAseoRR4NdA+mQxm8ZEOnR+jjfbiLUF/w+CEf9RoBFcJSPHIYR0SPmePN5WQBfB7uVfYFqkPzG5SGMjrXsWK7BhRDYa5kaITlRdNDVzg1RKcT5RiORXg9lmzwH8+vbPNJZPo7aOb+kfAX30Xq7gEn2eMX02oGZEcJ13Xjwq3vjFK8iNvmPthR51ryj1eDkyPaoX8WAQ5dirREiU1FhHUCn4aOjnsJgunBOkCbl8lqF0ZKoC+Vkf9xoI//w2wq3IhrgXCCt+q+l1LhQV+V8BpP/1hqYzZz1jsYeG1FLM1N7XnsJ2/vB6rsovq6egwRkiJit81qX+HABeKrg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(396003)(39860400002)(366004)(346002)(136003)(376002)(66556008)(31686004)(2906002)(41300700001)(31696002)(66946007)(86362001)(66476007)(5660300002)(8936002)(6916009)(54906003)(316002)(36756003)(8676002)(4326008)(26005)(6486002)(38100700002)(186003)(478600001)(6506007)(53546011)(6512007)(2616005)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NDREbjl4VGNqc0FYZkhud28yQ3NjemhMUnpFaVFQOTdGSVlBNWtMN3BSVk0z?=
+ =?utf-8?B?di9wcXdDOU8rNElLM2M5Q0VYOHAweUpnN0QvU1EvM3A5V0NmcTQ3VnlERFdo?=
+ =?utf-8?B?TkRHVU1SRkU1VzB5WHZUTURaUXN5UFNwRjRTV1BuMitUMHhhWmg3U29ud3Bk?=
+ =?utf-8?B?RXdVSE1Rckc0SXk2ajFuNHpxK1c1Tkl6RTJNcTlFUHY0MTZtVGtKcDVORGhi?=
+ =?utf-8?B?QkVhWTVySCt2K2FXbTZnaVNiOXpvRWJKa09FUVZxZXM5VFZBLzBkSlVoSkk0?=
+ =?utf-8?B?dXpldmlYRVFSSnFWWkJIS3E0UHFTdDcwYzFvNFFEMzJRS3FFZWVsRExjT2gv?=
+ =?utf-8?B?ZWZPSXEzVmlvS05oS0RzazRnaFZ0d25JZmp1WThoQ2dTd1JuZGZqc0xMYjBr?=
+ =?utf-8?B?Ky9SVE43akx2RGZ3OTlrWkYrZFQyLzNnOXBwUGtWdXZVUitWcEE4MUYwTWs2?=
+ =?utf-8?B?bk4wdkgxcm5STEh0YXl1eDhhVGdMMHFrbkQybDlpRDJYTWdWOVpiTnkxWXBD?=
+ =?utf-8?B?Rysvb1ZmeGlYcngvOER0MmVQK3pwRm1vamFVdWRnejZtNDhZY0JsNHpPQVMw?=
+ =?utf-8?B?TzdrZURCc3JuOWMzL1BVMng5TytUc092ZGZQbWRsZGRkdlFBSGZNUDhoZW0z?=
+ =?utf-8?B?QU5ZcHlaYis0SklEYzRENjBZRFZTb2xkZC91YlFOLzVPL2RzK2lEeEN2WnpD?=
+ =?utf-8?B?TjF1M1BUM2ZFZXBGdWlidDl6bjU1V3JrZlJ4QUtwRXJFMUpIdXNIMGxNRDVh?=
+ =?utf-8?B?T3duM2gwMGdZY2JHL2ZGSXdvQ3ZXZ0RMN0lNTitobUNIb0t0SjY5TkNBVVkr?=
+ =?utf-8?B?RGNuS3hJMlJEMU14MXJWNGl1dExVaEovS1pmS0FoaUlYZUV4WDlGbDVDSzlH?=
+ =?utf-8?B?N3o5Y2JzK1ptOGpLc0pDak5ZYy9valZ1Ti92OXFlTFZaSktxeWhiTU45Tllw?=
+ =?utf-8?B?UkUwVjhORGhJaWc4dkM4R1RUenh1VUVCSXdOa3BLSVZPVjZxeTU0NkJqem5K?=
+ =?utf-8?B?aGsyeUM3dVZtMGx0ZXNBNzdvTG9vRE1mQU5FL3YvQ0h4UG5kLzhzWjlySjYw?=
+ =?utf-8?B?K3h1cjNuUE9KeFlMcXJoWlZFRFZxQ2trd1JPdDRLck1sOTdWcWtEcUdId1Q4?=
+ =?utf-8?B?a2lrbURDbGg5alhCeTdyZ3d0UVEwMUpTOXlPRkdPNUxIUkFSZlVZdnJqTjU3?=
+ =?utf-8?B?R1cxVzJiK3pLdWlpMVp4cUF6M0dLWUJWWmxuYzNZcTdBbkV6VFkvWEt4SFNJ?=
+ =?utf-8?B?RzRzbVB4RXpzakkyLzFGaVBqNTBaMzFZbUo4TThocmY2QmREQ3BEdCtXZ05o?=
+ =?utf-8?B?NkZINHRZbXpLZmFBQURVL01mY1lhTGNXcXdIUDRWYjJEZ2JFdkNRcStkR2E4?=
+ =?utf-8?B?bjh6T2JIVDhrbnVWWGZlUzhVK0pGSWJMbm1tTjBCTTFIei9rQUpOdVpnM3Za?=
+ =?utf-8?B?RUNyUWg5b2Y2TENXQnlBMlZhOVdBZ0dQSEhQZXZweUVsK2VPclVFSXJ5TVpX?=
+ =?utf-8?B?NmhkS2ZYTDVVMk9RV2pkbUNHUkhGbzVYbnYwcE1PRElIWERRdm5GMmx0a29r?=
+ =?utf-8?B?Sml5TDN4NjFwNzduLzM4V3FDckFQU2xNM2pnTU00T2VsTXA1alB6R0pmZWkx?=
+ =?utf-8?B?VnpqcGpHc2pCc1pud2JzS2NQb203aVdzZTBZTU04ZXRnRzlBajZYSjlUa1dE?=
+ =?utf-8?B?TWtscS9HekJlMEN4NUdTSzExLzVxSUZnQ3lrbXltUVprMEtaUzc4MCtuRFlE?=
+ =?utf-8?B?NzlHREN6blgrNXg0S0lNRWZacElySXZSZDJLVXNZZGt2WWpja1ZVckJMRC9i?=
+ =?utf-8?B?L3BOZlVjakxXcmVZMmlKQjE2WHY3UnRoS2ZieWVUZU1SWlAveUE0MkZMU2RH?=
+ =?utf-8?B?eGZHVUMxbWVqck1pN1RyMkFSMU96dkU1aXZ1aHJIOG1yOExyaDhuZWlmd3c2?=
+ =?utf-8?B?THNJUUw4NXVjZU9mRFlUMURsS1FSSFBFMndxR0dIQlg0VXdzR3FLb2tTdk1i?=
+ =?utf-8?B?bW1hVkZvcVhBTllZS0RmNXM3TVhFb2RPTmpkMlU4UmpXYktIUXladllkUmNH?=
+ =?utf-8?B?cWFUN1RoV3YwN0J5L1czOU03dEpvcjQvcTlsZXV2NkVTeGZwZ1owMlBnZmRB?=
+ =?utf-8?Q?8Z+9DfU1936zKAbweQxu6WxMb?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de1d297d-a96b-4525-f936-08da90111cc5
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2022 14:07:19.9020
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: djdkx0TLDdoX6OfRI0tacIQSdIyhio73T+KiOhplgAgE50G50DOViUBwsp/2ejcNBhBGsjFi/UDqPj8roKXHHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6383
 
-Introduce a new sub-node under /chosen node to establish static event
-channel communication between domains on dom0less systems.
+On 30.08.2022 02:52, Henry Wang wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Subject: Re: [PATCH v2] x86/public: move XEN_ACPI_ in a new header
+>>
+>> On 25.08.2022 11:48, Bertrand Marquis wrote:
+>>> When Xen is compiled for x86 on an arm machine, libacpi build is failing
+>>> due to a wrong include path:
+>>> - arch-x86/xen.h includes xen.h
+>>> - xen.h includes arch-arm.h (as __i386__ and __x86_64__ are not defined
+>>> but arm ones are).
+>>>
+>>> To solve this issue move XEN_ACPI_ definitions in a new header
+>>> guest-acpi.h that can be included cleanly by mk_dsdt.c.
+>>> Inside this header, only protect the definitions using ifdef
+>>> __XEN_TOOLS__ as the defines are not used anywhere in the hypervisor
+>> and
+>>> are not expected to be.
+>>>
+>>> Previous users needing any of the XEN_ACPI_ definitions will now need to
+>>> include arch-x86/guest-acpi.h instead of arch-x86/xen.h
+>>>
+>>> Fixes: d6ac8e22c7c5 ("acpi/x86: define ACPI IO registers for PVH guests")
+>>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>
+>>> For the release manager:
+>>> - risk: very low, the definitions moved are only used in mk_dsdt and
+>>> external users would just have to include the new header.
+>>> - advantage: we can now compile xen for x86 on arm build machines
+>>
+>> I'll give it a little for Henry to possibly release-ack this, but since
+>> strictly speaking this is a bug fix, I think it could also go in without
+>> (as long as not actually objected to, of course).
+> 
+> Thanks for informing. Yeah definitely no problem from my side, so:
+> 
+> Acked-by: Henry Wang <Henry.Wang@arm.com> # For the 4.17 release
 
-An event channel will be created beforehand to allow the domains to
-send notifications to each other.
+I've translated this to Release-acked-by: (as was used for earlier releases).
 
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
----
-Changes in v4:
- - move documentation to common place for evtchn node in booting.txt
- - Add comment why we use dt_device_static_evtchn_created()
- - check if dt_get_parent() returns NULL
- - fold process_static_evtchn_node() in alloc_static_evtchn()
-Changes in v3:
- - use device-tree used_by to find the domain id of the evtchn node.
- - add new static_evtchn_create variable in struct dt_device_node to
-   hold the information if evtchn is already created.
- - fix minor comments
-Changes in v2:
- - no change
----
- docs/misc/arm/device-tree/booting.txt |  98 +++++++++++++++++
- xen/arch/arm/domain_build.c           | 147 ++++++++++++++++++++++++++
- xen/arch/arm/include/asm/setup.h      |   1 +
- xen/arch/arm/setup.c                  |   2 +
- xen/include/xen/device_tree.h         |  16 +++
- 5 files changed, 264 insertions(+)
-
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index 1b0dca1454..c8329b73e5 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -382,3 +382,101 @@ device-tree:
- 
- This will reserve a 512MB region starting at the host physical address
- 0x30000000 to be exclusively used by DomU1.
-+
-+Static Event Channel
-+====================
-+The event channel communication will be established statically between two
-+domains (dom0 and domU also). Event channel connection information between
-+domains will be passed to Xen via the device tree node. The event channel
-+will be created and established in Xen before the domain started. The domain
-+doesn’t need to do any operation to establish a connection. Domain only
-+needs hypercall EVTCHNOP_send(local port) to send notifications to the
-+remote guest.
-+
-+There is no need to describe the static event channel info in the domU device
-+tree. Static event channels are only useful in fully static configurations,
-+and in those configurations, the domU device tree dynamically generated by Xen
-+is not needed.
-+
-+To enable the event-channel interface for domU guests include the
-+"xen,enhanced = "no-xenstore"" property in the domU Xen device tree node.
-+
-+Under the "xen,domain" compatible node for domU, there needs to be sub-nodes
-+with compatible "xen,evtchn" that describe the event channel connection
-+between two domUs. For dom0, there needs to be sub-nodes with compatible
-+"xen,evtchn" under the chosen node.
-+
-+The static event channel node has the following properties:
-+
-+- compatible
-+
-+    "xen,evtchn"
-+
-+- xen,evtchn
-+
-+    The property is tuples of two numbers
-+    (local-evtchn link-to-foreign-evtchn) where:
-+
-+    local-evtchn is an integer value that will be used to allocate local port
-+    for a domain to send and receive event notifications to/from the remote
-+    domain. Maximum supported value is 2^17 for FIFO ABI and 4096 for 2L ABI.
-+    It is recommended to use low event channel IDs.
-+
-+    link-to-foreign-evtchn is a single phandle to a remote evtchn to which
-+    local-evtchn will be connected.
-+
-+Example
-+=======
-+
-+chosen {
-+
-+    /* one sub-node per local event channel */
-+    ec1: evtchn@1 {
-+         compatible = "xen,evtchn-v1";
-+         /* local-evtchn link-to-foreign-evtchn */
-+         xen,evtchn = <0xa &ec2>;
-+    };
-+
-+    domU1 {
-+        compatible = "xen,domain";
-+        #address-cells = <0x2>;
-+        #size-cells = <0x1>;
-+        xen,enhanced = "no-xenstore";
-+
-+        /* one sub-node per local event channel */
-+        ec2: evtchn@2 {
-+            compatible = "xen,evtchn-v1";
-+            /* local-evtchn link-to-foreign-evtchn */
-+            xen,evtchn = <0xa &ec1>;
-+        };
-+
-+        ec3: evtchn@3 {
-+            compatible = "xen,evtchn-v1";
-+            xen,evtchn = <0xb &ec5>;
-+        };
-+
-+        ec4: evtchn@4 {
-+            compatible = "xen,evtchn-v1";
-+            xen,evtchn = <0xc &ec6>;
-+        };
-+    };
-+
-+    domU2 {
-+        compatible = "xen,domain";
-+        #address-cells = <0x2>;
-+        #size-cells = <0x1>;
-+        xen,enhanced = "no-xenstore";
-+
-+        /* one sub-node per local event channel */
-+        ec5: evtchn@5 {
-+            compatible = "xen,evtchn-v1";
-+            /* local-evtchn link-to-foreign-evtchn */
-+            xen,evtchn = <0xb &ec3>;
-+        };
-+
-+        ec6: evtchn@6 {
-+            compatible = "xen,evtchn-v1";
-+            xen,evtchn = <0xd &ec4>;
-+        };
-+    };
-+};
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 0b164ef595..bb96fa5096 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -33,6 +33,8 @@
- #include <xen/grant_table.h>
- #include <xen/serial.h>
- 
-+#define STATIC_EVTCHN_NODE_SIZE_CELLS 2
-+
- static unsigned int __initdata opt_dom0_max_vcpus;
- integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
- 
-@@ -3052,6 +3054,150 @@ void __init evtchn_allocate(struct domain *d)
-     d->arch.hvm.params[HVM_PARAM_CALLBACK_IRQ] = val;
- }
- 
-+static int __init get_evtchn_dt_property(const struct dt_device_node *np,
-+                                         uint32_t *port, uint32_t *phandle)
-+{
-+    const __be32 *prop = NULL;
-+    uint32_t len;
-+
-+    prop = dt_get_property(np, "xen,evtchn", &len);
-+    if ( !prop )
-+    {
-+        printk(XENLOG_ERR "xen,evtchn property should not be empty.\n");
-+        return -EINVAL;
-+    }
-+
-+    if ( !len || len < dt_cells_to_size(STATIC_EVTCHN_NODE_SIZE_CELLS) )
-+    {
-+        printk(XENLOG_ERR "xen,evtchn property value is not valid.\n");
-+        return -EINVAL;
-+    }
-+
-+    *port = dt_next_cell(1, &prop);
-+    *phandle = dt_next_cell(1, &prop);
-+
-+    return 0;
-+}
-+
-+static int __init alloc_domain_evtchn(struct dt_device_node *node)
-+{
-+    int rc;
-+    uint32_t domU1_port, domU2_port, remote_phandle;
-+    struct dt_device_node *remote_node;
-+    const struct dt_device_node *p1_node, *p2_node;
-+    struct evtchn_alloc_unbound alloc_unbound;
-+    struct evtchn_bind_interdomain bind_interdomain;
-+    struct domain *d1 = NULL, *d2 = NULL;
-+
-+    if ( !dt_device_is_compatible(node, "xen,evtchn-v1") )
-+        return 0;
-+
-+    /*
-+     * Event channel is already created while parsing the other side of
-+     * evtchn node.
-+     */
-+    if ( dt_device_static_evtchn_created(node) )
-+        return 0;
-+
-+    rc = get_evtchn_dt_property(node, &domU1_port, &remote_phandle);
-+    if ( rc )
-+        return rc;
-+
-+    remote_node = dt_find_node_by_phandle(remote_phandle);
-+    if ( !remote_node )
-+    {
-+        printk(XENLOG_ERR
-+                "evtchn: could not find remote evtchn phandle\n");
-+        return -EINVAL;
-+    }
-+
-+    rc = get_evtchn_dt_property(remote_node, &domU2_port, &remote_phandle);
-+    if ( rc )
-+        return rc;
-+
-+    if ( node->phandle != remote_phandle )
-+    {
-+        printk(XENLOG_ERR "xen,evtchn property is not setup correctly.\n");
-+        return -EINVAL;
-+    }
-+
-+    p1_node = dt_get_parent(node);
-+    if ( !p1_node )
-+    {
-+        printk(XENLOG_ERR "evtchn: evtchn parent node is NULL\n" );
-+        return -EINVAL;
-+    }
-+
-+    p2_node = dt_get_parent(remote_node);
-+    if ( !p2_node )
-+    {
-+        printk(XENLOG_ERR "evtchn: remote parent node is NULL\n" );
-+        return -EINVAL;
-+    }
-+
-+    d1 = get_domain_by_id(p1_node->used_by);
-+    d2 = get_domain_by_id(p2_node->used_by);
-+
-+    if ( !d1 || !d2 )
-+    {
-+        printk(XENLOG_ERR "evtchn: could not find domains\n" );
-+        return -EINVAL;
-+    }
-+
-+    alloc_unbound.dom = d1->domain_id;
-+    alloc_unbound.remote_dom = d2->domain_id;
-+
-+    rc = evtchn_alloc_unbound(&alloc_unbound, domU1_port);
-+    if ( rc < 0 )
-+    {
-+        printk(XENLOG_ERR
-+                "evtchn_alloc_unbound() failure (Error %d) \n", rc);
-+        return rc;
-+    }
-+
-+    bind_interdomain.remote_dom  = d1->domain_id;
-+    bind_interdomain.remote_port = domU1_port;
-+
-+    rc = evtchn_bind_interdomain(&bind_interdomain, d2, domU2_port);
-+    if ( rc < 0 )
-+    {
-+        printk(XENLOG_ERR
-+                "evtchn_bind_interdomain() failure (Error %d) \n", rc);
-+        return rc;
-+    }
-+
-+    dt_device_set_static_evtchn_created(node);
-+    dt_device_set_static_evtchn_created(remote_node);
-+
-+    return 0;
-+}
-+
-+void __init alloc_static_evtchn(void)
-+{
-+    struct dt_device_node *node, *evtchn_node;
-+    struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
-+
-+    BUG_ON(chosen == NULL);
-+
-+    if ( hardware_domain )
-+        dt_device_set_used_by(chosen, hardware_domain->domain_id);
-+
-+    dt_for_each_child_node(chosen, node)
-+    {
-+        if ( hardware_domain )
-+        {
-+            if ( alloc_domain_evtchn(node) != 0 )
-+                panic("Could not set up domains evtchn\n");
-+        }
-+
-+        dt_for_each_child_node(node, evtchn_node)
-+        {
-+            if ( alloc_domain_evtchn(evtchn_node) != 0 )
-+                panic("Could not set up domains evtchn\n");
-+        }
-+    }
-+}
-+
- static void __init find_gnttab_region(struct domain *d,
-                                       struct kernel_info *kinfo)
- {
-@@ -3366,6 +3512,7 @@ void __init create_domUs(void)
-             panic("Error creating domain %s\n", dt_node_name(node));
- 
-         d->is_console = true;
-+        dt_device_set_used_by(node, d->domain_id);
- 
-         if ( construct_domU(d, node) != 0 )
-             panic("Could not set up domain %s\n", dt_node_name(node));
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index 5815ccf8c5..5ee28b270f 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -106,6 +106,7 @@ int acpi_make_efi_nodes(void *fdt, struct membank tbl_add[]);
- 
- void create_domUs(void);
- void create_dom0(void);
-+void alloc_static_evtchn(void);
- 
- void discard_initial_modules(void);
- void fw_unreserved_regions(paddr_t s, paddr_t e,
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 6e0398f3f6..cf15d359d2 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -1077,6 +1077,8 @@ void __init start_xen(unsigned long boot_phys_offset,
-     if ( acpi_disabled )
-         create_domUs();
- 
-+    alloc_static_evtchn();
-+
-     /*
-      * This needs to be called **before** heap_init_late() so modules
-      * will be scrubbed (unless suppressed).
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 430a1ef445..a28937d12a 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -92,6 +92,10 @@ struct dt_device_node {
- 
-     /* IOMMU specific fields */
-     bool is_protected;
-+
-+    /* HACK: Remove this if there is a need of space */
-+    bool_t static_evtchn_created;
-+
-     /*
-      * The main purpose of this list is to link the structure in the list
-      * of devices assigned to domain.
-@@ -317,6 +321,18 @@ static inline bool_t dt_property_name_is_equal(const struct dt_property *pp,
-     return !dt_prop_cmp(pp->name, name);
- }
- 
-+static inline void
-+dt_device_set_static_evtchn_created(struct dt_device_node *device)
-+{
-+    device->static_evtchn_created = true;
-+}
-+
-+static inline bool_t
-+dt_device_static_evtchn_created(const struct dt_device_node *device)
-+{
-+    return device->static_evtchn_created;
-+}
-+
- /**
-  * dt_find_compatible_node - Find a node based on type and one of the
-  *                           tokens in its "compatible" property
--- 
-2.25.1
-
+Jan
 
