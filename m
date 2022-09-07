@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37EDC5B0197
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 12:17:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.401131.642840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDB465B01DC
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 12:24:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.401138.642851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVs7F-000126-Mi; Wed, 07 Sep 2022 10:17:05 +0000
+	id 1oVsEV-0002Z1-Dx; Wed, 07 Sep 2022 10:24:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 401131.642840; Wed, 07 Sep 2022 10:17:05 +0000
+Received: by outflank-mailman (output) from mailman id 401138.642851; Wed, 07 Sep 2022 10:24:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVs7F-0000zJ-J8; Wed, 07 Sep 2022 10:17:05 +0000
-Received: by outflank-mailman (input) for mailman id 401131;
- Wed, 07 Sep 2022 10:17:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aULX=ZK=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1oVs7D-0000zD-CT
- for xen-devel@lists.xen.org; Wed, 07 Sep 2022 10:17:03 +0000
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [2607:f8b0:4864:20::102b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36700707-2e96-11ed-af93-0125da4c0113;
- Wed, 07 Sep 2022 12:17:02 +0200 (CEST)
-Received: by mail-pj1-x102b.google.com with SMTP id
- p1-20020a17090a2d8100b0020040a3f75eso9340601pjd.4
- for <xen-devel@lists.xen.org>; Wed, 07 Sep 2022 03:17:02 -0700 (PDT)
-Received: from localhost ([122.171.18.80]) by smtp.gmail.com with ESMTPSA id
- a7-20020a1709027d8700b0017691eb7e17sm8661091plm.239.2022.09.07.03.16.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Sep 2022 03:16:59 -0700 (PDT)
+	id 1oVsEV-0002WP-Aq; Wed, 07 Sep 2022 10:24:35 +0000
+Received: by outflank-mailman (input) for mailman id 401138;
+ Wed, 07 Sep 2022 10:24:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1oVsEU-0002WJ-GF
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 10:24:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVsEU-0002fr-8E; Wed, 07 Sep 2022 10:24:34 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.17.46]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVsEU-0002U1-1o; Wed, 07 Sep 2022 10:24:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,81 +39,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36700707-2e96-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date;
-        bh=nFahYmwJIGMxrSEtxvHxHxu3omH/Gggux9uFqCZjBuU=;
-        b=g/VALj47ZZjLhSmO9cygQAMcOXOW2lS9a6cLsVBUuD05osCmD+iijup4Kk4PEn7ZtJ
-         JE5aXiSddHgAwH7iz1Kc2KdBzhgnq4ZsY2jgEmjuNWMj/2SdOvlKEOgvectfN5Kzb3Dg
-         R1Y1y571nso8PH+jeMkBg53zEw0miq9v62zoJBW8zT3YWej/qecZchc4ZEepo5oVSwiV
-         zeJcU8qFliMTae/pvSTPXUnOXRBCQ54JLL3QQIxowcPHtg0p2GTq/IpmW85LyuCrNlj/
-         Lp33Ljjt/Z4f8K3+TSdhBCGd7vTzbRdqEuFmZQnRSAAHoP4bh3gBDzjy0CjuLdv4a/hO
-         Np7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
-        bh=nFahYmwJIGMxrSEtxvHxHxu3omH/Gggux9uFqCZjBuU=;
-        b=D0QBBA4XaQPfHvMMQtwywr9eNX1IroGHuRcYcigVNlH2huX07NhPFRuH9HrHG0H/vT
-         Ho/dRF5Bj6NdP4/RZmL7uJ1Kmuu5qaqROk8FUbpyg7qBJVeXtu5+AhVbFcqc9hUd6j37
-         tNZozS49lF6+XeffMj3Ep8/OC0WVShfS67bMyvNmQYJj4A36wmb799uwdQ+Tkdp/Sp/A
-         2oat2QhgcxvKXuFZ9fjBROhv3AkqmItDJ2eCXBgUhFYVdQrHiu1REvbjN8YV53DGeFx0
-         zWEUuY0JId7swQQJUgpO6VwL5vbZiN2vi1KgGnAokzVsQj0bGmrLXLh1XGwHRoWZwYOB
-         mckw==
-X-Gm-Message-State: ACgBeo14DOR7fYnlSF5kQFigm2ALXa3j7VoKQThyG7vLSOypGXZZTOZu
-	/L4DsuYlwwKsJYLEYB9JIz4/0HkoLQ+AFw==
-X-Google-Smtp-Source: AA6agR5S2FV4VZXfE12bP+3GFQUPDI75idJqttoN20ZlegLzevY3gDgYk/L+s7C9CAvb94qFhc+Mkw==
-X-Received: by 2002:a17:90b:1c0c:b0:1fb:6b2c:ca9f with SMTP id oc12-20020a17090b1c0c00b001fb6b2cca9fmr30416727pjb.90.1662545820627;
-        Wed, 07 Sep 2022 03:17:00 -0700 (PDT)
-Date: Wed, 7 Sep 2022 15:46:57 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xen.org
-Subject: Re: [PATCH] .gitignore: Add *.patch
-Message-ID: <20220907101657.3oeknoidtspmgewc@vireshk-i7>
-References: <cd8683878852a55f1b28807a470e078d21a5e689.1662545140.git.viresh.kumar@linaro.org>
- <aaa317f6-f2d4-a2e4-aff6-f5053964102c@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=oKORNgA+Nm5iIvpKCgMtV8LicBlnWdaOYiu0Es2aCGA=; b=Rmqf1w05rxhesjGs0sIeRae0Cb
+	GBBJYhMSSQHXnRvmJA9hxHSN0Kd5v3andKTjXJQs84gH0TzAmOdqSuBbU7DM3orHjrQcUEbBSOuVj
+	XHGKqDZ7cOr6dg7htDrQauxR1I9B06Z8mBTkjqw+6x5oVAxmNGxiy/yahQ8dr2OAQmyo=;
+Message-ID: <80aa7dad-1507-d132-3652-dc65ef999ff8@xen.org>
+Date: Wed, 7 Sep 2022 11:24:31 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aaa317f6-f2d4-a2e4-aff6-f5053964102c@suse.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.1
+Subject: Re: [PATCH v3 2/4] docs, xen/arm: Introduce static heap memory
+Content-Language: en-US
+To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Penny Zheng <penny.zheng@arm.com>
+References: <20220907083643.20152-1-Henry.Wang@arm.com>
+ <20220907083643.20152-3-Henry.Wang@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220907083643.20152-3-Henry.Wang@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 07-09-22, 12:09, Juergen Gross wrote:
-> On 07.09.22 12:05, Viresh Kumar wrote:
-> > Add *.patch entry to .gitignore file to stop showing git generated
-> > patches in commands like 'git status'.
-> > 
-> > Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> > ---
-> >   .gitignore | 1 +
-> >   1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/.gitignore b/.gitignore
-> > index 9f9f18c97d5f..d9a4fd038145 100644
-> > --- a/.gitignore
-> > +++ b/.gitignore
-> > @@ -20,6 +20,7 @@
-> >   *.gcno
-> >   *.gcda
-> >   *.py[ocd]
-> > +*.patch
-> >   TAGS
-> >   GTAGS
-> >   GRTAGS
-> 
-> NAK.
-> 
-> We have some files named *.patch in our tree (e.g. stubdom/polarssl.patch).
+Hi Henry,
 
-Ahh, I missed that :(
+On 07/09/2022 09:36, Henry Wang wrote:
+>   static int __init early_scan_node(const void *fdt,
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index b76a84e8f5..0741645014 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1038,9 +1038,11 @@ static int __init make_memory_node(const struct domain *d,
+>       if ( mem->nr_banks == 0 )
+>           return -ENOENT;
+>   
+> -    /* find first memory range not bound to a Xen domain */
+> -    for ( i = 0; i < mem->nr_banks && mem->bank[i].xen_domain; i++ )
+> +    /* find first memory range not bound to a Xen domain nor heap */
 
-Will it be acceptable to have something like this then to just ignore the
-patches ?
+This comment could become stale if we are adding a new type. So how about:
 
-[0-9]*-*.patch
+/* find the first memory range that is reserved for device (or firmware) */
+
+> +    for ( i = 0; i < mem->nr_banks &&
+> +                 (mem->bank[i].type != MEMBANK_DEFAULT); i++ )
+>           ;
+> +
+>       if ( i == mem->nr_banks )
+>           return 0;
+>   
+> @@ -1062,7 +1064,7 @@ static int __init make_memory_node(const struct domain *d,
+>           u64 start = mem->bank[i].start;
+>           u64 size = mem->bank[i].size;
+>   
+> -        if ( mem->bank[i].xen_domain )
+> +        if ( mem->bank[i].type == MEMBANK_STATIC_DOMAIN )
+>               continue;
+>   
+>           dt_dprintk("  Bank %d: %#"PRIx64"->%#"PRIx64"\n",
+> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+> index 5815ccf8c5..6bea15acff 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -22,11 +22,31 @@ typedef enum {
+>       BOOTMOD_UNKNOWN
+>   }  bootmodule_kind;
+>   
+> +enum membank_type {
+> +    /*
+> +     * The MEMBANK_DEFAULT type refers to either reserved memory for the
+> +     * device (or firmware) or any memory that will be used by the allocator.
+
+I realize the part of the 'or' is what I suggested. However, I wasn't 
+correct here (sorry).
+
+In the context of 'mem' this is referring to any RAM. The setup code 
+will then find the list of the regions that doesn't overlap with the 
+'reserved_mem' and then give the pages to the boot allocator (and 
+subsequently the buddy allocator). Also...
+
+> +     * The meaning depends on where the memory bank is actually used.
+
+... this doesn't tell the reader which means applies where. So I would 
+suggest the following:
+
+The MEMBANK_DEFAULT type refers to either reserved memory for the 
+device/firmware (when the bank is in 'reserved_mem') or any RAM (when 
+the bank is in 'mem'
+
+The rest of the code looks good to me. So once we settled on the two 
+comments above:
+
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
 
 -- 
-viresh
+Julien Grall
 
