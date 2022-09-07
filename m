@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43DF55B0A40
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 18:39:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.402085.644086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF7CA5B0A29
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 18:32:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.402065.644064 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVy4x-00035d-FW; Wed, 07 Sep 2022 16:39:07 +0000
+	id 1oVxyV-0001gb-DE; Wed, 07 Sep 2022 16:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 402085.644086; Wed, 07 Sep 2022 16:39:07 +0000
+Received: by outflank-mailman (output) from mailman id 402065.644064; Wed, 07 Sep 2022 16:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVy4x-000332-Ba; Wed, 07 Sep 2022 16:39:07 +0000
-Received: by outflank-mailman (input) for mailman id 402085;
- Wed, 07 Sep 2022 16:39:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oVxyV-0001dd-AS; Wed, 07 Sep 2022 16:32:27 +0000
+Received: by outflank-mailman (input) for mailman id 402065;
+ Wed, 07 Sep 2022 16:32:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a/dp=ZK=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1oVxxG-0007z7-5L
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 16:31:10 +0000
+ id 1oVxyT-0001dU-28
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 16:32:25 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 7a5220fd-2eca-11ed-af93-0125da4c0113;
- Wed, 07 Sep 2022 18:31:09 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id a695c816-2eca-11ed-a016-b9edf5238543;
+ Wed, 07 Sep 2022 18:32:23 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3EAD13D5;
- Wed,  7 Sep 2022 09:31:14 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 262AC13D5;
+ Wed,  7 Sep 2022 09:32:29 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5515B3F71A;
- Wed,  7 Sep 2022 09:31:07 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 16CBD3F71A;
+ Wed,  7 Sep 2022 09:32:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,125 +43,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a5220fd-2eca-11ed-af93-0125da4c0113
+X-Inumbo-ID: a695c816-2eca-11ed-a016-b9edf5238543
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v5 5/7] xen/evtchn: modify evtchn_bind_interdomain to support static evtchn
-Date: Wed,  7 Sep 2022 17:27:36 +0100
-Message-Id: <e64439f1bff9677b5ccbdce102f06872a80a6166.1662563170.git.rahul.singh@arm.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v5 6/7] xen/arm: introduce new xen,enhanced property value
+Date: Wed,  7 Sep 2022 17:27:37 +0100
+Message-Id: <97b7eb518101b403c6e90052aaeeaa50e5ac2c79.1662563170.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1662563170.git.rahul.singh@arm.com>
 References: <cover.1662563170.git.rahul.singh@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Static event channel support will be added for dom0less domains. Modify
-evtchn_bind_interdomain to support static evtchn.
-
-It is necessary to have access to the evtchn_bind_interdomain function
-to do that, so make evtchn_bind_interdomain global and also make it
-__must_check.
-
-Currently evtchn_bind_interdomain() always allocates the next available
-local port. Static event channel support for dom0less domains requires
-allocating a specified port. Modify the evtchn_bind_interdomain to
-accept the port number as an argument and allocate the specified port
-if available. If the port number argument is zero, the next available
-port will be allocated.
-
-Currently evtchn_bind_interdomain() finds the local domain from
-"current->domain" pointer. evtchn_bind_interdomain() will be called from
-the XEN to create static event channel during domain creation.
-"current" pointer is not valid at that time, therefore modify the
-evtchn_bind_interdomain() to pass domain as an argument.
+Introduce a new "xen,enhanced" dom0less property value "no-xenstore" to
+disable xenstore interface for dom0less guests.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
 Changes in v5:
- - no changes
+ - fix minor comments
+ - change unit64_t to uint16_t for dom0less_feature
 Changes in v4:
- - no changes
+ - Implement defines for dom0less features
 Changes in v3:
- - fix minor comments in commit msg
-Changes in v2:
- - Merged patches related to evtchn_bind_interdomain in one patch
+ - new patch in this version
 ---
- xen/common/event_channel.c | 20 ++++++++++++++------
- xen/include/xen/event.h    |  5 +++++
- 2 files changed, 19 insertions(+), 6 deletions(-)
+ docs/misc/arm/device-tree/booting.txt |  4 ++++
+ xen/arch/arm/domain_build.c           | 10 ++++++----
+ xen/arch/arm/include/asm/kernel.h     | 23 +++++++++++++++++++++--
+ 3 files changed, 31 insertions(+), 6 deletions(-)
 
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index f546e81758..f5e0b12d15 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -381,11 +381,16 @@ static void double_evtchn_unlock(struct evtchn *lchn, struct evtchn *rchn)
-     evtchn_write_unlock(rchn);
- }
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index 98253414b8..47567b3906 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -204,6 +204,10 @@ with the following properties:
+     - "disabled"
+     Xen PV interfaces are disabled.
  
--static int evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-+/*
-+ * If lport is zero get the next free port and allocate. If port is non-zero
-+ * allocate the specified lport.
-+ */
-+int evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind, struct domain *ld,
-+                            evtchn_port_t lport)
- {
-     struct evtchn *lchn, *rchn;
--    struct domain *ld = current->domain, *rd;
--    int            lport, rc;
-+    struct domain *rd;
-+    int            rc;
-     evtchn_port_t  rport = bind->remote_port;
-     domid_t        rdom = bind->remote_dom;
- 
-@@ -405,8 +410,11 @@ static int evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind)
-         write_lock(&ld->event_lock);
++    - "no-xenstore"
++    All default Xen PV interfaces, including grant-table will be enabled but
++    xenstore will be disabled for the VM.
++
+     If the xen,enhanced property is present with no value, it defaults
+     to "enabled". If the xen,enhanced property is not present, PV
+     interfaces are disabled.
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 4664a8f961..580ed70b9c 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -2891,7 +2891,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+             goto err;
      }
  
--    if ( (lport = get_free_port(ld)) < 0 )
--        ERROR_EXIT(lport);
-+    lport = rc = evtchn_get_port(ld, lport);
-+    if ( rc < 0 )
-+        ERROR_EXIT(rc);
-+    rc = 0;
+-    if ( kinfo->dom0less_enhanced )
++    if ( kinfo->dom0less_feature & DOM0LESS_ENHANCED_NO_XS )
+     {
+         ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
+         if ( ret )
+@@ -3209,10 +3209,12 @@ static int __init construct_domU(struct domain *d,
+          (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
+     {
+         if ( hardware_domain )
+-            kinfo.dom0less_enhanced = true;
++            kinfo.dom0less_feature = DOM0LESS_ENHANCED;
+         else
+-            panic("Tried to use xen,enhanced without dom0\n");
++            panic("At the moment, Xenstore support requires dom0 to be present\n");
+     }
++    else if ( rc == 0 && !strcmp(dom0less_enhanced, "no-xenstore") )
++        kinfo.dom0less_feature = DOM0LESS_ENHANCED_NO_XS;
+ 
+     if ( vcpu_create(d, 0) == NULL )
+         return -ENOMEM;
+@@ -3252,7 +3254,7 @@ static int __init construct_domU(struct domain *d,
+     if ( rc < 0 )
+         return rc;
+ 
+-    if ( kinfo.dom0less_enhanced )
++    if ( kinfo.dom0less_feature & DOM0LESS_XENSTORE )
+     {
+         ASSERT(hardware_domain);
+         rc = alloc_xenstore_evtchn(d);
+diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+index c4dc039b54..f8bb85767b 100644
+--- a/xen/arch/arm/include/asm/kernel.h
++++ b/xen/arch/arm/include/asm/kernel.h
+@@ -9,6 +9,25 @@
+ #include <xen/device_tree.h>
+ #include <asm/setup.h>
+ 
++/*
++ * List of possible features for dom0less domUs
++ *
++ * DOM0LESS_ENHANCED_NO_XS: Notify the OS it is running on top of Xen. All the
++ *                          default features (excluding Xenstore) will be
++ *                          available. Note that an OS *must* not rely on the
++ *                          availability of Xen features if this is not set.
++ * DOM0LESS_XENSTORE:       Xenstore will be enabled for the VM. This feature
++ *                          can't be enabled without the
++ *                          DOM0LESS_ENHANCED_NO_XS.
++ * DOM0LESS_ENHANCED:       Notify the OS it is running on top of Xen. All the
++ *                          default features (including Xenstore) will be
++ *                          available. Note that an OS *must* not rely on the
++ *                          availability of Xen features if this is not set.
++ */
++#define DOM0LESS_ENHANCED_NO_XS  BIT(0, U)
++#define DOM0LESS_XENSTORE        BIT(1, U)
++#define DOM0LESS_ENHANCED        (DOM0LESS_ENHANCED_NO_XS | DOM0LESS_XENSTORE)
 +
-     lchn = evtchn_from_port(ld, lport);
+ struct kernel_info {
+ #ifdef CONFIG_ARM_64
+     enum domain_type type;
+@@ -36,8 +55,8 @@ struct kernel_info {
+     /* Enable pl011 emulation */
+     bool vpl011;
  
-     rchn = _evtchn_from_port(rd, rport);
-@@ -1239,7 +1247,7 @@ long do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-         struct evtchn_bind_interdomain bind_interdomain;
-         if ( copy_from_guest(&bind_interdomain, arg, 1) != 0 )
-             return -EFAULT;
--        rc = evtchn_bind_interdomain(&bind_interdomain);
-+        rc = evtchn_bind_interdomain(&bind_interdomain, current->domain, 0);
-         if ( !rc && __copy_to_guest(arg, &bind_interdomain, 1) )
-             rc = -EFAULT; /* Cleaning up here would be a mess! */
-         break;
-diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
-index f31963703f..8eae9984a9 100644
---- a/xen/include/xen/event.h
-+++ b/xen/include/xen/event.h
-@@ -75,6 +75,11 @@ int evtchn_allocate_port(struct domain *d, unsigned int port);
- int __must_check evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc,
-                                       evtchn_port_t port);
+-    /* Enable PV drivers */
+-    bool dom0less_enhanced;
++    /* Enable/Disable PV drivers interfaces */
++    uint16_t dom0less_feature;
  
-+/* Bind an event channel port to interdomain */
-+int __must_check evtchn_bind_interdomain(evtchn_bind_interdomain_t *bind,
-+                                         struct domain *ld,
-+                                         evtchn_port_t port);
-+
- /* Unmask a local event-channel port. */
- int evtchn_unmask(unsigned int port);
- 
+     /* GIC phandle */
+     uint32_t phandle_gic;
 -- 
 2.25.1
 
