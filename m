@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A28E5B0717
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 16:36:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.401894.643900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8446A5B0800
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 17:08:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.401935.643914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVwAC-0004ED-Bl; Wed, 07 Sep 2022 14:36:24 +0000
+	id 1oVweF-0000io-Qr; Wed, 07 Sep 2022 15:07:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 401894.643900; Wed, 07 Sep 2022 14:36:24 +0000
+Received: by outflank-mailman (output) from mailman id 401935.643914; Wed, 07 Sep 2022 15:07:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVwAC-0004Bp-6e; Wed, 07 Sep 2022 14:36:24 +0000
-Received: by outflank-mailman (input) for mailman id 401894;
- Wed, 07 Sep 2022 14:36:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oVweF-0000fn-Nq; Wed, 07 Sep 2022 15:07:27 +0000
+Received: by outflank-mailman (input) for mailman id 401935;
+ Wed, 07 Sep 2022 15:07:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9gDT=ZK=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1oVwAA-0002tH-Oy
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 14:36:22 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 70f3f3ea-2eba-11ed-af93-0125da4c0113;
- Wed, 07 Sep 2022 16:36:21 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C4B71042;
- Wed,  7 Sep 2022 07:36:27 -0700 (PDT)
-Received: from entos-skylake.shanghai.arm.com (entos-skylake.shanghai.arm.com
- [10.169.212.207])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AA7003F71A;
- Wed,  7 Sep 2022 07:36:18 -0700 (PDT)
+ <SRS0=9k5L=ZK=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1oVweD-0000fg-Ic
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 15:07:26 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c6236b32-2ebe-11ed-a016-b9edf5238543;
+ Wed, 07 Sep 2022 17:07:23 +0200 (CEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id BA7295C0189;
+ Wed,  7 Sep 2022 11:07:21 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Wed, 07 Sep 2022 11:07:21 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 7 Sep 2022 11:07:20 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,303 +43,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70f3f3ea-2eba-11ed-af93-0125da4c0113
-From: Henry Wang <Henry.Wang@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 4/4] xen/arm: Handle static heap pages in boot and heap allocator
-Date: Wed,  7 Sep 2022 14:35:32 +0000
-Message-Id: <20220907143532.15397-5-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220907143532.15397-1-Henry.Wang@arm.com>
-References: <20220907143532.15397-1-Henry.Wang@arm.com>
+X-Inumbo-ID: c6236b32-2ebe-11ed-a016-b9edf5238543
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1662563241; x=
+	1662649641; bh=v/s3MB60xE1vO2w5soDZvjjv4HBjjIg9iW3ayRKeD50=; b=N
+	MOhShj+LUR+CksqAGwsGesU1DEE6tox3BdlMb4cHnRRvi5X/Y1+ZzWzyY+Rp8PUO
+	ND0jXtCQ9RpDxZV/FaeUGfBza4whYfkKYTRcZJPCMsViuWGuAQHMNrI6BYiZ1I36
+	Zziv2p03Wp59mZTD0+TTqlcwt5QSdKJwb9MN5CogbRdreMAvYb1p3Frev1a6Faey
+	0d6mcdAhI+xUhEfhE8WsQX9CfD8wa1fE8J9AC9EVDRobEw45XvZskvdP2Cx1wB29
+	09CX2/SWs94zEtxv3f6WoA2zMQJlXuabL6Os0okZhWhFxgvLxMg0Ph3EFaq3dtqx
+	whJUgM9YhJrDb8zY2+Jfg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1662563241; x=1662649641; bh=v/s3MB60xE1vO2w5soDZvjjv4HBj
+	jIg9iW3ayRKeD50=; b=ByLurM+xMGG7XZwlllM7/fUr33HwWEKwNQ6V8m13mXij
+	qXVlLFuB4O+RYDNCkL3GAvUQMn2V5g43qKq1Tm+tGspfnd2sTtv17NMtfrUTuMG3
+	HueRIFPscOQUbP/sRWjhMu4SfvV2Vtni2fyIt+y8bRREfAjJVnf7odsVc7Z8WJ1o
+	JjadjWpj7y53Ry5z1iQGmV+wUZZ7fERj13brvyMCF/SGyKYyFESUevXSmsRvUfUy
+	4+mVS9fyeGXlFfYtcpvljKKkuay/JUDnenbz+piliKOXE3tfH0gwOyPrh2yI0fmH
+	1Kw2wZGE20RGLVs3qSsMi5IPBE8oMOO5jmnGEFivPw==
+X-ME-Sender: <xms:qbMYY36OQblVIA_F4ZF9eMbnC5JFD0w9NVN6MLPdI7cciWjNdAJwMQ>
+    <xme:qbMYY877DK9ZOqM9jwtIITRD9RZknaPbhmY7upY643AfzZ6UI_sxfioey512SHn0A
+    4ycD0eb2-aqXQ>
+X-ME-Received: <xmr:qbMYY-eiCvAKUbW5yZjLVnJtytX98g_QKskY06m8gLOPvX9yIgfRDPgF4PmuywK3Aeykw7WOin1Sx5Js6B_47JW4V-doL__TwtqD>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfedttddgkeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepfdhmrghr
+    mhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmfdcuoehmrghrmh
+    grrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrght
+    thgvrhhnpeekkeevieevkefhieetveehueekhedufeelgfevudejkefhffehuddtjeegte
+    ehtdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehm
+    rghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:qbMYY4JSuoayVnC7-Dw5_zsUmpw-xeFShNr8aIpFrwqvqYeFKp1Z8Q>
+    <xmx:qbMYY7KxkcsPgBFA3cVXQFXKB-v4HxqXIlKGyodSbx_eSCbOXY54gA>
+    <xmx:qbMYYxwxrT_IqIu2v0WLj__t7IbYVvOZGwbgcYRqfVRyI-iKHpuW7w>
+    <xmx:qbMYYz0eiCkCi7O9Hujpa9BG80XT8zp9I7KwlBwxZSfIH6aWNi5_eQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 7 Sep 2022 17:07:11 +0200
+From: "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>
+To: Dario Faggioli <dfaggioli@suse.com>
+Cc: Juergen Gross <jgross@suse.com>, "jgross@suse.de" <jgross@suse.de>,
+	Jan Beulich <jbeulich@suse.com>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13 and newer
+Message-ID: <Yxizn+XDIftyMlpR@mail-itl>
+References: <d243c1b5-712d-a958-0b6c-b232eb4edc80@suse.com>
+ <20200929151627.GE1482@mail-itl>
+ <ea53b845-5edf-a61e-62ae-7ababc30b3e0@suse.com>
+ <20210131021526.GB6354@mail-itl>
+ <YWHDIQC3K8J3LD8+@mail-itl>
+ <YwJZ3X0HpT9w6Veh@mail-itl>
+ <31f99f6b-0781-795b-731b-d5a9f1105887@suse.com>
+ <919e328a-000e-0eeb-2253-6a4381b5ccaa@suse.com>
+ <Yxc+fIlyKWU94/VM@mail-itl>
+ <d2ca7b0c127e91837d74446ce6f4d576e3bc83a7.camel@suse.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="pu1WEvI8Qnh+B2zy"
+Content-Disposition: inline
+In-Reply-To: <d2ca7b0c127e91837d74446ce6f4d576e3bc83a7.camel@suse.com>
 
-This commit firstly adds a bool field `static_heap` to bootinfo.
-This newly introduced field is set at the device tree parsing time
-if the static heap ranges are defined in the device tree chosen
-node.
 
-For Arm32, In `setup_mm`, if the static heap is enabled, we use the
-static heap region for both domheap and xenheap allocation. Note
-that the xenheap on Arm32 should be always contiguous, so also add
-a helper fit_xenheap_in_static_heap() for Arm32 to find the required
-xenheap in the static heap regions.
+--pu1WEvI8Qnh+B2zy
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 7 Sep 2022 17:07:11 +0200
+From: "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>
+To: Dario Faggioli <dfaggioli@suse.com>
+Cc: Juergen Gross <jgross@suse.com>, "jgross@suse.de" <jgross@suse.de>,
+	Jan Beulich <jbeulich@suse.com>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13 and newer
 
-For Arm64, In `setup_mm`, if the static heap is enabled and used,
-we make sure that only these static heap pages are added to the boot
-allocator. These static heap pages in the boot allocator are
-added to the heap allocator at `end_boot_allocator()`.
+On Wed, Sep 07, 2022 at 12:21:12PM +0000, Dario Faggioli wrote:
+> On Tue, 2022-09-06 at 14:35 +0200, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Tue, Sep 06, 2022 at 01:46:55PM +0200, Juergen Gross wrote:
+> > >=20
+> > > Could you test the attached patch, please?
+> >=20
+> > I did a test with only dom0 running, and it works now. It isn't a
+> > comprehensive test, but just dom0 was enough to crash it before, and
+> > it
+> > stays working now.
+> >
+> That's very cool to hear! Thanks for testing and reporting back.
+>=20
+> Just to be sure, did you check both Credit1 and Credit2 and do they
+> both work, with Juergen's patch?
 
-If the static heap is disabled, we stick to current page allocation
-strategy at boot time.
+The test above was with credit1. I did checked credit2 later, and it
+still crashes, unfortunately (Juergen knows already from our IRC chat).
 
-Also, take the chance to correct a "double not" print in Arm32
-`setup_mm()` and replace the open-coding address ~0 by INVALID_PADDR.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
----
-Changes from v3 to v4:
-- Add Julien's Reviewed-by.
-Changes from v2 to v3:
-- Adjustment of the terminology change to "static heap".
-- Change of wording in comments.
-- int i -> unsigned int i.
-- Avoid extra indentation by reverting the check of MEMBANK_RSVD_HEAP.
-- Use MB(32).
-- Drop unnecessary panic and unused variables.
-- Avoid the ternary operation in assigning the heap_pages.
-- Rework populate_boot_allocator() for static heap.
-Changes from v1 to v2:
-- Move the global bool `reserved_heap` to bootinfo.
-- Replace the open open-coding address ~0 by INVALID_PADDR.
-- Do not use reverted logic in heap_pages calculation.
-- Remove unused Arm32 reserved_heap_start variable.
-- Decouple the arm32 reserved heap too small size check with region
-  end check.
-- Reuse the arm32 original xenheap finding logic with the new helper
-  to make sure xenheap on arm32 is contiguous.
-Changes from RFC to v1:
-- Rebase on top of latest `setup_mm()` changes.
-- Added Arm32 logic in `setup_mm()`.
----
- xen/arch/arm/bootfdt.c           |   2 +
- xen/arch/arm/include/asm/setup.h |   1 +
- xen/arch/arm/setup.c             | 118 +++++++++++++++++++++++++++----
- 3 files changed, 107 insertions(+), 14 deletions(-)
+--pu1WEvI8Qnh+B2zy
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-index a69f84aeb5..86f1e3c3eb 100644
---- a/xen/arch/arm/bootfdt.c
-+++ b/xen/arch/arm/bootfdt.c
-@@ -323,6 +323,8 @@ static int __init process_chosen_node(const void *fdt, int node,
-                                      MEMBANK_STATIC_HEAP);
-         if ( rc )
-             return rc;
-+
-+        bootinfo.static_heap = true;
-     }
- 
-     printk("Checking for initrd in /chosen\n");
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index 31610ccd65..492779aa91 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -97,6 +97,7 @@ struct bootinfo {
- #ifdef CONFIG_ACPI
-     struct meminfo acpi;
- #endif
-+    bool static_heap;
- };
- 
- struct map_range_data
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 9f3838d004..e0f9809d7e 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -556,6 +556,44 @@ static paddr_t __init consider_modules(paddr_t s, paddr_t e,
-     }
-     return e;
- }
-+
-+/*
-+ * Find a contiguous region that fits in the static heap region with
-+ * required size and alignment, and return the end address of the region
-+ * if found otherwise 0.
-+ */
-+static paddr_t __init fit_xenheap_in_static_heap(uint32_t size, paddr_t align)
-+{
-+    unsigned int i;
-+    paddr_t end = 0, aligned_start, aligned_end;
-+    paddr_t bank_start, bank_size, bank_end;
-+
-+    for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+    {
-+        if ( bootinfo.reserved_mem.bank[i].type != MEMBANK_STATIC_HEAP )
-+            continue;
-+
-+        bank_start = bootinfo.reserved_mem.bank[i].start;
-+        bank_size = bootinfo.reserved_mem.bank[i].size;
-+        bank_end = bank_start + bank_size;
-+
-+        if ( bank_size < size )
-+            continue;
-+
-+        aligned_end = bank_end & ~(align - 1);
-+        aligned_start = (aligned_end - size) & ~(align - 1);
-+
-+        if ( aligned_start > bank_start )
-+            /*
-+             * Allocate the xenheap as high as possible to keep low-memory
-+             * available (assuming the admin supplied region below 4GB)
-+             * for other use (e.g. domain memory allocation).
-+             */
-+            end = max(end, aligned_end);
-+    }
-+
-+    return end;
-+}
- #endif
- 
- /*
-@@ -661,22 +699,51 @@ static void __init init_staticmem_pages(void)
- }
- 
- /*
-- * Populate the boot allocator. All the RAM but the following regions
-- * will be added:
-+ * Populate the boot allocator.
-+ * If a static heap was not provided by the admin, all the RAM but the
-+ * following regions will be added:
-  *  - Modules (e.g., Xen, Kernel)
-  *  - Reserved regions
-  *  - Xenheap (arm32 only)
-+ * If a static heap was provided by the admin, populate the boot
-+ * allocator with the corresponding regions only, but with Xenheap excluded
-+ * on arm32.
-  */
- static void __init populate_boot_allocator(void)
- {
-     unsigned int i;
-     const struct meminfo *banks = &bootinfo.mem;
-+    paddr_t s, e;
-+
-+    if ( bootinfo.static_heap )
-+    {
-+        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+        {
-+            if ( bootinfo.reserved_mem.bank[i].type != MEMBANK_STATIC_HEAP )
-+                continue;
-+
-+            s = bootinfo.reserved_mem.bank[i].start;
-+            e = s + bootinfo.reserved_mem.bank[i].size;
-+#ifdef CONFIG_ARM_32
-+            /* Avoid the xenheap, note that the xenheap cannot across a bank */
-+            if ( s <= mfn_to_maddr(directmap_mfn_start) &&
-+                 e >= mfn_to_maddr(directmap_mfn_end) )
-+            {
-+                init_boot_pages(s, mfn_to_maddr(directmap_mfn_start));
-+                init_boot_pages(mfn_to_maddr(directmap_mfn_end), e);
-+            }
-+            else
-+#endif
-+                init_boot_pages(s, e);
-+        }
-+
-+        return;
-+    }
- 
-     for ( i = 0; i < banks->nr_banks; i++ )
-     {
-         const struct membank *bank = &banks->bank[i];
-         paddr_t bank_end = bank->start + bank->size;
--        paddr_t s, e;
- 
-         s = bank->start;
-         while ( s < bank_end )
-@@ -714,8 +781,8 @@ static void __init populate_boot_allocator(void)
- #ifdef CONFIG_ARM_32
- static void __init setup_mm(void)
- {
--    paddr_t ram_start, ram_end, ram_size, e;
--    unsigned long ram_pages;
-+    paddr_t ram_start, ram_end, ram_size, e, bank_start, bank_end, bank_size;
-+    paddr_t static_heap_end = 0, static_heap_size = 0;
-     unsigned long heap_pages, xenheap_pages, domheap_pages;
-     unsigned int i;
-     const uint32_t ctr = READ_CP32(CTR);
-@@ -735,30 +802,51 @@ static void __init setup_mm(void)
- 
-     for ( i = 1; i < bootinfo.mem.nr_banks; i++ )
-     {
--        paddr_t bank_start = bootinfo.mem.bank[i].start;
--        paddr_t bank_size = bootinfo.mem.bank[i].size;
--        paddr_t bank_end = bank_start + bank_size;
-+        bank_start = bootinfo.mem.bank[i].start;
-+        bank_size = bootinfo.mem.bank[i].size;
-+        bank_end = bank_start + bank_size;
- 
-         ram_size  = ram_size + bank_size;
-         ram_start = min(ram_start,bank_start);
-         ram_end   = max(ram_end,bank_end);
-     }
- 
--    total_pages = ram_pages = ram_size >> PAGE_SHIFT;
-+    total_pages = ram_size >> PAGE_SHIFT;
-+
-+    if ( bootinfo.static_heap )
-+    {
-+        for ( i = 0 ; i < bootinfo.reserved_mem.nr_banks; i++ )
-+        {
-+            if ( bootinfo.reserved_mem.bank[i].type != MEMBANK_STATIC_HEAP )
-+                continue;
-+
-+            bank_start = bootinfo.reserved_mem.bank[i].start;
-+            bank_size = bootinfo.reserved_mem.bank[i].size;
-+            bank_end = bank_start + bank_size;
-+
-+            static_heap_size += bank_size;
-+            static_heap_end = max(static_heap_end, bank_end);
-+        }
-+
-+        heap_pages = static_heap_size >> PAGE_SHIFT;
-+    }
-+    else
-+        heap_pages = total_pages;
- 
-     /*
-      * If the user has not requested otherwise via the command line
-      * then locate the xenheap using these constraints:
-      *
-+     *  - must be contiguous
-      *  - must be 32 MiB aligned
-      *  - must not include Xen itself or the boot modules
--     *  - must be at most 1GB or 1/32 the total RAM in the system if less
-+     *  - must be at most 1GB or 1/32 the total RAM in the system (or static
-+          heap if enabled) if less
-      *  - must be at least 32M
-      *
-      * We try to allocate the largest xenheap possible within these
-      * constraints.
-      */
--    heap_pages = ram_pages;
-     if ( opt_xenheap_megabytes )
-         xenheap_pages = opt_xenheap_megabytes << (20-PAGE_SHIFT);
-     else
-@@ -770,7 +858,9 @@ static void __init setup_mm(void)
- 
-     do
-     {
--        e = consider_modules(ram_start, ram_end,
-+        e = bootinfo.static_heap ?
-+            fit_xenheap_in_static_heap(pfn_to_paddr(xenheap_pages), MB(32)) :
-+            consider_modules(ram_start, ram_end,
-                              pfn_to_paddr(xenheap_pages),
-                              32<<20, 0);
-         if ( e )
-@@ -780,7 +870,7 @@ static void __init setup_mm(void)
-     } while ( !opt_xenheap_megabytes && xenheap_pages > 32<<(20-PAGE_SHIFT) );
- 
-     if ( ! e )
--        panic("Not not enough space for xenheap\n");
-+        panic("Not enough space for xenheap\n");
- 
-     domheap_pages = heap_pages - xenheap_pages;
- 
-@@ -825,7 +915,7 @@ static void __init setup_mm(void)
- static void __init setup_mm(void)
- {
-     const struct meminfo *banks = &bootinfo.mem;
--    paddr_t ram_start = ~0;
-+    paddr_t ram_start = INVALID_PADDR;
-     paddr_t ram_end = 0;
-     paddr_t ram_size = 0;
-     unsigned int i;
--- 
-2.17.1
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmMYs6AACgkQ24/THMrX
+1yysjQf/cZhhYUO1wcQwjq8gBa+SFJmfz1rx8NkAd6Z7pc4Vli5cwFswLVcSj11g
+cPR2OJAwmZd20seCiV+eH9TRo1UTVPn+4Vtu8+XrkOpbyfpQz4HJmbMJnW8CyuoN
+WzdjE37N6zp1AsTl2m9mbS96wJKNyyKsEwURzDRDS5JCZcQ+BehDw1nMEc9857jP
+xF4YKRurYdB7joFL6mCSW9Q4AXN7gwYzqDNqqteFWjHtPi6yN+XHxskhZrhdwFDI
+BWVDcpoqHL+G6t8po8adYGRzPhWDRsQZizCGTSTgjbtc3Mry07ddRwzs7YlEwK7Y
+dFmj/5ZA1OGWsoP0xCl6yxIcsRjO4A==
+=l1pb
+-----END PGP SIGNATURE-----
+
+--pu1WEvI8Qnh+B2zy--
 
