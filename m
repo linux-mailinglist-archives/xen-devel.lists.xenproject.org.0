@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 077BF5B023E
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 13:00:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.401235.643038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DFC75B0245
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 13:00:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.401236.643049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVsmc-0003c1-9A; Wed, 07 Sep 2022 10:59:50 +0000
+	id 1oVsmz-0004rr-Hg; Wed, 07 Sep 2022 11:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 401235.643038; Wed, 07 Sep 2022 10:59:50 +0000
+Received: by outflank-mailman (output) from mailman id 401236.643049; Wed, 07 Sep 2022 11:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVsmc-0003Zr-5O; Wed, 07 Sep 2022 10:59:50 +0000
-Received: by outflank-mailman (input) for mailman id 401235;
- Wed, 07 Sep 2022 10:59:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oVsmz-0004p3-Cf; Wed, 07 Sep 2022 11:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 401236;
+ Wed, 07 Sep 2022 11:00:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oVsma-0003Zl-TE
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 10:59:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVsma-0003Ns-LY; Wed, 07 Sep 2022 10:59:48 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.17.46]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVsma-0004AC-FG; Wed, 07 Sep 2022 10:59:48 +0000
+ (envelope-from <SRS0=L/zY=ZK=suse.com=mhocko@srs-se1.protection.inumbo.net>)
+ id 1oVsmx-0004oV-KF
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 11:00:11 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3dab2ac5-2e9c-11ed-a016-b9edf5238543;
+ Wed, 07 Sep 2022 13:00:10 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0A82C2033D;
+ Wed,  7 Sep 2022 11:00:10 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D477413486;
+ Wed,  7 Sep 2022 11:00:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id +m1RM7l5GGMSVwAAMHmgww
+ (envelope-from <mhocko@suse.com>); Wed, 07 Sep 2022 11:00:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +51,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=DwSWP9bKQIZQ/7Mt9ErlQ/vMBg/HCtrxWlPaHEVJu4Q=; b=EeNl6JFtw9tERJeNv35hqqUdg4
-	IH2EcJiUgxmw1pEU4fSrPJNp3oalK+zHL56VvQeEF16UmhWCrUd+bOLdiHYhQJTJpESXubpd5GmV3
-	YMgukggxbCVo7/EKD+KqMTjREocuorVv+83ZMjtjhSQoNCQ3mMyFligpYw8w8Xtr1+sY=;
-Message-ID: <df7ce48f-097e-e30e-aefb-9aec253492a1@xen.org>
-Date: Wed, 7 Sep 2022 11:59:46 +0100
+X-Inumbo-ID: 3dab2ac5-2e9c-11ed-a016-b9edf5238543
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1662548410; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HmaE7iOjn6DeLFkNOLr8ASPOm5MulkrwVeS3GjvYnFQ=;
+	b=XJuKUxE3K2H/o+zbOpLWLhtXEgxHdoiWAQxKGUR4cKIaV8UfyJO/UQK0u1N/Q0GiZv99Cx
+	kg8xGbUHizgdfJURCEVo7e1R7yjc93Oufl/51InNOknj8+BajqsA6lihzRcavskk7trfVf
+	XL6FEF6zeAMocGbRwpJqhrx4BFTASfU=
+Date: Wed, 7 Sep 2022 13:00:09 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>, Mel Gorman <mgorman@suse.de>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Matthew Wilcox <willy@infradead.org>,
+	"Liam R. Howlett" <liam.howlett@oracle.com>,
+	David Vernet <void@manifault.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Laurent Dufour <ldufour@linux.ibm.com>,
+	Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, mcgrof@kernel.org,
+	masahiroy@kernel.org, nathan@kernel.org, changbin.du@intel.com,
+	ytcoode@gmail.com, Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Benjamin Segall <bsegall@google.com>,
+	Daniel Bristot de Oliveira <bristot@redhat.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Christopher Lameter <cl@linux.com>,
+	Pekka Enberg <penberg@kernel.org>,
+	Joonsoo Kim <iamjoonsoo.kim@lge.com>, 42.hyeyoo@gmail.com,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
+	Shakeel Butt <shakeelb@google.com>,
+	Muchun Song <songmuchun@bytedance.com>, arnd@arndb.de,
+	jbaron@akamai.com, David Rientjes <rientjes@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	kernel-team <kernel-team@android.com>,
+	linux-mm <linux-mm@kvack.org>, iommu@lists.linux.dev,
+	kasan-dev@googlegroups.com, io-uring@vger.kernel.org,
+	linux-arch@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-modules@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH 00/30] Code tagging framework and applications
+Message-ID: <Yxh5ueDTAOcwEmCQ@dhcp22.suse.cz>
+References: <20220831190154.qdlsxfamans3ya5j@moria.home.lan>
+ <YxBc1xuGbB36f8zC@dhcp22.suse.cz>
+ <CAJuCfpGhwPFYdkOLjwwD4ra9JxPqq1T5d1jd41Jy3LJnVnhNdg@mail.gmail.com>
+ <YxEE1vOwRPdzKxoq@dhcp22.suse.cz>
+ <CAJuCfpHuzJGTA_-m0Jfawc7LgJLt4GztUUY4K9N9-7bFqJuXnw@mail.gmail.com>
+ <20220901201502.sn6223bayzwferxv@moria.home.lan>
+ <YxW4Ig338d2vQAz3@dhcp22.suse.cz>
+ <20220905234649.525vorzx27ybypsn@kmo-framework>
+ <Yxb1cxDSyte1Ut/F@dhcp22.suse.cz>
+ <20220906182058.iijmpzu4rtxowy37@kmo-framework>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH v3 3/4] xen/arm: mm: Rename xenheap_* variable to
- directmap_*
-Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220907083643.20152-1-Henry.Wang@arm.com>
- <20220907083643.20152-4-Henry.Wang@arm.com>
- <9234b0da-01c6-dafc-8e62-c7e497f8f146@xen.org>
- <AS8PR08MB799170866BCA3237738B4DE992419@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS8PR08MB799170866BCA3237738B4DE992419@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220906182058.iijmpzu4rtxowy37@kmo-framework>
 
+On Tue 06-09-22 14:20:58, Kent Overstreet wrote:
+[...]
+> Otherwise, saying "code has to be maintained" is a little bit like saying water
+> is wet, and we're all engineers here, I think we know that :)
 
-
-On 07/09/2022 11:53, Henry Wang wrote:
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Subject: Re: [PATCH v3 3/4] xen/arm: mm: Rename xenheap_* variable to
->> directmap_*
->>
->> Hi Henry,
->>
->> On 07/09/2022 09:36, Henry Wang wrote:
->>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
->>> index 7f5b317d3e..4a70ed2986 100644
->>> --- a/xen/arch/arm/mm.c
->>> +++ b/xen/arch/arm/mm.c
->>> @@ -132,12 +132,12 @@ uint64_t init_ttbr;
->>>    static paddr_t phys_offset;
->>>
->>>    /* Limits of the Xen heap */
->>> -mfn_t xenheap_mfn_start __read_mostly = INVALID_MFN_INITIALIZER;
->>> -mfn_t xenheap_mfn_end __read_mostly;
->>> -vaddr_t xenheap_virt_end __read_mostly;
->>> +mfn_t directmap_mfn_start __read_mostly = INVALID_MFN_INITIALIZER;
->>> +mfn_t directmap_mfn_end __read_mostly;
->>> +vaddr_t directmap_virt_end __read_mostly;
->>>    #ifdef CONFIG_ARM_64
->>> -vaddr_t xenheap_virt_start __read_mostly;
->>> -unsigned long xenheap_base_pdx __read_mostly;
->>> +vaddr_t directmap_virt_start __read_mostly;
->>> +unsigned long directmap_base_pdx __read_mostly;
->>>    #endif
->>>
->>>    unsigned long frametable_base_pdx __read_mostly;
->>> @@ -609,7 +609,7 @@ void __init setup_xenheap_mappings(unsigned
->> long base_mfn,
->>
->> I think the function also want to be renamed to match the code below.
-> 
-> Hmmm, renaming the name to "setup_directmap_mappings" would
-> somehow lead me to think of we are getting rid of the name "xenheap"
-> completely in the code, which seems a little bit scary to me...
-> 
-> But I just checked there is a comment
-> "/* Set up the xenheap: up to 1GB of contiguous, always-mapped memory."
-> above the function and the declaration so I guess we are fine?
-
-We are not getting rid of "xenheap". In fact the common code will 
-continue to use the concept.
-
-What we make clear is this function is not only here to map the xenheap 
-but other memory (e.g. static domain memory on arm64).
-
-Cheers,
-
+Hmm, it seems that further discussion doesn't really make much sense
+here. I know how to use my time better.
 -- 
-Julien Grall
+Michal Hocko
+SUSE Labs
 
