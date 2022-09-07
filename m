@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C00D25B0BAF
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 19:43:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.402112.644115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB635B0BC7
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 19:49:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.402123.644127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVz4E-0003Nu-GX; Wed, 07 Sep 2022 17:42:26 +0000
+	id 1oVzAm-0004I2-9o; Wed, 07 Sep 2022 17:49:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 402112.644115; Wed, 07 Sep 2022 17:42:26 +0000
+Received: by outflank-mailman (output) from mailman id 402123.644127; Wed, 07 Sep 2022 17:49:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVz4E-0003Kw-DH; Wed, 07 Sep 2022 17:42:26 +0000
-Received: by outflank-mailman (input) for mailman id 402112;
- Wed, 07 Sep 2022 17:42:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oVzAm-0004FL-6G; Wed, 07 Sep 2022 17:49:12 +0000
+Received: by outflank-mailman (input) for mailman id 402123;
+ Wed, 07 Sep 2022 17:49:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVz4C-0003Km-E3; Wed, 07 Sep 2022 17:42:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <SRS0=YTO0=ZK=xen.org=julien@srs-se1.protection.inumbo.net>)
+ id 1oVzAl-0004FF-IG
+ for xen-devel@lists.xen.org; Wed, 07 Sep 2022 17:49:11 +0000
+Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5fd8d22e-2ed5-11ed-af93-0125da4c0113;
+ Wed, 07 Sep 2022 19:49:10 +0200 (CEST)
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVz4C-000396-Ba; Wed, 07 Sep 2022 17:42:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oVz4B-0008De-Rt; Wed, 07 Sep 2022 17:42:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oVz4B-0004Hu-RL; Wed, 07 Sep 2022 17:42:23 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oVzAh-0003Fg-LE; Wed, 07 Sep 2022 17:49:07 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.17.46]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVzAh-0004LN-D5; Wed, 07 Sep 2022 17:49:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,133 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=KZmxcblI5jnTX7wXATq1ZTPLhOiXTst8W6YbicBwqhA=; b=nH0Q+RiCUyOe5d62ON4Ugw9Pa1
-	ek2JmYlGHr90IKhXOLWiaS5oOyxwUyoiw4qPq/kzCjcV1d58D8A2FrhiKDBWtBnb6lXCMu9U8YEDM
-	oLIYouPR4dmZz8wqEHGNEPYDwjFWE4tjnyarRI0mDpwGaQzAd3Cu741zDq/BfU7ZCNO4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173047-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5fd8d22e-2ed5-11ed-af93-0125da4c0113
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=wtSm/UAPQbJv1pnpeWpxJbmKYxz2eNu5lK1OFxZBJ88=; b=Jkd5q01fFbUzLz6RoRVayg9B8m
+	Tyy55FwWveLl3/OaB/dV1CdFzaTBnrK1m60rmi6vXKnE/OuF8ZusZDjIEZAEOdIfRN+Grwkg/j56G
+	P1lt/IhpXPzNjIMUQMpLbxVJIRPEAYxZ2uCKOYRiYRR8f0ydof6+LLgiX0A1u2mSUysQ=;
+Message-ID: <402d1abf-85f6-b13a-8a6e-80cb1792c2ee@xen.org>
+Date: Wed, 7 Sep 2022 18:49:04 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 173047: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=512042eba87ff97a4820a55cf3b1a89a8afd1cc7
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 07 Sep 2022 17:42:23 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.1
+Subject: Re: [PATCH V5 1/6] libxl: Add support for Virtio I2C device
+Content-Language: en-US
+To: Viresh Kumar <viresh.kumar@linaro.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xen.org, Vincent Guittot <vincent.guittot@linaro.org>,
+ stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
+ <alex.bennee@linaro.org>, Stefano Stabellini
+ <stefano.stabellini@xilinx.com>, Mathieu Poirier
+ <mathieu.poirier@linaro.com>, Mike Holmes <mike.holmes@linaro.org>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>, Wei Liu <wl@xen.org>,
+ Juergen Gross <jgross@suse.com>
+References: <cover.1661159474.git.viresh.kumar@linaro.org>
+ <8b47d98cec83ca33a2b409c9371356820dd91b7a.1661159474.git.viresh.kumar@linaro.org>
+ <YxdyGXxois95bNdI@perard.uk.xensource.com>
+ <20220907123224.rz7vvope37l6l6mg@vireshk-i7>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220907123224.rz7vvope37l6l6mg@vireshk-i7>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 173047 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173047/
+Hi Viresh,
 
-Regressions :-(
+Jumping in the conversation.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+On 07/09/2022 13:32, Viresh Kumar wrote:
+> I don't have much knowledge of the Xen code and wanted this code for I2C and
+> GPIO to be tested on Xen for the work we are doing around hypervisor agnostic
+> backends [1].
+> 
+> I started looking for a simple device's implementation and began by (blindly)
+> copying code from Keyboard device and so much of wasted code in here, which
+> isn't really required.
+> 
+> On 06-09-22, 17:15, Anthony PERARD wrote:
+>> On Mon, Aug 22, 2022 at 02:45:13PM +0530, Viresh Kumar wrote:
+>>> An example of domain configuration for Virtio I2c:
+>>> i2c = [ "" ]
+>>
+>> Is this doing something meaningful (with the whole series applied)?
+> 
+> If I am not wrong, this is required by parse_i2c_list()'s implementation.
+> Without this I don't get the I2C device populated in the guest.
+> 
+> Is there another way to achieve it ?
 
-version targeted for testing:
- ovmf                 512042eba87ff97a4820a55cf3b1a89a8afd1cc7
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+Looking at this series, you will add ~250 lines (assuming your new 
+patch) for the i2c and then likely the same amount for GPIO.
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   34 days
-Failing since        172151  2022-08-05 02:40:28 Z   33 days  261 attempts
-Testing same since   173043  2022-09-07 09:48:36 Z    0 days    2 attempts
+I am assuming that for every new virtio device (e.g. gps, sound, 
+display...), we would also need to 250 lines of code. I am worry that we 
+will end up to bloat libxl with duplicated code and or for device that 
+are barely used.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  "Lee, Chun-Yi" <jlee@suse.com>
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Annie Li <annie.li@oracle.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Bob Feng <bob.c.feng@intel.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Chen, Xiao X <xiao.x.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Foster Nong <foster.nong@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jianyong Wu <jianyong.wu@arm.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee, Chun-Yi <joeyli.kernel@gmail.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Pierre Gondois <pierre.gondois@arm.com>
-  Pranav Madhu <pranav.madhu@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@quicinc.com>
-  Rohit Mathew <rohit.mathew@arm.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Xiao X Chen <xiao.x.chen@intel.com>
-  Yuan Yu <yuanyu@google.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+I think it would be better to find a generic way to add new virtio 
+device without adding code (very limited) in libxl. The advantage is 
+someone will be able to create a new virtio device with less effort.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+The approach I can think of is something along the lines:
 
+virtio = ["type=<compatible>,transport=<transport>,..."]
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+where the compatible is the one that should be written in the DT and 
+transport is mmio or pci. the [...] refers to specific parameters that 
+would need to be passed to the backend (it is not clear how you provide 
+them today?).
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+AFAICT, the GPIO one may need some tweaking because it requires specific 
+properties. I think it would be more acceptable as this will be only a 
+few lines (compare to 250 lines today).
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Cheers,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2139 lines long.)
+-- 
+Julien Grall
 
