@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D63B95B06FD
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 16:33:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.401882.643845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF94C5B0713
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 16:36:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.401889.643856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVw7I-0002L7-Jl; Wed, 07 Sep 2022 14:33:24 +0000
+	id 1oVw9x-0002vg-1W; Wed, 07 Sep 2022 14:36:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 401882.643845; Wed, 07 Sep 2022 14:33:24 +0000
+Received: by outflank-mailman (output) from mailman id 401889.643856; Wed, 07 Sep 2022 14:36:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVw7I-0002JK-H7; Wed, 07 Sep 2022 14:33:24 +0000
-Received: by outflank-mailman (input) for mailman id 401882;
- Wed, 07 Sep 2022 14:33:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oVw7H-0002JE-Fp
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 14:33:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVw7G-0007fr-Hc; Wed, 07 Sep 2022 14:33:22 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.17.46]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVw7G-0006Zf-9S; Wed, 07 Sep 2022 14:33:22 +0000
+	id 1oVw9w-0002tf-VE; Wed, 07 Sep 2022 14:36:08 +0000
+Received: by outflank-mailman (input) for mailman id 401889;
+ Wed, 07 Sep 2022 14:36:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9gDT=ZK=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1oVw9v-0002tH-WE
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 14:36:08 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 677078d5-2eba-11ed-af93-0125da4c0113;
+ Wed, 07 Sep 2022 16:36:06 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B2A81042;
+ Wed,  7 Sep 2022 07:36:11 -0700 (PDT)
+Received: from entos-skylake.shanghai.arm.com (entos-skylake.shanghai.arm.com
+ [10.169.212.207])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9FB6B3F71A;
+ Wed,  7 Sep 2022 07:36:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,55 +43,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=GzRsaXTSpwLy/Adbvnszg+L9jECCkvffHW40vZ9b+VM=; b=AsNNSX3kQyxMDPk2wdssDr1j8h
-	WYyR5GAjDNII4j8BhX1GYcwf3n/vDZoy8YGBf3IoPmyCIhRq5TidHbZ4dnKNSSNj6Ito4ow8BmIXi
-	rdVu/C91h4KcJl3yJolwzfUmICHY/BYoiaciPtPMpMPVMIkghUlzn7ZEtj8px749nCLg=;
-Message-ID: <bf2cc299-6de5-42c4-2711-c13cf59fcae1@xen.org>
-Date: Wed, 7 Sep 2022 15:33:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH] Config.mk: correct PIE-related option(s) in
- EMBEDDED_EXTRA_CFLAGS
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <68173fe3-b3dc-224b-c30f-719efa48fcdf@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <68173fe3-b3dc-224b-c30f-719efa48fcdf@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 677078d5-2eba-11ed-af93-0125da4c0113
+From: Henry Wang <Henry.Wang@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Henry Wang <Henry.Wang@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v4 0/4] Introduce static heap
+Date: Wed,  7 Sep 2022 14:35:28 +0000
+Message-Id: <20220907143532.15397-1-Henry.Wang@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-Hi Jan,
+The static heap, or statically configured heap, refers to parts
+of RAM reserved in the beginning for heap. Like the static memory
+allocation, such static heap regions are reserved by configuration
+in the device tree using physical address ranges.
 
-On 25/08/2022 08:17, Jan Beulich wrote:
-> I haven't been able to find evidence of "-nopie" ever having been a
-> supported compiler option. The correct spelling is "-no-pie".
-> Furthermore like "-pie" this is an option which is solely passed to the
-> linker. The compiler only recognizes "-fpie" / "-fPIE" / "-fno-pie", and
-> it doesn't infer these options from "-pie" / "-no-pie".
+This feature is useful to run Xen on Arm MPU systems, where only a
+finite number of memory protection regions are available. The limited
+number of protection regions places requirement on planning the use
+of MPU protection regions and one or more MPU protection regions needs
+to be reserved only for heap.
 
-OOI, how did you find out this issue?
+The first patch enhances the error handling in processing the dts
+chosen node. The second patch introduces the static heap and the
+device tree parsing code. The third patch renames xenheap_* to
+directmap_* for better readablity. The fourth patch adds the
+implementation of the static heap pages handling in boot and heap
+allocator for Arm.
 
-> 
-> Add the compiler recognized form, but for the possible case of the
-> variable also being used somewhere for linking keep the linker option as
-> well (with corrected spelling).
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
+Changes from v3 to v4:
+- Change and update of wording in comments.
+- Add the static heap feature in SUPPORT.md as tech preview.
+- Also rename the setup_xenheap_mappings() function name and
+  printed messages inside the function.
+- Add Acked-by and reviewed-by.
 
-Cheers,
+Henry Wang (4):
+  xen/arm: bootfdt: Make process_chosen_node() return int
+  docs, xen/arm: Introduce static heap memory
+  xen/arm: mm: Rename xenheap_* variable to directmap_*
+  xen/arm: Handle static heap pages in boot and heap allocator
+
+ SUPPORT.md                            |   7 ++
+ docs/misc/arm/device-tree/booting.txt |  48 ++++++++
+ xen/arch/arm/bootfdt.c                |  57 +++++++---
+ xen/arch/arm/domain_build.c           |   8 +-
+ xen/arch/arm/include/asm/config.h     |   2 +-
+ xen/arch/arm/include/asm/mm.h         |  31 ++---
+ xen/arch/arm/include/asm/setup.h      |  23 +++-
+ xen/arch/arm/mm.c                     |  50 +++++----
+ xen/arch/arm/setup.c                  | 156 ++++++++++++++++++++------
+ 9 files changed, 293 insertions(+), 89 deletions(-)
 
 -- 
-Julien Grall
+2.17.1
+
 
