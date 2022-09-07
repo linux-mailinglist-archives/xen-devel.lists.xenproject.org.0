@@ -2,42 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A3FA5B0854
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 17:20:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.401960.643941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 789A65B0896
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 17:31:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.401970.643952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVwqZ-0004AW-Ed; Wed, 07 Sep 2022 15:20:11 +0000
+	id 1oVx13-0005pH-Fq; Wed, 07 Sep 2022 15:31:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 401960.643941; Wed, 07 Sep 2022 15:20:11 +0000
+Received: by outflank-mailman (output) from mailman id 401970.643952; Wed, 07 Sep 2022 15:31:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVwqZ-00047l-BF; Wed, 07 Sep 2022 15:20:11 +0000
-Received: by outflank-mailman (input) for mailman id 401960;
- Wed, 07 Sep 2022 15:20:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vAJk=ZK=redhat.com=vkuznets@srs-se1.protection.inumbo.net>)
- id 1oVwqY-00047d-4s
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 15:20:10 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e37ecdc-2ec0-11ed-af93-0125da4c0113;
- Wed, 07 Sep 2022 17:20:08 +0200 (CEST)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-199-ND5nlDMpNH6gLpW8M_h5zA-1; Wed, 07 Sep 2022 11:20:05 -0400
-Received: by mail-wr1-f71.google.com with SMTP id
- h2-20020adfa4c2000000b00228db7822cbso1877153wrb.19
- for <xen-devel@lists.xenproject.org>; Wed, 07 Sep 2022 08:20:05 -0700 (PDT)
-Received: from fedora (nat-2.ign.cz. [91.219.240.2])
- by smtp.gmail.com with ESMTPSA id
- f25-20020a1c6a19000000b003a840690609sm29360122wmc.36.2022.09.07.08.20.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Sep 2022 08:20:02 -0700 (PDT)
+	id 1oVx13-0005mS-Bp; Wed, 07 Sep 2022 15:31:01 +0000
+Received: by outflank-mailman (input) for mailman id 401970;
+ Wed, 07 Sep 2022 15:31:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1oVx12-0005mM-5D
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 15:31:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVx10-0000Iz-Gz; Wed, 07 Sep 2022 15:30:58 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.17.46]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oVx10-0000iZ-BD; Wed, 07 Sep 2022 15:30:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,203 +39,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e37ecdc-2ec0-11ed-af93-0125da4c0113
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662564007;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6xYRHulRFq0HQCbPn97D2YEnCLSwRHPaOy9i5aW24Q8=;
-	b=X27kb0uM7uwv25DflX7tIdV6krH0gRvREbnmuuTn/1MTERVdmQH3/3vxJZU+ZI1yc5Rp9t
-	YM/KUMTu2D7ULjxw5NRTFpNm22NgYsdVdxJvVlclA+5N+P96VUJE4EkZmEz44gMoJ7F2ri
-	JWTlTOgqC5b+7Ax1AiZswqWEKcN/e6Y=
-X-MC-Unique: ND5nlDMpNH6gLpW8M_h5zA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=CHNdLB0NEs0hPJCPuKfDS5PXO0uKkxor3QlPHHKcdWM=;
-        b=8Hd3AN8SkPlLcVnTfGtIbxt/10w+Qd2Z5AHujOOl6AKPyDtfUHc8R0kC9y3EetMsfL
-         h4eCL3r7gHLa7o2az9Qd6JQyQ1hLD7CAl9ieNCnpMivLAv03JTXGEbOutg9jRYdaACiI
-         uz5Zo7JdOEu+byt8c8yxTwj2GouM9cnRwrQy7w5FWG7wlnvHmG5mk6/S1afZC/Ol2vr5
-         ssjNmw2MzjoDcY9hTDliYXlhmVhQKeX1rjg7swk9V1VmLGHlFDSKeJhfAfS3QJpbq8X2
-         QpmNnxLw8464eBY/FWDYsWEKaQJfvhpbNsJ23SJmJ1dx6f4C3ilj9ElkvxmC6EzhNydx
-         07uA==
-X-Gm-Message-State: ACgBeo1k2NuUumfc0b4p6XCvoxlUGqMw2h1ub8eaCDLYKCPOfMeeimAx
-	MP58AwzvcnRVX4/PXgvrP7QjHX+dahKHRXsNZ8IErMH0aOYTI4fVGYt1KEQEf+M5/UwE1rY4YfU
-	J8cluygKzt3wQucCP+2ixXFeGsfI=
-X-Received: by 2002:a5d:59ab:0:b0:228:28df:9193 with SMTP id p11-20020a5d59ab000000b0022828df9193mr2471676wrr.323.1662564003266;
-        Wed, 07 Sep 2022 08:20:03 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR756qiCLKEbLM1iNnFKS+9y7GWIyNG66GDmPAE9ydBmmICwjU+sxM3SEVFU1scSKoLlwTZJ6g==
-X-Received: by 2002:a5d:59ab:0:b0:228:28df:9193 with SMTP id p11-20020a5d59ab000000b0022828df9193mr2471659wrr.323.1662564002953;
-        Wed, 07 Sep 2022 08:20:02 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Ajay Kaher <akaher@vmware.com>
-Cc: x86@kernel.org, hpa@zytor.com, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, rostedt@goodmis.org, srivatsab@vmware.com,
- srivatsa@csail.mit.edu, amakhalov@vmware.com, vsirnapalli@vmware.com,
- er.ajay.kaher@gmail.com, willy@infradead.org, namit@vmware.com,
- linux-hyperv@vger.kernel.org, kvm@vger.kernel.org,
- jailhouse-dev@googlegroups.com, xen-devel@lists.xenproject.org,
- acrn-dev@lists.projectacrn.org, helgaas@kernel.org, bhelgaas@google.com,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com
-Subject: Re: [PATCH v2] x86/PCI: Prefer MMIO over PIO on VMware hypervisor
-In-Reply-To: <1662448117-10807-1-git-send-email-akaher@vmware.com>
-References: <1662448117-10807-1-git-send-email-akaher@vmware.com>
-Date: Wed, 07 Sep 2022 17:20:00 +0200
-Message-ID: <8735d3rz33.fsf@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:Subject:From:Cc:To:
+	MIME-Version:Date:Message-ID; bh=MMcDI8GgeHxlaAISEiJxO5zOBBxU1wk0Bp3mURHINJU=
+	; b=VFW6mf3N8z21kNz8CkLqN6B5uDArGmxy4ar42rRrDYHbIvjjk1abkf5Sl1YtGHJ0dFbIHKw5W
+	mlHR2ca2kqL2jM2HJvLDcFW8VERzL09oA0x6kr0rtK2+Fmhf0czZM0MA1rkTzJGyuD8dxtMb6qotJ
+	C5cApNJ0rHj+gDOingjgk=;
+Message-ID: <c71163f6-2646-6fae-cb22-600eb0486539@xen.org>
+Date: Wed, 7 Sep 2022 16:30:56 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.1
+Content-Language: en-US
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Julien Grall <julien@xen.org>
+Subject: Unaligned access on arm32
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Ajay Kaher <akaher@vmware.com> writes:
+Hi all,
 
-> During boot-time there are many PCI config reads, these could be performe=
-d
-> either using Port IO instructions (PIO) or memory mapped I/O (MMIO).
->
-> PIO are less efficient than MMIO, they require twice as many PCI accesses
-> and PIO instructions are serializing. As a result, MMIO should be preferr=
-ed
-> when possible over PIO.
->
-> Virtual Machine test result using VMware hypervisor
-> 1 hundred thousand reads using raw_pci_read() took:
-> PIO: 12.809 seconds
-> MMIO: 8.517 seconds (~33.5% faster then PIO)
->
-> Currently, when these reads are performed by a virtual machine, they all
-> cause a VM-exit, and therefore each one of them induces a considerable
-> overhead.
->
-> This overhead can be further improved, by mapping MMIO region of virtual
-> machine to memory area that holds the values that the =E2=80=9Cemulated h=
-ardware=E2=80=9D
-> is supposed to return. The memory region is mapped as "read-only=E2=80=9D=
- in the
-> NPT/EPT, so reads from these regions would be treated as regular memory
-> reads. Writes would still be trapped and emulated by the hypervisor.
->
-> Virtual Machine test result with above changes in VMware hypervisor
-> 1 hundred thousand read using raw_pci_read() took:
-> PIO: 12.809 seconds
-> MMIO: 0.010 seconds
->
-> This helps to reduce virtual machine PCI scan and initialization time by
-> ~65%. In our case it reduced to ~18 mSec from ~55 mSec.
->
-> MMIO is also faster than PIO on bare-metal systems, but due to some bugs
-> with legacy hardware and the smaller gains on bare-metal, it seems pruden=
-t
-> not to change bare-metal behavior.
+I think mentioned it privately a while a go, but never sent an e-mail 
+about it.
 
-Out of curiosity, are we sure MMIO *always* works for other hypervisors
-besides Vmware? Various Hyper-V version can probably be tested (were
-they?) but with KVM it's much harder as PCI is emulated in VMM and
-there's certainly more than 1 in existence...
+While testing arm32 with IOREQ, I noticed Xen is crashing because an 
+alignment fault:
 
->
-> Signed-off-by: Ajay Kaher <akaher@vmware.com>
-> ---
-> v1 -> v2:
-> Limit changes to apply only to VMs [Matthew W.]
-> ---
->  arch/x86/pci/common.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 45 insertions(+)
->
-> diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
-> index ddb7986..1e5a8f7 100644
-> --- a/arch/x86/pci/common.c
-> +++ b/arch/x86/pci/common.c
-> @@ -20,6 +20,7 @@
->  #include <asm/pci_x86.h>
->  #include <asm/setup.h>
->  #include <asm/irqdomain.h>
-> +#include <asm/hypervisor.h>
-> =20
->  unsigned int pci_probe =3D PCI_PROBE_BIOS | PCI_PROBE_CONF1 | PCI_PROBE_=
-CONF2 |
->  =09=09=09=09PCI_PROBE_MMCONF;
-> @@ -57,14 +58,58 @@ int raw_pci_write(unsigned int domain, unsigned int b=
-us, unsigned int devfn,
->  =09return -EINVAL;
->  }
-> =20
-> +#ifdef CONFIG_HYPERVISOR_GUEST
-> +static int vm_raw_pci_read(unsigned int domain, unsigned int bus, unsign=
-ed int devfn,
-> +=09=09=09=09=09=09int reg, int len, u32 *val)
-> +{
-> +=09if (raw_pci_ext_ops)
-> +=09=09return raw_pci_ext_ops->read(domain, bus, devfn, reg, len, val);
-> +=09if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
-> +=09=09return raw_pci_ops->read(domain, bus, devfn, reg, len, val);
-> +=09return -EINVAL;
-> +}
-> +
-> +static int vm_raw_pci_write(unsigned int domain, unsigned int bus, unsig=
-ned int devfn,
-> +=09=09=09=09=09=09int reg, int len, u32 val)
-> +{
-> +=09if (raw_pci_ext_ops)
-> +=09=09return raw_pci_ext_ops->write(domain, bus, devfn, reg, len, val);
-> +=09if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
-> +=09=09return raw_pci_ops->write(domain, bus, devfn, reg, len, val);
-> +=09return -EINVAL;
-> +}
+(XEN) Data Abort Trap. Syndrome=0x1800061
+(XEN) Walking Hypervisor VA 0x40027ebb on CPU0 via TTBR 0x000000004012f000
+(XEN) 1ST[0x001] = 0x00400000bbffff7f
+(XEN) 2ND[0x000] = 0x00500000bc000f7d
+(XEN) CPU0: Unexpected Trap: Data Abort
+(XEN) ----[ Xen-4.17-unstable  arm32  debug=n  Tainted:   C    ]----
+(XEN) CPU:    0
+(XEN) PC:     002613b8 try_fwd_ioserv+0x44/0x1bc
+(XEN) CPSR:   6000005a MODE:Hypervisor
+(XEN)      R0: 00000000 R1: 00000001 R2: 0022a748 R3: 00000006
+(XEN)      R4: 40027f20 R5: 40027f58 R6: 40028000 R7: 00000000
+(XEN)      R8: 40027f20 R9: 4003a438 R10:002f0044 R11:40027edc R12:00000002
+(XEN) HYP: SP: 40027e94 LR: 00260edc
+(XEN)
+(XEN)   VTCR_EL2: 80003558
+(XEN)  VTTBR_EL2: 00010000bbff8000
+(XEN)
+(XEN)  SCTLR_EL2: 30cd187f
+(XEN)    HCR_EL2: 007c663f
+(XEN)  TTBR0_EL2: 000000004012f000
+(XEN)
+(XEN)    ESR_EL2: 97800061
+(XEN)  HPFAR_EL2: 0067faf0
+(XEN)      HDFAR: 40027ebb
+(XEN)      HIFAR: 67600000
+(XEN)
+(XEN) Xen stack trace from sp=40027e94:
+(XEN)    97800061 0022a748 00000001 00000000 8000005a 00800000 4003a000 
+00000001
+(XEN)    4003a180 00000000 bbff47ff 00000000 67faf200 00000000 4003a000 
+40027f20
+(XEN)    4003a438 40027f1c 00260edc 002f0110 40027f58 40028000 4003a000 
+0000013b
+(XEN)    40028000 002f0280 00000090 40027f58 67faf200 93820006 67faf200 
+00000000
+(XEN)    00000000 40027f54 0026b6ac 93820006 0022a748 00000001 00000004 
+67faf200
+(XEN)    00000000 00000000 00000000 00000000 ffffffff 68000000 400001d3 
+40027f58
+(XEN)    00201870 60000000 67601324 67faf200 00000000 00000013 00000000 
+00000000
+(XEN)    ffffffff 68000000 400001d3 00000000 00000000 00000000 ffffffff 
+00000000
+(XEN)    67601074 000001d3 93820006 00000000 00000000 00000000 00000000 
+67601008
+(XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+00000000
+(XEN)    00000000 00000000 00000000 400001d3 00000000 00000000 00000000 
+00000000
+(XEN)    00000000 00000000 00000001
+(XEN) Xen call trace:
+(XEN)    [<002613b8>] try_fwd_ioserv+0x44/0x1bc (PC)
+(XEN)    [<00260edc>] try_handle_mmio+0x2b0/0x2f4 (LR)
+(XEN)    [<00260edc>] try_handle_mmio+0x2b0/0x2f4
+(XEN)    [<0026b6ac>] 
+arch/arm/traps.c#do_trap_stage2_abort_guest+0x18c/0x34c
+(XEN)    [<00201870>] entry.o#return_from_trap+0/0x4
+(XEN)
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) CPU0: Unexpected Trap: Data Abort
+(XEN) ****************************************
 
-These look exactly like raw_pci_read()/raw_pci_write() but with inverted
-priority. We could've added a parameter but to be more flexible, I'd
-suggest we add a 'priority' field to 'struct pci_raw_ops' and make
-raw_pci_read()/raw_pci_write() check it before deciding what to use
-first. To be on the safe side, you can leave raw_pci_ops's priority
-higher than raw_pci_ext_ops's by default and only tweak it in
-arch/x86/kernel/cpu/vmware.c=20
+The disassembled code is:
 
-> +#endif /* CONFIG_HYPERVISOR_GUEST */
-> +
->  static int pci_read(struct pci_bus *bus, unsigned int devfn, int where, =
-int size, u32 *value)
->  {
-> +#ifdef CONFIG_HYPERVISOR_GUEST
-> +=09/*
-> +=09 * MMIO is faster than PIO, but due to some bugs with legacy
-> +=09 * hardware, it seems prudent to prefer MMIO for VMs and PIO
-> +=09 * for bare-metal.
-> +=09 */
-> +=09if (!hypervisor_is_type(X86_HYPER_NATIVE))
-> +=09=09return vm_raw_pci_read(pci_domain_nr(bus), bus->number,
-> +=09=09=09=09=09 devfn, where, size, value);
-> +#endif /* CONFIG_HYPERVISOR_GUEST */
-> +
->  =09return raw_pci_read(pci_domain_nr(bus), bus->number,
->  =09=09=09=09 devfn, where, size, value);
->  }
-> =20
->  static int pci_write(struct pci_bus *bus, unsigned int devfn, int where,=
- int size, u32 value)
->  {
-> +#ifdef CONFIG_HYPERVISOR_GUEST
-> +=09/*
-> +=09 * MMIO is faster than PIO, but due to some bugs with legacy
-> +=09 * hardware, it seems prudent to prefer MMIO for VMs and PIO
-> +=09 * for bare-metal.
-> +=09 */
-> +=09if (!hypervisor_is_type(X86_HYPER_NATIVE))
-> +=09=09return vm_raw_pci_write(pci_domain_nr(bus), bus->number,
-> +=09=09=09=09=09  devfn, where, size, value);
-> +#endif /* CONFIG_HYPERVISOR_GUEST */
-> +
->  =09return raw_pci_write(pci_domain_nr(bus), bus->number,
->  =09=09=09=09  devfn, where, size, value);
->  }
+00261374 <try_fwd_ioserv>:
+   261374:       e16d42f0        strd    r4, [sp, #-32]! ; 0xffffffe0
+   261378:       e1a04002        mov     r4, r2
+   26137c:       e1a05000        mov     r5, r0
+   261380:       e1cd60f8        strd    r6, [sp, #8]
+   261384:       e3a00000        mov     r0, #0
+   261388:       e1a06001        mov     r6, r1
+   26138c:       e1cd81f0        strd    r8, [sp, #16]
+   261390:       e3a01001        mov     r1, #1
+   261394:       e58db018        str     fp, [sp, #24]
+   261398:       e28db01c        add     fp, sp, #28
+   26139c:       e58de01c        str     lr, [sp, #28]
+   2613a0:       e24dd028        sub     sp, sp, #40     ; 0x28
+   2613a4:       e1c220d4        ldrd    r2, [r2, #4]
+   2613a8:       e50b0024        str     r0, [fp, #-36]  ; 0xffffffdc
+   2613ac:       e5d67a26        ldrb    r7, [r6, #2598] ; 0xa26
+   2613b0:       e14b24f4        strd    r2, [fp, #-68]  ; 0xffffffbc
+   2613b4:       e5d43000        ldrb    r3, [r4]
+* 2613b8:       e50b0021        str     r0, [fp, #-33]  ; 0xffffffdf
 
---=20
-Vitaly
+The problem is GCC [1] decided to use 'str' for accessing an address 
+that is not 32-bit aligned (fp - 33 = 0x40027e73). On arm32, we are 
+forbidding aligned access, hence why it crashed.
 
+Looking online, it looks like GCC has an option to turned on/off the use 
+of unaligned access [2] and it is enabled by default on ARMv7 (I am not 
+sure why we didn't notice this before...).
+
+I have rebuilt Xen with the option turn off and dom0 is now booting fine.
+
+However, I am a bit puzzled because the C code didn't contain unaligned 
+access. It was all introduced by the compiler itself. This is breaking 
+our assumption that the compiler will not break down correctly naturally 
+aligned access.
+
+When using the new option, Xen size is increasing by 0.40% (about ~3KB) 
+in my setup. Nothing too concerning, but I would like to have some 
+opinion first.
+
+The alternative would be to allow unaligned access. That said, I think 
+this is much saner to have a strict enforcement as we can catch GCC 
+trying to do unaligned access when it is not expected.
+
+There is also the argument that unaligned access can be slower on some 
+platform. So it is better to avoid them.
+
+Any thoughts?
+
+Cheers,
+
+[1] gcc (GCC) 7.3.1 20180712 (Red Hat 7.3.1-15)
+[2] https://gcc.gnu.org/onlinedocs/gcc-4.8.5/gcc/ARM-Options.html
+
+-- 
+Julien Grall
 
