@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB8D65B02D1
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 13:23:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.401351.643205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CF165B0338
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 13:37:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.401361.643219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVt96-0006t1-RR; Wed, 07 Sep 2022 11:23:04 +0000
+	id 1oVtMX-0000BI-7S; Wed, 07 Sep 2022 11:36:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 401351.643205; Wed, 07 Sep 2022 11:23:04 +0000
+Received: by outflank-mailman (output) from mailman id 401361.643219; Wed, 07 Sep 2022 11:36:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVt96-0006rl-Ny; Wed, 07 Sep 2022 11:23:04 +0000
-Received: by outflank-mailman (input) for mailman id 401351;
- Wed, 07 Sep 2022 11:23:03 +0000
+	id 1oVtMX-00009G-4g; Wed, 07 Sep 2022 11:36:57 +0000
+Received: by outflank-mailman (input) for mailman id 401361;
+ Wed, 07 Sep 2022 11:36:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oVt95-0006qS-LB
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 11:23:03 +0000
+ (envelope-from <julien@xen.org>) id 1oVtMV-00009A-Pe
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 11:36:55 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oVt94-0003rR-E7; Wed, 07 Sep 2022 11:23:02 +0000
+ id 1oVtMV-00048q-JD; Wed, 07 Sep 2022 11:36:55 +0000
 Received: from 54-240-197-233.amazon.com ([54.240.197.233]
  helo=[192.168.17.46]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oVt94-0005Ur-6x; Wed, 07 Sep 2022 11:23:02 +0000
+ id 1oVtMV-00060y-DL; Wed, 07 Sep 2022 11:36:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,57 +42,65 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=yMaeCOuQqEnswGVCYMoa6kBWGy/c9kwqMVWaf82VIYg=; b=IpACjnDcUZtXTYCB8kEVq0MaE4
-	SlY8rDYV6Yzyd06huqwfUoHfZqUjHhY3Dv0sfYyXeXXKVxLF6D/PdXHRAoY0Hyxj6fA6wfDXj7HBb
-	o+8qGLA1at/ywHpF/CURJc4IMhOHJPj76O2zVmXT5XQrs48Jgle72zOh8Sw3cksF2ydU=;
-Message-ID: <206db3d1-4609-fea6-9cb2-a56cc9d6f7ba@xen.org>
-Date: Wed, 7 Sep 2022 12:22:59 +0100
+	bh=/h03+aiahr0YrQVLDXBr6Y1O8WKWsuYbAIlSGWjBBCs=; b=dCMQ4VkhbAB24Oskm/KVlKYrcC
+	Yo0NkbnkhtShaHETAaktWtI28vKfLxKiiz8PnflIcydW0pPH1zFWsOccCXMqZw4rdTFntawI4Eksx
+	F5IM2GcEdzSHqq8I+HGbUcJrMDBRfEcmT0zxzAxMCl+1gXetNFV87KW4+tp0GXuVpzmk=;
+Message-ID: <968529ba-3a9d-0812-1a5f-430d467e827f@xen.org>
+Date: Wed, 7 Sep 2022 12:36:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH v7 2/9] xen/arm: assign static shared memory to the
- default owner dom_io
+Subject: Re: [PATCH v3 2/4] docs, xen/arm: Introduce static heap memory
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20220906085941.944592-1-Penny.Zheng@arm.com>
- <20220906085941.944592-3-Penny.Zheng@arm.com>
+ Penny Zheng <penny.zheng@arm.com>
+References: <20220907083643.20152-1-Henry.Wang@arm.com>
+ <20220907083643.20152-3-Henry.Wang@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220906085941.944592-3-Penny.Zheng@arm.com>
+In-Reply-To: <20220907083643.20152-3-Henry.Wang@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Penny,
+Hi Henry,
 
-On 06/09/2022 09:59, Penny Zheng wrote:
-> +static int __init assign_shared_memory(struct domain *d,
-> +                                       uint32_t addr_cells, uint32_t size_cells,
-> +                                       paddr_t pbase, paddr_t psize)
-> +{
-> +    mfn_t smfn;
+While reviewing the binding sent by Penny I noticed some inconsistency 
+with the one you introduced. See below.
+
+On 07/09/2022 09:36, Henry Wang wrote:
+> +- xen,static-heap
 > +
-> +    dprintk(XENLOG_INFO,
-> +            "%pd: allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
-> +            d, pbase, pbase + psize);
+> +    Property under the top-level "chosen" node. It specifies the address
+> +    and size of Xen static heap memory. Note that at least a 64KB
+> +    alignment is required.
 > +
-> +    smfn = acquire_shared_memory_bank(d, pbase, psize);
-> +    if ( mfn_eq(smfn, INVALID_MFN) )
-> +        return -EINVAL;
+> +- #xen,static-heap-address-cells and #xen,static-heap-size-cells
 > +
-> +    /*
-> +     * DOMID_IO is auto-translated (i.e. it seems RAM 1:1). So we do not need
+> +    Specify the number of cells used for the address and size of the
+> +    "xen,static-heap" property under "chosen".
+> +
+> +Below is an example on how to specify the static heap in device tree:
+> +
+> +    / {
+> +        chosen {
+> +            #xen,static-heap-address-cells = <0x2>;
+> +            #xen,static-heap-size-cells = <0x2>;
 
-Hmmm... I should have re-read my sentence before hitting sending. It 
-should be "is not auto-translated" and s/seeems/sees/.
+Your binding, is introduce #xen,static-heap-{address, size}-cells 
+whereas Penny's one is using #{address, size}-cells even if the property 
+is not "reg".
 
-Other than that:
+I would like some consistency in the way we define bindings. Looking at 
+the tree, we already seem to have introduced 
+#xen-static-mem-address-cells. So maybe we should follow your approach?
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+That said, I am wondering whether we should just use one set of property 
+name.
+
+I am open to suggestion here. My only request is we are consistent (i.e. 
+this doesn't depend on who wrote the bindings).
 
 Cheers,
 
