@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A5C5B0A15
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 18:29:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.402041.644030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35EF05B0A19
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 18:30:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.402049.644042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVxvX-0007Wb-Fp; Wed, 07 Sep 2022 16:29:23 +0000
+	id 1oVxw7-00086i-PB; Wed, 07 Sep 2022 16:29:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 402041.644030; Wed, 07 Sep 2022 16:29:23 +0000
+Received: by outflank-mailman (output) from mailman id 402049.644042; Wed, 07 Sep 2022 16:29:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVxvX-0007UO-D0; Wed, 07 Sep 2022 16:29:23 +0000
-Received: by outflank-mailman (input) for mailman id 402041;
- Wed, 07 Sep 2022 16:29:21 +0000
+	id 1oVxw7-00083J-M1; Wed, 07 Sep 2022 16:29:59 +0000
+Received: by outflank-mailman (input) for mailman id 402049;
+ Wed, 07 Sep 2022 16:29:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a/dp=ZK=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1oVxvV-000682-QW
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 16:29:21 +0000
+ id 1oVxw5-000836-VC
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 16:29:57 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 39d1e955-2eca-11ed-a016-b9edf5238543;
- Wed, 07 Sep 2022 18:29:20 +0200 (CEST)
+ id 4f3d63e8-2eca-11ed-a016-b9edf5238543;
+ Wed, 07 Sep 2022 18:29:56 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99B98106F;
- Wed,  7 Sep 2022 09:29:26 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A10E7106F;
+ Wed,  7 Sep 2022 09:30:02 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1FDA63F71A;
- Wed,  7 Sep 2022 09:29:19 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CAD13F71A;
+ Wed,  7 Sep 2022 09:29:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,101 +43,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39d1e955-2eca-11ed-a016-b9edf5238543
+X-Inumbo-ID: 4f3d63e8-2eca-11ed-a016-b9edf5238543
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Stanislav Kinsburskii <staskins@amazon.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Michal Orzel <michal.orzel@amd.com>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v5 2/7] xen/evtchn: Add an helper to reserve/allocate a port
-Date: Wed,  7 Sep 2022 17:27:33 +0100
-Message-Id: <11ffc2554cc30c0764b8645905983772417e5d70.1662563170.git.rahul.singh@arm.com>
+Subject: [PATCH v5 3/7] xen/evtchn: restrict the maximum number of evtchn supported for domUs
+Date: Wed,  7 Sep 2022 17:27:34 +0100
+Message-Id: <7506434543e6abb86b11f198970a6d07cd06e428.1662563170.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1662563170.git.rahul.singh@arm.com>
 References: <cover.1662563170.git.rahul.singh@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stanislav Kinsburskii <staskins@amazon.com>
+Restrict the maximum number of evtchn supported for domUs to avoid
+allocating a large amount of memory in Xen.
 
-In a follow-up patch we will want to either reserve or allocate a port
-for various event channel helpers.
+Set the default value of max_evtchn_port to 1023. The value of 1023
+should be sufficient for guests because on ARM we don't bind physical
+interrupts to event channels. The only use of the evtchn port is
+inter-domain communications. Another reason why we choose the value
+of 1023 is to follow the default behavior of libxl.
 
-A new wrapper is introduced to either reserve a given port or allocate
-a fresh one if zero.
-
-Take the opportunity to replace the open-coded version in
-evtchn_bind_virq().
-
-Signed-off-by: Stanislav Kinsburskii <staskins@amazon.com>
-Signed-off-by: Julien Grall <jgrall@amazon.com>
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
 Changes in v5:
- - no changes
+ - fix minor comments
+ - Added Julien Acked-by
 Changes in v4:
- - Change the Author to Stanislav Kinsburskii <staskins@amazon.com>
+ - fix minor comments in commit msg
+ - Added Michal Reviewed-by
 Changes in v3:
- - minor comments in commit msg
+ - added in commit msg why we set the max_evtchn_port value to 1023.
+ - added the comment in code also why we set the max_evtchn_port to 1023
+ - remove the define and set the value to 1023 in code directly.
 Changes in v2:
- - new patch in this version
+ - new patch in the version
 ---
- xen/common/event_channel.c | 29 ++++++++++++++++-------------
- 1 file changed, 16 insertions(+), 13 deletions(-)
+ xen/arch/arm/domain_build.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index f81c229358..565ab71881 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -305,6 +305,18 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
-     xsm_evtchn_close_post(chn);
- }
- 
-+static int evtchn_get_port(struct domain *d, evtchn_port_t port)
-+{
-+    int rc;
-+
-+    if ( port != 0 )
-+        rc = evtchn_allocate_port(d, port);
-+    else
-+        rc = get_free_port(d);
-+
-+    return rc ?: port;
-+}
-+
- int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
- {
-     struct evtchn *chn;
-@@ -462,19 +474,10 @@ int evtchn_bind_virq(evtchn_bind_virq_t *bind, evtchn_port_t port)
-     if ( read_atomic(&v->virq_to_evtchn[virq]) )
-         ERROR_EXIT(-EEXIST);
- 
--    if ( port != 0 )
--    {
--        if ( (rc = evtchn_allocate_port(d, port)) != 0 )
--            ERROR_EXIT(rc);
--    }
--    else
--    {
--        int alloc_port = get_free_port(d);
--
--        if ( alloc_port < 0 )
--            ERROR_EXIT(alloc_port);
--        port = alloc_port;
--    }
-+    port = rc = evtchn_get_port(d, port);
-+    if ( rc < 0 )
-+        ERROR_EXIT(rc);
-+    rc = 0;
- 
-     chn = evtchn_from_port(d, port);
- 
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index b76a84e8f5..e1f46308d9 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -3277,7 +3277,13 @@ void __init create_domUs(void)
+         struct xen_domctl_createdomain d_cfg = {
+             .arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE,
+             .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
+-            .max_evtchn_port = -1,
++            /*
++             * The default of 1023 should be sufficient for guests because
++             * on ARM we don't bind physical interrupts to event channels.
++             * The only use of the evtchn port is inter-domain communications.
++             * 1023 is also the default value used in libxl.
++             */
++            .max_evtchn_port = 1023,
+             .max_grant_frames = -1,
+             .max_maptrack_frames = -1,
+             .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
 -- 
 2.25.1
 
