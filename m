@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37B435B0299
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 13:15:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.401317.643159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ECC65B02A9
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 13:16:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.401324.643169 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVt1Y-0003V4-AV; Wed, 07 Sep 2022 11:15:16 +0000
+	id 1oVt2e-000494-Jv; Wed, 07 Sep 2022 11:16:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 401317.643159; Wed, 07 Sep 2022 11:15:16 +0000
+Received: by outflank-mailman (output) from mailman id 401324.643169; Wed, 07 Sep 2022 11:16:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVt1Y-0003TH-7J; Wed, 07 Sep 2022 11:15:16 +0000
-Received: by outflank-mailman (input) for mailman id 401317;
- Wed, 07 Sep 2022 11:15:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oVt1X-0003T9-2W
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 11:15:15 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVt1W-0003jL-P4; Wed, 07 Sep 2022 11:15:14 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.17.46]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oVt1W-00059P-Hz; Wed, 07 Sep 2022 11:15:14 +0000
+	id 1oVt2e-000462-H9; Wed, 07 Sep 2022 11:16:24 +0000
+Received: by outflank-mailman (input) for mailman id 401324;
+ Wed, 07 Sep 2022 11:16:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uZ2f=ZK=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1oVt2d-00045s-EA
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 11:16:23 +0000
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [2607:f8b0:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8083ae48-2e9e-11ed-a016-b9edf5238543;
+ Wed, 07 Sep 2022 13:16:22 +0200 (CEST)
+Received: by mail-pf1-x433.google.com with SMTP id d82so651586pfd.10
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Sep 2022 04:16:22 -0700 (PDT)
+Received: from leoy-huanghe.lan (45.78.11.189.16clouds.com. [45.78.11.189])
+ by smtp.gmail.com with ESMTPSA id
+ h12-20020a17090a2ecc00b001fdea53b90csm10788453pjs.16.2022.09.07.04.16.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 07 Sep 2022 04:16:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,87 +44,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jZWXRwyI8Dp3QWLaXCzyLmSVwoQGad1to+F9DsgPWNc=; b=eSMGHFMfCEQOhpRekUwfSl+HnA
-	eyRa+PE8vcy/udMdr309p5PiKTCzxAEI4aV09++KIDGkkyhqflu91rPzSXcLrcAZzQ0/DFEHTQ/uP
-	TO6vNKj3lP9nAyWl9aRAfDMN8bVXSEBi3Jrv0mgZcQHnq3ascR+3FuBc7ERhiOFrKdT0=;
-Message-ID: <28aa7040-af9e-eda7-ee04-60c71019e91c@xen.org>
-Date: Wed, 7 Sep 2022 12:15:12 +0100
+X-Inumbo-ID: 8083ae48-2e9e-11ed-a016-b9edf5238543
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date;
+        bh=tPO4IhBF7wjvwU+GHqokUrye5m5b4pJOPaUDIfvbkk8=;
+        b=gooRwmWWPtr1nR/ie/0LA3iRAANFIBZUgdOUW7e5UnKl4A4dDHbVeTh8FJM4veTRVu
+         QQZQNHlOCycOO1CR7aCC0CLlaKMcbTNwrTkISulZ04vSjU6rXp2UsuSJLzTRTOp6tMQ7
+         j+IXAbjZCw9hIPzd2uZ3/jwNSMBGSfiVPMcBwP4A/PKge1KCw7mTe8CKcKyTqcUWsHQZ
+         B5Z07pzHr0tuhpm7sYFwy5c3kXbAN8+OdNLID7xFe5mE7DwEPu32I/5EiFcvRP5a1NRv
+         AIljdnatvz+ArLs8vyHb+EH8xnuYRbgq4wss0Qr9o7wyFAAgbdCbWPck+WElV2zjJqia
+         leQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+        bh=tPO4IhBF7wjvwU+GHqokUrye5m5b4pJOPaUDIfvbkk8=;
+        b=gtGv3mQ+gI4TtK74P/q99YKWNTFfKJ3+5SUAOxx1nAmI3JtHT9eYzrfRUQePpwXfDc
+         4dd9wkrWlQFnaEhG9klRl57Eyoki2co48ZOAgqTipYZzbM1sugB2yeLGTJ3PYNzuBuP8
+         SdgEh9OnhJNZNGTAWkApySyPWIkAtT9f/bD7NqJojfCJVe9iXWgg1dQZAJdmxB1jLwgO
+         wNKlKDN72frOxj6MkNaFXdiyM/BNtFRgceIr9L0FwN4ykgmZVe9pD0RpP0hg2cMa5v5D
+         zogl9+voBRsUMo+lw72J8YYLJJ8qs4X8ETKqGNIaqYLjCRlJCAzkPCrCho1Z5g0X94C2
+         gKbw==
+X-Gm-Message-State: ACgBeo0jtOpZza7hhISYmJAgPxNHmfV9kktw5vtmKw74eB8/dyyTDTFm
+	hxmG6BM2ia4impseBbl62IvQIw==
+X-Google-Smtp-Source: AA6agR6hZtobP//j/AwM19R3JdlSpWQ3OFFOCZS23/S3mZpboxo+MkyiLoz5pyLtzNtGZDR/zBZqjQ==
+X-Received: by 2002:a63:1a04:0:b0:42b:d33a:2613 with SMTP id a4-20020a631a04000000b0042bd33a2613mr2835435pga.429.1662549380780;
+        Wed, 07 Sep 2022 04:16:20 -0700 (PDT)
+Date: Wed, 7 Sep 2022 19:16:16 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] xen/arm: acpi: Include header file for version number
+Message-ID: <Yxh9gCqeHtHtivKN@leoy-huanghe.lan>
+References: <d8ae8cce-0b05-a920-7439-3a6f5c3520f3@xen.org>
+ <DFE32545-1B8A-4121-9D34-FE121CF4D3A7@arm.com>
+ <79fa1351-18e5-0a54-c50d-c9b09a6b3d9e@xen.org>
+ <5C05BF68-C788-47AF-A967-338875740D49@arm.com>
+ <57d2eb45-bdbe-02b3-4ada-10ff278d699b@xen.org>
+ <10E7EFB2-65A4-4092-9DC5-71825BC9595B@arm.com>
+ <5ce7f63c-5ba5-f2cb-8e3e-f6dd2d9d76f7@suse.com>
+ <524F3B92-5298-4BE3-864D-A076A8873800@arm.com>
+ <Yxh7tycPrb8YXXXK@leoy-huanghe.lan>
+ <C61236ED-5F5A-44C3-AED9-867CF80F078F@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH v3 3/4] xen/arm: mm: Rename xenheap_* variable to
- directmap_*
-Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220907083643.20152-1-Henry.Wang@arm.com>
- <20220907083643.20152-4-Henry.Wang@arm.com>
- <9234b0da-01c6-dafc-8e62-c7e497f8f146@xen.org>
- <AS8PR08MB799170866BCA3237738B4DE992419@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <df7ce48f-097e-e30e-aefb-9aec253492a1@xen.org>
- <AS8PR08MB7991F77F461EC0C254E8B90092419@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS8PR08MB7991F77F461EC0C254E8B90092419@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <C61236ED-5F5A-44C3-AED9-867CF80F078F@arm.com>
 
+On Wed, Sep 07, 2022 at 11:12:24AM +0000, Bertrand Marquis wrote:
 
+[...]
 
-On 07/09/2022 12:09, Henry Wang wrote:
-> Hi Julien,
-
-Hi Henry,
-
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->>>>> @@ -609,7 +609,7 @@ void __init setup_xenheap_mappings(unsigned
->>>> long base_mfn,
->>>>
->>>> I think the function also want to be renamed to match the code below.
->>>
->>> Hmmm, renaming the name to "setup_directmap_mappings" would
->>> somehow lead me to think of we are getting rid of the name "xenheap"
->>> completely in the code, which seems a little bit scary to me...
->>>
->>> But I just checked there is a comment
->>> "/* Set up the xenheap: up to 1GB of contiguous, always-mapped
->> memory."
->>> above the function and the declaration so I guess we are fine?
->>
->> We are not getting rid of "xenheap". In fact the common code will
->> continue to use the concept.
+> > Just remind, We need to define XEN_VERSION_STRING in compile.h.in rather
+> > than in compile.h, something like:
+> > 
+> >  #define XEN_VERSION_STRING @@version@@.@@subversion@@
 > 
-> Ack.
-> 
->>
->> What we make clear is this function is not only here to map the xenheap
->> but other memory (e.g. static domain memory on arm64).
-> 
-> In that case I think the comment in function declaration (attached below)
-> ```
-> /* Set up the xenheap: up to 1GB of contiguous, always-mapped memory.
->   * Base must be 32MB aligned and size a multiple of 32MB. */
-> extern void setup_xenheap_mappings(unsigned long base_mfn, unsigned long nr_mfns);
-> ```
-> would also need changes, as I think it only refers to the Arm32.
-> 
-> How about
-> /*
->   * For Arm32, set up the xenheap: up to 1GB of contiguous,
->   * always-mapped memory. Base must be 32MB aligned and size
->   * a multiple of 32MB.
->   * For Arm64, set up the directmap area of memory.
+> Very true but you will need the quotes here
 
-One remark. I would say: "map the region in the directmap area"
+Yeah.
 
-Cheers,
+> >>>> Quotes at beginning and end should not be there.
+> >>> 
+> >>> I have to admit that I dislike the STR infix. I'd prefer a suffixed variant
+> >>> (e.g. XEN_VERSION_STRING) or one omitting "string" altogether, e.g.
+> >>> XEN_FULL_VERSION (albeit I see "full" as being potentially ambiguous here,
+> >>> since one might expect that to include XEN_EXTRAVERSION as well then).
+> >> 
+> >> 
+> >> Version is a value so here I though it made sense to distinguish that one as it is a string representation of it.
+> >> 
+> >> XEN_VERSION_STRING is ok I think.
+> >> 
+> >> I generally dislike anything named FULL, EXTRA, BASE or other which are just unclear.
+> > 
+> > XEN_VERSION_STRING is good for me.
+> > 
+> > Hi Bertrand, just let me know if you prefer to cook your own patch for
+> > this (essentially this idea is coming from you) or you want me to
+> > follow up for a new patch?  Either way is fine for me.
+> 
+> Please push a new patch and add:
+> Suggested-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
--- 
-Julien Grall
+Sure, will do.
+
+Thanks all for suggestions.
+
+Leo
 
