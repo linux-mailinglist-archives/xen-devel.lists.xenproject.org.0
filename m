@@ -2,55 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3058A5AFCD6
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 08:50:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.400845.642461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 421D25AFDB3
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Sep 2022 09:40:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.400853.642475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVoss-0001Eb-7H; Wed, 07 Sep 2022 06:50:02 +0000
+	id 1oVpeS-0006xH-R5; Wed, 07 Sep 2022 07:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 400845.642461; Wed, 07 Sep 2022 06:50:02 +0000
+Received: by outflank-mailman (output) from mailman id 400853.642475; Wed, 07 Sep 2022 07:39:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oVoss-000195-3b; Wed, 07 Sep 2022 06:50:02 +0000
-Received: by outflank-mailman (input) for mailman id 400845;
- Wed, 07 Sep 2022 06:50:00 +0000
+	id 1oVpeS-0006vH-Ml; Wed, 07 Sep 2022 07:39:12 +0000
+Received: by outflank-mailman (input) for mailman id 400853;
+ Wed, 07 Sep 2022 07:39:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tiom=ZK=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oVosq-00018t-57
- for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 06:50:00 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2077.outbound.protection.outlook.com [40.107.94.77])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2ywg=ZK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oVpeR-0006tv-4M
+ for xen-devel@lists.xenproject.org; Wed, 07 Sep 2022 07:39:11 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2080.outbound.protection.outlook.com [40.107.20.80])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48ed5780-2e79-11ed-a016-b9edf5238543;
- Wed, 07 Sep 2022 08:49:58 +0200 (CEST)
-Received: from MW4P223CA0006.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::11)
- by BL1PR12MB5240.namprd12.prod.outlook.com (2603:10b6:208:319::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.11; Wed, 7 Sep
- 2022 06:49:54 +0000
-Received: from CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:80:cafe::56) by MW4P223CA0006.outlook.office365.com
- (2603:10b6:303:80::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Wed, 7 Sep 2022 06:49:53 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT010.mail.protection.outlook.com (10.13.175.88) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Wed, 7 Sep 2022 06:49:53 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 7 Sep
- 2022 01:49:51 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 7 Sep
- 2022 01:49:51 -0500
-Received: from [10.71.192.107] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Wed, 7 Sep 2022 01:49:50 -0500
+ id 27ceefd0-2e80-11ed-a016-b9edf5238543;
+ Wed, 07 Sep 2022 09:39:08 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM6PR04MB6053.eurprd04.prod.outlook.com (2603:10a6:20b:b9::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Wed, 7 Sep
+ 2022 07:39:05 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5612.014; Wed, 7 Sep 2022
+ 07:39:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,185 +46,373 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48ed5780-2e79-11ed-a016-b9edf5238543
+X-Inumbo-ID: 27ceefd0-2e80-11ed-a016-b9edf5238543
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=isbW2x6b/IhdO0VHf5PJNYlYzvyW5E7wYJC2FLZ+LDVdjluexUgEYFWlFtVY9NcHNBVpI9xty2maRqgO1uAwRheYBmsu1feRTx9ZTIOwU6Sv9vi9x705Edw9dDqcGm+yEL1OvH6TuqlsVDl51ijSG7Jicnqx6iH5LkRHKXIBeLBdez0L2zETr7we1hgfE6ikcXs/yyObf/r8hxu5KhfuSutrSCMhqc2lMcjlVfTEZUCP+77KYzPAv1oVH4fR++oa+wtluFtmIJC5nNUxHFbyus0rV7bw2ajb30Kr//IWfSCGmkToMfkJIuYgDC8F4WW9QRnSeKBeslQksu3ZfxQ0FA==
+ b=JEjJXT0Y4VJi2W3di+taPBFZq26hvSy9E3qATAgcJ8J6UAIeeTwZaPdO2E5cuORNJmFJwxf/NFdjf+Y/q1/SuIg7lRLvpZwwFKu2f0awLvMVgd+nDmv25cUvtI7SsCwAvlvwXHOXUefFw0SSU6zzFby2bxa95IC5VSfhtWfqCSTJUYz4hl0y1ka/Lv+7VmN5q+TP513UuzMYi4baGAnCjraEOQm4XbQGfOQxfLvZe6WY2e7QGaEVqztVLBxDgk3mqDWkJvmlwM2uxXWQPylKj7UWthXtFGAXltOxuP2lNFENL4PKnF3E6D7StBHTs8lG613NIel4Kkzh0RKBdNw5ng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2USVaTAicxjRY+lKuGGdLuCt7Msq7kML8XSHQtYTx70=;
- b=mfh2EjgfCo/gXJ9+izfYulXET+SqstQA5fUMVZelRg9aO1LOnxG4v20sQ7Awp+xsKaUc+VLu5Y/lhXgdIoeuwFmnpzZXpZYHjWK72FNy2sPBYqD6KIGdgojIGHBlogDW/bIl/MCwCCcJYoEZhhhpRGJ8Ip9rBIuvxRF5nknFWK4Rc8ezCmSv1XgdU52NKafwe/1ejy8Rlcz8U9Ag53YwiDgvx7P+CSg1EG4STU7t4aEu2RHi8isRSxaWBTJX9PRkSQLkfBQ2al763u65usPcK+yE/aYW0/+uqV2rv5OhNvNxbAwAz+MjWrh1oNaPLgcY9EDNPEXBiKCSSkaY6GJ0JA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=bjl2zFNl9ZBPJVYlJiyWZzvoQNO/1BnKG+C+CCbZl0g=;
+ b=NpUTa30awwm3SJ0wpgKIPYKN/ILs0eNb/EmiWIYLKUVQupubEF76dCsJMatrH/sAw/15J7Gm3CZr+7j17AYdbtiGRERn0iep3PkGUIkwTCEkhMsQMg3uzrtQF+JrAVWFv5T5Bvs+5M3wzcPDwZ0iDTb+FzC2rkRLr1raVbf4a8VN+uGabEWQzFYyRDEMgMuRGzKdQaZb21RBRy2Il5TruXFkIkOnyp923ggym5G7UuqG1KWRu/bf5fgogK+JYcX4JOAJKA/0+QRu1cI4ySE05NbiuaGPjr6k6sKyfIwc4J0qsn+BFS683LG2rF/1Y201NDmnlc94OPL+1nNKlQVWAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2USVaTAicxjRY+lKuGGdLuCt7Msq7kML8XSHQtYTx70=;
- b=JnycwLbD5d8CykTBlGYVEYJR7iF4W2LdTaxSPPQQuJktBFwGP2zhogEivSAvTGIUm6geY8ixIqBTAizVlU8LxEkvhJFrm0UtZ26uD0rkZG37RKiP6mTcDpXjFvPe2s3j+FHSyh8S8o3AyvMT/A6cyy+STUA8hmjk4wyr3w9p+E0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <3fe3bd63-e215-a2e4-acf7-273f9936808b@amd.com>
-Date: Wed, 7 Sep 2022 08:49:50 +0200
-MIME-Version: 1.0
+ bh=bjl2zFNl9ZBPJVYlJiyWZzvoQNO/1BnKG+C+CCbZl0g=;
+ b=ixm/5cKU01x+Ud6kscRYJjtkW7GofDgFpcY2RV/BaFyUPUTJfE6gTlJ742nf82BuxRShaa3loB5bVIvh+03e55FYdpkfTjW/ImjonwqZnOGjBke6HBcUTzCAWDaRM/+TAqINHbwKu2S0cucntMHDaPQGom+LV9n82sU5CjscxMfX+NulV+iCHVMPnqi2ExXJ7wtT7b5vZcc7koa5q717Qcy/cMOo+vFjfjQ5lvtHq/SVfpCRR3bY3ZbKsae6OfjhLSKAKzZedenLUmrmVXo+Q9qlU7J/+gQw7VkI8u7fuN+LguO4327KI9q9V7f9vuDw0xYYJOib5Or0d0wrTh3eJg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <a633eda7-0e12-01c9-af4f-d3634bc17315@suse.com>
+Date: Wed, 7 Sep 2022 09:39:03 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.1
-Subject: Re: [ImageBuilder] Add support for Xen boot-time cpupools
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>
-References: <20220906111214.26912-1-michal.orzel@amd.com>
- <alpine.DEB.2.22.394.2209061819310.157835@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2 1/2] live migration: do not use deffered bitmap when
+ inappropriate
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <alpine.DEB.2.22.394.2209061819310.157835@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset="UTF-8"
+To: Andrei Semenov <andrei.semenov@vates.fr>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <cover.1662457291.git.andrei.semenov@vates.fr>
+ <1e7862a0d83c61b7550747591275c38e87d4fbd2.1662457291.git.andrei.semenov@vates.fr>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <1e7862a0d83c61b7550747591275c38e87d4fbd2.1662457291.git.andrei.semenov@vates.fr>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR3P281CA0151.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT010:EE_|BL1PR12MB5240:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc73a7cc-f4b9-4b18-79c3-08da909d2b6b
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM6PR04MB6053:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d6b621e-18e5-4c66-719f-08da90a40a21
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	CJw0HYd+QVm85tmgqP3ZsxPNdEkS4d3sRicvChIg5qgdL9lIonzt3N6LKxKrjM9hbuWHjyuDNAWdOrWBqb/1uyz+VCUzpK/S5Lh1Aw6Nf5W6foP/ozyMSk5P2D/Hw3nLVpiKo5yD0lQICKBQ2OO47D7bZ5Y+KWAhVNtP55qzpBluN/RG04+r6rm6uQ/F++7nsDqFWRMtggp6UESGyh3jiG04yKBnCKyy8W2EljXaDDFps8gP+mtazT/d12d7YdhC39N2xIPumwoU4W1YcCNZ0KOnGLW9c2v5vt2dr47Jhol4uCoo9Ld+djMFhyiFkzV/KcdGBX50G47JJxTc94sA8u1BKJt77Bsz3TcFTJg404wFX4jMJZxOgE9V9/X8z19VSKKuadkrlFhhII00WC4OyhAYnIt9LqJk7azg9dazhu+BA4S7HP6LfhjGjDGoVTWRCEjs4E3uk8BwMb+UZYAFFjpZ/ff8i6f6ueOa1Uq/JFhgeVlR20jg1k0tLvX/GxEtkvJls5n5mnWMERhNGj0iXXxvJ2qBZjBttRLDRa9dxIrA8KNj/f7xdeGfjXJLIpFrkisaZ3hCTWyoeIGQ/q5PqsR+UqOZJDA3W61Sqtxyy8sXmPCGi6XDWx+g5oBocYg9m+JmyoiMWrlZHzZquxI+1NI0KsVbcgXeSvZtZ/sTQEc5stlcJxS1xHPxQzfiU8fa4Nq/hYsm3fnMXsQq3Qi1wcf1dXEGf184nW/8cBP9d9+wyZ2wKsSi7ThAqzl0WVZBzYQrjKa63G9zpq3HigVj7Fbq3nd41hg8UFvgkiIe3fKdbVKYq/ufBEiMp9ZxvRJBRIlipYx4SzVkuyO4x5SWnQ==
+	QfugdhAHGakdt7MLIvFuiVkVAog2kARCstjwFfp1eDWctG/e8WZjIKOOkk+gF0LS2NKtioGcrmmh0nQzYNMogtgDwHgEUJcx7Lh2QXywwF11XJUr24LkdXzBHFnUVbexiQikENZTMpEv4aAIjGFDP3MTetOrCniKqISehSzi7NOjuu4EPRIr1ytFwFGQBW2mi+xRoEI+KrAcc0/3mA2GCFNHvN56mF6QerxiqnpxPkFqAGS24QtoPvv3Oxtc2VfhsYZufVpZYVmbD8/1zCBNQan4xItOFsFoSayMX+4XbFemVDI9wq4ezUAWjqsPlwC55iA3UV+EIt6yDoObg2tSsvOcpUMhbxNSmrRXOCn36BUIEO6MFQcbt01UTJAmr33KrwtcbOnR9g3b5d2p3f5N1NZ7kYnIruO0BV1IsbsGj7Z1owyvrCYkEsr9ddhp3R0VWeliVrEfLTvTCzJmUidKJ3RY8trP8PBENrgRhEOq9cz0cn6+LgB4A4mDDp4KiQTLk9e8seNQ7vT2UzsUvLp4PAxPJ+unak+7/BlSe4K1QzN/IemlmcJ/2dY5QrROrPwZtgrDaydwD5qIVgCOb7Z2VSg4yBd/KVJ9K0KZwJKe1+L02jsaVrIKy2sPJAJJuk5ry8rnDcl10QTnRYUtNqSEB+zYu2p6qZnoEOpMwCmMTeP202kfYm4BlIzaxwc5z00g+vc0MRG+LKmUvqAITxMOfgq35nJOSQWiX7SKJQCX+Od7BOdTTnat8Nj8PptwqmGgaRYbzRyIeXMnEiyswKKSpxjNW5+7Fa/ET61dtPvbb1Nyk30zLgG1aGZerdoioW0O604PSWa3n6IC3Yeapzi+fg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230016)(4636009)(39860400002)(376002)(346002)(136003)(396003)(40470700004)(46966006)(36840700001)(8676002)(426003)(83380400001)(70206006)(47076005)(70586007)(8936002)(36860700001)(5660300002)(4326008)(53546011)(26005)(478600001)(186003)(336012)(2616005)(41300700001)(16576012)(31686004)(316002)(44832011)(6916009)(31696002)(86362001)(82310400005)(36756003)(40460700003)(40480700001)(356005)(81166007)(82740400003)(2906002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2022 06:49:53.7044
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(396003)(346002)(376002)(136003)(366004)(478600001)(66946007)(66476007)(66556008)(8676002)(4326008)(41300700001)(966005)(8936002)(5660300002)(6486002)(6512007)(2906002)(26005)(31696002)(53546011)(6506007)(38100700002)(86362001)(31686004)(2616005)(83380400001)(54906003)(186003)(316002)(36756003)(6916009)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y1g3a2JKaE9nUFhLUVNXYUUwbUtKdmhWYzlFdnhXSHdqM1F3Tk5abW1zcUpV?=
+ =?utf-8?B?MmlXeVZSeFNDM2FoRlY1REcvdHZaQXM0VEM4QTJ6NWNmQ2orTWRaMU9KUXps?=
+ =?utf-8?B?ZEs1VlRrQkdBMEJkY1pQSFB0elV2a2V2cXloZmVMeFdwcXc2OHU0NWE3eXR2?=
+ =?utf-8?B?d3VmY3hGL1hLRGFMajQ0S2pqa0pEZmRRYkh3TFY2d1hYa1Q4VU9IbW9jZ3FJ?=
+ =?utf-8?B?djRjZ0I3UmlJYysyNHlJTzJjRURIZCtQU21EdmZTYWRwN2JZL1pRWFRtVlpx?=
+ =?utf-8?B?ekwxK2ZDMUxLOVVKZjh1blJyZ2k3QVpjOHhuQndOVlljUmp3bWgvbU04L3Vj?=
+ =?utf-8?B?bFZlVVRueXgzNCs1WWdWL0J2cjRIM2UyRzNlemJiRVBuMHUrMlVYN0h5bG5z?=
+ =?utf-8?B?RDZML1BuZjFCN3BndDh4WXdjdWRQTCs3S2RPbXhNajNnSXhPYktkMTllSUVt?=
+ =?utf-8?B?UHgzbGtCK0M4UkxPcGZ1em00Z1Q3N0cxeHNQQWx6T3JJc2sxbEhvNWRPNjNN?=
+ =?utf-8?B?Q2VRRzBYWUZKTE5pT0pwZktsMTVJYnJ0cGwrdTNoUHZlOURyUVE4M2gwbUlj?=
+ =?utf-8?B?VHpmeURxQmYzZHNjUks3b2g1VGpxT3J5WHR5UmhHTHF4YzNsSmxZaTNqNnAr?=
+ =?utf-8?B?MmJBMUNFUEtQdkdCTkwzdHlqZlUzT1JUaDh1blV6aXo1OU1JSHlhb1paM0xH?=
+ =?utf-8?B?K0tmNnVDNG5sTTNCclAzc3FYbmw0a3RhTVpXcDR2U2JtMlNIZXJGNUUzRkFa?=
+ =?utf-8?B?UFY0MnNNYVpXWFIwUUpwUlNGUi9nREMzL2h1a2s1WDBzbEcwMklHV1M3R0dK?=
+ =?utf-8?B?L2Z6WHhCc0tmOXBHTUpoeGJqN3ZPVDBYcVFUWHR5VStTSDNOell2Y1FWQTAy?=
+ =?utf-8?B?RG5GS3o4b1c0NHRkUmhqT1g3dzU5YmVnK3NwSXlQMFY3K3hJRGt6SjdPcGxK?=
+ =?utf-8?B?a3QrWEg3cEV6WDJkQlNNcnZNS2hsdWZuM2FzWVYveHkvRWVTMXUvYzFjMzBY?=
+ =?utf-8?B?OVVpTFAzM3FpN0dvTmhNUUpoRXdvQnhtS1QrRTl5NThJb1UxdWc0UkZFTFJX?=
+ =?utf-8?B?b1ZmSHd4MUlZOWJrSjFROHZLZkk4Uk01T0JPNFhHU3FkSHRkcC9SelM1b2FH?=
+ =?utf-8?B?OTVNRzd2STZlbVVDZDNXVWtDWUxoTVh1ZkZBaCtCbmNmTHgwYTgzSi9vNkth?=
+ =?utf-8?B?YTFtWFZXTWhKbkViQkYvQmdlcWNlV0FKMk5xVWg2bWFwd1NpZnRJNWdLckFT?=
+ =?utf-8?B?c0lac3oyb3d2bjVvNHg0OFZLSDdMeW1RVDhSSWd5RFVNNTJ0MW9tNlFIQWxU?=
+ =?utf-8?B?Q1cyb2hpK1d3bU1ZYS9UeFpzVUYzV2M5SFFMNWJsOEhhaGc4TmE0Zi8wRSs4?=
+ =?utf-8?B?MStzOVQrR1Q3N0c3ejJwSldxRE9CRW91QjdvdDVGRFFDbitsYW1wWnRKb1RL?=
+ =?utf-8?B?YmhLa1h2QnZXZ1pIRFpPS3RXM25jcGg5TnhVam5ERGxvVDM4ZFIxWityaG9o?=
+ =?utf-8?B?cHdXQ2ZsSmx5czltQXFXc0dGTlFEQ0VuZkNFcnZZZkp6WC9EUXlVVS9XdUJK?=
+ =?utf-8?B?M1NQLzJqQlU0ak45YjdnRm5QQkVCeDBJUWE3OEJKQ3dUay9zck9KbUJjSEJE?=
+ =?utf-8?B?bE5mODJEZkpLTzlwNmE4Nkp5TDI0VC9QRWtVdW5yTjhrNTNIekwzQXVkWVJH?=
+ =?utf-8?B?VzBuVXp6WG1BZkYwU3BTWHM5cjg5M2I2SFFQQ3h4d2NRU3cxbi9nNjZtc0k0?=
+ =?utf-8?B?S1VlVGlxVmRuZzkwamVsSlR5SVhNOHBlNndPbmJlYWZHLy9MKzhzNXZjdnNX?=
+ =?utf-8?B?MXlMTHh1RHNSU1cvS3FaaHFkbU5MVm9zWTQ3bzRPYm9pVU9jQXJYVWxNNTU0?=
+ =?utf-8?B?SHZEYzFOWkp3Sm1qazlkVnQrS2V4S1pOMGttcWIvS1Y0MWQ0RkpjVmR2VjNQ?=
+ =?utf-8?B?NWJza1dHUmtoeUV2ZzBzUnM3NzJGM1FWckRaSXpkSEQvQnRPM0c5bTNSL3Jy?=
+ =?utf-8?B?dDdON09GOHk0L3lTZnhsc2FrY293K1NzR2lnbzhheUs2aGRzZE1WSmRTZkow?=
+ =?utf-8?B?YVpNb2pZN0Z5WmlKQ21oUW01NGk4QlhmUVRpamdPeEhmdUhSdUltV0RveG0w?=
+ =?utf-8?Q?SoJF49U+ZZxTWYLk49P8DSDGa?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d6b621e-18e5-4c66-719f-08da90a40a21
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2022 07:39:04.6752
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc73a7cc-f4b9-4b18-79c3-08da909d2b6b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5240
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TtVkUqfcdpZdfaE89ysTUI6/IwDmNao9xaPmmT6/FlCOCSFPbmok2JNjhNNTEZc2NtEe/ggSNBaaZ/SzfGJSaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB6053
 
-Hi Stefano,
+On 06.09.2022 11:54, Andrei Semenov wrote:
+> Use deffered bitmap only in PV guests context as it not used for HVM guests.
+> This allow to reduce memory pressure on domain0 while migrating very large
+> (memory wise) HVM guests.
+> 
+> Signed-off-by: Andrei Semenov <andrei.semenov@vates.fr>
 
-On 07/09/2022 03:43, Stefano Stabellini wrote:
-> 
-> On Tue, 6 Sep 2022, Michal Orzel wrote:
->> Introduce support for creating boot-time cpupools in the device tree and
->> assigning them to dom0less domUs. Add the following options:
->>  - CPUPOOL[number]="cpu1_path,...,cpuN_path scheduler" to specify the
->>    list of cpus and the scheduler to be used to create cpupool
->>  - NUM_CPUPOOLS to specify the number of cpupools to create
->>  - DOMU_CPUPOOL[number]="<id>" to specify the id of the cpupool to
->>    assign to domU
->>
->> Example usage:
->> CPUPOOL[0]="/cpus/cpu@1,/cpus/cpu@2 null"
->> DOMU_CPUPOOL[0]=0
->> NUM_CPUPOOLS=1
->>
->> The above example will create a boot-time cpupool (id=0) with 2 cpus:
->> cpu@1, cpu@2 and the null scheduler. It will assign the cpupool with
->> id=0 to domU0.
->>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> 
-> Great patch in record time, thanks Michal!
-> 
-> 
-> On the CPUPOOL string format: do you think we actually need the device
-> tree path or could we get away with something like:
-> 
-> CPUPOOL[0]="cpu@1,cpu@2 null"
-> 
-> All the cpus have to be under the top-level /cpus node per the device
-> tree spec, so maybe the node name should be enough?
-> 
-According to specs, passing only the node names should be enough
-so I will modify it.
+Did you see https://lists.xen.org/archives/html/xen-devel/2022-04/msg02037.html?
+It would seem to me that doing what you want would be less intrusive on top of
+that work, by simply suppressing the allocation also for HVM then.
 
-> 
-> 
->> ---
->>  README.md                | 10 +++++
->>  scripts/uboot-script-gen | 80 ++++++++++++++++++++++++++++++++++++++++
->>  2 files changed, 90 insertions(+)
->>
->> diff --git a/README.md b/README.md
->> index bd9dac924b44..44abb2193142 100644
->> --- a/README.md
->> +++ b/README.md
->> @@ -181,6 +181,9 @@ Where:
->>    present. If set to 1, the VM can use PV drivers. Older Linux kernels
->>    might break.
->>
->> +- DOMU_CPUPOOL[number] specifies the id of the cpupool (created using
->> +  CPUPOOL[number] option, where number == id) that will be assigned to domU.
->> +
->>  - LINUX is optional but specifies the Linux kernel for when Xen is NOT
->>    used.  To enable this set any LINUX\_\* variables and do NOT set the
->>    XEN variable.
->> @@ -223,6 +226,13 @@ Where:
->>    include the public key in.  This can only be used with
->>    FIT_ENC_KEY_DIR.  See the -u option below for more information.
->>
->> +- CPUPOOL[number]="cpu1_path,...,cpuN_path scheduler"
->> +  specifies the list of cpus (separated by commas) and the scheduler to be
->> +  used to create boot-time cpupool. If no scheduler is set, the Xen default
->> +  one will be used.
->> +
->> +- NUM_CPUPOOLS specifies the number of boot-time cpupools to create.
->> +
->>  Then you can invoke uboot-script-gen as follows:
->>
->>  ```
->> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
->> index 18c0ce10afb4..2e1c80a92ce1 100755
->> --- a/scripts/uboot-script-gen
->> +++ b/scripts/uboot-script-gen
->> @@ -176,6 +176,81 @@ function add_device_tree_static_mem()
->>      dt_set "$path" "xen,static-mem" "hex" "${cells[*]}"
->>  }
->>
->> +function add_device_tree_cpupools()
->> +{
->> +    local num=$1
->> +    local phandle_next="0xfffffff"
-> 
-> I think phandle_next is a good idea, and I would make it a global
-> variable at the top of the uboot-script-gen file or at the top of
-> scripts/common.
-> 
-> The highest valid phandle is actually 0xfffffffe.
-> 
-This was my original idea so I will do following to properly handle phandles:
-- create a global variable phandle_next in scripts/common set to 0xfffffffe
-- create a function get_next_phandle in scripts/common to get the next available phandle,
-  formatted properly in hex, which will also decrement the phandle_next
+Jan
 
-I will push this as a prerequisite patch for boot-time cpupools.
-
+> ---
+>  tools/libs/guest/xg_sr_common.h       | 26 ++++++++++++++++--
+>  tools/libs/guest/xg_sr_save.c         | 23 +++++++---------
+>  tools/libs/guest/xg_sr_save_x86_hvm.c | 21 +++++++++++++++
+>  tools/libs/guest/xg_sr_save_x86_pv.c  | 39 +++++++++++++++++++++++++++
+>  4 files changed, 93 insertions(+), 16 deletions(-)
 > 
-> 
->> +    local cpus
->> +    local scheduler
->> +    local cpu_list
->> +    local phandle
->> +    local cpu_phandles
->> +    local i
->> +    local j
->> +
->> +    i=0
->> +    while test $i -lt $num
-> 
-> I don't think there is much value in passing NUM_CPUPOOLS as argument to
-> this function given that the function is also accessing CPUPOOL[]
-> directly. I would remove $num and just do:
-> 
->     while test $i -lt $NUM_CPUPOOLS
-ok
-
-~Michal
+> diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
+> index 36d45ef56f..941e24d7b7 100644
+> --- a/tools/libs/guest/xg_sr_common.h
+> +++ b/tools/libs/guest/xg_sr_common.h
+> @@ -96,6 +96,24 @@ struct xc_sr_save_ops
+>       */
+>      int (*check_vm_state)(struct xc_sr_context *ctx);
+>  
+> +    /**
+> +     * For some reasons the page can't be sent for the moment. Postpone this
+> +     * send to the later stage when domain is suspended.
+> +     */
+> +    int (*defer_page)(struct xc_sr_context *ctx, xen_pfn_t pfn);
+> +
+> +    /**
+> +     *  Merge all deferred pages with the dirty pages bitmap (in order to be
+> +     *  sent).
+> +     */
+> +    int (*merge_deferred)(const struct xc_sr_context *ctx,
+> +                          unsigned long *bitmap, unsigned long *count);
+> +
+> +    /**
+> +     *  Deferred pages was successfully sent. Reset all associated information.
+> +     */
+> +    int (*reset_deferred)(struct xc_sr_context *ctx);
+> +
+>      /**
+>       * Clean up the local environment.  Will be called exactly once, either
+>       * after a successful save, or upon encountering an error.
+> @@ -243,8 +261,6 @@ struct xc_sr_context
+>  
+>              xen_pfn_t *batch_pfns;
+>              unsigned int nr_batch_pfns;
+> -            unsigned long *deferred_pages;
+> -            unsigned long nr_deferred_pages;
+>              xc_hypercall_buffer_t dirty_bitmap_hbuf;
+>          } save;
+>  
+> @@ -349,6 +365,12 @@ struct xc_sr_context
+>  
+>                  union
+>                  {
+> +                    struct
+> +                    {
+> +                        unsigned long *deferred_pages;
+> +                        unsigned long nr_deferred_pages;
+> +                    } save;
+> +
+>                      struct
+>                      {
+>                          /* State machine for the order of received records. */
+> diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.c
+> index 9853d8d846..602b18488d 100644
+> --- a/tools/libs/guest/xg_sr_save.c
+> +++ b/tools/libs/guest/xg_sr_save.c
+> @@ -132,8 +132,7 @@ static int write_batch(struct xc_sr_context *ctx)
+>          /* Likely a ballooned page. */
+>          if ( mfns[i] == INVALID_MFN )
+>          {
+> -            set_bit(ctx->save.batch_pfns[i], ctx->save.deferred_pages);
+> -            ++ctx->save.nr_deferred_pages;
+> +            ctx->save.ops.defer_page(ctx, ctx->save.batch_pfns[i]);
+>          }
+>      }
+>  
+> @@ -192,8 +191,7 @@ static int write_batch(struct xc_sr_context *ctx)
+>              {
+>                  if ( rc == -1 && errno == EAGAIN )
+>                  {
+> -                    set_bit(ctx->save.batch_pfns[i], ctx->save.deferred_pages);
+> -                    ++ctx->save.nr_deferred_pages;
+> +                    ctx->save.ops.defer_page(ctx, ctx->save.batch_pfns[i]);
+>                      types[i] = XEN_DOMCTL_PFINFO_XTAB;
+>                      --nr_pages;
+>                  }
+> @@ -641,6 +639,7 @@ static int suspend_and_send_dirty(struct xc_sr_context *ctx)
+>      xc_interface *xch = ctx->xch;
+>      xc_shadow_op_stats_t stats = { 0, ctx->save.p2m_size };
+>      char *progress_str = NULL;
+> +    unsigned long merged;
+>      int rc;
+>      DECLARE_HYPERCALL_BUFFER_SHADOW(unsigned long, dirty_bitmap,
+>                                      &ctx->save.dirty_bitmap_hbuf);
+> @@ -669,7 +668,7 @@ static int suspend_and_send_dirty(struct xc_sr_context *ctx)
+>      else
+>          xc_set_progress_prefix(xch, "Checkpointed save");
+>  
+> -    bitmap_or(dirty_bitmap, ctx->save.deferred_pages, ctx->save.p2m_size);
+> +    ctx->save.ops.merge_deferred(ctx, dirty_bitmap, &merged);
+>  
+>      if ( !ctx->save.live && ctx->stream_type == XC_STREAM_COLO )
+>      {
+> @@ -681,12 +680,11 @@ static int suspend_and_send_dirty(struct xc_sr_context *ctx)
+>          }
+>      }
+>  
+> -    rc = send_dirty_pages(ctx, stats.dirty_count + ctx->save.nr_deferred_pages);
+> +    rc = send_dirty_pages(ctx, stats.dirty_count + merged);
+>      if ( rc )
+>          goto out;
+>  
+> -    bitmap_clear(ctx->save.deferred_pages, ctx->save.p2m_size);
+> -    ctx->save.nr_deferred_pages = 0;
+> +    ctx->save.ops.reset_deferred(ctx);
+>  
+>   out:
+>      xc_set_progress_prefix(xch, NULL);
+> @@ -805,18 +803,16 @@ static int setup(struct xc_sr_context *ctx)
+>          xch, dirty_bitmap, NRPAGES(bitmap_size(ctx->save.p2m_size)));
+>      ctx->save.batch_pfns = malloc(MAX_BATCH_SIZE *
+>                                    sizeof(*ctx->save.batch_pfns));
+> -    ctx->save.deferred_pages = bitmap_alloc(ctx->save.p2m_size);
+>  
+> -    if ( !ctx->save.batch_pfns || !dirty_bitmap || !ctx->save.deferred_pages )
+> +    if ( !ctx->save.batch_pfns || !dirty_bitmap )
+>      {
+> -        ERROR("Unable to allocate memory for dirty bitmaps, batch pfns and"
+> -              " deferred pages");
+> +        ERROR("Unable to allocate memory for dirty bitmaps, batch pfns");
+>          rc = -1;
+>          errno = ENOMEM;
+>          goto err;
+>      }
+>  
+> -    rc = 0;
+> +    rc = ctx->save.ops.reset_deferred(ctx);
+>  
+>   err:
+>      return rc;
+> @@ -837,7 +833,6 @@ static void cleanup(struct xc_sr_context *ctx)
+>  
+>      xc_hypercall_buffer_free_pages(xch, dirty_bitmap,
+>                                     NRPAGES(bitmap_size(ctx->save.p2m_size)));
+> -    free(ctx->save.deferred_pages);
+>      free(ctx->save.batch_pfns);
+>  }
+>  
+> diff --git a/tools/libs/guest/xg_sr_save_x86_hvm.c b/tools/libs/guest/xg_sr_save_x86_hvm.c
+> index 1634a7bc43..3c762a0af0 100644
+> --- a/tools/libs/guest/xg_sr_save_x86_hvm.c
+> +++ b/tools/libs/guest/xg_sr_save_x86_hvm.c
+> @@ -211,6 +211,24 @@ static int x86_hvm_end_of_checkpoint(struct xc_sr_context *ctx)
+>      return 0;
+>  }
+>  
+> +static int x86_hvm_defer_page(struct xc_sr_context *ctx, xen_pfn_t pfn)
+> +{
+> +    return 0;
+> +}
+> +
+> +static int x86_hvm_merge_deferred(const struct xc_sr_context *ctx,
+> +                                 unsigned long *bitmap, unsigned long *count)
+> +{
+> +    *count = 0;
+> +
+> +    return 0;
+> +}
+> +
+> +static int x86_hvm_reset_deferred(struct xc_sr_context *ctx)
+> +{
+> +    return 0;
+> +}
+> +
+>  static int x86_hvm_cleanup(struct xc_sr_context *ctx)
+>  {
+>      xc_interface *xch = ctx->xch;
+> @@ -237,6 +255,9 @@ struct xc_sr_save_ops save_ops_x86_hvm =
+>      .start_of_checkpoint = x86_hvm_start_of_checkpoint,
+>      .end_of_checkpoint   = x86_hvm_end_of_checkpoint,
+>      .check_vm_state      = x86_hvm_check_vm_state,
+> +    .defer_page          = x86_hvm_defer_page,
+> +    .merge_deferred      = x86_hvm_merge_deferred,
+> +    .reset_deferred      = x86_hvm_reset_deferred,
+>      .cleanup             = x86_hvm_cleanup,
+>  };
+>  
+> diff --git a/tools/libs/guest/xg_sr_save_x86_pv.c b/tools/libs/guest/xg_sr_save_x86_pv.c
+> index 4964f1f7b8..5fdc7e9590 100644
+> --- a/tools/libs/guest/xg_sr_save_x86_pv.c
+> +++ b/tools/libs/guest/xg_sr_save_x86_pv.c
+> @@ -1031,6 +1031,7 @@ static int x86_pv_normalise_page(struct xc_sr_context *ctx, xen_pfn_t type,
+>   */
+>  static int x86_pv_setup(struct xc_sr_context *ctx)
+>  {
+> +    xc_interface *xch = ctx->xch;
+>      int rc;
+>  
+>      rc = x86_pv_domain_info(ctx);
+> @@ -1049,6 +1050,15 @@ static int x86_pv_setup(struct xc_sr_context *ctx)
+>      if ( rc )
+>          return rc;
+>  
+> +    ctx->x86.pv.save.deferred_pages = bitmap_alloc(ctx->save.p2m_size);
+> +
+> +    if (!ctx->x86.pv.save.deferred_pages)
+> +    {
+> +        ERROR("Unable to allocate memory for deferred pages");
+> +        errno = ENOMEM;
+> +        return -1;
+> +    }
+> +
+>      return 0;
+>  }
+>  
+> @@ -1116,9 +1126,35 @@ static int x86_pv_check_vm_state(struct xc_sr_context *ctx)
+>      return x86_pv_check_vm_state_p2m_list(ctx);
+>  }
+>  
+> +static int x86_pv_defer_page(struct xc_sr_context *ctx, xen_pfn_t pfn)
+> +{
+> +    set_bit(pfn, ctx->x86.pv.save.deferred_pages);
+> +    ++ctx->x86.pv.save.nr_deferred_pages;
+> +
+> +    return 0;
+> +}
+> +
+> +static int x86_pv_merge_deferred(const struct xc_sr_context *ctx,
+> +                                 unsigned long *bitmap, unsigned long *count)
+> +{
+> +    bitmap_or(bitmap, ctx->x86.pv.save.deferred_pages, ctx->save.p2m_size);
+> +    *count = ctx->x86.pv.save.nr_deferred_pages;
+> +
+> +    return 0;
+> +}
+> +
+> +static int x86_pv_reset_deferred(struct xc_sr_context *ctx)
+> +{
+> +    bitmap_clear(ctx->x86.pv.save.deferred_pages, ctx->save.p2m_size);
+> +    ctx->x86.pv.save.nr_deferred_pages = 0;
+> +
+> +    return 0;
+> +}
+> +
+>  static int x86_pv_cleanup(struct xc_sr_context *ctx)
+>  {
+>      free(ctx->x86.pv.p2m_pfns);
+> +    free(ctx->x86.pv.save.deferred_pages);
+>  
+>      if ( ctx->x86.pv.p2m )
+>          munmap(ctx->x86.pv.p2m, ctx->x86.pv.p2m_frames * PAGE_SIZE);
+> @@ -1142,6 +1178,9 @@ struct xc_sr_save_ops save_ops_x86_pv =
+>      .start_of_checkpoint = x86_pv_start_of_checkpoint,
+>      .end_of_checkpoint   = x86_pv_end_of_checkpoint,
+>      .check_vm_state      = x86_pv_check_vm_state,
+> +    .defer_page          = x86_pv_defer_page,
+> +    .merge_deferred      = x86_pv_merge_deferred,
+> +    .reset_deferred      = x86_pv_reset_deferred,
+>      .cleanup             = x86_pv_cleanup,
+>  };
+>  
 
 
