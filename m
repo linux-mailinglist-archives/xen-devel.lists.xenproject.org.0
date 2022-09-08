@@ -2,64 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A2645B1D0D
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 14:32:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.403306.645375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE7D45B1D52
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 14:41:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.403313.645384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWGgq-0005Zp-1g; Thu, 08 Sep 2022 12:31:28 +0000
+	id 1oWGpr-0007FT-Qr; Thu, 08 Sep 2022 12:40:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 403306.645375; Thu, 08 Sep 2022 12:31:27 +0000
+Received: by outflank-mailman (output) from mailman id 403313.645384; Thu, 08 Sep 2022 12:40:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWGgp-0005Wz-Si; Thu, 08 Sep 2022 12:31:27 +0000
-Received: by outflank-mailman (input) for mailman id 403306;
- Thu, 08 Sep 2022 12:31:26 +0000
+	id 1oWGpr-0007DV-O9; Thu, 08 Sep 2022 12:40:47 +0000
+Received: by outflank-mailman (input) for mailman id 403313;
+ Thu, 08 Sep 2022 12:40:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z23V=ZL=arm.com=Rahul.Singh@srs-se1.protection.inumbo.net>)
- id 1oWGgo-0005Ws-E0
- for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 12:31:26 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2050.outbound.protection.outlook.com [40.107.20.50])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26e89eee-2f72-11ed-a31c-8f8a9ae3403f;
- Thu, 08 Sep 2022 14:31:25 +0200 (CEST)
-Received: from AM6PR01CA0038.eurprd01.prod.exchangelabs.com
- (2603:10a6:20b:e0::15) by DU0PR08MB7993.eurprd08.prod.outlook.com
- (2603:10a6:10:3e0::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14; Thu, 8 Sep
- 2022 12:31:15 +0000
-Received: from VE1EUR03FT039.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:e0:cafe::5d) by AM6PR01CA0038.outlook.office365.com
- (2603:10a6:20b:e0::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.14 via Frontend
- Transport; Thu, 8 Sep 2022 12:31:15 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT039.mail.protection.outlook.com (10.152.19.196) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5612.13 via Frontend Transport; Thu, 8 Sep 2022 12:31:14 +0000
-Received: ("Tessian outbound 73dd6a25223d:v123");
- Thu, 08 Sep 2022 12:31:14 +0000
-Received: from eb930b282432.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 4F0FE29E-AC6F-43C3-8147-353CBFC3EE16.1; 
- Thu, 08 Sep 2022 12:31:02 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id eb930b282432.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 08 Sep 2022 12:31:02 +0000
-Received: from AS8PR08MB7158.eurprd08.prod.outlook.com (2603:10a6:20b:404::24)
- by DU0PR08MB8277.eurprd08.prod.outlook.com (2603:10a6:10:40f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5588.14; Thu, 8 Sep
- 2022 12:31:00 +0000
-Received: from AS8PR08MB7158.eurprd08.prod.outlook.com
- ([fe80::89c6:c8ca:3340:ca53]) by AS8PR08MB7158.eurprd08.prod.outlook.com
- ([fe80::89c6:c8ca:3340:ca53%5]) with mapi id 15.20.5612.016; Thu, 8 Sep 2022
- 12:31:00 +0000
+ <SRS0=XUpx=ZL=citrix.com=prvs=24378778c=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oWGpq-0007DP-CW
+ for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 12:40:46 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 732b018e-2f73-11ed-a31c-8f8a9ae3403f;
+ Thu, 08 Sep 2022 14:40:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,144 +36,263 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26e89eee-2f72-11ed-a31c-8f8a9ae3403f
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=N093/A0HRDQ5tFpDHB/y8u/1zPyGom06yea45BteORrt0tO1FwVxi/nycoEgyUJ8+G62rT1wwlQDvllwyXI9FV006RTkHKucC8VqaK1I+8KaJqsrhjPEuEU8ZQFK303C3yas/IZi0qN8Ji/6AMZRYKnPqM4wbRqiOHTiGK4zd53TYLNJ4UOeZzYlL/VPKJQzNwGO9e9+SY6ylU85FDvRBVu0WZAlDisaBsrekfc1hCA4pnBDjNKsIWX5TfQfbNCjnmhMqd/TFfIZYoATsN5rOr/kmiR4ZesGBSafWw462V3QH28tI2KBoLalgANb/exooJ0CpwJqeiVuD5rUTFuiEw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Owx4enNlxYj4A+G5gejC0zzYLiB7DggolNr7gKWjFk=;
- b=jYZrTGRblzYl0jHfpE//dFko6zkmAb6O5ZTpy+G/ke0EhXRAmH8F8ETmNxGPDH2oUg8OtxG4tfU/NRk1EuO46UqQtlDzrx3zkLYkrtyOeFuySPuNhmevrfoRnAi6BNxCI3woR9LGD/b9Ni/4smoE4XXz1RwBXjIgIf9wIwqPcTZ0i+QjoLaRkOhLI5tzQ0VwTiT9tieIdQVaMXxsJmwouJtUhpdf1To2Wz7dCKeji5AuqkgwVYicTjzgNW93vp0ofx0nTARBUUq+OovxYqNr1RkLb14rfFs3ANcSIix5L1j63qI4Ckm3y5xOqDetPTpNs+Rn8/k1XobPHFZeWy8LJA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Owx4enNlxYj4A+G5gejC0zzYLiB7DggolNr7gKWjFk=;
- b=FBgyYzoSN+pNSudTw2SbmD8j2b/2s3kd9gjZ24GHgUEJ7MU1DUEn5fGOVgL211eFA/zvl5XuRE44yORviSSqgUZSXRyB7NAhS4jf80xViLIBwHYBLzFzH2EravJhdNaBbVDwlIepSb9xpsbM1ONR2AL/qxlsY8UFaaFc/aR/bm8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 088c1e1a15196bcf
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IfAoX59IHOhN6AO+RmQvb/EthpGOugoiPnHrciot7hA/86xYI3LHDhgG7AAo7dee2SRGQKnudaJZrrWDx9mHLKDdepkfk74TEFecAK3bj1ITrIG8d2YiDNmTJAQhz7fxjs05zK/HC3COHKn4+djmDeQtdIUgTnr+uWEu76nmQU51+75Kv2fDs4gT5anRoNdIC9T1AR+NfOjSka+i5RvMgdNpO5eQYfMRli8B/zZIk9Vdxa4ilyrcMj9yADKxm9gWSU9vWALyYg8ZIiXb6fWoDXX+eH0kAhrNyXERkXBcB/WJSYgyP5EjRzC4CX7oVs+xwhd6SV4A3IOx0uEKEMIWSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Owx4enNlxYj4A+G5gejC0zzYLiB7DggolNr7gKWjFk=;
- b=JD77nypOy4m+/GZ1YUa30l+f44fdk24NuNmD7WT3JKwak7zu88T9s8f0y9uyIhhP0mnwzvKcl8e3Hl/82cx9XiKXJa9+7bW5ORY7Jn3EMDa+BAeuaLKf4ez14fBMmFzODt6ytb5xPDYDMl/5fWVc5eMTRhQZJmvLxantCAcGbgrOwcmvFNHtlnSByHWnolrjELX6yskFFtFOD2o8G76blBWYIwH0InSuda8dVCyDLGIc+eu30UJNiM/6dm3EPtejg81SaK2Kx/sunCg/6KKUQ4zrB2vTUBEAPQjxZ3urlvvQYryD/LGAjxx04/cQvqPxUKoW6NVhfp0O9VMW9s5Dbg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Owx4enNlxYj4A+G5gejC0zzYLiB7DggolNr7gKWjFk=;
- b=FBgyYzoSN+pNSudTw2SbmD8j2b/2s3kd9gjZ24GHgUEJ7MU1DUEn5fGOVgL211eFA/zvl5XuRE44yORviSSqgUZSXRyB7NAhS4jf80xViLIBwHYBLzFzH2EravJhdNaBbVDwlIepSb9xpsbM1ONR2AL/qxlsY8UFaaFc/aR/bm8=
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Paul Durrant <paul@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v5 2/2] xen/pci: replace call to is_memory_hole to
- pci_check_bar
-Thread-Topic: [PATCH v5 2/2] xen/pci: replace call to is_memory_hole to
- pci_check_bar
-Thread-Index: AQHYw3p7gwIvcD2fwEqa0fZdexa62K3Vbv8AgAAHwAA=
-Date: Thu, 8 Sep 2022 12:31:00 +0000
-Message-ID: <03EABD2D-9FB5-4E91-BB65-7E5B5384F232@arm.com>
-References: <cover.1662637415.git.rahul.singh@arm.com>
- <63a0010c1e0f6ffb86fce35e188d66bf4c0d57e7.1662637415.git.rahul.singh@arm.com>
- <5db80611-c968-34c7-7181-41071636efca@suse.com>
-In-Reply-To: <5db80611-c968-34c7-7181-41071636efca@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7158:EE_|DU0PR08MB8277:EE_|VE1EUR03FT039:EE_|DU0PR08MB7993:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9e95a1c-daab-4411-9300-08da9196054d
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- Klz0dPa09EzgY/rx+dbp1qScx+QfOt/T4D/YgjmsgzQOm/dTjNc97Bbgw0Bc/bldseruRP4MEAycBcmnFfME8bm4ehQ+akuYxBPLUEV+t6HsLrR4ctzjwVD31cTYQzuN5oNWv6mRCMInX3zMDpDXezYm552BHQ/H6mn9jjb8bhTfBDn3HKMy/3TRA4tJHjcBhXnuMkGQ53pPBAh7dZZLstMOucYfaVtjifHcOZjzk/tKi3c0Nq5hb9q9oyONhW+31aLfmhqCQ1WNa4sC8LbOLuWlGlnJwLZec4O71o6LdD1bXhnitBpnqIOTmJqCStrYLJEfrCJh+5wc0DrkPF9+Ptr9nTEHB5I+BI7Tj1Z7IaOQoa/Qnr3s28jT/hiQkiMUG+p0bXhstC4hKkBQUEc+9xRtsaHKAUDK1ASd/HAZNWqC6QQcubzXlGq35uY7bcDvprWXdTX6lImpHpqcoP6Q6Db7U55Yfdz35OKb9VG9Ov+qokNZmqffhMMkwSs3PSx9r6huSImVH3D0Kxu1kjgUBShNdRlths8bkXSqeltzXO1VtqwmB3OXfAEQM67IFvuqeOMibgM91sC0Yy+AtOkAk+ZDilA1j7CKn0tewXwtcuLKM3ltrNA/19N5plx+24JETVDjzWJq8piGW6/efP+t048+6ypWN1TqNNRAGL94ls7/bLgsIKPtmDrjXLiH2B4zhNGbxLoG/NJzP3VlexBSYhWVdI7jVWuRwQ2gYjmc8EEq2ik8WXocdgRWoQrh9FiF+xp2LcdiWC9g5+XKg3FXn03xBvPkGvWLKXDU3bXhq48=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7158.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(4636009)(376002)(366004)(39860400002)(136003)(396003)(346002)(36756003)(86362001)(6916009)(38100700002)(54906003)(71200400001)(26005)(316002)(2906002)(122000001)(91956017)(76116006)(64756008)(4326008)(66476007)(66556008)(83380400001)(8676002)(478600001)(66446008)(66946007)(41300700001)(38070700005)(53546011)(6506007)(8936002)(2616005)(186003)(6486002)(5660300002)(33656002)(6512007)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F393E006BEF3E745BA3D1CD3A5CA4B0A@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 732b018e-2f73-11ed-a31c-8f8a9ae3403f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1662640844;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UHirX8ZPWwvVlfHgN7hlU5UlJmwUZ9tZfxRV1Ldodlo=;
+  b=XZK7YDFT/5QKpDYfvPD+rksul6C0jfN74oKuiO5BF+n1A7tvzM9aDWmj
+   YRZ+OXNLhCXbw/GJ6ua4qQXZnys6wijNEC4RY7AgZ/bH93VLVFo+Oytbq
+   7zrFs5suwUxm6AXa0hFNBBj2/H542qe31Y1iN/TzsKlWaqR5UWxSnkAva
+   E=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 80056515
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: =?us-ascii?q?A9a23=3AkUJ2NanOrW9Qf0QNoBP76pjo5mJPLROUhFxM2?=
+ =?us-ascii?q?KjiYuv7R7IEGpDEwMcbYTqtoJ1vIw21LNOo3Mk2BvF9wazN9m8VGLUgYDXkQ?=
+ =?us-ascii?q?8hXp2zUHSnUq+RCPCajnZkjn7x+WCIf3eL+ceqrcJ7NAvO7zvUWAk2Cfz9Td?=
+ =?us-ascii?q?+6fiOT9ni94OVfOOMABpWVIPf7g4n5HD2FdEJfU2v+O34E/NXwgLaSf7qxnd?=
+ =?us-ascii?q?Fy6fcz1kdRFS3azE2hG8vzxBNDL3L3YwcJuXeaDvzKBq/6HxfGO1C/40gZbe?=
+ =?us-ascii?q?MbvBS/VEgnn9sFsY8sZtJbTGCkR5cNnWjT2HBfNKpjRWKgD4ebEJUNZkob4y?=
+ =?us-ascii?q?QhnX/U+dDKdDUN8NQdmK34bFEUd76nEInWD+fzM+Eed9Hr5aMdeJxl4W3BSN?=
+ =?us-ascii?q?fKxcJKVgtr7RDQE4bvGbTWTqmpHeQsuKwlpF9fyHIwvQIln4IxwCRPeningC?=
+ =?us-ascii?q?eWNA/w/R6LLXp25YMHQDLaewdVVylxDR6t8YTCVv455ZP1z3Q4VozD7BlUsv?=
+ =?us-ascii?q?P3o14rBVYUXSPenoEwTY95kBgU6zHTKt7saVpATCSdrpF8SQa/YfMpmDAqhQ?=
+ =?us-ascii?q?X9rvotWU45spBlPOrZo4opdlclo4SOlFH0g6ht/jo9ofulKt0ngrkdb6XOP6?=
+ =?us-ascii?q?T+EcY+N9k+AnYLWK2Mb6+RLQCOuijS6UP9IrmK55o3+cT6Ya63IjZXo+EuRg?=
+ =?us-ascii?q?DV3GgtrlWH8OosmHhgtbwNWp7MikqCowdyxp1qHElDta7Ac0EbUgSSuO7dqy?=
+ =?us-ascii?q?3sOACFPCRD719gYI/QKzITlV8+xHQjsGve0J9dLGGOoxh6mbpW6avGvydbCY?=
+ =?us-ascii?q?YzaDIyHtGN0BCmHGhpaKhU2KD+IWH7Ef7459YEOosZb+08Hbv/cgGWxkTzEz?=
+ =?us-ascii?q?iTXIgHH6S01JI26T8gF8Q8OOA5ZywDKB9cdINjMX4UCNak2Tp+BcEXO2VtKi?=
+ =?us-ascii?q?Zit3i4eHnOzCVfURGtVKvnbE0oud9k5bZTsI/ld1Dnb5o+rnxeitoVL59Kdu?=
+ =?us-ascii?q?3ilvKH5JJ27VjDLgzPOHLEZ/tXBxx8+EMhWAxj8sefi1TnkbXkAOeUoX7eBQ?=
+ =?us-ascii?q?0lPYtlkARy+vQK7ExiFNLOSTrocCoEsDF554s0L6qaTyS90bYuW46WvqiRzf?=
+ =?us-ascii?q?oxXxfrSmdhimcI+0kfb7aWU+G2i4lSZpyDXFLw5wLjvx3JvnCWKYjnXvrIka?=
+ =?us-ascii?q?OzSLEcJB3u+Vs2PsauuR864xfWsEPOwIa/UJzQ37RtTAjL0IniZmYMUUTIyb?=
+ =?us-ascii?q?d/g6WMSZiwRpdGmPktpr1fjTzGeJopTKwAwydwF3L64txQ0lirNhRz/UgOx+?=
+ =?us-ascii?q?wviD55wVT+CA6z1x/5BiZbAFdGrpElorXzHQTCl0J6bi5yWuoi4DhtUN4xpm?=
+ =?us-ascii?q?v50nwrUF+1Syc/TBzglhYDfeI7T0dEa9GAm3ULnpb+JVN7KyZ8cfub2sUpGc?=
+ =?us-ascii?q?rEYjuNEnGjbBmYC00A+tVXCFzw4mUh5kNgEU9HEiFL43/cqlEkdMTPhhAh3S?=
+ =?us-ascii?q?fyKmRF6XXqzb5pWyCINOUjcmyyEosZbSuIyBcy/a4QXRHGMwSy/++G541dGh?=
+ =?us-ascii?q?/t/+2WVeJMkK2gSVxrcVajNq/K1C0aXKXWTMB16Re+uR8CGe2/gBPQ/636YO?=
+ =?us-ascii?q?aN3H8CKpQ3/SeqoZTC1z47J57lSaG4yr1SldR6kgyyAdiYVBq+RUXm14w0GA?=
+ =?us-ascii?q?deSX4PKNPeeIySd5ViSZHFWOiXtwXVcW7/QemVxh4tmmy6QGPUub/F+/wujk?=
+ =?us-ascii?q?23577D0cFpcOjZHp/TeQMzz7Q119D3uV1IAgxRTE/h8bZv3ugPaYUeycMMKn?=
+ =?us-ascii?q?0DcfuEFZ3SIRw3tpuYrgETlyCgVdQgrE0T4ZhKfDwNy1j+TliWtoYF9h7g0Q?=
+ =?us-ascii?q?vzBTJDA65Qu07g5U1KpnNjS5AdqnfCRb/qpqEzfU/+WC4ywI6LRrmdgRRBP6?=
+ =?us-ascii?q?vor6Pvgxicq2NIIxyC5t6kYtnksXLtw1ekGaNd09QlXDeIc8lkbdrtfhDY9Z?=
+ =?us-ascii?q?h8eox5slaGecvMp2W29xATm6vvjNkHAk+bbX3eAqFUHMjV41QePF/hGs8pGx?=
+ =?us-ascii?q?9vWZNtk2Qd5Y5u7AjTSSgdGiCuev/UjAvWVQTsnGDI6s6iEnDgeH8oE0xR5D?=
+ =?us-ascii?q?/+Rb75lxgxcEtOowIeGx1162XaFaxoCtCLshFXxsXLUp0ssTUvlHThB5t52d?=
+ =?us-ascii?q?s9AA0Ud0gzJjZKCX/ishaWGnn+S576LxlF0YWraq9HMAykph3+ZEiu/XRHjV?=
+ =?us-ascii?q?9QCWK9VYPPBSVM7l/rW73+LlMuGIqy7NGOB++gIRXUI7SuZiSubGPfOQGY5Z?=
+ =?us-ascii?q?R9AN6sXfLM6zF5a3nqfL/ZdshDjPLT49qrYK8XrsxPSBC2os1LYVhAMr9gkR?=
+ =?us-ascii?q?zGxAFjgARw8Tx8FTwt1XjoyGFqFTC5UT7ZRgCdrQAy15dSpg++jMM4TIcIdz?=
+ =?us-ascii?q?nz10VsJ/FwopocrCWXa00vUgyQpieKisk8Vt3gWqSJyyq28kHXdztTLzPqX/?=
+ =?us-ascii?q?XlxPpwybaIZrAI0bU37zc6QMavu6aJ+DgNVBkJGSZBCVspFAITAhIkwMyXxV?=
+ =?us-ascii?q?Sp0qHV3QRIerf3h+rdcUaOBLX05hnXeDtmU140yfA7+yZ2UbunxYA1XCaEtR?=
+ =?us-ascii?q?2O15+Co4IuBOqIG1hGzPdcWcja2Rt2G9aOVU4i0/wlg+s1Ga8IPlgVOD3yOU?=
+ =?us-ascii?q?9v1Fw8yYRRjjumOfK8Duhn9/At/yN2yrXzvSVdiRKvDt3va5wzZ9dAyjh7Z6?=
+ =?us-ascii?q?h5vSe5Y0+NMGdYUtvB3l7tX6Naf4rwYqTg0zA5B7fzKi4lSH1/aeAJn1UzTY?=
+ =?us-ascii?q?wQlrHeL5UeXRlS5lNCKLwp9z09cWILrF7uiGmLQdqRnJTD9OaZ5ZQGxYtEjm?=
+ =?us-ascii?q?60CYItJCnVw74mdsTmNeQ4YpuxJQg+o4+NXv7jhI8w9iM9RHoY2C7c5mA=3D?=
+ =?us-ascii?q?=3D?=
+X-IronPort-AV: E=Sophos;i="5.93,300,1654574400"; 
+   d="scan'208";a="80056515"
+Date: Thu, 8 Sep 2022 13:40:37 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, "Juergen
+ Gross" <jgross@suse.com>
+Subject: Re: [PATCH 2/3] xl/libxl: Add ability to specify SMBIOS strings
+Message-ID: <YxnixSEDEoYOlzfm@perard.uk.xensource.com>
+References: <20220810194827.103428-1-jandryuk@gmail.com>
+ <20220810194827.103428-3-jandryuk@gmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8277
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT039.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	3712c64b-3aa6-4791-d600-08da9195fd0a
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	IdU7RpL6gF2XOmqIjGst4hUGDEF+73UZg+ohsK6mYs5x12MPr0oGHvtJY1ngW2g4xwqNcIEB4MLhjGQJg8wPniE928hnbryQFwmQlkncYTJBQvm0P77ka0XDr4obTxAZkpso6KIwrMaW7RuJLqCmr/TLkKXiXU79K95wzhir9/Fh3G7/fVwHnpavQkF+ilknviJ0fm9zOfmkyzVEp7d2sSSqBoN6dqikFqwedE5LjEQij+H4MJICTvyZRDNKsHzLgCDeJK3mMMrTUKUH4h6P5URBcL+nvRbBoTFAe2cdcSUhZVTNLxOnkySfzgnwLcWQhEkxf4ojUejFQvgvLa30MmB07Fo0Wmk6zem2kL7ALCVM54FQPwJbxTjF6gEMaXrFpxR7RAd9EtoPZ6/VfL65r/XlsoUUnluiHY6j5gryhFYrKn75TrtlV42Y1ItBxwfgtmMMI+U7VhflZF6hrFQc99oZJ+LskYCK2JKHCO4KwfKYYw74VakZNjWik4XdMmFyjyQhwn1QOpQcmcGrbHJ0Tnp4S0SqqzJZRONvUHBeRosvH29Qvdi24VVKmxZERAYc0h5sOkgpHSuCtJzrA5d46D9OQ+Pii2qYlzCz7vB6xCu5uImsaBLBXmC+GGzM/7RtvmdqPMWM4y/5fE0HsCjUMccwP/VdMHRnLN6k8fBBxHZEP9BHNuAzOwRgfmROIIjaNKuW8iHPiIelgfa3c1hJZly4iIFbhww+cLfAn4Yc9AyW8Ic4IJ0+spQMoFLQZnsquaW7QeRCfpujQhimcxyrzQ==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230016)(4636009)(396003)(376002)(39860400002)(136003)(346002)(36840700001)(46966006)(40470700004)(70206006)(6862004)(5660300002)(8936002)(41300700001)(2616005)(33656002)(26005)(6512007)(53546011)(2906002)(40460700003)(82740400003)(40480700001)(86362001)(6506007)(36860700001)(82310400005)(186003)(70586007)(336012)(47076005)(81166007)(356005)(83380400001)(478600001)(6486002)(8676002)(54906003)(4326008)(316002)(36756003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 12:31:14.5344
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9e95a1c-daab-4411-9300-08da9196054d
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT039.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7993
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220810194827.103428-3-jandryuk@gmail.com>
 
-SGkgSmFuLA0KDQo+IE9uIDggU2VwIDIwMjIsIGF0IDE6MDMgcG0sIEphbiBCZXVsaWNoIDxqYmV1
-bGljaEBzdXNlLmNvbT4gd3JvdGU6DQo+IA0KPiBPbiAwOC4wOS4yMDIyIDEzOjQ5LCBSYWh1bCBT
-aW5naCB3cm90ZToNCj4+IGlzX21lbW9yeV9ob2xlIHdhcyBpbXBsZW1lbnRlZCBmb3IgeDg2IGFu
-ZCBub3QgZm9yIEFSTSB3aGVuIGludHJvZHVjZWQuDQo+PiBSZXBsYWNlIGlzX21lbW9yeV9ob2xl
-IGNhbGwgdG8gcGNpX2NoZWNrX2JhciBhcyBmdW5jdGlvbiBzaG91bGQgY2hlY2sNCj4+IGlmIGRl
-dmljZSBCQVIgaXMgaW4gZGVmaW5lZCBtZW1vcnkgcmFuZ2UuIEFsc28sIGFkZCBhbiBpbXBsZW1l
-bnRhdGlvbg0KPj4gZm9yIEFSTSB3aGljaCBpcyByZXF1aXJlZCBmb3IgUENJIHBhc3N0aHJvdWdo
-Lg0KPj4gDQo+PiBPbiB4ODYsIHBjaV9jaGVja19iYXIgd2lsbCBjYWxsIGlzX21lbW9yeV9ob2xl
-IHdoaWNoIHdpbGwgY2hlY2sgaWYgQkFSDQo+PiBpcyBub3Qgb3ZlcmxhcHBpbmcgd2l0aCBhbnkg
-bWVtb3J5IHJlZ2lvbiBkZWZpbmVkIGluIHRoZSBtZW1vcnkgbWFwLg0KPj4gDQo+PiBPbiBBUk0s
-IHBjaV9jaGVja19iYXIgd2lsbCBnbyB0aHJvdWdoIHRoZSBob3N0IGJyaWRnZSByYW5nZXMgYW5k
-IGNoZWNrDQo+PiBpZiB0aGUgQkFSIGlzIGluIHRoZSByYW5nZSBvZiBkZWZpbmVkIHJhbmdlcy4N
-Cj4+IA0KPj4gU2lnbmVkLW9mZi1ieTogUmFodWwgU2luZ2ggPHJhaHVsLnNpbmdoQGFybS5jb20+
-DQo+PiBBY2tlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPiAjIHg4NiwgY29t
-bW9uDQo+IA0KPiBGVEFPRDogSSBvYmplY3QgdG8gdGhpcyB0YWdnaW5nLCBhbmQgSSBkaWQgbm90
-IHByb3ZpZGUgdGhlIGFjayB3aXRoDQo+IHN1Y2ggdGFncy4gUXVvdGluZyBkb2NzL3Byb2Nlc3Mv
-c2VuZGluZy1wYXRjaGVzLnBhbmRvYzogIlRoZQ0KPiBgQWNrZWQtYnk6YCB0YWcgY2FuIG9ubHkg
-YmUgZ2l2ZW4gYnkgYSAqKm1haW50YWluZXIqKiBvZiB0aGUgbW9kaWZpZWQNCj4gY29kZSwgYW5k
-IGl0IG9ubHkgY292ZXJzIHRoZSBjb2RlIHRoZSBtYWludGFpbmVyIGlzIHJlc3BvbnNpYmxlIGZv
-ci4iDQo+IFRoZSBkb2MgcHJvdmlkZXMgZm9yIHRhZ2dpbmcgaGVyZSwgeWVzLCBidXQgc3VjaCBz
-aG91bGQgb25seSBiZSB1c2VkDQo+IGZvciB0aGUgdW51c3VhbCBjYXNlIG9mIGFuIGFjayByZXN0
-cmljdGVkIHRvIGxlc3MgdGhhbiB3aGF0IGENCj4gcGVyc29uJ3MgbWFpbnRhaW5lcnNoaXAgY292
-ZXJzLiBPdGhlcndpc2Ugd2UnZCBlbmQgdXAgc2VlaW5nIG92ZXJseQ0KPiBtYW55IHRhZ2dlZCBh
-Y2tzLiAoUmVjYWxsIHRoYXQgdGFnZ2VkIFItYiBpcyBhbHNvIGV4cGVjdGVkIHRvIGJlIHRoZQ0K
-PiBleGNlcHRpb24sIG5vdCB0aGUgY29tbW9uIGNhc2UuKQ0KPiANCg0KT2suIEkgd2lsbCByZW1v
-dmUg4oCcIyB4ODYsIGNvbW1vbuKAnSAgaWYgSSBnZXQgY29tbWVudHMgb24gdGhpcyBwYXRjaA0K
-YW5kIHRoZXJlIGlzIGEgbmVlZCBmb3IgdGhlIHRoZSBuZXh0IHZlcnNpb24sIG90aGVyd2lzZSwg
-SSBzdWdnZXN0DQp0aGF0IHRoZSBjb21taXR0ZXIgY2FuIHJlbW92ZSB0aGlzIHdoaWxlIGNvbW1p
-dHRpbmcgdGhlIHBhdGNoLiANCg0KUmVnYXJkcywNClJhaHVsDQoNCg0K
+On Wed, Aug 10, 2022 at 03:48:26PM -0400, Jason Andryuk wrote:
+> hvm_xs_strings.h specifies xenstore entries which can be used to set or
+> override smbios strings.  hvmloader has support for reading them, but
+> xl/libxl support is not wired up.
+> 
+> Allow specifying the strings with the new xl.cfg option:
+> smbios=["bios_vendor=Xen Project","system_version=1.0"]
+> 
+> In terms of strings, the SMBIOS specification 3.5 says:
+> https://www.dmtf.org/sites/default/files/standards/documents/DSP0134_3.5.0.pdf
+> """
+> Strings must be encoded as UTF-8 with no byte order mark (BOM). For
+> compatibility with older SMBIOS parsers, US-ASCII characters should be
+> used.  NOTE There is no limit on the length of each individual text
+> string. However, the length of the entire structure table (including all
+> strings) must be reported in the Structure Table Length field of the
+> 32-bit Structure Table Entry Point (see 5.2.1) and/or the Structure
+> Table Maximum Size field of the 64-bit Structure Table Entry Point (see
+> 5.2.2).
+> """
+> 
+> The strings aren't checked for utf-8 or length.  hvmloader has a sanity
+> check on the overall length.
+> 
+> The libxl_smbios_type enum starts at 1 since otherwise the 0th key is
+> not printed in the json output.
+> 
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
+> The rendered man page and html don't have a newline at then end of the
+> new section.
+> """
+>            battery_device_name=STRING
+>        ms_vm_genid="OPTION"
+> """
+> 
+> however the txt format is correct:
+> """
+>         battery_device_name=STRING
+> 
+>     ms_vm_genid="OPTION"
+> """
+> 
+> I'm at a loss as to why this is happening.
+
+Maybe it's because =back just cancel =over, and pod2man just keeps going
+as if it's the same list. Adding some text for the =item or after =back
+would help, but that's done in the next patch, so I guess we can live
+with that for one commit.
+
+> ---
+> diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+> index 2abaab439c..9034933ea8 100644
+> --- a/tools/libs/light/libxl_dom.c
+> +++ b/tools/libs/light/libxl_dom.c
+> @@ -771,6 +771,26 @@ static int hvm_build_set_xs_values(libxl__gc *gc,
+>              goto err;
+>      }
+>  
+> +    for (int i = 0; i < info->u.hvm.num_smbios; i++) {
+> +        char *p;
+> +        path = GCSPRINTF("/local/domain/%d/"HVM_XS_BIOS_STRINGS"/%s", domid,
+> +                   libxl_smbios_type_to_string(info->u.hvm.smbios[i].key));
+> +
+> +        /* libxl defines are all "_", but the HVM_XS_ strings are "-". */
+
+"libxl defines are all "_"" seems a bit weird to me as a comment in
+the source code, maybe a better comment would the conversion we need to
+do, something like:
+
+    Convert libxl_smbios_type string to xenstore path that hvmloader
+    will use, as defined by HVM_XS_*. That is convert the '_' to '-'.
+
+> +        p = strrchr(path, '/');
+> +        for ( ; *p; p++) {
+> +            if (*p == '_')
+> +                *p = '-';
+> +        }
+> +
+> +        LOGD(DEBUG, domid, "Writing %d %s %s\n", i, path,
+
+I don't think printing the value of i would be useful here. Also adding
+a '=' before the value and putting the value between double-quote would
+be a bit better.
+
+> +             info->u.hvm.smbios[i].value);
+> +        ret = libxl__xs_printf(gc, XBT_NULL, path, "%s",
+> +                               info->u.hvm.smbios[i].value);
+> +        if (ret)
+> +            goto err;
+> +    }
+> +
+>      /* Only one module can be passed. PVHv2 guests do not support this. */
+>      if (dom->acpi_modules[0].guest_addr_out && 
+>          info->type == LIBXL_DOMAIN_TYPE_HVM) {
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index 1b5381cef0..4f3f962773 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -1220,8 +1220,9 @@ void parse_config_data(const char *config_source,
+>      XLU_ConfigList *cpus, *vbds, *nics, *pcis, *cvfbs, *cpuids, *vtpms,
+>                     *usbctrls, *usbdevs, *p9devs, *vdispls, *pvcallsifs_devs;
+>      XLU_ConfigList *channels, *ioports, *irqs, *iomem, *viridian, *dtdevs,
+> -                   *mca_caps;
+> +                   *mca_caps, *smbios;
+>      int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps;
+> +    int num_smbios;
+>      int pci_power_mgmt = 0;
+>      int pci_msitranslate = 0;
+>      int pci_permissive = 0;
+> @@ -1783,6 +1784,47 @@ void parse_config_data(const char *config_source,
+>          xlu_cfg_replace_string(config, "acpi_firmware",
+>                                 &b_info->u.hvm.acpi_firmware, 0);
+>  
+> +        switch (xlu_cfg_get_list(config, "smbios", &smbios, &num_smbios, 0))
+> +        {
+> +        case 0: /* Success */
+> +            b_info->u.hvm.num_smbios = num_smbios;
+> +            b_info->u.hvm.smbios = xcalloc(num_smbios, sizeof(libxl_smbios));
+> +            for (i = 0; i < num_smbios; i++) {
+> +                char *option_untrimmed, *value_untrimmed;
+> +                char *option, *value;
+> +                libxl_smbios_type v;
+> +
+> +                buf = xlu_cfg_get_listitem(smbios, i);
+> +                if (!buf) continue;
+
+Isn't this an error? It seems that xlu_cfg_get_listitem would return 0
+if 'i' is outside of the array or if the value isn't a string. I think
+it would also mean that "smbios[i].key" and ".value" would have
+uninitialized value and potentially garbage.
+
+> +
+> +                if (split_string_into_pair(buf, "=",
+> +                                           &option_untrimmed,
+> +                                           &value_untrimmed)) {
+> +                    fprintf(stderr, "xl: failed to split \"%s\" into pair\n",
+> +                            buf);
+> +                    exit(EXIT_FAILURE);
+> +                }
+> +                trim(isspace, option_untrimmed, &option);
+> +                trim(isspace, value_untrimmed, &value);
+
+I think you could free "option_untrimmed" and "value_untrimmed", as
+"option" and "value" are newly allocated strings. Also, "option" won't
+be needed after it's been converted to an enum value.
+> +
+> +                e = libxl_smbios_type_from_string(option, &v);
+> +                if (e) {
+> +                    fprintf(stderr,
+> +                            "xl: unknown smbios type '%s'\n",
+> +                            buf);
+> +                    exit(-ERROR_FAIL);
+> +                }
+> +
+> +                b_info->u.hvm.smbios[i].key = v;
+> +                b_info->u.hvm.smbios[i].value = value;
+> +            }
+> +            break;
+> +        case ESRCH: break; /* Option not present */
+
+Could you move the "break" to a new line? It will make it easier to read
+that ESRCH is just ignore instead of throwing an error.
+
+> +        default:
+> +            fprintf(stderr,"xl: Unable to parse smbios options.\n");
+> +            exit(-ERROR_FAIL);
+> +        }
+> +
+>          if (!xlu_cfg_get_string(config, "ms_vm_genid", &buf, 0)) {
+>              if (!strcmp(buf, "generate")) {
+>                  e = libxl_ms_vm_genid_generate(ctx, &b_info->u.hvm.ms_vm_genid);
+
+Thanks,
+
+-- 
+Anthony PERARD
 
