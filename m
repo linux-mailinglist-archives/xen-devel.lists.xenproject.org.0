@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36DFA5B10BD
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 02:04:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.402386.644315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E76CB5B10DD
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 02:17:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.402393.644327 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oW527-0006k3-OK; Thu, 08 Sep 2022 00:04:39 +0000
+	id 1oW5De-0008QQ-PO; Thu, 08 Sep 2022 00:16:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 402386.644315; Thu, 08 Sep 2022 00:04:39 +0000
+Received: by outflank-mailman (output) from mailman id 402393.644327; Thu, 08 Sep 2022 00:16:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oW527-0006hN-LK; Thu, 08 Sep 2022 00:04:39 +0000
-Received: by outflank-mailman (input) for mailman id 402386;
- Thu, 08 Sep 2022 00:04:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oW5De-0008OZ-Mm; Thu, 08 Sep 2022 00:16:34 +0000
+Received: by outflank-mailman (input) for mailman id 402393;
+ Thu, 08 Sep 2022 00:16:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5KOk=ZL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oW525-0006hH-Or
- for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 00:04:37 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d1f803e3-2f09-11ed-af93-0125da4c0113;
- Thu, 08 Sep 2022 02:04:36 +0200 (CEST)
+ id 1oW5Dd-0008OT-Hi
+ for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 00:16:33 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7d52aabe-2f0b-11ed-a016-b9edf5238543;
+ Thu, 08 Sep 2022 02:16:31 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B5EA161AF6;
- Thu,  8 Sep 2022 00:04:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E32C433D6;
- Thu,  8 Sep 2022 00:04:32 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id AEE7AB81110;
+ Thu,  8 Sep 2022 00:16:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E519C433C1;
+ Thu,  8 Sep 2022 00:16:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,409 +43,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1f803e3-2f09-11ed-af93-0125da4c0113
+X-Inumbo-ID: 7d52aabe-2f0b-11ed-a016-b9edf5238543
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662595473;
-	bh=WuJ/YmjFPn5a9bGusS+aVpZiKksiledTSxHUyfiofpQ=;
+	s=k20201202; t=1662596189;
+	bh=oYKg/saTj3ss1K5fYPVkjbSJ1tvBQgbzWpCBEPUmWkM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=t421Rf5FMOE9vt7oWiDO68Uu+6L3UFyY/irmAzBmTm6HlLBgYRu6QtHZKLRrFOYda
-	 6YSEqFlN2fJKy0RWlYr3hWsLN9QPpzucGCgR+DcwSy5zjJMuuamnf5gbhyP4hJCHse
-	 oxlg+aQxMRJld94JCRi/4ZD7m/+6UzipT6ncYEJ+tzv6gn2G7LL4D9CLDIjvzWJAVQ
-	 OibdHFZHvupLWn9Py6TLbMng2yL/LeiSRSBXjkHdW6pHPeRpG2aHPXVu9Ws1DyZFr8
-	 QSQITWxpJcz+SQ/b3wxa9pLgJGNXYAtjfpeInJ7HSpUpLenj9gMi/27elLjHvdNNdx
-	 c4WVj9nEU4x5Q==
-Date: Wed, 7 Sep 2022 17:04:31 -0700 (PDT)
+	b=XMjOTW54rayu7IJn0vGAczu7fvV2REK/4nknD3jN24yPAUDm9jhdcpfGoExU3Jlec
+	 m9UOwkp7NuQVPWsY3H/scIp7Mrfm3XuUtNz04nVS5iFuT4pwztJQvkDdfg3fSO1Ecq
+	 6L0mCSDSDarhKfFuxcR/xnx2wUs+fhRD9z0GIxsxJJ6/HhFjPYMo2WwRr6rPDyXV4M
+	 3vVZMVo1sRbnJuGpsyFJQVHKIhPLyR77msD+g71fBve3OJWc2PZPauBw5iwm9XeSUP
+	 AQgTlVIScJ1sNqO//iHFM5DxudeDPqlrM/iTGvdD2fSFiC0sXVYekaaSwHtABQTzP9
+	 LX1d+OYfSpSWQ==
+Date: Wed, 7 Sep 2022 17:16:27 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+To: Julien Grall <julien@xen.org>
+cc: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org, 
+    wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v5 7/7] xen/arm: introduce xen-evtchn dom0less property
-In-Reply-To: <f56939423b0b2d9330ff5e88f5f52e5a538f52d0.1662563170.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2209071704180.157835@ubuntu-linux-20-04-desktop>
-References: <cover.1662563170.git.rahul.singh@arm.com> <f56939423b0b2d9330ff5e88f5f52e5a538f52d0.1662563170.git.rahul.singh@arm.com>
+Subject: Re: [PATCH v7 7/9] xen/arm: create shared memory nodes in guest
+ device tree
+In-Reply-To: <ca8eeff8-f40f-0cf9-bde3-a733b61e3712@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2209071710470.157835@ubuntu-linux-20-04-desktop>
+References: <20220906085941.944592-1-Penny.Zheng@arm.com> <20220906085941.944592-8-Penny.Zheng@arm.com> <ca8eeff8-f40f-0cf9-bde3-a733b61e3712@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 7 Sep 2022, Rahul Singh wrote:
-> Introduce a new sub-node under /chosen node to establish static event
-> channel communication between domains on dom0less systems.
+On Wed, 7 Sep 2022, Julien Grall wrote:
+> On 06/09/2022 09:59, Penny Zheng wrote:
+> > We expose the shared memory to the domU using the "xen,shared-memory-v1"
+> > reserved-memory binding. See
+> > Documentation/devicetree/bindings/reserved-memory/xen,shared-memory.txt
+> > in Linux for the corresponding device tree binding.
+> > 
+> > To save the cost of re-parsing shared memory device tree configuration when
+> > creating shared memory nodes in guest device tree, this commit adds new
+> > field
+> > "shm_mem" to store shm-info per domain.
+> > 
+> > For each shared memory region, a range is exposed under
+> > the /reserved-memory node as a child node. Each range sub-node is
+> > named xen-shmem@<address> and has the following properties:
+> > - compatible:
+> >          compatible = "xen,shared-memory-v1"
+> > - reg:
+> >          the base guest physical address and size of the shared memory
+> > region
+> > - xen,id:
+> >          a string that identifies the shared memory region.
 > 
-> An event channel will be created beforehand to allow the domains to
-> send notifications to each other.
+> So technically, there is a property "xen,offset" that should be specified for
+> the borrowers.
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-
-For the DT binding:
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> Changes in v5:
->  - fix minor comments
-> Changes in v4:
->  - move documentation to common place for evtchn node in booting.txt
->  - Add comment why we use dt_device_static_evtchn_created()
->  - check if dt_get_parent() returns NULL
->  - fold process_static_evtchn_node() in alloc_static_evtchn()
-> Changes in v3:
->  - use device-tree used_by to find the domain id of the evtchn node.
->  - add new static_evtchn_create variable in struct dt_device_node to
->    hold the information if evtchn is already created.
->  - fix minor comments
-> Changes in v2:
->  - no change
-> ---
-> ---
->  docs/misc/arm/device-tree/booting.txt |  98 +++++++++++++++++
->  xen/arch/arm/domain_build.c           | 147 ++++++++++++++++++++++++++
->  xen/arch/arm/include/asm/setup.h      |   1 +
->  xen/arch/arm/setup.c                  |   2 +
->  xen/include/xen/device_tree.h         |  16 +++
->  5 files changed, 264 insertions(+)
+> TBH, I don't quite understand what this property is used for. So it is not
+> quite clear why this is skipped.
 > 
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index 47567b3906..e03e5e9e4c 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -382,3 +382,101 @@ device-tree:
->  
->  This will reserve a 512MB region starting at the host physical address
->  0x30000000 to be exclusively used by DomU1.
-> +
-> +Static Event Channel
-> +====================
-> +The event channel communication will be established statically between two
-> +domains (dom0 and domU also). Event channel connection information between
-> +domains will be passed to Xen via the device tree node. The event channel
-> +will be created and established in Xen before the domain started. The domain
-> +does not need to do any operation to establish a connection. Domain only
-> +needs hypercall EVTCHNOP_send(local port) to send notifications to the
-> +remote guest.
-> +
-> +There is no need to describe the static event channel info in the domU device
-> +tree. Static event channels are only useful in fully static configurations,
-> +and in those configurations, the domU device tree dynamically generated by Xen
-> +is not needed.
-> +
-> +To enable the event-channel interface for domU guests include the
-> +xen,enhanced = "no-xenstore" property in the domU Xen device tree node.
-> +
-> +Under the "xen,domain" compatible node for domU, there needs to be sub-nodes
-> +with compatible "xen,evtchn" that describe the event channel connection
-> +between two domUs. For dom0, there needs to be sub-nodes with compatible
-> +"xen,evtchn" under the chosen node.
-> +
-> +The static event channel node has the following properties:
-> +
-> +- compatible
-> +
-> +    "xen,evtchn"
-> +
-> +- xen,evtchn
-> +
-> +    The property is tuples of two numbers
-> +    (local-evtchn link-to-foreign-evtchn) where:
-> +
-> +    local-evtchn is an integer value that will be used to allocate local port
-> +    for a domain to send and receive event notifications to/from the remote
-> +    domain. Maximum supported value is 2^17 for FIFO ABI and 4096 for 2L ABI.
-> +    It is recommended to use low event channel IDs.
-> +
-> +    link-to-foreign-evtchn is a single phandle to a remote evtchn to which
-> +    local-evtchn will be connected.
-> +
-> +Example
-> +=======
-> +
-> +chosen {
-> +
-> +    /* One sub-node per local event channel. This sub-node is for Dom0. */
-> +    ec1: evtchn@1 {
-> +         compatible = "xen,evtchn-v1";
-> +         /* local-evtchn link-to-foreign-evtchn */
-> +         xen,evtchn = <0xa &ec2>;
-> +    };
-> +
-> +    domU1 {
-> +        compatible = "xen,domain";
-> +        #address-cells = <0x2>;
-> +        #size-cells = <0x1>;
-> +        xen,enhanced = "no-xenstore";
-> +
-> +        /* One sub-node per local event channel */
-> +        ec2: evtchn@2 {
-> +            compatible = "xen,evtchn-v1";
-> +            /* local-evtchn link-to-foreign-evtchn */
-> +            xen,evtchn = <0xa &ec1>;
-> +        };
-> +
-> +        ec3: evtchn@3 {
-> +            compatible = "xen,evtchn-v1";
-> +            xen,evtchn = <0xb &ec5>;
-> +        };
-> +
-> +        ec4: evtchn@4 {
-> +            compatible = "xen,evtchn-v1";
-> +            xen,evtchn = <0xc &ec6>;
-> +        };
-> +    };
-> +
-> +    domU2 {
-> +        compatible = "xen,domain";
-> +        #address-cells = <0x2>;
-> +        #size-cells = <0x1>;
-> +        xen,enhanced = "no-xenstore";
-> +
-> +        /* One sub-node per local event channel */
-> +        ec5: evtchn@5 {
-> +            compatible = "xen,evtchn-v1";
-> +            /* local-evtchn link-to-foreign-evtchn */
-> +            xen,evtchn = <0xb &ec3>;
-> +        };
-> +
-> +        ec6: evtchn@6 {
-> +            compatible = "xen,evtchn-v1";
-> +            xen,evtchn = <0xd &ec4>;
-> +        };
-> +    };
-> +};
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 580ed70b9c..1a59bd7e29 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -33,6 +33,8 @@
->  #include <xen/grant_table.h>
->  #include <xen/serial.h>
->  
-> +#define STATIC_EVTCHN_NODE_SIZE_CELLS 2
-> +
->  static unsigned int __initdata opt_dom0_max_vcpus;
->  integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
->  
-> @@ -3052,6 +3054,150 @@ void __init evtchn_allocate(struct domain *d)
->      d->arch.hvm.params[HVM_PARAM_CALLBACK_IRQ] = val;
->  }
->  
-> +static int __init get_evtchn_dt_property(const struct dt_device_node *np,
-> +                                         uint32_t *port, uint32_t *phandle)
-> +{
-> +    const __be32 *prop = NULL;
-> +    uint32_t len;
-> +
-> +    prop = dt_get_property(np, "xen,evtchn", &len);
-> +    if ( !prop )
-> +    {
-> +        printk(XENLOG_ERR "xen,evtchn property should not be empty.\n");
-> +        return -EINVAL;
-> +    }
-> +
-> +    if ( !len || len < dt_cells_to_size(STATIC_EVTCHN_NODE_SIZE_CELLS) )
-> +    {
-> +        printk(XENLOG_ERR "xen,evtchn property value is not valid.\n");
-> +        return -EINVAL;
-> +    }
-> +
-> +    *port = dt_next_cell(1, &prop);
-> +    *phandle = dt_next_cell(1, &prop);
-> +
-> +    return 0;
-> +}
-> +
-> +static int __init alloc_domain_evtchn(struct dt_device_node *node)
-> +{
-> +    int rc;
-> +    uint32_t domU1_port, domU2_port, remote_phandle;
-> +    struct dt_device_node *remote_node;
-> +    const struct dt_device_node *p1_node, *p2_node;
-> +    struct evtchn_alloc_unbound alloc_unbound;
-> +    struct evtchn_bind_interdomain bind_interdomain;
-> +    struct domain *d1 = NULL, *d2 = NULL;
-> +
-> +    if ( !dt_device_is_compatible(node, "xen,evtchn-v1") )
-> +        return 0;
-> +
-> +    /*
-> +     * Event channel is already created while parsing the other side of
-> +     * evtchn node.
-> +     */
-> +    if ( dt_device_static_evtchn_created(node) )
-> +        return 0;
-> +
-> +    rc = get_evtchn_dt_property(node, &domU1_port, &remote_phandle);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    remote_node = dt_find_node_by_phandle(remote_phandle);
-> +    if ( !remote_node )
-> +    {
-> +        printk(XENLOG_ERR
-> +                "evtchn: could not find remote evtchn phandle\n");
-> +        return -EINVAL;
-> +    }
-> +
-> +    rc = get_evtchn_dt_property(remote_node, &domU2_port, &remote_phandle);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( node->phandle != remote_phandle )
-> +    {
-> +        printk(XENLOG_ERR "xen,evtchn property is not setup correctly.\n");
-> +        return -EINVAL;
-> +    }
-> +
-> +    p1_node = dt_get_parent(node);
-> +    if ( !p1_node )
-> +    {
-> +        printk(XENLOG_ERR "evtchn: evtchn parent node is NULL\n" );
-> +        return -EINVAL;
-> +    }
-> +
-> +    p2_node = dt_get_parent(remote_node);
-> +    if ( !p2_node )
-> +    {
-> +        printk(XENLOG_ERR "evtchn: remote parent node is NULL\n" );
-> +        return -EINVAL;
-> +    }
-> +
-> +    d1 = get_domain_by_id(p1_node->used_by);
-> +    d2 = get_domain_by_id(p2_node->used_by);
-> +
-> +    if ( !d1 || !d2 )
-> +    {
-> +        printk(XENLOG_ERR "evtchn: could not find domains\n" );
-> +        return -EINVAL;
-> +    }
-> +
-> +    alloc_unbound.dom = d1->domain_id;
-> +    alloc_unbound.remote_dom = d2->domain_id;
-> +
-> +    rc = evtchn_alloc_unbound(&alloc_unbound, domU1_port);
-> +    if ( rc < 0 )
-> +    {
-> +        printk(XENLOG_ERR
-> +                "evtchn_alloc_unbound() failure (Error %d) \n", rc);
-> +        return rc;
-> +    }
-> +
-> +    bind_interdomain.remote_dom  = d1->domain_id;
-> +    bind_interdomain.remote_port = domU1_port;
-> +
-> +    rc = evtchn_bind_interdomain(&bind_interdomain, d2, domU2_port);
-> +    if ( rc < 0 )
-> +    {
-> +        printk(XENLOG_ERR
-> +                "evtchn_bind_interdomain() failure (Error %d) \n", rc);
-> +        return rc;
-> +    }
-> +
-> +    dt_device_set_static_evtchn_created(node);
-> +    dt_device_set_static_evtchn_created(remote_node);
-> +
-> +    return 0;
-> +}
-> +
-> +void __init alloc_static_evtchn(void)
-> +{
-> +    struct dt_device_node *node, *evtchn_node;
-> +    struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
-> +
-> +    BUG_ON(chosen == NULL);
-> +
-> +    if ( hardware_domain )
-> +        dt_device_set_used_by(chosen, hardware_domain->domain_id);
-> +
-> +    dt_for_each_child_node(chosen, node)
-> +    {
-> +        if ( hardware_domain )
-> +        {
-> +            if ( alloc_domain_evtchn(node) != 0 )
-> +                panic("Could not set up domains evtchn\n");
-> +        }
-> +
-> +        dt_for_each_child_node(node, evtchn_node)
-> +        {
-> +            if ( alloc_domain_evtchn(evtchn_node) != 0 )
-> +                panic("Could not set up domains evtchn\n");
-> +        }
-> +    }
-> +}
-> +
->  static void __init find_gnttab_region(struct domain *d,
->                                        struct kernel_info *kinfo)
->  {
-> @@ -3369,6 +3515,7 @@ void __init create_domUs(void)
->              panic("Error creating domain %s\n", dt_node_name(node));
->  
->          d->is_console = true;
-> +        dt_device_set_used_by(node, d->domain_id);
->  
->          if ( construct_domU(d, node) != 0 )
->              panic("Could not set up domain %s\n", dt_node_name(node));
-> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-> index 5815ccf8c5..5ee28b270f 100644
-> --- a/xen/arch/arm/include/asm/setup.h
-> +++ b/xen/arch/arm/include/asm/setup.h
-> @@ -106,6 +106,7 @@ int acpi_make_efi_nodes(void *fdt, struct membank tbl_add[]);
->  
->  void create_domUs(void);
->  void create_dom0(void);
-> +void alloc_static_evtchn(void);
->  
->  void discard_initial_modules(void);
->  void fw_unreserved_regions(paddr_t s, paddr_t e,
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 7814fe323d..909013992e 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -1078,6 +1078,8 @@ void __init start_xen(unsigned long boot_phys_offset,
->      if ( acpi_disabled )
->          create_domUs();
->  
-> +    alloc_static_evtchn();
-> +
->      /*
->       * This needs to be called **before** heap_init_late() so modules
->       * will be scrubbed (unless suppressed).
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index 430a1ef445..a28937d12a 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -92,6 +92,10 @@ struct dt_device_node {
->  
->      /* IOMMU specific fields */
->      bool is_protected;
-> +
-> +    /* HACK: Remove this if there is a need of space */
-> +    bool_t static_evtchn_created;
-> +
->      /*
->       * The main purpose of this list is to link the structure in the list
->       * of devices assigned to domain.
-> @@ -317,6 +321,18 @@ static inline bool_t dt_property_name_is_equal(const struct dt_property *pp,
->      return !dt_prop_cmp(pp->name, name);
->  }
->  
-> +static inline void
-> +dt_device_set_static_evtchn_created(struct dt_device_node *device)
-> +{
-> +    device->static_evtchn_created = true;
-> +}
-> +
-> +static inline bool_t
-> +dt_device_static_evtchn_created(const struct dt_device_node *device)
-> +{
-> +    return device->static_evtchn_created;
-> +}
-> +
->  /**
->   * dt_find_compatible_node - Find a node based on type and one of the
->   *                           tokens in its "compatible" property
-> -- 
-> 2.25.1
-> 
+> The Stefano is the author of the binding. So maybe he can explain the purpose
+> of the property and help to document it in the commit message why this is
+> ignored.
+
+It looks like it is something we introduced to handle the case where
+memory from the owner is shared with multiple borrowers. Each borrower
+would have its own offset within the region shared by the owner:
+
+https://marc.info/?l=xen-devel&m=154110446604365&w=2
+
+
+The use-case is a bit of a corner case but it looks valid. If I had to
+do it now, I would at least mark "xen,offset" as "optional".
+
+I think we have two options here and I am happy with either one:
+
+1) we add xen,offset = <0x0>;
+
+2) we do *not* add xen,offset and instead send a patch to the LKML to
+fix
+Documentation/devicetree/bindings/reserved-memory/xen,shared-memory.txt
+so that it clearly states that xen,offset is optional. I don't know if
+Rob would accept such a patch without changing the version in the
+compatible string.
+
+Given the release deadline, I would go with 1). We can always remove it
+once it becomes clearly optional.
 
