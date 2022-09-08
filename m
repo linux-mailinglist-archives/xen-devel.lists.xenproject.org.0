@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 569245B28AB
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 23:41:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.403648.645809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EAD85B28AC
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 23:42:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.403657.645822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWPGq-0006mn-RV; Thu, 08 Sep 2022 21:41:12 +0000
+	id 1oWPHw-0007PX-Af; Thu, 08 Sep 2022 21:42:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 403648.645809; Thu, 08 Sep 2022 21:41:12 +0000
+Received: by outflank-mailman (output) from mailman id 403657.645822; Thu, 08 Sep 2022 21:42:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWPGq-0006jt-Ng; Thu, 08 Sep 2022 21:41:12 +0000
-Received: by outflank-mailman (input) for mailman id 403648;
- Thu, 08 Sep 2022 21:41:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oWPGp-0006ji-3h
- for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 21:41:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oWPGo-00013l-5a; Thu, 08 Sep 2022 21:41:10 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oWPGn-0006JN-Uo; Thu, 08 Sep 2022 21:41:10 +0000
+	id 1oWPHw-0007Mu-7m; Thu, 08 Sep 2022 21:42:20 +0000
+Received: by outflank-mailman (input) for mailman id 403657;
+ Thu, 08 Sep 2022 21:42:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J4jV=ZL=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1oWPHv-0007Me-5M
+ for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 21:42:19 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1c6cde20-2fbf-11ed-a31c-8f8a9ae3403f;
+ Thu, 08 Sep 2022 23:42:18 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id m1so26345503edb.7
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Sep 2022 14:42:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,67 +39,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=pFmerkRVZFcdzCBqZoAQjDtRhdotPXWqaexG/PxU94c=; b=Q1gex/ZmFkL9KQvkWUy+lJTWqs
-	L4K6JGYuuywWQwIupU8JJYxkRIXOQer44/8Bc98/Kk0VGbIKDHG+RpBke/s4Ix01d/3TBOyQHheCz
-	dif5T7/q4vnNkYw7RZ/qk2xQ6tW+4+x+g0G0aKKWn4EDtZBNP6oLJJOIyaDXpzbnkmS4=;
-Message-ID: <d30ba7f3-b3c0-1555-f74c-acb4b8c67789@xen.org>
-Date: Thu, 8 Sep 2022 22:41:07 +0100
+X-Inumbo-ID: 1c6cde20-2fbf-11ed-a31c-8f8a9ae3403f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=43LjiARxRil0ORnjLMo8kfDU6oXaHD6Zps3OhjmUekk=;
+        b=AP8uMklTFs8KnCcezXkSTWLw/AAV0qazAwxILW5cMjvDFIW7tBEHp4W7Xh5AToclbm
+         xV9xwQ8xcLFGUaBSzM8IHrvJCmvo5eeN28ILoiupMVCPpWawI84GXeXha8lAM2WEGQIP
+         83HbY/XHQRm8B4MvqNmH2h1CG9aCpWCzDRjWi4rKoj2RDsFDezRd3QxYH9rqzt0kKHUI
+         swGQ3pijsZNCSm1ZQOtYSivansCguHp3h2vOkkqG9UdCHu7b6ACs6yOV8WIRcBOMZYBG
+         TKG77P1gDgQ6dESNhSavPJLI7qY5b5Jbi7FRTo28d0BkyjP8NG4msGGMbDwHibd8yFQz
+         Kp7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=43LjiARxRil0ORnjLMo8kfDU6oXaHD6Zps3OhjmUekk=;
+        b=YtKAYy6D7O+GT+wLcpbKwEApvltSa84RktjyQ5QvA5ZOseGHbKIYTQ3FMxJJAXLtHG
+         eLiuB9m4zTJvheIJR0oIdVGoGUAIMiL07PwBJ4WqsrqxDjY/vPCoJrADfktvEE3CeEWO
+         5xhSfKYB9pljdlJJ3MNN6Ek3xr+Fl6rHpDBp13xE5D3GQ4qiQnneoVslMsCo7aO7unXk
+         gA3Ev3VQuLToe3bpMlXIzgcliBD864B+M6zitaYU/fbSxlr6pg5wgP5FcZ1i7b9hoE2X
+         Jzm7TTJIJEraoCQ1lBGjo/6t4zUuqY6Br1f0xw0WoDoK94Uwo8i2NB1adDvS6c6pBKke
+         SlaA==
+X-Gm-Message-State: ACgBeo3SYBqRWrNq2bjpIeGj+h5rHw85AfAaf5aUoZNY5zz3/wpBmDoU
+	+jNjL0th7P5/RyHvIo9rBv1w33BfNW5/k818DUOdp6T1
+X-Google-Smtp-Source: AA6agR6KCZvJabkxJ1gmHWKRAaPFdDL6ePGXqg8Nqc0PTtUUgyGOIh/SywXaz80QGsU23QhbWqEossy0SF85oG69TXQ=
+X-Received: by 2002:a05:6402:2712:b0:448:e383:1f37 with SMTP id
+ y18-20020a056402271200b00448e3831f37mr8966169edd.375.1662673337264; Thu, 08
+ Sep 2022 14:42:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Rahul Singh <rahul.singh@arm.com>
-Cc: xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>
-References: <cover.1662637415.git.rahul.singh@arm.com>
- <63a0010c1e0f6ffb86fce35e188d66bf4c0d57e7.1662637415.git.rahul.singh@arm.com>
- <alpine.DEB.2.22.394.2209081350530.157835@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v5 2/2] xen/pci: replace call to is_memory_hole to
- pci_check_bar
-In-Reply-To: <alpine.DEB.2.22.394.2209081350530.157835@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20220908195113.218201-1-jandryuk@gmail.com> <20220908195113.218201-3-jandryuk@gmail.com>
+In-Reply-To: <20220908195113.218201-3-jandryuk@gmail.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 8 Sep 2022 17:42:06 -0400
+Message-ID: <CAKf6xptMiCArNmpzDs_ekemNiNOfFo21KkvpGLr4SY6MNnjeLw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] xl/libxl: Add ability to specify SMBIOS strings
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, 
+	Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Stefano,
+On Thu, Sep 8, 2022 at 3:51 PM Jason Andryuk <jandryuk@gmail.com> wrote:
 
-On 08/09/2022 21:59, Stefano Stabellini wrote:
->> +/*
->> + * TODO: BAR addresses and Root Complex window addresses are not guaranteed
->> + * to be page aligned. We should check for alignment but this is not the
->> + * right place for alignment check.
->> + */
->> +static int is_bar_valid(const struct dt_device_node *dev,
->> +                        uint64_t addr, uint64_t len, void *data)
->> +{
->> +    struct pdev_bar_check *bar_data = data;
->> +    unsigned long s = bar_data->start;
->> +    unsigned long e = bar_data->end;
->> +
->> +    if ( (s >= addr) && (e <= (addr + len - 1)) )
->> +        bar_data->is_valid =  true;
-> 
-> "s" and "e" are "unsigned long" while "addr" and "len" are uint64_t. Is
-> that OK?
+> @@ -1783,6 +1784,57 @@ void parse_config_data(const char *config_source,
+>          xlu_cfg_replace_string(config, "acpi_firmware",
+>                                 &b_info->u.hvm.acpi_firmware, 0);
+>
+> +        switch (xlu_cfg_get_list(config, "smbios", &smbios, &num_smbios, 0))
+> +        {
+> +        case 0: /* Success */
+> +            b_info->u.hvm.num_smbios = num_smbios;
 
-Good catch. No, physical address on Arm32 can be up to 40 bits.
+...
 
-> 
-> Specifically, considering a potential arm32 case, shouldn't "s" and "e"
-> be uint64_t as well? Which means pdev_bar_check.start and end should be
-> uint64_t?
+> +            }
+> +            break;
+> +        }
 
-They should be paddr_t which will be 64-bit on both arm32 and arm64.
+Andrew pointed out this stray curly brace breaks bisection - its match
+at the beginning of the 'case 0' is introduced in patch 3.  Sorry
+about that.  I'm AFK, but will send out an updated patch tomorrow.
 
-Cheers,
+-Jason
 
--- 
-Julien Grall
+> +        case ESRCH: /* Option not present */
+> +            break;
+> +        default:
+> +            fprintf(stderr,"xl: Unable to parse smbios options.\n");
+> +            exit(EXIT_FAILURE);
+> +        }
+> +
+>          if (!xlu_cfg_get_string(config, "ms_vm_genid", &buf, 0)) {
+>              if (!strcmp(buf, "generate")) {
+>                  e = libxl_ms_vm_genid_generate(ctx, &b_info->u.hvm.ms_vm_genid);
+> --
+> 2.37.3
+>
 
