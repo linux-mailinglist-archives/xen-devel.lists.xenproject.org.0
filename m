@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA2695B17BE
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 10:53:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.402881.644833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6BB85B17BF
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 10:53:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.402882.644845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWDHq-0004ci-17; Thu, 08 Sep 2022 08:53:26 +0000
+	id 1oWDHt-0004y6-CS; Thu, 08 Sep 2022 08:53:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 402881.644833; Thu, 08 Sep 2022 08:53:26 +0000
+Received: by outflank-mailman (output) from mailman id 402882.644845; Thu, 08 Sep 2022 08:53:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWDHp-0004Zp-TY; Thu, 08 Sep 2022 08:53:25 +0000
-Received: by outflank-mailman (input) for mailman id 402881;
- Thu, 08 Sep 2022 08:53:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oWDHt-0004u3-7p; Thu, 08 Sep 2022 08:53:29 +0000
+Received: by outflank-mailman (input) for mailman id 402882;
+ Thu, 08 Sep 2022 08:53:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jDMa=ZL=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1oWDHp-0004Hp-0g
- for xen-devel@lists.xen.org; Thu, 08 Sep 2022 08:53:25 +0000
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [2607:f8b0:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1dc067c-2f53-11ed-a31c-8f8a9ae3403f;
- Thu, 08 Sep 2022 10:53:24 +0200 (CEST)
-Received: by mail-pl1-x62e.google.com with SMTP id iw17so10521616plb.0
- for <xen-devel@lists.xen.org>; Thu, 08 Sep 2022 01:53:23 -0700 (PDT)
+ id 1oWDHs-00041V-0U
+ for xen-devel@lists.xen.org; Thu, 08 Sep 2022 08:53:28 +0000
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [2607:f8b0:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b3829a88-2f53-11ed-9760-273f2230c3a0;
+ Thu, 08 Sep 2022 10:53:26 +0200 (CEST)
+Received: by mail-pg1-x52d.google.com with SMTP id 78so16054808pgb.13
+ for <xen-devel@lists.xen.org>; Thu, 08 Sep 2022 01:53:26 -0700 (PDT)
 Received: from localhost ([122.171.18.80]) by smtp.gmail.com with ESMTPSA id
- m14-20020a170902bb8e00b0017519b86996sm13793459pls.218.2022.09.08.01.53.21
+ k15-20020aa7998f000000b0053e9c04757dsm2067450pfh.169.2022.09.08.01.53.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Sep 2022 01:53:22 -0700 (PDT)
+ Thu, 08 Sep 2022 01:53:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1dc067c-2f53-11ed-a31c-8f8a9ae3403f
+X-Inumbo-ID: b3829a88-2f53-11ed-9760-273f2230c3a0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
-        bh=/UEiFJKtm7/4NuvrzhnPo0LaLbvuX390efC9WrRSDDA=;
-        b=wWgUabhPbeJq2hBFiCzFdXfq110UIC+HRSYH4k4bh1bV8dxugymD82lrIUOn94NmRv
-         s0FW+wjGfMw2GIm2DXIuYb2V9zrhWmiO6VhHl++hzYejWaFGRnR+KS36dw2PFqKjWf0E
-         8WRYpRnyZZR2vHWeLXdhw8uKDCcSBpqswRXY7p2i4U7LWNMOcfW2L9viOsLvz88kzdcT
-         wpCphxw+pJyYzwI3gXt2Y4GEqI3O0OO2W0+67/dUnShjm/IE3+J5rPG00TVoeR2lJHSx
-         8psrXFdHGoYrlBllLO5rNUsj9eGcvV9y9hCeZOy9asX3DfwwMOI9Lc+EC7DMaoDauxdY
-         z0Vg==
+        bh=KvygtE56N8zYKSJxBlMmn0X+tKsUv5sphCjxV3H2TI4=;
+        b=WohkmT1BeCvS0E8Wetu+Zk37tJlFt2oJSQpKV+b3jFHbACkodyw/hJgyGjsoSZlxXq
+         rHcd2Roec+M4LP+J/u6QvlYY4x3kECdQHjPklUMGK+3Q9Iz91AR8NtYD2JeMvplDNfJa
+         zC4lBxO7izl7baxR2DE52F2OonJlXP4oKQDr1bTFAb7Zcb4iChJEf7MuUqYU7XKS1sKY
+         46+/i1+6VS8YfaWjE2YN2Zc/0t6tuqcElgIBVISus5FIC2E5CO3E3cDuhgVs47cCWGLI
+         p8clqR40EALUIXkcklT2O4Qw5vB/I6ymUus+26KLIOip7ydmb6sWVsArmkjh0V2VSIi5
+         YSMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date;
-        bh=/UEiFJKtm7/4NuvrzhnPo0LaLbvuX390efC9WrRSDDA=;
-        b=LMVkFl21/V+64rIN2BAvKt36iDR4xAouXqKn0nkMSqgY1Z+5k+wXme6yDGy91hM8C6
-         tW7wBIjHVAatQcrBF5yqmxscKHVkiIpag+Uy74ID9c00t5vfYA/REco3F2ppM+CfBRbx
-         aLc8fx+JpPgnLkax4KTg3QrjkZ9zW8s+pY0a4UbR7krmeFLh5K90eLYEMsStnxUHr2/N
-         qiQRzKMYHLP6RT8ms5BpXijeWTJAKQUylYkANs2LKdA5v7Faqa5l0xFnc9oSyxpK6rCy
-         2w6b1WRbOpTDb6QfkJAfmH7Mqs9zNJ22NRYpdioGTX7zU6xF4B6PLEoHniuxh9fGbx76
-         x25Q==
-X-Gm-Message-State: ACgBeo2uHul7ZyKyYBJod+rKFmWUKWuum/OVmq2Z5mCqIExYeTfx2Wao
-	H4b2Jefh8ykL116EildX06hGxkMXTlzYsg==
-X-Google-Smtp-Source: AA6agR44zhvleFny9uTwjI62GkT4G1FygHSVLhOOBlnLa/zEmKAqCg6xfNxPUp/bNyLw2IyO1iNKhQ==
-X-Received: by 2002:a17:903:40d2:b0:174:e086:c748 with SMTP id t18-20020a17090340d200b00174e086c748mr8259497pld.108.1662627202662;
-        Thu, 08 Sep 2022 01:53:22 -0700 (PDT)
+        bh=KvygtE56N8zYKSJxBlMmn0X+tKsUv5sphCjxV3H2TI4=;
+        b=N+/zuVXR7rOH/Yp8lE3wCfgXBOE+zzBNi2ouAxrJH54+tnpSsnlIDvUKDtVSkrv3tl
+         1OflqWe/mziM2nrAeBy3l034IURryV5i3oP8RVFR08HgLc/l28zUtoi2dEO2NfVnXXqc
+         F2TtiipVuhl71X+u3vXsvxfsLXBaSgs3X8gwVPr5amx9t4o3iQ1Xb1tSeOknwzhfQn+w
+         mqImg9YwXFeOO40upSRnUdLFZ0++bwCK46yB2ylH4TNsiNcdM/RmQBXix8yYnANz5t74
+         FBuVdKp2lquu3sb2pGen/0N2JPwx37jDyqmrQQcVeDfUkSJ1Hgxml7d+db7vlKsK90e7
+         4c8Q==
+X-Gm-Message-State: ACgBeo1rYXXHjwgoG6AeuBpjjmAV72hzo26GrHWjXoIEveJ/HhGiqrb/
+	KlqRC0XpTT3p6kwDUuyXJXQsn04OqVTPKg==
+X-Google-Smtp-Source: AA6agR7rTh0qzn+h0YaGzImMjv1sCcTEZWC+LMNk7f8DZa4Jdj1plGLmSf7Cz36sRy94uaxwxeYcug==
+X-Received: by 2002:a63:d114:0:b0:429:f039:ccfc with SMTP id k20-20020a63d114000000b00429f039ccfcmr7090714pgg.95.1662627205408;
+        Thu, 08 Sep 2022 01:53:25 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: xen-devel@lists.xen.org
 Cc: Viresh Kumar <viresh.kumar@linaro.org>,
@@ -84,68 +84,74 @@ Cc: Viresh Kumar <viresh.kumar@linaro.org>,
 	Wei Liu <wl@xen.org>,
 	Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH V6 2/3] libxl: arm: Split make_virtio_mmio_node()
-Date: Thu,  8 Sep 2022 14:23:00 +0530
-Message-Id: <0edb5dc1ea3308cf9202e6476ff2797aad953966.1662626550.git.viresh.kumar@linaro.org>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH V6 3/3] libxl: arm: make creation of iommu node independent of disk device
+Date: Thu,  8 Sep 2022 14:23:01 +0530
+Message-Id: <099616e1092409fceea4eb30590215310f8c091c.1662626550.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
 In-Reply-To: <cover.1662626550.git.viresh.kumar@linaro.org>
 References: <cover.1662626550.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-make_virtio_mmio_node() creates the DT node for simple MMIO devices
-currently, i.e. the ones that don't require any additional properties.
+The iommu node will be required for other virtio device types too, not
+just disk device.
 
-In order to allow using it for other complex device types, split the
-functionality into two, one where the fdt node isn't closed and the
-other one to create a simple DT node.
+Move the call to make_xen_iommu_node(), out of the disk device specific
+block and rename "iommu_created" variable to "iommu_needed", and set it
+to true for virtio disk device.
 
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- tools/libs/light/libxl_arm.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ tools/libs/light/libxl_arm.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
 diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index cc30ba124918..55aee15c10b4 100644
+index 55aee15c10b4..2637acafa358 100644
 --- a/tools/libs/light/libxl_arm.c
 +++ b/tools/libs/light/libxl_arm.c
-@@ -907,9 +907,9 @@ static int make_xen_iommu_node(libxl__gc *gc, void *fdt)
-     return 0;
- }
+@@ -1157,7 +1157,7 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
+     size_t fdt_size = 0;
+     int pfdt_size = 0;
+     libxl_domain_build_info *const info = &d_config->b_info;
+-    bool iommu_created;
++    bool iommu_needed;
+     unsigned int i;
  
--static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
--                                 uint64_t base, uint32_t irq,
--                                 uint32_t backend_domid)
-+/* The caller is responsible to complete / close the fdt node */
-+static int make_virtio_mmio_node_common(libxl__gc *gc, void *fdt, uint64_t base,
-+                                        uint32_t irq, uint32_t backend_domid)
- {
-     int res;
-     gic_interrupt intr;
-@@ -942,10 +942,18 @@ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
-         if (res) return res;
-     }
+     const libxl_version_info *vers;
+@@ -1265,22 +1265,26 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
+         if (d_config->num_pcidevs)
+             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
  
--    res = fdt_end_node(fdt);
-+    return res;
-+}
+-        iommu_created = false;
++        iommu_needed = false;
+         for (i = 0; i < d_config->num_disks; i++) {
+             libxl_device_disk *disk = &d_config->disks[i];
+ 
+             if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+-                if (disk->backend_domid != LIBXL_TOOLSTACK_DOMID &&
+-                    !iommu_created) {
+-                    FDT( make_xen_iommu_node(gc, fdt) );
+-                    iommu_created = true;
+-                }
++                if (disk->backend_domid != LIBXL_TOOLSTACK_DOMID)
++                    iommu_needed = true;
+ 
+                 FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq,
+                                            disk->backend_domid) );
+             }
+         }
+ 
++        /*
++         * Note, this should be only called after creating all virtio-mmio
++         * device nodes
++         */
++        if (iommu_needed)
++            FDT( make_xen_iommu_node(gc, fdt) );
 +
-+static int make_virtio_mmio_node(libxl__gc *gc, void *fdt, uint64_t base,
-+                                 uint32_t irq, uint32_t backend_domid)
-+{
-+    int res;
-+
-+    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid);
-     if (res) return res;
+         if (pfdt)
+             FDT( copy_partial_fdt(gc, fdt, pfdt) );
  
--    return 0;
-+    return fdt_end_node(fdt);
- }
- 
- static const struct arch_info *get_arch_info(libxl__gc *gc,
 -- 
 2.31.1.272.g89b43f80a514
 
