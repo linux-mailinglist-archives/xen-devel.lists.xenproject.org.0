@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1249E5B26C4
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 21:33:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.403564.645699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15A055B272B
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 21:52:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.403573.645710 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWNFd-0002z5-TG; Thu, 08 Sep 2022 19:31:49 +0000
+	id 1oWNYv-0005l5-Ha; Thu, 08 Sep 2022 19:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 403564.645699; Thu, 08 Sep 2022 19:31:49 +0000
+Received: by outflank-mailman (output) from mailman id 403573.645710; Thu, 08 Sep 2022 19:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWNFd-0002xE-Pt; Thu, 08 Sep 2022 19:31:49 +0000
-Received: by outflank-mailman (input) for mailman id 403564;
- Thu, 08 Sep 2022 19:31:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oWNFc-0002x4-3C; Thu, 08 Sep 2022 19:31:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oWNFb-00076m-TQ; Thu, 08 Sep 2022 19:31:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oWNFb-0005LP-FC; Thu, 08 Sep 2022 19:31:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oWNFb-0004Pg-Ei; Thu, 08 Sep 2022 19:31:47 +0000
+	id 1oWNYv-0005iS-EI; Thu, 08 Sep 2022 19:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 403573;
+ Thu, 08 Sep 2022 19:51:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J4jV=ZL=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1oWNYt-0005iM-5r
+ for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 19:51:43 +0000
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [2607:f8b0:4864:20::836])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8a798ee-2faf-11ed-a31c-8f8a9ae3403f;
+ Thu, 08 Sep 2022 21:51:42 +0200 (CEST)
+Received: by mail-qt1-x836.google.com with SMTP id cr9so13730964qtb.13
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Sep 2022 12:51:42 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:ba27:ebff:fee8:ce27])
+ by smtp.gmail.com with ESMTPSA id
+ bp33-20020a05620a45a100b006b8e049cf08sm17095814qkb.2.2022.09.08.12.51.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Sep 2022 12:51:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,134 +44,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=c2mfb6H3hM2bDDwOVZd1AysfJfCRbysmFcjZYaP8ObM=; b=vmqS4sfZ2GUiUrS9vmLgW5h2tH
-	xPw0J4kTM1LZiyQT5SB48MBLAmR8ISTxd3TF1Mty7Es0JVpwffLM0lQhaSW1OfZT/mOM7QjUoykus
-	o6aIedXVWDjkJzoPnWj63+G8DazdFbGUxtPt4XTznVj8CEUPwPXVuCSJv2Bnbp5Sv+YY=;
+X-Inumbo-ID: a8a798ee-2faf-11ed-a31c-8f8a9ae3403f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date;
+        bh=YsI3iFijxvi+NCMqRHPiIXyCiqm6MIXQN1SaSCN3Ld8=;
+        b=q4CLeRsZ14bwrNwYKCFtJ98mzcbQ3IwHSCI8261GXNGcuHGepaEq+vM2V33ap23fuj
+         m2L0TMg+txeYwVsCx8AoQsaqYfWbGadXIHnEcnLxdfJ1bnrv7Xb0TER3JCPmmSVRojyC
+         a2UJTn49BWqkUG0a62swOepxO1kjsj54JmhVA0iYVcCcwIHRdJoGIS7RIhRNLBgkmNVA
+         HiBJzSb5lkmLQKiTcznhwHikjYnNw2Nl1ePTLpfMTkIyInzklNEH3La8HPt6P0F+RIHE
+         f+q57hK5PooX2A1Ec735RvwA7KoEXATGw2cWpjPsbmgh6Iwi9U9xIWRLwd7jtK9OWmKz
+         xvcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date;
+        bh=YsI3iFijxvi+NCMqRHPiIXyCiqm6MIXQN1SaSCN3Ld8=;
+        b=CIMHUJ19Wk8mFFkHh04Nl0drsKvLbH31mo1tiQuWlpkpQqK2zHb5Qe3mW7F6Ng/GHo
+         g3GQ7OqfSYDBSw1Bs/oxNzH5XvwRwbXwcshPRE2t3SUl0jMhdGV/kWovzTEitrfu1lO9
+         7zpRUpUj84x8sfImlbCZXcOJuDtBqoLEr62M5owAkdHAIeiZytMI6so9axn8zZ747la4
+         1bPDAHkvUkTCFQFfoz33hY3/KPHvkHbba+mQW1lAuoXGK5kU2dh6jWMxQSPkjPaSyN8z
+         miN/SiyLnCEV4w4Hl4AzG9iFserBa4+wP6kcgsk9kS9u4FM0vlcMA60RB30wN06vGg8n
+         GPfA==
+X-Gm-Message-State: ACgBeo2pUsnz1BfgT/5zi5Tfi2QGXpAlCZL4NngF9wsMBklCBqRGUVTp
+	z4gOkAsYbCaT0fMLM+1J96TjMfGzHTI=
+X-Google-Smtp-Source: AA6agR51dlMBzoWWBmSInIMh/au/9Ceh79DSjHse7XlrOpEWGvYzbxEPwR5MZcxbajxgZAEQK/0fUQ==
+X-Received: by 2002:a05:622a:1111:b0:35a:6ffd:9a6c with SMTP id e17-20020a05622a111100b0035a6ffd9a6cmr2722977qty.583.1662666700510;
+        Thu, 08 Sep 2022 12:51:40 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173068-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v2 0/3] libxl smbios support
+Date: Thu,  8 Sep 2022 15:51:10 -0400
+Message-Id: <20220908195113.218201-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Subject: [ovmf test] 173068: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=d82ec90f51f61c914396271d86e64a74121dde24
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 08 Sep 2022 19:31:47 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 173068 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173068/
+hvm_xs_strings.h specifies xenstore entries which can be used to set or
+override smbios strings.  hvmloader has support for reading them, but
+xl/libxl support is not wired up.  This patches adds a new xl.cfg option
+and libxl support to write the xenstore strings.
 
-Regressions :-(
+The xl syntax looks like:
+smbios=["bios_vendor=Xen Project","system_version=1.0"]
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+The Go binding generation needed extending to support Arrays inside a
+KeyedUnion, which is what the first patch does.  The generated go code
+builds, but it is otherwise untested.
 
-version targeted for testing:
- ovmf                 d82ec90f51f61c914396271d86e64a74121dde24
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+There are also oem strings, oem-1..oem-99, that HVM loader supports.
+xl parse multiple oem strings like smbios=["oem=A,oem=B"], libxl then
+iterates over them and assigned to the oem-%d entries.  Both xl and
+libxl check that the 99 string limit isn't exceeded.
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   35 days
-Failing since        172151  2022-08-05 02:40:28 Z   34 days  268 attempts
-Testing same since   173057  2022-09-08 03:17:03 Z    0 days    4 attempts
+The rendered man page and html don't have a newline at then end of the
+new section after patch 2.
+"""
+           battery_device_name=STRING
+       ms_vm_genid="OPTION"
+"""
 
-------------------------------------------------------------
-People who touched revisions under test:
-  "Lee, Chun-Yi" <jlee@suse.com>
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Annie Li <annie.li@oracle.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Bob Feng <bob.c.feng@intel.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Chen, Xiao X <xiao.x.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Foster Nong <foster.nong@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jianyong Wu <jianyong.wu@arm.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee, Chun-Yi <joeyli.kernel@gmail.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Pierre Gondois <pierre.gondois@arm.com>
-  Pranav Madhu <pranav.madhu@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@quicinc.com>
-  Rohit Mathew <rohit.mathew@arm.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Xiao X Chen <xiao.x.chen@intel.com>
-  Yuan Yu <yuanyu@google.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+however the txt format is correct:
+"""
+        battery_device_name=STRING
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+    ms_vm_genid="OPTION"
+"""
 
+It goes away after patch 3 is applied since it adds text about the "oem"
+option in between the two lines above.  I'm at a loss as to why this is
+happening.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Jason Andryuk (3):
+  golang/xenlight: Extend KeyedUnion to support Arrays
+  xl/libxl: Add ability to specify SMBIOS strings
+  xl/libxl: Add OEM string support to smbios
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+ docs/man/xl.cfg.5.pod.in             | 49 +++++++++++++++++++++
+ tools/golang/xenlight/gengotypes.py  | 41 ++++++++++-------
+ tools/golang/xenlight/helpers.gen.go | 51 +++++++++++++++++++++
+ tools/golang/xenlight/types.gen.go   | 28 ++++++++++++
+ tools/include/libxl.h                |  5 +++
+ tools/libs/light/libxl_dom.c         | 32 ++++++++++++++
+ tools/libs/light/libxl_types.idl     | 27 ++++++++++++
+ tools/xl/xl_parse.c                  | 66 +++++++++++++++++++++++++++-
+ 8 files changed, 282 insertions(+), 17 deletions(-)
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+-- 
+2.37.3
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2203 lines long.)
 
