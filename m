@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60C5F5B1F9D
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 15:51:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.403373.645462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4929A5B1FB8
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 15:55:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.403380.645473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWHur-0001VJ-N2; Thu, 08 Sep 2022 13:50:01 +0000
+	id 1oWI08-0002tB-9g; Thu, 08 Sep 2022 13:55:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 403373.645462; Thu, 08 Sep 2022 13:50:01 +0000
+Received: by outflank-mailman (output) from mailman id 403380.645473; Thu, 08 Sep 2022 13:55:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWHur-0001Rg-JX; Thu, 08 Sep 2022 13:50:01 +0000
-Received: by outflank-mailman (input) for mailman id 403373;
- Thu, 08 Sep 2022 13:50:00 +0000
+	id 1oWI08-0002rO-6P; Thu, 08 Sep 2022 13:55:28 +0000
+Received: by outflank-mailman (input) for mailman id 403380;
+ Thu, 08 Sep 2022 13:55:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XUpx=ZL=citrix.com=prvs=24378778c=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oWHup-0001Ra-TJ
- for xen-devel@lists.xen.org; Thu, 08 Sep 2022 13:50:00 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c786709-2f7d-11ed-a31c-8f8a9ae3403f;
- Thu, 08 Sep 2022 15:49:45 +0200 (CEST)
+ <SRS0=fLS5=ZL=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1oWI07-0002rI-3S
+ for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 13:55:27 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id e3467852-2f7d-11ed-a31c-8f8a9ae3403f;
+ Thu, 08 Sep 2022 15:55:25 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B3E4A106F;
+ Thu,  8 Sep 2022 06:55:30 -0700 (PDT)
+Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
+ [10.169.190.94])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1056D3F7B4;
+ Thu,  8 Sep 2022 06:55:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,100 +43,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c786709-2f7d-11ed-a31c-8f8a9ae3403f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1662644985;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WTWJeHaJMMC/+qrhcERcfsYiSD2yI/KRfMGHIF3psOM=;
-  b=FCkfesZhjbDxGmDk2JldPztZzWrEGLUDnhKQpooC+vBartpjsei+cfI2
-   WvsZijCRt5kl4nWSBcYoWy7Q7dVGMNhtzxw0NdanfHjExyNGuIGZH3xFY
-   LhUhrvhllMy651lhTPCI1SMirmc9qn6iA1t34Po9NvR57mzGEu5BcS3J2
-   c=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 2.7
-X-MesageID: 79228995
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:/iCwv6CqPVwwWhVW/2jkw5YqxClBgxIJ4kV8jS/XYbTApDJ03zVRz
- mBJWG7TPPzYYmfxedB1OY2y9UIFvMeBx9A2QQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E3ratANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq3uU0meaEu/Dga++2k
- Y608pa31GONgWYuaDpFs/Lb8nuDgdyp0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSq
- zHrlezREsvxpn/BO/v9+lrJWhRiro36ZGBivkF+Sam66iWukwRpukoN2FjwXm8M49mBt4gZJ
- NygLvVcQy9xVkHHsLx1vxW1j0iSlECJkVPKCSHXjCCd86HJW0fl3dplNQYSB6kJ1tl6C1N27
- aA7BS9YO3hvh8ruqF66Yuxlh8BlJ8j3JoIP/HpnyFk1D95/H8qFGf+To4YFgnFg3aiiHt6HD
- yYdQTNpcBTHZQwJIloNAYgytOypmmP+Y3tTr1f9Sa8fvDmJllwggeWF3Nz9RP2ABphvpn+ku
- 2/+wE6gBDcjMeOY8G/Qmp6rrrCWxn6qMG4IL5W/8vNpm0GC3Ww7BxgfVF/9qv684ma7WtFSb
- UwT/i8jtoA29UqiVN67WAe3yFaBtwIcWtdNVfU96RuMx7D85wefD3IDCDVGbbQOttIyRDEs/
- k+EmZXuHzMHmL+aU3WG7Z+PsCi/fyMSKAcqeissXQYDpd75r+kbkBPJRdtlDOi6k9zpBTbs6
- zSLqiEkgPMUl8Fj/7W2+xXLjiyhorDNTxUp/UPHU2Tj6Rl2DKa7Zpal8lid7utFJZyxSliHt
- WID3c+E44gmFo2AmiWLR6MWALij6vKBMTvdqU5uG5gn53Km/HvLVYlU7SE4LkpvNMsJUTvoZ
- kbJvkVW/pA7FGC2d6ZrZJn0B8k05a/4UNDkTezPKN5PZJFrc0mA5i4GWKKL9zmzyg52y/h5Y
- MrFN5b3ZZoHNUh55Aa/WcgW6PgP/AQv6VzeT6LD10iE/KXLMRZ5Vow53EuygvERtf3a+luOq
- o0DaKNm2D0EDrSgP3C/HZo7aAlTcCNlXc2eR9l/LLbrH+ZwJI025xY9K5sFcpctoalan/ygE
- pqVCh4BkwqXaZEqxGy3hpFfhFDHB8wXQYoTZ3BEALpR8yFLjXyTxKkebYArWrIs6fZuy/V5J
- 9FcJZvaX6sSFWScp21DBXUYkGCFXE3y7T9iwgL/OGRvF3Keb1ehFiDYkvvHq3BVU3vfWToWq
- Ly8zALLKac+q/BZJJ+PMJqSI6aZ5yd1dBRaAxSVebG+uSzErOBXFsAGpqVsepxdck+emGPyO
- sT/KU5wmNQharQdqLHh7Z1oZa/yeweiNiK2x1Xm0Is=
-IronPort-HdrOrdr: A9a23:Yuzwb6wn3KrZfJ62Hz3pKrPwLL1zdoMgy1knxilNoRw8SKKlfu
- SV7ZAmPH7P+VMssR4b9OxoVJPtfZqYz+8T3WBzB8bBYOCFgguVxehZhOOIqQEIWReOldK1vZ
- 0QFZSWY+eQMbEVt6nH3DU=
-X-IronPort-AV: E=Sophos;i="5.93,300,1654574400"; 
-   d="scan'208";a="79228995"
-Date: Thu, 8 Sep 2022 14:49:16 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-CC: <xen-devel@lists.xen.org>, Vincent Guittot <vincent.guittot@linaro.org>,
-	<stratos-dev@op-lists.linaro.org>, Alex =?iso-8859-1?Q?Benn=E9e?=
-	<alex.bennee@linaro.org>, Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>, Mike Holmes
-	<mike.holmes@linaro.org>, Oleksandr Tyshchenko <olekstysh@gmail.com>, Wei Liu
-	<wl@xen.org>, Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH V5 1/6] libxl: Add support for Virtio I2C device
-Message-ID: <Yxny3IZ/k3FVYb1J@perard.uk.xensource.com>
-References: <cover.1661159474.git.viresh.kumar@linaro.org>
- <8b47d98cec83ca33a2b409c9371356820dd91b7a.1661159474.git.viresh.kumar@linaro.org>
- <YxdyGXxois95bNdI@perard.uk.xensource.com>
- <20220907123224.rz7vvope37l6l6mg@vireshk-i7>
+X-Inumbo-ID: e3467852-2f7d-11ed-a31c-8f8a9ae3403f
+From: Penny Zheng <Penny.Zheng@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com,
+	Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v8 0/9] static shared memory on dom0less system
+Date: Thu,  8 Sep 2022 21:55:04 +0800
+Message-Id: <20220908135513.1800511-1-Penny.Zheng@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220907123224.rz7vvope37l6l6mg@vireshk-i7>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 07, 2022 at 06:02:24PM +0530, Viresh Kumar wrote:
-> Hi Anthony,
-> 
-> Thanks a lot for the in-depth review, it is really helpful.
-> 
-> I don't have much knowledge of the Xen code and wanted this code for I2C and
-> GPIO to be tested on Xen for the work we are doing around hypervisor agnostic
-> backends [1].
-> 
-> I started looking for a simple device's implementation and began by (blindly)
-> copying code from Keyboard device and so much of wasted code in here, which
-> isn't really required.
-> 
-> On 06-09-22, 17:15, Anthony PERARD wrote:
-> > On Mon, Aug 22, 2022 at 02:45:13PM +0530, Viresh Kumar wrote:
-> > > An example of domain configuration for Virtio I2c:
-> > > i2c = [ "" ]
-> > 
-> > Is this doing something meaningful (with the whole series applied)?
-> 
-> If I am not wrong, this is required by parse_i2c_list()'s implementation.
-> Without this I don't get the I2C device populated in the guest.
+**This series is based on the "Introduce static heap" series[1]**
 
-Sorry, I should have added more context to may question. In my mind, I2C
-is just a communication protocol between a device and a CPU, like USB or
-PCI. So to me there is missing information about which device or kind of
-device to present to a guest in this example. For example, for PCI we
-give a path to the device (via bdf=), and for USB it can be a kind of
-device to emulate or select a device based on the path to it (bus,
-addr).
+In safety-critical environment, it is not considered safe to
+dynamically change important configurations at runtime. Everything
+should be statically defined and statically verified.
 
-Cheers,
+In this case, if the system configuration knows a priori that there are
+only 2 VMs and they need to communicate over shared memory, it is safer
+to pre-configure the shared memory at build time rather than let the VMs
+attempt to share memory at runtime. And it is faster too.
+
+Furthermore, on dom0less system, the legacy way to build up communication
+channels between domains, like grant table, are normally absent there.
+
+So this patch serie introduces a set of static shared memory device tree nodes
+to allow users to statically set up shared memory on dom0less system, enabling
+domains to do shm-based communication.
+
+The only way to trigger this static shared memory configuration should
+be via device tree, which is at the same level as the XSM rules.
+
+It was inspired by the patch serie of ["xl/libxl-based shared mem](
+https://marc.info/?l=xen-devel&m=154404821731186ory").
+
+Looking into related [design link](
+https://lore.kernel.org/all/a50d9fde-1d06-7cda-2779-9eea9e1c0134@xen.org/T/)
+for more details.
+
+[1] https://lore.kernel.org/xen-devel/20220908042538.27076-1-Henry.Wang@arm.com/
+
+Penny Zheng (9):
+  xen/arm: introduce static shared memory
+  xen/arm: assign static shared memory to the default owner dom_io
+  xen/arm: allocate static shared memory to a specific owner domain
+  xen/arm: introduce put_page_nr and get_page_nr
+  xen/arm: Add additional reference to owner domain when the owner is
+    allocated
+  xen/arm: set up shared memory foreign mapping for borrower domain
+  xen/arm: create shared memory nodes in guest device tree
+  xen/arm: enable statically shared memory on Dom0
+  xen: Add static memory sharing in SUPPORT.md
+
+ SUPPORT.md                            |   7 +
+ docs/misc/arm/device-tree/booting.txt | 132 ++++++++
+ xen/arch/arm/Kconfig                  |   6 +
+ xen/arch/arm/bootfdt.c                | 167 ++++++++++
+ xen/arch/arm/domain_build.c           | 421 ++++++++++++++++++++++++++
+ xen/arch/arm/include/asm/kernel.h     |   1 +
+ xen/arch/arm/include/asm/mm.h         |   4 +
+ xen/arch/arm/include/asm/setup.h      |   7 +
+ xen/arch/arm/mm.c                     |  42 ++-
+ xen/common/domain.c                   |   3 +
+ 10 files changed, 781 insertions(+), 9 deletions(-)
 
 -- 
-Anthony PERARD
+2.25.1
+
 
