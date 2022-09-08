@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 704DF5B2A76
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 01:35:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.403723.645924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC7EF5B2A7F
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 01:40:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.403731.645936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWR34-00071U-An; Thu, 08 Sep 2022 23:35:06 +0000
+	id 1oWR7e-0007vy-UP; Thu, 08 Sep 2022 23:39:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 403723.645924; Thu, 08 Sep 2022 23:35:06 +0000
+Received: by outflank-mailman (output) from mailman id 403731.645936; Thu, 08 Sep 2022 23:39:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWR34-0006yV-80; Thu, 08 Sep 2022 23:35:06 +0000
-Received: by outflank-mailman (input) for mailman id 403723;
- Thu, 08 Sep 2022 23:35:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5KOk=ZL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oWR32-0006yP-S4
- for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 23:35:04 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dd10429a-2fce-11ed-9760-273f2230c3a0;
- Fri, 09 Sep 2022 01:35:03 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0C30EB822C8;
- Thu,  8 Sep 2022 23:35:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62FEFC433C1;
- Thu,  8 Sep 2022 23:35:00 +0000 (UTC)
+	id 1oWR7e-0007tY-Qk; Thu, 08 Sep 2022 23:39:50 +0000
+Received: by outflank-mailman (input) for mailman id 403731;
+ Thu, 08 Sep 2022 23:39:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWR7d-0007tO-6K; Thu, 08 Sep 2022 23:39:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWR7d-0003Bt-35; Thu, 08 Sep 2022 23:39:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWR7c-0001op-Jy; Thu, 08 Sep 2022 23:39:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWR7c-0008Nx-JO; Thu, 08 Sep 2022 23:39:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,78 +42,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd10429a-2fce-11ed-9760-273f2230c3a0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662680101;
-	bh=e+eQtgHjxpTmdLL7dpEky523hZqj2sLSlk9F73e5Agg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=lupDRy8cERSlE1kgRyi0pRV+FCafk2TI9st7Gv6CGCpIgA91sbk+sJJ6YZFR5nLW5
-	 Fa7a8TJqCaoQu5SzD8cekvqOqmqZO3dVN9yAP315wndbWwNVYWiukvJj/wpoDjsieb
-	 QwXh8MI/AmZ0fS07H5VhD/+Fr4TzKBLMTiJSEKIqC0+PL2c0a2Uhixg41A9hjCDhL2
-	 JXZlrFZfBnUI2ItHj675o3vmeJCbNXPAeDGa/lSY/rIk7icqBlt9/9eYLEGPWb4F3Z
-	 8PZhtYSK8G4ZjVKhr21l1r5yFJzpI6lXIXXVu0tP469XKnZJbKRFCzLzze3OBngeRk
-	 /1V7zeTdEGsHg==
-Date: Thu, 8 Sep 2022 16:34:59 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Anthony Perard <anthony.perard@citrix.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Henry.Wang@arm.com
-Subject: Gitlab breakage: [PATCH] Config.mk: correct PIE-related option(s)
- in EMBEDDED_EXTRA_CFLAGS
-In-Reply-To: <68173fe3-b3dc-224b-c30f-719efa48fcdf@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2209081633430.157835@ubuntu-linux-20-04-desktop>
-References: <68173fe3-b3dc-224b-c30f-719efa48fcdf@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=j0Vnqj6D4WtHWHPBzU67NvPETrDAIIg78IAfBd/V0Pc=; b=HX7co7ctaEl7VNH0FkN2pg0LOD
+	Po7+XM7KCXciH0Mzv5yJOuQis4homlxSIhqYckDAcMDLUXM2mKpNB76cM/IluzjuYpSm3PDLZTTXG
+	Xo5PLYl/RdS7JhefZxsBq9l5n82Lb/Ro+UB+pbgwcwS5iN9mSDS6nTmFS8FvBYxoZKjE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173072-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 173072: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=7b8f69d7e10628d473dd225224d8c2122d25a38d
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 08 Sep 2022 23:39:48 +0000
 
-Hi Jan,
+flight 173072 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173072/
 
-This patch breaks the gitlab-ci pipeline, specifically it breaks the
-hvmloader build with clang:
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+
+version targeted for testing:
+ ovmf                 7b8f69d7e10628d473dd225224d8c2122d25a38d
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z   35 days
+Failing since        172151  2022-08-05 02:40:28 Z   34 days  270 attempts
+Testing same since   173070  2022-09-08 19:43:32 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  "Lee, Chun-Yi" <jlee@suse.com>
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Annie Li <annie.li@oracle.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Bob Feng <bob.c.feng@intel.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Foster Nong <foster.nong@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee, Chun-Yi <joeyli.kernel@gmail.com>
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Pranav Madhu <pranav.madhu@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Rohit Mathew <rohit.mathew@arm.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuan Yu <yuanyu@google.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-https://gitlab.com/xen-project/xen/-/pipelines/634274727
-https://gitlab.com/xen-project/xen/-/jobs/2996114313
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-make[7]: Entering directory '/builds/xen-project/xen/tools/firmware/hvmloader'
-clang   -m32 -march=i686 -DBUILD_ID -fno-strict-aliasing -std=gnu99 -Wall -Wstrict-prototypes -Wdeclaration-after-statement -Wno-unused-local-typedefs   -O2 -fomit-frame-pointer -D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__ -MMD -MP -MF .hvmloader.o.d -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -mno-tls-direct-seg-refs  -DNDEBUG -Werror -fno-pie -no-pie -fno-stack-protector -fno-exceptions -fno-asynchronous-unwind-tables -fcf-protection=none -ffreestanding -msoft-float -nostdinc -I/builds/xen-project/xen/tools/firmware/hvmloader/../../../tools/firmware/include -I/builds/xen-project/xen/tools/firmware/hvmloader/../../../tools/include -D__XEN_INTERFACE_VERSION__=__XEN_LATEST_INTERFACE_VERSION__ -I../../libacpi  -c -o hvmloader.o hvmloader.c 
-clang: error: argument unused during compilation: '-nopie' [-Werror,-Wunused-command-line-argument]
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Cheers,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Stefano
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-On Thu, 25 Aug 2022, Jan Beulich wrote:
-> I haven't been able to find evidence of "-nopie" ever having been a
-> supported compiler option. The correct spelling is "-no-pie".
-> Furthermore like "-pie" this is an option which is solely passed to the
-> linker. The compiler only recognizes "-fpie" / "-fPIE" / "-fno-pie", and
-> it doesn't infer these options from "-pie" / "-no-pie".
-> 
-> Add the compiler recognized form, but for the possible case of the
-> variable also being used somewhere for linking keep the linker option as
-> well (with corrected spelling).
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> --- unstable.orig/Config.mk	2022-04-07 12:23:27.000000000 +0200
-> +++ unstable/Config.mk	2022-08-25 08:58:00.044287451 +0200
-> @@ -188,7 +188,7 @@ endif
->  APPEND_LDFLAGS += $(foreach i, $(APPEND_LIB), -L$(i))
->  APPEND_CFLAGS += $(foreach i, $(APPEND_INCLUDES), -I$(i))
->  
-> -EMBEDDED_EXTRA_CFLAGS := -nopie -fno-stack-protector -fno-stack-protector-all
-> +EMBEDDED_EXTRA_CFLAGS := -fno-pie -no-pie -fno-stack-protector -fno-stack-protector-all
->  EMBEDDED_EXTRA_CFLAGS += -fno-exceptions -fno-asynchronous-unwind-tables
->  
->  XEN_EXTFILES_URL ?= http://xenbits.xen.org/xen-extfiles
-> 
+Not pushing.
+
+(No revision log; it would be 2261 lines long.)
 
