@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF2335B1C00
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 13:58:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.403241.645305 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B525B1C22
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Sep 2022 14:04:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.403272.645326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWGAj-0005mJ-Jh; Thu, 08 Sep 2022 11:58:17 +0000
+	id 1oWGFk-0008LF-V3; Thu, 08 Sep 2022 12:03:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 403241.645305; Thu, 08 Sep 2022 11:58:17 +0000
+Received: by outflank-mailman (output) from mailman id 403272.645326; Thu, 08 Sep 2022 12:03:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWGAj-0005ix-FQ; Thu, 08 Sep 2022 11:58:17 +0000
-Received: by outflank-mailman (input) for mailman id 403241;
- Thu, 08 Sep 2022 11:58:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oWGFk-0008Ik-SE; Thu, 08 Sep 2022 12:03:28 +0000
+Received: by outflank-mailman (input) for mailman id 403272;
+ Thu, 08 Sep 2022 12:03:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oWGAi-0005ir-7W
- for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 11:58:16 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oWGAh-0006hE-Qk; Thu, 08 Sep 2022 11:58:15 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=[192.168.18.179]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oWGAh-0006hf-I9; Thu, 08 Sep 2022 11:58:15 +0000
+ (envelope-from <SRS0=56Vh=ZL=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oWGFj-0008Ie-3n
+ for xen-devel@lists.xenproject.org; Thu, 08 Sep 2022 12:03:27 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80070.outbound.protection.outlook.com [40.107.8.70])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3e522c1f-2f6e-11ed-9760-273f2230c3a0;
+ Thu, 08 Sep 2022 14:03:26 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB6PR04MB3079.eurprd04.prod.outlook.com (2603:10a6:6:a::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5588.18; Thu, 8 Sep 2022 12:03:18 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5612.014; Thu, 8 Sep 2022
+ 12:03:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,150 +46,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=bIWR4MGEGU3W7iMF6SN72UneegUQ8SeV6assMQr+5Vo=; b=OsAVx1waasuvl3EKPwzZKOvud0
-	umRZOaWHGiTq95Bai89O6oa2KgZz9oeUviipPrykbgP3fJwOCLHJuyjMtO2CRkZB9c+9Lo6VCLme6
-	rBi5csC/zJ7tkXWlUsRK/oGYAQI+QJZSufzJy5cgBXluMX5/t4lzeP2MMSpSDCGOfnhM=;
-Message-ID: <f6018070-2ecb-99cd-cde9-d8c1f52ce74f@xen.org>
-Date: Thu, 8 Sep 2022 12:58:13 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH] xen/arm, device-tree: Make static-mem use
- #{address,size}-cells
+X-Inumbo-ID: 3e522c1f-2f6e-11ed-9760-273f2230c3a0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IET+Yr8IXtBSmpo9TzcsnvHtcKdPcGkZ4PHKR1zwB8ZvbJf5Xx8gp1y99i0mgzJIDoZZv5cafBINH58AYKWXOVTxFu9ElZ/JZEAIrpcgg8hYC0suKd2A9+nLpYLyoPYnZ1m5HZA3UYQE6SUaM0EtdGbPyvZA132v2FUW6gJAwiHW+d6NRPYREgL6Eq/R5bI/9t2Twwacv96PbOqdrORbv3qOkmCBKccqWJkMfvm96Fp7JGmZgHgHS/8WNL516jcImHAo6bvItOBDf2zS1EmIpAUZ7Fl1AVcBlVxaeZCKSOJkWlzcmYIeIRneO9lFeHu8eXTYdCc4lz8B3t7hTXiJ9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ls0tyWDGIiSaXCFVTZ2tvhL+UWOC5u+M/W4tE96CDQk=;
+ b=irv1/f3RKQ8mJOCtdNHuarbWDfzqf2UaBrS6W58xAPSOcbVyOoB55/2932Yw2FOv81/swoFj4/25805XKIYUkUFTLQK7XyMkb9UZczVxeobgky+hs9b7zFSyfCf33VR3SzV8iyQEZJj75qghnLWwMc2pFnv4YFbXqDS4Ad6kHqi6BhF0xqXg+tDYSbLRk4EvNDnlWtBTNAM6xvm2Zv6JeoYDMBaPX6hQKZJICJyFd/VJSlHKWP1hcI8wMgZWiIq91N5BpLTtDD9au20U/3CJk5hlpNO1ycSwwUaHcfm+Vvpj6V7SXCxluw9g+NgV6g8VY7OMQ4sU2GNezYBRaUdA1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ls0tyWDGIiSaXCFVTZ2tvhL+UWOC5u+M/W4tE96CDQk=;
+ b=01M5y8WxIDHU6WT7R9f/iRY1jaO5pBFnqO/YqpE6RapzrcqnWeKs4Sbj0uP9A6/12vG1Psan379k34m94E9Orw4R4Y8XsjBzcli/ApD7e/L/J+iDaAoolPQqQ9Lj2/HsJuUtJrWtHT6++5UFbRm7hFYYtmD5X8e/c9MepyhTYlzxE5otYfKKLntvTOj6CN7nhmu/XXGrO2bnQW/+lgvYva/Ni0+K5jqE2yNUTtoMEud1/INW4w7yeiomHDHiEGBycE3+hlKrVH1bEHi9OdnOb2T6xgdzC9YFnIGBYNw5X5hl0TnVUBJg0Q+uaeOrCwLaSsXW4EcxTPOco5KPsY5q4g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <5db80611-c968-34c7-7181-41071636efca@suse.com>
+Date: Thu, 8 Sep 2022 14:03:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.1
+Subject: Re: [PATCH v5 2/2] xen/pci: replace call to is_memory_hole to
+ pci_check_bar
 Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>, Michal Orzel <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220908093129.30124-1-Henry.Wang@arm.com>
- <f9874353-6060-61b1-3faa-9698f85c7ac4@amd.com>
- <AS8PR08MB799177FFC8C90D870DED79B792409@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS8PR08MB799177FFC8C90D870DED79B792409@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Rahul Singh <rahul.singh@arm.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1662637415.git.rahul.singh@arm.com>
+ <63a0010c1e0f6ffb86fce35e188d66bf4c0d57e7.1662637415.git.rahul.singh@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <63a0010c1e0f6ffb86fce35e188d66bf4c0d57e7.1662637415.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0075.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::23) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB6PR04MB3079:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8c87f24-aa81-4f52-7fac-08da91921dee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	OY19xLXoU/ex4hHzYCkDwXGlz21yvpHaGDumodrAi/8yKoWnJVhoKuhjd02XXmmxqcg5MBDTDNwkTfTMw8fNaXNrJLvbVLFODiQ32MBmYFXRVC5uxIGKEZEhSgAiPGRgsL0k5y4fldFNK+9yZK9MTyzRoScH1n4GFDRLeLg6BljKpbvYergjzYBbTSf/7p1kFStpOaTxLgF19t9OBTpw13Se2OBoZK3sbcuirXOaRTyMSGR+elUO/V5FP+gIUoWvIF2wOitrcQoaFiXAK70/fHUlhloC45ZUblfJOJGbFI9mgWDekBifFo93CKczdFga736Il+nr0Lbdb1P40ljmGHDqKLycuLy4lWO5hB3s9bp10ZHqjVdC3aVGbFxBkicPzpQUj1mVBUdeSRfRAt8Ffj+Cn7m1lgDr9Es19A5QL41B/gd5+ySJ/yUg2vlBh4vkNiIDGXHH/isdRsEleamg9K0yvj/hQw4iBfnTBmcmseFKUL9s7j5fCFLCMDAD1KyCM5m8Ahq3X9hVJMnDUkp635CflIe4NNk6UR+qBFZQnFNCv0/sWDvu7gIvduYk9WtBoUeXjkHXdWu3O4YFzDow4oHMutI5Hjv0WVrIvESwgVmP3JR7CKw3FpllJPobmtObYpfOxwAJh6M+ydNuQOXm3UhuccFSLmjok5V+eu8wDNLMNZm3iicqQPQQIgKr5+Ha3QIijfgk0UNe551SjxFFx5dvaGyq85GnSVJUWlImZM2M6OtJlBF1VqAKzvbcplBfu5ornHdKslqj8oMOogXX6p12esF+oKAvOQZ9e4ztB1s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(376002)(39860400002)(366004)(396003)(136003)(346002)(8676002)(66556008)(4326008)(83380400001)(66946007)(66476007)(41300700001)(54906003)(110136005)(316002)(31696002)(2616005)(186003)(86362001)(36756003)(31686004)(6512007)(26005)(7416002)(5660300002)(2906002)(53546011)(38100700002)(6486002)(6506007)(478600001)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a0ZYU05yMXZaNU1CN2o4VWVqeHdCVGd1aEdNdmMxNW13VFBlSEtJblAwVHpt?=
+ =?utf-8?B?cXNndlV3L0RBbmRPYjFJcWZyQ0ZreVMwQjE1MXluVHVhL0N6bDFMTDJycWcy?=
+ =?utf-8?B?WlZ6UDNNNm43aFNIT3dOMFY3NEoxeWhyRlJCaUErdnJMeHpIa2xBZUhSai9O?=
+ =?utf-8?B?OXNlTVdTYlhBK1JRWXVHaFc3QVZSUmhsV215ZEROOWtnSlZUQWlvQXIyR1hX?=
+ =?utf-8?B?SnFadjdCcnVKOFppVWhiell3aGhKWklzMitUaXJVY1ZWbk9CQ0NTVHBtNVNZ?=
+ =?utf-8?B?SlVmRDRUT1Joa2JrMlRPOHRScVpiQ2xuWDU0aW15L1ZTdTJ4T3FHQWVkaEtq?=
+ =?utf-8?B?cENUaTlFZEFSYTFwZlNoWDRxVUxkOEszeUU4ZjhGQlJZVkhSUGtJV1ZIbm50?=
+ =?utf-8?B?MDM0d3RUazFZcmRIY1pmeDhWTW5qZGJlemYvdHZjZTdRemxRdm9aNmxIcHBM?=
+ =?utf-8?B?T1VmNjJNT2pSNmFhMDZGS1dDOUdoc3hwUVJOTEFsQVl5bnAzd0dkTUJSTlNK?=
+ =?utf-8?B?LzBBZGNrMnNwSzNjUE1rSmwra3d2UU1EWlh1R0ZzcTNHQWFOZlY1QWpYdTdr?=
+ =?utf-8?B?M2tFemt2RmFjbFhXNlY4dnIrT0dlSWdpTXFZUFZ6anlXRGROQ3NjQmJINHVl?=
+ =?utf-8?B?L0s5ZklmdTYxTktzZ2Fxek0zSTNyTGRubFQxMkVPcnRTNUpsYWtIY0x4Q2xI?=
+ =?utf-8?B?dUF1eU9HTCtQTEhmK0FTSk9iWWc5SVQ2TG40N2srbVBJTVNROU1kYU90dUky?=
+ =?utf-8?B?UWYzTzY2cm40VUJienY2MDkrZWlRdDBPWU45NWxNdzNYVnVrcytaOUxGWW1i?=
+ =?utf-8?B?dFkrSkFjYm8rM1NZQWFEYUF0ZmFza2lDc2JpaVlRZzR6RGhGdVZhWmM0RFVI?=
+ =?utf-8?B?bXg0dUxtMDlUTGkveWFpVXQ0aUU3MGw1UHFMMm1VZzA4U3M0Q1pCQVp6ZkpD?=
+ =?utf-8?B?YmE2V2JYVG1HMVhwRVIzL21LRHhVbVRhQmFwaW0zNCttZVNIaDluOVBsY2dB?=
+ =?utf-8?B?d0tBRW96S050WHFNWElLMkVFM1BJbnphblE3cGRvN3NISDhCYll5THlqczRW?=
+ =?utf-8?B?Rk9SVk5jR1EyQjlRcGZTcFhXOFNxbWNOL1hGWnJmRHlmYlZZYWFIZG9CT05W?=
+ =?utf-8?B?bjhCUG14ZHV4cGJ4cXMyYkZPVW5XbUhMQ3NMSWFlZnlvUEJiODJKdCt3cUo2?=
+ =?utf-8?B?dkovR3hzMWpNN0JzL2cvQU5xQktSMVlyd1V3bXVtenlMVDJpMmQxd0prZ1ph?=
+ =?utf-8?B?dGlCcUlNWitBNkNQbFNsOGM1Q1BUUENEZCtyblZ3RUtiQnJGYmdKVTBodXhF?=
+ =?utf-8?B?VFJsaysvRmNhUFVjcS9pR2xPSEsrMGlxTUVVcWZaWHI4QURlUDhYa0YwWExX?=
+ =?utf-8?B?bWhmQzNXc2tVaXZiUHlwTjQyWi9XMGVuTUtlc0hYNFp1bnVMYnY5YUYxTlls?=
+ =?utf-8?B?OFR5ZzVjS2JERHpyZTJ0ZEs0VkZnbmVBaHdjYlNiZzBLbjFISitrODhpeWkx?=
+ =?utf-8?B?SzI1MkVXaWk2b1BsbVBjTmZCTFJmbWd6ZWF0VHlPN2E3bTFpRndhZXlaYXU4?=
+ =?utf-8?B?Rm1waUdxZysyZEpreXhmN2dGaEdWM0JSeVo5ZEZ1QXRBNEZ1SnBzcHVQYmNJ?=
+ =?utf-8?B?dy8vdTBMVnY5d0p2cHhpa292SGRHNy8rY3RrS3AvK240cTdXVjB4aDhyNXhq?=
+ =?utf-8?B?dTdoZWxvNDhtcURuVk8wR09FMWx0cklrNkw0N0xNeFVFWE81dkFoa21OaTAw?=
+ =?utf-8?B?QmtmR0hScnpHVTN4UXJnK1gxZEJVaW5kek03cURzNHdBaUF2MEFWTm54SXpE?=
+ =?utf-8?B?Ny9PcFVNelhJekx5aW9BK2VJV2VXWFVZaGRCcTk3QUFCUGExR041V1d5aGVa?=
+ =?utf-8?B?WTFSRVk4WFRSOGVDczczekwvNWwvUjRFZ1RLWEEyMXpKdnNWVWVvQXZHLzlk?=
+ =?utf-8?B?WVIzWm5HQStaaHN4b0FjZUhaUFMxbnVvRE92NldJQ1ZzbldSa1dKaXArNFN3?=
+ =?utf-8?B?N2g3TDV2WkdabmswbVVkN3VyNlFwRnBBTDVnM3ZjUXVZdzF0emZHUEF0cVRa?=
+ =?utf-8?B?dGx3S2pEWHVOam5GSnQvYUJnbU5ZK2FwUWVUZXhJTmx2eVNIQWZCQVZLd2Rm?=
+ =?utf-8?Q?gi1W7bsPgf6HvMmimY6Xk5ADI?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8c87f24-aa81-4f52-7fac-08da91921dee
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2022 12:03:18.1799
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZVDljnHgyfWtPPqnQjqw0vt/O32o8q+vOEisHb9auJDWRTjoAiz+5w0tTvbDZ0IafisJcrQV+QglqQ5Hqp6MDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR04MB3079
 
-Hi,
-
-On 08/09/2022 11:54, Henry Wang wrote:
->> -----Original Message-----
->> From: Michal Orzel <michal.orzel@amd.com>
->>> @@ -362,14 +362,13 @@ device-tree:
->>>
->>>       / {
->>>           chosen {
->>> +            #address-cells = <0x1>;
->>> +            #size-cells = <0x1>;
->>> +            ...
->>>               domU1 {
->>>                   compatible = "xen,domain";
->>> -                #address-cells = <0x2>;
->>> -                #size-cells = <0x2>;
->> Why did you remove this set if it relates to the childs of domU1 (e.g. kernel,
->> ramdisk) and not to domU1 itself?
+On 08.09.2022 13:49, Rahul Singh wrote:
+> is_memory_hole was implemented for x86 and not for ARM when introduced.
+> Replace is_memory_hole call to pci_check_bar as function should check
+> if device BAR is in defined memory range. Also, add an implementation
+> for ARM which is required for PCI passthrough.
 > 
-> Well, I think here the example is just how we setup the static memory, so we just
-> want to emphasize the related part. I agree users can add another #address-cells
-> and #size-cells for domU1 node for the parts that you mentioned, but that is
-> not reflected by the current example (I can't find anything related to kernel,
-> ramdisk, etc. in current example). I might get it wrong but having two #address-cells
-> and #size-cells in that case would be quite misleading from my understanding.
-
-I agree with that. As this is only a small part of the DT we want to 
-focus on what is necessary for the current section.
-
-> So I decided to remove it.
-
-I would mention it in the commit message because the change seems 
-unrelated otherwise.
-
-The same apply for replacing adding extra "====". But TBH, this change 
-feels completely unrelated to this patch. So I think it is better to 
-have a separate patch.
-
-[...]
-
->>> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
->>> index ec81a45de9..cd264793d5 100644
->>> --- a/xen/arch/arm/bootfdt.c
->>> +++ b/xen/arch/arm/bootfdt.c
->>> @@ -352,11 +352,6 @@ static int __init process_domain_node(const void
->> *fdt, int node,
->>>           /* No "xen,static-mem" present. */
->>>           return 0;
->>>
->>> -    address_cells = device_tree_get_u32(fdt, node,
->>> -                                        "#xen,static-mem-address-cells", 0);
->>> -    size_cells = device_tree_get_u32(fdt, node,
->>> -                                     "#xen,static-mem-size-cells", 0);
->>> -
->>>       return device_tree_get_meminfo(fdt, node, "xen,static-mem",
->> address_cells,
->>>                                      size_cells, &bootinfo.reserved_mem, true);
->>>   }
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index b76a84e8f5..258d74699d 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -563,21 +563,9 @@ static int __init parse_static_mem_prop(const
->> struct dt_device_node *node,
->>>       const struct dt_property *prop;
->>>
->>>       prop = dt_find_property(node, "xen,static-mem", NULL);
->>> -    if ( !dt_property_read_u32(node, "#xen,static-mem-address-cells",
->>> -                               addr_cells) )
->>> -    {
->>> -        printk(XENLOG_ERR
->>> -               "failed to read \"#xen,static-mem-address-cells\".\n");
->>> -        return -EINVAL;
->>> -    }
->>>
->>> -    if ( !dt_property_read_u32(node, "#xen,static-mem-size-cells",
->>> -                               size_cells) )
->>> -    {
->>> -        printk(XENLOG_ERR
->>> -               "failed to read \"#xen,static-mem-size-cells\".\n");
->>> -        return -EINVAL;
->>> -    }
->>> +    *addr_cells = dt_n_addr_cells(node);
->>> +    *size_cells = dt_n_size_cells(node);
->> There is a type mismatch here as e.g. addr_cells is u32 and dt_n_addr_cells
->> return type is int.
->> But I don't think this can be harmful and also it's strange for me that
->> dt_n_addr_cells
->> is defined to return int given that it either returns 2 or be32_to_cpup, which
->> means it should return u32.
+> On x86, pci_check_bar will call is_memory_hole which will check if BAR
+> is not overlapping with any memory region defined in the memory map.
 > 
-> Yeah. I agree. I did a git blame here and found this function is introduced 9
-> years ago in "dbd1243 xen/arm: Add helpers to use the device tree". So I think
-> probably it would be easier to ask the author for the following action directly :))
-
-The code was imported from Linux where it seems to be more common to use 
-"int" rather than "unsigned".
-
+> On ARM, pci_check_bar will go through the host bridge ranges and check
+> if the BAR is in the range of defined ranges.
 > 
-> @Julien, what do you think? Shall we modify the return type of these two
-> functions?
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com> # x86, common
 
-I think it would be good to be consistent. However, there are other 
-users of d_n_addr_cells() (some are expecting 'int'). So if you switch 
-to a different type then this use will be consistent but not the others.
+FTAOD: I object to this tagging, and I did not provide the ack with
+such tags. Quoting docs/process/sending-patches.pandoc: "The
+`Acked-by:` tag can only be given by a **maintainer** of the modified
+code, and it only covers the code the maintainer is responsible for."
+The doc provides for tagging here, yes, but such should only be used
+for the unusual case of an ack restricted to less than what a
+person's maintainership covers. Otherwise we'd end up seeing overly
+many tagged acks. (Recall that tagged R-b is also expected to be the
+exception, not the common case.)
 
-I would only suggest to look at it if you have if you have copious time 
-and fancy going down the rabbit hole :).
-
-As to which type to chose, we are phasing out use of uXX in new code. So 
-this should be 'uint32_t'. I would also be fine to use 'unsigned int' 
-for the outside interface.
-
-I don't have a strong opinion either way.
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
