@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D2ED5B2CE5
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 05:27:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.403791.646014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECB7E5B2E0A
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 07:25:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.403803.646033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWUfO-0002qJ-1v; Fri, 09 Sep 2022 03:26:54 +0000
+	id 1oWWUv-0000sh-Dh; Fri, 09 Sep 2022 05:24:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 403791.646014; Fri, 09 Sep 2022 03:26:54 +0000
+Received: by outflank-mailman (output) from mailman id 403803.646033; Fri, 09 Sep 2022 05:24:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWUfN-0002n1-V8; Fri, 09 Sep 2022 03:26:53 +0000
-Received: by outflank-mailman (input) for mailman id 403791;
- Fri, 09 Sep 2022 03:26:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oWUfN-0002mr-Cp; Fri, 09 Sep 2022 03:26:53 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oWUfN-0006p1-8k; Fri, 09 Sep 2022 03:26:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oWUfN-0007Xd-12; Fri, 09 Sep 2022 03:26:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oWUfM-0006JY-Tt; Fri, 09 Sep 2022 03:26:52 +0000
+	id 1oWWUv-0000qF-BA; Fri, 09 Sep 2022 05:24:13 +0000
+Received: by outflank-mailman (input) for mailman id 403803;
+ Fri, 09 Sep 2022 05:24:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xTTi=ZM=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1oWWUt-0000q9-BN
+ for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 05:24:11 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id a086d9fb-2fff-11ed-a31c-8f8a9ae3403f;
+ Fri, 09 Sep 2022 07:24:08 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2B0F2153B;
+ Thu,  8 Sep 2022 22:24:13 -0700 (PDT)
+Received: from entos-skylake.shanghai.arm.com (entos-skylake.shanghai.arm.com
+ [10.169.212.207])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CE9673F73D;
+ Thu,  8 Sep 2022 22:24:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +43,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=aefmOsLBZuYfJdvg5769FMC/FPFtbMi8l7aaBjdRatM=; b=Za7NK1TvXM7cFaZsbpa13m3t7u
-	8rNHtm+TKj9g0Av42LEPz4K7KJ1qNOxMgszCmK5AKFucSbZxFhndA0DY5RSqkqM/Aw1/vkOyuO3lY
-	fRSFKaGp8RbkqC4NZ+k7edBjNN6vXU2baD9FR81HDDdwiAd7ViwImeR7oe40QXz7atNY=;
+X-Inumbo-ID: a086d9fb-2fff-11ed-a31c-8f8a9ae3403f
+From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173078-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 173078: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=36e3f41587788c60813b088b373960b7fb88c021
-X-Osstest-Versions-That:
-    xen=6bc1c1aba01f663687d7d2b48ccdf8d9432d92cc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 09 Sep 2022 03:26:52 +0000
+Cc: Henry Wang <Henry.Wang@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <Wei.Chen@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2] xen/arm, device-tree: Make static-mem use #{address,size}-cells
+Date: Fri,  9 Sep 2022 05:23:57 +0000
+Message-Id: <20220909052357.49349-1-Henry.Wang@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-flight 173078 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173078/
+In order to keep consistency in the device tree binding, there is
+no need for static memory allocation feature to define a specific
+set of address and size cells for "xen,static-mem" property.
 
-Failures :-/ but no regressions.
+Therefore, this commit reuses the regular #{address,size}-cells
+for parsing the device tree "xen,static-mem" property. Update
+the documentation accordingly.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- build-amd64-libvirt           6 libvirt-build                fail  like 173064
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Also, take the chance to remove the unnecessary "#address-cells"
+and "#size-cells" in the domU1 node of the device tree to only
+emphasize the related part that the example is showing.
 
-version targeted for testing:
- xen                  36e3f41587788c60813b088b373960b7fb88c021
-baseline version:
- xen                  6bc1c1aba01f663687d7d2b48ccdf8d9432d92cc
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+---
+Changes from v1 to v2:
+- Remove the "----" addition, as it is unnecessary to this patch.
+- Mention the removal of #address-cells and #size-cells in domU1
+  node in the commit message.
+---
+ docs/misc/arm/device-tree/booting.txt | 11 +++++------
+ docs/misc/arm/passthrough-noiommu.txt |  7 +++----
+ xen/arch/arm/bootfdt.c                |  5 -----
+ xen/arch/arm/domain_build.c           | 16 ++--------------
+ 4 files changed, 10 insertions(+), 29 deletions(-)
 
-Last test of basis   173064  2022-09-08 12:01:50 Z    0 days
-Testing same since   173078  2022-09-09 00:00:26 Z    0 days    1 attempts
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index 5395a1077c..10caf4f1af 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -350,8 +350,8 @@ areas are pre-defined by configuration using physical address ranges.
+ 
+ Memory can be statically allocated to a domain using the property "xen,static-
+ mem" defined in the domain configuration. The number of cells for the address
+-and the size must be defined using respectively the properties
+-"#xen,static-mem-address-cells" and "#xen,static-mem-size-cells".
++and the size must be defined respectively by the parent node properties
++"#address-cells" and "#size-cells".
+ 
+ The property 'memory' is still needed and should match the amount of memory
+ given to the guest. Currently, it either comes from static memory or lets Xen
+@@ -366,14 +366,13 @@ device-tree:
+ 
+     / {
+         chosen {
++            #address-cells = <0x1>;
++            #size-cells = <0x1>;
++            ...
+             domU1 {
+                 compatible = "xen,domain";
+-                #address-cells = <0x2>;
+-                #size-cells = <0x2>;
+                 cpus = <2>;
+                 memory = <0x0 0x80000>;
+-                #xen,static-mem-address-cells = <0x1>;
+-                #xen,static-mem-size-cells = <0x1>;
+                 xen,static-mem = <0x30000000 0x20000000>;
+                 ...
+             };
+diff --git a/docs/misc/arm/passthrough-noiommu.txt b/docs/misc/arm/passthrough-noiommu.txt
+index 3e2ef21ad7..69b8de1975 100644
+--- a/docs/misc/arm/passthrough-noiommu.txt
++++ b/docs/misc/arm/passthrough-noiommu.txt
+@@ -33,14 +33,13 @@ on static allocation in the device-tree:
+ 
+ / {
+ 	chosen {
++		#address-cells = <0x1>;
++		#size-cells = <0x1>;
++		...
+ 		domU1 {
+ 			compatible = "xen,domain";
+-			#address-cells = <0x2>;
+-			#size-cells = <0x2>;
+ 			cpus = <2>;
+ 			memory = <0x0 0x80000>;
+-			#xen,static-mem-address-cells = <0x1>;
+-			#xen,static-mem-size-cells = <0x1>;
+ 			xen,static-mem = <0x30000000 0x20000000>;
+ 			direct-map;
+ 			...
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index 9e1ea60094..59675f086b 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -370,11 +370,6 @@ static int __init process_domain_node(const void *fdt, int node,
+         /* No "xen,static-mem" present. */
+         return 0;
+ 
+-    address_cells = device_tree_get_u32(fdt, node,
+-                                        "#xen,static-mem-address-cells", 0);
+-    size_cells = device_tree_get_u32(fdt, node,
+-                                     "#xen,static-mem-size-cells", 0);
+-
+     return device_tree_get_meminfo(fdt, node, "xen,static-mem", address_cells,
+                                    size_cells, &bootinfo.reserved_mem,
+                                    MEMBANK_STATIC_DOMAIN);
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 7412303d20..9040a8c6cb 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -565,21 +565,9 @@ static int __init parse_static_mem_prop(const struct dt_device_node *node,
+     const struct dt_property *prop;
+ 
+     prop = dt_find_property(node, "xen,static-mem", NULL);
+-    if ( !dt_property_read_u32(node, "#xen,static-mem-address-cells",
+-                               addr_cells) )
+-    {
+-        printk(XENLOG_ERR
+-               "failed to read \"#xen,static-mem-address-cells\".\n");
+-        return -EINVAL;
+-    }
+ 
+-    if ( !dt_property_read_u32(node, "#xen,static-mem-size-cells",
+-                               size_cells) )
+-    {
+-        printk(XENLOG_ERR
+-               "failed to read \"#xen,static-mem-size-cells\".\n");
+-        return -EINVAL;
+-    }
++    *addr_cells = dt_n_addr_cells(node);
++    *size_cells = dt_n_size_cells(node);
+ 
+     *cell = (const __be32 *)prop->value;
+     *length = prop->length;
+-- 
+2.17.1
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Orzel <michal.orzel@amd.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6bc1c1aba0..36e3f41587  36e3f41587788c60813b088b373960b7fb88c021 -> smoke
 
