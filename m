@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A30425B418D
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 23:40:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404567.647112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31CE05B42C7
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Sep 2022 01:06:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404578.647125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWlil-0005uz-9b; Fri, 09 Sep 2022 21:39:31 +0000
+	id 1oWn4A-0000Kn-Lw; Fri, 09 Sep 2022 23:05:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404567.647112; Fri, 09 Sep 2022 21:39:31 +0000
+Received: by outflank-mailman (output) from mailman id 404578.647125; Fri, 09 Sep 2022 23:05:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWlil-0005rZ-6W; Fri, 09 Sep 2022 21:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 404567;
- Fri, 09 Sep 2022 21:39:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5CMf=ZM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oWlij-0005rT-9I
- for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 21:39:29 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e02810e6-3087-11ed-a31c-8f8a9ae3403f;
- Fri, 09 Sep 2022 23:39:27 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id C7EB6CE2462;
- Fri,  9 Sep 2022 21:39:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E625C433C1;
- Fri,  9 Sep 2022 21:39:22 +0000 (UTC)
+	id 1oWn4A-0000H1-IC; Fri, 09 Sep 2022 23:05:42 +0000
+Received: by outflank-mailman (input) for mailman id 404578;
+ Fri, 09 Sep 2022 23:05:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWn48-0000Gq-QJ; Fri, 09 Sep 2022 23:05:40 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWn48-00058l-NS; Fri, 09 Sep 2022 23:05:40 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWn48-0007V2-2g; Fri, 09 Sep 2022 23:05:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWn48-0005Vn-2B; Fri, 09 Sep 2022 23:05:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,119 +42,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e02810e6-3087-11ed-a31c-8f8a9ae3403f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662759563;
-	bh=WF9a+4xTSooI6ApIP+0Yd/CoT9WZkHMvxCNn2JHTzl8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=C224UHW/od2vUWJUV5sxndFt1RKPY3I1HW7bNLuitOWhEVpluU8FDnqbEPEJM8zls
-	 oAJDzm4i0KYqqawZnS+rWLq4UVHrwcgpyVg8FFBevKmBm4sA4uBMoz1tESLr0xzz2X
-	 nY3kBYYJ8CiZnsEjAvFQjJ3TPwIU6C284qr/0dJxIWTRVyfgOvjHIaG1QA5H/4sNaY
-	 fsEBJGj9sOl6d0CE3n3ClBppRd7/Mn7KHa8i3CBxV4W3ChODWy21iGhLGz6J6Gu9JO
-	 9GCEs0WhiyhwhBcjRAlYyr+DA8MUWt60+M1MBo2e5NyI3ctR7x9jisEPp9nk5gxUZa
-	 syFozcvgSoZkQ==
-Date: Fri, 9 Sep 2022 14:39:21 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Anthony Perard <anthony.perard@citrix.com>
-Subject: Re: [PATCH] zap linking-only option from EMBEDDED_EXTRA_CFLAGS
-In-Reply-To: <d640d386-8b6d-5e1c-4dd5-b5d928ab8b2b@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2209091413070.157835@ubuntu-linux-20-04-desktop>
-References: <d640d386-8b6d-5e1c-4dd5-b5d928ab8b2b@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=PNaAR+317N7bjBfWV0eZJeoUWfs/+L7ErX5gMFQFmiE=; b=l4Cw0LZ515XnOqoWK+a6i5wSk2
+	S7fHwbP8XzMD550TG6HKePD1FopvctPqpFQyrg4X5960rX7MAPVulSjosU+007Ab1PcsHtsLpr0+B
+	p4Etf7QEYyjDF+qv8IDzP4pcg0SfXYMgAf37HAO3OUc/+I5z95hfUGLl8Lyama/7RQtc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173098-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 173098: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=cdb80a281fa3fd3457faf1dc65d5a443e8d512d3
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 09 Sep 2022 23:05:40 +0000
 
-On Fri, 9 Sep 2022, Jan Beulich wrote:
-> While I was suspicious of the compiler issuing a diagnostic about an
-> unused linking-only option when not doing any linking, I did check this
-> with a couple of gcc versions only, but not with Clang. (Oddly enough at
-> least older Clang versions complain about the use of '-nopie' now that
-> we actually use '-no-pie'.) Filter out the problematic option in all
-> cases where the variable is consumed for compilation only (which right
-> now is everywhere).
-> 
-> Fixes: ecd6b9759919 ("Config.mk: correct PIE-related option(s) in EMBEDDED_EXTRA_CFLAGS")
-> Reported-by: Stefano Stabellini <sstabellini@kernel.org>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+flight 173098 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173098/
 
-I don't think I can review the patch but it made the pipeline pass
-again: 
+Regressions :-(
 
-https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/636189844
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-So:
+version targeted for testing:
+ ovmf                 cdb80a281fa3fd3457faf1dc65d5a443e8d512d3
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+Last test of basis   172136  2022-08-04 06:43:42 Z   36 days
+Failing since        172151  2022-08-05 02:40:28 Z   35 days  277 attempts
+Testing same since   173081  2022-09-09 03:19:40 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  "Lee, Chun-Yi" <jlee@suse.com>
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Annie Li <annie.li@oracle.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Bob Feng <bob.c.feng@intel.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Foster Nong <foster.nong@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee, Chun-Yi <joeyli.kernel@gmail.com>
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Pranav Madhu <pranav.madhu@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Rohit Mathew <rohit.mathew@arm.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuan Yu <yuanyu@google.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-> ---
-> Arguably with all users of EMBEDDED_EXTRA_CFLAGS using these just for
-> compiling, the option could be omitted from that variable right away.
-> But if any compile-and-link-in-one-go use appeared, there would be an
-> issue.
-> 
-> --- a/tools/firmware/Rules.mk
-> +++ b/tools/firmware/Rules.mk
-> @@ -13,7 +13,7 @@ endif
->  
->  CFLAGS += -Werror
->  
-> -$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
-> +$(call cc-options-add,CFLAGS,CC,$(filter-out -no-pie,$(EMBEDDED_EXTRA_CFLAGS)))
->  
->  $(call cc-option-add,CFLAGS,CC,-fcf-protection=none)
->  
-> --- a/tools/tests/x86_emulator/testcase.mk
-> +++ b/tools/tests/x86_emulator/testcase.mk
-> @@ -2,7 +2,7 @@ XEN_ROOT = $(CURDIR)/../../..
->  CFLAGS :=
->  include $(XEN_ROOT)/tools/Rules.mk
->  
-> -$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
-> +$(call cc-options-add,CFLAGS,CC,$(filter-out -no-pie,$(EMBEDDED_EXTRA_CFLAGS)))
->  
->  CFLAGS += -fno-builtin -g0 $($(TESTCASE)-cflags)
->  
-> --- a/xen/arch/arm/arch.mk
-> +++ b/xen/arch/arm/arch.mk
-> @@ -1,7 +1,7 @@
->  ########################################
->  # arm-specific definitions
->  
-> -$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
-> +$(call cc-options-add,CFLAGS,CC,$(filter-out -no-pie,$(EMBEDDED_EXTRA_CFLAGS)))
->  $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
->  
->  # Prevent floating-point variables from creeping into Xen.
-> --- a/xen/arch/x86/arch.mk
-> +++ b/xen/arch/x86/arch.mk
-> @@ -10,7 +10,7 @@ CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFF
->  # Prevent floating-point variables from creeping into Xen.
->  CFLAGS += -msoft-float
->  
-> -$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
-> +$(call cc-options-add,CFLAGS,CC,$(filter-out -no-pie,$(EMBEDDED_EXTRA_CFLAGS)))
->  $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
->  $(call as-option-add,CFLAGS,CC,"vmcall",-DHAVE_AS_VMX)
->  $(call as-option-add,CFLAGS,CC,"crc32 %eax$$(comma)%eax",-DHAVE_AS_SSE4_2)
-> --- a/xen/arch/x86/boot/Makefile
-> +++ b/xen/arch/x86/boot/Makefile
-> @@ -12,7 +12,7 @@ endif
->  $(obj)/head.o: $(head-bin-objs:.o=.bin)
->  
->  CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
-> -$(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
-> +$(call cc-options-add,CFLAGS_x86_32,CC,$(filter-out -no-pie,$(EMBEDDED_EXTRA_CFLAGS)))
->  CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float
->  ifdef building_out_of_srctree
->  CFLAGS_x86_32 += -I$(objtree)/include
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2401 lines long.)
 
