@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 856015B3831
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 14:54:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404308.646739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5AA85B3860
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 14:59:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404315.646750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWdW4-0006yG-Ct; Fri, 09 Sep 2022 12:53:52 +0000
+	id 1oWdbQ-0007hw-0t; Fri, 09 Sep 2022 12:59:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404308.646739; Fri, 09 Sep 2022 12:53:52 +0000
+Received: by outflank-mailman (output) from mailman id 404315.646750; Fri, 09 Sep 2022 12:59:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWdW4-0006vX-A7; Fri, 09 Sep 2022 12:53:52 +0000
-Received: by outflank-mailman (input) for mailman id 404308;
- Fri, 09 Sep 2022 12:53:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F8UZ=ZM=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oWdW2-0006vQ-HY
- for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 12:53:50 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 72c9561b-303e-11ed-a31c-8f8a9ae3403f;
- Fri, 09 Sep 2022 14:53:49 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AE5EA1F8DA;
- Fri,  9 Sep 2022 12:53:48 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 670FA139D5;
- Fri,  9 Sep 2022 12:53:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id D6rjF1w3G2PVNQAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 09 Sep 2022 12:53:48 +0000
+	id 1oWdbP-0007en-Th; Fri, 09 Sep 2022 12:59:23 +0000
+Received: by outflank-mailman (input) for mailman id 404315;
+ Fri, 09 Sep 2022 12:59:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bvbb=ZM=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1oWdbO-0007eh-H1
+ for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 12:59:22 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 38e5d4fc-303f-11ed-9760-273f2230c3a0;
+ Fri, 09 Sep 2022 14:59:21 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id lc7so3890794ejb.0
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Sep 2022 05:59:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,94 +39,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72c9561b-303e-11ed-a31c-8f8a9ae3403f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1662728028; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=Ywj87vOwTKhT5iZ677cNQ2Fr/sHl0+j5C9vmNgewlYk=;
-	b=VUeiWhP8lEn+qG5qfDVDxma3RCTLiKgJ46VzrYNT1RczaXbLHtPRwlcsvPFML7xYKeUUWd
-	T/fGb42kZC5pMy9LRB3x6+q8J0CbWwvmEHaTMqLYdS1lU+96UEeIntlXfd94lm70UIiPux
-	DEhPe+23x6CMjXxu4W6xp0WFUKNXSQ4=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Henry.Wang@arm.com,
-	Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3] xen/gnttab: fix gnttab_acquire_resource()
-Date: Fri,  9 Sep 2022 14:53:47 +0200
-Message-Id: <20220909125347.25734-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: 38e5d4fc-303f-11ed-9760-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=674w3U9avgHzrGoN6WaCQAkSakf0Zj1lCT/Xa1vsZf4=;
+        b=EZCakn1YMqJg/cfQqOayqzhyVZTGhNZoBLNmMlrnnOZEcoUgiW/IYOYQfJEkeIp9kp
+         ls8XPXi9wgFSbzQZKCDnN1cm5+H7CIdFSZT9xhlZ3IgIxh9NPd0lL8zQ6gXcRMJrSi/i
+         OnieJtD+q33packMXUvLGdkiBUQ3azLndoG6CbIUwKbT4AOjczCWHGzS/N1KyVRJgrH8
+         919LNOvYMD+w1uuJ/SFV9A8bZoEtYhskkHhl9X/g+GpzpC3tp7CPlvxcKbDwFutvExfG
+         /2crkECt8L+efOL16aA3aXJbrxSiEXwb8d7L8Nqdw7JbZZuO3Zd1xcPBvThks+tvtRDr
+         GTCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=674w3U9avgHzrGoN6WaCQAkSakf0Zj1lCT/Xa1vsZf4=;
+        b=zgSGQZ/L0MqbJ8g10oaSafVhkXWSrlyVvaJOAiqy2Mun1JQbOIM19hCjXdNl/lSPCS
+         Q5ahOCYmkfcgty3Kt1rQAm058igvGWk/dglwv91ngBguaXfZ2WTwToOslvXkzJgrr779
+         TQ2uAw72ZIGGI9I82Lj8sjipU1oZqyNwGrH/K4DBhWB9AH5p1b3LCzyVfa9kRUDZE9RA
+         nyVBbueS13s7W+t0kL0KDKXp5/Jg12k4jcgEN4J0iyssMb1PZbGQiaT6jcBydpW21sPy
+         qgqOLVwtUBK6hvm+dm3ybH+1E4sPrzJmNoWlnYD4Ul3cuH4uzmhA8kM30uTzVQkyul8w
+         PlQQ==
+X-Gm-Message-State: ACgBeo3GvglcC+JVjo6XWfvmPywPtsV5bjhByfT3D2E7HNx5/Y6kmNCo
+	Za3VmpM+8WySqWV5PS4C9J2NZj0PUCukacCl2hA=
+X-Google-Smtp-Source: AA6agR4MArzVlTIhaEQx7+xFjEElXgWNtKOj+MRYiXkG//atBEjTJBQP7+yM/7DQoNzm0NdawoNOvBdl8LB+m3sQvQc=
+X-Received: by 2002:a17:907:94c2:b0:73d:c534:1ac0 with SMTP id
+ dn2-20020a17090794c200b0073dc5341ac0mr9778011ejc.461.1662728360989; Fri, 09
+ Sep 2022 05:59:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220908195113.218201-1-jandryuk@gmail.com> <20220908195113.218201-3-jandryuk@gmail.com>
+ <YxsTO9Ds2RNJo/3W@perard.uk.xensource.com>
+In-Reply-To: <YxsTO9Ds2RNJo/3W@perard.uk.xensource.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 9 Sep 2022 08:59:09 -0400
+Message-ID: <CAKf6xpugO14yY+3XxKiRwFoks5-iVfoMzjVK-D=PYQBPvjdCSw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] xl/libxl: Add ability to specify SMBIOS strings
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, 
+	Juergen Gross <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 9dc46386d89d ("gnttab: work around "may be used uninitialized"
-warning") was wrong, as vaddrs can legitimately be NULL in case
-XENMEM_resource_grant_table_id_status was specified for a grant table
-v1. This would result in crashes in debug builds due to
-ASSERT_UNREACHABLE() triggering.
+On Fri, Sep 9, 2022 at 6:19 AM Anthony PERARD <anthony.perard@citrix.com> wrote:
+>
+> On Thu, Sep 08, 2022 at 03:51:12PM -0400, Jason Andryuk wrote:
+> > hvm_xs_strings.h specifies xenstore entries which can be used to set or
+> > override smbios strings.  hvmloader has support for reading them, but
+> > xl/libxl support is not wired up.
+> >
+> > Allow specifying the strings with the new xl.cfg option:
+> > smbios=["bios_vendor=Xen Project","system_version=1.0"]
+>
+> I've tried something like:
+>     smbios=['oem=foo=bar']
+> And only "foo" is added to the smbios string. Shouldn't we allow users
+> to have '=' in their smbios strings?
 
-Check vaddrs only to be NULL in the rc == 0 case.
+Yes, you are correct.  split_string_into_pair() isn't suitable since
+it terminates at the second '='.  Also, we probably don't want to trim
+the strings to keep them unchanged, especially for any values.  If a
+space-padded option name is provided, it'll show up in "xl: unknown
+smbios type '%s'" and the whitespace would be evident.
 
-Expand the tests in tools/tests/resource to verify that using
-XENMEM_resource_grant_table_id_status on a V1 grant table will result
-in EINVAL.
+hvmloader iterates through HVM_XS_OEM_STRINGS entries and stops
+processing when an entry is not found, or it is zero-length.  So I
+think we should disallow zero-length values like "oem=" to avoid
+surprises.  For example, smbios=["oem=A","oem=","oem=B"] would result
+in only oem-1 "A" making its way through to the guest.
 
-Fixes: 9dc46386d89d ("gnttab: work around "may be used uninitialized" warning")
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com> # xen
-Release-acked-by: Henry Wang <Henry.Wang@arm.com>
----
-V2:
-- rework (Jan Beulich, Julien Grall)
-V3:
-- added test support (Andrew Cooper)
----
- tools/tests/resource/test-resource.c | 11 +++++++++++
- xen/common/grant_table.c             |  2 +-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+Your other comments sound good.
 
-diff --git a/tools/tests/resource/test-resource.c b/tools/tests/resource/test-resource.c
-index 189353ebcb..71a81f207e 100644
---- a/tools/tests/resource/test-resource.c
-+++ b/tools/tests/resource/test-resource.c
-@@ -106,6 +106,17 @@ static void test_gnttab(uint32_t domid, unsigned int nr_frames,
-     if ( rc )
-         return fail("    Fail: Unmap grant table %d - %s\n",
-                     errno, strerror(errno));
-+
-+    /* Verify that the attempt to map the status frames is failing for V1. */
-+    res = xenforeignmemory_map_resource(
-+        fh, domid, XENMEM_resource_grant_table,
-+        XENMEM_resource_grant_table_id_status, 0, 1,
-+        (void **)&gnttab, PROT_READ | PROT_WRITE, 0);
-+    if ( res || errno != EINVAL )
-+        fail("    Fail: Map status not failing with EINVAL %d - %s\n",
-+             res ? 0 : errno, res ? "no error" : strerror(errno));
-+    if ( res )
-+        xenforeignmemory_unmap_resource(fh, res);
- }
- 
- static void test_domain_configurations(void)
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index ad773a6996..fba329dcc2 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -4140,7 +4140,7 @@ int gnttab_acquire_resource(
-      * on non-error paths, and hence it needs setting to NULL at the top of the
-      * function.  Leave some runtime safety.
-      */
--    if ( !vaddrs )
-+    if ( !rc && !vaddrs )
-     {
-         ASSERT_UNREACHABLE();
-         rc = -ENODATA;
--- 
-2.35.3
-
+Thanks,
+Jason
 
