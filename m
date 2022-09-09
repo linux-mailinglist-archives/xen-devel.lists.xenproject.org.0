@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58DBE5B3413
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 11:36:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404043.646368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98C1C5B342D
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 11:40:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404058.646380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWaQW-0005zQ-Sd; Fri, 09 Sep 2022 09:35:56 +0000
+	id 1oWaUB-00078E-Bx; Fri, 09 Sep 2022 09:39:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404043.646368; Fri, 09 Sep 2022 09:35:56 +0000
+Received: by outflank-mailman (output) from mailman id 404058.646380; Fri, 09 Sep 2022 09:39:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWaQW-0005w7-PO; Fri, 09 Sep 2022 09:35:56 +0000
-Received: by outflank-mailman (input) for mailman id 404043;
- Fri, 09 Sep 2022 09:35:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XiEI=ZM=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1oWaQU-0005FS-UC
- for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 09:35:55 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id cc73ce15-3022-11ed-a31c-8f8a9ae3403f;
- Fri, 09 Sep 2022 11:35:53 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7961815DB;
- Fri,  9 Sep 2022 02:35:59 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D30403F73D;
- Fri,  9 Sep 2022 02:35:51 -0700 (PDT)
+	id 1oWaUB-00076T-8g; Fri, 09 Sep 2022 09:39:43 +0000
+Received: by outflank-mailman (input) for mailman id 404058;
+ Fri, 09 Sep 2022 09:39:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWaU9-00076J-Qq; Fri, 09 Sep 2022 09:39:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWaU9-0006Aq-P5; Fri, 09 Sep 2022 09:39:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWaU9-0000eP-8w; Fri, 09 Sep 2022 09:39:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWaU9-0000jt-8S; Fri, 09 Sep 2022 09:39:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,195 +42,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc73ce15-3022-11ed-a31c-8f8a9ae3403f
-From: Rahul Singh <rahul.singh@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=KGaIFMDvK0a/4OMS4FGCFnlZilYMZIjsXlUHPgTweTI=; b=alVQu0J7Z3Tt2QsrN0N5U0+akY
+	aoAzNngg/Tlb0pj2eGxT5TaBlW3tzj62ADc6GjdRFBlwiayeS89IurxDGedY97xwvbC+ixnbMSpXV
+	6RhHOB/WzELWZXUtCRNY5nK/ALYQB3WKSQEmiACA37blnsJDr3byByyGyT5GSYR2c7DY=;
 To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH v6 2/2] xen/pci: replace call to is_memory_hole to pci_check_bar
-Date: Fri,  9 Sep 2022 10:34:40 +0100
-Message-Id: <851cdf28f007326e9f7e1aaeab3688498aaecc9e.1662715131.git.rahul.singh@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1662715131.git.rahul.singh@arm.com>
-References: <cover.1662715131.git.rahul.singh@arm.com>
-MIME-Version: 1.0
+Message-ID: <osstest-173086-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 173086: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=cdb80a281fa3fd3457faf1dc65d5a443e8d512d3
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 09 Sep 2022 09:39:41 +0000
 
-is_memory_hole was implemented for x86 and not for ARM when introduced.
-Replace is_memory_hole call to pci_check_bar as function should check
-if device BAR is in defined memory range. Also, add an implementation
-for ARM which is required for PCI passthrough.
+flight 173086 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173086/
 
-On x86, pci_check_bar will call is_memory_hole which will check if BAR
-is not overlapping with any memory region defined in the memory map.
+Regressions :-(
 
-On ARM, pci_check_bar will go through the host bridge ranges and check
-if the BAR is in the range of defined ranges.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in v6:
- - change from unsigned long to paddr_t
-Changes in v5:
- - drop use of PFN_UP and PF_DOWN in case addresses are not aligned.
- - As we drop the PFN_UP and PFN_DOWN we need to use the mfn_to_maddr()
-   to get the BAR address without page shift.
- - Add TODO comment for address alignment check for ranges.
- - Added Jan Acked-by for x86 and common code.
-Changes in v4:
- - check "s <= e" before callback
- - Add TODO comment for revisiting the function pci_check_bar() when
-   ACPI PCI passthrough support is added.
- - Not Added the Jan Acked-by as patch is modified.
-Changes in v3:
- - fix minor comments
----
----
- xen/arch/arm/include/asm/pci.h     |  2 ++
- xen/arch/arm/pci/pci-host-common.c | 54 ++++++++++++++++++++++++++++++
- xen/arch/x86/include/asm/pci.h     | 10 ++++++
- xen/drivers/passthrough/pci.c      |  8 ++---
- 4 files changed, 70 insertions(+), 4 deletions(-)
+version targeted for testing:
+ ovmf                 cdb80a281fa3fd3457faf1dc65d5a443e8d512d3
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
-index 80a2431804..8cb46f6b71 100644
---- a/xen/arch/arm/include/asm/pci.h
-+++ b/xen/arch/arm/include/asm/pci.h
-@@ -126,6 +126,8 @@ int pci_host_iterate_bridges_and_count(struct domain *d,
- 
- int pci_host_bridge_mappings(struct domain *d);
- 
-+bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
-+
- #else   /*!CONFIG_HAS_PCI*/
- 
- struct arch_pci_dev { };
-diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-index 89ef30028e..a8ece94303 100644
---- a/xen/arch/arm/pci/pci-host-common.c
-+++ b/xen/arch/arm/pci/pci-host-common.c
-@@ -24,6 +24,16 @@
- 
- #include <asm/setup.h>
- 
-+/*
-+ * struct to hold pci device bar.
-+ */
-+struct pdev_bar_check
-+{
-+    paddr_t start;
-+    paddr_t end;
-+    bool is_valid;
-+};
-+
- /*
-  * List for all the pci host bridges.
-  */
-@@ -363,6 +373,50 @@ int __init pci_host_bridge_mappings(struct domain *d)
-     return 0;
- }
- 
-+/*
-+ * TODO: BAR addresses and Root Complex window addresses are not guaranteed
-+ * to be page aligned. We should check for alignment but this is not the
-+ * right place for alignment check.
-+ */
-+static int is_bar_valid(const struct dt_device_node *dev,
-+                        paddr_t addr, paddr_t len, void *data)
-+{
-+    struct pdev_bar_check *bar_data = data;
-+    paddr_t s = bar_data->start;
-+    paddr_t e = bar_data->end;
-+
-+    if ( (s >= addr) && (e <= (addr + len - 1)) )
-+        bar_data->is_valid =  true;
-+
-+    return 0;
-+}
-+
-+/* TODO: Revisit this function when ACPI PCI passthrough support is added. */
-+bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
-+{
-+    int ret;
-+    const struct dt_device_node *dt_node;
-+    paddr_t s = mfn_to_maddr(start);
-+    paddr_t e = mfn_to_maddr(end);
-+    struct pdev_bar_check bar_data =  {
-+        .start = s,
-+        .end = e,
-+        .is_valid = false
-+    };
-+
-+    if ( s >= e )
-+        return false;
-+
-+    dt_node = pci_find_host_bridge_node(pdev);
-+    if ( !dt_node )
-+        return false;
-+
-+    ret = dt_for_each_range(dt_node, &is_bar_valid, &bar_data);
-+    if ( ret < 0 )
-+        return false;
-+
-+    return bar_data.is_valid;
-+}
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
-index c8e1a9ecdb..f4a58c8acf 100644
---- a/xen/arch/x86/include/asm/pci.h
-+++ b/xen/arch/x86/include/asm/pci.h
-@@ -57,4 +57,14 @@ static always_inline bool is_pci_passthrough_enabled(void)
- 
- void arch_pci_init_pdev(struct pci_dev *pdev);
- 
-+static inline bool pci_check_bar(const struct pci_dev *pdev,
-+                                 mfn_t start, mfn_t end)
-+{
-+    /*
-+     * Check if BAR is not overlapping with any memory region defined
-+     * in the memory map.
-+     */
-+    return is_memory_hole(start, end);
-+}
-+
- #endif /* __X86_PCI_H__ */
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index cdaf5c247f..149f68bb6e 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -304,8 +304,8 @@ static void check_pdev(const struct pci_dev *pdev)
-         if ( rc < 0 )
-             /* Unable to size, better leave memory decoding disabled. */
-             return;
--        if ( size && !is_memory_hole(maddr_to_mfn(addr),
--                                     maddr_to_mfn(addr + size - 1)) )
-+        if ( size && !pci_check_bar(pdev, maddr_to_mfn(addr),
-+                                    maddr_to_mfn(addr + size - 1)) )
-         {
-             /*
-              * Return without enabling memory decoding if BAR position is not
-@@ -331,8 +331,8 @@ static void check_pdev(const struct pci_dev *pdev)
- 
-         if ( rc < 0 )
-             return;
--        if ( size && !is_memory_hole(maddr_to_mfn(addr),
--                                     maddr_to_mfn(addr + size - 1)) )
-+        if ( size && !pci_check_bar(pdev, maddr_to_mfn(addr),
-+                                    maddr_to_mfn(addr + size - 1)) )
-         {
-             printk(warn, &pdev->sbdf, "ROM ", PFN_DOWN(addr),
-                    PFN_DOWN(addr + size - 1));
--- 
-2.25.1
+Last test of basis   172136  2022-08-04 06:43:42 Z   36 days
+Failing since        172151  2022-08-05 02:40:28 Z   35 days  273 attempts
+Testing same since   173081  2022-09-09 03:19:40 Z    0 days    2 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  "Lee, Chun-Yi" <jlee@suse.com>
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Annie Li <annie.li@oracle.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Bob Feng <bob.c.feng@intel.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Foster Nong <foster.nong@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee, Chun-Yi <joeyli.kernel@gmail.com>
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Pranav Madhu <pranav.madhu@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Rohit Mathew <rohit.mathew@arm.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuan Yu <yuanyu@google.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2401 lines long.)
 
