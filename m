@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3ED75B3405
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 11:33:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404024.646336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E6415B340E
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 11:35:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404031.646347 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWaNu-0004Lh-QD; Fri, 09 Sep 2022 09:33:14 +0000
+	id 1oWaPX-0004wm-7Y; Fri, 09 Sep 2022 09:34:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404024.646336; Fri, 09 Sep 2022 09:33:14 +0000
+Received: by outflank-mailman (output) from mailman id 404031.646347; Fri, 09 Sep 2022 09:34:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWaNu-0004JT-NK; Fri, 09 Sep 2022 09:33:14 +0000
-Received: by outflank-mailman (input) for mailman id 404024;
- Fri, 09 Sep 2022 09:33:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oWaNt-0004JI-4i
- for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 09:33:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oWaNs-00063M-SK; Fri, 09 Sep 2022 09:33:12 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=[192.168.11.73]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oWaNs-0000Go-Kv; Fri, 09 Sep 2022 09:33:12 +0000
+	id 1oWaPX-0004tu-3B; Fri, 09 Sep 2022 09:34:55 +0000
+Received: by outflank-mailman (input) for mailman id 404031;
+ Fri, 09 Sep 2022 09:34:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XiEI=ZM=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
+ id 1oWaPV-0004tm-Pr
+ for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 09:34:53 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 9f2983fd-3022-11ed-9760-273f2230c3a0;
+ Fri, 09 Sep 2022 11:34:38 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3F57715DB;
+ Fri,  9 Sep 2022 02:34:58 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D4CD3F73D;
+ Fri,  9 Sep 2022 02:34:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,51 +43,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=i8D8d5q/5gBssAo4Jm9hIilkoUju3HSkErG1YCEYVpc=; b=N2WmzCKQJFjLW+WoRf4ndrpvkR
-	OpiWU8PdVqnPS4M19Qc4DjgDlkS89Bmhly+Uk4AmtGO4XC9HObCoWFyD1eofQj00M6oICuibaJ+Hv
-	qMXoUmmZicpJHU5tQ7BO6Nh2JE3gEhbiyHFlFpPH+AuOMSBnLperzV15yRWD+VxhK7YQ=;
-Message-ID: <807c0fad-cf2b-7fcd-97b2-b49d026926c0@xen.org>
-Date: Fri, 9 Sep 2022 10:33:10 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH] docs/device-tree: Place the static-heap dt-binding in
- proper place
-Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
+X-Inumbo-ID: 9f2983fd-3022-11ed-9760-273f2230c3a0
+From: Rahul Singh <rahul.singh@arm.com>
+To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220908120728.8290-1-Henry.Wang@arm.com>
- <b1fe6526-6d30-bf39-a0e0-5040cb4ee20d@xen.org>
-In-Reply-To: <b1fe6526-6d30-bf39-a0e0-5040cb4ee20d@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Paul Durrant <paul@xen.org>
+Subject: [PATCH v6 0/2] xen/pci: implement is_memory_hole for ARM
+Date: Fri,  9 Sep 2022 10:34:38 +0100
+Message-Id: <cover.1662715131.git.rahul.singh@arm.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+This patch series is to implement something like is_memory_hole function for
+ARM.
 
+Rahul Singh (2):
+  xen/arm: pci: modify pci_find_host_bridge_node argument to const pdev
+  xen/pci: replace call to is_memory_hole to pci_check_bar
 
-On 08/09/2022 14:05, Julien Grall wrote:
-> Hi Henry,
-> 
-> On 08/09/2022 13:07, Henry Wang wrote:
->> The static-heap dt-binding should be placed after the last feature,
->> namely static-evtchn.
->>
->> Fixes: 4596329291f5 ("docs, xen/arm: Introduce static heap memory")
->> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-> 
-> Thanks for fixing the mistake I did while committing the patch :).
-> 
-> Acked-by: Julien Grall <jgrall@amazon.com>
-
-And committed.
-
-Cheers,
+ xen/arch/arm/include/asm/pci.h     |  5 ++-
+ xen/arch/arm/pci/pci-host-common.c | 58 ++++++++++++++++++++++++++++--
+ xen/arch/x86/include/asm/pci.h     | 10 ++++++
+ xen/drivers/passthrough/pci.c      |  8 ++---
+ 4 files changed, 74 insertions(+), 7 deletions(-)
 
 -- 
-Julien Grall
+2.25.1
+
 
