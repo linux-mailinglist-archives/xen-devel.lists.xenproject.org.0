@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EE125B3C39
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 17:42:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404471.646955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3BC85B3CBC
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 18:12:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404478.646965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWg8C-0005rO-9c; Fri, 09 Sep 2022 15:41:24 +0000
+	id 1oWgc3-0002Mo-Lw; Fri, 09 Sep 2022 16:12:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404471.646955; Fri, 09 Sep 2022 15:41:24 +0000
+Received: by outflank-mailman (output) from mailman id 404478.646965; Fri, 09 Sep 2022 16:12:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWg8C-0005p0-65; Fri, 09 Sep 2022 15:41:24 +0000
-Received: by outflank-mailman (input) for mailman id 404471;
- Fri, 09 Sep 2022 15:41:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oWgc3-0002Ka-JO; Fri, 09 Sep 2022 16:12:15 +0000
+Received: by outflank-mailman (input) for mailman id 404478;
+ Fri, 09 Sep 2022 16:12:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F1lU=ZM=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1oWg8B-0005or-6o
- for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 15:41:23 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8c14709-3055-11ed-9760-273f2230c3a0;
- Fri, 09 Sep 2022 17:41:20 +0200 (CEST)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1662738076566571.0787444842507;
- Fri, 9 Sep 2022 08:41:16 -0700 (PDT)
+ <SRS0=bvbb=ZM=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1oWgc1-0002KU-KP
+ for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 16:12:13 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2964e486-305a-11ed-a31c-8f8a9ae3403f;
+ Fri, 09 Sep 2022 18:12:12 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id lz22so5140782ejb.3
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Sep 2022 09:12:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,126 +39,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8c14709-3055-11ed-9760-273f2230c3a0
-ARC-Seal: i=1; a=rsa-sha256; t=1662738077; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=brWj5PxNFb9ejA4cGHcjn/2YeY+OG4NOKAC+Z8UCuJa6HEiWv8OOhP+JqBK24JLzBgxyd7QanquysDgGOKPlehmVRYNLDJHjH+0g6OH5Db38pj0IGqmB+/nRw9CwOZy2vTo0ml2KUPHEoQOWt3bSxGjJ21rI9jt2NIP5FRZf/S8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1662738077; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=3pPQ8rWPnj6YmEPuBn7YnrybGjisZ/aKYZ9q4cPs7/o=; 
-	b=I0VWb8QaPyB74zXIqIYgDcaebdSXh/wNVG+kHBgYoINxoNAOlOvqD3cE6PLE7cZ2hquSKLAkSAawuBK+OOHoAD67HywNFqNWxVtLf0v8rjh+WLAz2Nf87Jc5qO2as86c/5Qr3VqvipqKNiNKpHjxVGw6zw98r7mEDQ00ZJ2uxI8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1662738077;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=3pPQ8rWPnj6YmEPuBn7YnrybGjisZ/aKYZ9q4cPs7/o=;
-	b=bIIldCrh22hUF5F70ZlFRBxO7wAF/DUvJhEeGefuQAjIvYmPKWEymt0LzAT9zhmZ
-	ArgEeN6uY+GDmxuADNJpZf3F/JPy/SZ1y8uDbPO/afspPyjtsgEpQ9gSGm2/uVZW4Xd
-	w/e1RGWIKqvd3QVPXZxcotUdpTBJbSjPRtlE3dgc=
-Message-ID: <b12addb7-ce3f-b560-4f35-05ba9c699c87@apertussolutions.com>
-Date: Fri, 9 Sep 2022 11:41:15 -0400
+X-Inumbo-ID: 2964e486-305a-11ed-a31c-8f8a9ae3403f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=inLoVTMssB90QGkHyUI1/5M5trM6CuJ62qAp4R+UoAE=;
+        b=gkVdNEgU9IvgnIaAbBukptVTVEpbQWYKTCon4II4JtO8TPfLLBVMYXlW5y2Jem76ts
+         7KY8YoQwTt1Y2wawuTmyvlTxz8+6+07tx7br89VXHKylxkJRSMWhFic7gxnEMderjCpa
+         8CQfHEqfODRNQReIZAT0plDHXOxWgO86ixeq/jXJd/xzOfCl/fJPsQsDAa0yKEcNWGNy
+         0bDRZYyH8+iDiqEIgQr0ezQXTInTYTq6FGMglhqtq3hDzFsxfeYwv3xdAr07t1NKtHBM
+         5Y1y5VD8ADbEHK+U1n/51PvFX445VfjDzQ6zI9KCWKZiycN9aT0a4lCCk84TD+HtUFgd
+         gz1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=inLoVTMssB90QGkHyUI1/5M5trM6CuJ62qAp4R+UoAE=;
+        b=PHPOLd4UEW63h+Z4kQWgPLJj6RB1CF8Qs77I8Ehf7dRHReHNQIX0yh+lQbzF6l7b0i
+         lqY0PwvJ2gCYwh5Q7BNAkPOBJpiAdJN+N86bFT982q2QnKwt6+pG1WTeBaV1O/R52QL0
+         OiUw/vTy8GkYX42vdbiOThiNFfNttX1MaFInz6O7QW3EzlU08UZ3X+LugyoD2lAYs4oM
+         NRM8HgIMF19W78OzEMjQfKCnSLl5L5IEVIkJMduJ+2OxJftQxebypP8yB++2UqCZi2yt
+         HVDJU9TM0OcgS3eFGFgafLJFd/XumpvS4xAr2joSFzdcQffxIHWcSmuMlyk+nZtYXGX2
+         Rkow==
+X-Gm-Message-State: ACgBeo1TGCKNqmdhQ0I5Jlu/SCYp07AP3zV3baCriFQrxBMGLhm2Rh7k
+	VmE90zmTaLwPneLY8UB94D9XNn5qmMaXBak5ZJ8jOO1b
+X-Google-Smtp-Source: AA6agR7XG2Qi9H6tVfnbOSGsaPIrxoxKLOxrcmTLAQBzoVC0APjazAzaOkXYRpnFUKVHnGO01mZBnOqwYojLP5gRUWI=
+X-Received: by 2002:a17:907:94c2:b0:73d:c534:1ac0 with SMTP id
+ dn2-20020a17090794c200b0073dc5341ac0mr10421418ejc.461.1662739931362; Fri, 09
+ Sep 2022 09:12:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: jandryuk@gmail.com, xen-devel@lists.xenproject.org
-References: <20220909095012.4251-1-dpsmith@apertussolutions.com>
- <3da17c12-1cbe-165e-94f4-44face9a181f@suse.com>
- <e6568867-3296-58b2-8744-d1644e401528@apertussolutions.com>
- <f037e0c2-625f-dcad-a67a-6468392c14bd@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH] xsm/flask: adjust print messages to use %pd
-In-Reply-To: <f037e0c2-625f-dcad-a67a-6468392c14bd@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+References: <20220909012546.21807-1-dpsmith@apertussolutions.com>
+In-Reply-To: <20220909012546.21807-1-dpsmith@apertussolutions.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 9 Sep 2022 12:11:59 -0400
+Message-ID: <CAKf6xpsXBOMDZ-2as48AfExN61RD3RkqhOm2ebK=LPr5nCY23Q@mail.gmail.com>
+Subject: Re: [PATCH v13] xsm/flask: correcting initial sid assignment on
+ context allocation
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 
+On Thu, Sep 8, 2022 at 9:26 PM Daniel P. Smith
+<dpsmith@apertussolutions.com> wrote:
+>
+> The current flow for initial SID assignment is that the function
+> flask_domain_alloc_security() allocates the security context and assigns an
+> initial SID based on the limited state information it can access. Specifically
+> the initial SID is determined by the domid of the domain, where it would assign
+> the label for one of the domains the hypervisor constructed with the exception
+> of initial domain (dom0). In the case of the initial domain and all other
+> domains it would use the unlabeled_t SID.
+>
+> When it came to the SID for the initial domain, its assignment was managed by
+> flask_domain_create() where it would be switched from unlabeled_t to dom0_t.
+> This logic worked under the assumption that the first call to
+> flask_domain_create() would be the hypervisor constructing the initial domain.
+> After which it would be the toolstack constructing the domain, for which it is
+> expected to provide an appropriate SID or else unlabeled_t would be used.
+>
+> The issue is that the assumptions upon which the current flow is built were
+> weak and are invalid for PV shim and dom0less. Under the current flow even
+> though the initial domain for PV shim is not set as privileged, flask would
+> label the domain as dom0_t. For dom0less, the situation is two-fold. First is
+> that every domain after the first domain creation will fail as they will be
+> labeled as unlabeled_t. The second is that if the dom0less configuration does
+> not include a "dom0", the first domain created would be labeled as dom0_t.
+>
+> This commit only seeks to address the situation for PV shim, by including a
+> check for xenboot_t context in flask_domain_alloc_security() to determine if
+> the domain is being constructed at system boot. Then a check for is_privilged
+> and pv_shim is added to differentiate between a "dom0" initial domain and a PV
+> shim initial domain.
+>
+> The logic for flask_domain_create() was altered to allow the incoming SID to
+> override the initial label. This allows a domain builder, whether it is a
+> toolstack, dom0less, or hyperlaunch, to provide the correct label for the
+> domain at construction.
+>
+> The base policy was adjusted to allow the idle domain under the xenboot_t
+> context the ability to construct domains of both types, dom0_t and domu_t.
+> This will enable a hypervisor resident domain builder to construct domains
+> beyond the initial domain,
+>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-On 9/9/22 08:10, Jan Beulich wrote:
-> On 09.09.2022 13:34, Daniel P. Smith wrote:
->> On 9/9/22 06:04, Jan Beulich wrote:
->>> On 09.09.2022 11:50, Daniel P. Smith wrote:
->>>> --- a/xen/xsm/flask/avc.c
->>>> +++ b/xen/xsm/flask/avc.c
->>>> @@ -566,14 +566,14 @@ void avc_audit(u32 ssid, u32 tsid, u16 tclass, u32 requested,
->>>>       if ( a && (a->sdom || a->tdom) )
->>>>       {
->>>>           if ( a->sdom && a->tdom && a->sdom != a->tdom )
->>>> -            avc_printk(&buf, "domid=%d target=%d ", a->sdom->domain_id, a->tdom->domain_id);
->>>> +            avc_printk(&buf, "source=%pd target=%dp ", a->sdom, a->tdom);
->>>>           else if ( a->sdom )
->>>> -            avc_printk(&buf, "domid=%d ", a->sdom->domain_id);
->>>> +            avc_printk(&buf, "source=%pd ", a->sdom);
->>>>           else
->>>> -            avc_printk(&buf, "target=%d ", a->tdom->domain_id);
->>>> +            avc_printk(&buf, "target=%pd ", a->tdom);
->>>
->>> Apart from switching to %pd to also replace "domid" by "source". That's
->>> fine in the first case (where both domain IDs are logged), but in the
->>> second case it's a little questionable. Wouldn't it be better to be
->>> able to distinguish the tdom == NULL case from the tdom == sdom one,
->>> perhaps by using "source" in the former case but "domid" in the latter
->>> one?
->>
->> Apologies as I am not quite following your question. Let me provide my 
->> reasoning and if it doesn't address your question, then please help me 
->> understand your concern.
->>
->> The function avc_printk() allows for the incremental build up of an AVC 
->> message. In this section, it is attempting to include the applicable 
->> source and target that was used to render the AVC. With the switch to 
->> %pd, the first and second lines would become "domid=d{id}". I personally 
->> find that a bit redundant. Adding to that, in the context of this 
->> function there is "sdom" which is source domain, "cdom" which is current 
->> domain, and tdom which is target domain. The print statements using cdom 
->> or tdom already denoted them with "current=" and "target=" respectively. 
->> Whereas, sdom was prefixed with "domid=" in the print statements. To me, 
->> it makes more sense to change the prefixes of sdom with "source=" to 
->> accurately reflect the context of that domid.
-> 
-> Well, yes, perhaps "domain" would be better than "domid" with the change
-> to %pd. But I still think the middle of the three printk()s would better
-> distinguish tdom == NULL from tdom == sdom:
-> 
->         else if ( a->sdom )
->             avc_printk(&buf, "%s=%pd ", a->tdom ? "domain" : "source", a->sdom);
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
-Okay, I see you are trying to reduce away the last "else", but I have
-several concerns about doing this suggestion.
-
- - The biggest concern is the fact that in the past, a domain referred
-to strictly as "domain" or "domid" in an AVC has always implied it was
-the source. At the same time, the target domain has always been
-referenced as "target". This suggestion would completely flip that
-implied understanding around. In part, this change was to move source
-from being implied to being explicitly reported. The end result is it
-then makes source explicit as it is for current and target.
-
- - AFAICT the suggestion is not logically equivalent. The current form
-checks first if sdom is defined, then prints it. If sdom is not defined,
-then it is presumed that tdom will be defined, and will then print it.
-AIUI, the suggestion will lose the case where sdom is not defined.
-
- - I haven't went to confirm this, but I believe the logic here is based
-on an understanding of when sdom and tdom are defined. Specifically, the
-expected situations are,
-  1. sdom and tdom are defined and not equal, report both
-  2. if sdom and tdom are defined and equal, report only sdom as tdom
-       is implied to be the same
-  3. if sdom is not defined, then tdom must be defined, report only tdom
-     and sdom is implied to be cdom
-
-Finally, as I was typing this up, I had a realization that I may not be
-able to relabel the reference. It is believed at some point you could
-feed Xen AVCs to audit2allow to generate an allow rule for the AVC.
-Though recent versions do not appear to work, so I am going to try to
-find a day or two to dig in and determine what influence this might have
-on the change.
-
-v/r,
-dps
+Thanks,
+Jason
 
