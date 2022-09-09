@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23AB25B40CB
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 22:41:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404534.647032 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B8485B40CC
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 22:41:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404536.647042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWkny-00057O-Tl; Fri, 09 Sep 2022 20:40:50 +0000
+	id 1oWkoL-0005ZG-62; Fri, 09 Sep 2022 20:41:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404534.647032; Fri, 09 Sep 2022 20:40:50 +0000
+Received: by outflank-mailman (output) from mailman id 404536.647042; Fri, 09 Sep 2022 20:41:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWkny-00055b-Qu; Fri, 09 Sep 2022 20:40:50 +0000
-Received: by outflank-mailman (input) for mailman id 404534;
- Fri, 09 Sep 2022 20:40:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oWkoL-0005WD-3F; Fri, 09 Sep 2022 20:41:13 +0000
+Received: by outflank-mailman (input) for mailman id 404536;
+ Fri, 09 Sep 2022 20:41:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5CMf=ZM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oWkny-00055V-0S
- for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 20:40:50 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aeae9b9f-307f-11ed-9760-273f2230c3a0;
- Fri, 09 Sep 2022 22:40:48 +0200 (CEST)
+ id 1oWkoJ-0005Td-Kx
+ for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 20:41:11 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b9c6250a-307f-11ed-a31c-8f8a9ae3403f;
+ Fri, 09 Sep 2022 22:41:06 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4A76062031;
- Fri,  9 Sep 2022 20:40:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 238ACC433C1;
- Fri,  9 Sep 2022 20:40:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0754A62031;
+ Fri,  9 Sep 2022 20:41:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F6EFC433C1;
+ Fri,  9 Sep 2022 20:41:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,210 +44,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aeae9b9f-307f-11ed-9760-273f2230c3a0
+X-Inumbo-ID: b9c6250a-307f-11ed-a31c-8f8a9ae3403f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1662756045;
-	bh=IbCvMncCEhI5v/tmp3HrX/u4Kga/tO3p8c2TtFrP+50=;
+	s=k20201202; t=1662756064;
+	bh=hkxcvj/8MrM7eaEYMmpHk8S/3LUdyXPLgYfV8uQOfVo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=cgSqwzYIDbxuLjgZ2gGObZThLRn0QniotyHYBDwQnR+OHSNRH5f2cOlDM4UaDI9iW
-	 PcPZ94+fV+vPXjIkzqI1QaU1eFPOpDUctasWEQO8/QJ066gGEtLIet5xhtUFJyTbbc
-	 AklBaYfXBByBXQnjmZFXLCkmImaZtA9yLp9X2RRZbA/hHN6CukEfmKlVXL3dGHC31Y
-	 W+dMPwSwnLdL6HklJ9VPUGvGiFVdjK8HH1Kg9Ik4Ssu55wIPDQwo6Hckt/jIHEmm09
-	 Yzt31Maux/qQF8aQIr7L0uIIVtGaNBbl918/krQksM6L8kyJAdbZJKmx7AIfnnQB2s
-	 VvKozbq8J9gMg==
-Date: Fri, 9 Sep 2022 13:40:44 -0700 (PDT)
+	b=tNbDiNcazIwMQFmld4a2/Hcd0sAPfYYsTyeznx+FEXYPRqYshVHG5vWHdbNraBiGu
+	 azDZzkTgmYlD9zLHRnaiEgYeKeigZEjVaY/WWdAzHhpE3l9sDGNnqqA81xv/oSKwGT
+	 97CqLal175qV+ynoVmYgb7xeflUV1LbRZK/QuYq4FzctKlTpZ7UmFXJ0pmyIr3OtJH
+	 l/SeDMHfvEBqX1sgFpNytYaJzBG7EqehF6oaudQyD2+q2lQoCffX0JOOtSLG/RrxMe
+	 16TzmyPSH0GKXCDrl9VwOPCJkd9UN/mM2PER8a1kiGraxPQ45KYqY8WdKqhENlHoDJ
+	 qSfcwHXRS750g==
+Date: Fri, 9 Sep 2022 13:41:03 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Rahul Singh <rahul.singh@arm.com>
+To: Henry Wang <Henry.Wang@arm.com>
 cc: xen-devel@lists.xenproject.org, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v6 2/2] xen/pci: replace call to is_memory_hole to
- pci_check_bar
-In-Reply-To: <851cdf28f007326e9f7e1aaeab3688498aaecc9e.1662715131.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2209091301460.157835@ubuntu-linux-20-04-desktop>
-References: <cover.1662715131.git.rahul.singh@arm.com> <851cdf28f007326e9f7e1aaeab3688498aaecc9e.1662715131.git.rahul.singh@arm.com>
+    Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2] xen/arm, device-tree: Make static-mem use
+ #{address,size}-cells
+In-Reply-To: <20220909052357.49349-1-Henry.Wang@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2209091313250.157835@ubuntu-linux-20-04-desktop>
+References: <20220909052357.49349-1-Henry.Wang@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 9 Sep 2022, Rahul Singh wrote:
-> is_memory_hole was implemented for x86 and not for ARM when introduced.
-> Replace is_memory_hole call to pci_check_bar as function should check
-> if device BAR is in defined memory range. Also, add an implementation
-> for ARM which is required for PCI passthrough.
+On Fri, 9 Sep 2022, Henry Wang wrote:
+> In order to keep consistency in the device tree binding, there is
+> no need for static memory allocation feature to define a specific
+> set of address and size cells for "xen,static-mem" property.
 > 
-> On x86, pci_check_bar will call is_memory_hole which will check if BAR
-> is not overlapping with any memory region defined in the memory map.
+> Therefore, this commit reuses the regular #{address,size}-cells
+> for parsing the device tree "xen,static-mem" property. Update
+> the documentation accordingly.
 > 
-> On ARM, pci_check_bar will go through the host bridge ranges and check
-> if the BAR is in the range of defined ranges.
+> Also, take the chance to remove the unnecessary "#address-cells"
+> and "#size-cells" in the domU1 node of the device tree to only
+> emphasize the related part that the example is showing.
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> Changes in v6:
->  - change from unsigned long to paddr_t
-> Changes in v5:
->  - drop use of PFN_UP and PF_DOWN in case addresses are not aligned.
->  - As we drop the PFN_UP and PFN_DOWN we need to use the mfn_to_maddr()
->    to get the BAR address without page shift.
->  - Add TODO comment for address alignment check for ranges.
->  - Added Jan Acked-by for x86 and common code.
-> Changes in v4:
->  - check "s <= e" before callback
->  - Add TODO comment for revisiting the function pci_check_bar() when
->    ACPI PCI passthrough support is added.
->  - Not Added the Jan Acked-by as patch is modified.
-> Changes in v3:
->  - fix minor comments
+> Changes from v1 to v2:
+> - Remove the "----" addition, as it is unnecessary to this patch.
+> - Mention the removal of #address-cells and #size-cells in domU1
+>   node in the commit message.
 > ---
-> ---
->  xen/arch/arm/include/asm/pci.h     |  2 ++
->  xen/arch/arm/pci/pci-host-common.c | 54 ++++++++++++++++++++++++++++++
->  xen/arch/x86/include/asm/pci.h     | 10 ++++++
->  xen/drivers/passthrough/pci.c      |  8 ++---
->  4 files changed, 70 insertions(+), 4 deletions(-)
+>  docs/misc/arm/device-tree/booting.txt | 11 +++++------
+>  docs/misc/arm/passthrough-noiommu.txt |  7 +++----
+>  xen/arch/arm/bootfdt.c                |  5 -----
+>  xen/arch/arm/domain_build.c           | 16 ++--------------
+>  4 files changed, 10 insertions(+), 29 deletions(-)
 > 
-> diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
-> index 80a2431804..8cb46f6b71 100644
-> --- a/xen/arch/arm/include/asm/pci.h
-> +++ b/xen/arch/arm/include/asm/pci.h
-> @@ -126,6 +126,8 @@ int pci_host_iterate_bridges_and_count(struct domain *d,
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 5395a1077c..10caf4f1af 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -350,8 +350,8 @@ areas are pre-defined by configuration using physical address ranges.
 >  
->  int pci_host_bridge_mappings(struct domain *d);
+>  Memory can be statically allocated to a domain using the property "xen,static-
+>  mem" defined in the domain configuration. The number of cells for the address
+> -and the size must be defined using respectively the properties
+> -"#xen,static-mem-address-cells" and "#xen,static-mem-size-cells".
+> +and the size must be defined respectively by the parent node properties
+> +"#address-cells" and "#size-cells".
 >  
-> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
-> +
->  #else   /*!CONFIG_HAS_PCI*/
+>  The property 'memory' is still needed and should match the amount of memory
+>  given to the guest. Currently, it either comes from static memory or lets Xen
+> @@ -366,14 +366,13 @@ device-tree:
 >  
->  struct arch_pci_dev { };
-> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-> index 89ef30028e..a8ece94303 100644
-> --- a/xen/arch/arm/pci/pci-host-common.c
-> +++ b/xen/arch/arm/pci/pci-host-common.c
-> @@ -24,6 +24,16 @@
+>      / {
+>          chosen {
+> +            #address-cells = <0x1>;
+> +            #size-cells = <0x1>;
+> +            ...
+>              domU1 {
+>                  compatible = "xen,domain";
+> -                #address-cells = <0x2>;
+> -                #size-cells = <0x2>;
+>                  cpus = <2>;
+>                  memory = <0x0 0x80000>;
+> -                #xen,static-mem-address-cells = <0x1>;
+> -                #xen,static-mem-size-cells = <0x1>;
+>                  xen,static-mem = <0x30000000 0x20000000>;
+>                  ...
+>              };
+> diff --git a/docs/misc/arm/passthrough-noiommu.txt b/docs/misc/arm/passthrough-noiommu.txt
+> index 3e2ef21ad7..69b8de1975 100644
+> --- a/docs/misc/arm/passthrough-noiommu.txt
+> +++ b/docs/misc/arm/passthrough-noiommu.txt
+> @@ -33,14 +33,13 @@ on static allocation in the device-tree:
 >  
->  #include <asm/setup.h>
+>  / {
+>  	chosen {
+> +		#address-cells = <0x1>;
+> +		#size-cells = <0x1>;
+> +		...
+>  		domU1 {
+>  			compatible = "xen,domain";
+> -			#address-cells = <0x2>;
+> -			#size-cells = <0x2>;
+>  			cpus = <2>;
+>  			memory = <0x0 0x80000>;
+> -			#xen,static-mem-address-cells = <0x1>;
+> -			#xen,static-mem-size-cells = <0x1>;
+>  			xen,static-mem = <0x30000000 0x20000000>;
+>  			direct-map;
+>  			...
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index 9e1ea60094..59675f086b 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -370,11 +370,6 @@ static int __init process_domain_node(const void *fdt, int node,
+>          /* No "xen,static-mem" present. */
+>          return 0;
 >  
-> +/*
-> + * struct to hold pci device bar.
-> + */
-> +struct pdev_bar_check
-> +{
-> +    paddr_t start;
-> +    paddr_t end;
-> +    bool is_valid;
-> +};
-> +
->  /*
->   * List for all the pci host bridges.
->   */
-> @@ -363,6 +373,50 @@ int __init pci_host_bridge_mappings(struct domain *d)
->      return 0;
->  }
+> -    address_cells = device_tree_get_u32(fdt, node,
+> -                                        "#xen,static-mem-address-cells", 0);
+> -    size_cells = device_tree_get_u32(fdt, node,
+> -                                     "#xen,static-mem-size-cells", 0);
+> -
+>      return device_tree_get_meminfo(fdt, node, "xen,static-mem", address_cells,
+>                                     size_cells, &bootinfo.reserved_mem,
+>                                     MEMBANK_STATIC_DOMAIN);
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 7412303d20..9040a8c6cb 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -565,21 +565,9 @@ static int __init parse_static_mem_prop(const struct dt_device_node *node,
+>      const struct dt_property *prop;
 >  
-> +/*
-> + * TODO: BAR addresses and Root Complex window addresses are not guaranteed
-> + * to be page aligned. We should check for alignment but this is not the
-> + * right place for alignment check.
-> + */
-> +static int is_bar_valid(const struct dt_device_node *dev,
-> +                        paddr_t addr, paddr_t len, void *data)
-> +{
-> +    struct pdev_bar_check *bar_data = data;
-> +    paddr_t s = bar_data->start;
-> +    paddr_t e = bar_data->end;
-> +
-> +    if ( (s >= addr) && (e <= (addr + len - 1)) )
-> +        bar_data->is_valid =  true;
-> +
-> +    return 0;
-> +}
-> +
-> +/* TODO: Revisit this function when ACPI PCI passthrough support is added. */
-> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
-> +{
-> +    int ret;
-> +    const struct dt_device_node *dt_node;
-> +    paddr_t s = mfn_to_maddr(start);
-> +    paddr_t e = mfn_to_maddr(end);
-> +    struct pdev_bar_check bar_data =  {
-> +        .start = s,
-> +        .end = e,
-> +        .is_valid = false
-> +    };
-> +
-> +    if ( s >= e )
-> +        return false;
-> +
-> +    dt_node = pci_find_host_bridge_node(pdev);
-> +    if ( !dt_node )
-> +        return false;
-> +
-> +    ret = dt_for_each_range(dt_node, &is_bar_valid, &bar_data);
-> +    if ( ret < 0 )
-> +        return false;
-> +
-> +    return bar_data.is_valid;
-> +}
->  /*
->   * Local variables:
->   * mode: C
-> diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
-> index c8e1a9ecdb..f4a58c8acf 100644
-> --- a/xen/arch/x86/include/asm/pci.h
-> +++ b/xen/arch/x86/include/asm/pci.h
-> @@ -57,4 +57,14 @@ static always_inline bool is_pci_passthrough_enabled(void)
+>      prop = dt_find_property(node, "xen,static-mem", NULL);
+> -    if ( !dt_property_read_u32(node, "#xen,static-mem-address-cells",
+> -                               addr_cells) )
+> -    {
+> -        printk(XENLOG_ERR
+> -               "failed to read \"#xen,static-mem-address-cells\".\n");
+> -        return -EINVAL;
+> -    }
 >  
->  void arch_pci_init_pdev(struct pci_dev *pdev);
+> -    if ( !dt_property_read_u32(node, "#xen,static-mem-size-cells",
+> -                               size_cells) )
+> -    {
+> -        printk(XENLOG_ERR
+> -               "failed to read \"#xen,static-mem-size-cells\".\n");
+> -        return -EINVAL;
+> -    }
+> +    *addr_cells = dt_n_addr_cells(node);
+> +    *size_cells = dt_n_size_cells(node);
 >  
-> +static inline bool pci_check_bar(const struct pci_dev *pdev,
-> +                                 mfn_t start, mfn_t end)
-> +{
-> +    /*
-> +     * Check if BAR is not overlapping with any memory region defined
-> +     * in the memory map.
-> +     */
-> +    return is_memory_hole(start, end);
-> +}
-> +
->  #endif /* __X86_PCI_H__ */
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index cdaf5c247f..149f68bb6e 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -304,8 +304,8 @@ static void check_pdev(const struct pci_dev *pdev)
->          if ( rc < 0 )
->              /* Unable to size, better leave memory decoding disabled. */
->              return;
-> -        if ( size && !is_memory_hole(maddr_to_mfn(addr),
-> -                                     maddr_to_mfn(addr + size - 1)) )
-> +        if ( size && !pci_check_bar(pdev, maddr_to_mfn(addr),
-> +                                    maddr_to_mfn(addr + size - 1)) )
->          {
->              /*
->               * Return without enabling memory decoding if BAR position is not
-> @@ -331,8 +331,8 @@ static void check_pdev(const struct pci_dev *pdev)
->  
->          if ( rc < 0 )
->              return;
-> -        if ( size && !is_memory_hole(maddr_to_mfn(addr),
-> -                                     maddr_to_mfn(addr + size - 1)) )
-> +        if ( size && !pci_check_bar(pdev, maddr_to_mfn(addr),
-> +                                    maddr_to_mfn(addr + size - 1)) )
->          {
->              printk(warn, &pdev->sbdf, "ROM ", PFN_DOWN(addr),
->                     PFN_DOWN(addr + size - 1));
+>      *cell = (const __be32 *)prop->value;
+>      *length = prop->length;
 > -- 
-> 2.25.1
+> 2.17.1
 > 
 
