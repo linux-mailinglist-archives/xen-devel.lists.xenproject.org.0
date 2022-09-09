@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84E7A5B36B9
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 13:52:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404227.646602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D16A5B36E8
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 14:07:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404237.646614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWcYT-0002RO-4x; Fri, 09 Sep 2022 11:52:17 +0000
+	id 1oWclh-0004OY-Hh; Fri, 09 Sep 2022 12:05:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404227.646602; Fri, 09 Sep 2022 11:52:17 +0000
+Received: by outflank-mailman (output) from mailman id 404237.646614; Fri, 09 Sep 2022 12:05:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWcYT-0002PX-26; Fri, 09 Sep 2022 11:52:17 +0000
-Received: by outflank-mailman (input) for mailman id 404227;
- Fri, 09 Sep 2022 11:52:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F1lU=ZM=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1oWcYR-0002PR-Hj
- for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 11:52:15 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d6fec956-3035-11ed-a31c-8f8a9ae3403f;
- Fri, 09 Sep 2022 13:52:13 +0200 (CEST)
-Received: from [10.10.1.154] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1662724328862890.7330068186138;
- Fri, 9 Sep 2022 04:52:08 -0700 (PDT)
+	id 1oWclh-0004MQ-De; Fri, 09 Sep 2022 12:05:57 +0000
+Received: by outflank-mailman (input) for mailman id 404237;
+ Fri, 09 Sep 2022 12:05:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWclg-0004MG-2I; Fri, 09 Sep 2022 12:05:56 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWclf-0000tc-Vx; Fri, 09 Sep 2022 12:05:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWclf-0000Zg-GS; Fri, 09 Sep 2022 12:05:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oWclf-0005jG-Fv; Fri, 09 Sep 2022 12:05:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,93 +42,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6fec956-3035-11ed-a31c-8f8a9ae3403f
-ARC-Seal: i=1; a=rsa-sha256; t=1662724330; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=bp1dIBHfogg1T9u9356xHqbdkX40bDLb9MrbL63UV6KFxy7zCQXR/bpNuDWOxwqjN4PPuX1tBUGShhCYuKBm/04flA4JRHSuUrVgM+EXaQ5JZ7dp4Czpu590ckveKipsvtMcq1Rraf7vJsPnaBWxSckZQDCg/6/Oe5IN6cBG2e4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1662724330; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=Y0Juv2PmzMT0x2kgaZXavJwFRL8oT0cephI3evXdK5Y=; 
-	b=AP032NFyeEURXtsfhwwPHnrr2p/iqbbhgz9s7cqBOHBdoJm/vRDXBtUsfSdb5pR2Y8erEXqMxS5hI6b2w+LdROgWcVB99bCSBdeP5XBqJ37Wjnup9D79UDAKOe9mfcNQxZZ0pDmCXTPGS/ClCemeKGTwCUpV2EmcS7RSXmYVRhI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1662724330;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Y0Juv2PmzMT0x2kgaZXavJwFRL8oT0cephI3evXdK5Y=;
-	b=lotFuzsVGMU9ZS2Be3HraRpobS1Mefn7gF8zT0Ky+6REMpzcYP9IlsB1sQ0ecWBY
-	gYUl+To2uNJ/PB+G7+wCUx81yb6/xyl3zMIJiT89efi1VceqoqD2TzJ8G6zyNMAdpeA
-	/830elvgUihyFtLyVo826wV2ezx4Ydz2CKxu4QWk=
-Message-ID: <dc4953b1-2975-eeda-6964-f37e1e68e33c@apertussolutions.com>
-Date: Fri, 9 Sep 2022 07:52:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=TMhMxkJJASmlrhBeYNUCz1TYnpXoFtIWxWSPR7cjwFc=; b=F/e9ylXcbb+k9xeVtEWZMKL1jK
+	j1CG2gAOTtqBb2yBGQjO4kX1KBXVEFfCnbA8yVCgzDnVsrsHaGE5iNk3x9d6Y722VKc7Ow6b4ABM2
+	orWoB8PgMIa7/NnL2BuLxS1XF2BdS8ldZUyPqOn6FbsUYGg8su1m2tQJMRzDU4j9HoWE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173089-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH] xsm/flask: adjust print messages to use %pd
-Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "jandryuk@gmail.com" <jandryuk@gmail.com>
-References: <20220909095012.4251-1-dpsmith@apertussolutions.com>
- <AS8PR08MB79918FE3B1C08991CFF62A3092439@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <AS8PR08MB79918FE3B1C08991CFF62A3092439@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Subject: [ovmf test] 173089: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=cdb80a281fa3fd3457faf1dc65d5a443e8d512d3
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 09 Sep 2022 12:05:55 +0000
 
-On 9/9/22 05:56, Henry Wang wrote:
-> Hi Daniel,
-> 
->> -----Original Message-----
->> Subject: [PATCH] xsm/flask: adjust print messages to use %pd
->>
->> Print messages from flask use an inconsistent format when printing the
->> domain
->> id. The %pd conversion specifier provides a consistent way to format for the
->> domain id and aligns with the rest of the hypervisor code.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> ---
->>   xen/xsm/flask/avc.c   | 8 ++++----
->>   xen/xsm/flask/hooks.c | 3 +--
->>   2 files changed, 5 insertions(+), 6 deletions(-)
->>
->> diff --git a/xen/xsm/flask/avc.c b/xen/xsm/flask/avc.c
->> index 4a75ec97e2..4a86681c81 100644
->> --- a/xen/xsm/flask/avc.c
->> +++ b/xen/xsm/flask/avc.c
->> @@ -566,14 +566,14 @@ void avc_audit(u32 ssid, u32 tsid, u16 tclass, u32
->> requested,
->>       if ( a && (a->sdom || a->tdom) )
->>       {
->>           if ( a->sdom && a->tdom && a->sdom != a->tdom )
->> -            avc_printk(&buf, "domid=%d target=%d ", a->sdom->domain_id, a-
->>> tdom->domain_id);
->> +            avc_printk(&buf, "source=%pd target=%dp ", a->sdom, a->tdom);
-> 
-> I guess this should be target=%pd?
+flight 173089 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173089/
 
-Erg! Turns out there is no conversion specifier validation occurring for 
-avc_printk(), thus the typo slipped through and not caught by the 
-compiler. I will fix and also add the printf annotation to avc_printk() 
-to help ensure conversion specifier and parameter types match.
+Regressions :-(
 
-> With this fixed:
-> Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-Thanks!
+version targeted for testing:
+ ovmf                 cdb80a281fa3fd3457faf1dc65d5a443e8d512d3
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-> This should also be fine to merge in 4.17, but following the discussion with
-> Julien and Jan I think providing a Release ack would lead to confusion...
+Last test of basis   172136  2022-08-04 06:43:42 Z   36 days
+Failing since        172151  2022-08-05 02:40:28 Z   35 days  274 attempts
+Testing same since   173081  2022-09-09 03:19:40 Z    0 days    3 attempts
 
-I was hoping it would go in, but understand if it is kept out. I have a 
-list of clean-ups of varying sizes for XSM, with this one actually being 
-requested by someone else. I figured it was a simple one that could be 
-done quickly and might be worth trying to get it into the release.
+------------------------------------------------------------
+People who touched revisions under test:
+  "Lee, Chun-Yi" <jlee@suse.com>
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Annie Li <annie.li@oracle.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Bob Feng <bob.c.feng@intel.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Foster Nong <foster.nong@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee, Chun-Yi <joeyli.kernel@gmail.com>
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Pranav Madhu <pranav.madhu@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Rohit Mathew <rohit.mathew@arm.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuan Yu <yuanyu@google.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-v/r,
-dps
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2401 lines long.)
 
