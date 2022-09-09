@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 205E05B344A
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 11:45:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404077.646402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C54AC5B3480
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Sep 2022 11:51:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404084.646412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWaZZ-0000m3-CI; Fri, 09 Sep 2022 09:45:17 +0000
+	id 1oWaea-0002W5-VI; Fri, 09 Sep 2022 09:50:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404077.646402; Fri, 09 Sep 2022 09:45:17 +0000
+Received: by outflank-mailman (output) from mailman id 404084.646412; Fri, 09 Sep 2022 09:50:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oWaZZ-0000ir-9L; Fri, 09 Sep 2022 09:45:17 +0000
-Received: by outflank-mailman (input) for mailman id 404077;
- Fri, 09 Sep 2022 09:45:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oWaZX-0000il-Sx
- for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 09:45:15 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oWaZX-0006Ia-72; Fri, 09 Sep 2022 09:45:15 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=[192.168.11.73]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oWaZX-000121-0A; Fri, 09 Sep 2022 09:45:15 +0000
+	id 1oWaea-0002TW-S1; Fri, 09 Sep 2022 09:50:28 +0000
+Received: by outflank-mailman (input) for mailman id 404084;
+ Fri, 09 Sep 2022 09:50:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F1lU=ZM=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1oWaea-0002TQ-05
+ for xen-devel@lists.xenproject.org; Fri, 09 Sep 2022 09:50:28 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca8ce286-3024-11ed-9760-273f2230c3a0;
+ Fri, 09 Sep 2022 11:50:11 +0200 (CEST)
+Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1662717021047525.9884923263767;
+ Fri, 9 Sep 2022 02:50:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,125 +40,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=0KLcYl2dN9slHzm/v2B+bq/46KRd9q3KpUbEhOvb8yI=; b=yyfGY8Z3DWRQf5CHRsxN2mv+hB
-	bLXfEHMvwmHv7chCjWi84wfAWdP+KFiZ4DzlRcD6OqnYxS6byVBc/IhDmIbBtgoj/6j/vwvauemO6
-	aWpNyHaxt97waxJJ4y6RjX9zPT2pxqCALqHS9ThIOduCtjflQJeSTWaumTTqjszio+AY=;
-Message-ID: <40b6f53f-332b-1983-a516-4d29203f0ca9@xen.org>
-Date: Fri, 9 Sep 2022 10:45:12 +0100
+X-Inumbo-ID: ca8ce286-3024-11ed-9760-273f2230c3a0
+ARC-Seal: i=1; a=rsa-sha256; t=1662717023; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=T2pjoDop4PScgy0bhPYHoRNazQyBfgBYg10Rp1CLOyyQ2hJkVtscy6Il7y/p8AxZUhLbJogiF2pzQjD7GDwRJmQZimxHnjUGeI6u9d0StTcYNHizzrQfqciT+f8pqq29kp7Mow5dQ5wOuVqXxFjX8GIx0ZkBUbgSqOne6gAkvRw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1662717023; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=Buqqd0mdEOPtGi9ODN4NezM77ChBZhiRDygmgFSnS3M=; 
+	b=K1FZMUjK2zPV50956dCMlVb3X0c9JY76SH5ocqRiK13nS13CQq9unNm5imOIuecIbdy52oywjSqZ+rSEp3axiSDlZr+UDMYxsm8oHDpVfwT6qcJYuriWazASlx7JJ7LSYTyGEaN7Mlh6pUtc1kIAuXaCaiy55dXA6x+ILHt/xAQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1662717022;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=Buqqd0mdEOPtGi9ODN4NezM77ChBZhiRDygmgFSnS3M=;
+	b=S7cevCpTAEdoYNTgJliMh7BqwHPa0hA9aXSClVv08Ex9aHiQInar+X8t5y0+Rxv6
+	FnhDJpdfax3AksAWnyGmccNL6Z7uM0AdTh+3MdAah8bXS8zQJv6b28neYsOXPpBw2bf
+	I5g0eH8O1HcBs+bxunY4tRSzD+pL0OPh6hM6IvmE=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	jandryuk@gmail.com
+Subject: [PATCH] xsm/flask: adjust print messages to use %pd
+Date: Fri,  9 Sep 2022 05:50:12 -0400
+Message-Id: <20220909095012.4251-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.2.1
-Subject: Re: [PATCH] xen/gnttab: fix gnttab_acquire_resource()
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Henry.Wang@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20220909080944.28559-1-jgross@suse.com>
- <689f7d26-b691-56de-7adb-dfb6480e7469@xen.org>
- <2a32d8ed-14bc-192b-a2ce-6457490b182e@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <2a32d8ed-14bc-192b-a2ce-6457490b182e@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Hi Jan,
+Print messages from flask use an inconsistent format when printing the domain
+id. The %pd conversion specifier provides a consistent way to format for the
+domain id and aligns with the rest of the hypervisor code.
 
-On 09/09/2022 10:08, Juergen Gross wrote:
-> On 09.09.22 10:56, Julien Grall wrote:
->> Hi Juergen,
->>
->> On 09/09/2022 09:09, Juergen Gross wrote:
->>> Commit 9dc46386d89d ("gnttab: work around "may be used uninitialized"
->>> warning") was wrong, as vaddr can legitimately be NULL in case
->>> XENMEM_resource_grant_table_id_status was specified for a grant table
->>> v1. This would result in crashes in debug builds due to
->>> ASSERT_UNREACHABLE() triggering.
->>>
->>> Basically revert said commit, but keep returning -ENODATA in that case.
->>
->> This commit was introduced to silence a compiler warning (treated as 
->> error in Xen build system). As you revert it, did you check the said 
->> compiler (IIRC GCC 4.3) was still happy?
-> 
-> I didn't remove the vaddr initializer.
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
+ xen/xsm/flask/avc.c   | 8 ++++----
+ xen/xsm/flask/hooks.c | 3 +--
+ 2 files changed, 5 insertions(+), 6 deletions(-)
 
-Ok so it is not a full revert as you implied above. I think it would be 
-good to write "partially".
-
-> 
->>
->>> Fixes: 9dc46386d89d ("gnttab: work around "may be used uninitialized" 
->>> warning")
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>> Might be considered for 4.17 and for backporting
->>> ---
->>>   xen/common/grant_table.c | 14 +++-----------
->>>   1 file changed, 3 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
->>> index ad773a6996..68e7f1df38 100644
->>> --- a/xen/common/grant_table.c
->>> +++ b/xen/common/grant_table.c
->>> @@ -4125,7 +4125,10 @@ int gnttab_acquire_resource(
->>>       case XENMEM_resource_grant_table_id_status:
->>>           if ( gt->gt_version != 2 )
->>> +        {
->>> +            rc = -ENODATA;
->>>               break;
->>> +        }
->>>           /* Check that void ** is a suitable representation for 
->>> gt->status. */
->>>           BUILD_BUG_ON(!__builtin_types_compatible_p(
->>> @@ -4135,17 +4138,6 @@ int gnttab_acquire_resource(
->>>           break;
->>>       }
->>> -    /*
->>> -     * Some older toolchains can't spot that vaddrs won't remain 
->>> uninitialized
->>> -     * on non-error paths, and hence it needs setting to NULL at the 
->>> top of the
->>> -     * function.  Leave some runtime safety.
->>> -     */
->>> -    if ( !vaddrs )
->>> -    {
->>> -        ASSERT_UNREACHABLE();
->>> -        rc = -ENODATA;
->>> -    }
->>> -
->>>       /* Any errors?  Bad id, or from growing the table? */
->>>       if ( rc )
->>>           goto out;
->>
->> Looking at the code just below the loop is:
->>
->> for ( i = 0; i < nr_frames; ++i )
->>     mfn_list[i] = virt_to_mfn(vaddrs[frame + 1]);
->>
->> Given that 'nr_frames' is provided by the caller it is a bit unclear 
->> how we guarantee that 'vaddrs' will not be NULL when nr_frames > 0.
->>
->> Can you explain how you came to the conclusion that this is not possible?
-> 
-> We can reach this point only in case rc is 0.
-> 
-> rc can be 0 only in case gnttab_get_shared_frame_mfn() or
-> gnttab_get_status_frame_mfn() returned 0, which will be the case only, if
-> the value vaddrs was set to before calling those functions was valid.
-
-This is somewhat fragile. As we had to silence the compiler, the check 
-was added to avoid any addition of code that may not properly set 
-'vaddrs' (The compiler can't help us anymore).
-
-So I think I would prefer what Jan suggested. We should check 'rc' *and* 
-then 'vaddrs'.
-
-Cheers,
-
+diff --git a/xen/xsm/flask/avc.c b/xen/xsm/flask/avc.c
+index 4a75ec97e2..4a86681c81 100644
+--- a/xen/xsm/flask/avc.c
++++ b/xen/xsm/flask/avc.c
+@@ -566,14 +566,14 @@ void avc_audit(u32 ssid, u32 tsid, u16 tclass, u32 requested,
+     if ( a && (a->sdom || a->tdom) )
+     {
+         if ( a->sdom && a->tdom && a->sdom != a->tdom )
+-            avc_printk(&buf, "domid=%d target=%d ", a->sdom->domain_id, a->tdom->domain_id);
++            avc_printk(&buf, "source=%pd target=%dp ", a->sdom, a->tdom);
+         else if ( a->sdom )
+-            avc_printk(&buf, "domid=%d ", a->sdom->domain_id);
++            avc_printk(&buf, "source=%pd ", a->sdom);
+         else
+-            avc_printk(&buf, "target=%d ", a->tdom->domain_id);
++            avc_printk(&buf, "target=%pd ", a->tdom);
+     }
+     else if ( cdom )
+-        avc_printk(&buf, "domid=%d ", cdom->domain_id);
++        avc_printk(&buf, "current=%pd ", cdom);
+     switch ( a ? a->type : 0 ) {
+     case AVC_AUDIT_DATA_DEV:
+         avc_printk(&buf, "device=%#lx ", a->device);
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index 8bd56644ef..a79281bdb0 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -281,8 +281,7 @@ static int cf_check flask_evtchn_interdomain(
+     rc = security_transition_sid(sid1, sid2, SECCLASS_EVENT, &newsid);
+     if ( rc )
+     {
+-        printk("security_transition_sid failed, rc=%d, Dom%d\n",
+-               -rc, d2->domain_id);
++        printk("security_transition_sid failed, rc=%d, %pd\n", -rc, d2);
+         return rc;
+     }
+ 
 -- 
-Julien Grall
+2.20.1
+
 
