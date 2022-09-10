@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 108205B4745
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Sep 2022 17:23:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404800.647388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 655EC5B4761
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Sep 2022 17:50:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404807.647399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oX2KZ-0000SC-ET; Sat, 10 Sep 2022 15:23:39 +0000
+	id 1oX2kB-0004dy-H1; Sat, 10 Sep 2022 15:50:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404800.647388; Sat, 10 Sep 2022 15:23:39 +0000
+Received: by outflank-mailman (output) from mailman id 404807.647399; Sat, 10 Sep 2022 15:50:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oX2KZ-0000Pi-Ap; Sat, 10 Sep 2022 15:23:39 +0000
-Received: by outflank-mailman (input) for mailman id 404800;
- Sat, 10 Sep 2022 15:23:38 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oX2kB-0004bz-Cy; Sat, 10 Sep 2022 15:50:07 +0000
+Received: by outflank-mailman (input) for mailman id 404807;
+ Sat, 10 Sep 2022 15:50:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oX2KY-0000Oc-Bm
- for xen-devel@lists.xenproject.org; Sat, 10 Sep 2022 15:23:38 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oX2KX-0006NZ-FY; Sat, 10 Sep 2022 15:23:37 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oX2KX-0007aO-AJ; Sat, 10 Sep 2022 15:23:37 +0000
+ (envelope-from <SRS0=N53E=ZN=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oX2k9-0004BJ-Sd
+ for xen-devel@lists.xenproject.org; Sat, 10 Sep 2022 15:50:05 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3ba19b87-3120-11ed-9760-273f2230c3a0;
+ Sat, 10 Sep 2022 17:50:03 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 59B3B21B67;
+ Sat, 10 Sep 2022 15:50:02 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA88A13441;
+ Sat, 10 Sep 2022 15:50:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id huotMymyHGNQZAAAMHmgww
+ (envelope-from <jgross@suse.com>); Sat, 10 Sep 2022 15:50:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,84 +51,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=XFq1iLrR+55pgikNEV1cjpYYEeJOfG9uF25Z3klKTwY=; b=KPwfYcMOVp59XAIldTX2fde/vh
-	EJq5fgJy0bFw+WRTuxTS7zpQR7eSdSbPywZoBn1Eey/aynC1ws6rJ/tvUprakn00EqSn5hxFbTYJU
-	JH43ge1R75PQpU4pjmIaRYfWLFq5p3LG9CR28fCflRUuQhNALxyolQIN23KTiBqz8l38=;
-Message-ID: <698fa1df-6457-e560-3aab-9bd56978c4aa@xen.org>
-Date: Sat, 10 Sep 2022 16:23:35 +0100
+X-Inumbo-ID: 3ba19b87-3120-11ed-9760-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1662825002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=KvBcSJfTzw6ZlBSYvDzpGTuAHlQYr/2Q9gCeBjhjNFU=;
+	b=a9Lx/Jn/nQKw+dBTWOaTD4U1zTAl9A1DBwroyPHCo87kHMYm8gCNgD7dkwAUhyuuOV0yDH
+	cOmT4AcC18jYwqV9SwVBU7ZIxZcZamJXJRKzjsJAUOP2te6JeNOqLf96vv3pLhqH6dEsfb
+	uBCfD5PeJxmYK7AXusnitYGYvi59W7o=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>,
+	Paul Durrant <paul@xen.org>
+Subject: [RFC PATCH 0/3] xen/spinlock: make recursive spinlocks a dedicated type
+Date: Sat, 10 Sep 2022 17:49:56 +0200
+Message-Id: <20220910154959.15971-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-Subject: Re: [PATCH 12/12] xen/arm: add cache coloring support for Xen
-From: Julien Grall <julien@xen.org>
-To: Carlo Nonato <carlo.nonato@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it,
- andrea.bastoni@minervasys.tech, lucmiccio@gmail.com,
- Marco Solieri <marco.solieri@minervasys.tech>
-References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
- <20220826125111.152261-13-carlo.nonato@minervasys.tech>
- <0adb27f2-dee8-310a-eea7-bdc31bfa40ca@xen.org>
-In-Reply-To: <0adb27f2-dee8-310a-eea7-bdc31bfa40ca@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Instead of being able to use normal spinlocks as recursive ones, too,
+make recursive spinlocks a special lock type.
 
+This will make the spinlock structure smaller in production builds and
+add type-safety.
 
-On 10/09/2022 16:22, Julien Grall wrote:
-> Hi Carlo,
-> 
-> I haven't fully reviewed the patch yet. Just point out a couple of 
-> things I noticed while looking how you dealt with the relocation (I need 
-> some code to test my series :)).
-> 
-> On 26/08/2022 13:51, Carlo Nonato wrote:
->> -#ifdef CONFIG_ARM_64
->> +#ifdef CONFIG_CACHE_COLORING
->> +    /* Copy Xen to the new location */
->> +    memcpy((void *)BOOT_RELOC_VIRT_START, (const void *)XEN_VIRT_START,
->> +           (_end - _start));
-> 
-> If I am not mistaken, at this point, Xen will still be using the stack 
-> that is part of Xen binary (see cpu0_boot_stack). However, until the 
-> point switch_ttbr() is called the stack can still be used. In particular...
-> 
->> +    clean_dcache_va_range((void *)BOOT_RELOC_VIRT_START, (_end - 
->> _start)); > +
->> +    ttbr = virt_to_maddr_colored((vaddr_t)xen_pgtable);
->> +#elif CONFIG_ARM_64
->>       ttbr = (uintptr_t) xen_pgtable + phys_offset;
->>   #else
->>       ttbr = (uintptr_t) cpu0_pgtable + phys_offset;
->> @@ -530,6 +610,18 @@ void __init setup_pagetables(unsigned long 
->> boot_phys_offset)
-> 
-> ... the compiler may need to save some information on the stack. And 
-> then...
-> 
->>       switch_ttbr(ttbr);
-> 
-> ... restore it after switch_ttbr(). Xen will be using a different stack 
-> (same virtual address but different physical address) so the wrong value 
-> will be loaded.
-> 
-> I am not aware of any guaranteed from the AAPCS{32, 64} that this can 
-> point (please provide a pointer if I am wrong). So I think we either 
+Juergen Gross (3):
+  xen/spinlock: add explicit non-recursive locking functions
+  xen/spinlock: split recursive spinlocks from normal ones
+  xen/spinlock: support higher number of cpus
 
-s/point/not happen/
-
-> want to copy the new Xen to the correct position in the assembly.
-> 
-> This means we would want to revive partially f60658c6ae47 "xen/arm: Stop 
-> relocating Xen".
-> 
-> Cheers,
-> 
+ xen/arch/arm/mm.c             |  4 +--
+ xen/arch/x86/domain.c         | 12 +++----
+ xen/arch/x86/include/asm/mm.h |  2 +-
+ xen/arch/x86/mm.c             | 12 +++----
+ xen/arch/x86/mm/mem_sharing.c |  8 ++---
+ xen/arch/x86/mm/mm-locks.h    |  2 +-
+ xen/arch/x86/mm/p2m-pod.c     |  6 ++--
+ xen/arch/x86/mm/p2m.c         |  4 +--
+ xen/arch/x86/numa.c           |  4 +--
+ xen/arch/x86/tboot.c          |  4 +--
+ xen/common/domain.c           |  6 ++--
+ xen/common/domctl.c           |  4 +--
+ xen/common/grant_table.c      | 10 +++---
+ xen/common/ioreq.c            |  2 +-
+ xen/common/memory.c           |  4 +--
+ xen/common/page_alloc.c       | 18 +++++-----
+ xen/common/spinlock.c         | 22 +++++++-----
+ xen/drivers/char/console.c    | 24 ++++++-------
+ xen/drivers/passthrough/pci.c |  4 +--
+ xen/include/xen/sched.h       |  6 ++--
+ xen/include/xen/spinlock.h    | 68 +++++++++++++++++++++++++----------
+ 21 files changed, 131 insertions(+), 95 deletions(-)
 
 -- 
-Julien Grall
+2.35.3
+
 
