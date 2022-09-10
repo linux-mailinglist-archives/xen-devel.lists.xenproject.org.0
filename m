@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A3F5B473C
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Sep 2022 17:13:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404784.647366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ACDA5B4744
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Sep 2022 17:23:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404793.647376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oX2AO-0006c7-8S; Sat, 10 Sep 2022 15:13:08 +0000
+	id 1oX2Jz-0008LG-5l; Sat, 10 Sep 2022 15:23:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404784.647366; Sat, 10 Sep 2022 15:13:08 +0000
+Received: by outflank-mailman (output) from mailman id 404793.647376; Sat, 10 Sep 2022 15:23:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oX2AO-0006aI-5N; Sat, 10 Sep 2022 15:13:08 +0000
-Received: by outflank-mailman (input) for mailman id 404784;
- Sat, 10 Sep 2022 15:13:06 +0000
+	id 1oX2Jz-0008J1-2v; Sat, 10 Sep 2022 15:23:03 +0000
+Received: by outflank-mailman (input) for mailman id 404793;
+ Sat, 10 Sep 2022 15:23:00 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oX2AM-0006a2-Cr; Sat, 10 Sep 2022 15:13:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oX2Jw-0008Iv-Oa
+ for xen-devel@lists.xenproject.org; Sat, 10 Sep 2022 15:23:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oX2AM-0006Cm-Bv; Sat, 10 Sep 2022 15:13:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oX2AL-00055c-Vj; Sat, 10 Sep 2022 15:13:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oX2AL-0007U6-VG; Sat, 10 Sep 2022 15:13:05 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oX2Jw-0006Ma-4Y; Sat, 10 Sep 2022 15:23:00 +0000
+Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oX2Jv-0007Zj-Tm; Sat, 10 Sep 2022 15:23:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,139 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=OrPUK5ajKR5vOQ7m8Aza8XDhtON/lOEazMaPR0JeC8U=; b=OEQo7udsx3VHh78mBwpO3ouwVQ
-	LjR232dW/P1Fy4T//yJKwCU4BKEwD/iWks1UHhvXO87gJLiZ79qxScjeLTRZAOBbE+467uJ6k1/eh
-	le2jTgyjH5rNDjOngxa7goi5lGy8/rYtS5GeKKZj4eLmV342IBtycy81gGIad1ujFZzU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173114-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=gE/tP7ZMeZSMeGvobUJNeq3RobqPPKEvaZONzf2lMGY=; b=cLmgkz9IVHYCI3zjs8B8t3fg05
+	la/HLcTHHWIPgRQ7frl1lmcAbPKkNIRfO52qpitE+uJx+uvToJ9YZjhfkn/BuHuS0WUhKBGhNLruk
+	JM+eWmHl7qb+etgmtMfUzQMfFUcRvot9Y2mOUbq0IcpXUuzdjZniP/oZBcDCpETcKvus=;
+Message-ID: <0adb27f2-dee8-310a-eea7-bdc31bfa40ca@xen.org>
+Date: Sat, 10 Sep 2022 16:22:57 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 173114: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:heisenbug
-X-Osstest-Versions-This:
-    ovmf=970e26294905d2d27369cf4041c6778105754f5e
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 10 Sep 2022 15:13:05 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.13.0
+To: Carlo Nonato <carlo.nonato@minervasys.tech>,
+ xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it,
+ andrea.bastoni@minervasys.tech, lucmiccio@gmail.com,
+ Marco Solieri <marco.solieri@minervasys.tech>
+References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
+ <20220826125111.152261-13-carlo.nonato@minervasys.tech>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH 12/12] xen/arm: add cache coloring support for Xen
+In-Reply-To: <20220826125111.152261-13-carlo.nonato@minervasys.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 173114 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173114/
+Hi Carlo,
 
-Regressions :-(
+I haven't fully reviewed the patch yet. Just point out a couple of 
+things I noticed while looking how you dealt with the relocation (I need 
+some code to test my series :)).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+On 26/08/2022 13:51, Carlo Nonato wrote:
+> -#ifdef CONFIG_ARM_64
+> +#ifdef CONFIG_CACHE_COLORING
+> +    /* Copy Xen to the new location */
+> +    memcpy((void *)BOOT_RELOC_VIRT_START, (const void *)XEN_VIRT_START,
+> +           (_end - _start));
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install         fail pass in 173112
+If I am not mistaken, at this point, Xen will still be using the stack 
+that is part of Xen binary (see cpu0_boot_stack). However, until the 
+point switch_ttbr() is called the stack can still be used. In particular...
 
-version targeted for testing:
- ovmf                 970e26294905d2d27369cf4041c6778105754f5e
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+> +    clean_dcache_va_range((void *)BOOT_RELOC_VIRT_START, (_end - _start)); > +
+> +    ttbr = virt_to_maddr_colored((vaddr_t)xen_pgtable);
+> +#elif CONFIG_ARM_64
+>       ttbr = (uintptr_t) xen_pgtable + phys_offset;
+>   #else
+>       ttbr = (uintptr_t) cpu0_pgtable + phys_offset;
+> @@ -530,6 +610,18 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
+>   
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   37 days
-Failing since        172151  2022-08-05 02:40:28 Z   36 days  283 attempts
-Testing same since   173112  2022-09-10 10:12:05 Z    0 days    2 attempts
+... the compiler may need to save some information on the stack. And then...
 
-------------------------------------------------------------
-People who touched revisions under test:
-  "Lee, Chun-Yi" <jlee@suse.com>
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Annie Li <annie.li@oracle.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Bob Feng <bob.c.feng@intel.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Chen, Xiao X <xiao.x.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Foster Nong <foster.nong@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jianyong Wu <jianyong.wu@arm.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee, Chun-Yi <joeyli.kernel@gmail.com>
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Pierre Gondois <pierre.gondois@arm.com>
-  Pranav Madhu <pranav.madhu@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@quicinc.com>
-  Rohit Mathew <rohit.mathew@arm.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Xiao X Chen <xiao.x.chen@intel.com>
-  Yuan Yu <yuanyu@google.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+>       switch_ttbr(ttbr);
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+... restore it after switch_ttbr(). Xen will be using a different stack 
+(same virtual address but different physical address) so the wrong value 
+will be loaded.
 
+I am not aware of any guaranteed from the AAPCS{32, 64} that this can 
+point (please provide a pointer if I am wrong). So I think we either 
+want to copy the new Xen to the correct position in the assembly.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+This means we would want to revive partially f60658c6ae47 "xen/arm: Stop 
+relocating Xen".
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Cheers,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2470 lines long.)
+-- 
+Julien Grall
 
