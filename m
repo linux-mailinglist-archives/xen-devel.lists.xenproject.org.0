@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B89665B473D
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Sep 2022 17:13:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.404775.647355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A3F5B473C
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Sep 2022 17:13:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.404784.647366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oX29b-00060G-Rc; Sat, 10 Sep 2022 15:12:19 +0000
+	id 1oX2AO-0006c7-8S; Sat, 10 Sep 2022 15:13:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 404775.647355; Sat, 10 Sep 2022 15:12:19 +0000
+Received: by outflank-mailman (output) from mailman id 404784.647366; Sat, 10 Sep 2022 15:13:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oX29b-0005yT-OS; Sat, 10 Sep 2022 15:12:19 +0000
-Received: by outflank-mailman (input) for mailman id 404775;
- Sat, 10 Sep 2022 15:12:18 +0000
+	id 1oX2AO-0006aI-5N; Sat, 10 Sep 2022 15:13:08 +0000
+Received: by outflank-mailman (input) for mailman id 404784;
+ Sat, 10 Sep 2022 15:13:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oX29a-0005yN-9I
- for xen-devel@lists.xenproject.org; Sat, 10 Sep 2022 15:12:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oX2AM-0006a2-Cr; Sat, 10 Sep 2022 15:13:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oX29Z-0006Bk-LX; Sat, 10 Sep 2022 15:12:17 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oX29Z-0007CG-Ey; Sat, 10 Sep 2022 15:12:17 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oX2AM-0006Cm-Bv; Sat, 10 Sep 2022 15:13:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oX2AL-00055c-Vj; Sat, 10 Sep 2022 15:13:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oX2AL-0007U6-VG; Sat, 10 Sep 2022 15:13:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,74 +42,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=coysem2E7p4X/oqTQYB6UNY9yBkvc9J+W5qwCElr7vw=; b=YuQr+p1n7Wae/Hr6zrYD0GCGMX
-	eV6chw/QqAedWj2/ESaZPSyx+8y9E8VJIVMTvcNM5FbK3oTJJMls9RzPMYun/TkmEegmiq8Azu5si
-	iVGGxP4A6OiAxWZ711Z9kea9HFF+9wwclQ6MdMEYpYSwvoWpdIiJZJzc5VbfQZww3JZc=;
-Message-ID: <ec492136-53c2-8cdb-ad01-b3b232d3bc85@xen.org>
-Date: Sat, 10 Sep 2022 16:12:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=OrPUK5ajKR5vOQ7m8Aza8XDhtON/lOEazMaPR0JeC8U=; b=OEQo7udsx3VHh78mBwpO3ouwVQ
+	LjR232dW/P1Fy4T//yJKwCU4BKEwD/iWks1UHhvXO87gJLiZ79qxScjeLTRZAOBbE+467uJ6k1/eh
+	le2jTgyjH5rNDjOngxa7goi5lGy8/rYtS5GeKKZj4eLmV342IBtycy81gGIad1ujFZzU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173114-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-Subject: Re: [PATCH 00/12] Arm cache coloring
-To: Carlo Nonato <carlo.nonato@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it,
- andrea.bastoni@minervasys.tech, lucmiccio@gmail.com
-References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 173114: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:heisenbug
+X-Osstest-Versions-This:
+    ovmf=970e26294905d2d27369cf4041c6778105754f5e
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 10 Sep 2022 15:13:05 +0000
 
-Hi Carlo,
+flight 173114 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173114/
 
-On 26/08/2022 13:50, Carlo Nonato wrote:
-> Shared caches in multi-core CPU architectures represent a problem for
-> predictability of memory access latency. This jeopardizes applicability
-> of many Arm platform in real-time critical and mixed-criticality
-> scenarios. We introduce support for cache partitioning with page
-> coloring, a transparent software technique that enables isolation
-> between domains and Xen, and thus avoids cache interference.
-> 
-> When creating a domain, a simple syntax (e.g. `0-3` or `4-11`) allows
-> the user to define assignments of cache partitions ids, called colors,
-> where assigning different colors guarantees no mutual eviction on cache
-> will ever happen. This instructs the Xen memory allocator to provide
-> the i-th color assignee only with pages that maps to color i, i.e. that
-> are indexed in the i-th cache partition.
-> 
-> The proposed implementation supports the dom0less feature.
-> The solution has been tested in several scenarios, including Xilinx Zynq
-> MPSoCs.
-> 
-> Overview of implementation and commits structure
-> ------------------------------------------------
-> 
-> - [1-3] Coloring initialization, cache layout auto-probing and coloring
->    data for domains are added.
-> - [4-5] xl and Device Tree support for coloring is addedd.
-> - [6-7] A new page allocator for domain memory that implement the cache
->    coloring mechanism is introduced.
-> - [8-12] Coloring support is added for Xen .text region.
-> 
-> Changes in v2
-> -------------
-> 
-> Lot of things changed between the two versions, mainly I tried to follow
-> all the comments left by the maintainers after the previous version review.
-> Here is a brief list of the major points (even if, imho, it's easier to
-> repeat all the review process):
+Regressions :-(
 
-The series doesn't build on Arm64 without cache coloring. Please make 
-sure to compile and check that Xen still boot on system after your 
-series with cache coloring disabled.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-Cheers,
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemuu-ovmf-amd64  7 xen-install         fail pass in 173112
 
--- 
-Julien Grall
+version targeted for testing:
+ ovmf                 970e26294905d2d27369cf4041c6778105754f5e
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+
+Last test of basis   172136  2022-08-04 06:43:42 Z   37 days
+Failing since        172151  2022-08-05 02:40:28 Z   36 days  283 attempts
+Testing same since   173112  2022-09-10 10:12:05 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  "Lee, Chun-Yi" <jlee@suse.com>
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Annie Li <annie.li@oracle.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Bob Feng <bob.c.feng@intel.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Foster Nong <foster.nong@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee, Chun-Yi <joeyli.kernel@gmail.com>
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Pranav Madhu <pranav.madhu@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Rohit Mathew <rohit.mathew@arm.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuan Yu <yuanyu@google.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2470 lines long.)
 
