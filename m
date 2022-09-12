@@ -2,51 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 016D55B5F7E
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Sep 2022 19:44:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.405968.648390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75A865B61DC
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Sep 2022 21:49:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.405981.648407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXnTT-0002y8-L3; Mon, 12 Sep 2022 17:43:59 +0000
+	id 1oXpPF-00087h-QF; Mon, 12 Sep 2022 19:47:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 405968.648390; Mon, 12 Sep 2022 17:43:59 +0000
+Received: by outflank-mailman (output) from mailman id 405981.648407; Mon, 12 Sep 2022 19:47:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXnTT-0002v8-Hb; Mon, 12 Sep 2022 17:43:59 +0000
-Received: by outflank-mailman (input) for mailman id 405968;
- Mon, 12 Sep 2022 17:43:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oXpPF-00084i-MF; Mon, 12 Sep 2022 19:47:45 +0000
+Received: by outflank-mailman (input) for mailman id 405981;
+ Mon, 12 Sep 2022 19:47:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0Y9l=ZP=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oXnTR-0002um-MG
- for xen-devel@lists.xenproject.org; Mon, 12 Sep 2022 17:43:58 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78530616-32c2-11ed-a31c-8f8a9ae3403f;
- Mon, 12 Sep 2022 19:43:55 +0200 (CEST)
-Received: from BN9PR03CA0619.namprd03.prod.outlook.com (2603:10b6:408:106::24)
- by BL1PR12MB5048.namprd12.prod.outlook.com (2603:10b6:208:30a::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.18; Mon, 12 Sep
- 2022 17:43:52 +0000
-Received: from BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:106:cafe::63) by BN9PR03CA0619.outlook.office365.com
- (2603:10b6:408:106::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.12 via Frontend
- Transport; Mon, 12 Sep 2022 17:43:52 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT052.mail.protection.outlook.com (10.13.177.210) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5612.13 via Frontend Transport; Mon, 12 Sep 2022 17:43:51 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 12 Sep
- 2022 12:43:51 -0500
-Received: from [10.71.192.107] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
- Transport; Mon, 12 Sep 2022 12:43:50 -0500
+ <SRS0=7FF1=ZP=citrix.com=prvs=2473eac85=George.Dunlap@srs-se1.protection.inumbo.net>)
+ id 1oXpPD-00084c-Oq
+ for xen-devel@lists.xenproject.org; Mon, 12 Sep 2022 19:47:43 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c1e9879c-32d3-11ed-9760-273f2230c3a0;
+ Mon, 12 Sep 2022 21:47:41 +0200 (CEST)
+Received: from mail-mw2nam12lp2043.outbound.protection.outlook.com (HELO
+ NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.43])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 12 Sep 2022 15:47:30 -0400
+Received: from PH0PR03MB5669.namprd03.prod.outlook.com (2603:10b6:510:33::16)
+ by SA0PR03MB5610.namprd03.prod.outlook.com (2603:10b6:806:b2::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.19; Mon, 12 Sep
+ 2022 19:47:28 +0000
+Received: from PH0PR03MB5669.namprd03.prod.outlook.com
+ ([fe80::50e5:dec2:1f40:9648]) by PH0PR03MB5669.namprd03.prod.outlook.com
+ ([fe80::50e5:dec2:1f40:9648%8]) with mapi id 15.20.5612.022; Mon, 12 Sep 2022
+ 19:47:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,302 +49,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78530616-32c2-11ed-a31c-8f8a9ae3403f
+X-Inumbo-ID: c1e9879c-32d3-11ed-9760-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1663012061;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=bY0AwzqlLfSbKGt0BwLOt6a0h0Eho4PZJppQMciLUmk=;
+  b=RQF6QjLyMz68lumzloTo2zhvKm6r8kltxQkHUAx5lKgCcUdMiI6SRpMl
+   rubT1qRRNteCGNV2NrkeuKvw70jqWbAkfMUcf2LDkcNsMCfdoUQ5pQcPT
+   aeaowDgtDrg+1GCPXAoeHTI7oRVDm4rnBnuhxD7VCjEx9lWyZYoUdyvsb
+   w=;
+X-IronPort-RemoteIP: 104.47.66.43
+X-IronPort-MID: 79491391
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:FO1BfKhUUGp5DY9sksCL171mX1617REKZh0ujC45NGQN5FlGYwSy9
+ lOraxnFY6jUMyawOYxoOc7lxf41ycKHmIJkSQpr+3s2EH8Q+caZW4+VcRv5MinPc5STQEtp5
+ ZVGN4acIZA4FHOF/hqkPLS5p3Aii6yFGeDyVLGYNi0ZqWOIMMsEoUsLd7kR3t446TTAPz6wh
+ D/SnyH+EAP81mEoajhK4f+Jpho0sqWs4mNC71ZkPakX4VKCyXVEXc4Tfa2/ESD1E9JedgKYq
+ 0cv710bEkfxpUpF5gaNy+6jGqEyaueOe1LI0hK6YoD66jBavCs+z60nA/QVbEZTml2hkst4j
+ d5ArvRccy9wVkH3sLlbAkIw/x1WZ/UcoueWeCLn6KR/8mWdG5fS66Q2ZK0JFdVwFtZfWQlm6
+ fEeITYRWRGP78reLGWTE7QEamwLdaEHDatH0p1S5Wix4cUOGPgvd57i995AtArcs+gVdRroi
+ 2j1XhI0BPjIS0Un1l76k/vSls/w7pX0W2UwRF54OcPbSoUcpeB8+OGFDTbbRjCFbe9Ol2Kim
+ Vv4xCfkEggoN/Ofihyn1H3504cjnQujMG4TPJuR06cwxXisnCkUAhBQUkanq/6kjEL4Q8hYN
+ 0Ef5ispq+416VCvSd7+GRa/pRZovDZFA4YWT7J8tl/LlvG8DwWxXwDoShZuZds8u8JwaSEs0
+ laRt9joGSZuoPueTnf1GrK88mLuaHFOfDZqiSksagEo4t/mh40PpT31U9l9MI2FqOyqMGSlq
+ 9yNhG1k71kJtuYb2qP+8V3ZjjaEopnSUhVz9gjRRnii7A5yeMiifYPAwVXb5OxFK4CxSliHo
+ WgKnNWY4OkSDJaL0iuXT40w8KqB4v+ENHjZngRpFpx4rTC1oSb/JsZX/S10I1pvPoAcYzj1b
+ UTPuARXophOIH+taqwxaIW0Yyg38ZXd+R3efqi8RrJzjlJZLWdrIAkGiZas4l3Q
+IronPort-HdrOrdr: A9a23:wfnpBqGRdkGJF/rspLqEEseALOsnbusQ8zAXPiBKJCC9vPb5qy
+ nOpoV+6faQslwssR4b9uxoVJPvfZq+z+8R3WByB8bAYOCOggLBQL2KhbGI/9SKIVydygcy78
+ Zdm6gVMqyMMbB55/yKnDVRxbwbsaa6GKPDv5ah8590JzsaDJ2Jd21Ce32m+ksdfnghObMJUK
+ Cyy+BgvDSadXEefq2AdwM4t7iqnayzqHr+CyR2fyIa1A==
+X-IronPort-AV: E=Sophos;i="5.93,310,1654574400"; 
+   d="asc'?scan'208";a="79491391"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hBlPLHXHJHrl9EBpprXzeetoJn6S8Xj08f3xhQ+Cw35p/+FosKK5fnUu6sX0VXsZsOulI7YGK0IYLoZYSkXq8HqUdxRwrJKRaxA5vMa2WF2K0CgX41Vu8Lpr1qK8ztEbZcK6xL1zP0Zhk8MNUPSQf8IBVQvcxD5ZuDA3Sig1d/OrIiw9Z8s4sm24Ld3TqDI+IZPYPIjYrbe4s60OaSINh3/ZqfttKtGj4X02fc5x96Sf7A4R6eGp5fvERznb154pFkEg1hSSYyxog7LhyGcBnjhfIayolHEqpsbQBPXx1phwhxgd3KSrcxrYa6OGBTQgEjjuldioIcZ9H2ZhDSWnxg==
+ b=Z5DKnACBtqxr0miOZVaR2g+ClH1KDRVUfpa5ObAAujmW+M0s1ZaiWcPEEU3H6q1bPejCsl6u/PbfCkSd/YepT79yL49S6yp00lYhDldAMGaZd9xJvdOz6T7jNmrzdhLuTaAjvf3NJ74fWiU3gW6ApSNE8CQf836+VAlFwxUWNUu9Am96Jba6xJ8p8fmfYOQLR76+OG/oJQh/y7PYAmlaN3g0REXxohPRi3sfD2HmyjHnkUBsOy1Bo4OMs06ew37tugVeMkRW0o13D2Rfjc0FijfZPB88gUbkENqFJlQAV8533KxG7HvFsIbC5zcND3n0t7gRG0w2+lG2w565QDjnfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xOYYOT3vSza1B0X2L7tBDBT9w17kawbMA9QA06xg/KQ=;
- b=agYKtIA5jJ5ADBDUvN2ZqLdRzdS2oaDdokGnWsQ1XxBYm6/+sEGCeS0nVMm9eAemVBhZUvpv19i1r7xrlIYJdGFdKpm1LVClEQOnOKBnzSTe/KL1qcZpdsiS82k1MCWBXebhcyRrZ4dmoaMHz1oLuNks5g9ZdL3H521wzDZ9j+vhY6v9VbqO7VH1wKDt2sZU/IjHl0Y+Wwhejvrvznzne4GWcgOB14N3hm3OxBVHBfCVjy0JqQ8vXU3PEx9dY/fvKf0weY1/8bj05DIhv+cy4E+fwmhBC1FD+3bWZFcz1Kmf6utoj0r/C9JfM8u1dWHlq2Nuuf605T74ixci/oe58g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=lXVFlcYr7FyE/XNnczWoykhCdjkLdF3Jay4ntLb4a24=;
+ b=hiT6uic1YTQYPGa8AJk++RNZmGPhSXpzGnJfUa1s4DuR1u8ZQIEbC3a2kul4BMaOBFq6Ua+F11YjbBgIebfkrgeJYV4eLbqA0LfrETHi/bIg9NuSFI1nFmTSYgsFU2g66m2YiYiMOBAoD5fuxPbEzLAbQMyoRFbrLflKuny52mPk38cr6ftCbjGF8z72JfCFL3kRd03nneU0eYI8ESS6GZUbofdL3yGnNiC6RaEsZpDQjkjzOGJ05Uy0+4iKlOkL/A7B3VoLF9a0mE3qkf43eW1ROrBxsCQBJlTZtpFVuGYIieizlMPq91wFS4MGOTQz22i/rGfg3sU3Ha8pr9d2ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xOYYOT3vSza1B0X2L7tBDBT9w17kawbMA9QA06xg/KQ=;
- b=aXeH/+FJWakms0fp3pVb3nUjVRQB26DEsp4v9kXTbjwTNRyl5NuICCj/sAvjH2nJRNnV0y5xpjvsis7/ltKJ/LVT6WM2TrtIUw2AuyOZ7HLnaiFn+dwThU9Trs8KF/3zFgY3mnq6vTtnzZJRN+HBZwlOrOVyTbMsblvIDiVY94g=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <a77584d8-d10b-d2fd-b070-0e37269d1503@amd.com>
-Date: Mon, 12 Sep 2022 19:43:49 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [ImageBuilder 2/2] Add support for lopper to generate partial dts
-To: Ayan Kumar Halder <ayankuma@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>
-References: <20220912115934.19552-1-michal.orzel@amd.com>
- <20220912115934.19552-3-michal.orzel@amd.com>
- <276bd45d-7ab8-fc5d-a065-df6188b4f42f@amd.com>
+ bh=lXVFlcYr7FyE/XNnczWoykhCdjkLdF3Jay4ntLb4a24=;
+ b=pbaINygjap6mXHXWsfJiGokz/1fxWAEJ2CtHpaVIxp6D2hn3jiwPDJrFiBkoIMnEKbXhMsGHOy5bcJ6qNJemqHSpsIGN/5OFJSvcdNWfWH/WnUkQmfNIYXNNSyqc/ItkTPo6C3RDz4tYnAhvMlEemZRzoHzs2GMNKjLFiP1HoIQ=
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Evi Harmon <eharmon@linuxfoundation.org>
+Subject: POLL: Xen Summit and the Queen's Funeral
+Thread-Topic: POLL: Xen Summit and the Queen's Funeral
+Thread-Index: AQHYxuB8XGNckV6WvUCHiUEdqxOGyg==
+Date: Mon, 12 Sep 2022 19:47:27 +0000
+Message-ID: <07D52A28-6A30-450C-9343-D8388F5AAF54@citrix.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <276bd45d-7ab8-fc5d-a065-df6188b4f42f@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT052:EE_|BL1PR12MB5048:EE_
-X-MS-Office365-Filtering-Correlation-Id: d658c294-0dfb-4669-8e55-08da94e65b1b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	AvYVTJfYCLYfVFnxgYl2jo28SjmdEVgrYy314BUoTmcDjxNh0tGTQMpviMEOtHvHglo5ChPiRPUPJUTtX2X66koOBTA/A1CNtgyb5lD9xPBXjujOZohgm1irqqNjGAg8W87S7RQPTZ+F+waVk4Z8H2107pX25K0CQcWiRRBPXDl4hTV+RpbZOCN4Gjef/MrOevLUNYo6rKCkCCigTkJ6fvyISGcvNOffF48IhxZFktyaAXsavz3/GOKn6w2aQmC++Y/sGYj8RX/lrdd2Wi3At7D3ZD+KKGQ23JtLQAtLpsctJeR8Az3Y05ulvJRZOCjOYQLlKX4EjnF3XCtYgjNbNKk0FzzutxIewXyAHjMsVEF4dTmyZZz6ieWi950QPeCAYKawYSi2TPIf7h6El180B04mmWYMcOjjh7GOdAKKTKUjchoPp5NotQMiS9CxeeesfCtdqYUU+lzTl1KjDXkbjKN4QGbUR5uvnjbjM8/7Z2fXkCC9/D39v17unDv4/7RADMbPZ6cpWNapPuKyWeS/XS58+ptBQZJMdMAh/S5qnPnntf0LWITIBsIOEHPKGoHJAlkrXg9PsIBd7Z/xpFG4Do1+YyT/gHcyHAam0kw6WTKzztg+ngN047EwJer2CR2AI+J/fpTGcyX+OfnrF+pYg3MmUty29Ofuhj6s3kZW2ZqgObnsRSI0okV1CuUERc9/qD3j+RMcqkS6150OdgWUemT67KOJI/68wzOA0OXFYIFyBjKQq5+QCIIVEz3/ATPesIYdRUDkpXCNv8A3A7AtE2qYjg3/u5sRs+D6X2mrDU2OdpEciDFdAU7k91sbZzmPkPslMzu4BzIUVy3uv+RxkD5ypYjJMMZkDYJhd71wCAk=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199015)(46966006)(36840700001)(40470700004)(16576012)(316002)(31696002)(82310400005)(40480700001)(81166007)(41300700001)(26005)(36860700001)(110136005)(8676002)(86362001)(70586007)(36756003)(53546011)(356005)(336012)(478600001)(2616005)(47076005)(186003)(44832011)(40460700003)(8936002)(31686004)(426003)(83380400001)(4326008)(70206006)(82740400003)(5660300002)(2906002)(21314003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2022 17:43:51.7643
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.100.31)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR03MB5669:EE_|SA0PR03MB5610:EE_
+x-ms-office365-filtering-correlation-id: 691a9743-911b-42bf-369e-08da94f79f79
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ IaA5ewAIRIxiGZs1whLwMFQ/Tz0mC4gHslHVWY3VbXs7OV1lSUmr7xgy9+aHFBP8ySgNGWEE36tNbh3ADP6KAv50nGB9ZkGJmHAZAMrywXwlvzyUZZnW5OQRQe9Wxq+sTmD8T7fRlWXLcz1haCO3LbExxlx29BFqPpsEzE/kyzarwP4zDjnL+YwE7jVBV59htvAqoaxsbrAvHFS5UUGf9gI4Y+wTu3R13NSr130rL3LmORgl/JEvoR3vc4RCR7I6YAhYihLlejU1yZUXvU02B4T6mUGhdt4xh6wXKkvbKfghrE6dcSLZ2qYAUFKPyzxwc0gyyzehw2+DweJoidFuhhDSfi1qjdAKtHMnhfUf2/24USo5tNBqBsaZxhx8aqAivoJFFMvaGOWJ90sS5JgnW8zZEmftrSd3gDw57kdbpmjQ8KCAIL4SMkouMud8L9fQp2b+5YEcHBJE9+S/7oLp7A/2M2ZXfZAGsP8Y8M6igsnZVO2T5B4iSjlENKCfB0MQTC3vmZAgFKxirBKMZTwd5doOASCqtKQVYU8Jy0yR+ThUWDBaaTDOO4/DklRWvHCrmAHDPN9ZPwcBkzm+XYnA8ZFXVS496q0tpoyMA6rZzF7N7AZ91gX3JsM3eVrePqyAPTj0WyMUQuKLvyrAd74oiZ5/mN5GibQIZAIWeKZHnw65pRlxhlsr8CaTr65ZD5zw1Ic7mNBHmeXyKa8kSrDzNR0Qgv1x5BsGIwKnkCmVOUxBGd0njp0jmuksP5bscZEb5MorGEaW78ZgPyq5NZu59b94JsuUMLUNGdiWe3FcAlMxkdbJ79y4xc6dMj7GOgmgFBWjJq8WCU356QRiJ5ZqQQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(39860400002)(366004)(376002)(136003)(396003)(451199015)(6506007)(99936003)(316002)(66476007)(6916009)(66556008)(41300700001)(66946007)(38070700005)(76116006)(36756003)(2616005)(66446008)(71200400001)(6512007)(122000001)(4326008)(6486002)(478600001)(8936002)(2906002)(966005)(5660300002)(86362001)(91956017)(64756008)(38100700002)(8676002)(33656002)(186003)(26005)(82960400001)(83380400001)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?MytHQVRZVFNEZWpUeG1od1JVUXFmS1VGZXcwdmFRMzFEcWVpQUMwaUtCenEw?=
+ =?utf-8?B?UGowdnd0TXdRNHlwcE4wWVJ2NEJ6UlRiQTRWVkk0L01mV29qTVhHaTF6S3By?=
+ =?utf-8?B?L3RXOUFwbXk5VGNqTlYzbnJjUUtRakI4VjN5clk5ZnFCWEk1cklsVUdQTkky?=
+ =?utf-8?B?aVNuUTYxamRkQlRtb29yc1dka1AyREN6S3BjYURKYkVwaC9MSVpoSS9wN1ph?=
+ =?utf-8?B?ak12QjlWSHhsTGpxcE1kMjlHMGNuZnBpNUtJNzZUaVVONUZLMTZHVFRweWQv?=
+ =?utf-8?B?ZmM4cXRlN1pqcm5hNkZEb05yU2tIQUxWUzhsc2NpUmtTbFJFTlhWU3FZMktx?=
+ =?utf-8?B?OXhjY2Z2Q0IvU0FJNEZ4ZHBwRFlGZVJhSXUrWE5GNFpkNjVmUWxxYU1ma051?=
+ =?utf-8?B?Y0N5djBKcnRnK2h5bSt6aGFkTlhwOGd4UnRMUStzTVM3N0dnUVNaMWJWSE5M?=
+ =?utf-8?B?VjV2V1lYZVVrL2JwWGlqeTNlTitWOGY3cTB1RW9lMDFwQUZGVVVvaHo1dFZo?=
+ =?utf-8?B?OEMyR05qOXhnSFhpSUFtSEY2Qm1OTkFpcUJnYUJMZ0FQMER3SUtFUHhUVVI1?=
+ =?utf-8?B?R1N4dm5DREtsSCtTZng1MkQ2QmhrRm9DblFCWXY2OUhTamc1OTJFaCtwTWZ2?=
+ =?utf-8?B?MXUxWVp1T05UdU9zTDlFVy9nQTU4Tm5xd2Z6UTBiTkZDdTZWeVp1b0VuRzF5?=
+ =?utf-8?B?TEJvMURJTVRxWTNQTUdVaG1MTWxqeXUwbXR0ODdmMnYwOGJ4YjV2dHZsNDNJ?=
+ =?utf-8?B?UkI3Sm5LWk94empnS09zc01PRk1sTjVRZ1FEYncrSHVmQ3duTFV6VHRzUkJP?=
+ =?utf-8?B?aGpFVWg1Y0JWQ1c3U3FoVHpYbkVnWjVkeFZrRzhHUStmWHdnTS9PU2xvVXo5?=
+ =?utf-8?B?WENBWVJJaGhiZjVmTTlGR1NWMW54aGxUVVpiZlg2clFEdlY0WERZdEk1Um1I?=
+ =?utf-8?B?MEd3dDVoSzJ3aWkwZmtGeU5pZkdpeEl2RzFiT25hSzlYRnloVm53WW9vOHdk?=
+ =?utf-8?B?N3o3RWxEbTgrb1h0ck5pU0NuNERSMG9yWXgzQzRETllIOXZwdnNDUEdITFFk?=
+ =?utf-8?B?alBkMkNLS2RCUnFnNjZxeTkxMmRLcXZxdG16eWN5dmZTN3FrU3ZYMUJPTEE1?=
+ =?utf-8?B?d1IwY2xmc0JIMW1NNU1TUW9tTGpqMVdhSzlPUmxMOW1ic2VMWkIzd1NGejg1?=
+ =?utf-8?B?Q3lObGZzRG9VYXJJN3hMT3ZCaExWYVdKY2ZPR2JIS0dnMmZjSWtFY1RZQlNU?=
+ =?utf-8?B?a0VxSk9BMlFIc09SM3plMmw5QnFiSGU4cmJGU3ZFQytoRHNnY01yS25ZZlU0?=
+ =?utf-8?B?eERTSElFZTVkOTRBNCtvL3F1eDNrSlM3OEhwTCtjREdXVklYN3ltYTFIT3Ja?=
+ =?utf-8?B?MjROeSt1SUYrOHFPWWxjaDNZblFVdnJFUXlTVnh6MDVFZ3pyUE91OVkyYUYy?=
+ =?utf-8?B?RG9qdDVrRVh5c1ZVUElIRmhBc2ZyR3hnSUQ0djhpZFRBZk1RU2N5SVlhNFhV?=
+ =?utf-8?B?aG9ZeklhUUEyVDFxYzBYOXl3RUxEbmRhMHZCcUxHdVRNTUJjZ1p1N0hvcnlS?=
+ =?utf-8?B?Qy9xRUNnOENLeWIwMDZLZkZpK1hJbU1JT1FMc3NHc0EzcVI1cDJYeDNrcko0?=
+ =?utf-8?B?TEs4ZUNDVHVyMzZ1MktldmQvM0p0UENoUDE3M2dlUnF6bWlUVHUwNkxOc0l1?=
+ =?utf-8?B?YzJCQ2xYWXNRVFRqQ2tZQnJwTXZCQUhBd015ajIxTTdHRXRxNmZlNzBuTWVD?=
+ =?utf-8?B?NmFGV0REM3BhcFlBU21OM2xXNEpOYVBjWko1WElBMnVBeU9KcjdOWFBFaC9u?=
+ =?utf-8?B?M3ZMZnNaT0pqbTJtRm1meVdGZnNsVldBcVcwQjlEdUhZRXVJcEgySnpPSnk4?=
+ =?utf-8?B?WDFVeVE2QVk4VlMrZkNCbkt2alRoUUFGWGhrTml0WmRLWnV1RURUVWkyQllk?=
+ =?utf-8?B?L3JkQloyYnlNL1hJWmlWTDBLV0l3am14U09zOGprQXRyOTU5MGhkbGI3enhT?=
+ =?utf-8?B?WDUxdkFmUE1QN0xUelc4VFduUjdzS1IyTk82c0ZwektyYWxVTG1PUllOL0dG?=
+ =?utf-8?B?Y2o2VWJmeTIvbEZsenkzbEhhbjl6QVp6eVoxYlh5WEFLZWxERWhBaUlNMkYx?=
+ =?utf-8?B?clNSMjg0N3VzVHNoOFhkRHZJNlNMTThaeWloaHJjRmpjNStWZ2NUTlA3d3lr?=
+ =?utf-8?B?akE9PQ==?=
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_A265FD68-C96F-4622-AB7A-13CA55A25E5C";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha256
+MIME-Version: 1.0
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 691a9743-911b-42bf-369e-08da94f79f79
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Sep 2022 19:47:27.9231
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d658c294-0dfb-4669-8e55-08da94e65b1b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5048
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nFWCyOtFnd5Jwp1iyf9zzQq7MfkQoNCJ9H6dt5K+m/Xo4SI8r5/yRTTdWmT+Tqc9EqfxntjyCAlwnSdiV+GVt5gQYSY/FwUhfCkiKm5l+uE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5610
 
-Hi Ayan,
+--Apple-Mail=_A265FD68-C96F-4622-AB7A-13CA55A25E5C
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
-On 12/09/2022 18:41, Ayan Kumar Halder wrote:
-> Hi Michal,
-> 
-> On 12/09/2022 12:59, Michal Orzel wrote:
->> Currently ImageBuilder can compile and merge partial dts obtained from
->> a repository specified using PASSTHROUGH_DTS_REPO. With the recent
->> changes done in the lopper, we can use it to generate partial dts
->> automatically (to some extent as this is still an early support).
->>
->> Introduce LOPPER_PATH option to specify a path to a lopper.py script,
->> that if set, will invoke lopper to generate partial dts for the
->> passthrough devices specified in DOMU_PASSTHROUGH_PATHS.
->>
->> Introduce LOPPER_CMD option to specify custom command line arguments
->> (if needed) for lopper's extract assist.
->>
->> Example usage:
->> LOPPER_PATH="/home/user/lopper/lopper.py"
->> DOMU_PASSTHROUGH_PATHS[0]="/axi/spi@ff0f0000 /axi/serial@ff010000"
->>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->> ---
->>   README.md                | 22 ++++++++++++--
->>   scripts/common           | 64 ++++++++++++++++++++++++++++++----------
->>   scripts/uboot-script-gen | 17 +++++++++--
->>   3 files changed, 83 insertions(+), 20 deletions(-)
->>
->> diff --git a/README.md b/README.md
->> index da9ba788a3bf..aaee0939b589 100644
->> --- a/README.md
->> +++ b/README.md
->> @@ -128,6 +128,19 @@ Where:
->>   - DT_OVERLAY[number] specifies the path to the hosts device tree overlays
->>     to be added at boot time in u-boot
->>   
->> +- LOPPER_PATH specifies the path to lopper.py script. This is optional.
->> +  However, if this is specified, then DOMU_PASSTHROUGH_PATHS[number] need
->> +  to be specified. uboot-script-gen will invoke lopper to generate the partial
->> +  device trees which have been specified in DOMU_PASSTHROUGH_PATHS[number].
->> +  This option is currently in experimental state as the corresponding lopper
->> +  changes are still in an early support state.
->> +
->> +- LOPPER_CMD specifies the command line arguments for lopper's extract assist.
->> +  This is optional and only applicable when LOPPER_PATH is specified. Only to be
->> +  used to specify which nodes to include (using -i <node_name>) and which
->> +  nodes/properties to exclude (using -x <regex>). If not set at all, the default
->> +  one is used applicable for ZynqMP MPSoC boards.
-> 
-> You are using some more arguments (besides -x and -i) :-
-> 
-> --permissive -f
-> -- extract -t
-> -- extract-xen -t $node -o
-These ones are fixed and do not differ depending on the type of device or board.
-That is why LOPPER_CMD is used only to allow users to specify what can be required
-to support a new device (usually not necessary) or a new board.
+EXECUTIVE SUMMARY
 
-> 
-> It will be good to have some explaination for these. See my comments below.
-> 
-We don't seem to do it in general (see all the commands used by disk_image) so I think
-we should only describe what is available to the user. Otherwise we would need to be
-consistent and apply this rule to all the other places.
+Due to the Queen=E2=80=99s funeral, the first day of the Xen Summit (19 =
+September) is now going to be a public holiday in the UK.  We=E2=80=99re =
+trying to figure out what the best option is (detailed below).
 
->> +
->>   - NUM_DOMUS specifies how many Dom0-less DomUs to load
->>   
->>   - DOMU_KERNEL[number] specifies the DomU kernel to use.
->> @@ -140,7 +153,7 @@ Where:
->>   - DOMU_PASSTHROUGH_PATHS[number] specifies the passthrough devices (
->>     separated by spaces). It adds "xen,passthrough" to the corresponding
->>     dtb nodes in xen device tree blob.
->> -  This option is valid in the following two cases:
->> +  This option is valid in the following cases:
->>   
->>     1. When PASSTHROUGH_DTS_REPO is provided.
->>     With this option, the partial device trees (corresponding to the
->> @@ -149,7 +162,12 @@ Where:
->>     Note it assumes that the names of the partial device trees will match
->>     to the names of the devices specified here.
->>   
->> -  2. When DOMU_NOBOOT[number] is provided. In this case, it will only
->> +  2. When LOPPER_PATH is provided.
->> +  With this option, the partial device trees (corresponding to the
->> +  passthrough devices) are generated by the lopper and then compiled and merged
->> +  by ImageBuilder to be used as DOMU[number] device tree blob.
->> +
->> +  3. When DOMU_NOBOOT[number] is provided. In this case, it will only
->>     add "xen,passthrough" as mentioned before.
->>   
->>   - DOMU_PASSTHROUGH_DTB[number] specifies the passthrough device trees
->> diff --git a/scripts/common b/scripts/common
->> index ccad03d82b30..680c5090cd07 100644
->> --- a/scripts/common
->> +++ b/scripts/common
->> @@ -9,6 +9,9 @@
->>   # - NUM_DOMUS
->>   # - DOMU_PASSTHROUGH_PATHS
->>   # - DOMU_PASSTHROUGH_DTB
->> +# - LOPPER_PATH
->> +# - LOPPER_CMD
->> +# - DEVICE_TREE
->>   
->>   tmp_files=()
->>   tmp_dirs=()
->> @@ -99,31 +102,41 @@ function compile_merge_partial_dts()
->>       local tmp
->>       local tmpdts
->>       local file
->> +    local node
->>       local i
->>       local j
->>   
->> -    if [[ "$repo" =~ .*@.*:.* ]]
->> +    if test "$repo"
->>       then
->> -        tmp=`mktemp -d`
->> -        tmp_dirs+=($tmp)
->> -
->> -        echo "Cloning git repo \"$git_repo\""
->> -        git clone "$repo" $tmp
->> -        if test $? -ne 0
->> +        # Partial dts will be obtained from PASSTHROUGH_DTS_REPO
->> +        if [[ "$repo" =~ .*@.*:.* ]]
->>           then
->> -            echo "Error occurred while cloning \"$git_repo\""
->> -            return 1
->> -        fi
->> +            tmp=`mktemp -d`
->> +            tmp_dirs+=($tmp)
->>   
->> -        repo=$tmp
->> -    fi
->> +            echo "Cloning git repo \"$git_repo\""
->> +            git clone "$repo" $tmp
->> +            if test $? -ne 0
->> +            then
->> +                echo "Error occurred while cloning \"$git_repo\""
->> +                return 1
->> +            fi
->>   
->> -    if test -z "$dir"
->> -    then
->> -        dir="."
->> +            repo=$tmp
->> +        fi
->> +
->> +        if test -z "$dir"
->> +        then
->> +            dir="."
->> +        fi
->> +        partial_dts_dir="$repo"/"$dir"
->> +    else
->> +        # Partial dts will be generated by the lopper
->> +        tmp=`mktemp -d`
->> +        tmp_dirs+=($tmp)
->> +        partial_dts_dir="$tmp"
->>       fi
->>   
->> -    partial_dts_dir="$repo"/"$dir"
->>       i=0
->>       while test $i -lt $NUM_DOMUS
->>       do
->> @@ -133,6 +146,25 @@ function compile_merge_partial_dts()
->>               return 1
->>           fi
->>   
->> +        if test -z "$repo"
->> +        then
->> +            # Generate partial dts using lopper
->> +            for devpath in ${DOMU_PASSTHROUGH_PATHS[$i]}
->> +            do
->> +                node=${devpath##*/}
->> +                file="$partial_dts_dir"/"$node".dts
->> +
->> +                $LOPPER_PATH --permissive -f $DEVICE_TREE \
->> +                -- extract -t $devpath $LOPPER_CMD \
->> +                -- extract-xen -t $node -o $file
-> See below comment. Applies here as well.
->> +
->> +                if test $? -ne 0
->> +                then
->> +                    return 1
->> +                fi
->> +            done
->> +        fi
->> +
->>           sanity_check_partial_dts "${DOMU_PASSTHROUGH_PATHS[$i]}" "$partial_dts_dir"
->>           if test $? -ne 0
->>           then
->> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
->> index 1f8ab5ffd193..84a68d6bd0b0 100755
->> --- a/scripts/uboot-script-gen
->> +++ b/scripts/uboot-script-gen
->> @@ -1138,10 +1138,23 @@ fi
->>   # tftp or move the files to a partition
->>   cd "$uboot_dir"
->>   
->> -if test "$PASSTHROUGH_DTS_REPO"
->> +# If both PASSTHROUGH_DTS_REPO and LOPPER_PATH options are specified,
->> +# the former takes precedence because the partial device trees are already
->> +# created (probably tested), hence the reliability is higher than using lopper.
->> +if test "$PASSTHROUGH_DTS_REPO" || test "$LOPPER_PATH"
->>   then
->>       output_dir=`mktemp -d "partial-dtbs-XXX"`
->> -    compile_merge_partial_dts $output_dir "$PASSTHROUGH_DTS_REPO"
->> +    if test "$PASSTHROUGH_DTS_REPO"
->> +    then
->> +        compile_merge_partial_dts $output_dir "$PASSTHROUGH_DTS_REPO"
->> +    else
->> +        if test -z "$LOPPER_CMD"
->> +        then
->> +            # Default for ZynqMP MPSoC
->> +            LOPPER_CMD="-i zynqmp-firmware -x interrupt-controller -x pinctrl -x power-domains -x resets -x current-speed"
-> 
-> It will be very useful, if you could provide the link to Lopper's README 
-> which explains the arguments used here, as a comment.
-> 
-This lopper feature is still in an early state, hence there is no such information
-in the README. I described everything a user can change (like -i and -x option) using the information
-from the extract's help. 
+*If and only if* you are attending Xen Summit, please fill out the =
+following poll before Wednesday midnight:
 
-> Even better if you can provide some explaination (as a comment) to what 
-> the command intends to do here
-> 
-> - Ayan
-> 
->> +        fi
->> +        compile_merge_partial_dts $output_dir
->> +    fi
->>       if test $? -ne 0
->>       then
->>           # Remove the output dir holding the partial dtbs in case of any error
+=
+https://cryptpad.fr/form/#/2/form/view/w8pI8KNpo9gxXSdUc0BwbvKiowzM8aL8ZBo=
+n7rrXf5U/
 
-~Michal
+You don=E2=80=99t have to give your name, but if you do it will give us =
+some confidence that there hasn=E2=80=99t been =E2=80=9Cballot-stuffing=E2=
+=80=9D.
+
+THE SITUATION
+
+* The State Funeral for HM Queen Elizabeth II will be on Monday, 19 Sep. =
+It will also be a public holiday; so normal office workers in the UK =
+(such as those at Amazon, Citrix, and ARM) would normally have the day =
+off.
+
+* Official government guidance says: "There is no obligation to cancel =
+or postpone events and sporting fixtures, or close entertainment venues =
+during the National Mourning period. This is at the discretion of =
+individual organisations. As a mark of respect, organisations might wish =
+to consider cancelling or postponing events or closing venues on the day =
+of the State Funeral. They are under no obligation to do so and this is =
+entirely at the discretion of individual organisations.=E2=80=9D [1]
+
+* The Amazon offices will likely be open, but one of the conditions of =
+the event was to have a 6:1 ratio of external attendees to Amazon =
+employees.  Additionally, the facilities manager wants to minimize the =
+number of people working that day.
+
+* We=E2=80=99ve already mostly consolidated the schedule into 3 days, =
+with a 4th day for =E2=80=9CHackathon / Extra discussions=E2=80=9D
+
+* Many people from outside the country will already have booked travel =
+to the UK to arrive on Sunday evening or Monday morning. It will be a =
+=E2=80=9Cnormal=E2=80=9D working day for them: they may not feel =
+comfortable taking it as a day to be a tourist, and working from a hotel =
+isn=E2=80=99t very nice.
+
+As far as I can tell, we have the following possible options:
+
+1. Leave the schedule unchanged. This would require all the UK attendees =
+=E2=80=94 in particular the Amazon employees =E2=80=94 to =E2=80=9Cwork=E2=
+=80=9D on what would otherwise be a bank holiday. (Or alternately, would =
+require arranging at short notice to suspend the 6:1 ratio.)
+
+There=E2=80=99s also 1a: Leave the schedule unchanged, but get rid of =
+the physical component on Monday. We=E2=80=99d always intended the talks =
+to be virtual-first; we could just make it virtual-only.
+
+2. Shift the schedule, so that the talks are on Tuesday, and Weds / =
+Thurs are the primary design session days. This has two flavors:
+
+2a: Shift the schedule, and leave Monday empty. This means we don=E2=80=99=
+t have to worry at all about the 6:1 ratio; however, it=E2=80=99s not =
+great for people who will have travelled here from abroad, and may have =
+to work from their hotel rooms (or just take the day off).
+
+2b: Shift the schedule, and make Monday an =E2=80=9CHackathon / =
+optional=E2=80=9D day: Open up the space for people who=E2=80=99ve =
+travelled from abroad, but hold no other events. This would still =
+require at least a few Amazon people to be willing to work, but the =
+number would be greatly reduced. (Or alternately, it would require the =
+6:1 requirement to be relaxed, but this might be much easier with the =
+lower number of people.)
+
+There have been arguments both ways; please give your thoughts, as well =
+as specific ways in which each decision may affect you.  NB that not all =
+options may be feasible.
+
+Thank you for your patience and flexibility as we deal with this =
+unprecedented event.
+
+Peace,
+ -George Dunlap
+
+[1] =
+https://www.gov.uk/government/publications/the-demise-of-her-majesty-queen=
+-elizabeth-ii-national-mourning-guidance/the-demise-of-her-majesty-queen-e=
+lizabeth-ii-national-mourning-guidance
+
+--Apple-Mail=_A265FD68-C96F-4622-AB7A-13CA55A25E5C
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEj3+7SZ4EDefWZFyCshXHp8eEG+0FAmMfjM4ACgkQshXHp8eE
+G+1JTwf+L6O4qVBff1tNmMrddtByFkjhvSxKcYiHGvutz/CBeQmKUKAy7Ge0/5up
+1IgScAhSpS7KGTu6KYl+v87xYx9MUK8V09FtZGn1xfh6+iTGg+xM5GwfH3ecA+vr
+er/rnCvrVGUp+8gJbVkZp3rQopyMZVe0n/NFt7V64IqZN0PIfHdBwIDtfqoIGzmu
+gOn1WiGxCfo44Kq9PJ7B/ms618HDwrlPDC0eW6JtIgOYq+L9QF5Lcsy+VekHlg8o
+3i2NgqOwLJxUuH9s/jpxAKTE/Wv9z7zPkaP5iYn5bzHhPxkB4+bU06CTn2OseMUr
+PjwZOM2iZ/1AXDrBIC87ESg6zkH43g==
+=WmdI
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_A265FD68-C96F-4622-AB7A-13CA55A25E5C--
 
