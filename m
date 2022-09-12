@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47B405B5A17
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Sep 2022 14:25:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.405798.648231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E1155B5B1C
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Sep 2022 15:25:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.405811.648242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXiVQ-0001nr-1K; Mon, 12 Sep 2022 12:25:40 +0000
+	id 1oXjQT-0000PJ-7H; Mon, 12 Sep 2022 13:24:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 405798.648231; Mon, 12 Sep 2022 12:25:40 +0000
+Received: by outflank-mailman (output) from mailman id 405811.648242; Mon, 12 Sep 2022 13:24:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXiVP-0001lE-UX; Mon, 12 Sep 2022 12:25:39 +0000
-Received: by outflank-mailman (input) for mailman id 405798;
- Mon, 12 Sep 2022 12:25:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oXjQT-0000NH-4Q; Mon, 12 Sep 2022 13:24:37 +0000
+Received: by outflank-mailman (input) for mailman id 405811;
+ Mon, 12 Sep 2022 13:24:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2z8A=ZP=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1oXiVO-0001jo-Gz
- for xen-devel@lists.xenproject.org; Mon, 12 Sep 2022 12:25:38 +0000
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [2607:f8b0:4864:20::831])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 018f9049-3296-11ed-a31c-8f8a9ae3403f;
- Mon, 12 Sep 2022 14:25:37 +0200 (CEST)
-Received: by mail-qt1-x831.google.com with SMTP id r20so5265733qtn.12
- for <xen-devel@lists.xenproject.org>; Mon, 12 Sep 2022 05:25:37 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:cc03:373b:6dc6:a951])
- by smtp.gmail.com with ESMTPSA id
- f1-20020ac87f01000000b0031d283f4c4dsm6705092qtk.60.2022.09.12.05.25.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Sep 2022 05:25:22 -0700 (PDT)
+ <SRS0=nJqN=ZP=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1oXjQR-0000NB-Oy
+ for xen-devel@lists.xenproject.org; Mon, 12 Sep 2022 13:24:36 +0000
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [2607:f8b0:4864:20::f2a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 36be879e-329e-11ed-9760-273f2230c3a0;
+ Mon, 12 Sep 2022 15:24:23 +0200 (CEST)
+Received: by mail-qv1-xf2a.google.com with SMTP id y9so6667768qvo.4
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Sep 2022 06:24:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,191 +39,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 018f9049-3296-11ed-a31c-8f8a9ae3403f
+X-Inumbo-ID: 36be879e-329e-11ed-9760-273f2230c3a0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
-        bh=V33BKHTi+CTctDhgtOfP1KF/zJZENPtCD+zRgxvpiFQ=;
-        b=n66CkPP/jpCs8+8ebpJA+lRFwv18BalWVRObdIA5HywX88tSB7vZ8uMMafdENRf9DZ
-         FI2EdcBeIJ86t6mDbLmDvvLwtRLOS/9yLiKGwaBuX73foAdXwRxdUUGAD1DoPZ8toGNJ
-         SXEnI7oPDrjSqEue+0B0jSTk4ueJyMHMFCcgRCAh/tHeOE1mr+FV+HEYqTPjnQREsPwU
-         ZdeW5+y9+IXHs6dXuTHHd12qZLEfGuFuIDZEcyPB+Xr/x520Ufxn6QPLwD1LDxdE7+Ya
-         AB1DkVEXv2PX/RGM/xjRi+yioj+CBr4nRoxDAMwwnh3nVdIOyFaQFTeb9iK1AUDrgklU
-         xlOw==
+        d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=5P5x0IAgxd/2DXkuZ9Kq/5iwKCuZHBST8BjihYLy0Ag=;
+        b=n8aguukkLKro3i5Gf5KKiagB6WL3yx5eXgE+tCTuXVbLlfjnX/3AcdpdVO8RBi0QfV
+         6f9OZ+fpj3kroz5lXo5ZYldjk+CaNaRVCArVMvdOwCeCbNTGqjG2I2WsfQq5jMEmsCYI
+         s8w7nT6+ek7x2Svq7EE4Gc1qD1xeFIi2IQGmXldE8J7cL8vKHB5bcloHUIJKL9EYHzQc
+         lY+o1XHN7Ouf7MrH2SCv0nBiJ280FgzVl/tZrX1mw60adfR0xnkxwJl2xMeZ0pxWQju+
+         scViTvwYhR3NL0le+gSrPKDrnDiFvMiFHWiVk6YCxchlf21Y3DrKeYS1mpeBDs2pQ6bC
+         mrXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=V33BKHTi+CTctDhgtOfP1KF/zJZENPtCD+zRgxvpiFQ=;
-        b=NqnsmttgEnp5G8wxnSbcnTghXn5kCutPvwsvzhQDUyMzb+lgbr9qzmrg9p+d7FTohv
-         5OA6TpWl+YaRE0RCvY2/Q9U0SdPQtTElZ4UYeDs3N8Zz2FBEtzD/fCJX4XDemAzEWJWI
-         7d4L6TotkH5HCAiK41M5vKSRYKu/VrD7GDHp9BVKPdHeI5Oap6/zu89q9SUpTELMmepO
-         17EiLqVSoa2zh7UTLCsBzWpFpgBV2+ZB++oPwtyk5yb4RS6F7CQKeGFVAaFX6Jt0R8HO
-         bX+tHuGeiQVkCsH7rnBimT+AcZboD3t6qNXGFqaxRrybE8ymdsBtyHn5md//d+CsT1oK
-         WUag==
-X-Gm-Message-State: ACgBeo0a+bqKnSC4x/iVTlT+kHQeI1LBDUpCRKvLLFOVMFGi1qlbHYiq
-	ZAfbjBR5vvDrjwxKrxk7yw2Urm6U3QA=
-X-Google-Smtp-Source: AA6agR6Q89NHRTrIucyiJfsXV9WxAvd0EHT+kmUzh29EgEAeyTtrzRtuKnIrh1AEmn9hH3EPnCtAyw==
-X-Received: by 2002:ac8:5b8c:0:b0:35b:b653:70cb with SMTP id a12-20020ac85b8c000000b0035bb65370cbmr2582169qta.477.1662985536361;
-        Mon, 12 Sep 2022 05:25:36 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Nick Rosbrook <rosbrookn@gmail.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v3 3/3] xl/libxl: Add OEM string support to smbios
-Date: Mon, 12 Sep 2022 08:22:37 -0400
-Message-Id: <20220912122237.5431-4-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20220912122237.5431-1-jandryuk@gmail.com>
-References: <20220912122237.5431-1-jandryuk@gmail.com>
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=5P5x0IAgxd/2DXkuZ9Kq/5iwKCuZHBST8BjihYLy0Ag=;
+        b=KTQFVEupvpTQpKZH6tiuMSWFoGcW5zViyBbav4loNyUQXPc0CAhBllN3gSJz5jdSWe
+         +K0YEIZ3doiY77b9GyClUeTEZcHYeE8k2JfbjaUPtBe10g0qLNhnRX/Llj1AbwqqmvF8
+         +0wlnaSBIQQwiZJPabDSUXlhb2mtMXDx9FEuKjfNHR4pFFS6wsfVvQA5/FMeOMvVzQed
+         gJqXwPEl0qHXRfIY2twBQtx4dTPhxsDHCoiE/g4OXgZJi3QwUFrWgzLHKINfK+qtyWhE
+         x2ZFrotgNmbkEN/twAlBhYGYoFmJ2QIiaeiJMQnzK2KcdpQUyS+J2diYZ3K2P2jR2V2o
+         Ha0Q==
+X-Gm-Message-State: ACgBeo09Vasi9Owvf/3GhpPY6eqncRePaQRLXW/wcJ1XoGt6Cod2xRCo
+	VRsCUfgC2rdLXi6ThiVCSiEx6Z4WVNT2iUu6ix6Ieg==
+X-Google-Smtp-Source: AA6agR4pfmNXlrUDBmMBh3V7OAnqsodbb6V1xdaGCifmydawZ0xxOz15BsWC47sIn6wCnFvq7KAhm7ekGtSJ1xI0WXo=
+X-Received: by 2002:a05:6214:238b:b0:48a:f607:c4e0 with SMTP id
+ fw11-20020a056214238b00b0048af607c4e0mr22877411qvb.44.1662989071787; Mon, 12
+ Sep 2022 06:24:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220826125111.152261-1-carlo.nonato@minervasys.tech> <ec492136-53c2-8cdb-ad01-b3b232d3bc85@xen.org>
+In-Reply-To: <ec492136-53c2-8cdb-ad01-b3b232d3bc85@xen.org>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Mon, 12 Sep 2022 15:24:21 +0200
+Message-ID: <CAG+AhRX8fR9gHBi6-OWuO-7_1sU7V3kP5m2BxD6AKwjSQParaQ@mail.gmail.com>
+Subject: Re: [PATCH 00/12] Arm cache coloring
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com, 
+	stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it, 
+	andrea.bastoni@minervasys.tech, lucmiccio@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-Add support for OEM strings in the SMBIOS type 11.
+Hi Julien,
 
-hvmloader checks them sequentially, so hide the implementation detail.
-Allow multiple plain oem= items and assign the numeric values
-internally.
+On Sat, Sep 10, 2022 at 5:12 PM Julien Grall <julien@xen.org> wrote:
+>
+> Hi Carlo,
+>
+> On 26/08/2022 13:50, Carlo Nonato wrote:
+> > Shared caches in multi-core CPU architectures represent a problem for
+> > predictability of memory access latency. This jeopardizes applicability
+> > of many Arm platform in real-time critical and mixed-criticality
+> > scenarios. We introduce support for cache partitioning with page
+> > coloring, a transparent software technique that enables isolation
+> > between domains and Xen, and thus avoids cache interference.
+> >
+> > When creating a domain, a simple syntax (e.g. `0-3` or `4-11`) allows
+> > the user to define assignments of cache partitions ids, called colors,
+> > where assigning different colors guarantees no mutual eviction on cache
+> > will ever happen. This instructs the Xen memory allocator to provide
+> > the i-th color assignee only with pages that maps to color i, i.e. that
+> > are indexed in the i-th cache partition.
+> >
+> > The proposed implementation supports the dom0less feature.
+> > The solution has been tested in several scenarios, including Xilinx Zynq
+> > MPSoCs.
+> >
+> > Overview of implementation and commits structure
+> > ------------------------------------------------
+> >
+> > - [1-3] Coloring initialization, cache layout auto-probing and coloring
+> >    data for domains are added.
+> > - [4-5] xl and Device Tree support for coloring is addedd.
+> > - [6-7] A new page allocator for domain memory that implement the cache
+> >    coloring mechanism is introduced.
+> > - [8-12] Coloring support is added for Xen .text region.
+> >
+> > Changes in v2
+> > -------------
+> >
+> > Lot of things changed between the two versions, mainly I tried to follow
+> > all the comments left by the maintainers after the previous version review.
+> > Here is a brief list of the major points (even if, imho, it's easier to
+> > repeat all the review process):
+>
+> The series doesn't build on Arm64 without cache coloring. Please make
+> sure to compile and check that Xen still boot on system after your
+> series with cache coloring disabled.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
-v3:
-Add } from patch 2 to parse_config_data
-Use EXIT_FAILURE
-Print error message in libxl for > 99 OEM strings
+I'm sorry for that. Tested multiple times, but probably missed it after some
+last minute change. The following diff fixes it.
 
-v2:
-Move oem= description to be indented in docs
-Re-work oem= description
-Re-word oem string limit xl error message
-Replace OEM_{1,99) with just OEM and handle in libxl
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index 00351ee014..6abe2fdef7 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -411,7 +411,7 @@ static inline void page_set_xenheap_gfn(struct
+page_info *p, gfn_t gfn)
+ #else
+ #define virt_boot_xen(virt) virt
+ #define set_value_for_secondary(var, val) \
+-    var = val;
++    var = val; \
+     clean_dcache(var);
+ #endif
 
-This change re-introduces the newline before ms_vm_genid.
----
- docs/man/xl.cfg.5.pod.in           |  4 ++++
- tools/golang/xenlight/types.gen.go |  1 +
- tools/libs/light/libxl_dom.c       | 16 ++++++++++++++--
- tools/libs/light/libxl_types.idl   |  1 +
- tools/xl/xl_parse.c                | 13 +++++++++++++
- 5 files changed, 33 insertions(+), 2 deletions(-)
+>
+> Cheers,
+>
+> --
+> Julien Grall
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index fa78fba361..ddba1c3a05 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2104,6 +2104,10 @@ Each B<SMBIOS_SPEC_STRING> is a C<KEY=VALUE> string from the following list:
- 
- =item B<battery_device_name=STRING>
- 
-+=item B<oem=STRING>
-+
-+oem= can be specified up to 99 times.
-+
- =back
- 
- =item B<ms_vm_genid="OPTION">
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-index e084c3540b..51076249b4 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -405,6 +405,7 @@ SmbiosTypeEnclosureSerialNumber SmbiosType = 14
- SmbiosTypeEnclosureAssetTag SmbiosType = 15
- SmbiosTypeBatteryManufacturer SmbiosType = 16
- SmbiosTypeBatteryDeviceName SmbiosType = 17
-+SmbiosTypeOem SmbiosType = 18
- )
- 
- type Smbios struct {
-diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
-index 4f85623c42..12d027a575 100644
---- a/tools/libs/light/libxl_dom.c
-+++ b/tools/libs/light/libxl_dom.c
-@@ -753,6 +753,7 @@ static int hvm_build_set_xs_values(libxl__gc *gc,
-                                    const libxl_domain_build_info *info)
- {
-     char *path = NULL;
-+    int num_oem = 1;
-     int ret = 0;
- 
-     if (dom->smbios_module.guest_addr_out) {
-@@ -773,8 +774,19 @@ static int hvm_build_set_xs_values(libxl__gc *gc,
- 
-     for (int i = 0; i < info->u.hvm.num_smbios; i++) {
-         char *p;
--        path = GCSPRINTF("/local/domain/%d/"HVM_XS_BIOS_STRINGS"/%s", domid,
--                   libxl_smbios_type_to_string(info->u.hvm.smbios[i].key));
-+        if (info->u.hvm.smbios[i].key == LIBXL_SMBIOS_TYPE_OEM) {
-+            if (num_oem > 99) {
-+                LOGD(ERROR, domid, "More than 99 SMBIOS OEM strings specified");
-+                ret = ERROR_INVAL;
-+                goto err;
-+            }
-+            path = GCSPRINTF("/local/domain/%d/"HVM_XS_OEM_STRINGS, domid,
-+                             num_oem);
-+            num_oem++;
-+        } else {
-+            path = GCSPRINTF("/local/domain/%d/"HVM_XS_BIOS_STRINGS"/%s", domid,
-+                       libxl_smbios_type_to_string(info->u.hvm.smbios[i].key));
-+        }
- 
-         /* Convert libxl_smbios_type string to xenstore path that hvmloader
-          * will use, as defined by HVM_XS_*. That is convert the '_' to '-'. */
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index d04207748e..76651eea43 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -436,6 +436,7 @@ libxl_smbios_type = Enumeration("smbios_type", [
-     (15, "enclosure_asset_tag"),
-     (16, "battery_manufacturer"),
-     (17, "battery_device_name"),
-+    (18, "oem"),
-     ])
- 
- libxl_smbios = Struct("smbios", [
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 47521e9924..f9b4db16a6 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1787,6 +1787,9 @@ void parse_config_data(const char *config_source,
-         switch (xlu_cfg_get_list(config, "smbios", &smbios, &num_smbios, 0))
-         {
-         case 0: /* Success */
-+        {
-+            unsigned int num_oem = 1;
-+
-             b_info->u.hvm.num_smbios = num_smbios;
-             b_info->u.hvm.smbios = xcalloc(num_smbios, sizeof(libxl_smbios));
-             for (i = 0; i < num_smbios; i++) {
-@@ -1826,12 +1829,22 @@ void parse_config_data(const char *config_source,
-                     exit(EXIT_FAILURE);
-                 }
- 
-+                if (type == LIBXL_SMBIOS_TYPE_OEM) {
-+                    if (num_oem > 99) {
-+                        fprintf(stderr,
-+                                "xl: smbios limited to 99 oem strings\n");
-+                        exit(EXIT_FAILURE);
-+                    }
-+                    num_oem++;
-+                }
-+
-                 b_info->u.hvm.smbios[i].key = type;
-                 b_info->u.hvm.smbios[i].value = xstrdup(value);
- 
-                 free(option);
-             }
-             break;
-+        }
-         case ESRCH: /* Option not present */
-             break;
-         default:
--- 
-2.37.3
+Thanks.
 
+- Carlo Nonato
 
