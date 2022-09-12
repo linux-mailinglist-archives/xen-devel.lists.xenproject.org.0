@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60B365B5498
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Sep 2022 08:36:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.405439.647898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 879855B54B4
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Sep 2022 08:47:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.405448.647909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXd2f-0004mr-BV; Mon, 12 Sep 2022 06:35:37 +0000
+	id 1oXdDG-0006Yl-GQ; Mon, 12 Sep 2022 06:46:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 405439.647898; Mon, 12 Sep 2022 06:35:37 +0000
+Received: by outflank-mailman (output) from mailman id 405448.647909; Mon, 12 Sep 2022 06:46:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXd2f-0004kP-8r; Mon, 12 Sep 2022 06:35:37 +0000
-Received: by outflank-mailman (input) for mailman id 405439;
- Mon, 12 Sep 2022 06:35:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oXdDG-0006VW-DI; Mon, 12 Sep 2022 06:46:34 +0000
+Received: by outflank-mailman (input) for mailman id 405448;
+ Mon, 12 Sep 2022 06:46:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FQsZ=ZP=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oXd2d-0004kJ-M5
- for xen-devel@lists.xenproject.org; Mon, 12 Sep 2022 06:35:35 +0000
+ id 1oXdDE-0006VQ-Vo
+ for xen-devel@lists.xenproject.org; Mon, 12 Sep 2022 06:46:32 +0000
 Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2040.outbound.protection.outlook.com [40.107.22.40])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1539105e-3265-11ed-9760-273f2230c3a0;
- Mon, 12 Sep 2022 08:35:27 +0200 (CEST)
+ (mail-am6eur05on2080.outbound.protection.outlook.com [40.107.22.80])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a2967975-3266-11ed-a31c-8f8a9ae3403f;
+ Mon, 12 Sep 2022 08:46:31 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB6877.eurprd04.prod.outlook.com (2603:10a6:803:131::23)
+ by DB9PR04MB8347.eurprd04.prod.outlook.com (2603:10a6:10:245::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Mon, 12 Sep
- 2022 06:35:29 +0000
+ 2022 06:46:30 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5612.022; Mon, 12 Sep 2022
- 06:35:29 +0000
+ 06:46:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,203 +46,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1539105e-3265-11ed-9760-273f2230c3a0
+X-Inumbo-ID: a2967975-3266-11ed-a31c-8f8a9ae3403f
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XjqHVwKzCmZNpPKkRuAat+QMkwbMcIRNNdAMSx15OcVcoEaLmsugcSqdDFls+xxCkkMsuOThPADAIMlidNFdeSBUdby7hyQd739KfVCVzIfvhibZA/A7gO6YhBZ5l99z0YupChY9EXOzLxo3eXbiC0HAg8yqTMob7ws61YzKcamXP1NB1252t3hCPWBuz7yisc1V56uhRfllVLerxwphN1vOW0yPYz3+58G1D3LvcjOC6Yds62ohOF046hsNkkEPYBRNy7jXmA/8DX+vvTOvGE5Qs84n61EwtGJcQcJkcZUoMzhjHsMY1m/YFW8L3Utca85XhRET5IdaUbqMItnfng==
+ b=AMq6+CkqdrAr42k5XudWqiAX90MYDbd32ZXKkzPiPyj3F2th+Mn0XknOH0sIbelcq/n24vwMDn2gJpk6bW5ushYuNVMvzUek9dB1y1gU8ZOljYaBborVHNFhorMRFJAyUzdrtKuUFJlBF5bvAtWP/HbFQ+MOevc6ioq8JOu7bt0l3CeIBdDVOVHTQrUb2c046S+mjQceewejGMKso8WrSOw3OJA7A7vWUJZZpW6CAiqcfxVPgn1nBVRfLEResueJySAFTRFf7Nw/EZ4FWpmb68sgGc0S1dVA3FTl0MjcTNXBaswWSU9poAI0razOnai27aEKaU4o87/7sCXMDuxyhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=084nf392cCI1P826PCCE/SQbqNwDObDQ09A3n9hmV6k=;
- b=Ur7HQY5jdD44faSHmmA8oPmNZOdixO6vC6ycLTpdRz4J63kluFLF15dL+9K6dAq37Wmzs6VBv67Bt+hM6TIp9cnnkQVnisfjjIh7mf5mL6y/6Yii4650hUd9I29fJEMBpNDTC30QpjVvHxe+iGNoIbxECZ+NxUJ1O6FOA0upU3yY31MB8ZXHGDafkPRaf0HKTdxG2LQnT64IImhCwrywuaQ7aZTZ1qeqKLebRBTAf/d2jLwtrTOVUYXOHIADanqoh+d/piEQwcvwaE1x9dbuCFvAsY/F2uHkI0+kpUtFLmi1R9P2vOTjdDZBz8TNhs3O5t2445vL5UUmzs4uI3byhg==
+ bh=NbFs4FLfoe7rY9uiZUQIJxZ8jXRz6b8XdHmvqPqvCOE=;
+ b=e7qseqA/a5TzRTAaIvkTjDIdPHWD5cSWsDQGWerL+WDWSrKuNDH5B2M8r9hGqQwtnzzkSCMgl/KF0Ewcw15TELULmfFEJ2NzsadzSQZ70bVx23z5bey1GCqkHRF2+6f9gjAzkaB4uJzDS/lM5BL48yXGdKCnWAWOgo9o2Dsq2A+gA0bkT5RngezTOKORFf2GKq0k7wSxYFdweE/kGVDJGsIxXpuzdwUdke23+Ya0kGHgd4jLX2E+Onl7Af2jFeo0z+Q+hddla+BBI6rdgLSrMaE5otc18H5kB2Ik+iqBkb10M7qjTwp/cjVjiyVWpt3WlCR/c9oRybx8FsZp5QxwJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=084nf392cCI1P826PCCE/SQbqNwDObDQ09A3n9hmV6k=;
- b=NJQkBA2F2rCA6taVcm0K/EzjODQStEcjgwcdQOIDo8pbsfqHjLZsHTvtVW5DNkLQMb6bW7uFQKikV6/VYA5PLO2vHZLkOXXKmQcHXkXpkI/0ne5xpAGBKOjl2Vs0yrjZ8JN3Si8GnkFXLqXowaGfIdt6tRIHlLVk+kXD0EFSbgjRlJwPxyOd4/2xg2yrZNpGaubbAvZ9VRkyEceNcmYT3rdpICB6qFshYXEOpzv2LUoQdn942iHMhFZl4oe6KM1sBT6fS+/g+uL+fnqO9sFDDmBMu8XDXJ30SudTyk0OOFmACQePCojBivqfOHvieWIYFzue8EE991ozLaubuL8bTw==
+ bh=NbFs4FLfoe7rY9uiZUQIJxZ8jXRz6b8XdHmvqPqvCOE=;
+ b=UCZpuUTb3Bs6wY7qaZKF96/MlST4sBL/apMLbrp02GHmLmlD1sDPmTL7ASBVHGhhMvyeiLTt3/VSAgXwg6GDreoAI5fkPLXLGVwm/Ga6XZKpPxdWnUUoPhOyQ2Wo7YaXbEGzNEojkAH4Y7TMzQkfy94+lPe31mWnWSfRYYs4xSQVNkD5Szhviq5//HkXSj8fg/w9oZIdg5I+NbjjJ72Yc823tQT5DsZzpo3OXHCkyIrjRWHeXo9JO/Oq+vyYwbJaUaZn98pGc1zHtDP2Aylh4NAo/mMEzpxt8IbUdkrJrVwDLDxD3cUaQdUHWIstxORubAItGWhGEt3A3897k3gs/Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a501204a-456d-0094-d1c5-544717148921@suse.com>
-Date: Mon, 12 Sep 2022 08:35:30 +0200
+Message-ID: <bae52ede-aa23-4bba-56ae-1c503625cbe6@suse.com>
+Date: Mon, 12 Sep 2022 08:46:31 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.2
-Subject: Re: [PATCH] xsm/flask: adjust print messages to use %pd
-Content-Language: en-US
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: jandryuk@gmail.com, xen-devel@lists.xenproject.org
-References: <20220909095012.4251-1-dpsmith@apertussolutions.com>
- <3da17c12-1cbe-165e-94f4-44face9a181f@suse.com>
- <e6568867-3296-58b2-8744-d1644e401528@apertussolutions.com>
- <f037e0c2-625f-dcad-a67a-6468392c14bd@suse.com>
- <b12addb7-ce3f-b560-4f35-05ba9c699c87@apertussolutions.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b12addb7-ce3f-b560-4f35-05ba9c699c87@apertussolutions.com>
+Subject: [PATCH v2] build: correct cppcheck-misra make rule
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Anthony Perard <anthony.perard@citrix.com>
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR07CA0025.eurprd07.prod.outlook.com
- (2603:10a6:20b:451::25) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0129.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VI1PR04MB6877:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3104f890-06e0-4bbc-3a49-08da9488fc2f
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8347:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7769b3c2-bdff-4bd6-d38a-08da948a8608
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	waMSFkmXAEeYQ5Qab/CK7mraICoFOR58RLxjzdbn8iH+V/wRaO6MizGRd2PglfiF1LlN5E6LiETOGr51hfK4QnAtZ8qu/6yhxpjN7yoAa0DR4gTyJm45RhlvOyYXP13VlkxSufOJKkRSmV9a+vgonzyS3ZVW2Y+SxCIFCqEFK3DlDKg7ykgzF3bPwy6Bnjiuv0lsAlnAmQ3kQry0Y8tnvFC4CqaxsRE2pNLMLFFVelnGJYt0DaPWqZZVSJHr4rT/HHzVkbV69TqEqB/fVNBRkcso5E6J+g5VnlqGrHi00atXDVGn91BhH2kegaOyG/rKXCxke+YWy1iQC+5BJNOJnK7qtGryqE1FUyomujKKdZlRDc7FpO+TJ2OifJPAohLjOGzmEfo3vSbnlc4cKnO/Yk5eA1iU6Zkvpx7SDswTAAtg524+U3a0RK4Oyadu3E0s5HaG3588xQum4DMvdUhwOcm8aCDZsK0jmGepKvxX1+lRBn+AbUDPu//3/v/3OjjpfAQvGqh3j4vIZauoWeUZUuOwUvms1Qs0VaWOp//1jtBMXM1JbtMsvEjE0cS8yuEXzTomiSIZAkUvYulqhj4XUptidbYcJT+XDykjh2eXpC6Biwbq1IGbzZdDMfMIt99zv/OWzWLEFT2DtJt1VAi3uBAogBzu/wLazGKej/rCVTxdn5j++s2E7tDRgykYMJInPqyApg/+hc1WGsPXSJ8eA7I+Go6QvIM1jHgCvy2avscwnVAm4yhZo6T4/xgb5VFkRnoQQIPqwEWNkFLlWcQiuFv0jREhWxyWcGjGtqEnW7k=
+	vvpB80vfdOhGhmZPMcxwlzSpAddGkrnevzuRiUzbJ+vjHJYGMZjSJXlKPPAfa7k/1wNo7kk8Lb7PRPs1DpFH3+3PRuHeXQydSoDjz+glQbwoFNIrNkswoF0Poh8kiNpWsr5XsHPHIfh6mdrOo4TboTY2A1DtKPIbRfepdI4Cq8AwnZX08Ihre649lWPVRA0feBLYkEs4aVI2Qo2KD2girvjY5/dKWBNcYeXtRJCIFhjS6f2CQ3tgYMULsDmmwnLxICd9pYsWnFn7JgdrycI0+sIE4B74onmVK3/0Ler++0+f1FDyyrD4Tvt0bYL/aJHINW7qFs461NQ02rxZ8wUrC/eLfj4vEmu/rQhm583YWEMiVtgrUm6XobKfnGBHMUAJxFgkpPLyifRCXaeFG8GtvGyq0dSlQVPJfASawxlVakwU197JMgAl7d9XQk7CqW16Tj11sErSQv9XOuYS5fB2kH3WsGAhmRVZ0BMbWzn07QwJgyfE8Zrmr9VqbrhghLYZcx6ZIa8p6po9E4lhGTwNTFtbdWJV/PVU2Qaql9bttnH3TzrK2aA9uYQ/DA5cj+hf0VOgAU0gjSZ9v14Ng6RynHa9Lfobt/NkOC1UDNySMgIGqO6Ca7tFPj3gaJWjutkYLMn0JY/4wRqJQ1J3WWaZdEgbxwN7VhadAlD0LKCmsVkXIZfmg+t7O/3C8THIIBEqRAdtggMSiegSAsnMXFzNDFq98TVykXONyFJYs6OCkIYF2oKedUJCQc8zQAsEmd2l5jZZjirEHsFIPCFpO9xqsEGX++KFDpf1m3nHnGPJWqE=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(136003)(346002)(366004)(376002)(396003)(39850400004)(2616005)(186003)(83380400001)(38100700002)(8936002)(15650500001)(36756003)(31686004)(316002)(66476007)(66556008)(2906002)(5660300002)(6916009)(8676002)(4326008)(66946007)(26005)(86362001)(6666004)(6486002)(6506007)(53546011)(478600001)(31696002)(6512007)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230016)(39860400002)(396003)(346002)(136003)(366004)(376002)(66476007)(38100700002)(31686004)(86362001)(31696002)(4326008)(8676002)(66556008)(66946007)(36756003)(6506007)(478600001)(83380400001)(2616005)(6512007)(26005)(6486002)(41300700001)(6916009)(186003)(316002)(54906003)(2906002)(8936002)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QVhjWlZRNys1eGNDZ2RkUDFIOUtMb1VGOENsUWhxczdnY1N6dHpXNzh6Vjhz?=
- =?utf-8?B?ZHFtQng4MUlvVXZFRFQ5L0xEeXRZcmxNZTZ2YjZFb0RPdHdvL001dlJEVDIx?=
- =?utf-8?B?ZnNVTFNsY0JYSktKRnFVQ0hNcUlzQnJGR09YekYyRDlSUjROOFMrL0xHVlBq?=
- =?utf-8?B?RExXQ2w2VzJJejQ3b1VEWHVNcVdSbnNQdDFCeDhzcTRaR2t1WWlVbkNDbDMz?=
- =?utf-8?B?K3RCRkFQL1N6czcrdXliOEc0aDZnRllPS2dYVTBFV3ducU1jSHJ0R2Z1c05w?=
- =?utf-8?B?K2Rob3I4bHFDM21DSXgxNHVRRzgzb2JTcFZFRWNDVC90N3BabEtwNldNS0R4?=
- =?utf-8?B?U1pBejNyVlN0eUphZ0h0QUppQnV1VDV1Z0dDMTNmdlZ4NG14bFBCZXFvMmJs?=
- =?utf-8?B?Smk5THZMTG9ETGxPNEcxakxvUlJrbTdGTHRucGxjYytNT1AzazJhUnVFVXU3?=
- =?utf-8?B?TlFSVUVCRjVBWExlUG55WFY2Mm0zOG90VnBSNGJmT29hcHluZVFrbzhZTzd2?=
- =?utf-8?B?RVVDN0R1R0JmaExnL2F0aTAydkYyVWdrVDkvVHlsR2JlTzJGM24vVk8xZnV6?=
- =?utf-8?B?WmlSV0ZaM3h0eko1MVoxM28xajdGdEx0UGx2bWFYbmFLTmViM09EUXY5b000?=
- =?utf-8?B?dy9qQ3E0VG1oR1o4RTQrV3dyWnhxNk9RS21vZ1RxSFJ6Q3dCM1B4amVMeGFv?=
- =?utf-8?B?ZVZqa2FnaGxqNTJyOUxQNDdzRm82cUdXU2tXck9MMGNEbVhFcUNsaXlSREU1?=
- =?utf-8?B?bkJ1dHpyc0VETUthWHdSVTZ4TWJFTW53eFhXcldKakQ2dmVSU1dXSTZjV21m?=
- =?utf-8?B?dEZXTkpSVDRULzRVQXo5L1Y5RW1PMjh4ZGNGUVkwK0NUL0gvbFRzUVU4bVZG?=
- =?utf-8?B?VjJ2L0lRM2lFUjNhb25LWWlvNEp1bDh3Mk13MjJjYjdsK0s4SmdzV2xKcWNI?=
- =?utf-8?B?Zi9ZTzNLNEdYU2Q2TXF3L3JreStuWU9aUFFZQ1hWTlRRNnNzVm1hWG90Um1i?=
- =?utf-8?B?Q0RsbDVQZEZXclhmUDRTNnZNdXo5SFNRUDFROGVPNTh1Ty9pTGk0RXN0eEtY?=
- =?utf-8?B?SVBZRlpNSTB5ekp2TUlGK1lQOGJOaElERkJXR0thOVBWWkNiZlVRa0FCUXpp?=
- =?utf-8?B?TjBQSmhLSXQxTTU3WlJiWTA2cG16bjRYVWtacWpaWjVYZFRKVVRobSs4RDlB?=
- =?utf-8?B?NEkzejdIVzNyMkE2TXVQYXhKSElpS0JtZVBTTDNxcGwrL2ZzY3Npb2EvRDl2?=
- =?utf-8?B?V05XK0pLRWxTbXdxcmR2THBNdDc1YmpWZGpMNzM2NU5ONTJlMGZIa1F3aUhQ?=
- =?utf-8?B?c0JiWS84VjdhQmN5OHRld0xEUVpKNVF2STRCajJrTHFsbXljQnBuU3NkRURa?=
- =?utf-8?B?T0t6SUFXQk82NXVHZExNQTZMeHBKNEc1MGZhRi9RYWtaTkgxZGM4MWcwWXU4?=
- =?utf-8?B?Zm42Z3BPZXpZaS9Mc29Yd3FsR0hPQW1IWXF5dzc5RTdQTDNncllLUG1zSTlT?=
- =?utf-8?B?Y0ptbXAvMkNjZWxKZ0w1b1Nka3R2aVl0WkpkYzBBUTdWQUVyTDlpbzhIcVEr?=
- =?utf-8?B?b2JqU0hlYmE1ZEpsVGNEd3hHZFQzYlZkR3Ntcmp6bmxYbDdGSHJwbXJMZmRL?=
- =?utf-8?B?Tk9EZEZGVE1KcGlhWTl6clJZemlXNHlHUXkyZGRzYmRZNkpKNGpaTmtzKzBU?=
- =?utf-8?B?QVlnMXpONlh5aFd2dmkzNGRCOW1oTHJzOHB5UktQOUJzaVI2V25mVzdlR0o0?=
- =?utf-8?B?UXFkM01CM1lGT3psRk8yMzEwOXFOb0FmT1ZZTnVjMVErc2lvWGZhM3pDTUFT?=
- =?utf-8?B?UUdOZTRlSlhZOXBjSm5Qb1ZrcnExLzk4SnZFNVpreVVaODk0TzRLZzlybmkr?=
- =?utf-8?B?OWlNZWFlM294WDVEM3dBNHdHSkxQRGswaG5YKys5cjNDR2NTUFpjWWNPVnVI?=
- =?utf-8?B?RG1UN1plcHF6N0RSWitlNC9EVk1vZFlKODVoYjhPeENxTEtLK0tzdytvNlN5?=
- =?utf-8?B?cVc0TnppTExpR0xnZ1RmRzEwMVN1ZWo1UWdVYmJlN3ZpdTdYRWc0Sk1oR01P?=
- =?utf-8?B?a2JCRVNxSG1vb1hIZDcyd01lTUlTTHRqa3JlVlRLZHIwem1GWnVEcUVRWU1r?=
- =?utf-8?Q?Mm25PANuboGeOKMkzN6ifBxjw?=
+	=?utf-8?B?RTU2Q25semhld1RQckxlWElCQ1AyaUNSbExGZ3pBb2pGdUVFMlJYdEJCdlI0?=
+ =?utf-8?B?Yno1c2VoeFJFRnZDcCtFYWlBeENsNG5ZaUgzYm02NS93ZGdnK3dOMjRHanVI?=
+ =?utf-8?B?Zk9wSUlmMnhuRWp5NVRjc3FTU2Z2RCtKcVFxNFpnWENIODVvR0k5N3hUTEY3?=
+ =?utf-8?B?VVBQVmwxR3J5dFI5am5VQTdUVTExZXpJWGYvNGFxUFV1eER0TFNiNGx0Zk5N?=
+ =?utf-8?B?RGRTaklBWXdCNHhQZlZ4V1Z0NmNFTGxvVGhIQys3ZmpQT241aWlaMWl6b0Nr?=
+ =?utf-8?B?UUJ0UHNNdWFmQ2dxZEFFZ1NhUi9Pa2hFTWtZZEVFT0pDcHlTZ0dJSGJ4ZlJM?=
+ =?utf-8?B?M1k5L3FobUp2M21JZGE5LzFsWUtEd2V3R1ZpMUdBK1hIUmdYYnpkUUdtT3RH?=
+ =?utf-8?B?L2FEbWo4eVRJN29BY3poRW95dXhKbW1YL1BiUTM1NE1ydzFZVnE0c3ljeTl6?=
+ =?utf-8?B?MnI3QzlFNk15ZXh6ZHRZWWRBRVJLVkQ4UGpyclZjYUIxNVNDclRIamxOK3hE?=
+ =?utf-8?B?N3IyRDM0aUhQZlBkNVBEWVBFT3RXRUptMWRrdndPaGp0Nm1yYzB2cWlIT3gy?=
+ =?utf-8?B?SEZHd29qQ004NTNKd0hra0YyR1FNQndCUWlPU1BFYXhUYlhZOHhzUytsL2xQ?=
+ =?utf-8?B?bmtCeTFYUFA4YWwvU0FqODEzZDlmakk5WVlyZkV2Wko3MVF3ZVk0QWRQOEJT?=
+ =?utf-8?B?eEgxTzV0dmFWd3ZuWnRpVzh6VnFVTVV0SG5kVFM5WlI2MHFVT3ZVWWkzUUM1?=
+ =?utf-8?B?UWd1VHJrTFAwZ2dLWWJKUjZGR1kvS0JFaTQyTmtCTzdMSU9nOE13MHhobld6?=
+ =?utf-8?B?QUNHQjg4NitCWTJGSGc3d1ZIRWJzTkt0NUdRalpwWFVMc2lJV1RwUmNBQkgv?=
+ =?utf-8?B?eEFDMzFWdTM2N0Nia2ZwM3ozQVRzSWZucGtkbHZ6VXlmTVpRZGdwRmIrVDlJ?=
+ =?utf-8?B?aG1jeXNVVGYzQnNTRmlFWXRPaFFia1RLRWVEeU1oZUlmTlM4TTJtVkRMK2lB?=
+ =?utf-8?B?NkhweVlBM21PSE15eVJBNndZM1F6S1E3SHpHQngrTlhTeEpxZWdiOUJ4Vjlh?=
+ =?utf-8?B?c2JmM25xeUg4OGhwTlpkVHkzMlF5d2NjQ3Iwb2hJeStwQ0dCWHdPVXlGaElv?=
+ =?utf-8?B?MDQxN3hKRldRa1hpOXF2ZDl5ZmJkaHNlRi9VNnRuZTRjdUZiT3JyTWsreDRN?=
+ =?utf-8?B?TXUzU0ZtWUl5NVJrWUtseFFiSlJ0c0NHaWNZTzhUN3NtVjd4U3FxQ2M4ZzZx?=
+ =?utf-8?B?bnA0UUwxQnFKYldxaFdHUEhianpYNnR5eDE1NkxiM0NoY05tWWJPWW1GcnRk?=
+ =?utf-8?B?NmlEUm1jMWtqZlkxeFd3dTlXRGlsek84VmtOY0ZoejhHaGM0czhqZzlnVmpk?=
+ =?utf-8?B?YWNiWERaVUI4QVc0Y3BsemxRaGxOak9Xc3FqU01zMEtlbnRsMXRZRjQyeVBB?=
+ =?utf-8?B?VzByRUdKZHg5VWlKRC80M3piYlRDWFRPWHNiV3lFMFVZZXV1bzF3Z0pNYlB2?=
+ =?utf-8?B?UXFwR3FhaGJuelpPS2hiOWhWMzl2WGdYZlVPeXBaYmFJQmJabHZiTFVYVWV3?=
+ =?utf-8?B?UE4rc21rQTFrY2JWN0lKcWg1YUVaa1VUajBMUE5ERkdIajdVV3pqRVREdVpO?=
+ =?utf-8?B?b2xnZFByYjlLejY3cDBydllTNWw4cVJiT3QyM0hJUys1eE8yVmtTamcrSTJp?=
+ =?utf-8?B?aHd3aGFTREk3Nzkya0JWVmVlYURjaUlmVXRqRXdMWGFjbjdmVmNMN1FJMFJq?=
+ =?utf-8?B?WllWdncyM212akhrUTJ5cDhON0I4Sm1vNjdpVlNYWElWeUY2RUxSemhPUFV3?=
+ =?utf-8?B?bWZyNzg5TU9WZ25YY3kyQ2JoVndxbjlyaWZJdlVPYjZ1SnZ6UFFYWU53N0Zm?=
+ =?utf-8?B?ZUpNSGpTb3Fmb3ZVNkZxN2Y4clZ2RUhQQW9FajZmVks5UlZjNi92NVJoRUJB?=
+ =?utf-8?B?SDBmMjZrT1NVMHVqZ2NPNzhuNEltWkhza2RSRHV1cjBTQ29HU0FVWWkwRFJW?=
+ =?utf-8?B?MTRVWnpaZzF1K0hrU2JIVzhOUmpiRjZOczVhM1JQcEx6ZjJ1b2N5ckxzTE04?=
+ =?utf-8?B?ZEFQVStFQnVYeUFacUg2R3ZWVUV6K0t1L2N3cWhOVEdjNlV3YWRBMzgzdENa?=
+ =?utf-8?Q?Wd1sotAyZAGo16wP4rmWQG0i+?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3104f890-06e0-4bbc-3a49-08da9488fc2f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7769b3c2-bdff-4bd6-d38a-08da948a8608
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2022 06:35:29.5013
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2022 06:46:30.2875
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RCMbjgNw0r+setBUYwJOtQbvK/fxCgIiQ1IP0oeS9FYi26Lbx5L0Wo0N6msDuK+6EA12wSCBhQuvLB1N6Zwifg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6877
+X-MS-Exchange-CrossTenant-UserPrincipalName: L+WO7xJrd5EIMZbRVdhTAL1UzfLtytZ0gieBgJt0FkYURneSnPRPZ+Fwj9IttFOKxOoV0YOq3x4aoQneAwtmEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8347
 
-On 09.09.2022 17:41, Daniel P. Smith wrote:
-> 
-> On 9/9/22 08:10, Jan Beulich wrote:
->> On 09.09.2022 13:34, Daniel P. Smith wrote:
->>> On 9/9/22 06:04, Jan Beulich wrote:
->>>> On 09.09.2022 11:50, Daniel P. Smith wrote:
->>>>> --- a/xen/xsm/flask/avc.c
->>>>> +++ b/xen/xsm/flask/avc.c
->>>>> @@ -566,14 +566,14 @@ void avc_audit(u32 ssid, u32 tsid, u16 tclass, u32 requested,
->>>>>       if ( a && (a->sdom || a->tdom) )
->>>>>       {
->>>>>           if ( a->sdom && a->tdom && a->sdom != a->tdom )
->>>>> -            avc_printk(&buf, "domid=%d target=%d ", a->sdom->domain_id, a->tdom->domain_id);
->>>>> +            avc_printk(&buf, "source=%pd target=%dp ", a->sdom, a->tdom);
->>>>>           else if ( a->sdom )
->>>>> -            avc_printk(&buf, "domid=%d ", a->sdom->domain_id);
->>>>> +            avc_printk(&buf, "source=%pd ", a->sdom);
->>>>>           else
->>>>> -            avc_printk(&buf, "target=%d ", a->tdom->domain_id);
->>>>> +            avc_printk(&buf, "target=%pd ", a->tdom);
->>>>
->>>> Apart from switching to %pd to also replace "domid" by "source". That's
->>>> fine in the first case (where both domain IDs are logged), but in the
->>>> second case it's a little questionable. Wouldn't it be better to be
->>>> able to distinguish the tdom == NULL case from the tdom == sdom one,
->>>> perhaps by using "source" in the former case but "domid" in the latter
->>>> one?
->>>
->>> Apologies as I am not quite following your question. Let me provide my 
->>> reasoning and if it doesn't address your question, then please help me 
->>> understand your concern.
->>>
->>> The function avc_printk() allows for the incremental build up of an AVC 
->>> message. In this section, it is attempting to include the applicable 
->>> source and target that was used to render the AVC. With the switch to 
->>> %pd, the first and second lines would become "domid=d{id}". I personally 
->>> find that a bit redundant. Adding to that, in the context of this 
->>> function there is "sdom" which is source domain, "cdom" which is current 
->>> domain, and tdom which is target domain. The print statements using cdom 
->>> or tdom already denoted them with "current=" and "target=" respectively. 
->>> Whereas, sdom was prefixed with "domid=" in the print statements. To me, 
->>> it makes more sense to change the prefixes of sdom with "source=" to 
->>> accurately reflect the context of that domid.
->>
->> Well, yes, perhaps "domain" would be better than "domid" with the change
->> to %pd. But I still think the middle of the three printk()s would better
->> distinguish tdom == NULL from tdom == sdom:
->>
->>         else if ( a->sdom )
->>             avc_printk(&buf, "%s=%pd ", a->tdom ? "domain" : "source", a->sdom);
-> 
-> Okay, I see you are trying to reduce away the last "else", but I have
-> several concerns about doing this suggestion.
+Having cppcheck-misra.json depend on cppcheck-misra.txt does not
+properly address the multiple targets problem. If cppcheck-misra.json
+is deleted from the build tree but cppcheck-misra.txt is still there,
+nothing will re-generate cppcheck-misra.json.
 
-No, I don't. And I therefore think you further reply (left intact below)
-also doesn't really apply. The last else only applies when sdom == NULL,
-but the goal of my suggestion is to distinguish tdom == NULL from
-tdom == sdom.
+With GNU make 4.3 or newer we could use the &: grouped target separator,
+but since we support older make as well we need to use some other
+mechanism. Convert the rule to a pattern one (with "cppcheck" kind of
+arbitrarily chosen as the stem), thus making known to make that both
+files are created by a single command invocation. Since, as a result,
+the JSON file is now "intermediate" from make's perspective, prevent it
+being deleted again by making it a prereq of .PRECIOUS.
 
->  - The biggest concern is the fact that in the past, a domain referred
-> to strictly as "domain" or "domid" in an AVC has always implied it was
-> the source. At the same time, the target domain has always been
-> referenced as "target". This suggestion would completely flip that
-> implied understanding around. In part, this change was to move source
-> from being implied to being explicitly reported. The end result is it
-> then makes source explicit as it is for current and target.
-> 
->  - AFAICT the suggestion is not logically equivalent. The current form
-> checks first if sdom is defined, then prints it. If sdom is not defined,
-> then it is presumed that tdom will be defined, and will then print it.
-> AIUI, the suggestion will lose the case where sdom is not defined.
-> 
->  - I haven't went to confirm this, but I believe the logic here is based
-> on an understanding of when sdom and tdom are defined. Specifically, the
-> expected situations are,
->   1. sdom and tdom are defined and not equal, report both
->   2. if sdom and tdom are defined and equal, report only sdom as tdom
->        is implied to be the same
+Fixes: 57caa5375321 ("xen: Add MISRA support to cppcheck make rule")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: Add comment. Add Fixes: tag.
+---
+It has been bothering me for a while that I made a bad suggestion during
+review; I'm sorry for that.
 
-This isn't describing the behavior - tdom could also be NULL here. This
-is the case I think wants expressing in a way different from sdom == tdom.
-
->   3. if sdom is not defined, then tdom must be defined, report only tdom
->      and sdom is implied to be cdom
-
-There are also no assumptions - see the enclosing if(). cdom is printed
-only if "a" is NULL (implying sdom and tdom to be NULL) or both sdom and
-tdom are NULL.
-
-Jan
-
-> Finally, as I was typing this up, I had a realization that I may not be
-> able to relabel the reference. It is believed at some point you could
-> feed Xen AVCs to audit2allow to generate an allow rule for the AVC.
-> Though recent versions do not appear to work, so I am going to try to
-> find a day or two to dig in and determine what influence this might have
-> on the change.
-> 
-> v/r,
-> dps
-
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -746,11 +746,12 @@ cppcheck-version:
+ # documentation file. Also generate a json file with the right arguments for
+ # cppcheck in json format including the list of rules to ignore.
+ #
+-cppcheck-misra.txt: $(XEN_ROOT)/docs/misra/rules.rst $(srctree)/tools/convert_misra_doc.py
+-	$(Q)$(PYTHON) $(srctree)/tools/convert_misra_doc.py -i $< -o $@ -j $(@:.txt=.json)
+-
+-# convert_misra_doc is generating both files.
+-cppcheck-misra.json: cppcheck-misra.txt
++# convert_misra_doc.py, producing both targets at the same time, should be
++# executed only once. Utilize a pattern rule to achieve this effect, with the
++# stem kind of arbitrarily chosen to be "cppcheck".
++.PRECIOUS: %-misra.json
++%-misra.txt %-misra.json: $(XEN_ROOT)/docs/misra/rules.rst $(srctree)/tools/convert_misra_doc.py
++	$(Q)$(PYTHON) $(srctree)/tools/convert_misra_doc.py -i $< -o $*-misra.txt -j $*-misra.json
+ 
+ # Put this in generated headers this way it is cleaned by include/Makefile
+ $(objtree)/include/generated/compiler-def.h:
 
