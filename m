@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2AC25B5BC2
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Sep 2022 16:00:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.405830.648267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D9E05B5C21
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Sep 2022 16:22:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.405841.648278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXjyn-0005mF-8o; Mon, 12 Sep 2022 14:00:05 +0000
+	id 1oXkKG-0000Q5-0N; Mon, 12 Sep 2022 14:22:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 405830.648267; Mon, 12 Sep 2022 14:00:05 +0000
+Received: by outflank-mailman (output) from mailman id 405841.648278; Mon, 12 Sep 2022 14:22:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXjyn-0005gN-5H; Mon, 12 Sep 2022 14:00:05 +0000
-Received: by outflank-mailman (input) for mailman id 405830;
- Mon, 12 Sep 2022 14:00:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nJqN=ZP=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1oXjym-0005Sy-7v
- for xen-devel@lists.xenproject.org; Mon, 12 Sep 2022 14:00:04 +0000
-Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
- [2607:f8b0:4864:20::f2f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3262bb06-32a3-11ed-a31c-8f8a9ae3403f;
- Mon, 12 Sep 2022 16:00:03 +0200 (CEST)
-Received: by mail-qv1-xf2f.google.com with SMTP id d1so6776354qvs.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 Sep 2022 07:00:03 -0700 (PDT)
+	id 1oXkKF-0000Mc-Tn; Mon, 12 Sep 2022 14:22:15 +0000
+Received: by outflank-mailman (input) for mailman id 405841;
+ Mon, 12 Sep 2022 14:22:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oXkKE-0000MS-8c; Mon, 12 Sep 2022 14:22:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oXkKE-0006Va-5x; Mon, 12 Sep 2022 14:22:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oXkKD-0001kQ-JH; Mon, 12 Sep 2022 14:22:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oXkKD-0000xm-Ir; Mon, 12 Sep 2022 14:22:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,151 +42,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3262bb06-32a3-11ed-a31c-8f8a9ae3403f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=oGjwpKdUm9W02bdQDqf4c8TH2tz3B8jnWHZnYzh17d0=;
-        b=YIMU8doEhxv36d24kt3LEj91HmmWypRL8yu+2+qrZEqkynzDgkMXu7ds1nCrGaW0ja
-         BJsjxjx06Zqv/dWBhlP8PfoD3aq/02tOa8mVL3exy24zU+rHmfN28HQYe1qVU4Gnb1UO
-         qlFVFKa3I/oxMUpjehcZGjEoB+a/ad/huAoLCN5T6J981UP8NbXvmNcVhUWVe54wFVXy
-         fZSy1zsIy2puHzT6sGQgdkxLpGLerWTGTLYvOez/Jm50YYX6cTJmeeqvzIMGfcQavgks
-         jqR3WX+rk8FXDoJAUKnINTQpdxiUA0bJN6Sdw94+DDJRBDzoFG/0KqCzFDVj7yotZ9q+
-         KF2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=oGjwpKdUm9W02bdQDqf4c8TH2tz3B8jnWHZnYzh17d0=;
-        b=oChv9UGPfv6FvabFw44LhyDAaBhoxQqpfaghzy2pvtzfRgjNytxz2tOSEem7+qBnpy
-         L/pUuy5raeVgY15VQwBrMAc2lTb0PbRsKACe50PzOETqUjkU1Tk9GMv9F9wl7VMbrd2u
-         /r/ZjfSCRgH8SSGh3iCy4W0132BFoHp1itOBy2TH1jBlZwdK+8M8yYXHanDTqj4i58+t
-         BLv434w9tSNDPMmCrMqSqIZgasuR6a3V7Tb+7KjHw8R4yjYGUn662PxQYvyJJ0xfRF9z
-         u2vdlZ2njz+myUYgxMvFt3bO7AqjGseE1sNI/+RDWp0sifscbLvkurnozB03xBs7nW0F
-         ZS1g==
-X-Gm-Message-State: ACgBeo3z1ucmmL7mM3iaFDOQ1kexEEmQk5oL8v/g2myo44vK3jh+kQSX
-	7tHAyHbwcCaCYk2kQUWu0Cp/86r6ezljQNgBn8TZ+w==
-X-Google-Smtp-Source: AA6agR6zxinXFB3JWSAMOzo9H2jsPbK1TcEbkfNyw9scuC9y9x/WwQi2+d3h7AbrcOGu5hEKrGk327rQXj/k6yat0NQ=
-X-Received: by 2002:a05:6214:27e4:b0:4ac:a631:f551 with SMTP id
- jt4-20020a05621427e400b004aca631f551mr7620045qvb.12.1662991202016; Mon, 12
- Sep 2022 07:00:02 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
- <20220826125111.152261-10-carlo.nonato@minervasys.tech> <f2684d00-b23e-175d-8cef-7de361cba2ef@xen.org>
-In-Reply-To: <f2684d00-b23e-175d-8cef-7de361cba2ef@xen.org>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Mon, 12 Sep 2022 15:59:51 +0200
-Message-ID: <CAG+AhRX2mRBj9BtLeu3fVVstN=4kCzCq+hmBSg+sBg32f5=Gkg@mail.gmail.com>
-Subject: Re: [PATCH 09/12] Revert "xen/arm: mm: Initialize page-tables earlier"
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com, 
-	stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it, 
-	andrea.bastoni@minervasys.tech, lucmiccio@gmail.com, 
-	Marco Solieri <marco.solieri@minervasys.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=2bS1Z6uFjq/qlxbSB4bc0NiA7CoVZe17Lqbp73DmU70=; b=4vWdkSeRehkt+8FsPLjQWntGYO
+	MF//oosdYME/ZncAC+O4m3uVMrtf0BRMdSWDjTCotskftAU8FcCGvN1XdyQnz4NEnV98yycDOyc5A
+	y9wpW3Vm4kpLGxZfIh8GiwFb+F4Z+/KhyDkOp9KSGlnUvx0QBnBoeGceYRCfO3mRG6rM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173151-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 173151: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=970e26294905d2d27369cf4041c6778105754f5e
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 12 Sep 2022 14:22:13 +0000
 
-Hi Julien,
+flight 173151 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173151/
 
-On Sat, Sep 10, 2022 at 4:29 PM Julien Grall <julien@xen.org> wrote:
->
-> Hi Carlo,
->
-> On 26/08/2022 13:51, Carlo Nonato wrote:
-> > From: Luca Miccio <lucmiccio@gmail.com>
-> >
-> > This reverts commit 3a5d341681af650825bbe3bee9be5d187da35080.
->
-> Usually, this indicates that this was a clean revert. IOW, there was no
-> clash or modification necessary. Looking at the diff below, this doesn't
-> look to be the case because you are also reverting f8c818848fa6
-> "xen/arm: mm: Re-implement early_fdt_map() using map_pages_to_xen()"
-> and introduce a new version of create_boot_mappings().
->
-> So I think the commit message/title should be reworded to explain this
-> is not a clean revert and what extra changes were made.
->
-> But see below about re-introducing create_boot_mapping().
->
-> >
-> > The cache coloring support will be configurable within the Xen command line,
-> > but it will be initialized before the page-tables; this is necessary
-> > for coloring the hypervisor itself beacuse we will create a specific
-> > mapping for it that could be configured using some command line options.
-> > In order to parse all the needed information from the device tree, we
-> > need to revert the above commit and restore the previous order for
-> > page-tables initialization.
-> >
-> > Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> > Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
-> > ---
-> >   xen/arch/arm/mm.c    | 33 ++++++++++++++++++++-------------
-> >   xen/arch/arm/setup.c |  4 ++--
-> >   2 files changed, 22 insertions(+), 15 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> > index b42cddb1b4..1afa02b4af 100644
-> > --- a/xen/arch/arm/mm.c
-> > +++ b/xen/arch/arm/mm.c
-> > @@ -368,6 +368,17 @@ static inline lpae_t pte_of_xenaddr(vaddr_t va)
-> >       return mfn_to_xen_entry(maddr_to_mfn(ma), MT_NORMAL);
-> >   }
-> >
-> > +static void __init create_boot_mappings(unsigned long virt_offset,
-> > +                                        mfn_t base_mfn)
-> > +{
-> > +    lpae_t pte;
-> > +
-> > +    pte = mfn_to_xen_entry(base_mfn, MT_NORMAL);
-> > +    write_pte(&boot_second[second_table_offset(virt_offset)], pte);
-> > +    flush_xen_tlb_local();
-> > +}
-> Please don't introduce a new function that create mappings. All mappings
-> should be done using map_pages_to_xen(). Looking at the implementation,
-> it should be usable with the following diff:
->
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index c81c706c8b23..78afb8eb0ec1 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -1104,7 +1104,7 @@ static int xen_pt_update(unsigned long virt,
->        *
->        * XXX: Add a check.
->        */
-> -    const mfn_t root = virt_to_mfn(THIS_CPU_PGTABLE);
-> +    const mfn_t root = maddr_to_mfn(READ_SYSREG64(TTBR0_EL2));
->
->       /*
->        * The hardware was configured to forbid mapping both writeable and
->
-> With that there is no change required in early_fdt_map() and ...
->
-> >
-> > +    /* ... DTB */
-> > +    pte = boot_second[second_table_offset(BOOT_FDT_VIRT_START)];
-> > +    xen_second[second_table_offset(BOOT_FDT_VIRT_START)] = pte;
-> > +    pte = boot_second[second_table_offset(BOOT_FDT_VIRT_START + SZ_2M)];
-> > +    xen_second[second_table_offset(BOOT_FDT_VIRT_START + SZ_2M)] = pte;
-> > +
->
-> ... rather than copying the 2 entries, you could call early_fdt_map()
-> after the switch. The advantage is it will avoid to hardoded more
-> page-table entries.
+Regressions :-(
 
-Thanks for the diff and the suggestions. I just tested it and it works
-properly! Nice.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
->
-> As part of my switch_ttbr() rework, I am planning to re-introduce
-> relocation (at least for testing). So I will include the changes I
-> mention above in my series.
->
-> Cheers,
->
-> --
-> Julien Grall
+version targeted for testing:
+ ovmf                 970e26294905d2d27369cf4041c6778105754f5e
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-Thanks.
+Last test of basis   172136  2022-08-04 06:43:42 Z   39 days
+Failing since        172151  2022-08-05 02:40:28 Z   38 days  295 attempts
+Testing same since   173112  2022-09-10 10:12:05 Z    2 days   14 attempts
 
-- Carlo Nonato
+------------------------------------------------------------
+People who touched revisions under test:
+  "Lee, Chun-Yi" <jlee@suse.com>
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Annie Li <annie.li@oracle.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Bob Feng <bob.c.feng@intel.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Foster Nong <foster.nong@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee, Chun-Yi <joeyli.kernel@gmail.com>
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Pranav Madhu <pranav.madhu@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Rohit Mathew <rohit.mathew@arm.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuan Yu <yuanyu@google.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2470 lines long.)
 
