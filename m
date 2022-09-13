@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FD1E5B6E72
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Sep 2022 15:35:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.406422.648812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 379C25B6E77
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Sep 2022 15:36:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.406428.648822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oY642-0007rg-TZ; Tue, 13 Sep 2022 13:34:58 +0000
+	id 1oY65S-00006I-7r; Tue, 13 Sep 2022 13:36:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 406422.648812; Tue, 13 Sep 2022 13:34:58 +0000
+Received: by outflank-mailman (output) from mailman id 406428.648822; Tue, 13 Sep 2022 13:36:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oY642-0007pg-Qe; Tue, 13 Sep 2022 13:34:58 +0000
-Received: by outflank-mailman (input) for mailman id 406422;
- Tue, 13 Sep 2022 13:34:58 +0000
+	id 1oY65S-0008VL-4t; Tue, 13 Sep 2022 13:36:26 +0000
+Received: by outflank-mailman (input) for mailman id 406428;
+ Tue, 13 Sep 2022 13:36:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=czD7=ZQ=redhat.com=vkuznets@srs-se1.protection.inumbo.net>)
- id 1oY642-0007pY-4X
- for xen-devel@lists.xenproject.org; Tue, 13 Sep 2022 13:34:58 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id daa96d5b-3368-11ed-9761-273f2230c3a0;
- Tue, 13 Sep 2022 15:34:56 +0200 (CEST)
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-156-P_oeLiB8M_qJvoNcs8hSaA-1; Tue, 13 Sep 2022 09:34:54 -0400
-Received: by mail-ej1-f70.google.com with SMTP id
- qw34-20020a1709066a2200b0077e0e8a55b4so2362732ejc.21
- for <xen-devel@lists.xenproject.org>; Tue, 13 Sep 2022 06:34:54 -0700 (PDT)
-Received: from fedora (nat-2.ign.cz. [91.219.240.2])
- by smtp.gmail.com with ESMTPSA id
- 1-20020a170906218100b00730b61d8a5esm6099500eju.61.2022.09.13.06.34.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Sep 2022 06:34:51 -0700 (PDT)
+ <SRS0=iobZ=ZQ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1oY65R-0008VB-Fu
+ for xen-devel@lists.xenproject.org; Tue, 13 Sep 2022 13:36:25 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0f344f7e-3369-11ed-9761-273f2230c3a0;
+ Tue, 13 Sep 2022 15:36:24 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 92E015C0165;
+ Tue, 13 Sep 2022 09:36:23 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 13 Sep 2022 09:36:23 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Sep 2022 09:36:22 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,219 +43,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: daa96d5b-3368-11ed-9761-273f2230c3a0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663076095;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s3xh4EumEIvumafJwct5+WCk+ZsG9qjAIuO2sjxjanY=;
-	b=M/IfkqASCXtjtwY/AYtLoCYgRwx5yTCT6uBjvEPS3t0X3dwIXvpIJ4sbsT3V6QliR4EPpg
-	6marNFJZW/9RWF35JVNVMOG2ddC4Pp7tvQoazyDtIh+YTTw2MsLfhmlARVxqAphPf4ISZd
-	R/zQxQsjtwfpkgYPW9n0YZm8Qpq7Qa4=
-X-MC-Unique: P_oeLiB8M_qJvoNcs8hSaA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=vptXUYceNtwYVyKwfHyA3dKZqDg4HJHh7ydKyqgQ4H0=;
-        b=QwYBYMcMsv4+t8+eS61DUIP26YyK9T3pD7MSTW8rWbTSdi2Gc84JCzrxaghshJMB+V
-         k0WdG8/zB0X+h/R8qycmdTwOMd6QShEQhPRkgqnNNoW7CmEgc9z/C/j2rmFKZx+A1Gck
-         uAXRfv+JNS4vQ/0+ndKOtXSvu/kGQKC/1Cn26oxSNquryyvlrFQW2lE601JAeBAZz0+p
-         uHbJunVVpoLMX7z5hNuCObX1lqugGRJuelR4wJy/5ZmrHGHWtFG8V6OU318g+0lj6Ogx
-         az30FTJ9kN7DKZ4aTFCRQB5nbMibcc1wrrxeYSf+CRVbJKehq3N4pFoAfz6P4OSEk98f
-         Tzzg==
-X-Gm-Message-State: ACgBeo0xkXJ6vqBjIcAUIuK94zW3hDMRl909oZJikDtPFfwpyUPbXkK8
-	5ABkuoNoYMKpu9082hBF60Eu9zSiTtJts4zKNzAB1DizOflyfuXx4pgYBLYGZNGiij37wFo4ud+
-	wwFO1F3fcipT+kv5zgy7cF84FoCk=
-X-Received: by 2002:a17:907:7f91:b0:77f:c4c7:9155 with SMTP id qk17-20020a1709077f9100b0077fc4c79155mr3137426ejc.476.1663076093156;
-        Tue, 13 Sep 2022 06:34:53 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR6avRwtqutArvSmcEzg7QncTSscL/a0gwHDnK2tQKDnZWQ3sHpo7gh8eU4Pf6A1+IXk9R/ikw==
-X-Received: by 2002:a17:907:7f91:b0:77f:c4c7:9155 with SMTP id qk17-20020a1709077f9100b0077fc4c79155mr3137408ejc.476.1663076092870;
-        Tue, 13 Sep 2022 06:34:52 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Ajay Kaher <akaher@vmware.com>
-Cc: "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>, Srivatsa Bhat
- <srivatsab@vmware.com>, "srivatsa@csail.mit.edu" <srivatsa@csail.mit.edu>,
- Alexey Makhalov <amakhalov@vmware.com>, Vasavi Sirnapalli
- <vsirnapalli@vmware.com>, "er.ajay.kaher@gmail.com"
- <er.ajay.kaher@gmail.com>, "willy@infradead.org" <willy@infradead.org>,
- Nadav Amit <namit@vmware.com>, "linux-hyperv@vger.kernel.org"
- <linux-hyperv@vger.kernel.org>, "kvm@vger.kernel.org"
- <kvm@vger.kernel.org>, "jailhouse-dev@googlegroups.com"
- <jailhouse-dev@googlegroups.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, "acrn-dev@lists.projectacrn.org"
- <acrn-dev@lists.projectacrn.org>, "helgaas@kernel.org"
- <helgaas@kernel.org>, "bhelgaas@google.com" <bhelgaas@google.com>,
- "tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
- <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, Alexander
- Graf <graf@amazon.com>
-Subject: Re: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
-In-Reply-To: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com>
-References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com>
-Date: Tue, 13 Sep 2022 15:34:50 +0200
-Message-ID: <87zgf3pfd1.fsf@redhat.com>
+X-Inumbo-ID: 0f344f7e-3369-11ed-9761-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1663076183; x=
+	1663162583; bh=Tc0xVHPsREMfS7uj8Z2PW8B/PBM01asP+Nsn6MzfR0o=; b=r
+	GhhcP3aZj/0sP2D4/h+WRgh7wExihpOYP7qcV3LQcEI0rY+L/5skGRoSuf+oYUjV
+	hdvVV+/1Wl46Qdz/77jnXUplPOGlGDHaTUkaB9Cp1NjLSuR5a85ZV5VRmLwHIG8V
+	dnxfPLqgnMWczNxm442z895Gw3WTNXGbiXzFCY7KA5wbNLP4o7/KPbkdxnydeMgf
+	1NBGyxOM183OqEeOlGbQZa9+lqhX5/1fTFHFjAX06wbgvPcH/hCuCR7kkiFm+lor
+	GMRY94HRUizfwn2E31cPXJA2MzoMnoqrz+1lh9eNNtYRIHTJltx29jPY+zmMyuKL
+	DsSopt2eXvPC7pT5lPkUQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1663076183; x=1663162583; bh=Tc0xVHPsREMfS7uj8Z2PW8B/PBM0
+	1asP+Nsn6MzfR0o=; b=mxO4UwB6KgMan8JCywEwkBkA1UrDDtHz/D8l62ibI+J6
+	oeBPN+Z4I1p4WPRASDl7CHp6TMcomBhIIaaChQPJFsE+nKaLGfvp3any/QQORi9D
+	T+l+37vm9GQ8A4esLCYFTacK+g6M/QgJ1LNLY407ARpkpRd0+3ttAbkGpU+lobzq
+	No2PkVU9WgxT5ASXpZldNqswt1nv6e1qhmL1oNDKP/I01tjrwgaPiDunD4QP/U/b
+	qqw5JY91tXStTZCgn3rYhJDxDvzCEIktrU226SuU0fJzW6BHaG0+V0viqXvvWe+t
+	W796riM3UtFJEsdHPbmTw7bL1gG5AEGZMoUOOfSj9w==
+X-ME-Sender: <xms:V4cgY4d7nywV6OjyWM6jWF-r3PAQDdLu2MZdAtuUcCLdDnM4G80wdA>
+    <xme:V4cgY6P-TIOk4BSixSi6zdIh9CTHvAuG9juxX0RvOR5SjV6zd9UHZdcYtFNrvnDDR
+    VGScM_Bghz-BNc>
+X-ME-Received: <xmr:V4cgY5g1MyQ4bBkq9RytBDxlbBfKGaXYecHqvWW-JIYo0d4dduoOB1IvkJeo>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfedugedgieekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
+    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+    lhgrsgdrtghomh
+X-ME-Proxy: <xmx:V4cgY9_N9-j8nx1nNqJ5DDsNzxlIedPy4Cw88--W-Vdheys8vKn46w>
+    <xmx:V4cgY0vGUDwLD28seUY_HtRxYOaDS6J8N3YtPnTjSAdgI40_4JNUnA>
+    <xmx:V4cgY0FslpieESCcdVMYHaXsnsO_SF0mAOdz1LApoNTx16zk9VhLTw>
+    <xmx:V4cgY-UIE7m_KlBV-zh6o6arpppQK4XMMDcVDbDUXeXBIskhTlWRiA>
+Feedback-ID: iac594737:Fastmail
+Date: Tue, 13 Sep 2022 09:36:18 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org, Ard Biesheuvel <ardb@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH] Add support for ESRT loading under Xen
+Message-ID: <YyCHVdoStC7pGnXA@itl-email>
+References: <20220825215218.1606-1-demi@invisiblethingslab.com>
+ <c2a22672-b9dd-7aa4-b61e-ccb0faaa3b01@suse.com>
+ <YwkKiFIKHG4IcCmH@itl-email>
+ <2a1a9e8c-0635-e207-e858-0e0bd1df0f11@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HB29iMzKquh2KHmV"
+Content-Disposition: inline
+In-Reply-To: <2a1a9e8c-0635-e207-e858-0e0bd1df0f11@suse.com>
+
+
+--HB29iMzKquh2KHmV
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Sep 2022 09:36:18 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org, Ard Biesheuvel <ardb@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH] Add support for ESRT loading under Xen
 
-Ajay Kaher <akaher@vmware.com> writes:
+On Tue, Sep 06, 2022 at 08:49:54AM +0200, Jan Beulich wrote:
+> On 26.08.2022 20:01, Demi Marie Obenour wrote:
+> > On Fri, Aug 26, 2022 at 09:53:29AM +0200, Jan Beulich wrote:
+> >> On 25.08.2022 23:52, Demi Marie Obenour wrote:
+> >>> @@ -40,6 +41,38 @@
+> >>> =20
+> >>>  #define efi_data(op)	(op.u.efi_runtime_call)
+> >>> =20
+> >>> +static_assert(XEN_PAGE_SHIFT =3D=3D EFI_PAGE_SHIFT,
+> >>> +              "Mismatch between EFI_PAGE_SHIFT and XEN_PAGE_SHIFT");
+> >>> +
+> >>> +bool xen_efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *md)
+> >>> +{
+> >>> +	struct xen_platform_op op =3D {
+> >>> +		.cmd =3D XENPF_firmware_info,
+> >>> +		.u.firmware_info =3D {
+> >>> +			.type =3D XEN_FW_EFI_INFO,
+> >>> +			.index =3D XEN_FW_EFI_MEM_INFO,
+> >>> +			.u.efi_info.mem.addr =3D phys_addr,
+> >>> +			.u.efi_info.mem.size =3D ((u64)-1ULL) - phys_addr,
+> >>> +		}
+> >>> +	};
+> >>> +	union xenpf_efi_info *info =3D &op.u.firmware_info.u.efi_info;
+> >>> +	int rc;
+> >>> +
+> >>> +	memset(md, 0, sizeof(*md)); /* initialize md even on failure */
+> >>> +	rc =3D HYPERVISOR_platform_op(&op);
+> >>> +	if (rc) {
+> >>> +		pr_warn("Could not obtain information on address %llu from Xen: "
+> >>> +			"error %d\n", phys_addr, rc);
+> >>> +		return false;
+> >>> +	}
+> >>> +
+> >>> +	md->attribute =3D info->mem.attr;
+> >>> +	md->type =3D info->mem.type;
+> >>> +	md->num_pages =3D info->mem.size >> XEN_PAGE_SHIFT;
+> >>> +	md->phys_addr =3D info->mem.addr;
+> >>
+> >> As indicated in reply to your patch changing XEN_FW_EFI_MEM_INFO in
+> >> the hypervisor: While this may fit the ESRT purpose, the address you
+> >> return here is not necessarily the start of the region, and hence
+> >> this function is not a general Xen replacement for the non-Xen
+> >> function. Therefore I think it also shouldn't give the impression of
+> >> doing so.
+> >=20
+> > Is this just a matter of renaming the function?
+>=20
+> Besides renaming the function perhaps it also shouldn't give the
+> impression of being generally usable. I would expect it to be a static
+> helper somewhere, or even be expanded inline.
 
-> Note: Corrected the Subject.
->
->> =EF=BB=BFOn 07/09/22, 8:50 PM, "Vitaly Kuznetsov" <vkuznets@redhat.com> =
-wrote:
->>
->>> diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
->>> index ddb7986..1e5a8f7 100644
->>> --- a/arch/x86/pci/common.c
->>> +++ b/arch/x86/pci/common.c
->>> @@ -20,6 +20,7 @@
->>>  #include <asm/pci_x86.h>
->>>  #include <asm/setup.h>
->>>  #include <asm/irqdomain.h>
->>> +#include <asm/hypervisor.h>
->>>
->>>  unsigned int pci_probe =3D PCI_PROBE_BIOS | PCI_PROBE_CONF1 | PCI_PROB=
-E_CONF2 |
->>>                               PCI_PROBE_MMCONF;
->>> @@ -57,14 +58,58 @@ int raw_pci_write(unsigned int domain, unsigned int=
- bus, unsigned int devfn,
->>>       return -EINVAL;
->>>  }
->>>
->>> +#ifdef CONFIG_HYPERVISOR_GUEST
->>> +static int vm_raw_pci_read(unsigned int domain, unsigned int bus, unsi=
-gned int devfn,
->>> +                                             int reg, int len, u32 *va=
-l)
->>> +{
->>> +     if (raw_pci_ext_ops)
->>> +             return raw_pci_ext_ops->read(domain, bus, devfn, reg, len=
-, val);
->>> +     if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
->>> +             return raw_pci_ops->read(domain, bus, devfn, reg, len, va=
-l);
->>> +     return -EINVAL;
->>> +}
->>> +
->>> +static int vm_raw_pci_write(unsigned int domain, unsigned int bus, uns=
-igned int devfn,
->>> +                                             int reg, int len, u32 val=
-)
->>> +{
->>> +     if (raw_pci_ext_ops)
->>> +             return raw_pci_ext_ops->write(domain, bus, devfn, reg, le=
-n, val);
->>> +     if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
->>> +             return raw_pci_ops->write(domain, bus, devfn, reg, len, v=
-al);
->>> +     return -EINVAL;
->>> +}
->>
->> These look exactly like raw_pci_read()/raw_pci_write() but with inverted
->> priority. We could've added a parameter but to be more flexible, I'd
->> suggest we add a 'priority' field to 'struct pci_raw_ops' and make
->> raw_pci_read()/raw_pci_write() check it before deciding what to use
->> first. To be on the safe side, you can leave raw_pci_ops's priority
->> higher than raw_pci_ext_ops's by default and only tweak it in
->> arch/x86/kernel/cpu/vmware.c
->
-> Thanks Vitaly for your response.
->
-> 1. we have multiple objects of struct pci_raw_ops, 2. adding 'priority' f=
-ield to struct pci_raw_ops
-> doesn't seems to be appropriate as need to take decision which object of =
-struct pci_raw_ops has
-> to be used, not something with-in struct pci_raw_ops.
+I would be fine with doing this, but I didn=E2=80=99t want to litter esrt.c=
+ with
+Xen-specific code.  IIUC Linux prefers to avoid #ifdef in .c files.
 
-I'm not sure I follow, you have two instances of 'struct pci_raw_ops'
-which are called 'raw_pci_ops' and 'raw_pci_ext_ops'. What if you do
-something like (completely untested):
+> >  Is it possible to
+> > implement the original function with the current hypervisor?
+>=20
+> Yes, but doing so would be ugly: You'd need to "bisect" your way to
+> the start of the region.
+>=20
+> As an aside (I think I did point this out before): Can you please
+> adjust the way your mail program sends mails? When I respond to your
+> mail (using Thunderbird), I find all the people previously on Cc on
+> the To: list, while your address is lost. As indicated I believe
+> this is a result of the Mail-Followup-To: tag your reply came with
+> (and I further think that TB's treatment of that tag is a reasonable
+> one, albeit perhaps there are other reasonable treatments as well; I
+> am not aware of this tag having any formally specified treatment).
 
-diff --git a/arch/x86/include/asm/pci_x86.h b/arch/x86/include/asm/pci_x86.=
-h
-index 70533fdcbf02..fb8270fa6c78 100644
---- a/arch/x86/include/asm/pci_x86.h
-+++ b/arch/x86/include/asm/pci_x86.h
-@@ -116,6 +116,7 @@ extern void (*pcibios_disable_irq)(struct pci_dev *dev)=
-;
- extern bool mp_should_keep_irq(struct device *dev);
-=20
- struct pci_raw_ops {
-+       int rating;
-        int (*read)(unsigned int domain, unsigned int bus, unsigned int dev=
-fn,
-                                                int reg, int len, u32 *val)=
-;
-        int (*write)(unsigned int domain, unsigned int bus, unsigned int de=
-vfn,
-diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
-index ddb798603201..e9965fd11576 100644
---- a/arch/x86/pci/common.c
-+++ b/arch/x86/pci/common.c
-@@ -40,7 +40,8 @@ const struct pci_raw_ops *__read_mostly raw_pci_ext_ops;
- int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int devfn=
-,
-                                                int reg, int len, u32 *val)
- {
--       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
-+       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
-+           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_ops->=
-rating))
-                return raw_pci_ops->read(domain, bus, devfn, reg, len, val)=
-;
-        if (raw_pci_ext_ops)
-                return raw_pci_ext_ops->read(domain, bus, devfn, reg, len, =
-val);
-@@ -50,7 +51,8 @@ int raw_pci_read(unsigned int domain, unsigned int bus, u=
-nsigned int devfn,
- int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int devf=
-n,
-                                                int reg, int len, u32 val)
- {
--       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
-+       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
-+           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_ops->=
-rating))
-                return raw_pci_ops->write(domain, bus, devfn, reg, len, val=
-);
-        if (raw_pci_ext_ops)
-                return raw_pci_ext_ops->write(domain, bus, devfn, reg, len,=
- val);
-
-and then somewhere in Vmware hypervisor initialization code
-(arch/x86/kernel/cpu/vmware.c) you do
-
- raw_pci_ext_ops->rating =3D 100;
-
-why wouldn't it work?=20
-
-(diclaimer: completely untested, raw_pci_ops/raw_pci_ext_ops
-initialization has to be checked so 'rating' is not garbage).
-
->
-> It's a generic solution for all hypervisor (sorry for earlier wrong
-> Subject), not specific to VMware. Further looking for feedback if it's
-> impacting to any hypervisor.
-
-That's the tricky part. We can check modern hypervisor versions, but
-what about all other versions in existence? How can we know that there's
-no QEMU/Hyper-V/... version out there where MMIO path is broken? I'd
-suggest we limit the change to Vmware hypervisor, other hypervisors may
-use the same mechanism (like the one above) later (but the person
-suggesting the patch is always responsible for the research why it is
-safe to do so).
-
+This was a misconfiguration on my end: I marked xen-devel as subscribed
+in my muttrc.  I fixed this and also unset followup_to, so the
+Mail-Followup-To header should no longer be generated.  Please let me
+know if this is still a problem.
 --=20
-Vitaly
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
+--HB29iMzKquh2KHmV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmMgh1QACgkQsoi1X/+c
+IsEMWg/+K/M5YDFYGZvZG8t9UVyp5AVxc+to/61bec+l2gPk2YyH3Bz4pd4Co1hH
+1ZfIIW0nybYkWTXacg26fTMYqg7124vu+VH9mOEmfDp7ZmjWg/QvMYjOEevEQcFQ
+SWPhLavQ1pQvJJJacNrEtbk7ivAvYFaKzLPs4yvseBR9r3JyWFQU2fZfbDgi7Q9y
+XmuUxqVNerg5/9RQOn2d/+N8J4Bs8v1hclkr/J3KS7a44qukUa28TIEjlhbU3h3b
+WM+8zuTN/ksbHQ6/wWaG8KXt5+4UemsQhYOsgI/42eaM4YjjAPL/6d3Vb/bnr1cT
+Lk1A1/IXrMVq10GzZZ47sKnnZRD0t9QvXyP16trFJFPoNC2IniFyKfbm1cj5zrOl
+DJgvlRzNuFlTA3tHA+U9TW2HZ2xw9reQHWSGUmlB2q0JQ69ZiXOGT57WX5qPSepR
+OBXrf0yORshR6UkVewsQgPeGn7jzWpxFlR3y2NpZH1BOp6mVRIhKg6i6GRZqmCai
+/M+1IMFZn2CrNBxowxMGkn6Ixh5Zfz71/UTAArx1Ad7VUvrtnC2z/yCBUJ4JcSuQ
+hr9FnW/4TNH7OuB/Txm0smyJv4G9UUtSl932lqnOaqkPH12aXDJxjhtxH8y+hLga
+vU/DZwgOfeGRXHP4LBtP8cDDmDsModBrHDGOJQWd175eTbKiRiY=
+=7Q0Y
+-----END PGP SIGNATURE-----
+
+--HB29iMzKquh2KHmV--
 
