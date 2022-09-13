@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 790945B63E8
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Sep 2022 01:07:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.406056.648452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC2285B64AC
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Sep 2022 02:52:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.406073.648462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXsWM-0006ok-7c; Mon, 12 Sep 2022 23:07:18 +0000
+	id 1oXu8u-0002J5-Hz; Tue, 13 Sep 2022 00:51:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 406056.648452; Mon, 12 Sep 2022 23:07:18 +0000
+Received: by outflank-mailman (output) from mailman id 406073.648462; Tue, 13 Sep 2022 00:51:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXsWM-0006lH-4b; Mon, 12 Sep 2022 23:07:18 +0000
-Received: by outflank-mailman (input) for mailman id 406056;
- Mon, 12 Sep 2022 23:07:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oXsWL-0006l7-0h; Mon, 12 Sep 2022 23:07:17 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oXsWK-0007Wc-Uo; Mon, 12 Sep 2022 23:07:16 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oXsWK-0004ld-Id; Mon, 12 Sep 2022 23:07:16 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oXsWK-0003Zk-IA; Mon, 12 Sep 2022 23:07:16 +0000
+	id 1oXu8u-0002G2-Ec; Tue, 13 Sep 2022 00:51:12 +0000
+Received: by outflank-mailman (input) for mailman id 406073;
+ Tue, 13 Sep 2022 00:51:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MVF+=ZQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oXu8s-0002Fw-Qg
+ for xen-devel@lists.xenproject.org; Tue, 13 Sep 2022 00:51:10 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26bfde7d-32fe-11ed-9760-273f2230c3a0;
+ Tue, 13 Sep 2022 02:51:08 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id ADF5E60F21;
+ Tue, 13 Sep 2022 00:51:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87521C433D6;
+ Tue, 13 Sep 2022 00:51:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,135 +44,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=hWZpQAy0nQWkgzkCNXuYijEslBRmr4tQ1UE4PMamtek=; b=A2b+6OetAwUPYdNWUkOfzaQ4ZV
-	BJOnglHzcRu2jus6weEYJJgP1bjkgQ1CEa3mMBRL6agbXsrsxUVs9qvCF5ykiuBqTGUQ8o5kzNZyj
-	/5JkOgX/1R3WpifQInc+DhD9BoecbImm5x5B1dgE5Y+8GpFpSNXgLRN6TOpAvAzv6xrI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173157-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 26bfde7d-32fe-11ed-9760-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1663030266;
+	bh=3GDVqr6ZFBQTMhXWnaF9L7B9qBdNmsR1PeWUnVoRMvk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Bgq4+0ZNb+Q4NKS/DEl8BU8oRQ07prRFZiAHmirWljJMgHfsZMs6FSqEzhTgu4GC9
+	 kGqPm/IngMbJc4Ewiy35bteiBP1jcuwgRHx6WzODJvq86yz8aUSAgf+X6g0PC55CZB
+	 KcmhJZnqEr/KDdTUn35W86sFUY4wynh63EHVWDm9qkDLq+piwy1bXxyfemuV7aUkjQ
+	 R2ha2rP+IMYy3B579kz9uJZdzEzkQ85Snd4e2MPZJuPIfBXNJvNdTDhpc6w0+rT5L+
+	 bWt/D6Nv1CXM9rOiCo8tiKuA0nEQwvrxsTU0SvwP0F7VfwwmfbxQo9XdKROGoTyOSU
+	 82RONVSlBcJWA==
+Date: Mon, 12 Sep 2022 17:51:04 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Ayan Kumar Halder <ayankuma@amd.com>
+cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
+    sstabellini@kernel.org
+Subject: Re: [ImageBuilder] Update README.md
+In-Reply-To: <e2a9619b-5334-59ff-a060-459a2d6b6216@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2209121750550.157835@ubuntu-linux-20-04-desktop>
+References: <20220912115918.19496-1-michal.orzel@amd.com> <e2a9619b-5334-59ff-a060-459a2d6b6216@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 173157: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=970e26294905d2d27369cf4041c6778105754f5e
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 12 Sep 2022 23:07:16 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 173157 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173157/
+On Mon, 12 Sep 2022, Ayan Kumar Halder wrote:
+> On 12/09/2022 12:59, Michal Orzel wrote:
+> > Get rid of references to XEN_PASSTHROUGH_PATHS, as there is no such option
+> > and it should be replaced with DOMU_PASSTHROUGH_PATHS[number].
+> > 
+> > Update PASSTHROUGH_DTS_REPO example. The directory storing partial device
+> > trees is now device-trees-2021.2/zcu102 instead of device-trees-2021.2.
+> > 
+> > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Reviewed-by: Ayan Kumar Halder <ayankuma@amd.com>
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
-
-version targeted for testing:
- ovmf                 970e26294905d2d27369cf4041c6778105754f5e
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
-
-Last test of basis   172136  2022-08-04 06:43:42 Z   39 days
-Failing since        172151  2022-08-05 02:40:28 Z   38 days  298 attempts
-Testing same since   173112  2022-09-10 10:12:05 Z    2 days   17 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  "Lee, Chun-Yi" <jlee@suse.com>
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Annie Li <annie.li@oracle.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Bob Feng <bob.c.feng@intel.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Chen, Xiao X <xiao.x.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Foster Nong <foster.nong@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jianyong Wu <jianyong.wu@arm.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee, Chun-Yi <joeyli.kernel@gmail.com>
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Pierre Gondois <pierre.gondois@arm.com>
-  Pranav Madhu <pranav.madhu@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@quicinc.com>
-  Rohit Mathew <rohit.mathew@arm.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Xiao X Chen <xiao.x.chen@intel.com>
-  Yuan Yu <yuanyu@google.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2470 lines long.)
+> > ---
+> >   README.md | 6 +++---
+> >   1 file changed, 3 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/README.md b/README.md
+> > index 041818349954..da9ba788a3bf 100644
+> > --- a/README.md
+> > +++ b/README.md
+> > @@ -34,7 +34,7 @@ BOOT_CMD="booti"
+> >   DEVICE_TREE="mpsoc.dtb"
+> >   XEN="xen"
+> >   XEN_CMD="console=dtuart dtuart=serial0 dom0_mem=1G dom0_max_vcpus=1
+> > bootscrub=0 vwfi=native sched=null"
+> > 
+> > -PASSTHROUGH_DTS_REPO="git@github.com:Xilinx/xen-passthrough-device-trees.git
+> > device-trees-2021.2"
+> > +PASSTHROUGH_DTS_REPO="git@github.com:Xilinx/xen-passthrough-device-trees.git
+> > device-trees-2021.2/zcu102"
+> >   DOM0_KERNEL="Image-dom0"
+> >   DOM0_CMD="console=hvc0 earlycon=xen earlyprintk=xen clk_ignore_unused"
+> >   DOM0_RAMDISK="dom0-ramdisk.cpio"
+> > @@ -99,9 +99,9 @@ Where:
+> >     - PASSTHROUGH_DTS_REPO specifies the git repository and/or the directory
+> >     which contains the partial device trees. This is optional. However, if
+> > -  this is specified, then XEN_PASSTHROUGH_PATHS need to be specified.
+> > +  this is specified, then DOMU_PASSTHROUGH_PATHS[number] need to be
+> > specified.
+> >     uboot-script-gen will compile the partial device trees which have
+> > -  been specified in XEN_PASSTHROUGH_PATHS.
+> > +  been specified in DOMU_PASSTHROUGH_PATHS[number].
+> >     - DOM0_KERNEL specifies the Dom0 kernel file to load.
+> >     For dom0less configurations, the parameter is optional.
+> 
 
