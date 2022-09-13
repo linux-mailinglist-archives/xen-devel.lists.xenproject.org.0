@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF4C5B64F6
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Sep 2022 03:14:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.406087.648484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A045B6505
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Sep 2022 03:16:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.406093.648495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXuUZ-0003og-I8; Tue, 13 Sep 2022 01:13:35 +0000
+	id 1oXuXX-0004bX-0b; Tue, 13 Sep 2022 01:16:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 406087.648484; Tue, 13 Sep 2022 01:13:35 +0000
+Received: by outflank-mailman (output) from mailman id 406093.648495; Tue, 13 Sep 2022 01:16:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oXuUZ-0003mB-F1; Tue, 13 Sep 2022 01:13:35 +0000
-Received: by outflank-mailman (input) for mailman id 406087;
- Tue, 13 Sep 2022 01:13:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MVF+=ZQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oXuUY-0003m5-Ay
- for xen-devel@lists.xenproject.org; Tue, 13 Sep 2022 01:13:34 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47a1c0d8-3301-11ed-a31c-8f8a9ae3403f;
- Tue, 13 Sep 2022 03:13:31 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3A6FC612CC;
- Tue, 13 Sep 2022 01:13:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E574C433C1;
- Tue, 13 Sep 2022 01:13:28 +0000 (UTC)
+	id 1oXuXW-0004Yq-TP; Tue, 13 Sep 2022 01:16:38 +0000
+Received: by outflank-mailman (input) for mailman id 406093;
+ Tue, 13 Sep 2022 01:16:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oXuXV-0004Yg-OY; Tue, 13 Sep 2022 01:16:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oXuXV-0000Cw-Hs; Tue, 13 Sep 2022 01:16:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oXuXV-0003al-6w; Tue, 13 Sep 2022 01:16:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oXuXV-0006h7-6T; Tue, 13 Sep 2022 01:16:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,259 +42,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47a1c0d8-3301-11ed-a31c-8f8a9ae3403f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1663031609;
-	bh=CYyhikYDYUyrkYL8cB3aVHd5f9cMk6sNJ/S/LNxSRzw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QmCU9vns4xsvuRc/aQ9UOP9uAvDIrkmrDCfuqv9FWHhxWfJxhx+Ll6rHTdPRB10Y7
-	 pyHhK+OHQDZAc4NZdcXsnF6rMwStgWlf/i3wvwSxmYsPXrIC5gBqinkeADwFbdNSCO
-	 Eku64kZfYUUxpV8yLHNpyXdsUF2cUzuMT+i1aquUW1vtK0soFrt5rei7YltmdByHsg
-	 u4cGyz33kvTRodU548esMCJwjZWv35eqQtma+7sTJAO8doo7v3hNsRdXVsa7Qi+Zk7
-	 stSWQUlP3084TDVS+aBf6sK+CpPHFHeo3cg/5fl6T4+mqy00sNeVCFGTbIgOUU9J3v
-	 brxrC5TtLcveQ==
-Date: Mon, 12 Sep 2022 18:13:27 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org
-Subject: Re: [ImageBuilder 2/2] Add support for lopper to generate partial
- dts
-In-Reply-To: <20220912115934.19552-3-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2209121758280.157835@ubuntu-linux-20-04-desktop>
-References: <20220912115934.19552-1-michal.orzel@amd.com> <20220912115934.19552-3-michal.orzel@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=s+C4+OSdWRa9uk63PoS10mDYLQBgVsm5uQ9e6VGehJo=; b=RJGkTdEk70AWIM622za/5wzrKI
+	lw1w2Tvsgd2JoGS8caNa2HthszUB80sLbcQ7TNIkmYCuFYksOrxcGgu8fY92APu31gJJdT12zvHWq
+	xgnNqOS+sbn2Vm4yDOnfZiYsSIHt9xThaV7iUstMfstK39xA//9vTiyN+Endn5FGZR7o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173153-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [qemu-mainline test] 173153: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:build-amd64-libvirt:libvirt-build:fail:regression
+    qemu-mainline:build-i386-libvirt:libvirt-build:fail:regression
+    qemu-mainline:build-arm64-libvirt:libvirt-build:fail:regression
+    qemu-mainline:build-armhf-libvirt:libvirt-build:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:heisenbug
+    qemu-mainline:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=79dfa177ae348bb5ab5f97c0915359b13d6186e2
+X-Osstest-Versions-That:
+    qemuu=2480f3bbd03814b0651a1f74959f5c6631ee5819
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 13 Sep 2022 01:16:37 +0000
 
-On Mon, 12 Sep 2022, Michal Orzel wrote:
-> Currently ImageBuilder can compile and merge partial dts obtained from
-> a repository specified using PASSTHROUGH_DTS_REPO. With the recent
-> changes done in the lopper, we can use it to generate partial dts
-> automatically (to some extent as this is still an early support).
-> 
-> Introduce LOPPER_PATH option to specify a path to a lopper.py script,
-> that if set, will invoke lopper to generate partial dts for the
-> passthrough devices specified in DOMU_PASSTHROUGH_PATHS.
-> 
-> Introduce LOPPER_CMD option to specify custom command line arguments
-> (if needed) for lopper's extract assist.
-> 
-> Example usage:
-> LOPPER_PATH="/home/user/lopper/lopper.py"
-> DOMU_PASSTHROUGH_PATHS[0]="/axi/spi@ff0f0000 /axi/serial@ff010000"
+flight 173153 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173153/
 
-Is lopper.py this file?
+Regressions :-(
 
-https://github.com/devicetree-org/lopper/blob/master/lopper.py
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172123
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172123
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 172123
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 172123
 
-If so, it would be good to specify in the README that this is not just
-an arbitrary lopper.py script, but the main entry point of Lopper as a
-project. For instance:
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail in 173147 pass in 173153
+ test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat  fail pass in 173147
 
----
-Introduce LOPPER_PATH option to specify a path to a lopper.py script,
-the main script in the Lopper repository
-(https://github.com/devicetree-org/lopper). If set, ....
----
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172123
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 172123
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172123
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 172123
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172123
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+
+version targeted for testing:
+ qemuu                79dfa177ae348bb5ab5f97c0915359b13d6186e2
+baseline version:
+ qemuu                2480f3bbd03814b0651a1f74959f5c6631ee5819
+
+Last test of basis   172123  2022-08-03 18:10:07 Z   40 days
+Failing since        172148  2022-08-04 21:39:38 Z   39 days   88 attempts
+Testing same since   173060  2022-09-08 07:34:59 Z    4 days   10 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Akihiko Odaki <akihiko.odaki@daynix.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alexey Baturo <baturo.alexey@gmail.com>
+  Alexey Kardashevskiy <aik@ozlabs.ru>
+  Alistair Francis <alistair.francis@wdc.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Anton Kochkov <anton.kochkov@proton.me>
+  Anup Patel <apatel@ventanamicro.com>
+  Atish Patra <atish.patra@wdc.com>
+  Atish Patra <atishp@rivosinc.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bin Meng <bin.meng@windriver.com>
+  Bin Meng <bmeng.cn@gmail.com>
+  Christian Borntraeger <borntraeger@linux.ibm.com>
+  Conor Dooley <conor.dooley@microchip.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Dao Lu <daolu@rivosinc.com>
+  David Hildenbrand <david@redhat.com>
+  dramforever <dramforever@live.com>
+  eop Chen <eop.chen@sifive.com>
+  eopXD <eop.chen@sifive.com>
+  Eugenio Pérez <eperezma@redhat.com>
+  Frédéric Pétrot <frederic.petrot@univ-grenoble-alpes.fr>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Heiko Stuebner <heiko@sntech.de>
+  Helge Deller <deller@gmx.de>
+  Igor Mammedov <imammedo@redhat.com>
+  Ilya Leoshkevich <iii@linux.ibm.com>
+  Jason A. Donenfeld <Jason@zx2c4.com>
+  Jason Wang <jasowang@redhat.com>
+  John Millikin <john@john-millikin.com>
+  John Snow <jsnow@redhat.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Junqiang Wang <wangjunqiang@iscas.ac.cn>
+  Kevin Wolf <kwolf@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Leonardo Bras <leobras@redhat.com>
+  Lucas Mateus Castro (alqotel) <lucas.araujo@eldorado.org.br>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matheus Tavares Bernardino <quic_mathbern@quicinc.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Nicholas Piggin <npiggin@gmail.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul Brook <paul@nowt.org>
+  Pavel Dovgalyuk <Pavel.Dovgalyuk@ispras.ru>
+  Peter Maydell <peter.maydell@linaro.org>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Priyankar Jain <priyankar.jain@nutanix.com>
+  Qi Hu <huqi@loongson.cn>
+  Qiang Liu <cyruscyliu@gmail.com>
+  Rahul Pathak <rpathak@ventanamicro.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Richard W.M. Jones <rjones@redhat.com>
+  Samuel Thibault <samuel.thibault@ens-lyon.org>
+  Song Gao <gaosong@loongson.cn>
+  Stafford Horne <shorne@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefan Weil <sw@weilnetz.de>
+  Thomas Huth <thuth@redhat.com>
+  Tomasz Martyniak <gitlab.com/tom4r>
+  Victor Toso <victortoso@redhat.com>
+  Vitaly Buka <vitalybuka@google.com>
+  Vitaly Kuznetsov <vkuznets@redhat.com>
+  Weiwei Li <liweiwei@iscas.ac.cn>
+  Wilfred Mallawa <wilfred.mallawa@wdc.com>
+  Xiaojuan Yang <yangxiaojuan@loongson.cn>
+  Xuzhou Cheng <xuzhou.cheng@windriver.com>
+  Yonggang Luo <luoyonggang@gmail.com>
+  Yueh-Ting (eop) Chen <eop.chen@sifive.com>
+  Zenghui Yu <yuzenghui@huawei.com>
+  Zhang Chen <chen.zhang@intel.com>
+  Zheyu Ma <zheyuma97@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> ---
->  README.md                | 22 ++++++++++++--
->  scripts/common           | 64 ++++++++++++++++++++++++++++++----------
->  scripts/uboot-script-gen | 17 +++++++++--
->  3 files changed, 83 insertions(+), 20 deletions(-)
-> 
-> diff --git a/README.md b/README.md
-> index da9ba788a3bf..aaee0939b589 100644
-> --- a/README.md
-> +++ b/README.md
-> @@ -128,6 +128,19 @@ Where:
->  - DT_OVERLAY[number] specifies the path to the hosts device tree overlays
->    to be added at boot time in u-boot
->  
-> +- LOPPER_PATH specifies the path to lopper.py script. This is optional.
-> +  However, if this is specified, then DOMU_PASSTHROUGH_PATHS[number] need
-> +  to be specified. uboot-script-gen will invoke lopper to generate the partial
-> +  device trees which have been specified in DOMU_PASSTHROUGH_PATHS[number].
-> +  This option is currently in experimental state as the corresponding lopper
-> +  changes are still in an early support state.
-> +
-> +- LOPPER_CMD specifies the command line arguments for lopper's extract assist.
-> +  This is optional and only applicable when LOPPER_PATH is specified. Only to be
-> +  used to specify which nodes to include (using -i <node_name>) and which
-> +  nodes/properties to exclude (using -x <regex>). If not set at all, the default
-> +  one is used applicable for ZynqMP MPSoC boards.
-> +
->  - NUM_DOMUS specifies how many Dom0-less DomUs to load
->  
->  - DOMU_KERNEL[number] specifies the DomU kernel to use.
-> @@ -140,7 +153,7 @@ Where:
->  - DOMU_PASSTHROUGH_PATHS[number] specifies the passthrough devices (
->    separated by spaces). It adds "xen,passthrough" to the corresponding
->    dtb nodes in xen device tree blob.
-> -  This option is valid in the following two cases:
-> +  This option is valid in the following cases:
->  
->    1. When PASSTHROUGH_DTS_REPO is provided.
->    With this option, the partial device trees (corresponding to the
-> @@ -149,7 +162,12 @@ Where:
->    Note it assumes that the names of the partial device trees will match
->    to the names of the devices specified here.
->  
-> -  2. When DOMU_NOBOOT[number] is provided. In this case, it will only
-> +  2. When LOPPER_PATH is provided.
-> +  With this option, the partial device trees (corresponding to the
-> +  passthrough devices) are generated by the lopper and then compiled and merged
-> +  by ImageBuilder to be used as DOMU[number] device tree blob.
-> +
-> +  3. When DOMU_NOBOOT[number] is provided. In this case, it will only
->    add "xen,passthrough" as mentioned before.
->  
->  - DOMU_PASSTHROUGH_DTB[number] specifies the passthrough device trees
-> diff --git a/scripts/common b/scripts/common
-> index ccad03d82b30..680c5090cd07 100644
-> --- a/scripts/common
-> +++ b/scripts/common
-> @@ -9,6 +9,9 @@
->  # - NUM_DOMUS
->  # - DOMU_PASSTHROUGH_PATHS
->  # - DOMU_PASSTHROUGH_DTB
-> +# - LOPPER_PATH
-> +# - LOPPER_CMD
-> +# - DEVICE_TREE
->  
->  tmp_files=()
->  tmp_dirs=()
-> @@ -99,31 +102,41 @@ function compile_merge_partial_dts()
->      local tmp
->      local tmpdts
->      local file
-> +    local node
->      local i
->      local j
->  
-> -    if [[ "$repo" =~ .*@.*:.* ]]
-> +    if test "$repo"
->      then
-> -        tmp=`mktemp -d`
-> -        tmp_dirs+=($tmp)
-> -
-> -        echo "Cloning git repo \"$git_repo\""
-> -        git clone "$repo" $tmp
-> -        if test $? -ne 0
-> +        # Partial dts will be obtained from PASSTHROUGH_DTS_REPO
-> +        if [[ "$repo" =~ .*@.*:.* ]]
->          then
-> -            echo "Error occurred while cloning \"$git_repo\""
-> -            return 1
-> -        fi
-> +            tmp=`mktemp -d`
-> +            tmp_dirs+=($tmp)
->  
-> -        repo=$tmp
-> -    fi
-> +            echo "Cloning git repo \"$git_repo\""
-> +            git clone "$repo" $tmp
-> +            if test $? -ne 0
-> +            then
-> +                echo "Error occurred while cloning \"$git_repo\""
-> +                return 1
-> +            fi
->  
-> -    if test -z "$dir"
-> -    then
-> -        dir="."
-> +            repo=$tmp
-> +        fi
-> +
-> +        if test -z "$dir"
-> +        then
-> +            dir="."
-> +        fi
-> +        partial_dts_dir="$repo"/"$dir"
-> +    else
-> +        # Partial dts will be generated by the lopper
-> +        tmp=`mktemp -d`
-> +        tmp_dirs+=($tmp)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-setting tmp and tmp_dirs can be moved outside of the if
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> +        partial_dts_dir="$tmp"
->      fi
->  
-> -    partial_dts_dir="$repo"/"$dir"
->      i=0
->      while test $i -lt $NUM_DOMUS
->      do
-> @@ -133,6 +146,25 @@ function compile_merge_partial_dts()
->              return 1
->          fi
->  
-> +        if test -z "$repo"
-> +        then
-> +            # Generate partial dts using lopper
-> +            for devpath in ${DOMU_PASSTHROUGH_PATHS[$i]}
-> +            do
-> +                node=${devpath##*/}
-> +                file="$partial_dts_dir"/"$node".dts
+Not pushing.
 
-This is a minor NIT. As we do below: 
-
-            file=${devpath##*/}
-            file="$partial_dts_dir"/"$file".dts
-
-Can you change the code below to use node and file as you do here for
-consistency?
-
-
-> +                $LOPPER_PATH --permissive -f $DEVICE_TREE \
-> +                -- extract -t $devpath $LOPPER_CMD \
-> +                -- extract-xen -t $node -o $file
-> +
-> +                if test $? -ne 0
-> +                then
-> +                    return 1
-> +                fi
-> +            done
-> +        fi
-> +
->          sanity_check_partial_dts "${DOMU_PASSTHROUGH_PATHS[$i]}" "$partial_dts_dir"
->          if test $? -ne 0
->          then
-> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-> index 1f8ab5ffd193..84a68d6bd0b0 100755
-> --- a/scripts/uboot-script-gen
-> +++ b/scripts/uboot-script-gen
-> @@ -1138,10 +1138,23 @@ fi
->  # tftp or move the files to a partition
->  cd "$uboot_dir"
->  
-> -if test "$PASSTHROUGH_DTS_REPO"
-> +# If both PASSTHROUGH_DTS_REPO and LOPPER_PATH options are specified,
-> +# the former takes precedence because the partial device trees are already
-> +# created (probably tested), hence the reliability is higher than using lopper.
-> +if test "$PASSTHROUGH_DTS_REPO" || test "$LOPPER_PATH"
->  then
->      output_dir=`mktemp -d "partial-dtbs-XXX"`
-> -    compile_merge_partial_dts $output_dir "$PASSTHROUGH_DTS_REPO"
-> +    if test "$PASSTHROUGH_DTS_REPO"
-> +    then
-> +        compile_merge_partial_dts $output_dir "$PASSTHROUGH_DTS_REPO"
-> +    else
-> +        if test -z "$LOPPER_CMD"
-> +        then
-> +            # Default for ZynqMP MPSoC
-> +            LOPPER_CMD="-i zynqmp-firmware -x interrupt-controller -x pinctrl -x power-domains -x resets -x current-speed"
-> +        fi
-> +        compile_merge_partial_dts $output_dir
-> +    fi
->      if test $? -ne 0
->      then
->          # Remove the output dir holding the partial dtbs in case of any error
-> -- 
-> 2.25.1
-> 
+(No revision log; it would be 7269 lines long.)
 
