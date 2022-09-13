@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15DBD5B6E32
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Sep 2022 15:16:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.406391.648778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1F035B6E59
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Sep 2022 15:28:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.406403.648789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oY5lT-00041e-K7; Tue, 13 Sep 2022 13:15:47 +0000
+	id 1oY5xf-0005lD-Pw; Tue, 13 Sep 2022 13:28:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 406391.648778; Tue, 13 Sep 2022 13:15:47 +0000
+Received: by outflank-mailman (output) from mailman id 406403.648789; Tue, 13 Sep 2022 13:28:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oY5lT-0003z6-GX; Tue, 13 Sep 2022 13:15:47 +0000
-Received: by outflank-mailman (input) for mailman id 406391;
- Tue, 13 Sep 2022 13:15:45 +0000
+	id 1oY5xf-0005ii-NK; Tue, 13 Sep 2022 13:28:23 +0000
+Received: by outflank-mailman (input) for mailman id 406403;
+ Tue, 13 Sep 2022 13:28:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lgvl=ZQ=citrix.com=prvs=24889d1cb=roger.pau@srs-se1.protection.inumbo.net>)
- id 1oY5lR-0003z0-PK
- for xen-devel@lists.xenproject.org; Tue, 13 Sep 2022 13:15:45 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ad5f0d0-3366-11ed-9761-273f2230c3a0;
- Tue, 13 Sep 2022 15:15:43 +0200 (CEST)
-Received: from mail-co1nam11lp2176.outbound.protection.outlook.com (HELO
- NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.176])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 13 Sep 2022 09:15:10 -0400
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by SJ0PR03MB6272.namprd03.prod.outlook.com (2603:10b6:a03:3aa::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.19; Tue, 13 Sep
- 2022 13:15:08 +0000
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::352b:6017:176:4f6e]) by DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::352b:6017:176:4f6e%3]) with mapi id 15.20.5612.022; Tue, 13 Sep 2022
- 13:15:08 +0000
+ <SRS0=iobZ=ZQ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1oY5xd-0005ic-Gc
+ for xen-devel@lists.xenproject.org; Tue, 13 Sep 2022 13:28:21 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id edeb1c84-3367-11ed-9761-273f2230c3a0;
+ Tue, 13 Sep 2022 15:28:19 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2B3F95C017F;
+ Tue, 13 Sep 2022 09:28:18 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 13 Sep 2022 09:28:18 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Sep 2022 09:28:17 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,173 +43,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ad5f0d0-3366-11ed-9761-273f2230c3a0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1663074943;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=6apVp30A8UXW/FTsQydNAJQiPAcvMjf6hCSgcJ3OH6k=;
-  b=EKYaqSiaIe42GnMK7Dxl/Ph5nyYSKktMSngzI68mDA/B9zKIIwWyNtXd
-   bNeNNgTC5LMqkdDbVoEQ3ztqxTVKyzhqSiTzvBxJkNWIejHSfKZGeTnHO
-   0pawderi0kzL/fUGcPUTJ3iqGAPJcrQDbMVdPYwIn/2RfpCiDqBLmSgmi
-   w=;
-X-IronPort-RemoteIP: 104.47.56.176
-X-IronPort-MID: 82911856
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:EqG7yKMlE+Z8QIzvrR2KlsFynXyQoLVcMsEvi/4bfWQNrUolgmQEn
- zQZCG2CM6yIZGGnKopxOo6/9xsCv5fRzdBrGwto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdleF+lH3dOCJQUBUjcmgXqD7BPPPJhd/TAplTDZJoR94kqsyj5UAbeKRWmthg
- vuv5ZyEULOZ82QsaDhMuvvY8EoHUMna41v0gHRvPZing3eG/5UlJMp3Db28KXL+Xr5VEoaSL
- woU5Ojklo9x105F5uKNyt4XQGVTKlLhFVHmZk5tc7qjmnB/Shkaic7XAha+hXB/0F1ll/gpo
- DlEWAfZpQ0BZsUgk8xFO/VU/r0X0QSrN9YrLFDm2fF/wXEqfFPs2vFyEk06GrQG//9LCGBN0
- KMSKBA0O0Xra+KemNpXS8FKr+F6dYzAG9pavXttizbEEfwhXJbPBb3Q4sNV1ysxgcYIGuvCY
- 80eanxkaxGojx9nYw9LTs5h2rr2wCCgLVW0q3rMzUYzy3LUwwFrlqDkLfLee8CQRNUTlUGdz
- o7D1zSjU0hDZIHBodaD2licguWVjC3iY6QDEYWc3dpA3VPNxHNGXXX6UnP++5FVkHWWWtBWI
- E8P/SwGpqgz/VaoCNbnUhC+rXiI+BkGVJxNEIUS+AyLj6bZ/QudLmwFVSJaLswrstcsQj4n3
- UPPmMnmbRRtrbmURHS15rqS6zSoNkAowXQqYCYFSU4O5IDlqYRq1xbXFI88Tuiyk8H/Hiz2z
- 3aSti8iir4PjMkNkaKm4VTAhDHqrZ/MJuIo2jjqsquexlsRTOaYi0aAtAGzASpoRGpBcmS8g
- Q==
-IronPort-HdrOrdr: A9a23:++b7EqONIg86PsBcTyT155DYdb4zR+YMi2TDiHoddfUFSKalfp
- 6V98jztSWatN/eYgBEpTmlAtj5fZq8z+8N3WB1B9uftWbd2FdAQLsSjrcKhgeQYBEWldQtqZ
- uIEZIOb+EYZGIS5aia3OD7KadH/DDuytHUuQ609QYIcegFUdAD0+8vYTzraHGeCTM2cqYRJd
- 653I5qtjCgcXMYYoCSAWQEZfHKo5numIj9aRALKhY74E3W5AnYoYLSIly95FMzQjlPybAt/S
- zslBH43Lyqt7WexgXH32HewpxKkJ/Ky8dFBuaLls8JQw+c/DqAVcBEYfmvrTo1qOag5BIDl8
- TNmQ4pO4BJ53bYbgiO0GnQ8jil9Axrx27pyFeej3emi9f+XigGB81Igp8cWgfF6mI71esMnZ
- 5j7ia8jd56HBnAlCPy65zjTBdxjHe5pnIkjKo6k2Ffa40Dc7VcxLZvtn+9KK1wUx4S1bpXXt
- WHVKrnlbdrmBKhHjvkV1BUsZCRti9ZJGbHfqAA0vbloAS+0koJjHfw//Zv70voxKhNNKWs2N
- 60TJiAtIs+O/P+PpgNcNspcI+QNlHnZy7qHSa7HWnHfZt3S04l7aSHqIkI2A==
-X-IronPort-AV: E=Sophos;i="5.93,312,1654574400"; 
-   d="scan'208";a="82911856"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eBcKJelxpiUuP5FevrMff+ArH2fOSXRNeJYyIPidXszwNEeonKI6bGmHrIcybWrwPVUrjxOAc9goUrrPpjWwwJXuF7qiM/xKpG7xsYu1QTjZC5RyPS+KquL54q5HO/kU0TkQ5qJ4qoUCqVhA4/uUPun14Kdi1dpbiGImjPyKbJKfQX/+iFqOBs+SPe8ojeSqODDoAmWKxjoetWJqGj2Tn8I5pJCyICzUD5PMzcmJydnh0dySBHR5BPmDlG3pY7SK3LkRsuUkY3mZ6K35B+CuVKa2XuYzozQdmSGsP3p1mic7EQTew/Hahfnz+K/siwGbmbgtjDNew4gCnGi20YmB0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2wxWZwwEf++RQVQliz6rN3H76q7ry3k9nfOI8TQn3zU=;
- b=k2q4TuymRkHlAS3nLc3HR1jpBKrprqWGu5/dOJwzqkLzga3a8LpdZ53LIBIk37qPf0rtjHQrmbCTfB5frWJHriVDoRPX9crVdchmXKgJ5yFgSsf4KBMLYuf2Tg1TUZgCTRxM6murqBUU/ZlHkZMBc8NtFsVUsL+OtvUgzfXvhSN6Pa6k4NiF6PvZZGBVRSu0zI9srPTxEvhUyyvsZOlrptzo41xD4vPrmBsoRXL84Ftcp4U6EVzsds8VX0SBTqMBIVrn75NyOiDEeXBqO1ktWC4Unu9Nm/cjNKfK8pO/eOEK9JKReTtgjWj5kXC+DXt+eVqs0dTWz+Ozx5Kyehqt7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2wxWZwwEf++RQVQliz6rN3H76q7ry3k9nfOI8TQn3zU=;
- b=L8kemj/I+CdxOMtzPpmocW6QeMQuB99hGOlYiLAb0EBv4TqA8ZNNqK8CCIDHHDUPt2a3x/IyYLb6hzXtUDuc7oG4Lg/Ch6AZb0+YhDhjTetC5hwGNmYSDkus4Z/CpNAEfUu/F5AKOMB1YvS6mH6L7CrjrETKwbsXNrascTv6x1U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 13 Sep 2022 15:15:02 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Ian Jackson <ijackson@chiark.greenend.org.uk>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] libvirt: disable Werror for non-libvirt flights
-Message-ID: <YyCCVhG81XXLouKC@MacBook-Air-de-Roger.local>
-References: <20220913100328.27771-1-roger.pau@citrix.com>
- <25376.32116.525864.165666@chiark.greenend.org.uk>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <25376.32116.525864.165666@chiark.greenend.org.uk>
-X-ClientProxiedBy: MR2P264CA0031.FRAP264.PROD.OUTLOOK.COM (2603:10a6:500::19)
- To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+X-Inumbo-ID: edeb1c84-3367-11ed-9761-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1663075698; x=
+	1663162098; bh=b5IwvONy+aPZig6uiZYmFqcObNpEzTolaCm7RCSv1cA=; b=Y
+	ceNynn/q4lo+Tu+LKJ5+jVUGr691gly7lTNYG+/V5B7SSSUBCb3FamtoQPBnuDN0
+	Dhx9DxLqajryeEinEA3GGYviHKWHpSJkg5W2BsNmIXg3I8Nd8dS4FABb/lcToQhb
+	VAD5wxNRJH/xcVgJVqKfPqpkW/0fXCyqBOd3fEvQQ85LVr3hOJxHC23MK70M65/F
+	VSdd/xNFbErJsueXmUFkWnU7nCFenJBt/tNOoqWz+nnUQVFAMV/zVtntzhYkcnnz
+	V6Y3YpHbmzfdEDqI/VoTwSAtUNdDAm7XyorzSHNFyoQwClvyrvN1yu3wnLyQsYfz
+	BJ7IY0DnaAY+wu3P4v5Qw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1663075698; x=1663162098; bh=b5IwvONy+aPZig6uiZYmFqcObNpE
+	zTolaCm7RCSv1cA=; b=qqNpaJjRAO5/+5GFPFLvA2RrnjZDadkpv0YqDbCnsMGS
+	RDlR6r09f5ZfY+B124rHjgMVfmrKlb6kN4fCd5Y3jWCzKf1yCRmUEim1OP2hEKb1
+	64U+w/zcZBB+UroOIrsLZptt5JYm4/S1ycqlTJs/2Ddmw9dfeX6GbFy35L/ElnXS
+	yGUH0xNDLZBbkjsO1QhFSDw5CQrwR0OSa2DAAGEmPwifJ0+WhD7YLH+XGiIoPcNi
+	hB2LzDXhX00wIxiS3JKPxg36m9oCUw6OHmvnvWQ3hJjL09uwxic48Zdg9MwE6NhQ
+	rI8udxV14nmfqVmaFKsXUDbZusBdaemP4cSmAtL1iA==
+X-ME-Sender: <xms:cYUgY1uyjxZ5-rO0gILp_xhoxY_3jQE6acWJP3iRBGDegoys46YYyQ>
+    <xme:cYUgY-fORlPr9AMT3B_DOMuF9EAWpzqAy7xYPiA9qIUjewJOWN8ry7r3QyutL3FeE
+    _zHPoPluaEbyic>
+X-ME-Received: <xmr:cYUgY4z6XRkhGJFxWguCH5uU-LOWi3LkW7NGm2_Q0to0nAza4Ql2v_3JRX3c>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfedugedgieeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepudeileefueetvdelheeuteffjeeg
+    jeegffekleevueelueekjeejudffteejkeetnecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+    lhgrsgdrtghomh
+X-ME-Proxy: <xmx:cYUgY8PhEOIgbOf8fbBV8A7NkVQTMzAwFR3q1L-FX16_MGchjUXWaw>
+    <xmx:cYUgY18WDeIN1aaxQzVrTsi17xCXqTBQKgPDude8kwH3Ctfvs89qMA>
+    <xmx:cYUgY8V8JoTzGuYJQ0zG2hmW-9HtDywX_9-xQ5Xth-TMiRzFGH8YPg>
+    <xmx:coUgYxYkMX3h9gr-wEAH2mbW6cgo1PDT7O5uf0bto8OLHXK5oCGDwg>
+Feedback-ID: iac594737:Fastmail
+Date: Tue, 13 Sep 2022 09:27:53 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] Add support for ESRT loading under Xen
+Message-ID: <YyCFb7J6cJm5Ji9M@itl-email>
+References: <20220828025158.1455-1-demi@invisiblethingslab.com>
+ <CAMj1kXF5eH-HE1dkAEGGZ1qfG1eRThsNK7ayWkRmaHSO36sjfA@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR03MB5608:EE_|SJ0PR03MB6272:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a55fc3a-88d0-4280-4246-08da9589fae5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	BzUN4tI6dmtN4Ct4ZT3XnHdb3jLaSUN/9PAas9VbxHRtwm/vlcL4oOATsfenBMxXEx7SByiW7ZML/gLkZUtr1LC/hHEKbeVPSMvbpViujB2GeYD/LGgXKFD3v2nVLmddQoLaErY311D6ZTY+J6CrVbwGI0APXWH0f3+ZlVCigBQ7H1IG29JkvaFEWcyGglpgAAcM4VoLFXVbBnofMogjdO3glrAM9zOloVOmxvpUfqcd7iyeTaUVc2xAtEZMBno4ltEephJTohiaac27RVwMzkEjT6VujuuCWnUrBFxCW6ylrFgaoSyysnS3TNzcANB9lbc1KN9cCEzUAAsWbUSZd2J2mlFg1tnqk4lxqtlP5uHqKZBG2ZjoN3F9k+g7CCUwmsOpdGG5JfStnpIF3u5T+TtMWPAUL8Xu4jytpmx8l5w3QWrbRswZ38gsTDTcmzQAbjZBfnCr0vm9sGqvjafcTMK2jVIhy6Wtybtfw3Ne3yVkO06Myr5Ra1uHasFcRGmMNkYycI8WWsmCizTyPahgb6Cpmlr4Wp4RUj2WmsBAOg08Te0WHEnDVdlzgtOyU2ver1TQg/7N2xuFA2eapijOBkQJUI96pKq6WVJ453zQ0S0RjD41UnsElSxhac/S0GegOAiSyuBc6LaFU9usjS4RELju3F66P46oUmwCnnHCx8lrspyMAQCchdd+LrC4FFN0oGeFy5KcXluRgG8WxiAUhg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(376002)(39860400002)(136003)(346002)(396003)(451199015)(66556008)(4326008)(6486002)(66946007)(2906002)(8936002)(186003)(478600001)(6666004)(9686003)(6512007)(26005)(38100700002)(8676002)(83380400001)(82960400001)(85182001)(5660300002)(86362001)(6916009)(54906003)(316002)(41300700001)(6506007)(66476007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZkRIZmYrNlpod0sybFc2bG9NUFRqaklXSUQzam1SVWtXMDZyWjhrcGFSN3VT?=
- =?utf-8?B?c3ZodnZKL1lxeHJPSnZqTXEwU3d5Q1QyREhUMllzdHBkOStlelJ1anR6R2do?=
- =?utf-8?B?OTh1ejhJWmN3Z0k4US9GRlF0QXpOWk1LT0lva3ZUaSsxT3FzaEM3TkorU25p?=
- =?utf-8?B?U0RlNXBzaTNTS1NueTlxVTVpSUVPVXpVazNoWE5mYmxQV0VyZlQ4b1BsZTRC?=
- =?utf-8?B?UU9ZT09HbU1VWkt1NzREZzBhSXpwcXZFYk5FczhOMkNQY04vcFVid1M0alV1?=
- =?utf-8?B?WGNwNUp2RnZqTnZOaW4xanFjTEZPS01mSlYrZ3Y2aGN1NnJHakEzTENGdTZj?=
- =?utf-8?B?TFVzb2FnUklySENqTlZhNWtUTzcyQm5EWUYwMDBIWmc1YmwyQ1hzNUxKRG0r?=
- =?utf-8?B?NEc2ZWRYRCtVSUlJVmJaRmRDVU1xeTZzaFY1bWhvQUpRcGdIZ2w0WkY3RlR0?=
- =?utf-8?B?RXFVYzhyWFZ4VllKNHBBOXBiZkVmT3VRWDZqaGJqem9ZUVI5UnNpYmcxNUsy?=
- =?utf-8?B?UnBCQUZBSHFPcWl3OHMyZTRkWHpZTnVkTHVGRVB3M3NDdWJtRDkySnBoOUJy?=
- =?utf-8?B?Q1gzSzc5d1N1Ri9lNlEyU0hUb3E2YVJsbzNOM25DNUpqQWt4Wmg5aUJkbE9N?=
- =?utf-8?B?L2hBTzJrTTgyMGxVaTNlRHV6dnBQODNxUVdKUkJNUHhFZHZSUkZBUDVNWjl5?=
- =?utf-8?B?TnY2aXNjUDlOODMxaVV0Zlk1YXFLZlNpZFVLVnVyLzVCdTg0eGpHSlJmbEpm?=
- =?utf-8?B?SWJnRlZnYk9VNTl2MXIrYzIwV1IzQUIxRDlXSFQ1bzMwbDNUMnVaRzZyT3Ez?=
- =?utf-8?B?TERSaDBYWEpOTWk4QUIxbGsyTmRTSnBkamhURTlvN3B5cSt0azJ5UTA2bVJt?=
- =?utf-8?B?V0k5ZmMwZXJQdHI5QzgzZHg0UDE2czdEaDA0WDMyb0N1d1VqeGd2WHpJRnlO?=
- =?utf-8?B?ZUxhNHBMVDdCZ0wyV2pwdVEraGpMY3had1FnNG8xSUF0ZHhTZ2N3WFZTaUpK?=
- =?utf-8?B?M09xUUx4SVMwUzZNL2pJVTdwdDM1V0c0T3FEOTZMRVJzMXE0UlFOclRkb2Ny?=
- =?utf-8?B?cm1NN0puakg0UnNWam8wNXdsNzJDTWRldm9OalhWOHhUV2l4VWNieHM5SGR3?=
- =?utf-8?B?Q1JDMzRqdDhPUjF0clFYRElCRzVyMmxacG5JcjY4Y3FONTY3RkJmRGlObHIx?=
- =?utf-8?B?VFRLMHlUcGMzYklIdXJacFdablJvTlVnMW5TTnRSSTNWb0VzaER1V0xJRWxN?=
- =?utf-8?B?c1FnVU9iYm5PZGRiSTFCR0E0ZG9TREw3WUVwRWJjcXNoekpGU1Jka3FlMGNt?=
- =?utf-8?B?dWc5NXFWcTRBNm5lY1REdVlBMC9DZVpSUVY3RndlUFlGTFViRHkwTFhDY3FF?=
- =?utf-8?B?UTZVUWJveUUza0FjMEdLNXlRTm44L09PR0hIQXZRM0NLbnEzTUtpaVpQZC9l?=
- =?utf-8?B?M3NVVTRTbHZYV3RnVXk1aWtEbm5KNXcyRnpyaUZHc3VIc21MNUhmUnlzUDdC?=
- =?utf-8?B?OVRwTDBjaXc0TE9sOG9pU3VyUVpZZnJEUkxrSFVMMmcyaXQvQWhadjZRL1M5?=
- =?utf-8?B?aDk1MFpmbkcvanpSR1ArMjFUOUhjcG1KR3VNRFBrTTI2RCtiUHZJcVFZbCsr?=
- =?utf-8?B?UVRKcjB3L1pQcnJmVmFqQlNrWU9DWjhmL0IvQkZHOUZBcy92ZXpxczhYMDdr?=
- =?utf-8?B?TW1RZGR1cUFocUJWUTBuS05Vdmd4V2RLTDJHQm50RzlCU21NeFc1YnhVODRY?=
- =?utf-8?B?OW1DS1RzQ1NvU3dMdnBLdC9iSjJsKzVqLy9lLzNBR0sxdStXMzFpeWRlTytO?=
- =?utf-8?B?MGJiRGJZaVBJUXpyYUVYdlQyaWEyUU0wMzEyd3A2MHZkNHFYS05rQlhRWWt6?=
- =?utf-8?B?RGJZMzBuUlJ3aTBWeGtZeUFIY29YcmtTaVN0TjJoNGJuNWdHVEtpREtRRmFV?=
- =?utf-8?B?MGtIZ2tJUis0RUtLdTRPUlBQTTZXTVpVQkhQMmZkSG1NRVRvYWwwK1c0a1pr?=
- =?utf-8?B?ZnBwcythZnF2dWpXa3ZjVzRRT2RDeUx1aDhyVEZ5ZnBlZldKbGZIUG1kUWo1?=
- =?utf-8?B?emE5SEk0VCtYclJXMitVVm84eUtHdzRNcDVRZ1J1cFUvUk1qRUhWWXdkUWdI?=
- =?utf-8?B?RUpDa3g2RSt2OFExVzd0ZFdyWW1vSW1EemJyWFAvdmZSNmdvSHhrNkhOZ3Fn?=
- =?utf-8?B?Y0E9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a55fc3a-88d0-4280-4246-08da9589fae5
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2022 13:15:08.1857
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +uTrn4Whu5ce0FvtwcasHPzZYBE1Rkwn3OOLorHJv/laJ3aYETCMFi50U9IGLOT91JvLKSM/1kKJN0lSrY52fQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6272
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="37mLKXCcYa6M0yBY"
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXF5eH-HE1dkAEGGZ1qfG1eRThsNK7ayWkRmaHSO36sjfA@mail.gmail.com>
 
-On Tue, Sep 13, 2022 at 01:54:12PM +0100, Ian Jackson wrote:
-> Roger Pau Monne writes ("[PATCH] libvirt: disable Werror for non-libvirt flights"):
-> > Current usage of Werror=switch-enum by default for libvirt builds out
-> > of the git tree causes issues when new items are added to libxl public
-> > API enums if those are used in a switch statement in libvirt code.
-> > This leads to libvirt build failures for seemingly unrelated libxl
-> > changes.
-> > 
-> > In order to prevent those errors from blocking the push gate, disable
-> > Werror for libvirt builds when not in a libvirt specific flight.
-> > 
-> > The errors will be reported on the libvirt flight, and block the
-> > pushes there.  So the author of the changes in libxl is still expected
-> > to send a fix to libvirt code.  This is no ideal, but the other option
-> > is to just disable Werror for all libvirt builds and let libvirt
-> > developers fix the breakage when they notice it.
-> ..
-> > +build-i386-libvirt                                    autogen_options                 --disable-werror
-> 
-> We have no way to specify -Wno-error-switch-enum specifically ?
-> (I'm not sure if that would be desirable.)
 
-Hm, maybe playing with CFLAGS, but not from the autogen/meson options
-AFAIK.  Using the autogen/meson flags seems cleaner and less error
-prone (albeit the disabling of Werror is more wide than what we
-strictly require).
+--37mLKXCcYa6M0yBY
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Sep 2022 09:27:53 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] Add support for ESRT loading under Xen
 
-> > I'm unsure whether we want o disable Werror even for libvirt flights,
-> > but this seems more conservative.
-> 
-> Probably disabling it only for Xen is right.
+On Mon, Sep 05, 2022 at 01:46:54PM +0200, Ard Biesheuvel wrote:
+> On Sun, 28 Aug 2022 at 04:52, Demi Marie Obenour
+> <demi@invisiblethingslab.com> wrote:
+> >
+> > This is needed for fwupd to work in Qubes OS.
+> >
+>=20
+> Please elaborate on:
 
-Thanks, let's try this first then.
+Will do in v3.
 
-Roger.
+> - the current situation
+
+The ESRT is not available in dom0 under Xen.
+
+> - why this is a problem
+
+fwupd requires the ESRT to be available in dom0.  Without it, users
+cannot update their firmware.
+
+> - why your approach is a reasonable solution.
+
+It is the approach already chosen by Xen upstream.  See below for
+details.
+
+> > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > ---
+> > Changes since v1:
+> >
+> > - Use a different type (struct xen_efi_mem_info) for memory information
+> >   provided by Xen, as Xen reports it in a different way than the
+> >   standard Linux functions do.
+> >
+> >  drivers/firmware/efi/esrt.c | 49 +++++++++++++++++++++++++++----------
+> >  drivers/xen/efi.c           | 32 ++++++++++++++++++++++++++
+> >  include/linux/efi.h         | 18 ++++++++++++++
+> >  3 files changed, 86 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/firmware/efi/esrt.c b/drivers/firmware/efi/esrt.c
+> > index 2a2f52b017e736dd995c69e8aeb5fbd7761732e5..c0fc149a838044cc16bb08a=
+374a0c8ea6b7dcbff 100644
+> > --- a/drivers/firmware/efi/esrt.c
+> > +++ b/drivers/firmware/efi/esrt.c
+> > @@ -243,27 +243,50 @@ void __init efi_esrt_init(void)
+> >         void *va;
+> >         struct efi_system_resource_table tmpesrt;
+> >         size_t size, max, entry_size, entries_size;
+> > -       efi_memory_desc_t md;
+> > -       int rc;
+> >         phys_addr_t end;
+> > -
+> > -       if (!efi_enabled(EFI_MEMMAP))
+> > -               return;
+> > +       uint32_t type;
+> >
+> >         pr_debug("esrt-init: loading.\n");
+> >         if (!esrt_table_exists())
+> >                 return;
+> >
+> > -       rc =3D efi_mem_desc_lookup(efi.esrt, &md);
+> > -       if (rc < 0 ||
+> > -           (!(md.attribute & EFI_MEMORY_RUNTIME) &&
+> > -            md.type !=3D EFI_BOOT_SERVICES_DATA &&
+> > -            md.type !=3D EFI_RUNTIME_SERVICES_DATA)) {
+> > -               pr_warn("ESRT header is not in the memory map.\n");
+> > +       if (efi_enabled(EFI_MEMMAP)) {
+> > +               efi_memory_desc_t md;
+> > +
+> > +               if (efi_mem_desc_lookup(efi.esrt, &md) < 0 ||
+> > +                   (!(md.attribute & EFI_MEMORY_RUNTIME) &&
+> > +                    md.type !=3D EFI_BOOT_SERVICES_DATA &&
+> > +                    md.type !=3D EFI_RUNTIME_SERVICES_DATA)) {
+> > +                       pr_warn("ESRT header is not in the memory map.\=
+n");
+> > +                       return;
+> > +               }
+> > +
+> > +               type =3D md.type;
+> > +               max =3D efi_mem_desc_end(&md);
+> > +       } else if (IS_ENABLED(CONFIG_XEN_EFI) && efi_enabled(EFI_PARAVI=
+RT)) {
+> > +               struct xen_efi_mem_info info;
+> > +
+> > +               if (!xen_efi_mem_info_query(efi.esrt, &info)) {
+> > +                       pr_warn("Failed to lookup ESRT header in Xen me=
+mory map\n");
+> > +                       return;
+> > +               }
+> > +
+> > +               type =3D info.type;
+> > +               max =3D info.addr + info.size;
+> > +
+> > +               /* Recent Xen versions relocate the ESRT to memory of t=
+ype
+> > +                * EfiRuntimeServicesData, which Xen will not reuse.  I=
+f the ESRT
+>=20
+> This violates the EFI spec, which spells out very clearly that the
+> ESRT must be in EfiBootServicesData memory. Why are you deviating from
+> this?
+
+Xen will freely use EfiBootServicesData memory for its own purposes
+after calling ExitBootServices().  In particular, such memory may be
+allocated to, and become writable by, other guests.  Since the ESRT is
+(of necessity) trusted, it cannot be used by Linux unless it is
+guaranteed to not be writable by other guests.
+
+Earlier patches to Xen just reserved the region containing the ESRT in
+the EFI memory map.  However, this was tricky to implement correctly and
+required a new platform op to alert dom0 that the ESRT had been reserved
+by Xen.  The final patch accepted upstream instead checks if the ESRT is
+in EfiBootServicesData memory, and if it is, relocates it to
+EfiRuntimeServicesData memory.  This allowes using existing hypercalls
+to check if the ESRT has been reserved by Xen, which is exactly what
+this patch does.
+
+If I recall correctly, some firmware already allocates the ESRT from
+EfiRuntimeServicesData memory, so operating systems already need to
+support this case.  Furthermore, the ESRT must not be clobbered by the
+OS or hypervisor, so EfiRuntimeServicesData is a more logical choice
+anyway.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--37mLKXCcYa6M0yBY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmMghW8ACgkQsoi1X/+c
+IsFXOA/+L49ME+tYwPJiJQHmriPMx44MCB0a+MT8Q1JIsuTPZnCxWeT2gs6FN5q5
+zPncQzYMOOOzyFpKsAR9Q2AHKu8qIf3qFoX1bc1Dsc36lAW3ADWtQBSRDqMfK8WL
+Q4oQX2ypgW4x3v9OHhKMSwHPIWxTsxLLoh7hLjm83phikRHy7I0EZYs2AviOYsen
+u04rNCH/ZitfzDimI1BEy2Fqp2f0hskkn46TObnjrz3crtZndkld8n3f7AN5bXFi
+8dE5t9pHKKzGyj/R2HnDa4YV+agG5+87MW+LQrM0CgZC2aHNW5MRmmRaz/KAWOO1
+B7LYbcL0WWmhAMVaDegZDeQpTSVKHYR80z3JmKXEqL59SoNE+kC7ld2FlTdeFrFs
+/+vo9UxLYX7VW4FLGFh/iMnozy6wf4VK82Il1nDNCJGnsgiRXoS4DCn7FbjSyidh
+STdSZ6JE/OHtqUjmY8RUlZH9jUIiLUMfHa30xXP30mvP3yQ/ulvJgp9bVC3HxioG
+lM9Ik6pZD4lSfFaOtdQRf/h8zL1grd+d2SEDbfIBlKd7jkid6d5gjoPjHIEUyETq
+xxPJkEWGk33t/hSLhvlrB+FEcu5Egs11e+VMHt49bveiSOdMxPN5r5DUxjcwUvFI
+iV0wewWHAEfemwiX5D6H8Tmx285a5EwLGWJd/zIogQwZ2W10r2k=
+=78/p
+-----END PGP SIGNATURE-----
+
+--37mLKXCcYa6M0yBY--
 
