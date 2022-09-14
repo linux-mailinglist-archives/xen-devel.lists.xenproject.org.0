@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60AA55B82A7
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Sep 2022 10:11:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.406838.649223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3E295B82B8
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Sep 2022 10:15:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.406848.649235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYNUG-00073B-IW; Wed, 14 Sep 2022 08:11:12 +0000
+	id 1oYNXs-0007iW-7x; Wed, 14 Sep 2022 08:14:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 406838.649223; Wed, 14 Sep 2022 08:11:12 +0000
+Received: by outflank-mailman (output) from mailman id 406848.649235; Wed, 14 Sep 2022 08:14:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYNUG-00070V-FP; Wed, 14 Sep 2022 08:11:12 +0000
-Received: by outflank-mailman (input) for mailman id 406838;
- Wed, 14 Sep 2022 08:11:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LQJu=ZR=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1oYNUE-00070P-Ql
- for xen-devel@lists.xenproject.org; Wed, 14 Sep 2022 08:11:11 +0000
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c832cd89-3404-11ed-9761-273f2230c3a0;
- Wed, 14 Sep 2022 10:11:07 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 83D423200957;
- Wed, 14 Sep 2022 04:11:04 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Wed, 14 Sep 2022 04:11:05 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 14 Sep 2022 04:11:03 -0400 (EDT)
+	id 1oYNXs-0007fl-3b; Wed, 14 Sep 2022 08:14:56 +0000
+Received: by outflank-mailman (input) for mailman id 406848;
+ Wed, 14 Sep 2022 08:14:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yJnJ=ZR=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oYNXr-0007ff-7f
+ for xen-devel@lists.xenproject.org; Wed, 14 Sep 2022 08:14:55 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2053.outbound.protection.outlook.com [40.107.21.53])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4fc74c16-3405-11ed-a31c-8f8a9ae3403f;
+ Wed, 14 Sep 2022 10:14:54 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAXPR04MB8752.eurprd04.prod.outlook.com (2603:10a6:102:20e::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.22; Wed, 14 Sep
+ 2022 08:14:52 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5612.022; Wed, 14 Sep 2022
+ 08:14:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,202 +46,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c832cd89-3404-11ed-9761-273f2230c3a0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1663143064; x=
-	1663229464; bh=vj+y3+GGgkN862ndlWOKlat1PtH5lOn+JU5tw72tph0=; b=N
-	YH4aj73cU3m64O3u9jKtry5EwA+L65Gn/JjPspvgZjaGpZDm0FbY0lw4pTUk8TMh
-	dM1EYTXAw5vYTT1FGESool2Hk7qDbrhd1vE9m40lRS8Ij0AqV7T89ePzKvALg7xJ
-	3Qr6Y9A4ZsbchVLgOltDdbsceqxNqHtgZ6ucxnULVXMr2389xXAEmgeRHa+Zx7r6
-	z/FvDwgZmzYqc3HN45X7NHUxzXofOlwhwnRA0UgjpDeT/kX9NeZCLkKkbZ9mKpCZ
-	ULKXgDHPl0Ek8mVEojHvy6IM1oM43c9A5A7fK8XNlyKTFxDsrDVmEEshx4wxvbDq
-	3iDzloZIvGbsVSEmZlU/A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1663143064; x=1663229464; bh=vj+y3+GGgkN862ndlWOKlat1PtH5
-	lOn+JU5tw72tph0=; b=XrBN0xQ6L9jjnWfbuC3d1J8qUMrnn/I3VWdR1e5/EJ+F
-	x9BkA9sns7utmFB0n8JzfFErRBxe8jeagzbhLC/qCIHzbDEUibFLnMvQ5KLTwOR/
-	BdY0hUi4dtyLmsiRtFHWeqt3B3cUFsIO56s5Wbs/ld7GUyQ6mPZHbn+1XtOuWqs8
-	B8Pb9ns5bnG99A/vC1CeASkw193V3q7ZSlDOQ1MsMj9PYCAw3We7Kc4beiMn1rJs
-	IIEC0d2mQRZTyycY5Vzb64CQ+z8zRUMpagy+XKW/mL9LZLEhV6HHNMbIddJ7/Hra
-	FJTHCcPveZVI+e4Wq/SPhrj8+psRtk51nGBEHQOQZw==
-X-ME-Sender: <xms:l4whYzP269NaM8yDi8sftCnF2iMqTLLnYY-Z-frqRHhkvldhG6VC5Q>
-    <xme:l4whY9_Bo7PpBMb18c0dXdy4dkCWxuwCBowfjMLERDMDthtDET8qWrhBEHABrqppw
-    9Hbu8NpdOMu-Rk>
-X-ME-Received: <xmr:l4whYyQ-3K8ZctERpmJV0qBDEllO1jTAIAmkTj0OFujx1BDi4tj9gTxLgr5m>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeduiedgtdduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleefjeeukeehkeegiedtgeekkeel
-    tedvhfduudefgfffheffheeuvedvieelfefhnecuffhomhgrihhnpehkvghrnhgvlhdroh
-    hrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegu
-    vghmihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:l4whY3s5robtheEfU8gmWqHcdgV3KyvNbUYCYWMq3B-0vJzCsBj8ew>
-    <xmx:l4whY7e_esMvWPe56FackwgsAB4ies-WOrSeOrVOavOU9KaQtqLX_A>
-    <xmx:l4whYz2nHHObYxTIMLHQ771mMI0PJf0v76t0RYYuVK3TH4t7lIaWeg>
-    <xmx:mIwhY8psI4uofVdowgsaxPTmYJtuYPitbew5qde3oTiYJRxhfnKb5w>
-Feedback-ID: iac594737:Fastmail
-Date: Wed, 14 Sep 2022 04:10:58 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Simon Gaiser <simon@invisiblethingslab.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>
-Subject: Re: Setting constant-time mode CPU flag
-Message-ID: <YyGMlWI48qIyULH6@itl-email>
-References: <1d7b9e30-975b-b49f-fe09-e2aeda9e2af6@suse.com>
- <1b85702f-7efd-b13f-40d4-615750e20f4c@citrix.com>
- <YyCSIxyH4hDmTXIh@itl-email>
- <037151d0-0920-5d99-9932-df044729c00a@suse.com>
- <YyC8PMxsQyRp07vW@itl-email>
- <61f083c8-34c7-563b-b010-8d8d0286da6a@suse.com>
- <YyF3UoneRmBGQSHo@itl-email>
- <62f0ebdb-d06b-f361-40e9-711258c03a56@suse.com>
- <YyF+mRpYDxEPG/59@itl-email>
- <b6e399a4-a5b4-0b70-313e-f5b07136c00b@suse.com>
+X-Inumbo-ID: 4fc74c16-3405-11ed-a31c-8f8a9ae3403f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=My+DdoCOmq6MTtDgtUKUhitdp0ZadFx2Q0qdtozfHFZ2hQdoVEgc0XGsxTjIbFnN3Bk/8Tc8FYcrqqeVv27aZsX/rzwwiZSXJxHEMPfLYI464dlbN//X3ASwqPulOhX1zmIJRTvp/GxopnIQ3DNrjfvH4TwmV8k8s+/uoogDpvnGXcqyqHIc9WRXS8DLggvkbuanDv3+BMXY0DDpvNf/eKH5VLX3Jjj1MXr1oSqcEa7v8yyrYLIx/GTyziE9nUTpe3C/FMghaqgozPAnfJHHh77G9aHb3uSViiSQCAjouSqubQw/VfHljocbC0NDsOIkK0sxIoSo6G0D99/Pzd7euQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DbXj8ibR//i39icqs8mySCSafR59HRZF90whP0u7nws=;
+ b=DKS/Tnn13r1LcObfl/2oLDgfTyFgY0p3w45ey2UJd9mSqB/i1OUydiWWZo104agw5hrHAYJndxLDmYZWFL1SJadr3n6/AmK/W1pZd6mIkTQxbl29LTBlySGvNQ4XqusjlQQ4Sh71aqW3ig71IVQ+FYIUvBEIkofDVUmXrnJwSen9m6r0BZjFFn0yr3n3uFw5tb6YB6FvteJ+MD6FBHO/+h/rpYOSsetKHXBIksbonznhLZJBFSxeeBY0CgsnCZe9qu0Z1Z5qqSaKHgZ63dffe2+njwJ/c5/Nz6AR/0RkBS4+7/7KvQTaDst/fuDxaJEQoVw+amCSEal0Fa/NsslB2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DbXj8ibR//i39icqs8mySCSafR59HRZF90whP0u7nws=;
+ b=3PZ0l6e21i6bkjEWoNMF/hpBozDWRF+0QkLBmveOtbx47d6ZUZykq1wdGhdc13LuefAtDIxHfbcPraBiZT2Pt3dzsd3JMd7ZrTVW44b9n0YCeBhnHuI7jUKkj68Wc90CWa3XPSDHSuKdgi/x0FO1hrF/5ECU/DUXnjxQBhv7/PDhP98SRWX/zSenz2hJJKIo8viNbi42wnIv0yxM82TQ+rZJVgkoh2ev0L/nZIlLmwmP5qkVdcM/QaXPCU5dXeqI4zlfANhEnEPvvwj//eqd5Z9/gF3cJLz3+HvqZ8U7q1s/y8QMoaTsebi9vh9xM8shuaHCXkbVSzR3ct4P/4EZPw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <74fcfb7c-a699-03d5-c8aa-5f654515c566@suse.com>
+Date: Wed, 14 Sep 2022 10:14:50 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH] x86: enable interrupts around dump_execstate()
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <e717897f-980d-ad44-31d9-39f5e7e1c45e@suse.com>
+ <YyCYw6Hi0jVg0L+6@MacBook-Air-de-Roger.local>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <YyCYw6Hi0jVg0L+6@MacBook-Air-de-Roger.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS9PR07CA0007.eurprd07.prod.outlook.com
+ (2603:10a6:20b:46c::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="o8v6Zj3B0DGUQAn1"
-Content-Disposition: inline
-In-Reply-To: <b6e399a4-a5b4-0b70-313e-f5b07136c00b@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8752:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0031182-b0b9-47cf-58cc-08da96293334
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	vKFpm7DinFjAlHWrZJjFj2T6UvPL65o7C61IiFFKSBk3k4bjU+BGyfon6phEc9HjEyn9C9HoYGxhpNPoW7sV2QVoSEuxu6B8RLWotrA4/mI6w6AVdfmZW9nAyz6JKH5fERC3L0R/O0HvRasa38GiCpw8vXTeXdMPYtYhwh0WZVV89Ent+B3srFiqxh/gUs/X427Yc0Dx57dyR6rDvTNPIGpjhFtV9Gpjg8LFGU1elr68x1qxxad8RBqUQ+I9EMNMvB30+11xUNTcz4bPwy8s5wIpNTWsYvaogCsuo/NUwyNYqTwDMvIazqDQLfetWV7E20XFtTl07n1NHRC6BMiaS+GA0WNQI4HAGkJS0J1g7XsgOwxehw0g/KeQcpNvKE7IibJQM0O2Fp2WWdi2JSNX7nnM+yaMNG9NRNgS2F7F7epZOxFoi76O6Z7udLPwx2QU0EK8CPxpyW+RAnhUEu7By9vB+v9I0Ime75Dwp6FItl18zouqYxd+IPJi5cW62czJGgj9b3KYhZNJLRBVhPe7OyjhdFVvebro8BBubcHPOimQw4ZnFgCVEfy6XW2jKrPl0crNFj5U2g4JchaY75fjKs8YTgBvJZd0ig+iAfcB4OX76SPirBJaiB7C4DNbKEoDApOkgAdgBi9dXXz5gL0h0RDclBStzuXrDt6zJ1qPFNbrTbvL2d69tdvBEuq2+7QXQrPp/oCgMIt5ZZDsC7d5A+pyVYFv9RdyV7erVSir3Bf84tkesl2pB0BD6RKnQCJuvz9Uy+IR5rPTyMiGTdp3ESznQE0gYQPgN3TqMVsuO9U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(376002)(39860400002)(366004)(346002)(396003)(451199015)(41300700001)(66556008)(36756003)(5660300002)(8676002)(66946007)(83380400001)(54906003)(86362001)(53546011)(6486002)(316002)(6916009)(31686004)(31696002)(26005)(8936002)(2616005)(66476007)(38100700002)(6506007)(186003)(4326008)(2906002)(4744005)(6512007)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TmpZL2d4YkQwbzdXbWh3RVdOZDRkQmtjUGRlaFF5UGRzbmdQVU5hSmltc0Z3?=
+ =?utf-8?B?R203eC83UkNOZHpUUXNwZldYVzIxMnpwbVlzKzRiMFo1cWROVnJiQzg1MDdY?=
+ =?utf-8?B?emFTN21FLzZBb3h4NTRMVElQQmE3MTFoa3NRUEFyRUM4T2xkYVhkWlloQU9k?=
+ =?utf-8?B?V0Rmdis5YjNhRGw1RUlwMGxXL09xK0tSYk1nUHlkRGVub24rTWZYblovdDIw?=
+ =?utf-8?B?Ny9zVFo1aGk5SlppM2RDTUVKMGxSWUk4OC9KWlVSa1NEWjlVOWxNTHlJNk1q?=
+ =?utf-8?B?amFFZ05Mc0pUTkVaUHp1ZjBvYURpOWx2bFFaNU50WkRuaDA3Yy9Pa3B2dUNp?=
+ =?utf-8?B?VGRpT1pXakpuTlJoMTJOa0NYTnl3aHUrTHEvbUx6dHUzb0dITDM5RzJjMGhu?=
+ =?utf-8?B?UXNPaWg3YnhrU2M4MlRhWW5OMlIzMjNjdGNKQUVaOHZtZ3ZCdTRiQXJTZVhZ?=
+ =?utf-8?B?Nk54N2tKMDJaV0c2d3hpV2svNy9tN3UrWVRGOHlHZ2F4KzJsU2NDd05GMDNU?=
+ =?utf-8?B?QzhFRzErWll1TEpyUVR2M21pSzBYbStXd056cVhielRkMXYrOHFOSXFtRjJE?=
+ =?utf-8?B?aVlEdDhJa3NrSTFwZE90Y3NjZWZYRHl2cUZtRXRBSzB3cVBYNUlYRmVzQXlN?=
+ =?utf-8?B?dEJ4aWJoRlE0RkRnQ0RTQkV3Q1JJMkhLU0lYVkRtMmxjRU56cjEzV0I1NG1S?=
+ =?utf-8?B?N205cDl1QnAxNlpOSEVNNm5YcGpLcEE1SkVoWkw3OEZDTTd4aGgwak1GamZx?=
+ =?utf-8?B?RlE2WlB6cEZJQUFlZjJkeWFKSHEyczE1L1pMZ2QxYlJUY3lTajVrTVlXaS95?=
+ =?utf-8?B?M003cFZySHBlTmY2eDB0dE9KWlJxdkU5RVc0bWpUMEZoa1JNdGM1WEg0a0ti?=
+ =?utf-8?B?R2ZzM1NXUi83NFgyODMzRUxxSnM3cnl3V0EvSHhWN1RkSUdnSGY2S0YzZFNC?=
+ =?utf-8?B?YnI0YVlEcjNuaWF5bGFKMkxqTzl6Yi9nTlpOOGlyK0VDbEVvbWsvWEU3Nlcw?=
+ =?utf-8?B?L2t6ejdHbjhyQlM3NmhrUEdQZmorSlE4RnppekNuKzVMeTJvQVd0UjJkTnZB?=
+ =?utf-8?B?WEVmR0dVQm1WSk0zUDFSREE4OTBsM2gxejZtWFpFUjI5aHRxNW1WYjA4Q05Y?=
+ =?utf-8?B?YmFXT3FZUnY1T3NzcEhNUWJqQmxyQllIazlGdHhKS3ZrZmdBR1BsOTNqeVo0?=
+ =?utf-8?B?UnNadFJNems3eU5CZlk3bDRtUG5VWHcwZGtyajc3ZzNTeHVDRllsMnA3dTdN?=
+ =?utf-8?B?QW1oeGZFYW1kdm1lYnBGY2NOMk5ta2pxQ1dvUE92S2FUcTRuZEd5S1EzTndi?=
+ =?utf-8?B?amVtOHZ6c3lUNTRvVS9ta2RYWjNQOWJVd0JHVEpQSFhreFE4QUdtOWNxQk8x?=
+ =?utf-8?B?NjFVK1pXOGxwc2JkdWk4S0hrRnJINDl0TWw1TlZrL2tQemtXN2lra2VFMjlE?=
+ =?utf-8?B?cmx6U0F4VEptc2cza2RZUitaTWo1MC9pdDRqdjBqdml5UzNTREJUSHczcVc2?=
+ =?utf-8?B?ZzloWUdHQ3hydzhYRk81SG1qY2krWnNqNUdtNzNxZGtlUHhrN3dTSWZhUS9z?=
+ =?utf-8?B?WkFucjMyMDRKeWcwaEZwNU9XQW4xeENMUDdRZ0hocC9VY3J6d2RFRUJ4czZK?=
+ =?utf-8?B?VjZpT3ZhQXlRVXZwenVHMDhMdUlFYkQvV2dQMS91Wk1UVDBVQkRrb0RBQ0sy?=
+ =?utf-8?B?VFJPMUtmUEtNM2FRYjFXdmcrdC81U21PZXdXYUFwMnNFZDU4RzY2aFl4R1F3?=
+ =?utf-8?B?WkxWMzI3UHh6V3FzVllWUUFocnZ2YTFKMWtiZ01pdWdIUDRsZWVhWTh5YS9U?=
+ =?utf-8?B?QjJ6THI2aE5kVi9KMm83QXk3dUYybEZDNnpVLzlWUGZGM2tCeFNmb2JDNkp4?=
+ =?utf-8?B?TEFiejFUNXVGbG5NV3p0OXhsREpOUlRvL1RSSlh0MzhnRTdDajh2ODZLOStL?=
+ =?utf-8?B?MExlWlZLWUpUNCtna0FrSmlWZkZJMzBsQ2xzUSsvUEhJdWFFcHZwM1FQUTcv?=
+ =?utf-8?B?dUZSMXAzZE9xeWZQZVF6eW1ENWFkcTlyTzFscHBKSmZYRGhEcC8rWXFVU2Qx?=
+ =?utf-8?B?d09SQUd1ems3dC94ZmFLaWZrTmdIYjRPTTh4TWNQK01lM2lYcUZCZVNiWnBG?=
+ =?utf-8?Q?YIJiGJSUgds3xT8KkDXF87Y9h?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0031182-b0b9-47cf-58cc-08da96293334
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2022 08:14:52.4334
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gBxbluRi8xhk+epJLKIQhBQBfb4Q++b80+3YCgc9CLnYOqpK0/s8cljfe0yJfV/dMgfmHMdD4NfU5FNmCiqU1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8752
 
+On 13.09.2022 16:50, Roger Pau Monné wrote:
+> On Mon, Dec 13, 2021 at 04:12:55PM +0100, Jan Beulich wrote:
+>> show_hvm_stack() requires interrupts to be enabled to avoids triggering
+>> the consistency check in check_lock() for the p2m lock. To do so in
+>> spurious_interrupt() requires adding reentrancy protection / handling
+>> there.
+> 
+> There's also an ASSERT(!in_irq()) in _percpu_write_lock() that will
+> trigger when trying to acquire the p2m lock from spurious_interrupt()
+> context, as p2m_lock() -> mm_write_lock() -> _mm_write_lock ->
+> percpu_write_lock().
 
---o8v6Zj3B0DGUQAn1
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 14 Sep 2022 04:10:58 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Simon Gaiser <simon@invisiblethingslab.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>
-Subject: Re: Setting constant-time mode CPU flag
+s/will/may/ since spurious_interrupt() doesn't itself use irq_enter(),
+but yes - we could nest inside a lower priority interrupt. I'll make
+local_irq_enable() depend on !in_irq().
 
-On Wed, Sep 14, 2022 at 09:32:20AM +0200, Jan Beulich wrote:
-> On 14.09.2022 09:11, Demi Marie Obenour wrote:
-> > On Wed, Sep 14, 2022 at 08:44:25AM +0200, Jan Beulich wrote:
-> >> On 14.09.2022 08:40, Demi Marie Obenour wrote:
-> >>> On Wed, Sep 14, 2022 at 08:36:02AM +0200, Jan Beulich wrote:
-> >>>> On 13.09.2022 19:22, Demi Marie Obenour wrote:
-> >>>>> On Tue, Sep 13, 2022 at 04:47:24PM +0200, Jan Beulich wrote:
-> >>>>>> On 13.09.2022 16:22, Demi Marie Obenour wrote:
-> >>>>>>> On Tue, Sep 06, 2022 at 10:01:00AM +0000, Andrew Cooper wrote:
-> >>>>>>>> On 06/09/2022 10:52, Jan Beulich wrote:
-> >>>>>>>>> On 02.09.2022 04:05, Demi Marie Obenour wrote:
-> >>>>>>>>>> On Intel chips (Ice Lake and later) and ARM64, a bit needs to =
-be set in
-> >>>>>>>>>> a CPU register to enforce constant-time execution.  Linux plan=
-s to set
-> >>>>>>>>>> this bit by default; Xen should do the same.  See
-> >>>>>>>>>> https://lore.kernel.org/lkml/YwgCrqutxmX0W72r@gmail.com/T/ for=
- details.
-> >>>>>>>>>> I recommend setting the bit unconditionally and ignoring guest=
- attempts
-> >>>>>>>>>> to change it.
-> >>>>>>>>> I don't think we ought to set it by default; I can see reasons =
-why kernels
-> >>>>>>>>> may want to set it by default (providing a way to turn it off).=
- In Xen
-> >>>>>>>>> what I think we need is exposure of the bit to be guest-control=
-lable.
-> >>>>>>>>
-> >>>>>>>> We absolutely should not have it set by default.=C2=A0 It's a su=
-bstantial
-> >>>>>>>> overhead for something that is only applicable to code which oth=
-erwise
-> >>>>>>>> crafted to be constant-time.
-> >>>>>>>
-> >>>>>>> Either Xen needs to set the bit by default, or guests need to bot=
-h know
-> >>>>>>> the bit needs to be set and be able set it.  Otherwise code that =
-*is*
-> >>>>>>> intended to be constant-time has no way to protect itself.
-> >>>>>>>
-> >>>>>>>> As for why Xen doesn't enumerate/virtualise it, that's because
-> >>>>>>>> virtualising MSR_ARCH_CAPS for guests is still not working yet, =
-so the
-> >>>>>>>> feature can't be enumerated yet even if we did support context s=
-witching it.
-> >>>>>>>
-> >>>>>>> Intel and ARM64 guarantee that CPUs that do not enumerate this fl=
-ag
-> >>>>>>> behave as if it is set unconditionally.
-> >>>>>>
-> >>>>>> I'm not qualified to talk about the Arm side, but may I ask what y=
-ou've
-> >>>>>> derived this statement from for Intel? The doc page referenced by =
-the
-> >>>>>> link you did provide (still in context above) specifically further=
- links
-> >>>>>> to a page listing instruction with data operand independent timing=
-=2E All
-> >>>>>> other instructions, as I conclude, have variable timing unless the=
- bit
-> >>>>>> in ARCH_CAPS enumerates DOITM and then the new MSR bit (of the sam=
-e name)
-> >>>>>> is set.
-> >>>>>
-> >>>>> My understanding is that only instructions in the constant-time sub=
-set
-> >>>>> are ever guaranteed to be constant time.
-> >>>>
-> >>>> Hmm, yes, I did overlook respective wording in the doc.
-> >>>>
-> >>>>>  On architectures where DOITM
-> >>>>> is not enumerated, this guarantee is unconditional.
-> >>>>
-> >>>> I have to admit I'm suspicious of this "guarantee".
-> >>>
-> >>> Do you mean that previous CPUs had a vulnerability that has no fix?
-> >>
-> >> I'm not sure I'd call it a vulnerability, but at least if going back f=
-ar
-> >> enough in history I think you'll find insns on the list which don't ha=
-ve
-> >> invariant timing. Like with other documentation on e.g. speculation
-> >> issues I take it that Intel simply doesn't consider sufficiently old
-> >> CPUs relevant anymore for such new documents.
-> >=20
-> > Any examples?
->=20
-> The one I easily recall in truly ancient, so maybe of only limited
-> significance: MUL on 486 and older.
-
-That is of very limited significance indeed.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---o8v6Zj3B0DGUQAn1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmMhjJUACgkQsoi1X/+c
-IsHb4BAA3vCukiveJqUMGaIJMHSSaKsVGzvUMg9O0Z0X9Ki4ymVUo9EmmsYn3fn9
-IuGNGfQXRswhr9nLs2vmVMIJWK6UcA7K8uGTB7kqHmJymoFkwTq9xgZjb4hgovEi
-1v/I5Gdj2RNZsH3zfTMbdISVRdBziiLXgRCYMdb3+82dTmNDmL70I30lWB5/uS1F
-/2bSUWAzIVNkblb92M2ZW1xDTGVTdFN1KtF7aN+IyyuW4GHk8OtUMKSHDh1gnELX
-taVXy4gku9a3rxxYpdZPr1A7ktCXH+z17nZKyhdKhrzQzEjTix79dTzTNMiCj0ti
-gD4QrYwKu4JbcHiqjGIziVdc2tcL+gDqPX/aYr7GvOCp0YW4GQkqxdgEeehUX27d
-S6rqNF6mSSdRgsCNv3NbtaVQLwQ/oC5dIpIcA3JUflIp1Zr7/ancXyiV29qddvOp
-q2v+GgxG+6zVwc9hWfL+oBdy+SETh1HO5+KTv6nWSY4DPWflJ4q3Gq5lOcDIdlMD
-FJz+UpFLDFpYnwUC7sU/JPTWSOR4IqWTZVX26eUEOxClkVqjIIAvJuWs1PQmBI5W
-eHKGU5n/0nzuWsS9Y8+q+r+1bdzS/MEkROU8ZTW+Fi6qGcrZikBPqPOB8lJEmeRR
-KOdHgBOLGYF3v48oG79OuWy5mBQpqnAniLzGLkToE6KcBcNwcmo=
-=WFDs
------END PGP SIGNATURE-----
-
---o8v6Zj3B0DGUQAn1--
+Jan
 
