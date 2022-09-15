@@ -2,52 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A94F95B9212
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 03:19:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.407185.649595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 947C85B9221
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 03:29:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.407192.649605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYdWa-0005QK-Aa; Thu, 15 Sep 2022 01:18:40 +0000
+	id 1oYdg7-00074e-7K; Thu, 15 Sep 2022 01:28:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 407185.649595; Thu, 15 Sep 2022 01:18:40 +0000
+Received: by outflank-mailman (output) from mailman id 407192.649605; Thu, 15 Sep 2022 01:28:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYdWa-0005Nb-7M; Thu, 15 Sep 2022 01:18:40 +0000
-Received: by outflank-mailman (input) for mailman id 407185;
- Thu, 15 Sep 2022 01:18:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oYdg7-00072D-4X; Thu, 15 Sep 2022 01:28:31 +0000
+Received: by outflank-mailman (input) for mailman id 407192;
+ Thu, 15 Sep 2022 01:28:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mu3q=ZS=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1oYdWY-0005NV-BK
- for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 01:18:38 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50d68eb5-3494-11ed-a31c-8f8a9ae3403f;
- Thu, 15 Sep 2022 03:18:36 +0200 (CEST)
-Received: from MW2PR16CA0017.namprd16.prod.outlook.com (2603:10b6:907::30) by
- BL0PR12MB4946.namprd12.prod.outlook.com (2603:10b6:208:1c5::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5612.18; Thu, 15 Sep
- 2022 01:18:30 +0000
-Received: from CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:0:cafe::67) by MW2PR16CA0017.outlook.office365.com
- (2603:10b6:907::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.14 via Frontend
- Transport; Thu, 15 Sep 2022 01:18:30 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT054.mail.protection.outlook.com (10.13.174.70) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5632.12 via Frontend Transport; Thu, 15 Sep 2022 01:18:30 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Wed, 14 Sep
- 2022 20:18:29 -0500
-Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.28 via Frontend Transport; Wed, 14 Sep 2022 20:18:28 -0500
+ <SRS0=Ud2r=ZS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1oYdg5-000727-Dp
+ for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 01:28:29 +0000
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b1e9796b-3495-11ed-9761-273f2230c3a0;
+ Thu, 15 Sep 2022 03:28:27 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 8F7523200A1A;
+ Wed, 14 Sep 2022 21:28:24 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Wed, 14 Sep 2022 21:28:24 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 14 Sep 2022 21:28:23 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,136 +43,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50d68eb5-3494-11ed-a31c-8f8a9ae3403f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RgxdrfDDuicq2VjnRv4jcbfmVPFIQoM3JyzcKW2qQDK4lbmhWPWcCLpRraFpcs2b3X78joY6Uu0QjtLVVsJkhbJ9fh7529N7e94lDV7Iu9WoAfQSasa9xvBpgkd4ZwCFd3T/UKemTUYOvRbVsTweR4cPyDku0Q5F4xY5EQeolPM25pJxIbgoiR1gN0r7vR6n3RQZOXSfJ2NKNy1y/hQjNb3tafde7i4KG+yWx/Q362P/UTD6jp67yG+4ujjFJ/w2n38WOIhdcAizzE2w04UiTPjXDtiGWO4O7YycsYvLgNlBiFhbcFov/dmmlO/NjAV4sf9TJLNyrJD9jQpHTTfcug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4jBzfq64zbmPoO+yKEshyOUcrteWknczyvtCfQcmjcQ=;
- b=XAiIhU3quFhvtWE0CwmeWzD5RzJ7HPUzpaP5MTwPEJzTxQHcsM30qIdCw04nhymIGI3st2G2p2b1JXCJcRFLEeUbZ4NBWvACoLzemLBt/ZJGCCc49ljGjZ/hO+aCgJlpEYMHAVEsS6H2+blcU7ErZSIqMQuIqVOdTQWILTD777eBVxEeev5XXLKrQoCQBHVht2g6OQ/r/DmjvNxpeC27rMPjdFNGn75c16Z2gSYo0QHbXAA13V2dxm99B8HGxCiOrnvQnLogv826KIxEuXdFUYlfVVH0BePMgrK/D4tQ9TwB1o1XHcjfZuMpBD2+ImKDm+YSe8QxHWafBj3bZ5qGGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4jBzfq64zbmPoO+yKEshyOUcrteWknczyvtCfQcmjcQ=;
- b=DKV0eouucYJKnFjhx6FIl0lsMSD2z82tq83WTProwl+nOClhUCwvQxyM3u68uI2X2fno1JH748Y+ZyEskswZg1Ne07GJ8P7Q3ID+zw7jZ/Vz7+qYECIrZDBqN9JnLy/msP3MJM1XpSjD9v0E5DrTdIHrBjr/vsc12vij+5SFGPM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Date: Wed, 14 Sep 2022 18:18:28 -0700
-From: Stefano Stabellini <stefano.stabellini@amd.com>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-CC: Stefano Stabellini <stefano.stabellini@amd.com>, "NK, JESHWANTHKUMAR
- (JESHWANTH KUMAR)" <JESHWANTHKUMAR.NK@amd.com>, "boris.ostrovsky@oracle.com"
-	<boris.ostrovsky@oracle.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "Rangasamy, Devaraj"
-	<Devaraj.Rangasamy@amd.com>, "Pandeshwara krishna, Mythri"
-	<Mythri.Pandeshwarakrishna@amd.com>, "SK, SivaSangeetha (Siva Sangeetha)"
-	<SivaSangeetha.SK@amd.com>, "Thomas, Rijo-john" <Rijo-john.Thomas@amd.com>,
-	"jgross@suse.com" <jgross@suse.com>
-Subject: Re: Linux pin_user_pages_fast fails on Xen
-In-Reply-To: <3c1eccfe-3ca5-32d8-ee5a-cf8e7b23d587@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2209141749460.157835@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2209081905010.157835@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2209081910340.157835@ubuntu-linux-20-04-desktop> <017b8061-110b-a77f-6f0c-9f5679b7df13@suse.com> <alpine.DEB.2.22.394.2209091314430.157835@ubuntu-linux-20-04-desktop>
- <9f11a181-75cb-aadf-2ce8-8bb6737af9ac@suse.com> <alpine.DEB.2.22.394.2209121819430.157835@ubuntu-linux-20-04-desktop> <DM6PR12MB4564760C66FFA15ADAE2B014E6479@DM6PR12MB4564.namprd12.prod.outlook.com> <DM6PR12MB4564E946E0E08F71B1CC125CE6479@DM6PR12MB4564.namprd12.prod.outlook.com>
- <alpine.DEB.2.22.394.2209131629370.157835@ubuntu-linux-20-04-desktop> <3c1eccfe-3ca5-32d8-ee5a-cf8e7b23d587@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: b1e9796b-3495-11ed-9761-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1663205304; x=
+	1663291704; bh=l1fnseSnzVShMhAuJkr5Ysl7c2SbHiOQMdqpYfguPIo=; b=G
+	BZbCh8b/WDPE7fI+IwpCHthV9TsYzTqw4h3cW6DeN2kTMy4wLxPhiOCujBg2WHLm
+	NGKuS9zd+3y9pC/98mrgIrGCqL4FnWbNBeWk2J8kxJ7X5j5A7qlB7j489SZJqqHb
+	z42+9G8EQFfcQNJtAw1Kv0Rd1wwMglSffkwiOdERWANztXSpWdtWmQa4KqtILEe9
+	TtYHp1kZCp8Kq66lPmPQCExOMl0iAUm3LfKCJkzdHBi3VCuXW5zMX8Jv2PTId2SA
+	xmES2mvudj6XwF3NeOcASiHENLlXhJRzCAkvYAZa8jDzfxEcyz3bMFtMMUcj5z1T
+	ynZZUt+/VlCgaKWYlRtaA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1663205304; x=1663291704; bh=l1fnseSnzVShMhAuJkr5Ysl7c2Sb
+	HiOQMdqpYfguPIo=; b=Kc7L0bURTw8EAvT9vPYMVzF5nCmUz3tolkXEF9ZwgF4S
+	Jh5Rt8xZPX1V881bQEkjCCurUCddW+3q4imRkvv6f3Kz64ZOqnZhfkKUHzAFccXX
+	ik/rssbZuHB/e623tPSZBWqbl3sr9xxULI3MBWSj0aa2Yybkb+eND2yW3NWHLr8j
+	mJJnag4q/RIpNVtBmuXDQ5kYIguhkne09+hHASShFo6ToGGc1niaHdirLeErseG8
+	AAXRqFqlz6+opM272jSW4nEf0bPqqZ8ZFzQP5p/16n93mFwH7/K/a+mHheXuuxRM
+	phwZWG2BHYs8v9JMBgHVdXuIOvshJN1sOlHXdO/DFw==
+X-ME-Sender: <xms:t38iY6pKPiilTWuNOFyYtDcC9VJNv7IwkDoEX1gIbnUGsKRPq6ex5Q>
+    <xme:t38iY4qiSKIylyGFHhsiMuQN-R_ci50It7NqvhzAHq3ORhifJjFKj0XjZ2xBmVr9k
+    bzWV9GYGegyBA>
+X-ME-Received: <xmr:t38iY_OIjdVZ5V7AupAlNuUVZ_ogfw7d3anwAjv-JBm8KgntSMTFE21btRGKrhWnDx2XgNaBV2XopIfKxsUMdVzWfkgaYcr5Kdib>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfedujedggeekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueek
+    teetgefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomh
+    grihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
+    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhm
+X-ME-Proxy: <xmx:t38iY54NNVV0I_8TyeZQsLAfN42Mb84Aa--nrvql6MbTwwhV-yXBJQ>
+    <xmx:t38iY56Evr--qxiZk6ICeNELdv87MHq_PilGESQl_NejBOwf4WXi5w>
+    <xmx:t38iY5gH05UIA0poRwe7yAcu5I-vsKURQu3R0w4_87p2Ciu082ovHw>
+    <xmx:uH8iY6XcBqyUOu__jGL5YgSV6QkY7xrrNy6PS9yRobSoEIV9CDcpyg>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 15 Sep 2022 03:28:20 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Console output stops on dbgp=xhci
+Message-ID: <YyJ/tP5pZPXPxeTh@mail-itl>
+References: <CABfawhmXWouFVRVrtX82Dh+8maaJqnDSDL=Me7_fzBGdM4oE2Q@mail.gmail.com>
+ <YyJOWDWYVpShtAU9@mail-itl>
+ <CABfawhnLzmBLjeVGAFVMy27MCGMrddaic_31FvuJ3sCevsvXww@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT054:EE_|BL0PR12MB4946:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8671795a-313a-4dd3-806f-08da96b83349
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	G72KHCbhq+11t/+Oh/S0ekVAP3hyGnKcrzIidWH8qjWS3k3ZKcjPC2oDowQmNIjuDCulOgz8b4/RDCYD6sVcSA+aE8cP4Iboz+RVswLt01bIWJKkSqU/ry3Of/TFebCcOlgqTUbjy1ajfYuLIRuJb608xQ18H5+TbDRXDhd0H19TX9RTWQGULaVf6s9Vt1BfkzHQvKBZ6oAtEB6EETqyT+aV25qK55MH45CCcZk/dL/x5WKFg+etmj0+r/sp84qehVjgcRe9pna/ERDvUZwMAhrKVg4n/VwOXaT73iMhFrTSV0fiwh/j9WuxgaP9BtY5V0bi39Qob0qG41T+dRBdXts1RKlQhnp0puMSWZ5HsVblDqkUb+NLpW++VpusQvVO2ejBm5p3sD5lnDryD+D/483a7UuJWDT/TKRlUpeC0LcFXh9k2UViDrfiuoKfjg1xtHTxG94XebxhPhJmwvdZk09nYW/74OgGIKPmQlPt3JMXOZYqvdbt5l/peCxbT3jzGT67xXgBU4UyH592Mi6wkcPCuWXWNaxmxdEtQM4ViX4aVix+Z5UD+rcNl9bvALI5h3BYBXVAd3vcBE3L2Trg58VfaOFL1kWViQ1Cj2M4+8sy0ELuWG9qdCVHzc3qQ6R03txbFGNxCcC9zn69UvMgExYqec3/uieoXMzC2fso/fcVNc+6ErJI2VyM4Wvbkh225HxPg9gfo5wNXyWQHC9Z7R/VXIm87G2nxKENGLBkLXNMMLzwaT3z2x8OUjOR0hOKdEJ8xdZ9YAOTivTlsJWljyS3aVpI71CL93qsNLQvO2xsTeCbub443CUeZvk0DGoD
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(7916004)(396003)(136003)(39860400002)(376002)(346002)(451199015)(36840700001)(46966006)(40470700004)(8936002)(186003)(47076005)(40480700001)(9686003)(356005)(86362001)(81166007)(316002)(53546011)(41300700001)(426003)(82740400003)(478600001)(54906003)(33716001)(4326008)(83380400001)(6916009)(70206006)(40460700003)(70586007)(336012)(5660300002)(44832011)(36860700001)(26005)(8676002)(82310400005)(2906002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2022 01:18:30.3075
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8671795a-313a-4dd3-806f-08da96b83349
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4946
-
-On Wed, 14 Sep 2022, Jan Beulich wrote:
-> On 14.09.2022 01:31, Stefano Stabellini wrote:
-> > The problem is that drivers/xen/privcmd.c:privcmd_mmap sets VM_IO |
-> > VM_PFNMAP, and either flag would cause check_vma_flags to return
-> > -EFAULT.
-> > 
-> > Do you know if it works if you remove VM_IO | VM_PFNMAP from
-> > privcmd_mmap?
-> 
-> My Linux MM knowledge is certainly rusty, but I don't think this can
-> work, at the very least not without further changes elsewhere.
-
-The definition of VM_PFNMAP is:
-
-    Page-ranges managed without "struct page", just pure PFN
-
-So it made perfect sense to use VM_PFNMAP back in the day when we were
-using address ranges without "struct page" for foreign mappings.
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="wKQ1kuJXuD1mREl3"
+Content-Disposition: inline
+In-Reply-To: <CABfawhnLzmBLjeVGAFVMy27MCGMrddaic_31FvuJ3sCevsvXww@mail.gmail.com>
 
 
-However, nowadays Linux drivers typically call
-xen_alloc_unpopulated_pages to get local pages to be used for foreign
-mappings. xen_alloc_unpopulated_pages should work for both PV and
-autotranslated guests. So the local pages should have a regular "struct
-page" backing them.
+--wKQ1kuJXuD1mREl3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Sep 2022 03:28:20 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Console output stops on dbgp=xhci
 
-I noticed that privcmd calls
-alloc_empty_pages->xen_alloc_unpopulated_pages only for autotranslated
-guests. Do you guys think it is intentional? In theory,
-xen_alloc_unpopulated_pages should work for PV guests too.
+On Wed, Sep 14, 2022 at 08:41:59PM -0400, Tamas K Lengyel wrote:
+> > > Do you have any idea what might be going on and preventing the output
+> > > from showing over USB3 afterwards? The /dev/ttyUSB0 device is still
+> > > present on the receiving side, just nothing is being received over it.
+> >
+> > There are few more patches in the series that are de facto required.
+> > Especially those about IOMMU, otherwise it can only possibly work with
+> > iommu=3D0 (which I'm not sure if even is enough).
+>=20
+> Unfortunately with iommu=3D0 Xen doesn't boot at all for me. I see this
+> on the console:
+>=20
+> (XEN) Panic on CPU 0:
+> (XEN) FATAL PAGE FAULT
+> (XEN) [error_code=3D0011]
+> (XEN) Faulting linear address: 00000000328b3a54
+>=20
+> Not sure what's up with that. Either way, can you post a git branch
+> with the remaining patches that are not yet merged in master? Want to
+> check if those patches resolve the issue.
 
-After that, privcmd calls xen_remap_domain_gfn_array, which calls
-xen_xlate_remap_gfn_array or xen_remap_pfn depending on
-PV or autotranslated.
+I keep it at https://github.com/marmarek/xen/tree/master-xue=20
 
-But then I can see the following at the top of xlate_remap_gfn_array:
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-	/* Kept here for the purpose of making sure code doesn't break
-	   x86 PVOPS */
-	BUG_ON(!((vma->vm_flags & (VM_PFNMAP | VM_IO)) == (VM_PFNMAP | VM_IO)));
+--wKQ1kuJXuD1mREl3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-and a similar one in arch/x86/xen/mmu_pv.c:xen_remap_pfn:
+-----BEGIN PGP SIGNATURE-----
 
-	BUG_ON(!((vma->vm_flags & (VM_PFNMAP | VM_IO)) == (VM_PFNMAP | VM_IO)));
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmMif7QACgkQ24/THMrX
+1yycgQf/XB3JIiv51Op5svRImHq/K8mrKWMHiQKTcTURs7eW4U2EKizneydQSKLh
+z79cRPuVMkqBbiJlYZ/YNzwygUKli0LjTAbtwgzRztnlzzs36Jq+FMN4dbG8J/3X
+LnUYmPwF4ql7UZz4NB2RP1l/EMA3j+uEbN4AsWmJGrkEpWJo3M2XVMlXL6etrlgr
+kBHTCIliXVFa4YxJYh4o4ivZ80t9X6RWQmUkV2mZky9KG7PEp7ZLI7yIASn0D/ed
+cyyrGCcEFFXjbUZws5mKaexBrbVRrXkiGL0pHZHIeHuECD75vnZ4H4lGfRLSFtTk
+WTxXmWghOnQ9GIbv9PeeIqgfKj0x+Q==
+=LVcj
+-----END PGP SIGNATURE-----
 
-
-Given that the pages passed to xen_xlate_remap_gfn_array and
-xen_remap_pfn could have been allocated with
-xen_alloc_unpopulated_pages, why the BUG_ON?
-
-Is this just legacy? In the sense that the following could work?
-
-- privcmd calls xen_alloc_unpopulated_pages for both PV & autotranslated
-- no setting VM_PFNMAP | VM_IO
-- no BUG_ON in xlate_remap_gfn_array
-- no BUG_ON in xen_remap_pfn
-
-Am I missing something?
-
-
-> I did look some at the specific use by the TEE subsystem, and it looks
-> to me as if their "shared memory" machinery simply isn't meant to be
-> used with non-local memory.
-
-Any more info?
-
+--wKQ1kuJXuD1mREl3--
 
