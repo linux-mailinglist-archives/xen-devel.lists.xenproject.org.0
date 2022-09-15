@@ -2,29 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 300C45B9CA6
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 16:11:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.407414.649934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 656805B9CC0
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 16:17:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.407423.649946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYpaE-0007nn-41; Thu, 15 Sep 2022 14:11:14 +0000
+	id 1oYpfW-00008u-OV; Thu, 15 Sep 2022 14:16:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 407414.649934; Thu, 15 Sep 2022 14:11:14 +0000
+Received: by outflank-mailman (output) from mailman id 407423.649946; Thu, 15 Sep 2022 14:16:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYpaE-0007ly-0z; Thu, 15 Sep 2022 14:11:14 +0000
-Received: by outflank-mailman (input) for mailman id 407414;
- Thu, 15 Sep 2022 14:11:12 +0000
+	id 1oYpfW-00005Z-KT; Thu, 15 Sep 2022 14:16:42 +0000
+Received: by outflank-mailman (input) for mailman id 407423;
+ Thu, 15 Sep 2022 14:16:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IiOX=ZS=citrix.com=prvs=2502044d7=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oYpaC-0007Wm-5e
- for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 14:11:12 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cf3d91d-3500-11ed-a31c-8f8a9ae3403f;
- Thu, 15 Sep 2022 16:11:07 +0200 (CEST)
+ <SRS0=iaaQ=ZS=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1oYpfV-00005T-3x
+ for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 14:16:41 +0000
+Received: from MTA-11-3.privateemail.com (mta-11-3.privateemail.com
+ [198.54.122.105]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0334041a-3501-11ed-a31c-8f8a9ae3403f;
+ Thu, 15 Sep 2022 16:16:39 +0200 (CEST)
+Received: from mta-11.privateemail.com (localhost [127.0.0.1])
+ by mta-11.privateemail.com (Postfix) with ESMTP id AC86718000A9
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Sep 2022 10:16:37 -0400 (EDT)
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ by mta-11.privateemail.com (Postfix) with ESMTPA id 8712018000A4
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Sep 2022 10:16:37 -0400 (EDT)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-3321c2a8d4cso222291827b3.5
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Sep 2022 07:16:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,149 +46,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cf3d91d-3500-11ed-a31c-8f8a9ae3403f
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1663251067;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=jFF9lcmlFyPX/dnwX68oXyE9c54ljx1Iupap8m0/STI=;
-  b=bNzGHToGJFtS+Y9YF6w3MDbBkwBrdg7Fd59D0EFjoboQk/O6ZZotWPKu
-   FFfRxNB2CoW40RMNTsSUW0VKSF6YUuwonSnt2/Cl2InkDjGlF2pyTWwGy
-   wW8Tigtvi6oXcCK2l9AUFzIGKrGmhTwGF+rcVNX9M27Fc05wewIi/OYZo
-   g=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 2.7
-X-MesageID: 80582908
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:zRx7LKtbBs0CWtyrqgjHa0js6OfnVD5eMUV32f8akzHdYApBsoF/q
- tZmKW6PPa3bM2bwc9glYdiw8BlXvMTWzdZnT1dr/CthFXlG+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZhSAgk/vOHtIQMcacUghpXwhoVSw9vhxqnu89k+ZAjMOwRgiAo
- rsemeWGULOe82MyYzl8B56r8ks15qyj4W5A5DTSWNgQ1LPgvyhNZH4gDfnZw0vQGuF8AuO8T
- uDf+7C1lkuxE8AFU47Nfh7TKyXmc5aKVeS8oiM+t5uK23CukhcawKcjXMfwXG8M49m/c3Kd/
- /0W3XC4YV9B0qQhA43xWTEAe811FfUuFLMqvRFTGCFcpqHLWyKE/hlgMK05Fa0EubwsUFMVz
- 99CNgsddyHet/rn+q3uH4GAhux7RCXqFIYWu3UmxjDFF/c2B5vERs0m5/cBgm123JoXW6+DO
- YxJMlKDbzyZC/FLEl4RFJI5mvbunnTleidUgFmUubA28y7YywkZPL3FYIKIKobbHZU9ckCwm
- G+b+HakCx8gENG9kzm7107vgd/kpHauMG4VPOLhraM76LGJ/UQRFRkXWF2TsfS/zEmkVLp3K
- lMW0jojq7Ao806mRcW7WAe3yFaUsxhZV9dOHukS7ACW1rGS8wufHnIDTDNKdJohrsBeeNAx/
- gbXxZWzX2Up6eDLDyLGnluJkd+sEQgJbjVZNB1fdyhf/eLzubBuvgqedMk2RcZZkebJ9SHML
- yGi9XZg3O1O15ZWic1X7nic3Wvy+8Ghohodo1yOAzn7tl4RiJuNPdTA1LTN0RpXwG91pHGlt
- WNMpcWR5ftm4XqlxH3UG7Vl8F1ECp+43Nzgbb1HRcNJG8yFoSLLQGypyGgWyL1VGsgFYyT1R
- 0TYpBlc4pReVFPzM/EsOtLpVplznPi4fTgAahwzRoMXCqWdiSfdpH0+DaJu9zqFfLcQfVEXZ
- s7ALJfE4YcyAqV71jumL9ogPUsQ7nlnnQvuqWXTlUvPPUy2OCHIEt/o8TKmMogE0U9ziFyMr
- ooAZ5LRlU83vS+XSnC/zLP/5GsidRATba0aYeQNL4Zv/iIO9LkdNsLs
-IronPort-HdrOrdr: A9a23:MW6VCK7AoH57SbtfTAPXwM7XdLJyesId70hD6qhwISY6TiW9rb
- HLoB19726StN9xYgBEpTnuAsS9qB/nmaKdpLNhW4tKPzOW2ldATrsD0WKK+VSJcEfDH6xmpM
- RdmsBFeaTN5DNB7PoSjjPWL+od
-X-IronPort-AV: E=Sophos;i="5.93,318,1654574400"; 
-   d="scan'208";a="80582908"
-Date: Thu, 15 Sep 2022 15:10:59 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>,
-	"Julien Grall" <julien@xen.org>
-Subject: Re: [PATCH] libvirt: disable Werror for non-libvirt flights
-Message-ID: <YyMyc0O9N9l1NzEZ@perard.uk.xensource.com>
-References: <20220913100328.27771-1-roger.pau@citrix.com>
+X-Inumbo-ID: 0334041a-3501-11ed-a31c-8f8a9ae3403f
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1663251397;
+	bh=fAcQ92HRAYdVimKlK+uqkmFsfjVtOfVJWk9TUw4Gge0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=WO3JE8gRm6u3+FUDavA8b2j27gZIWEl6ZgvEParG4m21fkPEu8u6HnZRJZLAEXHBp
+	 QvpbtZd6peERlKe3ATcUr5q3oqpaXhUUBilSVmVsbYovWvAEkl1/JLsDyxM2bnjJ3y
+	 Gf2+pwVfqY3fS8DLw/inJuP3EFXUPiU81haV7l8vR/HXter0RiCJMb3KU9SUs/e9bU
+	 uJKH6PfUYuAEGJ9uXL/fPUW2gYreh54jnNW5jmuJSxZ/uhSyRS0Ud1ez0ZyOo/d68S
+	 rIATTcQELQSRU/tv90tmZEFF0YPDNRJd2NOa74yJNL34g0f1pEbz0WlKvBrF2Ok19l
+	 vX/Ay0tg7/8bQ==
+X-Gm-Message-State: ACrzQf02qXk9R7r9XPOqoFKaST9N6pQpwmr15XRhgBD+wmRF7uDeEf9p
+	xN72L7RxISIlGZc9teXG8ruVIf94h5ux8BZ91F0=
+X-Google-Smtp-Source: AMsMyM42+qYKtuotJxuZlXRUwuv+sHkQpOK3KNYCKA8ab3IAAcN2CbkWpIjzfDIQkeRww954ouRjBuJzcx/0xsDrzKA=
+X-Received: by 2002:a81:840f:0:b0:345:efb:1a2a with SMTP id
+ u15-20020a81840f000000b003450efb1a2amr22098ywf.204.1663251396704; Thu, 15 Sep
+ 2022 07:16:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220913100328.27771-1-roger.pau@citrix.com>
+References: <CABfawhmXWouFVRVrtX82Dh+8maaJqnDSDL=Me7_fzBGdM4oE2Q@mail.gmail.com>
+ <YyJOWDWYVpShtAU9@mail-itl> <CABfawhnLzmBLjeVGAFVMy27MCGMrddaic_31FvuJ3sCevsvXww@mail.gmail.com>
+ <32e97d9a-a5b6-05bb-5cb2-bf9a1461c851@suse.com> <CABfawhmdja_qkomOq=8HLGAW1MWA6rcG=Aqo+frM6eYrgUYkSw@mail.gmail.com>
+ <7adee56c-607e-7d3f-8aa6-1ee5b2fdd133@suse.com>
+In-Reply-To: <7adee56c-607e-7d3f-8aa6-1ee5b2fdd133@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 15 Sep 2022 10:16:00 -0400
+X-Gmail-Original-Message-ID: <CABfawh=y_ACt-YAOOxiLVQoHGJZ_K8Axt4TyXMAaRpT9cYmJyA@mail.gmail.com>
+Message-ID: <CABfawh=y_ACt-YAOOxiLVQoHGJZ_K8Axt4TyXMAaRpT9cYmJyA@mail.gmail.com>
+Subject: Re: Console output stops on dbgp=xhci
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Tue, Sep 13, 2022 at 12:03:28PM +0200, Roger Pau Monne wrote:
-> Current usage of Werror=switch-enum by default for libvirt builds out
-> of the git tree causes issues when new items are added to libxl public
-> API enums if those are used in a switch statement in libvirt code.
-> This leads to libvirt build failures for seemingly unrelated libxl
-> changes.
-> 
-> In order to prevent those errors from blocking the push gate, disable
-> Werror for libvirt builds when not in a libvirt specific flight.
-> 
-> The errors will be reported on the libvirt flight, and block the
-> pushes there.  So the author of the changes in libxl is still expected
-> to send a fix to libvirt code.  This is no ideal, but the other option
-> is to just disable Werror for all libvirt builds and let libvirt
-> developers fix the breakage when they notice it.
-> 
-> runvar differences for a xen-unstable flight are:
-> 
-> --- /dev/fd/63  2022-09-13 09:53:58.044441678 +0000
-> +++ /dev/fd/62  2022-09-13 09:53:58.044441678 +0000
-> @@ -574,6 +574,10 @@
->  test-xtf-amd64-amd64-3                                arch                            amd64
->  test-xtf-amd64-amd64-4                                arch                            amd64
->  test-xtf-amd64-amd64-5                                arch                            amd64
-> +build-amd64-libvirt                                   autogen_options                 --disable-werror
-> +build-arm64-libvirt                                   autogen_options                 --disable-werror
-> +build-armhf-libvirt                                   autogen_options                 --disable-werror
-> +build-i386-libvirt                                    autogen_options                 --disable-werror
->  test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm    bios                            seabios
->  test-amd64-amd64-qemuu-nested-amd                     bios                            seabios
->  test-amd64-amd64-qemuu-nested-intel                   bios                            seabios
-> @@ -1217,6 +1221,10 @@
->  build-arm64-libvirt                                   make_njobs                      1
->  build-armhf-libvirt                                   make_njobs                      1
->  build-i386-libvirt                                    make_njobs                      1
-> +build-amd64-libvirt                                   meson_options                   -Dgit_werror=disabled
-> +build-arm64-libvirt                                   meson_options                   -Dgit_werror=disabled
-> +build-armhf-libvirt                                   meson_options                   -Dgit_werror=disabled
-> +build-i386-libvirt                                    meson_options                   -Dgit_werror=disabled
->  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict recipe_dmrestrict               true
->  test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict  recipe_dmrestrict               true
->  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict recipe_nomigrate                true
+On Thu, Sep 15, 2022 at 10:10 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 15.09.2022 16:05, Tamas K Lengyel wrote:
+> > On Thu, Sep 15, 2022 at 3:56 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >>
+> >> On 15.09.2022 02:41, Tamas K Lengyel wrote:
+> >>>>> Do you have any idea what might be going on and preventing the output
+> >>>>> from showing over USB3 afterwards? The /dev/ttyUSB0 device is still
+> >>>>> present on the receiving side, just nothing is being received over it.
+> >>>>
+> >>>> There are few more patches in the series that are de facto required.
+> >>>> Especially those about IOMMU, otherwise it can only possibly work with
+> >>>> iommu=0 (which I'm not sure if even is enough).
+> >>>
+> >>> Unfortunately with iommu=0 Xen doesn't boot at all for me. I see this
+> >>> on the console:
+> >>>
+> >>> (XEN) Panic on CPU 0:
+> >>> (XEN) FATAL PAGE FAULT
+> >>> (XEN) [error_code=0011]
+> >>> (XEN) Faulting linear address: 00000000328b3a54
+> >>
+> >> Perhaps in another thread, could you post details about this? I guess
+> >> we want to address this independent of your XHCI issue. That's an
+> >> attempt to execute code outside of the Xen image - the only reason I
+> >> can think of for this would be an EFI boot services or runtime
+> >> services call, with (possibly but not necessarily) quirky EFI firmware.
+> >> Any other context this is appearing in would quite certainly require a
+> >> fix in Xen, and I don't see how "iommu=0" could affect the set of EFI
+> >> calls we make.
+> >
+> > This was indeed observed with a xen.efi booted directly from UEFI.
+> > Beside the limited boot log I get through xhci I don't have more
+> > insight but happy to send that (and anything else you think would be
+> > useful).
+>
+> And with "iommu=0" but no use of XHCI it doesn't crash? Or there you have
+> no way to collect the log then?
+>
+> In any event, from your description the interesting part might be the
+> EFI memory map. That ought to be pretty stable between boots, so you may
+> be able to collect that in full via "xl dmesg" in a run without "iommu=0".
 
-For "osstest" flight or "xen-unstable-smoke" flight, we would have the
-same difference, right?
+I see the same crash with no xhci debug use. The EFI map is:
 
-The only branch with no change would be libvirt, right?
+(XEN) EFI memory map:
 
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> I'm unsure whether we want o disable Werror even for libvirt flights,
-> but this seems more conservative.
-> 
-> This does at least unblock the libvirt builds for both the
-> xen-unstable and the libvirt flights.
-> ---
-> Cc: Ian Jackson <iwj@xenproject.org>
-> Cc: Anthony PERARD <anthony.perard@citrix.com>
-> Cc: Julien Grall <julien@xen.org>
-> ---
->  mfi-common       | 2 +-
->  ts-libvirt-build | 3 ++-
->  2 files changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mfi-common b/mfi-common
-> index 59e712f4..450229e9 100644
-> --- a/mfi-common
-> +++ b/mfi-common
-> @@ -459,7 +459,7 @@ create_build_jobs () {
->      libvirt_build_runvars=''
->      case "$branch" in
->      libvirt*) ;;
-> -    *)        libvirt_build_runvars+=" make_njobs=1";;
-> +    *)        libvirt_build_runvars+=" make_njobs=1 meson_options=-Dgit_werror=disabled autogen_options=--disable-werror";;
+(XEN)  0000000000000-000000009bfff type=7 attr=000000000000000f
 
-For meson, I think '-Dwerror=false' would be enough, instead of the
-unusual 'git_werror' configuration.
+(XEN)  000000009c000-000000009dfff type=2 attr=000000000000000f
 
-But, we might not need to disable all errors, for meson we can have:
-    -Dc_args='-Wno-error=switch -Wno-error=switch-enum'
+(XEN)  000000009e000-000000009efff type=0 attr=000000000000000f
 
-But disabling werror is fine too, as less likely to be an issue later.
+(XEN)  000000009f000-000000009ffff type=4 attr=000000000000000f
 
-Both 'werror' and 'c_args' seems to be meson built-in options rather
-than options implemented for only libvirt.
-    https://mesonbuild.com/Builtin-options.html
-While 'git_werror' is libvirt only.
+(XEN)  0000000100000-00000175a6fff type=7 attr=000000000000000f
 
+(XEN)  00000175a7000-00000175e6fff type=4 attr=000000000000000f
 
-Thanks,
+(XEN)  00000175e7000-0000021e9efff type=7 attr=000000000000000f
 
--- 
-Anthony PERARD
+(XEN)  0000021e9f000-0000028587fff type=2 attr=000000000000000f
+
+(XEN)  0000028588000-000002ab79fff type=1 attr=000000000000000f
+
+(XEN)  000002ab7a000-000002bcd7fff type=7 attr=000000000000000f
+
+(XEN)  000002bcd8000-000002c6cafff type=2 attr=000000000000000f
+
+(XEN)  000002c6cb000-000002cd8cfff type=4 attr=000000000000000f
+
+(XEN)  000002cd8d000-000002cdcefff type=7 attr=000000000000000f
+
+(XEN)  000002cdcf000-000002ce77fff type=4 attr=000000000000000f
+
+(XEN)  000002ce78000-000002ced4fff type=7 attr=000000000000000f
+
+(XEN)  000002ced5000-000002ced7fff type=4 attr=000000000000000f
+
+(XEN)  000002ced8000-000002cedafff type=7 attr=000000000000000f
+
+(XEN)  000002cedb000-000002cedcfff type=4 attr=000000000000000f
+
+(XEN)  000002cedd000-000002ceddfff type=7 attr=000000000000000f
+
+(XEN)  000002cede000-000002e179fff type=4 attr=000000000000000f
+
+(XEN)  000002e17a000-000002e194fff type=3 attr=000000000000000f
+
+(XEN)  000002e195000-000002e1bffff type=4 attr=000000000000000f
+
+(XEN)  000002e1c0000-000002e1c9fff type=3 attr=000000000000000f
+
+(XEN)  000002e1ca000-000002e1e3fff type=4 attr=000000000000000f
+
+(XEN)  000002e1e4000-000002e1edfff type=3 attr=000000000000000f
+
+(XEN)  000002e1ee000-000002e1f2fff type=4 attr=000000000000000f
+
+(XEN)  000002e1f3000-000002e20dfff type=3 attr=000000000000000f
+
+(XEN)  000002e20e000-000002e22cfff type=4 attr=000000000000000f
+
+(XEN)  000002e22d000-000002e22efff type=3 attr=000000000000000f
+
+(XEN)  000002e22f000-000002e233fff type=4 attr=000000000000000f
+
+(XEN)  000002e234000-000002e236fff type=3 attr=000000000000000f
+
+(XEN)  000002e237000-000002e23dfff type=4 attr=000000000000000f
+
+(XEN)  000002e23e000-000002e23ffff type=3 attr=000000000000000f
+
+(XEN)  000002e240000-000002e245fff type=4 attr=000000000000000f
+
+(XEN)  000002e246000-000002e246fff type=3 attr=000000000000000f
+
+(XEN)  000002e247000-000002e24bfff type=4 attr=000000000000000f
+
+(XEN)  000002e24c000-000002e250fff type=3 attr=000000000000000f
+
+(XEN)  000002e251000-000002e26afff type=4 attr=000000000000000f
+
+(XEN)  000002e26b000-000002e29dfff type=3 attr=000000000000000f
+
+(XEN)  000002e29e000-000002e2d4fff type=4 attr=000000000000000f
+
+(XEN)  000002e2d5000-000002e2d5fff type=3 attr=000000000000000f
+
+(XEN)  000002e2d6000-000002e2e6fff type=4 attr=000000000000000f
+
+(XEN)  000002e2e7000-000002e2e7fff type=3 attr=000000000000000f
+
+(XEN)  000002e2e8000-000002e2f8fff type=4 attr=000000000000000f
+
+(XEN)  000002e2f9000-000002e2fbfff type=3 attr=000000000000000f
+
+(XEN)  000002e2fc000-000002e30efff type=4 attr=000000000000000f
+
+(XEN)  000002e30f000-000002e30ffff type=3 attr=000000000000000f
+
+(XEN)  000002e310000-000002e320fff type=4 attr=000000000000000f
+
+(XEN)  000002e321000-000002e340fff type=3 attr=000000000000000f
+
+(XEN)  000002e341000-000002e341fff type=4 attr=000000000000000f
+
+(XEN)  000002e342000-000002e352fff type=3 attr=000000000000000f
+
+(XEN)  000002e353000-000002e3edfff type=4 attr=000000000000000f
+
+(XEN)  000002e3ee000-000002e3f4fff type=3 attr=000000000000000f
+
+(XEN)  000002e3f5000-000002e40bfff type=4 attr=000000000000000f
+
+(XEN)  000002e40c000-000002e417fff type=3 attr=000000000000000f
+
+(XEN)  000002e418000-000002e42efff type=4 attr=000000000000000f
+
+(XEN)  000002e42f000-000002e42ffff type=3 attr=000000000000000f
+
+(XEN)  000002e430000-000002e440fff type=4 attr=000000000000000f
+
+(XEN)  000002e441000-000002e444fff type=3 attr=000000000000000f
+
+(XEN)  000002e445000-000002f56cfff type=4 attr=000000000000000f
+
+(XEN)  000002f56d000-000002f588fff type=3 attr=000000000000000f
+
+(XEN)  000002f589000-0000031ca5fff type=4 attr=000000000000000f
+
+(XEN)  0000031ca6000-0000031f71fff type=7 attr=000000000000000f
+
+(XEN)  0000031f72000-0000032a95fff type=3 attr=000000000000000f
+
+(XEN)  0000032a96000-0000034f95fff type=0 attr=000000000000000f
+
+(XEN)  0000034f96000-0000035215fff type=9 attr=000000000000000f
+
+(XEN)  0000035216000-0000035323fff type=10 attr=000000000000000f
+
+(XEN)  0000035324000-0000035efefff type=6 attr=800000000000000f
+
+(XEN)  0000035eff000-0000035ffefff type=5 attr=800000000000000f
+
+(XEN)  0000035fff000-0000035ffffff type=4 attr=000000000000000f
+
+(XEN)  0000100000000-00008c07fffff type=7 attr=000000000000000f
+
+(XEN)  00000000a0000-00000000fffff type=0 attr=0000000000000000
+
+(XEN)  0000036000000-0000039ffffff type=0 attr=000000000000000f
+
+(XEN)  000003a000000-000003affffff type=0 attr=0000000000000009
+
+(XEN)  000003b000000-000003f7fffff type=0 attr=0000000000000000
+
+(XEN)  00000e0000000-00000efffffff type=11 attr=8000000000000001
+
+(XEN)  00000fc000000-00000fc01ffff type=11 attr=800000000000100d
+
+(XEN)  00000fe000000-00000fe010fff type=11 attr=8000000000000001
+
+(XEN)  00000fec00000-00000fec00fff type=11 attr=8000000000000001
+
+(XEN)  00000fed00000-00000fed00fff type=11 attr=8000000000000001
+
+(XEN)  00000fed20000-00000fed7ffff type=0 attr=0000000000000000
+
+(XEN)  00000fee00000-00000fee00fff type=11 attr=8000000000000001
+
+(XEN)  00000ff000000-00000ffffffff type=11 attr=800000000000100d
+
+(XEN) alt table ffff82d0406953b0 -> ffff82d040697686
 
