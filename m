@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEDC35B9FB0
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 18:33:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.407597.650150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 971F05B9FB1
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 18:34:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.407599.650161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYrnt-0000LU-5d; Thu, 15 Sep 2022 16:33:29 +0000
+	id 1oYroG-0000nC-E4; Thu, 15 Sep 2022 16:33:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 407597.650150; Thu, 15 Sep 2022 16:33:29 +0000
+Received: by outflank-mailman (output) from mailman id 407599.650161; Thu, 15 Sep 2022 16:33:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYrnt-0000J5-33; Thu, 15 Sep 2022 16:33:29 +0000
-Received: by outflank-mailman (input) for mailman id 407597;
- Thu, 15 Sep 2022 16:33:27 +0000
+	id 1oYroG-0000kF-Af; Thu, 15 Sep 2022 16:33:52 +0000
+Received: by outflank-mailman (input) for mailman id 407599;
+ Thu, 15 Sep 2022 16:33:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IiOX=ZS=citrix.com=prvs=2502044d7=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oYrnr-0000Iy-98
- for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 16:33:27 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e19dd44-3514-11ed-9761-273f2230c3a0;
- Thu, 15 Sep 2022 18:33:25 +0200 (CEST)
+ <SRS0=8UR8=ZS=gmail.com=neilsikka@srs-se1.protection.inumbo.net>)
+ id 1oYroE-0000Iy-QE
+ for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 16:33:50 +0000
+Received: from mail-ua1-x931.google.com (mail-ua1-x931.google.com
+ [2607:f8b0:4864:20::931])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2d22d68f-3514-11ed-9761-273f2230c3a0;
+ Thu, 15 Sep 2022 18:33:50 +0200 (CEST)
+Received: by mail-ua1-x931.google.com with SMTP id e3so6915781uax.4
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Sep 2022 09:33:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,106 +39,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e19dd44-3514-11ed-9761-273f2230c3a0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1663259605;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=9KCtAw+CG74CAe7fbKsxrOFejQJFw35vUc4ijoSaNBE=;
-  b=SzeH3Jg7mkpbL8+HlBE0kjiipGKZ5XS57jJ0X1UDoXeufO6Z15up2eMs
-   DzNCHKgBNiVMLXhU677KH+dMTKK63mv6kjrudxuGCNiw376B/HDq5qtBY
-   5RlJiQBgCXxVCss8AkmTO7EV9nVpogG1/oVQB7OloSFc2MfaK5m4o5E35
-   U=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 2.7
-X-MesageID: 79764948
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:f3xN6qBJ8p8oeBVW/0Djw5YqxClBgxIJ4kV8jS/XYbTApDIj0jwPm
- jceC2rXO6vZN2D0fYwiOonj8hgHvcfWx9M1QQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E3ratANlFEkvYmQXL3wFeXYDS54QA5gWU8JhAlq3uU0meaEu/Dga++2k
- Y608pa31GONgWYuaDpFsv/b8nuDgdyp0N8mlg1mDRx0lAe2e0k9VPo3Oay3Jn3kdYhYdsbSq
- zHrlezREsvxpn/BO/v9+lrJWhRiro36ZGBivkF+Sam66iWukwRpukoN2FjwXm8M49mBt4gZJ
- NygLvVcQy9xVkHHsLx1vxW1j0iSlECJkVPKCSHXjCCd86HJW0Xlw9g3Ml4IB7wj9dtGCmhxx
- P4aAglYO3hvh8ruqF66Yuxlh8BlJ8j3JoIP/HpnyFk1D95/H8qFGf+To4YFgnFg3aiiHt6HD
- yYdQTNpcBTHZQwJIloNAYgytOypmmP+Y3tTr1f9Sa8fvDmMklAgjOiF3Nz9ecSOaJRSrgGjq
- 0XX/V7fEC0faIGf8G/Qmp6rrrCWxn6qMG4IL5W66/prjVu71mEVThoMWjOToOa7ol6zXcpFL
- E4Z8TZoqrI9nGS7Q9+4UxCmrXqsuh8HR8EWA+A88BuKyKff/0CeHGdsc9JaQIV47olsH2Vsj
- wLX2YOybdByjFGLYUyU9prNkyyMAxkuIlIzbiY7fAkHyeC29enfkSnzosZf/L+d14OrQmmtm
- WjX8kDSlJ1I05dVivzTEUTvxmv1+8OXFlNdChD/BDrN0+9vWGKyi2VEA3D/5O0IEouWR0LpU
- JMsy5nHt7Bm4X1geUWwrAQx8FKBvazt3MX02wIHInXY323FF4SfVY5R+ipiA0xiL9wJfzTkC
- GeK510Kvc8LYSbzPP8vC25UNyjN5fG5fekJq9iONoYeCnSPXFXvEN5Sib64gDm2zRlEfVAXM
- paHa8e8ZUsn5VBc5GPvH48gPUoDnH9WKZX7Gc+mlHxKENO2OBaodFvyGAHWM7FivP/f8Vi9H
- hQ2H5Li9iizmdbWOkH/mbP/53hTRZTnLfgac/BqS9M=
-IronPort-HdrOrdr: A9a23:XEAlBK/Iz2sTN87RLy1uk+DeI+orL9Y04lQ7vn2YSXRuHPBws/
- re+MjzsiWE7wr5OUtQ/OxoV5PsfZqxz/JICMwqTNGftWrdyQmVxeNZjbcKqgeIc0aVygce79
- YCT0EXMqyIMbEQt6fHCWeDfOod/A==
-X-IronPort-AV: E=Sophos;i="5.93,318,1654574400"; 
-   d="scan'208";a="79764948"
-Date: Thu, 15 Sep 2022 17:33:06 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>,
-	"Julien Grall" <julien@xen.org>
-Subject: Re: [PATCH v2] libvirt: disable Werror for non-libvirt flights
-Message-ID: <YyNTwpjt3se7YHfn@perard.uk.xensource.com>
-References: <20220915162052.50522-1-roger.pau@citrix.com>
+X-Inumbo-ID: 2d22d68f-3514-11ed-9761-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date;
+        bh=UZZ52unMNTSmadzO25VS8FGK2YPZOAf7FY2SxJz4H1M=;
+        b=NPV1+ct6LByH+hFHUgpWv4IVdPTFJGBdSYdj2fyPREoZgmbwxNnqQJV9CM2n9ObLsu
+         dIffmHuVlJpllX9Q76Pkj86J5Pc6SThNrBrrKlAkIqCt0aLjMvveQ5/i9UlwVmGHyTA4
+         A6aLT/9bI5INh9P7fk6b8yf8IlpuJLgguFNZ9IPuKKgq2AF/xsqQwGV1RFGS0fhYYRp7
+         VGrCm8nzIYRDO6zmbZvpIqlWvCZ3bjG4uuggJhb/eu0SU3xP5DazL0CeCkjyl09b98az
+         ESmweY1dhv8D9HUob7T39GcxGdeQRnXuGwWeJSpoqMyqXSOQnBVtKZdh3FPmSIgPlriC
+         94yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date;
+        bh=UZZ52unMNTSmadzO25VS8FGK2YPZOAf7FY2SxJz4H1M=;
+        b=3qH0m+AyPeg/+4+lRuu/jH7JVoCTlP8Xe6WzLl+ujA0TFKA3RTIw/cz7o8PV3pqYRl
+         NYfb40EfNLY5HF96JZCi+x83jatd6nCrf08l/yDhyy1e9tmdnmSnHpjJICxohtYFTKqr
+         0ewE8LIbv7OC2F/VOI3O2GpepfsuYZJwfVBgZ7MXnoS8uYS9F1zPlxzmF0WKdmqlBo6P
+         XRz0HoYz8FB0xymE4VAk3lCkX7dWoa12UnqpbKuGKI15cq5C1xcNJI5OjqtqY8+jdAd7
+         +tWHMQdWShfl+v6ASGgGBirm3hRy+2eIiztnkEJAZ5UCwVsPfEKl68GSzhDgWNlgxeGK
+         JobQ==
+X-Gm-Message-State: ACrzQf17hrAnagkBddYuvPeDlExUmB4TN6qNM0HZF/dAhwMH4t/jvhjc
+	rmj4aV0YiInxnjt5jcDL3+bYG6h/6MiC7u+E4M6owabPyHg=
+X-Google-Smtp-Source: AMsMyM7q71h2cJ+APruZwn6D+Eg8x9dJNVV9BX0BH9r3Pw0GyVdzyWOf46dZ8sK9b81xKHc4G7GooMsg4RSGqZGpusE=
+X-Received: by 2002:ab0:2a96:0:b0:39f:749c:cf9f with SMTP id
+ h22-20020ab02a96000000b0039f749ccf9fmr304280uar.21.1663259628381; Thu, 15 Sep
+ 2022 09:33:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220915162052.50522-1-roger.pau@citrix.com>
+From: Neil Sikka <neilsikka@gmail.com>
+Date: Thu, 15 Sep 2022 12:33:37 -0400
+Message-ID: <CAHPMNWcL=te17jVOCE5896whZTyeg2bmw_iUR-F6iz53y9bqPA@mail.gmail.com>
+Subject: Crash when writing to x86 hardware debug registers
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="00000000000051aa0a05e8b9cf7f"
 
-On Thu, Sep 15, 2022 at 06:20:52PM +0200, Roger Pau Monne wrote:
-> Current usage of Werror=switch-enum by default for libvirt builds out
-> of the git tree causes issues when new items are added to libxl public
-> API enums if those are used in a switch statement in libvirt code.
-> This leads to libvirt build failures for seemingly unrelated libxl
-> changes.
-> 
-> In order to prevent those errors from blocking the push gate, disable
-> Werror for libvirt builds when not in a libvirt specific flight.
-> 
-> The errors will be reported on the libvirt flight, and block the
-> pushes there.  So the author of the changes in libxl is still expected
-> to send a fix to libvirt code.  This is no ideal, but the other option
-> is to just disable Werror for all libvirt builds and let libvirt
-> developers fix the breakage when they notice it.
-> 
-> runvar differences for a xen-unstable flight are:
-> 
-> --- /dev/fd/63  2022-09-15 15:57:44.340581730 +0000
-> +++ /dev/fd/62  2022-09-15 15:57:44.340581730 +0000
-> @@ -574,6 +574,10 @@
->  test-xtf-amd64-amd64-3                                arch                            amd64
->  test-xtf-amd64-amd64-4                                arch                            amd64
->  test-xtf-amd64-amd64-5                                arch                            amd64
-> +build-amd64-libvirt                                   autogen_options                 --disable-werror
-> +build-arm64-libvirt                                   autogen_options                 --disable-werror
-> +build-armhf-libvirt                                   autogen_options                 --disable-werror
-> +build-i386-libvirt                                    autogen_options                 --disable-werror
->  test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm    bios                            seabios
->  test-amd64-amd64-qemuu-nested-amd                     bios                            seabios
->  test-amd64-amd64-qemuu-nested-intel                   bios                            seabios
-> @@ -1217,6 +1221,10 @@
->  build-arm64-libvirt                                   make_njobs                      1
->  build-armhf-libvirt                                   make_njobs                      1
->  build-i386-libvirt                                    make_njobs                      1
-> +build-amd64-libvirt                                   meson_options                   -Dwerror=false
-> +build-arm64-libvirt                                   meson_options                   -Dwerror=false
-> +build-armhf-libvirt                                   meson_options                   -Dwerror=false
-> +build-i386-libvirt                                    meson_options                   -Dwerror=false
->  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict recipe_dmrestrict               true
->  test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict  recipe_dmrestrict               true
->  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict recipe_nomigrate                true
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+--00000000000051aa0a05e8b9cf7f
+Content-Type: text/plain; charset="UTF-8"
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Hi All,
+I am running a userland debugger in Windows 10 HVM on Xen 4.16 on an Intel
+chip. I noticed when I set a hardware breakpoint (which writes to the DR0
+register), Windows 10 crashes. This crash reproduces both with and without
+viridian enabled in the DomU cfg file.
 
-Thanks,
+(XEN) Xen version 4.16.1 (neil@) (gcc (Debian 10.2.1-6) 10.2.1 20210110)
+debug=n Tue Apr 19 11:20:04 EDT 2022
+(XEN) d13v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff8007f85562c 0 0
+
+This output from xl dmesg shows that I am not running a debug hypervisor,
+and that theres a viridian crash. I've gotten the following stop codes in
+the BSOD from Windows: KMODE EXCEPTION NOT HANDLED, SYSTEM_SERVICE
+EXCEPTION.
+
+I see this code in xen/xen/arch/x86/msr.c inside guest_wrmsr():
+    case MSR_AMD64_DR0_ADDRESS_MASK:
+    case MSR_AMD64_DR1_ADDRESS_MASK ... MSR_AMD64_DR3_ADDRESS_MASK:
+        if ( !cp->extd.dbext )
+            goto gp_fault;
+
+I was assuming AMD64 refers to a 64 bit CPU rather than an AMD CPU, and
+this is one of the few references I found to DR0, and I saw a deliberate
+fault raised if dbext is not set. However I'm told that dbext is unrelated,
+set by default and does not need to be set at hypervisor compile time.
+
+Any ideas why I'm getting this crash?
+
+Thanks in Advance,
+Neil
 
 -- 
-Anthony PERARD
+My Blog: http://www.neilscomputerblog.blogspot.com/
+Twitter: @neilsikka
+
+--00000000000051aa0a05e8b9cf7f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi All,</div><div>I am running a userland debugger in=
+ Windows 10 HVM on Xen 4.16 on an Intel chip. I noticed when I set a hardwa=
+re breakpoint (which writes to the DR0 register), Windows 10 crashes. This =
+crash reproduces both with and without viridian enabled in the DomU cfg fil=
+e.</div><div><br></div><div>(XEN) Xen version 4.16.1 (neil@) (gcc (Debian 1=
+0.2.1-6) 10.2.1 20210110) debug=3Dn Tue Apr 19 11:20:04 EDT 2022<br></div><=
+div>(XEN) d13v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff8007f85562c 0 0<br=
+></div><div><br></div>This output from xl dmesg shows that I am not running=
+ a debug hypervisor, and that theres a viridian crash. I&#39;ve gotten the =
+following stop codes in the BSOD from Windows:=C2=A0KMODE EXCEPTION NOT HAN=
+DLED, SYSTEM_SERVICE EXCEPTION.<div><br></div><div>I see this code in=C2=A0=
+xen/xen/arch/x86/msr.c inside guest_wrmsr():</div><div>=C2=A0 =C2=A0 case M=
+SR_AMD64_DR0_ADDRESS_MASK:<br>=C2=A0 =C2=A0 case MSR_AMD64_DR1_ADDRESS_MASK=
+ ... MSR_AMD64_DR3_ADDRESS_MASK:<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( !cp-&g=
+t;extd.dbext )<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto gp_fault;<=
+br></div><div><br></div><div>I was assuming AMD64 refers to a 64 bit CPU ra=
+ther than an AMD CPU, and this is one of the few references I found to DR0,=
+ and I saw a deliberate fault raised if dbext is not set. However I&#39;m t=
+old that dbext is unrelated, set by default and does not need to be set at =
+hypervisor compile time.</div><div><br></div><div>Any ideas why I&#39;m get=
+ting this crash?<br clear=3D"all"><div><br></div><div>Thanks in Advance,</d=
+iv><div>Neil</div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail_sig=
+nature" data-smartmail=3D"gmail_signature"><div>My Blog: <a href=3D"http://=
+www.neilscomputerblog.blogspot.com/" target=3D"_blank">http://www.neilscomp=
+uterblog.blogspot.com/</a></div><div>Twitter: @neilsikka</div></div></div><=
+/div>
+
+--00000000000051aa0a05e8b9cf7f--
 
