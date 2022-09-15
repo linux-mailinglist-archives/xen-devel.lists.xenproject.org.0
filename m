@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB015B9BD1
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 15:29:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.407386.649891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 543CE5B9C82
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 16:03:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.407393.649902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYovb-0000ja-2J; Thu, 15 Sep 2022 13:29:15 +0000
+	id 1oYpRj-00056X-Jo; Thu, 15 Sep 2022 14:02:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 407386.649891; Thu, 15 Sep 2022 13:29:15 +0000
+Received: by outflank-mailman (output) from mailman id 407393.649902; Thu, 15 Sep 2022 14:02:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYova-0000h5-VJ; Thu, 15 Sep 2022 13:29:14 +0000
-Received: by outflank-mailman (input) for mailman id 407386;
- Thu, 15 Sep 2022 13:29:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EMZS=ZS=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oYovZ-0000gx-6s
- for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 13:29:13 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60063.outbound.protection.outlook.com [40.107.6.63])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 62a2b44f-34fa-11ed-a31c-8f8a9ae3403f;
- Thu, 15 Sep 2022 15:29:12 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DBBPR04MB7690.eurprd04.prod.outlook.com (2603:10a6:10:200::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.15; Thu, 15 Sep
- 2022 13:29:11 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::59bc:901a:98a7:76d4]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::59bc:901a:98a7:76d4%5]) with mapi id 15.20.5632.015; Thu, 15 Sep 2022
- 13:29:11 +0000
+	id 1oYpRj-00054G-Gh; Thu, 15 Sep 2022 14:02:27 +0000
+Received: by outflank-mailman (input) for mailman id 407393;
+ Thu, 15 Sep 2022 14:02:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6hFM=ZS=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
+ id 1oYpRh-00054A-HJ
+ for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 14:02:25 +0000
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0336e94c-34ff-11ed-9761-273f2230c3a0;
+ Thu, 15 Sep 2022 16:02:21 +0200 (CEST)
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2022 07:02:12 -0700
+Received: from tlengyel-mobl3.amr.corp.intel.com (HELO ubuntu.localdomain)
+ ([10.209.176.180])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2022 07:02:11 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,130 +43,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62a2b44f-34fa-11ed-a31c-8f8a9ae3403f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IbNsQSB7VVvaS7vITkyPG7v0NL2P4jq/9lWXwndYKIUJf6D7o4Cl9bWMsBtOcj3Rgub5GzoR+Ol3hVWfZ2t6Qo4q/+zTt3eXt5+TCJNFdYFd0SfQc1iOc86+0Ick15Bq9OzNoZ/Lf6R7XxyavrImDrdyqHSHcLPFfgEjRCs7Vbw4mh7BF/XoNMFwxcdzbGwmH0Ylz4nJzsDgiEMsr+7Isjh/vy9JRYUqZ8blCEdUB3sawTMtmyL0fkoDNHNo16luKBHZSoKg/jcqauWTOphEDYPcUBsUko2mwbEPqOAgo3oqIfeVKYXDeoBnoV5yiBWypK/EfkwbBZzc8orbsSbpJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4X3P1EpZ7AG+nMna+lOXuXgbggKAIOOVNW3TjVq8YD0=;
- b=jDD91aHAh+nvH6k9VyIIntJYP/Gjv0EBXHEMnEPSYhKntu2wJNWezE0wK7yF1ZYoqnl/NiVvYAdu9a604umZQWL3edcSUGjY0iw6UOxnBWR3A0CB6I3CvV1mZujXmacsHJTeb69FI+xsTuyeKs1g1fn1APPc1Oi7UGMpYnuq0m9FvnurRH77mQewCS1Iy0PeYq6nnUapJy7jbAOLJu2n8EZ4g1IV4yNH7abW3Qq4pLXS8KYC5AsBFNhEyu0CShSTWn/sjI4jHG3SJcnSXeUl0xRbM2FKMhG0XNxOdi8854sw/ET8HtH/EfSY93m6RaZDQsUjhWaqGmJ+NsWkptf42A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4X3P1EpZ7AG+nMna+lOXuXgbggKAIOOVNW3TjVq8YD0=;
- b=CpRWPXQcZ87ycgL0OzVSFe2ymiyYTc/cviMbZ9rKigYqnaQ9TUu93Bgp9mL/kVlT1SQdSEu9zw+tb0g49vYnwn2byNw1AFsxe8wQsfyFKdPRLxfSepXbf9gO2lujE+D4FhwmSSATq68IltQhCQP/hg1SyzlRMEO9jsiUjBB9nEuECFU9771OwPDuV/+ufL682iWsthrLy7WdTwnjuy0lnpMzYc1Ak6g+byPI4Bwha4TlP8ai0YFGju2j6GvgbDLXD+5gLgQ0mig697b8vbfeirs9feOIPgcMqAJqbfotqOfSgjZ3qVkU189/T99jrr0N0oXwzMllb7tIJUl7JqwcnA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <65f5a6b5-37a7-4b5f-b42b-805a51790a60@suse.com>
-Date: Thu, 15 Sep 2022 15:29:08 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH 00/12] Arm cache coloring
-Content-Language: en-US
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it,
- andrea.bastoni@minervasys.tech, lucmiccio@gmail.com,
- xen-devel@lists.xenproject.org
-References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR0202CA0056.eurprd02.prod.outlook.com
- (2603:10a6:20b:3a::33) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 0336e94c-34ff-11ed-9761-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1663250542; x=1694786542;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=nm8d2LCDVjaNR+AJEi3DoLWSkOMQhFvCTPiTWL4iOaU=;
+  b=mhJOYPgXKLNASBATZypDeG4Vw2L7sVtbQHbWY8DM6K2pXz9Bn62CabrB
+   oSyp07pubq2o/jLpzg4Vcb9PTdwWIf2wuNMPSm5R1/SWCBV26C+9A7Unx
+   dvYxDy+rGDaZLeX6cBkxuVwhsv3JVP6pAOxWcfX9uyqRzX37/ZIcbo6U1
+   0SNMwV7zqi7jf/yA8p2yqESocPb9JTuSmX6S8HzfSM6jfLqCQe+TW6LvA
+   /2EYHRhc/g9kVcTUtPp+EiEdehGsSYRu/S06zu9dcwtkEtZ7DP07H18tG
+   Dw/++cl3xl+Px7ooSiuXboHVDCrBjZOS76HN+zK8G4ZnY70p+5BSmBCh2
+   Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10470"; a="324981275"
+X-IronPort-AV: E=Sophos;i="5.93,318,1654585200"; 
+   d="scan'208";a="324981275"
+X-IronPort-AV: E=Sophos;i="5.93,318,1654585200"; 
+   d="scan'208";a="685735205"
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/vpmu: fix race-condition in vpmu_load
+Date: Thu, 15 Sep 2022 10:01:59 -0400
+Message-Id: <8294476a707d7f20799a40479cc0bf9a1cf07673.1663249988.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBBPR04MB7690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a07c812-4ed1-424e-3fa1-08da971e4622
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	t3WcKnF4GsCdSzMgmYDKxJqiHOeMtFwWgiAGOfHWnKrrcUYa/oDydxUHnL6azoi2RNnvLjCpgkXG5x4FF6OPgZkCn32+6OR88JVAO8kghYSxsUmvINy35sF9rVgdODMpO8W3qi3pTwVqk/+DpRfnKeplMrDjwd8ROM3Cpdq+Yzf/qMJG3Won9fZXBTbD01yxSvQHmWGO3UnkRY4ea569udVMhjFfgeczKUAewbaCg58Q1phcW+q9Eh8NH92933eeOOSsMqAUV00XLixSqFlaU+vqaSy2A1xPGnVUW+XWMcBgvHHrwzHR47PjkI0YN64sY6ZtoXIuK+/m70T3Hok0TgwhqFLr7Oe5NSk5U2V8xYJ7SQ4RITxtWcsbp/Uz6H2bdaQ1GaXjhOkPRM/7jhPiDNaHXqcjet7njHcx6fOiJX058Hm5RY9YsDF7Q/3jz51fbItwUDaWYpqOeIBBxNJCJVRN8abSoChh6MSZyCkJlGu4PmE+xWIHqsvNj6IS+TB1AgnBnDZdMFQ3lsH1vqpKpH03oUXcWrjD5lYHySYzRt1WwO5lxEL0jMQzeXJXU8Z4llPPeQh9jN8QVCpM0LsnhzHrd7YJZ3L/l43Qda2r/6fZnUoStRukgBhjPnkky7ko5BWvB8vwnFJQX0YuQgH4ypF7elePMN73j1f1QdxkSMqRDoqtcsklz2kYas339aBCHhLwCqtq3hnaLZMsJOdc4ozC13PFUA9Q+YfQJqmtEaEJh0fC+5nBNl5b2NUR8MX7EM1y0vqZWTH1lE9HxLhHvypGXdEYCHDjHFZ+5HdjsJE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(346002)(39860400002)(366004)(396003)(376002)(451199015)(26005)(6512007)(6666004)(6506007)(53546011)(41300700001)(31686004)(36756003)(38100700002)(8676002)(6916009)(66476007)(4326008)(66946007)(66556008)(86362001)(31696002)(2616005)(83380400001)(186003)(6486002)(478600001)(316002)(8936002)(5660300002)(2906002)(7416002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L0hzQzdYcVlWNlN5WVRIdTh3cjBQSThobXNIbTV6dmlHWlFsY3I2K0RPMmpq?=
- =?utf-8?B?dVRIbU1xVjM3VlFaK3Rxb0d0bGVMK2FNWFFPYlpzdEovSGJ4NnU5a1BBMVcw?=
- =?utf-8?B?dCtMLzdZb0pKZ3VmcTlkR0xBZkl2emZOakVlYWxubHJ5ZXhUdWdhOWxZeWcv?=
- =?utf-8?B?TW1jMFNBTm05TkMzV3htMmtmVFh0cU1QaFFmTlY2SDFXMVMyMVhhbkRyVGl5?=
- =?utf-8?B?YWNIVURaZnRkbThZWXhwU2FzYmlZL3ZWRmxudENtbXRQVEZ1RlN1cERrdzVw?=
- =?utf-8?B?MlhXa1FmWTVqbnNmWldwVDlSMW1DeDYvekZvT1BCS2tTZ292c0pwSTN6WDQx?=
- =?utf-8?B?L2l6MWYxMEV1Sk1Kd1ludU9oMnA3OXQvMEN2NmxZN1JyZWk0ZjJsZ0s1bU02?=
- =?utf-8?B?SS9sNE01a09weUU0UGxYNERjL2p4UUMrRHB6Ly9PSnFDNEtHMmtpMXZ1SVdK?=
- =?utf-8?B?LzUwdGs5eEZZOEt3ZCtmd3dwamtkcndOUlFkTmkvL2FVM1dhUXhHbWRDNzQ0?=
- =?utf-8?B?WnU4SWNHcjZqMHp6KzJnUjd0SDIvbUY2WWN1a3BjNjlnWElxMmZOdTFuc2Jl?=
- =?utf-8?B?dllHOGtnTWhyVVdvY05mRklJTVlOT0xIQ2cwNHlkSTRKeEV5NVdCL0lqUWRr?=
- =?utf-8?B?R244UkR2NWlEZ0tTUjBTdkFkMlRZLzFrcFdlc1lxaStmSmp3bkpwMHk4UDN2?=
- =?utf-8?B?OStMV3JxM2pUUC9VbERETVVJVWdqYWllem9XQzc0RnBhTkd1Rk92ZkJWRlRZ?=
- =?utf-8?B?dzh1OTlrVVplRzRrS2k0OEd0clV4b1hPWE8vNGhuQVBSVWgxdDl2Y1k0UGdX?=
- =?utf-8?B?MTJtaVVRcVQ2TW5PRzJ5VWtZWkRBY3gyRVhnOEVOZDdmQXNFYkx1bHJBd2Y2?=
- =?utf-8?B?STQvN2ZHRUlDUHB6dndKczJOSXV0QzMyZGFoTnE1YTdSSU4veGhsRGdueWVm?=
- =?utf-8?B?Qnp0MlZDcUZkT2ZNOUVDM2QyZHAwU3pMQWdyTHRIV0s0MFoySWQ4QURpc1hn?=
- =?utf-8?B?QzlnYVRHVytTcDN3YWU2TEZLUlVyOTk2WWRieDdXSm0wblBQaytMSHk2SytP?=
- =?utf-8?B?c2VmcXRDWFR0cWhmR01KYjdWOXlCekgzRnFMYThWNWQwUmV3bGp2eGY1T0I3?=
- =?utf-8?B?MERWdU9jRlVWMDVtK1hFQ2U3UTlZTi9sd0dENjRRNTI1YUdOa0N5bFVKRWtk?=
- =?utf-8?B?Y3RIV1E2cGFXU0xmcUZGTzNiTHJTa0l0U0o0Wm1NUTRLNkJxRXh2Zlp3bTFs?=
- =?utf-8?B?eE5aaDhIbllJcFhzaHBhR29lVUUrNXMwVkcvakxDTGV2alBnSFRNeW5VRzNM?=
- =?utf-8?B?QTlqa1RxRUlsNFg3b3dsOUZ0UVhxNG5XSUlLdG1wWGVxZnJON25aMm5lQWwx?=
- =?utf-8?B?UmNHenZiLzJpOGxsUU5lL2ZSS21IZVNBZnoxazZiSWlQY1VJTnFXNStOVHg0?=
- =?utf-8?B?Z2VNZ3ZnendCc1NOdUJSOWNZeTlwTDMrOE1BTHVubEd3WFNzMEFmc2x6VGt6?=
- =?utf-8?B?dSt6VE5Ebzhid1J1TlBHZEtVMWlBWE1nbC9aUGdVU3ZsT0NLQnVoQ1RjdUtm?=
- =?utf-8?B?bmtUM1NlTy9BZGRpOWlmbC9ybW5qUDUxY0RhNjJReHg2SU54a05zM0RJQVBX?=
- =?utf-8?B?QTRRMzFqNy9PbG5oZUNaWElTeWJRYTVRNUdINURXQUdwNXBpdnJGaUJvMlov?=
- =?utf-8?B?STN1eVl2bi9UQUVQV2RENWdMZ1ZPQ1BmTXlZMVFQTHJ6Q1crRVZJQVdPRHcv?=
- =?utf-8?B?YmRUUHBzZmxoNys3c09BSXJOSEJBRjVJSTk4TnJPWU42bTNJVEVsbUdJU1pZ?=
- =?utf-8?B?enNwNWFLTlp5QVVGZERwUEF6ZmRsTmJnaWFRRUxGZ2JvUXE1UW5Vdzd0TzRs?=
- =?utf-8?B?dSs5NjlsT2ZMUndwVzVBb3ZleVQ2QlFPOGJzNEdZd0xVUTUraTdIY2tYTXhQ?=
- =?utf-8?B?RnY3MjZNaGcyQTFCeGgrTU5veU9iaEZrbG1hMXpxbGsyMDU3eUp1c2xITnBy?=
- =?utf-8?B?Z1NMS2E5NmtyM1NJb0Y2YitubmhDS0NXdnJsL1RuUnpqY3cybmFUTXp6dDln?=
- =?utf-8?B?T3ExRXEvZm9FVWZRekVWNVFXOEszTnJmZ0U1bm9NTXFHWkM2K1lxcHZjMCto?=
- =?utf-8?Q?wvAOIUOydf3d59wO0cUVUZfr1?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a07c812-4ed1-424e-3fa1-08da971e4622
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2022 13:29:10.9527
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jtBA0Vhc05UULJG8/5XrRC6CaHf+7o6JAfQNZuc2GmlMlE0JvzxKz4ycvjZAa9ePHYIVJRGLSfy3J7xifTMqTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7690
+Content-Transfer-Encoding: 8bit
 
-On 26.08.2022 14:50, Carlo Nonato wrote:
-> Shared caches in multi-core CPU architectures represent a problem for
-> predictability of memory access latency. This jeopardizes applicability
-> of many Arm platform in real-time critical and mixed-criticality
-> scenarios. We introduce support for cache partitioning with page
-> coloring, a transparent software technique that enables isolation
-> between domains and Xen, and thus avoids cache interference.
-> 
-> When creating a domain, a simple syntax (e.g. `0-3` or `4-11`) allows
-> the user to define assignments of cache partitions ids, called colors,
-> where assigning different colors guarantees no mutual eviction on cache
-> will ever happen. This instructs the Xen memory allocator to provide
-> the i-th color assignee only with pages that maps to color i, i.e. that
-> are indexed in the i-th cache partition.
-> 
-> The proposed implementation supports the dom0less feature.
-> The solution has been tested in several scenarios, including Xilinx Zynq
-> MPSoCs.
+While experimenting with the vPMU subsystem an ASSERT failure was
+observed in vmx_find_msr because the vcpu_runnable state was true.
 
-Having looked at the non-Arm-specific parts of this I have one basic
-question: Wouldn't it be possible to avoid the addition of entirely
-new logic by treating the current model as just using a single color,
-therefore merely becoming a special case of what you want?
+The root cause of the bug appears to be the fact that the vPMU subsystem
+doesn't save its state on context_switch. The vpmu_load function will attempt
+to gather the PMU state if its still loaded two different ways:
+    1. if the current pcpu is not where the vcpu ran before doing a remote save
+    2. if the current pcpu had another vcpu active before doing a local save
 
-Plus an advanced question: In how far does this interoperate with
-static allocation, which again is (for now) an Arm-only feature?
-Your reference to dom0less above doesn't cover this afaict.
+However, in case the prev vcpu is being rescheduled on another pcpu its state
+has already changed and vcpu_runnable is returning true, thus #2 will trip the
+ASSERT. The only way to avoid this race condition is to make sure the
+prev vcpu is paused while being checked and its context saved. Once the prev
+vcpu is resumed and does #1 it will find its state already saved.
 
-Jan
+Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+---
+ xen/arch/x86/cpu/vpmu.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
+index cacc24a30f..076c2e5a8d 100644
+--- a/xen/arch/x86/cpu/vpmu.c
++++ b/xen/arch/x86/cpu/vpmu.c
+@@ -419,8 +419,10 @@ int vpmu_load(struct vcpu *v, bool_t from_guest)
+         vpmu = vcpu_vpmu(prev);
+ 
+         /* Someone ran here before us */
++        vcpu_pause(prev);
+         vpmu_save_force(prev);
+         vpmu_reset(vpmu, VPMU_CONTEXT_LOADED);
++        vcpu_unpause(prev);
+ 
+         vpmu = vcpu_vpmu(v);
+     }
+-- 
+2.34.1
+
 
