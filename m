@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 090E45BA1B4
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 22:05:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.407656.650227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AB8D5BA1EC
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Sep 2022 22:42:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.407668.650250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYv6S-0000iR-N0; Thu, 15 Sep 2022 20:04:52 +0000
+	id 1oYvfg-0005ox-OT; Thu, 15 Sep 2022 20:41:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 407656.650227; Thu, 15 Sep 2022 20:04:52 +0000
+Received: by outflank-mailman (output) from mailman id 407668.650250; Thu, 15 Sep 2022 20:41:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYv6S-0000ge-Jq; Thu, 15 Sep 2022 20:04:52 +0000
-Received: by outflank-mailman (input) for mailman id 407656;
- Thu, 15 Sep 2022 20:04:51 +0000
+	id 1oYvfg-0005mQ-Jp; Thu, 15 Sep 2022 20:41:16 +0000
+Received: by outflank-mailman (input) for mailman id 407668;
+ Thu, 15 Sep 2022 20:41:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8UR8=ZS=gmail.com=neilsikka@srs-se1.protection.inumbo.net>)
- id 1oYv6R-0000gX-Cu
- for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 20:04:51 +0000
-Received: from mail-vk1-xa2b.google.com (mail-vk1-xa2b.google.com
- [2607:f8b0:4864:20::a2b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a74fc9fb-3531-11ed-9761-273f2230c3a0;
- Thu, 15 Sep 2022 22:04:50 +0200 (CEST)
-Received: by mail-vk1-xa2b.google.com with SMTP id s12so2951582vkn.11
- for <xen-devel@lists.xenproject.org>; Thu, 15 Sep 2022 13:04:50 -0700 (PDT)
+ <SRS0=HaRG=ZS=citrix.com=prvs=250bec243=jennifer.herbert@srs-se1.protection.inumbo.net>)
+ id 1oYvff-0005Wf-2j
+ for xen-devel@lists.xenproject.org; Thu, 15 Sep 2022 20:41:15 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bc7e9695-3536-11ed-9761-273f2230c3a0;
+ Thu, 15 Sep 2022 22:41:13 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,181 +36,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a74fc9fb-3531-11ed-9761-273f2230c3a0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :from:to:cc:subject:date;
-        bh=kbbeEAOlwLSV7w9n5pXFIfd9Vc0gpzZdqJ4FeejGH8U=;
-        b=WlDVLYP+/jwjzUBVOMZTORS328sjM9LNs+6ky71SlCCQ7pqvW1+SoKKcTxKPZizV7u
-         KmEIBz9IbcoQ9xIK9cW5dKHQ9s5qOB8tWJ0YiiQWvK8yqpItfGM4eHo3B1ngA1p+YM8V
-         GYWtD/XOJi76vWtQOdHMygF8X07RD1F8KxVsiuj4vMbQw5Rh21MTiWkSheRvhYNNkTFS
-         VR5sSkKsU8wZWjqi0cXaC9LLezOly49kd0n9r2lzHpMt2wVYSFgRu0E8XE2xVLJ7mGAs
-         DUW2q+YzvZLpa/6UvIAaPisQnna4EtbUwk0YcgNZ8ugxhKQMeySqKDq4CfFUTf9KKx+Y
-         GU5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
-         :x-gm-message-state:from:to:cc:subject:date;
-        bh=kbbeEAOlwLSV7w9n5pXFIfd9Vc0gpzZdqJ4FeejGH8U=;
-        b=6L8DB2Pbv785mdpaOqXQ74jGjLsu/67lcKR+T2kiY868Nrg3lWzS6zAYwma7hcdnCn
-         zHZhk8bjJ31wRha9Dk2+8NFp8SnKQ0ZahSHUgU+4ki/1bqqUslQTC9jpoVziVBWZBvOD
-         I9VKsiNwZKqUWR796nC1eWMFkehBUGYEtvwwNzvZxVDBhIWu4EZiQbXjZjVX1mU2g7Bx
-         6pu1tp4OQn3wslocVN2sL/jbBfn8A+63cH09I/+R1gQ8eKiFu/3XiKX/RcofbZOQ37VV
-         u/UOh2+Zd9oIvJf8JxQo6LPCRCBrNtB/yeAaPP0fIbuiYMoGnPIS2BMoe5ESPdihX63J
-         VKfw==
-X-Gm-Message-State: ACrzQf0Qxr8/qYi+29W3mTuXNpdgP9yyEJj2xpubLFBSBmUqmvHxmbKQ
-	MeQXKtzA4IeBBAsaFjGvl/aP2flOu+n/cotEsKVj1Ty8gaU=
-X-Google-Smtp-Source: AMsMyM7yCee1QfgectWtvhZvOyK2thkHqoZJ8kJBN7JD77zdHRd2JqT/DkDpEpDfZU4RRcv2g0BEHZKr4X+BSuYJWKE=
-X-Received: by 2002:a05:6122:d83:b0:39d:fe61:2a27 with SMTP id
- bc3-20020a0561220d8300b0039dfe612a27mr914542vkb.1.1663272288750; Thu, 15 Sep
- 2022 13:04:48 -0700 (PDT)
+X-Inumbo-ID: bc7e9695-3536-11ed-9761-273f2230c3a0
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1663274473;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=a81udNHz/IlPqVKBLEW5GyDm0ULIJu6/GbwCobxYlU8=;
+  b=CeSkpd05aSPdG6oYylmBbfr/4TSiUcO/LMiW8StM2AUt5NNXmhINg8U5
+   k+bMMiJwUbI3aP6jyjt/QfX0MbeN1eUeMEUIVbuqIsmFvhv1qTlyHMaVS
+   QGn9EarOAlFbi8ffLWEmZtsHN4tiXHNcPxjPvGdSRRD7yTCDsiLemwmZU
+   k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 83155908
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:XQR+jaIYO6UYFy/KFE+RvJUlxSXFcZb7ZxGr2PjKsXjdYENS0DYCx
+ zNJUWzQPKqOMWukLt4lPojl8klXsZHcyt9qSgdlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokf0/0vraP65xZVF/fngbqLmD+LZMTxGSwZhSSMw4TpugOd8iYNz6TSDK1rlV
+ eja/ouOYzdJ5xYuajhOs/Pa9Us01BjPkGhwUmIWNKgjUGD2zxH5PLpHTYmtIn3xRJVjH+LSb
+ 44vG5ngows1Vz90Yj+Uuu6Tnn8iG9Y+DiDX4pZiYICwgwAqm8AH+v1T2Mzwy6tgo27hc9hZk
+ L2hvHErIOsjFvWkdO81C3G0H8ziVEHvFXCuzXWX6KSuI0P6n3TEzq5IMWMfP6Ah/cFvGz1R2
+ OEhDD0KV0XW7w626OrTpuhEg80iKI/gPZ8Fu2EmxjbcZRokacmdGeOQv4YehWpuwJAVdRrdT
+ 5NxhT5HbhnGZRxBN01RCJ8kluqymlH0ciFCqULTrq0yi4TW5FwqieWwYYKFEjCMbe5snBep5
+ X/bxUP4AkBELd3c8haI1X3504cjmgukAdlPRdVU7MVCkFCVg2AeFhASfV+6uuWizF6zXcpFL
+ E4Z8TZoqrI9nGS0SvHtUhv+p2SL1jYeUddNF+wx6CmW17HZpQ2eAwA5oiVpMYJ88pVsHHpzi
+ wHPz4iB6SFTXKO9RCm7y5W9rx6LPg8NNzMdSDI9aQYC2oy2yG0stS4jXuqPAYbs0IOuQWyqm
+ 23UxMQtr+5N1JBWjs1X6XiC2mvx/caRE2bZ8y2NBgqYAhVFiJlJjmBCwXzS9r5+IYmQVTFtV
+ 1BUypHFvIji4Xxg/RFhodnh/5nzvZ5pyBWG3TZS82AJrlxBAUKLc4FK+y1ZL0x0KMsCcjKBS
+ BaN51gLusECZyr1Mf8fj2eN5yMClPCIKDgYfqqMMoomjmZZLmdrAx2ClWbPhjuwwSDAYIk0O
+ IuBcNbEMEv2/Z9PlWPuL9rxJJdxmUjSM0uPGs2gp/lmuJLCDEOopUAtbgbfN71psfveyOgXm
+ v4GX/a3J9xkeLWWSkHqHUQ7dzjm8VBT6UjKlvFq
+IronPort-HdrOrdr: A9a23:GEbk3qhJsuFPLZ+UWUFLbyqM5XBQXuIji2hC6mlwRA09TySZ//
+ rBoB19726TtN9xYgBZpTnuAsm9qB/nmaKdpLNhWItKPzOW31dATrsSjrcKqgeIc0aVm9K1l5
+ 0QF5SWYOeAdGSS5vya3ODXKbkdKaG8gcKVuds=
+X-IronPort-AV: E=Sophos;i="5.93,319,1654574400"; 
+   d="scan'208";a="83155908"
+From: Jennifer Herbert <jennifer.herbert@citrix.com>
+To: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <wl@xen.org>,
+	<roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Jennifer Herbert
+	<jennifer.herbert@citrix.com>
+Subject: [PATCH 1/2] acpi: Make TPM version configurable.
+Date: Thu, 15 Sep 2022 20:40:28 +0000
+Message-ID: <20220915204029.1227112-1-jennifer.herbert@citrix.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <0548fa97-5384-94e4-7329-b019e60555f4@citrix.com>
+References: <0548fa97-5384-94e4-7329-b019e60555f4@citrix.com>
 MIME-Version: 1.0
-References: <CAHPMNWcL=te17jVOCE5896whZTyeg2bmw_iUR-F6iz53y9bqPA@mail.gmail.com>
-In-Reply-To: <CAHPMNWcL=te17jVOCE5896whZTyeg2bmw_iUR-F6iz53y9bqPA@mail.gmail.com>
-From: Neil Sikka <neilsikka@gmail.com>
-Date: Thu, 15 Sep 2022 16:04:38 -0400
-Message-ID: <CAHPMNWc49vW9Hy+7WDHK924J0wG-EOPjoT+wXswqy0qj-uCReQ@mail.gmail.com>
-Subject: Re: Crash when writing to x86 hardware debug registers
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="000000000000ef926b05e8bcc1e0"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
---000000000000ef926b05e8bcc1e0
-Content-Type: text/plain; charset="UTF-8"
+This patch makes the TPM version, for which the ACPI libary probes, configurable.
+If acpi_config.tpm_verison is set to 1, it indicates that 1.2 (TCPA) should be probed.
+I have also added to hvmloader an option to allow setting this new config, which can
+be triggered by setting the platform/tpm_verion xenstore key.
 
-Update: I rebuilt the hypervisor binary in debug mode and get the following
-output in xl dmesg after the crash.
+Signed-off-by: Jennifer Herbert <jennifer.herbert@citrix.com>
+---
+ docs/misc/xenstore-paths.pandoc |  8 ++++
+ tools/firmware/hvmloader/util.c | 13 ++++++-
+ tools/libacpi/build.c           | 68 ++++++++++++++++++---------------
+ tools/libacpi/libacpi.h         |  4 +-
+ 4 files changed, 59 insertions(+), 34 deletions(-)
 
-(XEN) HVM9 restore: CPU 0
-(XEN) HVM9 restore: PIC 0
-(XEN) HVM9 restore: PIC 1
-(XEN) HVM9 restore: IOAPIC 0
-(XEN) HVM9 restore: LAPIC 0
-(XEN) HVM9 restore: LAPIC_REGS 0
-(XEN) HVM9 restore: PCI_IRQ 0
-(XEN) HVM9 restore: ISA_IRQ 0
-(XEN) HVM9 restore: PCI_LINK 0
-(XEN) HVM9 restore: PIT 0
-(XEN) HVM9 restore: RTC 0
-(XEN) HVM9 restore: HPET 0
-(XEN) HVM9 restore: PMTIMER 0
-(XEN) HVM9 restore: MTRR 0
-(XEN) HVM9 restore: VIRIDIAN_DOMAIN 0
-(XEN) HVM9 restore: CPU_XSAVE 0
-(XEN) HVM9 restore: VIRIDIAN_VCPU 0
-(XEN) HVM9 restore: VMCE_VCPU 0
-(XEN) HVM9 restore: TSC_ADJUST 0
-(XEN) HVM9 restore: CPU_MSR 0
-(XEN) d9: VIRIDIAN MSR_TIME_REF_COUNT: accessed
-(XEN) vmx.c:3295:d9v0 RDMSR 0x00000000 unimplemented
-(XEN) d9v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff80575bc362c 0 0
-
-On Thu, Sep 15, 2022 at 12:33 PM Neil Sikka <neilsikka@gmail.com> wrote:
-
-> Hi All,
-> I am running a userland debugger in Windows 10 HVM on Xen 4.16 on an Intel
-> chip. I noticed when I set a hardware breakpoint (which writes to the DR0
-> register), Windows 10 crashes. This crash reproduces both with and without
-> viridian enabled in the DomU cfg file.
->
-> (XEN) Xen version 4.16.1 (neil@) (gcc (Debian 10.2.1-6) 10.2.1 20210110)
-> debug=n Tue Apr 19 11:20:04 EDT 2022
-> (XEN) d13v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff8007f85562c 0 0
->
-> This output from xl dmesg shows that I am not running a debug hypervisor,
-> and that theres a viridian crash. I've gotten the following stop codes in
-> the BSOD from Windows: KMODE EXCEPTION NOT HANDLED, SYSTEM_SERVICE
-> EXCEPTION.
->
-> I see this code in xen/xen/arch/x86/msr.c inside guest_wrmsr():
->     case MSR_AMD64_DR0_ADDRESS_MASK:
->     case MSR_AMD64_DR1_ADDRESS_MASK ... MSR_AMD64_DR3_ADDRESS_MASK:
->         if ( !cp->extd.dbext )
->             goto gp_fault;
->
-> I was assuming AMD64 refers to a 64 bit CPU rather than an AMD CPU, and
-> this is one of the few references I found to DR0, and I saw a deliberate
-> fault raised if dbext is not set. However I'm told that dbext is unrelated,
-> set by default and does not need to be set at hypervisor compile time.
->
-> Any ideas why I'm getting this crash?
->
-> Thanks in Advance,
-> Neil
->
-> --
-> My Blog: http://www.neilscomputerblog.blogspot.com/
-> Twitter: @neilsikka
->
-
-
+diff --git a/docs/misc/xenstore-paths.pandoc b/docs/misc/xenstore-paths.pandoc
+index 5cd5c8a3b9..7270b46721 100644
+--- a/docs/misc/xenstore-paths.pandoc
++++ b/docs/misc/xenstore-paths.pandoc
+@@ -269,6 +269,14 @@ at the guest physical address in HVM_PARAM_VM_GENERATION_ID_ADDR.
+ See Microsoft's "Virtual Machine Generation ID" specification for the
+ circumstances where the generation ID needs to be changed.
+ 
++
++#### ~/platform/tpm_version = INTEGER [HVM,INTERNAL]
++
++The TPM version to be probed for.
++
++A value of 1 indicates to probe for TPM 1.2. If unset, or an
++invalid version, then no TPM is probed.
++
+ ### Frontend device paths
+ 
+ Paravirtual device frontends are generally specified by their own
+diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+index 581b35e5cf..87bc2d677f 100644
+--- a/tools/firmware/hvmloader/util.c
++++ b/tools/firmware/hvmloader/util.c
+@@ -994,13 +994,22 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
+     if ( !strncmp(xenstore_read("platform/acpi_laptop_slate", "0"), "1", 1)  )
+         config->table_flags |= ACPI_HAS_SSDT_LAPTOP_SLATE;
+ 
+-    config->table_flags |= (ACPI_HAS_TCPA | ACPI_HAS_IOAPIC |
++    config->table_flags |= (ACPI_HAS_TPM | ACPI_HAS_IOAPIC |
+                             ACPI_HAS_WAET | ACPI_HAS_PMTIMER |
+                             ACPI_HAS_BUTTONS | ACPI_HAS_VGA |
+                             ACPI_HAS_8042 | ACPI_HAS_CMOS_RTC);
+     config->acpi_revision = 4;
+ 
+-    config->tis_hdr = (uint16_t *)ACPI_TIS_HDR_ADDRESS;
++    s = xenstore_read("platform/tpm_version", "0");
++    config->tpm_version = strtoll(s, NULL, 0);
++
++    switch( config->tpm_version )
++    {
++    case 1:
++        config->table_flags |= ACPI_HAS_TPM;
++        config->tis_hdr = (uint16_t *)ACPI_TIS_HDR_ADDRESS;
++        break;
++    }
+ 
+     config->numa.nr_vmemranges = nr_vmemranges;
+     config->numa.nr_vnodes = nr_vnodes;
+diff --git a/tools/libacpi/build.c b/tools/libacpi/build.c
+index fe2db66a62..d313ccd8cf 100644
+--- a/tools/libacpi/build.c
++++ b/tools/libacpi/build.c
+@@ -409,38 +409,46 @@ static int construct_secondary_tables(struct acpi_ctxt *ctxt,
+         memcpy(ssdt, ssdt_laptop_slate, sizeof(ssdt_laptop_slate));
+         table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, ssdt);
+     }
+-
+-    /* TPM TCPA and SSDT. */
+-    if ( (config->table_flags & ACPI_HAS_TCPA) &&
+-         (config->tis_hdr[0] != 0 && config->tis_hdr[0] != 0xffff) &&
+-         (config->tis_hdr[1] != 0 && config->tis_hdr[1] != 0xffff) )
++    /* TPM and SSDT. */
++    if (config->table_flags & ACPI_HAS_TPM)
+     {
+-        ssdt = ctxt->mem_ops.alloc(ctxt, sizeof(ssdt_tpm), 16);
+-        if (!ssdt) return -1;
+-        memcpy(ssdt, ssdt_tpm, sizeof(ssdt_tpm));
+-        table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, ssdt);
+-
+-        tcpa = ctxt->mem_ops.alloc(ctxt, sizeof(struct acpi_20_tcpa), 16);
+-        if (!tcpa) return -1;
+-        memset(tcpa, 0, sizeof(*tcpa));
+-        table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, tcpa);
+-
+-        tcpa->header.signature = ACPI_2_0_TCPA_SIGNATURE;
+-        tcpa->header.length    = sizeof(*tcpa);
+-        tcpa->header.revision  = ACPI_2_0_TCPA_REVISION;
+-        fixed_strcpy(tcpa->header.oem_id, ACPI_OEM_ID);
+-        fixed_strcpy(tcpa->header.oem_table_id, ACPI_OEM_TABLE_ID);
+-        tcpa->header.oem_revision = ACPI_OEM_REVISION;
+-        tcpa->header.creator_id   = ACPI_CREATOR_ID;
+-        tcpa->header.creator_revision = ACPI_CREATOR_REVISION;
+-        if ( (lasa = ctxt->mem_ops.alloc(ctxt, ACPI_2_0_TCPA_LAML_SIZE, 16)) != NULL )
++        switch (config->tpm_version)
+         {
+-            tcpa->lasa = ctxt->mem_ops.v2p(ctxt, lasa);
+-            tcpa->laml = ACPI_2_0_TCPA_LAML_SIZE;
+-            memset(lasa, 0, tcpa->laml);
+-            set_checksum(tcpa,
+-                         offsetof(struct acpi_header, checksum),
+-                         tcpa->header.length);
++        case 1:
++            if (!config->tis_hdr ||
++                config->tis_hdr[0] == 0 || config->tis_hdr[0] == 0xffff ||
++                config->tis_hdr[1] == 0 || config->tis_hdr[1] == 0xffff)
++                break;
++
++            ssdt = ctxt->mem_ops.alloc(ctxt, sizeof(ssdt_tpm), 16);
++            if (!ssdt) return -1;
++            memcpy(ssdt, ssdt_tpm, sizeof(ssdt_tpm));
++            table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, ssdt);
++
++            tcpa = ctxt->mem_ops.alloc(ctxt, sizeof(struct acpi_20_tcpa), 16);
++            if (!tcpa) return -1;
++            memset(tcpa, 0, sizeof(*tcpa));
++            table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, tcpa);
++
++            tcpa->header.signature = ACPI_2_0_TCPA_SIGNATURE;
++            tcpa->header.length    = sizeof(*tcpa);
++            tcpa->header.revision  = ACPI_2_0_TCPA_REVISION;
++            fixed_strcpy(tcpa->header.oem_id, ACPI_OEM_ID);
++            fixed_strcpy(tcpa->header.oem_table_id, ACPI_OEM_TABLE_ID);
++            tcpa->header.oem_revision = ACPI_OEM_REVISION;
++            tcpa->header.creator_id   = ACPI_CREATOR_ID;
++            tcpa->header.creator_revision = ACPI_CREATOR_REVISION;
++
++            if ( (lasa = ctxt->mem_ops.alloc(ctxt, ACPI_2_0_TCPA_LAML_SIZE, 16)) != NULL )
++            {
++                tcpa->lasa = ctxt->mem_ops.v2p(ctxt, lasa);
++                tcpa->laml = ACPI_2_0_TCPA_LAML_SIZE;
++                memset(lasa, 0, tcpa->laml);
++                set_checksum(tcpa,
++                             offsetof(struct acpi_header, checksum),
++                             tcpa->header.length);
++            }
++            break;
+         }
+     }
+ 
+diff --git a/tools/libacpi/libacpi.h b/tools/libacpi/libacpi.h
+index a2efd23b0b..9143616130 100644
+--- a/tools/libacpi/libacpi.h
++++ b/tools/libacpi/libacpi.h
+@@ -27,7 +27,7 @@
+ #define ACPI_HAS_SSDT_PM           (1<<4)
+ #define ACPI_HAS_SSDT_S3           (1<<5)
+ #define ACPI_HAS_SSDT_S4           (1<<6)
+-#define ACPI_HAS_TCPA              (1<<7)
++#define ACPI_HAS_TPM               (1<<7)
+ #define ACPI_HAS_IOAPIC            (1<<8)
+ #define ACPI_HAS_WAET              (1<<9)
+ #define ACPI_HAS_PMTIMER           (1<<10)
+@@ -78,8 +78,8 @@ struct acpi_config {
+     struct acpi_numa numa;
+     const struct hvm_info_table *hvminfo;
+ 
++    uint8_t tpm_version;
+     const uint16_t *tis_hdr;
+-
+     /*
+      * Address where acpi_info should be placed.
+      * This must match the OperationRegion(BIOS, SystemMemory, ....)
 -- 
-My Blog: http://www.neilscomputerblog.blogspot.com/
-Twitter: @neilsikka
+2.31.1
 
---000000000000ef926b05e8bcc1e0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Update: I rebuilt the hypervisor binary in debug mode and =
-get the following output in xl dmesg after the crash.<div><br></div><div><s=
-pan style=3D"font-family:monospace"><span style=3D"color:rgb(0,0,0)">(XEN) =
-HVM9 restore: CPU 0
-</span><br>(XEN) HVM9 restore: PIC 0
-<br>(XEN) HVM9 restore: PIC 1
-<br>(XEN) HVM9 restore: IOAPIC 0
-<br>(XEN) HVM9 restore: LAPIC 0
-<br>(XEN) HVM9 restore: LAPIC_REGS 0
-<br>(XEN) HVM9 restore: PCI_IRQ 0
-<br>(XEN) HVM9 restore: ISA_IRQ 0
-<br>(XEN) HVM9 restore: PCI_LINK 0
-<br>(XEN) HVM9 restore: PIT 0
-<br>(XEN) HVM9 restore: RTC 0
-<br>(XEN) HVM9 restore: HPET 0
-<br>(XEN) HVM9 restore: PMTIMER 0
-<br>(XEN) HVM9 restore: MTRR 0
-<br>(XEN) HVM9 restore: VIRIDIAN_DOMAIN 0
-<br>(XEN) HVM9 restore: CPU_XSAVE 0
-<br>(XEN) HVM9 restore: VIRIDIAN_VCPU 0
-<br>(XEN) HVM9 restore: VMCE_VCPU 0
-<br>(XEN) HVM9 restore: TSC_ADJUST 0
-<br>(XEN) HVM9 restore: CPU_MSR 0
-<br>(XEN) d9: VIRIDIAN MSR_TIME_REF_COUNT: accessed
-<br>(XEN) vmx.c:3295:d9v0 RDMSR 0x00000000 unimplemented
-<br>(XEN) d9v0 VIRIDIAN CRASH: 1e ffffffffc0000096 fffff80575bc362c 0 0<br>=
-</span></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
-"gmail_attr">On Thu, Sep 15, 2022 at 12:33 PM Neil Sikka &lt;<a href=3D"mai=
-lto:neilsikka@gmail.com">neilsikka@gmail.com</a>&gt; wrote:<br></div><block=
-quote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1=
-px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div>Hi All,</=
-div><div>I am running a userland debugger in Windows 10 HVM on Xen 4.16 on =
-an Intel chip. I noticed when I set a hardware breakpoint (which writes to =
-the DR0 register), Windows 10 crashes. This crash reproduces both with and =
-without viridian enabled in the DomU cfg file.</div><div><br></div><div>(XE=
-N) Xen version 4.16.1 (neil@) (gcc (Debian 10.2.1-6) 10.2.1 20210110) debug=
-=3Dn Tue Apr 19 11:20:04 EDT 2022<br></div><div>(XEN) d13v0 VIRIDIAN CRASH:=
- 1e ffffffffc0000096 fffff8007f85562c 0 0<br></div><div><br></div>This outp=
-ut from xl dmesg shows that I am not running a debug hypervisor, and that t=
-heres a viridian crash. I&#39;ve gotten the following stop codes in the BSO=
-D from Windows:=C2=A0KMODE EXCEPTION NOT HANDLED, SYSTEM_SERVICE EXCEPTION.=
-<div><br></div><div>I see this code in=C2=A0xen/xen/arch/x86/msr.c inside g=
-uest_wrmsr():</div><div>=C2=A0 =C2=A0 case MSR_AMD64_DR0_ADDRESS_MASK:<br>=
-=C2=A0 =C2=A0 case MSR_AMD64_DR1_ADDRESS_MASK ... MSR_AMD64_DR3_ADDRESS_MAS=
-K:<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( !cp-&gt;extd.dbext )<br>=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto gp_fault;<br></div><div><br></div><div=
->I was assuming AMD64 refers to a 64 bit CPU rather than an AMD CPU, and th=
-is is one of the few references I found to DR0, and I saw a deliberate faul=
-t raised if dbext is not set. However I&#39;m told that dbext is unrelated,=
- set by default and does not need to be set at hypervisor compile time.</di=
-v><div><br></div><div>Any ideas why I&#39;m getting this crash?<br clear=3D=
-"all"><div><br></div><div>Thanks in Advance,</div><div>Neil</div><div><br><=
-/div>-- <br><div dir=3D"ltr"><div>My Blog: <a href=3D"http://www.neilscompu=
-terblog.blogspot.com/" target=3D"_blank">http://www.neilscomputerblog.blogs=
-pot.com/</a></div><div>Twitter: @neilsikka</div></div></div></div>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div>My Blog: <a href=3D"http://www.neilscompute=
-rblog.blogspot.com/" target=3D"_blank">http://www.neilscomputerblog.blogspo=
-t.com/</a></div><div>Twitter: @neilsikka</div></div>
-
---000000000000ef926b05e8bcc1e0--
 
