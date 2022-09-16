@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3A2F5BB0E2
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Sep 2022 18:07:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.408080.650777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B4F45BB197
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Sep 2022 19:28:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.408091.650788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oZDsF-0002wR-F0; Fri, 16 Sep 2022 16:07:27 +0000
+	id 1oZF7o-0002c5-8o; Fri, 16 Sep 2022 17:27:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 408080.650777; Fri, 16 Sep 2022 16:07:27 +0000
+Received: by outflank-mailman (output) from mailman id 408091.650788; Fri, 16 Sep 2022 17:27:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oZDsF-0002u9-CE; Fri, 16 Sep 2022 16:07:27 +0000
-Received: by outflank-mailman (input) for mailman id 408080;
- Fri, 16 Sep 2022 16:07:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=diiU=ZT=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1oZDsE-0002u3-F9
- for xen-devel@lists.xenproject.org; Fri, 16 Sep 2022 16:07:26 +0000
-Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
- [2607:f8b0:4864:20::f33])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6effc5d-35d9-11ed-a31c-8f8a9ae3403f;
- Fri, 16 Sep 2022 18:07:24 +0200 (CEST)
-Received: by mail-qv1-xf33.google.com with SMTP id z9so5501163qvn.9
- for <xen-devel@lists.xenproject.org>; Fri, 16 Sep 2022 09:07:24 -0700 (PDT)
+	id 1oZF7o-0002ZC-5z; Fri, 16 Sep 2022 17:27:36 +0000
+Received: by outflank-mailman (input) for mailman id 408091;
+ Fri, 16 Sep 2022 17:27:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oZF7m-0002Z2-JN; Fri, 16 Sep 2022 17:27:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oZF7m-0002yJ-Hk; Fri, 16 Sep 2022 17:27:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oZF7m-0005IW-03; Fri, 16 Sep 2022 17:27:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oZF7l-0000G5-Vl; Fri, 16 Sep 2022 17:27:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,141 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6effc5d-35d9-11ed-a31c-8f8a9ae3403f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=tLur3LQQNH99RcHI26JTcESnrDemBht0MgeTi6Y96vQ=;
-        b=Oa5Feg4Q4/IG4bZWEdBQ1/eIelFz+L7TjTKWp7esOiuZedHNtPy8b53HovGrX5aK2Q
-         8bARaLnxj5JEGTl6GJQEzJ6yYwvuRbONVBuLYk7GKNvQ74vzYu+jpZ2MqeFfz6nTGj/e
-         5AJUW5fDlcZ0ckrigrszVz0rCUligNUpnzb5NBBUVf6GDrjKCBhU5jx7iJVkM6W3DboN
-         v+d22bDqu83KbidqT5QTgE9eKrCxgH/DkDqvvIt06NpFCiOr7+8QM8+J1uGBJ1kRbhxE
-         GQgmfmTRvgyGabXigCI8bIdprzPWxgevxLcpxhzdhOo2Isf00pjJIPVXg6GtyeyPRlz3
-         Wn4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=tLur3LQQNH99RcHI26JTcESnrDemBht0MgeTi6Y96vQ=;
-        b=IgrlzKjiaFwq67Q9IIE/4n8d30bniFmjaiG0ZKvl6j/0QhOiDf2fs1uJ6NhdfaCL4Y
-         vaHoelhvxujgV/1MCk3pB0lPmJewiF0ny6kxgeZpTP2Ex6Ta059vvq3hvyhkviKv6h2p
-         /dHEGMPG/vxYuIflhJnubj70Doz+PkwTj/BNJtqh+pyNBzNC7beaP0YxpLit8As7xpc0
-         uaMvrsZmYIRvi3HZURXFy6sdQOifqHRx+kl29aPcgskAt76IBcfIFclHg84eHQgOeMoS
-         xMUXhFKr0LSxSshqkcxUJt3LI0XEWgc8TooL8RZTImaQYVpCmOzaMJt9iZ4MYpc75pk5
-         dSsQ==
-X-Gm-Message-State: ACrzQf0yGvBiKqvQlpIsAVLqalCiEkpfuWzRewjkmQ4TivJ5GpQan64L
-	G4UTHI/flXFU+b/R63PgKW5l6jEPE/BZOkPEP00cYA==
-X-Google-Smtp-Source: AMsMyM4C8iBFx6mzhXCDt0m1+AVoWx+oxSSR5u+kHKS4QTDcTRvF5UYaRwuCtVSQ+O8JpYTGFY6GwHOA/uYiHL4k1pU=
-X-Received: by 2002:ad4:5bac:0:b0:4ac:929b:3363 with SMTP id
- 12-20020ad45bac000000b004ac929b3363mr4643672qvq.32.1663344443813; Fri, 16 Sep
- 2022 09:07:23 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
- <20220826125111.152261-13-carlo.nonato@minervasys.tech> <93471d92-bc61-56fd-5b52-413303d35da1@suse.com>
-In-Reply-To: <93471d92-bc61-56fd-5b52-413303d35da1@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Fri, 16 Sep 2022 18:07:13 +0200
-Message-ID: <CAG+AhRVRQ9ey9NzsDo4Np+z0V=sX-uGYL_zLhJ9Z9zFb3v+Hkg@mail.gmail.com>
-Subject: Re: [PATCH 12/12] xen/arm: add cache coloring support for Xen
-To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org, 
-	stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it, 
-	andrea.bastoni@minervasys.tech, lucmiccio@gmail.com, 
-	Marco Solieri <marco.solieri@minervasys.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Rg0MtwOgVTBnQuKtqIf8wpb0fOYA9BYTX6N9SYN4Jpc=; b=fOaTfPvjIwVD/Get7XTw3bmliX
+	qzcLbW/fDmi6P50FjtnC3jiqyk0ztpWCC/gMO1RhUHupJLXvURx2UrtVZtLy/wXEHzPWkMwBij8/Y
+	B0AGJuCvqaiQSWfsmW8oQebLcXUdJhUMAS+q/giArfA93dEWsHJif5FvVzJ7hpGAAdiM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173236-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 173236: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=2c17d676e402d75a3a674499342f7ddaccf387bd
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 16 Sep 2022 17:27:33 +0000
 
-Hi Jan,
+flight 173236 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173236/
 
-On Thu, Sep 15, 2022 at 3:25 PM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 26.08.2022 14:51, Carlo Nonato wrote:
-> > --- a/xen/common/vmap.c
-> > +++ b/xen/common/vmap.c
-> > @@ -8,6 +8,9 @@
-> >  #include <xen/types.h>
-> >  #include <xen/vmap.h>
-> >  #include <asm/page.h>
-> > +#ifdef CONFIG_CACHE_COLORING
-> > +#include <asm/coloring.h>
-> > +#endif
->
-> Even independent of my earlier question towards more code becoming common,
-> I think there will want to be a xen/coloring.h which takes care of this
-> abstraction, requiring such #ifdef in just a single place.
->
-> > @@ -218,6 +221,28 @@ void *__vmap(const mfn_t *mfn, unsigned int granularity,
-> >      return va;
-> >  }
-> >
-> > +#ifdef CONFIG_CACHE_COLORING
-> > +void * __vmap_colored(const mfn_t *mfn, unsigned int nr, unsigned int align,
-> > +                      unsigned int flags, enum vmap_region type)
->
-> Please no new functions with double underscores as prefix. Only static
-> symbol names may start with an underscore, and then also only with a
-> single one.
->
-> > +{
-> > +    void *va = vm_alloc(nr, align, type);
-> > +    unsigned long cur = (unsigned long)va;
-> > +    paddr_t pa = mfn_to_maddr(*mfn);
-> > +
-> > +    for ( ; va && nr-- ; cur += PAGE_SIZE )
-> > +    {
-> > +        pa = next_xen_colored(pa);
->
-> This may alter the address, yet the caller expects that the original
-> address be mapped. I must be missing something?
+Regressions :-(
 
-If the original address color is assigned to Xen, then next_xen_colored()
-simply returns that address. If this isn't the case, then you're right: the
-address changes to the correct, colored, one. The caller should expect
-this behavior since this is the colored version of vmap, the one that takes
-into account the Xen coloring configuration.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-> > +        if ( map_pages_to_xen(cur, maddr_to_mfn(pa), 1, flags) )
-> > +        {
-> > +            vunmap(va);
-> > +            return NULL;
-> > +        }
-> > +        pa += PAGE_SIZE;
-> > +    }
-> > +    return va;
-> > +}
->
-> Afaics you only consume the first slot of *mfn. What about the other
-> (nr - 1) ones?
+version targeted for testing:
+ ovmf                 2c17d676e402d75a3a674499342f7ddaccf387bd
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-Not sure I understood. The first slot is used as the starting point and then
-the addr of that mfn plus next_xen_colored() are the mechanism used to select
-the next mfns. Probably the first argument of vmap_colored is a bit
-misleading.
+Last test of basis   172136  2022-08-04 06:43:42 Z   43 days
+Failing since        172151  2022-08-05 02:40:28 Z   42 days  321 attempts
+Testing same since   173234  2022-09-16 10:42:10 Z    0 days    2 attempts
 
-> And compared to __vmap() there's no "granularity"
-> parameter, which is what controls the mapping of multiple contiguous
-> pages.
+------------------------------------------------------------
+People who touched revisions under test:
+  "Lee, Chun-Yi" <jlee@suse.com>
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Annie Li <annie.li@oracle.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Baraneedharan Anbazhagan <anbazhagan@hp.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Bret Barkelew <bret.barkelew@microsoft.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Foster Nong <foster.nong@intel.com>
+  Gang Chen <gang.c.chen@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee, Chun-Yi <joeyli.kernel@gmail.com>
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Nickle Wang <nicklew@nvidia.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Pranav Madhu <pranav.madhu@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Rohit Mathew <rohit.mathew@arm.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuan Yu <yuanyu@google.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
 
-That's because we don't support multiple contiguous pages in the sense that
-we only operate on one page at a time (like explained in the
-"Known limitations" doc section and elsewhere in those discussions).
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-> > --- a/xen/include/xen/vmap.h
-> > +++ b/xen/include/xen/vmap.h
-> > @@ -14,6 +14,10 @@ void vm_init_type(enum vmap_region type, void *start, void *end);
-> >
-> >  void *__vmap(const mfn_t *mfn, unsigned int granularity, unsigned int nr,
-> >               unsigned int align, unsigned int flags, enum vmap_region);
-> > +#ifdef CONFIG_CACHE_COLORING
-> > +void *__vmap_colored(const mfn_t *mfn, unsigned int nr, unsigned int align,
-> > +                     unsigned int flags, enum vmap_region);
-> > +#endif
->
-> I don't think such a declaration really needs putting inside #ifdef.
->
-> Jan
 
-Thanks.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-- Carlo Nonato
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2652 lines long.)
 
