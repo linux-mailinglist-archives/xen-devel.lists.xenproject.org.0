@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E49275BA361
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Sep 2022 01:55:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.407705.650286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 666465BA36E
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Sep 2022 02:11:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.407716.650297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYygJ-0003bE-1H; Thu, 15 Sep 2022 23:54:07 +0000
+	id 1oYyx1-0006hu-9y; Fri, 16 Sep 2022 00:11:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 407705.650286; Thu, 15 Sep 2022 23:54:06 +0000
+Received: by outflank-mailman (output) from mailman id 407716.650297; Fri, 16 Sep 2022 00:11:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oYygI-0003Z8-So; Thu, 15 Sep 2022 23:54:06 +0000
-Received: by outflank-mailman (input) for mailman id 407705;
- Thu, 15 Sep 2022 23:54:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oYygG-0003Yx-8U; Thu, 15 Sep 2022 23:54:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oYygG-0000wf-5i; Thu, 15 Sep 2022 23:54:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oYygF-0001WK-Mp; Thu, 15 Sep 2022 23:54:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oYygF-0005ss-MI; Thu, 15 Sep 2022 23:54:03 +0000
+	id 1oYyx1-0006f0-6x; Fri, 16 Sep 2022 00:11:23 +0000
+Received: by outflank-mailman (input) for mailman id 407716;
+ Fri, 16 Sep 2022 00:11:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jeri=ZT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oYywz-0006eu-JD
+ for xen-devel@lists.xenproject.org; Fri, 16 Sep 2022 00:11:21 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 16d406bb-3554-11ed-a31c-8f8a9ae3403f;
+ Fri, 16 Sep 2022 02:11:20 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EDFCA6277F;
+ Fri, 16 Sep 2022 00:11:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95BEBC433C1;
+ Fri, 16 Sep 2022 00:11:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,140 +43,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=nAN6W+qCmjc++uUiIWNv6UOE39AIsppv27bvoQBAykw=; b=2ti2TNsMg7PwRyURbF21dk8n86
-	+l+ngwJaimm5z6JMh/PMYw9Xw34C3sNUJsGt/x0Wzuv1Ok5xDEhYYNnWLmzy2hmKlJWJDHvIh+KfG
-	HjdOer6h2oAS9CKJby7f/HMxvZoDDcv1CFJt+XuTbH63Jf1M/6BI3cBQMuYchIf3DwLE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173221-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 16d406bb-3554-11ed-a31c-8f8a9ae3403f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1663287078;
+	bh=Vy69aml8hU2McMw2JQr1x3Oz7RBNUPYxKERbs9nrDQY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=OLTrcrlk//iYOL/3Cj/mI3AkwBU75vOjylohZ4EOEtPteOkOfto7yS/9SXMt7FpJE
+	 WjMzBujlqdlR39oRZOwJLgu/MHOIBZqaVFqcaseP5iXjetHW8AIPWC5Udxfi4du+u1
+	 PTCyR2HlrDa7/051hMx2UeB/i/OflObry62g/u9eCK6nLQuhRg6FPCnJrVW9J7IcUn
+	 XPouayjNXw43swEHL4Mm0/lBXJmVg8pyXVVOrlMTIQsHMs2sj1Ns8m4m5esNP8++OQ
+	 XFSarM4KtTv9zMqJVp6iRxU2k5EViSOQylPG/aXwlfnvtjaUZelfutfvpe0d4Ykp+G
+	 8g52HMWixRPmg==
+Date: Thu, 15 Sep 2022 17:11:16 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] xen/privcmd: remove privcmd_ioctl_mmap()
+In-Reply-To: <b5c83169-0b92-1ebe-ae5f-fc7bd4e19b99@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2209151709420.157835@ubuntu-linux-20-04-desktop>
+References: <20220915083944.10097-1-jgross@suse.com> <8137166b-a4c2-aa26-84f9-7b9b2a7e028e@suse.com> <4a95c3d1-d4e8-9b59-8db8-231b59cdb8f5@suse.com> <b5c83169-0b92-1ebe-ae5f-fc7bd4e19b99@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 173221: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=3184e44df1042ae41c1cd8d2acaa47d7d30cd07c
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Sep 2022 23:54:03 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 173221 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173221/
+On Thu, 15 Sep 2022, Jan Beulich wrote:
+> On 15.09.2022 12:20, Juergen Gross wrote:
+> > On 15.09.22 11:32, Jan Beulich wrote:
+> >> On 15.09.2022 10:39, Juergen Gross wrote:
+> >>> The IOCTL_PRIVCMD_MMAP isn't in use by Xen since at least Xen 4.0.
+> >>>
+> >>> Remove it from the privcmd driver.
+> >>>
+> >>> Signed-off-by: Juergen Gross <jgross@suse.com>
+> >>
+> >> Can we reasonably remove an IOCTL, without being entirely certain that
+> >> no users exist outside of xen.git?
+> > 
+> > This is a valid question. I'm not sure how probable it is that such a user
+> > is existing. Are there any Xen tool stacks not using the Xen libraries?
+> > 
+> > If so, why? Do we want to support those use cases?
+> 
+> I'm afraid I have no answers to these questions, and hence would generally
+> want to be conservative with removal of functionality.
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
-
-version targeted for testing:
- ovmf                 3184e44df1042ae41c1cd8d2acaa47d7d30cd07c
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
-
-Last test of basis   172136  2022-08-04 06:43:42 Z   42 days
-Failing since        172151  2022-08-05 02:40:28 Z   41 days  316 attempts
-Testing same since   173218  2022-09-15 19:13:25 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  "Lee, Chun-Yi" <jlee@suse.com>
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Annie Li <annie.li@oracle.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Baraneedharan Anbazhagan <anbazhagan@hp.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Bret Barkelew <bret.barkelew@microsoft.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Chen, Xiao X <xiao.x.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Foster Nong <foster.nong@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jianyong Wu <jianyong.wu@arm.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee, Chun-Yi <joeyli.kernel@gmail.com>
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Pierre Gondois <pierre.gondois@arm.com>
-  Pranav Madhu <pranav.madhu@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@quicinc.com>
-  Rohit Mathew <rohit.mathew@arm.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Xiao X Chen <xiao.x.chen@intel.com>
-  Yuan Yu <yuanyu@google.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2616 lines long.)
+I don't know either, but maybe we could at least mark IOCTL_PRIVCMD_MMAP
+as deprecated in include/uapi/xen/privcmd.h ?
 
