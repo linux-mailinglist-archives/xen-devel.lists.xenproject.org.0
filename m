@@ -2,55 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFB6E5BA75D
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Sep 2022 09:20:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.407826.650463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22C745BA7A0
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Sep 2022 09:56:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.407832.650474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oZ5dV-0003FE-5J; Fri, 16 Sep 2022 07:19:41 +0000
+	id 1oZ6Cl-0007Yv-Ul; Fri, 16 Sep 2022 07:56:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 407826.650463; Fri, 16 Sep 2022 07:19:41 +0000
+Received: by outflank-mailman (output) from mailman id 407832.650474; Fri, 16 Sep 2022 07:56:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oZ5dV-0003DR-22; Fri, 16 Sep 2022 07:19:41 +0000
-Received: by outflank-mailman (input) for mailman id 407826;
- Fri, 16 Sep 2022 07:19:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UnJL=ZT=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oZ5dT-0003DL-Qk
- for xen-devel@lists.xenproject.org; Fri, 16 Sep 2022 07:19:40 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2065.outbound.protection.outlook.com [40.107.101.65])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ebc5f38c-358f-11ed-a31c-8f8a9ae3403f;
- Fri, 16 Sep 2022 09:19:37 +0200 (CEST)
-Received: from BN9PR03CA0963.namprd03.prod.outlook.com (2603:10b6:408:109::8)
- by SA0PR12MB7074.namprd12.prod.outlook.com (2603:10b6:806:2d5::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.16; Fri, 16 Sep
- 2022 07:19:33 +0000
-Received: from BN8NAM11FT094.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:109:cafe::92) by BN9PR03CA0963.outlook.office365.com
- (2603:10b6:408:109::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.16 via Frontend
- Transport; Fri, 16 Sep 2022 07:19:33 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT094.mail.protection.outlook.com (10.13.176.131) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5632.12 via Frontend Transport; Fri, 16 Sep 2022 07:19:32 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 16 Sep
- 2022 02:19:31 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 16 Sep
- 2022 00:19:30 -0700
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Fri, 16 Sep 2022 02:19:29 -0500
+	id 1oZ6Cl-0007WE-Qt; Fri, 16 Sep 2022 07:56:07 +0000
+Received: by outflank-mailman (input) for mailman id 407832;
+ Fri, 16 Sep 2022 07:56:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oZ6Cl-0007W4-0R; Fri, 16 Sep 2022 07:56:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oZ6Ck-0000Xl-Uv; Fri, 16 Sep 2022 07:56:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oZ6Ck-0006wq-F6; Fri, 16 Sep 2022 07:56:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oZ6Ck-0000jv-Eh; Fri, 16 Sep 2022 07:56:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,105 +42,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebc5f38c-358f-11ed-a31c-8f8a9ae3403f
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ae6mqHZ1OaZnbTRYxcaRiCnSyH+5gleKA/iQPEkRFpnrPC3JcX6YMDXe4wcLfZCBjlKkJxoNkZlvTGezBHqJuTQUyo/at/42gy66YYHutcx6UtTLgYVERnrcIgeI8maIbP3msECwFjynCeHP754II2CrBXYbhb567NrV2SNsDhcmgXxlD3CPYv+ZqFHdPJ5Tn4QtsSOpDZ7bO+gifX9pM0/gN/Nj7I+u8l1EgbXVck7QIymc6Pf4M9qwLykZKqkA4CSqYVs2cpOxI4eT9uxoosuvvfiYGbZp2RXzsN/xGhoSU9v3Kv6y2MS9H8Myph9EscIIt4mLfTNV8iOPaQM2oA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bYLwhphNxjPniBivxpg6SChjQHPi6Sajt8Scuh1Scvc=;
- b=HLyY97+MIGXBYpbTf3yrrfQRRrw3d5woLKM4oRMfDGGK9ILWUUINrNsxKxc2nUvIlbGxj0FpDDoY6j2axo+0GDGw1wKkxhzyK5s6By5fsCELCjaMuyYBgebvAcJI3BHVGEjkuIsNZNg8h+2L2YTG68UdOTAt0DePKuD4wNf+svCbzx0vELekIMrlMM0AIPxITApbgkTdPXsXLJN6Zo+UaRrIG/oFeYSN7lelr7Js/W956Aw0VvRdDxFTvIPrJllZrt1iFXszZnDxOiDlW36PY0jqjBlMtG7J0oPVKgcbsoYxAd+GjVNWlZ9Y56SLhS+9+QRD6DCRzbs0XMF0z9rWDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bYLwhphNxjPniBivxpg6SChjQHPi6Sajt8Scuh1Scvc=;
- b=LhpaK3TGNsLVhAsbDX2ePhnZVoW7JGoMyuHn21Gk27SENrd15xUW/8nNnnh8sN2zdEDUhwhmk7nbElNp27Kv41WgmoGzqyNOYn+ihE1BrGBnmthuF9V9Ep0ytPQbA7ymVb0Fq1AWvlZvb2O+hJR2oxe47/J9mG4EpfntalDSW/s=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [for-4.17] xen/arm: domain_build: Do not use dprintk unconditionally
-Date: Fri, 16 Sep 2022 09:19:20 +0200
-Message-ID: <20220916071920.8287-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7vGcbZHx7rPaW54tmUiKSdlve5bjJRbUzPDzpm+joiU=; b=zzHl2pIfOloL/U27uwGnEc58s/
+	Egy9NxjmdyHMGtlA68/zsF+VEabos6UqzZFIuZSa3Gk5jPtcXHo0bGzFT4S+k4qOUGwTUv4Ufv7ei
+	K69ieYwht4ES+Qt9+n5lj7EZZQFr7kQvOVYaO1jMBk83HLLNFj7xStL/+KdY92xTsj4o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173228-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT094:EE_|SA0PR12MB7074:EE_
-X-MS-Office365-Filtering-Correlation-Id: fec4159c-159b-47cc-3b88-08da97b3cd61
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	JJuPHNqA1AC66kn8GhAndLPcM/o8WusngN26ywQRJ9dOh0Xv3eTyINUnaP+X5NH6SjEzOUVxe2ayVsidyMsGes3EKKlMpkNT+kJzaZpvILYxGuTfLCfEonQXQrWAXtR+yjt0M5y2MhqUs8gDHTSD4L9l7nE/HI4KUC1M+dGWCd+H4q+LbgFQYFPe3XWWPudc5buBF0MV2xe7cclZKppKrJXZ3H8jV3ker1Tue4f88Xp9/3YD5rqn+Fe9oht9rVqL2bFtyRTQVsqbCkB71Gz8mOnxBfWj07ocLVZjC6HAX4h7zk+bovNJNrkVkLO8G849zJ44mE/BWSZvOrVkjWQ4W2yMkjToBoXSt/XD65xzJTZRPJUQRruzydLv/eKoXFYBPmomoXzkpT7u8ZX5/h2sCB9EvlN7f8jn3vMJmhCLrNDB5dci6E01yKPW0+JMU8vXzJcQ+nPXKvskos8ITuPaKdZcHuF+38jzv6m8Qmuu7/m40AAPvFh27mX0mE6xYJcv3G4utDoOClOCd3dY0B2aOYJFtBCVLTQVNBQ7oefNsJt8ZHEqnddstmr32mSIpft9xVFqXKd9fIIlcBvkbY1EK8NOR3rOyBZ/QaX59eyPsSqXXCPd5OoJn1+5guy6l8pu6yLFiHsIhgvxcRJ4pSeEpwqDDXT1PVPN5qpZiFrjf54zcTgyldcyV1Kl/+ah5vojRnQ/gwZf81ennRxOju1mLiloz17Shl5tySDy200Hu1Y6hFoO73TiTeSeNOI8ihHEU8Pzzf3ZiOgKk8zeHq31VAbH/fRAZz3mP3DTyYTcPWX0fYkfz6AghaVtzRUO+gwq
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(39860400002)(136003)(396003)(346002)(451199015)(36840700001)(40470700004)(46966006)(81166007)(2906002)(356005)(5660300002)(44832011)(40460700003)(82740400003)(1076003)(186003)(336012)(2616005)(83380400001)(478600001)(82310400005)(26005)(41300700001)(6666004)(40480700001)(8936002)(8676002)(86362001)(36756003)(70206006)(4326008)(70586007)(54906003)(426003)(316002)(6916009)(47076005)(36860700001)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2022 07:19:32.6206
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fec4159c-159b-47cc-3b88-08da97b3cd61
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT094.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7074
+MIME-Version: 1.0
+Subject: [ovmf test] 173228: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-i386-libvirt:libvirt-build:fail:regression
+    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
+X-Osstest-Versions-This:
+    ovmf=3184e44df1042ae41c1cd8d2acaa47d7d30cd07c
+X-Osstest-Versions-That:
+    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 16 Sep 2022 07:56:06 +0000
 
-Using dprintk results in printing additionally file name and line
-number. This is something we do not want when printing regular
-information unconditionally as it looks like as if there was some issue.
-It also makes the logging inconsistent.
+flight 173228 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173228/
 
-Fix this by switching to printk because this information may also be
-helpful on the release builds (it would still require setting loglvl to
-"info" or lower level).
+Regressions :-(
 
-Fixes: 5597f32f409c ("xen/arm: assign static shared memory to the default owner dom_io")
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-Rationale for taking this patch for 4.17:
-Current code results in an abnormal behavior [1] and was introduced by
-the 4.17 feature (static shared memory). Even though it can only be seen
-on a debug build, it should be fixed now so that we have a consistent
-behavior across all the logs.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
 
-[1]:
-(XEN) arch/arm/domain_build.c:847: d0: allocate static shared memory BANK 0x00000070000000-0x00000080000000.
----
- xen/arch/arm/domain_build.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+version targeted for testing:
+ ovmf                 3184e44df1042ae41c1cd8d2acaa47d7d30cd07c
+baseline version:
+ ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 01c2aaccd82d..f47e77876a25 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -844,9 +844,9 @@ static int __init assign_shared_memory(struct domain *d,
-     unsigned long nr_pages, nr_borrowers, i;
-     struct page_info *page;
- 
--    dprintk(XENLOG_INFO,
--            "%pd: allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
--            d, pbase, pbase + psize);
-+    printk(XENLOG_INFO
-+           "%pd: allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
-+           d, pbase, pbase + psize);
- 
-     smfn = acquire_shared_memory_bank(d, pbase, psize);
-     if ( mfn_eq(smfn, INVALID_MFN) )
--- 
-2.25.1
+Last test of basis   172136  2022-08-04 06:43:42 Z   43 days
+Failing since        172151  2022-08-05 02:40:28 Z   42 days  318 attempts
+Testing same since   173218  2022-09-15 19:13:25 Z    0 days    4 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  "Lee, Chun-Yi" <jlee@suse.com>
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abner Chang <abner.chang@amd.com>
+  Annie Li <annie.li@oracle.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Baraneedharan Anbazhagan <anbazhagan@hp.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Bret Barkelew <bret.barkelew@microsoft.com>
+  Chasel Chiu <chasel.chiu@intel.com>
+  Chen, Xiao X <xiao.x.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Czajkowski, Maciej <maciej.czajkowski@intel.com>
+  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
+  Dun Tan <dun.tan@intel.com>
+  Edward Pickup <edward.pickup@arm.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Foster Nong <foster.nong@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gregx Yeh <gregx.yeh@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Igor Kulchytskyy <igork@ami.com>
+  James Lu <james.lu@intel.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jianyong Wu <jianyong.wu@arm.com>
+  Jiaxin Wu <jiaxin.wu@intel.com>
+  Jose Marinho <jose.marinho@arm.com>
+  KasimX Liu <kasimx.liu@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee, Chun-Yi <joeyli.kernel@gmail.com>
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Maciej Czajkowski <maciej.czajkowski@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Pierre Gondois <pierre.gondois@arm.com>
+  Pranav Madhu <pranav.madhu@arm.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Rohit Mathew <rohit.mathew@arm.com>
+  Sainadh Nagolu <sainadhn@ami.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Shengfengx Xue <shengfengx.xue@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  Wu, Jiaxin <jiaxin.wu@intel.com>
+  Xiao X Chen <xiao.x.chen@intel.com>
+  Yuan Yu <yuanyu@google.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2616 lines long.)
 
