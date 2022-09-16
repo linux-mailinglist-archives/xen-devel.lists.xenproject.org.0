@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22C745BA7A0
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Sep 2022 09:56:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.407832.650474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E6BD5BA7D0
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Sep 2022 10:08:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.407845.650488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oZ6Cl-0007Yv-Ul; Fri, 16 Sep 2022 07:56:07 +0000
+	id 1oZ6Ok-0001E4-FK; Fri, 16 Sep 2022 08:08:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 407832.650474; Fri, 16 Sep 2022 07:56:07 +0000
+Received: by outflank-mailman (output) from mailman id 407845.650488; Fri, 16 Sep 2022 08:08:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oZ6Cl-0007WE-Qt; Fri, 16 Sep 2022 07:56:07 +0000
-Received: by outflank-mailman (input) for mailman id 407832;
- Fri, 16 Sep 2022 07:56:07 +0000
+	id 1oZ6Ok-0001BQ-CU; Fri, 16 Sep 2022 08:08:30 +0000
+Received: by outflank-mailman (input) for mailman id 407845;
+ Fri, 16 Sep 2022 08:08:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oZ6Cl-0007W4-0R; Fri, 16 Sep 2022 07:56:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oZ6Oi-0001BK-C1
+ for xen-devel@lists.xenproject.org; Fri, 16 Sep 2022 08:08:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oZ6Ck-0000Xl-Uv; Fri, 16 Sep 2022 07:56:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oZ6Ck-0006wq-F6; Fri, 16 Sep 2022 07:56:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oZ6Ck-0000jv-Eh; Fri, 16 Sep 2022 07:56:06 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oZ6Oh-0001IV-U3; Fri, 16 Sep 2022 08:08:27 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=[10.95.124.157]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oZ6Oh-0003QU-NE; Fri, 16 Sep 2022 08:08:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,140 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7vGcbZHx7rPaW54tmUiKSdlve5bjJRbUzPDzpm+joiU=; b=zzHl2pIfOloL/U27uwGnEc58s/
-	Egy9NxjmdyHMGtlA68/zsF+VEabos6UqzZFIuZSa3Gk5jPtcXHo0bGzFT4S+k4qOUGwTUv4Ufv7ei
-	K69ieYwht4ES+Qt9+n5lj7EZZQFr7kQvOVYaO1jMBk83HLLNFj7xStL/+KdY92xTsj4o=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173228-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=QnhwE4lqNX67ACyIjdJQ4LLBo+ol2ALyF9rc7n2FJbE=; b=r6IUg4mGmT/6VOa5R/MTRKy84d
+	jmm9IpIxxRSL28UThogh8LFULsJYQZUUwSbZ8IC4D7csw0ARh2wt8Ton4Ux7mMnQogP3ROGU1CezU
+	6wb5Q7QSHAsf3ZwqiIe3vgIuSSStIZ+P6hQAwz1c4xc5IHTcL30wBgd1SmFaW2XZSZlM=;
+Message-ID: <4f4e254a-6b54-cdf7-40bc-89c25172bebf@xen.org>
+Date: Fri, 16 Sep 2022 09:08:25 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 173228: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-i386-libvirt:libvirt-build:fail:regression
-    ovmf:build-amd64-libvirt:libvirt-build:fail:regression
-X-Osstest-Versions-This:
-    ovmf=3184e44df1042ae41c1cd8d2acaa47d7d30cd07c
-X-Osstest-Versions-That:
-    ovmf=444260d45ec2a84e8f8c192b3539a3cd5591d009
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 16 Sep 2022 07:56:06 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.2
+Subject: Re: [for-4.17] xen/arm: domain_build: Do not use dprintk
+ unconditionally
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220916071920.8287-1-michal.orzel@amd.com>
+Content-Language: en-US
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220916071920.8287-1-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 173228 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173228/
+Hi,
 
-Regressions :-(
+On 16/09/2022 08:19, Michal Orzel wrote:
+> Using dprintk results in printing additionally file name and line
+> number. This is something we do not want when printing regular
+> information unconditionally as it looks like as if there was some issue.
+I am OK if you want to switch to a printk() but I disagree with this 
+argument. dprintk() is not about error, it is about anything that 
+doesn't matter in release build.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 172136
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 172136
+I don't think we should just switch to printk() because dprintk() add 
+the line/file. There are message we don't necessarily want to have in 
+release build. So dprintk(XENLOG_INFO, ...) would be right for them.
 
-version targeted for testing:
- ovmf                 3184e44df1042ae41c1cd8d2acaa47d7d30cd07c
-baseline version:
- ovmf                 444260d45ec2a84e8f8c192b3539a3cd5591d009
+Personally, I find them useful as there no grep required and/or 
+confusion (but that's a matter of taste). If it were me, I would add the 
+line/file everywhere. But I understand this takes space in the binary 
+(hence why this is not present in release build).
 
-Last test of basis   172136  2022-08-04 06:43:42 Z   43 days
-Failing since        172151  2022-08-05 02:40:28 Z   42 days  318 attempts
-Testing same since   173218  2022-09-15 19:13:25 Z    0 days    4 attempts
+A better argument to switch to printk() is this information is useful to 
+the user even outside of the debug build.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  "Lee, Chun-Yi" <jlee@suse.com>
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abner Chang <abner.chang@amd.com>
-  Annie Li <annie.li@oracle.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Baraneedharan Anbazhagan <anbazhagan@hp.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Bret Barkelew <bret.barkelew@microsoft.com>
-  Chasel Chiu <chasel.chiu@intel.com>
-  Chen, Xiao X <xiao.x.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Czajkowski, Maciej <maciej.czajkowski@intel.com>
-  Dimitrije Pavlov <Dimitrije.Pavlov@arm.com>
-  Dun Tan <dun.tan@intel.com>
-  Edward Pickup <edward.pickup@arm.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Foster Nong <foster.nong@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gregx Yeh <gregx.yeh@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Igor Kulchytskyy <igork@ami.com>
-  James Lu <james.lu@intel.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jianyong Wu <jianyong.wu@arm.com>
-  Jiaxin Wu <jiaxin.wu@intel.com>
-  Jose Marinho <jose.marinho@arm.com>
-  KasimX Liu <kasimx.liu@intel.com>
-  Kavya <k.kavyax.sravanthi@intel.com>
-  Konstantin Aladyshev <aladyshev22@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee, Chun-Yi <joeyli.kernel@gmail.com>
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Maciej Czajkowski <maciej.czajkowski@intel.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Pierre Gondois <pierre.gondois@arm.com>
-  Pranav Madhu <pranav.madhu@arm.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Rebecca Cran <rebecca@quicinc.com>
-  Rohit Mathew <rohit.mathew@arm.com>
-  Sainadh Nagolu <sainadhn@ami.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Shengfengx Xue <shengfengx.xue@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Wu, Jiaxin <jiaxin.wu@intel.com>
-  Xiao X Chen <xiao.x.chen@intel.com>
-  Yuan Yu <yuanyu@google.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
+> 
+> Fix this by switching to printk because this information may also be
+> helpful on the release builds (it would still require setting loglvl to
+> "info" or lower level).
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+I think we should drop XENLOG_INFO to be consistent with the other 
+printk() in domain_build.c (after all this is a domain information like 
+the other) or use XENLOG_INFO everywhere.
 
+My preference will be the former because otherwise most of the 
+information will not printed in release build by default.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> 
+> Fixes: 5597f32f409c ("xen/arm: assign static shared memory to the default owner dom_io")
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Fixes should only be used for bugs. This is not one.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> ---
+> Rationale for taking this patch for 4.17:
+> Current code results in an abnormal behavior [1] and was introduced by
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+It is not abnormal (see above). This is an expected behavior when you 
+use dprintk().
 
+> the 4.17 feature (static shared memory). Even though it can only be seen
+> on a debug build, it should be fixed now so that we have a consistent
+> behavior across all the logs.
 
-Not pushing.
+As I wrote above, I agree this should be printed in release build. But I 
+disagree with your arguments.
 
-(No revision log; it would be 2616 lines long.)
+Cheers,
+
+-- 
+Julien Grall
 
