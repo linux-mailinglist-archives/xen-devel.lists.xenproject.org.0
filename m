@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D88CB5BC4B5
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Sep 2022 10:50:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.408562.651305 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DCF55BC51D
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Sep 2022 11:13:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.408574.651328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaCTK-0003VW-GF; Mon, 19 Sep 2022 08:49:46 +0000
+	id 1oaCpa-0007Iu-Oe; Mon, 19 Sep 2022 09:12:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 408562.651305; Mon, 19 Sep 2022 08:49:46 +0000
+Received: by outflank-mailman (output) from mailman id 408574.651328; Mon, 19 Sep 2022 09:12:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaCTK-0003Sd-DK; Mon, 19 Sep 2022 08:49:46 +0000
-Received: by outflank-mailman (input) for mailman id 408562;
- Mon, 19 Sep 2022 08:49:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6dDj=ZW=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oaCTI-0003SX-KW
- for xen-devel@lists.xenproject.org; Mon, 19 Sep 2022 08:49:44 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2073.outbound.protection.outlook.com [40.107.22.73])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00e372ab-37f8-11ed-9647-05401a9f4f97;
- Mon, 19 Sep 2022 10:49:43 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PR3PR04MB7386.eurprd04.prod.outlook.com (2603:10a6:102:85::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.21; Mon, 19 Sep
- 2022 08:49:41 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::358f:58dc:c0c2:1155]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::358f:58dc:c0c2:1155%7]) with mapi id 15.20.5632.021; Mon, 19 Sep 2022
- 08:49:41 +0000
+	id 1oaCpa-0007Fr-L9; Mon, 19 Sep 2022 09:12:46 +0000
+Received: by outflank-mailman (input) for mailman id 408574;
+ Mon, 19 Sep 2022 09:12:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3sJ0=ZW=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1oaCpa-0007Fl-0i
+ for xen-devel@lists.xenproject.org; Mon, 19 Sep 2022 09:12:46 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2c4ec038-37fb-11ed-bad8-01ff208a15ba;
+ Mon, 19 Sep 2022 11:12:23 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id z25so45932663lfr.2
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 02:12:44 -0700 (PDT)
+Received: from jade.urgonet (h-79-136-84-253.A175.priv.bahnhof.se.
+ [79.136.84.253]) by smtp.gmail.com with ESMTPSA id
+ f3-20020a05651c02c300b0025fdf1af42asm4815394ljo.78.2022.09.19.02.12.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Sep 2022 02:12:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,112 +44,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00e372ab-37f8-11ed-9647-05401a9f4f97
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZMF/pfgPk8YYFDRVRevRD0YeAHd1nJOnthdIEkcGy/WgNmVvEbNlHy1B62pZTAM9fyLxjENoQ77xb17XULf4f1542DubFrZWKFbiFTZUF2ECUboJ8XnWVPpfIIuiywuNwDCjDxMdua+ByGHtKFCuPeTkvT6lMl7cunSrMV2Dv1QcZEumQnsP8SrouHRIIX0VaB0bV9qaVx3WxjrDazNMIZEF6gXeLkohYssX6kOAzi93/HKWN1VUinQ9p1ILZuHzhtTu4mRAiiDOz7PKZIjIPhsWwdF+FxRp4a1nDMVEga+eYowv5DSP1zxSI1YSujoEdm+kHCglfqgBDa97kIqEOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DoyiVSSKTAaGbNGdLpExynzIhvjdm0im6annt1PcpDA=;
- b=YIH6YVTrxs0KxKA4KwN5Mo/m3CAOLCDRF+LGWfzeuvnf/fgwrC3ZwFl0ZDcA7s7dMqJuGT48zRcugC0S2W8dIBzKSxQ+c0PDXa+t1b9UxmJ82FGPR6vWaCADkvextvS4CGejEC/2THt6Os0U2OKq91aPxLBJ7N/xRvJrchdWKxRgc8fe8/Q7oEjzUu/XLODd6uYFsi+9HTxWldMOX3Ziloe3cjNui0w0n9twdCzMKcgmtXwn5vlZ+z+x5rpKvttc//xTo6h4zhl/shpHsLM2CsStn+kLgd2ACalqi3FnUiHD9oh094Z4XuynuTwrAjMCjEY/5bL9Fe1K8+0SwxAk1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DoyiVSSKTAaGbNGdLpExynzIhvjdm0im6annt1PcpDA=;
- b=emVJ6TQzgnSQvW00dzDSM652BzH5aJmAS84O9HZFuJvib11rpQFIH0xnxKvkJv0ux2jERG8cvbaBZKD2ELmZV+6b11uZ5ek0PxDmLC8LRg2wfho6emgoVcyxjCsPQtu0pgcWnGR08zJ90CVHshFGBb1yZyAlzeNTW0ryESXmNU1m6RYuDrs8VtGG43539JHaQKnrUUtG/wpCx6KmADeCHXjC/uc1fFheqz6/CHUBMY+Gn/+kT0Aq/UM9jDowqx8+WJfx+/XEqvLOn8SHgE/troqSIcawY+pLd5oZ/tFIjpE7m/AFgJJ5CIx63LXTzHBaZFZHwwK8tNdraXBlcIhynA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <146598b5-2b98-3dc0-e9de-d23e7d83481e@suse.com>
-Date: Mon, 19 Sep 2022 10:49:39 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH v7 11/11] drivers/char: add console=ehci as an alias for
- console=dbgp
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.677e6604707b02741b065906ac6f3ea8f3a2f4ca.1663383053.git-series.marmarek@invisiblethingslab.com>
- <6832b5dd97a1cd09ea8060e64fe1e8c8310e4974.1663383053.git-series.marmarek@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <6832b5dd97a1cd09ea8060e64fe1e8c8310e4974.1663383053.git-series.marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0553.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:33b::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 2c4ec038-37fb-11ed-bad8-01ff208a15ba
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date;
+        bh=AfPstKk13JdIZMSlOZN4GRY7iYaNj9hgjfOeyJ3u/H0=;
+        b=Uj/5rHaYI73vHgrkjKMjL4/ZAg/JHHp0Q0p2aOLnB9mldSt2vZ5HYQ+ro9Gi1cbiGp
+         38qjgO09JySceBCZOFHlTQTqE069fipPRsJ/hkjotympEqRRoygT5mNog/tbXdXmjNV7
+         cmA68sGMAkl3Bset38htDuD9JhI40Dp7QM12l184gINxIYHT1jxIcb7kfSFoJIimNDrB
+         rVjE7AdyEW5DEsVvDfRqfiJm8OXQgtv5M9IwhgdVMsD+BJIi6YmLzWuu13m7IBpZcFaJ
+         G6s6ggQAs01MctWZdHLM6hNbYCHQbeRBS5qwjHXQA4zLHAObWgV4sR0cBzF/xRDOPD1M
+         9Wqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date;
+        bh=AfPstKk13JdIZMSlOZN4GRY7iYaNj9hgjfOeyJ3u/H0=;
+        b=1CcOMpjZL4R7RHMjn06eHaFos+DibhD/+cA7lWW5+TwXPSQeeZZT2YTOiY4vYUfxGz
+         msVfwgmBdjTCDQ1hNVJ+rBUE6oRShxbPBXRgENg18aZOFlhsiVCNVwRB04ozVDyMWMgO
+         9HbCddsO7gRzrTlLrxWKrrwaV9ao9JjLR3qjDvaHsPir4KIWhX9r0ofC/Ey0GbV2Mojz
+         wDIsVEyZihjl2Meqc2XXxN2NKzV4LcZ3B7qZwrbaX/Txxa9wfrxOtxCZe+auz/aBfAZC
+         9vRaMpj7uOsUNvP6/hhJatXdhpGkAPN61X+L75MAXfb7/jjPNLLvX3PNCqQszPs5s3fl
+         KjSg==
+X-Gm-Message-State: ACrzQf3fya4rSJ5W4tB1hJEbOJu8OAh6sRtyK8LvfCHMvLHzTCGmBGMs
+	LcqQNO4SoMFZTGGY2awXNYvsOeBt0T4usVJW
+X-Google-Smtp-Source: AMsMyM7YU7mNt6wj9pTfRwsVfqlk0vs2DcQvdvP8nZTxCFTm1Hp6dbMlkk8HEL/enIEKZM4U5ay7eA==
+X-Received: by 2002:a05:6512:370c:b0:49f:c4fb:8706 with SMTP id z12-20020a056512370c00b0049fc4fb8706mr363638lfr.635.1663578764018;
+        Mon, 19 Sep 2022 02:12:44 -0700 (PDT)
+From: Jens Wiklander <jens.wiklander@linaro.org>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand.Marquis@arm.com,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Marc Bonnici <marc.bonnici@arm.com>,
+	Achin Gupta <achin.gupta@arm.com>,
+	Jens Wiklander <jens.wiklander@linaro.org>
+Subject: [PATCH v6 0/9] Xen FF-A mediator
+Date: Mon, 19 Sep 2022 11:12:29 +0200
+Message-Id: <20220919091238.2068052-1-jens.wiklander@linaro.org>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PR3PR04MB7386:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bd96145-c262-4e0e-4765-08da9a1be446
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	7cwUuWhf3kBdIxg2OCfFXGw9xgaxMLtfpf1F7yOAqQhQqfo43bp8C8t3N20UjdSQyHmrOoCH+dzeKuM7TmJWJhKDn/H1NxSdfZ2zOX8WHFJDy3MN79y4IkSSRrUlh/d0YMbGep/BRR41BNd6hVhXfB6njSH4YZk+TbdQsqvhaaydI1bYowjtcX7oq7B5XuDrnHW8QN20teLXQa0GkeM9xcgZO0c2L+470X/fOKOzLWs1okQZz9F7bxMbkZsP9DJOXPruF5b29YYVIzLFgcEarrMASBS+HGjBDRskMHU77Nhgfgf1slMP9vauUbxkJV+ZGPScYbxK6bQGFXqTb5Fxw+ACi5+PIdi06eIrQ6PGkgTb96CF5nl6Tu/71k5vt5xmQ3q/6+ofqL5QCoq31i9yE0Tr/FoC1kYSOh52O2KJJ+ubBee3ocP4gSc/W8luRE/7BcT1qOCdUuM2O50vP2q65sqO+3UUeq/nO9E5kpjXZoBUQskpdWbyHHgufwrrSpnyobGa2oVlrwMKPCci2TowBYoSKWrZVZlWrjFNajKhSxbUE0aqWd93Bytagxfoi2532pFnXLmpemIU5AecL06E2aiEzBK4YkvMcTtX/Od8KT67gIBz2uAHyVwtkZ8s6g4n08DpOCHWwToPITwJjgAQ3xYe46vCq7fw1VeUTETIMJxC78gHhDBOLvXIOfwPvwt69bgdkv06dQqc3EIaToR7Lo36ZT/lv8VMDe4Ak2BOm5Af+4g6k80f3Uz6ojvzyzfjgVLO/+xHSLOSUS01RDQrnQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(376002)(39860400002)(346002)(396003)(366004)(451199015)(31686004)(38100700002)(6512007)(26005)(6506007)(8676002)(4326008)(2906002)(2616005)(54906003)(41300700001)(53546011)(31696002)(186003)(5660300002)(36756003)(478600001)(86362001)(8936002)(316002)(66946007)(66556008)(66476007)(558084003)(6916009)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MTVtYTZZdTNtb0VKaERveHdpdElGMGhvR0xDaVdJUWY5Z0VlOWtmUWNCWHVk?=
- =?utf-8?B?Ykt3bUtRTG5Ybm02MzNkK1psKzV0anZIeVo3N3VZdDVPMFdncEE0RnJ3ODVo?=
- =?utf-8?B?ODdLQkNYVy9GZkhOTjdvdFM3UTF4MEFvWFowZVMyd3JDdTBsMFVIeWpuVnFY?=
- =?utf-8?B?VW1mU0hJdFp5MXRZdnBlblgyOWhiOEhFemR2QjNIVytJekg4M2drVnBuMm5Z?=
- =?utf-8?B?ek94STFKL3A2OGdzSHFCcGhXSnpCTXoxVjE3MVY1Tm1FTVRhb282cE9zOHhO?=
- =?utf-8?B?REIwMTZQdCs4bUcybkdtSXF0Z2RwRC9LKzVRMHd2Q3plREw2MWlrVkVKY1h3?=
- =?utf-8?B?V1J4Tnd0SDJuWUJVNW91aCtvL2t0UFlRdWU3dG53M1J5Yy8yNG1BN3pQUEJj?=
- =?utf-8?B?MDE5d0JmNllMNS91SnRXOEgwSXhJU1pSNEZyaUM3WmlWSnZZcHFyUUE1eGcy?=
- =?utf-8?B?TmkwM0xHMnVvc0dGenpjZ0p4QXErWTJrdUNCVkQ2alloajBPU2FIQXY1Skhr?=
- =?utf-8?B?V0tESFBQazZhbG9xZ01nUGZlRmZNaXhjWWpJSEZxdkQxZkZNQ3MwYmtiTHU5?=
- =?utf-8?B?MWV1R0ZkeFhQcFN5T1NHOTM2UDgyMlpaTnQyMTJPV3IwNFRndTV1dytjeW5B?=
- =?utf-8?B?b3o3elBrT1ovUmZEdEJjTGJxOU1DNnk0VkM2bFhSbFc3Sm1IcGtGQkFSVERp?=
- =?utf-8?B?ZEZCS1J3S0paRVBrLzQ2alFGVjdRTnoyVWVGY3d6djhRVHBnZklwelU4RDkz?=
- =?utf-8?B?NWI2a2VidFNxUXJvSkdxdDg4MTNoWHFwVXlaWDFWNGQ3WThFQmprVDVGMWFL?=
- =?utf-8?B?c1NyMlhZb1ZRS3dXR053SGI4UGs4dXFFaCtHL2ZNK2dtZGZBTXk4UzMwVVNR?=
- =?utf-8?B?ZkMyWHdtbUtLYTc2elZBVUhFQ1FOWjNGcE1MZHVmYjhYZGVUY25TSC9SMTNU?=
- =?utf-8?B?eUtHSjJIZGk1bld6b3ZWcWRBdzVjcWoxdm9iUzd6cXBzZnJvbTBkcWk4VmJm?=
- =?utf-8?B?UStNOU1wN3R1Q1N3NEFJbVNHdjc3WGd1MDVXMWlKYWVZeG5BcVBlT2FJN213?=
- =?utf-8?B?TWM1SExlU3NnTWdlTWdJa0xOM0NtOW12VDcySWVNcEFZTG0xYmo5R0Q0OGp5?=
- =?utf-8?B?NTFBVHprUXdoS2xjQytyNTlTTHd0Y0hDZ2U2bmVrVktNTG51SVRwTnR6NXdx?=
- =?utf-8?B?TWkzN3o1WGc3am91UFdNeGdJYVQrdHVxK2JEaHBCanNtV1BBS3kxL1oweGR0?=
- =?utf-8?B?dmdLZjEzaGErQVpmT1BaaWxSMGxzMTNyOXQxU0xDU1dGZk1yTlhFbFdLVW9U?=
- =?utf-8?B?bXM5R3RkSlRNWk5SSkQzVGJ6OXVFa2dtOVk3WERQVzVqdys0Q215U2xBRy9W?=
- =?utf-8?B?Uk0vOFdqclhvd0k1N1JxWWp2Z3d1NnhzaHNGak5XeUZxSEN0M1hGaUFUbzJk?=
- =?utf-8?B?Q0RXamZZRW5DWU1nYzhBM1VBRUhXWUNwZTcwQkd1dkRlRnhYUEwzMHFNQ3ZB?=
- =?utf-8?B?T2ZicktJV1NKR2l2VlY1aTJ6QXRWRXFMelorc3p4TUtZYzJNeXpBeXNKNGNJ?=
- =?utf-8?B?Y3RPZ0xxSXRkdzRLcTBNNXU1TGI0aE9IaVp3M2ppYlFCS3JQamc0Yld6cFoy?=
- =?utf-8?B?cXVPTzJvMnIrMW81Vmc5L2dvRmZlSHpGWWUrVkNiYkdWcUREQ3RNY2pWWk1Y?=
- =?utf-8?B?TEx5VTNQYVQvdk5RRm5XMXZHOFpJN0lWYXU3YUw2d1lFbXgyYTJIbnc5cWJX?=
- =?utf-8?B?OGN5NEpZYjYzc05WbFp5eHhtWGZKNzVIamFTazRHMWVpZ2ZMSEtFZ0xiTTZz?=
- =?utf-8?B?aEV4WWc5T0xlaDZpMGpBbUxDa1AyRjErbTU0c2FEREZGYmZ5a3pXaUg4UWpX?=
- =?utf-8?B?ZEFiVWF3US9VUVFHVHVTMTg3Qit5Y204TlJiSWdPMGVZMmcwak9VZzl3SDlZ?=
- =?utf-8?B?MEUwYnRrK2haYVhwRzhSVlNTdm5vbUxidVJ6NkV0aDJWRkxyelhUdy8rYlZz?=
- =?utf-8?B?L093OFkvZXdyL2tuU0lWMHFlUVEwQnF1MHNoMDRXWlh3ZlRITXpzWmtnUDFw?=
- =?utf-8?B?RVlGOXN5QTQxTTZPMGhSS0EzVEc2UmlOSkxBRWNkRlJjSDFxWkFIOVU3L3lE?=
- =?utf-8?Q?F//++nxO2GkClAFlSudgoj44a?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bd96145-c262-4e0e-4765-08da9a1be446
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Sep 2022 08:49:41.3139
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kvOXW0IRtvBniLViR034UjwG4EyQoECTp/+ID4F64RDwzEqn4Cvqiz9pg8keWGzCSBn4FRWi14KjrzkMKvrewg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7386
+Content-Transfer-Encoding: 8bit
 
-On 17.09.2022 04:51, Marek Marczykowski-Górecki wrote:
-> Make it consistent with console=xhci.
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Hi,
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+This patch sets add a FF-A [1] mediator modeled after the TEE mediator
+already present in Xen. The FF-A mediator implements the subset of the FF-A
+1.1 specification needed to communicate with OP-TEE using FF-A as transport
+mechanism instead of SMC/HVC as with the TEE mediator. It allows a similar
+design in OP-TEE as with the TEE mediator where OP-TEE presents one virtual
+partition of itself to each guest in Xen.
+
+The FF-A mediator is generic in the sense it has nothing OP-TEE specific
+except that only the subset needed for OP-TEE is implemented so far. The
+hooks needed to inform OP-TEE that a guest is created or destroyed is part
+of the FF-A specification.
+
+It should be possible to extend the FF-A mediator to implement a larger
+portion of the FF-A 1.1 specification without breaking with the way OP-TEE
+is communicated with here. So it should be possible to support any TEE or
+Secure Partition using FF-A as transport with this mediator.
+
+[1] https://developer.arm.com/documentation/den0077/latest
+
+Thanks,
+Jens
+
+v5->v6:
+* Updated "xen/arm: move regpair_to_uint64() and uint64_to_regpair() to regs.h"
+  commit message and moved the patch right before the patch which needs it.
+  Applied Michal Orzel's R-B tag.
+* Renamed the guest configuration option "ffa_enabled" to "ffa" and
+  updated the description.
+* More tools update in "xen/arm: add a primitive FF-A mediator" with the "ffa"
+  option, including golang and ocaml.
+* Update ffa_domain_init() to return an error if communication with
+  the SPMC can't be established.
+* Factored out a ffa_domain_destroy() from ffa_relinquish_resources().
+* Added ffa_get_call_count() to give an accurate number of FF-A function,
+  updated in each patch as new FF-A functions are added.
+* Added a flags field in struct xen_arch_domainconfig that replaces the
+  ffa_enabled field.
+* Made check_mandatory_feature() __init
+* Replaced a few printk() calls with gprintk() where needed.
+* Rebased on staging as of 2022-09-14
+
+V4->v5:
+* Added "xen/arm: move regpair_to_uint64() and uint64_to_regpair() to regs.h"
+* Added documentation for the "ffa_enabled" guest config flag
+* Changed to GPL license for xen/arch/arm/ffa.c
+* Added __read_mostly and const where applicable
+* Added more describing comments in the code
+* Moved list of shared memory object ("ffa_mem_list") into the guest context
+  as they are guest specific
+* Simplified a few of the simple wrapper functions for SMC to SPMC
+* Added a BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE) since the mediator
+  currently depends on the page size to be same as FFA_PAGE_SIZE (4k).
+* Added max number of shared memory object per guest and max number of
+  size of each shared memory object
+* Added helper macros to calculate offsets of different FF-A data structures
+  in the communication buffer instead of relying on pointer arithmetic
+* Addressed style issues and other comments
+* Broke the commit "xen/arm: add FF-A mediator" into multiple parts, trying
+  to add a few features at a time as requested
+* Added a missing call to rxtx_unmap() in ffa_relinquish_resources()
+* Assignment of "ffa_enabled" is kept as is until I have something definitive
+  on the type etc.
+* Tested with CONFIG_DEBUG=y
+
+v3->v4:
+* Missed v3 and sent a v4 instead by mistake.
+
+v2->v3:
+* Generates offsets into struct arm_smccc_1_2_regs with asm-offsets.c in
+  order to avoid hard coded offsets in the assembly function
+  arm_smccc_1_2_smc()
+* Adds an entry in SUPPORT.md on the FF-A status
+* Adds a configuration variable "ffa_enabled" to tell if FF-A should be
+  enabled for a particular domu guest
+* Moves the ffa_frag_list for fragmented memory share requests into
+  struct ffa_ctx instead to keep it per guest in order to avoid mixups
+  and simplify locking
+* Adds a spinlock to struct ffa_ctx for per guest locking
+* Addressing style issues and suggestions
+* Uses FFA_FEATURES to check that all the needed features are available
+  before initializing the mediator
+* Rebased on staging as of 2022-06-20
+
+v1->v2:
+* Rebased on staging to resolve some merge conflicts as requested
+
+Jens Wiklander (9):
+  xen/arm: smccc: add support for SMCCCv1.2 extended input/output
+    registers
+  xen/arm: add a primitive FF-A mediator
+  xen/arm: ffa: add direct request support
+  xen/arm: ffa: map SPMC rx/tx buffers
+  xen/arm: ffa: send guest events to Secure Partitions
+  xen/arm: ffa: support mapping guest RX/TX buffers
+  xen/arm: ffa: support guest FFA_PARTITION_INFO_GET
+  xen/arm: move regpair_to_uint64() and uint64_to_regpair() to regs.h
+  xen/arm: ffa: support sharing memory
+
+ SUPPORT.md                           |    7 +
+ docs/man/xl.cfg.5.pod.in             |   15 +
+ tools/golang/xenlight/helpers.gen.go |    6 +
+ tools/golang/xenlight/types.gen.go   |    1 +
+ tools/include/libxl.h                |    6 +
+ tools/libs/light/libxl_arm.c         |    6 +
+ tools/libs/light/libxl_types.idl     |    1 +
+ tools/ocaml/libs/xc/xenctrl.ml       |    1 +
+ tools/ocaml/libs/xc/xenctrl.mli      |    1 +
+ tools/xl/xl_parse.c                  |    1 +
+ xen/arch/arm/Kconfig                 |   11 +
+ xen/arch/arm/Makefile                |    1 +
+ xen/arch/arm/arm64/asm-offsets.c     |    9 +
+ xen/arch/arm/arm64/smc.S             |   42 +
+ xen/arch/arm/domain.c                |   11 +
+ xen/arch/arm/domain_build.c          |    1 +
+ xen/arch/arm/ffa.c                   | 1827 ++++++++++++++++++++++++++
+ xen/arch/arm/include/asm/domain.h    |    4 +
+ xen/arch/arm/include/asm/ffa.h       |   78 ++
+ xen/arch/arm/include/asm/regs.h      |   12 +
+ xen/arch/arm/include/asm/smccc.h     |   40 +
+ xen/arch/arm/tee/optee.c             |   11 -
+ xen/arch/arm/vsmc.c                  |   19 +-
+ xen/include/public/arch-arm.h        |    4 +
+ 24 files changed, 2100 insertions(+), 15 deletions(-)
+ create mode 100644 xen/arch/arm/ffa.c
+ create mode 100644 xen/arch/arm/include/asm/ffa.h
+
+-- 
+2.31.1
 
 
