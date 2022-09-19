@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4630F5BD81A
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 01:19:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409042.651944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D5E65BD839
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 01:25:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409074.651965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaQ2f-0008B8-1Z; Mon, 19 Sep 2022 23:19:09 +0000
+	id 1oaQ8K-0002jC-1Q; Mon, 19 Sep 2022 23:25:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409042.651944; Mon, 19 Sep 2022 23:19:08 +0000
+Received: by outflank-mailman (output) from mailman id 409074.651965; Mon, 19 Sep 2022 23:24:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaQ2e-00087e-Rj; Mon, 19 Sep 2022 23:19:08 +0000
-Received: by outflank-mailman (input) for mailman id 409042;
- Mon, 19 Sep 2022 23:19:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oaQ8J-0002gZ-TZ; Mon, 19 Sep 2022 23:24:59 +0000
+Received: by outflank-mailman (input) for mailman id 409074;
+ Mon, 19 Sep 2022 23:24:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WN4B=ZW=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1oaQ2c-0004vz-SJ
- for xen-devel@lists.xenproject.org; Mon, 19 Sep 2022 23:19:07 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74b8b9ab-3871-11ed-9647-05401a9f4f97;
- Tue, 20 Sep 2022 01:19:05 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id y17so2191945ejo.6
- for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 16:19:05 -0700 (PDT)
+ id 1oaQ2j-0004MC-7V
+ for xen-devel@lists.xenproject.org; Mon, 19 Sep 2022 23:19:13 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 788365cf-3871-11ed-bad8-01ff208a15ba;
+ Tue, 20 Sep 2022 01:19:12 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id e18so1404318edj.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 16:19:12 -0700 (PDT)
 Received: from localhost.localdomain
  (dynamic-078-054-077-055.78.54.pool.telefonica.de. [78.54.77.55])
  by smtp.gmail.com with ESMTPSA id
- rn24-20020a170906d93800b00780f6071b5dsm4800926ejb.188.2022.09.19.16.18.59
+ rn24-20020a170906d93800b00780f6071b5dsm4800926ejb.188.2022.09.19.16.19.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Sep 2022 16:19:05 -0700 (PDT)
+ Mon, 19 Sep 2022 16:19:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,35 +45,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74b8b9ab-3871-11ed-9647-05401a9f4f97
+X-Inumbo-ID: 788365cf-3871-11ed-bad8-01ff208a15ba
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
-        bh=GY9FLwpbhpko1ROroTaJ6wfQD1OQmuRWRFOe6XO0HkE=;
-        b=WvtWhaz7RfTahuePkkE9xIcuGxfWCiGa1wTboB9PRKNnjFohCiK5pF4LK4IJs9vf5N
-         yZ9b8tZiP/Tk5sTxggCXSX9hx4EUFuokcV4BrpDDY1zJG3SQgv2WDt7AMvozCWevYw/y
-         FMq1uucw4j5Oqi3St2U+VPdyyKPs808bAQonJw6bTfZqftbvg4Azml8efQ5tZ1HTfiv1
-         i2uAlpDSRqaRvcSiFKosYvLwQd4zFza7DGwVf1WV4BT2+jgksxTrQDJm9O6L00Q8j9I8
-         4KmIJLgd7IBUyEMozx+cv/IZSOQLBXyIH5zHVtq82KU+JwLn3+FsLbrutbLKXuQqQsVI
-         bQYQ==
+        bh=CsS8/+NcmmUwF5Nr1L7YiFLpUSnCt26Ro0cbZ1iTpA0=;
+        b=LvQxLOmJmGVQ6sYu0MsAHfg8Ds6mykcGi7e3toDd9OFsfFEnWXTEkQZsRgcA0qsBVK
+         Ax5qZ/FGRkcXZjgQXjmpXzOndgONzyLEOfYdR+g0wP59Ui6GKvlOYss+hr/WgF94LAQG
+         ax/WwLFBL1+LRyQIy+7lhc0PSm9DLccB1NsqeZVjbmbqGQFnyw6exKqa/w0WN+cCU129
+         HszwSLx/FOWeL2QB5xupKDxKOyewPDDsvvE6piEkWTsl/i3Bmnlz2slYtvmUZUAw6hb3
+         NZGTv/8KL9eBHuB2KB1+1rAmJut32xrcuUgfT1HQYK6PmCKcw+vZEvVx72whU341ZIbN
+         rvxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date;
-        bh=GY9FLwpbhpko1ROroTaJ6wfQD1OQmuRWRFOe6XO0HkE=;
-        b=Gbcy3BOWpsXkTb8VssuD5vKyGHCeci6qGnuECfAlwzQC5CnR6oq25/8lb/YFHoJ91b
-         IC7+TaVNhZJOQEl93JcKswd2/op5SsbRECCvfAmaNckLepnw4RVLvvj9wdzvN/Y650jW
-         yO7VLoEuGPnL3hAp3X+ARieSUPxdi5E7ymf7P4t6Kjs6hUWGMk2C9gLqkkPaoSbLfaSw
-         CWzZWxctkApR9sNIUVtJZ6fzkNPTPmZvP+GdT5Z069qZYYpL76oeIO6tAaT8kImxwlZI
-         MY4upAAe1s78tL8M55R5R4yU/DRj8LO3MZODYf/y/VyNVlqOi8VJ82XZYT/Bnc6lKmC4
-         WAzg==
-X-Gm-Message-State: ACrzQf0BpCv9zsYA4tIXr6zizNbHh/bFmOxHowR1rXvEDwUE/fGg1/6Q
-	t52/mB+RqFg0Ga2AFMlNpxM=
-X-Google-Smtp-Source: AMsMyM4qkgaEMGM0QJXD77Pkxb2n4WftV+KsIglPwhyeQygcGRI6lNjr6tviLaBlIrFPXV7KHzllzg==
-X-Received: by 2002:a17:907:3e86:b0:6f5:917:10cc with SMTP id hs6-20020a1709073e8600b006f5091710ccmr15309153ejc.53.1663629545495;
-        Mon, 19 Sep 2022 16:19:05 -0700 (PDT)
+        bh=CsS8/+NcmmUwF5Nr1L7YiFLpUSnCt26Ro0cbZ1iTpA0=;
+        b=tXseVwCr54CW8/v1dVZ6TsAPeC3XpzmR1paSbaThURmzL8caBbmuqpNG5Kj6QzFDQF
+         ItGNwaBZ0YBMpyL5q+jGqw6+/SDIceBRkvPNHDpwI+669J+B8j35BvThm+IRmM+PRgn4
+         2n5nFTz0FQVx7uCC9AXA8yxMr00e5eMBqxYMdUZjXBRomyroQTQIZR/fJqi6hd1Etp95
+         gsZxAmPE1C7DvB7pAmh9naXWmutTvTsYAiJkebQ7R/fYeoo0MxxRj8iSrCZAyc1GWKMI
+         PYStEYDlR6YSsWw8K5UKy+d64NbvbwQXltnc4DuvX9FEhs3tAeF6LvScWCTdZvp+YjzC
+         IOcQ==
+X-Gm-Message-State: ACrzQf2vvugipFg6ek8eVQiKrFDs3HLzsdhv2MiB8NZ6tmgLIm4qKSTN
+	Z68DcHz6oCJsCXQuhPgvZkg=
+X-Google-Smtp-Source: AMsMyM54oAh1Hs8YDp/oSyEMdroOBdvLpZ3fCGRY2SIbSMd17jic9985Tclql7Fyu3Qp56FgVgfeBA==
+X-Received: by 2002:aa7:da83:0:b0:44e:69ba:81c7 with SMTP id q3-20020aa7da83000000b0044e69ba81c7mr17400003eds.323.1663629551883;
+        Mon, 19 Sep 2022 16:19:11 -0700 (PDT)
 From: Bernhard Beschow <shentey@gmail.com>
 To: qemu-devel@nongnu.org
 Cc: "Michael S. Tsirkin" <mst@redhat.com>,
@@ -160,224 +160,123 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>,
 	Alistair Francis <alistair@alistair23.me>,
 	Jason Herne <jjherne@linux.ibm.com>,
 	Bernhard Beschow <shentey@gmail.com>
-Subject: [PATCH 8/9] softmmu/physmem: Let SysBusState absorb memory region and address space singletons
-Date: Tue, 20 Sep 2022 01:17:19 +0200
-Message-Id: <20220919231720.163121-9-shentey@gmail.com>
+Subject: [PATCH 9/9] exec/address-spaces: Inline legacy functions
+Date: Tue, 20 Sep 2022 01:17:20 +0200
+Message-Id: <20220919231720.163121-10-shentey@gmail.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220919231720.163121-1-shentey@gmail.com>
 References: <20220919231720.163121-1-shentey@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These singletons are actually properties of the system bus but so far it
-hasn't been modelled that way. Fix this to make this relationship very
-obvious.
-
-The idea of the patch is to restrain futher proliferation of the use of
-get_system_memory() and get_system_io() which are "temprary interfaces"
-"until a proper bus interface is available". This should now be the
-case.
-
-Note that the new attributes are values rather than a pointers. This
-trades pointer dereferences for pointer arithmetic. The idea is to
-reduce cache misses - a rule of thumb says that every pointer
-dereference causes a cache miss while arithmetic is basically free.
+The functions just access a global pointer and perform some pointer
+arithmetic on top. Allow the compiler to see through this by inlining.
 
 Signed-off-by: Bernhard Beschow <shentey@gmail.com>
 ---
- include/exec/address-spaces.h | 19 ++++++++++++---
- include/hw/sysbus.h           |  6 +++++
- softmmu/physmem.c             | 46 ++++++++++++++++++-----------------
- 3 files changed, 45 insertions(+), 26 deletions(-)
+ include/exec/address-spaces.h | 30 ++++++++++++++++++++++++++----
+ softmmu/physmem.c             | 28 ----------------------------
+ 2 files changed, 26 insertions(+), 32 deletions(-)
 
 diff --git a/include/exec/address-spaces.h b/include/exec/address-spaces.h
-index d5c8cbd718..b31bd8dcf0 100644
+index b31bd8dcf0..182af27cad 100644
 --- a/include/exec/address-spaces.h
 +++ b/include/exec/address-spaces.h
-@@ -23,17 +23,28 @@
+@@ -23,29 +23,51 @@
  
  #ifndef CONFIG_USER_ONLY
  
--/* Get the root memory region.  This interface should only be used temporarily
-- * until a proper bus interface is available.
-+/**
-+ * Get the root memory region.  This is a legacy function, provided for
-+ * compatibility. Prefer using SysBusState::system_memory directly.
-  */
- MemoryRegion *get_system_memory(void);
- 
--/* Get the root I/O port region.  This interface should only be used
-- * temporarily until a proper bus interface is available.
-+/**
-+ * Get the root I/O port region.  This is a legacy function, provided for
-+ * compatibility. Prefer using SysBusState::system_io directly.
-  */
- MemoryRegion *get_system_io(void);
- 
-+/**
-+ * Get the root memory address space.  This is a legacy function, provided for
-+ * compatibility. Prefer using SysBusState::address_space_memory directly.
-+ */
- AddressSpace *get_address_space_memory(void);
++#include "hw/boards.h"
 +
-+/**
-+ * Get the root I/O port address space.  This is a legacy function, provided
-+ * for compatibility. Prefer using SysBusState::address_space_io directly.
-+ */
- AddressSpace *get_address_space_io(void);
- 
- #endif
-diff --git a/include/hw/sysbus.h b/include/hw/sysbus.h
-index 5bb3b88501..516e9091dc 100644
---- a/include/hw/sysbus.h
-+++ b/include/hw/sysbus.h
-@@ -17,6 +17,12 @@ struct SysBusState {
-     /*< private >*/
-     BusState parent_obj;
-     /*< public >*/
-+
-+    MemoryRegion system_memory;
-+    MemoryRegion system_io;
-+
-+    AddressSpace address_space_io;
-+    AddressSpace address_space_memory;
- };
- 
- #define TYPE_SYS_BUS_DEVICE "sys-bus-device"
-diff --git a/softmmu/physmem.c b/softmmu/physmem.c
-index 0ac920d446..07e9a9171c 100644
---- a/softmmu/physmem.c
-+++ b/softmmu/physmem.c
-@@ -86,12 +86,6 @@
+ /**
+  * Get the root memory region.  This is a legacy function, provided for
+  * compatibility. Prefer using SysBusState::system_memory directly.
   */
- RAMList ram_list = { .blocks = QLIST_HEAD_INITIALIZER(ram_list.blocks) };
- 
--static MemoryRegion *system_memory;
--static MemoryRegion *system_io;
--
--static AddressSpace address_space_io;
--static AddressSpace address_space_memory;
--
- static MemoryRegion io_mem_unassigned;
- 
- typedef struct PhysPageEntry PhysPageEntry;
-@@ -146,7 +140,7 @@ typedef struct subpage_t {
- #define PHYS_SECTION_UNASSIGNED 0
- 
- static void io_mem_init(void);
--static void memory_map_init(void);
-+static void memory_map_init(SysBusState *sysbus);
- static void tcg_log_global_after_sync(MemoryListener *listener);
- static void tcg_commit(MemoryListener *listener);
- 
-@@ -2667,37 +2661,45 @@ static void tcg_commit(MemoryListener *listener)
-     tlb_flush(cpuas->cpu);
- }
- 
--static void memory_map_init(void)
-+static void memory_map_init(SysBusState *sysbus)
- {
--    system_memory = g_malloc(sizeof(*system_memory));
-+    MemoryRegion *system_memory = &sysbus->system_memory;
-+    MemoryRegion *system_io = &sysbus->system_io;
- 
-     memory_region_init(system_memory, NULL, "system", UINT64_MAX);
--    address_space_init(&address_space_memory, system_memory, "memory");
-+    address_space_init(&sysbus->address_space_memory, system_memory, "memory");
- 
--    system_io = g_malloc(sizeof(*system_io));
-     memory_region_init_io(system_io, NULL, &unassigned_io_ops, NULL, "io",
-                           65536);
--    address_space_init(&address_space_io, system_io, "I/O");
-+    address_space_init(&sysbus->address_space_io, system_io, "I/O");
- }
- 
- MemoryRegion *get_system_memory(void)
- {
--    return system_memory;
+-MemoryRegion *get_system_memory(void);
++inline MemoryRegion *get_system_memory(void)
++{
 +    assert(current_machine);
 +
 +    return &current_machine->main_system_bus.system_memory;
- }
++}
  
- MemoryRegion *get_system_io(void)
- {
--    return system_io;
+ /**
+  * Get the root I/O port region.  This is a legacy function, provided for
+  * compatibility. Prefer using SysBusState::system_io directly.
+  */
+-MemoryRegion *get_system_io(void);
++inline MemoryRegion *get_system_io(void)
++{
 +    assert(current_machine);
 +
 +    return &current_machine->main_system_bus.system_io;
- }
++}
  
- AddressSpace *get_address_space_memory(void)
- {
--    return &address_space_memory;
+ /**
+  * Get the root memory address space.  This is a legacy function, provided for
+  * compatibility. Prefer using SysBusState::address_space_memory directly.
+  */
+-AddressSpace *get_address_space_memory(void);
++inline AddressSpace *get_address_space_memory(void)
++{
 +    assert(current_machine);
 +
 +    return &current_machine->main_system_bus.address_space_memory;
- }
++}
  
- AddressSpace *get_address_space_io(void)
- {
--    return &address_space_io;
+ /**
+  * Get the root I/O port address space.  This is a legacy function, provided
+  * for compatibility. Prefer using SysBusState::address_space_io directly.
+  */
+-AddressSpace *get_address_space_io(void);
++inline AddressSpace *get_address_space_io(void)
++{
 +    assert(current_machine);
 +
 +    return &current_machine->main_system_bus.address_space_io;
++}
+ 
+ #endif
+ 
+diff --git a/softmmu/physmem.c b/softmmu/physmem.c
+index 07e9a9171c..dce088f55c 100644
+--- a/softmmu/physmem.c
++++ b/softmmu/physmem.c
+@@ -2674,34 +2674,6 @@ static void memory_map_init(SysBusState *sysbus)
+     address_space_init(&sysbus->address_space_io, system_io, "I/O");
  }
  
+-MemoryRegion *get_system_memory(void)
+-{
+-    assert(current_machine);
+-
+-    return &current_machine->main_system_bus.system_memory;
+-}
+-
+-MemoryRegion *get_system_io(void)
+-{
+-    assert(current_machine);
+-
+-    return &current_machine->main_system_bus.system_io;
+-}
+-
+-AddressSpace *get_address_space_memory(void)
+-{
+-    assert(current_machine);
+-
+-    return &current_machine->main_system_bus.address_space_memory;
+-}
+-
+-AddressSpace *get_address_space_io(void)
+-{
+-    assert(current_machine);
+-
+-    return &current_machine->main_system_bus.address_space_io;
+-}
+-
  static void invalidate_and_set_dirty(MemoryRegion *mr, hwaddr addr,
-@@ -3003,7 +3005,7 @@ MemTxResult address_space_set(AddressSpace *as, hwaddr addr,
- void cpu_physical_memory_rw(hwaddr addr, void *buf,
-                             hwaddr len, bool is_write)
+                                      hwaddr length)
  {
--    address_space_rw(&address_space_memory, addr, MEMTXATTRS_UNSPECIFIED,
-+    address_space_rw(get_address_space_memory(), addr, MEMTXATTRS_UNSPECIFIED,
-                      buf, len, is_write);
- }
- 
-@@ -3074,7 +3076,7 @@ void cpu_flush_icache_range(hwaddr start, hwaddr len)
-         return;
-     }
- 
--    address_space_write_rom_internal(&address_space_memory,
-+    address_space_write_rom_internal(get_address_space_memory(),
-                                      start, MEMTXATTRS_UNSPECIFIED,
-                                      NULL, len, FLUSH_CACHE);
- }
-@@ -3140,7 +3142,7 @@ void cpu_exec_init_all(void)
-      */
-     finalize_target_page_bits();
-     io_mem_init();
--    memory_map_init();
-+    memory_map_init(&current_machine->main_system_bus);
-     qemu_mutex_init(&map_client_list_lock);
- }
- 
-@@ -3322,14 +3324,14 @@ void *cpu_physical_memory_map(hwaddr addr,
-                               hwaddr *plen,
-                               bool is_write)
- {
--    return address_space_map(&address_space_memory, addr, plen, is_write,
-+    return address_space_map(get_address_space_memory(), addr, plen, is_write,
-                              MEMTXATTRS_UNSPECIFIED);
- }
- 
- void cpu_physical_memory_unmap(void *buffer, hwaddr len,
-                                bool is_write, hwaddr access_len)
- {
--    return address_space_unmap(&address_space_memory, buffer, len,
-+    return address_space_unmap(get_address_space_memory(), buffer, len,
-                                is_write, access_len);
- }
- 
-@@ -3554,7 +3556,7 @@ bool cpu_physical_memory_is_io(hwaddr phys_addr)
-     bool res;
- 
-     RCU_READ_LOCK_GUARD();
--    mr = address_space_translate(&address_space_memory,
-+    mr = address_space_translate(get_address_space_memory(),
-                                  phys_addr, &phys_addr, &l, false,
-                                  MEMTXATTRS_UNSPECIFIED);
- 
 -- 
 2.37.3
 
