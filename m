@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9B765BD811
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 01:18:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409016.651866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 376D95BD814
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 01:18:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409017.651877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaQ1x-0004ef-Ao; Mon, 19 Sep 2022 23:18:25 +0000
+	id 1oaQ24-00051e-Jl; Mon, 19 Sep 2022 23:18:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409016.651866; Mon, 19 Sep 2022 23:18:25 +0000
+Received: by outflank-mailman (output) from mailman id 409017.651877; Mon, 19 Sep 2022 23:18:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaQ1x-0004cM-6E; Mon, 19 Sep 2022 23:18:25 +0000
-Received: by outflank-mailman (input) for mailman id 409016;
- Mon, 19 Sep 2022 23:18:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oaQ24-0004xm-G8; Mon, 19 Sep 2022 23:18:32 +0000
+Received: by outflank-mailman (input) for mailman id 409017;
+ Mon, 19 Sep 2022 23:18:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WN4B=ZW=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1oaQ1v-0004MC-Iz
- for xen-devel@lists.xenproject.org; Mon, 19 Sep 2022 23:18:23 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5affec36-3871-11ed-bad8-01ff208a15ba;
- Tue, 20 Sep 2022 01:18:22 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id z2so1412038edi.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 16:18:22 -0700 (PDT)
+ id 1oaQ22-0004vz-4n
+ for xen-devel@lists.xenproject.org; Mon, 19 Sep 2022 23:18:30 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ea1020b-3871-11ed-9647-05401a9f4f97;
+ Tue, 20 Sep 2022 01:18:29 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id m3so1324025eda.12
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 16:18:28 -0700 (PDT)
 Received: from localhost.localdomain
  (dynamic-078-054-077-055.78.54.pool.telefonica.de. [78.54.77.55])
  by smtp.gmail.com with ESMTPSA id
- rn24-20020a170906d93800b00780f6071b5dsm4800926ejb.188.2022.09.19.16.18.16
+ rn24-20020a170906d93800b00780f6071b5dsm4800926ejb.188.2022.09.19.16.18.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Sep 2022 16:18:22 -0700 (PDT)
+ Mon, 19 Sep 2022 16:18:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,35 +45,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5affec36-3871-11ed-bad8-01ff208a15ba
+X-Inumbo-ID: 5ea1020b-3871-11ed-9647-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
-        bh=Fjo518UYX1pucjz3VPXRbua9nNVIHRhAk9ua0pzX1XA=;
-        b=lbugUhiXpcHvVHxmNQCd7XhVHqDDxchx16Djox3J75B7ePDdncyCGse6eZA2NqPqFh
-         hr1ilTebkO5lbr+2+TZ5mEGLS4PtyKRFbfCqqAv12AEVAMkQWO0zrazSj3q2ZqeRKBT/
-         NbDJbiJXOnw+DznNgyjbvAx0+B4DavYnJ8efSi50qdYGRhMcVApJ9LYs+43cIJnPnFH9
-         p7WTSOkQVMZ/TBIgKfij+g6XFoQIUWCHughrTftkcd/1hY2CNeeMm/CAqplFQVur0kCT
-         P6Vi6hDAGyycMZR5ghfx4ycMPoY3eP4zAl+AtKcz4IBZGYhSpX7tdpCvm4nrUNQHxaPV
-         fQVA==
+        bh=YuQwXC400wn1XG3lPzRkN46CWgPRCmkTZD5KrMqPnvc=;
+        b=OfOTlhHIdUYcoHKPguW/SrroW/2HH31KpnqDNx1VDOdScP9GFw+hcz6wLKt9qwYKmr
+         tUiVUE0COMOBBIwnlZk33ru5T+PAhA69FfCE40NYduQ5A2+ZLn3WJwfMhsySvcTEX8NG
+         kUvI2CGts6p4THnGkq0xeeKDTU5xPudeCwmi2+6sBCLSQZmuxjpnNtMXwBahzmJp9kZR
+         Ylpol3lEYtvuiLAmcekgtLJXtFpD/8AjmspSTSwXdjX14Lafob9CFzE0RecWT58O2Hq9
+         Vl+Tlro5icVzofsz7kyjKQ+0/Ll3mwbPbZepIT1+f4hmtu3MFNqsfZTqVJBagsK7iMxp
+         9/+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date;
-        bh=Fjo518UYX1pucjz3VPXRbua9nNVIHRhAk9ua0pzX1XA=;
-        b=JZVvydJR8bFgKXJxRTpjmPA+aLxXk02b1DDdGISGpzrDNOYqcLJThpK63OGc9kBALf
-         KfOtv8oux9N3FJsBgKdh21P42gHl3eayJjoYl5dour4jr7Y/WAxUgi+1xEmTPhc8WnmE
-         rUTcAVMv6dXu4AhSGex8uv4N1Iub9RfkS4/JcJAX0rFXzkluYdc2ZmOPlyPl8YQgCC5Q
-         +mCjOn6qiv8Y3i8XR+pb70a+ZDVn29Evis8iiDEyqDO0lonSGAnC1jdtCQG4y0lSPWKB
-         chU1WXngTVHfm3Zj4DpXuGfDKjQlF+ZJVs3k9goFLynhSytBvt/hP9CU1zlIGuAky9DM
-         t3ew==
-X-Gm-Message-State: ACrzQf0gg9fjqcZEuIUPhoL0b7D3He9uLpkuuQyUFB3n8oeoxD9qss2o
-	IlhsiasTm/eG/i5TN32XnMc=
-X-Google-Smtp-Source: AMsMyM59+Un1+bbndkQl90bc+w6Ku/wLNzkfWCb5H+mf7flr0JF2IyQRo4Sr55rK2P8tkNt3yzBwMA==
-X-Received: by 2002:a50:fc9a:0:b0:454:6a56:7d27 with SMTP id f26-20020a50fc9a000000b004546a567d27mr470765edq.73.1663629502405;
-        Mon, 19 Sep 2022 16:18:22 -0700 (PDT)
+        bh=YuQwXC400wn1XG3lPzRkN46CWgPRCmkTZD5KrMqPnvc=;
+        b=oHE6emLB8xbszUOMZBMgLpLA16eL8iPrP/OxndVlLR5292mfos8tiazfKKR+OGM03l
+         N2IFNvAvVhc4Cq9jHO+ul0Lymq698O0vKcFQyFMxy7+5TpYTTpU5K1UMaZIl2ZNQwUf3
+         ut7Ncg3HUk2cZ01C0aozZFnew7ZK7TkW5RsjCc9N9sdn6dmSunZJrrt+9hoaOUezYHwN
+         v0xziZ14pWKTMN55+yG792Ql7qH+TDL4+gRIuesCUUkb/GEdlpxiuUvn39+b9fj655pk
+         64lZxL3YsmMMg9D5f9dIfvHR9RpUJEeI6inl1BYcYfEGGiciQmSEXwBoTtPMMtzrDFuu
+         kkKA==
+X-Gm-Message-State: ACrzQf3eP0I8zkatJhCIT1X4W/rpcCcmnB4tAk3EeJzD4VP0gGk3i+PG
+	EkFBif2Aj5EkIUx0yaeiY6o=
+X-Google-Smtp-Source: AMsMyM4dA5dnazvKBz2RVfKC8EJQkafmLFlSOVYf1X2uY4aMLi4DKxlHP7A25Z9KlTvDpLqBqvU2+Q==
+X-Received: by 2002:a05:6402:1b06:b0:44e:a073:1dd8 with SMTP id by6-20020a0564021b0600b0044ea0731dd8mr16910792edb.391.1663629508436;
+        Mon, 19 Sep 2022 16:18:28 -0700 (PDT)
 From: Bernhard Beschow <shentey@gmail.com>
 To: qemu-devel@nongnu.org
 Cc: "Michael S. Tsirkin" <mst@redhat.com>,
@@ -160,48 +160,34 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>,
 	Alistair Francis <alistair@alistair23.me>,
 	Jason Herne <jjherne@linux.ibm.com>,
 	Bernhard Beschow <shentey@gmail.com>
-Subject: [PATCH 1/9] hw/riscv/sifive_e: Fix inheritance of SiFiveEState
-Date: Tue, 20 Sep 2022 01:17:12 +0200
-Message-Id: <20220919231720.163121-2-shentey@gmail.com>
+Subject: [PATCH 2/9] exec/hwaddr.h: Add missing include
+Date: Tue, 20 Sep 2022 01:17:13 +0200
+Message-Id: <20220919231720.163121-3-shentey@gmail.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20220919231720.163121-1-shentey@gmail.com>
 References: <20220919231720.163121-1-shentey@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SiFiveEState inherits from SysBusDevice while it's TypeInfo claims it to
-inherit from TYPE_MACHINE. This is an inconsistency which can cause
-undefined behavior such as memory corruption.
-
-Change SiFiveEState to inherit from MachineState since it is registered
-as a machine.
+The next commit would not compile w/o the include directive.
 
 Signed-off-by: Bernhard Beschow <shentey@gmail.com>
 ---
- include/hw/riscv/sifive_e.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/exec/hwaddr.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/hw/riscv/sifive_e.h b/include/hw/riscv/sifive_e.h
-index 83604da805..d738745925 100644
---- a/include/hw/riscv/sifive_e.h
-+++ b/include/hw/riscv/sifive_e.h
-@@ -22,6 +22,7 @@
- #include "hw/riscv/riscv_hart.h"
- #include "hw/riscv/sifive_cpu.h"
- #include "hw/gpio/sifive_gpio.h"
-+#include "hw/boards.h"
+diff --git a/include/exec/hwaddr.h b/include/exec/hwaddr.h
+index 8f16d179a8..616255317c 100644
+--- a/include/exec/hwaddr.h
++++ b/include/exec/hwaddr.h
+@@ -3,6 +3,7 @@
+ #ifndef HWADDR_H
+ #define HWADDR_H
  
- #define TYPE_RISCV_E_SOC "riscv.sifive.e.soc"
- #define RISCV_E_SOC(obj) \
-@@ -41,7 +42,7 @@ typedef struct SiFiveESoCState {
++#include "qemu/osdep.h"
  
- typedef struct SiFiveEState {
-     /*< private >*/
--    SysBusDevice parent_obj;
-+    MachineState parent_obj;
- 
-     /*< public >*/
-     SiFiveESoCState soc;
+ #define HWADDR_BITS 64
+ /* hwaddr is the type of a physical address (its size can
 -- 
 2.37.3
 
