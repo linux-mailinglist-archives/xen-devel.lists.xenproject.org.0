@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DCF55BC51D
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A9EF5BC517
 	for <lists+xen-devel@lfdr.de>; Mon, 19 Sep 2022 11:13:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.408574.651328 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.408575.651338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaCpa-0007Iu-Oe; Mon, 19 Sep 2022 09:12:46 +0000
+	id 1oaCpd-0007YP-4p; Mon, 19 Sep 2022 09:12:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 408574.651328; Mon, 19 Sep 2022 09:12:46 +0000
+Received: by outflank-mailman (output) from mailman id 408575.651338; Mon, 19 Sep 2022 09:12:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaCpa-0007Fr-L9; Mon, 19 Sep 2022 09:12:46 +0000
-Received: by outflank-mailman (input) for mailman id 408574;
- Mon, 19 Sep 2022 09:12:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oaCpd-0007Vn-1j; Mon, 19 Sep 2022 09:12:49 +0000
+Received: by outflank-mailman (input) for mailman id 408575;
+ Mon, 19 Sep 2022 09:12:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3sJ0=ZW=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1oaCpa-0007Fl-0i
- for xen-devel@lists.xenproject.org; Mon, 19 Sep 2022 09:12:46 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c4ec038-37fb-11ed-bad8-01ff208a15ba;
- Mon, 19 Sep 2022 11:12:23 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id z25so45932663lfr.2
- for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 02:12:44 -0700 (PDT)
+ id 1oaCpb-0007S6-OT
+ for xen-devel@lists.xenproject.org; Mon, 19 Sep 2022 09:12:47 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39a953fc-37fb-11ed-9647-05401a9f4f97;
+ Mon, 19 Sep 2022 11:12:46 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id a14so30954049ljj.8
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 02:12:46 -0700 (PDT)
 Received: from jade.urgonet (h-79-136-84-253.A175.priv.bahnhof.se.
  [79.136.84.253]) by smtp.gmail.com with ESMTPSA id
- f3-20020a05651c02c300b0025fdf1af42asm4815394ljo.78.2022.09.19.02.12.42
+ f3-20020a05651c02c300b0025fdf1af42asm4815394ljo.78.2022.09.19.02.12.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Sep 2022 02:12:43 -0700 (PDT)
+ Mon, 19 Sep 2022 02:12:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c4ec038-37fb-11ed-bad8-01ff208a15ba
+X-Inumbo-ID: 39a953fc-37fb-11ed-9647-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date;
-        bh=AfPstKk13JdIZMSlOZN4GRY7iYaNj9hgjfOeyJ3u/H0=;
-        b=Uj/5rHaYI73vHgrkjKMjL4/ZAg/JHHp0Q0p2aOLnB9mldSt2vZ5HYQ+ro9Gi1cbiGp
-         38qjgO09JySceBCZOFHlTQTqE069fipPRsJ/hkjotympEqRRoygT5mNog/tbXdXmjNV7
-         cmA68sGMAkl3Bset38htDuD9JhI40Dp7QM12l184gINxIYHT1jxIcb7kfSFoJIimNDrB
-         rVjE7AdyEW5DEsVvDfRqfiJm8OXQgtv5M9IwhgdVMsD+BJIi6YmLzWuu13m7IBpZcFaJ
-         G6s6ggQAs01MctWZdHLM6hNbYCHQbeRBS5qwjHXQA4zLHAObWgV4sR0cBzF/xRDOPD1M
-         9Wqw==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
+        bh=NUUOOqYydiRztk2+PXHvZdFqULJvxVlGXUcw0oHBVH8=;
+        b=pOsW907B4i0eugdEEMl5LxmCXFPIdoH958yELCS0//NTftT/UReY0PZxEZ7NzXMPOY
+         vN0wvrNrSHVqywfibzPJ87+zN/Ws1YI1+guEKJyM7zWNJP5t6WQuCk5zbt28j5c7cR5V
+         4/B71UkVlvaky0/DrgRqMhlcquWI0/lDSSWPsjYfP2pXELO4g1V+xIgM9GDRmB6pjpLJ
+         gn4cUbq5gxM20JfY76j20uIo96soNq3fSLwSb1zKgblyGvM0RBNd89JH433IKWdXcwaM
+         7IWzwmQQkoD7jtXorQwLmvvrH4MTRroTsM0TvXSpiIT5Vy2lbegtdabxScRB+BypjdPH
+         hxuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date;
-        bh=AfPstKk13JdIZMSlOZN4GRY7iYaNj9hgjfOeyJ3u/H0=;
-        b=1CcOMpjZL4R7RHMjn06eHaFos+DibhD/+cA7lWW5+TwXPSQeeZZT2YTOiY4vYUfxGz
-         msVfwgmBdjTCDQ1hNVJ+rBUE6oRShxbPBXRgENg18aZOFlhsiVCNVwRB04ozVDyMWMgO
-         9HbCddsO7gRzrTlLrxWKrrwaV9ao9JjLR3qjDvaHsPir4KIWhX9r0ofC/Ey0GbV2Mojz
-         wDIsVEyZihjl2Meqc2XXxN2NKzV4LcZ3B7qZwrbaX/Txxa9wfrxOtxCZe+auz/aBfAZC
-         9vRaMpj7uOsUNvP6/hhJatXdhpGkAPN61X+L75MAXfb7/jjPNLLvX3PNCqQszPs5s3fl
-         KjSg==
-X-Gm-Message-State: ACrzQf3fya4rSJ5W4tB1hJEbOJu8OAh6sRtyK8LvfCHMvLHzTCGmBGMs
-	LcqQNO4SoMFZTGGY2awXNYvsOeBt0T4usVJW
-X-Google-Smtp-Source: AMsMyM7YU7mNt6wj9pTfRwsVfqlk0vs2DcQvdvP8nZTxCFTm1Hp6dbMlkk8HEL/enIEKZM4U5ay7eA==
-X-Received: by 2002:a05:6512:370c:b0:49f:c4fb:8706 with SMTP id z12-20020a056512370c00b0049fc4fb8706mr363638lfr.635.1663578764018;
-        Mon, 19 Sep 2022 02:12:44 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date;
+        bh=NUUOOqYydiRztk2+PXHvZdFqULJvxVlGXUcw0oHBVH8=;
+        b=CatYY8vJCxWUtfMaE2UiNkqZM9ev35f5iSiCLQHnR/tMqZjQoYOafL/LNmvLZniDH3
+         TuNYaDIkAFu5xYXVIlBI8DXhm+ujCmwQF1g4IfrgKZFw+mQzxAD7w8/hp65HncrcTFcK
+         QQHhHR7Of2uAUhAFnGuVjxC084Isy52kQ2AwG28Fm0R74g817so9YoeSyuUrYsEEAw2X
+         otDijT4NP5mKPnsbM9khAzwoX18gpbPQtHtf6FbwPqlUmqqgUe+BhkwiT5ew9+QUQfh0
+         GCcWuCfHEKQ/W9fEkxV2XMhq59wC+O6QwL8NI3kcug0IRSOh92oH8iIO28FfjPf3h1UF
+         3/+g==
+X-Gm-Message-State: ACrzQf0Mn6mZRXMyPi+3fVvOP+9uPFmiGYgrrvkSPQhtej7IzDCWqZZg
+	LU0TvZ6hgN5or9Ogmjf3fZHGGyNuD2YtMQ==
+X-Google-Smtp-Source: AMsMyM5s2r1MCsUEqCwIfhgAOWd42+fV7GRVsCB/L54JET58STh/4c5m0fGQ7ZiUkFrJNDjeUYy5Iw==
+X-Received: by 2002:a2e:940f:0:b0:261:b9ca:6207 with SMTP id i15-20020a2e940f000000b00261b9ca6207mr4956248ljh.192.1663578765398;
+        Mon, 19 Sep 2022 02:12:45 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -83,142 +84,184 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
 	Marc Bonnici <marc.bonnici@arm.com>,
 	Achin Gupta <achin.gupta@arm.com>,
-	Jens Wiklander <jens.wiklander@linaro.org>
-Subject: [PATCH v6 0/9] Xen FF-A mediator
-Date: Mon, 19 Sep 2022 11:12:29 +0200
-Message-Id: <20220919091238.2068052-1-jens.wiklander@linaro.org>
+	Jens Wiklander <jens.wiklander@linaro.org>,
+	Luca Fancellu <luca.fancellu@arm.com>
+Subject: [PATCH v6 1/9] xen/arm: smccc: add support for SMCCCv1.2 extended input/output registers
+Date: Mon, 19 Sep 2022 11:12:30 +0200
+Message-Id: <20220919091238.2068052-2-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20220919091238.2068052-1-jens.wiklander@linaro.org>
+References: <20220919091238.2068052-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+SMCCC v1.2 [1] AArch64 allows x0-x17 to be used as both parameter
+registers and result registers for the SMC and HVC instructions.
 
-This patch sets add a FF-A [1] mediator modeled after the TEE mediator
-already present in Xen. The FF-A mediator implements the subset of the FF-A
-1.1 specification needed to communicate with OP-TEE using FF-A as transport
-mechanism instead of SMC/HVC as with the TEE mediator. It allows a similar
-design in OP-TEE as with the TEE mediator where OP-TEE presents one virtual
-partition of itself to each guest in Xen.
+Arm Firmware Framework for Armv8-A specification makes use of x0-x7 as
+parameter and result registers.
 
-The FF-A mediator is generic in the sense it has nothing OP-TEE specific
-except that only the subset needed for OP-TEE is implemented so far. The
-hooks needed to inform OP-TEE that a guest is created or destroyed is part
-of the FF-A specification.
+Let us add new interface to support this extended set of input/output
+registers.
 
-It should be possible to extend the FF-A mediator to implement a larger
-portion of the FF-A 1.1 specification without breaking with the way OP-TEE
-is communicated with here. So it should be possible to support any TEE or
-Secure Partition using FF-A as transport with this mediator.
+This is based on 3fdc0cb59d97 ("arm64: smccc: Add support for SMCCCv1.2
+extended input/output registers") by Sudeep Holla from the Linux kernel
 
-[1] https://developer.arm.com/documentation/den0077/latest
+The SMCCC version reported to the VM is bumped to 1.2 in order to support
+handling FF-A messages.
 
-Thanks,
-Jens
+[1] https://developer.arm.com/documentation/den0028/c/?lang=en
 
-v5->v6:
-* Updated "xen/arm: move regpair_to_uint64() and uint64_to_regpair() to regs.h"
-  commit message and moved the patch right before the patch which needs it.
-  Applied Michal Orzel's R-B tag.
-* Renamed the guest configuration option "ffa_enabled" to "ffa" and
-  updated the description.
-* More tools update in "xen/arm: add a primitive FF-A mediator" with the "ffa"
-  option, including golang and ocaml.
-* Update ffa_domain_init() to return an error if communication with
-  the SPMC can't be established.
-* Factored out a ffa_domain_destroy() from ffa_relinquish_resources().
-* Added ffa_get_call_count() to give an accurate number of FF-A function,
-  updated in each patch as new FF-A functions are added.
-* Added a flags field in struct xen_arch_domainconfig that replaces the
-  ffa_enabled field.
-* Made check_mandatory_feature() __init
-* Replaced a few printk() calls with gprintk() where needed.
-* Rebased on staging as of 2022-09-14
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+---
+ xen/arch/arm/arm64/asm-offsets.c |  9 +++++++
+ xen/arch/arm/arm64/smc.S         | 42 ++++++++++++++++++++++++++++++++
+ xen/arch/arm/include/asm/smccc.h | 40 ++++++++++++++++++++++++++++++
+ xen/arch/arm/vsmc.c              |  2 +-
+ 4 files changed, 92 insertions(+), 1 deletion(-)
 
-V4->v5:
-* Added "xen/arm: move regpair_to_uint64() and uint64_to_regpair() to regs.h"
-* Added documentation for the "ffa_enabled" guest config flag
-* Changed to GPL license for xen/arch/arm/ffa.c
-* Added __read_mostly and const where applicable
-* Added more describing comments in the code
-* Moved list of shared memory object ("ffa_mem_list") into the guest context
-  as they are guest specific
-* Simplified a few of the simple wrapper functions for SMC to SPMC
-* Added a BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE) since the mediator
-  currently depends on the page size to be same as FFA_PAGE_SIZE (4k).
-* Added max number of shared memory object per guest and max number of
-  size of each shared memory object
-* Added helper macros to calculate offsets of different FF-A data structures
-  in the communication buffer instead of relying on pointer arithmetic
-* Addressed style issues and other comments
-* Broke the commit "xen/arm: add FF-A mediator" into multiple parts, trying
-  to add a few features at a time as requested
-* Added a missing call to rxtx_unmap() in ffa_relinquish_resources()
-* Assignment of "ffa_enabled" is kept as is until I have something definitive
-  on the type etc.
-* Tested with CONFIG_DEBUG=y
-
-v3->v4:
-* Missed v3 and sent a v4 instead by mistake.
-
-v2->v3:
-* Generates offsets into struct arm_smccc_1_2_regs with asm-offsets.c in
-  order to avoid hard coded offsets in the assembly function
-  arm_smccc_1_2_smc()
-* Adds an entry in SUPPORT.md on the FF-A status
-* Adds a configuration variable "ffa_enabled" to tell if FF-A should be
-  enabled for a particular domu guest
-* Moves the ffa_frag_list for fragmented memory share requests into
-  struct ffa_ctx instead to keep it per guest in order to avoid mixups
-  and simplify locking
-* Adds a spinlock to struct ffa_ctx for per guest locking
-* Addressing style issues and suggestions
-* Uses FFA_FEATURES to check that all the needed features are available
-  before initializing the mediator
-* Rebased on staging as of 2022-06-20
-
-v1->v2:
-* Rebased on staging to resolve some merge conflicts as requested
-
-Jens Wiklander (9):
-  xen/arm: smccc: add support for SMCCCv1.2 extended input/output
-    registers
-  xen/arm: add a primitive FF-A mediator
-  xen/arm: ffa: add direct request support
-  xen/arm: ffa: map SPMC rx/tx buffers
-  xen/arm: ffa: send guest events to Secure Partitions
-  xen/arm: ffa: support mapping guest RX/TX buffers
-  xen/arm: ffa: support guest FFA_PARTITION_INFO_GET
-  xen/arm: move regpair_to_uint64() and uint64_to_regpair() to regs.h
-  xen/arm: ffa: support sharing memory
-
- SUPPORT.md                           |    7 +
- docs/man/xl.cfg.5.pod.in             |   15 +
- tools/golang/xenlight/helpers.gen.go |    6 +
- tools/golang/xenlight/types.gen.go   |    1 +
- tools/include/libxl.h                |    6 +
- tools/libs/light/libxl_arm.c         |    6 +
- tools/libs/light/libxl_types.idl     |    1 +
- tools/ocaml/libs/xc/xenctrl.ml       |    1 +
- tools/ocaml/libs/xc/xenctrl.mli      |    1 +
- tools/xl/xl_parse.c                  |    1 +
- xen/arch/arm/Kconfig                 |   11 +
- xen/arch/arm/Makefile                |    1 +
- xen/arch/arm/arm64/asm-offsets.c     |    9 +
- xen/arch/arm/arm64/smc.S             |   42 +
- xen/arch/arm/domain.c                |   11 +
- xen/arch/arm/domain_build.c          |    1 +
- xen/arch/arm/ffa.c                   | 1827 ++++++++++++++++++++++++++
- xen/arch/arm/include/asm/domain.h    |    4 +
- xen/arch/arm/include/asm/ffa.h       |   78 ++
- xen/arch/arm/include/asm/regs.h      |   12 +
- xen/arch/arm/include/asm/smccc.h     |   40 +
- xen/arch/arm/tee/optee.c             |   11 -
- xen/arch/arm/vsmc.c                  |   19 +-
- xen/include/public/arch-arm.h        |    4 +
- 24 files changed, 2100 insertions(+), 15 deletions(-)
- create mode 100644 xen/arch/arm/ffa.c
- create mode 100644 xen/arch/arm/include/asm/ffa.h
-
+diff --git a/xen/arch/arm/arm64/asm-offsets.c b/xen/arch/arm/arm64/asm-offsets.c
+index 280ddb55bfd4..1721e1ed26e1 100644
+--- a/xen/arch/arm/arm64/asm-offsets.c
++++ b/xen/arch/arm/arm64/asm-offsets.c
+@@ -56,6 +56,15 @@ void __dummy__(void)
+    BLANK();
+    OFFSET(SMCCC_RES_a0, struct arm_smccc_res, a0);
+    OFFSET(SMCCC_RES_a2, struct arm_smccc_res, a2);
++   OFFSET(ARM_SMCCC_1_2_REGS_X0_OFFS, struct arm_smccc_1_2_regs, a0);
++   OFFSET(ARM_SMCCC_1_2_REGS_X2_OFFS, struct arm_smccc_1_2_regs, a2);
++   OFFSET(ARM_SMCCC_1_2_REGS_X4_OFFS, struct arm_smccc_1_2_regs, a4);
++   OFFSET(ARM_SMCCC_1_2_REGS_X6_OFFS, struct arm_smccc_1_2_regs, a6);
++   OFFSET(ARM_SMCCC_1_2_REGS_X8_OFFS, struct arm_smccc_1_2_regs, a8);
++   OFFSET(ARM_SMCCC_1_2_REGS_X10_OFFS, struct arm_smccc_1_2_regs, a10);
++   OFFSET(ARM_SMCCC_1_2_REGS_X12_OFFS, struct arm_smccc_1_2_regs, a12);
++   OFFSET(ARM_SMCCC_1_2_REGS_X14_OFFS, struct arm_smccc_1_2_regs, a14);
++   OFFSET(ARM_SMCCC_1_2_REGS_X16_OFFS, struct arm_smccc_1_2_regs, a16);
+ }
+ 
+ /*
+diff --git a/xen/arch/arm/arm64/smc.S b/xen/arch/arm/arm64/smc.S
+index 91bae62dd4d2..fc6b676e2ee3 100644
+--- a/xen/arch/arm/arm64/smc.S
++++ b/xen/arch/arm/arm64/smc.S
+@@ -27,3 +27,45 @@ ENTRY(__arm_smccc_1_0_smc)
+         stp     x2, x3, [x4, #SMCCC_RES_a2]
+ 1:
+         ret
++
++/*
++ * void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
++ *                        struct arm_smccc_1_2_regs *res)
++ */
++ENTRY(arm_smccc_1_2_smc)
++    /* Save `res` and free a GPR that won't be clobbered by SMC call */
++    stp     x1, x19, [sp, #-16]!
++
++    /* Ensure `args` won't be clobbered while loading regs in next step */
++    mov	x19, x0
++
++    /* Load the registers x0 - x17 from the struct arm_smccc_1_2_regs */
++    ldp	x0, x1, [x19, #ARM_SMCCC_1_2_REGS_X0_OFFS]
++    ldp	x2, x3, [x19, #ARM_SMCCC_1_2_REGS_X2_OFFS]
++    ldp	x4, x5, [x19, #ARM_SMCCC_1_2_REGS_X4_OFFS]
++    ldp	x6, x7, [x19, #ARM_SMCCC_1_2_REGS_X6_OFFS]
++    ldp	x8, x9, [x19, #ARM_SMCCC_1_2_REGS_X8_OFFS]
++    ldp	x10, x11, [x19, #ARM_SMCCC_1_2_REGS_X10_OFFS]
++    ldp	x12, x13, [x19, #ARM_SMCCC_1_2_REGS_X12_OFFS]
++    ldp	x14, x15, [x19, #ARM_SMCCC_1_2_REGS_X14_OFFS]
++    ldp	x16, x17, [x19, #ARM_SMCCC_1_2_REGS_X16_OFFS]
++
++    smc #0
++
++    /* Load the `res` from the stack */
++    ldr	x19, [sp]
++
++    /* Store the registers x0 - x17 into the result structure */
++    stp	x0, x1, [x19, #ARM_SMCCC_1_2_REGS_X0_OFFS]
++    stp	x2, x3, [x19, #ARM_SMCCC_1_2_REGS_X2_OFFS]
++    stp	x4, x5, [x19, #ARM_SMCCC_1_2_REGS_X4_OFFS]
++    stp	x6, x7, [x19, #ARM_SMCCC_1_2_REGS_X6_OFFS]
++    stp	x8, x9, [x19, #ARM_SMCCC_1_2_REGS_X8_OFFS]
++    stp	x10, x11, [x19, #ARM_SMCCC_1_2_REGS_X10_OFFS]
++    stp	x12, x13, [x19, #ARM_SMCCC_1_2_REGS_X12_OFFS]
++    stp	x14, x15, [x19, #ARM_SMCCC_1_2_REGS_X14_OFFS]
++    stp	x16, x17, [x19, #ARM_SMCCC_1_2_REGS_X16_OFFS]
++
++    /* Restore original x19 */
++    ldp     xzr, x19, [sp], #16
++    ret
+diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
+index b3dbeecc90ad..b5e3f67eb34e 100644
+--- a/xen/arch/arm/include/asm/smccc.h
++++ b/xen/arch/arm/include/asm/smccc.h
+@@ -33,6 +33,7 @@
+ 
+ #define ARM_SMCCC_VERSION_1_0   SMCCC_VERSION(1, 0)
+ #define ARM_SMCCC_VERSION_1_1   SMCCC_VERSION(1, 1)
++#define ARM_SMCCC_VERSION_1_2   SMCCC_VERSION(1, 2)
+ 
+ /*
+  * This file provides common defines for ARM SMC Calling Convention as
+@@ -265,6 +266,45 @@ void __arm_smccc_1_0_smc(register_t a0, register_t a1, register_t a2,
+         else                                                    \
+             arm_smccc_1_0_smc(__VA_ARGS__);                     \
+     } while ( 0 )
++
++/**
++ * struct arm_smccc_1_2_regs - Arguments for or Results from SMC call
++ * @a0-a17 argument values from registers 0 to 17
++ */
++struct arm_smccc_1_2_regs {
++    unsigned long a0;
++    unsigned long a1;
++    unsigned long a2;
++    unsigned long a3;
++    unsigned long a4;
++    unsigned long a5;
++    unsigned long a6;
++    unsigned long a7;
++    unsigned long a8;
++    unsigned long a9;
++    unsigned long a10;
++    unsigned long a11;
++    unsigned long a12;
++    unsigned long a13;
++    unsigned long a14;
++    unsigned long a15;
++    unsigned long a16;
++    unsigned long a17;
++};
++
++/**
++ * arm_smccc_1_2_smc() - make SMC calls
++ * @args: arguments passed via struct arm_smccc_1_2_regs
++ * @res: result values via struct arm_smccc_1_2_regs
++ *
++ * This function is used to make SMC calls following SMC Calling Convention
++ * v1.2 or above. The content of the supplied param are copied from the
++ * structure to registers prior to the SMC instruction. The return values
++ * are updated with the content from registers on return from the SMC
++ * instruction.
++ */
++void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
++                       struct arm_smccc_1_2_regs *res);
+ #endif /* CONFIG_ARM_64 */
+ 
+ #endif /* __ASSEMBLY__ */
+diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
+index 676740ef1520..6f90c08a6304 100644
+--- a/xen/arch/arm/vsmc.c
++++ b/xen/arch/arm/vsmc.c
+@@ -93,7 +93,7 @@ static bool handle_arch(struct cpu_user_regs *regs)
+     switch ( fid )
+     {
+     case ARM_SMCCC_VERSION_FID:
+-        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_1);
++        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_2);
+         return true;
+ 
+     case ARM_SMCCC_ARCH_FEATURES_FID:
 -- 
 2.31.1
 
