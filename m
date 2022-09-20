@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED7D45BEA57
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 17:37:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409508.652479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 411515BEA56
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 17:37:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409504.652468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oafJQ-0003Z9-1s; Tue, 20 Sep 2022 15:37:28 +0000
+	id 1oafIp-00033H-Np; Tue, 20 Sep 2022 15:36:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409508.652479; Tue, 20 Sep 2022 15:37:28 +0000
+Received: by outflank-mailman (output) from mailman id 409504.652468; Tue, 20 Sep 2022 15:36:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oafJP-0003WL-U3; Tue, 20 Sep 2022 15:37:27 +0000
-Received: by outflank-mailman (input) for mailman id 409508;
- Tue, 20 Sep 2022 15:37:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v+PG=ZX=ilande.co.uk=mark.cave-ayland@srs-se1.protection.inumbo.net>)
- id 1oafJO-0003TC-7N
- for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 15:37:26 +0000
-Received: from mail.ilande.co.uk (mail.ilande.co.uk [2001:41c9:1:41f::167])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1f92ac71-38fa-11ed-9647-05401a9f4f97;
- Tue, 20 Sep 2022 17:37:25 +0200 (CEST)
-Received: from [2a00:23c4:8ba7:8700:f0a2:2ba9:489e:6915]
- by mail.ilande.co.uk with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.92) (envelope-from <mark.cave-ayland@ilande.co.uk>)
- id 1oafGv-000Afu-Ct; Tue, 20 Sep 2022 16:34:53 +0100
+	id 1oafIp-00030B-Kn; Tue, 20 Sep 2022 15:36:51 +0000
+Received: by outflank-mailman (input) for mailman id 409504;
+ Tue, 20 Sep 2022 15:36:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mZ4K=ZX=kernel.org=ardb@srs-se1.protection.inumbo.net>)
+ id 1oafIn-000305-RF
+ for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 15:36:49 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09d4a4e2-38fa-11ed-bad8-01ff208a15ba;
+ Tue, 20 Sep 2022 17:36:48 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 103C262343
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Sep 2022 15:36:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74E80C4347C
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Sep 2022 15:36:46 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id p5so3426980ljc.13
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Sep 2022 08:36:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,162 +45,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f92ac71-38fa-11ed-9647-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ilande.co.uk; s=20220518; h=Subject:Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:MIME-Version:Date:Message-ID:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=DxUS2wc8S5XxDbYIITAjbCY/K9B97p0z/uIdsCi89f4=; b=q8dDxxpdwWDpHEVedTNp99huTl
-	ieOauNOwBFfYBDnKcDBqCHjuV4ahcE1blChUCvnn1ld2RsCLwnoBIq1ubUWjGD1XG+OipNXhMHYV3
-	A5UVDUPeFztTSqKs6X7P+cnq84CeGwoY32GoPxxVEEcm4T6W++H/W2qq+IUbg08VbaPZn2PpQhA6G
-	bLj5usr33B5oFZ1w1pzMsxXoWw5TqXPu+p5QK2QdWpGZxnhsfad6mIAO4emRZahrJpZli75qhfkPZ
-	JidI8Md/95Pa4BTPf6Cssb8yEiTDu6oS0+mepXs9cZhYwKX0GB+Wh3jWanOFKnNugdGBTJ2negqZ5
-	kQ5zkM8I3F09Yqn2tNuiF62sq4HjlfBTtNVHH/wu5YepzmsU+yGEiv75Er59M/E1rO+t7vI3zdHhL
-	K6EOXVatICRAGXSZ2pXGTOtCsdntXKmTpLa28j5QBqhUoCSVwaSj/dnxqdkPzCQwQsRXyL4b13OSS
-	pTWzfSYUZ3XA1cZjpzVW7U3+3jDQGahsb6BDRM7yMzynJF79hN3JliPwomVGl3TlmAF9ZXbgB6v8x
-	EdBv3RhbS9nnzMB0fMo8v8PRvu4ZQAqDHvVlI+IWDk4CDXNVEIO08YEfWVoJ8mVf99CP1R3I6tydJ
-	Gl7iS5zTOghPdk9mRJyFsq8Jqasp4a0Y+B74kjNoY=;
-Message-ID: <49325e7d-5020-23f7-4bce-c53d8d988c95@ilande.co.uk>
-Date: Tue, 20 Sep 2022 16:36:26 +0100
+X-Inumbo-ID: 09d4a4e2-38fa-11ed-bad8-01ff208a15ba
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1663688206;
+	bh=D4fI20wsDZU6cBnEMfE+TOOp7Qrzm1qKp2H/6FoR1lw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=RFTGMek09d+aDdEKwQI5h9B9rUkfk1jaIjyoKzeykvjmwn5OmC3Ab3M4BIHr+Zftn
+	 hwQQXrOg06GmITriVcjkYKVYtZ/wedGGgOzbCwzUDOpF8QCEs8oupwqCKtMnOvy10W
+	 GqCyYJ0iRjyJSk8IGuD5QNUBcXSYPHcjPuAtSVFCwmcX5XKtUjNe7lhNOx2HCyne2B
+	 q9P2brJEWnSui/jrnLDBiiOY0QcQAB+emVwJWzLOHjgN0rNE9ubiA3vT1tBSWjv3Db
+	 ktoHwtI+ZlmizOqxe4jujhPf9vXL8So3/bdagy34nv4Yb7UL+yrJXLZR+z3Tq8z3gN
+	 9O0U98xNH7QPA==
+X-Gm-Message-State: ACrzQf07/6PSgravGSHWQb0JERYqMyO2kgJoLAcisxkt8eyeuvbgjYqd
+	wwlNVbsrrR274I5z1AECZ2tccWmOFCVAQBz9WEM=
+X-Google-Smtp-Source: AMsMyM48yyP2Hqwk6bUrxTHAQc4fBFlYjN+MCHW44sVapUcWvHsLb4wIHHgjlbB4nlnT1A6045csLq04qR0dn0WWsCw=
+X-Received: by 2002:a2e:2d0a:0:b0:26c:a1c:cdf with SMTP id t10-20020a2e2d0a000000b0026c0a1c0cdfmr7905440ljt.352.1663688204337;
+ Tue, 20 Sep 2022 08:36:44 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Content-Language: en-US
-To: Peter Maydell <peter.maydell@linaro.org>,
- Bernhard Beschow <shentey@gmail.com>
-Cc: qemu-devel@nongnu.org, "Michael S. Tsirkin" <mst@redhat.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>, Bandan Das
- <bsd@redhat.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- Sergio Lopez <slp@redhat.com>, Alexey Kardashevskiy <aik@ozlabs.ru>,
- Xiaojuan Yang <yangxiaojuan@loongson.cn>, Cameron Esfahani
- <dirty@apple.com>, Michael Rolnik <mrolnik@gmail.com>,
- Song Gao <gaosong@loongson.cn>, Jagannathan Raman <jag.raman@oracle.com>,
- Greg Kurz <groug@kaod.org>, Kamil Rytarowski <kamil@netbsd.org>,
- Peter Xu <peterx@redhat.com>, Joel Stanley <joel@jms.id.au>,
- Alistair Francis <Alistair.Francis@wdc.com>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, haxm-team@intel.com,
- Roman Bolshakov <r.bolshakov@yadro.com>,
- Markus Armbruster <armbru@redhat.com>, Eric Auger <eric.auger@redhat.com>,
- David Gibson <david@gibson.dropbear.id.au>,
- =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
- Stefan Hajnoczi <stefanha@redhat.com>, qemu-block@nongnu.org,
- Eduardo Habkost <eduardo@habkost.net>,
- =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
- qemu-ppc@nongnu.org, Cornelia Huck <cohuck@redhat.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Helge Deller <deller@gmx.de>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
- qemu-riscv@nongnu.org, Stafford Horne <shorne@gmail.com>,
- Paul Durrant <paul@xen.org>, Havard Skinnemoen <hskinnemoen@google.com>,
- Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- Alexander Graf <agraf@csgraf.de>, Thomas Huth <thuth@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Wenchao Wang <wenchao.wang@intel.com>, Tony Krowiak
- <akrowiak@linux.ibm.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- qemu-s390x@nongnu.org, =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?=
- <marcandre.lureau@redhat.com>, Eric Farman <farman@linux.ibm.com>,
- Reinoud Zandijk <reinoud@netbsd.org>, Alexander Bulekov <alxndr@bu.edu>,
- Yanan Wang <wangyanan55@huawei.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Tyrone Ting <kfting@nuvoton.com>,
- xen-devel@lists.xenproject.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
- John Snow <jsnow@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Darren Kenny <darren.kenny@oracle.com>, kvm@vger.kernel.org,
- Qiuhao Li <Qiuhao.Li@outlook.com>, John G Johnson
- <john.g.johnson@oracle.com>, Bin Meng <bin.meng@windriver.com>,
- Sunil Muthuswamy <sunilmut@microsoft.com>, Max Filippov
- <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org,
- Marcelo Tosatti <mtosatti@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, Andrew Jeffery
- <andrew@aj.id.au>, Artyom Tarasenko <atar4qemu@gmail.com>,
- Halil Pasic <pasic@linux.ibm.com>,
- "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
- Jason Wang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>,
- Laurent Vivier <laurent@vivier.eu>, Alistair Francis
- <alistair@alistair23.me>, Jason Herne <jjherne@linux.ibm.com>
-References: <20220919231720.163121-1-shentey@gmail.com>
- <CAFEAcA8GjXFO4WK=KybgSc8rMfqecwD9EXS0kZMKtqogNf1Tsg@mail.gmail.com>
-From: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-In-Reply-To: <CAFEAcA8GjXFO4WK=KybgSc8rMfqecwD9EXS0kZMKtqogNf1Tsg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 2a00:23c4:8ba7:8700:f0a2:2ba9:489e:6915
-X-SA-Exim-Mail-From: mark.cave-ayland@ilande.co.uk
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
-	mail.default.ilande.bv.iomart.io
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.9 required=5.0 tests=ALL_TRUSTED,BAYES_00
-	autolearn=ham autolearn_force=no version=3.4.2
-Subject: Re: [PATCH 0/9] Deprecate sysbus_get_default() and
- get_system_memory() et. al
-X-SA-Exim-Version: 4.2.1 (built Wed, 08 May 2019 21:11:16 +0000)
-X-SA-Exim-Scanned: Yes (on mail.ilande.co.uk)
+References: <20220919193257.2031-1-demi@invisiblethingslab.com>
+In-Reply-To: <20220919193257.2031-1-demi@invisiblethingslab.com>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Tue, 20 Sep 2022 17:36:32 +0200
+X-Gmail-Original-Message-ID: <CAMj1kXEBfJUfTQ3THqqKxsU09_S98B_TjTECKwGM0WAv_5tZaA@mail.gmail.com>
+Message-ID: <CAMj1kXEBfJUfTQ3THqqKxsU09_S98B_TjTECKwGM0WAv_5tZaA@mail.gmail.com>
+Subject: Re: [PATCH v3] Support ESRT in Xen dom0
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, linux-efi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 20/09/2022 10:55, Peter Maydell wrote:
+Hello Demi,
 
-> On Tue, 20 Sept 2022 at 00:18, Bernhard Beschow <shentey@gmail.com> wrote:
->>
->> In address-spaces.h it can be read that get_system_memory() and
->> get_system_io() are temporary interfaces which "should only be used temporarily
->> until a proper bus interface is available". This statement certainly extends to
->> the address_space_memory and address_space_io singletons.
-> 
-> This is a long standing "we never really completed a cleanup"...
-> 
->> This series attempts
->> to stop further proliferation of their use by turning TYPE_SYSTEM_BUS into an
->> object-oriented, "proper bus interface" inspired by PCIBus.
->>
->> While at it, also the main_system_bus singleton is turned into an attribute of
->> MachineState. Together, this resolves five singletons in total, making the
->> ownership relations much more obvious which helps comprehension.
-> 
-> ...but I don't think this is the direction we want to go.
-> Overall the reason that the "system memory" and "system IO"
-> singletons are weird is that in theory they should not be necessary
-> at all -- board code should create devices and map them into an
-> entirely arbitrary MemoryRegion or set of MemoryRegions corresponding
-> to address space(s) for the CPU and for DMA-capable devices. But we
-> keep them around because
->   (a) there is a ton of legacy code that assumes there's only one
->       address space in the system and this is it
->   (b) when modelling the kind of board where there really is only
->       one address space, having the 'system memory' global makes
->       the APIs for creating and connecting devices a lot simpler
-> 
-> Retaining the whole-system singleton but shoving it into MachineState
-> doesn't really change much, IMHO.
-> 
-> More generally, sysbus is rather weird because it isn't really a
-> bus. Every device in the system of TYPE_SYS_BUS_DEVICE is "on"
-> the unique TYPE_SYSTEM_BUS bus, but that doesn't mean they're
-> all in the same address space or that in real hardware they'd
-> all be on the same bus. sysbus has essentially degraded into a
-> hack for having devices get reset. I really really need to make
-> some time to have another look at reset handling. If we get that
-> right then I think it's probably possible to collapse the few
-> things TYPE_SYS_BUS_DEVICE does that TYPE_DEVICE does not down
-> into TYPE_DEVICE and get rid of sysbus altogether...
+On Mon, 19 Sept 2022 at 21:33, Demi Marie Obenour
+<demi@invisiblethingslab.com> wrote:
+>
+> fwupd requires access to the EFI System Resource Table (ESRT) to
+> discover which firmware can be updated by the OS.  Currently, Linux does
+> not expose the ESRT when running as a Xen dom0.  Therefore, it is not
+> possible to use fwupd in a Xen dom0, which is a serious problem for e.g.
+> Qubes OS.
+>
+> Before Xen 4.16, this was not fixable due to hypervisor limitations.
+> The UEFI specification requires the ESRT to be in EfiBootServicesData
+> memory, which Xen will use for whatever purposes it likes.  Therefore,
+> Linux cannot safely access the ESRT, as Xen may have overwritten it.
+>
+> Starting with Xen 4.17, Xen checks if the ESRT is in EfiBootServicesData
+> or EfiRuntimeServicesData memory.  If the ESRT is in EfiBootServicesData
+> memory, Xen allocates some memory of type EfiRuntimeServicesData, copies
+> the ESRT to it, and finally replaces the ESRT pointer with a pointer to
+> the copy.  Since Xen will not clobber EfiRuntimeServicesData memory,
+> this ensures that the ESRT can safely be accessed by the OS.  It is safe
+> to access the ESRT under Xen if, and only if, it is in memory of type
+> EfiRuntimeServicesData.
+>
 
-Following on from one of the discussion points from Alex's KVM Forum BoF session: I 
-think longer term what we need to aim for is for QEMU machines to define their own 
-address spaces, and then bind those address spaces containing memory-mapped devices 
-to one or more CPUs.
+Thanks for the elaborate explanation. This is really helpful.
 
-Once this in place, as Peter notes above it just remains to solve the reset problem 
-and then it becomes possible to eliminate sysbus altogether as everything else can 
-already be managed by qdev/QOM.
+So here, you are explaining that the only way for Xen to prevent
+itself from potentially clobbering the ESRT is by creating a
+completely new allocation? What about other assets that may be passed
+via EFI boot services data regions?
+
+So first of all, EfiRuntimeServicesData has a special purpose: it is
+used to carry data that is part of the EFI runtime service
+implementations themselves. Therefore, it has to be mapped into the
+EFI page tables by the OS kernel, and carved out of the linear map (to
+prevent inadvertent access with mismatched attributes). So unless you
+are writing the code that backs GetVariable() or SetVariable(), there
+are never good reasons to use EfiRuntimeServicesData.
+
+If you want to use a memory type that is suitable for firmware tables
+that are intended for consumption by the OS only (and not by the
+runtime services themselves), you might consider EfiAcpiReclaimMemory.
+
+TBH I still don't think this is a scalable approach. There are other
+configuration tables that may be passed in EFI boot services memory,
+and MS especially were pushing back in the UEFI forum on adding table
+types that were passed in anything other the EfiBootServicesData.
+
+> When running as a Xen dom0, check if the ESRT is in memory of type
+> EfiRuntimeServicesData, and if it is, parse it as if not running under
+> Xen.  This allows programs such as fwupd which require the ESRT to run
+> under Xen, and so makes fwupd support in Qubes OS possible.
+>
+> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> ---
+> Changes since v2:
+>
+> - Massively updated commit message.
+> - Fetch the ESRT inline in drivers/firmware/efi/esrt.c, instead of using
+>   a single-use helper in drivers/xen/efi.c.
+>
+> Changes since v1:
+>
+> - Use a different type (struct xen_efi_mem_info) for memory information
+>   provided by Xen, as Xen reports it in a different way than the
+>   standard Linux functions do.
+>
+>  drivers/firmware/efi/esrt.c | 71 ++++++++++++++++++++++++++++++-------
+>  1 file changed, 58 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/firmware/efi/esrt.c b/drivers/firmware/efi/esrt.c
+> index 2a2f52b017e736dd995c69e8aeb5fbd7761732e5..378bf2ea770ad3bd747345a89258216919eb21bb 100644
+> --- a/drivers/firmware/efi/esrt.c
+> +++ b/drivers/firmware/efi/esrt.c
+> @@ -28,6 +28,11 @@
+>  #include <asm/io.h>
+>  #include <asm/early_ioremap.h>
+>
+> +#ifdef CONFIG_XEN_EFI
+> +#include <asm/xen/hypercall.h>
+> +#include <xen/page.h>
+> +#endif
+> +
+>  struct efi_system_resource_entry_v1 {
+>         efi_guid_t      fw_class;
+>         u32             fw_type;
+> @@ -243,27 +248,67 @@ void __init efi_esrt_init(void)
+>         void *va;
+>         struct efi_system_resource_table tmpesrt;
+>         size_t size, max, entry_size, entries_size;
+> -       efi_memory_desc_t md;
+> -       int rc;
+>         phys_addr_t end;
+> -
+> -       if (!efi_enabled(EFI_MEMMAP))
+> -               return;
+> +       uint32_t type;
+>
+>         pr_debug("esrt-init: loading.\n");
+>         if (!esrt_table_exists())
+>                 return;
+>
+> -       rc = efi_mem_desc_lookup(efi.esrt, &md);
+> -       if (rc < 0 ||
+> -           (!(md.attribute & EFI_MEMORY_RUNTIME) &&
+> -            md.type != EFI_BOOT_SERVICES_DATA &&
+> -            md.type != EFI_RUNTIME_SERVICES_DATA)) {
+> -               pr_warn("ESRT header is not in the memory map.\n");
+> +       if (efi_enabled(EFI_MEMMAP)) {
+> +               efi_memory_desc_t md;
+> +
+> +               if (efi_mem_desc_lookup(efi.esrt, &md) < 0 ||
+> +                   (!(md.attribute & EFI_MEMORY_RUNTIME) &&
+> +                    md.type != EFI_BOOT_SERVICES_DATA &&
+> +                    md.type != EFI_RUNTIME_SERVICES_DATA)) {
+> +                       pr_warn("ESRT header is not in the memory map.\n");
+> +                       return;
+> +               }
+> +
+> +               type = md.type;
+> +               max = efi_mem_desc_end(&md);
+> +#ifdef CONFIG_XEN_EFI
+> +       } else if (efi_enabled(EFI_PARAVIRT)) {
+> +               static_assert(XEN_PAGE_SHIFT == EFI_PAGE_SHIFT,
+> +                             "Mismatch between EFI_PAGE_SHIFT and XEN_PAGE_SHIFT");
+> +
+> +               struct xen_platform_op op = {
+> +                       .cmd = XENPF_firmware_info,
+> +                       .u.firmware_info = {
+> +                               .type = XEN_FW_EFI_INFO,
+> +                               .index = XEN_FW_EFI_MEM_INFO,
+> +                               .u.efi_info.mem.addr = efi.esrt,
+> +                               .u.efi_info.mem.size = ((u64)-1ULL) - efi.esrt,
+> +                       }
+> +               };
+> +               union xenpf_efi_info *info = &op.u.firmware_info.u.efi_info;
+> +               int rc = HYPERVISOR_platform_op(&op);
+> +
+> +               if (rc) {
+> +                       pr_warn("Failed to lookup ESRT header %lu in Xen memory map: error %d\n",
+> +                               efi.esrt, rc);
+> +                       return;
+> +               }
+> +               type = info->mem.type;
+> +               max = info->mem.addr + info->mem.size;
+> +
+> +               /*
+> +                * Recent Xen versions relocate the ESRT to memory of type
+> +                * EfiRuntimeServicesData, which Xen will not reuse.  If the ESRT
+> +                * is not in EfiRuntimeServicesData memory, it has not been reserved
+> +                * by Xen and might be allocated to other guests, so it cannot
+> +                * safely be used.
+> +                */
+> +               if (type != EFI_RUNTIME_SERVICES_DATA) {
+> +                       pr_warn("Xen did not reserve ESRT, ignoring it\n");
+> +                       return;
+> +               }
+> +#endif
+
+I am really not happy with this. You are adding a special case
+specific to Xen to double check that it has violated the EFI spec as
+required. Even if some firmwares exist that do the same, codifying it
+like this on mainline Linux code is not something I am comfortable
+accepting.
+
+I take it that this also means that ESRT on dom0 is currently just
+broken, right?
 
 
-ATB,
-
-Mark.
+> +       } else {
+>                 return;
+>         }
+>
+> -       max = efi_mem_desc_end(&md);
+>         if (max < efi.esrt) {
+>                 pr_err("EFI memory descriptor is invalid. (esrt: %p max: %p)\n",
+>                        (void *)efi.esrt, (void *)max);
+> @@ -333,7 +378,7 @@ void __init efi_esrt_init(void)
+>
+>         end = esrt_data + size;
+>         pr_info("Reserving ESRT space from %pa to %pa.\n", &esrt_data, &end);
+> -       if (md.type == EFI_BOOT_SERVICES_DATA)
+> +       if (type == EFI_BOOT_SERVICES_DATA)
+>                 efi_mem_reserve(esrt_data, esrt_data_size);
+>
+>         pr_debug("esrt-init: loaded.\n");
+> --
+> Sincerely,
+> Demi Marie Obenour (she/her/hers)
+> Invisible Things Lab
 
