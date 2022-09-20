@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00DED5BDC7E
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 07:36:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409156.652085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 772915BDC91
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 07:50:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409161.652098 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaVvb-0000ju-QE; Tue, 20 Sep 2022 05:36:15 +0000
+	id 1oaW8T-0002Fn-0U; Tue, 20 Sep 2022 05:49:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409156.652085; Tue, 20 Sep 2022 05:36:15 +0000
+Received: by outflank-mailman (output) from mailman id 409161.652098; Tue, 20 Sep 2022 05:49:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaVvb-0000gw-NR; Tue, 20 Sep 2022 05:36:15 +0000
-Received: by outflank-mailman (input) for mailman id 409156;
- Tue, 20 Sep 2022 05:36:14 +0000
+	id 1oaW8S-0002CK-TA; Tue, 20 Sep 2022 05:49:32 +0000
+Received: by outflank-mailman (input) for mailman id 409161;
+ Tue, 20 Sep 2022 05:49:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9R7n=ZX=gmail.com=philippe.mathieu.daude@srs-se1.protection.inumbo.net>)
- id 1oaVva-0000gq-Ml
- for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 05:36:14 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OMl1=ZX=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oaW8R-0002CE-W2
+ for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 05:49:32 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23c3090b-38a6-11ed-bad8-01ff208a15ba;
- Tue, 20 Sep 2022 07:36:13 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id c11so2374924wrp.11
- for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 22:36:13 -0700 (PDT)
-Received: from [192.168.1.115] ([185.126.107.38])
- by smtp.gmail.com with ESMTPSA id
- u16-20020a05600c035000b003b492753826sm804412wmd.43.2022.09.19.22.36.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Sep 2022 22:36:12 -0700 (PDT)
+ id fe3ea393-38a7-11ed-bad8-01ff208a15ba;
+ Tue, 20 Sep 2022 07:49:29 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 20B1321E76;
+ Tue, 20 Sep 2022 05:49:29 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DEF1C13ABD;
+ Tue, 20 Sep 2022 05:49:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id LwjPM2hUKWOdIwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 20 Sep 2022 05:49:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,282 +50,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 23c3090b-38a6-11ed-bad8-01ff208a15ba
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:from:to:cc:subject:date;
-        bh=IZ5Zv4/7hTO/6wXmRF3z+PXEnTdcge7XTl0lYv1HpKI=;
-        b=b0lsnmuCPz8cDwBFaPfL1ExlL6hZoGBvsAo90EdbWfbIty8yoFPD3+pM+wCc6r61jh
-         02HNF8QWjamjJ/5XkxHcwZWxllIZeCL3Ej0ajT59Sui+41jMg10A8+RqC1gMCPSMNtsr
-         Ynq/WHREdM5adnH2c34ZUcVa02IKeDn0yv7w2JXYtOXYSOzmC9i4UAlhnWs8IdBRdaKj
-         +EoC2mIXhoHnXN/nP7wSPWSC/fSlPbfxoLGWA4NiqceL28aaTcdr66NmRjIBw+kyTQ0O
-         3ODJqwU5La/Ozm1eqms4cfz6/VM9dp4JBRM4j1m070bia2cnFcYGHu8fJFoQ3iRtxQbn
-         S8QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :sender:x-gm-message-state:from:to:cc:subject:date;
-        bh=IZ5Zv4/7hTO/6wXmRF3z+PXEnTdcge7XTl0lYv1HpKI=;
-        b=BX6fz31AseqDFQFsdlTAhB//i7o2pqmtBwTBSlxwJ5pQmeSFBruehDwEXnqeqlLaEE
-         EvwTCtlfghOXfOuFefEkuf8S1RpPRS9v1QsLYx4Mh3nckO7lw0ha6v1EAiO5V77rW27D
-         FBEFr9/EEow9Ppeme/JX+ei2f/uxO9MnRIBy8mIj9WLVTsVrQvgukZuwE++iLVkD+Kq3
-         mS1AKDC+OuovTmDHe2zKd4CR5yGFEp4jPTkY7ZMzNcV5Z/f3nzERQtv1aki1gw4EowID
-         N/lGdtvKrixCggR3Msc5oGua+OY9/smLa7/MVE2xG5rBexTeKEcx3xjoD8aDWZygQ3MF
-         2qiA==
-X-Gm-Message-State: ACrzQf0pQ/Optfizpl/3BZDtNKk32p+inkYjfdqu6ReAXfT+VOD07xbS
-	Q6N9iKaPJSLHU6N8fHU04ew=
-X-Google-Smtp-Source: AMsMyM41BnChgmCmf9YfgCAJVBq1U7Xim3pjrtlZIlh9K+YaFBQ0IHYFPx6NutQTrNaAkhNW/vMGlg==
-X-Received: by 2002:a5d:69ca:0:b0:228:dd17:9534 with SMTP id s10-20020a5d69ca000000b00228dd179534mr13398301wrw.652.1663652172930;
-        Mon, 19 Sep 2022 22:36:12 -0700 (PDT)
-Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
-Message-ID: <38bd4756-dacd-9862-3999-60d609d52f46@amsat.org>
-Date: Tue, 20 Sep 2022 07:36:07 +0200
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: fe3ea393-38a7-11ed-bad8-01ff208a15ba
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1663652969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lX23H5Mmw5Toj1BwLnr2+4Yen8Aug6TwQ9Yk5gvBUEo=;
+	b=PWSpncar1OW67iQenc5sDRSuItG2Xe9nX+gaVZF2Wb2hJAPIROzkenNrorCvqmzBW2AJpY
+	p5Kx/6tdLzsBliSJPldmN9mIZ6SYfFGaP9Z7/Nt1vYz8U90TPbR9xe5b3o/jnker4UoL2N
+	yvnNfYvLBxYrjYw4xTY5IiOL9sW/e+8=
+Message-ID: <301dedd2-9407-2386-2c20-f0ad6ee42f42@suse.com>
+Date: Tue, 20 Sep 2022 07:49:28 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-Subject: Re: [PATCH 5/9] exec/address-spaces: Wrap address space singletons
- into functions
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: where are xs APIs defined
+To: "SHARMA, JYOTIRMOY" <JYOTIRMOY.SHARMA@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "Mallela, RaghavendraPrasad (Raghavendra Prasad)"
+ <RaghavendraPrasad.Mallela@amd.com>
+References: <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
 Content-Language: en-US
-To: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Magnus Damm
- <magnus.damm@gmail.com>, Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
- Bandan Das <bsd@redhat.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- Sergio Lopez <slp@redhat.com>, Alexey Kardashevskiy <aik@ozlabs.ru>,
- Xiaojuan Yang <yangxiaojuan@loongson.cn>, Cameron Esfahani
- <dirty@apple.com>, Michael Rolnik <mrolnik@gmail.com>,
- Song Gao <gaosong@loongson.cn>, Jagannathan Raman <jag.raman@oracle.com>,
- Greg Kurz <groug@kaod.org>, Kamil Rytarowski <kamil@netbsd.org>,
- Peter Xu <peterx@redhat.com>, Joel Stanley <joel@jms.id.au>,
- Alistair Francis <Alistair.Francis@wdc.com>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, haxm-team@intel.com,
- Roman Bolshakov <r.bolshakov@yadro.com>,
- Markus Armbruster <armbru@redhat.com>, Eric Auger <eric.auger@redhat.com>,
- David Gibson <david@gibson.dropbear.id.au>,
- =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
- Stefan Hajnoczi <stefanha@redhat.com>, qemu-block@nongnu.org,
- Eduardo Habkost <eduardo@habkost.net>,
- =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
- qemu-ppc@nongnu.org, Cornelia Huck <cohuck@redhat.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Helge Deller <deller@gmx.de>,
- Stefano Stabellini <sstabellini@kernel.org>, qemu-riscv@nongnu.org,
- Stafford Horne <shorne@gmail.com>, Paul Durrant <paul@xen.org>,
- Havard Skinnemoen <hskinnemoen@google.com>,
- Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- Alexander Graf <agraf@csgraf.de>, Thomas Huth <thuth@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Wenchao Wang <wenchao.wang@intel.com>, Tony Krowiak
- <akrowiak@linux.ibm.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- qemu-s390x@nongnu.org, =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?=
- <marcandre.lureau@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Eric Farman <farman@linux.ibm.com>, Reinoud Zandijk <reinoud@netbsd.org>,
- Alexander Bulekov <alxndr@bu.edu>, Yanan Wang <wangyanan55@huawei.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Tyrone Ting <kfting@nuvoton.com>,
- xen-devel@lists.xenproject.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
- John Snow <jsnow@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Darren Kenny <darren.kenny@oracle.com>, kvm@vger.kernel.org,
- Qiuhao Li <Qiuhao.Li@outlook.com>, John G Johnson
- <john.g.johnson@oracle.com>, Bin Meng <bin.meng@windriver.com>,
- Sunil Muthuswamy <sunilmut@microsoft.com>, Max Filippov
- <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org,
- Marcelo Tosatti <mtosatti@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>,
- Anthony Perard <anthony.perard@citrix.com>, Andrew Jeffery
- <andrew@aj.id.au>, Artyom Tarasenko <atar4qemu@gmail.com>,
- Halil Pasic <pasic@linux.ibm.com>,
- "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
- Jason Wang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>,
- Laurent Vivier <laurent@vivier.eu>, Alistair Francis
- <alistair@alistair23.me>, Jason Herne <jjherne@linux.ibm.com>
-References: <20220919231720.163121-1-shentey@gmail.com>
- <20220919231720.163121-6-shentey@gmail.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
-In-Reply-To: <20220919231720.163121-6-shentey@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------JHBBXtEyvBsb8pFM9946uQPD"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------JHBBXtEyvBsb8pFM9946uQPD
+Content-Type: multipart/mixed; boundary="------------vv99lJ8N1mVxzbkZRh0RV3Sf";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: "SHARMA, JYOTIRMOY" <JYOTIRMOY.SHARMA@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "Mallela, RaghavendraPrasad (Raghavendra Prasad)"
+ <RaghavendraPrasad.Mallela@amd.com>
+Message-ID: <301dedd2-9407-2386-2c20-f0ad6ee42f42@suse.com>
+Subject: Re: where are xs APIs defined
+References: <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
+
+--------------vv99lJ8N1mVxzbkZRh0RV3Sf
+Content-Type: multipart/mixed; boundary="------------j4VkwGAPdn2xMGekZPj6bFwD"
+
+--------------j4VkwGAPdn2xMGekZPj6bFwD
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-On 20/9/22 01:17, Bernhard Beschow wrote:
-> In the next steps, these singletons will be resolved by turning them
-> into attributes of the system bus. The system bus is already accessible
-> via the global current_machine variable which will be made use of later
-> in the wrapper functions.
-> 
-> All changes have been performed with search-and-replace:
-> * s/&address_space_memory/get_address_space_memory()/
-> * s/&address_space_io/get_address_space_io()/
-> The only exceptions were exec/address-spaces.h and softmmu/physmem.c
-> which have been manually changed.
-> 
-> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
-> ---
->   accel/hvf/hvf-accel-ops.c            |  2 +-
->   accel/kvm/kvm-all.c                  | 12 ++++++------
->   hw/alpha/dp264.c                     |  4 ++--
->   hw/alpha/typhoon.c                   |  4 ++--
->   hw/arm/smmu-common.c                 |  4 ++--
->   hw/arm/smmuv3.c                      | 14 +++++++-------
->   hw/arm/virt.c                        |  2 +-
->   hw/char/goldfish_tty.c               |  4 ++--
->   hw/core/loader.c                     |  2 +-
->   hw/dma/pl330.c                       |  2 +-
->   hw/dma/rc4030.c                      |  2 +-
->   hw/dma/xlnx-zynq-devcfg.c            |  4 ++--
->   hw/dma/xlnx_dpdma.c                  |  8 ++++----
->   hw/hppa/machine.c                    |  4 ++--
->   hw/hyperv/hyperv.c                   |  2 +-
->   hw/hyperv/vmbus.c                    |  2 +-
->   hw/i386/amd_iommu.c                  | 18 +++++++++---------
->   hw/i386/fw_cfg.c                     |  2 +-
->   hw/i386/intel_iommu.c                | 24 ++++++++++++------------
->   hw/i386/microvm.c                    |  4 ++--
->   hw/i386/pc.c                         |  2 +-
->   hw/i386/xen/xen-hvm.c                |  4 ++--
->   hw/ide/ahci.c                        |  2 +-
->   hw/ide/macio.c                       | 10 +++++-----
->   hw/intc/apic.c                       |  2 +-
->   hw/intc/openpic_kvm.c                |  2 +-
->   hw/intc/pnv_xive.c                   |  6 +++---
->   hw/intc/pnv_xive2.c                  |  6 +++---
->   hw/intc/riscv_aplic.c                |  2 +-
->   hw/intc/spapr_xive.c                 |  2 +-
->   hw/intc/xive.c                       |  4 ++--
->   hw/intc/xive2.c                      |  4 ++--
->   hw/mips/jazz.c                       |  4 ++--
->   hw/misc/lasi.c                       |  2 +-
->   hw/misc/macio/mac_dbdma.c            |  8 ++++----
->   hw/net/ftgmac100.c                   | 16 ++++++++--------
->   hw/net/i82596.c                      | 24 ++++++++++++------------
->   hw/net/imx_fec.c                     | 22 +++++++++++-----------
->   hw/net/lasi_i82596.c                 |  2 +-
->   hw/net/npcm7xx_emc.c                 | 14 +++++++-------
->   hw/openrisc/boot.c                   |  2 +-
->   hw/pci-host/dino.c                   |  6 +++---
->   hw/pci-host/pnv_phb3.c               |  6 +++---
->   hw/pci-host/pnv_phb3_msi.c           |  6 +++---
->   hw/pci-host/pnv_phb4.c               | 10 +++++-----
->   hw/pci/pci.c                         |  2 +-
->   hw/ppc/pnv_psi.c                     |  2 +-
->   hw/ppc/spapr.c                       |  4 ++--
->   hw/ppc/spapr_events.c                |  2 +-
->   hw/ppc/spapr_hcall.c                 |  4 ++--
->   hw/ppc/spapr_iommu.c                 |  4 ++--
->   hw/ppc/spapr_ovec.c                  |  8 ++++----
->   hw/ppc/spapr_rtas.c                  |  2 +-
->   hw/remote/iommu.c                    |  2 +-
->   hw/remote/message.c                  |  4 ++--
->   hw/remote/proxy-memory-listener.c    |  2 +-
->   hw/riscv/boot.c                      |  6 +++---
->   hw/riscv/sifive_e.c                  |  2 +-
->   hw/riscv/sifive_u.c                  |  2 +-
->   hw/riscv/virt.c                      |  2 +-
->   hw/s390x/css.c                       | 16 ++++++++--------
->   hw/s390x/ipl.h                       |  2 +-
->   hw/s390x/s390-pci-bus.c              |  4 ++--
->   hw/s390x/s390-pci-inst.c             | 10 +++++-----
->   hw/s390x/s390-skeys.c                |  2 +-
->   hw/s390x/virtio-ccw.c                | 10 +++++-----
->   hw/sd/sdhci.c                        |  2 +-
->   hw/sh4/r2d.c                         |  4 ++--
->   hw/sparc/sun4m.c                     |  2 +-
->   hw/sparc/sun4m_iommu.c               |  4 ++--
->   hw/sparc64/sun4u_iommu.c             |  4 ++--
->   hw/timer/hpet.c                      |  2 +-
->   hw/usb/hcd-ehci-pci.c                |  2 +-
->   hw/usb/hcd-ehci-sysbus.c             |  2 +-
->   hw/usb/hcd-ohci.c                    |  2 +-
->   hw/usb/hcd-xhci-sysbus.c             |  2 +-
->   hw/vfio/ap.c                         |  2 +-
->   hw/vfio/ccw.c                        |  2 +-
->   hw/vfio/common.c                     |  8 ++++----
->   hw/vfio/platform.c                   |  2 +-
->   hw/virtio/vhost-vdpa.c               |  2 +-
->   hw/virtio/vhost.c                    |  2 +-
->   hw/virtio/virtio-bus.c               |  4 ++--
->   hw/virtio/virtio-iommu.c             |  6 +++---
->   hw/virtio/virtio-pci.c               |  2 +-
->   hw/xen/xen_pt.c                      |  4 ++--
->   include/exec/address-spaces.h        |  4 ++--
->   include/hw/elf_ops.h                 |  4 ++--
->   include/hw/ppc/spapr.h               |  5 +++--
->   include/hw/ppc/vof.h                 |  4 ++--
->   monitor/misc.c                       |  4 ++--
->   softmmu/ioport.c                     | 12 ++++++------
->   softmmu/memory_mapping.c             |  2 +-
->   softmmu/physmem.c                    | 17 ++++++++++++++---
->   target/arm/hvf/hvf.c                 |  4 ++--
->   target/arm/kvm.c                     |  4 ++--
->   target/avr/helper.c                  |  8 ++++----
->   target/i386/hax/hax-all.c            |  2 +-
->   target/i386/hax/hax-mem.c            |  2 +-
->   target/i386/hvf/hvf.c                |  2 +-
->   target/i386/hvf/vmx.h                |  2 +-
->   target/i386/hvf/x86_mmu.c            |  6 +++---
->   target/i386/nvmm/nvmm-all.c          |  4 ++--
->   target/i386/sev.c                    |  4 ++--
->   target/i386/tcg/sysemu/misc_helper.c | 12 ++++++------
->   target/i386/whpx/whpx-all.c          |  4 ++--
->   target/s390x/diag.c                  |  2 +-
->   target/s390x/mmu_helper.c            |  2 +-
->   target/s390x/sigp.c                  |  2 +-
->   target/xtensa/dbg_helper.c           |  2 +-
->   tests/qtest/fuzz/generic_fuzz.c      |  4 ++--
->   111 files changed, 285 insertions(+), 273 deletions(-)
+T24gMTkuMDkuMjIgMjA6MTMsIFNIQVJNQSwgSllPVElSTU9ZIHdyb3RlOg0KPiBbQU1EIE9m
+ZmljaWFsIFVzZSBPbmx5IC0gR2VuZXJhbF0NCj4gDQo+IA0KPiBIZWxsbywNCj4gDQo+IEkg
+YW0gbG9va2luZyBmb3IgdGhlIHNvdXJjZSBjb2RlIHdoZXJlIFhlbnN0b3JlIGFjY2VzcyBB
+UElzIGxpa2UgeHNfb3BlbigpLCANCj4geHNfcmVhZCgpIGFyZSBkZWZpbmVkLg0KDQpIYXZl
+IGEgbG9vayBhdCB0b29scy9saWJzL3N0b3JlLw0KDQpFdmVyIHRob3VnaHQgb2YgdXNpbmcg
+c29tZXRoaW5nIGxpa2UgY3Njb3BlPyBFdmVuICJnaXQgZ3JlcCIgd291bGQgaGF2ZSBoZWxw
+ZWQNCnRvIGZpbmQgdGhlIGNvcnJlY3Qgc291cmNlLg0KDQoNCkp1ZXJnZW4NCg0K
+--------------j4VkwGAPdn2xMGekZPj6bFwD
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Please consider using scripts/git.orderfile for tree-wide refactors,
-it helps reviewers.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-> diff --git a/include/exec/address-spaces.h b/include/exec/address-spaces.h
-> index db8bfa9a92..d5c8cbd718 100644
-> --- a/include/exec/address-spaces.h
-> +++ b/include/exec/address-spaces.h
-> @@ -33,8 +33,8 @@ MemoryRegion *get_system_memory(void);
->    */
->   MemoryRegion *get_system_io(void);
->   
-> -extern AddressSpace address_space_memory;
-> -extern AddressSpace address_space_io;
-> +AddressSpace *get_address_space_memory(void);
-> +AddressSpace *get_address_space_io(void);
->   
->   #endif
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> diff --git a/softmmu/physmem.c b/softmmu/physmem.c
-> index 56e03e07b5..0ac920d446 100644
-> --- a/softmmu/physmem.c
-> +++ b/softmmu/physmem.c
-> @@ -89,8 +89,8 @@ RAMList ram_list = { .blocks = QLIST_HEAD_INITIALIZER(ram_list.blocks) };
->   static MemoryRegion *system_memory;
->   static MemoryRegion *system_io;
->   
-> -AddressSpace address_space_io;
-> -AddressSpace address_space_memory;
-> +static AddressSpace address_space_io;
-> +static AddressSpace address_space_memory;
->   
->   static MemoryRegion io_mem_unassigned;
->   
-> @@ -2690,6 +2690,16 @@ MemoryRegion *get_system_io(void)
->       return system_io;
->   }
->   
-> +AddressSpace *get_address_space_memory(void)
-> +{
-> +    return &address_space_memory;
-> +}
-> +
-> +AddressSpace *get_address_space_io(void)
-> +{
-> +    return &address_space_io;
-> +}
+--------------j4VkwGAPdn2xMGekZPj6bFwD--
 
-Reviewed-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+--------------vv99lJ8N1mVxzbkZRh0RV3Sf--
+
+--------------JHBBXtEyvBsb8pFM9946uQPD
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmMpVGgFAwAAAAAACgkQsN6d1ii/Ey9z
+8gf/ROh1iDntYbCUUtKRJTcQzR5twIS9eWuZS6tX99E6wypjKsHZaXXx4RkVRm9+K0+W9mrrjQg4
+4qaUBMJsrlwEIz17fMo1idcfwf2pAFiFakpiaWiorq8/Tlh5ubipPzaew2mlJbVu4p/kOSk8r+Mj
+ixBOE2rQZEUe2Wqn8vnqkGf9HWBjf3FVz8lZBbuAXdRWRdhuKkahJ1WF/QKYhRydf3VhEPGGAKpE
+/lyHuD/duVANXM7OF8ZJpvAqO7OxDR5Wm0BnQT79LGsSLz7/mJIPYc7tNC6j4pBTBR/RY6EsD9BM
+XPpKA6Vtjj4Zf+hIF+IJ3MSwWKbUmQKqbCnbjX4SmA==
+=BUrt
+-----END PGP SIGNATURE-----
+
+--------------JHBBXtEyvBsb8pFM9946uQPD--
 
