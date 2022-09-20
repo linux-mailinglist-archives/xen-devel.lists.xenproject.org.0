@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 403875BED90
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 21:22:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409564.652545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A9235BF088
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Sep 2022 00:52:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409577.652556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaiow-0004TV-P8; Tue, 20 Sep 2022 19:22:14 +0000
+	id 1oam4x-0008St-L2; Tue, 20 Sep 2022 22:50:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409564.652545; Tue, 20 Sep 2022 19:22:14 +0000
+Received: by outflank-mailman (output) from mailman id 409577.652556; Tue, 20 Sep 2022 22:50:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaiow-0004QP-LU; Tue, 20 Sep 2022 19:22:14 +0000
-Received: by outflank-mailman (input) for mailman id 409564;
- Tue, 20 Sep 2022 19:22:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cn41=ZX=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1oaiou-0004QJ-Nc
- for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 19:22:12 +0000
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [2607:f8b0:4864:20::102f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85a2c9aa-3919-11ed-9647-05401a9f4f97;
- Tue, 20 Sep 2022 21:22:10 +0200 (CEST)
-Received: by mail-pj1-x102f.google.com with SMTP id fv3so4179847pjb.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 Sep 2022 12:22:10 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- i62-20020a17090a3dc400b001facf455c91sm286910pjc.21.2022.09.20.12.22.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Sep 2022 12:22:08 -0700 (PDT)
+	id 1oam4x-0008Pt-IC; Tue, 20 Sep 2022 22:50:59 +0000
+Received: by outflank-mailman (input) for mailman id 409577;
+ Tue, 20 Sep 2022 22:50:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SAgC=ZX=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1oam4w-0008Pn-NQ
+ for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 22:50:58 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b0491c88-3936-11ed-bad8-01ff208a15ba;
+ Wed, 21 Sep 2022 00:50:56 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id 29so6066194edv.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Sep 2022 15:50:56 -0700 (PDT)
+Received: from [127.0.0.1] (dynamic-078-054-006-055.78.54.pool.telefonica.de.
+ [78.54.6.55]) by smtp.gmail.com with ESMTPSA id
+ w19-20020a170906185300b00781dbdb2917sm419441eje.208.2022.09.20.15.50.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 Sep 2022 15:50:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,107 +44,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85a2c9aa-3919-11ed-9647-05401a9f4f97
+X-Inumbo-ID: b0491c88-3936-11ed-bad8-01ff208a15ba
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
-        bh=mRkb49hJ/o7sUzNJw/zHfFKhjBVcyGD1caVksculA00=;
-        b=PCUI69eggGWeXyBeTxep9IHUaH7o4uqq9Tn6NaYKT/NYgVgrpRX6+8DhNeX3ewe9ey
-         clzFXuBXIjdIDBwAb0H1OJggBDLLvppduw51miVUkus5CCOXfCg6GLFkPmuoAUvBdVwx
-         pWo63368x3lb04WlSCci+u5M/slQQLEVz5BeA=
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date;
+        bh=QvFwsZxA6MHmqPpgPr1kmpEeALNsZz3EkiO3t151YWs=;
+        b=ibNCByyuTGhFGP39XO+xweQozEi3tAqcBRhZ/WOmAMtm/9JZXAqTHeKDVMR3haUUku
+         bX/KG2i8BLKYyZZ5r9zS7NpGgT5D6bwJNH/6EaOJaQxYpBu64mBI46gWkHJPUonkqqL5
+         uEs9gpr+y/TWGp+xV48d0PI7qu18qvMXd4eqt6zEm9WuFkfVSx7rwO4U1MQF3yaSFsY/
+         5Jo9YA+0CW00j9RSccq2/MAvvNkxPNwQERMk4xSHlaFAE0ymgCLA5CQSoPJv8sXQ2J8b
+         J45/4/j74hFU0Hj4c7mQT5wxM/yWl5q+XEBIfdHitK28VSjZ22xsRBuBV8AWfo2iUnYv
+         RJfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
          :subject:date;
-        bh=mRkb49hJ/o7sUzNJw/zHfFKhjBVcyGD1caVksculA00=;
-        b=axC7ZFY9vKrSTrfNiDnHbTnEI3iaLxdxmHn0rruPKNk9vq4WalW7JKTzGBpZbEhY9M
-         kywPWHnOc37TxfeJuTHZLmeEM7QUtLwxmKGSLsJjOLO3wtuMeQ4Z8m3s4uCafwxJRRq2
-         6gYcyxXAeWXT2agdhCnT+xM2n9MwMx9qhdB9ZOkBrzkSm9nXPs3bB3yAzkDzy3hUotFg
-         Iigre5UEmtnxuimkxf+qxJlYMwVqPoPoCAp1jOmEUHIqSitpaMuJ2cnT+npROqiiZNJY
-         viDbapFNXZXN4BxqsgOu0I0lpou1CuhAm5iHBtnFR3kVdlCA7aVD/qyHOQ9WL99Oa4mn
-         kJDg==
-X-Gm-Message-State: ACrzQf1gVDDfI0XAhwOZSzaNQZQ9eRN40PjzPiEYlbszRSGjkiQuLhir
-	5ubcCAnOkqBCRzoiBXBMccN4KQ==
-X-Google-Smtp-Source: AMsMyM761d7Fl9dtnwBzIqTJhW7NDE0KfYgW2Z3zOf5cFMrONbSUwHk2/D83vjqkbY1Tqo6olp+d4w==
-X-Received: by 2002:a17:903:1248:b0:172:f3c7:97a6 with SMTP id u8-20020a170903124800b00172f3c797a6mr1097776plh.128.1663701729091;
-        Tue, 20 Sep 2022 12:22:09 -0700 (PDT)
-From: Kees Cook <keescook@chromium.org>
-To: linux-hardening@vger.kernel.org
-Cc: Kees Cook <keescook@chromium.org>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	xen-devel@lists.xenproject.org,
-	llvm@lists.linux.dev,
-	Siddhesh Poyarekar <siddhesh@gotplt.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Tom Rix <trix@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] x86/entry: Work around Clang __bdos() bug
-Date: Tue, 20 Sep 2022 12:21:59 -0700
-Message-Id: <20220920192202.190793-2-keescook@chromium.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220920192202.190793-1-keescook@chromium.org>
-References: <20220920192202.190793-1-keescook@chromium.org>
+        bh=QvFwsZxA6MHmqPpgPr1kmpEeALNsZz3EkiO3t151YWs=;
+        b=Fo3g3p/kkfl9e7PdVbGmaUiMNWdJthuzbcEbYqbeF7lLiMPnBcFnLs7A6fpj2lZioC
+         1NMxpQFtxyjY2H/caxyaTeEVGNTAbe4oYUxi0faP/M/lpjmf1SG7fJTgYQ0ni4BW/Jnj
+         Viq5kGqnXoJL6yN9Al5YFIgjmKG5587qOMw3jtlq8QEK1SK4eE8J3SsyDNiaZ3trM+x2
+         I6LLsUkKiATFshSbeY4kyCG5SsDH9pFs5FN37duZm6xX/8GmLHQ/tZGPanlOmcGe2eBe
+         STQRrG1jz6kdOw1t1ipUaxJ0TloCvjUEmFqK5ejzjee0b0OMD7O/Yu9NGEGem1UYS+gu
+         HRHQ==
+X-Gm-Message-State: ACrzQf1MPR3UgUmVAmFvv0LaRHFw3O/Xklru373iKnCJ6S34nv3jIdet
+	XpLz+VwOuc5mKgEJqjMmTTY=
+X-Google-Smtp-Source: AMsMyM67oSTOvXd574lZXg8CCJPXcxUdWt09EbcZYxRTm1trv1PkATVyBPnkcoMu+n0wqofhvURSSQ==
+X-Received: by 2002:a05:6402:1e8c:b0:44f:f70:e75e with SMTP id f12-20020a0564021e8c00b0044f0f70e75emr21468748edf.405.1663714256321;
+        Tue, 20 Sep 2022 15:50:56 -0700 (PDT)
+Date: Tue, 20 Sep 2022 22:50:48 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: Peter Maydell <peter.maydell@linaro.org>
+CC: qemu-devel@nongnu.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Bandan Das <bsd@redhat.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ Sergio Lopez <slp@redhat.com>, Alexey Kardashevskiy <aik@ozlabs.ru>,
+ Xiaojuan Yang <yangxiaojuan@loongson.cn>, Cameron Esfahani <dirty@apple.com>,
+ Michael Rolnik <mrolnik@gmail.com>, Song Gao <gaosong@loongson.cn>,
+ Jagannathan Raman <jag.raman@oracle.com>, Greg Kurz <groug@kaod.org>,
+ Kamil Rytarowski <kamil@netbsd.org>, Peter Xu <peterx@redhat.com>,
+ Joel Stanley <joel@jms.id.au>, Alistair Francis <Alistair.Francis@wdc.com>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, haxm-team@intel.com,
+ Roman Bolshakov <r.bolshakov@yadro.com>,
+ Markus Armbruster <armbru@redhat.com>, Eric Auger <eric.auger@redhat.com>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ =?ISO-8859-1?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ =?ISO-8859-1?Q?C=E9dric_Le_Goater?= <clg@kaod.org>,
+ Stefan Hajnoczi <stefanha@redhat.com>, qemu-block@nongnu.org,
+ Eduardo Habkost <eduardo@habkost.net>,
+ =?ISO-8859-1?Q?Herv=E9_Poussineau?= <hpoussin@reactos.org>,
+ qemu-ppc@nongnu.org, Cornelia Huck <cohuck@redhat.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Helge Deller <deller@gmx.de>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <f4bug@amsat.org>,
+ qemu-riscv@nongnu.org, Stafford Horne <shorne@gmail.com>,
+ Paul Durrant <paul@xen.org>, Havard Skinnemoen <hskinnemoen@google.com>,
+ Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ Alexander Graf <agraf@csgraf.de>, Thomas Huth <thuth@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Wenchao Wang <wenchao.wang@intel.com>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, qemu-s390x@nongnu.org,
+ =?ISO-8859-1?Q?Marc-Andr=E9_Lureau?= <marcandre.lureau@redhat.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Eric Farman <farman@linux.ibm.com>, Reinoud Zandijk <reinoud@netbsd.org>,
+ Alexander Bulekov <alxndr@bu.edu>, Yanan Wang <wangyanan55@huawei.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Tyrone Ting <kfting@nuvoton.com>,
+ xen-devel@lists.xenproject.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ John Snow <jsnow@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Darren Kenny <darren.kenny@oracle.com>, kvm@vger.kernel.org,
+ Qiuhao Li <Qiuhao.Li@outlook.com>,
+ John G Johnson <john.g.johnson@oracle.com>,
+ Bin Meng <bin.meng@windriver.com>, Sunil Muthuswamy <sunilmut@microsoft.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org,
+ Marcelo Tosatti <mtosatti@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Artyom Tarasenko <atar4qemu@gmail.com>, Halil Pasic <pasic@linux.ibm.com>,
+ "Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>,
+ Jason Wang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>,
+ Laurent Vivier <laurent@vivier.eu>,
+ Alistair Francis <alistair@alistair23.me>,
+ Jason Herne <jjherne@linux.ibm.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_0/9=5D_Deprecate_sysbus=5Fget=5Fd?= =?US-ASCII?Q?efault=28=29_and_get=5Fsystem=5Fmemory=28=29_et=2E_al?=
+In-Reply-To: <CAFEAcA8GjXFO4WK=KybgSc8rMfqecwD9EXS0kZMKtqogNf1Tsg@mail.gmail.com>
+References: <20220919231720.163121-1-shentey@gmail.com> <CAFEAcA8GjXFO4WK=KybgSc8rMfqecwD9EXS0kZMKtqogNf1Tsg@mail.gmail.com>
+Message-ID: <AD2F1750-F579-4F3B-A9FD-F2ADDF29D9E8@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1979; h=from:subject; bh=4MnVaPsx8mraEdez/1qUw/f+9P/3EjkrM/1wqdGlA2Y=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBjKhLZE7kAhe/OxfUVwh8eyd4pKAVAQvW03irD5DAW qRCvxvmJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYyoS2QAKCRCJcvTf3G3AJuSWD/ 0YU5lJR6Qasvy4L3d9D2h5U5JWrfw5lBGb341IHXohJFP1UnzRH0CT/UnomvYDoLvjhR2joksvkjkn BNTSv7VoRq4RwprCdKG4kgHD8PGjx57z3qsj73lXyfUXt1MwvQB9y+YDpD/SE2IuUFQpf+4iZ2uEtn LvLw9kT0MNmAnaM2dSR5lA6wrcdt9dcqBf4C1O80RyWBKBnfJN2tT3TskZggBrAyk2Y4VxfAOg9UF2 vTENn7pVEn7EisxLJ6/wCFt835Ov9Op7ldWqez4GSVVxpyhYW3zjEzqFOZ1Jwto62iUKdM+V83O8ew rjJ/WRDJT6EN225b5IvYvTHVC742B3/OkrjefYwWsKruTy7sR4aGoXrx6gtHOCfsncloYhZnF1ayiE /BA9ncPIH958gJ01gz7eZndZ2kkOAFTm3BBIZ/Rm8ISXObKAWBd6rFb0MBYeVza2e4fbwvVJfgTG9H tv86FQuDi0OhoT1JbgJrNbf/GhLz8PegmQUKUoAhXk9LrWby/jti9NoGokj6bJKjjtuORb0ETDHUJU WM+b2N7anNSPw/Sovfcx5bkbvOrenXO1PW7ByUj5o5/nal3mnvLFtWS7g3Z17XB5ybO8nxngnjb9NG Fcmwv0P7fktHuuT0QNwTw4WG5vmaMeqDZTTYXOKsbqzpoOfwlI1qO6qXA0jQ==
-X-Developer-Key: i=keescook@chromium.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-After expanding bounds checking to use __builtin_dynamic_object_size(),
-Clang produces a false positive when building with CONFIG_FORTIFY_SOURCE=y
-and CONFIG_UBSAN_BOUNDS=y when operating on an array with a dynamic
-offset. Work around this by using a direct assignment of an empty
-instance. Avoids this warning:
+Am 20=2E September 2022 09:55:37 UTC schrieb Peter Maydell <peter=2Emaydell=
+@linaro=2Eorg>:
+>On Tue, 20 Sept 2022 at 00:18, Bernhard Beschow <shentey@gmail=2Ecom> wro=
+te:
+>>
+>> In address-spaces=2Eh it can be read that get_system_memory() and
+>> get_system_io() are temporary interfaces which "should only be used tem=
+porarily
+>> until a proper bus interface is available"=2E This statement certainly =
+extends to
+>> the address_space_memory and address_space_io singletons=2E
+>
+>This is a long standing "we never really completed a cleanup"=2E=2E=2E
+>
+>> This series attempts
+>> to stop further proliferation of their use by turning TYPE_SYSTEM_BUS i=
+nto an
+>> object-oriented, "proper bus interface" inspired by PCIBus=2E
+>>
+>> While at it, also the main_system_bus singleton is turned into an attri=
+bute of
+>> MachineState=2E Together, this resolves five singletons in total, makin=
+g the
+>> ownership relations much more obvious which helps comprehension=2E
+>
+>=2E=2E=2Ebut I don't think this is the direction we want to go=2E
+>Overall the reason that the "system memory" and "system IO"
+>singletons are weird is that in theory they should not be necessary
+>at all -- board code should create devices and map them into an
+>entirely arbitrary MemoryRegion or set of MemoryRegions corresponding
+>to address space(s) for the CPU and for DMA-capable devices=2E
 
-../include/linux/fortify-string.h:309:4: warning: call to __write_overflow_field declared with 'warn
-ing' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wat
-tribute-warning]
-                        __write_overflow_field(p_size_field, size);
-                        ^
+My intention was to allow exactly that: By turning sytem memory and system=
+ IO into non-singletons, one could have many of them, thus allowing boards =
+to create arbitrary mappings of memory and IO=2E Since QEMU currently assum=
+es one set (memory and IO) of addresses, I for now instantiated the SysBus =
+once in the machine class to preserve behavior=2E
 
-which was isolated to the memset() call in xen_load_idt().
+>But we
+>keep them around because
+> (a) there is a ton of legacy code that assumes there's only one
+>     address space in the system and this is it
+> (b) when modelling the kind of board where there really is only
+>     one address space, having the 'system memory' global makes
+>     the APIs for creating and connecting devices a lot simpler
 
-Note that this looks very much like another bug that was worked around:
-https://github.com/ClangBuiltLinux/linux/issues/1592
+Indeed, the APIs may look simpler=2E The issue I see here though is that d=
+evices may make assumptions about these globals which makes the code hard t=
+o change in the long run=2E If devices are given their dependencies by the =
+framework, they must make less assumptions, putting the framework into cont=
+rol=2E This makes the code more homogenious and therefore easier to change=
+=2E
 
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>
-Cc: xen-devel@lists.xenproject.org
-Cc: llvm@lists.linux.dev
-Signed-off-by: Kees Cook <keescook@chromium.org>
----
- arch/x86/xen/enlighten_pv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+>Retaining the whole-system singleton but shoving it into MachineState
+>doesn't really change much, IMHO=2E
+>
+>More generally, sysbus is rather weird because it isn't really a
+>bus=2E Every device in the system of TYPE_SYS_BUS_DEVICE is "on"
+>the unique TYPE_SYSTEM_BUS bus, but that doesn't mean they're
+>all in the same address space or that in real hardware they'd
+>all be on the same bus=2E
 
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 0ed2e487a693..9b1a58dda935 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -765,6 +765,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
- {
- 	static DEFINE_SPINLOCK(lock);
- 	static struct trap_info traps[257];
-+	static const struct trap_info zero = { };
- 	unsigned out;
- 
- 	trace_xen_cpu_load_idt(desc);
-@@ -774,7 +775,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
- 	memcpy(this_cpu_ptr(&idt_desc), desc, sizeof(idt_desc));
- 
- 	out = xen_convert_trap_info(desc, traps, false);
--	memset(&traps[out], 0, sizeof(traps[0]));
-+	traps[out] = zero;
- 
- 	xen_mc_flush();
- 	if (HYPERVISOR_set_trap_table(traps))
--- 
-2.34.1
+Again, having multiple SysBuses may solve that issue=2E
+
+>sysbus has essentially degraded into a
+>hack for having devices get reset=2E I really really need to make
+>some time to have another look at reset handling=2E If we get that
+>right then I think it's probably possible to collapse the few
+>things TYPE_SYS_BUS_DEVICE does that TYPE_DEVICE does not down
+>into TYPE_DEVICE and get rid of sysbus altogether=2E=2E=2E
+
+There are many SysBusDevices which directly access the globals I intended =
+to deprecate=2E If those devices could be changed to use the SysBus equival=
+ents instead, this would put the boards in control of memory mappings=2E
+
+Best regards,
+Bernhard
+
+>
+>thanks
+>-- PMM
 
 
