@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56D925BDC2B
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 07:16:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409143.652063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD065BDC74
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 07:30:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409150.652075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaVc0-00066h-Q3; Tue, 20 Sep 2022 05:16:00 +0000
+	id 1oaVpS-0007gl-3l; Tue, 20 Sep 2022 05:29:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409143.652063; Tue, 20 Sep 2022 05:16:00 +0000
+Received: by outflank-mailman (output) from mailman id 409150.652075; Tue, 20 Sep 2022 05:29:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaVc0-00063x-Ml; Tue, 20 Sep 2022 05:16:00 +0000
-Received: by outflank-mailman (input) for mailman id 409143;
- Tue, 20 Sep 2022 05:15:59 +0000
+	id 1oaVpS-0007e9-0w; Tue, 20 Sep 2022 05:29:54 +0000
+Received: by outflank-mailman (input) for mailman id 409150;
+ Tue, 20 Sep 2022 05:29:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9R7n=ZX=gmail.com=philippe.mathieu.daude@srs-se1.protection.inumbo.net>)
- id 1oaVbz-00063r-BC
- for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 05:15:59 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1oaVpQ-0007e0-8i
+ for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 05:29:52 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f5f1732-38a3-11ed-9647-05401a9f4f97;
- Tue, 20 Sep 2022 07:15:58 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id y5so2411586wrh.3
- for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 22:15:58 -0700 (PDT)
+ id 3fba9b16-38a5-11ed-9647-05401a9f4f97;
+ Tue, 20 Sep 2022 07:29:51 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id y5so2444527wrh.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 22:29:51 -0700 (PDT)
 Received: from [192.168.1.115] ([185.126.107.38])
  by smtp.gmail.com with ESMTPSA id
- t1-20020adfdc01000000b002252ec781f7sm480793wri.8.2022.09.19.22.15.51
+ t18-20020adfdc12000000b0022762b0e2a2sm510363wri.6.2022.09.19.22.29.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Sep 2022 22:15:55 -0700 (PDT)
+ Mon, 19 Sep 2022 22:29:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,44 +43,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 4f5f1732-38a3-11ed-9647-05401a9f4f97
+X-Inumbo-ID: 3fba9b16-38a5-11ed-9647-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+        h=content-transfer-encoding:in-reply-to:references:cc:to:from
          :content-language:subject:user-agent:mime-version:date:message-id
          :sender:from:to:cc:subject:date;
-        bh=zoCj17/FoLXwtexZcC8HC08ap2gyp0m31eL5ZvThkKo=;
-        b=R32rY7NSj7Fx9wnIFsIakEDibCO9xnK1hZUIT2HKqPdw/Ary8UunlhchQEe50uZAKt
-         IcHwDoHg8BNyr+4XdYGESfHcm//PXvOEVjvXhZPD7y8P5Fpsvk8XUpPTrNV902a8L/l1
-         kcrrndYyNFP2f9XhMPsIOO8AQ/iM1BglRxvcvsKItT0E660ecmBZDaSsn0HIoqSf61pq
-         K8m/cNkANRYMDuR3+HLK4MzuEAvEdEvPrSnSDqRQAwpf1NMYx6hw3Df9VJdBqPRBqe1C
-         BtFe2Lxkcsnodwk0vjI79xEIH7dEOtyIxG8EM0q8g5XNnP9vD2TPzFgVglIz9uW5QTr9
-         RzWA==
+        bh=vLavNPct5HZ2zw6lCN44DF82TIWb7S+NcGLLhGiFgbY=;
+        b=EK29FpxAwJTevxxTP1Jl5+8Y1nnFTDF4cikh0gdLoXjAqssLIc3NK6aJqtIC/sl76l
+         dQN74iwKJIJ8m0vzpT+oBMXb5MWlRMSIdHBzXKYK5Up+7xMeAWU2OrFa0PkuuSntFnfD
+         X7ztP7+ETA8Fnzon/RDPQskBBm2PsWXO/DiTgFqR7DYzUYuJeytUDF0rJT4iCR/ALlAA
+         RNwcv8k60hb5BUXFwIL4fqj+86FL8NznWTo23V8HDCS9Sc8g3g84j4YS3ADG95ZJ5qc0
+         HY0W7gF2cKRT2O+FinLEbnd2WC7FWDJUGcCanGw3nw0m2niEWG4+ilLXeWs4pDnNwah0
+         Td6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+        h=content-transfer-encoding:in-reply-to:references:cc:to:from
          :content-language:subject:user-agent:mime-version:date:message-id
          :sender:x-gm-message-state:from:to:cc:subject:date;
-        bh=zoCj17/FoLXwtexZcC8HC08ap2gyp0m31eL5ZvThkKo=;
-        b=fqI1r7pxLd/ffzC8/XlcYmdYreNlKpJQV03cBYiqFy9MYc7ml3WlVJg4BeQyvWtKx6
-         0jZ2MGydJMi5gT5RQf65wXl+9w5EuMbK19qAbzmBRilXeS4k2Pwbq0hbjM107w2TrVZa
-         SgrvWP/qCi6GOVsE8bBGUwizROQWUlUTKM4hs5TuaH0ihxmpOFOAzEIRaOPECj9vig/z
-         d8cKHfrgxf1JzJgxxuskJ56TF/bDDgZdTNG9ETnwEAd4L69Ccc0i7lc2WH2jXO8nmudH
-         H/7rrXqVIp5tqXJk5YjHhleb8It5V7N31E5qAVqgTEJJc2sqY+s8LYq/K5FVnj2aTpC2
-         83bg==
-X-Gm-Message-State: ACrzQf22F7hDbb776Sq2E7EN0QvJN8n+XbE+IZ0nVxqWrIyl42Z1Tjfe
-	uhCC8fIQEQC2vVIA5B3QkU8=
-X-Google-Smtp-Source: AMsMyM765pemA7LP3GGPKGAEZ4snxehIWXXseDoYmmmzhMIFFSLEBCiGTStpb6E6ujtqvUpeq7Gp3g==
-X-Received: by 2002:a05:6000:2a7:b0:22a:f98f:b75f with SMTP id l7-20020a05600002a700b0022af98fb75fmr6627886wry.373.1663650957809;
-        Mon, 19 Sep 2022 22:15:57 -0700 (PDT)
+        bh=vLavNPct5HZ2zw6lCN44DF82TIWb7S+NcGLLhGiFgbY=;
+        b=vaqYOl7d58NCNJ7xLmS77CWfvHAQkcPWly4fEyHOfOSdRTb22H6vHDEkuw4a+f4blR
+         gdeFBxU1ce/RNyPwl6IBChlsYgQ4iLXSFaBMIGgwJtVXn7MiiC1bWRZyuAVdG+IrBMFD
+         QyZxqKiEtMtW2/P8MVivqIMoCs0/2mC1PQ2/GHW1dq+k4+K995GWY3QkBSGGT3/qScqY
+         7Il1xiIKq0COIvmTEHzpj4SpAqdtk0Sf4A7sm5hTG3t33YExj4Q0OCL0ei6kqbFDNRWO
+         dIUE9h+1J5HM3BZf2D3QT7B+miD8pF2N1AAe6M4gzWMhN3skpQCVnAXRsvNGW4a3FrhL
+         bOgw==
+X-Gm-Message-State: ACrzQf0gj7KyoJKuF9/ZCv3KenwF3/diaNtHzCA+r/9mZS1zACd95IXU
+	hH8fRd7jSF1LIo5ygpBol40=
+X-Google-Smtp-Source: AMsMyM7ISxf8TowQHPXzwCB3gJbnhv9fjXayvDOx/H9iOPRnaX40Rdq5is+DoWs7bHq7Ygny4DwhKA==
+X-Received: by 2002:adf:eec3:0:b0:22a:d159:456c with SMTP id a3-20020adfeec3000000b0022ad159456cmr12283036wrp.463.1663651790518;
+        Mon, 19 Sep 2022 22:29:50 -0700 (PDT)
 Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
-Message-ID: <e1ef18a0-6a85-e536-1fbd-9f8794dc0217@amsat.org>
-Date: Tue, 20 Sep 2022 07:15:50 +0200
+Message-ID: <63a4afba-546b-5c4c-94f8-c689b8fa0e0b@amsat.org>
+Date: Tue, 20 Sep 2022 07:29:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.13.0
 Subject: Re: [PATCH 9/9] exec/address-spaces: Inline legacy functions
 Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
 To: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org
 Cc: "Michael S. Tsirkin" <mst@redhat.com>, Magnus Damm
  <magnus.damm@gmail.com>, Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
@@ -140,124 +141,50 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>, Magnus Damm
  <alistair@alistair23.me>, Jason Herne <jjherne@linux.ibm.com>
 References: <20220919231720.163121-1-shentey@gmail.com>
  <20220919231720.163121-10-shentey@gmail.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
-In-Reply-To: <20220919231720.163121-10-shentey@gmail.com>
+ <e1ef18a0-6a85-e536-1fbd-9f8794dc0217@amsat.org>
+In-Reply-To: <e1ef18a0-6a85-e536-1fbd-9f8794dc0217@amsat.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20/9/22 01:17, Bernhard Beschow wrote:
-> The functions just access a global pointer and perform some pointer
-> arithmetic on top. Allow the compiler to see through this by inlining.
-
-I thought about this while reviewing the previous patch, ...
-
-> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
-> ---
->   include/exec/address-spaces.h | 30 ++++++++++++++++++++++++++----
->   softmmu/physmem.c             | 28 ----------------------------
->   2 files changed, 26 insertions(+), 32 deletions(-)
+On 20/9/22 07:15, Philippe Mathieu-Daudé wrote:
+> On 20/9/22 01:17, Bernhard Beschow wrote:
+>> The functions just access a global pointer and perform some pointer
+>> arithmetic on top. Allow the compiler to see through this by inlining.
 > 
-> diff --git a/include/exec/address-spaces.h b/include/exec/address-spaces.h
-> index b31bd8dcf0..182af27cad 100644
-> --- a/include/exec/address-spaces.h
-> +++ b/include/exec/address-spaces.h
-> @@ -23,29 +23,51 @@
->   
->   #ifndef CONFIG_USER_ONLY
->   
-> +#include "hw/boards.h"
+> I thought about this while reviewing the previous patch, ...
+> 
+>> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
+>> ---
+>>   include/exec/address-spaces.h | 30 ++++++++++++++++++++++++++----
+>>   softmmu/physmem.c             | 28 ----------------------------
+>>   2 files changed, 26 insertions(+), 32 deletions(-)
+>>
+>> diff --git a/include/exec/address-spaces.h 
+>> b/include/exec/address-spaces.h
+>> index b31bd8dcf0..182af27cad 100644
+>> --- a/include/exec/address-spaces.h
+>> +++ b/include/exec/address-spaces.h
+>> @@ -23,29 +23,51 @@
+>>   #ifndef CONFIG_USER_ONLY
+>> +#include "hw/boards.h"
+> 
+> ... but I'm not a fan of including this header here. It is restricted to 
+> system emulation, but still... Let see what the others think.
+> 
+>>   /**
+>>    * Get the root memory region.  This is a legacy function, provided for
+>>    * compatibility. Prefer using SysBusState::system_memory directly.
+>>    */
+>> -MemoryRegion *get_system_memory(void);
+>> +inline MemoryRegion *get_system_memory(void)
+>> +{
+>> +    assert(current_machine);
+>> +
+>> +    return &current_machine->main_system_bus.system_memory;
+>> +}
 
-... but I'm not a fan of including this header here. It is restricted to 
-system emulation, but still... Let see what the others think.
-
->   /**
->    * Get the root memory region.  This is a legacy function, provided for
->    * compatibility. Prefer using SysBusState::system_memory directly.
->    */
-> -MemoryRegion *get_system_memory(void);
-> +inline MemoryRegion *get_system_memory(void)
-> +{
-> +    assert(current_machine);
-> +
-> +    return &current_machine->main_system_bus.system_memory;
-> +}
->   
->   /**
->    * Get the root I/O port region.  This is a legacy function, provided for
->    * compatibility. Prefer using SysBusState::system_io directly.
->    */
-> -MemoryRegion *get_system_io(void);
-> +inline MemoryRegion *get_system_io(void)
-> +{
-> +    assert(current_machine);
-> +
-> +    return &current_machine->main_system_bus.system_io;
-> +}
->   
->   /**
->    * Get the root memory address space.  This is a legacy function, provided for
->    * compatibility. Prefer using SysBusState::address_space_memory directly.
->    */
-> -AddressSpace *get_address_space_memory(void);
-> +inline AddressSpace *get_address_space_memory(void)
-> +{
-> +    assert(current_machine);
-> +
-> +    return &current_machine->main_system_bus.address_space_memory;
-> +}
->   
->   /**
->    * Get the root I/O port address space.  This is a legacy function, provided
->    * for compatibility. Prefer using SysBusState::address_space_io directly.
->    */
-> -AddressSpace *get_address_space_io(void);
-> +inline AddressSpace *get_address_space_io(void)
-> +{
-> +    assert(current_machine);
-> +
-> +    return &current_machine->main_system_bus.address_space_io;
-> +}
->   
->   #endif
->   
-> diff --git a/softmmu/physmem.c b/softmmu/physmem.c
-> index 07e9a9171c..dce088f55c 100644
-> --- a/softmmu/physmem.c
-> +++ b/softmmu/physmem.c
-> @@ -2674,34 +2674,6 @@ static void memory_map_init(SysBusState *sysbus)
->       address_space_init(&sysbus->address_space_io, system_io, "I/O");
->   }
->   
-> -MemoryRegion *get_system_memory(void)
-> -{
-> -    assert(current_machine);
-> -
-> -    return &current_machine->main_system_bus.system_memory;
-> -}
-> -
-> -MemoryRegion *get_system_io(void)
-> -{
-> -    assert(current_machine);
-> -
-> -    return &current_machine->main_system_bus.system_io;
-> -}
-> -
-> -AddressSpace *get_address_space_memory(void)
-> -{
-> -    assert(current_machine);
-> -
-> -    return &current_machine->main_system_bus.address_space_memory;
-> -}
-> -
-> -AddressSpace *get_address_space_io(void)
-> -{
-> -    assert(current_machine);
-> -
-> -    return &current_machine->main_system_bus.address_space_io;
-> -}
-> -
->   static void invalidate_and_set_dirty(MemoryRegion *mr, hwaddr addr,
->                                        hwaddr length)
->   {
-
+Maybe we can simply declare them with __attribute__ ((const)) in the 
+previous patch?
+See 
+https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html#Common-Function-Attributes
 
