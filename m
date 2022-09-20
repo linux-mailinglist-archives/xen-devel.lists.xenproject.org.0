@@ -2,56 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEBA55BE8E4
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 16:27:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409465.652413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD315BE8FD
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 16:31:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409472.652424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaeD1-0001ny-CR; Tue, 20 Sep 2022 14:26:47 +0000
+	id 1oaeGu-0003Ey-WB; Tue, 20 Sep 2022 14:30:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409465.652413; Tue, 20 Sep 2022 14:26:47 +0000
+Received: by outflank-mailman (output) from mailman id 409472.652424; Tue, 20 Sep 2022 14:30:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaeD1-0001m9-9K; Tue, 20 Sep 2022 14:26:47 +0000
-Received: by outflank-mailman (input) for mailman id 409465;
- Tue, 20 Sep 2022 14:26:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R99E=ZX=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1oaeCz-0001m3-VI
- for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 14:26:46 +0000
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ec04898-38f0-11ed-9647-05401a9f4f97;
- Tue, 20 Sep 2022 16:26:43 +0200 (CEST)
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 28KDXQZT003540;
- Tue, 20 Sep 2022 14:26:33 GMT
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3jn688exan-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 20 Sep 2022 14:26:32 +0000
-Received: from pps.filterd
- (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 28KDlHNu022968; Tue, 20 Sep 2022 14:26:31 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2170.outbound.protection.outlook.com [104.47.56.170])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3jp39qm1he-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 20 Sep 2022 14:26:31 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by DS7PR10MB5390.namprd10.prod.outlook.com (2603:10b6:5:3a1::11) with
- Microsoft SMTP Server (version=TLS1_2,
+	id 1oaeGu-0003Cj-TO; Tue, 20 Sep 2022 14:30:48 +0000
+Received: by outflank-mailman (input) for mailman id 409472;
+ Tue, 20 Sep 2022 14:30:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=V320=ZX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oaeGs-0003Cb-MK
+ for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 14:30:46 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2050.outbound.protection.outlook.com [40.107.22.50])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cfd6d07f-38f0-11ed-bad8-01ff208a15ba;
+ Tue, 20 Sep 2022 16:30:45 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PA4PR04MB8032.eurprd04.prod.outlook.com (2603:10a6:102:ba::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.21; Tue, 20 Sep
- 2022 14:26:29 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::dcc6:79b8:7480:2ecf]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::dcc6:79b8:7480:2ecf%3]) with mapi id 15.20.5654.014; Tue, 20 Sep 2022
- 14:26:23 +0000
+ 2022 14:30:42 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::358f:58dc:c0c2:1155]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::358f:58dc:c0c2:1155%7]) with mapi id 15.20.5632.021; Tue, 20 Sep 2022
+ 14:30:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,171 +46,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ec04898-38f0-11ed-9647-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- to : cc : references : from : subject : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2022-7-12;
- bh=OXKOkKMY4UdF9Ksdqo8CuHT57dJsmzm4vvl1rc4TCl0=;
- b=Fo/Fal7uS9jIbyB/8wZcJSNqIQYsMrTzlSh2fR++UVu5J0BwsU3phKq2XWjJOyELcxQQ
- lYU+83+jvF9PM8t6WI7MTWXaCMn7Z59DDRsQMduK0zg4MlsHnReL2fxXC4hwNTsn8YXw
- 90nde55buUrWKz/HCEsv5X4yV/FKsY9dx9OVqDQv7hQV/fA8COoVz9d46pKyiNOrO2a5
- iOB4mnylEYzVfTwzIWLBuMNzD/SdKqO32Xc/KZr2+xDPZ5qFWKkmuNG15kUoaG0NiqMA
- 32xhgK+728RwlyzoGoLdkNeL+y95G9b6gp21DyPr6tkuVdkZxTUnO0+/lSOKqj4vTz02 RQ== 
+X-Inumbo-ID: cfd6d07f-38f0-11ed-bad8-01ff208a15ba
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C3N1NryndL86A9mPwLy+KiwhpDT+hJpFIN4WbJUgPW/4KYEm8iaYbZkRMM6ioHsihftJjOb8yyGAQVH48j+3iNJK8f1aQEOhEypSBxPCVIkxK+xQJuGRJVVKID9WWkZm6V3g6hz6tUIJU6MVyG1WuvtNP98m/jRgP8y/TDwRpMCnS0WQSlWRBvMokTpJcRfLF7K/d0eregOguVhvqQz4otZQbCIu92KL8xGu5oVb0gvf+9oOaCZ1Khos5K5fRuKAaxJg0are992O1D6b2jT5zPwQUrpXCLQW/i2FixqxJDKwJiPWQrQxjbx1GUZycNsDeGjP/s59F/96BC0zTYpALg==
+ b=GxrtoG64rhNzTIKKV6O8lDocGmXcPvSRInrh8zWB6Be+6cj0BDVYpgtm4mdzju0n+H4V4kfnuvzT4FZ1EHo0FSCNlZvkqAliUt96oEhjDWX9YKl0rWZg+hp2ZxmHeYtV6wiFrwLXrI5NawHGBzS8HLzcaD5bPKnie2/X+01z7y373eK0dv6BZenQEV3fWAAaah3ZKMxjHgXs+P5IVOgx2OqWD1q8/oG19LXClbJgtlwiO9rQfHypiuLr9hSpRgXpbqInrOFukT+vusuGxldXfGtGXnfB+TR2QOpvuoc3bECXAWQ3QQpFGC/G12uTX8bmDpPPvyIDiSg+AL05KYeruQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OXKOkKMY4UdF9Ksdqo8CuHT57dJsmzm4vvl1rc4TCl0=;
- b=SLjOaClct14qhVqFq0hljJwM9WgkPCiJUJuSHIT9pCFA6KOHuYZBvXVOWnKSuJbWKN6XKC56VZfkf6Bwb5K3bBGlI50JJbANpnDc9/FfeuZJQsZOKiz2wahrIDMVhcxgjlxALjwqJHjdpHUdEP3VR+V4NL3iyjhbp0SxfG4z/s7DHX3cNla72wRhoKjWa1I+J8FCuXt0peniiF+eXyg/oeo5BZmFclrz8gW1J7Irptx7b+po+mMKBjUf2hs5WN+ZcUmLpze4ZEnvo2bzYwrvmqXyHQovUiI7SJrnPHaEg4DXsAVYR3gYhNZGH7MYJJh2WNFZGHT1MrkjyOx28P5yGw==
+ bh=hUWtHTQMBOfiSK/tDeGOWwDkYur51NulFMNRtcE1OJ4=;
+ b=PaCQFiG/SNJYKAqcIp6JOQs1MJP31jTM0bDlpWo3am2tYKb6BCYm1F3VhRuBW3fmJyndJ9gwo5BaNvd7EEbbEairFjQzJ+vCbSpcWWDzmOqIrS1AjKZFJDP0WIeMyvOv4otFDqEF/Zrx+ghNBjq2mSnBGBt/AzetZj5qrpzz2IZ9955ZM0wkWgO9BG8KhtAEPVvV/x6JJSfVbbfyYOk+pgtlMRamGApbr8+fbDYTy2tiD/ISTBgsr+CafebEk4Oet1ff5+OslxSJsU+Sc9ftzReG3jDiaN6ENBvQjBiqSkkyOxxg/wXrAnN1YWOC4hujB8LxUALupBG+ffGpBbDfpQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OXKOkKMY4UdF9Ksdqo8CuHT57dJsmzm4vvl1rc4TCl0=;
- b=Zf2+g/Dqw2IeTtPz3/u8Ylxd9FPuUWOcBdUEKfqtFiZA+6ajZugZj2Qdx/lC5UAhFdpxO+mvO2PwbkfF5fMkITCfpuAel03jUmoLxI8U4fq8tSYuNp9R7N7F/F+iLIWzG1r5ek9OzmqUhO7MI7PoaIk/4OqWyAPDqmO+OBxqCFc=
-Message-ID: <4d317c1e-3481-6d9e-c5ab-dfd9c559d89d@oracle.com>
-Date: Tue, 20 Sep 2022 10:26:18 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
+ bh=hUWtHTQMBOfiSK/tDeGOWwDkYur51NulFMNRtcE1OJ4=;
+ b=WU7rjbuJtX63BB67zKZCeUhWYzgrOf1D5ENIf0k4SZLOfmUztHlEe0MuYKgPKwUM3NCBJWZkGK3i1I+XoVOUlO6MgAdOBd2NSAUu4cWoXOQCaNS6v0852OtEhgFjZ1cidYs9ssJb4k9eUx4oeazYGtTmItSP40llf4FH6OdS8f+FjSk6YVOUBxxhKhdNxlCeIAknTUFR3c4kjhxyY7NoslCCI2cwNtttUzTHqKS0LN7seoN/AxnQoUTL5YlKEInk1dGifdO00OD2ANRYds3daoxk/w9XWTBy41kHW/G/eHHlewPjA2kvYMk7FIBDC+bKYhP1IyG9yYaaqzDulnBU8Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e813f296-ba1d-7ff0-a84c-97737d7ac7a5@suse.com>
+Date: Tue, 20 Sep 2022 16:30:41 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13 and newer
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
+ George Dunlap <george.dunlap@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-        =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
-        Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org,
-        Tamas K Lengyel <tamas.lengyel@intel.com>,
-        Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-References: <8294476a707d7f20799a40479cc0bf9a1cf07673.1663249988.git.tamas.lengyel@intel.com>
- <9fa4a72f-8b38-fbf0-40c7-8fcd6b34cf10@suse.com>
- <9e79155f-0836-1b18-b648-b6e5422e89c8@oracle.com>
- <737386d2-ceeb-ad97-39a1-42585b913b9d@suse.com>
- <CABfawhk+TByRwVvGjv-e6-2UFeO7g6xBz3-CR_QOtYM2_37U=Q@mail.gmail.com>
- <29d29f64-b799-d56c-1292-661fb5127728@suse.com>
- <CABfawhnRUhQAc0cRybz8sLLkxjuZCO6JVA5QYHBERG7gf0zpZQ@mail.gmail.com>
- <406b7f6e-d092-fb6a-d0dd-60a9743027f6@suse.com>
- <CABfawhmrnL1HGOWS1fkEv5X4CwfkrBj-+APJ=hM1GCzzgjW4zA@mail.gmail.com>
- <5d1b06f0-fc20-585e-9da0-fb24c5931ad3@suse.com>
- <ffc59d24-7862-b7fb-e11e-b5f773129b0c@oracle.com>
- <8c0c9e20-f3d5-86fc-647f-ee89d63f2118@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Subject: Re: [PATCH] x86/vpmu: fix race-condition in vpmu_load
-In-Reply-To: <8c0c9e20-f3d5-86fc-647f-ee89d63f2118@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS7P222CA0021.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::20)
- To BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ xen-devel <xen-devel@lists.xenproject.org>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>
+References: <20200323000946.GH18599@mail-itl>
+ <20200929142730.GA25731@mail-itl>
+ <d243c1b5-712d-a958-0b6c-b232eb4edc80@suse.com>
+ <20200929151627.GE1482@mail-itl>
+ <ea53b845-5edf-a61e-62ae-7ababc30b3e0@suse.com>
+ <20210131021526.GB6354@mail-itl> <YWHDIQC3K8J3LD8+@mail-itl>
+ <YwJZ3X0HpT9w6Veh@mail-itl> <b1df84d5-a1ca-3019-16a7-36d0bb568779@suse.com>
+ <YwNTu1fL7uITg0OZ@mail-itl> <YymUZCfLZRWl6xr5@mail-itl>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <YymUZCfLZRWl6xr5@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO2P265CA0253.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:8a::25) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BLAPR10MB5009:EE_|DS7PR10MB5390:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9990f081-3f4c-4163-de97-08da9b1417d3
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB8032:EE_
+X-MS-Office365-Filtering-Correlation-Id: a778e3ba-f531-4299-f20a-08da9b14b292
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	VGlOLctN/rhiCaLEcTUJ1r2WIO5lwA/dGygGOsAIg5vluX7aa12KqA2frpl/mAA+2xRF2V0Gw4b5nua3SJGuPE2QOq+kOO0ctEbICn41KirwbOzWE9kOOF9kIWfNNbbLZae9tbnSW7pGE4bUtPXtB8VUmRV8l67P0O6iCt4EAQXmtu5US6TpIjL2FQ2H/0xOb35HSngRWl7vLqUqMwdD78uPwg8T4KZqueBrIGdF9x52hgq2IpCEhopuHuGzEMCQfAEAt24uBblfBKlk0Yvqxtl9gnNrJyNi+KYx9EcT3H5of939ebHkJcWE6ZeTFtkmJy34G9MLnvCtuwez8C8jftkuDrNaBp0caGT+8AkAKbwWbx3+o1dSzlFb8msm5Rgx4jcJoTKoHFFHuiVKxZDXY04QZ4KOuXYVMRdH5kd4WluMn87v0ZLnnzSm6Ww9Cuo2u/zno/oQiAWSdYx2wHhl1bMR+Pxoi4xxvFO+fH4JagNb4L+GI8iQneSaFiavi/+hbcf68M1MoXd9jK1TQCVsjuPLesMRcJqxd71PHyAmubf1N9V97BZvvLyhyAExQ/ywV+l3EFYWzrlD76zRfx44+nc7NZjGRgz8ePtv6+l07ipgNG801XqVkT4FWcAGCnIJ2p4JWHnKy/I01dbh/h0C1lybWuMxaIAkdbX7NES96J4gGQ45zFZgEFLDlAPMRU5y6FAlMJ2vlnhHGfswr9ibbF1Y+SdjFVWtXn61CCK7gwDE9bx9y+alUJfdB0i7Va3NunRkBQVnnsxazHh4gs3rObZqC+/xxoaW6QAu9FFKR+U=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(366004)(396003)(39860400002)(376002)(136003)(451199015)(44832011)(31686004)(36756003)(2906002)(6666004)(316002)(38100700002)(4326008)(8676002)(66556008)(5660300002)(66946007)(66476007)(6916009)(31696002)(54906003)(86362001)(186003)(478600001)(2616005)(26005)(6512007)(53546011)(8936002)(6506007)(6486002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info:
+	yiwSaHVsOAOI9a0+GU4pCP5ctoLbSdNYJqWOwGr7BD6iY1uYXgsGVqDYZwlDaB37xNa6Y+kvXdU7AiCWOcAYV/xTHXSwVhjWVTKyzYW7oJpW42roR/FPxJCeBkNRD2/Cp3OVD626YtGfm2GS3gVIxkh5HjbNpCvh3Rb1cafwB1BPgRgvb3bcM2dcWkQb9D9gN0LDKkmErVz7bmwEHTBXTeztW9XLA24tjYj63NetmNUZd4HLJJMz+Q3FJ2BITOMXKt+4rRORSjLj4TR+n5TanGepa7ag6P6YZZo+ZDF5xDbxae2d7vjnOJOFnxi2voLrKQXMqs9cfOeGb15qnPKM4NF1/Oh8SjN6FX31M3PeltQLgRq84Hj66y/Y7Npw7GMYollnODC/1pr/kTUDyynvxTxQxHExBamCdMxH3xVPZM6sZWtgE3XRhz4OtLqCSPMZwJndGzNZ1vJvpjcVlkXgwFwUst/wqI82PffMHked3XGNJ4p3Yf7LfaHxdHWaYMdHBgaQkWEPdBEkJbV21TN5nQ8l9f/BeTmTFpA+XUmfFrhRCS0J1IYBRw+VlCTi3tajyB+3fUOX4OswW6i6HGwEHernCXEGsESBRUESE8fLLAL1vi9mXRXySIPmInsGOaOUym4LhLc8uCULakcgOpDhf7v/eczhyiz0jZQynZVeL1bD+WrdZTsgeVhK3KJmbvYnql7zuXLfeHWDgknHoWa5zWlfhEwpBH1R4Gd+xrPGgWrbLGOJOIE22kdOf7Gz1c6oMckFfXXt0zfUT0jxlVLAaq3JCkAFBa+edBBRofnUMFPemGQn0XYR4i98VSghhvE4CKl6bieAV3ISGHYPPo/B7A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(39860400002)(396003)(366004)(376002)(136003)(451199015)(36756003)(31696002)(86362001)(31686004)(66556008)(110136005)(54906003)(83380400001)(966005)(53546011)(316002)(8676002)(38100700002)(6506007)(478600001)(6486002)(6512007)(26005)(4326008)(66946007)(66476007)(41300700001)(107886003)(2616005)(8936002)(2906002)(186003)(5660300002)(66574015)(15650500001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?UlV5Y1Y3QlZkWklDTEYrQThzNmJTSERiMEwrVkJwMWlNYXVCdzF3ZmZ1MkN0?=
- =?utf-8?B?SE9wQzNFQmpIOXlsa3Q1YWZxeFdTMWJkUk9yOWY2clZvQW1uSjgzd0pvdVNY?=
- =?utf-8?B?NXh4LzJJVFhDOWJ4cWRXM0N2ZHhFOEpwUVhlaG84RDNBdmFHQk8zVEcybUhD?=
- =?utf-8?B?R0Y1c2VOT3EyQkxSOU11eE15SVMzdTVkblI3NythRG94Z202OXhPOXVDZHVi?=
- =?utf-8?B?MFYraXNIU1RqWjh6WkNhVkUyaXYyZEdncytESjBUcEhZeHh4OWNWQ1NLS01o?=
- =?utf-8?B?WlJsZVlKSjZJT2V0MytNOUYwTFlLbWpOanlzakFNNWlmQ25TaDgxUUdSUmY2?=
- =?utf-8?B?dDYza1NPZ0tPMnltNndiS0xwTDlURG1RSDdxbjgwUW1QbVRzYS9Ib0R3MUlX?=
- =?utf-8?B?ZWF5M1lQdGVGTm1qZ2N2WFB1YjRGTmRsc3RJbldEMG4rNG1YajhiWWxKb3Zw?=
- =?utf-8?B?S3FlVVJHZ1hSa0hFTlY4Z0xkdUVHdzVWeS92Qi8wV0p3VHJXUkl2empFZW1I?=
- =?utf-8?B?REUrMVVGRFlLYUY4cGw1VW1rYXY3NVJ2cS9ZRTkvN1ZNbU1CaTM0MUpxL2RT?=
- =?utf-8?B?ZHVCb3V6Ykg4b1hNbEdUL21JTktRdm0wN01ZekhkVWNRL0FDRTRydC9XT0VE?=
- =?utf-8?B?b041U0ExY1hVSG5FNjd5U2xOdXM4d0NRRm1zRDJPUjhhbEFnNDZDdEdseWI5?=
- =?utf-8?B?ZlRWQU9GTm9QbC84VTcyNG0vUThIQkZnd2hnZ1V4NitwZndnb2RtMjNhelYy?=
- =?utf-8?B?aFJ3K1hNeXdFVVdXdTMxQXZjQUR1ZHFxbUlxUE96UGhjdVpsalhwZXQvQS90?=
- =?utf-8?B?ZTFIOXZOMjhXTWFXcks4VWh6eE9yOTM2V3g5eFhLZEc5WHBSNXFRZDh5dnpj?=
- =?utf-8?B?VnlSWGcwQU5oY3o1R3p3Y01zRXhmOXpqMjcyZ0h1enU5bjBJWnhMZGs4TW9M?=
- =?utf-8?B?cXVZMW1DS1hkNUpoczhpZHdJMHVNUytyTFdkRWNkNllxbU95cFBFRHpEdEdo?=
- =?utf-8?B?NlIvUlVDWm1oZEdNemZleUNWZ1Q3TzFPRTYvYWZ5azJDaFEvWmJ0MVZsbnIw?=
- =?utf-8?B?ekV2T2JmRzNIaUozSkhPQnBTUlhCSzFmdktlQmlTTFMzL3B0NFZkS0FkbGVi?=
- =?utf-8?B?akdQSm01TDViUzlkd3VISS9GcHVqZ2NQa1pRQktoQktRNmJOQy95RWNTWFN0?=
- =?utf-8?B?OTFzcjhTSk9kd3NSM1hlOU5xVUIxbkwwQ0pQbGdnUWluTHFFTHd6amNnRWRs?=
- =?utf-8?B?Q0dtQm1nWGtqOWMvTGdVWUpaTFVDNGR5THlyZ3MxV2pWcUR4b0RQWWIyUTVV?=
- =?utf-8?B?N0hkSHl2SlZvOTFCREtCWU5JUXJXUzVsNnIrRUVBWllDcklpSzY2VzhGSElL?=
- =?utf-8?B?S3VJa25tQS81YW5sTHNxUUhROEppYzJnWWVGUkg5R3FzUXpnMEoyY2t5RWYv?=
- =?utf-8?B?MTFFZVZmMFlYNWtzM2tPWjFjYlpQcE96TUJJTWFnbGVvbjhnUm9Ta01uTHZn?=
- =?utf-8?B?ZFFnbFR2ZzgwNjZhMTI0bVNqZVI0Q0hFaGFNVy81bVhNSmNublBoRFlkZ09B?=
- =?utf-8?B?QTdjaG94clhCdFYxMTJYN0MzZ09Sbm44Y1hERW1ydnQvNHJDOXc5MmorN2Zp?=
- =?utf-8?B?dHh3RXZOMlZYcmZQN1ZvL2dnK3daWEFNbGVOWSs5Qy9ROWtkcGF3a0pkZkZJ?=
- =?utf-8?B?NVJjY3krSDhDSDB2VU0rTm52Sm56dWlEbmJMcUltOWMraTRXRUFwajFPZ0xB?=
- =?utf-8?B?S2lOc09uejllS2pQa3hCSGpNK2QvNWE5OS9JOEVEYVhrWkFxRkRqT0xVNU1P?=
- =?utf-8?B?bjQ3TlB6YWlWc3ZyQU90dytPSVB0UDFGTXBNay9WQUxyZEdhdWhRNjMxQnZv?=
- =?utf-8?B?RnZvL1IyTkZzbDhSQjlDRmFvT2pobDdGTVMrNUpkdDMvcDR4R0lBd3UwcTR2?=
- =?utf-8?B?NjNXVnpsQ3ErRkhJdys2Si85dmptWm1SaDVudXg3T3ZaWHRHU3I2dm40dXJm?=
- =?utf-8?B?RWZmYVphNk1BeTc0QUk3Q0RZdE1xQVRVRnJoYWkrT2JQbVo2ZnhuMFFEN3Rw?=
- =?utf-8?B?K0tyT0FGa3ViamJuR2o2YzlQT01HVnR1MzcyRlhuYU1McFhHVzlCdnF0ZS9I?=
- =?utf-8?B?UnlydDR3UmROZGVXZDVKNTdWKzROZ05xbCtYZVZHRXRqMFZHeUp5YmhJYllF?=
- =?utf-8?B?Unc9PQ==?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9990f081-3f4c-4163-de97-08da9b1417d3
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TzhjWGFOZXVhelQyNWpYQ0QyYTlhcWJXL2xpeXRxMmtkWWUwTnBhek1KSC96?=
+ =?utf-8?B?MmdadGVCUnMzWGZQeS9sQjFGMGx6ZGY3S1ZNVUdkcG9ROFNPQWF3TDhEaGQ4?=
+ =?utf-8?B?a1huTWdFa1duaXR5VDluYzFxNEFCVUV4b21KRXdGUFlybDJOazY5TXRNQTVj?=
+ =?utf-8?B?ZjQwK25lMXVqcnN3RlRxYTNUUldrYmc1SzVYaktKRTBLT1h2TnVqKy9vdW1K?=
+ =?utf-8?B?TERzYlpVNTlEbHJPcFF5Y0s1c1dQNm1ySDQ1aGFDRUlQajZGN0VBd0doVnl0?=
+ =?utf-8?B?QWo2UDBKN0NCUXQyOEpIZlBzeHZGWW1MODJLWXZQYmpzNkJnVWZLU3pmT0lx?=
+ =?utf-8?B?REhWY0FPK1hNTEp0SktFSnlTdUV3TXVVT2tCNnpaWUJHb25oazk4SkFncnU2?=
+ =?utf-8?B?d2tnNHRMUzNrb3g3U2pPblE2dGgwL3BBSS9UWWZnVEsvSGszQitleG9mcTh4?=
+ =?utf-8?B?ai9BQ003RmpWdE5GZU5yL2VzRnJacllZakZqOUtkeWFwL3ZIVXV1eVFvSWw4?=
+ =?utf-8?B?RHJ5RzFxLzhMRitkVlhSTTRRejhBejl6K1BXQ0dpNy8rYmEzZXpRaVgwR0hL?=
+ =?utf-8?B?N24vdkFsMmhwNjRyM1JYbHVWVjF6dE1QQms0TDJoYXRiWUFGQytSNGtpaW01?=
+ =?utf-8?B?am9sRG0rcG1FVGJEQTU2WkxLb3pkcFNwc3kxTHpYUHhwclowV3l3V2l5aXJi?=
+ =?utf-8?B?dGFoZnNHU1FMZHRFRmdsUjVpc25wckpvSC9FaHYwUWdTcVpicS9HeXN0Qm5Y?=
+ =?utf-8?B?ZEM4b3owZjd5OER5UWFDWmFnQ1VwZmdObjlWNkVqS2loc1R2b1ZTeW5aT3JU?=
+ =?utf-8?B?bnBzditJS3VUaTZJc2RRTXo5YnI0OW1GL1AwY3ZRWHVLbmNLQ1VLZWFxODFG?=
+ =?utf-8?B?MmQzNit3eENLT0VmYWhKMWhXb244bzRxZHVYZHpVMmNRdklIMmNhTUhGUU8x?=
+ =?utf-8?B?Q3hUdW9FcDZHczdqem9kc1o3N2JhVHQvZDl0MWhZQzc4VkZ4clA3UzFCWXFo?=
+ =?utf-8?B?MnU0UlY3S2VXeTQ2SGpwa2lmRW42RHY3cVVmTWxsN3hRS0NjV3FUZmczbWJa?=
+ =?utf-8?B?NFlRcXUwYWZFNWdQcW1wcFRlT2JseGlsTURnM09yMU1weTRhMnJhaWNaNml1?=
+ =?utf-8?B?RkljZVVYRG4reFcydDhSV2xLaFBlOFBIQ3pza0l6bU1qL3IvaC9DNk0xN01S?=
+ =?utf-8?B?MEZNeUN1SlpOUjVPZlA2OVRQNjlleVYyTTJsUERBc0FmRWRxa1BPeGhVZXFG?=
+ =?utf-8?B?Q25nU21HK3RMSmQ0RlNxUG1CNGY5YWdkMjN2YzFDQVVNUXNLNi9udkhZa0J5?=
+ =?utf-8?B?czZwdllWN0tBalpOZWhzL3NtU01xWHk4MUNyRUVGUGp2ZEprZDVMbnVIdVR5?=
+ =?utf-8?B?Y3AvZlJGdlA5cnEwYzZqdzZQTnBBeU12SXhOZUl3bmxhN1dTVC9qYlVHdWhF?=
+ =?utf-8?B?aTB5eGMzcTRob1Q5SDl2NXhBYkhJRjU4VEhKTExSQlVXWGNwL0RMS2lGWUh4?=
+ =?utf-8?B?MHFZc3RkQUNJQmw4ejlJcFFVSlM4a3krSnVMbVg2S2ord0dNZURzRTk1U1Vo?=
+ =?utf-8?B?VUpyampNRVpXWWxaaEliNG5oNzJ0WlZ2ZTJ5TWd3ZU9LQUhvZDBESzZHMTlm?=
+ =?utf-8?B?M2pEWUdIc1pBSTVvbXR4ZzJ3WWx0YUFTemZaVXk2a0NPZUR2YW02QmlseWhF?=
+ =?utf-8?B?WkQwRnVIbHphSUtUZVBHZ3I2WXdUUzlEekxSS1h6OFZJbGtPSmRJa3V6ejZw?=
+ =?utf-8?B?c2FzOVR5S0ZjaHFXMUlnMG5Kc3d4VnZrR1V6QUNkWDBDaVc0c0Y3MWx1dldR?=
+ =?utf-8?B?Q2tkaXJGd3hDMlFTZW1uOUNJNStyM1V4bytSY3JqVmRVK3hzdWhBZmxMUVcx?=
+ =?utf-8?B?Zm92dmltbGFiQ251NkdET1BMMHdPVElIK0s2WDd3MHJCUEJqT09BMnhnZElq?=
+ =?utf-8?B?b0h4cGRwYmhqUDhVTzVINVRRVnNQVXV1ajZXUXc2RldXMnV4MWpReHB4d1VG?=
+ =?utf-8?B?ZUk4d2doekh2S3BNVGJtVVBjTXJiNFpaZFhNcjdreGh4b2swYWR2Y2NYai9O?=
+ =?utf-8?B?aVE5cnV5dTkzWmVFNjk1dlZnV1F6U0UrdFF1T3I3TmlQdFBobWthUGJvNnRE?=
+ =?utf-8?Q?bM7Z0tpHet+hJcMVBOOquxwMt?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a778e3ba-f531-4299-f20a-08da9b14b292
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2022 14:26:22.9164
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2022 14:30:42.5691
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u+CMwe25+5wb31Yf7is0PczDHiKdXCWB0NXNCeiE7kjCWBEkG3Fiodn0jxi+t+ns24uvJ68Rwd7+3Oj0hzTJEOenlv+JficksCIt8IPHumU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5390
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-09-20_06,2022-09-20_02,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 adultscore=0
- phishscore=0 bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2209200085
-X-Proofpoint-GUID: X-FfGq7hWBW4Nk40Kv0PVn6l3s02rbdO
-X-Proofpoint-ORIG-GUID: X-FfGq7hWBW4Nk40Kv0PVn6l3s02rbdO
+X-MS-Exchange-CrossTenant-UserPrincipalName: p6L8YOsU/V25eH5qWDPLcECeE1iBHFp14bwMJSCihJIyLxaNqb2s2g3jduCqYrVS+vyXzuTx02AkdYcOGQ2lPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8032
 
-
-
-On 9/20/22 4:01 AM, Jan Beulich wrote:
-> On 20.09.2022 00:42, Boris Ostrovsky wrote:
-
+On 20.09.2022 12:22, Marek Marczykowski-Górecki wrote:
+> On Mon, Aug 22, 2022 at 12:00:27PM +0200, Marek Marczykowski-Górecki wrote:
+>> On Mon, Aug 22, 2022 at 11:53:50AM +0200, Jan Beulich wrote:
+>>> On 21.08.2022 18:14, Marek Marczykowski-Górecki wrote:
+>>>> On Sat, Oct 09, 2021 at 06:28:17PM +0200, Marek Marczykowski-Górecki wrote:
+>>>>> On Sun, Jan 31, 2021 at 03:15:30AM +0100, Marek Marczykowski-Górecki wrote:
+>>>>>> I'm resurrecting this thread as it was recently mentioned elsewhere. I
+>>>>>> can still reproduce the issue on the recent staging branch (9dc687f155).
+>>>>>>
+>>>>>> It fails after the first resume (not always, but frequent enough to
+>>>>>> debug it). At least one guest needs to be running - with just (PV) dom0
+>>>>>> the crash doesn't happen (at least for the ~8 times in a row I tried).
+>>>>>> If the first resume works, the second (almost?) always will fail but
+>>>>>> with a different symptoms - dom0 kernel lockups (at least some of its
+>>>>>> vcpus). I haven't debugged this one yet at all.
+>>>>>>
+>>>>>> Any help will be appreciated, I can apply some debug patches, change
+>>>>>> configuration etc.
+>>>>>
+>>>>> This still happens on 4.14.3. Maybe it is related to freeing percpu
+>>>>> areas, as it caused other issues with suspend too? Just a thought...
+>>>>
+>>>> I have reproduced this on current staging(*). And I can reproduce it
+>>>> reliably. And also, I got (I believe) closely related crash with credit1
+>>>> scheduler.
+>>>>
+>>>> (*) It isn't plain staging, it's one with my xhci console patches on
+>>>> top, including attempt to make it survive S3. I believe the only
+>>>> relevant part there is sticking set_timer() into console resume path (or
+>>>> just having a timer with rather short delay registered). The actual tree
+>>>> at https://github.com/marmarek/xen/tree/master-xue2-debug, including
+>>>> quite a lot of debug prints and debug hacks.
+>>>>
+>>>> Specific crash with credit2:
 >>
->> It is saving vpmu data from current pcpu's MSRs for a remote vcpu so @v
->> in vmx_find_msr() is not @current:
->>
->>        vpmu_load()
->>            ...
->>            prev = per_cpu(last_vcpu, pcpu);
->>            vpmu_save_force(prev)
->>                core2_vpmu_save()
->>                    __core2_vpmu_save()
->>                        vmx_read_guest_msr()
->>                            vmx_find_msr()
->>
->>
->> The call to vmx_find_msr() was introduced by 755087eb9b10c. I wonder though whether
->> this call is needed when code path above is executed (i.e. when we are saving
->> remove vcpu)
+>> (XEN) Assertion 'c2rqd(sched_unit_master(unit)) == svc->rqd' failed at common/sched/credit2.c:2274
+>> (XEN) ----[ Xen-4.17-unstable  x86_64  debug=y  Tainted:   C    ]----
+>> (XEN) CPU:    10
+>> (XEN) RIP:    e008:[<ffff82d040247a4d>] credit2.c#csched2_unit_wake+0x152/0x154
+>> (XEN) RFLAGS: 0000000000010083   CONTEXT: hypervisor (d0v0)
+>> (XEN) rax: ffff830251778230   rbx: ffff830251768cb0   rcx: 00000032111d6000
+>> (XEN) rdx: ffff8302515c1eb0   rsi: 0000000000000006   rdi: ffff830251769000
+>> (XEN) rbp: ffff8302515cfd90   rsp: ffff8302515cfd70   r8:  ffff830251769000
+>> (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
+>> (XEN) r12: ffff830251768dd0   r13: ffff8302515c1d00   r14: 0000000000000006
+>> (XEN) r15: ffff82d0405ddb40   cr0: 0000000080050033   cr4: 0000000000372660
+>> (XEN) cr3: 000000022f2a1000   cr2: ffff8881012738e0
+>> (XEN) fsb: 0000744bf6a0db80   gsb: ffff888255600000   gss: 0000000000000000
+>> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
+>> (XEN) Xen code around <ffff82d040247a4d> (credit2.c#csched2_unit_wake+0x152/0x154):
+>> (XEN)  df e8 6f bf ff ff eb ad <0f> 0b f3 0f 1e fa 55 48 89 e5 41 57 41 56 41 55
+>> (XEN) Xen stack trace from rsp=ffff8302515cfd70:
+>> (XEN)    ffff83025174b000 ffff830251768cb0 ffff830251778270 ffff82d0405c4298
+>> (XEN)    ffff8302515cfdd8 ffff82d04024fcb8 0000000000000202 ffff830251778270
+>> (XEN)    ffff83025174b000 0000000000000001 ffff830251769018 0000000000000000
+>> (XEN)    0000000000000000 ffff8302515cfe48 ffff82d04020a8c9 ffff8882556aedc0
+>> (XEN)    0000000000000003 00001910537e623e 0000000b988f78a6 0000000059d4a716
+>> (XEN)    00001901f30fa41e 0000000217f96af6 0000000000000000 ffff83025174b000
+>> (XEN)    ffff830251756000 0000000000000002 0000000000000001 ffff8302515cfe70
+>> (XEN)    ffff82d0402f7968 ffff830251756000 ffff8302515cfef8 0000000000000018
+>> (XEN)    ffff8302515cfee8 ffff82d0402ec6de 0000000000000000 ffffffff82f157e0
+>> (XEN)    0000000000000000 0000000000000000 ffff8302515cfef8 0000000000000000
+>> (XEN)    0000000000000000 ffff8302515cffff ffff830251756000 0000000000000000
+>> (XEN)    0000000000000000 0000000000000000 0000000000000000 00007cfdaea300e7
+>> (XEN)    ffff82d0402012bd 0000000000000000 ffffffff82c51120 ffff88810036cf00
+>> (XEN)    0000000000000002 000000000001e120 0000000000000002 0000000000000246
+>> (XEN)    ffffffff82f157e0 0000000000000001 0000000000000000 0000000000000018
+>> (XEN)    ffffffff81e4a30a 0000000000000000 0000000000000002 0000000000000001
+>> (XEN)    0000010000000000 ffffffff81e4a30a 000000000000e033 0000000000000246
+>> (XEN)    ffffc9004aef7c18 000000000000e02b fb5ee398d214b10c eb5ef398c214a10c
+>> (XEN)    eb56f390c21ca104 ebd6f310c29ca184 0000e0100000000a ffff830251756000
+>> (XEN)    0000003211016000 0000000000372660 0000000000000000 80000002963e1002
+>> (XEN) Xen call trace:
+>> (XEN)    [<ffff82d040247a4d>] R credit2.c#csched2_unit_wake+0x152/0x154
+>> (XEN)    [<ffff82d04024fcb8>] F vcpu_wake+0xfd/0x267
+>> (XEN)    [<ffff82d04020a8c9>] F common_vcpu_op+0x178/0x5d1
+>> (XEN)    [<ffff82d0402f7968>] F do_vcpu_op+0x69/0x226
+>> (XEN)    [<ffff82d0402ec6de>] F pv_hypercall+0x575/0x657
+>> (XEN)    [<ffff82d0402012bd>] F lstar_enter+0x13d/0x150
+>> (XEN)
+>> (XEN)
+>> (XEN) ****************************************
+>> (XEN) Panic on CPU 10:
+>> (XEN) Assertion 'c2rqd(sched_unit_master(unit)) == svc->rqd' failed at common/sched/credit2.c:2274
+>> (XEN) ****************************************
 > 
-> How could it not be needed? We need to obtain the guest value. The
-> thing I don't understand is why this forced saving is necessary,
-> when context_switch() unconditionally calls vpmu_switch_from().
+> Ok, I think I figured it out!
+> 
+> I added a function that verifies run queues of all the sched units, and
+> called it basically every other line on the resume path. The debug
+> function (if anybody is interested):
+> 
+>     void verify_sched_units(void)
+>     {   
+>         struct domain *d;
+>         const struct sched_unit *unit;
+>         
+>         for_each_domain ( d )
+>         {
+>             for_each_sched_unit ( d, unit )
+>             {
+>                 if ( c2rqd(sched_unit_master(unit)) != csched2_unit(unit)->rqd )
+>                 {
+>                     printk(XENLOG_WARNING "d%d sched unit %d: rq=%d, unit master %d, rq=%d\n",
+>                             d->domain_id, unit->unit_id,
+>                             csched2_unit(unit)->rqd ? csched2_unit(unit)->rqd->id : -1,
+>                             sched_unit_master(unit),
+>                             c2rqd(sched_unit_master(unit))->id);
+>                     WARN_ON(1);
+>                 }
+>             }
+>         }
+>     }
+> 
+> It appears that restore_vcpu_affinity() is responsible, specifically
+> this part:
+> 
+> 1216         /*
+> 1217          * Re-assign the initial processor as after resume we have no
+> 1218          * guarantee the old processor has come back to life again.
+> 1219          *
+> 1220          * Therefore, here, before actually unpausing the domains, we should
+> 1221          * set v->processor of each of their vCPUs to something that will
+> 1222          * make sense for the scheduler of the cpupool in which they are in.
+> 1223          */
+> ...
+> 1249         res = get_sched_res(cpumask_any(cpumask_scratch_cpu(cpu)));
+> 1250         sched_set_res(unit, res);
+> 1251 
+> 1252         spin_unlock_irq(lock);
+> 1253 
+> 1254         /* v->processor might have changed, so reacquire the lock. */
+> 1255         lock = unit_schedule_lock_irq(unit);
+> 1256         res = sched_pick_resource(unit_scheduler(unit), unit);
+> 1257         sched_set_res(unit, res);
+> 1258         spin_unlock_irq(lock);
+> 1259 
+> 1260         if ( old_cpu != sched_unit_master(unit) )
+> 1261             sched_move_irqs(unit);
+> 
+> It calls sched_set_res() directly, which assigns sched resources, but
+> does _not_ adjust runqueues (if new pcpu happen to be assigned to
+> another runqueue than the one from previous pcpu).
+> 
+> I have two (non exclusive) ideas here:
+> 1. If old_cpu is actually still available, do not move it at all.
+> 2. Use sched_migrate() instead of sched_set_res().
+> 
+> Here is the patch that fixes it for me:
+> ---8<---
+> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> index 83455fbde1c8..dcf202d8b307 100644
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -1246,19 +1246,29 @@ void restore_vcpu_affinity(struct domain *d)
+>              }
+>          }
+>  
+> -        res = get_sched_res(cpumask_any(cpumask_scratch_cpu(cpu)));
+> +        /* Prefer old cpu if available. */
+> +        if ( cpumask_test_cpu(old_cpu, cpumask_scratch_cpu(cpu)) )
+> +            res = get_sched_res(old_cpu);
+> +        else
+> +            res = get_sched_res(cpumask_any(cpumask_scratch_cpu(cpu)));
+>          sched_set_res(unit, res);
+>  
+>          spin_unlock_irq(lock);
+>  
+> -        /* v->processor might have changed, so reacquire the lock. */
+> -        lock = unit_schedule_lock_irq(unit);
+> -        res = sched_pick_resource(unit_scheduler(unit), unit);
+> -        sched_set_res(unit, res);
+> -        spin_unlock_irq(lock);
+> -
+> +        /*
+> +         * If different cpu was chosen, it was random, let scheduler do proper
+> +         * decision.
+> +         */
+>          if ( old_cpu != sched_unit_master(unit) )
+> +        {
+> +            /* v->processor might have changed, so reacquire the lock. */
+> +            lock = unit_schedule_lock_irq(unit);
+> +            res = sched_pick_resource(unit_scheduler(unit), unit);
+> +            sched_migrate(unit_scheduler(unit), unit, res->master_cpu);
+> +            spin_unlock_irq(lock);
+> +
+>              sched_move_irqs(unit);
+> +        }
+>      }
+>  
+>      rcu_read_unlock(&sched_res_rculock);
+> ---8<---
+> 
+> I have several doubts here:
+> 
+> 1. If old_cpu is available, is sched_set_res() needed at all?
+> 2. Should both calls be changed to sched_migrate()? Currently I changed
+>    only the second one, in case scheduler could be confused about
+>    old_cpu not being available anymore.
+> 3. Are there any extra locking requirements for sched_migrate() at this
+>    stage? The long comment above sched_unit_migrate_start() suggests
+>    there might be, but I'm not sure if that's really the case during
+>    resume.
+> 4. Related to the above - should thaw_domains() be modified to call
+>    restore_vcpu_affinity() for all domains first, and unpause only
+>    later? That could reduce locking requirements, I guess.
 
+All questions primarily to the scheduler maintainers - forwarding
+accordingly.
 
-IIRC the logic is:
-
-1. vcpuA runs on pcpu0
-2. vcpuA is de-scheduled and is selected to run on pcpu1. It has not yet called vpmu_load() from pcpu1
-3. vcpuB is ready to run on pcpu0, calls vpmu_load()
-4. vcpuB discovers that pcpu0's MSRs are still holding values from vcpuA
-5. vcpuB calls vpmu_force_save(vcpuA) which stashes pcpu0's MSRs into vcpuA's vpmu context.
-
-
--boris
-
-
+Jan
 
