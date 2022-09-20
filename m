@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0CDC5BDBE8
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 06:57:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409129.652041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 988F55BDC28
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 07:12:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409134.652052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaVKF-0002o9-1n; Tue, 20 Sep 2022 04:57:39 +0000
+	id 1oaVY6-0005Rf-82; Tue, 20 Sep 2022 05:11:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409129.652041; Tue, 20 Sep 2022 04:57:39 +0000
+Received: by outflank-mailman (output) from mailman id 409134.652052; Tue, 20 Sep 2022 05:11:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaVKE-0002mB-VA; Tue, 20 Sep 2022 04:57:38 +0000
-Received: by outflank-mailman (input) for mailman id 409129;
- Tue, 20 Sep 2022 04:57:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oaVY6-0005PO-5G; Tue, 20 Sep 2022 05:11:58 +0000
+Received: by outflank-mailman (input) for mailman id 409134;
+ Tue, 20 Sep 2022 05:11:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9R7n=ZX=gmail.com=philippe.mathieu.daude@srs-se1.protection.inumbo.net>)
- id 1oaVKE-0002m5-6M
- for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 04:57:38 +0000
+ id 1oaVY4-0005PH-Ti
+ for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 05:11:56 +0000
 Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
  [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf193eaf-38a0-11ed-9647-05401a9f4f97;
- Tue, 20 Sep 2022 06:57:37 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id t7so2292675wrm.10
- for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 21:57:37 -0700 (PDT)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bec36bc4-38a2-11ed-bad8-01ff208a15ba;
+ Tue, 20 Sep 2022 07:11:55 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id t7so2327424wrm.10
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Sep 2022 22:11:55 -0700 (PDT)
 Received: from [192.168.1.115] ([185.126.107.38])
  by smtp.gmail.com with ESMTPSA id
- c3-20020a05600c0a4300b003b47ff307e1sm749536wmq.31.2022.09.19.21.57.31
+ y12-20020adfe6cc000000b0022a293ab1e9sm452848wrm.11.2022.09.19.22.11.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 Sep 2022 21:57:36 -0700 (PDT)
+ Mon, 19 Sep 2022 22:11:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,44 +43,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: bf193eaf-38a0-11ed-9647-05401a9f4f97
+X-Inumbo-ID: bec36bc4-38a2-11ed-bad8-01ff208a15ba
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :sender:from:to:cc:subject:date;
-        bh=sf+yjXUZ2IXukhH5UaeERJtNyhl+QRIlnvPlc0mykq8=;
-        b=INBRXUtTn4f77El/2/P3WXjwa3VcUTxtrP1wFIDUvyAEGQuR4JdU8p5dXhkW+WOyoi
-         aoucRXOyi92aAnFe7bOLEAZibHBlkHtvFejKVFbXmRBMjzPIh0QtKo5E1ehhEN3by8eV
-         17JDnHMtDeKFLvdX8LOcEdcAGUaBlxldWLzJeEDB059E3k0gVClrPR8sLUj64MYCBXPW
-         U4IWEn9NgUDZaS84v7Xcnwa8N50RXPQuuOzX7HKjzYTF1wFu0KvbUzVHydFrkNBQIdcj
-         7SYes6exvX/5Vh89DdneU4padIai8aVEZ3yvM9L6bEsaMF8cH4VwUMhR2Fe4nYLK5lrT
-         f3Kw==
+        bh=pnla9efotYFd/3Jw4qRJIL4xlOWxFHoq332oc/9bbqo=;
+        b=WvvRv/4VUhzyb4J7QRcwkeJBidNZGJR96FFEPsAXWbf8VLcpCXht2BEDjJNBcmmf4q
+         B9BYrOZLleB7KiX3SS/A3sJvc264Ej3tiwc3zGaUvi5i726p0npX6EaT2nlzWeA2+YFX
+         8GTlDoczWFQldhtWnsIUiRTYwYsgNJm3kyA/24figJL3TCNySpOfwDjd3289KgW1XDyL
+         ERzD6kKsPvOAQCvh+laZl5zPT/ZSZiZs1LcmpHaoACHzTBRIGuB5hrb+MzvGTkUhNaoj
+         4ok/LujOcM0U/ZAvrwSbQDTdue9Vb6REatLt7pz9bKtwK5aVEYH2l8wALn4jushh7SCo
+         jWTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :sender:x-gm-message-state:from:to:cc:subject:date;
-        bh=sf+yjXUZ2IXukhH5UaeERJtNyhl+QRIlnvPlc0mykq8=;
-        b=CMCqwRiwmEPA/qp27iaE1sdTjmxlUH14I9fbpizK+pSsMpbQeVWzE+1QTxGf+8kpeO
-         kQLOEoMX3d17CwOF1+fJ1XIhCzj1B1ZfeFyKiuhJJm8kMkJQknGlBCDEarhwru72oWgE
-         kFbBYcTJrh9VWZvActQCxpZGJyeJqXJ1xD9ckTjFsLgHOX36Bo1XN+487xR5DrZozld7
-         odN3y00syif+MpHxHY9hYnfuh+LE/QKb21+6oNPHlztSegFX6OTH5wo0S4zPLsMd6/Xq
-         ParfJ+fOQ+jB3nQEf4ocxzVn3oXOjMIRYRBk7FutAsHFaU3SuPnQWcJleXpWMudruLaD
-         v3Eg==
-X-Gm-Message-State: ACrzQf2abCe7ikURp4ZtSUTOTzvnwO04SL3d5TTQAGe9jnjt05cpI1UJ
-	E5BQX3f4y3BQ0VsGbqJmkow=
-X-Google-Smtp-Source: AMsMyM7xk9eQhMG0hy5vzO0uxqQyyAFLD2EaloYjIUcvuXMcivTCqCiOehaR1VmADyoWYmuRlw8Yow==
-X-Received: by 2002:a5d:4d4e:0:b0:22a:e7fe:e3bd with SMTP id a14-20020a5d4d4e000000b0022ae7fee3bdmr9244091wru.311.1663649856601;
-        Mon, 19 Sep 2022 21:57:36 -0700 (PDT)
+        bh=pnla9efotYFd/3Jw4qRJIL4xlOWxFHoq332oc/9bbqo=;
+        b=7G8T7A96wz+TuokV+/b3FXyzH8G+FsTJ/VyihiAb4wTTlkVis4KblWMGlxfeKG01S2
+         cYSSxCzLCrJxg7422Ym+TnePmIFDuwhkjLgczo6EtVkT4RgcRQL8HBYBjEGoerSZvMXP
+         xA1JGSG7MYlKAXDQCQxCFA3oAqxm6BwMNeYtwpICJkQmjVtVuZEmnizz5SkzlUjYepEM
+         PMs3CWiGzqrMAPPEUvxzjVWLKwC/Y6S9QWiBGatm0qm1F4nWqa3npETyR6bD2itt+J18
+         hc7qJX1M0GryvDlpuduysExQzNBxK5GMU+wkw8swQbMScLdFBvaIkes4JQjLr/0V+xH1
+         paMw==
+X-Gm-Message-State: ACrzQf2GSEgpY0ZafLcprK1l9Lbp4RUEiPh2JEMkdguNy0ak/P585/sG
+	SRtdYlH3utekLndL7ut9RHE=
+X-Google-Smtp-Source: AMsMyM68Pblt5BIGotnw6q4CbijQ/TryMLJf4D1jxUGITEtnEY/vODYKCiaQW21HjH1kYP7yEoWclA==
+X-Received: by 2002:a5d:6147:0:b0:22a:6035:a878 with SMTP id y7-20020a5d6147000000b0022a6035a878mr12295976wrt.528.1663650715031;
+        Mon, 19 Sep 2022 22:11:55 -0700 (PDT)
 Sender: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philippe.mathieu.daude@gmail.com>
-Message-ID: <07db3f3a-90d9-c0db-df26-de7a667620be@amsat.org>
-Date: Tue, 20 Sep 2022 06:57:30 +0200
+Message-ID: <be558812-199c-0909-d2e1-d2dd6be54dec@amsat.org>
+Date: Tue, 20 Sep 2022 07:11:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.13.0
-Subject: Re: [PATCH 6/9] target/loongarch/cpu: Remove unneeded include
- directive
+Subject: Re: [PATCH 8/9] softmmu/physmem: Let SysBusState absorb memory region
+ and address space singletons
 Content-Language: en-US
 To: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org
 Cc: "Michael S. Tsirkin" <mst@redhat.com>, Magnus Damm
@@ -140,36 +140,165 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>, Magnus Damm
  Laurent Vivier <laurent@vivier.eu>, Alistair Francis
  <alistair@alistair23.me>, Jason Herne <jjherne@linux.ibm.com>
 References: <20220919231720.163121-1-shentey@gmail.com>
- <20220919231720.163121-7-shentey@gmail.com>
+ <20220919231720.163121-9-shentey@gmail.com>
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
-In-Reply-To: <20220919231720.163121-7-shentey@gmail.com>
+In-Reply-To: <20220919231720.163121-9-shentey@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 20/9/22 01:17, Bernhard Beschow wrote:
-> The cpu is used in both user and system emulation context while sysbus.h
-> is system-only. Remove it since it's not needed anyway. Furthermore, it
-> would cause a compile error in the next commit.
+> These singletons are actually properties of the system bus but so far it
+> hasn't been modelled that way. Fix this to make this relationship very
+> obvious.
+> 
+> The idea of the patch is to restrain futher proliferation of the use of
+> get_system_memory() and get_system_io() which are "temprary interfaces"
+
+"further", "temporary"
+
+> "until a proper bus interface is available". This should now be the
+> case.
+> 
+> Note that the new attributes are values rather than a pointers. This
+> trades pointer dereferences for pointer arithmetic. The idea is to
+> reduce cache misses - a rule of thumb says that every pointer
+> dereference causes a cache miss while arithmetic is basically free.
 > 
 > Signed-off-by: Bernhard Beschow <shentey@gmail.com>
 > ---
->   target/loongarch/cpu.h | 1 -
->   1 file changed, 1 deletion(-)
+>   include/exec/address-spaces.h | 19 ++++++++++++---
+>   include/hw/sysbus.h           |  6 +++++
+>   softmmu/physmem.c             | 46 ++++++++++++++++++-----------------
+>   3 files changed, 45 insertions(+), 26 deletions(-)
 > 
-> diff --git a/target/loongarch/cpu.h b/target/loongarch/cpu.h
-> index dce999aaac..c9ed2cb3e7 100644
-> --- a/target/loongarch/cpu.h
-> +++ b/target/loongarch/cpu.h
-> @@ -13,7 +13,6 @@
->   #include "hw/registerfields.h"
->   #include "qemu/timer.h"
->   #include "exec/memory.h"
-> -#include "hw/sysbus.h"
+> diff --git a/include/exec/address-spaces.h b/include/exec/address-spaces.h
+> index d5c8cbd718..b31bd8dcf0 100644
+> --- a/include/exec/address-spaces.h
+> +++ b/include/exec/address-spaces.h
+> @@ -23,17 +23,28 @@
 >   
->   #define IOCSRF_TEMP             0
->   #define IOCSRF_NODECNT          1
+>   #ifndef CONFIG_USER_ONLY
+>   
+> -/* Get the root memory region.  This interface should only be used temporarily
+> - * until a proper bus interface is available.
+> +/**
+> + * Get the root memory region.  This is a legacy function, provided for
+> + * compatibility. Prefer using SysBusState::system_memory directly.
+>    */
+>   MemoryRegion *get_system_memory(void);
 
-Renaming the subject as 'target: Remove unneeded "hw/sysbus.h" include 
-directive' and fixing target/ppc/kvm.c:
-Reviewed-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
+> diff --git a/include/hw/sysbus.h b/include/hw/sysbus.h
+> index 5bb3b88501..516e9091dc 100644
+> --- a/include/hw/sysbus.h
+> +++ b/include/hw/sysbus.h
+> @@ -17,6 +17,12 @@ struct SysBusState {
+>       /*< private >*/
+>       BusState parent_obj;
+>       /*< public >*/
+> +
+> +    MemoryRegion system_memory;
+> +    MemoryRegion system_io;
+> +
+> +    AddressSpace address_space_io;
+> +    AddressSpace address_space_memory;
+
+Alternatively (renaming doc accordingly):
+
+        struct {
+            MemoryRegion mr;
+            AddressSpace as;
+        } io, memory;
+
+>   };
+>   
+>   #define TYPE_SYS_BUS_DEVICE "sys-bus-device"
+> diff --git a/softmmu/physmem.c b/softmmu/physmem.c
+> index 0ac920d446..07e9a9171c 100644
+> --- a/softmmu/physmem.c
+> +++ b/softmmu/physmem.c
+> @@ -86,12 +86,6 @@
+>    */
+>   RAMList ram_list = { .blocks = QLIST_HEAD_INITIALIZER(ram_list.blocks) };
+>   
+> -static MemoryRegion *system_memory;
+> -static MemoryRegion *system_io;
+> -
+> -static AddressSpace address_space_io;
+> -static AddressSpace address_space_memory;
+> -
+>   static MemoryRegion io_mem_unassigned;
+>   
+>   typedef struct PhysPageEntry PhysPageEntry;
+> @@ -146,7 +140,7 @@ typedef struct subpage_t {
+>   #define PHYS_SECTION_UNASSIGNED 0
+>   
+>   static void io_mem_init(void);
+> -static void memory_map_init(void);
+> +static void memory_map_init(SysBusState *sysbus);
+>   static void tcg_log_global_after_sync(MemoryListener *listener);
+>   static void tcg_commit(MemoryListener *listener);
+>   
+> @@ -2667,37 +2661,45 @@ static void tcg_commit(MemoryListener *listener)
+>       tlb_flush(cpuas->cpu);
+>   }
+>   
+> -static void memory_map_init(void)
+> +static void memory_map_init(SysBusState *sysbus)
+>   {
+
+No need to pass a singleton by argument.
+
+        assert(current_machine);
+
+You can use get_system_memory() and get_system_io() in place :)
+
+LGTM otherwise, great!
+
+> -    system_memory = g_malloc(sizeof(*system_memory));
+> +    MemoryRegion *system_memory = &sysbus->system_memory;
+> +    MemoryRegion *system_io = &sysbus->system_io;
+>   
+>       memory_region_init(system_memory, NULL, "system", UINT64_MAX);
+> -    address_space_init(&address_space_memory, system_memory, "memory");
+> +    address_space_init(&sysbus->address_space_memory, system_memory, "memory");
+>   
+> -    system_io = g_malloc(sizeof(*system_io));
+>       memory_region_init_io(system_io, NULL, &unassigned_io_ops, NULL, "io",
+>                             65536);
+> -    address_space_init(&address_space_io, system_io, "I/O");
+> +    address_space_init(&sysbus->address_space_io, system_io, "I/O");
+>   }
+>   
+>   MemoryRegion *get_system_memory(void)
+>   {
+> -    return system_memory;
+> +    assert(current_machine);
+> +
+> +    return &current_machine->main_system_bus.system_memory;
+>   }
+>   
+>   MemoryRegion *get_system_io(void)
+>   {
+> -    return system_io;
+> +    assert(current_machine);
+> +
+> +    return &current_machine->main_system_bus.system_io;
+>   }
+>   
+>   AddressSpace *get_address_space_memory(void)
+>   {
+> -    return &address_space_memory;
+> +    assert(current_machine);
+> +
+> +    return &current_machine->main_system_bus.address_space_memory;
+>   }
+>   
+>   AddressSpace *get_address_space_io(void)
+>   {
+> -    return &address_space_io;
+> +    assert(current_machine);
+> +
+> +    return &current_machine->main_system_bus.address_space_io;
+>   }
+
 
