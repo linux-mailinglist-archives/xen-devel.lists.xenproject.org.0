@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D02F5BEADC
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 18:10:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409528.652501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A0E5BEBCD
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 19:23:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409539.652511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oafp1-0000d5-Um; Tue, 20 Sep 2022 16:10:07 +0000
+	id 1oagwL-0007vR-8H; Tue, 20 Sep 2022 17:21:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409528.652501; Tue, 20 Sep 2022 16:10:07 +0000
+Received: by outflank-mailman (output) from mailman id 409539.652511; Tue, 20 Sep 2022 17:21:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oafp1-0000Zv-Rd; Tue, 20 Sep 2022 16:10:07 +0000
-Received: by outflank-mailman (input) for mailman id 409528;
- Tue, 20 Sep 2022 16:10:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oagwL-0007t9-5e; Tue, 20 Sep 2022 17:21:45 +0000
+Received: by outflank-mailman (input) for mailman id 409539;
+ Tue, 20 Sep 2022 17:21:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mZ4K=ZX=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1oafp0-0000VN-GD
- for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 16:10:06 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id afdcf945-38fe-11ed-9647-05401a9f4f97;
- Tue, 20 Sep 2022 18:10:05 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A6D8961F7D
- for <xen-devel@lists.xenproject.org>; Tue, 20 Sep 2022 16:10:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A66C433D6
- for <xen-devel@lists.xenproject.org>; Tue, 20 Sep 2022 16:10:03 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id p5so3543262ljc.13
- for <xen-devel@lists.xenproject.org>; Tue, 20 Sep 2022 09:10:02 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oagwK-0007sz-G3; Tue, 20 Sep 2022 17:21:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oagwK-0007nu-Ca; Tue, 20 Sep 2022 17:21:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oagwJ-0006LU-RZ; Tue, 20 Sep 2022 17:21:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oagwJ-0001r1-R3; Tue, 20 Sep 2022 17:21:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,154 +42,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afdcf945-38fe-11ed-9647-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1663690203;
-	bh=ZNN6ncUcdAz2eSrp+5TLDtDbHWa6EBPbqOwU++0pIM8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=dK+52DWq56dL/V2oG40eG/iPjZjgtnJnW0GukYXFh1UdHi3+77Kh4okbkDdGrGy5X
-	 aitMWU6ubzNPzFXz3eM/ZgfJPP5cSdjHLAC9hmzCH+kilPt5yOHJ4WMHL6Zf52ksq7
-	 6a6OwmDTD7hkUOhWYOs3AisgAz3OXwQ/bfiDmIhfB6INiCiyY4Wv0uwULl/C704Fzg
-	 pc1Ga4/V6YIxD2EWDSXvV8BvQb3GY6qbBmRekTN6qPezGJ7nydgmzYVfHvw1fv9RBX
-	 SYymNSal905z5SAhJKTBjFJfyRMbY/NT4rXB/MCvJ3kPrhttHpWOnT73bwGUie7HiN
-	 Ijh5dQL7bbVqw==
-X-Gm-Message-State: ACrzQf3XbamNQ64Gk/JyofYsb6ON+ObRUjxWXhC+amlJjHgcS+F3e8Ub
-	53wVTCiBd9C2P90TOBp3E+lwzTuMqc3fwGrEgis=
-X-Google-Smtp-Source: AMsMyM7dTMlqxXVyh1AyPoQQR0QTi9dh4SPvuXEYjqfXORBnB1Nu4cVXsu8mIVxRHgGU3ZkCf49okUpRMugykIZnXig=
-X-Received: by 2002:a2e:7314:0:b0:26a:ca18:60eb with SMTP id
- o20-20020a2e7314000000b0026aca1860ebmr6723118ljc.69.1663690201047; Tue, 20
- Sep 2022 09:10:01 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220919193257.2031-1-demi@invisiblethingslab.com>
- <CAMj1kXEBfJUfTQ3THqqKxsU09_S98B_TjTECKwGM0WAv_5tZaA@mail.gmail.com> <7930b617-d473-94dd-c7e4-33ffa19da13e@suse.com>
-In-Reply-To: <7930b617-d473-94dd-c7e4-33ffa19da13e@suse.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Tue, 20 Sep 2022 18:09:49 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXEJ9d3-8xa7rkczY7ur2zDm9CjqM7u1eEdHHmPG=Oo=xA@mail.gmail.com>
-Message-ID: <CAMj1kXEJ9d3-8xa7rkczY7ur2zDm9CjqM7u1eEdHHmPG=Oo=xA@mail.gmail.com>
-Subject: Re: [PATCH v3] Support ESRT in Xen dom0
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, linux-efi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Demi Marie Obenour <demi@invisiblethingslab.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZDav3pB4NfP9TKkU9z+3p6h4kYppbL7NurnRbMlnlqc=; b=zyksN54gWUsdIOw1vbbiyEymaT
+	1jRaszEITXhrWF9U36W0Azt2VHSS5Pic7pCgdn6Pp7SN7W8Swd7EXb1YB3etqtJTv6Xc4LjTJGa+1
+	iQ4yXW1HYkc66D8UgCe+F4IyIZ3HsXaJH6a7OZTvJ1RU5zLqfXMebAiZcAvexE8EFXxY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173260-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-5.4 test] 173260: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-5.4:test-armhf-armhf-xl-credit2:guest-start:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start/debian.repeat:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit1:guest-start:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=9f02aa34e179d1b0185a27980dd5bafd0f2e6e59
+X-Osstest-Versions-That:
+    linux=7e17397001a93541ffefdef553a3d541f9c1c8f8
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 20 Sep 2022 17:21:43 +0000
 
-On Tue, 20 Sept 2022 at 17:54, Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 20.09.2022 17:36, Ard Biesheuvel wrote:
-> > On Mon, 19 Sept 2022 at 21:33, Demi Marie Obenour
-> > <demi@invisiblethingslab.com> wrote:
-> >>
-> >> fwupd requires access to the EFI System Resource Table (ESRT) to
-> >> discover which firmware can be updated by the OS.  Currently, Linux does
-> >> not expose the ESRT when running as a Xen dom0.  Therefore, it is not
-> >> possible to use fwupd in a Xen dom0, which is a serious problem for e.g.
-> >> Qubes OS.
-> >>
-> >> Before Xen 4.16, this was not fixable due to hypervisor limitations.
-> >> The UEFI specification requires the ESRT to be in EfiBootServicesData
-> >> memory, which Xen will use for whatever purposes it likes.  Therefore,
-> >> Linux cannot safely access the ESRT, as Xen may have overwritten it.
-> >>
-> >> Starting with Xen 4.17, Xen checks if the ESRT is in EfiBootServicesData
-> >> or EfiRuntimeServicesData memory.  If the ESRT is in EfiBootServicesData
-> >> memory, Xen allocates some memory of type EfiRuntimeServicesData, copies
-> >> the ESRT to it, and finally replaces the ESRT pointer with a pointer to
-> >> the copy.  Since Xen will not clobber EfiRuntimeServicesData memory,
-> >> this ensures that the ESRT can safely be accessed by the OS.  It is safe
-> >> to access the ESRT under Xen if, and only if, it is in memory of type
-> >> EfiRuntimeServicesData.
-> >>
-> >
-> > Thanks for the elaborate explanation. This is really helpful.
-> >
-> > So here, you are explaining that the only way for Xen to prevent
-> > itself from potentially clobbering the ESRT is by creating a
-> > completely new allocation?
->
-> There are surely other ways, e.g. preserving BootServices* regions
-> alongside RuntimeServices* ones. But as the maintainer of the EFI
-> code in Xen I don't view this as a reasonable approach.
->
+flight 173260 linux-5.4 real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173260/
 
-Why not?
+Failures :-/ but no regressions.
 
-> > What about other assets that may be passed
-> > via EFI boot services data regions?
->
-> These would need handling similarly then.
->
-> > So first of all, EfiRuntimeServicesData has a special purpose: it is
-> > used to carry data that is part of the EFI runtime service
-> > implementations themselves. Therefore, it has to be mapped into the
-> > EFI page tables by the OS kernel, and carved out of the linear map (to
-> > prevent inadvertent access with mismatched attributes). So unless you
-> > are writing the code that backs GetVariable() or SetVariable(), there
-> > are never good reasons to use EfiRuntimeServicesData.
->
-> That's a rather strict interpretation of the spec. Even back when
-> I started dealing with EFI, when it was still quite new, I know
-> RuntimeServices* was already used for similar purposes.
->
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl-credit2  14 guest-start                  fail  like 173235
+ test-armhf-armhf-xl-multivcpu 18 guest-start/debian.repeat    fail like 173248
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173251
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 173251
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 173251
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173251
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173251
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173251
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 173251
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 173251
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 173251
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 173251
+ test-armhf-armhf-xl-credit1  14 guest-start                  fail  like 173251
+ test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 173251
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173251
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 173251
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
 
-I'm not saying it is never used inappropriately. But using a memory
-type that gets mapped into the runtime services page tables every time
-a runtime service call is made is pointless, fragments both the EFI
-page tables as well as the kernel direct map for no reason.
+version targeted for testing:
+ linux                9f02aa34e179d1b0185a27980dd5bafd0f2e6e59
+baseline version:
+ linux                7e17397001a93541ffefdef553a3d541f9c1c8f8
 
-> > If you want to use a memory type that is suitable for firmware tables
-> > that are intended for consumption by the OS only (and not by the
-> > runtime services themselves), you might consider EfiAcpiReclaimMemory.
->
-> Personally I consider this type less appropriate than the one we
-> currently use. It's intended to be used by ACPI, which doesn't
-> come into play here.
+Last test of basis   173251  2022-09-17 17:43:01 Z    2 days
+Testing same since   173260  2022-09-20 10:44:01 Z    0 days    1 attempts
 
-In spite of the name, that is not really true. It is reclaimable
-memory, which means that the OS can use the memory as conventional
-memory after consuming its contents, or discarding them.
+------------------------------------------------------------
+People who touched revisions under test:
+  Alan Stern <stern@rowland.harvard.edu>
+  Arnd Bergmann <arnd@arndb.de>
+  Brian Norris <briannorris@chromium.org>
+  Christoph Hellwig <hch@lst.de>
+  Dmitry Torokhov <dmitry.torokhov@gmail.com>
+  Enguerrand de Ribaucourt <enguerrand.de-ribaucourt@savoirfairelinux.com>
+  Even Xu <even.xu@intel.com>
+  Florian Fainelli <f.fainelli@gmail.com>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Greg Tulli <greg.iforce@gmail.com>
+  Guenter Roeck <linux@roeck-us.net>
+  Hans de Goede <hdegoede@redhat.com>
+  Hu Xiaoying <huxiaoying@kylinos.cn>
+  Jakub Kicinski <kuba@kernel.org>
+  Jann Horn <jannh@google.com>
+  Jason Wang <wangborong@cdjrlc.com>
+  Jiri Kosina <jkosina@suse.cz>
+  Kai-Heng Feng <kai.heng.feng@canonical.com>
+  Li Qiong <liqiong@nfschina.com>
+  Linux Kernel Functional Testing <lkft@linaro.org>
+  Mathew McBride <matt@traverse.com.au>
+  Maurizio Lombardi <mlombard@redhat.com>
+  Rob Clark <robdclark@chromium.org>
+  Sasha Levin <sashal@kernel.org>
+  Srinivas Pandruvada <srinivas.pandruvada@intel.com>
+  Stefan Schmidt <stefan@datenfreihafen.org>
+  Steven Rostedt (Google) <rostedt@goodmis.org>
+  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
+  Will Deacon <will@kernel.org>
+  Yu Zhe <yuzhe@nfschina.com>
 
-> It comes quite close to using e.g.
-> EfiUnusableMemory here ...
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
-No, that is something completely different. Using unusable memory for
-anything would be silly.
 
-> We might be able to (ab)use
-> EfiLoaderData for this, but that would again require special
-> casing (inside Xen) when deciding whether the memory can be used
-> as general-purpose memory.
->
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-EFI loader data and EFI boot services data are the exact same thing
-from this POV. They have no significance to the runtime firmware, and
-can be used as ordinary available memory after ExitBootServices().
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> > TBH I still don't think this is a scalable approach. There are other
-> > configuration tables that may be passed in EFI boot services memory,
-> > and MS especially were pushing back in the UEFI forum on adding table
-> > types that were passed in anything other the EfiBootServicesData.
->
-> Within Xen we might abstract the approach currently implemented in
-> case more such pieces of data appear.
->
-> While I can easily believe MS might be advocating for this model,
-> I view it as problematic not only for Xen. How would you pass on
-> this information across kexec, for example, without introducing
-> further producer-consumer dependencies requiring separate protocols
-> to be followed?
->
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-In this case, I don't think this is unreasonable for configuration
-tables, which only have a GUID and a base address. If the OS knows the
-GUID, and knows how to interpret the contents, it can decide for
-itself whether or not to preserve it. If it doesn't know the GUID, the
-memory is just treated as available memory [after EBS()]
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-I personally think reclaimable memory is more suitable for these
-cases, which is why I am willing to consider that as well. Note that
-the EFI spec now also mandates device trees on ARM to be passed via
-EfiAcpiReclaimMemory, simply because it is the memory type suitable
-for firmware tables that only the OS consumes.
+
+Pushing revision :
+
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   7e17397001a9..9f02aa34e179  9f02aa34e179d1b0185a27980dd5bafd0f2e6e59 -> tested/linux-5.4
 
