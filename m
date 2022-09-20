@@ -2,36 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A4155BE332
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 12:29:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409329.652327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AB625BE49E
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 13:38:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409338.652339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaaVH-00083F-Mp; Tue, 20 Sep 2022 10:29:23 +0000
+	id 1oabYo-0006k6-HE; Tue, 20 Sep 2022 11:37:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409329.652327; Tue, 20 Sep 2022 10:29:23 +0000
+Received: by outflank-mailman (output) from mailman id 409338.652339; Tue, 20 Sep 2022 11:37:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaaVH-00081S-K2; Tue, 20 Sep 2022 10:29:23 +0000
-Received: by outflank-mailman (input) for mailman id 409329;
- Tue, 20 Sep 2022 10:29:22 +0000
+	id 1oabYo-0006gq-Dr; Tue, 20 Sep 2022 11:37:06 +0000
+Received: by outflank-mailman (input) for mailman id 409338;
+ Tue, 20 Sep 2022 11:37:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UkH3=ZX=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1oaaVG-00081M-GO
- for xen-devel@lists.xen.org; Tue, 20 Sep 2022 10:29:22 +0000
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [2607:f8b0:4864:20::632])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nmTP=ZX=redhat.com=armbru@srs-se1.protection.inumbo.net>)
+ id 1oabYn-0006gk-7D
+ for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 11:37:05 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 15a1f140-38cf-11ed-bad8-01ff208a15ba;
- Tue, 20 Sep 2022 12:29:21 +0200 (CEST)
-Received: by mail-pl1-x632.google.com with SMTP id iw17so1953001plb.0
- for <xen-devel@lists.xen.org>; Tue, 20 Sep 2022 03:29:20 -0700 (PDT)
-Received: from localhost ([122.171.20.238]) by smtp.gmail.com with ESMTPSA id
- f8-20020a170902684800b0016f057b88c9sm1077188pln.26.2022.09.20.03.29.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Sep 2022 03:29:17 -0700 (PDT)
+ id 8a4d1169-38d8-11ed-bad8-01ff208a15ba;
+ Tue, 20 Sep 2022 13:37:01 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-49-nyyOMpweMKOJOc5LnI28Bw-1; Tue, 20 Sep 2022 07:36:52 -0400
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C1DF3810D23;
+ Tue, 20 Sep 2022 11:36:50 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.39.192.163])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EF591112131E;
+ Tue, 20 Sep 2022 11:36:48 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id A0E0D21E6900; Tue, 20 Sep 2022 13:36:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,72 +52,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15a1f140-38cf-11ed-bad8-01ff208a15ba
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date;
-        bh=R2F5K+M5lfxWwev5z8FfAb4dF1wQLjukQ42j9gJfkOo=;
-        b=HKHtV+gTLbDeJccbaxlaaffkX3FETGuIdbaf5PPJ3/7vKuEDZ1xo6cLZgLysejTNYJ
-         CeCRf7QdwmEqR+GTfxVq2KH6rQ1g0rKmPPCHX3WhD5jy/rBbk4LncAuPnMoI3zJO3dMO
-         RwseEcuS21oOhWH2W2NyyKWWIPX2xZUlGZb9rHecjzeplFUHzoUA7kYFkcxpgJoXDhYN
-         Gle5EJHSN+GsCYfu/FBU6NO3oPw5C6XWxc6smAdSV9Mhe2meCY4GpTEZ0135cLefOQ2M
-         12ajyeV+8NUej8HXYGBaxnvC/4TmpLNWLCz42EA1yEb+z1akXqlJP/PU+e1lHDs9vywb
-         jqVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
-        bh=R2F5K+M5lfxWwev5z8FfAb4dF1wQLjukQ42j9gJfkOo=;
-        b=g9vXNbLFmpw4DOWpAKb8DrxhIfEWluMH+ixcQViDy7/tmXa849B7QfAZr5m9+WqSBO
-         JEri8f1xyWLu0wR3mKWzxNk9We5DIyw11Y6OjdWPlwkKTAZCV587Q02d/RsODfNaEQg1
-         0Qg297ZURv3STZ0srCvC6GPCtYvCE7Lg7qi0qGW/hv7baslIytsBrEnH8LctUGJMS+/E
-         IpG5H4/PabW5LN7qIcTDQ7l0aRx9YHKZXY91yBu1asQJACbyasEXOshFJOqt/aPJ3xYJ
-         GCrSio6tuI916gR6kgZYaYZmMpiFX8pfADe3FnXFcwEdjYkYXWTul2y5eiUosCWMQsSz
-         fGwA==
-X-Gm-Message-State: ACrzQf1Wx59yh7GOky8Ts2lK/G4Vk4gyMHJVb6AZWtF52nK7TTOxezQf
-	BeMj/MbydgP1bTQGd7zjIiN2rw==
-X-Google-Smtp-Source: AMsMyM7BjhJsu/8Vkx+rsCbT8u2E5hmzwqBdrUPztTbAbrROFs55YbWztCipWKHybEj1SlNDGqrIog==
-X-Received: by 2002:a17:90b:3504:b0:202:5d53:86c with SMTP id ls4-20020a17090b350400b002025d53086cmr3102037pjb.182.1663669758459;
-        Tue, 20 Sep 2022 03:29:18 -0700 (PDT)
-Date: Tue, 20 Sep 2022 15:59:15 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xen.org, Vincent Guittot <vincent.guittot@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Mike Holmes <mike.holmes@linaro.org>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH V6.1 3/3] libxl: arm: make creation of iommu node
- independent of disk device
-Message-ID: <20220920102915.p55lt4ee5hbxiun2@vireshk-i7>
-References: <099616e1092409fceea4eb30590215310f8c091c.1662626550.git.viresh.kumar@linaro.org>
- <ebcf40f0d5dfe6bfa27c11dc2fe3e65df48772fe.1662734469.git.viresh.kumar@linaro.org>
- <YxtVjpDU1HOrhiAE@perard.uk.xensource.com>
+X-Inumbo-ID: 8a4d1169-38d8-11ed-bad8-01ff208a15ba
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1663673820;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q9Kiy75k/GjyNcX5/jFVpAejSl+0Eo6vMfAUPlGa7+Q=;
+	b=OYGbM+OxxxL6pY1TjKJz4gTVCrAaoOCVNRNh2pV3j1iBck0WQc+65xLk//npdeZjAVhr2H
+	PZBizRXG16HzwhhLutLXWClNsaKaea862Q3JqHN/2AFETCnk81sG0QpTkb31ChHLTZdkWa
+	Mkm3JOJ/NrQImSb2E9IBzN0OE6QxMxQ=
+X-MC-Unique: nyyOMpweMKOJOc5LnI28Bw-1
+From: Markus Armbruster <armbru@redhat.com>
+To: Alistair Francis <alistair23@gmail.com>, Bin Meng
+ <bin.meng@windriver.com>, Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Bernhard Beschow <shentey@gmail.com>,  "qemu-devel@nongnu.org
+ Developers" <qemu-devel@nongnu.org>,  "Michael S. Tsirkin"
+ <mst@redhat.com>,  Magnus Damm <magnus.damm@gmail.com>,  Aleksandar Rikalo
+ <aleksandar.rikalo@syrmia.com>,  Bandan Das <bsd@redhat.com>,  Matthew
+ Rosato <mjrosato@linux.ibm.com>,  Daniel Henrique Barboza
+ <danielhb413@gmail.com>,  Sergio Lopez <slp@redhat.com>,  Alexey
+ Kardashevskiy <aik@ozlabs.ru>,  Xiaojuan Yang <yangxiaojuan@loongson.cn>,
+  Cameron Esfahani <dirty@apple.com>,  Michael Rolnik <mrolnik@gmail.com>,
+  Song Gao <gaosong@loongson.cn>,  Jagannathan Raman
+ <jag.raman@oracle.com>,  Greg Kurz <groug@kaod.org>,  Kamil Rytarowski
+ <kamil@netbsd.org>,  Peter Xu <peterx@redhat.com>,  Joel Stanley
+ <joel@jms.id.au>,  Alistair Francis <Alistair.Francis@wdc.com>,  "Dr.
+ David Alan Gilbert" <dgilbert@redhat.com>,  Paolo Bonzini
+ <pbonzini@redhat.com>,  haxm-team@intel.com,  Roman Bolshakov
+ <r.bolshakov@yadro.com>,  Markus Armbruster <armbru@redhat.com>,  Eric
+ Auger <eric.auger@redhat.com>,  David Gibson
+ <david@gibson.dropbear.id.au>,  Daniel P. =?utf-8?Q?Berrang=C3=A9?=
+ <berrange@redhat.com>,
+  Christian Borntraeger <borntraeger@linux.ibm.com>,  =?utf-8?Q?C=C3=A9dri?=
+ =?utf-8?Q?c?= Le Goater
+ <clg@kaod.org>,  Stefan Hajnoczi <stefanha@redhat.com>,  Qemu-block
+ <qemu-block@nongnu.org>,  Eduardo Habkost <eduardo@habkost.net>,
+  =?utf-8?Q?Herv=C3=A9?=
+ Poussineau <hpoussin@reactos.org>,  "open list:New World"
+ <qemu-ppc@nongnu.org>,  Cornelia Huck <cohuck@redhat.com>,  Helge Deller
+ <deller@gmx.de>,  Stefano Stabellini <sstabellini@kernel.org>,  Philippe
+ =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,  "open list:RISC-V"
+ <qemu-riscv@nongnu.org>,  Stafford Horne <shorne@gmail.com>,  Paul Durrant
+ <paul@xen.org>,  Havard Skinnemoen <hskinnemoen@google.com>,  Elena
+ Ufimtseva <elena.ufimtseva@oracle.com>,  Alexander Graf <agraf@csgraf.de>,
+  Thomas Huth <thuth@redhat.com>,  Alex Williamson
+ <alex.williamson@redhat.com>,  Wenchao Wang <wenchao.wang@intel.com>,
+  Tony Krowiak <akrowiak@linux.ibm.com>,  Marcel Apfelbaum
+ <marcel.apfelbaum@gmail.com>,  qemu-s390x <qemu-s390x@nongnu.org>,
+  =?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,  Mark
+ Cave-Ayland
+ <mark.cave-ayland@ilande.co.uk>,  Eric Farman <farman@linux.ibm.com>,
+  Reinoud Zandijk <reinoud@netbsd.org>,  Alexander Bulekov <alxndr@bu.edu>,
+  Yanan Wang <wangyanan55@huawei.com>,  "Edgar E. Iglesias"
+ <edgar.iglesias@gmail.com>,  Gerd Hoffmann <kraxel@redhat.com>,  Tyrone
+ Ting <kfting@nuvoton.com>,  "open list:X86"
+ <xen-devel@lists.xenproject.org>,  Yoshinori Sato
+ <ysato@users.sourceforge.jp>,  John Snow <jsnow@redhat.com>,  Richard
+ Henderson <richard.henderson@linaro.org>,  Darren Kenny
+ <darren.kenny@oracle.com>,  "open list:Overall" <kvm@vger.kernel.org>,
+  Qiuhao Li <Qiuhao.Li@outlook.com>,  John G Johnson
+ <john.g.johnson@oracle.com>,  Sunil Muthuswamy <sunilmut@microsoft.com>,
+  Max Filippov <jcmvbkbc@gmail.com>,  qemu-arm <qemu-arm@nongnu.org>,
+  Marcelo Tosatti <mtosatti@redhat.com>,  Peter Maydell
+ <peter.maydell@linaro.org>,  Anthony Perard <anthony.perard@citrix.com>,
+  Andrew Jeffery <andrew@aj.id.au>,  Artyom Tarasenko
+ <atar4qemu@gmail.com>,  Halil Pasic <pasic@linux.ibm.com>,  "Maciej S.
+ Szmigiero" <maciej.szmigiero@oracle.com>,  Jason Wang
+ <jasowang@redhat.com>,  David Hildenbrand <david@redhat.com>,  Laurent
+ Vivier <laurent@vivier.eu>,  Alistair Francis <alistair@alistair23.me>,
+  Jason Herne <jjherne@linux.ibm.com>
+Subject: Re: [PATCH 1/9] hw/riscv/sifive_e: Fix inheritance of SiFiveEState
+References: <20220919231720.163121-1-shentey@gmail.com>
+	<20220919231720.163121-2-shentey@gmail.com>
+	<CAKmqyKN+V2R8PkED67tB8+pCZs9369ViiL8OZ9XhO3SdUCk5=Q@mail.gmail.com>
+Date: Tue, 20 Sep 2022 13:36:47 +0200
+In-Reply-To: <CAKmqyKN+V2R8PkED67tB8+pCZs9369ViiL8OZ9XhO3SdUCk5=Q@mail.gmail.com>
+	(Alistair Francis's message of "Tue, 20 Sep 2022 09:31:10 +1000")
+Message-ID: <87edw6xoog.fsf@pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.2 (gnu/linux)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YxtVjpDU1HOrhiAE@perard.uk.xensource.com>
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 
-On 09-09-22, 16:02, Anthony PERARD wrote:
-> On Fri, Sep 09, 2022 at 08:13:28PM +0530, Viresh Kumar wrote:
-> > The iommu node will be required for other virtio device types too, not
-> > just disk device.
-> > 
-> > Move the call to make_xen_iommu_node(), out of the disk device specific
-> > block and rename "iommu_created" variable to "iommu_needed", and set it
-> > to true for virtio disk device.
-> > 
-> > Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> 
-> Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Alistair Francis <alistair23@gmail.com> writes:
 
-I don't see these patches being applied yet, do I need to ping someone
-for that ?
+> On Tue, Sep 20, 2022 at 9:18 AM Bernhard Beschow <shentey@gmail.com> wrote:
+>>
+>> SiFiveEState inherits from SysBusDevice while it's TypeInfo claims it to
+>> inherit from TYPE_MACHINE. This is an inconsistency which can cause
+>> undefined behavior such as memory corruption.
+>>
+>> Change SiFiveEState to inherit from MachineState since it is registered
+>> as a machine.
+>>
+>> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
+>
+> Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 
--- 
-viresh
+To the SiFive maintainers: since this is a bug fix, let's merge it right
+away.
+
 
