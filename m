@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 772915BDC91
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 07:50:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409161.652098 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 979D65BDCC7
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Sep 2022 07:58:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409170.652108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaW8T-0002Fn-0U; Tue, 20 Sep 2022 05:49:33 +0000
+	id 1oaWGz-0003lg-Sl; Tue, 20 Sep 2022 05:58:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409161.652098; Tue, 20 Sep 2022 05:49:32 +0000
+Received: by outflank-mailman (output) from mailman id 409170.652108; Tue, 20 Sep 2022 05:58:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oaW8S-0002CK-TA; Tue, 20 Sep 2022 05:49:32 +0000
-Received: by outflank-mailman (input) for mailman id 409161;
- Tue, 20 Sep 2022 05:49:32 +0000
+	id 1oaWGz-0003js-Q0; Tue, 20 Sep 2022 05:58:21 +0000
+Received: by outflank-mailman (input) for mailman id 409170;
+ Tue, 20 Sep 2022 05:58:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OMl1=ZX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oaW8R-0002CE-W2
- for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 05:49:32 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IfQM=ZX=amd.com=JYOTIRMOY.SHARMA@srs-se1.protection.inumbo.net>)
+ id 1oaWGx-0003jm-TF
+ for xen-devel@lists.xenproject.org; Tue, 20 Sep 2022 05:58:20 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2073.outbound.protection.outlook.com [40.107.237.73])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fe3ea393-38a7-11ed-bad8-01ff208a15ba;
- Tue, 20 Sep 2022 07:49:29 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 20B1321E76;
- Tue, 20 Sep 2022 05:49:29 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DEF1C13ABD;
- Tue, 20 Sep 2022 05:49:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LwjPM2hUKWOdIwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 20 Sep 2022 05:49:28 +0000
+ id 38dcd22c-38a9-11ed-bad8-01ff208a15ba;
+ Tue, 20 Sep 2022 07:58:18 +0200 (CEST)
+Received: from DM6PR12MB4297.namprd12.prod.outlook.com (2603:10b6:5:211::20)
+ by PH7PR12MB5927.namprd12.prod.outlook.com (2603:10b6:510:1da::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.21; Tue, 20 Sep
+ 2022 05:58:13 +0000
+Received: from DM6PR12MB4297.namprd12.prod.outlook.com
+ ([fe80::badf:4ed4:db1d:e5d4]) by DM6PR12MB4297.namprd12.prod.outlook.com
+ ([fe80::badf:4ed4:db1d:e5d4%3]) with mapi id 15.20.5632.021; Tue, 20 Sep 2022
+ 05:58:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,138 +46,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe3ea393-38a7-11ed-bad8-01ff208a15ba
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1663652969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lX23H5Mmw5Toj1BwLnr2+4Yen8Aug6TwQ9Yk5gvBUEo=;
-	b=PWSpncar1OW67iQenc5sDRSuItG2Xe9nX+gaVZF2Wb2hJAPIROzkenNrorCvqmzBW2AJpY
-	p5Kx/6tdLzsBliSJPldmN9mIZ6SYfFGaP9Z7/Nt1vYz8U90TPbR9xe5b3o/jnker4UoL2N
-	yvnNfYvLBxYrjYw4xTY5IiOL9sW/e+8=
-Message-ID: <301dedd2-9407-2386-2c20-f0ad6ee42f42@suse.com>
-Date: Tue, 20 Sep 2022 07:49:28 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: where are xs APIs defined
-To: "SHARMA, JYOTIRMOY" <JYOTIRMOY.SHARMA@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "Mallela, RaghavendraPrasad (Raghavendra Prasad)"
- <RaghavendraPrasad.Mallela@amd.com>
-References: <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
+X-Inumbo-ID: 38dcd22c-38a9-11ed-bad8-01ff208a15ba
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ocurGGHv5J16ULNy9CqmfUHDY81MuffM+Bf+BNtAJNezOWfjgNrnMpJahTX7oAaY53NxSPkLzwqLRLAizzEocAtr4QiPFuclZZz7mQHOTa1D+IukuLZUdM0uIIdW4G1AaF9jI+yN35xOkp8ePmaYLu7MmLePJnInbOqVc+rXTEcFzrP6iqccL0rPG4CYc+kA88S+BGHP4n/UAKGBYYyycpN9TlqAvfmuyifvx32dpYUV8jlmOj57dYRAks8Rp3LAnElV+WzkYXeFbMnQqL7Q+eNUlOmOY1+Xbw6d7g0242Qya00GUsj+BfG7gbQnlJbwqazOhhaeA0H5yUFgV8I9GQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tf+JvIjyGEPaxAP0I8b6I/S8oRQUndgmiZAxEYLbEvA=;
+ b=fLa5uMqPd62F9wGk+5GqcrtJpPExPpTZzuUjCCYjjf2eZM8st3SF0LkafnjQLkqgdlax5dIU3QLZEjn5uY10LpvZIdV7/+KugFiPkZ7V9FPEehvyq+8U94Bv5cNn06QMfRPfrpgyHwV8OXYmcsorLjijWUyJBOyYaGOaXDyn90GNpzXRd/44UOX+azyAzuC2FXM0htmjvjlw1hajEDTl/J/kHY6nByuHmP2U3/KVgW7MsP5LsIvGywR9uAepVKe/lE+oYs7aXHfl8gP9ypk7cGrfhenMdqa1MxkkE0ChwloRRaVuZ2dlCggWe2tB2qTL4ERdISuN2GfDrvb41vGQGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tf+JvIjyGEPaxAP0I8b6I/S8oRQUndgmiZAxEYLbEvA=;
+ b=ML3oqZ5YbB2Ho7yBRQkZTPNYEh+3iotuZmlPgX9JQ3c0pyDzImtKk2NCUFP0T+Frku6PP8vKl4vFMLCaHdpVAtYqqfYkRyArlhfZJVLQ9K7Eb1yvjBHJbL2cve9frA9Edn3HiZ/HbK2cp2Ax+tnZllUxbMPmuDpccZoRAHCIPwU=
+From: "SHARMA, JYOTIRMOY" <JYOTIRMOY.SHARMA@amd.com>
+To: Juergen Gross <jgross@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: "Mallela, RaghavendraPrasad (Raghavendra Prasad)"
+	<RaghavendraPrasad.Mallela@amd.com>
+Subject: RE: where are xs APIs defined
+Thread-Topic: where are xs APIs defined
+Thread-Index: AdjMU0z+DCbAdhQcS5m0EtpwYKQWwAAYXIcAAAA5VtA=
+Date: Tue, 20 Sep 2022 05:58:12 +0000
+Message-ID:
+ <DM6PR12MB4297D2293DC8C954552E6E7A9F4C9@DM6PR12MB4297.namprd12.prod.outlook.com>
+References:
+ <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
+ <301dedd2-9407-2386-2c20-f0ad6ee42f42@suse.com>
+In-Reply-To: <301dedd2-9407-2386-2c20-f0ad6ee42f42@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JHBBXtEyvBsb8pFM9946uQPD"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JHBBXtEyvBsb8pFM9946uQPD
-Content-Type: multipart/mixed; boundary="------------vv99lJ8N1mVxzbkZRh0RV3Sf";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: "SHARMA, JYOTIRMOY" <JYOTIRMOY.SHARMA@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "Mallela, RaghavendraPrasad (Raghavendra Prasad)"
- <RaghavendraPrasad.Mallela@amd.com>
-Message-ID: <301dedd2-9407-2386-2c20-f0ad6ee42f42@suse.com>
-Subject: Re: where are xs APIs defined
-References: <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB4297953EB76ED8376286F8199F4D9@DM6PR12MB4297.namprd12.prod.outlook.com>
-
---------------vv99lJ8N1mVxzbkZRh0RV3Sf
-Content-Type: multipart/mixed; boundary="------------j4VkwGAPdn2xMGekZPj6bFwD"
-
---------------j4VkwGAPdn2xMGekZPj6bFwD
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTkuMDkuMjIgMjA6MTMsIFNIQVJNQSwgSllPVElSTU9ZIHdyb3RlOg0KPiBbQU1EIE9m
-ZmljaWFsIFVzZSBPbmx5IC0gR2VuZXJhbF0NCj4gDQo+IA0KPiBIZWxsbywNCj4gDQo+IEkg
-YW0gbG9va2luZyBmb3IgdGhlIHNvdXJjZSBjb2RlIHdoZXJlIFhlbnN0b3JlIGFjY2VzcyBB
-UElzIGxpa2UgeHNfb3BlbigpLCANCj4geHNfcmVhZCgpIGFyZSBkZWZpbmVkLg0KDQpIYXZl
-IGEgbG9vayBhdCB0b29scy9saWJzL3N0b3JlLw0KDQpFdmVyIHRob3VnaHQgb2YgdXNpbmcg
-c29tZXRoaW5nIGxpa2UgY3Njb3BlPyBFdmVuICJnaXQgZ3JlcCIgd291bGQgaGF2ZSBoZWxw
-ZWQNCnRvIGZpbmQgdGhlIGNvcnJlY3Qgc291cmNlLg0KDQoNCkp1ZXJnZW4NCg0K
---------------j4VkwGAPdn2xMGekZPj6bFwD
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2022-09-20T05:58:10Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=6773cdd2-ac38-4114-87a3-40ef6af50bbe;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB4297:EE_|PH7PR12MB5927:EE_
+x-ms-office365-filtering-correlation-id: fc5c2bd6-e488-4977-9174-08da9acd1a6d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ u/CNTupZVRMdhMe318HvaCLyPpbi3br12KWLniZtAZ+M5CGrJO8nqaDICr1lAvfEYLgOa82u9pQRWTzuijDXo7CEiQCeKxQs8Q6uY7sfa4aCOAlzrM56ZHGn3TkvmlcuS9c3SEbmsRj4YAkrPr3XUKuJBcED8C+RovQ4K7fyihtUP3m0x50zvEx44wYWRvmdV9dnizS57AbP1k/FeslYz0IALCTlVE5hMYYgVtjFH7AZwnq6+Erjg4SbTtbSIycW/QxyqUcvgHX/wpT08cTTql9Fe4tEWQCyZ7yRY5RKx7pG38GC4LP8+971Q2yRL9WsPIwyWLRlAtvplAdblZcJpiqCm4uPPivwnx+BQd3IUxF9rImm+g/VmKyjbvpdHGojWJD+6XPIMPXvXr/TsTQM0E9Nr5aDm0PyT/c75Bqm4Llnr9VCljIRvJlsibA89x4QvqCEziMH6OuZhxr8HhJf3aXcdIDQoBes5otruu6hnj+fyZnEVxOZx2wI15uQLYqKK5pQOVoK3rLeVFStEn+Z9aXv2gIfadLe0ukFzjbzhgSWaaknnWDZcH8RlVI95nYBo3ByTU2HWsXZUxhFxo4Ca6oy+HZF/4G1LycVRoe0/a362WOOpQhluiB5dOb003ZJ3rAnPk8AyA2Tkvuo0n86RXlxgsQDKglKkcKCZNwSxHjLNLroXCrDOpTzqEjlbAlFSQQzzKWqUp7dGJJEC7O4nkJKAxgFD3d4Ly1GyDrZcwf6xZPj4Kv9Ee8Sy3s6424eAMj51yPbaykCJob5YoEzBA==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4297.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(376002)(366004)(396003)(346002)(136003)(451199015)(5660300002)(186003)(316002)(4744005)(52536014)(53546011)(55016003)(8936002)(38100700002)(86362001)(26005)(9686003)(76116006)(7696005)(6506007)(38070700005)(4326008)(71200400001)(2906002)(66556008)(478600001)(110136005)(83380400001)(33656002)(66446008)(8676002)(66476007)(66946007)(122000001)(64756008)(41300700001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?mnESAu8fq63ADrmxNA6EPzNUUohFxF3LvvS/2o07P7FatNNelfn55ggkbG0A?=
+ =?us-ascii?Q?DcMpxlUY/i4/eRw9TZrMM4VeLklCfyq8MDC+lkgJO9MyDV40MBq75iIsV5lj?=
+ =?us-ascii?Q?jEMNLNR8Y1UdQ8RW1m+2tXjUU/3UHBbDuYJbS9nGG6uwqDq1PAdY0wtbpf/S?=
+ =?us-ascii?Q?QACDEvnFq/iImJauSJgcSHhbb/OFm0KK46J5G9zxmpTETgVjtblY9eEJLjqh?=
+ =?us-ascii?Q?3yoXcZ0yzo5JNMb6c89bPPCXemUTGzre7NdKiqkgWCEMW+qKBWvSYcOekhYH?=
+ =?us-ascii?Q?oYI52Q++/d24V56j+h5erjJpxHYUp9nzLGOyfabABuUOXVpFBXf31pauCvGR?=
+ =?us-ascii?Q?oyuxyeECow465GmVo0OZG4UTSGLwW0vyHIT/dUnAhOxmfMv50dk5qx/Vwnoy?=
+ =?us-ascii?Q?b7KzXFbSvlMRlLE/hPAuTcXFrElHP7iT/zKPBIKgdbh/aafL1VY/+Kn88may?=
+ =?us-ascii?Q?zWBL2f8ufxlU8+q1z7uekXBSmHgRJq32n33o8A4j/Exq47dT/FvBzvzLtIXW?=
+ =?us-ascii?Q?5HTuPG2gzWHn7cn5vSriFTurejikP7KIsaRIu0RWolGEdscRIw7skkcs3gMu?=
+ =?us-ascii?Q?k1/K7NaDXdFIgszmFkkNidBRc2foiewMrRJ8cUD/KHPppSSO/wYGZPazNAv4?=
+ =?us-ascii?Q?am6ksYQ3sWg7W1Bal9ngnCkqSAhUfgl0h/IJq3RMF5SQMjTEqpOAbIEQWiDT?=
+ =?us-ascii?Q?6VAkJKsTE+vDYVbdDrQ/ySWijPbkvoNme7H79SAcQn3eCH2K0TpdVB42JKjt?=
+ =?us-ascii?Q?B/EfO7hhKNTmtndvvwonepui8Pv/MfNZdXE4mx2QB0ysbifk+F/dIebo5BLo?=
+ =?us-ascii?Q?e1ew/X/8dpNs43Xb5Kn13l3i0u01hJHgfP3qwVZORsbcC/3oyG79OSSqgnTH?=
+ =?us-ascii?Q?qcSJJFCyXRZ0eLi+8myR+I5bb6sDU46/0SGfV/O+QMEeGjYmUxRBkGAVJLvE?=
+ =?us-ascii?Q?pKohJGdIlrNTUXf2N6DJdC0aOiNYNQt9gEZMDTXp9bPMvxZY7KVi8EA92P5r?=
+ =?us-ascii?Q?LuFq1N38PhznieagAlcvcwT6iaStHvVpM/0lu0gVKv90p0dVVMHEWnEqQZXk?=
+ =?us-ascii?Q?M3Ux39dFtCPvREsLHyoD+XSrUB/tn6+F0QR40LsK5fAj+Ju6I2SuPhMk0iCS?=
+ =?us-ascii?Q?YMXdzTUTvwMPA+++TvKtPpTc3tlcUrb6pCks7NtzvwHNZd6efx2VhXYsJHZf?=
+ =?us-ascii?Q?GNFIQw/WflXKRAoUy75vUec6G1PqJPrMbgNv0MeYo4RB028nsiyLAGH5hY3S?=
+ =?us-ascii?Q?925R5AfPQ6OReBWfmPxGELNT1ZA2GAq0P32X3+uD60M9WKIioWgca42Vf8BZ?=
+ =?us-ascii?Q?99oivX8eugUsnRocEJ3o3iPC2MPcRYCIVviv4a4gGdB3Gs9FwGfBoMTezZZ1?=
+ =?us-ascii?Q?KrYy5HBRisKQfRFw7E02vuFWGo1Cw8nsUDytabqWf5eaSBlxlWRRuqrEpAFV?=
+ =?us-ascii?Q?bqsZh8ELYmKFFXsmxCuDRB6mJoeKPzQs7rAK3caPlk9SamZ6gVJMwZ74zu9r?=
+ =?us-ascii?Q?WsA3Lqtd40VqGf68vSh8HnXiW8LEGsuA/oOSBwrAqBjP30Dg64ru/B2WHa33?=
+ =?us-ascii?Q?mxNUMKKeFcqo9EvO1oG2nZ/1TCWRTiZkAoO7DzRh?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4297.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc5c2bd6-e488-4977-9174-08da9acd1a6d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2022 05:58:12.8239
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: O01HLAd2ZiFx07Z9KgL4Vizx4vREy/wST8jeXgyRpVTGQ2EKGSpmBSi6zmPQrXf9vE67yCk3iq1N1kDV/DSHJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5927
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+[AMD Official Use Only - General]
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Hello,
 
---------------j4VkwGAPdn2xMGekZPj6bFwD--
+Thanks for the help. I use Visual Studio Code and somehow it is not able to=
+ find.
 
---------------vv99lJ8N1mVxzbkZRh0RV3Sf--
+Regards,
+Jyotirmoy
 
---------------JHBBXtEyvBsb8pFM9946uQPD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+-----Original Message-----
+From: Juergen Gross <jgross@suse.com>=20
+Sent: Tuesday, September 20, 2022 11:19 AM
+To: SHARMA, JYOTIRMOY <JYOTIRMOY.SHARMA@amd.com>; xen-devel@lists.xenprojec=
+t.org
+Cc: Mallela, RaghavendraPrasad (Raghavendra Prasad) <RaghavendraPrasad.Mall=
+ela@amd.com>
+Subject: Re: where are xs APIs defined
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmMpVGgFAwAAAAAACgkQsN6d1ii/Ey9z
-8gf/ROh1iDntYbCUUtKRJTcQzR5twIS9eWuZS6tX99E6wypjKsHZaXXx4RkVRm9+K0+W9mrrjQg4
-4qaUBMJsrlwEIz17fMo1idcfwf2pAFiFakpiaWiorq8/Tlh5ubipPzaew2mlJbVu4p/kOSk8r+Mj
-ixBOE2rQZEUe2Wqn8vnqkGf9HWBjf3FVz8lZBbuAXdRWRdhuKkahJ1WF/QKYhRydf3VhEPGGAKpE
-/lyHuD/duVANXM7OF8ZJpvAqO7OxDR5Wm0BnQT79LGsSLz7/mJIPYc7tNC6j4pBTBR/RY6EsD9BM
-XPpKA6Vtjj4Zf+hIF+IJ3MSwWKbUmQKqbCnbjX4SmA==
-=BUrt
------END PGP SIGNATURE-----
-
---------------JHBBXtEyvBsb8pFM9946uQPD--
+Caution: This message originated from an External Source. Use proper cautio=
+n when opening attachments, clicking links, or responding.
 
