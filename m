@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16A0B5E5485
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Sep 2022 22:34:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409894.652898 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 718AC5E54B6
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Sep 2022 22:47:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409900.652908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ob6Q8-00044C-Lx; Wed, 21 Sep 2022 20:34:12 +0000
+	id 1ob6c4-0005mD-OU; Wed, 21 Sep 2022 20:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409894.652898; Wed, 21 Sep 2022 20:34:12 +0000
+Received: by outflank-mailman (output) from mailman id 409900.652908; Wed, 21 Sep 2022 20:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ob6Q8-00041i-Iv; Wed, 21 Sep 2022 20:34:12 +0000
-Received: by outflank-mailman (input) for mailman id 409894;
- Wed, 21 Sep 2022 20:34:11 +0000
+	id 1ob6c4-0005jX-Lk; Wed, 21 Sep 2022 20:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 409900;
+ Wed, 21 Sep 2022 20:46:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Yw5d=ZY=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ob6Q6-00041c-VJ
- for xen-devel@lists.xenproject.org; Wed, 21 Sep 2022 20:34:10 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2048.outbound.protection.outlook.com [40.107.20.48])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ulJw=ZY=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1ob6c3-0005jR-DR
+ for xen-devel@lists.xenproject.org; Wed, 21 Sep 2022 20:46:31 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be69336c-39ec-11ed-9647-05401a9f4f97;
- Wed, 21 Sep 2022 22:34:09 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8772.eurprd04.prod.outlook.com (2603:10a6:20b:42f::5)
+ id 766cf24d-39ee-11ed-9647-05401a9f4f97;
+ Wed, 21 Sep 2022 22:46:27 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by LV2PR12MB5968.namprd12.prod.outlook.com (2603:10b6:408:14f::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16; Wed, 21 Sep
- 2022 20:34:06 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::358f:58dc:c0c2:1155]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::358f:58dc:c0c2:1155%7]) with mapi id 15.20.5654.016; Wed, 21 Sep 2022
- 20:34:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5632.21; Wed, 21 Sep
+ 2022 20:46:24 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::d085:e792:380d:ca4f]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::d085:e792:380d:ca4f%7]) with mapi id 15.20.5654.016; Wed, 21 Sep 2022
+ 20:46:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,193 +46,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be69336c-39ec-11ed-9647-05401a9f4f97
+X-Inumbo-ID: 766cf24d-39ee-11ed-9647-05401a9f4f97
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jG2aBLkuHhRFNtjfWnGtMcFiveh2BqS+QEg2imgRNrIpEUaDPerb50S8+k5qSWfXG3Ubt0dWQd45feXws/iR3wQhdDuNFmjebgMN0+S56mbHMN1Jaz4ZR2jiwjbqrIfQVNdpM76DQ+vpCVwYBovRMjtVzvKQD3IRa4o7p4CjLh3yyd0glLVOFqYd7Q8vm91UZge4tdmVVZdGL+ZUp5AOMGtQAAEyRnIN/AbI9p2wbJfgF1DJI70ZCEYNfDzFeGAm1KEbRf9v+yUiIaJMh9xM5yBbmj743RoxgbAfKlKGVxscV3Z6x4VSCTRKjTHyb8f3Ipe1oPG7JHy62PNDKNonUA==
+ b=PsuEVRilTK7K86vxne0bcNlGXEsRex+NzDYNodySUVnjxsC8hfeWFPBbKBrlLMCizgSCO58cDCBwzgdyqj19iCxC0uvETyFVovyOBjiyItsCZY1NGpso/kq9t7fxLceHJemotdAcpR+/FyFvl6cURp0kOZkGxQ1/9y99TEEzhu/IWz2pCeTNCfOBj7cLHDvUBOUNyQM58fVliVq9WNVPMGE7LeRWbYVTeC6Fe/rjqMPBTYUDahTHF6gUuH++quBuJw202g/6utlNdi2gFoaKNsRo6YqYXbndHk320z9Zn/QMR25wfV6s/1BbqkHKvcb+Uk6zUZF0qzw9e9HqsKBpMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tdxCv7mrQHXczZ8Wu54MQSZROOWZZozu5hVaJ4E5m38=;
- b=RbUYqbLQoeah0FY2vA6Hven5NF3/oZe9OdOLwoSnsE1PXnkJuQ2dCfgOj/KLdA/XgC1bskXvNv26RiLKbOeJTuXz5GTEV4zuwtIThIVNXneaVMKzbBorToLfg2ObAs2Yj1ie1T/l8E5oeB0lst3ldUp+mwivqFkPNhZSf2tpYHoMzc6Mr9xB5jPyjr2Gt368E4WZEwqPsfNkjthUoqlMPTe+fUo7dZltYr8x4LtrgIfNeRWwip7wpR10S1BoYPob7JbFmb0rrIc51OlIV7VI7AWAm0xRq5g/TsAggtLfCbtJw+1E4iumm2SzRNrsDE5zfoZhIdMCe77sJcSRKg/pkA==
+ bh=ynD5V0QXs3XnkGQ59qhCXXhfQJjPgt9lQ5Vxfq17bS0=;
+ b=XqNOS1HjHgO9Kyj6KF2Ui6WyMERdhlXxeDkLK3YRq8RmdW8FqPhf+3ahotgyJ6/C7S3kaeWu4xK0Tdl6KYedTPEqfJkDonvw8Pa+doRd5+eiwSKtpPVrYCPa/e41wfSzphW4ksembwK9NuDlc/hEtYWVPMiz4RbJ+XRqzg8J6iaxuuE/X0svBC6OGQymRy5biU0sxiM7wwWiV+BFV0EXL0EL65H0KZKpL/HZLmUVzV6CgZOeruXmYiiETMSvfErm6ceopcdUt8GLWAPnW3U8Y4DaUw9ACilHd5CKr1GyzY3YCL4KslPhzokUgUQtgWCF2tnbBTAPISyixbBeHRhZDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tdxCv7mrQHXczZ8Wu54MQSZROOWZZozu5hVaJ4E5m38=;
- b=D6m5KgPv4dU0Yoep/zNCq3cl8K4yDRIO9Hy8+BAcbdDrNJ6PasSmFoSPHmBPi7ulYnbYxnhpvqW2raQEhVG1xLE0uCh89eqLZCx18si3yl08NOq1HOC1UVDFOjao1bsUfjZy3kbb/+/oApXukTmKSISqmOdDwS+D8j1F00r7XVH5HMFYmooDAGRvEUTN+MD9eHarN6y09SyCAfAu/KZNTRJu2VdnoFXvQkiULDizXMVm3UVKlfldQZGRRvQ0A1WNAAnjOLB4WahYroT2nASDP9pRmbQ7OSSXhzYEVuec/q26ubpFvG1+eMWxBD5gBRcBqML+TNNWc47SdoqRBMSIKQ==
+ bh=ynD5V0QXs3XnkGQ59qhCXXhfQJjPgt9lQ5Vxfq17bS0=;
+ b=jpKhVCN4ifz3SIjZO9tWHSBWNLE4upYlwbNwoBf/WOpFctyXB4giyvEpG7HjT9RjT/LOBD038v5R5PvjCE/RixvF1dLuRSFzhYKJd7+CEMZ76ayioRGgfJ8ufloChYsktRchL5k871/yLuMK8HTDALQZG/ClALPOz9qS4YaWGn0=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3671fd52-6034-7149-ebe4-f7560c0dc6b0@suse.com>
-Date: Wed, 21 Sep 2022 22:34:04 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH v3] Support ESRT in Xen dom0
-Content-Language: en-US
-To: Ard Biesheuvel <ardb@kernel.org>,
- Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-References: <20220919193257.2031-1-demi@invisiblethingslab.com>
- <CAMj1kXEBfJUfTQ3THqqKxsU09_S98B_TjTECKwGM0WAv_5tZaA@mail.gmail.com>
- <7930b617-d473-94dd-c7e4-33ffa19da13e@suse.com>
- <CAMj1kXEJ9d3-8xa7rkczY7ur2zDm9CjqM7u1eEdHHmPG=Oo=xA@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAMj1kXEJ9d3-8xa7rkczY7ur2zDm9CjqM7u1eEdHHmPG=Oo=xA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0295.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:196::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <9d86a231-7051-423c-457e-86286c37a6be@amd.com>
+Date: Wed, 21 Sep 2022 21:46:07 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.2.2
+From: Ayan Kumar Halder <ayankuma@amd.com>
+Subject: "Helping newcomers to step in to Xen project"
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO2P265CA0449.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:e::29) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8772:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28fbc9fa-15a6-46f3-4173-08da9c10a0fb
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|LV2PR12MB5968:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d0d3120-caf7-42aa-de3b-08da9c12591a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	pWKjh2S0SuQ46oEPFuS6jrBNlsLwmt5sBwZzmKxkMGWcwGJAl6kTkiFxr0uUxxeXUl6o7i0kVj03mTsDsqFY76ysfsv4ED9tBr/HuoBXV/OE5y++CIcbbeLncoR8XmlQRfRScXn5PDh+0n4+lwU8G+Bo7lpktTx0OY7jbGWEUKTLwn8YXoD8EeaN2IaxHldtS7oyD1AnaTm5ORLND5mPLC2rZdG8mwTcieME3XjosPamIDy6/Q+wMhGs4FPq8/2rt9qNacLoSDbstdCjFi9weumHcP33JfCsdqHPngoec7yL33iU5FJQ9wu7scdm1iBZkmoo7ttoe1HoJ5lqwa0RgEF5uakMmlYnyDvjj2kj4DxKsxz/0SWT3xEYgDCkjRoAaHn2+NvFbCIQFhjmtNdduVcdxo5lh2XARTwqYo5/jDc2n/c+Q4gIZRZ/voN5MdM31zs6+LlBkxplWJOyYmES3NSNdlaAebMOhZv+Rew4BEfHAwXssjkZp+Ro5JWd6SE8MszblJ5WFmvIX8fkbNoims81Sl1lg6oXX8/lM/l9It86XKtUOchzz1CT2k48dOd/ApRWUL5fX7n06ZOXNMYhELwhef40T1NwafcZjkcfPnqJNQNAdgnTTgD+QdDXtQMu1Mz0a4PuR6X2svfyX4vKgbMFA/YlrhRWXVn28qXdd+lFWUq/a+VwJJOMEhIFLWJztegIZQviDpEZOILXOlcAAi/RKIbl8VuvxJffcCqyS0uWsgQ7v24EzRjxv72GYelFcaiS8mI3vRrlJBo0Vuzp2dFd1GDP4jxZXIp4dp3Iet0=
+	/R4myjzpDKoqqdDIQKktnKxZURAjacFCB+qW+jBSBAC196wxG6uIqsK+Wm+ztQI/gjiErikvPv8GLHgHQJGYwCg3XVkZaBD+PktZ0TDisZD8vEKvF2r6LSvKLKZVQAj1lo+VH7qVi+uOXIqA8G9RkoewRKEqTuRtK30wvbPR9HEyCAF6eS0b9Ym/TCsGK9L6mHZy640V0rUjzP7Hpkcm+mcYUGTidtMo1WIdBMOUFkOeiOLx9Kh13OQKfHMCdTFOaSt/bhIWRMkXylx3R8aqPM+2hDsaNGxVZq4Y4gcNY9yf0iK4NyIr7lRz4fL5v1qc+9WQfhXrd3AYAH0VEr8Cz2244nwS5D12745n/4HBKS1MAFinhEAZ6HqXfXi3T5FbSUkB+3aYO5aVW0SSg+S+M9f3LS3BqaK+W2xPXFj20cUc/qIF0eUvzCrzTCiE1EeD0R8cwvGZTvUtm7RbL7shYPr7CnEOLt3pUwbjGeiOHn9OZZl6lff1gH9JV2GeamP4HyfjvIl65P4YtRElWQTWxv/o2DVjGQuvrLBjB2YnpZcQ+nbhth83Q1O9IhpwU+wPsSA9TFAXVT9nuDFIcjIXVIbAdBvOIb9TSZQBrG7QEExW/W9/NEjNdnhICmZIrCoD4bWhZ0uHN7M1RrPLXCcpnIDMwh0oB27JAuj93Sh0kwqE1UeOLqvMO6SSqyjvpRHb8ScRpApoiO6KYNuN8tPRvXemKjmDgVM/9G+tix7IIEzp3V3MXUt/kLEPb7MpqnTQdRTbsveWt6RJkKDYnrYsRgBzG6rsMQKVrCppi40PEftZQUAwjahHA5UAfW7BvBqqhohayMJOB0o3b2z6z+UkcD7Ys4pEZ1AyryybqkTsmbNnFbUV6oBgUaEbAVmBjb/mk2LtKIjeklPJoC4/5Bceiw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(366004)(376002)(346002)(136003)(39860400002)(451199015)(186003)(54906003)(36756003)(110136005)(8936002)(31696002)(66556008)(86362001)(316002)(66476007)(8676002)(4326008)(66946007)(2616005)(83380400001)(5660300002)(6506007)(478600001)(6486002)(38100700002)(26005)(31686004)(41300700001)(6512007)(2906002)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(366004)(39860400002)(136003)(376002)(346002)(451199015)(6512007)(41300700001)(31696002)(5660300002)(31686004)(8936002)(6916009)(2906002)(66556008)(66946007)(66476007)(8676002)(36756003)(186003)(316002)(38100700002)(83380400001)(6666004)(6506007)(26005)(478600001)(2616005)(6486002)(222603001)(21314003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aFFwczNZallNSDF1WmZVVTRENkdxcnNZYVIxR0dINFk0bDUxY01sZXpMN3Js?=
- =?utf-8?B?dlNhRk9lVkpLbmxiSFJ3Sko0THRjd1lLVlBOMjBmajBLcEE5TlN2S1EwcWZm?=
- =?utf-8?B?eVR4cC9nMUh5S2d4NFhreXpFMjdkSWM0UmRMK0VIVG9VVUhtRVVVYlhsRHZn?=
- =?utf-8?B?QnVoZ29FWkI2cXhwTDBibzlFd0NLQXI3NERaMDQ5Vyt2MERqNDlLVkJMNnN2?=
- =?utf-8?B?ZFFqdjFSNVNTYTJTZ2dKNVgwMnV1R09iS1E2ejM3UjNFbkkrQWUvQWdCZDZ0?=
- =?utf-8?B?YWh1SGN3V2RoWjhuTEFSSG54WEtCZUdpVHRRaUEvY0UwZlFsMVZkZmV4ZGZY?=
- =?utf-8?B?bzVDSFExWHBMSGpNMHpsOXI2NE1QQUpjRW1kRjByVUg5N2tWanJhdUtwR3ZG?=
- =?utf-8?B?MDVrNE0zZHp2TlZQZ0lxeHZtYVhqUExONmc4UDZWOStKbDBOV1lLall5cmR4?=
- =?utf-8?B?TjI4bWlkMGVXN2I2VFpPT0dVcVdIUWVRb0o4WlJzUEk2ZHZJY25Vem9uWHNU?=
- =?utf-8?B?TnVoR3FYRC9jYnJxM3VUb3FHcnlHZ1grVUZrNDJodEpENGdWYVZjK2lVVEpY?=
- =?utf-8?B?anVZdDF4RVFNYWF0TGp1S1VxMk5XT1A5a0ZKSlV5Z3drTkR0cjFUaEJhZDNs?=
- =?utf-8?B?NCs3cGVnMFIrS2h3YzFSNXZyMkM3TmcxZEkzR3JmVHJzNWw5cWkvdXIrTGpZ?=
- =?utf-8?B?MytUQ1ZGb0VSNlhleG9wb1YwcjgvYnhDcmk0SWtKWUdJK25tUWdtS2Y0TWJx?=
- =?utf-8?B?OGo1b0JWcWdiSDliTG80TER4RVV0Qm5RMkg3eDdSSTRETHh3Z1ZtN2doaWN3?=
- =?utf-8?B?VmRRSkNrSXIzUlFlVm9MSVVoZG5IMTBtYlBGdUtGbWRRQkthU3VIblZUbmFD?=
- =?utf-8?B?U0ZZL1BoVmNEWVNkS2M0Nmp4SFRmcDlKR2VwMlY3UVNSdEpYUGhvdmJ3ZWsw?=
- =?utf-8?B?N2VoSVBJc29ZV3ZDWWpjWjJTZktVVnNxbEtVOGhMSkF4SVZDaUg3MEdqMjlx?=
- =?utf-8?B?NE02Ynk0WkFXaUVpTkpuemN4Z2pDQWFrSkYvWWhNaWdaT0ZMVDY2eFB6UjV6?=
- =?utf-8?B?WSt5UXJGTUFZKzZLRVRVT3Z6M0FWRXNLdStJRlJubkZsMnlGVElKUlNyQSth?=
- =?utf-8?B?L0FuZjNkaHArUjVJR2tUUnJPU0hmeVdFeW8wT0h2b3QrSTJRNGZJUkh4MlBt?=
- =?utf-8?B?UnQvalV1NjZ6Y1FXdWpYMmtPV3NlYmlXUTV5RTh2UDZyelBmcUdIRXM4MHR4?=
- =?utf-8?B?U0w2OHJ6b2M3OURLQlJXa3lsd3U0MjIzWnVMaUFteXp0Z004RXFBK20rektH?=
- =?utf-8?B?eTRNc1hWMzF5UzF2V2JzSVkzcXoyQnV4UkViRUprdzJkUkliaW1HWlpMRFRO?=
- =?utf-8?B?UFVHSk1kNUt3UXUvcDlCcGpVUTFsRys1V1JYVmF2MFdjaEVkcW5TZENYYTFL?=
- =?utf-8?B?a2p4K3dNSURJY3dtVkx3K0xPRk4vSEVkUWlxS0RxUXlIeTFWVnNrenZtUnVm?=
- =?utf-8?B?MGlva1ArZGNtWXNnNDhHV0RKajZFb0JzbzFFVWQvOWxrdGMzMmk0Vkx2WHd4?=
- =?utf-8?B?OU5xY0RsUytYbWtMdTlEUVZkQmFnN0szU25YNE9aOFNUSHROU0ZrZkpmS25Z?=
- =?utf-8?B?Y2FxRTBaMDhtaEZaZ1dNeEJpUzRyMDgxZFhvYWFWb0lEK0dmN2Vqc2g1L3ZT?=
- =?utf-8?B?U3hlanlPQ1A4WHZRZGpRTHpQMmlVbXpDWFl0RXc1VHQ2d21raExuN1JGT1c0?=
- =?utf-8?B?cCttdUdZRTB5OFFpaldvSmhTK2Z6U0VnVVJOa2l5ejcyemNjNjI0Smpyc2NF?=
- =?utf-8?B?NmpZVWc1MTM4YUJZTU55MFZrbFBIWlR0d3VuYzZEdkFpWEdjUDB5dk5KKzZU?=
- =?utf-8?B?MUdtRGMyNU40dW1TR1VQWDZ3NUdKUXhNSkMxUXA0ZkhXL1piVzdvSHVLbnM5?=
- =?utf-8?B?RHdqLzlRUmRFQjRpNVBEMmVtWHRoMEpxMEpsekdZZTFubnNxZmtiOVZiT3Nw?=
- =?utf-8?B?SGROUXdPT1g0MEc2anh4OXBIVUZZa1BYZ3ZvaFl6VElDQ3hiRk9mRGhrTHBn?=
- =?utf-8?B?ODBsUW5lNGk3OG9CZmFsTElJaFA0UzZCMkFPWXFOYzBqelpsZHdWVUlXVXBT?=
- =?utf-8?Q?aohiGX6z41rnAGPW0ahtQlvnU?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28fbc9fa-15a6-46f3-4173-08da9c10a0fb
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?UThFNXZOTFdaKys0VXlKSXl3ZmtTSDNqdWRWNEdzN3k0WDk3cFJJNVpQTFNH?=
+ =?utf-8?B?WkRlcGhlRVFtWmsyT0hxZ3ZjdmlOL2IvMHAxYjNTZnBUUkVhcG51d2ZXdXds?=
+ =?utf-8?B?c1dyb2ozMGRmL1hlTXV2N2JuZEdJTUJWQzJTaERvb1I2QWFFSFdMcDl0a3Jj?=
+ =?utf-8?B?L2Z2OXBvNERkcjdVUVhleGwwcy9TZDZ5WWJORExFQ0FSSFhuZWU5aEsxMWdN?=
+ =?utf-8?B?aVZUVXZwMkNPbEpuUURRQWdwalhoNGlFNm1VVkY5ZGUwMndUcnB0SlFUS1pa?=
+ =?utf-8?B?bjBqNFJSZ1F6OFJXWEZyR0ozUkhBbmtpamxKUTE0QkpwQUNTWGZ2eW5Zc3RB?=
+ =?utf-8?B?UTVCSjlSRDJHNGtKQ0RYRlpWaTZSZUxQeS9vSVB4d0N0Y1FSZDR3ZjRrWjdm?=
+ =?utf-8?B?cWx0WmNGeTdCSnJOY1RzVFdRZE5GSHJjMlRySnZPWUNSNWN6MmRQR2Y2YXN1?=
+ =?utf-8?B?Vmt6a3dxUVFYS09VdGthMS93TllYa0c3Mmd6MG5pUXA5SHBTeG0xVnVIeis2?=
+ =?utf-8?B?M3Z5dXFtOFlzeDZ3bFhXV290S2ozenJjeG5rZy9oNGJVUy80TmljTnd1aU1Y?=
+ =?utf-8?B?Tzg2WTF3cTJabllZWHc3bElQSDUra2llamFVMk01U1h5R29RS3B5amQ5Mm1k?=
+ =?utf-8?B?di9Va1UyZGFmRW1JdXdSc1dDeDh1ZlpqSjRMczN0eU9PVFhaN0hJSjJKc00y?=
+ =?utf-8?B?R2s0ZEhubUxzV1NHdEM5eFN0NEFxQ0JUemNzRUtUQU9VSm9LYXhkOGVlN3VM?=
+ =?utf-8?B?TkZrWmZaaHFiZXRFSVNBQ3hWZWpZM0lMaG1zamVSeFFHR2NGWDM3RVowQ3dE?=
+ =?utf-8?B?YWxVY2wwUUprZGZJYWZQWERwUmFPd0s4bXU3aVQrZmlQNmUzVk1iY1puQ0Qv?=
+ =?utf-8?B?djBTYXkybzMzRXlXZEpSSlkzYlVmd1UyMFRJZmt5bXkwSDZuQUZhZnBBeTB3?=
+ =?utf-8?B?NDZVU1JCNmFqSGZSQXVBQzh3SnZkOWhlN2htWm8wTlhqUElhdXgwbHBvNHZ2?=
+ =?utf-8?B?aHBTZ0tIcTVHejRmWHJ2Q3hUNSszYjlsM043YWIyMEg2Zko3eVlsQmlGcG5M?=
+ =?utf-8?B?OFhlY2RoRjJhcExGcE5tVzhkZkJoTXJRNC9nOTBUcVhydWpxaUQ0N3I1aVRw?=
+ =?utf-8?B?QUpyU0o2NHhnQXdwUzg4TVAyTnoyYVY1eSs5VUdXbzV3T2pEUE03bHdrRGZr?=
+ =?utf-8?B?ODY5RHEvdHFncmllODNOUEVuZk5GT1BiY0hxQmd3Y1kvVkFkNVBjREVJWWNJ?=
+ =?utf-8?B?QU0yMU5GSWIycVJHbllFOFdnQVBibEJCR2hFMURaRUZDMTdEK2JCQ2JTZEdr?=
+ =?utf-8?B?a2dIM2NzYUN0NTZLU2ptdjY3aGtkQXZYdEJHZEdpckRJNmNtK3Z0d1JkUTZ4?=
+ =?utf-8?B?d3VHWVFhNFZjdDZYOGFSaDI1bFY2VXBZWmlvcWtTUnYrWmZVMzFiMnVLQ2RG?=
+ =?utf-8?B?YXl1cEhrNEVTZENRWU9PWGZEdzlkRUc4Uy9KMERrUHZaQ2s3TDJJZWlZY0lt?=
+ =?utf-8?B?cFJ2TjlacG43Wkl1ODNiRUc0eXlabldUbFhwWjVpTkN4YUMrOFJMN3ZpY2pl?=
+ =?utf-8?B?N2F2OW1pQk9UcnRlOVN5V0RRdzZHZGpnRG12KzZGQ01LMmd3TlN4R2RDckFp?=
+ =?utf-8?B?c05mRE13T0R6L0VmWXRzelVsOWJ3V3JrK3ZIK3lyMHBtcWZWMXpZYm44UklC?=
+ =?utf-8?B?emphWWsrK00xZmFpZ0pTQS9Nd2N4WVMydFYxZ1JZOWZPRmxSRzdIQ1hTcmRw?=
+ =?utf-8?B?clBUODlFRVBBUjN3UUcxb1VFRy9NdnBoOUc0SzFzWHpueVpScytGRnU5Rnpa?=
+ =?utf-8?B?NXU3WDZCUWQza0ZDMXJJZDB2L1NhaUErd1M0QWFKSzhFYWVKUmtNL3hqM2R5?=
+ =?utf-8?B?YzBWUG1qeUhFYXc0KzlNM1VhQ3BZcU5zUlFzNSt3ZDgzaEJhcnZvYWRhSzVO?=
+ =?utf-8?B?YkFJd3dzcTJNOXF3SXY3T3dvUDBUeWxjUThha1l5MnVTZ0ZVR09PUUxMNWpx?=
+ =?utf-8?B?dDd4dHZLNkNhRDNBNDJIeDFpcHh1L1lDS05jT2ZNeWVGODZ4Tys3TS9JOGgx?=
+ =?utf-8?B?OUYrTDdKT0xvVTZDb280WnV3ZWRuS1hnczhGTEFuQ0pFR1Rqd01tNzc4V2RY?=
+ =?utf-8?Q?7OoEWacwmFdGAvvFY9+PbPUQ8?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d0d3120-caf7-42aa-de3b-08da9c12591a
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2022 20:34:06.1827
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2022 20:46:24.6655
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X1tXUQsJ18lYf6rS4dBY9tBiyvhxzHnRE0uUEACRx7r14FHnSYV6L2vFin8+fQw7oJoXTe8S9gk6X62JrZPVWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8772
+X-MS-Exchange-CrossTenant-UserPrincipalName: tbwlPb1btdiuncb4UH84HhFYog61Wb1STnUM3CTsxu3NumRfHh1WSBD5TBskQrG4PjEaTFTieEdJI7gD0OU3sg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5968
 
-On 20.09.2022 18:09, Ard Biesheuvel wrote:
-> On Tue, 20 Sept 2022 at 17:54, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 20.09.2022 17:36, Ard Biesheuvel wrote:
->>> On Mon, 19 Sept 2022 at 21:33, Demi Marie Obenour
->>> <demi@invisiblethingslab.com> wrote:
->>>>
->>>> fwupd requires access to the EFI System Resource Table (ESRT) to
->>>> discover which firmware can be updated by the OS.  Currently, Linux does
->>>> not expose the ESRT when running as a Xen dom0.  Therefore, it is not
->>>> possible to use fwupd in a Xen dom0, which is a serious problem for e.g.
->>>> Qubes OS.
->>>>
->>>> Before Xen 4.16, this was not fixable due to hypervisor limitations.
->>>> The UEFI specification requires the ESRT to be in EfiBootServicesData
->>>> memory, which Xen will use for whatever purposes it likes.  Therefore,
->>>> Linux cannot safely access the ESRT, as Xen may have overwritten it.
->>>>
->>>> Starting with Xen 4.17, Xen checks if the ESRT is in EfiBootServicesData
->>>> or EfiRuntimeServicesData memory.  If the ESRT is in EfiBootServicesData
->>>> memory, Xen allocates some memory of type EfiRuntimeServicesData, copies
->>>> the ESRT to it, and finally replaces the ESRT pointer with a pointer to
->>>> the copy.  Since Xen will not clobber EfiRuntimeServicesData memory,
->>>> this ensures that the ESRT can safely be accessed by the OS.  It is safe
->>>> to access the ESRT under Xen if, and only if, it is in memory of type
->>>> EfiRuntimeServicesData.
->>>>
->>>
->>> Thanks for the elaborate explanation. This is really helpful.
->>>
->>> So here, you are explaining that the only way for Xen to prevent
->>> itself from potentially clobbering the ESRT is by creating a
->>> completely new allocation?
->>
->> There are surely other ways, e.g. preserving BootServices* regions
->> alongside RuntimeServices* ones. But as the maintainer of the EFI
->> code in Xen I don't view this as a reasonable approach.
-> 
-> Why not?
+Hi All,
 
-Because it's against the intentions the EFI has (or at least had)
-for this memory type. Much more than EfiAcpiReclaimMemory this
-type is intended for use as ordinary RAM post-boot.
+The meeting notes are as follows. Please feel free to correct anything.
 
->>> TBH I still don't think this is a scalable approach. There are other
->>> configuration tables that may be passed in EFI boot services memory,
->>> and MS especially were pushing back in the UEFI forum on adding table
->>> types that were passed in anything other the EfiBootServicesData.
->>
->> Within Xen we might abstract the approach currently implemented in
->> case more such pieces of data appear.
->>
->> While I can easily believe MS might be advocating for this model,
->> I view it as problematic not only for Xen. How would you pass on
->> this information across kexec, for example, without introducing
->> further producer-consumer dependencies requiring separate protocols
->> to be followed?
->>
-> 
-> In this case, I don't think this is unreasonable for configuration
-> tables, which only have a GUID and a base address. If the OS knows the
-> GUID, and knows how to interpret the contents, it can decide for
-> itself whether or not to preserve it. If it doesn't know the GUID, the
-> memory is just treated as available memory [after EBS()]
-> 
-> I personally think reclaimable memory is more suitable for these
-> cases, which is why I am willing to consider that as well. Note that
-> the EFI spec now also mandates device trees on ARM to be passed via
-> EfiAcpiReclaimMemory, simply because it is the memory type suitable
-> for firmware tables that only the OS consumes.
 
-We do preserve EfiAcpiReclaimMemory, for the simple reason that with
-Xen "the OS" is ambiguous: Is that Xen or Dom0? Most of ACPI is
-handled by Dom0, so we can't very well discard the data before Dom0
-starts. (This then also matters for what you've said in the earlier
-paragraph. In particular the sets of known GUIDs may be dissimilar
-for Xen and the Dom0 kernel. Considering your other remark about
-fragmentation you might agree that preserving in-place is not very
-desirable.)
+Yann - Collect ideas from people to improve things for newconmers
 
-Especially with DT mandated to use EfiAcpiReclaimMemory I'm willing
-to consider using that type for the storing of ESRT (and whatever
-else may appear along these lines). Demi, you may want to check for
-both types in your Linux side patch ...
+Bertrand :- Is the wiki OK/not OK ? It is page to document things for 
+new comers. However, it is not updated regularly. Also limited people 
+can modify wiki. The wiki is not documented enough.
 
-Jan
+Anthony - People can ask on IRC
+
+XXX - Different instructions on Wiki on how to get write access for Wiki.
+
+Yann - Is the wiki the best place to keep the information ?
+
+Bertrand - There is a doc inside git which needs to be in sync with 
+code. The other doc is about how to set up Xen. We lack documentation 
+for this. If you compare it to other distros. We need more people to 
+write documentation. The current information is stale. How can have a 
+better visibility for docs on google ?
+
+XXX - What google looks for keywords. It is done by SEO.
+
+Bertrand - In wiki, you can add flags to add subjects. One might be able 
+to extract documentation from Xen codebase.
+
+Yann -  Should we have captcha for Wiki to avoid spamming by bots ?
+
+Bertrand - Even with captcha, Bots can generate spam information.
+
+Yann - This means we should move doc to git repository.
+
+Bertrand - Documentation on command line infiormation is there in Xen. 
+But we lack information about Xen (how to set up)
+
+Yann - Doc should explain the evolution of code. We need documentation 
+for users. Which version of Xen supports what features ?
+
+Ayan - Release notes should document this
+
+Yann/Bert/Anthony - There is not sufficient documentation available.
+
+XXX - Wiki should also be used for collaboration for on going development.
+
+XXX - Otherwise, we need to go through the mailing list.
+
+Bertrand - We need to organise wiki in a better way.
+
+Yann - The wiki for documentation needs to have correct info. So it 
+should go through a review.
+
+XXX - Where can I find information related to virtio (a specific feature) ?
+
+Bertrand - Issue tracker (Gitlab epics) can provide the answer.
+
+Edwin - How does a new user create issue vs protect gitlab epics from 
+spamming . This is account restricted.
+
+XXX - There  are multiple repositories. (Gitlab. GitHub, etc). How do we 
+know where the main repo lies ?
+
+Bertrand - There are multiple downstream forks of Xen. Google may throw 
+up any any
+
+Edwin - There should be information in code where canonical repo is.
+
+XXX - Move wiki to GitHub or gitlab.
+
+Yann - Gitlab protects against spams. So moving wiki to Github makes 
+sense. Once a page is imported in GitHub, then the other wiki pages can 
+be redirected.
+
+XXX - Wiki cannot be modified by non member of project.
+
+Bertrand - I doubt there are lot of people who want to contribute to wiki.
+
+XXX - Can we somehow track the good ideas discussed here ? There should 
+be a difference between technical doc (on GitHub) or non technical doc 
+for users (on Wiki). This can be discussed on community call.
+
+Bertrand - We need links in wiki to point to autogenerated documentation.
+
+Olivier - We could get historical information from the proposed new 
+wiki. I could bootstrap and get more technical person to write specific 
+stuff.
+
+Bertrand - If you find an incorrect info on wiki, send it on xen-devel 
+mailing list. We did write on some wiki pages that the information is 
+out of date.
+
+Olivier - Ask contractors from linux foundation to do redirection from 
+old wiki pages.
+
+Anthony - The wiki page is not managed by linux foundation.
+
+Bertrand - Do not expect mantainers to do the porting of pages. They can 
+help. And we need consensus.
+
+XXX - There is a wiki linux Foundation org.
+
+Bertrand - Moving pages to git repo, the issue is that formatting is a 
+nightmare. Also, how do we sanity check the documentation
+
+Olivier - Need how to guides (eg Xen on RPI). Create pages explaining 
+Xen project (history, architecture). How to install ? How to use (eg 
+distros) ? Keep it separate from technical documentation. George might 
+help us with people.
+Start with a small article and then populate it with more how to pages ?
+We should centralise the information somewhere.
+
+Bertrand - We should avoid duplicating contents from Xen project into 
+new wiki.
+
+Olivier - Need to track this item about improving the document, just 
+like any other technical item.
+
+XXX - Create an issue to document things. Also need to push for motivation.
+
+Olivier - For technical doc, where do we start ?
+
+XXX - We could not get the information about memory allocation flags.  
+We need to add documentation to APIs.
+
+Bertrand - The documentation should be in code. There was no consensus 
+on that.
+
+XXX - Also the documentation has different formats.
+
+Bertrand - For some part of code, we make sure someone modifying the 
+code is also updating the corresponding doc. It is not true for all the 
+code.
+
+XXX - It is not clear whether to write a design doc or not.
+
+Bertrand - Sending a design doc to the mailing list is very useful. So 
+we do not go into wrong direction. We should not commit design doc in 
+code. Always send design doc to mailing list.
+
+Kind regards,
+
+Ayan
+
 
