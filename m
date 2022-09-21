@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EB595BFB9D
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Sep 2022 11:48:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.409705.652721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EFB55BFC1C
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Sep 2022 12:16:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.409712.652732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oawKz-0005Ae-HW; Wed, 21 Sep 2022 09:48:13 +0000
+	id 1oawkw-0000Gv-Lw; Wed, 21 Sep 2022 10:15:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 409705.652721; Wed, 21 Sep 2022 09:48:13 +0000
+Received: by outflank-mailman (output) from mailman id 409712.652732; Wed, 21 Sep 2022 10:15:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oawKz-00058l-Ee; Wed, 21 Sep 2022 09:48:13 +0000
-Received: by outflank-mailman (input) for mailman id 409705;
- Wed, 21 Sep 2022 09:48:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LqRa=ZY=linaro.org=peter.maydell@srs-se1.protection.inumbo.net>)
- id 1oawKy-00058f-HO
- for xen-devel@lists.xenproject.org; Wed, 21 Sep 2022 09:48:12 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 806c61c3-3992-11ed-9647-05401a9f4f97;
- Wed, 21 Sep 2022 11:48:11 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id bj12so12242237ejb.13
- for <xen-devel@lists.xenproject.org>; Wed, 21 Sep 2022 02:48:10 -0700 (PDT)
+	id 1oawkw-0000ED-Iw; Wed, 21 Sep 2022 10:15:02 +0000
+Received: by outflank-mailman (input) for mailman id 409712;
+ Wed, 21 Sep 2022 10:15:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oawku-0000E3-RJ; Wed, 21 Sep 2022 10:15:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oawku-00025Q-Nh; Wed, 21 Sep 2022 10:15:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oawku-0004oJ-3D; Wed, 21 Sep 2022 10:15:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oawku-00011C-2o; Wed, 21 Sep 2022 10:15:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,147 +42,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 806c61c3-3992-11ed-9647-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date;
-        bh=zW5HyKzeuivew/B/xuG63OBJVZKZHySm5uewagUHgYw=;
-        b=W0gXS6y2bMRF3jyfGKbHAJ3obFmZsrPdd8F24LXKd+lkBoXU71tcZ/8Rd6CBiOG5Gt
-         /llLewMKLhpE1fQNCYWyNUKAbaSFN2uQB2l18sr/X93nrdV3mtGgAIGRp/6TgVSMzN2Y
-         /w1fEeXGFjYnXxT23gFPn8XnRZH5aeFDoxQz9+VomJlB3nS5DQBO+52ijYrE6giLDSG/
-         2KCpT4rp+gLvUOj6dxkghXRdjweFaTc4KxK/v/ZnZUMuCbBq69W0kFT14iOV1Wlsqup3
-         dNnSUoA2MHtiNM8+w3c7h0S8ulkEzZsQykPZzRe2GSS6+09iGKn6Gbsk3SsmOBhLic69
-         qeyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=zW5HyKzeuivew/B/xuG63OBJVZKZHySm5uewagUHgYw=;
-        b=V3HjzpNiMHUDlDKx+5iDfUJglBZiY3joTi104cmtyWG2HXOmzyUm+S18zQDGg5xh/N
-         rr+LXKwsTsBzk69aiAu4SLWKaOP0OVuMMgW0M/nkpZQ8+GfZIQVm4Hg0rQHaTa+DI1Fn
-         i5q97l1X8lInnfM/05i3/4Ic95cJbq2aUgicJmPhxQoUT1Z5XMKfVLxqtTRNaSpJoKUT
-         XDl5OADidmrt0vYzFEILWZg4ndFFC9qro1vCyDSbq+6iqdekZyzbA3OpxaxboO3//pj6
-         lhbq7E7DQl5hKp3ZhL0Xh34+Srtm8/QdP+33ig3qw14q73DU2ECLrShYbSpvdCNW7Fk+
-         BrrA==
-X-Gm-Message-State: ACrzQf1NE+2WaNifki5Pm8eBOxKzLjggAA4AHe5h4NwgXi3vm0JeS9zx
-	vufh70oDAhV9mQzu2e+UZZ+l/A7GSWNeCzcPNYGJ1Q==
-X-Google-Smtp-Source: AMsMyM7XaE+m0i9UnpDDtPcon9xvHdJdJV7wVRhpBOJ+d6OIshyTTEiMluysyBi3pDZh60CQuxd4pQfbk7wQRmhLbco=
-X-Received: by 2002:a17:907:2bd5:b0:76f:591c:466b with SMTP id
- gv21-20020a1709072bd500b0076f591c466bmr19468493ejc.504.1663753689736; Wed, 21
- Sep 2022 02:48:09 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220919231720.163121-1-shentey@gmail.com> <CAFEAcA8GjXFO4WK=KybgSc8rMfqecwD9EXS0kZMKtqogNf1Tsg@mail.gmail.com>
- <AD2F1750-F579-4F3B-A9FD-F2ADDF29D9E8@gmail.com>
-In-Reply-To: <AD2F1750-F579-4F3B-A9FD-F2ADDF29D9E8@gmail.com>
-From: Peter Maydell <peter.maydell@linaro.org>
-Date: Wed, 21 Sep 2022 10:47:58 +0100
-Message-ID: <CAFEAcA9wHy8GNH_yWkZycdZZ4KxzDdTA=YP6zmHGsRC1gk=CUw@mail.gmail.com>
-Subject: Re: [PATCH 0/9] Deprecate sysbus_get_default() and
- get_system_memory() et. al
-To: Bernhard Beschow <shentey@gmail.com>
-Cc: qemu-devel@nongnu.org, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Magnus Damm <magnus.damm@gmail.com>, Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>, 
-	Bandan Das <bsd@redhat.com>, Matthew Rosato <mjrosato@linux.ibm.com>, 
-	Daniel Henrique Barboza <danielhb413@gmail.com>, Sergio Lopez <slp@redhat.com>, 
-	Alexey Kardashevskiy <aik@ozlabs.ru>, Xiaojuan Yang <yangxiaojuan@loongson.cn>, 
-	Cameron Esfahani <dirty@apple.com>, Michael Rolnik <mrolnik@gmail.com>, Song Gao <gaosong@loongson.cn>, 
-	Jagannathan Raman <jag.raman@oracle.com>, Greg Kurz <groug@kaod.org>, 
-	Kamil Rytarowski <kamil@netbsd.org>, Peter Xu <peterx@redhat.com>, Joel Stanley <joel@jms.id.au>, 
-	Alistair Francis <Alistair.Francis@wdc.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, haxm-team@intel.com, 
-	Roman Bolshakov <r.bolshakov@yadro.com>, Markus Armbruster <armbru@redhat.com>, 
-	Eric Auger <eric.auger@redhat.com>, David Gibson <david@gibson.dropbear.id.au>, 
-	=?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
-	Stefan Hajnoczi <stefanha@redhat.com>, qemu-block@nongnu.org, 
-	Eduardo Habkost <eduardo@habkost.net>, =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>, 
-	qemu-ppc@nongnu.org, Cornelia Huck <cohuck@redhat.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Helge Deller <deller@gmx.de>, 
-	Stefano Stabellini <sstabellini@kernel.org>, =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>, 
-	qemu-riscv@nongnu.org, Stafford Horne <shorne@gmail.com>, Paul Durrant <paul@xen.org>, 
-	Havard Skinnemoen <hskinnemoen@google.com>, Elena Ufimtseva <elena.ufimtseva@oracle.com>, 
-	Alexander Graf <agraf@csgraf.de>, Thomas Huth <thuth@redhat.com>, 
-	Alex Williamson <alex.williamson@redhat.com>, Wenchao Wang <wenchao.wang@intel.com>, 
-	Tony Krowiak <akrowiak@linux.ibm.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
-	qemu-s390x@nongnu.org, =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@redhat.com>, 
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, Eric Farman <farman@linux.ibm.com>, 
-	Reinoud Zandijk <reinoud@netbsd.org>, Alexander Bulekov <alxndr@bu.edu>, Yanan Wang <wangyanan55@huawei.com>, 
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>, 
-	Tyrone Ting <kfting@nuvoton.com>, xen-devel@lists.xenproject.org, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, John Snow <jsnow@redhat.com>, 
-	Richard Henderson <richard.henderson@linaro.org>, Darren Kenny <darren.kenny@oracle.com>, 
-	kvm@vger.kernel.org, Qiuhao Li <Qiuhao.Li@outlook.com>, 
-	John G Johnson <john.g.johnson@oracle.com>, Bin Meng <bin.meng@windriver.com>, 
-	Sunil Muthuswamy <sunilmut@microsoft.com>, Max Filippov <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org, 
-	Marcelo Tosatti <mtosatti@redhat.com>, Anthony Perard <anthony.perard@citrix.com>, 
-	Andrew Jeffery <andrew@aj.id.au>, Artyom Tarasenko <atar4qemu@gmail.com>, Halil Pasic <pasic@linux.ibm.com>, 
-	"Maciej S. Szmigiero" <maciej.szmigiero@oracle.com>, Jason Wang <jasowang@redhat.com>, 
-	David Hildenbrand <david@redhat.com>, Laurent Vivier <laurent@vivier.eu>, 
-	Alistair Francis <alistair@alistair23.me>, Jason Herne <jjherne@linux.ibm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=K2rDtJCzPub2UgtYNtBTC3osnA8AqGC6i4UUfa1UemI=; b=hq74jPEYS0kQzdyv7+rQjokM/5
+	ABWU8R5naY/Lq0UsfD5YY6Mnc98QvPS8IYCGI5TAZybZ++GJ/ZFwjO11xWL8fJs13UP+TA9lSunlS
+	NtNP+4by3UN3o498Xuz+wXz3E+BGRDvU/cEjE1sI4Ymq9PPnZ6uCFMPLAGldiHllSgSA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173266-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 173266: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    libvirt:test-arm64-arm64-libvirt-qcow2:guest-start/debian.repeat:fail:heisenbug
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=0eeb4a1775175328a7eb45fad73cd832472c70d9
+X-Osstest-Versions-That:
+    libvirt=c83c6e4e7a68767ba69159bc0316884fa81158c4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 21 Sep 2022 10:15:00 +0000
 
-On Tue, 20 Sept 2022 at 23:50, Bernhard Beschow <shentey@gmail.com> wrote:
->
-> Am 20. September 2022 09:55:37 UTC schrieb Peter Maydell <peter.maydell@l=
-inaro.org>:
-> >On Tue, 20 Sept 2022 at 00:18, Bernhard Beschow <shentey@gmail.com> wrot=
-e:
-> >>
-> >> In address-spaces.h it can be read that get_system_memory() and
-> >> get_system_io() are temporary interfaces which "should only be used te=
-mporarily
-> >> until a proper bus interface is available". This statement certainly e=
-xtends to
-> >> the address_space_memory and address_space_io singletons.
-> >
-> >This is a long standing "we never really completed a cleanup"...
-> >
-> >> This series attempts
-> >> to stop further proliferation of their use by turning TYPE_SYSTEM_BUS =
-into an
-> >> object-oriented, "proper bus interface" inspired by PCIBus.
-> >>
-> >> While at it, also the main_system_bus singleton is turned into an attr=
-ibute of
-> >> MachineState. Together, this resolves five singletons in total, making=
- the
-> >> ownership relations much more obvious which helps comprehension.
-> >
-> >...but I don't think this is the direction we want to go.
-> >Overall the reason that the "system memory" and "system IO"
-> >singletons are weird is that in theory they should not be necessary
-> >at all -- board code should create devices and map them into an
-> >entirely arbitrary MemoryRegion or set of MemoryRegions corresponding
-> >to address space(s) for the CPU and for DMA-capable devices.
->
-> My intention was to allow exactly that: By turning sytem memory and syste=
-m IO into non-singletons, one could have many of them, thus allowing boards=
- to create arbitrary mappings of memory and IO. Since QEMU currently assume=
-s one set (memory and IO) of addresses, I for now instantiated the SysBus o=
-nce in the machine class to preserve behavior.
+flight 173266 libvirt real [real]
+flight 173267 libvirt real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173266/
+http://logs.test-lab.xenproject.org/osstest/logs/173267/
 
-You can already create arbitrary mappings of memory and IO
-(look at the virt board for an example). The existence of the
-legacy singleton system-memory and system-io doesn't prevent that,
-and stuffing the singletons into the MachineState doesn't do
-anything to change the code that is relying on the singletons.
+Failures :-/ but no regressions.
 
-> >Retaining the whole-system singleton but shoving it into MachineState
-> >doesn't really change much, IMHO.
-> >
-> >More generally, sysbus is rather weird because it isn't really a
-> >bus. Every device in the system of TYPE_SYS_BUS_DEVICE is "on"
-> >the unique TYPE_SYSTEM_BUS bus, but that doesn't mean they're
-> >all in the same address space or that in real hardware they'd
-> >all be on the same bus.
->
-> Again, having multiple SysBuses may solve that issue.
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-libvirt-qcow2 17 guest-start/debian.repeat fail pass in 173267-retest
 
-We definitely don't want multiple sysbuses.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 173247
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 173247
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 173247
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-thanks
--- PMM
+version targeted for testing:
+ libvirt              0eeb4a1775175328a7eb45fad73cd832472c70d9
+baseline version:
+ libvirt              c83c6e4e7a68767ba69159bc0316884fa81158c4
+
+Last test of basis   173247  2022-09-17 04:20:57 Z    4 days
+Testing same since   173266  2022-09-21 04:18:49 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Göran Uddeborg <goeran@uddeborg.se>
+  Michal Privoznik <mprivozn@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   c83c6e4e7a..0eeb4a1775  0eeb4a1775175328a7eb45fad73cd832472c70d9 -> xen-tested-master
 
