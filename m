@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F29EC5E63F7
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Sep 2022 15:45:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.410204.653261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E62805E6644
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Sep 2022 16:57:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.410221.653272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obMVv-0001eT-Sa; Thu, 22 Sep 2022 13:45:15 +0000
+	id 1obNcg-0001BQ-3c; Thu, 22 Sep 2022 14:56:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 410204.653261; Thu, 22 Sep 2022 13:45:15 +0000
+Received: by outflank-mailman (output) from mailman id 410221.653272; Thu, 22 Sep 2022 14:56:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obMVv-0001bb-P9; Thu, 22 Sep 2022 13:45:15 +0000
-Received: by outflank-mailman (input) for mailman id 410204;
- Thu, 22 Sep 2022 13:45:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1obNcg-00018j-0B; Thu, 22 Sep 2022 14:56:18 +0000
+Received: by outflank-mailman (input) for mailman id 410221;
+ Thu, 22 Sep 2022 14:56:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jJba=ZZ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1obMTK-0004DO-9o
- for xen-devel@lists.xenproject.org; Thu, 22 Sep 2022 13:42:34 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66da100a-3a7c-11ed-9647-05401a9f4f97;
- Thu, 22 Sep 2022 15:42:32 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 7FCA15C00D8
- for <xen-devel@lists.xenproject.org>; Thu, 22 Sep 2022 09:42:29 -0400 (EDT)
+ <SRS0=EZWp=ZZ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1obNce-00018d-9P
+ for xen-devel@lists.xenproject.org; Thu, 22 Sep 2022 14:56:16 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b15b48df-3a86-11ed-9374-c1cf23e5d27e;
+ Thu, 22 Sep 2022 16:56:10 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id B3AB63200124;
+ Thu, 22 Sep 2022 10:56:10 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 22 Sep 2022 09:42:29 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <xen-devel@lists.xenproject.org>; Thu, 22 Sep 2022 09:42:28 -0400 (EDT)
+ by compute5.internal (MEProxy); Thu, 22 Sep 2022 10:56:11 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Sep 2022 10:56:09 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,136 +43,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66da100a-3a7c-11ed-9647-05401a9f4f97
+X-Inumbo-ID: b15b48df-3a86-11ed-9374-c1cf23e5d27e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to; s=fm2; t=1663854149; x=1663940549; bh=1exnffNnck
-	ocGFlvR2gG+KOq54oxSFUg2c0Ocjxgo9c=; b=e4+dzMT54kQrITQ9+ooWr1jlyd
-	SgM0k5erFZW2U5vKwQbHL/kyCVHF1mSfVZgGUV0RX7c41nleBvAYDuYTfY6Gdjsv
-	CcB57n+PTlv0U804Kt1CHiEEqvmYuWFx0w1S50kkcC6qt/0k26eYHmcZQt1uXCEt
-	8751ikWktuZZ0ltawLiLgP49+wF85+96UMe7sXi7+CdBkC04twbMZxCKZvo6BJ+i
-	/8891lwOirSaLxO4AYUB/8hUGvo9AyYgn9vmBKEHv6FtP+KwVU4oXSRY8Asf3/t6
-	zMOOf1Dp3pp5Pup1b4QiRaKsDx07GCYzzUYHLLKBQCXGwUvO5SY3xzYzVLCw==
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1663858570; x=
+	1663944970; bh=zkbm06ADn/Z0FztsvCeHV5g6JLx4lp21pgu9fNEq2/I=; b=j
+	ngIEaLE28Aml2WqeTX1u+TmlmoRdpw86O/8Ni4qYngg/B7qzA9y6kryrFgIfBxwu
+	jhLzGTA3vPWOftDXIPXrJuSl6uqgsqOmbmsW44+1MwXqLguumUY+brtCNVtQ5F4W
+	FtLL9GnLknCIxdlWsnMChlGEktvh2Jkcvz5pkF+Ks6uFLaMfLHpRzZz6sTV33h2/
+	v6KFvvB/OHhE6E3yXfIEpRQfozLycwka8rCFDH08pnsbat0bu6qhCUpTHchXt44f
+	RyKP4zqVWrx3PqiIC8y005N85eYb09UQohTS/aABXm2R7eDWsQPPRWhc1Z+Gp49J
+	zxxDVuvvCZl2d32xicFXw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:message-id:mime-version
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1663854149; x=
-	1663940549; bh=1exnffNnckocGFlvR2gG+KOq54oxSFUg2c0Ocjxgo9c=; b=B
-	Q88WU7BLPpmBeAIw9Ih02ExcccSU+gXqWN7FJIyMouW22E9j3tIteSovKUH1rsJO
-	6npd4M4GWX+C572UvnZRiXuYbX7OytqYne6wQS3ptOgzPSfb2wk0cIDgHBWyVLg4
-	ZWFz806mNDoROWa/dfdfgVEUYQkKb3D1udk7qIZS5vqhGsDMecGR7n+aYgRHO8y4
-	7br/Z1TfDUf6TCnMzbfjQSqKIaqrESd0bjiUzY/mKCtorE1whHV+CHLDeYYZwkpy
-	/lFWzdBFnVZstiOfXCVFlCo5fUFyeJop6IYRCwCfQQ+A+Mvq7bprV9xXGFD3hxOD
-	/kcCu1RIrzk3LblCxJkZg==
-X-ME-Sender: <xms:RWYsY7705JjmGxdbfJpGyAwFvNvmX3aWSmtD7176eHAckCEfAu9_GA>
-    <xme:RWYsYw4FfXjboZvh3-QdVq3XHeLZWhXKVqj8h78hp80itDNeKasJnYnFUdUhxHfE9
-    MpnZxw3TW8OQA>
-X-ME-Received: <xmr:RWYsYycTDmSn0cbaZht_YK9Y2qceJE7JteWoIMxzc4GRdUR5DFgMoTW0IDKF>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeefgedgtdekucetufdoteggodetrfdotf
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1663858570; x=1663944970; bh=zkbm06ADn/Z0FztsvCeHV5g6JLx4
+	lp21pgu9fNEq2/I=; b=tUywip4W7b9b4sYdV6KEMIRYgWGRaUI48i6JEhIEd1kd
+	YawxkarPA67Sbiei4uy6W62UFCiXY33+hjd6xyhK5mANDPHhAgBNVqiE+/p2M3p+
+	cRgcHGB8UEA4itvNHT1/5+vysAaW2RmGvsDqp9U2u5tHDMDUqBvuA1SOnzCOCjhn
+	dfZ4RgnqZF19TU0TwhFROz4aEAB1cFVUUcRzP4DkxRYChadANHt0CoCCmy0fvzq6
+	n/4muytoiycONrnek2CRpgrcehcxv35+C9OnzngM/dDSOM0W/sosWzmfsV36nCZb
+	9g7zgZINwrXAlcjA7qrfeDaHR0KrivMiso6SDFwC7Q==
+X-ME-Sender: <xms:iXcsY-r9jeoDpCEdOsIPfDhqr7MlS-JYI0nxb93LFU-toBYvGx3TUQ>
+    <xme:iXcsY8p0Q7gpYeLhcPerAQVncXJF7NxLBRlQDnV23Mrgr3ZyXhIH2WFfL3IOcEcsJ
+    Fc3yZTW2xR4w9g>
+X-ME-Received: <xmr:iXcsYzOOPt2ZljHb-K8x6scWodysWPTZLih1fVeKGrgGriiBI7hso9bCupRI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeefgedgvddvucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
-    dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
-    uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
-    cuggftrfgrthhtvghrnheptddugfetudevudeiveevgfetueejlefggffghffhhfehtdff
-    feefgfduueegfefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
-    hfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
-    mh
-X-ME-Proxy: <xmx:RWYsY8KdCv6HTn0_jL2TJb7gvOrYDaxdz_8KDwuOB_lIVNM1ZEeV8w>
-    <xmx:RWYsY_I7XZuRlw1ma0vLZ4W_2ThSCr_xlVu72o9dHdK4ocYVaSip0A>
-    <xmx:RWYsY1yOjIqGh5xOIIf1n_vsXUsxi7Zt79af5c8LLGn-XINu80UnQg>
-    <xmx:RWYsY0X5S9dm9L0fZvlaNPQU7K9Pm_t6BJnZx1Gh8IWQ1A6MGL9B7Q>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 22 Sep 2022 15:42:25 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Design session "grant v3"
-Message-ID: <YyxmQf+q0BqsX8Nb@mail-itl>
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
+    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+    lhgrsgdrtghomh
+X-ME-Proxy: <xmx:iXcsY97JS_078ydi37iHEAOdjmf-jJDpnYfnFS3FnvdQqKPXx12N6w>
+    <xmx:iXcsY94rjsmv-5HyBQR6LffE9NCfTT8xd8GMKf4IvzeSnUkUQOWppg>
+    <xmx:iXcsY9i9gAL7gPm2rvF7F-DRBDeWhXzxOengiwK18SGgoWiqeW_9rg>
+    <xmx:incsY6uxfiNKihOd1IWez8jE3VI1OWb5lXRGiXbAemku3xoG_gt8ew>
+Feedback-ID: iac594737:Fastmail
+Date: Thu, 22 Sep 2022 10:55:40 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [PATCH v3] Support ESRT in Xen dom0
+Message-ID: <Yyx3hlE/MDBeEdtu@itl-email>
+References: <20220919193257.2031-1-demi@invisiblethingslab.com>
+ <CAMj1kXEBfJUfTQ3THqqKxsU09_S98B_TjTECKwGM0WAv_5tZaA@mail.gmail.com>
+ <7930b617-d473-94dd-c7e4-33ffa19da13e@suse.com>
+ <CAMj1kXEJ9d3-8xa7rkczY7ur2zDm9CjqM7u1eEdHHmPG=Oo=xA@mail.gmail.com>
+ <3671fd52-6034-7149-ebe4-f7560c0dc6b0@suse.com>
+ <Yyu1xC7Tlf9sS7Ro@itl-email>
+ <6f42a382-c5aa-ba16-f330-69a07476e2aa@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="/PqyDgNKiSkARGk5"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GpPEXFLkdw7UWuLD"
 Content-Disposition: inline
+In-Reply-To: <6f42a382-c5aa-ba16-f330-69a07476e2aa@suse.com>
 
 
---/PqyDgNKiSkARGk5
+--GpPEXFLkdw7UWuLD
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Sep 2022 15:42:25 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Design session "grant v3"
+Date: Thu, 22 Sep 2022 10:55:40 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [PATCH v3] Support ESRT in Xen dom0
 
-J=C3=BCrgen: today two grants formats, v1 supports only up to 16TB addresses
-        v2 solves 16TB issue, introduces several more features^Wbugs
-        v2 is 16 bytes per entry, v1 is 8 bytes per entry, v2 more complica=
-ted interface to the hypervisor
-        virtio could use per-device grant table, currently virtio iommu dev=
-ice, slow interface
-        v3 could be a grants tree (like iommu page tables), not flat array,=
- separate trees for each grantee
-        could support sharing large pages too
-        easier to have more grants, continuous grant numbers etc
-        two options to distingush trees (from HV PoV):
-        - sharing guest ensure distinct grant ids between (multiple) trees
-        - hv tells guest index under tree got registered
-        v3 can be addition to v1/v2, old used for simpler cases where tree =
-is an overkill
-        hypervisor needs extra memory to keep refcounts - resource allocati=
-on discussion
-        hv could have TLB to speedup mapping
-        issue with v1/v2 - granter cannot revoke pages from uncooperating b=
-ackend
-        tree could have special page for revoking grants (redirect to that =
-page)
-        special domids, local to the guest, toolstack restaring backend cou=
-ld request to keep the same virtual domid
-Marek:  that requires stateless (or recoverable) protocol, reusing domid cu=
-rrently causes issues
-Andrei: how revoking could work
-J=C3=BCrgen: there needs to be hypercall, replacing and invalidating mappin=
-g (scan page tables?), possibly adjusting IOMMU etc; may fail, problematic =
-for PV
+On Thu, Sep 22, 2022 at 08:12:14AM +0200, Jan Beulich wrote:
+> On 22.09.2022 03:09, Demi Marie Obenour wrote:
+> > On Wed, Sep 21, 2022 at 10:34:04PM +0200, Jan Beulich wrote:
+> >> On 20.09.2022 18:09, Ard Biesheuvel wrote:
+> >>> On Tue, 20 Sept 2022 at 17:54, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>
+> >>>> On 20.09.2022 17:36, Ard Biesheuvel wrote:
+> >>>>> On Mon, 19 Sept 2022 at 21:33, Demi Marie Obenour
+> >>>>> <demi@invisiblethingslab.com> wrote:
+> >>>>>>
+> >>>>>> fwupd requires access to the EFI System Resource Table (ESRT) to
+> >>>>>> discover which firmware can be updated by the OS.  Currently, Linu=
+x does
+> >>>>>> not expose the ESRT when running as a Xen dom0.  Therefore, it is =
+not
+> >>>>>> possible to use fwupd in a Xen dom0, which is a serious problem fo=
+r e.g.
+> >>>>>> Qubes OS.
+> >>>>>>
+> >>>>>> Before Xen 4.16, this was not fixable due to hypervisor limitation=
+s.
+> >>>>>> The UEFI specification requires the ESRT to be in EfiBootServicesD=
+ata
+> >>>>>> memory, which Xen will use for whatever purposes it likes.  Theref=
+ore,
+> >>>>>> Linux cannot safely access the ESRT, as Xen may have overwritten i=
+t.
+> >>>>>>
+> >>>>>> Starting with Xen 4.17, Xen checks if the ESRT is in EfiBootServic=
+esData
+> >>>>>> or EfiRuntimeServicesData memory.  If the ESRT is in EfiBootServic=
+esData
+> >>>>>> memory, Xen allocates some memory of type EfiRuntimeServicesData, =
+copies
+> >>>>>> the ESRT to it, and finally replaces the ESRT pointer with a point=
+er to
+> >>>>>> the copy.  Since Xen will not clobber EfiRuntimeServicesData memor=
+y,
+> >>>>>> this ensures that the ESRT can safely be accessed by the OS.  It i=
+s safe
+> >>>>>> to access the ESRT under Xen if, and only if, it is in memory of t=
+ype
+> >>>>>> EfiRuntimeServicesData.
+> >>>>>>
+> >>>>>
+> >>>>> Thanks for the elaborate explanation. This is really helpful.
+> >>>>>
+> >>>>> So here, you are explaining that the only way for Xen to prevent
+> >>>>> itself from potentially clobbering the ESRT is by creating a
+> >>>>> completely new allocation?
+> >>>>
+> >>>> There are surely other ways, e.g. preserving BootServices* regions
+> >>>> alongside RuntimeServices* ones. But as the maintainer of the EFI
+> >>>> code in Xen I don't view this as a reasonable approach.
+> >>>
+> >>> Why not?
+> >>
+> >> Because it's against the intentions the EFI has (or at least had)
+> >> for this memory type. Much more than EfiAcpiReclaimMemory this
+> >> type is intended for use as ordinary RAM post-boot.
+> >=20
+> > What about giving that memory to dom0?  dom0=E2=80=99s balloon driver w=
+ill give
+> > anything dom0 doesn=E2=80=99t wind up using back to Xen.
+>=20
+> While perhaps in principle possible, this would require special casing
+> in Xen. Except for the memory the initrd comes in, we don't directly
+> hand memory to Dom0. Instead everything goes through the page allocator
+> first. Plus if we really were convinced boot services memory needed
+> retaining, then it would also need retaining across kexec (and hence
+> shouldn't be left to Dom0 to decide what to do with it).
 
-Yann:   can backend refuse revoking?
-J=C3=BCrgen: it shouldn't be this way, but revoke could be controlled by fe=
-ature flag; revoke could pass scratch page per revoke call (more flexible c=
-ontrol)
-
-Marek:  what about unmap notification?
-J=C3=BCrgen: revoke could even be async; ring page for unmap notifications
-
-Marek:  downgrading mappings (rw -> ro)
-J=C3=BCrgen: must be careful, to not allow crashing backend
-
-J=C3=BCrgen: we should consider interface to mapping large pages ("map this=
- area as a large page if backend shared it as large page")
-
-Edwin:  what happens when shattering that large page?
-J=C3=BCrgen: on live migration pages are rebuilt anyway, can reconstruct la=
-rge pages
-
-
+So how should dom0 handle the various EFI tables other than the ESRT?
+Right now most uses of these tables in Linux are not guarded by any
+checks for efi_enabled(EFI_MEMMAP) or similar.  If some of them are in
+EfiBootServicesData memory, they might be corrupted before Linux gets
+them.
 --=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
+Sincerely,
+Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
 
---/PqyDgNKiSkARGk5
+--GpPEXFLkdw7UWuLD
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmMsZkIACgkQ24/THMrX
-1yxyJAf+LgthiM6u3KSBdakLy/fvfO++QMQ2Looxzko/w9+npr9p3atAEnXqkbLf
-yjfarMHKdD9ygxA1iuC0cdEWG58TN9yLME1BuQowUDJwEWe3sSrmHAFEYntxhR9A
-2ItnEWmnD6x69IsmuX/VBnpjHfGe0FU05rIQmSKaYmkncJ16xPOtes1O0EmauwaT
-AyygmV15vUsbIXH1nj/HVxUZtEg3HH/uTB28TKv/UZ+Fm/8F8pnsgLc7dgO/4IAJ
-LGWJ2JEN+61CcwT0EpRUT+0n39uu3bctE7BI2E4Ddx98zouqGLoX5QXet0fFnOS6
-2MSQx0suTNYMg7KnY9u8/h/QrP97zg==
-=t9y2
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmMsd4cACgkQsoi1X/+c
+IsEBoA//b/usaepDm+lyniu3r0moNjjY3zaQmtdSXTMeHqFzBrABiAz5AZyBFCtr
+wzSdmzo4rlrvNR2/et8taDq0qOcjGouCgWLLS4p5pbW+PkV/0RzLPVCQaanRm+g5
+ZKeQbIFHeClEw7c4AWgY1mmlhiSdPYPCpXDdL4NCKeZgSTRykBp4J+Rg6rjwWKHD
+NAcWWs5MP6S4uVPVyZJQW4Blp087xPx3y/dFe5Fj3SeV37FDE9mvALy2+eJkDwnb
+7EPnOmczl7BSHg6L0xxClF1AFedsP7Ao/ANIs+kAR3EhbKnvczvLgANTMBRo+JUk
+Z6JST57bnRNtR4nSs8txTfjA4OqBy6RgJAwzN2lgd9zjZJnUgRVaungMKi0hmanS
+QMDtB6EGnCj8m6TaJiISxNjNeK8TQRh11GyNCcFgsUnfi7KlYbybeMnoOOWg3Hwz
+n5xXPsO9YSplCPsJ+aqfKp5yhUoE7ePskiGzyRThLBzx5HMgM/qFnXvtvi2/cY+G
+XEfQo9fWiss6Or47D3ekcw0FtYrU2EKUVsVEmRR0f8aRSJl4phCSu9mbU6aikQzK
+ADdLyxZ/Cle6oGy44fVcevif3qp/gO5/u3AxegTqBL9Xu9mtz3RyZrDxAaZoLUEh
+b6UgO0JZhueI7F9B48R4cKAfOzJ/+9srYZyIZHLQZYPzMDzOaV4=
+=tj0J
 -----END PGP SIGNATURE-----
 
---/PqyDgNKiSkARGk5--
+--GpPEXFLkdw7UWuLD--
 
