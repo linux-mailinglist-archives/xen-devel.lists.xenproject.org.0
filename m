@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA5405E6F50
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Sep 2022 00:04:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.410481.653499 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 632AF5E6F76
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Sep 2022 00:13:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.410485.653509 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obUIW-0008Mb-R9; Thu, 22 Sep 2022 22:03:56 +0000
+	id 1obURW-0001Xc-Mu; Thu, 22 Sep 2022 22:13:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 410481.653499; Thu, 22 Sep 2022 22:03:56 +0000
+Received: by outflank-mailman (output) from mailman id 410485.653509; Thu, 22 Sep 2022 22:13:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obUIW-0008J9-Mp; Thu, 22 Sep 2022 22:03:56 +0000
-Received: by outflank-mailman (input) for mailman id 410481;
- Thu, 22 Sep 2022 22:03:55 +0000
+	id 1obURW-0001Uf-JT; Thu, 22 Sep 2022 22:13:14 +0000
+Received: by outflank-mailman (input) for mailman id 410485;
+ Thu, 22 Sep 2022 22:13:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2OXb=ZZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1obUIU-0008J3-Vn
- for xen-devel@lists.xenproject.org; Thu, 22 Sep 2022 22:03:54 +0000
+ id 1obURU-0001UZ-NP
+ for xen-devel@lists.xenproject.org; Thu, 22 Sep 2022 22:13:12 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7262a24c-3ac2-11ed-9374-c1cf23e5d27e;
- Fri, 23 Sep 2022 00:03:53 +0200 (CEST)
+ id bef4dd9a-3ac3-11ed-9374-c1cf23e5d27e;
+ Fri, 23 Sep 2022 00:13:11 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id BFFA7B837BC;
- Thu, 22 Sep 2022 22:03:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E080DC433C1;
- Thu, 22 Sep 2022 22:03:50 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id EAC9EB80E0B;
+ Thu, 22 Sep 2022 22:13:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24084C433D6;
+ Thu, 22 Sep 2022 22:13:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,68 +43,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7262a24c-3ac2-11ed-9374-c1cf23e5d27e
+X-Inumbo-ID: bef4dd9a-3ac3-11ed-9374-c1cf23e5d27e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1663884231;
-	bh=jp1er+xOHNqKQ40+sgixSqwla1WuL0oJ4UZWRqZp80E=;
+	s=k20201202; t=1663884789;
+	bh=a59HD7ooUmHzgVMLvCpbzyPtmhyKk90E1bJPycu/YDc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=pP36H8jeD7hSDDieybUXA0df90FuvrSv455kjAeRIYWCKKw1J6q/VOV747D+aA7vg
-	 xUM6rvlbA0r63JkGAKXm+3zAtZ2a0ofIP4iUwwAQg86nEsRX/6pu8SbBBnuMJG0u4J
-	 0TCi+d4G2CBsxiYsJ3s+H+rbSX5jWaLvf+xlPLvLQkwq+iY9wRZ576N9MWL/sCmcrL
-	 K8GOHhY5X3i03wE90AMBgmjx/ppofHHc0ZEcskNxxIypPtHgqDbFUcUVWCyJwz/B/B
-	 tn3/HyGbHzdl9XISUPVrKhLILDdlzSdG5JvMtVclLWYdUONTpF/Lzc5vf5im0Tti8c
-	 DcP5vtVVLYLTQ==
-Date: Thu, 22 Sep 2022 15:03:49 -0700 (PDT)
+	b=Ss6WLUdkALm7h5nPHhj9fnAKia3bHuxeFXqxbzBx72DtliNclKQpbYBoI6RtAvaya
+	 frHUWJ1BUrhvT0MoXvkRSCa4wtsF8gtgGttsZFt3epBah5UNUHnheZ0Vj5YX0Cs2Lv
+	 jhyg4SEi9BaXgqEvZeLf207oy4tshbUvAs7qtB1gL4FF0EcmPOvwVG8sLYf34qEJHl
+	 oD80RHa2sBaKFNrwxY5pzS/IaHmNCkaPP4+rnzIUA7z+y1s4Qh8wpSiQegJTp7xr7I
+	 gXGqM5otdhhfgWfwLVrm0PFzn6zdI+kj2gFZc2pY91uUryaLPymn9pE+nWwRubOEBl
+	 O5FcOABp7ccaA==
+Date: Thu, 22 Sep 2022 15:13:07 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Michal Orzel <michal.orzel@amd.com>
 cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
     Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 4/9] automation: Add Arm containers to containerize
- script
-In-Reply-To: <20220922134058.1410-5-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2209221503410.65421@ubuntu-linux-20-04-desktop>
-References: <20220922134058.1410-1-michal.orzel@amd.com> <20220922134058.1410-5-michal.orzel@amd.com>
+Subject: Re: [PATCH 5/9] automation: qemu-smoke-arm32.sh: Modify script to
+ use ImageBuilder
+In-Reply-To: <20220922134058.1410-6-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2209221507480.65421@ubuntu-linux-20-04-desktop>
+References: <20220922134058.1410-1-michal.orzel@amd.com> <20220922134058.1410-6-michal.orzel@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 22 Sep 2022, Michal Orzel wrote:
-> Script automation/scripts/containerize makes it easy to build Xen within
-> predefined containers from gitlab container registry. However, it is
-> currently not possible to use it with Arm containers because they are not
-> listed in the script. Populate the necessary entries.
+> Take an example from arm64 qemu test scripts and use ImageBuilder
+> to generate u-boot script automatically. Calculating the addresses
+> manually is quite error prone and also we will be able to benefit
+> from using ImageBuilder when adding domUs to this test in the future.
 > 
+> Install and use u-boot from the debian package.
+> Modify the script so that binaries are loaded from u-boot via tftp.
+
+Great patch! It makes the test a lot better!
+
+
 > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
 > ---
->  automation/scripts/containerize | 3 +++
->  1 file changed, 3 insertions(+)
+>  automation/scripts/qemu-smoke-arm32.sh | 57 ++++++++++++--------------
+>  1 file changed, 27 insertions(+), 30 deletions(-)
 > 
-> diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-> index 9d4beca4fa4b..0f4645c4cccb 100755
-> --- a/automation/scripts/containerize
-> +++ b/automation/scripts/containerize
-> @@ -25,6 +25,7 @@ die() {
->  BASE="registry.gitlab.com/xen-project/xen"
->  case "_${CONTAINER}" in
->      _alpine) CONTAINER="${BASE}/alpine:3.12" ;;
-> +    _alpine-arm64v8) CONTAINER="${BASE}/alpine:3.12-arm64v8" ;;
->      _archlinux|_arch) CONTAINER="${BASE}/archlinux:current" ;;
->      _riscv64) CONTAINER="${BASE}/archlinux:riscv64" ;;
->      _centos7) CONTAINER="${BASE}/centos:7" ;;
-> @@ -35,6 +36,8 @@ case "_${CONTAINER}" in
->      _stretch|_) CONTAINER="${BASE}/debian:stretch" ;;
->      _buster-gcc-ibt) CONTAINER="${BASE}/debian:buster-gcc-ibt" ;;
->      _unstable|_) CONTAINER="${BASE}/debian:unstable" ;;
-> +    _unstable-arm32-gcc) CONTAINER="${BASE}/debian:unstable-arm32-gcc" ;;
-> +    _unstable-arm64v8) CONTAINER="${BASE}/debian:unstable-arm64v8" ;;
->      _trusty) CONTAINER="${BASE}/ubuntu:trusty" ;;
->      _xenial) CONTAINER="${BASE}/ubuntu:xenial" ;;
->      _opensuse-leap|_leap) CONTAINER="${BASE}/suse:opensuse-leap" ;;
+> diff --git a/automation/scripts/qemu-smoke-arm32.sh b/automation/scripts/qemu-smoke-arm32.sh
+> index 530f3892fdd3..765facbe4d66 100755
+> --- a/automation/scripts/qemu-smoke-arm32.sh
+> +++ b/automation/scripts/qemu-smoke-arm32.sh
+> @@ -4,7 +4,9 @@ set -ex
+>  
+>  export DEBIAN_FRONTENT=noninteractive
+>  apt-get -qy update
+> -apt-get -qy install --no-install-recommends device-tree-compiler \
+> +apt-get -qy install --no-install-recommends u-boot-qemu \
+> +                                            u-boot-tools \
+> +                                            device-tree-compiler \
+>                                              curl \
+>                                              cpio
+>  
+> @@ -20,10 +22,6 @@ tar xvzf ../initrd.tar.gz
+>  find . | cpio -H newc -o | gzip > ../initrd.gz
+>  cd ..
+>  
+> -kernel=`stat -L --printf="%s" vmlinuz`
+> -initrd=`stat -L --printf="%s" initrd.gz`
+> -
+> -# For Xen, we need a couple of more node. Dump the DT from QEMU and add them
+>  # XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
+>  curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
+>  ./qemu-system-arm \
+> @@ -36,31 +34,31 @@ curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
+>     -display none \
+>     -machine dumpdtb=virt.dtb
+>  
+> -dtc -I dtb -O dts virt.dtb > virt.dts
+> +# ImageBuilder
+> +echo 'MEMORY_START="0x40000000"
+> +MEMORY_END="0x80000000"
+> +
+> +DEVICE_TREE="virt.dtb"
+> +XEN="xen"
+> +DOM0_KERNEL="vmlinuz"
+> +DOM0_RAMDISK="initrd.gz"
+> +DOM0_CMD="console=hvc0 earlyprintk clk_ignore_unused root=/dev/ram0 rdinit=/bin/sh"
+> +XEN_CMD="console=dtuart dom0_mem=512M bootscrub=0"
+
+This is missing dtuart=/pl011@9000000 compared to the original
+
+
+> +NUM_DOMUS=0
+> +
+> +LOAD_CMD="tftpb"
+> +BOOT_CMD="bootm"
+
+"bootm" because "booti" is not available on arm32, right?
+
+
+> +UBOOT_SOURCE="boot.source"
+> +UBOOT_SCRIPT="boot.scr"' > config
+>  
+> -cat >> virt.dts << EOF
+> -/ {
+> -	chosen {
+> -		#address-cells = <0x2>;
+> -		#size-cells = <0x2>;
+> -		stdout-path = "/pl011@9000000";
+> -        xen,xen-bootargs = "console=dtuart dtuart=/pl011@9000000 dom0_mem=512M bootscrub=0";
+> -		xen,dom0-bootargs = "console=tty0 console=hvc0 earlyprintk clk_ignore_unused root=/dev/ram0 rdinit=/bin/sh";
+> -		dom0 {
+> -			compatible = "xen,linux-zimage", "xen,multiboot-module";
+> -			reg = <0x0 0x1000000 0x0 $kernel>;
+> -		};
+> -        dom0-ramdisk {
+> -			compatible = "xen,linux-initrd", "xen,multiboot-module";
+> -			reg = <0x0 0x3200000 0x0 $initrd>;
+> -		};
+> -	};
+> -};
+> -EOF
+> -dtc -I dts -O dtb virt.dts > virt.dtb
+> +rm -rf imagebuilder
+> +git clone https://gitlab.com/ViryaOS/imagebuilder
+> +bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
+>  
+>  rm -f smoke.serial
+>  set +e
+> +echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"| \
+>  timeout -k 1 240 \
+>  ./qemu-system-arm \
+>     -machine virt \
+> @@ -70,11 +68,10 @@ timeout -k 1 240 \
+>     -serial stdio \
+>     -monitor none \
+>     -display none \
+> -   -dtb virt.dtb \
+>     -no-reboot \
+> -   -kernel ./xen \
+> -   -device loader,file=./vmlinuz,addr=0x1000000 \
+> -   -device loader,file=./initrd.gz,addr=0x3200000 |& tee smoke.serial
+> +   -device virtio-net-pci,netdev=n0 \
+> +   -netdev user,id=n0,tftp=./ \
+> +   -bios /usr/lib/u-boot/qemu_arm/u-boot.bin |& tee smoke.serial
+>  
+>  set -e
+>  (grep -q "^/ #" smoke.serial) || exit 1
 > -- 
 > 2.25.1
 > 
