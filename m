@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22365E5EB9
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Sep 2022 11:37:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.410055.653037 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 232AC5E5EE5
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Sep 2022 11:49:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.410063.653049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obIe0-0005yr-Px; Thu, 22 Sep 2022 09:37:20 +0000
+	id 1obIpO-0007dG-03; Thu, 22 Sep 2022 09:49:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 410055.653037; Thu, 22 Sep 2022 09:37:20 +0000
+Received: by outflank-mailman (output) from mailman id 410063.653049; Thu, 22 Sep 2022 09:49:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obIe0-0005w7-NA; Thu, 22 Sep 2022 09:37:20 +0000
-Received: by outflank-mailman (input) for mailman id 410055;
- Thu, 22 Sep 2022 09:37:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1obIpN-0007ar-Sj; Thu, 22 Sep 2022 09:49:05 +0000
+Received: by outflank-mailman (input) for mailman id 410063;
+ Thu, 22 Sep 2022 09:49:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sbTr=ZZ=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1obIdy-0005w1-OR
- for xen-devel@lists.xenproject.org; Thu, 22 Sep 2022 09:37:19 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2061.outbound.protection.outlook.com [40.107.92.61])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1cc79c16-3a5a-11ed-9374-c1cf23e5d27e;
- Thu, 22 Sep 2022 11:37:03 +0200 (CEST)
+ id 1obIpM-0007al-UU
+ for xen-devel@lists.xenproject.org; Thu, 22 Sep 2022 09:49:04 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2050.outbound.protection.outlook.com [40.107.93.50])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c9315948-3a5b-11ed-9647-05401a9f4f97;
+ Thu, 22 Sep 2022 11:49:02 +0200 (CEST)
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by CH2PR12MB4310.namprd12.prod.outlook.com (2603:10b6:610:a9::15)
+ by MN2PR12MB4208.namprd12.prod.outlook.com (2603:10b6:208:1d0::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.19; Thu, 22 Sep
- 2022 09:37:14 +0000
+ 2022 09:48:59 +0000
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::d085:e792:380d:ca4f]) by SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::d085:e792:380d:ca4f%7]) with mapi id 15.20.5654.019; Thu, 22 Sep 2022
- 09:37:10 +0000
+ 09:48:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,258 +46,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cc79c16-3a5a-11ed-9374-c1cf23e5d27e
+X-Inumbo-ID: c9315948-3a5b-11ed-9647-05401a9f4f97
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A3UFUrauKFflgzQA7JbA6vWZTB8lPG7JPtG0HWlDts9kEHDCoMEuvHU2ZROPEDd1Pn5CVY5XgrY0H+EGZNSpf5TPJ13TRzk5H/9H1TnXZRVBh9tzB8VaB+F+FVIO2FLU6KJpdxr0OzQXgggFFR1I/Yj9UiutMD5IfEnqV4a1QjJZ9AbBAkw7NX8LdfoVEKQq6plCu7dCNQGBQpiNivSCTai+vY3tW3Qr4b97ryPfEZcijF8ItnhnmThvknKfTjQEppgYbvAJQTRkzKtp1pzX/ktBBIn6WlTe2QyLrZqI2zOue9OgOQAUukyoQCEvY7GV7XKxHx21uWj47s1P3Ix+0g==
+ b=WMBIw5BDxQWPq4FucLTcjG2J66qUBVcL3b6+cyDC/LvxwF2cy053F8zWY6QncPENTruzJZzsw1QkoydR4I/CQKJd0/DjGI7vVH7qUBI/kfQR0ACWiRGiofGXHRvt9s7VcHu5YBrzU4TB7rdChedxoqCHC8OxxATZpQk0W6ubJFnJDlvwKHIjRHmGCGpqSXz/HngelGNPuEtMYR/Rj8Gyy0IjP2YHF2MwwXE9B5JkaC8kJf02KEZQLruRkJs4OrssUUb90SBqmZr7BmVZv+f+hvtLkGnoE88S/TRiFR1gHHq8B3P1jmsbQKd5OK38EkgB4frys7MPmx9QhAaasaIqPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MUMi/Rn9XydsAH+mfogIjYI3FWVVY4P88+IiOvCrgFA=;
- b=Q+xhiSUigOrDoH3D9neXW3tuTnuw67qpsY7R/XzsOm6UPM67jm4KaXIRp/EcvMDreSOLrpouWcPi/fWFOYldhqZbi1TNYmkGYWoE/G0hXJ8UJNt0sPMLG9Yfzc3SVbBVU2CyEL0xvH7mB669MV2H0qk+AbHP2lPD/PY6a4LtBHqN8k7z4laCY3WjoVh4LYI7JOzM4VxELa1dwhJZx3pCOprtfpuXw1if6aPRkaE72r9ADnhVuufQXzcDhJnvE36F93gajrOqFIj7fpEPKkPV9GqW7LXaTP35NlGFT7H/bbQo/FJ03Y0HHbyAYKjMTPMQbea23879W9RN5/bui7HBTQ==
+ bh=wW5M5FQbI2JEbOjFtRzhDqx08LEuavkzzBCA1+dCRPU=;
+ b=i4ihtD+QlNJQDWZWR3j73T0GtFId/bTM9yI3zaCUfMwKudm+txrWK89Vmm0ufuwTS5QQw28LBtOljPQj+MJ5S5wwuzzkfEge/+86O7Zvu5yDCeMXocrO+fyfiA6BoebmRZRJatum6BoLGsLvT+sU/dRvgN3BdAKiKn7c5Z+hMCf9YqZ8WcZ4wQAA0CLezdlMxdJFaSef/vR9wo7zk9YX4zoBgsd84DztKdlZCgedx79/eUdLXQ7OlPWPhOdjsDuLMCwZ6L4ANmAhXFps9Oc2sqE4PkIjge4TY8AtNr4H5g98hVe/y9Lmbq7oHhCPxqZejDrgM9JAvclE5i6QVtjO4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MUMi/Rn9XydsAH+mfogIjYI3FWVVY4P88+IiOvCrgFA=;
- b=TtZnBb5Pj95TXzVpto9/jIQfbK6T1YpSMPKwlmQAL3HTGnDbLlt5M6KWvxJZ4TRyqsK4YA7E31Hl9rCzV6S0JX8L09liSqkHraUety7cVyGpAUvRvA2UC/41PGIAAzpsOyfUCs06L1IPICFDXJ5pI3fPPa3fT5PBxBxLdZX+gFE=
+ bh=wW5M5FQbI2JEbOjFtRzhDqx08LEuavkzzBCA1+dCRPU=;
+ b=GGvKlv09bBbeDhMTQ4A9fqGWyzMFmNjk6f6qYBsEYvF5sOQRs//O215k+oAVuoJWCdy+emqZ4OXVRxu+sD3OXMMlsEVKL5Qqhu6dt2EI/xsKswKN06GfblJS1vS58bSbwRrlmAgfeReynv73bz1LUhZBtI9BWil1ZYDPzVRsBMs=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <8b210398-9db9-1279-85fc-40a7cd2403b7@amd.com>
-Date: Thu, 22 Sep 2022 10:37:05 +0100
+Message-ID: <77218c19-0aeb-a0ca-fdb9-072a498542e6@amd.com>
+Date: Thu, 22 Sep 2022 10:48:54 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.2.2
-From: Ayan Kumar Halder <ayankuma@amd.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: "Address space isolation" - meeting notes
+From: Ayan Kumar Halder <ayankuma@amd.com>
+Subject: "IOMMU modes of operation" - meeting notes
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0118.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:192::15) To SN6PR12MB2621.namprd12.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0065.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:153::16) To SN6PR12MB2621.namprd12.prod.outlook.com
  (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|CH2PR12MB4310:EE_
-X-MS-Office365-Filtering-Correlation-Id: c32fe3ee-39b0-4229-7074-08da9c7e05f3
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MN2PR12MB4208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0cb64222-ef54-4154-77e6-08da9c7fabf5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3EtlAG1J3pT4TNDiviZ1RBRdj7p07REJ6gSV7McKoCSiAJeWXc6VFysFswax0bz2y9lU67sQlEhrB4HdDIXoMB9JBFedoUEBgkFK28bsRFnxCm6Yrxcuw+iC4jT3Q1QmZ1BtoAxcUklP0dY2Qfh79eiLLTGPoM+GWgb6Wx5btvBweknFaa6j/ENSItxUQP7PypKNNt+dT8IBa7i0of+nDbVWvEG9LZ7Gt6+BIeiZDevzCCALd+SPm7I7aph+YKfqkjSTJfu7Wj2/Jj5cvzi9W0T+jgkh+XKmHtYjQ2+BbCn9RG4dBDvVxKTcky5MTU8+TYod+SRNYGaE8+EN1TxuFjCaVQMb/tVwNxKGXItQ6yCw2TOgW4kAOzl69fOpghmPpFOr0Oj8qXWzwqqMiag6XHVbzD/TEvo4f3GoBbxl1bXWBvLHsMzY2Gafu8KOdVMrkC1w0nzV9gq5Kmcf+jrEguIU4Vr4f7JDm/uO+OumZT5zs5DJdHDvY4rd8WbAAw3Dv1qZsRdJCUzr5E8JQP+JK2mMas40W31WGQxo9dZMc0BkA52zIYA560qoMMlQkMmby0EfJfR5yYK/64yPG5NM/IGjloPwti+M6jlk1xV9GSjVjdhf5YcjyKx/f7ig2qc6LW9uWHk85QWE5SWAE/plgry1elT29GM+QBY283zaLzR3MPeqL6bkS5QCPMxQkSAcoOLNmSp2Ev0xGmcAuaNoY6TDXnRsWQcP9HhBI0YgMFa4rw7u+g1oGrzHLfyGbYLLtKRWQarGZKm36GuVl5Y9Stw6C8q710lbIGEu9KekipU=
+	2TBGKXXNgNxsFWh03N/jyCMGsBFE++l3EsMYthS5E4aHbSl9tK3GXf5cURzY8uv9SN3PrvrLkvO7/X890x85MKthMLd2BXUUSHmhdO2Oi/idAtyeMiQ9NnykhaxjyH3a9xZyaxQ2uZS21+KA49KJ3X+uid8UYKvv7r1yE4KaItmKY/6B2EWcqQvsKvt2BBhz9k2ZQtHijUmWSm7mc9aJEREpOTa1BX0CiZcj2S5+iezGQ18aeXn/Ro2HQ6wOH3j2EbPTTGj99rbIsK3QvkcgsvcWoAiIVapGrzGP20X7ASUi++sMfFntp9z5KmjGmVUg4VSrJalAX94qM0EqHZZS2hMDYl86ouPoWoqwiMeeRVG5BJt5vCAZE507ODLwKMVVL5AAsXKHoEebdragnB/zdLgC2LPjvwmz3n7Aj4X6Cdde6EXwWFXnbDUjUc+bbZKjjUEHdhVmDMwxaHywKBQ39Qwi3MJg4gTtIJc/PR47DsC1IFu1IMuG1QjF6M6qbmHKHf+Ay0hRKVU9YBe+9oKndx5w/EUGfTgS51XUttsn9TMefjkYaEoagGBCzl9v3AzTK+SRTJalq6XlNEj9xmv9fBwEBgIenDGbtjaPAMIV0uoTdzDf+QM/zUeWJI+N8EgunGvQdfAZMgZ+sPzNTK5qpHAN/sJjaw9zFhz8OtWI5Qq24ObyF6SbsqATFrLGVhQSgoS/Ulr61JUcDnkF9257UyehV4AQ9MZYcWUh+cAsAwzsS7WFFIlE5WhUlXloe9cxDKEHAB5BpeN+1SaQNDRd0gwf+EFtBqc+DkQSTcNFpR6qldq7gwj/Yrr5kQUROyVQ
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(366004)(396003)(39860400002)(346002)(376002)(451199015)(8676002)(5660300002)(2906002)(31686004)(41300700001)(6666004)(6512007)(26005)(6506007)(38100700002)(66476007)(66946007)(66556008)(8936002)(45080400002)(316002)(6916009)(31696002)(478600001)(6486002)(36756003)(83380400001)(2616005)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(396003)(39860400002)(376002)(346002)(366004)(451199015)(6506007)(316002)(66946007)(66476007)(41300700001)(6916009)(26005)(2616005)(6512007)(6666004)(36756003)(8676002)(66556008)(186003)(2906002)(5660300002)(38100700002)(31696002)(8936002)(31686004)(478600001)(6486002)(21314003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bEZMWjdmc3BoN3NJSlkzZ2dRckVwdEJtTDJ4T1hNdTZaTGJjZDNhc1c5ZDU2?=
- =?utf-8?B?TS9CbGNKYm5DbkhsVWRlR3oyUTZ6R3JnUzA3SjZWUERQM0FTVk9mMXptL0Zh?=
- =?utf-8?B?bkVDMlREMm5UblFJZTQ2eHRLRU9pR3Zic0ZDb0tGZm1QUk43bGpDVG94Ui9R?=
- =?utf-8?B?N0s0U2Jjd0tCeFE0cGJtdUwvSTJFbTVmQTlxMFA1bDUrcUY3NXVERjl5a1NO?=
- =?utf-8?B?N3lvNFRSb1Z0R05MNXZzTjRSMnhMNFhSWVdrZGg4c0RuaHRvK1FxQ21CVmRK?=
- =?utf-8?B?QVkwVnNkTnZwdktxTzAzS1gxVFlDam1qR0VjNjg5TXpHdmMvVDF1MXpGZ1RT?=
- =?utf-8?B?d1NhdGM0VUVTSTd0YVdsTzBtMlZOdFVJeFNWY1NiSzZaVWF1aFlrSlNOUVFi?=
- =?utf-8?B?REZuUUE3a3FxSXZRTXZoakt3MTBTV01taG16TTl5bTFpTiszZXdWK3RMK0ZI?=
- =?utf-8?B?K2lVWW5RNHJzY3RYS1lKbmZsVWVJWGpBZTJ0WHppTzRvSzZ3LzVVL0FEZzJP?=
- =?utf-8?B?NGlaOG1mVWRkK2NSTWRhOE5vNFJRWmN6WWQvN0VJZ09zY1ViOXpVVGhKc2Y0?=
- =?utf-8?B?RFZlVTRYb1RMN0RzMWd4Y1M1Wm0xUHhOZlI3cWFNWDBuTkNPUndQbVV0cXlj?=
- =?utf-8?B?dVJOYm1yc0VISCthbnZzV1ZVUTdUWkZYQlFkN2hHWkcwRzRrVVdZcmVUV3ZU?=
- =?utf-8?B?UGxxV29DaEdWU0tvWFNabnFuS0VpUmVUcXdYM2tWanBiMVVhYzlkMmJLL3lL?=
- =?utf-8?B?RXNQT3NMNjV5Q2NYalYwWVp4b2E2Ymc1K2lFTmdhQmFIb1AvUEFzcWZzbU1B?=
- =?utf-8?B?eVZFdnM3WG5GZWdzWjU2Zm5jYjBUcTZMWk4rL1F4ZWY4U3FLdUR4aDIrYTIx?=
- =?utf-8?B?VTZHV1dXWTJBeW92TUtDRWpzUUlHOXpkckZyb2NRZkpMNmZralVrOUo5ZWRv?=
- =?utf-8?B?M0V2cHd5dHRIYThCaDRhNnVCMnFDbkxGSC9rVzFTWmlHY2tDTlNsaDhSNVlT?=
- =?utf-8?B?U0Z6azM5dWFTZldzdWhkVUNzYm11R2Rld3lWdG1YaWFJNUV0RFVnSVhoRy9t?=
- =?utf-8?B?VXNJQ05NQnhHdjFmYlE3RHdhWEVzT0ZzemdpT0lIbE5aaitFWFk1bEEraUJB?=
- =?utf-8?B?WUV0Wnh1QSttMHVjU245dlBCaUFyRmZWc2VsakR5eVh2N2pUd0pTS0RUWk1k?=
- =?utf-8?B?TnBHbHA1ZytFOFJQVXBUd3JOSDZkYlI0Z01DbURjenh5ckVFSCtpK1c2YkZE?=
- =?utf-8?B?YVdZU1lyM25rZkNGYUtsZVV2bDJvc0lUTk1lRmpYeFl0ZW9RYXpuNmY1VlZ6?=
- =?utf-8?B?Vzg1a0hTV05peDlVYnlsbWVIeVFGQSt1anIvZkk4QVFtUzVhTEhmNXlJbGRk?=
- =?utf-8?B?UzNwRkFsbUVlK1NPZStkZ1pHamtBYVJXeDAybndWd2dEQ2lqS055ZWFLbVZC?=
- =?utf-8?B?Q1FvSDRKTUpwSHl3SFN1aHE3bmZJeUd1QmthYmtmSzVWY3NydzRYZlVGc0Uw?=
- =?utf-8?B?TmlWR25GUjVjV3Z3R2V4WTBWVDlmV2pKRncxRjVRUjZrT3VhbHFCK3cvMmN3?=
- =?utf-8?B?N1p6bzNCVzVscW1iT0ZCUDJ5UDFPM2VGcFF1R3BaalBJajJvYUx5bTNOSlpq?=
- =?utf-8?B?Wk9xalkwb2RHUlJaUitucjhqNDhXSmFSWmp1WExwc3o3UVNlODRSam1xNFFl?=
- =?utf-8?B?MlRaTGg2QXZERm1SREJTOFdSMm5OSHNlMjF6NFdobStuVlJhVy9lWitrWllH?=
- =?utf-8?B?aG9hWW1XOTBZblkzZERIL1JUMG43c3JEaG1JWFJwZnNrUjBJT0pQSTJOTmhz?=
- =?utf-8?B?NFpIaElySCttcjJIUXBpa0Zzbmt4ay84V01KTmhhZTZyNkZaS0dsVHNFQWJL?=
- =?utf-8?B?VEFEeVB4OVRMY3k3VzRVMlNNQ2dsOEJyRVZTbXFHaE9DalpYUWhOZFZMVFAy?=
- =?utf-8?B?Z2hxQzlMa002cXFjVDNrZk12RFJKeTJDWkZEQ0N6b0wzRlZsbUNOaytYSFA5?=
- =?utf-8?B?blpUeS9ZTllWM1gxQ1FFVFVvZnFOblZuSHB0dllBSW50WGdWaDNmWTNQbDNa?=
- =?utf-8?B?dFZSOThDOGZWMGwwaFFKb2o1MGlUaXEwNkR4NWRUVytGZmpIdjdYbURyNXds?=
- =?utf-8?Q?vabUatg9ROVuwu2oJjlhR6EHj?=
+	=?utf-8?B?QmJqUmtYc1N4QnBlMDBBVmpHOGxXWVNsUG15VmRZeElvelRKYTdQU1JCbmRm?=
+ =?utf-8?B?WGtJWlRkSllPR3o5SzF2YnY2UWZCbUtNOThCOXBkbFZRenZHdldETFNsbEVt?=
+ =?utf-8?B?QWIwMVEzMllTV0hlaTB2SWdWQ3NacnAyMkhCcTVPYXFKSExxZWZuNldna1dq?=
+ =?utf-8?B?V3czK201RjhUTGdnQ04vU01OYTBYYWdQVXk3L0w2L0xvZVJvMVdXK1RTeDRD?=
+ =?utf-8?B?bGVzVHBWRWl6cWJjV25oNXZoMHlGZGtCRklVVmxsNGpIZVk2dG9qcGpyWmVD?=
+ =?utf-8?B?VGFWcklyby9ZUXo2Q09LazRhakYreHo5bUlRSENwRnhLN1dUekV3VVZTVUZU?=
+ =?utf-8?B?WHkxRHZGRmQwK2tudGtWd21aM1RiaEFMUjhvMGJMQ3UwdFFVYU9xM2Y5ZmVT?=
+ =?utf-8?B?TjI1cjZSeFl4TWRMTDdMcHUzU2pzUGZKSHl1cGtZclpyd2hOMjF0ZnpIRS9V?=
+ =?utf-8?B?clJHLytxSFpJU0Q3Uzk3Zkh3WkZhME9qaU9CRWIrbVNsdmxpZ0lwV3l1NGRl?=
+ =?utf-8?B?ektvVENVamtEMkJyQ25lWnNwMExkQWt4NFhLL0J1UklkeEFTWmZmVGxNMVpU?=
+ =?utf-8?B?SHRCZkg1YlQwY21BVEdhemhoT3JzZ3ZoWjZlT05HSkREbXBaOVlWdjBja2xE?=
+ =?utf-8?B?bGJlV0RyNGRqemdPMGVEUG5Jd3dTTTRXeGI3N3M3eloraitNTHdPWW54VG9p?=
+ =?utf-8?B?NVloay85enRIQXlQQlJWUmIwVzdneTBSbUJJWkJUWTAzSE1SdUxNTWVBME9G?=
+ =?utf-8?B?Tlh5VWRrTWFnVDh1N1pFZGpONlpSMUdvL0VYbWd1N3dUYVF2d2ZEYmtrdU10?=
+ =?utf-8?B?THg2RDE3V3p6ZDBWRWV3NlRWaC93VG1GY2I4MExpYXE3cElBUDJ6MjgvS0ZD?=
+ =?utf-8?B?ZTlSc241WXB5NllheW9jbk9iaVlRMW0zUmlsU0V2MHBKVmJ4Zmo3ME5HMGs2?=
+ =?utf-8?B?VjZ2T1BNLzVSbnNFNjhyb0ZUNGdkVWl2NVRieThwR1BZZE5VbEZTNUpmcVNk?=
+ =?utf-8?B?SlQzSkpveGJ3UzdoMDl5alZ4NnBPODR2TTdIMmY3S2krR0dCT296UWlOelh5?=
+ =?utf-8?B?TEdRYS9JS2M1YnRsNVk4VzM2SGg2Nm92R202ekFhZTFaQXdseXNWVkxBRWRX?=
+ =?utf-8?B?TmxrRW5SV3E4UDRKZW96dlJjYzI0UDM3M0t6T1NzcVFRd2hEa29NbnBKMDNW?=
+ =?utf-8?B?UVBvdGY5aTJhQk5na3ZUTG9KMkNlY2Nzb2lWTnRJbTRDSTRyeWRFRjdHNTVm?=
+ =?utf-8?B?VnF3ZG9OMHljOU44Qm9QeDlqbHR4M1Z4MldMbWpxOUtOSE5xVVBSdStTTWsv?=
+ =?utf-8?B?TDFZTmFYQ0kvTXlHSjh0a0NuSWNnTlE1WVJMdGpkQ05QNzZYSmxDOUZLVC9m?=
+ =?utf-8?B?TTFId3lrVVlMczFCUEVSOHVkQytZVFFjRG96MmFTQ3gzenIrWjdCQUx3cysr?=
+ =?utf-8?B?Q0VTSHA5eHFJV2FNUjNmNmV6MktLMGRtNGhxdkFZTGtyTmRlRjNaVVIrSit5?=
+ =?utf-8?B?WW9iSWFlVEJMRmdtWitYV1pjUmcvL01oKzdlVDNBcVdvZ3hMNGdkUG4wV0xG?=
+ =?utf-8?B?bXQ4ejNrdlpOL21HS21lUGRybXRQSlFOcDNoVElOMUdSWHEveUZrM2JIa2ha?=
+ =?utf-8?B?azBaNnRpeG9LNmwrdzVtd0pKcmxtSjBTblQrWk1pSlI3VHNoZ2hKTUs4OUhk?=
+ =?utf-8?B?YkxTeG52K1d3YUxkUGl4aHJVM0c0dCtWWG85QzAyS25xL29aYy9HWHp6T0dm?=
+ =?utf-8?B?M2l6VTJNYWNJUkNTYUZaWnBvc1g5NFJ6RjRMS08rUE1TQ3MvUktLMVZvMUJX?=
+ =?utf-8?B?L3hVQkFXZXdTLzBxQXkrM3lzZ1YwcGx4dG05MlZzUStRZmRGYzN5NzZjUExC?=
+ =?utf-8?B?cnJqRldWalBZZ0hxOGRSZDhKc0xKaTVwUHVhb0F5NkRpZ0k1ZVRJQ2ZFM1RI?=
+ =?utf-8?B?UmR5VFQ2eUk0WmdxUmVUdnU3cnRGQWlMUFJUT0dXeEJQbkhVOTg0OUphWG9w?=
+ =?utf-8?B?elVTYkRNMUJpM1VwTlEvMURCZkx0T0szZjZPNVNiU2QrSnltQ3lLajFIOFk0?=
+ =?utf-8?B?dGQzRGx6MWdHT2NjZVNHODBTaXpWTGt3a0dlbytxNnFqenVrZTFzemJENWlh?=
+ =?utf-8?Q?+uQ0m0s+zTu0rXaH2uyiJaCvm?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c32fe3ee-39b0-4229-7074-08da9c7e05f3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cb64222-ef54-4154-77e6-08da9c7fabf5
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 09:37:10.7873
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 09:48:58.8616
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qYzK/OFahpJsAqqHS4SxnEROzLmCER6i2t3n/pxbgMOq89npZAJdNAruMHSD3fXh5otkuDzSWp9b6PY8CbPgPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4310
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4DtzWtHFTSy+WTWDddgImUhhQomEoGNYdaVDY+5qAl4sGbSh19FQ5KqWSuXftp7fZ2xF21A3zM8yQFJIhOgcfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4208
 
 Hi All,
 
-PFA the notes (credit - Samuel) as below.
+PFA the meeting notes as follows.
 
 Kind regards,
 
 Ayan
 
+The way how IOMMU works is not best. Do we change it ? Means people 
+using command line will be impacts.
+On Inten, IOMMU does dma and interrupt translation. Can it be done 
+independently. For passthrough we need dma translation. IRQ translation 
+can be done different. Disagreement in community. We need to resolve the 
+disagreement in command line option
 
-Problem :- Bugs in HW speculative execution on modern processors. Leak 
-info from one guest to another, from hyp to malicious guest. Some 
-mitigation taken in Xen, but have performance penalty. There is also 
-core scheduling in Xen. We run Xen on VM exit. Xen try to map minimum 
-information in page tables. If some point, Xen needs to access sensitive 
-info, it switches to new set of page tables which maps all memory. It 
-should use aggressive techniques for security.
+Iommu=off “ in CMD means everything off
 
-The approach inspired by the linux kernel.
+iommu_remap=off means IRQ remapping off and DMA remapping is on
 
-Paths used from guests are a limited set of what the hypervisor can 
-access. Minimal pagetables for guests, with less mitigations needed 
-thanks to this (why?).
+Do we need to an option to do IRQ mapping and not DMA mapping.
 
-Bertrand - Introduce Kernel page table isolation (KPTI) is already in Xen
+Bertrand - Is the option applicable to both X86 and Arm applicable ?
 
-Jurgen - AWS has submitted some patches in Xen in this regard. It 
-applies to x86, may applies to Arm. Not sure of the current state of 
-series.
+Jan - Yes, this should impact all architecture.
 
-Andrei - Does it related to KVM ? They published some set of patches.
+Bertrand - Linux option “”iommu=off” do ?
 
-Jurgen - Kernel page table isolation is different to Xen.
+Jan - It varies. Sometime means interrupt remapping is ON. On Arm, IRQ 
+remapping differs from X86. There is no remapping register.
 
-Andrei - Split the info into globally confidential, not confidential. 
-There are some hooks triggered by this transition. KVM patches may be 
-adapted by Xen. Don’t know Amazion patches.
+Rahul - In Arm, IRQ remapping is done by mapping one door bell register. 
+Then everything is done by hw.
 
-Jurgen - Who was driving at Amazon ?
+Bertrand - This applies to only MSI. Interupt remapping has no meaning 
+on Arm.
 
-Bertrand - Mapping the whole memory in Xen was a concern at Arm. KVM 
-security patches need to be interesting, but attack surface differs 
-between Xen and KVM. We should not repeat what is done by KVM
+Jan - In such an environment, this is an x86 specific option that irq 
+remapping is on.
 
-Jurgen - Need to show the mitigation is better than current approach. 
-Mappin all the memory might be interesting. But sometimes we don not 
-have enough VA space.
+Bertrand - The interrupt remapping problem does not exist on Arm. So 
+keep the current option and have the necessary feature for x86.
 
-Roger - posted a linked from Microsoft research explaining the work had 
-been done. “Rethinking isolation in the age of speculation”. With KVM 
-and Microsoft’s work, it may be interesting.
+Jan - Split option have no meaning. So IRQ off and DMA off applies only 
+on X86.  The split option (irc remapping) should be unavailable for Arm.
+Have people using X86 for chasing it ?
 
-Bertrand - Should find a way not to map everything in Xen. No one 
-opposes that in Xen community.
+XXX - iommu = off should switch off everything (DMA + IRQ). Then have 
+specific option.
 
-Andrei - Check first the ongoing work in Xen community.
+Jan - IRQ on and DMA off is useful. To boot with extra requirement. 
+There is a confusion whether irq remapping is off or dma remapping is off.
+On passthrough system you don’t need iommu (except for irq remapping). 
+The address space is 1-1 mapping. Intrusive / Extrusive mode.
 
-Bertrand - Should do the patches with x86 and Arm in mind.
+Jan - PV Dom0 case, this is applicable as translation is done
 
-Jurgen - Agreed. We should do for both architectures. Hypervisor 
-resources needed for guest should be kept in mind. Per guest mapping 
-should help here.
+Roger - No need to discuss more.
 
-Bertrand - If we know what memory is mapped for each guest, it should help.
+Jan - We need to clear of a semantic change when “iommu=off”.
+We should change variable from iommu_enable to iommu_dma_map and 
+iommu_entry_map.
 
-Andrei - Is it a Arm feature ?
+Roger - No need for a separate top level irq remapping.
 
-Bertrand - Most of the data is stored in guest. A guest should not 
-starve Xen so other guests are not affected. All the data pertaining to 
-a guest should reside in the guest (not in Xen).
+Jan - iommu=dma_remap=off
 
-Andrei - Permissive mode should help ?
+Roger - Global option off and irq option is on.
 
-Bertrand - Per guest heap should make security easier. If we have guest 
-heap mapped and Xen heap mapped, that should be preliminary work.
+iommu=off will make dma and irc off
 
-Jurgen - For sys call in linux kernel, map little stuff in the beginning 
-and map things in page table on demands. It is still is a idea phase, 
-don’t know performance impacts. This was discussed in 2018 in Intel summit.
+Iommu=dma_remap=off, irq_remap=on  (We will introduce the split option)
 
-Andrei - We should gather this techniques in a series of patches
+Jan - iommu is a top level option with many sub options. IRQ remapping 
+option will not be exposed to Arm. DMA_remap will be used in the 
+everyone. “iommu=enabled” is ambiguous.
 
-Bertrand - If on Arm when mapping on demand, it will generate exception 
-and passes control to Xen.
+Bertrand - RISCV is similar to Arm. So this should be x86 specific iommu 
+option.
 
-Jurgen - This should be common across all arch. Exception handler should 
-be handled in virtual mode.
-The idea is to map all the code initially, and this will reduce 
-complexity. Need sys call handler spec and page table
+Jan - The common code should explicitly specify dma remapping or irq 
+remapping . The other architecture should say whether dma remapping or 
+irq remapping is apllicable,
 
-Bertrand - You will generate exception , then it can generate Spectre / 
-Meltdown issues
+Bertrand - This change will impact Arm code,
 
-Jurgen - Need to consider flushing buffers in and out of exception. 
-Mapping buffers will add penalty.
+Jan - If the severe code changes in Arm, then we will reconsider.
 
-Bertrand - Spectre / Meltdown mitigation made system slower
+Jurgen - Common code should be architecture agnostic.
 
-Jurgen - On x86, a simple solution is to run without cache.
+XXX - We could add defines in x86 code.
 
-Bertrand - There are some hooks in ATF. The hyp may call the firmware. 
-Some CPU have specific info to flush cache. Like turn on off in MMU, and 
-it impacts performance. In some CPU, the mitigation is done in hardware. 
-In Arm, the mitigation techniques differ from CPU to CPU.
-Mitigation (mapping + page exception) will make Xen complex. Like we 
-need to flush TLB when going to gu8est.
+Jurgen/Jan - In common code, we should be very explicit. No ambiguous 
+check anywhere.
 
-Jurgen - in x86, when one core enters hyp mode, other core should also 
-enter. Need IPIs.
+Bertrand - iommu.c should be renamed to iommu_dma.c ??
 
-Bertrand - Need to underatdn how mitigation applies to Xen. Our surface 
-attack in smaller. I don’t know if the mitigation techniques solve anything
+Jan - We could do that, there is no bad behaviour when keeping the name. 
+We will prevent irq mapping  is added in common code. However, the 
+common variable should not be ambiguous.
 
-Jurgen - Mitigation is a nice conceptual project, but don’t practical.
+Kind regards,
 
-Bertrand - This should be research project in a uni. No immediate 
-requirement.
-
-Andrei - What happens on KVM ? Does mitigation lead to better performance ?
-
-Bertrand - Security issues are not discussed widely in Arm
-
-Jurgen - Should be able to find a KVM engineer to give us performance data.
-
-Bertrand - Sometime performance impact may be case specific
-
-Jurgen - We do thorough performance measurement. In one patch series, 
-our performance engineers have analysed thoroughly
-
-Olivier - We have to continue to investigate in community. We should 
-create a epic for this.
-
-Bertrand - Epic 1 - Reduce the system memory mapped in Xen. All agreed 
-(Jurgen - the patch series by Amazon is floating). We need to prioritise 
-this and do it across Arm and x86
-
-Epic 2 - Per guest resource mapping. Understand performance impact.
-
-This concept applies when core scheduling is applicable. Isolate guest 
-on specific code, then some issues may decrease
-
-Jurgen - Core scheduling depends on cache hierarchy. It is configurable 
-in theory. Has a performance impact,
-
-Bertrand - On Arm, the impact may be CPU pipeline dependent. There is no 
-easy answer. Sometimes some core are not affected.
-
-There is a NUMA series on Arm sent by Wei. Question to Wei - If the core 
-(which core on same socket/platform) topology is available on Xen now or 
-after NUMA series ?
-
-Wei - On NUMA support, we have a way to determine which core belongs to 
-which resource. We cannot distinguish on hyperscalar. Can’t distinguish 
-between logical / physical core.
-
-Bertrand - There is only one core with hyperscaliong available (A65). We 
-should check this.
-
-Jurgen - Let’s see how the ongoing project gets done. We need to invest 
-some work to measure the upsides and downsides. The approach looks 
-promising but needs to be tested. It's a very nice project but this 
-*might* be a waste of time - and we don't know by advance.
-
-Bertrand - It is quite some work to be done cleanly.
+Ayan
 
 
