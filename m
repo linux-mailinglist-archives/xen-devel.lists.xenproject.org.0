@@ -2,55 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A0C95E63E3
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Sep 2022 15:41:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.410159.653238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F29EC5E63F7
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Sep 2022 15:45:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.410204.653261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obMSG-0006P2-QC; Thu, 22 Sep 2022 13:41:28 +0000
+	id 1obMVv-0001eT-Sa; Thu, 22 Sep 2022 13:45:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 410159.653238; Thu, 22 Sep 2022 13:41:28 +0000
+Received: by outflank-mailman (output) from mailman id 410204.653261; Thu, 22 Sep 2022 13:45:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obMSG-0006KD-L8; Thu, 22 Sep 2022 13:41:28 +0000
-Received: by outflank-mailman (input) for mailman id 410159;
- Thu, 22 Sep 2022 13:41:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1obMVv-0001bb-P9; Thu, 22 Sep 2022 13:45:15 +0000
+Received: by outflank-mailman (input) for mailman id 410204;
+ Thu, 22 Sep 2022 13:45:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eiOI=ZZ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1obMSE-00041N-6V
- for xen-devel@lists.xenproject.org; Thu, 22 Sep 2022 13:41:26 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2068.outbound.protection.outlook.com [40.107.223.68])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3dfca9ae-3a7c-11ed-9374-c1cf23e5d27e;
- Thu, 22 Sep 2022 15:41:22 +0200 (CEST)
-Received: from BN9PR03CA0522.namprd03.prod.outlook.com (2603:10b6:408:131::17)
- by MN0PR12MB5953.namprd12.prod.outlook.com (2603:10b6:208:37c::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.14; Thu, 22 Sep
- 2022 13:41:21 +0000
-Received: from BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:131:cafe::c3) by BN9PR03CA0522.outlook.office365.com
- (2603:10b6:408:131::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.19 via Frontend
- Transport; Thu, 22 Sep 2022 13:41:21 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT022.mail.protection.outlook.com (10.13.176.112) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5654.14 via Frontend Transport; Thu, 22 Sep 2022 13:41:21 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 22 Sep
- 2022 08:41:20 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Thu, 22 Sep
- 2022 06:41:20 -0700
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Thu, 22 Sep 2022 08:41:19 -0500
+ <SRS0=jJba=ZZ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1obMTK-0004DO-9o
+ for xen-devel@lists.xenproject.org; Thu, 22 Sep 2022 13:42:34 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 66da100a-3a7c-11ed-9647-05401a9f4f97;
+ Thu, 22 Sep 2022 15:42:32 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 7FCA15C00D8
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Sep 2022 09:42:29 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 22 Sep 2022 09:42:29 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Thu, 22 Sep 2022 09:42:28 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,118 +43,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3dfca9ae-3a7c-11ed-9374-c1cf23e5d27e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Bimp4zBtzmivG4cQ/xKrNV99iVEuasxhu2Tul4Ew56tnzVUMC20l6uQ+gS9ukmV8RE3F77DsBDS87f+H433CYZk5eVxcHJiQVr8DhG3A9mgHeX4WIX0EduQAQD+WNIiEl3NSFj0mnElrg/twy65jvmJ+Sm4uKZUQ8FK4grUehA6G6zloYa2SH1Zyl+HR5bgknnzvOpVYKTipsGNfBPp11RHbnMu3SZIeAOhNyl+T3dchlAIvpTUfED0dG49mjfGfmbm5TabPzqjDc6xN/uoAfbiz64XzO/TQdiGgFVTxfGZLm4vB0V9CyBJ34YXFv2/It1qZXFORxGEtQqK5xVXiWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=USlAysPSixVlzaMaeXTCZzefvXfPQQ4YYGx5V3R9wz0=;
- b=WXk9j6JlW5SNaBWzno4z4pBhcMsL3aKe626TsX3pEzimA6a/e/NNYGxpp0JcqqZjBf8VtSOlZUKLlf2uiDhpr5kqrvmN11L9MXZp52tAXTVUFwtWKt+jrxXe8V18q+mQ6y73PnMOmCiVpnyn+cGGbk9PjJY1+UubVVfyCAWHPCAWQegmHFr7pLcKqPmCtNcypy7SzIiovM8WpzJOGI+PTknZvNiepJjvlf/RIzd3pUI5wdLGaeMPZ3XgPHDDB2yga4pOO0CXjVqZcOd2up12xNUnV+YZwgFB+npubQUUDKB7wCSOHL2tkNaWGWF3297S+g9Kbaj+pwqnECMq/ZGhFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=USlAysPSixVlzaMaeXTCZzefvXfPQQ4YYGx5V3R9wz0=;
- b=D9nu4h+isNkPLIARpdOarmCgtKiQ1i3XWf/C5spPSkMgTWaSCJF7T0VQ50iGA/a5Iv1LGUVwXBCwcJmT6GgxVctcFGdQRDKWQT5j3AjNab9qAQ8DoKt+RgdPQrwlscnPIc+fDSNtW4J4icr+PVYS+kGszU8I9vkWz/JJ0dxkIHs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 9/9] automation: Rename qemu-smoke-arm32.sh to qemu-smoke-dom0-arm32.sh
-Date: Thu, 22 Sep 2022 15:40:58 +0200
-Message-ID: <20220922134058.1410-10-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220922134058.1410-1-michal.orzel@amd.com>
-References: <20220922134058.1410-1-michal.orzel@amd.com>
+X-Inumbo-ID: 66da100a-3a7c-11ed-9647-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to; s=fm2; t=1663854149; x=1663940549; bh=1exnffNnck
+	ocGFlvR2gG+KOq54oxSFUg2c0Ocjxgo9c=; b=e4+dzMT54kQrITQ9+ooWr1jlyd
+	SgM0k5erFZW2U5vKwQbHL/kyCVHF1mSfVZgGUV0RX7c41nleBvAYDuYTfY6Gdjsv
+	CcB57n+PTlv0U804Kt1CHiEEqvmYuWFx0w1S50kkcC6qt/0k26eYHmcZQt1uXCEt
+	8751ikWktuZZ0ltawLiLgP49+wF85+96UMe7sXi7+CdBkC04twbMZxCKZvo6BJ+i
+	/8891lwOirSaLxO4AYUB/8hUGvo9AyYgn9vmBKEHv6FtP+KwVU4oXSRY8Asf3/t6
+	zMOOf1Dp3pp5Pup1b4QiRaKsDx07GCYzzUYHLLKBQCXGwUvO5SY3xzYzVLCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:message-id:mime-version
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1663854149; x=
+	1663940549; bh=1exnffNnckocGFlvR2gG+KOq54oxSFUg2c0Ocjxgo9c=; b=B
+	Q88WU7BLPpmBeAIw9Ih02ExcccSU+gXqWN7FJIyMouW22E9j3tIteSovKUH1rsJO
+	6npd4M4GWX+C572UvnZRiXuYbX7OytqYne6wQS3ptOgzPSfb2wk0cIDgHBWyVLg4
+	ZWFz806mNDoROWa/dfdfgVEUYQkKb3D1udk7qIZS5vqhGsDMecGR7n+aYgRHO8y4
+	7br/Z1TfDUf6TCnMzbfjQSqKIaqrESd0bjiUzY/mKCtorE1whHV+CHLDeYYZwkpy
+	/lFWzdBFnVZstiOfXCVFlCo5fUFyeJop6IYRCwCfQQ+A+Mvq7bprV9xXGFD3hxOD
+	/kcCu1RIrzk3LblCxJkZg==
+X-ME-Sender: <xms:RWYsY7705JjmGxdbfJpGyAwFvNvmX3aWSmtD7176eHAckCEfAu9_GA>
+    <xme:RWYsYw4FfXjboZvh3-QdVq3XHeLZWhXKVqj8h78hp80itDNeKasJnYnFUdUhxHfE9
+    MpnZxw3TW8OQA>
+X-ME-Received: <xmr:RWYsYycTDmSn0cbaZht_YK9Y2qceJE7JteWoIMxzc4GRdUR5DFgMoTW0IDKF>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeefgedgtdekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
+    dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
+    uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
+    cuggftrfgrthhtvghrnheptddugfetudevudeiveevgfetueejlefggffghffhhfehtdff
+    feefgfduueegfefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+    hfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
+    mh
+X-ME-Proxy: <xmx:RWYsY8KdCv6HTn0_jL2TJb7gvOrYDaxdz_8KDwuOB_lIVNM1ZEeV8w>
+    <xmx:RWYsY_I7XZuRlw1ma0vLZ4W_2ThSCr_xlVu72o9dHdK4ocYVaSip0A>
+    <xmx:RWYsY1yOjIqGh5xOIIf1n_vsXUsxi7Zt79af5c8LLGn-XINu80UnQg>
+    <xmx:RWYsY0X5S9dm9L0fZvlaNPQU7K9Pm_t6BJnZx1Gh8IWQ1A6MGL9B7Q>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 22 Sep 2022 15:42:25 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Design session "grant v3"
+Message-ID: <YyxmQf+q0BqsX8Nb@mail-itl>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT022:EE_|MN0PR12MB5953:EE_
-X-MS-Office365-Filtering-Correlation-Id: c627175e-5963-4af9-9651-08da9ca0228d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	57pzt8Z+e/2EYa1nBLAs4PFNNx1i1yszAzDHKgR6XPAhRZZSje1q3x3laF7eEvvEPuNg1q+3t2DJ9VSPxn+3/q5fn6R+uqaViJwsB0440kfMeeMMAZAPSKel0UTUNSOcEI9wutxP+xo1kmI9VURsp8tWJPQpMrtihwzoImaloIejACyXoVemJsiQY9H+i1D3F82cYLipE3oqHjVK4S/yMnt4Jrb8663HsR68Vsjt/8lOX3aIdifa/tG4hGLyY6t2x7T8e8L3gj7vuvqfRns50R+GgVemWstDdWARpycGgOjmnbOVSQJ0weVRWHF3mC6K910Sdya/buHL+YKuqZbNx00/MpIyJDQ7A6lBXdSRgvvUMkBp5DYOdQvNe+mg7fumw9cC2+taP7htsK42augG7cF8s/QzSnV3Dlv5jDWxt2qtQUY/eruTXLJhqM16TvNm9TgWrN+JZlyNkRqcg//oVDJ1HlYyB9EJkAgmHYPYvNwC/bfe7p816fYD2pJ7SD96RHz+twTQSCG0ev3pOSAp+4dyk9rruIoasNO+sQkLLOYIF4leCRRAuWOf0V70u42hD2NCgR93BtMPVhe3Hd253cnfoSOHx4YtHSZy7AMZn11P8fMjxCh6FXX/gWqdSvYMbWZJZaf8L1dLBwac4nMKLsGVDhydEPVUgxCHQjxF02XI1ijWelIUz3Hdt8iiLTTmXVamTmjBj1Hrl6Lwtiaa0zeLtjZfVYF4A4OeHCkXntYTa7QLkJRXCVZHgZha91FByQyrISEQxQT8BM1zZ1xbF2b/bBW8awS5iTI3Ob/21ENpj0B9VOAaWXCYEHkAJbWp
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(346002)(376002)(396003)(136003)(451199015)(40470700004)(36840700001)(46966006)(36860700001)(41300700001)(316002)(82310400005)(47076005)(426003)(83380400001)(44832011)(40460700003)(8676002)(36756003)(70206006)(70586007)(86362001)(2906002)(4326008)(356005)(82740400003)(81166007)(478600001)(26005)(40480700001)(54906003)(6916009)(336012)(186003)(2616005)(1076003)(5660300002)(8936002)(6666004)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2022 13:41:21.4126
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c627175e-5963-4af9-9651-08da9ca0228d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT022.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5953
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="/PqyDgNKiSkARGk5"
+Content-Disposition: inline
 
-After qemu arm64 test scripts had been renamed to reflect their
-usage, do the same for the qemu arm32 test script. Currently it only
-boots dom0, so we can assume that this script will be used to perform
-dom0 based testing. In the future we will be able to create corresponding
-script qemu-smoke-dom0less-arm32.sh to perform dom0less based testing.
-This is the last step to get rid of ambiguity with regards to naming
-of Arm test scripts.
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
- automation/gitlab-ci/test.yaml                            | 8 ++++----
- .../{qemu-smoke-arm32.sh => qemu-smoke-dom0-arm32.sh}     | 0
- 2 files changed, 4 insertions(+), 4 deletions(-)
- rename automation/scripts/{qemu-smoke-arm32.sh => qemu-smoke-dom0-arm32.sh} (100%)
+--/PqyDgNKiSkARGk5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Sep 2022 15:42:25 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Design session "grant v3"
 
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 3b147c88ab08..92e0a1f7c510 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -195,12 +195,12 @@ qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
-   tags:
-     - arm64
- 
--qemu-smoke-arm32-gcc:
-+qemu-smoke-dom0-arm32-gcc:
-   extends: .test-jobs-common
-   variables:
-     CONTAINER: debian:unstable-arm64v8
-   script:
--    - ./automation/scripts/qemu-smoke-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
-+    - ./automation/scripts/qemu-smoke-dom0-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
-   needs:
-     - debian-unstable-gcc-arm32
-     - qemu-system-aarch64-6.0.0-arm32-export
-@@ -212,12 +212,12 @@ qemu-smoke-arm32-gcc:
-   tags:
-     - arm64
- 
--qemu-smoke-arm32-gcc-debug:
-+qemu-smoke-dom0-arm32-gcc-debug:
-   extends: .test-jobs-common
-   variables:
-     CONTAINER: debian:unstable-arm64v8
-   script:
--    - ./automation/scripts/qemu-smoke-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
-+    - ./automation/scripts/qemu-smoke-dom0-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
-   needs:
-     - debian-unstable-gcc-arm32-debug
-     - qemu-system-aarch64-6.0.0-arm32-export
-diff --git a/automation/scripts/qemu-smoke-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
-similarity index 100%
-rename from automation/scripts/qemu-smoke-arm32.sh
-rename to automation/scripts/qemu-smoke-dom0-arm32.sh
--- 
-2.25.1
+J=C3=BCrgen: today two grants formats, v1 supports only up to 16TB addresses
+        v2 solves 16TB issue, introduces several more features^Wbugs
+        v2 is 16 bytes per entry, v1 is 8 bytes per entry, v2 more complica=
+ted interface to the hypervisor
+        virtio could use per-device grant table, currently virtio iommu dev=
+ice, slow interface
+        v3 could be a grants tree (like iommu page tables), not flat array,=
+ separate trees for each grantee
+        could support sharing large pages too
+        easier to have more grants, continuous grant numbers etc
+        two options to distingush trees (from HV PoV):
+        - sharing guest ensure distinct grant ids between (multiple) trees
+        - hv tells guest index under tree got registered
+        v3 can be addition to v1/v2, old used for simpler cases where tree =
+is an overkill
+        hypervisor needs extra memory to keep refcounts - resource allocati=
+on discussion
+        hv could have TLB to speedup mapping
+        issue with v1/v2 - granter cannot revoke pages from uncooperating b=
+ackend
+        tree could have special page for revoking grants (redirect to that =
+page)
+        special domids, local to the guest, toolstack restaring backend cou=
+ld request to keep the same virtual domid
+Marek:  that requires stateless (or recoverable) protocol, reusing domid cu=
+rrently causes issues
+Andrei: how revoking could work
+J=C3=BCrgen: there needs to be hypercall, replacing and invalidating mappin=
+g (scan page tables?), possibly adjusting IOMMU etc; may fail, problematic =
+for PV
 
+Yann:   can backend refuse revoking?
+J=C3=BCrgen: it shouldn't be this way, but revoke could be controlled by fe=
+ature flag; revoke could pass scratch page per revoke call (more flexible c=
+ontrol)
+
+Marek:  what about unmap notification?
+J=C3=BCrgen: revoke could even be async; ring page for unmap notifications
+
+Marek:  downgrading mappings (rw -> ro)
+J=C3=BCrgen: must be careful, to not allow crashing backend
+
+J=C3=BCrgen: we should consider interface to mapping large pages ("map this=
+ area as a large page if backend shared it as large page")
+
+Edwin:  what happens when shattering that large page?
+J=C3=BCrgen: on live migration pages are rebuilt anyway, can reconstruct la=
+rge pages
+
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--/PqyDgNKiSkARGk5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmMsZkIACgkQ24/THMrX
+1yxyJAf+LgthiM6u3KSBdakLy/fvfO++QMQ2Looxzko/w9+npr9p3atAEnXqkbLf
+yjfarMHKdD9ygxA1iuC0cdEWG58TN9yLME1BuQowUDJwEWe3sSrmHAFEYntxhR9A
+2ItnEWmnD6x69IsmuX/VBnpjHfGe0FU05rIQmSKaYmkncJ16xPOtes1O0EmauwaT
+AyygmV15vUsbIXH1nj/HVxUZtEg3HH/uTB28TKv/UZ+Fm/8F8pnsgLc7dgO/4IAJ
+LGWJ2JEN+61CcwT0EpRUT+0n39uu3bctE7BI2E4Ddx98zouqGLoX5QXet0fFnOS6
+2MSQx0suTNYMg7KnY9u8/h/QrP97zg==
+=t9y2
+-----END PGP SIGNATURE-----
+
+--/PqyDgNKiSkARGk5--
 
