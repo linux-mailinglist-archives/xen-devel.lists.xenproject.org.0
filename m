@@ -2,41 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 626385E7192
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Sep 2022 03:50:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.410552.653618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 946A45E723A
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Sep 2022 04:57:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.410558.653629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obXoU-0003TN-2O; Fri, 23 Sep 2022 01:49:10 +0000
+	id 1obYr3-0003LU-SO; Fri, 23 Sep 2022 02:55:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 410552.653618; Fri, 23 Sep 2022 01:49:10 +0000
+Received: by outflank-mailman (output) from mailman id 410558.653629; Fri, 23 Sep 2022 02:55:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obXoT-0003QO-UV; Fri, 23 Sep 2022 01:49:09 +0000
-Received: by outflank-mailman (input) for mailman id 410552;
- Fri, 23 Sep 2022 01:49:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1obYr3-0003IQ-PX; Fri, 23 Sep 2022 02:55:53 +0000
+Received: by outflank-mailman (input) for mailman id 410558;
+ Fri, 23 Sep 2022 02:55:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z7gn=Z2=runbox.com=m.v.b@srs-se1.protection.inumbo.net>)
- id 1obXoR-0003QH-NK
- for xen-devel@lists.xenproject.org; Fri, 23 Sep 2022 01:49:08 +0000
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com
- [2a0c:5a00:149::26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e76047f6-3ae1-11ed-9374-c1cf23e5d27e;
- Fri, 23 Sep 2022 03:49:04 +0200 (CEST)
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
- by mailtransmit05.runbox.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <m.v.b@runbox.com>)
- id 1obXoM-002cCW-5n; Fri, 23 Sep 2022 03:49:02 +0200
-Received: from [10.9.9.72] (helo=submission01.runbox)
- by mailtransmit02.runbox with esmtp (Exim 4.86_2)
- (envelope-from <m.v.b@runbox.com>)
- id 1obXoL-0003T8-BT; Fri, 23 Sep 2022 03:49:01 +0200
-Received: by submission01.runbox with esmtpsa [Authenticated ID (536975)]
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
- id 1obXoI-0001g4-Ni; Fri, 23 Sep 2022 03:48:58 +0200
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1obYr2-0003IG-Pr; Fri, 23 Sep 2022 02:55:52 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1obYr2-0006UA-OA; Fri, 23 Sep 2022 02:55:52 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1obYr2-0003p0-ES; Fri, 23 Sep 2022 02:55:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1obYr2-0000aU-DI; Fri, 23 Sep 2022 02:55:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,223 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e76047f6-3ae1-11ed-9374-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector2; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References
-	:Cc:To:Subject:From:MIME-Version:Date:Message-ID;
-	bh=Zb+Ndi6hr3zgnjOrbLIzoHacaBvMqQUP3vkITYGJe5I=; b=Ewm7OpFGDPfREfqbSPGkFZa853
-	MyMbGYi1Plb5bUsXOAxS3pnhGcDNyUSN6qSiQ6OhJdqZKDfuHm9LnEhpYrRlV9Jyzao6E8ZZMsjPa
-	Qqa5bGRHKYlxWTxo0JxIYNxrN3eZfWap8f0sJNyQryFWZGPBqAb9nn1gd/myzmZ5BHYPAQSMA6TA4
-	H7C3DbyGAeYg9/W5RfsOmA5zFrCItMibjd1t8JxX58pvqMLr6bE6pBKguLH3pn2aZWiOlkDJEB9Mr
-	w8DzYQghq8/aKi9N93COsgZmoM7rO0jvaBF8yu+luFEVFLkkOhH+EzWOJ5cUkFnsSWEI0dyN94DJ+
-	/H1TsaaA==;
-Message-ID: <1bc60f1c-2aa7-2d4a-a6a2-c8592ed83486@runbox.com>
-Date: Thu, 22 Sep 2022 21:48:56 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-From: "M. Vefa Bicakci" <m.v.b@runbox.com>
-Subject: Re: [PATCH 1/2] xen/gntdev: Prevent leaking grants
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Demi Marie Obenour <demi@invisiblethingslab.com>,
- Gerd Hoffmann <kraxel@redhat.com>
-References: <20220912040002.198191-1-m.v.b@runbox.com>
- <20220912040002.198191-2-m.v.b@runbox.com>
- <cd175db2-432d-af09-7634-fbedd7c4febb@suse.com>
-Content-Language: en-CA
-In-Reply-To: <cd175db2-432d-af09-7634-fbedd7c4febb@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FF13V5OoApDqq0ta85x1S9Zn9tWOD4AtcIDayJqY4tY=; b=WI+y2R6Edu/9ZKlsj0N5ONNgkL
+	tNXbbaD+Lsrj05R5npY+m6iO2EGZx4OPS1cmjOZ+wiU1Jw18dn6KWc/2Bcmoh6kglvThQiVyHyIWK
+	p+UweKmuJ4XFalRQuJ1wKSkppsuQxWCjteoX82Qm9dUXsd3vGmc78cFRqwr8hb2j361g=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173282-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 173282: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=6f340acfb10992af914ed5e17127cc786e0a7f7b
+X-Osstest-Versions-That:
+    ovmf=dd1e20b3c281940c5b5783151b24cf6ceeb31ca3
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 23 Sep 2022 02:55:52 +0000
 
-On 2022-09-19 05:52, Juergen Gross wrote:
-> On 12.09.22 06:00, M. Vefa Bicakci wrote:
->> Prior to this commit, if a grant mapping operation failed partially,
->> some of the entries in the map_ops array would be invalid, whereas all
->> of the entries in the kmap_ops array would be valid. This in turn would
->> cause the following logic in gntdev_map_grant_pages to become invalid:
->>
->>    for (i = 0; i < map->count; i++) {
->>      if (map->map_ops[i].status == GNTST_okay) {
->>        map->unmap_ops[i].handle = map->map_ops[i].handle;
->>        if (!use_ptemod)
->>          alloced++;
->>      }
->>      if (use_ptemod) {
->>        if (map->kmap_ops[i].status == GNTST_okay) {
->>          if (map->map_ops[i].status == GNTST_okay)
->>            alloced++;
->>          map->kunmap_ops[i].handle = map->kmap_ops[i].handle;
->>        }
->>      }
->>    }
->>    ...
->>    atomic_add(alloced, &map->live_grants);
->>
->> Assume that use_ptemod is true (i.e., the domain mapping the granted
->> pages is a paravirtualized domain). In the code excerpt above, note that
->> the "alloced" variable is only incremented when both kmap_ops[i].status
->> and map_ops[i].status are set to GNTST_okay (i.e., both mapping
->> operations are successful).  However, as also noted above, there are
->> cases where a grant mapping operation fails partially, breaking the
->> assumption of the code excerpt above.
->>
->> The aforementioned causes map->live_grants to be incorrectly set. In
->> some cases, all of the map_ops mappings fail, but all of the kmap_ops
->> mappings succeed, meaning that live_grants may remain zero. This in turn
->> makes it impossible to unmap the successfully grant-mapped pages pointed
->> to by kmap_ops, because unmap_grant_pages has the following snippet of
->> code at its beginning:
->>
->>    if (atomic_read(&map->live_grants) == 0)
->>      return; /* Nothing to do */
->>
->> In other cases where only some of the map_ops mappings fail but all
->> kmap_ops mappings succeed, live_grants is made positive, but when the
->> user requests unmapping the grant-mapped pages, __unmap_grant_pages_done
->> will then make map->live_grants negative, because the latter function
->> does not check if all of the pages that were requested to be unmapped
->> were actually unmapped, and the same function unconditionally subtracts
->> "data->count" (i.e., a value that can be greater than map->live_grants)
->> from map->live_grants. The side effects of a negative live_grants value
->> have not been studied.
->>
->> The net effect of all of this is that grant references are leaked in one
->> of the above conditions. In Qubes OS v4.1 (which uses Xen's grant
->> mechanism extensively for X11 GUI isolation), this issue manifests
->> itself with warning messages like the following to be printed out by the
->> Linux kernel in the VM that had granted pages (that contain X11 GUI
->> window data) to dom0: "g.e. 0x1234 still pending", especially after the
->> user rapidly resizes GUI VM windows (causing some grant-mapping
->> operations to partially or completely fail, due to the fact that the VM
->> unshares some of the pages as part of the window resizing, making the
->> pages impossible to grant-map from dom0).
->>
->> The fix for this issue involves counting all successful map_ops and
->> kmap_ops mappings separately, and then adding the sum to live_grants.
->> During unmapping, only the number of successfully unmapped grants is
->> subtracted from live_grants. To determine which grants were successfully
->> unmapped, their status fields are set to an arbitrary positive number
->> (1), as was done in commit ebee0eab0859 ("Xen/gntdev: correct error
->> checking in gntdev_map_grant_pages()"). The code is also modified to
->> check for negative live_grants values after the subtraction and warn the
->> user.
->>
->> Link: https://github.com/QubesOS/qubes-issues/issues/7631
->> Fixes: dbe97cff7dd9 ("xen/gntdev: Avoid blocking in unmap_grant_pages()")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: M. Vefa Bicakci <m.v.b@runbox.com>
->> ---
->>   drivers/xen/gntdev.c | 32 +++++++++++++++++++++++++++-----
->>   1 file changed, 27 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
->> index 84b143eef395..485fa9c630aa 100644
->> --- a/drivers/xen/gntdev.c
->> +++ b/drivers/xen/gntdev.c
->> @@ -367,8 +367,7 @@ int gntdev_map_grant_pages(struct gntdev_grant_map *map)
->>       for (i = 0; i < map->count; i++) {
->>           if (map->map_ops[i].status == GNTST_okay) {
->>               map->unmap_ops[i].handle = map->map_ops[i].handle;
->> -            if (!use_ptemod)
->> -                alloced++;
->> +            alloced++;
->>           } else if (!err)
->>               err = -EINVAL;
->> @@ -377,8 +376,7 @@ int gntdev_map_grant_pages(struct gntdev_grant_map *map)
->>           if (use_ptemod) {
->>               if (map->kmap_ops[i].status == GNTST_okay) {
->> -                if (map->map_ops[i].status == GNTST_okay)
->> -                    alloced++;
->> +                alloced++;
->>                   map->kunmap_ops[i].handle = map->kmap_ops[i].handle;
->>               } else if (!err)
->>                   err = -EINVAL;
->> @@ -394,8 +392,13 @@ static void __unmap_grant_pages_done(int result,
->>       unsigned int i;
->>       struct gntdev_grant_map *map = data->data;
->>       unsigned int offset = data->unmap_ops - map->unmap_ops;
->> +    int successful_unmaps = 0;
->> +    int live_grants;
->>       for (i = 0; i < data->count; i++) {
->> +        if (map->unmap_ops[offset + i].status == GNTST_okay)
->> +            successful_unmaps++;
-> 
+flight 173282 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173282/
 
-Hi,
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 6f340acfb10992af914ed5e17127cc786e0a7f7b
+baseline version:
+ ovmf                 dd1e20b3c281940c5b5783151b24cf6ceeb31ca3
 
-Sorry for the delay, and thank you for reviewing my patches!
+Last test of basis   173281  2022-09-22 19:41:14 Z    0 days
+Testing same since   173282  2022-09-23 00:41:56 Z    0 days    1 attempts
 
-> Shouldn't this test include "&& handle != INVALID_GRANT_HANDLE" ?
-> 
-> This should enable you to drop setting status to 1 below.
+------------------------------------------------------------
+People who touched revisions under test:
+  Wenyi Xie <xiewenyi2@huawei.com>
 
-I had not thought of the approach you suggested. Just now, I applied
-your suggestion to my local kernel tree, and I am building a new kernel
-for testing now. I hope to publish a newer version of this patch set
-over the weekend.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Thanks again,
 
-Vefa
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> 
->> +
->>           WARN_ON(map->unmap_ops[offset + i].status != GNTST_okay &&
->>               map->unmap_ops[offset + i].handle != INVALID_GRANT_HANDLE);
->>           pr_debug("unmap handle=%d st=%d\n",
->> @@ -403,6 +406,9 @@ static void __unmap_grant_pages_done(int result,
->>               map->unmap_ops[offset+i].status);
->>           map->unmap_ops[offset+i].handle = INVALID_GRANT_HANDLE;
->>           if (use_ptemod) {
->> +            if (map->kunmap_ops[offset + i].status == GNTST_okay)
->> +                successful_unmaps++;
->> +
->>               WARN_ON(map->kunmap_ops[offset + i].status != GNTST_okay &&
->>                   map->kunmap_ops[offset + i].handle != INVALID_GRANT_HANDLE);
->>               pr_debug("kunmap handle=%u st=%d\n",
->> @@ -411,11 +417,15 @@ static void __unmap_grant_pages_done(int result,
->>               map->kunmap_ops[offset+i].handle = INVALID_GRANT_HANDLE;
->>           }
->>       }
->> +
->>       /*
->>        * Decrease the live-grant counter.  This must happen after the loop to
->>        * prevent premature reuse of the grants by gnttab_mmap().
->>        */
->> -    atomic_sub(data->count, &map->live_grants);
->> +    live_grants = atomic_sub_return(successful_unmaps, &map->live_grants);
->> +    if (WARN_ON(live_grants < 0))
->> +        pr_err("%s: live_grants became negative (%d) after unmapping %d pages!\n",
->> +               __func__, live_grants, successful_unmaps);
->>       /* Release reference taken by __unmap_grant_pages */
->>       gntdev_put_map(NULL, map);
->> @@ -424,6 +434,8 @@ static void __unmap_grant_pages_done(int result,
->>   static void __unmap_grant_pages(struct gntdev_grant_map *map, int offset,
->>                      int pages)
->>   {
->> +    int idx;
->> +
->>       if (map->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
->>           int pgno = (map->notify.addr >> PAGE_SHIFT);
->> @@ -436,6 +448,16 @@ static void __unmap_grant_pages(struct gntdev_grant_map *map, int offset,
->>           }
->>       }
->> +    /* Set all unmap/kunmap status fields to an arbitrary positive value,
->> +     * so that it is possible to determine which grants were successfully
->> +     * unmapped by inspecting the status fields.
->> +     */
->> +    for (idx = offset; idx < offset + pages; idx++) {
->> +        map->unmap_ops[idx].status = 1;
->> +        if (use_ptemod)
->> +            map->kunmap_ops[idx].status = 1;
->> +    }
->> +
->>       map->unmap_data.unmap_ops = map->unmap_ops + offset;
->>       map->unmap_data.kunmap_ops = use_ptemod ? map->kunmap_ops + offset : NULL;
->>       map->unmap_data.pages = map->pages + offset;
-> 
-> Juergen
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   dd1e20b3c2..6f340acfb1  6f340acfb10992af914ed5e17127cc786e0a7f7b -> xen-tested-master
 
