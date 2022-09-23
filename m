@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40D9F5E75F3
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Sep 2022 10:40:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.410670.653776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4765E7718
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Sep 2022 11:28:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.410678.653788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obeEE-00074E-3D; Fri, 23 Sep 2022 08:40:10 +0000
+	id 1obey5-0003rz-OI; Fri, 23 Sep 2022 09:27:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 410670.653776; Fri, 23 Sep 2022 08:40:10 +0000
+Received: by outflank-mailman (output) from mailman id 410678.653788; Fri, 23 Sep 2022 09:27:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1obeEE-00072G-0Q; Fri, 23 Sep 2022 08:40:10 +0000
-Received: by outflank-mailman (input) for mailman id 410670;
- Fri, 23 Sep 2022 08:40:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1obey5-0003pz-LC; Fri, 23 Sep 2022 09:27:33 +0000
+Received: by outflank-mailman (input) for mailman id 410678;
+ Fri, 23 Sep 2022 09:27:32 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MVNC=Z2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1obeED-00072A-9e
- for xen-devel@lists.xenproject.org; Fri, 23 Sep 2022 08:40:09 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51d5564f-3b1b-11ed-9374-c1cf23e5d27e;
- Fri, 23 Sep 2022 10:40:04 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BA0F61F8F8;
- Fri, 23 Sep 2022 08:40:07 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 87BE413AA5;
- Fri, 23 Sep 2022 08:40:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WKTDH+dwLWOFDwAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 23 Sep 2022 08:40:07 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1obey4-0003pp-IA; Fri, 23 Sep 2022 09:27:32 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1obey4-0006iq-Fz; Fri, 23 Sep 2022 09:27:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1obey4-0008SV-4u; Fri, 23 Sep 2022 09:27:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1obey4-0004RM-4T; Fri, 23 Sep 2022 09:27:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,45 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51d5564f-3b1b-11ed-9374-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1663922407; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=rHriJ3NiytpyFePfxwPTupKD7kpksa8DfqgHNohg5XY=;
-	b=qBhdPuZMJvpGdI1lyEB4pOocaOy1Ou/vvUOqh3djGykOdY5oW8WV0vNbdP0/UW3Zonnf+s
-	06GdKAKed1rqO3QguSUqrgm61XairkzRS9PSIOYj4OBTt6WeSpJfekCXVU7A7T7k5A3yFX
-	8GgZtsqQBDX67HThGEspy/dci6Y6Nm8=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org
-Subject: [GIT PULL] xen: branch for v6.0-rc7
-Date: Fri, 23 Sep 2022 10:40:07 +0200
-Message-Id: <20220923084007.22001-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=eYXOB++OVxjvSZGqolmShyPZ4WkUqBbw36GM8Z3qMb4=; b=b5weyxxC39i7Q6FHXZeX5FijeF
+	O1YcEUIMYZ5MwUqKzg7KHzA/hpRmdLlI5yYt0Gij7FDXP969kElp74Haln9XXNr9TRZPfYL57y7Vj
+	wz72VNYLF26la4XdnulOLRvBs5XrCAu5wpRIykIAw7KZOdANEF+21j2LKkmbZi+eXr+c=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173288-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 173288: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b19793a2ec6466c04e5e3506fbe82038fb0a885f
+X-Osstest-Versions-That:
+    ovmf=238f5f95448c0cbffab5532b21bc4d5f27cf1cee
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 23 Sep 2022 09:27:32 +0000
 
-Linus,
+flight 173288 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173288/
 
-Please git pull the following tag:
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b19793a2ec6466c04e5e3506fbe82038fb0a885f
+baseline version:
+ ovmf                 238f5f95448c0cbffab5532b21bc4d5f27cf1cee
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.0-rc7-tag
+Last test of basis   173286  2022-09-23 02:58:06 Z    0 days
+Testing same since   173288  2022-09-23 07:43:17 Z    0 days    1 attempts
 
-xen: branch for v6.0-rc7
+------------------------------------------------------------
+People who touched revisions under test:
+  Qi Zhang <qi1.zhang@intel.com>
 
-It contains only a single fix for an issue in the xenbus driver
-(initialization of multi-page rings for Xen PV devices).
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-Thanks.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Juergen
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
- drivers/xen/xenbus/xenbus_client.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Juergen Gross (1):
-      xen/xenbus: fix xenbus_setup_ring()
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   238f5f9544..b19793a2ec  b19793a2ec6466c04e5e3506fbe82038fb0a885f -> xen-tested-master
 
