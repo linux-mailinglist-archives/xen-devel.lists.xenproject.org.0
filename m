@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0B7B5E8006
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Sep 2022 18:40:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.410880.654041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D8355E8005
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Sep 2022 18:40:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.410881.654056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oblj0-0004Tf-VU; Fri, 23 Sep 2022 16:40:26 +0000
+	id 1oblj3-0004rP-Al; Fri, 23 Sep 2022 16:40:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 410880.654041; Fri, 23 Sep 2022 16:40:26 +0000
+Received: by outflank-mailman (output) from mailman id 410881.654056; Fri, 23 Sep 2022 16:40:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oblj0-0004LJ-SG; Fri, 23 Sep 2022 16:40:26 +0000
-Received: by outflank-mailman (input) for mailman id 410880;
- Fri, 23 Sep 2022 16:40:26 +0000
+	id 1oblj3-0004ni-76; Fri, 23 Sep 2022 16:40:29 +0000
+Received: by outflank-mailman (input) for mailman id 410881;
+ Fri, 23 Sep 2022 16:40:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Kfh5=Z2=gmail.com=asml.silence@srs-se1.protection.inumbo.net>)
- id 1obliz-0003zv-SV
- for xen-devel@lists.xenproject.org; Fri, 23 Sep 2022 16:40:25 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1oblj1-0003zv-CO
+ for xen-devel@lists.xenproject.org; Fri, 23 Sep 2022 16:40:27 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6c54ea6f-3b5e-11ed-9647-05401a9f4f97;
- Fri, 23 Sep 2022 18:40:25 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id cc5so834031wrb.6
- for <xen-devel@lists.xenproject.org>; Fri, 23 Sep 2022 09:40:25 -0700 (PDT)
+ id 6d4c0e39-3b5e-11ed-9647-05401a9f4f97;
+ Fri, 23 Sep 2022 18:40:26 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id c11so791791wrp.11
+ for <xen-devel@lists.xenproject.org>; Fri, 23 Sep 2022 09:40:26 -0700 (PDT)
 Received: from 127.0.0.1localhost (188.28.201.74.threembb.co.uk.
  [188.28.201.74]) by smtp.gmail.com with ESMTPSA id
- x13-20020a5d60cd000000b0022af6c93340sm7717399wrt.17.2022.09.23.09.40.23
+ x13-20020a5d60cd000000b0022af6c93340sm7717399wrt.17.2022.09.23.09.40.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Sep 2022 09:40:24 -0700 (PDT)
+ Fri, 23 Sep 2022 09:40:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c54ea6f-3b5e-11ed-9647-05401a9f4f97
+X-Inumbo-ID: 6d4c0e39-3b5e-11ed-9647-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date;
-        bh=NLIYqCB5GFGbnjqA6dYmmqdLI8BuNFTVxSCPXONSBRc=;
-        b=owDxYda7B4frXz3u0Fwc1/mPY0PkIoc9YEt4hkPPANfeq4CAFBjXeUytt806Zgzrh2
-         Oflmk3RWPGkL3H4Kqr+rh0g6ue3kNa5qh9EG2VFQ5SqjrD782ppbdaoa2zK8ufjpi3tg
-         YpW05bXLXbqTGO0ZMSAueq+peDDRvbo8UVlb48ZmGp0vWAJpfOl00oTe17PDhCBXTmcj
-         4LkSJcqD4FNFtW3MKLedobmMatlst3bdPyImM5Y1cg33OA2+GGukbR5y3KFMrsGkoqPe
-         QYLUipMNRbiIvHjo0pc7wNIYe7Hj0Xd06Y+WNBvXMB+pfT+4vyFvrFYbZ+73u9ePpxWd
-         LFHw==
+        bh=FG3Mj1csJ7FbeoY2zgdLrFVr7w1D2Zs//acRgBf+TRE=;
+        b=eE5aVrZKg1v/P9UeaHNz1t9u6KrDObJzPuHWUbsNB0CGvL2ozT6QO6y8RV3J4TvApK
+         gPGLloFmul/9NycdPQzEdBinJ0njxpLdx/5DMi9pkPqxHexWAitmYT7B+590/zvfROM9
+         CIVg8YVhNarmc9WM95AOuXgoiDJPoZLmdOExh3cWbH26mGW6YjwixTE3hbClVdbEUOis
+         9uTUExsQwAPYQ75waTv9Um9hLpemVfJuIj+0GaxnBaIvAP3G5baJmEnOoa51UmzPE0/V
+         9wc+Ze+zqXKhGHGQroVMuqM6b/rlyf5FCzbF0pKQAhzaxGDoxQxA7E7iIWwRmyyPXktb
+         EuHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date;
-        bh=NLIYqCB5GFGbnjqA6dYmmqdLI8BuNFTVxSCPXONSBRc=;
-        b=iSbJMo/KAePsC/dh/1kVu9SXfES9G0luB/nUJ99DVtTCXMA4z9DKTmUBhE+QlXKLZN
-         CQM9xBZ6/v17xFedEB7mTiC3kna6y86op+C0cneIyo8LFgkajuQtW17mQb/5QbGKfu6T
-         KwU7o4XlyVXXjdr2GaumqiWIEz4nSv+aKy2d7LSzQIQZS6rwZBywHmDiR5U2QjFpN3la
-         2Wg/D4q310O9xKCHOEDr8AajZDdgeL0yYDb9bPRavmPccMAmiTXDouds/P1WUiC1pgi9
-         TT4LUAyq2r3nWsnWe9Jry03xP4u2uEu0VUPWCJU6R/d/UhH3XCV8ZG3SJsa5n+A2PGlh
-         lbeA==
-X-Gm-Message-State: ACrzQf1U7631u93MIg+6nXEKbIzS25Qjlex+r3D3BPtG9valHbrJ8wKY
-	a3XLQLQIpugoB3xMrJ5W9LM=
-X-Google-Smtp-Source: AMsMyM5HMaxWgOxUGbCzg/XjKD/kmOOlcN0KKz9OmaE/RAZn/7aZ8z59Qz72lGSep1WOF16x4j6q2w==
-X-Received: by 2002:a5d:5c06:0:b0:22a:7b52:cda6 with SMTP id cc6-20020a5d5c06000000b0022a7b52cda6mr5635717wrb.485.1663951224622;
-        Fri, 23 Sep 2022 09:40:24 -0700 (PDT)
+        bh=FG3Mj1csJ7FbeoY2zgdLrFVr7w1D2Zs//acRgBf+TRE=;
+        b=PDUYkJvS55E7jbewHmaOR3gV/rGFlIPaB4COQizkHgTt6FELRhZZpzJjOjMbagFWGK
+         Hhwo8d08/MsFT1jaNo6eKabQRZ7GhPlB0GxqfrCYLnXJNa9pL19vF7fxSE11P3sKw3tg
+         xkSP2KF5AMqRIWGdHVHBZ076GXijHYVlhfy8zy9TRRqZc2VZY1H7X+jmPXZ9mEshfHtF
+         prCPIFT387Kshds6qjUV9DyoJ2X+Assueldi7qbDTXz6g/zJiUIxb+fEtgSgVjYGzaVO
+         zWLsRPdtYfnHkprvk9MkJTpo3cD70lpCeHvfWbwFPRh5NJrYVIlUEH35pwciuzCBuRgk
+         Q7Kg==
+X-Gm-Message-State: ACrzQf3mTZzh5r3sRLPVqZSBK/3ZMMx51YFYbFHlWJHTEh+Aiq1+v1lW
+	LLeckuWS2fM7NgB15javKvY=
+X-Google-Smtp-Source: AMsMyM7kN8lNHyV1w1d1RL8dD6evo1RUYO8Wx/UWQQUl5cn81n4HQTVjecLZI9rI0Uh/wzPOiMq83A==
+X-Received: by 2002:a5d:5452:0:b0:228:d6f0:dbeb with SMTP id w18-20020a5d5452000000b00228d6f0dbebmr5883466wrv.84.1663951226140;
+        Fri, 23 Sep 2022 09:40:26 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: netdev@vger.kernel.org
 Cc: "David S . Miller" <davem@davemloft.net>,
@@ -86,9 +86,9 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	"Michael S . Tsirkin" <mst@redhat.com>,
 	Jason Wang <jasowang@redhat.com>,
 	Pavel Begunkov <asml.silence@gmail.com>
-Subject: [PATCH net-next 2/4] xen/netback: use struct ubuf_info_msgzc
-Date: Fri, 23 Sep 2022 17:39:02 +0100
-Message-Id: <5e00bc6d4d8c3fdcf3ed02549ba8a36d5552e56c.1663892211.git.asml.silence@gmail.com>
+Subject: [PATCH net-next 3/4] vhost/net: use struct ubuf_info_msgzc
+Date: Fri, 23 Sep 2022 17:39:03 +0100
+Message-Id: <126df081c74ecf06de383b4fdaad5080346f93dd.1663892211.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <cover.1663892211.git.asml.silence@gmail.com>
 References: <cover.1663892211.git.asml.silence@gmail.com>
@@ -99,75 +99,61 @@ struct ubuf_info will be changed, use ubuf_info_msgzc instead.
 
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- drivers/net/xen-netback/common.h    | 2 +-
- drivers/net/xen-netback/interface.c | 4 ++--
- drivers/net/xen-netback/netback.c   | 7 ++++---
- 3 files changed, 7 insertions(+), 6 deletions(-)
+ drivers/vhost/net.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/xen-netback/common.h b/drivers/net/xen-netback/common.h
-index 8174d7b2966c..1545cbee77a4 100644
---- a/drivers/net/xen-netback/common.h
-+++ b/drivers/net/xen-netback/common.h
-@@ -62,7 +62,7 @@ struct pending_tx_info {
- 	 * ubuf_to_vif is a helper which finds the struct xenvif from a pointer
- 	 * to this field.
- 	 */
--	struct ubuf_info callback_struct;
-+	struct ubuf_info_msgzc callback_struct;
- };
- 
- #define XEN_NETIF_TX_RING_SIZE __CONST_RING_SIZE(xen_netif_tx, XEN_PAGE_SIZE)
-diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
-index fb32ae82d9b0..e579ecd40b74 100644
---- a/drivers/net/xen-netback/interface.c
-+++ b/drivers/net/xen-netback/interface.c
-@@ -591,8 +591,8 @@ int xenvif_init_queue(struct xenvif_queue *queue)
- 	}
- 
- 	for (i = 0; i < MAX_PENDING_REQS; i++) {
--		queue->pending_tx_info[i].callback_struct = (struct ubuf_info)
--			{ .callback = xenvif_zerocopy_callback,
-+		queue->pending_tx_info[i].callback_struct = (struct ubuf_info_msgzc)
-+			{ { .callback = xenvif_zerocopy_callback },
- 			  { { .ctx = NULL,
- 			      .desc = i } } };
- 		queue->grant_tx_handle[i] = NETBACK_INVALID_HANDLE;
-diff --git a/drivers/net/xen-netback/netback.c b/drivers/net/xen-netback/netback.c
-index a256695fc89e..3d2081bbbc86 100644
---- a/drivers/net/xen-netback/netback.c
-+++ b/drivers/net/xen-netback/netback.c
-@@ -133,7 +133,7 @@ static inline unsigned long idx_to_kaddr(struct xenvif_queue *queue,
- 
- /* Find the containing VIF's structure from a pointer in pending_tx_info array
-  */
--static inline struct xenvif_queue *ubuf_to_queue(const struct ubuf_info *ubuf)
-+static inline struct xenvif_queue *ubuf_to_queue(const struct ubuf_info_msgzc *ubuf)
- {
- 	u16 pending_idx = ubuf->desc;
- 	struct pending_tx_info *temp =
-@@ -1228,11 +1228,12 @@ static int xenvif_tx_submit(struct xenvif_queue *queue)
- 	return work_done;
+diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
+index 68e4ecd1cc0e..d7a04d573988 100644
+--- a/drivers/vhost/net.c
++++ b/drivers/vhost/net.c
+@@ -118,7 +118,7 @@ struct vhost_net_virtqueue {
+ 	/* Number of XDP frames batched */
+ 	int batched_xdp;
+ 	/* an array of userspace buffers info */
+-	struct ubuf_info *ubuf_info;
++	struct ubuf_info_msgzc *ubuf_info;
+ 	/* Reference counting for outstanding ubufs.
+ 	 * Protected by vq mutex. Writers must also take device mutex. */
+ 	struct vhost_net_ubuf_ref *ubufs;
+@@ -382,8 +382,9 @@ static void vhost_zerocopy_signal_used(struct vhost_net *net,
  }
  
--void xenvif_zerocopy_callback(struct sk_buff *skb, struct ubuf_info *ubuf,
-+void xenvif_zerocopy_callback(struct sk_buff *skb, struct ubuf_info *ubuf_base,
- 			      bool zerocopy_success)
+ static void vhost_zerocopy_callback(struct sk_buff *skb,
+-				    struct ubuf_info *ubuf, bool success)
++				    struct ubuf_info *ubuf_base, bool success)
  {
- 	unsigned long flags;
- 	pending_ring_idx_t index;
 +	struct ubuf_info_msgzc *ubuf = uarg_to_msgzc(ubuf_base);
- 	struct xenvif_queue *queue = ubuf_to_queue(ubuf);
+ 	struct vhost_net_ubuf_ref *ubufs = ubuf->ctx;
+ 	struct vhost_virtqueue *vq = ubufs->vq;
+ 	int cnt;
+@@ -871,7 +872,7 @@ static void handle_tx_zerocopy(struct vhost_net *net, struct socket *sock)
+ 	size_t len, total_len = 0;
+ 	int err;
+ 	struct vhost_net_ubuf_ref *ubufs;
+-	struct ubuf_info *ubuf;
++	struct ubuf_info_msgzc *ubuf;
+ 	bool zcopy_used;
+ 	int sent_pkts = 0;
  
- 	/* This is the only place where we grab this lock, to protect callbacks
-@@ -1241,7 +1242,7 @@ void xenvif_zerocopy_callback(struct sk_buff *skb, struct ubuf_info *ubuf,
- 	spin_lock_irqsave(&queue->callback_lock, flags);
- 	do {
- 		u16 pending_idx = ubuf->desc;
--		ubuf = (struct ubuf_info *) ubuf->ctx;
-+		ubuf = (struct ubuf_info_msgzc *) ubuf->ctx;
- 		BUG_ON(queue->dealloc_prod - queue->dealloc_cons >=
- 			MAX_PENDING_REQS);
- 		index = pending_index(queue->dealloc_prod);
+@@ -907,14 +908,14 @@ static void handle_tx_zerocopy(struct vhost_net *net, struct socket *sock)
+ 			ubuf = nvq->ubuf_info + nvq->upend_idx;
+ 			vq->heads[nvq->upend_idx].id = cpu_to_vhost32(vq, head);
+ 			vq->heads[nvq->upend_idx].len = VHOST_DMA_IN_PROGRESS;
+-			ubuf->callback = vhost_zerocopy_callback;
+ 			ubuf->ctx = nvq->ubufs;
+ 			ubuf->desc = nvq->upend_idx;
+-			ubuf->flags = SKBFL_ZEROCOPY_FRAG;
+-			refcount_set(&ubuf->refcnt, 1);
++			ubuf->ubuf.callback = vhost_zerocopy_callback;
++			ubuf->ubuf.flags = SKBFL_ZEROCOPY_FRAG;
++			refcount_set(&ubuf->ubuf.refcnt, 1);
+ 			msg.msg_control = &ctl;
+ 			ctl.type = TUN_MSG_UBUF;
+-			ctl.ptr = ubuf;
++			ctl.ptr = &ubuf->ubuf;
+ 			msg.msg_controllen = sizeof(ctl);
+ 			ubufs = nvq->ubufs;
+ 			atomic_inc(&ubufs->refcount);
 -- 
 2.37.2
 
