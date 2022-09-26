@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 988125EA6F9
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 15:19:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.411799.654867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B51D55EA6FA
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 15:20:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.411806.654877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oco0y-0003OK-AK; Mon, 26 Sep 2022 13:19:16 +0000
+	id 1oco29-0004op-NQ; Mon, 26 Sep 2022 13:20:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 411799.654867; Mon, 26 Sep 2022 13:19:16 +0000
+Received: by outflank-mailman (output) from mailman id 411806.654877; Mon, 26 Sep 2022 13:20:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oco0y-0003Lt-6m; Mon, 26 Sep 2022 13:19:16 +0000
-Received: by outflank-mailman (input) for mailman id 411799;
- Mon, 26 Sep 2022 13:19:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uAtp=Z5=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1oco0x-0003Ln-Kb
- for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 13:19:15 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cfc037d4-3d9d-11ed-9374-c1cf23e5d27e;
- Mon, 26 Sep 2022 15:19:13 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id AA2165C0129;
- Mon, 26 Sep 2022 09:19:12 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Mon, 26 Sep 2022 09:19:12 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Sep 2022 09:19:11 -0400 (EDT)
+	id 1oco29-0004mr-Jz; Mon, 26 Sep 2022 13:20:29 +0000
+Received: by outflank-mailman (input) for mailman id 411806;
+ Mon, 26 Sep 2022 13:20:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oco28-0004mh-JC; Mon, 26 Sep 2022 13:20:28 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oco28-0000WR-Gp; Mon, 26 Sep 2022 13:20:28 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oco28-0004aZ-3Z; Mon, 26 Sep 2022 13:20:28 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oco28-0005GA-3C; Mon, 26 Sep 2022 13:20:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,168 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfc037d4-3d9d-11ed-9374-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664198352; x=
-	1664284752; bh=sPBLOFIkGQvztxe4BRzooD8nSugrb0zHKtg4O8Ots8g=; b=a
-	gnmJhaDghaRrRNQyB25SnbDn2va70PHs9o3Q8YVP/Aet+BKdpshPAymMXj5k/MM6
-	+a2TK80Y9WWJaA/V/zuoUD2lFPcHO5/cVNBTvHUX/RVTGu4VvNolsr/6BGtJB7+h
-	2Cl60OBBjIysPirX6vtdhjodaywjbpRKokcOpT/NT1aRUjLPUVdQLan2EOcPnNXj
-	pndx1P73MOjSSUAmbOV+P8XY70Yl81+EZhmutFaKuvrBC3dGi+emrg8/nhzKoc6Y
-	xD3lOTpCrVaEz570TuZIoacmGQ1QDbaBOB9D5UZU/L0S/+EXNdzVvKE86PBISjoC
-	fFd7uhJLOztd+k5nR2r0g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1664198352; x=1664284752; bh=sPBLOFIkGQvztxe4BRzooD8nSugr
-	b0zHKtg4O8Ots8g=; b=jnrw14nMfJPfn5SMHmJE5q9XNZz5x6FRRMthUYl1Irmj
-	eLHPrDKYJPYdnKtR/whBsz7UTiw6S9y+dvP71B6V4qB2VsR3ut9SKBjL4r5LUzoP
-	QaycIVAWqmsBJlMvw111lBfixLiKJNbdU/x9+wrkuLUYPXG6rBuT7nLHcTfP1ILe
-	APD87BpxblK8Kevyemx9xpZxb1Dv14zf4NxB/Lud4BvscwvortWIBmQuuhcWSs0+
-	hOSdZTwhqqhfabJoJyhYJL/qZFbTwz96vyHIrnC4owZswQn+kw68OsD9Vn/HN6Dh
-	6Yqyp56QlBM4qx1qUWAi26FRkXs/c6vFXDt7+HYCXA==
-X-ME-Sender: <xms:0KYxY0Mi362BVQ0sMpHU0SApSJlvEJ8YuudrREj58QvrtRlTaahmow>
-    <xme:0KYxY6_kg3h9gUdO3QTq0M_ShcrYWG6O_X-bh3-D3Pqrr1rins12X012uQG_U7hlJ
-    EjoiIf6OdTMAQ>
-X-ME-Received: <xmr:0KYxY7TwUVrVJnE-uSviJGqo91vuSAbyLOdNdVFAhbcqrSMqipZymZId70sRMaZg_QNn72D2ZoPVA95v8g3Wt-oSPUqfSjt8B2vM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeegvddgieegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepveeu
-    jeetgeelleetudeuvefhtefgffejvedtvdfgieevheetheelgeeuledvjeevnecuffhomh
-    grihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
-    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhm
-X-ME-Proxy: <xmx:0KYxY8ug-FU8cJ_PwDSQN0jdy7CsCX6QAsmWdpUGxtdGZOg9YRswEA>
-    <xmx:0KYxY8ecunwIMPAEVXFd8H4jIZ7GM2B1sLlJRRT27ztL0uvg2WN9rQ>
-    <xmx:0KYxYw0nql6Li37qt6FaoFx87Zx3gQqjtXQw6K40Ib5n1MGyaZWnmg>
-    <xmx:0KYxY9rb-_kvEiaqZ0gil94ArR8W3PJ_Msn9rIFMo-oXJ049qe72NQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 26 Sep 2022 15:19:07 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH for-4.17] CI: Force CONFIG_XEN_IBT in the buster-gcc-ibt
- test
-Message-ID: <YzGmzAtI42VgfdLq@mail-itl>
-References: <20220926130213.28274-1-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xMBtXdt1yJdsSDammPx90PCTRBGifIGObD/82Lrdtj0=; b=VvRxBEh4GqxYb70Jfmc9cYNmcC
+	8FSS74G0hhQHPRTOhbWz02IUyuFEvyl1nbwVi/tEc10szWjXvUGQ9uACtN3h6KNcIPAcTal69F8Zx
+	MltO9tctQ6x5fV5w59Nj7DX0bWtuVPuq9O0njtKxoXDxuDrNsPPmWOY85Z/K2llXFUWc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173315-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="/5s/iqeUDXZK6d0Y"
-Content-Disposition: inline
-In-Reply-To: <20220926130213.28274-1-andrew.cooper3@citrix.com>
+Subject: [xen-unstable-smoke test] 173315: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=bfd3e9945d1bc551ad11272c7fa752ff3d060149
+X-Osstest-Versions-That:
+    xen=3007efadf74d6146a1c0ff1c2fbbae6b53ce7898
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 26 Sep 2022 13:20:28 +0000
+
+flight 173315 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173315/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  bfd3e9945d1bc551ad11272c7fa752ff3d060149
+baseline version:
+ xen                  3007efadf74d6146a1c0ff1c2fbbae6b53ce7898
+
+Last test of basis   173192  2022-09-14 14:03:20 Z   11 days
+Testing same since   173315  2022-09-26 10:01:54 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  Jan Beulich <jbeulich@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
---/5s/iqeUDXZK6d0Y
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 26 Sep 2022 15:19:07 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH for-4.17] CI: Force CONFIG_XEN_IBT in the buster-gcc-ibt
- test
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Mon, Sep 26, 2022 at 02:02:13PM +0100, Andrew Cooper wrote:
-> buster-gcc-ibt is a dedicated test to run a not-yet-upstreamed compiler p=
-atch
-> which is relevant to CONFIG_XEN_IBT in 4.17 and later.
->=20
-> Force it on, rather than having 50% of the jobs not testing what they're
-> supposed to be testing.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Shouldn't this job be with a static (or rather: all yes) config?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> Fixes: 5d59421815d5 ("x86: Use control flow typechecking where possible")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Doug Goldstein <cardoe@cardoe.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Henry Wang <Henry.Wang@arm.com>
->=20
-> For 4.17: This is bugfix to CI only, to avoid it producing a false negati=
-ve.
-> Currently, the test intermittently fails to spot the error it was intende=
-d to
-> identify.  It is very low risk as far as the 4.17 release goes.
->=20
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/3084774561#L373 =
-for
-> proof that CONFIG_XEN_IBT=3Dy is being fed into allrandom.config
-> ---
->  automation/gitlab-ci/build.yaml | 2 ++
->  automation/scripts/build        | 5 +++++
->  2 files changed, 7 insertions(+)
->=20
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build=
-=2Eyaml
-> index 720ce6e07ba0..65e06c858ef3 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -299,6 +299,8 @@ debian-buster-gcc-ibt:
->    variables:
->      CONTAINER: debian:buster-gcc-ibt
->      RANDCONFIG: y
-> +    EXTRA_FIXED_RANDCONFIG: |
-> +      CONFIG_XEN_IBT=3Dy
-> =20
->  debian-unstable-clang:
->    extends: .clang-x86-64-build
-> diff --git a/automation/scripts/build b/automation/scripts/build
-> index 2f15ab3198e6..2d9dd86df904 100755
-> --- a/automation/scripts/build
-> +++ b/automation/scripts/build
-> @@ -12,6 +12,11 @@ cc-ver()
-> =20
->  # random config or default config
->  if [[ "${RANDCONFIG}" =3D=3D "y" ]]; then
-> +
-> +    # Append job-specific fixed configuration
-> +    [[ -n "${EXTRA_FIXED_RANDCONFIG}" ]] &&
-> +        echo "${EXTRA_FIXED_RANDCONFIG}" >> xen/tools/kconfig/allrandom.=
-config
-> +
->      make -j$(nproc) -C xen KCONFIG_ALLCONFIG=3Dtools/kconfig/allrandom.c=
-onfig randconfig
->      hypervisor_only=3D"y"
->  else
-> --=20
-> 2.11.0
->=20
->=20
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
 
---/5s/iqeUDXZK6d0Y
-Content-Type: application/pgp-signature; name="signature.asc"
+Pushing revision :
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmMxpswACgkQ24/THMrX
-1yy8MQf8DDHXnZXaO7X33RfsqJaEkaiuU+lrmmAKRHKcdWK77Fl4W0nNdaxXBsKF
-jC9wSRjo5vX5wn2ThsjgbaCcEgeauvRw9gXt2WljmeodkpZ84lYLLE80DlyWD8OT
-zGJdjbPqauNgbchJwnbIgLEhOVGd4uuGxUjKPV0hhn8m+MfbfB62a1VoKDQML43+
-BRnr45Jn3m2KFOqcUZvV1WwcGVcLWhZk7QcQg8ura+Rwyo6vhiP6d3AC7vQD3jR+
-T2lUf2gtIe5M8bC6w+eSy+CaZltWehUo00TkO8Mo1nDh8jB26sh7EBgxsfnhMeVP
-uN/kxLCTmg1rob41pUmljkRe5bhGuw==
-=LwEb
------END PGP SIGNATURE-----
-
---/5s/iqeUDXZK6d0Y--
+To xenbits.xen.org:/home/xen/git/xen.git
+   3007efadf7..bfd3e9945d  bfd3e9945d1bc551ad11272c7fa752ff3d060149 -> smoke
 
