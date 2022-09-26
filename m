@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D47B65EAB38
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 17:37:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.411986.655142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAD015EAB62
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 17:43:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.411995.655153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocqA2-0006RQ-M1; Mon, 26 Sep 2022 15:36:46 +0000
+	id 1ocqGH-00081O-BB; Mon, 26 Sep 2022 15:43:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 411986.655142; Mon, 26 Sep 2022 15:36:46 +0000
+Received: by outflank-mailman (output) from mailman id 411995.655153; Mon, 26 Sep 2022 15:43:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocqA2-0006Ol-IV; Mon, 26 Sep 2022 15:36:46 +0000
-Received: by outflank-mailman (input) for mailman id 411986;
- Mon, 26 Sep 2022 15:36:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ocqGH-0007xz-8M; Mon, 26 Sep 2022 15:43:13 +0000
+Received: by outflank-mailman (input) for mailman id 411995;
+ Mon, 26 Sep 2022 15:43:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ocqA1-0006LX-Kp
- for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 15:36:45 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2064.outbound.protection.outlook.com [40.107.20.64])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 06678123-3db1-11ed-9648-05401a9f4f97;
- Mon, 26 Sep 2022 17:36:44 +0200 (CEST)
+ id 1ocqGG-0007xt-6y
+ for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 15:43:12 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2053.outbound.protection.outlook.com [40.107.104.53])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec78cc33-3db1-11ed-9374-c1cf23e5d27e;
+ Mon, 26 Sep 2022 17:43:10 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB8PR04MB7033.eurprd04.prod.outlook.com (2603:10a6:10:125::21)
+ by PA4PR04MB7823.eurprd04.prod.outlook.com (2603:10a6:102:c1::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.16; Mon, 26 Sep
- 2022 15:36:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Mon, 26 Sep
+ 2022 15:43:09 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::358f:58dc:c0c2:1155]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::358f:58dc:c0c2:1155%7]) with mapi id 15.20.5654.016; Mon, 26 Sep 2022
- 15:36:43 +0000
+ 15:43:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,148 +46,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06678123-3db1-11ed-9648-05401a9f4f97
+X-Inumbo-ID: ec78cc33-3db1-11ed-9374-c1cf23e5d27e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GmtQ7ebnfaPlrVPL+vMi61szgYsXIvOpBts1FIAN2tpOIJEvh6TshlR+/dqFPiQgc+v0SErl8qImhnJpd5F9IZrBx+VdDc7OB7YBNjLatx+NT2qsyqmn83vpmW50sGuUvdhpt3XTjF9Natk6dPiPDhVxM4/Esbn9EQVd09LQ3atuE5wQ8/oZdu8fgZGmm5NbgGXCwWEWJOtI5w73Dvlj+UncMP+W+Mv0Ueal3FWqHeOnJaMp1IhAFv2lXSw74OS8pBvpFfclZF03jixbHspnPcKNwEXXpYK/epJPHL9vnlM8YnevI6EH6R6NTmIxzH7c0tlTzssCc5o6mMT4x3lw+A==
+ b=CdwIO187jJ06U/9c6GPFEHStikVx1/wfhW4C1ZJkW2BXPJ/YBnsMnU9rVVbEwS1CgM7yqjkxjVgjtA51p0GMDl0W/eQh1bBgZlXBOEULKAh60tAStxqomWy+F3A6mIAcyeCcYgd9MlY0RWqvKq3E6Y7kCwz1aRugxBqg9LT7/NXD1vgCi7NYQ7igL1aJ1a7gU/zbcvfzS7smQrYd4Lbt4mGGPVX5QppIQs/2XoFi+58k6k7KggJ5LDKaTJQoTdOZ2dfjERbF2i7Qv4+9G+ByKJpXs/S0IERNKGxhs+j+rdAz5LQ0jCI1qxamaBabtOY+NPKc942pMJ0nY3kbKEgCng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XiRO1fbiMz0K0BF4WVdahsc51lQbrzcFmA4oYs8BhU8=;
- b=e2/eQVC451wQVaEMEhp4M/6vc642FMP2G3Uexo4V8OPnywUhNQkY1AcIrYuiirZocLQZVqpeALKD+kC3sKjksT8utKsfoKySgri7ZBGkYqt/29PGZo+Ja2YMnYHIzl2HgE72ru7keqNHsKTwdeF+xcklJfJWqlmTOLQIA5YSUHuII5u0iUC5zmXn5gYJP7PJ5pvca7+dbBZVV2ZpEzMV1WdPBWitmVjIib47n0TUS+o1NzZQMNBFYMH4U6esKYVNK1g9Red1NyQPKfwIjRPqnscXqSb8OIYP3HduSzEmFHj+cwiCaAWxurSVCesXn6en7dyo+9BXM0MxSr5K+JAYCg==
+ bh=/wLw02V4JwhQCt/QO7yeGhhN/aqVFrk/+3J/uoGXdoE=;
+ b=DYLQrMlfxbjcs91uMcsgwpNJvCSg8BT7S2/QZcxXh4lLYuKyCpv86EEQJbZ6m0aNvSTO7826W1ZH1p6diodb5rbOyosiA4MqRhTgZj5omVCciawofnwdByXve7Bi1evyqcy7+4kN+ZO8rJd83TMB7Rzd/Rb9dQ6C8FGZP/PtQLhnfsZA7DB344PCJ6yW9DJ7e8CxWTyTWG3Av9YSEKcu2RkBlRy+CpjRidM/2H7TToNkc1XUTb+Tta5bituSEUgacDMWJALUopc4L3fJWkQOqwv+Mgi7YRjEwN6kXjEimXOdrKr13xyxbXXvP5fQ2spghF7kU2bpI2O3JLjWVqDwCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XiRO1fbiMz0K0BF4WVdahsc51lQbrzcFmA4oYs8BhU8=;
- b=NQzi6UGwqL6L/wPDCSHpFxszTNJp/a3DdpN3soAAWJKV7tGD4EOnZNO97RzecjbR4WDBSy6bQXexM+n/DWhaPbkGrLf671j3bzT8EPFLcYpqPh2KFBYZLXaGes3mpwyaak0yO3aXBmZYiodHXxVnSfkJwNVx3Jc5SUFUylWwjTDUp3SDw09uurZHQCgEMC2wM65nHSWAsCh8BP9Hr/Oqmfgk9ZDOGdbkSE/EWMbOCzVm2T/fxAd+pfijWUQAxBt4bvKe6Ua8/UHeuka9261dZ9Nrh0cyPw993CO4pGTvlTDXoUMhOQvsEQcy7I9i3No0h+dPMMqLV3MfjX1HH2OxxA==
+ bh=/wLw02V4JwhQCt/QO7yeGhhN/aqVFrk/+3J/uoGXdoE=;
+ b=bJ5/Gsk5QWkQp2pNl5IW3D0Y+lUykmOI6OfyRNZEjFtM/0eXea9goPmEwI4jeYDasziRv4Iv0xl54ho91KEYAa4eGDThboTPry3MT18ztKnR9ofnfWAINP42Ah4w/qit8eVFDUniRVyUIcAsJYQliNwNpTpAS9BaezdMVAkU11J+kH2Syn/B2gxLZieL6TQc4d0QhcQVuQHZ5xfbRYGJwR+cypf4ppU6ccKCdUt0isXmAdgPrRUj0nIExL5I5IuaDK8iPuNZo1a59U+KYUvaLDZsK+1YNhv3Mp6TSayg88jEllpBGS/yYIQWHob53uYoESSKoQjdWljLsBCqGYLQDQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f8c080ca-33a1-ab15-963e-9c5c02c99bce@suse.com>
-Date: Mon, 26 Sep 2022 17:36:41 +0200
+Message-ID: <81ce102f-3c60-5ccb-e641-03e6522e10bb@suse.com>
+Date: Mon, 26 Sep 2022 17:43:06 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.0
-Subject: Re: [PATCH] x86/ept: limit calls to memory_type_changed()
+Subject: Re: [PATCH] x86/ept: simplify detection of special pages for EMT
+ calculation
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20220922160516.5929-1-roger.pau@citrix.com>
- <ddac718b-0ffd-0eb6-d784-4c35ee4b42cf@suse.com>
- <Yy1vvemAmiTdPZxA@MacBook-Air-de-Roger.local>
- <489b2308-8ab8-c1c0-1471-04aa1c4bf0dc@suse.com>
- <YzG8Ln2cYTuxF513@MacBook-Air-de-Roger.local>
- <YzHEcdCtch7lKh4G@MacBook-Air-de-Roger.local>
+Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220923105648.12587-1-roger.pau@citrix.com>
+ <f8a8366f-e656-1628-63cd-d4e0b01dbf57@suse.com>
+ <YzG2zx33xSLC4EaN@MacBook-Air-de-Roger.local>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YzHEcdCtch7lKh4G@MacBook-Air-de-Roger.local>
+In-Reply-To: <YzG2zx33xSLC4EaN@MacBook-Air-de-Roger.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0165.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM5PR0101CA0013.eurprd01.prod.exchangelabs.com
+ (2603:10a6:206:16::26) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB8PR04MB7033:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e87e328-329c-4aa6-f9db-08da9fd4e9bc
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB7823:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ab88a20-72a0-41c4-452d-08da9fd5cfd3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	jKDHb5ZObglI4TE/3CpXUZS3a+5A4rhhTJrD9eoxT/L++rCECWk8704IbXSoS907XRpHc4IckpPzOOLIbtbM0eaF5goim+jpG1VFXUS9lbJp7bOL0moWW3aKagPszImZmW9KlIsNaOXv/ARvKKPqlfiBGkz5zhSpfEcNyPdMaZMrqeX1jAXHC7+tockqLST3Yp5892M3ErNMscU18mv4BcXnEXmtidbjZirSJcfEutnn+TuOErywahUm4IJfg0Ex0WQIIROW9lRsTcxUgjA+Fy9S9vxM/VFllQ5de54yfRxvdebWXqGmqQP14ZF4ATFOmvpsiCyd2YF5IrCpp2i6WXTGBBfppq8+85w2LfnT0v64UgCO7nTvqXH3YoA1LGQs/VhmQxygDhTuDdgWGiomzJWWA+UOyE7jAe/MXCUnJ7T7M5CAsNWrdLuTqVYtDln/Xgkf8p9IhI73TXaYAuiYlCe2BdbRn62hOVKreNvta1ozyGrYa54iqIf1Zdts1OYETx6KPpX3VWTTA9cwW8HDjQz6lMcRwwE4HPtgX4lrXd9Aa36KB0rJ+EtEBobPzFoPBbWmWISTYdiDNhypAExelwuA6E+tmixvE3tcAs5nYBxnvNQcNNGckDtPC8o8t3pmft/KK91+4Ik3QnPg6Cm3xgvyH2hur9IM4aQw5WZoUL/DchPq7PIngc2D1tkVfZEoFm7Ji5V1/eLV0xAMIvocS8lvwd4f21UP7AyYN6n8Zvvgn6di7yXqfWweetDwrJVYtccOjbvc56FJqDbUu9fdYoA6u67cUXcLw+JKReMHrRs=
+	v6LF2og9+jyabpTy6ucksrW2rBIiovejJeStrf9S6gAjMCXDAo9lx5S3SJmH+QrupCkdTEN7yJyRMc9y9KXduzR97TUb4sbO6+VYXMUf+CfxEQTpbF5RdHGX2lw/zzB5aPwvlW+RM5D7k35HYPO3h3aGT/EMuFD8WoBsM8jaG0qqfwo2bKgnxWqmFFJfczBgHj283FM/DW1zGW6vxxO84trTi2IvaS/PJrziYcCDPK3/P0CCUBM9DPsLVEIoFYn5L1f3kSTFyEBTCcRtku9d0/zpfxR4Gd3GR89UDF37Oe89OH1g7iz0fLAQ1KO2cQm9wso2XZgIxITaIVQcUsZnKNX5emTa1LFYAqMFEV96+5d+0/cR2T7Emd7EDj9Gv/R9ecZPQOKtpwZJQ0VLn8iJjhHIlg3kGMSztIk7hlLq5kAnHrYyLWS54Thy1M7mxH9UYB34gHddd5QDYOqFfcvjpCAcds7ZMbxARsCiF2stp7/SrAmsDWK5IZd7jk65YVrqQvODTvAnMZ5L4emYHP2VYsJFdeN8tEzoohs15sFN9JyWN0lH3oOq7khQ8fl82K3RXtwvSDYWI77mQGRVT4w0MRoxgyjsnRXT0yjkGw75242C/N3/LUSthoX83HrkM+IpkRFcGa30Hl4fGEdPcFCtyt5Jbna6GlR9yn5fePhuOMg77e8qvqAM67J0H9/Yn9PBpDHwqxIHCtvL1auJZsTGzkm/a9is6C1ABkJgoxLcOW8G9Pb5ksTUqvB5QlD98MR/Qh8urSeyx4xSvYXFRYjlZfCmXiIUabVER4OcjaETrDc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(39860400002)(136003)(376002)(346002)(366004)(451199015)(38100700002)(36756003)(316002)(478600001)(2906002)(8676002)(6486002)(66476007)(8936002)(54906003)(5660300002)(66946007)(66556008)(6916009)(86362001)(26005)(6512007)(53546011)(6506007)(4326008)(41300700001)(2616005)(31696002)(83380400001)(186003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(376002)(396003)(39860400002)(366004)(346002)(451199015)(5660300002)(6506007)(2906002)(478600001)(53546011)(26005)(6512007)(316002)(38100700002)(8936002)(6916009)(86362001)(36756003)(41300700001)(6486002)(66556008)(31696002)(66476007)(4326008)(54906003)(66946007)(8676002)(6666004)(2616005)(186003)(83380400001)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d2Z1YUJlb2dCOUR2ZzVqYUdqTGppeExBeUtBYnJoY0pXQTNBTTdwMi9GYzBZ?=
- =?utf-8?B?ZDhReGd5YmYycVBrcnI4VnRtc2JLZGhzV3RIOVZjUDd4Mlo0dkhpT0ZlRVA0?=
- =?utf-8?B?cUx6VGs5Um9WdjF5WG5lTG91ZmtGcnljdmxSK1g3bC9lTlZOd2RZTjIyWm4z?=
- =?utf-8?B?T0ZuZ3dHN0F1ekhpNmU0YWJRVjlucWpCeStFcGxIR2tLZEM2Z1lKbnB6Ri83?=
- =?utf-8?B?Mm0zaDkyT0ZGY1NKM0syb25tdmhrbnhXRjFGbllER3pramtpN2htNzFlalQ4?=
- =?utf-8?B?NW9ydTJOY2o2OE9ZZ3dka3ZzVWdVZFZiTWJrb2d3d1gyOFo5RGxuaDE0bWdK?=
- =?utf-8?B?bkpTMHRUUVIra0hCZ0NPYWZPZDVHTGdHYkVoOGxWNUVDSFJEVXpXb3A5MDho?=
- =?utf-8?B?S2tseVRTZFlHcHlRNHE5SXU4VFU3Szl0SDZyaXBmZlNTNVJoalFVOWg0elVi?=
- =?utf-8?B?bHJKQmt1bWNDVXk2Q0lxM1UxZUtGQ2VoUmpzaEFSMmFQQlNONUVJODRkQWxK?=
- =?utf-8?B?U216L1FwckhNOW02dUwxMjE2YXVIRmdSdGQxS2U5bnEzaGpQR3FzUCtIWkpl?=
- =?utf-8?B?cVJLVjFSWTREckZsTUh0RG1BYmJuWjFIVFFUMGRhL0M5QUhVaFhzZG9Gelp0?=
- =?utf-8?B?RlE4OGhTWnZLS05tNHExQVhBOXVkdVo5MHNGZi9FM0hucUx1YVJNQ1lsUkgw?=
- =?utf-8?B?djl5eHROc244bEtyUlpIZnJLVHU1aXpmOGFEM25wOEx5amxYRHR0QlRQbTJ3?=
- =?utf-8?B?cW1iN3Z6eHNHYnpsOHZlS1h2VVZVYS9iZWhENG1EbnBkM3hVb0ZGZU11Q1hk?=
- =?utf-8?B?S09LN2RHbkYra1dXcmZvOUhTOTc2UHJ0cElWM2lVcUJoc0E0R1VTRVhma3k4?=
- =?utf-8?B?L3krM1hsaVNrUXZCRWh4ZmZGdndoWmNQQ1JhL2hTWmZGOTUxWWFYRjlNbmtT?=
- =?utf-8?B?YmNYclNNSy9kZDlCMEtCVmFaZFlkazZjRmU4cGVlVDhYQ1Z4TS82aWlZQXZ2?=
- =?utf-8?B?RWJyS1JDdktDUDg2ckdKUDBsem1ubXYzYjVsTWJOVHVzUjZLVzBJWkNzYjhi?=
- =?utf-8?B?YnRXY0lJc2Zxd0xRMEVrMUdIT2ZySktPeTN1VEg1VEpjSERVNmZOZFVSemNz?=
- =?utf-8?B?MERNbkkrdE5qS0ROaDcwMlZzVUE5UjZYLy8vMmpEUktuSTlKdE9SU1F2Ym5T?=
- =?utf-8?B?aFkwbk5MVWVkWk1rZ1JMWk5obkoyWFhRTTNSdzFpYmM2cEVtc0ZNVi9KaFgr?=
- =?utf-8?B?M1YyT2Z0dXZHL1B5cTFMalBKM0dqRnZ0TXJjWVBzdWNBVkN2ZHpuNmd0bWQ2?=
- =?utf-8?B?NWZxY1VNZUNiajUrMUc0akVxZ05PdmVUVjJEVnlGRVpIWUI2Wi9YWEZPb0h6?=
- =?utf-8?B?MDYzNktDZHlGT2RiY2MveklMVXJYR3lkUWl5QVlOMW1nK1NscU5JSXhmY2lk?=
- =?utf-8?B?WVg1aFcxaVhpNXNFU1B5dHdWeDFqZGpUSDNrVHBGMytsTGZCUWNKeVZPUjFm?=
- =?utf-8?B?Z0FWMldjN1hrQlduUG8yZWN2Qi9TbGVQaU1UaDVFejFzcE1kSU52UldUdkJF?=
- =?utf-8?B?WmJha2VxOGtzd2lMR25mQWFWY1RnRThDYmRRbUlMZDlQVkkwZ2JnV0l0Z202?=
- =?utf-8?B?Y1RGbytxZUh2c0Vja3MycldvKzJUUWt3QlVFSHp3a0QxV29Rc2RMWmxCZDNJ?=
- =?utf-8?B?U3J0eUFHOXFPdmwxbjdkQzg3aGtjbjVNNHIxa2VXY3hCYnU2T2VZYTdDUDBy?=
- =?utf-8?B?OGFUUFNyN1hxMUp1QmpOZEg4NlF5Y25mZVNncFY5bGpPdTlGZzRtSFRsWk80?=
- =?utf-8?B?UmNab0o4Y3FraFVxaU9hUnd5eGxZUzRtRzgrai9QSU9NNGZGUWRScW80ZTBG?=
- =?utf-8?B?TjNNRm1JT3VoanR4MUVybHl0OXVTZThKNW9vUXFHUVd1c1c1cjZUeEN0M3Ax?=
- =?utf-8?B?L1FzOTFBNENGYUhTb2pvM1hmelJTWkRrSHdWMitDeDZGZ0twZ3pBVU81NTNK?=
- =?utf-8?B?OS9CWkZlSDN1SXNZREJnekNQQllSYVg5bDAybjFna2NBRy9SM0ZiZkFscllj?=
- =?utf-8?B?U1VMT2ZVcmwzem1OZlVlSXloakN3RlpOQjhDQytRWndJeEpVL0V6Snhza2Z4?=
- =?utf-8?Q?J0wapn/Qc5+Qx2eoiK7oxKyPc?=
+	=?utf-8?B?SHJQaUMrL24zWjJEelRSVjM3ZWVKN0lJU0JiVG8wTTBtcE91SnFmT0hmOWwv?=
+ =?utf-8?B?bW5GOGNoTXdDTWdpcCt5YzBobmlwb1FjTi9Za2FWV0t0MlladmRTU3ExaWZR?=
+ =?utf-8?B?SHp4cFVZZDU3djFpVmM3ei81ZWxoTkc3aFZEWTljWFlkSEVpa1l5SWR5cUpR?=
+ =?utf-8?B?SElqanNiazNuL254UElOSDB0Wk55ZXJzcnNBN1NvYzNhU3A3SzRQc0JCUmZL?=
+ =?utf-8?B?RERzNlRKMHU1VG9YUjVMT1ZNZ1p5WHU5WVJMbzFrL29EejFQM2FSY2QyQUo1?=
+ =?utf-8?B?UW1KRzFpdDh0Mk8xaTFxajlhSUZHbDdyZkxRb3FyZEIzeHhvblA2NUVvZ0s3?=
+ =?utf-8?B?UjdzTFBVUytERTkvcHE4cXRPTGhsNjZTMUIvQzd0SXUwdmE0a1BQUk00TjhZ?=
+ =?utf-8?B?Uy9ETHU0ajRCdlVTakM0Zyt3ZkxoLzN2NmRyVldLbzRGKzlCRHpsbVdPVU12?=
+ =?utf-8?B?OCt1VGx3c3dIdnlYZGlnUnV6NStNYVBQMUlDYkJxbnk0eU1IZmtqWHVyS2NU?=
+ =?utf-8?B?aUt6QnZWQUIzSllYcTVQNDVoNVpJUTN1M2QvcnB2aXhYWXFVaDlvNDkrQy9M?=
+ =?utf-8?B?YmJtU1MrMjFHU2xZbDRjZzlSQks5azdKTDVqY2t4ZDFVUVFsbzRrZWRuWVYy?=
+ =?utf-8?B?OWwvNGVqSm5MVVJuMzVQN0pkRFBDQ2tycnJhMno0bG9YRzYxQnB3YTlBRlpG?=
+ =?utf-8?B?eHl3RXpIOENoSkF4Wm9DM3JnMllCTjVBVE8rbkc0MTFiWnFjNUhNVWRocHgv?=
+ =?utf-8?B?Nkh1SFhFa0FyRkhieGU0disyNnltQVFUL2tpbzJxUU5kSUpFL2Z5QnJKSXpB?=
+ =?utf-8?B?ZzRFWmxuZGtRQ24wRlFaMEdDNG0xb0xXRitDaU05WmoyVHgrK0lvTCtjeU9h?=
+ =?utf-8?B?eGF3V0lDVXdZT1dFRGtIQnl6SnpKTkJHYmtna3ZuVXVSQTlkVGRkalp3VnEy?=
+ =?utf-8?B?RDY3NERialEzZm1yMmFBU3F2bDZjbVAyUEFUQlU5Vk1zSlNXdGFjbEdMVGFL?=
+ =?utf-8?B?Y3g2NGRoNjBoMW5jdDdKTGtqVG1DK1RWNi9sUnFvbGxQeUZvbVYxUTFVRjhQ?=
+ =?utf-8?B?T1F1VUNqaXFjakg2dWJiQmpXdU5PRlFDT3RGa0owRjZoVDFUeHJreDZybUxZ?=
+ =?utf-8?B?MDh3ZHpqczlhQkg2TXY3Mm9XejdjSmEwelZieTFnM1hVWUpIUyt5MUM3Q2gv?=
+ =?utf-8?B?djVJOTdMdXNGaGVucGtzWWpDWUo1bEoxZU02OXpUOCtuZm1vVDdBeVZjSnBB?=
+ =?utf-8?B?TCtGbzBJZ2pheld6aUV6VzBrSko0T3ZEeXU4YVltcW0ySDVZYWJKZWNVYnBD?=
+ =?utf-8?B?UkRwS3VGQVhwL1M1azJ0Um1wNjI1dzU4cmg0Qm9rMEpuZkVzR2cwR0prZkkz?=
+ =?utf-8?B?c2dxeWZkc1E0c1l3Y1RTZWkzbUZaMWEvQzNUdnFPUmFHYmlGYlFzejNWb3ZN?=
+ =?utf-8?B?TkdwbzRUZWQ5bWxJT0Y4Y1NpOHY4TStkbDNXRW1YRnBObU9qdldiYWhxREow?=
+ =?utf-8?B?ZStKL2ZSUmNUc0tObm9GT2VNZHJienNNK1hhT3ZEQnVtSlRNbEJnRkhaRmxi?=
+ =?utf-8?B?TGVsdUVKRk50WGVnaGV2ZGpXMExENWFsNXFkbGlFMnRaNDRmWjZaRUlUUHBC?=
+ =?utf-8?B?bG5nWmlNdFJPTkNZWHdZbjU0bWxRWEhWbm04TVRoV0x1UXg5NnBzUFk0N2th?=
+ =?utf-8?B?VVArS1JxMVRsaE4zcTM1UkpWd3VZbWdUWXpTUWtsZmZENWsxcUVTVmwzbndZ?=
+ =?utf-8?B?ZHVvSmpzdHVxY2FnazNJcm9razBYZ0VmLzRuTUxKczRZS2l6SU9ZRGpweVp4?=
+ =?utf-8?B?Z1BCMHlzVWhtb1IzQTYyUU9GaStTS0dRODF6U0JsQ0liZFFhQVNPeS9HWnpD?=
+ =?utf-8?B?UkZEUWZwcXFONTZibGFyeE91Q0pGUzd2TzhabWdRTXR5Mkl5VGMySDZNeWNO?=
+ =?utf-8?B?UlJFUGtXTnQzdzNid1Vhd2JGNnIzdmZ3bDViTlhlT2VEc25NV3M4ZittaEx6?=
+ =?utf-8?B?VzZZSEJzRk11dWhONjlnSENVeGNaakQxVnQzMHh1MlZ1UHBhNFFOZ1BZdDFh?=
+ =?utf-8?B?elh1dEtsUlZpWlhTQ1dRSzl3ODFVVENjcm5WZ0lwYVprK2VoZlp1ZEhjNTVp?=
+ =?utf-8?Q?nGRk/YlrzPx5gImTussW71eZd?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e87e328-329c-4aa6-f9db-08da9fd4e9bc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ab88a20-72a0-41c4-452d-08da9fd5cfd3
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 15:36:43.0955
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 15:43:09.1176
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nQ0Nkf2SdW0lfBZo+i/zQWTk699UEA5yPNi73GaAEXBN/uQ0NhmVFMq6VJfGQio8Y+VQjjj7/sCt2HAg9Wp4EA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB7033
+X-MS-Exchange-CrossTenant-UserPrincipalName: zcmcnsWcw+6qa5sAu7730x4Q8v6yNJCBzzxXx5dZXirHqmwOd0GZ4/8qNsGIBhqG8GYAs/urbgQCfmQVkiNyKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7823
 
-On 26.09.2022 17:25, Roger Pau Monné wrote:
-> On Mon, Sep 26, 2022 at 04:50:22PM +0200, Roger Pau Monné wrote:
->> On Mon, Sep 26, 2022 at 09:33:10AM +0200, Jan Beulich wrote:
->>> On 23.09.2022 10:35, Roger Pau Monné wrote:
->>>> On Thu, Sep 22, 2022 at 09:21:59PM +0200, Jan Beulich wrote:
->>>>> On 22.09.2022 18:05, Roger Pau Monne wrote:
->>>>> And if we were to restrict the calls, I think we need to clearly
->>>>> tie together the various places which need updating together in
->>>>> case e.g. the condition in epte_get_entry_emt() is changed.
->>>>> Minimally by way of comments, but maybe by way of a small helper
->>>>> function (for which I can't seem to be able to think of a good
->>>>> name) sitting next to epte_get_entry_emt().
->>>>
->>>> Such helper function is also kind of problematic, as it would have to
->>>> live in p2m-ept.c but be used in domctl.c and x86/domctl.c?  It would
->>>> have to go through the p2m_domain indirection structure.
+On 26.09.2022 16:27, Roger Pau Monné wrote:
+> On Mon, Sep 26, 2022 at 10:38:40AM +0200, Jan Beulich wrote:
+>> On 23.09.2022 12:56, Roger Pau Monne wrote:
+>>> The current way to detect whether a page handled to
+>>> epte_get_entry_emt() is special and needs a forced write-back cache
+>>> attribute involves iterating over all the smaller 4K pages for
+>>> superpages.
 >>>
->>> It would need abstraction at the arch level as well as for !HVM configs
->>> on x86. I'm not sure the indirection layer would actually be needed, as
->>> the contents of the function - despite wanting placing in p2m-ept.c -
->>> isn't really vendor dependent. (If AMD/SVM gained a need for a similar
->>> helper, things would nee re-evaluating.)
+>>> Such loop consumes a high amount of CPU time for 1GiB pages (order
+>>> 18): on a Xeon® Silver 4216 (Cascade Lake) at 2GHz this takes an
+>>> average amount of time of 1.5ms.  Note that this figure just accounts
+>>> for the is_special_page() loop, and not the whole code of
+>>> epte_get_entry_emt().  Also the resolve_misconfig() operation that
+>>> calls into epte_get_entry_emt() is done while holding the p2m lock in
+>>> write (exclusive) mode, which blocks concurrent EPT_MISCONFIG faults
+>>> and prevents most guest hypercalls for progressing due to the need to
+>>> take the p2m lock in read mode to access any guest provided hypercall
+>>> buffers.
+>>>
+>>> Simplify the checking in epte_get_entry_emt() and remove the loop,
+>>> assuming that there won't be superpages being only partially special.
+>>>
+>>> So far we have no special superpages added to the guest p2m,
 >>
->> Maybe it would be better to add the calls to memory_type_changed()
->> directly in iomem_{permit,deny}_access() and
->> ioports_{permit,deny}_access itself?
-
-I'm of two minds - on one hand that would nicely take the call "out of
-sight", but otoh this would feel like a layering violation. Yet then
-maybe it's a layering violation no matter where that call lives.
-
->> That would also allow to remove the noop Arm memory_type_changed()
->> halper.
+>> We may not be adding them as superpages, but what a guest makes of
+>> the pages it is given access to for e.g. grant handling, or what Dom0
+>> makes of e.g. the (per-CPU) trace buffers is unknown. And I guess
+>> Dom0 ending up with a non-WB mapping of the trace buffers might
+>> impact tracing quite a bit. I don't think we can build on guests not
+>> making any such the subject of a large-range mapping attempt, which
+>> might end up suitable for a superpage mapping (recall that rather
+>> sooner than later we ought to finally re-combine suitable ranges of
+>> contiguous 4k mappings into 2M ones, just like we [now] do in IOMMU
+>> code).
 > 
-> Correction: the Arm memory_type_changed() needs to stay, as
-> iomem_{permit,deny}_access() is common code.
+> Hm, doesn't pages used for grant handling (XENMAPSPACE_grant_table)
+> cause them to be mapped as 4K entries in the p2m page tables.  The
+> code in xenmem_add_to_physmap_one() seems to remove and re-add them
+> with order 0. Same with the trace buffers, they are added as order 0
+> to the p2m.
 
-Right, or we'd need some other arch abstraction. (I wonder whether
-long term Arm can actually get away without this. Even on the AMD side
-of x86 I don't think it's quite right that adding/removing of MMIO
-ranges has no effect on the memory type of accesses.)
+Indeed. I was half way through writing the earlier response when
+recalling that aspect; I may not have succeeded in adjusting the text
+to properly convey that the concern is applicable only to future code,
+not what we have right now.
+
+> Note that when coalescing we would need to be careful then to not
+> coalesce special pages.
+
+Well, no, ...
+
+> Might not be the best model because I'm not sure why we require
+> XENMAPSPACE_grant_table to force entries to not be mapped as part of a
+> super page in the guest p2m.
+
+... as you say here, there may actually be benefits from allowing such
+(re-)coalescing.
+
+>> Since for data structures like the ones named above 2M mappings
+>> might be enough (i.e. there might be little "risk" of even needing to
+>> go to 1G ones), could we maybe take a "middle" approach and check all
+>> pages when order == 9, but use your approach for higher orders? The
+>> to-be-added re-coalescing would then need to by taught to refuse re-
+>> coalescing of such ranges to larger than 2M mappings, while still
+>> at least allowing for 2M ones. (Special casing at that boundary is
+>> going to be necessary also for shadow code, at the very least.) But
+>> see also below as to caveats.
+> 
+> I guess a rangeset would be more future proof than anything else.
+> 
+>>> and in
+>>> any case the forcing of the write-back cache attribute is a courtesy
+>>> to the guest to avoid such ranges being accessed as uncached when not
+>>> really needed.  It's not acceptable for such assistance to tax the
+>>> system so badly.
+>>
+>> I agree we would better improve the situation, but I don't think we
+>> can do so by ...
+>>
+>>> @@ -518,26 +517,19 @@ int epte_get_entry_emt(struct domain *d, gfn_t gfn, mfn_t mfn,
+>>>          return MTRR_TYPE_UNCACHABLE;
+>>>      }
+>>>  
+>>> -    if ( type != p2m_mmio_direct && !is_iommu_enabled(d) &&
+>>> -         !cache_flush_permitted(d) )
+>>> +    if ( (type != p2m_mmio_direct && !is_iommu_enabled(d) &&
+>>> +          !cache_flush_permitted(d)) ||
+>>> +         /*
+>>> +          * Assume the whole page to be special if the first 4K chunk is:
+>>> +          * iterating over all possible 4K sub-pages for higher order pages is
+>>> +          * too expensive.
+>>> +          */
+>>> +         is_special_page(mfn_to_page(mfn)) )
+>>
+>> ... building in assumptions like this one. The more that here you may
+>> also produce too weak a memory type (think of a later page in the range
+>> requiring a stronger-ordered memory type).
+>>
+>> While it may not help much, ...
+>>
+>>>      {
+>>>          *ipat = true;
+>>>          return MTRR_TYPE_WRBACK;
+>>>      }
+>>>  
+>>> -    for ( special_pgs = i = 0; i < (1ul << order); i++ )
+>>> -        if ( is_special_page(mfn_to_page(mfn_add(mfn, i))) )
+>>> -            special_pgs++;
+>>> -
+>>> -    if ( special_pgs )
+>>> -    {
+>>> -        if ( special_pgs != (1ul << order) )
+>>> -            return -1;
+>>> -
+>>> -        *ipat = true;
+>>> -        return MTRR_TYPE_WRBACK;
+>>> -    }
+>>
+>> ... this logic could be improved to at least bail from the loop once it's
+>> clear that the "-1" return path will be taken. Improvements beyond that
+>> would likely involve adding some data structure (rangeset?) to track
+>> special pages.
+> 
+> For the guest I was running the loop didn't find any special pages in
+> order 18 mappings, which are the most troublesome to handle in the
+> loop.  I'm not sure bailing early would make that much of a difference
+> in practice TBH.
+
+As said - it may not help much.
+
+> I did also consider using a rangeset, but that would use more
+> per-domain memory and also require coordination to add special pages
+> to it.
+
+"Special" is a global property, so I don't think this would need to be a
+per-domain data structure.
 
 Jan
 
