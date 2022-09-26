@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D82E5EA83F
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 16:19:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.411855.654978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56BAB5EA84B
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 16:23:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.411880.654988 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocowz-0005x5-AE; Mon, 26 Sep 2022 14:19:13 +0000
+	id 1ocp0V-0008Aa-OT; Mon, 26 Sep 2022 14:22:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 411855.654978; Mon, 26 Sep 2022 14:19:13 +0000
+Received: by outflank-mailman (output) from mailman id 411880.654988; Mon, 26 Sep 2022 14:22:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocowz-0005tO-6i; Mon, 26 Sep 2022 14:19:13 +0000
-Received: by outflank-mailman (input) for mailman id 411855;
- Mon, 26 Sep 2022 14:19:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ba90=Z5=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ocowx-0005DG-Ne
- for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 14:19:11 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30a5c8d3-3da6-11ed-9374-c1cf23e5d27e;
- Mon, 26 Sep 2022 16:19:11 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8CD4D21ED4;
- Mon, 26 Sep 2022 14:19:10 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3D18F139BD;
- Mon, 26 Sep 2022 14:19:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BwGjDd60MWOiBgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 26 Sep 2022 14:19:10 +0000
+	id 1ocp0V-00088D-Lf; Mon, 26 Sep 2022 14:22:51 +0000
+Received: by outflank-mailman (input) for mailman id 411880;
+ Mon, 26 Sep 2022 14:22:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hi8o=Z5=gmail.com=tamas.k.lengyel@srs-se1.protection.inumbo.net>)
+ id 1ocp0T-000881-Ot
+ for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 14:22:49 +0000
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
+ [2607:f8b0:4864:20::b32])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b21da079-3da6-11ed-9648-05401a9f4f97;
+ Mon, 26 Sep 2022 16:22:48 +0200 (CEST)
+Received: by mail-yb1-xb32.google.com with SMTP id e81so8524216ybb.13
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Sep 2022 07:22:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,135 +39,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30a5c8d3-3da6-11ed-9374-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1664201950; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=acJkGEJzQvXK3ntpRB7CEDesvJKyVtqSHHdOsYKLzIg=;
-	b=i1dwUiOyCBw7IR7aEH1PBRg4a9gQzwDV01bgDjlihYYT+NCz760Ilh718xzjV+CMcd+1gU
-	Ysl9/VyM6OsgmljS7s7h0UDr+PBJX3FQhki4eIpF0+Av66TnrmdN/ZlEiCcnlBWkWVVSNE
-	WoPIKXRUUFnLgAouJlYWO//iNsY5ADU=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH 3/3] xen/pv: support selecting safe/unsafe msr accesses
-Date: Mon, 26 Sep 2022 16:18:49 +0200
-Message-Id: <20220926141849.21805-4-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20220926141849.21805-1-jgross@suse.com>
-References: <20220926141849.21805-1-jgross@suse.com>
+X-Inumbo-ID: b21da079-3da6-11ed-9648-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=KLXz7tSfev0iNxajMi2a+v851ogylcLP5u+KTavsJco=;
+        b=bqlLKMo+1A2k1ba6REzI3SBcd96YxnZ+uQVoIjwConT3WSKjXXhZYbfWd2xTbhxLrU
+         ki+NJn6sHp2YnmVqj7a1GzBqEiMnkiYhgmHGRCFza5Ss2JY8KWysidElb4Sjx5dFSVv9
+         +SDhaznIDxneiAuV+kBkau0yqgPGfoJ/WzW8JBomTdeYfnOsAMwrQvxDH1Ez7gZY4PAg
+         tiCG6vj7I6Npo4qnOUwGN4fzsGiZbkEaWvy0Qi2o5oe4tEJGPb3HTZKm/hm9auCGdxMq
+         qxf9KfphyBQAO28aUbfga72pysxZeEYBAQ+RfFlfNUzSz29vHxOJJCM7PtgpE2lWuRG2
+         TDVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=KLXz7tSfev0iNxajMi2a+v851ogylcLP5u+KTavsJco=;
+        b=vHbktyUVoVZ2Syh9hIMJyrgpvutV94zKkRRbAvJyIZNZmHYQf4AH9D/uzJ6dsTTdhR
+         TAvtcaVqUpy3Tr7GuDwJ/FITQirOArf0Vpmc+IbzC3cF/9J2oa3z6wXHhNY5R+PRa4Hn
+         w7boMeZi+8dN5w6dqmpP/hAcp9F9Wwpa4jiNmeTzYfTbyz+t5v2IQwxjb020kByUx5pQ
+         VcAxJcFnT4SlWlhW56nEPglsbZe9tQuKUTp0lTLu/+WjR3C4p2OWOfhqRtCH9KdrMspH
+         IXClNRpvzlA9oBa0fdxmnImJu9Kt2pAqj0khNV0cRTs3oLAeavfeuFovzhtF88hwiO3S
+         7ncw==
+X-Gm-Message-State: ACrzQf0pi8DEAPjUrZ6vNCeoTLze9D7SfU9bCiK6Z0rh/3nZd4AgKb/F
+	8dTjcXZQz1D7+xreRLoQCr7aKrpphCoYfJWUb+c=
+X-Google-Smtp-Source: AMsMyM7eswUFhza7ZAObu6Hd58ICESBa7G4K0UG5RQ1OJBLH6Ak154zWQhqI8MfBPyVtHo0NmXOYIzkbhv61vwW6MZo=
+X-Received: by 2002:a25:2441:0:b0:6ae:bb37:3db3 with SMTP id
+ k62-20020a252441000000b006aebb373db3mr22590096ybk.213.1664202167590; Mon, 26
+ Sep 2022 07:22:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <86f8a095ff18e4dc41ecb9cef5153438158b91ce.1663878942.git.tamas.lengyel@intel.com>
+ <7a469ef7-5ad7-5abf-2c1f-fa29496fa2a5@suse.com>
+In-Reply-To: <7a469ef7-5ad7-5abf-2c1f-fa29496fa2a5@suse.com>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Mon, 26 Sep 2022 10:22:10 -0400
+Message-ID: <CABfawhkJ1KSxmV=usLh9mKSyT+-_=PgQrhkGe8G0J_ZjqZ9siw@mail.gmail.com>
+Subject: Re: [PATCH v2] x86/vpmu: Fix race-condition in vpmu_load
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
+	xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Content-Type: multipart/alternative; boundary="00000000000008a77d05e99543d6"
 
-Instead of always doing the safe variants for reading and writing MSRs
-in Xen PV guests, make the behavior controllable via Kconfig option
-and a boot parameter.
+--00000000000008a77d05e99543d6
+Content-Type: text/plain; charset="UTF-8"
 
-The default will be the current behavior, which is to always use the
-safe variant.
+On Mon, Sep 26, 2022 at 10:12 AM Jan Beulich <jbeulich@suse.com> wrote:
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- .../admin-guide/kernel-parameters.txt         |  6 +++++
- arch/x86/xen/Kconfig                          |  9 +++++++
- arch/x86/xen/enlighten_pv.c                   | 24 +++++++++++--------
- 3 files changed, 29 insertions(+), 10 deletions(-)
+> On 22.09.2022 22:48, Tamas K Lengyel wrote:
+> > --- a/xen/arch/x86/cpu/vpmu.c
+> > +++ b/xen/arch/x86/cpu/vpmu.c
+> > @@ -376,57 +376,24 @@ void vpmu_save(struct vcpu *v)
+> >      vpmu->last_pcpu = pcpu;
+> >      per_cpu(last_vcpu, pcpu) = v;
+> >
+> > +    vpmu_set(vpmu, VPMU_CONTEXT_SAVE);
+> > +
+> >      if ( alternative_call(vpmu_ops.arch_vpmu_save, v, 0) )
+> >          vpmu_reset(vpmu, VPMU_CONTEXT_LOADED);
+> >
+> > +    vpmu_reset(vpmu, VPMU_CONTEXT_SAVE);
+> > +
+> >      apic_write(APIC_LVTPC, PMU_APIC_VECTOR | APIC_LVT_MASKED);
+> >  }
+> >
+> >  int vpmu_load(struct vcpu *v, bool_t from_guest)
+> >  {
+> >      struct vpmu_struct *vpmu = vcpu_vpmu(v);
+> > -    int pcpu = smp_processor_id(), ret;
+> > -    struct vcpu *prev = NULL;
+> > +    int ret;
+> >
+> >      if ( !vpmu_is_set(vpmu, VPMU_CONTEXT_ALLOCATED) )
+> >          return 0;
+> >
+> > -    /* First time this VCPU is running here */
+> > -    if ( vpmu->last_pcpu != pcpu )
+> > -    {
+> > -        /*
+> > -         * Get the context from last pcpu that we ran on. Note that if
+> another
+> > -         * VCPU is running there it must have saved this VPCU's context
+> before
+> > -         * startig to run (see below).
+> > -         * There should be no race since remote pcpu will disable
+> interrupts
+> > -         * before saving the context.
+> > -         */
+> > -        if ( vpmu_is_set(vpmu, VPMU_CONTEXT_LOADED) )
+> > -        {
+> > -            on_selected_cpus(cpumask_of(vpmu->last_pcpu),
+> > -                             vpmu_save_force, (void *)v, 1);
+> > -            vpmu_reset(vpmu, VPMU_CONTEXT_LOADED);
+> > -        }
+> > -    }
+> > -
+> > -    /* Prevent forced context save from remote CPU */
+> > -    local_irq_disable();
+> > -
+> > -    prev = per_cpu(last_vcpu, pcpu);
+> > -
+> > -    if ( prev != v && prev )
+> > -    {
+> > -        vpmu = vcpu_vpmu(prev);
+> > -
+> > -        /* Someone ran here before us */
+> > -        vpmu_save_force(prev);
+> > -        vpmu_reset(vpmu, VPMU_CONTEXT_LOADED);
+> > -
+> > -        vpmu = vcpu_vpmu(v);
+> > -    }
+> > -
+> > -    local_irq_enable();
+> > -
+> >      /* Only when PMU is counting, we load PMU context immediately. */
+> >      if ( !vpmu_is_set(vpmu, VPMU_RUNNING) ||
+> >           (!has_vlapic(vpmu_vcpu(vpmu)->domain) &&
+>
+> What about the other two uses of vpmu_save_force() in this file? I looks
+> to me as if only the use in mem_sharing.c needs to be retained.
+>
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 426fa892d311..1bda9cf18fae 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6836,6 +6836,12 @@
- 			Crash from Xen panic notifier, without executing late
- 			panic() code such as dumping handler.
- 
-+	xen_msr_safe=	[X86,XEN]
-+			Format: <bool>
-+			Select whether to always use non-faulting (safe) MSR
-+			access functions when running as Xen PV guest. The
-+			default value is controlled by CONFIG_XEN_PV_MSR_SAFE.
-+
- 	xen_nopvspin	[X86,XEN]
- 			Disables the qspinlock slowpath using Xen PV optimizations.
- 			This parameter is obsoleted by "nopvspin" parameter, which
-diff --git a/arch/x86/xen/Kconfig b/arch/x86/xen/Kconfig
-index 85246dd9faa1..9b1ec5d8c99c 100644
---- a/arch/x86/xen/Kconfig
-+++ b/arch/x86/xen/Kconfig
-@@ -92,3 +92,12 @@ config XEN_DOM0
- 	select X86_X2APIC if XEN_PVH && X86_64
- 	help
- 	  Support running as a Xen Dom0 guest.
-+
-+config XEN_PV_MSR_SAFE
-+	bool "Always use safe MSR accesses in PV guests"
-+	default y
-+	depends on XEN_PV
-+	help
-+	  Use safe (not faulting) MSR access functions even if the MSR access
-+	  should not fault anyway.
-+	  The default can be changed by using the "xen_msr_safe" boot parameter.
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 4e68e047df94..6b0e5d4c485a 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -108,6 +108,16 @@ struct tls_descs {
-  */
- static DEFINE_PER_CPU(struct tls_descs, shadow_tls_desc);
- 
-+static __read_mostly bool xen_msr_safe = IS_ENABLED(CONFIG_XEN_PV_MSR_SAFE);
-+
-+static int __init parse_xen_msr_safe(char *str)
-+{
-+	if (str)
-+		return strtobool(str, &xen_msr_safe);
-+	return -EINVAL;
-+}
-+early_param("xen_msr_safe", parse_xen_msr_safe);
-+
- static void __init xen_pv_init_platform(void)
- {
- 	/* PV guests can't operate virtio devices without grants. */
-@@ -1010,22 +1020,16 @@ static int xen_write_msr_safe(unsigned int msr, unsigned int low,
- 
- static u64 xen_read_msr(unsigned int msr)
- {
--	/*
--	 * This will silently swallow a #GP from RDMSR.  It may be worth
--	 * changing that.
--	 */
- 	int err;
- 
--	return xen_read_msr_safe(msr, &err);
-+	return xen_do_read_msr(msr, xen_msr_safe ? &err : NULL);
- }
- 
- static void xen_write_msr(unsigned int msr, unsigned low, unsigned high)
- {
--	/*
--	 * This will silently swallow a #GP from WRMSR.  It may be worth
--	 * changing that.
--	 */
--	xen_write_msr_safe(msr, low, high);
-+	int err;
-+
-+	xen_do_write_msr(msr, low, high, xen_msr_safe ? &err : NULL);
- }
- 
- /* This is called once we have the cpu_possible_mask */
--- 
-2.35.3
+I don't know, maybe. I rather focus this patch only on the issue and its
+fix as I don't want to introduce unintended side effects by doing a
+cleanup/consolidation at other code-paths when not strictly necessary.
 
+Tamas
+
+--00000000000008a77d05e99543d6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Sep 26, 2022 at 10:12 AM Jan =
+Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; =
+wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 22.09.=
+2022 22:48, Tamas K Lengyel wrote:<br>
+&gt; --- a/xen/arch/x86/cpu/vpmu.c<br>
+&gt; +++ b/xen/arch/x86/cpu/vpmu.c<br>
+&gt; @@ -376,57 +376,24 @@ void vpmu_save(struct vcpu *v)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 vpmu-&gt;last_pcpu =3D pcpu;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 per_cpu(last_vcpu, pcpu) =3D v;<br>
+&gt;=C2=A0 <br>
+&gt; +=C2=A0 =C2=A0 vpmu_set(vpmu, VPMU_CONTEXT_SAVE);<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 if ( alternative_call(vpmu_ops.arch_vpmu_save, v, =
+0) )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 vpmu_reset(vpmu, VPMU_CONTEXT_LOADED=
+);<br>
+&gt;=C2=A0 <br>
+&gt; +=C2=A0 =C2=A0 vpmu_reset(vpmu, VPMU_CONTEXT_SAVE);<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 apic_write(APIC_LVTPC, PMU_APIC_VECTOR | APIC_LVT_=
+MASKED);<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 int vpmu_load(struct vcpu *v, bool_t from_guest)<br>
+&gt;=C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 struct vpmu_struct *vpmu =3D vcpu_vpmu(v);<br>
+&gt; -=C2=A0 =C2=A0 int pcpu =3D smp_processor_id(), ret;<br>
+&gt; -=C2=A0 =C2=A0 struct vcpu *prev =3D NULL;<br>
+&gt; +=C2=A0 =C2=A0 int ret;<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 if ( !vpmu_is_set(vpmu, VPMU_CONTEXT_ALLOCATED) )<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 /* First time this VCPU is running here */<br>
+&gt; -=C2=A0 =C2=A0 if ( vpmu-&gt;last_pcpu !=3D pcpu )<br>
+&gt; -=C2=A0 =C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 /*<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Get the context from last pcpu th=
+at we ran on. Note that if another<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* VCPU is running there it must hav=
+e saved this VPCU&#39;s context before<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* startig to run (see below).<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* There should be no race since rem=
+ote pcpu will disable interrupts<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* before saving the context.<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( vpmu_is_set(vpmu, VPMU_CONTEXT_LOADE=
+D) )<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 on_selected_cpus(cpumask_of=
+(vpmu-&gt;last_pcpu),<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vpmu_save_force, (void *)v, 1);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 vpmu_reset(vpmu, VPMU_CONTE=
+XT_LOADED);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt; -=C2=A0 =C2=A0 } <br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 /* Prevent forced context save from remote CPU */<br>
+&gt; -=C2=A0 =C2=A0 local_irq_disable();<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 prev =3D per_cpu(last_vcpu, pcpu);<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 if ( prev !=3D v &amp;&amp; prev )<br>
+&gt; -=C2=A0 =C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 vpmu =3D vcpu_vpmu(prev);<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Someone ran here before us */<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 vpmu_save_force(prev);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 vpmu_reset(vpmu, VPMU_CONTEXT_LOADED);<br=
+>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 vpmu =3D vcpu_vpmu(v);<br>
+&gt; -=C2=A0 =C2=A0 }<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 local_irq_enable();<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 /* Only when PMU is counting, we load PMU context =
+immediately. */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 if ( !vpmu_is_set(vpmu, VPMU_RUNNING) ||<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(!has_vlapic(vpmu_vcpu(vpmu)-&=
+gt;domain) &amp;&amp;<br>
+<br>
+What about the other two uses of vpmu_save_force() in this file? I looks<br=
+>
+to me as if only the use in mem_sharing.c needs to be retained.<br></blockq=
+uote><div><br></div><div>I don&#39;t know, maybe. I rather focus this patch=
+ only on the issue and its fix as I don&#39;t want to introduce unintended =
+side effects by doing a cleanup/consolidation at other code-paths when not =
+strictly necessary.</div><div><br></div><div>Tamas <br></div></div></div>
+
+--00000000000008a77d05e99543d6--
 
