@@ -2,55 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A5FB5EA2D8
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 13:15:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.411688.654719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 566315EA259
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 13:06:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.411645.654680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocm4k-0000Eq-8i; Mon, 26 Sep 2022 11:15:02 +0000
+	id 1oclwC-00058B-Ap; Mon, 26 Sep 2022 11:06:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 411688.654719; Mon, 26 Sep 2022 11:15:02 +0000
+Received: by outflank-mailman (output) from mailman id 411645.654680; Mon, 26 Sep 2022 11:06:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocm4k-0000AY-2B; Mon, 26 Sep 2022 11:15:02 +0000
-Received: by outflank-mailman (input) for mailman id 411688;
- Mon, 26 Sep 2022 11:15:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oclwC-00054y-6H; Mon, 26 Sep 2022 11:06:12 +0000
+Received: by outflank-mailman (input) for mailman id 411645;
+ Mon, 26 Sep 2022 11:06:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Zqb/=Z5=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oclva-00019b-7D
- for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 11:05:34 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 233857fe-3d8b-11ed-9374-c1cf23e5d27e;
- Mon, 26 Sep 2022 13:05:33 +0200 (CEST)
-Received: from BN9PR03CA0526.namprd03.prod.outlook.com (2603:10b6:408:131::21)
- by MW4PR12MB6684.namprd12.prod.outlook.com (2603:10b6:303:1ee::22)
+ id 1oclwA-0004X6-BT
+ for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 11:06:10 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 350254da-3d8b-11ed-9648-05401a9f4f97;
+ Mon, 26 Sep 2022 13:06:02 +0200 (CEST)
+Received: from BN9PR03CA0799.namprd03.prod.outlook.com (2603:10b6:408:13f::24)
+ by PH7PR12MB7377.namprd12.prod.outlook.com (2603:10b6:510:20c::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Mon, 26 Sep
- 2022 11:05:29 +0000
-Received: from BN8NAM11FT078.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:131:cafe::4a) by BN9PR03CA0526.outlook.office365.com
- (2603:10b6:408:131::21) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 11:05:59 +0000
+Received: from BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13f:cafe::e2) by BN9PR03CA0799.outlook.office365.com
+ (2603:10b6:408:13f::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25 via Frontend
- Transport; Mon, 26 Sep 2022 11:05:29 +0000
+ Transport; Mon, 26 Sep 2022 11:05:59 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT078.mail.protection.outlook.com (10.13.176.251) with Microsoft SMTP
+ BN8NAM11FT088.mail.protection.outlook.com (10.13.177.81) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5654.14 via Frontend Transport; Mon, 26 Sep 2022 11:05:28 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ 15.20.5654.14 via Frontend Transport; Mon, 26 Sep 2022 11:05:59 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 26 Sep
  2022 06:05:25 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 26 Sep
- 2022 04:04:57 -0700
 Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28
- via Frontend Transport; Mon, 26 Sep 2022 06:04:56 -0500
+ via Frontend Transport; Mon, 26 Sep 2022 06:05:24 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,22 +58,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 233857fe-3d8b-11ed-9374-c1cf23e5d27e
+X-Inumbo-ID: 350254da-3d8b-11ed-9648-05401a9f4f97
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TwHG0Uw/YE/yIMCCE5Alr31ht846VmICjyZwcpHIpCCC+Yn55avaLQtJsujAKbdzR8ssyAUGIurigHUOydB/OK2Puub+dWtCjBX8aZL09DeVHn6GMh4s5tGDpVrf2FJYV1X7Y7f43O5X43zVQ4+NPbEOawHjaJxw+bI4gwpygr8nY/zJY94l9bpBqscuUrVu8H4sbCVY+xecgG+8CbMOS1ut44uFhknkcVYdz9jqMLmIUBxbuM7Qf/NVqpPGxGyrDmWWmCAnxpYGjiQn0w5N+p4di9ZMzx/BaYzGIxTRtoM7pBvxpGS37iEEl5ifX7s7AYRsLkQAvHHsHz6herwi6A==
+ b=Mhdt0DPx2hVrLkrDlnl19Dq7u3wsevucKM2T+jLHpJa2L55mJDbGD30Hqo633oNzXufx2dJN01Q6duwtq5Kcg+9OepR3HX7oqcwlxYJBZicItPPykYuxmj3aRCPUKNLnvC3r3L93jLuMZ2KUxBO3noxIC1ggGu9RwyvHii+v2KwmpwFcLZk938Il9qe1GvavmxkMPM1Se3mnFJk0fFEKCj3yydJkWcUW4b915kehr3oGYwl80I6+OUW1DKJYXk+u4rJyLcFSuoX6sXL7WNQyr/AdpGTcj9OozFji7mHevekBDbEE49diP1yZBDsoSNyTdyljV2rQr4IhjbUKevGf1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qx4EC4KMsyhRnGE2453GEGKH2mT41/PmpiSKyiT7+AI=;
- b=b6ZaRJQSky7T11KAQPqAgsi8UcXEtAn7g6/AbdSANHRK4QQy/mqjnrdsoTrNQAGu5/iSZ47d9unfTVLP5U7pcP6kbR2HfhW03fEcn+Rnk58umZISL8xcZS0YFp5xFHYyiy2qLaL6JfIG8jK4tjI4PhayKNGccXCygS3sDHyOVjyNRNpzrHiSUnM2c1vbnj2SW6t1WO3MjlixJu7029JYX1ASjwC06xwgeAw/5gnKgIHFe51VZHLNxj2bfcl5dV3x2qR0DZAhkP25qLRvWfaSB/4D04L0AcSlY1TeZm1aO9Xtu4/ZqxEiYEjUuMqM2NvRdk7OwxDbQ6pKF8Cx/KZvjQ==
+ bh=qBbxrf3OGmi5kmC0blOEMBhohXAO6yhvPt8yeU+u8o8=;
+ b=UDRBGs4un3+jZGoOAU95l2CsUh60EEyWLYIO1NavgQp7d1ZUmahtO43VROax0i6KCJbZncQsjAARJjeF3UaLRbk29eeBigXGqnAPUAkHth5qH+8nIKhxNMbV291/0g8RT7+TTvCqUCqF0sAe5YL3v/TOutR5Z7NryEeMFghf4Q9iAMmTwWI1CIll3YlhjMgvqSPpSmXuYRM1po3GZt03GQ1V8OHeNipR4rWqAMvGR6LIDVew/f+StGne/uSC8rAPR+U8TimDydSkG/67gWLfx6l71WGIJKEMN4gFGOwpLCifLatqQv406GqcT6pTB/MmVowfOLRMRQiKmk7Q8IjnOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qx4EC4KMsyhRnGE2453GEGKH2mT41/PmpiSKyiT7+AI=;
- b=pi0RQkFDspIRz0hdXd9sE1XjTZCjKnv7QqxthQe59dKl9wtv0O7bGyfakY8CKI3gsAWRCdDDI3kqW+Yf73H64Or05I9gZKoOyC6ONSd+HLMCL04ryVAueF5v41TaRoB4k30vB8RYatNkz8FrT4Fv6KjUYaz84GMZIyAjo1Dxnm4=
+ bh=qBbxrf3OGmi5kmC0blOEMBhohXAO6yhvPt8yeU+u8o8=;
+ b=QXuX+5GQW5ECPBXeE+ToUaNEKJ2pBKwiyEuH8YLdNf5YS1jpafMhxN5fG8TLOH1z4iefb1YmGP0TWMwraDSLd9SbYCmSFNnSBM1Te00Vs7zPFaMYVBcQA6mhTKlVi7rnjZhK5mABGSIILC5szyf9IKhLHsQczR1jmQztU2JeAOo=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -88,9 +84,9 @@ From: Michal Orzel <michal.orzel@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 07/10] automation: qemu-alpine-arm64: Cleanup and fixes
-Date: Mon, 26 Sep 2022 13:04:20 +0200
-Message-ID: <20220926110423.26030-8-michal.orzel@amd.com>
+Subject: [PATCH v2 08/10] automation: Rename qemu-smoke-arm64.sh to qemu-smoke-dom0less-arm64.sh
+Date: Mon, 26 Sep 2022 13:04:21 +0200
+Message-ID: <20220926110423.26030-9-michal.orzel@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220926110423.26030-1-michal.orzel@amd.com>
 References: <20220926110423.26030-1-michal.orzel@amd.com>
@@ -99,37 +95,37 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT078:EE_|MW4PR12MB6684:EE_
-X-MS-Office365-Filtering-Correlation-Id: aaeddd57-f6ee-455c-50ab-08da9faf05ac
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT088:EE_|PH7PR12MB7377:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba530dc5-3b39-4828-6c06-08da9faf17b9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	IqQiqwIwZoQsoqYW6qhoFQtS+Gmx3JyIUd3rZyPuwX/yeZBYbI27udJmvp9s0EvOb4wPESk8O+22lme1zxBoDZEgD6ay9aYfLvP7LTkznUDLCN54QZMxSWUVtb1CVRNOL9X50HPWPp012XVGpScUrF++c4MBt9lvgnaFaFldb3zF7SnkaQCCVE7B/yPEyFjO2W/zAExJavuLk71xk6qozG3vNJlG+0/qBPM8PJ2jnNHMBPqDo0G5MPScw3N/6G9xogzfZUsUP+R7AGzCAevWqbNmfWN/rcrUAJGI+GbmC5bMrT8Xo+OouLWKOBKI409Xgvwh9CnYsEfc2ZxmTrZvV79aQ3jsilIeXyjsmYQHYXEOzWfWbZiM9lBPMFQRYGl26zZJgiskhbgBCo7F7bPU19QtXvJ1KZCG/pB/KaVKeWZL9K7l7KaCFzMBnNUlzCSFzEndv1Eh6ocG8+hZeMKEqxi7cfCRJortthwofQeHPSC2xHOSvNouO5qN7FVvqosM8/lY5R79QhKMPK6/xs2FWM7QVTTHHPN/FM3stBMeRFUF4jt9m0twJQVNc75UIG2N2UdrOXFrMWalPT4uvvGAZt/fXxBwKjG5WcPPtefuivq0Ht0TwPOT7ZKm/NE8bh5ygxOcVNEBEMLRpIj6K7twOfUdhXdeTz+1h8OoqK+08XWgXsF5swaMHps7wU01iy57j4bGVj60qucAHqhMpYA7OnnBh6GvgcOlSZ3tBtT3Shqustgb7lccrRmXtAlQf++KvuflJXFcppC3k++fAgtos4Xcw4My/ehIzS5RA4RUWLh69Du3PcRqpf7q8hjCslJByd0BOC4Pfavi364HQB+Xb+mhA3E9ErrzPFH9tjS9yPY=
+	ndkkxzio2O8LjIqyPX7dWnja58+0qv1QpG9UgG/EFJwhhHu5fdUgKdHCIGwo9N9oL1/hyPLBzBcdMUFizbbx2MQNTCrubtjM+Qwq6VVmsOSy6GSeM25HTQC0HqBXhsuvXT1dvHAQXreWJDwfSQht5zNUnOP/oxUNTfcO8UR9V4QOH0cN2CyLqjXSOL81ch4JyEKxFmY/cnjRVVjxdqa3osXyomJu+lNhsZ1fX3vqZCXw7sF54bv0UB9S+yjro1+Dgc0gPs44ZZnSkW2VbmHgDNtzJEzsUiDpHRbdnzlXHkxQRtBLupguGvSS/gOdNbJC/Rs5gmAXSMTj96WABOQ0XFAyub7dFP664CJeEN+a2xRJaxQJVoUTPnj+kbCMVPF5HSLH5mxXdG6z35X483pKUalZ92np1UG4IdcC9kYgffK6BmbyiikJVo3aZpxprE7MNjgJpA8OIckBNP3mL8pwx8+dD0Cp7yQEgcX52F2hTU2XlzyqTAEQZFZkTDze1MHyE1eEdVtYcRDFU4Eo2nDz1I6isWQ4rCa7hi+VarTi0DfwN29PUEv9WxH/sEj5E7Nx7gmQYaXVLQMIvBXuCgLnHOrwce1p1A6K0I/wEFYpHj+0RJvap+pCv+8IxaGANFmlET7G/J5vtbp3MIDJn1nk5/A4YGNgYzMQuRqSqIK1T2YoM1WeHtoU004P/WeWCj8cvmkwmQvlIGZO+Nl09TDPlNGg1urO67jfbYtGE5nJOx1rWY+JqOIPY5Lta92AthlPHRtP+aDlAueExtZF/C4mYCjfwl+EeCKUgn+TUSSRfAtUvEWczPSub/NnNocx/SFi
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(396003)(376002)(39860400002)(451199015)(40470700004)(36840700001)(46966006)(966005)(6916009)(54906003)(83380400001)(478600001)(316002)(6666004)(70586007)(70206006)(8676002)(4326008)(41300700001)(5660300002)(2906002)(8936002)(36756003)(2616005)(26005)(44832011)(336012)(186003)(1076003)(36860700001)(47076005)(426003)(356005)(40460700003)(82310400005)(81166007)(82740400003)(86362001)(40480700001)(21314003)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(39860400002)(136003)(376002)(451199015)(40470700004)(36840700001)(46966006)(82740400003)(86362001)(81166007)(36756003)(356005)(36860700001)(2906002)(336012)(1076003)(186003)(5660300002)(26005)(40460700003)(82310400005)(40480700001)(44832011)(6666004)(41300700001)(478600001)(47076005)(83380400001)(426003)(2616005)(316002)(54906003)(6916009)(8676002)(4326008)(8936002)(70206006)(70586007)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 11:05:28.8993
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 11:05:59.1842
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aaeddd57-f6ee-455c-50ab-08da9faf05ac
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba530dc5-3b39-4828-6c06-08da9faf17b9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT078.eop-nam11.prod.protection.outlook.com
+	BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6684
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7377
 
-Perform the following cleanup:
-- rename the device tree from virt-gicv3 to virt-gicv2 as the GIC version
-  used in this test is v2,
-- use fdtput to perform modifications on the dtb,
-- use DEBIAN_FRONTENT=noninteractive to prevent interactive prompt being
-  stuck waiting for answer other than "yes",
-- fix the number of cpus in the device tree because currently we generate
-  it with a single cpu and try to run QEMU with two,
-- fix the memory size we pass when generating QEMU device tree as it does
-  not match the memory size with what we run QEMU.
+Testing arm64 is done using the qemu-alpine-arm64.sh and
+qemu-smoke-arm64.sh scripts. These scripts are executed with exactly
+the same artifacts (container, rootfs, kernel, qemu) and the only
+difference is that the former is used to perform dom0 based testing
+and the latter - dom0less based testing.
+
+Because the current naming is quite umbiguous, rename qemu-smoke-arm64.sh
+script to qemu-smoke-dom0less-arm64.sh to reflect its usage.
+
+qemu-alpine-arm64.sh will be renamed in the follow-up patch.
 
 Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 Acked-by: Stefano Stabellini <sstabellini@kernel.org>
@@ -137,46 +133,109 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 Changes in v2:
 - none
 ---
- automation/scripts/qemu-alpine-arm64.sh | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ automation/gitlab-ci/test.yaml                | 24 +++++++++----------
+ ...-arm64.sh => qemu-smoke-dom0less-arm64.sh} |  0
+ 2 files changed, 12 insertions(+), 12 deletions(-)
+ rename automation/scripts/{qemu-smoke-arm64.sh => qemu-smoke-dom0less-arm64.sh} (100%)
 
-diff --git a/automation/scripts/qemu-alpine-arm64.sh b/automation/scripts/qemu-alpine-arm64.sh
-index f4ac2d856fa0..7b52d77d3c84 100755
---- a/automation/scripts/qemu-alpine-arm64.sh
-+++ b/automation/scripts/qemu-alpine-arm64.sh
-@@ -2,6 +2,7 @@
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 1b51030c6175..f620622671f8 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -81,12 +81,12 @@ qemu-alpine-x86_64-gcc:
+   tags:
+     - x86_64
  
- set -ex
+-qemu-smoke-arm64-gcc:
++qemu-smoke-dom0less-arm64-gcc:
+   extends: .test-jobs-common
+   variables:
+     CONTAINER: debian:unstable-arm64v8
+   script:
+-    - ./automation/scripts/qemu-smoke-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
++    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
+   needs:
+     - alpine-3.12-gcc-arm64
+     - alpine-3.12-arm64-rootfs-export
+@@ -100,12 +100,12 @@ qemu-smoke-arm64-gcc:
+   tags:
+     - arm64
  
-+export DEBIAN_FRONTENT=noninteractive
- apt-get -qy update
- apt-get -qy install --no-install-recommends u-boot-qemu \
-                                             u-boot-tools \
-@@ -73,18 +74,17 @@ curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
- ./binaries/qemu-system-aarch64 \
-    -machine virtualization=true \
-    -cpu cortex-a57 -machine type=virt \
--   -m 1024 -display none \
--   -machine dumpdtb=binaries/virt-gicv3.dtb
-+   -m 2048 -smp 2 -display none \
-+   -machine dumpdtb=binaries/virt-gicv2.dtb
-+
- # XXX disable pl061 to avoid Linux crash
--dtc -I dtb -O dts binaries/virt-gicv3.dtb > binaries/virt-gicv3.dts
--sed 's/compatible = "arm,pl061.*/status = "disabled";/g' binaries/virt-gicv3.dts > binaries/virt-gicv3-edited.dts
--dtc -I dts -O dtb binaries/virt-gicv3-edited.dts > binaries/virt-gicv3.dtb
-+fdtput binaries/virt-gicv2.dtb -p -t s /pl061@9030000 status disabled
+-qemu-smoke-arm64-gcc-debug:
++qemu-smoke-dom0less-arm64-gcc-debug:
+   extends: .test-jobs-common
+   variables:
+     CONTAINER: debian:unstable-arm64v8
+   script:
+-    - ./automation/scripts/qemu-smoke-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
++    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
+   needs:
+     - alpine-3.12-gcc-debug-arm64
+     - alpine-3.12-arm64-rootfs-export
+@@ -119,12 +119,12 @@ qemu-smoke-arm64-gcc-debug:
+   tags:
+     - arm64
  
- # ImageBuilder
- echo 'MEMORY_START="0x40000000"
--MEMORY_END="0x80000000"
-+MEMORY_END="0xC0000000"
+-qemu-smoke-arm64-gcc-staticmem:
++qemu-smoke-dom0less-arm64-gcc-staticmem:
+   extends: .test-jobs-common
+   variables:
+     CONTAINER: debian:unstable-arm64v8
+   script:
+-    - ./automation/scripts/qemu-smoke-arm64.sh static-mem 2>&1 | tee qemu-smoke-arm64.log
++    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee qemu-smoke-arm64.log
+   needs:
+     - alpine-3.12-gcc-arm64-staticmem
+     - alpine-3.12-arm64-rootfs-export
+@@ -138,12 +138,12 @@ qemu-smoke-arm64-gcc-staticmem:
+   tags:
+     - arm64
  
--DEVICE_TREE="virt-gicv3.dtb"
-+DEVICE_TREE="virt-gicv2.dtb"
- XEN="xen"
- DOM0_KERNEL="Image"
- DOM0_RAMDISK="xen-rootfs.cpio.gz"
+-qemu-smoke-arm64-gcc-debug-staticmem:
++qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
+   extends: .test-jobs-common
+   variables:
+     CONTAINER: debian:unstable-arm64v8
+   script:
+-    - ./automation/scripts/qemu-smoke-arm64.sh static-mem 2>&1 | tee qemu-smoke-arm64.log
++    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee qemu-smoke-arm64.log
+   needs:
+     - alpine-3.12-gcc-debug-arm64-staticmem
+     - alpine-3.12-arm64-rootfs-export
+@@ -157,12 +157,12 @@ qemu-smoke-arm64-gcc-debug-staticmem:
+   tags:
+     - arm64
+ 
+-qemu-smoke-arm64-gcc-boot-cpupools:
++qemu-smoke-dom0less-arm64-gcc-boot-cpupools:
+   extends: .test-jobs-common
+   variables:
+     CONTAINER: debian:unstable-arm64v8
+   script:
+-    - ./automation/scripts/qemu-smoke-arm64.sh boot-cpupools 2>&1 | tee qemu-smoke-arm64.log
++    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee qemu-smoke-arm64.log
+   needs:
+     - alpine-3.12-gcc-arm64-boot-cpupools
+     - alpine-3.12-arm64-rootfs-export
+@@ -176,12 +176,12 @@ qemu-smoke-arm64-gcc-boot-cpupools:
+   tags:
+     - arm64
+ 
+-qemu-smoke-arm64-gcc-debug-boot-cpupools:
++qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
+   extends: .test-jobs-common
+   variables:
+     CONTAINER: debian:unstable-arm64v8
+   script:
+-    - ./automation/scripts/qemu-smoke-arm64.sh boot-cpupools 2>&1 | tee qemu-smoke-arm64.log
++    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee qemu-smoke-arm64.log
+   needs:
+     - alpine-3.12-gcc-debug-arm64-boot-cpupools
+     - alpine-3.12-arm64-rootfs-export
+diff --git a/automation/scripts/qemu-smoke-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+similarity index 100%
+rename from automation/scripts/qemu-smoke-arm64.sh
+rename to automation/scripts/qemu-smoke-dom0less-arm64.sh
 -- 
 2.25.1
 
