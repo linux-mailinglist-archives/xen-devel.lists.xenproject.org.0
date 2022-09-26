@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DB695E9C1D
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 10:35:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.411477.654408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06DB05E9C32
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 10:38:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.411483.654419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocjYe-0004TK-LA; Mon, 26 Sep 2022 08:33:44 +0000
+	id 1ocjdQ-00058K-87; Mon, 26 Sep 2022 08:38:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 411477.654408; Mon, 26 Sep 2022 08:33:44 +0000
+Received: by outflank-mailman (output) from mailman id 411483.654419; Mon, 26 Sep 2022 08:38:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocjYe-0004QN-Hz; Mon, 26 Sep 2022 08:33:44 +0000
-Received: by outflank-mailman (input) for mailman id 411477;
- Mon, 26 Sep 2022 08:33:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ocjdQ-00055A-5C; Mon, 26 Sep 2022 08:38:40 +0000
+Received: by outflank-mailman (input) for mailman id 411483;
+ Mon, 26 Sep 2022 08:38:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ba90=Z5=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ocjYd-0004QH-06
- for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 08:33:43 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ed1c22ec-3d75-11ed-9374-c1cf23e5d27e;
- Mon, 26 Sep 2022 10:33:41 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3C1F022001;
- Mon, 26 Sep 2022 08:33:41 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1C66713486;
- Mon, 26 Sep 2022 08:33:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id bzQGBeVjMWNWWgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 26 Sep 2022 08:33:41 +0000
+ (envelope-from <SRS0=L52i=Z5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1ocjdO-000554-JQ
+ for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 08:38:38 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-eopbgr150040.outbound.protection.outlook.com [40.107.15.40])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9c94a5e0-3d76-11ed-9647-05401a9f4f97;
+ Mon, 26 Sep 2022 10:38:36 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8248.eurprd04.prod.outlook.com (2603:10a6:20b:3fd::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Mon, 26 Sep
+ 2022 08:38:35 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::358f:58dc:c0c2:1155]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::358f:58dc:c0c2:1155%7]) with mapi id 15.20.5654.016; Mon, 26 Sep 2022
+ 08:38:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,201 +46,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed1c22ec-3d75-11ed-9374-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1664181221; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y6rP0yXpgcrrq7vSubzt3KTL5aYMu8qIC94GTh73U0k=;
-	b=HsMqsfSC2i5kH9q+R7WNu5UaHovVO+XHWWi1ZAmsNe5sSOKfS+aKGWks4X7R6jQaVMZL8U
-	uvZnlkd8kFja/ozLionREtWKlQLbB9inGIOJ51h5UOoRYxGFqjcb+TdZiMA1bPT0ubFk2G
-	au7IaRQsME1HSAi02L0s+hLC4v/BmxA=
-Message-ID: <8de37e96-cf67-2306-b586-dd45019a536d@suse.com>
-Date: Mon, 26 Sep 2022 10:33:40 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
+X-Inumbo-ID: 9c94a5e0-3d76-11ed-9647-05401a9f4f97
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VuNLff+fyeulQkHSajmKkQcun0+enQJYq3qT+q8yFibY6o9Pr8I8F3Bz+FzvReqK5bTSilv+TOd6EgrOThKZMZRoog8kHuJpX17T2jmRYPl/Y2dlcHzuUvGTxfmFvMU83lY1ekORE7f1B3gSysO1FXNBvBl519EwbLPpa5vEy6qTn32i2u4ZQJk6BnAhVKKNyGNCHgj5zRBoHRsxtI/dC6p66g1DHyV2y8nviGeVXoZcJSo7ZZPi+57apLjTEHdVVRFynCtH+rJJD5Ws7lZGYKAx2FWN/UzZ5EX7A+OyMg1Uo0YQjfB1YvWLnI29RmnnUwDAgPRP9Py/u6jhYi8eyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8L4m36y35zpCO6zDxpAOEsE3tVCWNopsMi11EoMNLHc=;
+ b=idTnMKD6bylfO0xsvt+CudZogPmf5Zyohu90ENYfMKwLZwiQcKdVyNddD50ltdmn08QzdIflMU0QfwAYHyKQiOatuwjp6H9PdE3R81BpOMcvwN1RV1n6T3ReERysPVrnh1ejifwWHP5Sf2qCA/NBOwjqMKqZE53OsEFzxikoovTzKJonRrF2DS4DeTkSjZX2x3q3bu6pkX5JQAQhGJSyg/EwAKtFvj5Ub1FSDHqZtvlHVVLQtEDoL90o1dUL+tdTniwUq/ggkMffJs1Jm51QUQ/ppXJDN759Jc4j8PtNbBraUkr4t/8P9GOtt0EbU1IFvjQb+tGKyEzzIkyODtJOug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8L4m36y35zpCO6zDxpAOEsE3tVCWNopsMi11EoMNLHc=;
+ b=Gs/5pjwrG+oddNeA4OhsDLCj2/cYAq0dZ8Ia0JCenBoR8ee3RN3G3fCqvrBTWAcNzENC7oIFuZqpOsQK/1kIpTLKYDdSZLbMcFp4vi3/CoAp49EKjVMFfQQV0/XIBDrHZNlTzFV2egp6ZwQEr+o9HYgo3bQpvgGI7XWsDNWxiuA/doXmCuovAxzFH6+DE9xj3rT9RgAK/MzbdwEOKsIgMEuWEofIA6KloPB660C0GuSjYugxbWkOA9EJj5dvMcucAZ6p9cp7sm2H0J5l9T7xkxnbIWSZhmJq8paBlq6Q2VQc/8/s2ynmAsMxA4lICcOgTs4uEgob+7whRsskPnHBzg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f8a8366f-e656-1628-63cd-d4e0b01dbf57@suse.com>
+Date: Mon, 26 Sep 2022 10:38:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH] x86/ept: simplify detection of special pages for EMT
+ calculation
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
-References: <YyszY+qHOVkCTe92@mail-itl>
- <e81e9b3a-baf2-cba1-01f1-89ba4a9ccf33@suse.com>
- <bbb0a75f-4687-3e18-6219-ee32de298664@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: Design session PVH dom0
-In-Reply-To: <bbb0a75f-4687-3e18-6219-ee32de298664@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------8wznQtuFLUDfP7ZKCaEBwT8C"
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220923105648.12587-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220923105648.12587-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0044.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8248:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe9c43f1-5cf9-4ac5-13da-08da9f9a8014
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	mCxyDfniH80K3GV3tySk85p7LNJ4lpYKyZ2NReV7G3UpCNXMeioa/lO1F5L81XQS0E8qF7qoVhSxuut2NSP5xlYoGoFLhfbRP7b/KkHrd5fdettKgpU+iRhoeS9uyZEqhjl7Vb0C81C2dtC1gPDMUiv3pYMvXfSivnPUUI72XsaXiv/jqvg7yAmnkgu3imIRC3u8ZSPAsxvo80GSPZ6sTOwzgjKN4t0YMqPHyZsHPm6TgREqYIX2Q3IRR1Mj3kuMPg9sEnWVJkBLoabj5fVELKpgFk0aspBr8mcndTP/4nyxV9v0zTGfidutnYcVFx9dPqyVaLWmA/ldAeZCfvb7TaSvYrYhPZYQRmCS1cs1H4j/TqHRkr6pHS82dGeM3rgY/Cf9mrdOEx9viMWc8c79JVzewl3wUdVRlcBLe63IDvrBlnIw7jkhcfWwWuUjvquZ+HgODgevMCOql27mTKiu5PvoXusGJScBAagDH09nW+1cyCBgNLk0y0P+RWiEQLEJS1uk67di2dpeOJG267ikzMZtPbwj1pXIQLgfLuvEQ2NZh51zpeU11OQCBe5Kbvh/8xJ8rpjYAvt8jlWx8u/LoHpiR5JER91+zAOQTHScoGM17aZdtWc3az8OfBDIVBhtG0tWVm/QUFMblkt5Nwn33Z90Bo9kmzI3rGGFeae3dX+D/4Bkw+aZ7e+5ERqVSD0HnbfROB+Kg+npix2eieUSaERjQycYw8027yzSVnWPo9bKduocjsmoKgPARj2bwdaKleRYZB8T0BpfP1ymA+wTwUDRTiRmxMragjnscWxuitw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(39860400002)(396003)(346002)(376002)(366004)(451199015)(2616005)(5660300002)(53546011)(6506007)(41300700001)(86362001)(6666004)(8936002)(66946007)(4326008)(2906002)(31696002)(316002)(6916009)(54906003)(31686004)(6486002)(478600001)(26005)(186003)(6512007)(36756003)(83380400001)(38100700002)(66556008)(66476007)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RmRveEg2dzJoZzFaMW5mL21NQUFTSVUvK2pqcnFaUzlyYVJoamVGUzB1TGN3?=
+ =?utf-8?B?QldOalVkdGRxeFgvVi9zNzlZcHpDTlFtYUR4WnpyRFlZTFhndnQ4S2MvM2lm?=
+ =?utf-8?B?ZWRnS2s1QnhIMHhobUdaTEVUTzF3ODJxcEJPVm83T3ZxaCtha2N3Z0huVzBN?=
+ =?utf-8?B?NmxZMkltQkpTL3l3c05HYi93ajZJcDloWEd2ZVlwM2FNRUE3MDBCVEtpUENy?=
+ =?utf-8?B?U2VVU3YzZXg1MjluRG1lVFhmLzU4R2hwSjYwSzBWNnpIcmRWNzJmVlB4anlS?=
+ =?utf-8?B?c1JvU3J6b3JaektMYXBRYlRpRnUxZFYrVDJkbnJRalN2amV0OUE3UnN0WWFz?=
+ =?utf-8?B?ems0L3B5VzhOaWxYRk4wSW03MmhUWlZESnQ1N2FkN25rRkdzbVpGWHBlZU5k?=
+ =?utf-8?B?QnJiN1BPUHhMRmloMlpkTXBwLzZkWWZBaWJ5UDJRdTlxR0dJVnJOSUJjN3U0?=
+ =?utf-8?B?U3kra2VyMnlIa0xCOHVublRWamFZR0JuMDgyUmNOWExmMnNyWGVSVGt0ejU2?=
+ =?utf-8?B?K0lkZTRJVnVqQ3hMUHE5TERpZGllaDJ5RUlzTVRoM2hNWDdva3ZwdHFiTzJN?=
+ =?utf-8?B?eUpQNnhPRlVGcyt6ZnYyRGlFeWpIUFVBc0JMdkhVQVQ2ZGFvSVpNL0xIampz?=
+ =?utf-8?B?OEwrcExhbkZGNzNQR0cwZmNRNS84UkZCNGRpUzBkS0JSZWp6VXB2c2NIb2FC?=
+ =?utf-8?B?Mk1iVEs3enFNOU9pU2lDclB5a3FZYmJCMHFhRU44VFdRblhBTHp1RklUUFFG?=
+ =?utf-8?B?ek1kL1JlLzZGTUlYSWFMTUlUTkZRRVFnSFZSeURYSlBLNHpaSDdHQy9wcGJp?=
+ =?utf-8?B?RHp3WWx0NUxLMUdGWnVYNUMxRFhCRURwalVRTEJjRURpT2dvUFJ6cDdzeHFS?=
+ =?utf-8?B?cUlzUFo2OEZQMGdqL3REUkE3L25qZVg1akwyRUkva2lFWTFGekUwdVdkc1FR?=
+ =?utf-8?B?NmRsWkFrZmdyZTlqb3dTb3F5YnNSU2c0TjFEbnlaa1BUSGhTVjZDMWhNSFZ2?=
+ =?utf-8?B?YnVyakRibDBzU0xOTFlKcGhpZy83VW5qazdCaFhGdDZ4WE1ydmoxM0JHUjFD?=
+ =?utf-8?B?S2duS2RHaGx1aXBYQmc2dkszVnlLK05CUzNPS01paWNRek40elNlLzNFVEdG?=
+ =?utf-8?B?NDRkeHBWOVd4Uk00aldaeVJaMXF2U01BYzFDYjRjYUJpdi9raHR4SUE5QlZQ?=
+ =?utf-8?B?L2ZEcXRDdnZ0WmI0cVkvTStEUExuWWdlVzhmcXptZ05ieCtxaFlOSmY1djhn?=
+ =?utf-8?B?Mnl4M2dyZytkR0E1TStLVGROSUFKZ1IwOUFUQlR0cGZUS25IOFA1dkxoaHNp?=
+ =?utf-8?B?emJKbEdwWUNMTFNHWFdzZ0pRZ2hRZlZWaWQxdjJBNGFMejdrWnlYZGs0Vndq?=
+ =?utf-8?B?Nkxwcit0WGNVTFgwb1JHazBpditpc1h0ZzlZckFFM25YbjE3Q0w2VXNEY3dP?=
+ =?utf-8?B?dHFKTEwvUU9weUk1RnpWN3V6cGUraDhVVjF0MXJRbHlxSjJUUnJueEF6RFRu?=
+ =?utf-8?B?bE9Wb3g1dDJueCt2K3hOQlRGRFdzb05sOU1LdGFDYXRFR1JiN29NRVkzN3pn?=
+ =?utf-8?B?RjVrUUFQZ2Fqd1F5RVNDMXFpNFJ0QlJBZXpCbEpZaGYrd1F2V1B6ak9kbWI4?=
+ =?utf-8?B?ZHdRaUdSMUc2ZUh3OFJqcVlZMHk0aUt3MHY5UGVzRm9vRnl3QUZMMFhUeW9p?=
+ =?utf-8?B?cTdHU0dvTWhEeURQQkVaNVFrY3BRZjBlc1UzOUJZWGQ1blBPMEk1L2N5d0pO?=
+ =?utf-8?B?U1VZSEtHSGVCT1Vqa2ZUVHRhYVJmWlNTczRnYkZPTndOTGk0VmV1NWtsQ1NN?=
+ =?utf-8?B?SjRWRk9CVFJlSEZ0Si94OGNBdUdkQVg2cVhYdjdsOFlMSWFXVnJHOXA0TnU5?=
+ =?utf-8?B?RHNDZldWTVhuU0k3Yi9Wem0rRFluQ1dSbkdwTThmRHNtTURkM3dCdDBJb2Q2?=
+ =?utf-8?B?SkpYQVpHVnpuQ0tWS2ZianNhYnc3djJrQndrWW5kUzJYdW5SV2dwRHJDZTRr?=
+ =?utf-8?B?SCtrT0lqTUgwamN0MmtBQklIZVhjbjRpQTZiYjMvT3F2Zk1KV3BLelNSMy9B?=
+ =?utf-8?B?OFlyRVV6VW5jdC9ZNTJKNVF5WGJmZmFodjhPQ1pXNjFmNERBNVNtSVNiRDlW?=
+ =?utf-8?Q?xvYNSeig/A1arZ/S7cAp66OMb?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe9c43f1-5cf9-4ac5-13da-08da9f9a8014
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 08:38:35.0019
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WsFkt2NaQZIrblCR+GC9Coj1Snjvp2DJBOmZMItH7uMcrCIkdN0fzkQaw5V7saWN3Q59UguqhGxhCpgcNTAZ9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8248
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------8wznQtuFLUDfP7ZKCaEBwT8C
-Content-Type: multipart/mixed; boundary="------------2l9jkCod0Tzd9bRIm3dbVX0I";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <8de37e96-cf67-2306-b586-dd45019a536d@suse.com>
-Subject: Re: Design session PVH dom0
-References: <YyszY+qHOVkCTe92@mail-itl>
- <e81e9b3a-baf2-cba1-01f1-89ba4a9ccf33@suse.com>
- <bbb0a75f-4687-3e18-6219-ee32de298664@suse.com>
-In-Reply-To: <bbb0a75f-4687-3e18-6219-ee32de298664@suse.com>
+On 23.09.2022 12:56, Roger Pau Monne wrote:
+> The current way to detect whether a page handled to
+> epte_get_entry_emt() is special and needs a forced write-back cache
+> attribute involves iterating over all the smaller 4K pages for
+> superpages.
+> 
+> Such loop consumes a high amount of CPU time for 1GiB pages (order
+> 18): on a Xeon® Silver 4216 (Cascade Lake) at 2GHz this takes an
+> average amount of time of 1.5ms.  Note that this figure just accounts
+> for the is_special_page() loop, and not the whole code of
+> epte_get_entry_emt().  Also the resolve_misconfig() operation that
+> calls into epte_get_entry_emt() is done while holding the p2m lock in
+> write (exclusive) mode, which blocks concurrent EPT_MISCONFIG faults
+> and prevents most guest hypercalls for progressing due to the need to
+> take the p2m lock in read mode to access any guest provided hypercall
+> buffers.
+> 
+> Simplify the checking in epte_get_entry_emt() and remove the loop,
+> assuming that there won't be superpages being only partially special.
+> 
+> So far we have no special superpages added to the guest p2m,
 
---------------2l9jkCod0Tzd9bRIm3dbVX0I
-Content-Type: multipart/mixed; boundary="------------uPP5skHFGdm6JveACLpENDp4"
+We may not be adding them as superpages, but what a guest makes of
+the pages it is given access to for e.g. grant handling, or what Dom0
+makes of e.g. the (per-CPU) trace buffers is unknown. And I guess
+Dom0 ending up with a non-WB mapping of the trace buffers might
+impact tracing quite a bit. I don't think we can build on guests not
+making any such the subject of a large-range mapping attempt, which
+might end up suitable for a superpage mapping (recall that rather
+sooner than later we ought to finally re-combine suitable ranges of
+contiguous 4k mappings into 2M ones, just like we [now] do in IOMMU
+code).
 
---------------uPP5skHFGdm6JveACLpENDp4
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Since for data structures like the ones named above 2M mappings
+might be enough (i.e. there might be little "risk" of even needing to
+go to 1G ones), could we maybe take a "middle" approach and check all
+pages when order == 9, but use your approach for higher orders? The
+to-be-added re-coalescing would then need to by taught to refuse re-
+coalescing of such ranges to larger than 2M mappings, while still
+at least allowing for 2M ones. (Special casing at that boundary is
+going to be necessary also for shadow code, at the very least.) But
+see also below as to caveats.
 
-T24gMjYuMDkuMjIgMDk6NTMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyMy4wOS4yMDIy
-IDEwOjIwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMjEuMDkuMjIgMTc6NTMsIE1h
-cmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSB3cm90ZToNCj4+PiBTZXNzaW9uIGRlc2NyaXB0
-aW9uIChieSBKYW4pOg0KPj4+IEluIHRoZSBjb3Vyc2Ugb2Ygd29ya2luZyBvbiBhbiBYU0Eg
-SSBoYWQgdG8gZmluYWxseSBnZXQgUFZIIERvbTAgd29yayBvbiBhdCBsZWFzdCBvbmUgb2Yg
-bXkgc3lzdGVtcywgaW4gYSBtaW5pbWFsIGZhc2hpb24uIFRoaXMgaGFkIHR1cm5lZCB1cCBh
-IG51bWJlciBvZiBpc3N1ZXMsIHNvbWUgb2Ygd2hpY2ggaGF2ZSBzaW5jZSByZW1haW5lZCBw
-ZW5kaW5nLiBUaGVyZWZvcmUgSeKAmWQgbGlrZSB0byBnYWluIHVuZGVyc3RhbmRpbmcgb24g
-d2hldGhlciB0aGVyZSBpcyBhbnkgZnV0dXJlIHRvIHRoaXMgbW9kZSBvZiBEb20wIG9wZXJh
-dGlvbiwgYW5kIGlmIHNvIHdoZW4gaXQgY2FuIGJlIGV4cGVjdGVkIHRvIGJlIGJldHRlciB0
-aGFuIHRlY2ggcHJldmlldyBvciBldmVuIGp1c3QgZXhwZXJpbWVudGFsLg0KPj4NCj4+IC4u
-Lg0KPj4NCj4+PiBKw7xyZ2VuOiBQVkggZG9tMCBwZXJmb3JtYW5jZT8NCj4+Pg0KPj4+IFJv
-Z2VyOiBpdCdzIGJhZDsgbW9zdGx5IHJlbGV2YW50IGlzIHFlbXUgaW50ZXJmYWNlcw0KPj4+
-DQo+Pj4gR2VvcmdlOiBvbmx5IGZvciBzYWZldHkgY2VydGlmaWNhdGlvbnM/IHBlcmZvcm1h
-bmNlIHBlbmFsdHkgbWF5IGJlIG9rYXkNCj4+Pg0KPj4+IErDvHJnZW46IGh5cGVyY2FsbHMg
-Y2FuIGJlIGltcHJvdmVkICh2aXJ0dWFsIGJ1ZmZlcnM/KQ0KPj4NCj4+IFNvbWUgbW9yZSB0
-aG91Z2h0cyBvbiB0aGlzIHRvcGljOiBIYXZpbmcgaHlwZXJjYWxsIHZhcmlhbnRzIHdpdGgg
-cGh5c2ljYWxseQ0KPj4gYWRkcmVzc2VkIGJ1ZmZlcnMgd2lsbCBoZWxwLCBidXQgdGhlcmUg
-aXMgYW4gYWRkaXRpb25hbCBjb21wbGV4aXR5OiB3aGF0DQo+PiBhYm91dCBoeXBlcmNhbGxz
-IHdpdGggcmVhbGx5IGxhcmdlIGJ1ZmZlcnMgKGUuZy4gdGhlIGJpdG1hcCBmb3IgbW9kaWZp
-ZWQNCj4+IHBhZ2VzIGZvciBndWVzdCBtaWdyYXRpb24pLiBJbiBvcmRlciB0byBhdm9pZCBo
-YXZpbmcgdG8gYWxsb2NhdGUgaHVnZQ0KPj4gcGh5c2ljYWxseSBjb250aWd1b3VzIGJ1ZmZl
-cnMgZm9yIHRob3NlIHB1cnBvc2VzIHdlJ2QgcHJvYmFibHkgbmVlZA0KPj4gc29tZXRoaW5n
-IGxpa2Ugc2NhdHRlci9nYXRoZXIgbGlzdHMgZm9yIGh5cGVyY2FsbCBidWZmZXJzLg0KPiAN
-Cj4gTm90IHN1cmUuIEknZCByYXRoZXIgc2VlIHVzIGFkZCBuZXcgKHN1YiloeXBlcmNhbGxz
-IGZvciBzdWNoIG5vbi1zdGFuZGFyZA0KPiBjYXNlcy4gRS5nLiB0aGUgYml0bWFwIGV4YW1w
-bGUgeW91IGdpdmUgd291bGQgYmUgYW1lbmRlZCBieSBhIG5ldyBmbGF2b3INCj4gaGF2aW5n
-IHRoZSBjYWxsZXIgcGFzcyBpbiBhbiBhcnJheSBvZiBHRk5zIChwZXJoYXBzLCBhcyB5b3Ug
-c2F5LCB3aXRoDQo+IGZ1cnRoZXIgaW5kaXJlY3Rpb24gdG8gZGVhbCB3aXRoIHRoYXQgYXJy
-YXkgYWxzbyBncm93aW5nIGxhcmdlKS4gSSdkDQo+IHJlYWxseSBsaWtlIHRvIGtlZXAgdGhl
-IGNvbW1vbiBjYXNlIHNpbXBsZS4NCg0KVGhlIHF1ZXN0aW9uIGlzIGhvdyBtYW55IGh5cGVy
-Y2FsbHMgd291bGQgYmUgaGl0IGJ5IHRoZSBub3QgY29tbW9uIGNhc2UuDQoNClRha2luZyBh
-IHF1aWNrIGdsYW5jZSBJIHNwb3R0ZWQ6DQoNCi0gZ3JhbnRfdGFibGVfb3AgKHN1Ym9wcyBz
-ZXR1cF90YWJsZSBhbmQgZ2V0X3N0YXR1c19mcmFtZXMpDQotIG1lbW9yeV9vcCAoc2V2ZXJh
-bCBzdWItb3BzKQ0KLSBtdWx0aWNhbGwgKG1haW4gbGlzdCBvZiBjYWxscykNCi0gY29uc29s
-ZV9pbyAoY29uc29sZSBkYXRhKQ0KLSBtbXVleHRfb3AgKHNvbWUgb3BzIGFsbG93IGxpc3Rz
-KQ0KLSB4c21fb3AgKG5vdCBzdXJlIGEgYnVmZmVyIGNhbiBzcGFuIHBhZ2VzLCBidXQgaW50
-ZXJmYWNlIHdvdWxkIGFsbG93IGl0KQ0KLSBwaHlzZGV2X29wIChzdWJvcCBzZXRfaW9iaXRt
-YXApDQotIGh2bV9vcCAoYWx0cDJtIGhhbmRsaW5nKQ0KLSBzeXNjdGwgKG11bHRpcGxlIHN1
-Yi1vcHMpDQotIGRvbWN0bCAobXVsdGlwbGUgc3ViLW9wcykNCi0gaHlwZnMgKG5vZGUgZGF0
-YSBjYW4gZXhjZWVkIHBhZ2Ugc2l6ZSkNCg0KRG8gd2UgcmVhbGx5IHdhbnQgdG8gc3BlY2lh
-bCBjYXNlIGFsbCBvZiB0aG9zZT8NCg0KPj4gQW5kIHRob3NlIG1pZ2h0DQo+PiB3YW50IHRv
-IGJlIHN1cHBvcnRlZCBpbiBhIGdlbmVyaWMgd2F5LiBBZGRpdGlvbmFsbHk6IHdoYXQgaWYg
-c3VjaCBhIFNHLWxpc3QNCj4+IHdvdWxkIGV4Y2VlZCB0aGUgc2l6ZSBvZiBhIHBhZ2U/IFRo
-ZSBkaXJ0eSBiaXRtYXAgb2YgYSBndWVzdCB3aXRoIDY0IEdCIG9mDQo+PiBSQU0gd291bGQg
-YWxyZWFkeSBuZWVkIDUxMiBwYWdlcywgc28gdGhlIFNHLWxpc3QgZm9yIHRoYXQgYml0bWFw
-IHdvdWxkIGFscmVhZHkNCj4+IGZpbGwgYSBjb21wbGV0ZSBwYWdlIGFzc3VtaW5nIG9ubHkg
-OCBieXRlIGZvciBvbmUgU0ctZW50cnkgKHdoaWNoIHdvdWxkIGxpbWl0DQo+PiB0aGUgZ2Vu
-ZXJhbCB1c2FiaWxpdHkgYWxyZWFkeSkuDQo+Pg0KPj4gTXkgZmF2b3JpdGUgc29sdXRpb24g
-d291bGQgYmUgc29tZSBraW5kIG9mIGJ1ZmZlciBhZGRyZXNzIHF1YWxpZmllciBmb3IgZWFj
-aA0KPj4gYnVmZmVyIChlLmcuIHZpcnR1YWwsIHBoeXNpY2FsLCBTRy1saXN0LCBtYXliZSBu
-ZXN0ZWQgU0ctbGlzdCkuIFNvIHRoZSBuZXcNCj4+IGh5cGVyY2FsbHMgd291bGQgbm90IG1l
-YW4gInBoeXNpY2FsIGJ1ZmZlciBhZGRyZXNzZXMiLCBidXQgInF1YWxpZmllZCBidWZmZXIN
-Cj4+IGFkZHJlc3NlcyIuIEJ5IHJlcXVpcmluZyBhIG1pbmltdW0gb2YgNC1ieXRlIGFsaWdu
-bWVudCBmb3IgZWFjaCBidWZmZXIgKGNhbiB3ZQ0KPj4gZG8gdGhhdCwgYXQgbGVhc3QgZm9y
-IHRoZSBuZXcgaHlwZXJjYWxscz8pIHRoaXMgd291bGQgbGVhdmUgdGhlIDIgbG93ZXN0IGJp
-dHMNCj4+IG9mIGEgYnVmZmVyIGFkZHJlc3MgZm9yIHRoZSBuZXcgcXVhbGlmaWVyLiBJZiBi
-eSBhbnkgbWVhbnMgYW4gdW5hbGlnbmVkIGJ1ZmZlcg0KPj4gaXMgbmVlZGVkIHNvbWV0aW1l
-cywgaXQgY291bGQgc3RpbGwgYmUgYWNoaWV2ZWQgdmlhIGEgc2luZ2xlLWVudHJ5IFNHLWxp
-c3QuDQo+IA0KPiBXaGlsZSB0aGlzIG1pZ2h0IGJlIGFuIG9wdGlvbiwgSSdtIG5vdCBzdXJl
-IEknZCBiZSByZWFsbHkgaGFwcHkgd2l0aCBzdWNoDQo+IHJlLXVzZSBvZiB0aGUgbG93IGFk
-ZHJlc3MgYml0cywgbm9yIHdpdGggdGhlIGltcGxpZWQgZnVydGhlciByZXN0cmljdGlvbg0K
-PiBvbiBidWZmZXIgYWxpZ25tZW50IChtb3N0IHN0cnVjdC1zIHdlIHVzZSBhcmUgNC1ieXRl
-IGFsaWduZWQgYXQgbGVhc3QsDQo+IGJ1dCBJIGRvbid0IHRoaW5rIGl0J3MgYWxsIG9mIHRo
-ZW0sIHBsdXMgd2UgYWxzbyBoYXZlIGd1ZXN0IGhhbmRsZXMgdG8NCj4gZS5nLiBhcnJheXMg
-b2YgY2hhcikuDQoNClRoZSB1bmFsaWduZWQgY2FzZXMgY291bGQgYmUgaGFuZGxlZCBkeW5h
-bWljYWxseSB2aWEgdGhlIHNpbmdsZS1lbnRyeQ0KU0ctbGlzdC4NCg0KDQpKdWVyZ2VuDQo=
+> and in
+> any case the forcing of the write-back cache attribute is a courtesy
+> to the guest to avoid such ranges being accessed as uncached when not
+> really needed.  It's not acceptable for such assistance to tax the
+> system so badly.
 
---------------uPP5skHFGdm6JveACLpENDp4
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+I agree we would better improve the situation, but I don't think we
+can do so by ...
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> @@ -518,26 +517,19 @@ int epte_get_entry_emt(struct domain *d, gfn_t gfn, mfn_t mfn,
+>          return MTRR_TYPE_UNCACHABLE;
+>      }
+>  
+> -    if ( type != p2m_mmio_direct && !is_iommu_enabled(d) &&
+> -         !cache_flush_permitted(d) )
+> +    if ( (type != p2m_mmio_direct && !is_iommu_enabled(d) &&
+> +          !cache_flush_permitted(d)) ||
+> +         /*
+> +          * Assume the whole page to be special if the first 4K chunk is:
+> +          * iterating over all possible 4K sub-pages for higher order pages is
+> +          * too expensive.
+> +          */
+> +         is_special_page(mfn_to_page(mfn)) )
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+... building in assumptions like this one. The more that here you may
+also produce too weak a memory type (think of a later page in the range
+requiring a stronger-ordered memory type).
 
---------------uPP5skHFGdm6JveACLpENDp4--
+While it may not help much, ...
 
---------------2l9jkCod0Tzd9bRIm3dbVX0I--
+>      {
+>          *ipat = true;
+>          return MTRR_TYPE_WRBACK;
+>      }
+>  
+> -    for ( special_pgs = i = 0; i < (1ul << order); i++ )
+> -        if ( is_special_page(mfn_to_page(mfn_add(mfn, i))) )
+> -            special_pgs++;
+> -
+> -    if ( special_pgs )
+> -    {
+> -        if ( special_pgs != (1ul << order) )
+> -            return -1;
+> -
+> -        *ipat = true;
+> -        return MTRR_TYPE_WRBACK;
+> -    }
 
---------------8wznQtuFLUDfP7ZKCaEBwT8C
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+... this logic could be improved to at least bail from the loop once it's
+clear that the "-1" return path will be taken. Improvements beyond that
+would likely involve adding some data structure (rangeset?) to track
+special pages.
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmMxY+QFAwAAAAAACgkQsN6d1ii/Ey8y
-mQf/VHPRvIJg/xrDuS+UaKeh0cuwxRY4izKaINM6p1k/krWlOFc2w5+h1fevvjutPAR5Nm42Zq1G
-2xAskPF8fS8MCPcZVPeXw2ohrQ5W1z+2Y3otr1jN4eynS1fr+wARfw12OkZ+JGoP9oKxdBoxZdtz
-5QWtfRjDrBhD9tWrIJ7hp4MHOBkPw1C1nmZpABSCrNQ+5eAfhtUBC3YANMvO27fq4nhpJleQvinF
-GKgL8DLVYd1gv97x5B2OWe5k6VBeI/phfy7dMhWlABbDbehB2u6JbbF5mD26We+LWhnhWjK+wDEJ
-hZut00mXLwiETTIxbHCa6eEP+/7yppKDWaXpV+i6cA==
-=t2bc
------END PGP SIGNATURE-----
-
---------------8wznQtuFLUDfP7ZKCaEBwT8C--
+Jan
 
