@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAD015EAB62
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 17:43:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.411995.655153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0AED5EABAD
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 17:53:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.412007.655164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocqGH-00081O-BB; Mon, 26 Sep 2022 15:43:13 +0000
+	id 1ocqPR-00019Q-8W; Mon, 26 Sep 2022 15:52:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 411995.655153; Mon, 26 Sep 2022 15:43:13 +0000
+Received: by outflank-mailman (output) from mailman id 412007.655164; Mon, 26 Sep 2022 15:52:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocqGH-0007xz-8M; Mon, 26 Sep 2022 15:43:13 +0000
-Received: by outflank-mailman (input) for mailman id 411995;
- Mon, 26 Sep 2022 15:43:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ocqPR-00016S-5X; Mon, 26 Sep 2022 15:52:41 +0000
+Received: by outflank-mailman (input) for mailman id 412007;
+ Mon, 26 Sep 2022 15:52:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ocqGG-0007xt-6y
- for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 15:43:12 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2053.outbound.protection.outlook.com [40.107.104.53])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec78cc33-3db1-11ed-9374-c1cf23e5d27e;
- Mon, 26 Sep 2022 17:43:10 +0200 (CEST)
+ id 1ocqPP-00016J-9d
+ for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 15:52:39 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70080.outbound.protection.outlook.com [40.107.7.80])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ec4e9e7-3db3-11ed-9648-05401a9f4f97;
+ Mon, 26 Sep 2022 17:52:38 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PA4PR04MB7823.eurprd04.prod.outlook.com (2603:10a6:102:c1::14)
+ by PA4PR04MB9296.eurprd04.prod.outlook.com (2603:10a6:102:2a7::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5654.25; Mon, 26 Sep
- 2022 15:43:09 +0000
+ 2022 15:52:36 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::358f:58dc:c0c2:1155]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::358f:58dc:c0c2:1155%7]) with mapi id 15.20.5654.016; Mon, 26 Sep 2022
- 15:43:09 +0000
+ 15:52:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,242 +46,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec78cc33-3db1-11ed-9374-c1cf23e5d27e
+X-Inumbo-ID: 3ec4e9e7-3db3-11ed-9648-05401a9f4f97
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CdwIO187jJ06U/9c6GPFEHStikVx1/wfhW4C1ZJkW2BXPJ/YBnsMnU9rVVbEwS1CgM7yqjkxjVgjtA51p0GMDl0W/eQh1bBgZlXBOEULKAh60tAStxqomWy+F3A6mIAcyeCcYgd9MlY0RWqvKq3E6Y7kCwz1aRugxBqg9LT7/NXD1vgCi7NYQ7igL1aJ1a7gU/zbcvfzS7smQrYd4Lbt4mGGPVX5QppIQs/2XoFi+58k6k7KggJ5LDKaTJQoTdOZ2dfjERbF2i7Qv4+9G+ByKJpXs/S0IERNKGxhs+j+rdAz5LQ0jCI1qxamaBabtOY+NPKc942pMJ0nY3kbKEgCng==
+ b=c9Nx7g1UpWeVsmV7CQtjtGpr58dbWKfk+StEu8ZCkYHzGP+R4EdJZwW/1VgTJn0+p72PLnwTm3TfmYmNfalq9OSdLIfiN1Td85OGfdxSyWFIVfMA6BYU/8mqKgWcgOjDnI3Xr647Y1UTeJM6Tg0FSHxwGnYw64eRZd8XxqlKiKauIdlcYGF0WzWIPUfbCuIwvkLQEE4dWaDnFAluRmo2F6xrdaXnTOLkqPpsYMTdIdcIA0DX5+3o0rtGpBRrpD+bvu+D6An2PgbqaK+/LpwUKHTDdDr8LaWsDCXeegDQ1sE88cZ+6ExmhOFFaaCokYjreEu0CNCbCvulH34e1pc6bQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/wLw02V4JwhQCt/QO7yeGhhN/aqVFrk/+3J/uoGXdoE=;
- b=DYLQrMlfxbjcs91uMcsgwpNJvCSg8BT7S2/QZcxXh4lLYuKyCpv86EEQJbZ6m0aNvSTO7826W1ZH1p6diodb5rbOyosiA4MqRhTgZj5omVCciawofnwdByXve7Bi1evyqcy7+4kN+ZO8rJd83TMB7Rzd/Rb9dQ6C8FGZP/PtQLhnfsZA7DB344PCJ6yW9DJ7e8CxWTyTWG3Av9YSEKcu2RkBlRy+CpjRidM/2H7TToNkc1XUTb+Tta5bituSEUgacDMWJALUopc4L3fJWkQOqwv+Mgi7YRjEwN6kXjEimXOdrKr13xyxbXXvP5fQ2spghF7kU2bpI2O3JLjWVqDwCg==
+ bh=V4Q5j4CgqRlyXplvwGKGlv+opU2Bw+QbT6FnbH3OG+I=;
+ b=EixAqlbGbHS2x2f1j5MbiYBoxHAmN6cicD6qyZ9tB2LrDps1zYXGdU82j7VGe1VFHv+mD3UxqtagpwZ1CjW7W65qva/DPOLY3/JzTdDi7VupOxd2Z5WSP+lISnFIKftVW1Hsoofd7ZD+UOoK/qiFfNy83aY2sfnUaOnt5F37+JrvJZblLBueU59LcgqiVySSD6oMSYY632uzy0CrRzd6GwwFsSZlvIA3OpPZPErKGB1+0qSnVmyEhxPm6YDalmkUuiHkAicwFFsGADm/3LgjrZYJgzQrRi2sd58wI1HypkEUovflBdaS/gxjjPlyAlCm6FYFbCRTeEasTZpjTnDzRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/wLw02V4JwhQCt/QO7yeGhhN/aqVFrk/+3J/uoGXdoE=;
- b=bJ5/Gsk5QWkQp2pNl5IW3D0Y+lUykmOI6OfyRNZEjFtM/0eXea9goPmEwI4jeYDasziRv4Iv0xl54ho91KEYAa4eGDThboTPry3MT18ztKnR9ofnfWAINP42Ah4w/qit8eVFDUniRVyUIcAsJYQliNwNpTpAS9BaezdMVAkU11J+kH2Syn/B2gxLZieL6TQc4d0QhcQVuQHZ5xfbRYGJwR+cypf4ppU6ccKCdUt0isXmAdgPrRUj0nIExL5I5IuaDK8iPuNZo1a59U+KYUvaLDZsK+1YNhv3Mp6TSayg88jEllpBGS/yYIQWHob53uYoESSKoQjdWljLsBCqGYLQDQ==
+ bh=V4Q5j4CgqRlyXplvwGKGlv+opU2Bw+QbT6FnbH3OG+I=;
+ b=juFbANwsuPGGUWRZSjBn5AxIKMwE2Qg3ChdUQdSEHVn8V/ndYphg1E/5AwI6TXgJxWBCy4wjvKwEq3UkvTaLgaPQp5Q4JemH5GxC1z4Q1yUQ6UxXafYJbAmO18rKb+53azF105HWRbgEDFljcA99W5aJjNyBHPzgkL0Uzw3qdlQySUYXRrmNK9xAvKwurKfmJfx6f37bhnxrqcI3KhEOKs+LoIO8ENVBCYj506DFr8eyVMtdYU3Vawxz8oRgn9xU9volX74+XZ9TmzP3GjG9QYzXX9eMtmnTWJRrntvkz7EzP5B1FGY2MI0VIrLlDpWOPzcWL8GEhp+pc3MGGunSAA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <81ce102f-3c60-5ccb-e641-03e6522e10bb@suse.com>
-Date: Mon, 26 Sep 2022 17:43:06 +0200
+Message-ID: <a91f9205-9f75-7fff-d5db-26d7729847db@suse.com>
+Date: Mon, 26 Sep 2022 17:52:34 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.0
-Subject: Re: [PATCH] x86/ept: simplify detection of special pages for EMT
- calculation
+Subject: Re: Design session PVH dom0
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220923105648.12587-1-roger.pau@citrix.com>
- <f8a8366f-e656-1628-63cd-d4e0b01dbf57@suse.com>
- <YzG2zx33xSLC4EaN@MacBook-Air-de-Roger.local>
+To: Juergen Gross <jgross@suse.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xenproject.org>
+References: <YyszY+qHOVkCTe92@mail-itl>
+ <e81e9b3a-baf2-cba1-01f1-89ba4a9ccf33@suse.com>
+ <bbb0a75f-4687-3e18-6219-ee32de298664@suse.com>
+ <8de37e96-cf67-2306-b586-dd45019a536d@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YzG2zx33xSLC4EaN@MacBook-Air-de-Roger.local>
+In-Reply-To: <8de37e96-cf67-2306-b586-dd45019a536d@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AM5PR0101CA0013.eurprd01.prod.exchangelabs.com
- (2603:10a6:206:16::26) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0262.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45f::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB7823:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ab88a20-72a0-41c4-452d-08da9fd5cfd3
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB9296:EE_
+X-MS-Office365-Filtering-Correlation-Id: 693abcb4-c693-4653-c7ee-08da9fd721f2
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	v6LF2og9+jyabpTy6ucksrW2rBIiovejJeStrf9S6gAjMCXDAo9lx5S3SJmH+QrupCkdTEN7yJyRMc9y9KXduzR97TUb4sbO6+VYXMUf+CfxEQTpbF5RdHGX2lw/zzB5aPwvlW+RM5D7k35HYPO3h3aGT/EMuFD8WoBsM8jaG0qqfwo2bKgnxWqmFFJfczBgHj283FM/DW1zGW6vxxO84trTi2IvaS/PJrziYcCDPK3/P0CCUBM9DPsLVEIoFYn5L1f3kSTFyEBTCcRtku9d0/zpfxR4Gd3GR89UDF37Oe89OH1g7iz0fLAQ1KO2cQm9wso2XZgIxITaIVQcUsZnKNX5emTa1LFYAqMFEV96+5d+0/cR2T7Emd7EDj9Gv/R9ecZPQOKtpwZJQ0VLn8iJjhHIlg3kGMSztIk7hlLq5kAnHrYyLWS54Thy1M7mxH9UYB34gHddd5QDYOqFfcvjpCAcds7ZMbxARsCiF2stp7/SrAmsDWK5IZd7jk65YVrqQvODTvAnMZ5L4emYHP2VYsJFdeN8tEzoohs15sFN9JyWN0lH3oOq7khQ8fl82K3RXtwvSDYWI77mQGRVT4w0MRoxgyjsnRXT0yjkGw75242C/N3/LUSthoX83HrkM+IpkRFcGa30Hl4fGEdPcFCtyt5Jbna6GlR9yn5fePhuOMg77e8qvqAM67J0H9/Yn9PBpDHwqxIHCtvL1auJZsTGzkm/a9is6C1ABkJgoxLcOW8G9Pb5ksTUqvB5QlD98MR/Qh8urSeyx4xSvYXFRYjlZfCmXiIUabVER4OcjaETrDc=
+	D+TW8odJu/382t+RxE6pb/pDGdAWO7r3SGEu80p0FZ0Fc1hFeImhCehF8jiYECTNbTm7q23w5hxXIX0Q5j4PmEE4fPLYVv32JZiKqpscg1xMlxPRc95ZUCNRgXDpY2VfE9a3hHDm2CtnGRGGADbQ2DKHIRn5A6zetiwxXPTOw1UYPSQTF6yhC/1K1k02CuBRvdfYFlBOdflu1UWKF2oLH2yreGJby9lZEBgM5zRayHGbvDsBNEPHVWAInQHupdkP/TDOxLCnmSrWmMSE//iSbZ+GTZ7v9s6a3NhK8ma+Vq6c/1xg0+KT/mUctc2aKQurrPPef6B3b66Y/rvtrO4rf1Q2PKD77esnPKW5SZm75WbZXemYCV+dWqbufGTXxzmliunlYcQdWEB6B2x1WsjyAyx0VNbna7myHFlf3KuwgPw4bnBi3wzQNNQf9PTS1EaGACMZWdsrKvf5yiKFtgM9XgiOTZvmWcb32QL5H5FB05Ym+QeKeCxBLNiqqcjcOy+FqXgtNWLjx0bwVYmCP87dReTgvSqk6aJfN9K2NUfCBt3XxUPEnLmZagh8qhIXpMF//O9x0CrBSDd5Kia8A1PJY6T3reEfoQ2ksssxUu3GUtHXxPPGUkNzK/gZFt+uX1n3kfbh82UyzS63mOwHGpVCe9DlqtudwCYqQz/hocOWnR8IY5/cUOg8hcoXePZ+1Azis2Mo8jqKTNhIf1SYVvnaAo6DuwllsrNkF9LfCr4rVhU6DDnTGPn95z76A7LSICiyn+uY7coWa8g/EME4A8/MHbHsukbzYSDLe9paDIMfdgI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(376002)(396003)(39860400002)(366004)(346002)(451199015)(5660300002)(6506007)(2906002)(478600001)(53546011)(26005)(6512007)(316002)(38100700002)(8936002)(6916009)(86362001)(36756003)(41300700001)(6486002)(66556008)(31696002)(66476007)(4326008)(54906003)(66946007)(8676002)(6666004)(2616005)(186003)(83380400001)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(346002)(39860400002)(136003)(376002)(366004)(451199015)(31696002)(86362001)(38100700002)(36756003)(31686004)(2906002)(186003)(26005)(5660300002)(6512007)(6486002)(53546011)(41300700001)(478600001)(6506007)(2616005)(316002)(6636002)(54906003)(37006003)(8676002)(4326008)(8936002)(66476007)(66946007)(6862004)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SHJQaUMrL24zWjJEelRSVjM3ZWVKN0lJU0JiVG8wTTBtcE91SnFmT0hmOWwv?=
- =?utf-8?B?bW5GOGNoTXdDTWdpcCt5YzBobmlwb1FjTi9Za2FWV0t0MlladmRTU3ExaWZR?=
- =?utf-8?B?SHp4cFVZZDU3djFpVmM3ei81ZWxoTkc3aFZEWTljWFlkSEVpa1l5SWR5cUpR?=
- =?utf-8?B?SElqanNiazNuL254UElOSDB0Wk55ZXJzcnNBN1NvYzNhU3A3SzRQc0JCUmZL?=
- =?utf-8?B?RERzNlRKMHU1VG9YUjVMT1ZNZ1p5WHU5WVJMbzFrL29EejFQM2FSY2QyQUo1?=
- =?utf-8?B?UW1KRzFpdDh0Mk8xaTFxajlhSUZHbDdyZkxRb3FyZEIzeHhvblA2NUVvZ0s3?=
- =?utf-8?B?UjdzTFBVUytERTkvcHE4cXRPTGhsNjZTMUIvQzd0SXUwdmE0a1BQUk00TjhZ?=
- =?utf-8?B?Uy9ETHU0ajRCdlVTakM0Zyt3ZkxoLzN2NmRyVldLbzRGKzlCRHpsbVdPVU12?=
- =?utf-8?B?OCt1VGx3c3dIdnlYZGlnUnV6NStNYVBQMUlDYkJxbnk0eU1IZmtqWHVyS2NU?=
- =?utf-8?B?aUt6QnZWQUIzSllYcTVQNDVoNVpJUTN1M2QvcnB2aXhYWXFVaDlvNDkrQy9M?=
- =?utf-8?B?YmJtU1MrMjFHU2xZbDRjZzlSQks5azdKTDVqY2t4ZDFVUVFsbzRrZWRuWVYy?=
- =?utf-8?B?OWwvNGVqSm5MVVJuMzVQN0pkRFBDQ2tycnJhMno0bG9YRzYxQnB3YTlBRlpG?=
- =?utf-8?B?eHl3RXpIOENoSkF4Wm9DM3JnMllCTjVBVE8rbkc0MTFiWnFjNUhNVWRocHgv?=
- =?utf-8?B?Nkh1SFhFa0FyRkhieGU0disyNnltQVFUL2tpbzJxUU5kSUpFL2Z5QnJKSXpB?=
- =?utf-8?B?ZzRFWmxuZGtRQ24wRlFaMEdDNG0xb0xXRitDaU05WmoyVHgrK0lvTCtjeU9h?=
- =?utf-8?B?eGF3V0lDVXdZT1dFRGtIQnl6SnpKTkJHYmtna3ZuVXVSQTlkVGRkalp3VnEy?=
- =?utf-8?B?RDY3NERialEzZm1yMmFBU3F2bDZjbVAyUEFUQlU5Vk1zSlNXdGFjbEdMVGFL?=
- =?utf-8?B?Y3g2NGRoNjBoMW5jdDdKTGtqVG1DK1RWNi9sUnFvbGxQeUZvbVYxUTFVRjhQ?=
- =?utf-8?B?T1F1VUNqaXFjakg2dWJiQmpXdU5PRlFDT3RGa0owRjZoVDFUeHJreDZybUxZ?=
- =?utf-8?B?MDh3ZHpqczlhQkg2TXY3Mm9XejdjSmEwelZieTFnM1hVWUpIUyt5MUM3Q2gv?=
- =?utf-8?B?djVJOTdMdXNGaGVucGtzWWpDWUo1bEoxZU02OXpUOCtuZm1vVDdBeVZjSnBB?=
- =?utf-8?B?TCtGbzBJZ2pheld6aUV6VzBrSko0T3ZEeXU4YVltcW0ySDVZYWJKZWNVYnBD?=
- =?utf-8?B?UkRwS3VGQVhwL1M1azJ0Um1wNjI1dzU4cmg0Qm9rMEpuZkVzR2cwR0prZkkz?=
- =?utf-8?B?c2dxeWZkc1E0c1l3Y1RTZWkzbUZaMWEvQzNUdnFPUmFHYmlGYlFzejNWb3ZN?=
- =?utf-8?B?TkdwbzRUZWQ5bWxJT0Y4Y1NpOHY4TStkbDNXRW1YRnBObU9qdldiYWhxREow?=
- =?utf-8?B?ZStKL2ZSUmNUc0tObm9GT2VNZHJienNNK1hhT3ZEQnVtSlRNbEJnRkhaRmxi?=
- =?utf-8?B?TGVsdUVKRk50WGVnaGV2ZGpXMExENWFsNXFkbGlFMnRaNDRmWjZaRUlUUHBC?=
- =?utf-8?B?bG5nWmlNdFJPTkNZWHdZbjU0bWxRWEhWbm04TVRoV0x1UXg5NnBzUFk0N2th?=
- =?utf-8?B?VVArS1JxMVRsaE4zcTM1UkpWd3VZbWdUWXpTUWtsZmZENWsxcUVTVmwzbndZ?=
- =?utf-8?B?ZHVvSmpzdHVxY2FnazNJcm9razBYZ0VmLzRuTUxKczRZS2l6SU9ZRGpweVp4?=
- =?utf-8?B?Z1BCMHlzVWhtb1IzQTYyUU9GaStTS0dRODF6U0JsQ0liZFFhQVNPeS9HWnpD?=
- =?utf-8?B?UkZEUWZwcXFONTZibGFyeE91Q0pGUzd2TzhabWdRTXR5Mkl5VGMySDZNeWNO?=
- =?utf-8?B?UlJFUGtXTnQzdzNid1Vhd2JGNnIzdmZ3bDViTlhlT2VEc25NV3M4ZittaEx6?=
- =?utf-8?B?VzZZSEJzRk11dWhONjlnSENVeGNaakQxVnQzMHh1MlZ1UHBhNFFOZ1BZdDFh?=
- =?utf-8?B?elh1dEtsUlZpWlhTQ1dRSzl3ODFVVENjcm5WZ0lwYVprK2VoZlp1ZEhjNTVp?=
- =?utf-8?Q?nGRk/YlrzPx5gImTussW71eZd?=
+	=?utf-8?B?SkRCMVA0dUxSQTRxOHJrd1lvTVRPeCtaUXhHWVdodmdYZWViRUJzcG5jbERZ?=
+ =?utf-8?B?TG9WS0hqSlF0MmJyNXVHZTFRQXhJUlBpKzNXMFBSSngrc0Q4Wm5oOTJQNHdk?=
+ =?utf-8?B?dDNVMFVBMmRCOG84MjYrdkd3RFZYTWQwcGFJZUc2cFNHdUJ5OTJjdis1c01Q?=
+ =?utf-8?B?SDh6NXBYSG5BTGhoLzdnamZKTURVdUpPa1JyRzY0U2FveWVyMCsvRnpwZ1dZ?=
+ =?utf-8?B?NjVyMWx2UFRpUlphT2NISEFYbHB6OERDempQbmtWUE9iSUdFVzVLaCtaUmJM?=
+ =?utf-8?B?aHBUdlZVL0RHejJoY3psUzJ6SXpRQmRVSzBoV0l1L0tsT0k2U0VIenFYdjli?=
+ =?utf-8?B?WkREeCthZ0F2WmxrME45dG1BcE9zZXFtRTF3K3lDdmFKZHNPelQxdDZMVnl6?=
+ =?utf-8?B?ZEl5aG1ZZG43MjFLR05TQ240T2haRU1TczRFVDdiMTlmRXI3NlVoWnpwT3Zi?=
+ =?utf-8?B?VmlPbVhmYTVMN2pxZFJZaTZManlNeVUxZDVzQnNCYjE1ak1Wd0hzbW1ScWRo?=
+ =?utf-8?B?T21ScDAvSkxtcUJ5MHRDM3Nza1B2b2czU2dFSDk4YmFCU0hqTTNYK044SVFN?=
+ =?utf-8?B?K01YNzZlME5DckpjekxyN3dHdGRZcW5zWjRRMmljWDIrcEI0NHYyMzMvMisv?=
+ =?utf-8?B?SEFKc1oxRHMvQ3dybVNBdW5Ob0VVNU1wckhLT1VOT3BjN2YvcnNzb3NEKy9J?=
+ =?utf-8?B?MEFQODc0WTV1N2h3T1dhTm1vYktqYWVkY3dWaVljYXNVNzJ4b1JhZW11SnFI?=
+ =?utf-8?B?Y3l4S3NjbkZTSnQ4RHBGcWZkU3dqbHgycW1ZSE0ySXcycWRVK016NEI1b0FZ?=
+ =?utf-8?B?blBGcjJLVkVwS3dDTmp3R1FiNHdKVFVGRXhPM1J3Q01WbDJTNXRhRXdXTnBr?=
+ =?utf-8?B?VExWRW9BeStFYUNxY3ozSDUyRVZ3NGozWlY4QWhONDZrYlloRlZOODlmOHVn?=
+ =?utf-8?B?ekhNUFNDamJhV0drMW5yVDRkVUsxTDFjK21xS3RQbVpreFdDa2o2OU1NRVdj?=
+ =?utf-8?B?a0tabnBnb1lBTGhHY0dEOFl5TlFzdHJTNHJqT0NsZmhlS1F3bWoxOWN1MXhr?=
+ =?utf-8?B?ejZNRmpFMFhZbXlBdnp3dUh0Q1BxaVVhQnRtYnF0dmRrODZ5UVE5U2NPNUxX?=
+ =?utf-8?B?VHFDczZ6djFBUHFSdlpHNkRFRHVNdWVOb3EveDhPa1h2ZTZYVGZBMHZzUUQz?=
+ =?utf-8?B?MEpBTXgwWTlnYVZvWVlRMmhEWWlBd2FCOTk0TXRlc2hNL0ROV2ZKRytOUHUw?=
+ =?utf-8?B?Mm8rN01oY3oyWkovaHY3VHhYdTgycnZSUll4bDBuV1JTTE5waXExVVh2WDBZ?=
+ =?utf-8?B?NFE3cWIwbWlFNW1Ya1AwOFdINW00QllIczM5S1FuMFozb0ttVW80bGM0RHZB?=
+ =?utf-8?B?SUtSQlNBOFYyN2h0SDFOaloxcDlHNzhaQVRRT2gxWUpOeUFNTVFzb3JTcUdE?=
+ =?utf-8?B?em1Ta1BDb01BMjF3NDRJUlFkZmMvT3NsbXR2WUpHWkVvUlFRbUM4bi9DSnZM?=
+ =?utf-8?B?amFQQ1VLVGdKMGlNTVNPZTl1Ny9KTzdQUW9pOWZORDhDbXRKWGNqTm9ZYVRU?=
+ =?utf-8?B?WUJBL0VOMzZTanNIQVFZMjNKd3VwU25KRTdVdVJOUU1RTzBPcll3SS95QWli?=
+ =?utf-8?B?QTZsWVRGZVQ4VHRiVnhWYldOYmRkTmxPS2pqdUhhY0JHdmxqUUVSR1NjSXVI?=
+ =?utf-8?B?d1FpM0w1MnhiTDR3dEY0UWN4RU8wVkhhNDhIblc2REVEVFd3cE44djloUHNo?=
+ =?utf-8?B?L0JCbktyKzh0ZlYyN1c1Ry9UY1diU0tCQ0tWVHNDS1J0REVqQWtPWTE1UkM3?=
+ =?utf-8?B?a0ZRMGx6S0M2a0ZUZk9RRjR0S1ZkcGppVXU4SjRaMmlrWnV5SXhQaDFVT21h?=
+ =?utf-8?B?a2NwRG14NitHQXlRM0xmVWVQNFVTdWFmVlNhdDZGMXRrNGpwWVFWNllManpY?=
+ =?utf-8?B?RC9kVDE1cDc4RFJ5Ry95YldNUFRXTktpd2RHd0hBbVI0eVNkekdhY2s1dVhy?=
+ =?utf-8?B?ZXNLaXFvVjJvTWdqU1RLVDdrbHdiUkZCYnlFbkdIUjN1bXd0bzI1TXJPOUN6?=
+ =?utf-8?B?OGRNQ1lGRk82SWQrajNESnVwQ0dKbmR3b1diTFJaT2h3dGFjZ0FNWk16WkZ6?=
+ =?utf-8?Q?qEpR3iWPE8qbWmIX3iBoXV2hW?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ab88a20-72a0-41c4-452d-08da9fd5cfd3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 693abcb4-c693-4653-c7ee-08da9fd721f2
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 15:43:09.1176
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2022 15:52:36.4565
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zcmcnsWcw+6qa5sAu7730x4Q8v6yNJCBzzxXx5dZXirHqmwOd0GZ4/8qNsGIBhqG8GYAs/urbgQCfmQVkiNyKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7823
+X-MS-Exchange-CrossTenant-UserPrincipalName: vCtyOqnDTXHwDEpn5JQIdFymBPXNCOmoIdO6oZ3xLCDb5fbsjaIdD+ftXPZqa6K1c0WgFBmeZHDOhRQJHIN9XA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9296
 
-On 26.09.2022 16:27, Roger Pau Monné wrote:
-> On Mon, Sep 26, 2022 at 10:38:40AM +0200, Jan Beulich wrote:
->> On 23.09.2022 12:56, Roger Pau Monne wrote:
->>> The current way to detect whether a page handled to
->>> epte_get_entry_emt() is special and needs a forced write-back cache
->>> attribute involves iterating over all the smaller 4K pages for
->>> superpages.
->>>
->>> Such loop consumes a high amount of CPU time for 1GiB pages (order
->>> 18): on a Xeon® Silver 4216 (Cascade Lake) at 2GHz this takes an
->>> average amount of time of 1.5ms.  Note that this figure just accounts
->>> for the is_special_page() loop, and not the whole code of
->>> epte_get_entry_emt().  Also the resolve_misconfig() operation that
->>> calls into epte_get_entry_emt() is done while holding the p2m lock in
->>> write (exclusive) mode, which blocks concurrent EPT_MISCONFIG faults
->>> and prevents most guest hypercalls for progressing due to the need to
->>> take the p2m lock in read mode to access any guest provided hypercall
->>> buffers.
->>>
->>> Simplify the checking in epte_get_entry_emt() and remove the loop,
->>> assuming that there won't be superpages being only partially special.
->>>
->>> So far we have no special superpages added to the guest p2m,
+On 26.09.2022 10:33, Juergen Gross wrote:
+> On 26.09.22 09:53, Jan Beulich wrote:
+>> On 23.09.2022 10:20, Juergen Gross wrote:
+>>> My favorite solution would be some kind of buffer address qualifier for each
+>>> buffer (e.g. virtual, physical, SG-list, maybe nested SG-list). So the new
+>>> hypercalls would not mean "physical buffer addresses", but "qualified buffer
+>>> addresses". By requiring a minimum of 4-byte alignment for each buffer (can we
+>>> do that, at least for the new hypercalls?) this would leave the 2 lowest bits
+>>> of a buffer address for the new qualifier. If by any means an unaligned buffer
+>>> is needed sometimes, it could still be achieved via a single-entry SG-list.
 >>
->> We may not be adding them as superpages, but what a guest makes of
->> the pages it is given access to for e.g. grant handling, or what Dom0
->> makes of e.g. the (per-CPU) trace buffers is unknown. And I guess
->> Dom0 ending up with a non-WB mapping of the trace buffers might
->> impact tracing quite a bit. I don't think we can build on guests not
->> making any such the subject of a large-range mapping attempt, which
->> might end up suitable for a superpage mapping (recall that rather
->> sooner than later we ought to finally re-combine suitable ranges of
->> contiguous 4k mappings into 2M ones, just like we [now] do in IOMMU
->> code).
+>> While this might be an option, I'm not sure I'd be really happy with such
+>> re-use of the low address bits, nor with the implied further restriction
+>> on buffer alignment (most struct-s we use are 4-byte aligned at least,
+>> but I don't think it's all of them, plus we also have guest handles to
+>> e.g. arrays of char).
 > 
-> Hm, doesn't pages used for grant handling (XENMAPSPACE_grant_table)
-> cause them to be mapped as 4K entries in the p2m page tables.  The
-> code in xenmem_add_to_physmap_one() seems to remove and re-add them
-> with order 0. Same with the trace buffers, they are added as order 0
-> to the p2m.
+> The unaligned cases could be handled dynamically via the single-entry
+> SG-list.
 
-Indeed. I was half way through writing the earlier response when
-recalling that aspect; I may not have succeeded in adjusting the text
-to properly convey that the concern is applicable only to future code,
-not what we have right now.
-
-> Note that when coalescing we would need to be careful then to not
-> coalesce special pages.
-
-Well, no, ...
-
-> Might not be the best model because I'm not sure why we require
-> XENMAPSPACE_grant_table to force entries to not be mapped as part of a
-> super page in the guest p2m.
-
-... as you say here, there may actually be benefits from allowing such
-(re-)coalescing.
-
->> Since for data structures like the ones named above 2M mappings
->> might be enough (i.e. there might be little "risk" of even needing to
->> go to 1G ones), could we maybe take a "middle" approach and check all
->> pages when order == 9, but use your approach for higher orders? The
->> to-be-added re-coalescing would then need to by taught to refuse re-
->> coalescing of such ranges to larger than 2M mappings, while still
->> at least allowing for 2M ones. (Special casing at that boundary is
->> going to be necessary also for shadow code, at the very least.) But
->> see also below as to caveats.
-> 
-> I guess a rangeset would be more future proof than anything else.
-> 
->>> and in
->>> any case the forcing of the write-back cache attribute is a courtesy
->>> to the guest to avoid such ranges being accessed as uncached when not
->>> really needed.  It's not acceptable for such assistance to tax the
->>> system so badly.
->>
->> I agree we would better improve the situation, but I don't think we
->> can do so by ...
->>
->>> @@ -518,26 +517,19 @@ int epte_get_entry_emt(struct domain *d, gfn_t gfn, mfn_t mfn,
->>>          return MTRR_TYPE_UNCACHABLE;
->>>      }
->>>  
->>> -    if ( type != p2m_mmio_direct && !is_iommu_enabled(d) &&
->>> -         !cache_flush_permitted(d) )
->>> +    if ( (type != p2m_mmio_direct && !is_iommu_enabled(d) &&
->>> +          !cache_flush_permitted(d)) ||
->>> +         /*
->>> +          * Assume the whole page to be special if the first 4K chunk is:
->>> +          * iterating over all possible 4K sub-pages for higher order pages is
->>> +          * too expensive.
->>> +          */
->>> +         is_special_page(mfn_to_page(mfn)) )
->>
->> ... building in assumptions like this one. The more that here you may
->> also produce too weak a memory type (think of a later page in the range
->> requiring a stronger-ordered memory type).
->>
->> While it may not help much, ...
->>
->>>      {
->>>          *ipat = true;
->>>          return MTRR_TYPE_WRBACK;
->>>      }
->>>  
->>> -    for ( special_pgs = i = 0; i < (1ul << order); i++ )
->>> -        if ( is_special_page(mfn_to_page(mfn_add(mfn, i))) )
->>> -            special_pgs++;
->>> -
->>> -    if ( special_pgs )
->>> -    {
->>> -        if ( special_pgs != (1ul << order) )
->>> -            return -1;
->>> -
->>> -        *ipat = true;
->>> -        return MTRR_TYPE_WRBACK;
->>> -    }
->>
->> ... this logic could be improved to at least bail from the loop once it's
->> clear that the "-1" return path will be taken. Improvements beyond that
->> would likely involve adding some data structure (rangeset?) to track
->> special pages.
-> 
-> For the guest I was running the loop didn't find any special pages in
-> order 18 mappings, which are the most troublesome to handle in the
-> loop.  I'm not sure bailing early would make that much of a difference
-> in practice TBH.
-
-As said - it may not help much.
-
-> I did also consider using a rangeset, but that would use more
-> per-domain memory and also require coordination to add special pages
-> to it.
-
-"Special" is a global property, so I don't think this would need to be a
-per-domain data structure.
+Can they? The first example you gave, the bitmap passed to collect the
+output of XEN_DOMCTL_SHADOW_OP_{CLEAN,PEEK}, comes as a handle-of-uint8,
+i.e. generally large but not necessarily aligned (even if in practice
+the caller likely will pass a page aligned buffer of multiple pages in
+size). If we introduced physical-address bases replacement sub-ops, I
+think we would make the buffer described by an array of GFNs, not even
+allowing sub-page alignment or size.
 
 Jan
 
