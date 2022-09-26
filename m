@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 269F95EB2E7
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Sep 2022 23:12:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.412099.655273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 057E95EB4C8
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Sep 2022 00:51:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.412107.655285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocvO9-0003hc-J4; Mon, 26 Sep 2022 21:11:41 +0000
+	id 1ocwva-0005dB-DS; Mon, 26 Sep 2022 22:50:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 412099.655273; Mon, 26 Sep 2022 21:11:41 +0000
+Received: by outflank-mailman (output) from mailman id 412107.655285; Mon, 26 Sep 2022 22:50:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ocvO9-0003e9-GW; Mon, 26 Sep 2022 21:11:41 +0000
-Received: by outflank-mailman (input) for mailman id 412099;
- Mon, 26 Sep 2022 21:11:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZcVL=Z5=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1ocvO8-0003e3-08
- for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 21:11:40 +0000
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd29504a-3ddf-11ed-9648-05401a9f4f97;
- Mon, 26 Sep 2022 23:11:38 +0200 (CEST)
-Received: from zn.tnic (p200300ea9733e74d329c23fffea6a903.dip0.t-ipconnect.de
- [IPv6:2003:ea:9733:e74d:329c:23ff:fea6:a903])
+	id 1ocwva-0005bD-AG; Mon, 26 Sep 2022 22:50:18 +0000
+Received: by outflank-mailman (input) for mailman id 412107;
+ Mon, 26 Sep 2022 22:50:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/HAa=Z5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ocwvY-0005b7-BI
+ for xen-devel@lists.xenproject.org; Mon, 26 Sep 2022 22:50:16 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 950097bc-3ded-11ed-9374-c1cf23e5d27e;
+ Tue, 27 Sep 2022 00:50:13 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 15B201EC026E;
- Mon, 26 Sep 2022 23:11:30 +0200 (CEST)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0DA79B81598;
+ Mon, 26 Sep 2022 22:50:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D9D3C433D6;
+ Mon, 26 Sep 2022 22:50:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,50 +43,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd29504a-3ddf-11ed-9648-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1664226690;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
-	bh=O4LMN3S2OFxEuL98rqNj8vUSOAZXBDFs/bg9a/ub9fA=;
-	b=o4RF8pFNgH5nnML9hM8RFzrcIG5JMloUgd20rtKM9fXBuE6dF57S+p/C5y9y7J0qRj2c0j
-	v1FwO+5n9Q0EBALFCLkpQ9Teoaw84m5E/UWZ3O05GZUkTYo4HfOi856UZIqW5aX54olvan
-	TCm5vkNRC8OUBdzCAR0eJ21WpIqdra4=
-Date: Mon, 26 Sep 2022 23:11:26 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
-	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH v3 08/10] x86/mtrr: let cache_aps_delayed_init replace
- mtrr_aps_delayed_init
-Message-ID: <YzIVfj/lvzQrK15Y@zn.tnic>
-References: <20220908084914.21703-1-jgross@suse.com>
- <20220908084914.21703-9-jgross@suse.com>
+X-Inumbo-ID: 950097bc-3ded-11ed-9374-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1664232611;
+	bh=NZH//ZhmyRzkqcR7Vfm/ILuF8is8Qf4IrYi4B2cbzuQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=k1k9sZ4z0Oz5HV9ynVKfbiXqxomR5qmVbq0DIPH7/plr+pXd0Q9x/5gTAg3DVt0og
+	 2jpcUgc1cS4aZ5sRMLjNgAwLRIR1FabCJd+SWLwN3kvfeol3OwSIqwEcVwGJj3gpn9
+	 aMf4i9acVJobjDzJXPmqZEJn9ofkq0VFdNVkk443kXcejx9NLbZ3pI1e6P5A+1YMNR
+	 4b0Wbi1AUv+qEcwcISve9jL5c2CAQxKcgAd6ni2EhK4pQmP0dk8L/4KQs3lT9I4iBQ
+	 u/mdY12682RjN9vjct5ifrpKq2U7xTZO9MD4ezS8YhfssrZtD6go3jl9g3l0gmay/i
+	 s1HerrZ+m+u7A==
+Date: Mon, 26 Sep 2022 15:50:09 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 02/10] automation: Add randconfig build jobs for arm64
+ alpine container
+In-Reply-To: <20220926110423.26030-3-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2209261538410.922084@ubuntu-linux-20-04-desktop>
+References: <20220926110423.26030-1-michal.orzel@amd.com> <20220926110423.26030-3-michal.orzel@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20220908084914.21703-9-jgross@suse.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Sep 08, 2022 at 10:49:12AM +0200, Juergen Gross wrote:
-> -void set_mtrr_aps_delayed_init(void)
-> -{
-> -	if (!cache_generic)
-> -		return;
-> -
-> -	mtrr_aps_delayed_init = true;
-> -}
-> -
+On Mon, 26 Sep 2022, Michal Orzel wrote:
+> For arm64 we perform builds using debian and alpine containers.
+> We are missing the randconfig build jobs for the latter, so add them.
+> This way for each container we have 4 fundamental build jobs:
+> - defconfig non-debug/debug
+> - randconfig non-debug/debug
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Except that you've removed the accessors and made that bool global.
-Which is less pretty than it was before...
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
--- 
-Regards/Gruss,
-    Boris.
 
-https://people.kernel.org/tglx/notes-about-netiquette
+> ---
+> Changes in v2:
+> - none
+> ---
+>  automation/gitlab-ci/build.yaml | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index a39ed72aac6d..d931441b910a 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -566,6 +566,18 @@ alpine-3.12-gcc-debug-arm64:
+>    variables:
+>      CONTAINER: alpine:3.12-arm64v8
+>  
+> +alpine-3.12-gcc-arm64-randconfig:
+> +  extends: .gcc-arm64-build
+> +  variables:
+> +    CONTAINER: alpine:3.12-arm64v8
+> +    RANDCONFIG: y
+> +
+> +alpine-3.12-gcc-debug-arm64-randconfig:
+> +  extends: .gcc-arm64-build-debug
+> +  variables:
+> +    CONTAINER: alpine:3.12-arm64v8
+> +    RANDCONFIG: y
+> +
+>  alpine-3.12-gcc-arm64-staticmem:
+>    extends: .gcc-arm64-build
+>    variables:
+> -- 
+> 2.25.1
+> 
 
