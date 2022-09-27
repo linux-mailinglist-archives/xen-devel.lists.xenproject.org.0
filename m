@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A00F5ED06A
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 00:48:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413012.656493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB4835ED0F2
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 01:18:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413017.656503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odJMr-0006qd-Hw; Tue, 27 Sep 2022 22:47:57 +0000
+	id 1odJp6-0001kW-Qf; Tue, 27 Sep 2022 23:17:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413012.656493; Tue, 27 Sep 2022 22:47:57 +0000
+Received: by outflank-mailman (output) from mailman id 413017.656503; Tue, 27 Sep 2022 23:17:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odJMr-0006o6-FC; Tue, 27 Sep 2022 22:47:57 +0000
-Received: by outflank-mailman (input) for mailman id 413012;
- Tue, 27 Sep 2022 22:47:55 +0000
+	id 1odJp6-0001if-Np; Tue, 27 Sep 2022 23:17:08 +0000
+Received: by outflank-mailman (input) for mailman id 413017;
+ Tue, 27 Sep 2022 23:17:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R98P=Z6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1odJMp-0006o0-Ln
- for xen-devel@lists.xenproject.org; Tue, 27 Sep 2022 22:47:55 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=IkIR=Z6=alien8.de=bp@srs-se1.protection.inumbo.net>)
+ id 1odJp0-0001iZ-Fe
+ for xen-devel@lists.xenproject.org; Tue, 27 Sep 2022 23:17:07 +0000
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6bdca904-3eb6-11ed-9374-c1cf23e5d27e;
- Wed, 28 Sep 2022 00:47:54 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ id 7d1813ce-3eba-11ed-9374-c1cf23e5d27e;
+ Wed, 28 Sep 2022 01:17:00 +0200 (CEST)
+Received: from zn.tnic (p200300ea9733e7ee329c23fffea6a903.dip0.t-ipconnect.de
+ [IPv6:2003:ea:9733:e7ee:329c:23ff:fea6:a903])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D7FDF61BBD;
- Tue, 27 Sep 2022 22:47:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7624CC433C1;
- Tue, 27 Sep 2022 22:47:51 +0000 (UTC)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 732D21EC0426;
+ Wed, 28 Sep 2022 01:16:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,95 +42,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bdca904-3eb6-11ed-9374-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1664318872;
-	bh=zeELk7xar18qPrqlqm4D+GPKvdAP7Bc4vG0Nu9Ixlj8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TVCr27eqennulMFbet5RzZVWaMg4BHEoFf0NJwF2VDjbFS2n6uxxzP55MsJ3GtIB6
-	 dGwCPOQNvQrJoM8sMKhOh24UiBGnrBpaPtI5ymrw/KgLu90gwfXItpq3Rgnl/HxY7C
-	 XYFwL0ZoJ/F1mF6650XAzj49OPv0f17NFZcg0gCmBqxeOMEESEv0DYfma4thK4qz6q
-	 P8TVvBfhCEp7Z7i0IKgypmCGe+71laulTc7bq/bhg/AGXBrWefj6xgRDcVuCqqqFjP
-	 Okwew2iVtASUEME9VpX6N91Bk2S7vMLa2mUH5jJutPfsADzOuNcW9MUEPBDWX9MEBg
-	 Ksx72vjVktwpA==
-Date: Tue, 27 Sep 2022 15:47:49 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH for-4.17] CI: Force CONFIG_XEN_IBT in the buster-gcc-ibt
- test
-In-Reply-To: <20220926130213.28274-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2209271545110.922084@ubuntu-linux-20-04-desktop>
-References: <20220926130213.28274-1-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 7d1813ce-3eba-11ed-9374-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+	t=1664320615;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+	bh=BsS2yAAp8a7eteydGjz/1IIbcCWf8fm6O9bJHVnMIgE=;
+	b=MDAqIYvETvvwwVfPadefvCT9E+d7+i9sxLo6dDkj6g/t1gln+Ku8fF14E8fBM8W7T/0vla
+	3AR8k+QlxFLx1Uf0QzANuyU5aIlg8QG0tkFNTzBqUsWwqwERemmu96QmVorvJr3SDA8XHU
+	b4cizwfQvMC9A+15M/lhgR8yDrnvnbI=
+Date: Wed, 28 Sep 2022 01:16:50 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH v3 08/10] x86/mtrr: let cache_aps_delayed_init replace
+ mtrr_aps_delayed_init
+Message-ID: <YzOEYsqM0UEsiFuS@zn.tnic>
+References: <20220908084914.21703-1-jgross@suse.com>
+ <20220908084914.21703-9-jgross@suse.com>
+ <YzIVfj/lvzQrK15Y@zn.tnic>
+ <ce8cb1d3-a7d2-7484-26eb-60d3e29fa369@suse.com>
+ <YzLMKk4OK9FtjjKQ@zn.tnic>
+ <c0872933-e046-0c5e-b63f-861d2d343794@suse.com>
+ <YzLcSOS6ZLIoPwBl@zn.tnic>
+ <d3cd5c50-24e7-ffba-de2d-cf00400f6e38@suse.com>
+ <YzLo9IFDYW1T8BVZ@zn.tnic>
+ <314e3bd3-3405-c0c3-225c-646d88cbfb1a@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <314e3bd3-3405-c0c3-225c-646d88cbfb1a@suse.com>
 
-On Mon, 26 Sep 2022, Andrew Cooper wrote:
-> buster-gcc-ibt is a dedicated test to run a not-yet-upstreamed compiler patch
-> which is relevant to CONFIG_XEN_IBT in 4.17 and later.
-> 
-> Force it on, rather than having 50% of the jobs not testing what they're
-> supposed to be testing.
-> 
-> Fixes: 5d59421815d5 ("x86: Use control flow typechecking where possible")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Doug Goldstein <cardoe@cardoe.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Henry Wang <Henry.Wang@arm.com>
-> 
-> For 4.17: This is bugfix to CI only, to avoid it producing a false negative.
-> Currently, the test intermittently fails to spot the error it was intended to
-> identify.  It is very low risk as far as the 4.17 release goes.
+On Tue, Sep 27, 2022 at 02:21:17PM +0200, Juergen Gross wrote:
+> So replacing the bool with "(system_state != SYSTEM_RUNNING)" is fine
+> with you right now? We can later switch that to the "more elegant"
+> solution when it shows up.
 
-Thanks for the patch! Very recently Michal has added a similar
-EXTRA_XEN_CONFIG option. If you are OK with it, I'll rename
-EXTRA_FIXED_RANDCONFIG to EXTRA_XEN_CONFIG in this patch for
-consistency. I can do it on commit.
+Ok, I think I have something. And it was staring me straight in the
+face but I didn't see it: the MTRR code needs a hotplug notifier. In
+that notifier it can do the immediate, i.e., non-delayed init while the
+delayed init becomes the default, see below.
+
+And ignore the pr_info debugging gunk pls.
+
+mtrr_ap_init() becomes the notifier callback. It doesn't need to be
+called in identify_secondary_cpu() anymore as in the init case that
+function doesn't do anything - delayed=true - and in the hotplug case
+the notifier runs.
+
+mtrr_aps_init() - "aps" in plural - does the delayed init after all CPUs
+have been brought online after the box has booted. That might need some
+renaming.
+
+And yes, there's a lot more to cleanup after this. This code has grown
+wart after wart over the years...
+
+Fun.
+
+---
+diff --git a/arch/x86/include/asm/mtrr.h b/arch/x86/include/asm/mtrr.h
+index 76d726074c16..1a3dad244bba 100644
+--- a/arch/x86/include/asm/mtrr.h
++++ b/arch/x86/include/asm/mtrr.h
+@@ -42,8 +42,6 @@ extern int mtrr_add_page(unsigned long base, unsigned long size,
+ extern int mtrr_del(int reg, unsigned long base, unsigned long size);
+ extern int mtrr_del_page(int reg, unsigned long base, unsigned long size);
+ extern void mtrr_centaur_report_mcr(int mcr, u32 lo, u32 hi);
+-extern void mtrr_ap_init(void);
+-extern void set_mtrr_aps_delayed_init(void);
+ extern void mtrr_aps_init(void);
+ extern void mtrr_bp_restore(void);
+ extern int mtrr_trim_uncached_memory(unsigned long end_pfn);
+@@ -83,8 +81,6 @@ static inline int mtrr_trim_uncached_memory(unsigned long end_pfn)
+ static inline void mtrr_centaur_report_mcr(int mcr, u32 lo, u32 hi)
+ {
+ }
+-#define mtrr_ap_init() do {} while (0)
+-#define set_mtrr_aps_delayed_init() do {} while (0)
+ #define mtrr_aps_init() do {} while (0)
+ #define mtrr_bp_restore() do {} while (0)
+ #  endif
+diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+index 3e508f239098..deef1b5b27cc 100644
+--- a/arch/x86/kernel/cpu/common.c
++++ b/arch/x86/kernel/cpu/common.c
+@@ -1948,7 +1948,6 @@ void identify_secondary_cpu(struct cpuinfo_x86 *c)
+ #ifdef CONFIG_X86_32
+ 	enable_sep_cpu();
+ #endif
+-	mtrr_ap_init();
+ 	validate_apic_and_package_id(c);
+ 	x86_spec_ctrl_setup_ap();
+ 	update_srbds_msr();
+diff --git a/arch/x86/kernel/cpu/mtrr/mtrr.c b/arch/x86/kernel/cpu/mtrr/mtrr.c
+index 2746cac9d8a9..abbf7cb8a430 100644
+--- a/arch/x86/kernel/cpu/mtrr/mtrr.c
++++ b/arch/x86/kernel/cpu/mtrr/mtrr.c
+@@ -69,7 +69,6 @@ unsigned int mtrr_usage_table[MTRR_MAX_VAR_RANGES];
+ static DEFINE_MUTEX(mtrr_mutex);
+ 
+ u64 size_or_mask, size_and_mask;
+-static bool mtrr_aps_delayed_init;
+ 
+ static const struct mtrr_ops *mtrr_ops[X86_VENDOR_NUM] __ro_after_init;
+ 
+@@ -176,7 +175,7 @@ static int mtrr_rendezvous_handler(void *info)
+ 	if (data->smp_reg != ~0U) {
+ 		mtrr_if->set(data->smp_reg, data->smp_base,
+ 			     data->smp_size, data->smp_type);
+-	} else if (mtrr_aps_delayed_init || !cpu_online(smp_processor_id())) {
++	} else if (!cpu_online(smp_processor_id())) {
+ 		mtrr_if->set_all();
+ 	}
+ 	return 0;
+@@ -784,13 +783,16 @@ void __init mtrr_bp_init(void)
+ 	}
+ }
+ 
+-void mtrr_ap_init(void)
++static int mtrr_ap_init(unsigned int cpu)
+ {
++	pr_info("%s: single AP entry, use_intel: %d, mtrr_enabled: %d, mtrr_aps_delayed_init\n",
++		__func__, use_intel(), mtrr_enabled());
++
+ 	if (!mtrr_enabled())
+-		return;
++		return 1;
+ 
+-	if (!use_intel() || mtrr_aps_delayed_init)
+-		return;
++	if (!use_intel())
++		return 1;
+ 
+ 	/*
+ 	 * Ideally we should hold mtrr_mutex here to avoid mtrr entries
+@@ -806,6 +808,8 @@ void mtrr_ap_init(void)
+ 	 *      lock to prevent mtrr entry changes
+ 	 */
+ 	set_mtrr_from_inactive_cpu(~0U, 0, 0, 0);
++
++	return 0;
+ }
+ 
+ /**
+@@ -820,37 +824,24 @@ void mtrr_save_state(void)
+ 		return;
+ 
+ 	first_cpu = cpumask_first(cpu_online_mask);
+-	smp_call_function_single(first_cpu, mtrr_save_fixed_ranges, NULL, 1);
+-}
+ 
+-void set_mtrr_aps_delayed_init(void)
+-{
+-	if (!mtrr_enabled())
+-		return;
+-	if (!use_intel())
+-		return;
++	pr_info("%s: first_cpu: %d\n", __func__, first_cpu);
+ 
+-	mtrr_aps_delayed_init = true;
++	smp_call_function_single(first_cpu, mtrr_save_fixed_ranges, NULL, 1);
+ }
+ 
+ /*
+- * Delayed MTRR initialization for all AP's
++ * Delayed MTRR initialization for all APs
+  */
+ void mtrr_aps_init(void)
+ {
+-	if (!use_intel() || !mtrr_enabled())
+-		return;
++	pr_info("%s: entry, use_intel: %d, mtrr_enabled: %d, mtrr_aps_delayed_init\n",
++		__func__, use_intel(), mtrr_enabled());
+ 
+-	/*
+-	 * Check if someone has requested the delay of AP MTRR initialization,
+-	 * by doing set_mtrr_aps_delayed_init(), prior to this point. If not,
+-	 * then we are done.
+-	 */
+-	if (!mtrr_aps_delayed_init)
++	if (!use_intel() || !mtrr_enabled())
+ 		return;
+ 
+ 	set_mtrr(~0U, 0, 0, 0);
+-	mtrr_aps_delayed_init = false;
+ }
+ 
+ void mtrr_bp_restore(void)
+@@ -869,6 +860,10 @@ static int __init mtrr_init_finialize(void)
+ 	if (use_intel()) {
+ 		if (!changed_by_mtrr_cleanup)
+ 			mtrr_state_warn();
++
++		cpuhp_setup_state_nocalls(CPUHP_AP_ONLINE_DYN, "x86/mtrr:online",
++				  mtrr_ap_init, NULL);
++
+ 		return 0;
+ 	}
+ 
+diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+index f24227bc3220..171acef35201 100644
+--- a/arch/x86/kernel/smpboot.c
++++ b/arch/x86/kernel/smpboot.c
+@@ -1428,7 +1428,7 @@ void __init native_smp_prepare_cpus(unsigned int max_cpus)
+ 
+ 	uv_system_init();
+ 
+-	set_mtrr_aps_delayed_init();
++	pr_info("%s: set_mtrr_aps_delayed_init\n", __func__);
+ 
+ 	smp_quirk_init_udelay();
+ 
+@@ -1439,7 +1439,7 @@ void __init native_smp_prepare_cpus(unsigned int max_cpus)
+ 
+ void arch_thaw_secondary_cpus_begin(void)
+ {
+-	set_mtrr_aps_delayed_init();
++	pr_info("%s: set_mtrr_aps_delayed_init\n", __func__);
+ }
+ 
+ void arch_thaw_secondary_cpus_end(void)
+diff --git a/kernel/cpu.c b/kernel/cpu.c
+index bbad5e375d3b..fc14601b908c 100644
+--- a/kernel/cpu.c
++++ b/kernel/cpu.c
+@@ -591,6 +591,8 @@ static int bringup_cpu(unsigned int cpu)
+ 	struct task_struct *idle = idle_thread_get(cpu);
+ 	int ret;
+ 
++	pr_info("%s: CPU%d\n", __func__, cpu);
++
+ 	/*
+ 	 * Reset stale stack state from the last time this CPU was online.
+ 	 */
 
 
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/3084774561#L373 for
-> proof that CONFIG_XEN_IBT=y is being fed into allrandom.config
-> ---
->  automation/gitlab-ci/build.yaml | 2 ++
->  automation/scripts/build        | 5 +++++
->  2 files changed, 7 insertions(+)
-> 
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 720ce6e07ba0..65e06c858ef3 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -299,6 +299,8 @@ debian-buster-gcc-ibt:
->    variables:
->      CONTAINER: debian:buster-gcc-ibt
->      RANDCONFIG: y
-> +    EXTRA_FIXED_RANDCONFIG: |
-> +      CONFIG_XEN_IBT=y
->  
->  debian-unstable-clang:
->    extends: .clang-x86-64-build
-> diff --git a/automation/scripts/build b/automation/scripts/build
-> index 2f15ab3198e6..2d9dd86df904 100755
-> --- a/automation/scripts/build
-> +++ b/automation/scripts/build
-> @@ -12,6 +12,11 @@ cc-ver()
->  
->  # random config or default config
->  if [[ "${RANDCONFIG}" == "y" ]]; then
-> +
-> +    # Append job-specific fixed configuration
-> +    [[ -n "${EXTRA_FIXED_RANDCONFIG}" ]] &&
-> +        echo "${EXTRA_FIXED_RANDCONFIG}" >> xen/tools/kconfig/allrandom.config
-> +
->      make -j$(nproc) -C xen KCONFIG_ALLCONFIG=tools/kconfig/allrandom.config randconfig
->      hypervisor_only="y"
->  else
-> -- 
-> 2.11.0
-> 
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
