@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CFC25EC624
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Sep 2022 16:31:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.412669.656069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16E295EC626
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Sep 2022 16:32:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.412674.656081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odBcY-0004pm-Ur; Tue, 27 Sep 2022 14:31:38 +0000
+	id 1odBcu-0005Q5-7e; Tue, 27 Sep 2022 14:32:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 412669.656069; Tue, 27 Sep 2022 14:31:38 +0000
+Received: by outflank-mailman (output) from mailman id 412674.656081; Tue, 27 Sep 2022 14:32:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odBcY-0004nD-S2; Tue, 27 Sep 2022 14:31:38 +0000
-Received: by outflank-mailman (input) for mailman id 412669;
- Tue, 27 Sep 2022 14:31:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1odBcu-0005OG-3u; Tue, 27 Sep 2022 14:32:00 +0000
+Received: by outflank-mailman (input) for mailman id 412674;
+ Tue, 27 Sep 2022 14:31:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cdUW=Z6=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1odBcX-0004UQ-OI
- for xen-devel@lists.xenproject.org; Tue, 27 Sep 2022 14:31:37 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1784c17c-3e71-11ed-9648-05401a9f4f97;
- Tue, 27 Sep 2022 16:31:36 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id r18so21068195eja.11
- for <xen-devel@lists.xenproject.org>; Tue, 27 Sep 2022 07:31:37 -0700 (PDT)
+ id 1odBct-00058c-0B
+ for xen-devel@lists.xenproject.org; Tue, 27 Sep 2022 14:31:59 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23f216da-3e71-11ed-9374-c1cf23e5d27e;
+ Tue, 27 Sep 2022 16:31:57 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id y8so13460138edc.10
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Sep 2022 07:31:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,105 +39,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1784c17c-3e71-11ed-9648-05401a9f4f97
+X-Inumbo-ID: 23f216da-3e71-11ed-9374-c1cf23e5d27e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date;
-        bh=dZ56z9a8FzgaIJUBYRwqk8uPrh9dSpVkrxk/aa13/Ic=;
-        b=xaYDpM6WnqNW4yy2LytLppAhl5HzVN2cGsJdqYg4+DB+G0FP2iqs6/htNpnul5d/4y
-         IViPVsq9JWfQRwVM20CKVCqPt/GAenxtt37gpp4zFQsxz2aJp+JTCFi6JMLsAE8LnMk5
-         9ifcDprk82QIXoE7GMR67IBCTRxh8gFIFIzZz4iuXScUILhJU2Dc8FlKAc1DqrQCEp+9
-         uJ7eFftL4L2k+86Gq5RgYoM7KchnComCkkObn1zjDJROsfX73H7Cobgma4lDx4CbnoCe
-         fDRkCuZBEUEeAxM93nkev5EsAzyqVuZAKL/wELe91L5esrcV+y0VY0x20mcFYfHQy2qa
-         RkRQ==
+        bh=00DvuJmWFLPLFHdJ5ZJ+TGf+5xWCHP9wfe9z49M2FpU=;
+        b=vF6Gi35qrnfDePTtXu2iQlFSb9B64+6/0qq6HDEdBpKW2wciCLjFh59f386Pji87cn
+         5RAPt5NFSL+N/tFvCddWau30INsn/4L3G7o4ItoVndU4cIHQYWtK7fxwbzxCsTUp/GT6
+         lgFcp4J+GeHBrMk/Hb5+XjgEj92N8VXYmdElAlYpD6U/sLdTKxVuGCwe1BWMjQHEzH8X
+         1j0vcM48UIiLs7lvh3NIh6pSbit44evq+W6MGbbAVoLnGSaykjDFkTSAvgZov9YygF37
+         P3lDvwR4NqrJDylX9XWvcj5Mv4xNiNd8Z4YxsxBz7JVi6z+L2rW9tih9edGCj/k5vt2s
+         6jhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=dZ56z9a8FzgaIJUBYRwqk8uPrh9dSpVkrxk/aa13/Ic=;
-        b=06+Tg3eDq6bA8PJTB+iKKobj/axBtLSdtu4MKm+ctpggycnEJIXXlyf54vFxIc2jGc
-         Vmyt8fUfCSn7jLDsbtXB3ZHgQoni9o8by0sE0NFuBN4RA60xiRjVrlOjkbRGHrvvFwS9
-         Ozt4EwAz5eK2OVgLKQ5Yjt15NRdstAtOvTVk2HJ3aAU2uHzOESj5XY0SUG2s0LJyohQU
-         QiEUN0mqcVpDQgn240Dzcd11uaxrOPb/fQm7ljiMR98sZ4HOWnSwt7a0v/DbnZpXgZrz
-         jle0KCtu3zRXcT9XeFiIO9WpPmWr7hZe/8ktOq7VNOzk3QAA1jmlmdOkbRZ/aDU9YMfS
-         SV+A==
-X-Gm-Message-State: ACrzQf3y3TYn9+0JYSVBR+/O6J15GC2bgnS9sOBDZL05r4ZA9Ius4Xye
-	WDBSiWlFbxMujpYiV5Z63a/iCxbh8OZsrFyiGtqZ3w==
-X-Google-Smtp-Source: AMsMyM67WLR/RBOYrtX9tTm2CbU91KPw5Nn33glQYdd1MYYd5bTz+3mSiaA3Ptg/4w2i43F2n9B7vNcCj0dH/kNbrUc=
-X-Received: by 2002:a17:907:9605:b0:6f5:c66:7c13 with SMTP id
- gb5-20020a170907960500b006f50c667c13mr23456389ejc.66.1664289096627; Tue, 27
- Sep 2022 07:31:36 -0700 (PDT)
+        bh=00DvuJmWFLPLFHdJ5ZJ+TGf+5xWCHP9wfe9z49M2FpU=;
+        b=tHM/KXGyuPfDzYW3IgTHED+HtM68spQwwtTcSN1HMteoklnnlHAITy4RwuZs2kmhAV
+         yzh4O7cbwIt1tsUyI6+Z5oS4e5+8iyivwGf1eendIxggNuM+COVaf1CLqScwTzgmfZrG
+         wlwEx6DrzQAbkUIcgeZqDdp3bhc+Ak7XdijU52XgDybqFtVbdty0Lb6G1PcgMs/uSAQ8
+         U2fwkrnyzDa2b/c7Yep4nzrZpu9Q+pYHNeoFz2i0FHeTFw6YIVn0KwmBx6f7X43w0p+Y
+         oxmz19jpmQ8AwLnGccfw8r5/lstmYvarY4wb6nuWFAyBwN2W+5/rEuOGySbbIOf1rqEb
+         pPqA==
+X-Gm-Message-State: ACrzQf1Irlu91hVTf8ODKBYuH+8jp+xUkHNe5k3TFtxs+X1Bxt1+biM/
+	rI2a0Nu17uh1XJBa3G0Az43kDfzQJzSvycxfGIO1zw==
+X-Google-Smtp-Source: AMsMyM4wUJ6LYBYgv1FWXqehgQuJ4PXMZKY5f4v6aOYxr0Wv8nQIt8BH6gy5U4+c+VqXBPwYZI5bDSt8/Jwz9ZGsteU=
+X-Received: by 2002:a05:6402:2751:b0:443:d90a:43d4 with SMTP id
+ z17-20020a056402275100b00443d90a43d4mr28379608edd.368.1664289117843; Tue, 27
+ Sep 2022 07:31:57 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
- <20220826125111.152261-3-carlo.nonato@minervasys.tech> <fe58de74-8bf5-50df-eb32-2d479758bfd8@arm.com>
-In-Reply-To: <fe58de74-8bf5-50df-eb32-2d479758bfd8@arm.com>
+ <20220826125111.152261-13-carlo.nonato@minervasys.tech> <93471d92-bc61-56fd-5b52-413303d35da1@suse.com>
+ <CAG+AhRVRQ9ey9NzsDo4Np+z0V=sX-uGYL_zLhJ9Z9zFb3v+Hkg@mail.gmail.com> <8ba1ede9-cd8c-01ec-939c-e0915d7c18b4@suse.com>
+In-Reply-To: <8ba1ede9-cd8c-01ec-939c-e0915d7c18b4@suse.com>
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Tue, 27 Sep 2022 16:31:25 +0200
-Message-ID: <CAG+AhRWJpWsov8if-KWUhzDUSuSN2yu_Z=3=UW7SypudT2cfDg@mail.gmail.com>
-Subject: Re: [PATCH 02/12] xen/arm: add cache coloring initialization for domains
-To: Wei Chen <Wei.Chen@arm.com>, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com, 
-	julien@xen.org, stefano.stabellini@amd.com, wl@xen.org, 
-	marco.solieri@unimore.it, andrea.bastoni@minervasys.tech, lucmiccio@gmail.com, 
-	Marco Solieri <marco.solieri@minervasys.tech>
+Date: Tue, 27 Sep 2022 16:31:45 +0200
+Message-ID: <CAG+AhRU4wn0B+Q-RJn3GS2MGvnagK+gEJ4woWkvA-JrHdJ_RTw@mail.gmail.com>
+Subject: Re: [PATCH 12/12] xen/arm: add cache coloring support for Xen
+To: Jan Beulich <jbeulich@suse.com>
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org, 
+	stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it, 
+	andrea.bastoni@minervasys.tech, lucmiccio@gmail.com, 
+	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Wei,
+Hi Jan,
 
-On Mon, Sep 26, 2022 at 8:39 AM Wei Chen <Wei.Chen@arm.com> wrote:
-> On 2022/8/26 20:51, Carlo Nonato wrote:
-> > +int domain_coloring_init(struct domain *d,
-> > +                         const struct xen_arch_domainconfig *config)
-> > +{
-> > +    if ( is_domain_direct_mapped(d) )
-> > +    {
-> > +        printk(XENLOG_ERR
-> > +               "Can't enable coloring and directmap at the same time for %pd\n",
-> > +               d);
-> > +        return -EINVAL;
-> > +    }
-> > +
-> > +    if ( is_hardware_domain(d) )
-> > +    {
-> > +        d->arch.colors = dom0_colors;
-> > +        d->arch.num_colors = dom0_num_colors;
-> > +    }
-> > +    else if ( config->num_colors == 0 )
-> > +    {
-> > +        printk(XENLOG_WARNING
-> > +               "Color config not found for %pd. Using default\n", d);
-> > +        d->arch.colors = xzalloc_array(unsigned int, max_colors);
-> > +        d->arch.num_colors = set_default_domain_colors(d->arch.colors);
-> > +    }
-> > +    else
-> > +    {
-> > +        d->arch.colors = xzalloc_array(unsigned int, config->num_colors);
-> > +        d->arch.num_colors = config->num_colors;
-> > +        if ( config->from_guest )
-> > +            copy_from_guest(d->arch.colors, config->colors, config->num_colors);
-> > +        else
-> > +            memcpy(d->arch.colors, config->colors.p,
-> > +                   sizeof(unsigned int) * config->num_colors);
-> > +    }
-> > +
-> > +    if ( !d->arch.colors )
-> > +    {
-> > +        printk(XENLOG_ERR "Colors allocation failed for %pd\n", d);
-> > +        return -ENOMEM;
-> > +    }
-> > +
-> > +    if ( !check_colors(d->arch.colors, d->arch.num_colors) )
-> > +    {
+On Mon, Sep 19, 2022 at 10:38 AM Jan Beulich <jbeulich@suse.com> wrote:
 >
-> If we add xfree(d->arch.colors) here for non-hw domains, is it possible
-> to make this function have a complete fallback process? And I know
-> currently, this is handled in domain_coloring_free.
+> On 16.09.2022 18:07, Carlo Nonato wrote:
+> > On Thu, Sep 15, 2022 at 3:25 PM Jan Beulich <jbeulich@suse.com> wrote:
+> >> On 26.08.2022 14:51, Carlo Nonato wrote:
+> >>> @@ -218,6 +221,28 @@ void *__vmap(const mfn_t *mfn, unsigned int granularity,
+> >>>      return va;
+> >>>  }
+> >>>
+> >>> +#ifdef CONFIG_CACHE_COLORING
+> >>> +void * __vmap_colored(const mfn_t *mfn, unsigned int nr, unsigned int align,
+> >>> +                      unsigned int flags, enum vmap_region type)
+> >>> +{
+> >>> +    void *va = vm_alloc(nr, align, type);
+> >>> +    unsigned long cur = (unsigned long)va;
+> >>> +    paddr_t pa = mfn_to_maddr(*mfn);
+> >>> +
+> >>> +    for ( ; va && nr-- ; cur += PAGE_SIZE )
+> >>> +    {
+> >>> +        pa = next_xen_colored(pa);
+> >>
+> >> This may alter the address, yet the caller expects that the original
+> >> address be mapped. I must be missing something?
+> >
+> > If the original address color is assigned to Xen, then next_xen_colored()
+> > simply returns that address. If this isn't the case, then you're right: the
+> > address changes to the correct, colored, one. The caller should expect
+> > this behavior since this is the colored version of vmap, the one that takes
+> > into account the Xen coloring configuration.
+>
+> That's (to me at least) very surprising behavior, and hence needs
+> properly calling out in a code comment at the least.
+>
+> Personally I'm not convinced of having a function with this behavior,
+> and instead I think the normal vmap() should do. As long as you're
+> only allowing for order-0 allocations, that shouldn't be an issue
+> anyway.
 
-Yes, you're right. Added.
+You mean creating an array of colored mfns (I mean with a colored machine
+address) and passing it to vmap()? Am I understanding you correctly?
+This is the only way I can see to use the original vmap() and respect
+the coloring configuration at the same time. But isn't it a waste of time
+and space to create this array?
 
-> Cheers,
-> Wei Chen
+> Jan
 
 Thanks.
 
