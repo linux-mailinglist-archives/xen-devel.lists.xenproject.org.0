@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311395ECC03
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Sep 2022 20:17:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.412923.656398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3F835ECC69
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Sep 2022 20:50:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.412930.656408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odF92-0001Vx-Lt; Tue, 27 Sep 2022 18:17:24 +0000
+	id 1odFeR-0004uT-4v; Tue, 27 Sep 2022 18:49:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 412923.656398; Tue, 27 Sep 2022 18:17:24 +0000
+Received: by outflank-mailman (output) from mailman id 412930.656408; Tue, 27 Sep 2022 18:49:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odF92-0001Sz-Ic; Tue, 27 Sep 2022 18:17:24 +0000
-Received: by outflank-mailman (input) for mailman id 412923;
- Tue, 27 Sep 2022 18:17:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1odFeR-0004sB-2B; Tue, 27 Sep 2022 18:49:51 +0000
+Received: by outflank-mailman (input) for mailman id 412930;
+ Tue, 27 Sep 2022 18:49:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KVhR=Z6=gmail.com=vsuneja63@srs-se1.protection.inumbo.net>)
- id 1odF90-0001St-Dx
- for xen-devel@lists.xenproject.org; Tue, 27 Sep 2022 18:17:22 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a0c4e4f1-3e90-11ed-9374-c1cf23e5d27e;
- Tue, 27 Sep 2022 20:17:21 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id l14so22424917eja.7
- for <xen-devel@lists.xenproject.org>; Tue, 27 Sep 2022 11:17:21 -0700 (PDT)
+ <SRS0=sZUN=Z6=gmail.com=asml.silence@srs-se1.protection.inumbo.net>)
+ id 1odFeP-0004s5-75
+ for xen-devel@lists.xenproject.org; Tue, 27 Sep 2022 18:49:49 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 28f8cd80-3e95-11ed-9648-05401a9f4f97;
+ Tue, 27 Sep 2022 20:49:48 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ c192-20020a1c35c9000000b003b51339d350so7600570wma.3
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Sep 2022 11:49:47 -0700 (PDT)
+Received: from [192.168.8.100] (94.196.228.157.threembb.co.uk.
+ [94.196.228.157]) by smtp.gmail.com with ESMTPSA id
+ f10-20020adff58a000000b002285f73f11dsm2848176wro.81.2022.09.27.11.49.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Sep 2022 11:49:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,197 +45,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0c4e4f1-3e90-11ed-9374-c1cf23e5d27e
+X-Inumbo-ID: 28f8cd80-3e95-11ed-9648-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=0R5nC5NCJpjjrmOChJBMhgB1HMUIeGH06lkH4LeIZqo=;
-        b=olFC5tpgG45V99LdL/oKNCKy0WUadcLeiWvtIgjRnX526STkaRNuoqKwHcA0W3rWJQ
-         zSiYzvr29mJ/WwkgmsmMK2MHCPJHeDUznVuoN8IXU07tAJBsaSWuRRtXhbvWF0y1sHzx
-         AHjGTdBlr66EdPjbLbevP9YlcKyFB0yJg0n+/9IqtNLf2g/x4qxHDRwmvRiuiDpMylRu
-         RCsEbGkJBCWWfyetpeBotM4TkSSRX40lRwwQneFVvvI2boACnU1ECm1L821IgAiX45Vt
-         xob1Q5aSKJFbvraBGVcb64SUM4dXxAP85QM/nLvdEDB9yhDuOkB1FtYUEc3QcoeRsrgv
-         QCdw==
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date;
+        bh=Uy/Lr8Tfy+eWDjAiAzx45YwI3RpsjEElaf8OKPLhdUU=;
+        b=CBghdfSs0ZPHWHMsOLsBnh5ZpxNT2s3g56DctsO8Mf9mTpDTB6p+jLVy8bOu2+/Gdf
+         tHL+M2v6uQVCGGRhWriixY2hCCodfeT0NIK+rYSYcft3K607LdN7ljgevSDIHv+kB3Gr
+         HMsq/7WpVUVStI31bLmpFEsfqmJoSciNbeX25w53xC6CZIpTPnuQqWDor1eo5aXCW7wo
+         SZpbfEGfJ6MzmHDdU111Gj1BibSRBV7O+ut5u/8Y9GWObPkyxRBc09l85ScndiwvQ9n8
+         YzhcWh35A87K/iIPqzydlaTmJwgvg0mI8E1jMY79EiCdwUXdWqrJ8HQb6RvUBox+QqTC
+         T43A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=0R5nC5NCJpjjrmOChJBMhgB1HMUIeGH06lkH4LeIZqo=;
-        b=leLbONVivlkyT/hqrTv8NjsVpwnsrHJbUNZgyH8S4a3T4VxhUiVv/p/Ja2HbJoOO04
-         IWsZiCEXqjdSTQtr2gaAsjpPOonapwx8y/sHyOxUray3Nb/Hp9h/1DIe41Lb4h7t5xWE
-         jFyq8XjU5LYTi4PLamhhMyAgmynJiIM0nMTcHXJ5jVg1RwGmPkJcEy8RRDYxOKHrpemG
-         dsnKAettFKYDHWlRZZzXSpTA1OLTg3DdI6xgaNJXmvbe3ra41Kr8oUr9u0pa3oepdRzv
-         K3sHnAwCZyMTTyNB3MufhpFwNBqGbBVdkMj0UW2mUn4zYY+6ybe6iN6Yzgo8CVuxNlSV
-         wKvA==
-X-Gm-Message-State: ACrzQf1E45PwGVL/9nVsgKB6/SOVM3an+armULDqocX1eycmfWVyyYDa
-	MS/irXsXzSOboURMs0yLS79jCYhVJcBMEmD/g7w=
-X-Google-Smtp-Source: AMsMyM6cKMuHNyPHW/zc+vfnWtQg/yyufTmkgx+JR8tQEv+0OxkshUNwQypSeFGKVgs5k2AZ2oG8LJ8B8dvJ39cgjZA=
-X-Received: by 2002:a17:907:75e7:b0:77a:2378:91bb with SMTP id
- jz7-20020a17090775e700b0077a237891bbmr23917706ejc.329.1664302640788; Tue, 27
- Sep 2022 11:17:20 -0700 (PDT)
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date;
+        bh=Uy/Lr8Tfy+eWDjAiAzx45YwI3RpsjEElaf8OKPLhdUU=;
+        b=rFXaxLZ+Ze5bEMTAejY5+6k0PCssHocQThbSApO2KMYMtB97ZkarJvaqOheqYbKo78
+         kdV8JFPS6xREkZ7LtE5V8umnDWkPwq1pZrsL5Pa1Wy/Qe1Qg6bBh64ObL/gdOu1WRyFr
+         vKjhNiv28r1c84IXUwpyArkM6RpjClGh9brmaSsud90G+GppFP4cI96FUCtTfZJJx1PE
+         q7ZkXVUwv3uAWdvI67k0CF1Dk7FZ0MrmuedCeF5mi6kWeOr+ELahrzlVKSY/1rYaMEAG
+         FyikD5GTaz86NOHbUo5T7GqeyHxYQ5dIUbTHtQu+J1ufd5njxs2YSMmyWb/6FIMmET5E
+         pb7A==
+X-Gm-Message-State: ACrzQf0xJADdFFElonKYFBj4OiFb3iANokp2OGSQIJdQkD6KPfc8hgjt
+	mRV0w/OZXIJuTV0ePZJW6mQ=
+X-Google-Smtp-Source: AMsMyM5I8+ROinB1laAu4ZG/L6R5Rm2MX5ZivMTsJ4uvWRtjro0IKjNXqFxx0x9bEj5jkdygW04R1g==
+X-Received: by 2002:a05:600c:3cd:b0:3b4:8372:294c with SMTP id z13-20020a05600c03cd00b003b48372294cmr3852346wmd.191.1664304587170;
+        Tue, 27 Sep 2022 11:49:47 -0700 (PDT)
+Message-ID: <c06897d4-4883-2756-87f9-9b10ab495c43@gmail.com>
+Date: Tue, 27 Sep 2022 19:48:28 +0100
 MIME-Version: 1.0
-References: <CALAP8f91s0h0gjd_qsmJDz01SKdC8Rmut5KPiG-CKaov740m_Q@mail.gmail.com>
- <YytYuAcMh8WGDQTF@mattapan.m5p.com>
-In-Reply-To: <YytYuAcMh8WGDQTF@mattapan.m5p.com>
-From: Vipul Suneja <vsuneja63@gmail.com>
-Date: Tue, 27 Sep 2022 23:47:09 +0530
-Message-ID: <CALAP8f9+N4+Jk_hWh8XCc70g7xxbr7PTffE0By56TROOyS9rSg@mail.gmail.com>
-Subject: Re: How to do display sharing between guests or bring up guests display
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>
-Content-Type: multipart/alternative; boundary="000000000000b3f8b705e9aca737"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+Subject: Re: [PATCH net-next 0/4] shrink struct ubuf_info
+Content-Language: en-US
+To: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski
+ <kuba@kernel.org>, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, Wei Liu <wei.liu@kernel.org>,
+ Paul Durrant <paul@xen.org>, kvm@vger.kernel.org,
+ virtualization@lists.linux-foundation.org,
+ "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>
+References: <cover.1663892211.git.asml.silence@gmail.com>
+ <7fef56880d40b9d83cc99317df9060c4e7cdf919.camel@redhat.com>
+ <021d8ea4-891c-237d-686e-64cecc2cc842@gmail.com>
+ <bbb212f6-0165-0747-d99d-b49acbb02a80@gmail.com>
+ <85cccb780608e830024fc82a8e4f703031646f4e.camel@redhat.com>
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <85cccb780608e830024fc82a8e4f703031646f4e.camel@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---000000000000b3f8b705e9aca737
-Content-Type: text/plain; charset="UTF-8"
+On 9/27/22 18:56, Paolo Abeni wrote:
+> On Tue, 2022-09-27 at 18:16 +0100, Pavel Begunkov wrote:
+>> On 9/27/22 15:28, Pavel Begunkov wrote:
+>>> Hello Paolo,
+>>>
+>>> On 9/27/22 14:49, Paolo Abeni wrote:
+>>>> Hello,
+>>>>
+>>>> On Fri, 2022-09-23 at 17:39 +0100, Pavel Begunkov wrote:
+>>>>> struct ubuf_info is large but not all fields are needed for all
+>>>>> cases. We have limited space in io_uring for it and large ubuf_info
+>>>>> prevents some struct embedding, even though we use only a subset
+>>>>> of the fields. It's also not very clean trying to use this typeless
+>>>>> extra space.
+>>>>>
+>>>>> Shrink struct ubuf_info to only necessary fields used in generic paths,
+>>>>> namely ->callback, ->refcnt and ->flags, which take only 16 bytes. And
+>>>>> make MSG_ZEROCOPY and some other users to embed it into a larger struct
+>>>>> ubuf_info_msgzc mimicking the former ubuf_info.
+>>>>>
+>>>>> Note, xen/vhost may also have some cleaning on top by creating
+>>>>> new structs containing ubuf_info but with proper types.
+>>>>
+>>>> That sounds a bit scaring to me. If I read correctly, every uarg user
+>>>> should check 'uarg->callback == msg_zerocopy_callback' before accessing
+>>>> any 'extend' fields.
+>>>
+>>> Providers of ubuf_info access those fields via callbacks and so already
+>>> know the actual structure used. The net core, on the opposite, should
+>>> keep it encapsulated and not touch them at all.
+>>>
+>>> The series lists all places where we use extended fields just on the
+>>> merit of stripping the structure of those fields and successfully
+>>> building it. The only user in net/ipv{4,6}/* is MSG_ZEROCOPY, which
+>>> again uses callbacks.
+>>>
+>>> Sounds like the right direction for me. There is a couple of
+>>> places where it might get type safer, i.e. adding types instead
+>>> of void* in for struct tun_msg_ctl and getting rid of one macro
+>>> hiding types in xen. But seems more like TODO for later.
+>>>
+>>>> AFAICS the current code sometimes don't do the
+>>>> explicit test because the condition is somewhat implied, which in turn
+>>>> is quite hard to track.
+>>>>
+>>>> clearing uarg->zerocopy for the 'wrong' uarg was armless and undetected
+>>>> before this series, and after will trigger an oops..
+>>>
+>>> And now we don't have this field at all to access, considering that
+>>> nobody blindly casts it.
+>>>
+>>>> There is some noise due to uarg -> uarg_zc renaming which make the
+>>>> series harder to review. Have you considered instead keeping the old
+>>>> name and introducing a smaller 'struct ubuf_info_common'? the overall
+>>>> code should be mostly the same, but it will avoid the above mentioned
+>>>> noise.
+>>>
+>>> I don't think there will be less noise this way, but let me try
+>>> and see if I can get rid of some churn.
+>>
+>> It doesn't look any better for me
+>>
+>> TL;DR; This series converts only 3 users: tap, xen and MSG_ZEROCOPY
+>> and doesn't touch core code. If we do ubuf_info_common though I'd need
+>> to convert lots of places in skbuff.c and multiple places across
+>> tcp/udp, which is much worse.
+> 
+> Uhmm... I underlook the fact we must preserve the current accessors for
+> the common fields.
+> 
+> I guess something like the following could do (completely untested,
+> hopefully should illustrate the idea):
+> 
+> struct ubuf_info {
+> 	struct_group_tagged(ubuf_info_common, common,
+> 		void (*callback)(struct sk_buff *, struct ubuf_info *,
+>                           bool zerocopy_success);
+> 		refcount_t refcnt;
+> 	        u8 flags;
+> 	);
+> 
+> 	union {
+>                  struct {
+>                          unsigned long desc;
+>                          void *ctx;
+>                  };
+>                  struct {
+>                          u32 id;
+>                          u16 len;
+>                          u16 zerocopy:1;
+>                          u32 bytelen;
+>                  };
+>          };
+> 
+>          struct mmpin {
+>                  struct user_struct *user;
+>                  unsigned int num_pg;
+>          } mmp;
+> };
+> 
+> Then you should be able to:
+> - access ubuf_info->callback,
+> - access the same field via ubuf_info->common.callback
+> - declare variables as 'struct ubuf_info_commom' with appropriate
+> contents.
+> 
+> WDYT?
 
-Hi Elliott,
+Interesting, I didn't think about struct_group, this would
+let to split patches better and would limit non-core changes.
+But if the plan is to convert the core helpers to
+ubuf_info_common, than I think it's still messier than changing
+ubuf providers only.
 
-Thanks!
+I can do the exercise, but I don't really see what is the goal.
+Let me ask this, if we forget for a second how diffs look,
+do you care about which pair is going to be in the end?
+ubuf_info_common/ubuf_info vs ubuf_info/ubuf_info_msgzc?
+Are there you concerned about naming or is there more to it?
 
-As per the link you shared, VNC & SDL are two ways to get GUI display up
-for guests. I am going through VNC & tried SDL, added below line in
-guest1.cfg file.
-*vfb = [ 'sdl=1' ]*
-when creating guest machine by running command "*xl create -c guest1.cfg" *then
-its throwing errors:
-
-
-
-
-
-
-
-
-
-
-*root@raspberrypi4-64:~/guest1# xl create -c guest1.cfgParsing config from
-guest1.cfglibxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback: Domain 3:error
-on QMP socket: Connection reset by peerlibxl: error:
-libxl_qmp.c:1439:qmp_ev_fd_callback: Domain 3:Error happened with the QMP
-connection to QEMUlibxl: error:
-libxl_dm.c:3351:device_model_postconfig_done: Domain 3:Post DM startup
-configs failed, rc=-26libxl: error:
-libxl_create.c:1867:domcreate_devmodel_started: Domain 3:device model did
-not start: -26libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device
-Model already exitedlibxl: error: libxl_domain.c:1183:libxl__destroy_domid:
-Domain 3:Non-existant domainlibxl: error:
-libxl_domain.c:1137:domain_destroy_callback: Domain 3:Unable to destroy
-guestlibxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain
-3:Destruction of domain failed*
-
-It works absolutely fine & guest1 comes up if *vfb = [ 'sdl=1' ]* is not
-included in the configuration file. Anything wrong with the statement
-added or any other steps need to be followed for this? Looking after your
-response asap.
-
-Regards,
-Vipul Kumar
-
-On Thu, Sep 22, 2022 at 12:03 AM Elliott Mitchell <ehem+xen@m5p.com> wrote:
-
-> On Wed, Sep 21, 2022 at 10:54:55PM +0530, Vipul Suneja wrote:
-> > Now I have built a custom image with GUI & ported it as a guest2(DOMU2),
-> > guest2 came up as a console & couldn't see the GUI screen(Display screen
-> > connected to rpi4 via HDMI) coming up.
-> >
-> > Can you please guide me on display sharing or how to bring up guests
-> > display?
->
-> This has already been answered in several locations.  The first place to
-> ask for help with the RP4 is their own forums.  Turns out the topic is
-> well known:
->
-> https://forums.raspberrypi.com/viewtopic.php?t=232323#p1775083
->
-> (huh, their forum moved to the raspberrypi.com domain; they really need
-> an entry for Xen in their other OSes area)
->
->
-> --
-> (\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
->  \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
->   \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-> 8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
->
->
->
-
---000000000000b3f8b705e9aca737
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Elliott,<div><br></div><div>Thanks!</div><div><br></div=
-><div>As per the link you shared, VNC &amp; SDL are two ways to get GUI dis=
-play up for guests. I am going through VNC &amp; tried SDL, added below lin=
-e in guest1.cfg file.</div><div><b>vfb =3D [ &#39;sdl=3D1&#39; ]</b></div><=
-div>when creating guest machine by running command &quot;<b>xl create -c gu=
-est1.cfg&quot;=C2=A0</b>then its throwing errors:</div><div><br></div><div>=
-<b><i>root@raspberrypi4-64:~/guest1# xl create -c guest1.cfg<br>Parsing con=
-fig from guest1.cfg<br>libxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback: D=
-omain 3:error on QMP socket: Connection reset by peer<br>libxl: error: libx=
-l_qmp.c:1439:qmp_ev_fd_callback: Domain 3:Error happened with the QMP conne=
-ction to QEMU<br>libxl: error: libxl_dm.c:3351:device_model_postconfig_done=
-: Domain 3:Post DM startup configs failed, rc=3D-26<br>libxl: error: libxl_=
-create.c:1867:domcreate_devmodel_started: Domain 3:device model did not sta=
-rt: -26<br>libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device Mo=
-del already exited<br>libxl: error: libxl_domain.c:1183:libxl__destroy_domi=
-d: Domain 3:Non-existant domain<br>libxl: error: libxl_domain.c:1137:domain=
-_destroy_callback: Domain 3:Unable to destroy guest<br>libxl: error: libxl_=
-domain.c:1064:domain_destroy_cb: Domain 3:Destruction of domain failed</i><=
-/b><br></div><div><b><i><br></i></b></div><div>It works absolutely fine &am=
-p; guest1 comes up if=C2=A0<b>vfb =3D [ &#39;sdl=3D1&#39; ]</b>=C2=A0is not=
- included in the configuration file. Anything wrong with the statement=C2=
-=A0</div><div>added or any other steps need to be followed for this? Lookin=
-g after your response asap.</div><div><br></div><div>Regards,</div><div>Vip=
-ul Kumar</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Thu, Sep 22, 2022 at 12:03 AM Elliott Mitchell &lt;<a hr=
-ef=3D"mailto:ehem%2Bxen@m5p.com">ehem+xen@m5p.com</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">On Wed, Sep 21, 2022 at 10=
-:54:55PM +0530, Vipul Suneja wrote:<br>
-&gt; Now I have built a custom image with GUI &amp; ported it as a guest2(D=
-OMU2),<br>
-&gt; guest2 came up as a console &amp; couldn&#39;t see the GUI screen(Disp=
-lay screen<br>
-&gt; connected to rpi4 via HDMI) coming up.<br>
-&gt; <br>
-&gt; Can you please guide me on display sharing or how to bring up guests<b=
-r>
-&gt; display?<br>
-<br>
-This has already been answered in several locations.=C2=A0 The first place =
-to<br>
-ask for help with the RP4 is their own forums.=C2=A0 Turns out the topic is=
-<br>
-well known:<br>
-<br>
-<a href=3D"https://forums.raspberrypi.com/viewtopic.php?t=3D232323#p1775083=
-" rel=3D"noreferrer" target=3D"_blank">https://forums.raspberrypi.com/viewt=
-opic.php?t=3D232323#p1775083</a><br>
-<br>
-(huh, their forum moved to the <a href=3D"http://raspberrypi.com" rel=3D"no=
-referrer" target=3D"_blank">raspberrypi.com</a> domain; they really need<br=
->
-an entry for Xen in their other OSes area)<br>
-<br>
-<br>
--- <br>
-(\___(\___(\______=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 --=3D&gt; 8-) EHM &lt;=
-=3D--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ______/)___/)___/)<br>
-=C2=A0\BS (=C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"mail=
-to:ehem%2Bsigmsg@m5p.com" target=3D"_blank">ehem+sigmsg@m5p.com</a>=C2=A0 P=
-GP 87145445=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 )=C2=A0 =C2=A0/=
-<br>
-=C2=A0 \_CS\=C2=A0 =C2=A0|=C2=A0 _____=C2=A0 -O #include &lt;stddisclaimer.=
-h&gt; O-=C2=A0 =C2=A0_____=C2=A0 |=C2=A0 =C2=A0/=C2=A0 _/<br>
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 &lt;-PGP-&gt; 41D1 B375 37D0 8714\_|_/___/=
-5445<br>
-<br>
-<br>
-</blockquote></div>
-
---000000000000b3f8b705e9aca737--
+-- 
+Pavel Begunkov
 
