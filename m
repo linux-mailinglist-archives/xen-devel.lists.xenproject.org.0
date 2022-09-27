@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74D1A5EBF7F
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Sep 2022 12:15:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.412482.655817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E29895EC0CC
+	for <lists+xen-devel@lfdr.de>; Tue, 27 Sep 2022 13:16:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.412489.655828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1od7by-0001XI-M9; Tue, 27 Sep 2022 10:14:46 +0000
+	id 1od8Ym-0007cx-3c; Tue, 27 Sep 2022 11:15:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 412482.655817; Tue, 27 Sep 2022 10:14:46 +0000
+Received: by outflank-mailman (output) from mailman id 412489.655828; Tue, 27 Sep 2022 11:15:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1od7by-0001Ud-Id; Tue, 27 Sep 2022 10:14:46 +0000
-Received: by outflank-mailman (input) for mailman id 412482;
- Tue, 27 Sep 2022 10:14:45 +0000
+	id 1od8Ym-0007ab-0M; Tue, 27 Sep 2022 11:15:32 +0000
+Received: by outflank-mailman (input) for mailman id 412489;
+ Tue, 27 Sep 2022 11:15:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XrhN=Z6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1od7bx-0001UX-60
- for xen-devel@lists.xenproject.org; Tue, 27 Sep 2022 10:14:45 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34be8922-3e4d-11ed-9648-05401a9f4f97;
- Tue, 27 Sep 2022 12:14:43 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4FFFB1F889;
- Tue, 27 Sep 2022 10:14:43 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 12FEB139B3;
- Tue, 27 Sep 2022 10:14:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id n1tWAxPNMmPMSAAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 27 Sep 2022 10:14:43 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wYJ1=Z6=citrix.com=prvs=262b5a957=edvin.torok@srs-se1.protection.inumbo.net>)
+ id 1od8Yj-0007aQ-PX
+ for xen-devel@lists.xenproject.org; Tue, 27 Sep 2022 11:15:29 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aeff83d9-3e55-11ed-9648-05401a9f4f97;
+ Tue, 27 Sep 2022 13:15:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,160 +36,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34be8922-3e4d-11ed-9648-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1664273683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=azbsoYkT0nr+gfgwtblGuP0Br8jabje/N29/Y2mlgXM=;
-	b=nvU5qKiA7aq6P+RwThovfCWJJFKdo/wI5HysxWBudaq7I6Byo8TURdSBxXCJED6aryUzwn
-	D/NL3tqQTkOQK+Hiyak+mQuPxNyhQpi2QPm/p669Yo0AC4aFHczY3vSmaqAGKU09nEX32z
-	9EEUl6Q2wuYZRopRtEPL+0uQfUa6fE4=
-Message-ID: <c0872933-e046-0c5e-b63f-861d2d343794@suse.com>
-Date: Tue, 27 Sep 2022 12:14:42 +0200
+X-Inumbo-ID: aeff83d9-3e55-11ed-9648-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1664277327;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=eZ7SrsaIyeoFLsZJrY7oMN8LSSpDsPO9Cf8rssILgDI=;
+  b=Txo65V2A3D+7Y2Xo2XHgKfR+fEoCtqs3mQklECOfCqFpfp1YQOdB6YQK
+   d9yshQHAjM4Q4JM4JaPIfmvj/dA7PvWGcirC2Zz/vjroq7Gq9HsPh7hD9
+   OnCWZaXPrca0fmUjrXwk+PVIL+DdPURoQ7tNuqiCMqMkW/PWlJ0rIvl5O
+   k=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 2.7
+X-MesageID: 81413301
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:d9we8q1riDJlIyTXlfbD5axxkn2cJEfYwER7XKvMYLTBsI5bpzUOy
+ zEZXT2EPfeKZmD9f9hxOdnl8xgCvZ7TyNZqTgU+pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefSAOKU5NfsYkhZXRVjRDoqlSVtkus4hp8AqdWiCkaGt
+ MiaT/f3YTdJ4BYpdDNPg06/gEk35q6q6WlH5gZWic1j5zcyqVFEVPrzGonpR5fIatE8NvK3Q
+ e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkEqShgJ+rQ6LJIhhXJ/0F1lqTzTJ
+ OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXWV+ACQqflO1q8iCAn3aMqVEy8BqMU4N7
+ MY2FypKUSKapPuUzYCSH7wEasQLdKEHPasas3BkizrYEewnUdbIRKCiCd1whWlqwJoURLCHO
+ pRfOWEHgBfoOnWjPn8aBIw/mqG0gWP4cBVTqU6PpLpx6G/WpOB0+Oi0bIOOIYTTLSlTtlyIg
+ kTj+mb3OQ81M4bB1xie1C6pu+CayEsXX6pNTeblp5aGmma72Wg7GBAQE1yhrpGRhkegVvpFJ
+ kcT+y5oqrI9nGS7Q9+4UxCmrXqsuh8HR8EWA+A88BuKyKff/0CeHGdsc9JaQIV47olsH2Vsj
+ wLX2YOybdByjFGLYS6s0KqkgnCrAwYqNyg9VzYnVCkI0fC29enfkSnzZtpkFae0iPj8Fjfx3
+ y2GoUACulkDsSIY//7lpA6a2lpAsrCMF1dovVuPAgpJ+ysjPOaYi5qUBU83BBqqBKKQVRG/s
+ XcNgKByB8heXMjWxERhrAjgdYxFBspp0hWG2TaD/LF7rVxBHkJPmqgPiAyS3G8zbq45lcbBO
+ Sc/Qz956p5JJ2eNZqRqeY+3AMlC5fG+S4i/D6+JP4ofOskZmOq7EMZGOiatM53FyhBwwcnTx
+ 7/CGSpTMZrqIfs+l2fnLwvs+bQq2jo/1QvueHwP9Dz+iOL2WZJgYe1aWLd4RrxmsfjsTcS82
+ 4o3CvZmPD0ECbWiP3WKreb+7zkidBAGOHw/kOQPHsbrH+asMD1J5yP5qV/5R7FYog==
+IronPort-HdrOrdr: A9a23:BF3GSqq63cgtHVHkoJU4qU4aV5oneYIsimQD101hICG8cqSj+f
+ xG+85rsiMc6QxhPE3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakvDH4VmtJ
+ uIHZIQNDSJNykZsfrH
+X-IronPort-AV: E=Sophos;i="5.93,349,1654574400"; 
+   d="scan'208";a="81413301"
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Christian
+ Lindig" <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Wei Liu
+	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 0/5] tools/ocaml: build/compatibility fixes with OCaml 5.0 for Xen 4.17
+Date: Tue, 27 Sep 2022 12:14:56 +0100
+Message-ID: <cover.1664276827.git.edvin.torok@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH v3 08/10] x86/mtrr: let cache_aps_delayed_init replace
- mtrr_aps_delayed_init
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>
-References: <20220908084914.21703-1-jgross@suse.com>
- <20220908084914.21703-9-jgross@suse.com> <YzIVfj/lvzQrK15Y@zn.tnic>
- <ce8cb1d3-a7d2-7484-26eb-60d3e29fa369@suse.com> <YzLMKk4OK9FtjjKQ@zn.tnic>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <YzLMKk4OK9FtjjKQ@zn.tnic>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------g4zPUaP42ub5sZKf9GZVZKaU"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------g4zPUaP42ub5sZKf9GZVZKaU
-Content-Type: multipart/mixed; boundary="------------NAwU7mueCQZjm0bbNAQSgXHr";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <c0872933-e046-0c5e-b63f-861d2d343794@suse.com>
-Subject: Re: [PATCH v3 08/10] x86/mtrr: let cache_aps_delayed_init replace
- mtrr_aps_delayed_init
-References: <20220908084914.21703-1-jgross@suse.com>
- <20220908084914.21703-9-jgross@suse.com> <YzIVfj/lvzQrK15Y@zn.tnic>
- <ce8cb1d3-a7d2-7484-26eb-60d3e29fa369@suse.com> <YzLMKk4OK9FtjjKQ@zn.tnic>
-In-Reply-To: <YzLMKk4OK9FtjjKQ@zn.tnic>
+Changes to previous series:
+* removed Dune patches from this series for now (that requires more work to work with osstest on Debian oldstable that won't be ready in time for 4.17)
+* also updated xenctrl to work with no naked pointers mode (the only mode in OCaml 5.0)
+* changed alloc_custom to use '0' and '1' instead of '1' and '128' for values that are singletons anyway
 
---------------NAwU7mueCQZjm0bbNAQSgXHr
-Content-Type: multipart/mixed; boundary="------------QIMdqdxhoc6eaoR26OZpwXFP"
+This can be tested with OCaml <5.0 (e.g. 4.13 or 4.14) with --enable-naked-pointer-checker
+to find instances where naked pointers are used or by code review.
+(Note that OCaml 5.0 won't have support for naked pointers at all, and thus
+it doesn't have the checker either)
 
---------------QIMdqdxhoc6eaoR26OZpwXFP
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+It would be good to get this included in Xen 4.17, especially that it
+changes the internal ABI of xenctrl bindings.
 
-T24gMjcuMDkuMjIgMTI6MTAsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gVHVlLCBT
-ZXAgMjcsIDIwMjIgYXQgMTA6NTc6MzdBTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
-Cj4+IFRCSCBJIGRvbid0IHNlZSB0aGUgcG9pbnQgb2YgaGF2aW5nIGFuIGFjY2Vzc29yIHdo
-aWNoIGlzIGp1c3Qgc2V0dGluZyBhDQo+PiB2YXJpYWJsZSB0byAidHJ1ZSIuIEJ1dCBpZiB5
-b3UgbGlrZSBpdCBiZXR0ZXIsIEkgY2FuIGtlZXAgaXQuDQo+IA0KPiBBY2Nlc3NvcnMgYXJl
-IGFsd2F5cyBiZXR0ZXIsIG5vIG1hdHRlciBob3cgc2lsbHkuIDopDQoNCk9rYXksIHRoZW4g
-SSdsbCBrZWVwIGl0Lg0KDQo+IEJ1dCwgaW4gdHJ5aW5nIHRvIGdyb2sgeW91ciBuZXh0IHBh
-dGNoIC0geW91IHJlYWxseSBzaG91bGQgc3BsaXQgdGhvc2UNCj4gbW9yZSBjb21wbGV4IG9u
-ZXMgYmVjYXVzZSB0aGV5J3JlIGEgcGFpbiB0byByZXZpZXcgLSBJJ20gc3RhcnRpbmcgdG8N
-Cj4gd29uZGVyIHdoZXRoZXIgd2UgY291bGQgZXZlbiByZW1vdmUgbXRycl9hcHNfZGVsYXll
-ZF9pbml0IGFuZCBtYWtlIHRoZQ0KPiBkZWxheWVkIGluaXQgdGhlIGRlZmF1bHQuDQo+IA0K
-PiBCZWNhdXNlLCBBRkFJQ1QsIHNldF9tdHJyX2Fwc19kZWxheWVkX2luaXQoKSBpcyBjYWxs
-ZWQgYnkgZGVmYXVsdA0KPiBieSBuYXRpdmVfc21wX3ByZXBhcmVfY3B1cygpLiBXaGljaCBp
-cyBjYWxsZWQgYnkgaHlwZXJ2IGFuZA0KPiBhcmNoL3g4Ni94ZW4vc21wX2h2bS5jLg0KPiAN
-Cj4gVGhlIG9ubHkgb25lIHRoYXQncyBub3QgY2FsbGluZyBpdCBpcyBhcmNoL3g4Ni94ZW4v
-c21wX3B2LmMgYnV0IHRoYXQNCj4gdGhpbmcgZG9lc24ndCBzdXBwb3J0IE1UUlJzIGluIHRo
-ZSBmaXJzdCBwbGFjZSwgcmlnaHQ/DQoNCkNvcnJlY3QuDQoNCj4gV2hpY2ggbWVhbnMsIGl0
-IGRvZXNuJ3QgbmVlZCBkZWxheWVkIE1UUlIgaW5pdCBhbnl3YXkuDQo+IA0KPiBXaGljaCB3
-b3VsZCB0aGVuIG1lYW4gdGhhdCB0aGlzIHdvdWxkIHNpbXBsaWZ5IHRoaXMgdWdseSBsb2dp
-YyBldmVuIG1vcmUuDQo+IA0KPiBPciBhbSBJIG1pc3NpbmcgYW4gYW5nbGU/DQoNClllczog
-Y3B1IGhvdHBsdWcuDQoNCg0KSnVlcmdlbg0K
---------------QIMdqdxhoc6eaoR26OZpwXFP
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Edwin Török (5):
+  tools/ocaml/Makefile.rules: do not run ocamldep on distclean
+  tools/ocaml/Makefile.rules: hide -include on *clean
+  tools/ocaml/libs/eventchn: do not leak event channels and OCaml 5.0
+    compat
+  tools/ocaml/libs/xc: OCaml 5.0 compatibility
+  tools/ocaml/libs/{xb, mmap}: use Data_abstract_val wrapper
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+ tools/ocaml/Makefile.rules                    |  4 +--
+ tools/ocaml/libs/eventchn/xeneventchn_stubs.c | 29 +++++++++++++++++--
+ tools/ocaml/libs/mmap/xenmmap_stubs.c         |  2 +-
+ tools/ocaml/libs/xb/xs_ring_stubs.c           |  2 +-
+ tools/ocaml/libs/xc/xenctrl_stubs.c           | 11 +++----
+ 5 files changed, 37 insertions(+), 11 deletions(-)
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+-- 
+2.34.1
 
---------------QIMdqdxhoc6eaoR26OZpwXFP--
-
---------------NAwU7mueCQZjm0bbNAQSgXHr--
-
---------------g4zPUaP42ub5sZKf9GZVZKaU
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmMyzRIFAwAAAAAACgkQsN6d1ii/Ey91
-DQf+NKU30kayLU8o3/EyM8meTT/5wW0H5PhkarzslPfRDl0x1X9Rm6/y61s80LK9tEImIUe9eXae
-klpynQVpYHn2BMpbpAs1XzzESquyCRHdNUpuEnrt7bBnA6v0iHQZdCkd0ZyMveuo3BWlp8QDMPDt
-rPKv3gcTRpTFJsI2EZowJBrmbmkYCcmRE5jNCj1cYV0cWPpzVTHtH3gRkomgevdCN9voUiyLEFNs
-nwXz6gKOuA8L1dXGjHnokH3/5OAadXJ8MPeHK+TXbazMfDxEjNHdsxDu4CQ0hv+DJBNMdvXGjuMF
-tnw737lk707pkj8gwKKO5Zdg4o+aTBHNVN+mX3Enxw==
-=u8Td
------END PGP SIGNATURE-----
-
---------------g4zPUaP42ub5sZKf9GZVZKaU--
 
