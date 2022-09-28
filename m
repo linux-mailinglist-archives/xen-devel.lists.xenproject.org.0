@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E07945ED9EE
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 12:17:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413231.656757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E04E5EDA40
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 12:40:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413238.656767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odU7s-0000kl-8a; Wed, 28 Sep 2022 10:17:12 +0000
+	id 1odUSz-0003FT-20; Wed, 28 Sep 2022 10:39:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413231.656757; Wed, 28 Sep 2022 10:17:12 +0000
+Received: by outflank-mailman (output) from mailman id 413238.656767; Wed, 28 Sep 2022 10:39:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odU7s-0000hg-55; Wed, 28 Sep 2022 10:17:12 +0000
-Received: by outflank-mailman (input) for mailman id 413231;
- Wed, 28 Sep 2022 10:17:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1odUSy-0003Cp-VO; Wed, 28 Sep 2022 10:39:00 +0000
+Received: by outflank-mailman (input) for mailman id 413238;
+ Wed, 28 Sep 2022 10:38:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HzjL=Z7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1odU7q-0000ha-NG
- for xen-devel@lists.xenproject.org; Wed, 28 Sep 2022 10:17:10 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5e1c087-3f16-11ed-9649-05401a9f4f97;
- Wed, 28 Sep 2022 12:17:09 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E090C1F8F1;
- Wed, 28 Sep 2022 10:17:08 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A30C213A84;
- Wed, 28 Sep 2022 10:17:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id hYdWJiQfNGMYBQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 28 Sep 2022 10:17:08 +0000
+ (envelope-from <SRS0=RNMk=Z7=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1odUSw-0003Cj-H2
+ for xen-devel@lists.xenproject.org; Wed, 28 Sep 2022 10:38:58 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr20082.outbound.protection.outlook.com [40.107.2.82])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c008100c-3f19-11ed-9374-c1cf23e5d27e;
+ Wed, 28 Sep 2022 12:38:55 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB9PR04MB8266.eurprd04.prod.outlook.com (2603:10a6:10:248::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17; Wed, 28 Sep
+ 2022 10:38:53 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.017; Wed, 28 Sep 2022
+ 10:38:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,196 +46,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5e1c087-3f16-11ed-9649-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1664360228; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Wz7LqQTQwqN6NuJlrmtHY6fei9eDMFzYM6kbeSQmCqQ=;
-	b=TjkY+rledB7HirNbJDSyrYBGbMIM5nX00jcZjurberAlTXb82wxeHE7UbWoUzgGReh9+4e
-	8A+3nKQojGje/1y7PmnSYtnNwGRHOw0dg2HGbOPg0xRBMQHTwVVm30rWwgRoWItCF2z4ZQ
-	uk7QFFIiDY5a46qvowKfwJkadkZyF8I=
-Message-ID: <699aacca-b82a-78df-3a74-4b5b82de92c2@suse.com>
-Date: Wed, 28 Sep 2022 12:17:08 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>
-References: <20220908084914.21703-1-jgross@suse.com>
- <20220908084914.21703-4-jgross@suse.com> <Yx21cizZHNzD38z7@nazgul.tnic>
- <80085512-5783-7ea0-fb7d-6e852f8942e0@suse.com>
+X-Inumbo-ID: c008100c-3f19-11ed-9374-c1cf23e5d27e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GUN+Zgtq/ERr9TJk+YGNrhLZszNGewLN7GwWmuUp8L9WwUDQN9rjSQALJe0aEUu4P53ZTxUmh35jCTUPiheW25GDpbLR90nxvHg/VKl8EzuiRiyy8u5EgSO+WhYZpuD3okhjuKG4T0McPfoUfyRTLPBBMQYsiCsBNhHg/KCxBTfsP3UPa6EgPkdX5NlX6K23twTCtkFW+nHkFt98wRG6ZwPpfBSwUBi/Xy+Q5kbf53g32GTn0HSub4Pdn2SVSPHs/Vl2Xu0zko9m1E3jQge5/ToRKX/k0wNPxIZZwljbWz38u7Ckgu6AAPpWqduEjFl4Pg2oMQrXgkFbwfpXJnnpHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jfWMOan+uoAcjsejIGu8nn0qvygWqJEXOw6ZleEbVkA=;
+ b=JzWLYoRfhP+CBr6rWfgs3jp7Qma56Py4t2/p4YAHrIk0/7cjY+5yHYUXv0y3A9G0NeUcxeW95xeOUaqoez2IzsGwdPE46y9Sc+A/2UfF/NEsYzZJSVZkBweiQB5hBDn2/ESUbMqmoyMJJ+aeJwUINy9eXsaQU48WU1t3xaHOFM6FQNxMC/5jRajfzN3o9HV/YHWf+Mw9kxfpBgKWM4wEFttf8aUKyKPJBGJCG4N/HwJ3lYHBvZ9rPBOapg6sCXk1jj55ImyeniqIOpMl0ePVJquS0fynZUf6o8q6RXt+4UQyPQuqXGCP/StbVBhBM+lZK/ptRbZ2HPAn5IoAUnSIDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jfWMOan+uoAcjsejIGu8nn0qvygWqJEXOw6ZleEbVkA=;
+ b=QeL70Qk3qG8AThllaK/4Elo+w7xynZILMBS7A3o9YDd14XRjBRsyTcEXcBLPZ+qlpn2duboSMQ71VHGguZW+wOdYUMoUXhXz+YwfiaMcor+qSaIUMCg0U7wGONPpWv3QeXau3ICBG+V1ZJ/MICWYSGNJn9OWuZfrtpGMbVCMurXHK0A9S122yz4XeMLcth6ZYgH5+/LXvoUOhyay0LGsNEYwuIrWrs1i5OZahOkmDdCrFW1N3Rg8TgiUmsL77I/hUZhpZT4iJjOjmG4olyy2fVFx9+zlg/k4PmvSV0Evv52fcULTh4+nKoQ9JNGWl01vTHeHriAXiPiteXvF/Px3yQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <98b857b8-f36a-e935-8318-f17dfc3457ab@suse.com>
+Date: Wed, 28 Sep 2022 12:38:51 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
 Content-Language: en-US
-Subject: Re: [PATCH v3 03/10] x86/mtrr: replace use_intel() with a local flag
-In-Reply-To: <80085512-5783-7ea0-fb7d-6e852f8942e0@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------F5icf01H3NZlsmrz1JnX9ERL"
+From: Jan Beulich <jbeulich@suse.com>
+Subject: Proposal for physical address based hypercalls
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0070.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 585914db-2a87-4262-e228-08daa13da34d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	xTTBOAqKT2euz2iJKsqjfK/PUwQlhqthmeKnQm4WuDqA2UViZDum1JRubq969Pldu9UpjMMgzUAx/jVWL4B6+zJ7lbxNd5f7kPh888xI6KBseGxn/1bCZ204pVd4lg5ziaU7lZFSE4MI9C/QTxIpMowySgorCxduUKDb9xNx/Ih/BbOu7wnxejU/KFYzKMR5BrPn4vNCrqOqsAOBpq3rP2QdzYASx4H87lNajkqi9KKfSoJadm5egWAAea63RBsY4nZOBGbUmERW5jLwQg6px+q/0lcLT615f3KawHIqDepNbLgz4OhIX4jlRnSODT1UW8qNLhBnoHUJ1dJuPDppx7+VDtXr5yYnhr1/59IxydNS806UgwM53askpBCcXXDaKMZ7Y8/EUFri1V8tevwWYf1ikw74GH4rZ4J1kQK0awOmh4pAEcVzpuygzrUxnSNdKkQKcD9oNi97mriisWRmSPdvB6wFGw9BGAM1R/Og/yjMWVAE5ZmEV9OjmFtwdvWH/NznWyubjFKqun3C39nFulrYAAJk1XxW3VYNsRpP/2xLYsC9kfzAX07xOQxXP5JIUDMaaIgPpr3lOTj4SdA+7e1GVporlxKoVzhWkDabWJvsR+uCTHcq3ibNfXk0Lwrl0JYv3J4joELFRgd44DonSvojUns6yh0zKRwhhWn9+4nuXdNBG1EsVRrdboKzpcXeI3h/1tn188eqTWDOzFATtohHl1402umjpqREvK4STVU6tkgnLwSzHlKkvBesgmPGlIOn80X4v5trZfxojjugko66iThQw7lRdSxwTXvMc08=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(376002)(39860400002)(366004)(396003)(136003)(451199015)(478600001)(6486002)(31686004)(6506007)(186003)(316002)(6916009)(2906002)(2616005)(38100700002)(83380400001)(66574015)(26005)(6512007)(36756003)(41300700001)(8676002)(66946007)(86362001)(31696002)(66556008)(8936002)(5660300002)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?azRCd2JoSmltUGFVSE5qcVNGblgycTdqM0dXRUpKNFBSdUdDS2xyZkVmSEdH?=
+ =?utf-8?B?ZmwyRGVLUTkvbXRBOElZNzNLWHpJM1ZhQUI1cVZpUW1oWUZTU1lhSXNlQTRi?=
+ =?utf-8?B?bzQvamFHMGgrQjJGMmVtSnlqeHgwK3puMGhwbUx3bzVQbVA0OXYvcnBSUFY2?=
+ =?utf-8?B?SE9DaDUvSnZBQ0x5cnFLNDJpdisyYkcxSUlVZWd5NkpGdVZicmFCZFVIaVNx?=
+ =?utf-8?B?d3NNbkNpSUxFdGlQamswWkY5dlhtSnFrUmhlK3ZGSVNWR0c0Mm5yUzJRV2hY?=
+ =?utf-8?B?Z2pCdjI3bVZZanBlcWpNZExFb2VFSlZxdDBQYzcvVnpscmZXSGJwTC93Nitm?=
+ =?utf-8?B?MTNOSjlFR0pVNlo0QkZYdVo0V2Q2OGMwRDNLY1Rkblh3azRMb0xTVzFLQi9U?=
+ =?utf-8?B?K1FqdWNscTU1RkJrSXRRY0w0a1YxckhMOGoxdXBhaEl6Rk5qaFZRdkE0VThN?=
+ =?utf-8?B?SjlaeFNab2NLN2dIVHVXcGgraEkvSks1bEJhSmxyREdOcSt5THI3Y0lyVmdK?=
+ =?utf-8?B?NitvV1NZWnV4YWxhemRFWS9yTzdFUG9nYXFlR0FmanJxS2Y1cFhtWU9mWE90?=
+ =?utf-8?B?eUsxR3h4WGdOUGJtcTdEeDdHYTdYSXYwNVV6SS96eTUwZDVlcGpmdXkrYnlC?=
+ =?utf-8?B?ejN4aEJvdWJUZ1Y1cktodS93TTd5cDJpRVA0N2Y1ME9nTnlyaUJaemo4NVls?=
+ =?utf-8?B?YkY4amxQRzYxMlowT2dkVkl1eHV0YjQrMDJDL0psUE5WS0NmaHpRM3JKWWhO?=
+ =?utf-8?B?UHJyVStmajNHWnJYa3ZtYXN6N3dEdUNSUVRHVzl3TnZuYkhrdEtlcktxMzFJ?=
+ =?utf-8?B?amZJVUNrVXl4cFNLcHA5b2pEelZjL1RHdDhKUHpQVk9CZTJYdTFqdEc2dFhp?=
+ =?utf-8?B?VTV5Q2lneFhLRm1SQ0RVdnBuaFJWU21TK3dyU1JLTm1KSjBvTFZYMGZuQU1s?=
+ =?utf-8?B?SE1Xak1mWkc5a1BpQ0xMYnNKQnlUbUp2Y1VxeHhCc2o4cXJrbzU2TFpmQlRw?=
+ =?utf-8?B?Y0k3YmpiUGF4dUNlN3dpUHNVc0VOYVFGQWtwSUNpcHEzdDNISHNYaFNsZzcv?=
+ =?utf-8?B?UllIVDNmbDY4Y0ZVMUxjTElwV2tER3BkU2VLUURrZlJscTVxOVprUTNrYUxC?=
+ =?utf-8?B?aWFEQzJidmhWUnpSUjZiN1M0b3BuSWM1WGYyb1FMMCtDYUlIcXRLTW1rNFo4?=
+ =?utf-8?B?S3o5YS9FSjI3TnRYSjZCZnpsZDhyR3l5WGxmYnRXWjJBWVZLQmtCY2pkeTVh?=
+ =?utf-8?B?N1I3N3Q5NHhhbzhYaysrSUtFSmxubkF6Mit4Vk41L3BxUGJmY29jZkVKZ01M?=
+ =?utf-8?B?YXZQYm1iVlB6MWtFUlFjUnpDSzhwVGNSb0V5eWlNRDlKZjlvMzc0UTZJT0kx?=
+ =?utf-8?B?N1VFN29OaE9tdWMwU0lrbUpnZU00YWNDd0dlZ0RTZnEvZ3YxM0VoaFVlckxR?=
+ =?utf-8?B?M2ovRzF4Mzd6dU1qY2pvb2FzMXJTalUvYitROTVhT254dDh4dy91ZUtIZU5U?=
+ =?utf-8?B?d282eU9HK0g4L2lsR0Q0bTFIcG93K1k0YlVGS3lXSUppTVhOcUNNTmtSUDJo?=
+ =?utf-8?B?L2kvSGN2RFRreEpSL1VraGo2WUQ2bkFsaFNxN2pBeUpJbFlrR1Z5R3NyUnNV?=
+ =?utf-8?B?M2tNTWs4K3R5YS9mQjFub2hQemJYb01aaVpYQURJbWE2NmtvK0RqZUkxdm9D?=
+ =?utf-8?B?cmVJUGNwNjJaTW9XaHhkNXpKRjZ5NGszWFhaQ3UybU53UGg1OXRwRXJzTGRh?=
+ =?utf-8?B?c1NHUVpJbWtNSG5qTHlSK0w3bzlGeG5DMWRuWlU1RUF4OE9EYnZDUCtjdmp1?=
+ =?utf-8?B?YjFhMGJrd0d5QmtSQnBTUE5obTNVdkxFYkljWERyWnhqMXg5NllnS3RMUDZQ?=
+ =?utf-8?B?R09RUXBzMGJhbHpHUmJwZ1RZb2dpUVVtRjNOTXhqb3EwTkZHdit2eU1wZVU1?=
+ =?utf-8?B?TUVmR0EwYjBvS2xMSVNYa1A1Yk16RkFyNDcwTXpxRlNSTjlIa0R2RVpBdFRj?=
+ =?utf-8?B?OUxmaEIvQ1Nidms3ME9paGMzaEhnVE1NZXZvWjYwbDhENFhPS3l6dTR4clY5?=
+ =?utf-8?B?MzJ6QXlXSGlNVzFId0tWT0ZkRTE4ZWxSTHdzUUkrTkJjc1lTc1hKOTNKVjh2?=
+ =?utf-8?Q?Vm7MZPCigLSIUKhGPgsrKAUVR?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 585914db-2a87-4262-e228-08daa13da34d
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 10:38:53.2463
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PiyrBuKRyv/0FfXvs6o9vXEaL/H+AdBCc9NDUzD4OJAx/j+/wQqUgUHE/mqlFHMCUk+gE7shQmpF9u+chuLXCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8266
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------F5icf01H3NZlsmrz1JnX9ERL
-Content-Type: multipart/mixed; boundary="------------HLiW1ScmoygFeF2gnYyGwTIf";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>
-Message-ID: <699aacca-b82a-78df-3a74-4b5b82de92c2@suse.com>
-Subject: Re: [PATCH v3 03/10] x86/mtrr: replace use_intel() with a local flag
-References: <20220908084914.21703-1-jgross@suse.com>
- <20220908084914.21703-4-jgross@suse.com> <Yx21cizZHNzD38z7@nazgul.tnic>
- <80085512-5783-7ea0-fb7d-6e852f8942e0@suse.com>
-In-Reply-To: <80085512-5783-7ea0-fb7d-6e852f8942e0@suse.com>
+For quite some time we've been talking about replacing the present virtual
+address based hypercall interface with one using physical addresses.  This is in
+particular a prerequisite to being able to support guests with encrypted
+memory, as for such guests we cannot perform the page table walks necessary to
+translate virtual to (guest-)physical addresses.  But using (guest) physical
+addresses is also expected to help performance of non-PV guests (i.e. all Arm
+ones plus HVM/PVH on x86), because of the no longer necessary address
+translation.
 
---------------HLiW1ScmoygFeF2gnYyGwTIf
-Content-Type: multipart/mixed; boundary="------------xKotCnUiVNlmCt3z0wqbHP9g"
+Clearly to be able to run existing guests, we need to continue to support the
+present virtual address based interface.  Previously it was suggested to change
+the model on a per-domain basis, perhaps by a domain creation control.  This
+has two major shortcomings:
+ - Entire guest OSes would need to switch over to the new model all in one go.
+   This could be particularly problematic for in-guest interfaces like Linux'es
+   privcmd driver, which is passed hypercall argument from user space.  Such
+   necessarily use virtual addresses, and hence the kernel would need to learn
+   of all hypercalls legitimately coming in, in order to translate the buffer
+   addresses.  Reaching sufficient coverage there might take some time.
+ - All base components within an individual guest instance which might run in
+   succession (firmware, boot loader, kernel, kexec) would need to agree on the
+   hypercall ABI to use.
 
---------------xKotCnUiVNlmCt3z0wqbHP9g
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+As an alternative I'd like to propose the introduction of a bit (or multiple
+ones, see below) augmenting the hypercall number, to control the flavor of the
+buffers used for every individual hypercall.  This would likely involve the
+introduction of a new hypercall page (or multiple ones if more than one bit is
+to be used), to retain the present abstraction where it is the hypervisor which
+actually fills these pages.  For multicalls the wrapping multicall itself would
+be controlled independently of the constituent hypercalls.
 
-T24gMTIuMDkuMjIgMTE6MTAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IE9uIDExLjA5LjIy
-IDEyOjE2LCBCb3Jpc2xhdiBQZXRrb3Ygd3JvdGU6DQo+PiBPbiBUaHUsIFNlcCAwOCwgMjAy
-MiBhdCAxMDo0OTowN0FNICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4+IGRpZmYg
-LS1naXQgYS9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9jYWNoZWluZm8uaCBiL2FyY2gveDg2L2lu
-Y2x1ZGUvYXNtL2NhY2hlaW5mby5oDQo+Pj4gaW5kZXggODZiMmUwZGNjNGJmLi4xYWVhZmE5
-ODg4ZjcgMTAwNjQ0DQo+Pj4gLS0tIGEvYXJjaC94ODYvaW5jbHVkZS9hc20vY2FjaGVpbmZv
-LmgNCj4+PiArKysgYi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9jYWNoZWluZm8uaA0KPj4+IEBA
-IC0yLDYgKzIsMTEgQEANCj4+PiDCoCAjaWZuZGVmIF9BU01fWDg2X0NBQ0hFSU5GT19IDQo+
-Pj4gwqAgI2RlZmluZSBfQVNNX1g4Nl9DQUNIRUlORk9fSA0KPj4+ICsvKiBLZXJuZWwgY29u
-dHJvbHMgTVRSUiBhbmQvb3IgUEFUIE1TUnMuICovDQo+Pj4gK2V4dGVybiB1bnNpZ25lZCBp
-bnQgY2FjaGVfZ2VuZXJpYzsNCj4+DQo+PiBTbyB0aGlzIHNob3VsZCBiZSBjYWxsZWQgc29t
-ZXRoaW5nIG1vcmUgZGVzY3JpcHRpdmUgbGlrZQ0KPj4NCj4+IMKgwqDCoMKgbWVtb3J5X2Nh
-Y2hpbmdfdHlwZXMNCj4gDQo+IEluIHRoZSBlbmQgdGhpcyB2YXJpYWJsZSBkb2Vzbid0IHNw
-ZWNpZnkgd2hpY2ggY2FjaGluZyB0eXBlcyBhcmUgYXZhaWxhYmxlLA0KPiBidXQgdGhlIHdh
-eXMgdG8gc2VsZWN0L2NvbnRyb2wgdGhlIGNhY2hpbmcgdHlwZXMuDQo+IA0KPiBTbyB3aGF0
-IGFib3V0ICJtZW1vcnlfY2FjaGluZ19zZWxlY3QiIG9yICJtZW1vcnlfY2FjaGluZ19jb250
-cm9sIiBpbnN0ZWFkPw0KPiANCj4+IG9yIHNvIHRvIGRlbm90ZSB0aGF0IHRoaXMgaXMgYSBi
-aXRmaWVsZCBvZiBzdXBwb3J0ZWQgbWVtb3J5IGNhY2hpbmcNCj4+IHRlY2hub2xvZ2llcy4g
-VGhlIGNvZGUgdGhlbiB3b3VsZCByZWFkIGFzDQo+Pg0KPj4gwqDCoMKgwqBpZiAobWVtb3J5
-X2NhY2hpbmdfdHlwZXMgJiBDQUNIRV9NVFJSKQ0KPj4NCj4+IFRoZSBuYW1lJ3Mgc3RpbGwg
-bm90IG9wdGltYWwgdGhvIC0gbmVlZHMgbW9yZSBicm9vZGluZyBvdmVyLg0KPj4NCj4+PiAr
-I2RlZmluZSBDQUNIRV9HRU5FUklDX01UUlIgMHgwMQ0KPj4+ICsjZGVmaW5lIENBQ0hFX0dF
-TkVSSUNfUEFUwqAgMHgwMg0KPj4NCj4+IEFuZCB0aG9zZSBzaG91bGQgYmUgQ0FDSEVfe01U
-UlIsUEFUfS4NCj4gDQo+IEZpbmUgd2l0aCBtZS4NCj4gDQo+Pj4gwqAgdm9pZCBjYWNoZWlu
-Zm9fYW1kX2luaXRfbGxjX2lkKHN0cnVjdCBjcHVpbmZvX3g4NiAqYywgaW50IGNwdSk7DQo+
-Pj4gwqAgdm9pZCBjYWNoZWluZm9faHlnb25faW5pdF9sbGNfaWQoc3RydWN0IGNwdWluZm9f
-eDg2ICpjLCBpbnQgY3B1KTsNCj4+PiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYva2VybmVsL2Nw
-dS9jYWNoZWluZm8uYyBiL2FyY2gveDg2L2tlcm5lbC9jcHUvY2FjaGVpbmZvLmMNCj4+PiBp
-bmRleCA2NjU1NjgzM2Q3YWYuLjNiMDVkM2FkZTdhNiAxMDA2NDQNCj4+PiAtLS0gYS9hcmNo
-L3g4Ni9rZXJuZWwvY3B1L2NhY2hlaW5mby5jDQo+Pj4gKysrIGIvYXJjaC94ODYva2VybmVs
-L2NwdS9jYWNoZWluZm8uYw0KPj4+IEBAIC0zNSw2ICszNSw5IEBAIERFRklORV9QRVJfQ1BV
-X1JFQURfTU9TVExZKGNwdW1hc2tfdmFyX3QsIGNwdV9sbGNfc2hhcmVkX21hcCk7DQo+Pj4g
-wqAgLyogU2hhcmVkIEwyIGNhY2hlIG1hcHMgKi8NCj4+PiDCoCBERUZJTkVfUEVSX0NQVV9S
-RUFEX01PU1RMWShjcHVtYXNrX3Zhcl90LCBjcHVfbDJjX3NoYXJlZF9tYXApOw0KPj4+ICsv
-KiBLZXJuZWwgY29udHJvbHMgTVRSUiBhbmQvb3IgUEFUIE1TUnMuICovDQo+Pj4gK3Vuc2ln
-bmVkIGludCBjYWNoZV9nZW5lcmljOw0KPj4NCj4+IFRoaXMgc2hvdWxkIGVpdGhlciBiZSBf
-X3JvX2FmdGVyX2luaXQgYW5kIGluaXRpYWxpemVkIHRvIDAgb3IgeW91IG5lZWQNCj4+IGFj
-Y2Vzc29ycy4uLg0KPiANCj4gT2theS4NCj4gDQo+Pg0KPj4+IMKgIHUzMiBudW1fdmFyX3Jh
-bmdlczsNCj4+PiAtc3RhdGljIGJvb2wgX19tdHJyX2VuYWJsZWQ7DQo+Pj4gLQ0KPj4+IC1z
-dGF0aWMgYm9vbCBtdHJyX2VuYWJsZWQodm9pZCkNCj4+PiAtew0KPj4+IC3CoMKgwqAgcmV0
-dXJuIF9fbXRycl9lbmFibGVkOw0KPj4+IC19DQo+Pj4gK3N0YXRpYyBib29sIG10cnJfZW5h
-YmxlZDsNCj4+DQo+PiBIbW0sIEkgZG9uJ3QgbGlrZSB0aGlzLiBUaGVyZSdzIHdheSB0b28g
-bWFueSBib29sZWFuIGZsYWdzIGluIHRoZSBtdHJyDQo+PiBjb2RlLiBUaGVyZSdzIG10cnJf
-c3RhdGUuZW5hYmxlZCB0b28uIDstXA0KPj4NCj4+IENhbiB3ZSBzZXQgKG9yIGNsZWFyKSBY
-ODZfRkVBVFVSRV9NVFJSIHRvIGRlbm90ZSBNVFJSIGVuYWJsZW1lbnQgc3RhdHVzDQo+PiBh
-bmQgZ2V0IHJpZCBvZiBvbmUgbW9yZSBib29sZWFuIGZsYWc/DQo+IA0KPiBJJ2xsIGhhdmUg
-YSBsb29rLg0KDQpIbW0sIHRoaXMgbWlnaHQgYmUgYSBsaXR0bGUgYml0IHJpc2t5Lg0KDQpJ
-dCBjYW4gYmUgZG9uZSwgYnV0IHRoZW4gWDg2X0ZFQVRVUkVfTVRSUiBjb3VsZCBiZSBzZXQg
-ZXZlbiBmb3IgY3B1cw0KTk9UIHN1cHBvcnRpbmcgaXQgKHRoZSAzMi1iaXQgc3BlY2lhbCBj
-YXNlcyBBTUQsIENFTlRBVVIsIENZUklYKS4NCg0KU28gd2UgaGF2ZSB0aGUgZm9sbG93aW5n
-IGFsdGVybmF0aXZlczoNCg0KLSBkbyB0aGUgc3dpdGNoIHRvIFg4Nl9GRUFUVVJFX01UUlIg
-cmlza2luZyBjb2RlIGJyZWFrYWdlIGZvciBsYXRlcg0KICAgY29kZSBjaGFuZ2VzIHF1ZXJ5
-aW5nIFg4Nl9GRUFUVVJFX01UUlIgYW5kIGFzc3VtaW5nIHRoZSBNVFJSIE1TUnMNCiAgIGJl
-aW5nIGF2YWlsYWJsZQ0KDQotIGtlZXAgdGhlIGN1cnJlbnQgYm9vbA0KDQotIHJlcGxhY2Ug
-dGhlIGJvb2wgd2l0aCBtdHJyX2lmICE9IE5VTEwNCg0KLSBhZGQgYSBuZXcgc3ludGhldGlj
-IGZlYXR1cmUsIGUuZy4gWDg2X0ZFQVRVUkVfTVRSUl9FTkFCTEVEICh3aGljaCBpbg0KICAg
-ZmFjdCB3b3VsZCBiZSBqdXN0IGEgcmVwbGFjZW1lbnQgb2YgdGhlIGN1cnJlbnQgYm9vbCkN
-Cg0KTXkgcHJlZmVyZW5jZSB3b3VsZCBiZSB0aGUgcmVwbGFjZW1lbnQgd2l0aCBtdHJyX2lm
-ICE9IE5VTEwuDQoNCg0KSnVlcmdlbg0K
---------------xKotCnUiVNlmCt3z0wqbHP9g
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+A model involving just a single bit to indicate "flat" buffers has limitations
+when it comes to large buffers passed to a hypercall.  Since in many cases
+hypercalls (currently) allowing for rather large buffers wouldn't normally be
+used with buffers significantly larger than a single page (several of the
+mem-ops for example), special casing the (presumably) few hypercalls which have
+an actual need for large buffers might be an option.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Another approach would be to build in a scatter/gather model for buffers right
+away.  Jürgen suggests that the low two address bits could be used as a
+"descriptor" here.  Alternatively, since buffer sizes should always be known,
+using a multi-bit augmentation to the hypercall number could also be a viable
+model, distinguishing between e.g. all-linear buffers, all-single-S/G-level
+ones, and size-dependent selection of zero or more S/G levels.  This would
+affect all buffers used by a single hypercall.  With the level of indirection
+needed derivable from buffer size, in the last of the variants small buffers
+could still have their addresses provided directly while only larger buffers
+would be described by e.g. a list of GFNs or a list of (address,length) tuples,
+using multiple levels if even that list would still end up large.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Of course any one of the models could be selected as the only one to use (in
+addition to the existing virtual address based one), allowing to stick to a
+single bit augmenting the hypercall number.
 
---------------xKotCnUiVNlmCt3z0wqbHP9g--
+Note that a dynamic model (indirection levels derived from buffer size) would
+be quite impactful, as the overall buffer size would need passing to the
+copying helpers alongside the size of the data which actually is to be copied.
 
---------------HLiW1ScmoygFeF2gnYyGwTIf--
+How to express S/G lists will want to take into account existing uses.  For
+example, an array of (address,length) tuples would be quite inefficient to use
+with operations like copy_from_guest_offset().  Perhaps this would want to be
+an array of xen_ulong_t, with the first slot holding the offset into the first
+page and all further slots holding GFNs (albeit that would still require two
+[generally] discontiguous reads from the array for a single
+copy_from_guest_offset()).  Otoh, since calling code will need changing anyway
+to use this new model, we might also require that such indirectly specified
+buffers are page-aligned.
 
---------------F5icf01H3NZlsmrz1JnX9ERL
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Virtual addresses will continue to be used in certain places.  Such aren't
+normally expressed via handles, e.g. callback or exception handling entry
+points.
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM0HyQFAwAAAAAACgkQsN6d1ii/Ey/j
-3wf7B3/WRDWgT5gzaKKNYA1NYwuZUjnDzHowMPGW6+BwIrde50hzjUTFy2VN+cYH+xEdWnV7Zt8s
-J4KEtqO/rP7+WcpgNuFre42q4Vk6yWKauU14QYzkkwcJNxvPsGYBm87HLGTKchN0jvfuWs5gCQw6
-hkmWiFy8OIHm932arXoGtdbQaj1RXOKNoNWYpFpYhqk3MJwYWvZMrR2JlDx7CcUHNPS9jERiMBEM
-qzL/eOMluT3Uubpe4H71KYZH8Zf7B5z6lcoZD860Hwm6fvjhzoNop59+qIBvVj+v8zDzWo9mdrCZ
-0xHm9ZEwYgDPtgE+Usu7Exv9imkH1gEqO2sDfs1uOg==
-=pGLf
------END PGP SIGNATURE-----
-
---------------F5icf01H3NZlsmrz1JnX9ERL--
+Jan
 
