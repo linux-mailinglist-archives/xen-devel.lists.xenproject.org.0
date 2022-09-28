@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C961A5EDDBB
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 15:32:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413341.656925 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E37B5EDE0B
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 15:44:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413346.656936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odXAs-0003kA-Oa; Wed, 28 Sep 2022 13:32:30 +0000
+	id 1odXM1-0005IV-Rb; Wed, 28 Sep 2022 13:44:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413341.656925; Wed, 28 Sep 2022 13:32:30 +0000
+Received: by outflank-mailman (output) from mailman id 413346.656936; Wed, 28 Sep 2022 13:44:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odXAs-0003hG-LW; Wed, 28 Sep 2022 13:32:30 +0000
-Received: by outflank-mailman (input) for mailman id 413341;
- Wed, 28 Sep 2022 13:32:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=koGe=Z7=gmail.com=dpsmith.dev@srs-se1.protection.inumbo.net>)
- id 1odXAr-0003hA-Ca
- for xen-devel@lists.xenproject.org; Wed, 28 Sep 2022 13:32:29 +0000
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [2607:f8b0:4864:20::f2e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id feb71358-3f31-11ed-964a-05401a9f4f97;
- Wed, 28 Sep 2022 15:32:28 +0200 (CEST)
-Received: by mail-qv1-xf2e.google.com with SMTP id s13so8095696qvq.10
- for <xen-devel@lists.xenproject.org>; Wed, 28 Sep 2022 06:32:28 -0700 (PDT)
-Received: from [10.10.1.154] (static-72-81-132-2.bltmmd.fios.verizon.net.
- [72.81.132.2]) by smtp.gmail.com with ESMTPSA id
- br38-20020a05620a462600b006bb208bd889sm2988237qkb.120.2022.09.28.06.32.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Sep 2022 06:32:26 -0700 (PDT)
+	id 1odXM1-0005Fn-Ni; Wed, 28 Sep 2022 13:44:01 +0000
+Received: by outflank-mailman (input) for mailman id 413346;
+ Wed, 28 Sep 2022 13:43:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=HzjL=Z7=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1odXLz-0005Fh-Aj
+ for xen-devel@lists.xenproject.org; Wed, 28 Sep 2022 13:43:59 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 99ce93d8-3f33-11ed-9374-c1cf23e5d27e;
+ Wed, 28 Sep 2022 15:43:58 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 099E621C10;
+ Wed, 28 Sep 2022 13:43:57 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B73D913677;
+ Wed, 28 Sep 2022 13:43:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id rqnjKpxPNGNkYQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 28 Sep 2022 13:43:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,91 +51,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: feb71358-3f31-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date;
-        bh=6o+q+v2aIGZEskjyk0+qGEOnEAAO7SKQ70FzXx2J318=;
-        b=EtiESMFRLPnc8/Cmg5kTJyidHSVPD2e0Zhn34e64gurRN4BAJFigzv9UurW4R1lx7T
-         Juj8kNLQqAhB3mApl+//tPE8P6hDGoz+B0+QhTmqWNId6loTIGoBqnWu8FXg65MpTfEE
-         llzZ8W4JbHndDnpws21dHcOAc+jo/uD3p+ymj9RhN6vnARvLZn5HK6qAW8qBPFclvazc
-         XZk7pIofdB5NSX7xHv4/yfgrlR/pSD6sQa9LcoK2deDgvkJLb8Gej8bStK8o4Qt7F/Q6
-         pfpUb5rkEdpLCq9kgXAs79V7Suhx3Jc9LqGWzBpfbh000xfo0+GXw+XHfM+7BlaDVAkV
-         Fpkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date;
-        bh=6o+q+v2aIGZEskjyk0+qGEOnEAAO7SKQ70FzXx2J318=;
-        b=2KdqysUB0QwSFfP2nEy1VNDUGjSlCvpQJngNvt1VaaBNgmg/k6GeP5DM0EJLMsHqov
-         fz09u+l5+Lu2KfeQ0CAAXWiyVSvpSiXaaBak48JkArRsv7zDYw0QYA8DyI9ndCwJW4ue
-         0ibLVVk4l854yicutnfn73mAz7Hr4UgdKBlOeMoPxOIv9TRwYeIPNU9XMnzCfYVBgsLE
-         U2TES9YkUdeCs9kaphlSPqRw4mo4IvSl3flFcv0ZmMzuWRgf2QgZcnwZSS6GdSiZ7435
-         97zsnYVM0MITNPU6fFlsAn6wKCs/sAf0pKXtclGVa6pbZipcZqJhcihFROv3/1EB25ti
-         p8YQ==
-X-Gm-Message-State: ACrzQf2Ps0HvyWHUaH+pdqLx7QQZPnkCSaUKOwkIMQHhs6ATa11a+E1C
-	PqUpkPI46KhrxwS8jAZ+5/FCv4AwqUk=
-X-Google-Smtp-Source: AMsMyM7sHmtjL446ge86Qtx0vbY7S01QAHBs/oaCINxQKC8nxuOhQ7ArRP8oWkRhEJWcnMBMVdYUXA==
-X-Received: by 2002:a05:6214:20e6:b0:4ac:99bb:5821 with SMTP id 6-20020a05621420e600b004ac99bb5821mr25270573qvk.39.1664371947168;
-        Wed, 28 Sep 2022 06:32:27 -0700 (PDT)
-Message-ID: <9340769a-d3cf-a7bb-f8f4-dc9bde463c02@gmail.com>
-Date: Wed, 28 Sep 2022 09:32:25 -0400
+X-Inumbo-ID: 99ce93d8-3f33-11ed-9374-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1664372637; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0+qgVvQ+GNlXq/zBvTYpmD3bvTKG59KN9G2baCe3L4s=;
+	b=P5DHHumd2i+xFneCbxXiNZU52CtcBxpCKL9MIVmmVrmJGgYeR/5igZszVabPCAdZV1CcNQ
+	crqIIxjgQ2zmZ1T0kaCBRaY6p02GE2G0aL7KND8nz3OTJl9Ayg18aWhbBm5Cjhw04nHzXr
+	mDD9nG6UhXbW7Z8mFNsi6Xo2GV1IReg=
+Message-ID: <c67d3887-498b-6e4d-857d-1cef7835421d@suse.com>
+Date: Wed, 28 Sep 2022 15:43:56 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: Proposal for physical address based hypercalls
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <98b857b8-f36a-e935-8318-f17dfc3457ab@suse.com>
-From: "dpsmith.dev" <dpsmith.dev@gmail.com>
-In-Reply-To: <98b857b8-f36a-e935-8318-f17dfc3457ab@suse.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>
+References: <c0872933-e046-0c5e-b63f-861d2d343794@suse.com>
+ <YzLcSOS6ZLIoPwBl@zn.tnic> <d3cd5c50-24e7-ffba-de2d-cf00400f6e38@suse.com>
+ <YzLo9IFDYW1T8BVZ@zn.tnic> <314e3bd3-3405-c0c3-225c-646d88cbfb1a@suse.com>
+ <YzOEYsqM0UEsiFuS@zn.tnic> <73d8fabd-8b93-2e65-da4b-ea509818e666@suse.com>
+ <24088a15-50a1-f818-8c3e-6010925bffbf@suse.com> <YzQmeh50ne8dyR2P@zn.tnic>
+ <f8da6988-afa3-1e85-b47d-d91fc4113803@suse.com> <YzQui+rOGrM6otzp@zn.tnic>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v3 08/10] x86/mtrr: let cache_aps_delayed_init replace
+ mtrr_aps_delayed_init
+In-Reply-To: <YzQui+rOGrM6otzp@zn.tnic>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------kLgPI4mCjxlBFdWM3iXqbGfB"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------kLgPI4mCjxlBFdWM3iXqbGfB
+Content-Type: multipart/mixed; boundary="------------MXeAQGi5Qqv0r0hnWtTYtC8l";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>
+Message-ID: <c67d3887-498b-6e4d-857d-1cef7835421d@suse.com>
+Subject: Re: [PATCH v3 08/10] x86/mtrr: let cache_aps_delayed_init replace
+ mtrr_aps_delayed_init
+References: <c0872933-e046-0c5e-b63f-861d2d343794@suse.com>
+ <YzLcSOS6ZLIoPwBl@zn.tnic> <d3cd5c50-24e7-ffba-de2d-cf00400f6e38@suse.com>
+ <YzLo9IFDYW1T8BVZ@zn.tnic> <314e3bd3-3405-c0c3-225c-646d88cbfb1a@suse.com>
+ <YzOEYsqM0UEsiFuS@zn.tnic> <73d8fabd-8b93-2e65-da4b-ea509818e666@suse.com>
+ <24088a15-50a1-f818-8c3e-6010925bffbf@suse.com> <YzQmeh50ne8dyR2P@zn.tnic>
+ <f8da6988-afa3-1e85-b47d-d91fc4113803@suse.com> <YzQui+rOGrM6otzp@zn.tnic>
+In-Reply-To: <YzQui+rOGrM6otzp@zn.tnic>
+
+--------------MXeAQGi5Qqv0r0hnWtTYtC8l
+Content-Type: multipart/mixed; boundary="------------B5MVV0E1Q4UseucaNVxkMjr0"
+
+--------------B5MVV0E1Q4UseucaNVxkMjr0
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-On 9/28/22 06:38, Jan Beulich wrote:
-> For quite some time we've been talking about replacing the present virtual
-> address based hypercall interface with one using physical addresses.  This is in
-> particular a prerequisite to being able to support guests with encrypted
-> memory, as for such guests we cannot perform the page table walks necessary to
-> translate virtual to (guest-)physical addresses.  But using (guest) physical
-> addresses is also expected to help performance of non-PV guests (i.e. all Arm
-> ones plus HVM/PVH on x86), because of the no longer necessary address
-> translation.
+T24gMjguMDkuMjIgMTM6MjIsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gV2VkLCBT
+ZXAgMjgsIDIwMjIgYXQgMDE6MTQ6MTFQTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
+Cj4+IE5vLCB3ZSBkb24ndC4NCj4+DQo+PiBVc2luZyBiYXNpY2FsbHkgeW91ciBwYXRjaCwg
+YnV0IHdpdGgNCj4+DQo+PiArCW10cnJfb25saW5lID0gY3B1aHBfc2V0dXBfc3RhdGVfbm9j
+YWxscyhDUFVIUF9BUF9PTkxJTkVfRFlOLA0KPj4gKwkJCQkJCSJ4ODYvbXRycjpvbmxpbmUi
+LA0KPj4gKwkJCQkJCW10cnJfYXBfaW5pdCwgTlVMTCk7DQo+Pg0KPj4gbW92ZWQgdG8gdGhl
+IGVuZCBvZiBtdHJyX2Fwc19pbml0KCksIGFuZDoNCj4+DQo+PiArdm9pZCBtdHJyX2Fwc190
+aGF3KHZvaWQpDQo+PiArew0KPj4gKwljcHVocF9yZW1vdmVfc3RhdGVfbm9jYWxscyhtdHJy
+X29ubGluZSk7DQo+PiArfQ0KPiANCj4gWWVzLCBzbyB5b3Ugc2FpZC4gSSdtIG5vdCBzdXJl
+IEkgbGlrZSB0aGlzIHRvZ2dsaW5nIG9mIG5vdGlmaWVyDQo+IHJlZ2lzdHJhdGlvbiBsaWtl
+IHRoYXQuDQoNClllYWgsIGVzcGVjaWFsbHkgd2l0aCBoYXZpbmcgdG8gcmVtZW1iZXIgdGhl
+IHNsb3QuDQoNCldvdWxkIHlvdSBmZWVsIGJldHRlciB3aXRoIGFkZGluZyBhIG5ldyBlbnVt
+IG1lbWJlciBDUFVIUF9BUF9DQUNIRUNUUkxfT05MSU5FPw0KDQpUaGlzIHdvdWxkIGF2b2lk
+IGEgcG9zc2libGUgc291cmNlIG9mIGZhaWx1cmUgZHVyaW5nIHJlc3VtZSBpbiBjYXNlIG5v
+IHNsb3QNCmZvciBDUFVIUF9BUF9PTkxJTkVfRFlOIGlzIGZvdW5kIChxdWl0ZSBpbXByb2Jh
+YmxlLCBidXQgaW4gdGhlb3J5IHBvc3NpYmxlKS4NCg0KPiBPcHRpbWFsbHksIEknZCBsaWtl
+IHRvIGJlIGFibGUgdG8gcXVlcnkgdGhlIHN1c3BlbmQgY29kZSB3aGV0aGVyIGl0IGlzDQo+
+IGluIHRoZSBwcm9jZXNzIG9mIHJlc3VtaW5nLg0KPiANCj4gVGhpcyBoZXJlOg0KPiANCj4g
+DQo+IHN0YXRpYyBpbnQgcmVzdW1lX3RhcmdldF9rZXJuZWwoYm9vbCBwbGF0Zm9ybV9tb2Rl
+KQ0KPiB7DQo+IA0KPiAuLi4NCj4gDQo+ICAgRW5hYmxlX2lycXM6DQo+ICAgICAgICAgIHN5
+c3RlbV9zdGF0ZSA9IFNZU1RFTV9SVU5OSU5HOw0KPiAgICAgICAgICBsb2NhbF9pcnFfZW5h
+YmxlKCk7DQo+ICAgDQo+ICAgRW5hYmxlX2NwdXM6DQo+ICAgICAgICAgIHBtX3NsZWVwX2Vu
+YWJsZV9zZWNvbmRhcnlfY3B1cygpOw0KPiANCj4gDQo+IGJ1dCBiZWluZyBhYmxlIHRvIGRv
+Og0KPiANCj4gICAgICAgICAgcG1fc2xlZXBfZW5hYmxlX3NlY29uZGFyeV9jcHVzKCk7DQo+
+IAlzeXN0ZW1fc3RhdGUgPSBTWVNURU1fUlVOTklORyB8IFNZU1RFTV9SVU5OSU5HX0FQU19V
+UDsNCj4gDQo+IHdoaWNoIGNhbid0IHdvcmssIG9idmlvdXNseS4gQnV0IHNvbWV0aGluZyBs
+aWtlIHRoYXQuDQo+IA0KDQpZb3Ugd291bGRuJ3Qgd2FudCB0byBkbyB0aGF0IHRoZXJlLCBh
+cyB0aGVyZSBhcmUgbXVsdGlwbGUgcGxhY2VzIHdoZXJlDQpwbV9zbGVlcF9lbmFibGVfc2Vj
+b25kYXJ5X2NwdXMoKSBpcyBiZWluZyBjYWxsZWQuIEFkZGl0aW9uYWxseSBub3QgYWxsDQpj
+YXNlcyBhcmUgY29taW5nIGluIHZpYSBwbV9zbGVlcF9lbmFibGVfc2Vjb25kYXJ5X2NwdXMo
+KSwgYXMgdGhlcmUgaXMNCmUuZy4gYSBjYWxsIG9mIHN1c3BlbmRfZW5hYmxlX3NlY29uZGFy
+eV9jcHVzKCkgZnJvbSBrZXJuZWxfa2V4ZWMoKSwNCndoaWNoIHdhbnRzIHRvIGhhdmUgdGhl
+IHNhbWUgaGFuZGxpbmcuDQoNCmFyY2hfdGhhd19zZWNvbmRhcnlfY3B1c19iZWdpbigpIGFu
+ZCBhcmNoX3RoYXdfc2Vjb25kYXJ5X2NwdXNfZW5kKCkgYXJlDQp0aGUgZnVuY3Rpb25zIHRv
+IG1hcmsgc3RhcnQgYW5kIGVuZCBvZiB0aGUgc3BlY2lhbCByZWdpb24gd2hlcmUgdGhlDQpk
+ZWxheWVkIE1UUlIgc2V0dXAgc2hvdWxkIGhhcHBlbi4NCg0KDQpKdWVyZ2VuDQo=
+--------------B5MVV0E1Q4UseucaNVxkMjr0
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Greetings Jan,
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I think there are multiple issues in play here, but the two major ones 
-are 1.) eliminating the use of guest virtual addresses and 2.) handling 
-the change in the security model for hypercalls from encrypted VMs. As 
-Andy was pointing out, attempting to address (1) in a backwards 
-compatible approach will likely not arrive at a solution that can 
-address issue (2). IMHO, the only result from teaching the existing ABI 
-to speak GPAs instead of VAs will be to break current and new kernels of 
-the habit of using VAs. Beyond that I do not see how it will do anything 
-to prepare current OS kernels for running as encrypted VMs, at least for 
-AMD since that is the specification I have been focused on studying the 
-last couple of months.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-As for ABIv2, I understand and can appreciate Andy's desired approach. 
-Recently, especially with the hardware changes being introduced by SEV, 
-I would like to have considered a naive and more radical approach. 
-Currently hypercalls function using a more ioctl style. I would like to 
-suggest that a packet style interface similar to netlink be considered. 
-There are many benefits to adopting this type of interface that could be 
-covered in a larger RFC if there was any sense of willingness to 
-consider it. As a glimpse, a few benefits would be that arbitrary 
-buffers, continuations/asynchronous calls, and multi-call are all 
-natural consequence. It would also allow advanced extensions, such as an 
-optional PF_RING-like interface for zero-copy messaging from guest 
-user-space to hypervisor. While a packet interface could easily co-exist 
-with the existing ioctl-style interface, it would be a paradigm shift 
-from the past, though I feel ABIv2 was already going to be such a shift. 
-Anyway, just my 2¢.
+--------------B5MVV0E1Q4UseucaNVxkMjr0--
 
-V/r,
-DPS
+--------------MXeAQGi5Qqv0r0hnWtTYtC8l--
+
+--------------kLgPI4mCjxlBFdWM3iXqbGfB
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM0T5wFAwAAAAAACgkQsN6d1ii/Ey/X
+Sgf/crikTlJTPVcK1Ea0f8VQ0pY4rHV7agTDdfbNoN4Qh4vMLm/oYM+HM7DXpN64u68pk0b8eEwP
+IKE24yyYWt77yWMBLfXpO9yGtV82D3GmPD/Wc2Ma+pyYC926PHf70VNKuNe/tyXZAUL96qaEA5I0
+ftsq75ktri6X323ky92q72azaAblDodwowr2RUzLRQjPlwcRJr2OwnHosrAm3RWVe8LtRuFCeHm5
+clWaOCiROKuhCNa1GNvuPsmIdZUa7xPItPhf9WewfMQneGxd0WrzDpJryH8g5r16a/aThcpqret6
+ujJmNQIvyIQldvfHwNP0Fid5vBagiJiz9Zkt65dJOA==
+=osbX
+-----END PGP SIGNATURE-----
+
+--------------kLgPI4mCjxlBFdWM3iXqbGfB--
 
