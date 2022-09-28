@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFFBD5ED335
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 05:03:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413106.656611 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EFE05ED40D
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 06:58:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413115.656623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odNKm-0002HF-3b; Wed, 28 Sep 2022 03:02:04 +0000
+	id 1odP8C-0004zH-EC; Wed, 28 Sep 2022 04:57:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413106.656611; Wed, 28 Sep 2022 03:02:04 +0000
+Received: by outflank-mailman (output) from mailman id 413115.656623; Wed, 28 Sep 2022 04:57:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odNKl-0002F0-W0; Wed, 28 Sep 2022 03:02:03 +0000
-Received: by outflank-mailman (input) for mailman id 413106;
- Wed, 28 Sep 2022 03:02:02 +0000
+	id 1odP8C-0004vn-Aa; Wed, 28 Sep 2022 04:57:12 +0000
+Received: by outflank-mailman (input) for mailman id 413115;
+ Wed, 28 Sep 2022 04:57:11 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1odNKk-0002Eq-5m; Wed, 28 Sep 2022 03:02:02 +0000
+ id 1odP8B-0004vd-KF; Wed, 28 Sep 2022 04:57:11 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1odNKk-0001MY-41; Wed, 28 Sep 2022 03:02:02 +0000
+ id 1odP8B-0003aO-HL; Wed, 28 Sep 2022 04:57:11 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1odNKj-0004vs-Mg; Wed, 28 Sep 2022 03:02:01 +0000
+ id 1odP8B-0002Cu-1K; Wed, 28 Sep 2022 04:57:11 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1odNKj-0007xA-MI; Wed, 28 Sep 2022 03:02:01 +0000
+ id 1odP8B-0004NC-0t; Wed, 28 Sep 2022 04:57:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,72 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0+xWkE8mDFoiYBuHVN5myvrZUjRSU1nvRF4e8HSsOQA=; b=Fwdhs/8Yh9k2GjTZ/VKCZkOF1K
-	NWvM2EFyL6pFRe1HNMtcJ0mc3Hsr/OPuog3JpYY6K01z9+kAZxx36gUP5Co7xfUwjf0li+ali5SKw
-	haNFOu2Rb1TcX3rTGSE5YRAaiQZexJuKivjX+RWsfNPKnhPKpkXkEWRc7PT06B7cUYYY=;
+	bh=v/TJRZJUf4M5W9fPTLHjYxVKgbfHSth6YH8vXvCoRG0=; b=Wu7DYytMn3eNVNPI1S61IgEqDH
+	2OkOf9QPvxyoUVSBihBIqmzmAiNyLjvE7YEk+mQ5RtdDOIXIO8D9+pWSbvFfRFrbs0Wr7PnTJ+oEB
+	3yrQQjYzZCPYZy3zNlCt4UmLv+lZWqPrsIn3Od1hPWEbzraeorpqVsicC4lOP+bpWkCM=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173341-mainreport@xen.org>
+Message-ID: <osstest-173342-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 173341: all pass - PUSHED
+Subject: [xen-unstable-smoke test] 173342: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    ovmf=f4d539007c706ad9a563f368720edf0920da925d
+    xen=211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
 X-Osstest-Versions-That:
-    ovmf=b3dd9cb836e2aed68198aa79a1ca6afdb25adf80
+    xen=5e936d11b171793c174686268c9c1df8a4fa974c
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 28 Sep 2022 03:02:01 +0000
+Date: Wed, 28 Sep 2022 04:57:11 +0000
 
-flight 173341 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173341/
+flight 173342 xen-unstable-smoke real [real]
+flight 173344 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173342/
+http://logs.test-lab.xenproject.org/osstest/logs/173344/
 
-Perfect :-)
-All tests in this flight passed as required
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 20 guest-start/debianhvm.repeat fail REGR. vs. 173333
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
 version targeted for testing:
- ovmf                 f4d539007c706ad9a563f368720edf0920da925d
+ xen                  211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
 baseline version:
- ovmf                 b3dd9cb836e2aed68198aa79a1ca6afdb25adf80
+ xen                  5e936d11b171793c174686268c9c1df8a4fa974c
 
-Last test of basis   173323  2022-09-27 03:13:30 Z    0 days
-Testing same since   173341  2022-09-28 00:40:28 Z    0 days    1 attempts
+Last test of basis   173333  2022-09-27 13:00:27 Z    0 days
+Testing same since   173342  2022-09-28 01:00:28 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stefano Stabellini <stefano.stabellini@amd.com>
 
 jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
+ build-arm64-xsm                                              pass    
  build-amd64                                                  pass    
- build-i386                                                   pass    
+ build-armhf                                                  pass    
  build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     pass    
 
 
 ------------------------------------------------------------
@@ -108,8 +129,57 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Pushing revision :
+Not pushing.
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   b3dd9cb836..f4d539007c  f4d539007c706ad9a563f368720edf0920da925d -> xen-tested-master
+------------------------------------------------------------
+commit 211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Sep 26 14:02:13 2022 +0100
+
+    CI: Force CONFIG_XEN_IBT in the buster-gcc-ibt test
+    
+    buster-gcc-ibt is a dedicated test to run a not-yet-upstreamed compiler patch
+    which is relevant to CONFIG_XEN_IBT in 4.17 and later.
+    
+    Force it on, rather than having 50% of the jobs not testing what they're
+    supposed to be testing.
+    
+    Fixes: 5d59421815d5 ("x86: Use control flow typechecking where possible")
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+    [stefano: minor code style improvement]
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+
+commit 1686272d5297b2f6ebad7dcf6586d17c55b84c81
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Tue Sep 27 11:47:18 2022 +0200
+
+    automation: qemu-smoke-arm{32/64}.sh: Fix typo in DEBIAN_FRONTENT
+    
+    The correct variable name is DEBIAN_FRONTEND and not DEBIAN_FRONTENT.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 13a7c0074ac8fb31f6c0485429b7a20a1946cb22
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Sep 27 16:47:08 2022 +0100
+
+    Build: Drop -no-pie from EMBEDDED_EXTRA_CFLAGS
+    
+    This breaks all Clang builds, as demostrated by Gitlab CI.
+    
+    Contrary to the description in ecd6b9759919, -no-pie is not even an option
+    passed to the linker.  GCC's actual behaviour is to inhibit the passing of
+    -pie to the linker, as well as selecting different cr0 artefacts to be linked.
+    
+    EMBEDDED_EXTRA_CFLAGS is not used for $(CC)-doing-linking, and not liable to
+    gain such a usecase.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+    Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+    Fixes: ecd6b9759919 ("Config.mk: correct PIE-related option(s) in EMBEDDED_EXTRA_CFLAGS")
+(qemu changes not included)
 
