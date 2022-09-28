@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA2585EDA54
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 12:45:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413245.656778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15AA85EDA61
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Sep 2022 12:49:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413253.656790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odUZ5-0004jq-QN; Wed, 28 Sep 2022 10:45:19 +0000
+	id 1odUcM-0005PS-EQ; Wed, 28 Sep 2022 10:48:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413245.656778; Wed, 28 Sep 2022 10:45:19 +0000
+Received: by outflank-mailman (output) from mailman id 413253.656790; Wed, 28 Sep 2022 10:48:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odUZ5-0004gS-Nb; Wed, 28 Sep 2022 10:45:19 +0000
-Received: by outflank-mailman (input) for mailman id 413245;
- Wed, 28 Sep 2022 10:45:19 +0000
+	id 1odUcM-0005MZ-Az; Wed, 28 Sep 2022 10:48:42 +0000
+Received: by outflank-mailman (input) for mailman id 413253;
+ Wed, 28 Sep 2022 10:48:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RNMk=Z7=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1odUZ5-0004gM-5f
- for xen-devel@lists.xenproject.org; Wed, 28 Sep 2022 10:45:19 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-eopbgr80073.outbound.protection.outlook.com [40.107.8.73])
+ (envelope-from <SRS0=00UQ=Z7=alien8.de=bp@srs-se1.protection.inumbo.net>)
+ id 1odUcI-0005MQ-Kx
+ for xen-devel@lists.xenproject.org; Wed, 28 Sep 2022 10:48:40 +0000
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a40046d6-3f1a-11ed-9649-05401a9f4f97;
- Wed, 28 Sep 2022 12:45:17 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8586.eurprd04.prod.outlook.com (2603:10a6:20b:439::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17; Wed, 28 Sep
- 2022 10:45:15 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.017; Wed, 28 Sep 2022
- 10:45:15 +0000
+ id 1ab918f4-3f1b-11ed-9649-05401a9f4f97;
+ Wed, 28 Sep 2022 12:48:37 +0200 (CEST)
+Received: from zn.tnic (p200300ea9733e7ee329c23fffea6a903.dip0.t-ipconnect.de
+ [IPv6:2003:ea:9733:e7ee:329c:23ff:fea6:a903])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B47101EC0576;
+ Wed, 28 Sep 2022 12:48:31 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,215 +42,300 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a40046d6-3f1a-11ed-9649-05401a9f4f97
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UMZcn7a4P2sJnFXqxQejvhfyBdZTllDyoJvdHzoFFJzqZ8N9s4u06Bc9iqAySe3Oa+70B3MujTCWqSixqVu1ngX6o/vfy6Lzpzyz/LKzoK2x4GmjqRH7FNTfUPBVvylK72oAUiedqIMseGmO4KpdEiqGOFkuZF3eP6YtoBl8vFwVkuwzGxqV3QyIVEj74iTCE1nBElvJBtv9BNJme4b+KZvFrIYNsPGRwvMZ6YAeubG+xArulbTmno8wE+WVBexoOQNhAtFmQMikBmjRnkDQJqz2DhsBhC/1dgqZ51Tyc2kJ2YfzdZNYAJIhpALsJdorcWxZmIhHSfGefCFxe8GYsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wQO2A70vTnbnfNQz1f2eJnM+4kaB1DowXtso/JwbOZ8=;
- b=i+NGv0nmAT25wlZWar3VkbGIWVQt5ZGqoLHhdgKojgZOYs2AnQR6qsFx0cXzUF1vyNGnxoj85RerjO7Ap+vQNMFzV3tsSALCmK3nZwT//4PVtqTJEC1FMXNwHtbzJjp3C02n8MtJXJlpWIqsD/vohYvVm/p1QNICS9SYoI23a/zFiU4HDwnJmJ8JxER/K9Fu2JNuguoWa7upLg2kqKGZTPvHiO8jREf2giRksN73QoRyqwr/JwY8TBOgpTLEaTnpiKjK24u0j0ZPmHQpcqiI6rjsXxh4vn/f+8t1hQKYeRKQOrjrvNdfVITznyxEeZlHl//q0tDDkWPxII4qyDVu5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wQO2A70vTnbnfNQz1f2eJnM+4kaB1DowXtso/JwbOZ8=;
- b=jxH9HsRfKiefCkxG62gUZRJRlyiGX3kFVF/hPRRLgUORhQ5T1Gh3JzCaI4Wa8cFkUTL8MDl+bUBiRmPLifA8tJXIbe/cSbkw3gOKmqa7euQJ1Qjojh8NsDgfsk4/UQTUJ3WXBL4MEXA+OFVZr5vbBMOxbNxfajL/C47zWraK+SItQf7/TrdJSpH5kaSGGcY0lTK8aogzteKJS4KCjgmER+rkNCd8n1wY7UysZ7kOk7Ovwgi93keex9Vf6N4i7b1Rm34yQ8p7lzBghem2asZqUaPK9hD+SbhtxsxXbAeQ6CSoRWyTzagPRS02RQFnN3zJJD8/1wqqkelgcDchVhKc6g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <357195b5-bfb5-7f0d-8295-3076a6762f12@suse.com>
-Date: Wed, 28 Sep 2022 12:45:13 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [PATCH v2] x86/ept: limit calls to memory_type_changed()
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- xen-devel@lists.xenproject.org
-References: <20220927153937.39389-1-roger.pau@citrix.com>
- <ff79be48-8146-0b33-bdb9-ad9f33083559@suse.com>
- <YzQdEQbXhV2XDEKG@MacBook-Air-de-Roger.local>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YzQdEQbXhV2XDEKG@MacBook-Air-de-Roger.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS9PR06CA0267.eurprd06.prod.outlook.com
- (2603:10a6:20b:45f::33) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 1ab918f4-3f1b-11ed-9649-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+	t=1664362111;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+	bh=+FjFc+W0rnawZ+U2ZgyBD+QjFQbz7q8G3FqZ2msSnSQ=;
+	b=HQZ3JES2YaWgiRYy36DiLeVqjOXJOHZdjiQN9UU3tQ9xM+RGF1wfzc0x8X2B7dXcSC66Fw
+	E+L9vpk/MBaDR6QXaZ19OC6tMA8Y6qjTZMC+Pb0bMH1TPlkPzflgq4bqnmgfcStxxxTY5b
+	66nDyM2K/OZefricc6GQCNO/gOkXE38=
+Date: Wed, 28 Sep 2022 12:48:26 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH v3 08/10] x86/mtrr: let cache_aps_delayed_init replace
+ mtrr_aps_delayed_init
+Message-ID: <YzQmeh50ne8dyR2P@zn.tnic>
+References: <ce8cb1d3-a7d2-7484-26eb-60d3e29fa369@suse.com>
+ <YzLMKk4OK9FtjjKQ@zn.tnic>
+ <c0872933-e046-0c5e-b63f-861d2d343794@suse.com>
+ <YzLcSOS6ZLIoPwBl@zn.tnic>
+ <d3cd5c50-24e7-ffba-de2d-cf00400f6e38@suse.com>
+ <YzLo9IFDYW1T8BVZ@zn.tnic>
+ <314e3bd3-3405-c0c3-225c-646d88cbfb1a@suse.com>
+ <YzOEYsqM0UEsiFuS@zn.tnic>
+ <73d8fabd-8b93-2e65-da4b-ea509818e666@suse.com>
+ <24088a15-50a1-f818-8c3e-6010925bffbf@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8586:EE_
-X-MS-Office365-Filtering-Correlation-Id: 608a4d7d-43b1-452a-9ce5-08daa13e8712
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	PyniqaQRCwEW6IfcoZRw3/3LXBjTTqBNOLGnCBvWTIW96fukFsu0nUARvIp4/hOGteKfPxO8/v+closL5J7b1eBEc5wkzM+mSDCW311JQQ1d1MKj6WP7aI94pNEMeycG2WgrIDeG88KA3M1WjSVP54fvMnTVlGIEN8FkD/DGJdYR8+hMsvgckZQL91K6oQhqxvlnV/j1WHT2HbDH62fOaGvLAKp27OjYj+oJucE7WjoeF8huIAJQcherE4Hke9g2OYhtzCDUGC90amrCHAkFokOPomo6oBv4QfxF64VCy7Qnfi21oje/ztk/fCg9Gws5hW7Ya47aE9Bk+86g7JUNBPBn1mtUV+59sSA3Z8RKZOmFyNOXjFsGwBcs8jzAi/1g1eZUqzIrfmxZk5TL15hIvNscLzaxj6CmCFSCXQoW5R8Uw8/VE85Yc6GGvn1BVJRZhV6XKDR8fqTJD1uVjByXhOzINjEvY7E7HC0DIKyiWmt07ZW6qdDztdCDNI4sWXCBFRKVBPqbDw8F+tkGrd79Czql4Xkk/cWC3AIipcm/5bntTzmNO1xNnAM6weGFcrAUHfkjlC/swEDASJKNV73NIydI4Y7LSduxLWvXYdvllDLZITUTr+8L0iLBnhh6j0reBYK7u+uSrih127Upo1XzNFFxgtU8O8o+3i/xbIiZV80ICrZIBf3knl3xAycIt7wV07SfpD4YWROe+lBzDZpt3iUW5k++0SEglUpnPJdzi9+6dzyyj1MBselVPfRLV/xbkZQXpP8jS2KasMHPnvgww5O20hsXOuk1/0N9kadnCp0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(366004)(39860400002)(376002)(136003)(396003)(451199015)(478600001)(6486002)(6916009)(54906003)(316002)(6506007)(2616005)(26005)(6512007)(7416002)(5660300002)(8936002)(186003)(53546011)(8676002)(4326008)(66556008)(66476007)(66946007)(31696002)(36756003)(41300700001)(86362001)(31686004)(38100700002)(83380400001)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U0pBQW05dzkzNXo1UEk1OW5EWnNYZUpPRWFJVlJsQi82UnJPZGdzSmxZV3Nq?=
- =?utf-8?B?MzBualY1ZkcxWURCSTUvVGNETXV4bi9TT3QrRkdGdW5CTGRJZytPNit5aWZC?=
- =?utf-8?B?MDZiSDA1QWpSNmdLVHlGS3FvT3k2MnNPaDZMeklob1NIWGVGcElnVkFOVzhQ?=
- =?utf-8?B?U3BqbFVmelNicldSQ3c2bkRYZzUyTnNiSi9MWDY2VlhVNGJLUTJmVU10RU5a?=
- =?utf-8?B?TGlIS0RiMlA3bVZ5eDVWNkE5Nmc4TGUrYndvRXFHeUU2aEtRQ0tXZ0hOWERC?=
- =?utf-8?B?QkRsN2R4RmlNdG0vT2dRVURiM25UREw3RFdZZ3A2SThabEYyNWtHME51bFJw?=
- =?utf-8?B?YUxITnlPZURjSWl5N05OKzhCQ245eDlBdEszcGlEeWJDRy9JS0hJdVJtVXRh?=
- =?utf-8?B?VHE0UjFPalIyK3ExWWM3ajA0N3RCMzUxZjFFUkpOZjk2UlRGcmFrblRCNzBI?=
- =?utf-8?B?enR5eDZaQUVUK3h3K3hNakQ5RTdBNmk4VnY0aytDMVU5ZkRxL0VJdlhEaWNp?=
- =?utf-8?B?UmxLTjlNWFpkaCtaUno0SmdvUmlmMTZ4eVo5Z0ZyNFN2M3FvUVMwTUxlSnN6?=
- =?utf-8?B?ZU9qOEhLZW9qL3JYdi9KNUo0ZDZpTHhjSncwQkh5M0tmaWlUYUlCQzVSd0Zk?=
- =?utf-8?B?dU9mRlBmazBqejRsNk9mRkxHbXRHK0VUS2QyRTk5cmlPUEdRS1d3RStpSWY5?=
- =?utf-8?B?eTE4cDFVUmFWT1o1dk9pbm5RaWtVS0J3TlorY2R5cEwvRktBTkppNllsbUcy?=
- =?utf-8?B?dHJzK2N1VElPT3ZBQ1RIMmpneG82OHl1ZFNBYk1xb1J4ZjFEZTVlekFlcXhK?=
- =?utf-8?B?RnkxbkMyZExKOFJYdUZkOXh3YW9QQ2tDMDVoWGZVQUdJMFhQeWcyR01zWjRQ?=
- =?utf-8?B?aGFNNWZPT1hZaDRoUWVtU0VnK20wV1pLcVlaUDlWZTNUVzBYOTkwNkxxT0Jp?=
- =?utf-8?B?bGJFZTg2OE5La0dFcWUzeXBpeGxENVRDd0tXeUxFM2hjdGZXTDFqcWhoYThx?=
- =?utf-8?B?WHE5WGYvclBCdk1JaUJkQWFIR1RDYTczN2FGQVFTZmdMb0xGSTVmUEwzaWty?=
- =?utf-8?B?YXRYVmNMdkxCYUZIYmxFL1VtbkpLcWNWZzVBaFczSnVYN3VUVHJNVXBBbWlj?=
- =?utf-8?B?bHZHQ3c1bmVnVTNJdFZnWXdOT1pZbXh2MlpHSGJGSERTZ0cvMzEyYUhNY3k4?=
- =?utf-8?B?WnFVTTVlbFZIK2hYVHBEeFF3eVMrcUdkdnM4b3BTQU1jTDJzM0tLeEhkUGVp?=
- =?utf-8?B?WUJIbHJOaEJJdVlCeG5sY0ZHb2s0UlNmNWt6SzVIQ1psT3pXbXp6MzVSb05F?=
- =?utf-8?B?U3lLU1RsUGhYdjhoV2Evdk9pN1loRGZQSmo3UXBmLzRYUjRyeUxlQmJXSFNG?=
- =?utf-8?B?d1pncUVWcWFjT1pGVTMzZFFyYmRPZkYvamg0dDdlMVZUb3NtZERCaDBQVmJw?=
- =?utf-8?B?c2pXRTcxR20rT2NvY0I3b2hjcTdzQjNMOUFmNzFLTXpLSXVTcVRPTW9IWmpW?=
- =?utf-8?B?OWRJRVJRKzNiMjExNW5Qb01LeDZxR2dNbXRYc280dmhZWmgyVXptVTRSdm9k?=
- =?utf-8?B?cTU3czd5dXdBVkFiZllOYVA3SEZ3VnlrNzRiZUs5S3VrcFJOV1g3b2IxKzFQ?=
- =?utf-8?B?dFNaeSthbG9tTmFyQ2FmN2pRQk9Yd05QMnA5R0Jya0phdGJNMDZ0NllneSta?=
- =?utf-8?B?cFdkYVY3VUdYcDRhL2ZpV1RoTUpYcnVJbUpjYWwwS1p3R2pPVUFuUDh1enlv?=
- =?utf-8?B?d0IxNERvNDJXbnp6VXRwS215OUNGRE5jZ20rdjZ6djlyZzhKNFlnUFBOQ3Bp?=
- =?utf-8?B?bFpzWERVNnlXWE0wdWpIWlhZSVNFdGJxSTVTUkhMWTEzdlpUSFAvbVV3a0NS?=
- =?utf-8?B?Q2lMbnNLWEE2algrUFBKWjF4N0kvd2dGcXhuYVRBQVVWZ2F0d3lKZ1JoNW1L?=
- =?utf-8?B?bTN2Tncrd1RHVmtvSnVhQ3QxN0tDeHBIZ1g5Qk5NZnUyZFkwWnlDdFlIS20x?=
- =?utf-8?B?SzFiNytSOU4rdURka1I3dEw0TGF3bnBEQ0xwVWhsZUZGZS83RUM0Y3FWeVVo?=
- =?utf-8?B?VVZoaDVTSEZBbjhPT3JPMmxFNXRSMDY4SGZ4Z2xqTnk2MnpiMlZ3Q0E4UEF2?=
- =?utf-8?Q?xBH1ysKLM6SiVj52B6nRgXUqo?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 608a4d7d-43b1-452a-9ce5-08daa13e8712
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2022 10:45:15.4253
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6Y6w9iWy+NuY5snO4sIe5KgLLkM2MMnuITO0jgFWy0CRd7VWmB/1X9JUSjfWJ6i4N36fLEZbN4rhreJx6/SWjA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8586
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <24088a15-50a1-f818-8c3e-6010925bffbf@suse.com>
 
-On 28.09.2022 12:08, Roger Pau Monné wrote:
-> On Wed, Sep 28, 2022 at 10:01:26AM +0200, Jan Beulich wrote:
->> On 27.09.2022 17:39, Roger Pau Monne wrote:
->>> memory_type_changed() is currently only implemented for Intel EPT, and
->>> results in the invalidation of EMT attributes on all the entries in
->>> the EPT page tables.  Such invalidation causes EPT_MISCONFIG vmexits
->>> when the guest tries to access any gfns for the first time, which
->>> results in the recalculation of the EMT for the accessed page.  The
->>> vmexit and the recalculations are expensive, and as such should be
->>> avoided when possible.
->>>
->>> Remove the call to memory_type_changed() from
->>> XEN_DOMCTL_memory_mapping: there are no modifications of the
->>> iomem_caps ranges anymore that could alter the return of
->>> cache_flush_permitted() from that domctl.
->>>
->>> Encapsulate calls to memory_type_changed() resulting from changes to
->>> the domain iomem_caps or ioport_caps ranges in the helpers themselves
->>> (io{ports,mem}_{permit,deny}_access()), and add a note in
->>> epte_get_entry_emt() to remind that changes to the logic there likely
->>> need to be propagaed to the IO capabilities helpers.
->>>
->>> Note changes to the IO ports or memory ranges are not very common
->>> during guest runtime, but Citrix Hypervisor has an use case for them
->>> related to device passthrough.
->>>
->>> Some Arm callers (implementations of the iomem_deny_access function
->>> pointer field in gic_hw_operations struct) pass a const domain pointer
->>> to iomem_deny_access(), which is questionable.  It works because
->>> the rangeset is allocated separately from the domain struct, but
->>> conceptually seems wrong to me, as passing a const pointer would imply
->>> no changes to the domain data, and denying iomem accesses does change
->>> the domain data.  Fix this by removing the const attribute from the
->>> affected functions and call chain.
->>
->> Personally I think this adjustment would better be a separate, prereq
->> change.
-> 
-> Right - I was about to split it but didn't want to go through the
-> hassle if the approach didn't end up being well received.
-> 
-> Do you think placing the calls to memory_type_changed() inside the
-> {permit,deny}_,access is acceptable?
+On Wed, Sep 28, 2022 at 08:16:53AM +0200, Juergen Gross wrote:
+> > Are sure the hotplug notifier doesn't get called in the boot and in the
 
-Well, as said before - it's not pretty, but the existence of
-memory_type_changed() itself isn't either, nor are the present
-placements of calls to it. So yes, I view this as acceptable.
+It doesn't because it gets registered after smp_init()...
 
->>> --- a/xen/include/xen/iocap.h
->>> +++ b/xen/include/xen/iocap.h
->>> @@ -7,13 +7,43 @@
->>>  #ifndef __XEN_IOCAP_H__
->>>  #define __XEN_IOCAP_H__
->>>  
->>> +#include <xen/sched.h>
->>>  #include <xen/rangeset.h>
->>>  #include <asm/iocap.h>
->>> +#include <asm/p2m.h>
->>
->> That's heavy dependencies you're adding. I wonder if the functions
->> wouldn't better become out-of-line ones (but see also below).
->>
->>> +static inline int iomem_permit_access(struct domain *d, unsigned long s,
->>> +                                      unsigned long e)
->>> +{
->>> +    bool flush = cache_flush_permitted(d);
->>> +    int ret = rangeset_add_range(d->iomem_caps, s, e);
->>> +
->>> +    if ( !ret && !is_iommu_enabled(d) && !flush )
->>> +        /*
->>> +         * Only flush if the range(s) are empty before this addition and
->>> +         * IOMMU is not enabled for the domain, otherwise it makes no
->>> +         * difference for effective cache attribute calculation purposes.
->>> +         */
->>> +        memory_type_changed(d);
->>> +
->>> +    return ret;
->>> +}
->>> +static inline int iomem_deny_access(struct domain *d, unsigned long s,
->>> +                                    unsigned long e)
->>> +{
->>> +    int ret = rangeset_remove_range(d->iomem_caps, s, e);
->>> +
->>> +    if ( !ret && !is_iommu_enabled(d) && !cache_flush_permitted(d) )
->>> +        /*
->>> +         * Only flush if the range(s) are empty after this removal and
->>> +         * IOMMU is not enabled for the domain, otherwise it makes no
->>> +         * difference for effective cache attribute calculation purposes.
->>> +         */
->>> +        memory_type_changed(d);
->>> +
->>> +    return ret;
->>> +}
->>
->> I'm surprised Arm's memory_type_changed() is an empty out-of-line function.
->> This means the compiler can't eliminate this code (except when using LTO).
->> But then cache_flush_permitted() (resolving to rangeset_is_empty()) can't
->> be eliminated either, even if memory_type_changed() was. While gcc doc
->> doesn't explicitly say that it may help (the talk about repeated invocations
->> only), I wonder whether we shouldn't mark rangeset_is_empty() pure. In a
->> reduced example that does help (once memory_type_changed() is also an
->> inline function) with gcc12 - no call to rangeset_is_empty() remains.
-> 
-> Can look into it, do you want it to be a prereq of this patch?
+> > resume cases?
 
-Well, if done, then it being a prereq would seem desirable. But x86 isn't
-affected by this, so I'd leave the "whether" aspect to be judged by Arm folks.
+... but it gets called during resume because by that time the notifier
+has been registered already. See my notes at the end of this mail of
+what the code does currently.
 
-Jan
+> In case my suspicion is correct: this can still be solved by adding the
+> hotplug notifier only in mtrr_aps_init(), and removing it again in
+> arch_thaw_secondary_cpus_begin().
+
+Pretty much. Yeah, we still need a bool. ;-(
+
+But that bool has a much smaller scope and it is perfectly clear what it
+does. And I've added a comment. Could've used comments for the delayed
+init thing.
+
+Anyway, it gets set in a thaw callback (I mean, might as well, since
+we call into the MTRR code anyway). I probably can make this even
+cleaner and not do any bool if I could query in the notifier whether I'm
+resuming...
+
+Thx.
+
+---
+diff --git a/arch/x86/include/asm/mtrr.h b/arch/x86/include/asm/mtrr.h
+index 76d726074c16..86b8009d2429 100644
+--- a/arch/x86/include/asm/mtrr.h
++++ b/arch/x86/include/asm/mtrr.h
+@@ -42,9 +42,8 @@ extern int mtrr_add_page(unsigned long base, unsigned long size,
+ extern int mtrr_del(int reg, unsigned long base, unsigned long size);
+ extern int mtrr_del_page(int reg, unsigned long base, unsigned long size);
+ extern void mtrr_centaur_report_mcr(int mcr, u32 lo, u32 hi);
+-extern void mtrr_ap_init(void);
+-extern void set_mtrr_aps_delayed_init(void);
+ extern void mtrr_aps_init(void);
++extern void mtrr_aps_thaw(void);
+ extern void mtrr_bp_restore(void);
+ extern int mtrr_trim_uncached_memory(unsigned long end_pfn);
+ extern int amd_special_default_mtrr(void);
+@@ -83,9 +82,8 @@ static inline int mtrr_trim_uncached_memory(unsigned long end_pfn)
+ static inline void mtrr_centaur_report_mcr(int mcr, u32 lo, u32 hi)
+ {
+ }
+-#define mtrr_ap_init() do {} while (0)
+-#define set_mtrr_aps_delayed_init() do {} while (0)
+ #define mtrr_aps_init() do {} while (0)
++#define mtrr_aps_thaw() do {} while (0)
+ #define mtrr_bp_restore() do {} while (0)
+ #  endif
+ 
+diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+index 3e508f239098..deef1b5b27cc 100644
+--- a/arch/x86/kernel/cpu/common.c
++++ b/arch/x86/kernel/cpu/common.c
+@@ -1948,7 +1948,6 @@ void identify_secondary_cpu(struct cpuinfo_x86 *c)
+ #ifdef CONFIG_X86_32
+ 	enable_sep_cpu();
+ #endif
+-	mtrr_ap_init();
+ 	validate_apic_and_package_id(c);
+ 	x86_spec_ctrl_setup_ap();
+ 	update_srbds_msr();
+diff --git a/arch/x86/kernel/cpu/mtrr/mtrr.c b/arch/x86/kernel/cpu/mtrr/mtrr.c
+index 2746cac9d8a9..c4089fd2b477 100644
+--- a/arch/x86/kernel/cpu/mtrr/mtrr.c
++++ b/arch/x86/kernel/cpu/mtrr/mtrr.c
+@@ -69,7 +69,7 @@ unsigned int mtrr_usage_table[MTRR_MAX_VAR_RANGES];
+ static DEFINE_MUTEX(mtrr_mutex);
+ 
+ u64 size_or_mask, size_and_mask;
+-static bool mtrr_aps_delayed_init;
++static bool ap_notifier_disabled;
+ 
+ static const struct mtrr_ops *mtrr_ops[X86_VENDOR_NUM] __ro_after_init;
+ 
+@@ -176,7 +176,7 @@ static int mtrr_rendezvous_handler(void *info)
+ 	if (data->smp_reg != ~0U) {
+ 		mtrr_if->set(data->smp_reg, data->smp_base,
+ 			     data->smp_size, data->smp_type);
+-	} else if (mtrr_aps_delayed_init || !cpu_online(smp_processor_id())) {
++	} else if (!cpu_online(smp_processor_id())) {
+ 		mtrr_if->set_all();
+ 	}
+ 	return 0;
+@@ -784,13 +784,16 @@ void __init mtrr_bp_init(void)
+ 	}
+ }
+ 
+-void mtrr_ap_init(void)
++static int mtrr_ap_init(unsigned int cpu)
+ {
+ 	if (!mtrr_enabled())
+-		return;
++		return 1;
+ 
+-	if (!use_intel() || mtrr_aps_delayed_init)
+-		return;
++	if (!use_intel())
++		return 1;
++
++	if (ap_notifier_disabled)
++		return 0;
+ 
+ 	/*
+ 	 * Ideally we should hold mtrr_mutex here to avoid mtrr entries
+@@ -806,6 +809,8 @@ void mtrr_ap_init(void)
+ 	 *      lock to prevent mtrr entry changes
+ 	 */
+ 	set_mtrr_from_inactive_cpu(~0U, 0, 0, 0);
++
++	return 0;
+ }
+ 
+ /**
+@@ -823,34 +828,26 @@ void mtrr_save_state(void)
+ 	smp_call_function_single(first_cpu, mtrr_save_fixed_ranges, NULL, 1);
+ }
+ 
+-void set_mtrr_aps_delayed_init(void)
+-{
+-	if (!mtrr_enabled())
+-		return;
+-	if (!use_intel())
+-		return;
+-
+-	mtrr_aps_delayed_init = true;
+-}
+-
+ /*
+- * Delayed MTRR initialization for all AP's
++ * Delayed MTRR initialization for all APs
+  */
+ void mtrr_aps_init(void)
+ {
+ 	if (!use_intel() || !mtrr_enabled())
+ 		return;
+ 
+-	/*
+-	 * Check if someone has requested the delay of AP MTRR initialization,
+-	 * by doing set_mtrr_aps_delayed_init(), prior to this point. If not,
+-	 * then we are done.
+-	 */
+-	if (!mtrr_aps_delayed_init)
+-		return;
+-
+ 	set_mtrr(~0U, 0, 0, 0);
+-	mtrr_aps_delayed_init = false;
++	ap_notifier_disabled = false;
++}
++
++/*
++ * Disable the AP notifier temporarily during resume. It is supposed to be active only
++ * during CPU hotplug as during resume mtrr_aps_init() takes care of the MTRR
++ * programming on all CPUs.
++ */
++void mtrr_aps_thaw(void)
++{
++	ap_notifier_disabled = true;
+ }
+ 
+ void mtrr_bp_restore(void)
+@@ -869,6 +866,10 @@ static int __init mtrr_init_finialize(void)
+ 	if (use_intel()) {
+ 		if (!changed_by_mtrr_cleanup)
+ 			mtrr_state_warn();
++
++		cpuhp_setup_state_nocalls(CPUHP_AP_ONLINE_DYN, "x86/mtrr:online",
++				  mtrr_ap_init, NULL);
++
+ 		return 0;
+ 	}
+ 
+diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+index f24227bc3220..b90780dab88a 100644
+--- a/arch/x86/kernel/smpboot.c
++++ b/arch/x86/kernel/smpboot.c
+@@ -1428,8 +1428,6 @@ void __init native_smp_prepare_cpus(unsigned int max_cpus)
+ 
+ 	uv_system_init();
+ 
+-	set_mtrr_aps_delayed_init();
+-
+ 	smp_quirk_init_udelay();
+ 
+ 	speculative_store_bypass_ht_init();
+@@ -1439,7 +1437,7 @@ void __init native_smp_prepare_cpus(unsigned int max_cpus)
+ 
+ void arch_thaw_secondary_cpus_begin(void)
+ {
+-	set_mtrr_aps_delayed_init();
++	mtrr_aps_thaw();
+ }
+ 
+ void arch_thaw_secondary_cpus_end(void)
+
+
+Notes:
+------
+
+Boot sequence:
+
+BSP:
+
+[    0.272801] smpboot: native_smp_prepare_cpus: set_mtrr_aps_delayed_init
+
+APs:
+
+[    0.287190] mtrr_save_state: first_cpu: 0
+[    0.287724] x86: Booting SMP configuration:
+[    0.290292] .... node  #0, CPUs:        #1
+[    0.061135] mtrr_ap_init: single AP entry, use_intel: 1, mtrr_enabled: 1, mtrr_aps_delayed_init: 1
+
+ -> set_mtrr_from_inactive_cpu() gets skipped.
+
+After all APs booted:
+
+[    1.544506] mtrr_aps_init: entry, use_intel: 1, mtrr_enabled: 1, mtrr_aps_delayed_init: 1
+
+ -> set_mtrr()
+
+hotplug:
+
+[  206.112651] smpboot: CPU 11 is now offline
+[  208.286030] bringup_cpu: CPU11
+[  208.286611] mtrr_save_state: first_cpu: 0
+[  208.287416] smpboot: Booting Node 0 Processor 11 APIC 0xb
+[  206.116567] mtrr_ap_init: single AP entry, use_intel: 1, mtrr_enabled: 1, mtrr_aps_delayed_init: 0
+
+ -> set_mtrr_from_inactive_cpu()
+
+suspend/resume:
+
+BSP:
+
+[  270.586643] smpboot: arch_thaw_secondary_cpus_begin: set_mtrr_aps_delayed_init
+
+APs:
+
+[  270.587947] bringup_cpu: CPU1
+[  270.588470] mtrr_save_state: first_cpu: 0
+[  270.589207] x86: Booting SMP configuration:
+[  270.597971] smpboot: Booting Node 0 Processor 1 APIC 0x1
+[  270.530418] mtrr_ap_init: single AP entry, use_intel: 1, mtrr_enabled: 1, mtrr_aps_delayed_init: 1
+
+After all APs booted:
+
+[  270.694168] mtrr_aps_init: entry, use_intel: 1, mtrr_enabled: 1, mtrr_aps_delayed_init: 1
+[  270.696923] ACPI: PM: Waking up from system sleep state S3
+
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
