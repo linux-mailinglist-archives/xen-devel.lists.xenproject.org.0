@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 047075EF99A
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 17:56:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413860.657800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B48D5EF9ED
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 18:13:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413866.657811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odvtG-0008So-VB; Thu, 29 Sep 2022 15:55:58 +0000
+	id 1odwA1-00031p-D2; Thu, 29 Sep 2022 16:13:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413860.657800; Thu, 29 Sep 2022 15:55:58 +0000
+Received: by outflank-mailman (output) from mailman id 413866.657811; Thu, 29 Sep 2022 16:13:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odvtG-0008PZ-SE; Thu, 29 Sep 2022 15:55:58 +0000
-Received: by outflank-mailman (input) for mailman id 413860;
- Thu, 29 Sep 2022 15:55:58 +0000
+	id 1odwA1-0002zh-A3; Thu, 29 Sep 2022 16:13:17 +0000
+Received: by outflank-mailman (input) for mailman id 413866;
+ Thu, 29 Sep 2022 16:13:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1mH3=2A=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1odvtF-0008PN-TU
- for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 15:55:57 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60076.outbound.protection.outlook.com [40.107.6.76])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EOe8=2A=gmail.com=vsuneja63@srs-se1.protection.inumbo.net>)
+ id 1odwA0-0002zb-9z
+ for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 16:13:16 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33ef614e-400f-11ed-964a-05401a9f4f97;
- Thu, 29 Sep 2022 17:55:56 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB8394.eurprd04.prod.outlook.com (2603:10a6:10:244::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.20; Thu, 29 Sep
- 2022 15:55:52 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.017; Thu, 29 Sep 2022
- 15:55:52 +0000
+ id 9f168445-4011-11ed-964a-05401a9f4f97;
+ Thu, 29 Sep 2022 18:13:14 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id c30so2655591edn.2
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Sep 2022 09:13:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,136 +39,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33ef614e-400f-11ed-964a-05401a9f4f97
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fdxf3/w43/9yBQaMh3z+KZfjVmWDwPulXFOqpuo3WvIqQD3VTkzYbYO6aTDLoy3gFzX61f0LCN2CaM+bdwDZlc8pCbMEfHTAFHr18yokR+ODw4xyRPxlv/1uXW+tPo8uizkIg97JbbgtNLgKGGTa76ZgsOD6Q2pa631yac8r6BloKgk76Ic+SOO0o57tbungB4fNYmBRDCI3WieqwpmCeX+qmhid/MSEYYG80DG6mxzajY9OjKXjV14LmAjkc/mtqJg1ebXdEaU5RRiJRVV40WEfpTHRjWg9tr24RwtScL/KVZ1mKFsFOgt2ZjrW0pKitD4DKfaFtWikAFffk69r4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tTJ0JxJTsuGT4ZSkMcbdE9s23cbnZWxbni1648Q9U0k=;
- b=L2IAvtzvYy48zM/aJq8tMONakdnFh5o0Y7WXqaIbnKFFV/kA2wdpGAxKAi/rKBETtGVluzLZZvHS35vJiB5ubak7VAqBClrkksztuuKTf2Hb+yivoHrlLdRLiVexhPcvT9a4LSUhqbSwy3tMuIVRzdgWAN3ajYFeaXTq3Mu4WQr/adUG/4Tey4K50atE4jx+Jd6W8s1yh7SVVjo5S4nQ7kZ6Y7JRma3n7Fi5MCWRZW/cVXY86/avfBoCkDFFORPx7WaApaoQib5/K1u6pswiK0vEzJ9hQ75m0Wfv9vR5rt5tRoMCR9YB+VVHxV4xEXwg5T4fFqZJOdkbX32H3ZT6UA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tTJ0JxJTsuGT4ZSkMcbdE9s23cbnZWxbni1648Q9U0k=;
- b=wvxVsk/nnSbUMWfRP9R0GQPV/sWRTKy90fVpaA2lSgWVMaALXZ1ykIgXm8ejlaaV0tI7NiOYzX3bB/A9uu59AreznjpyWgkqukRWeSA2Y1kfC4l64ih1pwABBiQTxNu1+RvzMDtQIPMs6bgztrW2SaUoner37AH5aZpcsXYURCeByRiyGWeHLbwcCDJujvOoU0uG0zYix2XTpVGBG7MRuv6X0nAJjXUG7wp7uPJtvh/rO1vn7c/lbcDfMGz05BlbJ+wZ/AeEgVTI3kCFyMQZwNIYx+RTY2g8Ae0yJZfUi+9UisvVVlVNz6P5WNI1AKSwky3vLHGKO2t1OG1ZO57UsA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <268f8c2c-57ba-e4e3-59ef-45ed3cd794de@suse.com>
-Date: Thu, 29 Sep 2022 17:55:50 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [RFC PATCH v1 0/2] Add a new acquire resource to query vcpu
- statistics
-Content-Language: en-US
-To: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
-Cc: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Dario Faggioli <dfaggioli@suse.com>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1661330065.git.matias.vara@vates.fr>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <cover.1661330065.git.matias.vara@vates.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0176.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 9f168445-4011-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date;
+        bh=flhFeICuQT8/y+9AVAFFUYd5hifnxYkJzhAO79vKcmg=;
+        b=EhY8JIY2vNyhwun3cvL+gwk4TrnS7fE6wyz6JcP7/jDMYo6WAeulvPvh/B41SbrsN/
+         dy1H78vZh/fKYgMpQiK+5nTh1T7+/5xmzAdEzEBvpFpeI5KXta1HriQGlxgeq4uRxcFb
+         xm05bxX/1bOn4PTSTu6RTdUOEZY1QgdWvvCVCSyPKS3wph+OjISkizrlmTNOQCkfOpoa
+         Ets3BpRX9bmJeHJaP1SgQ41lIGXcEkKpb5LasChk7F64ivMgXg0HG36oVcOkEVelK90e
+         MAnU3J5Pg20sAnB6NVtPrRhkE+aQzTTpijBsSWnsnnr8JzumCM4piFXDgbgUFuxZnVWI
+         6PwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date;
+        bh=flhFeICuQT8/y+9AVAFFUYd5hifnxYkJzhAO79vKcmg=;
+        b=uVKzQdbQJn2qp9L+C+uTWkPIBoHjbtX/YQEK6fZJSHASujlZC/hNRtF4VWWbqugoGA
+         p5ZY7WKh0CWBZjVu2+YvnL0l25LJ8iiegjNnc4e4mwRLX92Av/TcGjAZLGDp/r5LgRtN
+         j6cLukVwz5NgndnR+q4HPKaSEayoV9jD0UyUE7kDIqhjyh2DnR7Qe0YE9HP0V4uo10JC
+         z1asnQ5HaJKetFbDHk0OCfew/KiqYBht2vq9KPk+NPwm+VW6FcXwxgFaLioVHFEY32Hh
+         W9Z9XvAQJy2XQLpk6Ygs4axn5rhtAIXYiAcgPJSZ00lcXU+L2I+AxONqCSVK10LSXnzD
+         q7Ag==
+X-Gm-Message-State: ACrzQf1Qhwx7R6QFLw2ijpIwXxQRFPzUJ9B1LRRMDry2lxGvgslvpuMN
+	2z2g/4sSiF4GN62pS75Iu2vlPQpnb5cf0+Sc3ms=
+X-Google-Smtp-Source: AMsMyM54iankNpI//+Sl0NdaWe4qDjetwyVTsrK9LCND5wGNFoiqaKM2Q7SvxkKkNPy9hQMykurk6zytYdx4eBUXju8=
+X-Received: by 2002:a05:6402:5188:b0:452:5395:a271 with SMTP id
+ q8-20020a056402518800b004525395a271mr4099193edd.383.1664467994131; Thu, 29
+ Sep 2022 09:13:14 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8394:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76855dc8-229c-4f54-fbc1-08daa23315c5
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Bq2K339RTfg+7KjfdsUQoq6xxwTG8VOv8DUw5WPTnDuCt0kHWzg4jb5+h0zCbFVWvMn/0/U2BrC0fentqTBUDkWtIo43lIPCGHBHiC5wBdjsTTWPJ1y5VHDva7gChaYtr3A8OtqRTtfQ+OFfq1E5R1XBpzwthSNadQTai9RrPyXcpSOg496vEnk3cTtXlExNtGy8e7/G4wWBftotvhKblNKcbtLEReQAqa4vDd9lZvxA9OcW+Ol7MSdB6bizF2VzyXEovx2zsxx06n8OkCJYlilLeMOpUoH8UPGQcNRWg/A36Mnyc8ZC3LzyrS8KfOn4dR5hmhFoXvnE6YzUNVBuZPVFKnhVXyzMiKSOzczYUWNJo2YIMyfAkmP+ec2VbZSGQwqS6mfFFj3t6FhJw3iP5mWhvZpvdLJwmFmjXlhzpv2xD5+KkaLuqUvYLbBollwdwKUObtPY5Bjka9FZVD/aQPzXpv4APGJjeM27IXvHJzLHlKtcqGmAukOLWzW2zpSq5wq5L12brOUB8l+NhrfoYGwih/imLiH2HqXIcn9SVVFSz25Fjwvaj4OjOTr9F146nr6vChJ3Q4si5XckW9Gem7vM39JmOB2I3PG/6eLhNqbuS2JzF5573Tt9jVg4EI+fPS4qIvcR5VLdHqwGar/+QWTMsoRQraUDO11iMAevGuGlfeko3Rt4UA0x/6Qc4p9e/bCNArYnUf48LelVlI2ueUX7ksqSRQkJNmvRszSlMKDUlRJnE9FopeljyZ0YkfEY9xo4rWacPt0WpRJhmXXSrAQk9mlp7nxw8TmaeHTjAVk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(376002)(346002)(396003)(39860400002)(366004)(451199015)(8676002)(83380400001)(186003)(2616005)(38100700002)(2906002)(41300700001)(5660300002)(8936002)(316002)(6486002)(478600001)(53546011)(6506007)(26005)(6512007)(4326008)(66476007)(66556008)(66946007)(54906003)(6916009)(36756003)(31696002)(31686004)(86362001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ekR4QWJ5VW5xSk5VVEtzT1NJZ2I4OS93WVRZcktHVjVUMWFLbG4rU28xdXR4?=
- =?utf-8?B?OEFybG0waWJvSERBQWtORVZYYktHY0YydlpYZGo2bzJFSEgyZFU3SFdmSHdl?=
- =?utf-8?B?blh5VmVZRjRLS01TOHRPQWcyemZCZU54UkxqY1J1OFJLRUN1UStXOFBGYjRS?=
- =?utf-8?B?S2R5QTJSc1ZsdjUrdHhub3RDZnlNSkFDN2JJOHVxVkZHUEFCekI5SDNINWhQ?=
- =?utf-8?B?eFBRc1Mra2ZnWkcxZjBCV1N5cEczcE5qYnk2WklPT2hCN3ZwdXJNd3JaUHZM?=
- =?utf-8?B?NXI2SGtGYVRPODM1Vmw0ekVVOEo5MEtTTlk2eFV6S0xFcG4wbGFYTzltMGVV?=
- =?utf-8?B?MGszRXFTMEpqbnB5Z0FEUHVGcXNvamZyWEN3ejUrd1NxeEJ0ZVM1QktnZ0p4?=
- =?utf-8?B?WHpRZTNNQkFqajdUUkdad0dHaWJBYWlLSWZmUlVhQWltSjRlUWd4b29FRmtm?=
- =?utf-8?B?NkxlOVdiT2MzOWI4Z2xhTExJZnNtcWxJZEV3RWtLN3VmQ3Z5akp1Z2hDSDJh?=
- =?utf-8?B?NEJBR3duNjBOWmlkd3dTOFJkeDQ4M2VpcS9LZDJsZXNEL2R5Z0hla1YwSVhU?=
- =?utf-8?B?a3lCK3BUdzFWVFBHQmVsTHA0TlQ1ajBwemVYbEVhN09Oc0Z1alloRUJHaG9Q?=
- =?utf-8?B?SGtJRDFhSTRqbjJxL0oyZ2RrM3IxTFlYQ3o3WjRpWHRkcG0ydlZKMlV3aU50?=
- =?utf-8?B?Zk81NEVmYmlnbXlUbTlBNzUwVHVsd3d2VXhNVlhOMXpvWGNjSGJ5VkFDQnNr?=
- =?utf-8?B?Q0R1SlRMSWwwNlFiTGdQNVV3V3JySGt0cWUydkJkY3RLRndDTXBIUFdFdW9R?=
- =?utf-8?B?NEdneGlMa1c1QVBnUEZDMFdrZE5ubThPZngrOVJWUEpqaGFqdkVONUljdEdL?=
- =?utf-8?B?ZkQrTzJTMm9EaWxrbUlzcUpVSDVqaWF2cHlLZ1pBUjkzZEtzMElsRVNSMW5x?=
- =?utf-8?B?ZE5ubDVxT3QyY2pJRi9odkFORTBMUUE5anBSdU0yR2FpblRTb3oyMWoxQXZS?=
- =?utf-8?B?SGNuOW1zazdWSkJ5NS8wMjh4dWVQa3Nta3JMSSsyYnBuNEV1VTRSUG15MHND?=
- =?utf-8?B?S0NUT2JpdmhDK1d4OTRLS3h6SGs5ajdHM2FnTXppZXdCQm1lT0hHYnVzWFJ3?=
- =?utf-8?B?NUxwTGF4bWViNjY4T1RMeFVTSmtucVR3LzBZZnRnZ0NWWXZZalpaM1R3cGJ1?=
- =?utf-8?B?Z2RTYXE2SEg1czF6MURnVmFkSWliTmQ5NGVJYWRrVDBBR0I5WTV5dlFLL2pr?=
- =?utf-8?B?ckM0NHBuTnBpOEFONXV5ODR0aDR2dzlRdEcyQ3h5V2tSNkJlSmlYSDZWaGlF?=
- =?utf-8?B?c1FaSDlRWDBHSzNTdGdoWWFJbmhpQlpzOTVkR0FiTXhyZUNobXNtK0dJV3dw?=
- =?utf-8?B?YjhXWDJBNDViL0RkNTQwdHV0aDk4c3VuQy9DQWVTSzVxU2JhUVBud0ptUkxG?=
- =?utf-8?B?WDZheG9iVHVCRmd0Sm42UnZPQTFUdHlsUVhHNVJORUtOUnV0V0pUV09oQWZJ?=
- =?utf-8?B?R0NwNXQ4bDRHZ2J4RGpoMTBQS1FvNkN1V3FGNG1jeTladm9EMUltZUJTdmpz?=
- =?utf-8?B?ZnZtamI2NmJFdXpGQ0NQdWl1NnhzV091Tng0RHFseVdMcWRCNG1NNVBualkv?=
- =?utf-8?B?eTJsYnhBSmdWRDFvdnVZWmVyODBldVliY2pNbHBTS2p6N3hyS21SbTlOVzNH?=
- =?utf-8?B?U2gwUGJKeVRFeUNWcytEcnh0TUhQUFBtL0xwNkczdG10czhHQStMeFFGN3pQ?=
- =?utf-8?B?V2R0RUppNlNNbkRId3lIOTBnSWtEcE50bytrN05xVEdnWTYrdUdjdWwxTm5L?=
- =?utf-8?B?b2x0cCtSWm14ZVpJQVl1L3FWMjdqNXRQellkODJhTm93VGsyRFdKWG14MXJo?=
- =?utf-8?B?V1krOWcxSWdhN0p2bktac1NyTFUxTGF3SnNSdm5aR0oyWHM0ZklYOTZxd1R2?=
- =?utf-8?B?LzJqSUU5N0Z3SmFMZTRhZ3FSbVJPcVB0TjQrR2ZadXZyb1h0bGw5WEx0NW84?=
- =?utf-8?B?SEEyVkRVVmp5NFJiNmk3MVlNalk4amdac2JMb0JOYWMyNE9EVkdkOG45YlJx?=
- =?utf-8?B?OHB4M2Nmd2VVR0FwUGpQT2JpUTl6NnFpTXltbThHRWdGNEpscmFpZDdIbWcw?=
- =?utf-8?Q?WzSkLEO9JwYMerKfni6rkj4Fd?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76855dc8-229c-4f54-fbc1-08daa23315c5
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 15:55:52.4612
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LRI52cTzHgch3CF8KyvNyNbg76+fOCnXte+BwWFs5MUetEN9LcqLLpMFFEelaFH+uChB+Qmzk+adcLDKTB8JJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8394
+References: <CALAP8f91s0h0gjd_qsmJDz01SKdC8Rmut5KPiG-CKaov740m_Q@mail.gmail.com>
+ <YytYuAcMh8WGDQTF@mattapan.m5p.com> <CALAP8f9+N4+Jk_hWh8XCc70g7xxbr7PTffE0By56TROOyS9rSg@mail.gmail.com>
+In-Reply-To: <CALAP8f9+N4+Jk_hWh8XCc70g7xxbr7PTffE0By56TROOyS9rSg@mail.gmail.com>
+From: Vipul Suneja <vsuneja63@gmail.com>
+Date: Thu, 29 Sep 2022 21:43:02 +0530
+Message-ID: <CALAP8f8_TiDa4t9WbXtCf2erKwSv04y3HVv6ohKoU=geJwrp5Q@mail.gmail.com>
+Subject: Re: How to do display sharing between guests or bring up guests display
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>
+Content-Type: multipart/alternative; boundary="00000000000087bfc605e9d327bc"
 
-On 24.08.2022 15:27, Matias Ezequiel Vara Larsen wrote:
-> The purpose of this RFC is to get feedback about a new acquire resource that
-> exposes vcpu statistics for a given domain. The current mechanism to get those
-> statistics is by querying the hypervisor. This mechanism relies on a hypercall
-> and holds the domctl spinlock during its execution. When a pv tool like xcp-rrdd
-> periodically samples these counters, it ends up affecting other paths that share
-> that spinlock. By using acquire resources, the pv tool only requires a few
-> hypercalls to set the shared memory region and samples are got without issuing
-> any other hypercall. The original idea has been suggested by Andrew Cooper to
-> which I have been discussing about how to implement the current PoC. You can
-> find the RFC patch series at [1]. The series is rebased on top of stable-4.15.
-> 
-> I am currently a bit blocked on 1) what to expose and 2) how to expose it. For
-> 1), I decided to expose what xcp-rrdd is querying, e.g., XEN_DOMCTL_getvcpuinfo.
-> More precisely, xcp-rrd gets runstate.time[RUNSTATE_running]. This is a uint64_t
-> counter. However, the time spent in other states may be interesting too.
-> Regarding 2), I am not sure if simply using an array of uint64_t is enough or if
-> a different interface should be exposed. The remaining question is when to get
-> new values. For the moment, I am updating this counter during
-> vcpu_runstate_change().
-> 
-> The current series includes a simple pv tool that shows how this new interface is
-> used. This tool maps the counter and periodically samples it.
-> 
-> Any feedback/help would be appreciated.
+--00000000000087bfc605e9d327bc
+Content-Type: text/plain; charset="UTF-8"
 
-Before looking more closely - was there perhaps kind-of-review feedback
-during the summit, which would make it more reasonable to look through
-this once a v2 has appeared?
+Hi Elliott,
 
-Jan
+Thanks!
+
+Any input from your side on this issue will be really helpful.
+Looking forward to hearing from you asap.
+
+Regards,
+Vipul Kumar
+
+On Tue, Sep 27, 2022 at 11:47 PM Vipul Suneja <vsuneja63@gmail.com> wrote:
+
+> Hi Elliott,
+>
+> Thanks!
+>
+> As per the link you shared, VNC & SDL are two ways to get GUI display up
+> for guests. I am going through VNC & tried SDL, added below line in
+> guest1.cfg file.
+> *vfb = [ 'sdl=1' ]*
+> when creating guest machine by running command "*xl create -c
+> guest1.cfg" *then its throwing errors:
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+> *root@raspberrypi4-64:~/guest1# xl create -c guest1.cfgParsing config from
+> guest1.cfglibxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback: Domain 3:error
+> on QMP socket: Connection reset by peerlibxl: error:
+> libxl_qmp.c:1439:qmp_ev_fd_callback: Domain 3:Error happened with the QMP
+> connection to QEMUlibxl: error:
+> libxl_dm.c:3351:device_model_postconfig_done: Domain 3:Post DM startup
+> configs failed, rc=-26libxl: error:
+> libxl_create.c:1867:domcreate_devmodel_started: Domain 3:device model did
+> not start: -26libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device
+> Model already exitedlibxl: error: libxl_domain.c:1183:libxl__destroy_domid:
+> Domain 3:Non-existant domainlibxl: error:
+> libxl_domain.c:1137:domain_destroy_callback: Domain 3:Unable to destroy
+> guestlibxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain
+> 3:Destruction of domain failed*
+>
+> It works absolutely fine & guest1 comes up if *vfb = [ 'sdl=1' ]* is not
+> included in the configuration file. Anything wrong with the statement
+> added or any other steps need to be followed for this? Looking after your
+> response asap.
+>
+> Regards,
+> Vipul Kumar
+>
+> On Thu, Sep 22, 2022 at 12:03 AM Elliott Mitchell <ehem+xen@m5p.com>
+> wrote:
+>
+>> On Wed, Sep 21, 2022 at 10:54:55PM +0530, Vipul Suneja wrote:
+>> > Now I have built a custom image with GUI & ported it as a guest2(DOMU2),
+>> > guest2 came up as a console & couldn't see the GUI screen(Display screen
+>> > connected to rpi4 via HDMI) coming up.
+>> >
+>> > Can you please guide me on display sharing or how to bring up guests
+>> > display?
+>>
+>> This has already been answered in several locations.  The first place to
+>> ask for help with the RP4 is their own forums.  Turns out the topic is
+>> well known:
+>>
+>> https://forums.raspberrypi.com/viewtopic.php?t=232323#p1775083
+>>
+>> (huh, their forum moved to the raspberrypi.com domain; they really need
+>> an entry for Xen in their other OSes area)
+>>
+>>
+>> --
+>> (\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+>>  \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+>>   \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+>> 8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+>>
+>>
+>>
+
+--00000000000087bfc605e9d327bc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Elliott,<div><br></div><div>Thanks!</div><div><br></div=
+><div>Any input from your side on this issue will be really helpful. Lookin=
+g=C2=A0forward to hearing from you asap.</div><div><br></div><div>Regards,<=
+/div><div>Vipul Kumar</div></div><br><div class=3D"gmail_quote"><div dir=3D=
+"ltr" class=3D"gmail_attr">On Tue, Sep 27, 2022 at 11:47 PM Vipul Suneja &l=
+t;<a href=3D"mailto:vsuneja63@gmail.com" target=3D"_blank">vsuneja63@gmail.=
+com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x"><div dir=3D"ltr">Hi Elliott,<div><br></div><div>Thanks!</div><div><br></=
+div><div>As per the link you shared, VNC &amp; SDL are two ways to get GUI =
+display up for guests. I am going through VNC &amp; tried SDL, added below =
+line in guest1.cfg file.</div><div><b>vfb =3D [ &#39;sdl=3D1&#39; ]</b></di=
+v><div>when creating guest machine by running command &quot;<b>xl create -c=
+ guest1.cfg&quot;=C2=A0</b>then its throwing errors:</div><div><br></div><d=
+iv><b><i>root@raspberrypi4-64:~/guest1# xl create -c guest1.cfg<br>Parsing =
+config from guest1.cfg<br>libxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback=
+: Domain 3:error on QMP socket: Connection reset by peer<br>libxl: error: l=
+ibxl_qmp.c:1439:qmp_ev_fd_callback: Domain 3:Error happened with the QMP co=
+nnection to QEMU<br>libxl: error: libxl_dm.c:3351:device_model_postconfig_d=
+one: Domain 3:Post DM startup configs failed, rc=3D-26<br>libxl: error: lib=
+xl_create.c:1867:domcreate_devmodel_started: Domain 3:device model did not =
+start: -26<br>libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device=
+ Model already exited<br>libxl: error: libxl_domain.c:1183:libxl__destroy_d=
+omid: Domain 3:Non-existant domain<br>libxl: error: libxl_domain.c:1137:dom=
+ain_destroy_callback: Domain 3:Unable to destroy guest<br>libxl: error: lib=
+xl_domain.c:1064:domain_destroy_cb: Domain 3:Destruction of domain failed</=
+i></b><br></div><div><b><i><br></i></b></div><div>It works absolutely fine =
+&amp; guest1 comes up if=C2=A0<b>vfb =3D [ &#39;sdl=3D1&#39; ]</b>=C2=A0is =
+not included in the configuration file. Anything wrong with the statement=
+=C2=A0</div><div>added or any other steps need to be followed for this? Loo=
+king after your response asap.</div><div><br></div><div>Regards,</div><div>=
+Vipul Kumar</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" clas=
+s=3D"gmail_attr">On Thu, Sep 22, 2022 at 12:03 AM Elliott Mitchell &lt;<a h=
+ref=3D"mailto:ehem%2Bxen@m5p.com" target=3D"_blank">ehem+xen@m5p.com</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed,=
+ Sep 21, 2022 at 10:54:55PM +0530, Vipul Suneja wrote:<br>
+&gt; Now I have built a custom image with GUI &amp; ported it as a guest2(D=
+OMU2),<br>
+&gt; guest2 came up as a console &amp; couldn&#39;t see the GUI screen(Disp=
+lay screen<br>
+&gt; connected to rpi4 via HDMI) coming up.<br>
+&gt; <br>
+&gt; Can you please guide me on display sharing or how to bring up guests<b=
+r>
+&gt; display?<br>
+<br>
+This has already been answered in several locations.=C2=A0 The first place =
+to<br>
+ask for help with the RP4 is their own forums.=C2=A0 Turns out the topic is=
+<br>
+well known:<br>
+<br>
+<a href=3D"https://forums.raspberrypi.com/viewtopic.php?t=3D232323#p1775083=
+" rel=3D"noreferrer" target=3D"_blank">https://forums.raspberrypi.com/viewt=
+opic.php?t=3D232323#p1775083</a><br>
+<br>
+(huh, their forum moved to the <a href=3D"http://raspberrypi.com" rel=3D"no=
+referrer" target=3D"_blank">raspberrypi.com</a> domain; they really need<br=
+>
+an entry for Xen in their other OSes area)<br>
+<br>
+<br>
+-- <br>
+(\___(\___(\______=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 --=3D&gt; 8-) EHM &lt;=
+=3D--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ______/)___/)___/)<br>
+=C2=A0\BS (=C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"mail=
+to:ehem%2Bsigmsg@m5p.com" target=3D"_blank">ehem+sigmsg@m5p.com</a>=C2=A0 P=
+GP 87145445=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 )=C2=A0 =C2=A0/=
+<br>
+=C2=A0 \_CS\=C2=A0 =C2=A0|=C2=A0 _____=C2=A0 -O #include &lt;stddisclaimer.=
+h&gt; O-=C2=A0 =C2=A0_____=C2=A0 |=C2=A0 =C2=A0/=C2=A0 _/<br>
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 &lt;-PGP-&gt; 41D1 B375 37D0 8714\_|_/___/=
+5445<br>
+<br>
+<br>
+</blockquote></div>
+</blockquote></div>
+
+--00000000000087bfc605e9d327bc--
 
