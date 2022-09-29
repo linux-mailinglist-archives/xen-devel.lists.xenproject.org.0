@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CE0B5EF606
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 15:07:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413769.657650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 361ED5EF632
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 15:14:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413777.657662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odtG8-0000tc-L1; Thu, 29 Sep 2022 13:07:24 +0000
+	id 1odtMo-0002NM-Fg; Thu, 29 Sep 2022 13:14:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413769.657650; Thu, 29 Sep 2022 13:07:24 +0000
+Received: by outflank-mailman (output) from mailman id 413777.657662; Thu, 29 Sep 2022 13:14:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odtG8-0000r0-Hp; Thu, 29 Sep 2022 13:07:24 +0000
-Received: by outflank-mailman (input) for mailman id 413769;
- Thu, 29 Sep 2022 13:07:23 +0000
+	id 1odtMo-0002Kv-Cj; Thu, 29 Sep 2022 13:14:18 +0000
+Received: by outflank-mailman (input) for mailman id 413777;
+ Thu, 29 Sep 2022 13:14:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1mH3=2A=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1odtG6-0000qu-WC
- for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 13:07:23 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2070.outbound.protection.outlook.com [40.107.20.70])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oNWE=2A=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1odtMm-0002Kk-Qv
+ for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 13:14:17 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7461d9d-3ff7-11ed-9374-c1cf23e5d27e;
- Thu, 29 Sep 2022 15:07:21 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PA4PR04MB7727.eurprd04.prod.outlook.com (2603:10a6:102:e0::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17; Thu, 29 Sep
- 2022 13:07:19 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.017; Thu, 29 Sep 2022
- 13:07:19 +0000
+ id 9dd91064-3ff8-11ed-9374-c1cf23e5d27e;
+ Thu, 29 Sep 2022 15:14:15 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id a13so1961656edj.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Sep 2022 06:14:15 -0700 (PDT)
+Received: from [192.168.1.93] (adsl-75.176.58.241.tellas.gr. [176.58.241.75])
+ by smtp.gmail.com with ESMTPSA id
+ d23-20020aa7d697000000b00456ff7d4283sm1556637edr.5.2022.09.29.06.14.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 29 Sep 2022 06:14:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,191 +44,375 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7461d9d-3ff7-11ed-9374-c1cf23e5d27e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iIGduCOaAG9+ABf0J0xeynLvK1ci1wVth51loXunr61/Chu214LyzbmUNhEejLbK/zJZlKfKzFMHTQK7HZY0Ki0eZKsuyMk/BUhG8EoaICbdxM79LyyVF4WAu6nLl8gDpKlm/1yzhGAiRy2xnXwv6G2egXOP7qlDuZZHKLpG6pxO7FwrxGlpZB4oda5H9yyFTxOJy4NSK9gTA5pbh9B1BAml0q6Hv6Mb08ZLft9eWgY3bzgeHW7ZqVm567CrneQJ4wPpgpEuhE/EjUZsk5lDZaK9QxdaBOlacWrIBa1pTLaixq0kbvXyknYPaNxjlbSrdrKr4pp671wM+8El75aXew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CbUiIJBfrFotvWwnCl6u8JrOebjzPe2CR3v7xnTIDoU=;
- b=RzI77qdvTT+3gcXTpyZq+vTcZHEi811I78dW2crgjm3dt/sKNsZFJydwhLpvDK7zKaxxzDImm6Yl9VO9Knd80QMNfXp9Dr5ejwfwo1aLY6xfR+64/TTfwkcx4ikKAbPbIU0LcZJSTdIQ4sWnyodHVKammCBd2x0jSKFWR8gd5RModiuWVvs8iV4BGEBb4ugpj0oJTdG8Co2c/nq6Dw79S/USNW6mHdMFR5GGpPHQ+IXXuAuNVNgc1OCTHyRRbUVtpVrEc5h1Sj+qga6K6ex3lSlHTKzpsMTRMx9dRdOd3Ps8fRKxBnVsWZVh65DvgWra/T8ZPvTAAsFgoOE3LolA3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CbUiIJBfrFotvWwnCl6u8JrOebjzPe2CR3v7xnTIDoU=;
- b=l3GoX17mBZ2DarvqK+hxN/B8J4A1diQL23QzDRXHa7Jv0MZqEMF9uLinbqPZLjJcCHITK3nhdYCnPGgCKS830xeH6C5IYPHWFe7n7Ln8DilJQiK58JLbzLoMNnhnXwfVP00EQcK/ilv/0WSVxQT9xqklny1TP/9AJCtpxqFjWMp+XLltgse3THD6BGGOu+OFw/Dqp+WuLsHq0x42WV2o0fzyxvQamS7mLmrXMrTS25rbgmvFdnd+z2EOZq4oBuFzfqsG/gpzbRIUWyagt8NQw6ny6hkWZYOKcgGorCeNZk9DmMV3qpqVHgRvonGvZra/Evjgn6S3q2tRxVhH8ptZMw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1e9f75e3-c59c-e3a4-f26d-59a440d366aa@suse.com>
-Date: Thu, 29 Sep 2022 15:07:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [PATCH v2] x86/vpmu: Fix race-condition in vpmu_load
-Content-Language: en-US
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <86f8a095ff18e4dc41ecb9cef5153438158b91ce.1663878942.git.tamas.lengyel@intel.com>
- <7a469ef7-5ad7-5abf-2c1f-fa29496fa2a5@suse.com>
- <CABfawhkJ1KSxmV=usLh9mKSyT+-_=PgQrhkGe8G0J_ZjqZ9siw@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CABfawhkJ1KSxmV=usLh9mKSyT+-_=PgQrhkGe8G0J_ZjqZ9siw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0064.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 9dd91064-3ff8-11ed-9374-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date;
+        bh=y4mGqivhiQmUV8ipfVZW3SYpSuTWtk+iojxfx05uBbA=;
+        b=FeE41N8AaAWMAXhdBjoSeQOcB8/xkRu6HTMlCOkbSfaYahZIwIKAkLcasU247vxR3M
+         Z41oGs452qlua62bLO7xGiKH7ZL6zJc9w+7Qp/maRR/soZ6vrRxoTrrptI28WjWfQhbM
+         /SiHNJygLFybZehB9gLtSm3ylOPXKojFMoXX9Po5iyDJzi3EToz/Mb03EGOjs/WPbEiW
+         ug7yHZNtRpRJg+B3Bw9TWmEPOvpt6kcT5nNCrMY5lXPVCokyZD77oBY8ng1U4yS3hYKw
+         4N6LbvDb902I01pXgCbsu+Hlsq1IslL4/KR3B4B8GLZN9fveo6dDRr4yKceAQS+4OPCp
+         jtCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date;
+        bh=y4mGqivhiQmUV8ipfVZW3SYpSuTWtk+iojxfx05uBbA=;
+        b=cIxmDrVzKB8kq1FjquVmR/kB86vGUkLn24D5h3FeNBNrNROjIwLTolZZ+94MIyYnmo
+         leU6OL9mvU4HRFRfBB/wwlYwHKAc+XwbrxlAFMMe53xLj/71KDAKA3ewFylOTDW6hBTn
+         1tN8pL/8RaivUR6PnYkb2t6fR7T6unS808j+DklgjgfnjS7vqNH+CtvKbpGBVdTn4j4C
+         9Udepr96c1te6MdkDco21g9d33Bbg79lD8PfBVxifrTNVA4oj2R9cXMx5ZHnCDc+Ksyg
+         9aS+eM1SRfGK9nFincBJK7SFGlOXozOgYOwL6jE7W8BNvSGjV4u2Ncg/UQxZFyNPxLUb
+         rTOg==
+X-Gm-Message-State: ACrzQf0P/IetgAkHULjYqTljD/4N4dQ+H/fuilT2wCE7YUkztI4wqjkY
+	wbVA4g6qs/8axIGCoTHhTrM=
+X-Google-Smtp-Source: AMsMyM7hB9flUAQunU1fNM6208XFtFZd5WDG0e5dt8N/E7ctFXeaztsdgmE66YaVlZj7zVHwlzUIWA==
+X-Received: by 2002:a05:6402:1e8d:b0:441:58db:b6a2 with SMTP id f13-20020a0564021e8d00b0044158dbb6a2mr3203163edf.277.1664457254593;
+        Thu, 29 Sep 2022 06:14:14 -0700 (PDT)
+Message-ID: <4336e65e-23a7-9b8e-3548-55b06d0203ec@gmail.com>
+Date: Thu, 29 Sep 2022 16:14:11 +0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB7727:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ea5acf2-ae3f-432d-3047-08daa21b8a67
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	VzpqVv/R2+uVvEePXM7rO+ATwpRkOz8VJhTw5dkzPpcFPnKeH92zbHw383bXDuiS1RcC7Ft3LyFZEmTnEfpDKexPqqe73rqSocYKDVJd9SMW5vVe6eHNaLZNs2+TMVg4K2am+f82JQrfEQ3kaxtRhtrwgqg/SygiD0PC20bAe0I97GehXANGQ3daEPoxhplXObe4HD9ARkfe3fg9iWSeLTKZHs9vBEolT82yoNM6d+c1J0P2pKTymqeHmd84IeailON8tu38vmK3OKYmJc57N6ds5Jpv0MQ06Ol/JyCKhRFH3Zb4HEeqRCUAaUsqJNU1mh4Nr5JZqM2EQLLunl4M3X8rCtr46mvIfet5wmbJyheIFBpA8Y5Ew0ntiayMSKwQz1x0wUpl5hCLrzB61JGB4v7+H5e8i9yRwyI5+T9K/irx/BRzLX8/BlRaw6uFCLQ+IxbVwZ8CnKA1Yoag5jNOQvyp9Hju+iaz43NQG23l+IHMQuH8937Vx2zmwOOwpzDcSxV+gd/HI6DPF3LluYj/zHUfPssti7BJT0lGzgkGRUsV0pmLnbVQgItiVxR8K/Ba+6ZBrO15Ci9N5v8+VEn0q4xapmSEEYtosn8JbEyWK0h9cwAbRPNgUCj8Y864dij2zMHus+fuJHAYK8GylSoyxfEul5QzXKUacOPP+tYDGgYKWhhtSq6E7A/z2RyjrgO0LjO6oYRCiW72HV9qJeYQ1w8H0LAaYGIbcs8ddbgE5Iq3n8WzaQPk5Pc2JYX2coJQa3CVe4DbsFesIdr4nx9oN8TL37RefT0CDStTefuZobw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(136003)(346002)(396003)(39860400002)(366004)(451199015)(2616005)(186003)(26005)(83380400001)(38100700002)(6512007)(41300700001)(2906002)(8936002)(6486002)(478600001)(316002)(53546011)(6506007)(5660300002)(66556008)(66476007)(8676002)(66946007)(6916009)(54906003)(36756003)(4326008)(86362001)(31696002)(31686004)(66899015)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cE5ZVnlJa1pwWGwyaXl1NnplWTdwL0NaUHhDa3BtQ0dzUEJ2aFQ2VytqczUw?=
- =?utf-8?B?bDc1V3dNRDZsRUphUnR4L0hDOTN6SHg5ZzRzZXgrNHdIbndkVkc2S29IOGl2?=
- =?utf-8?B?S0dTVjVsN2oyNFMvOGZFSVNmYVJmbm1tU2hISUlraUVaRXhocXFyd3QwQlpm?=
- =?utf-8?B?RUtLMDczVk5lRG56S3BQKzhUUzFzNUtiWjJvVjVHSVNnQTFGWEEyTEFJMWZn?=
- =?utf-8?B?d0RqUGdLdjV4VnlqRlp5RkpMSWVkcWhvdEZZQnBoaVlkR1VvNE9QRkd1RVpG?=
- =?utf-8?B?WTc5WjJxMHlTUGxrTFJic3E4UU15VC9NUVVkVEFSTytlc0didGtxV1IreTZK?=
- =?utf-8?B?eFVwY1pUWXhHcTN3MXZqOGJ1b1lKQ1NmdXkvclkyV1IwVTUwK0t5aU5WSlc0?=
- =?utf-8?B?S0ZkVDZYWGJocHVoQUpkRWNMSFhmZUlCMjdVUlptSjdqckU4emJES1hBek5D?=
- =?utf-8?B?QUNVZzZUcVBhUFQ1MEhTR3RkSGhCWFZPeFJKa004LzlML2JRVFE0SmtuZUhI?=
- =?utf-8?B?MksvSTdjbWJzTUFES3pOUEYyUmxTY2FJM1g1ZG1CcS9ZRGJaRStJMFVVVWRp?=
- =?utf-8?B?eS9GUXgxUG1YdWZ5YVMvekhFWFlFOHJ6N2JLLzd6a1JxNlV3czZ3TkpsNjlv?=
- =?utf-8?B?Q1lSWWU2T3p3TXBUQlRPNG93WVdPd1l6OXMzYVNWQVJ0Z3RFeDh5ZGNSOVV0?=
- =?utf-8?B?NHp2Z3hXTFlsNllGMGk0UEV4MTdMeEVPbWpGV2ZmM2dGM1p0UnI4ajBNM2dv?=
- =?utf-8?B?bVllQ3JaOEZFNzhjU2N6cTdNbG1HVFJ3cXZYUEZGUjJnSXlBazhnMlNDalM0?=
- =?utf-8?B?VkFOV0NPMzVtOXZIcElIN0dYTG4yQzBvaWMrTEU5b3ZhcFQ3czZYN1ZjcnI5?=
- =?utf-8?B?WmFMcERSaU9Fb3JrejUzZDVzVjdZcktNRnJiWmZ5cUVIdXU0Mm14dTJKSGZE?=
- =?utf-8?B?RlRPekpQVkY5WXpMaTB2ZmxJMzQ3Y2Y4SVB5Z09HTXlFMTdMdWI2UjNYNUhH?=
- =?utf-8?B?eE9zYnlxWmZESWY0MzNDVkhuczE1SGVOUE5Rc2h1VkVMMGNCQWFpVEV0U3VX?=
- =?utf-8?B?TWNyd05sMjgzaVRkNG1RM3JRNVhxSTRMMTZIUkpXUGpQM0FSTnJxM0dFNlpD?=
- =?utf-8?B?cERrM2tqaHBselZoSitoY3ljYVd4WFNNcExuRFY3Tmhkd3RGd2kxUWFQakFU?=
- =?utf-8?B?M25mTU8xd3IwYTlZeGpTZEVCN01BZ0RZdFBpWU9XV2IwaGQxdStFZE0yOUcx?=
- =?utf-8?B?cUVhV0UwYmRvY1pHTlN4UXdGc1J5bjc4Qmo4QXZxSWlCUFJNdU9DVDlQSFUv?=
- =?utf-8?B?NGgrOFB4WjdKbEg5NDZTdDJFeU1mc1dzbGZnNU9OclJOb0QyM3J5eVJXT3py?=
- =?utf-8?B?bTFCajRLQlA1TTV0RUxkU3pZVThiby81akp1QjVRazAvSUt0Y1FLcEJFVmsr?=
- =?utf-8?B?VXc5cHhSdVlwYnk0bWRsS0NIWm4vU1FvSHNVWDRpaVYxbU9Ud3lDTXhPKzZW?=
- =?utf-8?B?MTFoOTMwRzh2OUxoU01PWTJ5VkpRSGVzRGFPZGtZS0x2TlNweEcrSkZpODBR?=
- =?utf-8?B?QWJnb2JqeTZ0WDRkUXREak9KRkJPQ3QxcWNkVSszeE9qcUtPYzh3eElSL2Vl?=
- =?utf-8?B?akJWQm1ZbE1qQ1FEWmtkRmZ6dmRoWGRLRzd1U1VnV09EY1NaTlFJcXhobFpZ?=
- =?utf-8?B?RE1YLzZDRHRWL1I0ZGVEWElsK0RTaWE1REtIelNJdXBlUUR1WnNLN1JMdnI0?=
- =?utf-8?B?S3dSb1ZMYWpCMm5tSlVCUHZVZTllRVo1aFpqWkxPS1AxbEhDN2g4UmpBTHoy?=
- =?utf-8?B?V1pCWTFDY3NPUUd0RW1rUnFaZUh1TnBkMWM0OFRSS0JMRmNnMENkRFpscUx6?=
- =?utf-8?B?KzdTbjdzMDdWZmJlT3BjWmgxL0RFc0tpSDl6U2R2a3pCN0NpZTh2bGc5OTZr?=
- =?utf-8?B?Z2ZKOFRYY2ZISE5IYmVrMTkycjdCT3VZZWsrTUJCM2NZeGUvODlkT1BLNk0x?=
- =?utf-8?B?azZhZG5TbW5tcHpsV1dpSnVOclA1a1JPam0xbHl3M0dPUG5HaFo5VzcyazAz?=
- =?utf-8?B?K0NqRDYxOUE0aERtdHUvbnJicUlhNmZRZzlMWk1yeERINXNEb2JMTWdYZjlX?=
- =?utf-8?Q?BoSsj+GeiBIDABzot+gs+XyDE?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ea5acf2-ae3f-432d-3047-08daa21b8a67
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 13:07:19.7587
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FIDWHT4r+vFBBr/M690/bZy/RuuUxQQFyTgxWx+3pEmmAKejsdHvxKsww5lyS8qIEFpn40rjG+1OdHvSzGAFIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7727
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH 0/7] Fix MISRA C 2012 Rule 20.7 violations
+Content-Language: en-US
+To: Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <20220819194359.1196539-1-burzalodowa@gmail.com>
+ <alpine.DEB.2.22.394.2208311534070.2375071@ubuntu-linux-20-04-desktop>
+ <44eb89f1-67db-6232-e28f-ab380e71b9fc@gmail.com>
+ <6A69A0CA-087F-4260-9371-8EEEAD3926A3@arm.com>
+ <alpine.DEB.2.22.394.2209011904571.3931@ubuntu-linux-20-04-desktop>
+ <422ad42f-8bfa-55a9-2e70-4ae857632a94@gmail.com>
+ <alpine.DEB.2.22.394.2209021743150.3931@ubuntu-linux-20-04-desktop>
+ <e2046144-48ec-2d8e-62d4-88ca1cb3aeb4@bugseng.com>
+ <12c95841-027b-ae02-1945-b0d232ffb17d@gmail.com>
+ <fa9f0067-e1ca-cd02-a7ee-9184f7c59ff9@bugseng.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <fa9f0067-e1ca-cd02-a7ee-9184f7c59ff9@bugseng.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 26.09.2022 16:22, Tamas K Lengyel wrote:
-> On Mon, Sep 26, 2022 at 10:12 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 22.09.2022 22:48, Tamas K Lengyel wrote:
->>> --- a/xen/arch/x86/cpu/vpmu.c
->>> +++ b/xen/arch/x86/cpu/vpmu.c
->>> @@ -376,57 +376,24 @@ void vpmu_save(struct vcpu *v)
->>>      vpmu->last_pcpu = pcpu;
->>>      per_cpu(last_vcpu, pcpu) = v;
+Hi Roberto,
+
+On 9/28/22 17:11, Roberto Bagnara wrote:
+> On 9/26/22 10:50, Xenia Ragiadakou wrote:
+>> On 9/18/22 16:02, Roberto Bagnara wrote:
+>>>> The question is on the interpretation of Rule 20.7. Are parenthesis
+>>>> required by Rule 20.7 in the following cases:
+>>>>
+>>>> - macro parameters used as function arguments
+>>>  > [...]
+>>>  > - macro parameter used as lhs in assignment
 >>>
->>> +    vpmu_set(vpmu, VPMU_CONTEXT_SAVE);
->>> +
->>>      if ( alternative_call(vpmu_ops.arch_vpmu_save, v, 0) )
->>>          vpmu_reset(vpmu, VPMU_CONTEXT_LOADED);
+>>> You can obtain different semantics depending on whether parentheses
+>>> are or are not used (in the macro call and/or macro expansion
+>>> depending on the case):
 >>>
->>> +    vpmu_reset(vpmu, VPMU_CONTEXT_SAVE);
->>> +
->>>      apic_write(APIC_LVTPC, PMU_APIC_VECTOR | APIC_LVT_MASKED);
->>>  }
 >>>
->>>  int vpmu_load(struct vcpu *v, bool_t from_guest)
->>>  {
->>>      struct vpmu_struct *vpmu = vcpu_vpmu(v);
->>> -    int pcpu = smp_processor_id(), ret;
->>> -    struct vcpu *prev = NULL;
->>> +    int ret;
+>>> #include <stdio.h>
 >>>
->>>      if ( !vpmu_is_set(vpmu, VPMU_CONTEXT_ALLOCATED) )
->>>          return 0;
+>>> void g(int v) {
+>>>    printf("%d\n", v);
+>>> }
 >>>
->>> -    /* First time this VCPU is running here */
->>> -    if ( vpmu->last_pcpu != pcpu )
->>> -    {
->>> -        /*
->>> -         * Get the context from last pcpu that we ran on. Note that if
->> another
->>> -         * VCPU is running there it must have saved this VPCU's context
->> before
->>> -         * startig to run (see below).
->>> -         * There should be no race since remote pcpu will disable
->> interrupts
->>> -         * before saving the context.
->>> -         */
->>> -        if ( vpmu_is_set(vpmu, VPMU_CONTEXT_LOADED) )
->>> -        {
->>> -            on_selected_cpus(cpumask_of(vpmu->last_pcpu),
->>> -                             vpmu_save_force, (void *)v, 1);
->>> -            vpmu_reset(vpmu, VPMU_CONTEXT_LOADED);
->>> -        }
->>> -    }
->>> -
->>> -    /* Prevent forced context save from remote CPU */
->>> -    local_irq_disable();
->>> -
->>> -    prev = per_cpu(last_vcpu, pcpu);
->>> -
->>> -    if ( prev != v && prev )
->>> -    {
->>> -        vpmu = vcpu_vpmu(prev);
->>> -
->>> -        /* Someone ran here before us */
->>> -        vpmu_save_force(prev);
->>> -        vpmu_reset(vpmu, VPMU_CONTEXT_LOADED);
->>> -
->>> -        vpmu = vcpu_vpmu(v);
->>> -    }
->>> -
->>> -    local_irq_enable();
->>> -
->>>      /* Only when PMU is counting, we load PMU context immediately. */
->>>      if ( !vpmu_is_set(vpmu, VPMU_RUNNING) ||
->>>           (!has_vlapic(vpmu_vcpu(vpmu)->domain) &&
+>>> #define m1(x, y, ...) g(y)
+>>>
+>>> void f1(int x, int y, ...) {
+>>>    g(y);
+>>> }
+>>>
+>>> #define p 0, 1
+>>>
+>>> void test1() {
+>>>    m1(p, 2);
+>>>    f1(p, 2);
+>>> }
+>>>
 >>
->> What about the other two uses of vpmu_save_force() in this file? I looks
->> to me as if only the use in mem_sharing.c needs to be retained.
+>> In the example above something bothers me. Let me explain.
+>>
+>> Running the above example gives:
+>> 2
+>> 1
+>>
+>> The results differ mainly because m1() is substituted before p.
+>> Thus, adding parentheses around the macro parameter 'y' of m1() i.e
+>> #define m1(x, y, ...) g((y))
+>> has no impact.
+>>
+>> If the example is changed into the following:
+>>
+>> #include <stdio.h>
+>>
+>> void g(int v) {
+>>     printf("%d\n", v);
+>> }
+>>
+>> #define m1(y, ...) g(y)
+>>
+>> void f1(int y, ...) {
+>>     g(y);
+>> }
+>>
+>> #define p 0, 1
+>>
+>> void test1() {
+>>      m1(p, 2);
+>>      f1(p, 2);
+>> }
+>>
+>> if no parentheses are added around 'y' in the definition of m1(), the 
+>> compiler complains with "too many arguments to function g".
+>> If parentheses are added around 'y', the compiler does not complain 
+>> but the behavior will still differ and the result will be
+>> 1
+>> 0
+>>
+>> This happens because in the case of m1(), p is interpreted as an 
+>> expression (due to the parentheses added there) and the comma is 
+>> evaluated as a comma operator, while in f1(), p is interpreted as a 
+>> list of expressions and the comma is evaluated as a comma separator.
+>>
+>> Hence, in my opinion, parentheses should not be added around macro 
+>> parameters used as function arguments because they can hide a bug due 
+>> to missing parentheses around the entire macro definition.
+>> Since macro 'p' is supposed to represent an expression, and the 
+>> semantics of the comma token are those of a comma operator and not a 
+>> comma separator, then parentheses need to be placed around the entire 
+>> macro definition i.e
+>> #define p (0, 1)
 > 
-> I don't know, maybe. I rather focus this patch only on the issue and its
-> fix as I don't want to introduce unintended side effects by doing a
-> cleanup/consolidation at other code-paths when not strictly necessary.
+> Your analysis is correct: the example was meant only to show that
+> the use of a macro or a function with the same actual parameters
+> and apparently equivalent bodies can make a difference and that the
+> addition of parentheses (around the body of p, as you suggest, or around
+> the occurrence of p in the call to f1()) can avoid this problem.
+> All this, however, is outside the scope of Rule 20.7, so the example
+> may have been confusing: sorry about that.
+> 
+>> AFAIK, there is no requirement in MISRA C guidelines to add 
+>> parentheses around the entire macro definition when it is used as an 
+>> expression and this is something I cannot understand.
+>> Unless I got it all wrong I guess ...
+> 
+> Yes, this is known and it is has also been brought to the attention of
+> the MISRA C working group.
+> 
+>> Can a deviation being added in the basis of C99 standard since 
+>> according to the standard, E1[E2] is identical to (*((E1)+(E2))), and 
+>> therefore, macro parameters used as subscript expressions are implicitly
+>> parenthesized and can be exempted from the rule.
+> 
+> Sure, you can always deviate any non-mandatory guideline: just be ware
+> of the fact that complying is often cheaper than deviating.
+> 
+>>> For instance, if you noticed Rule 20.7 reports given by
+>>> ECLAIR and not by cppcheck, then maybe line
+>>>
+>>> Rule 20.7              FP
+>>>
+>>> should be
+>>>
+>>> Rule 20.7              FN+FP
+>>>
+>>> If you can let me have an indication of the code that
+>>> ECLAIR is flagging for Rule 20.7 and cppcheck does not
+>>> flag, I will be happy to double-check.
+>>
+>> ECLAIR flags as violations of Rule 20.7 the cases where 
+>> unparenthesized macro parameters are used as (1) function arguments or 
+>> (2) array indexes, while cppcheck does not.
+>>
+>> For instance:
+>> (1) in xen/arch/arm/include/asm/atomic.h
+>> #define read_atomic(p) ({                                               \
+>>      union { typeof(*(p)) val; char c[0]; } 
+>> x_;                          \
+>>      read_atomic_size(p, x_.c, 
+>> sizeof(*(p)));                            \
+>>      
+>> x_.val;                                                             \
+>> })
+>> ECLAIR flags as violations missing parentheses around 'p', when used 
+>> as an argument of read_atomic_size().
+> 
+> ECLAIR is right in reporting these violations of Rule 20.7;
+> these are false negatives of cppcheck.
+>
 
-While I see your point, I'm afraid I don't think I can ack this
-change without knowing whether the other uses don't expose a similar
-issue. It would feel wrong to fix only one half of a problem. I may,
-somewhat hesitantly, give an ack if e.g. Boris offered his R-b.
-Else the only other option I see is that some other maintainer give
-their ack.
+AFAIU, the rationale of Rule 20.7 is to ensure that the precedence of 
+the expression, produced after the macro parameter expansion, will be 
+higher (a parenthesized expression is a primary expression and has the 
+highest precedence) than the precedence of any operator performed on 
+that expression after the substitution.
+These two examples refer to cases where either no operator is applied to 
+the expression or the applied operator precedence is the lowest possible 
+(comma operator) and for this reason the rationale of the guideline may 
+be considered insufficient to justify the need of parentheses.
+I guess, that ECLAIR flags the above as violations because there is no 
+formal exemption in the body of the rule.
+Cppcheck intentionally considers those cases compliant but unfortunately 
+there is no justification in the commit messages of the respective changes.
 
-Jan
+>> (2) in xen/arch/arm/arm64/cpufeature.c
+>> #define SANITIZE_REG(field, num, reg)  \
+>>      sanitize_reg(&system_cpuinfo.field.bits[num], 
+>> new->field.bits[num], \
+>>                   #reg, ftr_##reg)
+>> ECLAIR flags as violations missing parentheses around 'num'.
+> 
+> Same as above.
+> 
+> I am probably repeating myself, but the MISRA guidelines are the result
+> of carefully-chosen compromises between the simplicity of the guideline
+> and its ability to protect against the targeted bad thing.As Rule 20.7
+> is required, any violation will have to be deviated by projects that
+> have MISRA-compliance among their objectives.
+
+There are two things that have come to my attention and may cause 
+confusion around Rule 20.7. They may have also been brought to the 
+attention of the MISRA C working group.
+
+1) Rule 12.1 (Advisory), which suggests the use of parentheses to make 
+operator precedence explicit, does not require the operands of a comma 
+operator/separator to be parenthesized because it recognizes that 
+overuse of parentheses can clutter the code.
+Since both Rules 20.7 and 12.1 aim to address basically the same issue, 
+why they are not aligned?
+
+2) Rule 20.7 maps to the CERT-C Rule PRE01 which has a formal exemption 
+(PRE01-C-EX1) for the above case. Maybe this sounds irrelevant but it 
+struck me as odd.
+
+I forgot in my previous email to thank you for your help that it's 
+really much appreciated and needed. Thanks a lot.
+
+> Kind regards,
+> 
+>    Roberto
+> 
+>>>> On Fri, 2 Sep 2022, Xenia Ragiadakou wrote:
+>>>>> On 9/2/22 05:07, Stefano Stabellini wrote:
+>>>>>> On Thu, 1 Sep 2022, Bertrand Marquis wrote:
+>>>>>>> Hi Xenia,
+>>>>>>>
+>>>>>>>> On 1 Sep 2022, at 10:27, Xenia Ragiadakou 
+>>>>>>>> <burzalodowa@gmail.com> wrote:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> On 9/1/22 01:35, Stefano Stabellini wrote:
+>>>>>>>>> Patches 1, 4, and 6 are already committed. I plan to commit 
+>>>>>>>>> patches 2,
+>>>>>>>>> 3
+>>>>>>>>> and 5 in the next couple of days.
+>>>>>>>>> Patch 7 needs further discussions and it is best addressed 
+>>>>>>>>> during the
+>>>>>>>>> next MISRA C sync-up.
+>>>>>>>>
+>>>>>>>> I would like to share here, before the next MISRA C sync, my
+>>>>>>>> understandings that will hopefully resolve a wrong impression of 
+>>>>>>>> mine,
+>>>>>>>> that I may have spread around, regarding this rule.
+>>>>>>>> There was a misunderstanding regarding the rule 20.7 from my 
+>>>>>>>> part and I
+>>>>>>>> think that Jan is absolutely right that parenthesizing macro 
+>>>>>>>> parameters
+>>>>>>>> used as function arguments is not required by the rule.
+>>>>>>>>
+>>>>>>>> The rule 20.7 states "Expressions resulting from the expansion 
+>>>>>>>> of macro
+>>>>>>>> parameters shall be enclosed in parentheses" and in the 
+>>>>>>>> rationale of the
+>>>>>>>> rule states "If a macro parameter is not being used as an 
+>>>>>>>> expression
+>>>>>>>> then the parentheses are not necessary because no operators are
+>>>>>>>> involved.".
+>>>>>>>>
+>>>>>>>> Initially, based on the title, my understanding was that it 
+>>>>>>>> requires for
+>>>>>>>> the expression resulting from the expansion of the macro to be 
+>>>>>>>> enclosed
+>>>>>>>> in parentheses. Then, based on the rule explanation and the 
+>>>>>>>> examples
+>>>>>>>> given,  my understanding was that it requires the macro 
+>>>>>>>> parameters that
+>>>>>>>> are used as expressions to be enclosed in parentheses.
+>>>>>>>> But, after re-thinking about it, the most probable and what 
+>>>>>>>> makes more
+>>>>>>>> sense, is that it require parentheses around the macro 
+>>>>>>>> parameters that
+>>>>>>>> are part of an expression and not around those that are used as
+>>>>>>>> expressions.
+>>>>>>>>
+>>>>>>>> Therefore, macro parameters being used as function arguments are 
+>>>>>>>> not
+>>>>>>>> required to be enclosed in parentheses, because the function 
+>>>>>>>> arguments
+>>>>>>>> are part of an expression list, not of an expression (comma is 
+>>>>>>>> evaluated
+>>>>>>>> as separator, not as operator).
+>>>>>>>> While, macro parameters used as rhs and lhs expressions of the
+>>>>>>>> assignment operator are required to be enclosed in parentheses 
+>>>>>>>> because
+>>>>>>>> they are part of an assignment expression.
+>>>>>>>>
+>>>>>>>> I verified that the violation reported by cppcheck is not due to 
+>>>>>>>> missing
+>>>>>>>> parentheses around the function argument (though still I have not
+>>>>>>>> understood the origin of the warning). Also, Eclair does not 
+>>>>>>>> report it.
+>>>>>>>>
+>>>>>>>> Hence, it was a misunderstanding of mine and there is no 
+>>>>>>>> inconsistency,
+>>>>>>>> with respect to this rule, in adding parentheses around macro 
+>>>>>>>> parameters
+>>>>>>>> used as rhs of assignments. The rule does not require adding 
+>>>>>>>> parentheses
+>>>>>>>> around macro parameters used as function arguments and neither 
+>>>>>>>> cppcheck
+>>>>>>>> nor Eclair report violation for missing parentheses around macro
+>>>>>>>> parameters used as function arguments.
+>>>>>>>
+>>>>>>>
+>>>>>>> Thanks a lot for the detailed explanation :-)
+>>>>>>>
+>>>>>>> What you say does make sense and I agree with your analysis here, 
+>>>>>>> only
+>>>>>>> protect when part of an expression and not use as a subsequent 
+>>>>>>> parameter
+>>>>>>> (for a function or an other macro).
+>>>>>>
+>>>>>> Yeah I also agree with your analysis, and many thanks for
+>>>>>> double-checking the cppcheck and Eclair's reports.
+>>>>>
+>>>>> Unfortunately in the specific case that I checked, it was not 
+>>>>> reported because
+>>>>> it was actually an argument to a macro, not a function.
+>>>>> Eclair does report as violations of Rule 20.7 the macro parameters 
+>>>>> that are
+>>>>> used as function arguments and are not enclosed in parentheses.
+>>>>>
+>>>>> So, one tool reports it as violation and the other one not.
+>>>>>
+>>>>> The same goes, also, for the case where a macro parameter is used 
+>>>>> as index to
+>>>>> an array. Eclair reports it as violation while cppcheck does not.
+>>>>
+>>
+
+-- 
+Xenia
 
