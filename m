@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 361ED5EF632
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 15:14:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413777.657662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DFD55EF690
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 15:29:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413783.657672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odtMo-0002NM-Fg; Thu, 29 Sep 2022 13:14:18 +0000
+	id 1odtaZ-00047l-MR; Thu, 29 Sep 2022 13:28:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413777.657662; Thu, 29 Sep 2022 13:14:18 +0000
+Received: by outflank-mailman (output) from mailman id 413783.657672; Thu, 29 Sep 2022 13:28:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odtMo-0002Kv-Cj; Thu, 29 Sep 2022 13:14:18 +0000
-Received: by outflank-mailman (input) for mailman id 413777;
- Thu, 29 Sep 2022 13:14:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oNWE=2A=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1odtMm-0002Kk-Qv
- for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 13:14:17 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9dd91064-3ff8-11ed-9374-c1cf23e5d27e;
- Thu, 29 Sep 2022 15:14:15 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id a13so1961656edj.0
- for <xen-devel@lists.xenproject.org>; Thu, 29 Sep 2022 06:14:15 -0700 (PDT)
-Received: from [192.168.1.93] (adsl-75.176.58.241.tellas.gr. [176.58.241.75])
- by smtp.gmail.com with ESMTPSA id
- d23-20020aa7d697000000b00456ff7d4283sm1556637edr.5.2022.09.29.06.14.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Sep 2022 06:14:14 -0700 (PDT)
+	id 1odtaZ-00045k-Jp; Thu, 29 Sep 2022 13:28:31 +0000
+Received: by outflank-mailman (input) for mailman id 413783;
+ Thu, 29 Sep 2022 13:28:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1mH3=2A=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1odtaY-00045e-J2
+ for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 13:28:30 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2074.outbound.protection.outlook.com [40.107.20.74])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9a6851a4-3ffa-11ed-964a-05401a9f4f97;
+ Thu, 29 Sep 2022 15:28:28 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAXPR04MB8781.eurprd04.prod.outlook.com (2603:10a6:102:20c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.20; Thu, 29 Sep
+ 2022 13:28:26 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.017; Thu, 29 Sep 2022
+ 13:28:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,375 +46,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dd91064-3ff8-11ed-9374-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date;
-        bh=y4mGqivhiQmUV8ipfVZW3SYpSuTWtk+iojxfx05uBbA=;
-        b=FeE41N8AaAWMAXhdBjoSeQOcB8/xkRu6HTMlCOkbSfaYahZIwIKAkLcasU247vxR3M
-         Z41oGs452qlua62bLO7xGiKH7ZL6zJc9w+7Qp/maRR/soZ6vrRxoTrrptI28WjWfQhbM
-         /SiHNJygLFybZehB9gLtSm3ylOPXKojFMoXX9Po5iyDJzi3EToz/Mb03EGOjs/WPbEiW
-         ug7yHZNtRpRJg+B3Bw9TWmEPOvpt6kcT5nNCrMY5lXPVCokyZD77oBY8ng1U4yS3hYKw
-         4N6LbvDb902I01pXgCbsu+Hlsq1IslL4/KR3B4B8GLZN9fveo6dDRr4yKceAQS+4OPCp
-         jtCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date;
-        bh=y4mGqivhiQmUV8ipfVZW3SYpSuTWtk+iojxfx05uBbA=;
-        b=cIxmDrVzKB8kq1FjquVmR/kB86vGUkLn24D5h3FeNBNrNROjIwLTolZZ+94MIyYnmo
-         leU6OL9mvU4HRFRfBB/wwlYwHKAc+XwbrxlAFMMe53xLj/71KDAKA3ewFylOTDW6hBTn
-         1tN8pL/8RaivUR6PnYkb2t6fR7T6unS808j+DklgjgfnjS7vqNH+CtvKbpGBVdTn4j4C
-         9Udepr96c1te6MdkDco21g9d33Bbg79lD8PfBVxifrTNVA4oj2R9cXMx5ZHnCDc+Ksyg
-         9aS+eM1SRfGK9nFincBJK7SFGlOXozOgYOwL6jE7W8BNvSGjV4u2Ncg/UQxZFyNPxLUb
-         rTOg==
-X-Gm-Message-State: ACrzQf0P/IetgAkHULjYqTljD/4N4dQ+H/fuilT2wCE7YUkztI4wqjkY
-	wbVA4g6qs/8axIGCoTHhTrM=
-X-Google-Smtp-Source: AMsMyM7hB9flUAQunU1fNM6208XFtFZd5WDG0e5dt8N/E7ctFXeaztsdgmE66YaVlZj7zVHwlzUIWA==
-X-Received: by 2002:a05:6402:1e8d:b0:441:58db:b6a2 with SMTP id f13-20020a0564021e8d00b0044158dbb6a2mr3203163edf.277.1664457254593;
-        Thu, 29 Sep 2022 06:14:14 -0700 (PDT)
-Message-ID: <4336e65e-23a7-9b8e-3548-55b06d0203ec@gmail.com>
-Date: Thu, 29 Sep 2022 16:14:11 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH 0/7] Fix MISRA C 2012 Rule 20.7 violations
+X-Inumbo-ID: 9a6851a4-3ffa-11ed-964a-05401a9f4f97
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UU1VjUGyM+BFKosLL2/szadoDW7tvBmUW3Z7YhPNpq/9ombWJnXYnAD3tOWxsepDO9IjJ04AuZj6iZE5U+H6sdMrS9AEKvhPFT3GMADUKtf6XXKUPqWDzvXrTfHY2fwLKefPHzotJqhpdf7p5W6sevYO80BgAtTEQ6WWqw63EfeIAJfwf/13PPuaNlezNOAqyHP4fJvYVhYhAy1Degtg2ZL9I/f3xXf/MP+3Tx3JB/YvPfFHmV4+mhqSYKvDwfFcygqOqttlIiCOOOXtRTxEgu+h/QxwRZagdzCst87UFlnEAw47L12gD5XJFsh2dZPT7PPIGPAEQ+/zcwUJ/Slk3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sz5ivruGwQ7eYnIntAddcPznpIkbdaPX6SM0pE+4IHo=;
+ b=kcVgtXOsAqwMVLPkVfRRqTQ+tiE3Xa9q4htv30Y3/r8dgKuMvyyNyEb1+yEe717Iu/i4n5fXoVehGisoFL0akOgjiQfh8xVWQY1VnKDBYYHMhcrl5iUzsM15YxbT+FMd/wTWjEFWmHq8r+li5Lc7o7DIiON41nEIoabGf9jCwfVi807UBjH+Pm83S3hQAwpUxwZ1gDNgsDR0u+0NlcBVFtAmHFQ1S41A5TMnXMccCvSi9BOwdiBw2AvIbNB/hMjbivHz8RyGk54vOIZMyxz6DjSKXp/LJXCh90r4LEq/aB2EAONTpo1f3vysNdUNBeW/rBCUXnxCpThMYT6hAkIbpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sz5ivruGwQ7eYnIntAddcPznpIkbdaPX6SM0pE+4IHo=;
+ b=0PoLODgE1G8DlBG65+3CzGHGwIyneBSFw07KWYcvxZbuMl6NjhiwfZpXyc4pzIKwVxCpNuP/K4bN4dVIkzzSvXVIhcWbVM6VaPfzRx8ODcUWHxajgMzaPcfzRh+vi1izDW48+9XtoQDiaLkemiZGL6lmdk/BGwRSrrj3//Rj73XedX/hmM9LbjJjYMIzrEiNgfWiCLiuMr9hXAQcm0+9JXcvoAQI0erD4UnuBGb/9ohZyM9YW5TP0JRJx8k+FZOFdH21y2qI1py/JAzQqbh6r2lQ7lbA3iuFH9QC3TQfqm9Y4YEovPuwkBrRm/d/+2GnX9WKin8e9T3Ip0P13mvdeg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <cfad5752-221d-dd53-7847-90d79da08962@suse.com>
+Date: Thu, 29 Sep 2022 15:28:25 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
 Content-Language: en-US
-To: Roberto Bagnara <roberto.bagnara@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20220819194359.1196539-1-burzalodowa@gmail.com>
- <alpine.DEB.2.22.394.2208311534070.2375071@ubuntu-linux-20-04-desktop>
- <44eb89f1-67db-6232-e28f-ab380e71b9fc@gmail.com>
- <6A69A0CA-087F-4260-9371-8EEEAD3926A3@arm.com>
- <alpine.DEB.2.22.394.2209011904571.3931@ubuntu-linux-20-04-desktop>
- <422ad42f-8bfa-55a9-2e70-4ae857632a94@gmail.com>
- <alpine.DEB.2.22.394.2209021743150.3931@ubuntu-linux-20-04-desktop>
- <e2046144-48ec-2d8e-62d4-88ca1cb3aeb4@bugseng.com>
- <12c95841-027b-ae02-1945-b0d232ffb17d@gmail.com>
- <fa9f0067-e1ca-cd02-a7ee-9184f7c59ff9@bugseng.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <fa9f0067-e1ca-cd02-a7ee-9184f7c59ff9@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: Proposal for consistent Kconfig usage by the hypervisor build system
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0057.eurprd06.prod.outlook.com
+ (2603:10a6:20b:463::33) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8781:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3ba79a6d-88ee-4f91-1a25-08daa21e7d7b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Ti+sL+gzFykRBnI3F6xJmDS5WBDNGiUwltMbuRPr7MAnNYy5ESvxGL0pAtq4wnLw7HS0uli0eGp8tcqnvyGxZdIzUcxSHpFuF1lHOPViAsAHercOFcHK50uHGgF5XwxueIqs5qU2Ka5Na993AllTojQWpWJXrG2XMmUFnLiuhCPqQpJJLXW6l6Lo0wGMECKmOjsfIAOXay3Foy3pEOnqillrIYhG+saBFwGM9TpBe+Diitx/KvXNADnLX/Y06nJ4zm5d9Foxdzy59TpiMmR8sT0ln5T8AqrUS8R6bUZbxbEmY8Bhn8C6IrSeSLK5ZEw+1ZwgtbxlMCThIYwo3nMZge69hKe9fpFtnZr/bpmcbM7G8ymzXkEZA7XBuLBQekSQWfHdP2hrDPDTUWhzGgmzBQ3G16IAUcRjCUM/DblT35JElmAE3SQP9+K2Peng+MyeOjpPovXJDrV8TCqD023Cf/cSbgCEbTEzT8IY1FhbKlk9SnIM/7hSpD4yxvp5XrkHTuC4hXq8MvCW6QUDXc2QPXLPhU5pVnlJzKrVYWQ3dNvUY20MJ2XTrLAFRq9dcGHJgXpjMPW6KjTW3UzSvcby3WmjjaVxtIOamnjIZl23GPZI6BZAF3P0++1z3/Y57Qr5GLPa7OBtfb8dp+L3hRoPeOxo9G0umf/KWlPSPSqk1DrJXnvOgkDrSL6rnyZoNg8JtirsOUpa2bJGR7pKqdtM/KREj7YYrV+8cucIVGZXizRLOUKRHRkzBsZHwTodaWOysqR2XWlMBdZTq8M/IlkgAwI2y4NNi2K7C0DedQbFDkk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(136003)(39860400002)(396003)(376002)(346002)(451199015)(31686004)(66899015)(36756003)(5660300002)(8676002)(6506007)(41300700001)(86362001)(31696002)(38100700002)(83380400001)(2616005)(186003)(478600001)(6486002)(6916009)(26005)(66556008)(6512007)(66476007)(8936002)(2906002)(316002)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MzdCdlhtYUo1c3ltV3VPWVlGRG1OdElIdFRua0ZaMndTamw4UFVkeUc2NnU2?=
+ =?utf-8?B?Y2R1bTJMK3A3bzlyOFBhNk9jdzlNOE9ybm9rZ0d4cmttaFJpVWhDVVMrN1BW?=
+ =?utf-8?B?Rm9PVFhUZGNZdkZRRlFIcDNWWlZjTW8rQ0F2MmIwV1Rya0gySFRiUkpPam5G?=
+ =?utf-8?B?eXZMMVphS1AyZXJYODdJY25ES2tTam9XMmFaVjY0R2h1dU03R0RPbTVyazlH?=
+ =?utf-8?B?c2RoV2tHL2NsamQxS0xWdnk4dE5HRHdRTVZrdktoZjNWTHp0aExKeVJmVys4?=
+ =?utf-8?B?THY4NmdMZ3ZWRHE2NU9tT1lLRklxQlZxQ0tWL1VTR2Q4SU8yQkVaemNTTG80?=
+ =?utf-8?B?WUgxME5QYzZ2UHVRQzdQalJvSzhQNzA5cXNDVkJMdk9mYVF1SE1VWU83bFVl?=
+ =?utf-8?B?NllMUXJMUGVxSmVUZit1NFNmWmhRMTlEYUgzdVlkOTB5bktILzltaXQrbVFR?=
+ =?utf-8?B?ZTNWbDVPNDFUeW8wMGFabWcwOW1GUnhnbk9xUkJNNWZaNkVIL05Ia05DUnJv?=
+ =?utf-8?B?dUhqRjl3ZGVDQ1hEQ3JjcDU5RGlsNXhZZXFrb3pDM1dyMURhZ3dGQWF2TS9s?=
+ =?utf-8?B?TFBWUGpPWlRQYllTakF4TVVIeWlaZmZKUnIzQlNPS25RMWYvWG9KRElRbTZh?=
+ =?utf-8?B?S2F2Y3NsTTM1dWFwclJDaVl5S2NnNkFyZTNMclNub1ErUFNXbWh6K0JCVFND?=
+ =?utf-8?B?LzV5TlgwTC82T2ZGcTlPNVVVZmhLNlpuU1BweUVIUXpXSTZXanBjS2V5bkJQ?=
+ =?utf-8?B?bDBoQ0l4R0h0M3M5MklEZlhFUm9QckhVNHBxMkRpK0ZLOWd5WnZJZWQ4cmd5?=
+ =?utf-8?B?QTZJblliU094cmEzeDRRRHRSQmJhY2pOMjRRdmVrbTlPamZCbHN1eXVva29h?=
+ =?utf-8?B?QVhsTSs5TFJISHdjQTFjNDFWMTErRWFFQitYYzF2elppaDNrOVBOUEdyN2px?=
+ =?utf-8?B?bFhCa3Z6dUxQQmVVbk5GZVF6ZDhrOTBLTHNUemVRa3krVmh4azJLa2JrTlNx?=
+ =?utf-8?B?SWJ0Q0hzUWpzdlhiY3RsamI5L2Q2bGZwMU5HWmVLYXgwUHVBRkhMK0srMUhw?=
+ =?utf-8?B?MFdVY21Dc1BLSzBvenN6eHpKZVNZeTBuRW1UR1p4S2VMUWE2M0Erdk9qNXNs?=
+ =?utf-8?B?VkpXdEJZMlFPaDRCZFN5eUMybkUxT2lnWURRcDlZa1ZndEwwdFUzYWhxUEhL?=
+ =?utf-8?B?U3ZteURBRlQ1WTcwbjIxRzlaZHNuQW9TYzlwcDRUcElJc1FlTEtOaWY4WjND?=
+ =?utf-8?B?S0ZrZjhaWHlXckFwbVpiK1JHd0plV3FTVERRcFk4TjM0MUo1MElMSGlCYUpB?=
+ =?utf-8?B?bVlIY2RHWFZHUk5LNFVDU3FmV0Rwem4xWXFkMUh3UzY2cEo3blZnSytnaWRR?=
+ =?utf-8?B?S0pneDRSdUxjWGdoWlJYVDFBcWlPc1V0eU1QZWkyQWdMSTNVR0M4ZGVzWUU4?=
+ =?utf-8?B?dU5qK1NJaUcrQldkSkEydWo3NE1CQzZXMjA3bkVHbHdsV25nb3FMVDZ1bFJS?=
+ =?utf-8?B?T0VTV3dxUERVR2tVSTNmMHo3bGY3MXZEWXZnZ0VDVFgzTG83UEFGSER1Vi9O?=
+ =?utf-8?B?YVNaS2NVMldTY3JzMisvbGMyOTcvTyt0cnRKUENBMVpqU0I4WFprMkw5ZmJH?=
+ =?utf-8?B?dHdYZk1QT1c0bDh1TnJiNU9PR1ZMdEU4WHk3VlFSZnJad05uMWdOVVIxQnkw?=
+ =?utf-8?B?dE1jYkhDd0J1OUxsZHlLVTBMWFZGbDZYUTR1aFo0VE9wTE56UTZwUmxYUFBS?=
+ =?utf-8?B?b29NcXVzM3hxRmJBS3hzUjJGdWhzSUJESEhVNXBQaC9jWUhSbkVjTmtkWWFk?=
+ =?utf-8?B?eVphU1oybjFwRGRvU0M0VU5WalE5UkIxMUVhazM1dU9SVVlVeDlhcUpKbUxI?=
+ =?utf-8?B?UG5FYmNsTVlGMTBKeCszWUFVWGM3aEFJb0RPN2F5RW1aMjZPZ3UvRVRDQ1ZT?=
+ =?utf-8?B?ZGZGQ043S0h5WENBR1VDdGdDRG12cm9GVFBJa2xpQ2tzbDAyaEZ6WnVXaldn?=
+ =?utf-8?B?SHR2Q0NpSS9jV2ZGZFRoUzhuOWE4a2c4bmxHVXp5QzZXbk0xYTFvMVlDMWVO?=
+ =?utf-8?B?cHBzQ0wvcnNuM3c0NzcrRitaMkxaV2NMdU1ZOE1mWkdGLzVUZ0lHVTZ3b1Vw?=
+ =?utf-8?Q?F6kkcvmTP3mmzcvviE3eq1aA5?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ba79a6d-88ee-4f91-1a25-08daa21e7d7b
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2022 13:28:26.5847
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pfpr/xna2DGCpu06QPglGiH5sw06/zalicUL6gwSQwQPHOqtAhp8Tw2D1NFuUkmAKzwK4H1Qq3dB7Dmr4G7DSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8781
 
-Hi Roberto,
+At present we use a mix of Makefile and Kconfig driven capability checks for
+tool chain components involved in the building of the hypervisor.  What approach
+is used where is in some part a result of the relatively late introduction of
+Kconfig into the build system, but in other places also simply a result of
+different taste of different contributors.  Switching to a uniform model,
+however, has drawbacks as well:
+ - A uniformly Makefile based model is not in line with Linux, where Kconfig is
+   actually coming from (at least as far as we're concerned; there may be
+   earlier origins).  This model is also being disliked by some community
+   members.
+ - A uniformly Kconfig based model suffers from a weakness of Kconfig in that
+   dependent options are silently turned off when dependencies aren't met.  This
+   has the undesirable effect that a carefully crafted .config may be silently
+   converted to one with features turned off which were intended to be on.
+   While this could be deemed expected behavior when a dependency is also an
+   option which was selected by the person configuring the hypervisor, it
+   certainly can be surprising when the dependency is an auto-detected tool
+   chain capability.  Furthermore there's no automatic re-running of kconfig if
+   any part of the tool chain changed.  (Despite knowing of this in principle,
+   I've still been hit by this more than once in the past: If one rebuilds a
+   tree which wasn't touched for a while, and if some time has already passed
+   since the updating to the newer component, one may not immediately make the
+   connection.)
 
-On 9/28/22 17:11, Roberto Bagnara wrote:
-> On 9/26/22 10:50, Xenia Ragiadakou wrote:
->> On 9/18/22 16:02, Roberto Bagnara wrote:
->>>> The question is on the interpretation of Rule 20.7. Are parenthesis
->>>> required by Rule 20.7 in the following cases:
->>>>
->>>> - macro parameters used as function arguments
->>>  > [...]
->>>  > - macro parameter used as lhs in assignment
->>>
->>> You can obtain different semantics depending on whether parentheses
->>> are or are not used (in the macro call and/or macro expansion
->>> depending on the case):
->>>
->>>
->>> #include <stdio.h>
->>>
->>> void g(int v) {
->>>    printf("%d\n", v);
->>> }
->>>
->>> #define m1(x, y, ...) g(y)
->>>
->>> void f1(int x, int y, ...) {
->>>    g(y);
->>> }
->>>
->>> #define p 0, 1
->>>
->>> void test1() {
->>>    m1(p, 2);
->>>    f1(p, 2);
->>> }
->>>
->>
->> In the example above something bothers me. Let me explain.
->>
->> Running the above example gives:
->> 2
->> 1
->>
->> The results differ mainly because m1() is substituted before p.
->> Thus, adding parentheses around the macro parameter 'y' of m1() i.e
->> #define m1(x, y, ...) g((y))
->> has no impact.
->>
->> If the example is changed into the following:
->>
->> #include <stdio.h>
->>
->> void g(int v) {
->>     printf("%d\n", v);
->> }
->>
->> #define m1(y, ...) g(y)
->>
->> void f1(int y, ...) {
->>     g(y);
->> }
->>
->> #define p 0, 1
->>
->> void test1() {
->>      m1(p, 2);
->>      f1(p, 2);
->> }
->>
->> if no parentheses are added around 'y' in the definition of m1(), the 
->> compiler complains with "too many arguments to function g".
->> If parentheses are added around 'y', the compiler does not complain 
->> but the behavior will still differ and the result will be
->> 1
->> 0
->>
->> This happens because in the case of m1(), p is interpreted as an 
->> expression (due to the parentheses added there) and the comma is 
->> evaluated as a comma operator, while in f1(), p is interpreted as a 
->> list of expressions and the comma is evaluated as a comma separator.
->>
->> Hence, in my opinion, parentheses should not be added around macro 
->> parameters used as function arguments because they can hide a bug due 
->> to missing parentheses around the entire macro definition.
->> Since macro 'p' is supposed to represent an expression, and the 
->> semantics of the comma token are those of a comma operator and not a 
->> comma separator, then parentheses need to be placed around the entire 
->> macro definition i.e
->> #define p (0, 1)
-> 
-> Your analysis is correct: the example was meant only to show that
-> the use of a macro or a function with the same actual parameters
-> and apparently equivalent bodies can make a difference and that the
-> addition of parentheses (around the body of p, as you suggest, or around
-> the occurrence of p in the call to f1()) can avoid this problem.
-> All this, however, is outside the scope of Rule 20.7, so the example
-> may have been confusing: sorry about that.
-> 
->> AFAIK, there is no requirement in MISRA C guidelines to add 
->> parentheses around the entire macro definition when it is used as an 
->> expression and this is something I cannot understand.
->> Unless I got it all wrong I guess ...
-> 
-> Yes, this is known and it is has also been brought to the attention of
-> the MISRA C working group.
-> 
->> Can a deviation being added in the basis of C99 standard since 
->> according to the standard, E1[E2] is identical to (*((E1)+(E2))), and 
->> therefore, macro parameters used as subscript expressions are implicitly
->> parenthesized and can be exempted from the rule.
-> 
-> Sure, you can always deviate any non-mandatory guideline: just be ware
-> of the fact that complying is often cheaper than deviating.
-> 
->>> For instance, if you noticed Rule 20.7 reports given by
->>> ECLAIR and not by cppcheck, then maybe line
->>>
->>> Rule 20.7              FP
->>>
->>> should be
->>>
->>> Rule 20.7              FN+FP
->>>
->>> If you can let me have an indication of the code that
->>> ECLAIR is flagging for Rule 20.7 and cppcheck does not
->>> flag, I will be happy to double-check.
->>
->> ECLAIR flags as violations of Rule 20.7 the cases where 
->> unparenthesized macro parameters are used as (1) function arguments or 
->> (2) array indexes, while cppcheck does not.
->>
->> For instance:
->> (1) in xen/arch/arm/include/asm/atomic.h
->> #define read_atomic(p) ({                                               \
->>      union { typeof(*(p)) val; char c[0]; } 
->> x_;                          \
->>      read_atomic_size(p, x_.c, 
->> sizeof(*(p)));                            \
->>      
->> x_.val;                                                             \
->> })
->> ECLAIR flags as violations missing parentheses around 'p', when used 
->> as an argument of read_atomic_size().
-> 
-> ECLAIR is right in reporting these violations of Rule 20.7;
-> these are false negatives of cppcheck.
->
+Therefore I'd like to propose that we use an intermediate model: Detected tool
+chain capabilities (and alike) may only be used to control optimization (i.e.
+including their use as dependencies for optimization controls) and to establish
+the defaults of options.  They may not be used to control functionality, i.e.
+they may in particular not be specified as a dependency of an option controlling
+functionality.  This way unless defaults were overridden things will build, and
+non-default settings will be honored (albeit potentially resulting in a build
+failure).
 
-AFAIU, the rationale of Rule 20.7 is to ensure that the precedence of 
-the expression, produced after the macro parameter expansion, will be 
-higher (a parenthesized expression is a primary expression and has the 
-highest precedence) than the precedence of any operator performed on 
-that expression after the substitution.
-These two examples refer to cases where either no operator is applied to 
-the expression or the applied operator precedence is the lowest possible 
-(comma operator) and for this reason the rationale of the guideline may 
-be considered insufficient to justify the need of parentheses.
-I guess, that ECLAIR flags the above as violations because there is no 
-formal exemption in the body of the rule.
-Cppcheck intentionally considers those cases compliant but unfortunately 
-there is no justification in the commit messages of the respective changes.
+For example
 
->> (2) in xen/arch/arm/arm64/cpufeature.c
->> #define SANITIZE_REG(field, num, reg)  \
->>      sanitize_reg(&system_cpuinfo.field.bits[num], 
->> new->field.bits[num], \
->>                   #reg, ftr_##reg)
->> ECLAIR flags as violations missing parentheses around 'num'.
-> 
-> Same as above.
-> 
-> I am probably repeating myself, but the MISRA guidelines are the result
-> of carefully-chosen compromises between the simplicity of the guideline
-> and its ability to protect against the targeted bad thing.As Rule 20.7
-> is required, any violation will have to be deviated by projects that
-> have MISRA-compliance among their objectives.
+config AS_VMX
+	def_bool $(as-instr,vmcall)
 
-There are two things that have come to my attention and may cause 
-confusion around Rule 20.7. They may have also been brought to the 
-attention of the MISRA C working group.
+would be okay (as long as we have fallback code to deal with the case of too
+old an assembler; raising the baseline there is a separate topic), but instead
+of what we have currently
 
-1) Rule 12.1 (Advisory), which suggests the use of parentheses to make 
-operator precedence explicit, does not require the operands of a comma 
-operator/separator to be parenthesized because it recognizes that 
-overuse of parentheses can clutter the code.
-Since both Rules 20.7 and 12.1 aim to address basically the same issue, 
-why they are not aligned?
+config XEN_SHSTK
+	bool "Supervisor Shadow Stacks"
+	default HAS_AS_CET_SS
 
-2) Rule 20.7 maps to the CERT-C Rule PRE01 which has a formal exemption 
-(PRE01-C-EX1) for the above case. Maybe this sounds irrelevant but it 
-struck me as odd.
+would be the way to go.
 
-I forgot in my previous email to thank you for your help that it's 
-really much appreciated and needed. Thanks a lot.
+It was additionally suggested that, for a better user experience, unmet
+dependencies which are known to result in build failures (which at times may be
+hard to associate back with the original cause) would be re-checked by Makefile
+based logic, leading to an early build failure with a comprehensible error
+message.  Personally I'd prefer this to be just warnings (first and foremost to
+avoid failing the build just because of a broken or stale check), but I can see
+that they might be overlooked when there's a lot of other output.  In any event
+we may want to try to figure an approach which would make sufficiently sure that
+Makefile and Kconfig checks don't go out of sync.
 
-> Kind regards,
-> 
->    Roberto
-> 
->>>> On Fri, 2 Sep 2022, Xenia Ragiadakou wrote:
->>>>> On 9/2/22 05:07, Stefano Stabellini wrote:
->>>>>> On Thu, 1 Sep 2022, Bertrand Marquis wrote:
->>>>>>> Hi Xenia,
->>>>>>>
->>>>>>>> On 1 Sep 2022, at 10:27, Xenia Ragiadakou 
->>>>>>>> <burzalodowa@gmail.com> wrote:
->>>>>>>>
->>>>>>>>
->>>>>>>> On 9/1/22 01:35, Stefano Stabellini wrote:
->>>>>>>>> Patches 1, 4, and 6 are already committed. I plan to commit 
->>>>>>>>> patches 2,
->>>>>>>>> 3
->>>>>>>>> and 5 in the next couple of days.
->>>>>>>>> Patch 7 needs further discussions and it is best addressed 
->>>>>>>>> during the
->>>>>>>>> next MISRA C sync-up.
->>>>>>>>
->>>>>>>> I would like to share here, before the next MISRA C sync, my
->>>>>>>> understandings that will hopefully resolve a wrong impression of 
->>>>>>>> mine,
->>>>>>>> that I may have spread around, regarding this rule.
->>>>>>>> There was a misunderstanding regarding the rule 20.7 from my 
->>>>>>>> part and I
->>>>>>>> think that Jan is absolutely right that parenthesizing macro 
->>>>>>>> parameters
->>>>>>>> used as function arguments is not required by the rule.
->>>>>>>>
->>>>>>>> The rule 20.7 states "Expressions resulting from the expansion 
->>>>>>>> of macro
->>>>>>>> parameters shall be enclosed in parentheses" and in the 
->>>>>>>> rationale of the
->>>>>>>> rule states "If a macro parameter is not being used as an 
->>>>>>>> expression
->>>>>>>> then the parentheses are not necessary because no operators are
->>>>>>>> involved.".
->>>>>>>>
->>>>>>>> Initially, based on the title, my understanding was that it 
->>>>>>>> requires for
->>>>>>>> the expression resulting from the expansion of the macro to be 
->>>>>>>> enclosed
->>>>>>>> in parentheses. Then, based on the rule explanation and the 
->>>>>>>> examples
->>>>>>>> given,  my understanding was that it requires the macro 
->>>>>>>> parameters that
->>>>>>>> are used as expressions to be enclosed in parentheses.
->>>>>>>> But, after re-thinking about it, the most probable and what 
->>>>>>>> makes more
->>>>>>>> sense, is that it require parentheses around the macro 
->>>>>>>> parameters that
->>>>>>>> are part of an expression and not around those that are used as
->>>>>>>> expressions.
->>>>>>>>
->>>>>>>> Therefore, macro parameters being used as function arguments are 
->>>>>>>> not
->>>>>>>> required to be enclosed in parentheses, because the function 
->>>>>>>> arguments
->>>>>>>> are part of an expression list, not of an expression (comma is 
->>>>>>>> evaluated
->>>>>>>> as separator, not as operator).
->>>>>>>> While, macro parameters used as rhs and lhs expressions of the
->>>>>>>> assignment operator are required to be enclosed in parentheses 
->>>>>>>> because
->>>>>>>> they are part of an assignment expression.
->>>>>>>>
->>>>>>>> I verified that the violation reported by cppcheck is not due to 
->>>>>>>> missing
->>>>>>>> parentheses around the function argument (though still I have not
->>>>>>>> understood the origin of the warning). Also, Eclair does not 
->>>>>>>> report it.
->>>>>>>>
->>>>>>>> Hence, it was a misunderstanding of mine and there is no 
->>>>>>>> inconsistency,
->>>>>>>> with respect to this rule, in adding parentheses around macro 
->>>>>>>> parameters
->>>>>>>> used as rhs of assignments. The rule does not require adding 
->>>>>>>> parentheses
->>>>>>>> around macro parameters used as function arguments and neither 
->>>>>>>> cppcheck
->>>>>>>> nor Eclair report violation for missing parentheses around macro
->>>>>>>> parameters used as function arguments.
->>>>>>>
->>>>>>>
->>>>>>> Thanks a lot for the detailed explanation :-)
->>>>>>>
->>>>>>> What you say does make sense and I agree with your analysis here, 
->>>>>>> only
->>>>>>> protect when part of an expression and not use as a subsequent 
->>>>>>> parameter
->>>>>>> (for a function or an other macro).
->>>>>>
->>>>>> Yeah I also agree with your analysis, and many thanks for
->>>>>> double-checking the cppcheck and Eclair's reports.
->>>>>
->>>>> Unfortunately in the specific case that I checked, it was not 
->>>>> reported because
->>>>> it was actually an argument to a macro, not a function.
->>>>> Eclair does report as violations of Rule 20.7 the macro parameters 
->>>>> that are
->>>>> used as function arguments and are not enclosed in parentheses.
->>>>>
->>>>> So, one tool reports it as violation and the other one not.
->>>>>
->>>>> The same goes, also, for the case where a macro parameter is used 
->>>>> as index to
->>>>> an array. Eclair reports it as violation while cppcheck does not.
->>>>
->>
-
--- 
-Xenia
+Jan
 
