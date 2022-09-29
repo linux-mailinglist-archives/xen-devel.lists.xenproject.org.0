@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CBBE5EF6AC
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 15:33:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413794.657695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C1BF5EF6AA
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 15:33:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413796.657706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odtfN-000656-ML; Thu, 29 Sep 2022 13:33:29 +0000
+	id 1odtfP-0006Mn-VN; Thu, 29 Sep 2022 13:33:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413794.657695; Thu, 29 Sep 2022 13:33:29 +0000
+Received: by outflank-mailman (output) from mailman id 413796.657706; Thu, 29 Sep 2022 13:33:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odtfN-00060z-JI; Thu, 29 Sep 2022 13:33:29 +0000
-Received: by outflank-mailman (input) for mailman id 413794;
- Thu, 29 Sep 2022 13:33:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1odtfP-0006Ix-RK; Thu, 29 Sep 2022 13:33:31 +0000
+Received: by outflank-mailman (input) for mailman id 413796;
+ Thu, 29 Sep 2022 13:33:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OnIM=2A=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1odtfM-00060d-QC
- for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 13:33:29 +0000
+ id 1odtfO-0005tj-Tj
+ for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 13:33:31 +0000
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c300216-3ffb-11ed-9374-c1cf23e5d27e;
- Thu, 29 Sep 2022 15:33:27 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 7111E5C0129;
- Thu, 29 Sep 2022 09:33:26 -0400 (EDT)
+ [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4d1eb5f4-3ffb-11ed-964a-05401a9f4f97;
+ Thu, 29 Sep 2022 15:33:29 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 024475C00CF;
+ Thu, 29 Sep 2022 09:33:28 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 29 Sep 2022 09:33:26 -0400
+ by compute4.internal (MEProxy); Thu, 29 Sep 2022 09:33:28 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Sep 2022 09:33:25 -0400 (EDT)
+ 29 Sep 2022 09:33:26 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c300216-3ffb-11ed-9374-c1cf23e5d27e
+X-Inumbo-ID: 4d1eb5f4-3ffb-11ed-964a-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm2; t=1664458406; x=1664544806; bh=6HSOENZNpW
-	S8PT5EAsCWrJ5UsVb56LeYD/1s5PWTopw=; b=JgffH9L3iodrpb6r9ox9HtxaTR
-	RctI/YHNwFjgye6EwqqiNRu48qS0vUJYie+QuCanG6/IIKeLwp6fgFuxgPY0bbfm
-	wemK5EN6QhaBWJYb7c5BOjlEjZl5hey16d987dvvN1sNWy/a5ARARYhionAkqFKe
-	fSvmFpc3ws/OJ2JHe3qvdTjN7eCe+rCj23QlfMzXgh7NYGDZGwOCZ9KBEP8CEa10
-	9bd15nBeZ/RLCrF/+T87Ns4r35fxg8nByc42In4NERrjtcIQ+neVQOp2d9DTBXNP
-	xLIioQXjy1ZPhsjKt7SG1R856zZadb1+h+tx7MYywrYUt0CC6CteMkp7BfSA==
+	:subject:to:to; s=fm2; t=1664458407; x=1664544807; bh=qgXc+yc9Ry
+	MnxEvi8RZARrA6p2JmQMlq7M1cItFijWE=; b=X6O2BdtiKpBYB5bgMgn7AgtQnu
+	ZjxFCTJhi56VsQP2un9+b/IkcNcrXEIDsUtu6RlKGHTcCUmlsvD14mZ7yGCpTnOW
+	Lu/3w2NL+IfE4/IY9/+8ZvR+lDrGQsRQLYb7YcLFfKLLVeKNI3WFoZW5tyFPO70d
+	h0i2cNxoTBeKPzk3/i8+XtGaVrzu2/ibc6uumo9lLRfQ/SKSzB1q/5VojGAV7NQu
+	VBRUuSRVzB73gb6Qwyx+UK5vloq2PFXJPN9fFyMKOy59CU4qiWH77R0VHPB0dlJq
+	Wu59cw7i3hZibjxHrb9uy439rD8a4uOmYHVExGjmDEF2jyCtHhajAAH3+7/w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1664458406; x=
-	1664544806; bh=6HSOENZNpWS8PT5EAsCWrJ5UsVb56LeYD/1s5PWTopw=; b=f
-	6WbqKIpDEHWE+YijzWQawVUCRhfQ8psn8+9ai1IwJGc4vfpslmI9kpk5OMQ9aNvv
-	uqaERAnjRtok6bOveRxqKFxIpTs5aLthT+46YTj8iQzt6l7Sk87OudrfxfrZW5aO
-	qkfdq/EGEkjRkSWtuHPSSzB1ENvz9HcT43mrLVrSr4DcdTFvlPhCTLhVhomBC2Y5
-	maK0jZeLTRmkREwErkkNdI6Aaq1NvDofgj3lwcNHJyqvccizjnGbWnZ+xd/q5fRr
-	3pcFjFFDW2n1AlHcYO5LoBNSGw2ToQ3ETa1G3nvDf9VIUwF8M/IlphHbF9T5V5WU
-	JXbeZ/ULIrp1UnfF/ulEw==
-X-ME-Sender: <xms:pp41Y6xPjinsFpifOHRzkXR0JMbAJyS_cH5nRgiNYUf5CDW_TDSUdA>
-    <xme:pp41Y2SQsm8dImiPZdnjHs4iS8VqBns7AWAdXlpUJjaAqMJx_fwneR7h7BMICwhmo
-    X0uXyZo6SPHvA>
-X-ME-Received: <xmr:pp41Y8WqUch6BITiFsFsTXv1AyTVOA_8kQXHPVfTtpP40MLqcZ9pKHcANNw_TN8eMjjg-wsAS6iSCJ2U3rRP43jrmUK3kALc89W0mkrVkOB0iZaKo-THXw>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1664458407; x=
+	1664544807; bh=qgXc+yc9RyMnxEvi8RZARrA6p2JmQMlq7M1cItFijWE=; b=K
+	iSjwQ8O8Y6D6pGICQNeiOl6hlUXXxAh8w6Vm1sUGGzSjUilxovjGzjNqYKlwIflR
+	lONxo2jxLqpn0t2cppCuiqlLRNhpqg1hMa2yjttMwBvYWCjD33azP9PbVLNXdJrY
+	4iz4D72Q3dMsMn/sBEA9EP9UcOYAyiCm+ituukQ1LiPph9blSvoHrJXz1Z6/Fn1H
+	Y2ONZ3wUVsV2zJzzojiRLj646kG+U7i1JtjrtSuaZJ12IDfZfR3b0dx9zIq+vvSS
+	YRMuyfjCdBYt4U4Rf1vOnULlsnNaKCZW6lOF6eHEIDIBRwcug4Q71ZLk/28eUFxo
+	UMOEr1YdYYvOkvlRE20LQ==
+X-ME-Sender: <xms:p541Y4gzRiOY1qKnUQWwHYopLfB1EJBAlhnABWjLUc25EV73ZuB-OQ>
+    <xme:p541YxA9htAH5IfCqu99eKZMFxXRNiSrhsOeLurQbs89Qhzd6RzuQQ7IFaVqsl0kn
+    BYJ_CukUNhNtw>
+X-ME-Received: <xmr:p541YwG4JIbAVLafkQGL1Oo0Z10G1t-ymkbxRVIMO7-t4J-R3tixptys4eA-CgE-0S_IrVfjPtIMijEvHiXmsBZ8RBwOGF5efCFTi-tIHXMnyeMByhHRcA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehtddgieeiucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -81,18 +81,23 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehtddgieeiucetufdoteggod
     ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
     hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
     khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:pp41YwggsjJH6caJ4t80uMbO6tptAvTlzdyl_7-aJXkEMO9MA3kFhg>
-    <xmx:pp41Y8CXQlJLOuGaTGbSxDDT2tJ7SgedTJN3zhGAZji1Rkl8BvPcgA>
-    <xmx:pp41YxK5l8Bgcz2IwIR12MWSRYTDm5hu0Vj74wObcSMYu2tTN0HrFg>
-    <xmx:pp41Y3p7Xb1L6747m-H2e3hsDcW-E5w4rkk2987V3FLw_wFwRPNTEA>
+X-ME-Proxy: <xmx:p541Y5Sqwt7Kr5P4whejCupajSuFWki1QdGvMLkzXpO2MmASheQXmQ>
+    <xmx:p541Y1xd15LF_gwdj1-88mvzpr4LvRxqKgAIN7gWSSoMsYoY0BIWyA>
+    <xmx:p541Y34ESl0HypJOvZdO9-aZ-bWgGEoDIPXRxQBuYZVqePo1_JX6Wg>
+    <xmx:p541Y4pX0nfAaJvjatucDx_4QpMDQwXcc4Aa-kr2W-I6hhON_K6VZw>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH v8 1/2] IOMMU/VT-d: wire common device reserved memory API
-Date: Thu, 29 Sep 2022 15:33:12 +0200
-Message-Id: <ecee2217151efd08b2bae58166efcdd319ec82c8.1664458360.git-series.marmarek@invisiblethingslab.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v8 2/2] drivers/char: suspend handling in XHCI console driver
+Date: Thu, 29 Sep 2022 15:33:13 +0200
+Message-Id: <5ebc3a1176fcb9f1e4852826edfe67fe62062d05.1664458360.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <cover.9762b1190a6fd8f0232c26cbace1b2c4f8555818.1664458360.git-series.marmarek@invisiblethingslab.com>
 References: <cover.9762b1190a6fd8f0232c26cbace1b2c4f8555818.1664458360.git-series.marmarek@invisiblethingslab.com>
@@ -100,271 +105,138 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Re-use rmrr= parameter handling code to handle common device reserved
-memory.
-
-Move MAX_USER_RMRR_PAGES limit enforcement to apply only to
-user-configured ranges, but not those from internal callers.
+Similar to the EHCI driver - save/restore relevant BAR and command
+register, re-configure DbC on resume and stop/start timer.
+On resume trigger sending anything that was queued in the meantime.
+Save full BAR value, instead of just the address part, to ease restoring
+on resume.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in v8:
-- move add_one_user_rmrr() function earlier
-- extend commit message
-Changes in v3:
-- make MAX_USER_RMRR_PAGES applicable only to user-configured RMRR
----
- xen/drivers/passthrough/vtd/dmar.c | 196 +++++++++++++++++-------------
- 1 file changed, 114 insertions(+), 82 deletions(-)
+ - move 'bool suspended' to other bools
+New in v7
 
-diff --git a/xen/drivers/passthrough/vtd/dmar.c b/xen/drivers/passthrough/vtd/dmar.c
-index 367304c8739c..78c8bad1515a 100644
---- a/xen/drivers/passthrough/vtd/dmar.c
-+++ b/xen/drivers/passthrough/vtd/dmar.c
-@@ -861,113 +861,136 @@ static struct user_rmrr __initdata user_rmrrs[MAX_USER_RMRR];
+Without this patch, the console is broken after S3, and in some cases
+the suspend doesn't succeed at all (when xhci console is enabled).
+
+Very similar (if not the same) functions might be used for coordinated
+reset handling. I tried to include it in this patch too, but it's a bit
+more involved, mostly due to share=yes case (PHYSDEVOP_dbgp_op can be
+called by the hardware domain only).
+---
+ xen/drivers/char/xhci-dbc.c | 55 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 49 insertions(+), 6 deletions(-)
+
+diff --git a/xen/drivers/char/xhci-dbc.c b/xen/drivers/char/xhci-dbc.c
+index 43ed64a004e2..86f6df6bef67 100644
+--- a/xen/drivers/char/xhci-dbc.c
++++ b/xen/drivers/char/xhci-dbc.c
+@@ -251,14 +251,17 @@ struct dbc {
+     struct xhci_string_descriptor *dbc_str;
  
- /* Macro for RMRR inclusive range formatting. */
- #define ERMRRU_FMT "[%lx-%lx]"
--#define ERMRRU_ARG(eru) eru.base_pfn, eru.end_pfn
-+#define ERMRRU_ARG base_pfn, end_pfn
+     pci_sbdf_t sbdf;
+-    uint64_t xhc_mmio_phys;
++    uint64_t bar_val;
+     uint64_t xhc_dbc_offset;
+     void __iomem *xhc_mmio;
  
--static int __init add_user_rmrr(void)
-+/* Returns 1 on success, 0 when ignoring and < 0 on error. */
-+static int __init add_one_user_rmrr(unsigned long base_pfn,
-+                                    unsigned long end_pfn,
-+                                    unsigned int dev_count,
-+                                    uint32_t *sbdf)
- {
-     struct acpi_rmrr_unit *rmrr, *rmrru;
--    unsigned int idx, seg, i;
--    unsigned long base, end;
-+    unsigned int idx, seg;
-+    unsigned long base_iter;
-     bool overlap;
+     bool enable; /* whether dbgp=xhci was set at all */
+     bool open;
++    bool suspended;
+     enum xhci_share share;
+     unsigned int xhc_num; /* look for n-th xhc */
++    /* state saved across suspend */
++    uint16_t pci_cr;
+ };
  
--    for ( i = 0; i < nr_rmrr; i++ )
-+    if ( iommu_verbose )
-+        printk(XENLOG_DEBUG VTDPREFIX
-+               "Adding RMRR for %d device ([0]: %#x) range "ERMRRU_FMT"\n",
-+               dev_count, sbdf[0], ERMRRU_ARG);
+ static void *dbc_sys_map_xhc(uint64_t phys, size_t size)
+@@ -358,8 +361,9 @@ static bool __init dbc_init_xhc(struct dbc *dbc)
+ 
+     pci_conf_write16(dbc->sbdf, PCI_COMMAND, cmd);
+ 
+-    dbc->xhc_mmio_phys = (bar0 & PCI_BASE_ADDRESS_MEM_MASK) | (bar1 << 32);
+-    dbc->xhc_mmio = dbc_sys_map_xhc(dbc->xhc_mmio_phys, xhc_mmio_size);
++    dbc->bar_val = bar0 | (bar1 << 32);
++    dbc->xhc_mmio = dbc_sys_map_xhc(dbc->bar_val & PCI_BASE_ADDRESS_MEM_MASK,
++                                    xhc_mmio_size);
+ 
+     if ( dbc->xhc_mmio == NULL )
+         return false;
+@@ -979,6 +983,9 @@ static bool dbc_ensure_running(struct dbc *dbc)
+     uint32_t ctrl;
+     uint16_t cmd;
+ 
++    if ( dbc->suspended )
++        return false;
 +
-+    if ( base_pfn > end_pfn )
+     if ( dbc->share != XHCI_SHARE_NONE )
      {
--        base = user_rmrrs[i].base_pfn;
--        end = user_rmrrs[i].end_pfn;
-+        printk(XENLOG_ERR VTDPREFIX
-+               "Invalid RMRR Range "ERMRRU_FMT"\n",
-+               ERMRRU_ARG);
-+        return 0;
-+    }
- 
--        if ( base > end )
-+    overlap = false;
-+    list_for_each_entry(rmrru, &acpi_rmrr_units, list)
-+    {
-+        if ( pfn_to_paddr(base_pfn) <= rmrru->end_address &&
-+             rmrru->base_address <= pfn_to_paddr(end_pfn) )
-         {
-             printk(XENLOG_ERR VTDPREFIX
--                   "Invalid RMRR Range "ERMRRU_FMT"\n",
--                   ERMRRU_ARG(user_rmrrs[i]));
--            continue;
-+                   "Overlapping RMRRs: "ERMRRU_FMT" and [%lx-%lx]\n",
-+                   ERMRRU_ARG,
-+                   paddr_to_pfn(rmrru->base_address),
-+                   paddr_to_pfn(rmrru->end_address));
-+            overlap = true;
-+            break;
-         }
-+    }
-+    /* Don't add overlapping RMRR. */
-+    if ( overlap )
-+        return 0;
- 
--        if ( (end - base) >= MAX_USER_RMRR_PAGES )
-+    base_iter = base_pfn;
-+    do
-+    {
-+        if ( !mfn_valid(_mfn(base_iter)) )
-         {
-             printk(XENLOG_ERR VTDPREFIX
--                   "RMRR range "ERMRRU_FMT" exceeds "\
--                   __stringify(MAX_USER_RMRR_PAGES)" pages\n",
--                   ERMRRU_ARG(user_rmrrs[i]));
--            continue;
-+                   "Invalid pfn in RMRR range "ERMRRU_FMT"\n",
-+                   ERMRRU_ARG);
-+            break;
-         }
-+    } while ( base_iter++ < end_pfn );
- 
--        overlap = false;
--        list_for_each_entry(rmrru, &acpi_rmrr_units, list)
--        {
--            if ( pfn_to_paddr(base) <= rmrru->end_address &&
--                 rmrru->base_address <= pfn_to_paddr(end) )
--            {
--                printk(XENLOG_ERR VTDPREFIX
--                       "Overlapping RMRRs: "ERMRRU_FMT" and [%lx-%lx]\n",
--                       ERMRRU_ARG(user_rmrrs[i]),
--                       paddr_to_pfn(rmrru->base_address),
--                       paddr_to_pfn(rmrru->end_address));
--                overlap = true;
--                break;
--            }
--        }
--        /* Don't add overlapping RMRR. */
--        if ( overlap )
--            continue;
-+    /* Invalid pfn in range as the loop ended before end_pfn was reached. */
-+    if ( base_iter <= end_pfn )
-+        return 0;
- 
--        do
--        {
--            if ( !mfn_valid(_mfn(base)) )
--            {
--                printk(XENLOG_ERR VTDPREFIX
--                       "Invalid pfn in RMRR range "ERMRRU_FMT"\n",
--                       ERMRRU_ARG(user_rmrrs[i]));
--                break;
--            }
--        } while ( base++ < end );
-+    rmrr = xzalloc(struct acpi_rmrr_unit);
-+    if ( !rmrr )
-+        return -ENOMEM;
- 
--        /* Invalid pfn in range as the loop ended before end_pfn was reached. */
--        if ( base <= end )
--            continue;
-+    rmrr->scope.devices = xmalloc_array(u16, dev_count);
-+    if ( !rmrr->scope.devices )
-+    {
-+        xfree(rmrr);
-+        return -ENOMEM;
-+    }
- 
--        rmrr = xzalloc(struct acpi_rmrr_unit);
--        if ( !rmrr )
--            return -ENOMEM;
-+    seg = 0;
-+    for ( idx = 0; idx < dev_count; idx++ )
-+    {
-+        rmrr->scope.devices[idx] = sbdf[idx];
-+        seg |= PCI_SEG(sbdf[idx]);
-+    }
-+    if ( seg != PCI_SEG(sbdf[0]) )
-+    {
-+        printk(XENLOG_ERR VTDPREFIX
-+               "Segments are not equal for RMRR range "ERMRRU_FMT"\n",
-+               ERMRRU_ARG);
-+        scope_devices_free(&rmrr->scope);
-+        xfree(rmrr);
-+        return 0;
-+    }
- 
--        rmrr->scope.devices = xmalloc_array(u16, user_rmrrs[i].dev_count);
--        if ( !rmrr->scope.devices )
--        {
--            xfree(rmrr);
--            return -ENOMEM;
--        }
-+    rmrr->segment = seg;
-+    rmrr->base_address = pfn_to_paddr(base_pfn);
-+    /* Align the end_address to the end of the page */
-+    rmrr->end_address = pfn_to_paddr(end_pfn) | ~PAGE_MASK;
-+    rmrr->scope.devices_cnt = dev_count;
- 
--        seg = 0;
--        for ( idx = 0; idx < user_rmrrs[i].dev_count; idx++ )
--        {
--            rmrr->scope.devices[idx] = user_rmrrs[i].sbdf[idx];
--            seg |= PCI_SEG(user_rmrrs[i].sbdf[idx]);
--        }
--        if ( seg != PCI_SEG(user_rmrrs[i].sbdf[0]) )
--        {
--            printk(XENLOG_ERR VTDPREFIX
--                   "Segments are not equal for RMRR range "ERMRRU_FMT"\n",
--                   ERMRRU_ARG(user_rmrrs[i]));
--            scope_devices_free(&rmrr->scope);
--            xfree(rmrr);
--            continue;
--        }
-+    if ( register_one_rmrr(rmrr) )
-+        printk(XENLOG_ERR VTDPREFIX
-+               "Could not register RMMR range "ERMRRU_FMT"\n",
-+               ERMRRU_ARG);
- 
--        rmrr->segment = seg;
--        rmrr->base_address = pfn_to_paddr(user_rmrrs[i].base_pfn);
--        /* Align the end_address to the end of the page */
--        rmrr->end_address = pfn_to_paddr(user_rmrrs[i].end_pfn) | ~PAGE_MASK;
--        rmrr->scope.devices_cnt = user_rmrrs[i].dev_count;
-+    return 1;
-+}
- 
--        if ( register_one_rmrr(rmrr) )
--            printk(XENLOG_ERR VTDPREFIX
--                   "Could not register RMMR range "ERMRRU_FMT"\n",
--                   ERMRRU_ARG(user_rmrrs[i]));
--    }
-+static int __init add_user_rmrr(void)
-+{
-+    unsigned int i;
-+    int ret;
- 
-+    for ( i = 0; i < nr_rmrr; i++ )
-+    {
-+        ret = add_one_user_rmrr(user_rmrrs[i].base_pfn,
-+                                user_rmrrs[i].end_pfn,
-+                                user_rmrrs[i].dev_count,
-+                                user_rmrrs[i].sbdf);
-+        if ( ret < 0 )
-+            return ret;
-+    }
-     return 0;
+         /*
+@@ -1213,9 +1220,11 @@ static void __init cf_check dbc_uart_init_postirq(struct serial_port *port)
+      * page, so keep it simple.
+      */
+     if ( rangeset_add_range(mmio_ro_ranges,
+-                PFN_DOWN(uart->dbc.xhc_mmio_phys + uart->dbc.xhc_dbc_offset),
+-                PFN_UP(uart->dbc.xhc_mmio_phys + uart->dbc.xhc_dbc_offset +
+-                       sizeof(*uart->dbc.dbc_reg)) - 1) )
++                PFN_DOWN((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
++                         uart->dbc.xhc_dbc_offset),
++                PFN_UP((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK) +
++                       uart->dbc.xhc_dbc_offset +
++                sizeof(*uart->dbc.dbc_reg)) - 1) )
+         printk(XENLOG_INFO
+                "Error while adding MMIO range of device to mmio_ro_ranges\n");
+ #endif
+@@ -1255,6 +1264,38 @@ static void cf_check dbc_uart_flush(struct serial_port *port)
+         set_timer(&uart->timer, goal);
  }
  
-+static int __init cf_check add_one_extra_rmrr(xen_pfn_t start, xen_ulong_t nr, u32 id, void *ctxt)
++static void cf_check dbc_uart_suspend(struct serial_port *port)
 +{
-+    u32 sbdf_array[] = { id };
-+    return add_one_user_rmrr(start, start+nr, 1, sbdf_array);
++    struct dbc_uart *uart = port->uart;
++    struct dbc *dbc = &uart->dbc;
++
++    dbc_pop_events(dbc);
++    stop_timer(&uart->timer);
++    dbc->pci_cr = pci_conf_read16(dbc->sbdf, PCI_COMMAND);
++    dbc->suspended = true;
 +}
 +
-+static int __init add_extra_rmrr(void)
++static void cf_check dbc_uart_resume(struct serial_port *port)
 +{
-+    return iommu_get_extra_reserved_device_memory(add_one_extra_rmrr, NULL);
++    struct dbc_uart *uart = port->uart;
++    struct dbc *dbc = &uart->dbc;
++
++    pci_conf_write32(dbc->sbdf, PCI_BASE_ADDRESS_0, dbc->bar_val & 0xFFFFFFFF);
++    pci_conf_write32(dbc->sbdf, PCI_BASE_ADDRESS_1, dbc->bar_val >> 32);
++    pci_conf_write16(dbc->sbdf, PCI_COMMAND, dbc->pci_cr);
++
++    if ( !dbc_init_dbc(dbc) )
++    {
++        dbc_error("resume failed\n");
++        return;
++    }
++
++    dbc_enable_dbc(dbc);
++    dbc->suspended = false;
++    dbc_flush(dbc, &dbc->dbc_oring, &dbc->dbc_owork);
++    set_timer(&uart->timer, NOW() + MICROSECS(DBC_POLL_INTERVAL));
 +}
 +
- #include <asm/tboot.h>
- /* ACPI tables may not be DMA protected by tboot, so use DMAR copy */
- /* SINIT saved in SinitMleData in TXT heap (which is DMA protected) */
-@@ -1010,7 +1033,7 @@ int __init acpi_dmar_init(void)
-     {
-         iommu_init_ops = &intel_iommu_init_ops;
+ static struct uart_driver dbc_uart_driver = {
+     .init_preirq = dbc_uart_init_preirq,
+     .init_postirq = dbc_uart_init_postirq,
+@@ -1262,6 +1303,8 @@ static struct uart_driver dbc_uart_driver = {
+     .putc = dbc_uart_putc,
+     .getc = dbc_uart_getc,
+     .flush = dbc_uart_flush,
++    .suspend = dbc_uart_suspend,
++    .resume = dbc_uart_resume,
+ };
  
--        return add_user_rmrr();
-+        return add_user_rmrr() || add_extra_rmrr();
-     }
- 
-     return ret;
-@@ -1108,6 +1131,15 @@ static int __init cf_check parse_rmrr_param(const char *str)
-         else
-             end = start;
- 
-+        if ( (end - start) >= MAX_USER_RMRR_PAGES )
-+        {
-+            printk(XENLOG_ERR VTDPREFIX
-+                    "RMRR range "ERMRRU_FMT" exceeds "\
-+                    __stringify(MAX_USER_RMRR_PAGES)" pages\n",
-+                    start, end);
-+            return -E2BIG;
-+        }
-+
-         user_rmrrs[nr_rmrr].base_pfn = start;
-         user_rmrrs[nr_rmrr].end_pfn = end;
- 
+ /* Those are accessed via DMA. */
 -- 
 git-series 0.9.1
 
