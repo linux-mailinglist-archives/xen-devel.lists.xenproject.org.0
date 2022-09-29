@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B48D5EF9ED
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 18:13:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413866.657811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02F395EFA4A
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Sep 2022 18:22:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413874.657822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odwA1-00031p-D2; Thu, 29 Sep 2022 16:13:17 +0000
+	id 1odwIV-0004fa-C0; Thu, 29 Sep 2022 16:22:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413866.657811; Thu, 29 Sep 2022 16:13:17 +0000
+Received: by outflank-mailman (output) from mailman id 413874.657822; Thu, 29 Sep 2022 16:22:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1odwA1-0002zh-A3; Thu, 29 Sep 2022 16:13:17 +0000
-Received: by outflank-mailman (input) for mailman id 413866;
- Thu, 29 Sep 2022 16:13:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EOe8=2A=gmail.com=vsuneja63@srs-se1.protection.inumbo.net>)
- id 1odwA0-0002zb-9z
- for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 16:13:16 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f168445-4011-11ed-964a-05401a9f4f97;
- Thu, 29 Sep 2022 18:13:14 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id c30so2655591edn.2
- for <xen-devel@lists.xenproject.org>; Thu, 29 Sep 2022 09:13:14 -0700 (PDT)
+	id 1odwIV-0004c9-90; Thu, 29 Sep 2022 16:22:03 +0000
+Received: by outflank-mailman (input) for mailman id 413874;
+ Thu, 29 Sep 2022 16:22:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1odwIT-0004bz-Eh; Thu, 29 Sep 2022 16:22:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1odwIT-0003tG-Ab; Thu, 29 Sep 2022 16:22:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1odwIS-0005Pu-QG; Thu, 29 Sep 2022 16:22:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1odwIS-0000uf-Pm; Thu, 29 Sep 2022 16:22:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,219 +42,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f168445-4011-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=flhFeICuQT8/y+9AVAFFUYd5hifnxYkJzhAO79vKcmg=;
-        b=EhY8JIY2vNyhwun3cvL+gwk4TrnS7fE6wyz6JcP7/jDMYo6WAeulvPvh/B41SbrsN/
-         dy1H78vZh/fKYgMpQiK+5nTh1T7+/5xmzAdEzEBvpFpeI5KXta1HriQGlxgeq4uRxcFb
-         xm05bxX/1bOn4PTSTu6RTdUOEZY1QgdWvvCVCSyPKS3wph+OjISkizrlmTNOQCkfOpoa
-         Ets3BpRX9bmJeHJaP1SgQ41lIGXcEkKpb5LasChk7F64ivMgXg0HG36oVcOkEVelK90e
-         MAnU3J5Pg20sAnB6NVtPrRhkE+aQzTTpijBsSWnsnnr8JzumCM4piFXDgbgUFuxZnVWI
-         6PwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=flhFeICuQT8/y+9AVAFFUYd5hifnxYkJzhAO79vKcmg=;
-        b=uVKzQdbQJn2qp9L+C+uTWkPIBoHjbtX/YQEK6fZJSHASujlZC/hNRtF4VWWbqugoGA
-         p5ZY7WKh0CWBZjVu2+YvnL0l25LJ8iiegjNnc4e4mwRLX92Av/TcGjAZLGDp/r5LgRtN
-         j6cLukVwz5NgndnR+q4HPKaSEayoV9jD0UyUE7kDIqhjyh2DnR7Qe0YE9HP0V4uo10JC
-         z1asnQ5HaJKetFbDHk0OCfew/KiqYBht2vq9KPk+NPwm+VW6FcXwxgFaLioVHFEY32Hh
-         W9Z9XvAQJy2XQLpk6Ygs4axn5rhtAIXYiAcgPJSZ00lcXU+L2I+AxONqCSVK10LSXnzD
-         q7Ag==
-X-Gm-Message-State: ACrzQf1Qhwx7R6QFLw2ijpIwXxQRFPzUJ9B1LRRMDry2lxGvgslvpuMN
-	2z2g/4sSiF4GN62pS75Iu2vlPQpnb5cf0+Sc3ms=
-X-Google-Smtp-Source: AMsMyM54iankNpI//+Sl0NdaWe4qDjetwyVTsrK9LCND5wGNFoiqaKM2Q7SvxkKkNPy9hQMykurk6zytYdx4eBUXju8=
-X-Received: by 2002:a05:6402:5188:b0:452:5395:a271 with SMTP id
- q8-20020a056402518800b004525395a271mr4099193edd.383.1664467994131; Thu, 29
- Sep 2022 09:13:14 -0700 (PDT)
-MIME-Version: 1.0
-References: <CALAP8f91s0h0gjd_qsmJDz01SKdC8Rmut5KPiG-CKaov740m_Q@mail.gmail.com>
- <YytYuAcMh8WGDQTF@mattapan.m5p.com> <CALAP8f9+N4+Jk_hWh8XCc70g7xxbr7PTffE0By56TROOyS9rSg@mail.gmail.com>
-In-Reply-To: <CALAP8f9+N4+Jk_hWh8XCc70g7xxbr7PTffE0By56TROOyS9rSg@mail.gmail.com>
-From: Vipul Suneja <vsuneja63@gmail.com>
-Date: Thu, 29 Sep 2022 21:43:02 +0530
-Message-ID: <CALAP8f8_TiDa4t9WbXtCf2erKwSv04y3HVv6ohKoU=geJwrp5Q@mail.gmail.com>
-Subject: Re: How to do display sharing between guests or bring up guests display
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>
-Content-Type: multipart/alternative; boundary="00000000000087bfc605e9d327bc"
-
---00000000000087bfc605e9d327bc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=A3GR2xn7mpDa7At34ptkY2xpADNGKzBGly3G2DW7zDk=; b=L9NQGNOCRdpOFfl5U9xceDM2pw
+	1Wl8SsDWJVNgv2pYS2yeAm8dntUK4MlAG+p90ijE+e9LK8E0JCnKr89QnkdhpvBzwrcJHdljBNpOL
+	j9QRaXnzrxLUaRwty1VYbLGNo9ceQhgSsgya0tuiPPR3loQj9fbYqgGlX3vYd8gp9RNk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173362-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 173362: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b726541d94bd0a80b5864d17a2cd2e6d73a3fe0a
+X-Osstest-Versions-That:
+    xen=211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 29 Sep 2022 16:22:00 +0000
 
-Hi Elliott,
+flight 173362 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173362/
 
-Thanks!
+Regressions :-(
 
-Any input from your side on this issue will be really helpful.
-Looking forward to hearing from you asap.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 173347
 
-Regards,
-Vipul Kumar
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-On Tue, Sep 27, 2022 at 11:47 PM Vipul Suneja <vsuneja63@gmail.com> wrote:
+version targeted for testing:
+ xen                  b726541d94bd0a80b5864d17a2cd2e6d73a3fe0a
+baseline version:
+ xen                  211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
 
-> Hi Elliott,
->
-> Thanks!
->
-> As per the link you shared, VNC & SDL are two ways to get GUI display up
-> for guests. I am going through VNC & tried SDL, added below line in
-> guest1.cfg file.
-> *vfb = [ 'sdl=1' ]*
-> when creating guest machine by running command "*xl create -c
-> guest1.cfg" *then its throwing errors:
->
->
->
->
->
->
->
->
->
->
-> *root@raspberrypi4-64:~/guest1# xl create -c guest1.cfgParsing config from
-> guest1.cfglibxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback: Domain 3:error
-> on QMP socket: Connection reset by peerlibxl: error:
-> libxl_qmp.c:1439:qmp_ev_fd_callback: Domain 3:Error happened with the QMP
-> connection to QEMUlibxl: error:
-> libxl_dm.c:3351:device_model_postconfig_done: Domain 3:Post DM startup
-> configs failed, rc=-26libxl: error:
-> libxl_create.c:1867:domcreate_devmodel_started: Domain 3:device model did
-> not start: -26libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device
-> Model already exitedlibxl: error: libxl_domain.c:1183:libxl__destroy_domid:
-> Domain 3:Non-existant domainlibxl: error:
-> libxl_domain.c:1137:domain_destroy_callback: Domain 3:Unable to destroy
-> guestlibxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain
-> 3:Destruction of domain failed*
->
-> It works absolutely fine & guest1 comes up if *vfb = [ 'sdl=1' ]* is not
-> included in the configuration file. Anything wrong with the statement
-> added or any other steps need to be followed for this? Looking after your
-> response asap.
->
-> Regards,
-> Vipul Kumar
->
-> On Thu, Sep 22, 2022 at 12:03 AM Elliott Mitchell <ehem+xen@m5p.com>
-> wrote:
->
->> On Wed, Sep 21, 2022 at 10:54:55PM +0530, Vipul Suneja wrote:
->> > Now I have built a custom image with GUI & ported it as a guest2(DOMU2),
->> > guest2 came up as a console & couldn't see the GUI screen(Display screen
->> > connected to rpi4 via HDMI) coming up.
->> >
->> > Can you please guide me on display sharing or how to bring up guests
->> > display?
->>
->> This has already been answered in several locations.  The first place to
->> ask for help with the RP4 is their own forums.  Turns out the topic is
->> well known:
->>
->> https://forums.raspberrypi.com/viewtopic.php?t=232323#p1775083
->>
->> (huh, their forum moved to the raspberrypi.com domain; they really need
->> an entry for Xen in their other OSes area)
->>
->>
->> --
->> (\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
->>  \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
->>   \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
->> 8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
->>
->>
->>
+Last test of basis   173347  2022-09-28 05:07:54 Z    1 days
+Testing same since   173362  2022-09-29 13:03:03 Z    0 days    1 attempts
 
---00000000000087bfc605e9d327bc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Dmytro Semenets <dmytro_semenets@epam.com>
+  Jan Beulich <jbeulich@suse.com>
+  Nathan Studer <nathan.studer@dornerworks.com>
+  Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
 
-<div dir=3D"ltr">Hi Elliott,<div><br></div><div>Thanks!</div><div><br></div=
-><div>Any input from your side on this issue will be really helpful. Lookin=
-g=C2=A0forward to hearing from you asap.</div><div><br></div><div>Regards,<=
-/div><div>Vipul Kumar</div></div><br><div class=3D"gmail_quote"><div dir=3D=
-"ltr" class=3D"gmail_attr">On Tue, Sep 27, 2022 at 11:47 PM Vipul Suneja &l=
-t;<a href=3D"mailto:vsuneja63@gmail.com" target=3D"_blank">vsuneja63@gmail.=
-com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x"><div dir=3D"ltr">Hi Elliott,<div><br></div><div>Thanks!</div><div><br></=
-div><div>As per the link you shared, VNC &amp; SDL are two ways to get GUI =
-display up for guests. I am going through VNC &amp; tried SDL, added below =
-line in guest1.cfg file.</div><div><b>vfb =3D [ &#39;sdl=3D1&#39; ]</b></di=
-v><div>when creating guest machine by running command &quot;<b>xl create -c=
- guest1.cfg&quot;=C2=A0</b>then its throwing errors:</div><div><br></div><d=
-iv><b><i>root@raspberrypi4-64:~/guest1# xl create -c guest1.cfg<br>Parsing =
-config from guest1.cfg<br>libxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback=
-: Domain 3:error on QMP socket: Connection reset by peer<br>libxl: error: l=
-ibxl_qmp.c:1439:qmp_ev_fd_callback: Domain 3:Error happened with the QMP co=
-nnection to QEMU<br>libxl: error: libxl_dm.c:3351:device_model_postconfig_d=
-one: Domain 3:Post DM startup configs failed, rc=3D-26<br>libxl: error: lib=
-xl_create.c:1867:domcreate_devmodel_started: Domain 3:device model did not =
-start: -26<br>libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device=
- Model already exited<br>libxl: error: libxl_domain.c:1183:libxl__destroy_d=
-omid: Domain 3:Non-existant domain<br>libxl: error: libxl_domain.c:1137:dom=
-ain_destroy_callback: Domain 3:Unable to destroy guest<br>libxl: error: lib=
-xl_domain.c:1064:domain_destroy_cb: Domain 3:Destruction of domain failed</=
-i></b><br></div><div><b><i><br></i></b></div><div>It works absolutely fine =
-&amp; guest1 comes up if=C2=A0<b>vfb =3D [ &#39;sdl=3D1&#39; ]</b>=C2=A0is =
-not included in the configuration file. Anything wrong with the statement=
-=C2=A0</div><div>added or any other steps need to be followed for this? Loo=
-king after your response asap.</div><div><br></div><div>Regards,</div><div>=
-Vipul Kumar</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" clas=
-s=3D"gmail_attr">On Thu, Sep 22, 2022 at 12:03 AM Elliott Mitchell &lt;<a h=
-ref=3D"mailto:ehem%2Bxen@m5p.com" target=3D"_blank">ehem+xen@m5p.com</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed,=
- Sep 21, 2022 at 10:54:55PM +0530, Vipul Suneja wrote:<br>
-&gt; Now I have built a custom image with GUI &amp; ported it as a guest2(D=
-OMU2),<br>
-&gt; guest2 came up as a console &amp; couldn&#39;t see the GUI screen(Disp=
-lay screen<br>
-&gt; connected to rpi4 via HDMI) coming up.<br>
-&gt; <br>
-&gt; Can you please guide me on display sharing or how to bring up guests<b=
-r>
-&gt; display?<br>
-<br>
-This has already been answered in several locations.=C2=A0 The first place =
-to<br>
-ask for help with the RP4 is their own forums.=C2=A0 Turns out the topic is=
-<br>
-well known:<br>
-<br>
-<a href=3D"https://forums.raspberrypi.com/viewtopic.php?t=3D232323#p1775083=
-" rel=3D"noreferrer" target=3D"_blank">https://forums.raspberrypi.com/viewt=
-opic.php?t=3D232323#p1775083</a><br>
-<br>
-(huh, their forum moved to the <a href=3D"http://raspberrypi.com" rel=3D"no=
-referrer" target=3D"_blank">raspberrypi.com</a> domain; they really need<br=
->
-an entry for Xen in their other OSes area)<br>
-<br>
-<br>
--- <br>
-(\___(\___(\______=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 --=3D&gt; 8-) EHM &lt;=
-=3D--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ______/)___/)___/)<br>
-=C2=A0\BS (=C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"mail=
-to:ehem%2Bsigmsg@m5p.com" target=3D"_blank">ehem+sigmsg@m5p.com</a>=C2=A0 P=
-GP 87145445=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 )=C2=A0 =C2=A0/=
-<br>
-=C2=A0 \_CS\=C2=A0 =C2=A0|=C2=A0 _____=C2=A0 -O #include &lt;stddisclaimer.=
-h&gt; O-=C2=A0 =C2=A0_____=C2=A0 |=C2=A0 =C2=A0/=C2=A0 _/<br>
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 &lt;-PGP-&gt; 41D1 B375 37D0 8714\_|_/___/=
-5445<br>
-<br>
-<br>
-</blockquote></div>
-</blockquote></div>
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
---00000000000087bfc605e9d327bc--
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit b726541d94bd0a80b5864d17a2cd2e6d73a3fe0a
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Sep 29 14:47:45 2022 +0200
+
+    x86: wire up VCPUOP_register_vcpu_time_memory_area for 32-bit guests
+    
+    Forever sinced its introduction VCPUOP_register_vcpu_time_memory_area
+    was available only to native domains. Linux, for example, would attempt
+    to use it irrespective of guest bitness (including in its so called
+    PVHVM mode) as long as it finds XEN_PVCLOCK_TSC_STABLE_BIT set (which we
+    set only for clocksource=tsc, which in turn needs engaging via command
+    line option).
+    
+    Fixes: a5d39947cb89 ("Allow guests to register secondary vcpu_time_info")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit 9214da34a3cb017ff0417900250bd6d18ca89e15
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Sep 29 14:46:50 2022 +0200
+
+    x86: re-connect VCPUOP_send_nmi for 32-bit guests
+    
+    With the "inversion" of VCPUOP handling, processing arch-specific ones
+    first, the forwarding of this sub-op from the (common) compat handler to
+    (common) non-compat one did no longer have the intended effect. It now
+    needs forwarding between the arch-specific handlers.
+    
+    Fixes: 8a96c0ea7999 ("xen: move do_vcpu_op() to arch specific code")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+
+commit c4e5cc2ccc5b8274d02f7855c4769839989bb349
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Thu Sep 29 14:44:10 2022 +0200
+
+    x86/ept: limit calls to memory_type_changed()
+    
+    memory_type_changed() is currently only implemented for Intel EPT, and
+    results in the invalidation of EMT attributes on all the entries in
+    the EPT page tables.  Such invalidation causes EPT_MISCONFIG vmexits
+    when the guest tries to access any gfns for the first time, which
+    results in the recalculation of the EMT for the accessed page.  The
+    vmexit and the recalculations are expensive, and as such should be
+    avoided when possible.
+    
+    Remove the call to memory_type_changed() from
+    XEN_DOMCTL_memory_mapping: there are no modifications of the
+    iomem_caps ranges anymore that could alter the return of
+    cache_flush_permitted() from that domctl.
+    
+    Encapsulate calls to memory_type_changed() resulting from changes to
+    the domain iomem_caps or ioport_caps ranges in the helpers themselves
+    (io{ports,mem}_{permit,deny}_access()), and add a note in
+    epte_get_entry_emt() to remind that changes to the logic there likely
+    need to be propagaed to the IO capabilities helpers.
+    
+    Note changes to the IO ports or memory ranges are not very common
+    during guest runtime, but Citrix Hypervisor has an use case for them
+    related to device passthrough.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 9982fe275ba4ee1a749b6dde5602a5a79e42b543
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Thu Sep 29 14:41:13 2022 +0200
+
+    arm/vgic: drop const attribute from gic_iomem_deny_access()
+    
+    While correct from a code point of view, the usage of the const
+    attribute for the domain parameter of gic_iomem_deny_access() is at
+    least partially bogus.  Contents of the domain structure (the iomem
+    rangeset) is modified by the function.  Such modifications succeed
+    because right now the iomem rangeset is allocated separately from
+    struct domain, and hence is not subject to the constness of struct
+    domain.
+    
+    Amend this by dropping the const attribute from the function
+    parameter.
+    
+    This is required by further changes that will convert
+    iomem_{permit,deny}_access into a function.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+commit 0db195c1a9947240b354abbefd2afac6c73ad6a8
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Sep 29 14:39:52 2022 +0200
+
+    x86/NUMA: correct memnode_shift calculation for single node system
+    
+    SRAT may describe even a single node system (including such with
+    multiple nodes, but only one having any memory) using multiple ranges.
+    Hence simply counting the number of ranges (note that function
+    parameters are mis-named) is not an indication of the number of nodes in
+    use. Since we only care about knowing whether we're on a single node
+    system, accounting for this is easy: Increment the local variable only
+    when adjacent ranges are for different nodes. That way the count may
+    still end up larger than the number of nodes in use, but it won't be
+    larger than 1 when only a single node has any memory.
+    
+    To compensate populate_memnodemap() now needs to be prepared to find
+    the correct node ID already in place for a range. (This could of course
+    also happen when there's more than one node with memory, while at least
+    one node has multiple adjacent ranges, provided extract_lsb_from_nodes()
+    would also know to recognize this case.)
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit e1de23b7c1bfa02447a79733e64184b3635e0587
+Author: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
+Date:   Thu Sep 29 14:38:22 2022 +0200
+
+    MAINTAINERS: ARINC 653 scheduler maintainer updates
+    
+    Add Nathan Studer as co-maintainer.
+    
+    I am departing DornerWorks. I will still be working with Xen in my next
+    role, and I still have an interest in co-maintaining the ARINC 653
+    scheduler, so change to my personal email address.
+    
+    Signed-off-by: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
+    Acked-by: Nathan Studer <nathan.studer@dornerworks.com>
+
+commit 3ab6ea992b0e5e1a332bdbc8ae56d72f1b66fcbd
+Author: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Date:   Thu Sep 29 14:38:02 2022 +0200
+
+    tools: remove xenstore entries on vchan server closure
+    
+    vchan server creates XenStore entries to advertise its event channel and
+    ring, but those are not removed after the server quits.
+    Add additional cleanup step, so those are removed, so clients do not try
+    to connect to a non-existing server.
+    
+    Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+    Signed-off-by: Dmytro Semenets <dmytro_semenets@epam.com>
+    Reviewed-by: Juergen Gross <jgross@suse.com>
+    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+(qemu changes not included)
 
