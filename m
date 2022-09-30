@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E00FF5F02FB
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 04:51:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413990.658016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB2805F044C
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 07:51:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413997.658027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oe66q-0006yY-Et; Fri, 30 Sep 2022 02:50:40 +0000
+	id 1oe8uZ-0000gp-H4; Fri, 30 Sep 2022 05:50:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413990.658016; Fri, 30 Sep 2022 02:50:40 +0000
+Received: by outflank-mailman (output) from mailman id 413997.658027; Fri, 30 Sep 2022 05:50:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oe66q-0006wO-C0; Fri, 30 Sep 2022 02:50:40 +0000
-Received: by outflank-mailman (input) for mailman id 413990;
- Fri, 30 Sep 2022 02:50:38 +0000
+	id 1oe8uZ-0000eh-E4; Fri, 30 Sep 2022 05:50:11 +0000
+Received: by outflank-mailman (input) for mailman id 413997;
+ Fri, 30 Sep 2022 05:50:10 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1oe66o-0006wE-Ok; Fri, 30 Sep 2022 02:50:38 +0000
+ id 1oe8uY-0000eX-26; Fri, 30 Sep 2022 05:50:10 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1oe66o-0005tK-M4; Fri, 30 Sep 2022 02:50:38 +0000
+ id 1oe8uX-00013P-Ve; Fri, 30 Sep 2022 05:50:10 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1oe66o-00051W-7Y; Fri, 30 Sep 2022 02:50:38 +0000
+ id 1oe8uX-0008SL-GW; Fri, 30 Sep 2022 05:50:09 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oe66o-0000Yj-5Q; Fri, 30 Sep 2022 02:50:38 +0000
+ id 1oe8uX-00027K-G4; Fri, 30 Sep 2022 05:50:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,15 +45,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=aF0AyUPaONcCqT7pDSBuV7ucZ4T0K+5DtLzlzaFJopg=; b=osxpjl2Gnp+9k97MHC53PoaUpE
-	eoZk8qVWwiIaJ3gT4nIHINhP/jsO0XaTavV26lNbotOvw9WIY0ISJrRhWCm2nRrfpEABmLHXtEQfD
-	2mlAFtmYScqKJD/Nz4yxIy+5EGEyu+GgFbVUX7cQwUY+kxaUEhE6MYjHImnHSDPiouyE=;
+	bh=kz8Q2/3HFWTwVJHeyBvKm/NiNnBM6lo46QjaidjH/24=; b=VAxLXayUzRyRGkvSSt4MDhFjAj
+	hetM6RgLYZGFcpG6Q3kemqMWMcmQD+NdcvvnpN4rVxvZp6O4xH656zkKpPmxOf5JZ8z2j9LuEeEAy
+	N/5iRX44RRHnVTnRm86DpRGZ6EHVjWd0LSCjFQz1GCCAjJJ4TfBpZ3HI2P1XuFCZEOQs=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173375-mainreport@xen.org>
+Message-ID: <osstest-173380-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 173375: regressions - FAIL
+Subject: [xen-unstable-smoke test] 173380: regressions - FAIL
 X-Osstest-Failures:
     xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
     xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
@@ -65,10 +65,10 @@ X-Osstest-Versions-This:
 X-Osstest-Versions-That:
     xen=211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 30 Sep 2022 02:50:38 +0000
+Date: Fri, 30 Sep 2022 05:50:09 +0000
 
-flight 173375 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173375/
+flight 173380 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173380/
 
 Regressions :-(
 
@@ -87,9 +87,9 @@ version targeted for testing:
 baseline version:
  xen                  211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
 
-Last test of basis   173347  2022-09-28 05:07:54 Z    1 days
-Failing since        173362  2022-09-29 13:03:03 Z    0 days    4 attempts
-Testing same since   173367  2022-09-29 17:01:55 Z    0 days    3 attempts
+Last test of basis   173347  2022-09-28 05:07:54 Z    2 days
+Failing since        173362  2022-09-29 13:03:03 Z    0 days    5 attempts
+Testing same since   173367  2022-09-29 17:01:55 Z    0 days    4 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
