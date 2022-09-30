@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31FBE5F1615
-	for <lists+xen-devel@lfdr.de>; Sat,  1 Oct 2022 00:26:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414457.658746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C580A5F1692
+	for <lists+xen-devel@lfdr.de>; Sat,  1 Oct 2022 01:17:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414464.658758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oeORi-0000IP-L3; Fri, 30 Sep 2022 22:25:26 +0000
+	id 1oePFF-0005bL-Di; Fri, 30 Sep 2022 23:16:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414457.658746; Fri, 30 Sep 2022 22:25:26 +0000
+Received: by outflank-mailman (output) from mailman id 414464.658758; Fri, 30 Sep 2022 23:16:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oeORi-0000FQ-IB; Fri, 30 Sep 2022 22:25:26 +0000
-Received: by outflank-mailman (input) for mailman id 414457;
- Fri, 30 Sep 2022 22:25:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ACJS=2B=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1oeORh-0000Be-07
- for xen-devel@lists.xenproject.org; Fri, 30 Sep 2022 22:25:25 +0000
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c637f499-410e-11ed-964a-05401a9f4f97;
- Sat, 01 Oct 2022 00:25:24 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 8E439320099F;
- Fri, 30 Sep 2022 18:25:21 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 30 Sep 2022 18:25:22 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 30 Sep 2022 18:25:20 -0400 (EDT)
+	id 1oePFF-0005ZW-Ai; Fri, 30 Sep 2022 23:16:37 +0000
+Received: by outflank-mailman (input) for mailman id 414464;
+ Fri, 30 Sep 2022 23:16:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oePFD-0005ZM-FR; Fri, 30 Sep 2022 23:16:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oePFD-00046F-Df; Fri, 30 Sep 2022 23:16:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oePFC-0005Z0-T1; Fri, 30 Sep 2022 23:16:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oePFC-0007dF-SZ; Fri, 30 Sep 2022 23:16:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,198 +42,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c637f499-410e-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664576721; x=
-	1664663121; bh=T7Mg2JlqK1o7pUqTdBwT/w1PsDHF5gVYItjasG+Yjaw=; b=4
-	Qo0fVOVATLnXNgpBfGgE2nZRkka8lvb+5XXCI/rpwkByGxjkKiagYk3eNdUm6336
-	LQ/tvMQJHNBUa/fG1ACB+37mh+5YT4/dCMchhJcj3MXV8i1VFf2n+4xhHsNs6ByH
-	q8pmV9ZDcvAZtWuVPek94nvd0KQfP2gaZjvaX3nlBZHXyu88YnY5mLdq6BRDl5q7
-	vWIcL04AuqMRRlYZSGQjz8eXxyRnMBXSyCD+PDta93YFnc/IlGOpYDe91E7PP2VE
-	4OcZS3HETZhyPIak5fE4r2ovOBQAVn2KvG4J6NRTAeSyXl5Fku+152WMQsdmoKV9
-	IjWLxWJUwlgLit6von9EA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1664576721; x=1664663121; bh=T7Mg2JlqK1o7pUqTdBwT/w1PsDHF
-	5gVYItjasG+Yjaw=; b=qoSpnm9F1vihQXumi7xwH/hjgZ9MOQ2yvOX2uOnvf8ST
-	WTbTGiF8zmrfz6Ym5gVYQOA/uqYmJGfsUg08fQLjM6DTv6b1eRHaufHwC96CmBVs
-	OlWiLFpKsdUcEn1VWmZskNrav/p6AhfjCQzFJK2727FIXHA3v3tdo5wpdU9Efz8k
-	UsJmVrkXaOe8CRAU/TzLu+s+2R50Vvm8Dqg7DIyL674AQgWetQXLGs11B4J9pKl6
-	Tq37IwdElNtVPI2IKoAMVlCnBdZ7XuIVUublUqcuMZYl62gID4AanZqPDPp1xQwD
-	0FxiF3zBdALeVc1pP7UY3rQ/NImrxpZqyKlMxu5GPw==
-X-ME-Sender: <xms:0Gw3Y6uk8K-QI997Ikq3NJ7QLoZnHb7SVeL1mutcTkcgXiivt1VlrQ>
-    <xme:0Gw3Y_faAX2HbjQSQMyn0dMo4sXFzwzHqDO5X6xln-dLnk-rxOGi1Jm4PNxABZc3K
-    My9h_hti_N8Feo>
-X-ME-Received: <xmr:0Gw3Y1x9mOkAj74JaxsYDPPp_RksFOEVgBcuD_ID3KxiFm6IjaOFWXcnU5N7>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehfedguddtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtroertddtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueeuveelheevvdeuvdfhiefhleff
-    tdehuedvfefgveegfefgiefhudehveehtdefnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:0Ww3Y1N0QRTLJuV3h6Zp2ERp-KB0wQLkRIbIxwwXCkh1NqY6nj1YUQ>
-    <xmx:0Ww3Y6_dKOG2PyNUqLt0KCWZ_wcYsDsnzdulsDEE9cs1N_6SnqfnhQ>
-    <xmx:0Ww3Y9U5zDUT-whzg7WlEy4xLGMpBH9dDWTu9w17w7l3rNQLM45hyg>
-    <xmx:0Ww3Y705ziCSLiZPsRi970aYitdus6uE6vVa_gF061iddkXMDg57xQ>
-Feedback-ID: iac594737:Fastmail
-Date: Fri, 30 Sep 2022 18:25:14 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	linux-efi@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] Support ESRT in Xen dom0
-Message-ID: <YzdszknqsmWsPsMZ@itl-email>
-References: <cover.1664298147.git.demi@invisiblethingslab.com>
- <5649176eacda434267f68676f1733d06c572d19e.1664298147.git.demi@invisiblethingslab.com>
- <CAMj1kXEs-o8jvNqRiW+Ue2i52RBgg4iktg8UONCACk8-Gx4XXA@mail.gmail.com>
- <YzczpIYop5olD4hj@itl-email>
- <CAMj1kXHGPzy9T1LcE8LX+woGtUGTzrDgbjDBJabJ+bwDVPbTag@mail.gmail.com>
- <YzdPv4+fYX3SG9P0@itl-email>
- <CAMj1kXGTZZmW=QZOL1FvrsBLsvFzN1GkvZCotuZ-C-gBVGY6CQ@mail.gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=v9BgQgSMN4bp+gB1dFqg0ZqypuJU3SbqIs4UeiieeeA=; b=Fgae6w0LCJcaJkq4zKP2ZRNLd6
+	Cos4oZj2OF9Njxt1WGvnNR2YN6+UR4FkGENnjnokTk1KGZdw5kaukuQwRMl0N1OU3WgAcaLttw9v1
+	tWxLKHLstYJywV4ue82mlLRdQHDFdRhc+f+eHGSYwpDsrnKaMn8+9yhDpVW2AY08Edt4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173386-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="W3TkS4UfiBitGDRa"
-Content-Disposition: inline
-In-Reply-To: <CAMj1kXGTZZmW=QZOL1FvrsBLsvFzN1GkvZCotuZ-C-gBVGY6CQ@mail.gmail.com>
+Subject: [ovmf test] 173386: trouble: blocked/broken/pass
+X-Osstest-Failures:
+    ovmf:build-i386:<job status>:broken:regression
+    ovmf:build-i386-pvops:<job status>:broken:regression
+    ovmf:build-i386-xsm:<job status>:broken:regression
+    ovmf:build-i386-xsm:host-install(4):broken:regression
+    ovmf:build-i386:host-install(4):broken:regression
+    ovmf:build-i386-pvops:host-install(4):broken:regression
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=7aa06237b856fd6f8187cc1715a3fe08ab4e98ed
+X-Osstest-Versions-That:
+    ovmf=b7213bbd59833fb0786c83a28df5f8244602ab5e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 30 Sep 2022 23:16:34 +0000
+
+flight 173386 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173386/
+
+Failures and problems with tests :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386                      <job status>                 broken
+ build-i386-pvops                <job status>                 broken
+ build-i386-xsm                  <job status>                 broken
+ build-i386-xsm                4 host-install(4)        broken REGR. vs. 173356
+ build-i386                    4 host-install(4)        broken REGR. vs. 173356
+ build-i386-pvops              4 host-install(4)        broken REGR. vs. 173356
+
+Tests which did not succeed, but are not blocking:
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 7aa06237b856fd6f8187cc1715a3fe08ab4e98ed
+baseline version:
+ ovmf                 b7213bbd59833fb0786c83a28df5f8244602ab5e
+
+Last test of basis   173356  2022-09-28 14:40:29 Z    2 days
+Testing same since   173386  2022-09-30 12:10:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Rodrigo Gonzalez Del Cueto <rodrigo.gonzalez.del.cueto@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               broken  
+ build-amd64                                                  pass    
+ build-i386                                                   broken  
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             broken  
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
---W3TkS4UfiBitGDRa
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 30 Sep 2022 18:25:14 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	linux-efi@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] Support ESRT in Xen dom0
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Fri, Sep 30, 2022 at 10:59:49PM +0200, Ard Biesheuvel wrote:
-> On Fri, 30 Sept 2022 at 22:21, Demi Marie Obenour
-> <demi@invisiblethingslab.com> wrote:
-> >
-> > On Fri, Sep 30, 2022 at 09:11:19PM +0200, Ard Biesheuvel wrote:
-> > > On Fri, 30 Sept 2022 at 20:21, Demi Marie Obenour
-> > > <demi@invisiblethingslab.com> wrote:
-> > > >
-> > > > On Fri, Sep 30, 2022 at 06:36:11PM +0200, Ard Biesheuvel wrote:
-> > > > > On Fri, 30 Sept 2022 at 01:02, Demi Marie Obenour
-> > > > > <demi@invisiblethingslab.com> wrote:
-> > > > > >
-> > > > > > fwupd requires access to the EFI System Resource Table (ESRT) to
-> > > > > > discover which firmware can be updated by the OS.  Currently, L=
-inux does
-> > > > > > not expose the ESRT when running as a Xen dom0.  Therefore, it =
-is not
-> > > > > > possible to use fwupd in a Xen dom0, which is a serious problem=
- for e.g.
-> > > > > > Qubes OS.
-> > > > > >
-> > > > > > Before Xen 4.17, this was not fixable due to hypervisor limitat=
-ions.
-> > > > > > The UEFI specification requires the ESRT to be in EfiBootServic=
-esData
-> > > > > > memory, which Xen will use for whatever purposes it likes.  The=
-refore,
-> > > > > > Linux cannot safely access the ESRT, as Xen may have overwritte=
-n it.
-> > > > > >
-> > > > > > Starting with Xen 4.17, Xen checks if the ESRT is in EfiBootSer=
-vicesData
-> > > > > > or EfiRuntimeServicesData memory.  If the ESRT is in EfiBootSer=
-vicesData
-> > > > > > memory, Xen replaces the ESRT with a copy in memory that it has
-> > > > > > reserved.  Such memory is currently of type EFI_RUNTIME_SERVICE=
-S_DATA,
-> > > > > > but in the future it will be of type EFI_ACPI_RECLAIM_MEMORY.  =
-This
-> > > > > > ensures that the ESRT can safely be accessed by the OS.
-> > > > > >
-> > > > > > When running as a Xen dom0, use the new
-> > > > > > xen_config_table_memory_region_max() function to determine if X=
-en has
-> > > > > > reserved the ESRT and, if so, find the end of the memory region
-> > > > > > containing it.  This allows programs such as fwupd which requir=
-e the
-> > > > > > ESRT to run under Xen, and so makes fwupd support in Qubes OS p=
-ossible.
-> > > > > >
-> > > > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > > > >
-> > > > > Why do we need this patch? I'd expect esrt_table_exists() to retu=
-rn
-> > > > > false when patch 1/2 is applied.
-> > > >
-> > > > efi_enabled(EFI_MEMMAP) is false under Xen, so there needs to be an
-> > > > alternative way to get the end of the memory region containing the =
-ESRT.
-> > > > That is what this patch provides.
-> > >
-> > > OK. I don't think we need that to be honest. When running under Xen,
-> > > we should be able to assume that the ESRT does not span multiple
-> > > memory regions arbitrarily, so we can just omit this check if
-> > > !efi_enabled(EFI_MEMMAP)
-> > >
-> > > IIRC (and Peter would know), we are trying to filter out descriptors
-> > > that are completely bogus here: zero lenght, zero address, etc etc. I
-> > > don't think we need that for Xen.
-> >
-> > Xen doesn=E2=80=99t uninstall bogus ESRTs, so there is no less reason t=
-o worry
-> > under Xen than on bare hardware.
->=20
-> That may be true. But if Xen needs dom0 to be able to cross reference
-> the EFI memory map, it should provide one (and set EFI_MEMMAP to
-> enabled).
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I agree, but it is also a significant amount of work compared to this
-patch.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---W3TkS4UfiBitGDRa
-Content-Type: application/pgp-signature; name="signature.asc"
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
------BEGIN PGP SIGNATURE-----
+broken-job build-i386 broken
+broken-job build-i386-pvops broken
+broken-job build-i386-xsm broken
+broken-step build-i386-xsm host-install(4)
+broken-step build-i386 host-install(4)
+broken-step build-i386-pvops host-install(4)
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM3bM4ACgkQsoi1X/+c
-IsGviA/9Ew7nTKujqShHMt0PH3J+T4Z7VEpnyrbvswGUdPqEwfkDIwWTVdXkY7LY
-gP2IdAm6BeBxi6FM8+PC3Q27bXNgb79bEMTq2EkKSg6GRCNFr//A+CycEpUV8PIB
-tawXGOkdstjChGDJcFGeYZv7vhWGjFhMWDAKkSBEKMA4ULwTOfSkAm7PKqa8Cdkz
-oP6owcGuakCjzvb8Tneqp2ekAdGeENgpaEFS03WreCne6V1j3BH0iZh89q0Ztyq1
-+6gowf5kkx+/4AFsUjBEnMJmTGaeumvc4HaqF1NCWJ1JD5MkdG7LYfe5mF3PZ9x6
-xdb4NZQIBO5aooeGw4EiKa0k385DXLB2NuAAD/d/wn/vLdcjSCoVf3ox5qLGy5U6
-dz7Vw6/bG4HTXxtwsCvQbr7+MTyVfHlv+u14/l0ESJw1+tGMXT5gylr6EJe6N7kX
-nw7q+Cx2hUb8zhQuZpJNndAO0Z7u3lMiQwTNplO75SIVBzaX+JUDoN9yHUYNQc/A
-8y7ZxatLuM9EEatkRfW3LWwMOXANlkHLoKOdTK7d7KbgliasMc2lCn3KRVsen/Q5
-qxH8UpVicsSuMtucJ3d+TsnssjOnGBN9Lvpkphs2tTGkNbRu/SlBLzbm+6c6AAuu
-g+riK0KOtO5qcExucLSQe3AKP8/9tYtWR+i85xcDz2ZhN88nVB4=
-=hWqs
------END PGP SIGNATURE-----
+Not pushing.
 
---W3TkS4UfiBitGDRa--
+------------------------------------------------------------
+commit 7aa06237b856fd6f8187cc1715a3fe08ab4e98ed
+Author: Rodrigo Gonzalez Del Cueto <rodrigo.gonzalez.del.cueto@intel.com>
+Date:   Thu Sep 22 15:35:36 2022 +0800
+
+    SecurityPkg: Remove enforcement of final GoIdle transition for CRB commands
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=4077
+    
+    Following the design described in the TCG specification,
+    the driver implementation of the CRB protocol does not require
+    enforcing completing the transition to goIdle at the end of a command
+    sequence.
+    
+    Signed-off-by: Rodrigo Gonzalez Del Cueto <rodrigo.gonzalez.del.cueto@intel.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Jian J Wang <jian.j.wang@intel.com>
+    Reviewed-by: Jian J Wang <jian.j.wang@intel.com>
 
