@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682C65F012A
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 01:03:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.413933.657939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8967F5F01AD
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 02:07:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.413956.657962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oe2YQ-0005vC-Q6; Thu, 29 Sep 2022 23:02:54 +0000
+	id 1oe3Xk-0005Xs-SQ; Fri, 30 Sep 2022 00:06:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 413933.657939; Thu, 29 Sep 2022 23:02:54 +0000
+Received: by outflank-mailman (output) from mailman id 413956.657962; Fri, 30 Sep 2022 00:06:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oe2YQ-0005rH-LA; Thu, 29 Sep 2022 23:02:54 +0000
-Received: by outflank-mailman (input) for mailman id 413933;
- Thu, 29 Sep 2022 23:02:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N23a=2A=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1oe2YP-0005K5-Nz
- for xen-devel@lists.xenproject.org; Thu, 29 Sep 2022 23:02:53 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d86dea90-404a-11ed-964a-05401a9f4f97;
- Fri, 30 Sep 2022 01:02:52 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id E78175C00D0;
- Thu, 29 Sep 2022 19:02:51 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 29 Sep 2022 19:02:51 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Sep 2022 19:02:51 -0400 (EDT)
+	id 1oe3Xk-0005UN-OJ; Fri, 30 Sep 2022 00:06:16 +0000
+Received: by outflank-mailman (input) for mailman id 413956;
+ Fri, 30 Sep 2022 00:06:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oe3Xi-0005UD-Oq; Fri, 30 Sep 2022 00:06:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oe3Xi-0004Ic-MJ; Fri, 30 Sep 2022 00:06:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oe3Xi-0007tW-Dk; Fri, 30 Sep 2022 00:06:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oe3Xi-00030R-DA; Fri, 30 Sep 2022 00:06:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,173 +42,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d86dea90-404a-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1664492571; x=1664578971; bh=XZWfM4q7thLJRlIL5LnhobWSY3gDTnmsDKZ
-	GlT+eoxU=; b=CDfcAP8wxrv+yGaGY/hgh8nOq8xIjHWFytgIF58pO3FJayIaXxB
-	WeYKUZGE7d8fQfMSvaZuSFYKQ8fFxC4IdUIxWnKW9O4/ojiXtmTWTqS24+TzP35I
-	ofRbuBpkds4F0EslcpT0IXbD3wHJB7KN5lSGHt3P5/y17f8RKHyJBG8vWt22dlqC
-	FDmjfp6qqgtvBwDItPyFemGkb3w+xJo7DK2lEw444jsbfKaOoDcst8SEeMRg/Zkt
-	gPst1/tk7hVJ4SRB02ktkYfO1Br0ZR+rxwwUhUIHtl9V4mB8Qrsu9rChOcczf3l2
-	JkwrCMD+K2cq8kodNdqjD8BLNkWnbf9Gw+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1664492571; x=1664578971; bh=XZWfM4q7thLJR
-	lIL5LnhobWSY3gDTnmsDKZGlT+eoxU=; b=Vl6NCdiZc+gz2Ku60HaxtUtPNiwBb
-	URRhV82z1PM/85XgMqFqjDLuGhS0OTCzjlkUzFphL515COHxZNNHMUshccNa3vSb
-	LQ5URwP15JvAS5TzO6MlkIFhncp9hoKnRwy8i6IDrRMpGltkqUbAAqlXNfhy7/5k
-	FccgNXMpJAd1A/fffa6p/pZiS+kh1jGAIINf2Uh+bA9UZYaE/3JbKuvjR6awcKgd
-	g3CLbVNm3IdpMRZ8sV4jdbb9Q/6SiIF/vKWk8sJT4qIFidKm+Grlo2b2wJ3JMYHZ
-	T+eQ5xzVkJSNtEku5+wnExs+PqBcH4fPaNNm5AesR/Y1jMQY1dlK1WdkA==
-X-ME-Sender: <xms:GyQ2Y_Ke_pIX-T7aIMKBcOu-StBD5rSKfDipWIO8b-dHOKKahEXibA>
-    <xme:GyQ2YzI1RQRTa5LJraKX5DLU07zOO766ikoQvdnQlY_WEYslEhq37MCcRKQGE4aid
-    CSNjFJUn-vGLuI>
-X-ME-Received: <xmr:GyQ2Y3vqulyPEulL9T8h2UbeTlj7So_ob4iM3Envh5kI5k0EirHMgJ-pHsv61J77EanrkpkX2bxv>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehuddgudeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeffjefggfeugeduvedvjeekgfeh
-    gffhhfffjeetkeelueefffetfffhtdduheetnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:GyQ2Y4bEh4IuZXk5E0UGCramJdK6sGdCmiW6y0mpX828czs8CY5CsA>
-    <xmx:GyQ2Y2bVKiq1NvDnyhopYp1DiENAuY7eMht2gFns59QjLcBt7XluSg>
-    <xmx:GyQ2Y8Ac5R4rT1-1LV_q1usGjI_YD4qZ-F8R3c5yl8qsWf074iCEAA>
-    <xmx:GyQ2YzSNKY0iWca7g-vLQMcF0au3cyS-Z4UXZAZCECfU0Q7O-vmPwQ>
-Feedback-ID: iac594737:Fastmail
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>,
-	Tony Luck <tony.luck@intel.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	linux-efi@vger.kernel.org
-Subject: [PATCH v4 2/2] Support ESRT in Xen dom0
-Date: Thu, 29 Sep 2022 19:02:04 -0400
-Message-Id: <5649176eacda434267f68676f1733d06c572d19e.1664298147.git.demi@invisiblethingslab.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <cover.1664298147.git.demi@invisiblethingslab.com>
-References: <cover.1664298147.git.demi@invisiblethingslab.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=yy+dUFVMF/t5TsC8QgU58o0M7+ZireSy+nHw5HA/Rl8=; b=JWCRKiAoSB+dhWAisLjkzrkJik
+	2oUJGnghV8gnZ03el/L2miJv7F7QZ0C1Hb6FIYtMd9e2IdsL2Jnx225S2q1kdfv1nQ85xDOBTP70Y
+	tyJEPAfvFjJ65h2Do3oRFsNyJJoM/FcHgOaFQlOyxu70zGEOEtnIFfTQdHfJS22f/43Y=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-unstable-smoke bisection] complete build-arm64-xsm
+Message-Id: <E1oe3Xi-00030R-DA@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 30 Sep 2022 00:06:14 +0000
 
-fwupd requires access to the EFI System Resource Table (ESRT) to
-discover which firmware can be updated by the OS.  Currently, Linux does
-not expose the ESRT when running as a Xen dom0.  Therefore, it is not
-possible to use fwupd in a Xen dom0, which is a serious problem for e.g.
-Qubes OS.
+branch xen-unstable-smoke
+xenbranch xen-unstable-smoke
+job build-arm64-xsm
+testid xen-build
 
-Before Xen 4.17, this was not fixable due to hypervisor limitations.
-The UEFI specification requires the ESRT to be in EfiBootServicesData
-memory, which Xen will use for whatever purposes it likes.  Therefore,
-Linux cannot safely access the ESRT, as Xen may have overwritten it.
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Starting with Xen 4.17, Xen checks if the ESRT is in EfiBootServicesData
-or EfiRuntimeServicesData memory.  If the ESRT is in EfiBootServicesData
-memory, Xen replaces the ESRT with a copy in memory that it has
-reserved.  Such memory is currently of type EFI_RUNTIME_SERVICES_DATA,
-but in the future it will be of type EFI_ACPI_RECLAIM_MEMORY.  This
-ensures that the ESRT can safely be accessed by the OS.
+*** Found and reproduced problem changeset ***
 
-When running as a Xen dom0, use the new
-xen_config_table_memory_region_max() function to determine if Xen has
-reserved the ESRT and, if so, find the end of the memory region
-containing it.  This allows programs such as fwupd which require the
-ESRT to run under Xen, and so makes fwupd support in Qubes OS possible.
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  c4e5cc2ccc5b8274d02f7855c4769839989bb349
+  Bug not present: 9982fe275ba4ee1a749b6dde5602a5a79e42b543
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/173377/
 
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
- drivers/firmware/efi/esrt.c | 43 ++++++++++++++++++++++++++-----------
- 1 file changed, 30 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/firmware/efi/esrt.c b/drivers/firmware/efi/esrt.c
-index 2a2f52b017e736dd995c69e8aeb5fbd7761732e5..a0642bc161b4b1f94f818b8c9f46511fe2424bb2 100644
---- a/drivers/firmware/efi/esrt.c
-+++ b/drivers/firmware/efi/esrt.c
-@@ -243,27 +243,44 @@ void __init efi_esrt_init(void)
- 	void *va;
- 	struct efi_system_resource_table tmpesrt;
- 	size_t size, max, entry_size, entries_size;
--	efi_memory_desc_t md;
--	int rc;
- 	phys_addr_t end;
--
--	if (!efi_enabled(EFI_MEMMAP))
--		return;
-+	u32 type;
- 
- 	pr_debug("esrt-init: loading.\n");
- 	if (!esrt_table_exists())
- 		return;
- 
--	rc = efi_mem_desc_lookup(efi.esrt, &md);
--	if (rc < 0 ||
--	    (!(md.attribute & EFI_MEMORY_RUNTIME) &&
--	     md.type != EFI_BOOT_SERVICES_DATA &&
--	     md.type != EFI_RUNTIME_SERVICES_DATA)) {
--		pr_warn("ESRT header is not in the memory map.\n");
-+	if (efi_enabled(EFI_MEMMAP)) {
-+		efi_memory_desc_t md;
-+
-+		if (efi_mem_desc_lookup(efi.esrt, &md) < 0 ||
-+		    (!(md.attribute & EFI_MEMORY_RUNTIME) &&
-+		     md.type != EFI_BOOT_SERVICES_DATA &&
-+		     md.type != EFI_RUNTIME_SERVICES_DATA)) {
-+			pr_warn("ESRT header is not in the memory map.\n");
-+			return;
-+		}
-+
-+		type = md.type;
-+		max = efi_mem_desc_end(&md);
-+#ifdef CONFIG_XEN_EFI
-+	} else if (efi_enabled(EFI_PARAVIRT)) {
-+		max = xen_config_table_memory_region_max(efi.esrt);
-+		/*
-+		 * This might be wrong, but it doesn't matter.
-+		 * xen_config_table_memory_region_max() checks the type
-+		 * of the memory region, and if it returns 0, the code
-+		 * below will fail without looking at the type.  Choose
-+		 * a value that will not cause * subsequent code to try
-+		 * to reserve the memory containing the ESRT, as either
-+		 * Xen or the firmware has done so already.
-+		 */
-+		type = EFI_RUNTIME_SERVICES_DATA;
-+#endif
-+	} else {
- 		return;
- 	}
- 
--	max = efi_mem_desc_end(&md);
- 	if (max < efi.esrt) {
- 		pr_err("EFI memory descriptor is invalid. (esrt: %p max: %p)\n",
- 		       (void *)efi.esrt, (void *)max);
-@@ -333,7 +350,7 @@ void __init efi_esrt_init(void)
- 
- 	end = esrt_data + size;
- 	pr_info("Reserving ESRT space from %pa to %pa.\n", &esrt_data, &end);
--	if (md.type == EFI_BOOT_SERVICES_DATA)
-+	if (type == EFI_BOOT_SERVICES_DATA)
- 		efi_mem_reserve(esrt_data, esrt_data_size);
- 
- 	pr_debug("esrt-init: loaded.\n");
--- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+  commit c4e5cc2ccc5b8274d02f7855c4769839989bb349
+  Author: Roger Pau Monné <roger.pau@citrix.com>
+  Date:   Thu Sep 29 14:44:10 2022 +0200
+  
+      x86/ept: limit calls to memory_type_changed()
+      
+      memory_type_changed() is currently only implemented for Intel EPT, and
+      results in the invalidation of EMT attributes on all the entries in
+      the EPT page tables.  Such invalidation causes EPT_MISCONFIG vmexits
+      when the guest tries to access any gfns for the first time, which
+      results in the recalculation of the EMT for the accessed page.  The
+      vmexit and the recalculations are expensive, and as such should be
+      avoided when possible.
+      
+      Remove the call to memory_type_changed() from
+      XEN_DOMCTL_memory_mapping: there are no modifications of the
+      iomem_caps ranges anymore that could alter the return of
+      cache_flush_permitted() from that domctl.
+      
+      Encapsulate calls to memory_type_changed() resulting from changes to
+      the domain iomem_caps or ioport_caps ranges in the helpers themselves
+      (io{ports,mem}_{permit,deny}_access()), and add a note in
+      epte_get_entry_emt() to remind that changes to the logic there likely
+      need to be propagaed to the IO capabilities helpers.
+      
+      Note changes to the IO ports or memory ranges are not very common
+      during guest runtime, but Citrix Hypervisor has an use case for them
+      related to device passthrough.
+      
+      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build --summary-out=tmp/173377.bisection-summary --basis-template=173347 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-arm64-xsm xen-build
+Searching for failure / basis pass:
+ 173370 fail [host=rochester0] / 173347 [host=rochester1] 173342 [host=rochester1] 173333 ok.
+Failure / basis pass flights: 173370 / 173333
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest b746458e1ce1bec85e58b458386f8b7a0bedfaa6 fb7485788fd7db3b95f4e7fc9bfdfe9ef38e383f
+Basis pass b746458e1ce1bec85e58b458386f8b7a0bedfaa6 5e936d11b171793c174686268c9c1df8a4fa974c
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen.git#b746458e1ce1bec85e58b458386f8b7a0bedfaa6-b746458e1ce1bec85e58b458386f8b7a0bedfaa6 git://xenbits.xen.org/xen.git#5e936d11b171793c174686268c9c1df8a4fa974c-fb7485788fd7db3b95f4e7fc9bfdfe9ef38e383f
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 173373 pass b746458e1ce1bec85e58b458386f8b7a0bedfaa6 9982fe275ba4ee1a749b6dde5602a5a79e42b543
+ 173362 fail b746458e1ce1bec85e58b458386f8b7a0bedfaa6 b726541d94bd0a80b5864d17a2cd2e6d73a3fe0a
+ 173365 pass b746458e1ce1bec85e58b458386f8b7a0bedfaa6 5e936d11b171793c174686268c9c1df8a4fa974c
+ 173366 fail b746458e1ce1bec85e58b458386f8b7a0bedfaa6 b726541d94bd0a80b5864d17a2cd2e6d73a3fe0a
+ 173368 pass b746458e1ce1bec85e58b458386f8b7a0bedfaa6 e1de23b7c1bfa02447a79733e64184b3635e0587
+ 173367 fail b746458e1ce1bec85e58b458386f8b7a0bedfaa6 fb7485788fd7db3b95f4e7fc9bfdfe9ef38e383f
+ 173369 pass b746458e1ce1bec85e58b458386f8b7a0bedfaa6 9982fe275ba4ee1a749b6dde5602a5a79e42b543
+ 173372 fail b746458e1ce1bec85e58b458386f8b7a0bedfaa6 c4e5cc2ccc5b8274d02f7855c4769839989bb349
+ 173370 fail b746458e1ce1bec85e58b458386f8b7a0bedfaa6 fb7485788fd7db3b95f4e7fc9bfdfe9ef38e383f
+ 173374 fail b746458e1ce1bec85e58b458386f8b7a0bedfaa6 c4e5cc2ccc5b8274d02f7855c4769839989bb349
+ 173376 pass b746458e1ce1bec85e58b458386f8b7a0bedfaa6 9982fe275ba4ee1a749b6dde5602a5a79e42b543
+ 173377 fail b746458e1ce1bec85e58b458386f8b7a0bedfaa6 c4e5cc2ccc5b8274d02f7855c4769839989bb349
+ 173333 pass b746458e1ce1bec85e58b458386f8b7a0bedfaa6 5e936d11b171793c174686268c9c1df8a4fa974c
+ 173342 [host=rochester1]
+ 173347 [host=rochester1]
+Searching for interesting versions
+ Result found: flight 173333 (pass), for basis pass
+ For basis failure, parent search stopping at b746458e1ce1bec85e58b458386f8b7a0bedfaa6 9982fe275ba4ee1a749b6dde5602a5a79e42b543, results HASH(0x55d736404278) HASH(0x55d736414c98) HASH(0x55d7364189a8) For basis failure, parent search stopping at b746458e1ce1bec85e58b458386f8b7a0bedfaa6 e1de23b7c1bfa02447a79733e64184b3635e0587, results HASH(0x55d73640b428) For basis failure, parent search stopping at b746458e1ce1bec85e58b458386f8b7a0bedfaa6 5e936d11b171793c174686268c9c1df8a4fa974c, results HASH(0x\
+ 55d73640c950) HASH(0x55d736421170) Result found: flight 173362 (fail), for basis failure (at ancestor ~575)
+ Repro found: flight 173365 (pass), for basis pass
+ Repro found: flight 173367 (fail), for basis failure
+ 0 revisions at b746458e1ce1bec85e58b458386f8b7a0bedfaa6 9982fe275ba4ee1a749b6dde5602a5a79e42b543
+No revisions left to test, checking graph state.
+ Result found: flight 173369 (pass), for last pass
+ Result found: flight 173372 (fail), for first failure
+ Repro found: flight 173373 (pass), for last pass
+ Repro found: flight 173374 (fail), for first failure
+ Repro found: flight 173376 (pass), for last pass
+ Repro found: flight 173377 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  c4e5cc2ccc5b8274d02f7855c4769839989bb349
+  Bug not present: 9982fe275ba4ee1a749b6dde5602a5a79e42b543
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/173377/
+
+
+  commit c4e5cc2ccc5b8274d02f7855c4769839989bb349
+  Author: Roger Pau Monné <roger.pau@citrix.com>
+  Date:   Thu Sep 29 14:44:10 2022 +0200
+  
+      x86/ept: limit calls to memory_type_changed()
+      
+      memory_type_changed() is currently only implemented for Intel EPT, and
+      results in the invalidation of EMT attributes on all the entries in
+      the EPT page tables.  Such invalidation causes EPT_MISCONFIG vmexits
+      when the guest tries to access any gfns for the first time, which
+      results in the recalculation of the EMT for the accessed page.  The
+      vmexit and the recalculations are expensive, and as such should be
+      avoided when possible.
+      
+      Remove the call to memory_type_changed() from
+      XEN_DOMCTL_memory_mapping: there are no modifications of the
+      iomem_caps ranges anymore that could alter the return of
+      cache_flush_permitted() from that domctl.
+      
+      Encapsulate calls to memory_type_changed() resulting from changes to
+      the domain iomem_caps or ioport_caps ranges in the helpers themselves
+      (io{ports,mem}_{permit,deny}_access()), and add a note in
+      epte_get_entry_emt() to remind that changes to the logic there likely
+      need to be propagaed to the IO capabilities helpers.
+      
+      Note changes to the IO ports or memory ranges are not very common
+      during guest runtime, but Citrix Hypervisor has an use case for them
+      related to device passthrough.
+      
+      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+173377: tolerable ALL FAIL
+
+flight 173377 xen-unstable-smoke real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173377/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build               fail baseline untested
+
+
+jobs:
+ build-arm64-xsm                                              fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
