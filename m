@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C29965F0F69
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 17:59:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414302.658516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2020F5F0FE8
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 18:27:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414314.658528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oeIQB-0005ZX-V7; Fri, 30 Sep 2022 15:59:27 +0000
+	id 1oeIq7-0001pN-5B; Fri, 30 Sep 2022 16:26:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414302.658516; Fri, 30 Sep 2022 15:59:27 +0000
+Received: by outflank-mailman (output) from mailman id 414314.658528; Fri, 30 Sep 2022 16:26:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oeIQB-0005Wy-Ra; Fri, 30 Sep 2022 15:59:27 +0000
-Received: by outflank-mailman (input) for mailman id 414302;
- Fri, 30 Sep 2022 15:59:26 +0000
+	id 1oeIq7-0001lz-06; Fri, 30 Sep 2022 16:26:15 +0000
+Received: by outflank-mailman (input) for mailman id 414314;
+ Fri, 30 Sep 2022 16:26:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hi5f=2B=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
- id 1oeIQ9-0005DO-Ph
- for xen-devel@lists.xenproject.org; Fri, 30 Sep 2022 15:59:26 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2065.outbound.protection.outlook.com [40.107.20.65])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VUOy=2B=kernel.org=ardb@srs-se1.protection.inumbo.net>)
+ id 1oeIq5-0001lt-9x
+ for xen-devel@lists.xenproject.org; Fri, 30 Sep 2022 16:26:13 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dad37a75-40d8-11ed-964a-05401a9f4f97;
- Fri, 30 Sep 2022 17:59:24 +0200 (CEST)
-Received: from VI1PR04MB5056.eurprd04.prod.outlook.com (2603:10a6:803:5a::13)
- by AS8PR04MB7991.eurprd04.prod.outlook.com (2603:10a6:20b:289::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.23; Fri, 30 Sep
- 2022 15:59:22 +0000
-Received: from VI1PR04MB5056.eurprd04.prod.outlook.com
- ([fe80::90be:f320:716c:5bf8]) by VI1PR04MB5056.eurprd04.prod.outlook.com
- ([fe80::90be:f320:716c:5bf8%6]) with mapi id 15.20.5676.023; Fri, 30 Sep 2022
- 15:59:22 +0000
+ id 964a3532-40dc-11ed-964a-05401a9f4f97;
+ Fri, 30 Sep 2022 18:26:08 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1C4126235A
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Sep 2022 16:26:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E37FC433D6
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Sep 2022 16:26:06 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id a14so5331367ljj.8
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Sep 2022 09:26:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,392 +45,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dad37a75-40d8-11ed-964a-05401a9f4f97
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SyIZ4ti9MzAOu0++a4afSh2u9ooiJw6OSX7/5jV/ML9OuYJ52/UoMiBdNFVDsYH3It6CusYGpp07r5CkfIb/MbGHuyC4G8WjYD3o2tg+vJ/eL/iiqVkvzSnyPm4A/3+2wqDvN+f21SkbpRtaWLHMj3vL/Qk10reEqEJSvazfjoBIVX7BfqlBIYdhKCsTeUEGPLwFzNoukeJgJ16ByUjbLWg2ZBkiK3K1bZ5pQmLx1CTClVAt+byZp45n1ijf5X3SS3lzOae/jNIBcZdbG+Ytg99DtmyYH3ORubgAtgnHBC3vs3l02uSmqizbfKE4NSpWbSFzPCYy2ofDAZCKx/spfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cdzjZTKmnGZB4Jrjg5RvYEjwLWaqX1ih9fF/MAq9rCo=;
- b=ibi6XMArHCGt2F5aJI1hiuC05tieosBtzNe1cbzGljgitaQBqfo1tiwVsyTwfg8NOZuQwOsw1h4cxC2Uyggq3oZpIHv6XsCvi24BT6aAC3PziWnnl0qcpXEN3yrEj2bM4uGOfPqHj/EeoNyfLOy3yhH/4hbi2jvt0f/k0FBMZyT4TqALppJi8dBRZH6D79Q5YxqUdlnD0sVnQSo04ClensRWP8LATG4ec/HpN9OJn/ecUdNKr43XYjMMCjvTe1F2K0yF0vA46+c9pr7CQ/E0u4hyZZnOV3xMUJvvcjctRSxt1xZWNl3UTcn3ynGTxkgl40fUf8X4M7B69u2rtdzSaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cdzjZTKmnGZB4Jrjg5RvYEjwLWaqX1ih9fF/MAq9rCo=;
- b=cXeTB/Gc7yVvZdcTKgn+73N/MKdcPPp4WJiedDRFfEheul2SLnVQCO+qUm0wyf5+M7wDtJvmypgPGcOw1FqE6b7d4opARLLTgejnUZuXybCmu1HkZB7M+JkWRYRICRzJBP8JGQrSl9y6AggcMd7v96mUxCCG1cx0uLqOvUmCjJo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-From: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
-To: xen-devel@lists.xenproject.org
-Cc: viryaos-discuss@lists.sourceforge.net,
-	sstabellini@kernel.org,
-	Andrei Cherechesu <andrei.cherechesu@nxp.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH v4 1/1] uboot-script-gen: Dynamically compute addr and size when loading binaries
-Date: Fri, 30 Sep 2022 18:58:49 +0300
-Message-Id: <20220930155849.2210574-2-andrei.cherechesu@oss.nxp.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220930155849.2210574-1-andrei.cherechesu@oss.nxp.com>
-References: <20220930155849.2210574-1-andrei.cherechesu@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AS4P250CA0018.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e3::13) To VI1PR04MB5056.eurprd04.prod.outlook.com
- (2603:10a6:803:5a::13)
+X-Inumbo-ID: 964a3532-40dc-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1664555166;
+	bh=oqLfbEYe4oKYjxRzZLjsJo81ZyVL6bMsqLMXt0kKL6M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=mvZZtkBFmQi2x7GpRI8lcYjKOiCtRcni2tTvr/2Gci5jhQMmE2AuH9RBHqqD/N4xY
+	 DFfBNLSu3bR3hzPaU8LR+H+WA2hS/wi7NFe3qS4JrM3OEVkWYietrU1eNf84V89n+z
+	 C162Ou3Uy7FvA0Pxzr2OfbKiNwbHiDIWzmR+77c4zXVOXp6EyeaZaqpjYowx+TWLfa
+	 P1/5W6TTZsvX2HH6fN9SsGnFCxAjT1ZQbcmaGwINTkbw2tKvwFJppaLE8MI3EiSM72
+	 K+Mg8KrB6iYjxiYISadp+yWX6SO4Nnv7Ad9ddEMCtT8nkcSsSgXNLc7EprHbS7ouW0
+	 QN02UEV9iB+5g==
+X-Gm-Message-State: ACrzQf1sTNE5ZrBSx4E5ZgI9wbORQnBMG1eBPIyk/LooGrUTNq3mVmx2
+	1IaFl4wbZQ6Hpyy8XdbNUpgGoZLLSoOsA4B1yGY=
+X-Google-Smtp-Source: AMsMyM6CuK5x63b6fiVGIdEPxEPIkgUe0csGlqkji9OKq4ixVNWcF+qZD6wm6VZbn3AEbq4Pb+HCOlGex3PeGRJSdRE=
+X-Received: by 2002:a05:651c:239c:b0:26d:94b8:781d with SMTP id
+ bk28-20020a05651c239c00b0026d94b8781dmr2937124ljb.189.1664555164446; Fri, 30
+ Sep 2022 09:26:04 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5056:EE_|AS8PR04MB7991:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ce8de5e-3de6-43be-9380-08daa2fcbd46
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	iiRHUdK78Fz7ux3lKq3MVTlGqpMcRAoqAfgzp5/zcEQlKT+ShmvTbEm88v1vO/EmN9aMlnPTmlL07PUr9KkYIQet9rKqphfnRN0Q7a1k6nYnqEiL+7XRTzfL+FQDVFieII2N/5Xn4oi5+vjZhhxT2cUrSU3qHZH+/fQ2OwTDXFYHN+VkszkVY6LP4OwJMPlgO/OX6CoGd9qJXzmG+hRiDl/NiTAhk6ZhKJ08WkgoB89raKd+YP80ecVHtOU8AnTfuXlxPCiolOcd8psK+jZIZrIu++ww07lxz/vxtd+OnQ/JMCQ4x0l4dqn4domj4CmT4VuOKKw03wYJw/2EaAUWZ8aC/9vBnLNpzXH35g+vdkGA0REHL7vz8SZTSlwYmr2L2nlTuHmy9wCT/k5ZUbG+Acq8dVMcVGIVTljH1fV533Zl1Gv3APkNiezjZrvjX4+BIDzkGMpccpm7swNZmy1nBZW0e1UHvsQ7NVEen5UQNHMdVe4KeMU65yo5h/SzEwzwWgxJOTbmoFDVAW/r+BGyUSlVl46WMURQVFUBnVHFIYfk9EO1U4hlA6QLIPi5dQbkr4SKmOo0uqnK9UgoUYkCm326/w18CODIq/G4ukppNWLmoJi5jUOHl2CNdy6PY2ykHq0VKSewy6lThOtRluU9T7G6QKOyqmSmuPSPUfTgTAxbs4L1x2RVnbnOHVDxlsxfRLshq+fHqA3fV7Hd7ofqLCeLqTTt1+gqmABR7skscxM3pPhviCBHTnLgIoXv9Lgr
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5056.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(376002)(366004)(136003)(396003)(346002)(451199015)(4326008)(8676002)(66946007)(66476007)(66556008)(38100700002)(6486002)(2616005)(186003)(478600001)(38350700002)(6506007)(1076003)(52116002)(6666004)(316002)(54906003)(6916009)(86362001)(83380400001)(6512007)(26005)(8936002)(30864003)(41300700001)(5660300002)(2906002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MOXhr70FC9vvsg/fAYGSnDBcDYrz2VcAWsI1mj818929LCU+eSXOkB5tdyfs?=
- =?us-ascii?Q?YgFZuz6qlnu2vq3rGfQkYZXABlpPNiQkgmNsbAMV2fwuu/ki4QB3NXmnC+h6?=
- =?us-ascii?Q?I93w9xlGttcMYwFMFp9veH8tMc/ryOtxhieLWMAdgrVo2l/ISZ/eAaVnKXnL?=
- =?us-ascii?Q?tCA5o0g3Du+4Q48aLg2MQJd4XV/XKmk1v9CUi4G8SB7fyMC0CozOsiNyMFAx?=
- =?us-ascii?Q?J684J3fJR68pDcuzlDEYAG0YdqAY4gCIaDg7azC0BXxM0GMoL54i5x9hqMFz?=
- =?us-ascii?Q?KSRCzjR2Loov2+tGvA4YfQjBCiETfBegsSgEiaLoVqMvk25uJ1bgVlD1Qn46?=
- =?us-ascii?Q?sy8i6/HvgokZquWgjbWOkhY1LVJk/krUwG3g7sI7Hlr4Zg5M/d0i35t0gm5v?=
- =?us-ascii?Q?LcYUj1K6TkMdQfPtHcNauETsh+WYDrO4nwDAoaA4ogasDYMKzV5hE/bfrxX4?=
- =?us-ascii?Q?/k+2ls3l1F1W+UZamoxu383X2PrWPN8LOVSIoizO3v2TnlflW9o8BpotPnMx?=
- =?us-ascii?Q?xn//49XPxbq8xWXXUnTnvGc1B7BLYvx6g2gml8pOTjIbCazX6pqBRjA4pato?=
- =?us-ascii?Q?vXLj1EiLE3xq4at3gDZcDCRBRGGz+3eDA8mxD68l1rsnTXKr6nwcO6AWol9a?=
- =?us-ascii?Q?V2fEUYqOR0r4iDEAupN/Z1IdC2O01pnwW+YNEgw7TCVfTSGtUQ9k6RTpvzSa?=
- =?us-ascii?Q?UtT4w2WcT4ZwDzrnZmoI4yNIekE/1iNgU8hQWb5GDarbWhM8rCAA5lK36wBc?=
- =?us-ascii?Q?0BKA9/i1wMEx4yiGy3AkPRIQf4z+CiQQ8yO2SasQzhCsL0mqdh44uAGLtZNV?=
- =?us-ascii?Q?MMOQ1VdrDzLZ4LmhcO/HjDAWUkReVCV7liwavUhwC/txQB2rLgqOV38iVqKU?=
- =?us-ascii?Q?uIVrXLAV1SosDfct3SnvH351bs+qiy+qKSru/J/I0g6kMFjeJz8PpPOD1dpv?=
- =?us-ascii?Q?778gfmN9fRvw4MeTHbvpIRPSLrsBpgQN7GCuWg/tfC2tn55RcAo4a/mtoPuo?=
- =?us-ascii?Q?6CRtPIs7Lw7knyUyx3fmWtlOHa0l6HOmOCTs63WXLVasMpqe4XTuVGf0nYih?=
- =?us-ascii?Q?Uykpb0QEJAOohPQDYarvLn3uLVfEyH1TfHfjqrlQrpJQI0F2zqSGk8Vh4Cqw?=
- =?us-ascii?Q?ktEDGBvzVIzzGWNH0drwAtWiEZu4yh/bqw7/Bnb+s2+mQLRbrEPsyYeE/Jf8?=
- =?us-ascii?Q?QAVxsjy5kJf7zOdzpaGnwmivM9L19UW6jaEd3nx0KUWmxb2x+iPx3WBeHgdB?=
- =?us-ascii?Q?iFblljgUbABHhXDWDXMDouguqZeaUluUD1yhGT55JmzU+FBEI0uqbqINbqr6?=
- =?us-ascii?Q?Dx5tzf/+l1EC3zIeFf4rQpIh6rGxBdnWAVAmwwKzqvoqvCbL/Y0uoKZ9ROb5?=
- =?us-ascii?Q?qhFWmgCFBgJAV6yazv3zzcBo5LaOZibAf8+40bYhC/1DO2KyTDwP3alV10KN?=
- =?us-ascii?Q?hhxfGEhwMZRy/JgMpIXYPN+da2rNDMZWwyHAFPUp707OxW6Gw1xSSaaHRF1a?=
- =?us-ascii?Q?81kHMLF/AvLbd1ZgHpv2zIzqYaPJwalAuzf9xnJinRz1dTRptdBQyJXWaNBu?=
- =?us-ascii?Q?yiQhdbTyHiA9YR0+tNNNeKQDUL9ioGw9sXzhr4vBqlMsWbGCRnrUKwqWm6R4?=
- =?us-ascii?Q?Cw=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ce8de5e-3de6-43be-9380-08daa2fcbd46
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5056.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2022 15:59:22.0761
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O5ie2XGDesjONBOGahqR4kChDbugPQ2uHWyyHnAgtJjoxIECh3uXL5mQ/xFopAXhNeZzaChBkSTqbPW1y31/qTsRYK5WCltVL7vn108T86U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7991
+References: <cover.1664298147.git.demi@invisiblethingslab.com> <f3b624e99adfdbbfc1976a60a73a6b5950e1840d.1664298147.git.demi@invisiblethingslab.com>
+In-Reply-To: <f3b624e99adfdbbfc1976a60a73a6b5950e1840d.1664298147.git.demi@invisiblethingslab.com>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Fri, 30 Sep 2022 18:25:53 +0200
+X-Gmail-Original-Message-ID: <CAMj1kXH5tos5XVDUCcuEJG+fSNZBnY-xA1nb+Juu3H7AsM0DiQ@mail.gmail.com>
+Message-ID: <CAMj1kXH5tos5XVDUCcuEJG+fSNZBnY-xA1nb+Juu3H7AsM0DiQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Kees Cook <keescook@chromium.org>, 
+	Anton Vorontsov <anton@enomsg.org>, Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+	linux-efi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+On Fri, 30 Sept 2022 at 01:02, Demi Marie Obenour
+<demi@invisiblethingslab.com> wrote:
+>
+> Memory of type EFI_CONVENTIONAL_MEMORY, EFI_LOADER_CODE, EFI_LOADER_DATA,
+> EFI_BOOT_SERVICES_CODE, and EFI_BOOT_SERVICES_DATA may be clobbered by
+> Xen before Linux gets to start using it.  Therefore, Linux under Xen
+> must not use EFI tables from such memory.  Most of the remaining EFI
+> memory types are not suitable for EFI tables, leaving only
+> EFI_ACPI_RECLAIM_MEMORY, EFI_RUNTIME_SERVICES_DATA, and
+> EFI_RUNTIME_SERVICES_CODE.  When running under Xen, Linux should only
+> use tables that are located in one of these types of memory.
+>
+> This patch ensures this, and also adds a function
+> (xen_config_table_memory_region_max()) that will be used later to
+> replace the usage of the EFI memory map in esrt.c when running under
+> Xen.  This function can also be used in mokvar-table.c and efi-bgrt.c,
+> but I have not implemented this.
+>
+> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> ---
+>  drivers/firmware/efi/efi.c |  8 +++++---
+>  drivers/xen/efi.c          | 35 +++++++++++++++++++++++++++++++++++
+>  include/linux/efi.h        |  9 +++++++++
+>  3 files changed, 49 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+> index e4080ad96089abd7f84745dd8461c548bcbb7685..d344f3ff73d1c5ed0c67e3251a9502e66719741d 100644
+> --- a/drivers/firmware/efi/efi.c
+> +++ b/drivers/firmware/efi/efi.c
+> @@ -574,7 +574,6 @@ int __init efi_config_parse_tables(const efi_config_table_t *config_tables,
+>         unsigned long table;
+>         int i;
+>
+> -       pr_info("");
 
-Normally, the Imagebuilder would precompute the sizes of the loaded
-binaries and addresses where they are loaded before generating the
-script, and the sizes and addresses that needed to be provided to
-Xen via /chosen would be hardcoded in the boot script.
+Why are you removing these prints?
 
-Added an option via "-s" parameter to avoid hardcoding any
-address in the boot script, and dynamically compute the
-loading addresses for binaries. The first loading address is based
-on the MEMORY_START parameter and after loading each binary,
-the loading address and the size of the binary are stored in
-variables with corresponding names. Then, the loading address
-for the next binary is computed and aligned to 0x200000.
+>         for (i = 0; i < count; i++) {
+>                 if (!IS_ENABLED(CONFIG_X86)) {
+>                         guid = &config_tables[i].guid;
+> @@ -585,7 +584,6 @@ int __init efi_config_parse_tables(const efi_config_table_t *config_tables,
+>
+>                         if (IS_ENABLED(CONFIG_X86_32) &&
+>                             tbl64[i].table > U32_MAX) {
+> -                               pr_cont("\n");
+>                                 pr_err("Table located above 4GB, disabling EFI.\n");
+>                                 return -EINVAL;
+>                         }
+> @@ -594,10 +592,14 @@ int __init efi_config_parse_tables(const efi_config_table_t *config_tables,
+>                         table = tbl32[i].table;
+>                 }
+>
+> +#ifdef CONFIG_XEN_EFI
 
-If the "-s" parameter is not used, the normal flow is executed,
-where the loading addresses and sizes for each binaries are
-precomputed and hardcoded inside the script, but the loading
-addresses and sizes for each binary are now also stored for eventual
-later use.
+We tend to prefer IS_ENABLED() for cases such as this one. That way,
+the compiler always gets to see the code inside the conditional block,
+which gives better build test coverage (even if CONFIG_XEN_EFI is
+disabled).
 
-Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
- scripts/uboot-script-gen | 114 +++++++++++++++++++++++++++------------
- 1 file changed, 80 insertions(+), 34 deletions(-)
+> +               if (efi_enabled(EFI_PARAVIRT) && !xen_config_table_memory_region_max(table))
 
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index b24dca2..16269f0 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -4,6 +4,9 @@ offset=$((2*1024*1024))
- filesize=0
- prog_req=(mkimage file fdtput mktemp awk)
- 
-+padding_mask=`printf "0x%X\n" $(($offset - 1))`
-+padding_mask_inv=`printf "0x%X\n" $((~$padding_mask))`
-+
- function cleanup_and_return_err()
- {
-     rm -f $UBOOT_SOURCE $UBOOT_SCRIPT
-@@ -28,6 +31,7 @@ function dt_mknode()
- #   str
- #   str_a
- #   bool
-+#   var
- function dt_set()
- {
-     local path=$1
-@@ -35,11 +39,26 @@ function dt_set()
-     local data_type=$3
-     local data=$4
- 
-+    if test $data_type = "var"
-+    then
-+        eval data_addr_var="$data"_addr
-+        eval data_addr=\$"$data_addr_var"
-+        eval data_size_var="$data"_size
-+        eval data_size=\$"$data_size_var"
-+    fi
- 
-     if test "$UBOOT_SOURCE" && test ! "$FIT"
-     then
-         var=${var/\#/\\#}
--        if test $data_type = "hex" || test $data_type = "int"
-+        if test $data_type = "var"
-+        then
-+            if test $dynamic_loading_opt
-+            then
-+                echo "fdt set $path $var <0x0 0x\${"$data_addr_var"} 0x0 0x\${"$data_size_var"}>" >> $UBOOT_SOURCE
-+            else
-+                echo "fdt set $path $var <0x0 $data_addr 0x0 $data_size>" >> $UBOOT_SOURCE
-+            fi
-+        elif test $data_type = "hex" || test $data_type = "int"
-         then
-             echo "fdt set $path $var <$data>" >> $UBOOT_SOURCE
-         elif test $data_type = "str_a"
-@@ -63,7 +82,10 @@ function dt_set()
- 
-     if test $FDTEDIT
-     then
--        if test $data_type = "hex"
-+        if test $data_type = "var"
-+        then
-+            fdtput $FDTEDIT -p -t x $path $var 0x0 "$data_addr" 0x0 "$data_size"
-+        elif test $data_type = "hex"
-         then
-             fdtput $FDTEDIT -p -t x $path $var $data
-         elif test $data_type = "int"
-@@ -87,38 +109,35 @@ function dt_set()
- function add_device_tree_kernel()
- {
-     local path=$1
--    local addr=$2
--    local size=$3
--    local bootargs=$4
-+    local varname=$2
-+    local bootargs=$3
- 
--    dt_mknode "$path" "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,kernel multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
--    dt_set "$path/module$addr" "bootargs" "str" "$bootargs"
-+    dt_mknode "$path" "module-$varname"
-+    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,kernel multiboot,module"
-+    dt_set "$path/module-$varname" "reg" "var"  "$varname"
-+    dt_set "$path/module-$varname" "bootargs" "str" "$bootargs"
- }
- 
- 
- function add_device_tree_ramdisk()
- {
-     local path=$1
--    local addr=$2
--    local size=$3
-+    local varname=$2
- 
--    dt_mknode "$path"  "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
-+    dt_mknode "$path" "module-$varname"
-+    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,ramdisk multiboot,module"
-+    dt_set "$path/module-$varname" "reg" "var"  "$varname"
- }
- 
- 
- function add_device_tree_passthrough()
- {
-     local path=$1
--    local addr=$2
--    local size=$3
-+    local varname=$2
- 
--    dt_mknode "$path"  "module$addr"
--    dt_set "$path/module$addr" "compatible" "str_a" "multiboot,device-tree multiboot,module"
--    dt_set "$path/module$addr" "reg" "hex"  "0x0 $addr 0x0 $(printf "0x%x" $size)"
-+    dt_mknode "$path" "module-$varname"
-+    dt_set "$path/module-$varname" "compatible" "str_a" "multiboot,device-tree multiboot,module"
-+    dt_set "$path/module-$varname" "reg" "var"  "$varname"
- }
- 
- function add_device_tree_mem()
-@@ -260,7 +279,7 @@ function xen_device_tree_editing()
-     then
-         dt_mknode "/chosen" "dom0"
-         dt_set "/chosen/dom0" "compatible" "str_a" "xen,linux-zimage xen,multiboot-module multiboot,module"
--        dt_set "/chosen/dom0" "reg" "hex" "0x0 $dom0_kernel_addr 0x0 $(printf "0x%x" $dom0_kernel_size)"
-+        dt_set "/chosen/dom0" "reg" "var" "dom0_linux"
-         dt_set "/chosen" "xen,dom0-bootargs" "str" "$DOM0_CMD"
-     fi
- 
-@@ -268,7 +287,7 @@ function xen_device_tree_editing()
-     then
-         dt_mknode "/chosen" "dom0-ramdisk"
-         dt_set "/chosen/dom0-ramdisk" "compatible" "str_a" "xen,linux-initrd xen,multiboot-module multiboot,module"
--        dt_set "/chosen/dom0-ramdisk" "reg" "hex" "0x0 $ramdisk_addr 0x0 $(printf "0x%x" $ramdisk_size)"
-+        dt_set "/chosen/dom0-ramdisk" "reg" "var" "dom0_ramdisk"
-     fi
- 
-     i=0
-@@ -315,14 +334,14 @@ function xen_device_tree_editing()
-             dt_set "/chosen/domU$i" "colors" "hex" "$(printf "0x%x" $bitcolors)"
-         fi
- 
--        add_device_tree_kernel "/chosen/domU$i" ${domU_kernel_addr[$i]} ${domU_kernel_size[$i]} "${DOMU_CMD[$i]}"
-+        add_device_tree_kernel "/chosen/domU$i" "domU${i}_kernel" "${DOMU_CMD[$i]}"
-         if test "${domU_ramdisk_addr[$i]}"
-         then
--            add_device_tree_ramdisk "/chosen/domU$i" ${domU_ramdisk_addr[$i]} ${domU_ramdisk_size[$i]}
-+            add_device_tree_ramdisk "/chosen/domU$i" "domU${i}_ramdisk"
-         fi
-         if test "${domU_passthrough_dtb_addr[$i]}"
-         then
--            add_device_tree_passthrough "/chosen/domU$i" ${domU_passthrough_dtb_addr[$i]} ${domU_passthrough_dtb_size[$i]}
-+            add_device_tree_passthrough "/chosen/domU$i" "domU${i}_fdt"
-         fi
-         i=$(( $i + 1 ))
-     done
-@@ -350,7 +369,7 @@ function device_tree_editing()
- 
-     if test $UBOOT_SOURCE
-     then
--        echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
-+        echo "fdt addr \${host_fdt_addr}" >> $UBOOT_SOURCE
-         echo "fdt resize 1024" >> $UBOOT_SOURCE
- 
-         if test $NUM_DT_OVERLAY && test $NUM_DT_OVERLAY -gt 0
-@@ -375,11 +394,33 @@ function device_tree_editing()
- function add_size()
- {
-     local filename=$1
-+    local fit_scr_name=$2
-+    local binary_name_addr="${fit_scr_name}_addr"
-+    local binary_name_size="${fit_scr_name}_size"
-+    eval "$fit_scr_name"_addr=$memaddr
-+
-     local size=`stat -L --printf="%s" $filename`
-+    filesize=$size
-+    eval "$fit_scr_name"_size=`printf "0x%X\n" $size`
-+    eval binary_name_size_value=\$"$binary_name_size"
-+    
-+    if test $dynamic_loading_opt
-+    then
-+        echo "setenv $binary_name_addr \${memaddr}" >> $UBOOT_SOURCE
-+        echo "setenv $binary_name_size \${filesize}" >> $UBOOT_SOURCE
-+        # Compute load addr for next binary dynamically
-+        echo "setexpr memaddr \${memaddr} \+ \${filesize}" >> $UBOOT_SOURCE
-+        echo "setexpr memaddr \${memaddr} \+ $padding_mask" >> $UBOOT_SOURCE
-+        echo "setexpr memaddr \${memaddr} \& $padding_mask_inv" >> $UBOOT_SOURCE
-+    else
-+        # Store load addr and size as literals
-+        echo "setenv $binary_name_addr $memaddr" >> $UBOOT_SOURCE
-+        echo "setenv $binary_name_size $binary_name_size_value" >> $UBOOT_SOURCE
-+    fi
-+
-     memaddr=$(( $memaddr + $size + $offset - 1))
-     memaddr=$(( $memaddr & ~($offset - 1) ))
-     memaddr=`printf "0x%X\n" $memaddr`
--    filesize=$size
- }
- 
- function load_file()
-@@ -394,10 +435,13 @@ function load_file()
-     if test "$FIT"
-     then
-         echo "imxtract \$fit_addr $fit_scr_name $memaddr" >> $UBOOT_SOURCE
-+    elif test "$dynamic_loading_opt"
-+    then
-+        echo "$LOAD_CMD \${memaddr} ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
-     else
-         echo "$LOAD_CMD $memaddr ${prepend_path:+$prepend_path/}$relative_path" >> $UBOOT_SOURCE
-     fi
--    add_size $filename
-+    add_size $filename $fit_scr_name
- }
- 
- function check_file_type()
-@@ -978,7 +1022,7 @@ function print_help
- {
-     script=`basename "$0"`
-     echo "usage:"
--    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH]"
-+    echo "	$script -c CONFIG_FILE -d DIRECTORY [-t LOAD_CMD] [-o FILE] [-k KEY_DIR/HINT [-u U-BOOT_DTB]] [-e] [-f] [-p PREPEND_PATH] [-s]"
-     echo "	$script -h"
-     echo "where:"
-     echo "	CONFIG_FILE - configuration file"
-@@ -995,6 +1039,7 @@ function print_help
-     echo "	U-BOOT_DTB - u-boot control dtb so that the public key gets added to it"
-     echo "	-f - enable generating a FIT image"
-     echo "	PREPEND_PATH - path to be appended before file names to match deploy location within rootfs"
-+    echo "	-s - enable dynamic loading of binaries by storing their addresses and sizes u-boot env variables"
-     echo "	-h - prints out the help message and exits "
-     echo "Defaults:"
-     echo "	CONFIG_FILE=$cfg_file, UBOOT_TYPE=\"LOAD_CMD\" env var, DIRECTORY=$uboot_dir"
-@@ -1002,7 +1047,7 @@ function print_help
-     echo "	$script -c ../config -d ./build42 -t \"scsi load 1:1\""
- }
- 
--while getopts ":c:t:d:ho:k:u:fp:" opt; do
-+while getopts ":c:t:d:ho:k:u:fp:s" opt; do
-     case ${opt} in
-     t )
-         case $OPTARG in
-@@ -1044,6 +1089,9 @@ while getopts ":c:t:d:ho:k:u:fp:" opt; do
-     p )
-         prepend_path="$OPTARG"
-         ;;
-+    s )
-+        dynamic_loading_opt=y
-+        ;;
-     h )
-         print_help
-         exit 0
-@@ -1223,6 +1271,8 @@ uboot_addr=$memaddr
- # 2MB are enough for a uboot script
- memaddr=$(( $memaddr + $offset ))
- memaddr=`printf "0x%X\n" $memaddr`
-+start_addr=`printf "%x\n" $memaddr`
-+echo "setenv memaddr $start_addr" >> $UBOOT_SOURCE
- 
- if test "$os" = "xen"
- then
-@@ -1266,11 +1316,7 @@ fi
- 
- if [ "$BOOT_CMD" != "none" ]
- then
--    echo "$BOOT_CMD $kernel_addr - $device_tree_addr" >> $UBOOT_SOURCE
--else
--    # skip boot command but store load addresses to be used later
--    echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
--    echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
-+    echo "$BOOT_CMD \${host_kernel_addr} - \${host_fdt_addr}" >> $UBOOT_SOURCE
- fi
- 
- if test "$FIT"
--- 
-2.35.1
+So the question here is whether Xen thinks the table should be
+disregarded or not. So let's define a prototype that reflects that
+purpose, and let the implementation reason about how this should be
+achieved.
 
+So
+
+if (IS_ENABLED(CONFIG_XEN_EFI) &&
+    efi_enabled(EFI_PARAVIRT) &&
+    xen_efi_config_table_valid(guid, table)
+        continue
+
+I should note here, though, that EFI_PARAViRT is only set on x86 not
+on other architectures that enable CONFIG_XEN_EFI so this will not
+work anywhere else.
+
+
+> +                       continue;
+> +#endif
+> +
+>                 if (!match_config_table(guid, table, common_tables) && arch_tables)
+>                         match_config_table(guid, table, arch_tables);
+>         }
+> -       pr_cont("\n");
+>         set_bit(EFI_CONFIG_TABLES, &efi.flags);
+>
+>         if (efi_rng_seed != EFI_INVALID_TABLE_ADDR) {
+> diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
+> index d1ff2186ebb48a7c0981ecb6d4afcbbb25ffcea0..c2274ddfcc63304008ef0fd78fd9fa416f75d073 100644
+> --- a/drivers/xen/efi.c
+> +++ b/drivers/xen/efi.c
+> @@ -28,6 +28,7 @@
+>  #include <xen/interface/platform.h>
+>  #include <xen/xen.h>
+>  #include <xen/xen-ops.h>
+> +#include <xen/page.h>
+>
+>  #include <asm/page.h>
+>
+> @@ -271,6 +272,40 @@ static void xen_efi_reset_system(int reset_type, efi_status_t status,
+>         }
+>  }
+>
+> +__init u64 xen_config_table_memory_region_max(u64 addr)
+
+It is more idiomatic for Linux to put __init after the return type.
+And if we adopt my suggestion above, this becomes
+
+bool __init xen_efi_config_table_valid(const efi_guid_t *guid, u64 table)
+
+Alternatively, you could pass the string identifier of the table
+instead of the guid (or both) to print in the diagnostic message.
+
+
+> +{
+> +       static_assert(XEN_PAGE_SHIFT == EFI_PAGE_SHIFT,
+> +                     "Mismatch between EFI_PAGE_SHIFT and XEN_PAGE_SHIFT");
+
+Is this the only place where this matters? And this never happens on x86, right?
+
+> +       struct xen_platform_op op = {
+> +               .cmd = XENPF_firmware_info,
+> +               .u.firmware_info = {
+> +                       .type = XEN_FW_EFI_INFO,
+> +                       .index = XEN_FW_EFI_MEM_INFO,
+> +                       .u.efi_info.mem.addr = addr,
+> +                       .u.efi_info.mem.size = U64_MAX - addr,
+> +               }
+> +       };
+> +       union xenpf_efi_info *info = &op.u.firmware_info.u.efi_info;
+> +       int rc = HYPERVISOR_platform_op(&op);
+> +
+> +       if (rc) {
+> +               pr_warn("Failed to lookup header %llu in Xen memory map: error %d\n",
+> +                       (unsigned long long)addr, rc);
+> +               return 0;
+> +       }
+> +
+> +       switch (info->mem.type) {
+> +       case EFI_RUNTIME_SERVICES_CODE:
+> +       case EFI_RUNTIME_SERVICES_DATA:
+> +       case EFI_ACPI_RECLAIM_MEMORY:
+
+If we are listing all memory types that Xen preserves, you might add
+EFI_RESERVED_MEMORY here. Otherwise, please only list the ones that
+you need to permit explicitly.
+
+> +               return info->mem.addr + info->mem.size;
+> +       default:
+> +               pr_warn("Table %llu is in memory of type %d, ignoring it\n",
+> +                       (unsigned long long)addr, info->mem.type);
+> +               return 0;
+> +       }
+> +}
+> +
+>  /*
+>   * Set XEN EFI runtime services function pointers. Other fields of struct efi,
+>   * e.g. efi.systab, will be set like normal EFI.
+> diff --git a/include/linux/efi.h b/include/linux/efi.h
+> index d2b84c2fec39f0268324d1a38a73ed67786973c9..fc81e4b984398cdb399e7886b2cae7f33bf91613 100644
+> --- a/include/linux/efi.h
+> +++ b/include/linux/efi.h
+> @@ -1324,4 +1324,13 @@ struct linux_efi_coco_secret_area {
+>  /* Header of a populated EFI secret area */
+>  #define EFI_SECRET_TABLE_HEADER_GUID   EFI_GUID(0x1e74f542, 0x71dd, 0x4d66,  0x96, 0x3e, 0xef, 0x42, 0x87, 0xff, 0x17, 0x3b)
+>
+> +#ifdef CONFIG_XEN_EFI
+
+Please drop this #ifdef
+
+> +/*
+> + * Returns the end of the memory region containing the given config table,
+> + * or 0 if the given address does not reside in memory that can validly
+> + * contain EFI configuration tables.
+> + */
+> +__init u64 xen_config_table_memory_region_max(u64 addr);
+
+You can drop the __init here
+
+> +#endif
+> +
+>  #endif /* _LINUX_EFI_H */
+> --
+> Sincerely,
+> Demi Marie Obenour (she/her/hers)
+> Invisible Things Lab
+>
 
