@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D68355F123A
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 21:12:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414407.658670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 127D25F1394
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 22:22:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414415.658681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oeLQA-0002Ik-8E; Fri, 30 Sep 2022 19:11:38 +0000
+	id 1oeMVn-0001ur-7R; Fri, 30 Sep 2022 20:21:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414407.658670; Fri, 30 Sep 2022 19:11:38 +0000
+Received: by outflank-mailman (output) from mailman id 414415.658681; Fri, 30 Sep 2022 20:21:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oeLQA-0002G6-5F; Fri, 30 Sep 2022 19:11:38 +0000
-Received: by outflank-mailman (input) for mailman id 414407;
- Fri, 30 Sep 2022 19:11:36 +0000
+	id 1oeMVn-0001s5-3y; Fri, 30 Sep 2022 20:21:31 +0000
+Received: by outflank-mailman (input) for mailman id 414415;
+ Fri, 30 Sep 2022 20:21:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VUOy=2B=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1oeLQ8-0002G0-Fh
- for xen-devel@lists.xenproject.org; Fri, 30 Sep 2022 19:11:36 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b2f3cb5b-40f3-11ed-9374-c1cf23e5d27e;
- Fri, 30 Sep 2022 21:11:35 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C1F216242D
- for <xen-devel@lists.xenproject.org>; Fri, 30 Sep 2022 19:11:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32CDEC43140
- for <xen-devel@lists.xenproject.org>; Fri, 30 Sep 2022 19:11:33 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id 10so8286652lfy.5
- for <xen-devel@lists.xenproject.org>; Fri, 30 Sep 2022 12:11:33 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ACJS=2B=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1oeMVl-0001rz-0Y
+ for xen-devel@lists.xenproject.org; Fri, 30 Sep 2022 20:21:29 +0000
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 74a3b5a5-40fd-11ed-9374-c1cf23e5d27e;
+ Fri, 30 Sep 2022 22:21:26 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id ACA2032009DE;
+ Fri, 30 Sep 2022 16:21:22 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Fri, 30 Sep 2022 16:21:23 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Sep 2022 16:21:21 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +43,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2f3cb5b-40f3-11ed-9374-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1664565093;
-	bh=DpuzkSTpdIljztqf44fhe5W4QnPtXnDJDl0MM448ZSA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=Yu+WvHfHfGIDERp3rGJw/Xo+T7KR5JXnWliHX2BfVnsPYHNj9dYu9HWaA8emZRFzp
-	 WP2RZn3PxpJhCTr/rEvWhDjqSXHIsIszDxu/yDsxYzD+0N1IHgI4eIZ9MvkFBQHPmw
-	 DEda+6g0QFLgSxla7ZBIuEgqIHZ3G5tVBO/ydJ9ZzXhMZKMNnkLAoi9NAYAItVLmZH
-	 1Yr/20aKScBzpbJjOs1KLfcHUcozKb5yCP0ZOwUPI7fEBY6fA26DkQ6lEoAdZ+Kr8k
-	 BkyW4HJA1QtT6HOZXiOXBK8dcomZS9euTg8oRwOdsPMIEd+ryFFcAcebZBOPkeHLKJ
-	 vR4dng0BTd5yg==
-X-Gm-Message-State: ACrzQf3fGSe/qKvSKRuNDai17ju3DTgpyROd4VSNMVi9LMMAWr9QCaCP
-	QDPh3e73qyubNuIJ8EFs4geFCOpHjGuRr/4Ik1U=
-X-Google-Smtp-Source: AMsMyM6FMMowE7tQWhR4Sq9LW0sZJqpKjwTPTYH1uPBheNCSsYgu+96uM6IHl9lGbwAD0/no5/Q6kEg0CtZpAWItDo4=
-X-Received: by 2002:a05:6512:c0f:b0:49b:1e8c:59fd with SMTP id
- z15-20020a0565120c0f00b0049b1e8c59fdmr3582078lfu.426.1664565091147; Fri, 30
- Sep 2022 12:11:31 -0700 (PDT)
-MIME-Version: 1.0
+X-Inumbo-ID: 74a3b5a5-40fd-11ed-9374-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664569282; x=
+	1664655682; bh=84YQ6t1Q62lDEfE85H9mFCEwx6xIrWnJ1go7THDuksI=; b=d
+	BzXQfbJioxFl13JRwhDDRVWlna7IqFGwpswqsTZfAk7e7oW56bkRJccVdDmpq5q1
+	RVfpdlwkzilQ+pkqPpqulH3t1/vamByed7X74XUvHFt54+1pZ5PqFJbCdPYKE6Ad
+	mvsG0pmNUN4lVkgxP967a7mZBkcTaOAw9vA9k65bKKC/L1F1282Db2lhinwy9DA9
+	zpUiJdTm0j4IHiN2Qu+9BXq6hHVV0bQsUosyVnWd9N9p9yYxoxFiTITW85slPE2g
+	vKDwKf8W3nPy6JtmUQwp0TuiMIlZU5GcztZDXA/5oi5r4MB5Y3M6EiaAnYAM7Kn8
+	xS407msLguGO8wkqp4eGQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1664569282; x=1664655682; bh=84YQ6t1Q62lDEfE85H9mFCEwx6xI
+	rWnJ1go7THDuksI=; b=ErRJOnvvMEnQxfGMllCeFVhHvrLbPoGFlN2HBfK9IuAK
+	bnwMhmytF6bzReu/BQp8QjwMAC7xCe82L1Pf8HLRg8/PkAFJ350x3KFlY68YuK6/
+	+MokEcEjz7KnIEzt5QHQawltz5TQC2pim127Oh57SiFpK6GUlo7wO4Adwu/njcw0
+	6/wC2VcWpvbeL4g6G66V1pkscqTiXPb4EQS636r/HbCUUKoBpF8JmyJEGuQlJ8Tc
+	JxO8/I/MX5Ujqfyoop5wmzxAL3kDxnVjJJY0DqESPdTPsB2pGCaR1VuyjAlwCXv/
+	eRVULSGqKZPvTpobNfdQrlMIEphXvUxrz7L/P3+K5A==
+X-ME-Sender: <xms:wU83Y4jRR_LG3ct_iOXvQLJ_bFMgUJFM64l4HbAdkz0rYWUYDvK-Yw>
+    <xme:wU83YxCDKhCAsruA_M83oaduQehVWmEB1ghGwFEUPgfNiVgViNaEC8tMHkxBWVYRN
+    N4_zKgRtxXfDz0>
+X-ME-Received: <xmr:wU83YwGG-r1sczKAmCtAYC9QRhtDGC4ryzMKlOR2B7wORM_334LKtCRpmzZU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehvddgudegkecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffeg
+    fffguddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+    shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:wU83Y5Rg36NxSKFwm4LmnbuZ85gMhSK6ywrk3JewrF7qir7QpJB_IQ>
+    <xmx:wU83Y1zblBOXX9GeDbljrQ8HR95o5ciVxcIcENqekBxsrAfentJmyw>
+    <xmx:wU83Y36qLJWPg78tgdowm9T7NAn9lfKZrE1HF6VmTKFCpDL6PAPYXg>
+    <xmx:wk83Y6r8mJgDz88AwS5Pqv2X4TTE3IEJzNTd4O6iIgf98VUClnpOpA>
+Feedback-ID: iac594737:Fastmail
+Date: Fri, 30 Sep 2022 16:20:51 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>, Peter Jones <pjones@redhat.com>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] Support ESRT in Xen dom0
+Message-ID: <YzdPv4+fYX3SG9P0@itl-email>
 References: <cover.1664298147.git.demi@invisiblethingslab.com>
  <5649176eacda434267f68676f1733d06c572d19e.1664298147.git.demi@invisiblethingslab.com>
- <CAMj1kXEs-o8jvNqRiW+Ue2i52RBgg4iktg8UONCACk8-Gx4XXA@mail.gmail.com> <YzczpIYop5olD4hj@itl-email>
-In-Reply-To: <YzczpIYop5olD4hj@itl-email>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Fri, 30 Sep 2022 21:11:19 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXHGPzy9T1LcE8LX+woGtUGTzrDgbjDBJabJ+bwDVPbTag@mail.gmail.com>
-Message-ID: <CAMj1kXHGPzy9T1LcE8LX+woGtUGTzrDgbjDBJabJ+bwDVPbTag@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] Support ESRT in Xen dom0
-To: Demi Marie Obenour <demi@invisiblethingslab.com>, Peter Jones <pjones@redhat.com>
-Cc: Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Kees Cook <keescook@chromium.org>, 
-	Anton Vorontsov <anton@enomsg.org>, Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+ <CAMj1kXEs-o8jvNqRiW+Ue2i52RBgg4iktg8UONCACk8-Gx4XXA@mail.gmail.com>
+ <YzczpIYop5olD4hj@itl-email>
+ <CAMj1kXHGPzy9T1LcE8LX+woGtUGTzrDgbjDBJabJ+bwDVPbTag@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yKB7OHjMbPEa6C9c"
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXHGPzy9T1LcE8LX+woGtUGTzrDgbjDBJabJ+bwDVPbTag@mail.gmail.com>
+
+
+--yKB7OHjMbPEa6C9c
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Sep 2022 16:20:51 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>, Peter Jones <pjones@redhat.com>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
 	linux-efi@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH v4 2/2] Support ESRT in Xen dom0
 
-On Fri, 30 Sept 2022 at 20:21, Demi Marie Obenour
-<demi@invisiblethingslab.com> wrote:
->
-> On Fri, Sep 30, 2022 at 06:36:11PM +0200, Ard Biesheuvel wrote:
-> > On Fri, 30 Sept 2022 at 01:02, Demi Marie Obenour
-> > <demi@invisiblethingslab.com> wrote:
-> > >
-> > > fwupd requires access to the EFI System Resource Table (ESRT) to
-> > > discover which firmware can be updated by the OS.  Currently, Linux does
-> > > not expose the ESRT when running as a Xen dom0.  Therefore, it is not
-> > > possible to use fwupd in a Xen dom0, which is a serious problem for e.g.
-> > > Qubes OS.
-> > >
-> > > Before Xen 4.17, this was not fixable due to hypervisor limitations.
-> > > The UEFI specification requires the ESRT to be in EfiBootServicesData
-> > > memory, which Xen will use for whatever purposes it likes.  Therefore,
-> > > Linux cannot safely access the ESRT, as Xen may have overwritten it.
-> > >
-> > > Starting with Xen 4.17, Xen checks if the ESRT is in EfiBootServicesData
-> > > or EfiRuntimeServicesData memory.  If the ESRT is in EfiBootServicesData
-> > > memory, Xen replaces the ESRT with a copy in memory that it has
-> > > reserved.  Such memory is currently of type EFI_RUNTIME_SERVICES_DATA,
-> > > but in the future it will be of type EFI_ACPI_RECLAIM_MEMORY.  This
-> > > ensures that the ESRT can safely be accessed by the OS.
-> > >
-> > > When running as a Xen dom0, use the new
-> > > xen_config_table_memory_region_max() function to determine if Xen has
-> > > reserved the ESRT and, if so, find the end of the memory region
-> > > containing it.  This allows programs such as fwupd which require the
-> > > ESRT to run under Xen, and so makes fwupd support in Qubes OS possible.
-> > >
-> > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+On Fri, Sep 30, 2022 at 09:11:19PM +0200, Ard Biesheuvel wrote:
+> On Fri, 30 Sept 2022 at 20:21, Demi Marie Obenour
+> <demi@invisiblethingslab.com> wrote:
 > >
-> > Why do we need this patch? I'd expect esrt_table_exists() to return
-> > false when patch 1/2 is applied.
->
-> efi_enabled(EFI_MEMMAP) is false under Xen, so there needs to be an
-> alternative way to get the end of the memory region containing the ESRT.
-> That is what this patch provides.
+> > On Fri, Sep 30, 2022 at 06:36:11PM +0200, Ard Biesheuvel wrote:
+> > > On Fri, 30 Sept 2022 at 01:02, Demi Marie Obenour
+> > > <demi@invisiblethingslab.com> wrote:
+> > > >
+> > > > fwupd requires access to the EFI System Resource Table (ESRT) to
+> > > > discover which firmware can be updated by the OS.  Currently, Linux=
+ does
+> > > > not expose the ESRT when running as a Xen dom0.  Therefore, it is n=
+ot
+> > > > possible to use fwupd in a Xen dom0, which is a serious problem for=
+ e.g.
+> > > > Qubes OS.
+> > > >
+> > > > Before Xen 4.17, this was not fixable due to hypervisor limitations.
+> > > > The UEFI specification requires the ESRT to be in EfiBootServicesDa=
+ta
+> > > > memory, which Xen will use for whatever purposes it likes.  Therefo=
+re,
+> > > > Linux cannot safely access the ESRT, as Xen may have overwritten it.
+> > > >
+> > > > Starting with Xen 4.17, Xen checks if the ESRT is in EfiBootService=
+sData
+> > > > or EfiRuntimeServicesData memory.  If the ESRT is in EfiBootService=
+sData
+> > > > memory, Xen replaces the ESRT with a copy in memory that it has
+> > > > reserved.  Such memory is currently of type EFI_RUNTIME_SERVICES_DA=
+TA,
+> > > > but in the future it will be of type EFI_ACPI_RECLAIM_MEMORY.  This
+> > > > ensures that the ESRT can safely be accessed by the OS.
+> > > >
+> > > > When running as a Xen dom0, use the new
+> > > > xen_config_table_memory_region_max() function to determine if Xen h=
+as
+> > > > reserved the ESRT and, if so, find the end of the memory region
+> > > > containing it.  This allows programs such as fwupd which require the
+> > > > ESRT to run under Xen, and so makes fwupd support in Qubes OS possi=
+ble.
+> > > >
+> > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > >
+> > > Why do we need this patch? I'd expect esrt_table_exists() to return
+> > > false when patch 1/2 is applied.
+> >
+> > efi_enabled(EFI_MEMMAP) is false under Xen, so there needs to be an
+> > alternative way to get the end of the memory region containing the ESRT.
+> > That is what this patch provides.
+>=20
+> OK. I don't think we need that to be honest. When running under Xen,
+> we should be able to assume that the ESRT does not span multiple
+> memory regions arbitrarily, so we can just omit this check if
+> !efi_enabled(EFI_MEMMAP)
+>=20
+> IIRC (and Peter would know), we are trying to filter out descriptors
+> that are completely bogus here: zero lenght, zero address, etc etc. I
+> don't think we need that for Xen.
 
-OK. I don't think we need that to be honest. When running under Xen,
-we should be able to assume that the ESRT does not span multiple
-memory regions arbitrarily, so we can just omit this check if
-!efi_enabled(EFI_MEMMAP)
+Xen doesn=E2=80=99t uninstall bogus ESRTs, so there is no less reason to wo=
+rry
+under Xen than on bare hardware.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-IIRC (and Peter would know), we are trying to filter out descriptors
-that are completely bogus here: zero lenght, zero address, etc etc. I
-don't think we need that for Xen.
+--yKB7OHjMbPEa6C9c
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM3T78ACgkQsoi1X/+c
+IsFx7g/7BRp/7YBEuzU1LNbSnhRm6J9VM6ymA3kACNbZTwvhMoFDGftYiS8N//Bf
+275dq6kanlCN68p69Eksa6ze+GdEmgfdRzY0vbGdFSZXACLSySlIPBr7jRr/yXzp
+5Ys2MZgfps8wwXCzpjIXq/lobVHPS+C9m5Rlf3rsrEaR2RMV+eaEZLtTSfCyOwGT
+hKfkmte/pFShv0Z/TdSq9IT1l4CvyhFXJKMH2vyiQ8dF9Cfdw5heW2CLaD/WI1DA
+0ddE23IMlLd9tGaxlL1Hce6wVMCWsu9KCghOQXDX6J9swv9jynPvx+fo3CzyC4Ng
+98xq9LdZRs8dWiUTpaxtkFaqvkPbBO4l5SQx79NwEzI9sH/R8PN5a8qtWmzCXv3h
+rjt7E1qYRYoi86in1ealzvb2jm09hMavAiXxHU/TpnT8kDpid2X4ztCWD2haYQm5
+zBWFpAz4iNtDw2MkaoaIUnTmi9mAI2UxEZnIxF0EdIBis9eSn2yBrWFJGADFdCPU
+pbNkJ6KVp02kwj8+Vmju56905z5Ny99wASK+DJlZl7TybUdXG3O4b+hPwhg4WjyQ
+VFjY4rOoceNvnPI7BnuuGB6B0HJA8z8+ZgucaTPavbXmA1rjNy7LYKGbI3hIDWag
+E4I/IB/8LT4lQdcckCtDln+0VSSMAWUBYoEuuBZihH85c4JwoGM=
+=IY+Q
+-----END PGP SIGNATURE-----
+
+--yKB7OHjMbPEa6C9c--
 
