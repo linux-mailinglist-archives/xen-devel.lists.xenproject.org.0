@@ -2,35 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA2695F0596
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 09:17:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414028.658081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8676F5F059A
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Sep 2022 09:20:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414035.658093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oeAFj-0003eU-Pi; Fri, 30 Sep 2022 07:16:07 +0000
+	id 1oeAJe-00052p-Af; Fri, 30 Sep 2022 07:20:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414028.658081; Fri, 30 Sep 2022 07:16:07 +0000
+Received: by outflank-mailman (output) from mailman id 414035.658093; Fri, 30 Sep 2022 07:20:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oeAFj-0003bd-N1; Fri, 30 Sep 2022 07:16:07 +0000
-Received: by outflank-mailman (input) for mailman id 414028;
- Fri, 30 Sep 2022 07:16:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oeAFh-0003bT-SQ; Fri, 30 Sep 2022 07:16:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oeAFh-0002dj-P2; Fri, 30 Sep 2022 07:16:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oeAFh-00041O-Bb; Fri, 30 Sep 2022 07:16:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oeAFh-0000Le-B8; Fri, 30 Sep 2022 07:16:05 +0000
+	id 1oeAJe-00050z-7l; Fri, 30 Sep 2022 07:20:10 +0000
+Received: by outflank-mailman (input) for mailman id 414035;
+ Fri, 30 Sep 2022 07:20:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7Lug=2B=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1oeAJc-0004wP-LP
+ for xen-devel@lists.xenproject.org; Fri, 30 Sep 2022 07:20:08 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4e19f65d-4090-11ed-9374-c1cf23e5d27e;
+ Fri, 30 Sep 2022 09:20:05 +0200 (CEST)
+Received: from MW4PR03CA0240.namprd03.prod.outlook.com (2603:10b6:303:b9::35)
+ by PH0PR12MB5679.namprd12.prod.outlook.com (2603:10b6:510:14f::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.17; Fri, 30 Sep
+ 2022 07:20:02 +0000
+Received: from CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b9:cafe::b1) by MW4PR03CA0240.outlook.office365.com
+ (2603:10b6:303:b9::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.20 via Frontend
+ Transport; Fri, 30 Sep 2022 07:20:02 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT054.mail.protection.outlook.com (10.13.174.70) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5676.17 via Frontend Transport; Fri, 30 Sep 2022 07:20:01 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 30 Sep
+ 2022 02:20:00 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Fri, 30 Sep
+ 2022 00:20:00 -0700
+Received: from [10.71.192.107] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
+ Transport; Fri, 30 Sep 2022 02:19:59 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,272 +62,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=b5JUTz9dQDYYitHA00fNq8nmyrgrbZlMc/tD1dxx/wo=; b=dfP3KGIBCCL3GsmMsImqNGKWj7
-	0XxNO60Y1MqcLuEeU3KFZW2qxxSnM1XePRig2aPmqxFOeNXLdpQpDHalJaN9MT9Dvn4m3mPbjfBm+
-	0fp9mUkyOHFe+YVjmGxDi9TMF06IA2coVud9pYAu3ofBGNEFZZOdXSHevJICPtZBSsg4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173382-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4e19f65d-4090-11ed-9374-c1cf23e5d27e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EbtHyPFLanhy7yFZ9pa/F/s+AbhrA+Tvo3ooOBwM1npS6VGLDW6HGi7XCjE30dAmbEV3QlGBTDzy2TG/SgLkQhrtQ0ERCSYST+tMriGU5+n+8phCH4LMBVV0AYeIW9fn85nUzU4n+M3jJ9ajPZuSXIiAB6Aufr/S7UuDEbEkECJsYMD5VqOtLKe6o5noxskRTOsRhxijCMEKrARpX1jlamcRmllR9UJEHD+4ktfd266kY2AjBiqoqDlczLiYDHogiDUfujyIp2Z26vE8ZJgVaPNV61O5LgG1KLVFrUl/UuThsOw4vZibDe2uTZwwkJ2++5cSQuq1iBbXg0FeaVRXsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pZwBUYhZNRcuDMqjCLwSliugum2OGY17CECp89P5Xcg=;
+ b=NnCuZlewd7Efp9M99inR/AaU3HOC92YG+i/9l8GD45iS4KRohe4zYNppYr52X3hwL+ESD5Eo2pLf2wlzmOo4/LGwH0jsF77UqfOe/dloxeM6HDJSHGssVVKI0pQTmkIPRMFclAuKTfn56RSZRbDtSYFltLl9ixT+MmFZa/F6pmt2yIHPu70AKyr57p0ezx7O+DaVn0ifuyO/Gyi4746IzvCSHozb/IzW5lbwXtDuyzPCrrOtd+ORLt6hV81Kas4teyYJd46b8ezfKmESKAli7M/Ebi0xOV6NwTjp/sw93GGQneLcvmsI7/Yg/KFjEAvqxtc2Khfxyt923FzDKDiNrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pZwBUYhZNRcuDMqjCLwSliugum2OGY17CECp89P5Xcg=;
+ b=srEBfyfEEzCPGb/U/PGfzrtAOHXl+YstrK5QWOCFm2V2oUjPQHknuRWaBg4tf/m2CzS9TBgR8oyEHhOY7GP+G5523zsjYda3+gBDdDa2f6/nm19k5MRJ0PQWHSVpjPKTxPMcdeHTKo3KY015Ko0KY5WcY/nvZMd02pW99Ru+Y18=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <4603ca0c-55a9-489f-1f21-79bcc741fcd4@amd.com>
+Date: Fri, 30 Sep 2022 09:19:58 +0200
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 173382: regressions - trouble: blocked/broken/fail/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:<job status>:broken:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-armhf:host-build-prep:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=fb7485788fd7db3b95f4e7fc9bfdfe9ef38e383f
-X-Osstest-Versions-That:
-    xen=211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 30 Sep 2022 07:16:05 +0000
-
-flight 173382 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173382/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-arm64-xsm               6 xen-build                fail REGR. vs. 173347
- build-armhf                   5 host-build-prep          fail REGR. vs. 173347
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
-
-version targeted for testing:
- xen                  fb7485788fd7db3b95f4e7fc9bfdfe9ef38e383f
-baseline version:
- xen                  211d8419ef8d8a237ff914fd8304b8fefc3ff2cc
-
-Last test of basis   173347  2022-09-28 05:07:54 Z    2 days
-Failing since        173362  2022-09-29 13:03:03 Z    0 days    6 attempts
-Testing same since   173367  2022-09-29 17:01:55 Z    0 days    5 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Dmytro Semenets <dmytro_semenets@epam.com>
-  Jan Beulich <jbeulich@suse.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Nathan Studer <nathan.studer@dornerworks.com>
-  Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  pass    
- build-armhf                                                  broken  
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH] Arm/vGIC: adjust gicv3_its_deny_access() to fit other
+ gic*_iomem_deny_access(
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>
+References: <d255a6e6-01c6-c1b3-eecb-71898b3a5554@suse.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <d255a6e6-01c6-c1b3-eecb-71898b3a5554@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT054:EE_|PH0PR12MB5679:EE_
+X-MS-Office365-Filtering-Correlation-Id: e16adde8-8128-4960-77a8-08daa2b430a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	qiXkGGAd7FTWKD7bCJYOchhWaeN/JuVbK+1IgovZPjmrdOASU7DDhtnwHu7dbGH/JK85uPhvAC8Aw7OzGzGORvkV/NCi1lTD8xGVEBqu1nWmbs86WXjupR4+XQYkOxrLc6YHXc17sVZrpfYazpFN/gAEeUWao0vlTWmkw6urZ56Ti4iJbII5Xfnp166C4aTNA8D+ZN1vlc4ER5h7dqZhqk+zrH3012JEas1LC0de6oWYdh/VdvdrnB+h9VA7L7wgkg5YW31dJ9WG0OkfLtm4SqUXU0N9bBgd7Eq7xGtSad/0W0KPCiQ7QXYsYvU0tj6X7A/fcaLZrDC69oFjIxaELVH6LryfwCP/LeXkzKi7KMUNIxTyHoEgcJu0yrH9/53bnfAlVGe2xFpDMIy33kwZnIC3/3DQ7Ia4rSo1gtsNUEHbKRB598gSlBXejydamkh8sycki6UbIdbtOlAvK8cxt6vgPVlCLspjhxDoUOy8emWK/UX4QyI8VxcATYUkagP0+5yHRShriMr2SB6xI5942O2ZikxHA2dn2N19Lvb+7VjpukqzJJGodtHjbogc4kQPbaSblCZagYkGeS/ziBukRf/F1xO0kydmnLNd9oqpH+Pr/NTXs5s/SkuxXpRRpk2D077kxxNeLkzBq0mgKKDZfWJV3OqGioprSUsVnObfjdXaLSBNRpGk+ws1SPebVEj7LfeqSqzj3QMBrRDki9RO/aQo0S6lWaVRum3TEoiQoIQsCAPuHgNvHHKFUwO9+epWPJaWLoV7Y2Pfd/F8grjfGAI9qglB5ycnK9uSA4s/PxhB+DQR/pLrxv+/RbnWtkdQl3GsjGmTtrvS/xgVOiAJaQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199015)(40470700004)(36840700001)(46966006)(478600001)(316002)(5660300002)(83380400001)(36756003)(16576012)(41300700001)(54906003)(2906002)(40460700003)(53546011)(70206006)(8936002)(186003)(4326008)(40480700001)(70586007)(4744005)(26005)(336012)(86362001)(44832011)(47076005)(356005)(8676002)(2616005)(426003)(31696002)(82310400005)(81166007)(31686004)(82740400003)(36860700001)(110136005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2022 07:20:01.8697
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e16adde8-8128-4960-77a8-08daa2b430a9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT054.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5679
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 30/09/2022 08:27, Jan Beulich wrote:
+> 
+> 
+> While an oversight in 9982fe275ba4 ("arm/vgic: drop const attribute
+> from gic_iomem_deny_access()"), the issue really became apparent only
+> when iomem_deny_access() was switched to have a non-const first
+> parameter.
+> 
+> Fixes: c4e5cc2ccc5b ("x86/ept: limit calls to memory_type_changed()")
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+and
+Tested-by: Michal Orzel <michal.orzel@amd.com>
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-armhf broken
-
-Not pushing.
-
-------------------------------------------------------------
-commit fb7485788fd7db3b95f4e7fc9bfdfe9ef38e383f
-Author: Anthony PERARD <anthony.perard@citrix.com>
-Date:   Thu Sep 29 10:51:31 2022 +0100
-
-    automation: Information about running containers for a different arch
-    
-    Adding pointer to 'qemu-user-static'.
-    
-    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
-
-commit a210e94af38a957fcc99db01d2cfcc3039859445
-Author: Michal Orzel <michal.orzel@amd.com>
-Date:   Mon Sep 19 20:37:37 2022 +0200
-
-    xen/arm: domain_build: Always print the static shared memory region
-    
-    At the moment, the information about allocating static shared memory
-    region is only printed during the debug build. This information can also
-    be helpful for the end user (which may not be the same as the person
-    building the package), so switch to printk(). Also drop XENLOG_INFO to be
-    consistent with other printk() used to print the domain information.
-    
-    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
-
-commit b726541d94bd0a80b5864d17a2cd2e6d73a3fe0a
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Thu Sep 29 14:47:45 2022 +0200
-
-    x86: wire up VCPUOP_register_vcpu_time_memory_area for 32-bit guests
-    
-    Forever sinced its introduction VCPUOP_register_vcpu_time_memory_area
-    was available only to native domains. Linux, for example, would attempt
-    to use it irrespective of guest bitness (including in its so called
-    PVHVM mode) as long as it finds XEN_PVCLOCK_TSC_STABLE_BIT set (which we
-    set only for clocksource=tsc, which in turn needs engaging via command
-    line option).
-    
-    Fixes: a5d39947cb89 ("Allow guests to register secondary vcpu_time_info")
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
-
-commit 9214da34a3cb017ff0417900250bd6d18ca89e15
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Thu Sep 29 14:46:50 2022 +0200
-
-    x86: re-connect VCPUOP_send_nmi for 32-bit guests
-    
-    With the "inversion" of VCPUOP handling, processing arch-specific ones
-    first, the forwarding of this sub-op from the (common) compat handler to
-    (common) non-compat one did no longer have the intended effect. It now
-    needs forwarding between the arch-specific handlers.
-    
-    Fixes: 8a96c0ea7999 ("xen: move do_vcpu_op() to arch specific code")
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    Release-acked-by: Henry Wang <Henry.Wang@arm.com>
-
-commit c4e5cc2ccc5b8274d02f7855c4769839989bb349
-Author: Roger Pau Monné <roger.pau@citrix.com>
-Date:   Thu Sep 29 14:44:10 2022 +0200
-
-    x86/ept: limit calls to memory_type_changed()
-    
-    memory_type_changed() is currently only implemented for Intel EPT, and
-    results in the invalidation of EMT attributes on all the entries in
-    the EPT page tables.  Such invalidation causes EPT_MISCONFIG vmexits
-    when the guest tries to access any gfns for the first time, which
-    results in the recalculation of the EMT for the accessed page.  The
-    vmexit and the recalculations are expensive, and as such should be
-    avoided when possible.
-    
-    Remove the call to memory_type_changed() from
-    XEN_DOMCTL_memory_mapping: there are no modifications of the
-    iomem_caps ranges anymore that could alter the return of
-    cache_flush_permitted() from that domctl.
-    
-    Encapsulate calls to memory_type_changed() resulting from changes to
-    the domain iomem_caps or ioport_caps ranges in the helpers themselves
-    (io{ports,mem}_{permit,deny}_access()), and add a note in
-    epte_get_entry_emt() to remind that changes to the logic there likely
-    need to be propagaed to the IO capabilities helpers.
-    
-    Note changes to the IO ports or memory ranges are not very common
-    during guest runtime, but Citrix Hypervisor has an use case for them
-    related to device passthrough.
-    
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 9982fe275ba4ee1a749b6dde5602a5a79e42b543
-Author: Roger Pau Monné <roger.pau@citrix.com>
-Date:   Thu Sep 29 14:41:13 2022 +0200
-
-    arm/vgic: drop const attribute from gic_iomem_deny_access()
-    
-    While correct from a code point of view, the usage of the const
-    attribute for the domain parameter of gic_iomem_deny_access() is at
-    least partially bogus.  Contents of the domain structure (the iomem
-    rangeset) is modified by the function.  Such modifications succeed
-    because right now the iomem rangeset is allocated separately from
-    struct domain, and hence is not subject to the constness of struct
-    domain.
-    
-    Amend this by dropping the const attribute from the function
-    parameter.
-    
-    This is required by further changes that will convert
-    iomem_{permit,deny}_access into a function.
-    
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-commit 0db195c1a9947240b354abbefd2afac6c73ad6a8
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Thu Sep 29 14:39:52 2022 +0200
-
-    x86/NUMA: correct memnode_shift calculation for single node system
-    
-    SRAT may describe even a single node system (including such with
-    multiple nodes, but only one having any memory) using multiple ranges.
-    Hence simply counting the number of ranges (note that function
-    parameters are mis-named) is not an indication of the number of nodes in
-    use. Since we only care about knowing whether we're on a single node
-    system, accounting for this is easy: Increment the local variable only
-    when adjacent ranges are for different nodes. That way the count may
-    still end up larger than the number of nodes in use, but it won't be
-    larger than 1 when only a single node has any memory.
-    
-    To compensate populate_memnodemap() now needs to be prepared to find
-    the correct node ID already in place for a range. (This could of course
-    also happen when there's more than one node with memory, while at least
-    one node has multiple adjacent ranges, provided extract_lsb_from_nodes()
-    would also know to recognize this case.)
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit e1de23b7c1bfa02447a79733e64184b3635e0587
-Author: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
-Date:   Thu Sep 29 14:38:22 2022 +0200
-
-    MAINTAINERS: ARINC 653 scheduler maintainer updates
-    
-    Add Nathan Studer as co-maintainer.
-    
-    I am departing DornerWorks. I will still be working with Xen in my next
-    role, and I still have an interest in co-maintaining the ARINC 653
-    scheduler, so change to my personal email address.
-    
-    Signed-off-by: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
-    Acked-by: Nathan Studer <nathan.studer@dornerworks.com>
-
-commit 3ab6ea992b0e5e1a332bdbc8ae56d72f1b66fcbd
-Author: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Date:   Thu Sep 29 14:38:02 2022 +0200
-
-    tools: remove xenstore entries on vchan server closure
-    
-    vchan server creates XenStore entries to advertise its event channel and
-    ring, but those are not removed after the server quits.
-    Add additional cleanup step, so those are removed, so clients do not try
-    to connect to a non-existing server.
-    
-    Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-    Signed-off-by: Dmytro Semenets <dmytro_semenets@epam.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-(qemu changes not included)
+~Michal
 
