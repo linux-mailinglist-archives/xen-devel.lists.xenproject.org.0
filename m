@@ -2,39 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 111715F2583
-	for <lists+xen-devel@lfdr.de>; Sun,  2 Oct 2022 23:44:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414705.659062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 310695F25EC
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 00:21:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414714.659084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1of6kN-0001aF-R4; Sun, 02 Oct 2022 21:43:39 +0000
+	id 1of7KG-00063J-2u; Sun, 02 Oct 2022 22:20:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414705.659062; Sun, 02 Oct 2022 21:43:39 +0000
+Received: by outflank-mailman (output) from mailman id 414714.659084; Sun, 02 Oct 2022 22:20:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1of6kN-0001X7-O6; Sun, 02 Oct 2022 21:43:39 +0000
-Received: by outflank-mailman (input) for mailman id 414705;
- Sun, 02 Oct 2022 21:43:38 +0000
+	id 1of7KG-0005zv-09; Sun, 02 Oct 2022 22:20:44 +0000
+Received: by outflank-mailman (input) for mailman id 414714;
+ Sun, 02 Oct 2022 22:20:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1gGO=2D=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1of6kM-0001X1-Qc
- for xen-devel@lists.xenproject.org; Sun, 02 Oct 2022 21:43:38 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43e77172-429b-11ed-964a-05401a9f4f97;
- Sun, 02 Oct 2022 23:43:36 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 1B221CE0ABB
- for <xen-devel@lists.xenproject.org>; Sun,  2 Oct 2022 21:43:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD0EC4347C
- for <xen-devel@lists.xenproject.org>; Sun,  2 Oct 2022 21:43:31 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id d6so20171lfs.10
- for <xen-devel@lists.xenproject.org>; Sun, 02 Oct 2022 14:43:31 -0700 (PDT)
+ (envelope-from <SRS0=STlk=2D=runbox.com=m.v.b@srs-se1.protection.inumbo.net>)
+ id 1of7KE-0005kR-2x
+ for xen-devel@lists.xenproject.org; Sun, 02 Oct 2022 22:20:42 +0000
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com
+ [2a0c:5a00:149::25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 71b0edbf-42a0-11ed-964a-05401a9f4f97;
+ Mon, 03 Oct 2022 00:20:39 +0200 (CEST)
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+ by mailtransmit04.runbox.com with esmtps (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
+ (envelope-from <m.v.b@runbox.com>)
+ id 1of7KA-009okT-24; Mon, 03 Oct 2022 00:20:38 +0200
+Received: from [10.9.9.74] (helo=submission03.runbox)
+ by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+ (envelope-from <m.v.b@runbox.com>)
+ id 1of7K9-0005p1-PJ; Mon, 03 Oct 2022 00:20:37 +0200
+Received: by submission03.runbox with esmtpsa [Authenticated ID (536975)]
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
+ id 1of7Jw-00061b-Fs; Mon, 03 Oct 2022 00:20:24 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,142 +48,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43e77172-429b-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1664747011;
-	bh=IAPSgTIJ2zWHmsG/r3356fUhr6dadqjrzGJLMrSOPZw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=Z3PVkcW1VFO5tHecQ62YmtGJqa/Trl+xbSnKgdsr9BeaI3b1FRi3piTdyidsrbemE
-	 7JVAEt2WCtsGYZeGhQivdX0sY8pz2/7F6A95sTpUAiR99th5Q2TFtdO2X8kBVSMtFb
-	 H/NBbWLQf4Bq0pu1E+nA1WOkWjWvafgbpo/vh+Dch9jz3KhH7Ouqxyh3bpb0Ifp2u4
-	 BV5LQzrYohl/NMmrOhbRsoOj8agJmKzK4QE2EeALzgqFgW2Wwzc/Pupem0XUUZ9eUd
-	 yoY6hyv2OKCfIiVoaekI7Rjrf5fJ8zszXqj4vSgpIiH8i1lBWdmg703WrjDpuQjCdG
-	 osqwUex8gaPOQ==
-X-Gm-Message-State: ACrzQf16JWVzXJrQLq1NaeTyncIRqdb+jVKELrWD+sqrd3ax0uPHHZnw
-	xx1i4cYEFaNPoCd4WHW2oCMBocky/AnIXABgsaM=
-X-Google-Smtp-Source: AMsMyM585Xujcy26w6Ya5o+jV4sDOXs2w1GklBdKzIVYftuz6Q4NJYiDHea6a2mBWjS3AxbZTV8fZ2FoQ/xS1ntA6VE=
-X-Received: by 2002:a19:c20b:0:b0:4a2:40e5:78b1 with SMTP id
- l11-20020a19c20b000000b004a240e578b1mr393347lfc.228.1664747009153; Sun, 02
- Oct 2022 14:43:29 -0700 (PDT)
+X-Inumbo-ID: 71b0edbf-42a0-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
+	 s=selector2; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=wdiqOw82kPT1f9ktexLlKmUwEG+CKPWabDmPDS+O5k4=; b=wYPGzt
+	cVD85qsBwNR5V3UzKo6NABK2mV5YimckAEe1rJn6C58rw3Um+9f1iSq6b14BgGk32a7OnRA4oommC
+	tH29aMsQOWFTsWz+OI+QT7zDoc0hEYBI3krmBwjwvEJbJOP3JncutshClTuhBC+npxsobKszlFrkE
+	x6CwGXPkumXI3ZtLiRa56HwnEBRRlI1+Dw26cXCtY6UHng4dhi9l0XNKRMbpicpJW7Utc4wJa9E2w
+	UiUjTsM2sAGAfP9oVbunQrsrDDh0I1w92ZjKrffOLhyGVyVasenvTwHGGvbrXgGA+46aWj/YMNGoB
+	1HriGkKs66eEe6hIEHAPMqlh+X4A==;
+From: "M. Vefa Bicakci" <m.v.b@runbox.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: m.v.b@runbox.com,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Demi Marie Obenour <demi@invisiblethingslab.com>,
+	Gerd Hoffmann <kraxel@redhat.com>
+Subject: [PATCH v2 0/2] xen/gntdev: Fixes for leaks and VMA splitting
+Date: Sun,  2 Oct 2022 18:20:04 -0400
+Message-Id: <20221002222006.2077-1-m.v.b@runbox.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-References: <20221002095626.484279-1-ardb@kernel.org> <20221002095626.484279-6-ardb@kernel.org>
- <Yzm8HIccvuxyicYx@itl-email>
-In-Reply-To: <Yzm8HIccvuxyicYx@itl-email>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Sun, 2 Oct 2022 23:43:17 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXG-0Bpc5B08EAJTGsNKan4S4628Wwz7wPh-EAY9p4zg1Q@mail.gmail.com>
-Message-ID: <CAMj1kXG-0Bpc5B08EAJTGsNKan4S4628Wwz7wPh-EAY9p4zg1Q@mail.gmail.com>
-Subject: Re: [RFC PATCH 5/5] efi: esrt: Omit region sanity check when no
- memory map is available
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Kees Cook <keescook@chromium.org>, 
-	Anton Vorontsov <anton@enomsg.org>, Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2 Oct 2022 at 18:28, Demi Marie Obenour
-<demi@invisiblethingslab.com> wrote:
->
-> On Sun, Oct 02, 2022 at 11:56:26AM +0200, Ard Biesheuvel wrote:
-> > In order to permit the ESRT to be used when doing pseudo-EFI boot
-> > without a EFI memory map, e.g., when booting inside a Xen dom0 on x86,
-> > make the sanity checks optional based on whether the memory map is
-> > available.
-> >
-> > If additional validation is needed, it is up to the Xen EFI glue code t=
-o
-> > implement this in its xen_efi_config_table_is_valid() helper, or provid=
-e
-> > a EFI memory map like it does on other architectures.
->
-> I don=E2=80=99t like this.  It is easy to use a hypercall to get the end =
-of the
-> memory region containing the config table, which is what my one of my
-> previous patches actually does.  Skipping all of the validation could
-> easily lead to a regression.
+Hi all,
 
-I don't like putting Xen specific hacks left and right because Xen on
-x86 cannot be bothered to provide an EFI memory map. And as for
-regressions, ESRT does not work at all under Xen (given the lack of a
-memory map) and so I fail to see how this could break a currently
-working case.
+First of all, sorry for the delay!
 
->  I understand wanting to get Xen-specific
-> code out of esrt.c, but this isn=E2=80=99t the answer.  Some sort of abst=
-raction
-> over both cases would be a much better solution.
->
+These patches continue the code review for the following patches:
+  https://lore.kernel.org/xen-devel/20220912040002.198191-1-m.v.b@runbox.com/t/#u
 
-We have such an abstraction already, it is called the EFI memory map.
+The original description of the patch set is as follows:
 
-So there are two options here:
-- expose a EFI memory map
-- add a ESRT specific check to xen_efi_config_table_is_valid() so that
-the ESRT is withheld from dom0 if there is something wrong with it.
+  "The changes in this patch series intend to fix the Xen grant device
+  driver, so that grant mapping leaks caused by partially failed grant
+  mapping operations are avoided with the first patch, and so that the
+  splitting of VMAs does not result in incorrectly unmapped grant pages
+  with the second patch. The second patch also prevents a similar issue
+  in a double-mapping scenario, where mmap() is used with MAP_FIXED to
+  map grants over an existing mapping created with the same grants, and
+  where grant pages are unmapped incorrectly as well."
 
-And frankly, the validation itself could use some attention as well:
+A summary of the changes from v1 is as follows:
+- Addressed Juergen's code review comment regarding the first patch.
+- Amended the description of the second patch to note that the described
+  issues are encountered with PV domains.
 
-"""
-rc =3D efi_mem_desc_lookup(efi.esrt, &md);
-...
-max =3D efi_mem_desc_end(&md);
-if (max < efi.esrt) {
-"""
+Verification notes:
 
-Unless I am missing something, this can never occur so the check is
-pointless and the pr_err() that follows is unreachable.
+- I have tested these commits on top of Linux v5.15.70 and v5.15.71, and
+  I verified that they compile successfully on top of the tag
+  "next-20220930", which corresponds to the base commit ID included at
+  the bottom of this e-mail.
 
-Then we have
+- My tests consist of using a kernel with Qubes OS v4.1's patches and
+  these patches on my main computer for day-to-day tasks, in conjunction
+  with Qubes OS's version of the Xen hypervisor v4.14.5, with the latter
+  custom-compiled with CONFIG_DEBUG.
 
-"""
-size =3D sizeof(*esrt);
-max -=3D efi.esrt;
+- I used a test program that verifies the following scenarios with an
+  unprivileged paravirtualized (PV) Xen domain:
 
-if (max < size) {
-"""
+  - A program mmap()s two pages from another Xen domain and munmap()s
+    the pages one by one. This used to result in implicit unmap errors
+    to be reported by Xen and a general protection fault to be triggered
+    by Xen in the affected domain, but now works as expected.
+  - A program mmap()s two pages from another Xen domain and then
+    attempts to remap (via MAP_FIXED) the same mapping again over the
+    same virtual address. This used to result in similar issues
+    (implicit unmap errors and general protection fault), but now is
+    rejected by the kernel.
+  - A program mmap()s two pages from another Xen domain and then
+    attempts to mmap() the same mapping again to a different virtual
+    address, by passing NULL as mmap()'s first argument. This used to be
+    rejected by the kernel, and it continues to be rejected by the
+    kernel.
 
-'size' is 16 bytes here, so the only way this can become true is if
-the memory descriptor describes a region of 0 pages in length, which
-is explicitly forbidden by the EFI spec. If such a descriptor exists
-in spite of that, this is a memory map problem not a ESRT problem.
+- Unprivileged PVH Xen domains were also sanity tested with the same
+  test program. I should note that PVH domains worked as expected
+  without these patches too.
 
-So actually, instead of making these checks conditional on EFI_MEMMAP
-being set, I might just rip them out entirely and be done with it.
+- Finally, I have verified that the original "g.e. 0x1234 still pending"
+  issue does not appear after rapidly resizing GUI windows in Qubes OS
+  v4.1.
+
+Thank you,
+
+Vefa
+
+M. Vefa Bicakci (2):
+  xen/gntdev: Prevent leaking grants
+  xen/gntdev: Accommodate VMA splitting
+
+ drivers/xen/gntdev-common.h |  3 +-
+ drivers/xen/gntdev.c        | 80 +++++++++++++++++++------------------
+ 2 files changed, 44 insertions(+), 39 deletions(-)
 
 
+base-commit: 274d7803837da78dfc911bcda0d593412676fc20
+-- 
+2.37.3
 
-> > Co-developed-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> > ---
-> >  arch/x86/platform/efi/quirks.c |  3 +
-> >  drivers/firmware/efi/esrt.c    | 61 +++++++++++---------
-> >  2 files changed, 37 insertions(+), 27 deletions(-)
-> >
-> > diff --git a/arch/x86/platform/efi/quirks.c b/arch/x86/platform/efi/qui=
-rks.c
-> > index b0b848d6933a..9307be2f4afa 100644
-> > --- a/arch/x86/platform/efi/quirks.c
-> > +++ b/arch/x86/platform/efi/quirks.c
-> > @@ -250,6 +250,9 @@ void __init efi_arch_mem_reserve(phys_addr_t addr, =
-u64 size)
-> >       int num_entries;
-> >       void *new;
-> >
-> > +     if (!efi_enabled(EFI_MEMMAP))
-> > +             return;
-> > +
->
-> This function does not actually work under Xen, even if EFI_MEMMAP is
-> set.  When running under Xen, either this function must never be
-> called (in which case there should be at least a WARN()), or it should
-> return an error that callers must check for.
-> --
-> Sincerely,
-> Demi Marie Obenour (she/her/hers)
-> Invisible Things Lab
 
