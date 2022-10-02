@@ -2,41 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1658F5F25EB
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 00:21:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414713.659074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E4F05F26DC
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 01:01:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414729.659107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1of7KE-0005nu-RD; Sun, 02 Oct 2022 22:20:42 +0000
+	id 1of7wx-0002g8-Cl; Sun, 02 Oct 2022 23:00:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414713.659074; Sun, 02 Oct 2022 22:20:42 +0000
+Received: by outflank-mailman (output) from mailman id 414729.659107; Sun, 02 Oct 2022 23:00:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1of7KE-0005kc-O9; Sun, 02 Oct 2022 22:20:42 +0000
-Received: by outflank-mailman (input) for mailman id 414713;
- Sun, 02 Oct 2022 22:20:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=STlk=2D=runbox.com=m.v.b@srs-se1.protection.inumbo.net>)
- id 1of7KD-0005kR-0n
- for xen-devel@lists.xenproject.org; Sun, 02 Oct 2022 22:20:41 +0000
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com
- [2a0c:5a00:149::26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71af7d7a-42a0-11ed-964a-05401a9f4f97;
- Mon, 03 Oct 2022 00:20:39 +0200 (CEST)
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
- by mailtransmit05.runbox.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <m.v.b@runbox.com>)
- id 1of7K9-009uTo-Fw; Mon, 03 Oct 2022 00:20:37 +0200
-Received: from [10.9.9.74] (helo=submission03.runbox)
- by mailtransmit02.runbox with esmtp (Exim 4.86_2)
- (envelope-from <m.v.b@runbox.com>)
- id 1of7K8-0006iO-SE; Mon, 03 Oct 2022 00:20:37 +0200
-Received: by submission03.runbox with esmtpsa [Authenticated ID (536975)]
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
- id 1of7Jz-00061b-RQ; Mon, 03 Oct 2022 00:20:28 +0200
+	id 1of7wx-0002e1-9h; Sun, 02 Oct 2022 23:00:43 +0000
+Received: by outflank-mailman (input) for mailman id 414729;
+ Sun, 02 Oct 2022 23:00:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9ZZD=2D=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1of7wv-0002dv-KV
+ for xen-devel@lists.xenproject.org; Sun, 02 Oct 2022 23:00:42 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 06c8d52d-42a6-11ed-9375-c1cf23e5d27e;
+ Mon, 03 Oct 2022 01:00:38 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 21E2F5C00C0;
+ Sun,  2 Oct 2022 19:00:36 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Sun, 02 Oct 2022 19:00:36 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 2 Oct 2022 19:00:34 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,313 +43,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71af7d7a-42a0-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector2; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To
-	:Message-Id:Date:Subject:Cc:To:From;
-	bh=IbJuVdq/QrQKAp9cm0ptCR4E1O6oLQr+Cte2Q8caJXI=; b=gZDesZiFM3cDQyvzP/+EZKGsLv
-	VX3w8pGR4ncemINA23fRwh3L1UHLJqYcR+r/6gOT87AeeRBjL3ntG5JYS1YHObVtFYSJ63kBlecsL
-	A9qJMgNRIIXClOqv8xTX03vROUmwQtk6nZI83NkpiMyGkQ+TvmbUCxrB8rwW2wJlxGLHHm9Z9CUPg
-	8diqLHynunkM48gcmDXSRbInkXZZbnv5/jCrTHel5eVwi6p30URPPkU/G0ywkXSGRNvy3xHX1670a
-	cWP1ABHyJ+SD/39QDsD3MuTo7UBdLy4TkqdOUmBlAG6q7DH5wLE7yk8MzIv62/REqrEV+x7CTbZBh
-	UqzrzK9g==;
-From: "M. Vefa Bicakci" <m.v.b@runbox.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: m.v.b@runbox.com,
-	Juergen Gross <jgross@suse.com>,
+X-Inumbo-ID: 06c8d52d-42a6-11ed-9375-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664751636; x=
+	1664838036; bh=cNciw2J5Orp3JpPbWkHqpqGm5hUpKrl4SmiJ2KcbhH8=; b=S
+	tzowsnM8VUFP9jNA1d27nHp5QlrEviDhtKSxdP/MY6TEgnK0eo1T3cRCa3uUbiAp
+	LZ1O6BUmN6C4ekbVXueBFi6AjnkRFhPvxXrdAB9XaW2Y5sCtlvebHdGNns4UaR87
+	98i/+z6WvyBzUwjWQ8cil7CiyKb9ABrWpndfHtk6gFmyXjImddoCbmQluTyubJtX
+	5lZfLA+UApxRN8NOH/cm/exfR8iZXVCoaqXRqFpY8Ekc+VHymtgrMUeXUEVjMTrJ
+	fmae98hbjLeiiKG+5gHMs2zyrOPnyKSbHI3qLiaYubRW/XP9V89QkOeQ+GcMndnA
+	8I7SUTC4bB3I1Npn0SqKw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1664751636; x=1664838036; bh=cNciw2J5Orp3JpPbWkHqpqGm5hUp
+	Krl4SmiJ2KcbhH8=; b=JdGnrZ+iLYBG6LzPmDP3jOJv64VEFip/hOipznNdeiUc
+	o1Jr+pN3OQR4ysJrt2y98O1kCDwbH7NCH+qQId8kJmKy0WUQZzgdPfo+5i7yx3+m
+	kq/eYIepJPiaJQzchG26RMIvQY1WVVi9GESPCCE1DKavHdkQlDR0BTYS86PHCB0C
+	xh+YJkgcnZMojUFJrB1zILldqNaLCXJX3TSrc1teEdcmxScZSYt1LTDUoq5x8VtV
+	4UuifB4kj8CM9fWzuiOuINWARyICq0ohDm24kAvjeUUkkAjBTykAUoWeY/Sj0b4a
+	qU+DfPJYWI8cPljqU3+FJHy5jm5uX9m4heWubMYhmQ==
+X-ME-Sender: <xms:Exg6YyCbz9sByCIIQljqFgkNCPeuxQmDhsaMWa6wGicvjRytAzNjZg>
+    <xme:Exg6Y8joOSZ5zzpJGsrYmbE6OgKkU77YXGXHirguXPjzIU9wxSsmPRMFtyRzZUj1-
+    deQU6-SJF0l2wo>
+X-ME-Received: <xmr:Exg6Y1kljE3_n27GmgMEjkJYhFGOwjkmF3RSb1z7zqcsL3TIETazcUH2zPpV>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehkedgudekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
+    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+    lhgrsgdrtghomh
+X-ME-Proxy: <xmx:Exg6YwxJKc-wmkmNwhLsxE2oIxI-nZaKtEDu19BrP2dB9JI0x_1L0g>
+    <xmx:Exg6Y3SmiEcbMdqzdD3-2SdgO6W8Mq9hrs_m05kn1-FZ1jHUyqJsmw>
+    <xmx:Exg6Y7azkcapAbTvHYgcytdLYYZuTmVS2fr3YExZybs-YQTgV-CF1w>
+    <xmx:FBg6Y8_EkqLgAuteYDAfltj7vRVWKG2Qo7Dcaz-QTb_s47gjjlIv6w>
+Feedback-ID: iac594737:Fastmail
+Date: Sun, 2 Oct 2022 19:00:01 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Demi Marie Obenour <demi@invisiblethingslab.com>,
-	Gerd Hoffmann <kraxel@redhat.com>
-Subject: [PATCH v2 2/2] xen/gntdev: Accommodate VMA splitting
-Date: Sun,  2 Oct 2022 18:20:06 -0400
-Message-Id: <20221002222006.2077-3-m.v.b@runbox.com>
-X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221002222006.2077-1-m.v.b@runbox.com>
-References: <20221002222006.2077-1-m.v.b@runbox.com>
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [RFC PATCH 4/5] efi: Apply allowlist to EFI configuration tables
+ when running under Xen
+Message-ID: <YzoYEewoSoj1a2Ss@itl-email>
+References: <20221002095626.484279-1-ardb@kernel.org>
+ <20221002095626.484279-5-ardb@kernel.org>
+ <Yzm8H3iS7ziWsh7E@itl-email>
+ <CAMj1kXFWS0kXp7f75x=BDYDyTHKNzMCTZ_bXg7v23Aw=pJtSzQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PghubVJsF+8O07oQ"
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXFWS0kXp7f75x=BDYDyTHKNzMCTZ_bXg7v23Aw=pJtSzQ@mail.gmail.com>
 
-Prior to this commit, the gntdev driver code did not handle the
-following scenario correctly with paravirtualized (PV) Xen domains:
 
-* User process sets up a gntdev mapping composed of two grant mappings
-  (i.e., two pages shared by another Xen domain).
-* User process munmap()s one of the pages.
-* User process munmap()s the remaining page.
-* User process exits.
+--PghubVJsF+8O07oQ
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 2 Oct 2022 19:00:01 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [RFC PATCH 4/5] efi: Apply allowlist to EFI configuration tables
+ when running under Xen
 
-In the scenario above, the user process would cause the kernel to log
-the following messages in dmesg for the first munmap(), and the second
-munmap() call would result in similar log messages:
-
-  BUG: Bad page map in process doublemap.test  pte:... pmd:...
-  page:0000000057c97bff refcount:1 mapcount:-1 \
-    mapping:0000000000000000 index:0x0 pfn:...
-  ...
-  page dumped because: bad pte
-  ...
-  file:gntdev fault:0x0 mmap:gntdev_mmap [xen_gntdev] readpage:0x0
-  ...
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x46/0x5e
-   print_bad_pte.cold+0x66/0xb6
-   unmap_page_range+0x7e5/0xdc0
-   unmap_vmas+0x78/0xf0
-   unmap_region+0xa8/0x110
-   __do_munmap+0x1ea/0x4e0
-   __vm_munmap+0x75/0x120
-   __x64_sys_munmap+0x28/0x40
-   do_syscall_64+0x38/0x90
-   entry_SYSCALL_64_after_hwframe+0x61/0xcb
-   ...
-
-For each munmap() call, the Xen hypervisor (if built with CONFIG_DEBUG)
-would print out the following and trigger a general protection fault in
-the affected Xen PV domain:
-
-  (XEN) d0v... Attempt to implicitly unmap d0's grant PTE ...
-  (XEN) d0v... Attempt to implicitly unmap d0's grant PTE ...
-
-As of this writing, gntdev_grant_map structure's vma field (referred to
-as map->vma below) is mainly used for checking the start and end
-addresses of mappings. However, with split VMAs, these may change, and
-there could be more than one VMA associated with a gntdev mapping.
-Hence, remove the use of map->vma and rely on map->pages_vm_start for
-the original start address and on (map->count << PAGE_SHIFT) for the
-original mapping size. Let the invalidate() and find_special_page()
-hooks use these.
-
-Also, given that there can be multiple VMAs associated with a gntdev
-mapping, move the "mmu_interval_notifier_remove(&map->notifier)" call to
-the end of gntdev_put_map, so that the MMU notifier is only removed
-after the closing of the last remaining VMA.
-
-Finally, use an atomic to prevent inadvertent gntdev mapping re-use,
-instead of using the map->live_grants atomic counter and/or the map->vma
-pointer (the latter of which is now removed). This prevents the
-userspace from mmap()'ing (with MAP_FIXED) a gntdev mapping over the
-same address range as a previously set up gntdev mapping. This scenario
-can be summarized with the following call-trace, which was valid prior
-to this commit:
-
-  mmap
-    gntdev_mmap
-  mmap (repeat mmap with MAP_FIXED over the same address range)
-    gntdev_invalidate
-      unmap_grant_pages (sets 'being_removed' entries to true)
-        gnttab_unmap_refs_async
-    unmap_single_vma
-    gntdev_mmap (maps the shared pages again)
-  munmap
-    gntdev_invalidate
-      unmap_grant_pages
-        (no-op because 'being_removed' entries are true)
-    unmap_single_vma (For PV domains, Xen reports that a granted page
-      is being unmapped and triggers a general protection fault in the
-      affected domain, if Xen was built with CONFIG_DEBUG)
-
-The fix for this last scenario could be worth its own commit, but we
-opted for a single commit, because removing the gntdev_grant_map
-structure's vma field requires guarding the entry to gntdev_mmap(), and
-the live_grants atomic counter is not sufficient on its own to prevent
-the mmap() over a pre-existing mapping.
-
-Link: https://github.com/QubesOS/qubes-issues/issues/7631
-Fixes: ab31523c2fca ("xen/gntdev: allow usermode to map granted pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: M. Vefa Bicakci <m.v.b@runbox.com>
----
-
-Changes since v1:
-- Amended the patch description to note that the reported issues affect
-  paravirtualized (PV) Xen domains.
-- Note that Juergen Gross reviewed the first version of this patch.
-  (Thanks!) I did not add a Reviewed-by tag in v2, because I have
-  since amended the patch description.
-- No source code changes.
-
-My original note follows.
-
-Note for reviewers:
-
-I am not 100% sure if the "Fixes" tag is correct. Based on a quick look
-at the history of the modified file, I am under the impression that VMA
-splits could be broken for the Xen gntdev driver since day 1 (i.e.,
-v2.6.38), but I did not yet attempt to verify this by testing older
-kernels where the gntdev driver's code is sufficiently similar.
-
-Also, resetting the being_removed flags to false after the completion of
-unmap operation could be another potential solution (that I have not yet
-tested in the context of this change) to the mmap and MAP_FIXED issue
-discussed at the end of the patch description.
----
- drivers/xen/gntdev-common.h |  3 +-
- drivers/xen/gntdev.c        | 58 ++++++++++++++++---------------------
- 2 files changed, 27 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/xen/gntdev-common.h b/drivers/xen/gntdev-common.h
-index 40ef379c28ab..9c286b2a1900 100644
---- a/drivers/xen/gntdev-common.h
-+++ b/drivers/xen/gntdev-common.h
-@@ -44,9 +44,10 @@ struct gntdev_unmap_notify {
- };
- 
- struct gntdev_grant_map {
-+	atomic_t in_use;
- 	struct mmu_interval_notifier notifier;
-+	bool notifier_init;
- 	struct list_head next;
--	struct vm_area_struct *vma;
- 	int index;
- 	int count;
- 	int flags;
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index eb0586b9767d..4d9a3050de6a 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -286,6 +286,9 @@ void gntdev_put_map(struct gntdev_priv *priv, struct gntdev_grant_map *map)
- 		 */
- 	}
- 
-+	if (use_ptemod && map->notifier_init)
-+		mmu_interval_notifier_remove(&map->notifier);
-+
- 	if (map->notify.flags & UNMAP_NOTIFY_SEND_EVENT) {
- 		notify_remote_via_evtchn(map->notify.event);
- 		evtchn_put(map->notify.event);
-@@ -298,7 +301,7 @@ void gntdev_put_map(struct gntdev_priv *priv, struct gntdev_grant_map *map)
- static int find_grant_ptes(pte_t *pte, unsigned long addr, void *data)
+On Sun, Oct 02, 2022 at 11:22:58PM +0200, Ard Biesheuvel wrote:
+> On Sun, 2 Oct 2022 at 18:28, Demi Marie Obenour
+> <demi@invisiblethingslab.com> wrote:
+> >
+> > On Sun, Oct 02, 2022 at 11:56:25AM +0200, Ard Biesheuvel wrote:
+> > > As it turns out, Xen does not guarantee that EFI bootservices data
+> > > regions in memory are preserved, which means that EFI configuration
+> > > tables pointing into such memory regions may be corrupted before the
+> > > dom0 OS has had a chance to inspect them.
+> > >
+> > > Demi Marie reports that this is causing problems for Qubes OS when it
+> > > attempts to perform system firmware updates, which requires that the
+> > > contents of the ESRT configuration table are valid when the fwupd user
+> > > space program runs.
+> > >
+> > > However, other configuration tables such as the memory attributes
+> > > table or the runtime properties table are equally affected, and so we
+> > > need a comprehensive workaround that works for any table type.
+> > >
+> > > So let's first disregard all EFI configuration tables except the ones
+> > > that are known (or can be expected) to reside in memory regions of a
+> > > type that Xen preserves, i.e., ACPI tables (which are passed in
+> > > EfiAcpiReclaimMemory regions) and SMBIOS tables (which are usually
+> > > passed in EfiRuntimeServicesData regions, even though the UEFI spec o=
+nly
+> > > mentions this as a recommendation). Then, cross reference unknown tab=
+les
+> > > against either the EFI memory map (if available) or do a Xen hypercall
+> > > to determine the memory type, and allow the config table if the type =
+is
+> > > one that is guaranteed to be preserved.
+> > >
+> > > Future patches can augment the logic in this routine to allow other
+> > > table types based on the size of the allocation, or based on a table
+> > > specific header size field.
+> > >
+> > > Co-developed-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> > > ---
+> > >  drivers/firmware/efi/efi.c |  7 ++
+> > >  drivers/xen/efi.c          | 69 ++++++++++++++++++++
+> > >  include/linux/efi.h        |  2 +
+> > >  3 files changed, 78 insertions(+)
+> > >
+> > > diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+> > > index 11857af72859..e8c0747011d7 100644
+> > > --- a/drivers/firmware/efi/efi.c
+> > > +++ b/drivers/firmware/efi/efi.c
+> > > @@ -556,6 +556,13 @@ static __init int match_config_table(const efi_g=
+uid_t *guid,
+> > >
+> > >       for (i =3D 0; efi_guidcmp(table_types[i].guid, NULL_GUID); i++)=
  {
- 	struct gntdev_grant_map *map = data;
--	unsigned int pgnr = (addr - map->vma->vm_start) >> PAGE_SHIFT;
-+	unsigned int pgnr = (addr - map->pages_vm_start) >> PAGE_SHIFT;
- 	int flags = map->flags | GNTMAP_application_map | GNTMAP_contains_pte |
- 		    (1 << _GNTMAP_guest_avail0);
- 	u64 pte_maddr;
-@@ -508,11 +511,7 @@ static void gntdev_vma_close(struct vm_area_struct *vma)
- 	struct gntdev_priv *priv = file->private_data;
- 
- 	pr_debug("gntdev_vma_close %p\n", vma);
--	if (use_ptemod) {
--		WARN_ON(map->vma != vma);
--		mmu_interval_notifier_remove(&map->notifier);
--		map->vma = NULL;
--	}
-+
- 	vma->vm_private_data = NULL;
- 	gntdev_put_map(priv, map);
- }
-@@ -540,29 +539,30 @@ static bool gntdev_invalidate(struct mmu_interval_notifier *mn,
- 	struct gntdev_grant_map *map =
- 		container_of(mn, struct gntdev_grant_map, notifier);
- 	unsigned long mstart, mend;
-+	unsigned long map_start, map_end;
- 
- 	if (!mmu_notifier_range_blockable(range))
- 		return false;
- 
-+	map_start = map->pages_vm_start;
-+	map_end = map->pages_vm_start + (map->count << PAGE_SHIFT);
-+
- 	/*
- 	 * If the VMA is split or otherwise changed the notifier is not
- 	 * updated, but we don't want to process VA's outside the modified
- 	 * VMA. FIXME: It would be much more understandable to just prevent
- 	 * modifying the VMA in the first place.
- 	 */
--	if (map->vma->vm_start >= range->end ||
--	    map->vma->vm_end <= range->start)
-+	if (map_start >= range->end || map_end <= range->start)
- 		return true;
- 
--	mstart = max(range->start, map->vma->vm_start);
--	mend = min(range->end, map->vma->vm_end);
-+	mstart = max(range->start, map_start);
-+	mend = min(range->end, map_end);
- 	pr_debug("map %d+%d (%lx %lx), range %lx %lx, mrange %lx %lx\n",
--			map->index, map->count,
--			map->vma->vm_start, map->vma->vm_end,
--			range->start, range->end, mstart, mend);
--	unmap_grant_pages(map,
--				(mstart - map->vma->vm_start) >> PAGE_SHIFT,
--				(mend - mstart) >> PAGE_SHIFT);
-+		 map->index, map->count, map_start, map_end,
-+		 range->start, range->end, mstart, mend);
-+	unmap_grant_pages(map, (mstart - map_start) >> PAGE_SHIFT,
-+			  (mend - mstart) >> PAGE_SHIFT);
- 
- 	return true;
- }
-@@ -1042,18 +1042,15 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
- 		return -EINVAL;
- 
- 	pr_debug("map %d+%d at %lx (pgoff %lx)\n",
--			index, count, vma->vm_start, vma->vm_pgoff);
-+		 index, count, vma->vm_start, vma->vm_pgoff);
- 
- 	mutex_lock(&priv->lock);
- 	map = gntdev_find_map_index(priv, index, count);
- 	if (!map)
- 		goto unlock_out;
--	if (use_ptemod && map->vma)
--		goto unlock_out;
--	if (atomic_read(&map->live_grants)) {
--		err = -EAGAIN;
-+	if (!atomic_add_unless(&map->in_use, 1, 1))
- 		goto unlock_out;
--	}
-+
- 	refcount_inc(&map->users);
- 
- 	vma->vm_ops = &gntdev_vmops;
-@@ -1074,15 +1071,16 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
- 			map->flags |= GNTMAP_readonly;
- 	}
- 
-+	map->pages_vm_start = vma->vm_start;
-+
- 	if (use_ptemod) {
--		map->vma = vma;
- 		err = mmu_interval_notifier_insert_locked(
- 			&map->notifier, vma->vm_mm, vma->vm_start,
- 			vma->vm_end - vma->vm_start, &gntdev_mmu_ops);
--		if (err) {
--			map->vma = NULL;
-+		if (err)
- 			goto out_unlock_put;
--		}
-+
-+		map->notifier_init = true;
- 	}
- 	mutex_unlock(&priv->lock);
- 
-@@ -1099,7 +1097,6 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
- 		 */
- 		mmu_interval_read_begin(&map->notifier);
- 
--		map->pages_vm_start = vma->vm_start;
- 		err = apply_to_page_range(vma->vm_mm, vma->vm_start,
- 					  vma->vm_end - vma->vm_start,
- 					  find_grant_ptes, map);
-@@ -1128,13 +1125,8 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
- out_unlock_put:
- 	mutex_unlock(&priv->lock);
- out_put_map:
--	if (use_ptemod) {
-+	if (use_ptemod)
- 		unmap_grant_pages(map, 0, map->count);
--		if (map->vma) {
--			mmu_interval_notifier_remove(&map->notifier);
--			map->vma = NULL;
--		}
--	}
- 	gntdev_put_map(priv, map);
- 	return err;
- }
--- 
-2.37.3
+> > >               if (!efi_guidcmp(*guid, table_types[i].guid)) {
+> > > +                     if (IS_ENABLED(CONFIG_XEN_EFI) &&
+> > > +                         !xen_efi_config_table_is_usable(guid, table=
+)) {
+> > > +                             if (table_types[i].name[0])
+> > > +                                     pr_cont("(%s=3D0x%lx) ",
+> > > +                                             table_types[i].name, ta=
+ble);
+> > > +                             return 1;
+> > > +                     }
+> > >                       *(table_types[i].ptr) =3D table;
+> > >                       if (table_types[i].name[0])
+> > >                               pr_cont("%s=3D0x%lx ",
+> > > diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
+> > > index d1ff2186ebb4..3f1f365b37d0 100644
+> > > --- a/drivers/xen/efi.c
+> > > +++ b/drivers/xen/efi.c
+> > > @@ -292,3 +292,72 @@ void __init xen_efi_runtime_setup(void)
+> > >       efi.get_next_high_mono_count    =3D xen_efi_get_next_high_mono_=
+count;
+> > >       efi.reset_system                =3D xen_efi_reset_system;
+> > >  }
+> > > +
+> > > +static const efi_guid_t cfg_table_allow_list[] __initconst =3D {
+> > > +     ACPI_20_TABLE_GUID,
+> > > +     ACPI_TABLE_GUID,
+> > > +     SMBIOS_TABLE_GUID,
+> > > +     SMBIOS3_TABLE_GUID,
+> > > +};
+> >
+> > This allowlist seems redundant.  Either the tables are already in memory
+> > that Xen will preserve or they aren=E2=80=99t.  In both cases the subse=
+quent
+> > code will do the right thing.
+>=20
+> Will it? Currently, Xen simply accepts all ACPI and SMBIOS tables,
+> regardless of what type of memory region they reside in (if any).
+>=20
+> So what will happen with buggy firmware where the ACPI or SMBIOS
+> tables are not covered by the memory map at all? Currently, this works
+> fine but now, it will be rejected. And without ACPI tables, the boot
+> will not get far enough to even inform the user what is wrong. And
+> SMBIOS tables are used for platform quirks, which means they might be
+> essential for a platform to boot as well.
 
+If the tables are not in the memory map at all, I recommend
+add_taint(TAINT_FIRMWARE_WORKAROUND) but otherwise continuing to boot.
+If the tables are somewhere nonsensical, then the platform is FUBAR
+anyway.  Linux alone might be able to work by reserving the memory, but
+under Xen that does not work.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--PghubVJsF+8O07oQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM6GBAACgkQsoi1X/+c
+IsEE/A/+Ks8HuxLZxVxAaS7z+iHz3lOARj1WpxeoJRhXMQkVNeKQBniOhBUgxeGg
+D2njhATzF7PGa/c+JFDXMoNWxMk5XC2nmgSvOL6WIXezXIx/foZomlWTMkMkTECh
+Vc9qvu5xaRuGIj43UxxOsawMfS9mWEpv6HM56mpN26erPsm9uDqPzbWZLMVSh/tp
+bfH9ZmrLP8T+k+S+gqzyf4kUhpVEyMNw7lz30n7dqvq9Nzjg4cEZ95zzJimUdSMe
+MQWNTRFN1/OGLiDSn5JiUhfKboqfDMdBuFpGKD6xeP8Z3vl9ACDpPPZgYosKfil8
+LjzkV+2lThyeqwfVSv5v/PpIQs9ZJtzfhCunWEsUscWu0Ak76XIcUCnGDdOV7bAB
+ywAUl+KsrhCZeV+zvQugxUC2z/byEBFM0DxnI/VUbyo1gkaSurukIo54SMIerigy
+tXPgk+/hohb/2qW1kYie9EeL98hGLgLiy4hZZRoFl23iJLCJKdVp/rICCyxwgGTf
+iCBxekyikbYplQ5zOmsHzsJqeW79GxrzevS5HRxedrFCSHIseVGSD/g1G9+AkqBg
+kuK0uxl3VGg3jIIcOmyBOrMJXYSmj6CXmPFVA1Uo0ZEyiu6aNtWFJJ85KtAKRczH
+zAguzKPKMR5qR1/hcv4OKPFVIwBYdDbuATZfIf5D7WGIm/cx4sg=
+=vFGe
+-----END PGP SIGNATURE-----
+
+--PghubVJsF+8O07oQ--
 
