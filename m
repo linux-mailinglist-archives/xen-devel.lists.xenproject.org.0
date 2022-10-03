@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847505F330C
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 18:00:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414946.659393 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C93F75F3313
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 18:05:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414953.659403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofNrV-0005vm-VB; Mon, 03 Oct 2022 16:00:09 +0000
+	id 1ofNvz-0006iI-Fl; Mon, 03 Oct 2022 16:04:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414946.659393; Mon, 03 Oct 2022 16:00:09 +0000
+Received: by outflank-mailman (output) from mailman id 414953.659403; Mon, 03 Oct 2022 16:04:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofNrV-0005ty-SK; Mon, 03 Oct 2022 16:00:09 +0000
-Received: by outflank-mailman (input) for mailman id 414946;
- Mon, 03 Oct 2022 16:00:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1PaK=2E=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1ofNrU-0005tp-I1
- for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 16:00:08 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73958607-4334-11ed-9377-c1cf23e5d27e;
- Mon, 03 Oct 2022 18:00:07 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2DBE3B81189
- for <xen-devel@lists.xenproject.org>; Mon,  3 Oct 2022 16:00:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6E7C43140
- for <xen-devel@lists.xenproject.org>; Mon,  3 Oct 2022 16:00:05 +0000 (UTC)
-Received: by mail-lj1-f179.google.com with SMTP id s17so1984455ljs.12
- for <xen-devel@lists.xenproject.org>; Mon, 03 Oct 2022 09:00:05 -0700 (PDT)
+	id 1ofNvz-0006g4-D4; Mon, 03 Oct 2022 16:04:47 +0000
+Received: by outflank-mailman (input) for mailman id 414953;
+ Mon, 03 Oct 2022 16:04:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7JV9=2E=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ofNvy-0006fy-BN
+ for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 16:04:46 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18223dc1-4335-11ed-964a-05401a9f4f97;
+ Mon, 03 Oct 2022 18:04:44 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id BFEF832008FB;
+ Mon,  3 Oct 2022 12:04:41 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Mon, 03 Oct 2022 12:04:42 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 3 Oct 2022 12:04:38 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +43,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73958607-4334-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1664812806;
-	bh=B3UehTQ0iZXIQsaNP2ErI1eh7d2NC3uBWlqaRsGMZ7w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=BXw7OlQOcO+Lx8ciDJvK2GtnPEJ0AZpgO283Cm2fktlMO2+6BvB2OuTxEl3xaZH2C
-	 c9mNceRiW8qc4C4dNHDsdGwPZ0pG7Rn9hGJpp6T+usgF7Eyu5KW0OG04cI1nZaBUet
-	 xtw2zxZ7idk/4zlf7yyhBGB9YVTMFuzcQK3cV7C1AGeKKd/XMsm0kOPUtDQbKJejQa
-	 Mxrepr6uSvsudW/Rc7Kaypr/3+ej1kPNeG5aIVVvGnxFy43GbYn1pfNbjPVBDEvcry
-	 5cn5eTvhHXStZXlxk0tkZUkYPLd988wkCfKuy8LejPlfkq8PJgOrzlyH613E8R58J2
-	 z2AgqrQWaPiRA==
-X-Gm-Message-State: ACrzQf1qLt2+QpeSMV3Y4mnP3tQlMDMPNFv9mmn6LjYacAMVEnewrkE/
-	65xxIHIDCDO2gTDAGBAJr/E5BYR7WKAqYADEy24=
-X-Google-Smtp-Source: AMsMyM76GdGG/AcxOxDqgV1MySSXcIQv5dlPIEhnRlae1lqaUkXnKMnbHbJddFJUo49QeKlaz0aBbFDJwBkdXRP+vlk=
-X-Received: by 2002:a05:651c:1590:b0:26c:4311:9b84 with SMTP id
- h16-20020a05651c159000b0026c43119b84mr5010050ljq.152.1664812803907; Mon, 03
- Oct 2022 09:00:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <20221003112625.972646-1-ardb@kernel.org> <20221003112625.972646-6-ardb@kernel.org>
+X-Inumbo-ID: 18223dc1-4335-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664813081; x=
+	1664899481; bh=hPHwu5Dbn/ufBf96HVOzRpEY5YT9lHBBtz4R/zB3JH8=; b=t
+	lotJ1zD+SzDDJvsFW7ghMNYgZ4CEmu23sc2KgNYLTNlLMsw4Db3OCcEyT33xC2xr
+	uZvr2ulFndsbgLg+6Re7cbt2YpXH7rTb7hJ+wSI+m4xscvGtVxHlup+Tonh9jTfF
+	K5OIQlErLv0NVqpEDo4/ZWBLjX0MAr55AbAsSF5HooxjMujEMwqkc8oyF/kWCHYX
+	jd1VHiexqI6b1lxbyI7ZfUsrve0o0L87zzVhsMAegdrrMPkJlY3QYMKSmG9TNwLz
+	tJJ4upkj78k7ts3D7lrmW9hmlbmeaTHE9ZBHHlulTAUoaHywsrnfVeNxLKv2jCLN
+	iV3yoQUdrTlngFf9c8x4g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1664813081; x=1664899481; bh=hPHwu5Dbn/ufBf96HVOzRpEY5YT9
+	lHBBtz4R/zB3JH8=; b=l7io6zaJc401brzklTjwNQBd/t4lXo/EqDyQErWN7u7n
+	VNAX4sATa4xynnul+l5jBbmCmohQUSF4U8s4Wv4jfUDebu9+MTVj08NMrl+mcZ53
+	BBzX40nIAZ0VFaiSp7fjU4KJrxzgKtEESda7EhHzPDXRs+AF/pliPfp7VxzB0wsb
+	X8IJAwJDsS6zYRGYcE/PqAZCMh4LA6rFd2geyYF7uS+SHYM/CG+7LWuTGCUHoElz
+	Tc4K0t97YzeaoXrLNtMQFitpGcNRiGwFTd1/cMPRl1RUu1QHVRH4+JKDvGiZGlS0
+	tOUxk3A5i2Xda2Qh4Y6X5tfkpfQIdbauMnuWi7DXjQ==
+X-ME-Sender: <xms:GAg7Y2GQ8aVayfQKEz1FEsFUoJojB9DnfFTi2z1mv-u0zGT9-AS57A>
+    <xme:GAg7Y3W78y7E1oJTlPUS_pdp4Zh4rzPD05E0E5yMTmACdsMj-yrgnbOWaJPVPKhCD
+    nc0VJkYDNcNnA>
+X-ME-Received: <xmr:GAg7YwJHbjXs-Rk43ZsjWPgjyXjlAZHthTWnRqDbStSS85Bc66yDO_Aj8S_DeVY6TiJZxIYcSXtivWTKTZ3XcwHxMnRXXYk3qIBQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehledgleehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:GAg7YwF0e0o-voGPeZ6ncBaa4S3smMQ4iY2FQW2Vs3BmRn_cTA3qxg>
+    <xmx:GAg7Y8UO-avxl-CjtWN2cJk1CmHJrHkqJQ1QIo1NUJ29hIBpLtBN6Q>
+    <xmx:GAg7YzPk0vDSFk6EV-biIXUSD2HW-q6wvqpmn2kvnLKbwLbv-Vv4iw>
+    <xmx:GQg7YwSXye17eMkGqPpupMim98leJk_w6zx0zjIniREgO68EAZya1w>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 3 Oct 2022 18:04:32 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	linux-efi@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
+Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
+ based on hypercall
+Message-ID: <YzsIETwb0J5LI/6y@mail-itl>
+References: <20221003112625.972646-1-ardb@kernel.org>
+ <20221003112625.972646-6-ardb@kernel.org>
  <Yzr/1s9CbA0CClmt@itl-email>
-In-Reply-To: <Yzr/1s9CbA0CClmt@itl-email>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Mon, 3 Oct 2022 17:59:52 +0200
-X-Gmail-Original-Message-ID: <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
-Message-ID: <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup based
- on hypercall
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: linux-efi@vger.kernel.org, 
-	Xen developer discussion <xen-devel@lists.xenproject.org>, Peter Jones <pjones@redhat.com>, 
-	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Kees Cook <keescook@chromium.org>, 
-	Anton Vorontsov <anton@enomsg.org>, Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset="UTF-8"
+ <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="9ODiTydC+G+MHh2u"
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
 
-On Mon, 3 Oct 2022 at 17:29, Demi Marie Obenour
-<demi@invisiblethingslab.com> wrote:
->
-> On Mon, Oct 03, 2022 at 01:26:24PM +0200, Ard Biesheuvel wrote:
-> > Xen on x86 boots dom0 in EFI mode but without providing a memory map.
-> > This means that some sanity checks we would like to perform on
-> > configuration tables or other data structures in memory are not
-> > currently possible. Xen does, however, expose EFI memory descriptor info
-> > via a Xen hypercall, so let's wire that up instead.
-> >
-> > Co-developed-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> > ---
-> >  drivers/firmware/efi/efi.c |  5 ++-
-> >  drivers/xen/efi.c          | 34 ++++++++++++++++++++
-> >  include/linux/efi.h        |  1 +
-> >  3 files changed, 39 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
-> > index 55bd3f4aab28..2c12b1a06481 100644
-> > --- a/drivers/firmware/efi/efi.c
-> > +++ b/drivers/firmware/efi/efi.c
-> > @@ -456,7 +456,7 @@ void __init efi_find_mirror(void)
-> >   * and if so, populate the supplied memory descriptor with the appropriate
-> >   * data.
-> >   */
-> > -int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
-> > +int __efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
-> >  {
-> >       efi_memory_desc_t *md;
-> >
-> > @@ -485,6 +485,9 @@ int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
-> >       return -ENOENT;
-> >  }
-> >
-> > +extern int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
-> > +      __weak __alias(__efi_mem_desc_lookup);
-> > +
-> >  /*
-> >   * Calculate the highest address of an efi memory descriptor.
-> >   */
-> > diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
-> > index d1ff2186ebb4..74f3f6d8cdc8 100644
-> > --- a/drivers/xen/efi.c
-> > +++ b/drivers/xen/efi.c
-> > @@ -26,6 +26,7 @@
-> >
-> >  #include <xen/interface/xen.h>
-> >  #include <xen/interface/platform.h>
-> > +#include <xen/page.h>
-> >  #include <xen/xen.h>
-> >  #include <xen/xen-ops.h>
-> >
-> > @@ -292,3 +293,36 @@ void __init xen_efi_runtime_setup(void)
-> >       efi.get_next_high_mono_count    = xen_efi_get_next_high_mono_count;
-> >       efi.reset_system                = xen_efi_reset_system;
-> >  }
-> > +
-> > +int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
-> > +{
-> > +     static_assert(XEN_PAGE_SHIFT == EFI_PAGE_SHIFT,
-> > +                   "Mismatch between EFI_PAGE_SHIFT and XEN_PAGE_SHIFT");
-> > +     struct xen_platform_op op = {
-> > +             .cmd = XENPF_firmware_info,
-> > +             .u.firmware_info = {
-> > +                     .type = XEN_FW_EFI_INFO,
-> > +                     .index = XEN_FW_EFI_MEM_INFO,
-> > +                     .u.efi_info.mem.addr = phys_addr,
-> > +                     .u.efi_info.mem.size = U64_MAX - phys_addr,
-> > +             }
-> > +     };
-> > +     union xenpf_efi_info *info = &op.u.firmware_info.u.efi_info;
-> > +     int rc;
-> > +
-> > +     if (!efi_enabled(EFI_PARAVIRT) || efi_enabled(EFI_MEMMAP))
-> > +             return __efi_mem_desc_lookup(phys_addr, out_md);
-> > +
-> > +     rc = HYPERVISOR_platform_op(&op);
-> > +     if (rc) {
-> > +             pr_warn("Failed to lookup header 0x%llx in Xen memory map: error %d\n",
-> > +                     phys_addr, rc);
-> > +     }
-> > +
-> > +     out_md->phys_addr       = info->mem.addr;
->
-> This will be equal to phys_addr, not the actual start of the memory
-> region.
->
-> > +     out_md->num_pages       = info->mem.size >> EFI_PAGE_SHIFT;
->
-> Similarly, this will be the number of bytes in the memory region
-> after phys_addr, not the total number of bytes in the region.  These two
-> differences mean that this function is not strictly equivalent to the
-> original efi_mem_desc_lookup().
->
-> I am not sure if this matters in practice, but I thought you would want
-> to be aware of it.
 
-This is a bit disappointing. Is there no way to obtain this
-information via a Xen hypercall?
+--9ODiTydC+G+MHh2u
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 3 Oct 2022 18:04:32 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	linux-efi@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
+Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
+ based on hypercall
 
-In any case, it means we'll need to round down phys_addr to page size
-at the very least.
+On Mon, Oct 03, 2022 at 05:59:52PM +0200, Ard Biesheuvel wrote:
+> On Mon, 3 Oct 2022 at 17:29, Demi Marie Obenour
+> <demi@invisiblethingslab.com> wrote:
+> >
+> > On Mon, Oct 03, 2022 at 01:26:24PM +0200, Ard Biesheuvel wrote:
+> > > +     out_md->phys_addr       =3D info->mem.addr;
+> >
+> > This will be equal to phys_addr, not the actual start of the memory
+> > region.
+> >
+> > > +     out_md->num_pages       =3D info->mem.size >> EFI_PAGE_SHIFT;
+> >
+> > Similarly, this will be the number of bytes in the memory region
+> > after phys_addr, not the total number of bytes in the region.  These two
+> > differences mean that this function is not strictly equivalent to the
+> > original efi_mem_desc_lookup().
+> >
+> > I am not sure if this matters in practice, but I thought you would want
+> > to be aware of it.
+>=20
+> This is a bit disappointing. Is there no way to obtain this
+> information via a Xen hypercall?
+
+I don't think so, unfortunately. That said, with the below adjustment, I
+think that's okay for the _current_ users of efi_mem_desc_lookup().
+
+> In any case, it means we'll need to round down phys_addr to page size
+> at the very least.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--9ODiTydC+G+MHh2u
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmM7CBEACgkQ24/THMrX
+1yzd3gf+Mr3VN3b4/zRc61OLrM64hiVHAtOrHmidG80iN1l5JGVhjO/5i4H/8ZFT
+GnfuEXC9vtCuwsJa3k2tKAlUPFxvIFQskN7aZvgVRexgB05zNB3MexEh5AwEbi6U
+vjt8AZKFjuvnouYe/2hLXLb5taMyRk2h9jnVn/FkcYeGgcC7/76fsdi53bfjtYmP
+GeBCzMfR9YxmhJvRK2JAjlftrb9wJSqO4weQaormHre3nxi5Hep2752BOcFCBcXK
+3Kct9AKRO/ozPfRzUtkUHt2bzA9HUAqLqKPvmXGmLV4jFyiwFd3onAlnCdeTonz2
+xGdDfEFEyhzlTlMTu0TwHV1yvH0+LQ==
+=9EcE
+-----END PGP SIGNATURE-----
+
+--9ODiTydC+G+MHh2u--
 
