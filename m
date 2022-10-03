@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E33025F3247
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 17:04:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414909.659337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72F9B5F3260
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 17:19:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414915.659349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofMz2-0005k7-O0; Mon, 03 Oct 2022 15:03:52 +0000
+	id 1ofNDO-0007HH-Ur; Mon, 03 Oct 2022 15:18:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414909.659337; Mon, 03 Oct 2022 15:03:52 +0000
+Received: by outflank-mailman (output) from mailman id 414915.659349; Mon, 03 Oct 2022 15:18:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofMz2-0005iK-L4; Mon, 03 Oct 2022 15:03:52 +0000
-Received: by outflank-mailman (input) for mailman id 414909;
- Mon, 03 Oct 2022 15:03:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ofNDO-0007ER-Rw; Mon, 03 Oct 2022 15:18:42 +0000
+Received: by outflank-mailman (input) for mailman id 414915;
+ Mon, 03 Oct 2022 15:18:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g5U8=2E=redhat.com=vkuznets@srs-se1.protection.inumbo.net>)
- id 1ofMz0-0005iE-Tj
- for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 15:03:51 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95acdf2f-432c-11ed-964a-05401a9f4f97;
- Mon, 03 Oct 2022 17:03:49 +0200 (CEST)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-217-VFdEnWKYMFCP8kgOCb-3NA-1; Mon, 03 Oct 2022 11:03:46 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- f25-20020a7bc8d9000000b003b4768dcd9cso2985971wml.9
- for <xen-devel@lists.xenproject.org>; Mon, 03 Oct 2022 08:03:44 -0700 (PDT)
-Received: from fedora (nat-2.ign.cz. [91.219.240.2])
- by smtp.gmail.com with ESMTPSA id
- r18-20020a05600c35d200b003a84375d0d1sm17657403wmq.44.2022.10.03.08.03.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Oct 2022 08:03:42 -0700 (PDT)
+ <SRS0=TmDc=2E=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1ofNDN-0007EL-Px
+ for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 15:18:42 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a1075b0c-432e-11ed-9377-c1cf23e5d27e;
+ Mon, 03 Oct 2022 17:18:29 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id E34D032003D3;
+ Mon,  3 Oct 2022 11:18:34 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Mon, 03 Oct 2022 11:18:35 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 3 Oct 2022 11:18:33 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,185 +43,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95acdf2f-432c-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1664809428;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Jcy8kZYpXeDbLsYPjZ2qO+Lh7p/Rgt7Xact/w0g7X3E=;
-	b=ZNTFGaW5wK0paW+y1ILVjF0YVbycZy3t1+xGtB3zHa8DiobqBqjB71BPlEl/H61zKo19cc
-	NUW0Zsd+2N8XoOJuvqQxoHKYP/VFcmU2fDKUuvMoSnqhQA6cASPjLdkH++qdV3EJLKFpxY
-	z7WOCUenaINzUdKetLWdTGTUhH0gYgs=
-X-MC-Unique: VFdEnWKYMFCP8kgOCb-3NA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=zlSyGCvWo5iRyh04tGy8TsPBqO2ZA147cE0Y4mnczLc=;
-        b=Zz9RUqzuMd0VwWA9xNN4cFTqlCEkgIXYjj45/VWwru7OdkFMsbquYWPuuKizJuICfd
-         y+uabZxSv6hd7xkd+uvKIfaVg0e6t1NGsQhdwCRYactNp6PP//cH5hLw1jM1oGpycs19
-         y8UJGLAUv+MnHpl9k0csO72fAkuEaHHmBrit3hh+V+GmmYZznDgwXvqc8LPV9do1Nji/
-         0anMCtSPz0cukztuUZVAoQ1CZZ63IOxAJThlUaiz/6qEVwyDM0+vZJ5PvEoyeEKgJ0ij
-         jabdbU3T4DK7EewcnU6UbW4RkpFlCeUc5Z300EJagCbaZ5YKEt2plsRyyEH/1W6H8OSt
-         goew==
-X-Gm-Message-State: ACrzQf1BBsovIoxP+pqRoan/I9Xz6Gp/UEA/YyNFD/sfXsHDj8K1SvXE
-	HZYxovD/OLK3q57TNJ2RzInv41zyVj1GrHeOBfPMLYv2VF/vaqhAJ8Ij8oQ7lHJuTA4zP3hEoMR
-	RZr+ce/B7UhquyXr3FrNLLF3i4bg=
-X-Received: by 2002:a05:600c:4e8b:b0:3b4:c8ce:be87 with SMTP id f11-20020a05600c4e8b00b003b4c8cebe87mr7593506wmq.157.1664809423568;
-        Mon, 03 Oct 2022 08:03:43 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM4sxlC5XJOgl9QDu564seFf1Ssz0/+BFurAjD66iPYPfhV1hEDgomWrdFD2cOYxCQVBT8cYyA==
-X-Received: by 2002:a05:600c:4e8b:b0:3b4:c8ce:be87 with SMTP id f11-20020a05600c4e8b00b003b4c8cebe87mr7593479wmq.157.1664809423275;
-        Mon, 03 Oct 2022 08:03:43 -0700 (PDT)
-From: Vitaly Kuznetsov <vkuznets@redhat.com>
-To: Ajay Kaher <akaher@vmware.com>
-Cc: "x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>, Srivatsa Bhat
- <srivatsab@vmware.com>, "srivatsa@csail.mit.edu" <srivatsa@csail.mit.edu>,
- Alexey Makhalov <amakhalov@vmware.com>, Vasavi Sirnapalli
- <vsirnapalli@vmware.com>, "er.ajay.kaher@gmail.com"
- <er.ajay.kaher@gmail.com>, "willy@infradead.org" <willy@infradead.org>,
- Nadav Amit <namit@vmware.com>, "linux-hyperv@vger.kernel.org"
- <linux-hyperv@vger.kernel.org>, "kvm@vger.kernel.org"
- <kvm@vger.kernel.org>, "jailhouse-dev@googlegroups.com"
- <jailhouse-dev@googlegroups.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, "acrn-dev@lists.projectacrn.org"
- <acrn-dev@lists.projectacrn.org>, "helgaas@kernel.org"
- <helgaas@kernel.org>, "bhelgaas@google.com" <bhelgaas@google.com>,
- "tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
- <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, Alexander
- Graf <graf@amazon.com>
-Subject: Re: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
-In-Reply-To: <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com>
-References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com>
- <87zgf3pfd1.fsf@redhat.com>
- <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com>
-Date: Mon, 03 Oct 2022 17:03:41 +0200
-Message-ID: <87tu4l9cfm.fsf@redhat.com>
+X-Inumbo-ID: a1075b0c-432e-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664810314; x=
+	1664896714; bh=Py0ty9ifkS6fLvi4hjmq1ycGUuwx6IScsmBddMLzPWU=; b=V
+	rRF51RMI8oANz1XxQNAcGR/QlH50xQL5scFfPG00HlS89olSMC7BQ6Gr3jOlpmKs
+	FT+PS6ompEhwru8DZaWhG3zftnDu7Lref69Ub5aa5BErFy2OtKwC3xbMQewfSTbO
+	puW4WkD7+B3hWl5BphOLcXdz600hdW+leMW54eycyIC307I14IUH4M+bahaImoTy
+	nNUKzvQkj+aLATv7/P5he1KF3JlechvlFqRzhahCZb4CtYdZmWsMhbGnzeHmY2BF
+	27olmYby5sNriGwPdFGDf9SpLZG4UoM31ZVdHqS6o+PYBBYhkmEd90xb0T/e3T8Z
+	pfmrSrpcuqgKa04RkXx7A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1664810314; x=1664896714; bh=Py0ty9ifkS6fLvi4hjmq1ycGUuwx
+	6IScsmBddMLzPWU=; b=z2zesEfRcXGt+xEOhQZLsbOeanVP/lIoTLZGeEhTvRWA
+	4d21aV9sgFc44Zni03Il5HQqILUpflH6xlvKoyED9iklewILcn5LWHkJTBpLw0Nz
+	JCoSMKO/KjcJihgT/3Hp1NUFRCjARCM4Qf19T+FT/O8P9vxag+js8YhiPI1St8YH
+	fFhncL8lhD0QZcW6AVWaTrlOwNE/SAXPeCgnBWu1IQLlZ1eOfRK9DiPJgLpxwP5M
+	VjsmiqNcoYSDxY43x8soK4WY6YlF73MFep2WUHvkcRVSKQCYH8SZaO0VJkhnO0eC
+	VGICMBB2SfGfRaVQ7ey07IIsbYO2btgqPYazJU9wXg==
+X-ME-Sender: <xms:Sv06Y1RKu8ncaBd9MazYHjbTM3_DHt_U8gaKAi5ht8luH38eQkUzRw>
+    <xme:Sv06Y-w57M7d-SvXhIZvux0KwVzIFOLXdv9aTJw6sJR5ewOGDbkFS_VTvoHatSEJX
+    mLjww2uq54A8dQ>
+X-ME-Received: <xmr:Sv06Y60Jj1vV7HExBJadrZi3kh0ZtbgRtUi6vG0ZubwcrhxVtYzdxnrP4vtI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehledgkeeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepudeileefueetvdelheeuteffjeeg
+    jeegffekleevueelueekjeejudffteejkeetnecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+    lhgrsgdrtghomh
+X-ME-Proxy: <xmx:Sv06Y9D497QzQtkaSCYzou14tIDSRMs2EKDb2guxpBThN1-Rci430w>
+    <xmx:Sv06Y-iUI9PoQkgQsiGM_m6mlbX9q4dcD9pku1YWvAhH9GmbLQFGsg>
+    <xmx:Sv06YxpztdSl9eHfVqYVcZAi42OR3JVdTtBoVbpYMO00YuZKr2mwcw>
+    <xmx:Sv06Y5PtPL4vlffVJ7Z3PHuA0h0lEyvweVheNCyaPCJz0VQlTq9yKQ>
+Feedback-ID: iac594737:Fastmail
+Date: Mon, 3 Oct 2022 11:18:06 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org, Peter Jones <pjones@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2 4/6] efi: memmap: Disregard bogus entries instead of
+ returning them
+Message-ID: <Yzr9R2ziBAJgzAqR@itl-email>
+References: <20221003112625.972646-1-ardb@kernel.org>
+ <20221003112625.972646-5-ardb@kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="M+fOFbwZi3N7oSNW"
+Content-Disposition: inline
+In-Reply-To: <20221003112625.972646-5-ardb@kernel.org>
+
+
+--M+fOFbwZi3N7oSNW
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 3 Oct 2022 11:18:06 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org, Peter Jones <pjones@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2 4/6] efi: memmap: Disregard bogus entries instead of
+ returning them
 
-Ajay Kaher <akaher@vmware.com> writes:
+On Mon, Oct 03, 2022 at 01:26:23PM +0200, Ard Biesheuvel wrote:
+> The ESRT code currently contains some sanity checks on the memory
+> descriptor it obtains, but these can only trigger when the descriptor is
+> invalid (if at all).
+>=20
+> So let's drop these checks, and instead, disregard descriptors entirely
+> if the start address is misaligned, or the number of pages reaches
+> beyond the end of the address space. Note that the memory map as a whole
+> could still be inconsistent, i.e., multiple entries might cover the same
+> area, or the address could be outside of the addressable VA space, but
+> validating that goes beyond the scope of these helpers.
+>=20
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> ---
+>  drivers/firmware/efi/efi.c  | 13 +++++++------
+>  drivers/firmware/efi/esrt.c | 18 +-----------------
+>  2 files changed, 8 insertions(+), 23 deletions(-)
+>=20
+> diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+> index 11857af72859..55bd3f4aab28 100644
+> --- a/drivers/firmware/efi/efi.c
+> +++ b/drivers/firmware/efi/efi.c
+> @@ -461,19 +461,20 @@ int efi_mem_desc_lookup(u64 phys_addr, efi_memory_d=
+esc_t *out_md)
+>  	efi_memory_desc_t *md;
+> =20
+>  	if (!efi_enabled(EFI_MEMMAP)) {
+> -		pr_err_once("EFI_MEMMAP is not enabled.\n");
+> +		pr_warn_once("EFI_MEMMAP is not enabled.\n");
+>  		return -EINVAL;
+>  	}
+> =20
+> -	if (!out_md) {
+> -		pr_err_once("out_md is null.\n");
+> -		return -EINVAL;
+> -        }
+> -
 
->> =EF=BB=BFOn 13/09/22, 7:05 PM, "Vitaly Kuznetsov" <vkuznets@redhat.com> =
-wrote:
->>>
->>> Thanks Vitaly for your response.
->>>
->>> 1. we have multiple objects of struct pci_raw_ops, 2. adding 'priority'=
- field to struct pci_raw_ops
->>> doesn't seems to be appropriate as need to take decision which object o=
-f struct pci_raw_ops has
->>> to be used, not something with-in struct pci_raw_ops.
->>
->> I'm not sure I follow, you have two instances of 'struct pci_raw_ops'
->> which are called 'raw_pci_ops' and 'raw_pci_ext_ops'. What if you do
->> something like (completely untested):
->>
->> diff --git a/arch/x86/include/asm/pci_x86.h b/arch/x86/include/asm/pci_x=
-86.h
->> index 70533fdcbf02..fb8270fa6c78 100644
->> --- a/arch/x86/include/asm/pci_x86.h
->> +++ b/arch/x86/include/asm/pci_x86.h
->> @@ -116,6 +116,7 @@ extern void (*pcibios_disable_irq)(struct pci_dev *d=
-ev);
->> extern bool mp_should_keep_irq(struct device *dev);
->>
->> struct pci_raw_ops {
->> +       int rating;
->>          int (*read)(unsigned int domain, unsigned int bus, unsigned int=
- devfn,
->>                                                int reg, int len, u32 *va=
-l);
->>          int (*write)(unsigned int domain, unsigned int bus, unsigned in=
-t devfn,
->> diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
->> index ddb798603201..e9965fd11576 100644
->> --- a/arch/x86/pci/common.c
->> +++ b/arch/x86/pci/common.c
->> @@ -40,7 +40,8 @@ const struct pci_raw_ops *__read_mostly raw_pci_ext_op=
-s;
->>  int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int de=
-vfn,
->>                                                 int reg, int len, u32 *v=
-al)
->> {
->> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
->> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
->> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_op=
-s->rating))
->>                 return raw_pci_ops->read(domain, bus, devfn, reg, len, v=
-al);
->>         if (raw_pci_ext_ops)
->>                 return raw_pci_ext_ops->read(domain, bus, devfn, reg, le=
-n, val);
->> @@ -50,7 +51,8 @@ int raw_pci_read(unsigned int domain, unsigned int bus=
-, unsigned int devfn,
->>  int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int d=
-evfn,
->>                                                 int reg, int len, u32 va=
-l)
->> {
->> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
->> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
->> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_op=
-s->rating))
->>                 return raw_pci_ops->write(domain, bus, devfn, reg, len, =
-val);
->>          if (raw_pci_ext_ops)
->>                 return raw_pci_ext_ops->write(domain, bus, devfn, reg, l=
-en, val);
->>
->> and then somewhere in Vmware hypervisor initialization code
->> (arch/x86/kernel/cpu/vmware.c) you do
->>
->>  raw_pci_ext_ops->rating =3D 100;
->
-> Thanks Vitaly, for your review and helping us to improve the code.
->
-> I was working to make changes as you suggested, but before sending v3 wou=
-ld like to
-> discuss on following:
->
-> If we add rating with-in struct pci_raw_ops then we can't have pci_mmcfg =
-as const,
-> and following change is must in arch/x86/pci/mmconfig_64.c:
->
-> -const struct pci_raw_ops pci_mmcfg =3D {
-> +struct pci_raw_ops pci_mmcfg =3D {
->  =09.read =3D=09=09pci_mmcfg_read,
->  =09.write =3D=09pci_mmcfg_write,
-> };
->
-> So to avoid this change, is it fine to have global bool prefer_raw_pci_ex=
-t_ops?
->
-> And raw_pci_read() will have following change:
->
-> -=09if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
-> +=09if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
-> +=09     (!prefer_raw_pci_ext_ops ||  !raw_pci_ext_ops)
->
+Nit: this seems unrelated.
 
-Not my but rather PCI maintainer's call but IMHO dropping 'const' is
-better, introducing a new global var is our 'last resort' and should be
-avoided whenever possible. Alternatively, you can add a
-raw_pci_ext_ops_preferred() function checking somethin within 'struct
-hypervisor_x86' but I'm unsure if it's better.
+>  	for_each_efi_memory_desc(md) {
+>  		u64 size;
+>  		u64 end;
+> =20
+> +		/* skip bogus entries */
+> +		if ((md->phys_addr & (EFI_PAGE_SIZE - 1)) ||
+> +		    (md->phys_addr > 0 &&
+> +		     (md->num_pages > (U64_MAX - md->phys_addr + 1) >> EFI_PAGE_SHIFT)=
+))
+> +			continue;
 
-Also, please check Alex' question/suggestion.
+Should this also check if md->num_pages is 0?  Also, should this check
+be part of for_each_efi_memory_desc()?
 
-...
+> +
+>  		size =3D md->num_pages << EFI_PAGE_SHIFT;
+>  		end =3D md->phys_addr + size;
+>  		if (phys_addr >=3D md->phys_addr && phys_addr < end) {
+> diff --git a/drivers/firmware/efi/esrt.c b/drivers/firmware/efi/esrt.c
+> index 2a2f52b017e7..8f86f2b0734b 100644
+> --- a/drivers/firmware/efi/esrt.c
+> +++ b/drivers/firmware/efi/esrt.c
+> @@ -247,9 +247,6 @@ void __init efi_esrt_init(void)
+>  	int rc;
+>  	phys_addr_t end;
+> =20
+> -	if (!efi_enabled(EFI_MEMMAP))
+> -		return;
+> -
+>  	pr_debug("esrt-init: loading.\n");
+>  	if (!esrt_table_exists())
+>  		return;
+> @@ -263,21 +260,8 @@ void __init efi_esrt_init(void)
+>  		return;
+>  	}
+> =20
+> -	max =3D efi_mem_desc_end(&md);
+> -	if (max < efi.esrt) {
+> -		pr_err("EFI memory descriptor is invalid. (esrt: %p max: %p)\n",
+> -		       (void *)efi.esrt, (void *)max);
+> -		return;
+> -	}
+> -
+> +	max =3D efi_mem_desc_end(&md) - efi.esrt;
+>  	size =3D sizeof(*esrt);
+> -	max -=3D efi.esrt;
+> -
+> -	if (max < size) {
+> -		pr_err("ESRT header doesn't fit on single memory map entry. (size: %zu=
+ max: %zu)\n",
+> -		       size, max);
+> -		return;
+> -	}
 
+This can still happen if the ESRT pointer is very very close to the end
+of a memory map entry, unless there is another check that handles
+such cases.
 --=20
-Vitaly
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
+--M+fOFbwZi3N7oSNW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM6/UcACgkQsoi1X/+c
+IsFK/BAA3eyncFILFOM4XIr//iy+YArKCUuZ1/AgikhNXeDrV/ydg2N3BSdsutHi
+VZDGtuofMKthtmInOu57DQCbb/K+6FT79KVaRLtOdejEr7I77W/XmDe/gf5ijbxe
+y9wTYBGXTBltM4jgd0xPtamE/bRZcK0Jad5h0R7BQOf0mmK7GQRe7Iw+ld8xR5gC
+SHZ+J8D780wwrOXeIcq77IWy/YPelNtzPS23IRn7uSJkoEXFwAoUUH7FFebILE4F
+VOCI3uLLKOUVrMyiRYE9K4F/uJUOt2XXzlX1ppPN+VHxRhveukWr+JfnqdAknwRT
+TaxnlcF9MfeQoxZaAzImTN84z3ooAX2VpG0cNfwmZcvoKcnHFpxNhrWLlmQQXAPh
+FGb/PNrwHrB8uo+AN4zATQOwE+4Hymf5MNGW0+QjXVy5kKSb0/jZ0T3sXYBTyYz9
+2Jw+vw7JHTna+6x26IC6XdOk/n+lfeG/BBYXz5ii2B96DmVN6yoODQzQULMaDn3h
+qjSVVdgd2hwlKylY63ENrpDUOqT1GPfvNkpTj/Knm9pP2G97z30Ru0vkNRgiglsf
+Nq9THQNpxw2X17yckR7c4JQj5Y4IyKCCqYIXjwd7qykdQkPGGDSn2nCytolTU3ya
++QBQ36Jtk2+pVcQGYoTR8GESXuBWJp6KRf+nOXYTaNHBdvgDQyk=
+=R1Pm
+-----END PGP SIGNATURE-----
+
+--M+fOFbwZi3N7oSNW--
 
