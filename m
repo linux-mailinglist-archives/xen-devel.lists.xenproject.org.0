@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 752055F2F98
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 13:26:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414817.659216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A6295F2F99
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 13:26:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414818.659228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofJan-0004Q3-7h; Mon, 03 Oct 2022 11:26:37 +0000
+	id 1ofJaq-0004g6-Gh; Mon, 03 Oct 2022 11:26:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414817.659216; Mon, 03 Oct 2022 11:26:37 +0000
+Received: by outflank-mailman (output) from mailman id 414818.659228; Mon, 03 Oct 2022 11:26:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofJan-0004N4-4o; Mon, 03 Oct 2022 11:26:37 +0000
-Received: by outflank-mailman (input) for mailman id 414817;
- Mon, 03 Oct 2022 11:26:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ofJaq-0004dq-Db; Mon, 03 Oct 2022 11:26:40 +0000
+Received: by outflank-mailman (input) for mailman id 414818;
+ Mon, 03 Oct 2022 11:26:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1PaK=2E=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1ofJal-0004My-3V
- for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 11:26:35 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b9110f2-430e-11ed-9376-c1cf23e5d27e;
- Mon, 03 Oct 2022 13:26:33 +0200 (CEST)
+ id 1ofJan-0004Xj-Ve
+ for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 11:26:38 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3db2adcc-430e-11ed-964a-05401a9f4f97;
+ Mon, 03 Oct 2022 13:26:36 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E85A560F2F;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 884F4B8105F;
+ Mon,  3 Oct 2022 11:26:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4010C43470;
  Mon,  3 Oct 2022 11:26:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEFAFC433C1;
- Mon,  3 Oct 2022 11:26:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +44,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b9110f2-430e-11ed-9376-c1cf23e5d27e
+X-Inumbo-ID: 3db2adcc-430e-11ed-964a-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1664796391;
-	bh=wDKdvPqZk8WFP3BSEQAf+e1kb18kQtYKCBG/O7eLNv0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Ox1XEvSG5hre/gdrN8BcIEz5750FiEiwpqaTtH1yliO3nlxMWBlgLqBEP5e+DE03L
-	 v90fR6LmgX3pmCD68wFhPw52XWpwjN7AtUxY/C6T4OhaC8IJ7mueTOxoRBhZV/bjZR
-	 sHBJWb+xThSAUWMBUTBo5yCKmmhJVcaj5//6OJTiylgOZijQg6dDnDR870yDZP9vBB
-	 EruxTPvCJNuxS6rbfAntaK3i3lBF39S9Os1oFxTvGF5x4pw9HvXPUU3lt21bb+9qTz
-	 Qx0AFO/N5h0m9LJK2DUJq00+LzV7T56zwOTzist88UVsTx36ao1RaGFe73f0SaPDPL
-	 /6joHonQhT0qA==
+	s=k20201202; t=1664796394;
+	bh=lpQ4+WmITmtmOnKFnxuwxQHGwlCFJ4zTtvospQM9GKk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=K9ID/meLYrn0iHyhvkrGaVzZES7EFVJpDW0Uw9aDg2M81HUgIx3frx0cFPJop1arF
+	 vgRUsJ37RND+bWXPfbtBFAdH5j+1mk+62cnz90JM8A40hCCp4oTwAnZyGKNkF/2dwE
+	 KBqstIRcIaoSImv4Mne7Gja/jq71Kp4NI/jjGDNpaNbzgz9oe372Ridjm0lBwXGcyr
+	 iwSpUGMJX/8UxZ2AS32VumjW87yYtxSe1Chbd1asWLgLqGyQoyz8qmXULZxXUjsIed
+	 MxkcNn1E3uEfsCTPRGFWY5eaTMnpaYyJXrS44pjrZjiba6qmhAd+2w5s9S0le4zqDP
+	 vN6tusSTeesmg==
 From: Ard Biesheuvel <ardb@kernel.org>
 To: linux-efi@vger.kernel.org
 Cc: xen-devel@lists.xenproject.org,
@@ -68,99 +69,378 @@ Cc: xen-devel@lists.xenproject.org,
 	Colin Cross <ccross@android.com>,
 	Tony Luck <tony.luck@intel.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v2 0/6] efi/x86: Avoid corrupted config tables under Xen
-Date: Mon,  3 Oct 2022 13:26:19 +0200
-Message-Id: <20221003112625.972646-1-ardb@kernel.org>
+Subject: [PATCH v2 1/6] efi: Move EFI fake memmap support into x86 arch tree
+Date: Mon,  3 Oct 2022 13:26:20 +0200
+Message-Id: <20221003112625.972646-2-ardb@kernel.org>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20221003112625.972646-1-ardb@kernel.org>
+References: <20221003112625.972646-1-ardb@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4415; i=ardb@kernel.org; h=from:subject; bh=wDKdvPqZk8WFP3BSEQAf+e1kb18kQtYKCBG/O7eLNv0=; b=owEB7QES/pANAwAKAcNPIjmS2Y8kAcsmYgBjOsbUkV47vOIBB1yBzipVxR5+t08QxSlOcR7wO8t8 rB2jnJ2JAbMEAAEKAB0WIQT72WJ8QGnJQhU3VynDTyI5ktmPJAUCYzrG1AAKCRDDTyI5ktmPJKXNC/ 4rqTC55/+RKNpsaZYCqdCfNe63UwVnTnjPbkbRZpnd1HZHDobN5uCK/Scgvs1lJzCwy9sP1/m2E5Yg L3ODc9VWyIAzw+23tHHYjh5y0f0s0uz3ZeKAFvZfijcuVHQxcMRPnyLZ9Rw9swyA7MFn62CZEiPO7n Yzp7ZfSMNgn2C9PbztvXbT8wOVpZTbOqcSpAZ3aEUc4qJmvcAYyAnGGAa11f9lGbyvqWUjXAWPxraA VgHZktlLipkXG/fUbz0pvIKd52bSamLGC781kUr2w6hntbI/gVpr2VUuMYhAkn2gUxMvSYkLEhKSgA Qa1DdsFZiJODc41MuBwKn/oLwWKO4gmpMwdvpFx6Lv5BMTFMa3aYH9aPX9+aWeHrbNCt4RYX8X3mLa lyV4lr0XPQFHKhLvMnq5QO3tLe/y+etF1IsUkc2fA0kk0lfhcnKjB8j3Dhl8pq6vC8DiN/4CwIMeBe T4lYzxP2oKyxRfFUOf9CX/QhXswyXc9139KispRVezaqw=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11648; i=ardb@kernel.org; h=from:subject; bh=lpQ4+WmITmtmOnKFnxuwxQHGwlCFJ4zTtvospQM9GKk=; b=owEB7QES/pANAwAKAcNPIjmS2Y8kAcsmYgBjOsbWzvxr8yONNNbEpLG35L+GKpYlawmf5lOH3UFh k0+XysqJAbMEAAEKAB0WIQT72WJ8QGnJQhU3VynDTyI5ktmPJAUCYzrG1gAKCRDDTyI5ktmPJBRBDA CixbtB0CwvPLakaVceoJAQw8qQp1WDRfoHfeuCKX7ncix1T1+dYnYT7rv36evcoTla9LTIKQ+9Mkci UsRk9egPOu2Iji+te1wm5kdK5zHzh632bZ7S8hxo0DxaqPGheCnlh4ZVjht6EgSGZZYB8zvFSYQ5GU /am/hsSBLOMBjJS53c8heoJFAVYCzdZa9Q4GbxZliAE5s3So7A12gFwWpera0POthgZCzk89JQkPgE 8JFKcrU8H5uRzx2tEFQHfkaWgV+5Ce3Y4j2tFkqTYvCNkYJkyh2ndPk+eod5JVdww+/NYpYNl/Xm6p hQZI1XSSHGWqoGecrPpipl954qmi6j78R/xW9xF8prTJPNnfmHHi0EDMrOp3M3gO8M1R7oE85P7FVy JuXTKcPq5BZnsS3h8FnmGocp9kjpQuDf6rMLbCvgloMNiKNYClETqusN3AA5QXnExGnGmMnSkBGC0s 0ZodJ7yi6FzBLeCp4AaqflSxHSUCwxu5iWdHdNB+cwX+o=
 X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This is an alternate approach to addressing the issue that Demi Marie is
-attempting to fix in [0] (i.e., ESRT config table exposed to a x86 dom0
-is corrupted because it resides in boot services memory as per the EFI
-spec, where it gets corrupted by Xen). My main objection to that approach
-is that it needs Xen-specific fixes in multiple different places, but we
-still end up only fixing the ESRT case specifically.
+The EFI fake memmap support is specific to x86, which manipulates the
+EFI memory map in various different ways after receiving it from the EFI
+stub. On other architectures, we have manages to push back on this, and
+the EFI memory map is kept pristine.
 
-So instead, I am proposing this series as a more generic way to handle
-configuration tables that reside in boot services memory, and confining
-the Xen specific logic to the Xen EFI glue code.
+So let's move the fake memmap code into the x86 arch tree, where it
+arguably belongs.
 
-Given that EFI boot without a memory map is only permitted on x86 and
-only when doing Xen boot, let's clear up some inconsistencies there
-first so we can set the EFI_PARAVIRT flag on all architectures that do
-pseudo-EFI boot straight into the core kernel (i.e., without going
-through the stub). This moves a good chunk of EFI memory map
-manipulation code into the x86 arch tree, where it arguably belongs as
-no other architectures rely on it. This is implemented in patches 1 - 3.
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+---
+ arch/x86/Kconfig                                       | 20 +++++
+ arch/x86/include/asm/efi.h                             |  5 ++
+ arch/x86/kernel/setup.c                                |  1 +
+ arch/x86/platform/efi/Makefile                         |  1 +
+ {drivers/firmware => arch/x86/platform}/efi/fake_mem.c | 79 +++++++++++++++++++-
+ drivers/firmware/efi/Kconfig                           | 22 ------
+ drivers/firmware/efi/Makefile                          |  4 -
+ drivers/firmware/efi/fake_mem.h                        | 10 ---
+ drivers/firmware/efi/x86_fake_mem.c                    | 75 -------------------
+ include/linux/efi.h                                    |  6 --
+ 10 files changed, 103 insertions(+), 120 deletions(-)
 
-Patch #4 refactors the ESRT sanity checks on the memory descriptor, by
-moving them into the efi_mem_desc_lookup() helper, which should not
-return corrupted descriptors in the first place.
-
-Patch #5 adds a Xen hypercall fallback to efi_mem_desc_lookup() when
-running under Xen without a EFI memory map, so that, e.g., the existing
-ESRT code will perform its validation against the Xen provided
-descriptor if no memory map is available.
-
-Patch #6 updates the config table traversal code so that the Xen glue
-code can force them to be disregarded, which happens when the table in
-question points into a memory region that is not of a type that Xen
-automatically reserves. Future changes can refine this logic if needed.
-
-Changes since v1:
-- add patch #4
-- move Xen descriptor lookup into efi_mem_desc_lookup()
-- drop allowlist for ACPI and SMBIOS tables
-
-[0] https://lore.kernel.org/all/cover.1664298147.git.demi@invisiblethingslab.com/
-
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Peter Jones <pjones@redhat.com>
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: Kees Cook <keescook@chromium.org>
-Cc: Anton Vorontsov <anton@enomsg.org>
-Cc: Colin Cross <ccross@android.com>
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-Ard Biesheuvel (6):
-  efi: Move EFI fake memmap support into x86 arch tree
-  efi: memmap: Move manipulation routines into x86 arch tree
-  efi: xen: Set EFI_PARAVIRT for Xen dom0 boot on all architectures
-  efi: memmap: Disregard bogus entries instead of returning them
-  efi: xen: Implement memory descriptor lookup based on hypercall
-  efi: Apply allowlist to EFI configuration tables when running under
-    Xen
-
- arch/x86/Kconfig                                       |  20 ++
- arch/x86/include/asm/efi.h                             |  16 ++
- arch/x86/kernel/setup.c                                |   1 +
- arch/x86/platform/efi/Makefile                         |   4 +-
- arch/x86/platform/efi/efi.c                            |   8 +-
- {drivers/firmware => arch/x86/platform}/efi/fake_mem.c |  79 ++++++-
- arch/x86/platform/efi/memmap.c                         | 238 ++++++++++++++++++++
- drivers/firmware/efi/Kconfig                           |  22 --
- drivers/firmware/efi/Makefile                          |   4 -
- drivers/firmware/efi/efi.c                             |  25 +-
- drivers/firmware/efi/esrt.c                            |  18 +-
- drivers/firmware/efi/fake_mem.h                        |  10 -
- drivers/firmware/efi/fdtparams.c                       |   4 +
- drivers/firmware/efi/memmap.c                          | 224 +-----------------
- drivers/firmware/efi/x86_fake_mem.c                    |  75 ------
- drivers/xen/efi.c                                      |  58 +++++
- include/linux/efi.h                                    |  19 +-
- 17 files changed, 446 insertions(+), 379 deletions(-)
- rename {drivers/firmware => arch/x86/platform}/efi/fake_mem.c (58%)
- create mode 100644 arch/x86/platform/efi/memmap.c
- delete mode 100644 drivers/firmware/efi/fake_mem.h
- delete mode 100644 drivers/firmware/efi/x86_fake_mem.c
-
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index f9920f1341c8..b98941c2fec4 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -1978,6 +1978,26 @@ config EFI_MIXED
+ 
+ 	  If unsure, say N.
+ 
++config EFI_FAKE_MEMMAP
++	bool "Enable EFI fake memory map"
++	depends on EFI
++	help
++	  Saying Y here will enable "efi_fake_mem" boot option.  By specifying
++	  this parameter, you can add arbitrary attribute to specific memory
++	  range by updating original (firmware provided) EFI memmap.  This is
++	  useful for debugging of EFI memmap related feature, e.g., Address
++	  Range Mirroring feature.
++
++config EFI_MAX_FAKE_MEM
++	int "maximum allowable number of ranges in efi_fake_mem boot option"
++	depends on EFI_FAKE_MEMMAP
++	range 1 128
++	default 8
++	help
++	  Maximum allowable number of ranges in efi_fake_mem boot option.
++	  Ranges can be set up to this value using comma-separated list.
++	  The default value is 8.
++
+ source "kernel/Kconfig.hz"
+ 
+ config KEXEC
+diff --git a/arch/x86/include/asm/efi.h b/arch/x86/include/asm/efi.h
+index 897ea4aec16e..68414d924332 100644
+--- a/arch/x86/include/asm/efi.h
++++ b/arch/x86/include/asm/efi.h
+@@ -404,10 +404,15 @@ static inline void efi_reserve_boot_services(void)
+ 
+ #ifdef CONFIG_EFI_FAKE_MEMMAP
+ extern void __init efi_fake_memmap_early(void);
++extern void __init efi_fake_memmap(void);
+ #else
+ static inline void efi_fake_memmap_early(void)
+ {
+ }
++
++static inline void efi_fake_memmap(void)
++{
++}
+ #endif
+ 
+ #define arch_ima_efi_boot_mode	\
+diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
+index 216fee7144ee..41ec3a69f3c7 100644
+--- a/arch/x86/kernel/setup.c
++++ b/arch/x86/kernel/setup.c
+@@ -31,6 +31,7 @@
+ #include <xen/xen.h>
+ 
+ #include <asm/apic.h>
++#include <asm/efi.h>
+ #include <asm/numa.h>
+ #include <asm/bios_ebda.h>
+ #include <asm/bugs.h>
+diff --git a/arch/x86/platform/efi/Makefile b/arch/x86/platform/efi/Makefile
+index a50245157685..b481719b16cc 100644
+--- a/arch/x86/platform/efi/Makefile
++++ b/arch/x86/platform/efi/Makefile
+@@ -4,3 +4,4 @@ GCOV_PROFILE := n
+ 
+ obj-$(CONFIG_EFI) 		+= quirks.o efi.o efi_$(BITS).o efi_stub_$(BITS).o
+ obj-$(CONFIG_EFI_MIXED)		+= efi_thunk_$(BITS).o
++obj-$(CONFIG_EFI_FAKE_MEMMAP)	+= fake_mem.o
+diff --git a/drivers/firmware/efi/fake_mem.c b/arch/x86/platform/efi/fake_mem.c
+similarity index 58%
+rename from drivers/firmware/efi/fake_mem.c
+rename to arch/x86/platform/efi/fake_mem.c
+index 6e0f34a38171..41d57cad3d84 100644
+--- a/drivers/firmware/efi/fake_mem.c
++++ b/arch/x86/platform/efi/fake_mem.c
+@@ -17,10 +17,13 @@
+ #include <linux/memblock.h>
+ #include <linux/types.h>
+ #include <linux/sort.h>
+-#include "fake_mem.h"
++#include <asm/e820/api.h>
++#include <asm/efi.h>
+ 
+-struct efi_mem_range efi_fake_mems[EFI_MAX_FAKEMEM];
+-int nr_fake_mem;
++#define EFI_MAX_FAKEMEM CONFIG_EFI_MAX_FAKE_MEM
++
++static struct efi_mem_range efi_fake_mems[EFI_MAX_FAKEMEM];
++static int nr_fake_mem;
+ 
+ static int __init cmp_fake_mem(const void *x1, const void *x2)
+ {
+@@ -122,3 +125,73 @@ static int __init setup_fake_mem(char *p)
+ }
+ 
+ early_param("efi_fake_mem", setup_fake_mem);
++
++void __init efi_fake_memmap_early(void)
++{
++	int i;
++
++	/*
++	 * The late efi_fake_mem() call can handle all requests if
++	 * EFI_MEMORY_SP support is disabled.
++	 */
++	if (!efi_soft_reserve_enabled())
++		return;
++
++	if (!efi_enabled(EFI_MEMMAP) || !nr_fake_mem)
++		return;
++
++	/*
++	 * Given that efi_fake_memmap() needs to perform memblock
++	 * allocations it needs to run after e820__memblock_setup().
++	 * However, if efi_fake_mem specifies EFI_MEMORY_SP for a given
++	 * address range that potentially needs to mark the memory as
++	 * reserved prior to e820__memblock_setup(). Update e820
++	 * directly if EFI_MEMORY_SP is specified for an
++	 * EFI_CONVENTIONAL_MEMORY descriptor.
++	 */
++	for (i = 0; i < nr_fake_mem; i++) {
++		struct efi_mem_range *mem = &efi_fake_mems[i];
++		efi_memory_desc_t *md;
++		u64 m_start, m_end;
++
++		if ((mem->attribute & EFI_MEMORY_SP) == 0)
++			continue;
++
++		m_start = mem->range.start;
++		m_end = mem->range.end;
++		for_each_efi_memory_desc(md) {
++			u64 start, end, size;
++
++			if (md->type != EFI_CONVENTIONAL_MEMORY)
++				continue;
++
++			start = md->phys_addr;
++			end = md->phys_addr + (md->num_pages << EFI_PAGE_SHIFT) - 1;
++
++			if (m_start <= end && m_end >= start)
++				/* fake range overlaps descriptor */;
++			else
++				continue;
++
++			/*
++			 * Trim the boundary of the e820 update to the
++			 * descriptor in case the fake range overlaps
++			 * !EFI_CONVENTIONAL_MEMORY
++			 */
++			start = max(start, m_start);
++			end = min(end, m_end);
++			size = end - start + 1;
++
++			if (end <= start)
++				continue;
++
++			/*
++			 * Ensure each efi_fake_mem instance results in
++			 * a unique e820 resource
++			 */
++			e820__range_remove(start, size, E820_TYPE_RAM, 1);
++			e820__range_add(start, size, E820_TYPE_SOFT_RESERVED);
++			e820__update_table(e820_table);
++		}
++	}
++}
+diff --git a/drivers/firmware/efi/Kconfig b/drivers/firmware/efi/Kconfig
+index 4f7e65293297..fceeea74522e 100644
+--- a/drivers/firmware/efi/Kconfig
++++ b/drivers/firmware/efi/Kconfig
+@@ -37,28 +37,6 @@ config EFI_RUNTIME_MAP
+ 
+ 	  See also Documentation/ABI/testing/sysfs-firmware-efi-runtime-map.
+ 
+-config EFI_FAKE_MEMMAP
+-	bool "Enable EFI fake memory map"
+-	depends on EFI && X86
+-	default n
+-	help
+-	  Saying Y here will enable "efi_fake_mem" boot option.
+-	  By specifying this parameter, you can add arbitrary attribute
+-	  to specific memory range by updating original (firmware provided)
+-	  EFI memmap.
+-	  This is useful for debugging of EFI memmap related feature.
+-	  e.g. Address Range Mirroring feature.
+-
+-config EFI_MAX_FAKE_MEM
+-	int "maximum allowable number of ranges in efi_fake_mem boot option"
+-	depends on EFI_FAKE_MEMMAP
+-	range 1 128
+-	default 8
+-	help
+-	  Maximum allowable number of ranges in efi_fake_mem boot option.
+-	  Ranges can be set up to this value using comma-separated list.
+-	  The default value is 8.
+-
+ config EFI_SOFT_RESERVE
+ 	bool "Reserve EFI Specific Purpose Memory"
+ 	depends on EFI && EFI_STUB && ACPI_HMAT
+diff --git a/drivers/firmware/efi/Makefile b/drivers/firmware/efi/Makefile
+index 8d151e332584..8e4f0d5b26e5 100644
+--- a/drivers/firmware/efi/Makefile
++++ b/drivers/firmware/efi/Makefile
+@@ -23,7 +23,6 @@ obj-$(CONFIG_UEFI_CPER)			+= cper.o
+ obj-$(CONFIG_EFI_RUNTIME_MAP)		+= runtime-map.o
+ obj-$(CONFIG_EFI_RUNTIME_WRAPPERS)	+= runtime-wrappers.o
+ subdir-$(CONFIG_EFI_STUB)		+= libstub
+-obj-$(CONFIG_EFI_FAKE_MEMMAP)		+= fake_map.o
+ obj-$(CONFIG_EFI_BOOTLOADER_CONTROL)	+= efibc.o
+ obj-$(CONFIG_EFI_TEST)			+= test/
+ obj-$(CONFIG_EFI_DEV_PATH_PARSER)	+= dev-path-parser.o
+@@ -32,9 +31,6 @@ obj-$(CONFIG_EFI_RCI2_TABLE)		+= rci2-table.o
+ obj-$(CONFIG_EFI_EMBEDDED_FIRMWARE)	+= embedded-firmware.o
+ obj-$(CONFIG_LOAD_UEFI_KEYS)		+= mokvar-table.o
+ 
+-fake_map-y				+= fake_mem.o
+-fake_map-$(CONFIG_X86)			+= x86_fake_mem.o
+-
+ obj-$(CONFIG_SYSFB)			+= sysfb_efi.o
+ 
+ arm-obj-$(CONFIG_EFI)			:= efi-init.o arm-runtime.o
+diff --git a/drivers/firmware/efi/fake_mem.h b/drivers/firmware/efi/fake_mem.h
+deleted file mode 100644
+index d52791af4b18..000000000000
+--- a/drivers/firmware/efi/fake_mem.h
++++ /dev/null
+@@ -1,10 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef __EFI_FAKE_MEM_H__
+-#define __EFI_FAKE_MEM_H__
+-#include <asm/efi.h>
+-
+-#define EFI_MAX_FAKEMEM CONFIG_EFI_MAX_FAKE_MEM
+-
+-extern struct efi_mem_range efi_fake_mems[EFI_MAX_FAKEMEM];
+-extern int nr_fake_mem;
+-#endif /* __EFI_FAKE_MEM_H__ */
+diff --git a/drivers/firmware/efi/x86_fake_mem.c b/drivers/firmware/efi/x86_fake_mem.c
+deleted file mode 100644
+index 0bafcc1bb0f6..000000000000
+--- a/drivers/firmware/efi/x86_fake_mem.c
++++ /dev/null
+@@ -1,75 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/* Copyright(c) 2019 Intel Corporation. All rights reserved. */
+-#include <linux/efi.h>
+-#include <asm/e820/api.h>
+-#include "fake_mem.h"
+-
+-void __init efi_fake_memmap_early(void)
+-{
+-	int i;
+-
+-	/*
+-	 * The late efi_fake_mem() call can handle all requests if
+-	 * EFI_MEMORY_SP support is disabled.
+-	 */
+-	if (!efi_soft_reserve_enabled())
+-		return;
+-
+-	if (!efi_enabled(EFI_MEMMAP) || !nr_fake_mem)
+-		return;
+-
+-	/*
+-	 * Given that efi_fake_memmap() needs to perform memblock
+-	 * allocations it needs to run after e820__memblock_setup().
+-	 * However, if efi_fake_mem specifies EFI_MEMORY_SP for a given
+-	 * address range that potentially needs to mark the memory as
+-	 * reserved prior to e820__memblock_setup(). Update e820
+-	 * directly if EFI_MEMORY_SP is specified for an
+-	 * EFI_CONVENTIONAL_MEMORY descriptor.
+-	 */
+-	for (i = 0; i < nr_fake_mem; i++) {
+-		struct efi_mem_range *mem = &efi_fake_mems[i];
+-		efi_memory_desc_t *md;
+-		u64 m_start, m_end;
+-
+-		if ((mem->attribute & EFI_MEMORY_SP) == 0)
+-			continue;
+-
+-		m_start = mem->range.start;
+-		m_end = mem->range.end;
+-		for_each_efi_memory_desc(md) {
+-			u64 start, end, size;
+-
+-			if (md->type != EFI_CONVENTIONAL_MEMORY)
+-				continue;
+-
+-			start = md->phys_addr;
+-			end = md->phys_addr + (md->num_pages << EFI_PAGE_SHIFT) - 1;
+-
+-			if (m_start <= end && m_end >= start)
+-				/* fake range overlaps descriptor */;
+-			else
+-				continue;
+-
+-			/*
+-			 * Trim the boundary of the e820 update to the
+-			 * descriptor in case the fake range overlaps
+-			 * !EFI_CONVENTIONAL_MEMORY
+-			 */
+-			start = max(start, m_start);
+-			end = min(end, m_end);
+-			size = end - start + 1;
+-
+-			if (end <= start)
+-				continue;
+-
+-			/*
+-			 * Ensure each efi_fake_mem instance results in
+-			 * a unique e820 resource
+-			 */
+-			e820__range_remove(start, size, E820_TYPE_RAM, 1);
+-			e820__range_add(start, size, E820_TYPE_SOFT_RESERVED);
+-			e820__update_table(e820_table);
+-		}
+-	}
+-}
+diff --git a/include/linux/efi.h b/include/linux/efi.h
+index e739196ce9b2..a6dbf354d2c3 100644
+--- a/include/linux/efi.h
++++ b/include/linux/efi.h
+@@ -749,12 +749,6 @@ extern struct kobject *efi_kobj;
+ extern int efi_reboot_quirk_mode;
+ extern bool efi_poweroff_required(void);
+ 
+-#ifdef CONFIG_EFI_FAKE_MEMMAP
+-extern void __init efi_fake_memmap(void);
+-#else
+-static inline void efi_fake_memmap(void) { }
+-#endif
+-
+ extern unsigned long efi_mem_attr_table;
+ 
+ /*
 -- 
 2.35.1
 
