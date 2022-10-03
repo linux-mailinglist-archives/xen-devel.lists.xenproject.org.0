@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A94A95F3419
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 19:04:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414984.659448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B83B85F349E
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 19:35:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414995.659459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofOrW-00063U-RA; Mon, 03 Oct 2022 17:04:14 +0000
+	id 1ofPKl-0000x5-8m; Mon, 03 Oct 2022 17:34:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414984.659448; Mon, 03 Oct 2022 17:04:14 +0000
+Received: by outflank-mailman (output) from mailman id 414995.659459; Mon, 03 Oct 2022 17:34:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofOrW-00060r-NX; Mon, 03 Oct 2022 17:04:14 +0000
-Received: by outflank-mailman (input) for mailman id 414984;
- Mon, 03 Oct 2022 17:04:13 +0000
+	id 1ofPKl-0000uc-5Y; Mon, 03 Oct 2022 17:34:27 +0000
+Received: by outflank-mailman (input) for mailman id 414995;
+ Mon, 03 Oct 2022 17:34:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7JV9=2E=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ofOrV-00060l-32
- for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 17:04:13 +0000
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 65f81e02-433d-11ed-9377-c1cf23e5d27e;
- Mon, 03 Oct 2022 19:04:11 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 4A3D432006F5;
- Mon,  3 Oct 2022 13:04:08 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Mon, 03 Oct 2022 13:04:09 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 3 Oct 2022 13:04:05 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bweH=2E=vmware.com=namit@srs-se1.protection.inumbo.net>)
+ id 1ofPKj-0000uP-90
+ for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 17:34:25 +0000
+Received: from na01-obe.outbound.protection.outlook.com
+ (mail-eastusazlp170110004.outbound.protection.outlook.com
+ [2a01:111:f403:c100::4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9e0097c5-4341-11ed-9377-c1cf23e5d27e;
+ Mon, 03 Oct 2022 19:34:23 +0200 (CEST)
+Received: from BY3PR05MB8531.namprd05.prod.outlook.com (2603:10b6:a03:3ce::6)
+ by SN6PR05MB4909.namprd05.prod.outlook.com (2603:10b6:805:8f::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.14; Mon, 3 Oct
+ 2022 17:34:16 +0000
+Received: from BY3PR05MB8531.namprd05.prod.outlook.com
+ ([fe80::942c:7d1b:6b3d:85b6]) by BY3PR05MB8531.namprd05.prod.outlook.com
+ ([fe80::942c:7d1b:6b3d:85b6%7]) with mapi id 15.20.5709.008; Mon, 3 Oct 2022
+ 17:34:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,258 +47,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65f81e02-433d-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to; s=fm2; t=1664816647; x=
-	1664903047; bh=MAFMhD2KIuhZj+ekr6ZwRi1IRfnbwdYWkjAH4mXarN4=; b=I
-	9HH7zwtOEtR769BBI9P8o6ERsTCw/K3D0NA0bEWTOChot2Uax/fGDLfNvM0/2ta3
-	Dm+dQjJvwpH/LscwVTXrVGPW4/3Su88EvowZdSDinorwmizGRSxF0RakuAIbQs2X
-	mY6tfZUBSYkDoGH+c+1mEcgZGpn5b+fykmSqeL2TYnlTwx27lfqsiCAMRt+ZMooz
-	EFeU/fC+6q0NhWFoLIcMjBvkWRuhp61HtI72nS2Up4yL3ok2Gi8rc23dOCvtfM2C
-	SsGI+lCMjrqxPIV7fzpouJx+SiHm/NWYrQ/bBQH+5VZQcV22q6YgJNgpkK9VfMko
-	oAcEj9Hz+o5lJNO1Kh0GA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1664816647; x=1664903047; bh=MAFMhD2KIuhZj+ekr6ZwRi1IRfnb
-	wdYWkjAH4mXarN4=; b=GxOBXw6F3QN0HLIFXMlbQfU4HVAlQk0R94urTRZm5x/T
-	jVx1AjodfIOKvJRxMb4XqUmJba1/DUToRz8KRRsecC8W+ps6JMP2y5jC3f8YJMEO
-	uPR9m9KPjhwOewxDgvPRcfbitXvio52H2pPpMaqHtfM6Ba7LqJT+TDBjWrt1gGBZ
-	v6cQ9Qscah94qXhfRUlqIJQMVjaUdwM1CUcP+K1maXh9Gx6SZIGjeVjPI1Qks5Fu
-	cJgfZTBOSC4VTfgWaKSgCjg7RwS0hhcv/SJcUQu6O+mH7smG+qTFDtanSVb2FSKA
-	NtkY39DCm7vs3UiQzL14+3kgGiXrxPOW1Z0G6EalOA==
-X-ME-Sender: <xms:BxY7Y_LeMJe50C-fVxwsRxwWFuxuIPzjou9gWuaE1DL1MmlvfBQKYQ>
-    <xme:BxY7YzJ1KvNjoQ6Snn7f8V0eUTMa6Qp_QBJxrBt1P_XTBedFxPvR7Wp-DSNBi3vtc
-    yPxc4PRo68C7w>
-X-ME-Received: <xmr:BxY7Y3sq1wvliPRp5KonqcpOl4WN2_DD5tQCMrqZQDtaN7Iv4XkzaFf96_eYZekN8jS7F-dtUSK3qkf-q31lBs-5ej0Tdh1ooD6R>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehledguddtjecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enmhhishhsihhnghcuvffquchfihgvlhguucdlfedtmdenucfjughrpeffhfevuffkfhgg
-    tggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskh
-    hiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepkeekjeffieehhfeggffhieffvdevie
-    etveejjeeghfetvdfggffhfedtgfeiuedunecuffhomhgrihhnpehgihhthhhusgdrtgho
-    mhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
-    hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:BxY7Y4YED3M3nIFWWquj4ThXbT3b4RXIZxEUd6p47X0bqfQKpW1ygw>
-    <xmx:BxY7Y2YVQRfTOaG001nJe_dOM-nYNaI9c8bS8YD2I0rrAw5h6xigbA>
-    <xmx:BxY7Y8Bc3g5bkAiB9cJLM__NnmKuCn_qmRVeJD-P-7WVdLnm-VS8WQ>
-    <xmx:BxY7Y8lSpr4UWYwyOk2vU49icRJd4UXQqyFbz9T1sMt9X1aRhpdA6Q>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 3 Oct 2022 19:04:02 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
- based on hypercall
-Message-ID: <YzsWAnD7q9qeBoBn@mail-itl>
-References: <20221003112625.972646-1-ardb@kernel.org>
- <20221003112625.972646-6-ardb@kernel.org>
- <Yzr/1s9CbA0CClmt@itl-email>
- <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
- <YzsMYfEwmjHwVheb@itl-email>
- <CAMj1kXHR1FfD+ipG4RtbOezx+s_Jo6JwG4fpT5XUmvoqHTctLA@mail.gmail.com>
+X-Inumbo-ID: 9e0097c5-4341-11ed-9377-c1cf23e5d27e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=S6TBiDjzsKsM1MY3Cs6s/4tE58DAF+CPepSFV3fymCSqgHk11e0ze8qqgPmbqAo4QALAGSDJXV6L4PpLL9aK5AIJ38iTrSfjjyHIRrjb5RcbYLOIZtaJETjqgj5rlWJpsgHrCwOvk60SizhZC4AQkNOIvh573f34F4+gHhTGD89OMU+qa34k/AIZf5fwRkVCPpSg9lVsSsWOyGvt+dgte9Gg54NBsbAULii2sox0ncX5lF9K8oVMlxPxwy3OYTLNuDiy89BfsF4UzLhXBi3CpUNMBNVFz0oru+gNFs42OOYsLXp+9lxSYy9Ub9Y/A+FgyLNBGBm+Dupz5kCZ7bO6/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gbnE7MrDWW5nQM+t2yG5rjk3HSDbCgVczShqlOfEIoc=;
+ b=j0vxyCIqv3m7KPwBFomzpo6DxT27uiwOhk+lMJJq+r9tOyDT33xRxPvA414hbbpsN2DYpVrZAA9Pmp79fne/Ywf3blZW90NU2FGXRXoKq5WfoLyX9ORscA2SJ0MSFwFWBcc5yahvW6rv9YDGhKr3QA0ao5l+Ibo40QX9TsmZmUhA3IHsO3jVzkwAIVd8W7LEgCjgTK+plT3LyzIKgWF+kU3yl4GwrKDnwIlG0Kyedgo0qV7mS+o0ppr2s2EwFBN5aTaqz+51Ug077zrU7HuWK2QkHBaypdWAsvtFGZLjsmJNeErsqvgEwFNm2diTsegfUu/uJogOCj1+OxpxENERVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vmware.com; dmarc=pass action=none header.from=vmware.com;
+ dkim=pass header.d=vmware.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vmware.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gbnE7MrDWW5nQM+t2yG5rjk3HSDbCgVczShqlOfEIoc=;
+ b=CUBLXxK1xIKpqS7IQi0reDc/3Ow9Z/9EuyWxxSRjfs3rgFjrlOwhl366ZZogpbrAtBYJLHOW/iGtVTuSDWAzrtTYvAcyf5+EyIv95xgu3f7visxqw1Y6VC7MHv0uIliVYjcWfPacZcZZagqSC2RbeBUW7KghvzgAFgeUefqqlYQ=
+From: Nadav Amit <namit@vmware.com>
+To: Vitaly Kuznetsov <vkuznets@redhat.com>, Alexander Graf <graf@amazon.com>
+CC: Ajay Kaher <akaher@vmware.com>, "x86@kernel.org" <x86@kernel.org>,
+	"hpa@zytor.com" <hpa@zytor.com>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "rostedt@goodmis.org" <rostedt@goodmis.org>,
+	Srivatsa Bhat <srivatsab@vmware.com>, "srivatsa@csail.mit.edu"
+	<srivatsa@csail.mit.edu>, Alexey Makhalov <amakhalov@vmware.com>, Vasavi
+ Sirnapalli <vsirnapalli@vmware.com>, "er.ajay.kaher@gmail.com"
+	<er.ajay.kaher@gmail.com>, "willy@infradead.org" <willy@infradead.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "jailhouse-dev@googlegroups.com"
+	<jailhouse-dev@googlegroups.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "acrn-dev@lists.projectacrn.org"
+	<acrn-dev@lists.projectacrn.org>, "helgaas@kernel.org" <helgaas@kernel.org>,
+	"bhelgaas@google.com" <bhelgaas@google.com>, Thomas Gleixner
+	<tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
+	<bp@alien8.de>, "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
+Subject: Re: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
+Thread-Topic: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
+Thread-Index: AQHYx28G+J2WSwxm3kmFzqoOhSDYUK3dXFQAgBj77YCABouGgIAAKhGA
+Date: Mon, 3 Oct 2022 17:34:15 +0000
+Message-ID: <04F550C5-786A-4B8E-9A88-EBFBD8872F16@vmware.com>
+References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com>
+ <87zgf3pfd1.fsf@redhat.com> <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com>
+ <87tu4l9cfm.fsf@redhat.com>
+In-Reply-To: <87tu4l9cfm.fsf@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vmware.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY3PR05MB8531:EE_|SN6PR05MB4909:EE_
+x-ms-office365-filtering-correlation-id: f067f375-a994-4f7d-f56f-08daa5657e8e
+x-ld-processed: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ IaLUdvWXEsR+zuBn4vVC5O6D2aYNnOJE1YfeoCPPy/2WQ65EDfBOC5kCLgRnYVqBSyr9lfyXrxb4R14kqV/57YCijAHSuUOwokBRVa+GK3n3g2EtHU+y/G68oJQaXGA/fDnCAGVsqaNHjgIN9ON6FdDLiggoIztOyzznnccnSsaeh1cSajSQPo5SWTwEJJF8KZd2hpfqj45M9z1bvD8f/VyItjIaAL2I5T0rqiMSje4CJBBQBzZGsoDRvmFj5VdSDLowFHWnDnB3cA6oR4GfLtLiXXNvwekw8lxIn45oNkvLd6XePYVK2bUeywI66lb95zaCTM8KknTuFLH67bclG2aYVpZ0nIQVIlPseDTirUWwdiJzXN0qdhjdnV4sCMgrt0pE9Sc4noU5eT0E6bBifqma1kZuHzmWbDEl4LN04PDraWbg6MAbNdyHi72foKiPNiucmZcFvc3URmbpfNrd+NOFy1EEY11+nASkiG9ooCff/XitFaEwzakpNFwFU5Ch/w/b0vyRb+NIqrCwp9dt1B3DRMbbYkiKcaBh3y0Pnwn4qcx1Ebi/jgmTkB47obsQDk3k/IZUSrgd9/2kNmzxJ2QVn0u8fApc0S0qQpqDMdWdUqR1sWJEudqviLIEjaJ1wtTpdCr+gjzOAuf3Zz3NoLDRLbHNsSG5bQQLGya91xXFjNTD+mLx+zBvfr8EK1dVS7yiCam9MSKIsqpE/oHIdiCBTrsitNbKIAp5vK/eqUd6EbjkCyFhVoBXDVF618Dn3u8p9yLRRt+4gtCw/O4h8o5/euzeukUR22Wth3gas0c=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR05MB8531.namprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(366004)(346002)(376002)(39860400002)(451199015)(2906002)(5660300002)(7416002)(8936002)(41300700001)(71200400001)(36756003)(478600001)(76116006)(316002)(38100700002)(86362001)(122000001)(4326008)(64756008)(6512007)(8676002)(26005)(66556008)(66446008)(6506007)(110136005)(53546011)(2616005)(66476007)(54906003)(66946007)(6486002)(38070700005)(33656002)(186003)(83380400001)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SS9ZRWRva3lXQmpRcW9ZeE8rT3VZSlpRS2U0UmFMSGRBYVVoSjhSWUZVVFlW?=
+ =?utf-8?B?YUpjQmZkRExYL0UwL1FOeFNvai90SmxVL3k3ZVBuWXRxK0kzZ1ZMK01sZFRi?=
+ =?utf-8?B?cE9kcUw0RlRtRXQ1WmZoQmZDUlFtVGxWdDYycFJqcU9DSE1jRisrZzVIaGhK?=
+ =?utf-8?B?ZEhLU3IxdHJHQ3FDRXhwUjhvMExZSWlpS0M5aXg5bVdLQXl4SWVDKytSdnZH?=
+ =?utf-8?B?cWZERVVpVXdwYmJGdnlmbG1qbUZSZkwySXdZV0d6L1BSSEdZdjJ6UThpZ0pN?=
+ =?utf-8?B?a0VITSt4NmJmSHJQUzFEekxaczZmclBpaFRreTFoSDFiR28zc1RlNlFOckhF?=
+ =?utf-8?B?bTNUY2xBVTZBVk5Sdld1SkhYSmxOdmZQeGs5RGNMNHl0MldjeUE1dXgzd3Bz?=
+ =?utf-8?B?b0lLOU1OWkpsNUdpVDgybkZvZ2pyNGlBUnUrdWpUTFBsblZhejJ6MFU0dE1o?=
+ =?utf-8?B?RTBqaytjbUUybDZ3Z3Robkd5LzkvTkhlTGliREprOUxGbXVZUlFtWUZYNGpQ?=
+ =?utf-8?B?T1UzR1QvZ2Y4TFZqNWZpNW5Fb3k1cDkzR0U2M1JvRUJDUkZlZDZsMUNMWjlC?=
+ =?utf-8?B?SU9DdTJLdG42TStyUEQ4MUdBNFQwZmltNEVwVHBDZGNJYXg1QVM0eTRraTZB?=
+ =?utf-8?B?WWIrYTZkMzlGT3NBeTlJcVRYWnZlZFBHcDBuOTgxVlBxSHdHRDMrREFzMlZL?=
+ =?utf-8?B?WENuaUMvckYxOEF3ZjE5cjdidXRYdTljeGZvTlU2eUc0OG9VSytwVHVjNWZO?=
+ =?utf-8?B?dVVFVnRVRWIya0xaQzJRM3pQM2k3M1Nxay9DRG56RW01cEJzZDRkQVMydG9p?=
+ =?utf-8?B?ek1iRlFXenNaVHd1cXprc1VoQ2dLbHJEVjNHMktuVngwdzZOQy9TRFFLejNk?=
+ =?utf-8?B?RWpFVGhYLzlhVXBoQTVRZU5CRDRIcUNIRDJoNjFxT1VjckNmRXpiTG9oR0lR?=
+ =?utf-8?B?Y092MC9LL1VHa0NBVDcrNmhXNkxpVVJFTElZNll3WjRhU1Y5d2ZhMFJ3OG9o?=
+ =?utf-8?B?VXh3aUZ6bkVHMXFuTDM5MmxOeHc1RkhVdWl5dnhJSThNNFd1N1JKUzZUOFZN?=
+ =?utf-8?B?RzJzL25GWFJLRnNqVE9LakJOSFhEaHdZUVV4MTFXSWpSRDlGWWpHUDE2N1Ar?=
+ =?utf-8?B?MERhbFB2SkRYeXRyR2pZQ3dHaE5UNVB4azFMMnJMQ1prM0dDM1BWcnFHOXl3?=
+ =?utf-8?B?SHZQczU2N3Z1SlpFWFZxZGdHQUdKNTIvS0k1YWorRkx4QWsvUFBvU1dmOEor?=
+ =?utf-8?B?RUk4NHMwanQ0bFpkRjhtdW1QcEtJWVJXYzNLUzdxWG42WHN2Z1p2Yk1YclNi?=
+ =?utf-8?B?QVU1UDVYV1R1Q0l6eFZBR2NHcllVODNCSDdPMWdZZ3RNS0FSWXFKUEV0RmFG?=
+ =?utf-8?B?R21mWGVoUGVIem5DWk95ZlNpNmJ6M285VlAyRXVHWkxGblg5MWNIaHE2dWJv?=
+ =?utf-8?B?bEl2WXFkcjZKNHlJMkttQXh5YkJYd0JhU1V4bkpGaTR4VlVuNm00QVhMNThX?=
+ =?utf-8?B?aU1YTmJhNUVkT3FFaG82TDQ1cTdNclcxQmFJRXByelR4MzFMZkEveCtaR2hL?=
+ =?utf-8?B?eVhiSjBqOHVoU3FPTVRQM0JmM1RZZFhaTHFRbkNqWk9yWDAyUkIxMm5CRDRI?=
+ =?utf-8?B?MFNLMCs4c3B1M1VMVmpsc0NwNk5GaUFtZCtqOUkrUU1BMjlLMHRkTEE4bFhD?=
+ =?utf-8?B?MklNRDdlRUJwdVJjWi8yRnkvRVBObGp1YUcrSW43OUQwcngwM0g0WmsyVW1i?=
+ =?utf-8?B?YjROVXpzSTRMa1poM3l2bzZFU2EzUkNVZEJkdTlzUU40b2JsUEdwRHF0bndO?=
+ =?utf-8?B?TFppeFM2OVp3T055dDBWekxnVVdSZEFwS3I4NzVmUnNoTXdTbGZJakxnTTFC?=
+ =?utf-8?B?eUx3dkErS0VHeGMxenpMVkdHTUZjM0tRSGJ5N0xpbXJrYkd6cE9hRWZBSjg5?=
+ =?utf-8?B?bndPQ0lrMS9vak9IWVordnR4bHIrYkYyM0cwR0R5andKdmx1YnptT0pqeWxX?=
+ =?utf-8?B?d3RYcmpjY3lCdlQvMjdnRmE4cGxYNEZoZlNSSGRYeUdDc0NyVE5YZE04d2pk?=
+ =?utf-8?B?R3h0ZERDOVhMNFdGMWI2aDJ5V2RGVnFJTGZ4RGc4Nk5pZDNIZ1dqU2xTRmtn?=
+ =?utf-8?Q?+a66uWCSsmVNdFG28Hq0rHmSH?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <7D0FA40BBFF97F47A797D05CA1FD21C7@namprd05.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="+89X2RyWPSxXneQK"
-Content-Disposition: inline
-In-Reply-To: <CAMj1kXHR1FfD+ipG4RtbOezx+s_Jo6JwG4fpT5XUmvoqHTctLA@mail.gmail.com>
+X-OriginatorOrg: vmware.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY3PR05MB8531.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f067f375-a994-4f7d-f56f-08daa5657e8e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Oct 2022 17:34:15.9768
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b39138ca-3cee-4b4a-a4d6-cd83d9dd62f0
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: H7e6BrAlIbbPlhbwP3L1c1bni96047Ws6DuPb4ylCyO6F0J+GOacZaA0S6L4OAtbt+jZK+Hi+TbxT7kETvK/yg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR05MB4909
 
-
---+89X2RyWPSxXneQK
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 3 Oct 2022 19:04:02 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
- based on hypercall
-
-On Mon, Oct 03, 2022 at 06:37:19PM +0200, Ard Biesheuvel wrote:
-> On Mon, 3 Oct 2022 at 18:23, Demi Marie Obenour
-> <demi@invisiblethingslab.com> wrote:
-> >
-> > On Mon, Oct 03, 2022 at 05:59:52PM +0200, Ard Biesheuvel wrote:
-> > > On Mon, 3 Oct 2022 at 17:29, Demi Marie Obenour
-> > > <demi@invisiblethingslab.com> wrote:
-> > > >
-> > > > On Mon, Oct 03, 2022 at 01:26:24PM +0200, Ard Biesheuvel wrote:
-> > > > > Xen on x86 boots dom0 in EFI mode but without providing a memory =
-map.
-> > > > > This means that some sanity checks we would like to perform on
-> > > > > configuration tables or other data structures in memory are not
-> > > > > currently possible. Xen does, however, expose EFI memory descript=
-or info
-> > > > > via a Xen hypercall, so let's wire that up instead.
-> > > > >
-> > > > > Co-developed-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > > > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> > > > > ---
-> > > > >  drivers/firmware/efi/efi.c |  5 ++-
-> > > > >  drivers/xen/efi.c          | 34 ++++++++++++++++++++
-> > > > >  include/linux/efi.h        |  1 +
-> > > > >  3 files changed, 39 insertions(+), 1 deletion(-)
-> > > > >
-> > > > > diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/ef=
-i.c
-> > > > > index 55bd3f4aab28..2c12b1a06481 100644
-> > > > > --- a/drivers/firmware/efi/efi.c
-> > > > > +++ b/drivers/firmware/efi/efi.c
-> > > > > @@ -456,7 +456,7 @@ void __init efi_find_mirror(void)
-> > > > >   * and if so, populate the supplied memory descriptor with the a=
-ppropriate
-> > > > >   * data.
-> > > > >   */
-> > > > > -int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
-> > > > > +int __efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_=
-md)
-> > > > >  {
-> > > > >       efi_memory_desc_t *md;
-> > > > >
-> > > > > @@ -485,6 +485,9 @@ int efi_mem_desc_lookup(u64 phys_addr, efi_me=
-mory_desc_t *out_md)
-> > > > >       return -ENOENT;
-> > > > >  }
-> > > > >
-> > > > > +extern int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t =
-*out_md)
-> > > > > +      __weak __alias(__efi_mem_desc_lookup);
-> > > > > +
-> > > > >  /*
-> > > > >   * Calculate the highest address of an efi memory descriptor.
-> > > > >   */
-> > > > > diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
-> > > > > index d1ff2186ebb4..74f3f6d8cdc8 100644
-> > > > > --- a/drivers/xen/efi.c
-> > > > > +++ b/drivers/xen/efi.c
-> > > > > @@ -26,6 +26,7 @@
-> > > > >
-> > > > >  #include <xen/interface/xen.h>
-> > > > >  #include <xen/interface/platform.h>
-> > > > > +#include <xen/page.h>
-> > > > >  #include <xen/xen.h>
-> > > > >  #include <xen/xen-ops.h>
-> > > > >
-> > > > > @@ -292,3 +293,36 @@ void __init xen_efi_runtime_setup(void)
-> > > > >       efi.get_next_high_mono_count    =3D xen_efi_get_next_high_m=
-ono_count;
-> > > > >       efi.reset_system                =3D xen_efi_reset_system;
-> > > > >  }
-> > > > > +
-> > > > > +int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
-> > > > > +{
-> > > > > +     static_assert(XEN_PAGE_SHIFT =3D=3D EFI_PAGE_SHIFT,
-> > > > > +                   "Mismatch between EFI_PAGE_SHIFT and XEN_PAGE=
-_SHIFT");
-> > > > > +     struct xen_platform_op op =3D {
-> > > > > +             .cmd =3D XENPF_firmware_info,
-> > > > > +             .u.firmware_info =3D {
-> > > > > +                     .type =3D XEN_FW_EFI_INFO,
-> > > > > +                     .index =3D XEN_FW_EFI_MEM_INFO,
-> > > > > +                     .u.efi_info.mem.addr =3D phys_addr,
-> > > > > +                     .u.efi_info.mem.size =3D U64_MAX - phys_add=
-r,
-> > > > > +             }
-> > > > > +     };
-> > > > > +     union xenpf_efi_info *info =3D &op.u.firmware_info.u.efi_in=
-fo;
-> > > > > +     int rc;
-> > > > > +
-> > > > > +     if (!efi_enabled(EFI_PARAVIRT) || efi_enabled(EFI_MEMMAP))
-> > > > > +             return __efi_mem_desc_lookup(phys_addr, out_md);
-> > > > > +
-> > > > > +     rc =3D HYPERVISOR_platform_op(&op);
-> > > > > +     if (rc) {
-> > > > > +             pr_warn("Failed to lookup header 0x%llx in Xen memo=
-ry map: error %d\n",
-> > > > > +                     phys_addr, rc);
-> > > > > +     }
-> > > > > +
-> > > > > +     out_md->phys_addr       =3D info->mem.addr;
-> > > >
-> > > > This will be equal to phys_addr, not the actual start of the memory
-> > > > region.
-> > > >
-> > > > > +     out_md->num_pages       =3D info->mem.size >> EFI_PAGE_SHIF=
-T;
-> > > >
-> > > > Similarly, this will be the number of bytes in the memory region
-> > > > after phys_addr, not the total number of bytes in the region.  Thes=
-e two
-> > > > differences mean that this function is not strictly equivalent to t=
-he
-> > > > original efi_mem_desc_lookup().
-> > > >
-> > > > I am not sure if this matters in practice, but I thought you would =
-want
-> > > > to be aware of it.
-> > >
-> > > This is a bit disappointing. Is there no way to obtain this
-> > > information via a Xen hypercall?
-> >
-> > It is possible, but doing so is very complex (it essentially requires a
-> > binary search).  This really should be fixed on the Xen side.
-> >
-> > > In any case, it means we'll need to round down phys_addr to page size
-> > > at the very least.
-> >
-> > That makes sense.  Are there any callers that will be broken even with
-> > this rounding?
->=20
-> As far as I can tell, it should work fine. The only thing to double
-> check is whether we are not creating spurious error messages from
-> efi_arch_mem_reserve() this way, but as far as I can tell, that should
-> be fine too.
->=20
-> Is there anyone at your end that can give this a spin on an actual
-> Xen/x86 system?
-
-Demi, if you open a PR with this at
-https://github.com/QubesOS/qubes-linux-kernel/pulls, I can run it
-through our CI - (at least) one of the machines has ESRT table. AFAIR
-your test laptop has it too.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---+89X2RyWPSxXneQK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmM7FgMACgkQ24/THMrX
-1yxKHQf+JJ2JkZcF4WgR42arxR3sevcAuSW2j7nKWkMyLMp4St7Aa4hOBpdFyATU
-2W0z0NzwalajmAbNXPM2u2LEMMP1EdFoqFrEGsocWsMH2qWTwkttLv7ARnltQy9K
-qVcX+78nDAeB+/D+S5dvoYwWk5sWot1lIKnmu1pieEguldbZbVctvx6Sfdn2rlGb
-BpZ0LKXEtXQ8LKuTGQDDdkpBg8yKQ8MGDEoslJTio8yEYmGKhp/gARHx9OaB18am
-XeECcXlnCcddgaKn7E9BQ02Doql4YbZdhZY8NZKAevEvjZ9RtZ9hEkM1x4L7Pllu
-p1FURsSerZvxAfOck8JVoaGob0KYpA==
-=6KGB
------END PGP SIGNATURE-----
-
---+89X2RyWPSxXneQK--
+T24gT2N0IDMsIDIwMjIsIGF0IDg6MDMgQU0sIFZpdGFseSBLdXpuZXRzb3YgPHZrdXpuZXRzQHJl
+ZGhhdC5jb20+IHdyb3RlOg0KDQo+IE5vdCBteSBidXQgcmF0aGVyIFBDSSBtYWludGFpbmVyJ3Mg
+Y2FsbCBidXQgSU1ITyBkcm9wcGluZyAnY29uc3QnIGlzDQo+IGJldHRlciwgaW50cm9kdWNpbmcg
+YSBuZXcgZ2xvYmFsIHZhciBpcyBvdXIgJ2xhc3QgcmVzb3J0JyBhbmQgc2hvdWxkIGJlDQo+IGF2
+b2lkZWQgd2hlbmV2ZXIgcG9zc2libGUuIEFsdGVybmF0aXZlbHksIHlvdSBjYW4gYWRkIGENCj4g
+cmF3X3BjaV9leHRfb3BzX3ByZWZlcnJlZCgpIGZ1bmN0aW9uIGNoZWNraW5nIHNvbWV0aGluIHdp
+dGhpbiAnc3RydWN0DQo+IGh5cGVydmlzb3JfeDg2JyBidXQgSSdtIHVuc3VyZSBpZiBpdCdzIGJl
+dHRlci4NCj4gDQo+IEFsc28sIHBsZWFzZSBjaGVjayBBbGV4JyBxdWVzdGlvbi9zdWdnZXN0aW9u
+Lg0KDQpIZXJlIGlzIG15IHRha2UgKGFuZCBBamF5IGtub3dzIHByb2JhYmx5IG1vcmUgdGhhbiBt
+ZSk6DQoNCkxvb2tpbmcgYnJpZWZseSBvbiBNQ0ZHLCBJIGRvIG5vdCBzZWUgYSBjbGVhbiB3YXkg
+b2YgdXNpbmcgdGhlIEFDUEkgdGFibGUuDQpUaGUgdHdvIG9wdGlvbnMgYXJlIGVpdGhlciB0byB1
+c2UgYSByZXNlcnZlZCBmaWVsZCAod2hpY2ggd2hvIGtub3dzLCBtaWdodA0KYmUgdXNlZCBvbmUg
+ZGF5KSBvciBzb21lIE9FTSBJRC4gSSBhbSBhbHNvIG5vdCBmYW1pbGlhciB3aXRoDQpQQ0lfQ09N
+TUFORC5NRU1PUlk9MCwgc28gQWpheSBjYW4gaG9wZWZ1bGx5IGdpdmUgc29tZSBhbnN3ZXIgYWJv
+dXQgdGhhdC4NCg0KQW55aG93LCBJIHVuZGVyc3RhbmQgKGFsdGhvdWdoIG5vdCByZWxhdGUpIHRv
+IHRoZSBvYmplY3Rpb24gZm9yIGEgbmV3IGdsb2JhbA0KdmFyaWFibGUuIEhvdyBhYm91dCBleHBs
+aWNpdGx5IGNhbGxpbmcgdGhpcyBoYXJkd2FyZSBidWcgYSDigJxidWfigJ0gYW5kIHVzaW5nDQp0
+aGUgcHJvcGVyIGluZnJhc3RydWN0dXJlPyBDYWxsaW5nIGl0IGV4cGxpY2l0bHkgYSBidWcgbWF5
+IGV2ZW4gcHVzaCB3aG9ldmVyDQpjYW4gdG8gcmVzb2x2ZSBpdC4NCg0KSU9XLCBob3cgYWJvdXQg
+ZG9pbmcgc29tZXRoaW5nIGFsb25nIHRoZSBsaW5lcyBvZiAobm90IHRlc3RlZCk6DQoNCg0KLS0g
+PjggLS0NCg0KU3ViamVjdDogW1BBVENIXSB4ODYvUENJOiBQcmVmZXIgTU1JTyBvdmVyIFBJTyBv
+biBWTXdhcmUgaHlwZXJ2aXNvcg0KDQotLS0NCiBhcmNoL3g4Ni9pbmNsdWRlL2FzbS9jcHVmZWF0
+dXJlcy5oIHwgMSArDQogYXJjaC94ODYva2VybmVsL2NwdS9jb21tb24uYyAgICAgICB8IDIgKysN
+CiBhcmNoL3g4Ni9rZXJuZWwvY3B1L3Ztd2FyZS5jICAgICAgIHwgMiArKw0KIGFyY2gveDg2L3Bj
+aS9jb21tb24uYyAgICAgICAgICAgICAgfCA2ICsrKystLQ0KIDQgZmlsZXMgY2hhbmdlZCwgOSBp
+bnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvYXJjaC94ODYvaW5j
+bHVkZS9hc20vY3B1ZmVhdHVyZXMuaCBiL2FyY2gveDg2L2luY2x1ZGUvYXNtL2NwdWZlYXR1cmVz
+LmgNCmluZGV4IGVmNDc3NWM2ZGIwMS4uMjE2YjZmMzU3YjZkIDEwMDY0NA0KLS0tIGEvYXJjaC94
+ODYvaW5jbHVkZS9hc20vY3B1ZmVhdHVyZXMuaA0KKysrIGIvYXJjaC94ODYvaW5jbHVkZS9hc20v
+Y3B1ZmVhdHVyZXMuaA0KQEAgLTQ2MCw1ICs0NjAsNiBAQA0KICNkZWZpbmUgWDg2X0JVR19NTUlP
+X1VOS05PV04JCVg4Nl9CVUcoMjYpIC8qIENQVSBpcyB0b28gb2xkIGFuZCBpdHMgTU1JTyBTdGFs
+ZSBEYXRhIHN0YXR1cyBpcyB1bmtub3duICovDQogI2RlZmluZSBYODZfQlVHX1JFVEJMRUVECQlY
+ODZfQlVHKDI3KSAvKiBDUFUgaXMgYWZmZWN0ZWQgYnkgUkVUQmxlZWQgKi8NCiAjZGVmaW5lIFg4
+Nl9CVUdfRUlCUlNfUEJSU0IJCVg4Nl9CVUcoMjgpIC8qIEVJQlJTIGlzIHZ1bG5lcmFibGUgdG8g
+UG9zdCBCYXJyaWVyIFJTQiBQcmVkaWN0aW9ucyAqLw0KKyNkZWZpbmUgWDg2X0JVR19FQ0FNX01N
+SU8JCVg4Nl9CVUcoMjkpIC8qIEVDQU0gTU1JTyBpcyBidWdneSBhbmQgUElPIGlzIHByZWZlcmFi
+bGUgKi8NCiANCiAjZW5kaWYgLyogX0FTTV9YODZfQ1BVRkVBVFVSRVNfSCAqLw0KZGlmZiAtLWdp
+dCBhL2FyY2gveDg2L2tlcm5lbC9jcHUvY29tbW9uLmMgYi9hcmNoL3g4Ni9rZXJuZWwvY3B1L2Nv
+bW1vbi5jDQppbmRleCAzZTUwOGYyMzkwOTguLmM5NDE3NWZhMzA0YiAxMDA2NDQNCi0tLSBhL2Fy
+Y2gveDg2L2tlcm5lbC9jcHUvY29tbW9uLmMNCisrKyBiL2FyY2gveDg2L2tlcm5lbC9jcHUvY29t
+bW9uLmMNCkBAIC0xMjk5LDYgKzEyOTksOCBAQCBzdGF0aWMgdm9pZCBfX2luaXQgY3B1X3NldF9i
+dWdfYml0cyhzdHJ1Y3QgY3B1aW5mb194ODYgKmMpDQogew0KIAl1NjQgaWEzMl9jYXAgPSB4ODZf
+cmVhZF9hcmNoX2NhcF9tc3IoKTsNCiANCisJc2V0dXBfZm9yY2VfY3B1X2J1ZyhYODZfQlVHX0VD
+QU1fTU1JTyk7DQorDQogCS8qIFNldCBJVExCX01VTFRJSElUIGJ1ZyBpZiBjcHUgaXMgbm90IGlu
+IHRoZSB3aGl0ZWxpc3QgYW5kIG5vdCBtaXRpZ2F0ZWQgKi8NCiAJaWYgKCFjcHVfbWF0Y2hlcyhj
+cHVfdnVsbl93aGl0ZWxpc3QsIE5PX0lUTEJfTVVMVElISVQpICYmDQogCSAgICAhKGlhMzJfY2Fw
+ICYgQVJDSF9DQVBfUFNDSEFOR0VfTUNfTk8pKQ0KZGlmZiAtLWdpdCBhL2FyY2gveDg2L2tlcm5l
+bC9jcHUvdm13YXJlLmMgYi9hcmNoL3g4Ni9rZXJuZWwvY3B1L3Ztd2FyZS5jDQppbmRleCAwMjAz
+OWVjMzU5N2QuLjg5MDM3NzYyODRhNiAxMDA2NDQNCi0tLSBhL2FyY2gveDg2L2tlcm5lbC9jcHUv
+dm13YXJlLmMNCisrKyBiL2FyY2gveDg2L2tlcm5lbC9jcHUvdm13YXJlLmMNCkBAIC0zODUsNiAr
+Mzg1LDggQEAgc3RhdGljIHZvaWQgX19pbml0IHZtd2FyZV9zZXRfY2FwYWJpbGl0aWVzKHZvaWQp
+DQogCQlzZXR1cF9mb3JjZV9jcHVfY2FwKFg4Nl9GRUFUVVJFX1ZNQ0FMTCk7DQogCWVsc2UgaWYg
+KHZtd2FyZV9oeXBlcmNhbGxfbW9kZSA9PSBDUFVJRF9WTVdBUkVfRkVBVFVSRVNfRUNYX1ZNTUNB
+TEwpDQogCQlzZXR1cF9mb3JjZV9jcHVfY2FwKFg4Nl9GRUFUVVJFX1ZNV19WTU1DQUxMKTsNCisN
+CisJc2V0dXBfY2xlYXJfY3B1X2NhcChYODZfQlVHX0VDQU1fTU1JTyk7DQogfQ0KIA0KIHN0YXRp
+YyB2b2lkIF9faW5pdCB2bXdhcmVfcGxhdGZvcm1fc2V0dXAodm9pZCkNCmRpZmYgLS1naXQgYS9h
+cmNoL3g4Ni9wY2kvY29tbW9uLmMgYi9hcmNoL3g4Ni9wY2kvY29tbW9uLmMNCmluZGV4IGRkYjc5
+ODYwMzIwMS4uYmM4MWNmNGMxMDE0IDEwMDY0NA0KLS0tIGEvYXJjaC94ODYvcGNpL2NvbW1vbi5j
+DQorKysgYi9hcmNoL3g4Ni9wY2kvY29tbW9uLmMNCkBAIC00MCw3ICs0MCw4IEBAIGNvbnN0IHN0
+cnVjdCBwY2lfcmF3X29wcyAqX19yZWFkX21vc3RseSByYXdfcGNpX2V4dF9vcHM7DQogaW50IHJh
+d19wY2lfcmVhZCh1bnNpZ25lZCBpbnQgZG9tYWluLCB1bnNpZ25lZCBpbnQgYnVzLCB1bnNpZ25l
+ZCBpbnQgZGV2Zm4sDQogCQkJCQkJaW50IHJlZywgaW50IGxlbiwgdTMyICp2YWwpDQogew0KLQlp
+ZiAoZG9tYWluID09IDAgJiYgcmVnIDwgMjU2ICYmIHJhd19wY2lfb3BzKQ0KKwlpZiAoZG9tYWlu
+ID09IDAgJiYgcmVnIDwgMjU2ICYmIHJhd19wY2lfb3BzICYmDQorCSAgICAoYm9vdF9jcHVfaGFz
+X2J1ZyhYODZfQlVHX0VDQU1fTU1JTykgfHwgIXJhd19wY2lfZXh0X29wcykpDQogCQlyZXR1cm4g
+cmF3X3BjaV9vcHMtPnJlYWQoZG9tYWluLCBidXMsIGRldmZuLCByZWcsIGxlbiwgdmFsKTsNCiAJ
+aWYgKHJhd19wY2lfZXh0X29wcykNCiAJCXJldHVybiByYXdfcGNpX2V4dF9vcHMtPnJlYWQoZG9t
+YWluLCBidXMsIGRldmZuLCByZWcsIGxlbiwgdmFsKTsNCkBAIC01MCw3ICs1MSw4IEBAIGludCBy
+YXdfcGNpX3JlYWQodW5zaWduZWQgaW50IGRvbWFpbiwgdW5zaWduZWQgaW50IGJ1cywgdW5zaWdu
+ZWQgaW50IGRldmZuLA0KIGludCByYXdfcGNpX3dyaXRlKHVuc2lnbmVkIGludCBkb21haW4sIHVu
+c2lnbmVkIGludCBidXMsIHVuc2lnbmVkIGludCBkZXZmbiwNCiAJCQkJCQlpbnQgcmVnLCBpbnQg
+bGVuLCB1MzIgdmFsKQ0KIHsNCi0JaWYgKGRvbWFpbiA9PSAwICYmIHJlZyA8IDI1NiAmJiByYXdf
+cGNpX29wcykNCisJaWYgKGRvbWFpbiA9PSAwICYmIHJlZyA8IDI1NiAmJiByYXdfcGNpX29wcyAm
+Jg0KKwkgICAgKGJvb3RfY3B1X2hhc19idWcoWDg2X0JVR19FQ0FNX01NSU8pIHx8ICFyYXdfcGNp
+X2V4dF9vcHMpKQ0KIAkJcmV0dXJuIHJhd19wY2lfb3BzLT53cml0ZShkb21haW4sIGJ1cywgZGV2
+Zm4sIHJlZywgbGVuLCB2YWwpOw0KIAlpZiAocmF3X3BjaV9leHRfb3BzKQ0KIAkJcmV0dXJuIHJh
+d19wY2lfZXh0X29wcy0+d3JpdGUoZG9tYWluLCBidXMsIGRldmZuLCByZWcsIGxlbiwgdmFsKTsN
+Ci0tIA0KMi4zNC4xDQoNCg0KDQoNCg==
 
