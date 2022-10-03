@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B85A75F3523
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 20:01:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.415009.659480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB3ED5F376B
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 23:03:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.415021.659492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofPki-0004pW-Ic; Mon, 03 Oct 2022 18:01:16 +0000
+	id 1ofSZw-0004vo-N5; Mon, 03 Oct 2022 21:02:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 415009.659480; Mon, 03 Oct 2022 18:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 415021.659492; Mon, 03 Oct 2022 21:02:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofPki-0004mN-Fj; Mon, 03 Oct 2022 18:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 415009;
- Mon, 03 Oct 2022 18:01:15 +0000
+	id 1ofSZw-0004tY-Jj; Mon, 03 Oct 2022 21:02:20 +0000
+Received: by outflank-mailman (input) for mailman id 415021;
+ Mon, 03 Oct 2022 21:02:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7JV9=2E=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ofPkh-0004mF-C8
- for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 18:01:15 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5c2f12c0-4345-11ed-964a-05401a9f4f97;
- Mon, 03 Oct 2022 20:01:11 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 5C0B75C00CC;
- Mon,  3 Oct 2022 14:01:09 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Mon, 03 Oct 2022 14:01:09 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 3 Oct 2022 14:01:07 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UGPN=2E=zytor.com=hpa@srs-se1.protection.inumbo.net>)
+ id 1ofSZt-0004tS-Vx
+ for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 21:02:18 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a6f24fa8-435e-11ed-964a-05401a9f4f97;
+ Mon, 03 Oct 2022 23:02:14 +0200 (CEST)
+Received: from [127.0.0.1] ([73.223.250.219]) (authenticated bits=0)
+ by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 293L1MEs3109337
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Mon, 3 Oct 2022 14:01:22 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,278 +40,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c2f12c0-4345-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664820069; x=
-	1664906469; bh=2VSQgyZMh4OrLebIIZol71KsbLOTruVueA8S4D6AtAM=; b=x
-	ITHDnPmTc3sXy1/YEGBc0/zMMWHkn+C2RfVLlnqBmWieGW3G5ecdHMEp+XKQbeFV
-	ePt3gcKnXLJ4ZfbANYSFgLisrrQB0NETOaV9DkkZ6EhNGj3yuoTmQZ7rit6k4rZy
-	6TRfptJwXO3VuAs8olu2S8im+Y55N9v7TNHxGJsmpz5Fp9tZkGl9OiVvJr0JopkY
-	TRwdsKxV4UAUe3SJ0tO3woADAwsyygMjATKauinIqGHALdsMnAZqVJF37bYXMpx0
-	lg/sUeT+Qg+YVib40Byv1DfjODewcd+tNvkPke7LXBNyIFyjKiW3rwLSdqR/V16K
-	+jjFhIpMpNQB8geWk2zXQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1664820069; x=1664906469; bh=2VSQgyZMh4OrLebIIZol71KsbLOT
-	ruVueA8S4D6AtAM=; b=SdsXrNzPkeO1eknmVarRpbhC8j5X7JDsrmu/7W15ARDm
-	Db2vyLq4jN/1SJtjWk6pA3IUAnBTEfqyKS15Qf+g6VyDvJ+fP7EY1iwanbxORGSt
-	JPiAK6tuOlqDhxdRY0577EW149/QMX8aQ3hb/oShIH3GQkTdrh113L1e4gkY2CTX
-	hdvQ346KEbvws5/51NncAVIWc6RGlkhWivv+m5mCPL78fWn5vV+A+ro/lNVAl/64
-	42lOvw3s0kUyt53YmjSDRs0y+zyRl9qtrj1rmEgAIWCxYqoWyD2tOxt9PHy8xby8
-	lWYOtMfuZXdzaXFHeAOqR2h5rOqOtiPCB3mo0I1NGw==
-X-ME-Sender: <xms:ZCM7Y5QFe5xFLeF13L0geUYgNtEc3x6m1BkNghhmwM09luuY5GGshw>
-    <xme:ZCM7Yyx0yutZ05N8-CktogFeRCanL3-UPEHiwlQ25SmlPqz7pPFN4PQJsH7JSwxJw
-    hgBal4pHnam-Q>
-X-ME-Received: <xmr:ZCM7Y-1Wg4HLu-l5bhAZZqjwdtnhXz9J7gGNj5jrVcAOM0nj8_jhzdRkKN6RUw4XWbIgznEcfYpcZBWAkC208Ptwip0IyjPhgFWC>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehledguddukecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeu
-    keetteeggffgkeduheetgeeileejjeeiiefhjeegvefhtefggfetueetteeuteenucffoh
-    hmrghinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
-    rghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomh
-X-ME-Proxy: <xmx:ZCM7YxBdZBIgrfXxapZ1K3ZTr9-ynle6zpQZRHb8SeOR52Awjvx8Sw>
-    <xmx:ZCM7YyjEW-dkd8KkJD8_u5mF1usamyCAQNFVUDaapFAtus3IobuYrQ>
-    <xmx:ZCM7Y1oRFfpCKEyzzfirXGaHhc2UN_7PfIK4S4Ut6Dfv1SKqYnp7YA>
-    <xmx:ZSM7Y9PhirwJuAPtKJPLrIZSk2vN-jZANn0vDbtIFODJ3iFUsXQnHw>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 3 Oct 2022 20:01:03 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
- based on hypercall
-Message-ID: <YzsjYHirK+SXUjGl@mail-itl>
-References: <20221003112625.972646-1-ardb@kernel.org>
- <20221003112625.972646-6-ardb@kernel.org>
- <Yzr/1s9CbA0CClmt@itl-email>
- <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
- <YzsMYfEwmjHwVheb@itl-email>
- <CAMj1kXHR1FfD+ipG4RtbOezx+s_Jo6JwG4fpT5XUmvoqHTctLA@mail.gmail.com>
- <YzsWAnD7q9qeBoBn@mail-itl>
- <Yzsii72GWWvc5tRD@itl-email>
+X-Inumbo-ID: a6f24fa8-435e-11ed-964a-05401a9f4f97
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 293L1MEs3109337
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2022090501; t=1664830885;
+	bh=5zHAz69mkxip2bzOLRJ4yt3No7BYKjAs2m4UMY86+jU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=oykLJvyx1Q7ObEI2DH5ERO/25eTiZzFZJgvAbC877waEJ3rI15d4aEdEhxqbJeO9A
+	 9mAtYzKq8KzgRaHdsZgLzcZ2FyOyJwtGOC7Mz+CWLiAoLfbb5WWY5pApSxlkZqx2kg
+	 +jdO0xgF1Zn08mAVfDnpAfBMkCcXHyW5VxanswAVTHLqQKoZ+Zkpg3OXttXf7gowum
+	 15bO9ANhBUQRzE2ffGGoHuLuA3pDNZDMyqSFToe9GidZCxmVEF1Y4Vhvw77jGJ5haa
+	 Ryz+0xxNJVgfA4mrSDmKj9XJmZNlHN+9On7utZ6oZSi0H5AyXYqm2nhWCl+Q2Kqooh
+	 0qiZDnZqQsadQ==
+Date: Mon, 03 Oct 2022 14:01:20 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Vitaly Kuznetsov <vkuznets@redhat.com>, Ajay Kaher <akaher@vmware.com>
+CC: "x86@kernel.org" <x86@kernel.org>,
+        "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "rostedt@goodmis.org" <rostedt@goodmis.org>,
+        Srivatsa Bhat <srivatsab@vmware.com>,
+        "srivatsa@csail.mit.edu" <srivatsa@csail.mit.edu>,
+        Alexey Makhalov <amakhalov@vmware.com>,
+        Vasavi Sirnapalli <vsirnapalli@vmware.com>,
+        "er.ajay.kaher@gmail.com" <er.ajay.kaher@gmail.com>,
+        "willy@infradead.org" <willy@infradead.org>,
+        Nadav Amit <namit@vmware.com>,
+        "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+        "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+        "jailhouse-dev@googlegroups.com" <jailhouse-dev@googlegroups.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        "acrn-dev@lists.projectacrn.org" <acrn-dev@lists.projectacrn.org>,
+        "helgaas@kernel.org" <helgaas@kernel.org>,
+        "bhelgaas@google.com" <bhelgaas@google.com>,
+        "tglx@linutronix.de" <tglx@linutronix.de>,
+        "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+        "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+        Alexander Graf <graf@amazon.com>
+Subject: Re: [PATCH v2] x86/PCI: Prefer MMIO over PIO on all hypervisor
+User-Agent: K-9 Mail for Android
+In-Reply-To: <87tu4l9cfm.fsf@redhat.com>
+References: <9FEC6622-780D-41E6-B7CA-8D39EDB2C093@vmware.com> <87zgf3pfd1.fsf@redhat.com> <B64FD502-E794-4E94-A267-D690476C57EE@vmware.com> <87tu4l9cfm.fsf@redhat.com>
+Message-ID: <E522EECC-D20D-4A69-8A44-9CF2B36E2A29@zytor.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="on5cRYSDowX0FpPJ"
-Content-Disposition: inline
-In-Reply-To: <Yzsii72GWWvc5tRD@itl-email>
-
-
---on5cRYSDowX0FpPJ
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 3 Oct 2022 20:01:03 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
- based on hypercall
 
-On Mon, Oct 03, 2022 at 01:57:14PM -0400, Demi Marie Obenour wrote:
-> On Mon, Oct 03, 2022 at 07:04:02PM +0200, Marek Marczykowski-G=C3=B3recki=
+On October 3, 2022 8:03:41 AM PDT, Vitaly Kuznetsov <vkuznets@redhat=2Ecom>=
  wrote:
-> > On Mon, Oct 03, 2022 at 06:37:19PM +0200, Ard Biesheuvel wrote:
-> > > On Mon, 3 Oct 2022 at 18:23, Demi Marie Obenour
-> > > <demi@invisiblethingslab.com> wrote:
-> > > >
-> > > > On Mon, Oct 03, 2022 at 05:59:52PM +0200, Ard Biesheuvel wrote:
-> > > > > On Mon, 3 Oct 2022 at 17:29, Demi Marie Obenour
-> > > > > <demi@invisiblethingslab.com> wrote:
-> > > > > >
-> > > > > > On Mon, Oct 03, 2022 at 01:26:24PM +0200, Ard Biesheuvel wrote:
-> > > > > > > Xen on x86 boots dom0 in EFI mode but without providing a mem=
-ory map.
-> > > > > > > This means that some sanity checks we would like to perform on
-> > > > > > > configuration tables or other data structures in memory are n=
-ot
-> > > > > > > currently possible. Xen does, however, expose EFI memory desc=
-riptor info
-> > > > > > > via a Xen hypercall, so let's wire that up instead.
-> > > > > > >
-> > > > > > > Co-developed-by: Demi Marie Obenour <demi@invisiblethingslab.=
-com>
-> > > > > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.co=
-m>
-> > > > > > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> > > > > > > ---
-> > > > > > >  drivers/firmware/efi/efi.c |  5 ++-
-> > > > > > >  drivers/xen/efi.c          | 34 ++++++++++++++++++++
-> > > > > > >  include/linux/efi.h        |  1 +
-> > > > > > >  3 files changed, 39 insertions(+), 1 deletion(-)
-> > > > > > >
-> > > > > > > diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/ef=
-i/efi.c
-> > > > > > > index 55bd3f4aab28..2c12b1a06481 100644
-> > > > > > > --- a/drivers/firmware/efi/efi.c
-> > > > > > > +++ b/drivers/firmware/efi/efi.c
-> > > > > > > @@ -456,7 +456,7 @@ void __init efi_find_mirror(void)
-> > > > > > >   * and if so, populate the supplied memory descriptor with t=
-he appropriate
-> > > > > > >   * data.
-> > > > > > >   */
-> > > > > > > -int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *ou=
-t_md)
-> > > > > > > +int __efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *=
-out_md)
-> > > > > > >  {
-> > > > > > >       efi_memory_desc_t *md;
-> > > > > > >
-> > > > > > > @@ -485,6 +485,9 @@ int efi_mem_desc_lookup(u64 phys_addr, ef=
-i_memory_desc_t *out_md)
-> > > > > > >       return -ENOENT;
-> > > > > > >  }
-> > > > > > >
-> > > > > > > +extern int efi_mem_desc_lookup(u64 phys_addr, efi_memory_des=
-c_t *out_md)
-> > > > > > > +      __weak __alias(__efi_mem_desc_lookup);
-> > > > > > > +
-> > > > > > >  /*
-> > > > > > >   * Calculate the highest address of an efi memory descriptor.
-> > > > > > >   */
-> > > > > > > diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
-> > > > > > > index d1ff2186ebb4..74f3f6d8cdc8 100644
-> > > > > > > --- a/drivers/xen/efi.c
-> > > > > > > +++ b/drivers/xen/efi.c
-> > > > > > > @@ -26,6 +26,7 @@
-> > > > > > >
-> > > > > > >  #include <xen/interface/xen.h>
-> > > > > > >  #include <xen/interface/platform.h>
-> > > > > > > +#include <xen/page.h>
-> > > > > > >  #include <xen/xen.h>
-> > > > > > >  #include <xen/xen-ops.h>
-> > > > > > >
-> > > > > > > @@ -292,3 +293,36 @@ void __init xen_efi_runtime_setup(void)
-> > > > > > >       efi.get_next_high_mono_count    =3D xen_efi_get_next_hi=
-gh_mono_count;
-> > > > > > >       efi.reset_system                =3D xen_efi_reset_syste=
-m;
-> > > > > > >  }
-> > > > > > > +
-> > > > > > > +int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *ou=
-t_md)
-> > > > > > > +{
-> > > > > > > +     static_assert(XEN_PAGE_SHIFT =3D=3D EFI_PAGE_SHIFT,
-> > > > > > > +                   "Mismatch between EFI_PAGE_SHIFT and XEN_=
-PAGE_SHIFT");
-> > > > > > > +     struct xen_platform_op op =3D {
-> > > > > > > +             .cmd =3D XENPF_firmware_info,
-> > > > > > > +             .u.firmware_info =3D {
-> > > > > > > +                     .type =3D XEN_FW_EFI_INFO,
-> > > > > > > +                     .index =3D XEN_FW_EFI_MEM_INFO,
-> > > > > > > +                     .u.efi_info.mem.addr =3D phys_addr,
-> > > > > > > +                     .u.efi_info.mem.size =3D U64_MAX - phys=
-_addr,
-> > > > > > > +             }
-> > > > > > > +     };
-> > > > > > > +     union xenpf_efi_info *info =3D &op.u.firmware_info.u.ef=
-i_info;
-> > > > > > > +     int rc;
-> > > > > > > +
-> > > > > > > +     if (!efi_enabled(EFI_PARAVIRT) || efi_enabled(EFI_MEMMA=
-P))
-> > > > > > > +             return __efi_mem_desc_lookup(phys_addr, out_md);
-> > > > > > > +
-> > > > > > > +     rc =3D HYPERVISOR_platform_op(&op);
-> > > > > > > +     if (rc) {
-> > > > > > > +             pr_warn("Failed to lookup header 0x%llx in Xen =
-memory map: error %d\n",
-> > > > > > > +                     phys_addr, rc);
-> > > > > > > +     }
-> > > > > > > +
-> > > > > > > +     out_md->phys_addr       =3D info->mem.addr;
-> > > > > >
-> > > > > > This will be equal to phys_addr, not the actual start of the me=
-mory
-> > > > > > region.
-> > > > > >
-> > > > > > > +     out_md->num_pages       =3D info->mem.size >> EFI_PAGE_=
-SHIFT;
-> > > > > >
-> > > > > > Similarly, this will be the number of bytes in the memory region
-> > > > > > after phys_addr, not the total number of bytes in the region.  =
-These two
-> > > > > > differences mean that this function is not strictly equivalent =
-to the
-> > > > > > original efi_mem_desc_lookup().
-> > > > > >
-> > > > > > I am not sure if this matters in practice, but I thought you wo=
-uld want
-> > > > > > to be aware of it.
-> > > > >
-> > > > > This is a bit disappointing. Is there no way to obtain this
-> > > > > information via a Xen hypercall?
-> > > >
-> > > > It is possible, but doing so is very complex (it essentially requir=
-es a
-> > > > binary search).  This really should be fixed on the Xen side.
-> > > >
-> > > > > In any case, it means we'll need to round down phys_addr to page =
-size
-> > > > > at the very least.
-> > > >
-> > > > That makes sense.  Are there any callers that will be broken even w=
-ith
-> > > > this rounding?
-> > >=20
-> > > As far as I can tell, it should work fine. The only thing to double
-> > > check is whether we are not creating spurious error messages from
-> > > efi_arch_mem_reserve() this way, but as far as I can tell, that should
-> > > be fine too.
-> > >=20
-> > > Is there anyone at your end that can give this a spin on an actual
-> > > Xen/x86 system?
-> >=20
-> > Demi, if you open a PR with this at
-> > https://github.com/QubesOS/qubes-linux-kernel/pulls, I can run it
-> > through our CI - (at least) one of the machines has ESRT table. AFAIR
-> > your test laptop has it too.
->=20
-> Just this patch or the whole series?
+>Ajay Kaher <akaher@vmware=2Ecom> writes:
+>
+>>> =EF=BB=BFOn 13/09/22, 7:05 PM, "Vitaly Kuznetsov" <vkuznets@redhat=2Ec=
+om> wrote:
+>>>>
+>>>> Thanks Vitaly for your response=2E
+>>>>
+>>>> 1=2E we have multiple objects of struct pci_raw_ops, 2=2E adding 'pri=
+ority' field to struct pci_raw_ops
+>>>> doesn't seems to be appropriate as need to take decision which object=
+ of struct pci_raw_ops has
+>>>> to be used, not something with-in struct pci_raw_ops=2E
+>>>
+>>> I'm not sure I follow, you have two instances of 'struct pci_raw_ops'
+>>> which are called 'raw_pci_ops' and 'raw_pci_ext_ops'=2E What if you do
+>>> something like (completely untested):
+>>>
+>>> diff --git a/arch/x86/include/asm/pci_x86=2Eh b/arch/x86/include/asm/p=
+ci_x86=2Eh
+>>> index 70533fdcbf02=2E=2Efb8270fa6c78 100644
+>>> --- a/arch/x86/include/asm/pci_x86=2Eh
+>>> +++ b/arch/x86/include/asm/pci_x86=2Eh
+>>> @@ -116,6 +116,7 @@ extern void (*pcibios_disable_irq)(struct pci_dev =
+*dev);
+>>> extern bool mp_should_keep_irq(struct device *dev);
+>>>
+>>> struct pci_raw_ops {
+>>> +       int rating;
+>>>          int (*read)(unsigned int domain, unsigned int bus, unsigned i=
+nt devfn,
+>>>                                                int reg, int len, u32 *=
+val);
+>>>          int (*write)(unsigned int domain, unsigned int bus, unsigned =
+int devfn,
+>>> diff --git a/arch/x86/pci/common=2Ec b/arch/x86/pci/common=2Ec
+>>> index ddb798603201=2E=2Ee9965fd11576 100644
+>>> --- a/arch/x86/pci/common=2Ec
+>>> +++ b/arch/x86/pci/common=2Ec
+>>> @@ -40,7 +40,8 @@ const struct pci_raw_ops *__read_mostly raw_pci_ext_=
+ops;
+>>>  int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int =
+devfn,
+>>>                                                 int reg, int len, u32 =
+*val)
+>>> {
+>>> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
+>>> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
+>>> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_=
+ops->rating))
+>>>                 return raw_pci_ops->read(domain, bus, devfn, reg, len,=
+ val);
+>>>         if (raw_pci_ext_ops)
+>>>                 return raw_pci_ext_ops->read(domain, bus, devfn, reg, =
+len, val);
+>>> @@ -50,7 +51,8 @@ int raw_pci_read(unsigned int domain, unsigned int b=
+us, unsigned int devfn,
+>>>  int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int=
+ devfn,
+>>>                                                 int reg, int len, u32 =
+val)
+>>> {
+>>> -       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
+>>> +       if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
+>>> +           (!raw_pci_ext_ops || raw_pci_ext_ops->rating <=3D raw_pci_=
+ops->rating))
+>>>                 return raw_pci_ops->write(domain, bus, devfn, reg, len=
+, val);
+>>>          if (raw_pci_ext_ops)
+>>>                 return raw_pci_ext_ops->write(domain, bus, devfn, reg,=
+ len, val);
+>>>
+>>> and then somewhere in Vmware hypervisor initialization code
+>>> (arch/x86/kernel/cpu/vmware=2Ec) you do
+>>>
+>>>  raw_pci_ext_ops->rating =3D 100;
+>>
+>> Thanks Vitaly, for your review and helping us to improve the code=2E
+>>
+>> I was working to make changes as you suggested, but before sending v3 w=
+ould like to
+>> discuss on following:
+>>
+>> If we add rating with-in struct pci_raw_ops then we can't have pci_mmcf=
+g as const,
+>> and following change is must in arch/x86/pci/mmconfig_64=2Ec:
+>>
+>> -const struct pci_raw_ops pci_mmcfg =3D {
+>> +struct pci_raw_ops pci_mmcfg =3D {
+>>  	=2Eread =3D		pci_mmcfg_read,
+>>  	=2Ewrite =3D	pci_mmcfg_write,
+>> };
+>>
+>> So to avoid this change, is it fine to have global bool prefer_raw_pci_=
+ext_ops?
+>>
+>> And raw_pci_read() will have following change:
+>>
+>> -	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops)
+>> +	if (domain =3D=3D 0 && reg < 256 && raw_pci_ops &&
+>> +	     (!prefer_raw_pci_ext_ops ||  !raw_pci_ext_ops)
+>>
+>
+>Not my but rather PCI maintainer's call but IMHO dropping 'const' is
+>better, introducing a new global var is our 'last resort' and should be
+>avoided whenever possible=2E Alternatively, you can add a
+>raw_pci_ext_ops_preferred() function checking somethin within 'struct
+>hypervisor_x86' but I'm unsure if it's better=2E
+>
+>Also, please check Alex' question/suggestion=2E
+>
+>=2E=2E=2E
+>
 
-Whole series.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---on5cRYSDowX0FpPJ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmM7I2AACgkQ24/THMrX
-1yzg/wf+LDFTPPUw1J/CQtZxhhVNBN8dSU3exFs5qVg5GCNO4KPA1pyN1SnRbmOY
-ofZvTP4SqCqnS+la1l4Afk4DS1DyV5jxAFbfmhIiSuh8283W3U1yUQ3JvBQVZWAf
-Zj2Rsh8la2rIzx6vg3cMNPp7JgOc7AP0EC9xuU6MWpro20WE1TXgP1NTem2Z5h35
-k4a0YQtiJj5RL0rXfg7Wnh8O1IVdvVwy4iov32zIJpBFeX/2o9YtQyeRY+S5nJwU
-/i84JaQHvgqXXktgkZK/AiJvQ3YooH4oE/rHSL3YNI9TgFRZAQTcG3Zkqh59bj2Q
-EuPbN4UMkuOF29tgFSIGrTEMoKehPA==
-=C5Oy
------END PGP SIGNATURE-----
-
---on5cRYSDowX0FpPJ--
+Could this be ro_after_init?
 
