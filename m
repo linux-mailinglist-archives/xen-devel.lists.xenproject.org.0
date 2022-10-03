@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B6C25F3367
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 18:23:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.414962.659415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C5725F3368
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Oct 2022 18:23:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.414965.659425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofODG-0000il-2j; Mon, 03 Oct 2022 16:22:38 +0000
+	id 1ofODi-0001Ac-Cj; Mon, 03 Oct 2022 16:23:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 414962.659415; Mon, 03 Oct 2022 16:22:38 +0000
+Received: by outflank-mailman (output) from mailman id 414965.659425; Mon, 03 Oct 2022 16:23:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofODG-0000fT-03; Mon, 03 Oct 2022 16:22:38 +0000
-Received: by outflank-mailman (input) for mailman id 414962;
- Mon, 03 Oct 2022 16:22:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ofODi-000179-9n; Mon, 03 Oct 2022 16:23:06 +0000
+Received: by outflank-mailman (input) for mailman id 414965;
+ Mon, 03 Oct 2022 16:23:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7JV9=2E=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ofODE-0000fN-6Q
- for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 16:22:36 +0000
+ <SRS0=TmDc=2E=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1ofODg-0000xu-C4
+ for xen-devel@lists.xenproject.org; Mon, 03 Oct 2022 16:23:04 +0000
 Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9564fcfb-4337-11ed-9377-c1cf23e5d27e;
- Mon, 03 Oct 2022 18:22:33 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 086BD32007E8;
- Mon,  3 Oct 2022 12:22:30 -0400 (EDT)
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a6f34cc4-4337-11ed-964a-05401a9f4f97;
+ Mon, 03 Oct 2022 18:23:03 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id D9D98320027A;
+ Mon,  3 Oct 2022 12:23:00 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 03 Oct 2022 12:22:31 -0400
+ by compute5.internal (MEProxy); Mon, 03 Oct 2022 12:23:01 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 3 Oct 2022 12:22:28 -0400 (EDT)
+ 3 Oct 2022 12:22:59 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,129 +43,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9564fcfb-4337-11ed-9377-c1cf23e5d27e
+X-Inumbo-ID: a6f34cc4-4337-11ed-964a-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1664814150; x=1664900550; bh=VUR8i+Yav/xwTfqV32RAVYeUwSbqqG2W50q
-	eOLKdIuI=; b=VOxoQHX2n8Yru8vF7Qzuuqmnmfi6FgC96MP/CMtUVZJFfjAY/++
-	X0CmK+00HoOgS2aYtLIFL7kL1GvzqDAN696v1j96Yqqaxcj2jNDBo5n0KZeuDhc3
-	YeYIql7qp/rs3mwHnS7jr1B9l/rsd5/KZc8fwGm/vvXHbZqABfueRfqyGS1PuC4B
-	auL2FupIsXjK95NzxS72Z8A7W7oHqvH8QYkc6nD51yNjEa3+ZNjfnjtUluY6VXXu
-	cNPXJH1FWUmiZYlBOWaQ70BGvyT3qyaaPCHCY/ukPX83qwAcskagLK1du1dRosJu
-	0pR4zA+l02MV4SIm6XQEX9fyDHG/hC8NW2g==
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664814180; x=
+	1664900580; bh=V76H3KZNlariQygngrqJIM3h4UgJ80sdU4g8vuPLVuA=; b=S
+	0hd6yjQ0oDO6vM5Hf7U9npNc1moydAPRPN+jNQuc3Q8xKo00KvlgrLfQg+Yyc+QO
+	kVRSPuZK/2ZFBNKjtTL7vVT8vgD5Ssavfuh8C6SP6uzbWA70VI4yEPbkdnJSbg/l
+	qdG74SVdpuKhtIyGbSoZWaI1yN+93ety21aX0WtTn5hQVlCcXXqvz3TdrW88Og0W
+	hyGgh/0JQVh4tmwWgXApzhxm2mwig+HiOgg6ayjcNIPdn9mjCQx/GCrld3VeKS5w
+	7qlud+vb2JhRVNh1Yz29fxQQnaYlRiLL3dAurrq8Dp2BF6e6Bc17YYX0rk0HYCam
+	fHCkjUWeZf+ZuMPSy55Dg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1664814150; x=1664900550; bh=VUR8i+Yav/xwT
-	fqV32RAVYeUwSbqqG2W50qeOLKdIuI=; b=zcUt0P+cAcKtYlSyB/HANsgr9YUNN
-	TTD9IIQdUpykiuiRDW6/VE3pKiDSsz2nJ5io2lssNa8MG3TO1/+I5ZpTd8Zy5G2+
-	bq2H7nbPjldyCo3lzqFd8v9E9lxnPbD0U0hwzjK9R4cfnWMcboi+gGDrxMeoxfl3
-	o1jyKtR1qqgjosMnbO7iANY4m3fAxaCZOxSlpbsHyBjOfnr2hnPBL8I110ZVnYwI
-	0ReJrHPhCAZtFnMSbpblpUexeaLWqq7w8tWkMk2Wbb/oYJCNX9vpSw0RmhfpvJ7J
-	lAEERaGT4l0ccd5kqOZW0Vxkeje9sPXAEd2TMF8beu+KElXOuQtFHnL/A==
-X-ME-Sender: <xms:Rgw7Y1Byut7S31aikuIYgUArcXUo4EGhqVQJEvOf4dnnXJIckkcqTQ>
-    <xme:Rgw7YziozGHj8H7WHvctFxKLoVawPL_t2X5sc5_U8c4fLPuarmw1R8jw4_l1OHr2x
-    xXFeAD7skc96w>
-X-ME-Received: <xmr:Rgw7YwlIRh6MS6vD8eI0l9DyDrvOD9_5z4gFMbhCTc5jfquvzzZz-OjMCAyLrS2qF2BmWXNfC4ybfBpfeKfCnbW27goDplwBxUZt5-O7GIngP5YvCtNqJg>
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1664814180; x=1664900580; bh=V76H3KZNlariQygngrqJIM3h4UgJ
+	80sdU4g8vuPLVuA=; b=ny0oHhOpzHgUvmsM3YC3NJTeIOUtYySFs08Ps0hs/z10
+	qM+BSX8q9v+d/mxtGoC7t1dcwPQ8XAOxylXGfqL2kJVSxRD9l6znxbiHFwKcdRN5
+	VqPsQPvTtMoIv2IknBTxLq2QiK1ACa3X1e/VV/0+2bwD68vM515KOASvelOVXByh
+	sN8182anyV6NFpF/2FONjYAuVhTIQf/At0zHzAp9LBs7tVQ8AmIbP6DJzvVT49vN
+	VoMBXIQYJX6GP8a+RCxRuLU8uyPYqy8KgmnUuq6caKIat678XlX1DwRvlewwDy7e
+	ham0tHqBlTtUisabQ2bE0EBBs8F/liIx7wId2CN3Uw==
+X-ME-Sender: <xms:ZAw7Y7QxtctgMcoRA23wMZ-2hO6872gwPdQ56b8NjKLWygmOu1gXSw>
+    <xme:ZAw7Y8z9s7iQiZPy1RDpuNH2wz_UYg40sJaf6TLQ_PcQoA6-4_lt5pzutaETztb_V
+    ShE5NTFKEyTWs0>
+X-ME-Received: <xmr:ZAw7Yw2wGDLGomVUOnxlQ5Ub2Z3MbrqIxwGW0gwIKyTI7coDfTr6lSxK6j6O>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeehledgleelucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeelkefh
-    udelteelleelteetveeffeetffekteetjeehlefggeekleeghefhtdehvdenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:Rgw7Y_wt1INIsgrKVhvzbfHEJDkD9Y72CAWJedm4psGZMogJIvJYmA>
-    <xmx:Rgw7Y6TAO-vh3wCoRiE-3LRyELoqhrwgXIS9LGwEYo-ECAG2INFEAg>
-    <xmx:Rgw7Yyb6middlHBvDYhxf2nhzFjjrEMzcRYEwaqXB2kHR68BToAIpA>
-    <xmx:Rgw7Y3SwEJrEQwYknpj_K_ae0b1jds1Z1kOUn7nFtBOrJCvtAThX0g>
-Feedback-ID: i1568416f:Fastmail
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtroertddtvdenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepiefgudefjedujeelvddtgfegueei
+    hfeugfdtgfevkedtkefgledvtddvvdekheeknecuvehluhhsthgvrhfuihiivgeptdenuc
+    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+    lhgrsgdrtghomh
+X-ME-Proxy: <xmx:ZAw7Y7APjlnzuKslphWG-2L2uSADN9SfBFSiyjiEQvvQyYXrSIcEHw>
+    <xmx:ZAw7Y0iSGBbV5ehzgHgPN6KoJebfUr0DoocULDy9KdOra4OXtupXGw>
+    <xmx:ZAw7Y_qUKUfJWUqvCMOGIo8XYIKvWaCvLCqPzjFKHiax-LpzeMkQHQ>
+    <xmx:ZAw7Y3N8BhLNjrddhZp5VlV8HOOYZB0jLHp9xduXCaqUrrhm6tPkfQ>
+Feedback-ID: iac594737:Fastmail
+Date: Mon, 3 Oct 2022 12:22:54 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-efi@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH v2] xen: credit2: respect credit2_runqueue=all when arranging runqueues
-Date: Mon,  3 Oct 2022 18:21:58 +0200
-Message-Id: <20221003162158.2042-1-marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.37.3
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
+ based on hypercall
+Message-ID: <YzsMYfEwmjHwVheb@itl-email>
+References: <20221003112625.972646-1-ardb@kernel.org>
+ <20221003112625.972646-6-ardb@kernel.org>
+ <Yzr/1s9CbA0CClmt@itl-email>
+ <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="t6nMBPUwd7mkm4Ai"
+Content-Disposition: inline
+In-Reply-To: <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
 
-Documentation for credit2_runqueue=all says it should create one queue
-for all pCPUs on the host. But since introduction
-sched_credit2_max_cpus_runqueue, it actually created separate runqueue
-per socket, even if the CPUs count is below
-sched_credit2_max_cpus_runqueue.
 
-Adjust the condition to skip syblink check in case of
-credit2_runqueue=all.
+--t6nMBPUwd7mkm4Ai
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 3 Oct 2022 12:22:54 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-efi@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
+ based on hypercall
 
-Fixes: 8e2aa76dc167 ("xen: credit2: limit the max number of CPUs in a runqueue")
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
----
-Changes in v2:
- - fix indentation
- - adjust doc
+On Mon, Oct 03, 2022 at 05:59:52PM +0200, Ard Biesheuvel wrote:
+> On Mon, 3 Oct 2022 at 17:29, Demi Marie Obenour
+> <demi@invisiblethingslab.com> wrote:
+> >
+> > On Mon, Oct 03, 2022 at 01:26:24PM +0200, Ard Biesheuvel wrote:
+> > > Xen on x86 boots dom0 in EFI mode but without providing a memory map.
+> > > This means that some sanity checks we would like to perform on
+> > > configuration tables or other data structures in memory are not
+> > > currently possible. Xen does, however, expose EFI memory descriptor i=
+nfo
+> > > via a Xen hypercall, so let's wire that up instead.
+> > >
+> > > Co-developed-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> > > ---
+> > >  drivers/firmware/efi/efi.c |  5 ++-
+> > >  drivers/xen/efi.c          | 34 ++++++++++++++++++++
+> > >  include/linux/efi.h        |  1 +
+> > >  3 files changed, 39 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
+> > > index 55bd3f4aab28..2c12b1a06481 100644
+> > > --- a/drivers/firmware/efi/efi.c
+> > > +++ b/drivers/firmware/efi/efi.c
+> > > @@ -456,7 +456,7 @@ void __init efi_find_mirror(void)
+> > >   * and if so, populate the supplied memory descriptor with the appro=
+priate
+> > >   * data.
+> > >   */
+> > > -int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
+> > > +int __efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
+> > >  {
+> > >       efi_memory_desc_t *md;
+> > >
+> > > @@ -485,6 +485,9 @@ int efi_mem_desc_lookup(u64 phys_addr, efi_memory=
+_desc_t *out_md)
+> > >       return -ENOENT;
+> > >  }
+> > >
+> > > +extern int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out=
+_md)
+> > > +      __weak __alias(__efi_mem_desc_lookup);
+> > > +
+> > >  /*
+> > >   * Calculate the highest address of an efi memory descriptor.
+> > >   */
+> > > diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
+> > > index d1ff2186ebb4..74f3f6d8cdc8 100644
+> > > --- a/drivers/xen/efi.c
+> > > +++ b/drivers/xen/efi.c
+> > > @@ -26,6 +26,7 @@
+> > >
+> > >  #include <xen/interface/xen.h>
+> > >  #include <xen/interface/platform.h>
+> > > +#include <xen/page.h>
+> > >  #include <xen/xen.h>
+> > >  #include <xen/xen-ops.h>
+> > >
+> > > @@ -292,3 +293,36 @@ void __init xen_efi_runtime_setup(void)
+> > >       efi.get_next_high_mono_count    =3D xen_efi_get_next_high_mono_=
+count;
+> > >       efi.reset_system                =3D xen_efi_reset_system;
+> > >  }
+> > > +
+> > > +int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_md)
+> > > +{
+> > > +     static_assert(XEN_PAGE_SHIFT =3D=3D EFI_PAGE_SHIFT,
+> > > +                   "Mismatch between EFI_PAGE_SHIFT and XEN_PAGE_SHI=
+FT");
+> > > +     struct xen_platform_op op =3D {
+> > > +             .cmd =3D XENPF_firmware_info,
+> > > +             .u.firmware_info =3D {
+> > > +                     .type =3D XEN_FW_EFI_INFO,
+> > > +                     .index =3D XEN_FW_EFI_MEM_INFO,
+> > > +                     .u.efi_info.mem.addr =3D phys_addr,
+> > > +                     .u.efi_info.mem.size =3D U64_MAX - phys_addr,
+> > > +             }
+> > > +     };
+> > > +     union xenpf_efi_info *info =3D &op.u.firmware_info.u.efi_info;
+> > > +     int rc;
+> > > +
+> > > +     if (!efi_enabled(EFI_PARAVIRT) || efi_enabled(EFI_MEMMAP))
+> > > +             return __efi_mem_desc_lookup(phys_addr, out_md);
+> > > +
+> > > +     rc =3D HYPERVISOR_platform_op(&op);
+> > > +     if (rc) {
+> > > +             pr_warn("Failed to lookup header 0x%llx in Xen memory m=
+ap: error %d\n",
+> > > +                     phys_addr, rc);
+> > > +     }
+> > > +
+> > > +     out_md->phys_addr       =3D info->mem.addr;
+> >
+> > This will be equal to phys_addr, not the actual start of the memory
+> > region.
+> >
+> > > +     out_md->num_pages       =3D info->mem.size >> EFI_PAGE_SHIFT;
+> >
+> > Similarly, this will be the number of bytes in the memory region
+> > after phys_addr, not the total number of bytes in the region.  These two
+> > differences mean that this function is not strictly equivalent to the
+> > original efi_mem_desc_lookup().
+> >
+> > I am not sure if this matters in practice, but I thought you would want
+> > to be aware of it.
+>=20
+> This is a bit disappointing. Is there no way to obtain this
+> information via a Xen hypercall?
 
-The whole thing is under cpu_runqueue_match() already, so maybe
-cpu_runqueue_siblings_match() isn't needed at all?
----
- docs/misc/xen-command-line.pandoc | 5 +++++
- xen/common/sched/credit2.c        | 9 +++++++--
- 2 files changed, 12 insertions(+), 2 deletions(-)
+It is possible, but doing so is very complex (it essentially requires a
+binary search).  This really should be fixed on the Xen side.
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 74b519f0c5bd..057cdb903042 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -724,6 +724,11 @@ Available alternatives, with their meaning, are:
- * `all`: just one runqueue shared by all the logical pCPUs of
-          the host
- 
-+Regardless of the above choice, Xen attempts to respect
-+`sched_credit2_max_cpus_runqueue` limit, which may mean more than one runqueue
-+for the `all` value. If that isn't intended, raise
-+the `sched_credit2_max_cpus_runqueue` value.
-+
- ### dbgp
- > `= ehci[ <integer> | @pci<bus>:<slot>.<func> ]`
- > `= xhci[ <integer> | @pci<bus>:<slot>.<func> ][,share=<bool>|hwdom]`
-diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-index 0e3f89e5378e..afff23b56238 100644
---- a/xen/common/sched/credit2.c
-+++ b/xen/common/sched/credit2.c
-@@ -996,9 +996,14 @@ cpu_add_to_runqueue(const struct scheduler *ops, unsigned int cpu)
-              *
-              * Otherwise, let's try to make sure that siblings stay in the
-              * same runqueue, pretty much under any cinrcumnstances.
-+             *
-+             * Furthermore, try to respect credit2_runqueue=all, as long as
-+             * max_cpus_runq isn't violated.
-              */
--            if ( rqd->refcnt < max_cpus_runq && (ops->cpupool->gran != SCHED_GRAN_cpu ||
--                  cpu_runqueue_siblings_match(rqd, cpu, max_cpus_runq)) )
-+            if ( rqd->refcnt < max_cpus_runq &&
-+                    (ops->cpupool->gran != SCHED_GRAN_cpu ||
-+                     cpu_runqueue_siblings_match(rqd, cpu, max_cpus_runq) ||
-+                     opt_runqueue == OPT_RUNQUEUE_ALL) )
-             {
-                 /*
-                  * This runqueue is ok, but as we said, we also want an even
--- 
-2.37.3
+> In any case, it means we'll need to round down phys_addr to page size
+> at the very least.
 
+That makes sense.  Are there any callers that will be broken even with
+this rounding?
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--t6nMBPUwd7mkm4Ai
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM7DGEACgkQsoi1X/+c
+IsHWbQ//bOkG2n0pJ/Y4g3ew+zBRIs12g+FI06XjMN9ih4aTF4ljax/VVJYwCv6N
+064YbyhY0a4aUs/90iT2ZSliTo14dxMvCuCYgJ6Md7wkvgEbTb69Ga7bw9Yq2IRM
+xEBDAf3h1djM7yG56A0ZOeD3A9XI6hYeAQv7we/4/tm5HLlQM+mdijycNOYNT4o8
+o2SM6Or+f/veMAz95oFTX8uwd9MWWFOZL2pzFbEjI/yxzIzD0m8x7dFZOijXK3RD
+zGbu4r3RVQdm3w4pxY/pGXNxUL9fadPln57ZVs13jpe1v0hyAQQpefBL6kOUoB1T
+8uoRjtYpSOFkZEBYx8Dd+MwNcEtsE1lYUa8OlQTDL98qJROAc6k0wvHscm0B9ghO
+yJXV7IMdWSSKebhYAuBi7d7nG9PzimqsuxRQEry2uLfP95dSjFpQ2dIh8I9qpKoh
+SPQ4JNvoY5aJbU+tsmA/4+7l4Wc5GWeExgfn31CAz5nvy/512TCpBGLDu0O8wT9W
+E8YqSACeLP/2SUI3UnWqihRCOti0cypN64EiWk3rKfSGPkG1KFIXa/Ywxk0Gg4lL
+Z8DlvjONFbppE33cwzOixG7RC+ItmbHiJ0TnSzqhzdhB3IUf6NBmdJ60aNwA6c88
+Y3frOLDCRXdpJDI6BAKKjH8xVVp2qkNf/DVMoNHDbMfohjhbE7I=
+=YbWg
+-----END PGP SIGNATURE-----
+
+--t6nMBPUwd7mkm4Ai--
 
