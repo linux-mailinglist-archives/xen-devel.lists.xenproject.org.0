@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E4C5F4729
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Oct 2022 18:08:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.415696.660337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9489A5F472A
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Oct 2022 18:08:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.415697.660340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofkTJ-0006YA-TF; Tue, 04 Oct 2022 16:08:41 +0000
+	id 1ofkTK-0006cV-38; Tue, 04 Oct 2022 16:08:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 415696.660337; Tue, 04 Oct 2022 16:08:41 +0000
+Received: by outflank-mailman (output) from mailman id 415697.660340; Tue, 04 Oct 2022 16:08:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofkTJ-0006VF-N7; Tue, 04 Oct 2022 16:08:41 +0000
-Received: by outflank-mailman (input) for mailman id 415696;
- Tue, 04 Oct 2022 16:08:40 +0000
+	id 1ofkTJ-0006YC-UY; Tue, 04 Oct 2022 16:08:41 +0000
+Received: by outflank-mailman (input) for mailman id 415697;
+ Tue, 04 Oct 2022 16:08:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YyPd=2F=citrix.com=prvs=269269faf=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1ofkTI-0006Sk-5J
- for xen-devel@lists.xenproject.org; Tue, 04 Oct 2022 16:08:40 +0000
+ id 1ofkTJ-0006Sk-1t
+ for xen-devel@lists.xenproject.org; Tue, 04 Oct 2022 16:08:41 +0000
 Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
  [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cdb6241d-43fe-11ed-9377-c1cf23e5d27e;
- Tue, 04 Oct 2022 18:08:38 +0200 (CEST)
+ id cf0838a7-43fe-11ed-9377-c1cf23e5d27e;
+ Tue, 04 Oct 2022 18:08:39 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,45 +36,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdb6241d-43fe-11ed-9377-c1cf23e5d27e
+X-Inumbo-ID: cf0838a7-43fe-11ed-9377-c1cf23e5d27e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1664899718;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Hrn5m8BVzCYhqL7ggmk787e3RGFAR22H9oUe1OsxCeU=;
-  b=e2WWaBpQ2seCo45SpT7z+aQzB7YrugPMRtweLCBOk5+Yix2CPCt/4WVp
-   nCsowqYQ6bW9Ale4X459drXvSggV8CRVhv5xsD2pKQlVJSb9EOklwcKQb
-   cefMCnS3lU7pP4ZROcN4zZBgpcW9gxty6GtAoGXQj5zgaq0BiEb/o0nBh
-   U=;
+  d=citrix.com; s=securemail; t=1664899719;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=JzNhcqciVpnoKEV6ma2MCgYp+/vDnI0tLk69rJMGEXk=;
+  b=O++ivkWVztbeKBFM3g57wUigkZeEcKss7yF+qlpPzYw8442LQjBXzIx9
+   S1L80Tv1sUt4GHLeSVSBqOQSuxmDsPba8s+6iPpl0k+OJ0aFQXV7qSgb6
+   dAjqTnEvPT11k2T1vpDMhGq43HzCXCON+z5+FQkctjEQYpvs9m6pRe1hx
+   g=;
 Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 84478270
+X-MesageID: 84478271
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:3PMpLKpekRzX/TJEjGBpCM5qM9heBmLPZRIvgKrLsJaIsI4StFCzt
- garIBnVbKqJYmqhfYh0OdyyoE5Q65+Ey99gSgZtrC1kFnwU9puZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYGYpLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+4ZwehBtC5gZkPKgT4AeF/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5mz
- dcEdRQXSBO6o82V66K+F9hJpucJFZy+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
- YxDM2MpNUmeJU0UUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0FwhrH9
- jiZpwwVBDkTD+G/+AjGq0nrj8HFuTvlfsENHZGno6sCbFq7mTVIVUx+uUGAidm0jFSvHe1WL
- UM88zAr66M18SSDS9DnWhSirX2svxgCWsFRGek39AGMzKXP5w+TQGMDS1ZpZNEjtec3QyIrz
- V6Dm971BT1pv6aRQHjb/bCRxRuiNC5QIWIcaCssSQoe/8KlsIw1lgjITNtoDOiylNKdMRPaz
- i2OrSM+r64OlsNN3KK+lXjYhxq8q56PSRQ6jjg7RUr8sFk/PtT8IdX1tx6Ltp6sMbp1UHG5l
- 2RZv9K479kqIrKmhCnQccAtP5uQsqPt3CLnvXZjGJwo9jKI8nGlfJxN7DwWGHqFIvroaheyP
- haN5Fo5CIt7eSLzMPQpO97Z59ECl/CIKDjzahzDgjOiiLBVfRTPwixhbFX4M4vFwBl1yvFX1
- Xt2nK+R4Zcm5UZPlmPeqwQ1i+VDKsUCKYT7GvjGI+yPi+b2WZJsYe5t3KGyRu449riYhw7e7
- sxSMcCHoz0GDrOiMnONqt5Dcw5VRZTeOXwRg5M/SwJ+ClA+RDFJ5wH5mNvNhLCJb4wKz7yVr
- xlRq2dTyUblhG2vFDhmnktLMeq3NauTWFphYkTAy370hCV4CWtuhY9DH6YKkU4PrbcylaEuH
- 6RaEyhCa9wWIgn6F/0mRcGVhORfmN6D2Wpi4wLNjOADQqNd
-IronPort-HdrOrdr: A9a23:Q/iyV6jWy7bGyOqhjXJnfMWbrXBQXtYji2hC6mlwRA09TySZ//
- rBoB19726StN9xYgBFpTnuAsm9qB/nmaKdgrNhWItKPjOW21dARbsKheCJrgEIcxeOkNK1vp
- 0AT0ERMrLN5CBB/KTH3DU=
+IronPort-Data: A9a23:Q+wl+qvUysOPWi3eBaCGPFMz/efnVIFeMUV32f8akzHdYApBsoF/q
+ tZmKWnSaPiPNjf9KdBxOoXlphgBvJHcy9RhT1NkqCk9EixD+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiefHgZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kIy1BjOkGlA5AZnPagX5AS2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkl23
+ uBFDCorbSmnqMGd0Lfme8xMpe4aeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGM0Yn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZUJwhnI/
+ D2fl4j/KgwbZdOV7jqkzimlgbLuniDqd68dKrLto5aGh3XMnzdOWXX6T2CTgfS/kF/4ZNtZJ
+ GQd4C9opq83nGSuR8P4Vge1o1aFuAAdQNtaF+Am6ACLxbHQ6gzfDW8BJhZNZdknnM4wWz0x1
+ 1WNks/pBDpgq7mcQzSW8bL8hSO/P20ZIHEPYQcATBAZ+J/zrYcrlBXNQ91/VqmvgbXdOxv93
+ jSLpygWnKgIgIgA0KDT1U/DqyKhoN7OVAFd2+nMdjv7tEUjPtfjPtH2rwiAhRpdEGqHZmGqo
+ CUgge6d1cQhLrqdkXG8ZcUuNoj8sp5pLwbgqVJoGpAg8RGk9HiiYZ1c7VlCGat5DioXUWS3O
+ RGO4Gu98LcWZSL3NvEvP+pdHuxwlcDd+cLZuuc4hzakSrx4b0e58S5nfiZ8NEi9wRF3wcnT1
+ Xp2GPtA7Er264w9lVJapM9Hi9fHIxzSIkuMLa0XNzz9jdKjiIe9EN/pymemYOEj97+jqw7I6
+ dtZPMbi40wBDrGuOHOMod5Ncw9iwZ0H6Xfe9KRqmhOreFI6SAnN9deIqV/eR2CVt/sMzbqZl
+ p1MckRZ1ED+lRX6FOl+UVg6MeuHYHqKhShkVcDaFQr3hiNLjEfGxPt3SqbbipF+r707kqQkE
+ qZtlgfpKq0ndwkrMg81NfHVxLGOvjzw7e5SF0JJuAQCQqM=
+IronPort-HdrOrdr: A9a23:2VHCt6uEgNy0BHGMmJ8lGVl77skDTNV00zEX/kB9WHVpmszxra
+ GTdZMgpGfJYVcqKQgdcL+7Scq9qB/nmqKdpLNhWYtKPzOW3ldATrsSj7cKqgeIc0aVm4JgPO
+ VbAs9D4bXLfCNHZK3BgDVQfexP/DD+ytHMudvj
 X-IronPort-AV: E=Sophos;i="5.95,158,1661832000"; 
-   d="scan'208";a="84478270"
+   d="scan'208";a="84478271"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
@@ -83,27 +83,115 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<Henry.Wang@arm.com>, =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
 	<marmarek@invisiblethingslab.com>, Demi Marie Obenour
 	<demi@invisiblethingslab.com>
-Subject: [PATCH for-4.17 0/2] x86: Activate DOITM
-Date: Tue, 4 Oct 2022 17:08:08 +0100
-Message-ID: <20221004160810.25364-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 1/2] x86/cpuid: Infrastructure to support pseudo feature identifiers
+Date: Tue, 4 Oct 2022 17:08:09 +0100
+Message-ID: <20221004160810.25364-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20221004160810.25364-1-andrew.cooper3@citrix.com>
+References: <20221004160810.25364-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Slightly RFC.  I'm a little uncertain about putting doitm into cpuid= but it's
-the least bad option I can think of.
+A future change will want a cpuid-like identifier which doesn't have a mapping
+to a feature bit.
 
-Andrew Cooper (2):
-  x86/cpuid: Infrastructure to support pseudo feature identifiers
-  x86: Activate Data Operand Invariant Timing Mode by default
+ * Pass the feature name into the parse callback.
+ * Exclude a feature value of ~0u from falling into the general set/clear bit
+   paths.
+ * In gen-cpuid.py, insert a placeholder to collect all the pseudo feature
+   names.
 
- xen/arch/x86/cpu/common.c            | 29 +++++++++++++++++++++++++++++
- xen/arch/x86/cpuid.c                 | 22 ++++++++++++++++++----
- xen/arch/x86/include/asm/processor.h |  2 ++
- xen/tools/gen-cpuid.py               | 15 +++++++++++++++
- 4 files changed, 64 insertions(+), 4 deletions(-)
+No practical change.
 
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Henry Wang <Henry.Wang@arm.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+CC: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+ xen/arch/x86/cpuid.c   | 17 +++++++++++++----
+ xen/tools/gen-cpuid.py | 13 +++++++++++++
+ 2 files changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index 822f9ace1087..112ee63a9449 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -39,7 +39,8 @@ static const struct feature_name {
+  * function pointer call in the middle of the loop.
+  */
+ static int __init always_inline parse_cpuid(
+-    const char *s, void (*callback)(unsigned int feat, bool val))
++    const char *s, void (*callback)(const char *name,
++                                    unsigned int feat, bool val))
+ {
+     const char *ss;
+     int val, rc = 0;
+@@ -81,7 +82,7 @@ static int __init always_inline parse_cpuid(
+ 
+             if ( (val = parse_boolean(mid->name, s, ss)) >= 0 )
+             {
+-                callback(mid->bit, val);
++                callback(mid->name, mid->bit, val);
+                 mid = NULL;
+             }
+ 
+@@ -101,8 +102,12 @@ static int __init always_inline parse_cpuid(
+     return rc;
+ }
+ 
+-static void __init cf_check _parse_xen_cpuid(unsigned int feat, bool val)
++static void __init cf_check _parse_xen_cpuid(
++    const char *name, unsigned int feat, bool val)
+ {
++    if ( unlikely(feat == ~0u) )
++        return;
++
+     if ( !val )
+         setup_clear_cpu_cap(feat);
+     else if ( feat == X86_FEATURE_RDRAND &&
+@@ -120,8 +125,12 @@ static bool __initdata dom0_cpuid_cmdline;
+ static uint32_t __initdata dom0_enable_feat[FSCAPINTS];
+ static uint32_t __initdata dom0_disable_feat[FSCAPINTS];
+ 
+-static void __init cf_check _parse_dom0_cpuid(unsigned int feat, bool val)
++static void __init cf_check _parse_dom0_cpuid(
++    const char *name, unsigned int feat, bool val)
+ {
++    if ( unlikely(feat == ~0u) )
++        return;
++
+     __set_bit  (feat, val ? dom0_enable_feat  : dom0_disable_feat);
+     __clear_bit(feat, val ? dom0_disable_feat : dom0_enable_feat );
+ }
+diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+index 4f7c8d78cce7..f3045b3bfd36 100755
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -297,6 +297,19 @@ def crunch_numbers(state):
+         RTM: [TSXLDTRK],
+     }
+ 
++    #
++    # Pseudo feature names.  These don't map to a feature bit, but are
++    # inserted into the values dictionary so they can be parsed and handled
++    # specially
++    #
++    pseduo_names = (
++    )
++
++    for n in pseduo_names:
++        if n in state.values:
++            raise Fail("Pseduo feature name %s aliases real feature" % (n, ))
++        state.values[n] = 0xffffffff
++
+     deep_features = tuple(sorted(deps.keys()))
+     state.deep_deps = {}
+ 
 -- 
 2.11.0
 
