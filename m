@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 677D75F3EAB
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Oct 2022 10:44:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.415263.659819 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8316E5F3F0F
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Oct 2022 11:01:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.415292.659830 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofdXU-0004OQ-Pi; Tue, 04 Oct 2022 08:44:32 +0000
+	id 1ofdnl-0007cm-5v; Tue, 04 Oct 2022 09:01:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 415263.659819; Tue, 04 Oct 2022 08:44:32 +0000
+Received: by outflank-mailman (output) from mailman id 415292.659830; Tue, 04 Oct 2022 09:01:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofdXU-0004MH-Lo; Tue, 04 Oct 2022 08:44:32 +0000
-Received: by outflank-mailman (input) for mailman id 415263;
- Tue, 04 Oct 2022 08:44:32 +0000
+	id 1ofdnl-0007aa-2j; Tue, 04 Oct 2022 09:01:21 +0000
+Received: by outflank-mailman (input) for mailman id 415292;
+ Tue, 04 Oct 2022 09:01:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l35h=2F=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ofdXU-0003h7-1Q
- for xen-devel@lists.xenproject.org; Tue, 04 Oct 2022 08:44:32 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (envelope-from <SRS0=P0IF=2F=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1ofdnk-0007aU-65
+ for xen-devel@lists.xenproject.org; Tue, 04 Oct 2022 09:01:20 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70052.outbound.protection.outlook.com [40.107.7.52])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c37e190f-43c0-11ed-9377-c1cf23e5d27e;
- Tue, 04 Oct 2022 10:44:31 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 11EBB1F906;
- Tue,  4 Oct 2022 08:44:31 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B9E1D139D2;
- Tue,  4 Oct 2022 08:44:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OoYyLG7yO2PGVwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 04 Oct 2022 08:44:30 +0000
+ id 1bfa96ee-43c3-11ed-9377-c1cf23e5d27e;
+ Tue, 04 Oct 2022 11:01:18 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM8PR04MB7331.eurprd04.prod.outlook.com (2603:10a6:20b:1c7::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.31; Tue, 4 Oct
+ 2022 09:01:17 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.031; Tue, 4 Oct 2022
+ 09:01:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,135 +46,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c37e190f-43c0-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1664873071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j+lb+y1NjPOXtKvMZH/DFSB4E2HI7Wk27OuXyDj7Pes=;
-	b=V5kYOfYG/kj7NXn15dK5dXFgizcJc0Xl1WjROjliBeu1yo+TIE6Sr3gVqM+UWRTYj9Tfil
-	ASTZ7BUd2XV0WR39svbS+pg2w8Egm8ZAxheUGff0g9ixjcUtg+oeLNAbxtIhGaTZ+qv1Ug
-	qKGMIb1hvqpeMW5WsqqTFd+LstFgDrE=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	linux-doc@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v2 3/3] xen/pv: support selecting safe/unsafe msr accesses
-Date: Tue,  4 Oct 2022 10:43:35 +0200
-Message-Id: <20221004084335.2838-4-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20221004084335.2838-1-jgross@suse.com>
-References: <20221004084335.2838-1-jgross@suse.com>
-MIME-Version: 1.0
+X-Inumbo-ID: 1bfa96ee-43c3-11ed-9377-c1cf23e5d27e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LwxhwiaQO1T8phbWfZI4pCx+xYuOJzPCVJSXrDimaBQH40xeSM816EbIY31qcAC3XXR1PBluyZvtvLwtEUxEu+xSsFglymb3KeEGJp87O3+zjvcAyOegXs9YgpBCG17fA7/eZC3fgpd8+JMsR9a/s0T/myTkwl2vDrws3PWrVDp4plwAWfSjkT80g0kRQrTcqoP14CTX6Hv1lIPp7p6ILAeyTJZB9fHwFIPkbAt4Q5y81ZGy6NElkfRhxO050OFuPU+U32JXSvjfq50WU0H4vLEOY9HD5eI83fqj5o5xX0CHRYOw09uFZLbsJiHHCttfuAIZfb5Ts86LCnKckksftA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YoUS/O8YApbCBPHVh4q9PYlIAPnSZtyR0i4hIScy2rM=;
+ b=jBYInax4ecJnVE3jcFfy9iRQXEIANHTmtXlO5HSrerPTc+qlgnRPojjxCFjuGj5wVoTlUI4ikSnC2rpavFGAfNqWnhGGojGM+zgmVeGYkSy/UFTZFf6nbhLRQXnT6kd0uNT5i5nUWuUYuuVrib1MsglBqzgHcjb0QK3KqMbwSuiJEmxMWcu5+g4CYPRz20EtVLhIad41uoXFxkfZs9fYhV49G5kx43JoON5EM3Jx/CXC/iukz9XebDrGGXoxXjXiSlSATj5ZBbs35r0ukRbTrLlQ6amYY31tfd84InOK23ITYxqaZFGjpPjsC0yby1QD9WadnqOMmmrw6LOUbqFYag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YoUS/O8YApbCBPHVh4q9PYlIAPnSZtyR0i4hIScy2rM=;
+ b=tE4ZB8dsVWSBH0dM7M9DtwmjEenQ9uFuuHPuNca49AMtCOaHvXAHB8Ytvw6oifYjel8KzUEIcQzMMFaL7vDVoKNhxkc6S3pCFTTttvK24dLX36wc1/KPYz8bA4i1rVU2cICoW93YIinFxWdVQzpMbeO++hGZo8d5zBEVuaB9rXZ3gFd9C8bCzmtH6+D+qGGrN3uKtFj1ezjh/kbM5AfYWRr0WrRKoNRnijp4lCHsHAgc0GuJlC73Gd0Xw+0m37KFXdHerGD1RHK10+/Cybj3acKJXfWE1W/Hco4oeMqeABLTzmt8adxiHXnglQRzuSWbTIAKSZQSRTBLyvAPFIB9IA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e3235c0f-5964-0f95-fcc0-bcc44bf9d784@suse.com>
+Date: Tue, 4 Oct 2022 11:01:18 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH for-4.17] x86/efi: don't translate EFI memory map MMIO
+ regions to e820 RESERVED
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220930141737.67574-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220930141737.67574-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0062.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM8PR04MB7331:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92759e34-ee2c-48f1-9ea5-08daa5e6ff54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	3Ix7CZaghRm2R9ZDMmln6ydRjpd4iGCcX1tJ4xmTAkZrtD/sV1XekI03kfSbbVNDESDEhr0YtKfA+GTVz+uCOK9fx5t3YSQHeYeJSdigeMJY/woUk96zkDk6PUWj7Gh/MS4ANuso+MXpOz4VZlOhHtsTd7SEOZcwrvG1DwUJLsFyr2fj1ER+8/M6miw1wTyFmto+eUZ7OAoO71JxCk6S+dEAmS6qJP620QID+bGu0WoHjrntnOFUw+9dA51YyyHVGDVvNJ4dxvsqFBcbUj6PRkb+BH0pVr7e1+ikYcmeqRfmwgRP/yswcKy+tmWWn3FmKp/y3VJWSDtydggz5SpHwLIdQpRD0zFM9FdscgKC6kb/aMGtdA/zsI06LlO4uIdWJT1dL/ISuRBM8s7r4u5PXWHHCSPRCJxArFpnEkA7OCg2E5RmepNKisKK0MZVp3cDioJCKmO6+K4sRznq7rWdXAbvek1542s6deNMYNDdOWogXCs+va2DypThrxC3SvpWFre6bvqyRb54teJM2WClLOqAJe0Bl7Rf3nv3HrG+fjQwp38QytPPhOS6zopWfDWveyZ/q68StNPPuQNZkYU6dCXN39qQsf/5JX/m1BehdsbevFJHgXDCCZyU5GRtQM5punLD2YQf1cg7I2C9Ban4DpYecGYecEUGTRHpur5Sv/H3mGBK4BbYepQifY7OymDUwcyg6ncz2yq2I+GYWnLxYqDmwLUAkmyGCGYdYxDe8+LdfTr1cX7etrnbu0S2+SmGNWe+tMTIFBUlj1gOQMvgIXGrDjHYPR+gH1iR/B7hldU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(136003)(376002)(39860400002)(366004)(396003)(451199015)(5660300002)(41300700001)(2906002)(66556008)(66946007)(2616005)(6512007)(26005)(186003)(8676002)(4326008)(66476007)(38100700002)(36756003)(31686004)(6506007)(8936002)(83380400001)(6916009)(54906003)(6486002)(53546011)(478600001)(31696002)(316002)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VHljeHR4T2VzbEUwdnUxSUtRUWZHMGVUWE5QTUNBRXlMRHZkbHhsNWl3c3VI?=
+ =?utf-8?B?bE0yTGo4S0tIejdvTU1pZG1PYWF1aTU5bnBlSDZJcEZ1R3dmbjY2TVVKQXA5?=
+ =?utf-8?B?dXlFYzNha2NPUHlPdWg0T3VnNkRIdFcwNk1DdlFud0p0RWhrY3lYQ3h6UC9J?=
+ =?utf-8?B?VDE4N2Mxc1ZVT3RZZlVUZjBKVk14UURLS3U2U0ZwSjAxZmg1eU83QTgzMnlS?=
+ =?utf-8?B?aVVveWJFUDhxQWl6clA5RlFMTlNESk5jd2FjM0tlTy96K0UxY1QzYmJPTm1V?=
+ =?utf-8?B?T01XSW1rYkdaWUdrMlZVRUdzQWIzU0hyMnQrR0M3WFcyc1hPVVRRaGxHQXkx?=
+ =?utf-8?B?aVFYZENxbld1R3ZCUUdkN0RaaDBBMStOVG8ranRCT0V5aG55VzJhVUZQM0dk?=
+ =?utf-8?B?YTEyd2VNUFd1NXpwN3Z6SFY5R2lkUTdYclU0WGIyWGtTa2U2cXhjbkdFUHNG?=
+ =?utf-8?B?c0U5OUVFdEgxZFJGZHFrcDROMjlKOTNJNkUwYnhPZFFERUZxM3AzZ1p6Y1E3?=
+ =?utf-8?B?d3lwRFRqeW9iamRrMzFqRnB0OGwrUDJqeEx3ZE8yYXd6cVU3VktLOUNxaHF0?=
+ =?utf-8?B?VEVkZlFTNjRQcVdiZEtPR05ZMGpvZ0NWVzJEeFplSUo5cU12alZtL0w4ZnZ6?=
+ =?utf-8?B?OWNjMFFwdDZUemNCYWxIeVlnWkdHRG45cGtaWERDdGUxT3E1bUs3RGp4Ti9q?=
+ =?utf-8?B?aTNxTzZEZ3dvc3orTTkxTW5mcXVWQlVtQW04NkJmNTNWTzVabmhlRWUvb3FJ?=
+ =?utf-8?B?ZEJxZFdLTFd5MHV3bDJYNS9ycEpObmFTN1VVQlpFcTRKNmdrdVVnaWc3eTlq?=
+ =?utf-8?B?YXNnUytVcUloL3J2dnZjWEMwbVQvRUFISHNMbldjU0I4Z1RrUjVGSTkxbUNN?=
+ =?utf-8?B?MERWb21lcFo0MlMyK1MrRFIycFM5VktQWWl5ZS8xMXhKTUErOGppdjY5RTVD?=
+ =?utf-8?B?bVl3K0hZT3dPbWVGVW5KQmI5ajNpTFptNHFzNUduK3BtY0dVNHZJNzRmdzZ2?=
+ =?utf-8?B?WFpBeVF5c3lTTnUrMWs5aG5rWnhvK0lrREVWMUlCTk1IZFN6RjNQT05KdE5E?=
+ =?utf-8?B?SFJSMThnTmZBRklkVnJPZTdudFRwcGdwWFJIWW13Q2kwdEg2YUI3K3llUS9n?=
+ =?utf-8?B?c0lleC9kQm5uVkcwSkFHanRhc0pURlZoVWpVTk5XVHJCeXpvRGdlSEVUNXA2?=
+ =?utf-8?B?elRzV1lIaXkyZzA3MnYyQTVJeFZSMEk4QTdnQUZIcERzbzBqbmV2ZzRrMVdx?=
+ =?utf-8?B?MnBtRk1oaS9WYUNPSXY4RGczQ2k1ZFhBMzJid1ozcG1JWjJoU2J5RTVOQTlz?=
+ =?utf-8?B?VkNTdC9PSW9vbTI3b2Q1SnBub3pPYkxqUG5uOURvcm03TmZTNlZCYkJQU2Nl?=
+ =?utf-8?B?ZmE0Z2d6VWhtVnYzbHZsOEpyZkltTEp3SmJJWW1jcXdSU1VyTjNlQ3RMT01T?=
+ =?utf-8?B?bXFsRCt4bmlZZUp5Vi9UUCtlY2RILzJHVE5mUVVRdG1kRU9Ibisxd2NvZWNZ?=
+ =?utf-8?B?d2tSNlJidjcvandiK0ZjTHYyNUphNWk2enV0SmZqZnlTMklJOXFUT0hnSDdu?=
+ =?utf-8?B?WXk5OEpZaTI2MzVVTnFLWFlKclRjclUrMlA4VWFMWEJ2MVFvZ0Y2R0NBZWdI?=
+ =?utf-8?B?dzFEcVZYTG1Td3E4M3g4K205Wkk2UzZJVEhRT2pUR292c2tjdFBHa2paTDU5?=
+ =?utf-8?B?ZHZvUTE3M1ZOTFQ5eXUwcHdvcmVhMVhEWGZmci8zQ1JLbGtwQnNPYkZIaXFO?=
+ =?utf-8?B?KzFjMDU4Zk5Da0JuYnVtdW53c2ZJaHgzUlE3Y2xpTlUwVG4vVkFraTFDVEUr?=
+ =?utf-8?B?NzYrNmdmSkFTclJJSGlkOGFFUUdtQzBubEhhVlFRa0RreThFLzhYck5nTHMw?=
+ =?utf-8?B?NWtFRE5DVDkrQXpIUmI4Y1l1ZmQxTHNCNHQwVlppdzFpRWMyNzE1UDNPYkJE?=
+ =?utf-8?B?ZUlxV0VaSVZWOE5ybDFDemkwSWRLTzBFOWc5dzdYUXpvcDdTTDYrcEV0ZytQ?=
+ =?utf-8?B?K1hZMFhXbnBOemQ0elJBNmVBOVUxOEs2SjRUR1FHZnEvME9ScmRtZis2cVZx?=
+ =?utf-8?B?SGc3aDFyc1luVG1oUi9jY3BQL0F0VWtUTDFvM01wekc3RSt0THNobnVOWS9r?=
+ =?utf-8?Q?WBeEbT9CS1SeskJVXr31xhHJD?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92759e34-ee2c-48f1-9ea5-08daa5e6ff54
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2022 09:01:17.2236
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uSnMEeITy3v2QsHKUTY1Oxp5ED/y+2JL4ZrGvD4r/0YrNHxC3KZ5Yh6i/+8oHym6uq0fYNwLawoabvlPzkss1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7331
 
-Instead of always doing the safe variants for reading and writing MSRs
-in Xen PV guests, make the behavior controllable via Kconfig option
-and a boot parameter.
+On 30.09.2022 16:17, Roger Pau Monne wrote:
+> The EFI memory map contains two memory types (EfiMemoryMappedIO and
+> EfiMemoryMappedIOPortSpace) used to describe IO memory areas of
+> devices used by EFI.
+> 
+> The current parsing of the EFI memory map was translating
+> EfiMemoryMappedIO and EfiMemoryMappedIOPortSpace to E820_RESERVED on
+> x86.  This is an issue because device MMIO regions (BARs) should not
+> be positioned on reserved regions.  Any BARs positioned on non-hole
+> areas of the memory map will cause is_memory_hole() to return false,
+> which would then cause memory decoding to be disabled for such device.
+> This leads to EFI firmware malfunctions when using runtime services.
+> 
+> The system under which this was observed has:
+> 
+> EFI memory map:
+> [...]
+>  00000fd000000-00000fe7fffff type=11 attr=800000000000100d
+> [...]
+> 0000:00:1f.5 disabled: BAR [0xfe010, 0xfe010] overlaps with memory map
+> 
+> The device behind this BAR is:
+> 
+> 00:1f.5 Serial bus controller [0c80]: Intel Corporation Lewisburg SPI Controller (rev 09)
+> 	Subsystem: Super Micro Computer Inc Device 091c
+> 	Flags: fast devsel
+> 	Memory at fe010000 (32-bit, non-prefetchable) [size=4K]well
+> 
+> For the record, the symptom observed in that machine was a hard freeze
+> when attempting to set an EFI variable (XEN_EFI_set_variable).
+> 
+> Fix by not adding regions with type EfiMemoryMappedIO or
+> EfiMemoryMappedIOPortSpace to the e820 memory map, that allows BARs to
+> be positioned there.
+> 
+> Fixes: 75cc460a1b ('xen/pci: detect when BARs are not suitably positioned')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-The default will be the current behavior, which is to always use the
-safe variant.
+In the best case this is moving us from one way of being wrong to another:
+So far we wrongly include BARs in E820_RESERVED (_if_ they can be
+legitimately covered by a EfiMemoryMappedIO region in the first place,
+which I'm not sure is actually permitted - iirc just like E820_RESERVED
+may not be used for BARs, this memory type also may not be), whereas with
+your change we would no longer report non-BAR MMIO space (chipset specific
+ranges for example) as reserved. In fact I think the example you provide
+is at least partly due to bogus firmware behavior: The BAR is put in space
+normally used for firmware specific memory (MMIO) ranges. I think firmware
+should either assign the BAR differently or exclude the range from the
+memory map.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- .../admin-guide/kernel-parameters.txt         |  6 +++++
- arch/x86/xen/Kconfig                          |  9 +++++++
- arch/x86/xen/enlighten_pv.c                   | 24 +++++++++++--------
- 3 files changed, 29 insertions(+), 10 deletions(-)
+I guess instead we want to handle the example you give by a firmware quirk
+workaround.
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 426fa892d311..1bda9cf18fae 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6836,6 +6836,12 @@
- 			Crash from Xen panic notifier, without executing late
- 			panic() code such as dumping handler.
- 
-+	xen_msr_safe=	[X86,XEN]
-+			Format: <bool>
-+			Select whether to always use non-faulting (safe) MSR
-+			access functions when running as Xen PV guest. The
-+			default value is controlled by CONFIG_XEN_PV_MSR_SAFE.
-+
- 	xen_nopvspin	[X86,XEN]
- 			Disables the qspinlock slowpath using Xen PV optimizations.
- 			This parameter is obsoleted by "nopvspin" parameter, which
-diff --git a/arch/x86/xen/Kconfig b/arch/x86/xen/Kconfig
-index 85246dd9faa1..9b1ec5d8c99c 100644
---- a/arch/x86/xen/Kconfig
-+++ b/arch/x86/xen/Kconfig
-@@ -92,3 +92,12 @@ config XEN_DOM0
- 	select X86_X2APIC if XEN_PVH && X86_64
- 	help
- 	  Support running as a Xen Dom0 guest.
-+
-+config XEN_PV_MSR_SAFE
-+	bool "Always use safe MSR accesses in PV guests"
-+	default y
-+	depends on XEN_PV
-+	help
-+	  Use safe (not faulting) MSR access functions even if the MSR access
-+	  should not fault anyway.
-+	  The default can be changed by using the "xen_msr_safe" boot parameter.
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index d5b0844a1b7c..daae454191f2 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -108,6 +108,16 @@ struct tls_descs {
-  */
- static DEFINE_PER_CPU(struct tls_descs, shadow_tls_desc);
- 
-+static __read_mostly bool xen_msr_safe = IS_ENABLED(CONFIG_XEN_PV_MSR_SAFE);
-+
-+static int __init parse_xen_msr_safe(char *str)
-+{
-+	if (str)
-+		return strtobool(str, &xen_msr_safe);
-+	return -EINVAL;
-+}
-+early_param("xen_msr_safe", parse_xen_msr_safe);
-+
- static void __init xen_pv_init_platform(void)
- {
- 	/* PV guests can't operate virtio devices without grants. */
-@@ -1011,22 +1021,16 @@ static int xen_write_msr_safe(unsigned int msr, unsigned int low,
- 
- static u64 xen_read_msr(unsigned int msr)
- {
--	/*
--	 * This will silently swallow a #GP from RDMSR.  It may be worth
--	 * changing that.
--	 */
- 	int err;
- 
--	return xen_read_msr_safe(msr, &err);
-+	return xen_do_read_msr(msr, xen_msr_safe ? &err : NULL);
- }
- 
- static void xen_write_msr(unsigned int msr, unsigned low, unsigned high)
- {
--	/*
--	 * This will silently swallow a #GP from WRMSR.  It may be worth
--	 * changing that.
--	 */
--	xen_write_msr_safe(msr, low, high);
-+	int err;
-+
-+	xen_do_write_msr(msr, low, high, xen_msr_safe ? &err : NULL);
- }
- 
- /* This is called once we have the cpu_possible_mask */
--- 
-2.35.3
+> ---
+> I don't understand the definition of EfiMemoryMappedIOPortSpace:
+> 
+> "System memory-mapped IO region that is used to translate memory
+> cycles to IO cycles by the processor."
 
+That's something (only?) IA-64 used, where kind of as a "replacement" for
+x86 I/O port accesses equivalents thereof were provided (iirc 4 ports
+per page) via MMIO accesses. It is this compatibility MMIO space which is
+marked this way. Such ranges should never be seen on (current) x86.
+
+> But given its name I would assume it's also likely used to mark ranges
+> in use by PCI device BARs.
+> 
+> It would also be interesting to forward this information to dom0, so
+> it doesn't attempt to move the BARs of this device(s) around, or else
+> issues will arise.
+
+None of this is device specific. There's simply (typically) one MMIO
+range covering the entire 64k or I/O port space.
+
+Jan
 
