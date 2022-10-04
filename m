@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F330F5F4753
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Oct 2022 18:16:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.415738.660380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C25555F48F4
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Oct 2022 19:54:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.415756.660401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofkaD-0001aQ-BE; Tue, 04 Oct 2022 16:15:49 +0000
+	id 1ofm76-0003G0-Ie; Tue, 04 Oct 2022 17:53:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 415738.660380; Tue, 04 Oct 2022 16:15:49 +0000
+Received: by outflank-mailman (output) from mailman id 415756.660401; Tue, 04 Oct 2022 17:53:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ofkaD-0001Y0-7h; Tue, 04 Oct 2022 16:15:49 +0000
-Received: by outflank-mailman (input) for mailman id 415738;
- Tue, 04 Oct 2022 16:15:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l35h=2F=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ofkaC-0001Xu-Lo
- for xen-devel@lists.xenproject.org; Tue, 04 Oct 2022 16:15:48 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce47653f-43ff-11ed-9377-c1cf23e5d27e;
- Tue, 04 Oct 2022 18:15:47 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4CC6F1F918;
- Tue,  4 Oct 2022 16:15:47 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 194A6139D2;
- Tue,  4 Oct 2022 16:15:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id YvPEBDNcPGPgJQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 04 Oct 2022 16:15:47 +0000
+	id 1ofm76-0003Cv-Fn; Tue, 04 Oct 2022 17:53:52 +0000
+Received: by outflank-mailman (input) for mailman id 415756;
+ Tue, 04 Oct 2022 17:53:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IgJy=2F=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1ofm75-0003Cp-8E
+ for xen-devel@lists.xenproject.org; Tue, 04 Oct 2022 17:53:51 +0000
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7fccbb88-440d-11ed-964a-05401a9f4f97;
+ Tue, 04 Oct 2022 19:53:50 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 77C7A5C0113;
+ Tue,  4 Oct 2022 13:53:48 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Tue, 04 Oct 2022 13:53:48 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 4 Oct 2022 13:53:47 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,138 +43,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce47653f-43ff-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1664900147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CrBJS4XP3AwPDQq+A1IRFhkBFBC6WOYuz+r/s+kICmw=;
-	b=t5BUu0gsu6u+3zcTztf8xAQ6AoLqyPNSv0e53unobKOMp8sLJXACioN2N9H+Y89SnzTLfh
-	pIpn3DUdzpurt24n4iYxkc4+dQvzPQepVFMe3jV5CqqZl7C9xJ3/MQQiaOr1F1HPON/VcH
-	KsMDUpUOHeneWYNQt15E49YGUK73iLk=
-Message-ID: <037ae081-49ba-490e-48ac-fd035241e05b@suse.com>
-Date: Tue, 4 Oct 2022 18:15:46 +0200
+X-Inumbo-ID: 7fccbb88-440d-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664906028; x=
+	1664992428; bh=crMLwkYrYFWOA1+VA0BUO688RPGUWzKTzdzfbu3JkkE=; b=2
+	MMOhyZHbORWatMaYrJCtVSYg0r0XHyaW0eNJY0z8ZTzVricK2fwqD2PeAIh/Cdo5
+	mP/c4bd/7fnTeRCN5GdvXpsugzgtKtIiUSamUPS3JZpKTMhVxq/XhFo6d38Udru1
+	+UxjarFIUmASO+6IZSWuQgAPs5lhwUquKHksNP9lklxcDpGkSdrDad34m5ep1J7t
+	zhi29mw3H1b2W0HtF2QVo50Dm9BYR62zqne0OHvaeEkycXfkvPLWcC0cx9r8YDwS
+	wf9PIHYoubtVbD1g8X5YqfYedJGV6YL2tKrRh9Y3NpuyaSxlNP5wknxD1gKIKdlh
+	fBahCbY24fY4tAGY60mSA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1664906028; x=1664992428; bh=crMLwkYrYFWOA1+VA0BUO688RPGU
+	WzKTzdzfbu3JkkE=; b=AkTt3B8pmj7Ml2nZSgvgOsy/oWj/1LypjtTvL1IJhMwM
+	WZVackhTEinZ3ojHW1IhRqczLN1gUakhP0GeWj1WjnGSG1bHVdBZ4MT9JxtD8U6P
+	9+a/xvBpoJmF/4KGx/hJOkpoZECJOZjgpGlXAY5BOGlceJtcPyFfTz+dxRqLvlKV
+	6mxnsnBba50ERm43a5oVj19YcbcQ6xg6TLVKEXjngEKu59wFrkkMWFMOu3vnZlOy
+	yh+IERoWKg8OdGQ+Ko6EeHfzRosPvcCJPH8w4TJyKcg5/YHTWqKckz1HBqxdutht
+	em4qSGDuBhDXGDLOMCgYCUhZCDbv+6sD9Y8IzOLtnQ==
+X-ME-Sender: <xms:LHM8Y4GBfgG_KA7tDJUFRrGo8uH8hbrLXd-oE_10qTXae9gBBQW4QQ>
+    <xme:LHM8YxUmGdTS-D4eX4ZoSG6b-t4YUt1Ts33jQjSXVXYW5JN1sgZxp2Ewbvpw_4qjT
+    NMCJ_Z1w9hJ3yU>
+X-ME-Received: <xmr:LHM8YyJtqC_Q3f45_myOFkQ7-KeoZOE4Z-sAeUqigATWrQH9p_1RWqocHFGX>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeeiuddguddukecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffeg
+    fffguddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+    shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:LHM8Y6Fv_vgu392bpTx3N2pvr4OUP49VNCFut6gXn9MfUTToEcjk8g>
+    <xmx:LHM8Y-XxT18-IBZrtJOgfq5CYL2-CYGbFo2YLZVjvJP3qnMMAGM8rA>
+    <xmx:LHM8Y9NYYH66k3QJzrwbhU1BHX98AE_rcHwMuiwb_fhxeaCcwtSNDw>
+    <xmx:LHM8Y8zyWh_71Li2Tp9EYHRe5teOPFg3wn_ZCDucMMSjbTSPNtJ9kA>
+Feedback-ID: iac594737:Fastmail
+Date: Tue, 4 Oct 2022 13:53:31 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH 2/2] x86: Activate Data Operand Invariant Timing Mode by
+ default
+Message-ID: <YzxzKY01r12OPyiR@itl-email>
+References: <20221004160810.25364-1-andrew.cooper3@citrix.com>
+ <20221004160810.25364-3-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] xen/xenbus: Fix spelling mistake "hardward" -> "hardware"
-Content-Language: en-US
-To: Colin Ian King <colin.i.king@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20221004160639.154421-1-colin.i.king@gmail.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20221004160639.154421-1-colin.i.king@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------zmUusmk3r0kty7NjGFaM9BZ6"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SHDQr5c8XtikZYTS"
+Content-Disposition: inline
+In-Reply-To: <20221004160810.25364-3-andrew.cooper3@citrix.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------zmUusmk3r0kty7NjGFaM9BZ6
-Content-Type: multipart/mixed; boundary="------------IevJcMCWpZud0t33ynfvv0Be";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Colin Ian King <colin.i.king@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-ID: <037ae081-49ba-490e-48ac-fd035241e05b@suse.com>
-Subject: Re: [PATCH] xen/xenbus: Fix spelling mistake "hardward" -> "hardware"
-References: <20221004160639.154421-1-colin.i.king@gmail.com>
-In-Reply-To: <20221004160639.154421-1-colin.i.king@gmail.com>
 
---------------IevJcMCWpZud0t33ynfvv0Be
-Content-Type: multipart/mixed; boundary="------------rZHHk3SUptnPXXpjkkxcurWX"
-
---------------rZHHk3SUptnPXXpjkkxcurWX
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMDQuMTAuMjIgMTg6MDYsIENvbGluIElhbiBLaW5nIHdyb3RlOg0KPiBUaGVyZSBpcyBh
-IHNwZWxsaW5nIG1pc3Rha2UgaW4gdGhlIG1vZHVsZSBkZXNjcmlwdGlvbi4gRml4IGl0Lg0K
-PiANCj4gU2lnbmVkLW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmkua2luZ0BnbWFp
-bC5jb20+DQoNClJldmlld2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+
-DQoNCg0KSnVlcmdlbg0KDQo=
---------------rZHHk3SUptnPXXpjkkxcurWX
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+--SHDQr5c8XtikZYTS
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 4 Oct 2022 13:53:31 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH 2/2] x86: Activate Data Operand Invariant Timing Mode by
+ default
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Tue, Oct 04, 2022 at 05:08:10PM +0100, Andrew Cooper wrote:
+> Intel IceLake and later CPUs have microarchitectural behaviours which cau=
+se
+> data-dependent timing behaviour.  This is not an issue for 99% of softwar=
+e,
+> but it is a problem for cryptography routines.  On these CPUs, a new
+> architectural feature, DOITM, was retrofitted in microcode.
+>=20
+> For now, Xen can't enumerate DOITM to guest kernels; getting this working=
+ is
+> still in progress.  The consequence is that guest kernels will incorrectly
+> conclude that they are safe.
+>=20
+> To maintain the safety of current software, activate DOITM unilaterally. =
+ This
+> will be relaxed in the future when we can enumerate the feature properly =
+to
+> guests.
+>=20
+> As an emergency stopgap, this behaviour can be disabled by specifying
+> `cpuid=3Dno-doitm` on Xen's command line, but is not guaranteed ABI moving
+> forward.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Henry Wang <Henry.Wang@arm.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Demi Marie Obenour <demi@invisiblethingslab.com>
+> ---
+>  xen/arch/x86/cpu/common.c            | 29 +++++++++++++++++++++++++++++
+>  xen/arch/x86/cpuid.c                 |  5 +++++
+>  xen/arch/x86/include/asm/processor.h |  2 ++
+>  xen/tools/gen-cpuid.py               |  2 ++
+>  4 files changed, 38 insertions(+)
+>=20
+> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+> index 0412dbc915e5..8c46a4db430a 100644
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -209,6 +209,34 @@ void ctxt_switch_levelling(const struct vcpu *next)
+>  		alternative_vcall(ctxt_switch_masking, next);
+>  }
+> =20
+> +bool __ro_after_init opt_doitm =3D true;
+> +
+> +static void doitm_init(void)
+> +{
+> +    uint64_t val;
+> +
+> +    if ( !opt_doitm || !cpu_has_arch_caps )
+> +        return;
+> +
+> +    rdmsrl(MSR_ARCH_CAPABILITIES, val);
+> +    if ( !(val & ARCH_CAPS_DOITM) )
+> +        return;
+> +
+> +    /*
+> +     * We are currently unable to enumerate MSR_ARCH_CAPS to guest.  As a
+> +     * consequence, guest kernels will believe they're safe even when th=
+ey are
+> +     * not.
+> +     *
+> +     * Until we can enumerate DOITM properly for guests, set it unilater=
+ally.
+> +     * This prevents otherwise-correct crypto from becoming vulnerable to
+> +     * timing sidechannels.
+> +     */
+> +
+> +    rdmsrl(MSR_UARCH_MISC_CTRL, val);
+> +    val |=3D UARCH_CTRL_DOITM;
+> +    wrmsrl(MSR_UARCH_MISC_CTRL, val);
+> +}
+> +
+>  bool_t opt_cpu_info;
+>  boolean_param("cpuinfo", opt_cpu_info);
+> =20
+> @@ -532,6 +560,7 @@ void identify_cpu(struct cpuinfo_x86 *c)
+>  	/* Now the feature flags better reflect actual CPU features! */
+> =20
+>  	xstate_init(c);
+> +	doitm_init();
+> =20
+>  #ifdef NOISY_CAPS
+>  	printk(KERN_DEBUG "CPU: After all inits, caps:");
+> diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+> index 112ee63a9449..09c1ee18fd95 100644
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -106,7 +106,12 @@ static void __init cf_check _parse_xen_cpuid(
+>      const char *name, unsigned int feat, bool val)
+>  {
+>      if ( unlikely(feat =3D=3D ~0u) )
+> +    {
+> +        if ( strcmp(name, "doitm") =3D=3D 0 )
+> +            opt_doitm =3D val;
+> +
+>          return;
+> +    }
+> =20
+>      if ( !val )
+>          setup_clear_cpu_cap(feat);
+> diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/=
+asm/processor.h
+> index 8e2816fae9b9..2978416e6c5b 100644
+> --- a/xen/arch/x86/include/asm/processor.h
+> +++ b/xen/arch/x86/include/asm/processor.h
+> @@ -637,6 +637,8 @@ enum ap_boot_method {
+>  };
+>  extern enum ap_boot_method ap_boot_method;
+> =20
+> +extern bool opt_doitm;
+> +
+>  #endif /* !__ASSEMBLY__ */
+> =20
+>  #endif /* __ASM_X86_PROCESSOR_H */
+> diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+> index f3045b3bfd36..78a3a5c1941f 100755
+> --- a/xen/tools/gen-cpuid.py
+> +++ b/xen/tools/gen-cpuid.py
+> @@ -303,6 +303,8 @@ def crunch_numbers(state):
+>      # specially
+>      #
+>      pseduo_names =3D (
+> +        # Data Operand Invariant Timing Mode.  Lives in MSR_ARCH_CAPS
+> +        "doitm",
+>      )
+> =20
+>      for n in pseduo_names:
+> --=20
+> 2.11.0
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+I can=E2=80=99t review the actual implementation, but the idea looks good t=
+o me.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
---------------rZHHk3SUptnPXXpjkkxcurWX--
-
---------------IevJcMCWpZud0t33ynfvv0Be--
-
---------------zmUusmk3r0kty7NjGFaM9BZ6
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--SHDQr5c8XtikZYTS
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM8XDIFAwAAAAAACgkQsN6d1ii/Ey+o
-lwf8DiNW4nFClpAtfeN6ycztb/ZhNXF75WNv2MmQg16qhPlseujTU22nejuUwDLOVXD7/fcF+RnE
-1ldsrAwNCx+BbcHoQ1KMZw5MQ8n06mW1mkMetKea09qk2y3lRvC9D6uQR6onNixF/oiAlkQx2kui
-wYb+Jbpjl5ySpRxXD8fCcMdqICsszlRCJ+jQ1H69oP0AkDMldNrIJLX0TY4UJIqrw6nTWnffL3OL
-A4B9nvNFk45fqWc34ePFqNVTg8Cq44KQLby1b3Ih1S/4CxIu9dK3DV+Ar6Mbi1zxhn3yUEpxW/lz
-I/3kmSNNYUe2BJfeIb0ctir+mjGHYmV3t62E8HCePg==
-=xMJY
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM8cykACgkQsoi1X/+c
+IsHbUhAAv4Rbj8vaccBO8kZW5hLFXlpTm3aY9wkKZsNV+CHHV6aXQCYWirYJfuSo
+r3PZnVSu7qZI46b8PHG7oYIObtAy1HNXcF93qA4y4MazrRKdf8UyJD35sIvCZ4iz
+Q0+BdZB+y+uvNeulfevKCss7bzn8YBFn8EW9g2AzouiEjG+mrtUzxMZ0UyQfDWdr
+GeSMgy30bJmCwQljOQzQ3Zflv9m8oajwaOFYTyLHJujeowwfJG3KjCSOMBN6g5ga
+hFtmYCdJ+0VVZ+6mNLB0hpvEJWsxN2nUW9HgZhLVgYSTT/2wZv2exKiE9vFsg1Bc
+GUisQkG6Wxa40RZzfcOSNp3s08jjzPB4dNWkiqFk33wserlqIhGkppvaDEaLvuCA
+9+bviE5QsrmkrVqkJ/+fI4H2vo4zmM7t9GKBTnuVlTEnc71CYtxTr+pCh3eXFRzn
+FKpgvTAX/KZyJ0xy9/E9eXO2gYJO8jLu85crXHImInDTffMrLliRhysAyf1pVDV3
+K//1+2GPu7fCoySer4dSSt/PDNb4uOUBIzXHNGzqq45CsNFsxJeogeCFU6BtxrvC
+qFdVBiplmVGyqAn949iYnjVs6XElTu5HH61HAaHbYiudsd5T1OKVE7nSnqrt2vtU
+y2mzJz6GNM/6g01rwMYItmCtNOOhw7dmL+nqmIRKyZP5daha8QQ=
+=oJP8
 -----END PGP SIGNATURE-----
 
---------------zmUusmk3r0kty7NjGFaM9BZ6--
+--SHDQr5c8XtikZYTS--
 
