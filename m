@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 665335F595B
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Oct 2022 19:49:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.416378.661033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C16525F595A
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Oct 2022 19:49:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.416379.661043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1og8VX-0003ih-CQ; Wed, 05 Oct 2022 17:48:35 +0000
+	id 1og8VY-0003wk-K6; Wed, 05 Oct 2022 17:48:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 416378.661033; Wed, 05 Oct 2022 17:48:35 +0000
+Received: by outflank-mailman (output) from mailman id 416379.661043; Wed, 05 Oct 2022 17:48:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1og8VX-0003fN-9W; Wed, 05 Oct 2022 17:48:35 +0000
-Received: by outflank-mailman (input) for mailman id 416378;
- Wed, 05 Oct 2022 17:48:34 +0000
+	id 1og8VY-0003ut-H6; Wed, 05 Oct 2022 17:48:36 +0000
+Received: by outflank-mailman (input) for mailman id 416379;
+ Wed, 05 Oct 2022 17:48:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QTo3=2G=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1og8VV-0003fH-Tr
- for xen-devel@lists.xenproject.org; Wed, 05 Oct 2022 17:48:33 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1og8VX-0003fH-6y
+ for xen-devel@lists.xenproject.org; Wed, 05 Oct 2022 17:48:35 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id edf09bb1-44d5-11ed-964a-05401a9f4f97;
- Wed, 05 Oct 2022 19:48:33 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id nb11so37079026ejc.5
- for <xen-devel@lists.xenproject.org>; Wed, 05 Oct 2022 10:48:33 -0700 (PDT)
+ id eed704e3-44d5-11ed-964a-05401a9f4f97;
+ Wed, 05 Oct 2022 19:48:34 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id k2so7121038ejr.2
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Oct 2022 10:48:34 -0700 (PDT)
 Received: from otyshchenko.router ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- ee32-20020a056402292000b0044e7862ab3fsm4320697edb.7.2022.10.05.10.48.30
+ ee32-20020a056402292000b0044e7862ab3fsm4320697edb.7.2022.10.05.10.48.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Oct 2022 10:48:31 -0700 (PDT)
+ Wed, 05 Oct 2022 10:48:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,65 +44,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edf09bb1-44d5-11ed-964a-05401a9f4f97
+X-Inumbo-ID: eed704e3-44d5-11ed-964a-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=T7vmkKrcbukpzojz/C0yPU7kDNmejVOGQprU/+VGjPg=;
-        b=dVi25dvodr8t/gBegAqLu+rK8KzgAh4keTp2/KK7+Fje72aOUSQprjCW9gEVTRPyjx
-         tAR/dx3QTfQXRA6VPY4wpM3my7uLryBptIJgQEwf488NAfjAoP8LVPe8RNH3JH2nF7sx
-         aSCqpz5VQahY6uVL7dwnQMyPVmiXdxxw0KbZxftvRhnAbhmWO/tMzRIJy/UhRt5/60f2
-         DCQUCakAm6HPmMzYpnTSZVSIwee3DWyUMQHfzVhPsxXN3b2Nl7nX2LF2JoXdLaGHNfxB
-         H+UxR4u7ojJZ444EYA93u8Pv20FyYp56cTV856Mn9ZVwPFmHgjPuzwjeAMe7GKYfUEZZ
-         da9w==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lUqPpYv5HbJS3RJZgdTtH5zBJM8cF/Q/yQo70/LIPGg=;
+        b=q2NAXUerg5Qq4svf9ZBclqSa7jhIsyyWtisVfdHoR09jVE9TUdLqPM4efflTILBJ2E
+         1QzruERT96PZYju0r7C2ZaHvg30mr5WuMueOXGd/ZwvoZmmuOUN13WUjo0E1wd+IbDqs
+         BHtddK4HNWj9DlWucI/LF6hcSCBL5vdIlYwIr7rf7LHwpwKw1u0JzBn48GS4yFmoiv+C
+         BXfd99AdwgNOMIo8PqFDtYXynE8wj8nj18ErlAFmAjYKe4avYXwKc2MTtpfsUUJ0Hr+d
+         nyJcbqw+4Yt20d6Zxo8CDJDZfh2dhLrWeY1cgcrGP5JOqbkMqzLlOTlOQlgFouD46h6r
+         MMng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=T7vmkKrcbukpzojz/C0yPU7kDNmejVOGQprU/+VGjPg=;
-        b=x1RFQMx3GNkcezm9QjXQ4mq6JoaNgZUMJVivzY31TYsN7YR2bhxipwmvL4s/e3+V3m
-         H0xbT6n/jOt3faKWofCtlyaz5Yt4pDGOYKu7FpaswOoELfbN6l5J5EjFbwwQUKDevY96
-         EiJOWzQCZ/oMbL1mSbxaomn1xdGUbj9v2MHe+xdHrciGMl17LN/zX4aTMWIL9P5e7O7e
-         QLYBjMrJYu8wObhVs9Px64HQy2ltLu3xBmY3bVDaRceHrvDBaZSiGo7PgzG8tzbxv+3Z
-         cHSeVX55U7IyvUel6uDmlDe4S1HhFEhp30gFLIAOq5I70U0vk20SKjZvUDnx2F53kvpk
-         BM8A==
-X-Gm-Message-State: ACrzQf2g/EYv1SDXOpMzotPtKvuGzctMobyy1bwRO6k4NjwzeN2YU3Fs
-	x6Z79851GmUavPHN6DcWjTbUk3DOS20=
-X-Google-Smtp-Source: AMsMyM743WLaut2TEDuu9Otx1L5edbBgqf2bI1BtlwsFJAYPKcXauwkgwejLZrQib1lNS1Y2SACG3w==
-X-Received: by 2002:a17:907:5c2:b0:77e:def7:65d8 with SMTP id wg2-20020a17090705c200b0077edef765d8mr596533ejb.487.1664992111996;
-        Wed, 05 Oct 2022 10:48:31 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lUqPpYv5HbJS3RJZgdTtH5zBJM8cF/Q/yQo70/LIPGg=;
+        b=sNyYJOSRJzkOojEVEp8LqCP/WX03axbkZHiFGjvLuGQBm1DbOR7V9EQNCeybUnAGOT
+         b+5OQRDOKjkxaXZ1f+Fy1LM8/Zxqb8fh7esFvTbFHgT/C18yjcQexk+nnFZEUSyavu86
+         Wyb/Mi/tSIV0K5Kjf7Qa7aGFAivcn3QclcPhhe6OObJuKzYUUWPkEJTSXudpdRP9N14X
+         29PuNYGC/blThAIDcDXCFJeB8VVU9iaMR+VlPMCsfy+I+Es/m36fl/Puadh8jKLfJUHm
+         Mxw5ZGeDgx7KjdYrHTXHyszxUIDfOuYg8ubW6hPzbbUMANXbVqZ/JKVEI1kw5M63ja2C
+         7vAg==
+X-Gm-Message-State: ACrzQf1hjKoauVlUwcFmJRRIxVbkj7VbWOn1LoYMSXBWW35rg9+STCSu
+	Ttic1Kf8dTGmESHOsHbCbQpN149dm7A=
+X-Google-Smtp-Source: AMsMyM7qFxTtDClHub9HwGnUCHbj0K2B+uD3aLcbrl4tDcKrhmWQ/TdQGfyyThVB1O4Bfc/Y82Eqaw==
+X-Received: by 2002:a17:906:4ac1:b0:780:3448:ff06 with SMTP id u1-20020a1709064ac100b007803448ff06mr587283ejt.403.1664992113581;
+        Wed, 05 Oct 2022 10:48:33 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org,
 	linux-kernel@vger.kernel.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 0/2] Misc fixes for Xen grant DMA-mapping layer
-Date: Wed,  5 Oct 2022 20:48:21 +0300
-Message-Id: <20221005174823.1800761-1-olekstysh@gmail.com>
+Subject: [PATCH 1/2] xen/virtio: Fix n_pages calculation in xen_grant_dma_map(unmap)_page()
+Date: Wed,  5 Oct 2022 20:48:22 +0300
+Message-Id: <20221005174823.1800761-2-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221005174823.1800761-1-olekstysh@gmail.com>
+References: <20221005174823.1800761-1-olekstysh@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Hello all.
+Take page offset into the account when calculating the number of pages
+to be granted.
 
-These are several fixes I collected when playing with virtio-net device
-using Xen grant mappings.
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Fixes: d6aca3504c7d ("xen/grant-dma-ops: Add option to restrict memory access under Xen")
+---
+ drivers/xen/grant-dma-ops.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Tested with both virtio-blk and virtio-net devices.
-
-Oleksandr Tyshchenko (2):
-  xen/virtio: Fix n_pages calculation in xen_grant_dma_map(unmap)_page()
-  xen/virtio: Fix potential deadlock when accessing
-    xen_grant_dma_devices
-
- drivers/xen/grant-dma-ops.c | 29 ++++++++++++++++++++++-------
- 1 file changed, 22 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+index 8973fc1e9ccc..1998d0e8ce82 100644
+--- a/drivers/xen/grant-dma-ops.c
++++ b/drivers/xen/grant-dma-ops.c
+@@ -153,7 +153,7 @@ static dma_addr_t xen_grant_dma_map_page(struct device *dev, struct page *page,
+ 					 unsigned long attrs)
+ {
+ 	struct xen_grant_dma_data *data;
+-	unsigned int i, n_pages = PFN_UP(size);
++	unsigned int i, n_pages = PFN_UP(offset + size);
+ 	grant_ref_t grant;
+ 	dma_addr_t dma_handle;
+ 
+@@ -185,7 +185,8 @@ static void xen_grant_dma_unmap_page(struct device *dev, dma_addr_t dma_handle,
+ 				     unsigned long attrs)
+ {
+ 	struct xen_grant_dma_data *data;
+-	unsigned int i, n_pages = PFN_UP(size);
++	unsigned long offset = dma_handle & (PAGE_SIZE - 1);
++	unsigned int i, n_pages = PFN_UP(offset + size);
+ 	grant_ref_t grant;
+ 
+ 	if (WARN_ON(dir == DMA_NONE))
 -- 
 2.25.1
 
