@@ -2,41 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A4335F4D6D
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Oct 2022 03:38:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.415827.660486 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C51165F4FAD
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Oct 2022 08:16:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.415834.660499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oftLr-0001HI-GL; Wed, 05 Oct 2022 01:37:35 +0000
+	id 1ofxgb-0003Dz-8W; Wed, 05 Oct 2022 06:15:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 415827.660486; Wed, 05 Oct 2022 01:37:35 +0000
+Received: by outflank-mailman (output) from mailman id 415834.660499; Wed, 05 Oct 2022 06:15:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oftLr-0001F5-Bm; Wed, 05 Oct 2022 01:37:35 +0000
-Received: by outflank-mailman (input) for mailman id 415827;
- Wed, 05 Oct 2022 01:37:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ofxgb-0003AW-5B; Wed, 05 Oct 2022 06:15:17 +0000
+Received: by outflank-mailman (input) for mailman id 415834;
+ Wed, 05 Oct 2022 06:15:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QrJL=2G=runbox.com=m.v.b@srs-se1.protection.inumbo.net>)
- id 1oftLo-0001Ez-Kq
- for xen-devel@lists.xenproject.org; Wed, 05 Oct 2022 01:37:33 +0000
-Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com
- [2a0c:5a00:149::26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 465ffc8f-444e-11ed-9377-c1cf23e5d27e;
- Wed, 05 Oct 2022 03:37:30 +0200 (CEST)
-Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
- by mailtransmit05.runbox.com with esmtps (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.93)
- (envelope-from <m.v.b@runbox.com>)
- id 1oftLj-00FUOw-M0; Wed, 05 Oct 2022 03:37:27 +0200
-Received: from [10.9.9.74] (helo=submission03.runbox)
- by mailtransmit03.runbox with esmtp (Exim 4.86_2)
- (envelope-from <m.v.b@runbox.com>)
- id 1oftLi-0003QS-O0; Wed, 05 Oct 2022 03:37:26 +0200
-Received: by submission03.runbox with esmtpsa [Authenticated ID (536975)]
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
- id 1oftLg-0004oN-CR; Wed, 05 Oct 2022 03:37:24 +0200
+ (envelope-from <SRS0=L813=2G=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1ofxgZ-0003AQ-HF
+ for xen-devel@lists.xenproject.org; Wed, 05 Oct 2022 06:15:15 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-eopbgr80080.outbound.protection.outlook.com [40.107.8.80])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 12888416-4475-11ed-964a-05401a9f4f97;
+ Wed, 05 Oct 2022 08:15:13 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DU0PR04MB9393.eurprd04.prod.outlook.com (2603:10a6:10:358::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.32; Wed, 5 Oct
+ 2022 06:15:09 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.031; Wed, 5 Oct 2022
+ 06:15:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,306 +46,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 465ffc8f-444e-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
-	 s=selector2; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=O9KbrdN6Sv+jKKGOZ8bbe4wvldYZw53ghGEW82CqbRY=; b=DsvfWcJYzTkSWMnZCNR8TC9gG1
-	GjqnEO+Z9mre5oLVpHhzb514dVMUZk8oYJVFLZxL/M5fbJkpSC3j2rMoh02rSF2TbYyfn2pbo59kd
-	M7YwgZHDf4bWt2xZpJwZkOwAq3B/aHAft1TLf1ZGnLosZKIGX4GMGQPAam6go2gpYy7EmAwJNJC/d
-	oLpLHAzvXZQnvvY7IoYcQDJ0vsg4p3rFBY+Gq/eq0eo+tOlauSp8bn4c4xLclRB69USOKuY7i4prP
-	K0vuBYz42wpYyEFUmAAVs+Ivijgf9+1niVZzwUzhbBxxUb8XyPshkHtAgECoGaCj6FyCGP4NjmNvw
-	Gtvu2jsw==;
-Message-ID: <fdc85c53-4025-bbf9-5ec6-f767f7521217@runbox.com>
-Date: Tue, 4 Oct 2022 21:37:22 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v2 1/2] xen/gntdev: Prevent leaking grants
-Content-Language: en-CA
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
+X-Inumbo-ID: 12888416-4475-11ed-964a-05401a9f4f97
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KXP9lYxsmpdTgO3rr/vm4vGzNyUAddXFrZyUejpfne0Zu8buOZkr5uDg48bt0kfSjTaCazWnBzPd76vjqwoqqD3t5f1coTGmUTuGyJjs13mGNnVA0xjq2jrp7QccKnONhzW9tHlIScy6/JZJ27mr9I68+QXQ3cWrMcVnpfrHeYnJWfzNVvxAEcmJhJpFCPKBmrdQlxhetOcr0LAcrsoXNXTr7l9d5kNET7Yp9cFo/BjJcqjP6Jpqp/WCPucL5MwMXWADkD8sBPv9NMn0BP0rVocjnXj5W7XoEDzPQiOC/WJiAAG3hZYtBDJ3dTkpZLsTIA1MEF7yEpumR09HQPmXog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/SXlFQl4ElpS1x8Q77iosu7H/vrhFX98uDhyfXvAEh8=;
+ b=WWpbK2bCGpaPfEQGBL7HZWLEuGr4TgHQG8MVDHUFX6zxJll2wde/Civlb4nQsZ8jd84nSgxnCGxBL4GmoSMB+MZPCrfkRbxIcfRgQPWcFl0KAnuTuHKichJEJZYupTiyWbThjFbdvA6/kkR8Y/ERthXSUHmji6oWe4RlAD9f5/W//P8Xs25CGfQZvTQEMfQ1MjqqLx+yFKc13D4oou4mswhPGSuS4JKSrdFZS3r3h2X2CdDR7Dk60EIKucTqA+Gz7NuvCbjU+sZVPJU4hEhE9M8KZykStRfSzwV9f+aITh+g/r6Ib0vnHK2lW0JSmVYju0EOwb/vJ46Wvg/xcidWmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/SXlFQl4ElpS1x8Q77iosu7H/vrhFX98uDhyfXvAEh8=;
+ b=FaJ3Oqr8E2l3LARB18Kd9WKGRP4bktG83QxCSDe5oM0M3MRRxok8KbIV/KI8CclYO65TNM8X91yxuwTsAR8UBjg7tPrDGoSgvWzSZNNmlBKuNXEYVsbucvF/CjGWVeQvykzALdhJlpmAgGCNy1wBq0RIeapFB1TqmEzH04SPG0uyNzfKzblpcIOzxjWIlsplRjV/kNKO9l3Q5UDidDW52DN48/nWK0YRy3z01GvOKh2+6Z2kamMDrW5HBDTiDXqOBN4zMpfONWrd9b+Fw+fd0Kx9v8D28kuAPcbQVOXMQ0RH4lcjFbOKsWmh5Fy687IezCBYSBPB8urOgu4aGfiRUA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <a0dc1158-01b1-4272-b86e-52f4996f0747@suse.com>
+Date: Wed, 5 Oct 2022 08:15:07 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.0
+Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
+Content-Language: en-US
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ linux-efi@vger.kernel.org, Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Gerd Hoffmann <kraxel@redhat.com>
-References: <20221002222006.2077-1-m.v.b@runbox.com>
- <20221002222006.2077-2-m.v.b@runbox.com> <YzotDube4gTn7r9b@itl-email>
- <41d15ac1-7977-db49-f8e9-df642616c745@runbox.com>
- <YzuRuD/t4/rZAkGG@itl-email>
-From: "M. Vefa Bicakci" <m.v.b@runbox.com>
-In-Reply-To: <YzuRuD/t4/rZAkGG@itl-email>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Kees Cook <keescook@chromium.org>, Anton Vorontsov <anton@enomsg.org>,
+ Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Ard Biesheuvel <ardb@kernel.org>
+References: <cover.1664298147.git.demi@invisiblethingslab.com>
+ <f3b624e99adfdbbfc1976a60a73a6b5950e1840d.1664298147.git.demi@invisiblethingslab.com>
+ <282a225d-8782-0321-6f0e-19dd4510dc42@suse.com>
+ <CAMj1kXFQNqsW5RfHGac-eGbosJHBybu6+-Fap_bi_kVxWNpGeg@mail.gmail.com>
+ <YzcjeiOW8+i2Zxsd@itl-email>
+ <CAMj1kXHBBbCNV3CLesqZi7ttmmi8y4tZ1KO5vievy_CJrU2o3Q@mail.gmail.com>
+ <YzeaKjmls1YI/3ox@itl-email> <01d22092-8292-8ed7-ece7-9ca32d15bbce@suse.com>
+ <YzxxXuovwQt3NskE@itl-email>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <YzxxXuovwQt3NskE@itl-email>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM6P192CA0068.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:209:82::45) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU0PR04MB9393:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0835cd15-f700-4106-9e1c-08daa698f466
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	4vo1HzMyv/qinf7IyNE/3yk9T9AlOH22Rq+caV4MfitWCvdf+WIYxEmLIvB2c1TSwEQhZpyP5T3SM8vHKPZ9nTPfGCGk3qpToWNixO+9cKVwFRCrSsvSZW3Xz1TmV5zZt7IurwGb/qVAS19Qn+y139OhcozyhxKnhyV9lQxTzTyO0n4sbvdSDLcQyYk1Bb9rXbyC7LNx0BCtOq/TGMZT8jCgk2oMHn9mZ0nrOPgy9o8Ai18rojxU29dEh5XjSqBh/M0rf6/UspSVAr2ECWcPCqx8/LkyKchvPFg6hwOqPEtog4qaTgGfRxdXno/JM6LdFCSCT8i3xYjjxurxfdEiZ7sgex4KyIRJLQAr2dmdxaMatoB8uB7/DaUtXX3Ecft07ne4ELZohRQDOwShftO6yDbTPMNyNMZLjI4V7y/d736mZHUQ69Dxj2ybR8ZJy0BtTr7hnelpO+3s801KdjSut2Ekm/5DY4cfKJKfuSW3+dreIHKV/lSIEOdxcgseNpNO91VNiVYAVQ8TvxvMiDN7/0IEtrhtojORhNZ7Jb+UfffApUMQDZiG8ra6TSRSj4M3+2XbZ9qGxZWXvnePm/2Pm2CdecILrIn/YI+WqDdIhVm6CYuZnieAzd4hn2eL8EpCBzcigjjLbWuec50MzRtUzVGEH5iYyPv1Gmr7HA0hAd4h34groecgl6LIdEOw6XUkdUEKYJcKyVMm/nqfHSAeCJOhTQ++VquTn3BO6/zHqiOPcjjO+aJut0Bl3ZTzEEMVBu5to+90XV4IEJZnxcRhpU72suLaHU7w0uyR2xoUgi4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(346002)(376002)(366004)(39860400002)(396003)(451199015)(6486002)(66946007)(66556008)(8676002)(66476007)(4326008)(2616005)(38100700002)(2906002)(36756003)(41300700001)(478600001)(186003)(53546011)(6506007)(26005)(6512007)(31696002)(86362001)(316002)(6916009)(54906003)(31686004)(5660300002)(8936002)(7416002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bU9oUktpZFJ4enkvZy96MmZ1ZlBHTE5YYlFWa3l3MXJOb01YdnM0aGFyTE5y?=
+ =?utf-8?B?TVhndmlMM3lOK1VqTlBqck1CR2prMkRqRWphU0VWU0c0TU41czlwS1FJV1k2?=
+ =?utf-8?B?NUhRMEk0a0czWjJxSWxrTzY2YklKZVJqR0RpMW9iSm9wMmN0NDl6cCt1NHlT?=
+ =?utf-8?B?THBqaWRaQnlTUkIyM3VnOE04YndxRVdwekp2Y3Y2aWk0ZGpuQlc5aWJZelZW?=
+ =?utf-8?B?eW5EMHFnNmNLSVQwTEtoNXpKR3lQTVFyNzhxa0pDcHppZFZsRjYrTEtMNGl2?=
+ =?utf-8?B?QXdFeDRUeHZwd1NLY0R6TmdxdmFFWlllTnhEaVpDZ3JwbHpncGlDWXFUMTlB?=
+ =?utf-8?B?SVpVeWlHQlp5SkZXOG9GdTRPakc4YjVGaC9ZdE50T3BmSlRUUUZ4aUdOWXVj?=
+ =?utf-8?B?SUJXYnVBTGZwd1U5Y1RiWDBIQkYveWQ0V1h0c055akpxdUJSa2xrdldvV3Qz?=
+ =?utf-8?B?YWNXRkZ2WXFtNkhiN3hPazRZaE9uVkFzdFA1VW1sYzNnc3NzdFNEVkV1NWJr?=
+ =?utf-8?B?WlBFVlFoaU4zZzdseE9HT0E2MXRTR0UwQ2RTL3FOb2xGTVR2Z214L3ZZRXps?=
+ =?utf-8?B?UHhKSHc0b1dXdEZ0bHVsYWNlY0wvWTFtSlB3Q2hlSkRPd3VyYmFKV29iWlFD?=
+ =?utf-8?B?RzNoZmp4WEpCTGZjdHFlRkluSkVZYXpxOWZtWjdJenZEL3VJclR6Wk5xbmY5?=
+ =?utf-8?B?bkY1T09aZC9rWm0wdk9Nc1BtYnhQcU5xdGdXTzBDRmFvV0RHeVRqeUNrd3BD?=
+ =?utf-8?B?bUx4eU9wSUVqZzIwU05HUVBVbExlcVhpU2FGMlBhRUlVTDdoY2ROM2lSWG5H?=
+ =?utf-8?B?c2pXcjdnZ1F6K2o3c3djRVpiMHY4dDhYcFlnSW9HUXp5Z1BWV09HRHBEbllk?=
+ =?utf-8?B?WklEbDcrN25Zb0E5Y0JhcnZ2SUJEb3k2YnBGRzJUYzhCZkJSeTZSM3o4a3Rx?=
+ =?utf-8?B?alZtckVZQ3dBb25VaXNHYXl6blRqS2JBOFVWQ2tDNEh1NGdab243bm9VdENs?=
+ =?utf-8?B?WWRkeWd0U2NXT1E5WE41cDZrZ25OWUlvdkRMTFFMTUMvVXdmbWpBdVh5VnVs?=
+ =?utf-8?B?OHRxczQvVVFoL1dycTRRcHNqRHpUOVczODBMWHUveXpPSmxycHpYRFNxb1RN?=
+ =?utf-8?B?TjBrS1BtUGd5amlFQWtpRERXRGFJdGJEd1dzWEpSZzErSXlCaHBLM2Fqb09J?=
+ =?utf-8?B?RVVWU0ZUM3RReXVvb0RnUTUvcGJqaFhNRnJmZHRJNUpWVUFzWUVZZGVRQm1H?=
+ =?utf-8?B?ZXBtWElWZ00raEdvdkNJc0tOZzVERm1WdG5oeVRlMU9GZGZmaHJHSlVQNDJO?=
+ =?utf-8?B?dHE3RTFNeGV4NkxqWTFpZFU3K0FrSkgyTXVDYkM1eVh3QXJnQmNRTWhyeUtE?=
+ =?utf-8?B?RUEzbERndGVtRWNZWGo5WXZiQk1rUjF5ZkJEREdzVnkrWDBXRG1OeGRCMGxp?=
+ =?utf-8?B?bWNTa0EzSkVSQXY5VTdtTkU1TFowa2Q2Q2ZzTkhlNVlKVGFTb2YrVzgrK0Ni?=
+ =?utf-8?B?ODhsUjBoNlNqclFYajFJL0dGODE0c2Z1ZnR1UTdWVElNMENrTld2Y0NMQWVh?=
+ =?utf-8?B?RXBTNFVnY05pRHBXTU9UMXZkZ3FQNVFSWmhoK3hrcUUrZ2ZIMVFRbXAzWmg1?=
+ =?utf-8?B?dURHejd5b2xWNGJ0bGNMRXBCcVZMWHVYTHUvLzVvQjlCT2wxWDJwNWZYdUwy?=
+ =?utf-8?B?M0Ird29hU3FzNDVpUExHSlk3OWI5VnR5WUFrdjRtbWJhM2JuYmRrZlVucFI1?=
+ =?utf-8?B?MGJRSW9DYW1TcFMwaGpITHF5elJWeDNha2ZBTktBMkppVWdPNFdCTGwrUVkw?=
+ =?utf-8?B?RlU0VVFWQ0psMGljcW95SVNDN29seXppU0Qxc1VJUlhYc1J5Y0tLTCs4R1dm?=
+ =?utf-8?B?ZHBmeEZNQTNKSEpjMmw5MWx5cm9pbHNTczB6R242a0FCMW54YUlxWFd6bXlW?=
+ =?utf-8?B?cjZzeG1jeTVDWEoxMWVZa1FrRE81cUtKS2Y4aWpYZEpPbzdXbVE5eDRXMHRK?=
+ =?utf-8?B?N3N4SEtmKzQ5ZXo2eWxXQTBTZUVuamxxeUplRXFaSW5mNUxwUE5wWG5IakJ6?=
+ =?utf-8?B?VCtvSEE1U1BFV0FRaWVGVHJlV3IzbFNwekVjUVNRV29XMVdDYUtZVjNWQmoy?=
+ =?utf-8?Q?lKA8O7K3Kww7ox7bTlQvDh6dS?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0835cd15-f700-4106-9e1c-08daa698f466
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2022 06:15:09.3514
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IycCBMlSWHwIZdo4FkcDpL/9Pn+pIEa2L1+B74Crwop13yJWp4OQ+V/di6mRQGEwyh42oVNZSehp7ln5R+vZng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9393
 
-On 2022-10-03 21:51, Demi Marie Obenour wrote:
-> On Mon, Oct 03, 2022 at 09:31:25PM -0400, M. Vefa Bicakci wrote:
->> On 2022-10-02 20:29, Demi Marie Obenour wrote:
->>> On Sun, Oct 02, 2022 at 06:20:05PM -0400, M. Vefa Bicakci wrote:
->>>> Prior to this commit, if a grant mapping operation failed partially,
->>>> some of the entries in the map_ops array would be invalid, whereas all
->>>> of the entries in the kmap_ops array would be valid. This in turn would
->>>> cause the following logic in gntdev_map_grant_pages to become invalid:
->>>>
->>>>     for (i = 0; i < map->count; i++) {
->>>>       if (map->map_ops[i].status == GNTST_okay) {
->>>>         map->unmap_ops[i].handle = map->map_ops[i].handle;
->>>>         if (!use_ptemod)
->>>>           alloced++;
->>>>       }
->>>>       if (use_ptemod) {
->>>>         if (map->kmap_ops[i].status == GNTST_okay) {
->>>>           if (map->map_ops[i].status == GNTST_okay)
->>>>             alloced++;
->>>>           map->kunmap_ops[i].handle = map->kmap_ops[i].handle;
->>>>         }
->>>>       }
->>>>     }
->>>>     ...
->>>>     atomic_add(alloced, &map->live_grants);
->>>>
->>>> Assume that use_ptemod is true (i.e., the domain mapping the granted
->>>> pages is a paravirtualized domain). In the code excerpt above, note that
->>>> the "alloced" variable is only incremented when both kmap_ops[i].status
->>>> and map_ops[i].status are set to GNTST_okay (i.e., both mapping
->>>> operations are successful).  However, as also noted above, there are
->>>> cases where a grant mapping operation fails partially, breaking the
->>>> assumption of the code excerpt above.
->>>>
->>>> The aforementioned causes map->live_grants to be incorrectly set. In
->>>> some cases, all of the map_ops mappings fail, but all of the kmap_ops
->>>> mappings succeed, meaning that live_grants may remain zero. This in turn
->>>> makes it impossible to unmap the successfully grant-mapped pages pointed
->>>> to by kmap_ops, because unmap_grant_pages has the following snippet of
->>>> code at its beginning:
->>>>
->>>>     if (atomic_read(&map->live_grants) == 0)
->>>>       return; /* Nothing to do */
->>>>
->>>> In other cases where only some of the map_ops mappings fail but all
->>>> kmap_ops mappings succeed, live_grants is made positive, but when the
->>>> user requests unmapping the grant-mapped pages, __unmap_grant_pages_done
->>>> will then make map->live_grants negative, because the latter function
->>>> does not check if all of the pages that were requested to be unmapped
->>>> were actually unmapped, and the same function unconditionally subtracts
->>>> "data->count" (i.e., a value that can be greater than map->live_grants)
->>>> from map->live_grants. The side effects of a negative live_grants value
->>>> have not been studied.
->>>>
->>>> The net effect of all of this is that grant references are leaked in one
->>>> of the above conditions. In Qubes OS v4.1 (which uses Xen's grant
->>>> mechanism extensively for X11 GUI isolation), this issue manifests
->>>> itself with warning messages like the following to be printed out by the
->>>> Linux kernel in the VM that had granted pages (that contain X11 GUI
->>>> window data) to dom0: "g.e. 0x1234 still pending", especially after the
->>>> user rapidly resizes GUI VM windows (causing some grant-mapping
->>>> operations to partially or completely fail, due to the fact that the VM
->>>> unshares some of the pages as part of the window resizing, making the
->>>> pages impossible to grant-map from dom0).
->>>>
->>>> The fix for this issue involves counting all successful map_ops and
->>>> kmap_ops mappings separately, and then adding the sum to live_grants.
->>>> During unmapping, only the number of successfully unmapped grants is
->>>> subtracted from live_grants. The code is also modified to check for
->>>> negative live_grants values after the subtraction and warn the user.
->>>>
->>>> Link: https://github.com/QubesOS/qubes-issues/issues/7631
->>>> Fixes: dbe97cff7dd9 ("xen/gntdev: Avoid blocking in unmap_grant_pages()")
->>>
->>> Looks like this patch has been pretty buggy, sorry.  This is the second
->>> time there has been a problem with it.  Thanks for the fix.
->>
->> Hi,
->>
->> No problem! :-) Debugging this issue and coming up with a fix was a
->> nice challenge for me.
+On 04.10.2022 17:46, Demi Marie Obenour wrote:
+> Linux has a function called efi_mem_reserve() that is used to reserve
+> EfiBootServicesData memory that contains e.g. EFI configuration tables.
+> This function does not work under Xen because Xen could have already
+> clobbered the memory.  efi_mem_reserve() not working is the whole reason
+> for this thread, as it prevents EFI tables that are in
+> EfiBootServicesData from being used under Xen.
 > 
-> You’re welcome!  I’m glad you were able to do this.
-> 
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: M. Vefa Bicakci <m.v.b@runbox.com>
->>>> ---
->>>>
->>>> Changes since v1:
->>>> - To determine which unmap operations were successful, the previous
->>>>     version of this patch set the "unmap_ops[i].status" and
->>>>     "kunmap_ops[i].status" fields to the value "1" prior to passing these
->>>>     data structures to the hypervisor. Instead of doing that, the code now
->>>>     checks whether the "handle" fields in the same data structures were
->>>>     *not* set to "INVALID_GRANT_HANDLE". (Suggested by Juergen Gross.)
->>>> ---
->>>>    drivers/xen/gntdev.c | 22 +++++++++++++++++-----
->>>>    1 file changed, 17 insertions(+), 5 deletions(-)
->>>>
->>>> diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
->>>> index 84b143eef395..eb0586b9767d 100644
->>>> --- a/drivers/xen/gntdev.c
->>>> +++ b/drivers/xen/gntdev.c
->>>> @@ -367,8 +367,7 @@ int gntdev_map_grant_pages(struct gntdev_grant_map *map)
->>>>    	for (i = 0; i < map->count; i++) {
->>>>    		if (map->map_ops[i].status == GNTST_okay) {
->>>>    			map->unmap_ops[i].handle = map->map_ops[i].handle;
->>>> -			if (!use_ptemod)
->>>> -				alloced++;
->>>> +			alloced++;
->>>>    		} else if (!err)
->>>>    			err = -EINVAL;
->>>> @@ -377,8 +376,7 @@ int gntdev_map_grant_pages(struct gntdev_grant_map *map)
->>>>    		if (use_ptemod) {
->>>>    			if (map->kmap_ops[i].status == GNTST_okay) {
->>>> -				if (map->map_ops[i].status == GNTST_okay)
->>>> -					alloced++;
->>>> +				alloced++;
->>>>    				map->kunmap_ops[i].handle = map->kmap_ops[i].handle;
->>>>    			} else if (!err)
->>>>    				err = -EINVAL;
->>>> @@ -394,8 +392,14 @@ static void __unmap_grant_pages_done(int result,
->>>>    	unsigned int i;
->>>>    	struct gntdev_grant_map *map = data->data;
->>>>    	unsigned int offset = data->unmap_ops - map->unmap_ops;
->>>> +	int successful_unmaps = 0;
->>>> +	int live_grants;
->>>>    	for (i = 0; i < data->count; i++) {
->>>> +		if (map->unmap_ops[offset + i].status == GNTST_okay &&
->>>> +		    map->unmap_ops[offset + i].handle != INVALID_GRANT_HANDLE)
->>>> +			successful_unmaps++;
->>>> +
->>>>    		WARN_ON(map->unmap_ops[offset + i].status != GNTST_okay &&
->>>>    			map->unmap_ops[offset + i].handle != INVALID_GRANT_HANDLE);
->>>>    		pr_debug("unmap handle=%d st=%d\n",
->>>> @@ -403,6 +407,10 @@ static void __unmap_grant_pages_done(int result,
->>>>    			map->unmap_ops[offset+i].status);
->>>>    		map->unmap_ops[offset+i].handle = INVALID_GRANT_HANDLE;
->>>>    		if (use_ptemod) {
->>>> +			if (map->kunmap_ops[offset + i].status == GNTST_okay &&
->>>> +			    map->kunmap_ops[offset + i].handle != INVALID_GRANT_HANDLE)
->>>> +				successful_unmaps++;
->>>> +
->>>>    			WARN_ON(map->kunmap_ops[offset + i].status != GNTST_okay &&
->>>>    				map->kunmap_ops[offset + i].handle != INVALID_GRANT_HANDLE);
->>>>    			pr_debug("kunmap handle=%u st=%d\n",
->>>> @@ -411,11 +419,15 @@ static void __unmap_grant_pages_done(int result,
->>>>    			map->kunmap_ops[offset+i].handle = INVALID_GRANT_HANDLE;
->>>>    		}
->>>>    	}
->>>> +
->>>>    	/*
->>>>    	 * Decrease the live-grant counter.  This must happen after the loop to
->>>>    	 * prevent premature reuse of the grants by gnttab_mmap().
->>>>    	 */
->>>> -	atomic_sub(data->count, &map->live_grants);
->>>> +	live_grants = atomic_sub_return(successful_unmaps, &map->live_grants);
->>>> +	if (WARN_ON(live_grants < 0))
->>>> +		pr_err("%s: live_grants became negative (%d) after unmapping %d pages!\n",
->>>> +		       __func__, live_grants, successful_unmaps);
->>>>    	/* Release reference taken by __unmap_grant_pages */
->>>>    	gntdev_put_map(NULL, map);
->>>> -- 
->>>> 2.37.3
->>>
->>> Is there a possibility that live_grants could overflow, as it is now
->>> set to a value twice as large as what it had been previously?
->>
->> Good point! My answer in summary: I think that the code could be improved,
->> but with reasonable values for the "limit" module parameter, there should
->> not be issues.
->>
->> Grant mappings are set up via ioctl calls, and the structure field that
->> holds the number of grant references has u32 type:
->>
->> (Quoting from kernel v5.15.71 for convenience)
->> include/uapi/xen/gntdev.h
->> === 8< ===
->> struct ioctl_gntdev_map_grant_ref {
->> 	/* IN parameters */
->> 	/* The number of grants to be mapped. */
->> 	__u32 count;
->> === >8 ===
->>
->> However, the number of grant references is further limited in the actual
->> ioctl handler function gntdev_ioctl_map_grant_ref(), which calls
->> gntdev_test_page_count() to ensure that the number of granted pages
->> requested to be mapped does not exceed "limit". "limit" defaults to 64K,
->> which should be okay to use with an atomic_t type (i.e., a 32-bit signed
->> integer type) like "live_grants", assuming that the system administrator
->> does not go overboard and set "limit" to a very large value:
->>
->> drivers/xen/gntdev.c
->> === 8< ===
->> static unsigned int limit = 64*1024;
->> module_param(limit, uint, 0644);
->> MODULE_PARM_DESC(limit,
->> 	"Maximum number of grants that may be mapped by one mapping request");
->>
->> /* trimmed */
->>
->> bool gntdev_test_page_count(unsigned int count)
->> {
->> 	return !count || count > limit;
->> }
->>
->> /* trimmed */
->>
->> static long gntdev_ioctl_map_grant_ref(struct gntdev_priv *priv,
->> 				       struct ioctl_gntdev_map_grant_ref __user *u)
->> {
->> 	/* trimmed */
->>
->> 	pr_debug("priv %p, add %d\n", priv, op.count);
->> 	if (unlikely(gntdev_test_page_count(op.count)))
->> 		return -EINVAL;
->>
->> 	/* trimmed */
->> }
->> === >8 ===
->>
->> To be fair, the "count" field of the gndev_grant_map structure is a signed
->> integer, so very large values of count could overflow live_grants, as
->> live_grants needs to accommodate values up to and including 2*count.
-> 
-> Could this be replaced by an unsigned and/or 64-bit integer?
-> Alternatively, one could use module_param_cb and param_set_uint_minmax
-> to enforce that the limit is something reasonable.  That said, one needs
-> almost 8TiB to trigger this problem, so while it ought to be fixed it
-> isn’t a huge deal.  Certainly should not block getting this merged.
+> A much nicer approach would be for Xen to reserve boot services memory
+> unconditionally, but provide a hypercall that dom0 could used to free
+> the parts of EfiBootServicesData memory that are no longer needed.  This
+> would allow efi_mem_reserve() to work normally.
 
-Thank you for the continued feedback.
+efi_mem_reserve() actually working would be a layering violation;
+controlling the EFI memory map is entirely Xen's job.
 
-I agree that these can be implemented to prevent overflowing "live_grants".
-"live_grants" could be made an atomic64_t, and/or a to-be-chosen maximum
-value less than or equal to INT_MAX/2 can be imposed on "limit" using the
-approach you suggested.
+As to the hypercall you suggest - I wouldn't mind its addition, but only
+for the case when -mapbs is used. As I've indicated before, I'm of the
+opinion that default behavior should be matching the intentions of the
+spec, and the intention of EfiBootServices* is for the space to be
+reclaimed. Plus I'm sure you realize there's a caveat with Dom0 using
+that hypercall: It might use it for regions where data lives which it
+wouldn't care about itself, but which an eventual kexec-ed (or alike)
+entity would later want to consume. Code/data potentially usable by
+_anyone_ between two resets of the system cannot legitimately be freed
+(and hence imo is wrong to live in EfiBootServices* regions). In a way
+one could view the Dom0 kernel as an "or alike" entity ...
 
-I think that the latter option could be better, as the driver uses signed
-integers in a number of places (including the gntdev_grant_map structure),
-but the requested number of mappings (i.e., "count" in
-ioctl_gntdev_map_grant_ref, provided by user-space) and "limit" are
-unsigned integers.
-
-> 
->> drivers/xen/gntdev-common.h
->> === 8< ===
->> struct gntdev_grant_map {
->> 	atomic_t in_use;
->> 	struct mmu_interval_notifier notifier;
->> 	bool notifier_init;
->> 	struct list_head next;
->> 	int index;
->> 	int count;
->> 	/* trimmed */
->> }
->> === >8 ===
->>
->>> If not, you can add:
->>>
->>> Acked-by: Demi Marie Obenour <demi@invisiblethingslab.com>
->>
->> Thank you! I hope that the explanation and rationale above are satisfactory.
->> Please let me know what you think.
-> 
-> They are indeed.
-
-Thanks!
-
-Vefa
+Jan
 
