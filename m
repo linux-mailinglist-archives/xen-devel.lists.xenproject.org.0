@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF3925F598D
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Oct 2022 20:10:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.416415.661065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CDFA5F5992
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Oct 2022 20:12:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.416422.661077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1og8pW-0007T8-Ks; Wed, 05 Oct 2022 18:09:14 +0000
+	id 1og8s1-0000OR-1w; Wed, 05 Oct 2022 18:11:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 416415.661065; Wed, 05 Oct 2022 18:09:14 +0000
+Received: by outflank-mailman (output) from mailman id 416422.661077; Wed, 05 Oct 2022 18:11:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1og8pW-0007QG-Hu; Wed, 05 Oct 2022 18:09:14 +0000
-Received: by outflank-mailman (input) for mailman id 416415;
- Wed, 05 Oct 2022 18:09:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1og8pV-0007QA-Aw
- for xen-devel@lists.xenproject.org; Wed, 05 Oct 2022 18:09:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1og8pU-00067l-8h; Wed, 05 Oct 2022 18:09:12 +0000
-Received: from [15.248.2.156] (helo=[10.24.69.12])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1og8pU-0003Zu-29; Wed, 05 Oct 2022 18:09:12 +0000
+	id 1og8s0-0000MF-VN; Wed, 05 Oct 2022 18:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 416422;
+ Wed, 05 Oct 2022 18:11:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mtJI=2G=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1og8rz-0000M9-Gt
+ for xen-devel@lists.xenproject.org; Wed, 05 Oct 2022 18:11:47 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a977d69-44d9-11ed-964a-05401a9f4f97;
+ Wed, 05 Oct 2022 20:11:45 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id A648B5C0066;
+ Wed,  5 Oct 2022 14:11:42 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Wed, 05 Oct 2022 14:11:42 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 5 Oct 2022 14:11:40 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,108 +43,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=DDOWMiXl3ZYKn/6trM9iAQoXF675FzN0U26RxzHHwNY=; b=gNOzipcYLeUhUDieoC/+VAsrY8
-	ZH1CuCNPqnTDNKXU2fv8x6ZtiaDuFwjmg8osBiRWm5REZ9WBKzbazJVEheEBH4xvUDQYyWk0MA7Bc
-	yY7zyVej9HFQ4zA6aDvE/sl9RP2e/MnDsVX2bwkk7NyHy1U0sCpmpmQ4C29oFGfpChl4=;
-Message-ID: <3b3f6e1c-4f41-6b1e-b226-f0dd515d14ca@xen.org>
-Date: Wed, 5 Oct 2022 19:09:09 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.0
-Subject: Re: [PATCH][4.17] EFI: don't convert memory marked for runtime use to
- ordinary RAM
-Content-Language: en-US
+X-Inumbo-ID: 2a977d69-44d9-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1664993502; x=
+	1665079902; bh=QbCwngRgoYYz/l1YN30XHGdNSPXH235wrNnuhXtSynU=; b=m
+	dofbwBSXXpVc47Gw1UKfW0vy+ZwFa54+XYyP6WxQdDjvqxoBR5y6lizxIKXT9aH9
+	LXYnXvrAx6VCW98nyL8n10sjKJfGEqr77IvgOvTKDTheQGrEKKgC3R05//KhQfpw
+	Vz1iRtp2zR8cdqmLG7/XCXkos1F0cZE8PZKNrd9zP3Nss6GtCSrjUki7twc9To6V
+	EbjrxeR5Cchvk+ZWfjP1ThTbhmm/qTrFM5ACx3CFWnrrHiVZjH26xeGx/kLx5GJT
+	jp/wpXSXOTLtaxT5R07RCVuIZoFw1fsFPT7Nw7LA5buVGvOQIjsYZewAbLP5bZcU
+	AFVX4XSw4JgZLhAr8x1Rg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1664993502; x=1665079902; bh=QbCwngRgoYYz/l1YN30XHGdNSPXH
+	235wrNnuhXtSynU=; b=G340+HVxAL5emcB+vjDp5hw4bDA+v5WG1ZFCwRdgNZGB
+	Is33jyKhwM5ZwlBW244da9wDkRroz1YoMn7kcgRKy5MPeWPQpCCD63CdtOXKBivs
+	3M2bDK4bKjhTN7ajrAFNbjXoAeNxP/RiV321XVsAkTnLEuzFw9qlgZPBO/n2WjJZ
+	OlJQSFxrILKELZy/0icUhenIfwTKegtMGc5XOxHtSPMfN4Tc9w6CJP87zdK11NQw
+	PFHUa2S0M2JXFAPht8QpxDvxaOdbK2sgsNjRLHBzLuHFq97zkuX4cXharEcoVpnB
+	nu5TINRyuxEDXXclOR19n3tvgwZnO9WuOFtuefBk1w==
+X-ME-Sender: <xms:3cg9Y7lqjpZMxu-QxWl1OrPIlI4w-Wb46EPUu26JSfbRb3T1d0ZMPA>
+    <xme:3cg9Y-3CBycGN4IY_3GxzOZEHP7PrmyNgy2APil8kg02MS7gJwtXY4uolb4ZImHCQ
+    vv9b_cydzjV02I>
+X-ME-Received: <xmr:3cg9YxpFS8ffE2bMi3LeAmtxeEKoFts6WEjpuT7dz4A8v_2oqjlurj9KDOb7>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeeifedguddvtdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeutedvleehueetffej
+    geejgeffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+    shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:3cg9Yzk0_f9FDheCCp8-NE0pehcvboQOGQtsBViZGaLkuhmUaluhoQ>
+    <xmx:3cg9Y502ikq_7tu_9kpRVAP2sWh4o9tM1o7HfPlsd_x5YuTLciU7TA>
+    <xmx:3cg9YyvrjOlaQPguFvYnGfddah9HMMSE4vbpOjMgW0XRbo0nT8-U5g>
+    <xmx:3sg9YyuqDzGmeCycYAl5Avr_jWlIbwHesCToCsPRFtkwgIAloXqnRA>
+Feedback-ID: iac594737:Fastmail
+Date: Wed, 5 Oct 2022 14:11:35 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>, Bertrand Marquis
- <Bertrand.Marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cc0fbcb4-5ea3-178c-e691-9acb7cc9a3a7@suse.com>
- <9C12552C-0A64-433D-9F0C-5672281DD45D@arm.com>
- <73faf43d-56e2-2bbf-6336-f6420a1aa0c0@suse.com>
- <f1a71d28-ed04-0936-47e3-aa7a9f8c6dbc@xen.org>
- <0d33ecc6-898a-9379-f934-fe569cbdc8f9@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <0d33ecc6-898a-9379-f934-fe569cbdc8f9@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
+Message-ID: <Yz3I2qwl243h9ZfZ@itl-email>
+References: <cover.1664298147.git.demi@invisiblethingslab.com>
+ <f3b624e99adfdbbfc1976a60a73a6b5950e1840d.1664298147.git.demi@invisiblethingslab.com>
+ <282a225d-8782-0321-6f0e-19dd4510dc42@suse.com>
+ <CAMj1kXFQNqsW5RfHGac-eGbosJHBybu6+-Fap_bi_kVxWNpGeg@mail.gmail.com>
+ <YzcjeiOW8+i2Zxsd@itl-email>
+ <CAMj1kXHBBbCNV3CLesqZi7ttmmi8y4tZ1KO5vievy_CJrU2o3Q@mail.gmail.com>
+ <YzeaKjmls1YI/3ox@itl-email>
+ <01d22092-8292-8ed7-ece7-9ca32d15bbce@suse.com>
+ <YzxxXuovwQt3NskE@itl-email>
+ <a0dc1158-01b1-4272-b86e-52f4996f0747@suse.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MP5CI1py1S/x6cIa"
+Content-Disposition: inline
+In-Reply-To: <a0dc1158-01b1-4272-b86e-52f4996f0747@suse.com>
 
-Hi Jan,
 
-On 05/10/2022 12:55, Jan Beulich wrote:
-> On 05.10.2022 12:44, Julien Grall wrote:
->> On 04/10/2022 16:58, Jan Beulich wrote:
->>> On 30.09.2022 14:51, Bertrand Marquis wrote:
->>>>> On 30 Sep 2022, at 09:50, Jan Beulich <jbeulich@suse.com> wrote:
->>>>>
->>>>> efi_init_memory() in both relevant places is treating EFI_MEMORY_RUNTIME
->>>>> higher priority than the type of the range. To avoid accessing memory at
->>>>> runtime which was re-used for other purposes, make
->>>>> efi_arch_process_memory_map() follow suit. While on x86 in theory the
->>>>> same would apply to EfiACPIReclaimMemory, we don't actually "reclaim"
->>>>> E820_ACPI memory there and hence that type's handling can be left alone.
->>>>>
->>>>> Fixes: bf6501a62e80 ("x86-64: EFI boot code")
->>>>> Fixes: facac0af87ef ("x86-64: EFI runtime code")
->>>>> Fixes: 6d70ea10d49f ("Add ARM EFI boot support")
->>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>
->>>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com> #arm
->>>
->>> Thanks. However ...
->>>
->>>>> ---
->>>>> Partly RFC for Arm, for two reasons:
->>>>>
->>>>> On Arm I question the conversion of EfiACPIReclaimMemory, in two ways:
->>>>> For one like on x86 such ranges would likely better be retained, as Dom0
->>>>> may (will?) have a need to look at tables placed there. Plus converting
->>>>> such ranges to RAM even if EFI_MEMORY_WB is not set looks suspicious to
->>>>> me as well. I'd be inclined to make the latter adjustment right here
->>>>> (while the other change probably would better be separate, if there
->>>>> aren't actually reasons for the present behavior).
->>>
->>> ... any views on this WB aspect at least (also Stefano or Julien)? Would be
->>> good to know before I send v2.
->>
->> I don't quite understand what you are questioning here. Looking at the
->> code, EfiACPIReclaimMemory will not be converted to RAM but added in a
->> separate array.
->>
->> Furthermore, all the EfiACPIReclaimMemory regions will be passed to dom0
->> (see acpi_create_efi_mmap_table()).
->>
->> So to me the code looks correct.
-> 
-> Oh, I've indeed not paid enough attention to the first argument passed
-> to meminfo_add_bank(). I'm sorry for the extra noise. However, the
-> question I wanted to have addressed before sending out v3 was that
-> regarding the present using of memory when EFI_MEMORY_WB is not set.
-> Is that correct for the EfiACPIReclaimMemory case, i.e. is the
-> consumer (Dom0) aware that there might be a restriction?
+--MP5CI1py1S/x6cIa
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 5 Oct 2022 14:11:35 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
 
-Looking at the code, we always set EFI_MEMORY_WB for the reclaimable 
-region and the stage-2 mapping will be cachable.
+On Wed, Oct 05, 2022 at 08:15:07AM +0200, Jan Beulich wrote:
+> On 04.10.2022 17:46, Demi Marie Obenour wrote:
+> > Linux has a function called efi_mem_reserve() that is used to reserve
+> > EfiBootServicesData memory that contains e.g. EFI configuration tables.
+> > This function does not work under Xen because Xen could have already
+> > clobbered the memory.  efi_mem_reserve() not working is the whole reason
+> > for this thread, as it prevents EFI tables that are in
+> > EfiBootServicesData from being used under Xen.
+> >=20
+> > A much nicer approach would be for Xen to reserve boot services memory
+> > unconditionally, but provide a hypercall that dom0 could used to free
+> > the parts of EfiBootServicesData memory that are no longer needed.  This
+> > would allow efi_mem_reserve() to work normally.
+>=20
+> efi_mem_reserve() actually working would be a layering violation;
+> controlling the EFI memory map is entirely Xen's job.
 
-So it looks like there would be a mismatch if EFI_MEMORY_WB is not set. 
-However, given the region is reclaimable, shouldn't this imply that the 
-flag is always set?
+Doing this properly would require Xen to understand all of the EFI
+tables that could validly be in EfiBootServices* and which could be of
+interest to dom0.  It might (at least on some very buggy firmware)
+require a partial ACPI and/or SMBIOS implementation too, if the firmware
+decided to put an ACPI or SMBIOS table in EfiBootServices*.
 
-> And would
-> this memory then be guaranteed to never be freed into the general pool
-> of RAM pages?
+> As to the hypercall you suggest - I wouldn't mind its addition, but only
+> for the case when -mapbs is used. As I've indicated before, I'm of the
+> opinion that default behavior should be matching the intentions of the
+> spec, and the intention of EfiBootServices* is for the space to be
+> reclaimed. Plus I'm sure you realize there's a caveat with Dom0 using
+> that hypercall: It might use it for regions where data lives which it
+> wouldn't care about itself, but which an eventual kexec-ed (or alike)
+> entity would later want to consume. Code/data potentially usable by
+> _anyone_ between two resets of the system cannot legitimately be freed
+> (and hence imo is wrong to live in EfiBootServices* regions).
 
-The region is not treated as RAM by Xen and not owned by the dom0. 
-Therefore, it should not be possible to free the page because 
-get_page_from_gfn() would not be able to get a reference.
+I agree, but currently some such data *is* in EfiBootServices* regions,
+sadly.  When -mapbs is *not* used, I recommend uninstalling all of the
+configuration tables that point to EfiBootServicesData memory before
+freeing that memory.
 
-Cheers,
+> In a way one could view the Dom0 kernel as an "or alike" entity ...
 
--- 
-Julien Grall
+It is indeed such an entity.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--MP5CI1py1S/x6cIa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM9yNoACgkQsoi1X/+c
+IsGIrRAAqlFxw4VhBVBYtbOHJoeLu1cjHKS/FF5d16yMLnb2yCt9fGSDRIb0L8dR
+EG8AmPkMpyXINDJYGR4H4jvLqMF3a51W708ZkLKsT6uEFkVfsjB3VD4BYCzZ5ss7
+O84Lfv4GXaxIQn0oXU+SGM47bgA9ahrhmWeDi2AthvrIkb6+1rd9lrd0oiGwfE90
+IW5ojsRQaQl7sr1gnm97lg5/Pv9zDh4RMsPMqMOuOg9Pq7wkZVCUYmkjdsA4CRnB
+3lNeJdK5IMlL1tmstWZxvWoHrLMWYeGtKslJKYJcWN5CGjgoXs3g8HakbIfOxnif
+D5ikSG1A++CqpHTxieovQ8Q5yIQBFTHNTuncXoZp0iqjq6bMfx9qo2tNJda9Oay8
+TEqzSDiSeruz4bS5iiILCqNME02ZtcQAXizR9PZ/wNmbfb2EEhu9R2L2aPLBrgNp
+hs56nrJ9McRpJXlmqENxwrTgp81rMEgb2cZsxymNqsEzBhRHP/peWjoHby1BVHb0
+Q5oNp+rn1lnPJDV1bGrLlUxDfU/ttucJEsEttGCp42GFgnzNihtni3mMFTCWQG1B
+X335/qvdsVqBkm5775p+u1MoPNdrEtYAID3ubhp1rfhgp9peup1Ua9Fv2oZ5j90G
+T2YYIkuLpo07nXGKRO/JffO0EdLAMvjz0DeSJRQwbQtsGqeLekE=
+=C84z
+-----END PGP SIGNATURE-----
+
+--MP5CI1py1S/x6cIa--
 
