@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18C945F595C
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Oct 2022 19:49:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.416381.661054 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF3925F598D
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Oct 2022 20:10:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.416415.661065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1og8Va-0004DE-17; Wed, 05 Oct 2022 17:48:38 +0000
+	id 1og8pW-0007T8-Ks; Wed, 05 Oct 2022 18:09:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 416381.661054; Wed, 05 Oct 2022 17:48:37 +0000
+Received: by outflank-mailman (output) from mailman id 416415.661065; Wed, 05 Oct 2022 18:09:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1og8VZ-0004B7-Ta; Wed, 05 Oct 2022 17:48:37 +0000
-Received: by outflank-mailman (input) for mailman id 416381;
- Wed, 05 Oct 2022 17:48:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QTo3=2G=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1og8VY-0003fH-Af
- for xen-devel@lists.xenproject.org; Wed, 05 Oct 2022 17:48:36 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef7b0aa5-44d5-11ed-964a-05401a9f4f97;
- Wed, 05 Oct 2022 19:48:35 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id o21so744309ejm.11
- for <xen-devel@lists.xenproject.org>; Wed, 05 Oct 2022 10:48:35 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- ee32-20020a056402292000b0044e7862ab3fsm4320697edb.7.2022.10.05.10.48.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Oct 2022 10:48:34 -0700 (PDT)
+	id 1og8pW-0007QG-Hu; Wed, 05 Oct 2022 18:09:14 +0000
+Received: by outflank-mailman (input) for mailman id 416415;
+ Wed, 05 Oct 2022 18:09:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1og8pV-0007QA-Aw
+ for xen-devel@lists.xenproject.org; Wed, 05 Oct 2022 18:09:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1og8pU-00067l-8h; Wed, 05 Oct 2022 18:09:12 +0000
+Received: from [15.248.2.156] (helo=[10.24.69.12])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1og8pU-0003Zu-29; Wed, 05 Oct 2022 18:09:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,123 +39,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef7b0aa5-44d5-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2ygXgrMvwI83oTWciRbWlrh/kQps7FfPG+yghSVi9/U=;
-        b=NDy/TvK3L7DC7SkJDhT99xIPSRmwqUPUnB9VOPISmgU4v7mI2YvcoR1ddz/qLrnw+0
-         JtBz1FcFB8Hh4CpZJIL5Q+9dR1Kvk7FSPZ0QY57RKem+vG3zMyPQvs2nEtW3eP9DlSte
-         Q4Q00ZX8taSGQ9FGTZwSmDEE/CU7q3Waw2GQgwV/QleXYiFIkD1QBokMpLj5yTgyFGg3
-         H2LNVp4TR3NuYpy0KYQENae1x6fej8VH6Je2Fa2B8fJCHhTADIKgj4isSF/rvP0nhV5E
-         3bMD3Rl83GS3q/aaSd70GK9gqKLw7jMxWByorqPO22D1SN2zgBz4kAvKbkZBYcwxBZDh
-         KA0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=2ygXgrMvwI83oTWciRbWlrh/kQps7FfPG+yghSVi9/U=;
-        b=C+zR+qAQUNDA/CDhPkDrXXZDFlTPIYt7TSB7J4ImKmKcs3C4nrW3EUkmtfyoRVmNjR
-         c6XZk4h7BmO/dQujdUHFHrUXnlIcfdB/jCTn/GLZfxe8dO+GnU1plmMvcXReJoPgk4Ph
-         D5lyxxq14z1jyfyV4HQC3o2P+3a7C96lzfYNuxP7mXYOKP0g77wq9iST2EVyW/HcQVGM
-         RLqYlRgRPJskYxy8HlWpPs30Q8lCIULDHszmvoJyGyh9zbpL6e5pQ4oNXYkSk0zOUrob
-         5rW0/YPvLs8SOwjkiodv3eCUwSthMAAB+BSK7yeMrdTsDW4K3csOCstDbEmWm9OihaMB
-         zbgg==
-X-Gm-Message-State: ACrzQf2N0d0k7r4rqb22vO0LKsqQMyHeoyYBfC4EBbR5Fx4w0ewkob5S
-	a6EzfYUMMKHB9obDrhOifVLSTtbhCDM=
-X-Google-Smtp-Source: AMsMyM4gLayulwBKZ3oV/w4C4GfrZsOmtMMi5W8Of0+00e76+GDcK9bgiaaGE+JcXnb5caWk4vJrHg==
-X-Received: by 2002:a17:906:cc14:b0:78d:2267:3a57 with SMTP id ml20-20020a170906cc1400b0078d22673a57mr596908ejb.241.1664992114759;
-        Wed, 05 Oct 2022 10:48:34 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 2/2] xen/virtio: Fix potential deadlock when accessing xen_grant_dma_devices
-Date: Wed,  5 Oct 2022 20:48:23 +0300
-Message-Id: <20221005174823.1800761-3-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221005174823.1800761-1-olekstysh@gmail.com>
-References: <20221005174823.1800761-1-olekstysh@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=DDOWMiXl3ZYKn/6trM9iAQoXF675FzN0U26RxzHHwNY=; b=gNOzipcYLeUhUDieoC/+VAsrY8
+	ZH1CuCNPqnTDNKXU2fv8x6ZtiaDuFwjmg8osBiRWm5REZ9WBKzbazJVEheEBH4xvUDQYyWk0MA7Bc
+	yY7zyVej9HFQ4zA6aDvE/sl9RP2e/MnDsVX2bwkk7NyHy1U0sCpmpmQ4C29oFGfpChl4=;
+Message-ID: <3b3f6e1c-4f41-6b1e-b226-f0dd515d14ca@xen.org>
+Date: Wed, 5 Oct 2022 19:09:09 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.0
+Subject: Re: [PATCH][4.17] EFI: don't convert memory marked for runtime use to
+ ordinary RAM
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Henry Wang <Henry.Wang@arm.com>, Bertrand Marquis
+ <Bertrand.Marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <cc0fbcb4-5ea3-178c-e691-9acb7cc9a3a7@suse.com>
+ <9C12552C-0A64-433D-9F0C-5672281DD45D@arm.com>
+ <73faf43d-56e2-2bbf-6336-f6420a1aa0c0@suse.com>
+ <f1a71d28-ed04-0936-47e3-aa7a9f8c6dbc@xen.org>
+ <0d33ecc6-898a-9379-f934-fe569cbdc8f9@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <0d33ecc6-898a-9379-f934-fe569cbdc8f9@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Hi Jan,
 
-As find_xen_grant_dma_data() is called from both interrupt and process
-contexts, the access to xen_grant_dma_devices XArray must be protected
-by xa_lock_irqsave to avoid deadlock scenario.
-As XArray API doesn't provide xa_store_irqsave helper, call lockless
-__xa_store directly and guard it externally.
+On 05/10/2022 12:55, Jan Beulich wrote:
+> On 05.10.2022 12:44, Julien Grall wrote:
+>> On 04/10/2022 16:58, Jan Beulich wrote:
+>>> On 30.09.2022 14:51, Bertrand Marquis wrote:
+>>>>> On 30 Sep 2022, at 09:50, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>
+>>>>> efi_init_memory() in both relevant places is treating EFI_MEMORY_RUNTIME
+>>>>> higher priority than the type of the range. To avoid accessing memory at
+>>>>> runtime which was re-used for other purposes, make
+>>>>> efi_arch_process_memory_map() follow suit. While on x86 in theory the
+>>>>> same would apply to EfiACPIReclaimMemory, we don't actually "reclaim"
+>>>>> E820_ACPI memory there and hence that type's handling can be left alone.
+>>>>>
+>>>>> Fixes: bf6501a62e80 ("x86-64: EFI boot code")
+>>>>> Fixes: facac0af87ef ("x86-64: EFI runtime code")
+>>>>> Fixes: 6d70ea10d49f ("Add ARM EFI boot support")
+>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>
+>>>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com> #arm
+>>>
+>>> Thanks. However ...
+>>>
+>>>>> ---
+>>>>> Partly RFC for Arm, for two reasons:
+>>>>>
+>>>>> On Arm I question the conversion of EfiACPIReclaimMemory, in two ways:
+>>>>> For one like on x86 such ranges would likely better be retained, as Dom0
+>>>>> may (will?) have a need to look at tables placed there. Plus converting
+>>>>> such ranges to RAM even if EFI_MEMORY_WB is not set looks suspicious to
+>>>>> me as well. I'd be inclined to make the latter adjustment right here
+>>>>> (while the other change probably would better be separate, if there
+>>>>> aren't actually reasons for the present behavior).
+>>>
+>>> ... any views on this WB aspect at least (also Stefano or Julien)? Would be
+>>> good to know before I send v2.
+>>
+>> I don't quite understand what you are questioning here. Looking at the
+>> code, EfiACPIReclaimMemory will not be converted to RAM but added in a
+>> separate array.
+>>
+>> Furthermore, all the EfiACPIReclaimMemory regions will be passed to dom0
+>> (see acpi_create_efi_mmap_table()).
+>>
+>> So to me the code looks correct.
+> 
+> Oh, I've indeed not paid enough attention to the first argument passed
+> to meminfo_add_bank(). I'm sorry for the extra noise. However, the
+> question I wanted to have addressed before sending out v3 was that
+> regarding the present using of memory when EFI_MEMORY_WB is not set.
+> Is that correct for the EfiACPIReclaimMemory case, i.e. is the
+> consumer (Dom0) aware that there might be a restriction?
 
-Also move the storage of the XArray's entry to a separate helper.
+Looking at the code, we always set EFI_MEMORY_WB for the reclaimable 
+region and the stage-2 mapping will be cachable.
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Fixes: d6aca3504c7d ("xen/grant-dma-ops: Add option to restrict memory access under Xen")
----
- drivers/xen/grant-dma-ops.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+So it looks like there would be a mismatch if EFI_MEMORY_WB is not set. 
+However, given the region is reclaimable, shouldn't this imply that the 
+flag is always set?
 
-diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-index 1998d0e8ce82..c66f56d24013 100644
---- a/drivers/xen/grant-dma-ops.c
-+++ b/drivers/xen/grant-dma-ops.c
-@@ -25,7 +25,7 @@ struct xen_grant_dma_data {
- 	bool broken;
- };
- 
--static DEFINE_XARRAY(xen_grant_dma_devices);
-+static DEFINE_XARRAY_FLAGS(xen_grant_dma_devices, XA_FLAGS_LOCK_IRQ);
- 
- #define XEN_GRANT_DMA_ADDR_OFF	(1ULL << 63)
- 
-@@ -42,14 +42,29 @@ static inline grant_ref_t dma_to_grant(dma_addr_t dma)
- static struct xen_grant_dma_data *find_xen_grant_dma_data(struct device *dev)
- {
- 	struct xen_grant_dma_data *data;
-+	unsigned long flags;
- 
--	xa_lock(&xen_grant_dma_devices);
-+	xa_lock_irqsave(&xen_grant_dma_devices, flags);
- 	data = xa_load(&xen_grant_dma_devices, (unsigned long)dev);
--	xa_unlock(&xen_grant_dma_devices);
-+	xa_unlock_irqrestore(&xen_grant_dma_devices, flags);
- 
- 	return data;
- }
- 
-+static int store_xen_grant_dma_data(struct device *dev,
-+				    struct xen_grant_dma_data *data)
-+{
-+	unsigned long flags;
-+	int ret;
-+
-+	xa_lock_irqsave(&xen_grant_dma_devices, flags);
-+	ret = xa_err(__xa_store(&xen_grant_dma_devices, (unsigned long)dev, data,
-+			GFP_ATOMIC));
-+	xa_unlock_irqrestore(&xen_grant_dma_devices, flags);
-+
-+	return ret;
-+}
-+
- /*
-  * DMA ops for Xen frontends (e.g. virtio).
-  *
-@@ -338,8 +353,7 @@ void xen_grant_setup_dma_ops(struct device *dev)
- 	 */
- 	data->backend_domid = iommu_spec.args[0];
- 
--	if (xa_err(xa_store(&xen_grant_dma_devices, (unsigned long)dev, data,
--			GFP_KERNEL))) {
-+	if (store_xen_grant_dma_data(dev, data)) {
- 		dev_err(dev, "Cannot store Xen grant DMA data\n");
- 		goto err;
- 	}
+> And would
+> this memory then be guaranteed to never be freed into the general pool
+> of RAM pages?
+
+The region is not treated as RAM by Xen and not owned by the dom0. 
+Therefore, it should not be possible to free the page because 
+get_page_from_gfn() would not be able to get a reference.
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
