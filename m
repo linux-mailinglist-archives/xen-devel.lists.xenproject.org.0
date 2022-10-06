@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9176B5F6389
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 11:22:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.416779.661462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA76A5F63A3
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 11:29:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.416787.661473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogN4y-0001Wq-IR; Thu, 06 Oct 2022 09:22:08 +0000
+	id 1ogNCA-0002DI-Aw; Thu, 06 Oct 2022 09:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 416779.661462; Thu, 06 Oct 2022 09:22:08 +0000
+Received: by outflank-mailman (output) from mailman id 416787.661473; Thu, 06 Oct 2022 09:29:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogN4y-0001TS-FI; Thu, 06 Oct 2022 09:22:08 +0000
-Received: by outflank-mailman (input) for mailman id 416779;
- Thu, 06 Oct 2022 09:22:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ogNCA-0002AU-7k; Thu, 06 Oct 2022 09:29:34 +0000
+Received: by outflank-mailman (input) for mailman id 416787;
+ Thu, 06 Oct 2022 09:29:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fMX9=2H=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ogN4x-0001TM-Lt
- for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 09:22:07 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr10064.outbound.protection.outlook.com [40.107.1.64])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57e0e3f4-4558-11ed-9377-c1cf23e5d27e;
- Thu, 06 Oct 2022 11:22:06 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM7PR04MB7143.eurprd04.prod.outlook.com (2603:10a6:20b:112::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.34; Thu, 6 Oct
- 2022 09:22:03 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.034; Thu, 6 Oct 2022
- 09:22:03 +0000
+ (envelope-from <SRS0=q1hL=2H=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ogNC9-0002AO-Gh
+ for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 09:29:33 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 62165700-4559-11ed-964a-05401a9f4f97;
+ Thu, 06 Oct 2022 11:29:32 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 772132197F;
+ Thu,  6 Oct 2022 09:29:31 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3D0A51376E;
+ Thu,  6 Oct 2022 09:29:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Plt5DfufPmNIVAAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 06 Oct 2022 09:29:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,189 +51,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57e0e3f4-4558-11ed-9377-c1cf23e5d27e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cCKNTWx7A7Pk/PnJNvTbQj6zeHlWJXcxO+jzO4eisAual3gLFa4B5cA257xG4NqZP9g0lVy5UDfBnqWOQG+xG5rPKAsuxcZkiGZQ5wpbWhWAaYpaFxsok0Z0PFfctZnzphmyya1LkWbU5GEt8CpBItCLZt6ivhi/XOG11O/CrYk/1PB3g5yqJ84cTz2jNzU7Xmf32/ey1Af9fUNY0ydNj3ToYPhk5PmOKwbmzNA/eajru5J5h2iplz6OC0j8YEI/u8wLd7DVwIjfXl3fZr8PLbaPcN7y1Omk7eF66b3WK0YDSfRCCbmUgyy2kmdAtkWdXHZ9fs2TSNSkg08NnpqaOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0OZkKAHORdzT1HwfMcAmHm7TE/vpkKv9U2RN4iYwsD8=;
- b=ZNzcHalwIWnKcl55n4lzK+n4OfcCPUacCDgcXoTMIZlTJAzxbZZ7EINHSgI/e6/4LU2DMV0asnM0iGnp7bn/97Vy+tAU0fjhkjXDJPEtnREQSY7GtB7QuTAsw5+CSC3ItNxZAlcJll99b50xQW1oh26V3Uyp/J0ZMOE8zE8teROAagaOSOgGDppYWH4kyUeG6l4X/f0epLoHvke99mw9MGSY3QcXzY45P1PgHth5pbi0flGqmJ2+e7FyHNlXnJJ0ZpKP+Jluh9v0arJYE0ej7Vr1ujdfMN68WlZRBfAgacbcRpg8n4ZI+DSx7fn9gmDxYvucl37Y7ClEkOJHWPlbrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0OZkKAHORdzT1HwfMcAmHm7TE/vpkKv9U2RN4iYwsD8=;
- b=2JPybmyPuaR/MzhOA0fqc7FGtBu43zazD1RBVrGLiQPvXPUnYVN4HQKGBgUJoZPjUtt1MDzlgsL9dM8a1nijUiSV1imsAjMbP/jmcXqlz1InIy21S5UoA2isD35sMjBRcLSuw1/3nVUIgDGLZACjGx4knF+ANiWlECq9bW1q/7QotkzPXat1fj4jRpTLozBd1fKoUo5frJZTsy4MEfOT9TJrTGjVucMvvL8w4/JBTnIFnuP25bYNyOcmNvs3MlIwOpmH3b0IddDC/tpBwfCBK2slKKhEqe2ykC9Mrk4ZYB64G9F+Mfwlsamf/CdfHmXFDbYNYGZU59zKj7yJxezr6A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ba28a45c-166e-7b9a-3af9-40d249d7cf0e@suse.com>
-Date: Thu, 6 Oct 2022 11:22:01 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
-Content-Language: en-US
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-efi@vger.kernel.org, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Kees Cook <keescook@chromium.org>, Anton Vorontsov <anton@enomsg.org>,
- Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Ard Biesheuvel <ardb@kernel.org>
-References: <cover.1664298147.git.demi@invisiblethingslab.com>
- <f3b624e99adfdbbfc1976a60a73a6b5950e1840d.1664298147.git.demi@invisiblethingslab.com>
- <282a225d-8782-0321-6f0e-19dd4510dc42@suse.com>
- <CAMj1kXFQNqsW5RfHGac-eGbosJHBybu6+-Fap_bi_kVxWNpGeg@mail.gmail.com>
- <YzcjeiOW8+i2Zxsd@itl-email>
- <CAMj1kXHBBbCNV3CLesqZi7ttmmi8y4tZ1KO5vievy_CJrU2o3Q@mail.gmail.com>
- <YzeaKjmls1YI/3ox@itl-email> <01d22092-8292-8ed7-ece7-9ca32d15bbce@suse.com>
- <YzxxXuovwQt3NskE@itl-email> <a0dc1158-01b1-4272-b86e-52f4996f0747@suse.com>
- <Yz3I2qwl243h9ZfZ@itl-email>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Yz3I2qwl243h9ZfZ@itl-email>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0145.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:96::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 62165700-4559-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1665048571; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=L7RZFM5d4dnIi1GRTKhMwES2/uyXuvfgoPRuTe96ogM=;
+	b=Ci/J0VnfozSfW1tn8VrgOAeBJ0GslTmfAaoB/QDoi2AQB8js+3KZ7nxA6MxMpRSmow6xVi
+	j2hmf+j+RbkQkmXnOztnb/pndUnWf44vQX6nrfx02GbaRGavkRcfPmN3RY6FOYJjL0o+cN
+	1YtXQlXJfn1PeYjiWilheBlS/EyqdzM=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] xen/pcifront: move xenstore config scanning into sub-function
+Date: Thu,  6 Oct 2022 11:29:29 +0200
+Message-Id: <20221006092929.30041-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB7143:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0ba2ea8-3ae7-49c5-b379-08daa77c3af2
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gjYiv1uPP8KiNLv3qJ/fFlyCpRYPagm+iGa4e/cRpDuQS+yQ22lWOw5lOEk64FDbiImtY6gh/EhCSxS11rO1ywc459Ub+C3NSf5qeblLJin+VCI3SGDvjqw/cPXwxfmLjJrwtnRnTjpVgMwp1et9ygWxBUOpUrPglI9JSqL/c6sJ/d1SElyMPzEY1y3a3jikgWHC+pEqduXJDTRjqbaK+V2J+1f4JMHT/vp654ZmdqFziUDxOTvZnS6kByc+Ee7wUMHghvZD+21GXy1IzqzHDtsre46dIRgpY4xCSDAbgacY3J+6s1LqtO4TK9zZLbk+itpLCxfqMJgcCRytuSauXs55+3YpnMgdaj3waTR5LH8I5QxbuYCsaXvJCtvO1wzeQCM8UOJaszSRs3x1OLbfYwVqQk7tNoQs1yKfLpRiO0P0HHSPPpc65IR3ZRj8omQDSAHmx+AqA6rmJ42UL12Rd03J3aHEqbfJKAB8vCL2azsTmwtPDHyxLz4hoxL4w6T6TYRmEmBd7hSNXcrrMWL0WZyhVweIsKvEy8aNwA/zL+EYkWywppqOwXKIXqJKE5t+k/vFQgSgKFpLWggLPCe8DBFNGr2yifxzB5HQaqdqTeQhayxgm3388QBbNragWckdHsng6K7/4YN23uqxM1KKhTuothzcnWiYm+5GO/ZmzPGISeT8zI3LnHFGt+u4C29XgFB8iwavPh7aZpw38LIP9mhhZdjkLyh5m/RM4FbI7ehwVCLwG7I3ibkbDjNgHzPNtxr8fiiil5rDp0gZvyjLc9Kh3mLWy7Sdj7V+x6VNSF8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(346002)(39850400004)(136003)(396003)(376002)(451199015)(7416002)(6512007)(8936002)(26005)(36756003)(5660300002)(316002)(6506007)(53546011)(186003)(41300700001)(2616005)(83380400001)(2906002)(8676002)(66556008)(66946007)(4326008)(66476007)(31686004)(478600001)(38100700002)(6916009)(86362001)(31696002)(54906003)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWNMSjZxVVVZaktMKzlBU3JGa1lLaE8vTkpHcDBReUlFeExmYkhueXV2UEc5?=
- =?utf-8?B?TktDRE9tdE5YNkZpUVYvZlFma2RmZ29vRWlESldMdzRIZ1JLV2V3ZXQrbmRX?=
- =?utf-8?B?UjAxWGpoekhQcmNhWVh1UWRNUXFPOVk0MDNmZWRKejZpZjJzK1lWNzV3TStM?=
- =?utf-8?B?Qlg2NWdxaVVaTlcyZ1g1TFhJNjlQYU1ITFdOMjJLT1hSQ2E4NWRkUjMyOHor?=
- =?utf-8?B?eUVnSVFCbzZWajdVaFNBQ3JiMWV2VUV3bUVEb2wvSnJRUlN1S2FObnpZRTMy?=
- =?utf-8?B?Nm1FRkZQMkxsLzNIWWZJWU9OOGRLQ3RIMkdvQkljYTc1bm1SOURlM2EzRWpR?=
- =?utf-8?B?NGhlQVJwOUR4S04wVDJ0dkloTGRoWWdWWFp0UXAveXZ0Wk5BbkQxL20zOFV5?=
- =?utf-8?B?dWZqMFBJS1ROd3VrcmpidGpOeHdmU2d6cGFuNGY3TVRSTk1rcTBEQno3MGsx?=
- =?utf-8?B?Mzd0WVovcWRnUVo0RXNsNnBLS0ZkcTNjZUVWdDk5bTl6ZkN4aG5GMXROUHBy?=
- =?utf-8?B?SkZEbXFybHJRbkR6ZStvNWNrSyt3dkNQREZwckxndElDdVdTOEh3OXowbzNa?=
- =?utf-8?B?SWRGRUQ3NmtZZWdEZnNOQzY4RXFOVXpHWDFiZHpKZ09JNjZ4YVJsOW5nWERm?=
- =?utf-8?B?WkxwaGtmYjFkL1krWkdvcTk2VkMyS1g4VFkyWVZkakI2dVhyVXV5cng1YnBz?=
- =?utf-8?B?TmJRV2pEUjdmM3hZTjR0KzBydk9xbmNZQzRTYjB2MnZvYllWQTFib0RmQkg5?=
- =?utf-8?B?a1F0eU56ellWcHlRVDFQdWlUMmY3bWd2c094TjdBbFhXYWdoeHpKR1hEUXZM?=
- =?utf-8?B?T1hLcGlvWUNSblhOeWM5VHRlbHowYUxyM0NBN29nVDlneEp4UGlmM0NDeTFp?=
- =?utf-8?B?TVR2TWhrZ3pQK3N1TnlCT3BZTkFLQ04xSEQ5REo0MGJDZVdWVXpzRms4YUJl?=
- =?utf-8?B?RlRqdGYzclo4azhtSUVkSTZXa1E2TjVFelJoQURkeVFxaVhJYkdONEtwUFR6?=
- =?utf-8?B?UE91cytNNHl4b0NkaUhxMHhhZUpyRldtRnJkOEtLdHQyT1JNUHRudFhOVUJi?=
- =?utf-8?B?OS9iVGpJSW5LWkN3NFZzTjA2WmJnNWZXZlduNGFlVkd6S3Bob0FxdXBNU29P?=
- =?utf-8?B?YnkrYVRmeFpBRTlZUVF1OVhJRFUxeHUzYjRlamdXR2NYZjBYdFpaajZYSWFz?=
- =?utf-8?B?T0xsVTYzQnZ4Tk1hYXJadWtyK01BRiswQW93K3ZtalFVTzJuRFhkc25BVUdP?=
- =?utf-8?B?TFhKRDVrT3dhZTUrWDMvazhNa1NmekpFaUNzeHMvVXU1UEZnYThXVnNlWEFy?=
- =?utf-8?B?RWdZL2dwQTRIejFBb2NzMFR2dk5LaEx4YWxET25vWWlSVjhlNzVWS0VFU2VM?=
- =?utf-8?B?S0E0eEUrK1d1RWpmZVljdXNWaStMekVpTXZQM3JFR25zM0JjRW5lR2Q5b0dk?=
- =?utf-8?B?WGFwcGU4cjByWHRjd09SWld4TFNJR3M5bjFQd3ViL3I4aEpxK0dSSHNxb3Fp?=
- =?utf-8?B?NS8vcEJTUmlka3IxU1lwZm95c0xzR2FTVjZqTVhnbW5BWjBsMjBtNzRpc0cy?=
- =?utf-8?B?Y3gwRURUVGkxQzdkbTc5d05iaDZGbDRLeTVnekM3L2ZtMDI4Y20xaGZETjFM?=
- =?utf-8?B?akdtNkQvdFNHeldHOGJ6bzRNU2l1YW9WNHNLT3g4R0tYOFl4elNmd21kdTlQ?=
- =?utf-8?B?dmc0cFJTc1BtOFVGQ3ZtSU5uMXY0VENaVlEzZU5XVUROMyszSjQvUVFNWXVp?=
- =?utf-8?B?ZzZJaEpRQmdMUzRMWVN5ODJlL1BzNjhRRzZHajh5TW13a1FwcjBiTVhvWXFa?=
- =?utf-8?B?aUNEa21hSENJMGhXeFRyeXM1Q0dJeXlSUEE1ejViL3p1c3VUYlVYTUQ0QjF0?=
- =?utf-8?B?aWtOZU9yalVTWnNMSXdBWHI3RjBOcllNTG1jcUU5TlhUalp6b0ltU3FLbUF0?=
- =?utf-8?B?T3NSd0p0bUJ5SmtiSEZMT2hsalE4eUFDNnVFaVU0MUxKUGM1MEFObFNUNDda?=
- =?utf-8?B?RDFEK0VMaWVkTUx2RlBGQ29mYm5SM0V5NkJBbFZ6ejFLUE9ud1JoYmlaMzFL?=
- =?utf-8?B?ZHlDMnpXR0t5dm1CVnQ5dldiQXF6cENQNHZmc0x1TDY3YW1BT0lkZzlqeTE2?=
- =?utf-8?Q?DP74yOdibiaeoIzpA/YuIEAGY?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0ba2ea8-3ae7-49c5-b379-08daa77c3af2
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2022 09:22:03.4363
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d9+cBNaUxOzRPBQQIh9I5hGkO+iPB5ie28Ar6A/OoH45NNsQlnj+/UBEBXTt44VFIPirQZxQodvQoDAMu3YWFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7143
+Content-Transfer-Encoding: 8bit
 
-On 05.10.2022 20:11, Demi Marie Obenour wrote:
-> On Wed, Oct 05, 2022 at 08:15:07AM +0200, Jan Beulich wrote:
->> On 04.10.2022 17:46, Demi Marie Obenour wrote:
->>> Linux has a function called efi_mem_reserve() that is used to reserve
->>> EfiBootServicesData memory that contains e.g. EFI configuration tables.
->>> This function does not work under Xen because Xen could have already
->>> clobbered the memory.  efi_mem_reserve() not working is the whole reason
->>> for this thread, as it prevents EFI tables that are in
->>> EfiBootServicesData from being used under Xen.
->>>
->>> A much nicer approach would be for Xen to reserve boot services memory
->>> unconditionally, but provide a hypercall that dom0 could used to free
->>> the parts of EfiBootServicesData memory that are no longer needed.  This
->>> would allow efi_mem_reserve() to work normally.
->>
->> efi_mem_reserve() actually working would be a layering violation;
->> controlling the EFI memory map is entirely Xen's job.
-> 
-> Doing this properly would require Xen to understand all of the EFI
-> tables that could validly be in EfiBootServices* and which could be of
-> interest to dom0.
+pcifront_try_connect() and pcifront_attach_devices() share a large
+chunk of duplicated code for reading the config information from
+Xenstore, which only differs regarding a function call.
 
-We don't need to understand the tables as long as none crosses memory
-map descriptor boundaries, and as long as they don't contain further
-pointers.
+Put that code into a new sub-function. While at it fix the error
+reporting in case the root-xx node had the wrong format.
 
->  It might (at least on some very buggy firmware)
-> require a partial ACPI and/or SMBIOS implementation too, if the firmware
-> decided to put an ACPI or SMBIOS table in EfiBootServices*.
+As the return value of pcifront_try_connect() and
+pcifront_attach_devices() are not used anywhere make those functions
+return void. As an additional bonus this removes the dubious return
+of -EFAULT in case of an unexpected driver state.
 
-I hope we won't need to go that far; on such systems -mapbs will continue
-to be needed.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/pci/xen-pcifront.c | 133 +++++++++++--------------------------
+ 1 file changed, 40 insertions(+), 93 deletions(-)
 
->> As to the hypercall you suggest - I wouldn't mind its addition, but only
->> for the case when -mapbs is used. As I've indicated before, I'm of the
->> opinion that default behavior should be matching the intentions of the
->> spec, and the intention of EfiBootServices* is for the space to be
->> reclaimed. Plus I'm sure you realize there's a caveat with Dom0 using
->> that hypercall: It might use it for regions where data lives which it
->> wouldn't care about itself, but which an eventual kexec-ed (or alike)
->> entity would later want to consume. Code/data potentially usable by
->> _anyone_ between two resets of the system cannot legitimately be freed
->> (and hence imo is wrong to live in EfiBootServices* regions).
-> 
-> I agree, but currently some such data *is* in EfiBootServices* regions,
-> sadly.  When -mapbs is *not* used, I recommend uninstalling all of the
-> configuration tables that point to EfiBootServicesData memory before
-> freeing that memory.
+diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+index 689271c4245c..a68e47dcdd7e 100644
+--- a/drivers/pci/xen-pcifront.c
++++ b/drivers/pci/xen-pcifront.c
+@@ -819,76 +819,79 @@ static int pcifront_publish_info(struct pcifront_device *pdev)
+ 	return err;
+ }
+ 
+-static int pcifront_try_connect(struct pcifront_device *pdev)
++static void pcifront_connect(struct pcifront_device *pdev, bool rescan)
+ {
+-	int err = -EFAULT;
++	int err;
+ 	int i, num_roots, len;
+ 	char str[64];
+ 	unsigned int domain, bus;
+ 
+-
+-	/* Only connect once */
+-	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
+-	    XenbusStateInitialised)
+-		goto out;
+-
+-	err = pcifront_connect_and_init_dma(pdev);
+-	if (err && err != -EEXIST) {
+-		xenbus_dev_fatal(pdev->xdev, err,
+-				 "Error setting up PCI Frontend");
+-		goto out;
+-	}
+-
+ 	err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend,
+ 			   "root_num", "%d", &num_roots);
+ 	if (err == -ENOENT) {
+ 		xenbus_dev_error(pdev->xdev, err,
+ 				 "No PCI Roots found, trying 0000:00");
+-		err = pcifront_scan_root(pdev, 0, 0);
++		if (rescan)
++			err = pcifront_rescan_root(pdev, 0, 0);
++		else
++			err = pcifront_scan_root(pdev, 0, 0);
+ 		if (err) {
+ 			xenbus_dev_fatal(pdev->xdev, err,
+ 					 "Error scanning PCI root 0000:00");
+-			goto out;
++			return;
+ 		}
+ 		num_roots = 0;
+ 	} else if (err != 1) {
+-		if (err == 0)
+-			err = -EINVAL;
+-		xenbus_dev_fatal(pdev->xdev, err,
++		xenbus_dev_fatal(pdev->xdev, err >= 0 ? -EINVAL : err,
+ 				 "Error reading number of PCI roots");
+-		goto out;
++		return;
+ 	}
+ 
+ 	for (i = 0; i < num_roots; i++) {
+ 		len = snprintf(str, sizeof(str), "root-%d", i);
+-		if (unlikely(len >= (sizeof(str) - 1))) {
+-			err = -ENOMEM;
+-			goto out;
+-		}
++		if (unlikely(len >= (sizeof(str) - 1)))
++			return;
+ 
+ 		err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend, str,
+ 				   "%x:%x", &domain, &bus);
+ 		if (err != 2) {
+-			if (err >= 0)
+-				err = -EINVAL;
+-			xenbus_dev_fatal(pdev->xdev, err,
++			xenbus_dev_fatal(pdev->xdev, err >= 0 ? -EINVAL : err,
+ 					 "Error reading PCI root %d", i);
+-			goto out;
++			return;
+ 		}
+ 
+-		err = pcifront_scan_root(pdev, domain, bus);
++		if (rescan)
++			err = pcifront_rescan_root(pdev, domain, bus);
++		else
++			err = pcifront_scan_root(pdev, domain, bus);
+ 		if (err) {
+ 			xenbus_dev_fatal(pdev->xdev, err,
+ 					 "Error scanning PCI root %04x:%02x",
+ 					 domain, bus);
+-			goto out;
++			return;
+ 		}
+ 	}
+ 
+-	err = xenbus_switch_state(pdev->xdev, XenbusStateConnected);
++	xenbus_switch_state(pdev->xdev, XenbusStateConnected);
++}
+ 
+-out:
+-	return err;
++static void pcifront_try_connect(struct pcifront_device *pdev)
++{
++	int err;
++
++	/* Only connect once */
++	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
++	    XenbusStateInitialised)
++		return;
++
++	err = pcifront_connect_and_init_dma(pdev);
++	if (err && err != -EEXIST) {
++		xenbus_dev_fatal(pdev->xdev, err,
++				 "Error setting up PCI Frontend");
++		return;
++	}
++
++	pcifront_connect(pdev, false);
+ }
+ 
+ static int pcifront_try_disconnect(struct pcifront_device *pdev)
+@@ -914,67 +917,11 @@ static int pcifront_try_disconnect(struct pcifront_device *pdev)
+ 	return err;
+ }
+ 
+-static int pcifront_attach_devices(struct pcifront_device *pdev)
++static void pcifront_attach_devices(struct pcifront_device *pdev)
+ {
+-	int err = -EFAULT;
+-	int i, num_roots, len;
+-	unsigned int domain, bus;
+-	char str[64];
+-
+-	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
++	if (xenbus_read_driver_state(pdev->xdev->nodename) ==
+ 	    XenbusStateReconfiguring)
+-		goto out;
+-
+-	err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend,
+-			   "root_num", "%d", &num_roots);
+-	if (err == -ENOENT) {
+-		xenbus_dev_error(pdev->xdev, err,
+-				 "No PCI Roots found, trying 0000:00");
+-		err = pcifront_rescan_root(pdev, 0, 0);
+-		if (err) {
+-			xenbus_dev_fatal(pdev->xdev, err,
+-					 "Error scanning PCI root 0000:00");
+-			goto out;
+-		}
+-		num_roots = 0;
+-	} else if (err != 1) {
+-		if (err == 0)
+-			err = -EINVAL;
+-		xenbus_dev_fatal(pdev->xdev, err,
+-				 "Error reading number of PCI roots");
+-		goto out;
+-	}
+-
+-	for (i = 0; i < num_roots; i++) {
+-		len = snprintf(str, sizeof(str), "root-%d", i);
+-		if (unlikely(len >= (sizeof(str) - 1))) {
+-			err = -ENOMEM;
+-			goto out;
+-		}
+-
+-		err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend, str,
+-				   "%x:%x", &domain, &bus);
+-		if (err != 2) {
+-			if (err >= 0)
+-				err = -EINVAL;
+-			xenbus_dev_fatal(pdev->xdev, err,
+-					 "Error reading PCI root %d", i);
+-			goto out;
+-		}
+-
+-		err = pcifront_rescan_root(pdev, domain, bus);
+-		if (err) {
+-			xenbus_dev_fatal(pdev->xdev, err,
+-					 "Error scanning PCI root %04x:%02x",
+-					 domain, bus);
+-			goto out;
+-		}
+-	}
+-
+-	xenbus_switch_state(pdev->xdev, XenbusStateConnected);
+-
+-out:
+-	return err;
++		pcifront_connect(pdev, true);
+ }
+ 
+ static int pcifront_detach_devices(struct pcifront_device *pdev)
+-- 
+2.35.3
 
-Hmm, uninstalling isn't nice, as it may limit functionality. Instead we
-might go through all tables and fiddle with memap descriptors in case
-a pointer references an EfiBootServices* region (regardless of size, as
-per the first restriction mentioned above). (A more brute force approach
-might be to simply behave as if -mapbs was specified in such a case,
-provided we can reliably determine this early enough, i.e. before first
-checking the "map_bs" variable.) Tables actually known to us could also
-be relocated (like you've done for ESRT).
-
-Such checking could be extended to the runtime services function
-pointers. While that wouldn't cover cases where a function entry point
-is in runtime services space but the function then wrongly calls into
-or references boot services space, it would cover a few more (broken)
-systems.
-
-This, unlike behaving by default as if -mapbs was given, would be a
-workaround I'd accept to be enabled unconditionally, as it wouldn't
-affect well behaved systems (beyond the time it takes to carry out the
-checks, and provided the checking logic isn't buggy).
-
-There's one further caveat towards uninstalling (in a way also for your
-ESRT relocation code): The final memory map is known to us only when we
-can't call boot services functions anymore (i.e. in particular
-InstallConfigurationTable()).
-
-Jan
 
