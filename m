@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D1975F5E6E
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 03:42:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.416559.661182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89BAA5F606D
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 07:07:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.416569.661194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogFsx-0001Y1-39; Thu, 06 Oct 2022 01:41:15 +0000
+	id 1ogJ5B-0005Bg-Kd; Thu, 06 Oct 2022 05:06:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 416559.661182; Thu, 06 Oct 2022 01:41:15 +0000
+Received: by outflank-mailman (output) from mailman id 416569.661194; Thu, 06 Oct 2022 05:06:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogFsw-0001W9-Tm; Thu, 06 Oct 2022 01:41:14 +0000
-Received: by outflank-mailman (input) for mailman id 416559;
- Thu, 06 Oct 2022 01:41:12 +0000
+	id 1ogJ5B-00058a-HN; Thu, 06 Oct 2022 05:06:05 +0000
+Received: by outflank-mailman (input) for mailman id 416569;
+ Thu, 06 Oct 2022 05:06:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rxxd=2H=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1ogFsu-0001W3-DX
- for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 01:41:12 +0000
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f2583c24-4517-11ed-9377-c1cf23e5d27e;
- Thu, 06 Oct 2022 03:41:08 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B1BC35C0078;
- Wed,  5 Oct 2022 21:41:06 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 05 Oct 2022 21:41:06 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Oct 2022 21:41:05 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=q1hL=2H=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ogJ5A-00058E-2h
+ for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 05:06:04 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9278806c-4534-11ed-9377-c1cf23e5d27e;
+ Thu, 06 Oct 2022 07:06:02 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4884A21A11;
+ Thu,  6 Oct 2022 05:06:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A4771376E;
+ Thu,  6 Oct 2022 05:06:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id LEtgBDliPmNuYgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 06 Oct 2022 05:06:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,183 +51,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2583c24-4517-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1665020466; x=
-	1665106866; bh=5JWGlL6qjpOxQyyZ9FB1dSYfeN4n/a+nsPGWR+zeiYc=; b=M
-	6og2O85RYor/MEkEK9NUu3wiW+BhmIu4XsJu4ZWKsQ32+PtEx3auXlLV1Vxy7xCx
-	SuI29dbENT/pW51oqx/kKeS6rYWGQwO2yuV9nwxF4IQXSPo69Mu4lgacDtNbCOYp
-	bHksDrcsO7vbcW+uZ1/Wf70s/W4ScBIsqxe51/dUt0D+yD3h7t+H8qxRp7GF3K5E
-	/4VgeIWd24J9IPhs25G7EMJNO8dRhNtn5Aw4zxmYm7gi0oUYz6pACaojGon7jAxF
-	+2YE+Es//c6MkE71uARRgLeLOlBu5qv7NvSw5PXWeLh5vVEwKo8aaqVJknV37n4d
-	cD2ft0lwigYokY8F72dQA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1665020466; x=1665106866; bh=5JWGlL6qjpOxQyyZ9FB1dSYfeN4n
-	/a+nsPGWR+zeiYc=; b=IapvrxS+eu9CRM2Y2xpRmwAEBSC07HId3PKvuDlordFq
-	FQn0PYGstKTIn1EWy6IVXIsBiQnr5wyq1G0GIAsX3XAUrn0lIOCLn2IK4K2n5OTC
-	ELdOXmbc9wR+smndYtDC4+ix/FHk0EvYSjGccIhTRcKnP6o5EZkejB6+fuoIjyF4
-	cviqYKjPJwuw3acPHvb+8nrJUcZxsPkMwg2mKliK9ztNYB7lKg405v7U8rqyLOmM
-	ynm6gc+s3YcVooFIZYt+T9Rjf1Lrk3t8Txnc3y3JjHGhgJtSjXPA4r1wWPQqMxQm
-	QgQXgsN2cI0VH/YhaXOP0pSdMkYwfIVVADA2+5TjWA==
-X-ME-Sender: <xms:MjI-Y0MK-kjrVZXrycLY6OoQgV_MAbR9y9PIHIxuls04COsCSIiFmA>
-    <xme:MjI-Y6-saI900FsdoMpNk91DHjxo-wuJSng511L3OZ9yMKioyJL633KFRTdz8nYqY
-    kAuJNXUWhsQpHE>
-X-ME-Received: <xmr:MjI-Y7QYawW0W1P_KkiHSTjB7-0xTVDxzwjuqk3SVwhvCxJ3epBqnVYRHCS4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeeigedghedtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepudeileefueetvdelheeuteffjeeg
-    jeegffekleevueelueekjeejudffteejkeetnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:MjI-Y8uonqngOyQ1TDOcwx7-ZJi0gr1uWyVsWeVAwYOcNsdoEWXjlQ>
-    <xmx:MjI-Y8cEnKUQHfG8rFoPIKgLBC-vABsCntJtptGD09gTSlEmvwrKoA>
-    <xmx:MjI-Yw1vEyoZd-y5Ech6-96fX-3e4uyELk8VRXQSRiE1sCau-rYNJA>
-    <xmx:MjI-Y9VWOZ-b012cWbwraT3IrzSYRvS_471wcRHzbXVqAH4KpMJ2xg>
-Feedback-ID: iac594737:Fastmail
-Date: Wed, 5 Oct 2022 21:40:58 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
-Message-ID: <Yz4yLyvX6un1rrqC@itl-email>
-References: <282a225d-8782-0321-6f0e-19dd4510dc42@suse.com>
- <CAMj1kXFQNqsW5RfHGac-eGbosJHBybu6+-Fap_bi_kVxWNpGeg@mail.gmail.com>
- <YzcjeiOW8+i2Zxsd@itl-email>
- <CAMj1kXHBBbCNV3CLesqZi7ttmmi8y4tZ1KO5vievy_CJrU2o3Q@mail.gmail.com>
- <YzeaKjmls1YI/3ox@itl-email>
- <01d22092-8292-8ed7-ece7-9ca32d15bbce@suse.com>
- <YzxxXuovwQt3NskE@itl-email>
- <a0dc1158-01b1-4272-b86e-52f4996f0747@suse.com>
- <Yz3I2qwl243h9ZfZ@itl-email>
- <CAMj1kXHFi71SKQAQHEjZTLyp-YooRTYZ2-nqydRZA5hys7tkKw@mail.gmail.com>
+X-Inumbo-ID: 9278806c-4534-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1665032761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9OQTIjVFUC01bkI7WDIN0F1RArit60c4eKNRzzbaU1s=;
+	b=kmretDP4zgjTmp9fNKYLXaBgLcYZB1zYClG9ql4w2TIaCdbZtz5IvmEhu/ymTvc85BvVUv
+	LkCXqJvdda3HcX+UgmFnei0+xUQS2wXLsWwIkYpwQrxuc3M5lLjXDqo6+thLaJ6bZrF4Hy
+	JqTClBc2m4TdUlJn3sUNwCqpSvORhfo=
+Message-ID: <8abd9c77-286f-903c-d398-3d441bf830a6@suse.com>
+Date: Thu, 6 Oct 2022 07:06:00 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="O1bm1sqCXF+z9Gl5"
-Content-Disposition: inline
-In-Reply-To: <CAMj1kXHFi71SKQAQHEjZTLyp-YooRTYZ2-nqydRZA5hys7tkKw@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH 1/2] xen/virtio: Fix n_pages calculation in
+ xen_grant_dma_map(unmap)_page()
+Content-Language: en-US
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20221005174823.1800761-1-olekstysh@gmail.com>
+ <20221005174823.1800761-2-olekstysh@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20221005174823.1800761-2-olekstysh@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------S0yywZOxdoyVl9IXTchDhhtW"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------S0yywZOxdoyVl9IXTchDhhtW
+Content-Type: multipart/mixed; boundary="------------H5xTe0spdc0H7pc06G0WZsV3";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <8abd9c77-286f-903c-d398-3d441bf830a6@suse.com>
+Subject: Re: [PATCH 1/2] xen/virtio: Fix n_pages calculation in
+ xen_grant_dma_map(unmap)_page()
+References: <20221005174823.1800761-1-olekstysh@gmail.com>
+ <20221005174823.1800761-2-olekstysh@gmail.com>
+In-Reply-To: <20221005174823.1800761-2-olekstysh@gmail.com>
 
---O1bm1sqCXF+z9Gl5
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+--------------H5xTe0spdc0H7pc06G0WZsV3
+Content-Type: multipart/mixed; boundary="------------EIxqeP0Iw83Y0cKe9U0jeESa"
+
+--------------EIxqeP0Iw83Y0cKe9U0jeESa
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDUuMTAuMjIgMTk6NDgsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiBGcm9t
+OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+
+DQo+IA0KPiBUYWtlIHBhZ2Ugb2Zmc2V0IGludG8gdGhlIGFjY291bnQgd2hlbiBjYWxjdWxh
+dGluZyB0aGUgbnVtYmVyIG9mIHBhZ2VzDQo+IHRvIGJlIGdyYW50ZWQuDQo+IA0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29A
+ZXBhbS5jb20+DQo+IEZpeGVzOiBkNmFjYTM1MDRjN2QgKCJ4ZW4vZ3JhbnQtZG1hLW9wczog
+QWRkIG9wdGlvbiB0byByZXN0cmljdCBtZW1vcnkgYWNjZXNzIHVuZGVyIFhlbiIpDQoNClJl
+dmlld2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQoNCg0KSnVlcmdl
+bg0KDQo=
+--------------EIxqeP0Iw83Y0cKe9U0jeESa
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 5 Oct 2022 21:40:58 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
 
-On Wed, Oct 05, 2022 at 11:28:29PM +0200, Ard Biesheuvel wrote:
-> On Wed, 5 Oct 2022 at 20:11, Demi Marie Obenour
-> <demi@invisiblethingslab.com> wrote:
-> >
-> > On Wed, Oct 05, 2022 at 08:15:07AM +0200, Jan Beulich wrote:
-> > > On 04.10.2022 17:46, Demi Marie Obenour wrote:
-> > > > Linux has a function called efi_mem_reserve() that is used to reser=
-ve
-> > > > EfiBootServicesData memory that contains e.g. EFI configuration tab=
-les.
-> > > > This function does not work under Xen because Xen could have already
-> > > > clobbered the memory.  efi_mem_reserve() not working is the whole r=
-eason
-> > > > for this thread, as it prevents EFI tables that are in
-> > > > EfiBootServicesData from being used under Xen.
-> > > >
-> > > > A much nicer approach would be for Xen to reserve boot services mem=
-ory
-> > > > unconditionally, but provide a hypercall that dom0 could used to fr=
-ee
-> > > > the parts of EfiBootServicesData memory that are no longer needed. =
- This
-> > > > would allow efi_mem_reserve() to work normally.
-> > >
-> > > efi_mem_reserve() actually working would be a layering violation;
-> > > controlling the EFI memory map is entirely Xen's job.
-> >
-> > Doing this properly would require Xen to understand all of the EFI
-> > tables that could validly be in EfiBootServices* and which could be of
-> > interest to dom0.  It might (at least on some very buggy firmware)
-> > require a partial ACPI and/or SMBIOS implementation too, if the firmware
-> > decided to put an ACPI or SMBIOS table in EfiBootServices*.
-> >
-> > > As to the hypercall you suggest - I wouldn't mind its addition, but o=
-nly
-> > > for the case when -mapbs is used. As I've indicated before, I'm of the
-> > > opinion that default behavior should be matching the intentions of the
-> > > spec, and the intention of EfiBootServices* is for the space to be
-> > > reclaimed. Plus I'm sure you realize there's a caveat with Dom0 using
-> > > that hypercall: It might use it for regions where data lives which it
-> > > wouldn't care about itself, but which an eventual kexec-ed (or alike)
-> > > entity would later want to consume. Code/data potentially usable by
-> > > _anyone_ between two resets of the system cannot legitimately be freed
-> > > (and hence imo is wrong to live in EfiBootServices* regions).
-> >
-> > I agree, but currently some such data *is* in EfiBootServices* regions,
-> > sadly.  When -mapbs is *not* used, I recommend uninstalling all of the
-> > configuration tables that point to EfiBootServicesData memory before
-> > freeing that memory.
-> >
->=20
-> That seems like a reasonable approach to me. Tables like MEMATTR or
-> RT_PROP are mostly relevant for bare metal where the host kernel maps
-> the runtime services, and in general, passing on these tables without
-> knowing what they do is kind of fishy anyway. You might even argue
-> that only known table types should be forwarded in the first place,
-> regardless of the memory type.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Which tables are worth handling in Xen?  I know about ACPI, SMBIOS, and
-ESRT, but I am curious which others Xen should preserve.  Currently, Xen
-does not know about RT_PROP or MEMATTR; could this be a cause of
-problems?
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
---O1bm1sqCXF+z9Gl5
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------EIxqeP0Iw83Y0cKe9U0jeESa--
+
+--------------H5xTe0spdc0H7pc06G0WZsV3--
+
+--------------S0yywZOxdoyVl9IXTchDhhtW
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM+Mi8ACgkQsoi1X/+c
-IsFC3Q/+LInS5fyLV5q0WDsphEUWJpSm3d2wDWvD98SyzEt/5YAunxvLkGFXYcLS
-P8Q2FOVyDqmBG457YSSZSS8Qt0EPxbntfAIgJT6c81xrAYpAFFHfblt1uHnrnzBJ
-5iGIkr1j184qHSf/iK8xlaxFe2eZDjZM3Y0RFGeII6+RdqmF8Wm1yd2+JlVEqGgO
-GSHwnQtt+Ut5ahm7+XKh6CdyMOeP7A7Z8+AVk74mFvWrCrJQgDPvXCAxQYX2EXCw
-TrMvLfhv4RBOOaMmCcLevbEs+3MbQ7owXtiMS0uydsezCedtWoyS9tcQdFzuJHfX
-h68Aj+kiVe07m/9Gpx43Ed+C+k4aNXqja9skqUhqStUigzOzX0Q/tNsSZV7nlyhL
-xYmlU+pdkPSNK8cXngU/OK1GjZLoNs5oc+pGT6oIq5ipWaZpO4eLriu1lMBWSS6s
-iExS7Awf7owOnc6AjaaiIRIN0W7NJ7auK10lCXX9IjzlOp9WCfA9xNLXuMQHNxCr
-gj0r+7UbcQAQP7bDRYIS/lddXF3jiubTiYeuQIdG2Y/+mIg1x1EZcNApa3rVsrSN
-xM9ex0yrDJxj9EODFHvIF9K8meqbQKTbBKtLE86Kmz6LzU4B0qwq1eQHc1M/Mo/L
-glmKRPDzx+ys9qrdIVnBCoMRNFpqK8+ybCzZ4TFHDLhht4N6iBE=
-=+br+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM+YjgFAwAAAAAACgkQsN6d1ii/Ey+W
+TAgAlo+G+ByB4ukMNLrhiBvZj0DCG4cUOtEvSd1qQxDAiv7AxRqB48XE5d/ockZl0hF4tS0XUt9w
+hTBSNbKA2heyXCqhrBX8H/+GP3y8M2En09eYp2NVWr2fQnJl6/oYzgRvSg4ehAwv6ikNY9dBqEa6
+eIVQcSOoS+OgOBZQmD+c+yDiAv674DbM26PH68IlzghLpkM7w6MMNrWiolCznqPjwKapboLCASaR
+SFQs7y4qPOnOK0klBZQkWsxFU9DvtASifsOkjdMDH2h57a/mxU+2xmsiGKFvMzBnBTQvKt1HNVZt
+SUzgpSGcNB0AWn/cstkiWAleckRmt16QuxZ92Hsb0g==
+=IHI8
 -----END PGP SIGNATURE-----
 
---O1bm1sqCXF+z9Gl5--
+--------------S0yywZOxdoyVl9IXTchDhhtW--
 
