@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 897C85F6452
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 12:24:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.416819.661517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4F715F645C
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 12:31:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.416828.661528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogO3E-0001fo-B6; Thu, 06 Oct 2022 10:24:24 +0000
+	id 1ogO9q-0003Ai-7o; Thu, 06 Oct 2022 10:31:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 416819.661517; Thu, 06 Oct 2022 10:24:24 +0000
+Received: by outflank-mailman (output) from mailman id 416828.661528; Thu, 06 Oct 2022 10:31:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogO3E-0001cy-7h; Thu, 06 Oct 2022 10:24:24 +0000
-Received: by outflank-mailman (input) for mailman id 416819;
- Thu, 06 Oct 2022 10:24:23 +0000
+	id 1ogO9q-00038u-3S; Thu, 06 Oct 2022 10:31:14 +0000
+Received: by outflank-mailman (input) for mailman id 416828;
+ Thu, 06 Oct 2022 10:31:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q1hL=2H=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ogO3D-0001cs-6D
- for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 10:24:23 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Y3UN=2H=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1ogO9o-00038o-9x
+ for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 10:31:12 +0000
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [2607:f8b0:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ae511b3-4561-11ed-9377-c1cf23e5d27e;
- Thu, 06 Oct 2022 12:24:21 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 50B121F8B0;
- Thu,  6 Oct 2022 10:24:21 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1E4BA13AC8;
- Thu,  6 Oct 2022 10:24:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id XhznBdWsPmPCbgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 06 Oct 2022 10:24:21 +0000
+ id fa1ec159-4561-11ed-9377-c1cf23e5d27e;
+ Thu, 06 Oct 2022 12:31:03 +0200 (CEST)
+Received: by mail-pf1-x435.google.com with SMTP id h13so223252pfr.7
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Oct 2022 03:31:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,193 +39,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ae511b3-4561-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1665051861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3fHVkVxTAWcYkVXviVrHSDtYowg1Eq007d+zP0+0r14=;
-	b=apBWFh/dNkA2V7M7Cs0J40QYDiStbw1/fi9zRSQ7SePeJcAYQDFW6HyPapH4hdupuftUYc
-	TUW3RF7RO9XeBvvVhXMReod9AbEIzSh+aLWScHLb9LEgVmm4EkiSYPZpcdtgFv/t+NxjWv
-	TSd/iLQlqGAfAosCGipDZQa6jDIY84w=
-Message-ID: <df17af24-632c-6087-43e0-9e4079959437@suse.com>
-Date: Thu, 6 Oct 2022 12:24:20 +0200
+X-Inumbo-ID: fa1ec159-4561-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=1Ww3gjQttemMvIHddNRqftrl1gNSIGxQLuevdJrysL8=;
+        b=HoIsPr/KBkYizk+hFXFzdwxnJlvI1M89/s8+FnuJkPVSQkAAv+FY8Ob/Cad3AeYWqj
+         fCH+8GpdkSfYzMeTDz829E1JiupKJAi3Y2y18eGT17LcatoPN7GDcS9QQE43iTbCRKOq
+         NTfizCD5eaeznd0J/KggGppR55BY3luq1u/7An+vu/Wg4p/SUBszfhsihl8lsC8fAs+J
+         BNqKqxLDoTkEO9k4/Itqgsq7cgQbbUto486WFLXXhZZy+bA829Uq5IFj30kR12u9hmMK
+         RXpNnlYwf20Bd8IXZRLr2UCuyzNkV09VQfvWCvRbDq94BSVer+qKKAbffwreOGgGs/Fc
+         bmHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1Ww3gjQttemMvIHddNRqftrl1gNSIGxQLuevdJrysL8=;
+        b=fSUeWGjBJM3zFxZaWJXnFfVsQdjpBMkbqsblyYjXFu5TW2l4ZbFRqlSKESvzglV7ol
+         67dVWl/EZxAeuBya894WGetYQZI22azk4CTL/32/X7RlZx0qFB3IXNGxv+O6FSsIaoHK
+         1cLrtLjdzYKrXjBX+kDwsDO1WvpGsIRWHthXcWMfZxi2axCq3G16RQUPCG4qENuaLNq2
+         CJz5FxHXy0uRx4HSTJdMjxrgMAQpmXeBaZA2Vgq9Yyu5S4SUoC6ANwdVufJQXV1bJ1lr
+         C8pyfHuIWMxNosldZL7SJBkoC+VRMbsaId3BCvG9NvP+0BqKaIstIrRR/mgNShEs6IBa
+         P4Pw==
+X-Gm-Message-State: ACrzQf1JPbpdU/Ip0Hl2Wvtns8c90GJriItAn1RiBseNmHjq9CX+XoeC
+	2+1mYAs9CfL9jxc/pIcNVhbsfKQjsC/a9edl+rA=
+X-Google-Smtp-Source: AMsMyM6L+DEpT48DS4gbf4t/3OiHw5sfQ2SvIdhlH+auuTw2ff8mBoWbGV6mdu6IIUFWaOHqTkXeU9RnFkT1tV6Mgyk=
+X-Received: by 2002:a63:e806:0:b0:44b:d45b:b8a2 with SMTP id
+ s6-20020a63e806000000b0044bd45bb8a2mr3893127pgh.14.1665052262206; Thu, 06 Oct
+ 2022 03:31:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH 1/2] xen/virtio: Fix n_pages calculation in
- xen_grant_dma_map(unmap)_page()
-Content-Language: en-US
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20221005174823.1800761-1-olekstysh@gmail.com>
- <20221005174823.1800761-2-olekstysh@gmail.com>
- <55a22602-3ae8-b09b-61c9-1fc7c01235fc@gmail.com>
- <85471e4e-086a-6229-7fd1-e1d5556b94ed@suse.com>
- <CAPD2p-kuXfeQ8G63tSwi4H1Wz8ygwJnp3q1ZXFHi+k+knwT-EA@mail.gmail.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <CAPD2p-kuXfeQ8G63tSwi4H1Wz8ygwJnp3q1ZXFHi+k+knwT-EA@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------QJQ0BzZYEd7W3FpBoBrwyC4J"
+References: <20221005174823.1800761-1-olekstysh@gmail.com> <20221005174823.1800761-2-olekstysh@gmail.com>
+ <55a22602-3ae8-b09b-61c9-1fc7c01235fc@gmail.com> <85471e4e-086a-6229-7fd1-e1d5556b94ed@suse.com>
+ <CAPD2p-kuXfeQ8G63tSwi4H1Wz8ygwJnp3q1ZXFHi+k+knwT-EA@mail.gmail.com> <df17af24-632c-6087-43e0-9e4079959437@suse.com>
+In-Reply-To: <df17af24-632c-6087-43e0-9e4079959437@suse.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Thu, 6 Oct 2022 13:30:50 +0300
+Message-ID: <CAPD2p-mgxSw+yoYa9tnabWDo6uJCjBjJ-6DncvwvXqP3HkEx6g@mail.gmail.com>
+Subject: Re: [PATCH 1/2] xen/virtio: Fix n_pages calculation in xen_grant_dma_map(unmap)_page()
+To: Juergen Gross <jgross@suse.com>
+Cc: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org, 
+	linux-kernel@vger.kernel.org, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: multipart/alternative; boundary="0000000000009f0f4f05ea5b30c5"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------QJQ0BzZYEd7W3FpBoBrwyC4J
-Content-Type: multipart/mixed; boundary="------------VBQYfDk6VWcgYtEKBXvgrLOD";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <df17af24-632c-6087-43e0-9e4079959437@suse.com>
-Subject: Re: [PATCH 1/2] xen/virtio: Fix n_pages calculation in
- xen_grant_dma_map(unmap)_page()
-References: <20221005174823.1800761-1-olekstysh@gmail.com>
- <20221005174823.1800761-2-olekstysh@gmail.com>
- <55a22602-3ae8-b09b-61c9-1fc7c01235fc@gmail.com>
- <85471e4e-086a-6229-7fd1-e1d5556b94ed@suse.com>
- <CAPD2p-kuXfeQ8G63tSwi4H1Wz8ygwJnp3q1ZXFHi+k+knwT-EA@mail.gmail.com>
-In-Reply-To: <CAPD2p-kuXfeQ8G63tSwi4H1Wz8ygwJnp3q1ZXFHi+k+knwT-EA@mail.gmail.com>
+--0000000000009f0f4f05ea5b30c5
+Content-Type: text/plain; charset="UTF-8"
 
---------------VBQYfDk6VWcgYtEKBXvgrLOD
-Content-Type: multipart/mixed; boundary="------------Bp8ijxsi8icv2zMYc0WPinxX"
+On Thu, Oct 6, 2022 at 1:24 PM Juergen Gross <jgross@suse.com> wrote:
 
---------------Bp8ijxsi8icv2zMYc0WPinxX
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Hello Juergen
 
-T24gMDYuMTAuMjIgMTI6MTQsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiANCj4g
-DQo+IE9uIFRodSwgT2N0IDYsIDIwMjIgYXQgMTE6MDUgQU0gSnVlcmdlbiBHcm9zcyA8amdy
-b3NzQHN1c2UuY29tIA0KPiA8bWFpbHRvOmpncm9zc0BzdXNlLmNvbT4+IHdyb3RlOg0KPiAN
-Cj4gICAgIE9uIDA2LjEwLjIyIDA5OjM1LCBYZW5pYSBSYWdpYWRha291IHdyb3RlOg0KPiAN
-Cj4gDQo+IA0KPiBIZWxsb8KgWGVuaWEswqBKdWVyZ2VuDQo+IA0KPiBbc29ycnkgZm9yIHRo
-ZSBwb3NzaWJsZSBmb3JtYXQgaXNzdWVzXQ0KPiANCj4gICAgICA+DQo+ICAgICAgPiBPbiAx
-MC81LzIyIDIwOjQ4LCBPbGVrc2FuZHIgVHlzaGNoZW5rbyB3cm90ZToNCj4gICAgICA+PiBG
-cm9tOiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5j
-b20NCj4gICAgIDxtYWlsdG86b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+Pg0KPiAg
-ICAgID4+DQo+ICAgICAgPj4gVGFrZSBwYWdlIG9mZnNldCBpbnRvIHRoZSBhY2NvdW50IHdo
-ZW4gY2FsY3VsYXRpbmcgdGhlIG51bWJlciBvZiBwYWdlcw0KPiAgICAgID4+IHRvIGJlIGdy
-YW50ZWQuDQo+ICAgICAgPj4NCj4gICAgICA+PiBTaWduZWQtb2ZmLWJ5OiBPbGVrc2FuZHIg
-VHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20NCj4gICAgIDxtYWls
-dG86b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+Pg0KPiAgICAgID4+IEZpeGVzOiBk
-NmFjYTM1MDRjN2QgKCJ4ZW4vZ3JhbnQtZG1hLW9wczogQWRkIG9wdGlvbiB0byByZXN0cmlj
-dCBtZW1vcnkNCj4gICAgIGFjY2Vzcw0KPiAgICAgID4+IHVuZGVyIFhlbiIpDQo+ICAgICAg
-Pj4gLS0tDQo+ICAgICAgPj4gwqAgZHJpdmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jIHwgNSAr
-KystLQ0KPiAgICAgID4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIg
-ZGVsZXRpb25zKC0pDQo+ICAgICAgPj4NCj4gICAgICA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy94ZW4vZ3JhbnQtZG1hLW9wcy5jIGIvZHJpdmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jDQo+
-ICAgICAgPj4gaW5kZXggODk3M2ZjMWU5Y2NjLi4xOTk4ZDBlOGNlODIgMTAwNjQ0DQo+ICAg
-ICAgPj4gLS0tIGEvZHJpdmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jDQo+ICAgICAgPj4gKysr
-IGIvZHJpdmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jDQo+ICAgICAgPj4gQEAgLTE1Myw3ICsx
-NTMsNyBAQCBzdGF0aWMgZG1hX2FkZHJfdCB4ZW5fZ3JhbnRfZG1hX21hcF9wYWdlKHN0cnVj
-dCBkZXZpY2UNCj4gICAgICA+PiAqZGV2LCBzdHJ1Y3QgcGFnZSAqcGFnZSwNCj4gICAgICA+
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25l
-ZCBsb25nIGF0dHJzKQ0KPiAgICAgID4+IMKgIHsNCj4gICAgICA+PiDCoMKgwqDCoMKgIHN0
-cnVjdCB4ZW5fZ3JhbnRfZG1hX2RhdGEgKmRhdGE7DQo+ICAgICAgPj4gLcKgwqDCoCB1bnNp
-Z25lZCBpbnQgaSwgbl9wYWdlcyA9IFBGTl9VUChzaXplKTsNCj4gICAgICA+PiArwqDCoMKg
-IHVuc2lnbmVkIGludCBpLCBuX3BhZ2VzID0gUEZOX1VQKG9mZnNldCArIHNpemUpOw0KPiAg
-ICAgID4NCj4gICAgICA+IEhlcmUsIHdoeSBkbyB3ZSB1c2UgUEZOX1VQIGFuZCBub3QgWEVO
-X1BGTl9VUD8NCj4gICAgICA+IEFsc28sIHNpbmNlIHRoZSB2YXJpYWJsZSAnbl9wYWdlcycg
-c2VlbXMgdG8gcmVmZXIgdG8gdGhlIG51bWJlciBvZiBncmFudHMNCj4gICAgICA+ICh1bmxl
-c3MgSSBnb3QgaXQgYWxsIGVudGlyZWx5IHdyb25nIC4uLiksIHdvdWxkbid0IGl0IGJlIG1v
-cmUgc3VpdGFibGUgdG8NCj4gICAgIGNhbGwNCj4gICAgICA+IGV4cGxpY2l0bHkgZ250dGFi
-X2NvdW50X2dyYW50KCk/DQo+IA0KPiAgICAgR29vZCBwb2ludC4NCj4gDQo+IA0KPiArMQ0K
-PiANCj4gDQo+ICAgICBJIHRoaW5rIHRoaXMgd2lsbCBuZWVkIGFub3RoZXIgcGF0Y2ggZm9y
-IHN3aXRjaGluZyBncmFudC1kbWEtb3BzLmMgdG8NCj4gICAgIHVzZSBYRU5fUEFHRV9TSVpF
-IGFuZCBYRU5fUEFHRV9TSElGVC4NCj4gDQo+IA0KPiArMQ0KPiANCj4gSSBjYW4gY3JlYXRl
-IGEgc2VwYXJhdGUgcGF0Y2ggZm9yIGNvbnZlcnRpbmcgb24gdG9wIG9mIHRoaXMgc2VyaWVz
-LCBpdCB3b3VsZCBiZSANCj4gbmljZSB0byBjbGFyaWZ5IG9uZcKgcG9pbnQuDQo+IA0KPiBT
-byBJIHdpbGwgY29udmVydCBQQUdFX1NJWkUvUEFHRV9TSElGVCB0byBYRU5fUEFHRV9TSVpF
-L1hFTl9QQUdFX1NISUZUIA0KPiByZXNwZWN0aXZlbHkgKHdoZXJlIGFwcHJvcHJpYXRlKS4N
-Cg0KWWVzLCB0aGF0IHdvdWxkIGJlIHRoZSBpZGVhLg0KDQo+IFNob3VsZCB0aGUgUEZOX1VQ
-IGJlwqBjb252ZXJ0ZWQgdG8gWEVOX1BGTl9VUCAqb3IqIHVzZSANCj4gZ250dGFiX2NvdW50
-X2dyYW50KCnCoGV4cGxpY2l0bHk/IFBlcnNvbmFsbHkgSSB3b3VsZCBwcmVmZXIgdGhlIGZv
-cm1lciwgYnV0IHdvdWxkIA0KPiBhbHNvIGJlIG9rIHdpdGggdGhlIGxhdHRlci4NCg0KSSBh
-Z3JlZSBYRU5fUEZOX1VQIHdvdWxkIGJlIGJldHRlciwgZXNwZWNpYWxseSBhcyBYRU5fUEFH
-RV9TSVpFL1hFTl9QQUdFX1NISUZUDQp3aWxsIGJlIHVzZWQgaW4gdGhlIHNhbWUgZnVuY3Rp
-b25zLg0KDQoNCkp1ZXJnZW4NCg==
---------------Bp8ijxsi8icv2zMYc0WPinxX
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+[sorry for the possible format issues]
+
+On 06.10.22 12:14, Oleksandr Tyshchenko wrote:
+> >
+> >
+> > On Thu, Oct 6, 2022 at 11:05 AM Juergen Gross <jgross@suse.com
+> > <mailto:jgross@suse.com>> wrote:
+> >
+> >     On 06.10.22 09:35, Xenia Ragiadakou wrote:
+> >
+> >
+> >
+> > Hello Xenia, Juergen
+> >
+> > [sorry for the possible format issues]
+> >
+> >      >
+> >      > On 10/5/22 20:48, Oleksandr Tyshchenko wrote:
+> >      >> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com
+> >     <mailto:oleksandr_tyshchenko@epam.com>>
+> >      >>
+> >      >> Take page offset into the account when calculating the number of
+> pages
+> >      >> to be granted.
+> >      >>
+> >      >> Signed-off-by: Oleksandr Tyshchenko <
+> oleksandr_tyshchenko@epam.com
+> >     <mailto:oleksandr_tyshchenko@epam.com>>
+> >      >> Fixes: d6aca3504c7d ("xen/grant-dma-ops: Add option to restrict
+> memory
+> >     access
+> >      >> under Xen")
+> >      >> ---
+> >      >>   drivers/xen/grant-dma-ops.c | 5 +++--
+> >      >>   1 file changed, 3 insertions(+), 2 deletions(-)
+> >      >>
+> >      >> diff --git a/drivers/xen/grant-dma-ops.c
+> b/drivers/xen/grant-dma-ops.c
+> >      >> index 8973fc1e9ccc..1998d0e8ce82 100644
+> >      >> --- a/drivers/xen/grant-dma-ops.c
+> >      >> +++ b/drivers/xen/grant-dma-ops.c
+> >      >> @@ -153,7 +153,7 @@ static dma_addr_t
+> xen_grant_dma_map_page(struct device
+> >      >> *dev, struct page *page,
+> >      >>                        unsigned long attrs)
+> >      >>   {
+> >      >>       struct xen_grant_dma_data *data;
+> >      >> -    unsigned int i, n_pages = PFN_UP(size);
+> >      >> +    unsigned int i, n_pages = PFN_UP(offset + size);
+> >      >
+> >      > Here, why do we use PFN_UP and not XEN_PFN_UP?
+> >      > Also, since the variable 'n_pages' seems to refer to the number
+> of grants
+> >      > (unless I got it all entirely wrong ...), wouldn't it be more
+> suitable to
+> >     call
+> >      > explicitly gnttab_count_grant()?
+> >
+> >     Good point.
+> >
+> >
+> > +1
+> >
+> >
+> >     I think this will need another patch for switching grant-dma-ops.c to
+> >     use XEN_PAGE_SIZE and XEN_PAGE_SHIFT.
+> >
+> >
+> > +1
+> >
+> > I can create a separate patch for converting on top of this series, it
+> would be
+> > nice to clarify one point.
+> >
+> > So I will convert PAGE_SIZE/PAGE_SHIFT to XEN_PAGE_SIZE/XEN_PAGE_SHIFT
+> > respectively (where appropriate).
+>
+> Yes, that would be the idea.
+>
+> > Should the PFN_UP be converted to XEN_PFN_UP *or* use
+> > gnttab_count_grant() explicitly? Personally I would prefer the former,
+> but would
+> > also be ok with the latter.
+>
+> I agree XEN_PFN_UP would be better, especially as
+> XEN_PAGE_SIZE/XEN_PAGE_SHIFT
+> will be used in the same functions.
+>
+
+
+Thanks for the clarification.
+
+
+
+>
+>
+> Juergen
+>
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
+--0000000000009f0f4f05ea5b30c5
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Oct 6, 2022 at 1:24 PM Juerge=
+n Gross &lt;<a href=3D"mailto:jgross@suse.com">jgross@suse.com</a>&gt; wrot=
+e:<br></div><div dir=3D"ltr" class=3D"gmail_attr"><br></div><div dir=3D"ltr=
+" class=3D"gmail_attr">Hello Juergen<br></div><div dir=3D"ltr" class=3D"gma=
+il_attr"><br></div><div dir=3D"ltr" class=3D"gmail_attr">[sorry for the pos=
+sible format issues]<br></div><div dir=3D"ltr" class=3D"gmail_attr"><br></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
+er-left:1px solid rgb(204,204,204);padding-left:1ex">On 06.10.22 12:14, Ole=
+ksandr Tyshchenko wrote:<br>
+&gt; <br>
+&gt; <br>
+&gt; On Thu, Oct 6, 2022 at 11:05 AM Juergen Gross &lt;<a href=3D"mailto:jg=
+ross@suse.com" target=3D"_blank">jgross@suse.com</a> <br>
+&gt; &lt;mailto:<a href=3D"mailto:jgross@suse.com" target=3D"_blank">jgross=
+@suse.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On 06.10.22 09:35, Xenia Ragiadakou wrote:<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; Hello=C2=A0Xenia,=C2=A0Juergen<br>
+&gt; <br>
+&gt; [sorry for the possible format issues]<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; On 10/5/22 20:48, Oleksandr Tyshchenko wrote:=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; From: Oleksandr Tyshchenko &lt;<a href=3D=
+"mailto:oleksandr_tyshchenko@epam.com" target=3D"_blank">oleksandr_tyshchen=
+ko@epam.com</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:oleksandr_tyshchenko@e=
+pam.com" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; Take page offset into the account when ca=
+lculating the number of pages<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; to be granted.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; Signed-off-by: Oleksandr Tyshchenko &lt;<=
+a href=3D"mailto:oleksandr_tyshchenko@epam.com" target=3D"_blank">oleksandr=
+_tyshchenko@epam.com</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:oleksandr_tyshchenko@e=
+pam.com" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; Fixes: d6aca3504c7d (&quot;xen/grant-dma-=
+ops: Add option to restrict memory<br>
+&gt;=C2=A0 =C2=A0 =C2=A0access<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; under Xen&quot;)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; ---<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; =C2=A0 drivers/xen/grant-dma-ops.c | 5 ++=
++--<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; =C2=A0 1 file changed, 3 insertions(+), 2=
+ deletions(-)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; diff --git a/drivers/xen/grant-dma-ops.c =
+b/drivers/xen/grant-dma-ops.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; index 8973fc1e9ccc..1998d0e8ce82 100644<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; --- a/drivers/xen/grant-dma-ops.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; +++ b/drivers/xen/grant-dma-ops.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; @@ -153,7 +153,7 @@ static dma_addr_t xen=
+_grant_dma_map_page(struct device<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; *dev, struct page *page,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 unsigned long attrs)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; =C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct xen=
+_grant_dma_data *data;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; -=C2=A0=C2=A0=C2=A0 unsigned int i, n_pag=
+es =3D PFN_UP(size);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;&gt; +=C2=A0=C2=A0=C2=A0 unsigned int i, n_pag=
+es =3D PFN_UP(offset + size);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Here, why do we use PFN_UP and not XEN_PFN_UP=
+?<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Also, since the variable &#39;n_pages&#39; se=
+ems to refer to the number of grants<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; (unless I got it all entirely wrong ...), wou=
+ldn&#39;t it be more suitable to<br>
+&gt;=C2=A0 =C2=A0 =C2=A0call<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; explicitly gnttab_count_grant()?<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Good point.<br>
+&gt; <br>
+&gt; <br>
+&gt; +1<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0I think this will need another patch for switching =
+grant-dma-ops.c to<br>
+&gt;=C2=A0 =C2=A0 =C2=A0use XEN_PAGE_SIZE and XEN_PAGE_SHIFT.<br>
+&gt; <br>
+&gt; <br>
+&gt; +1<br>
+&gt; <br>
+&gt; I can create a separate patch for converting on top of this series, it=
+ would be <br>
+&gt; nice to clarify one=C2=A0point.<br>
+&gt; <br>
+&gt; So I will convert PAGE_SIZE/PAGE_SHIFT to XEN_PAGE_SIZE/XEN_PAGE_SHIFT=
+ <br>
+&gt; respectively (where appropriate).<br>
+<br>
+Yes, that would be the idea.<br>
+<br>
+&gt; Should the PFN_UP be=C2=A0converted to XEN_PFN_UP *or* use <br>
+&gt; gnttab_count_grant()=C2=A0explicitly? Personally I would prefer the fo=
+rmer, but would <br>
+&gt; also be ok with the latter.<br>
+<br>
+I agree XEN_PFN_UP would be better, especially as XEN_PAGE_SIZE/XEN_PAGE_SH=
+IFT<br>
+will be used in the same functions.<br></blockquote><div>=C2=A0</div><div><=
+br></div><div>Thanks for the clarification.</div><div><br></div><div>=C2=A0=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+<br>
+Juergen<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div=
+ dir=3D"ltr"><span style=3D"background-color:rgb(255,255,255)"><font size=
+=3D"2"><span style=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Reg=
+ards,</span></font></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"=
+><div><span style=3D"background-color:rgb(255,255,255)"><font size=3D"2">Ol=
+eksandr Tyshchenko</font></span></div></div></div></div></div></div></div><=
+/div>
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------Bp8ijxsi8icv2zMYc0WPinxX--
-
---------------VBQYfDk6VWcgYtEKBXvgrLOD--
-
---------------QJQ0BzZYEd7W3FpBoBrwyC4J
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM+rNQFAwAAAAAACgkQsN6d1ii/Ey9W
-1Af/XIsM2iwWM+ozYhxCwR01i0jqkLtvW3nB3Y01DLub/jopoGswxB4E/OpzF7dMmkI1X4LA8Zs6
-Gtjr4kIndL/nHYLLkKQl5JG2Wf0EBr2T96c9L8e2l3Liv4HhofZn1AuU/5IYTVJq512xkFtLw4C5
-NAnKgmPhvwSiBsTPlH1CgUGXsUA1GaMPDkyjpZOLCnQaIzAecUnyQdNgLprM4KmB7alOisPNil9e
-zybQEcUAo+0mVvlx9GNGYoaadcOVGmGp+9hm+TwHaqOOw4aojG2vu3cHRVzeKiHv0CiHob7hSnHX
-1WfG1Zxh6aPm52LbRPWPJ9VzqnC+1p0n2FiIVDNsTA==
-=ZOVZ
------END PGP SIGNATURE-----
-
---------------QJQ0BzZYEd7W3FpBoBrwyC4J--
+--0000000000009f0f4f05ea5b30c5--
 
