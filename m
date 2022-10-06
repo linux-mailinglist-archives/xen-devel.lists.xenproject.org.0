@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A9835F6A84
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 17:25:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.417099.661738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A0925F6AB3
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 17:35:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.417110.661749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogSjh-0008If-2h; Thu, 06 Oct 2022 15:24:33 +0000
+	id 1ogStZ-0001Sw-4I; Thu, 06 Oct 2022 15:34:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 417099.661738; Thu, 06 Oct 2022 15:24:33 +0000
+Received: by outflank-mailman (output) from mailman id 417110.661749; Thu, 06 Oct 2022 15:34:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogSjg-0008Fd-VK; Thu, 06 Oct 2022 15:24:32 +0000
-Received: by outflank-mailman (input) for mailman id 417099;
- Thu, 06 Oct 2022 15:24:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ogStZ-0001QM-1Q; Thu, 06 Oct 2022 15:34:45 +0000
+Received: by outflank-mailman (input) for mailman id 417110;
+ Thu, 06 Oct 2022 15:34:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ogSjf-0008FR-SY; Thu, 06 Oct 2022 15:24:31 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ogSjf-00082S-OP; Thu, 06 Oct 2022 15:24:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ogSjf-0004VX-Ab; Thu, 06 Oct 2022 15:24:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ogSjf-00053E-A6; Thu, 06 Oct 2022 15:24:31 +0000
+ (envelope-from <SRS0=q1hL=2H=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ogStX-0001QG-Fq
+ for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 15:34:43 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 614f726c-458c-11ed-9377-c1cf23e5d27e;
+ Thu, 06 Oct 2022 17:34:35 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BB72821A16;
+ Thu,  6 Oct 2022 15:34:41 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 724B41376E;
+ Thu,  6 Oct 2022 15:34:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 7nQUGZH1PmNGCwAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 06 Oct 2022 15:34:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,142 +51,270 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=I/+V8L2M3T5pfv1zEBMVQHV65V8rljlovk/XVzHHHoA=; b=bsOZj7LQ1WDE6gbPRs5VIBEzM+
-	/BIHy6kRzsSxcw2xFXTxjOkkkxIU7IKOC6xMO089UJjf5DAH8pK+OxsJKSpRyGIyeGSa7czBVEOf4
-	igrQ92ObFPqOq79NREolX5RN5CUecsrDPeLr8mP5pztRPW/6GqWPJCRgeTQH62WFYHFM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173438-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 614f726c-458c-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1665070481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=jPrMuJyteEIaUOmAxhKdlol+IAYiy0Vmj2454XJWMy8=;
+	b=ufgn8i3nxA5/MEDL7VtUUswRfhdGfm6Au6MkuPeCGpldPf1wdEsKPw4y0C1xnal641rKAl
+	4EnXbxIjU/HKfnwYcMycaVulG0IOgPD5v0Am7GH7SD4E+T57Bt9mwiNLRVM+xeA3C69+pE
+	TFbMS5xFYhnczjE+pagxg/8fpMVioWg=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v2] xen/pcifront: move xenstore config scanning into sub-function
+Date: Thu,  6 Oct 2022 17:34:40 +0200
+Message-Id: <20221006153440.18049-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Subject: [libvirt test] 173438: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=25c473348bc141a82f821a2701e18f9705346a1c
-X-Osstest-Versions-That:
-    libvirt=92f7aafced8d354cead03e50e1e7d57a99d29435
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 06 Oct 2022 15:24:31 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 173438 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173438/
+pcifront_try_connect() and pcifront_attach_devices() share a large
+chunk of duplicated code for reading the config information from
+Xenstore, which only differs regarding calling pcifront_rescan_root()
+or pcifront_scan_root().
 
-Failures :-/ but no regressions.
+Put that code into a new sub-function. It is fine to always call
+pcifront_rescan_root() from that common function, as it will fallback
+to pcifront_scan_root() if the domain/bus combination isn't known
+yet (and pcifront_scan_root() should never be called for an already
+kneon domain/bus combination anyway). In order to avoid duplicate
+messages for the fallback case move the check for domain/bus not knwon
+to the beginning of pcifront_rescan_root().
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 173423
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 173423
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 173423
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+While at it fix the error reporting in case the root-xx node had the
+wrong format.
 
-version targeted for testing:
- libvirt              25c473348bc141a82f821a2701e18f9705346a1c
-baseline version:
- libvirt              92f7aafced8d354cead03e50e1e7d57a99d29435
+As the return value of pcifront_try_connect() and
+pcifront_attach_devices() are not used anywhere make those functions
+return void. As an additional bonus this removes the dubious return
+of -EFAULT in case of an unexpected driver state.
 
-Last test of basis   173423  2022-10-05 04:20:23 Z    1 days
-Testing same since   173438  2022-10-06 04:20:29 Z    0 days    1 attempts
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- always call pcifront_rescan_root() (Jason Andryuk)
+---
+ drivers/pci/xen-pcifront.c | 143 ++++++++++---------------------------
+ 1 file changed, 37 insertions(+), 106 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Göran Uddeborg <goeran@uddeborg.se>
+diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+index 689271c4245c..601efdceae63 100644
+--- a/drivers/pci/xen-pcifront.c
++++ b/drivers/pci/xen-pcifront.c
+@@ -521,24 +521,14 @@ static int pcifront_rescan_root(struct pcifront_device *pdev,
+ 	int err;
+ 	struct pci_bus *b;
+ 
+-#ifndef CONFIG_PCI_DOMAINS
+-	if (domain != 0) {
+-		dev_err(&pdev->xdev->dev,
+-			"PCI Root in non-zero PCI Domain! domain=%d\n", domain);
+-		dev_err(&pdev->xdev->dev,
+-			"Please compile with CONFIG_PCI_DOMAINS\n");
+-		return -EINVAL;
+-	}
+-#endif
+-
+-	dev_info(&pdev->xdev->dev, "Rescanning PCI Frontend Bus %04x:%02x\n",
+-		 domain, bus);
+-
+ 	b = pci_find_bus(domain, bus);
+ 	if (!b)
+ 		/* If the bus is unknown, create it. */
+ 		return pcifront_scan_root(pdev, domain, bus);
+ 
++	dev_info(&pdev->xdev->dev, "Rescanning PCI Frontend Bus %04x:%02x\n",
++		 domain, bus);
++
+ 	err = pcifront_scan_bus(pdev, domain, bus, b);
+ 
+ 	/* Claim resources before going "live" with our devices */
+@@ -819,76 +809,73 @@ static int pcifront_publish_info(struct pcifront_device *pdev)
+ 	return err;
+ }
+ 
+-static int pcifront_try_connect(struct pcifront_device *pdev)
++static void pcifront_connect(struct pcifront_device *pdev)
+ {
+-	int err = -EFAULT;
++	int err;
+ 	int i, num_roots, len;
+ 	char str[64];
+ 	unsigned int domain, bus;
+ 
+-
+-	/* Only connect once */
+-	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
+-	    XenbusStateInitialised)
+-		goto out;
+-
+-	err = pcifront_connect_and_init_dma(pdev);
+-	if (err && err != -EEXIST) {
+-		xenbus_dev_fatal(pdev->xdev, err,
+-				 "Error setting up PCI Frontend");
+-		goto out;
+-	}
+-
+ 	err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend,
+ 			   "root_num", "%d", &num_roots);
+ 	if (err == -ENOENT) {
+ 		xenbus_dev_error(pdev->xdev, err,
+ 				 "No PCI Roots found, trying 0000:00");
+-		err = pcifront_scan_root(pdev, 0, 0);
++		err = pcifront_rescan_root(pdev, 0, 0);
+ 		if (err) {
+ 			xenbus_dev_fatal(pdev->xdev, err,
+ 					 "Error scanning PCI root 0000:00");
+-			goto out;
++			return;
+ 		}
+ 		num_roots = 0;
+ 	} else if (err != 1) {
+-		if (err == 0)
+-			err = -EINVAL;
+-		xenbus_dev_fatal(pdev->xdev, err,
++		xenbus_dev_fatal(pdev->xdev, err >= 0 ? -EINVAL : err,
+ 				 "Error reading number of PCI roots");
+-		goto out;
++		return;
+ 	}
+ 
+ 	for (i = 0; i < num_roots; i++) {
+ 		len = snprintf(str, sizeof(str), "root-%d", i);
+-		if (unlikely(len >= (sizeof(str) - 1))) {
+-			err = -ENOMEM;
+-			goto out;
+-		}
++		if (unlikely(len >= (sizeof(str) - 1)))
++			return;
+ 
+ 		err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend, str,
+ 				   "%x:%x", &domain, &bus);
+ 		if (err != 2) {
+-			if (err >= 0)
+-				err = -EINVAL;
+-			xenbus_dev_fatal(pdev->xdev, err,
++			xenbus_dev_fatal(pdev->xdev, err >= 0 ? -EINVAL : err,
+ 					 "Error reading PCI root %d", i);
+-			goto out;
++			return;
+ 		}
+ 
+-		err = pcifront_scan_root(pdev, domain, bus);
++		err = pcifront_rescan_root(pdev, domain, bus);
+ 		if (err) {
+ 			xenbus_dev_fatal(pdev->xdev, err,
+ 					 "Error scanning PCI root %04x:%02x",
+ 					 domain, bus);
+-			goto out;
++			return;
+ 		}
+ 	}
+ 
+-	err = xenbus_switch_state(pdev->xdev, XenbusStateConnected);
++	xenbus_switch_state(pdev->xdev, XenbusStateConnected);
++}
+ 
+-out:
+-	return err;
++static void pcifront_try_connect(struct pcifront_device *pdev)
++{
++	int err;
++
++	/* Only connect once */
++	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
++	    XenbusStateInitialised)
++		return;
++
++	err = pcifront_connect_and_init_dma(pdev);
++	if (err && err != -EEXIST) {
++		xenbus_dev_fatal(pdev->xdev, err,
++				 "Error setting up PCI Frontend");
++		return;
++	}
++
++	pcifront_connect(pdev);
+ }
+ 
+ static int pcifront_try_disconnect(struct pcifront_device *pdev)
+@@ -914,67 +901,11 @@ static int pcifront_try_disconnect(struct pcifront_device *pdev)
+ 	return err;
+ }
+ 
+-static int pcifront_attach_devices(struct pcifront_device *pdev)
++static void pcifront_attach_devices(struct pcifront_device *pdev)
+ {
+-	int err = -EFAULT;
+-	int i, num_roots, len;
+-	unsigned int domain, bus;
+-	char str[64];
+-
+-	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
++	if (xenbus_read_driver_state(pdev->xdev->nodename) ==
+ 	    XenbusStateReconfiguring)
+-		goto out;
+-
+-	err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend,
+-			   "root_num", "%d", &num_roots);
+-	if (err == -ENOENT) {
+-		xenbus_dev_error(pdev->xdev, err,
+-				 "No PCI Roots found, trying 0000:00");
+-		err = pcifront_rescan_root(pdev, 0, 0);
+-		if (err) {
+-			xenbus_dev_fatal(pdev->xdev, err,
+-					 "Error scanning PCI root 0000:00");
+-			goto out;
+-		}
+-		num_roots = 0;
+-	} else if (err != 1) {
+-		if (err == 0)
+-			err = -EINVAL;
+-		xenbus_dev_fatal(pdev->xdev, err,
+-				 "Error reading number of PCI roots");
+-		goto out;
+-	}
+-
+-	for (i = 0; i < num_roots; i++) {
+-		len = snprintf(str, sizeof(str), "root-%d", i);
+-		if (unlikely(len >= (sizeof(str) - 1))) {
+-			err = -ENOMEM;
+-			goto out;
+-		}
+-
+-		err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend, str,
+-				   "%x:%x", &domain, &bus);
+-		if (err != 2) {
+-			if (err >= 0)
+-				err = -EINVAL;
+-			xenbus_dev_fatal(pdev->xdev, err,
+-					 "Error reading PCI root %d", i);
+-			goto out;
+-		}
+-
+-		err = pcifront_rescan_root(pdev, domain, bus);
+-		if (err) {
+-			xenbus_dev_fatal(pdev->xdev, err,
+-					 "Error scanning PCI root %04x:%02x",
+-					 domain, bus);
+-			goto out;
+-		}
+-	}
+-
+-	xenbus_switch_state(pdev->xdev, XenbusStateConnected);
+-
+-out:
+-	return err;
++		pcifront_connect(pdev);
+ }
+ 
+ static int pcifront_detach_devices(struct pcifront_device *pdev)
+-- 
+2.35.3
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   92f7aafced..25c473348b  25c473348bc141a82f821a2701e18f9705346a1c -> xen-tested-master
 
