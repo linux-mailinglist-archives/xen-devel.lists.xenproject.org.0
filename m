@@ -2,44 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0925F6AB3
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 17:35:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.417110.661749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9548A5F6B2F
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 18:05:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.417153.661778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogStZ-0001Sw-4I; Thu, 06 Oct 2022 15:34:45 +0000
+	id 1ogTMs-0006Uc-Ro; Thu, 06 Oct 2022 16:05:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 417110.661749; Thu, 06 Oct 2022 15:34:45 +0000
+Received: by outflank-mailman (output) from mailman id 417153.661778; Thu, 06 Oct 2022 16:05:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogStZ-0001QM-1Q; Thu, 06 Oct 2022 15:34:45 +0000
-Received: by outflank-mailman (input) for mailman id 417110;
- Thu, 06 Oct 2022 15:34:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q1hL=2H=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ogStX-0001QG-Fq
- for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 15:34:43 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 614f726c-458c-11ed-9377-c1cf23e5d27e;
- Thu, 06 Oct 2022 17:34:35 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BB72821A16;
- Thu,  6 Oct 2022 15:34:41 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 724B41376E;
- Thu,  6 Oct 2022 15:34:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 7nQUGZH1PmNGCwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 06 Oct 2022 15:34:41 +0000
+	id 1ogTMs-0006Ri-O8; Thu, 06 Oct 2022 16:05:02 +0000
+Received: by outflank-mailman (input) for mailman id 417153;
+ Thu, 06 Oct 2022 16:05:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=M1JS=2H=epam.com=prvs=22784c7a74=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
+ id 1ogTMr-0006Rc-30
+ for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 16:05:01 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9f75c67d-4590-11ed-964a-05401a9f4f97;
+ Thu, 06 Oct 2022 18:04:59 +0200 (CEST)
+Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 296EHMrR028393;
+ Thu, 6 Oct 2022 16:04:25 GMT
+Received: from eur05-vi1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2176.outbound.protection.outlook.com [104.47.17.176])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3k20nb0mjr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 06 Oct 2022 16:04:25 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
+ by GV2PR03MB8875.eurprd03.prod.outlook.com (2603:10a6:150:bb::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.32; Thu, 6 Oct
+ 2022 16:04:21 +0000
+Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::93be:22b1:654c:e4bc]) by DB8PR03MB6108.eurprd03.prod.outlook.com
+ ([fe80::93be:22b1:654c:e4bc%5]) with mapi id 15.20.5676.032; Thu, 6 Oct 2022
+ 16:04:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,270 +53,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 614f726c-458c-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1665070481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=jPrMuJyteEIaUOmAxhKdlol+IAYiy0Vmj2454XJWMy8=;
-	b=ufgn8i3nxA5/MEDL7VtUUswRfhdGfm6Au6MkuPeCGpldPf1wdEsKPw4y0C1xnal641rKAl
-	4EnXbxIjU/HKfnwYcMycaVulG0IOgPD5v0Am7GH7SD4E+T57Bt9mwiNLRVM+xeA3C69+pE
-	TFbMS5xFYhnczjE+pagxg/8fpMVioWg=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v2] xen/pcifront: move xenstore config scanning into sub-function
-Date: Thu,  6 Oct 2022 17:34:40 +0200
-Message-Id: <20221006153440.18049-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: 9f75c67d-4590-11ed-964a-05401a9f4f97
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Kq0yF/fq1wMmjxLljiGoirzo56NE5eAGvNXbPaex/1uCAEh1YeSjTE5S1kVAAMcYYmC8QZz4o+BCs3Ahf8wJmu0Si/WMn+MV1hePWmxS8iq+ER8VTm3O4EaP7UepOu+OTQ/qzS1TIWv0EJkEuXsiM7y29Vne3L2ERHFDfbetRxGi7EpVvfaaOStvd931Zaim0c7fHxWYbXyWztU6SR3WyShYeH3aMEiv+L5LQ8yBgr4bvDju6mFWrqFCUiaavJjaMsJjeXUYBe1OlB0P6HMNoO9SEiAbAa2hWBCfGbsS6leL8HglKKMfXLq8mgqmvJeW/6+wv4LzogFFlxBJwjsEpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YN9GdqSpyIcWpTpv0Hlo0Kb5r9g35AmeSIZc8LEYq7M=;
+ b=a6kERcP2OESxntJ7MaT9LTGza4v7zbDZ90jIDYC5t9G+ZcowkEJYEChG6jsDUQ/s0T3QewGOpfnXqNCd95ylpCgYEGtnUwZW5X1n5+M4s08KEvOfls7LGHAJQd/2V2weesA2hsg65O2OP0WzoEF2DscD5sS9JGegTRuoIiUTc4PmuZFXUwx2weRiu2jJKQ7uHmYT26P33Z8pFuugz8itZj46Wa72qKZ3XVRyuNCzdszsWXnzTzgC7Z7bjBxzhwvbSDff7j0z0UYB+mUFb2ucE74A2c0ao5vxFvV32vL33/sVNOqwqBq0iYAS20+b+4aJCphbxReFIUv1EUHSo00TBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YN9GdqSpyIcWpTpv0Hlo0Kb5r9g35AmeSIZc8LEYq7M=;
+ b=AYDHT7WzhhPUjEa+E3U6hIYRfFwt7G8AKbmRmtPCT18hZ4eFpWnRJL6aplobwbLolnPtAX/Jqaa9KoDB7HmJo1dNj+yGgmr1IBDl5oZDGKffkh81+ZLDq5JvrdPzucj2/AglEc+B1KUqh18+Qc8ucIzJEBuTpXsAHCfQlKyw64dUEDQOp7HZ1boP5EJaI88ELNwm1dZ4fvok9yKo+nKfTyP48fyeghNj6GM4Yz4/1F+H9jVfKwtxwogkt67oJAyKechQ8/cdD/ZeZ9XBo8eOm9iDg1v3PYeEfKdaDHFvC8ZF2OfXOB548DClymo6c001viCnJchOvvkvhYiMAATuNA==
+From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+To: Juergen Gross <jgross@suse.com>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "x86@kernel.org" <x86@kernel.org>
+CC: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Thomas Gleixner
+	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov
+	<bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin"
+	<hpa@zytor.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 3/3] xen/virtio: enable grant based virtio on x86
+Thread-Topic: [PATCH 3/3] xen/virtio: enable grant based virtio on x86
+Thread-Index: AQHY2VNniYYD6wnM6kOJwr1p2x51Wq4Bh+oA
+Date: Thu, 6 Oct 2022 16:04:21 +0000
+Message-ID: <2e721170-6035-90e3-f929-79b0a07e1891@epam.com>
+References: <20221006071500.15689-1-jgross@suse.com>
+ <20221006071500.15689-4-jgross@suse.com>
+In-Reply-To: <20221006071500.15689-4-jgross@suse.com>
+Accept-Language: en-US, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|GV2PR03MB8875:EE_
+x-ms-office365-filtering-correlation-id: e20e52a5-0149-4e4a-75b2-08daa7b46e6e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 0uSrm5bsZrHeGAYl2l44T773hZaVrRnYeAvl+XLu3ZweTE2ble00iLtwnJurL5E1A8LfaxDwLhLN4x+nbrfjzxlT4pJuyg0KhtrNIoHcfFrWU/tqVjbtdBdW06j7rnhEuduYeYf4HIqDmeFSgD2Kyq5xYPJC/5VN/y5QIF2bFvWdWxkOHKt0y/w49BUthxq0Fr9OcRpIuHiO1FUz0jSmZdSGJDN1NLjc3Ml0aVv9aJWZBngYmtpW9ey5XIPECw3yKiVD2shFLRNrEbD05oAMssPdrwx+4kWmAex1/w68tthcuKb2rVEvtpBa1RJz7ENyLU7ehIoargvUu25u0/Mwa/tAomiqQk/qIczdu+EYWY5MbzZTMiJAxktNYnF1M2ZbNbT2gGkgJx+J4lD9CSOeX8FkvYNDHvZDiPn5Sl6h1bhaz2kj0cx7i5ABv460M0oKA6bECgdw0dcXBI0SxaxNWxdU4QztdpleZTFB/Sz9Ms/sMqpKLZCZ36x5Zj7/HmVmPagJIa3XOU3d1rapIPZUIA3Z+h9Urd2vgTySPgKSyKvwBBAvc2l4DhaTYM9iQsn1ays1iF2rl0lV2W8oVfO1mKlTuRsjZ0p7chb9zDQsQyCIkD4MvgUyOYgz9INjVhjHGLoBVftyOQ53yq882hGfIH9SLtnXy33jRStli59zyOWfR0lh7Arp1GsTqWJO9hRv4O+/7vNcvLI/OsdWq+rVxRJMYrnVE2LvUgZMH1NpKUpZUY5FG7L4BBWtUFhLQaSBXc5dAUSBpJnXIRtLGjG+RecrRlx9CLm6mBHqI2k7FkM=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(396003)(39860400002)(136003)(366004)(346002)(451199015)(7416002)(5660300002)(8936002)(83380400001)(2906002)(38100700002)(8676002)(2616005)(55236004)(53546011)(41300700001)(478600001)(36756003)(186003)(66946007)(76116006)(4326008)(66556008)(91956017)(110136005)(66446008)(6486002)(64756008)(122000001)(316002)(54906003)(31686004)(6512007)(66476007)(38070700005)(71200400001)(6506007)(26005)(31696002)(86362001)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?bWw5c0VDdy84R05ya3R5YkRHVlZWQkVNK1pWSWlsY0VZQXhmU2tnalFMc2Y0?=
+ =?utf-8?B?dE9yemlnYjVsL0t3WkVqaStaaHlOT0xTR1JwaFBCaTNvQkQ4bjdTQTVrYjd3?=
+ =?utf-8?B?dngzUTNteWdLekFiS0Q0Qno1dk5FOUdFeE9reUFwcjB5N3hCR3lBcEpDQS9D?=
+ =?utf-8?B?SFJncmtta1VnVjN0SUpSOHZlb0lxa0ZYQS95WWp2Q1dwcTVVWW1iWU10TjNT?=
+ =?utf-8?B?UXBhRTFuemsvT1JzQk14bHV4em5vb0NPT1AwTy9TdmRrUkZ6VkZHRWZhK3RN?=
+ =?utf-8?B?M1dSa2NIdUxKRVpmb0UxSU1FTWlPbmwvY1VYRmRRb2xmN1JOVFpFbXN3WHpv?=
+ =?utf-8?B?U0svdi9sbTlkdGF0Rm92WWJkT0pXMjgwbm5WdzkybWVkdmJ1bHk2a2R0ZFZN?=
+ =?utf-8?B?dXVMZUJXMC9uZ2sycStxTStnWHhyQ0FNOVlDamoxSUdraFZCdnZ2NmtFK0Fz?=
+ =?utf-8?B?UkEzOFhNeWFxTzRacWJjd0YwTDZCVlRZd25XdHBrVWtCN1NtMENlWVVmNlJ2?=
+ =?utf-8?B?UWU1aXN0cGV1MWFHSUdKVzJ4S3gxWVpFbXhpKzc3NFRKWDlyMGtSV0x0dGlv?=
+ =?utf-8?B?N1Eyd3QzUTBsK2pOT2czanZEbEpZWENrMURKREFKZjd5c200aTNBUVowN3A3?=
+ =?utf-8?B?elZraDlLNWdlOUpvek9tYVpCbmRjSHdPVW9vWndPay9BRXpDckVIdDE1aHNv?=
+ =?utf-8?B?aW1FNEpRVkY5a0VsM1VuNHAvV0lEMDc2MnZiT3NZY1k2dTlJK3JGQXBObzM1?=
+ =?utf-8?B?c1I4WEdYcjBjQkZXRUwvMTdUL2syRU9udmtWSlNNVmFoVjZ3N0xVU0xOc3ZO?=
+ =?utf-8?B?QzJjVXU0VmZ5NlNaTWo4MGxTRCtrWThBb2xZbnR3eko5NEZ5R0lEYVF1TzI4?=
+ =?utf-8?B?aHpORlpZU1lDREFYNElPN1BTMUI1bThwWk55VnRidzR1UjdGWFkyd0JZT0dK?=
+ =?utf-8?B?YWErLzlwVUdNcHlwMC8xMExJWXJCa0NrVkVxYW1UN2pxYnFVeVUvdEU1Z3BQ?=
+ =?utf-8?B?RlYrS0I4djNVcGU2UVA2RTUzUVY0UHFkZWtjVEIyRnFrUVd6VnZBZGE1dVdG?=
+ =?utf-8?B?YnAyeTZoRG5ueVlNcVhnRGFES3k1Qk5McXFlY24wVG1ybkVmVkhhRWFJWUxL?=
+ =?utf-8?B?Z25pb1dJejU4bnAwSjhQNCtlQWdYU2VEUFN6YUcrM3JBQTJ3VmJLUUdxY0h5?=
+ =?utf-8?B?UmdHWUtzem0rNVNLZ2FSTzNBdzJIaTZFb3lOTWk1dkpEenBoVkxtODdCenBt?=
+ =?utf-8?B?VjNtWTRlWHZoRlJYZHQ4cmx3OGh3SEhmaUVwMHNLSTdmM25BNk50blk3MFNK?=
+ =?utf-8?B?aFZ5ZGlmTEcxYW15VUtaK3JwbmcwdUhpbUc1QVk5ejhuczRkWnM4M2tJZ2Ry?=
+ =?utf-8?B?a0Y2ZUhmM0JZR2R4cndHaDdRUUNRbTVIL2ZMNmlIT2lOejM2T0cvZk1qeVBV?=
+ =?utf-8?B?Sk5UMktlQUlid01WWjVBd2IycWtRMVBOZ2RCVU1Jb254SldGVmF0ZjUzN3pH?=
+ =?utf-8?B?UXJTK0RrUHkvRmRNL3FGV3gxLzduZlVvSFE2REZaMzBzM3ZLTExNM0dVRGdM?=
+ =?utf-8?B?dEpHa3BxRlEveG84a0tJNk1tUjNodzh3aFg5VUxSVDI5dkQrL0dQTE5kUXdU?=
+ =?utf-8?B?VVE1cUlCRU1hdGdxU0FsL0YrL0cxelQyb1RGeTdTK3Nrak5ZL3JidU1VS090?=
+ =?utf-8?B?OWJFWEJocGxrdXQyK0VtcTNrWnorRmd4QWR5SjJFdWhySWNKTmhiUk5tcVpr?=
+ =?utf-8?B?OWdGTmxtR3laRS9jcEJZL3NZZVlkR3FtajdWTVAzVzViYWxYdXdpcWpva3d3?=
+ =?utf-8?B?SnFZaWFQZENPSEx5V2czMmtCajZ5NXNud3l4eTAxclFCc2pQUmNVZWZ3dmhQ?=
+ =?utf-8?B?VjFlOW1zMDdnTUVYSTdUcjNrck5xTXIyd3RoSCtPejNiM3JuT1h0NWhOT0Q1?=
+ =?utf-8?B?T2UyazUxOGJJREdud0V6dlNkSVAwWUJtTGdheWZZOE1PSTNSQTgzUTQvWThw?=
+ =?utf-8?B?Tk9VRmI0cEJQRWV0Y3VHd2JRTjFkZlRyS2RYM08yUnUwZ0FCTmVXQVB1bG84?=
+ =?utf-8?B?VStOMWM3dDlRZXJUVDAyY0hzQmxFNXd1RGFraWQ1cUxwcEpTMHdEWkdrbHhs?=
+ =?utf-8?B?ckNaUDlzY0JwRWZmQjZnR0FnZ3VCTmUvQytpZmlLZ21wWS9pbzdlR1E1dXhV?=
+ =?utf-8?Q?/+KOMW8jPsvXCNVRuF234PE=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <898A89F318143644A91134F73E8283F8@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e20e52a5-0149-4e4a-75b2-08daa7b46e6e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Oct 2022 16:04:21.4718
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fpFMz549rx2bhlM8HmKVjpC+wvBTnZ2QOiygCXXxZjISUKVY0FVRtgnQ6EgTiKAQFpzOrEnlhGvRXZwLq/RfycQPGerLrC3hvl+VfKAAYYQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR03MB8875
+X-Proofpoint-ORIG-GUID: Z7CIxC1cqpqdPoj5pgTJG55FMgidRLMv
+X-Proofpoint-GUID: Z7CIxC1cqpqdPoj5pgTJG55FMgidRLMv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-10-06_04,2022-10-06_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 malwarescore=0
+ clxscore=1011 suspectscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
+ adultscore=0 priorityscore=1501 impostorscore=0 spamscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2209130000 definitions=main-2210060093
 
-pcifront_try_connect() and pcifront_attach_devices() share a large
-chunk of duplicated code for reading the config information from
-Xenstore, which only differs regarding calling pcifront_rescan_root()
-or pcifront_scan_root().
-
-Put that code into a new sub-function. It is fine to always call
-pcifront_rescan_root() from that common function, as it will fallback
-to pcifront_scan_root() if the domain/bus combination isn't known
-yet (and pcifront_scan_root() should never be called for an already
-kneon domain/bus combination anyway). In order to avoid duplicate
-messages for the fallback case move the check for domain/bus not knwon
-to the beginning of pcifront_rescan_root().
-
-While at it fix the error reporting in case the root-xx node had the
-wrong format.
-
-As the return value of pcifront_try_connect() and
-pcifront_attach_devices() are not used anywhere make those functions
-return void. As an additional bonus this removes the dubious return
-of -EFAULT in case of an unexpected driver state.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- always call pcifront_rescan_root() (Jason Andryuk)
----
- drivers/pci/xen-pcifront.c | 143 ++++++++++---------------------------
- 1 file changed, 37 insertions(+), 106 deletions(-)
-
-diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
-index 689271c4245c..601efdceae63 100644
---- a/drivers/pci/xen-pcifront.c
-+++ b/drivers/pci/xen-pcifront.c
-@@ -521,24 +521,14 @@ static int pcifront_rescan_root(struct pcifront_device *pdev,
- 	int err;
- 	struct pci_bus *b;
- 
--#ifndef CONFIG_PCI_DOMAINS
--	if (domain != 0) {
--		dev_err(&pdev->xdev->dev,
--			"PCI Root in non-zero PCI Domain! domain=%d\n", domain);
--		dev_err(&pdev->xdev->dev,
--			"Please compile with CONFIG_PCI_DOMAINS\n");
--		return -EINVAL;
--	}
--#endif
--
--	dev_info(&pdev->xdev->dev, "Rescanning PCI Frontend Bus %04x:%02x\n",
--		 domain, bus);
--
- 	b = pci_find_bus(domain, bus);
- 	if (!b)
- 		/* If the bus is unknown, create it. */
- 		return pcifront_scan_root(pdev, domain, bus);
- 
-+	dev_info(&pdev->xdev->dev, "Rescanning PCI Frontend Bus %04x:%02x\n",
-+		 domain, bus);
-+
- 	err = pcifront_scan_bus(pdev, domain, bus, b);
- 
- 	/* Claim resources before going "live" with our devices */
-@@ -819,76 +809,73 @@ static int pcifront_publish_info(struct pcifront_device *pdev)
- 	return err;
- }
- 
--static int pcifront_try_connect(struct pcifront_device *pdev)
-+static void pcifront_connect(struct pcifront_device *pdev)
- {
--	int err = -EFAULT;
-+	int err;
- 	int i, num_roots, len;
- 	char str[64];
- 	unsigned int domain, bus;
- 
--
--	/* Only connect once */
--	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
--	    XenbusStateInitialised)
--		goto out;
--
--	err = pcifront_connect_and_init_dma(pdev);
--	if (err && err != -EEXIST) {
--		xenbus_dev_fatal(pdev->xdev, err,
--				 "Error setting up PCI Frontend");
--		goto out;
--	}
--
- 	err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend,
- 			   "root_num", "%d", &num_roots);
- 	if (err == -ENOENT) {
- 		xenbus_dev_error(pdev->xdev, err,
- 				 "No PCI Roots found, trying 0000:00");
--		err = pcifront_scan_root(pdev, 0, 0);
-+		err = pcifront_rescan_root(pdev, 0, 0);
- 		if (err) {
- 			xenbus_dev_fatal(pdev->xdev, err,
- 					 "Error scanning PCI root 0000:00");
--			goto out;
-+			return;
- 		}
- 		num_roots = 0;
- 	} else if (err != 1) {
--		if (err == 0)
--			err = -EINVAL;
--		xenbus_dev_fatal(pdev->xdev, err,
-+		xenbus_dev_fatal(pdev->xdev, err >= 0 ? -EINVAL : err,
- 				 "Error reading number of PCI roots");
--		goto out;
-+		return;
- 	}
- 
- 	for (i = 0; i < num_roots; i++) {
- 		len = snprintf(str, sizeof(str), "root-%d", i);
--		if (unlikely(len >= (sizeof(str) - 1))) {
--			err = -ENOMEM;
--			goto out;
--		}
-+		if (unlikely(len >= (sizeof(str) - 1)))
-+			return;
- 
- 		err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend, str,
- 				   "%x:%x", &domain, &bus);
- 		if (err != 2) {
--			if (err >= 0)
--				err = -EINVAL;
--			xenbus_dev_fatal(pdev->xdev, err,
-+			xenbus_dev_fatal(pdev->xdev, err >= 0 ? -EINVAL : err,
- 					 "Error reading PCI root %d", i);
--			goto out;
-+			return;
- 		}
- 
--		err = pcifront_scan_root(pdev, domain, bus);
-+		err = pcifront_rescan_root(pdev, domain, bus);
- 		if (err) {
- 			xenbus_dev_fatal(pdev->xdev, err,
- 					 "Error scanning PCI root %04x:%02x",
- 					 domain, bus);
--			goto out;
-+			return;
- 		}
- 	}
- 
--	err = xenbus_switch_state(pdev->xdev, XenbusStateConnected);
-+	xenbus_switch_state(pdev->xdev, XenbusStateConnected);
-+}
- 
--out:
--	return err;
-+static void pcifront_try_connect(struct pcifront_device *pdev)
-+{
-+	int err;
-+
-+	/* Only connect once */
-+	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
-+	    XenbusStateInitialised)
-+		return;
-+
-+	err = pcifront_connect_and_init_dma(pdev);
-+	if (err && err != -EEXIST) {
-+		xenbus_dev_fatal(pdev->xdev, err,
-+				 "Error setting up PCI Frontend");
-+		return;
-+	}
-+
-+	pcifront_connect(pdev);
- }
- 
- static int pcifront_try_disconnect(struct pcifront_device *pdev)
-@@ -914,67 +901,11 @@ static int pcifront_try_disconnect(struct pcifront_device *pdev)
- 	return err;
- }
- 
--static int pcifront_attach_devices(struct pcifront_device *pdev)
-+static void pcifront_attach_devices(struct pcifront_device *pdev)
- {
--	int err = -EFAULT;
--	int i, num_roots, len;
--	unsigned int domain, bus;
--	char str[64];
--
--	if (xenbus_read_driver_state(pdev->xdev->nodename) !=
-+	if (xenbus_read_driver_state(pdev->xdev->nodename) ==
- 	    XenbusStateReconfiguring)
--		goto out;
--
--	err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend,
--			   "root_num", "%d", &num_roots);
--	if (err == -ENOENT) {
--		xenbus_dev_error(pdev->xdev, err,
--				 "No PCI Roots found, trying 0000:00");
--		err = pcifront_rescan_root(pdev, 0, 0);
--		if (err) {
--			xenbus_dev_fatal(pdev->xdev, err,
--					 "Error scanning PCI root 0000:00");
--			goto out;
--		}
--		num_roots = 0;
--	} else if (err != 1) {
--		if (err == 0)
--			err = -EINVAL;
--		xenbus_dev_fatal(pdev->xdev, err,
--				 "Error reading number of PCI roots");
--		goto out;
--	}
--
--	for (i = 0; i < num_roots; i++) {
--		len = snprintf(str, sizeof(str), "root-%d", i);
--		if (unlikely(len >= (sizeof(str) - 1))) {
--			err = -ENOMEM;
--			goto out;
--		}
--
--		err = xenbus_scanf(XBT_NIL, pdev->xdev->otherend, str,
--				   "%x:%x", &domain, &bus);
--		if (err != 2) {
--			if (err >= 0)
--				err = -EINVAL;
--			xenbus_dev_fatal(pdev->xdev, err,
--					 "Error reading PCI root %d", i);
--			goto out;
--		}
--
--		err = pcifront_rescan_root(pdev, domain, bus);
--		if (err) {
--			xenbus_dev_fatal(pdev->xdev, err,
--					 "Error scanning PCI root %04x:%02x",
--					 domain, bus);
--			goto out;
--		}
--	}
--
--	xenbus_switch_state(pdev->xdev, XenbusStateConnected);
--
--out:
--	return err;
-+		pcifront_connect(pdev);
- }
- 
- static int pcifront_detach_devices(struct pcifront_device *pdev)
--- 
-2.35.3
-
+DQpPbiAwNi4xMC4yMiAxMDoxNSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCg0KDQpIZWxsbyBKdWVy
+Z2VuDQoNCj4gVXNlIGFuIHg4Ni1zcGVjaWZpYyB2aXJ0aW9fY2hlY2tfbWVtX2FjY19jYigpIGZv
+ciBYZW4gaW4gb3JkZXIgdG8gc2V0dXANCj4gdGhlIGNvcnJlY3QgRE1BIG9wcy4NCj4NCj4gU2ln
+bmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KPiAtLS0NCj4gICBh
+cmNoL3g4Ni94ZW4vZW5saWdodGVuX2h2bS5jIHwgIDIgKy0NCj4gICBhcmNoL3g4Ni94ZW4vZW5s
+aWdodGVuX3B2LmMgIHwgIDIgKy0NCj4gICBkcml2ZXJzL3hlbi9ncmFudC1kbWEtb3BzLmMgIHwg
+MTAgKysrKysrKysrKw0KPiAgIGluY2x1ZGUveGVuL3hlbi1vcHMuaCAgICAgICAgfCAgMSArDQo+
+ICAgNCBmaWxlcyBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPg0K
+PiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYveGVuL2VubGlnaHRlbl9odm0uYyBiL2FyY2gveDg2L3hl
+bi9lbmxpZ2h0ZW5faHZtLmMNCj4gaW5kZXggMWMxYWM0MTg0ODRiLi5jMWNkMjhlOTE1YTMgMTAw
+NjQ0DQo+IC0tLSBhL2FyY2gveDg2L3hlbi9lbmxpZ2h0ZW5faHZtLmMNCj4gKysrIGIvYXJjaC94
+ODYveGVuL2VubGlnaHRlbl9odm0uYw0KPiBAQCAtMjEyLDcgKzIxMiw3IEBAIHN0YXRpYyB2b2lk
+IF9faW5pdCB4ZW5faHZtX2d1ZXN0X2luaXQodm9pZCkNCj4gICAJCXJldHVybjsNCj4gICANCj4g
+ICAJaWYgKElTX0VOQUJMRUQoQ09ORklHX1hFTl9WSVJUSU9fRk9SQ0VfR1JBTlQpKQ0KPiAtCQl2
+aXJ0aW9fc2V0X21lbV9hY2NfY2IodmlydGlvX3JlcXVpcmVfcmVzdHJpY3RlZF9tZW1fYWNjKTsN
+Cj4gKwkJdmlydGlvX3NldF9tZW1fYWNjX2NiKHhlbl92aXJ0aW9fcmVzdHJpY3RlZF9tZW1fYWNj
+KTsNCj4gICANCj4gICAJaW5pdF9odm1fcHZfaW5mbygpOw0KPiAgIA0KPiBkaWZmIC0tZ2l0IGEv
+YXJjaC94ODYveGVuL2VubGlnaHRlbl9wdi5jIGIvYXJjaC94ODYveGVuL2VubGlnaHRlbl9wdi5j
+DQo+IGluZGV4IDliMWE1OGRkYTkzNS4uNDViMjRjMWI2NDZhIDEwMDY0NA0KPiAtLS0gYS9hcmNo
+L3g4Ni94ZW4vZW5saWdodGVuX3B2LmMNCj4gKysrIGIvYXJjaC94ODYveGVuL2VubGlnaHRlbl9w
+di5jDQo+IEBAIC0xMTIsNyArMTEyLDcgQEAgc3RhdGljIHZvaWQgX19pbml0IHhlbl9wdl9pbml0
+X3BsYXRmb3JtKHZvaWQpDQo+ICAgew0KPiAgIAkvKiBQViBndWVzdHMgY2FuJ3Qgb3BlcmF0ZSB2
+aXJ0aW8gZGV2aWNlcyB3aXRob3V0IGdyYW50cy4gKi8NCj4gICAJaWYgKElTX0VOQUJMRUQoQ09O
+RklHX1hFTl9WSVJUSU8pKQ0KPiAtCQl2aXJ0aW9fc2V0X21lbV9hY2NfY2IodmlydGlvX3JlcXVp
+cmVfcmVzdHJpY3RlZF9tZW1fYWNjKTsNCj4gKwkJdmlydGlvX3NldF9tZW1fYWNjX2NiKHhlbl92
+aXJ0aW9fcmVzdHJpY3RlZF9tZW1fYWNjKTsNCj4gICANCj4gICAJcG9wdWxhdGVfZXh0cmFfcHRl
+KGZpeF90b192aXJ0KEZJWF9QQVJBVklSVF9CT09UTUFQKSk7DQo+ICAgDQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL3hlbi9ncmFudC1kbWEtb3BzLmMgYi9kcml2ZXJzL3hlbi9ncmFudC1kbWEtb3Bz
+LmMNCj4gaW5kZXggYTAwMTEyMjM1ODc3Li42MGE3YWNjMzM0ZWQgMTAwNjQ0DQo+IC0tLSBhL2Ry
+aXZlcnMveGVuL2dyYW50LWRtYS1vcHMuYw0KPiArKysgYi9kcml2ZXJzL3hlbi9ncmFudC1kbWEt
+b3BzLmMNCj4gQEAgLTM3Miw2ICszNzIsMTYgQEAgdm9pZCB4ZW5fZ3JhbnRfc2V0dXBfZG1hX29w
+cyhzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+ICAgCWRldl9lcnIoZGV2LCAiQ2Fubm90IHNldCB1cCBY
+ZW4gZ3JhbnQgRE1BIG9wcywgcmV0YWluIHBsYXRmb3JtIERNQSBvcHNcbiIpOw0KPiAgIH0NCj4g
+ICANCj4gK2Jvb2wgeGVuX3ZpcnRpb19yZXN0cmljdGVkX21lbV9hY2Moc3RydWN0IHZpcnRpb19k
+ZXZpY2UgKmRldikNCj4gK3sNCj4gKwlib29sIHJldCA9IHhlbl92aXJ0aW9fbWVtX2FjYyhkZXYp
+Ow0KDQoNClRoZSBncmFudCB1c2FnZSBpcyBtYW5kYXRvcnkgZm9yIFBWIGd1ZXN0cywgcmlnaHQ/
+DQoNClRoZW4geGVuX3ZpcnRpb19tZW1fYWNjKCkgc2hvdWxkIGFsd2F5cyByZXR1cm4gdHJ1ZSBm
+b3IgUFYgZ3Vlc3RzIChJIA0KbWVhbiBldmVuIGlmIENPTkZJR19YRU5fVklSVElPX0ZPUkNFX0dS
+QU5UIGlzIG5vdCBzZXQpLg0KDQoNCg0KPiArDQo+ICsJaWYgKHJldCkNCj4gKwkJeGVuX2dyYW50
+X3NldHVwX2RtYV9vcHMoZGV2LT5kZXYucGFyZW50KTsNCj4gKw0KPiArCXJldHVybiByZXQ7DQo+
+ICt9DQo+ICsNCj4gICBNT0RVTEVfREVTQ1JJUFRJT04oIlhlbiBncmFudCBETUEtbWFwcGluZyBs
+YXllciIpOw0KPiAgIE1PRFVMRV9BVVRIT1IoIkp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNv
+bT4iKTsNCj4gICBNT0RVTEVfTElDRU5TRSgiR1BMIik7DQo+IGRpZmYgLS1naXQgYS9pbmNsdWRl
+L3hlbi94ZW4tb3BzLmggYi9pbmNsdWRlL3hlbi94ZW4tb3BzLmgNCj4gaW5kZXggZGFlMGYzNTBj
+Njc4Li4zZGQ1YWE5MzZmMWQgMTAwNjQ0DQo+IC0tLSBhL2luY2x1ZGUveGVuL3hlbi1vcHMuaA0K
+PiArKysgYi9pbmNsdWRlL3hlbi94ZW4tb3BzLmgNCj4gQEAgLTIxOSw2ICsyMTksNyBAQCBzdGF0
+aWMgaW5saW5lIHZvaWQgeGVuX3ByZWVtcHRpYmxlX2hjYWxsX2VuZCh2b2lkKSB7IH0NCj4gICB2
+b2lkIHhlbl9ncmFudF9zZXR1cF9kbWFfb3BzKHN0cnVjdCBkZXZpY2UgKmRldik7DQo+ICAgYm9v
+bCB4ZW5faXNfZ3JhbnRfZG1hX2RldmljZShzdHJ1Y3QgZGV2aWNlICpkZXYpOw0KPiAgIGJvb2wg
+eGVuX3ZpcnRpb19tZW1fYWNjKHN0cnVjdCB2aXJ0aW9fZGV2aWNlICpkZXYpOw0KPiArYm9vbCB4
+ZW5fdmlydGlvX3Jlc3RyaWN0ZWRfbWVtX2FjYyhzdHJ1Y3QgdmlydGlvX2RldmljZSAqZGV2KTsN
+Cj4gICAjZWxzZQ0KPiAgIHN0YXRpYyBpbmxpbmUgdm9pZCB4ZW5fZ3JhbnRfc2V0dXBfZG1hX29w
+cyhzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+ICAgew0KDQoNCkFuZCBwcm9iYWJseSBzdGF0aWMgaW5s
+aW5lIHN0dWIgYWx3YXlzIHJldHVybmluZyBmYWxzZSBpZiANCkNPTkZJR19YRU5fR1JBTlRfRE1B
+X09QUyBpcyBub3Qgc2V0Lg0KDQoNCi0tIA0KUmVnYXJkcywNCg0KT2xla3NhbmRyIFR5c2hjaGVu
+a28NCg==
 
