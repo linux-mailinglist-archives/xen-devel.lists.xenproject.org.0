@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40B8A5F69E5
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 16:44:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.417081.661716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD18A5F6A34
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 17:02:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.417089.661727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogS6O-0003GJ-Lm; Thu, 06 Oct 2022 14:43:56 +0000
+	id 1ogSNt-0005lM-59; Thu, 06 Oct 2022 15:02:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 417081.661716; Thu, 06 Oct 2022 14:43:56 +0000
+Received: by outflank-mailman (output) from mailman id 417089.661727; Thu, 06 Oct 2022 15:02:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogS6O-0003ER-J4; Thu, 06 Oct 2022 14:43:56 +0000
-Received: by outflank-mailman (input) for mailman id 417081;
- Thu, 06 Oct 2022 14:43:55 +0000
+	id 1ogSNt-0005iq-1p; Thu, 06 Oct 2022 15:02:01 +0000
+Received: by outflank-mailman (input) for mailman id 417089;
+ Thu, 06 Oct 2022 15:01:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rxxd=2H=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1ogS6M-0003EL-FS
- for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 14:43:55 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46eaa7f5-4585-11ed-9377-c1cf23e5d27e;
- Thu, 06 Oct 2022 16:43:45 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 965935C0159;
- Thu,  6 Oct 2022 10:43:50 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 06 Oct 2022 10:43:50 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 6 Oct 2022 10:43:47 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=q1hL=2H=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ogSNr-0005ik-BW
+ for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 15:01:59 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce9a72f7-4587-11ed-9377-c1cf23e5d27e;
+ Thu, 06 Oct 2022 17:01:51 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 90A711F85D;
+ Thu,  6 Oct 2022 15:01:57 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2A20A13AC8;
+ Thu,  6 Oct 2022 15:01:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8sihCOXtPmP4eQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 06 Oct 2022 15:01:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,220 +51,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46eaa7f5-4585-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1665067430; x=
-	1665153830; bh=RIza5YEVq9kGHVwK/oXAKTC2G5qfFHbR5jwJnE/LvGw=; b=C
-	jpqpAwYRLFwlef2LBQuo3eS2s8bXcvx+1/IziZsuDx8Vl8op9+rskQHaEc51kOqW
-	Tq4M1/kHTCZJx3GLXcxnaP4VwiD7ZADzZwPT2AXOAh2ZfID+tgpSGaxu41k1PgNE
-	zl8+gz42Xm1du7ERR3/i3/ch0tLQbt5kLQ/TsVl3o9woTUuLs8uPEk5Meob5gPIk
-	oDMjnZd3F0BwwFMoXleO/s8AxS7c+DdH7oMWM437m6zipP0JLpg6+BvUQ6O/bs6s
-	M+PBj4wC3dIBcsjuKafzNHK3Fx1+rDOQP/YGCfh8QI+eG7EAQFafXaL2tlbq8cmP
-	d5bQYgE1CzCwDQintM7hA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1665067430; x=1665153830; bh=RIza5YEVq9kGHVwK/oXAKTC2G5qf
-	FHbR5jwJnE/LvGw=; b=0hXUyPVrVcGDGumEK8ou1p8RxJdVW1wBRrK6sht0NZfQ
-	51CbSsYGroAOJzC9yqc6BUNzvz7mpp9SiggJ81smG0DtjJ3YAYItkFQqDe1nUltW
-	/EyWb5Zw3H+H3K7eso0EvyH9xhMCisGekBNZq9G7Qmx2BBiP4XStoBFzRRHhzlv2
-	EMP1RytYurSl2MM29PFuTZZfzYN6V9BTfLSQv8rbAMKb5b7DeYEbDSMZJ96yCjPl
-	ICjMPbLbZhn9sbgzE0s5xKCaK5kk1oWEcSMAkG6cP2E4blMToxbwwT3Xz30ZyAcy
-	MKiEFMhmgTruOxBaKvBvOAzbMHs4tCHiDVrCTcI6ag==
-X-ME-Sender: <xms:pOk-Y0KDgcCf_xmLcbk33w22a6ontLsPrexU2Z97eQx5DYVjvidhqw>
-    <xme:pOk-Y0JL4NdbCAlqtMHoKcWNcYb-_qGp3yLqb7K7-vTx-aor0BlV2r5ANNQEuVisK
-    7FPt6glt8IxpnU>
-X-ME-Received: <xmr:pOk-Y0uvVQK_1fMoj3OStxcoSj7oZyjf_ZLPyWHFUZhMj55F7GNFDegVr3SP>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeeihedgkedtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepudeileefueetvdelheeuteffjeeg
-    jeegffekleevueelueekjeejudffteejkeetnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:pOk-YxZxAOLfRVAzEhzErTSRJBaCCqz-UkN2U8gXfW_4lbPsW2kw1w>
-    <xmx:pOk-Y7auVTCZKDo5JRGnyH6DsT0TFs22rQWy3f44_7dbiVNPGBZi-Q>
-    <xmx:pOk-Y9CDIfRzzTVt_AVgsviDafU2t2am1fmB85s4cXXWlKUdprMpZg>
-    <xmx:puk-Y4Ra_esZgB9IXtDuUP47nhTJ8FmUXQeEIGWodj9aTzw2Hz2u2w>
-Feedback-ID: iac594737:Fastmail
-Date: Thu, 6 Oct 2022 10:43:43 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
-Message-ID: <Yz7polT2R2OlT1aT@itl-email>
-References: <YzcjeiOW8+i2Zxsd@itl-email>
- <CAMj1kXHBBbCNV3CLesqZi7ttmmi8y4tZ1KO5vievy_CJrU2o3Q@mail.gmail.com>
- <YzeaKjmls1YI/3ox@itl-email>
- <01d22092-8292-8ed7-ece7-9ca32d15bbce@suse.com>
- <YzxxXuovwQt3NskE@itl-email>
- <a0dc1158-01b1-4272-b86e-52f4996f0747@suse.com>
- <Yz3I2qwl243h9ZfZ@itl-email>
- <CAMj1kXHFi71SKQAQHEjZTLyp-YooRTYZ2-nqydRZA5hys7tkKw@mail.gmail.com>
- <Yz4yLyvX6un1rrqC@itl-email>
- <CAMj1kXFO9_yMw=_Fn2DBGgdYXgiK_OqafG5+TbJv1UKO1uQiJQ@mail.gmail.com>
+X-Inumbo-ID: ce9a72f7-4587-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1665068517; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SmAmDb37SISjauoN4xpdMA0CBkVXMUvyHWIb/ERmsEQ=;
+	b=A1G3cp62M0BwkAiSJtOVQwYsyv0M63UMB5KUE0mHXdg0QNaFplo4nTe2TURanFcH3K2s85
+	WPjvT2bZOwg1EpsiLXrX/pZQBi4heYTO1vIujlMcqkEB2TgeiJoJv16yKi9gXhC9jncGaS
+	XWoT7yCE8bfwVObe8QyIvER4MOpjhp4=
+Message-ID: <d5e199ae-5da8-a25e-ff76-c3a1b05e0a01@suse.com>
+Date: Thu, 6 Oct 2022 17:01:56 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZVyM5aEaeTsHYcp0"
-Content-Disposition: inline
-In-Reply-To: <CAMj1kXFO9_yMw=_Fn2DBGgdYXgiK_OqafG5+TbJv1UKO1uQiJQ@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, xen-devel@lists.xenproject.org
+References: <20221006092929.30041-1-jgross@suse.com>
+ <CAKf6xpvS20J0oz6vn+g47OBbKxEhAC8f2gyQ9otj+rOn+L9FOw@mail.gmail.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] xen/pcifront: move xenstore config scanning into
+ sub-function
+In-Reply-To: <CAKf6xpvS20J0oz6vn+g47OBbKxEhAC8f2gyQ9otj+rOn+L9FOw@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------YPi0Z3Xsawmw8vnE8qg0Q0OL"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------YPi0Z3Xsawmw8vnE8qg0Q0OL
+Content-Type: multipart/mixed; boundary="------------qsS4Y1csmvwjP5GAoenBHod8";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, xen-devel@lists.xenproject.org
+Message-ID: <d5e199ae-5da8-a25e-ff76-c3a1b05e0a01@suse.com>
+Subject: Re: [PATCH] xen/pcifront: move xenstore config scanning into
+ sub-function
+References: <20221006092929.30041-1-jgross@suse.com>
+ <CAKf6xpvS20J0oz6vn+g47OBbKxEhAC8f2gyQ9otj+rOn+L9FOw@mail.gmail.com>
+In-Reply-To: <CAKf6xpvS20J0oz6vn+g47OBbKxEhAC8f2gyQ9otj+rOn+L9FOw@mail.gmail.com>
 
---ZVyM5aEaeTsHYcp0
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+--------------qsS4Y1csmvwjP5GAoenBHod8
+Content-Type: multipart/mixed; boundary="------------0GZcOvDTc8ncAvQxBYsj0s8B"
+
+--------------0GZcOvDTc8ncAvQxBYsj0s8B
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDYuMTAuMjIgMTU6MjksIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IE9uIFRodSwgT2N0
+IDYsIDIwMjIgYXQgNToyOSBBTSBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+IHdy
+b3RlOg0KPj4NCj4+IHBjaWZyb250X3RyeV9jb25uZWN0KCkgYW5kIHBjaWZyb250X2F0dGFj
+aF9kZXZpY2VzKCkgc2hhcmUgYSBsYXJnZQ0KPj4gY2h1bmsgb2YgZHVwbGljYXRlZCBjb2Rl
+IGZvciByZWFkaW5nIHRoZSBjb25maWcgaW5mb3JtYXRpb24gZnJvbQ0KPj4gWGVuc3RvcmUs
+IHdoaWNoIG9ubHkgZGlmZmVycyByZWdhcmRpbmcgYSBmdW5jdGlvbiBjYWxsLg0KPj4NCj4+
+IFB1dCB0aGF0IGNvZGUgaW50byBhIG5ldyBzdWItZnVuY3Rpb24uIFdoaWxlIGF0IGl0IGZp
+eCB0aGUgZXJyb3INCj4+IHJlcG9ydGluZyBpbiBjYXNlIHRoZSByb290LXh4IG5vZGUgaGFk
+IHRoZSB3cm9uZyBmb3JtYXQuDQo+Pg0KPj4gQXMgdGhlIHJldHVybiB2YWx1ZSBvZiBwY2lm
+cm9udF90cnlfY29ubmVjdCgpIGFuZA0KPj4gcGNpZnJvbnRfYXR0YWNoX2RldmljZXMoKSBh
+cmUgbm90IHVzZWQgYW55d2hlcmUgbWFrZSB0aG9zZSBmdW5jdGlvbnMNCj4+IHJldHVybiB2
+b2lkLiBBcyBhbiBhZGRpdGlvbmFsIGJvbnVzIHRoaXMgcmVtb3ZlcyB0aGUgZHViaW91cyBy
+ZXR1cm4NCj4+IG9mIC1FRkFVTFQgaW4gY2FzZSBvZiBhbiB1bmV4cGVjdGVkIGRyaXZlciBz
+dGF0ZS4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3Vz
+ZS5jb20+DQo+PiAtLS0NCj4+ICAgZHJpdmVycy9wY2kveGVuLXBjaWZyb250LmMgfCAxMzMg
+KysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPj4gICAxIGZpbGUgY2hh
+bmdlZCwgNDAgaW5zZXJ0aW9ucygrKSwgOTMgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvcGNpL3hlbi1wY2lmcm9udC5jIGIvZHJpdmVycy9wY2kveGVuLXBj
+aWZyb250LmMNCj4+IGluZGV4IDY4OTI3MWM0MjQ1Yy4uYTY4ZTQ3ZGNkZDdlIDEwMDY0NA0K
+Pj4gLS0tIGEvZHJpdmVycy9wY2kveGVuLXBjaWZyb250LmMNCj4+ICsrKyBiL2RyaXZlcnMv
+cGNpL3hlbi1wY2lmcm9udC5jDQo+PiBAQCAtODE5LDc2ICs4MTksNzkgQEAgc3RhdGljIGlu
+dCBwY2lmcm9udF9wdWJsaXNoX2luZm8oc3RydWN0IHBjaWZyb250X2RldmljZSAqcGRldikN
+Cj4gDQo+PiAgICAgICAgICBlcnIgPSB4ZW5idXNfc2NhbmYoWEJUX05JTCwgcGRldi0+eGRl
+di0+b3RoZXJlbmQsDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgInJvb3RfbnVt
+IiwgIiVkIiwgJm51bV9yb290cyk7DQo+PiAgICAgICAgICBpZiAoZXJyID09IC1FTk9FTlQp
+IHsNCj4+ICAgICAgICAgICAgICAgICAgeGVuYnVzX2Rldl9lcnJvcihwZGV2LT54ZGV2LCBl
+cnIsDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk5vIFBDSSBSb290
+cyBmb3VuZCwgdHJ5aW5nIDAwMDA6MDAiKTsNCj4+IC0gICAgICAgICAgICAgICBlcnIgPSBw
+Y2lmcm9udF9zY2FuX3Jvb3QocGRldiwgMCwgMCk7DQo+PiArICAgICAgICAgICAgICAgaWYg
+KHJlc2NhbikNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGVyciA9IHBjaWZyb250X3Jl
+c2Nhbl9yb290KHBkZXYsIDAsIDApOw0KPj4gKyAgICAgICAgICAgICAgIGVsc2UNCj4+ICsg
+ICAgICAgICAgICAgICAgICAgICAgIGVyciA9IHBjaWZyb250X3NjYW5fcm9vdChwZGV2LCAw
+LCAwKTsNCj4gDQo+IEVhcmx5IGluIHBjaWZyb250X3Jlc2Nhbl9yb290KCksIHdlIGhhdmU6
+DQo+IA0KPiAgICAgICAgICBiID0gcGNpX2ZpbmRfYnVzKGRvbWFpbiwgYnVzKTsNCj4gICAg
+ICAgICAgaWYgKCFiKQ0KPiAgICAgICAgICAgICAgICAgIC8qIElmIHRoZSBidXMgaXMgdW5r
+bm93biwgY3JlYXRlIGl0LiAqLw0KPiAgICAgICAgICAgICAgICAgIHJldHVybiBwY2lmcm9u
+dF9zY2FuX3Jvb3QocGRldiwgZG9tYWluLCBidXMpOw0KPiANCj4gcGNpZnJvbnRfc2Nhbl9y
+b290KCkgZG9lcyBzb21lIGFsbG9jYXRpb24sIGJ1dCB0aGUgbGF0ZXIgc2Nhbm5pbmcNCj4g
+bWF0Y2hlcyB0aGF0IG9mIHBjaWZyb250X3Jlc2Nhbl9yb290KCkuICBTbyBJIHRoaW5rIHdl
+IGNhbiBqdXN0IGFsd2F5cw0KPiBjYWxsIHBjaWZyb250X3Jlc2Nhbl9yb290KCkgYW5kIGl0
+IHNob3VsZCBkbyB0aGUgcmlnaHQgdGhpbmcuICBUaGF0DQo+IGRyb3BzIHRoZSBuZWVkIGZv
+ciB0aGUgcmVzY2FuIGJvb2xlYW4uDQoNCkhtbSwgd2l0aCBzb21lIG1vcmUgcGNpZnJvbnRf
+cmVzY2FuX3Jvb3QoKSBhZGFwdGlvbiB0aGlzIHdpbGwgbWFrZSBpdA0KcG9zc2libGUgdG8g
+ZHJvcCBldmVuIG1vcmUgY29kZSAoaS5lLiB0aGUgQ09ORklHX1BDSV9ET01BSU5TIGNoZWNr
+IGluDQpwY2lmcm9udF9yZXNjYW5fcm9vdCgpLCBhcyB0aGUgb25lIGluIHBjaWZyb250X3Nj
+YW5fcm9vdCgpIHdvdWxkIGJlDQplbm91Z2ggdGhlbikuDQoNCkknbGwgc2VuZCBvdXQgVjIg
+c29vbi4NCg0KPiANCj4gUmVnYXJkbGVzcyBvZiB0aGUgYWJvdmUgaWRlYToNCj4gDQo+IFJl
+dmlld2VkLWJ5OiBKYXNvbiBBbmRyeXVrIDxqYW5kcnl1a0BnbWFpbC5jb20+DQoNClRoYW5r
+cy4gQXMgSSdtIGFib3V0IHRvIGNoYW5nZSB0aGUgcGF0Y2gsIEknbGwgZHJvcCB0aGUgUi1i
+Lg0KDQoNCkp1ZXJnZW4NCg==
+--------------0GZcOvDTc8ncAvQxBYsj0s8B
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 6 Oct 2022 10:43:43 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH v4 1/2] Avoid using EFI tables Xen may have clobbered
 
-On Thu, Oct 06, 2022 at 09:31:47AM +0200, Ard Biesheuvel wrote:
-> On Thu, 6 Oct 2022 at 03:41, Demi Marie Obenour
-> <demi@invisiblethingslab.com> wrote:
-> >
-> > On Wed, Oct 05, 2022 at 11:28:29PM +0200, Ard Biesheuvel wrote:
-> > > On Wed, 5 Oct 2022 at 20:11, Demi Marie Obenour
-> > > <demi@invisiblethingslab.com> wrote:
-> > > >
-> > > > On Wed, Oct 05, 2022 at 08:15:07AM +0200, Jan Beulich wrote:
-> > > > > On 04.10.2022 17:46, Demi Marie Obenour wrote:
-> > > > > > Linux has a function called efi_mem_reserve() that is used to r=
-eserve
-> > > > > > EfiBootServicesData memory that contains e.g. EFI configuration=
- tables.
-> > > > > > This function does not work under Xen because Xen could have al=
-ready
-> > > > > > clobbered the memory.  efi_mem_reserve() not working is the who=
-le reason
-> > > > > > for this thread, as it prevents EFI tables that are in
-> > > > > > EfiBootServicesData from being used under Xen.
-> > > > > >
-> > > > > > A much nicer approach would be for Xen to reserve boot services=
- memory
-> > > > > > unconditionally, but provide a hypercall that dom0 could used t=
-o free
-> > > > > > the parts of EfiBootServicesData memory that are no longer need=
-ed.  This
-> > > > > > would allow efi_mem_reserve() to work normally.
-> > > > >
-> > > > > efi_mem_reserve() actually working would be a layering violation;
-> > > > > controlling the EFI memory map is entirely Xen's job.
-> > > >
-> > > > Doing this properly would require Xen to understand all of the EFI
-> > > > tables that could validly be in EfiBootServices* and which could be=
- of
-> > > > interest to dom0.  It might (at least on some very buggy firmware)
-> > > > require a partial ACPI and/or SMBIOS implementation too, if the fir=
-mware
-> > > > decided to put an ACPI or SMBIOS table in EfiBootServices*.
-> > > >
-> > > > > As to the hypercall you suggest - I wouldn't mind its addition, b=
-ut only
-> > > > > for the case when -mapbs is used. As I've indicated before, I'm o=
-f the
-> > > > > opinion that default behavior should be matching the intentions o=
-f the
-> > > > > spec, and the intention of EfiBootServices* is for the space to be
-> > > > > reclaimed. Plus I'm sure you realize there's a caveat with Dom0 u=
-sing
-> > > > > that hypercall: It might use it for regions where data lives whic=
-h it
-> > > > > wouldn't care about itself, but which an eventual kexec-ed (or al=
-ike)
-> > > > > entity would later want to consume. Code/data potentially usable =
-by
-> > > > > _anyone_ between two resets of the system cannot legitimately be =
-freed
-> > > > > (and hence imo is wrong to live in EfiBootServices* regions).
-> > > >
-> > > > I agree, but currently some such data *is* in EfiBootServices* regi=
-ons,
-> > > > sadly.  When -mapbs is *not* used, I recommend uninstalling all of =
-the
-> > > > configuration tables that point to EfiBootServicesData memory before
-> > > > freeing that memory.
-> > > >
-> > >
-> > > That seems like a reasonable approach to me. Tables like MEMATTR or
-> > > RT_PROP are mostly relevant for bare metal where the host kernel maps
-> > > the runtime services, and in general, passing on these tables without
-> > > knowing what they do is kind of fishy anyway. You might even argue
-> > > that only known table types should be forwarded in the first place,
-> > > regardless of the memory type.
-> >
-> > Which tables are worth handling in Xen?  I know about ACPI, SMBIOS, and
-> > ESRT, but I am curious which others Xen should preserve.  Currently, Xen
-> > does not know about RT_PROP or MEMATTR; could this be a cause of
-> > problems?
->=20
-> dom0 only has access to paravirtualized EFI runtime services, so
-> consuming RT_PROP or MEMATTR should be up to Xen (they describe which
-> runtime services remain available at runtime, and which permission
-> attributes to use for the runtime services memory regions,
-> respectively)
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Xen does not do this right now.  I wonder if this could be the cause of
-compatibility issues with various firmware implementations.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> Looking through the kernel code, I don't think there are any that dom0
-> should care about beyond ACPI, SMBIOS and ESRT. But as you suggest,
-> that means Xen should just mask them in the view of the EFI system
-> table it exposes so dom0. Otherwise, the kernel may still try to map
-> and parse them.
+--------------0GZcOvDTc8ncAvQxBYsj0s8B--
 
-What about the BGRT and MOKvar?  I agree that Xen should not expose the
-others.  Should it just hide the tables, or should it actually uninstall
-them?  My intuition is that the second would be technically more
-correct, but also more likely to trigger bugs in various firmware
-implementations.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+--------------qsS4Y1csmvwjP5GAoenBHod8--
 
---ZVyM5aEaeTsHYcp0
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------YPi0Z3Xsawmw8vnE8qg0Q0OL
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmM+6aIACgkQsoi1X/+c
-IsFo8RAAgjtyIjW/PLv2jyj2EWtPqAVxnZFx2DTiTcEkOF2+OIcp6PR0K8iOiy7z
-017KND97RHNpvCFF1/4smfeo8GW7cx/8H6M+Bk7ZqjyKLb/lJfw66FkNFCF1xER9
-ZI6vTxKEfr64htLd4KKNl3isP5DHXFV2ydOW56C+Ztv7TlbvTiO/ZrsnZQFTvTpj
-YafEHAmdIUveoL6/rg6at0bjhqrDYwbeAIAN/6l/ZDDTuLyn3cV6nhUg3norGohg
-1rsYs7mDWUM/m/1bDhSGN/AYGA39K9cMwTWcw5zEOPxHflvpA2SYWOymnZQYO0ot
-cD3/WIkNKk2l5hwNfOSkfzlPrukJg4XBjyWCNSppwlyUAQBcoecypZe8RjR6Ba24
-qmzbYk9KqnUWiS/BUthQhvDI5YfcaWu5wxXoGH3pbPtPwelF1sUZQ8Bx37rh97bv
-XCPOu6dpuk9OQ/FRM01qI3u5QbiAJsl7Pzd1vHMNeYI2h4KgVhKnb3vkOdlcIX7P
-r8Ig9cRUB9YJVFr7T3R4DRNY7+hZLxSG74WUZx8f4IM5pnLO/oMNyQzVYtleqlYf
-ZN4sdRDA81V3khHPHwKI1F5sNyWDu94+56e8Qq279hKnZkt4QNp0MgzTNWjTaB/3
-bN2EGes0RD22Vt6Bhji1Bk8GnEHdHoYvgwhu0PEhK3BSJaSWh90=
-=RkJ/
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM+7eQFAwAAAAAACgkQsN6d1ii/Ey+X
+vQf7B4D1H8RrO9tYlsBJfV3G+8+r4cVAjjphzFF0aLQa7j82YAnjfU2Ge92pUzRq8BOzcagZaJwr
+W5vWP9AOtS3ZLFMQO7igZcoxC/iAgd5UMjCU23hyEDQ7UipGc40y+2SiCKmPBnDdtURKWMrTLg3X
+VRhOdnWw71aTJ75kD8p+jPbD/Rw0a7w4OvsaekSuV1j32DVtOkV/3fSkBrzQTMiEadV6K5jdIMM3
+VsDU7/5zb8TxKz8f6Yt6jBft2I9gfmN1fpPzpoVlLt0rTQAjpmzC/Ebv9DkDQ4htFSjegTguxEWE
+MRb0cBxkzAzgQ2V/kde6esmYXIOLOuNFdVx8CIDBUw==
+=xL2k
 -----END PGP SIGNATURE-----
 
---ZVyM5aEaeTsHYcp0--
+--------------YPi0Z3Xsawmw8vnE8qg0Q0OL--
 
