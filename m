@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3C55F607C
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 07:12:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.416595.661227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BA5F5F60FF
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Oct 2022 08:20:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.416605.661241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogJB5-0007ms-RQ; Thu, 06 Oct 2022 05:12:11 +0000
+	id 1ogKDi-0005gV-T6; Thu, 06 Oct 2022 06:18:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 416595.661227; Thu, 06 Oct 2022 05:12:11 +0000
+Received: by outflank-mailman (output) from mailman id 416605.661241; Thu, 06 Oct 2022 06:18:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogJB5-0007l4-OY; Thu, 06 Oct 2022 05:12:11 +0000
-Received: by outflank-mailman (input) for mailman id 416595;
- Thu, 06 Oct 2022 05:12:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ogKDi-0005dY-PV; Thu, 06 Oct 2022 06:18:58 +0000
+Received: by outflank-mailman (input) for mailman id 416605;
+ Thu, 06 Oct 2022 06:18:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q1hL=2H=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ogJB4-0007ky-O1
- for xen-devel@lists.xenproject.org; Thu, 06 Oct 2022 05:12:10 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6dbeb3fd-4535-11ed-964a-05401a9f4f97;
- Thu, 06 Oct 2022 07:12:09 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 352211F85D;
- Thu,  6 Oct 2022 05:12:09 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F2192139D2;
- Thu,  6 Oct 2022 05:12:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Nv6iOahjPmM5ZAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 06 Oct 2022 05:12:08 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ogKDh-0005dO-G5; Thu, 06 Oct 2022 06:18:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ogKDh-00064V-DW; Thu, 06 Oct 2022 06:18:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ogKDh-0002j9-1Z; Thu, 06 Oct 2022 06:18:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ogKDh-0005nk-0u; Thu, 06 Oct 2022 06:18:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,159 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dbeb3fd-4535-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1665033129; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5iU3UBkPp5UeHx8TTGn1E43Xg/sRr9X8ndnUiDuaOio=;
-	b=DU90G3KI9ALj1tLlzpzC9+wr8wwamnEjKp1YZE1Z8epwMXoabl+sE80Zhtt2NPY50Z2Ex0
-	Sn/Dko7vGMrs7wDGv0MKDXCSaYAT/KNuUJaO6TJJ+zc9W+BW6wPFWJsJGNATx8tm4Ncnet
-	334BR36GQ3IlNO2wDb1bWo40B3F6kIM=
-Message-ID: <ee16518a-69a6-d3bc-2581-61b37b803af8@suse.com>
-Date: Thu, 6 Oct 2022 07:12:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=jzi9fiVZfcvSl2l2alIYYAjJFZ5wOIY0yrPpy0+6jvU=; b=nzp/e09Zg4E02vNxnkaPEPIDWV
+	lbf+gvSOnNVtVZsvzLDpRqFJ8M+heCVDkUHhRxhN6CZd1KGltSFtbLIZUuh0CDzTRbDhYXYgbXvLO
+	YJYrT+NEkDssoyoFJkpeoAM/O0lPfxOZ6f7ZdV3221LwW4G3bIcSakPPyMqH/UsrgHZ4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173437-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] xen-pcifront: Handle missed Connected state
-Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20220829151536.8578-1-jandryuk@gmail.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220829151536.8578-1-jandryuk@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Yy9TwF3GPZx5SgNEqSTsuaZh"
+Subject: [ovmf test] 173437: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=710f83b79d6eab641401c054b2f40f6c630f8cd5
+X-Osstest-Versions-That:
+    ovmf=1bd2ff18664b9564a5802d0ac153b5023f2fa41e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 06 Oct 2022 06:18:57 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Yy9TwF3GPZx5SgNEqSTsuaZh
-Content-Type: multipart/mixed; boundary="------------7hUe9JATxFCEuZthwY476fEZ";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jason Andryuk <jandryuk@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-ID: <ee16518a-69a6-d3bc-2581-61b37b803af8@suse.com>
-Subject: Re: [PATCH] xen-pcifront: Handle missed Connected state
-References: <20220829151536.8578-1-jandryuk@gmail.com>
-In-Reply-To: <20220829151536.8578-1-jandryuk@gmail.com>
+flight 173437 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173437/
 
---------------7hUe9JATxFCEuZthwY476fEZ
-Content-Type: multipart/mixed; boundary="------------NlW0XA0x2EWjlbOjJvE07M3D"
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 710f83b79d6eab641401c054b2f40f6c630f8cd5
+baseline version:
+ ovmf                 1bd2ff18664b9564a5802d0ac153b5023f2fa41e
 
---------------NlW0XA0x2EWjlbOjJvE07M3D
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Last test of basis   173424  2022-10-05 04:40:32 Z    1 days
+Testing same since   173437  2022-10-06 02:10:29 Z    0 days    1 attempts
 
-T24gMjkuMDguMjIgMTc6MTUsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IEFuIEhWTSBndWVz
-dCB3aXRoIGxpbnV4IHN0dWJkb20gYW5kIDIgUENJIGRldmljZXMgZmFpbGVkIHRvIHN0YXJ0
-IGFzDQo+IGxpYnhsIHRpbWVkIG91dCB3YWl0aW5nIGZvciB0aGUgUENJIGRldmljZXMgdG8g
-YmUgYWRkZWQuICBJdCBoYXBwZW5zDQo+IGludGVybWl0dGVudGx5IGJ1dCB3aXRoIHNvbWUg
-cmVndWxhcml0eS4gIGxpYnhsIHdyb3RlIHRoZSB0d28geGVuc3RvcmUNCj4gZW50cmllcyBm
-b3IgdGhlIGRldmljZXMsIGJ1dCB0aGVuIHRpbWVkIG91dCB3YWl0aW5nIGZvciBiYWNrZW5k
-IHN0YXRlIDQNCj4gKENvbm5lY3RlZCkgLSB0aGUgc3RhdGUgc3RheWVkIGF0IDcgKFJlY29u
-ZmlndXJpbmcpLiAgKFBDSSBwYXNzdGhyb3VnaA0KPiB0byBhbiBIVk0gd2l0aCBzdHViZG9t
-YWluIGlzIFBWIHBhc3N0aHJvdWdoIHRvIHRoZSBzdHViZG9tYWluIGFuZCB0aGVuDQo+IEhW
-TSBwYXNzdGhyb3VnaCB3aXRoIHRoZSBRRU1VIGluc2lkZSB0aGUgc3R1YmRvbWFpbi4pDQo+
-IA0KPiBUaGUgc3R1YmRvbSBrZXJuZWwgbmV2ZXIgcHJpbnRlZCAicGNpZnJvbnQgcGNpLTA6
-IEluc3RhbGxpbmcgUENJDQo+IGZyb250ZW5kIiwgc28gaXQgc2VlbXMgdG8gaGF2ZSBtaXNz
-ZWQgc3RhdGUgNCB3aGljaCB3b3VsZCBoYXZlDQo+IGNhbGxlZCBwY2lmcm9udF90cnlfY29u
-bmVjdCAtPiBwY2lmcm9udF9jb25uZWN0X2FuZF9pbml0X2RtYQ0KPiANCj4gSGF2ZSBwY2lm
-cm9udF9kZXRhY2hfZGV2aWNlcyBzcGVjaWFsLWNhc2Ugc3RhdGUgSW5pdGlhbGlzZWQgYW5k
-IGNhbGwNCj4gcGNpZnJvbnRfY29ubmVjdF9hbmRfaW5pdF9kbWEuICBEb24ndCB1c2UgcGNp
-ZnJvbnRfdHJ5X2Nvbm5lY3QgYmVjYXVzZQ0KPiB0aGF0IHNldHMgdGhlIHhlbmJ1cyBzdGF0
-ZSB3aGljaCBtYXkgdGhyb3cgb2ZmIHRoZSBiYWNrZW5kLiAgQWZ0ZXINCj4gY29ubmVjdGlu
-Zywgc2tpcCB0aGUgcmVtYWluZGVyIG9mIGRldGFjaF9kZXZpY2VzIHNpbmNlIG5vbmUgaGF2
-ZSBiZWVuDQo+IGluaXRpYWxpemVkIHlldC4gIFdoZW4gdGhlIGJhY2tlbmQgc3dpdGNoZXMg
-dG8gUmVjb25maWd1cmVkLA0KPiBwY2lmcm9udF9hdHRhY2hfZGV2aWNlcyB3aWxsIHBpY2sg
-dGhlbSB1cCBhZ2Fpbi4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEphc29uIEFuZHJ5dWsgPGph
-bmRyeXVrQGdtYWlsLmNvbT4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZvci1saW51cy02
-LjENCg0KDQpKdWVyZ2VuDQoNCg==
---------------NlW0XA0x2EWjlbOjJvE07M3D
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+People who touched revisions under test:
+  Michael Kubacki <michael.kubacki@microsoft.com>
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
 
---------------NlW0XA0x2EWjlbOjJvE07M3D--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---------------7hUe9JATxFCEuZthwY476fEZ--
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---------------Yy9TwF3GPZx5SgNEqSTsuaZh
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
------BEGIN PGP SIGNATURE-----
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM+Y6gFAwAAAAAACgkQsN6d1ii/Ey82
-Pgf/bd9LG5JBdmzy+b6OKaM00dpAMyzK/xdjune8yx9q13iXOLQ6sXcQCHCbD1i4whfcm5Nrqe0B
-hHv+iorDX1mwnfsp1gx9qRhY0C1Yix89+9dmt4rc1ENfRlRfK3IVVzpJc8vdtk1IsGi6iiqA4/OZ
-dEGkC6SAYeefaD2rHU0O1vsbvpsFag8oqBT6E9Dot4HRBmpvBTAF1X7GQXMtdGxjxI5k49zG6qRr
-bqLJ2iDzkhW8yeCOQtCJIKtciJSs2sEvK11bG47FZQI/Li5GbVL+s8XKPFPZgCP/f9R58gtViR6m
-G75GcJp5dDDDdwZYkVMZyzE/PruFaw0QlntcE2EywQ==
-=/VrV
------END PGP SIGNATURE-----
 
---------------Yy9TwF3GPZx5SgNEqSTsuaZh--
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   1bd2ff1866..710f83b79d  710f83b79d6eab641401c054b2f40f6c630f8cd5 -> xen-tested-master
 
