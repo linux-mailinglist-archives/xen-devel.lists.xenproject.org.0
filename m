@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E96155F73A1
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 06:51:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.417370.662047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 276855F73E2
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 07:18:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.417379.662058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogfKo-0004aj-Vf; Fri, 07 Oct 2022 04:51:42 +0000
+	id 1ogfk2-0007U7-0j; Fri, 07 Oct 2022 05:17:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 417370.662047; Fri, 07 Oct 2022 04:51:42 +0000
+Received: by outflank-mailman (output) from mailman id 417379.662058; Fri, 07 Oct 2022 05:17:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogfKo-0004YJ-T5; Fri, 07 Oct 2022 04:51:42 +0000
-Received: by outflank-mailman (input) for mailman id 417370;
- Fri, 07 Oct 2022 04:51:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m9C0=2I=gmail.com=degakiran05@srs-se1.protection.inumbo.net>)
- id 1ogfKn-0004YD-9r
- for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 04:51:41 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb72fc47-45fb-11ed-964a-05401a9f4f97;
- Fri, 07 Oct 2022 06:51:40 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- fn7-20020a05600c688700b003b4fb113b86so1997290wmb.0
- for <xen-devel@lists.xenproject.org>; Thu, 06 Oct 2022 21:51:40 -0700 (PDT)
+	id 1ogfk1-0007RI-Ti; Fri, 07 Oct 2022 05:17:45 +0000
+Received: by outflank-mailman (input) for mailman id 417379;
+ Fri, 07 Oct 2022 05:17:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NgR6=2I=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ogfk0-0007RC-4U
+ for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 05:17:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5e95b6f7-45ff-11ed-9377-c1cf23e5d27e;
+ Fri, 07 Oct 2022 07:17:42 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1CE761F8CA;
+ Fri,  7 Oct 2022 05:17:42 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CD9DA13345;
+ Fri,  7 Oct 2022 05:17:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5dRBMHW2P2PgLAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 07 Oct 2022 05:17:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,110 +51,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb72fc47-45fb-11ed-964a-05401a9f4f97
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Pli7JPWy8ENMv4xCC2VAJwXYayvmjH1hfUTpvqISj1s=;
-        b=aB+ZXT1/YOkVuMDnJyh7VryDP0CjxHvKff5oOUqWwSj3awNVUV/6tdqm2oKUHCMGZJ
-         Dh4e1AHop6Rtj3NYoHOdg4Xr+eRaF/fRJENNCfOdifUDWWRSY589Q4TOqcZ3PAOcASE3
-         FuxNLYxry/xO5h66kkr43Sz5T5zS/V26CLjpjor7FHYKTfIpkcJzzscWSKInT233XwK8
-         5EcYIXTBZhG8jS405a+7uYwc1DR/lfpBpUHF2Pw/Jd5z7apuKhbORMENOqSoibIwtYkl
-         zEeSJsjR/f92s+apvZsirJCYm8zhvcHSqR6B2pFobKAuXrzVdRWopKQwlCnRwUkzVKEz
-         EWnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Pli7JPWy8ENMv4xCC2VAJwXYayvmjH1hfUTpvqISj1s=;
-        b=aveSaGA9IOLJAf8g3I4ondJYANfvk6lfh7gS9WnWyuCqqoAjVErJ3X253AF2oR/VdQ
-         HfjwZlvoRJqQWxq/utghEhrcqg5Xfs0jpe/APU24ylvtJ8kJ1DK9GEdAsbf81qqXxNZt
-         S7mIJolTDTnncfWvAlkhhJY5jyippseECNePzSjYCC1qoguFd7XoLme1jEQ2WKMEY29s
-         /r5XNoJR5znbRqz9WqSRKLupXod1YujM8+PTGLAy/zHi0BkcLbM6fadbps4BOHVcn8RA
-         bQVrvq3JN3AHypVwWyg+bqYgTMhQLrrjD+Enq3a8eddHwSMV6uHhTQhsu+QODN5hIm/x
-         yT9Q==
-X-Gm-Message-State: ACrzQf3BrFwTRfblbFBokgI/N+hMzv78fkSWaOIWCwY+FGJXtnPM9W3O
-	cVzq2ed61EmS6ozFRfVnM8B6u3IcWyOg9fG52hlYQwEn22E=
-X-Google-Smtp-Source: AMsMyM74LrBussLZQo7ZCwsy6yJsFULNy4ok8+F3PqTPMr1InfF8dIbedUw36Mh4zOX720wz26KuPnnos1cQpzr29hk=
-X-Received: by 2002:a05:600c:3781:b0:3a6:804a:afc with SMTP id
- o1-20020a05600c378100b003a6804a0afcmr8868349wmr.27.1665118299573; Thu, 06 Oct
- 2022 21:51:39 -0700 (PDT)
+X-Inumbo-ID: 5e95b6f7-45ff-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1665119862; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Zrm6Wc+cYsGICXIrvOSQaUWN6L6oSr49mpVFNBqOZrg=;
+	b=XA0ODdRJ+yVw3qcB6zwsGKKwVieknSmf0qC7HnLqfoEmS2wItOP0HWIsk79OyiB/HOUyU9
+	jXbug179Mfkjxo3huHtS5FIlLX1kZxwnGr3fIArbnohoTvNjWqF81+5+vYiQLwN4NsK8rf
+	e/Lskrmn/+lgL/2nn/yGdAZ0A8H8BAs=
+Message-ID: <9aa1e6ba-a153-8dfa-ce28-3ab78b26c6e4@suse.com>
+Date: Fri, 7 Oct 2022 07:17:41 +0200
 MIME-Version: 1.0
-References: <CADY+DPLf10UtUWE7Y9zZvN0NRFkGtV7ah3dg8t4wYWrF=8R2LQ@mail.gmail.com>
-In-Reply-To: <CADY+DPLf10UtUWE7Y9zZvN0NRFkGtV7ah3dg8t4wYWrF=8R2LQ@mail.gmail.com>
-From: dega kiran <degakiran05@gmail.com>
-Date: Fri, 7 Oct 2022 10:21:00 +0530
-Message-ID: <CADY+DPK7HQBYCPNoRf5KW6Zaqx6bF8fUrtywiR49zXiWkiC+zw@mail.gmail.com>
-Subject: Re: Free Rtos porting on XEN
-To: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Cc: ulien Grall <julien@xen.org>
-Content-Type: multipart/alternative; boundary="000000000000c1520005ea6a906a"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH v2 0/2] xen/gntdev: Fixes for leaks and VMA splitting
+Content-Language: en-US
+To: "M. Vefa Bicakci" <m.v.b@runbox.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Demi Marie Obenour <demi@invisiblethingslab.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+References: <20221002222006.2077-1-m.v.b@runbox.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20221002222006.2077-1-m.v.b@runbox.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------XVXLrARPWfnvGr02GkSvkKP9"
 
---000000000000c1520005ea6a906a
-Content-Type: text/plain; charset="UTF-8"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------XVXLrARPWfnvGr02GkSvkKP9
+Content-Type: multipart/mixed; boundary="------------8CduX9LunJEd0aizjbOGzcP3";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: "M. Vefa Bicakci" <m.v.b@runbox.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Demi Marie Obenour <demi@invisiblethingslab.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+Message-ID: <9aa1e6ba-a153-8dfa-ce28-3ab78b26c6e4@suse.com>
+Subject: Re: [PATCH v2 0/2] xen/gntdev: Fixes for leaks and VMA splitting
+References: <20221002222006.2077-1-m.v.b@runbox.com>
+In-Reply-To: <20221002222006.2077-1-m.v.b@runbox.com>
 
-Hi Stefano Stabellini ,
+--------------8CduX9LunJEd0aizjbOGzcP3
+Content-Type: multipart/mixed; boundary="------------MS0Hml100OrkEs5C7vmMaYEN"
 
-Thanks for the reply.
+--------------MS0Hml100OrkEs5C7vmMaYEN
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-We are currently working on *Raspberry PI 4* can you help us how we can
-port *Xen with FreeRtos *on Raspberry PI4.
-
-Is there any reference I can go through for porting Xen with FreeRtos on
-Raspberry PI4.?
-
-
-Thanks and regards,
-Dega.
-
-On Tue, Oct 4, 2022 at 9:48 AM dega kiran <degakiran05@gmail.com> wrote:
-
-> Hi ,
->
-> I am trying to port FREERtos on XEN . But not getting any
-> concrete information for porting.
->
-> I am following https://github.com/GaloisInc/FreeRTOS-Xen
->
-> but getting a lot of errors.
->
-> Please Let me know how to follow the porting process.
->
->
-> Thank you,
-> Dega.
->
->
-
---000000000000c1520005ea6a906a
-Content-Type: text/html; charset="UTF-8"
+T24gMDMuMTAuMjIgMDA6MjAsIE0uIFZlZmEgQmljYWtjaSB3cm90ZToNCj4gSGkgYWxsLA0K
+PiANCj4gRmlyc3Qgb2YgYWxsLCBzb3JyeSBmb3IgdGhlIGRlbGF5IQ0KPiANCj4gVGhlc2Ug
+cGF0Y2hlcyBjb250aW51ZSB0aGUgY29kZSByZXZpZXcgZm9yIHRoZSBmb2xsb3dpbmcgcGF0
+Y2hlczoNCj4gICAgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcveGVuLWRldmVsLzIwMjIwOTEy
+MDQwMDAyLjE5ODE5MS0xLW0udi5iQHJ1bmJveC5jb20vdC8jdQ0KPiANCj4gVGhlIG9yaWdp
+bmFsIGRlc2NyaXB0aW9uIG9mIHRoZSBwYXRjaCBzZXQgaXMgYXMgZm9sbG93czoNCj4gDQo+
+ICAgICJUaGUgY2hhbmdlcyBpbiB0aGlzIHBhdGNoIHNlcmllcyBpbnRlbmQgdG8gZml4IHRo
+ZSBYZW4gZ3JhbnQgZGV2aWNlDQo+ICAgIGRyaXZlciwgc28gdGhhdCBncmFudCBtYXBwaW5n
+IGxlYWtzIGNhdXNlZCBieSBwYXJ0aWFsbHkgZmFpbGVkIGdyYW50DQo+ICAgIG1hcHBpbmcg
+b3BlcmF0aW9ucyBhcmUgYXZvaWRlZCB3aXRoIHRoZSBmaXJzdCBwYXRjaCwgYW5kIHNvIHRo
+YXQgdGhlDQo+ICAgIHNwbGl0dGluZyBvZiBWTUFzIGRvZXMgbm90IHJlc3VsdCBpbiBpbmNv
+cnJlY3RseSB1bm1hcHBlZCBncmFudCBwYWdlcw0KPiAgICB3aXRoIHRoZSBzZWNvbmQgcGF0
+Y2guIFRoZSBzZWNvbmQgcGF0Y2ggYWxzbyBwcmV2ZW50cyBhIHNpbWlsYXIgaXNzdWUNCj4g
+ICAgaW4gYSBkb3VibGUtbWFwcGluZyBzY2VuYXJpbywgd2hlcmUgbW1hcCgpIGlzIHVzZWQg
+d2l0aCBNQVBfRklYRUQgdG8NCj4gICAgbWFwIGdyYW50cyBvdmVyIGFuIGV4aXN0aW5nIG1h
+cHBpbmcgY3JlYXRlZCB3aXRoIHRoZSBzYW1lIGdyYW50cywgYW5kDQo+ICAgIHdoZXJlIGdy
+YW50IHBhZ2VzIGFyZSB1bm1hcHBlZCBpbmNvcnJlY3RseSBhcyB3ZWxsLiINCj4gDQo+IEEg
+c3VtbWFyeSBvZiB0aGUgY2hhbmdlcyBmcm9tIHYxIGlzIGFzIGZvbGxvd3M6DQo+IC0gQWRk
+cmVzc2VkIEp1ZXJnZW4ncyBjb2RlIHJldmlldyBjb21tZW50IHJlZ2FyZGluZyB0aGUgZmly
+c3QgcGF0Y2guDQo+IC0gQW1lbmRlZCB0aGUgZGVzY3JpcHRpb24gb2YgdGhlIHNlY29uZCBw
+YXRjaCB0byBub3RlIHRoYXQgdGhlIGRlc2NyaWJlZA0KPiAgICBpc3N1ZXMgYXJlIGVuY291
+bnRlcmVkIHdpdGggUFYgZG9tYWlucy4NCj4gDQo+IFZlcmlmaWNhdGlvbiBub3RlczoNCj4g
+DQo+IC0gSSBoYXZlIHRlc3RlZCB0aGVzZSBjb21taXRzIG9uIHRvcCBvZiBMaW51eCB2NS4x
+NS43MCBhbmQgdjUuMTUuNzEsIGFuZA0KPiAgICBJIHZlcmlmaWVkIHRoYXQgdGhleSBjb21w
+aWxlIHN1Y2Nlc3NmdWxseSBvbiB0b3Agb2YgdGhlIHRhZw0KPiAgICAibmV4dC0yMDIyMDkz
+MCIsIHdoaWNoIGNvcnJlc3BvbmRzIHRvIHRoZSBiYXNlIGNvbW1pdCBJRCBpbmNsdWRlZCBh
+dA0KPiAgICB0aGUgYm90dG9tIG9mIHRoaXMgZS1tYWlsLg0KPiANCj4gLSBNeSB0ZXN0cyBj
+b25zaXN0IG9mIHVzaW5nIGEga2VybmVsIHdpdGggUXViZXMgT1MgdjQuMSdzIHBhdGNoZXMg
+YW5kDQo+ICAgIHRoZXNlIHBhdGNoZXMgb24gbXkgbWFpbiBjb21wdXRlciBmb3IgZGF5LXRv
+LWRheSB0YXNrcywgaW4gY29uanVuY3Rpb24NCj4gICAgd2l0aCBRdWJlcyBPUydzIHZlcnNp
+b24gb2YgdGhlIFhlbiBoeXBlcnZpc29yIHY0LjE0LjUsIHdpdGggdGhlIGxhdHRlcg0KPiAg
+ICBjdXN0b20tY29tcGlsZWQgd2l0aCBDT05GSUdfREVCVUcuDQo+IA0KPiAtIEkgdXNlZCBh
+IHRlc3QgcHJvZ3JhbSB0aGF0IHZlcmlmaWVzIHRoZSBmb2xsb3dpbmcgc2NlbmFyaW9zIHdp
+dGggYW4NCj4gICAgdW5wcml2aWxlZ2VkIHBhcmF2aXJ0dWFsaXplZCAoUFYpIFhlbiBkb21h
+aW46DQo+IA0KPiAgICAtIEEgcHJvZ3JhbSBtbWFwKClzIHR3byBwYWdlcyBmcm9tIGFub3Ro
+ZXIgWGVuIGRvbWFpbiBhbmQgbXVubWFwKClzDQo+ICAgICAgdGhlIHBhZ2VzIG9uZSBieSBv
+bmUuIFRoaXMgdXNlZCB0byByZXN1bHQgaW4gaW1wbGljaXQgdW5tYXAgZXJyb3JzDQo+ICAg
+ICAgdG8gYmUgcmVwb3J0ZWQgYnkgWGVuIGFuZCBhIGdlbmVyYWwgcHJvdGVjdGlvbiBmYXVs
+dCB0byBiZSB0cmlnZ2VyZWQNCj4gICAgICBieSBYZW4gaW4gdGhlIGFmZmVjdGVkIGRvbWFp
+biwgYnV0IG5vdyB3b3JrcyBhcyBleHBlY3RlZC4NCj4gICAgLSBBIHByb2dyYW0gbW1hcCgp
+cyB0d28gcGFnZXMgZnJvbSBhbm90aGVyIFhlbiBkb21haW4gYW5kIHRoZW4NCj4gICAgICBh
+dHRlbXB0cyB0byByZW1hcCAodmlhIE1BUF9GSVhFRCkgdGhlIHNhbWUgbWFwcGluZyBhZ2Fp
+biBvdmVyIHRoZQ0KPiAgICAgIHNhbWUgdmlydHVhbCBhZGRyZXNzLiBUaGlzIHVzZWQgdG8g
+cmVzdWx0IGluIHNpbWlsYXIgaXNzdWVzDQo+ICAgICAgKGltcGxpY2l0IHVubWFwIGVycm9y
+cyBhbmQgZ2VuZXJhbCBwcm90ZWN0aW9uIGZhdWx0KSwgYnV0IG5vdyBpcw0KPiAgICAgIHJl
+amVjdGVkIGJ5IHRoZSBrZXJuZWwuDQo+ICAgIC0gQSBwcm9ncmFtIG1tYXAoKXMgdHdvIHBh
+Z2VzIGZyb20gYW5vdGhlciBYZW4gZG9tYWluIGFuZCB0aGVuDQo+ICAgICAgYXR0ZW1wdHMg
+dG8gbW1hcCgpIHRoZSBzYW1lIG1hcHBpbmcgYWdhaW4gdG8gYSBkaWZmZXJlbnQgdmlydHVh
+bA0KPiAgICAgIGFkZHJlc3MsIGJ5IHBhc3NpbmcgTlVMTCBhcyBtbWFwKCkncyBmaXJzdCBh
+cmd1bWVudC4gVGhpcyB1c2VkIHRvIGJlDQo+ICAgICAgcmVqZWN0ZWQgYnkgdGhlIGtlcm5l
+bCwgYW5kIGl0IGNvbnRpbnVlcyB0byBiZSByZWplY3RlZCBieSB0aGUNCj4gICAgICBrZXJu
+ZWwuDQo+IA0KPiAtIFVucHJpdmlsZWdlZCBQVkggWGVuIGRvbWFpbnMgd2VyZSBhbHNvIHNh
+bml0eSB0ZXN0ZWQgd2l0aCB0aGUgc2FtZQ0KPiAgICB0ZXN0IHByb2dyYW0uIEkgc2hvdWxk
+IG5vdGUgdGhhdCBQVkggZG9tYWlucyB3b3JrZWQgYXMgZXhwZWN0ZWQNCj4gICAgd2l0aG91
+dCB0aGVzZSBwYXRjaGVzIHRvby4NCj4gDQo+IC0gRmluYWxseSwgSSBoYXZlIHZlcmlmaWVk
+IHRoYXQgdGhlIG9yaWdpbmFsICJnLmUuIDB4MTIzNCBzdGlsbCBwZW5kaW5nIg0KPiAgICBp
+c3N1ZSBkb2VzIG5vdCBhcHBlYXIgYWZ0ZXIgcmFwaWRseSByZXNpemluZyBHVUkgd2luZG93
+cyBpbiBRdWJlcyBPUw0KPiAgICB2NC4xLg0KDQpTZXJpZXMgcHVzaGVkIHRvIHhlbi90aXAu
+Z2l0IGZvci1saW51cy02LjENCg0KDQpKdWVyZ2VuDQoNCg==
+--------------MS0Hml100OrkEs5C7vmMaYEN
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi=C2=A0Stefano Stabellini ,<div><br></div><div>Thanks for=
- the reply.</div><div><br></div><div>We are currently working on <b>Raspber=
-ry=C2=A0PI 4</b> can you help us how we can port <b>Xen with FreeRtos </b>o=
-n Raspberry=C2=A0PI4.</div><div><br></div><div>Is there any reference I can=
- go through for porting Xen with FreeRtos on Raspberry=C2=A0PI4.?</div><div=
-><br></div><div><br></div><div>Thanks and regards,</div><div>Dega.=C2=A0</d=
-iv></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_att=
-r">On Tue, Oct 4, 2022 at 9:48 AM dega kiran &lt;<a href=3D"mailto:degakira=
-n05@gmail.com">degakiran05@gmail.com</a>&gt; wrote:<br></div><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">Hi ,<div><br></div><di=
-v>I am trying to port FREERtos=C2=A0on XEN . But not getting any concrete=
-=C2=A0information for porting.</div><div><br></div><div>I am following=C2=
-=A0<a href=3D"https://github.com/GaloisInc/FreeRTOS-Xen" dir=3D"ltr" rel=3D=
-"noopener nofollow noreferrer" style=3D"text-decoration-line:none;backgroun=
-d:rgba(32,33,36,0.04);font-size:14px;margin:0px;padding:0px;vertical-align:=
-baseline;font-family:Roboto,sans-serif;white-space:pre-wrap" target=3D"_bla=
-nk">https://github.com/GaloisInc/FreeRTOS-Xen</a></div><div><br></div><div>=
-but getting a lot of errors.</div><div><br></div><div>Please Let me know ho=
-w to follow the porting process.</div><div><br></div><div><br></div><div>Th=
-ank you,</div><div>Dega.</div><div><br></div></div>
-</blockquote></div>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
---000000000000c1520005ea6a906a--
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------MS0Hml100OrkEs5C7vmMaYEN--
+
+--------------8CduX9LunJEd0aizjbOGzcP3--
+
+--------------XVXLrARPWfnvGr02GkSvkKP9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM/tnUFAwAAAAAACgkQsN6d1ii/Ey9s
+9wf+PcgWSXtUZ0T6HsJ/UghG07f8HEcW11vT6tZ3+FjPs2GDMiIJfvpAnlys6Syh0DWST2MK4VC+
+JJzLvwCkNkPfMEFdohWuRtLyju3LStD4NcVQ4vdFM/U9a36iBNpb/+H+1SrSgy2Lm47GQGCyV/fO
+4T34mtZy5q4Cyx/2FswlK1eOb5hDjpEum6rgl1rWgz+zmEs+zki6dFHppWFLYzFvMKmyAkBGXtGc
+t6kBq2ajBYS5C7zMTyHDHuE7OrB/HWu3PyYiERZOQ9P8WRXtLJ9rzL2/HHHKPPBKeJ+CUNlt6A6+
+tOpDxnlqyjMNFgRe8c+l1k8Bk2hN0skCppcBeoOHlA==
+=Eelx
+-----END PGP SIGNATURE-----
+
+--------------XVXLrARPWfnvGr02GkSvkKP9--
 
