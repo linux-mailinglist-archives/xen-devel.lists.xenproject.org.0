@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61D365F7966
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 16:03:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.418034.662812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 146D95F7A51
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 17:11:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.418082.662840 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ognwx-0007Oz-AQ; Fri, 07 Oct 2022 14:03:39 +0000
+	id 1ogozl-0007Um-PG; Fri, 07 Oct 2022 15:10:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 418034.662812; Fri, 07 Oct 2022 14:03:39 +0000
+Received: by outflank-mailman (output) from mailman id 418082.662840; Fri, 07 Oct 2022 15:10:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ognwx-0007MZ-7Z; Fri, 07 Oct 2022 14:03:39 +0000
-Received: by outflank-mailman (input) for mailman id 418034;
- Fri, 07 Oct 2022 14:03:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ogozl-0007SF-Mf; Fri, 07 Oct 2022 15:10:37 +0000
+Received: by outflank-mailman (input) for mailman id 418082;
+ Fri, 07 Oct 2022 15:10:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4A9H=2I=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1ognwv-0007MT-PE
- for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 14:03:38 +0000
-Received: from sonic316-54.consmr.mail.gq1.yahoo.com
- (sonic316-54.consmr.mail.gq1.yahoo.com [98.137.69.30])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d4d2d36e-4648-11ed-9377-c1cf23e5d27e;
- Fri, 07 Oct 2022 16:03:35 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic316.consmr.mail.gq1.yahoo.com with HTTP; Fri, 7 Oct 2022 14:03:33 +0000
-Received: by hermes--production-ne1-6944b4579f-8xbfz (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 6c531180527f65d2a4b3d734797c933b; 
- Fri, 07 Oct 2022 14:03:27 +0000 (UTC)
+ (envelope-from <SRS0=NgR6=2I=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ogozk-0007S9-8I
+ for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 15:10:36 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 310bad83-4652-11ed-964a-05401a9f4f97;
+ Fri, 07 Oct 2022 17:10:34 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E0889211C3;
+ Fri,  7 Oct 2022 15:10:33 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AA80913A9A;
+ Fri,  7 Oct 2022 15:10:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id fEN9J2lBQGO7JgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 07 Oct 2022 15:10:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,239 +51,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4d2d36e-4648-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1665151413; bh=T9kVCstbl5ELaapgtMaHCSmWDUTJT+1+RInIVz8Z/Vw=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=ptbu+gpXbie762iHNGuc2mCBhF/ILqbAXeoRC/ZbxM9FBPBox38UbjNkmhU0TnCp3hgbL0F/AdRvh6XrxMFODqOXQPcvwn1yGpI75pFd6IK+8tdaYt6EXn+q+AZ1A084NF9SEkfU8xyV3u8RD0NWoybSnCNOZNLwXT6NTKZrcjunU5srRme0fZ4VOq7zL72byL38ryrkLSOQ7zHurs3PEz5FJzU5KRfgVWiWlw/1CqamfoVe49E86jYoCNaqG7ZOJAwRD3SyeRwq13BqFvu3N/OFRFl/rh5Dw3xUrmViH8OKVW4+sMgGflmBpa1nIzLt8zZ2THn1iDwCJiXSL6Z8Aw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1665151413; bh=fpHJhdJ2Jl0cn4d/t/rIO0lfB4X0ZVQsFaOkMTozNIm=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=M1UMMrHacvoO/XmmX4k0TMvZBpcXCfb2aDLTHVmoJ9KHGCLZb0UFjIpDODRRVxCZ4zkCcD0m6WMZIAVexRw0A6ev+wqNrohkutGwiC7nZ3WktlbYnKol1LwqLiTWd1Pj8gF61UYXwEslTXxCRxcPGq4FCCh06sT8CGCMhvH0ciWh5fuyDR9VBUhZVmLPeLMq4UDR4Cy15INf58YdioKMI9L619FpQJUDwbvsDn4sQHLZmEtMufnG1jaXTOdBJxFKRzDHZONSiwr+huRCadpXpSNS8P57vWSJIVnhhdNHGOB6CV+OjjJjamOlZFxaQ89BJ5zcmKm8CE/p7AJbm6gIWg==
-X-YMail-OSG: 562pW9sVM1mBDkIbeVFt7wj0_DvsTm0Iiv8pBLZjH6eKtDhgu9XP7.d6STN3KO5
- sAcPOpQNsXmUYCkMzgwvfkqH3U8otpwVgDdeUjWYsxe403zv9iNuTuk1IzvdVg_GkSGh0FZxVQyR
- mrKB.j2iFdmbEj.j7BMbLL27ayIxK0pAkYTHEW4IM4p2HrYhVVJ1OPpz4GxQ5JX9HpTsKAq1iocP
- kxKuELWj7EQz3BY4XiNPnjnrX87W.Dguool3qrjYzglEvskx3pxUt94J4ck7o_gsUEH32IRUPGIK
- Lu_TPBMAelfebUpdSECZBsSmiprsLQXBmFLQmSEGi.CaqpaaTVQu2.gMBe5giv_qoTeiPXy2W.5D
- cRePK6mlBrRp3sFBRn6R30rEruve0Zy_x5zWGNuP9BVibKa8N47EalbVJ2o93655b.db8qTl528i
- _AkI4tTNspv5V8N2o_zZ14pf03JlarADtHdgNrn.fccCPKvm1Zp.wfAhP7RD8wvKWRZcHrP89N8M
- z1QE78_NjNvBYwaSMP3uDCGdzCbZWnWf8mQ5QR773fzOKs2S7Aqg33qtR29pGbSSQiTgNSsuEeDa
- Vq0CNq5cc5.nKPhG.y7ckhTiZFqy4uLIqiXhhyt1.njhuFj.LG_Xpy288XGW9t8SgbEWCMpKjECC
- 4ke_LKVmExJvLm8ejJp7p3Qdh4_VDYG7T3GtHd7IDxyxl8UgPFkMesJdVn4K2wIZeVHvo.9yLZi5
- GkMKYY8n_KE5zqsqVb3_dl3qY7tXivp60B8mQJSfde_UE93fGf96EULKzwsHg3uDuvYsjFELAift
- JlixFV70ZndO4uG4DZJGi8ozFCFgo7SyVcImYn9AgDbxb7rVVCG_RhKg.CurKu9cGXdlwrnxLKPd
- Bjq3IqEQRHSdBjnLyUGUNjh2ejlMXNshf_5QWdJDoh.FL4bdTXFWcVUoLs4zPpJ1eTRYoocWqsto
- _Hrvh1.HzriKDLfA7o0TrXU0aWhqk3Fad.8Fv7Zc4y.cVvtJUD4dLkr637MPk8Ni63AkPIpatyp_
- oXJw3JFdgkS0tHynjfIouekaugqwA2KX8e5bcbH1SrSAQpRwWPMKMjmFW9N4cQQsbasTxtKQpKrv
- fOXpzE6AxCKwVsRy84AvF7.DZlC0WekD2ihFn70nWLS87kqA.McwSB24GYQb6hS4uXkJpeQjX_wx
- UqygF48jYuNcPrpnQll2ue6CEnUTrFIry9f20sWL_cRFa9ITQU.Sb_y6Njx5XfyH.Vy10PiBl3_6
- pOAM24ux_0IHMq9LJOWN.chBzBEywXNc2anIGGJhHa2mfu.PDOLvMlCKaT8iJweIPnz2JaAbpTPe
- R0aHwJuK6MepWpQFh7qWQIOBouW5JQ7iO.PIK7YRJOQ03QYF8gO3mffNuZdqhHIn4UBZA9YTHchs
- Qw1EQp_g2822zNdzgBFO9T._I0H1vYuQGZfHQrdYWqX9xsePdR1tm4aUyasNfhAA3qsMN.dJ297n
- nwQRpISQmCGI2FP1jbx.U2hBq9N4dA9_EYCr9xCp85pXcOuonC5lhrc3oTORDmsiXRQ3Hz8x_6dx
- rdC_aY2RCHtVhnRW82HDHJqEesTrPqBEa8fCtGPWeeIRuEETvJunC7hNmr5hfCMANcMp3EiAxMi2
- 2GTFeqB6RirPZICebIMWc_Ei41m44VS6GZnmqPmYim0YHg9Yesbs8aDfGoCVP_hmRLEjcJcvt8zy
- _VWrYXhipjMGaUdqk224aoPx_mx3y01.ZMLamwgmzVW97tRpFql5NI5oJ5qb76_s4PT.goHygm9B
- 3gyHIK22ccqwyJ_oMPNv.P9INvPX51b5oG9AJJRsQ9juh_TaQcx51p9nI5J1dbP_fUqTIpkMS4x3
- pQoxyPAr7jgIboZ.Si4wVaPOZdkDDANgOXcorwoMlBRq.kgm_HAiOAbt6gpWKaXd.46L657fjvso
- 6beWS8Xvz.ntt5Oh7ffPtPoXBWDRdNBoM9rwwXoyrDqf_hNZi_BRaQBtwXNfkQDr0ESkeGu9P74H
- z7PC2rjl7pZ1Fg1V4k0EO9Bt63HDH1pxo0h.bc1UgBDjGGQV2s06y2TUS5JDHIDgja1SIvMih9aS
- Jv3L92gYrEZcx06.yQLAxrmXYehlbBdU6iDSArtJpS1mb95m8PpS42q3dZZ7q0XNfuc772.qq0OB
- pieEuj2d2iL70A1Wyi6qyeHMidItAcMcOSQsmP9Tyw46xRYLia507yFbckbWj9iqqnRvH_A9hNZi
- nYR9EvGfB01tY
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <93c05893-6058-4e5e-9d5a-d127ceb52f2e@netscape.net>
-Date: Fri, 7 Oct 2022 10:03:26 -0400
+X-Inumbo-ID: 310bad83-4652-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1665155433; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/9NyaT9kc7y2hABIl2Ej5DgC0r071ytcPJuf8xermk8=;
+	b=CaOHIGOZFZt9dj2LYvEYX4OkngiTbpUmGdHrW+ZMcHT9pA9H+vMyZRHxrSSBKMyzKalxZR
+	a6t42FtdPnm5L46/ZL3c88gDmYkjUirA56uFTOAgjRTqWxGNpEbrw8Js4YLsGTGQUfK78G
+	T4Q3CNh/ybOQEhubChhdndqgf4zIAMI=
+Message-ID: <090c9202-68ed-a62b-c10a-350e1531bd90@suse.com>
+Date: Fri, 7 Oct 2022 17:10:33 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Support for UEFI guest booting on Xen x86 (Was: Re: xen ovmf/uefi
- firmware does not save screen resolution)
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-To: xen-users@lists.xenproject.org
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-References: <mailman.3.1663934401.4493.xen-users@lists.xenproject.org>
- <423215ee-fac0-06c5-1156-3c74e98cff12@liberaliatempus.com>
- <9639a6cb-8e9b-6c67-4ed7-7df2e84d6f25@netscape.net>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH] xen/virtio: Handle cases when page offset > PAGE_SIZE
+ properly
 Content-Language: en-US
-In-Reply-To: <9639a6cb-8e9b-6c67-4ed7-7df2e84d6f25@netscape.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.20702 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>
+References: <20221007132736.2275574-1-olekstysh@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20221007132736.2275574-1-olekstysh@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------eG0Azqfrz4Pl3dZ20BiE4UjI"
 
-On 10/7/2022 8:02 AM, Chuck Zmudzinski wrote:
-> On 10/6/2022 9:38 AM, Liberalia Tempus, S.L. wrote:
-> > Thank you very much for your answers.
-> >
-> > Finally, after trying some of the solutions proposed by Chuck, I have 
-> > made the decision to delete the UEFI partition and move it to a normal 
-> > MBR system.
->
-> Did you know you can keep the GPT partitions and the EFI partition and boot HVM guests
-> using MBR (seabios) with a GPT BIOS Boot partition present in the guest's virtual boot disk?
-> I implemented that by stealing the last 1 MB of the EFI GPT partition and assigned that 1 MB
-> to be a BIOS boot GPT partition, and grub2 is smart enough to install its own MBR bootcode
-> into that partition and it works fine in Xen HVMs by using seabios instead of ovmf as the
-> firmware/bios for the guest in the xl.cfg guest configuration file. But that's not necessary if
-> you are going to give up on using the EFI partition and GPT partitions and go back to the
-> legacy MBR partitioning scheme. What you are doing is a sensible option also given Xen's
-> current lack of support for UEFI booting of Xen HVM guests that actually works.
->
-> > I think it's too cumbersome all this xen and UEFI booting stuff and 
-> > there's no point in spending more time on it. At the end of the day what 
-> > matters in a virtual environment is that the machine works, regardless 
-> > of the system used to boot.
-> > As of today, UEFI booting does not work properly in xen/qemu, at least 
-> > not for people who are not experts in xen code.
-> > Best regards.
-> >
-> > PS: Chuck, what you say about version 4.14 I have not been able to apply 
-> > in a vm with windows 10. It seems to work with a hvm vm with linux, but 
-> > not with a windows vm.
->
-> That may be true, because I have only tried UEFI booting of a Linux HVM guest. I have always
-> used MBR booting of Windows HVM guests with either the stdvga Qemu emulated graphics
-> device as the Windows HVM guest's primary graphics device or VGA passthrough of the Intel
-> IGD graphics device to the HVM Windows guest as the guest's primary graphics device.
->
-> I will in the meantime try to get UEFI booting working for both Windows and Linux HVM guests
-> for the future and at the same time use the BIOS boot GPT partition hack to give me the option to
-> use MBR booting with seabios instead of ovmf as the firmware/bios for the HVM guest until
-> Xen works well enough with UEFI booting of HVM guests. Obviously the MBR technology is legacy
-> tech and Xen needs to eventually be updated to support the UEFI booting method of HVM guests
-> going forward. I am not aware of much work in this area being done by the Xen developers, but
-> I am not subscribed to xen-devel so I could be wrong about that and I would welcome any
-> Xen developer who could explain to Xen users what work is being done to support UEFI booting
-> of Xen HVM guests in the future.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------eG0Azqfrz4Pl3dZ20BiE4UjI
+Content-Type: multipart/mixed; boundary="------------zrU2QzhXpGsV8GuX8utfpQG4";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>
+Message-ID: <090c9202-68ed-a62b-c10a-350e1531bd90@suse.com>
+Subject: Re: [PATCH] xen/virtio: Handle cases when page offset > PAGE_SIZE
+ properly
+References: <20221007132736.2275574-1-olekstysh@gmail.com>
+In-Reply-To: <20221007132736.2275574-1-olekstysh@gmail.com>
 
-Specifically, what is Xen's current strategy for supporting UEFI booting of guests (Windows, Linux, etc.)
-on the x86 Xen hypervisor?
+--------------zrU2QzhXpGsV8GuX8utfpQG4
+Content-Type: multipart/mixed; boundary="------------wFlYredAldefDdUApsew02Gt"
 
-For example, is using HVM guests with the upstream Qemu device model considered legacy tech and
-the work to develop support for UEFI booting in the future should be done using PVH guests instead
-of HVM guests?
+--------------wFlYredAldefDdUApsew02Gt
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Kind regards,
+T24gMDcuMTAuMjIgMTU6MjcsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiBGcm9t
+OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+
+DQo+IA0KPiBQYXNzZWQgdG8geGVuX2dyYW50X2RtYV9tYXBfcGFnZSgpIG9mZnNldCBpbiB0
+aGUgcGFnZQ0KPiBjYW4gYmUgPiBQQUdFX1NJWkUgZXZlbiBpZiB0aGUgZ3Vlc3QgdXNlcyB0
+aGUgc2FtZSBwYWdlIGdyYW51bGFyaXR5DQo+IGFzIFhlbiAoNEtCKS4NCj4gDQo+IEJlZm9y
+ZSBjdXJyZW50IHBhdGNoLCBpZiBzdWNoIGNhc2UgaGFwcGVuZWQgd2UgZW5kZWQgdXAgcHJv
+dmlkaW5nDQo+IGdyYW50cyBmb3IgdGhlIHdob2xlIHJlZ2lvbiBpbiB4ZW5fZ3JhbnRfZG1h
+X21hcF9wYWdlKCkgd2hpY2gNCj4gd2FzIHJlYWxseSB1bm5lY2Vzc2FyeS4gVGhlIG1vcmUs
+IHdlIGVuZGVkIHVwIG5vdCByZWxlYXNpbmcgYWxsDQo+IGdyYW50cyB3aGljaCByZXByZXNl
+bnRlZCB0aGF0IHJlZ2lvbiBpbiB4ZW5fZ3JhbnRfZG1hX3VubWFwX3BhZ2UoKS4NCj4gDQo+
+IEN1cnJlbnQgcGF0Y2ggdXBkYXRlcyB0aGUgY29kZSB0byBiZSBhYmxlIHRvIGRlYWwgd2l0
+aCBzdWNoIGNhc2VzLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogT2xla3NhbmRyIFR5c2hjaGVu
+a28gPG9sZWtzYW5kcl90eXNoY2hlbmtvQGVwYW0uY29tPg0KDQpSZXZpZXdlZC1ieTogSnVl
+cmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg0K
+--------------wFlYredAldefDdUApsew02Gt
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Chuck
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
->
-> Best regards,
->
-> Chuck
->
-> >
-> > -------------------------
-> > MhBeyle __
-> > > Date: Thu, 22 Sep 2022 11:25:41 -0400
-> > > From: Chuck Zmudzinski <brchuckz@netscape.net>
-> > >
-> > >
-> > > On 9/22/2022 4:37 AM, mhbeyle@yahoo.es wrote:
-> > >> Thanks for the answers.
-> > >>
-> > >> Chuck, I tried at the time to apply suggested patches to the software
-> > >> with no results. It is not clear that any of the current patches solve
-> > >> the problem.
-> > >>
-> > >> I think there are two problems here: One, the virtual machine that
-> > >> creates xen uses QEMU and the UEFI bios is not able to communicate the
-> > >> resolution data to the system. Two, this kind of problem would be easily
-> > >> solved by virtualizing a more modern vga instead of the current cards
-> > >> (cirrus etc.)
-> > > Actually, this might be a bug in Xen 4.16 that was not in Xen 4.14.
-> > >
-> > > On Debian 11 (bullseye/stable for Dom0) booting HVM with Tiano Core
-> > > UEFI works for me using vga = stdvga and videoram = 16:
-> > >
-> > > With Debian 11.x stable for dom0, the Xen version is 4.14 and the Qemu
-> > > version is a bit old, 5.2, but booting with ovmf/uefi works:
-> > >
-> > > I boot Debian 11.x (stable) in a Xen HVM using ovmf using vga = stdvga in the
-> > > xl.cfg and it seems to work in a VNC window. I can get 1920x1080 resolution
-> > > (with videoram = 16 in the xl.cfg), but this only works on Debian stable dom0
-> > > with Xen version 4.14.x and Qemu version 5.1 (haven't checked if Debian
-> > > backported Qemu version 7.0 for Debian 11 also works).
-> > >
-> > > After login, use the gnome display settings and it gives the option of up
-> > > to 1920x1080 resolution with videoram = 16. I presume KDE, XFCE, MATE, etc.
-> > > also would allow this.
-> > >
-> > > It is true the Tiano Core UEFI boot configuration setup screen and the grub
-> > > screen resolution is low (I think only 800x600) at the beginning of booting.
-> > >
-> > > Here is my xl config for ovmf (UEFI booting with vga = stdvga, videoram = 16)
-> > > and a VNC display and Debian stable with Xen 4.14.x dom0 and Qemu 5.2 in
-> > > dom0 on Debian stable:
-> > >
-> > > --- domain configuration file ---
-> > > builder = 'hvm'
-> > > bios = 'ovmf'
-> > > memory = '6144'
-> > > vcpus = '4'
-> > > disk = ['/dev/linux/bullseye,,xvda,w']
-> > > name = 'bullseye-hvm'
-> > > vif = [ 'mac=<redacted>,type=vif,script=vif-route,ip=<redacted>' ]
-> > > on_poweroff = 'destroy'
-> > > on_reboot = 'restart'
-> > > on_crash = 'restart'
-> > > boot = 'c'
-> > > acpi = '1'
-> > > apic = '1'
-> > > viridian = '1'
-> > > xen_platform_pci = '1'
-> > > serial = 'pty'
-> > > vga = 'stdvga'
-> > > videoram = '16'
-> > > sdl = '0'
-> > > vnc = '1'
-> > > vnclisten = '0.0.0.0'
-> > > vncdisplay = '1'
-> > > usb = '1'
-> > > usbdevice = 'tablet'
-> > > --- End of domain configuration file ---
-> > >
-> > > But the same configuration with Xen 4.16 and Qemu 7.1 in dom0 that is in Debian
-> > > unstable, and also in Fedora 36 with Xen 4.16 and Qemu 6.2 I think, I get a crash at
-> > > boot - it does show the Tiano Core configuration screen and grub screen at 800x600
-> > > resolution but crashes soon after. When trying to boot Fedora 36 in a Xen HVM with
-> > > ovmf, I got this in the journal of the guest:
-> > >
-> > > xen-qemu-system-i386: relocate_memory 4096 pages from GFN bf000 to GFN c1000 failed: Invalid argument
-> > >
-> > > Also, with a good boot (using seabios) I get this in the journal of the guest,
-> > > but is missing from the boot that crashes:
-> > >
-> > > fedora kernel: BIOS-e820: [mem 0x00000000fc000000-0x00000000fcffffff] reserved
-> > >
-> > > The size of this missing entry is 4096 pages, which is probably what Qemu is trying to
-> > > relocate but cannot with ovmf/uefi boot because it is missing. 4096 pages is 16 MB,
-> > > which is probably the video shared memory.
-> > >
-> > > This is probably a bug/regression in Xen somewhere between Xen 4.14 and 4.16
-> > > and I will try to bisect it when I have time.
-> > >
-> > > Best regards,
-> > >
-> > > Chuck
-> > >
-> > >> that are not recognized by the operating system when using
-> > >> UEFI and do not load specific drivers. For example, the problem is
-> > >> solved using qxl and a driver in Windows, but the qxl development is not
-> > >> complete and fails.
-> > >>
-> > >> With limitations, it seems that the problem in QEMU is solved by
-> > >> changing the parameters in the BIOS and doing a warm/soft reboot. I
-> > >> don't know why, this can't be done in xen. The settings are never saved
-> > >> and the reboot, at least in windows 10, is always a cold one (xen
-> > >> destroys the virtual machine and recreates it. The soft reboot parameter
-> > >> hangs the vm).
-> > >>
-> > >> Regards.
-> > >>
-> > >> __________
-> > >> MhBeyle ___
-> > >>
-> > >>
-> > >>
-> > >
-> >
-> >
->
->
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------wFlYredAldefDdUApsew02Gt--
+
+--------------zrU2QzhXpGsV8GuX8utfpQG4--
+
+--------------eG0Azqfrz4Pl3dZ20BiE4UjI
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNAQWkFAwAAAAAACgkQsN6d1ii/Ey9w
+cwf5AVa4s11Y5TevJXo/7Xv6prUoX8Mb6XJ9VNtq6sVZ2QkeRLYsl1YIfP5kKZCJGnZd+Dmz6LR4
+J28x7tykCI6ETL3xkZugQ8N6N4wUFX/jFeldfGqJ88E9szfsH+AXun+IKFIP5ERenZeZrHsc3l9u
+uY5JFKB638pauo0ZAqWKwyOw0c2D83ODznUTLAiTGDmAun3ududV93gveG4JZshcrvIDad5qMvis
+hCJBd8U13qOlseyAN8f8hXknaW2Av07OZ0lVizdWN8bJJwWOl9Dkn1bI5sAmqdZ8arOKd5HelF2S
+k9lxdI/asCTVbpYgMPpJVTkqPcZVGNTyIVAHGeZmYg==
+=Au6E
+-----END PGP SIGNATURE-----
+
+--------------eG0Azqfrz4Pl3dZ20BiE4UjI--
 
