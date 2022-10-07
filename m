@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 498515F7B05
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 17:51:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.418127.662870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C6845F7B26
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 18:03:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.418170.662898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogpca-0004aR-6v; Fri, 07 Oct 2022 15:50:44 +0000
+	id 1ogpop-0007l5-MT; Fri, 07 Oct 2022 16:03:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 418127.662870; Fri, 07 Oct 2022 15:50:44 +0000
+Received: by outflank-mailman (output) from mailman id 418170.662898; Fri, 07 Oct 2022 16:03:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogpca-0004YM-3A; Fri, 07 Oct 2022 15:50:44 +0000
-Received: by outflank-mailman (input) for mailman id 418127;
- Fri, 07 Oct 2022 15:50:42 +0000
+	id 1ogpop-0007iO-JZ; Fri, 07 Oct 2022 16:03:23 +0000
+Received: by outflank-mailman (input) for mailman id 418170;
+ Fri, 07 Oct 2022 16:03:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Hbjo=2I=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1ogpcY-0004YG-Cv
- for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 15:50:42 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb853515-4657-11ed-964a-05401a9f4f97;
- Fri, 07 Oct 2022 17:50:41 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id ot12so12266594ejb.1
- for <xen-devel@lists.xenproject.org>; Fri, 07 Oct 2022 08:50:41 -0700 (PDT)
-Received: from [192.168.1.93] (adsl-75.176.58.241.tellas.gr. [176.58.241.75])
- by smtp.gmail.com with ESMTPSA id
- r9-20020a1709061ba900b00782cd82db09sm1395373ejg.106.2022.10.07.08.50.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Oct 2022 08:50:40 -0700 (PDT)
+ <SRS0=vJJ6=2I=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1ogpon-0007iI-GH
+ for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 16:03:21 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8e86e2c6-4659-11ed-964a-05401a9f4f97;
+ Fri, 07 Oct 2022 18:03:18 +0200 (CEST)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 297Eqan7003431;
+ Fri, 7 Oct 2022 16:01:47 GMT
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3k15up6ve5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 07 Oct 2022 16:01:46 +0000
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
+ with ESMTP id 297Db18L000583; Fri, 7 Oct 2022 16:01:44 GMT
+Received: from nam12-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12lp2171.outbound.protection.outlook.com [104.47.55.171])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3jxc06ydhy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 07 Oct 2022 16:01:44 +0000
+Received: from CH0PR10MB5020.namprd10.prod.outlook.com (2603:10b6:610:c0::22)
+ by SN7PR10MB6643.namprd10.prod.outlook.com (2603:10b6:806:2ae::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.28; Fri, 7 Oct
+ 2022 16:01:42 +0000
+Received: from CH0PR10MB5020.namprd10.prod.outlook.com
+ ([fe80::1aa:5a18:ec58:7c2]) by CH0PR10MB5020.namprd10.prod.outlook.com
+ ([fe80::1aa:5a18:ec58:7c2%3]) with mapi id 15.20.5676.036; Fri, 7 Oct 2022
+ 16:01:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,279 +63,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb853515-4657-11ed-964a-05401a9f4f97
+X-Inumbo-ID: 8e86e2c6-4659-11ed-964a-05401a9f4f97
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2022-7-12;
+ bh=Jx1SSBrCclrfp4k6ArbkhpRZCSiSFaEy6PrCFHLF604=;
+ b=g9n/Nk3ff3k02ypMZOC3W+NF2VRWbFJSbqnjAaqITDez0vst3+tosxNh0AfoseLeUrcb
+ ZIppAEYFvhOQW8dNjUVgNfdwt40Q/rIZNZdMXZTzjv2YYXMY4KsXNdo5ZhK02FBSOHJm
+ 8JNfuwZZmjJPlo91qg+T2KK6vowgJgtDITj2KHlHLu6K2AAt8B2Z4CzZOKzrZhFJk9CY
+ YyuZaBYrH9DmlWFawcgx5jE3qNOIvEbySW22wayHJtA6LWey65GOFbxVR6tcbejZRrEl
+ H6OBGWywQ5yIQ3CWgjXc792Oa4criPT7KavNUxsGae/tUhawpVtG2Y1apo8i2YyXPFBo pQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cewVJtbWWdHTdd8AN1ERxsPRoLT6iDc85Lnpify1mUAlGRBRxp4Blyg8FPuG7x7m6z6+psiGifkUJazne8IHZXZOty5iWLwT1/fYKpBUQpBcLvw56FcjVXkM7XaDy2lC/JON4NxBCWcfHKJrhCkucgHlQKiE4qd9uhLbm+SRkT1INYYezUGIN6InVYQyorypvMUNAfQqBnhse75kFFoa5qkeh9p787jOo3bpM19qhDlGuE9Xt8WbNSg0SbPDpcbImITgOhwCqoFVwi67M0ZS9R0CGJDqM7aVL9gxd12Bnb2DLF10hTlmEZ6PK6KIG5Tw/Gf/GKBHuiivM3ufUsIEKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jx1SSBrCclrfp4k6ArbkhpRZCSiSFaEy6PrCFHLF604=;
+ b=OPnv78Y/IQuIigX0mpt1jhs7LfpKuT5B1+MDuvP+794xhAkX09hZgQmwRSgPJISmxn2eDEdDDwsmAubVZepgQG3K9eO2smQe4TXBrlRIOokDLDjUjVzPSwPcbWuv5rQSAPzdRgGzJtb4r8w2Y2hcca0iYaoGWq4ZIN80hogSJK15Dr+jUXNUI2FvcihFDDNf2EligczpYFrtlfYrzFqnPF03RaEpBhLQDnG1QSGZtiz9337cZWo5swgg3dP95ZFjWjPpuSkV+J1hUJPWL2rQr7UAhddLF/clynOmmNNc/HkL+OG5qnKQg4MplDUVt4TvO2T3mb/q2sTgJCrRP/g+dQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fNTmuNCWLOBt7Dn0WJ9AWpiVdld1LXssI0yIAz367cA=;
-        b=epIDQ6A1NNQAad6uG5hDVw65y+OS+Gi7r1NkL6k7hU1W/gPZkSZiyNbfyA0m4OrKJm
-         cTosb3yx0utfeygMpBS7Flbe00GJQoiNG6p9H+qj7AysMK77myuofqRcnU+LG/eutpD+
-         uMd/EYLzhOPPCW4x01BjMJUqSR2lS5UlXEYQ7PSp0MXWOGw8XWX8LYCMLEUkFEvhz/SD
-         FJD0CGHm2PKwIBO7oDsO+y10ko8spzKUhV9D2BMcwJi7182EGQp8PyWD6hFxFa9kgIP9
-         7QkRRP9UkyncU0vPYiPS2IFymQcQ8T00hoP8p6TbvBWY/fdj6SWQqN7+JWt9z45KV05J
-         Y96A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fNTmuNCWLOBt7Dn0WJ9AWpiVdld1LXssI0yIAz367cA=;
-        b=tyxpqZWNpL9rk0sGaEs4GJb1tA7X/x2fllWe4oOKUNkVC3MHVPWgjFzxadBg0TsXXa
-         bY0OeCoHWvB/tMjcNa+mnRW5JU+bxebYuUdd6vAuxcakyy714ya/K2niyYC6mWj8yPw9
-         2uJJOKKFkG5wGOplW2nzk0oV98bUKvKS50N1Tsnx/ATrWYe4c1icI1oydGtLG0cfkkd0
-         PdK7pV2l9D/DqoBZaiqu4yfX/ZKRsPDZQHnmd78I7F4x9ztjD4damJ4PrJPeqUt7ccNz
-         q7bpqvCLoPgXXx64FmVTtRwyiWlOXLE9ZGjP6of2iHtB+XShlvN2kblAGF/kjGVNW2WF
-         +2hA==
-X-Gm-Message-State: ACrzQf1+XWkpdShG+LV22biOquW11Cr9BaP4I/dEPLGc4ORrmWlMNpVd
-	3dL2vRkRLoGavcX0T5B5794=
-X-Google-Smtp-Source: AMsMyM6Df+6E0+r6CgIGkIXFZqhXP/GHw9Pf0It4zNF+xakRMXSZw9LtRpRSeR3bhbNF8kZlo/hI1g==
-X-Received: by 2002:a17:907:62a1:b0:781:b320:90c0 with SMTP id nd33-20020a17090762a100b00781b32090c0mr4432995ejc.255.1665157840495;
-        Fri, 07 Oct 2022 08:50:40 -0700 (PDT)
-Message-ID: <677bc264-c507-3bed-6d51-0d010a0dd449@gmail.com>
-Date: Fri, 7 Oct 2022 18:50:33 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] xen/virtio: Convert PAGE_SIZE/PAGE_SHIFT/PFN_UP to Xen
- counterparts
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jx1SSBrCclrfp4k6ArbkhpRZCSiSFaEy6PrCFHLF604=;
+ b=PObYio3J5eLOj8WAVQy+coqVPyoaLJI+I/TRqFxwf0zOewDAWa3CueYxbNsC45f5gem1Ld9h0YtKqlOb2HD2NXQyetThE0SG7e9f04oCJwjLmYzEPEv1XKKx5GRci1K0cjUJAPR5V6qslQHQcMjefz+A7oWSSm7JK8ctDaZrU+Y=
+Message-ID: <79358304-de2e-3025-f147-cba2f76f22d2@oracle.com>
+Date: Fri, 7 Oct 2022 12:01:37 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.1
+Subject: Re: [PATCH v2 3/3] xen/virtio: enable grant based virtio on x86
 Content-Language: en-US
 To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Juergen Gross <jgross@suse.com>, Oleksandr Tyshchenko <olekstysh@gmail.com>
-References: <20221006120912.1948459-1-olekstysh@gmail.com>
- <96a16b32-0950-b538-65e5-9955ed8cc529@gmail.com>
- <b3b8047e-b4a5-1e75-2a55-a7beecf8ca7d@epam.com>
- <7f54bdab-c68f-0d38-93f4-007408151f01@gmail.com>
- <816da52a-f646-c114-fa6d-9320152a0e79@epam.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <816da52a-f646-c114-fa6d-9320152a0e79@epam.com>
+        Juergen Gross <jgross@suse.com>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "x86@kernel.org" <x86@kernel.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        Stefano Stabellini
+ <sstabellini@kernel.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20221007064143.10049-1-jgross@suse.com>
+ <20221007064143.10049-4-jgross@suse.com>
+ <67c9ec7d-a67d-ca28-4354-68e38aa27e13@epam.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <67c9ec7d-a67d-ca28-4354-68e38aa27e13@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA9PR10CA0010.namprd10.prod.outlook.com
+ (2603:10b6:806:a7::15) To CH0PR10MB5020.namprd10.prod.outlook.com
+ (2603:10b6:610:c0::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH0PR10MB5020:EE_|SN7PR10MB6643:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b9f0bff-3f50-426c-35c5-08daa87d39bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	xbKhnVGKJi3Lz4raZmo7Npk9tU9joXdNNQv0lMAKEAiU28RZg1Rwm/MCc4XxVOpBLWUPUH+aNmgFA/rawRWGB6hxZjJ2cRgn5v+ZOi85TqNng8JKODACKOf5R1CaphCJxF8tNlh3iZgq9OXeTHJG0tMR0KM+CjY975EtZrWCSqWdikuSv8ac6TTv5BIrJKnbITnwTTjE1N1ob5l1J6ssLuiIoE5cyZEuE7pGEmCg0sOsQxf7uzMn2ttSfYJgwQGAQGgw+SIZEjpVwD0XhTY+Ekj+2q7r29mPAdejLwGf98LGLXnZs64pPbffgE9dp8dHXTCOiGz9KaZs/9MCUqYFo6iXPcst1WrWDdWnKYfAKJoDdSagMFv6rWQwK8bAhKRv9MSZmYgb5Ut29vj+WZfdPmODaoDZmFNB5v5taq8WrnYiN2ghwAWs5pFQNlW1+LdroAj3v34m17EoYyeB4LEO/6a5u3HQLABRCV6dG6ITxmC3WX1GnEuinfuFr/mFSigdbqsC+G6EeYGP62zouo0gpLhhHIrPvAxEB6aJycOm1OabQLCPej4YxJXh8lNEu5kbfu7quZKj2lsr6AE/Z5/GZQ3cveIS+OlK9dzEnMI494/tuNnxUIvas8WBx95NWW5J2RB5kXm11B4px97ahd11C8nSKwIY2GZT4bM+W3aZByhhVuPKlySLXUVTxLKnXMI2MWMuvUOW0k4t3+YrcBqwnLnD2HjF46GTBdXpXshTTqlFyGS5n9P5On3vLEduKMnvQx9pdZJDY0KpYF8bp1vhD539ppxKOHPVAyrJCMSiprE=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR10MB5020.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(136003)(376002)(39860400002)(366004)(396003)(451199015)(31686004)(36756003)(2906002)(31696002)(5660300002)(4744005)(44832011)(7416002)(186003)(83380400001)(4326008)(38100700002)(26005)(2616005)(6666004)(6512007)(66946007)(478600001)(6486002)(316002)(8676002)(53546011)(66476007)(86362001)(66556008)(6506007)(54906003)(41300700001)(8936002)(110136005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?bW0rRFlRdXpZUi84SzB1ZU9QMGx1WlJSeXJMS2tUMmZ2ODIydFJqMnI1WGJL?=
+ =?utf-8?B?d2pnMThaOXZYaUViMEE0ZWZJajB0SHp1cjltZVI4Nzg0L0FtMnZRbXNzeFlE?=
+ =?utf-8?B?SFpVcDJZL2t1N3MyUHc5ME5LaWRmVmxOd1hRZnNEeWFtaUVtRmJsUVFKSGFM?=
+ =?utf-8?B?MnlKNlJHS2JrREtmQW5jU2JFVml5VHBBZEtzYXVnRTV6NVRXZStCWnQ5NjEw?=
+ =?utf-8?B?bzFWU3lPNEpuSWd6VFplbUVPaVo1YkhaVHd2Y0VJVUswNlpLK1VLVkxGS2d4?=
+ =?utf-8?B?UFpMMURaNmVZQTNFekhXL2hsYlVLaWNjbHk2SEoxSjdXUUZ0MnN2NHhnZ2oy?=
+ =?utf-8?B?UlNRRlU5UGthVWYrbWl1WnNsN3JQU3YzTVN3REZOQkk2eXZpRVp0UWVVNG80?=
+ =?utf-8?B?YkNNdGpIU0pOM2ZkTFNRN2dJZEZYVFFvbzQrMFloRzBUUlVScTJzOGxFNTV0?=
+ =?utf-8?B?RHdQdVBhdUxDMDhHQ1ZVMHZ4Vy9sbyt2NThuTE1BT3hsSE4wREI0T2pRRzl3?=
+ =?utf-8?B?YTVXbGlPUENhT3hUa0JwQzRsOHhFc1VaSU5SeHNFYVRQL2NTT3ZIcCtrSkZh?=
+ =?utf-8?B?RmxCb1U2UFJRQm1iQWxxWmpWRVc1RXB2QTB6eFBxSUMvUndSUndaeFgzSlVj?=
+ =?utf-8?B?YmxNOVMreW5PZnlJZlI4WjIrd2ZDaU1FN29yY1VFcWdGbHdHUDcrQi9Bc1du?=
+ =?utf-8?B?YWdYRzhZQWFxbzZCZjhhT3lFaU84eWFKdzBab2RQNENoOWg0U1FQaG1jSVFP?=
+ =?utf-8?B?MHpCdUNqUVZqL0RUUDkweHQvcWJraW94UitaOExYUUxlRHdUdHBuUE9Oam1G?=
+ =?utf-8?B?Ym5IdEU5bTNwT3Rtcks4NEl6TFF6cDlSbmhiWFEzTlcvVFVBdHhva2ZLQ0Jm?=
+ =?utf-8?B?TjRZa0JFL1dzbGZVaWFZOUhQNXZ0SlRJajhwTWg0LzZNaFBWMTE0dktmMGpM?=
+ =?utf-8?B?SkN3Q3J0eW43OEc5dnpweDA4Y0lRTThkNzlBQUNmM3BUVDFTZTdwbHNkSWVp?=
+ =?utf-8?B?ZnBQY2poR1VDalBIQ3UvS3NYVWpHdWsramVhL1g3QWQrcnZXc2ZKZDRHRlNj?=
+ =?utf-8?B?QXo2dnd4dnFtV0JyL2wvMkZ3eEpabXZ4RlM0VXROMFhMbGRjcEU1dEtLaHZT?=
+ =?utf-8?B?NlZKelpaNjE2K2sxZEplZG9jMXRUZmVYZmlrajQvU0ZNNGhkZGszSk55eUx1?=
+ =?utf-8?B?OEtndHdEZThXQWpUVkVNenBRbkFCQTkxSHJNNXk1ai84RzlXaFFFR1dkQUl2?=
+ =?utf-8?B?SUljRjZhYmVQN1VibEVyREdnc1VabDhpSkJJQ1YrMVg2OXhmRmgrYWs1citH?=
+ =?utf-8?B?MnVkb214VE9vY2wzNk9FR2g0NWN2YWdYTFFXanpRdzdGYVJZdGtkQVJGQitT?=
+ =?utf-8?B?b0dnOEZyWmF0UVd1akhENngrd1Zya0tkWW9pVWZOcWNLeG10bGdEWit4OHlG?=
+ =?utf-8?B?SHFGb280MUJneEJlQm9KVEpPME44RmttMWFGZENOUUNHbWpWbGRDWllIaXhq?=
+ =?utf-8?B?dURjOXo0YnZwSFY3NmhZT2JrSm5SaldHUVp5QnBDUVlhL3phdC80RVB2M1pj?=
+ =?utf-8?B?TWhCdm95SHNrM0R0MjVkRE43SUQ2T2dkSDBMWm95dml6T1lXVVkxOGpkS0FB?=
+ =?utf-8?B?Y0NocTV4amxVNkJPMnFhL3czaXl5NWczTC84QnNYVCtxMUkvSTl0akgvTTRX?=
+ =?utf-8?B?U0VxNlh0dlQySzJ4bitneUhRV3JsWnk2Qi9Gd2pDSTJpWjh2cncyYm4xT3J5?=
+ =?utf-8?B?M0lUQWd3VHd5MkxUWWljOHkxVHdXK2U0Ykcva0lhc2RBTmZtSlJVWVIrVjl2?=
+ =?utf-8?B?TEhwcE5LcG5WWWk0WldsY2hzZnhQSlEvNE1ROWw2cDlXa2w5Z3FyczViVmZK?=
+ =?utf-8?B?OElsVE9vb0tXazdlcWNQVC8yZ1pOMkxha01qRHdEYkMyOUxjT21RNXk5bk01?=
+ =?utf-8?B?TGRMaVhzMUkxWWg4Y3RMVWYyWnd5cDh1QjYyOFU3S0V0SWM3VWtVVzlFdHZO?=
+ =?utf-8?B?Tmx2NitXMERYbjZ2ZzNRWHZkeHV4UFRlWXFxK0swTHlPUjR2M1UreTZkN3FK?=
+ =?utf-8?B?cUxxeGdyZ0M4RzBKbm9UM2J4WFpvUTRCNVJPMzJMbFVzR3hldFo4d0FSMXZy?=
+ =?utf-8?B?Ukhwcmh5YVlkdVNNZThXY2w3T3lGREVQSkpRczA1VnpJT3NyU1A4eEFiTjN2?=
+ =?utf-8?B?Y3c9PQ==?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b9f0bff-3f50-426c-35c5-08daa87d39bf
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR10MB5020.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2022 16:01:42.2994
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AqprQsVq+F2/PmUTr9U14IKYRFFe0fg9Kd6uAvNvbABL9oOJ001Hep2xngBrEiM8BmNNQF+MvWEzCJow68sLbF+OjwYdwbKlfiVjmN2L1DU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6643
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-10-07_04,2022-10-07_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 adultscore=0 spamscore=0
+ suspectscore=0 bulkscore=0 mlxscore=0 mlxlogscore=999 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
+ definitions=main-2210070096
+X-Proofpoint-GUID: 0pNU2b0sWDMhD8X8wifFbKp150WptGju
+X-Proofpoint-ORIG-GUID: 0pNU2b0sWDMhD8X8wifFbKp150WptGju
 
 
-On 10/7/22 16:43, Oleksandr Tyshchenko wrote:
-> 
-> On 07.10.22 10:15, Xenia Ragiadakou wrote:
+On 10/7/22 10:00 AM, Oleksandr Tyshchenko wrote:
+> On 07.10.22 09:41, Juergen Gross wrote:
+>
+> Hello Juergen
+>
+>> Use an x86-specific virtio_check_mem_acc_cb() for Xen in order to setup
+>> the correct DMA ops.
 >>
->> On 10/7/22 00:13, Oleksandr Tyshchenko wrote:
->>
->> Hi Oleksandr
-> 
-> 
-> Hello Xenia
-> 
-> 
->>
->>>
->>> On 06.10.22 20:59, Xenia Ragiadakou wrote:
->>>
->>> Hello Xenia
->>>
->>>>
->>>> On 10/6/22 15:09, Oleksandr Tyshchenko wrote:
->>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>>
->>>>> Although XEN_PAGE_SIZE is equal to PAGE_SIZE (4KB) for now, it would
->>>>> be more correct to use Xen specific #define-s as XEN_PAGE_SIZE can
->>>>> be changed at some point in the future.
->>>>>
->>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>> ---
->>>>> Cc: Juergen Gross <jgross@suse.com>
->>>>> Cc: Xenia Ragiadakou <burzalodowa@gmail.com>
->>>>>
->>>>> As it was proposed at:
->>>>> https://urldefense.com/v3/__https://lore.kernel.org/xen-devel/20221005174823.1800761-1-olekstysh@gmail.com/__;!!GF_29dbcQIUBPA!zHt-xZ_7tZc_EM6zva21E_YgwIiEeimFWfsJIpPwAu-TBcnzQhXHqlKzmXmwIcI6uIx_arHNZiaZeHt_428_8p-DyMpd$
->>>>>
->>>>> [lore[.]kernel[.]org]
->>>>>
->>>>> Should go in only after that series.
->>>>> ---
->>>>>     drivers/xen/grant-dma-ops.c | 20 ++++++++++----------
->>>>>     1 file changed, 10 insertions(+), 10 deletions(-)
->>>>>
->>>>> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
->>>>> index c66f56d24013..5392fdc25dca 100644
->>>>> --- a/drivers/xen/grant-dma-ops.c
->>>>> +++ b/drivers/xen/grant-dma-ops.c
->>>>> @@ -31,12 +31,12 @@ static DEFINE_XARRAY_FLAGS(xen_grant_dma_devices,
->>>>> XA_FLAGS_LOCK_IRQ);
->>>>>       static inline dma_addr_t grant_to_dma(grant_ref_t grant)
->>>>>     {
->>>>> -    return XEN_GRANT_DMA_ADDR_OFF | ((dma_addr_t)grant <<
->>>>> PAGE_SHIFT);
->>>>> +    return XEN_GRANT_DMA_ADDR_OFF | ((dma_addr_t)grant <<
->>>>> XEN_PAGE_SHIFT);
->>>>>     }
->>>>
->>>> With this change, can the offset added to the dma handle, generated by
->>>> grant_to_dma(), be the offset in the page? Couldn't it corrupt the
->>>> grant ref?
->>>
->>>
->>> Good point, indeed, I think it could corrupt if guest uses a different
->>> than Xen page granularity (i.e 64KB).
->>>
->>>
->>>>
->>>>>       static inline grant_ref_t dma_to_grant(dma_addr_t dma)
->>>>>     {
->>>>> -    return (grant_ref_t)((dma & ~XEN_GRANT_DMA_ADDR_OFF) >>
->>>>> PAGE_SHIFT);
->>>>> +    return (grant_ref_t)((dma & ~XEN_GRANT_DMA_ADDR_OFF) >>
->>>>> XEN_PAGE_SHIFT);
->>>>>     }
->>>>>       static struct xen_grant_dma_data *find_xen_grant_dma_data(struct
->>>>> device *dev)
->>>>> @@ -79,7 +79,7 @@ static void *xen_grant_dma_alloc(struct device
->>>>> *dev, size_t size,
->>>>>                      unsigned long attrs)
->>>>>     {
->>>>>         struct xen_grant_dma_data *data;
->>>>> -    unsigned int i, n_pages = PFN_UP(size);
->>>>> +    unsigned int i, n_pages = XEN_PFN_UP(size);
->>>>>         unsigned long pfn;
->>>>>         grant_ref_t grant;
->>>>>         void *ret;
->>>>> @@ -91,14 +91,14 @@ static void *xen_grant_dma_alloc(struct device
->>>>> *dev, size_t size,
->>>>>         if (unlikely(data->broken))
->>>>>             return NULL;
->>>>>     -    ret = alloc_pages_exact(n_pages * PAGE_SIZE, gfp);
->>>>> +    ret = alloc_pages_exact(n_pages * XEN_PAGE_SIZE, gfp);
->>>>>         if (!ret)
->>>>>             return NULL;
->>>>>           pfn = virt_to_pfn(ret);
->>>>>           if (gnttab_alloc_grant_reference_seq(n_pages, &grant)) {
->>>>> -        free_pages_exact(ret, n_pages * PAGE_SIZE);
->>>>> +        free_pages_exact(ret, n_pages * XEN_PAGE_SIZE);
->>>>>             return NULL;
->>>>>         }
->>>>>     @@ -116,7 +116,7 @@ static void xen_grant_dma_free(struct device
->>>>> *dev, size_t size, void *vaddr,
->>>>>                        dma_addr_t dma_handle, unsigned long attrs)
->>>>>     {
->>>>>         struct xen_grant_dma_data *data;
->>>>> -    unsigned int i, n_pages = PFN_UP(size);
->>>>> +    unsigned int i, n_pages = XEN_PFN_UP(size);
->>>>>         grant_ref_t grant;
->>>>>           data = find_xen_grant_dma_data(dev);
->>>>> @@ -138,7 +138,7 @@ static void xen_grant_dma_free(struct device
->>>>> *dev, size_t size, void *vaddr,
->>>>>           gnttab_free_grant_reference_seq(grant, n_pages);
->>>>>     -    free_pages_exact(vaddr, n_pages * PAGE_SIZE);
->>>>> +    free_pages_exact(vaddr, n_pages * XEN_PAGE_SIZE);
->>>>>     }
->>>>>       static struct page *xen_grant_dma_alloc_pages(struct device *dev,
->>>>> size_t size,
->>>>> @@ -168,7 +168,7 @@ static dma_addr_t xen_grant_dma_map_page(struct
->>>>> device *dev, struct page *page,
->>>>>                          unsigned long attrs)
->>>>>     {
->>>>>         struct xen_grant_dma_data *data;
->>>>> -    unsigned int i, n_pages = PFN_UP(offset + size);
->>>>> +    unsigned int i, n_pages = XEN_PFN_UP(offset + size);
->>>>
->>>> The offset, here, refers to the offset in the page ...
->>>>
->>>>>         grant_ref_t grant;
->>>>>         dma_addr_t dma_handle;
->>>>>     @@ -200,8 +200,8 @@ static void xen_grant_dma_unmap_page(struct
->>>>> device *dev, dma_addr_t dma_handle,
->>>>>                          unsigned long attrs)
->>>>>     {
->>>>>         struct xen_grant_dma_data *data;
->>>>> -    unsigned long offset = dma_handle & (PAGE_SIZE - 1);
->>>>> -    unsigned int i, n_pages = PFN_UP(offset + size);
->>>>> +    unsigned long offset = dma_handle & ~XEN_PAGE_MASK;
->>>>
->>>> ... while, here, it refers to the offset in the grant.
->>>> So, the calculated number of grants may differ.
->>>
->>> Good point, I think you are right, so we need to additionally use
->>> xen_offset_in_page() macro in xen_grant_dma_map_page(),
->>>
->>> something like that to be squashed with current patch:
->>>
->>>
->>> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
->>> index 9d5eca6d638a..bb984dc05deb 100644
->>> --- a/drivers/xen/grant-dma-ops.c
->>> +++ b/drivers/xen/grant-dma-ops.c
->>> @@ -169,7 +169,7 @@ static dma_addr_t xen_grant_dma_map_page(struct
->>> device *dev, struct page *page,
->>>                                             unsigned long attrs)
->>>     {
->>>            struct xen_grant_dma_data *data;
->>> -       unsigned int i, n_pages = XEN_PFN_UP(offset + size);
->>> +       unsigned int i, n_pages = XEN_PFN_UP(xen_offset_in_page(offset)
->>> + size);
->>>            grant_ref_t grant;
->>>            dma_addr_t dma_handle;
->>>
->>> @@ -191,7 +191,7 @@ static dma_addr_t xen_grant_dma_map_page(struct
->>> device *dev, struct page *page,
->>>                                    xen_page_to_gfn(page) + i, dir ==
->>> DMA_TO_DEVICE);
->>>            }
->>>
->>> -       dma_handle = grant_to_dma(grant) + offset;
->>> +       dma_handle = grant_to_dma(grant) + xen_offset_in_page(offset);
->>>
->>>            return dma_handle;
->>>     }
->>>
->>> Did I get your point right?
->>>
->>
->> I think it 's more complicated than that.
->> Let's say that the offset in page is > XEN_PAGE_SIZE, then the
->> calculation of the number of grants won't take into account the part
->> of the offset that is multiple of the XEN_PAGE_SIZE i.e it will
->> calculate only the strictly necessary number of grants.
->> But xen_grant_dma_map_page() grants access to the whole page because,
->> as it can be observed in the code snippet below, it does not take into
->> account the page offset.
->>
->> for (i = 0; i < n_pages; i++) {
->>    gnttab_grant_foreign_access_ref(grant + i, data->backend_domid,
->> xen_page_to_gfn(page) + i, dir == DMA_TO_DEVICE);
->> }
-> 
-> 
-> Thanks, valid point. Agree it's indeed more complicated. I will comment
-> on that later. I have just pushed another fix, it is not related to
-> XEN_PAGE_SIZE directly, but also about page offset > PAGE_SIZE
-> 
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> V2:
+>> - add missing PV check in xen_virtio_mem_acc() (Oleksandr Tyshchenko)
+>> - add xen_virtio_restricted_mem_acc() stub (Oleksandr Tyshchenko)
+>
+> Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com> #
+> common code
 
-I got a little bit confused with the order that the patches will be 
-applied :)
-IIUC the above scenario cannot happen, i.e the offset to be > PAGE_SIZE, 
-because this callback is used to map for transfer a portion of a single 
-page.
 
-> so touches the same code and should be prereq:
-> 
-> https://lore.kernel.org/all/20221007132736.2275574-1-olekstysh@gmail.com/
-> 
-> 
->>
->>>>
->>>>
->>>>> +    unsigned int i, n_pages = XEN_PFN_UP(offset + size);
->>>>>         grant_ref_t grant;
->>>>>           if (WARN_ON(dir == DMA_NONE))
->>>>
->>>
->>> Thank you.
->>>
->>>
->>
 
--- 
-Xenia
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+
+
 
