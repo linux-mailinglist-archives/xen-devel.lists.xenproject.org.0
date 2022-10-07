@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693EB5F727E
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 03:14:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.417331.661992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A3525F7391
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 06:33:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.417341.662004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogbwZ-0005Sl-9j; Fri, 07 Oct 2022 01:14:27 +0000
+	id 1ogf1Q-0000Gg-Dy; Fri, 07 Oct 2022 04:31:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 417331.661992; Fri, 07 Oct 2022 01:14:27 +0000
+Received: by outflank-mailman (output) from mailman id 417341.662004; Fri, 07 Oct 2022 04:31:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogbwZ-0005Pp-6e; Fri, 07 Oct 2022 01:14:27 +0000
-Received: by outflank-mailman (input) for mailman id 417331;
- Fri, 07 Oct 2022 01:14:26 +0000
+	id 1ogf1Q-0000DD-9K; Fri, 07 Oct 2022 04:31:40 +0000
+Received: by outflank-mailman (input) for mailman id 417341;
+ Fri, 07 Oct 2022 04:31:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FwH6=2I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ogbwY-0005Pj-0R
- for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 01:14:26 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NgR6=2I=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ogf1O-0000D7-MT
+ for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 04:31:38 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60f1c824-45dd-11ed-9377-c1cf23e5d27e;
- Fri, 07 Oct 2022 03:14:24 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id edbbf181-45f8-11ed-9377-c1cf23e5d27e;
+ Fri, 07 Oct 2022 06:31:36 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D3D92B821EF;
- Fri,  7 Oct 2022 01:14:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47A8C433C1;
- Fri,  7 Oct 2022 01:14:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C14AB21981;
+ Fri,  7 Oct 2022 04:31:35 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 669F513A3D;
+ Fri,  7 Oct 2022 04:31:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id gpBlF6erP2MPHgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 07 Oct 2022 04:31:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,223 +51,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60f1c824-45dd-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665105261;
-	bh=8mLAnMeo3AtHBXXkzvL+vd14+0hlje4dHLK3eWyTIpw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=o7/rj/a7pGC7DHBC2CjftJB/z3X0tMtJekp5m2kKDpIHciFRIiYrCZbndME0PYKV/
-	 CUh7OMeWfqTXY418PWfrGh3sbLavsoRGVCSaWVV9w7LcLHb5MG5BYZR0wA9pAW4f0m
-	 foEzFOehsgylAElZiYpo28bvl9SMkw/IkNZRmZeLY4s5kBMdQWYUBPgLZ9WRAOZn1y
-	 GTca8eCkXsFWuPSFaP5at9VL3vt0hoOqQ7x4IDYNCMxQA1jw6lF2K99HTu3dZ5SnUk
-	 +Kk0SCeAc6GNzgt65KvXt4Ah9iQckGyuCBsjl9qanAjTtx7lSIsqB/xbcArFVQCk5D
-	 /zXOw1yNBoKIg==
-Date: Thu, 6 Oct 2022 18:14:19 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] xen/virtio: Handle PCI devices which Host controller is
- described in DT
-In-Reply-To: <20221006174804.2003029-1-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2210061747590.3690179@ubuntu-linux-20-04-desktop>
-References: <20221006174804.2003029-1-olekstysh@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: edbbf181-45f8-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1665117095; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xB06VBd/Y49QFqBxqn3w68xF0j6t4V/2NhwVr0WnPi0=;
+	b=bf4o3RKEk2QDKSV6hT3HIUe4YvyPgk1SvvSL7QhiGcoKdkbsTyvquMVKOUEsNR6kO9zEOO
+	6I6cv44zn6yL3I9pALX4VWfQiarsc1CPR0TEwQIYZs2gnRobLOjeCxD9bhHSRliullxkn/
+	hFhXGJKIGsdm9QYQsJhmOwVeoTCa33A=
+Message-ID: <4d2af823-072c-8d08-8fa0-a223fd29b7d5@suse.com>
+Date: Fri, 7 Oct 2022 06:31:34 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: Re: [PATCH 3/3] xen/virtio: enable grant based virtio on x86
+Content-Language: en-US
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20221006071500.15689-1-jgross@suse.com>
+ <20221006071500.15689-4-jgross@suse.com>
+ <2e721170-6035-90e3-f929-79b0a07e1891@epam.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <2e721170-6035-90e3-f929-79b0a07e1891@epam.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------tJMgqarFki0k550caoVqfGBp"
 
-On Thu, 6 Oct 2022, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> Use the same "xen-grant-dma" device concept (based on generic IOMMU
-> device-tree bindings) for the PCI devices behind device-tree based
-> PCI Host controller.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
-> Slightly RFC. This is needed to support Xen grant mappings for virtio-pci devices
-> on Arm at some point in the future. The Xen toolstack side is not published yet.
-> Here, for PCI devices we use the same way to pass backend domid to the guest as for
-> platform devices.
-> 
-> Depends on Juergen's series:
-> https://lore.kernel.org/xen-devel/20221006071500.15689-1-jgross@suse.com/
-> ---
->  drivers/xen/grant-dma-ops.c | 51 +++++++++++++++++++++++++++++--------
->  1 file changed, 41 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-> index ff9be3aff87e..79d13122ec08 100644
-> --- a/drivers/xen/grant-dma-ops.c
-> +++ b/drivers/xen/grant-dma-ops.c
-> @@ -10,6 +10,7 @@
->  #include <linux/module.h>
->  #include <linux/dma-map-ops.h>
->  #include <linux/of.h>
-> +#include <linux/pci.h>
->  #include <linux/pfn.h>
->  #include <linux/xarray.h>
->  #include <linux/virtio_anchor.h>
-> @@ -273,12 +274,28 @@ static const struct dma_map_ops xen_grant_dma_ops = {
->  	.dma_supported = xen_grant_dma_supported,
->  };
->  
-> -static bool xen_is_dt_grant_dma_device(struct device *dev)
-> +static struct device_node *xen_dt_get_node(struct device *dev)
-> +{
-> +	if (dev_is_pci(dev)) {
-> +		struct pci_dev *pdev = to_pci_dev(dev);
-> +		struct pci_bus *bus = pdev->bus;
-> +
-> +		/* Walk up to the root bus to look for PCI Host controller */
-> +		while (!pci_is_root_bus(bus))
-> +			bus = bus->parent;
-> +
-> +		return of_node_get(bus->bridge->parent->of_node);
-> +	}
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------tJMgqarFki0k550caoVqfGBp
+Content-Type: multipart/mixed; boundary="------------ZJJs5059ahbNeRfNxBy3DHk0";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <4d2af823-072c-8d08-8fa0-a223fd29b7d5@suse.com>
+Subject: Re: [PATCH 3/3] xen/virtio: enable grant based virtio on x86
+References: <20221006071500.15689-1-jgross@suse.com>
+ <20221006071500.15689-4-jgross@suse.com>
+ <2e721170-6035-90e3-f929-79b0a07e1891@epam.com>
+In-Reply-To: <2e721170-6035-90e3-f929-79b0a07e1891@epam.com>
 
-Is it possible to have multiple virtio devices under a single virtio-pci
-root complex? What if virtio-net has the backend in dom0 and
-virtio-block has the backend in dom1?
+--------------ZJJs5059ahbNeRfNxBy3DHk0
+Content-Type: multipart/mixed; boundary="------------HOQMds0X0nGhH6PWd608iNXu"
 
-Or each virtio PCI device shows up under a different PCI root complex?
+--------------HOQMds0X0nGhH6PWd608iNXu
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-If we can have multiple virtio PCI devices under a single PCI root
-complex, then I think it would be better to check for a per-device
-property, rather than a single property at the PCI root complex level.
+T24gMDYuMTAuMjIgMTg6MDQsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiANCj4g
+T24gMDYuMTAuMjIgMTA6MTUsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IA0KPiANCj4gSGVs
+bG8gSnVlcmdlbg0KPiANCj4+IFVzZSBhbiB4ODYtc3BlY2lmaWMgdmlydGlvX2NoZWNrX21l
+bV9hY2NfY2IoKSBmb3IgWGVuIGluIG9yZGVyIHRvIHNldHVwDQo+PiB0aGUgY29ycmVjdCBE
+TUEgb3BzLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0Bz
+dXNlLmNvbT4NCj4+IC0tLQ0KPj4gICAgYXJjaC94ODYveGVuL2VubGlnaHRlbl9odm0uYyB8
+ICAyICstDQo+PiAgICBhcmNoL3g4Ni94ZW4vZW5saWdodGVuX3B2LmMgIHwgIDIgKy0NCj4+
+ICAgIGRyaXZlcnMveGVuL2dyYW50LWRtYS1vcHMuYyAgfCAxMCArKysrKysrKysrDQo+PiAg
+ICBpbmNsdWRlL3hlbi94ZW4tb3BzLmggICAgICAgIHwgIDEgKw0KPj4gICAgNCBmaWxlcyBj
+aGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYg
+LS1naXQgYS9hcmNoL3g4Ni94ZW4vZW5saWdodGVuX2h2bS5jIGIvYXJjaC94ODYveGVuL2Vu
+bGlnaHRlbl9odm0uYw0KPj4gaW5kZXggMWMxYWM0MTg0ODRiLi5jMWNkMjhlOTE1YTMgMTAw
+NjQ0DQo+PiAtLS0gYS9hcmNoL3g4Ni94ZW4vZW5saWdodGVuX2h2bS5jDQo+PiArKysgYi9h
+cmNoL3g4Ni94ZW4vZW5saWdodGVuX2h2bS5jDQo+PiBAQCAtMjEyLDcgKzIxMiw3IEBAIHN0
+YXRpYyB2b2lkIF9faW5pdCB4ZW5faHZtX2d1ZXN0X2luaXQodm9pZCkNCj4+ICAgIAkJcmV0
+dXJuOw0KPj4gICAgDQo+PiAgICAJaWYgKElTX0VOQUJMRUQoQ09ORklHX1hFTl9WSVJUSU9f
+Rk9SQ0VfR1JBTlQpKQ0KPj4gLQkJdmlydGlvX3NldF9tZW1fYWNjX2NiKHZpcnRpb19yZXF1
+aXJlX3Jlc3RyaWN0ZWRfbWVtX2FjYyk7DQo+PiArCQl2aXJ0aW9fc2V0X21lbV9hY2NfY2Io
+eGVuX3ZpcnRpb19yZXN0cmljdGVkX21lbV9hY2MpOw0KPj4gICAgDQo+PiAgICAJaW5pdF9o
+dm1fcHZfaW5mbygpOw0KPj4gICAgDQo+PiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYveGVuL2Vu
+bGlnaHRlbl9wdi5jIGIvYXJjaC94ODYveGVuL2VubGlnaHRlbl9wdi5jDQo+PiBpbmRleCA5
+YjFhNThkZGE5MzUuLjQ1YjI0YzFiNjQ2YSAxMDA2NDQNCj4+IC0tLSBhL2FyY2gveDg2L3hl
+bi9lbmxpZ2h0ZW5fcHYuYw0KPj4gKysrIGIvYXJjaC94ODYveGVuL2VubGlnaHRlbl9wdi5j
+DQo+PiBAQCAtMTEyLDcgKzExMiw3IEBAIHN0YXRpYyB2b2lkIF9faW5pdCB4ZW5fcHZfaW5p
+dF9wbGF0Zm9ybSh2b2lkKQ0KPj4gICAgew0KPj4gICAgCS8qIFBWIGd1ZXN0cyBjYW4ndCBv
+cGVyYXRlIHZpcnRpbyBkZXZpY2VzIHdpdGhvdXQgZ3JhbnRzLiAqLw0KPj4gICAgCWlmIChJ
+U19FTkFCTEVEKENPTkZJR19YRU5fVklSVElPKSkNCj4+IC0JCXZpcnRpb19zZXRfbWVtX2Fj
+Y19jYih2aXJ0aW9fcmVxdWlyZV9yZXN0cmljdGVkX21lbV9hY2MpOw0KPj4gKwkJdmlydGlv
+X3NldF9tZW1fYWNjX2NiKHhlbl92aXJ0aW9fcmVzdHJpY3RlZF9tZW1fYWNjKTsNCj4+ICAg
+IA0KPj4gICAgCXBvcHVsYXRlX2V4dHJhX3B0ZShmaXhfdG9fdmlydChGSVhfUEFSQVZJUlRf
+Qk9PVE1BUCkpOw0KPj4gICAgDQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy94ZW4vZ3JhbnQt
+ZG1hLW9wcy5jIGIvZHJpdmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jDQo+PiBpbmRleCBhMDAx
+MTIyMzU4NzcuLjYwYTdhY2MzMzRlZCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMveGVuL2dy
+YW50LWRtYS1vcHMuYw0KPj4gKysrIGIvZHJpdmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jDQo+
+PiBAQCAtMzcyLDYgKzM3MiwxNiBAQCB2b2lkIHhlbl9ncmFudF9zZXR1cF9kbWFfb3BzKHN0
+cnVjdCBkZXZpY2UgKmRldikNCj4+ICAgIAlkZXZfZXJyKGRldiwgIkNhbm5vdCBzZXQgdXAg
+WGVuIGdyYW50IERNQSBvcHMsIHJldGFpbiBwbGF0Zm9ybSBETUEgb3BzXG4iKTsNCj4+ICAg
+IH0NCj4+ICAgIA0KPj4gK2Jvb2wgeGVuX3ZpcnRpb19yZXN0cmljdGVkX21lbV9hY2Moc3Ry
+dWN0IHZpcnRpb19kZXZpY2UgKmRldikNCj4+ICt7DQo+PiArCWJvb2wgcmV0ID0geGVuX3Zp
+cnRpb19tZW1fYWNjKGRldik7DQo+IA0KPiANCj4gVGhlIGdyYW50IHVzYWdlIGlzIG1hbmRh
+dG9yeSBmb3IgUFYgZ3Vlc3RzLCByaWdodD8NCj4gDQo+IFRoZW4geGVuX3ZpcnRpb19tZW1f
+YWNjKCkgc2hvdWxkIGFsd2F5cyByZXR1cm4gdHJ1ZSBmb3IgUFYgZ3Vlc3RzIChJDQo+IG1l
+YW4gZXZlbiBpZiBDT05GSUdfWEVOX1ZJUlRJT19GT1JDRV9HUkFOVCBpcyBub3Qgc2V0KS4N
+Cg0KWWVzLg0KDQo+IA0KPiANCj4gDQo+PiArDQo+PiArCWlmIChyZXQpDQo+PiArCQl4ZW5f
+Z3JhbnRfc2V0dXBfZG1hX29wcyhkZXYtPmRldi5wYXJlbnQpOw0KPj4gKw0KPj4gKwlyZXR1
+cm4gcmV0Ow0KPj4gK30NCj4+ICsNCj4+ICAgIE1PRFVMRV9ERVNDUklQVElPTigiWGVuIGdy
+YW50IERNQS1tYXBwaW5nIGxheWVyIik7DQo+PiAgICBNT0RVTEVfQVVUSE9SKCJKdWVyZ2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+Iik7DQo+PiAgICBNT0RVTEVfTElDRU5TRSgiR1BM
+Iik7DQo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS94ZW4veGVuLW9wcy5oIGIvaW5jbHVkZS94
+ZW4veGVuLW9wcy5oDQo+PiBpbmRleCBkYWUwZjM1MGM2NzguLjNkZDVhYTkzNmYxZCAxMDA2
+NDQNCj4+IC0tLSBhL2luY2x1ZGUveGVuL3hlbi1vcHMuaA0KPj4gKysrIGIvaW5jbHVkZS94
+ZW4veGVuLW9wcy5oDQo+PiBAQCAtMjE5LDYgKzIxOSw3IEBAIHN0YXRpYyBpbmxpbmUgdm9p
+ZCB4ZW5fcHJlZW1wdGlibGVfaGNhbGxfZW5kKHZvaWQpIHsgfQ0KPj4gICAgdm9pZCB4ZW5f
+Z3JhbnRfc2V0dXBfZG1hX29wcyhzdHJ1Y3QgZGV2aWNlICpkZXYpOw0KPj4gICAgYm9vbCB4
+ZW5faXNfZ3JhbnRfZG1hX2RldmljZShzdHJ1Y3QgZGV2aWNlICpkZXYpOw0KPj4gICAgYm9v
+bCB4ZW5fdmlydGlvX21lbV9hY2Moc3RydWN0IHZpcnRpb19kZXZpY2UgKmRldik7DQo+PiAr
+Ym9vbCB4ZW5fdmlydGlvX3Jlc3RyaWN0ZWRfbWVtX2FjYyhzdHJ1Y3QgdmlydGlvX2Rldmlj
+ZSAqZGV2KTsNCj4+ICAgICNlbHNlDQo+PiAgICBzdGF0aWMgaW5saW5lIHZvaWQgeGVuX2dy
+YW50X3NldHVwX2RtYV9vcHMoc3RydWN0IGRldmljZSAqZGV2KQ0KPj4gICAgew0KPiANCj4g
+DQo+IEFuZCBwcm9iYWJseSBzdGF0aWMgaW5saW5lIHN0dWIgYWx3YXlzIHJldHVybmluZyBm
+YWxzZSBpZg0KPiBDT05GSUdfWEVOX0dSQU5UX0RNQV9PUFMgaXMgbm90IHNldC4NCg0KSW5k
+ZWVkLg0KDQoNCkp1ZXJnZW4NCg0K
+--------------HOQMds0X0nGhH6PWd608iNXu
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-The first thing that comes to mind is to describe each PCI device under
-the root complex in device tree. Although it is uncommon (usually only
-the PCI root complex is described in device tree), it is possible to
-also describe in device tree all the individual PCI devices under the
-root complex.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Given that the domU device tree is generated by Xen and/or the Xen
-toolstack, it would be easy to arrange for it to happen.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-That would solve the issue as far as I can tell, but I worry it might
-not be a good idea because if we rely on the per-device device tree node
-to be present then it becomes harder to implement virtio hotplug
-(Virtio hotplug is important to add dom0less support.)
+--------------HOQMds0X0nGhH6PWd608iNXu--
 
-Let's say that we create a dom0less domU with an emulated PCI root
-complex without any devices under it, then after Dom0 is fully booted,
-we add a virtio-net emulated device. How do we tell the guest what is
-the backend domain id?
+--------------ZJJs5059ahbNeRfNxBy3DHk0--
 
-Device tree and other firmware tables are not relevant anymore.
+--------------tJMgqarFki0k550caoVqfGBp
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-We could reuse a PCI config space register to expose the backend id.
-However this solution requires a backend change (QEMU) to expose the
-backend id via an emulated register for each emulated device.
+-----BEGIN PGP SIGNATURE-----
 
-To avoid having to introduce a special config space register in all
-emulated PCI devices (virtio-net, virtio-block, etc) I wonder if we
-could add a special PCI config space register at the emulated PCI Root
-Complex level.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM/q6cFAwAAAAAACgkQsN6d1ii/Ey+Y
+nAf/SoXch7HC7ctLGm9005qho84hIsztfnUGRi1rm3oGKBgZ7tPI3nFMkojucbcbYBiBSRxOVuvI
+I5YpcwnEJ8w9vC/dS+qBpZ849dQGsJ9TqQVaAFIP+46isbT680vdOQm9vUDjV/47SMyX0vOkpY43
+Mp+hpfkZBilmsjNZ+aDUPkjTgCKggY/u6cC47OLfFL4YoYhKuoiIEJwdruCdTsN6F9jODOsqc5hr
+sn6AwtVJb/SIFUYW1NtdQkB2YSvQ1B8VcRp/RsvxStDB1bgaDLYpmM+tv1/N4VROSjBL/PLqFy/t
+0dB4fSM2dS+j4OvH6Wo+tCqpwQJemFwByUN7ixDqDQ==
+=guuC
+-----END PGP SIGNATURE-----
 
-Basically the workflow would be as follow:
-
-- Linux recognizes the PCI Root Complex as a Xen PCI Root Complex
-- Linux writes to special PCI config space register of the Xen PCI Root
-  Complex the PCI device id (basically the BDF)
-- The Xen PCI Root Complex emulated by Xen answers by writing back to
-  the same location the backend id (domid of the backend)
-- Linux reads back the same PCI config space register of the Xen PCI
-  Root Complex and learn the relevant domid
-
-What do you think?
-
-Other ideas welcome!
-
-
-
-> +	return of_node_get(dev->of_node);
-> +}
-> +
-> +static bool xen_is_dt_grant_dma_device(struct device_node *np)
->  {
->  	struct device_node *iommu_np;
->  	bool has_iommu;
->  
-> -	iommu_np = of_parse_phandle(dev->of_node, "iommus", 0);
-> +	iommu_np = of_parse_phandle(np, "iommus", 0);
->  	has_iommu = iommu_np &&
->  		    of_device_is_compatible(iommu_np, "xen,grant-dma");
->  	of_node_put(iommu_np);
-> @@ -288,9 +305,17 @@ static bool xen_is_dt_grant_dma_device(struct device *dev)
->  
->  bool xen_is_grant_dma_device(struct device *dev)
->  {
-> +	struct device_node *np;
-> +
->  	/* XXX Handle only DT devices for now */
-> -	if (dev->of_node)
-> -		return xen_is_dt_grant_dma_device(dev);
-> +	np = xen_dt_get_node(dev);
-> +	if (np) {
-> +		bool ret;
-> +
-> +		ret = xen_is_dt_grant_dma_device(np);
-> +		of_node_put(np);
-> +		return ret;
-> +	}
->  
->  	return false;
->  }
-> @@ -303,20 +328,20 @@ bool xen_virtio_mem_acc(struct virtio_device *dev)
->  	return xen_is_grant_dma_device(dev->dev.parent);
->  }
->  
-> -static int xen_dt_grant_setup_dma_ops(struct device *dev,
-> +static int xen_dt_grant_setup_dma_ops(struct device_node *np,
->  				       struct xen_grant_dma_data *data)
->  {
->  	struct of_phandle_args iommu_spec;
->  
-> -	if (of_parse_phandle_with_args(dev->of_node, "iommus", "#iommu-cells",
-> +	if (of_parse_phandle_with_args(np, "iommus", "#iommu-cells",
->  			0, &iommu_spec)) {
-> -		dev_err(dev, "Cannot parse iommus property\n");
-> +		pr_err("%s: Cannot parse iommus property\n", np->name);
->  		return -ESRCH;
->  	}
->  
->  	if (!of_device_is_compatible(iommu_spec.np, "xen,grant-dma") ||
->  			iommu_spec.args_count != 1) {
-> -		dev_err(dev, "Incompatible IOMMU node\n");
-> +		pr_err("%s: Incompatible IOMMU node\n", iommu_spec.np->name);
->  		of_node_put(iommu_spec.np);
->  		return -ESRCH;
->  	}
-> @@ -335,6 +360,7 @@ static int xen_dt_grant_setup_dma_ops(struct device *dev,
->  void xen_grant_setup_dma_ops(struct device *dev)
->  {
->  	struct xen_grant_dma_data *data;
-> +	struct device_node *np;
->  
->  	data = find_xen_grant_dma_data(dev);
->  	if (data) {
-> @@ -346,8 +372,13 @@ void xen_grant_setup_dma_ops(struct device *dev)
->  	if (!data)
->  		goto err;
->  
-> -	if (dev->of_node) {
-> -		if (xen_dt_grant_setup_dma_ops(dev, data))
-> +	np = xen_dt_get_node(dev);
-> +	if (np) {
-> +		int ret;
-> +
-> +		ret = xen_dt_grant_setup_dma_ops(np, data);
-> +		of_node_put(np);
-> +		if (ret)
->  			goto err;
->  	} else if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT)) {
->  		dev_info(dev, "Using dom0 as backend\n");
-> -- 
-> 2.25.1
-> 
+--------------tJMgqarFki0k550caoVqfGBp--
 
