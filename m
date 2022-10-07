@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F279E5F727C
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 03:12:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.417320.661981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 693EB5F727E
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 03:14:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.417331.661992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogbts-0004nk-Nx; Fri, 07 Oct 2022 01:11:40 +0000
+	id 1ogbwZ-0005Sl-9j; Fri, 07 Oct 2022 01:14:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 417320.661981; Fri, 07 Oct 2022 01:11:40 +0000
+Received: by outflank-mailman (output) from mailman id 417331.661992; Fri, 07 Oct 2022 01:14:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogbts-0004kX-KW; Fri, 07 Oct 2022 01:11:40 +0000
-Received: by outflank-mailman (input) for mailman id 417320;
- Fri, 07 Oct 2022 01:11:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ogbtr-0004kN-EJ; Fri, 07 Oct 2022 01:11:39 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ogbtr-0004e3-8B; Fri, 07 Oct 2022 01:11:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ogbtq-0008Kg-Mv; Fri, 07 Oct 2022 01:11:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ogbtq-0003HD-MT; Fri, 07 Oct 2022 01:11:38 +0000
+	id 1ogbwZ-0005Pp-6e; Fri, 07 Oct 2022 01:14:27 +0000
+Received: by outflank-mailman (input) for mailman id 417331;
+ Fri, 07 Oct 2022 01:14:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FwH6=2I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ogbwY-0005Pj-0R
+ for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 01:14:26 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 60f1c824-45dd-11ed-9377-c1cf23e5d27e;
+ Fri, 07 Oct 2022 03:14:24 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D3D92B821EF;
+ Fri,  7 Oct 2022 01:14:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47A8C433C1;
+ Fri,  7 Oct 2022 01:14:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,279 +44,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=kuoqoHSK8qmelNlnU2HYjkBiYcVwH2vUQuMGvqO2hFg=; b=w4ZIUp81WyitolVo/1kJR/2wcE
-	Xv4C0CdlX4m6pXe2kE6c8ZTLNISDIfWD0X8EA1hEKdCJyQx1/3lfp1sEJaoy1ur8FNGbOZBOPF7Ov
-	OS/9bdQhyZ3+pbXK52UIKV+T5u/EZx8yyttnmuw0bCrpsRL5r8vPw+8LDEQONNexg8e8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173447-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 60f1c824-45dd-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1665105261;
+	bh=8mLAnMeo3AtHBXXkzvL+vd14+0hlje4dHLK3eWyTIpw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=o7/rj/a7pGC7DHBC2CjftJB/z3X0tMtJekp5m2kKDpIHciFRIiYrCZbndME0PYKV/
+	 CUh7OMeWfqTXY418PWfrGh3sbLavsoRGVCSaWVV9w7LcLHb5MG5BYZR0wA9pAW4f0m
+	 foEzFOehsgylAElZiYpo28bvl9SMkw/IkNZRmZeLY4s5kBMdQWYUBPgLZ9WRAOZn1y
+	 GTca8eCkXsFWuPSFaP5at9VL3vt0hoOqQ7x4IDYNCMxQA1jw6lF2K99HTu3dZ5SnUk
+	 +Kk0SCeAc6GNzgt65KvXt4Ah9iQckGyuCBsjl9qanAjTtx7lSIsqB/xbcArFVQCk5D
+	 /zXOw1yNBoKIg==
+Date: Thu, 6 Oct 2022 18:14:19 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] xen/virtio: Handle PCI devices which Host controller is
+ described in DT
+In-Reply-To: <20221006174804.2003029-1-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2210061747590.3690179@ubuntu-linux-20-04-desktop>
+References: <20221006174804.2003029-1-olekstysh@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 173447: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=f1d33f55c47dfdaf8daacd618588ad3ae4c452d1
-X-Osstest-Versions-That:
-    qemuu=1dcdc92c72af5311666df64f5f04d6600af262ed
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 07 Oct 2022 01:11:38 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 173447 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173447/
+On Thu, 6 Oct 2022, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Use the same "xen-grant-dma" device concept (based on generic IOMMU
+> device-tree bindings) for the PCI devices behind device-tree based
+> PCI Host controller.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> Slightly RFC. This is needed to support Xen grant mappings for virtio-pci devices
+> on Arm at some point in the future. The Xen toolstack side is not published yet.
+> Here, for PCI devices we use the same way to pass backend domid to the guest as for
+> platform devices.
+> 
+> Depends on Juergen's series:
+> https://lore.kernel.org/xen-devel/20221006071500.15689-1-jgross@suse.com/
+> ---
+>  drivers/xen/grant-dma-ops.c | 51 +++++++++++++++++++++++++++++--------
+>  1 file changed, 41 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+> index ff9be3aff87e..79d13122ec08 100644
+> --- a/drivers/xen/grant-dma-ops.c
+> +++ b/drivers/xen/grant-dma-ops.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/module.h>
+>  #include <linux/dma-map-ops.h>
+>  #include <linux/of.h>
+> +#include <linux/pci.h>
+>  #include <linux/pfn.h>
+>  #include <linux/xarray.h>
+>  #include <linux/virtio_anchor.h>
+> @@ -273,12 +274,28 @@ static const struct dma_map_ops xen_grant_dma_ops = {
+>  	.dma_supported = xen_grant_dma_supported,
+>  };
+>  
+> -static bool xen_is_dt_grant_dma_device(struct device *dev)
+> +static struct device_node *xen_dt_get_node(struct device *dev)
+> +{
+> +	if (dev_is_pci(dev)) {
+> +		struct pci_dev *pdev = to_pci_dev(dev);
+> +		struct pci_bus *bus = pdev->bus;
+> +
+> +		/* Walk up to the root bus to look for PCI Host controller */
+> +		while (!pci_is_root_bus(bus))
+> +			bus = bus->parent;
+> +
+> +		return of_node_get(bus->bridge->parent->of_node);
+> +	}
 
-Failures :-/ but no regressions.
+Is it possible to have multiple virtio devices under a single virtio-pci
+root complex? What if virtio-net has the backend in dom0 and
+virtio-block has the backend in dom1?
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds    18 guest-start/debian.repeat fail REGR. vs. 173435
+Or each virtio PCI device shows up under a different PCI root complex?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173435
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 173435
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173435
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 173435
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 173435
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 173435
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 173435
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173435
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+If we can have multiple virtio PCI devices under a single PCI root
+complex, then I think it would be better to check for a per-device
+property, rather than a single property at the PCI root complex level.
 
-version targeted for testing:
- qemuu                f1d33f55c47dfdaf8daacd618588ad3ae4c452d1
-baseline version:
- qemuu                1dcdc92c72af5311666df64f5f04d6600af262ed
+The first thing that comes to mind is to describe each PCI device under
+the root complex in device tree. Although it is uncommon (usually only
+the PCI root complex is described in device tree), it is possible to
+also describe in device tree all the individual PCI devices under the
+root complex.
 
-Last test of basis   173435  2022-10-06 01:10:25 Z    0 days
-Testing same since   173447  2022-10-06 14:38:42 Z    0 days    1 attempts
+Given that the domU device tree is generated by Xen and/or the Xen
+toolstack, it would be easy to arrange for it to happen.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alessandro Di Federico <ale@rev.ng>
-  Alex Bennée <alex.bennee@linaro.org>
-  Anton Johansson <anjo@rev.ng>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
-  Lucas Mateus Castro (alqotel) <lucas.araujo@eldorado.org.br>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Paolo Montesel <babush@rev.ng>
-  Richard Henderson <richard.henderson@linaro.org>
-  Song Gao <gaosong@loongson.cn>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
+That would solve the issue as far as I can tell, but I worry it might
+not be a good idea because if we rely on the per-device device tree node
+to be present then it becomes harder to implement virtio hotplug
+(Virtio hotplug is important to add dom0less support.)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+Let's say that we create a dom0less domU with an emulated PCI root
+complex without any devices under it, then after Dom0 is fully booted,
+we add a virtio-net emulated device. How do we tell the guest what is
+the backend domain id?
+
+Device tree and other firmware tables are not relevant anymore.
+
+We could reuse a PCI config space register to expose the backend id.
+However this solution requires a backend change (QEMU) to expose the
+backend id via an emulated register for each emulated device.
+
+To avoid having to introduce a special config space register in all
+emulated PCI devices (virtio-net, virtio-block, etc) I wonder if we
+could add a special PCI config space register at the emulated PCI Root
+Complex level.
+
+Basically the workflow would be as follow:
+
+- Linux recognizes the PCI Root Complex as a Xen PCI Root Complex
+- Linux writes to special PCI config space register of the Xen PCI Root
+  Complex the PCI device id (basically the BDF)
+- The Xen PCI Root Complex emulated by Xen answers by writing back to
+  the same location the backend id (domid of the backend)
+- Linux reads back the same PCI config space register of the Xen PCI
+  Root Complex and learn the relevant domid
+
+What do you think?
+
+Other ideas welcome!
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/qemu-xen.git
-   1dcdc92c72..f1d33f55c4  f1d33f55c47dfdaf8daacd618588ad3ae4c452d1 -> upstream-tested
+> +	return of_node_get(dev->of_node);
+> +}
+> +
+> +static bool xen_is_dt_grant_dma_device(struct device_node *np)
+>  {
+>  	struct device_node *iommu_np;
+>  	bool has_iommu;
+>  
+> -	iommu_np = of_parse_phandle(dev->of_node, "iommus", 0);
+> +	iommu_np = of_parse_phandle(np, "iommus", 0);
+>  	has_iommu = iommu_np &&
+>  		    of_device_is_compatible(iommu_np, "xen,grant-dma");
+>  	of_node_put(iommu_np);
+> @@ -288,9 +305,17 @@ static bool xen_is_dt_grant_dma_device(struct device *dev)
+>  
+>  bool xen_is_grant_dma_device(struct device *dev)
+>  {
+> +	struct device_node *np;
+> +
+>  	/* XXX Handle only DT devices for now */
+> -	if (dev->of_node)
+> -		return xen_is_dt_grant_dma_device(dev);
+> +	np = xen_dt_get_node(dev);
+> +	if (np) {
+> +		bool ret;
+> +
+> +		ret = xen_is_dt_grant_dma_device(np);
+> +		of_node_put(np);
+> +		return ret;
+> +	}
+>  
+>  	return false;
+>  }
+> @@ -303,20 +328,20 @@ bool xen_virtio_mem_acc(struct virtio_device *dev)
+>  	return xen_is_grant_dma_device(dev->dev.parent);
+>  }
+>  
+> -static int xen_dt_grant_setup_dma_ops(struct device *dev,
+> +static int xen_dt_grant_setup_dma_ops(struct device_node *np,
+>  				       struct xen_grant_dma_data *data)
+>  {
+>  	struct of_phandle_args iommu_spec;
+>  
+> -	if (of_parse_phandle_with_args(dev->of_node, "iommus", "#iommu-cells",
+> +	if (of_parse_phandle_with_args(np, "iommus", "#iommu-cells",
+>  			0, &iommu_spec)) {
+> -		dev_err(dev, "Cannot parse iommus property\n");
+> +		pr_err("%s: Cannot parse iommus property\n", np->name);
+>  		return -ESRCH;
+>  	}
+>  
+>  	if (!of_device_is_compatible(iommu_spec.np, "xen,grant-dma") ||
+>  			iommu_spec.args_count != 1) {
+> -		dev_err(dev, "Incompatible IOMMU node\n");
+> +		pr_err("%s: Incompatible IOMMU node\n", iommu_spec.np->name);
+>  		of_node_put(iommu_spec.np);
+>  		return -ESRCH;
+>  	}
+> @@ -335,6 +360,7 @@ static int xen_dt_grant_setup_dma_ops(struct device *dev,
+>  void xen_grant_setup_dma_ops(struct device *dev)
+>  {
+>  	struct xen_grant_dma_data *data;
+> +	struct device_node *np;
+>  
+>  	data = find_xen_grant_dma_data(dev);
+>  	if (data) {
+> @@ -346,8 +372,13 @@ void xen_grant_setup_dma_ops(struct device *dev)
+>  	if (!data)
+>  		goto err;
+>  
+> -	if (dev->of_node) {
+> -		if (xen_dt_grant_setup_dma_ops(dev, data))
+> +	np = xen_dt_get_node(dev);
+> +	if (np) {
+> +		int ret;
+> +
+> +		ret = xen_dt_grant_setup_dma_ops(np, data);
+> +		of_node_put(np);
+> +		if (ret)
+>  			goto err;
+>  	} else if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT)) {
+>  		dev_info(dev, "Using dom0 as backend\n");
+> -- 
+> 2.25.1
+> 
 
