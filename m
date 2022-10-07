@@ -2,42 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A73E15F7852
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 14:51:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.417978.662715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF29D5F78A0
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 15:09:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.417986.662727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogmos-00045Y-0y; Fri, 07 Oct 2022 12:51:14 +0000
+	id 1ogn5y-0005sg-LM; Fri, 07 Oct 2022 13:08:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 417978.662715; Fri, 07 Oct 2022 12:51:13 +0000
+Received: by outflank-mailman (output) from mailman id 417986.662727; Fri, 07 Oct 2022 13:08:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogmor-00043X-UK; Fri, 07 Oct 2022 12:51:13 +0000
-Received: by outflank-mailman (input) for mailman id 417978;
- Fri, 07 Oct 2022 12:51:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ogn5y-0005py-IM; Fri, 07 Oct 2022 13:08:54 +0000
+Received: by outflank-mailman (input) for mailman id 417986;
+ Fri, 07 Oct 2022 13:08:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SCdg=2I=citrix.com=prvs=2723a6b7f=George.Dunlap@srs-se1.protection.inumbo.net>)
- id 1ogmop-00043R-Q8
- for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 12:51:11 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b30111bb-463e-11ed-9377-c1cf23e5d27e;
- Fri, 07 Oct 2022 14:51:04 +0200 (CEST)
-Received: from mail-bn7nam10lp2107.outbound.protection.outlook.com (HELO
- NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.107])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 07 Oct 2022 08:51:01 -0400
-Received: from PH0PR03MB5669.namprd03.prod.outlook.com (2603:10b6:510:33::16)
- by DM8PR03MB6245.namprd03.prod.outlook.com (2603:10b6:8:32::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.23; Fri, 7 Oct
- 2022 12:50:59 +0000
-Received: from PH0PR03MB5669.namprd03.prod.outlook.com
- ([fe80::7131:3804:744b:d7cc]) by PH0PR03MB5669.namprd03.prod.outlook.com
- ([fe80::7131:3804:744b:d7cc%7]) with mapi id 15.20.5676.032; Fri, 7 Oct 2022
- 12:50:59 +0000
+ <SRS0=uvLM=2I=epam.com=prvs=22797713c5=mykyta_poturai@srs-se1.protection.inumbo.net>)
+ id 1ogn5w-0005ps-Qu
+ for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 13:08:53 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2eff056e-4641-11ed-964a-05401a9f4f97;
+ Fri, 07 Oct 2022 15:08:50 +0200 (CEST)
+Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 297C3WmA020386;
+ Fri, 7 Oct 2022 13:08:44 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2057.outbound.protection.outlook.com [104.47.12.57])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3k2a45t4br-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 07 Oct 2022 13:08:44 +0000
+Received: from VI1PR03MB3758.eurprd03.prod.outlook.com (2603:10a6:803:33::29)
+ by AS1PR03MB8150.eurprd03.prod.outlook.com (2603:10a6:20b:4c6::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.28; Fri, 7 Oct
+ 2022 13:08:40 +0000
+Received: from VI1PR03MB3758.eurprd03.prod.outlook.com
+ ([fe80::77e8:5cf6:210:7273]) by VI1PR03MB3758.eurprd03.prod.outlook.com
+ ([fe80::77e8:5cf6:210:7273%5]) with mapi id 15.20.5676.038; Fri, 7 Oct 2022
+ 13:08:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,184 +53,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b30111bb-463e-11ed-9377-c1cf23e5d27e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1665147067;
-  h=from:to:subject:date:message-id:mime-version;
-  bh=4niM8e1iZ9AOUUXfai6ODxFRpXhS9pTHqAUwctG0yyw=;
-  b=T5wSoYCwj/IftK5shBAstnujpq+qhk6k6h1cj0gLXqQG6+d6/+1ZTg2F
-   X5o+tmTT6v94vMkYkaI3C5pu8MP+WMa34UgNAmLMcjkpUCo9pepmhHtN6
-   UCnJw5tlI3tkdbTtFAzDnJImWBqe7sndyCT/RXFa9VuQle7vEyof+puCu
-   8=;
-X-IronPort-RemoteIP: 104.47.70.107
-X-IronPort-MID: 81840090
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:53Ym7a0UsV0UGJHne/bD5SVwkn2cJEfYwER7XKvMYbSIYQITYwd3j
- TtIBzjCf73ffDO2KOnCW/2+pEIDsMWBzd9lG1Btqn08QS4VpJeeC9/IcRatNXObf5bIHElpt
- ZROMtedc55oQyKArE3zOLHt8HIkiq3WHeWsYAKo1lidYCc9IMt2oU4zy4bV+7JVvOVVIz9hm
- Put8sfSZgKvhjd4bWxLsayKpU8wta37tT5A5QU1bKBAtg6CmyEZAqxEKPDqJRMUYGX28s2SH
- L+fke7jrgs12z93V7tJR56iKhVirob6ZFTI0DwOM0SbqkAqjjQo1aomP+YrZ05SijGY9/h80
- 9wIvpGrIesTFvSkdN81Dl8JTkmSAYUcoOWdeCDn7pTKp6H7WyCEL8tGXRle0bIwoo6bMUkWn
- dQEJTYEaAy0hu7e6NpXncE126zPhOGyVG8ukikIIQPxVJ7KcriaK0n+3vdK3S9Yuyx7Na22i
- /z1y9ZYRE+ojxVnYj/7AX+l9QuiriGXnzZw8Dp5qUerioR6IcMYPLXFabLoltK2qcp9uRmKv
- GLquHbDKRwjKfif8hW082Oombqa9c/7cNp6+LyQ0NdP2QXW7EpMTRocWB28vOWzjVO4V5RHM
- UsI9yEyrK80sku2Ut36WB7+q3mB1vIec4MIT6tmt0fSkuyNu1nx6mssF1atbPQJucgsSjFs+
- kKPm9rxLTdurKeUWTSW8bL8QTaaaXFFcTdaNHdsoQ0toP3Yg48DsTb1EfkkEIOrvszWGjWgz
- GXfxMQ5r/BJ5SIR7I2r8FaCjz+yq5zhSg8u+h6RTm+j9hl+ZoOue8qv81ez0BpbBIOQT13Et
- n5bncGbtbgKFcvUzHPLR/gRFra04frDKCfbnVNkA5gm8XKq5mKneodTpjp5IS+FL/o5RNMgW
- 2eL0Ss52XOZFCLCgXNfC25pN/kX8A==
-IronPort-HdrOrdr: A9a23:tvXbf6kWdO4/zR50L67UMry2kFvpDfOvimdD5ihNYBxZY6Wkfp
- +V8cjzhCWftN9OYhodcIi7Sc+9qADnhOdICOgqTP6ftWzd1FdAQ7sSibcKrweAJ8SczJ8U6U
- 4DSdkYNDSYNzET4qjHCWKDYrUdKay8gcWVbJDlvhVQpG9RC51I3kNcMEK2A0d2TA5JCd4SD5
- yH/PdKoDKmZDA+ctm7LmNtZZmIm/T70LbdJTIWDR8u7weDyRmy7qThLhSe1hACFxtS3LYZ93
- TfmQCR3NTvjxj78G6R64bg1eUZpDLT8KoDOCVKsLlUFtzYsHfmWG2mYczAgNl6mpDs1L9gqq
- i1n/5pBbUJ15qWRBD/nfKl4Xic7B8+r3Dl0lOWmn3lvIjwQy87EdNIgcZDfgLe8FdIhqAJ7E
- rat1jpzaa/ICmw7hgV3eK4Ii1Chw6xuz4vgOQTh3tQXc8Xb6JQt5UW+AdQHI0bFCz35Yg7GK
- 02Zfusksp+YBefdTTUr2NvyNujUjA6GQqHWFELvoiQ3yJNlH50wkMEzIgUn2sG9pg6V55Yjt
- 60RZhAhfVLVIsbfKh9DOAOTY++DXHMWwvFNCaILVHuBMg8SgHwQl7MkcUIDc2RCeI1JcEJ6e
- j8uXtjxBEPUlOrD9GS15tW9R2ISHmhXF3Wu7Bj26Q=
-X-IronPort-AV: E=Sophos;i="5.95,166,1661832000"; 
-   d="asc'?scan'208";a="81840090"
+X-Inumbo-ID: 2eff056e-4641-11ed-964a-05401a9f4f97
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JbE35edOF3dgPfXOrywh0vCTBDq/mJkWC/QmWmelupVOQetLHGOdvrxjgO10cuaYr/gVXhHCDWcDH6RpfDAEo+fakBJSTTQWoo7G6JLTV+ccMrtoDy0kDEyJnD1Dcwd3NgQ6dP7kwDHmoqXdJX/p7caq+MLhKedYFgIMTkjRgjt8MJCyuoGR3EGlGqRe0sq/0JRupe7DKVb4WZM8WP48uou/UH1i8T6fvXcZizHLUlTpD7mV4tkccN6GH/zdVti1chz6hfiDqyd0PagLkECYPf1Liol94a4nniaQvCAqsVhnYswtMSyt2/6dSDNzeBTAP0k0SN6yC/RCBAfclP6zZw==
+ b=aLT5BPypL+dlfWryd1U1LeeYkmTsFquCiLaKNJYy4Nav6QvYuj6UebYwvYfwprW+82Nlli9Hmk6hxKSp2TN1xxyBmXHZQr0sACKZzoa+EYiCTkFlOHSQqIT6XVMShg0svNZ58Vb0DQ3T6pMelBXnexkwrT/dW2LxmZHsHCdUHIR5seChjXI5cxrSyb60p6pqCK36YEUmEDMJxsH4AgClPj5qiIdvMnPN62AelMXdV66KeEDSiEY1FJ0qnlpjSytWTGOik2Xhpgdqk25it1pBGWEMCk1O7yhhI1Btwc5WI+CirXn0U9gl2v/uiBePGjOcNiao6ZXS4IpohBUE30Izhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YuA8KWFhzq67ORrJrlMBqopD8OAJKPj6HyPtO9fF1Qc=;
- b=oQnLEV2wItJfgk6uUHaeMmf0cB/67FLB7xGMtzsv/dT0CEiutunS5iXXimkXrtQQ1L0MQ4uQmjJAC3odOHqTGPzjATMaG9qq1pW+mBFOUm6C+ivcCCXCQtuE3KoR9LUPPE0EPceC9hdpB5cyxWhOiNACvYfrbClNlwJzMYnl9rwcTQCneP+krY6RUOGkJwjvooGTQvRfW4QcVybXWtzndCer+R+Dwcuc2y7uGTr7/kBu40VfSHA0siK2lOuQpLLpu5o5CWxBnJZ6jTtFFkx87sA3LXNNYqDwVU2lq3oPsDxzF6ATIbAydJccLJzd3KT3PD2EByhwu/h+DAsku3KONQ==
+ bh=4UbPdP4bVWAsM7T1sTAb1wibKL0UUmpwrjmjsEazapo=;
+ b=hU99NTzVRMGbHSBvxN4SouiQvmzj1OVqqUFNe+nIQVcZZlnedjXGNScESGKc+OMS52LHxgtb7l9Iu4QdcQDU4PW1gqAjSc9R9FI63rdLg6LGgmv9eTRQDstFwIFIGG22WzLHdUqOVZC3LBTOn7RoISXc3riLOolKvQIqV/0CsbIkZ15smypP29wo1iMk3VOiC3BazvDpYCNB6kFWXmspRo/dAmHLcmiZntBTdfoFlqJwmRYognV3kIyuQf+Kj5WoVZSjJS3DwQ+30K0Kw4WKzWYq3NnQK1yIwo4kL/SXupz90gtb/V5em9Mm2h58RdRyo0T2ZjFV4PS5FTOxGFM+qA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YuA8KWFhzq67ORrJrlMBqopD8OAJKPj6HyPtO9fF1Qc=;
- b=AY0kjCAplN8uOJq34dc/LHpI0Z0PzV/Rri9Syz3jgljDzUjB2FidU3LuQLi15k7BmUfBUaw0L2CeHpk0jNoHMIOW0U2RvdIGEEWmvy++ep8Fy4oLBZKwc/a1coJ4XO4wtTBm+FuegDFiSryKGuxr/k/3OzoY+Hg/Tf0zMyfD41c=
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: xenbits disk space "garbage collection"
-Thread-Topic: xenbits disk space "garbage collection"
-Thread-Index: AQHY2kty5yg/FDgjgE6XFBAR+Da7aw==
-Date: Fri, 7 Oct 2022 12:50:59 +0000
-Message-ID: <4ABCA839-C1CD-4132-9DEA-2FB01CA4476E@citrix.com>
+ bh=4UbPdP4bVWAsM7T1sTAb1wibKL0UUmpwrjmjsEazapo=;
+ b=O7j4NjSpjjAx8Nqs+Z5ZVYvrDJdqXRybqxxYp0X0FA+IgsxTSW1Hp70ZdpjhXtLdzc1y81jkq5JJf2V60bPKxrDe91061RrSQOghYhB6FtcTL7qmBDJKXmdEhpoo3aKMVNHq4m/nIOudEmWbaoylr4HI1KG0+DaXEiF6ajZivq45mJzpJqmAPqm9Lx1EIO2OCcS/s/KGNdq3bgQytMj/C4PWQ0o4ZfRvY+75T3nllBQRx+Zf8OfcDdCD95XsZ/V4BTbpY2+19KDdpsFPRGpTdgLKKq/5342aaF53uOZ9jj0Uk/r62iRZWRc7vgYLiN/Mmq+MCRRK4QCGUqZh9ksrFw==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+        Stefano Stabellini
+	<sstabellini@kernel.org>,
+        Julien Grall <julien@xen.org>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Bertrand Marquis <bertrand.marquis@arm.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>,
+        George Dunlap
+	<george.dunlap@citrix.com>,
+        Ian Jackson <iwj@xenproject.org>, Jan Beulich
+	<jbeulich@suse.com>,
+        Wei Liu <wl@xen.org>, Dario Faggioli
+	<dfaggioli@suse.com>
+Subject: [PATCH 00/19] xen/arm64: Suspend to RAM support for Xen
+Thread-Topic: [PATCH 00/19] xen/arm64: Suspend to RAM support for Xen
+Thread-Index: AQHY2k3rsZJ6XuL2JUet06jBlxWLjg==
+Date: Fri, 7 Oct 2022 13:08:40 +0000
+Message-ID: <cover.1665128335.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.100.31)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR03MB5669:EE_|DM8PR03MB6245:EE_
-x-ms-office365-filtering-correlation-id: 7f0a2be3-d4c8-4ad4-96fc-08daa862956b
+x-ms-traffictypediagnostic: VI1PR03MB3758:EE_|AS1PR03MB8150:EE_
+x-ms-office365-filtering-correlation-id: 422d6da5-4efd-4e6b-748e-08daa8650dbe
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- Dq/pw/4jJ+rUe5yU6VfTx1zwnnrpmjAuTCjPgFw9d3/XYWzioyewS1J5N875LWjXfLQHMhQYwFPC33Deuz/kVSeYn4Peqy5khbgXZlUr7FC5IXvEDOI1HXLhjYDsw+Vz7mZsw+akg9hH1CsQzdDqSkUkLUGLosFmcGKyfIz7GwwgJVYJIcr8xH9v58mgQfJ9yGCN8+xtYWmbMnkmQrFNScdtle/7dOUQwMoWIu4E4NwQ2EsdZrNi9ipbCy0ICzPDPI/oFX1HOTXmnWZ4YjjlaN7cJIQik8gJD9gDZYGUYLT8KcrXyN7l5Qt7aRR7OyKgW5W2VHZ3oqRHCNpQQJP/ReoPcfesE82skvxtlPybb3hjIoEr/TXUpo+jknPx6HlAYzh16EDLrzWugnVODXyqtGgzFXIJ7dHmGYooNbO6b8si+IONQgY4hJ1LVaL+pc7HNdoPvZt8HpeVUuBZKpuQjLZh+btnSCk6JHGzpy15oiYXhZTGlas1NbQttIaWMwWUnw6B1AyoAYzDi7lChpJ+dBc5cKkxuEn0HXMhHLsyFewlrXpmozfzZmo7b61vhATmguIDM4mkjIZVqDuvL0IiwSd0eKEpMWuZwhQ/hfUwkJWgVixAKHvtpM7VYcnCCPcX2KSG4rRQzNduEMdPNPK8Gjfu/2nbrnTO4gRxd9VP2bnLzaaIisE8jCpaPBhA+oJVVZGriFm5NnUAZ8K9YhMrVaUYCNZCmBaH0mOGlbzyDPwiiibnEnZS89dydDcqjc2Zo1yabLke2WTWo7VASo905f0Q7ZZetCQrGpunTLfAsscpctFs29QMrN4I+Blim2sa
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(376002)(346002)(396003)(39860400002)(136003)(451199015)(5660300002)(2616005)(186003)(6512007)(2906002)(38100700002)(91956017)(26005)(6486002)(8676002)(478600001)(41300700001)(6506007)(71200400001)(66556008)(83380400001)(6916009)(66446008)(122000001)(316002)(66946007)(64756008)(4744005)(86362001)(8936002)(76116006)(82960400001)(99936003)(36756003)(66476007)(38070700005)(33656002)(45980500001);DIR:OUT;SFP:1101;
+x-microsoft-antispam-message-info: 
+ MNaAyEMXYm5HqSciyq+r8GIJY5mU/sTN/C8HaEB5A7REcKseq43c6qGgTRtx+jFoop4HEyMrhJac1ES2O91da4lpMVwmeqnMK3jZd7YW6tGr3kZYVcxq5WCzV0RqkObPThuep2h/+7y7yP/2ozzq5nGI39haeVKpBVhg3QdpIskrtUdsEBgdQg/Q7z1UPHIvx6rd+PzgG2SJ/4u2c4geMn1NFYOtVS9ISI49moFYc57VxbWvIGw+5WpUTjFxEwiQTPujyf8tCQQv7/hCWYicXMCzXk4U6APK2erW4bUk90D1sjgO2MlvYXnxu9wO/edKpbgkajndmgrcyJ9y0rEmrfe1/AsYCYEmkB1i0lIfbnRsnvAQRcu2ESENOleP/fDLq/cFcGYdMI6Xo1U05o36v3I27+8AaHmrzMhOXI+PxgQQDYHk+rjZstbCR3yysTLesdSCev+yP7VoweTG/KPkst2gCWufS+LjnIrUyvpHcYzwu32+9pjs66fbOAlaT3DktOZYxwn8vRKfq7cl2bUcFpxM+wXT4DKNmhoXtNQZCGZnWJqBR0+pN0A6gz1ECx1IvAwHb7pj8qI4mQ4z6aQTOL18VT6yWpwRsNHBWNWrbdl10/RFIN6Q6PbTV/djh8QK9c/lg4swFon6hm4aODsMOLd7FQkg1+e1q69nFYO1vN5q93h8Iz1m9wprPZHseomdCFievkS/jy0p2x4jUX+uQTRtGko6zb+gYbqUneToYwqies5tuLsGjFKQKtiaF4KHVJpWFYcwc5h87LyKCmBctcwp1iWRm53Vjl75EMte0Po=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3758.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(39860400002)(136003)(366004)(396003)(451199015)(6506007)(6486002)(38070700005)(6916009)(54906003)(966005)(316002)(478600001)(71200400001)(2906002)(122000001)(38100700002)(186003)(66476007)(66556008)(15650500001)(64756008)(41300700001)(7416002)(66946007)(36756003)(8676002)(76116006)(4326008)(66446008)(91956017)(55236004)(26005)(86362001)(5660300002)(2616005)(8936002)(6512007)(83380400001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?MXR6WmtHMU5IK1FTMXdmcjJHdG9OZVNOZHRPdGJPTnd0UVlFdkRKU0NqU05n?=
- =?utf-8?B?bkQ0WmRpalhOZy8vNS9ZYmpxZStWUFJ3OHY4TkxIYkZIMWxNakhXUXRVU0wx?=
- =?utf-8?B?a3NCcFBpS2ozd3FTTEh0OXFOenFWckVKTUJnQlFPbkQ2eVFDbFYxbjRBNyt1?=
- =?utf-8?B?d3IvSW9mbWw3UjZGVWFDZmpCTkd2elI3V0Vyei9nYklIOWNMdDJFWHNwQ0ht?=
- =?utf-8?B?RktSUGd6VmVzLzdJZGw4T2toRVJUQmhBeXVOelBVTTRnZHVXQWtxamhFdE91?=
- =?utf-8?B?TzZ0VDJLMUx2QzViWG9DWHpZNldYcEhvMkI1b2pqVjZ0UkJ0aVp3ZkcvampE?=
- =?utf-8?B?eE1DQkVNR1h3UkZRTlgydmhPYktDK0xlODlBUFZTZituMW14UDg5N2M0TG5o?=
- =?utf-8?B?Y0ZrL2hGaDhpVXVZaUxpTGdYS2tlbUVMRi96SlhRb2pHZlllVUFBZUFrK2Ur?=
- =?utf-8?B?SUNvU1ZhamdtdUJoQVhNYXNhQUhqWTJiSEgwNyt5bzFxVXJSV3M3Q2FxN3hQ?=
- =?utf-8?B?Y0x6cEo1QnlqRDdGUEM5ZG5Id2NVWlFYbVhRY0tpVUVtQTFlMkU4d1BUWmVr?=
- =?utf-8?B?L3paRG4xSWhwRWJEYjRKN3hRSk1wZVhHdmFuckZrWUFjb3JoOXpVRm43VW8y?=
- =?utf-8?B?dkxCRGUzWGNVYXlFMmgyUnpsSGcrcFlKekFtWHZLMVY0NExkMmFqOTR3RktK?=
- =?utf-8?B?V0lHSk5zWTFaci82SHBQWDQvOWl1V3FSR01PMTFkYlYxdFJoaVduWWFZSEtX?=
- =?utf-8?B?aWM0amRsV2VyNTlGUTJLNGVWTUs1YTJjbWpud2wzMEd0K1BIU2hSQ1ZyVEJD?=
- =?utf-8?B?T2NTek83QVFQSXlYVnNWcGVaL0dpYm9MUlN0WVZHbTZUMEJPWEFhNlh1clp5?=
- =?utf-8?B?Vmg3Q0N5M3Zody82SW5oS0IwUkxLdjRFa1UrN21Db1AwcDRMcnZmdEZSdGtm?=
- =?utf-8?B?QTY4MERzbGlMRE8vMWNHcUNQdHlRSmhXc1M4TWJZOEt6WTVYYmFMLzBGNE0w?=
- =?utf-8?B?ZlA5YjlFblNFSXlKdVIzN3hBREx3TDZHNXkrMGU4bU55VWRRbDE1ZnZUZSs4?=
- =?utf-8?B?QzBvYS9vdHM0Q2FwYklzbU9CM2poaXo5dWFuNXhUL1ZOaU5oZlBabDhrNDd0?=
- =?utf-8?B?WDB5UlhaQitmK3FQM0oyMU9LTFl6U1lRcjFNcTJKcnBKVm1tbTBmbVhnVllk?=
- =?utf-8?B?QWZreWsvQzNWRzRsZklpK0JYMExqV2RGL2NyQlI5dnZPTUdwUEhJd0VOTFBn?=
- =?utf-8?B?TlEvT1Nmd1A1TzFxYXEyNE94SWVmR1B4R1UwanBrb2V1RXpwSzBRYVNJUjho?=
- =?utf-8?B?cldNVC8rWUN5dms0WnlkZDdvU1JWSmcrYnpMdCt0c3FQeXNnNzREL2xxcXp6?=
- =?utf-8?B?YWNtU25TcHhRWk04NTZRSjMvU3RNTHJjbXZiRURySTZWSWIzOGpmUzFqbXBX?=
- =?utf-8?B?MnhsY3h2d1dEWHVnY2FsV1RrNDFyNDM1UTlFQVVKL08zS1ZJZFRxUDhpdmJq?=
- =?utf-8?B?T1UybXlRYmZuTUlldGRtMHMrblI1SWhLR1ZRUXFDZjgwM1FYbkViRWVIdUtq?=
- =?utf-8?B?aitXNEFRN0p1L2M0UzNnc1A2TTE0K0xlQWc2N01zdVkwN2JRcjE0T1NlV3Vh?=
- =?utf-8?B?dDUvdkYrNThxVGRiZ0gzVGNqZ0ZHbUMyM21henJUK3lVMktPU2Jqa0dFeHNC?=
- =?utf-8?B?cG1WTjJEa3I5QXFUNEx2c05DM2tGdGhOQ0QrZ2hHZDc1T2JlQjhLTFZ6ZXk2?=
- =?utf-8?B?cUdHb28vUkJQbDYrYUN6dGxENTlCNGlBUmpkYVFyanFGaUtsYXpWYkR1dUdt?=
- =?utf-8?B?VjhtZlF1VjNMR3Vmc0ZqSnVqbmw2VWtFdmdFM0ppNXVMc0xEMWVxZVFmUkFy?=
- =?utf-8?B?azc5Nit3VkkzWGswY3JkSjRHQy9CZExVOUFsYXhJQTQ4RVhaR0JOdDVPbGdr?=
- =?utf-8?B?WXJjT2tXUG9OUzdkeWovTXB2dkZoanVNK0xWZThxVTZZR1NrM28vcVREd2hn?=
- =?utf-8?B?SDRPblZkdHNXVVFRYnpnYVVHbkQwQzdLNDNoVFd4dzhiSDJOOUU5S1d2c3I3?=
- =?utf-8?B?bGRwQldrd0lWcGZwc1F4NFJJMWRQcmNOUWY1NWhkeVdXQ1pPNmg2ZUVma1pr?=
- =?utf-8?B?WGl5R0pPdVEwbElVWHBoVVBtWkFlOHgyY2RJQ0gra0gyOXVvMm1YK1RRMndO?=
- =?utf-8?B?VlE9PQ==?=
-Content-Type: multipart/signed;
-	boundary="Apple-Mail=_1F09FA5B-E886-48D3-BC6A-5D939EFC0FAC";
-	protocol="application/pgp-signature";
-	micalg=pgp-sha256
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?ZpG1wxYbI6o+cg14DuPiCWQaNot5Tm5zanh4bCWZaLQgtFFLoof5tSwd/t?=
+ =?iso-8859-1?Q?+SHLN6d7v3+Nk0C2WBDNGVyDAkiibPhllnrMGTnLpe0PMaowRDGbpqWSxT?=
+ =?iso-8859-1?Q?vrpELA83YNWqUDFmPFI8jZe/BktcIOav/98RC9mk51wizIaTnmoGWDNezo?=
+ =?iso-8859-1?Q?cea4gWHWI3l40v9gzZSPBzFfJOWQADbNmExbrTxLP7bTNTl8lYfWuKK7ib?=
+ =?iso-8859-1?Q?Dpuq2Ix4N5vLt+dIbrtiwKhSAvpBt9Kmb5nzu1Fw4xjFgSg6cYkUUy5KGg?=
+ =?iso-8859-1?Q?6N73j3pwAaUE+hahPZUWCEAOk+Tu3MSf3g5scmgaPsfpLLPuqXZITUQxlE?=
+ =?iso-8859-1?Q?fHSMdnoJaD/4yKM+uCLB0FqRrKEZeKFMIo7k5Nk8GSPbFzWF2KRXUihcZ2?=
+ =?iso-8859-1?Q?8cm/QZ2QrNrGHs6O3Aai9kvWHRLDsy3HA5KDLZYB4iQb+2RYsG+x+pS0yf?=
+ =?iso-8859-1?Q?E7OvrBSGBlwNo0vmqybXa8/G5BANlkQTGtIKJSlN5lmsHcUkwHaLnPfAKT?=
+ =?iso-8859-1?Q?EnVw002mDXUCIy0bc3L4OuMdolaMu08/l+SCSeSuSb/s9rgNKR4kCCVuDB?=
+ =?iso-8859-1?Q?Qz3SsSHWS7vuitTp8pKVC2cdVL3buwO69PkAerW0hK8bu7jqe2+9tSc2XF?=
+ =?iso-8859-1?Q?A3JwZoEN2IY3KcIjptSQ5DAlYqaCgpWyUwvB7lAeW3TpzdlSfICnDcSom6?=
+ =?iso-8859-1?Q?t8Q3jxenrLC1e5hoFG54raIA57c3//b1uEUMjkhXnAoQOeHIgOEI7hClad?=
+ =?iso-8859-1?Q?qfDSGVUoja4z+T2t0co2YSAmJ1lfnPOjfWl51XdmdDtQyl6XhPgDSirsTI?=
+ =?iso-8859-1?Q?VpAh57UN6U7vxhOHQLWFz9eRBhGRksOpAxmxcp5VHt7JKFRYSSLx1HRcAg?=
+ =?iso-8859-1?Q?PAWYcmbtZbsSP5PHlfrVlDK3a3wJx2Ra9i6jEbbKQpGb5ibFRXxvr1dIlN?=
+ =?iso-8859-1?Q?7CTsu3BauMK9zKLp/VRYDTmNwgJNKVnig+zfn0zN/PaXDSs3PAaL+yyoa3?=
+ =?iso-8859-1?Q?NYG6HW+mAQfxHykehr6/w83GjeFv7U7vdCtCs0XBzDGELpkPy+sFjpsYKN?=
+ =?iso-8859-1?Q?Gio5JqAnDXnJJJRPkssJmNgGAWRmInlpBgJUl0yNBonSSmk4ByshypT2u3?=
+ =?iso-8859-1?Q?L5/peS46OI93kwYEYwyEvwvEljkyQ9IpGvLLnMs1dYt4Iw+vnRRM3JjqCK?=
+ =?iso-8859-1?Q?EtXMg1CrgGdEqhcpQ7S5Ant3L8FhNTdWwB8I3x90MCM/QHSfUq03Ei3K/N?=
+ =?iso-8859-1?Q?//xJQCfI5heuD0lCVqoEUn6rZ/4nNT4swQmIe5f8eqv8QZvlX3DXobTkPa?=
+ =?iso-8859-1?Q?DCC4GNwAuXbzFUG6lBO37xe9Qc2Gv5BEV1emVLDdHI0K8y7qDsWxJQ7QS1?=
+ =?iso-8859-1?Q?olQDxh84qklIqdrj84Pi3XJA65IFvHWEKNxDdjzb48VfRbQia97HWa7WtW?=
+ =?iso-8859-1?Q?yGaWCnrOD9/gnfI6LBgUIgkMK46a5J584H3zZS3UTWl0nY2TpQ890s6nzb?=
+ =?iso-8859-1?Q?yqCu73372ah5PFYojnNejzKEhzXlUNtUsaxP1wgplK7EsVItopvvJ+ot/W?=
+ =?iso-8859-1?Q?rcsBeJP7z8eyAM7Ka1t8ydji6loda/5OfDPEVuvZTxsl1JYfhgcnrYVtZW?=
+ =?iso-8859-1?Q?OGPm+bCOxWHIizA6HY+q4p8giNPSOFbS6WdSyHb8/wtGCY09F4Y09E8A?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f0a2be3-d4c8-4ad4-96fc-08daa862956b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2022 12:50:59.2995
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3758.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 422d6da5-4efd-4e6b-748e-08daa8650dbe
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2022 13:08:40.1470
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1ADqI7j3WNebxASkSRs7ihNog+N25r3OgQTNvTs2ZThsktQ+nNGSKGiY/qJsNQ6WdIwoECBAHH8501Vb/+1GqY7Ral9EcKLLE2Q5vk1XRI0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR03MB6245
+X-MS-Exchange-CrossTenant-userprincipalname: ynQqJEd9UUAis4QfPGVF6AtT+oD5Slskrzg0N0xc+yF0haYQA48j/pnJAppZyC6CNcBvTWVXyN6b2jmuUY297w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR03MB8150
+X-Proofpoint-GUID: jBncKgJDaDydLMu5ka6Gw1AUXIsB3IX4
+X-Proofpoint-ORIG-GUID: jBncKgJDaDydLMu5ka6Gw1AUXIsB3IX4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
+ definitions=2022-10-06_05,2022-10-07_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 clxscore=1015
+ mlxscore=0 priorityscore=1501 adultscore=0 mlxlogscore=999 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2209130000
+ definitions=main-2210070079
 
---Apple-Mail=_1F09FA5B-E886-48D3-BC6A-5D939EFC0FAC
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
+This is a series from Mirela Simonovic. Ported to 4.16 and with
+added changes suggested here=20
+https://lore.kernel.org/all/CAKPH-NjmaZENb8gT=3D+FobrAycRF01_--6GuRA2ck9Di5=
+wiudhA@mail.gmail.com
 
-Hello all,
+This series contains support for suspend to RAM (in the following text just
+'suspend') for Xen on arm64. The implementation is aligned with the design
+specification that has been proposed on xen-devel list:
+https://lists.xenproject.org/archives/html/xen-devel/2017-12/msg01574.html
 
-The xenbits disk is getting somewhat full.  If everyone could take a =
-minute or two to take a look in your own home directory and space on =
-/people/, and delete anything you don=E2=80=99t need, that would be =
-helpful.
+At a high-level the series contains:
+1) Support for suspending guests via virtual PSCI SYSTEM_SUSPEND call
+2) Support for resuming a guest on an interrupt targeted to that guest
+3) Support for suspending Xen after dom0 finalizes the suspend
+4) Support for resuming Xen on an interrupt that is targeted to a guest
 
-`du -k -x | sort -n -r -k 1` is my normal rune for this sort of thing, =
-if it helps; feel free to suggest your own if you think you have a =
-better one. :-)
 
-We=E2=80=99ll also be looking at archiving old home directories and =
-other content, but it=E2=80=99s good for active users to do some =
-=E2=80=9Cgarbage collection=E2=80=9D of their own occasionally as well.
+---------------------------------------------------------------------------=
+-----
+In more details:
 
-Thanks!
- -George
+*** About suspending/resuming guests
 
---Apple-Mail=_1F09FA5B-E886-48D3-BC6A-5D939EFC0FAC
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename=signature.asc
-Content-Type: application/pgp-signature;
-	name=signature.asc
-Content-Description: Message signed with OpenPGP
+The patches included in this series allow PSCI compliant guests that have
+support for suspend to RAM (e.g. echo mem > /sys/power/state in Linux) to
+suspend and resume on top of Xen without any EL1 code changes.
 
------BEGIN PGP SIGNATURE-----
+During their suspend procedure guests will hot-unplug their secondary CPUs,
+triggering Xen's virtual CPU_OFF PSCI implementation, and then finalize the
+suspend from their boot CPU, triggering Xen's virtual SYSTEM_SUSPEND PSCI.
+Guests will save/restore their own EL1 context on suspend/resume.
 
-iQEzBAEBCAAdFiEEj3+7SZ4EDefWZFyCshXHp8eEG+0FAmNAILIACgkQshXHp8eE
-G+3S4gf7BF7OrH7g36Q3fHw9qGoQMT6bF7QR7JkiD+dXVueMdxAc0gnczZtXryQD
-wLGamP4P2bUZOtcaH/CdoalupGo1DRXv7Fm+OG5ZKOTsBZiRu/720yZ+R2yp8KDB
-cW4SjFJBprzIku5wu+0YF/pp3f8fLQ72MnfGzGH1Wz0at+r4fWDwD9+mu5juMzOt
-PqyJ1wWj8cHzKS94pE838qeJ/d+X7nDTdf+NIenyauNeQ25WgfexG3u5Kofxdu4X
-VhtALEf76/RWfdkJp169OcOeeoaLHFWOeCCS7+YURhQpjQXi3qh237mlV5WevQAC
-6LOk8mInFiqnGZvIHigi489L/rIvmA==
-=oWEn
------END PGP SIGNATURE-----
+A guest is expected to leave enabled interrupts that are considered to be i=
+ts
+wake-up sources. Those interrupts will be able to wake up the guest. This h=
+olds
+regardless of the state of the underlying software layers, i.e. whether Xen=
+ gets
+suspended or not doesn't affect the ability of the guest to wake up.
 
---Apple-Mail=_1F09FA5B-E886-48D3-BC6A-5D939EFC0FAC--
+First argument of SYSTEM_SUSPEND PSCI call is a resume entry point, from wh=
+ich
+the guest assumes to start on resume. On resume, guests assume to be runnin=
+g in
+an environment whose state matches the CPU state after reset, e.g. with res=
+et
+register values, MMU disabled, etc. To ensure this, Xen has to 'reset' the
+VCPU context and save the resume entry point into program counter before th=
+e
+guest's VCPU gets scheduled in on resume. This is done when the guest resum=
+es.
+Xen also needs to take care that the guest's view of GIC and timer gets sav=
+ed.
+Also, while a guest is suspended its watchdogs are paused, in order to avoi=
+d
+watchdog triggered shutdown of a guest that has been asleep for a period of=
+ time
+that is longer than the watchdog period.
+
+After this point, from Xen's point of view a suspended guest has one VCPU
+blocked, waiting for an interrupt. When such an interrupt comes, Xen will
+unblock the VCPU of the suspended domain, which results in the guest
+resuming.
+
+*** About suspending/resuming Xen
+
+Xen starts its own suspend procedure once dom0 is suspended. Dom0 is
+considered to be the decision maker for EL1 and EL2.
+On suspend, Xen will first freeze all domains. Then, Xen disables physical
+secondary CPUs, which leads to physical CPU_OFF to be called by each second=
+ary
+CPU. After that Xen finalizes the suspend from the boot CPU.
+
+This consists of suspending the timer, i.e. suppressing its interrupts (we =
+don't
+want to be woken up by a timer, there is no VCPU ready to be scheduled). Th=
+en
+the state of GIC is saved, console is suspended, and CPU context is saved. =
+The
+saved context tells where Xen needs to continue execution on resume.
+Since Xen will resume with MMU disabled, the first thing to do in resume is=
+ to
+resume memory management in order to be able to access the context that nee=
+ds to
+be restored (we know virtual address of the context data). Finally Xen call=
+s
+SYSTEM_SUSPEND PSCI to the EL3.
+
+When resuming, all the steps done in suspend need to be reverted. This is
+completed by unblocking dom0's VCPU, because we always want the dom0 to
+resume,
+regardless of the target domain whose interrupt woke up Xen.
+
+*** Handling of unprivileged guests during Xen suspend/resume
+
+Any domU that is not suspended when dom0 suspends will be frozen, domUs tha=
+t are
+already suspended remain suspended. On resume the suspended domUs still rem=
+ain
+suspended (unless their wake interrupt caused Xen to wake) while the
+others will be thawed.
+
+For more details please refer to patches or the design specification:
+https://lists.xenproject.org/archives/html/xen-devel/2017-12/msg01574.html
+
+Juergen Gross (1):
+  xen: don't free percpu areas during suspend
+
+Mirela Simonovic (15):
+  xen/arm: Implement PSCI system suspend
+  xen/arm: While a domain is suspended put its watchdogs on pause
+  xen/arm: Trigger Xen suspend when Dom0 completes suspend
+  xen/x86: Move freeze/thaw_domains into common files
+  xen/arm: Freeze domains on suspend and thaw them on resume
+  xen/arm: Disable/enable non-boot physical CPUs on suspend/resume
+  xen/arm: Add rcu_barrier() before enabling non-boot CPUs on resume
+  xen/arm: Implement GIC suspend/resume functions (gicv2 only)
+  xen/arm: Suspend/resume GIC on system suspend/resume
+  xen/arm: Suspend/resume timer interrupt generation
+  xen/arm: Implement PSCI SYSTEM_SUSPEND call (physical interface)
+  xen/arm: Resume memory management on Xen resume
+  xen/arm: Save/restore context on suspend/resume
+  xen/arm: Resume Dom0 after Xen resumes
+  xen/arm: Suspend/resume console on Xen suspend/resume
+
+Mykyta Poturai (2):
+  watchdog: Introduce a separate struct for watchdog timers
+  timers: Don't migrate timers during suspend
+
+Oleksandr Andrushchenko (1):
+  Fix misleading indentation gcc warning
+
+ xen/arch/arm/Makefile            |   1 +
+ xen/arch/arm/arm64/entry.S       |   2 +
+ xen/arch/arm/arm64/head.S        | 121 +++++++++++++
+ xen/arch/arm/domain.c            |   4 +
+ xen/arch/arm/gic-v2.c            | 138 ++++++++++++++-
+ xen/arch/arm/gic.c               |  25 +++
+ xen/arch/arm/mm.c                |   1 +
+ xen/arch/arm/percpu.c            |   7 +-
+ xen/arch/arm/psci.c              |  16 ++
+ xen/arch/arm/suspend.c           | 292 +++++++++++++++++++++++++++++++
+ xen/arch/arm/time.c              |  22 +++
+ xen/arch/arm/vpsci.c             |  28 +++
+ xen/common/domain.c              |  29 +++
+ xen/common/keyhandler.c          |   2 +-
+ xen/common/sched/core.c          |  55 +++++-
+ xen/common/timer.c               |   3 +-
+ xen/include/asm-arm/domain.h     |   3 +
+ xen/include/asm-arm/gic.h        |   8 +
+ xen/include/asm-arm/perfc_defn.h |   1 +
+ xen/include/asm-arm/processor.h  |  22 +++
+ xen/include/asm-arm/psci.h       |   3 +
+ xen/include/asm-arm/suspend.h    |  40 +++++
+ xen/include/asm-arm/time.h       |   3 +
+ xen/include/xen/sched.h          |  16 +-
+ xen/include/xen/watchdog.h       |   6 +
+ 25 files changed, 837 insertions(+), 11 deletions(-)
+ create mode 100644 xen/arch/arm/suspend.c
+ create mode 100644 xen/include/asm-arm/suspend.h
+
+--=20
+2.37.1
 
