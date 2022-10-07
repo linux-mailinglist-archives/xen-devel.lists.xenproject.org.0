@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 107415F73E6
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 07:19:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.417390.662079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 073E75F740D
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Oct 2022 07:58:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.417399.662090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogflk-0000AK-JW; Fri, 07 Oct 2022 05:19:32 +0000
+	id 1oggMI-0004bV-Jh; Fri, 07 Oct 2022 05:57:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 417390.662079; Fri, 07 Oct 2022 05:19:32 +0000
+Received: by outflank-mailman (output) from mailman id 417399.662090; Fri, 07 Oct 2022 05:57:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogflk-00007r-Gc; Fri, 07 Oct 2022 05:19:32 +0000
-Received: by outflank-mailman (input) for mailman id 417390;
- Fri, 07 Oct 2022 05:19:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oggMI-0004Yo-H6; Fri, 07 Oct 2022 05:57:18 +0000
+Received: by outflank-mailman (input) for mailman id 417399;
+ Fri, 07 Oct 2022 05:57:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=NgR6=2I=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ogfli-00007d-8X
- for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 05:19:30 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9e3cf07e-45ff-11ed-964a-05401a9f4f97;
- Fri, 07 Oct 2022 07:19:29 +0200 (CEST)
+ id 1oggMG-0004Yi-VM
+ for xen-devel@lists.xenproject.org; Fri, 07 Oct 2022 05:57:17 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e47ea4b0-4604-11ed-9377-c1cf23e5d27e;
+ Fri, 07 Oct 2022 07:57:14 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 22AF22199F;
- Fri,  7 Oct 2022 05:19:29 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2A6B31F8C6;
+ Fri,  7 Oct 2022 05:57:14 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D8B9613345;
- Fri,  7 Oct 2022 05:19:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E273E13A9A;
+ Fri,  7 Oct 2022 05:57:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id P19aM+C2P2OBLQAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 07 Oct 2022 05:19:28 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id TGbXNbm/P2N3OgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 07 Oct 2022 05:57:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,68 +51,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e3cf07e-45ff-11ed-964a-05401a9f4f97
+X-Inumbo-ID: e47ea4b0-4604-11ed-9377-c1cf23e5d27e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1665119969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1665122234; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Ejzy7TEHov+nIAMCI1XFyhDUZZW5+GOk87DJxP7CNaY=;
-	b=Aqgt+IPCyj21zORa/HFyxvmEVfh8M63qWr5hDdHZfA9YZu5GgNckohRuFvk33/c/WC6KGg
-	tdQSJXFMzL1Ux+lGa1/R9oyXpFsZZCOjccMDXR0wbL9Jj8IB883apnFhWfDo0NwyUPL4qP
-	kitcvUTKNNWkAfX6ypDh6OjSZAJ6pwo=
-Message-ID: <47853f65-0fce-6ee1-f6ab-115ab48df7a3@suse.com>
-Date: Fri, 7 Oct 2022 07:19:28 +0200
+	bh=3Sk/Wai7OL6bCl05p5gxU/lW31/U1SnkzvU73Y4Wl1U=;
+	b=fZ/soGn8d/ZTWVptwhYeZz8cqBRToxqb6C4hkyEJD6Fm6dcfdAMgNqM2Upt5R/rqQx7lVz
+	XkhGt+1dEdwJ7Hz+iQyU4Ao5FHoAR/I+FyTclssAgFa9ceGuGSoKC6teDqqdoOhydHqjro
+	zIh+0M4iKz7mPWbywWSjUIG1OiDKDPo=
+Message-ID: <014e7036-5daf-6465-663c-b690d6f719ee@suse.com>
+Date: Fri, 7 Oct 2022 07:57:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.2.2
-Subject: Re: [PATCH 0/2] Misc fixes for Xen grant DMA-mapping layer
 Content-Language: en-US
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
  xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>
-References: <20221005174823.1800761-1-olekstysh@gmail.com>
+References: <20221006174804.2003029-1-olekstysh@gmail.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20221005174823.1800761-1-olekstysh@gmail.com>
+Subject: Re: [PATCH] xen/virtio: Handle PCI devices which Host controller is
+ described in DT
+In-Reply-To: <20221006174804.2003029-1-olekstysh@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------SOsSx1a3rFmS0YD7wzBcZ2on"
+ boundary="------------vPlS10kX7W0yziMi5kKHRSH0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------SOsSx1a3rFmS0YD7wzBcZ2on
-Content-Type: multipart/mixed; boundary="------------qtAE5mJL6H3HlkunW5gNx0pW";
+--------------vPlS10kX7W0yziMi5kKHRSH0
+Content-Type: multipart/mixed; boundary="------------M20S0RLBbR0aQSj1w20tEhYl";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
  xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <47853f65-0fce-6ee1-f6ab-115ab48df7a3@suse.com>
-Subject: Re: [PATCH 0/2] Misc fixes for Xen grant DMA-mapping layer
-References: <20221005174823.1800761-1-olekstysh@gmail.com>
-In-Reply-To: <20221005174823.1800761-1-olekstysh@gmail.com>
+Message-ID: <014e7036-5daf-6465-663c-b690d6f719ee@suse.com>
+Subject: Re: [PATCH] xen/virtio: Handle PCI devices which Host controller is
+ described in DT
+References: <20221006174804.2003029-1-olekstysh@gmail.com>
+In-Reply-To: <20221006174804.2003029-1-olekstysh@gmail.com>
 
---------------qtAE5mJL6H3HlkunW5gNx0pW
-Content-Type: multipart/mixed; boundary="------------ifS0aZNKw8d0gSh2PMBv6ACs"
+--------------M20S0RLBbR0aQSj1w20tEhYl
+Content-Type: multipart/mixed; boundary="------------wjbTJXDYWf4092hEeeVUGVdn"
 
---------------ifS0aZNKw8d0gSh2PMBv6ACs
+--------------wjbTJXDYWf4092hEeeVUGVdn
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDUuMTAuMjIgMTk6NDgsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiBGcm9t
+T24gMDYuMTAuMjIgMTk6NDgsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiBGcm9t
 OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+
-DQo+IA0KPiBIZWxsbyBhbGwuDQo+IA0KPiBUaGVzZSBhcmUgc2V2ZXJhbCBmaXhlcyBJIGNv
-bGxlY3RlZCB3aGVuIHBsYXlpbmcgd2l0aCB2aXJ0aW8tbmV0IGRldmljZQ0KPiB1c2luZyBY
-ZW4gZ3JhbnQgbWFwcGluZ3MuDQo+IA0KPiBUZXN0ZWQgd2l0aCBib3RoIHZpcnRpby1ibGsg
-YW5kIHZpcnRpby1uZXQgZGV2aWNlcy4NCj4gDQo+IE9sZWtzYW5kciBUeXNoY2hlbmtvICgy
-KToNCj4gICAgeGVuL3ZpcnRpbzogRml4IG5fcGFnZXMgY2FsY3VsYXRpb24gaW4geGVuX2dy
-YW50X2RtYV9tYXAodW5tYXApX3BhZ2UoKQ0KPiAgICB4ZW4vdmlydGlvOiBGaXggcG90ZW50
-aWFsIGRlYWRsb2NrIHdoZW4gYWNjZXNzaW5nDQo+ICAgICAgeGVuX2dyYW50X2RtYV9kZXZp
-Y2VzDQo+IA0KPiAgIGRyaXZlcnMveGVuL2dyYW50LWRtYS1vcHMuYyB8IDI5ICsrKysrKysr
-KysrKysrKysrKysrKystLS0tLS0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIyIGluc2VydGlv
-bnMoKyksIDcgZGVsZXRpb25zKC0pDQo+IA0KDQpTZXJpZXMgcHVzaGVkIHRvIHhlbi90aXAu
-Z2l0IGZvci1saW51cy02LjENCg0KDQpKdWVyZ2VuDQo=
---------------ifS0aZNKw8d0gSh2PMBv6ACs
+DQo+IA0KPiBVc2UgdGhlIHNhbWUgInhlbi1ncmFudC1kbWEiIGRldmljZSBjb25jZXB0IChi
+YXNlZCBvbiBnZW5lcmljIElPTU1VDQo+IGRldmljZS10cmVlIGJpbmRpbmdzKSBmb3IgdGhl
+IFBDSSBkZXZpY2VzIGJlaGluZCBkZXZpY2UtdHJlZSBiYXNlZA0KPiBQQ0kgSG9zdCBjb250
+cm9sbGVyLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogT2xla3NhbmRyIFR5c2hjaGVua28gPG9s
+ZWtzYW5kcl90eXNoY2hlbmtvQGVwYW0uY29tPg0KPiAtLS0NCj4gU2xpZ2h0bHkgUkZDLiBU
+aGlzIGlzIG5lZWRlZCB0byBzdXBwb3J0IFhlbiBncmFudCBtYXBwaW5ncyBmb3IgdmlydGlv
+LXBjaSBkZXZpY2VzDQo+IG9uIEFybSBhdCBzb21lIHBvaW50IGluIHRoZSBmdXR1cmUuIFRo
+ZSBYZW4gdG9vbHN0YWNrIHNpZGUgaXMgbm90IHB1Ymxpc2hlZCB5ZXQuDQo+IEhlcmUsIGZv
+ciBQQ0kgZGV2aWNlcyB3ZSB1c2UgdGhlIHNhbWUgd2F5IHRvIHBhc3MgYmFja2VuZCBkb21p
+ZCB0byB0aGUgZ3Vlc3QgYXMgZm9yDQo+IHBsYXRmb3JtIGRldmljZXMuDQoNCkkgc2hvdWxk
+IG1lbnRpb24gd2UgZGVjaWRlZCBhdCB0aGUgWGVuIFN1bW1pdCwgdGhhdCBJIHdpbGwgc3Rh
+cnQgYSB0cnkgdG8NCm1vZGlmeSB0aGUgdmlydGlvIHNwZWMgdG8gaW5jbHVkZSB0aGUgYmFj
+a2VuZCBpZCAoZG9taWQgaW4gdGhlIFhlbiBjYXNlKQ0KaW4gdGhlIGRldmljZSBpbmRlcGVu
+ZGVudCBjb25maWcgcGFydC4NCg0KQXMgdGhpcyB3aWxsIHRha2Ugc29tZSB0aW1lIHRvIGJl
+IGFjY2VwdGVkIChpZiBldmVyKSwgb3RoZXIgbWVhbnMgdG8NCnNwZWNpZnkgdGhlIGJhY2tl
+bmQgZG9taWQgYXJlIG5lZWRlZCB1bnRpbCB0aGVuLiBEVCBpcyBvbmUgcG9zc2liaWxpdHkN
+CihhdCBsZWFzdCBvbiBBcm0pLCB3aGlsZSBYZW5zdG9yZSBpcyB0aGUgd2F5IHRvIGdvIGZv
+ciBzZXR1cHMgd2l0aCBhDQpYZW4gdG9vbHN0YWNrLg0KDQoNCkp1ZXJnZW4NCg==
+--------------wjbTJXDYWf4092hEeeVUGVdn
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -170,25 +179,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------ifS0aZNKw8d0gSh2PMBv6ACs--
+--------------wjbTJXDYWf4092hEeeVUGVdn--
 
---------------qtAE5mJL6H3HlkunW5gNx0pW--
+--------------M20S0RLBbR0aQSj1w20tEhYl--
 
---------------SOsSx1a3rFmS0YD7wzBcZ2on
+--------------vPlS10kX7W0yziMi5kKHRSH0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM/tuAFAwAAAAAACgkQsN6d1ii/Ey8G
-bgf/du6WhlvN6TM8LUThjNHkx1yKlPgAth564txOMqLFAd+WVYglM6Gmgq+lqLsqlsU8jlyjv+Po
-lKgmgYLQSXiiFAjxl1ktGP0jgNszMoCoaY2x7rNMwiC861uZ9T/WSxGfsW9Cfi4Z2tb6Phn5aK3o
-Smi+6sW/QKNq82DLHDxlubXBZokB8ZtM8Z3t3Tgag6Mrw/3/Ok5slFDJmA+B0kKQ8xCHdRjSKQFN
-yNGEErZyuJljV0g+wPLcTV0m9HVE4Swp3xz14PtS+xVyaOG34B3CpC4DsrbQLXLD6XxzIqMpeLR2
-Po1PTRmD6c6/L1lE05O8yPhifFaVDLsVgebxuaXnqw==
-=Pjss
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmM/v7kFAwAAAAAACgkQsN6d1ii/Ey/a
+oAf+M7BYmmsyCqqYqE/sUb5gWvcFBqjmeJJpq6IlyY3JTUc2Zew9h850V2ijUDdQ50bIa2hML+g9
+jwxuoohx8JC2z7kI6E6/+zs+1hvn3C9hU6uxgr1p0kRZWq18TRITThO4frBIT1vp6OuGYLgUD8qp
+Stlcqth2+veKUxYiF0d+dhOI2IkwSkRVVYD0Lm0Bga836ogRevgfQWWTFpPnIREPvOJ7DaqCEaNW
+QiCWCT4bePhpAHxRyOzDGh9+sNCrqiPzpPfgeo0Akps0bw3y1Lr6UTGJwx5dbyZFk/z1j50e9ehE
+MoyYquZiuqzJQbydkRTik0sUfFW5agQHdm0MNz9fOg==
+=LQRo
 -----END PGP SIGNATURE-----
 
---------------SOsSx1a3rFmS0YD7wzBcZ2on--
+--------------vPlS10kX7W0yziMi5kKHRSH0--
 
