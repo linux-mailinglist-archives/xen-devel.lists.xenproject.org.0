@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D7565F8176
+	by mail.lfdr.de (Postfix) with ESMTPS id 962085F8177
 	for <lists+xen-devel@lfdr.de>; Sat,  8 Oct 2022 02:16:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.418365.663159 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.418367.663176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogxVY-0003rH-AF; Sat, 08 Oct 2022 00:16:00 +0000
+	id 1ogxVZ-0004Eu-Ih; Sat, 08 Oct 2022 00:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 418365.663159; Sat, 08 Oct 2022 00:16:00 +0000
+Received: by outflank-mailman (output) from mailman id 418367.663176; Sat, 08 Oct 2022 00:16:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogxVY-0003oY-4p; Sat, 08 Oct 2022 00:16:00 +0000
-Received: by outflank-mailman (input) for mailman id 418365;
+	id 1ogxVZ-00049Z-Cm; Sat, 08 Oct 2022 00:16:01 +0000
+Received: by outflank-mailman (input) for mailman id 418367;
  Sat, 08 Oct 2022 00:15:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZrwE=2J=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ogxVW-00035E-Qk
+ id 1ogxVX-0003Ov-JY
  for xen-devel@lists.xenproject.org; Sat, 08 Oct 2022 00:15:59 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6029d821-469e-11ed-964a-05401a9f4f97;
- Sat, 08 Oct 2022 02:15:55 +0200 (CEST)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 618cb439-469e-11ed-9377-c1cf23e5d27e;
+ Sat, 08 Oct 2022 02:15:57 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8D95361E13;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0B255B823E4;
+ Sat,  8 Oct 2022 00:15:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC7DC433B5;
  Sat,  8 Oct 2022 00:15:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AE2BC433D6;
- Sat,  8 Oct 2022 00:15:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6029d821-469e-11ed-964a-05401a9f4f97
+X-Inumbo-ID: 618cb439-469e-11ed-9377-c1cf23e5d27e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665188154;
-	bh=nkf5f1s9b73fs5L0inbQYTQtvT4GFe9oF/f4l6y5xS8=;
+	s=k20201202; t=1665188155;
+	bh=0tlZ5oqIKF90SmBwwmcNmsbO0/yMV9+vvKH5K5z8FCc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=N/Eo7HuM/0fTqi8sFEsdzbpcafKvl7xqA6iaV4+eUdzefsftYGWCDrlsGByaI+plB
-	 w9Mlh3tu8NAlCP6a9gdSlfpJiAOwy7d4tzShs0SstByuEZuCSDs4FAvQKl5a7A4vBm
-	 EmnluaUJckHpUMG0fI0+vTzsmGAbArJRGEabWllQsogW3lKPJ4ANo2VSJwxYN+hxaC
-	 QnK9WYu2wJxtGfVuxulTBymJmttWMppbIMaJFEzmeHk92JltkipzTpsoK0XCQGHxLb
-	 rp/D//MLoHG81LfOpLHk6lveQWzOj/WkNGhUSaKOio21xJ/IObeWSNc5sQU7DmwlfE
-	 Xj8QRXPzmSYBg==
+	b=Avn5S7iq6eYjBd59mzdCOlm0MLm2AVQrmJ/XZJjk9/5V/4fjjSmUC6wL1cThU0+V1
+	 Ng/bn4PnR0lOikrpKN8Jc8SltKq57nqSzq7px7R2yqNzhu6OLxc7WMwhmfBpUPwLGU
+	 N9rtxatgJNOWFhxd+jXB0KCopIQEsrXHkzYE1Ux1BB8oWWzDGaxKr66Bhh5Vs6th5v
+	 BbNguOHV081/WNfUC+dNNWM1ThLJiCotQAXh/d4j9510Eb/wz1PXH/rzDQG9m4otXL
+	 b61YMjjqIZHcAv/Q5hIBXmmPOiTRGcaBuz7hIyJcAabJYA/i29ImbTah07YTWE7ZLJ
+	 LUVnv4GfeAc7g==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -66,9 +66,9 @@ Cc: sstabellini@kernel.org,
 	Volodymyr_Babchuk@epam.com,
 	roger.pau@citrix.com,
 	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH v3 3/4] add SPDX to arch/arm/*.c
-Date: Fri,  7 Oct 2022 17:15:43 -0700
-Message-Id: <20221008001544.78302-3-sstabellini@kernel.org>
+Subject: [PATCH v3 4/4] Remove extra copies of licenses and license headers
+Date: Fri,  7 Oct 2022 17:15:44 -0700
+Message-Id: <20221008001544.78302-4-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2210071710070.3690179@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2210071710070.3690179@ubuntu-linux-20-04-desktop>
@@ -77,639 +77,94 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Add SPDX license information to all the *.c files under arch/arm.
+Remove the extra copy of the GPL license and license copyright headers
+from CONTRIBUTING and the top-level COPYING.
+
+Mention of the LICENSES/ directory and also mention the SPDX tag.
+
+SPDX support is still in progress and COPYING files in subdirectories
+still need to be updated.
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 ---
-Changes in v3:
-- change xen/arch/arm/domain_page.c to GPL-2.0-or-later
-
-Changes in v2:
-- use /* */
-- actually check use the right license
-- remove stale copyright info from top of the file header
+Patch new in v3
 ---
- xen/arch/arm/alternative.c        | 13 +------------
- xen/arch/arm/bootfdt.c            |  5 +----
- xen/arch/arm/cpuerrata.c          |  1 +
- xen/arch/arm/cpufeature.c         | 13 +------------
- xen/arch/arm/decode.c             | 11 +----------
- xen/arch/arm/device.c             | 11 +----------
- xen/arch/arm/dm.c                 | 13 +------------
- xen/arch/arm/domain.c             | 12 +-----------
- xen/arch/arm/domain_build.c       |  1 +
- xen/arch/arm/domain_page.c        |  1 +
- xen/arch/arm/domctl.c             |  1 +
- xen/arch/arm/early_printk.c       |  5 +----
- xen/arch/arm/gic-v2.c             | 11 +----------
- xen/arch/arm/gic-v3-its.c         | 13 +------------
- xen/arch/arm/gic-v3-lpi.c         | 13 +------------
- xen/arch/arm/gic-v3.c             | 11 +----------
- xen/arch/arm/gic-vgic.c           | 11 +----------
- xen/arch/arm/gic.c                | 11 +----------
- xen/arch/arm/guest_atomics.c      | 13 +------------
- xen/arch/arm/guest_walk.c         | 13 +------------
- xen/arch/arm/guestcopy.c          |  1 +
- xen/arch/arm/hvm.c                | 13 +------------
- xen/arch/arm/io.c                 | 11 +----------
- xen/arch/arm/ioreq.c              | 13 +------------
- xen/arch/arm/irq.c                | 11 +----------
- xen/arch/arm/kernel.c             |  1 +
- xen/arch/arm/livepatch.c          |  1 +
- xen/arch/arm/mem_access.c         | 13 +------------
- xen/arch/arm/mm.c                 | 11 +----------
- xen/arch/arm/monitor.c            | 13 +------------
- xen/arch/arm/p2m.c                |  1 +
- xen/arch/arm/percpu.c             |  1 +
- xen/arch/arm/physdev.c            |  1 +
- xen/arch/arm/platform.c           | 11 +----------
- xen/arch/arm/platform_hypercall.c |  1 +
- xen/arch/arm/processor.c          | 11 +----------
- xen/arch/arm/psci.c               | 11 +----------
- xen/arch/arm/setup.c              | 11 +----------
- xen/arch/arm/shutdown.c           |  1 +
- xen/arch/arm/smp.c                |  1 +
- xen/arch/arm/smpboot.c            | 11 +----------
- xen/arch/arm/sysctl.c             |  1 +
- xen/arch/arm/time.c               | 11 +----------
- xen/arch/arm/traps.c              | 11 +----------
- xen/arch/arm/vcpreg.c             | 11 +----------
- xen/arch/arm/vgic-v2.c            | 11 +----------
- xen/arch/arm/vgic-v3-its.c        | 13 +------------
- xen/arch/arm/vgic-v3.c            | 11 +----------
- xen/arch/arm/vgic.c               | 11 +----------
- xen/arch/arm/vm_event.c           | 13 +------------
- xen/arch/arm/vpci.c               | 11 +----------
- xen/arch/arm/vpl011.c             | 13 +------------
- xen/arch/arm/vpsci.c              | 13 +------------
- xen/arch/arm/vsmc.c               | 10 +---------
- xen/arch/arm/vtimer.c             | 11 +----------
- xen/arch/arm/vuart.c              | 11 +----------
- 56 files changed, 56 insertions(+), 438 deletions(-)
+ CONTRIBUTING | 150 ++--------------------
+ COPYING      | 351 +--------------------------------------------------
+ 2 files changed, 17 insertions(+), 484 deletions(-)
 
-diff --git a/xen/arch/arm/alternative.c b/xen/arch/arm/alternative.c
-index f03cd943c6..f00e3b9b3c 100644
---- a/xen/arch/arm/alternative.c
-+++ b/xen/arch/arm/alternative.c
-@@ -1,20 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * alternative runtime patching
-  * inspired by the x86 version
-  *
-  * Copyright (C) 2014-2016 ARM Ltd.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License version 2 as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
+diff --git a/CONTRIBUTING b/CONTRIBUTING
+index 6ec146baf0..7b6b03fb96 100644
+--- a/CONTRIBUTING
++++ b/CONTRIBUTING
+@@ -19,10 +19,6 @@ Most notably:
+  - tools/xl           : LGPL v2.1
+  - xen/include/public : MIT license
  
- #include <xen/init.h>
-diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-index 6014c0f852..0085c28d74 100644
---- a/xen/arch/arm/bootfdt.c
-+++ b/xen/arch/arm/bootfdt.c
-@@ -1,11 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * Early Device Tree
-  *
-  * Copyright (C) 2012-2014 Citrix Systems, Inc.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License version 2 as
-- * published by the Free Software Foundation.
-  */
- #include <xen/types.h>
- #include <xen/lib.h>
-diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-index ae649d16ef..99bd4a7d38 100644
---- a/xen/arch/arm/cpuerrata.c
-+++ b/xen/arch/arm/cpuerrata.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- #include <xen/cpu.h>
- #include <xen/cpumask.h>
- #include <xen/init.h>
-diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
-index 62d5e1770a..c4ec38bb25 100644
---- a/xen/arch/arm/cpufeature.c
-+++ b/xen/arch/arm/cpufeature.c
-@@ -1,19 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * Contains CPU feature definitions
-  *
-  * Copyright (C) 2015 ARM Ltd.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License version 2 as
-- * published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
+-The COMMON COPYRIGHT NOTICES section of this document contains
+-sample copyright notices for the most common licenses used within
+-this repository.
+-
+ When creating new components, new files, or importing code please follow
+ the conventions outlined below. As a general rule, whenever code using a
+ license other than GPLv2 is introduced, attention must be drawn to the
+@@ -32,20 +28,22 @@ deviation. Any new code must be GPLv2 compatible.
+ New components
+ --------------
  
- #include <xen/types.h>
-diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
-index f5f6562600..2537dbebc1 100644
---- a/xen/arch/arm/decode.c
-+++ b/xen/arch/arm/decode.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/decode.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Julien Grall <julien.grall@linaro.org>
-  * Copyright (C) 2013 Linaro Limited.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
+-When creating new components and directories that contain a
+-significant amount of files that are licensed under licenses other
+-than GPLv2 or the license specified in the COPYING file, please
+-create a new COPYING file in that directory containing a copy of the
+-license text and a rationale for using a different license. This helps
+-ensure that the license of this new component/directory is maintained
+-consistently with the original intention.
++When creating new components and directories that contain a significant
++amount of files that are licensed under licenses other than GPLv2,
++please create a new COPYING file in that directory with the rationale
++for using a different license. This helps ensure that the license of
++this new component/directory is maintained consistently with the
++original intention.
  
- #include <xen/guest_access.h>
-diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
-index 70cd6c1a19..ca8539dee5 100644
---- a/xen/arch/arm/device.c
-+++ b/xen/arch/arm/device.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/device.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Julien Grall <julien.grall@linaro.org>
-  * Copyright (C) 2013 Linaro Limited.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
+ New files
+ ---------
  
- #include <asm/device.h>
-diff --git a/xen/arch/arm/dm.c b/xen/arch/arm/dm.c
-index 1b3fd6bc7d..5569efa121 100644
---- a/xen/arch/arm/dm.c
-+++ b/xen/arch/arm/dm.c
-@@ -1,17 +1,6 @@
+-If specific files that differ from the license in a directory are introduced,
+-exceptions should be highlighted and discussed in the commit message or cover
+-letter introducing the file.
++New files should start with a single-line SPDX comment to express the
++license. The following comment and license are recommended:
++
 +/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * Copyright (c) 2019 Arm ltd.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-  */
++
++See LICENSES/ for a list of licenses and SPDX tags currently used.
  
- #include <xen/dm.h>
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 2d6253181a..834857ceac 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -1,14 +1,4 @@
+ Importing code
+ --------------
+@@ -105,127 +103,3 @@ For more information on contributing to this repository, see
+  - https://wiki.xenproject.org/wiki/Category:Developers
+ 
+ 
+-COMMON COPYRIGHT NOTICES
+-========================
+-
+-The following section contains sample copyright notice for the most
+-common licenses used within the Xen Project that is consistent with the
+-projects coding standards.
+-
+-GPL v2 License
+---------------
+-
 -/*
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
+- * <File name>
 - *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- */
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- #include <xen/bitops.h>
- #include <xen/errno.h>
- #include <xen/grant_table.h>
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 40e3c2e119..e363fb4764 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- #include <xen/init.h>
- #include <xen/compile.h>
- #include <xen/lib.h>
-diff --git a/xen/arch/arm/domain_page.c b/xen/arch/arm/domain_page.c
-index 71182575f9..b7c02c9190 100644
---- a/xen/arch/arm/domain_page.c
-+++ b/xen/arch/arm/domain_page.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- #include <xen/mm.h>
- #include <xen/pmap.h>
- #include <xen/vmap.h>
-diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
-index 1baf25c3d9..ad56efb0f5 100644
---- a/xen/arch/arm/domctl.c
-+++ b/xen/arch/arm/domctl.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /******************************************************************************
-  * Arch-specific domctl.c
-  *
-diff --git a/xen/arch/arm/early_printk.c b/xen/arch/arm/early_printk.c
-index 333073d97e..03cbe0fb88 100644
---- a/xen/arch/arm/early_printk.c
-+++ b/xen/arch/arm/early_printk.c
-@@ -1,11 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * printk() for use before the final page tables are setup.
-  *
-  * Copyright (C) 2012 Citrix Systems, Inc.
+- * <One line description of the file and what it does>
 - *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License version 2 as
-- * published by the Free Software Foundation.
-  */
- 
- #include <xen/init.h>
-diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-index ae5bd8e95f..61802839cb 100644
---- a/xen/arch/arm/gic-v2.c
-+++ b/xen/arch/arm/gic-v2.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/gic-v2.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Tim Deegan <tim@xen.org>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/lib.h>
-diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
-index e217c21bf8..1ec9934191 100644
---- a/xen/arch/arm/gic-v3-its.c
-+++ b/xen/arch/arm/gic-v3-its.c
-@@ -1,21 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * xen/arch/arm/gic-v3-its.c
-  *
-  * ARM GICv3 Interrupt Translation Service (ITS) support
-  *
-  * Copyright (C) 2016,2017 - ARM Ltd
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; under version 2 of the License.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include <xen/acpi.h>
-diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
-index 61d90eb386..ca7a0ab39a 100644
---- a/xen/arch/arm/gic-v3-lpi.c
-+++ b/xen/arch/arm/gic-v3-lpi.c
-@@ -1,21 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * xen/arch/arm/gic-v3-lpi.c
-  *
-  * ARM GICv3 Locality-specific Peripheral Interrupts (LPI) support
-  *
-  * Copyright (C) 2016,2017 - ARM Ltd
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; under version 2 of the License.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include <xen/cpu.h>
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 018fa0dfa0..37eb7ff95e 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/gic-v3.c
-  *
-@@ -9,16 +10,6 @@
-  *
-  * Vijaya Kumar K <vijaya.kumar@caviumnetworks.com>, Cavium Inc
-  * ported to Xen
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/acpi.h>
-diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c
-index 98c021f1a8..56490dbc43 100644
---- a/xen/arch/arm/gic-vgic.c
-+++ b/xen/arch/arm/gic-vgic.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/gic-vgic.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Tim Deegan <tim@xen.org>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/errno.h>
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index 9b82325442..d922ea67aa 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/gic.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Tim Deegan <tim@xen.org>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/lib.h>
-diff --git a/xen/arch/arm/guest_atomics.c b/xen/arch/arm/guest_atomics.c
-index 1b78a062f0..6ba77f082d 100644
---- a/xen/arch/arm/guest_atomics.c
-+++ b/xen/arch/arm/guest_atomics.c
-@@ -1,17 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * arch/arm/guest_atomics.c
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- #include <xen/cpu.h>
- 
-diff --git a/xen/arch/arm/guest_walk.c b/xen/arch/arm/guest_walk.c
-index 87de40d0cb..43d3215304 100644
---- a/xen/arch/arm/guest_walk.c
-+++ b/xen/arch/arm/guest_walk.c
-@@ -1,18 +1,7 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * Guest page table walk
-  * Copyright (c) 2017 Sergej Proskurin <proskurin@sec.in.tum.de>
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include <xen/domain_page.h>
-diff --git a/xen/arch/arm/guestcopy.c b/xen/arch/arm/guestcopy.c
-index abb6236e27..225fd343dd 100644
---- a/xen/arch/arm/guestcopy.c
-+++ b/xen/arch/arm/guestcopy.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- #include <xen/domain_page.h>
- #include <xen/guest_access.h>
- #include <xen/lib.h>
-diff --git a/xen/arch/arm/hvm.c b/xen/arch/arm/hvm.c
-index fc1a52767d..0989309fea 100644
---- a/xen/arch/arm/hvm.c
-+++ b/xen/arch/arm/hvm.c
-@@ -1,19 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * arch/arm/hvm.c
-  *
-  * Arch-specific hardware virtual machine abstractions.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include <xen/init.h>
-diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-index 4ce94243aa..172583df04 100644
---- a/xen/arch/arm/io.c
-+++ b/xen/arch/arm/io.c
-@@ -1,19 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/io.c
-  *
-  * ARM I/O handlers
-  *
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/ioreq.h>
-diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
-index 1338c86adb..5585457189 100644
---- a/xen/arch/arm/ioreq.c
-+++ b/xen/arch/arm/ioreq.c
-@@ -1,19 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * arm/ioreq.c: hardware virtual machine I/O emulation
-  *
-  * Copyright (c) 2019 Arm ltd.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include <xen/domain.h>
-diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index fd0c15fffd..0fb924978d 100644
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/irq.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Ian Campbell <ian.campbell@citrix.com>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/cpu.h>
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index 2556a45c38..23b840ea9e 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * Kernel image loading.
-  *
-diff --git a/xen/arch/arm/livepatch.c b/xen/arch/arm/livepatch.c
-index 57abc746e6..d646379c8c 100644
---- a/xen/arch/arm/livepatch.c
-+++ b/xen/arch/arm/livepatch.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  *  Copyright (C) 2016 Citrix Systems R&D Ltd.
-  */
-diff --git a/xen/arch/arm/mem_access.c b/xen/arch/arm/mem_access.c
-index 3e3620294c..31db846354 100644
---- a/xen/arch/arm/mem_access.c
-+++ b/xen/arch/arm/mem_access.c
-@@ -1,19 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * arch/arm/mem_access.c
-  *
-  * Architecture-specific mem_access handling routines
+- * Copyright (C) <year>  <name of author and/or company>
 - *
 - * This program is free software; you can redistribute it and/or
-- * modify it under the terms of the GNU General Public
-- * License v2 as published by the Free Software Foundation.
+- * modify it under the terms and conditions of the GNU General Public
+- * License, version 2, as published by the Free Software Foundation.
 - *
 - * This program is distributed in the hope that it will be useful,
 - * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -718,605 +173,468 @@ index 3e3620294c..31db846354 100644
 - *
 - * You should have received a copy of the GNU General Public
 - * License along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include <xen/mem_access.h>
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index 6ccffeaea5..630175276f 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/mm.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Tim Deegan <tim@xen.org>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/domain_page.h>
-diff --git a/xen/arch/arm/monitor.c b/xen/arch/arm/monitor.c
-index 8c4a396e3c..6c93a9e993 100644
---- a/xen/arch/arm/monitor.c
-+++ b/xen/arch/arm/monitor.c
-@@ -1,21 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * arch/arm/monitor.c
-  *
-  * Arch-specific monitor_op domctl handler.
-  *
-  * Copyright (c) 2016 Tamas K Lengyel (tamas.lengyel@zentific.com)
-- *
-- * This program is free software; you can redistribute it and/or
-- * modify it under the terms of the GNU General Public
-- * License v2 as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-- * General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public
-- * License along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include <xen/vm_event.h>
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index 8449f97fe7..4df5fff42d 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- #include <xen/cpu.h>
- #include <xen/domain_page.h>
- #include <xen/iocap.h>
-diff --git a/xen/arch/arm/percpu.c b/xen/arch/arm/percpu.c
-index 25442c48fe..f1ef844ef3 100644
---- a/xen/arch/arm/percpu.c
-+++ b/xen/arch/arm/percpu.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- #include <xen/percpu.h>
- #include <xen/cpu.h>
- #include <xen/init.h>
-diff --git a/xen/arch/arm/physdev.c b/xen/arch/arm/physdev.c
-index 95a8cdc0ee..7b1682ee10 100644
---- a/xen/arch/arm/physdev.c
-+++ b/xen/arch/arm/physdev.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /******************************************************************************
-  * Arch-specific physdev.c
-  *
-diff --git a/xen/arch/arm/platform.c b/xen/arch/arm/platform.c
-index 4db5bbb4c5..6701ff77bc 100644
---- a/xen/arch/arm/platform.c
-+++ b/xen/arch/arm/platform.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/platform.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Julien Grall <julien.grall@linaro.org>
-  * Copyright (C) 2013 Linaro Limited.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <asm/platform.h>
-diff --git a/xen/arch/arm/platform_hypercall.c b/xen/arch/arm/platform_hypercall.c
-index 403cc84324..743687a303 100644
---- a/xen/arch/arm/platform_hypercall.c
-+++ b/xen/arch/arm/platform_hypercall.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /******************************************************************************
-  * platform_hypercall.c
-  *
-diff --git a/xen/arch/arm/processor.c b/xen/arch/arm/processor.c
-index acad8b31d6..6de206c07e 100644
---- a/xen/arch/arm/processor.c
-+++ b/xen/arch/arm/processor.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/processor.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Julien Grall <julien.grall@linaro.org>
-  * Copyright (C) 2014 Linaro Limited.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- #include <asm/procinfo.h>
- 
-diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
-index 0c90c2305c..695d2fa1f1 100644
---- a/xen/arch/arm/psci.c
-+++ b/xen/arch/arm/psci.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/psci.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Andre Przywara <andre.przywara@linaro.org>
-  * Copyright (c) 2013 Linaro Limited.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- 
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 4395640019..1f26f67b90 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/setup.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Tim Deegan <tim@xen.org>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/compile.h>
-diff --git a/xen/arch/arm/shutdown.c b/xen/arch/arm/shutdown.c
-index 0606cb84b3..205a5e7f8c 100644
---- a/xen/arch/arm/shutdown.c
-+++ b/xen/arch/arm/shutdown.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- #include <xen/console.h>
- #include <xen/cpu.h>
- #include <xen/delay.h>
-diff --git a/xen/arch/arm/smp.c b/xen/arch/arm/smp.c
-index 5823a69d3e..bb65a08fc1 100644
---- a/xen/arch/arm/smp.c
-+++ b/xen/arch/arm/smp.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- #include <xen/mm.h>
- #include <asm/system.h>
- #include <asm/smp.h>
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index f7bda3a18b..635977e489 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -1,19 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/smpboot.c
-  *
-  * Dummy smpboot support
-  *
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/cpu.h>
-diff --git a/xen/arch/arm/sysctl.c b/xen/arch/arm/sysctl.c
-index f87944e847..b0a78a8b10 100644
---- a/xen/arch/arm/sysctl.c
-+++ b/xen/arch/arm/sysctl.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /******************************************************************************
-  * Arch-specific sysctl.c
-  *
-diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-index dec53b5f7d..92baaf8cb2 100644
---- a/xen/arch/arm/time.c
-+++ b/xen/arch/arm/time.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/time.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Tim Deegan <tim@xen.org>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/console.h>
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 79f9ed0725..061c92acbd 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -1,19 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/traps.c
-  *
-  * ARM Trap handlers
-  *
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/domain_page.h>
-diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-index b5fbbe1cb8..4adfc0a68d 100644
---- a/xen/arch/arm/vcpreg.c
-+++ b/xen/arch/arm/vcpreg.c
-@@ -1,19 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/arm64/vcpreg.c
-  *
-  * Emulate co-processor registers trapped.
-  *
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/sched.h>
-diff --git a/xen/arch/arm/vgic-v2.c b/xen/arch/arm/vgic-v2.c
-index b1bd7a46ad..0026cb4360 100644
---- a/xen/arch/arm/vgic-v2.c
-+++ b/xen/arch/arm/vgic-v2.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/vgic-v2.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Ian Campbell <ian.campbell@citrix.com>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/bitops.h>
-diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
-index 58d939b85f..299b384250 100644
---- a/xen/arch/arm/vgic-v3-its.c
-+++ b/xen/arch/arm/vgic-v3-its.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * xen/arch/arm/vgic-v3-its.c
-  *
-@@ -5,18 +6,6 @@
-  *
-  * Andre Przywara <andre.przywara@arm.com>
-  * Copyright (c) 2016,2017 ARM Ltd.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; under version 2 of the License.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- /*
-diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-index 7fb99a9ff2..7d2507079d 100644
---- a/xen/arch/arm/vgic-v3.c
-+++ b/xen/arch/arm/vgic-v3.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/vgic-v3.c
-  *
-@@ -6,16 +7,6 @@
-  *
-  * Vijaya Kumar K <vijaya.kumar@caviumnetworks.com>
-  * Copyright (c) 2014 Cavium Inc.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/bitops.h>
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index 83386cf3d5..c61c68870c 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/vgic.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Ian Campbell <ian.campbell@citrix.com>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- 
- #include <xen/bitops.h>
-diff --git a/xen/arch/arm/vm_event.c b/xen/arch/arm/vm_event.c
-index eaac92078d..ba99f56eb2 100644
---- a/xen/arch/arm/vm_event.c
-+++ b/xen/arch/arm/vm_event.c
-@@ -1,21 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * arch/arm/vm_event.c
-  *
-  * Architecture-specific vm_event handling routines
-  *
-  * Copyright (c) 2016 Tamas K Lengyel (tamas.lengyel@zentific.com)
-- *
-- * This program is free software; you can redistribute it and/or
-- * modify it under the terms of the GNU General Public
-- * License v2 as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-- * General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public
-- * License along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include <xen/sched.h>
-diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-index a9fc5817f9..3bc4bb5508 100644
---- a/xen/arch/arm/vpci.c
-+++ b/xen/arch/arm/vpci.c
-@@ -1,15 +1,6 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/vpci.c
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- #include <xen/sched.h>
- #include <xen/vpci.h>
-diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-index 43522d48fd..f6144da1d7 100644
---- a/xen/arch/arm/vpl011.c
-+++ b/xen/arch/arm/vpl011.c
-@@ -1,19 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * arch/arm/vpl011.c
-  *
-  * Virtual PL011 UART
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #define XEN_WANT_FLEX_CONSOLE_RING 1
-diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
-index 744d43ec27..d1615be8a6 100644
---- a/xen/arch/arm/vpsci.c
-+++ b/xen/arch/arm/vpsci.c
-@@ -1,15 +1,4 @@
--/*
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
 - */
 -
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- #include <xen/errno.h>
- #include <xen/sched.h>
- #include <xen/types.h>
-diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
-index 676740ef15..7335276f3f 100644
---- a/xen/arch/arm/vsmc.c
-+++ b/xen/arch/arm/vsmc.c
-@@ -1,17 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * xen/arch/arm/vsmc.c
-  *
-  * Generic handler for SMC and HVC calls according to
-  * ARM SMC calling convention
+-
+-LGPL v2.1 License
+------------------
+-
+-/*
+- * <File name>
 - *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License version 2 as
-- * published by the Free Software Foundation.
+- * <One line description of the file and what it does>
 - *
-- * This program is distributed in the hope that it will be useful,
+- * Copyright (C) <year>  <name of author and/or company>
+- *
+- * This library is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU Lesser General Public
+- * License, version 2.1, as published by the Free Software Foundation.
+- *
+- * This library is distributed in the hope that it will be useful,
 - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * Lesser General Public License for more details.
+- *
+- * You should have received a copy of the GNU Lesser General Public
+- * License along with this library; If not, see <http://www.gnu.org/licenses/>.
+- */
+-
+-BSD-Modified License (also known as BSD-3-Clause)
+--------------------------------------------------
+-
+-/*
+- * <File name>
+- *
+- * <One line description of the file and what it does>
+- *
+- * Copyright (C) <year>  <name of author and/or company>
+- * All rights reserved.
+- *
+- * Redistribution and use in source and binary forms, with or without
+- * modification, are permitted provided that the following conditions
+- * are met:
+- *
+- *   1. Redistributions of source code must retain the above copyright
+- *      notice, this list of conditions and the following disclaimer.
+- *   2. Redistributions in binary form must reproduce the above
+- *      copyright notice, this list of conditions and the following
+- *      disclaimer in the documentation and/or other materials provided
+- *      with the distribution.
+- *   3. Neither the name of the copyright holder nor the names of its
+- *      contributors may be used to endorse or promote products derived
+- *      from this software without specific prior written permission.
+- *
+- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+- * OF THE POSSIBILITY OF SUCH DAMAGE.
+- */
+-
+-
+-MIT License
+------------
+-
+-/*
+- * <File name>
+- *
+- * <One line description of the file and what it does>
+- *
+- * Copyright (C) <year>  <name of author and/or company>
+- *
+- * Permission is hereby granted, free of charge, to any person
+- * obtaining a copy of this software and associated documentation
+- * files (the "Software"), to deal in the Software without restriction,
+- * including without limitation the rights to use, copy, modify, merge,
+- * publish, distribute, sublicense, and/or sell copies of the Software,
+- * and to permit persons to whom the Software is furnished to do so,
+- * subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be
+- * included in all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+diff --git a/COPYING b/COPYING
+index a4bc2b2dd4..824c3aa353 100644
+--- a/COPYING
++++ b/COPYING
+@@ -3,11 +3,11 @@ GNU General Public License
+ --------------------------
  
+ Most files in this repository are licensed under the terms of the GNU
+-General Public License (GPL), a copy of which is attached at the end
+-of this notice. Note that the only valid version of the GPL as far as
+-the files in this repository are concerned is _this_ particular
+-version of the license (i.e., *only* v2, not v2.2 or v3.x or
+-whatever), unless explicitly otherwise stated.
++General Public License (GPL), a copy of which is present under the
++LICENSES/ directory. Note that the only valid version of the GPL as far
++as the files in this repository are concerned is _this_ particular
++version of the license (i.e., *only* v2, not v2.2 or v3.x or whatever),
++unless explicitly otherwise stated.
  
-diff --git a/xen/arch/arm/vtimer.c b/xen/arch/arm/vtimer.c
-index aeaea78e4c..48f2daa907 100644
---- a/xen/arch/arm/vtimer.c
-+++ b/xen/arch/arm/vtimer.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/vtimer.c
-  *
-@@ -5,16 +6,6 @@
-  *
-  * Ian Campbell <ian.campbell@citrix.com>
-  * Copyright (c) 2011 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
+ Some code fragments in the hypervisor and associated subsystems
+ include other license stanzas: the most common ones are listed in
+@@ -73,344 +73,3 @@ governs the license of its containing directory and its subdirectories.
  
- #include <xen/lib.h>
-diff --git a/xen/arch/arm/vuart.c b/xen/arch/arm/vuart.c
-index 80d4755d43..d5ba483f1e 100644
---- a/xen/arch/arm/vuart.c
-+++ b/xen/arch/arm/vuart.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /*
-  * xen/arch/arm/vuart.c
-  *
-@@ -19,16 +20,6 @@
-  * Julien Grall <julien.grall@linaro.org>
-  * Ian Campbell <ian.campbell@citrix.com>
-  * Copyright (c) 2012 Citrix Systems.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-  */
- #include <xen/lib.h>
- #include <xen/sched.h>
+ For more information, see the CONTRIBUTING file.
+ 
+-=====================================================================
+-
+-		    GNU GENERAL PUBLIC LICENSE
+-		       Version 2, June 1991
+-
+- Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+-                       59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+- Everyone is permitted to copy and distribute verbatim copies
+- of this license document, but changing it is not allowed.
+-
+-			    Preamble
+-
+-  The licenses for most software are designed to take away your
+-freedom to share and change it.  By contrast, the GNU General Public
+-License is intended to guarantee your freedom to share and change free
+-software--to make sure the software is free for all its users.  This
+-General Public License applies to most of the Free Software
+-Foundation's software and to any other program whose authors commit to
+-using it.  (Some other Free Software Foundation software is covered by
+-the GNU Library General Public License instead.)  You can apply it to
+-your programs, too.
+-
+-  When we speak of free software, we are referring to freedom, not
+-price.  Our General Public Licenses are designed to make sure that you
+-have the freedom to distribute copies of free software (and charge for
+-this service if you wish), that you receive source code or can get it
+-if you want it, that you can change the software or use pieces of it
+-in new free programs; and that you know you can do these things.
+-
+-  To protect your rights, we need to make restrictions that forbid
+-anyone to deny you these rights or to ask you to surrender the rights.
+-These restrictions translate to certain responsibilities for you if you
+-distribute copies of the software, or if you modify it.
+-
+-  For example, if you distribute copies of such a program, whether
+-gratis or for a fee, you must give the recipients all the rights that
+-you have.  You must make sure that they, too, receive or can get the
+-source code.  And you must show them these terms so they know their
+-rights.
+-
+-  We protect your rights with two steps: (1) copyright the software, and
+-(2) offer you this license which gives you legal permission to copy,
+-distribute and/or modify the software.
+-
+-  Also, for each author's protection and ours, we want to make certain
+-that everyone understands that there is no warranty for this free
+-software.  If the software is modified by someone else and passed on, we
+-want its recipients to know that what they have is not the original, so
+-that any problems introduced by others will not reflect on the original
+-authors' reputations.
+-
+-  Finally, any free program is threatened constantly by software
+-patents.  We wish to avoid the danger that redistributors of a free
+-program will individually obtain patent licenses, in effect making the
+-program proprietary.  To prevent this, we have made it clear that any
+-patent must be licensed for everyone's free use or not licensed at all.
+-
+-  The precise terms and conditions for copying, distribution and
+-modification follow.
+-
+-		    GNU GENERAL PUBLIC LICENSE
+-   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+-
+-  0. This License applies to any program or other work which contains
+-a notice placed by the copyright holder saying it may be distributed
+-under the terms of this General Public License.  The "Program", below,
+-refers to any such program or work, and a "work based on the Program"
+-means either the Program or any derivative work under copyright law:
+-that is to say, a work containing the Program or a portion of it,
+-either verbatim or with modifications and/or translated into another
+-language.  (Hereinafter, translation is included without limitation in
+-the term "modification".)  Each licensee is addressed as "you".
+-
+-Activities other than copying, distribution and modification are not
+-covered by this License; they are outside its scope.  The act of
+-running the Program is not restricted, and the output from the Program
+-is covered only if its contents constitute a work based on the
+-Program (independent of having been made by running the Program).
+-Whether that is true depends on what the Program does.
+-
+-  1. You may copy and distribute verbatim copies of the Program's
+-source code as you receive it, in any medium, provided that you
+-conspicuously and appropriately publish on each copy an appropriate
+-copyright notice and disclaimer of warranty; keep intact all the
+-notices that refer to this License and to the absence of any warranty;
+-and give any other recipients of the Program a copy of this License
+-along with the Program.
+-
+-You may charge a fee for the physical act of transferring a copy, and
+-you may at your option offer warranty protection in exchange for a fee.
+-
+-  2. You may modify your copy or copies of the Program or any portion
+-of it, thus forming a work based on the Program, and copy and
+-distribute such modifications or work under the terms of Section 1
+-above, provided that you also meet all of these conditions:
+-
+-    a) You must cause the modified files to carry prominent notices
+-    stating that you changed the files and the date of any change.
+-
+-    b) You must cause any work that you distribute or publish, that in
+-    whole or in part contains or is derived from the Program or any
+-    part thereof, to be licensed as a whole at no charge to all third
+-    parties under the terms of this License.
+-
+-    c) If the modified program normally reads commands interactively
+-    when run, you must cause it, when started running for such
+-    interactive use in the most ordinary way, to print or display an
+-    announcement including an appropriate copyright notice and a
+-    notice that there is no warranty (or else, saying that you provide
+-    a warranty) and that users may redistribute the program under
+-    these conditions, and telling the user how to view a copy of this
+-    License.  (Exception: if the Program itself is interactive but
+-    does not normally print such an announcement, your work based on
+-    the Program is not required to print an announcement.)
+-
+-These requirements apply to the modified work as a whole.  If
+-identifiable sections of that work are not derived from the Program,
+-and can be reasonably considered independent and separate works in
+-themselves, then this License, and its terms, do not apply to those
+-sections when you distribute them as separate works.  But when you
+-distribute the same sections as part of a whole which is a work based
+-on the Program, the distribution of the whole must be on the terms of
+-this License, whose permissions for other licensees extend to the
+-entire whole, and thus to each and every part regardless of who wrote it.
+-
+-Thus, it is not the intent of this section to claim rights or contest
+-your rights to work written entirely by you; rather, the intent is to
+-exercise the right to control the distribution of derivative or
+-collective works based on the Program.
+-
+-In addition, mere aggregation of another work not based on the Program
+-with the Program (or with a work based on the Program) on a volume of
+-a storage or distribution medium does not bring the other work under
+-the scope of this License.
+-
+-  3. You may copy and distribute the Program (or a work based on it,
+-under Section 2) in object code or executable form under the terms of
+-Sections 1 and 2 above provided that you also do one of the following:
+-
+-    a) Accompany it with the complete corresponding machine-readable
+-    source code, which must be distributed under the terms of Sections
+-    1 and 2 above on a medium customarily used for software interchange; or,
+-
+-    b) Accompany it with a written offer, valid for at least three
+-    years, to give any third party, for a charge no more than your
+-    cost of physically performing source distribution, a complete
+-    machine-readable copy of the corresponding source code, to be
+-    distributed under the terms of Sections 1 and 2 above on a medium
+-    customarily used for software interchange; or,
+-
+-    c) Accompany it with the information you received as to the offer
+-    to distribute corresponding source code.  (This alternative is
+-    allowed only for noncommercial distribution and only if you
+-    received the program in object code or executable form with such
+-    an offer, in accord with Subsection b above.)
+-
+-The source code for a work means the preferred form of the work for
+-making modifications to it.  For an executable work, complete source
+-code means all the source code for all modules it contains, plus any
+-associated interface definition files, plus the scripts used to
+-control compilation and installation of the executable.  However, as a
+-special exception, the source code distributed need not include
+-anything that is normally distributed (in either source or binary
+-form) with the major components (compiler, kernel, and so on) of the
+-operating system on which the executable runs, unless that component
+-itself accompanies the executable.
+-
+-If distribution of executable or object code is made by offering
+-access to copy from a designated place, then offering equivalent
+-access to copy the source code from the same place counts as
+-distribution of the source code, even though third parties are not
+-compelled to copy the source along with the object code.
+-
+-  4. You may not copy, modify, sublicense, or distribute the Program
+-except as expressly provided under this License.  Any attempt
+-otherwise to copy, modify, sublicense or distribute the Program is
+-void, and will automatically terminate your rights under this License.
+-However, parties who have received copies, or rights, from you under
+-this License will not have their licenses terminated so long as such
+-parties remain in full compliance.
+-
+-  5. You are not required to accept this License, since you have not
+-signed it.  However, nothing else grants you permission to modify or
+-distribute the Program or its derivative works.  These actions are
+-prohibited by law if you do not accept this License.  Therefore, by
+-modifying or distributing the Program (or any work based on the
+-Program), you indicate your acceptance of this License to do so, and
+-all its terms and conditions for copying, distributing or modifying
+-the Program or works based on it.
+-
+-  6. Each time you redistribute the Program (or any work based on the
+-Program), the recipient automatically receives a license from the
+-original licensor to copy, distribute or modify the Program subject to
+-these terms and conditions.  You may not impose any further
+-restrictions on the recipients' exercise of the rights granted herein.
+-You are not responsible for enforcing compliance by third parties to
+-this License.
+-
+-  7. If, as a consequence of a court judgment or allegation of patent
+-infringement or for any other reason (not limited to patent issues),
+-conditions are imposed on you (whether by court order, agreement or
+-otherwise) that contradict the conditions of this License, they do not
+-excuse you from the conditions of this License.  If you cannot
+-distribute so as to satisfy simultaneously your obligations under this
+-License and any other pertinent obligations, then as a consequence you
+-may not distribute the Program at all.  For example, if a patent
+-license would not permit royalty-free redistribution of the Program by
+-all those who receive copies directly or indirectly through you, then
+-the only way you could satisfy both it and this License would be to
+-refrain entirely from distribution of the Program.
+-
+-If any portion of this section is held invalid or unenforceable under
+-any particular circumstance, the balance of the section is intended to
+-apply and the section as a whole is intended to apply in other
+-circumstances.
+-
+-It is not the purpose of this section to induce you to infringe any
+-patents or other property right claims or to contest validity of any
+-such claims; this section has the sole purpose of protecting the
+-integrity of the free software distribution system, which is
+-implemented by public license practices.  Many people have made
+-generous contributions to the wide range of software distributed
+-through that system in reliance on consistent application of that
+-system; it is up to the author/donor to decide if he or she is willing
+-to distribute software through any other system and a licensee cannot
+-impose that choice.
+-
+-This section is intended to make thoroughly clear what is believed to
+-be a consequence of the rest of this License.
+-
+-  8. If the distribution and/or use of the Program is restricted in
+-certain countries either by patents or by copyrighted interfaces, the
+-original copyright holder who places the Program under this License
+-may add an explicit geographical distribution limitation excluding
+-those countries, so that distribution is permitted only in or among
+-countries not thus excluded.  In such case, this License incorporates
+-the limitation as if written in the body of this License.
+-
+-  9. The Free Software Foundation may publish revised and/or new versions
+-of the General Public License from time to time.  Such new versions will
+-be similar in spirit to the present version, but may differ in detail to
+-address new problems or concerns.
+-
+-Each version is given a distinguishing version number.  If the Program
+-specifies a version number of this License which applies to it and "any
+-later version", you have the option of following the terms and conditions
+-either of that version or of any later version published by the Free
+-Software Foundation.  If the Program does not specify a version number of
+-this License, you may choose any version ever published by the Free Software
+-Foundation.
+-
+-  10. If you wish to incorporate parts of the Program into other free
+-programs whose distribution conditions are different, write to the author
+-to ask for permission.  For software which is copyrighted by the Free
+-Software Foundation, write to the Free Software Foundation; we sometimes
+-make exceptions for this.  Our decision will be guided by the two goals
+-of preserving the free status of all derivatives of our free software and
+-of promoting the sharing and reuse of software generally.
+-
+-			    NO WARRANTY
+-
+-  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+-FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
+-OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+-PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
+-OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+-MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
+-TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
+-PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
+-REPAIR OR CORRECTION.
+-
+-  12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+-WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+-REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,
+-INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING
+-OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED
+-TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY
+-YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
+-PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+-POSSIBILITY OF SUCH DAMAGES.
+-
+-		     END OF TERMS AND CONDITIONS
+-
+-	    How to Apply These Terms to Your New Programs
+-
+-  If you develop a new program, and you want it to be of the greatest
+-possible use to the public, the best way to achieve this is to make it
+-free software which everyone can redistribute and change under these terms.
+-
+-  To do so, attach the following notices to the program.  It is safest
+-to attach them to the start of each source file to most effectively
+-convey the exclusion of warranty; and each file should have at least
+-the "copyright" line and a pointer to where the full notice is found.
+-
+-    <one line to give the program's name and a brief idea of what it does.>
+-    Copyright (C) <year>  <name of author>
+-
+-    This program is free software; you can redistribute it and/or modify
+-    it under the terms of the GNU General Public License as published by
+-    the Free Software Foundation; either version 2 of the License, or
+-    (at your option) any later version.
+-
+-    This program is distributed in the hope that it will be useful,
+-    but WITHOUT ANY WARRANTY; without even the implied warranty of
+-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-    GNU General Public License for more details.
+-
+-    You should have received a copy of the GNU General Public License
+-    along with this program; If not, see <http://www.gnu.org/licenses/>.
+-
+-
+-Also add information on how to contact you by electronic and paper mail.
+-
+-If the program is interactive, make it output a short notice like this
+-when it starts in an interactive mode:
+-
+-    Gnomovision version 69, Copyright (C) year name of author
+-    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+-    This is free software, and you are welcome to redistribute it
+-    under certain conditions; type `show c' for details.
+-
+-The hypothetical commands `show w' and `show c' should show the appropriate
+-parts of the General Public License.  Of course, the commands you use may
+-be called something other than `show w' and `show c'; they could even be
+-mouse-clicks or menu items--whatever suits your program.
+-
+-You should also get your employer (if you work as a programmer) or your
+-school, if any, to sign a "copyright disclaimer" for the program, if
+-necessary.  Here is a sample; alter the names:
+-
+-  Yoyodyne, Inc., hereby disclaims all copyright interest in the program
+-  `Gnomovision' (which makes passes at compilers) written by James Hacker.
+-
+-  <signature of Ty Coon>, 1 April 1989
+-  Ty Coon, President of Vice
+-
+-This General Public License does not permit incorporating your program into
+-proprietary programs.  If your program is a subroutine library, you may
+-consider it more useful to permit linking proprietary applications with the
+-library.  If this is what you want to do, use the GNU Library General
+-Public License instead of this License.
 -- 
 2.25.1
 
