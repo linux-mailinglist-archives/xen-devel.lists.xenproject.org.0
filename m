@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F7C5F8178
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Oct 2022 02:16:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.418359.663137 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 863B15F8175
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Oct 2022 02:16:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.418361.663147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogxV8-000380-MD; Sat, 08 Oct 2022 00:15:34 +0000
+	id 1ogxVR-0003V0-Tg; Sat, 08 Oct 2022 00:15:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 418359.663137; Sat, 08 Oct 2022 00:15:34 +0000
+Received: by outflank-mailman (output) from mailman id 418361.663147; Sat, 08 Oct 2022 00:15:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ogxV8-00035M-J6; Sat, 08 Oct 2022 00:15:34 +0000
-Received: by outflank-mailman (input) for mailman id 418359;
- Sat, 08 Oct 2022 00:15:32 +0000
+	id 1ogxVR-0003Ri-Qq; Sat, 08 Oct 2022 00:15:53 +0000
+Received: by outflank-mailman (input) for mailman id 418361;
+ Sat, 08 Oct 2022 00:15:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZrwE=2J=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ogxV6-00035E-TF
- for xen-devel@lists.xenproject.org; Sat, 08 Oct 2022 00:15:32 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1ogxVQ-00035E-BR
+ for xen-devel@lists.xenproject.org; Sat, 08 Oct 2022 00:15:52 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 51292a78-469e-11ed-964a-05401a9f4f97;
- Sat, 08 Oct 2022 02:15:31 +0200 (CEST)
+ id 5e1bdebb-469e-11ed-964a-05401a9f4f97;
+ Sat, 08 Oct 2022 02:15:51 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5AFF060EB7;
- Sat,  8 Oct 2022 00:15:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7A1C433C1;
- Sat,  8 Oct 2022 00:15:27 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 42A1CB823E4;
+ Sat,  8 Oct 2022 00:15:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A33C433D6;
+ Sat,  8 Oct 2022 00:15:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,53 +44,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51292a78-469e-11ed-964a-05401a9f4f97
+X-Inumbo-ID: 5e1bdebb-469e-11ed-964a-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665188128;
-	bh=66MHEqgacifMYHlGPJDL6vHpddMit9yKPTRA+6tWWlg=;
-	h=Date:From:To:cc:Subject:From;
-	b=PiUavO+l63Z10gGUDX9yI0EUvRRUaraIWQduPdARl/uCJ1Zh6CSJHFaOjYSIXKo8e
-	 0+BLm3DbCDN5qrNnM9Q5f4emg6buFulkbaONh65tSfmO1TdLwcU9Qvl/x5LKocKQ6z
-	 KWJCkQDLh6hg8Pq32Jy/Yj279tlQQfOTr37zo+KMM9ofjI8ZMMXv4hUZHEloh97P9H
-	 WwFVo1Mi3RPWRzhNqrSLz/5qAQBPB5MMfjcfFbdrX4TJaMQk5WX9axfPqwnXp3tQor
-	 FRY06+1LoGeDaicSJcYqlq1rRtPNiYfnunR+Z6qgEZn8hOSqfPE8MjovXuQNkuTnZh
-	 PeAtTFidAZWsQ==
-Date: Fri, 7 Oct 2022 17:15:24 -0700 (PDT)
+	s=k20201202; t=1665188150;
+	bh=Pn0SMEjA4kouOtSJc3+2PqkihW2Mj/UTC9QmDMLz6gU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PsrT/GWgiKv+EXj2535+PgO3VFTa3Cf2Hzqod7FlQsrbHKdGBuGbYAD7HFxxsivHz
+	 20Zo5je+3K57QOP0L/5N6FWeAKnlQkDFaXg1on9rsGtL4O5UTPpR8zO9WVxFCByD8r
+	 33TQLTAPShx6Qyuaq56JrfmF/d/NFPH/12cBVjmvmHrQFHjxh83he2wzv0yU88Nk3B
+	 JLsIPIk09WL673A1veSyMyPJsClEvRQvHMAkR4p7lNN9SyXwwbnIkwKe8o/2SAfRIb
+	 ltOODlzCWLH9MdmPP+4Apws2lxsqeUNaFaPu9K6fIaSxAXLxminne3YreuZ0GyXxxB
+	 SaQLDBwjTROeQ==
 From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, julien@xen.org, wl@xen.org, jbeulich@suse.com, 
-    george.dunlap@citrix.com, andrew.cooper3@citrix.com, 
-    bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com, roger.pau@citrix.com
-Subject: [PATCH v3 0/4] introduce SPDX
-Message-ID: <alpine.DEB.2.22.394.2210071710070.3690179@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Cc: sstabellini@kernel.org,
+	julien@xen.org,
+	wl@xen.org,
+	jbeulich@suse.com,
+	george.dunlap@citrix.com,
+	andrew.cooper3@citrix.com,
+	bertrand.marquis@arm.com,
+	Volodymyr_Babchuk@epam.com,
+	roger.pau@citrix.com,
+	Stefano Stabellini <stefano.stabellini@amd.com>
+Subject: [PATCH v3 1/4] Add SPDX to CODING_STYLE
+Date: Fri,  7 Oct 2022 17:15:41 -0700
+Message-Id: <20221008001544.78302-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <alpine.DEB.2.22.394.2210071710070.3690179@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2210071710070.3690179@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-Hi all,
+From: Stefano Stabellini <stefano.stabellini@amd.com>
 
-This small series introduces SPDX tags to Xen:
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+---
+ CODING_STYLE | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-1) add a mention to SPDX in CODING_STYLE
-2) add a LICENSES directory with licenses and SPDX tags
-3) adds the SPDX single-line comment to arch/arm/*.c
+diff --git a/CODING_STYLE b/CODING_STYLE
+index 3386ee1d90..5faf274b3a 100644
+--- a/CODING_STYLE
++++ b/CODING_STYLE
+@@ -14,6 +14,16 @@ explicitly (e.g. tools/libxl/CODING_STYLE) but often implicitly (Linux
+ coding style is fairly common). In general you should copy the style
+ of the surrounding code. If you are unsure please ask.
+ 
++SPDX
++----
++
++New files should start with a single-line SPDX comment to express the
++license, e.g.:
++
++/* SPDX-License-Identifier: GPL-2.0 */
++
++See LICENSES/ for a list of licenses and SPDX tags currently used.
++
+ MISRA C
+ -------
+ 
+-- 
+2.25.1
 
-Note that arch/arm/*.c is just a start. Also, to make the changes as
-mechanical as possible I restricted myself to:
-- adding the single-line comment at the top of the file
-- removing the copyright lines (when present) from the top of the file
-  header
-
-I purposedly restrained myself to do other cleanups to the headers: this
-series already touches many files and I prefer to keep these changes as
-mechanical as possible. Further improvements (style improvement,
-removing what's left of the header, removing copyright lines, etc.) can
-be done with subsequent patches more easily.
-
-License changes are not intentional.
-
-Cheers,
-
-Stefano
 
