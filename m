@@ -2,46 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7A975F8541
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Oct 2022 14:52:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.418506.663325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6985F5F8549
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Oct 2022 15:00:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.418516.663335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oh9JM-0007pf-9y; Sat, 08 Oct 2022 12:52:12 +0000
+	id 1oh9Qh-0000HB-4c; Sat, 08 Oct 2022 12:59:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 418506.663325; Sat, 08 Oct 2022 12:52:12 +0000
+Received: by outflank-mailman (output) from mailman id 418516.663335; Sat, 08 Oct 2022 12:59:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oh9JM-0007nO-6g; Sat, 08 Oct 2022 12:52:12 +0000
-Received: by outflank-mailman (input) for mailman id 418506;
- Sat, 08 Oct 2022 12:52:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oh9Qh-0000Ep-1i; Sat, 08 Oct 2022 12:59:47 +0000
+Received: by outflank-mailman (input) for mailman id 418516;
+ Sat, 08 Oct 2022 12:59:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3uQB=2J=epam.com=prvs=22807980a5=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
- id 1oh9JL-0007nE-EF
- for xen-devel@lists.xenproject.org; Sat, 08 Oct 2022 12:52:11 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04964643-4708-11ed-964a-05401a9f4f97;
- Sat, 08 Oct 2022 14:52:09 +0200 (CEST)
-Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 298911uO012561;
- Sat, 8 Oct 2022 12:52:04 GMT
-Received: from eur05-am6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2105.outbound.protection.outlook.com [104.47.18.105])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3k31j68qbg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 08 Oct 2022 12:52:04 +0000
-Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
- by AM9PR03MB6866.eurprd03.prod.outlook.com (2603:10a6:20b:286::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Sat, 8 Oct
- 2022 12:52:02 +0000
-Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
- ([fe80::93be:22b1:654c:e4bc]) by DB8PR03MB6108.eurprd03.prod.outlook.com
- ([fe80::93be:22b1:654c:e4bc%5]) with mapi id 15.20.5676.038; Sat, 8 Oct 2022
- 12:52:02 +0000
+ <SRS0=XqZC=2J=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1oh9Qf-0000Ej-LM
+ for xen-devel@lists.xenproject.org; Sat, 08 Oct 2022 12:59:45 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1493b0c2-4709-11ed-9377-c1cf23e5d27e;
+ Sat, 08 Oct 2022 14:59:44 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id nb11so16466986ejc.5
+ for <xen-devel@lists.xenproject.org>; Sat, 08 Oct 2022 05:59:44 -0700 (PDT)
+Received: from [192.168.1.93] (adsl-75.176.58.241.tellas.gr. [176.58.241.75])
+ by smtp.gmail.com with ESMTPSA id
+ bx10-20020a0564020b4a00b00456cbd8c65bsm3458103edb.6.2022.10.08.05.59.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 08 Oct 2022 05:59:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,183 +44,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04964643-4708-11ed-964a-05401a9f4f97
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EOaiaA7tLOwLS2SYknu2iPzAUN4E6tQORHyCSZRXw2RYvOHiwixqYaZPiGa4jYfgDosBKwB/uh77OsRAuZxLGbMZk6Y9f2/jWU4PElFjecN11sxTKpyo5prlF56wbk5KAypM+rH/J6Iq9LRNFIUt1pOKvo1o3ZwKgZFMcyxoEq7K1v2ai9b0b/v4aEPbkPEQPC/g7oqscxUVmJjGfoyZtPxj8t6heIBxfmAaYgnRktO2Vgf7NtVq90p+siN1huG61+JjaiWYIXIp/ZTILAMBrtsWGK4EGX7OHWFiHcPQqcYthXFu1PlIeABWpYJ96GInrrNRuDNDXn06ViTYdEpl7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ebOG11VqUSl46Rl8uhBp/KlV214XTtkqQQFSfMCps/g=;
- b=gHICtnPakGqiGvqG/BFg0jQlXJ6yMk5Az1me9NN6Tj6TJGcB4dCUzGiwfdg6pXTO6S1iWr/3TqBqChHPx3Bj8vzXdt6Tj2Sde1bxvMSF0HP692hVLfvO0NZjfWXpabdJEad4I966xnbTIk/QMpj4hKY1cVY1igcpzYgx89nCxg561cHfg7AQx72VpFkDKjygh26Dnkt445h5bGVVlYauqsGtNaKhzoHr2gsX0V762TfIwrpCo/WM6XVwnQo8F5AB5/+oEEOHQWrHgvE/gh/Lpx28ZInuBpr5Oex2dyEgMgZ9cdAjpJcn30J2JJdPMoJoYvu47IkUX1SoW5I+1TMgEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ebOG11VqUSl46Rl8uhBp/KlV214XTtkqQQFSfMCps/g=;
- b=qDcl3PRolhKQFLUqTg7bx1WoZvzGALNw8ManY+CkyJK/nu/Z0amwS17I2ngCaRYshpgAutX61v4N+Kx/WMIYwwEg3Sozjgp0K+ek8EvV5A36nfvcxprhh/+aMZGjMgrtQpMcH6ZEuIUsB/y8Unkh+tsS4uArgeNCAiFbO8iCJ3nQpvWzAZ8S1PlTP/FLlk6+TveLXwlOdpk5ukh0O4Csv9fRdpDFB2FGCSJUNETi1RmsIQ9HwvBG/RzPb/qWu1jmnCIhXIHy6m44ZvpfKCv3iq9Ms7+Oa6VAbfCmqDhihykmV2sIDZlQKziAj0Gq7WQ1PqZ8i2JlVl2WqKDC2YlAFw==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-To: Xenia Ragiadakou <burzalodowa@gmail.com>,
-        "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>,
-        Juergen Gross
-	<jgross@suse.com>,
-        Oleksandr Tyshchenko <olekstysh@gmail.com>
+X-Inumbo-ID: 1493b0c2-4709-11ed-9377-c1cf23e5d27e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xfjlFhbPvAiZaDtCTy2aYvhAArjEPm1WFxaHbT8nyHI=;
+        b=cSRqO2nAuD4hdK6rSHRMxiXIlZRmuejx2sU72K+cUUQ7e/Ity03/COx2Z1qjYGRr+7
+         5ZBvfphK2rxoxH1V+AHKvVGZYWivc4x6oa/DKTZ5RboqAd5Bn71/D9SE/EcuHqIjKn91
+         OhBAWL4hS4AHYSYzCb4ZEiCWnfxDyhm/AgSatPGnu3Tb14g08odyUU+elq1/ErUpGaaE
+         4uKZCESNwtyWWnqoOFrYOygojUVr3a6/qHquBeNmrC8rHlW5vFuPnxyq//ZJvggewhcZ
+         HIMtdMYlvIiTSpqiMiQ5ItFJQ7kzkIpEs+s5jAvtGsp821Tu49wHdhRS3zw2IHDq8Dnb
+         XOjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xfjlFhbPvAiZaDtCTy2aYvhAArjEPm1WFxaHbT8nyHI=;
+        b=K/1Ny87SZwmGOOHGxxkkfwkz9aNZlWPo0BZeL3ybxg2vqo2WTh8naH6E1BrdEBPBTg
+         55gjo+3uUAPzGaOPppFeYvOnkrhjScyhESSl6UxvFLA615EscG35ROuXtHroD2r9W60q
+         5PefDGXHf+6xpsDJvajO3g9ttWsQkl2dyIVJkxm70Tx0v0eYZIPRuQGVB4L43fHNN99L
+         s7niUe9iJXVeU1HEMRCcaU0dz7yh1rvc8IHkaszAchXHfjB6YhSnBQflAsRm5JfiaQGr
+         w6GP0OsXQLJZS264AK61t0Nykn/B54a63z/MSfJfWz6kjd5lqgcKPtyng0tOgge+lHHR
+         CKvA==
+X-Gm-Message-State: ACrzQf0biiy7TnHku1x0A066BwilYhxb6BwkOP8z80HoxDwlyN7gTeVd
+	mjuWxxO8LVYHGDJKZzn3Umk=
+X-Google-Smtp-Source: AMsMyM7oiakATrF7MhnyVQEC0+Xhi6onoKuUCwkbFQlI+p1wkIG2VNiKLh4wCbA0UAEsWU0CM7UjhQ==
+X-Received: by 2002:a17:907:760f:b0:78c:336b:d8bd with SMTP id jx15-20020a170907760f00b0078c336bd8bdmr7340909ejc.685.1665233984014;
+        Sat, 08 Oct 2022 05:59:44 -0700 (PDT)
+Message-ID: <cb6e650f-d8ad-037d-8c35-8a786650b02f@gmail.com>
+Date: Sat, 8 Oct 2022 15:59:41 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
 Subject: Re: [PATCH] xen/virtio: Handle cases when page offset > PAGE_SIZE
  properly
-Thread-Topic: [PATCH] xen/virtio: Handle cases when page offset > PAGE_SIZE
- properly
-Thread-Index: AQHY2lCewf5wqMeDhkqfFwKHpttMBq4EV/CAgAAc7QA=
-Date: Sat, 8 Oct 2022 12:52:01 +0000
-Message-ID: <d6ec5092-8d93-22c2-7b6e-944ad88ad582@epam.com>
+Content-Language: en-US
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>, Oleksandr Tyshchenko <olekstysh@gmail.com>
 References: <20221007132736.2275574-1-olekstysh@gmail.com>
  <6e33b687-8862-d208-a707-77a95c61525e@gmail.com>
-In-Reply-To: <6e33b687-8862-d208-a707-77a95c61525e@gmail.com>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|AM9PR03MB6866:EE_
-x-ms-office365-filtering-correlation-id: 449b4b5a-6d44-48dd-f8e3-08daa92be533
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- IYHIrF4EAk9BJno2t4meT1DuHODPQ8w3xQ6j1rqoIY82/i0xjeu0SHmguFW6Fd29cfUcPEmkIFeedyR5GiTN5fTAGX9IjpahejRw7hhhZPJ4kNGOEcgIeo2HVpvuefz8DaNfpTT1UCH5InTiQ63RtlCxI2Mi3Ey5NV3nzcIW6a51KtcM4HJ5+nvwPSLYCkFeDkzZ1Fo/43KiUAej9P0vjW8ihrr/fybfo5r9cIFDyvHXEAxmfr50VsCGKOU7PXlpKaw08uRGMnwFlZplIk3qOFTYo69cGBKGXQVyd6SsE0U1Ep2BRM7xpxYP3BjraHDeACsgmSg99VhH1OajG6Q+YXCTWJuy5RyT/4ZHGqmgiof8GKSNSP7lGL5StGvzL+NtUlVbJqPdITI+ANXRyF/g1c00COwZ2sTAx0OHC1kc7EPfF5KnCsH4suYwOIFBpVeGhG3+/jFfykDyKpbSVbi0GGIwlDiOq63HEAEbwS9mYe3IBmqgO6+W5cWNLB+IFujrkOObKglh9Zm8s5WdJhXLKrrZBSbXNiPcqiMltzj6W+eVBabZGlTPvfdgPx2aj9NDL0tFM2fyoMEbPs+moKEUJIQ9l48fANbDHD38B3+C0C2TiEhQqCNr2Bmtdq1erhbltnfIElErxeEVYvh0fnq/29lGmM/RmQncLNl0bBXmoZ7IzctRBHULbYYkNQSQRmfiGuwIJYQLMUtW0IsCgTkd04bX0dQBqUphA7pp1GFK0IFWBx4VQFgGe4UNub00uU76rQL8OAx5BklMkr+L/9KDnpmg4F+d5vPP/RsoZnxjL+40wFTvs1zR6MbO+9wv1zJt0cuY6MMESYcfeGiZlyapeg==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(39860400002)(346002)(376002)(366004)(396003)(451199015)(86362001)(31696002)(36756003)(38070700005)(38100700002)(122000001)(91956017)(8676002)(4326008)(64756008)(66446008)(76116006)(66946007)(66556008)(66476007)(71200400001)(316002)(110136005)(54906003)(2906002)(41300700001)(8936002)(5660300002)(186003)(83380400001)(2616005)(6486002)(966005)(478600001)(6512007)(6506007)(26005)(55236004)(53546011)(66899015)(31686004)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?U1g4Ulo0TjJvUW96RWF4ZHk0Nk5maXBvQktXSmQ1YjNYaXRIamhGOXg5UUJw?=
- =?utf-8?B?MU5mNHYrdzFaSERyaklucEh1c0pqVjk1Mi9pWkJCVGxUTWxpQ0htSUdIeDlw?=
- =?utf-8?B?TEprbE1ZNGloTmI1aCtWRjVmVUtaTVhqQ01ucllwQnovbXB0TTlta3dRZk9m?=
- =?utf-8?B?a0VVcEMzcE1LR3p5dUtrdmpUSXE1OEFNMS9JY1VJWGJweWpJUUFqbDM4b2pq?=
- =?utf-8?B?VDQyYkdaVVVuNUhkVUl2azZ0MncwZk1uSFdsb2RJem5STXE0VzlQb2hwRlJp?=
- =?utf-8?B?U1FNRXYxSmZlZUUyNWVVOXNHQlJWMk45YW51Z0ZJaURFY2pDcXZLWTVyYXZp?=
- =?utf-8?B?VE5XMHhUMkNSVzVzR1MyRHlIY3BSNERVd3VlYlBYaVN6NDNpUzZtNlhMUjZF?=
- =?utf-8?B?ekRLa1djQkJRNklxSUFOTDRkeDE5TGNSRE5lWXJwQ3dIME80SEJEbHFZZzVE?=
- =?utf-8?B?Q29oSGVLaUorYXNPanhtNW5lOFB0WGRRTit2cXkxQ0VVTld3SlNhK29qZXRh?=
- =?utf-8?B?MlNXZGF4OGhKeHBXTWloNGZvTzZtdGN5SXo5N00rWnc4a3EyU1Y5bHNPR2V5?=
- =?utf-8?B?NE5VL2xxb21Tc2N4czNxT0swY0NxU09iREt2OVh3b2QrMHVnRFVGYjdaSmVp?=
- =?utf-8?B?TlVyK3Vja1RMR1paK1NaUkFDV3BYT3k2Z1BMbmJGWGJYckhhdzJST2FxaXJF?=
- =?utf-8?B?dDRDSmNYQmZIS3RNUFBZUGFjQlFVNGNIMG4vdEl3dHRNWEt2MUdpQjY4d1cy?=
- =?utf-8?B?bHhTRDdpUXNDZkhrUkxXUE82T3ROaWFnc2FWQlhUdURzSmZrT0xoTUZxdThq?=
- =?utf-8?B?NmRSZHlCQlVKUkhnd2xScFZHNlBsYW9wUFMyYUtXSEpyaUJVcElHZ1VpcVpp?=
- =?utf-8?B?RkJtVWpVaS80VENTUmd0MGI1dGh2RFE4U25uZmJJSWo4bTltakxKNUU3dTBS?=
- =?utf-8?B?bktybkFhSG5ET2p1NXdzc2pFMFNIa09IN0E0UXA4WFpSd0VGNmZWdFFBUVlX?=
- =?utf-8?B?TnRMU1BmTXdVcjdSeTdsRVJNejBxMXEybEZ4MEtiaEQ1ZlNjajNRUkxDQk5W?=
- =?utf-8?B?ZlVmZEoreDMzb2Y5UGpyRWpVZVEzV0pIOHVrdW1zYkRqOEFlWTN1aWhFQTZI?=
- =?utf-8?B?aWVISUtKWWVGb0htdENCSVhtMzUzL1JoSmh6S2F6cnZITzhwdTZxaXlaRnZT?=
- =?utf-8?B?ZEdabUFTd3kraFR5VU5jS0VTS0J2SFZFMVBzTDFkdTRueCtGZlZBUnY3MW9p?=
- =?utf-8?B?RktuWEtVbFNrQjFvd2FYeXhmSy9oTWh5SzlWRnRLMXhOUmZxOVNoTEVCQTBS?=
- =?utf-8?B?UHpUOHpVM0htbEZHcEo5aFRyLzl5OG9wVTgyZk92eVYxdnVQSkRCdzV0UDhJ?=
- =?utf-8?B?T3Ftd0lNeks2WGtkOGlQZGE3YWFXUG94cGNCSCs4UzRFaE5vZG5abEVvNG8v?=
- =?utf-8?B?Um95cXRCbFdmOE1lRGpXemtnemN5VzhHRlFheXZFVmVhOER6RlFSTnF4RXN5?=
- =?utf-8?B?a2oyYWhWcDhQWnhETVNZQlZMMnRLVkRrUG1UQUdGUi94MXpLdURKRmxFKzJx?=
- =?utf-8?B?NWVDTEk4L1JYblRrM3RFWFpjRXJvSUNhV0xNMzZlY2lwSExaWEJuUlI1VC9p?=
- =?utf-8?B?T2pPUjVMN2hYQVVmL2Z3dzVWOFBROG5YSTZENDJMU1B5aWdJVnZRUTN2R1Zs?=
- =?utf-8?B?SjhkL2ZMdUV4UUQ2YytBUDU5dTlGQlBRY3lhV0RFWkNsUEZHUDVmYXQ1TXJC?=
- =?utf-8?B?bHpFaTN1WUdqbkdCeUJqTDlqWFlwZ0t6YnJBaUxVV0hVTGViRHNKSW1qelY4?=
- =?utf-8?B?U1EySGs0cktuQ1VwclNoQkdwcmNoTWJzS3U1Zis0K1gxNWg1WmE4SERKZ0xR?=
- =?utf-8?B?RzZlZXEvOU9kZkhTOHZhbXV1QkhhYUd3eGZBK0VvRlA0N1gvVlNZZEs0ZUxr?=
- =?utf-8?B?cnUwNXJ0TGtkVnRRV1E3c3Q0ZnRrL2QwTVFqQjJ4M0Ztd1JIVmJtRXlvSEdU?=
- =?utf-8?B?TGRUSy9TNkM0NXQ5OFI4Q2NJdGtEdGxNQk5pWnJST1RROGtjNE9xdStqMGxI?=
- =?utf-8?B?YzY4ekhYZXNWc3VqVWxHUGEyOGhkV3ZOVW50ek8vOFZKQnUxSVZ2Vy9yd0RK?=
- =?utf-8?B?ak94K3ZzOUg2eEV4L3RWc0FjaW1PdisrdTJkOE9za2JhMWxuTnMvVjBvZTY0?=
- =?utf-8?Q?jvYHWYZ/bFqlrv0IQhl85TQ=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <81926CB25B1D1E49BF38265666E59273@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 449b4b5a-6d44-48dd-f8e3-08daa92be533
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2022 12:52:01.9954
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IXMZYSgfW8wvUpk0y86xUGCPcmJ5k87aq7y72DeZqXJzeefYBhjiQFRP7GN/f2wiUGKvaHA4Uia4u09TgiuaGDtBadlf2xu4UuhCnV1NDy8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB6866
-X-Proofpoint-GUID: mpIPI5_NwG7Xx1NvbU1U1gva-l2aaEad
-X-Proofpoint-ORIG-GUID: mpIPI5_NwG7Xx1NvbU1U1gva-l2aaEad
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.528,FMLib:17.11.122.1
- definitions=2022-10-07_04,2022-10-07_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0
- lowpriorityscore=0 mlxlogscore=999 spamscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 impostorscore=0
- phishscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210080081
+ <d6ec5092-8d93-22c2-7b6e-944ad88ad582@epam.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <d6ec5092-8d93-22c2-7b6e-944ad88ad582@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-DQpPbiAwOC4xMC4yMiAxNDowOCwgWGVuaWEgUmFnaWFkYWtvdSB3cm90ZToNCg0KSGVsbG8gWGVu
-aWENCg0KPg0KPiBPbiAxMC83LzIyIDE2OjI3LCBPbGVrc2FuZHIgVHlzaGNoZW5rbyB3cm90ZToN
-Cj4NCj4gSGkgT2xla3NhbmRyDQo+DQo+PiBGcm9tOiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xl
-a3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+DQo+Pg0KPj4gUGFzc2VkIHRvIHhlbl9ncmFudF9k
-bWFfbWFwX3BhZ2UoKSBvZmZzZXQgaW4gdGhlIHBhZ2UNCj4+IGNhbiBiZSA+IFBBR0VfU0laRSBl
-dmVuIGlmIHRoZSBndWVzdCB1c2VzIHRoZSBzYW1lIHBhZ2UgZ3JhbnVsYXJpdHkNCj4+IGFzIFhl
-biAoNEtCKS4NCj4+DQo+PiBCZWZvcmUgY3VycmVudCBwYXRjaCwgaWYgc3VjaCBjYXNlIGhhcHBl
-bmVkIHdlIGVuZGVkIHVwIHByb3ZpZGluZw0KPj4gZ3JhbnRzIGZvciB0aGUgd2hvbGUgcmVnaW9u
-IGluIHhlbl9ncmFudF9kbWFfbWFwX3BhZ2UoKSB3aGljaA0KPj4gd2FzIHJlYWxseSB1bm5lY2Vz
-c2FyeS4gVGhlIG1vcmUsIHdlIGVuZGVkIHVwIG5vdCByZWxlYXNpbmcgYWxsDQo+PiBncmFudHMg
-d2hpY2ggcmVwcmVzZW50ZWQgdGhhdCByZWdpb24gaW4geGVuX2dyYW50X2RtYV91bm1hcF9wYWdl
-KCkuDQo+Pg0KPj4gQ3VycmVudCBwYXRjaCB1cGRhdGVzIHRoZSBjb2RlIHRvIGJlIGFibGUgdG8g
-ZGVhbCB3aXRoIHN1Y2ggY2FzZXMuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogT2xla3NhbmRyIFR5
-c2hjaGVua28gPG9sZWtzYW5kcl90eXNoY2hlbmtvQGVwYW0uY29tPg0KPj4gLS0tDQo+PiBDYzog
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KPj4gQ2M6IFhlbmlhIFJhZ2lhZGFrb3Ug
-PGJ1cnphbG9kb3dhQGdtYWlsLmNvbT4NCj4+DQo+PiBEZXBlbnMgb246DQo+PiBodHRwczovL3Vy
-bGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcveGVuLWRldmVsLzIwMjIx
-MDA1MTc0ODIzLjE4MDA3NjEtMS1vbGVrc3R5c2hAZ21haWwuY29tL19fOyEhR0ZfMjlkYmNRSVVC
-UEEheG5rTmFLcGZaNExzc1FKY0pzX0o5MUtFUlpLTVAyUmQteEVkQnFYTlhKOEd5Q1hKMGdrUmVy
-MWVsVllmeE9XdHdOX0ZPbDl0VmllRFdsZk4tVVphSFFzeUxNaEEkIA0KPj4gW2xvcmVbLl1rZXJu
-ZWxbLl1vcmddDQo+Pg0KPj4gU2hvdWxkIGdvIGluIG9ubHkgYWZ0ZXIgdGhhdCBzZXJpZXMuDQo+
-PiAtLS0NCj4+IMKgIGRyaXZlcnMveGVuL2dyYW50LWRtYS1vcHMuYyB8IDggKysrKystLS0NCj4+
-IMKgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+Pg0K
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMveGVuL2dyYW50LWRtYS1vcHMuYyBiL2RyaXZlcnMveGVu
-L2dyYW50LWRtYS1vcHMuYw0KPj4gaW5kZXggYzY2ZjU2ZDI0MDEzLi4xMzg1ZjBlNjg2ZmUgMTAw
-NjQ0DQo+PiAtLS0gYS9kcml2ZXJzL3hlbi9ncmFudC1kbWEtb3BzLmMNCj4+ICsrKyBiL2RyaXZl
-cnMveGVuL2dyYW50LWRtYS1vcHMuYw0KPj4gQEAgLTE2OCw3ICsxNjgsOSBAQCBzdGF0aWMgZG1h
-X2FkZHJfdCB4ZW5fZ3JhbnRfZG1hX21hcF9wYWdlKHN0cnVjdCANCj4+IGRldmljZSAqZGV2LCBz
-dHJ1Y3QgcGFnZSAqcGFnZSwNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgYXR0cnMpDQo+PiDCoCB7DQo+PiDCoMKgwqDCoMKgIHN0
-cnVjdCB4ZW5fZ3JhbnRfZG1hX2RhdGEgKmRhdGE7DQo+PiAtwqDCoMKgIHVuc2lnbmVkIGludCBp
-LCBuX3BhZ2VzID0gUEZOX1VQKG9mZnNldCArIHNpemUpOw0KPj4gK8KgwqDCoCB1bnNpZ25lZCBs
-b25nIGRtYV9vZmZzZXQgPSBvZmZzZXRfaW5fcGFnZShvZmZzZXQpLA0KPj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgZ2ZuX29mZnNldCA9IFBGTl9ET1dOKG9mZnNldCk7DQo+PiArwqDCoMKgIHVu
-c2lnbmVkIGludCBpLCBuX3BhZ2VzID0gUEZOX1VQKGRtYV9vZmZzZXQgKyBzaXplKTsNCj4NCj4g
-SUlVQywgdGhlIGFib3ZlIHdpdGggYSBsYXRlciBwYXRjaCB3aWxsIGJlY29tZToNCj4NCj4gZG1h
-X29mZnNldCA9IHhlbl9vZmZzZXRfaW5fcGFnZShvZmZzZXQpDQo+IGdmbl9vZmZzZXQgPSBYRU5f
-UEZOX0RPV04ob2Zmc2V0KQ0KPiBuX3BhZ2VzID0gWEVOX1BGTl9VUChkbWFfb2Zmc2V0ICsgc2l6
-ZSkNCg0KDQpJZiBzYXlpbmcgImxhdGVyIiBwYXRjaCB5b3UgbWVhbnQgInhlbi92aXJ0aW86IENv
-bnZlcnQgDQpQQUdFX1NJWkUvUEFHRV9TSElGVC9QRk5fVVAgdG8gWGVuIGNvdW50ZXJwYXJ0cyIg
-dGhlbiB5ZXMsIGV4YWN0bHkuDQoNCg0KPg0KPg0KPj4gwqDCoMKgwqDCoCBncmFudF9yZWZfdCBn
-cmFudDsNCj4+IMKgwqDCoMKgwqAgZG1hX2FkZHJfdCBkbWFfaGFuZGxlOw0KPj4gwqAgQEAgLTE4
-NywxMCArMTg5LDEwIEBAIHN0YXRpYyBkbWFfYWRkcl90IA0KPj4geGVuX2dyYW50X2RtYV9tYXBf
-cGFnZShzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBwYWdlICpwYWdlLA0KPj4gwqAgwqDCoMKg
-wqDCoCBmb3IgKGkgPSAwOyBpIDwgbl9wYWdlczsgaSsrKSB7DQo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqAgZ250dGFiX2dyYW50X2ZvcmVpZ25fYWNjZXNzX3JlZihncmFudCArIGksIA0KPj4gZGF0YS0+
-YmFja2VuZF9kb21pZCwNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgeGVuX3Bh
-Z2VfdG9fZ2ZuKHBhZ2UpICsgaSwgZGlyID09IERNQV9UT19ERVZJQ0UpOw0KPj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB4ZW5fcGFnZV90b19nZm4ocGFnZSkgKyBpICsgZ2ZuX29m
-ZnNldCwgZGlyID09IA0KPj4gRE1BX1RPX0RFVklDRSk7DQo+DQo+IEhlcmUsIHdoeSB0aGUgcGZu
-IGlzIG5vdCBjYWxjdWxhdGVkIGJlZm9yZSBwYXNzaW5nIGl0IHRvIHBmbl90b19nZm4oKT8NCj4g
-SSBtZWFuIHN0aCBsaWtlIHBmbl90b19nZm4ocGFnZV90b194ZW5fcGZuKHBhZ2UpICsgZ2ZuX29m
-ZnNldCArIGkpDQoNClRoZSBnZm5fb2Zmc2V0IGlzIGp1c3QgYSBjb25zdCB2YWx1ZSBoZXJlLCB3
-aGljaCBqdXN0IG1lYW5zIGhvdyBtYW55IA0KZ2ZucyB3ZSBzaG91bGQgc2tpcC4gQnV0IC4uLg0K
-DQouLi4gSSB0aGluaywgSSBnZXQgeW91ciBwb2ludC4gU28sIGlmIHRoZSByZWdpb24gd2hpY2gg
-aXMgY29udGlndW91cyBpbiANCnBmbiBtaWdodCBiZSBub24tY29udGlndW91cyBpbiBnZm4gKHdo
-aWNoIHNlZW1zIHRvIGJlIHRoZSBjYXNlIGZvciB4ODYncyANClBWLCBidXQgSSBtYXkgbWlzdGFr
-ZSkgd2Ugc2hvdWxkIGluZGVlZCB1c2Ugb3Blbi1jb2RlZA0KDQpjb25zdHJ1Y3Rpb24gInBmbl90
-b19nZm4ocGFnZV90b194ZW5fcGZuKHBhZ2UpICsgZ2ZuX29mZnNldCArIGkpIi7CoCBBbmQgDQp0
-aGUgZ2ZuX29mZnNldCBzaG91bGQgYmUgcmVuYW1lZCB0byBwZm5fb2Zmc2V0IHRoZW4uDQoNCg0K
-Q29ycmVjdD8NCg0KDQpUaGFua3MuDQoNCg0KPg0KPj4gwqDCoMKgwqDCoCB9DQo+PiDCoCAtwqDC
-oMKgIGRtYV9oYW5kbGUgPSBncmFudF90b19kbWEoZ3JhbnQpICsgb2Zmc2V0Ow0KPj4gK8KgwqDC
-oCBkbWFfaGFuZGxlID0gZ3JhbnRfdG9fZG1hKGdyYW50KSArIGRtYV9vZmZzZXQ7DQo+PiDCoCDC
-oMKgwqDCoMKgIHJldHVybiBkbWFfaGFuZGxlOw0KPj4gwqAgfQ0KPg0KLS0gDQpSZWdhcmRzLA0K
-DQpPbGVrc2FuZHIgVHlzaGNoZW5rbw0K
+
+On 10/8/22 15:52, Oleksandr Tyshchenko wrote:
+> 
+> On 08.10.22 14:08, Xenia Ragiadakou wrote:
+> 
+> Hello Xenia
+> 
+>>
+>> On 10/7/22 16:27, Oleksandr Tyshchenko wrote:
+>>
+>> Hi Oleksandr
+>>
+>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>
+>>> Passed to xen_grant_dma_map_page() offset in the page
+>>> can be > PAGE_SIZE even if the guest uses the same page granularity
+>>> as Xen (4KB).
+>>>
+>>> Before current patch, if such case happened we ended up providing
+>>> grants for the whole region in xen_grant_dma_map_page() which
+>>> was really unnecessary. The more, we ended up not releasing all
+>>> grants which represented that region in xen_grant_dma_unmap_page().
+>>>
+>>> Current patch updates the code to be able to deal with such cases.
+>>>
+>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>> ---
+>>> Cc: Juergen Gross <jgross@suse.com>
+>>> Cc: Xenia Ragiadakou <burzalodowa@gmail.com>
+>>>
+>>> Depens on:
+>>> https://urldefense.com/v3/__https://lore.kernel.org/xen-devel/20221005174823.1800761-1-olekstysh@gmail.com/__;!!GF_29dbcQIUBPA!xnkNaKpfZ4LssQJcJs_J91KERZKMP2Rd-xEdBqXNXJ8GyCXJ0gkRer1elVYfxOWtwN_FOl9tVieDWlfN-UZaHQsyLMhA$
+>>> [lore[.]kernel[.]org]
+>>>
+>>> Should go in only after that series.
+>>> ---
+>>>    drivers/xen/grant-dma-ops.c | 8 +++++---
+>>>    1 file changed, 5 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+>>> index c66f56d24013..1385f0e686fe 100644
+>>> --- a/drivers/xen/grant-dma-ops.c
+>>> +++ b/drivers/xen/grant-dma-ops.c
+>>> @@ -168,7 +168,9 @@ static dma_addr_t xen_grant_dma_map_page(struct
+>>> device *dev, struct page *page,
+>>>                         unsigned long attrs)
+>>>    {
+>>>        struct xen_grant_dma_data *data;
+>>> -    unsigned int i, n_pages = PFN_UP(offset + size);
+>>> +    unsigned long dma_offset = offset_in_page(offset),
+>>> +            gfn_offset = PFN_DOWN(offset);
+>>> +    unsigned int i, n_pages = PFN_UP(dma_offset + size);
+>>
+>> IIUC, the above with a later patch will become:
+>>
+>> dma_offset = xen_offset_in_page(offset)
+>> gfn_offset = XEN_PFN_DOWN(offset)
+>> n_pages = XEN_PFN_UP(dma_offset + size)
+> 
+> 
+> If saying "later" patch you meant "xen/virtio: Convert
+> PAGE_SIZE/PAGE_SHIFT/PFN_UP to Xen counterparts" then yes, exactly.
+
+Ah ok, I see.
+
+>>
+>>
+>>>        grant_ref_t grant;
+>>>        dma_addr_t dma_handle;
+>>>    @@ -187,10 +189,10 @@ static dma_addr_t
+>>> xen_grant_dma_map_page(struct device *dev, struct page *page,
+>>>          for (i = 0; i < n_pages; i++) {
+>>>            gnttab_grant_foreign_access_ref(grant + i,
+>>> data->backend_domid,
+>>> -                xen_page_to_gfn(page) + i, dir == DMA_TO_DEVICE);
+>>> +                xen_page_to_gfn(page) + i + gfn_offset, dir ==
+>>> DMA_TO_DEVICE);
+>>
+>> Here, why the pfn is not calculated before passing it to pfn_to_gfn()?
+>> I mean sth like pfn_to_gfn(page_to_xen_pfn(page) + gfn_offset + i)
+> 
+> The gfn_offset is just a const value here, which just means how many
+> gfns we should skip. But ...
+> 
+> ... I think, I get your point. So, if the region which is contiguous in
+> pfn might be non-contiguous in gfn (which seems to be the case for x86's
+> PV, but I may mistake) we should indeed use open-coded
+> 
+> construction "pfn_to_gfn(page_to_xen_pfn(page) + gfn_offset + i)".  And
+> the gfn_offset should be renamed to pfn_offset then.
+> 
+> 
+> Correct?
+
+Yes, that 's what I had in mind unless I 'm missing sth.
+
+>>
+>>>        }
+>>>    -    dma_handle = grant_to_dma(grant) + offset;
+>>> +    dma_handle = grant_to_dma(grant) + dma_offset;
+>>>          return dma_handle;
+>>>    }
+>>
+
+-- 
+Xenia
 
