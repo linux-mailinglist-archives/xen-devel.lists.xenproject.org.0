@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C2C5F8E15
-	for <lists+xen-devel@lfdr.de>; Sun,  9 Oct 2022 22:53:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.419028.663726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5ED5F8E14
+	for <lists+xen-devel@lfdr.de>; Sun,  9 Oct 2022 22:53:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.419032.663737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ohdHh-0004vl-4Y; Sun, 09 Oct 2022 20:52:29 +0000
+	id 1ohdIN-0005Q3-Cd; Sun, 09 Oct 2022 20:53:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 419028.663726; Sun, 09 Oct 2022 20:52:29 +0000
+Received: by outflank-mailman (output) from mailman id 419032.663737; Sun, 09 Oct 2022 20:53:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ohdHh-0004u7-0Y; Sun, 09 Oct 2022 20:52:29 +0000
-Received: by outflank-mailman (input) for mailman id 419028;
- Sun, 09 Oct 2022 20:52:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ohdIN-0005OA-98; Sun, 09 Oct 2022 20:53:11 +0000
+Received: by outflank-mailman (input) for mailman id 419032;
+ Sun, 09 Oct 2022 20:53:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9gvH=2K=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1ohdHe-0004u1-Mi
- for xen-devel@lists.xenproject.org; Sun, 09 Oct 2022 20:52:26 +0000
+ id 1ohdIL-0005Nw-MY
+ for xen-devel@lists.xenproject.org; Sun, 09 Oct 2022 20:53:09 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4646b4be-4814-11ed-964a-05401a9f4f97;
- Sun, 09 Oct 2022 22:52:24 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5f7f961b-4814-11ed-9377-c1cf23e5d27e;
+ Sun, 09 Oct 2022 22:53:08 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EF0F360C92;
- Sun,  9 Oct 2022 20:52:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC14CC43470;
- Sun,  9 Oct 2022 20:52:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4D90160C6F;
+ Sun,  9 Oct 2022 20:53:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C36CC433C1;
+ Sun,  9 Oct 2022 20:53:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4646b4be-4814-11ed-964a-05401a9f4f97
+X-Inumbo-ID: 5f7f961b-4814-11ed-9377-c1cf23e5d27e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665348742;
+	s=k20201202; t=1665348784;
 	bh=WOtLqPtfTzhG6xYKuXLzf9SXFlrNx350kTurMW1iEWw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bGVsRFYHKQtNA4R65IBHvJqQhHVfXeVzI56AvLm8fW7H5Kq2kgFfGutf7RKDs6hgq
-	 p7TDDcpMn9biVK2r1bAXLntk+tX4cBLFyHSjwxWA5FuqMxUzO6ZOn0cxwyBZdnwXQG
-	 IM74+upYugArq9YuX/P250IdX/3q9YWT7ZLFiUc2HKZRSOEKxhbl3khzFLPKqNgcF9
-	 3q9s82VxGZOOBUj32wxkslhG2JvJhZxXtg45H32JYVfp76slkyZ8ZE8KWKt9FidK4G
-	 qFxa58aT1SG/veA5qEpW3I60HIsHAtMmHRkpcYTFQDn1bm6Lusy6o5uY44nzKeajWz
-	 zNwzVB3QyJYvQ==
+	b=t2K74xDBDcjV6Ndo0svxo/s4Egy0X2AEbs0azaXQW5tOvx36zW05KOV+jUT4KfKEa
+	 IFngIj8adhRSuCdozSwOa6xdjL+WRAmPDTTWkotb0vafQJKfMBpxARYnxsdvUJGfQo
+	 nspRalsK0zE/Ic82FJVs9xuJb2UMm6/P/NciiHTxbFrroYD4cfdnLdGopUjtKUFF5W
+	 8TUykGCQ9kQk6xvDB1aXIcboNotYJEYr5XUY9miDNtazSdP5wHG6NMdQDFtjcpjQMR
+	 dn1aYHDOxh40v3Yd4hsJhlzRGzlNeSIdSg3ff7Qkst94zj/BbysQdIGZnSxv4ZbY6G
+	 9v10CfDF5dAbw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -71,12 +71,12 @@ Cc: Kees Cook <keescook@chromium.org>,
 	nathan@kernel.org,
 	ndesaulniers@google.com,
 	llvm@lists.linux.dev
-Subject: [PATCH AUTOSEL 6.0 16/18] x86/entry: Work around Clang __bdos() bug
-Date: Sun,  9 Oct 2022 16:51:33 -0400
-Message-Id: <20221009205136.1201774-16-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.19 14/16] x86/entry: Work around Clang __bdos() bug
+Date: Sun,  9 Oct 2022 16:52:23 -0400
+Message-Id: <20221009205226.1202133-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221009205136.1201774-1-sashal@kernel.org>
-References: <20221009205136.1201774-1-sashal@kernel.org>
+In-Reply-To: <20221009205226.1202133-1-sashal@kernel.org>
+References: <20221009205226.1202133-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
