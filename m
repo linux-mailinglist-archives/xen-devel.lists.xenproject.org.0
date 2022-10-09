@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6AD65F8E30
-	for <lists+xen-devel@lfdr.de>; Sun,  9 Oct 2022 22:54:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.419046.663759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24C3E5F8E3D
+	for <lists+xen-devel@lfdr.de>; Sun,  9 Oct 2022 22:55:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.419050.663769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ohdJW-0006au-Sd; Sun, 09 Oct 2022 20:54:22 +0000
+	id 1ohdK9-0007He-5F; Sun, 09 Oct 2022 20:55:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 419046.663759; Sun, 09 Oct 2022 20:54:22 +0000
+Received: by outflank-mailman (output) from mailman id 419050.663769; Sun, 09 Oct 2022 20:55:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ohdJW-0006Y2-Pa; Sun, 09 Oct 2022 20:54:22 +0000
-Received: by outflank-mailman (input) for mailman id 419046;
- Sun, 09 Oct 2022 20:54:21 +0000
+	id 1ohdK9-0007Fk-2Z; Sun, 09 Oct 2022 20:55:01 +0000
+Received: by outflank-mailman (input) for mailman id 419050;
+ Sun, 09 Oct 2022 20:54:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9gvH=2K=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1ohdJV-0004u1-JT
- for xen-devel@lists.xenproject.org; Sun, 09 Oct 2022 20:54:21 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1ohdJq-0004u1-SK
+ for xen-devel@lists.xenproject.org; Sun, 09 Oct 2022 20:54:42 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b67b7da-4814-11ed-964a-05401a9f4f97;
- Sun, 09 Oct 2022 22:54:20 +0200 (CEST)
+ id 98e30225-4814-11ed-964a-05401a9f4f97;
+ Sun, 09 Oct 2022 22:54:42 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0E9F060CBB;
- Sun,  9 Oct 2022 20:54:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 458D9C43142;
- Sun,  9 Oct 2022 20:54:17 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C6420B80DC5;
+ Sun,  9 Oct 2022 20:54:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB442C433D7;
+ Sun,  9 Oct 2022 20:54:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b67b7da-4814-11ed-964a-05401a9f4f97
+X-Inumbo-ID: 98e30225-4814-11ed-964a-05401a9f4f97
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665348858;
-	bh=aW+O/Bep5E72Knf9F5KLUligbpxqba0bCHR1Uql63Oo=;
+	s=k20201202; t=1665348880;
+	bh=q35u9k51iKg4WFnPv2+Jft9j9x8EK3aRtf5Pa+iGBKU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=jgrIWXL2Z839VxBtGng3BpFHc4mzvpL6u4JZfzahaZ2fIr7fWAl56PkePPYKyqgIj
-	 WKS9U6aIwJIuiovoQQQvyDuAS8r8qRBrHwOtfsAfr7isUgzDBYBE/u4v9+aZEZnjAh
-	 UifpweFx4bWvzht6pL+xutTSLkkvbxo6kWR/LOlGcwwyoC6/uGBeOTRSuGBY8SiGkx
-	 Pyq3QCwGHOOvDao/Ko2DOAcWkm2NGLU4o/dD9E/hy2Sn4zJxtDbrwGUVm/Ew0BKyD0
-	 PlBr4tyTWSzoG9+RHDXN5Hr1Me2vz8AfGb3y4v2kNv2ePc418zTtv9snmCPo1j1PHh
-	 yXCd2epOqgVOQ==
+	b=l6G/+FP9dX3PX6wRIpv5S6d7aHqwjOmyGhFR5NZNAA9NLbG9Bd7N13fKUd9TUfAXr
+	 GOOV/PWJMPpyeJsjlJreKpMA1GRMUVmkYF5Xaxz8OfaiQ80AUD6RWKxN/eo792EBju
+	 UQQlV/11CKGd8xrM+mUaBKM/HGrTdslv6Ecd5Y/JmDF1MoLKiC3B6UNwmkpTKEmBiB
+	 S2I3LLhbB38dlr+kwS1qK8K69ZjYjlglKTMD/wocHkeoLP1CYXl4Tl76wRagCMpsk4
+	 tfHfPyVUB1ICmU7mUCSbWsgAMY4F6pLxMGz/YC0aJNJI0O5yaQI7tN0kMDUk4rSr0o
+	 39gUAN5DIQy+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -71,12 +71,12 @@ Cc: Kees Cook <keescook@chromium.org>,
 	nathan@kernel.org,
 	ndesaulniers@google.com,
 	llvm@lists.linux.dev
-Subject: [PATCH AUTOSEL 5.10 08/10] x86/entry: Work around Clang __bdos() bug
-Date: Sun,  9 Oct 2022 16:53:47 -0400
-Message-Id: <20221009205350.1203176-8-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 5/6] x86/entry: Work around Clang __bdos() bug
+Date: Sun,  9 Oct 2022 16:54:21 -0400
+Message-Id: <20221009205423.1203538-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221009205350.1203176-1-sashal@kernel.org>
-References: <20221009205350.1203176-1-sashal@kernel.org>
+In-Reply-To: <20221009205423.1203538-1-sashal@kernel.org>
+References: <20221009205423.1203538-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -120,10 +120,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 804c65d2b95f..815030b7f6fa 100644
+index 65cf405cd975..26b35e75b701 100644
 --- a/arch/x86/xen/enlighten_pv.c
 +++ b/arch/x86/xen/enlighten_pv.c
-@@ -768,6 +768,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
+@@ -759,6 +759,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
  {
  	static DEFINE_SPINLOCK(lock);
  	static struct trap_info traps[257];
@@ -131,7 +131,7 @@ index 804c65d2b95f..815030b7f6fa 100644
  	unsigned out;
  
  	trace_xen_cpu_load_idt(desc);
-@@ -777,7 +778,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
+@@ -768,7 +769,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
  	memcpy(this_cpu_ptr(&idt_desc), desc, sizeof(idt_desc));
  
  	out = xen_convert_trap_info(desc, traps, false);
