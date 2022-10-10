@@ -2,64 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 901885F9D2E
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Oct 2022 12:59:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.419216.663990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824EC5F9D6F
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Oct 2022 13:17:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.419223.664000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ohqUf-0006XZ-PV; Mon, 10 Oct 2022 10:58:45 +0000
+	id 1ohqmd-0000sS-Bz; Mon, 10 Oct 2022 11:17:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 419216.663990; Mon, 10 Oct 2022 10:58:45 +0000
+Received: by outflank-mailman (output) from mailman id 419223.664000; Mon, 10 Oct 2022 11:17:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ohqUf-0006UN-Lx; Mon, 10 Oct 2022 10:58:45 +0000
-Received: by outflank-mailman (input) for mailman id 419216;
- Mon, 10 Oct 2022 10:58:44 +0000
+	id 1ohqmd-0000q1-99; Mon, 10 Oct 2022 11:17:19 +0000
+Received: by outflank-mailman (input) for mailman id 419223;
+ Mon, 10 Oct 2022 11:17:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ELN4=2L=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1ohqUe-0006UH-7N
- for xen-devel@lists.xenproject.org; Mon, 10 Oct 2022 10:58:44 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60070.outbound.protection.outlook.com [40.107.6.70])
+ <SRS0=zpu8=2L=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ohqmc-0000pv-EN
+ for xen-devel@lists.xenproject.org; Mon, 10 Oct 2022 11:17:18 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2065.outbound.protection.outlook.com [40.107.100.65])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 813f5cf4-488a-11ed-964a-05401a9f4f97;
- Mon, 10 Oct 2022 12:58:43 +0200 (CEST)
-Received: from AS4P189CA0012.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:5d7::15)
- by PAWPR08MB9032.eurprd08.prod.outlook.com (2603:10a6:102:341::13)
+ id 184fa91a-488d-11ed-964a-05401a9f4f97;
+ Mon, 10 Oct 2022 13:17:16 +0200 (CEST)
+Received: from BN9PR03CA0699.namprd03.prod.outlook.com (2603:10b6:408:ef::14)
+ by CY8PR12MB7633.namprd12.prod.outlook.com (2603:10b6:930:9c::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.31; Mon, 10 Oct
- 2022 10:58:26 +0000
-Received: from AM7EUR03FT053.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:5d7:cafe::e3) by AS4P189CA0012.outlook.office365.com
- (2603:10a6:20b:5d7::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Mon, 10 Oct
+ 2022 11:17:12 +0000
+Received: from BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ef:cafe::b3) by BN9PR03CA0699.outlook.office365.com
+ (2603:10b6:408:ef::14) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15 via Frontend
- Transport; Mon, 10 Oct 2022 10:58:26 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT053.mail.protection.outlook.com (100.127.140.202) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5709.10 via Frontend Transport; Mon, 10 Oct 2022 10:58:25 +0000
-Received: ("Tessian outbound ce981123c49d:v128");
- Mon, 10 Oct 2022 10:58:25 +0000
-Received: from ca465dd21652.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- DE545B81-A71F-4838-B664-BCED90E17D9A.1; 
- Mon, 10 Oct 2022 10:58:18 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id ca465dd21652.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 10 Oct 2022 10:58:18 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by DB9PR08MB8316.eurprd08.prod.outlook.com (2603:10a6:10:3dc::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5676.23; Mon, 10 Oct
- 2022 10:58:16 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::a8c6:cf12:7155:de53]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::a8c6:cf12:7155:de53%7]) with mapi id 15.20.5709.015; Mon, 10 Oct 2022
- 10:58:16 +0000
+ Transport; Mon, 10 Oct 2022 11:17:12 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT058.mail.protection.outlook.com (10.13.177.58) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5709.10 via Frontend Transport; Mon, 10 Oct 2022 11:17:12 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 10 Oct
+ 2022 06:17:10 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.28; Mon, 10 Oct
+ 2022 06:17:10 -0500
+Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.28 via Frontend
+ Transport; Mon, 10 Oct 2022 06:17:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,197 +62,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 813f5cf4-488a-11ed-964a-05401a9f4f97
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=VCGuEW+eXtPcfi6Npt0M0vQc4kQifrC4G+nzB/ihPAh9VTmFIoS3tlkjdXC7+ZPipluMu75ONVs0K78WexpJPm9RsrWYqg4OE//UvnXGcMgrXT2xRYpKpTu++J87a7S+2GP3tQTX9jmtkpDDHM/CIfijHjz3wQE5UriNc2ZGysZmDsSg1ykBByndjrtihAmvruB5BRQAXnM5V7FZyqN8+Yd08bOxMn7UJi9YWnmRbTvKPnukzNlLMrDJsCJjDxDA0EfG4QayESpIsILvW4Ty2IKkE9WLn/YjStrU6qAHsZD5K6VNJIRU1MbFvo52uJFbG9jqeK6hQiYGShoP/gf1ag==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lqyKgq6V0Ht3/clpAcGjbaZ8K0mBwk9PP5HdqHA3juU=;
- b=Ry3FaMGzh/WsSV5R4qsbNHEdho0FceSV8iAbTV/HS6weKyIkFJT+JqMrvhFK0frf7SSbnBcvg07GQKAJFjMVcsC76gJSMwJ0JPLSV3B+Gu0eUi3xJ/Myl3KULJ2u+lSyWm7+pTYNIV3jgioQ2U8+dP407nyOFB1rA1qI+Fy4uRXnWJPjelkwDiQnvKRbtuKecbEmoqf7syH6BJx+4avDL8SSKr0WEfHad3BOQN8smbJ6xFiCjUX/8ncgUkuynrpnqizlNkb1GcENhw1kxaaaQ/ziJju4z4Locb4NfsGpLN0aC/6ZBx7RxN8BoMvxP+7IixjuAz+Et7KOew8y88pzVw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lqyKgq6V0Ht3/clpAcGjbaZ8K0mBwk9PP5HdqHA3juU=;
- b=oEgEshByIDuD1lkxp7hb69RnuwTPobcd9GAFj14i69wbQaBxTOvNcjzakNayDrrtLcMao/YbcX9O6gohbVG3vBnbPVRpwkt/OQVCsZdaXOqKOUObCdhfZoO6kD+/yAi2Cirrd30Ok151KhCUJxp7BqbXe7WHgGfccKx1hOLruXk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 65a13d9994d6c2d3
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 184fa91a-488d-11ed-964a-05401a9f4f97
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=grgpor5JOKq9mCk6exaAtD8ArmDNGJMFex9xnYw1Gf/t9qtP5/PyjHZjKYjtAaaem9a2vlF7W3/93UmlLsa7IZkzwypMI9frNkeJvjY8r2KsT2fIv8e9JJnP3bfaIXpleHf5R/yCOmOHMS7AuIk2Qeld0T52bpLJmSuSBNRr/2hpAbtVwbl+NY2lUa8f4zU8tCgT3Px9ZsZ2BVIcgQWuijubz0oq1gTf5UnvO8kptVI48mp7aw7RQ6YdSEHSRPKUMnhwezxP55a0STfEi+L69RHV7zv6p8iU3h5jw5+n4PviZVvI/gaVJiquwyO5CEkYBmaFoOQYwFXcbjUxbJURRQ==
+ b=KBY6RjRxWRivXIiK04D50FeHD4/ShUxrZm4oxgHkDP3yzvszwtVqUtY+bNuOnBLzSC31SL57o4K2TCQpe+lwxvmgdeMpyRiqQKTWTBH7SPNZgvZblht4eSn8wIGAE/maHViKsNB7YkPFiiyhGcbagud1a4uaDY7gJXDBTozL/w9xo8hrhNbjmh4EMoTHC23WbOxDulZnit0FzLEclYJI/wzM6oYRfIO9I9l1luvtEmw6x+tyuVWnvaH++5HEGa5rOvs6JvQZAEgRjXFwTj6uxk4T2km5RK/bXXpo2TpkUaFXI2z0KNN+AG5cGvBwhXtVQffiEQNv24tRhvoK34TWrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lqyKgq6V0Ht3/clpAcGjbaZ8K0mBwk9PP5HdqHA3juU=;
- b=YtYpGodtlmJ6oLqXMN+JhoXdRehCRQNDGE2X4kV7F35XQpKqFBbn/ReaKzPUtUdjpJIQMjTPus7bcAM8AzqECF5N07mPmC7OJxmyt7A3io0NQnf4c/KxVO3TKv3/WbAirV+kRU3Vw6PYQKJaExcMYMy+/QkJLLb/XF2P4WDblt7UhENNdHQRuHYU+pbBJmZ9WdtoCGKUiWbFV/7TbUxzk/azoRTrwiPm4D9wP4SWexl2gdskvDhWEjFPCSJ/1kg+6DxyT/z+jrvaloC9YdKE3bt0+mWBlwXhy57NGR/atLSfDyNqa+Jc9pHsJguX4p88SSEk5EP7amMspf7XLuaBhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ bh=k6OCjTyvdzPX0EU3EY/BixjntWzEslkxV2JB4JQdw6o=;
+ b=HhnNHfOuaCfvMtou4VrS8XOMNv2GWLjlwSJ/byr0L+Oejo7RzhyiRrd5oxM/YAr1aE2cfrecKEkgNXvmmBDyO7vH9zSFVaTS0Xo3N0zsh9+Zj7skxiY8Cvx+0Rk8uDF2BP0GH6v06AUrpvXiVPy3R7oQ/8byB+8uW+rJHPXq8EIuPwOW4ZLUHtinU+LZ2+UTUAenaLqy+lMGpxHXT51z2T6pbECeYcGm6RsU4wjFRcBcXKzT5i+2V2TE2AuqS9dZ7BCbHju9lxvI5f17Qp863wt5T2yOZQc2aUvts18C7P/3M+Wg4PZDyO2svoJJLhy3+WCvP2SS/xzdN952Kzsk1Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lqyKgq6V0Ht3/clpAcGjbaZ8K0mBwk9PP5HdqHA3juU=;
- b=oEgEshByIDuD1lkxp7hb69RnuwTPobcd9GAFj14i69wbQaBxTOvNcjzakNayDrrtLcMao/YbcX9O6gohbVG3vBnbPVRpwkt/OQVCsZdaXOqKOUObCdhfZoO6kD+/yAi2Cirrd30Ok151KhCUJxp7BqbXe7WHgGfccKx1hOLruXk=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Xen developer discussion <xen-devel@lists.xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu
-	<wl@xen.org>, Doug Goldstein <cardoe@cardoe.com>, "michal.orzel@amd.com"
-	<michal.orzel@amd.com>
-Subject: Re: [PATCH v1 0/4] Yocto Gitlab CI
-Thread-Topic: [PATCH v1 0/4] Yocto Gitlab CI
-Thread-Index: AQHYt8nlVEDeUTiM20ag9zvPCK1jqa4D28+AgAPjAYA=
-Date: Mon, 10 Oct 2022 10:58:16 +0000
-Message-ID: <524BB739-088F-4F82-A312-BC660C34BD10@arm.com>
-References: <cover.1661352827.git.bertrand.marquis@arm.com>
- <alpine.DEB.2.22.394.2210071618300.3690179@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2210071618300.3690179@ubuntu-linux-20-04-desktop>
-Accept-Language: en-GB, en-US
+ bh=k6OCjTyvdzPX0EU3EY/BixjntWzEslkxV2JB4JQdw6o=;
+ b=RcNnJSt8D3XoB/MyiSNuc12HJMQv7Pa9bGn0xAgRv2xODvRu+FK0tOolQ7M85IkfBMl4i1srb7U814Lc+r5KdAt6KBAcIr5G+I88hm3VSktgts9BCPCKPsERJco7vYMJoZ1OBjinfpvG/Mc6OUKlFFvmCQi5mn1bYB+vfMmDy7M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <890ee988-34ff-38c4-3ffa-70abe00d3df8@amd.com>
+Date: Mon, 10 Oct 2022 13:17:08 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Subject: Re: [ImageBuilder v2] Add support for 64-bit addresses/sizes
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.120.41.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|DB9PR08MB8316:EE_|AM7EUR03FT053:EE_|PAWPR08MB9032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03b0938a-47b1-41a8-9786-08daaaae5b1f
-x-checkrecipientrouted: true
-nodisclaimer: true
+To: Xenia Ragiadakou <burzalodowa@gmail.com>, <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>
+References: <20221010072947.8300-1-michal.orzel@amd.com>
+ <4fc23936-4bfd-635c-b3a2-554e280ce884@gmail.com>
+ <f052cf3f-529c-2156-f058-2a320a4f1b02@amd.com>
+ <81ac614e-ca88-5f14-bd76-eaa20c9270bc@gmail.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <81ac614e-ca88-5f14-bd76-eaa20c9270bc@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT058:EE_|CY8PR12MB7633:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed26ab94-fb82-4f18-4db8-08daaab0fada
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- CKAg96okt6GuMm23JOfS1DoORIwshWxLDMr3jvY+W31JS+Lan9F31KCMGycu8GCvsY1qf8mO5WLPH5X9kaga1topqKg6W5Jb+66DvWmzaTTpkg1x2GWYvtzPZcGx9l/6jQBWxX1vVWHJrKUXwvO30Gj4X/XcOReg4cGG03Cx2jChW6tXNIzm7M2x+MT+RTR5uViOCbAXfBIR4Pv0Zc0Nim+l90j4MTYU0UFff50xUcQndMvXVQY9Hg27SM9YeEuvwaJ5wamNkUWqFkPaaX7uOAV4muG9hpnuzMqycQCFwZClkrPUJLhwPPPwErDIFM7OyFH9kwHNqYIz2CfEN9owhJNu4e1pv+cOz31GrqkFLbxCKwqUP2OAFM5MGjPv7AC/g43Yy3e6r6MUjA4pcEs5oBTIvyhi4HqbGuKQsZGDRrXc9lAYumwtW3rNFO4acOrW9k7kGC9AmOfzIJb89meE990qeav39kVRjh35DmDdE7ybpnCxh7MT9mhPU4hbb5WGs18EG93pRlRNXMKjigoA3pp+K0xSIkOaQ6X7mWhNM+l/sZ0M2W/kxJV6FnbBDS560FcPNo3wM1tkM47W2VGddo9ncgSSkjWlztJwkzaa6xQDmoLvGwhrxNSmCa4k6hEEy+JJKKy6ezv4aWhcf6FjMPnj81RxFr2JKmgMZ3b77JqjY5Ac7dSxEVsIu9mNYT+EPErSRalQn+Jf4lzWp2r+9VaNtvySuUKzEUhO2N12K8PLv7CE26qhSAoBPHFtSZu0MQ/qmcjTQIoNcKV0tWdXWBPNa4FjqdMWvCGSRWoy1Y4=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(366004)(346002)(39860400002)(376002)(396003)(451199015)(6486002)(36756003)(33656002)(38100700002)(122000001)(8676002)(91956017)(38070700005)(66446008)(66476007)(66556008)(64756008)(66946007)(4326008)(316002)(76116006)(86362001)(6916009)(2906002)(54906003)(41300700001)(5660300002)(6506007)(2616005)(186003)(71200400001)(6512007)(26005)(83380400001)(53546011)(8936002)(478600001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <2A87BC778EE11449AC15325D3C32E6A9@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB8316
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT053.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	318630ed-ea23-4e79-a737-08daaaae5567
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	VNw7tsYnDzMX1AGNOycXOCFbIuRcOlzeGAnJJMlI8dZeVL0krkcm2fq3n3WzV2lfL6eVUQgEvLyvGqC8LdOdomGfCsnZhbJOT4bV8pWcWBgKJK//jPuErHCnPSkE7ZJQ7LhrUfngR/pRH4qb6OpHCJaX90+RKc+UzU5sHAZdHo5Bi7oSLm2NnCb23VYYy8qcUJdh6GhkYWFqX1zgSMDX6VLR3UWKAz1X//LOkL/nBCozkoJiakIeCUaOeg2r+7d3dTXBNDkEEC4w23MDFmAE0QexjNd7wY2cDJ0C8fnRcWA53eiintGYF1rlE/qWRNFmx/Xbtly2FHabaxOn51JxX+ri+v4miw1Jq94TQOxG+4GixP2OBesE0TPunhYFn00w+2T+2o5IdRUk1sStTIlgGv7RRxSJv8yQdThUYX+hxyGGZheNHmFNkbIbIQ4QgAK/UJXhqeY1ILjkDm2KOdpIVG/n+04sDHE3x81t04Gsb+4LsxO3uFz9dPvztMVVGgOM+ADLgtEuLIg1UNoFpPmrXlLFpA3aZ0y7IqYoJyBQphzWVIEPQV6kC8vPSLMgpY4dZIijcnYDMc4cVtVeUbj15Umx1/3ed1uk/DPRcM+XUFWmohUBQv40wWXMC9vThVpOKPK29sbF0bVychrhDdRpfYfIQ1eO16IwIoytezrlbzeuMyHG55k4SMpeRi/EtynuNmkD0DGIiw42s5p0yspYUT5vqLXk1joaXL+eLxjFUDplsryXOZ/xWDgEJee1gu/EgZFkjtI5pRHzcpZzYTtBYw==
+	dBmMMhUhq6v3bZYyRj0Fl2NfXnUFUVuOzQ+bLGgcseGDA/6tbq8UFNj/SUTG39ihu5qPCgGQ/Qpown3Q8nxopZQhJ+lz3UURN+jAWlUNSj1k22aNhEW0OeQPG+wY2pMK9jYTUAVGHSrRT89QOyVCfvqHNYgUH1EDffjB2cBFvDol9UfN7K8mNXG1eNMfLP5nkkbIOd1Ic/FyDBd7Tg7KYea5g5ARnMJoLVfIDAj9oKLg0SB9we86plk0mYq2pojmRQRgV7F+rInWclkHyRa0YVgptPlLaHBce2PquaJaMUYOgU2LrMepennt7qLs+IangqUZgDaOsa6MLZcaJHRB87B97EiDWvvK6CVuvMkfNzchioykU/mLEfxF6yWKHH7tbr6ztPdSciZNYuOQwZ4Lk9IZAE5PjCVrEcYPT0xZ8pJv95H0tgb/ljBg6hvuj6bY5OVUX3TxAG26HQ/5GxpowA+jdAG1M5Okorp/OL1k04WFuKqvtovaO4iaYU2yuzxxMuIxSLBGOKk5chMdrSOQsJK+Lsf0YUshlIhy5myo/Fz9lGkKlQ36NLzDYI40A/MLNouAQDfzpW2y9PtY3v/vLLAjCk/BScNucuCqx0jE1sSh8v+ny9HoKz0+K9dRNbsenYDmO19Ph8C8TwEYMCrhiKWJ3epi2+6zy+hK3eKXrGDiZPs3nd2AllNWSwFqgJK8BJi0P3jEKdJrNQR2ClIIAG8qHAXlN6r6y1EmoKYErAg5is2d80KJ/gkwHlsJI1gr1UWQaPb8UerfEezt5SSNBuzNkkISH88iNdKWIS/pNvrR5m6besgNb/Bbu7Ql20Qtqpei55lYz2tJRmQ2oy37nA==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199015)(46966006)(40470700004)(36840700001)(47076005)(356005)(316002)(478600001)(82740400003)(6486002)(40480700001)(6506007)(53546011)(26005)(6862004)(186003)(336012)(6512007)(83380400001)(40460700003)(36756003)(5660300002)(2616005)(8936002)(41300700001)(54906003)(2906002)(70206006)(82310400005)(8676002)(86362001)(36860700001)(4326008)(81166007)(70586007)(33656002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2022 10:58:25.5706
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(376002)(136003)(346002)(396003)(451199015)(46966006)(40470700004)(36840700001)(31686004)(110136005)(40480700001)(31696002)(82740400003)(86362001)(36756003)(81166007)(356005)(41300700001)(44832011)(70206006)(4326008)(2906002)(70586007)(8936002)(8676002)(40460700003)(186003)(83380400001)(47076005)(36860700001)(316002)(16576012)(2616005)(5660300002)(26005)(82310400005)(426003)(53546011)(336012)(478600001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2022 11:17:12.5454
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03b0938a-47b1-41a8-9786-08daaaae5b1f
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed26ab94-fb82-4f18-4db8-08daaab0fada
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT053.eop-EUR03.prod.protection.outlook.com
+	BN8NAM11FT058.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9032
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7633
 
-HI Stefano,
 
-> On 8 Oct 2022, at 00:36, Stefano Stabellini <sstabellini@kernel.org> wrot=
-e:
->=20
-> On Wed, 24 Aug 2022, Bertrand Marquis wrote:
->> This patch series is a first attempt to check if we could use Yocto in
->> gitlab ci to build and run xen on qemu for arm, arm64 and x86.
->>=20
->> The first patch is making sure build-yocto.sh is not catched by
->> gitignore.
->>=20
->> The second patch is creating a container with all elements required to
->> build Yocto, a checkout of the yocto layers required and an helper
->> script to build and run xen on qemu with yocto.
->>=20
->> The third patch is creating containers with a first build of yocto done
->> so that susbsequent build with those containers would only rebuild what
->> was changed and take the rest from the cache.
->>=20
->> The fourth patch is adding a way to easily clean locally created
->> containers.
->>=20
->> This is is mainly for discussion and sharing as there are still some
->> issues/problem to solve:
->> - building the qemu* containers can take several hours depending on the
->>  network bandwith and computing power of the machine where those are
->>  created
->> - produced containers containing the cache have a size between 8 and
->>  12GB depending on the architecture. We might need to store the build
->>  cache somewhere else to reduce the size. If we choose to have one
->>  single image, the needed size is around 20GB and we need up to 40GB
->>  during the build, which is why I splitted them.
->> - during the build and run, we use a bit more then 20GB of disk which is
->>  over the allowed size in gitlab
->>=20
->=20
-> So I tried to build one of the build containers on my x86 workstation
-> with the following:
->=20
->  make yocto/kirkstone-qemuarm64
->=20
-> but I get an error from the build:
->=20
->  21:30:20 build qemuarm64: Error
->  22:00:38 run qemuarm64: Error
->  22:00:41 Build Complete (2 errors)
->  The command '/bin/sh -c /home/$USER_NAME/bin/build-yocto.sh $target' ret=
-urned a non-zero code: 2
->=20
-> Anyone else is having a better luck than me?
 
-I will relaunch an image creation test locally and come back to you.
-It could be that Yocto has been updated since I last tested that.
+On 10/10/2022 12:48, Xenia Ragiadakou wrote:
+> 
+> 
+> On 10/10/22 12:48, Michal Orzel wrote:
+>> Hi Xenia,
+>>
+>> On 10/10/2022 10:52, Xenia Ragiadakou wrote:
+>>>
+>>>
+>>> On 10/10/22 10:29, Michal Orzel wrote:
+>>>
+>>> Hi Michal
+>>>
+>>>> At the moment, ImageBuilder assumes that all addresses/sizes are
+>>>> 32-bit max. It sets #{address,size}-cells to 0x2 and puts 0x0 as the
+>>>> value for the first cell. Because of that, we cannot specify
+>>>> MEMORY_START and MEMORY_END to be above 32-bits (e.g. to place the images
+>>>> in the upper memory bank).
+>>>>
+>>>> Add support to properly handle 64-bit addresses/sizes:
+>>>>    - add function split_into_halves to split the value passed as a first
+>>>>      argument into upper and lower halves. These are then set as values for
+>>>>      variables passed respetively as the second and third argument,
+>>>
+>>> s/respetively/respectively/
+>> Ok.
+>>
+>>>
+>>>>    - add function split_addr_size to split address and size and form a
+>>>>      string to be passed to dt_set as data argument for reg property.
+>>>>
+>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>>> ---
+>>>> Changes in v2:
+>>>> - redesign a patch based on master-next instead of NXP dynamic assignment patch
+>>>> ---
+>>>>    scripts/uboot-script-gen | 33 ++++++++++++++++++++++++++++-----
+>>>>    1 file changed, 28 insertions(+), 5 deletions(-)
+>>>>
+>>>> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+>>>> index b24dca2b7f7e..09d237d192c1 100755
+>>>> --- a/scripts/uboot-script-gen
+>>>> +++ b/scripts/uboot-script-gen
+>>>> @@ -22,6 +22,29 @@ function dt_mknode()
+>>>>        fi
+>>>>    }
+>>>>
+>>>> +# Usage:
+>>>> +# split_into_halves <value> <variable_to_store_upper> <variable_to_store_lower>
+>>>> +function split_into_halves()
+>>>> +{
+>>>> +    local value=$1
+>>>> +    local upper=$2
+>>>> +    local lower=$3
+>>>> +
+>>>> +    eval "$upper=$(printf "0x%X\n" $(($value >> 32)))"
+>>>> +    eval "$lower=$(printf "0x%X\n" $(($value & 0xFFFFFFFF)))"
+>>>> +}
+>>>> +
+>>>> +function split_addr_size()
+>>>> +{
+>>>> +    local addr=$1
+>>>> +    local size=$2
+>>>> +
+>>>> +    split_into_halves $addr addr_upper addr_lower
+>>>> +    split_into_halves $size size_upper size_lower
+>>>> +
+>>>
+>>> Just a minor observation, the variables addr_upper, addr_lower,
+>>> size_upper and size_lower can be declared local.
+>>>
+>> This function is to be called to perform substitution and as such
+>> is always executed within a subshell so no need for local.
+> 
+> So split_addr_size() is supposed to be executed only in a subshell ...
+> Ok I did not think of that. So neither addr or size need to be declared
+> local.
+Exactly, but in ImageBuilder we don't seem to use $1, $2, ... directly so
+that is why I added local only for the arguments passed to this function.
 
->=20
->=20
-> I don't think it is a problem if it takes a long time to build the build
-> containers because they are not built often and they are not built as
-> part of the gitlab-ci runs.
->=20
-> The issue could be the resulting container size. I wasn't aware of a
-> limit in gitlab -- I would like to try if there is a way around the
-> limit (either by changing a setting, or potentially switching to a
-> premium account.) However I need to be able to complete a container
-> build first :-)
->=20
-> How did you find out about the 20 GB limit? I couldn't find it in the
-> docs. The only info I could find states that there is no hard limit on
-> registry.gitlab.com.
+> 
+> --
+> Xenia
 
-This came after discussions internally with our internal gitlab and I found
-some forum discussions saying something like that.
-But it could be that Xen Project does not have this limitation hence the
-need to test.
-
-Cheers
-Bertrand
-
->=20
-> Cheers,
->=20
-> Stefano
-
+~Michal
 
