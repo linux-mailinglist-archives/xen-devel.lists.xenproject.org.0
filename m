@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB4F05FA8BC
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 01:51:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.419393.664154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFF915FA8C1
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 01:58:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.419399.664165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oi2Xw-0004P2-Fs; Mon, 10 Oct 2022 23:50:56 +0000
+	id 1oi2f0-0005Cl-7j; Mon, 10 Oct 2022 23:58:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 419393.664154; Mon, 10 Oct 2022 23:50:56 +0000
+Received: by outflank-mailman (output) from mailman id 419399.664165; Mon, 10 Oct 2022 23:58:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oi2Xw-0004NS-Cv; Mon, 10 Oct 2022 23:50:56 +0000
-Received: by outflank-mailman (input) for mailman id 419393;
- Mon, 10 Oct 2022 23:50:54 +0000
+	id 1oi2f0-00059e-4l; Mon, 10 Oct 2022 23:58:14 +0000
+Received: by outflank-mailman (input) for mailman id 419399;
+ Mon, 10 Oct 2022 23:58:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1zPM=2L=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oi2Xu-0004NJ-QN
- for xen-devel@lists.xenproject.org; Mon, 10 Oct 2022 23:50:54 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1oi2ey-00059Y-QW
+ for xen-devel@lists.xenproject.org; Mon, 10 Oct 2022 23:58:12 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f6b1baf-48f6-11ed-91b4-6bf2151ebd3b;
- Tue, 11 Oct 2022 01:50:53 +0200 (CEST)
+ id 64b908fe-48f7-11ed-91b4-6bf2151ebd3b;
+ Tue, 11 Oct 2022 01:58:11 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 74A6BB81100;
- Mon, 10 Oct 2022 23:50:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577DEC433C1;
- Mon, 10 Oct 2022 23:50:48 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 31CAECE0E73;
+ Mon, 10 Oct 2022 23:58:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04D1AC433C1;
+ Mon, 10 Oct 2022 23:58:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,178 +43,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f6b1baf-48f6-11ed-91b4-6bf2151ebd3b
+X-Inumbo-ID: 64b908fe-48f7-11ed-91b4-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665445850;
-	bh=ql01mw8O2lPAPWEa8qMQjpv4fx+WlR5ssKGLIryOI/g=;
+	s=k20201202; t=1665446287;
+	bh=CHWkXRVtBi6XSq8aIpc4PaWg12g+VGGkTIIgiPmrE3s=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=JdaXsEGVg8zBNZIPoLrFnFUnksvuslpVkkuWLOC94XtYhwsVQKidu+zOyk/68eZDT
-	 EWcsqrPZwu4nYeKTPNdi6qqwELv7P1eIfbqQ9eNWtSSNu/LDyOK2gO1xsq8OKWv+p/
-	 zrBlR67FoMgzDLmKWzfkOPGguvyQFDYcN7dRAw2SkhXsbFiFVGlPbgvJN9CfJYrzrT
-	 /yFcPxgJU2o4lpe2zijYtuMoPokel13H62YOpkACsTLjBUakGNr2f1VJeW/uY4vk3v
-	 JT6pKXxvJpsnD/jUUupaHAaTKaJwzMw3WCxbqr+E1xnAXj466Gij3DMA3esCwOStJ1
-	 JfiOAWPjmSnsQ==
-Date: Mon, 10 Oct 2022 16:50:46 -0700 (PDT)
+	b=T3d2KUiJ1vXkGGemvkl3dLBoI2Nu9pNcEQtrYSoePFjTH2cDp2Hys2/eLmuSZiqKR
+	 GAFCzV+8Zlm3JtDpOWRzPnkl5YpC9cGp3n7xy3TDr338jxD0UbqV54Bq6YWppaht/m
+	 d3I1jW3eC4quCrjagwk12bBBwBQHNp98YCk23g6wQ20Hyc8rW4wQpjcMrxswWOqit1
+	 8Axl/+moTo/ZxjLmWsmfvBDKZhj+ZBJ+Ph4LeWqBKyG4WFpBkZygwB/AslR+GaVhHV
+	 rvhi+dcdxPcnCQIhszecY/5GGu7bDcX8fFyWwAKZAt67CO9CgLKUU4vcKU/KRfmrV7
+	 w4H0FaG6er7Ig==
+Date: Mon, 10 Oct 2022 16:58:04 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Leo Yan <leo.yan@linaro.org>
-cc: Xen Develop <xen-devel@lists.xenproject.org>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Mathieu Poirier <mathieu.poirier@linaro.org>, 
-    Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>, 
-    jgross@suse.com, oleksandr_tyshchenko@epam.com, boris.ostrovsky@oracle.com, 
-    wei.liu@kernel.org, paul@xen.org
-Subject: Re: Issue: Networking performance in Xen VM on Arm64
-In-Reply-To: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan>
-Message-ID: <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop>
-References: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+    Henry Wang <Henry.Wang@arm.com>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH][4.17] EFI: don't convert memory marked for runtime use
+ to ordinary RAM
+In-Reply-To: <319015d6-ec1c-3500-2437-00d40fe4d2c3@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2210101657180.3690179@ubuntu-linux-20-04-desktop>
+References: <cc0fbcb4-5ea3-178c-e691-9acb7cc9a3a7@suse.com> <9C12552C-0A64-433D-9F0C-5672281DD45D@arm.com> <73faf43d-56e2-2bbf-6336-f6420a1aa0c0@suse.com> <f1a71d28-ed04-0936-47e3-aa7a9f8c6dbc@xen.org> <0d33ecc6-898a-9379-f934-fe569cbdc8f9@suse.com>
+ <3b3f6e1c-4f41-6b1e-b226-f0dd515d14ca@xen.org> <7d152954-4f5a-2833-f974-442c15f4e8b9@suse.com> <82963a1c-3301-72ff-e995-77c30ec5a64b@suse.com> <a957dfbe-c4c4-c8cc-93c5-616a44fe1797@xen.org> <319015d6-ec1c-3500-2437-00d40fe4d2c3@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-834925715-1665446287=:3690179"
 
-+Xen/Linux maintainers
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
+--8323329-834925715-1665446287=:3690179
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-On Mon, 10 Oct 2022, Leo Yan wrote:
-> Hi there,
+On Mon, 10 Oct 2022, Jan Beulich wrote:
+> On 08.10.2022 21:08, Julien Grall wrote:
+> > On 06/10/2022 15:11, Jan Beulich wrote:
+> >>> ... the space cannot become ordinary RAM, then such a precaution
+> >>> wouldn't be necessary. After all hiding EfiACPIReclaimMemory from
+> >>> Dom0 just because it can't be mapped WB wouldn't be very nice
+> >>> either. I guess I'll submit v2 with this part of the change left
+> >>> as it was.
+> >>
+> >> And while already in the process of committing the patch I came to
+> >> realize that if the WB conditional isn't supposed to move, isn't
+> >> the change done for Arm then wrong as well? Shouldn't it then be
+> >>
+> >>          if ( !(desc_ptr->Attribute & EFI_MEMORY_RUNTIME) &&
+> >>               (desc_ptr->Attribute & EFI_MEMORY_WB) &&
+> >>               (desc_ptr->Type == EfiConventionalMemory ||
+> >>               ...
+> >>
+> >> leaving the EfiACPIReclaimMemory case entirely unaffected by the
+> >> change?
+> > 
+> > IIUC, the concern is the region EfiACPIReclaimMemory could have the attribute EFI_MEMORY_RUNTIME. Is that correct?
 > 
-> I tested the networking performance on my Arm64 platform in Xen
-> virtual machine, below I will try to give out summary for testing
-> result and share some analysis, at the end I want to check a bit
-> from the community and get suggestion before I can proceed.
+> Yes, ...
 > 
-> First of all, if you want to know more details for the profiling, you
-> could access the slides:
-> https://docs.google.com/presentation/d/1iTQRx8-UYnm19eU6CnVUSaAodKZ0JuRiHYaXBomfu3E/edit?usp=sharing
+> > Given that the memory is reclaimable, I am not sure why it can also have this atribute set (to me it means the opposite).
 > 
-> ## Testing summary
-> 
-> The TL;DR is that I used two tools: netperf and ddsperf to test the
-> networking latency and throughput for Xen Dom0 and DomU, the below
-> result shows the performance for sending data from a Xen domain (Dom0
-> or DomU) to my x86 PC respectively, and performance is poor when
-> transmit data from Xen DomU (Note, I used the default networking
-> bridge configuration when launch Xen VM).
-> 
->   Throughput result:
-> 
->     Profile     netperf (Mbits/sec)    ddsperf (Mbits/sec)
->     Xen-Dom0    939.41                 > 620
->     Xen-DomU    107.73                 4~12
-> 
->   Latency result:
-> 
->     Profile     ddsperf's max ping/pong latency (us)
->     Xen-Dom0    200 ~ 1400
->     Xen-DomU    > 60,000
-> 
-> ## Analysis
-> 
-> The critical thing for the performance is low level network driver if
-> it uses synchronous or asynchronous mode for skb transferring.
-> 
-> When we transfer data from my x86 machine to Xen DomU, the data flow is:
-> 
->   bridge -> xenif (Xen network backend driver)               => Dom0
-> 	      `> xennet driver (Xen net forend driver)       => DomU
-> 
-> In this flow, Xen network backend driver (in Dom0) copies skb into the
-> mediate buffer (gnttab_batch_copy()) and notify Xen VM by sending rx
-> irq, the key point is the backend driver doesn't wait for Xen VM to
-> process the skb and directly return to user space, therefore, Xen Dom0
-> and DomU work in asynchronous mode in this case (Dom0 doesn't need to
-> wait for DomU), the duration for handling a skb is 30+ us.
-> 
-> Conversely, if transmit data from Xen DomU, the flow is:
-> 
->            DomU                    |               Dom0
->   ---------------------------------+------------------------------------
->   xennet driver receives skb       |
->     `> send tx interrupt to Dom0   |
->                                    |  xenif respond tx interrupt
-> 	                           |  Copy skb into mediate buffer
->                                    |  Notify DomU (send tx irq)
->   xennet driver handle tx irq      |
->   free skb                         |
-> 
-> So we can see when DomU sends out packets, it needs to wait for Dom0 to
-> process the packets, until Dom0 notifies DomU that packet has been
-> processed the net forend driver in DomU releases skb.
-> 
-> This means it's a long way to process skbs: Xen DomU and Dom0 work
-> in synchronous mode, the forend driver in DomU sends out skb and
-> notifies Dom0, Dom0 handles skb and notifies back to DomU, finally DomU
-> knows the skb has been processed and releases it.  The duration between
-> sendind and releasing a skb is about 180+ us.
+> ... at least on x86 all sorts of strange/bogus type/attribute combinations
+> have been observed.
 
-180us is not great but above you wrote > 60,000 us. In what ways the two
-measurements differ?
-
-
-> ## Questions
-> 
-> Given Xen network driver has been merged in Linux kernel 2.6 (back in
-> 2007), it's very unlikely I am the first person to observe this issue.
-> 
-> I think this is a common issue and not specific to Arm64 arch, the
-> reason is the long latency is mainly caused by Xen networking driver
-> and I did't see the Xen context switching on Arm64 is abnormal (I saw
-> it takes ~10us for context switching between Xen domains).
- 
-Context switching between domains shouldn't come into the picture. For a
-latency measurement like that I would make sure to:
-
-- use the null scheduler, sched=null
-- use vwfi=native
-
-This way, we can be sure both domains are running and there are no
-context switches. It should lead to the best latency measurements. Also
-this is the configuration we use by default at Xilinx.
-
-
-> Could anyone confirm if this is a known issue?
-
-This is not something that was discussed recently as far as I know.
-
-
-> The second question is how to mitigate the long latency when send data
-> from DomU.  A possible solution is the Xen network forend driver copies
-> skb into mediate (bounce) buffer, just like what does in Xen net
-> backend driver with gnttab_batch_copy(), in this way the forend driver
-> doesn't need to wait for backend driver response and directly return
-> back.
-
-About this, I am not super familiar with drivers/net/xen-netfront.c but
-I take you are referring to xennet_tx_buf_gc? Is that the function that
-is causing xennet_start_xmit to wait?
-
-I didn't think that waiting for the backend is actually required. I
-mean, in theory xennet_start_xmit could return without calling
-xennet_tx_buf_gc, it is just an optimization. But I am not sure about
-this.
-
-
-> But here I am not clear for the mechanism for Xen grant table,
-> especially if the Xen grant table is only writtable from Dom0, then it
-> would be hard for us to optimize the forend driver in DomU by directly
-> copying skb into the grant table.  Any thoughts for this?
-
-The grant table is a mechanism for the frontend to "grant" access to a
-specific page to the backend. It is used for dynamic memory sharing
-between frontend and backend:
-
-- frontend grants a page
-- frontend copies grant reference to shared ring
-- backend receives request and map granted page
-- backend process request
-- backend complete request and unmap granted page, send notification
-- frontend un-grant the page
-
-This is the regular process. In addition, for performance reason, it is
-also possible to request Xen to copy a grant to the backend. This is
-less common, but it is used by PV network, specifically by
-gnttab_batch_copy. It is an alternative to mapping which is expected to
-be faster for networking.
+Yeah... it is a good idea to be able to cope with strange and bogus
+firmware tables as it is known to happen
+--8323329-834925715-1665446287=:3690179--
 
