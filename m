@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44E6A5FB1E9
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 14:00:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.419657.664482 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 986405FB1F0
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 14:03:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.419673.664494 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiDvZ-0007Ro-87; Tue, 11 Oct 2022 12:00:05 +0000
+	id 1oiDyh-0008QH-Md; Tue, 11 Oct 2022 12:03:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 419657.664482; Tue, 11 Oct 2022 12:00:05 +0000
+Received: by outflank-mailman (output) from mailman id 419673.664494; Tue, 11 Oct 2022 12:03:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiDvZ-0007OO-52; Tue, 11 Oct 2022 12:00:05 +0000
-Received: by outflank-mailman (input) for mailman id 419657;
- Tue, 11 Oct 2022 12:00:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lm68=2M=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oiDvY-0007DV-D0
- for xen-devel@lists.xenproject.org; Tue, 11 Oct 2022 12:00:04 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr130053.outbound.protection.outlook.com [40.107.13.53])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cfb5adc-495c-11ed-91b4-6bf2151ebd3b;
- Tue, 11 Oct 2022 14:00:02 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8852.eurprd04.prod.outlook.com (2603:10a6:20b:42f::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Tue, 11 Oct
- 2022 12:00:01 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.034; Tue, 11 Oct 2022
- 12:00:01 +0000
+	id 1oiDyh-0008OS-Jx; Tue, 11 Oct 2022 12:03:19 +0000
+Received: by outflank-mailman (input) for mailman id 419673;
+ Tue, 11 Oct 2022 12:03:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dF7p=2M=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1oiDyg-0008O3-Bo
+ for xen-devel@lists.xenproject.org; Tue, 11 Oct 2022 12:03:18 +0000
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [2607:f8b0:4864:20::1030])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b0262672-495c-11ed-8fd0-01056ac49cbb;
+ Tue, 11 Oct 2022 14:03:16 +0200 (CEST)
+Received: by mail-pj1-x1030.google.com with SMTP id 70so12277038pjo.4
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Oct 2022 05:03:16 -0700 (PDT)
+Received: from leoy-yangtze.lan (211-75-219-202.hinet-ip.hinet.net.
+ [211.75.219.202]) by smtp.gmail.com with ESMTPSA id
+ e14-20020a17090301ce00b001782f94f8ebsm8555135plh.3.2022.10.11.05.03.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Oct 2022 05:03:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,134 +44,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cfb5adc-495c-11ed-91b4-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LGh+6mIDFH03iyWvLNoDUhDHfXY3QVuY83jbw7u+aQSi6ga/kBxCB2zr1XSi0yyetJpJEQjAP61EuX06pEV6k+yuAWtGgQZ4WD2ko2mt5p9KKhZ5c926zJ8ALSMEW7MVIOKq2Kjg8qceiGTw2iwn/z9XW28RDXVYrUC4Jlwsebc6OS1vDxpdB77UO4+aKemT+vUMzE/44YSikVuiL0agRuPBLrQEax6zflWHL9l3f3Z2wi8U0Oc5SYR1UqMRLGHhP6ynkgW+WVg5bFLldVHsESty9bWx4FD/JQgQGTCXvhfmCHSyTdxJw7BIQ/RD4CN+PzhRvGSZhF+CCfTnihNb7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XatgHpPKUxXVOOyNfudNkIqba4tIM7LNzz3DahNNyR0=;
- b=e6L51KQusJJNldmen6TAMC9P4f7DA01DBQrXVMfQwsXJOfjharkdBcGe5m6UFKE56LnN6uSoYLTDNtQRKs03PEp7Qxnd+c3cVqG09U/N5+SCZjM08YrRrDU7h3P6oK9SID6Dn5Hor2us8ppxUYfRCcJQd0equEj6zpqaKjdJzqft2xEqUf4AlUy8QeOVPk86sEzh8OYBZrr6u35A9eU+i5vtSlCm2DanQZCmwMnrGc9WZEGKiu5xy2PgpBCSTCmmcJ6VF/ksArqWbw8z5GFzIKKQCSGpX3+k9vi9PAWWYfFXKL63ILOzQdgKxuDEH6jKNsQSZEtMOOq5NDTmSYCxpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XatgHpPKUxXVOOyNfudNkIqba4tIM7LNzz3DahNNyR0=;
- b=N10kQ7aWG7Pt8K9jOQ00NlhjCDvl+Aw00OeSRhUBenfgcX0tTZSJ0PgTk8ObPmNqTGmwwyh7+V6tKOjnz4RvHvu7Fsbhm3PSvJKqfLtB1jVyhW52ytxR0LtZwL77sYmDGHzuRi2ypqCSp163Jk4DGRmneTsQngW4K64QfHEtLe5A7c8msjUBH/WbiOgqYHRB9CZUENr954razsBDNmtp22Yo9Nh3axXwTF24Q6fQpQOkjd91KEmkZ35L6N43cbYJ0TFwhEKQ7odnSx7CTdWGDkN0mfDZ0RXY+pbkYAtHwKiz7kzQS0Gst0DZmYmhvNLq8fqAUTAzKDcJJTmtCMfn5w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <df56f268-59d8-4b9a-52a6-40bfd0b91414@suse.com>
-Date: Tue, 11 Oct 2022 13:59:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Subject: Re: [PATCH V7 2/2] xen/gnttab: Store frame GFN in struct page_info on
- Arm
-Content-Language: en-US
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org,
- Henry Wang <Henry.Wang@arm.com>
-References: <20220716145658.4175730-1-olekstysh@gmail.com>
- <20220716145658.4175730-2-olekstysh@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220716145658.4175730-2-olekstysh@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR04CA0020.eurprd04.prod.outlook.com
- (2603:10a6:20b:92::33) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: b0262672-495c-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Fw7xUTA3OfRm+ktROCFDpggksMcvBm0LHXupBoTitsY=;
+        b=poMvKA3x6D9ff95kRZ8DZsl5ank2XOKrIHHVLKunbMpuGI1s+KrEVhkrlUBU/spP4Z
+         xvoTJ84DLxi9uB2Dc2oQagO6lbLh97G6wCheyipMYakBW8edpa3qpkltpC8V3zV1S+m+
+         0ekmvjIR38mHHzdQgLs6VROY7MVi9/ttnozqIjZa3E5sBB47cpv0i7KlVF428VPgdixg
+         lfTAmvjYZDuPwAkoeCWSRasBq7R/4LCvB9fSkuFGsTWDjNACy0FvAXNpsVqNHOlGVPsI
+         StDfPDnfZrsftcD8YDJKTgI36lxqMmZ303r0vZ3veLN4Fw4MAnKcYYtYNSvD1UGuMBK2
+         geVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Fw7xUTA3OfRm+ktROCFDpggksMcvBm0LHXupBoTitsY=;
+        b=YEtswKg2xM+pIGtT1EOTOk+WwwPx9w1jJXGhGf0vnJyav6+Mac3/xq3oauTjMqfp9+
+         wRTI4VNM7oxqT47XURZ4fCSfgVSGnlDh8rO1nV7Uz+W8mskUmuPTCu3qRlw4wbyvGZGB
+         0lUoSaKWfHU6xcqkvzDCP/zkIgHGbfqUIzguzIjr9eIfcZHJoO/NyY5BdNwJsPqWSMyX
+         yMVYjTRuh6DhAeVfrZBfdu03voBx9hBvPcw1SJCgWZ4ts9gCZ0LLTTwpvN9eIimqf5qU
+         E6wwxXy5RZiVunGaHIlpKDCBJjWO/kVXELADN+7BW5bZg9HGtJFliqJ0wnMceSpIGeVF
+         ELTA==
+X-Gm-Message-State: ACrzQf33f5XGb9YEh2n0+PFvdARcsN+2V74q+nzRaG0Mwnu7/+bkbFh1
+	l49Rmt65oBYDJSS5XoBUOSi28Q==
+X-Google-Smtp-Source: AMsMyM6GO05Kc0vW+atcj6gu+28B8erR9r00BWvogZ8fs6Dqi1qW34KoEfcqD3l80eANs4ShanDTvw==
+X-Received: by 2002:a17:902:d4d2:b0:178:491b:40d with SMTP id o18-20020a170902d4d200b00178491b040dmr24592958plg.79.1665489795167;
+        Tue, 11 Oct 2022 05:03:15 -0700 (PDT)
+Date: Tue, 11 Oct 2022 20:03:06 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen Develop <xen-devel@lists.xenproject.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>,
+	jgross@suse.com, oleksandr_tyshchenko@epam.com,
+	boris.ostrovsky@oracle.com, wei.liu@kernel.org, paul@xen.org
+Subject: Re: Issue: Networking performance in Xen VM on Arm64
+Message-ID: <Y0VbQ3esM8gucmqQ@leoy-yangtze.lan>
+References: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8852:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bc76c25-4e57-438f-1966-08daab802016
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	D4660kSBaPXqPuncWIUVR1OhuIwP2UnAtPUauIzeapsi8xAihE/vTcCpaZt8NRmC+NUhC0Tgit51XrchRfs0GaV1eLb2pwVSwpyg0d/XZn6nyY2M1F5Iy+OETNQaLfYilhVR77CCcbyjzx6nTZZKoobg3KFUeFAsAnmyXAeqIZIZDAJLOR1EuYphVIfHOTiEatO5FhhVBG1G1yPi35zEmn4rwoo987cA63FnAySInrUMwPuWagm7ToQXHf1tZsiaH+U4VfnMuRc8Yax+hHtUipL+d+b2Vn20WMZI38Py4UCC9QggYZsg55Xfvynn68uucp1BIUu6ZTYtR0D+jrYtaw4Kjc7PJdTcDGL7iwZeaPGVUeLZjVuGe8VK0wYTqaqgtBQkjypTIpp3p80bhGLoI0Ta1XvN3C4BvfprEHKhCdRYzxuoKe3OjUaRbCkuscUkJPuxLfWVzuXCTZJCWmljH+mVLdSEyqxBKcXmSpb4OlXLr/K8bT8Q0wcC5hb2y662dW5lrKWDiE1EHMUGe5vFNDnMEFFbGkor+eNVgD8LXKT9tz3/Q1IfiWt4Zlh0F3N0FdU3hqdZblm4yBBCUEmSCcYAakrnoOgztdE8smqEHwWKgO3Uvp1mPQrh7fYv6p/briu3NiU8TGy3c4EZ7IhEEswj8Fv1XEoa9dFgwx+AHcpZx1Kd9WUpcAaxrjymT+cFDJNdtIDrT+juayhtQEvF3a7KhjSa1De1WnlZ2auWZMNPiK4zrG8lkIejjUZqcnQ6Y+oygnisVnA0612j8PT2kTh1bERs35vd8Ubxx+lhTeA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(366004)(396003)(346002)(376002)(136003)(451199015)(31686004)(6512007)(26005)(6916009)(54906003)(316002)(86362001)(38100700002)(6486002)(36756003)(66556008)(83380400001)(2616005)(53546011)(6506007)(7416002)(8936002)(31696002)(5660300002)(66946007)(8676002)(186003)(41300700001)(66476007)(478600001)(4326008)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VTJHaHJrdUxPVDMyczgrRUxjdkJyR1Axbnh4NzZKeTlFMHY4RDRtN2JFWDFE?=
- =?utf-8?B?ZjN6SDNuL21nT0ZpMGxrejE5Zk5ZTjRHcGdRMDY5N21KWjhELy9qOHY3OU0r?=
- =?utf-8?B?UjFvekZpbyt1clE4Tmhzb3JVT25waTFRYThxQXo0Y2JSUDg3RzlVNnNHd2Mz?=
- =?utf-8?B?SlI4WlRYM09YZHBqamYySkdqN01TZ3EvdjZ3VWN3QXpibHVYL2tmbHZOTUty?=
- =?utf-8?B?NlFvWkJSYUdndmVoMWxLUzFqNCtvOUxqTGNVSWxGVVNRakNhVDlLNWl3TkJS?=
- =?utf-8?B?eEZZT1orbTkyTUFDWjFrdEhtVkF1eU5nQjh4ZW9WRzNPallMTFdyYXR4UzFC?=
- =?utf-8?B?VzZseVVSdXdVejNYRFZOOFkrTFRSeENtZzBVODZyMmg5SlF1NVhMQzVCVTFG?=
- =?utf-8?B?N3Z0TkE3dEoySFhJNXlVKzlkUW1hV2xTN3RmU2NBR3JodXd5SGlDREJTV1N2?=
- =?utf-8?B?eVVPUmFpNnhDcEZkWE1SMkNVekpJWEZkdEFHTzJSN3JkcXBPS0xOd043UXdD?=
- =?utf-8?B?dENWckQxMm5rUWN5bnErZHVxSXpzMjl5MlBVSUs1L3VnWEZuQmNSNitxSHRQ?=
- =?utf-8?B?VnNlaWtsSXJVK1BoY0tvR3NqcHJKSFRHbUwwZjIwL25rQko5TDNURVF4WWMz?=
- =?utf-8?B?eklUeURSZlgrVTU5Nmw4MExFOVNOcVBVT0RrL0w0YlVORzlBMHpid1NOUnda?=
- =?utf-8?B?NkYvQ2ZPMy9vQS9KZWFKYnZuYnYwc0M0eE04dGpTNHE0M0pQZVlJeFFEbDVF?=
- =?utf-8?B?a3UyVldhS3NYQ1hoRzRuOHpNV0c1c2dXMXhkY2RtN004TXZqbU5RVXJFQmhI?=
- =?utf-8?B?OHlNRzRvZk9mMFIrNnlTN0xiT01xRHJnTnJkb0lRc3p5eHR4OTF1UnlGQW9N?=
- =?utf-8?B?SFQ4Z1dOV1JLc0U3bkE3Nm1uUUEzSnJadm5EZ3Z1ZGh5UC9lYjMvVmpQTUVi?=
- =?utf-8?B?enV0cHE0b0xkZUMwSWREYlRkU29tS3l2S2MzRGFtTFdvUHpVRjUxOFJ2cHo5?=
- =?utf-8?B?NGFiM1ZvYWxFdVFhYU5xaGlpQ2Z0MkxjYkVpWWxXRVBmaHN2a2dFUTI1MVlM?=
- =?utf-8?B?ZUVhUDNSdXc4Z2ZCVXlsOGtueUxwMzFtNlhES2NEWkZFd2l0TUN5aFlJM0dz?=
- =?utf-8?B?VGhKemRuRkhJejRrcW1CU2hDeDhDSkt3NEY0UG82K0hEZ25QTFdaaTgxVXRn?=
- =?utf-8?B?QXFFb0t3ODc0VEVMb1E1VXlZbGtaSDI3NUtENnlLMWhmOXVvb25pT0tJTkVa?=
- =?utf-8?B?NXVKZjFNZ0V2ckMyc0RCWlNaa0cwR0V6OWx0a1NDaDBsZmhPSGQyS2c4M3ZX?=
- =?utf-8?B?Sk42THo4NXR0N3Y1MnpDbTkya0RvWmlWWldHcmhHZXM1eCswQWs1K2FlUjJS?=
- =?utf-8?B?VGpDMFI1VlZmNklKT2hLdW9IQndFS1FFakhPSlV3blJUN0laUFBWd0xPNC9h?=
- =?utf-8?B?b3VOd3l4ZVdxOFhkL0l5OWVuMFFhU2ZiYTdjQUJaZ0lBSFRTbXphaUh4ZEZ6?=
- =?utf-8?B?M2tsWGdZdldrVVh5VFZTZSs1SjkwOEtoc0FlQURZaVZ0cTRoNDJPRFNCR20r?=
- =?utf-8?B?YVF0ZWhuMHd6OHRkcytDdUJSOUYyVVlMZ3ZkQ213cmp1ZFRQa3k3NmxKMlhO?=
- =?utf-8?B?T2tiVkxnREFZVE8xcXJKekl4QjNpakVpMkdsMlB5U0JqQUlGQ2Rad2o4Um1s?=
- =?utf-8?B?V1poYWtxNHdGYm90T1ZhYk80SThyYW1FNzlCQlZLeWN2RGdXZUxkYkVxNUJN?=
- =?utf-8?B?MXc0NGxZK05rVG1pbXQxS2MvUERINGs5TS82ZVg1aG1nOTN3TE9Mbzh5d29V?=
- =?utf-8?B?ZGo0MEdzQXNRcFV3cVFONW5vRVk5N2JTaWk3SHcyNTR1cGxPdmw1Sm9qOXQy?=
- =?utf-8?B?UFFqYXdmZ1Z0YUxPM0hzYVAzWkVJNFpYV3FzZi9wYVhhZjJ6VWlwNUtjYXhQ?=
- =?utf-8?B?OFZHM1U3N2o0cWUvaHBwbFJLRU1NNy9WQlkxQ21YSXZhK0F2cHE2bEhWRHdX?=
- =?utf-8?B?TzBOZGNaSi9IVDBYMURVMmpHdTVueURQa0NlUHlneEVKNzlZa3ZWdEdFdHYz?=
- =?utf-8?B?WVRsZFh0SzBqaUJXSkxDRkNZRHc2ZmVoWVdSRnJCN0JDOVFDVmtKZlFUVnM1?=
- =?utf-8?Q?uV2X3Hbp011KBaTzDKRBobC2v?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bc76c25-4e57-438f-1966-08daab802016
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2022 12:00:01.0704
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mmmLVQGgFxQ4H8AWJn4zfmUMFcW3apCSTYH3PdnN39jJR/M6o+h6rqKzprLyjVkecS5HBNcAnL7VIncNeHyM/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8852
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop>
 
-On 16.07.2022 16:56, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Hi Stefano,
+
+On Mon, Oct 10, 2022 at 04:50:46PM -0700, Stefano Stabellini wrote:
+> +Xen/Linux maintainers
+
+Thanks for reviewing.
+
+[...]
+
+> >   Throughput result:
+> > 
+> >     Profile     netperf (Mbits/sec)    ddsperf (Mbits/sec)
+> >     Xen-Dom0    939.41                 > 620
+> >     Xen-DomU    107.73                 4~12
+> > 
+> >   Latency result:
+> > 
+> >     Profile     ddsperf's max ping/pong latency (us)
+> >     Xen-Dom0    200 ~ 1400
+> >     Xen-DomU    > 60,000
+> > 
+> > ## Analysis
+> > 
+> > The critical thing for the performance is low level network driver if
+> > it uses synchronous or asynchronous mode for skb transferring.
+> > 
+> > When we transfer data from my x86 machine to Xen DomU, the data flow is:
+> > 
+> >   bridge -> xenif (Xen network backend driver)               => Dom0
+> > 	      `> xennet driver (Xen net forend driver)       => DomU
+> > 
+> > In this flow, Xen network backend driver (in Dom0) copies skb into the
+> > mediate buffer (gnttab_batch_copy()) and notify Xen VM by sending rx
+> > irq, the key point is the backend driver doesn't wait for Xen VM to
+> > process the skb and directly return to user space, therefore, Xen Dom0
+> > and DomU work in asynchronous mode in this case (Dom0 doesn't need to
+> > wait for DomU), the duration for handling a skb is 30+ us.
+> > 
+> > Conversely, if transmit data from Xen DomU, the flow is:
+> > 
+> >            DomU                    |               Dom0
+> >   ---------------------------------+------------------------------------
+> >   xennet driver receives skb       |
+> >     `> send tx interrupt to Dom0   |
+> >                                    |  xenif respond tx interrupt
+> > 	                           |  Copy skb into mediate buffer
+> >                                    |  Notify DomU (send tx irq)
+> >   xennet driver handle tx irq      |
+> >   free skb                         |
+> > 
+> > So we can see when DomU sends out packets, it needs to wait for Dom0 to
+> > process the packets, until Dom0 notifies DomU that packet has been
+> > processed the net forend driver in DomU releases skb.
+> > 
+> > This means it's a long way to process skbs: Xen DomU and Dom0 work
+> > in synchronous mode, the forend driver in DomU sends out skb and
+> > notifies Dom0, Dom0 handles skb and notifies back to DomU, finally DomU
+> > knows the skb has been processed and releases it.  The duration between
+> > sendind and releasing a skb is about 180+ us.
 > 
-> Rework Arm implementation to store grant table frame GFN
-> in struct page_info directly instead of keeping it in
-> standalone status/shared arrays. This patch is based on
-> the assumption that a grant table page is a xenheap page.
+> 180us is not great but above you wrote > 60,000 us. In what ways the two
+> measurements differ?
+
+108us is measured by using ftrace events 'net_dev_queue' and
+'kfree_skb'.
+
+60,000us is the measured maximum latency via ddsperf ping & pong [1],
+the latency is not only caused by low level driver and hypervisor, it
+also contains the latency caused by the test program itself.
+
+AFAIK, ddsperf monitors traffic from userspace and throttle data
+transferring when it detects tx rate is low, I think this is one main
+reason for the huge latency (60ms+) from ddsperf.
+
+[1] https://cyclonedds.io/docs/cyclonedds/latest/getting_started.html#measuring-latency
+
+> > ## Questions
+> > 
+> > Given Xen network driver has been merged in Linux kernel 2.6 (back in
+> > 2007), it's very unlikely I am the first person to observe this issue.
+> > 
+> > I think this is a common issue and not specific to Arm64 arch, the
+> > reason is the long latency is mainly caused by Xen networking driver
+> > and I did't see the Xen context switching on Arm64 is abnormal (I saw
+> > it takes ~10us for context switching between Xen domains).
+>  
+> Context switching between domains shouldn't come into the picture. For a
+> latency measurement like that I would make sure to:
 > 
-> To cover 64-bit/40-bit IPA on Arm64/Arm32 we need the space
-> to hold 52-bit/28-bit + extra bit value respectively. In order
-> to not grow the size of struct page_info borrow the required
-> amount of bits from type_info's count portion which current
-> context won't suffer (currently only 1 bit is used on Arm).
+> - use the null scheduler, sched=null
+> - use vwfi=native
+> 
+> This way, we can be sure both domains are running and there are no
+> context switches. It should lead to the best latency measurements. Also
+> this is the configuration we use by default at Xilinx.
 
-I'm afraid this isn't true: There's no requirement for a guest to pass
-all different GFNs to VCPUOP_register_vcpu_info, yet map_vcpu_info()
-tries to obtain a reference for every vCPU. With my adding of GFN
-(really gaddr) based registration of the runstate area (already
-looking towards 4.18) the maximum possible count is to further grow.
+Okay, will try these two options at my side and share back the testing
+result.
 
-I guess this went unnoticed because Linux presumably uses different
-GFNs for every vCPU, so the issue doesn't surface. But I'm afraid this
-is a regression (unless I'm overlooking something, perhaps a
-mitigating factor) which wants fixing for 4.17.
+> > Could anyone confirm if this is a known issue?
+> 
+> This is not something that was discussed recently as far as I know.
 
-Jan
+It is a bit worried me if I am the first one to report this issue.
+
+Either it's because this is a specific issue for Arm64 since Xen is
+much less deployed on Arm64 than x86 platforms; or I must miss something
+for causing the poor network performance.
+
+> > The second question is how to mitigate the long latency when send data
+> > from DomU.  A possible solution is the Xen network forend driver copies
+> > skb into mediate (bounce) buffer, just like what does in Xen net
+> > backend driver with gnttab_batch_copy(), in this way the forend driver
+> > doesn't need to wait for backend driver response and directly return
+> > back.
+> 
+> About this, I am not super familiar with drivers/net/xen-netfront.c but
+> I take you are referring to xennet_tx_buf_gc? Is that the function that
+> is causing xennet_start_xmit to wait?
+
+No.  We can take the whole flow in xen-netfront.c as:
+
+  xennet_start_xmit()
+             ----------> notify Xen Dom0 to process skb
+             <---------  Dom0 copies skb and notify back to DomU
+  xennet_tx_buf_gc()
+  softirq/NET_TX : __kfree_skb()
+
+> I didn't think that waiting for the backend is actually required. I
+> mean, in theory xennet_start_xmit could return without calling
+> xennet_tx_buf_gc, it is just an optimization. But I am not sure about
+> this.
+
+The function xennet_start_xmit() will not wait and directly return
+back, but if we review the whole flow we can see the skb is freed until
+the softirq NET_TX.  In this whole flow, it needs DomU and Dom0 to work
+together (includes two context switches) to process skb.
+
+Here I mean the optimization is to allow Dom0 and DomU to work in
+parallel.  It could be something like blow, the key point is DomU
+doesn't need to wait for Dom0's notification.
+
+       DomU                     |             Dom0
+  ------------------------------+-------------------------------
+  xennet_start_xmit()           |
+  copy skb in grant page        |
+  notify Xen Dom0               |
+                                |  fetch skb from grant page
+  xennet_tx_buf_gc()            |  deliver skb to bridge
+    kfree_skb()                 |
+
+> > But here I am not clear for the mechanism for Xen grant table,
+> > especially if the Xen grant table is only writtable from Dom0, then it
+> > would be hard for us to optimize the forend driver in DomU by directly
+> > copying skb into the grant table.  Any thoughts for this?
+> 
+> The grant table is a mechanism for the frontend to "grant" access to a
+> specific page to the backend. It is used for dynamic memory sharing
+> between frontend and backend:
+> 
+> - frontend grants a page
+> - frontend copies grant reference to shared ring
+> - backend receives request and map granted page
+> - backend process request
+> - backend complete request and unmap granted page, send notification
+> - frontend un-grant the page
+> 
+> This is the regular process. In addition, for performance reason, it is
+> also possible to request Xen to copy a grant to the backend. This is
+> less common, but it is used by PV network, specifically by
+> gnttab_batch_copy. It is an alternative to mapping which is expected to
+> be faster for networking.
+
+Thanks a lot for the shared info.
+
+I saw both net frontend and backend drivers use gnttab_batch_copy(); I
+need a bit more time to understand ring and grant table and how these
+two parts co-work together.
+
+Thanks,
+Leo
 
