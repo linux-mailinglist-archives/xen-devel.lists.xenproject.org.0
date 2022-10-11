@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C39A5FA947
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 02:27:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.419405.664175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9196F5FAAA7
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 04:39:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.419412.664186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oi36M-00013K-LA; Tue, 11 Oct 2022 00:26:30 +0000
+	id 1oi59d-0005Q8-2L; Tue, 11 Oct 2022 02:38:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 419405.664175; Tue, 11 Oct 2022 00:26:30 +0000
+Received: by outflank-mailman (output) from mailman id 419412.664186; Tue, 11 Oct 2022 02:38:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oi36M-00011F-I5; Tue, 11 Oct 2022 00:26:30 +0000
-Received: by outflank-mailman (input) for mailman id 419405;
- Tue, 11 Oct 2022 00:26:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0qgQ=2M=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1oi36K-000115-6c
- for xen-devel@lists.xenproject.org; Tue, 11 Oct 2022 00:26:28 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5661a4f1-48fb-11ed-8fd0-01056ac49cbb;
- Tue, 11 Oct 2022 02:26:25 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8399460FCF;
- Tue, 11 Oct 2022 00:26:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BE88C433C1;
- Tue, 11 Oct 2022 00:26:21 +0000 (UTC)
+	id 1oi59c-0005Np-U5; Tue, 11 Oct 2022 02:38:00 +0000
+Received: by outflank-mailman (input) for mailman id 419412;
+ Tue, 11 Oct 2022 02:37:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oi59b-0005Nf-NT; Tue, 11 Oct 2022 02:37:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oi59b-00053Z-KO; Tue, 11 Oct 2022 02:37:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oi59b-0003ra-06; Tue, 11 Oct 2022 02:37:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oi59a-000599-VR; Tue, 11 Oct 2022 02:37:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,160 +42,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5661a4f1-48fb-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665447983;
-	bh=tU9BBGGHJTh3lSTNEV/+WssVkNmezsErJAYxoqNdPO4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=pFKMNJtSYDlnvtPk74/+SUs8cieOy8iISQrijy60n++P88aQTo1OvAYQKcdVTj6KE
-	 QIsehGDYBQP+hLF5h55JPid9kRV5M2KWkfwKa9YVXQTISA2ao+27ysUxaPosztihNk
-	 Qod6694nQKrx+OFlnz/qX6T3+CQNscu8scd4x5zdRF8tGOVxiHTAXS8WlDpCrXiocF
-	 XBSnhU77FOunMmGOQ2kMlbOjr5xopn4U91JBVByjqneT0Khura2EV8U0DH+BGWWaPW
-	 Nq7nd6Hc9NOSMsHOFrtYTgPgpI2fgOmZytkfTLR6MM7txYBUctpMMWq5xcMLpYt4mV
-	 THFeOFtrPZnhw==
-Date: Mon, 10 Oct 2022 17:26:19 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, wl@xen.org, jbeulich@suse.com, 
-    george.dunlap@citrix.com, andrew.cooper3@citrix.com, 
-    bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com, roger.pau@citrix.com, 
-    Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: Re: [PATCH v3 4/4] Remove extra copies of licenses and license
- headers
-In-Reply-To: <b87e4263-4018-b840-74be-965aec89d187@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2210101716390.3690179@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2210071710070.3690179@ubuntu-linux-20-04-desktop> <20221008001544.78302-4-sstabellini@kernel.org> <b87e4263-4018-b840-74be-965aec89d187@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=flPFdkPyYuI9sJL8vs+x6IyQ+OE6sqQNB9tHK6m9yWA=; b=PRHy9bpVq1Jw2H9xMl42q6Md11
+	L8YYkM+XmswJroDThWNROnHPGtDdptrJkzwZMI9DsUc5uOADBAXF8vpMnjBsV0OTwG+8r1XSUVRN/
+	NJAluTJra6g3YkmeCUHmvAkVFtez8RZGfNFwhiF7furAuVoVPjF+Mxt6I9ULa3yDs/MI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173487-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [linux-linus test] 173487: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-localmigrate/x10:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=4de65c5830233e7a4adf2e679510089ec4e210c7
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 11 Oct 2022 02:37:58 +0000
 
-On Sun, 9 Oct 2022, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 08/10/2022 01:15, Stefano Stabellini wrote:
-> > From: Stefano Stabellini <stefano.stabellini@amd.com>
-> > 
-> > Remove the extra copy of the GPL license and license copyright headers
-> > from CONTRIBUTING and the top-level COPYING.
-> > 
-> > Mention of the LICENSES/ directory and also mention the SPDX tag.
-> > 
-> > SPDX support is still in progress and COPYING files in subdirectories
-> > still need to be updated.
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > ---
-> > Patch new in v3
-> > ---
-> >   CONTRIBUTING | 150 ++--------------------
-> >   COPYING      | 351 +--------------------------------------------------
-> >   2 files changed, 17 insertions(+), 484 deletions(-)
-> > 
-> > diff --git a/CONTRIBUTING b/CONTRIBUTING
-> > index 6ec146baf0..7b6b03fb96 100644
-> > --- a/CONTRIBUTING
-> > +++ b/CONTRIBUTING
-> > @@ -19,10 +19,6 @@ Most notably:
-> >    - tools/xl           : LGPL v2.1
-> >    - xen/include/public : MIT license
-> >   -The COMMON COPYRIGHT NOTICES section of this document contains
-> > -sample copyright notices for the most common licenses used within
-> > -this repository.
-> > -
-> 
-> How about replacing this section with something like:
-> 
-> " See LICENSES/ for a list of licenses and SPDX tags currently used."
+flight 173487 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173487/
 
-Good idea
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-freebsd12-amd64 19 guest-localmigrate/x10 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+
+version targeted for testing:
+ linux                4de65c5830233e7a4adf2e679510089ec4e210c7
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z    3 days
+Failing since        173470  2022-10-08 06:21:34 Z    2 days   10 attempts
+Testing same since   173487  2022-10-10 19:12:23 Z    0 days    1 attempts
+
+------------------------------------------------------------
+685 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
-> >   When creating new components, new files, or importing code please follow
-> >   the conventions outlined below. As a general rule, whenever code using a
-> >   license other than GPLv2 is introduced, attention must be drawn to the
-> > @@ -32,20 +28,22 @@ deviation. Any new code must be GPLv2 compatible.
-> >   New components
-> >   --------------
-> >   -When creating new components and directories that contain a
-> > -significant amount of files that are licensed under licenses other
-> > -than GPLv2 or the license specified in the COPYING file, please
-> > -create a new COPYING file in that directory containing a copy of the
-> > -license text and a rationale for using a different license. This helps
-> > -ensure that the license of this new component/directory is maintained
-> > -consistently with the original intention.
-> > +When creating new components and directories that contain a significant
-> > +amount of files that are licensed under licenses other than GPLv2,
-> > +please create a new COPYING file in that directory with the rationale
-> > +for using a different license. This helps ensure that the license of
-> > +this new component/directory is maintained consistently with the
-> > +original intention.
-> 
-> I don't understand why the wording "or the license specified in the COPYING
-> file" is dropped. To me, the sentence was indicating that it is not necessary
-> to create a COPYING file in every sub-directory if the license is not GPLv2
-> and it matches the license of a parent directory.
-> 
-> Do you plan to remove COPYING completely?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-No, I don't plan to remove COPYING completely. COPYING is useful to tell
-the user what license to choose. I only meant to clarify that COPYING
-doesn't need to have a full copy of the license again. An SPDX tag would
-be enough. I can change it to:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
----
-When creating new components and directories that contain a
-significant amount of files that are licensed under licenses other
-than GPLv2 or the license specified in the COPYING file, please
-create a new COPYING file in that directory containing the SPDX tag
-and a rationale for using a different license. This helps ensure that
-the license of this new component/directory is maintained consistently
-with the original intention.
----
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> >     New files
-> >   ---------
-> >   -If specific files that differ from the license in a directory are
-> > introduced,
-> 
-> This is fine to drop but ...
-> 
-> > -exceptions should be highlighted and discussed in the commit message or
-> > cover
-> > -letter introducing the file.
-> 
-> ... I think this should be kept because we want to have justification why the
-> license of a file doesn't match the license of the directory.
+Not pushing.
 
-Good idea
-
-
-> > +New files should start with a single-line SPDX comment to express the
-> > +license. The following comment and license are recommended:
-> 
-> Someone reading this may think that a new file in libxl wants to be GPLv2. So
-> I would add in parentheses that the license may be different in some
-> directory.
-> 
-> Similarly, I think this should be stronger than recommended. The SPDX should
-> be a *must* and for the license there are effectively little leeway in which
-> one we could use for existing components.
-> So how about:
-> 
-> "For instance, if the file is GPLv2, the comment would look like:
-> 
-> /* SPDX-License-Identifier... */
-> 
-> The recommended license of a directory will depend on the COPYING file. If the
-> new file is using a different license, this should be highlighted and
-> discussed in the commit message or cover letter introducing the file.
-> "
-> 
-> Cheers,
-> 
-> -- 
-> Julien Grall
-> 
+(No revision log; it would be 55578 lines long.)
 
