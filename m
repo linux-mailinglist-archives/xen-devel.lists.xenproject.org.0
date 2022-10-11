@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9196F5FAAA7
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 04:39:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.419412.664186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33AD95FAB49
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 05:43:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.419422.664197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oi59d-0005Q8-2L; Tue, 11 Oct 2022 02:38:01 +0000
+	id 1oi69q-0004hC-PC; Tue, 11 Oct 2022 03:42:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 419412.664186; Tue, 11 Oct 2022 02:38:01 +0000
+Received: by outflank-mailman (output) from mailman id 419422.664197; Tue, 11 Oct 2022 03:42:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oi59c-0005Np-U5; Tue, 11 Oct 2022 02:38:00 +0000
-Received: by outflank-mailman (input) for mailman id 419412;
- Tue, 11 Oct 2022 02:37:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oi59b-0005Nf-NT; Tue, 11 Oct 2022 02:37:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oi59b-00053Z-KO; Tue, 11 Oct 2022 02:37:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oi59b-0003ra-06; Tue, 11 Oct 2022 02:37:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oi59a-000599-VR; Tue, 11 Oct 2022 02:37:58 +0000
+	id 1oi69q-0004e2-MV; Tue, 11 Oct 2022 03:42:18 +0000
+Received: by outflank-mailman (input) for mailman id 419422;
+ Tue, 11 Oct 2022 03:42:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xsRG=2M=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1oi69o-0004dw-61
+ for xen-devel@lists.xenproject.org; Tue, 11 Oct 2022 03:42:16 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b0cda750-4916-11ed-91b4-6bf2151ebd3b;
+ Tue, 11 Oct 2022 05:42:13 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id EFE665C0151;
+ Mon, 10 Oct 2022 23:42:11 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Mon, 10 Oct 2022 23:42:11 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 10 Oct 2022 23:42:11 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,221 +43,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=flPFdkPyYuI9sJL8vs+x6IyQ+OE6sqQNB9tHK6m9yWA=; b=PRHy9bpVq1Jw2H9xMl42q6Md11
-	L8YYkM+XmswJroDThWNROnHPGtDdptrJkzwZMI9DsUc5uOADBAXF8vpMnjBsV0OTwG+8r1XSUVRN/
-	NJAluTJra6g3YkmeCUHmvAkVFtez8RZGfNFwhiF7furAuVoVPjF+Mxt6I9ULa3yDs/MI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173487-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b0cda750-4916-11ed-91b4-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1665459731; x=1665546131; bh=PNRzeYBxnqmwQZTl997sPEK/gSvhfY9baZ4
+	KGgodxYk=; b=NUsRfSiQHRdJpvyEuXFl0W3rLydfl68+aLCgmUKBS/KGQCZMfKU
+	c/oajzF/woMQzNTW5jjMdsQ/bgnBiR4rl90TOeLb5x6/31h+YeCRjmHonNRmGVtR
+	miM+AEKPxjPRLI26+V9tOfIeN/tqIczQttgtucP/ipb6OhPF8wC07IpDO2vWbXfJ
+	hOgv13YkOTCvMzaesN/adJS+W4qSpucfcPKXIDQt/QBCu7uR/teCRvHYPhRLi54I
+	mH4gEOAscAAmJzfaAkap6QkuloOtTkxbbWnFgz5V5vMZNyo9rgEA68N51hgsY1wm
+	FHr2dYPszgnzAC/R6YLFTVuZtcnK0N+HUsQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1665459731; x=1665546131; bh=PNRzeYBxnqmwQ
+	ZTl997sPEK/gSvhfY9baZ4KGgodxYk=; b=fxu690SRE8UDM/+dQ9J4CwvlydXFg
+	g4S0qhCXW2FKOJfsUaAl/b+W5gK9KdVZGPcYZEd2xe10fjSw6rCG9/8c+NbapH7G
+	1XSkQQLe8zSw+6TN1vnkKy96R2sOcCpfygofWCOzvkcXXb5jiJyc7tAU283PjNH+
+	y9fISvzvSBTDaguVwMH/QfKRFTipfPvuy2CQRTImpYKFZBlR6wEDlt3xyVO/MikO
+	r9eFzRssDE65zTkrQbONYzAHLXzlzoUzBWKYcrTQj7alyOI2RITHSUGlrOB/0pfm
+	ZrJ2WFgssnqA/lq/DJ1uZX97232dldU+UFwoNk+Nk2pEMvWr7w0ZU1EWQ==
+X-ME-Sender: <xms:E-ZEY4YFNpKsmm5rXdvgOXVSxAVTt62gWD3RMYgYa9Xw0vIpzezyQg>
+    <xme:E-ZEYzbadF1SHzg8tnZF0OWihgn4ZufYOXpSHvxEpD8VF6AaY09nY4vUg2zqUyquc
+    9EqTgwIUoioh0I>
+X-ME-Received: <xmr:E-ZEYy_F9btHzcM5GLgEDSDNs9_EVSD4A8zkzbjHlhUbIWDD-G9h6gMGwX52StUEd-VXdSzaDQ2K>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeejhedgjedvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeffvghmihcu
+    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvhfeltddtgedvtdefvdelteehtdeh
+    teeugfdtjeehleffkedvjeevkeejkeekgfenucffohhmrghinhepgigvnhhprhhojhgvtg
+    htrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:E-ZEYyqbBKUy2NQ4LHNNtCEy4YRqR4TL6M00xyh5OeC7O8zMX91jHg>
+    <xmx:E-ZEYzqRWRlpFwX8GtDZ3nq7CGOIpZCRtcz4OJhV2wtZQ3YO2dUltA>
+    <xmx:E-ZEYwSO-_EyvTHtwSHGC3QD4NuVaJp12Pjtbfb9PYYQwhojItw80Q>
+    <xmx:E-ZEY8AhYMCbDrPyAD2mjjn8mJXNGNvkS_t922JXde5zH23rjVHM1g>
+Feedback-ID: iac594737:Fastmail
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Ard Biesheuval <ardb@kernel.org>
+Subject: [PATCH v2] Use EfiACPIReclaimMemory for ESRT
+Date: Mon, 10 Oct 2022 23:42:03 -0400
+Message-Id: <ce73ae2fa148c5d79a038275b0983d24537e97de.1665458679.git.demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-Subject: [linux-linus test] 173487: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-localmigrate/x10:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=4de65c5830233e7a4adf2e679510089ec4e210c7
-X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 11 Oct 2022 02:37:58 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 173487 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173487/
+A previous patch tried to get Linux to use the ESRT under Xen if it is
+in memory of type EfiRuntimeServicesData.  However, this turns out to be
+a bad idea.  Ard Biesheuvel pointed out that EfiRuntimeServices* memory
+winds up fragmenting both the EFI page tables and the direct map, and
+that EfiACPIReclaimMemory is a much better choice for this purpose.
 
-Regressions :-(
+Link: https://lists.xenproject.org/archives/html/xen-devel/2022-09/msg01365.html
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+Changes since v1:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-freebsd12-amd64 19 guest-localmigrate/x10 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+- Add link to Ard Biesheuvel’s post on xen-devel
+- Expand comment to mention buggy firmware that place the ESRT in
+  EfiBootServicesData.
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+ xen/common/efi/boot.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index db0340c8e2628314226c618dda11ede4c62fdf3b..b3de1011ee58a67a82a94da050eb1343f4e37faa 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -601,11 +601,14 @@ static size_t __init get_esrt_size(const EFI_MEMORY_DESCRIPTOR *desc)
+     if ( physical_start > esrt || esrt - physical_start >= len )
+         return 0;
+     /*
+-     * The specification requires EfiBootServicesData, but accept
+-     * EfiRuntimeServicesData, which is a more logical choice.
++     * The specification requires EfiBootServicesData, but also accept
++     * EfiRuntimeServicesData (for compatibility with buggy firmware)
++     * and EfiACPIReclaimMemory (which will contain the tables after
++     * successful kexec).
+      */
+     if ( (desc->Type != EfiRuntimeServicesData) &&
+-         (desc->Type != EfiBootServicesData) )
++         (desc->Type != EfiBootServicesData) &&
++         (desc->Type != EfiACPIReclaimMemory) )
+         return 0;
+     available_len = len - (esrt - physical_start);
+     if ( available_len <= offsetof(EFI_SYSTEM_RESOURCE_TABLE, Entries) )
+@@ -1144,18 +1147,19 @@ static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
+     for ( i = 0; i < info_size; i += mdesc_size )
+     {
+         /*
+-         * ESRT needs to be moved to memory of type EfiRuntimeServicesData
++         * ESRT needs to be moved to memory of type EfiACPIReclaimMemory
+          * so that the memory it is in will not be used for other purposes.
+          */
+         void *new_esrt = NULL;
+-        size_t esrt_size = get_esrt_size(memory_map + i);
++        const EFI_MEMORY_DESCRIPTOR *desc = memory_map + i;
++        size_t esrt_size = get_esrt_size(desc);
+ 
+         if ( !esrt_size )
+             continue;
+-        if ( ((EFI_MEMORY_DESCRIPTOR *)(memory_map + i))->Type ==
+-             EfiRuntimeServicesData )
++        if ( desc->Type == EfiRuntimeServicesData ||
++             desc->Type == EfiACPIReclaimMemory )
+             break; /* ESRT already safe from reuse */
+-        status = efi_bs->AllocatePool(EfiRuntimeServicesData, esrt_size,
++        status = efi_bs->AllocatePool(EfiACPIReclaimMemory, esrt_size,
+                                       &new_esrt);
+         if ( status == EFI_SUCCESS && new_esrt )
+         {
+-- 
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-version targeted for testing:
- linux                4de65c5830233e7a4adf2e679510089ec4e210c7
-baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-
-Last test of basis   173462  2022-10-07 18:41:45 Z    3 days
-Failing since        173470  2022-10-08 06:21:34 Z    2 days   10 attempts
-Testing same since   173487  2022-10-10 19:12:23 Z    0 days    1 attempts
-
-------------------------------------------------------------
-685 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 55578 lines long.)
 
