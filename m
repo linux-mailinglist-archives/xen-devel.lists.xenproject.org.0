@@ -2,76 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB645FB156
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 13:18:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.419584.664425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C4985FB15F
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Oct 2022 13:22:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.419613.664438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiDGu-0006O5-IN; Tue, 11 Oct 2022 11:18:04 +0000
+	id 1oiDL6-0000uq-UP; Tue, 11 Oct 2022 11:22:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 419584.664425; Tue, 11 Oct 2022 11:18:04 +0000
+Received: by outflank-mailman (output) from mailman id 419613.664438; Tue, 11 Oct 2022 11:22:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiDGu-0006Ix-8e; Tue, 11 Oct 2022 11:18:04 +0000
-Received: by outflank-mailman (input) for mailman id 419584;
- Tue, 11 Oct 2022 11:18:02 +0000
+	id 1oiDL6-0000rR-RA; Tue, 11 Oct 2022 11:22:24 +0000
+Received: by outflank-mailman (input) for mailman id 419613;
+ Tue, 11 Oct 2022 11:22:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=s0xJ=2M=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
- id 1oiDGs-0005JI-M0
- for xen-devel@lists.xenproject.org; Tue, 11 Oct 2022 11:18:02 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60066.outbound.protection.outlook.com [40.107.6.66])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e35e6e0-4956-11ed-8fd0-01056ac49cbb;
- Tue, 11 Oct 2022 13:18:01 +0200 (CEST)
-Received: from AM6PR08CA0040.eurprd08.prod.outlook.com (2603:10a6:20b:c0::28)
- by DBAPR08MB5654.eurprd08.prod.outlook.com (2603:10a6:10:1a6::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Tue, 11 Oct
- 2022 11:17:58 +0000
-Received: from VE1EUR03FT055.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:c0:cafe::23) by AM6PR08CA0040.outlook.office365.com
- (2603:10a6:20b:c0::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.21 via Frontend
- Transport; Tue, 11 Oct 2022 11:17:58 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT055.mail.protection.outlook.com (10.152.19.158) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5709.10 via Frontend Transport; Tue, 11 Oct 2022 11:17:57 +0000
-Received: ("Tessian outbound 7761be2ecf00:v128");
- Tue, 11 Oct 2022 11:17:57 +0000
-Received: from 75c7a65fa408.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- D9034031-9535-46F2-AD6A-AE2E5A96FB01.1; 
- Tue, 11 Oct 2022 11:17:49 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 75c7a65fa408.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 11 Oct 2022 11:17:49 +0000
-Received: from AS9PR06CA0763.eurprd06.prod.outlook.com (2603:10a6:20b:484::17)
- by AS2PR08MB8287.eurprd08.prod.outlook.com (2603:10a6:20b:556::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Tue, 11 Oct
- 2022 11:17:48 +0000
-Received: from VE1EUR03FT064.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:484:cafe::9c) by AS9PR06CA0763.outlook.office365.com
- (2603:10a6:20b:484::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.20 via Frontend
- Transport; Tue, 11 Oct 2022 11:17:48 +0000
-Received: from nebula.arm.com (40.67.248.234) by
- VE1EUR03FT064.mail.protection.outlook.com (10.152.19.210) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5709.10 via Frontend Transport; Tue, 11 Oct 2022 11:17:47 +0000
-Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX03.Arm.com
- (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.12; Tue, 11 Oct
- 2022 11:17:46 +0000
-Received: from ais-wip-ds.shanghai.arm.com (10.169.190.86) by mail.arm.com
- (10.251.24.32) with Microsoft SMTP Server id 15.1.2507.12 via Frontend
- Transport; Tue, 11 Oct 2022 11:17:43 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2VIF=2M=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1oiDL5-0000rL-4G
+ for xen-devel@lists.xenproject.org; Tue, 11 Oct 2022 11:22:23 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f7eecb4a-4956-11ed-8fd0-01056ac49cbb;
+ Tue, 11 Oct 2022 13:22:20 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 26A6C5C0165;
+ Tue, 11 Oct 2022 07:22:19 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 11 Oct 2022 07:22:19 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 11 Oct 2022 07:22:17 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -83,200 +43,379 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e35e6e0-4956-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=EpXIhCCsOUPZNUd7C0KS5Pq+8Q0KW22KuI2ZR0fXg+sXI464Gr+X6s3eY9Z8npF58h8qIBJ8P3nEO7V5RV0qz0eCzpC4cnvJ9Ndrjihksz+abCAPP5hhY4W5eQT/FJ7Rh8Ejceit9z4Hbsz3ta+xR4S5fawigRidznG6N2HFQr+QYffBta66qKDu95CSF7UV65yxj4mcF2FnuiX0JbIINYPL13kHxX8TQ7vGKBqKvV3tI6+maEgM+J0qKL61gKPn1fDZscofw/EBQHpZFE93tYGRZ0bcU0+1bSlYjJ/+Gpp9VHfjPRFppnffsdI9ABgefppB/gj4LXxoc8oWubD+/Q==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b2GLMwmhodAy6ZR2vEpQ3koomWaM0KLVXx6V9XMPT4I=;
- b=CqsZhUH7ym+/NWroFJscO4QZBU2x+RSK62Lb7rZ6vuV1z8QQf5TyUQqXdyjGMDN1KI/HmiNiSkQVAyHhJngfYvQADol9/UNbzMquH+sso+M/TGabceyu0aTHET8OZ741PGhXqVh+HISiIOdfwoc0eUb+R8sOsD+HFA4rm+kJp5N5y3blcFfEt7O3w+Y/gUDLGiGgX6EiTXZetkJSP+njDOd9chavaOn8lA7kQyuVGsTjrIShDOIqck7+t4dEQvw01cG6NCgaWOWS3z8ht/AAqzYZhTKAxPAV844Olq6BpNCJEF5xlZSOeU0eQNMkjKiPgECn3IWgvilENp1Hgqgoqg==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b2GLMwmhodAy6ZR2vEpQ3koomWaM0KLVXx6V9XMPT4I=;
- b=AZiMjepOJzCKjWCxfp1H0x5R/A3mxCtAAJmp4C4m/sakkfdGVRlic+4f+VYWJNeXKJOk7ZMcLpplHFOuahzWVCRo+FOkuPTT0vmCg9JIoajcy3jHQMZ31NCc5pw20h2Y+zo0yu0SvibWw5fV5pJbWlO+wXFgmgzyhnoyIQsIkMg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 8ee3ca894f3d2594
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vy9ZUbnWOx19vcPbzheCWCmg1Idqy7Dc/uCO6LM0eBo5Ns2TRf2RUv2am9fgS4VHZVk1EeyAPFmQC1zeymucZ6UbiEXwN2X0wiK6JfSAtvAwPm9tBG4rdtGiocqetpDVNbEnD/Qmf6aiMB8m7jWM4HB9p3L+PRjxN3lc0P5JzAWLZuVsj8jBTDX4HuMsHn7HjQ/P6NiXty+u3N/iEof5qLi5TQyNmB0OYLs2DVTo21XFhIPZ4sYOrmLtYIs6nPjYI+xLszOsJHgtE9v8CGYi6Cwwmdq9amKyPGlIvTRE0O3p0hm1iYzTO+Pl2KBvAH3B5tWaP1xJqzbK2UllL/l9pQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b2GLMwmhodAy6ZR2vEpQ3koomWaM0KLVXx6V9XMPT4I=;
- b=JyyQciqUoGYZE3xI4iGoEZErXG3+6njOZPw8Q9muearZRW/8wXVZMtKVdanMGjFWWdhQOvNS+e3ZrY2wt4Vhd9b/9WdthWPq936/lTUKyXdcZ5/iRPjqQ9nC300MSSQrcsRIQNRwv0GbjwC2G5uMQnYrhs5Q2ghZEu+lFfX/W0fFZzT0Fuz3tyjToCYOFPW2nMqVY21TZRXoeF2q1SdYq8B19gOYfogQaeMKndFlp/Ltik8EGwDSuqapOvcuUtXbdjHiREWnNIOSOGk4ZLyzjyyhVFCWtLup4EyITDUW4zGqJfIXZxRv1DpuDKkwkytABOxI57vmE6sO0CPPHh/kKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b2GLMwmhodAy6ZR2vEpQ3koomWaM0KLVXx6V9XMPT4I=;
- b=AZiMjepOJzCKjWCxfp1H0x5R/A3mxCtAAJmp4C4m/sakkfdGVRlic+4f+VYWJNeXKJOk7ZMcLpplHFOuahzWVCRo+FOkuPTT0vmCg9JIoajcy3jHQMZ31NCc5pw20h2Y+zo0yu0SvibWw5fV5pJbWlO+wXFgmgzyhnoyIQsIkMg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
- smtp.mailfrom=arm.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=40.67.248.234; helo=nebula.arm.com; pr=C
-From: Wei Chen <wei.chen@arm.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <nd@arm.com>, Wei Chen <wei.chen@arm.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v6 6/6] xen: introduce a Kconfig option to configure NUMA nodes number
-Date: Tue, 11 Oct 2022 19:17:08 +0800
-Message-ID: <20221011111708.1272985-7-wei.chen@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221011111708.1272985-1-wei.chen@arm.com>
-References: <20221011111708.1272985-1-wei.chen@arm.com>
+X-Inumbo-ID: f7eecb4a-4956-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1665487339; x=
+	1665573739; bh=CQLvPIi+zS+g8PJ804HomIoSRHPl8Tc4biMEue8VQbo=; b=E
+	eZ/qDgPzncG4Sr0f0dYKZVX8++llNC685ahpdV+kNuN1i3Iv38eoURhvRb/7nLhi
+	L2px3E0ZfZMAaOefKDGKPahpzPQm7tFBM+auRgOPg99wSZKcxe/8JUP+5x+qT8xH
+	5xPL4LQFvMuMYGU/aJzA1h3WWJhXBotNwO4No3X+S5E1oMBKPdJ/FISALxC92wwN
+	qGFBzMFOpCdybqD6pD4iQr9rvxmvraxfHFsp2vFsAnGi8MP+VVj8Mqc0Zyux8xm4
+	9M1KBox0SurzVTyQ7eeKXn9dEp48qxGtaLXG362C/7iPgTve/YeEp+GXihdgSV5R
+	A6hUub4usEpdJKWQn1Ilw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1665487339; x=1665573739; bh=CQLvPIi+zS+g8PJ804HomIoSRHPl
+	8Tc4biMEue8VQbo=; b=K2LFOFJC9g3g+nkSLFeBF9Ka8LKdDb2lFrNivLc4fZx/
+	2W4xCwXkBN90CrIx+2/md1xmboEdXEFSF8p0jQ2gAlRqRY1iWaCkdbNyc0KncBIb
+	W2SIK0wUv1H6h17M4ZuvU+Y+lPuvumTkKIZYoGT4yo09QnvOus3rFFZtdflxHakl
+	Idyqr21zLV35IAYiMEWckvyFdAjqFoFyxGxkByWxjBXtNj08xUU6n6xs0317JVxi
+	HR+XpDVGG7KkexfPoIHmKaGbavxpfOTwsQmb/efPIQd0jfRKzexz3jmdnvEzLdK8
+	Gsrr5C3OkjmiVA1kqLPcH4TICZW0mUy0eu6YS430vg==
+X-ME-Sender: <xms:6lFFY2AMuu3AbuWTk_jc7yiKiHetvQd5QTa9jN9tquVV5UOthciiOA>
+    <xme:6lFFYwihy09I8YHmlOxG1TkXwtILeX9ANo_mqc8KDg7NMa1s6jA7xq65gx9xgGKq3
+    o2mpWQKdHGI9Q>
+X-ME-Received: <xmr:6lFFY5kYIUf7RMdOgdgtRxwXh5q1mCxr_DELsGYz5bABVh2Ty3L58X42vgRgc2aZp2Ka5zfCYstiIxSCuBMplx9zp0Qddu6gMLxT>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeejiedgfeehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptdff
+    veffkedvudetvdetvdefffduueeuveelfedtfeevfedtveelgfegtdevvdeunecuffhomh
+    grihhnpehgihhthhhusgdrtghomhdprggttghorhguihhnghhlhidrphhinhhgnecuvehl
+    uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvg
+    hksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:6lFFY0xbIKUkZHtymVEA3PW7SafJZH8VoyKhhF7UL7jmT9vfHTmFZQ>
+    <xmx:6lFFY7TrIK8cWVrQNv0zkbq7v5na6Z5iOFiAxZxnCJvDAug0hEWGlw>
+    <xmx:6lFFY_avngfwB1wOeSz2nPHWhFoVoczqJoc8m9HeWgCBHEDhBBLLFQ>
+    <xmx:61FFY1fe9KinpiScHmC55r3pP69BNAPQWpJLey5Gw-HNXXHphNeugg>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 11 Oct 2022 13:22:15 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Dario Faggioli <dfaggioli@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13 and newer
+Message-ID: <Y0VR53lPZbbmbR2L@mail-itl>
+References: <d243c1b5-712d-a958-0b6c-b232eb4edc80@suse.com>
+ <20200929151627.GE1482@mail-itl>
+ <ea53b845-5edf-a61e-62ae-7ababc30b3e0@suse.com>
+ <20210131021526.GB6354@mail-itl>
+ <YWHDIQC3K8J3LD8+@mail-itl>
+ <YwJZ3X0HpT9w6Veh@mail-itl>
+ <b1df84d5-a1ca-3019-16a7-36d0bb568779@suse.com>
+ <YwNTu1fL7uITg0OZ@mail-itl>
+ <YymUZCfLZRWl6xr5@mail-itl>
+ <e813f296-ba1d-7ff0-a84c-97737d7ac7a5@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 1
-X-MS-TrafficTypeDiagnostic:
-	VE1EUR03FT064:EE_|AS2PR08MB8287:EE_|VE1EUR03FT055:EE_|DBAPR08MB5654:EE_
-X-MS-Office365-Filtering-Correlation-Id: 375dc67e-5645-4266-a395-08daab7a3ffb
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- ieN/S/xTVUQt2x3L5xfXJFeG42YmcRvmX3i6lmYOl8fr5TI230ulc1iTz+vJKwpC1I3dV+9jjn9uE1S7BVcuT5yh+OHrvwPEIyaHQTtZRkez761WMHIZ7vGb462DyGVUBM75ffbNG44w4Io/5E/HjSu5koVT5kx4bSOc9Vad0+nRHwl7TcCRsdsVq3iVkyNqwnkPiPfrUfaN9wccaM5LTgkbRb0gZqCjuwSZfUMc7Um9JbOLvjQp31sQTT2JyADjWRaRuDScF3kMSBao4Z/hK1D5PGyImu/z2K6rK+zVTT0iGw8KtWjlb4B68oKwt8JU8GwlQAFH0bc9QSpqXWjhPqJ9ETK45/7kDKXyYXeHTzP/GnwTzT0Q9U+S4XXEDusakEZwV6o8Ql1cOHPcREN89j+yoZe30tkrU2WguEBd79YMcJKkZgAD4nhgR1az3GrAi+A74J6tAy8JY1nRISooRfocXR161nlt4V4wwMjjMQBOtMssOuslzFRG9px7YsqRRr4BPyyjPrC2hcz8eYiREPO7FiipgJMAzqeJAwO/FtMWJ9+pzI2WzpwS9QYujW0ONDBoJ+IGWbndU1c7FXLP34+Bo69iqOaY6p4AAcuMCSAZoHONoT+/Tx4Ejrbi+PsLs2Ah5kxAKmPekiuJtP6iHkdoW2YCSDH41H6cD7mqrXUOZjAuJsMGE9H2V0VNlfiE6WWHO56s1jfe0tYoF8kCpSJJjYP89P4NfNv8z1W3zIHehjTH9c+I3o7Z5h/Zgk3YqFE5vIjURG9GuYtHSOt+j/UeO8m+I2TsHgpvxZrB41g=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199015)(46966006)(36840700001)(40470700004)(1076003)(2616005)(186003)(44832011)(82310400005)(356005)(2906002)(6666004)(36756003)(4326008)(70206006)(70586007)(8676002)(316002)(478600001)(40460700003)(41300700001)(6916009)(5660300002)(36860700001)(26005)(86362001)(40480700001)(54906003)(336012)(8936002)(426003)(7696005)(47076005)(82740400003)(83380400001)(81166007)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8287
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT055.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	25bfa2e3-3974-4acf-eccc-08daab7a3a37
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	3wnGOjiS5wwh3hZCKpKkt8qpcnWMHB+wTYR5GPScuAWtB3KHGE+u5jC3EdlqykMLwpXbSYzpaEtMAcPhSh81laTFJ7RB/SO9LRoQHZFI2AP6fXWhn8uYulzfmWAmWw7ly3727Z4YQo23JtEPjkMz3drJApOFJlwEzxDplUHtkNfwbOLWOwXc9CBHL1bUQnoD4yA0vw5E+zoh42m4RhPj2mQUt98ID3xQMYjDnJVETO4jG9vlpb6aYXp9SYBdwHgIUYpbj2c3HOrVojqjyAwhe/AOVr6StW4KWPcXYFxemetMGCgRfmWkOrsU50mUj+v7cWjMpjM6p1SBwziovMtu/gPDIAnyklppVEb8A+eCB3Qj3HOW7F2iyWZPi0EBTRhge40BiY5onddZ9prf5nJax6m9KTSbBs4A8x/uBTB9LFpa5NsA5uYt+WrFeuDiiDDsHiq0IFq6I66xaBUamsKAqrrSXqzMSAqIqss3/xUo5agG+RzJUuIGjyYANG9vPG6CIgWI+CNj/osT0dM55w3nOyRI9S59VLCDPWl7xRH0EJ/4pkiPsk0Urz6MHu6lC3ine8+v7dXvWHVOZ/1+XU8H32B/9oqFFBF3Z0fd+YUMPxRuRws5MZ2gH7+hwLiSZaYcsmpVqhWca19EU5QDNeILqQUy9g4v3NML4KpA/CM0nbxjG25ei7r+/DVW9IOENf6Fk4ZbMXihypdsFrnybqotMst0DJUbLJno6uNpA+hKxIpihPzWd9ZPJnlWRCEXwnbEBvjk6u6D1yaaSyEKacSR0Q==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(376002)(396003)(39850400004)(451199015)(46966006)(40470700004)(36840700001)(40460700003)(1076003)(4326008)(2906002)(41300700001)(8676002)(2616005)(186003)(70206006)(86362001)(426003)(83380400001)(70586007)(47076005)(36756003)(8936002)(44832011)(336012)(5660300002)(6666004)(82740400003)(107886003)(7696005)(40480700001)(82310400005)(478600001)(81166007)(316002)(6916009)(54906003)(26005)(36860700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2022 11:17:57.3059
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 375dc67e-5645-4266-a395-08daab7a3ffb
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT055.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5654
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="hvm1Jo/UDaOd/PS4"
+Content-Disposition: inline
+In-Reply-To: <e813f296-ba1d-7ff0-a84c-97737d7ac7a5@suse.com>
 
-Currently the maximum number of NUMA nodes is a hardcoded value.
-This provides little flexibility unless changing the code.
 
-Introduce a new Kconfig option to change the maximum number of
-NUMA nodes conveniently. Also considering that not all
-architectures support NUMA, this Kconfig option is only visible
-on NUMA enabled architectures. Architectures not supporting NUMA
-still use 1 for MAX_NUMNODES.
+--hvm1Jo/UDaOd/PS4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 11 Oct 2022 13:22:15 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Dario Faggioli <dfaggioli@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [Xen-devel] Xen crash after S3 suspend - Xen 4.13 and newer
 
-As NODES_SHIFT is currently unused, we're taking this
-opportunity to remove it.
+On Tue, Sep 20, 2022 at 04:30:41PM +0200, Jan Beulich wrote:
+> On 20.09.2022 12:22, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Mon, Aug 22, 2022 at 12:00:27PM +0200, Marek Marczykowski-G=C3=B3rec=
+ki wrote:
+> >> On Mon, Aug 22, 2022 at 11:53:50AM +0200, Jan Beulich wrote:
+> >>> On 21.08.2022 18:14, Marek Marczykowski-G=C3=B3recki wrote:
+> >>>> On Sat, Oct 09, 2021 at 06:28:17PM +0200, Marek Marczykowski-G=C3=B3=
+recki wrote:
+> >>>>> On Sun, Jan 31, 2021 at 03:15:30AM +0100, Marek Marczykowski-G=C3=
+=B3recki wrote:
+> >>>>>> I'm resurrecting this thread as it was recently mentioned elsewher=
+e. I
+> >>>>>> can still reproduce the issue on the recent staging branch (9dc687=
+f155).
+> >>>>>>
+> >>>>>> It fails after the first resume (not always, but frequent enough to
+> >>>>>> debug it). At least one guest needs to be running - with just (PV)=
+ dom0
+> >>>>>> the crash doesn't happen (at least for the ~8 times in a row I tri=
+ed).
+> >>>>>> If the first resume works, the second (almost?) always will fail b=
+ut
+> >>>>>> with a different symptoms - dom0 kernel lockups (at least some of =
+its
+> >>>>>> vcpus). I haven't debugged this one yet at all.
+> >>>>>>
+> >>>>>> Any help will be appreciated, I can apply some debug patches, chan=
+ge
+> >>>>>> configuration etc.
+> >>>>>
+> >>>>> This still happens on 4.14.3. Maybe it is related to freeing percpu
+> >>>>> areas, as it caused other issues with suspend too? Just a thought...
+> >>>>
+> >>>> I have reproduced this on current staging(*). And I can reproduce it
+> >>>> reliably. And also, I got (I believe) closely related crash with cre=
+dit1
+> >>>> scheduler.
+> >>>>
+> >>>> (*) It isn't plain staging, it's one with my xhci console patches on
+> >>>> top, including attempt to make it survive S3. I believe the only
+> >>>> relevant part there is sticking set_timer() into console resume path=
+ (or
+> >>>> just having a timer with rather short delay registered). The actual =
+tree
+> >>>> at https://github.com/marmarek/xen/tree/master-xue2-debug, including
+> >>>> quite a lot of debug prints and debug hacks.
+> >>>>
+> >>>> Specific crash with credit2:
+> >>
+> >> (XEN) Assertion 'c2rqd(sched_unit_master(unit)) =3D=3D svc->rqd' faile=
+d at common/sched/credit2.c:2274
+> >> (XEN) ----[ Xen-4.17-unstable  x86_64  debug=3Dy  Tainted:   C    ]----
+> >> (XEN) CPU:    10
+> >> (XEN) RIP:    e008:[<ffff82d040247a4d>] credit2.c#csched2_unit_wake+0x=
+152/0x154
+> >> (XEN) RFLAGS: 0000000000010083   CONTEXT: hypervisor (d0v0)
+> >> (XEN) rax: ffff830251778230   rbx: ffff830251768cb0   rcx: 00000032111=
+d6000
+> >> (XEN) rdx: ffff8302515c1eb0   rsi: 0000000000000006   rdi: ffff8302517=
+69000
+> >> (XEN) rbp: ffff8302515cfd90   rsp: ffff8302515cfd70   r8:  ffff8302517=
+69000
+> >> (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 00000000000=
+00000
+> >> (XEN) r12: ffff830251768dd0   r13: ffff8302515c1d00   r14: 00000000000=
+00006
+> >> (XEN) r15: ffff82d0405ddb40   cr0: 0000000080050033   cr4: 00000000003=
+72660
+> >> (XEN) cr3: 000000022f2a1000   cr2: ffff8881012738e0
+> >> (XEN) fsb: 0000744bf6a0db80   gsb: ffff888255600000   gss: 00000000000=
+00000
+> >> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
+> >> (XEN) Xen code around <ffff82d040247a4d> (credit2.c#csched2_unit_wake+=
+0x152/0x154):
+> >> (XEN)  df e8 6f bf ff ff eb ad <0f> 0b f3 0f 1e fa 55 48 89 e5 41 57 4=
+1 56 41 55
+> >> (XEN) Xen stack trace from rsp=3Dffff8302515cfd70:
+> >> (XEN)    ffff83025174b000 ffff830251768cb0 ffff830251778270 ffff82d040=
+5c4298
+> >> (XEN)    ffff8302515cfdd8 ffff82d04024fcb8 0000000000000202 ffff830251=
+778270
+> >> (XEN)    ffff83025174b000 0000000000000001 ffff830251769018 0000000000=
+000000
+> >> (XEN)    0000000000000000 ffff8302515cfe48 ffff82d04020a8c9 ffff888255=
+6aedc0
+> >> (XEN)    0000000000000003 00001910537e623e 0000000b988f78a6 0000000059=
+d4a716
+> >> (XEN)    00001901f30fa41e 0000000217f96af6 0000000000000000 ffff830251=
+74b000
+> >> (XEN)    ffff830251756000 0000000000000002 0000000000000001 ffff830251=
+5cfe70
+> >> (XEN)    ffff82d0402f7968 ffff830251756000 ffff8302515cfef8 0000000000=
+000018
+> >> (XEN)    ffff8302515cfee8 ffff82d0402ec6de 0000000000000000 ffffffff82=
+f157e0
+> >> (XEN)    0000000000000000 0000000000000000 ffff8302515cfef8 0000000000=
+000000
+> >> (XEN)    0000000000000000 ffff8302515cffff ffff830251756000 0000000000=
+000000
+> >> (XEN)    0000000000000000 0000000000000000 0000000000000000 00007cfdae=
+a300e7
+> >> (XEN)    ffff82d0402012bd 0000000000000000 ffffffff82c51120 ffff888100=
+36cf00
+> >> (XEN)    0000000000000002 000000000001e120 0000000000000002 0000000000=
+000246
+> >> (XEN)    ffffffff82f157e0 0000000000000001 0000000000000000 0000000000=
+000018
+> >> (XEN)    ffffffff81e4a30a 0000000000000000 0000000000000002 0000000000=
+000001
+> >> (XEN)    0000010000000000 ffffffff81e4a30a 000000000000e033 0000000000=
+000246
+> >> (XEN)    ffffc9004aef7c18 000000000000e02b fb5ee398d214b10c eb5ef398c2=
+14a10c
+> >> (XEN)    eb56f390c21ca104 ebd6f310c29ca184 0000e0100000000a ffff830251=
+756000
+> >> (XEN)    0000003211016000 0000000000372660 0000000000000000 8000000296=
+3e1002
+> >> (XEN) Xen call trace:
+> >> (XEN)    [<ffff82d040247a4d>] R credit2.c#csched2_unit_wake+0x152/0x154
+> >> (XEN)    [<ffff82d04024fcb8>] F vcpu_wake+0xfd/0x267
+> >> (XEN)    [<ffff82d04020a8c9>] F common_vcpu_op+0x178/0x5d1
+> >> (XEN)    [<ffff82d0402f7968>] F do_vcpu_op+0x69/0x226
+> >> (XEN)    [<ffff82d0402ec6de>] F pv_hypercall+0x575/0x657
+> >> (XEN)    [<ffff82d0402012bd>] F lstar_enter+0x13d/0x150
+> >> (XEN)
+> >> (XEN)
+> >> (XEN) ****************************************
+> >> (XEN) Panic on CPU 10:
+> >> (XEN) Assertion 'c2rqd(sched_unit_master(unit)) =3D=3D svc->rqd' faile=
+d at common/sched/credit2.c:2274
+> >> (XEN) ****************************************
+> >=20
+> > Ok, I think I figured it out!
+> >=20
+> > I added a function that verifies run queues of all the sched units, and
+> > called it basically every other line on the resume path. The debug
+> > function (if anybody is interested):
+> >=20
+> >     void verify_sched_units(void)
+> >     {  =20
+> >         struct domain *d;
+> >         const struct sched_unit *unit;
+> >        =20
+> >         for_each_domain ( d )
+> >         {
+> >             for_each_sched_unit ( d, unit )
+> >             {
+> >                 if ( c2rqd(sched_unit_master(unit)) !=3D csched2_unit(u=
+nit)->rqd )
+> >                 {
+> >                     printk(XENLOG_WARNING "d%d sched unit %d: rq=3D%d, =
+unit master %d, rq=3D%d\n",
+> >                             d->domain_id, unit->unit_id,
+> >                             csched2_unit(unit)->rqd ? csched2_unit(unit=
+)->rqd->id : -1,
+> >                             sched_unit_master(unit),
+> >                             c2rqd(sched_unit_master(unit))->id);
+> >                     WARN_ON(1);
+> >                 }
+> >             }
+> >         }
+> >     }
+> >=20
+> > It appears that restore_vcpu_affinity() is responsible, specifically
+> > this part:
+> >=20
+> > 1216         /*
+> > 1217          * Re-assign the initial processor as after resume we have=
+ no
+> > 1218          * guarantee the old processor has come back to life again.
+> > 1219          *
+> > 1220          * Therefore, here, before actually unpausing the domains,=
+ we should
+> > 1221          * set v->processor of each of their vCPUs to something th=
+at will
+> > 1222          * make sense for the scheduler of the cpupool in which th=
+ey are in.
+> > 1223          */
+> > ...
+> > 1249         res =3D get_sched_res(cpumask_any(cpumask_scratch_cpu(cpu)=
+));
+> > 1250         sched_set_res(unit, res);
+> > 1251=20
+> > 1252         spin_unlock_irq(lock);
+> > 1253=20
+> > 1254         /* v->processor might have changed, so reacquire the lock.=
+ */
+> > 1255         lock =3D unit_schedule_lock_irq(unit);
+> > 1256         res =3D sched_pick_resource(unit_scheduler(unit), unit);
+> > 1257         sched_set_res(unit, res);
+> > 1258         spin_unlock_irq(lock);
+> > 1259=20
+> > 1260         if ( old_cpu !=3D sched_unit_master(unit) )
+> > 1261             sched_move_irqs(unit);
+> >=20
+> > It calls sched_set_res() directly, which assigns sched resources, but
+> > does _not_ adjust runqueues (if new pcpu happen to be assigned to
+> > another runqueue than the one from previous pcpu).
+> >=20
+> > I have two (non exclusive) ideas here:
+> > 1. If old_cpu is actually still available, do not move it at all.
+> > 2. Use sched_migrate() instead of sched_set_res().
+> >=20
+> > Here is the patch that fixes it for me:
+> > ---8<---
+> > diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> > index 83455fbde1c8..dcf202d8b307 100644
+> > --- a/xen/common/sched/core.c
+> > +++ b/xen/common/sched/core.c
+> > @@ -1246,19 +1246,29 @@ void restore_vcpu_affinity(struct domain *d)
+> >              }
+> >          }
+> > =20
+> > -        res =3D get_sched_res(cpumask_any(cpumask_scratch_cpu(cpu)));
+> > +        /* Prefer old cpu if available. */
+> > +        if ( cpumask_test_cpu(old_cpu, cpumask_scratch_cpu(cpu)) )
+> > +            res =3D get_sched_res(old_cpu);
+> > +        else
+> > +            res =3D get_sched_res(cpumask_any(cpumask_scratch_cpu(cpu)=
+));
+> >          sched_set_res(unit, res);
+> > =20
+> >          spin_unlock_irq(lock);
+> > =20
+> > -        /* v->processor might have changed, so reacquire the lock. */
+> > -        lock =3D unit_schedule_lock_irq(unit);
+> > -        res =3D sched_pick_resource(unit_scheduler(unit), unit);
+> > -        sched_set_res(unit, res);
+> > -        spin_unlock_irq(lock);
+> > -
+> > +        /*
+> > +         * If different cpu was chosen, it was random, let scheduler d=
+o proper
+> > +         * decision.
+> > +         */
+> >          if ( old_cpu !=3D sched_unit_master(unit) )
+> > +        {
+> > +            /* v->processor might have changed, so reacquire the lock.=
+ */
+> > +            lock =3D unit_schedule_lock_irq(unit);
+> > +            res =3D sched_pick_resource(unit_scheduler(unit), unit);
+> > +            sched_migrate(unit_scheduler(unit), unit, res->master_cpu);
+> > +            spin_unlock_irq(lock);
+> > +
+> >              sched_move_irqs(unit);
+> > +        }
+> >      }
+> > =20
+> >      rcu_read_unlock(&sched_res_rculock);
+> > ---8<---
+> >=20
+> > I have several doubts here:
+> >=20
+> > 1. If old_cpu is available, is sched_set_res() needed at all?
+> > 2. Should both calls be changed to sched_migrate()? Currently I changed
+> >    only the second one, in case scheduler could be confused about
+> >    old_cpu not being available anymore.
+> > 3. Are there any extra locking requirements for sched_migrate() at this
+> >    stage? The long comment above sched_unit_migrate_start() suggests
+> >    there might be, but I'm not sure if that's really the case during
+> >    resume.
+> > 4. Related to the above - should thaw_domains() be modified to call
+> >    restore_vcpu_affinity() for all domains first, and unpause only
+> >    later? That could reduce locking requirements, I guess.
+>=20
+> All questions primarily to the scheduler maintainers - forwarding
+> accordingly.
 
-Signed-off-by: Wei Chen <wei.chen@arm.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-v5 -> v6:
-1. No change.
-v4 -> v5:
-1. No change.
-v3 -> v4:
-1. Update the commit log to follow Jan's suggestion.
-2. Add Ack-by.
-v2 -> v3:
-1. Fix indent.
-2. Use 2-64 for node range.
-v1 -> v2:
-1. Add NODES_SHIFT remove message in commit log
-2. Change NR_NUMA_NODES upper bound from 4095 to 255.
----
- xen/arch/Kconfig                | 11 +++++++++++
- xen/arch/x86/include/asm/numa.h |  2 --
- xen/include/xen/numa.h          | 11 ++++++-----
- 3 files changed, 17 insertions(+), 7 deletions(-)
+Ping?
 
-diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
-index f16eb0df43..7028f7b74f 100644
---- a/xen/arch/Kconfig
-+++ b/xen/arch/Kconfig
-@@ -17,3 +17,14 @@ config NR_CPUS
- 	  For CPU cores which support Simultaneous Multi-Threading or similar
- 	  technologies, this the number of logical threads which Xen will
- 	  support.
-+
-+config NR_NUMA_NODES
-+	int "Maximum number of NUMA nodes supported"
-+	range 2 64
-+	default "64"
-+	depends on NUMA
-+	help
-+	  Controls the build-time size of various arrays and bitmaps
-+	  associated with multiple-nodes management. It is the upper bound of
-+	  the number of NUMA nodes that the scheduler, memory allocation and
-+	  other NUMA-aware components can handle.
-diff --git a/xen/arch/x86/include/asm/numa.h b/xen/arch/x86/include/asm/numa.h
-index 2ca3475271..7866afa408 100644
---- a/xen/arch/x86/include/asm/numa.h
-+++ b/xen/arch/x86/include/asm/numa.h
-@@ -3,8 +3,6 @@
- 
- #include <xen/cpumask.h>
- 
--#define NODES_SHIFT 6
--
- typedef u8 nodeid_t;
- 
- extern int srat_rev;
-diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-index 04ecaf7769..71a5f837b3 100644
---- a/xen/include/xen/numa.h
-+++ b/xen/include/xen/numa.h
-@@ -3,14 +3,15 @@
- 
- #include <asm/numa.h>
- 
--#ifndef NODES_SHIFT
--#define NODES_SHIFT     0
--#endif
--
- #define NUMA_NO_NODE     0xFF
- #define NUMA_NO_DISTANCE 0xFF
- 
--#define MAX_NUMNODES    (1 << NODES_SHIFT)
-+#ifdef CONFIG_NR_NUMA_NODES
-+#define MAX_NUMNODES CONFIG_NR_NUMA_NODES
-+#else
-+#define MAX_NUMNODES 1
-+#endif
-+
- #define NR_NODE_MEMBLKS (MAX_NUMNODES * 2)
- 
- #define vcpu_to_node(v) (cpu_to_node((v)->processor))
--- 
-2.25.1
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--hvm1Jo/UDaOd/PS4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmNFUecACgkQ24/THMrX
+1yys5Qf7B2NMRdG9dd8xg5U0EY55HEQr+gFJFba6hJpUA/AykYhirKQkHdYchiUj
+dZDgxY1O1LeJuST+zw9TEF4QmoczNwO1d9aIwSGjH+GDmcpd5MCUS0rAqNKYEd8F
+/p7yTf4yc4SwhaVUY/f9EJEPsdB9rY2D9b+BhbK8Fs6aLfDA/gd+z3I+C0nlzCor
+bOrDZfbCpJtgWUhmRVGZxl0ily1l8vWpeYn2wMrgPktWR5iJzc6bsAFZYtwMqOk5
+ouESkOZLhb/Xe4anP7IXsvGZmu+iseRIUgfoyDAk1nh4pAporVRkW8qSOhpB5ojD
+/6I2HKl5EI5jwFH1KIOgLKt9IMcahQ==
+=2bdb
+-----END PGP SIGNATURE-----
+
+--hvm1Jo/UDaOd/PS4--
 
