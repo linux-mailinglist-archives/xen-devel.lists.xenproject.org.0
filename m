@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8DD15FC35A
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Oct 2022 12:00:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.420933.666068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DC205FC35E
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Oct 2022 12:02:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.420941.666079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiYX3-0007io-LZ; Wed, 12 Oct 2022 10:00:09 +0000
+	id 1oiYYU-0008HE-07; Wed, 12 Oct 2022 10:01:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 420933.666068; Wed, 12 Oct 2022 10:00:09 +0000
+Received: by outflank-mailman (output) from mailman id 420941.666079; Wed, 12 Oct 2022 10:01:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiYX3-0007gJ-IG; Wed, 12 Oct 2022 10:00:09 +0000
-Received: by outflank-mailman (input) for mailman id 420933;
- Wed, 12 Oct 2022 10:00:07 +0000
+	id 1oiYYT-0008F1-T5; Wed, 12 Oct 2022 10:01:37 +0000
+Received: by outflank-mailman (input) for mailman id 420941;
+ Wed, 12 Oct 2022 10:01:36 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oiYX1-0007g8-M0; Wed, 12 Oct 2022 10:00:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1oiYYS-0008Ev-JW
+ for xen-devel@lists.xenproject.org; Wed, 12 Oct 2022 10:01:36 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oiYX1-0002DN-JN; Wed, 12 Oct 2022 10:00:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oiYX1-0000Vg-9v; Wed, 12 Oct 2022 10:00:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oiYX1-0006kG-9X; Wed, 12 Oct 2022 10:00:07 +0000
+ (envelope-from <julien@xen.org>)
+ id 1oiYYR-0002Es-Ki; Wed, 12 Oct 2022 10:01:35 +0000
+Received: from [15.248.2.148] (helo=[10.24.69.10])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oiYYR-0000sp-EZ; Wed, 12 Oct 2022 10:01:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,90 +39,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ib/sPsvrmd5QkmP0A++dj60WAABRfQRCjenMXME7Vho=; b=tyuEC37SN1egU7TAzf4rvl8jgm
-	5vruBL3gL4rnYWiP15BJrhXHGrcFisFJB5LGxViR/pf+/AJ06C2aaMwqdXnC0o5OnoFrC4AlGbJaf
-	/sBapW2W1FXOec4T/yLHTRN3bTVMGTwFr9mLXXMBl03bWzTnsdumqe5AW4GFeBmRuP1Y=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173538-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=w+yWvQkrnh/YS559Rxc8tdkYjKXcooXovV4rsV94Lpw=; b=JrLrF4mXMYYWwBAG52SIabV02F
+	PIyU7HtSTft7JfeJkNd3sI19Y0S/htiV3Zr7s/0hu3xplaqeX0pO4+4ySOzb0c1bcsfqCMpCP7whJ
+	bRRHER6vdB+D/e8orfIP1HOwIFSeTxWCReP+nhUkOof11imT1fq0JsTP9v5ywQkJrCLI=;
+Message-ID: <add54637-1578-225e-7021-6b52e62b221b@xen.org>
+Date: Wed, 12 Oct 2022 11:01:23 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 173538: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=87a20c98d9f0f422727fe9b4b9e22c2c43a5cd9c
-X-Osstest-Versions-That:
-    xen=9029bc265cdf2bd63376dde9fdd91db4ce9c0586
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 12 Oct 2022 10:00:07 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.1
+Subject: Re: [xen-unstable-smoke test] 173492: regressions - FAIL
+Content-Language: en-US
+To: Henry Wang <Henry.Wang@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>
+References: <osstest-173492-mainreport@xen.org>
+ <9a004932-ccaa-5e78-c0fa-6fe3f2c13b78@suse.com>
+ <AS8PR08MB79917FBE55B5344A8A1F915D92229@AS8PR08MB7991.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <AS8PR08MB79917FBE55B5344A8A1F915D92229@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 173538 xen-unstable-smoke real [real]
-flight 173560 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173538/
-http://logs.test-lab.xenproject.org/osstest/logs/173560/
+(+ Bertrand & Stefano)
 
-Regressions :-(
+Hi Henry,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
+On 12/10/2022 07:39, Henry Wang wrote:
+>> -----Original Message-----
+>> Subject: Re: [xen-unstable-smoke test] 173492: regressions - FAIL
+>>
+>> On 11.10.2022 18:29, osstest service owner wrote:
+>>> flight 173492 xen-unstable-smoke real [real]
+>>> http://logs.test-lab.xenproject.org/osstest/logs/173492/
+>>>
+>>> Regressions :-(
+>>>
+>>> Tests which did not succeed and are blocking,
+>>> including tests which could not be run:
+>>>   test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 173457
+>>
+>> Parsing config from /etc/xen/debian.guest.osstest.cfg
+>> libxl: debug: libxl_create.c:2079:do_domain_create: ao 0xaaaacaccf680:
+>> create: how=(nil) callback=(nil) poller=0xaaaacaccefd0
+>> libxl: detail: libxl_create.c:661:libxl__domain_make: passthrough: disabled
+>> libxl: debug: libxl_arm.c:148:libxl__arch_domain_prepare_config: Configure
+>> the domain
+>> libxl: debug: libxl_arm.c:151:libxl__arch_domain_prepare_config:  - Allocate
+>> 0 SPIs
+>> libxl: error: libxl_create.c:709:libxl__domain_make: domain creation fail: No
+>> such file or directory
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+So this is -ENOENT which could be returned by the P2M is it can't 
+allocate a page table (see p2m_set_entry()).
 
-version targeted for testing:
- xen                  87a20c98d9f0f422727fe9b4b9e22c2c43a5cd9c
-baseline version:
- xen                  9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+>> libxl: error: libxl_create.c:1294:initiate_domain_create: cannot make domain:
+>> -3
+>>
+>> Later flights don't fail here anymore, though.
+>>
+>>>   test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
+>>
+>> Similar log contents here, but later flights continue to fail the same way.
+>>
+>> I'm afraid I can't draw conclusions from this; I haven't been able to spot
+>> anything helpful in the hypervisor logs. My best guess right now is the use
+>> of some uninitialized memory, which just happened to go fine in the later
+>> flights for 64-bit.
 
-Last test of basis   173457  2022-10-07 14:03:14 Z    4 days
-Testing same since   173492  2022-10-11 13:01:50 Z    0 days    4 attempts
+It looks like the smoke flight failed on laxton0 but passed on 
+rochester{0, 1}. The former is using GICv2 whilst the latter are using 
+GICv3.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Henry Wang <Henry.Wang@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tim Deegan <tim@xen.org>
+In the case of GICv2, we will create a P2M mapping when the domain is 
+created. This is not necessary in the GICv3.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+IIRC the P2M pool is only populated later on (we don't add a few pages 
+like on x86). So I am guessing this is why we are seen failure.
 
+If that's correct, then this is a complete oversight from me (I haven't 
+done any GICv2 testing) while reviewing the series.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+The easy way to solve it would be to add a few pages in the pool when 
+the domain is created. I don't like it, but I think there other possible 
+solutions would require more work as we would need to delay the mappings.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> 
+> I am also quite confused about this issue, as from my local test today on
+> different Arm/Arm64 boards, this issue would be only triggered on some of
+> them instead of all of them...
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Did this include any GICv2 HW?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Not pushing.
-
-(No revision log; it would be 427 lines long.)
+-- 
+Julien Grall
 
