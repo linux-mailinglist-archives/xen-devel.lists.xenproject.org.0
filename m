@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A54E5FC593
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Oct 2022 14:45:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.421106.666287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C9695FC5E5
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Oct 2022 15:05:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.421139.666321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oib6X-000698-Er; Wed, 12 Oct 2022 12:44:57 +0000
+	id 1oibQ4-0000ki-FO; Wed, 12 Oct 2022 13:05:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 421106.666287; Wed, 12 Oct 2022 12:44:57 +0000
+Received: by outflank-mailman (output) from mailman id 421139.666321; Wed, 12 Oct 2022 13:05:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oib6X-00065s-BK; Wed, 12 Oct 2022 12:44:57 +0000
-Received: by outflank-mailman (input) for mailman id 421106;
- Wed, 12 Oct 2022 12:44:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1oibQ4-0000hj-B8; Wed, 12 Oct 2022 13:05:08 +0000
+Received: by outflank-mailman (input) for mailman id 421139;
+ Wed, 12 Oct 2022 13:05:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oib6W-00065i-3D; Wed, 12 Oct 2022 12:44:56 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oib6W-0005AB-1M; Wed, 12 Oct 2022 12:44:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oib6V-0000kb-Lf; Wed, 12 Oct 2022 12:44:55 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oib6V-0008Vy-L9; Wed, 12 Oct 2022 12:44:55 +0000
+ (envelope-from <SRS0=zIvO=2N=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1oibQ2-0000gX-QT
+ for xen-devel@lists.xenproject.org; Wed, 12 Oct 2022 13:05:06 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr140048.outbound.protection.outlook.com [40.107.14.48])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7d3df7ee-4a2e-11ed-91b4-6bf2151ebd3b;
+ Wed, 12 Oct 2022 15:05:05 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM8PR04MB7283.eurprd04.prod.outlook.com (2603:10a6:20b:1c7::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.21; Wed, 12 Oct
+ 2022 13:05:03 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5676.034; Wed, 12 Oct 2022
+ 13:05:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,194 +46,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=NBHvEVjdczA/XXDWP7aNhiLfL9Xq4qybvHfXLQQGIF8=; b=aZj0n9FqZJ4hmcGMGUX+nIMjUs
-	HDuh1pD8aoLFkxJTRDLltyWnv82DAIByHD8HvyZTxSUayoZkGoK/5VWh61TRTGE4ovbU3ZBUYc1SV
-	Tbd1IJk6vIqwhvNimXz7GIKs9GWkSf0fw/oBYG+lFQDhltwpSske4I1Gi0sVl5d9vpqQ=;
-To: xen-devel@lists.xenproject.org
-Subject: [xen-4.13-testing bisection] complete build-arm64-xsm
-Message-Id: <E1oib6V-0008Vy-L9@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 12 Oct 2022 12:44:55 +0000
+X-Inumbo-ID: 7d3df7ee-4a2e-11ed-91b4-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Q+jqd7oVkMRzUR+TScJsTt35j+ecBiOv1BR+wBMXP7RdLeceEtRtaBWKkOApnJbBSLFjDzJ9y4fv0o8YGLgBzMBQOHbryBSx18baSD3kv6rN+R000878PWdx9mOOSHHAM7VbfKhm0R1I93vUjRwCyYn4HF8kIALCsB65GcZg5MSZAFlD6jhY/5hrxeBtIyDh1Bgi1TUF/bGn7FCFyHDSokSn1cd8Pe0mv9kT/YHegpELOPHjc6yLCxkwsG6ut/nuVBUIubKRm5a+4xKJpvgw402envLKMvJcofKoy4lZuPw/hcWYXiBzdRA9nmDPNLlMr65SAxAoLzdJO6uSCx1xmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b2sXbvaGhT3VwITSLxnrPr1tyc6+JoIMGDhu4msM+tc=;
+ b=DSL8XjEli1hDoo96iGppZ5L5NyQ1DJvSXFzhGyo0AoPT79JExUWuMNNqURL3ycpGxpsJT/fE9lL8Ia1EBV0SYdNccEv/tA4YStPiStFjMN56IH7/Xo70DzZ5UmE942o5S4DJbUDtgs+PNI+8MRvSZpCYaNdVN65Nwk9JBqa/aQDu3D5HEeP/bBWQ0eWk1z03ZaM/QmX/TBLkXpqq/OQ4yAf4MJpr4ejQr0cyCIIyKNiIkr+Jqm0AGIaKlaG+IyBKPI1hXVLUhUO3MZMk0AwmQsMsjArYzislwJGZTRg9VADo9GPB326nj/PDMjx643oLSwFUAQ8fiAsFBaXe+o0hVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b2sXbvaGhT3VwITSLxnrPr1tyc6+JoIMGDhu4msM+tc=;
+ b=VGnWlGnVT7/QIMGUlpJluaWLDvCrtReg/9D+cz8J0fmQ8q0Yyhrbv8sXsRWVliqlqurwHucbzxBGI4Ay5aFphGEAZLJjsZPTdvVaDO5wyrwbUnloX6GWbMOCtKgt4E5Ksc/S+IBYLh2Q3f4LaIx2ilqXKvyX2JEy4AyhnTi/bsOYlvqxKeGir7yP+Pg2KRdrDAjKdo5q1uggOf5Tnx/W4UEH3KI3lQq8ZDPT89L62nn3bDtFiqCFUJvx8cMggSaFaGmrHfmwK5CKlOid/I3eHKKsqFZ0zW/PrexvjyY/AptlN3mom5xKKiYXDfsxMzXba2Z3LMPDUSm6xcYKx2Gpzg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <805d66fe-e116-254f-015a-59a760639653@suse.com>
+Date: Wed, 12 Oct 2022 15:05:01 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Julien Grall <julien@xen.org>, Henry Wang <Henry.Wang@arm.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH][4.15] libxl/Arm: correct xc_shadow_control() invocation to
+ fix build
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0274.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45a::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM8PR04MB7283:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8cdd2d74-38c4-47e7-2d41-08daac526083
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	4FjmLVCuFsZBjZdJ4hyD4xyxTlI2hhKUUdeCenNKqGUBtHExASRdT44M9dQa6kc8eB7mG7mSlf1UlJW8rEzspnOBD+0e5t8/eJ30RxtH2qeIgTu/U3N6AYLShSp5tJXHNVnXvxLE3aRs1v3RgAhtSszbQZqz3vDnsC08ZFQiaft/XSxxmQckJXavomtxqgi34T1C9FjI6i0WPrsSRlFeXixZQTvkvaiOwDPHQ0aY1/YnT/sa3a+XPpme2gZdCNgeQKEiZpNH7g6swgwj3Nshc/DnqHs5n9us8syFCf0m2HTxLtGNORu2adIlnrPbORLB8imp/BcZ/9C6stms1Kl9J27e6A/trLwXzOud4UFnUadqoZNgUqUzCpoTVDsB94il7YR9855fF1Sbp/a9s12xJGwBpxG1g9wP7z0efA0u/lvdNaaTuhIluxJMw+tTtgChZj0vZq8Ht8xZfW2D7ZzauzXFk1pGjTYMHWtidwAzjry/M68gnV0c7m/KRUv/uY47u6Enz3fXk1FLxFhKk/G68COqrCo6LVKOamwxj0f5l+D4OgYEv6HmEWZjbBDE062h6Oyzvwm8UEGei1PbMGX6zjER+xrA/xP0neNOCTmHKidoDm3oqFiO/Imu3N96+hTPwPdOXJS3HQ6oTmsfeC8GaiY45D53PVvm/quh6IOa/0fiFplI+YkCa8WC35EC8MSGi7qrW2mSi+9+yoGLkn4sryM1sI+1tCR4f1sgeE4Hubdd96ecysHB01AxlrEGNr574zJIxP4ECD965UyQDX/kqsavnc8VSyjBPIiWY5txAF8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(39860400002)(366004)(136003)(376002)(346002)(451199015)(54906003)(6916009)(316002)(66946007)(8936002)(4744005)(38100700002)(2906002)(4326008)(66476007)(41300700001)(66556008)(8676002)(5660300002)(6512007)(6506007)(186003)(2616005)(478600001)(6486002)(31686004)(31696002)(86362001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WkxJOWxKTU12TU1FK2g1U0ZNajN6WFlNby83VnJlb0dza3VITVI4V2JSTkF4?=
+ =?utf-8?B?UnhpRzlhWkc1ZnkyOTBhTEJLVE50Wm1JTnlHamU0bWNub0Ztb2JJRE5CTlZY?=
+ =?utf-8?B?dDhzcDFrU2U5aFhsMmFqRWhhZHdld2p3cXFSZk9nbnlkbmp3REpYKy9BN09s?=
+ =?utf-8?B?RlZ2TmRHKzNLMUlRK3F1VllwSVUwSkJYR3d2NWlka0dXRlNkOW9PL2kyRnor?=
+ =?utf-8?B?cS9VUzFlZk1zWGV6VU1PcnhuNFlKc2ZJWVltUTZod043UGpZRHdlYVcwRno4?=
+ =?utf-8?B?VVRlZk9wOVVFb1Q2OVpxeHhINWdBeldjL1p0aEo2YnEzYnZwSmN5QldseVhy?=
+ =?utf-8?B?WVgzczB5TDJpYXZLYWo2eElBcFg0THkzZ2RCZEdxTURPWWs3TmxDWEVkZU1q?=
+ =?utf-8?B?WUFWNE5ETHpINVRiQThzd2YwZXJVaHVKUGEwZUhuSVIzQU52L3pqMUR5eTJV?=
+ =?utf-8?B?RWtPbTNMcWwzZ01Ncy9rZDhOVWhvR1h0Uk54OEFueUltOW12S0RjL1NIS1h4?=
+ =?utf-8?B?ZCs1V3ZFeUFMR0ZVeVpreit1bndmUEhONDhQRC9WVXZYaUhFeVFSSmd6NlhY?=
+ =?utf-8?B?L0hKUXRKOWJEdkRiaUlDZkE3T2hzQWMwcVZYN0xDZ0hvbkppL09vbmI4S0Iy?=
+ =?utf-8?B?N25YS2tobGVZMXl5Yk1UdnQ0ZkRyU3pSbi8zQzN6K0FBOXlCV1o5bExUM3Bp?=
+ =?utf-8?B?Umcydk1hcWwyYWwxNEc1NDV1TWFPNE5QRmtVRmY4dTdEYTY3Rk9XSGMyd3Uw?=
+ =?utf-8?B?aVdHcFBkdjlTeitwbUEvcDhwZXBnUVM0QWM4cUJwL1ZSd201NTJnaXVSdmxY?=
+ =?utf-8?B?cEZxRWpnVldQcERDa1U0UFR1dExGaCtTSW55b24yYjZja3RQUnVHRlA3OVNx?=
+ =?utf-8?B?LytyeVJleVV5UHdiM1F5UnBrZlJsT0FGTFowYXNlYzhrV1RHdUdwbEl4cHor?=
+ =?utf-8?B?RmRmdUJRMVd6ZElrTTc2UVhvRUxDWTU3QXppQ2QraVpLRlhtU3A4MFFiNnhl?=
+ =?utf-8?B?NUI3SHNnN0s5R3NzcXBod2luN1FNcTFleENxUTZBdTFRSGNoMEdvTDB0SUI2?=
+ =?utf-8?B?RmxvU0tick90UjhFcFpiMnVkVzB4Mi95TGtTaGk1MU9jZUNoNFcvZ2RGSzA1?=
+ =?utf-8?B?TlpmSTNQYVdaeXE4MmU3L1pLRnpQTkE3aUx3bEJRaHc0cU4xbDNJS2ViSEJ4?=
+ =?utf-8?B?MUVvMFpPc1FKZmIzU0ZLdVhpeXZPNVFkamxXaEVlL04vaTdreVFOaVJwTDg4?=
+ =?utf-8?B?UXU4dW82VHhmZE1YNFc5ZlBWUFNXSVZ6NHl5YzMzTmpBdEg3MmR2Nkp3dlJm?=
+ =?utf-8?B?Uk9Ra3pVZEVqaGgrQXpBY2NnaEkxeHBSaGJBNmdQcmNNY2hDL1M4NzNKR25o?=
+ =?utf-8?B?ZkxKckt6cUFmRWJabWFraU9Nb1BPV2Z1RHpGYnVqNndNT2duT2M2ZnE2ZVNZ?=
+ =?utf-8?B?MkNtWW5MUkMwZk1TYXV3WWdEZStGZ3I4c0EzUm5qSXV5ZTBFVjlNTGZwWXJC?=
+ =?utf-8?B?NnYzWEpzZGRidnVXRCtEWG95M3YwLzhEWnVNOWZyeklEUlc1QW82Y3dtaVBo?=
+ =?utf-8?B?OEJRTFhuUjE2dEVrQ3R4YVY2QjZZU29aeWF1eEFmU0NqbVA5bUJUS0VsekVn?=
+ =?utf-8?B?U2Q0UU9Ed0k2ME9HWFZHNUlwdEtpeGl6akVodzVYKzdWd2ZFREw1aEV5ajU5?=
+ =?utf-8?B?QlV0WUgxUlhBVjVVRUhiTVpSTkROMDd2RFcrd0V1YU0vS0ZDZ0w0V2JzR0V2?=
+ =?utf-8?B?eDZCNFQvNGNubFFHTGJwYWtPVVVIMC9iOXd1cGMwUjFza1UvdVZxZVJLN3p1?=
+ =?utf-8?B?cFRvVjlvbEZ2MGhVUDY3SjhsZEIvOTVZYm14UitKNVVPRDJhTTg2amNEZEU0?=
+ =?utf-8?B?Z2hiTXcwdGdhbitEeU90dEJQT09hZ1VTTW9DRmFxVGVHUVZ6c2VtS2Z6Nklh?=
+ =?utf-8?B?NTNKVzdmMWtUa0pFb29BZFo1YUhBYlB1ZFNNUzRTOFdIR2Q2QVV6dkdWQlF3?=
+ =?utf-8?B?UGtvbHJGQmIzcDVXQjBmbGxkazlXTWR4UlpSdkZwRFA2UHlKWGtmckVtdEsr?=
+ =?utf-8?B?YkR5dHozU2N2K2g2RVd6OWphK3RxL2ZVVVhwMXlLRUV6VUp1VTYrb0Q3cHA0?=
+ =?utf-8?B?dlR6QTVmT1k4dzhqcVc5ZjlWejNOMjFkeUR6STdUMDRGM2FDWWNQSzFpTExC?=
+ =?utf-8?Q?AsehQpzCrcQPHrBOovwj+GJRFjBkLKsoXW7eUG/qkhFX?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8cdd2d74-38c4-47e7-2d41-08daac526083
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2022 13:05:03.4570
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: J+i2ccRDaBfMPofw/Ztptfd0R2XeJiI6HRNljSmHPSD/iu+HriAGN2BHVY3dLgLh2V0SKEHB0QJ59c6QoIVG5g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7283
 
-branch xen-4.13-testing
-xenbranch xen-4.13-testing
-job build-arm64-xsm
-testid xen-build
+The backport didn't adapt to the earlier function prototype taking more
+(unused here) arguments.
 
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+Fixes: c5215044578e ("xen/arm, libxl: Implement XEN_DOMCTL_shadow_op for Arm")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Also applicable to 4.14 and 4.13.
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  e6b1e3892b685346490eded1f6b6f5392b1020b0
-  Bug not present: 2ae9bbef0f84a025719382ffcf44882b76316d62
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/173595/
-
-
-  commit e6b1e3892b685346490eded1f6b6f5392b1020b0
-  Author: Henry Wang <Henry.Wang@arm.com>
-  Date:   Tue Oct 11 15:52:02 2022 +0200
-  
-      xen/arm, libxl: Implement XEN_DOMCTL_shadow_op for Arm
-      
-      This commit implements the `XEN_DOMCTL_shadow_op` support in Xen
-      for Arm. The p2m pages pool size for xl guests is supposed to be
-      determined by `XEN_DOMCTL_shadow_op`. Hence, this commit:
-      
-      - Introduces a function `p2m_domctl` and implements the subops
-      `XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION` and
-      `XEN_DOMCTL_SHADOW_OP_GET_ALLOCATION` of `XEN_DOMCTL_shadow_op`.
-      
-      - Adds the `XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION` support in libxl.
-      
-      Therefore enabling the setting of shadow memory pool size
-      when creating a guest from xl and getting shadow memory pool size
-      from Xen.
-      
-      Note that the `XEN_DOMCTL_shadow_op` added in this commit is only
-      a dummy op, and the functionality of setting/getting p2m memory pool
-      size for xl guests will be added in following commits.
-      
-      This is part of CVE-2022-33747 / XSA-409.
-      
-      Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-      master commit: cf2a68d2ffbc3ce95e01449d46180bddb10d24a0
-      master date: 2022-10-11 14:28:42 +0200
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.13-testing/build-arm64-xsm.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.13-testing/build-arm64-xsm.xen-build --summary-out=tmp/173595.bisection-summary --basis-template=172549 --blessings=real,real-bisect,real-retry xen-4.13-testing build-arm64-xsm xen-build
-Searching for failure / basis pass:
- 173521 fail [host=rochester0] / 172549 [host=rochester1] 172113 ok.
-Failure / basis pass flights: 173521 / 172113
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 042de0843936b690acbc6dbcf57d26f6adccfc06
-Basis pass 0dc9b78a46813d61533b2bb0f7ef897a06a273be 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 d8a693019845caa4e216bcac10f9501a814c99ae
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#0dc9b78a46813d61533b2bb0f7ef897a06a273be-f80580f56b267c96f16f985dbf707b2f96947da4 git://xenbits.xen.org/qemu-xen.git#7269466a5b0c0e89b36dc9a7db0554ae404aa230-7269466a5b0c0e89b36dc9a7db0554ae404aa230 git://xenbits.xen.org/osstest/seabios.git#46de2eec93bffa0706e6229c0da2919763c8eb04-46de2eec93bffa0706e6229c0da2919763c8eb04 git://xenbits.xen.org/xen.git#d8a693019845caa4e216bcac10f9501a814c99ae-042de0843936b\
- 690acbc6dbcf57d26f6adccfc06
-Loaded 10001 nodes in revision graph
-Searching for test results:
- 172113 pass 0dc9b78a46813d61533b2bb0f7ef897a06a273be 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 d8a693019845caa4e216bcac10f9501a814c99ae
- 172549 [host=rochester1]
- 173495 fail f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 042de0843936b690acbc6dbcf57d26f6adccfc06
- 173519 pass 0dc9b78a46813d61533b2bb0f7ef897a06a273be 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 d8a693019845caa4e216bcac10f9501a814c99ae
- 173527 fail f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 042de0843936b690acbc6dbcf57d26f6adccfc06
- 173529 pass d82ec90f51f61c914396271d86e64a74121dde24 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 bde3b13043e31fd757c44bcec182b0ff1fe36d22
- 173530 pass d97ee3244d806d324a22ea530215a9f10d2b23e2 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 bde3b13043e31fd757c44bcec182b0ff1fe36d22
- 173541 pass 710f83b79d6eab641401c054b2f40f6c630f8cd5 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 bde3b13043e31fd757c44bcec182b0ff1fe36d22
- 173548 pass 8db4e9f9a0c2ec992e28259ceb7a8eb316716b05 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 bde3b13043e31fd757c44bcec182b0ff1fe36d22
- 173552 pass f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 08eec20dc0550316dad64cdc63fee2371702f31f
- 173556 pass f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 9992c089de1fbb4d3217d2421ca60295998645d7
- 173558 fail f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 e6b1e3892b685346490eded1f6b6f5392b1020b0
- 173561 pass f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 2ae9bbef0f84a025719382ffcf44882b76316d62
- 173565 fail f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 e6b1e3892b685346490eded1f6b6f5392b1020b0
- 173569 pass f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 2ae9bbef0f84a025719382ffcf44882b76316d62
- 173578 fail f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 e6b1e3892b685346490eded1f6b6f5392b1020b0
- 173521 fail f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 042de0843936b690acbc6dbcf57d26f6adccfc06
- 173581 pass f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 2ae9bbef0f84a025719382ffcf44882b76316d62
- 173595 fail f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 e6b1e3892b685346490eded1f6b6f5392b1020b0
-Searching for interesting versions
- Result found: flight 172113 (pass), for basis pass
- For basis failure, parent search stopping at f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 2ae9bbef0f84a025719382ffcf44882b76316d62, results HASH(0x55f9631c7400) HASH(0x55f9631cba38) HASH(0x55f9631d0670) For basis failure, parent search stopping at f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 9992c089de1fbb4d3217d2421ca60295998645d7, results \
- HASH(0x55f9631b5900) For basis failure, parent search stopping at f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 08eec20dc0550316dad64cdc63fee2371702f31f, results HASH(0x55f9631b9f38) For basis failure, parent search stopping at 8db4e9f9a0c2ec992e28259ceb7a8eb316716b05 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 bde3b13043e31fd757c44bcec182b0ff1fe36d22, results HASH(0x55f9631b6a08) F\
- or basis failure, parent search stopping at 710f83b79d6eab641401c054b2f40f6c630f8cd5 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 bde3b13043e31fd757c44bcec182b0ff1fe36d22, results HASH(0x55f9631aecc0) For basis failure, parent search stopping at d97ee3244d806d324a22ea530215a9f10d2b23e2 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 bde3b13043e31fd757c44bcec182b0ff1fe36d22, results HASH(0x55f9631b00c8) For basis failure, pare\
- nt search stopping at d82ec90f51f61c914396271d86e64a74121dde24 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 bde3b13043e31fd757c44bcec182b0ff1fe36d22, results HASH(0x55f9631aa9b0) For basis failure, parent search stopping at 0dc9b78a46813d61533b2bb0f7ef897a06a273be 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 d8a693019845caa4e216bcac10f9501a814c99ae, results HASH(0x55f963198978) HASH(0x55f9631a64f8) Result found: flight 173\
- 495 (fail), for basis failure (at ancestor ~321)
- Repro found: flight 173519 (pass), for basis pass
- Repro found: flight 173521 (fail), for basis failure
- 0 revisions at f80580f56b267c96f16f985dbf707b2f96947da4 7269466a5b0c0e89b36dc9a7db0554ae404aa230 46de2eec93bffa0706e6229c0da2919763c8eb04 2ae9bbef0f84a025719382ffcf44882b76316d62
-No revisions left to test, checking graph state.
- Result found: flight 173561 (pass), for last pass
- Result found: flight 173565 (fail), for first failure
- Repro found: flight 173569 (pass), for last pass
- Repro found: flight 173578 (fail), for first failure
- Repro found: flight 173581 (pass), for last pass
- Repro found: flight 173595 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  e6b1e3892b685346490eded1f6b6f5392b1020b0
-  Bug not present: 2ae9bbef0f84a025719382ffcf44882b76316d62
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/173595/
-
-
-  commit e6b1e3892b685346490eded1f6b6f5392b1020b0
-  Author: Henry Wang <Henry.Wang@arm.com>
-  Date:   Tue Oct 11 15:52:02 2022 +0200
-  
-      xen/arm, libxl: Implement XEN_DOMCTL_shadow_op for Arm
-      
-      This commit implements the `XEN_DOMCTL_shadow_op` support in Xen
-      for Arm. The p2m pages pool size for xl guests is supposed to be
-      determined by `XEN_DOMCTL_shadow_op`. Hence, this commit:
-      
-      - Introduces a function `p2m_domctl` and implements the subops
-      `XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION` and
-      `XEN_DOMCTL_SHADOW_OP_GET_ALLOCATION` of `XEN_DOMCTL_shadow_op`.
-      
-      - Adds the `XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION` support in libxl.
-      
-      Therefore enabling the setting of shadow memory pool size
-      when creating a guest from xl and getting shadow memory pool size
-      from Xen.
-      
-      Note that the `XEN_DOMCTL_shadow_op` added in this commit is only
-      a dummy op, and the functionality of setting/getting p2m memory pool
-      size for xl guests will be added in following commits.
-      
-      This is part of CVE-2022-33747 / XSA-409.
-      
-      Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-      master commit: cf2a68d2ffbc3ce95e01449d46180bddb10d24a0
-      master date: 2022-10-11 14:28:42 +0200
-
-pnmtopng: 160 colors found
-Revision graph left in /home/logs/results/bisect/xen-4.13-testing/build-arm64-xsm.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-173595: tolerable ALL FAIL
-
-flight 173595 xen-4.13-testing real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173595/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-arm64-xsm               6 xen-build               fail baseline untested
-
-
-jobs:
- build-arm64-xsm                                              fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -136,7 +136,7 @@ int libxl__arch_domain_create(libxl__gc *gc,
+ 
+     int r = xc_shadow_control(ctx->xch, domid,
+                               XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION,
+-                              &shadow_mb, 0);
++                              NULL, 0, &shadow_mb, 0, NULL);
+     if (r) {
+         LOGED(ERROR, domid,
+               "Failed to set %u MiB shadow allocation", shadow_mb);
 
