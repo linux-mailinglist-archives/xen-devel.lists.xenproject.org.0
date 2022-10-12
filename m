@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9545FC124
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Oct 2022 09:16:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.420818.665866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88D195FC195
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Oct 2022 10:03:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.420828.665877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiVyY-0006pI-Fr; Wed, 12 Oct 2022 07:16:22 +0000
+	id 1oiWhM-0004tE-Bd; Wed, 12 Oct 2022 08:02:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 420818.665866; Wed, 12 Oct 2022 07:16:22 +0000
+Received: by outflank-mailman (output) from mailman id 420828.665877; Wed, 12 Oct 2022 08:02:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiVyY-0006mD-CU; Wed, 12 Oct 2022 07:16:22 +0000
-Received: by outflank-mailman (input) for mailman id 420818;
- Wed, 12 Oct 2022 07:16:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zRMe=2N=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oiVyX-0006m6-Fn
- for xen-devel@lists.xenproject.org; Wed, 12 Oct 2022 07:16:21 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4ef1c96-49fd-11ed-91b4-6bf2151ebd3b;
- Wed, 12 Oct 2022 09:16:19 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 814C31F8AC;
- Wed, 12 Oct 2022 07:16:19 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4873013A5C;
- Wed, 12 Oct 2022 07:16:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KZxSEMNpRmNROQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 12 Oct 2022 07:16:19 +0000
+	id 1oiWhM-0004qU-8N; Wed, 12 Oct 2022 08:02:40 +0000
+Received: by outflank-mailman (input) for mailman id 420828;
+ Wed, 12 Oct 2022 08:02:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jpGp=2N=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
+ id 1oiWhK-0004qO-8Y
+ for xen-devel@lists.xenproject.org; Wed, 12 Oct 2022 08:02:38 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 3b4dc483-4a04-11ed-8fd0-01056ac49cbb;
+ Wed, 12 Oct 2022 10:02:36 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D37815A1;
+ Wed, 12 Oct 2022 01:02:41 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6305E3F67D;
+ Wed, 12 Oct 2022 01:02:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,93 +43,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4ef1c96-49fd-11ed-91b4-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1665558979; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=uVN9aIUqx34P/45tcMyef9ckHEUfMNnGUM08QJbEcWE=;
-	b=FZS6AM6zDQA0sW9E4AD+vHPONn2WtBOhg/pbZ/EKi9wcFoL2lpkJUc5MYMKmtT0BbNORyO
-	rotC6zeIWH9kOkSQTxynPjX+Nlds9dAUuDfgnEezA+dCLuotphLFB882Cs/ODXkVenqH9X
-	mujfc4JLFRWQQQk+D2ikhwVu/4ADcq4=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org
-Subject: [GIT PULL] xen: branch for v6.1-rc1
-Date: Wed, 12 Oct 2022 09:16:18 +0200
-Message-Id: <20221012071618.8859-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: 3b4dc483-4a04-11ed-8fd0-01056ac49cbb
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 0/3] Yocto Gitlab CI
+Date: Wed, 12 Oct 2022 09:02:22 +0100
+Message-Id: <cover.1665561024.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Linus,
+This patch series is a first attempt to check if we could use Yocto in
+gitlab ci to build and run xen on qemu for arm, arm64 and x86.
 
-Please git pull the following tag:
+The first patch is creating a container with all elements required to
+build Yocto, a checkout of the yocto layers required and an helper
+script to build and run xen on qemu with yocto.
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.1-rc1-tag
+The second patch is creating containers with a first build of yocto done
+so that susbsequent build with those containers would only rebuild what
+was changed and take the rest from the cache.
 
-xen: branch for v6.1-rc1
+The third patch is adding a way to easily clean locally created
+containers.
 
-It contains:
+This is is mainly for discussion and sharing as there are still some
+issues/problem to solve:
+- building the qemu* containers can take several hours depending on the
+  network bandwith and computing power of the machine where those are
+  created
+- produced containers containing the cache have a size between 8 and
+  12GB depending on the architecture. We might need to store the build
+  cache somewhere else to reduce the size. If we choose to have one
+  single image, the needed size is around 20GB and we need up to 40GB
+  during the build, which is why I splitted them.
+- during the build and run, we use a bit more then 20GB of disk which is
+  over the allowed size in gitlab
 
-- Some minor typo fixes
+Once all problems passed, this can be used to build and run dom0 on qemu
+with a modified Xen on the 3 archs in less than 10 minutes.
 
-- A fix of the Xen pcifront driver for supporting the device model to
-  run in a Linux stub domain
+This has been tested on a x86 host machine and on an arm host machine
+(with mk_dsdt.c fix).
 
-- A cleanup of the pcifront driver
+Changes in v2:
+- remove gitignore patch which was merged
+- add a --dump-log support in build-yocto.sh script and use it during
+  container creation to see the error logs.
 
-- A series to enable grant-based virtio with Xen on x86
+Bertrand Marquis (3):
+  automation: Add elements for Yocto test and run
+  automation: Add yocto containers with cache
+  automation: Add a clean rule for containers
 
-- A cleanup of Xen PV guests to distinguish between safe and faulting
-  MSR accesses
+ automation/build/Makefile                     |  19 +-
+ automation/build/yocto/build-yocto.sh         | 340 ++++++++++++++++++
+ .../build/yocto/kirkstone-qemuarm.dockerfile  |  28 ++
+ .../yocto/kirkstone-qemuarm64.dockerfile      |  28 ++
+ .../yocto/kirkstone-qemux86-64.dockerfile     |  28 ++
+ automation/build/yocto/kirkstone.dockerfile   | 100 ++++++
+ 6 files changed, 542 insertions(+), 1 deletion(-)
+ create mode 100755 automation/build/yocto/build-yocto.sh
+ create mode 100644 automation/build/yocto/kirkstone-qemuarm.dockerfile
+ create mode 100644 automation/build/yocto/kirkstone-qemuarm64.dockerfile
+ create mode 100644 automation/build/yocto/kirkstone-qemux86-64.dockerfile
+ create mode 100644 automation/build/yocto/kirkstone.dockerfile
 
-- Two fixes of the Xen gntdev driver
+-- 
+2.25.1
 
-- Two fixes of the new xen grant DMA driver
-
-
-Thanks.
-
-Juergen
-
- Documentation/admin-guide/kernel-parameters.txt |   6 +
- arch/x86/xen/Kconfig                            |   9 ++
- arch/x86/xen/enlighten_hvm.c                    |   2 +-
- arch/x86/xen/enlighten_pv.c                     | 101 ++++++++++-----
- arch/x86/xen/pmu.c                              |  71 ++++++-----
- drivers/pci/xen-pcifront.c                      | 161 ++++++++----------------
- drivers/xen/Kconfig                             |   2 +-
- drivers/xen/gntdev-common.h                     |   3 +-
- drivers/xen/gntdev.c                            |  80 ++++++------
- drivers/xen/grant-dma-ops.c                     | 112 ++++++++++++-----
- drivers/xen/xen-pciback/xenbus.c                |   2 +-
- include/xen/xen-ops.h                           |   6 +
- 12 files changed, 313 insertions(+), 242 deletions(-)
-
-Colin Ian King (2):
-      xen/xenbus: Fix spelling mistake "hardward" -> "hardware"
-      xen: Kconfig: Fix spelling mistake "Maxmium" -> "Maximum"
-
-Jason Andryuk (1):
-      xen-pcifront: Handle missed Connected state
-
-Juergen Gross (8):
-      xen/pcifront: move xenstore config scanning into sub-function
-      xen/virtio: restructure xen grant dma setup
-      xen/virtio: use dom0 as default backend for CONFIG_XEN_VIRTIO_FORCE_GRANT
-      xen/virtio: enable grant based virtio on x86
-      xen/pv: add fault recovery control to pmu msr accesses
-      xen/pv: fix vendor checks for pmu emulation
-      xen/pv: refactor msr access functions to support safe and unsafe accesses
-      xen/pv: support selecting safe/unsafe msr accesses
-
-M. Vefa Bicakci (2):
-      xen/gntdev: Prevent leaking grants
-      xen/gntdev: Accommodate VMA splitting
-
-Oleksandr Tyshchenko (2):
-      xen/virtio: Fix n_pages calculation in xen_grant_dma_map(unmap)_page()
-      xen/virtio: Fix potential deadlock when accessing xen_grant_dma_devices
 
