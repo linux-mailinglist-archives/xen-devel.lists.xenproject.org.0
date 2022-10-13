@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A65D75FDC4E
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 16:21:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.422227.668099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28A915FDC67
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 16:31:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.422233.668110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiz4t-0008Tt-JY; Thu, 13 Oct 2022 14:20:51 +0000
+	id 1oizEU-0001cZ-H2; Thu, 13 Oct 2022 14:30:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 422227.668099; Thu, 13 Oct 2022 14:20:51 +0000
+Received: by outflank-mailman (output) from mailman id 422233.668110; Thu, 13 Oct 2022 14:30:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiz4t-0008Rk-GH; Thu, 13 Oct 2022 14:20:51 +0000
-Received: by outflank-mailman (input) for mailman id 422227;
- Thu, 13 Oct 2022 14:20:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=a0LZ=2O=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oiz4r-0008RO-Ho
- for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 14:20:49 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr130058.outbound.protection.outlook.com [40.107.13.58])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2eba951d-4b02-11ed-8fd0-01056ac49cbb;
- Thu, 13 Oct 2022 16:20:26 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB8222.eurprd04.prod.outlook.com (2603:10a6:102:1bd::10)
+	id 1oizEU-0001aG-EB; Thu, 13 Oct 2022 14:30:46 +0000
+Received: by outflank-mailman (input) for mailman id 422233;
+ Thu, 13 Oct 2022 14:30:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mzGh=2O=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1oizET-0001aA-Ke
+ for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 14:30:45 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9dfedffc-4b03-11ed-91b4-6bf2151ebd3b;
+ Thu, 13 Oct 2022 16:30:43 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by MW4PR12MB6899.namprd12.prod.outlook.com (2603:10b6:303:208::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.21; Thu, 13 Oct
- 2022 14:20:47 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5723.026; Thu, 13 Oct 2022
- 14:20:47 +0000
+ 2022 14:30:40 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::cde6:a05b:5dc7:836]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::cde6:a05b:5dc7:836%6]) with mapi id 15.20.5709.019; Thu, 13 Oct 2022
+ 14:30:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,143 +46,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2eba951d-4b02-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 9dfedffc-4b03-11ed-91b4-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m8WoEyX/Q1aSbfVa4rkAAveiprSAoTaOxAsOVCgOSKCZfpl1K4mgp4lCKXNg30SvVuXr95SqWIhD3A0wVn59swyQO9T/il9LaJ/l5y5G4gzNdIHmZ+EE452BLsVRfKbxTo9kTzAUzNTnrgtJLlMtJuuf2IkDWDETNlC3jf6jMPbjoWfPKgik+de7VnR5L4fDenoQSI8TwsQDUDp3jUyZVvK0BVkYcwKeQ87V6ngMojI2ByLvWzjg6/3EEPye59svfkA4QZYnQ4sgldm22Rk+p4Co0jBCGXI2hSlca4mjJy9lK645fpyBEyPJkOo9Z4k37zERrWtEmhqujmO/5lS1Yg==
+ b=j3UsbTqQZlizYhwp3NU6kZ6J84qPMqjPw5J3M1K3u9aYkghrSpXzEeG1IORfL6cSgXuJNpvC5xJrxfZIsYidNlNXtflw/W4MvRNiYK0KeGwqc1ZH6rblZXf9530bjRYPDe3x1DkdCJvcDlonOgY/MSRW2rYlo2cep0vQr2RrGExVfkmtCnwgQjBmEA06lu6Iywo3DSR0B7CYJn5m/m6IUduBD95kDhV+KgugC9yK5dT0tH88HLvObx41kRk7zyqLsZ0VSo027E4JWEWfIQxYMvFHwRi4RrZM/4Q1DlXkvb96tIR1kJ55sTdMYfb5eURPEni9PT+QPXuuAjb9pQ1bqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=veQFpq4mgKJoYEVkuIX/6zOa2CK07IW2mMT67BUJpiU=;
- b=RbIsA2t1DXagkzvwCx1VkSCpiVIRoIfHja+FFzJ7HNyqm1/ZXbhoPp4PLlgg5LK4duGx0s4qUzoWK8SXaqqfycLRRLTu4/XyjJksmyFAtl33D1RD9ergrB589hggLBJgQ+8uxISpHmRzZt841Xxiw81wrFi5YdykGJBMAm75X7o9meMqC90MHVPk/uTH/AHLA5s2dTnqsxmggtClmft45S8kxSAq1cFASXIm58WPoKlUy+tjUYYRhj89nm+1Y+jNKuoQTOwltQgm/O5tLK1urN6PyCesgwLNu60DSdLzHGt+Zi/PacJ1biqCgSmLbKoaz+hqw59ZqBQQxAUHR+vm6A==
+ bh=fs1zAxQw8tKNOBH5t0SuT4gu1Cpm9Fc5tTfY/cvB80o=;
+ b=n9k4Mp8uQEZI+AyKQhza7pBu5sQvjAjN/XjOfyorkPp9lid5KnX6IDXl58qb+c6dHcn1Fa9xbPU6nYBdPfVgAM1MiJ38vGJXg7QprQDxMJRbCRbr+raOU4Pqvfynk09wjE3DpgfmZDWWXqYpNuZGDpw93om+oySUwuT1vJ6854of4l4nFSMc8w/Vl/g/bVFHbaZHHUrABq9DvZbRvr3csBcoyi/VIZBBL/PxqHbhEscEcpAZqdxg+uLj58w2rGZ/GR4D/yHNiN0Els3paBKUZgg3bPNiHN5/B8j700i7H4zySeigSCUosePEZ9KhtgqN8c7TvCimZyFhwkl/KG0+xg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=veQFpq4mgKJoYEVkuIX/6zOa2CK07IW2mMT67BUJpiU=;
- b=X+GcpkGSZZIPx9/ggb3DVp1sJEHSbLYGXZn8wMmnu/4qMVpgRPiAN+9tfTYH5XjYLmZzV85eWNHkgi8AAS4ISlrQt06NkY9ehjvSVIHgeucRV+iGHwxn7846Kr3fAoF+sRD356Ew9TXWJ4BXMs8eKnaHEtmzSDjmEvV8SYcGk2KUhg7K0ZgbK7GYFWlVSQ3TM7EsdRhTANvU8aZpBwxfCrBrA8iBHe+ystCw5oFaCIEpyDaCHBXcNMSAZ2WeGlRjjteDdMsOtkaHRkAJUOEQC9lHtftPxgXQY1nxHdsoIaZ+ozf6YymVa+YC0PQlFNqqXq59OrUSvjTOibEijcQlgw==
+ bh=fs1zAxQw8tKNOBH5t0SuT4gu1Cpm9Fc5tTfY/cvB80o=;
+ b=Ip5b/sFgXXbVuGG9Qh54fDQwc8MhmEpzVfwXcqO9qX67zv2ikM0jNaODDj3KT1ij6NPH2jpSLzNsFE3hrQN97bg535i8GVFEGG9yqforyOWC+Jm3burHFrVPwNPJQqT5hUaw0tG/ucJBCYUoMbdFnYgDQOmXyQfKVHqoJ1Z4lYc=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <870d5cf9-26f7-f4c7-4fa2-5a18bfa163bd@suse.com>
-Date: Thu, 13 Oct 2022 16:20:45 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.2
-Subject: Re: [PATCH for-4.17 3/4] amd/ssbd: remove hypervisor SSBD selection
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Henry.Wang@arm.com, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20221011160245.56735-1-roger.pau@citrix.com>
- <20221011160245.56735-4-roger.pau@citrix.com>
- <ce274b68-4f9b-0b1a-6b1d-faf002ecbb54@suse.com>
- <Y0gXnD4jsyIp2kKb@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Y0gXnD4jsyIp2kKb@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS9PR04CA0163.eurprd04.prod.outlook.com
- (2603:10a6:20b:530::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <e94b7c65-1c38-024f-6a91-16098045574a@amd.com>
+Date: Thu, 13 Oct 2022 15:30:31 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.0
+Subject: Re: Need guidance to support reading GICR_TYPER (64 bit register) on
+ Aarch32_v8r
+To: Julien Grall <julien@xen.org>,
+ "Stabellini, Stefano" <stefano.stabellini@amd.com>,
+ bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ Henry Wang <Henry.Wang@arm.com>, Penny Zheng <Penny.Zheng@arm.com>
+Cc: Jaxson Han <jaxson.han@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e2d041b2-3b38-f19b-2d8e-3a255b0ac07e@amd.com>
+ <9b4a9bbf-eb5c-3d13-f796-c6bf5704d85b@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <9b4a9bbf-eb5c-3d13-f796-c6bf5704d85b@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P265CA0259.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:8a::31) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8222:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f78aa15-2556-4ed9-0df7-08daad261f2f
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MW4PR12MB6899:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2fd8bd4-3f3d-497a-753e-08daad277fcd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	mMOcRfKjxJJKk7wDwHXvShrVgxlWlSxJU409fnEipwdbXpJi5YRWIjlEYbkEcw8NwHlUXzPcjXOg1z4S0s39gxbiLnDnchFeT/cbP9wdUseM0VgL24kJDkk86ZNzRMsxwW+aJyxslzAG22kalSBE0E0GpBKQaEv6vy7ci1GggRf4HKpckvBTmd7YktPDjnX6v7gIxwDObysV9lilkoXXirWsvS+jMC7RruX4YkO17lniz1nycD4Gf5Fb5hAPqQkslS42QushJvP26O2hiGajCL42Ileq78qY/tENMXyAGh8TnxN12x4QrZPtYvVH8/wzlTagfU2oH19u2m0qYatIWNL8rAwg31sDZRFR3tiCtXytqy8eHVRtbZFXbbtOjIzK6cmMqMs5PqPG+7NL/wNVTldiiq/vyQvOMBogNPPbzibAAkVJ5ALQkmlrORd4PZZh0SaUOQpn8LYqVVPMXHUxu0kEuU17GMyxoVfj7B4LFI67XOC7JKN8apY9axmNjUdlMxV7VFJO3YXEpGnBFS1V2s+QbmknnCJZyli+iZ3tMmN0FyiTKMzKCom5JO0PJSLmsyGa+xjWzUGA9Sw1+5MBVig/GgS++NaGqhqoHXko2iAnFddWoiNnAhdiVliy8A2EqBPRqvKqhlq36HNgx+dSM2/Qcq/v0wMslH28vO5iKaOY1XOCGR6r5AUYudiivPHZUfb39tRUjiITrZiRiZzPFSOFbW7WRuX1o1W6ypTxEJ2tJ9xG1508p/WUYzEnA5W0J8lgrIAvwUuNAMcUjsKG/q0D2jAdKHRjFMLlZnkScRw=
+	XviIFpF3DTYrwfph2rOqUoZ/VvFoIoi0mSg77j0kb9O5uWas/sKk4ekV1/BboMgRShBgWyJcr/shwwjiLToqoQ76rLv29dAGS4lPRsWMmXuaqz2ev9RPeAsH5Y6riIV0bjHhgdteEvp190bBNdPcq1wuPPw0664Ry2Se+Ta5I6GoP0JB+8xNIihiJf9RJsj7cWAr8Z4FqBeKHN8hYK0u+rgSWKGclLm8DGs8+YcEj95A3HMvOFZYCVswCQvQEVBKOqIGwq1OBjOsiuT88+b/U/asRMNJmwyrUbDtoFzQfz2xErVVc5IsWG3QuLKCDCz+9J5YJaHoo1gBkzYionFafXHxiabKMKHi/e5kDWNGXBO5IK/MLZIGV2+hOgKo+/tuy+0IvP2JEasbQylqKRbmhPqiNDgfPkqw17c7wJnbp59k9+JaoIeIVs1VVNnkx/A8MEGhJvDAla7d8T8aA9PjBXsmJJMCarkqMMbrwokxpnOERIVd4G1V0TSl4varAk+XhqxPqXJcnH+UgTky2joYcZAC9uaD8rf6YobsUMIrPALopswJL1rOykOLadneMXhlSkmMPbGYBSt+UQv4+QhJ1+gfG67ul1XbOWu/MqDUQVvui9tSlR1wIDMGmRDyOclyXR3R2kgQsImnYDBUKX9CMla/VqRt0c4M9WPCJJEgDU90v0yVe8BO0quIIboj890AddBJiWRf2IpMR2VjkRRthrvLg5NvYC9q+N3HxFzZBCzdpGYLdqwI/EpnESc1jg7TqfU1pYQiEX+0ErTvr2kcwYdQ23vgAnCHg9/L5w4dM0ab/2nOJZNG3CIjFcpTgzaP/iSsTu4UZ+3+lF2/uqd5JQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(136003)(366004)(346002)(396003)(39850400004)(451199015)(53546011)(26005)(31686004)(316002)(38100700002)(110136005)(4326008)(8676002)(66556008)(66476007)(66946007)(86362001)(31696002)(36756003)(83380400001)(8936002)(6512007)(2616005)(54906003)(478600001)(6486002)(2906002)(186003)(41300700001)(5660300002)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(39860400002)(376002)(136003)(366004)(396003)(451199015)(31686004)(36756003)(41300700001)(5660300002)(8936002)(66476007)(6512007)(2906002)(4326008)(8676002)(31696002)(66946007)(38100700002)(478600001)(54906003)(83380400001)(66556008)(6506007)(6666004)(316002)(186003)(110136005)(2616005)(26005)(53546011)(6486002)(966005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q0NHSHpBdWhNcEQxN1FibTducGF1R2JZOE53T0FJMmVaY1FvZDRrWEgrN3lH?=
- =?utf-8?B?RklMc0ZoT1ZCZlQrc3RRN09YVGV3eVpEMkNPOVY2V3pPTTdsd0xqNmpLL3RD?=
- =?utf-8?B?elFVdEhMYTNzWkF2SFJKMkJXZmpmU2V0MHZiV1pkOWhYLzVxaUhGY2lmT3hs?=
- =?utf-8?B?bmJJQUhzdzZHRFZ0b2xLWkNDUllTbEw0Q2hheW81RFBYVHZ1bFFDQ1JYWWNh?=
- =?utf-8?B?ZWRMMUxNdmllU2FiTWUxOVZnRGFRdUFlNUJHYnFLRmhSdlFRMHFCWDA3aTJs?=
- =?utf-8?B?cG1nQmdyc2g3dmZ6V0xvSEtDZnRqcHJQcmJPMk1SWnV0ZUJjbXVBSFdYcjJx?=
- =?utf-8?B?VlVjNElIQmVObC9mM1o2Z3QzNDR0SmJuWGNPRUYzeFpoV056OXg5eGNWc2RY?=
- =?utf-8?B?QW1HTWhjcXU2MXcxMVlMTzZMYVQ5T2NreEFub0Yxek1DR0ZwNWxPa2JTbWVI?=
- =?utf-8?B?NkFCaVJ4M0lFMXEwTDQ0ZVBQVWlwWFlhZXVqZGZSVHl4M05zN1dFMW1HbjVp?=
- =?utf-8?B?RWJ5RWNYNXAva3hHam9GNjRNa2dZb01HN0FDa3ZTaURNS2tvYm8zak12VVI4?=
- =?utf-8?B?V1BUZFNvRGRZVk5JUForenBPR1ZTZUgrdzVNY2FtNFBJZ05JTTZNVzM0QWdz?=
- =?utf-8?B?T050WmJsbm4yNkk2U2pkcVRJV09zRFJXdGV5UkpSZlRCTVBvbmJtODVTN3NP?=
- =?utf-8?B?LzJQQ3ppYnZPUEFjWkszZEVRWWhQMEl4UWJxR1dyOStvQWFaNjQ3VGR3V0FQ?=
- =?utf-8?B?bFhPMUx4bW5PeDNOSEl6MmJIamtMRW9RWXdjTXhoaThQT1pyYkNMYUw1dUdE?=
- =?utf-8?B?b0NmeGV0Y1IvaXp4OFF4aGNkZ0tSU3RSZmk0cnRWemdtNnFjamFUOVFtY0xR?=
- =?utf-8?B?c05NMC84R0JEdlp5Ny9NR2wvb1dVTUNwMDZacHFUOFFEejU5bm1DOWZIbWk5?=
- =?utf-8?B?MnBwKy8wWFFIT2wvV1BpcXg1TE55Nmc2RXJlRGhUR2V0eTRrYWFyZFVyNnA1?=
- =?utf-8?B?Z0VmMnkwS2JicVJqUGNZd3k0ZXNVVGpHdmpKSHg2UHlKd0xCRElPdWtmZitM?=
- =?utf-8?B?NG5adXJLd3FZZEh1YzUrMzMvVHdlcFYvRnlNRXZsQXI0eWw2VnNRQUdvT1hp?=
- =?utf-8?B?T1hFZ3o3MnBhcEhQNktFWVg0MjJYa0owNW9vMEtGNTNvTVBKQ3UvdWxMTGNI?=
- =?utf-8?B?QnNmYWxqZXJYRVZkUGlhTmN6ZlVEeDV0c21vVnJuQVZQenQ5aXE0NnQ1bUdC?=
- =?utf-8?B?d0xzQ1RlNzBOWWpZTko5TFcrQVVPRjVNQ2oxejJVOWtOdFMxWjZjcVMvR0No?=
- =?utf-8?B?b2c5NEY1aG81Vk5La0dYTUs0YVBWMW9aaGhrdk1UTEZSSkQvOFZOVXB1N0xp?=
- =?utf-8?B?VTVZaFNzakc4T2l1djlma1JYNThTOHlXL0U4VFNDeWdwcUxzeWhZYVB1dlB4?=
- =?utf-8?B?ZXZSUmZCU1huRVFEN3pDNXJYUVBwRXpLK2s4TG5VTVBPQi8wOXVrWGVXUEkz?=
- =?utf-8?B?SzVTRE5tT3BHd3NrVDA4RnYzb1FkMkcxeVBHTTk3VldsWHpDb2NYVXY3UTZt?=
- =?utf-8?B?UjAwMU5DcFZDZTJVMTJVL1d0YXYyV3FIWXhZcjIwUXp2QkxjS1JnZmNxai9Z?=
- =?utf-8?B?MHhsRjRTMXFMZkVTTzBQSDhCbTA1QUs3Y0tncmZ0c01rR2FXUVVKa1RVU2wr?=
- =?utf-8?B?Q21tbnh1eENXcmZjU29mU2FnK0c3Tzd1b3V4NFkyNk02WjhtcUlGbXZpS0x1?=
- =?utf-8?B?eHVWa0VpQ1pCUDFBMFJxM05kdVB0V2VDTHB5N3hwR0NFTUdMQjY4ME5ack5E?=
- =?utf-8?B?K0R3T1FaUUlEK0tuRzFoL0hhaWhUdVFpTnk1ZVNxTnBHREc2eStMTWlDL2VV?=
- =?utf-8?B?V3p6SnNJSHhGSk9rN0ZUSzJxTkJ1Qm50T2RaUCtsSU12ZFFSdU1mdUxVTGRB?=
- =?utf-8?B?d2RlQlFnaEc2bDlyb2p5L1Q2aVJhaUg2WWZrcGJxS3l5dXpua0FsQ2ltRTFi?=
- =?utf-8?B?bk0wcnlZczZZb0krUHZ5M0xwYWJRSnFsM3k0dm0rY1AyeWxUT2ttV0N5Y3Ur?=
- =?utf-8?B?K3g1SzlsY3dnZEl5NnNXV1VNNUs3bTA0dDQxSmxLQk9UMlJUMWlrcmRpaUFt?=
- =?utf-8?Q?HWZjFktXzeM1iJNDr0bpakbhd?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f78aa15-2556-4ed9-0df7-08daad261f2f
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?ZGtwQWZzbVZwNmtDWnpUM1VJVnFIWTN2VC9MSUFRdUhIY2NvVTg5RzFROUlY?=
+ =?utf-8?B?UXVkKytPanVIQXQxUUh6K2FXRzVjUGRQc1JSQmYzdVpwYmcvdUhMTDlHZXpZ?=
+ =?utf-8?B?MlJpc2tLc3kweis1Ry93bTIyeEx0V0pkNDYwYWlFVHJYUGdKRzdmWkpBN0JP?=
+ =?utf-8?B?eUlMWjJOSmFCZFg5MW14a2QyLzdtM3YvUE92R1paMUhzMVplMEhFb0hVT1lE?=
+ =?utf-8?B?SG56WFhiTC9YajlqRmlkdUpiaFExVkFwbXJYYnJyODdya2ZORm1Za3RCN09R?=
+ =?utf-8?B?Y2Z0aEpaTWR6U3pkY1JPcjk0TWhnd0pZNFVjMUZjRExHR1I4TklPc3RuZU5M?=
+ =?utf-8?B?bEsvOFBuMEV1TmRQMDhaRlljaU5NNzZIWExxTnkzSHNuVDNHTkxSTk9wblBV?=
+ =?utf-8?B?NzJ0dXRlY081bW5XN1ZkZU8wNlFDN1B3Mm5IdExTRUYvajhCbDFzWUc4dG5z?=
+ =?utf-8?B?YkRsL1VIa2dOejUvc0ZrblkrVGdMay92bnhaWHE1bDVRTjYvN1pVQ0JsTUZK?=
+ =?utf-8?B?d25KY0hQQXlBOEYybFYvR3NTTld3RDE3MitxWEtlY0dyMnE1c3lsWlZGbVcy?=
+ =?utf-8?B?YXJVQ0xPVzVhaXVBQ2N3aSs4QVZPRGVMZ2lwTTJaVUJodzhEbUtSVEZGV2xw?=
+ =?utf-8?B?NTdmaHNualVFOVBmT1poZHFLZWtnMkVBN3h1QnJZY1d0SGlFc09PMjUrNUEy?=
+ =?utf-8?B?YjFtRDRrRE5XMzBHbEQ3eEJDdHpZTUlNZi9SQjBDMTI1L21jYTRZeHh1Ulhm?=
+ =?utf-8?B?YmdmcU1wRTZteFpWU3NUcGtJdElxU2FBMWFRT3RDY1JPaXlmNW80OXV1d2lS?=
+ =?utf-8?B?NlRRL2NpdUFBTk5lUlhOdFJoRUFwaVBHVHJZeGNiWnpDdG1jVktsUUpQRDd5?=
+ =?utf-8?B?bmwyMnlXNi9pOGVlekg0cG81aG1uUmtwaGJwenBkelQ3OWoxYnhoaElqZHdy?=
+ =?utf-8?B?SVYyclpqR2RMemhESXhYTFhSa243V0tqek5xeTZDWEZJeVVuWm9SMzJaQWR2?=
+ =?utf-8?B?dURWbVFadGdsdkYrdWs0WTc0elVvTDZSbDFaN0lzdHh3eTZuRThUSm4wdmJG?=
+ =?utf-8?B?YUtlVnlEMVNlaDdPbXp5OFR3eTF5QjBnYnRSZUZidmRaSWdCaXpQMkhzeWV1?=
+ =?utf-8?B?bkwrMTR4NDNUZjgwLzVFMGxNRjd2eTViSXduSUxaYnVaOWRpMzZsY0d3Qnk4?=
+ =?utf-8?B?WG41NFJWVEZNK0VDOHAxdkdVOWh1RlNRbVF0R01pL2RucXBWbU1JakdJTFpI?=
+ =?utf-8?B?RmVITExWbFB5emprMDVEVTJpVkZHZHJudmJFMmJEN1l4U2szQkpqQXVZcXAx?=
+ =?utf-8?B?M1pkRVJpRHg3VTQ4YnpCVExMWFJNK3ZuWkNnTDJCSlNYSHc3RGRpZldsQ0s0?=
+ =?utf-8?B?aVYxcm1HRFB0V3NMdWxTTlVrQmZFNkZUWW9Sb2Y4d0JtaTdYbXpJRldNTXdJ?=
+ =?utf-8?B?clppb2MweVFFeU8zV0JhdjRsWllDeUI5Um1hVWI4WVNjSWlTczFaV3NvOHd2?=
+ =?utf-8?B?RWcwa0ZsamY4b2Z4ZHVMdHpmQ0lBM0hla2ZIc1NJYTJ4N0ZrZFdJL2dYY3dF?=
+ =?utf-8?B?dVVwbzRJbmpWcGxCREt6VDBNNlZQSEk1OU81b3ZKUXFlSW0vL29yR3N0eW5r?=
+ =?utf-8?B?YktTUHBXSjNWNUozMVRQKytyVVVQSmZtdXFOWVMwT3c2QXpIMno2cm56N1Ry?=
+ =?utf-8?B?TmswQll4dmx6M2xTLzdKTFlneWYyUERvU3hwUEEvRjN3cUlpSWE0dWtXU0sz?=
+ =?utf-8?B?aWNEMmNNYUZVdzdEbFd4N3NFZ0lLWmlGS2cyZG9XMWl3aTlkR0tYb2VGenUz?=
+ =?utf-8?B?ZkVyMHZVVFVaUmlqMzZxcW9QZUs3NHY0WXVlTjR4YXlWZ3VsWUtSRmdwOHA5?=
+ =?utf-8?B?L1d3OGVKNk41aVZSU1J1STI0eWZTbVREckhrekFMdi9XVjdkMHlVMTAxTDdm?=
+ =?utf-8?B?em5jYnNYZERMYjVod1U3ZldDd21BYnJzUmV4dXh5enZGU1V1NndsYVZTTnhT?=
+ =?utf-8?B?b0ZsSlBES1ZWRm5UNzJHMXZiVjJSQ1hqQ1k1Ymk5aUhrUmFITkp3Ty85T2RF?=
+ =?utf-8?B?dm5KQWxHbE1jSXdYelFFK1UyZmRSY0FxMW50TElvZkZPVFVsVGRQbkxMbmdQ?=
+ =?utf-8?Q?w+/cG2dR8UbNnN68Pc6si8jPe?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2fd8bd4-3f3d-497a-753e-08daad277fcd
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2022 14:20:47.1605
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2022 14:30:38.8503
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1PEvkDvJ4KiCEd7r8zJHTC5BvUqEnVwT1sP4bdgLcveviloRrRau4zPEEUzsWVXZQMQ4UcbjrAYarBbyHSTMDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8222
+X-MS-Exchange-CrossTenant-UserPrincipalName: l10edV9pv8LQsw2UQCtd3bwZOmosiozYUhnvpUSQrpDruOAd0U4IWW3P/eJfKIoRRkkpO+g8WpcJ+wqGsvriOg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6899
 
-On 13.10.2022 15:50, Roger Pau Monné wrote:
-> On Wed, Oct 12, 2022 at 10:30:45AM +0200, Jan Beulich wrote:
->> On 11.10.2022 18:02, Roger Pau Monne wrote:
->>> @@ -2365,12 +2365,6 @@ On hardware supporting STIBP (Single Thread Indirect Branch Predictors), the
->>>  By default, Xen will use STIBP when IBRS is in use (IBRS implies STIBP), and
->>>  when hardware hints recommend using it as a blanket setting.
->>>  
->>> -On hardware supporting SSBD (Speculative Store Bypass Disable), the `ssbd=`
->>> -option can be used to force or prevent Xen using the feature itself.
+
+On 13/10/2022 14:20, Julien Grall wrote:
+> On 13/10/2022 12:47, Ayan Kumar Halder wrote:
+>> Hi Arm mantainers/Folks,
+>
+> Hello,
+
+Hi Julien,
+
+Appreciate your help as always. :)
+
+>
+>> Please refer to the discussion 
+>> https://github.com/zephyrproject-rtos/zephyr/pull/51163 .
 >>
->> Why would we want to take away this level of control? Shouldn't we turn this
->> on while in Xen if so requested? Which would then either mean enabling it on
->> VMEXIT if a guest has it off, or running with it turned on using the OR of
->> guest and host settings.
-> 
-> Right, but then we need to context switch the value on vm{entry,exit}
-> which is problematic.  I could move the context switch code code out
-> of the GIF=0 region, and assume that NMIs executing with the guest
-> selection of SSBD are OK.
-> 
-> Alternatively setting ssbd= on the command line could be taken as a
-> value to enforce for the whole system and prevent guest attempts to
-> change it, not exposing VIRT_SSBD, AMD_SSBD or SSBD (haven't
-> looked at whether not exposing the SSBD CPUID related to
-> SPEC_CTRL.SSBD will have impact on other features).
+>> We intend to run Zephyr as a domU guest on Xen on Aarch32_v8R fixed 
+>> virtual platform.
+>>
+>> Zephyr is trying to read GICR_TYPER which is a 64 bit register using 
+>> ldrd instruction.
+>>
+>> As GICR is emulated by Xen, so this instruction gets trapped with HSR 
+>> = 0x9200000c.
+>>
+>> As ISV is 0, so Xen cannot emulate this instruction.
+>>
+>> The proposed solution is to use two sys_read32() on GICR_TYPER to 
+>> return the lower and upper 32 bits.
+>>
+>> With this, HSR = 0x9383 000c, ISV=1 so ISS is valid.
+>>
+>> Now, for Xen to emulate this read, I have proposed the modifications 
+>> (in my last comment).
+>
+> I am confused. Looking at the emulation of GICR_TYPER in Xen 
+> (arch/arm/vgic-v3.c), the code should already be able to handle 32-bit 
+> access.
 
-That would be my preference (albeit I'm uncertain about the "not exposing"
-part, as we don't want to misguide guests into thinking they're unsafe or
-can't guarantee safety when requested by user mode code), but ...
+When I compile Xen for arm32, vreg_reg64_extract() definitions do not exist.
 
-> I was under the impression that the command line ssbd option was added
-> to cope with Xen not exposing the feature to guests. Now that the
-> feature is exposed guests should be free to make use of it, and hence
-> there's no need to force a value for Xen.
+The reason being 
+https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/arch/arm/include/asm/vreg.h;h=f26a70d024e2d1f933ea66793ea6e42f81c7a8cf;hb=9029bc265cdf2bd63376dde9fdd91db4ce9c0586#l189 
+, BITS_PER_LONG is 32 (Refer xen/arch/arm/include/asm/config.h).
 
-... me not having had this understanding may have been wrong on my part.
-Andrew - any chance you could clarify (original) intentions here?
+.Thus, the guest need to invoke sys_read32() twice (GICR_TYPER and 
+GICR_TYPER+4).
 
-Jan
+
+>
+> I doesn't look like we need to modify Xen. What did I miss?
+>
+> Cheers,
+>
 
