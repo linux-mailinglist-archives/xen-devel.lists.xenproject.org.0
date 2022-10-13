@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ECDF5FD877
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 13:36:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.421880.667563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78C475FD878
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 13:36:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.421885.667575 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiwUS-0007LE-2J; Thu, 13 Oct 2022 11:35:04 +0000
+	id 1oiwVu-0007zT-Eg; Thu, 13 Oct 2022 11:36:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 421880.667563; Thu, 13 Oct 2022 11:35:04 +0000
+Received: by outflank-mailman (output) from mailman id 421885.667575; Thu, 13 Oct 2022 11:36:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiwUR-0007JB-Vi; Thu, 13 Oct 2022 11:35:03 +0000
-Received: by outflank-mailman (input) for mailman id 421880;
- Thu, 13 Oct 2022 11:35:02 +0000
+	id 1oiwVu-0007wB-AM; Thu, 13 Oct 2022 11:36:34 +0000
+Received: by outflank-mailman (input) for mailman id 421885;
+ Thu, 13 Oct 2022 11:36:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=a0LZ=2O=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oiwUQ-0007J5-16
- for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 11:35:02 +0000
+ id 1oiwVs-0007w1-Bu
+ for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 11:36:32 +0000
 Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr00058.outbound.protection.outlook.com [40.107.0.58])
+ (mail-eopbgr00067.outbound.protection.outlook.com [40.107.0.67])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 11ad9e11-4aeb-11ed-91b4-6bf2151ebd3b;
- Thu, 13 Oct 2022 13:34:59 +0200 (CEST)
+ id 4837676e-4aeb-11ed-91b4-6bf2151ebd3b;
+ Thu, 13 Oct 2022 13:36:31 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
  by AS4PR04MB9482.eurprd04.prod.outlook.com (2603:10a6:20b:4eb::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Thu, 13 Oct
- 2022 11:34:56 +0000
+ 2022 11:36:30 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5723.026; Thu, 13 Oct 2022
- 11:34:56 +0000
+ 11:36:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,342 +46,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11ad9e11-4aeb-11ed-91b4-6bf2151ebd3b
+X-Inumbo-ID: 4837676e-4aeb-11ed-91b4-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EN1NC+YQTGmjcnD9/NVcC2FlVvpIoxQViYkM6ib+8wKgRkj7i7trYH4NnnVBOl/czWJZ8+re+XkM20AocMmbKARgDDJBS+39UuahDrG7NsWudQcyYRA6E/FL993OmOnNt0+v7mjilwHVGyWDDTVuxJEK0/bkX36bXDoeKsB5BmZKeI3TXUkiEFF72FPyGAd/JT8mZxHY9RQnFJ8RnQq0WE6IJGtPI1q9oC4fBc3+Bb04wbV1RCuS2+arVQiZli1V+oZamPSzUFg0SfmyUpPCjN+8YeGGRFW9u/3RI8kS1jhfnfOPt/i7tOyzA9KjtNKpmGrpaJNCjoshXQwBjB6hxA==
+ b=buq4+Ld87xb4VrYEiR9MZoYbdBfmyWsAfjW/lpI5Eh6GWef18ED740FG/a4oF6yw2TYWULRrV4+sjNzqKJ/RPxW5MsN4w93RIC++61SkPm5gLdjCqcETzIjnY1p5MfwpDAaDjIrpYJxjuACo4Q6/zTBln6rnNAS9UfI4rtCYJ8QxyLLb6rBnmmVdwtwjtvfPU5OvGXlwRe8d+e15YIe9X1gxkqDEvrv/lp9dDC5JK3aG8JRsOUDJp8EX1jxCQ5qb7rYGknIYc+DWWQfHqXGIdmuGc2j9hpegY7nYg9jB+CpauHqVjQHdbYaZArVa2JuB6KHzo6lNg/xTPH04YitvLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5YaMyZ/Sm76bOlCWIFmpzJUDd91GPdZ/WxGp7jwyDls=;
- b=MH2gXdSp3451argX+wgYp1RITa6X2+nbVvaAcOdN5ZLq55BuMqo7cuioZHPwagLwPP7xMiq1xAxcaJ9qrRNy/K8lF3UTvgsMzcMvEJfy6x3jJiRDlkbpNx1TfelSjSlCtqrE3uWAKpKwyZdNYwe9bv9OSvKCgVImH4wNM9q7zUKHh/ltvaKJTb0W1XmsSjqwvakRjUGAcqFO/Wvqga2BPEcxLht/BzoKv5RG0+A7jqs1O2ZsQ8fgfPKUk5N8wK5+SnOd/ABiZHIeHmVk6sDUgAPTNGNlK+B+KxCPN959FJjF+6/99rZRQVA/2E+qvYd3O0uuVwgG/qRp2V5JC/p6hg==
+ bh=xrD0a6zLarfr8oL8gPj36xX2OAP6I10+pUdEw4s25CI=;
+ b=n8PwcME+MBX+EGJURBzh7ThGlDs9fT877V6m4Uk0co55Vp/HsT3nIoR4xvhSuKpMs3n6f/7P6N+IG8S4zI8TwipQSHPYgsCICnm4f9yoU0upJM/O0zWeBIQrIB9K+oWU3Y6huoznLW5NtyJBEWDqgfgyo8djcHbc9x45Bt7A+k8R9CWBaHUm8FGWZbJuQp0Rl2wzRWufz7zFday/8K2AddAqEDJoZJZAuqHTSOE5w1/4Neowl1bkmEWp2S6RDP6Y44NT2jG03jR3XkXFQK6yifNvEZTpdVVR5X2l8SrET64QH8xCMpFO0V6Ydp0KN6YxYKhK/Lw8G52nKfkX48uDAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5YaMyZ/Sm76bOlCWIFmpzJUDd91GPdZ/WxGp7jwyDls=;
- b=txs00q6RGVaPv/L4t/Y9LKCH3E1P4o7FXUI5Tk3oSySKLma2m7w2SZMkipmVflwB3W8xGK3tNq3JVXf9VqQ/4v55w+euv//H32K7IEIGFdgyVwi9k3A4hcObNVjOqoAq19JAV5QQxSv4Zbz6P1Qu/+KbXXFKM05DR/Iwkpay+wU7wPrkztWq8zb4qg9U0TaL3CaNbDW/s6iD/cPBsd1y5R3aKv4mUccieyQjANaWGmPX+Wl0MQ63lD52ITWKETQdlY221nZ7PS5ooVo6n2vV6wuPo5mz2FNApkfnE3ba2QFIHdF5PQLSotblhHt6C3pAyPTg26+w7nJT+MOFphvM1Q==
+ bh=xrD0a6zLarfr8oL8gPj36xX2OAP6I10+pUdEw4s25CI=;
+ b=VOxCK/yvI8taNxfTHXscNU/dUZpo1FeNkaF7eDmF+CBjLywuIdrVHd2GJH5jZYhk0ZISDJqGiJWODxwgCW+K4Wu9SzE19MIvBGyxYtOIN2zg3KOPZF1+dBoGPQ7oFF8MntzRjOQ37kBgyuL0qJAeZ4lw3WiL5n2Vh7WVtX7VofiUy2nCGU0tP+W8Gyubyn1kjCK9BMVMrQRaAvkkx5+O3TEUYhzxsDpgtvURDGE4b7WjrJYdDpO3sAWx08b3CUWDEcA/sdc/rFdQPOYFubLtfpgvZKt+p2soekuSh/iA+rnQKZ2TeNU6iQl0KL+1hrvigVB1Kovz9yf4RGCQy3/NTg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <559a3d4c-08ea-ef8c-9a56-2b53db3d51e4@suse.com>
-Date: Thu, 13 Oct 2022 13:34:54 +0200
+Message-ID: <05c4def0-321e-c864-7d92-b4dfe110d030@suse.com>
+Date: Thu, 13 Oct 2022 13:36:28 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.2
-Subject: Re: Proposal for deviations in static analyser findings
+Subject: Re: [PATCH] xen/arm: p2m: Populate pages for GICv2 mapping in
+ arch_domain_create()
 Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <EBCDE6CE-A84A-48C7-B3C2-7856E5D2392B@arm.com>
- <ddc5039d-e312-326a-b71c-8d08d04100e0@suse.com>
- <186C83D7-6C7A-4319-86E4-69F7FDA7FDA5@arm.com>
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien@xen.org>
+References: <20221013083818.36209-1-Henry.Wang@arm.com>
+ <c1020b65-491f-e1c5-3ef3-7edb99e0435c@xen.org>
+ <AS8PR08MB7991F3222D1C616AEF9C771092259@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <2c2b3e8f-34fc-1ef2-c086-233964e29e43@xen.org>
+ <03419318-275a-1f9d-6e00-1a3489659f22@suse.com>
+ <AS8PR08MB79917792FD8A7695C969020992259@AS8PR08MB7991.eurprd08.prod.outlook.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <186C83D7-6C7A-4319-86E4-69F7FDA7FDA5@arm.com>
+In-Reply-To: <AS8PR08MB79917792FD8A7695C969020992259@AS8PR08MB7991.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS9PR06CA0706.eurprd06.prod.outlook.com
- (2603:10a6:20b:49f::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0123.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS4PR04MB9482:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9dccc44-991c-40e3-0ccd-08daad0ef40d
+X-MS-Office365-Filtering-Correlation-Id: 694c6554-e4b0-4baa-1af6-08daad0f2be6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	lpyLbwv8kgzk7PSJ7o4kHcyeF4w6HSicpb3MZCosYiNjXx4lQDqRBaSReHUf9sR9oNwDw1QmSpqtkJ5HQh0TogwasMoDlxIUAII26IGfbZd9KU34Ft7bwNCaiW9zfLVlRUhu+213I8mHODzU8VuURR0aVMSnk0Hjm7vIMfY14dAwvsUbNoh5g4iubbCr+Ymx77hmYi76LkvOZErmX9KbQckNB8pKlv3potd0Qta+w+kGp7qa6fxGkbh0aVQm0HvB2R2oV/dW1IJ2aozEYA5cRdSvBg04g/ejHpmBnZ00chMmPOfJOLoU9wrThoQ33aR0zD/MdEWPOqgHf9TD3EYeZLdEMMVeAs/WHUSxIS6pjpXSA6A3TPob7n6Q+izgWpLcxmiV/lUxMNoNaLwzAcgWfYaeqKThnhQ7lxiGmHxndUqiITsPJVa4zovfmPBoE+MDu9GF8isH9gMC4fplMrFYSXr/UCc3U9w+Ww7ZnHX3+lpDCfTw0N6fi22aRpox3VRD2jIkDt6uHCrzL13GWG6X15quU5ahvXd/hKzC/Gw40wMwXMIGZq2SlgC8GS5VdN6iUEJMkNDQCMP/1KQCkpkkDDIEsqmHt8pllpZHlRDbJfysiN7bGdQZAmcIiAsWlZ9uJ1OYzw0KrMIX2ue56cFmYlJE++iiCFUITWG3wxZh1ELyxcPOQ9KPDeP3b6FJ3yFV9+zBQgWk431jvXwCKoOuvgHYLrHU99R7+3Ndke75KNsdYtfCwgTtLDTZRFOiygj0mn3KlanP38V9mU3BwAvDbHcEvby2R6iDTQVUcUou5OGorfhE3wqKvECktOgWcEyiltKdA0vbpHDjxI8mNfCVFw==
+	wTuHGFFLSpugxk9qy5N8hqt0/U9ykDWZAR8TpHnqxzU2P1HCTByeeeNstCNEkT8lIGKnO2CtnmCPOIud5sB0MyjGLjbWikz5hXVg4o2Gjdzr+bKbFdb4wsmlqBfnBgNzDW6UAooYyJNTsfbcV0ysU6LkfSFPiCg0CyYat8fnn9Ewd8T6ny+mWnv5tfoWYSgag8kPiJg+7v3dJfxoghXF9llnZ5tM+YMciGLnc3EItbwvZLkkSqoj+YUHAh+itGc/LGIgIw+krcnfC1CPnU2DCEayTpuYbYjrEKmvA+BmnYzXvcEyseFp4zCFdgyDKKmmmvoiz/zjYuye6srIyMzzWJ+9A0W+ZREc6WFtEBJ7LAKfoVkvq348MIwPf66/XVC4hWe6ghjB4sR8eMYTE6LUjtxEvOhjaSVRSnYH5LwbpbTwK8S87flatQkGqjEPVxbLq0eGFCIqNjVvoec53UbgpCS3jpdJLvXcPuxqLDXEQeUf0t4RN/dNXUk3e3eXiXBrD/dXUSMc+BXiVTNxnObCVqotfQPZ5Alvinon8e+ZpP0/l0cYjpzl2lUUU4KtCv33dU/hDFr1psGdUnw+I5TMngssunkCeaO36NIshv8kmKEbcgmcRFjQcaN1IfIlnqIYtza8J41aDp1ynhKkW/tUzbWzYNnhJmexwreRVaL9qJT6RY/FVrIy64di/jFmwRCOzX1rv46hJGJxzRSdcvsI86dgBURBg7Twy1JR2b5GzyS1WPy/OMSFpzvgnNDQfd2iJRT3/l5s1Cn7dEUkTPSjmiQO2tpR1CUxPBnIGAFJ1Aw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(39860400002)(346002)(376002)(366004)(136003)(451199015)(186003)(36756003)(2906002)(66476007)(316002)(66556008)(38100700002)(66946007)(8676002)(30864003)(5660300002)(41300700001)(8936002)(31696002)(86362001)(83380400001)(478600001)(6486002)(6506007)(4326008)(966005)(53546011)(2616005)(54906003)(6916009)(31686004)(6512007)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(39860400002)(346002)(376002)(366004)(136003)(451199015)(186003)(36756003)(2906002)(66476007)(316002)(66556008)(38100700002)(66946007)(8676002)(5660300002)(41300700001)(8936002)(31696002)(86362001)(83380400001)(478600001)(6486002)(6506007)(4326008)(53546011)(2616005)(54906003)(6916009)(31686004)(6512007)(26005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?emxiOEVSUXpwUm5xY2N2NWxjbCsxSS94amFFeFZRQlNsNlNycUVyWnNzcExI?=
- =?utf-8?B?WWJwbGFtbDRDVkd1NHZ0eW56ektqNElrcHJOY2x3WU55WVFYdXV0MXhzRFdy?=
- =?utf-8?B?TGVWZjRNSzQ3anRsNVhvY0EwVDhJNHYyOVdJeloyNVlNelU2dHVCVDQxSzV1?=
- =?utf-8?B?V3pHUUFJMUhoS1JaL2pudGhLV1YxZDlTWkk4U0Z3TkRtR251ZDMrWEVBaGE5?=
- =?utf-8?B?M21RTXZiK3lVaDBrUjFVNkRQcVdIalRMTWVGOVRNNkt2VDNsaUxncE9FZmY4?=
- =?utf-8?B?TXFOd1JKRXN6TkdFaFhpdisxSUFpZ0FjcDJzVWJ3eTFVUm02S0JLa0R5WHNT?=
- =?utf-8?B?UFRIdW9xenEycG9PdTYzQzZBMnRERXJKTDhIeGR4ZmtVbTc4NFJLeXpTUDZG?=
- =?utf-8?B?WVNvbmM0YnVFNUgzSWZaREtReVRpK1dveFA3bWQrUVVFUWVzVHNlb1MrYTlP?=
- =?utf-8?B?Z1MvYXVwb3B4TUpQQXpnNW1pcXpRTmphYVkrZWFXajExK0krWFlIdXZsSnl6?=
- =?utf-8?B?UDR0ekZiTklXVWl2WGZ6dlZXUFlMVkxUT1JIcnRlZmtJcCtWQUVySXBBbFdU?=
- =?utf-8?B?OFJZd0pJRVEwNzRaMEwzK3NtWm1hWHEzTnl2RW9GbUtXUnFrUkZlYUtwN3hV?=
- =?utf-8?B?OWxUVCs4bmFnNERtdnk3Q2poVlkxbHVJY0ZZR0tGREFmUGc1aXpjczZuNHJ0?=
- =?utf-8?B?VTUyVThjSGYrbU1TUVdvVnBRcnh0a0gyY0VMRnVuT1pmeE1xQ0hpVHRKMDNT?=
- =?utf-8?B?YXZGcE5pOXVsSWR1bk1JdzdWRzZGeDBSV05RSGhFU2k5Wk1iMVNQcDA3c2ph?=
- =?utf-8?B?K29XRGZ2U05Ld0lXN3g4YlBvRngyZ2hYQ3JzY3d2NEY3VlVXYlM5L3Rnc1Bn?=
- =?utf-8?B?YStYNkZzbkpCYll6MGNPTFlKMVhhTUd6b01ZTTltWVJEbTR6OTRJQUNjSWJR?=
- =?utf-8?B?NkRJZTRaTVdhRWV0VmZRclRQSXNmYlZPWVhyZnFCZVNCais4c1FhKzE3Zmdl?=
- =?utf-8?B?ZFlFQWtiKytDUDVIOG5wZ0hoRTRQR1k5VEJUbzFISTFOSmdjZkRYTnkvclVv?=
- =?utf-8?B?T0I3bG1TZDFnWFZEZzhrWnplTkNxV1hwZUp6aTU0bG9VeFhvOHN0TkVLYkV3?=
- =?utf-8?B?eE16VzJFMW5lMlgwNVhrK0ZJRWdXajk3dXRodjMzbzAzdXNoeVFLYVNZQjI0?=
- =?utf-8?B?clVEV290TmNzcXFqTldKU0RoeGVWNGVUTlJTb0ZNNzN2ZlpOaHhLRFVhVUk4?=
- =?utf-8?B?UmZ1NlE2RW84Q3BPc0pWNHdtQjlhem5rN0w3eWhmVTJEZ0hJazdGSjcrbmxz?=
- =?utf-8?B?bmVhaVdYV1pjd3YweFBHQXloL09RZStSSUs4OXVYeXlhT3BPNXpkR2MzN0ZP?=
- =?utf-8?B?a25sL2lMdWdCWFdCRWZhUm1yS3dPVGxINVFsT2lxQjdLY0t1bEYrQ1RQeks1?=
- =?utf-8?B?Tkh0MUVFZGJCVzE5U1ltczBQSG5GWTZGV1d3SWZFcjZzNEVxS2hRd2twWFM3?=
- =?utf-8?B?NnpsM0ovRVdBZ09Za1FnaHhjU2p5REU3REVCanpDWFJjSmpWQ3hUSTRxK20x?=
- =?utf-8?B?VFpjUnFKVC85eUVlMEIvRUZFb3JXL0RhZitiU0p3MTNpWWxJV0lLbTFhZmFN?=
- =?utf-8?B?emFaUzZuVmx1NlJ1NXFFd3Z4TXJjalhJQ2lYYU5OS2pwODNJNlZZUmpPVDM1?=
- =?utf-8?B?M0JjR3VZV0l6TEVZT1o0MWYwMW5ESEMyVmRaQlFrT05tT2xyMUtpT0MxY0dw?=
- =?utf-8?B?dUxkYlVjY1hCTkNBTEhoRWNGbm9zOXJCYXNrYmRXZGZjOFovVlJ6Z1FhUkJ0?=
- =?utf-8?B?TnFlUngzamdlSFlBMkNEcUtGTmlpOUExK1FhNDRCNzUzbDJvQ1hoMm84ZmQ0?=
- =?utf-8?B?dXJjdHdsaFFTdmRCeXpsMlRXTnU1NEZBNTMxTlVKUkd3bUQxNlR3RlRNcmoz?=
- =?utf-8?B?bEcvS0llRUlhWHMvWlRWeFlWSVF3L0NoNkl6Y2ljd1BRWGxPb3FBcEJDSWY3?=
- =?utf-8?B?bVpWTHpWL3o1b0EveDRST0M0Zmg1OENRQmlsbkFQbkdHSEp4bi9rYTY5QUhv?=
- =?utf-8?B?bVl4Y05BeVBjV2l5UTNzemNmWllKckM1VTVIRVZGZC95TGxLMi91RDJnR29i?=
- =?utf-8?Q?atnyMJxqu0MTB7DijYXcdkUSp?=
+	=?utf-8?B?THk4amdwUGFIcEJybkVGY3ZIWFhwUzBqQ2kvbzN6dHNkTzRrcktMNGx4TC9I?=
+ =?utf-8?B?Rk9KQmFRR3l1Y1NZQm9DN2prU1Z2czI3dTRjc3NmeDF6QW16WTAvYS9CN29j?=
+ =?utf-8?B?OXVjV3FlaE94M0FyZW5Kamx2aktQY25xbGRTRXZBOXRmbk13aG15MzVoL2FY?=
+ =?utf-8?B?dHVPaXFTZ2tyU1EyOHBhTVlGN3M4Ulk1M2JNRFVISnRhZG1OUUxWblZFSTdP?=
+ =?utf-8?B?ZEtPaUZKMm1UOXZiaERPTzl4eStrOUEzemg2dXE1MUVoWjkwK1lRUi9vbjFP?=
+ =?utf-8?B?bFF2VTlHYVNsa3FmSng3bVphajlZcVBGTU55eHNmWmxKWTliRXZScFUvN09I?=
+ =?utf-8?B?TlBLL0F6V2ROVmkwbnhuY0JwTGt6dytTWmVBMWhPNUJBTm84aU5hWC93UE5H?=
+ =?utf-8?B?N09LUVRzWk5iUHNVSWQ3ZXd0MGNZUkpwRmpCY0pFSE03WDRTbytNQzZUQUFl?=
+ =?utf-8?B?OHJJc2VEUFdyWEMraGlkS0VxODhBN2hPYlgyM1lMY0hNWUlNQzRtODdKRXlI?=
+ =?utf-8?B?aTBWK3ZIb1dVbUxkNHF4NEVJRmRoMWZxdittellWU1RSMWphdVhEU1A3aVdz?=
+ =?utf-8?B?a2ZONy9TY2tDWWt5M3NrTW5yMkd0akNxRG5jTFpNeDVYUE02UW5RaWx2RXFr?=
+ =?utf-8?B?SG9YQkdESUlCUmQ3VTMySnE2SkR3LzhyMXZnRTdqODVWRHZ6c2lNclVZcndG?=
+ =?utf-8?B?YWNnRmUyd1ZQZzNsUnY5V3dqb2grN1FpNmlUQ1Myek9xU0lFenFQd3o3Y3hj?=
+ =?utf-8?B?TzFacWJ2UGg4ZVVNM2VpTEtHYlBhbUJjVG4wNUZxOWxXdjFTNTR1RnFhZnJw?=
+ =?utf-8?B?UVRLZEpUN2c0MEw3MTlQbHFDM1d1VUJRdHdyemYvR2paNmU4d1Y4NGluZGxM?=
+ =?utf-8?B?WkNyc3pFanFNVDRHOTZ4d3EyM1ArZWt3NVF5WFEvMWU0S0JlbnRSRkFoNkwr?=
+ =?utf-8?B?L09sT1FwY3BwdGc1Q0Nxd1VOdmdIRmtHY3Q4SWk1dUtzZ2xMN1pnMGVUQ01L?=
+ =?utf-8?B?YjFTcUd5RjRMRFllc1NhMUlTQjZNNU9tZUJJMzFxa3ViZUM2Kzg0YXU3Z2hX?=
+ =?utf-8?B?TmYvMm1Hd1NNK2hzYkVmQ00rYTJaRDFPWHhGYnp1d2JUeGNUUTBtQTlOeGsr?=
+ =?utf-8?B?bHZxQXZTNDVGcEY3TC9BYWlxazZZZXF3UUZCd0ZXRzVEeDJYdHpFUEpYREp3?=
+ =?utf-8?B?SHZ6TmpSVG5va3BuY09aN2gxeW16SjcwaHdONVZlTngrN2FEcXNUcFlPOE83?=
+ =?utf-8?B?Wmp4NVBGZXlzMjQ0Y3VtWFFqMDAwWk1KTldOQjJTZ0dZRUJ6NEpNUTNETkFX?=
+ =?utf-8?B?ZTZZc3dhSWhTazRwVzVNOXVXY01adHFkUXhFSXUvNm1mUGlXSk1PUEI5aW14?=
+ =?utf-8?B?SGh6THlMVGIxbTBVOFFtSVB2djR2N3N3d3B4N2NzdU8rVjJ0MktzY3MwbFFv?=
+ =?utf-8?B?THBQNTNkMnVOblhhMmZmR2Y5Y2xJMTluMTNuT0xQR1EwTEY4dmhIRmNhVnF5?=
+ =?utf-8?B?d3dCT0JxaUsyVEV0eVNaVWVnUFRDTEtwR20vRE0rdGVRVFVGLzA0b29LdXdJ?=
+ =?utf-8?B?NjNNOCtnQlA0OXlobGxTTWtHT2VNRytvS3p0WHhSUXpINjNEM1BNSGs2N2M0?=
+ =?utf-8?B?THFQaVdvcElPbmwzdVA3MWVpbm1LWXhYazQxMm1jSTJBWE1oamkzblNYcjNK?=
+ =?utf-8?B?N0VFUVE0WGdLbCtYck9vWFhWMmJOYUU4aXkrNnd2WFVpU1RpV0lnN001UTg2?=
+ =?utf-8?B?TllOb1dJdFRyK2Q1TmtIRzBlZmFKZVVZUGlDdmZYbk4xZlN6dG1pZ3VpazZZ?=
+ =?utf-8?B?Smw2Snp0dDhrUHB0dVFtcE4rOSt6ZEZENDlkWVArcVJTbHkxRmtWZE1CZ296?=
+ =?utf-8?B?c3UyQzNBTEZCVkRaTHBsSmRnTjJ0eDh0WkxpWU1HdWIzUzlKNlBkN2Z2blVa?=
+ =?utf-8?B?ZG9wdXpLRFFrQTZxaFFNcnBJQVZtaTJZdCtEV0F6T1MzbXpuOWcySnRna05n?=
+ =?utf-8?B?cCthcjlLeExGQVRoNkV6YzF4MlE2SDNZOU9iNjNQdnJzZkx6UkFHTHJMOC9R?=
+ =?utf-8?B?U1RCbFpESDNIKzkvRkFWK1FRczFrSG9CMVlIRUZ2ZzIvcktUY09scXRGTUpO?=
+ =?utf-8?Q?7AxRvGRW+bki0EYNFboBIptcQ?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9dccc44-991c-40e3-0ccd-08daad0ef40d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 694c6554-e4b0-4baa-1af6-08daad0f2be6
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2022 11:34:56.3552
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2022 11:36:30.0055
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CVdLLbgy3GkQTzRZFWaW5Yxe0Y+o1nE2mLxaaAMA9fx7zVHBl9hSgPJODS6wKMfUOYi5ryiOZwMAsqJkBRASYQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: r61dZluwNeCPeaDSYkPujBiEExQh02dJv44RVXoU1q9USBCMlGMas6i7cFI2yMZlINtsE0lcsukzQiFbfDXA9w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9482
 
-On 13.10.2022 12:11, Luca Fancellu wrote:
->> On 13 Oct 2022, at 08:50, Jan Beulich <jbeulich@suse.com> wrote:
->> On 12.10.2022 18:00, Luca Fancellu wrote:
->>> In the Xen codebase, these tags will be used to document and suppress findings:
+On 13.10.2022 13:05, Henry Wang wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Subject: Re: [PATCH] xen/arm: p2m: Populate pages for GICv2 mapping in
+>> arch_domain_create()
+>>
+>> On 13.10.2022 12:58, Julien Grall wrote:
+>>> On 13/10/2022 10:21, Henry Wang wrote:
+>>>>> -----Original Message-----
+>>>>> From: Julien Grall <julien@xen.org>
+>>>>> Subject: Re: [PATCH] xen/arm: p2m: Populate pages for GICv2 mapping
+>> in
+>>>>> arch_domain_create()
+>>>>>
+>>>>> On 13/10/2022 09:38, Henry Wang wrote:
+>>>>>> Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2
+>> area
+>>>>>> when the domain is created. Considering the worst case of page tables
+>>>>>
+>>>>> Can you describe in the commit message what is the worst case scenario?
+>>>>
+>>>> The two pages will be consecutive but not necessarily in the same L3 page
+>>>> table so the worst case is 4 + 2, is that correct?
 >>>
->>> - SAF-X-safe: This tag means that the next line of code contains a finding, but
->>>  the non compliance to the checker is analysed and demonstrated to be safe.
->>> - SAF-X-false-positive: This tag means that the next line of code contains a
->>>  finding, but the finding is a bug of the tool.
+>>> So I agree that the worse case is 6. But I don't understand what you
+>>> mean by '4 + 2' here.
 >>
->> We did discuss this: False positives are often specific to just one of the
->> tools used. I think this wants mentioning here, including the implications
->> (iirc the plan was to keep the tag generic but make the table entry express
->> which tool it is that is affected).
+>> Assuming you have 4 (N) page table levels, isn't it 7 (1 + 2 * (N - 1))?
+>> Or is the root table not taken from the p2m pool?
 > 
-> Yes, in the database format below, a false positive entry will have its key-value item
-> in the “analyser” dictionary. Moreover, a false positive entry could be written for
-> example as the line below, to suppress a cppcheck false positive for MISRA rule 20.7:
-> 
-> /* SAF-0-false-positive cppcheck false-positive for rule 20.7 */
-> 
-> Clearly this comment wants the proper entry in false-positive.json with the correct internal ID
-> for the rule 20.7 given by cppcheck, that is “misra-c2012-20.7”, and a proper justification that
-> explains why it’s a bug of the tool and not a non-compliance of the code.
+> Correct, on arm the root is not taken from the pool.
 
-All of your response doesn't really seem to fit my request of making more
-explicit that in the common case false positives are expected to be limited
-to just one tool. (In fact I was wondering whether, other than for the
-"safe" table, there wouldn't better be per-tool false-positives tables. Not
-the least because false positives are also liable to be version dependent,
-which currently you have no way to express.)
-
->>> Entries in the database should never be removed, even if they are not used
->>> anymore in the code (if a patch is removing or modifying the faulty line).
->>> This is to make sure that numbers are not reused which could lead to conflicts
->>> with old branches or misleading justifications.
->>
->> Can we add provisions for shrinking such entries to e.g. just their "id"
->> line? Or is the intention to be able to re-use such an entry if a matching
->> instance appears again later?
-> 
-> I prefer to don’t shrink it, the name itself is not very long, even using many digits of the incremental
-> number, it removes also the dependency on the file name.
-
-Name length isn't relevant here, and I have no idea what dependency on a
-file name you're thinking of. My question is a scalability one: Over time
-the table will grow large. If all entries remain there in full forever,
-table size may become unwieldy.
-
->> Taking this example I also dare to ask: Shouldn't tools be aware that
->> token concatenation necessarily means no use of parentheses? See also
->> below.
-> 
-> Yes the tool should be aware, in the example below, the tool is complaining just
-> for the lines 75 and 80, in that particular example I would have fixed the finding
-> instead of using a justification, but I’ve reported that example just to show how
-> the finding can be suppressed.
-> 
-> Here the link to eclair: https://eclairit.com:3787/fs/var/lib/jenkins/jobs/XEN/configurations/axis-Target/ARM64/axis-agent/public/builds/541/archive/ECLAIR/out/PROJECT.ecd;/sources/xen/include/xen/param.h.html#L75_violation
-> 
-> The coding standard wants just to have this:
-> 
-> #define string_param(_name, _var) \
->  __setup_str __setup_str_##_var[] = (_name); \
-> __kparam __setup_##_var = \
->      { .name = __setup_str_##_var, \
->        .type = OPT_STR, \
->        .len = sizeof(_var), \
->        .par.var = &(_var) }
-
-May I suggest that you pick a real example then rather than one where we
-actually want to fix the code? People may derive more than just the
-intended information from any examples given here.
-
->>> Here a brief explanation of the field inside an object of the "content" array:
->>> - id: it is a unique string that is used to refer to the finding, many finding
->>>  can be tagged with the same id, if the justification holds for any applied
->>>  case.
->>>  It tells the tool to substitute a Xen in-code comment having this structure:
->>>  /* SAF-0-safe [...] \*/
->>> - analyser: it is an object containing pair of key-value strings, the key is
->>>  the analyser, so it can be cppcheck, coverity or eclair. The value is the
->>>  proprietary id corresponding on the finding, for example when coverity is
->>>  used as analyser, the tool will translate the Xen in-code coment in this way:
->>>  /* SAF-0-safe [...] \*/ -> /* coverity[coverity-id] \*/
->>
->> In here, where would coverity-id come from? And how does the transformation
->> here match up with the value of the "coverity": field in the table?
-> 
-> I can put an example of that, as you pointed out it could be difficult to get where
-> this proprietary tool ID comes from.
-> 
-> The proprietary ID (Coverity in this case) comes from the report it produces:
-> 
-> […]
-> <file path>:<line number>:
->   1. proprietary_ID: […]
-> […]
-> 
-> after we see the finding, we take that ID, we put it in the “analyser” dictionary as:
-> 
-> […]
-> "id":”SAF-2-safe",
-> “analyser”: {
-> 	“coverity”: “proprietary_ID"
-> },
-> […]
-> 
-> So in the source code we will have:
-> 
-> /* SAF-2-safe [optional text] */
-> C code affected line;
-> 
-> And when the analysis will be performed, the tool (coverity for example) will run on this source code:
-> 
-> /* coverity[proprietary_ID] */
-> C code affected line;
-> 
-> The tool will write a report and will suppress the finding with “proprietary_ID” that comes in the C code
-> line after the comment.
-
-Let me add some background to my earlier comment:
-
-If we wanted to add such IDs to the table, then I guess this would result in
-a proliferation of entries. If my observations haven't misguided me,
-Coverity might re-use the same ID for multiple similar new issues found in a
-single run, but it would not re-use them across runs. Hence irrespective of
-their similarity, multiple table entries would be needed just because of the
-different Coverity IDs.
-
-> After the analysis, the source code will return as the original (with the SAF-* tag).
-
-While you mention something similar also as step 3 in the original document
-near the top, I'm afraid I don't understand what this "return as the original"
-means. If you want to run the tool on an altered (comments modified) source
-tree, what I'd expect you to do is clone the sources into a throw-away tree,
-massage the comments, run the tool, and delete the massaged tree.
-
->>>  if the object doesn't have a key-value, then the corresponding in-code
->>>  comment won't be translated.
->>
->> Iirc at least Coverity ignores certain instances of what it might consider
->> violations (fall-through in switch() statements in particular) in case
->> _any_ comment is present. Therefore may I suggest that such comments be
->> deleted (really: replaced by a blank line, to maintain correct line
->> numbering) if there's no matching key-value pair?
-> 
-> Yes the line won’t be altered if there is no match. This to ensure the correct line
-> numbering is not affected.
-
-"won't be altered" is the opposite of what I've been asking to consider:
-Observing that comments _regardless_ of their contents may silence findings,
-the suggestion is to remove comments (leaving a blank line) when there's no
-entry for the targeted tool in the table entry.
-
->>> - name: a simple name for the finding
->>> - text: a proper justification to turn off the finding.
->>
->> The distinction between the last two doesn't really become clear. Taking
->> your “Variable set but not used" example above: Such a "name" will fit
->> many cases, yet the justification for each might be different. Hence
->> the question is how unique "name" should be and - if it doesn't need to
->> be unique - what information it is intended to convey.
-> 
-> Name is not enforced to be unique, it’s convenient to get a subject for the particular justification.
-> If the name of two justification is the same, but the justification is different, then it won’t require
-> much effort to write a different name to quickly recall and differentiate the one from the other.
-> 
-> However if no one finds the “name” field necessary, we can remove it. It was introduced having
-> In mind that at some point a document will be created with all the justifications together.
-> 
-> If others are against it just reply to that.
-
-I can't say whether I'm pro or con as long as it's not really clear what
-information is to be conveyed by both. If "name" is somewhat like the
-subject of an email and identical names are deemed fine, then so be it.
-Question though is whether having perhaps dozens (or hundreds) of
-identically named entries is very useful.
-
->>> Here an example of the usage of the in-code comment tags:
->>>
->>> /* SAF-0-safe [eventual developer message that shall not exceeds line char max count, don’t break the line!] */
->>> #define string_param(_name, _var) \
->>>    __setup_str __setup_str_##_var[] = _name; \
->>>    __kparam __setup_##_var = \
->>>        { .name = __setup_str_##_var, \
->>>          .type = OPT_STR, \
->>>          .len = sizeof(_var), \
->>>          .par.var = &_var }
->>>
->>> In the example above, the tool finding for this macro is suppressed. When there are multiple findings for
->>> the same line, multiple in-code comments needs to be inserted, every one on a different line.
->>
->> Since this is about parenthesization, would
->>
->> #define string_param(_name, _var) \
->>    __setup_str (__setup_str_##_var)[] = _name; \
->>    __kparam (__setup_##_var) = \
->>        { .name = (__setup_str_##_var), \
->>          .type = OPT_STR, \
->>          .len = sizeof(_var), \
->>          .par.var = &(_var) }
->>
->> satisfy the tools? And wouldn't we better not mask detection on this
->> construct anyway, since the last of the uses of "_var" indeed does
->> violate the rule (without parentheses added)?
-> 
-> Yes this was just an example of how to suppress a finding, in this particular
-> case, I would have fixed the error instead of suppressing it.
-> The changes to fix the finding is above.
-> 
->>
->> As to the placement of the label: It was repeatedly said that analysis
->> occurs on pre-processed sources. Is placing a label ahead of a macro
->> definition therefore going to have any effect at all? Wouldn't the thing
->> rather need to look like this (assuming a pre-processing mode is used
->> which retains comments and respects line splits despite the use of line
->> continuations in the macro definition):
->>
->> #define string_param(_name, _var) \
->>    /* SAF-0-safe ... */ \
->>    __setup_str __setup_str_##_var[] = _name; \
->>    /* SAF-0-safe ... */ \
->>    __kparam __setup_##_var = \
->>        /* SAF-0-safe ... */ \
->>        { .name = __setup_str_##_var, \
->>          .type = OPT_STR, \
->>          .len = sizeof(_var), \
->>          .par.var = &(_var) }
-> 
-> From the experience on cppcheck and coverity, it is enough to place the
-> In-code comment above the first line of the macro to suppress the finding.
-
-Interesting. How is the comment then propagated to all expansions of the
-macro (in the course of pre-processing)?
+Isn't that a (perhaps just minor) mistake?
 
 Jan
 
