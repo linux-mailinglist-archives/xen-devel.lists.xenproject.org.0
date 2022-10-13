@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33CBF5FD9D1
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 15:05:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.422019.667804 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7327D5FD9D5
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 15:05:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.422022.667836 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oixts-0001wz-QC; Thu, 13 Oct 2022 13:05:24 +0000
+	id 1oixu4-0002nb-N4; Thu, 13 Oct 2022 13:05:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 422019.667804; Thu, 13 Oct 2022 13:05:24 +0000
+Received: by outflank-mailman (output) from mailman id 422022.667836; Thu, 13 Oct 2022 13:05:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oixts-0001tr-N0; Thu, 13 Oct 2022 13:05:24 +0000
-Received: by outflank-mailman (input) for mailman id 422019;
- Thu, 13 Oct 2022 13:05:23 +0000
+	id 1oixu4-0002l6-Hr; Thu, 13 Oct 2022 13:05:36 +0000
+Received: by outflank-mailman (input) for mailman id 422022;
+ Thu, 13 Oct 2022 13:05:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=d8dk=2O=citrix.com=prvs=278749026=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oixtr-0001tl-4S
- for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 13:05:23 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a37d5072-4af7-11ed-8fd0-01056ac49cbb;
- Thu, 13 Oct 2022 15:04:59 +0200 (CEST)
+ id 1oixu2-0001tl-A9
+ for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 13:05:34 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aaab2a2c-4af7-11ed-8fd0-01056ac49cbb;
+ Thu, 13 Oct 2022 15:05:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,216 +36,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a37d5072-4af7-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: aaab2a2c-4af7-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1665666321;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=4VD5kqizMtcaU6mhlTqgWMjJnwhwSgll9zXYieTMYuk=;
-  b=dgRdw544u5ZZXhOR4TFtV5ytjl9z+nr1knB7SaK3yem27GYMkUgXxV6p
-   plT5jhyQjsogT1r8oKXc55Uz3y5Xqzk4Qch97M7Pp8OLxY6HB/Jdw1Rn+
-   R36Vf5cE9OKOot5TzZY5ONdUDeJCp4qboTMvgnNZrITOxf/CIZ3Q4MjBx
-   0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1665666333;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=T3wLDMvbCGyUm6GzXD79EfIEyV5ODCruMFeaxkCe9VE=;
+  b=WsZLPhToWjgrBCg3JpX+NIY3/fxBY3e5nr4mJlYZeT+/PF8aiYppnQiR
+   npM4SszcL3ml5VouJ7Fqke1z/U6qpCd9YisulX+7FIorfclxJeHHz8VEx
+   mdxogVyhP/0tpfK09uqN87QFk0JhzdXWjQ1IVwG02/Ds3J0cAmBnHEs/M
+   w=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 83071467
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 81760194
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:wMtFka5CYAKYEtUENdSysAxRtJXHchMFZxGqfqrLsTDasY5as4F+v
- mpOWW+OaPeLNmPwKNF1aI/n/RgEsZ6DztIxSgRurntmHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvymTras1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpJrfPewP9TlK6q4mlB5gVlPakjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5eJFlO0
- fAlNwouURCDuLOvm++jd7hz05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpPE+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUozRHZoMwhjHz
- o7A1zWlWh0Eatqv8CWM0nD0p+nTtj/0cY1HQdVU8dY12QbOlwT/EiY+V0a/oPS/ol6zXZRYM
- UN80jUqhbg/8gqsVNaVdwG5pVaUsxhaXMBfe8U24R+A4rDZ6AGYAi4DVDEpQMYhr8UsQjsp0
- HeGmtroAXpkt7j9YXCS7LCPthupJDMYa2QFYEcsTwEI/t3iq4EblQ/UQ5BoF6vdps34H3T8z
- i6HqAA6hq4Plogb2qOj51fFjjmw4J/TQWYd6h3MW2O57itwfIO/e5Gz8l/f8OpBK4CCCFKGu
- RAslsyT6ulIEJ+MkTCWTfsENLaz7v2BPXvXhlsHN4I66z2n9nqnfIZRyDJzPkFkNoADYzCBX
- aPIkVoPvtkJZiLsNPIpJdLqYyg38UT+Pf3AbvDwYudRWLtOdA+4rTg1OFatjn+4xSDAjpoDE
- ZucdM+tC1MTBqJm0Ce6So8h7FM7+swt7TiNHM6mlnxLxZLbPSfIEuldbDNie8hjtMu5TBPpH
- 8Gz3idg4zFWS6XAbybe6ub/xnhafCFgVfgaRyG6H9NvwzaK+kl7Vpc9Ipt7IeSJepi5cc+Zl
- kxRomcClDLCaYTvcG1mkExLZrL1RopYpnkmJyEqNlvA8yF9P9vxtP9HL8VoJONPGAlfIRlcF
- qBtRil9Kq4XFmSvF8o1N/ERU7COhDz03FnTbkJJkRA0foJ6Rhyhx+IIijDHrXBWZhdbQONk/
- NVMICuHHsdYL+mjZe6KAM+SI6SZ5CRNxb0jARWSf7G+uizEqeBXFsA4tddvS+lkFPkJ7mbyO
- 9q+afvAmdTwng==
-IronPort-HdrOrdr: A9a23:o7H4OKqzIbRJc/NuHgo9N34aV5rReYIsimQD101hICG9Evb0qy
- lhppQmPH7P+VIssRQb8+xoV5PufZqxz/BICOoqTNKftWvdyQiVxehZhOOP/9SJIUbDH4VmpM
- VdmsZFaeEZDTJB/LvHCAvTKadd/DFQmprY+ts3zB1WPH9Xg7kL1XYfNu4CeHcGPzWvA/ACZf
- yhz/sCnRWMU1INYP+2A3EUNtKz3eEixPrdEGc77wdM0nj3sQ+V
+IronPort-Data: A9a23:ObRFwqrMkzW0IdVUJtHsmJ3ByXxeBmI/ZRIvgKrLsJaIsI4StFCzt
+ garIBnTaPnYZTf9eYgiYY2yoBhXv5LTnNcwTApo/iFkF3wW9JuZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYGYpLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9VU+4ZwehBtC5gZkPKgS5weH/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m6
+ qYqFXMpNBm6ldmkm56qSNldhNozBZy+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
+ YxDM2MpNUmeJU0UUrsUIMtWcOOAj3/jczpeuRSNqLA++WT7xw1tyrn9dtHSf7RmQO0FxxnG/
+ juXowwVBDkFKtrE5SCB9Ui8j+3jlyHeZIEWJr2Ro6sCbFq7mTVIVUx+uUGAifS9h0i3Hc9RK
+ kkI4ScwpIA17kWgStS7VBq9yFabujYMVtwWFPc1gCmdx6yR7wuHC2wsSj9adMdgpMIwXSYt1
+ FKCg5XuHzMHmLmIQnvb+L6Spj62PTU9JHUHIyQDSGM4D8LL+d9pyEiVF5A6TfDz3oad9SzML
+ y6is3IMuvY318cyxZ6ppnzWgQKdpIbZZ1tgjunIZV6N4gR8bY+jQoWn71nH8PpNRLqkokm9U
+ GsswJbHsr1XZX2ZvGnUGbhWQun1jxqQGGeE6WODCaXN4NhEF5SLWYlLqA9zK05yWirvUW+4O
+ RSD0e+9CXI6AZdLUUOVS9jsYyjJ5fK6fTgAahwzRosmX3SJXFXblByCnGbJt4wXrGAikLskJ
+ bCQetu2AHARBMxPlWToGrlFiedzmH9nnws/oKwXKDz+iNKjiIO9E+9ZYDNikMhjhE97nOkl2
+ 4kGbJbbo/mueOb/fjPW4eYuELz+FlBiXMieliCiXrTcSuaQMD1+VqS5LHJIU9ANopm5Yc+Ro
+ iHgBR4GlgCi7ZAFQC3TAk1ehHrUdc4XhRoG0eYEYz5EB1BLjV6T0Zoi
+IronPort-HdrOrdr: A9a23:rAEvH6zEZS6GO8WNncLpKrPwKr1zdoMgy1knxilNoRw8SKOlfq
+ eV7ZMmPH7P+U8ssR4b+OxoVJPsfZqYz+8W3WBzB8bHYOCFgguVxehZhOOIqQEIWReOk9K1vZ
+ 0QFZSWY+efMbEVt6rHCXGDYrUd/OU=
 X-IronPort-AV: E=Sophos;i="5.95,180,1661832000"; 
-   d="scan'208";a="83071467"
+   d="scan'208";a="81760194"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Daniel P.
- Smith" <dpsmith@apertussolutions.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Elena Ufimtseva <elena.ufimtseva@oracle.com>,
-	Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>, Christian Lindig
-	<christian.lindig@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>, Tim Deegan <tim@xen.org>, Nick Rosbrook
-	<rosbrookn@gmail.com>, David Scott <dave@recoil.org>
-Subject: [XEN PATCH for-4.17 v5 00/17] Toolstack build system improvement, toward non-recursive makefiles
-Date: Thu, 13 Oct 2022 14:04:56 +0100
-Message-ID: <20221013130513.52440-1-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Luca Fancellu
+	<luca.fancellu@arm.com>, Elena Ufimtseva <elena.ufimtseva@oracle.com>, "Wei
+ Liu" <wl@xen.org>
+Subject: [XEN PATCH for-4.17 v5 01/17] tools/debugger/gdbsx: Fix and cleanup makefiles
+Date: Thu, 13 Oct 2022 14:04:57 +0100
+Message-ID: <20221013130513.52440-2-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20221013130513.52440-1-anthony.perard@citrix.com>
+References: <20221013130513.52440-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Patch series available in this git branch:
-https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.toolstack-build-system-v5
+gdbsx/:
+  - Make use of subdir facility for the "clean" target.
+  - No need to remove the *.a, they aren't in this dir.
+  - Avoid calling "distclean" in subdirs as "distclean" targets do only
+    call "clean", and the "clean" also runs "clean" in subdirs.
+  - Avoid the need to make "gx_all.a" and "xg_all.a" in the "all"
+    recipe by forcing make to check for update of "xg/xg_all.a" and
+    "gx/gx_all.a" by having "FORCE" as prerequisite. Now, when making
+    "gdbsx", make will recurse even when both *.a already exist.
+  - List target in $(TARGETS).
 
-Changes in v5:
-- rebased on staging
-- added "tools: Rework linking options for ocaml binding libraries"
+gdbsx/*/:
+  - Fix dependency on *.h.
+  - Remove some dead code.
+  - List targets in $(TARGETS).
+  - Remove "build" target.
+  - Cleanup "clean" targets.
+  - remove comments about the choice of "ar" instead of "ld"
+  - Use "$(AR)" instead of plain "ar".
 
-Changes in v4:
-- several new patches
-- some changes to other patches listed in their changelogs
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+---
 
-Changes in v3:
-- rebased
-- several new patches, starting with 13/25 "tools/libs/util: cleanup Makefile"
-- introducing macros to deal with linking with in-tree xen libraries
-- Add -Werror to CFLAGS for all builds in tools/
+Notes:
+    missing-ack: GDBSX DEBUGGER
+    
+    v2:
+    - also replace plain "ar" by "$(AR)"
 
-Changes in v2:
-- one new patch
-- other changes described in patch notes
+ tools/debugger/gdbsx/Makefile    | 20 ++++++++++----------
+ tools/debugger/gdbsx/gx/Makefile | 15 +++++++--------
+ tools/debugger/gdbsx/xg/Makefile | 25 +++++++------------------
+ 3 files changed, 24 insertions(+), 36 deletions(-)
 
-Hi everyone,
-
-I've been looking at reworking the build system we have for the "tools/", and
-transforming it to something that suit it better. There are a lot of
-dependencies between different sub-directories so it would be nice if GNU make
-could actually handle them. This is possible with "non-recursive makefiles".
-
-With non-recursive makefiles, make will have to load/include all the makefiles
-and thus will have complete overview of all the dependencies. This will allow
-make to build the necessary targets in other directory, and we won't need to
-build sub-directories one by one.
-
-To help with this transformation, I've chosen to go with a recent project
-called "subdirmk". It help to deal with the fact that all makefiles will share
-the same namespace, it is hooked into autoconf, we can easily run `make` from
-any subdirectory. Together "autoconf" and "subdirmk" will also help to get
-closer to be able to do out-of-tree build of the tools, but I'm mainly looking
-to have non-recursive makefile.
-
-Link to the project:
-    https://www.chiark.greenend.org.uk/ucgi/~ian/git/subdirmk.git/
-
-But before getting to the main course, I've got quite a few cleanup and some
-changes to the makefiles. I start the patch series with patches that remove old
-left over stuff, then start reworking makefiles. They are some common changes like
-removing the "build" targets in many places as "all" would be the more common
-way to spell it and "all" is the default target anyway. They are other changes
-related to the conversion to "subdirmk", I start to use the variable $(TARGETS)
-in several makefiles, this variable will have a special meaning in subdirmk
-which will build those target by default.
-
-As for the conversion to non-recursive makefile, with subdirmk, I have this WIP
-branch, it contains some changes that I'm trying out, some notes, and the
-conversion, one Makefile per commit. Cleanup are still needed, some makefile
-not converted yet, but it's otherwise mostly done.
-
-    https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.toolstack-build-system-v1-wip-extra
-
-With that branch, you could tried something like:
-    ./configure; cd tools/xl; make
-and `xl` should be built as well as all the xen library needed.
-Also, things like `make clean` or rebuild should be faster in the all tools/
-directory.
-
-Cheers,
-
-Anthony PERARD (17):
-  tools/debugger/gdbsx: Fix and cleanup makefiles
-  tools/xentrace: rework Makefile
-  tools: Introduce $(xenlibs-ldflags, ) macro
-  tools: Add -Werror by default to all tools/
-  tools: Remove -Werror everywhere else
-  tools/hotplug: Generate "hotplugpath.sh" with configure
-  libs/light/gentypes.py: allow to generate headers in subdirectory
-  git-checkout.sh: handle running git-checkout from a different
-    directory
-  libs: Avoid exposing -Wl,--version-script to other built library
-  libs: Fix auto-generation of version-script for unstable libs
-  tools/include: Rework Makefile
-  libs/light: Rework acpi table build targets
-  libs/light: Rework generation of include/_libxl_*.h
-  libs/light: Rework targets prerequisites
-  libs/light: Makefile cleanup
-  tools/golang/xenlight: Rework gengotypes.py and generation of *.gen.go
-  tools: Rework linking options for ocaml binding libraries
-
- tools/configure.ac                     |  2 +
- tools/console/client/Makefile          |  1 -
- tools/console/daemon/Makefile          |  1 -
- tools/debugger/gdbsx/Makefile          | 20 +++----
- tools/debugger/gdbsx/gx/Makefile       | 15 +++---
- tools/debugger/gdbsx/xg/Makefile       | 25 +++------
- tools/debugger/kdd/Makefile            |  1 -
- tools/flask/utils/Makefile             |  1 -
- tools/fuzz/cpu-policy/Makefile         |  2 +-
- tools/golang/xenlight/Makefile         |  8 +--
- tools/hotplug/common/Makefile          | 10 +---
- tools/include/Makefile                 | 28 +++++-----
- tools/libs/call/Makefile               |  1 +
- tools/libs/ctrl/Makefile               |  3 --
- tools/libs/devicemodel/Makefile        |  1 +
- tools/libs/evtchn/Makefile             |  1 +
- tools/libs/foreignmemory/Makefile      |  1 +
- tools/libs/gnttab/Makefile             |  1 +
- tools/libs/guest/Makefile              |  3 --
- tools/libs/hypfs/Makefile              |  1 +
- tools/libs/light/Makefile              | 72 +++++++++++++++-----------
- tools/libs/stat/Makefile               |  2 +-
- tools/libs/store/Makefile              |  1 +
- tools/libs/toolcore/Makefile           |  1 +
- tools/libs/toollog/Makefile            |  1 +
- tools/libs/util/Makefile               |  3 --
- tools/libs/vchan/Makefile              |  3 --
- tools/misc/Makefile                    |  1 -
- tools/ocaml/libs/eventchn/Makefile     |  2 +-
- tools/ocaml/libs/xc/Makefile           |  2 +-
- tools/ocaml/libs/xentoollog/Makefile   |  2 +-
- tools/ocaml/libs/xl/Makefile           |  2 +-
- tools/tests/cpu-policy/Makefile        |  2 +-
- tools/tests/depriv/Makefile            |  2 +-
- tools/tests/resource/Makefile          |  1 -
- tools/tests/tsx/Makefile               |  1 -
- tools/tests/xenstore/Makefile          |  1 -
- tools/xcutils/Makefile                 |  2 -
- tools/xenmon/Makefile                  |  1 -
- tools/xenpaging/Makefile               |  1 -
- tools/xenpmd/Makefile                  |  1 -
- tools/xentop/Makefile                  |  2 +-
- tools/xentrace/Makefile                | 29 ++++-------
- tools/xl/Makefile                      |  2 +-
- tools/Rules.mk                         | 20 +++++++
- tools/debugger/gdbsx/Rules.mk          |  2 +-
- tools/firmware/Rules.mk                |  2 -
- tools/libfsimage/common.mk             |  2 +-
- tools/libs/libs.mk                     | 21 +++++---
- tools/libs/light/libxl_x86_acpi.c      |  2 +-
- tools/ocaml/common.make                |  2 +-
- .gitignore                             |  6 ---
- config/Tools.mk.in                     |  1 +
- scripts/git-checkout.sh                |  4 +-
- tools/configure                        | 29 ++++++++++-
- tools/golang/xenlight/gengotypes.py    | 10 +++-
- tools/hotplug/common/hotplugpath.sh.in | 16 ++++++
- tools/libs/light/gentypes.py           |  9 ++--
- tools/xenstore/Makefile.common         |  1 -
- 59 files changed, 218 insertions(+), 172 deletions(-)
- create mode 100644 tools/hotplug/common/hotplugpath.sh.in
-
+diff --git a/tools/debugger/gdbsx/Makefile b/tools/debugger/gdbsx/Makefile
+index 5571450a89..4aaf427c45 100644
+--- a/tools/debugger/gdbsx/Makefile
++++ b/tools/debugger/gdbsx/Makefile
+@@ -1,20 +1,20 @@
+ XEN_ROOT = $(CURDIR)/../../..
+ include ./Rules.mk
+ 
++SUBDIRS-y += gx
++SUBDIRS-y += xg
++
++TARGETS := gdbsx
++
+ .PHONY: all
+-all:
+-	$(MAKE) -C gx
+-	$(MAKE) -C xg
+-	$(MAKE) gdbsx
++all: $(TARGETS)
+ 
+ .PHONY: clean
+-clean:
+-	rm -f xg_all.a gx_all.a gdbsx
+-	set -e; for d in xg gx; do $(MAKE) -C $$d clean; done
++clean: subdirs-clean
++	rm -f $(TARGETS)
+ 
+ .PHONY: distclean
+ distclean: clean
+-	set -e; for d in xg gx; do $(MAKE) -C $$d distclean; done
+ 
+ .PHONY: install
+ install: all
+@@ -28,7 +28,7 @@ uninstall:
+ gdbsx: gx/gx_all.a xg/xg_all.a 
+ 	$(CC) $(LDFLAGS) -o $@ $^
+ 
+-xg/xg_all.a:
++xg/xg_all.a: FORCE
+ 	$(MAKE) -C xg
+-gx/gx_all.a:
++gx/gx_all.a: FORCE
+ 	$(MAKE) -C gx
+diff --git a/tools/debugger/gdbsx/gx/Makefile b/tools/debugger/gdbsx/gx/Makefile
+index 3b8467f799..e9859aea9c 100644
+--- a/tools/debugger/gdbsx/gx/Makefile
++++ b/tools/debugger/gdbsx/gx/Makefile
+@@ -2,21 +2,20 @@ XEN_ROOT = $(CURDIR)/../../../..
+ include ../Rules.mk
+ 
+ GX_OBJS := gx_comm.o gx_main.o gx_utils.o gx_local.o
+-GX_HDRS := $(wildcard *.h)
++
++TARGETS := gx_all.a
+ 
+ .PHONY: all
+-all: gx_all.a
++all: $(TARGETS)
+ 
+ .PHONY: clean
+ clean:
+-	rm -rf gx_all.a *.o .*.d
++	rm -f *.o $(TARGETS) $(DEPS_RM)
+ 
+ .PHONY: distclean
+ distclean: clean
+ 
+-#%.o: %.c $(GX_HDRS) Makefile
+-#	$(CC) -c $(CFLAGS) -o $@ $<
+-
+-gx_all.a: $(GX_OBJS) Makefile $(GX_HDRS)
+-	ar cr $@ $(GX_OBJS)        # problem with ld using -m32 
++gx_all.a: $(GX_OBJS) Makefile
++	$(AR) cr $@ $(GX_OBJS)
+ 
++-include $(DEPS_INCLUDE)
+diff --git a/tools/debugger/gdbsx/xg/Makefile b/tools/debugger/gdbsx/xg/Makefile
+index acdcddf0d5..05325d6d81 100644
+--- a/tools/debugger/gdbsx/xg/Makefile
++++ b/tools/debugger/gdbsx/xg/Makefile
+@@ -1,35 +1,24 @@
+ XEN_ROOT = $(CURDIR)/../../../..
+ include ../Rules.mk
+ 
+-XG_HDRS := xg_public.h 
+ XG_OBJS := xg_main.o 
+ 
+ CFLAGS += -D__XEN_TOOLS__
+ CFLAGS += $(CFLAGS_xeninclude)
+ 
++TARGETS := xg_all.a
+ 
+ .PHONY: all
+-all: build
++all: $(TARGETS)
+ 
+-.PHONY: build
+-build: xg_all.a $(XG_HDRS) $(XG_OBJS) Makefile
+-# build: mk-symlinks xg_all.a $(XG_HDRS) $(XG_OBJS) Makefile
+-# build: mk-symlinks xg_all.a
+-
+-xg_all.a: $(XG_OBJS) Makefile $(XG_HDRS)
+-	ar cr $@ $(XG_OBJS)    # problems using -m32 in ld 
+-#	$(LD) -b elf32-i386 $(LDFLAGS) -r -o $@ $^
+-#	$(CC) -m32 -c -o $@ $^
+-
+-# xg_main.o: xg_main.c Makefile $(XG_HDRS)
+-#$(CC) -c $(CFLAGS) -o $@ $<
+-
+-# %.o: %.c $(XG_HDRS) Makefile  -- doesn't work as it won't overwrite Rules.mk
+-#%.o: %.c       -- doesn't recompile when .c changed
++xg_all.a: $(XG_OBJS) Makefile
++	$(AR) cr $@ $(XG_OBJS)
+ 
+ .PHONY: clean
+ clean:
+-	rm -rf xen xg_all.a $(XG_OBJS)  .*.d
++	rm -f $(TARGETS) $(XG_OBJS) $(DEPS_RM)
+ 
+ .PHONY: distclean
+ distclean: clean
++
++-include $(DEPS_INCLUDE)
 -- 
 Anthony PERARD
 
