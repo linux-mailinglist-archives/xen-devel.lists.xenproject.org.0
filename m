@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97E195FDA24
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 15:16:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.422141.668001 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 365145FDA23
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 15:16:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.422134.667991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiy4P-0004Nk-OD; Thu, 13 Oct 2022 13:16:17 +0000
+	id 1oiy4O-00044U-GE; Thu, 13 Oct 2022 13:16:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 422141.668001; Thu, 13 Oct 2022 13:16:17 +0000
+Received: by outflank-mailman (output) from mailman id 422134.667991; Thu, 13 Oct 2022 13:16:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiy4P-0004Kl-Kg; Thu, 13 Oct 2022 13:16:17 +0000
-Received: by outflank-mailman (input) for mailman id 422141;
- Thu, 13 Oct 2022 13:16:16 +0000
+	id 1oiy4O-00041Y-CN; Thu, 13 Oct 2022 13:16:16 +0000
+Received: by outflank-mailman (input) for mailman id 422134;
+ Thu, 13 Oct 2022 13:16:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=d8dk=2O=citrix.com=prvs=278749026=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oixuQ-0002ig-ME
- for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 13:05:58 +0000
+ id 1oixuT-0002ig-7w
+ for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 13:06:01 +0000
 Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
  [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3cfa8c6-4af7-11ed-91b4-6bf2151ebd3b;
- Thu, 13 Oct 2022 15:05:53 +0200 (CEST)
+ id c4a10fd2-4af7-11ed-91b4-6bf2151ebd3b;
+ Thu, 13 Oct 2022 15:05:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,52 +36,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3cfa8c6-4af7-11ed-91b4-6bf2151ebd3b
+X-Inumbo-ID: c4a10fd2-4af7-11ed-91b4-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1665666353;
+  d=citrix.com; s=securemail; t=1665666354;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=yZl8f6nskAbfIqIwFywI0ObjvI50ZytLF896MN4MC2E=;
-  b=XxnQtvS0tflVy8S9caQQJq0chyqtNj67qLALNnpgj5bkpjD4MxgqS4p/
-   GCncRIlG0i5MpNi/3C9iraubyGQqk7MF7Fil1ZuHaBFWxK65ZqKI76oM0
-   NWU5HNWe9oLBs81ntKSHoALZaKVJDu9JUL86kOpeqbx9sQX2o/6p8QFTA
-   M=;
+  bh=xNKHGKv0xiseesErXwvSTNU3NRH6cY3P70E/A0khyJY=;
+  b=JKkLA/3JYRZ57DEFovQrgvxhRHuhWN83fhFNKB3SbqWS7ATffIxyIo0b
+   qdBQ4OL3Sl1egie0WwLmZdoiVsoGRf8tOF6PDPSl+Bmh1zvqRbqBT7Tct
+   3Pb4aWGMy/YGQwMN8aHOEdO2hwLlQUeL06O5yhmCDulStlX0BimWCpRXL
+   4=;
 Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 83071574
+X-MesageID: 83071582
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:g4V3VKB6T0bjpBVW/zTjw5YqxClBgxIJ4kV8jS/XYbTApG4kg2ZRy
- mseWDuDPvqDN2egetp+Ydiw/EpXusXUm9VrQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8mk/ngqoPUUIbsIjp2SRJvVBAvgBdin/9RqoNziJ2yDhjlV
- ena+qUzA3f4nW8pWo4ow/jb8kk25K2p4GpwUmEWPpingnePzxH5M7pHTU2BByOQapVZGOe8W
- 9HCwNmRlo8O105wYj8Nuu+TnnwiGtY+DyDX4pZlc/HKbix5jj4zys4G2M80Mi+7vdkrc+dZk
- 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzdFSfqV/wmWfG0YAzcmCA2k8B4s9q8dORlgR3
- u0pNDYJQEyuvMuflefTpulE3qzPLeHuNYIb/Hph0SvYHbAtRpWrr6fivIECmm1q34YXQKiYN
- 5FxhTlHNXwsZzVGPEsXD5Qv2v+lnHDlfxVTqU6PpLpx6G/WpOB0+Oi2aIWMJ4PWLSlTtn7Fh
- D3roEP+OR0hJv+v22a37UCLm/CayEsXX6pNTeblp5aGmma73GsIAgcRUli9ifa8g0+6HdlYL
- iQ85S4GvaU0skuxQbHVTxC+5XKJoBMYc95RCPEhrhGAzLLO5ASUDXRCSSROAPQGucksVHoV3
- 1mGt9rzAHpkt7j9dJ6G3u7K93XoY3FTdDJcI39fJecY3zX9iIsJiDeeb+8kKfGen+zpHzXen
- x2xhQFr0t3/kvU3/6m8+FnGhRelqZ7IUhM5623rY4610u9qTNX7PtL1sDA3+d4Fdd/EFQfZ4
- BDojuDEtIgz4YexeDthqQnnNJWg/L67PTLVmjaD9LFxpm32qxZPkW29iQySxXuF0O5eJFcFg
- 2eJ42u9AaO/21P7BZKbm6rrV6wXIVHITLwJrMz8YNtUeYRWfwSa5ixobkP49zmzzhVyyflnY
- cnEKJzE4ZMm5UNPlWPeegvg+eVzmnBWKZ37H/gXMChLIZLBPSXIGN/pwXOFb/wj7bPsnTg5B
- +13bpLSoyizpcWkPUE7B6ZPcg1RRZX6bLiqw/Fqmhmre1Y2RT5wVaGLnNvMueVNxsxoqwsBx
- VnlMmcw9bY1rSCvxdmiApy7VI7SYA==
-IronPort-HdrOrdr: A9a23:pjK8NKspIVwuF3I4bWluNzSI7skDTtV00zEX/kB9WHVpmszxra
- 6TdZMgpHnJYVcqKQkdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
- YFT0EXMqyIMbEQt6fHCWeDfOrIuOP3kpyVuQ==
+IronPort-Data: A9a23:z8VRha29XR4Hg1fS1fbD5dZxkn2cJEfYwER7XKvMYLTBsI5bpzECy
+ mobXGyCMvmJNmOhfthxaIvj9htX7MTXnYUwSgZppC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefSAOKU5NfsYkhZXRVjRDoqlSVtkus4hp8AqdWiCkaGt
+ MiaT/f3YTdJ4BYpdDNJg06/gEk35q6r4GpD5gVWic1j5zcyqVFEVPrzGonpR5fIatE8NvK3Q
+ e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkEqShgJ+rQ6LJIhhXJ/0F1lqTzTJ
+ OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXWV+ACQqflO1q8iCAn3aMqUeocxpUDl/2
+ cc3EzAdKQiPrPK66+O0H7wEasQLdKEHPasas3BkizrYEewnUdbIRKCiCd1whWlqwJoURLCHO
+ pRfOWEHgBfoOnWjPn8eDo4+m+G5wGHyaTRCpHqepLYt4niVxwt0uFToGIqOIoPTGJUP9qqej
+ n3l7kfcUhcUDsa8+Bq/sW2jtuSMhwquDer+E5Xnr6U30TV/3Fc7BBQIWHOhrPK+i0r4XMhQQ
+ 2QL/gI+oK5081akJvHtUhv9rHOasxo0X9tLD/Z8+AyL0rDT4QuSGi4DVDEpVTA9nJZoH3pwj
+ AbPxo63Q2w02FGIdZ6D3rHPhy3jYRk5FkA5ZT9DVQcu89XI8Y5m23ojUe1fOKKyi9T0HxT5z
+ DaLsDUyit0vsCIb60mo1QuZ2mzx//AlWiZwv1yKBTz9smuVcab/P+SVBU7nAeGsxWpzZn2Ip
+ zA6lseX94ji5rndxXXWEI3h8FxEjstp0QEwY3Y1QvHNFBz3oRZPmLy8BxkvTHqFyu5eJVfUj
+ Lb74Gu9HqN7MnqwdrNQaImsEcksxqWIPY27CK2KNoIWOsYuLVXvEMRSiam4hjmFraTRuftnZ
+ cfznTiEVx729piLPBLpHrxAgNfHNwg1xH/JRICT8ilLJYG2PSfNIYrpxXPUMYjVGovY/1iOm
+ zueXuPWoyhivBrWO3WHrNFCcw5QcBDWx/ne8qRqSwJKGSI+cElJNhMb6e9Jl1BN90iNqtr1w
+ w==
+IronPort-HdrOrdr: A9a23:Y6OquKBfZlxZKZLlHelW55DYdb4zR+YMi2TDt3oddfWaSKylfq
+ GV7ZAmPHrP4gr5N0tOpTntAse9qBDnhPtICOsqTNSftWDd0QPFEGgL1+DfKlbbak/DH4BmtJ
+ uJc8JFeaDN5VoRt7eH3OFveexQv+Vu88qT9JnjJ28Gd3AMV0n5hT0JcTpyFCdNNW97LKt8Lr
+ WwzOxdqQGtfHwGB/7LfEXsD4D41qT2fIuNW29/OyIa
 X-IronPort-AV: E=Sophos;i="5.95,180,1661832000"; 
-   d="scan'208";a="83071574"
+   d="scan'208";a="83071582"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Henry Wang
-	<Henry.Wang@arm.com>, George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
-	<rosbrookn@gmail.com>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH for-4.17 v5 16/17] tools/golang/xenlight: Rework gengotypes.py and generation of *.gen.go
-Date: Thu, 13 Oct 2022 14:05:12 +0100
-Message-ID: <20221013130513.52440-17-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>,
+	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
+Subject: [XEN PATCH for-4.17 v5 17/17] tools: Rework linking options for ocaml binding libraries
+Date: Thu, 13 Oct 2022 14:05:13 +0100
+Message-ID: <20221013130513.52440-18-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20221013130513.52440-1-anthony.perard@citrix.com>
 References: <20221013130513.52440-1-anthony.perard@citrix.com>
@@ -89,77 +89,113 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-gengotypes.py creates both "types.gen.go" and "helpers.gen.go", but
-make can start gengotypes.py twice. Rework the rules so that
-gengotypes.py is executed only once.
+Using a full path to the C libraries when preparing one of the ocaml
+binding for those libraries make the binding unusable by external
+project. The full path is somehow embedded and reused by the external
+project when linking against the binding.
 
-Also, add the ability to provide a path to tell gengotypes.py where to
-put the files. This doesn't matter yet but it will when for example
-the script will be run from tools/ to generate the targets.
+Instead, we will use the proper way to link a library, by using '-l'.
+For in-tree build, we also need to provide the search directory via
+'-L'.
 
+(The search path -L are still be embedded, but at least that doesn't
+prevent the ocaml binding from been used.)
+
+Related-to: xen-project/xen#96
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Release-acked-by: Henry Wang <Henry.Wang@arm.com>
 ---
 
 Notes:
-    v5:
-    - released-acked to fix occasional CI build issue
+    This patch only partially resolve xen-project/xen#96. At least with this
+    patch, the ocaml binding can be used by external project, but those
+    project will still "see" and try to use the rpath and lib search path as
+    the -L and -W,-rpath-link are still embedded in the ocaml binding.
     
-    v4:
+    I'm working on a more involve series of patch which would remove the
+    unnecessary flags. (This would mean that oxenstored and the ocaml test
+    will need those ldflags, instead of the binding.)
+    
+    v5:
     - new patch
 
- tools/golang/xenlight/Makefile      |  6 ++++--
- tools/golang/xenlight/gengotypes.py | 10 +++++++++-
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ tools/ocaml/libs/eventchn/Makefile   | 2 +-
+ tools/ocaml/libs/xc/Makefile         | 2 +-
+ tools/ocaml/libs/xentoollog/Makefile | 2 +-
+ tools/ocaml/libs/xl/Makefile         | 2 +-
+ tools/Rules.mk                       | 8 ++++++++
+ 5 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/tools/golang/xenlight/Makefile b/tools/golang/xenlight/Makefile
-index 00e6d17f2b..c5bb6b94a8 100644
---- a/tools/golang/xenlight/Makefile
-+++ b/tools/golang/xenlight/Makefile
-@@ -15,8 +15,10 @@ all: build
+diff --git a/tools/ocaml/libs/eventchn/Makefile b/tools/ocaml/libs/eventchn/Makefile
+index 7362a28d9e..dc560ba49b 100644
+--- a/tools/ocaml/libs/eventchn/Makefile
++++ b/tools/ocaml/libs/eventchn/Makefile
+@@ -8,7 +8,7 @@ OBJS = xeneventchn
+ INTF = $(foreach obj, $(OBJS),$(obj).cmi)
+ LIBS = xeneventchn.cma xeneventchn.cmxa
  
- GOXL_GEN_FILES = types.gen.go helpers.gen.go
+-LIBS_xeneventchn = $(LDLIBS_libxenevtchn)
++LIBS_xeneventchn = $(call xenlibs-ldflags-ldlibs,evtchn)
  
--%.gen.go: gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl $(LIBXL_SRC_DIR)/idl.py
--	LIBXL_SRC_DIR=$(LIBXL_SRC_DIR) $(PYTHON) gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl
-+# This exploits the 'multi-target pattern rule' trick.
-+# gentypes.py should be executed only once to make all the targets.
-+$(subst .gen.,.%.,$(GOXL_GEN_FILES)): gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl $(LIBXL_SRC_DIR)/idl.py
-+	LIBXL_SRC_DIR=$(LIBXL_SRC_DIR) $(PYTHON) gengotypes.py $(LIBXL_SRC_DIR)/libxl_types.idl $(@D)/types.gen.go $(@D)/helpers.gen.go
+ all: $(INTF) $(LIBS) $(PROGRAMS)
  
- # Go will do its own dependency checking, and not actuall go through
- # with the build if none of the input files have changed.
-diff --git a/tools/golang/xenlight/gengotypes.py b/tools/golang/xenlight/gengotypes.py
-index ac1cf060dd..ff4c2ad216 100644
---- a/tools/golang/xenlight/gengotypes.py
-+++ b/tools/golang/xenlight/gengotypes.py
-@@ -723,7 +723,13 @@ def xenlight_golang_fmt_name(name, exported = True):
-     return words[0] + ''.join(x.title() for x in words[1:])
+diff --git a/tools/ocaml/libs/xc/Makefile b/tools/ocaml/libs/xc/Makefile
+index 67acc46bee..3b76e9ad7b 100644
+--- a/tools/ocaml/libs/xc/Makefile
++++ b/tools/ocaml/libs/xc/Makefile
+@@ -10,7 +10,7 @@ OBJS = xenctrl
+ INTF = xenctrl.cmi
+ LIBS = xenctrl.cma xenctrl.cmxa
  
- if __name__ == '__main__':
-+    if len(sys.argv) != 4:
-+        print("Usage: gengotypes.py <idl> <types.gen.go> <helpers.gen.go>", file=sys.stderr)
-+        sys.exit(1)
+-LIBS_xenctrl = $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest)
++LIBS_xenctrl = $(call xenlibs-ldflags-ldlibs,ctrl guest)
+ 
+ xenctrl_OBJS = $(OBJS)
+ xenctrl_C_OBJS = xenctrl_stubs
+diff --git a/tools/ocaml/libs/xentoollog/Makefile b/tools/ocaml/libs/xentoollog/Makefile
+index 9ede2fd124..1645b40faf 100644
+--- a/tools/ocaml/libs/xentoollog/Makefile
++++ b/tools/ocaml/libs/xentoollog/Makefile
+@@ -13,7 +13,7 @@ OBJS = xentoollog
+ INTF = xentoollog.cmi
+ LIBS = xentoollog.cma xentoollog.cmxa
+ 
+-LIBS_xentoollog = $(LDLIBS_libxentoollog)
++LIBS_xentoollog = $(call xenlibs-ldflags-ldlibs,toollog)
+ 
+ xentoollog_OBJS = $(OBJS)
+ xentoollog_C_OBJS = xentoollog_stubs
+diff --git a/tools/ocaml/libs/xl/Makefile b/tools/ocaml/libs/xl/Makefile
+index 7c1c4edced..22d6c93aae 100644
+--- a/tools/ocaml/libs/xl/Makefile
++++ b/tools/ocaml/libs/xl/Makefile
+@@ -15,7 +15,7 @@ LIBS = xenlight.cma xenlight.cmxa
+ 
+ OCAMLINCLUDE += -I ../xentoollog
+ 
+-LIBS_xenlight = $(LDLIBS_libxenlight)
++LIBS_xenlight = $(call xenlibs-ldflags-ldlibs,light)
+ 
+ xenlight_OBJS = $(OBJS)
+ xenlight_C_OBJS = xenlight_stubs
+diff --git a/tools/Rules.mk b/tools/Rules.mk
+index a165dc4bda..34d495fff7 100644
+--- a/tools/Rules.mk
++++ b/tools/Rules.mk
+@@ -113,6 +113,14 @@ define xenlibs-ldflags
+     $(foreach lib,$(1),-L$(XEN_ROOT)/tools/libs/$(lib))
+ endef
+ 
++# Flags for linking against all Xen libraries listed in $(1) but by making use
++# of -L and -l instead of providing a path to the shared library.
++define xenlibs-ldflags-ldlibs
++    $(call xenlibs-ldflags,$(1)) \
++    $(foreach lib,$(1), -l$(FILENAME_$(lib))) \
++    $(foreach lib,$(1),$(xenlibs-ldlibs-$(lib)))
++endef
 +
-     idlname = sys.argv[1]
-+    path_types = sys.argv[2]
-+    path_helpers = sys.argv[3]
- 
-     (builtins, types) = idl.parse(idlname)
- 
-@@ -735,9 +741,11 @@ if __name__ == '__main__':
- // source: {}
- 
- """.format(os.path.basename(sys.argv[0]),
--           ' '.join([os.path.basename(a) for a in sys.argv[1:]]))
-+           os.path.basename(sys.argv[1]))
- 
-     xenlight_golang_generate_types(types=types,
-+                                   path=path_types,
-                                    comment=header_comment)
-     xenlight_golang_generate_helpers(types=types,
-+                                     path=path_helpers,
-                                      comment=header_comment)
+ define LIB_defs
+  FILENAME_$(1) ?= xen$(1)
+  XEN_libxen$(1) = $$(XEN_ROOT)/tools/libs/$(1)
 -- 
 Anthony PERARD
 
