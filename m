@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADCE55FD743
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 11:47:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.421813.667456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D50575FD760
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 11:55:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.421822.667473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiuo9-0008Sg-4s; Thu, 13 Oct 2022 09:47:17 +0000
+	id 1oiuve-0001UD-Vq; Thu, 13 Oct 2022 09:55:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 421813.667456; Thu, 13 Oct 2022 09:47:17 +0000
+Received: by outflank-mailman (output) from mailman id 421822.667473; Thu, 13 Oct 2022 09:55:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oiuo9-0008Pu-19; Thu, 13 Oct 2022 09:47:17 +0000
-Received: by outflank-mailman (input) for mailman id 421813;
- Thu, 13 Oct 2022 09:47:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gb4P=2O=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1oiuo6-0008Po-Uw
- for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 09:47:15 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03bff0e3-4adc-11ed-91b4-6bf2151ebd3b;
- Thu, 13 Oct 2022 11:47:13 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id g27so1797560edf.11
- for <xen-devel@lists.xenproject.org>; Thu, 13 Oct 2022 02:47:13 -0700 (PDT)
+	id 1oiuve-0001Ri-Sd; Thu, 13 Oct 2022 09:55:02 +0000
+Received: by outflank-mailman (input) for mailman id 421822;
+ Thu, 13 Oct 2022 09:55:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oiuvd-0001RY-5s; Thu, 13 Oct 2022 09:55:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oiuvd-0003yQ-2V; Thu, 13 Oct 2022 09:55:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oiuvc-0005m8-Nj; Thu, 13 Oct 2022 09:55:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oiuvc-0005lO-Kb; Thu, 13 Oct 2022 09:55:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,131 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03bff0e3-4adc-11ed-91b4-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=WMxGgyKSPXgX14QdWonh6vKEYtzJ2E+2hpZMkL1+vAg=;
-        b=aOaHX85oqrpq03UkXi4U2jFQnaNHB1n7I9+BIqgtfsk+Lqi2OQZDlVNklGeOG6t7lJ
-         sP1jN7xOFfHAXh6/jBBcgxPw1YZNax1bpDclPOBy1h56xgz3gakHFAInqdh2xEo+c4Mv
-         3JTfeeCm/dIibBWfs3SGSWqvXT5f8lCfeJF2QWvgy+Qb/TaNTh2Ss8e5wA1CjyFcmzM1
-         0Yyf264xXufSLrZ6aT48JCE0RykeWLA5YhcodxMeUn3MWLSQ3JbuqftehSBwXtTs8qvc
-         NwlYFZFgObEQ9/nUFwRT2vF+AJFXcPuKzwu24qx2r0tNSg4UtdHR2RtDWubeIPWFNlug
-         e1tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WMxGgyKSPXgX14QdWonh6vKEYtzJ2E+2hpZMkL1+vAg=;
-        b=E6x7E+KxtZhCD2rVe6kHtzUEaKoST0NbImCWQYf1JvfDJIUu6+Gn51fuASQkFGZci8
-         s1ozgnSC3K04YApxweXV6ZZMXJGb/grbZwAnXvjhML7B85fkK0DzMh1I/V9yMp1bjPZA
-         VPET+X31NvXJeWx/PdcXpC5A35zMHNXEGbpVvPlwMOy9AkjkH/WZqP3J1WGVX1jy4nE1
-         csvCW9jEgR+vtzwcyg3rI8lHAyjCUxQ4gKgNfOepufMjOtwVTUxYnvohUr2u63HiMV1V
-         HGX/qAriP5mYJxlkEVj9RbOzrlx+LXYwYrRlD3sWhWreVoXjjNiefCVdcdWzxIl7u9em
-         ouow==
-X-Gm-Message-State: ACrzQf2wAFLwy6Od8P0yHt4qVIYpYgp7UU5ZBxxdj2Z7gtcNzoyuZRMb
-	hb9lGdWmIKkkt1iWgtPQXfG9OXck7KI0/+DEcC2CZQ==
-X-Google-Smtp-Source: AMsMyM6Zyi/ntFev8wMj+LBsEC0fcx3X1rtfq5+XvO7k40Ugy1i63uuPHp8RQoPEjlwlpEob0+4lOPICJBjRVemMurI=
-X-Received: by 2002:a05:6402:190f:b0:45b:d959:e2ae with SMTP id
- e15-20020a056402190f00b0045bd959e2aemr23423681edz.187.1665654433167; Thu, 13
- Oct 2022 02:47:13 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
- <20220826125111.152261-7-carlo.nonato@minervasys.tech> <32e2a752-975f-baa6-8d6c-ba27cf516c64@suse.com>
- <CAG+AhRUJ0+CszWjSzO7=v4SmKtjG7VMpZ8P050s-rLz0rgXJBw@mail.gmail.com> <5e5ee6f1-a5fc-fcd4-5d61-7f1e4be6b630@suse.com>
-In-Reply-To: <5e5ee6f1-a5fc-fcd4-5d61-7f1e4be6b630@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Thu, 13 Oct 2022 11:47:02 +0200
-Message-ID: <CAG+AhRWXi8V142aSx_P1cjyaXTb+CnS-EOB_o8c4Y7ZkBt7Gkg@mail.gmail.com>
-Subject: Re: [PATCH 06/12] xen/common: add cache coloring allocator for domains
-To: Jan Beulich <jbeulich@suse.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org, 
-	stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it, 
-	andrea.bastoni@minervasys.tech, lucmiccio@gmail.com, 
-	Marco Solieri <marco.solieri@minervasys.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=O1Uobu2LJIFOf4IcVynxalihP6/I6ywa+DKjFV14gRM=; b=XctJFR7h3yeK5rPvXlKcIknHMs
+	bYWeVDljbk/u6Eqm88J0pmgdoIgSq4p6wjZRUip9Ddw/EuMHrYzlwVYSxFXy8F/uCwewcyO1uIhBI
+	E2jDVYEwNppwIN5sTmDSf+urOxfqI9zJH3t1LEx3hsJ5kck6ZQ0dSL3qF46RnDInHfQ0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173688-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 173688: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=448d28309f1a966bdc850aff1a637e0b79a03e43
+X-Osstest-Versions-That:
+    xen=9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 13 Oct 2022 09:55:00 +0000
 
-Hi Jan
+flight 173688 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173688/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 173457
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ xen                  448d28309f1a966bdc850aff1a637e0b79a03e43
+baseline version:
+ xen                  9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+
+Last test of basis   173457  2022-10-07 14:03:14 Z    5 days
+Failing since        173492  2022-10-11 13:01:50 Z    1 days   10 attempts
+Testing same since   173619  2022-10-12 20:07:50 Z    0 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-On Mon, Sep 19, 2022 at 8:26 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 16.09.2022 18:05, Carlo Nonato wrote:
-> > On Thu, Sep 15, 2022 at 3:13 PM Jan Beulich <jbeulich@suse.com> wrote:
-> >> On 26.08.2022 14:51, Carlo Nonato wrote:
-> >>> --- a/xen/arch/arm/coloring.c
-> >>> +++ b/xen/arch/arm/coloring.c
-> >>> @@ -300,6 +300,16 @@ void prepare_color_domain_config(struct xen_arch_domainconfig *config,
-> >>>      config->num_colors = (uint16_t)num;
-> >>>  }
-> >>>
-> >>> +unsigned int page_to_color(struct page_info *pg)
-> >>
-> >> The parameter will want to be pointer-to-const and I wonder whether ...
-> >>
-> >>> +{
-> >>> +    return addr_to_color(page_to_maddr(pg));
-> >>> +}
-> >>
-> >> ... the function as a whole wouldn't be a good candidate for being an
-> >> inline one (requiring addr_to_color() to be available in outside of
-> >> this file, of course).
-> >
-> > You mean defining it as static inline in the coloring.h header?
->
-> That would seem preferable for a simple function like this one.
->
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I didn't want to expose that function since I would also have to expose
-the addr_col_mask global variable.
-Same goes for get_max_colors(): it exist only for the purpose to restrict
-the max_colors variable visibility.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> >>> +    page_list_for_each( pos, head )
-> >>> +    {
-> >>> +        if ( page_to_maddr(pos) < page_to_maddr(pg) )
-> >>> +        {
-> >>> +            head = &pos->list;
-> >>> +            break;
-> >>> +        }
-> >>> +    }
-> >>
-> >> Wait - a linear search for every single page insertion? How well
-> >> is that going to perform on a multi-terabyte system?
-> >
-> > For our test cases (embedded systems) the linear search is good enough.
-> > I agree with you that in the general case this is bad (even though the main
-> > targets are indeed embedded systems).
-> > Are there any already available data structures that we can exploit to get
-> > better performances?
->
-> I'm afraid there aren't any that I would see as a good fit here.
->
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Regarding this I can see three options:
-1) We leave it as it is and we warn the user in the docs that cache coloring
-   is embedded system specific for the moment since it has, probably, bad
-   performances with bigger systems.
-2) We use some priority queue implementation to replace the actual lists.
-   Red/black trees are available in Xen codebase, but I think I would have
-   to change the page_info struct to use them.
-   Maybe just a binary heap implemented as an array could be viable, but that
-   would require me to implement somewhere the logic for insertion,
-   extract-min and other operations.
-3) I have a working prototype of a buddy allocator that also makes use of
-   coloring information. It isn't an extension of the main one, but rather a
-   simpler version. This means that nodes, zones, scrubbing, aren't
-   supported, but this is true also for the already submitted colored
-   allocator. With this, order > 0 pages can be served (up until
-   log2(max_colors)) and insertion is no more linear, but constant instead.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
->
-> Jan
 
-Thanks
+Not pushing.
 
-- Carlo Nonato
+(No revision log; it would be 446 lines long.)
 
