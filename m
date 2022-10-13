@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 903CF5FD95F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 14:43:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.421973.667720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 254865FD978
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Oct 2022 14:46:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.421979.667731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oixYH-0004bL-GN; Thu, 13 Oct 2022 12:43:05 +0000
+	id 1oixbh-0005L9-Up; Thu, 13 Oct 2022 12:46:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 421973.667720; Thu, 13 Oct 2022 12:43:05 +0000
+Received: by outflank-mailman (output) from mailman id 421979.667731; Thu, 13 Oct 2022 12:46:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oixYH-0004Zq-CX; Thu, 13 Oct 2022 12:43:05 +0000
-Received: by outflank-mailman (input) for mailman id 421973;
- Thu, 13 Oct 2022 12:43:03 +0000
+	id 1oixbh-0005Hw-R2; Thu, 13 Oct 2022 12:46:37 +0000
+Received: by outflank-mailman (input) for mailman id 421979;
+ Thu, 13 Oct 2022 12:46:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oixYF-0004Zk-B5
- for xen-devel@lists.xenproject.org; Thu, 13 Oct 2022 12:43:03 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oixbh-0005Hm-9I; Thu, 13 Oct 2022 12:46:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oixYF-00078A-32; Thu, 13 Oct 2022 12:43:03 +0000
-Received: from [15.248.2.148] (helo=[10.24.69.9])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oixYE-0006Es-UJ; Thu, 13 Oct 2022 12:43:03 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oixbh-0007Dz-73; Thu, 13 Oct 2022 12:46:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oixbg-0001NP-PR; Thu, 13 Oct 2022 12:46:36 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oixbg-0005dn-Ox; Thu, 13 Oct 2022 12:46:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,67 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=Zl6lblYWbiXHkP3SMtuGSxke69bxE+42uQOZFTfd4eY=; b=LxXf/jpzWzQC94WD5mdHUWqcgZ
-	Q0C+AGKEKadUmiYLffkI/bywaDSDzSq8Gj1FxZMjsak24IPMu8q/j5epjbUGtNZfDGAgt9/Hdkqv9
-	fEr3G2cjQEIvHe3w93p+xp/v5QJzYRgA3lKMyqs5/hsOFtKoED2eaRWxvafu2BwIID/Q=;
-Message-ID: <adb0b677-8fd8-1b31-9011-27833da343da@xen.org>
-Date: Thu, 13 Oct 2022 13:43:00 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.1
-Subject: Re: [PATCH] xen/arm: p2m: Populate pages for GICv2 mapping in
- arch_domain_create()
-Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-To: Henry Wang <Henry.Wang@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20221013083818.36209-1-Henry.Wang@arm.com>
- <c1020b65-491f-e1c5-3ef3-7edb99e0435c@xen.org>
- <AS8PR08MB7991F3222D1C616AEF9C771092259@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <2c2b3e8f-34fc-1ef2-c086-233964e29e43@xen.org>
-In-Reply-To: <2c2b3e8f-34fc-1ef2-c086-233964e29e43@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cCPtcVgzWZY9EgvS7kXZ00UHxP+MEHPJm+Uyo4cnnns=; b=bYMUaSq2dP044Q3wh2pXhfL3Uo
+	xMflUZBdtvh0DEcNjYamndMYcp3mDZiuBn7s8PakXWPQFFQsKm1YVFN70qjEcRyu5VuQ8J47ZDYQq
+	Rf8tlfU2q9POKBKWEYTcGTXmcbqmNbAx8lUCspcBMlNGxtd/nlwaxfONM2ITfobxI0xM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173701-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 173701: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=448d28309f1a966bdc850aff1a637e0b79a03e43
+X-Osstest-Versions-That:
+    xen=9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 13 Oct 2022 12:46:36 +0000
 
-Hi Henry,
+flight 173701 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173701/
 
-On 13/10/2022 11:58, Julien Grall wrote:
->>>
->>>> +     * when the domain is created. Considering the worst case for page
->>>> +     * tables and keep a buffer, populate 16 pages to the P2M pages 
->>>> pool
->>> here.
->>>> +     */
->>>> +    if ( (rc = p2m_set_allocation(d, 16, NULL)) != 0 )
->>>> +    {
->>>> +        p2m_set_allocation(d, 0, NULL);
->>>
->>> Shouldn't this be done in p2m_fiinal_teardown() to cover so the pages
->>> will be freed anything after this call will fail (include in the caller
->>> domain_create())?
->>
->> Hmm, yes, I will remove this p2m_set_allocation(d, 0, NULL); in v2.
-> 
-> Just to clarify, I meant that a call in p2m_final_teardown() *is* 
-> missing in p2m_final_teardown() (or wherever we decide to add).
-> 
-> This would make this one redundant.
+Regressions :-(
 
-While chatting with you on IRC, I realized that a call to 
-p2m_set_allocation() will only freed unused P2M pages. If some of them 
-are in the P2M then they would be skipped.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 173457
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
 
-This means we also need to call p2m_teardown() (which would need to be 
-optionally preemptible).
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
 
-Cheers,
+version targeted for testing:
+ xen                  448d28309f1a966bdc850aff1a637e0b79a03e43
+baseline version:
+ xen                  9029bc265cdf2bd63376dde9fdd91db4ce9c0586
 
--- 
-Julien Grall
+Last test of basis   173457  2022-10-07 14:03:14 Z    5 days
+Failing since        173492  2022-10-11 13:01:50 Z    1 days   11 attempts
+Testing same since   173619  2022-10-12 20:07:50 Z    0 days    5 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 446 lines long.)
 
