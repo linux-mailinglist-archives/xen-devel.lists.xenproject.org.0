@@ -2,64 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421B85FEDD5
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 14:11:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.422851.669166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25D225FEE3C
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 14:57:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.422859.669182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojJWy-0002s8-3i; Fri, 14 Oct 2022 12:11:12 +0000
+	id 1ojKDy-0007RF-GL; Fri, 14 Oct 2022 12:55:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 422851.669166; Fri, 14 Oct 2022 12:11:12 +0000
+Received: by outflank-mailman (output) from mailman id 422859.669182; Fri, 14 Oct 2022 12:55:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojJWy-0002ps-0d; Fri, 14 Oct 2022 12:11:12 +0000
-Received: by outflank-mailman (input) for mailman id 422851;
- Fri, 14 Oct 2022 12:11:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ojKDy-0007OP-Cz; Fri, 14 Oct 2022 12:55:38 +0000
+Received: by outflank-mailman (input) for mailman id 422859;
+ Fri, 14 Oct 2022 12:55:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Pkr=2P=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1ojJWx-0002pm-35
- for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 12:11:11 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2049.outbound.protection.outlook.com [40.107.22.49])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46254805-4bb9-11ed-91b4-6bf2151ebd3b;
- Fri, 14 Oct 2022 14:11:04 +0200 (CEST)
-Received: from DB7PR02CA0003.eurprd02.prod.outlook.com (2603:10a6:10:52::16)
- by PAXPR08MB6591.eurprd08.prod.outlook.com (2603:10a6:102:150::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.21; Fri, 14 Oct
- 2022 12:10:53 +0000
-Received: from DBAEUR03FT032.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:52:cafe::ff) by DB7PR02CA0003.outlook.office365.com
- (2603:10a6:10:52::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29 via Frontend
- Transport; Fri, 14 Oct 2022 12:10:52 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT032.mail.protection.outlook.com (100.127.142.185) with
+ <SRS0=fnPT=2P=citrix.com=prvs=279a3d32c=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1ojKDw-0007OE-HB
+ for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 12:55:36 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7c5d0d69-4bbf-11ed-8fd0-01056ac49cbb;
+ Fri, 14 Oct 2022 14:55:33 +0200 (CEST)
+Received: from mail-dm3nam02lp2047.outbound.protection.outlook.com (HELO
+ NAM02-DM3-obe.outbound.protection.outlook.com) ([104.47.56.47])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 14 Oct 2022 08:55:29 -0400
+Received: from DM6PR03MB4172.namprd03.prod.outlook.com (2603:10b6:5:5c::23) by
+ BLAPR03MB5617.namprd03.prod.outlook.com (2603:10b6:208:292::8) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5709.10 via Frontend Transport; Fri, 14 Oct 2022 12:10:52 +0000
-Received: ("Tessian outbound f394866f3f2b:v130");
- Fri, 14 Oct 2022 12:10:52 +0000
-Received: from 82e858498529.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 3DFE2B90-6492-470E-8445-64B2BCC284A9.1; 
- Fri, 14 Oct 2022 12:10:41 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 82e858498529.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 14 Oct 2022 12:10:41 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by DB8PR08MB5355.eurprd08.prod.outlook.com (2603:10a6:10:11f::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29; Fri, 14 Oct
- 2022 12:10:39 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::5cdc:31ff:2d2d:339]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::5cdc:31ff:2d2d:339%7]) with mapi id 15.20.5709.015; Fri, 14 Oct 2022
- 12:10:38 +0000
+ 15.20.5723.26; Fri, 14 Oct 2022 12:55:27 +0000
+Received: from DM6PR03MB4172.namprd03.prod.outlook.com
+ ([fe80::fef5:dc53:67d3:3498]) by DM6PR03MB4172.namprd03.prod.outlook.com
+ ([fe80::fef5:dc53:67d3:3498%6]) with mapi id 15.20.5723.026; Fri, 14 Oct 2022
+ 12:55:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,153 +49,422 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46254805-4bb9-11ed-91b4-6bf2151ebd3b
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=kNrnunlGyrYJWDtvWrsRUag5bCic1XyTgDtdgz4yWfuVWhYFiqX7Ze5aCYBYn92oIrPhur6vPqeWvcQTe0qKsnZhHvBVxZWffyBMa3M04YY3eHFHEsWTCbiIntYsJ+tqK8ovYBUNyvhqAX8rwR+dVBiuBDgEjTviX9skuFVzXDzcKuuHjZ/lkWoiuRxnI+/McwJ6lLgPwldVjDjYcL8GLOVSV/1nD+Z5sFZOnujmt7mofKE9zXyj7jqPLYRIZj8FkR7VGwZ7IAF2nfJidsu1SiB2FojfY7b81ociu1/fCxIDUTkJ+4LPP+i3mPIwMbWXbWvAWziqx3khH0m70X76iw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DhGkMGBtWQoFDpTCLjROZmvmBwHuk6kZyrUC2Qf9RXk=;
- b=Y0JfrWKVFC72ZXEu219i7ZOZaBazyhqAe1U5oeFEcdWme5kJeYLLlreVjzuoUvcsyrTAQBUpbWAjOmLweWSohm9cqljoVQOJMuTFtGuOhW0bXLMGNzQ2FX33rc0n7wpB2CQFTBGi9GuAVxiJikRIy+60dzrvtG6VoNdhgEpMAidlwSMf5O/7m3jsPpQpqn1oKctol7Uyn4csls9Own9oPsOHM53aHXLmi++4SEuHAg7bhsCZZE7vAG7I/WOIRgRUAVJ4VT1h9SoPvVIElw/jfyOd7otFLDcnc4aI8vcuADSIvuw+Af6ZyKJiQJPVBM444E4WaxqzWZv5YmUiGsH9rg==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DhGkMGBtWQoFDpTCLjROZmvmBwHuk6kZyrUC2Qf9RXk=;
- b=kLYzCRm1T3SWedhULpwgfZX+0XIyMQI0xn7pXjBG/RdPTEb3PF2yIV7tWTF9W5Lx+fj4GrYySSrNMYDT9xvC5TDNmfRz1u1crTVvVbjZxiLNPXFxkEBm5eFjrIfJfrKdRTncCrYbZJol43uNDerqAU58Atb0nY780WO4x1g5Yog=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 7c5d0d69-4bbf-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1665752133;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:mime-version;
+  bh=mTBarqtrDCb/DvyjGWDhhj8F6tbPQuF8qTMC0BR50Jo=;
+  b=QfN16EiHuZeAkcN37xxur7++QpokYkAAbIZn9JcvKSwkRCVCklvYXpXn
+   633vw7PzfDW5JjVnp4SZfpXotAlNIkX+VUxjvzDV7BOlTIMx0iA2zSqWb
+   hCeurXWR1VhCDkZRUZ1cxWNKk23lyPo0QqmEKz3OoBzun9JONBAPkcRnb
+   4=;
+X-IronPort-RemoteIP: 104.47.56.47
+X-IronPort-MID: 83162753
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:rG7SaKKaj4hEuAMsFE+RnpUlxSXFcZb7ZxGr2PjKsXjdYENS1DRVn
+ 2BODWGHMvffNDekL493a4zgoRxQuJ7XmtExSlZlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/vOHtIQMcacUghpXwhoVSw9vhxqnu89k+ZAjMOwRgiAo
+ rsemeWGULOe82MyYz98B56r8ks15q2q4W9A5DTSWNgQ1LPgvyhNZH4gDfnZw0vQGuF8AuO8T
+ uDf+7C1lkuxE8AFU47Nfh7TKyXmc5aKVeS8oiM+t5uK23CukhcawKcjXMfwXG8M49m/c3Kd/
+ /0W3XC4YV9B0qQhA43xWTEAe811FfUuFLMqvRFTGCFcpqHLWyKE/hlgMK05FYQx5cJMG2FRz
+ McJcgkhUhvaxM2czovuH4GAhux7RCXqFKU2nyk6iB38VrMhS52FRLjW79hF2jt2ntpJAfvVe
+ 8seb3xocQjEZBpMfFwQDfrSns/x3iW5L2Ie9QzT+fVfD2v7lWSd1JDmMMDUYcCLTMMTmkeeq
+ mPJ12/4HgsbJJqUzj/tHneE1rSWw3mkBdl6+LuQ19FXiXyD/0MpGBAqbX6w5vWSoHy7YocKQ
+ 6AT0m90xUQoz2S7Q9+4UxCmrXqsuh8HR8EWA+A88BuKyKff/0CeHGdsZjxLZcEitcQ2bSc3z
+ VLPlNTsbRRjqKaQSG6d3r6MoCmuJDMOKmsfeS4DSxBD6N7myKkolQ7GRNtnFK+zj/X2FCv2z
+ jTMqzIx750eicMN3uOm81HCnymhuJHhSRQ87QHaGGmi62tRZoG/YJezwUPG9vsGJ4GcJnGeu
+ FAUls7Y6/oBZbmPiSiMTeMlDLyvofGfP1X0nV9qN4ks8XKq4XHLVZpX+ztkI0BqNO4LfDboZ
+ AnYvgY5zJNaInaCd6J8ZIO1TcMwwsDd+c/NU/nVap9CZ8N3fQrfpiV2PxbMgCbqjVQmlrw5N
+ dGDa8GwAH0GCKNhij2rW+Ma1rxtzSc7rY/Oea3GI92c+eL2TBaopX0tajNisshRAHu4nTjo
+IronPort-HdrOrdr: A9a23:EvW2K66vPS6N13tlDQPXwWSBI+orL9Y04lQ7vn2ZFiY5TiXIra
+ qTdaogviMc0AxhI03Jmbi7Scq9qADnhORICOgqTPqftWzd1FdAQ7sSircKrweAJ8S6zJ8k6U
+ 4CSdkzNDSTNykdsS+S2mDRfLgdKZu8gdmVbIzlvhVQpHRRGsVdBnBCe2Om+yNNJDVuNN4cLt
+ 6x98BHrz2vdTA8dcKgHEQIWODFupniiI/mSQRuPW9o1CC+yReTrJLqGRmR2RkTFxlVx605zG
+ TDmwvloo2+rvCAzAPG3WO71eUWpDKh8KoCOCW/sLlWFtzesHfsWG2nYczHgNkBmpDt1L/tqq
+ iKn/5vBbU015qbRBDJnfKk4Xid7N9p0Q6s9bbQuwqcneXpAD09EMZPnoRfb1/Q7Fchpsh11O
+ ZR03uerIc/N2KJoM1T3am7a/n7/nDE3kbKvNRj+UC3a7FuIYN5vMga5gdYAZ0AFCX15MQuF/
+ RvFtjV4LJTfUmBZ37Us2FzyJj0N05DVCuuUwwHoIiYwjJWlHd2ww8Rw9EehG4J8NY4R4Nf7+
+ rJP6x0nPVFT9MQb6h6GOAdKPHHQVDlUFbJKiafMF7nHKYINzbErIP2+qw84KWwdJkB3PIJ6e
+ P8uZNjxBoPkm7VeL6zNcdwg2HwqU2GLETQ49Ab4YRlsbvhQ7euOTGfSTkV4r6dn8k=
+X-IronPort-AV: E=Sophos;i="5.95,184,1661832000"; 
+   d="scan'208,217";a="83162753"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TtywUq3tbC3scmkUCyWWNIoWIrDSAZJOAbA/EIfcimEDNMPGJrXa72NhCxQN0HhDThFjbSy7I/BDFj2RT329kIk+wwLUoVGe0UJbAOX38fZq697lhOKBJ4x9RLzpsO3t1RuVL/W/AEEHV7urEwOVOIsrdOO1wrKFPhUwgCOikMAA5Rta8Hvs0pLimg9Ai/shxF3G4GfVNh7FaY3Mwz+uysLWbrSl8b0GA+Yhtr1n1YEpUngCGWB0SI0LBiliN601fVwoKDnjwOABlSU4c/iUcmnhNmzl1KQ6Z9QRAY7DCq9pDKfA6ybjZIxDmQ3DzRZQE3sBgCA7u+FleFOEvknkKQ==
+ b=Rw8aE+02MrZbvbBdqW/+soKQrUoIt3vD0xvaTTLQwvv10S9jDfhfD9LWaMiQAMd9tmXroS4Ds2D2bHdqaxikdYPxaELcG35FU+vGFwE8mEKC5M2/nm23VejhO6zf59lgphNjJf3t6vTRekkDz+3PVpQODNzZ6t4Sr04YZg/vZX4sf1T8Jf/SzOO3RK5CdNf7NS/nuFw2ndN0i9yIrEMQsPpWssB8+F/cLESP5DInIaREDz8NQAyfdNnNaTCs/kSKpkgr7hE1Qo4OJqUT7aFs/U+l8avjDueK2Mc2AlbVIessLIj/A9gADOCDMcMAgxFz7kcBjZI4izlFjEFl6suqKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DhGkMGBtWQoFDpTCLjROZmvmBwHuk6kZyrUC2Qf9RXk=;
- b=ZrboU0cdIASj5WW1D5s3sU8jnMT5h49S4FKyFB2FcJYrGu0Zbyiei4F10IL1aPqdpnaBpI+jHqrRnDOrlY7q1722gZCjilOa/oTFUatxcmPEewTTexBFunDVvbT45uGMdH9XHZzvonhcH4GiNqEWTHTMOItbDBT67goKucUR0odfDrYq6pNibKYseF1QgjWSBmVcn/hQ5SuSzjJdFWSTFOA5h1ETq1gUf4EJJP6eYuEtKDuuK8rwEuGJQ8JevpRSeD4nrMalP5LntRQ04MtVZQlGsYEcabye9Qb3lhGa8/1QUuZP4scZbKu8qRXuYHEl2FOr2dGktzgA+1XeVkU+rA==
+ bh=mTBarqtrDCb/DvyjGWDhhj8F6tbPQuF8qTMC0BR50Jo=;
+ b=NyJOTVkbS3TtrFFIG3MBeKUkG19Fjh5FvtkY+YWMRSZ7rQrdyN0tcRtrT6F0SKEhCQVAewdbnHA4Qr09v/X6xW/AzcdvHW+Sc4LWOcGZZKcRwhQ70gR2SyCvKluzBrXzAdYNmeeWQGpP3WNvw69gylda2Qzbahd39jyt3FwnpNUszP1mU/nqlEvGUysyiirtTRvi0FPegbP1+F0Si46t1SZj0RYkANN6m2XmWwuU5Kh4Arm8hv5RgLbeAjzZid+YHg10EDpl7wRlNAUndg63UsRuS6FbCKIrbCD9vqnFEK/KfSW6e9Mk5td9Sl7C7tiCtGi/CBDaheZdEmwbqaDnfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DhGkMGBtWQoFDpTCLjROZmvmBwHuk6kZyrUC2Qf9RXk=;
- b=kLYzCRm1T3SWedhULpwgfZX+0XIyMQI0xn7pXjBG/RdPTEb3PF2yIV7tWTF9W5Lx+fj4GrYySSrNMYDT9xvC5TDNmfRz1u1crTVvVbjZxiLNPXFxkEBm5eFjrIfJfrKdRTncCrYbZJol43uNDerqAU58Atb0nY780WO4x1g5Yog=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
-Subject: RE: [PATCH v2] xen/arm: p2m: Populate pages for GICv2 mapping in
- arch_domain_create()
-Thread-Topic: [PATCH v2] xen/arm: p2m: Populate pages for GICv2 mapping in
- arch_domain_create()
-Thread-Index:
- AQHY36RSrOIThkYtnEq9RrtWc+uYX64NnUwAgAAAd5CAAA4NgIAAAPkwgAAIMgCAAAAtcIAAA6oAgAAAMLCAABDdAIAAAGAA
-Date: Fri, 14 Oct 2022 12:10:38 +0000
-Message-ID:
- <AS8PR08MB79917BE687706A4DF51860DA92249@AS8PR08MB7991.eurprd08.prod.outlook.com>
-References: <20221014080917.14980-1-Henry.Wang@arm.com>
- <70670b7c-e87d-9eb7-691f-48c44e9d57db@suse.com>
- <AS8PR08MB79913CFDD2388EA05ADD187D92249@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <e7e24a21-1ebb-ede0-efed-275bbf503021@xen.org>
- <AS8PR08MB7991B0B2400B1B9D0E6B1C4592249@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <db3e4568-edf4-c5c6-4f99-3444a38cc40a@suse.com>
- <AS8PR08MB79919FFC44E975825EE9CB3392249@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <e60803a6-44c5-9d22-88b5-c924ee854fca@suse.com>
- <AS8PR08MB7991A81D931E20A000FEFE0092249@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <9adb1562-236e-2856-5977-0c563b0af024@suse.com>
-In-Reply-To: <9adb1562-236e-2856-5977-0c563b0af024@suse.com>
-Accept-Language: zh-CN, en-US
+ bh=mTBarqtrDCb/DvyjGWDhhj8F6tbPQuF8qTMC0BR50Jo=;
+ b=usNYRaBy4A+tRzTBAMho8CO6nKW1IVePd3iN/u5qwqPiInrH4u6s7vOktgoAJIn6JmEr5VAApOUQRMSejqX9XNsNIlzai4gntlrurPrU4nC/ZIKWdeOxSCO1tZdVQ0EzFXtUfetK1BYacouU7+K5xi1FoBwEgyu+eWw6/+dVYDA=
+From: Christian Lindig <christian.lindig@citrix.com>
+To: Anthony Perard <anthony.perard@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+	<jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>, Andrew Cooper
+	<Andrew.Cooper3@citrix.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>, Juergen Gross
+	<jgross@suse.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<George.Dunlap@citrix.com>, Julien Grall <julien@xen.org>, "Tim (Xen.org)"
+	<tim@xen.org>, Nick Rosbrook <rosbrookn@gmail.com>, David Scott
+	<dave@recoil.org>
+Subject: Re: [XEN PATCH for-4.17 v5 00/17] Toolstack build system improvement,
+ toward non-recursive makefiles
+Thread-Topic: [XEN PATCH for-4.17 v5 00/17] Toolstack build system
+ improvement, toward non-recursive makefiles
+Thread-Index: AQHY3wR29Q+LQ29BdEevnfwWhUHbC64N2muA
+Date: Fri, 14 Oct 2022 12:55:26 +0000
+Message-ID: <D34C95DD-C6D1-4DE5-A180-F35FC7BA9C72@citrix.com>
+References: <20221013130513.52440-1-anthony.perard@citrix.com>
+In-Reply-To: <20221013130513.52440-1-anthony.perard@citrix.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-ts-tracking-id: 52DB0AE3EEFAD8469DB7538CD94C362A.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|DB8PR08MB5355:EE_|DBAEUR03FT032:EE_|PAXPR08MB6591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 221c4c78-2a81-4380-76c6-08daaddd23c1
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- d3IcYc+fnsv80ENaOtDXFxZSPPO+i/4GibcHLL/FmlUQYes1z1M9g7nQbwMrYIYgfpQ1+7g2rellQkAZhEWJ/d4DXBOn0/3/JcZK5oZEG8A4lvERG6XptdDAGuv1rZz6bdAwCGjntldC6g8V1zQuWMvJNFdSzMGDOk0ovQ5coW3gZSMfiB7HMIwjrR1FZold8Vuf4qCjpp5kU/LgbltpYAWbbwnKQYob8GXfsC2EwBDPauJWgtSSgpZnhUyjDP+V24iYJA49ZiUH6vFDOySFvKPcDmsNUOXGrUy81xQFn4uY/pzvHdC94CwbPJvmFpETniVxwXv2WBi/Rph3MywliLnXZgeX2EMv4U4HEne9pAUSGSR2H8oAPNTwvTY5t5gaznDMRwrTwietTaMXHxxx19imsktLOLk0eG8UE83KJmuse5rSi4bBz6Ps4fAm2Gx/q/IaSHxqRkdPxPZ4Qy/njMU0NbZH6h8mVzL7kp/R6tY+XZ20BnlXZH63sf2hzyetFqSJEDlQ5zyHEpvXa7isbE6D9MlPITOcZ6npY3Lm46fMnv580x1fIp6+Z4RihX6OUASP3wx5eM4ckDATeUrvLYvJ3/RuGyTkjFBvPUQpxzKuAb5C1kRaN1PepWEBR7vcSs2BbQ9yQl4TCp6nZG/oCfrFfg9NliKb3mVMBDspYXeXWZFCxf4/BIjyEJVQINIAnyYLQuZX5rC7/2pyPiabrCXz6upn5zVZdZRC3oqRdunPshKg4OcQx4xsTOAh0AZVoZi94Ss/p33q/M8/t2IbJwi3P8yiS3yB1bRVaqJS7Ow=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(346002)(396003)(366004)(376002)(136003)(451199015)(71200400001)(55016003)(38070700005)(26005)(66446008)(4326008)(8676002)(53546011)(64756008)(9686003)(66946007)(66556008)(66476007)(76116006)(33656002)(2906002)(6506007)(966005)(38100700002)(8936002)(86362001)(122000001)(478600001)(316002)(52536014)(7696005)(54906003)(41300700001)(6916009)(83380400001)(186003)(5660300002);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR03MB4172:EE_|BLAPR03MB5617:EE_
+x-ms-office365-filtering-correlation-id: d7414de8-8c5e-4b51-6612-08daade35db0
+x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ hC/Jys2bXVkSftsow5wczF2vxO0SBW9+pMkpFee9OBCGrxx93/qmKYvCYZ6uSiTmjFlT8+20Y7F0P8s5pfDztPoDqfcFr8kyv7tJy6Wze+C9qQiORFGx6ae+M1J3zD5S+aAWupgr0S+UNB7GA6wKQ3gDNdEBN68Bj7BJtIUqJnpPzWX6/ktTPXBIHtns5pW320lPoRd7PnETa4b+iK+HQjdiWYffqpQ2DlYAQ5gpPGhkC94P0H+qc2BhmvoqVrB1GWH6uom5i8gpUeuYb+mVR+mpTOhZa4tt9giv6IyFDCcEdq1URe6+pDQPvjHBTmRhn8x1Sov+bk9ZcLsHNJc/ZGpZcjHvvtfBqqdC8q9UNxwdpTzqg5bAa0RlC/5VOpISZb7r/Dg2JXdvTevn8qIiOLoGKB9LCJ2iXAohcumV6mKk9A/ZNMOCXiNsc4W4X07+Wa1FdwMtCM2kQVdByG1JP2Q31DY1yUN9lwSDnCXfQ7U7HVvifu5ShdWBabrzYbPUp5e9IDLIr+9mR9QVNJTQqzapfuUj5qHgXXNPeyPhx6JDkhrHkSzqNz0E5UGzKx/AtjNXXJgLd712K1yItnPLxcCFeRMksAWWVuBSzV2Fo6qMqGQS5iKG8VBpjCq5erzRYZ262T2SzA8DZcHdjpGkqzk6f5bVKDzJ+P2ranus6/7wPBZWh7GIvfQ90p4NEbjZhlG1DB0nV8F0CkX/PuHGioaqxHCeWbQFaUWVwGwTL/ULo55LA2J8P+YvyEMmspPZ+iSl99HEXhmBRtOYKtz3uR5w91FBfCPv5p6RAAhlQSdrSGXt78q5WV12UQfd9+kjzgdQUckegC7elwilm4jvYQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB4172.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(366004)(396003)(39860400002)(136003)(346002)(451199015)(66446008)(66899015)(6636002)(33656002)(316002)(66556008)(6862004)(8936002)(64756008)(8676002)(76116006)(4326008)(66476007)(41300700001)(54906003)(86362001)(122000001)(36756003)(2616005)(186003)(91956017)(66946007)(6512007)(26005)(53546011)(37006003)(44832011)(6486002)(4744005)(5660300002)(38100700002)(478600001)(6506007)(82960400001)(71200400001)(38070700005)(166002)(966005)(2906002)(7416002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?nGEdcaxcgeG1+FdKnOaaJRsOxvXDe60tzS9Piz8CyLjZebKdQ6CtgGqMZvrU?=
+ =?us-ascii?Q?e6eYI0UkamlmXNUqDVjVPLEmbEGFKMcllzwH5ZzRwGsnmv4YPiZC4yiS3Vpk?=
+ =?us-ascii?Q?immEDCO7Y4+FYAGgqohyLVrkMweAo8H94Y3Z0HFPFXjlF4u67H223J8CJdfm?=
+ =?us-ascii?Q?QQiT4GGduCZJB2J2L5rlRQZ3IjPrHIueA9zAwGjjwwUBefRskSit+fPl3bsH?=
+ =?us-ascii?Q?X2qsD/VaywDsCCw4p5f4C9raopDWVySMWi3N794Vpwtv3Y+0z1EY0PpSgNhZ?=
+ =?us-ascii?Q?Im9Ar2W4e3NcXZM6A36Eo83m2UoOi1t4jHDbvfkI4nx4QC2VjLog5+gb2bAI?=
+ =?us-ascii?Q?xRlO6RsC5i6NvXmktPadeILjXoLzsVEcONfzS/kG/u/B3piBeqHtsRt4M1NE?=
+ =?us-ascii?Q?07f4LrxGWGeKyi6alW7O+N1kxwAhtNaQ5t5IcbtQGuaEWgiKrgGv5gA32cYz?=
+ =?us-ascii?Q?Na26rRSlnyaIDFzqAx76TN3Q+Y7TkCjSVv6YJPENqLhyYkSxIMjRUdCYvdiC?=
+ =?us-ascii?Q?rgH5mXpvy9No5wu3PpZycoimRdKFSnq0/Um5VeEvYcXOggzK/O1muMF9+Gok?=
+ =?us-ascii?Q?I2PR8x3PqNYtVNwxuv7Ph92UJP55qaeS/UlphkxpWYilNoHsBmJWxqPt+nXq?=
+ =?us-ascii?Q?apSVdAhKFx9XpMtLmsVrnkhF9ah4BO62Vonhzbs9bWYgqGyM8HyLNNc+L6Tm?=
+ =?us-ascii?Q?tzhNYO4AK3HbaBPQJ8fHpNg/XoF/n3vQrYrB7ZOglxm7QCsyHBpOzNfyKmlq?=
+ =?us-ascii?Q?mwlYpDSuyBy9OBnci+h7yfl7Oj7ho+RxwBW7EsVofG9wONp0NC33rskyiJMJ?=
+ =?us-ascii?Q?qV6UAStpxB3YvZ6WQJxh0YKgLVg7YmTrJBgk0VqIMFlkqn7qNCFbU9jVXco9?=
+ =?us-ascii?Q?b7/k8JjXEeJf18EcrNM+A5l6UpMF4X/EOQN1UwuoaMd18kYjWS686eaSJGrH?=
+ =?us-ascii?Q?8JRqaQ0KEHjuZM+ox8TXrjTEmow1dMZ61u0XYSwRmDh7wUsuFwgBW6QiIhSg?=
+ =?us-ascii?Q?P+5+0zHuFiGm3BCU3cldBVGjdGvuI30NNqq3+E0qcbbi+W3AV6EmsOBH5Uo0?=
+ =?us-ascii?Q?iq5gqCl+Iqk9LBX2hSlyFFfPNmIplc6i9De8yWWrLlMJ9LYg8OYt4zP/JdmR?=
+ =?us-ascii?Q?L/2aayYlQdbJgCJIVccD+dMVLCIKVpH9es3RfATSIm6wnWi2NDpHsyM+P1YP?=
+ =?us-ascii?Q?9A570AIwk+akvK8n0fLlMzmg4zb+oROJOOXGlVfTxZ96bY/etGdUM+caLIAr?=
+ =?us-ascii?Q?E8bnzsINsYQ8jq2vn0uNdj7PxdooAcSyukRqPTlGaIJab6WHAx7cIl+der04?=
+ =?us-ascii?Q?4AiWmDeWLT7+WuySYer9W5oXKVl1hz48fOwoHrQ8+7X0ZabiUQF+rdiiF2cO?=
+ =?us-ascii?Q?g7mmCHB4CSzCh3spvJH50EhfK1yrRVg0WSnlWEIcOSiO8HybOTZkNVlgLxmx?=
+ =?us-ascii?Q?XpKUSKU4hVcJdPqRQIiu+ENIkONQK0uMPhs+Gnn2wvzNNo59Qx/BWA8e/xER?=
+ =?us-ascii?Q?/z8inQ4nSGskS/+ZCr2iv5cTIUa/YsSAGidW+dkAr8efBAv3Qhtngnl1RP+Q?=
+ =?us-ascii?Q?x6Xrla9maWaeSj7uuH3ceVgXpAXtDhpU295wmoeRSg1t1y5XpLhiAUif/fP4?=
+ =?us-ascii?Q?9LjU1MzdH26yYvzuRmjALlo=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_D34C95DDC6D14DE5A180F35FC7BA9C72citrixcom_"
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5355
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT032.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	52d2377d-b09f-4241-feac-08daaddd1b5b
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Yha1NP7KYYIpcpVE/jstYRDJEbRGtwqNzzr87wS3r5+M9Pr5ZjW00W/4seHyRJDJmgGOz3EjibS2PaXd7P3RQW5G5HyHCljFIe+pN7b/xJHL1VY+J1iRoho7RxQhaU0a426vRTbo/9Gnf5ggJHHvBo+bguk5P6J5yGjgXQ7SsgrRWDAWktI2G3Jiv6Dor0PSzLXjzldQ5sGtjbsRQbJqzuD2lmRAFaxhGfotfzPEeW6pSR9eE35JQxkiT+vEfn7bQG35bMLh5Z0+/nKRKbgGEKKyvi0beTtELH6ocIwGKDGrY1SM60Cjpk5rRxkRJDC3ls4WH5RgMnCfw+Ydh9nt1yu5GR0aBj78oe8SBC0WFPAhDmTcTvEcHIVa78kHJsE3np8ioE+TidR8dQBK4dm4NiOGhWHlTkJoz/k8YY/J8hIOXM3unA5gHlVPkHGmUQlUwJt9F6H3/HRa3fL1/YmIwyO41QsqV8/04Jx7QRvDpkz0XK/QkwxQquboTGth4Savye0BszhO42hk2IU4l2uZQLjohYXa6K9MO0xpoaT60R6gfkmiiamVqWa3KQz/9Je7WzwswPmBID/69GaQGVe+5mpAsuxsG9khuu9NyWvsZyuy4Gp7JF371E4j7eWP4tW6zXxLnTmdYhHc8eNro0JZ5Lb9nzw8A0CWfxeItAMOkO/mcJiaKgGypIzinnoho3Qxf1T36uuCE0pK61Oo4rGCKKaspCDdsmaxei7n1MuL6a9W+HrZ7xL4fb+/KJK/Ao9fEBe/RnhrZG28RltS4HL5WXwwNHwwiVAEZjZAHnmJ2BM=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199015)(36840700001)(40470700004)(46966006)(52536014)(86362001)(33656002)(2906002)(81166007)(82740400003)(356005)(6862004)(336012)(186003)(47076005)(8936002)(40460700003)(55016003)(40480700001)(5660300002)(83380400001)(26005)(7696005)(36860700001)(6506007)(9686003)(53546011)(54906003)(316002)(478600001)(82310400005)(70206006)(41300700001)(70586007)(4326008)(966005)(8676002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2022 12:10:52.5449
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB4172.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7414de8-8c5e-4b51-6612-08daade35db0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Oct 2022 12:55:26.7213
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 221c4c78-2a81-4380-76c6-08daaddd23c1
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT032.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6591
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X92WTIgjURKrNuEMQg+mktDAW/bndjsR/cGpyZyXNghDVXNZBPTP285NBSvRcDsdlEkWZ0R8bl9dlZzvbHwZerq8r+qDchO3rvO881wcjpc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5617
 
-SGkgSmFuLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEphbiBCZXVs
-aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2Ml0geGVuL2Fy
-bTogcDJtOiBQb3B1bGF0ZSBwYWdlcyBmb3IgR0lDdjIgbWFwcGluZyBpbg0KPiBhcmNoX2RvbWFp
-bl9jcmVhdGUoKQ0KPiANCj4gT24gMTQuMTAuMjAyMiAxMzowNCwgSGVucnkgV2FuZyB3cm90ZToN
-Cj4gPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4gRnJvbTogSmFuIEJldWxpY2gg
-PGpiZXVsaWNoQHN1c2UuY29tPg0KPiA+Pg0KPiA+Pj4gTXkgaW5pdGlhbCB0aG91Z2h0IGlzIHRo
-ZSAiZWxzZSBpZiIgcGFydCBpbiBwMm1fc2V0X2FsbG9jYXRpb24uIEl0IG1pZ2h0IGJlDQo+ID4+
-PiB3cm9uZy4gV291bGQgdGhlIGNvZGUgYmVsb3cgc2VlbXMgb2sgdG8geW91Pw0KPiA+Pj4NCj4g
-Pj4+IGludCBlcnI7DQo+ID4+Pg0KPiA+Pj4gZG8gew0KPiA+Pj4gICAgIGVyciA9IHAybV90ZWFy
-ZG93bl9hbGxvY2F0aW9uKGQpDQo+ID4+PiB9IHdoaWxlICggZXJyID09IC1FUkVTVEFSVCApDQo+
-ID4+DQo+ID4+IFN1cmUsIG9uZSBvZiBzZXZlcmFsIHdheXMgb2YgZG9pbmcgaXQuDQo+ID4NCj4g
-PiBUaGFua3MgZm9yIHlvdXIgY29uZmlybWF0aW9uLiBKdXN0IHRvIHBsYXkgc2FmZSBpZiB5b3Ug
-aGF2ZSBtb3JlIHNpbXBsZQ0KPiA+IFNvbHV0aW9ucyBwbGVhc2UgZG8gcmFpc2UgaXQuIEl0IGlz
-IGEgZ29vZCBvcHBvcnR1bml0eSBmb3IgbWUgdG8gbGVhcm4gYW5kDQo+ID4gcGVyc29uYWxseSBJ
-IGFtIG5vdCBhIGJpZyBmYW4gb2YgZWl0aGVyIGRvLXdoaWxlIG9yIHRoZSBpbnRyb2R1Y2VkICJl
-cnIiDQo+ID4gd2hpY2ggaXMgdXNlZCBvbmx5IGJ5IHAybV90ZWFyZG93bl9hbGxvY2F0aW9uKGQp
-LCBjb25zaWRlcmluZyB0aGUNCj4gPiBwMm1fZmluYWxfdGVhcmRvd24oZCkgaGFzIGEgdm9pZCBy
-ZXR1cm4gdHlwZS4uLg0KPiANCj4gUGVyc29uYWxseSBJIHdvdWxkIHByb2JhYmx5IGhhdmUgd3Jp
-dHRlbg0KPiANCj4gICAgIHdoaWxlICggcDJtX3RlYXJkb3duX2FsbG9jYXRpb24oZCkgPT0gLUVS
-RVNUQVJUICkNCj4gICAgICAgICAvKiBOb3RoaW5nIC0gbm8gcHJlZW1wdGlvbiBzdXBwb3J0IGhl
-cmUuICovOw0KDQpUaGFua3MgdmVyeSBtdWNoIGZvciB0aGUgc3VnZ2VzdGlvbnMhIEkgZGlkbid0
-IHRoaW5rIG9mIHRoZSAvKiAqLw0KcGFydCBhbmQgSSByZWFsbHkgbGlrZSB0aGlzIGlkZWEuIFRo
-aXMgc2FpZCwgYSBxdWljayBzZWFyY2ggb2YgZGlmZmVyZW50DQpjb2Rpbmcgc3R5bGVzIGFuZCBJ
-IGZvdW5kIFsxXSBtZW50aW9uZWQ6DQoiRW1wdHkgbG9vcCBib2RpZXMgc2hvdWxkIHVzZSBlaXRo
-ZXIgZW1wdHkgYnJhY2VzIG9yIGNvbnRpbnVlLiAiDQpTbyBJIHdpbGwgcHJvYmFibHkgZm9sbG93
-Li4uDQoNCj4gDQo+IG9yDQo+IA0KPiAgICAgd2hpbGUgKCBwMm1fdGVhcmRvd25fYWxsb2NhdGlv
-bihkKSA9PSAtRVJFU1RBUlQgKQ0KPiAgICAgICAgIGNvbnRpbnVlOyAvKiBObyBwcmVlbXB0aW9u
-IHN1cHBvcnQgaGVyZS4gKi8NCg0KLi4udGhpcyB3YXkuIEdyZWF0IGV4cGVyaWVuY2Ugb2YgbGVh
-cm5pbmcsIHRoYW5rcyENCg0KWzFdIGh0dHBzOi8vZ29vZ2xlLmdpdGh1Yi5pby9zdHlsZWd1aWRl
-L2NwcGd1aWRlLmh0bWwNCg0KS2luZCByZWdhcmRzLA0KSGVucnkNCg0KPiANCj4gLiBPdG9oIHdp
-dGggdGhlICJlcnIiIHZhcmlhYmxlIHlvdSBjb3VsZCBBU1NFUlQoIWVycikgYWZ0ZXIgdGhlIGxv
-b3AuDQo+IA0KPiBKYW4NCg==
+--_000_D34C95DDC6D14DE5A180F35FC7BA9C72citrixcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+
+
+On 13 Oct 2022, at 14:04, Anthony PERARD <anthony.perard@citrix.com<mailto:=
+anthony.perard@citrix.com>> wrote:
+
+Patch series available in this git branch:
+https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.toolsta=
+ck-build-system-v5
+
+Changes in v5:
+- rebased on staging
+- added "tools: Rework linking options for ocaml binding libraries"
+
+Changes in v4:
+- several new patches
+- some changes to other patches listed in their changelogs
+
+Changes in v3:
+- rebased
+- several new patches, starting with 13/25 "tools/libs/util: cleanup Makefi=
+le"
+- introducing macros to deal with linking with in-tree xen libraries
+- Add -Werror to CFLAGS for all builds in tools/
+
+Changes in v2:
+- one new patch
+- other changes described in patch notes
+
+Acked-by: Christian Lindig <christian.lindig@citrix.com<mailto:christian.li=
+ndig@citrix.com>>
+
+
+--_000_D34C95DDC6D14DE5A180F35FC7BA9C72citrixcom_
+Content-Type: text/html; charset="us-ascii"
+Content-ID: <EA6D8D5900A7A043808EF3154E573380@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
+ after-white-space;" class=3D"">
+<br class=3D"">
+<div><br class=3D"">
+<blockquote type=3D"cite" class=3D"">
+<div class=3D"">On 13 Oct 2022, at 14:04, Anthony PERARD &lt;<a href=3D"mai=
+lto:anthony.perard@citrix.com" class=3D"">anthony.perard@citrix.com</a>&gt;=
+ wrote:</div>
+<br class=3D"Apple-interchange-newline">
+<div class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: Menl=
+o-Regular; font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0=
+px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-t=
+ext-stroke-width: 0px; text-decoration: none; float: none; display: inline =
+!important;" class=3D"">Patch
+ series available in this git branch:</span><br style=3D"caret-color: rgb(0=
+, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; f=
+ont-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-al=
+ign: start; text-indent: 0px; text-transform: none; white-space: normal; wo=
+rd-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none;" cl=
+ass=3D"">
+<a href=3D"https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git=
+" style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: normal;=
+ font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orpha=
+ns: auto; text-align: start; text-indent: 0px; text-transform: none; white-=
+space: normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: a=
+uto; -webkit-text-stroke-width: 0px;" class=3D"">https://xenbits.xen.org/gi=
+t-http/people/aperard/xen-unstable.git</a><span style=3D"caret-color: rgb(0=
+, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; f=
+ont-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-al=
+ign: start; text-indent: 0px; text-transform: none; white-space: normal; wo=
+rd-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none; flo=
+at: none; display: inline !important;" class=3D""><span class=3D"Apple-conv=
+erted-space">&nbsp;</span>br.toolstack-build-system-v5</span><br style=3D"c=
+aret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font=
+-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacing=
+: normal; text-align: start; text-indent: 0px; text-transform: none; white-=
+space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-deco=
+ration: none;" class=3D"">
+<br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-si=
+ze: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; text-transform=
+: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: =
+0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">Changes
+ in v5:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Re=
+gular; font-size: 11px; font-style: normal; font-variant-caps: normal; font=
+-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-=
+stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ rebased on staging</span><br style=3D"caret-color: rgb(0, 0, 0); font-fami=
+ly: Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: 400; letter-spacing: normal; text-align: start; text-i=
+ndent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -=
+webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ added &quot;tools: Rework linking options for ocaml binding libraries&quot=
+;</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular;=
+ font-size: 11px; font-style: normal; font-variant-caps: normal; font-weigh=
+t: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-t=
+ransform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke=
+-width: 0px; text-decoration: none;" class=3D"">
+<br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-si=
+ze: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; text-transform=
+: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: =
+0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">Changes
+ in v4:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Re=
+gular; font-size: 11px; font-style: normal; font-variant-caps: normal; font=
+-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-=
+stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ several new patches</span><br style=3D"caret-color: rgb(0, 0, 0); font-fam=
+ily: Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps:=
+ normal; font-weight: 400; letter-spacing: normal; text-align: start; text-=
+indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ some changes to other patches listed in their changelogs</span><br style=
+=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px;=
+ font-style: normal; font-variant-caps: normal; font-weight: 400; letter-sp=
+acing: normal; text-align: start; text-indent: 0px; text-transform: none; w=
+hite-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text=
+-decoration: none;" class=3D"">
+<br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-si=
+ze: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; text-transform=
+: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: =
+0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">Changes
+ in v3:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Re=
+gular; font-size: 11px; font-style: normal; font-variant-caps: normal; font=
+-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-=
+stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ rebased</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-R=
+egular; font-size: 11px; font-style: normal; font-variant-caps: normal; fon=
+t-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px;=
+ text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text=
+-stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ several new patches, starting with 13/25 &quot;tools/libs/util: cleanup Ma=
+kefile&quot;</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Men=
+lo-Regular; font-size: 11px; font-style: normal; font-variant-caps: normal;=
+ font-weight: 400; letter-spacing: normal; text-align: start; text-indent: =
+0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-=
+text-stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ introducing macros to deal with linking with in-tree xen libraries</span><=
+br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-siz=
+e: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400; l=
+etter-spacing: normal; text-align: start; text-indent: 0px; text-transform:=
+ none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0=
+px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ Add -Werror to CFLAGS for all builds in tools/</span><br style=3D"caret-co=
+lor: rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style:=
+ normal; font-variant-caps: normal; font-weight: 400; letter-spacing: norma=
+l; text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration:=
+ none;" class=3D"">
+<br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-si=
+ze: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; text-align: start; text-indent: 0px; text-transform=
+: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: =
+0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">Changes
+ in v2:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Re=
+gular; font-size: 11px; font-style: normal; font-variant-caps: normal; font=
+-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-=
+stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ one new patch</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: M=
+enlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: norma=
+l; font-weight: 400; letter-spacing: normal; text-align: start; text-indent=
+: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webki=
+t-text-stroke-width: 0px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; font-=
+size: 11px; font-style: normal; font-variant-caps: normal; font-weight: 400=
+; letter-spacing: normal; text-align: start; text-indent: 0px; text-transfo=
+rm: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width=
+: 0px; text-decoration: none; float: none; display: inline !important;" cla=
+ss=3D"">-
+ other changes described in patch notes</span></div>
+</blockquote>
+</div>
+<br class=3D"">
+<div class=3D"">
+<div style=3D"margin: 0px; font-stretch: normal; font-size: 11px; line-heig=
+ht: normal; font-family: Menlo;" class=3D"">
+<span style=3D"font-variant-ligatures: no-common-ligatures" class=3D"">Acke=
+d-by: Christian Lindig &lt;<a href=3D"mailto:christian.lindig@citrix.com" c=
+lass=3D"">christian.lindig@citrix.com</a>&gt;</span></div>
+</div>
+<div class=3D""><span style=3D"font-variant-ligatures: no-common-ligatures"=
+ class=3D""><br class=3D"">
+</span></div>
+</body>
+</html>
+
+--_000_D34C95DDC6D14DE5A180F35FC7BA9C72citrixcom_--
 
