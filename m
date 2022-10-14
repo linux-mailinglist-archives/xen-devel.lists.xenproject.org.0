@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E3775FF4FA
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 23:05:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.423142.669634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 972745FF595
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 23:49:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.423152.669656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojRqx-0004lx-8m; Fri, 14 Oct 2022 21:04:23 +0000
+	id 1ojSX6-00012a-Ll; Fri, 14 Oct 2022 21:47:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 423142.669634; Fri, 14 Oct 2022 21:04:23 +0000
+Received: by outflank-mailman (output) from mailman id 423152.669656; Fri, 14 Oct 2022 21:47:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojRqx-0004ib-5f; Fri, 14 Oct 2022 21:04:23 +0000
-Received: by outflank-mailman (input) for mailman id 423142;
- Fri, 14 Oct 2022 21:04:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Cdf0=2P=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ojRqu-0004iV-Pk
- for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 21:04:20 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c479d68c-4c03-11ed-8fd0-01056ac49cbb;
- Fri, 14 Oct 2022 23:04:19 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AF82A61C4E;
- Fri, 14 Oct 2022 21:04:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD77C433C1;
- Fri, 14 Oct 2022 21:04:16 +0000 (UTC)
+	id 1ojSX6-000108-Ij; Fri, 14 Oct 2022 21:47:56 +0000
+Received: by outflank-mailman (input) for mailman id 423152;
+ Fri, 14 Oct 2022 21:47:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojSX5-0000zy-Fs; Fri, 14 Oct 2022 21:47:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojSX5-0002R9-Cw; Fri, 14 Oct 2022 21:47:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojSX4-0006fW-UN; Fri, 14 Oct 2022 21:47:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojSX4-0003jH-Ts; Fri, 14 Oct 2022 21:47:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,106 +42,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c479d68c-4c03-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665781457;
-	bh=1ZrwVK602de+t7ntxwWXDkV4lHPteu8Ep7nu8tc5WHg=;
-	h=Date:From:To:cc:Subject:From;
-	b=Fze4aERgwE32h5auE1NygK3vuEGxYTRGPJ0w51tDhxgooqN1qLddmZcf5WCRVh+V7
-	 QE71eljzumYdpyT1uzaf6gEG4M0fNkMtMMPT4EicrlT7CwPUo6McODBETDjL062MTm
-	 6iUCgoePFcDeTdR0v4kgjutuiPp9NKool4WQckdvqcPOElFWNsbV7ghjv1/iv0/hO4
-	 5qxrCOqpv9IAqxcUstqwysb3nUfpO5yilFsfmZn68BaftKdTrkMS/NveiGlYBmsmlH
-	 bQoILR8fv8ce5/XtPrzb78GtPm+aNoImIoiLxlKZ51afD6Y3qhXxToxiLrI27u3F85
-	 IrOUwGuS0gRNA==
-Date: Fri, 14 Oct 2022 14:04:14 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: jgross@suse.com, boris.ostrovsky@oracle.com
-cc: sstabellini@kernel.org, jbeulich@suse.com, xen-devel@lists.xenproject.org, 
-    JESHWANTHKUMAR.NK@amd.com
-Subject: privcmd.c not calling set_phys_to_machine
-Message-ID: <alpine.DEB.2.22.394.2210141341120.3690179@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=eiAD1vlvoYDiUCnr3nkj9yy3rfycv4fSNKU58rkBPHo=; b=xBZz2teGtQCc6LaOC/oGIErEwY
+	BVBfAxnYBMGD2nYexB0y+ZuFBxERQjI8MfOzmdkKaH7i2wwQfxyh4Qk4ZlyM1QPXHM4dqd2lm7Ng+
+	dxxRLI+zMPKJJYyspVoy1xCodbSLYytbxIMmoQF63JFLLJoVfAPnmDBClJ7H0RL3H9Vw=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-4.16-testing bisection] complete test-arm64-arm64-xl-seattle
+Message-Id: <E1ojSX4-0003jH-Ts@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 14 Oct 2022 21:47:54 +0000
 
-Hi Juergen and all,
+branch xen-4.16-testing
+xenbranch xen-4.16-testing
+job test-arm64-arm64-xl-seattle
+testid guest-start
 
-I am writing again to ask a question about privcmd.c in PV dom0 x86.
-This is related to the previous pin_user_pages_fast issue:
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-https://marc.info/?l=xen-devel&m=166268914727630
-https://marc.info/?l=xen-devel&m=166322385912052
+*** Found and reproduced problem changeset ***
 
-
-In summary this is the situation:
-
-1. domU (HVM) kernel space:
-    a. pages allocation with get_free_pages()
-    b. get dma_handle by calling dma_map_page() on the pages allocated in (1.a)
-    c. send dma_handle to dom0 (PV) using virtio queue
-
-2. dom0 userspace (QEMU):
-        a. read dma_handle from virtio queue
-        b. map dma_handle using QEMU dma_memory_map(), which calls
-           xenforeignmemory_map2, which is IOCTL_PRIVCMD_MMAPBATCH_V2,
-           which ends up calling drivers/xen/privcmd.c:privcmd_ioctl_mmap_batch
-           [this is verified to work correctly, the mapping works]
-        c. open /dev/tee node and make an ioctl call to register the
-           virtual address (from step 2.b) with TEE.
-
-3. dom0 kernel space:
-        a. AMD TEE driver get the virtual address passed by userspace
-        b. AMD TEE driver get the list of pages corresponding to the
-           virtual address (3.a) and calls dma_map_page() on them
-
-The last step (3.b) misbehaves as dev_addr at the beginning of
-xen_swiotlb_map_page (which implements dma_map_page() in dom)) is 0.
-
-  dma_addr_t dev_addr = xen_phys_to_dma(dev, phys);
-  /* dev_addr here is zero */
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  44e9dcc48b81bca202a5b31926125a6a59a4c72e
+  Bug not present: 3a16da801e14b8ff996b6f7408391ce488abd925
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/173775/
 
 
-Could it be that the original mapping of the foreign pages in Dom0, done
-by step 2.b, is not complete? Looking into
-privcmd_ioctl_mmap_batch, for PV guests, it is calling mmap_batch_fn:
+  commit 44e9dcc48b81bca202a5b31926125a6a59a4c72e
+  Author: Henry Wang <Henry.Wang@arm.com>
+  Date:   Tue Oct 11 14:55:53 2022 +0200
+  
+      xen/arm: Allocate and free P2M pages from the P2M pool
+      
+      This commit sets/tearsdown of p2m pages pool for non-privileged Arm
+      guests by calling `p2m_set_allocation` and `p2m_teardown_allocation`.
+      
+      - For dom0, P2M pages should come from heap directly instead of p2m
+      pool, so that the kernel may take advantage of the extended regions.
+      
+      - For xl guests, the setting of the p2m pool is called in
+      `XEN_DOMCTL_shadow_op` and the p2m pool is destroyed in
+      `domain_relinquish_resources`. Note that domctl->u.shadow_op.mb is
+      updated with the new size when setting the p2m pool.
+      
+      - For dom0less domUs, the setting of the p2m pool is called before
+      allocating memory during domain creation. Users can specify the p2m
+      pool size by `xen,domain-p2m-mem-mb` dts property.
+      
+      To actually allocate/free pages from the p2m pool, this commit adds
+      two helper functions namely `p2m_alloc_page` and `p2m_free_page` to
+      `struct p2m_domain`. By replacing the `alloc_domheap_page` and
+      `free_domheap_page` with these two helper functions, p2m pages can
+      be added/removed from the list of p2m pool rather than from the heap.
+      
+      Since page from `p2m_alloc_page` is cleaned, take the opportunity
+      to remove the redundant `clean_page` in `p2m_create_table`.
+      
+      This is part of CVE-2022-33747 / XSA-409.
+      
+      Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+      master commit: cbea5a1149ca7fd4b7cdbfa3ec2e4f109b601ff7
+      master date: 2022-10-11 14:28:44 +0200
 
-	BUG_ON(traverse_pages_block(m.num, sizeof(xen_pfn_t),
-				    &pagelist, mmap_batch_fn, &state));
 
-mmap_batch_fn calls xen_remap_domain_gfn_array, which calls
-xen_remap_pfn.
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.16-testing/test-arm64-arm64-xl-seattle.guest-start.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-xen_remap_pfn only changes the VA->PA mapping and does nothing else.
-Specifically, nobody seems to call set_phys_to_machine in this code
-path. Isn't set_phys_to_machine required?
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.16-testing/test-arm64-arm64-xl-seattle.guest-start --summary-out=tmp/173775.bisection-summary --basis-template=172623 --blessings=real,real-bisect,real-retry xen-4.16-testing test-arm64-arm64-xl-seattle guest-start
+Searching for failure / basis pass:
+ 173702 fail [host=laxton1] / 172623 ok.
+Failure / basis pass flights: 173702 / 172623
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7d7f02c8e157e936855a091948757f78c7d0298 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 1bce7fb1f702da4f7a749c6f1457ecb20bf74fca
+Basis pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 444260d45ec2a84e8f8c192b3539a3cd5591d009 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#f0f0e602f7c9781699ecda9be763eac0b03d54f0-f0f0e602f7c9781699ecda9be763eac0b03d54f0 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#444260d45ec2a84e8f8c192b3539a3cd5591d009-e7d7f02c8e157e936855a091948757f78c7d0298 git://xenbits.xen.org/qemu-xen.git#107951211a8d17658e1aaa0c23a8cf29f8806ad\
+ 8-107951211a8d17658e1aaa0c23a8cf29f8806ad8 git://xenbits.xen.org/osstest/seabios.git#46de2eec93bffa0706e6229c0da2919763c8eb04-46de2eec93bffa0706e6229c0da2919763c8eb04 git://xenbits.xen.org/xen.git#cea5ed49bb5716698a11312a3f38bc8865cd1e67-1bce7fb1f702da4f7a749c6f1457ecb20bf74fca
+Loaded 10001 nodes in revision graph
+Searching for test results:
+ 173755 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 e8882bcfe35520e950ba60acd6e67e65f1ce90a8
+ 173756 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 3a16da801e14b8ff996b6f7408391ce488abd925
+ 173758 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 32cb81501c8b858fe9a451650804ec3024a8b364
+ 173761 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7d7f02c8e157e936855a091948757f78c7d0298 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 1bce7fb1f702da4f7a749c6f1457ecb20bf74fca
+ 173763 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 44e9dcc48b81bca202a5b31926125a6a59a4c72e
+ 173766 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 3a16da801e14b8ff996b6f7408391ce488abd925
+ 173769 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 44e9dcc48b81bca202a5b31926125a6a59a4c72e
+ 173773 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 3a16da801e14b8ff996b6f7408391ce488abd925
+ 173775 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 44e9dcc48b81bca202a5b31926125a6a59a4c72e
+ 172623 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 444260d45ec2a84e8f8c192b3539a3cd5591d009 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67
+ 173493 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 1bce7fb1f702da4f7a749c6f1457ecb20bf74fca
+ 173511 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 1bce7fb1f702da4f7a749c6f1457ecb20bf74fca
+ 173702 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e7d7f02c8e157e936855a091948757f78c7d0298 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 1bce7fb1f702da4f7a749c6f1457ecb20bf74fca
+ 173603 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 1bce7fb1f702da4f7a749c6f1457ecb20bf74fca
+ 173753 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 f5959ed715e19cf2844656477dbf74c2f576c9d4
+ 173714 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 444260d45ec2a84e8f8c192b3539a3cd5591d009 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67
+ 173744 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 1bce7fb1f702da4f7a749c6f1457ecb20bf74fca
+ 173747 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8fdb4de628120a8736ee47522d1941e3ad3bdf8a 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67
+ 173748 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6a2b20ff97e4256970644a07f74a4c5655bf5072 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67
+ 173750 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4364d661685d4806b8fb66ff76eaece7ea6a4426 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67
+Searching for interesting versions
+ Result found: flight 172623 (pass), for basis pass
+ For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 3a16da801e14b8ff996b6f7408391ce488abd925, results HASH(0x55f613ec3870) HASH(0x55f613ecb8b8) HASH(0x55f613e6a420) For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56\
+ b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 f5959ed715e19cf2844656477dbf74c2f576c9d4, results HASH(0x55f613ee5220) For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4364d661685d4806b8fb66ff76eaece7ea6a4426 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67, results HASH(0x55f613ea\
+ d6a8) For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6a2b20ff97e4256970644a07f74a4c5655bf5072 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67, results HASH(0x55f613ed9828) For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8fdb4de628120a8736ee47522d1941e3ad3bdf8a 10795\
+ 1211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67, results HASH(0x55f613ed0df0) For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 444260d45ec2a84e8f8c192b3539a3cd5591d009 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 cea5ed49bb5716698a11312a3f38bc8865cd1e67, results HASH(0x55f613ee25f0) HASH(0x55f613ee79a8) Result fou\
+ nd: flight 173493 (fail), for basis failure (at ancestor ~614)
+ Repro found: flight 173714 (pass), for basis pass
+ Repro found: flight 173761 (fail), for basis failure
+ 0 revisions at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 f80580f56b267c96f16f985dbf707b2f96947da4 107951211a8d17658e1aaa0c23a8cf29f8806ad8 46de2eec93bffa0706e6229c0da2919763c8eb04 3a16da801e14b8ff996b6f7408391ce488abd925
+No revisions left to test, checking graph state.
+ Result found: flight 173756 (pass), for last pass
+ Result found: flight 173763 (fail), for first failure
+ Repro found: flight 173766 (pass), for last pass
+ Repro found: flight 173769 (fail), for first failure
+ Repro found: flight 173773 (pass), for last pass
+ Repro found: flight 173775 (fail), for first failure
 
-Don't we need a call to set_phys_to_machine so that the next time a
-driver tries to call:
+*** Found and reproduced problem changeset ***
 
-  /* address is the virtual address passed by QEMU userspace */
-  dma_map_page(virt_to_page(address))
-
-it will behave correctly? Or am I missing something?
-
-
-How is xen_phys_to_dma expected to work correctly for:
-
-  /* address is the virtual address passed by QEMU userspace and mapped
-   * in 2.b */
-  phys_addr = virt_to_phys(address);
-  xen_phys_to_dma(dev, phys_addr);
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  44e9dcc48b81bca202a5b31926125a6a59a4c72e
+  Bug not present: 3a16da801e14b8ff996b6f7408391ce488abd925
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/173775/
 
 
-My guess would be that we need to add:
+  commit 44e9dcc48b81bca202a5b31926125a6a59a4c72e
+  Author: Henry Wang <Henry.Wang@arm.com>
+  Date:   Tue Oct 11 14:55:53 2022 +0200
+  
+      xen/arm: Allocate and free P2M pages from the P2M pool
+      
+      This commit sets/tearsdown of p2m pages pool for non-privileged Arm
+      guests by calling `p2m_set_allocation` and `p2m_teardown_allocation`.
+      
+      - For dom0, P2M pages should come from heap directly instead of p2m
+      pool, so that the kernel may take advantage of the extended regions.
+      
+      - For xl guests, the setting of the p2m pool is called in
+      `XEN_DOMCTL_shadow_op` and the p2m pool is destroyed in
+      `domain_relinquish_resources`. Note that domctl->u.shadow_op.mb is
+      updated with the new size when setting the p2m pool.
+      
+      - For dom0less domUs, the setting of the p2m pool is called before
+      allocating memory during domain creation. Users can specify the p2m
+      pool size by `xen,domain-p2m-mem-mb` dts property.
+      
+      To actually allocate/free pages from the p2m pool, this commit adds
+      two helper functions namely `p2m_alloc_page` and `p2m_free_page` to
+      `struct p2m_domain`. By replacing the `alloc_domheap_page` and
+      `free_domheap_page` with these two helper functions, p2m pages can
+      be added/removed from the list of p2m pool rather than from the heap.
+      
+      Since page from `p2m_alloc_page` is cleaned, take the opportunity
+      to remove the redundant `clean_page` in `p2m_create_table`.
+      
+      This is part of CVE-2022-33747 / XSA-409.
+      
+      Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+      Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+      master commit: cbea5a1149ca7fd4b7cdbfa3ec2e4f109b601ff7
+      master date: 2022-10-11 14:28:44 +0200
 
-  set_phys_to_machine(pfn, FOREIGN_FRAME(mfn));
+pnmtopng: 192 colors found
+Revision graph left in /home/logs/results/bisect/xen-4.16-testing/test-arm64-arm64-xl-seattle.guest-start.{dot,ps,png,html,svg}.
+----------------------------------------
+173775: tolerable ALL FAIL
 
-in mmap_batch_fn or xen_remap_pfn?
+flight 173775 xen-4.16-testing real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173775/
 
-Thanks for any help or suggestions.
+Failures :-/ but no regressions.
 
-Cheers,
+Tests which did not succeed,
+including tests which could not be run:
+ test-arm64-arm64-xl-seattle  14 guest-start             fail baseline untested
 
-Stefano
+
+jobs:
+ test-arm64-arm64-xl-seattle                                  fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
