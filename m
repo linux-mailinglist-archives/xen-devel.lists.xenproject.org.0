@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF5F5FEA69
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 10:22:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.422552.668646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83A555FEA9C
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 10:36:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.422558.668658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojFxU-0004Fs-Fg; Fri, 14 Oct 2022 08:22:20 +0000
+	id 1ojGAA-0005uQ-LS; Fri, 14 Oct 2022 08:35:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 422552.668646; Fri, 14 Oct 2022 08:22:20 +0000
+Received: by outflank-mailman (output) from mailman id 422558.668658; Fri, 14 Oct 2022 08:35:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojFxU-0004D8-Cu; Fri, 14 Oct 2022 08:22:20 +0000
-Received: by outflank-mailman (input) for mailman id 422552;
- Fri, 14 Oct 2022 08:22:19 +0000
+	id 1ojGAA-0005rW-I5; Fri, 14 Oct 2022 08:35:26 +0000
+Received: by outflank-mailman (input) for mailman id 422558;
+ Fri, 14 Oct 2022 08:35:24 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ojFxT-0004D2-A7
- for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 08:22:19 +0000
+ (envelope-from <julien@xen.org>) id 1ojGA8-0005rQ-U5
+ for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 08:35:24 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ojFxQ-0004F0-7e; Fri, 14 Oct 2022 08:22:16 +0000
+ id 1ojGA6-0004RP-DN; Fri, 14 Oct 2022 08:35:22 +0000
 Received: from 54-240-197-239.amazon.com ([54.240.197.239]
  helo=[192.168.21.194]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ojFxP-0008FO-UC; Fri, 14 Oct 2022 08:22:16 +0000
+ id 1ojGA6-0000LB-74; Fri, 14 Oct 2022 08:35:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,47 +42,58 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Nzd/rJw4tROs083lJjBEgOt4IXOzidyElLr1agx4fUc=; b=k2kqJC5w3prWlY1xlbG47tejTH
-	6t2mPwOYVe2RShh59j+cJtaC4ODpBkDiNFsS9wxCOLuXr+J7nq0rQpae8xuB4RYUrLM+ZQ3o2tYYG
-	PfsXGMvZctAiRA2BcWNiBSTjvusy+3VC16JR8m2YX5gpjGKQwcUaitYtz3EP7YWgbvXU=;
-Message-ID: <5f985e76-e817-5d44-3463-ffc0a98c407c@xen.org>
-Date: Fri, 14 Oct 2022 09:22:13 +0100
+	bh=MLU3um5FtNsxGU7b3TCOORnq16lZtaM/jUFycCMHrY8=; b=ub04MmmndVrdMibdQ95PLPEEXV
+	K9is6znfvBhxhpOD1YWf8GxyuiW2Ai9DfIp7TJPOtU8YJl9xUsMbanzPAd5IVQY2DtxU2/lYlqup3
+	o9irPbDhjIt8iGklezsqVG4AfFx5PFVVX6jbl9vkqHLCU0oO7M3B8hqth7RR36p/aBCs=;
+Message-ID: <a4a8fa5b-afff-0a49-7c06-b9be82669aac@xen.org>
+Date: Fri, 14 Oct 2022 09:35:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.3.2
-Subject: Re: [PATCH] xen/arm: mark handle_linux_pci_domain() __init
+Subject: Re: [PATCH for-4.17 2/2] SUPPORT.md: Mark static heap feature as
+ supported
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
-References: <20221014025354.30248-1-stewart.hildebrand@amd.com>
- <0ade954c-5741-754c-fc59-177feb67ddf4@suse.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Henry Wang <Henry.Wang@arm.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>
+References: <20221013025722.48802-1-Henry.Wang@arm.com>
+ <20221013025722.48802-3-Henry.Wang@arm.com>
+ <alpine.DEB.2.22.394.2210131655530.3690179@ubuntu-linux-20-04-desktop>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <0ade954c-5741-754c-fc59-177feb67ddf4@suse.com>
+In-Reply-To: <alpine.DEB.2.22.394.2210131655530.3690179@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Stefano,
 
-On 14/10/2022 08:16, Jan Beulich wrote:
-> On 14.10.2022 04:53, Stewart Hildebrand wrote:
->> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+On 14/10/2022 00:55, Stefano Stabellini wrote:
+> On Thu, 13 Oct 2022, Henry Wang wrote:
+>> With the P2M pages pool bounding the domain memory runtime allocation
+>> and the documented minimal size requirement of the static heap, it is
+>> safe to mark static heap feature as supported.
 > 
-> I guess a non-empty description and a Fixes: tag would be nice.
+> Usually we wait at least one release cycle before marking a feature as
+> supported. However, I can see that this case is a bit different because
+> effectively static heap memory is a safety/security feature.
 
-+1. I am actually quite interested to understand how this was spotted.
+Even with patch #1 merged, we are still missing some information on how 
+to size the heap. But see below...
 
-The build system should check that any function/data in domain_build.c 
-are part of the __init section. So I guess the compiler you are using 
-doesn't inline the function?
+> 
+> Julien, Bertrand, I'll let you know decide on this one
 
-If so, I am actually surprised you are the first one spotted this... We 
-are building on various distribution without any issues (?). I would be 
-interested to know the compiler version and maybe we could add it in the 
-CI.
+It doesn't seem to make sense to security support the static heap when 
+allocating statically memory for domains are still in tech preview.
+
+That's because if you want to have your system security supported, then 
+you will need all the allocations to come from the heap. At which point, 
+restricting the heap seems pointless.
+
+So I think it would be better to wait until the static memory is fully 
+supported.
 
 Cheers,
 
