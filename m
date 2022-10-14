@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F4E5FEC08
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 11:47:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.422636.668795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 916E85FEC31
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 11:57:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.422642.668807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojHGz-00034L-Sg; Fri, 14 Oct 2022 09:46:33 +0000
+	id 1ojHRK-0004ea-SQ; Fri, 14 Oct 2022 09:57:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 422636.668795; Fri, 14 Oct 2022 09:46:33 +0000
+Received: by outflank-mailman (output) from mailman id 422642.668807; Fri, 14 Oct 2022 09:57:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojHGz-00031W-Ps; Fri, 14 Oct 2022 09:46:33 +0000
-Received: by outflank-mailman (input) for mailman id 422636;
- Fri, 14 Oct 2022 09:46:32 +0000
+	id 1ojHRK-0004cA-PO; Fri, 14 Oct 2022 09:57:14 +0000
+Received: by outflank-mailman (input) for mailman id 422642;
+ Fri, 14 Oct 2022 09:57:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d1R5=2P=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1ojHGx-00031Q-RM
- for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 09:46:32 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=F+Di=2P=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1ojHRI-0004c4-Oe
+ for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 09:57:12 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr140043.outbound.protection.outlook.com [40.107.14.43])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1467aa27-4ba5-11ed-8fd0-01056ac49cbb;
- Fri, 14 Oct 2022 11:46:30 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id d26so9294472ejc.8
- for <xen-devel@lists.xenproject.org>; Fri, 14 Oct 2022 02:46:30 -0700 (PDT)
-Received: from [192.168.1.93] (adsl-33.176.58.192.tellas.gr. [176.58.192.33])
- by smtp.gmail.com with ESMTPSA id
- k13-20020a17090627cd00b0077826b92d99sm1287627ejc.12.2022.10.14.02.46.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Oct 2022 02:46:29 -0700 (PDT)
+ id 924f9dff-4ba6-11ed-8fd0-01056ac49cbb;
+ Fri, 14 Oct 2022 11:57:11 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB9PR04MB9646.eurprd04.prod.outlook.com (2603:10a6:10:30a::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.26; Fri, 14 Oct
+ 2022 09:57:08 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5723.026; Fri, 14 Oct 2022
+ 09:57:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,99 +46,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1467aa27-4ba5-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Y/QgieFe04Q2SJKx9LehzMnVWzkhikXB3a9E3m0cIns=;
-        b=K1HIsHX2VT1jItBGMSIsj6MT1z56SADs0lNYo+hnTLpkQbdBGVGw5vXDrk/vBmpKZY
-         5AdEzMvMzd3xKjvubpbAvNIqgZ9Fl64+Q8AQ2fy1i+vynq8xf1CqOsD2/2W13KUgkpAs
-         uzJqO+LoEC6Obxu638S3wyTu0xDcz2I8dKk+8+xQ8iVD2Bun4wx8pUipqeQccz9sMMjp
-         wrE4CsqWrSQjUXaPAf96/ldFM7AoT4Ye0iQd2nDf29FVGi5sX8gSY91MA2bYPWm+Zbk5
-         pCUAPb3FMUV4ZghqIQfOrG+6631KprF5xxapf3ehJMEs85/3cSNSUXAwckSAbBcDYkfh
-         VGHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y/QgieFe04Q2SJKx9LehzMnVWzkhikXB3a9E3m0cIns=;
-        b=gXuzBe4BtZVuMsFTW6FTSBhEs+tzuXYkrkSI5C2w/KmsSe+k02KbEi5Ssq4z89QHc0
-         ivYx/mKZkZlte2vE2gOh2Ua+15Ov2PeK79Mm48lKABzWi563nGowHV50iBh09Gop32Wo
-         N43X0clR+7M5AOhKuzgt33IYtyjr8H9O6/nRieIuHPAgomJvIveM44F/oED+11bWK0cz
-         FvxLO3AvEcW+9+aP0ssGjyw2T7otc2tWCJInFDxh7Tq04tdwOd2XeJ6uTF+xyIikR4f7
-         kKgbhPO61BpIVeBqLAUsnFmV4h9O/e7e0IbnbGCPLonWSdmK04HRde+jBTkD0LZPOgfk
-         U1VA==
-X-Gm-Message-State: ACrzQf2eeTj+YQBbYhR8cgLWQUxxQ8/FfF35ajKbbjH2rVgSHjGI2kh+
-	Gus2isMUFfEKtLqzNJTr3vc=
-X-Google-Smtp-Source: AMsMyM7Qe2slz11VfgUKivecRlyC7KjU1tt4NB0PoyTrtT078o3/loMsTrnp5qOX4eP7vPo0YLYd8Q==
-X-Received: by 2002:a17:906:c152:b0:78d:9dbb:150b with SMTP id dp18-20020a170906c15200b0078d9dbb150bmr2838450ejc.542.1665740789890;
-        Fri, 14 Oct 2022 02:46:29 -0700 (PDT)
-Message-ID: <db3a487d-8330-fc68-8659-b6974352e7bc@gmail.com>
-Date: Fri, 14 Oct 2022 12:46:27 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] xen/arm: p2m: Populate pages for GICv2 mapping in
+X-Inumbo-ID: 924f9dff-4ba6-11ed-8fd0-01056ac49cbb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jGlYY9MpyJ+gor9nnYYsDU4JisuEY5r0b51D18fUSa525OCkCN4brY0S8n/EfKE4mEhwtjLBkqnVGbuV2YtG1mj/Qgqntrfkdbf31unaURYLNYQOHkLO2juwVdBIneXSAnv/kv67o+09ucKmtylREMwFmRRaIYhGi01VQHdSUpC7Ux+bBhfV1FWns44jV7cIQDU0BYpqwPzm6FXYYUuArEAHf3zM2bhQlh0PgesffstN8EAsepkRYX9iLe8VJ0EmeAweUdh77s84+Rh7V3sWMm1yJvacaImR9NwuVMscE1pDr0R/XWP+QU2vbPxstAyoCxFhpHj7PJwW9d8ONQywJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=flqInWQZxGRF0ioNLqiyj9BRYh9uxf1z2FRcSHpWxow=;
+ b=jBDHHuFe7E86GYUAGBfPs8yyN21qE4vsMNo4VhBGcChqQg/tp0H0iu4sIE1gGWtqjvDz2cz96ANYk3KJ2Zo+McQQWuiokleyCNsyScOxI1ax9ABPMhQgDa1lfiZOMtrftunhS0Yi6ghL33+cmmLCRUUrIG5vM6ODquMNZRBGsNaXvqbU/nLkpooA/+kvB9zGQFitt1ssI1K5mQ9Kx6VKFsN9apgrz3G4etVDCcgLPXJffS0qV+g0mgQyYPo1TAJSoSDiYOB/NCloUp+gcS26UDmpX6dpuOmig0R74suljlp49BdjTLPDilFcpdmsR97YFD9nfyFwCD4ftNv+gmPt8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=flqInWQZxGRF0ioNLqiyj9BRYh9uxf1z2FRcSHpWxow=;
+ b=vrXGkPpgqKYVVQL4f1QNn9p0nBq1hlS7fM3ea1uAFJrLcloed2+AOcZGQ8ViDZZEkQKLSMssokh0IZsHNLXyZYxX+ZgF+YqDMpl2WsHxYVud0R4tK3tUcQ+H50eKzN90uc2SQWQep/FfSaKxhZpPboFoIo/gHSZwm15aZRehpxji56OO2Pdj99UDLRDMcjlQf3pDQ9anEtuNDjQBnsdH+/c8h2brexbmF7JsvjVqIGR85nZYy6go0xUZNqFyL8jvs6Dfl0cxrz3MDhgP1FMZQhrdZgX4VMUWFLibzbQcWuJGQ0qKvj6TozoN8B0z+BYyQEI/S1OrP9tDb6XEGqmE5Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <48741b73-8755-5a10-e1c4-d684aec2135b@suse.com>
+Date: Fri, 14 Oct 2022 11:57:04 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.2
+Subject: Re: [PATCH v2] xen/arm: p2m: Populate pages for GICv2 mapping in
  arch_domain_create()
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Henry Wang <Henry.Wang@arm.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Wei Chen <Wei.Chen@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20221013083818.36209-1-Henry.Wang@arm.com>
- <c1020b65-491f-e1c5-3ef3-7edb99e0435c@xen.org>
- <AS8PR08MB7991F3222D1C616AEF9C771092259@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <2c2b3e8f-34fc-1ef2-c086-233964e29e43@xen.org>
- <03419318-275a-1f9d-6e00-1a3489659f22@suse.com>
- <AS8PR08MB79917792FD8A7695C969020992259@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <05c4def0-321e-c864-7d92-b4dfe110d030@suse.com>
- <AS8PR08MB7991AD5D30E4EBADD0A7582592259@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <ccca7922-513d-3a9d-c994-f15c23e40812@xen.org>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <ccca7922-513d-3a9d-c994-f15c23e40812@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <20221014080917.14980-1-Henry.Wang@arm.com>
+ <70670b7c-e87d-9eb7-691f-48c44e9d57db@suse.com>
+ <AS8PR08MB79913CFDD2388EA05ADD187D92249@AS8PR08MB7991.eurprd08.prod.outlook.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <AS8PR08MB79913CFDD2388EA05ADD187D92249@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0176.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a0::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB9646:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf5b004d-f878-411d-80ad-08daadca731f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	FBv6dItVC89lTKvihAP3D680QwOKScnAngII56wb7FA3P8grVXMIKxwwPIuJ9qVta/Y1kUvUr3sg79aEtwMr4syZ3q0q5moCVqrfJ+hc+wquf5aJ+Q/06szhbderzZLM0vJGHOgBFNteqMHg99MfL51xW0SRQCpzyzfmy7xnv/QoRzH5M6ghjdKnPMfepZAsrfgCTQo4/Iev6zoUcw/SxQOZwjDLtm1kxar1AAhe0rQVM//m+Ui+KbiQsrbT9MgTFbSVSz5bwsA+lt6Qx3wiUOWHHgBKoBX6PuajbPpY6PqKT8ouIPf9924jr5XffFoFOZLnQoHtzh4MXM59eYdaGxyLfwTbgmI72DXrQK6fX8TVucCcZN834XK4FH4X/C+OipJxI0fqh7rxOlSRBNKWv0G2xoHWccIU8oN8k5i0u9mMGmOQGBTMnx+3DBUdSlv554B5jvQVyi4bUJrVWJl9Avdvjb36h/6iRAsm22AdfT3WVdemMB+Q0CnJzx0n0lEViu13VDEzFhJ6TxqoqSQw1q6BGTDr+0M/+in90rhXs5WEWBUtcsOsfY6O98QZSOxZPT9LV3w95zwj1E53KmzebnsArTZ+tmAicbrzfYbjA3Gq+U3fymky/LKdzPETEl53w8KDdkEKP9hmDvu3niwi6YxLFqW3a2hTtn0+EwsxFz4B20nW+jdwRKRqcfc3+XdsIFPjh6KbE9HR9ofiExoOCxVVPuF3FM6NOHQFwhxP/yvs/G0FNPOx/gl2JFmOUqGdg1/ndPmeHp4KWczIhf0NyLJRsaGgFfOQ/PUpGo4ZiI4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(136003)(39860400002)(366004)(396003)(376002)(451199015)(2616005)(36756003)(6512007)(26005)(41300700001)(86362001)(316002)(66556008)(66476007)(6916009)(54906003)(8676002)(8936002)(31696002)(186003)(4326008)(66946007)(38100700002)(53546011)(6506007)(478600001)(2906002)(6486002)(5660300002)(66899015)(31686004)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?azUvTVRaa3FDbGNaWlZSTnU3NnVwVm5Kd0lEWGVITm9ycVBFVjA3b3NWN1Ex?=
+ =?utf-8?B?VlZYemlGWmJrTTQrOUNYeEY5N0pYSWJLTldMaCtEZEVmS2tuekt2eC84MnA5?=
+ =?utf-8?B?cnI2Q09FdU5qQkdxYk1uNmxJSkphNUFwQzMwejhSVVlqaDJtSXlqS3NXSkZZ?=
+ =?utf-8?B?TXBqUGRvOWhRSWtJMXcrajU2L3hKWlFjbHlRTitlaGZMQ0V4dSt5cng2Ui9x?=
+ =?utf-8?B?SGw5R3BaNUluWFdEZi91MlB5cml5ZUhVUE5TemlPb2ExMzBESXJKVTV2Wkcz?=
+ =?utf-8?B?SkRhbVBNRldCRXNFRXZJNVd5Rk9jMk9UREpwODUvZUVFVDBQTVN5RXUzWUE4?=
+ =?utf-8?B?UTc4d1ZUVWp3ekpOekVJaStlZkJyZElCTzRzN1lNVUZMSEZxWUNCZXROa0pn?=
+ =?utf-8?B?TlNZcFNLQVRyUDdLMmdHRThMemNFNXI2TjJzZGY2QnZnU1BvcEk5RGRHSGhV?=
+ =?utf-8?B?Z0pXNS9ONUZtb1UrU0FGc1dsa3hEdGxVMHJJbFlXb0EyZUwwdlh4c1JHenpq?=
+ =?utf-8?B?NWo0UkdBK2NmNUd6bWxxZXdYcU8xOENKS05XbGJWZisrSEdDRGk5NkQrZUg0?=
+ =?utf-8?B?Vm9NQUhlR2FNaTVZYlp5ZnFpQ2hWWXpuR0FVSkI0NTMyQVJ3V2xjaEJ4Sk1l?=
+ =?utf-8?B?b1NiYWxONWxGNVFsejdBeWFaTWQ2TVFiVk1ndldpMUVlRnQvMjZwUGx6bmpQ?=
+ =?utf-8?B?dG1SV3ozcE9uVlNYRXAxcFVjZ0VEYUIrMStTMnhiZUk4ZndON2lYUnpoQ1Aw?=
+ =?utf-8?B?NVFOQjRjR2U2ZWZpSXlnNEZzNmZDTHVQa1ROTHA2TGRPK2pyUkxwQUVvdW1r?=
+ =?utf-8?B?a1RMVFFVYkhLTkowa0t6UU1VLy9jWHF2YmJDMHhQVUNHR0o4bGdQU3FHOTRX?=
+ =?utf-8?B?dDh0RHdTTmFYV3BVdi92YzZoM0N3THpEYmFicUJRQXB3SWpncmlNUUpjMjNS?=
+ =?utf-8?B?RFV6ZEtDUzlYa1pyNHZidmF6NWNoTklCMkRMclF5NXluKzg2U1hVMGt2YWox?=
+ =?utf-8?B?Qm5uQ2c0Y1lsbkVMSWFuWFFjNGFDaDNzYXNmU01mVFV5TkxpbURwaHZEeGNW?=
+ =?utf-8?B?b1dNR2hXbGxyMzIwNnZmYkR5cWF1ZjYzOWIwZ1ZhM1FFQlBST1E3SUlmVnYx?=
+ =?utf-8?B?clFqaStUbjRkS2UzUEJCT0JkeEczenNSKzRYOVorTkRJR3pwNjNtQmFjZTdD?=
+ =?utf-8?B?aWRMRzV3SWtQeHdlZlRKamk4SlZxNktXZXRQL3d1dFA4alVrS1FmNHJsazdm?=
+ =?utf-8?B?STBFWVgxNm9GaWVZVVRFTjIyM0NIY3U5Tkkwa1YzcVJwRjJGK3NOKzlGcXdy?=
+ =?utf-8?B?d081UUcrNHlKVnplQ1hzakkvd3A3dXIrSVdhZHh1SnptSExhbWMxcC8zUzNl?=
+ =?utf-8?B?UHB1a1gvKzZQY1A5MWl0L1VSMDkxZnJtUWxrN0FWZ3BIcWRSdG8zWTdqOVF5?=
+ =?utf-8?B?MSt3bUxaY1NXU0gzN1hEWnRqU0VuR1lKa3hlZjZnSDJ4MHIzeDdPai9YRitQ?=
+ =?utf-8?B?MWZ2SEpVQ1JibEVpczEvT1hNV2tKQ2UvaFNOZ042RUljSm4zcmlxRUdIdkhk?=
+ =?utf-8?B?aklRRlFoZG5uaUJPY1l0UHM4N0JnUlY1b3BmSldlczlwV0dWZm5LTURJSlNx?=
+ =?utf-8?B?M3Y4R3ZFNUhmRFJGOHlldy9JTnVDU3lFV1U2cUtlZlRGU3dUd250cExWUFFQ?=
+ =?utf-8?B?QXB4NVBiMDBNMW5hOW5WMnVZczRrWTdNT0RRWGxOVnBkQzZITktSeGhhMDVl?=
+ =?utf-8?B?RDhhaTNJaGNQNGN5cHViWGoySGNZK0VLL0M1dUF1ZjQ5aWlzWXBPSEN6VEh4?=
+ =?utf-8?B?ejkrZkU0VjY4cVdOeVMyaWh5YUFVTVBISHdvWlJTZ1RNR24ybDRQUG9nK0FP?=
+ =?utf-8?B?ZGxTNHQ2c1ZMVVA2bFhpRExXRjZ4aXdBS1h4QlpLcyt0MkQ1VzI5QkdGdXdY?=
+ =?utf-8?B?KzZ3Rmw0b3VjaGx5aCtoek9nLzVXKzRvU21rYjkvRncwazV0enVqTWl0VGcw?=
+ =?utf-8?B?TUtQbGhraCtRb2g0WjlhK1p1MVA1NXZsbG02dTVBa0JpRjlZK25WT1NBZGw0?=
+ =?utf-8?B?MDgreW5HbmNwRkZLbGxnNnNoWnVuVER0Um1PU3g5Qm41ZkViRUZLK2tPeVhs?=
+ =?utf-8?Q?wnQvN3Yr1itkh4HBeIOIyXfzi?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf5b004d-f878-411d-80ad-08daadca731f
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2022 09:57:05.3571
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k3vA0DAUFN/kzPtoM0bL/PRkUaE8IxGb34QqfRQrebYFgAyFYsL9qhC8w8CzsC7pLLPTA9exMjr02RALEmsDqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9646
 
-
-On 10/13/22 15:39, Julien Grall wrote:
-> Hi,
-> 
-> On 13/10/2022 13:29, Henry Wang wrote:
->>> -----Original Message-----
->>> From: Jan Beulich <jbeulich@suse.com>
->>>>> Assuming you have 4 (N) page table levels, isn't it 7 (1 + 2 * (N - 
->>>>> 1))?
->>>>> Or is the root table not taken from the p2m pool?
->>>>
->>>> Correct, on arm the root is not taken from the pool.
->>>
->>> Isn't that a (perhaps just minor) mistake?
+On 14.10.2022 11:28, Henry Wang wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
 >>
->> Not really, in the code review phase, the question of whether we include
->> the root in the p2m pool was discussed and the conclusion at that time
->> was not including this page for now, as this is supposed to require a lot
->> of extra work/refactor. Probably there will be a series from my side to
->> add the root to the pool, but at least not now.
+>> On 14.10.2022 10:09, Henry Wang wrote:
+>>> @@ -1736,6 +1736,17 @@ void p2m_final_teardown(struct domain *d)
+>>>      if ( !p2m->domain )
+>>>          return;
+>>>
+>>> +    if ( !page_list_empty(&p2m->pages) )
+>>> +        p2m_teardown(d, false);
+>>> +
+>>> +    if ( d->arch.paging.p2m_total_pages != 0 )
+>>> +    {
+>>> +        spin_lock(&d->arch.paging.lock);
+>>> +        p2m_set_allocation(d, 0, NULL);
+>>> +        spin_unlock(&d->arch.paging.lock);
+>>> +        ASSERT(d->arch.paging.p2m_total_pages == 0);
+>>> +    }
+>>
+>> Is it intentional to largely open-code p2m_teardown_allocation() here?
 > 
-> The root page tables can be one of multiple concatenated pages (up to 8 
-> pages). The P2M pool is allocating page by page and therefore wouldn't 
-> allow us to allocate contiguous pages.
+> Yes, AFAICT p2m_teardown_allocation() is preemptible and we don't want
+> any preemption here.
 
-Sorry that I 'm asking this so late (I was just going through the 
-thread) but why 8?
+Well, this can be dealt with by adding a parameter to the function, or
+by looping over it until it returns other than -ERESTART. Both would
+seem better to me than this duplication of functionality (but I'm not
+a maintainer of this code, as you know).
 
-> 
-> Therefore, we need to handle the root differently. At which point it 
-> doesn't seem to be worth it to allocate it from the P2M pool.
-> 
-> Cheers,
-> 
-
--- 
-Xenia
+Jan
 
