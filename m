@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8CC85FEFC2
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 16:07:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.422896.669248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EF435FF018
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 16:17:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.422903.669259 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojLKv-0000Nk-TW; Fri, 14 Oct 2022 14:06:53 +0000
+	id 1ojLUL-0001yt-Uk; Fri, 14 Oct 2022 14:16:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 422896.669248; Fri, 14 Oct 2022 14:06:53 +0000
+Received: by outflank-mailman (output) from mailman id 422903.669259; Fri, 14 Oct 2022 14:16:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojLKv-0000Lm-QR; Fri, 14 Oct 2022 14:06:53 +0000
-Received: by outflank-mailman (input) for mailman id 422896;
- Fri, 14 Oct 2022 14:06:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OdXR=2P=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1ojLKu-0000Le-04
- for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 14:06:52 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7269a247-4bc9-11ed-8fd0-01056ac49cbb;
- Fri, 14 Oct 2022 16:06:50 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id b2so10744131eja.6
- for <xen-devel@lists.xenproject.org>; Fri, 14 Oct 2022 07:06:49 -0700 (PDT)
+	id 1ojLUL-0001x6-RV; Fri, 14 Oct 2022 14:16:37 +0000
+Received: by outflank-mailman (input) for mailman id 422903;
+ Fri, 14 Oct 2022 14:16:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojLUK-0001ww-UF; Fri, 14 Oct 2022 14:16:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojLUK-0002Ho-RD; Fri, 14 Oct 2022 14:16:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojLUK-00062e-Jg; Fri, 14 Oct 2022 14:16:36 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojLUK-0003E2-JD; Fri, 14 Oct 2022 14:16:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +42,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7269a247-4bc9-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=szfsHn58qlHosBTktmeFDMRXO20yhh1xMRQGpNfQKLo=;
-        b=LK8FVPQZa2uAs5x5SMA3Bsep+SoyM+1HEybKOxCssY6T6er7ovHem6Aom+dHFNxN5Q
-         l3eRuq4RN9iagGtuGYMR+1VIWqKNT3Gu6+c++aFARVJjwZ+4JeoN8Ax/7/IFqOzyAXxK
-         28dOWRuVfp32sc/qKW2a1OA4SYG57v7u+TIMd14Sl3WU+dMxN2EdXbNYPUOmYKypsLvz
-         y9LDoKPn/2nS4r/ytQ0EtxrC9Yk+pcTZ7Aj5aAlw40AYVGpvOUWyD6MCj/AdCs/35a9D
-         RZEHsyq4/59F1BMwdCKYIu+bRLjaWS6z7h5HCU3BxWWEkQVvgfA26t3Zde0qeLDLPalX
-         Y5EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=szfsHn58qlHosBTktmeFDMRXO20yhh1xMRQGpNfQKLo=;
-        b=E5rRgBwmrle2JRMlmNEim/31/DRaW81n+3EmVEPzKa9U+KQ1G4kDR4VUwKq/yyDm+a
-         d1LWJTsi+HFMaX3fL+KxtTA07sTtLrBA+KziA+FuBSum1AzxBpggoBCf82+rVfk2wu4p
-         PfzDb3TOEBU904BlVxxXfyIN7aqGqnmJwSu+7m985Yngq3zOtl67E8m0XL51tJGCqExH
-         csr8lk/A5sh7bTYlnxRf7fQOpDFuOLUjU+4oKSkV+oGyh++EXG2lfnzRvDvDvYdbCfxN
-         hJSiUepnp5eEzZAP8wNApRzrAMeJk9uT2l8QRlc+mN3zqZ7bp6AYvZ6aA2mT5y34MOKq
-         ilBQ==
-X-Gm-Message-State: ACrzQf2RfGWwGndTezchhPYoWbJRmMYxl0EvF/xxpv5QYhQYRlCq9paF
-	xhkShaPX2Klvjak/kOoJpyy8T3eFPmUo9nzO5g4=
-X-Google-Smtp-Source: AMsMyM7nm5Em1bmOKPfIllS/6qEfOZiuU3e/o7/7xeXZY65Xddt8E9V4IsEMAxssFT2ZX+B5tRnvERCRvRhiyJAX4/E=
-X-Received: by 2002:a17:907:d03:b0:78e:16da:e4ae with SMTP id
- gn3-20020a1709070d0300b0078e16dae4aemr3804854ejc.202.1665756409410; Fri, 14
- Oct 2022 07:06:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20221014140221.31966-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20221014140221.31966-1-andrew.cooper3@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Fri, 14 Oct 2022 10:06:37 -0400
-Message-ID: <CAKf6xpuh5sdnNvrY_J+=7pYR6i6SgEf2QHPx0_LHJBMi+m_urA@mail.gmail.com>
-Subject: Re: [PATCH] argo: Fixes to argo_dprintk()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Christopher Clark <christopher.w.clark@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=pZXQsfwTrg3Cz1sJ780MguYxuT5M5TEjnC2PU566QiY=; b=UHZG9vHHfF300YkxWcFPuCYcmQ
+	bz2MWceDqgA1tK1jNOV5emSuE45JQ63lYpIbyAFfxsgNJVSChFWztlL/sz1+EEMXwDYD9APXCisSa
+	uSe8YnP50Asn4MtbK9fb31XmiZ/yjckeO8Obl20kiGxcYO/4NyxTL9gAI9daEnPMrcSw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173754-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 173754: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start:fail:heisenbug
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=171d4d24f829075cac83b6fafe7a4ed7c93935a6
+X-Osstest-Versions-That:
+    xen=9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 14 Oct 2022 14:16:36 +0000
 
-On Fri, Oct 14, 2022 at 10:02 AM Andrew Cooper
-<andrew.cooper3@citrix.com> wrote:
->
-> Rewrite argo_dprintk() so printk() format typechecking can always be
-> performed.  This also fixes the evaluation of parameters.  Emit the messages
-> at XENLOG_DEBUG.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+flight 173754 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173754/
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+Regressions :-(
 
-Thanks,
-Jason
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
+
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl-xsm      14 guest-start                fail pass in 173734
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm     15 migrate-support-check fail in 173734 never pass
+ test-arm64-arm64-xl-xsm 16 saverestore-support-check fail in 173734 never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ xen                  171d4d24f829075cac83b6fafe7a4ed7c93935a6
+baseline version:
+ xen                  9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+
+Last test of basis   173457  2022-10-07 14:03:14 Z    7 days
+Failing since        173492  2022-10-11 13:01:50 Z    3 days   18 attempts
+Testing same since   173721  2022-10-13 16:00:32 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+  Borislav Petkov <bp@suse.de>
+  Christian Lindig <christian.lindig@citrix.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Peter Zijlstra <peterz@infradead.org>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
+  Zhang Rui <rui.zhang@intel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 654 lines long.)
 
