@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6460E5FF48A
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 22:28:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.423128.669616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3775FF4FA
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Oct 2022 23:05:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.423142.669634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojRHk-0000MH-Cc; Fri, 14 Oct 2022 20:28:00 +0000
+	id 1ojRqx-0004lx-8m; Fri, 14 Oct 2022 21:04:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 423128.669616; Fri, 14 Oct 2022 20:28:00 +0000
+Received: by outflank-mailman (output) from mailman id 423142.669634; Fri, 14 Oct 2022 21:04:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojRHk-0000Ji-9m; Fri, 14 Oct 2022 20:28:00 +0000
-Received: by outflank-mailman (input) for mailman id 423128;
- Fri, 14 Oct 2022 20:27:58 +0000
+	id 1ojRqx-0004ib-5f; Fri, 14 Oct 2022 21:04:23 +0000
+Received: by outflank-mailman (input) for mailman id 423142;
+ Fri, 14 Oct 2022 21:04:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Cdf0=2P=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ojRHi-0000Jc-OS
- for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 20:27:58 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1ojRqu-0004iV-Pk
+ for xen-devel@lists.xenproject.org; Fri, 14 Oct 2022 21:04:20 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id af533c48-4bfe-11ed-8fd0-01056ac49cbb;
- Fri, 14 Oct 2022 22:27:55 +0200 (CEST)
+ id c479d68c-4c03-11ed-8fd0-01056ac49cbb;
+ Fri, 14 Oct 2022 23:04:19 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A84F7B818B2;
- Fri, 14 Oct 2022 20:27:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DB8C433C1;
- Fri, 14 Oct 2022 20:27:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AF82A61C4E;
+ Fri, 14 Oct 2022 21:04:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD77C433C1;
+ Fri, 14 Oct 2022 21:04:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,72 +43,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af533c48-4bfe-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: c479d68c-4c03-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1665779273;
-	bh=rhXfl9tYWrC7olZgnEtU52Lf8/82r8LP+/hrcfkJZbo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Mb6lK8QS4+I7BHspOHkFU6XGqCJOyBGjXgu5nkA/wI3Pg8Jan/3q2CP4pD8S2OX3o
-	 f/4ROk3mT+egVlE9x+NNKq25EdH2mvGxYbu7f7/LlZl9sMwXJ+GnQGVrVvHsNZM3zA
-	 z4z9LAtxPJHAx8LjMKzfcWuWx4x+1ssHopzd8nNH6utPVbZSyzeCcjh01dozCpQ2jU
-	 sxQh44VMLmRzqG+h4sCdDPP4nFrOyAdvu4DLSPBYe7FCYss6yBRM0skxid4NjDIyve
-	 XvVFtzw2bXP9NuZVArlUaqZfkvNsMy9rN8PdSZ+YJtR5WwsRhpHheht1e5sS6JgjxJ
-	 ljyJbn9uWQlcg==
-Date: Fri, 14 Oct 2022 13:27:51 -0700 (PDT)
+	s=k20201202; t=1665781457;
+	bh=1ZrwVK602de+t7ntxwWXDkV4lHPteu8Ep7nu8tc5WHg=;
+	h=Date:From:To:cc:Subject:From;
+	b=Fze4aERgwE32h5auE1NygK3vuEGxYTRGPJ0w51tDhxgooqN1qLddmZcf5WCRVh+V7
+	 QE71eljzumYdpyT1uzaf6gEG4M0fNkMtMMPT4EicrlT7CwPUo6McODBETDjL062MTm
+	 6iUCgoePFcDeTdR0v4kgjutuiPp9NKool4WQckdvqcPOElFWNsbV7ghjv1/iv0/hO4
+	 5qxrCOqpv9IAqxcUstqwysb3nUfpO5yilFsfmZn68BaftKdTrkMS/NveiGlYBmsmlH
+	 bQoILR8fv8ce5/XtPrzb78GtPm+aNoImIoiLxlKZ51afD6Y3qhXxToxiLrI27u3F85
+	 IrOUwGuS0gRNA==
+Date: Fri, 14 Oct 2022 14:04:14 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 0/3] Yocto Gitlab CI
-In-Reply-To: <cover.1665561024.git.bertrand.marquis@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2210141325240.3690179@ubuntu-linux-20-04-desktop>
-References: <cover.1665561024.git.bertrand.marquis@arm.com>
+To: jgross@suse.com, boris.ostrovsky@oracle.com
+cc: sstabellini@kernel.org, jbeulich@suse.com, xen-devel@lists.xenproject.org, 
+    JESHWANTHKUMAR.NK@amd.com
+Subject: privcmd.c not calling set_phys_to_machine
+Message-ID: <alpine.DEB.2.22.394.2210141341120.3690179@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 12 Oct 2022, Bertrand Marquis wrote:
-> This patch series is a first attempt to check if we could use Yocto in
-> gitlab ci to build and run xen on qemu for arm, arm64 and x86.
-> 
-> The first patch is creating a container with all elements required to
-> build Yocto, a checkout of the yocto layers required and an helper
-> script to build and run xen on qemu with yocto.
-> 
-> The second patch is creating containers with a first build of yocto done
-> so that susbsequent build with those containers would only rebuild what
-> was changed and take the rest from the cache.
-> 
-> The third patch is adding a way to easily clean locally created
-> containers.
-> 
-> This is is mainly for discussion and sharing as there are still some
-> issues/problem to solve:
-> - building the qemu* containers can take several hours depending on the
->   network bandwith and computing power of the machine where those are
->   created
-> - produced containers containing the cache have a size between 8 and
->   12GB depending on the architecture. We might need to store the build
->   cache somewhere else to reduce the size. If we choose to have one
->   single image, the needed size is around 20GB and we need up to 40GB
->   during the build, which is why I splitted them.
-> - during the build and run, we use a bit more then 20GB of disk which is
->   over the allowed size in gitlab
-> 
-> Once all problems passed, this can be used to build and run dom0 on qemu
-> with a modified Xen on the 3 archs in less than 10 minutes.
+Hi Juergen and all,
 
-The build still doesn't work for me. I found the reason:
+I am writing again to ask a question about privcmd.c in PV dom0 x86.
+This is related to the previous pin_user_pages_fast issue:
 
-  create archive failed: cpio: write failed - Cannot allocate memory
+https://marc.info/?l=xen-devel&m=166268914727630
+https://marc.info/?l=xen-devel&m=166322385912052
 
-It is a "silly" out of memory error. I tried to solve the problem by
-adding:
 
-  export RPM_BUILD_NCPUS=8
+In summary this is the situation:
 
-at the beginning of build-yocto.sh but it didn't work. I realize that
-this error might be considered a workstation configuration error at my
-end but I cannot find a way past it. Any suggestions?
+1. domU (HVM) kernel space:
+    a. pages allocation with get_free_pages()
+    b. get dma_handle by calling dma_map_page() on the pages allocated in (1.a)
+    c. send dma_handle to dom0 (PV) using virtio queue
+
+2. dom0 userspace (QEMU):
+        a. read dma_handle from virtio queue
+        b. map dma_handle using QEMU dma_memory_map(), which calls
+           xenforeignmemory_map2, which is IOCTL_PRIVCMD_MMAPBATCH_V2,
+           which ends up calling drivers/xen/privcmd.c:privcmd_ioctl_mmap_batch
+           [this is verified to work correctly, the mapping works]
+        c. open /dev/tee node and make an ioctl call to register the
+           virtual address (from step 2.b) with TEE.
+
+3. dom0 kernel space:
+        a. AMD TEE driver get the virtual address passed by userspace
+        b. AMD TEE driver get the list of pages corresponding to the
+           virtual address (3.a) and calls dma_map_page() on them
+
+The last step (3.b) misbehaves as dev_addr at the beginning of
+xen_swiotlb_map_page (which implements dma_map_page() in dom)) is 0.
+
+  dma_addr_t dev_addr = xen_phys_to_dma(dev, phys);
+  /* dev_addr here is zero */
+
+
+Could it be that the original mapping of the foreign pages in Dom0, done
+by step 2.b, is not complete? Looking into
+privcmd_ioctl_mmap_batch, for PV guests, it is calling mmap_batch_fn:
+
+	BUG_ON(traverse_pages_block(m.num, sizeof(xen_pfn_t),
+				    &pagelist, mmap_batch_fn, &state));
+
+mmap_batch_fn calls xen_remap_domain_gfn_array, which calls
+xen_remap_pfn.
+
+xen_remap_pfn only changes the VA->PA mapping and does nothing else.
+Specifically, nobody seems to call set_phys_to_machine in this code
+path. Isn't set_phys_to_machine required?
+
+Don't we need a call to set_phys_to_machine so that the next time a
+driver tries to call:
+
+  /* address is the virtual address passed by QEMU userspace */
+  dma_map_page(virt_to_page(address))
+
+it will behave correctly? Or am I missing something?
+
+
+How is xen_phys_to_dma expected to work correctly for:
+
+  /* address is the virtual address passed by QEMU userspace and mapped
+   * in 2.b */
+  phys_addr = virt_to_phys(address);
+  xen_phys_to_dma(dev, phys_addr);
+
+
+My guess would be that we need to add:
+
+  set_phys_to_machine(pfn, FOREIGN_FRAME(mfn));
+
+in mmap_batch_fn or xen_remap_pfn?
+
+Thanks for any help or suggestions.
+
+Cheers,
+
+Stefano
 
