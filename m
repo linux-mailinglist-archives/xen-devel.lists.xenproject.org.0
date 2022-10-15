@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C4EE5FF976
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Oct 2022 11:29:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.423361.670042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 294ED5FF9B5
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Oct 2022 12:56:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.423375.670077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojdSu-0006Ox-GX; Sat, 15 Oct 2022 09:28:20 +0000
+	id 1ojeoe-0007KO-Um; Sat, 15 Oct 2022 10:54:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 423361.670042; Sat, 15 Oct 2022 09:28:20 +0000
+Received: by outflank-mailman (output) from mailman id 423375.670077; Sat, 15 Oct 2022 10:54:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ojdSu-0006Me-DO; Sat, 15 Oct 2022 09:28:20 +0000
-Received: by outflank-mailman (input) for mailman id 423361;
- Sat, 15 Oct 2022 09:28:19 +0000
+	id 1ojeoe-0007I9-Rn; Sat, 15 Oct 2022 10:54:52 +0000
+Received: by outflank-mailman (input) for mailman id 423375;
+ Sat, 15 Oct 2022 10:54:52 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ojdSs-0006MF-Su
- for xen-devel@lists.xenproject.org; Sat, 15 Oct 2022 09:28:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojeod-0007Hz-VM; Sat, 15 Oct 2022 10:54:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ojdSo-0006GA-3b; Sat, 15 Oct 2022 09:28:14 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ojdSn-0006y8-Sd; Sat, 15 Oct 2022 09:28:14 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojeod-0007hy-UI; Sat, 15 Oct 2022 10:54:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojeod-0001MI-N1; Sat, 15 Oct 2022 10:54:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ojeod-0003Lx-MX; Sat, 15 Oct 2022 10:54:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,135 +42,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=EU66632BftsRItb1s5d2r5oE8T7yAs3KaKi+4rjg774=; b=YsHcfO41OUwjOaFeZuugufad3N
-	taM7Uuj9R2huez26eES+WFxkRYXQ4Duh5XEC9Oa7pwLdduYsAyrEeLucwK/CWWfbhwcFvfuDK42QI
-	+bA9fgb7W9QKTv4HG5bn9uryTpt93CwOrwtkcjSU1rqCrZLippBShFZtk0UEJNr0e/9A=;
-Message-ID: <e5e337cc-9478-e4d5-e7ce-71138817f56e@xen.org>
-Date: Sat, 15 Oct 2022 10:28:11 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Z3LPoSiYkUMfVsxUKX49GBlg92w2tF7RvkW4q0aY7Co=; b=npLdaE7WiqrV45AC6CJNIf2lCm
+	1/xyQuWTtxhHEnrlMehnAkA043zQS3rWj+744z77YqCEUt7FUxygGClzrrTCUMcgw7T8CY8Dzd8O4
+	FYwmRoqWbLpg5wkyYCh/3p9hEDAf+AMNUVIPeME2Z7JduMSi4k7dUOMPCtIsC+lMcYgo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173810-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Ayan Kumar Halder <ayankuma@amd.com>
-Cc: "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- bertrand Marquis <Bertrand.Marquis@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>, Penny Zheng <Penny.Zheng@arm.com>,
- Jaxson Han <jaxson.han@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e2d041b2-3b38-f19b-2d8e-3a255b0ac07e@amd.com>
- <alpine.DEB.2.22.394.2210141109400.3690179@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-Subject: Re: Need guidance to support reading GICR_TYPER (64 bit register) on
- Aarch32_v8r
-In-Reply-To: <alpine.DEB.2.22.394.2210141109400.3690179@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 173810: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=5310a3aa5026fb27d6834306d920d6207a1e0898
+X-Osstest-Versions-That:
+    xen=9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 15 Oct 2022 10:54:51 +0000
 
-Hi Stefano,
+flight 173810 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173810/
 
-On 14/10/2022 19:09, Stefano Stabellini wrote:
-> On Thu, 13 Oct 2022, Ayan Kumar Halder wrote:
->> Hi Arm mantainers/Folks,
->>
->> Please refer to the discussion
->> https://github.com/zephyrproject-rtos/zephyr/pull/51163 .
->>
->> We intend to run Zephyr as a domU guest on Xen on Aarch32_v8R fixed virtual
->> platform.
->>
->> Zephyr is trying to read GICR_TYPER which is a 64 bit register using ldrd
->> instruction.
->>
->> As GICR is emulated by Xen, so this instruction gets trapped with HSR =
->> 0x9200000c.
->>
->> As ISV is 0, so Xen cannot emulate this instruction.
->>
->> The proposed solution is to use two sys_read32() on GICR_TYPER to return the
->> lower and upper 32 bits.
->>
->> With this, HSR = 0x9383 000c, ISV=1 so ISS is valid.
-> 
-> Hi all,
-> 
-> I wanted to take a step back on this issue before we jump into the
-> details.
-> 
-> 
-> Differently from other instructions we discussed in the past, strd and ldrd
-> are not deprecated and are not "unusual corner cases". There is no
-> statements such as "please don't use this" on the ARM ARM. If I were to
-> write an register read/write function in assembly for an RTOS, it would
-> be reasonable to use them.
+Regressions :-(
 
-Just to be clear it is fine to use the ldrd/strd for accessing non MMIO 
-area. The problem comes with MMIO access because they can be emulated by 
-the hypervisor and we don't have the syndrome. At the moment, this is 
-only a problem when accessing some of the GICv3 (including ITS) registers.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 173457
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
 
-> 
-> So, I struggle to see how we'll be able to deal with all the possible
-> RTOSes out there that might have them in the code. We can fix Zephyr,
-> but what about FreeRTOS, ThreadX and the proprietary ones (VxWorks,
-> etc.)?
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-This is not an Xen issue but architecture issue. The RTOSes will face 
-the exact same issue on any hypervisors unless they decided to decode 
-the instruction.
+version targeted for testing:
+ xen                  5310a3aa5026fb27d6834306d920d6207a1e0898
+baseline version:
+ xen                  9029bc265cdf2bd63376dde9fdd91db4ce9c0586
 
-As we discussed before decoding an instruction correctly is quite 
-difficult to do (what we have in Xen for pos-increment store/load is 
-just a band-aid). So I would expect the other hypervisors to have made 
-the decision to not implement it. AFAIK KVM doesn't suppor them,
-Note that looking at ID_ISAR2, it seems that ldrd/strd is technically 
-optional. Therefore, the RTOS would have to assume it is targeting a 
-processor that supports them.
+Last test of basis   173457  2022-10-07 14:03:14 Z    7 days
+Failing since        173492  2022-10-11 13:01:50 Z    3 days   23 attempts
+Testing same since   173776  2022-10-14 21:00:25 Z    0 days    4 attempts
 
-> 
-> Unless we can get ARM to issue a clear guidance that strd and ldrd are
-> deprecated, 
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+  Borislav Petkov <bp@suse.de>
+  Christian Lindig <christian.lindig@citrix.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Julien Grall <jgrall@amazon.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Peter Zijlstra <peterz@infradead.org>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
+  Zhang Rui <rui.zhang@intel.com>
 
-Arm Arm cannot say that because ldrd/strd are necessary to modify the 
-LPAE page-tables atomically. What we need to know is which instructions 
-can be allowed on MMIO accesses.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
-I think I already raised that when Ayan added decoding for 
-post-increment instructions. There are plenty of instructions (or 
-combinations) that doesn't provide a syndrome and yet the processor 
-doesn't prevent anyone to use them on MMIO.
 
-I was worry we are going to have to continue to decode instructions in a 
-non-compliant way in Xen just to please a few RTOs that may not even run 
-anywhere else.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This would also reduce our leverage to request a change in the RTOes or 
-the Arm Arm (maybe there is already a statement I haven't spotted) 
-because Xen will already (badly) support the instruction.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> I think it would be better to attempt to decode them rather
-> than just fail. I don't like to have this kind of code in Xen, but I
-> don't see a way to support R52s without it.
-That's not specific to R52. This is anyone using GICv3 on Arm32 core.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> 
-> That said, of course if Zephyr was to use two 32-bit reads instead of
-> one 64-bit read, it would be better for Xen. And we have more important
-> things to deal with right now in terms of R52 support (it is not even
-> upstream yet). So it is totally fine to change Zephyr and move forward
-> for now.
-> 
-> But medium term it doesn't seem to me that we can get away without a
-> solution in Xen for this (or a change in the ARM ARM).
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-See above. This is an architecture problem and we should discuss with 
-Arm first before continuing to add more decoding in Xen.
 
-Cheers,
+Not pushing.
 
--- 
-Julien Grall
+(No revision log; it would be 938 lines long.)
 
