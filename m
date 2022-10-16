@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B941E600281
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Oct 2022 19:49:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.423885.670957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DB51600283
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Oct 2022 19:51:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.423892.670969 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ok7kC-0008Rw-4I; Sun, 16 Oct 2022 17:48:12 +0000
+	id 1ok7mv-0001SJ-MT; Sun, 16 Oct 2022 17:51:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 423885.670957; Sun, 16 Oct 2022 17:48:12 +0000
+Received: by outflank-mailman (output) from mailman id 423892.670969; Sun, 16 Oct 2022 17:51:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ok7kC-0008Q0-0u; Sun, 16 Oct 2022 17:48:12 +0000
-Received: by outflank-mailman (input) for mailman id 423885;
- Sun, 16 Oct 2022 17:48:09 +0000
+	id 1ok7mv-0001P3-J8; Sun, 16 Oct 2022 17:51:01 +0000
+Received: by outflank-mailman (input) for mailman id 423892;
+ Sun, 16 Oct 2022 17:51:00 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ok7k9-0008Pu-RS
- for xen-devel@lists.xenproject.org; Sun, 16 Oct 2022 17:48:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ok7mu-0001Or-QP; Sun, 16 Oct 2022 17:51:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ok7k2-0003KP-Pk; Sun, 16 Oct 2022 17:48:02 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226] helo=[10.85.34.141])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ok7k2-0002PU-Hd; Sun, 16 Oct 2022 17:48:02 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ok7mu-0003Ma-PY; Sun, 16 Oct 2022 17:51:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ok7mu-0005kU-I7; Sun, 16 Oct 2022 17:51:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ok7mu-000864-Hg; Sun, 16 Oct 2022 17:51:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,229 +42,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=mXglPGHiPe5q3CHx27YFdei2t2Cv9ep68EGI7/Nw+zQ=; b=Ea8+iCd9f1V/VxiUYrfaPkYw1x
-	U+GwNCEagFGhBRCy294gY06ayqPNKvvQvchxC/H9wGQ1zeRnk17wKUj5Ioh9Vdwuh2w7gmFOUyhev
-	i87S73CNwfeYrPEF79HNTHLtHwIuAXb2jF5Z6fHTvTkzZI0fdk49LKoARw1EqqogDnxc=;
-Message-ID: <3e504b1b-197d-b77b-16e1-86530eb3d64c@xen.org>
-Date: Sun, 16 Oct 2022 18:47:59 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=3STeXF6aoAQxk/VHcsvOFx/dnGS9UN7tyPDtaTxmbWA=; b=XViy2J4BW8yAIWQV3pzP7tQovQ
+	qQclOnhijOmuP3RCW04aPyj0fQVCznJKpnQ62Q4EPxu8/Pf/oPD3uUVDtVjwslv8Gb8f+9Maev0jW
+	waZnV8N5FmCkcxxNSmMOjlPdTqcB+2DQHYZeDDPrBmdxdSAtga/VQ847yq+oiQ5+E/x8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173931-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-Subject: Re: [PATCH v1 10/12] hw/arm: introduce xenpv machine
-Content-Language: en-US
-To: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org
-Cc: stefano.stabellini@amd.com, Peter Maydell <peter.maydell@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-References: <20221015050750.4185-1-vikram.garhwal@amd.com>
- <20221015050750.4185-11-vikram.garhwal@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20221015050750.4185-11-vikram.garhwal@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 173931: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start:fail:heisenbug
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=5310a3aa5026fb27d6834306d920d6207a1e0898
+X-Osstest-Versions-That:
+    xen=9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 16 Oct 2022 17:51:00 +0000
 
-Hi,
+flight 173931 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173931/
 
-There seem to be some missing patches on xen-devel (including the cover 
-letter). Is that expected?
+Regressions :-(
 
-On 15/10/2022 06:07, Vikram Garhwal wrote:
-> Add a new machine xenpv which creates a IOREQ server to register/connect with
-> Xen Hypervisor.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 173457
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
 
-I don't like the name 'xenpv' because it doesn't convey the fact that 
-some of the HW may be emulated rather than para-virtualized. In fact one 
-may only want to use for emulating devices.
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl-xsm      14 guest-start                fail pass in 173911
 
-Potential name would be 'xen-arm' or re-using 'virt' but with 
-'accel=xen' to select a Xen layout.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm     15 migrate-support-check fail in 173911 never pass
+ test-arm64-arm64-xl-xsm 16 saverestore-support-check fail in 173911 never pass
 
-> 
-> Xen IOREQ connection expect the TARGET_PAGE_SIZE to 4096, and the xenpv machine
-> on ARM will have no CPU definitions. We need to define TARGET_PAGE_SIZE
-> appropriately ourselves.
-> 
-> Optional: When CONFIG_TPM is enabled, it also creates a tpm-tis-device, adds a
-> TPM emulator and connects to swtpm running on host machine via chardev socket
-> and support TPM functionalities for a guest domain.
-> 
-> Extra command line for aarch64 xenpv QEMU to connect to swtpm:
->      -chardev socket,id=chrtpm,path=/tmp/myvtpm2/swtpm-sock \
->      -tpmdev emulator,id=tpm0,chardev=chrtpm \
-> 
-> swtpm implements a TPM software emulator(TPM 1.2 & TPM 2) built on libtpms and
-> provides access to TPM functionality over socket, chardev and CUSE interface.
-> Github repo: https://github.com/stefanberger/swtpm
-> Example for starting swtpm on host machine:
->      mkdir /tmp/vtpm2
->      swtpm socket --tpmstate dir=/tmp/vtpm2 \
->      --ctrl type=unixio,path=/tmp/vtpm2/swtpm-sock &
+version targeted for testing:
+ xen                  5310a3aa5026fb27d6834306d920d6207a1e0898
+baseline version:
+ xen                  9029bc265cdf2bd63376dde9fdd91db4ce9c0586
 
-I see patches for QEMU but not Xen. How can this be tested with existing 
-Xen? Will libxl ever create QEMU?
+Last test of basis   173457  2022-10-07 14:03:14 Z    9 days
+Failing since        173492  2022-10-11 13:01:50 Z    5 days   32 attempts
+Testing same since   173776  2022-10-14 21:00:25 Z    1 days   13 attempts
 
-[...]
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+  Borislav Petkov <bp@suse.de>
+  Christian Lindig <christian.lindig@citrix.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Julien Grall <jgrall@amazon.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Peter Zijlstra <peterz@infradead.org>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
+  Zhang Rui <rui.zhang@intel.com>
 
-> +static int xen_init_ioreq(XenIOState *state, unsigned int max_cpus)
-> +{
-> +    xen_dmod = xendevicemodel_open(0, 0);
-> +    xen_xc = xc_interface_open(0, 0, 0);
-> +
-> +    if (xen_xc == NULL) {
-
-You are checking xen_xc but not xen_dmod. Why?
-
-> +        perror("xen: can't open xen interface\n");
-> +        return -1;
-> +    }
-> +
-> +    xen_fmem = xenforeignmemory_open(0, 0);
-> +    if (xen_fmem == NULL) {
-> +        perror("xen: can't open xen fmem interface\n");
-> +        xc_interface_close(xen_xc);
-> +        return -1;
-> +    }
-> +
-> +    xen_register_ioreq(state, max_cpus, xen_memory_listener);
-> +
-> +    xenstore_record_dm_state(xenstore, "running");
-> +
-> +    return 0;
-> +}
-> +
-> +static void xen_enable_tpm(void)
-> +{
-> +/* qemu_find_tpm_be is only available when CONFIG_TPM is enabled. */
-> +#ifdef CONFIG_TPM
-> +    Error *errp = NULL;
-> +    DeviceState *dev;
-> +    SysBusDevice *busdev;
-> +
-> +    TPMBackend *be = qemu_find_tpm_be("tpm0");
-> +    if (be == NULL) {
-> +        DPRINTF("Couldn't fine the backend for tpm0\n");
-> +        return;
-> +    }
-> +    dev = qdev_new(TYPE_TPM_TIS_SYSBUS);
-> +    object_property_set_link(OBJECT(dev), "tpmdev", OBJECT(be), &errp);
-> +    object_property_set_str(OBJECT(dev), "tpmdev", be->id, &errp);
-> +    busdev = SYS_BUS_DEVICE(dev);
-> +    sysbus_realize_and_unref(busdev, &error_fatal);
-> +    sysbus_mmio_map(busdev, 0, GUEST_TPM_BASE);
-
-I can't find where GUEST_TPM_BASE is defined. But then the guest memory 
-layout is not expected to be stable. With your current approach, it 
-means QEMU would need to be rebuilt for every Xen version. Is it what we 
-want?
-
-> +
-> +    DPRINTF("Connected tpmdev at address 0x%lx\n", GUEST_TPM_BASE);
-> +#endif
-> +}
-> +
-> +static void xen_arm_init(MachineState *machine)
-> +{
-> +    XenArmState *xam = XEN_ARM(machine);
-> +
-> +    xam->state =  g_new0(XenIOState, 1);
-> +
-> +    if (xen_init_ioreq(xam->state, machine->smp.cpus)) {
-> +        return;
-
-In another patch, you said the IOREQ would be optional. IHMO, I think 
-this is a bad idea to register it by default because one may only want 
-to use PV drivers. Registering IOREQ will add unnecessary overhead in Xen.
-
-Furthermore, it means that someone selecting TPM but Xen is not built 
-with CONFIG_IOREQ=y (BTW This is still a tech preview but there are 
-security holes on Arm...) will not get an error. Instead, the OS will 
-until it crashes when trying to access the TPM.
-
-Overall I think it would be better if IOREQ is only registered when a 
-device requires (like TPM) it *and* throw an error if there is a problem 
-during the initialization.
-
-> +    } > +
-> +    xen_enable_tpm();
-> +
-> +    return;
-> +}
-> +
-> +static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
-> +{
-> +
-> +    MachineClass *mc = MACHINE_CLASS(oc);
-> +    mc->desc = "Xen Para-virtualized PC";
-> +    mc->init = xen_arm_init;
-> +    mc->max_cpus = 1;
-> +    machine_class_allow_dynamic_sysbus_dev(mc, TYPE_TPM_TIS_SYSBUS);
-
-Shouldn't this be protected with #ifdef CONFIG_TPM?
-
-> +}
-> +
-> +static const TypeInfo xen_arm_machine_type = {
-> +    .name = TYPE_XEN_ARM,
-> +    .parent = TYPE_MACHINE,
-> +    .class_init = xen_arm_machine_class_init,
-> +    .instance_size = sizeof(XenArmState),
-> +};
-> +
-> +static void xen_arm_machine_register_types(void)
-> +{
-> +    type_register_static(&xen_arm_machine_type);
-> +}
-> +
-> +type_init(xen_arm_machine_register_types)
-> diff --git a/include/hw/arm/xen_arch_hvm.h b/include/hw/arm/xen_arch_hvm.h
-> new file mode 100644
-> index 0000000000..f645dfec28
-> --- /dev/null
-> +++ b/include/hw/arm/xen_arch_hvm.h
-> @@ -0,0 +1,12 @@
-> +#ifndef HW_XEN_ARCH_ARM_HVM_H
-> +#define HW_XEN_ARCH_ARM_HVM_H
-> +
-> +#include <xen/hvm/ioreq.h>
-> +void arch_handle_ioreq(XenIOState *state, ioreq_t *req);
-> +void arch_xen_set_memory(XenIOState *state,
-> +                         MemoryRegionSection *section,
-> +                         bool add);
-> +
-> +#undef TARGET_PAGE_SIZE
-
-I am a bit puzzled with this #undef. In the commit message you said that 
-there will be no CPU definition. So the implications is this should not 
-be defined.
-
-If it is defined, then what guarantees that all the source will use the 
-correct value?
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-> +#define TARGET_PAGE_SIZE 4096
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-It would be better to use XC_PAGE_SIZE (or similar) rather than 
-hardcoding it.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> +#endif
-> diff --git a/include/hw/xen/arch_hvm.h b/include/hw/xen/arch_hvm.h
-> index 26674648d8..c7c515220d 100644
-> --- a/include/hw/xen/arch_hvm.h
-> +++ b/include/hw/xen/arch_hvm.h
-> @@ -1,3 +1,5 @@
->   #if defined(TARGET_I386) || defined(TARGET_X86_64)
->   #include "hw/i386/xen_arch_hvm.h"
-> +#elif defined(TARGET_ARM) || defined(TARGET_ARM_64)
-> +#include "hw/arm/xen_arch_hvm.h"
->   #endif
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
+
+Not pushing.
+
+(No revision log; it would be 938 lines long.)
 
