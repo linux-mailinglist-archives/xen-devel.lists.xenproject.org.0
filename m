@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248826002AB
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Oct 2022 20:08:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.423908.670996 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 245F5600372
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Oct 2022 23:16:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.423944.671062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ok83H-0003ku-Dx; Sun, 16 Oct 2022 18:07:55 +0000
+	id 1okAyf-0005Kt-JJ; Sun, 16 Oct 2022 21:15:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 423908.670996; Sun, 16 Oct 2022 18:07:55 +0000
+Received: by outflank-mailman (output) from mailman id 423944.671062; Sun, 16 Oct 2022 21:15:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ok83H-0003hk-BG; Sun, 16 Oct 2022 18:07:55 +0000
-Received: by outflank-mailman (input) for mailman id 423908;
- Sun, 16 Oct 2022 18:07:54 +0000
+	id 1okAyf-0005Ha-GL; Sun, 16 Oct 2022 21:15:21 +0000
+Received: by outflank-mailman (input) for mailman id 423944;
+ Sun, 16 Oct 2022 21:15:20 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ok83G-0003he-0x
- for xen-devel@lists.xenproject.org; Sun, 16 Oct 2022 18:07:54 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1okAye-0005HQ-32; Sun, 16 Oct 2022 21:15:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ok839-0003kh-GA; Sun, 16 Oct 2022 18:07:47 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226] helo=[10.85.34.141])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ok839-0003qH-9L; Sun, 16 Oct 2022 18:07:47 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1okAye-0006uE-25; Sun, 16 Oct 2022 21:15:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1okAyd-0001OG-OJ; Sun, 16 Oct 2022 21:15:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1okAyd-0000Ec-Nk; Sun, 16 Oct 2022 21:15:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,63 +42,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=CuGOnrDMtV5vDQ/7F1e9NAArcg8H+cC0WxXQP5snmQs=; b=wlR1SUifYbJbzN0B+SnCKsa/jD
-	IFHUcR1/0r26ctoxccVcK3/juFMuqM32llxWh/hgPFD3eKVPtVxXH9+Vx3S45DQkyUO65rsXIWP8x
-	PNCwMLXk9ORoZ6A6uaPTjSJbkoWUnVNp8aahibDNBecoz/FYfotN6aEv79yzaD49AxhE=;
-Message-ID: <31c4102e-372e-85f9-301e-7fdc18b29bd7@xen.org>
-Date: Sun, 16 Oct 2022 19:07:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tQAo4L4hVOYkKKpkKFSsOBodAPd8OQ31bY7JmHjBlHY=; b=VuhNs4HwiImAM7E/eM71OVrk4m
+	ruV5/IqzxvEgIymEPlw5pKm04twbdijGOmWsCPNLjTeGUW2W97NI+U90Dja0j3kyn14Cyc9NtUi3/
+	xFWF1fObunqOGEo5nPTLygFJjiaEUNDtraoKHmkW5WGM0mibjk2GvvmnJHpEUAmQKYss=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-173940-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-Subject: Re: [PATCH v1 06/12] xen-hvm: move common functions to
- hw/xen/xen-hvm-common.c
-Content-Language: en-US
-To: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org
-Cc: stefano.stabellini@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-References: <20221015050750.4185-1-vikram.garhwal@amd.com>
- <20221015050750.4185-7-vikram.garhwal@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20221015050750.4185-7-vikram.garhwal@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 173940: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start:fail:heisenbug
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=5310a3aa5026fb27d6834306d920d6207a1e0898
+X-Osstest-Versions-That:
+    xen=9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 16 Oct 2022 21:15:19 +0000
 
-Hi Vikram,
+flight 173940 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/173940/
 
-On 15/10/2022 06:07, Vikram Garhwal wrote:
-> +void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
-> +                        MemoryListener xen_memory_listener)
-> +{
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 173457
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
+
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl-xsm      14 guest-start                fail pass in 173911
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm     15 migrate-support-check fail in 173911 never pass
+ test-arm64-arm64-xl-xsm 16 saverestore-support-check fail in 173911 never pass
+
+version targeted for testing:
+ xen                  5310a3aa5026fb27d6834306d920d6207a1e0898
+baseline version:
+ xen                  9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+
+Last test of basis   173457  2022-10-07 14:03:14 Z    9 days
+Failing since        173492  2022-10-11 13:01:50 Z    5 days   33 attempts
+Testing same since   173776  2022-10-14 21:00:25 Z    2 days   14 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+  Borislav Petkov <bp@suse.de>
+  Christian Lindig <christian.lindig@citrix.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Julien Grall <jgrall@amazon.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Peter Zijlstra <peterz@infradead.org>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
+  Zhang Rui <rui.zhang@intel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-[...]
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> +
-> +    xen_bus_init();
-> +
-> +    /* Initialize backend core & drivers */
-> +    if (xen_be_init() != 0) {
-> +        error_report("xen backend core setup failed");
-> +        goto err;
-> +    }
-> +    xen_be_register_common();
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Calling xen_be_init() and xen_be_register_common() from 
-xen_register_ioreq() sounds wrong to me. There are no dependency between 
-the two. I think it would be better to create a new function to register 
-backends.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
+
+Not pushing.
+
+(No revision log; it would be 938 lines long.)
 
