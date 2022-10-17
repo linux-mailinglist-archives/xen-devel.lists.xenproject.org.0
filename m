@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C06960171C
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Oct 2022 21:13:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424560.672082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9FD560171E
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Oct 2022 21:13:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424561.672096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okVXp-0002Ph-Vy; Mon, 17 Oct 2022 19:13:01 +0000
+	id 1okVY0-0002vI-8t; Mon, 17 Oct 2022 19:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424560.672082; Mon, 17 Oct 2022 19:13:01 +0000
+Received: by outflank-mailman (output) from mailman id 424561.672096; Mon, 17 Oct 2022 19:13:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okVXp-0002Ks-Os; Mon, 17 Oct 2022 19:13:01 +0000
-Received: by outflank-mailman (input) for mailman id 424560;
- Mon, 17 Oct 2022 19:13:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1okVY0-0002tN-5r; Mon, 17 Oct 2022 19:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 424561;
+ Mon, 17 Oct 2022 19:13:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=A/1i=2S=citrix.com=prvs=2822150b0=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1okVXo-0002HD-Ho
- for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 19:13:00 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b4fe2e1e-4e4f-11ed-8fd0-01056ac49cbb;
- Mon, 17 Oct 2022 21:12:58 +0200 (CEST)
+ id 1okVXy-0002HE-Qw
+ for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 19:13:10 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bc0341f8-4e4f-11ed-91b4-6bf2151ebd3b;
+ Mon, 17 Oct 2022 21:13:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,102 +36,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4fe2e1e-4e4f-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: bc0341f8-4e4f-11ed-91b4-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1666033977;
+  d=citrix.com; s=securemail; t=1666033989;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=3xz6EapRYQ8Fq100GycK8t7tBLACDmNaRcneaz+jMYU=;
-  b=WcFgxBqMVFotnGy+6pgnZFuwpAXUUgK7MZB9MnbBhshm6qyaYQU22BHU
-   rV8YpJxD1RQsqMSnnl/Y6x5nHqzyfyKgi5xBYN20Gqw82xWrAwxil21Du
-   PaRCeBICPxKsSXJh7Mzsmu6Wp7mHrcuzuFw50NH6HqRwFp9OnSJyNlCT2
-   c=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=zg8npnhOVrxpSfiRTibSjk6fhmpTfF4qsEdQGzlDU0g=;
+  b=bw48FFOOVtoT6llrXOBKc300kDCiTK0ZA4d7mKBbt7u1kKoRRyTmNQrV
+   O08vt2K5QLU3+5BfmCyk5oajc8E91EVBZbaX9WI1xOLfm88VQRmjKu0oM
+   Rmu1/dNjKnlDvibA74G9XSPOx4U1BRyEMKfWVKD1hmZ9JqJBbN/Zdk4lO
+   A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 82941464
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 82918898
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: =?us-ascii?q?A9a23=3ASbhN46gKFI9U3uHyKlbXEaNMX17brhtdUexiu?=
- =?us-ascii?q?6ucsGfUl6mq9fgcCa95VXk6Z2cg+JsCT87dIK/hR2lo1aTMpqcRdC0qbbba9?=
- =?us-ascii?q?ML8jXdDsEdh0got7YTDm+eGxa96EqShD8hztsQ/Qs6ClDEHlkbm7waH7WG8G?=
- =?us-ascii?q?D/sfEhyUH/qkf4XmNGi54QvZhV9d5/T3i7rKkFnYMtekEl+kHxUpPyWbWFSN?=
- =?us-ascii?q?WBatcRp5sI0y+7nXA2X2W26sNl3O+Hy0Ws6jrqgd+NMm95ZRW9rDiPWRoOmI?=
- =?us-ascii?q?2VnAtMKlDE0aCcQT08n1SHPghHCSouinHd4hOQH6eVhpH/CTxbS0oIdu1fXF?=
- =?us-ascii?q?AizDVWXqwkerL28YlGpz0cRuKy9056ksWy40m6r8qECH5JjbHCHVJ1DCqIMG?=
- =?us-ascii?q?P5h+I+uJuU64SZFM3c+XX44IRTBgVwH7rxW0CXv82reKfUo4rlyUtsG1hRmM?=
- =?us-ascii?q?awlIKS7HWBvu8eYBiqbow0zN6WEB/mRK3uLF8YbG4HwiOXdyyz7xl22Q2Pq+?=
- =?us-ascii?q?Ro7dZYr0U4CgssW2SdzfIrFWH/cSXc/XBdW26Jyr3qufZ6vXu1txVp/zfFQ6?=
- =?us-ascii?q?rXu15oBBh0QPJn8vQoC51z1ObJK7LmOp0iQXHz+hughbEXGWKtwjgIf2KOi/?=
- =?us-ascii?q?X3xyQ9EEhoqUa6d5W+XUpzoU65fRLjr45vRqbXVBtxd+ocw1nzV8lEFtw1xC?=
- =?us-ascii?q?tFwE1fendfXTcE8QdtOvsPSWufl4D4cx0JL2qQf026t48JAdMl+pZioVZByc?=
- =?us-ascii?q?0TugxuoCQEm3gY5EAiAaYqa9flre5OMPrXP+5wZxY91HFPtk9Onlqw513aNs?=
- =?us-ascii?q?hzTSk5tng+PxwOvOc4dL0rHk2zAUlS9RVWtCYUYHafvVHBfnJuitCI3ZlLm1?=
- =?us-ascii?q?UfeL7S2TG/FPt+sYQWrMSGHRjbt68fGrlyP+20o7w3DLZFMni0BE2JrrCzmy?=
- =?us-ascii?q?pqReXVL3nYZIRxnC0pJdESiYM1CIjtxUQJxMb19BrGraofPXi0yiFgO4EA6D?=
- =?us-ascii?q?PKuPtnSWYen0ZeqbliyhbaYXuxCwM6iHTWxYy4n3SnivIZ+s+jeK5+/73KUB?=
- =?us-ascii?q?+HrUnERIJc19mcylj0k87xB5RHY+hBxY2rif122IFObQjRvJ/7CHGWjAqvmE?=
- =?us-ascii?q?5L9//cb4O7HLkZcQNgNI4y1tsFPyURPZbV5sD3Ntz1SvgXTqeDHOGi0DSC9c?=
- =?us-ascii?q?0+XBxhhsYZurJfKabWeLsi3AN9E9WAFoLpDJwVeKdcWjb9fZjH2uOl1MoA0k?=
- =?us-ascii?q?W/aBiI0NCYvYwYPg2FR537m9wWr4lZDmjtW3l8D3bjkwSL5Nwul7pOoLEluE?=
- =?us-ascii?q?mHO2IGDP4SNakCfSrzl+1DIlN2dZE9Rxfm/V0dZtUvZyUuuVtLNCzZ/Fguqc?=
- =?us-ascii?q?qAZEJPoSWjdRNmDN8hN05FMCWuEww+PVSkI344kbqbNSnBzyMPsSnXOLQIHo?=
- =?us-ascii?q?i+9THd+ZMHzhoeXwd8FJbf2psjTIjbjVpm5CbhFdg8rtBrfxtNV48TL8tkkD?=
- =?us-ascii?q?elPwTlWuDzVcUSiuTQev4LRizkE8o7x/8omJFwS1lTKQAkDEghUl2Bb12xtD?=
- =?us-ascii?q?7ouiyHudhji9C8c6ticegu9H3oIPfC2gOlvaQNyQy2QVUYiVEhDVYupEGX9I?=
- =?us-ascii?q?i0o1y8Nm/imah04QiLvU7CKls0/P5lPLk1v+lYCoWw+e9tGkIU4V2UUK8Tfd?=
- =?us-ascii?q?OEh9netU6ByLPhN49yIj5v9AqxVeB/UTK83Y5D+vxuGAWfP3zVxM78jYZ6Ru?=
- =?us-ascii?q?bUfukDRQW1h02O6Mt89Y4BB0qm+XmJ+FHhxuLH93ykK7Zsc7rMPI+QhhDZGa?=
- =?us-ascii?q?ZeYatgfj+oCmCCKN0DUgwmvNfkGAU+EXXiruh5SKxVtMQVTJ27Gxn9YoQXyk?=
- =?us-ascii?q?C37D9zexqmgrBg1wmPViEAH4wjiQ6HPGyFLDK8KP4PcH4EvNSwaj+HsayvuD?=
- =?us-ascii?q?QIz4iDifk8SfghnDwzWjc7ZTYDLiU/5tyEN7RcWi5ZxzRWrzYlj9R8DFV3nu?=
- =?us-ascii?q?2Wh/5g/nK8c0E/IWwyfF56s6Teuz8WH5p42GcK4raFhi00SLFHA+pwhBZCqK?=
- =?us-ascii?q?8y4y6KtcQ+CzDgfSmrXf//2wyaP11ht11ZldD7DdFj4RUl23gkyqxRHlDtn/?=
- =?us-ascii?q?OpOVfDYqAKzIaEYnHEAvEclh7MfYv1qKwBNMs8qPzNIZtjYruG0Yq0a0SXiS?=
- =?us-ascii?q?FnEKiEYpgeg2zxCrRkBFVi2igYj/df+Zy/p6byTpsf12uIN11Q1uGKi6rwS+?=
- =?us-ascii?q?Qo3J0qJ6l3eahMHvoCdEmYlgJ9/n8o8wjXUhDVg2l8Q8PwpHPIWJKAgwtNXL?=
- =?us-ascii?q?ycJKtzWwjC9gbEza2JtlNaBplrYV7jk7rInQCX7dgJjRymKyNBSluiidCT5G?=
- =?us-ascii?q?jZ5si8vxDB8YPHd/cLipc2iyj+D0vByC7iD/QLZIJOseZDtW1EY56UALRiUS?=
- =?us-ascii?q?MF0FQCqsuFhsrbgh/3fMYhcg6VhOY6Q+Nft3QhO0V8auRzGThytwxJwckFAv?=
- =?us-ascii?q?bcsgeTJcqwE3zFP5q38dNqhA2FV06ypTdesWDtU00Z00X3m09M5l0ur3ke+1?=
- =?us-ascii?q?2EfZcz/Ym3/WVnP+fns5ziV12wv3QyUIvBnWFsYVrNqP5Z9ZvbVBLDbAqBhB?=
- =?us-ascii?q?gVdLoiHW8//BY7d5e1LoAbyOSJqxKQKhvy+KE0qR5zqwbPunkcnMcaYObz1F?=
- =?us-ascii?q?uWrAsGV5C9HaTs6B+zaQuQBh6DFVqnqhhimSybr2C9raCQMkpTxQHPXDCnnY?=
- =?us-ascii?q?tSad63os+URZyOVV0G0dGDQr0D4Vo5Zr37MhV+JCJY7nZ1bveYjnHyuKHtTB?=
- =?us-ascii?q?+PxqpnJpASC2AqGElLDjvS2YxeVumhL0N+Ru19fbkE5hBZbSDxQvJjI19y/o?=
- =?us-ascii?q?wmkxCM1w6yNl3b6f+xaKstx9y5Y2bwIpjFz05paFybmPwdy/IzfPwSt/E7vX?=
- =?us-ascii?q?dCT/g2yvh0o59A6tcs27Ig76ZhyXd4K5tUMpKtBp0hrEG4DA9Bbop1usC1Mf?=
- =?us-ascii?q?uLfzu+O4KgXwKz5D/WiB7MUXmvT34p7VFoN0w=3D=3D?=
+IronPort-Data: A9a23:58o5TKuhagTXl6UGUPTi3QI+9efnVLNeMUV32f8akzHdYApBsoF/q
+ tZmKW3VPPjbN2ajL9wgPI+/pk4EvZ/VnIdlGlNtrH0yE3lB+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiefHgZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kIy1BjOkGlA5AZnPakU5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklO8
+ tAyGjoLTyrYjsmk2e2dUvhRvZs8eZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGM0Yn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZUPzx/I9
+ jOWl4j/Ki84JYGlmR/Yy261pMLRkxKlc6IbRaLto5aGh3XMnzdOWXX6T2CTn/69jUKvXsNFH
+ GYd8CEusKsa+VSiS5/2WBjQiF6JuAQNHeVZFeIS4RuIjKHT5m6xDGUeUiRIbtBgscYsXCErz
+ XeAhdavDjtq2JWFRHTY+rqKoDeaPSkOMXREdSICVREC4dTovMc0lB2nZs14DKe/g9nxGDfx6
+ zOHti4zg/MUl8Fj/6em+VHKhRq8q56PSRQ6jjg7RUr8sFk/PtT8IdX1tx6Ltp6sMbp1UHGBu
+ 1QuqcKYzdpVBLqfjXOrWPQwJ+62sqPt3CLnvXZjGJwo9jKI8nGlfJxN7DwWGHqFIvroaheyP
+ haN5Fo5CIt7eSLzMPQpO97Z59ECl/CIKDjzahzDgjOiiLBVfRTPwixhbFX4M4vFwBl1yvFX1
+ Xt2nK+R4Zcm5UZPlmbeqwQ1i+VDKsUCKYT7HMmT8vhf+eDCDEN5sJ9cWLd0Usg37bmfvCLe+
+ MtFOs2Bxn13CbOgP3iLrNNNcQxXcRDX4KwaTOQOLIa+zvdOQjl9W5c9P5t7E2Cao0ilvriRp
+ SzsMqOp4FH+mWfGOW23V5yXU5u2BcwXhStiZUQEZA/4s0XPlK7ytc/zgbNsJuJ5nAGipNYpJ
+ 8Q4lzKoWKwSE2uYpmVMN/EQbuVKLXyWuO5HBAL9CBBXQnKqb1ahFgPMFuc3yBQzMw==
+IronPort-HdrOrdr: A9a23:rb2NaK/REOfo9q74cWZuk+DQI+orL9Y04lQ7vn2YSXRuE/Bw9v
+ re+sjzuiWE6wr5NEtOpTniAtjmfZq/z+8W3WB5B97LN2OK1FdARLsSibcKqAeBJ8SRzIBgPN
+ 9bAs1DNOE=
 X-IronPort-AV: E=Sophos;i="5.95,192,1661832000"; 
-   d="scan'208";a="82941464"
+   d="scan'208";a="82918898"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Henry Wang <Henry.Wang@arm.com>
-Subject: [PATCH 1/2] arm/p2m: Rework p2m_init()
-Date: Mon, 17 Oct 2022 20:12:36 +0100
-Message-ID: <20221017191237.11079-2-andrew.cooper3@citrix.com>
+CC: Henry Wang <Henry.Wang@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH 2/2] xen/arm: p2m: Populate pages for GICv2 mapping in arch_domain_create()
+Date: Mon, 17 Oct 2022 20:12:37 +0100
+Message-ID: <20221017191237.11079-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20221017191237.11079-1-andrew.cooper3@citrix.com>
 References: <20221017191237.11079-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-p2m_init() is mostly trivial initialisation, but has two failable operations
-which are on either side of the backpointer trigger for teardown to take
-actions.
+From: Henry Wang <Henry.Wang@arm.com>
 
-p2m_free_vmid() is idempotent with a failed p2m_alloc_vmid(), so rearrange
-p2m_init() to perform all trivial setup, then set the backpointer, then
-perform all failable setup.
+The XSA-409 fixes discovered that the GICv2 path tries to create P2M mappings
+in the domain_create() path.  This fails, as the P2M pool is empty before a
+XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION hypercall.
 
-This will simplify a future bugfix which needs to add a third failabile
-operation.
+As a stopgap, automatically give domains 16 pages of P2M memory.  This is
+large enough to allow the GICv2 case to work, but small enough to not
+introduce a continuation worry.
 
-No practical change.
+A consequence is that, for later error paths domain_create(), we end up in
+p2m_final_teardown() with a nonzero P2M pool.  Such a domain has no vCPUs, and
+has never been scheduled, so free the memory directly.
 
+Fixes: cbea5a1149ca ("xen/arm: Allocate and free P2M pages from the P2M pool")
+Suggested-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Stefano Stabellini <sstabellini@kernel.org>
@@ -140,68 +115,70 @@ CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 CC: Bertrand Marquis <bertrand.marquis@arm.com>
 CC: Henry Wang <Henry.Wang@arm.com>
 ---
- xen/arch/arm/p2m.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ xen/arch/arm/p2m.c | 43 +++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 41 insertions(+), 2 deletions(-)
 
 diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index f17500ddf3a3..6826f6315080 100644
+index 6826f6315080..76a0e31c6c8c 100644
 --- a/xen/arch/arm/p2m.c
 +++ b/xen/arch/arm/p2m.c
-@@ -1754,7 +1754,7 @@ void p2m_final_teardown(struct domain *d)
- int p2m_init(struct domain *d)
- {
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
--    int rc = 0;
-+    int rc;
-     unsigned int cpu;
+@@ -1736,8 +1736,36 @@ void p2m_final_teardown(struct domain *d)
+     if ( !p2m->domain )
+         return;
  
-     rwlock_init(&p2m->lock);
-@@ -1763,11 +1763,6 @@ int p2m_init(struct domain *d)
-     INIT_PAGE_LIST_HEAD(&d->arch.paging.p2m_freelist);
+-    ASSERT(page_list_empty(&p2m->pages));
+-    ASSERT(page_list_empty(&d->arch.paging.p2m_freelist));
++    /*
++     * On the domain_create() error path only, we can end up here with a
++     * non-zero P2M pool.
++     *
++     * At present, this is a maximum of 16 pages, spread between p2m->pages
++     * and the free list.  The domain has never been scheduled (it has no
++     * vcpus), so there is TLB maintenance to perform; just free everything.
++     */
++    if ( !page_list_empty(&p2m->pages) ||
++         !page_list_empty(&d->arch.paging.p2m_freelist) )
++    {
++        struct page_info *pg;
++
++        /*
++         * There's no sensible "in the domain_create() error path" predicate,
++         * so simply sanity check that we don't have unexpected work to do.
++         */
++        ASSERT(d->arch.paging.p2m_total_pages <= 16);
++
++        spin_lock(&d->arch.paging.lock);
++
++        while ( (pg = page_list_remove_head(&p2m->pages)) )
++            free_domheap_page(pg);
++        while ( (pg = page_list_remove_head(&d->arch.paging.p2m_freelist)) )
++            free_domheap_page(pg);
++
++        d->arch.paging.p2m_total_pages = 0;
++
++        spin_unlock(&d->arch.paging.lock);
++    }
  
-     p2m->vmid = INVALID_VMID;
--
--    rc = p2m_alloc_vmid(d);
--    if ( rc != 0 )
--        return rc;
--
-     p2m->max_mapped_gfn = _gfn(0);
-     p2m->lowest_mapped_gfn = _gfn(ULONG_MAX);
+     if ( p2m->root )
+         free_domheap_pages(p2m->root, P2M_ROOT_ORDER);
+@@ -1803,6 +1831,17 @@ int p2m_init(struct domain *d)
+     if ( rc )
+         return rc;
  
-@@ -1783,8 +1778,6 @@ int p2m_init(struct domain *d)
-     p2m->clean_pte = is_iommu_enabled(d) &&
-         !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
- 
--    rc = p2m_alloc_table(d);
--
-     /*
-      * Make sure that the type chosen to is able to store the an vCPU ID
-      * between 0 and the maximum of virtual CPUS supported as long as
-@@ -1797,13 +1790,20 @@ int p2m_init(struct domain *d)
-        p2m->last_vcpu_ran[cpu] = INVALID_VCPU_ID;
- 
-     /*
--     * Besides getting a domain when we only have the p2m in hand,
--     * the back pointer to domain is also used in p2m_teardown()
--     * as an end-of-initialization indicator.
-+     * "Trivial" initialisation is now complete.  Set the backpointer so
-+     * p2m_teardown() and friends know to do something.
-      */
-     p2m->domain = d;
- 
--    return rc;
-+    rc = p2m_alloc_vmid(d);
++    /*
++     * Hardware using GICv2 wants to create an 8KB MMIO mapping during
++     * domain_create(), which requires some P2M pagetables.  Allocate 16 page
++     * which is good enough for now.
++     */
++    spin_lock(&d->arch.paging.lock);
++    rc = p2m_set_allocation(d, 16, NULL);
++    spin_unlock(&d->arch.paging.lock);
 +    if ( rc )
 +        return rc;
 +
-+    rc = p2m_alloc_table(d);
-+    if ( rc )
-+        return rc;
-+
-+    return 0;
+     return 0;
  }
  
- /*
 -- 
 2.11.0
 
