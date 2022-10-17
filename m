@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 545CB6013FD
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Oct 2022 18:52:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424519.672000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71183601573
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Oct 2022 19:33:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424531.672023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okTLB-0002vB-7e; Mon, 17 Oct 2022 16:51:49 +0000
+	id 1okTyV-0007aD-Hw; Mon, 17 Oct 2022 17:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424519.672000; Mon, 17 Oct 2022 16:51:49 +0000
+Received: by outflank-mailman (output) from mailman id 424531.672023; Mon, 17 Oct 2022 17:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okTLB-0002tL-4w; Mon, 17 Oct 2022 16:51:49 +0000
-Received: by outflank-mailman (input) for mailman id 424519;
- Mon, 17 Oct 2022 16:51:47 +0000
+	id 1okTyV-0007YI-FI; Mon, 17 Oct 2022 17:32:27 +0000
+Received: by outflank-mailman (input) for mailman id 424531;
+ Mon, 17 Oct 2022 17:32:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rSUT=2S=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1okTL9-0002tF-HN
- for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 16:51:47 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id fb50595b-4e3b-11ed-91b4-6bf2151ebd3b;
- Mon, 17 Oct 2022 18:51:44 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3481C113E;
- Mon, 17 Oct 2022 09:51:50 -0700 (PDT)
-Received: from entos-skylake.shanghai.arm.com (entos-skylake.shanghai.arm.com
- [10.169.212.207])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A64573F792;
- Mon, 17 Oct 2022 09:51:41 -0700 (PDT)
+ <SRS0=7GYT=2S=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1okTyT-0007YC-GC
+ for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 17:32:25 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a977500e-4e41-11ed-91b4-6bf2151ebd3b;
+ Mon, 17 Oct 2022 19:32:24 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id q9so26674552ejd.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Oct 2022 10:32:24 -0700 (PDT)
+Received: from uni.router.wind (adsl-214.109.242.138.tellas.gr.
+ [109.242.138.214]) by smtp.googlemail.com with ESMTPSA id
+ cq6-20020a056402220600b00458cc5f802asm7705824edb.73.2022.10.17.10.32.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Oct 2022 10:32:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,210 +44,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb50595b-4e3b-11ed-91b4-6bf2151ebd3b
-From: Henry Wang <Henry.Wang@arm.com>
+X-Inumbo-ID: a977500e-4e41-11ed-91b4-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1FhMqU6o+OmI9sNxvKM4/FjFziffLBpWtVI66KBPbI0=;
+        b=BJ+rzIblhdV+Z2Ns4ttV2aBanT0/zvkcOb6Ye7/8HmXYpEMBvG4mvI2Gm5fiGEIzE5
+         SdBU6ftV4vBg2dZPg3NTSBBiTjcbnUOkLf+jOpiACuGFa5mchNkHizQflou8MMTCjc0D
+         7ulCF054GIAPzKxJz1tvpdunhXzMlQzP/d8c8hUzdNbuVLqjJi3AhHkXkJREGRQ+hkz6
+         liD7aSyEGzmEcNTgegXoKWSY/d7x2puMwzGseTy4wzupgTDkPOxCLgSwQ0B0QGDR6adU
+         soOt2zDyLfzZ0LHpfHi2/yHw3suWZQoc0o5G5zzdRQyO0c2VNi/g2JdQuXlk7JvfLyP9
+         BuOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1FhMqU6o+OmI9sNxvKM4/FjFziffLBpWtVI66KBPbI0=;
+        b=HtCmU3FmToFNDo7zWCDnBSTvWSDojyFXFXydhM/g/XnaGY0VoemV0XAzo5aKbxFN2X
+         oWH8RRgDQyVyGDn9dcdPOUyfy7FVSnNMdNlkNCLyw63heATb4WspkZEDMRfivIW2jkaA
+         +kFoRXKrbnEa3Nvr2OqQq7RvSosQ7q7G2XHKo8HZEAHME+kbdL8ZQmt+U2khM18mpvCB
+         CXatfCot+tgen5J+JSFGxS+JwXef7d8mbIOUzZQpLXyOExWtDCVN2tS3Toqp0C+CrLlR
+         wYgnDn2GKDMKaDgJsiQPqjABuLqqAYnj3MZWx7PmFz4xbhScbIAfXslG4RDDj7jCrv4V
+         8Vlg==
+X-Gm-Message-State: ACrzQf3uJvm29PweexUO0T4UhTYUeRYMdnezG/OWfNRhyW0/PN6uVtGJ
+	6IkHFCkt5ugIHmB3GNdg35DMw9GaqTE=
+X-Google-Smtp-Source: AMsMyM5SlrDYpZHdKXPSkpaHxNfCE/fOi6lJk15YnTAFboEyJMwUXmXynJ/sw/AZ8XaK+JvJ3YdjZA==
+X-Received: by 2002:a17:907:969e:b0:782:6b92:6b1f with SMTP id hd30-20020a170907969e00b007826b926b1fmr9205827ejc.140.1666027943555;
+        Mon, 17 Oct 2022 10:32:23 -0700 (PDT)
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Wei Chen <wei.chen@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4] xen/arm: p2m: Populate pages for GICv2 mapping in arch_domain_create()
-Date: Mon, 17 Oct 2022 16:51:33 +0000
-Message-Id: <20221017165133.17066-1-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.17.1
+Subject: [PATCH] xen/arm: p2m: fix pa_range_info for 52-bit pa range
+Date: Mon, 17 Oct 2022 20:32:09 +0300
+Message-Id: <20221017173209.236781-1-burzalodowa@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
-when the domain is created. Considering the worst case of page tables
-which requires 6 P2M pages as the two pages will be consecutive but not
-necessarily in the same L3 page table and keep a buffer, populate 16
-pages as the default value to the P2M pages pool in arch_domain_create()
-at the domain creation stage to satisfy the GICv2 requirement. For
-GICv3, the above-mentioned P2M mapping is not necessary, but since the
-allocated 16 pages here would not be lost, hence populate these pages
-unconditionally.
+Currently the pa_range_info for the 52-bit pa range advertizes that the
+p2m root table consists of 8 concatenated tables at level 3, which does
+not make much sense.
+In order to support the 52-bit pa size with 4KB granule, the p2m root
+table needs to be configured either as a single table at level -1 or
+as 16 concatenated tables at level 0.
+Since, currently there is not support for level -1, set the
+root_order and sl0 fields of the corresponding pa_range_info according
+to the second approach.
 
-With the default 16 P2M pages populated, there would be a case that
-failures would happen in the domain creation with P2M pages already in
-use. To properly free the P2M for this case, firstly support the
-optionally preemption of p2m_teardown(), then call p2m_teardown() and
-p2m_set_allocation(d, 0, NULL) non-preemptively in p2m_final_teardown().
-As non-preemptive p2m_teardown() should only return 0, use a
-BUG_ON to confirm that.
-
-Since p2m_final_teardown() is called either after
-domain_relinquish_resources() where relinquish_p2m_mapping() has been
-called, or from failure path of domain_create()/arch_domain_create()
-where mappings that require p2m_put_l3_page() should never be created,
-relinquish_p2m_mapping() is not added in p2m_final_teardown(), add
-in-code comments to refer this.
-
-Fixes: cbea5a1149ca ("xen/arm: Allocate and free P2M pages from the P2M pool")
-Suggested-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 ---
-This should also be backported to 4.13, 4.14, 4.15 and 4.16.
-v4 changes:
-- Move the initial population of 16 default pages to the end of
-  p2m_init(), add if(rc) return rc; after p2m_alloc_table()
-v3 changes:
-- Move the population of default pages to p2m_init().
-- Use a loop over p2m_teardown_allocation() to implement the
-  non-preemptive p2m_teardown_allocation() and avoid open-coding.
-- Reorder assertions in p2m_final_teardown().
-- Add p2m_teardown() will always return 0 if called non-preemptively in
-  doc, move the page_list_empty(&p2m->pages) check to p2m_teardown()
-  and use a BUG_ON to confirm p2m_teardown() will return 0 in
-  p2m_final_teardown().
-- Add a comment in p2m_final_teardown() to mention relinquish_p2m_mapping()
-  does not need to be called, also update commit message.
-v2 changes:
-- Move the p2m_set_allocation(d, 0, NULL); to p2m_final_teardown().
-- Support optionally preemption of p2m_teardown(), and make the calling of
-  p2m_teardown() preemptively when relinquish the resources, non-preemptively
-  in p2m_final_teardown().
-- Refactor the error handling to make the code use less spin_unlock.
-- Explain the worst case of page tables and the unconditional population
-  of pages in commit message.
-- Mention the unconditional population of pages in in-code comment.
----
- xen/arch/arm/domain.c          |  2 +-
- xen/arch/arm/include/asm/p2m.h | 14 ++++++++++----
- xen/arch/arm/p2m.c             | 34 ++++++++++++++++++++++++++++++++--
- 3 files changed, 43 insertions(+), 7 deletions(-)
+ xen/arch/arm/p2m.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 2c84e6dbbb..38e22f12af 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -1064,7 +1064,7 @@ int domain_relinquish_resources(struct domain *d)
-             return ret;
- 
-     PROGRESS(p2m):
--        ret = p2m_teardown(d);
-+        ret = p2m_teardown(d, true);
-         if ( ret )
-             return ret;
- 
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 42bfd548c4..c8f14d13c2 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -194,14 +194,18 @@ int p2m_init(struct domain *d);
- 
- /*
-  * The P2M resources are freed in two parts:
-- *  - p2m_teardown() will be called when relinquish the resources. It
-- *    will free large resources (e.g. intermediate page-tables) that
-- *    requires preemption.
-+ *  - p2m_teardown() will be called preemptively when relinquish the
-+ *    resources, in which case it will free large resources (e.g. intermediate
-+ *    page-tables) that requires preemption.
-  *  - p2m_final_teardown() will be called when domain struct is been
-  *    freed. This *cannot* be preempted and therefore one small
-  *    resources should be freed here.
-+ *  Note that p2m_final_teardown() will also call p2m_teardown(), to properly
-+ *  free the P2M when failures happen in the domain creation with P2M pages
-+ *  already in use. In this case p2m_teardown() is called non-preemptively and
-+ *  p2m_teardown() will always return 0.
-  */
--int p2m_teardown(struct domain *d);
-+int p2m_teardown(struct domain *d, bool allow_preemption);
- void p2m_final_teardown(struct domain *d);
- 
- /*
-@@ -266,6 +270,8 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
- /*
-  * Direct set a p2m entry: only for use by the P2M code.
-  * The P2M write lock should be taken.
-+ * TODO: Add a check in __p2m_set_entry() to avoid creating a mapping in
-+ * arch_domain_create() that requires p2m_put_l3_page() to be called.
-  */
- int p2m_set_entry(struct p2m_domain *p2m,
-                   gfn_t sgfn,
 diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index f17500ddf3..0b4e24218e 100644
+index f17500ddf3..c824d62806 100644
 --- a/xen/arch/arm/p2m.c
 +++ b/xen/arch/arm/p2m.c
-@@ -1685,7 +1685,7 @@ static void p2m_free_vmid(struct domain *d)
-     spin_unlock(&vmid_alloc_lock);
- }
- 
--int p2m_teardown(struct domain *d)
-+int p2m_teardown(struct domain *d, bool allow_preemption)
- {
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
-     unsigned long count = 0;
-@@ -1693,6 +1693,9 @@ int p2m_teardown(struct domain *d)
-     unsigned int i;
-     int rc = 0;
- 
-+    if ( page_list_empty(&p2m->pages) )
-+        return 0;
-+
-     p2m_write_lock(p2m);
- 
-     /*
-@@ -1716,7 +1719,7 @@ int p2m_teardown(struct domain *d)
-         p2m_free_page(p2m->domain, pg);
-         count++;
-         /* Arbitrarily preempt every 512 iterations */
--        if ( !(count % 512) && hypercall_preempt_check() )
-+        if ( allow_preemption && !(count % 512) && hypercall_preempt_check() )
-         {
-             rc = -ERESTART;
-             break;
-@@ -1736,7 +1739,20 @@ void p2m_final_teardown(struct domain *d)
-     if ( !p2m->domain )
-         return;
- 
-+    /*
-+     * No need to call relinquish_p2m_mapping() here because
-+     * p2m_final_teardown() is called either after domain_relinquish_resources()
-+     * where relinquish_p2m_mapping() has been called, or from failure path of
-+     * domain_create()/arch_domain_create() where mappings that require
-+     * p2m_put_l3_page() should never be created. For the latter case, also see
-+     * comment on top of the p2m_set_entry() for more info.
-+     */
-+
-+    BUG_ON(p2m_teardown(d, false));
-     ASSERT(page_list_empty(&p2m->pages));
-+
-+    while ( p2m_teardown_allocation(d) == -ERESTART )
-+        continue; /* No preemption support here */
-     ASSERT(page_list_empty(&d->arch.paging.p2m_freelist));
- 
-     if ( p2m->root )
-@@ -1784,6 +1800,8 @@ int p2m_init(struct domain *d)
-         !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
- 
-     rc = p2m_alloc_table(d);
-+    if ( rc != 0 )
-+        return rc;
- 
-     /*
-      * Make sure that the type chosen to is able to store the an vCPU ID
-@@ -1803,6 +1821,18 @@ int p2m_init(struct domain *d)
-      */
-     p2m->domain = d;
- 
-+    /*
-+     * Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
-+     * when the domain is created. Considering the worst case for page
-+     * tables and keep a buffer, populate 16 pages to the P2M pages pool here.
-+     * For GICv3, the above-mentioned P2M mapping is not necessary, but since
-+     * the allocated 16 pages here would not be lost, hence populate these
-+     * pages unconditionally.
-+     */
-+    spin_lock(&d->arch.paging.lock);
-+    rc = p2m_set_allocation(d, 16, NULL);
-+    spin_unlock(&d->arch.paging.lock);
-+
-     return rc;
- }
+@@ -2251,7 +2251,7 @@ void __init setup_virt_paging(void)
+         [3] = { 42,      22/*22*/,  3,          1 },
+         [4] = { 44,      20/*20*/,  0,          2 },
+         [5] = { 48,      16/*16*/,  0,          2 },
+-        [6] = { 52,      12/*12*/,  3,          3 },
++        [6] = { 52,      12/*12*/,  4,          2 },
+         [7] = { 0 }  /* Invalid */
+     };
  
 -- 
-2.17.1
+2.34.1
 
 
