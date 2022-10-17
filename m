@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B00C601D13
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 01:02:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424641.672217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D30A601DE1
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 01:51:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424651.672239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okZ71-0006Ay-Sl; Mon, 17 Oct 2022 23:01:35 +0000
+	id 1okZs6-00037J-Il; Mon, 17 Oct 2022 23:50:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424641.672217; Mon, 17 Oct 2022 23:01:35 +0000
+Received: by outflank-mailman (output) from mailman id 424651.672239; Mon, 17 Oct 2022 23:50:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okZ71-00068a-PT; Mon, 17 Oct 2022 23:01:35 +0000
-Received: by outflank-mailman (input) for mailman id 424641;
- Mon, 17 Oct 2022 23:01:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1okZ70-00068U-TC
- for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 23:01:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1okZ70-00022t-Du; Mon, 17 Oct 2022 23:01:34 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1okZ70-00057b-7c; Mon, 17 Oct 2022 23:01:34 +0000
+	id 1okZs6-00034u-G7; Mon, 17 Oct 2022 23:50:14 +0000
+Received: by outflank-mailman (input) for mailman id 424651;
+ Mon, 17 Oct 2022 23:50:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vX9e=2S=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1okZs5-00034o-3Q
+ for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 23:50:13 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6f8dd325-4e76-11ed-91b4-6bf2151ebd3b;
+ Tue, 18 Oct 2022 01:50:11 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BC6196121C;
+ Mon, 17 Oct 2022 23:50:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56DA9C433D6;
+ Mon, 17 Oct 2022 23:50:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,169 +43,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=t8/Cw47LJ6fZbiYZI37iKW/Zbp9Be+z15qnNcXSA3Ng=; b=tfV5vDuD7McGWCAC/PTOQ/84qw
-	VRUL7jJrtZ8CMDakyxpl0rMPePOf5F6BuxmKUpBzjRVGGW/QBChyXORVNf66PvI17o7/N1agMvU2x
-	VByxKxs7qBmehoQql4zAAgEi942lQsFh72umdPrmcdUwRxty1In2jZY/QlEo4MrEEiUU=;
-Message-ID: <5587f5bd-1694-a843-9e80-ad477527a576@xen.org>
-Date: Tue, 18 Oct 2022 00:01:31 +0100
+X-Inumbo-ID: 6f8dd325-4e76-11ed-91b4-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1666050609;
+	bh=XwfLY3p0u0+pgPsKAtWmTrdmX+myDEgJR7HDl0Wg+ds=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Bf8nEPlNMoPFztCDZMMqESltcSILaXMSupIzld78WWf2qVXERHdRl6dmQkNIOQzhh
+	 TOgB2qeLzFTFoojWOi5Resay+4ifiVFyOU9smGLCblG9iNrGKooooJFtwBkKkn9aVM
+	 ag5JTIOCJiJDc9xl7/2fSfBuB4zMFHaH4a4SrQzYN3imnGDzhiY68QbsA2K3t+XOps
+	 m5tUGU1OshemHRYxsWFI5/dQAhRxYEHBf9ULqdVLDq9ya/1ZrN8ri1+6T/Dv2sPE1G
+	 qz9PuMYcASyQluqdH6Kbkw5A2EozMgjN3gS9ULZXMZCFthNI6fCD/vWcCoWV5da8ua
+	 zagxQVCK+8Q9Q==
+Date: Mon, 17 Oct 2022 16:50:05 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Leo Yan <leo.yan@linaro.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen Develop <xen-devel@lists.xenproject.org>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Mathieu Poirier <mathieu.poirier@linaro.org>, 
+    Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>, 
+    jgross@suse.com, oleksandr_tyshchenko@epam.com, boris.ostrovsky@oracle.com, 
+    wei.liu@kernel.org, paul@xen.org
+Subject: Re: Issue: Networking performance in Xen VM on Arm64
+In-Reply-To: <Y00/SW5Ro+SlhoBU@leoy-yangtze.lan>
+Message-ID: <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop>
+References: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan> <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop> <Y0VbQ3esM8gucmqQ@leoy-yangtze.lan> <alpine.DEB.2.22.394.2210111434240.3690179@ubuntu-linux-20-04-desktop>
+ <Y00/SW5Ro+SlhoBU@leoy-yangtze.lan>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Henry Wang <Henry.Wang@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20221017191237.11079-1-andrew.cooper3@citrix.com>
- <20221017191237.11079-3-andrew.cooper3@citrix.com>
- <0456d318-731f-8df7-297c-19ecde06ed96@xen.org>
- <cadcee69-e51b-99af-78c3-ab4a0e2e42d9@citrix.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 2/2] xen/arm: p2m: Populate pages for GICv2 mapping in
- arch_domain_create()
-In-Reply-To: <cadcee69-e51b-99af-78c3-ab4a0e2e42d9@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Andrew,
-
-On 17/10/2022 22:50, Andrew Cooper wrote:
-> On 17/10/2022 21:36, Julien Grall wrote:
->> Hi Andrew,
->>
->> On 17/10/2022 20:12, Andrew Cooper wrote:
->>> From: Henry Wang <Henry.Wang@arm.com>
->>>
->>> The XSA-409 fixes discovered that the GICv2 path tries to create P2M
->>> mappings
->>> in the domain_create() path.  This fails, as the P2M pool is empty
->>> before a
->>> XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION hypercall.
->>>
->>> As a stopgap, automatically give domains 16 pages of P2M memory.
->>> This is
->>> large enough to allow the GICv2 case to work, but small enough to not
->>> introduce a continuation worry.
->>>
->>> A consequence is that, for later error paths domain_create(), we end
->>> up in
->>> p2m_final_teardown() with a nonzero P2M pool.  Such a domain has no
->>> vCPUs, and
->>> has never been scheduled, so free the memory directly.
->>>
->>> Fixes: cbea5a1149ca ("xen/arm: Allocate and free P2M pages from the
->>> P2M pool")
->>> Suggested-by: Julien Grall <jgrall@amazon.com>
->>
->> This is not really in the spirit of my original suggestion anymore
+On Mon, 17 Oct 2022, Leo Yan wrote:
+> Hi Stefano,
 > 
-> Ok, I have dropped it.
+> Sorry for late response.  Please see below comments.
 > 
->> ... In fact, you drop all the explanations regarding how the code is
->> fragile (e.g. we are relying on early mapping to not take any extra
->> reference). Maybe you don't care, but I do as Henry and I spent ages
->> to figure out all the corner cases.
+> On Tue, Oct 11, 2022 at 02:47:00PM -0700, Stefano Stabellini wrote:
+> > On Tue, 11 Oct 2022, Leo Yan wrote:
+> > > > > The second question is how to mitigate the long latency when send data
+> > > > > from DomU.  A possible solution is the Xen network forend driver copies
+> > > > > skb into mediate (bounce) buffer, just like what does in Xen net
+> > > > > backend driver with gnttab_batch_copy(), in this way the forend driver
+> > > > > doesn't need to wait for backend driver response and directly return
+> > > > > back.
+> > > > 
+> > > > About this, I am not super familiar with drivers/net/xen-netfront.c but
+> > > > I take you are referring to xennet_tx_buf_gc? Is that the function that
+> > > > is causing xennet_start_xmit to wait?
+> > > 
+> > > No.  We can take the whole flow in xen-netfront.c as:
+> > > 
+> > >   xennet_start_xmit()
+> > >              ----------> notify Xen Dom0 to process skb
+> > >              <---------  Dom0 copies skb and notify back to DomU
+> > >   xennet_tx_buf_gc()
+> > >   softirq/NET_TX : __kfree_skb()
+> > 
+> > Let me premise again that I am not an expert in PV netfront/netback.
+> > However, I think the above is only true if DomU and Dom0 are running on
+> > the same physical CPU. If you use sched=null as I suggested above,
+> > you'll get domU and dom0 running at the same time on different physical
+> > CPUs and the workflow doesn't work as described.
+> > 
+> > It should be:
+> > 
+> > CPU1: xennet_start_xmit()             ||  CPU2: doing something else
+> > CPU1: notify Xen Dom0 to process skb  ||  CPU2: receive notification
+> > CPU1: return from xennet_start_xmit() ||  CPU2: Dom0 copies skb
+> > CPU1: do something else               ||  CPU2: notify back to DomU
+> > CPU1: receive irq, xennet_tx_buf_gc() ||  CPU2: do something else
 > 
-> I presume you're referring to the todo?  If so, that's an statement, not
-> an explanation of what is suddenly different about it.
+> Yes, I agree this is ideal case.  I tried to set option "sched=null" but
+> I can observe the latency in the second step when CPU1 notify Xen Dom0,
+> Dom0 takes 500us+ to receive the notification.
 > 
-> What has XSA-409 changed in this regard?  Because it looks like the
-> answer is nothing and the GICv2 path was similarly fragile beforehand.
-> In which case, why it is appropriate content for a security patch?
-
-This is explaining why the current logic (and the one you add) is still 
-OK. It is not entirely related to XSA-409, but relevant to the fix 
-itself (and why the issue is now "properly" closed).
-
+> Please see below detailed log:
 > 
->>
->>> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>> CC: Julien Grall <julien@xen.org>
->>> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->>> CC: Bertrand Marquis <bertrand.marquis@arm.com>
->>> CC: Henry Wang <Henry.Wang@arm.com>
->>> ---
->>>    xen/arch/arm/p2m.c | 43 +++++++++++++++++++++++++++++++++++++++++--
->>>    1 file changed, 41 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->>> index 6826f6315080..76a0e31c6c8c 100644
->>> --- a/xen/arch/arm/p2m.c
->>> +++ b/xen/arch/arm/p2m.c
->>> @@ -1736,8 +1736,36 @@ void p2m_final_teardown(struct domain *d)
->>>        if ( !p2m->domain )
->>>            return;
->>>    -    ASSERT(page_list_empty(&p2m->pages));
->>> -    ASSERT(page_list_empty(&d->arch.paging.p2m_freelist));
->>> +    /*
->>> +     * On the domain_create() error path only, we can end up here
->>> with a
->>> +     * non-zero P2M pool.
->>> +     *
->>> +     * At present, this is a maximum of 16 pages, spread between
->>> p2m->pages
->>> +     * and the free list.  The domain has never been scheduled (it
->>> has no
->>> +     * vcpus), so there is TLB maintenance to perform; just free
->>> everything.
->>> +     */
->>> +    if ( !page_list_empty(&p2m->pages) ||
->>> +         !page_list_empty(&d->arch.paging.p2m_freelist) )
->>> +    {
->>> +        struct page_info *pg;
->>> +
->>> +        /*
->>> +         * There's no sensible "in the domain_create() error path"
->>> predicate,
->>> +         * so simply sanity check that we don't have unexpected work
->>> to do.
->>> +         */
->>> +        ASSERT(d->arch.paging.p2m_total_pages <= 16);
->>> +
->>> +        spin_lock(&d->arch.paging.lock);
->>> +
->>> +        while ( (pg = page_list_remove_head(&p2m->pages)) )
->>> +            free_domheap_page(pg);
->>> +        while ( (pg =
->>> page_list_remove_head(&d->arch.paging.p2m_freelist)) )
->>> +            free_domheap_page(pg);
->>> +
->>> +        d->arch.paging.p2m_total_pages = 0;
->>> +
->>> +        spin_unlock(&d->arch.paging.lock);
->>> +    }
->>
->> ... you are hardcoding both p2m_teardown() and p2m_set_allocation().
->> IMO this is not an improvement at all. It is just making the code more
->> complex than necessary and lack all the explanation on the assumptions.
->>
->> So while I am fine with your patch #1 (already reviewed it), there is
->> a better patch from Henry on the ML. So we should take his (rebased)
->> instead of yours.
+> DomU log:
 > 
-> If by better, you mean something that still has errors, then sure.
+> 4989078512              pub-321   [003]   101.150966: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 4989078512
+> 4989078573              pub-321   [003]   101.150968: bprint:               xennet_tx_setup_grant: id=24 ref=1816 offset=2 len=1514 TSC: 4989078573
+> 4989078592              pub-321   [003]   101.150969: bprint:               xennet_start_xmit: xennet_notify_tx_irq: TSC: 4989078592
 > 
-> There's a really good reason why you cannot safely repurpose
-> p2m_teardown().  It's written expecting a fully constructed domain -
-> which is fine because that's how it is used.  It doesn't cope safely
-> with an partially constructed domain.
+> Dom0 log:
+> 
+> 4989092169           <idle>-0     [013]   140.121667: bprint:               xenvif_tx_interrupt: xenvif_tx_interrupt: TSC: 4989092169
+> 4989092331           <idle>-0     [013]   140.121673: bprint:               xenvif_tx_build_gops.constprop.0: id=24 ref=1816 offset=2 len=1514 TSC: 4989092331
+> 
+> We can see DomU sends notification with timestamp (raw counter) is
+> 4989078592 and Dom0 receives the interrupt with timestamp 4989092169.
+> Since Dom0 and DomU use the same time counter and the counter
+> frequency is 25MHz, so we can get the delta value (in macroseconds):
+> 
+>     (4989092169 - 4989078592) / 25000000 * 1000 * 1000
+>   = 543us
+> 
+> Which means it takes 543us to let Dom0 to receive the notification.
+> You could see DomU runs in CPU3 and Dom0 runs on CPU13, there should
+> not have contention for CPU resources.  Seems to me, it's likely Xen
+> hypervisor takes long time to deliver the interrupt, note, it's not
+> take so long time for every skb transferring, sometimes the time for
+> response a notification is short (about ~10us).
 
-It is not 100% clear what is the issue you are referring to as the VMID 
-is valid at this point. So what part would be wrong?
+Good find. I think this is worth investigating further. Do you have
+vwfi=native in your Xen command line as well?
 
-But if there are part of p2m_teardown() that are not safe for partially 
-constructed domain, then we should split the code. This would be much 
-better that the duplication you are proposing.
+After that, I would add printk also in Xen with the timestamp. The event
+channel notification code path is the following:
 
-Cheers,
+# domU side
+xen/arch/arm/vgic-v2.c:vgic_v2_to_sgi
+xen/arch/arm/vgic.c:vgic_to_sgi
+xen/arch/arm/vgic.c:vgic_inject_irq
+xen/arch/arm/vgic.c:vcpu_kick
+xen/arch/arm/gic-v2.c:gicv2_send_SGI
 
--- 
-Julien Grall
+# dom0 side
+xen/arch/arm/gic.c:do_sgi
+xen/arch/arm/traps.c:leave_hypervisor_to_guest
+
+It would be good to understand why sometimes it takes ~10us and some
+other times it takes ~540us
+
+
+> > > > I didn't think that waiting for the backend is actually required. I
+> > > > mean, in theory xennet_start_xmit could return without calling
+> > > > xennet_tx_buf_gc, it is just an optimization. But I am not sure about
+> > > > this.
+> > > 
+> > > The function xennet_start_xmit() will not wait and directly return
+> > > back, but if we review the whole flow we can see the skb is freed until
+> > > the softirq NET_TX.
+> > 
+> > Is it an issue that the skb is not freed until later? Is that affecting
+> > the latency results? It shouldn't, right?
+> 
+> I did an extra experiment in Xen net forend driver, I enabled the flag
+> "info->bounce = true" so the forend driver will use bounce buffer to
+> store data and release the skb immediately to network core layer.
+> 
+> The throughput can be boosted significantly for this: the netperf
+> result can be improved from 107.73 Mbits/s to 300+ Mbits/s.
+> 
+> > What matters is when dom0 is
+> > getting those packets on the physical network interface and that happens
+> > before the skb is freed. I am just trying to figure out if we are
+> > focusing on the right problem.
+> 
+> Good point.  I agree that releasing skb earlier only can benefit for
+> throughput, but we still cannot resolve the latency issue if Dom0
+> takes long time to relay packets to phusical network interface.
+> 
+> > > In this whole flow, it needs DomU and Dom0 to work
+> > > together (includes two context switches) to process skb.
+> > 
+> > There are not necessarily 2 context switches as things should run in
+> > parallel.
+> > 
+> > > Here I mean the optimization is to allow Dom0 and DomU to work in
+> > > parallel.  It could be something like blow, the key point is DomU
+> > > doesn't need to wait for Dom0's notification.
+> > 
+> > I think it is already the case that domU doesn't need to wait for dom0's
+> > notification?
+> 
+> Agree.  domU doesn't need to wait for dom0's notification until it uses
+> out the skb can be allocated by the network core layer.  This is why I
+> also can tweak core layer's parameters for buffer size (see
+> /proc/sys/net/core/wmem_default and /proc/sys/net/core/wmem_max).
+> 
+> > It is true that domU is waiting for dom0's notification to
+> > free the skb but that shouldn't affect latency?
+> 
+> Yeah.  I will focus on the elaberated issue above that Dom0 takes long
+> time to receive the notification.
+> 
+> Will keep posted if have any new finding.
+
+Thanks, this is very interesting
 
