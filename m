@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48300601342
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Oct 2022 18:17:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424507.671977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 545CB6013FD
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Oct 2022 18:52:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424519.672000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okSn6-0006zF-Cx; Mon, 17 Oct 2022 16:16:36 +0000
+	id 1okTLB-0002vB-7e; Mon, 17 Oct 2022 16:51:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424507.671977; Mon, 17 Oct 2022 16:16:36 +0000
+Received: by outflank-mailman (output) from mailman id 424519.672000; Mon, 17 Oct 2022 16:51:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okSn6-0006wO-9t; Mon, 17 Oct 2022 16:16:36 +0000
-Received: by outflank-mailman (input) for mailman id 424507;
- Mon, 17 Oct 2022 16:16:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1okSn4-0006wE-8R; Mon, 17 Oct 2022 16:16:34 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1okSn4-00030U-4W; Mon, 17 Oct 2022 16:16:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1okSn3-0000Dy-Qa; Mon, 17 Oct 2022 16:16:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1okSn3-00009o-O0; Mon, 17 Oct 2022 16:16:33 +0000
+	id 1okTLB-0002tL-4w; Mon, 17 Oct 2022 16:51:49 +0000
+Received: by outflank-mailman (input) for mailman id 424519;
+ Mon, 17 Oct 2022 16:51:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rSUT=2S=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1okTL9-0002tF-HN
+ for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 16:51:47 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id fb50595b-4e3b-11ed-91b4-6bf2151ebd3b;
+ Mon, 17 Oct 2022 18:51:44 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3481C113E;
+ Mon, 17 Oct 2022 09:51:50 -0700 (PDT)
+Received: from entos-skylake.shanghai.arm.com (entos-skylake.shanghai.arm.com
+ [10.169.212.207])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A64573F792;
+ Mon, 17 Oct 2022 09:51:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,382 +43,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=c1xFJHCoNsdeqa3DKz4fUk+tB7ShuHHPQaQUH1T8p5c=; b=wagZP+1wszX7nVqQ4QDPjX8wh7
-	CRqt4MGp6bTue7TDx51/K9LbAlKgYoJkywOZvdA//KsBij7gcByztMt4IzgRGKUQLWNDvucIkZgnz
-	IKRC0XALVLt/3MYZFWMrP4iyiBs5BWVhbuX0HJkTv4SVkzztZQJPS+lyYYigtkkP7mpk=;
+X-Inumbo-ID: fb50595b-4e3b-11ed-91b4-6bf2151ebd3b
+From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-173923-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [linux-5.4 test] 173923: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:guest-start:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=1d0da8674c23e8d65398c33a4d5018eaf02e1c64
-X-Osstest-Versions-That:
-    linux=6e150d605c9e21dbe939875c13e82da33fb59ed0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 17 Oct 2022 16:16:33 +0000
+Cc: Henry Wang <Henry.Wang@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <wei.chen@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v4] xen/arm: p2m: Populate pages for GICv2 mapping in arch_domain_create()
+Date: Mon, 17 Oct 2022 16:51:33 +0000
+Message-Id: <20221017165133.17066-1-Henry.Wang@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-flight 173923 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/173923/
+Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
+when the domain is created. Considering the worst case of page tables
+which requires 6 P2M pages as the two pages will be consecutive but not
+necessarily in the same L3 page table and keep a buffer, populate 16
+pages as the default value to the P2M pages pool in arch_domain_create()
+at the domain creation stage to satisfy the GICv2 requirement. For
+GICv3, the above-mentioned P2M mapping is not necessary, but since the
+allocated 16 pages here would not be lost, hence populate these pages
+unconditionally.
 
-Failures :-/ but no regressions.
+With the default 16 P2M pages populated, there would be a case that
+failures would happen in the domain creation with P2M pages already in
+use. To properly free the P2M for this case, firstly support the
+optionally preemption of p2m_teardown(), then call p2m_teardown() and
+p2m_set_allocation(d, 0, NULL) non-preemptively in p2m_final_teardown().
+As non-preemptive p2m_teardown() should only return 0, use a
+BUG_ON to confirm that.
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-libvirt-qcow2 13 guest-start    fail in 173806 pass in 173923
- test-armhf-armhf-xl-credit2  14 guest-start                fail pass in 173806
- test-armhf-armhf-xl-multivcpu 14 guest-start               fail pass in 173806
+Since p2m_final_teardown() is called either after
+domain_relinquish_resources() where relinquish_p2m_mapping() has been
+called, or from failure path of domain_create()/arch_domain_create()
+where mappings that require p2m_put_l3_page() should never be created,
+relinquish_p2m_mapping() is not added in p2m_final_teardown(), add
+in-code comments to refer this.
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds    18 guest-start/debian.repeat fail REGR. vs. 173461
+Fixes: cbea5a1149ca ("xen/arm: Allocate and free P2M pages from the P2M pool")
+Suggested-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+---
+This should also be backported to 4.13, 4.14, 4.15 and 4.16.
+v4 changes:
+- Move the initial population of 16 default pages to the end of
+  p2m_init(), add if(rc) return rc; after p2m_alloc_table()
+v3 changes:
+- Move the population of default pages to p2m_init().
+- Use a loop over p2m_teardown_allocation() to implement the
+  non-preemptive p2m_teardown_allocation() and avoid open-coding.
+- Reorder assertions in p2m_final_teardown().
+- Add p2m_teardown() will always return 0 if called non-preemptively in
+  doc, move the page_list_empty(&p2m->pages) check to p2m_teardown()
+  and use a BUG_ON to confirm p2m_teardown() will return 0 in
+  p2m_final_teardown().
+- Add a comment in p2m_final_teardown() to mention relinquish_p2m_mapping()
+  does not need to be called, also update commit message.
+v2 changes:
+- Move the p2m_set_allocation(d, 0, NULL); to p2m_final_teardown().
+- Support optionally preemption of p2m_teardown(), and make the calling of
+  p2m_teardown() preemptively when relinquish the resources, non-preemptively
+  in p2m_final_teardown().
+- Refactor the error handling to make the code use less spin_unlock.
+- Explain the worst case of page tables and the unconditional population
+  of pages in commit message.
+- Mention the unconditional population of pages in in-code comment.
+---
+ xen/arch/arm/domain.c          |  2 +-
+ xen/arch/arm/include/asm/p2m.h | 14 ++++++++++----
+ xen/arch/arm/p2m.c             | 34 ++++++++++++++++++++++++++++++++--
+ 3 files changed, 43 insertions(+), 7 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-credit1 18 guest-start/debian.repeat fail blocked in 173461
- test-armhf-armhf-xl-multivcpu 18 guest-start/debian.repeat fail in 173806 like 173461
- test-armhf-armhf-xl-credit1  14 guest-start         fail in 173806 like 173461
- test-armhf-armhf-xl-credit2 18 guest-start/debian.repeat fail in 173806 like 173461
- test-armhf-armhf-xl-credit2 15 migrate-support-check fail in 173806 never pass
- test-armhf-armhf-xl-credit2 16 saverestore-support-check fail in 173806 never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check fail in 173806 never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check fail in 173806 never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173461
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 173461
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 173461
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 173461
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173461
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173461
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173461
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173461
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 173461
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 173461
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 173461
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 173461
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 2c84e6dbbb..38e22f12af 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -1064,7 +1064,7 @@ int domain_relinquish_resources(struct domain *d)
+             return ret;
+ 
+     PROGRESS(p2m):
+-        ret = p2m_teardown(d);
++        ret = p2m_teardown(d, true);
+         if ( ret )
+             return ret;
+ 
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index 42bfd548c4..c8f14d13c2 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -194,14 +194,18 @@ int p2m_init(struct domain *d);
+ 
+ /*
+  * The P2M resources are freed in two parts:
+- *  - p2m_teardown() will be called when relinquish the resources. It
+- *    will free large resources (e.g. intermediate page-tables) that
+- *    requires preemption.
++ *  - p2m_teardown() will be called preemptively when relinquish the
++ *    resources, in which case it will free large resources (e.g. intermediate
++ *    page-tables) that requires preemption.
+  *  - p2m_final_teardown() will be called when domain struct is been
+  *    freed. This *cannot* be preempted and therefore one small
+  *    resources should be freed here.
++ *  Note that p2m_final_teardown() will also call p2m_teardown(), to properly
++ *  free the P2M when failures happen in the domain creation with P2M pages
++ *  already in use. In this case p2m_teardown() is called non-preemptively and
++ *  p2m_teardown() will always return 0.
+  */
+-int p2m_teardown(struct domain *d);
++int p2m_teardown(struct domain *d, bool allow_preemption);
+ void p2m_final_teardown(struct domain *d);
+ 
+ /*
+@@ -266,6 +270,8 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+ /*
+  * Direct set a p2m entry: only for use by the P2M code.
+  * The P2M write lock should be taken.
++ * TODO: Add a check in __p2m_set_entry() to avoid creating a mapping in
++ * arch_domain_create() that requires p2m_put_l3_page() to be called.
+  */
+ int p2m_set_entry(struct p2m_domain *p2m,
+                   gfn_t sgfn,
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index f17500ddf3..0b4e24218e 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -1685,7 +1685,7 @@ static void p2m_free_vmid(struct domain *d)
+     spin_unlock(&vmid_alloc_lock);
+ }
+ 
+-int p2m_teardown(struct domain *d)
++int p2m_teardown(struct domain *d, bool allow_preemption)
+ {
+     struct p2m_domain *p2m = p2m_get_hostp2m(d);
+     unsigned long count = 0;
+@@ -1693,6 +1693,9 @@ int p2m_teardown(struct domain *d)
+     unsigned int i;
+     int rc = 0;
+ 
++    if ( page_list_empty(&p2m->pages) )
++        return 0;
++
+     p2m_write_lock(p2m);
+ 
+     /*
+@@ -1716,7 +1719,7 @@ int p2m_teardown(struct domain *d)
+         p2m_free_page(p2m->domain, pg);
+         count++;
+         /* Arbitrarily preempt every 512 iterations */
+-        if ( !(count % 512) && hypercall_preempt_check() )
++        if ( allow_preemption && !(count % 512) && hypercall_preempt_check() )
+         {
+             rc = -ERESTART;
+             break;
+@@ -1736,7 +1739,20 @@ void p2m_final_teardown(struct domain *d)
+     if ( !p2m->domain )
+         return;
+ 
++    /*
++     * No need to call relinquish_p2m_mapping() here because
++     * p2m_final_teardown() is called either after domain_relinquish_resources()
++     * where relinquish_p2m_mapping() has been called, or from failure path of
++     * domain_create()/arch_domain_create() where mappings that require
++     * p2m_put_l3_page() should never be created. For the latter case, also see
++     * comment on top of the p2m_set_entry() for more info.
++     */
++
++    BUG_ON(p2m_teardown(d, false));
+     ASSERT(page_list_empty(&p2m->pages));
++
++    while ( p2m_teardown_allocation(d) == -ERESTART )
++        continue; /* No preemption support here */
+     ASSERT(page_list_empty(&d->arch.paging.p2m_freelist));
+ 
+     if ( p2m->root )
+@@ -1784,6 +1800,8 @@ int p2m_init(struct domain *d)
+         !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
+ 
+     rc = p2m_alloc_table(d);
++    if ( rc != 0 )
++        return rc;
+ 
+     /*
+      * Make sure that the type chosen to is able to store the an vCPU ID
+@@ -1803,6 +1821,18 @@ int p2m_init(struct domain *d)
+      */
+     p2m->domain = d;
+ 
++    /*
++     * Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
++     * when the domain is created. Considering the worst case for page
++     * tables and keep a buffer, populate 16 pages to the P2M pages pool here.
++     * For GICv3, the above-mentioned P2M mapping is not necessary, but since
++     * the allocated 16 pages here would not be lost, hence populate these
++     * pages unconditionally.
++     */
++    spin_lock(&d->arch.paging.lock);
++    rc = p2m_set_allocation(d, 16, NULL);
++    spin_unlock(&d->arch.paging.lock);
++
+     return rc;
+ }
+ 
+-- 
+2.17.1
 
-version targeted for testing:
- linux                1d0da8674c23e8d65398c33a4d5018eaf02e1c64
-baseline version:
- linux                6e150d605c9e21dbe939875c13e82da33fb59ed0
-
-Last test of basis   173461  2022-10-07 17:40:12 Z    9 days
-Testing same since   173806  2022-10-15 06:14:51 Z    2 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Al Viro <viro@zeniv.linux.org.uk>
-  Alexey Dobriyan (SK hynix) <adobriyan@gmail.com>
-  Alexey Dobriyan <adobriyan@gmail.com>
-  Andrew Chernyakov <acherniakov@astralinux.ru>
-  Andrew Morton <akpm@linux-foundation.org>
-  Arnaldo Carvalho de Melo <acme@redhat.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Bjorn Andersson <bjorn.andersson@linaro.org>
-  Brian Norris <briannorris@chromium.org>
-  Cameron Gutman <aicommander@gmail.com>
-  ChanWoo Lee <cw9316.lee@samsung.com>
-  Cleber de Mattos Casali <clebercasali@gmail.com>
-  Cristian Marussi <cristian.marussi@arm.com>
-  David Gow <davidgow@google.com>
-  David S. Miller <davem@davemloft.net>
-  Dmitry Torokhov <dmitry.torokhov@gmail.com>
-  Dongliang Mu <mudongliangabcd@gmail.com>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Frank Wunderlich <frank-w@public-files.de>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Haimin Zhang <tcs.kernel@gmail.com>
-  Haimin Zhang <tcs_kernel@tencent.com>
-  Hu Weiwen <sehuww@mail.scut.edu.cn>
-  Ilya Dryomov <idryomov@gmail.com>
-  Jann Horn <jannh@google.com>
-  Jason A. Donenfeld <Jason@zx2c4.com>
-  Jasper Poppe <jgpoppe@gmail.com>
-  Jeremy Palmer <jpalmer@linz.govt.nz>
-  Johan Hovold <johan@kernel.org>
-  Johannes Berg <johannes.berg@intel.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-  Kyle Gospodnetich <me@kylegospodneti.ch>
-  Letu Ren <fantasquex@gmail.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Lukas Straub <lukasstraub2@web.de>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Mimi Zohar <zohar@linux.ibm.com>
-  Namhyung Kim <namhyung@kernel.org>
-  Orlando Chamberlain <redecorating@protonmail.com>
-  Paul Webb <paul.x.webb@oracle.com>
-  Pavel Rojtberg <rojtberg@gmail.com>
-  Randy Dunlap <rdunlap@infradead.org> # build-tested
-  Richard Weinberger <richard@nod.at>
-  Ruineka <ruinairas1992@gmail.com>
-  Ryusuke Konishi <konishi.ryusuke@gmail.com>
-  Samuel Jiang <chyishian.jiang@gmail.com>
-  Sasha Levin <sashal@kernel.org>
-  Saurav Kashyap <skashyap@marvell.com>
-  Sergei Antonov <saproj@gmail.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Soenke Huster <shuster@seemoo.tu-darmstadt.de>
-  Steven Price <steven.price@arm.com>
-  Sudeep Holla <sudeep.holla@arm.com>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  Swati Agarwal <swati.agarwal@xilinx.com>
-  Sönke Huster <shuster@seemoo.tu-darmstadt.de>
-  Tadeusz Struk <tadeusz.struk@linaro.org>
-  Takashi Iwai <tiwai@suse.de>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Vinod Koul <vkoul@kernel.org>
-  Wende Tan <twd2.me@gmail.com>
-  Xiubo Li <xiubli@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   6e150d605c9e..1d0da8674c23  1d0da8674c23e8d65398c33a4d5018eaf02e1c64 -> tested/linux-5.4
 
