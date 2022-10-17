@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F77B600C84
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Oct 2022 12:34:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424314.671641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C25A600CA0
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Oct 2022 12:41:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424319.671652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okNRr-0002ZO-NN; Mon, 17 Oct 2022 10:34:19 +0000
+	id 1okNYR-00041I-Fn; Mon, 17 Oct 2022 10:41:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424314.671641; Mon, 17 Oct 2022 10:34:19 +0000
+Received: by outflank-mailman (output) from mailman id 424319.671652; Mon, 17 Oct 2022 10:41:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okNRr-0002Vv-KV; Mon, 17 Oct 2022 10:34:19 +0000
-Received: by outflank-mailman (input) for mailman id 424314;
- Mon, 17 Oct 2022 10:34:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1okNYR-0003yy-Cl; Mon, 17 Oct 2022 10:41:07 +0000
+Received: by outflank-mailman (input) for mailman id 424319;
+ Mon, 17 Oct 2022 10:35:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JD8j=2S=citrix.com=prvs=282fc9ee0=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1okNRp-0002Vp-FO
- for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 10:34:17 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e8addec-4e07-11ed-8fd0-01056ac49cbb;
- Mon, 17 Oct 2022 12:34:15 +0200 (CEST)
+ <SRS0=4hsD=2S=gmail.com=liu.denton@srs-se1.protection.inumbo.net>)
+ id 1okNTI-00036Z-SE
+ for xen-devel@lists.xenproject.org; Mon, 17 Oct 2022 10:35:48 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 75cd54d1-4e07-11ed-91b4-6bf2151ebd3b;
+ Mon, 17 Oct 2022 12:35:47 +0200 (CEST)
+Received: by mail-pl1-x636.google.com with SMTP id c24so10369549pls.9
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Oct 2022 03:35:47 -0700 (PDT)
+Received: from archbookpro.localdomain (136-25-1-99.cab.webpass.net.
+ [136.25.1.99]) by smtp.gmail.com with ESMTPSA id
+ c21-20020a63da15000000b00439c6a4e1ccsm5864885pgh.62.2022.10.17.03.35.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Oct 2022 03:35:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,111 +44,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e8addec-4e07-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1666002855;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=zuRl5uDWWEC+LzOlFFzqCUms5TW9MwdybAmeZKgC3pM=;
-  b=A/Y3LYeanDJ0NUkOKm8lDuuo+GJM2C9gxTEJhrZLuvEWk/ius4xRFSxS
-   t8i+T+R+Qc/aPLw5nw70XKp19zrzt4uzsWU2pq4LfB6xeNxynQONF4cpC
-   UCu0dlhSKINpa1coeEVw2PQ7YggRxDhV1pnUNoej/jY9P9re29mVarzmb
-   4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 81995746
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:nILxCqB97j/FFRVW/yLjw5YqxClBgxIJ4kV8jS/XYbTApGgi1DVSm
- mIcCD+BOfyKZjH0L9FzPoyzoxsEu5eGy9RkQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8mk/ngqoPUUIbsIjp2SRJvVBAvgBdin/9RqoNziJ2yDhjlV
- ena+qUzA3f4nW8pWo4ow/jb8kk25K2t4GpwUmEWPpingnePzxH5M7pHTU2BByOQapVZGOe8W
- 9HCwNmRlo8O105wYj8Nuu+TnnwiGtY+DyDX4pZlc/HKbix5jj4zys4G2M80Mi+7vdkrc+dZk
- 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzdFSfqV/wmWfG0YAzcmCA2ksP4YH2dctHVhS9
- PwkLjsHcjCNrOCflefTpulE3qzPLeHuNYIb/Hph0SvYHbAtRpWrr6fivIECmm1q34YXQKiYN
- 5FxhTlHNXwsZzVGPEsXD5Qv2v+lnHDlfxVTqU6PpLpx6G/WpOB0+Oi0YYuIJYDULSlTtnrE+
- VjF4TTTPg4XLYy1yAW03E+GpuCayEsXX6pNTeblp5aGmma72Wg7GBAQE1yhrpGRqkO4QcMZF
- EUS9QInt610/0uuJvHtUhv9rHOasxo0X9tLD/Z8+AyL0rDT4QuSGi4DVDEpVTA9nJZoH3pwj
- AbPxo63Q2w02FGIdZ6D3q2WpiyRCHIJFHMDZRMCRgEZw9fIoqhm23ojUe1fOKKyi9T0HxT5z
- DaLsDUyit0vsCIb60mo1QuZ2mzx//AlWiZwv1yKBTz9smuVcab/P+SVBU7nAeGsxWpzZn2Ip
- zA6lseX94ji5rndxXXWEI3h8FxEjstp0QEwY3Y1Q/HNFBz3oRZPmLy8BxknfS9U3j4sI2OBX
- aMqkVo5CGVvFHWrd7RrRIm6Ft4ny6Ptffy8CK6JP4YTP8YtKFLblM2LWaJ39zm3+HXAbIllY
- cvLGSpSJSxy5VtbIMqeGL5GjO5DKtEWzmLPX5HrpymaPU6lTCfNE98taQLWBshgtfPsnekg2
- 4sGXyd8404EC7OWj+i+2dN7EG3m2lBhXs6p85UJLb7SSuekcUl4Y8LsLXoaU9QNt8xoei3gp
- xlRhmcwJILDuED6
-IronPort-HdrOrdr: A9a23:Ww4ngK1FKhXIRgRgS+/OIwqjBL4kLtp133Aq2lEZdPRUGvb3qy
- nIpoV+6faUskd2ZJhOo7C90cW7LU80lqQFhLX5X43SPzUO0VHAROoJgLcKqweQfBEWndQ96U
- 4PScdD4aXLfDpHsfo=
-X-IronPort-AV: E=Sophos;i="5.95,191,1661832000"; 
-   d="scan'208";a="81995746"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <Andrew.Cooper3@citrix.com>, Henry Wang
-	<Henry.Wang@arm.com>, Anthony PERARD <anthony.perard@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [XEN PATCH for-4.17] tools: Workaround wrong use of tools/Rules.mk by qemu-trad
-Date: Mon, 17 Oct 2022 11:34:03 +0100
-Message-ID: <20221017103403.63218-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 75cd54d1-4e07-11ed-91b4-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eUNXt67D6mOAKVzyM5X4gMewzqvBTPXGcDZl2PRJvi4=;
+        b=YqDLgnOutaiweFaxkHAjSMA4pjWCgikLi6H52TBohM5oHCA+jVZ39tv6btQxf+M9J4
+         UH+Pu4/wxIMrmFcUWhAUZar4DwXrhE1hsyRv+hqu3lBSyLI3aXZz+sfuP9peMsMHVMtY
+         XkZxoSRz34SD9sPKn+SKFxfrX+84Lo3IV8CyJdfIdQ/AfuR2Q/btTq8kcQoMWs3CZlqj
+         uam1819Y6sxBhHm5x/2Uoc9C7bFwDfkXYX0+Apt2pv4lxgKXgfpQ25QJRN81RK6xRYkb
+         4wuitv0R7XeQr1ahcAex7w3HJFiPjtmwcmV9zHXCIbsC7Pb0MWabE+XvNbK11IMThpTV
+         fUUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eUNXt67D6mOAKVzyM5X4gMewzqvBTPXGcDZl2PRJvi4=;
+        b=Hs41ZEKYIAQT6MsOKCmKn3Vl/DPwLs4UUHIAJPF60m2XudiTCc0faRR8/7ICCPfpKw
+         qhjQ3mv1yTRN2pi9ooBu7hFAvoxpM1oS0pFiW1/fhvBJZYZdJo3IIg7YOYXeisPZKkaI
+         3b4zBRWNVuBXiZD/CQjeKKIhHW2Y1rT8qDASnPHyqlaHE/WP1PRXjA5M2nv99+4GKrwl
+         34C6o+AKd3NNWhSGEnXFWq12mhxCy7a1SmcdJLG8/y9rhz7eGbHDj9COmGjyUrRWfL7a
+         woBt9LbBIbGq/Mkrx8J+hAnVq+brcapkL3mJ4B3eKvzJy4gscjV+VkjLHKS8ZikknBy9
+         Hgpw==
+X-Gm-Message-State: ACrzQf1WaSXX5w8FnJOF9w9rkNt4S6DNLuTjhqiJ8CSBqAwxZb6Jh2hl
+	bw1y1xtpy5EHmrPJlsIDjQA=
+X-Google-Smtp-Source: AMsMyM45QIYyKq57hAG1FUqfvWbRo3Uxgf6U3aZchyEUhSe8Ng24GPE+JA3s1PajCC1AuB5QfroOZg==
+X-Received: by 2002:a17:902:e848:b0:180:c732:1e52 with SMTP id t8-20020a170902e84800b00180c7321e52mr11554957plg.83.1666002945778;
+        Mon, 17 Oct 2022 03:35:45 -0700 (PDT)
+From: Denton Liu <liu.denton@gmail.com>
+To: grub-devel@gnu.org
+Cc: Daniel Kiper <daniel.kiper@oracle.com>,
+	Oskari Pirhonen <xxc3ncoredxx@gmail.com>,
+	mathieu.desnoyers@efficios.com,
+	rharwood@redhat.com,
+	samuel.thibault@ens-lyon.org,
+	debian-bsd@lists.debian.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v4] templates: introduce GRUB_TOP_LEVEL_* vars
+Date: Mon, 17 Oct 2022 03:35:32 -0700
+Message-Id: <20221017103532.845293-1-liu.denton@gmail.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-qemu-trad build system, when built from xen.git, will make use of
-Rules.mk (setup via qemu-trad.git/xen-setup). This mean that changes
-to Rules.mk will have an impact our ability to build qemu-trad.
+A user may wish to use an image that is not sorted as the "latest"
+version as the top-level entry. For example, in Arch Linux, if a user
+has the LTS and regular kernels installed, `/boot/vmlinuz-linux-lts`
+gets sorted as the "latest" compared to `/boot/vmlinuz-linux`. However,
+a user may wish to use the regular kernel as the default with the LTS
+only existing as a backup.
 
-Recent commit e4f5949c4466 ("tools: Add -Werror by default to all
-tools/") have added "-Werror" to the CFLAGS and qemu-trad start to use
-it. But this fails and there's lots of warning that are now turned
-into error.
+Introduce the GRUB_TOP_LEVEL, GRUB_TOP_LEVEL_XEN and
+GRUB_TOP_LEVEL_OS_PROBER variables to allow users to specify the
+top-level entry.
 
-We should teach qemu-trad and xen.git to not have to use Rules.mk when
-building qemu-trad, but for now, avoid adding -Werror to CFLAGS when
-building qemu-trad.
+Create grub_move_to_front() as a helper function which moves entries to
+the front of a list. This function does the heavy lifting of moving
+the menu entry to the front in each script.
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+In 10_netbsd, since there isn't an explicit list variable, extract the
+items that are being iterated through into a list so that we can
+optionally apply grub_move_to_front() to the list before the loop.
+
+Signed-off-by: Denton Liu <liu.denton@gmail.com>
 ---
 
 Notes:
-    for 4.17:
-        - fix the build, as detected by the push-gate
+    The only file that was tested is 10_linux. I do not have access to any
+    of the other images or systems so they remain untested.
+    
+    Changes since v3:
+    
+    * Fix if formatting nit
+    
+    * Rebase on top of latest 'master'
+    
+    Changes since v2:
+    
+    * Added more detail to GRUB_TOP_LEVEL docs
+    
+    * Moved GRUB_TOP_LEVEL_OS_PROBER to separate section in docs
+    
+    * Renamed grub_move_entry_to_front() to grub_move_to_front() and added
+      code comment
+    
+    * Give 10_netbsd an intermediate list of images to interact with
 
- tools/Makefile | 1 +
- tools/Rules.mk | 3 +++
- 2 files changed, 4 insertions(+)
+Range-diff against v3:
+1:  3684d8fe2 ! 1:  d3a693804 templates: introduce GRUB_TOP_LEVEL_* vars
+    @@ Notes
+         The only file that was tested is 10_linux. I do not have access to any
+         of the other images or systems so they remain untested.
+     
+    +    Changes since v3:
+    +
+    +    * Fix if formatting nit
+    +
+    +    * Rebase on top of latest 'master'
+    +
+         Changes since v2:
+     
+         * Added more detail to GRUB_TOP_LEVEL docs
+    @@ util/grub-mkconfig_lib.in: version_sort ()
+     +    echo "$item"
+     +  fi
+     +  for i in "$@"; do
+    -+    if [ "x$i" = "x$item" ]; then continue; fi
+    ++    if [ "x$i" = "x$item" ]; then
+    ++      continue
+    ++    fi
+     +    echo "$i"
+     +  done
+     +}
 
-diff --git a/tools/Makefile b/tools/Makefile
-index 0c1d8b64a4..9e28027835 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -159,6 +159,7 @@ qemu-traditional-recurse = \
- 	set -e; \
- 		$(buildmakevars2shellvars); \
- 		export CONFIG_BLKTAP1=n; \
-+		export BUILDING_QEMU_TRAD=y; \
- 		cd qemu-xen-traditional-dir; \
- 		$(1)
+ docs/grub.texi              | 10 ++++++++++
+ util/grub-mkconfig.in       |  3 +++
+ util/grub-mkconfig_lib.in   | 26 ++++++++++++++++++++++++++
+ util/grub.d/10_hurd.in      |  4 ++++
+ util/grub.d/10_kfreebsd.in  |  4 ++++
+ util/grub.d/10_linux.in     |  4 ++++
+ util/grub.d/10_netbsd.in    |  8 +++++++-
+ util/grub.d/20_linux_xen.in |  7 +++++++
+ util/grub.d/30_os-prober.in |  4 ++++
+ 9 files changed, 69 insertions(+), 1 deletion(-)
+
+diff --git a/docs/grub.texi b/docs/grub.texi
+index 0dbbdc374..5d41219ac 100644
+--- a/docs/grub.texi
++++ b/docs/grub.texi
+@@ -1444,6 +1444,16 @@ for all respectively normal entries.
+ The values of these options replace the values of @samp{GRUB_CMDLINE_LINUX}
+ and @samp{GRUB_CMDLINE_LINUX_DEFAULT} for Linux and Xen menu entries.
  
-diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 34d495fff7..6e135387bd 100644
---- a/tools/Rules.mk
-+++ b/tools/Rules.mk
-@@ -141,9 +141,12 @@ endif
++@item GRUB_TOP_LEVEL
++@item GRUB_TOP_LEVEL_XEN
++This option should be a path to a kernel image. If provided, the image
++specified will be made the top-level entry if it is found in the scan.
++
++@item GRUB_TOP_LEVEL_OS_PROBER
++This option should be a line of output from @command{os-prober}. As
++@samp{GRUB_TOP_LEVEL}, if provided, the image specified will be made the
++top-level entry if it is found in the scan.
++
+ @item GRUB_EARLY_INITRD_LINUX_CUSTOM
+ @itemx GRUB_EARLY_INITRD_LINUX_STOCK
+ List of space-separated early initrd images to be loaded from @samp{/boot}.
+diff --git a/util/grub-mkconfig.in b/util/grub-mkconfig.in
+index 62335d027..32c480dae 100644
+--- a/util/grub-mkconfig.in
++++ b/util/grub-mkconfig.in
+@@ -233,6 +233,9 @@ export GRUB_DEFAULT \
+   GRUB_CMDLINE_NETBSD \
+   GRUB_CMDLINE_NETBSD_DEFAULT \
+   GRUB_CMDLINE_GNUMACH \
++  GRUB_TOP_LEVEL \
++  GRUB_TOP_LEVEL_XEN \
++  GRUB_TOP_LEVEL_OS_PROBER \
+   GRUB_EARLY_INITRD_LINUX_CUSTOM \
+   GRUB_EARLY_INITRD_LINUX_STOCK \
+   GRUB_TERMINAL_INPUT \
+diff --git a/util/grub-mkconfig_lib.in b/util/grub-mkconfig_lib.in
+index 634bc8a50..08953287c 100644
+--- a/util/grub-mkconfig_lib.in
++++ b/util/grub-mkconfig_lib.in
+@@ -218,6 +218,32 @@ version_sort ()
+    esac
+ }
  
- CFLAGS_libxenlight += $(CFLAGS_libxenctrl)
++# Given an item as the first argument and a list as the subsequent arguments,
++# returns the list with the first argument moved to the front if it exists in
++# the list.
++grub_move_to_front ()
++{
++  item="$1"
++  shift
++
++  item_found=false
++  for i in "$@"; do
++    if [ "x$i" = "x$item" ]; then
++      item_found=true
++    fi
++  done
++
++  if [ "x$item_found" = xtrue ]; then
++    echo "$item"
++  fi
++  for i in "$@"; do
++    if [ "x$i" = "x$item" ]; then
++      continue
++    fi
++    echo "$i"
++  done
++}
++
+ # One layer of quotation is eaten by "" and the second by sed; so this turns
+ # ' into \'.
+ grub_quote () {
+diff --git a/util/grub.d/10_hurd.in b/util/grub.d/10_hurd.in
+index a021d02c2..b317a4b14 100644
+--- a/util/grub.d/10_hurd.in
++++ b/util/grub.d/10_hurd.in
+@@ -229,6 +229,10 @@ submenu_indentation=""
  
-+# Don't add -Werror if we are used by qemu-trad build system.
-+ifndef BUILDING_QEMU_TRAD
- ifeq ($(CONFIG_WERROR),y)
- CFLAGS += -Werror
- endif
-+endif
+ reverse_sorted_kernels=$(echo ${kernels} | tr ' ' '\n' | sed -e 's/\.old$/ 1/; / 1$/! s/$/ 2/' | version_sort -r | sed -e 's/ 1$/.old/; s/ 2$//')
  
- ifeq ($(debug),y)
- # Use -Og if available, -O0 otherwise
++if [ "x$GRUB_TOP_LEVEL" != x ]; then
++  reverse_sorted_kernels=$(grub_move_to_front "$GRUB_TOP_LEVEL" ${reverse_sorted_kernels})
++fi
++
+ is_top_level=true
+ 
+ for kernel in ${reverse_sorted_kernels}; do
+diff --git a/util/grub.d/10_kfreebsd.in b/util/grub.d/10_kfreebsd.in
+index 0a67decaa..83e9636e8 100644
+--- a/util/grub.d/10_kfreebsd.in
++++ b/util/grub.d/10_kfreebsd.in
+@@ -164,6 +164,10 @@ submenu_indentation=""
+ 
+ reverse_sorted_list=$(echo ${list} | tr ' ' '\n' | sed -e 's/\.old$/ 1/; / 1$/! s/$/ 2/' | version_sort -r | sed -e 's/ 1$/.old/; s/ 2$//')
+ 
++if [ "x$GRUB_TOP_LEVEL" != x ]; then
++  reverse_sorted_list=$(grub_move_to_front "$GRUB_TOP_LEVEL" ${reverse_sorted_list})
++fi
++
+ is_top_level=true
+ 
+ for kfreebsd in ${reverse_sorted_list}; do
+diff --git a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
+index c6a1ec935..7263f2983 100644
+--- a/util/grub.d/10_linux.in
++++ b/util/grub.d/10_linux.in
+@@ -202,6 +202,10 @@ submenu_indentation=""
+ 
+ reverse_sorted_list=$(echo $list | tr ' ' '\n' | sed -e 's/\.old$/ 1/; / 1$/! s/$/ 2/' | version_sort -r | sed -e 's/ 1$/.old/; s/ 2$//')
+ 
++if [ "x$GRUB_TOP_LEVEL" != x ]; then
++  reverse_sorted_list=$(grub_move_to_front "$GRUB_TOP_LEVEL" ${reverse_sorted_list})
++fi
++
+ is_top_level=true
+ for linux in ${reverse_sorted_list}; do
+   gettext_printf "Found linux image: %s\n" "$linux" >&2
+diff --git a/util/grub.d/10_netbsd.in b/util/grub.d/10_netbsd.in
+index dc0cd1b17..3154e9e15 100644
+--- a/util/grub.d/10_netbsd.in
++++ b/util/grub.d/10_netbsd.in
+@@ -146,8 +146,14 @@ pattern="^ELF[^,]*executable.*statically linked"
+ # yet, so it's empty. In a submenu it will be equal to '\t' (one tab).
+ submenu_indentation=""
+ 
++list="/netbsd $(ls -t /netbsd?* 2>/dev/null)"
++
++if [ "x$GRUB_TOP_LEVEL" != x ]; then
++  list=$(grub_move_to_front "$GRUB_TOP_LEVEL" ${list})
++fi
++
+ is_top_level=true
+-for k in /netbsd $(ls -t /netbsd?* 2>/dev/null) ; do
++for k in ${list}; do
+   if ! grub_file_is_not_garbage "$k" ; then
+     continue
+   fi
+diff --git a/util/grub.d/20_linux_xen.in b/util/grub.d/20_linux_xen.in
+index 626aed40c..386bfb9be 100644
+--- a/util/grub.d/20_linux_xen.in
++++ b/util/grub.d/20_linux_xen.in
+@@ -245,6 +245,13 @@ submenu_indentation=""
+ reverse_sorted_xen_list=$(echo ${xen_list} | tr ' ' '\n' | sed -e 's/\.old$/ 1/; / 1$/! s/$/ 2/' | version_sort -r | sed -e 's/ 1$/.old/; s/ 2$//')
+ reverse_sorted_linux_list=$(echo ${linux_list} | tr ' ' '\n' | sed -e 's/\.old$/ 1/; / 1$/! s/$/ 2/' | version_sort -r | sed -e 's/ 1$/.old/; s/ 2$//')
+ 
++if [ "x$GRUB_TOP_LEVEL_XEN" != x ]; then
++  reverse_sorted_xen_list=$(grub_move_to_front "$GRUB_TOP_LEVEL_XEN" ${reverse_sorted_xen_list})
++fi
++if [ "x$GRUB_TOP_LEVEL" != x ]; then
++  reverse_sorted_linux_list=$(grub_move_to_front "$GRUB_TOP_LEVEL" ${reverse_sorted_linux_list})
++fi
++
+ is_top_level=true
+ 
+ for current_xen in ${reverse_sorted_xen_list}; do
+diff --git a/util/grub.d/30_os-prober.in b/util/grub.d/30_os-prober.in
+index daa603778..656301eaf 100644
+--- a/util/grub.d/30_os-prober.in
++++ b/util/grub.d/30_os-prober.in
+@@ -113,6 +113,10 @@ EOF
+ 
+ used_osprober_linux_ids=
+ 
++if [ "x$GRUB_TOP_LEVEL_OS_PROBER" != x ]; then
++  OSPROBED=$(grub_move_to_front "$GRUB_TOP_LEVEL_OS_PROBER" ${OSPROBED})
++fi
++
+ for OS in ${OSPROBED} ; do
+   DEVICE="`echo ${OS} | cut -d ':' -f 1`"
+   LONGNAME="`echo ${OS} | cut -d ':' -f 2 | tr '^' ' '`"
 -- 
-Anthony PERARD
+2.37.3
 
 
