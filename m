@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECE8860269A
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 10:17:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424776.672459 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180BB6026B4
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 10:24:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424783.672476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okhmq-0002eA-KY; Tue, 18 Oct 2022 08:17:20 +0000
+	id 1okhtc-000472-DB; Tue, 18 Oct 2022 08:24:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424776.672459; Tue, 18 Oct 2022 08:17:20 +0000
+Received: by outflank-mailman (output) from mailman id 424783.672476; Tue, 18 Oct 2022 08:24:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okhmq-0002bU-Gp; Tue, 18 Oct 2022 08:17:20 +0000
-Received: by outflank-mailman (input) for mailman id 424776;
- Tue, 18 Oct 2022 08:17:19 +0000
+	id 1okhtc-00044C-9K; Tue, 18 Oct 2022 08:24:20 +0000
+Received: by outflank-mailman (input) for mailman id 424783;
+ Tue, 18 Oct 2022 08:24:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3X7+=2T=gmail.com=vsuneja63@srs-se1.protection.inumbo.net>)
- id 1okhmp-0002bO-8z
- for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 08:17:19 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ieme=2T=lst.de=hch@srs-se1.protection.inumbo.net>)
+ id 1okhta-000446-Md
+ for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 08:24:18 +0000
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46c39cba-4ebd-11ed-8fd0-01056ac49cbb;
- Tue, 18 Oct 2022 10:17:16 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id m15so19308677edb.13
- for <xen-devel@lists.xenproject.org>; Tue, 18 Oct 2022 01:17:18 -0700 (PDT)
+ id 4083e01e-4ebe-11ed-8fd0-01056ac49cbb;
+ Tue, 18 Oct 2022 10:24:15 +0200 (CEST)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 5CDBB68C4E; Tue, 18 Oct 2022 10:24:13 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,256 +38,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46c39cba-4ebd-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=90ZjSDua2qyjWgYFEzx8rCopKaliM8vxbKPF7kybeyE=;
-        b=KGkjnD/K9NHiN3yUUkHgYLWxVwp4zNAjMnLAsgATjM1sdEE2uwxDa1GZk32qITvTta
-         fdDRhxgi5/bPwl54+/PMPPt8dYA+384fCtpZKFyin+en4F8OHIpP+JzWqmswq9+l1Ih/
-         DjfFH+cRG4bXkBaUwqhY0vq4lCxitQq4T09lJFoICRFu5i81Cdtvjnja+57fzZnTkkjO
-         FR+pLPG6EZW5bwaCO5oNaXYON2O1Eyyt8qRKAAK8n0RY0twwU+agkhKwKEHycApFquQ+
-         NlI1PYP86HCfAX+OAeffA3G/u3+plAV1DRW7jG47OgPOF2gv0rbDAG8qe+VdK/g6tW4A
-         nSmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=90ZjSDua2qyjWgYFEzx8rCopKaliM8vxbKPF7kybeyE=;
-        b=hWSkVXHDsK6Hx6Nu3XlqhdArHAld9jqmw5Se5DutCWg+jgQpnTVXanAqmlVhTtWMZJ
-         Crqm810juswMcftLdUv/wX7zuLb882qXOrFACGy4uwV93XsSemzR1rLUCNAWCdG8/zSD
-         MbwouODgnh9Xc5M7PzudidYy+0aPY5LmSxRsgnDb3Dv2hqlyvrsgD7YhyDMeeW9m4RyM
-         ecVhgpbgWVv3NDlAPxnPUn4evU3xFccbkwsr8pnVfRxqnu9vHDBX6/gMcCOKwWJeQdLR
-         IFyOmxN5ZuSsbdsEbbYQVlVTNR03nh8TB9Kbc7OvP6kHjNj6MHOhYOEPylJH7erH3OSm
-         IY7w==
-X-Gm-Message-State: ACrzQf0Mz9hYmZ5fI/1IgX2gxTBC/rAUTaDEQoOhlUKqTY6pJu8KwPAT
-	PD7pawNiHtVQUfHuphKVmQ1TDCEIO9vVcqN7GyY=
-X-Google-Smtp-Source: AMsMyM4Q2IlJX83NI4qcSb8utiEe2wutDuWukjsMEJgBg38ZtuApqetM/Q3NPjjMQtm/Swmc3ZFjVX4D4up8ggdAsTA=
-X-Received: by 2002:a05:6402:ca:b0:45c:dbdd:8143 with SMTP id
- i10-20020a05640200ca00b0045cdbdd8143mr1528014edu.213.1666081037558; Tue, 18
- Oct 2022 01:17:17 -0700 (PDT)
+X-Inumbo-ID: 4083e01e-4ebe-11ed-8fd0-01056ac49cbb
+Date: Tue, 18 Oct 2022 10:24:13 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
+Cc: Christoph Hellwig <hch@lst.de>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	regressions@lists.linux.dev, xen-devel@lists.xenproject.org,
+	iommu@lists.linux.dev, Robert Beckett <bob.beckett@collabora.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: i915 "GPU HANG", bisected to a2daa27c0c61 "swiotlb: simplify
+ swiotlb_max_segment"
+Message-ID: <20221018082413.GA25785@lst.de>
 MIME-Version: 1.0
-References: <CALAP8f--jyG=ufJ9WGtL6qoeGdsykjNK85G3q50SzJm5+wOzhQ@mail.gmail.com>
- <alpine.DEB.2.22.394.2210171400570.2351079@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2210171400570.2351079@ubuntu-linux-20-04-desktop>
-From: Vipul Suneja <vsuneja63@gmail.com>
-Date: Tue, 18 Oct 2022 13:47:05 +0530
-Message-ID: <CALAP8f81ojfVD9n5EMtD7DxY-8uomgENVEQH9Afz7Hk9rfaAsw@mail.gmail.com>
-Subject: Re: Porting Xen in raspberry pi4B
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, oleksandr_andrushchenko@epam.com, 
-	oleksandr_tyshchenko@epam.com, jgross@suse.com, boris.ostrovsky@oracle.com
-Content-Type: multipart/alternative; boundary="00000000000069287305eb4ab819"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Y04i8V7xamTkuqNA@mail-itl>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
---00000000000069287305eb4ab819
-Content-Type: text/plain; charset="UTF-8"
+On Tue, Oct 18, 2022 at 05:52:16AM +0200, Marek Marczykowski-Górecki wrote:
+> not only) when using IGD in Xen PV dom0. After not very long time Xorg
+> crashes, and dmesg contain messages like this:
+> 
+>     i915 0000:00:02.0: [drm] GPU HANG: ecode 7:1:01fffbfe, in Xorg [5337]
+>     i915 0000:00:02.0: [drm] Resetting rcs0 for stopped heartbeat on rcs0
+>     i915 0000:00:02.0: [drm] Xorg[5337] context reset due to GPU hang
 
-Hi Stefano,
+<snip>
 
-Thanks for the response!
+> I tried reverting just this commit on top of 6.0.x, but the context
+> changed significantly in subsequent commits, so after trying reverting
+> it together with 3 or 4 more commits I gave up.
+> 
+> What may be an important detail, the system heavily uses cross-VM shared
+> memory (gntdev) to map window contents from VMs. This is Qubes OS, and
+> it uses Xen 4.14.
 
-I could install tigerVNC, x11vnc & libvncserver in Dom0 xen-image-minimal
-but only manage to install libvncserver(couldn't install tigervnc & x11vnc
-because of x11
-support missing, it's wayland) in DOMU custom graphical image. I tried
-running vncviewer with IP address & port in dom0 to access the domu
-graphical image display as per below commands.
+Can you try the patch below?
 
-* vncviewer 192.168.1.42:5901 <http://192.168.1.42:5901>*
+---
+From 26fe4749750f1bf843666ca777e297279994e33a Mon Sep 17 00:00:00 2001
+From: Robert Beckett <bob.beckett@collabora.com>
+Date: Tue, 26 Jul 2022 16:39:35 +0100
+Subject: drm/i915: stop abusing swiotlb_max_segment
 
- But it showing can't open display, below are the logs:
+Calling swiotlb functions directly is nowadays considered harmful. See
+https://lore.kernel.org/intel-gfx/20220711082614.GA29487@lst.de/
 
+Replace swiotlb_max_segment() calls with dma_max_mapping_size().
+In i915_gem_object_get_pages_internal() no longer consider max_segment
+only if CONFIG_SWIOTLB is enabled. There can be other (iommu related)
+causes of specific max segment sizes.
 
+Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+[hch: added the Xen hack]
+---
+ drivers/gpu/drm/i915/gem/i915_gem_internal.c | 19 +++----------
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c      |  4 +--
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c  |  2 +-
+ drivers/gpu/drm/i915/i915_scatterlist.h      | 30 +++++++++++---------
+ 5 files changed, 25 insertions(+), 32 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+index c698f95af15fe..629acb403a2c9 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
+@@ -6,7 +6,6 @@
+ 
+ #include <linux/scatterlist.h>
+ #include <linux/slab.h>
+-#include <linux/swiotlb.h>
+ 
+ #include "i915_drv.h"
+ #include "i915_gem.h"
+@@ -38,22 +37,12 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
+ 	struct scatterlist *sg;
+ 	unsigned int sg_page_sizes;
+ 	unsigned int npages;
+-	int max_order;
++	int max_order = MAX_ORDER;
++	unsigned int max_segment;
+ 	gfp_t gfp;
+ 
+-	max_order = MAX_ORDER;
+-#ifdef CONFIG_SWIOTLB
+-	if (is_swiotlb_active(obj->base.dev->dev)) {
+-		unsigned int max_segment;
+-
+-		max_segment = swiotlb_max_segment();
+-		if (max_segment) {
+-			max_segment = max_t(unsigned int, max_segment,
+-					    PAGE_SIZE) >> PAGE_SHIFT;
+-			max_order = min(max_order, ilog2(max_segment));
+-		}
+-	}
+-#endif
++	max_segment = i915_sg_segment_size(i915->drm.dev) >> PAGE_SHIFT;
++	max_order = min(max_order, get_order(max_segment));
+ 
+ 	gfp = GFP_KERNEL | __GFP_HIGHMEM | __GFP_RECLAIMABLE;
+ 	if (IS_I965GM(i915) || IS_I965G(i915)) {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index f42ca1179f373..11125c32dd35d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -194,7 +194,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
+ 	struct intel_memory_region *mem = obj->mm.region;
+ 	struct address_space *mapping = obj->base.filp->f_mapping;
+ 	const unsigned long page_count = obj->base.size / PAGE_SIZE;
+-	unsigned int max_segment = i915_sg_segment_size();
++	unsigned int max_segment = i915_sg_segment_size(i915->drm.dev);
+ 	struct sg_table *st;
+ 	struct sgt_iter sgt_iter;
+ 	struct page *page;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index e3fc38dd5db04..de5d0a7241027 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -189,7 +189,7 @@ static int i915_ttm_tt_shmem_populate(struct ttm_device *bdev,
+ 	struct drm_i915_private *i915 = container_of(bdev, typeof(*i915), bdev);
+ 	struct intel_memory_region *mr = i915->mm.regions[INTEL_MEMORY_SYSTEM];
+ 	struct i915_ttm_tt *i915_tt = container_of(ttm, typeof(*i915_tt), ttm);
+-	const unsigned int max_segment = i915_sg_segment_size();
++	const unsigned int max_segment = i915_sg_segment_size(i915->drm.dev);
+ 	const size_t size = (size_t)ttm->num_pages << PAGE_SHIFT;
+ 	struct file *filp = i915_tt->filp;
+ 	struct sgt_iter sgt_iter;
+@@ -538,7 +538,7 @@ static struct i915_refct_sgt *i915_ttm_tt_get_st(struct ttm_tt *ttm)
+ 	ret = sg_alloc_table_from_pages_segment(st,
+ 			ttm->pages, ttm->num_pages,
+ 			0, (unsigned long)ttm->num_pages << PAGE_SHIFT,
+-			i915_sg_segment_size(), GFP_KERNEL);
++			i915_sg_segment_size(i915_tt->dev), GFP_KERNEL);
+ 	if (ret) {
+ 		st->sgl = NULL;
+ 		return ERR_PTR(ret);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+index 8423df021b713..e4515d6acd43c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+@@ -129,7 +129,7 @@ static void i915_gem_object_userptr_drop_ref(struct drm_i915_gem_object *obj)
+ static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
+ {
+ 	const unsigned long num_pages = obj->base.size >> PAGE_SHIFT;
+-	unsigned int max_segment = i915_sg_segment_size();
++	unsigned int max_segment = i915_sg_segment_size(obj->base.dev->dev);
+ 	struct sg_table *st;
+ 	unsigned int sg_page_sizes;
+ 	struct page **pvec;
+diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
+index 9ddb3e743a3e5..c278888f71528 100644
+--- a/drivers/gpu/drm/i915/i915_scatterlist.h
++++ b/drivers/gpu/drm/i915/i915_scatterlist.h
+@@ -9,7 +9,8 @@
+ 
+ #include <linux/pfn.h>
+ #include <linux/scatterlist.h>
+-#include <linux/swiotlb.h>
++#include <linux/dma-mapping.h>
++#include <xen/xen.h>
+ 
+ #include "i915_gem.h"
+ 
+@@ -127,19 +128,22 @@ static inline unsigned int i915_sg_dma_sizes(struct scatterlist *sg)
+ 	return page_sizes;
+ }
+ 
+-static inline unsigned int i915_sg_segment_size(void)
++static inline unsigned int i915_sg_segment_size(struct device *dev)
+ {
+-	unsigned int size = swiotlb_max_segment();
+-
+-	if (size == 0)
+-		size = UINT_MAX;
+-
+-	size = rounddown(size, PAGE_SIZE);
+-	/* swiotlb_max_segment_size can return 1 byte when it means one page. */
+-	if (size < PAGE_SIZE)
+-		size = PAGE_SIZE;
+-
+-	return size;
++	size_t max = min_t(size_t, UINT_MAX, dma_max_mapping_size(dev));
++
++	/*
++	 * Xen on x86 can reshuffle pages under us.  The DMA API takes
++	 * care of that both in dma_alloc_* (by calling into the hypervisor
++	 * to make the pages contigous) and in dma_map_* (by bounce buffering).
++	 * But i915 abuses ignores the coherency aspects of the DMA API and
++	 * thus can't cope with bounce buffering actually happening, so add
++	 * a hack here to force small allocations and mapping when running on
++	 * Xen.  (good luck with TDX, btw --hch)
++	 */
++	if (IS_ENABLED(CONFIG_X86) && xen_domain())
++		max = PAGE_SIZE;
++	return round_down(max, PAGE_SIZE);
+ }
+ 
+ bool i915_sg_trim(struct sg_table *orig_st);
+-- 
+2.30.2
 
-
-
-
-
-*root@raspberrypi4-64:~/guest1# vncviewer 192.168.1.42:5901
-<http://192.168.1.42:5901>TigerVNC Viewer 64-bit v1.11.0Built on:
-2020-09-08 12:16Copyright (C) 1999-2020 TigerVNC Team and many others (see
-README.rst)See https://www.tigervnc.org <https://www.tigervnc.org> for
-information on TigerVNC.Can't open display: root@raspberrypi4-64:~/guest1#*
-
-I am not exactly sure what the issue is but I thought only libvncserver in
-DOMU could work to get access but it did not work.
-If TigerVNC is the issue here then is there any other VNC source which
-could be installed for both x11 & wayland supported images?
-
-Regards,
-Vipul Kumar
-
-On Tue, Oct 18, 2022 at 2:40 AM Stefano Stabellini <sstabellini@kernel.org>
-wrote:
-
-> VNC is typically easier to setup, because SDL needs extra libraries at
-> build time and runtime. If QEMU is built without SDL support it won't
-> start when you ask for SDL.
->
-> VNC should work with both x11 and wayland in your domU. It doesn't work
-> at the x11 level, it exposes a special fbdev device in your domU that
-> should work with:
-> - a graphical console in Linux domU
-> - x11
-> - wayland (but I haven't tested this so I am not 100% sure about it)
->
-> When you say "it doesn't work", what do you mean? Do you get a black
-> window?
->
-> You need CONFIG_XEN_FBDEV_FRONTEND in Linux domU
-> (drivers/video/fbdev/xen-fbfront.c). I would try to get a graphical text
-> console up and running in your domU before attempting x11/wayland.
->
-> Cheers,
->
-> Stefano
->
-> On Mon, 17 Oct 2022, Vipul Suneja wrote:
-> > Hi,
-> > Thanks!
-> >
-> > I have ported xen minimal image as DOM0 & custom wayland GUI based image
-> as DOMU in raspberry pi4B. I am trying to make GUI display up
-> > for guest machine. I tried using sdl, included below line in guest.conf
-> file
-> > vfb= [ 'sdl=1' ]
-> >
-> > But it is throwing below error:
-> >
-> > root@raspberrypi4-64:~/guest1# xl create -c guest1.cfg
-> > Parsing config from guest1.cfg
-> > libxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback: Domain 3:error on QMP
-> socket: Connection reset by peer
-> > libxl: error: libxl_qmp.c:1439:qmp_ev_fd_callback: Domain 3:Error
-> happened with the QMP connection to QEMU
-> > libxl: error: libxl_dm.c:3351:device_model_postconfig_done: Domain
-> 3:Post DM startup configs failed, rc=-26
-> > libxl: error: libxl_create.c:1867:domcreate_devmodel_started: Domain
-> 3:device model did not start: -26
-> > libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device Model
-> already exited
-> > libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain
-> 3:Non-existant domain
-> > libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain
-> 3:Unable to destroy guest
-> > libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain
-> 3:Destruction of domain failed
-> >
-> > Another way is VNC, i could install tigervnc in DOM0 but same i couldn't
-> in guest machine because it doesn't support x11(supports wayland
-> > only). I am completely blocked here, Need your support to enable the
-> display up.
-> > Any alternative of VNC which could work in both x11 & wayland supported
-> images?
-> >
-> > Any input on VNC, SDL or any other way to proceed on this? Looking
-> forward to hearing from you.
-> >
-> > Regards,
-> > Vipul Kumar
-
---00000000000069287305eb4ab819
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Stefano,<br><br>Thanks for the response!<br><br>I could=
- install tigerVNC, x11vnc &amp; libvncserver in Dom0 xen-image-minimal but =
-only manage to install libvncserver(couldn&#39;t install tigervnc &amp; x11=
-vnc because of x11<br>support missing, it&#39;s wayland) in DOMU custom gra=
-phical image. I tried running vncviewer with IP address &amp; port in dom0 =
-to access the domu graphical image display as per below commands.<br>=C2=A0=
-<br><b><i>=C2=A0vncviewer <a href=3D"http://192.168.1.42:5901">192.168.1.42=
-:5901</a></i></b><br>=C2=A0<br>=C2=A0But it showing can&#39;t open display,=
- below are the logs:<br>=C2=A0<br><b><i>root@raspberrypi4-64:~/guest1# vncv=
-iewer <a href=3D"http://192.168.1.42:5901">192.168.1.42:5901</a><br><br>Tig=
-erVNC Viewer 64-bit v1.11.0<br>Built on: 2020-09-08 12:16<br>Copyright (C) =
-1999-2020 TigerVNC Team and many others (see README.rst)<br>See <a href=3D"=
-https://www.tigervnc.org">https://www.tigervnc.org</a> for information on T=
-igerVNC.<br>Can&#39;t open display: <br>root@raspberrypi4-64:~/guest1#</i><=
-/b><br><div><b><i><br></i></b></div><div>I am not exactly=C2=A0sure what th=
-e issue is but I thought only libvncserver in DOMU could work to get access=
- but it did not work.=C2=A0</div><div>If TigerVNC is the issue here then is=
- there any other VNC source which could be installed for both x11 &amp; way=
-land supported images?</div><div><br></div><div>Regards,</div><div>Vipul Ku=
-mar</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gma=
-il_attr">On Tue, Oct 18, 2022 at 2:40 AM Stefano Stabellini &lt;<a href=3D"=
-mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wrote:<br></d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex">VNC is typically easie=
-r to setup, because SDL needs extra libraries at<br>
-build time and runtime. If QEMU is built without SDL support it won&#39;t<b=
-r>
-start when you ask for SDL.<br>
-<br>
-VNC should work with both x11 and wayland in your domU. It doesn&#39;t work=
-<br>
-at the x11 level, it exposes a special fbdev device in your domU that<br>
-should work with:<br>
-- a graphical console in Linux domU<br>
-- x11<br>
-- wayland (but I haven&#39;t tested this so I am not 100% sure about it)<br=
->
-<br>
-When you say &quot;it doesn&#39;t work&quot;, what do you mean? Do you get =
-a black<br>
-window?<br>
-<br>
-You need CONFIG_XEN_FBDEV_FRONTEND in Linux domU<br>
-(drivers/video/fbdev/xen-fbfront.c). I would try to get a graphical text<br=
->
-console up and running in your domU before attempting x11/wayland.<br>
-<br>
-Cheers,<br>
-<br>
-Stefano<br>
-<br>
-On Mon, 17 Oct 2022, Vipul Suneja wrote:<br>
-&gt; Hi,<br>
-&gt; Thanks!<br>
-&gt; <br>
-&gt; I have ported xen minimal image as DOM0 &amp; custom wayland GUI based=
- image as DOMU in raspberry pi4B. I am trying to make GUI display up<br>
-&gt; for=C2=A0guest machine. I tried using=C2=A0sdl, included below line in=
- guest.conf file<br>
-&gt; vfb=3D [ &#39;sdl=3D1&#39; ]<br>
-&gt; <br>
-&gt; But it is throwing below error:<br>
-&gt; <br>
-&gt; root@raspberrypi4-64:~/guest1# xl create -c guest1.cfg<br>
-&gt; Parsing config from guest1.cfg<br>
-&gt; libxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback: Domain 3:error on Q=
-MP socket: Connection reset by peer<br>
-&gt; libxl: error: libxl_qmp.c:1439:qmp_ev_fd_callback: Domain 3:Error happ=
-ened with the QMP connection to QEMU<br>
-&gt; libxl: error: libxl_dm.c:3351:device_model_postconfig_done: Domain 3:P=
-ost DM startup configs failed, rc=3D-26<br>
-&gt; libxl: error: libxl_create.c:1867:domcreate_devmodel_started: Domain 3=
-:device model did not start: -26<br>
-&gt; libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device Model al=
-ready exited<br>
-&gt; libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain 3:Non-e=
-xistant domain<br>
-&gt; libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 3:Un=
-able to destroy guest<br>
-&gt; libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 3:Destruct=
-ion of domain failed<br>
-&gt; <br>
-&gt; Another way is VNC, i could install tigervnc in DOM0 but same i couldn=
-&#39;t in guest machine because it doesn&#39;t support x11(supports wayland=
-<br>
-&gt; only). I am completely blocked here, Need your support to enable the d=
-isplay up.<br>
-&gt; Any alternative of VNC which could work in both x11 &amp; wayland supp=
-orted images?<br>
-&gt; <br>
-&gt; Any input on VNC, SDL or any other way to proceed on this? Looking for=
-ward to hearing from you.<br>
-&gt; <br>
-&gt; Regards,<br>
-&gt; Vipul Kumar</blockquote></div>
-
---00000000000069287305eb4ab819--
 
