@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 180BB6026B4
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 10:24:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424783.672476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BA376026B7
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 10:25:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424788.672487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okhtc-000472-DB; Tue, 18 Oct 2022 08:24:20 +0000
+	id 1okhuC-0004fS-Or; Tue, 18 Oct 2022 08:24:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424783.672476; Tue, 18 Oct 2022 08:24:20 +0000
+Received: by outflank-mailman (output) from mailman id 424788.672487; Tue, 18 Oct 2022 08:24:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okhtc-00044C-9K; Tue, 18 Oct 2022 08:24:20 +0000
-Received: by outflank-mailman (input) for mailman id 424783;
- Tue, 18 Oct 2022 08:24:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1okhuC-0004d3-Li; Tue, 18 Oct 2022 08:24:56 +0000
+Received: by outflank-mailman (input) for mailman id 424788;
+ Tue, 18 Oct 2022 08:24:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ieme=2T=lst.de=hch@srs-se1.protection.inumbo.net>)
- id 1okhta-000446-Md
- for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 08:24:18 +0000
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4083e01e-4ebe-11ed-8fd0-01056ac49cbb;
- Tue, 18 Oct 2022 10:24:15 +0200 (CEST)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 5CDBB68C4E; Tue, 18 Oct 2022 10:24:13 +0200 (CEST)
+ (envelope-from <julien@xen.org>) id 1okhuA-0004cj-Qn
+ for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 08:24:54 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1okhu7-0004Wl-Aa; Tue, 18 Oct 2022 08:24:51 +0000
+Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1okhu6-0006Sw-SW; Tue, 18 Oct 2022 08:24:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,216 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4083e01e-4ebe-11ed-8fd0-01056ac49cbb
-Date: Tue, 18 Oct 2022 10:24:13 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
-Cc: Christoph Hellwig <hch@lst.de>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	regressions@lists.linux.dev, xen-devel@lists.xenproject.org,
-	iommu@lists.linux.dev, Robert Beckett <bob.beckett@collabora.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: i915 "GPU HANG", bisected to a2daa27c0c61 "swiotlb: simplify
- swiotlb_max_segment"
-Message-ID: <20221018082413.GA25785@lst.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=RZV2EaUyuf7LDviRdlZ1zghsWBgRjq3ZsAcy/wHuSkU=; b=3Km7LjD/BOVMIq0yts/6nebgii
+	slQfESAWAaNb0YGu5FfAHfeY++Wbav9WaOtjsB/8e8aog/HiWUbLZIbBkDYAAazGc8h9TI032O3fK
+	2SKxbgaEPUgOlmKfCdeWfTU5NplIGHeRUiWa8oXIOliI2OBXvvW/LW48mUWuBQQkTwR0=;
+Message-ID: <460a480e-4e91-8d78-60da-59b9cc98beee@xen.org>
+Date: Tue, 18 Oct 2022 09:24:48 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <Y04i8V7xamTkuqNA@mail-itl>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.3
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org,
+ stefano.stabellini@amd.com, Peter Maydell <peter.maydell@linaro.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+References: <20221015050750.4185-1-vikram.garhwal@amd.com>
+ <20221015050750.4185-11-vikram.garhwal@amd.com>
+ <3e504b1b-197d-b77b-16e1-86530eb3d64c@xen.org>
+ <alpine.DEB.2.22.394.2210171345450.2351079@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v1 10/12] hw/arm: introduce xenpv machine
+In-Reply-To: <alpine.DEB.2.22.394.2210171345450.2351079@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 18, 2022 at 05:52:16AM +0200, Marek Marczykowski-Górecki wrote:
-> not only) when using IGD in Xen PV dom0. After not very long time Xorg
-> crashes, and dmesg contain messages like this:
+Hi Stefano,
+
+On 18/10/2022 02:26, Stefano Stabellini wrote:
+> On Sun, 16 Oct 2022, Julien Grall wrote:
+>> Hi,
+>>
+>> There seem to be some missing patches on xen-devel (including the cover
+>> letter). Is that expected?
+>>
+>> On 15/10/2022 06:07, Vikram Garhwal wrote:
+>>> Add a new machine xenpv which creates a IOREQ server to register/connect
+>>> with
+>>> Xen Hypervisor.
+>>
+>> I don't like the name 'xenpv' because it doesn't convey the fact that some of
+>> the HW may be emulated rather than para-virtualized. In fact one may only want
+>> to use for emulating devices.
+>>
+>> Potential name would be 'xen-arm' or re-using 'virt' but with 'accel=xen' to
+>> select a Xen layout.
 > 
->     i915 0000:00:02.0: [drm] GPU HANG: ecode 7:1:01fffbfe, in Xorg [5337]
->     i915 0000:00:02.0: [drm] Resetting rcs0 for stopped heartbeat on rcs0
->     i915 0000:00:02.0: [drm] Xorg[5337] context reset due to GPU hang
+> The benefit of 'xenpv' is that it doesn't require any changes to libxl.
 
-<snip>
+I am quite surprised. Looking at the code, it seems to work more by 
+chance than it is intentional as the code is gated by 
+libxl__need_xenpv_qemu(). So it would not start if there were no 
+emulated devices.
 
-> I tried reverting just this commit on top of 6.0.x, but the context
-> changed significantly in subsequent commits, so after trying reverting
-> it together with 3 or 4 more commits I gave up.
-> 
-> What may be an important detail, the system heavily uses cross-VM shared
-> memory (gntdev) to map window contents from VMs. This is Qubes OS, and
-> it uses Xen 4.14.
+> It is even backward compatible so it could be used with an older version
+> of Xen/libxl.
+We don't really gain much here. IOREQ is a tech preview and anyone that 
+wants to try it should really use the latest Xen.
 
-Can you try the patch below?
+> Backward compatibility aside, if we come up with a
+> different name then we'll need changes to libxl and to manage those
+> changes. For instance, if we use 'xen-arm' that would mean we would need
+> to handle per-arch QEMU machine names.
 
----
-From 26fe4749750f1bf843666ca777e297279994e33a Mon Sep 17 00:00:00 2001
-From: Robert Beckett <bob.beckett@collabora.com>
-Date: Tue, 26 Jul 2022 16:39:35 +0100
-Subject: drm/i915: stop abusing swiotlb_max_segment
+Right, so the main argument here is for simplicity in libxl
+Looking at how 'xenpv' is built, this is really expected to deal with PV 
+backend rather than emulated device. I do expect some changes as we go 
+along to be able to add emulated device.
 
-Calling swiotlb functions directly is nowadays considered harmful. See
-https://lore.kernel.org/intel-gfx/20220711082614.GA29487@lst.de/
+Furthermore, libxl is not the only toolstack out. So I am not convinced 
+this is a good argument to keep the name the same.
 
-Replace swiotlb_max_segment() calls with dma_max_mapping_size().
-In i915_gem_object_get_pages_internal() no longer consider max_segment
-only if CONFIG_SWIOTLB is enabled. There can be other (iommu related)
-causes of specific max segment sizes.
+Cheers,
 
-Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-[hch: added the Xen hack]
----
- drivers/gpu/drm/i915/gem/i915_gem_internal.c | 19 +++----------
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c    |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c      |  4 +--
- drivers/gpu/drm/i915/gem/i915_gem_userptr.c  |  2 +-
- drivers/gpu/drm/i915/i915_scatterlist.h      | 30 +++++++++++---------
- 5 files changed, 25 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-index c698f95af15fe..629acb403a2c9 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-@@ -6,7 +6,6 @@
- 
- #include <linux/scatterlist.h>
- #include <linux/slab.h>
--#include <linux/swiotlb.h>
- 
- #include "i915_drv.h"
- #include "i915_gem.h"
-@@ -38,22 +37,12 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
- 	struct scatterlist *sg;
- 	unsigned int sg_page_sizes;
- 	unsigned int npages;
--	int max_order;
-+	int max_order = MAX_ORDER;
-+	unsigned int max_segment;
- 	gfp_t gfp;
- 
--	max_order = MAX_ORDER;
--#ifdef CONFIG_SWIOTLB
--	if (is_swiotlb_active(obj->base.dev->dev)) {
--		unsigned int max_segment;
--
--		max_segment = swiotlb_max_segment();
--		if (max_segment) {
--			max_segment = max_t(unsigned int, max_segment,
--					    PAGE_SIZE) >> PAGE_SHIFT;
--			max_order = min(max_order, ilog2(max_segment));
--		}
--	}
--#endif
-+	max_segment = i915_sg_segment_size(i915->drm.dev) >> PAGE_SHIFT;
-+	max_order = min(max_order, get_order(max_segment));
- 
- 	gfp = GFP_KERNEL | __GFP_HIGHMEM | __GFP_RECLAIMABLE;
- 	if (IS_I965GM(i915) || IS_I965G(i915)) {
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index f42ca1179f373..11125c32dd35d 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -194,7 +194,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
- 	struct intel_memory_region *mem = obj->mm.region;
- 	struct address_space *mapping = obj->base.filp->f_mapping;
- 	const unsigned long page_count = obj->base.size / PAGE_SIZE;
--	unsigned int max_segment = i915_sg_segment_size();
-+	unsigned int max_segment = i915_sg_segment_size(i915->drm.dev);
- 	struct sg_table *st;
- 	struct sgt_iter sgt_iter;
- 	struct page *page;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index e3fc38dd5db04..de5d0a7241027 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -189,7 +189,7 @@ static int i915_ttm_tt_shmem_populate(struct ttm_device *bdev,
- 	struct drm_i915_private *i915 = container_of(bdev, typeof(*i915), bdev);
- 	struct intel_memory_region *mr = i915->mm.regions[INTEL_MEMORY_SYSTEM];
- 	struct i915_ttm_tt *i915_tt = container_of(ttm, typeof(*i915_tt), ttm);
--	const unsigned int max_segment = i915_sg_segment_size();
-+	const unsigned int max_segment = i915_sg_segment_size(i915->drm.dev);
- 	const size_t size = (size_t)ttm->num_pages << PAGE_SHIFT;
- 	struct file *filp = i915_tt->filp;
- 	struct sgt_iter sgt_iter;
-@@ -538,7 +538,7 @@ static struct i915_refct_sgt *i915_ttm_tt_get_st(struct ttm_tt *ttm)
- 	ret = sg_alloc_table_from_pages_segment(st,
- 			ttm->pages, ttm->num_pages,
- 			0, (unsigned long)ttm->num_pages << PAGE_SHIFT,
--			i915_sg_segment_size(), GFP_KERNEL);
-+			i915_sg_segment_size(i915_tt->dev), GFP_KERNEL);
- 	if (ret) {
- 		st->sgl = NULL;
- 		return ERR_PTR(ret);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-index 8423df021b713..e4515d6acd43c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-@@ -129,7 +129,7 @@ static void i915_gem_object_userptr_drop_ref(struct drm_i915_gem_object *obj)
- static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
- {
- 	const unsigned long num_pages = obj->base.size >> PAGE_SHIFT;
--	unsigned int max_segment = i915_sg_segment_size();
-+	unsigned int max_segment = i915_sg_segment_size(obj->base.dev->dev);
- 	struct sg_table *st;
- 	unsigned int sg_page_sizes;
- 	struct page **pvec;
-diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
-index 9ddb3e743a3e5..c278888f71528 100644
---- a/drivers/gpu/drm/i915/i915_scatterlist.h
-+++ b/drivers/gpu/drm/i915/i915_scatterlist.h
-@@ -9,7 +9,8 @@
- 
- #include <linux/pfn.h>
- #include <linux/scatterlist.h>
--#include <linux/swiotlb.h>
-+#include <linux/dma-mapping.h>
-+#include <xen/xen.h>
- 
- #include "i915_gem.h"
- 
-@@ -127,19 +128,22 @@ static inline unsigned int i915_sg_dma_sizes(struct scatterlist *sg)
- 	return page_sizes;
- }
- 
--static inline unsigned int i915_sg_segment_size(void)
-+static inline unsigned int i915_sg_segment_size(struct device *dev)
- {
--	unsigned int size = swiotlb_max_segment();
--
--	if (size == 0)
--		size = UINT_MAX;
--
--	size = rounddown(size, PAGE_SIZE);
--	/* swiotlb_max_segment_size can return 1 byte when it means one page. */
--	if (size < PAGE_SIZE)
--		size = PAGE_SIZE;
--
--	return size;
-+	size_t max = min_t(size_t, UINT_MAX, dma_max_mapping_size(dev));
-+
-+	/*
-+	 * Xen on x86 can reshuffle pages under us.  The DMA API takes
-+	 * care of that both in dma_alloc_* (by calling into the hypervisor
-+	 * to make the pages contigous) and in dma_map_* (by bounce buffering).
-+	 * But i915 abuses ignores the coherency aspects of the DMA API and
-+	 * thus can't cope with bounce buffering actually happening, so add
-+	 * a hack here to force small allocations and mapping when running on
-+	 * Xen.  (good luck with TDX, btw --hch)
-+	 */
-+	if (IS_ENABLED(CONFIG_X86) && xen_domain())
-+		max = PAGE_SIZE;
-+	return round_down(max, PAGE_SIZE);
- }
- 
- bool i915_sg_trim(struct sg_table *orig_st);
 -- 
-2.30.2
-
+Julien Grall
 
