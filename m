@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A7E602EE9
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 16:54:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.425078.672854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4912602EEC
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 16:55:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.425083.672864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oknyc-000426-QP; Tue, 18 Oct 2022 14:53:54 +0000
+	id 1oknza-0004ae-4t; Tue, 18 Oct 2022 14:54:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 425078.672854; Tue, 18 Oct 2022 14:53:54 +0000
+Received: by outflank-mailman (output) from mailman id 425083.672864; Tue, 18 Oct 2022 14:54:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oknyc-0003zT-Nl; Tue, 18 Oct 2022 14:53:54 +0000
-Received: by outflank-mailman (input) for mailman id 425078;
- Tue, 18 Oct 2022 14:53:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oknza-0004Xz-1q; Tue, 18 Oct 2022 14:54:54 +0000
+Received: by outflank-mailman (input) for mailman id 425083;
+ Tue, 18 Oct 2022 14:54:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4KBa=2T=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oknyb-0003zM-Ac
- for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 14:53:53 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id adccab35-4ef4-11ed-8fd0-01056ac49cbb;
- Tue, 18 Oct 2022 16:53:51 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6762521883;
- Tue, 18 Oct 2022 14:53:51 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E093713480;
- Tue, 18 Oct 2022 14:53:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mDKRNf69TmMFUAAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 18 Oct 2022 14:53:50 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oknzY-0004Xj-IB; Tue, 18 Oct 2022 14:54:52 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oknzY-0003Wq-Fa; Tue, 18 Oct 2022 14:54:52 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oknzX-0006LJ-VM; Tue, 18 Oct 2022 14:54:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oknzX-000544-Ui; Tue, 18 Oct 2022 14:54:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,187 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adccab35-4ef4-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1666104831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bF3DrP31+GvB7zHSheslhxfSA2LjZWK4h34WoFWlWag=;
-	b=uhEmpL+LqowFZpMis7rdL+XyM6ZyRWbZkXDYzYHWmF2taWuaLa2ZLBJo3GVuQiN6nQgV+b
-	gd2k8uQWaCXYnJnPs19QlmYM7s+Qd53ecAQ5kSiVCAhSmoYvEh1yx8wuzMGdyGn2ZHwnQp
-	3farCF8MEbGro7jEb0RxubTSemck+zo=
-Message-ID: <e0448dac-a35e-cfd0-c087-411558512b5e@suse.com>
-Date: Tue, 18 Oct 2022 16:53:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9KEBzG/hmhfOWVpSR0z1NP1vctIv5i67cYcogdHktxY=; b=4JRaBrAMzyaMXQWdiDlz4G5ow1
+	1TX7Uzod0nV6/ozIrpIiQdP1VX2rI+KfrCsAaAqBlebFipsvFel6TuQglKHD9LXsF5YEjnIolyqWx
+	bUh0jepQb47iEr8LTUYHhEcyZyp6B2VkKGa7y8rKM0+kd5yDaHykEHcRNCDx0HifoAog=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174034-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: i915 "GPU HANG", bisected to a2daa27c0c61 "swiotlb: simplify
- swiotlb_max_segment"
-To: Christoph Hellwig <hch@lst.de>, Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- regressions@lists.linux.dev, xen-devel@lists.xenproject.org,
- iommu@lists.linux.dev, Robert Beckett <bob.beckett@collabora.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <20221018082413.GA25785@lst.de>
- <a5966644-72d7-4b25-83d1-9765d0593e44@suse.com>
- <20221018110243.GA4655@lst.de>
- <d67ceabb-b31a-59e6-fc77-8d6c48b277f2@suse.com>
- <20221018143320.GA19106@lst.de>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20221018143320.GA19106@lst.de>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------dc3TknTbH6vDjCxs96kqh3VL"
+Subject: [linux-linus test] 174034: regressions - trouble: blocked/fail/pass/starved
+X-Osstest-Failures:
+    linux-linus:build-arm64-pvops:kernel-build:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    linux=bb1a1146467ad812bb65440696df0782e2bc63c8
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 18 Oct 2022 14:54:51 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------dc3TknTbH6vDjCxs96kqh3VL
-Content-Type: multipart/mixed; boundary="------------Kgg0bGLcOQl0evOUdHqCwYPG";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Christoph Hellwig <hch@lst.de>, Jan Beulich <jbeulich@suse.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- regressions@lists.linux.dev, xen-devel@lists.xenproject.org,
- iommu@lists.linux.dev, Robert Beckett <bob.beckett@collabora.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-Message-ID: <e0448dac-a35e-cfd0-c087-411558512b5e@suse.com>
-Subject: Re: i915 "GPU HANG", bisected to a2daa27c0c61 "swiotlb: simplify
- swiotlb_max_segment"
-References: <20221018082413.GA25785@lst.de>
- <a5966644-72d7-4b25-83d1-9765d0593e44@suse.com>
- <20221018110243.GA4655@lst.de>
- <d67ceabb-b31a-59e6-fc77-8d6c48b277f2@suse.com>
- <20221018143320.GA19106@lst.de>
-In-Reply-To: <20221018143320.GA19106@lst.de>
+flight 174034 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174034/
 
---------------Kgg0bGLcOQl0evOUdHqCwYPG
-Content-Type: multipart/mixed; boundary="------------HP4PX2rd4ybSjA8vplorqVEm"
+Regressions :-(
 
---------------HP4PX2rd4ybSjA8vplorqVEm
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-pvops             6 kernel-build             fail REGR. vs. 173462
 
-T24gMTguMTAuMjIgMTY6MzMsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOg0KPiBPbiBUdWUs
-IE9jdCAxOCwgMjAyMiBhdCAwNDoyMTo0M1BNICswMjAwLCBKYW4gQmV1bGljaCB3cm90ZToN
-Cj4+IExlYXZpbmcgdGhlICJpOTE1IGFidXNlcyIgcGFydCBhc2lkZSAoYmVjYXVzZSBJIGNh
-bid0IHRlbGwgd2hhdCBleGFjdGx5IHRoZQ0KPj4gYWJ1c2UgaXMpLCBidXQgYXNzdW1pbmcg
-dGhhdCAiY2FuJ3QgY29wZSB3aXRoIGJvdW5jZSBidWZmZXJpbmciIG1lYW5zIHRoZXkNCj4+
-IGRvbid0IGFjdHVhbGx5IHVzZSB0aGUgYWxsb2NhdGVkIGJ1ZmZlcnMsIEknZCBzdWdnZXN0
-IHRoaXM6DQo+IA0KPiBFeGNlcHQgZm9yIG9uZSBvZGQgcGxhY2UgaTkxNSBuZXZlciB1c2Vz
-IGRtYV9hbGxvY18qIGJ1dCBhbHdheXMgYWxsb2NhdGVzDQo+IG1lbW9yeSBpdHNlbGYgYW5k
-IHRoZW4gbWFwcyBpdCwgYnV0IHRoZW4gdHJlYXRzIGl0IGFzIGlmIGl0IHdhcyBhDQo+IGRt
-YV9hbGxvY19jb2hlcmVudCBhbGxvY2F0aW9ucywgdGhhdCBpcyBuZXZlciBkb2VzIG93bmVy
-c2hpcCBjaGFuZ2VzLg0KPiANCj4+IEkndmUgZHJvcHBlZCB0aGUgVERYIHJlbGF0ZWQgcmVt
-YXJrIGJlY2F1c2UgSSBkb24ndCB0aGluayBpdCdzIG1lYW5pbmdmdWwNCj4+IGZvciBQViBn
-dWVzdHMuDQo+IA0KPiBUaGlzIHJlbWFyayBpcyBmb3IgVERYIGluIGdlbmVyYWwsIG5vdCBY
-ZW4gcmVsYXRlZC4gIFdpdGggVERYIGFuZCBvdGhlcg0KPiBjb25maWRlbnRhdGlhbCBjb21w
-dXRpbmcgc2NoZW1lcywgYWxsIERNQSBtdXN0IGJlIGJvdW5jZSBidWZmZXJlZCwgYW5kDQo+
-IGFsbCBkcml2ZXJzIHNraXBwaW5nIGRtYV9zeW5jKiBjYWxscyBhcmUgYnJva2VuLg0KPiAN
-Cj4+IE90b2ggSSd2ZSBsZWZ0IHRoZSAiYWJ1c2VzIGlnbm9yZXMiIHdvcmQgc2VxdWVuY2Ug
-YXMgaXMsIG5vDQo+PiBtYXR0ZXIgdGhhdCBpdCByZWFkcyBvZGQgdG8gbWUuIFBsdXMsIGFz
-IGhpbnRlZCBhdCBiZWZvcmUsIEknbSBub3QNCj4+IGNvbnZpbmNlZCB0aGUgSVNfRU5BQkxF
-RCgpIHVzZSBpcyBhY3R1YWxseSBuZWNlc3Nhcnkgb3Igd2FycmFudGVkIGhlcmUuDQo+IA0K
-PiBJZiB3ZSBkb24ndCBuZWVkIHRoZSBJU19FTkFCTEVEIGlzIG5vdCBuZWVkZWQgSSdtIGFs
-bCBmb3IgZHJvcHBpbmcgaXQuDQo+IEJ1dCB1bmxlc3MgSSBtaXNyZWFkIHRoZSBjb2RlLCBv
-biBhcm0vYXJtNjQgZXZlbiBQViBndWVzdHMgYXJlIDE6MQ0KPiBtYXBwZWQgc28gdGhhdCBh
-bGwgTGludXggcGh5c2ljYWxseSBjb250aWdvdXMgbWVtb3J5IGFsc28gaXMgWGVuDQo+IGNv
-bnRpZ291cywgc28gd2UgZG9uJ3QgbmVlZCB0aGUgaGFjay4NCg0KVGhlcmUgYXJlIG5vIFBW
-IGd1ZXN0cyBvbiBhcm0vYXJtNjQuDQoNCg0KSnVlcmdlbg0K
---------------HP4PX2rd4ybSjA8vplorqVEm
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-examine      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+version targeted for testing:
+ linux                bb1a1146467ad812bb65440696df0782e2bc63c8
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Last test of basis   173462  2022-10-07 18:41:45 Z   10 days
+Failing since        173470  2022-10-08 06:21:34 Z   10 days   19 attempts
+Testing same since   174034  2022-10-18 04:15:50 Z    0 days    1 attempts
 
---------------HP4PX2rd4ybSjA8vplorqVEm--
+------------------------------------------------------------
+1277 people touched revisions under test,
+not listing them all
 
---------------Kgg0bGLcOQl0evOUdHqCwYPG--
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            fail    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  starved 
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     starved 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      starved 
 
---------------dc3TknTbH6vDjCxs96kqh3VL
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNOvf4FAwAAAAAACgkQsN6d1ii/Ey+9
-8Qf+JxxMZEdEGyEjsJpPt47ZJcyUfuvyHf4WDR8qZjfA5REOBj3vzoCPls41mnZKRxb+Q3Hm+aZp
-UG0JJKo8XA9PiqrI87WOza8ogApFg0Cfizhyuw7V5a/HJGuGmGbsgRhphQLhpVXi7HODv1qc2iPL
-NIxi93tZAYo3lI2mCp2H8FV/okYkz8gtiaOtaP9KciQJV7ccttWIVVVD5PCkBgqRyu0Ko/L6F24C
-AD/db7b/Dv8oc/pbAf/0vfUa/zaoFLzOt442UfIcKgYB3TtX3yGTRdJbWGL4OSo91oTlKzCBR+oM
-bMJYClYr1+UbHfeGeGkLHwb9KBuOs65u79bb1Uudkg==
-=qg+p
------END PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---------------dc3TknTbH6vDjCxs96kqh3VL--
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 120462 lines long.)
 
