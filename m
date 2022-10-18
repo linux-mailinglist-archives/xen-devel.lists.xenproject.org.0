@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C96F9602A01
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 13:17:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424866.672613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B94602A8D
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 13:51:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424943.672661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okkb7-0002qE-IX; Tue, 18 Oct 2022 11:17:25 +0000
+	id 1okl7g-0000mu-T2; Tue, 18 Oct 2022 11:51:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424866.672613; Tue, 18 Oct 2022 11:17:25 +0000
+Received: by outflank-mailman (output) from mailman id 424943.672661; Tue, 18 Oct 2022 11:51:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okkb7-0002ni-Fc; Tue, 18 Oct 2022 11:17:25 +0000
-Received: by outflank-mailman (input) for mailman id 424866;
- Tue, 18 Oct 2022 11:17:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1okl7g-0000kv-PN; Tue, 18 Oct 2022 11:51:04 +0000
+Received: by outflank-mailman (input) for mailman id 424943;
+ Tue, 18 Oct 2022 11:51:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xNhK=2T=arm.com=andre.przywara@srs-se1.protection.inumbo.net>)
- id 1okkb6-0002nb-58
- for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 11:17:24 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 6f4a4ab0-4ed6-11ed-8fd0-01056ac49cbb;
- Tue, 18 Oct 2022 13:17:22 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 54DFA113E;
- Tue, 18 Oct 2022 04:17:27 -0700 (PDT)
-Received: from donnerap.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5D5633F7D8;
- Tue, 18 Oct 2022 04:17:19 -0700 (PDT)
+ <SRS0=j5CF=2T=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1okl7f-0000jl-Dw
+ for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 11:51:03 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 23e051bc-4edb-11ed-91b4-6bf2151ebd3b;
+ Tue, 18 Oct 2022 13:51:02 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id w18so31510319ejq.11
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Oct 2022 04:51:02 -0700 (PDT)
+Received: from [192.168.1.93] (adsl-214.109.242.138.tellas.gr.
+ [109.242.138.214]) by smtp.gmail.com with ESMTPSA id
+ e2-20020a170906314200b00730df07629fsm7590326eje.174.2022.10.18.04.51.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Oct 2022 04:51:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,130 +44,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f4a4ab0-4ed6-11ed-8fd0-01056ac49cbb
-Date: Tue, 18 Oct 2022 12:17:06 +0100
-From: Andre Przywara <andre.przywara@arm.com>
-To: Ayan Kumar Halder <ayankuma@amd.com>
-Cc: marc.zyngier@arm.com, eric.auger@redhat.com, james.morse@arm.com,
- alexandru.elisei@arm.com, suzuki.poulose@arm.com, catalin.marinas@arm.com,
- will@kernel.org, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.cs.columbia.ed, Julien Grall <julien@xen.org>,
- "stefanos@xilinx.com" <stefanos@xilinx.com>, Bertrand Marquis
- <Bertrand.Marquis@arm.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Subject: Re: Need guidance regarding emulation of GICR_PENDBASER and
- GICR_PROPBASER registers on Aarch32
-Message-ID: <20221018121706.6bd88dd1@donnerap.cambridge.arm.com>
-In-Reply-To: <b4d413eb-2956-b167-323f-31d82da737dd@amd.com>
-References: <b4d413eb-2956-b167-323f-31d82da737dd@amd.com>
-Organization: ARM
-X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.32; aarch64-unknown-linux-gnu)
+X-Inumbo-ID: 23e051bc-4edb-11ed-91b4-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mZqYEXNeeyCRWnmLXFa73tj9RFkXn2K6wtJKVYhXjuw=;
+        b=XDObaZs8RqivC0M2f4zsL2Y/MJKwgDZM0wmACDD5d4CHcSzul7QEJCbfMlnPAFRUJb
+         OwEIqfLEWhk+Q36taCWdilweCqKU/kNW6t8YT6EbpWRCVfSrCWcE4ipBV0GBOekV0HrO
+         C4n3LNe58T9OEi/UUUwpASVKjMuJzUkZMF2QmR3Z7EfQ+o3pQLurHIfxgryHGAL+nmhA
+         MEORY6Besa/i3o5RwXIkENyAuUay4+M4NW8uti18m3FF4e8vq7usJKOpbnb/UPjC9vY0
+         r5vyVU25EiATNJPscUxiDrbeL8t8xglblupoc/LwLoSN1UaRq1E5zis27TI+cc0NFo9U
+         esrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mZqYEXNeeyCRWnmLXFa73tj9RFkXn2K6wtJKVYhXjuw=;
+        b=n9AD6eubwdIo71/CdAMCVY7KrBdjjTENB5/g6c+c6OgHmNrni0LLu6lZkyNL/9Yocn
+         UwpomDwUsTeOLZtVwSpN7OXaYixXR5kJUZq37e1ihxbY5UKI/76ToSF3+1VvLFqqqhrw
+         OH9clWn1U+5lSC0IJ4fSF4rGaQVwbrFU6TEzmhkk3tl3g+KwZbqgAtnssnAO4gMLwS6t
+         BGtO8ruUwbjHK7v4LBVdMDrytPTTrxf1ApMiABlp1VF2F756/4EE23/EhxUqY77JjgCO
+         SZvFdbn5Me1eSs0HHgJZVew8Guq/djco23yuo1lmjvQvKwB52g4nF5MNKk4b20VaFWjN
+         cVPw==
+X-Gm-Message-State: ACrzQf38l4cDcfAuWzO20rqzUN550und1dFu50sIXn3kUIKZNit8q/ob
+	VuQcsaixEFblNBDM7RgiJ2w=
+X-Google-Smtp-Source: AMsMyM4A41SEvGlHEQv3ljC0LoiDOH/miep9IJe79rbMqB4a1n9C/c+cG1Z8SoUpVB7oTdlmUa54AA==
+X-Received: by 2002:a17:906:9bc3:b0:78d:816f:3743 with SMTP id de3-20020a1709069bc300b0078d816f3743mr2106835ejc.380.1666093862269;
+        Tue, 18 Oct 2022 04:51:02 -0700 (PDT)
+Message-ID: <95183fbb-f578-4c87-a875-a1cf0437e7c0@gmail.com>
+Date: Tue, 18 Oct 2022 14:51:00 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] xen/arm: p2m: fix pa_range_info for 52-bit pa range
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20221017173209.236781-1-burzalodowa@gmail.com>
+ <ddef5ab7-c217-546d-0e5d-294465a49586@amd.com>
+ <65b46c0e-3499-ce6c-dcd6-76c506115c6e@gmail.com>
+ <fbc42d87-e96f-3343-cc63-a14564549c02@xen.org>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <fbc42d87-e96f-3343-cc63-a14564549c02@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, 18 Oct 2022 11:38:00 +0100
-Ayan Kumar Halder <ayankuma@amd.com> wrote:
 
-Hi Ayan,
+On 10/18/22 13:56, Julien Grall wrote:
 
-> Greetings. I am trying to port Xen on Cortex-R52.
+Hi Julien,
 
-Oh dear, my condolences.
+> Hi Xenia,
+> 
+> On 18/10/2022 11:27, Xenia Ragiadakou wrote:
+>> On 10/18/22 12:02, Michal Orzel wrote:
+>>
+>> Hi Michal,
+>>
+>>> Hi Xenia,
+>>>
+>>> On 17/10/2022 19:32, Xenia Ragiadakou wrote:
+>>>>
+>>>>
+>>>> Currently the pa_range_info for the 52-bit pa range advertizes that the
+>>>> p2m root table consists of 8 concatenated tables at level 3, which does
+>>>> not make much sense.
+>>> I think the current code advertises 8 concatenated tables at level -1 
+>>> (sl0=3 -> root_level=-1)
+>>> which is obviously incorrect, but the commit msg should be updated.
+>>
+>> I did the same mistake in my email but I did not want to hijack the 
+>> thread that 's why I did not come back to correct my error.
+>> According to the manual, to support 52-bit pa range with 4KB granule 
+>> with the root table at level -1, you need to set SL2=1 and SL0=0.
+>> SL0=3 configures the root table at level 3.
+> 
+> Which section are you reading? Looking at the definition of VTCR_EL2.SL0 
+> (D17-6375, ARM DDI 0487I.a), the field has different meaning depending 
+> on whether the feature TTST (Small translation table) is present.
+> 
+> SL0 would be reserved when TTST is not present. That said, it looks like 
+> LPA requires TTST.
 
-> I am trying to understand whether GICR_PENDBASER and GICR_PROPBASER=20
-> exist on Aarch32 platform.
+I 'm referring to the table Table D8-12 "4KB granule, determining stage 
+2 initial lookup level" (D8-5103, ARM DDI 0487I.a).
+With 4KB granule, for having the root table at level 3, TTST is 
+required, yes.
 
-Those are GIC MMIO registers, so they exist regardless of which instruction
-set the CPU is using. There is really nothing architecture wise that would
-restrict access.
+> 
+>>
+>>> Funnily enough p2m_root_level is unsigned so it would lead to overflow
+> 
+> Did you mean underflow rather than overflow?
+> 
+>>> (p2m_root_level would end up with (1 << 32) - 1 instead of -1).
+>>
+>> Actually, currently, there is no support at all in XEN neither for LPA 
+>> (LPA support for 4KB is not checked, VCTR DS and SL2 are not set etc) 
+>> nor level -1 (the root table level is determined only based on sl0, 
+>> the number of possible levels is hardcoded to 4 in many places etc). I 
+>> don't think that there is even support for accessing other than the 
+>> first table of concatenated root tables but I need to verify that (I 
+>> assume this based on the way LPAE_TABLE_INDEX_GS is implemented).
+> 
+> I am not sure I understand this. Are you saying that concatenation can 
+> be used for non-root table?
 
-> Looking at the definition of the registers in "Arm IHI ID020922", (from=20
-> my understanding) it seems the registers can be accessed in 64bit mode on=
-ly.
+No, the contrary. I cannot see how it can work out of the box given the 
+current implementation. Because the mask applied to get the table index 
+is limited to the size of a single table.
 
-Not really, the GIC spec says that those registers are 64-bit registers.
-What that means is explained in section "12.1.3 GIC memory-mapped
-register access", of particular interest is the paragraph starting with:
-"In addition, in system where one or more PE supports AArch32: ...."
+> 
+>>
+>> This entry is populated in the pa_range_info table just to prevent XEN 
+>> from falling into this
+>> if ( pa_range >= ARRAY_SIZE(pa_range_info) || 
+>> !pa_range_info[pa_range].pabits )
+>>          panic("Unknown encoding of ID_AA64MMFR0_EL1.PARange %x\n", 
+>> pa_range);
+> 
+> I think it would be worth to point out in the commit message that the 
+> value is not used so far. So this is only update for correctness.
 
-> Please confirm if my understanding is correct or not.
->=20
-> This seems unlike GICR_TYPER which might be accessed as two 32 bit=20
-> registers. The reason being the upper 32bits represent affinity and the=20
-> lower 32 bits represent everything else.
+Sure.
+Do I need a Fixes tag even though the previous code, effectively, was 
+not breaking anything?
 
-There is really not much difference access-wise between TYPER and BASER.
-You can always access them as two words, and this is the recommended way
-to do so on AArch32, or actually in both ISAs. Check out Jean-Philippe's
-comment here:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arc=
-h/arm/include/asm/arch_gicv3.h#n135
+> 
+> Cheers,
+> 
 
-In particular the BASE registers don't require atomic accesses, since they
-only become effective later on, as it's not allowed to write to them when
-LPIs are enabled. So there is no problem in updating the upper and lower
-half in separate steps.
-
-> If GICR_PENDBASER and GICR_PROPBASER are accessible in 64 bit mode only,=
-=20
-> then we Xen can't emulate them on Aarch32 as ISS is invalid (for ldrd,=20
-> strd instructions).
-
-If the guest is accessing them using ldrd/strd (which is architecturally
-valid, but not easily virtualisable), then you cannot do anything about
-it, and would need to change the guest to not do so. See above what Linux
-does: always access them in two chunks, so it works everywhere.
-
-Cheers,
-Andre
-
-> However, looking at the following commit in kernel, I am a bit confused.
->=20
-> commit 0aa1de57319c4e023187aca0d59dd593a96459a8
-> Author: Andre Przywara <andre.przywara@arm.com>
-> Date:=C2=A0=C2=A0 Fri Jul 15 12:43:29 2016 +0100
->=20
->  =C2=A0=C2=A0=C2=A0 KVM: arm64: vgic: Handle ITS related GICv3 redistribu=
-tor registers
->=20
->  =C2=A0=C2=A0=C2=A0 In the GICv3 redistributor there are the PENDBASER an=
-d PROPBASER
->  =C2=A0=C2=A0=C2=A0 registers which we did not emulate so far, as they on=
-ly make sense
->  =C2=A0=C2=A0=C2=A0 when having an ITS. In preparation for that emulate t=
-hose MMIO
->  =C2=A0=C2=A0=C2=A0 accesses by storing the 64-bit data written into it i=
-nto a variable
->  =C2=A0=C2=A0=C2=A0 which we later read in the ITS emulation.
->  =C2=A0=C2=A0=C2=A0 We also sanitise the registers, making sure RES0 regi=
-ons are respected
->  =C2=A0=C2=A0=C2=A0 and checking for valid memory attributes.
->=20
-> <<<<< code >>>
-> REGISTER_DESC_WITH_LENGTH(GICR_PROPBASER,
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 vgic_mmio_read_propbase, vgic_mmio_write_propbase, 8,
->  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
->  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REGISTER_DESC_WITH_LENGTH(GIC=
-R_PENDBASER,
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 vgic_mmio_read_raz, vgic_mmio_write_wi, 8,
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 vgic_mmio_read_pendbase, vgic_mmio_write_pendbase, 8,
->  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 VGIC_ACCESS_64bit | VGIC_ACCESS_32bit),
-> <<<< code >>>>
->=20
-> The register regions are defined in arch/arm64/kvm/vgic/vgic-mmio-v3.c=20
-> and the registers seem accessible in both 64 bit and 32 bit modes.
-> Please let me know if GICR_PENDBASER and GICR_PROPBASER are accessible=20
-> in 32 bit mode.
->=20
-> Kind regards,
-> Ayan
-
+-- 
+Xenia
 
