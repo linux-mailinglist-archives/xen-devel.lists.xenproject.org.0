@@ -2,55 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9997A6027D1
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 11:02:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.424807.672515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB5A602848
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Oct 2022 11:25:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.424813.672526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okiUW-0001NU-W1; Tue, 18 Oct 2022 09:02:28 +0000
+	id 1okiqK-0003x6-Ot; Tue, 18 Oct 2022 09:25:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 424807.672515; Tue, 18 Oct 2022 09:02:28 +0000
+Received: by outflank-mailman (output) from mailman id 424813.672526; Tue, 18 Oct 2022 09:25:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1okiUW-0001Kx-SO; Tue, 18 Oct 2022 09:02:28 +0000
-Received: by outflank-mailman (input) for mailman id 424807;
- Tue, 18 Oct 2022 09:02:27 +0000
+	id 1okiqK-0003u4-Lm; Tue, 18 Oct 2022 09:25:00 +0000
+Received: by outflank-mailman (input) for mailman id 424813;
+ Tue, 18 Oct 2022 09:24:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=im79=2T=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1okiUV-0001Kr-GS
- for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 09:02:27 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on2062.outbound.protection.outlook.com [40.107.212.62])
+ <SRS0=SMRC=2T=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1okiqI-0003ty-Pf
+ for xen-devel@lists.xenproject.org; Tue, 18 Oct 2022 09:24:58 +0000
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [2607:f8b0:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9511a59c-4ec3-11ed-91b4-6bf2151ebd3b;
- Tue, 18 Oct 2022 11:02:25 +0200 (CEST)
-Received: from BN9P223CA0007.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::12)
- by PH7PR12MB5710.namprd12.prod.outlook.com (2603:10b6:510:1e1::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.33; Tue, 18 Oct
- 2022 09:02:22 +0000
-Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10b:cafe::6e) by BN9P223CA0007.outlook.office365.com
- (2603:10b6:408:10b::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.30 via Frontend
- Transport; Tue, 18 Oct 2022 09:02:22 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5723.20 via Frontend Transport; Tue, 18 Oct 2022 09:02:22 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 18 Oct
- 2022 04:02:21 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 18 Oct
- 2022 02:02:21 -0700
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Tue, 18 Oct 2022 04:02:20 -0500
+ id baefeda8-4ec6-11ed-91b4-6bf2151ebd3b;
+ Tue, 18 Oct 2022 11:24:57 +0200 (CEST)
+Received: by mail-pf1-x434.google.com with SMTP id y1so13546467pfr.3
+ for <xen-devel@lists.xenproject.org>; Tue, 18 Oct 2022 02:24:57 -0700 (PDT)
+Received: from leoy-yangtze.lan (211-75-219-199.hinet-ip.hinet.net.
+ [211.75.219.199]) by smtp.gmail.com with ESMTPSA id
+ x184-20020a6286c1000000b005622f99579esm8751955pfd.160.2022.10.18.02.24.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Oct 2022 02:24:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,91 +44,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9511a59c-4ec3-11ed-91b4-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SeS5ntB3Yqx4Gi3mTpCBFnn3Qu35kZcuY/3WHVfyl4VUTkl9wNsnY3KvLxY1KvZg7/t1lzKMwQdAy77Q5LcwD5/6RTtdMRMJOf8Rw/6l2teviLvr+adS86DBHDk0a7MtkZrFhkH27oWinaanQHnom63fBHNOaS0rQmK955uq790k7MLlTlNAVh1FJkUSHTju8BWoGqQPvDEFjbPFJ6WKRDeT1ceRp9s9aZprEjXd6Ia18/tJrCdplhrCXxoHCv2O3Nj5j2ZJ4n++VxvgUEy0mimcmVY/drDSqRY2zbdk0M1ABqjFY1OI9enBK1XTRjXqVKqSyHfQVzSvEtnKYIU+Rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LAhAc+OIAwUW2yecFHQOqlRgNQVA19hhoZ1LlxWHUxI=;
- b=Gaz0RsW6gbCsRIaIyuuHGAuXHCf4YXgxH+K8pqlAC/PfIqmtlbZODWWhIzZufR9+KZV57tAjuQ+aEG6EH3SrR/1ejyJ1TdllGhGGL0uCzz8TiwsHk5dielFwpIsrVFuiMTSWvSxau8/MlyxufH6Tf1teqN39NGmg37ojFsAut0g1bcxbZ1fxeQ9pagMY2uGbHt9IRigWPBDKOVXx8ogFIH637Tz9VTMCL+44RnbFdTwzKmEp0CbMHIe/t2yRNG84e8YAzniYiqw6ZMsICZ5ft2+2RKA9+zcon1e/3/twCs+Ej9SYVwNk2LgspoSj1cONr66AOuASTP6dMeU7K8wyfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LAhAc+OIAwUW2yecFHQOqlRgNQVA19hhoZ1LlxWHUxI=;
- b=arH+neiBZuWVxwr3vRsDxBRcec57+kGddZC9eOO5OSzASlLYwpKALdCZqSIA5CtXH34jFE/YZo+GB5jvqMEVrX6eXM5HmYEywvuMYR7Iik7tiOa2HooTL9pLwodyjbnWBtSMN7MQgEtxJhNieg1aAvgSiQ2IyKdaYTzdWHimuis=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <ddef5ab7-c217-546d-0e5d-294465a49586@amd.com>
-Date: Tue, 18 Oct 2022 11:02:19 +0200
+X-Inumbo-ID: baefeda8-4ec6-11ed-91b4-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=6vlRg12olj5JkM7jdQADHZUuCu+dv7eXSTEyPP63tuM=;
+        b=P1gfuj+vS2QDJxu1ooGWer4pVsrKmzCDHz9FHhxnOig9U7bz4XYkqeDAU+JIt/fsmD
+         sgJ9qKUBK4inEUw2EHMPjofAguOQ9njovgIHn2GzIecXKKN9dF43FwTTf+qIfIxVekO+
+         7hogsV51vdrqI1ndYpALp9CDNR+zes6Ny+3Vt+nn71KHyZsUFOD9bZFR476rXnqd9NG9
+         vvPfH+s+6vbAmpoYECVXV10XvPHn8nvM9odQP8fIaSa1N4ui5IHGsCXrQ6oG25K5hX5G
+         CSzTeR68486wubvX6JU4P/OE73TWH6asfcw+LJ4lYNMz0YTSSfQGb79o6vqHO1xJe6Om
+         /4TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6vlRg12olj5JkM7jdQADHZUuCu+dv7eXSTEyPP63tuM=;
+        b=z1am1uB7YBZ7z5euplaNpe5d4gaS2epPyxY915AW57L+524rGcykprLTitMnyeMVZx
+         T3BdJYWwBPLPlRC1c/bfQm6lIWd8FFzF0i7HfGHVse0C65697NK1CcIcfuNr9kmigVNQ
+         q0ZyQzXlo8b4oBamBq0oCNp8tStL0Qyfjew3qaNBpMDbOOIg17fdPkth7l+RTavGR0/F
+         pqV0MFk2msIQbZVMKCFPStWlHrn2qBe0/vQ18am8vffjep+jwXIyLyVVvyC6xmpyU14N
+         d9MfsdhJr9ux/Rq2Os0SwBqINNmOOUmoPnnUuyKiIk00+5g3lVNqAfLb1UKrv10KMSwq
+         yVrA==
+X-Gm-Message-State: ACrzQf2P+C8Wf5Supse6DB3h4RQjVxkGVAJnGilC0fWUj9Hm7bcTVwoz
+	iGk+owG2pDcv9VvPp5fFwQjQrw==
+X-Google-Smtp-Source: AMsMyM7+CwR43A4a9QUq23F8tIyu/URPeg4W1jVH9kqRk8M4nTYphS0xt93RZGLX0aKj56rShlBDfg==
+X-Received: by 2002:a05:6a00:1947:b0:565:c337:c53b with SMTP id s7-20020a056a00194700b00565c337c53bmr2299521pfk.10.1666085095708;
+        Tue, 18 Oct 2022 02:24:55 -0700 (PDT)
+Date: Tue, 18 Oct 2022 17:24:47 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen Develop <xen-devel@lists.xenproject.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>,
+	jgross@suse.com, oleksandr_tyshchenko@epam.com,
+	boris.ostrovsky@oracle.com, wei.liu@kernel.org, paul@xen.org
+Subject: Re: Issue: Networking performance in Xen VM on Arm64
+Message-ID: <Y05w36OAVyDJwCCr@leoy-yangtze.lan>
+References: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop>
+ <Y0VbQ3esM8gucmqQ@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210111434240.3690179@ubuntu-linux-20-04-desktop>
+ <Y00/SW5Ro+SlhoBU@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH] xen/arm: p2m: fix pa_range_info for 52-bit pa range
-Content-Language: en-US
-To: Xenia Ragiadakou <burzalodowa@gmail.com>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-References: <20221017173209.236781-1-burzalodowa@gmail.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20221017173209.236781-1-burzalodowa@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT012:EE_|PH7PR12MB5710:EE_
-X-MS-Office365-Filtering-Correlation-Id: 392cec2c-5011-4a6f-0041-08dab0e777e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Iw9YTYY58Zr2duAgCybCfKfJqcBGFsimEXejGxF/4eToWMdAQjDb6pHzWhe4sEBs1szOfup86E4ALP6ogJbLNJqL5Gxr8QyRvsEiDcT0vPMa22FFyBLgC3dVws0AXFAnQG2vdNTI3zVn0fRlbYtmOAt9l4TDhOkEr4KQJYPgLp9xU/898KtmOEs9rqSWCO56i+cm9UFuInMPwUIIdDgpoaTUfUjx3fyuX2iyt6ov3Ndk5PLmFRdzR1UWLPLSlA2+8uJTuNm9EEI8iGixzFPemle9b31dfn2nK6qD/nRwij0FsMhwe22L0ykVPix0qRVhxldfIL/z8Rhvsv2LvuObfzJar0jo0R4SYPkq2a5QqkEaCDNZiyjlVKXLlgIv+DnAC7SBACcfSzsbfiwu7cu4Y6YJWO80qi84oE/A6RgDutU+q50WwlRJbiSBN+rDQLgAS17nvc+xUWJM+CDnLIoM43ogkosJFFmAOuoFNmvaAQMui/FMeiYRCrPiCmr+y530z546MK6MwzhJJdCf7sieFJ6rljZcy3hSjZGP5eA/jckyrx26F0xQ4RBP0c+XoVTgH8zNxh0PgWikHFoMTQnVNOfLSY1zQ+TCsFu4yMCC6cjZ3DovhMMTPuPvwRHz23HxmVrnkgOp/TgQWAb/JueXaRkl4qzNOF9YRfUGCxckseafyGdzqXEcpRT32+paxXlEWjGEQMatTucx2OFSx6YxbruoEcJujfD+20+XA49eQ0dy/XOCgidXTb7eU9SDSMbYk792Jbyas6GjFMSVIfrlhcOZHiyD6x/ZWiECs9d+/ImiplilQnr1r7bKGuO0oMXQINtT1NSyAs8m0pDlFXnA2w==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(46966006)(36840700001)(40470700004)(31686004)(36860700001)(26005)(53546011)(82310400005)(8936002)(110136005)(40460700003)(2906002)(41300700001)(83380400001)(4326008)(478600001)(5660300002)(316002)(54906003)(16576012)(40480700001)(8676002)(36756003)(82740400003)(356005)(2616005)(426003)(336012)(47076005)(44832011)(70206006)(31696002)(70586007)(81166007)(4744005)(86362001)(186003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2022 09:02:22.1111
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 392cec2c-5011-4a6f-0041-08dab0e777e2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5710
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop>
 
-Hi Xenia,
+On Mon, Oct 17, 2022 at 04:50:05PM -0700, Stefano Stabellini wrote:
 
-On 17/10/2022 19:32, Xenia Ragiadakou wrote:
+[...]
+
+> > Which means it takes 543us to let Dom0 to receive the notification.
+> > You could see DomU runs in CPU3 and Dom0 runs on CPU13, there should
+> > not have contention for CPU resources.  Seems to me, it's likely Xen
+> > hypervisor takes long time to deliver the interrupt, note, it's not
+> > take so long time for every skb transferring, sometimes the time for
+> > response a notification is short (about ~10us).
 > 
+> Good find. I think this is worth investigating further. Do you have
+> vwfi=native in your Xen command line as well?
+
+Yes, I have added "sched=null" and "vwfi=native" into Xen options:
+
+options=noreboot dom0_mem=4096M bootscrub=0 iommu=on loglvl=error guest_loglvl=error sched=null vwfi=native
+
+> After that, I would add printk also in Xen with the timestamp. The event
+> channel notification code path is the following:
 > 
-> Currently the pa_range_info for the 52-bit pa range advertizes that the
-> p2m root table consists of 8 concatenated tables at level 3, which does
-> not make much sense.
-I think the current code advertises 8 concatenated tables at level -1 (sl0=3 -> root_level=-1)
-which is obviously incorrect, but the commit msg should be updated.
-Funnily enough p2m_root_level is unsigned so it would lead to overflow
-(p2m_root_level would end up with (1 << 32) - 1 instead of -1).
-
-> In order to support the 52-bit pa size with 4KB granule, the p2m root
-> table needs to be configured either as a single table at level -1 or
-> as 16 concatenated tables at level 0.
-> Since, currently there is not support for level -1, set the
-> root_order and sl0 fields of the corresponding pa_range_info according
-> to the second approach.
+> # domU side
+> xen/arch/arm/vgic-v2.c:vgic_v2_to_sgi
+> xen/arch/arm/vgic.c:vgic_to_sgi
+> xen/arch/arm/vgic.c:vgic_inject_irq
+> xen/arch/arm/vgic.c:vcpu_kick
+> xen/arch/arm/gic-v2.c:gicv2_send_SGI
 > 
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+> # dom0 side
+> xen/arch/arm/gic.c:do_sgi
+> xen/arch/arm/traps.c:leave_hypervisor_to_guest
+> 
+> It would be good to understand why sometimes it takes ~10us and some
+> other times it takes ~540us
 
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Thanks a lot for detailed info.
 
-~Michal
+Just note, in my platform DomU enables GICv3 driver rather than GICv2.
+This would be a bit different in the Xen code.  But it should be easy
+for me to map to vgic-v3 files.
 
+I have a question for how to trace Xen system.  Outputting chars to UART
+is time costy (usually it's millisecond level), it is not friendly to
+use console for debugging performance issue.  I searched a bit, either
+"xl dmesg" or xentrace can be used for capturing trace logs, one thing
+I am not certain is if we can save Xen logs only into log buffer and
+doesn't output to UART, so that afterwards we can use "xl dmesg" to
+capture the logs.  Could anyone confirm for this is correct usage with
+"xl dmesg" or I should use xentrace for this case?
+
+Thanks!
+
+Leo
 
