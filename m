@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A3AD605121
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 22:15:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.426019.674199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D276F605167
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 22:39:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.426027.674210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olFT3-0003Du-QO; Wed, 19 Oct 2022 20:15:09 +0000
+	id 1olFpo-0005nH-Ky; Wed, 19 Oct 2022 20:38:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 426019.674199; Wed, 19 Oct 2022 20:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 426027.674210; Wed, 19 Oct 2022 20:38:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olFT3-0003B3-N6; Wed, 19 Oct 2022 20:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 426019;
- Wed, 19 Oct 2022 20:15:07 +0000
+	id 1olFpo-0005kt-Hk; Wed, 19 Oct 2022 20:38:40 +0000
+Received: by outflank-mailman (input) for mailman id 426027;
+ Wed, 19 Oct 2022 20:38:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y3fJ=2U=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1olFT1-0003Ak-I1
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 20:15:07 +0000
-Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
- [2607:f8b0:4864:20::72e])
+ <SRS0=PkOC=2U=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1olFpn-0005kn-U4
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 20:38:40 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b8b65fa2-4fea-11ed-8fd0-01056ac49cbb;
- Wed, 19 Oct 2022 22:15:06 +0200 (CEST)
-Received: by mail-qk1-x72e.google.com with SMTP id b25so11496045qkk.7
- for <xen-devel@lists.xenproject.org>; Wed, 19 Oct 2022 13:15:06 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:ba27:ebff:fee8:ce27])
- by smtp.gmail.com with ESMTPSA id
- bj3-20020a05620a190300b006eeca296c00sm5813448qkb.104.2022.10.19.13.15.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Oct 2022 13:15:04 -0700 (PDT)
+ id 02851d08-4fee-11ed-8fd0-01056ac49cbb;
+ Wed, 19 Oct 2022 22:38:38 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 5F291B825C4;
+ Wed, 19 Oct 2022 20:38:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472F0C433C1;
+ Wed, 19 Oct 2022 20:38:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,104 +43,375 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8b65fa2-4fea-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=P6ehJmZtaKjHfWDooxLByyg7Qm8nO8821wCtlJKz2+4=;
-        b=TybltSlWY2qkowVbGkbhGUhl8GW5569umxbF7Wp6iG+ZXAuhuOylG8yjLXPo43vTZA
-         dAabbW135Irpmk/ZJVBz1w3a4szDvKd7Dqfim+MtPKw7HA6Q6rElVHH1UEeH+Bwq16qk
-         qtW6K4LiAVNCwVj+YAVZK2AVdn05XYfHM+5Zisi1UnbBb4mgqL/djqPx60S1WgFMFGxf
-         DT8E7ijLIq5TjewGJ6yZvF33qampqKD28bJPN/sHzTIgAu7pKWqfOL0WwZGdiC77iomF
-         uV6PwFQBRaOKse1ujXcu1EBwRjxIiPRbXDvBDCURMMUnwQne/kqKCqQ443yFSL/XonOU
-         vKcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=P6ehJmZtaKjHfWDooxLByyg7Qm8nO8821wCtlJKz2+4=;
-        b=3Gu1zmAcg+TC/DnDT1xaDcPtJuxcKvrCERVbmDtS2TuNFdxi4WTtScRIEeMemJrDQy
-         8qdSAEPXuJf7J4ZMmTzX4snKw/Z10sSLeq0psS4VYxJsZ5DCGt6BCqST1JCVbb0/e0Ef
-         uJprA01WYZPqgkwQ6UwmHZCRU353njhDCYrxVE2oN1g8TKG3cxuOqC2Yl4eXF1Fe6wYG
-         +nFu5sSL22LHFe5oOSVLf1L7tMgyY8oyVJ4Om1L2AzZtu0hNnoc5Po4mvoQOGyMbCAOH
-         VEm41L/yHFO7cI7etvvV3KFheoAfWjLtoUGT3n7t1MiYSEjnXyCNj6zslpgpIhlgRW5O
-         Z4SQ==
-X-Gm-Message-State: ACrzQf2DQH2vbGiMEM6zwfAFAqO5j1wDkDJ/pe1xC1l7f7qY/MI6+irU
-	rIr5D96lNdATskKHIok430TrToSYfCc=
-X-Google-Smtp-Source: AMsMyM4ZHmOVoj5agvIt9yLlHK+ps82y567FzoPncwvnc5+QX6N88fZlpsF0dCXNDa/n+eOBD4dBCg==
-X-Received: by 2002:a05:620a:3708:b0:6ee:d16f:b780 with SMTP id de8-20020a05620a370800b006eed16fb780mr6861107qkb.144.1666210505337;
-        Wed, 19 Oct 2022 13:15:05 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: xen-devel@lists.xenproject.org,
-	Jason Andryuk <jandryuk@gmail.com>,
-	Phillip Susi <phill@thesusis.net>,
-	stable@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Subject: [PATCH] Input: xen-kbdfront - drop keys to shrink modalias
-Date: Wed, 19 Oct 2022 16:14:57 -0400
-Message-Id: <20221019201458.21803-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.37.3
+X-Inumbo-ID: 02851d08-4fee-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1666211916;
+	bh=A/VeIiymKAD/CA/qi6EVdDQ9Ix/I6WbTZMy4WD/Zvdc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=SOl4GvBO0+9bc1cDDPss8etiIjqoxxxV2PTlQa/GUdtICkfpc+g/dKGA+WxssDsnj
+	 pEDjm3FNW15KrBof4o7ltUgybSljk3q/+uvEVXvOJRHCaYTCdvkLelMsT+ongQZwN4
+	 prwvyANRKaMawTPsqvNgeGQTm1+F+s/vAAPoHbN7CJLGU5woD/XqJmPJnLkK3OBIAl
+	 sfwV9eqHlzMQErykxsA5q1J8SJEftKymEYBPxdFA+xNpxqZNp09t2d7pQ4LQZGxOT3
+	 HTK7qdpwCMIdjrZdewcG3fxJgBWylcw4Z6ZJMstA0fq5kr100v/MoSrq+FSHUjERg3
+	 q5zqCOQrWMlOg==
+Date: Wed, 19 Oct 2022 13:38:33 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <olekstysh@gmail.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+    Juergen Gross <jgross@suse.com>, vikram.garhwal@amd.com
+Subject: Re: [PATCH] xen/virtio: Handle PCI devices which Host controller is
+ described in DT
+In-Reply-To: <af073c71-df43-4a5c-c67a-a9858678f588@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2210191314410.3873@ubuntu-linux-20-04-desktop>
+References: <20221006174804.2003029-1-olekstysh@gmail.com> <alpine.DEB.2.22.394.2210061747590.3690179@ubuntu-linux-20-04-desktop> <f98f9f44-20e9-af8d-8970-9f6241c8dc44@epam.com> <alpine.DEB.2.22.394.2210121733240.3690179@ubuntu-linux-20-04-desktop>
+ <16485bc9-0e2a-788a-93b8-453cc9ef0d3c@epam.com> <alpine.DEB.2.22.394.2210171323450.2351079@ubuntu-linux-20-04-desktop> <af073c71-df43-4a5c-c67a-a9858678f588@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-682290085-1666210582=:3873"
+Content-ID: <alpine.DEB.2.22.394.2210191316280.3873@ubuntu-linux-20-04-desktop>
 
-xen kbdfront registers itself as being able to deliver *any* key since
-it doesn't know what keys the backend may produce.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Unfortunately, the generated modalias gets too large and uevent creation
-fails with -ENOMEM.
+--8323329-682290085-1666210582=:3873
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2210191316281.3873@ubuntu-linux-20-04-desktop>
 
-This can lead to gdm not using the keyboard since there is no seat
-associated [1] and the debian installer crashing [2].
++ Vikram
 
-Trim the ranges of key capabilities by removing some BTN_* ranges.
-While doing this, some neighboring undefined ranges are removed to trim
-it further.
+On Wed, 19 Oct 2022, Oleksandr Tyshchenko wrote:
+> >> Regarding the virtio-mmio (platform) devices, yes, we could expose them
+> >> with status "disabled", and they won't get probed by default.
+> >> To be honest, I have experimented with that, when I was thinking of
+> >> possible hotplug for virtio-mmio devices (I know, this sounds uncommon
+> >> and strange).
+> >> I used Linux feature (CONFIG_OF_DYNAMIC, overlays) to update the
+> >> device-tree on running guest, so the toolstack initially inserts
+> >> virtio-mmio device nodes for non-boot devices
+> >> with status "disabled", and at the runtime, once we receive an event for
+> >> example, we change the status to "ok" and the corresponding virtio-mmio
+> >> device gets probed.
+> >> But again, it is not a 100% hotplug, as we need to pre-allocate memory
+> >> range and interrupt in advance (when generating guest device tree).
+> > Actually this is really cool! Does it work? It doesn't matter to me if
+> > the virtio devices are pci or mmio as long as we can solve the "wait"
+> > problem. So this could be a good solution.
+> 
+> 
+> ... yes, it does. Initially I experimented with virtio-mmio devices, but 
+> today I tried with PCI host bridge as well.
+> I won't describe the commands which I used to apply/remove device-tree 
+> overlays from the userspace as well as the context of
+> dtso files I created, I will describe how that could be done from the 
+> kernel by using existing functionality (CONFIG_OF_DYNAMIC).
+> 
+> As I said if we exposed the devices with status "disabled", they 
+> wouldn't get probed by default. Once we receive an signal
+> that otherend is ready, we change the status to "ok" and the 
+> corresponding device gets probed.
+> 
+> So below the test patch, which just change the status of the required 
+> device-tree node (as you can see the code to update the property is 
+> simple enough),
+> I hacked "xl sysrq" for the convenience of testing.
+> 
+> 
+> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+> index 045c1805b2d5..9683ce075bc9 100644
+> --- a/drivers/xen/grant-dma-ops.c
+> +++ b/drivers/xen/grant-dma-ops.c
+> @@ -10,6 +10,7 @@
+>   #include <linux/module.h>
+>   #include <linux/dma-map-ops.h>
+>   #include <linux/of.h>
+> +#include <linux/of_platform.h>
+>   #include <linux/pci.h>
+>   #include <linux/pfn.h>
+>   #include <linux/xarray.h>
+> @@ -379,6 +380,108 @@ bool xen_is_grant_dma_device(struct device *dev)
+>          return false;
+>   }
+> 
+> +/* TODO: Consider using statically allocated (struct property status) */
+> +static int xen_grant_dma_enable_device(struct device_node *np)
+> +{
+> +       struct property *status;
+> +
+> +       status = kzalloc(sizeof(*status), GFP_KERNEL);
+> +       if (!status)
+> +               return -ENOMEM;
+> +
+> +       status->name = kstrdup("status", GFP_KERNEL);
+> +       if (!status->name)
+> +               return -ENOMEM;
+> +
+> +       status->value = kstrdup("okay", GFP_KERNEL);
+> +       if (!status->value)
+> +               return -ENOMEM;
+> +
+> +       status->length = sizeof("okay");
+> +
+> +       return of_update_property(np, status);
+> +}
+> +
+> +static int xen_grant_dma_disable_device(struct device_node *np)
+> +{
+> +       struct property *status;
+> +
+> +       status = kzalloc(sizeof(*status), GFP_KERNEL);
+> +       if (!status)
+> +               return -ENOMEM;
+> +
+> +       status->name = kstrdup("status", GFP_KERNEL);
+> +       if (!status->name)
+> +               return -ENOMEM;
+> +
+> +       status->value = kstrdup("disabled", GFP_KERNEL);
+> +       if (!status->value)
+> +               return -ENOMEM;
+> +
+> +       status->length = sizeof("disabled");
+> +
+> +       return of_update_property(np, status);
+> +}
+> +
+> +void xen_grant_dma_handle_sysrq(int key)
+> +{
+> +       struct device_node *np;
+> +       const char *path;
+> +       bool enable;
+> +
+> +       printk("%s: got key %d\n", __func__, key);
+> +
+> +       switch (key) {
+> +       case '0':
+> +               path = "/virtio@2000000";
+> +               enable = true;
+> +               break;
+> +
+> +       case '1':
+> +               path = "/virtio@2000200";
+> +               enable = true;
+> +               break;
+> +
+> +       case '2':
+> +               path = "/virtio@2000000";
+> +               enable = false;
+> +               break;
+> +
+> +       case '3':
+> +               path = "/virtio@2000200";
+> +               enable = false;
+> +               break;
+> +
+> +       case '4':
+> +               path = "/pcie@10000000";
+> +               enable = true;
+> +               break;
+> +
+> +       case '5':
+> +               path = "/pcie@10000000";
+> +               enable = false;
+> +               break;
+> +
+> +       default:
+> +               printk("%s: wrong key %d\n", __func__, key);
+> +               return;
+> +       }
+> +
+> +       np = of_find_node_by_path(path);
+> +       if (!np) {
+> +               printk("%s: failed to find node by path %s\n", __func__, 
+> path);
+> +               return;
+> +       }
+> +
+> +       if (enable) {
+> +               xen_grant_dma_enable_device(np);
+> +               printk("%s: enable %s\n", __func__, path);
+> +       } else {
+> +               xen_grant_dma_disable_device(np);
+> +               printk("%s: disable %s\n", __func__, path);
+> +       }
+> +}
+> +
+>   bool xen_virtio_mem_acc(struct virtio_device *dev)
+>   {
+>          if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_pv_domain())
+> diff --git a/drivers/xen/manage.c b/drivers/xen/manage.c
+> index c16df629907e..6df96be1ea40 100644
+> --- a/drivers/xen/manage.c
+> +++ b/drivers/xen/manage.c
+> @@ -308,7 +308,8 @@ static void sysrq_handler(struct xenbus_watch 
+> *watch, const char *path,
+>                  goto again;
+> 
+>          if (sysrq_key != '\0')
+> -               handle_sysrq(sysrq_key);
+> +               /*handle_sysrq(sysrq_key);*/
+> +               xen_grant_dma_handle_sysrq(sysrq_key);
+>   }
+> 
+>   static struct xenbus_watch sysrq_watch = {
+> diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
+> index a34f4271a2e9..c2da1bc24091 100644
+> --- a/include/xen/xen-ops.h
+> +++ b/include/xen/xen-ops.h
+> @@ -215,6 +215,8 @@ static inline void xen_preemptible_hcall_end(void) { }
+> 
+>   #endif /* CONFIG_XEN_PV && !CONFIG_PREEMPTION */
+> 
+> +void xen_grant_dma_handle_sysrq(int key);
+> +
+>   #ifdef CONFIG_XEN_GRANT_DMA_OPS
+>   void xen_grant_setup_dma_ops(struct device *dev);
+>   bool xen_is_grant_dma_device(struct device *dev);
+> (END)
+> 
+> So how it looks like:
+> 
+> 1. DomU boots without PCI Host bridge probed. So nothing PCI related is 
+> observed in DomU.
+> 
+> cat /proc/device-tree/pcie@10000000/status
+> disabled
+> 
+> 2. I run backends in DomD and after that issue a signal to "enable"
+> 
+> root@generic-armv8-xt-dom0:~# xl sysrq DomU 4
+> 
+> 3. The PCI Host bridge is probed, and all required PCI devices are 
+> discovered
+> 
+> root@generic-armv8-xt-dom0:~# xl console DomU
+> [  237.407620] xen_grant_dma_handle_sysrq: got key 52
+> [  237.408133] pci-host-generic 10000000.pcie: host bridge 
+> /pcie@10000000 ranges:
+> [  237.408186] pci-host-generic 10000000.pcie:      MEM 
+> 0x0023000000..0x0032ffffff -> 0x0023000000
+> [  237.408231] pci-host-generic 10000000.pcie:      MEM 
+> 0x0100000000..0x01ffffffff -> 0x0100000000
+> [  237.408313] pci-host-generic 10000000.pcie: ECAM at [mem 
+> 0x10000000-0x1fffffff] for [bus 00-ff]
+> [  237.408451] pci-host-generic 10000000.pcie: PCI host bridge to bus 
+> 0000:00
+> [  237.408490] pci_bus 0000:00: root bus resource [bus 00-ff]
+> [  237.408517] pci_bus 0000:00: root bus resource [mem 
+> 0x23000000-0x32ffffff]
+> [  237.408545] pci_bus 0000:00: root bus resource [mem 
+> 0x100000000-0x1ffffffff pref]
+> [  237.409043] pci 0000:00:00.0: [1b36:0008] type 00 class 0x060000
+> [  237.458045] pci 0000:00:01.0: [1af4:1041] type 00 class 0x020000
+> [  237.502588] pci 0000:00:01.0: reg 0x20: [mem 0x00000000-0x00003fff 
+> 64bit pref]
+> [  237.507475] pci 0000:00:02.0: [1af4:1042] type 00 class 0x010000
+> [  237.552706] pci 0000:00:02.0: reg 0x20: [mem 0x00000000-0x00003fff 
+> 64bit pref]
+> [  237.559847] pci 0000:00:01.0: BAR 4: assigned [mem 
+> 0x100000000-0x100003fff 64bit pref]
+> [  237.560411] pci 0000:00:02.0: BAR 4: assigned [mem 
+> 0x100004000-0x100007fff 64bit pref]
+> [  237.563324] virtio-pci 0000:00:01.0: Set up Xen grant DMA ops (rid 
+> 0x8 sid 0x1)
+> [  237.564833] virtio-pci 0000:00:01.0: enabling device (0000 -> 0002)
+> [  237.582734] virtio-pci 0000:00:02.0: Set up Xen grant DMA ops (rid 
+> 0x10 sid 0x1)
+> [  237.583413] virtio-pci 0000:00:02.0: enabling device (0000 -> 0002)
+> [  237.595712] virtio_blk virtio1: 4/0/0 default/read/poll queues
+> [  237.596227] virtio_net virtio0 enp0s1: renamed from eth1
+> [  237.602499] virtio_blk virtio1: [vda] 4096000 512-byte logical blocks 
+> (2.10 GB/1.95 GiB)
+> [  237.606317] xen_grant_dma_handle_sysrq: enable /pcie@10000000
+> 
+> 4. The same way the pseudo-hotremove would work (if we change the status 
+> to "disabled" the corresponding device gets removed)
+> 
+> 
+> If this pseudo-hotplug sounds appropriate for the dom0less,
 
-This removes:
-BTN_DPAD_UP(0x220)..BTN_DPAD_RIGHT(0x223)
-Empty space 0x224..0x229
+This is great! Yes I think it is totally acceptable.
 
-Emtpy space 0x2bd..0x2bf
-BTN_TRIGGER_HAPPY(0x2c0)..BTN_TRIGGER_HAPPY40(0x2e7)
-Empty space 0x2e8..0x2ff
 
-The modalias shrinks from 2082 to 1754 bytes.
+> the one of the next questions would be what mechanism to use for
+> signalling (event, xenstore, whatever).
 
-[1] https://github.com/systemd/systemd/issues/22944
-[2] https://lore.kernel.org/xen-devel/87o8dw52jc.fsf@vps.thesusis.net/T/
+For your information, we had to solve a similar issue a few months ago
+to let a domU discover a newly added and directly assigned programmable
+logic block. That was also done by applying DT overlays, first to Xen,
+then to the domU.
 
-Cc: Phillip Susi <phill@thesusis.net>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- drivers/input/misc/xen-kbdfront.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Have a look at Vikram's Xen Summit presentation:
+https://static.sched.com/hosted_files/xen2022/e8/Introduce%20Dynamic%20Device%20Node%20Programming%20for%20Xen.pdf
 
-diff --git a/drivers/input/misc/xen-kbdfront.c b/drivers/input/misc/xen-kbdfront.c
-index 8d8ebdc2039b..23f37211be78 100644
---- a/drivers/input/misc/xen-kbdfront.c
-+++ b/drivers/input/misc/xen-kbdfront.c
-@@ -256,7 +256,14 @@ static int xenkbd_probe(struct xenbus_device *dev,
- 		__set_bit(EV_KEY, kbd->evbit);
- 		for (i = KEY_ESC; i < KEY_UNKNOWN; i++)
- 			__set_bit(i, kbd->keybit);
--		for (i = KEY_OK; i < KEY_MAX; i++)
-+		/* In theory we want to go KEY_OK..KEY_MAX, but that grows the
-+		 * modalias line too long.  KEY_KBD_LCD_MENU5 is the last
-+		 * defined non-button key. There is a gap of buttons from
-+		 * BTN_DPAD_UP..BTN_DPAD_RIGHT and KEY_ALS_TOGGLE is the next
-+		 * defined. */
-+		for (i = KEY_OK; i < BTN_DPAD_UP; i++)
-+			__set_bit(i, kbd->keybit);
-+		for (i = KEY_ALS_TOGGLE; i <= KEY_KBD_LCD_MENU5; i++)
- 			__set_bit(i, kbd->keybit);
- 
- 		ret = input_register_device(kbd);
--- 
-2.37.3
+We wrote a small xenstore-based protocol to notify the domU and also to
+tranfer the overlay to it:
 
+https://github.com/Xilinx/xen/blob/xlnx_rebase_4.16/docs/misc/arm/overlay.txt
+https://github.com/Xilinx/xen/blob/xlnx_rebase_4.16/tools/helpers/get_overlay.c
+
+There is a good description starting at slide 16 in the PDF.
+
+
+I am only sharing this as FYI. This Virtio problem is simpler because we
+already know the devices that are going to become available. We don't
+need an actual DT overlay to be passed to the domU. So we could get away
+with just a single interrupt or a single xenstore property.
+
+
+> Note that signal should only be sent if all backends which serve
+> virtio-pci devices within that PCI Host bridge are ready.
+
+Yes. That should be fine as long as all the backends are in the same
+domain. I can imagine there could be difficulties if the backends are
+in different domains: backend-domain-1 would have to tell dom0 that it
+is ready, then backend-domain-2 would have to do the same, then dom0
+finally notifies the domU, or something like that.
+
+Anyway, I think this is good enough to start as a solution. Excellent!
+
+
+> >>> Other ideas?
+> >> Another (crazy?) idea is to reuse CONFIG_XEN_VIRTIO_FORCE_GRANT for
+> >> dom0less system (I mean without "xen,grant-dma" bindings at all).
+> >> If virtio backends are always going to run in Dom0 when we have it up
+> >> and running, then it should work as domid == 0 is reserved for Dom0.
+> >> If there is a need to run virtio backends in other *backend* domain (for
+> >> the domain ID to be always known we could reserve an ID for it, so it
+> >> would be a const value),
+> >> we could probably introduce something configurable like
+> >> CONFIG_XEN_VIRTIO_FORCE_GRANT_BE_DOMID with 0 by default (or cmd line
+> >> option).
+> > The problem in a dom0less system is not much how to tell which is the
+> > backend domid, because that is known in advance and could be added to
+> > device tree at boot somehow. The issue is how to ask the frontend to
+> > "wait" and then how to tell the frontend to "proceed" after the backend
+> > comes online.
+> 
+> please see above.
+> 
+> 
+> To summarize:
+> 
+> 1. For normal case there is no problem with communicating the backend 
+> domid on Arm with device-tree (neither for virtio-mmio nor for virtio-pci),
+> for the virtio-pci the V2 (PCI-IOMMU bindings) should be used. For the 
+> dom0less there won't be problem also as I understood from the discussion 
+> (as the configuration is known in advance).
+> So I propose to concentrate on V2.
+
+Yes I agree
+
+
+> 2. The problem is in supporting virtio for the dom0less in general 
+> despite whether it is a foreign or grant mappings.
+> Here we would need a (pseudo-)hotplug or some other method to start 
+> operating only when backend is available.
+
+Yes I think you are right
+--8323329-682290085-1666210582=:3873--
 
