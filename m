@@ -2,51 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFCF4604215
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 12:54:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.425729.673748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D379C604216
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 12:54:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.425730.673758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ol6hk-0002lN-Gg; Wed, 19 Oct 2022 10:53:44 +0000
+	id 1ol6ht-000343-Ul; Wed, 19 Oct 2022 10:53:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 425729.673748; Wed, 19 Oct 2022 10:53:44 +0000
+Received: by outflank-mailman (output) from mailman id 425730.673758; Wed, 19 Oct 2022 10:53:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ol6hk-0002j4-DQ; Wed, 19 Oct 2022 10:53:44 +0000
-Received: by outflank-mailman (input) for mailman id 425729;
- Wed, 19 Oct 2022 10:53:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rFyQ=2U=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ol6hi-0002iy-5v
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 10:53:42 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2059.outbound.protection.outlook.com [40.107.101.59])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 491dd5d2-4f9c-11ed-91b4-6bf2151ebd3b;
- Wed, 19 Oct 2022 12:53:39 +0200 (CEST)
-Received: from DM6PR06CA0012.namprd06.prod.outlook.com (2603:10b6:5:120::25)
- by MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Wed, 19 Oct
- 2022 10:53:35 +0000
-Received: from DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:120:cafe::12) by DM6PR06CA0012.outlook.office365.com
- (2603:10b6:5:120::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34 via Frontend
- Transport; Wed, 19 Oct 2022 10:53:35 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT091.mail.protection.outlook.com (10.13.173.108) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Wed, 19 Oct 2022 10:53:35 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 19 Oct
- 2022 05:53:34 -0500
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Wed, 19 Oct 2022 05:53:33 -0500
+	id 1ol6ht-00031Q-Ri; Wed, 19 Oct 2022 10:53:53 +0000
+Received: by outflank-mailman (input) for mailman id 425730;
+ Wed, 19 Oct 2022 10:53:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CpyO=2U=gmail.com=koct9i@srs-se1.protection.inumbo.net>)
+ id 1ol6hs-00030S-7k
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 10:53:52 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 50863696-4f9c-11ed-8fd0-01056ac49cbb;
+ Wed, 19 Oct 2022 12:53:50 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id i21so18706852ljh.12
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Oct 2022 03:53:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,253 +39,317 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 491dd5d2-4f9c-11ed-91b4-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rnl3ClUJ/lpbAC3B6upya6zEz0LsslFVDEy3FANrwI6m9oAUggNUSXA0WjUNDG//MHmYSZW5tIzh1maxcE2eYZLYuJw2qXykv5EQzoV45TMnH62+LPYUHpEi18MvdV1FnJ7kyHcQuTuAVP7SNSGZw0h5mHxSBwdDtKpdGZpuSU2TJk9anOGA4PMuXpq0tmnnwfy6yZ8nsd6UsBSexA4lvarVpc+et82bZayw0hoA4qSd+fAfk38koHm8rOgZwOoq1qmbj9ihrh/qgWhFEqg1DxQiVU2h+f8050RFbWWLZ0PotmfJ80rOsqYrDE700Q9VMomEXmPDg5cbKxx+RUKHmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HJEKRS8WmOl0dAIwJpZNbxPA3SHbecZxZanXz44Smps=;
- b=M6B8arCpdYhD78SGHCzYYhRJ1CdfhbdYFrftmrxnbrus6o3jy2t3KchIhSeNksSvauHK140/AQz/i3thtTI2zDGWseJmnY6yqYgS+Idw0eDl2R07HtXThFQAkk5MTdLwOjYRyyoncVeMQXxavrBo8g2adRsk85zCt9qgH+gMEGBnu30FqUYDyDAKHoBo0mjl7F5eu+L0OCOLzJGhQ07dbWdoBnc/EEP1QqdXelI/15JXeYoAgs2A+BkJvpLndopgyYddYo7jmlooz78qPF4o7iha+bXAvcGjuJ8fob3ISu0akn9bNcfvkoV/m3KsbiuepTrdi8QhKaFTaau+mRjEQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HJEKRS8WmOl0dAIwJpZNbxPA3SHbecZxZanXz44Smps=;
- b=g8ODJo5/Fapx30MSXIzPlNUOEq/+8Weuv+UtrT8+g4AUNXsND83+hNjI6nGj2WiiwuGkb3P9zwHluP29uu9+j8jvbgP7UVYyi08PkXEhJJRHB15iDiwWiWqfQitzHBUK7BgUa+eFBM6Y/IuP2pBiTtRORqdFNA2OHUiA28N86rk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <a1d2ab41-0d30-5d34-5a42-fb74b68d30f4@amd.com>
-Date: Wed, 19 Oct 2022 12:53:32 +0200
+X-Inumbo-ID: 50863696-4f9c-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=SLJhYMtLXgKI7Y17ZUIiMFD3J1dSMKzi0bGsbw5e7go=;
+        b=BIopzC1/zEhmwdduNBVA6swDAiJ/PaY8ch4dJ2rG5XuPIEphc4HpFIwENy/oXgcF77
+         g26f5vpGaEszcK++cCcUTKXnXewQJhMolM/QKzyYXNbX9xSmjD/h8CuNjZnIiz7Pow8u
+         9oViyTjYtEDviMMGlKH85v/Ws+BdAJzTCaIXgEvN2cQC8OYtO73LOuvgzZLgMf+F+rIG
+         mtckB/MCVPgD2rV3KUTEV82YQSZME3UNkpjhzr5nvBMLdEHKNnoKLk44gbindiuqP3++
+         9IOegW4jhF+LV2Vq5vqvc4+NLv43nVgJjixrVLu9Nl+mWgLbiiG+y5EemQvr99KzMTYQ
+         tpgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SLJhYMtLXgKI7Y17ZUIiMFD3J1dSMKzi0bGsbw5e7go=;
+        b=xV0S/2yb8Zn01SCLrXGGRr3ljRXG3XGf7zg3ZQN51G8XWbQOw205PS73GMh875T+mB
+         2UqIFaSDQHIWzl3nyw/MXA5mZtTuveyR7rLY9oopfmYQDOlyXXy3HGR5c5+DTYag5Yp2
+         da8YKF2ujTIgUimkcra6lOB0CW9ARom1cqJ1zAsqfHIf43FiKsfLlR9v0/Ctrgw/wxx8
+         Tg/+6yjovJU4LXW3X7BGa3zu609DZ1/fLRwosxOQhDkmdTGvQ3PDN0MMKb4ubwQcG1cn
+         jJ/MSwpWfUq34iCibM9nkbOX4G4jaEEZqjL2LtWQcpUGQFg1G5PmkpR79cDB/0qzm5Na
+         rcRw==
+X-Gm-Message-State: ACrzQf3qSUITs8nguRUCUGoMXLxZ8lMKuPfQztrlzMqwv4XsXw6WL3Q4
+	J8lPSLMRqFkmqVMW8fbKgOk+tzcZLRHt5VfLmvk=
+X-Google-Smtp-Source: AMsMyM56LTTzTKGc4F++LzICGIh8ple7Tae6Xn81CIYsoHyoaHlCwHgx+9D2SKe1qtnypzSnzS56crQyLn1GyeQTpJg=
+X-Received: by 2002:a05:651c:194c:b0:26f:ec78:6172 with SMTP id
+ bs12-20020a05651c194c00b0026fec786172mr2697844ljb.479.1666176829774; Wed, 19
+ Oct 2022 03:53:49 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH v2 0/3] Yocto Gitlab CI
-Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Doug
- Goldstein <cardoe@cardoe.com>
-References: <cover.1665561024.git.bertrand.marquis@arm.com>
- <alpine.DEB.2.22.394.2210141325240.3690179@ubuntu-linux-20-04-desktop>
- <7DE7B34C-F6BD-42D9-83A3-AAA3A6A35B62@arm.com>
- <alpine.DEB.2.22.394.2210171651250.4587@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2210181654170.4587@ubuntu-linux-20-04-desktop>
- <56155bff-6229-05a4-7221-cd6aa5a1de8b@amd.com>
- <0070D1D1-F579-4E11-8A27-62D3D92DE896@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <0070D1D1-F579-4E11-8A27-62D3D92DE896@arm.com>
+References: <20221019095620.124909-1-alexander.atanasov@virtuozzo.com>
+In-Reply-To: <20221019095620.124909-1-alexander.atanasov@virtuozzo.com>
+From: Konstantin Khlebnikov <koct9i@gmail.com>
+Date: Wed, 19 Oct 2022 13:53:38 +0300
+Message-ID: <CALYGNiONv3au6hbAva60jWurwkU5ancWo-o2v7tpSzwguqzD9g@mail.gmail.com>
+Subject: Re: [RFC PATCH v5 0/8] Make balloon drivers' memory changes known to
+ the rest of the kernel
+To: Alexander Atanasov <alexander.atanasov@virtuozzo.com>
+Cc: kernel@openvz.org, kernel test robot <lkp@intel.com>, 
+	"Michael S . Tsirkin" <mst@redhat.com>, David Hildenbrand <david@redhat.com>, Wei Liu <wei.liu@kernel.org>, 
+	Nadav Amit <namit@vmware.com>, pv-drivers@vmware.com, Jason Wang <jasowang@redhat.com>, 
+	virtualization@lists.linux-foundation.org, 
+	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
+	Stephen Hemminger <sthemmin@microsoft.com>, Dexuan Cui <decui@microsoft.com>, 
+	linux-hyperv@vger.kernel.org, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000012626105eb6106d0"
+
+--00000000000012626105eb6106d0
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT091:EE_|MN2PR12MB4190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68d819a8-6d94-433c-3eb6-08dab1c02bc8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	imhg8S4KfChdi0TudOLpCW+JUURRYslmhc5rOQgQCZAx+c30GPM9DBtedfMCMabjU52iiVEajQtZXS0lSSKnM8awgVngHTwiu+y3jKmoHKvK7n7BmQnATuYNv2AMJicWH0fPo1hLjszPOLkMhELRJSPfng3fJNZdXepz7/ATkk6P7dPHrWJzLyRFZLgn9SkE33tumirGArJSG2Plh6vPV8moJENb1A8fPu4H+XRqMByXWV6N9piMkbKm3qOfQUZZxFJ5F5qwxiyfx4Qk7g53jmaS26SzyLV3k+mbQrs5MpNXPFS8DIk3KoRNfvNikvDa4yGpS/OYa6/2vNNHrGjvtt3cWuLoiCUBjzQCVxaEm+bOOPCsyeEtOUHFCachEMl+A9+ZF/OCE1mx+j7ng9a14RHphVA5y2aA73BgQcL/5lUH5fRTn8Az+FP++kVW7p34VuaQ4BVk18erf5JX/6vI7hBB0kpO8FKGYfMzCY+JuMgDJgTe34U59GQ5KIW1+1if2j7xeCdtSgZJFPnz0Y/bqi70AtHHJrprZQi5m4IkvwfW/EYwxbTIctSnFvGJYpNSUK7ZhYyN72YpDkI1QwVxFeHLPyqc8be6N54PysaeRSiZoL32VySDsPZwZxgSuxdtKzfqCO8yxF5Bn7SrWSu25ZUVRHxS5ebixh+TrbCECi2zPt74YrAFvbriGG+UKj4diEjBu1rAHcHiTOOMl5nk36K2LP7HQOX51opMlFjIsCGJrx7VLNuBg5Oe9r71k+iqORjgYvl3NWm3o0eYYixmy0DG6etzK7r4ri/SkDB2az1NKZ+VBGNx/QwE9XFRzN51Pvw2Pne3kDzka5s+KCe1ZBlEk6Z3cL9QIay+kJOizVKza7M4kJFwqFNcLsbXteQaMT0DFSabLsl8/KcOG+1UJQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(39860400002)(376002)(396003)(451199015)(40470700004)(36840700001)(46966006)(44832011)(4326008)(6916009)(5660300002)(54906003)(53546011)(8676002)(70586007)(70206006)(36756003)(16576012)(8936002)(316002)(26005)(41300700001)(36860700001)(81166007)(82740400003)(356005)(82310400005)(2616005)(40480700001)(426003)(47076005)(40460700003)(336012)(186003)(2906002)(31696002)(86362001)(83380400001)(478600001)(31686004)(45080400002)(966005)(84970400001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 10:53:35.1946
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68d819a8-6d94-433c-3eb6-08dab1c02bc8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT091.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
 
-Hi Bertrand,
+On Wed, 19 Oct 2022 at 12:57, Alexander Atanasov <
+alexander.atanasov@virtuozzo.com> wrote:
 
-On 19/10/2022 12:40, Bertrand Marquis wrote:
-> 
-> 
-> Hi Michal,
-> 
->> On 19 Oct 2022, at 10:06, Michal Orzel <michal.orzel@amd.com> wrote:
->>
->> Hi Stefano,
->>
->> On 19/10/2022 02:02, Stefano Stabellini wrote:
->>>
->>>
->>> On Mon, 17 Oct 2022, Stefano Stabellini wrote:
->>>> It should be
->>>>
->>>> BB_NUMBER_THREADS="2"
->>>>
->>>> but that worked! Let me a couple of more tests.
->>>
->>> I could run successfully a Yocto build test with qemuarm64 as target in
->>> gitlab-ci, hurray! No size issues, no build time issues, everything was
->>> fine. See:
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.com%2Fxen-project%2Fpeople%2Fsstabellini%2Fxen%2F-%2Fjobs%2F3193051236&amp;data=05%7C01%7Cmichal.orzel%40amd.com%7C5f7fc3a161fe44b5954808dab1be5c3a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638017728406088513%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=2mb3N26wiz39RJNSA4KoIOt%2BG9X7EMDOWIpfKc2ZZOc%3D&amp;reserved=0
->>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.com%2Fxen-project%2Fpeople%2Fsstabellini%2Fxen%2F-%2Fjobs%2F3193083119&amp;data=05%7C01%7Cmichal.orzel%40amd.com%7C5f7fc3a161fe44b5954808dab1be5c3a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638017728406088513%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=QhTFefS8NU1f7oLemB0Vtn%2BDCD%2BCnq1v1gEmlKCJt84%3D&amp;reserved=0
->>>
->>> I made the appended changes in top of this series.
->>>
->>> - I pushed registry.gitlab.com/xen-project/xen/yocto:kirkstone and
->>>  registry.gitlab.com/xen-project/xen/yocto:kirkstone-qemuarm64
->>> - for the gitlab-ci runs, we need to run build-yocto.sh from the copy in
->>>  xen.git, not from a copy stored inside a container
->>> - when building the kirkstone-qemuarm64 container the first time
->>>  (outside of gitlab-ci) I used COPY and took the script from the local
->>>  xen.git tree
->>> - after a number of tests, I settled on: BB_NUMBER_THREADS="8" more than
->>>  this and it breaks on some workstations, please add it
->>> - I am running the yocto build on arm64 so that we can use the arm64
->>>  hardware to do it in gitlab-ci
->>>
->>> Please feel free to incorporate these changes in your series, and add
->>> corresponding changes for the qemuarm32 and qemux86 targets.
->>>
->>> I am looking forward to it! Almost there!
->>>
->>> Cheers,
->>>
->>> Stefano
->>>
->>>
->>> diff --git a/automation/build/yocto/build-yocto.sh b/automation/build/yocto/build-yocto.sh
->>> index 0d31dad607..16f1dcc0a5 100755
->>> --- a/automation/build/yocto/build-yocto.sh
->>> +++ b/automation/build/yocto/build-yocto.sh
->>> @@ -107,6 +107,9 @@ IMAGE_INSTALL:append:pn-xen-image-minimal = " ssh-pregen-hostkeys"
->>> # Save some disk space
->>> INHERIT += "rm_work"
->>>
->>> +# Reduce number of jobs
->>> +BB_NUMBER_THREADS="8"
->>> +
->>> EOF
->>>
->>>     if [ "${do_localsrc}" = "y" ]; then
->>> diff --git a/automation/build/yocto/kirkstone-qemuarm64.dockerfile b/automation/build/yocto/kirkstone-qemuarm64.dockerfile
->>> index f279a7af92..aea3fc1f3e 100644
->>> --- a/automation/build/yocto/kirkstone-qemuarm64.dockerfile
->>> +++ b/automation/build/yocto/kirkstone-qemuarm64.dockerfile
->>> @@ -16,7 +16,8 @@ ARG target=qemuarm64
->>>
->>> # This step can take one to several hours depending on your download bandwith
->>> # and the speed of your computer
->>> -RUN /home/$USER_NAME/bin/build-yocto.sh --dump-log $target
->>> +COPY ./build-yocto.sh /
->>> +RUN /build-yocto.sh --dump-log $target
->>>
->>> FROM $from_image
->>>
->>> diff --git a/automation/build/yocto/kirkstone.dockerfile b/automation/build/yocto/kirkstone.dockerfile
->>> index 367a7863b6..ffbd91aa90 100644
->>> --- a/automation/build/yocto/kirkstone.dockerfile
->>> +++ b/automation/build/yocto/kirkstone.dockerfile
->>> @@ -84,9 +84,6 @@ RUN mkdir -p /home/$USER_NAME/yocto-layers \
->>>              /home/$USER_NAME/xen && \
->>>     chown $USER_NAME.$USER_NAME /home/$USER_NAME/*
->>>
->>> -# Copy the build script
->>> -COPY build-yocto.sh /home/$USER_NAME/bin/
->>> -
->>> # clone yocto repositories we need
->>> ARG yocto_version="kirkstone"
->>> RUN for rep in \
->>> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
->>> index ddc2234faf..4b8bcde252 100644
->>> --- a/automation/gitlab-ci/build.yaml
->>> +++ b/automation/gitlab-ci/build.yaml
->>> @@ -584,6 +584,22 @@ alpine-3.12-gcc-arm64-boot-cpupools:
->>>     EXTRA_XEN_CONFIG: |
->>>       CONFIG_BOOT_TIME_CPUPOOLS=y
->>>
->>> +yocto-kirkstone-qemuarm64:
->>> +  stage: build
->>> +  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
->>> +  script:
->>> +    - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` qemuarm64
->>> +  variables:
->>> +    CONTAINER: yocto:kirkstone-qemuarm64
->>> +  artifacts:
->>> +    paths:
->>> +      - '*.log'
->>> +      - '*/*.log'
->> The above lines are not needed as the logs/* below will handle them all (logs are only stored in logs/).
-> 
-> Ack
-> 
->>
->>> +      - 'logs/*'
->>> +    when: always
->>> +  tags:
->>> +    - arm64
->>> +
->> build-yocto.sh performs both build and run actions. I think it'd be better to move this into test.yaml in that case.
->> The best would be to create one build job (specifying --no-run) in build.yaml and one test job (specifying --no-build) in test.yaml.
->> This however would probably require marking path build/tmp/deploy/***/qemuarm64 as an build artifact. The question then is
->> whether having this path would be enough for runqemu (Bertrand's opinion needed).
-> 
-> This will not be enough to run qemu as the qemu binary and its dependencies are in the build artifacts and not in deploy.
-> Splitting the build and run is not a good idea because the size of the artifact between the 2 will be huge.
-> 
->>
->> Apart from that there is an aspect of Yocto releases and the containers/tests names.
->> Yocto needs to be up-to-date in order to properly build Xen+tools.
->> This basically means that we will need to update the containers once
->> per Yocto release. The old containers would still need to be stored in our CI container registry
->> so that we can use CI for older versions of Xen. However, updating the containers would also require
->> modifying the existing tests (for now we have e.g. yocto-kirkstone-qemuarm64 but in a month we will have
->> to change them to yocto-langdale-qemuarm64). In a few years time this will result in several CI jobs
->> that are the same but differ only in name/container. I would thus suggest to name the CI jobs like this:
->> yocto-qemuarm64 (without yocto release name) and define the top-level YOCTO_CONTAINER variable to store
->> the current yocto release container. This will solve the issue I described above.
-> 
-> I think we have no other way around this and we will need to have one Yocto release supported by Xen officially so
-> we will have to keep old docker images for old releases of Xen and move to newer versions of Yocto in staging when
-> it is needed.
-> 
-> We have to find a way for gitlab-ci to use the build.yaml contained inside the tree that is to be tested somehow so that gitlab would automatically take the right one.
-> Which means that build.yaml will be different between branches and contain the right version for the current branch.
-> 
+> Currently balloon drivers (Virtio,XEN, HyperV, VMWare, ...)
+> inflate and deflate the guest memory size but there is no
+> way to know how much the memory size is changed by them.
+>
+> Make it possible for the drivers to report the values to mm core.
+>
+> Display reported InflatedTotal and InflatedFree in /proc/meminfo
+> and print these values on OOM and sysrq from show_mem().
+>
+> The two values are the result of the two modes the drivers work
+> with using adjust_managed_page_count or without.
+>
+> In earlier versions, there was a notifier for these changes
+> but after discussion - it is better to implement it in separate
+> patch series. Since it came out as larger work than initially expected.
+>
+> Amount of inflated memory can be used:
+>  - totalram_pages() users working with drivers not using
+>     adjust_managed_page_count
+>  - si_meminfo(..) users can improve calculations
+>  - by userspace software that monitors memory pressure
+>
 
-What I suggest is that with each new yocto release, we add new docker container files and push them to registry.
-So we will end up in a registry having e.g. (arm64 as an example):
-- kirkstone-qemuarm64
-- langdale-qemuarm64
-We maintain only the one group of CI jobs whose names are generic (yocto-qemuarm64).
-After adding new containers for a new Yocto release, we modify the YOCTO_RELEASE variable
-to point to the latest yocto release containers.
+Sorry, I see no reason for that series.
+Balloon inflation adjusts totalram_pages. That's enough.
 
-test.yaml:
-...
-# Yocto test jobs
-variables:
-  YOCTO_RELEASE: "kirkstone"
+There is no reason to know the amount of non-existent ballooned memory
+inside.
+Management software which works outside should care about that.
 
-yocto-qemuarm64:
-  extends: .test-jobs-common
-  script:
-    - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` qemuarm64
-  variables:
-    CONTAINER: yocto:${YOCTO_RELEASE}-qemuarm64
-  artifacts:
-    paths:
-      - 'logs/*'
-    when: always
-  tags:
-    - arm64
+For debugging you could get current balloon size from /proc/vmstat
+(balloon_inflate - balloon_deflate).
+Also (I guess) /proc/kpageflags has a bit for that.
 
-This means that:
-- on the current staging branch the YOCTO_RELEASE points to the latest containers (for the latest yocto release)
-- on the old stable branches the YOCTO_RELEASE points to the old containers (for the old yocto release).
+Anyway it's easy to monitor balloon inflation by seeing changes of total
+memory size.
 
-~Michal
+
+>
+> Alexander Atanasov (8):
+>   mm: Make a place for a common balloon code
+>   mm: Enable balloon drivers to report inflated memory
+>   mm: Display inflated memory to users
+>   mm: Display inflated memory in logs
+>   drivers: virtio: balloon - report inflated memory
+>   drivers: vmware: balloon - report inflated memory
+>   drivers: hyperv: balloon - report inflated memory
+>   documentation: create a document about how balloon drivers operate
+>
+>  Documentation/filesystems/proc.rst            |   6 +
+>  Documentation/mm/balloon.rst                  | 138 ++++++++++++++++++
+>  MAINTAINERS                                   |   4 +-
+>  arch/powerpc/platforms/pseries/cmm.c          |   2 +-
+>  drivers/hv/hv_balloon.c                       |  12 ++
+>  drivers/misc/vmw_balloon.c                    |   3 +-
+>  drivers/virtio/virtio_balloon.c               |   7 +-
+>  fs/proc/meminfo.c                             |  10 ++
+>  .../linux/{balloon_compaction.h => balloon.h} |  18 ++-
+>  lib/show_mem.c                                |   8 +
+>  mm/Makefile                                   |   2 +-
+>  mm/{balloon_compaction.c => balloon.c}        |  19 ++-
+>  mm/migrate.c                                  |   1 -
+>  mm/vmscan.c                                   |   1 -
+>  14 files changed, 213 insertions(+), 18 deletions(-)
+>  create mode 100644 Documentation/mm/balloon.rst
+>  rename include/linux/{balloon_compaction.h => balloon.h} (91%)
+>  rename mm/{balloon_compaction.c => balloon.c} (94%)
+>
+> v4->v5:
+>  - removed notifier
+>  - added documentation
+>  - vmware update after op is done , outside of the mutex
+> v3->v4:
+>  - add support in hyperV and vmware balloon drivers
+>  - display balloon memory in show_mem so it is logged on OOM and on sysrq
+> v2->v3:
+>  - added missed EXPORT_SYMBOLS
+> Reported-by: kernel test robot <lkp@intel.com>
+>  - instead of balloon_common.h just use balloon.h (yes, naming is hard)
+>  - cleaned up balloon.h - remove from files that do not use it and
+>    remove externs from function declarations
+> v1->v2:
+>  - reworked from simple /proc/meminfo addition
+>
+> Cc: Michael S. Tsirkin <mst@redhat.com>
+> Cc: David Hildenbrand <david@redhat.com>
+> Cc: Wei Liu <wei.liu@kernel.org>
+> Cc: Nadav Amit <namit@vmware.com>
+> Cc: pv-drivers@vmware.com
+> Cc: Jason Wang <jasowang@redhat.com>
+> Cc: virtualization@lists.linux-foundation.org
+> Cc: "K. Y. Srinivasan" <kys@microsoft.com>
+> Cc: Haiyang Zhang <haiyangz@microsoft.com>
+> Cc: Stephen Hemminger <sthemmin@microsoft.com>
+> Cc: Dexuan Cui <decui@microsoft.com>
+> Cc: linux-hyperv@vger.kernel.org
+> Cc: Juergen Gross <jgross@suse.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Cc: xen-devel@lists.xenproject.org
+>
+> base-commit: 9abf2313adc1ca1b6180c508c25f22f9395cc780
+> --
+> 2.31.1
+>
+>
+
+--00000000000012626105eb6106d0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">On Wed, 19 Oct 2022 at 12:57, Alexander A=
+tanasov &lt;<a href=3D"mailto:alexander.atanasov@virtuozzo.com">alexander.a=
+tanasov@virtuozzo.com</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">Currently balloon drivers (=
+Virtio,XEN, HyperV, VMWare, ...)<br>
+inflate and deflate the guest memory size but there is no<br>
+way to know how much the memory size is changed by them.<br>
+<br>
+Make it possible for the drivers to report the values to mm core.<br>
+<br>
+Display reported InflatedTotal and InflatedFree in /proc/meminfo<br>
+and print these values on OOM and sysrq from show_mem().<br>
+<br>
+The two values are the result of the two modes the drivers work<br>
+with using adjust_managed_page_count or without.<br>
+<br>
+In earlier versions, there was a notifier for these changes<br>
+but after discussion - it is better to implement it in separate<br>
+patch series. Since it came out as larger work than initially expected.<br>
+<br>
+Amount of inflated memory can be used:<br>
+=C2=A0- totalram_pages() users working with drivers not using<br>
+=C2=A0 =C2=A0 adjust_managed_page_count<br>
+=C2=A0- si_meminfo(..) users can improve calculations<br>
+=C2=A0- by userspace software that monitors memory pressure<br></blockquote=
+><div><br></div><div>Sorry, I see no reason for that series.</div><div>Ball=
+oon inflation adjusts totalram_pages. That&#39;s enough.</div><div><br></di=
+v><div>There is no reason to know the amount of non-existent ballooned memo=
+ry inside.<br></div><div>Management software which works outside should car=
+e about that.</div><div><br></div><div>For debugging you could get current=
+=C2=A0balloon=C2=A0size from /proc/vmstat (balloon_inflate -=C2=A0balloon_d=
+eflate).</div><div>Also (I guess) /proc/kpageflags has a bit for that.</div=
+><div><br></div><div>Anyway it&#39;s easy to monitor balloon=C2=A0inflation=
+ by seeing changes of total memory size.</div><div>=C2=A0</div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
+id rgb(204,204,204);padding-left:1ex">
+<br>
+Alexander Atanasov (8):<br>
+=C2=A0 mm: Make a place for a common balloon code<br>
+=C2=A0 mm: Enable balloon drivers to report inflated memory<br>
+=C2=A0 mm: Display inflated memory to users<br>
+=C2=A0 mm: Display inflated memory in logs<br>
+=C2=A0 drivers: virtio: balloon - report inflated memory<br>
+=C2=A0 drivers: vmware: balloon - report inflated memory<br>
+=C2=A0 drivers: hyperv: balloon - report inflated memory<br>
+=C2=A0 documentation: create a document about how balloon drivers operate<b=
+r>
+<br>
+=C2=A0Documentation/filesystems/proc.rst=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 |=C2=A0 =C2=A06 +<br>
+=C2=A0Documentation/mm/balloon.rst=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 | 138 ++++++++++++++++++<br>
+=C2=A0MAINTAINERS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
+=A0 =C2=A04 +-<br>
+=C2=A0arch/powerpc/platforms/pseries/cmm.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 |=C2=A0 =C2=A02 +-<br>
+=C2=A0drivers/hv/hv_balloon.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 12 ++<br>
+=C2=A0drivers/misc/vmw_balloon.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A03 +-<br>
+=C2=A0drivers/virtio/virtio_balloon.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A07 +-<br>
+=C2=A0fs/proc/meminfo.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 10 ++<br>
+=C2=A0.../linux/{balloon_compaction.h =3D&gt; balloon.h} |=C2=A0 18 ++-<br>
+=C2=A0lib/show_mem.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A08 +<=
+br>
+=C2=A0mm/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
+=A0 =C2=A02 +-<br>
+=C2=A0mm/{balloon_compaction.c =3D&gt; balloon.c}=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 |=C2=A0 19 ++-<br>
+=C2=A0mm/migrate.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=
+=A01 -<br>
+=C2=A0mm/vmscan.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
+=A0 =C2=A01 -<br>
+=C2=A014 files changed, 213 insertions(+), 18 deletions(-)<br>
+=C2=A0create mode 100644 Documentation/mm/balloon.rst<br>
+=C2=A0rename include/linux/{balloon_compaction.h =3D&gt; balloon.h} (91%)<b=
+r>
+=C2=A0rename mm/{balloon_compaction.c =3D&gt; balloon.c} (94%)<br>
+<br>
+v4-&gt;v5:<br>
+=C2=A0- removed notifier<br>
+=C2=A0- added documentation<br>
+=C2=A0- vmware update after op is done , outside of the mutex<br>
+v3-&gt;v4:<br>
+=C2=A0- add support in hyperV and vmware balloon drivers<br>
+=C2=A0- display balloon memory in show_mem so it is logged on OOM and on sy=
+srq<br>
+v2-&gt;v3:<br>
+=C2=A0- added missed EXPORT_SYMBOLS<br>
+Reported-by: kernel test robot &lt;<a href=3D"mailto:lkp@intel.com" target=
+=3D"_blank">lkp@intel.com</a>&gt;<br>
+=C2=A0- instead of balloon_common.h just use balloon.h (yes, naming is hard=
+)<br>
+=C2=A0- cleaned up balloon.h - remove from files that do not use it and<br>
+=C2=A0 =C2=A0remove externs from function declarations<br>
+v1-&gt;v2:<br>
+=C2=A0- reworked from simple /proc/meminfo addition<br>
+<br>
+Cc: Michael S. Tsirkin &lt;<a href=3D"mailto:mst@redhat.com" target=3D"_bla=
+nk">mst@redhat.com</a>&gt;<br>
+Cc: David Hildenbrand &lt;<a href=3D"mailto:david@redhat.com" target=3D"_bl=
+ank">david@redhat.com</a>&gt;<br>
+Cc: Wei Liu &lt;<a href=3D"mailto:wei.liu@kernel.org" target=3D"_blank">wei=
+.liu@kernel.org</a>&gt;<br>
+Cc: Nadav Amit &lt;<a href=3D"mailto:namit@vmware.com" target=3D"_blank">na=
+mit@vmware.com</a>&gt;<br>
+Cc: <a href=3D"mailto:pv-drivers@vmware.com" target=3D"_blank">pv-drivers@v=
+mware.com</a><br>
+Cc: Jason Wang &lt;<a href=3D"mailto:jasowang@redhat.com" target=3D"_blank"=
+>jasowang@redhat.com</a>&gt;<br>
+Cc: <a href=3D"mailto:virtualization@lists.linux-foundation.org" target=3D"=
+_blank">virtualization@lists.linux-foundation.org</a><br>
+Cc: &quot;K. Y. Srinivasan&quot; &lt;<a href=3D"mailto:kys@microsoft.com" t=
+arget=3D"_blank">kys@microsoft.com</a>&gt;<br>
+Cc: Haiyang Zhang &lt;<a href=3D"mailto:haiyangz@microsoft.com" target=3D"_=
+blank">haiyangz@microsoft.com</a>&gt;<br>
+Cc: Stephen Hemminger &lt;<a href=3D"mailto:sthemmin@microsoft.com" target=
+=3D"_blank">sthemmin@microsoft.com</a>&gt;<br>
+Cc: Dexuan Cui &lt;<a href=3D"mailto:decui@microsoft.com" target=3D"_blank"=
+>decui@microsoft.com</a>&gt;<br>
+Cc: <a href=3D"mailto:linux-hyperv@vger.kernel.org" target=3D"_blank">linux=
+-hyperv@vger.kernel.org</a><br>
+Cc: Juergen Gross &lt;<a href=3D"mailto:jgross@suse.com" target=3D"_blank">=
+jgross@suse.com</a>&gt;<br>
+Cc: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" target=
+=3D"_blank">sstabellini@kernel.org</a>&gt;<br>
+Cc: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksandr_tyshchenko@epam.co=
+m" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;<br>
+Cc: <a href=3D"mailto:xen-devel@lists.xenproject.org" target=3D"_blank">xen=
+-devel@lists.xenproject.org</a><br>
+<br>
+base-commit: 9abf2313adc1ca1b6180c508c25f22f9395cc780<br>
+-- <br>
+2.31.1<br>
+<br>
+</blockquote></div></div>
+
+--00000000000012626105eb6106d0--
 
