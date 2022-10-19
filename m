@@ -2,46 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EED53604DB5
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 18:47:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.425954.674101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9917604E7E
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 19:20:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.425969.674116 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olCDj-0003iN-S5; Wed, 19 Oct 2022 16:47:07 +0000
+	id 1olCjj-00084L-F8; Wed, 19 Oct 2022 17:20:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 425954.674101; Wed, 19 Oct 2022 16:47:07 +0000
+Received: by outflank-mailman (output) from mailman id 425969.674116; Wed, 19 Oct 2022 17:20:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olCDj-0003f0-OB; Wed, 19 Oct 2022 16:47:07 +0000
-Received: by outflank-mailman (input) for mailman id 425954;
- Wed, 19 Oct 2022 16:47:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1olCjj-00081g-C7; Wed, 19 Oct 2022 17:20:11 +0000
+Received: by outflank-mailman (input) for mailman id 425969;
+ Wed, 19 Oct 2022 17:20:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tv8N=2U=epam.com=prvs=22918d0935=oleksandr_tyshchenko@srs-se1.protection.inumbo.net>)
- id 1olCDh-0003et-IJ
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 16:47:05 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a80ce3a3-4fcd-11ed-91b4-6bf2151ebd3b;
- Wed, 19 Oct 2022 18:47:03 +0200 (CEST)
-Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29JFcxkC001134;
- Wed, 19 Oct 2022 16:46:58 GMT
-Received: from eur04-he1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2050.outbound.protection.outlook.com [104.47.13.50])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3kam2m07mj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 19 Oct 2022 16:46:58 +0000
-Received: from DB8PR03MB6108.eurprd03.prod.outlook.com (2603:10a6:10:ed::15)
- by DB9PR03MB7770.eurprd03.prod.outlook.com (2603:10a6:10:2cd::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29; Wed, 19 Oct
- 2022 16:46:54 +0000
-Received: from DB8PR03MB6108.eurprd03.prod.outlook.com
- ([fe80::93be:22b1:654c:e4bc]) by DB8PR03MB6108.eurprd03.prod.outlook.com
- ([fe80::93be:22b1:654c:e4bc%5]) with mapi id 15.20.5723.034; Wed, 19 Oct 2022
- 16:46:54 +0000
+ <SRS0=e9yj=2U=gmail.com=vsuneja63@srs-se1.protection.inumbo.net>)
+ id 1olCji-00081a-26
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 17:20:10 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 47871c0a-4fd2-11ed-8fd0-01056ac49cbb;
+ Wed, 19 Oct 2022 19:20:08 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id b12so26281245edd.6
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Oct 2022 10:20:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,257 +39,550 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a80ce3a3-4fcd-11ed-91b4-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E128A5AN986xLICYEo1xEzTRH0lLlPXCTe6+3CmHAUvtO1veqFqUYnVxrGhGI2WibXv79mR/diwMDrcBvm8ILHMSBEOUTTB6IdXvHjLO/Vo/zGtm37ABZBuIXeH7iO6AYYVKQxtqvk+u3khHTLrzeDRAxASaEeqq/MNS/aESKkPo/dtIs4Z0Jkqkx3sbqz4EgC8ThmY9Gp0jZT330inK5PF3KQgICuLtKbtsJdnay72wO4LgRG7ijtkioMo6TXaWibtA0jTcSM1+5FatCLqI7c6ns5oLUQcXswWvDJ6hFEavNHvSUXO/CqJ+c/pSbG8/0BW1dezFaCOcUh1pAkiiJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V+td5XQxBbaztZZ8fugpXW3pC0y/TTG6psbvVSRrAXo=;
- b=dgl454gxVFq07mqnVpimROqh+5BPBOMrLVf01iwVm8XHCiVoiSG42GFhAf8OtcpEfiLkiHchz0zVCTD5yzgt1w+KQvA+/KYZefZaBNZsmFcTwPIOM9bZtBcwzZxverFJRCCEHMD9hOVx6XAveYRRLF+j5nlgAkcxA/QCUBkIShRuR0Tg2oS0uCcm1zn5W8JgVZxxGvYSWfsOp3p9YnhsZr1kZZ75QXtHyf8ewF/kU5IOIIEF+R59WJm/o5WHvjt6PE8zV/TzSiOB1rcveFAsuMqoOVCvlZfD3+36po1eAhv7fMcI5VtYKjuW9IxKbJL6rzqAUvIfPeOo9wI3BIiHXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V+td5XQxBbaztZZ8fugpXW3pC0y/TTG6psbvVSRrAXo=;
- b=GfD8Hxn/Ke8u3ZEuBEkdKn80NkK+ePK+iwi4GoVFe3XuQVrY2fVk0JJbBkl3j9kAu0mJxZ0XqS30egvsp52C2vhnApBb8Eg8lSXt9mr7Eu1b+7LZZOXpvxDe6j7zj9RusO7496xR76K0hQqm08fv8BzymCDdQPoudcKjzt4fajzg6VhsgEkodO4xcMqLi8/ZY7ojmydnfavGtx2+FdDHyibb/2EK5N3eFy6gCnL/nV25zcE1f0CLF8YRB8YLm6PWU5lotLicYtaVZu/7L0d6pd/aBmdNNZA2YxTxLMPpTASPk7+dMM2ztrtfZ+kQ+WCpoPXYA7qedwi9Cl6QT+0lGQ==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        Juergen Gross
-	<jgross@suse.com>,
-        Oleksandr Tyshchenko <olekstysh@gmail.com>
-Subject: Re: [PATCH V2] xen/virtio: Handle PCI devices which Host controller
- is described in DT
-Thread-Topic: [PATCH V2] xen/virtio: Handle PCI devices which Host controller
- is described in DT
-Thread-Index: AQHY4Kumvdf5iGxWnUC7MiB1sxm3b64U6lSAgAEJHIA=
-Date: Wed, 19 Oct 2022 16:46:54 +0000
-Message-ID: <af1a47f4-be0a-141d-8e53-0be303486a1a@epam.com>
-References: <20221015153409.918775-1-olekstysh@gmail.com>
- <alpine.DEB.2.22.394.2210181734440.4587@ubuntu-linux-20-04-desktop>
-In-Reply-To: 
- <alpine.DEB.2.22.394.2210181734440.4587@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB8PR03MB6108:EE_|DB9PR03MB7770:EE_
-x-ms-office365-filtering-correlation-id: af5380c1-7808-401f-4112-08dab1f1876b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- otQb/OPKA+o36LUmTwveX/uYJ06nBvx/n+QOZLIIPuvcC1MIAXei7EWoQjmk4GiB6iH3tExuhMT4VSf9Y/7u3M0IFcYncIpfkJCOPvo9lqMwB/Y76ldRteHskcmHV01DGBzECSt66ZvdG6aB9/4/35YaEgqIOq0DcXymsVaWOPHjWH0/qCF69sBPEdiPSEolCcXwbwZdICRSJr1ruguLII2/3MirEMyZ3R5J3SDjpfz0zuRWY1/Y0R3cW5z3NT0Lk4uRkYMq9LIbtOFEVzPfN+Lx1jLBKftQwubl4KBCEU86pzp9LquSxxbJnrl2TrT5SUA5A2UeeyB6ryGW+4k6V+E1Wk7YHfDrJ5fZ6QDoCsj8RiKx3aCLHAPpt/5YOGFTH3zyy+24bMCw8AEQqMorYqIlhazIZZGYzz8nVdBimIwmWkzvFWktB8v9Q6Co3ztf2jumLlMOyImKgJ536G7Nwuv6i8uO0vyAWcJCYr+m9Bqb6LSxU/vejnN2xk97uArY/v4xsZqHTqa+V4VbbH04jGgB8EBew2cRPuJ38CJIUXMOWwEqMIYFsfaxcdQcoQHOo/BstH8z9+05S5GIYvV/apDBZB1RRTykvy8zrMvyscn0YNlQL3Uzxv1hqJYX1RpTsMRo3nnBz805QtK+asNR2rAbCi9Q8PI6N+z2L5x8wiO9V5UMHBauWG6cYGCb1UlwB+cuKvvHMtwU+nnpk347IADVzNy/NZ4+3CPtmNhZHcEmUByaTkg5dheyq9lJ3PQLlztCt2mkT642PPTfJVNXmUD3vuekQIp9lw1H0LxCBaaBUHTTAEDfCIzjemOmu64GeqT1vC2pdbJTKBEazUU0A2AbYw3VIyFHyo4f/xorauk=
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR03MB6108.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(376002)(39860400002)(396003)(346002)(136003)(451199015)(41300700001)(2906002)(8936002)(5660300002)(66556008)(36756003)(6916009)(76116006)(66476007)(71200400001)(122000001)(966005)(66946007)(6506007)(316002)(478600001)(6486002)(64756008)(4326008)(66446008)(91956017)(8676002)(55236004)(31696002)(83380400001)(86362001)(31686004)(53546011)(38070700005)(54906003)(38100700002)(186003)(26005)(6512007)(2616005)(21314003)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?c0RZRC80UCtMaHIyS3FKMmp4eEp4M2xPNkxGYXV2QVc0cGJpNjlZM3ltVVFL?=
- =?utf-8?B?dGRUVmpKZVdSV01wYVB4cmU1bktsVS94UjFRUjhQWFlYN2gxeTZFTFkyMEpH?=
- =?utf-8?B?ZmpIWHRDSjdBVnhpbXZJbUVNUkZmbWJJM2UrbjhpYzhBak1IaUJPMHMzZVBr?=
- =?utf-8?B?eTF2NlkrSncvb2ovcEFNbnVNZXpzdFI0RW8xVldPSk9rQ2Zvb3Z5MTFkUjRx?=
- =?utf-8?B?NlB1NkZ6OHBUV3lhWTRTUUlzSDZNYU5YbndGRGRhQWpScGMyQ0hxdWlGampQ?=
- =?utf-8?B?Q1ZkRXVZcHFCNGhZazJoZWJ2VGxtWUR5MnpWS2ZBaGZBSXlXdzc2TjdnWUdK?=
- =?utf-8?B?TmZVQlczN2FYaDRrODR3MjlKNlVYT3hPZlMwbVJUd1NBQWRnNXI0NGJqMDh3?=
- =?utf-8?B?c3h0eEJHNjBYaGFjQUM2NFdTc3JBRmRzdGljd29Ra3lZSUU3QjZ2NUVlTkdW?=
- =?utf-8?B?OE9hSGU2WmtQeGVGL3duN0w1UkplUGZDS29kVzZkcDIzR3R5MTJuRG82UnRm?=
- =?utf-8?B?YUQzTm1lQ0V3UVJrMVNUbUhjYXQzbTlTNTIyR0p2NkNydFBFVW1sZmthV2ND?=
- =?utf-8?B?dDZ0ZEd1TktCN0k3bXg5NUVzNU1HL3R1L3VCTGlHWWp4aTB2WkJIVGRMdHF3?=
- =?utf-8?B?MU9uS1ZXblh5bWtiOHJTdUlHbnJzYXE5RGFoR1paRkdEWUNoSHFDNlhWVkJt?=
- =?utf-8?B?K21WTUhoR1JxaEd1V0svZ0JtTUhzODZsK2Q4WWRxWnBpd2UyWlltSDFLbUZR?=
- =?utf-8?B?anMrZTVJWHRJSEZTeW41S0ZoS0tocFlubkNDeER5UFJQSWdtMjFwdU1SMTM0?=
- =?utf-8?B?UDhqVWlaV1VsRUdPb1RzUXMvemZrdUFyYnhUN1FXMkNEcDFNcTY5RWovMkVz?=
- =?utf-8?B?UjhFL1R4ZHVVRTI0bWJ3UUQvNUorTjBJQmhYM0t5VnlyaGU5aXkzcUlVc053?=
- =?utf-8?B?SlozbTdrUWRWODk3dzJHWHZCbEQ5Q3ppQnpmMWdGZ0tQYkZhMHJESytMakJx?=
- =?utf-8?B?NVpOQ3NRT0FxQkpocnBZdjJQUXhscHAxelhSRHJ0UWtsQkViR0gwRktZVGNY?=
- =?utf-8?B?T3ZNcFhEdUNXU2FXR0h2akt3MFJBNGV0QW1Pb29pdlBvUGp3cjhTMFNGRk5N?=
- =?utf-8?B?cXh3MXlLSkRGYURqNEE5VGd6c2ZGZk5vVkl2TVphU1hVclI2YURJT3lUc3Zk?=
- =?utf-8?B?c290UDh3TWlUODNJWnIyL0lYUENpdWs0MXp5WDZZeDUvd1Z0OStDQ3VLK3Jx?=
- =?utf-8?B?bXBGaE95LzlMc08wdnRVWXUySjBLYkwrVVpHNHNDaXArV0dFLzBrTW9FN3F3?=
- =?utf-8?B?WVQ4NFhPYUMzaWFrR2IvNW44dmNDNmpZcXBCZ2x5dSsyNmhqVjRRazVhWUlX?=
- =?utf-8?B?TW44c21ZRTFGellnKzdhWXIrV1BnRjZZai9uOVA1NUw2WFh3NjdHRGZSSmo0?=
- =?utf-8?B?TFUxMzAvbFVtRGlsRGpNRjZENUJPRTFHZlE3R2RtWk80NW5oVmw4Rkczd1g1?=
- =?utf-8?B?aUUxTW42dHVBYTVVOUFGQktpWDh2RklSSkt1cFdNRS9qRnVjbEU0UWp3a1dp?=
- =?utf-8?B?MEJqL1ZkYnFXUGYrL2lqNTREaHhzVVR4cGVpVEViVnVaeU9FdVhFSXdjWFl2?=
- =?utf-8?B?dkpQU2JPbDZQWmNPanN5V2xPeUdXVTQyellwVWNMVXZmeWRkbnNGRy9uY0pK?=
- =?utf-8?B?b3k3aHBHTlFncGd4ZHZiKzE3bGw0cWFGYk9NbXJPL2Y5cEREWWUzMGZxLzB3?=
- =?utf-8?B?L29iVTlyT0dZSUsxSU5iTTZrNEt2NDdDQ1FDNWl0a0VSMHErR0JaZmw4NkdM?=
- =?utf-8?B?cXpydW91ZXRyYWcxYmViMXRVbXV2R3lPb2gzaFAxVFJLa3NSNXJBNFA3Ym1L?=
- =?utf-8?B?c0dva291TGdySlVYVTJRT3EzN09UbkpldzBpU0VzcUxQb1NLVXQ3cFBkVG1p?=
- =?utf-8?B?SVN0NzN2S3VwMjlUQ2F4STV4SHBQSWxrUW55TVlObDJyYmp0TXkyZmdrcGRn?=
- =?utf-8?B?VVkvVVdqdWE1TWZ6c3l2VjlMTGM0WDBCVDd3WVA3b0dGT1VNTGVSeGhqNUM0?=
- =?utf-8?B?OERQRzhraS9jeVNPMDR5b1hvSXQvZFNPTGM1b2ZPTWl6U1ZuS2FIRUo2cWd2?=
- =?utf-8?B?R3JlMVlrNzNTRmRpYmhLTlNjYlJLT3Z3V0kwSDE3dG5SYjRNQSthdXJXb2dl?=
- =?utf-8?Q?E8BvxnsKHLfpxKp4kOORzb0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <65EFB23887A962498211572D4195F7EE@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 47871c0a-4fd2-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=lMyZl1HIk5QbkfXnvfl3s8oUJiKRV8LFjyWmV1q/nj8=;
+        b=QwRN7cwYOuoYua00YLen2/+kdC+R68qSIpBLR87GglmMV9M2HK6nfZznxYh97wlSJr
+         xaDsov3wSX96O3VAZcVZ/Re0Jxzcxg+Nn2xGuk9xR7goKCRCwUmQ8S0VqHvrzW6oY3n7
+         mbG7joZf6/a0Qiktg3173MloNOxFReYZuG/CDGkCdlOCsCz7L4QI+ufInXMfVN+L+PUQ
+         7wUPDxEj7e9Rw0gDTjcVyKamcFCD7jJFp/wbH9ekirM4EtnUmWjNoA+fGrn0rnB5DmWW
+         tDv53oLy2P+eD+kNQ+QhqiHvFbL1wU9e/6eM/2N2XoSDRaMPyKZ059vRM6tJ8YTvXvxK
+         j11w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lMyZl1HIk5QbkfXnvfl3s8oUJiKRV8LFjyWmV1q/nj8=;
+        b=yrI4NOa0IrYKeFhBlvpILds71PRLAukW5+z4aH7E6jDBBnugE7UWUXHsOOa5DX5a5C
+         qQEHaUdFs0w89XIwwAQF8u8a4T4HQrcLT3zccfy5AgvZMAKWgjuy4mAPlc9eB0xD0IAO
+         I44zgnb2oSODhdl6V5tDzX3Gx5F38SW11eqD1SajVzr+pXl/BUNr3gh/AexyL2UG2pgg
+         OsakCXnNvI8YOKodSWSgzPwgaI6Zh/redI3x3HdMytlTt87/qjfG0y4Tmz8e0APldDbz
+         9jWpwHnlXixzIUMHWu3LcokwYbkq8Ic4cO9+jZPAvcGtuqzxIIZqNDWgJoNM5h0LQ5ns
+         ly9w==
+X-Gm-Message-State: ACrzQf1+DbMnoP+I8hNMwv980TBAcKqS8OZkBdzl0b349f3HdbAaYv71
+	NlAdfuMLMraPJMVgel0Ie595YPDKdyx+jyCQ+2o=
+X-Google-Smtp-Source: AMsMyM7Pdj1LGRdJaiR74nkHHSZSxW9JuEVhx/SDAmdD6B+VMNZadI6OMNCiMMo4h6CR6wCJqX+Ota46yUD2N+fGZBc=
+X-Received: by 2002:a05:6402:ca:b0:45c:dbdd:8143 with SMTP id
+ i10-20020a05640200ca00b0045cdbdd8143mr8465933edu.213.1666200007592; Wed, 19
+ Oct 2022 10:20:07 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR03MB6108.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af5380c1-7808-401f-4112-08dab1f1876b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2022 16:46:54.3378
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Og0/JtV+DgsRimjyzQWcp+ng2NvGDpvZIj7RqLzI+GTYBj0mEnCslCh6LOgg67mfxdvmd6SlTTmJ+dkVBtOHvYWXQC1DKwCd2JfxFalD6Jo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7770
-X-Proofpoint-GUID: H5bEOx6cRd02o26fZk4tx6Trv1K1ys3w
-X-Proofpoint-ORIG-GUID: H5bEOx6cRd02o26fZk4tx6Trv1K1ys3w
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-19_09,2022-10-19_04,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 bulkscore=0
- mlxlogscore=999 suspectscore=0 clxscore=1015 lowpriorityscore=0
- spamscore=0 priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2209130000 definitions=main-2210190094
+References: <CALAP8f--jyG=ufJ9WGtL6qoeGdsykjNK85G3q50SzJm5+wOzhQ@mail.gmail.com>
+ <alpine.DEB.2.22.394.2210171400570.2351079@ubuntu-linux-20-04-desktop>
+ <CALAP8f81ojfVD9n5EMtD7DxY-8uomgENVEQH9Afz7Hk9rfaAsw@mail.gmail.com> <alpine.DEB.2.22.394.2210181213370.4587@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2210181213370.4587@ubuntu-linux-20-04-desktop>
+From: Vipul Suneja <vsuneja63@gmail.com>
+Date: Wed, 19 Oct 2022 22:49:55 +0530
+Message-ID: <CALAP8f9Zgue6WfAk2uRGkg=1Up2Z+eQWqvQ1_Z2=r66Z5fvKoA@mail.gmail.com>
+Subject: Re: Porting Xen in raspberry pi4B
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, oleksandr_andrushchenko@epam.com, 
+	oleksandr_tyshchenko@epam.com, jgross@suse.com, boris.ostrovsky@oracle.com, 
+	Bertrand.Marquis@arm.com
+Content-Type: multipart/mixed; boundary="000000000000942cc805eb666b30"
 
-DQpPbiAxOS4xMC4yMiAwMzo1OCwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KDQpIZWxsbyBT
-dGVmYW5vDQoNCj4gT24gU2F0LCAxNSBPY3QgMjAyMiwgT2xla3NhbmRyIFR5c2hjaGVua28gd3Jv
-dGU6DQo+PiBGcm9tOiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29A
-ZXBhbS5jb20+DQo+Pg0KPj4gVXNlIHRoZSBzYW1lICJ4ZW4tZ3JhbnQtZG1hIiBkZXZpY2UgY29u
-Y2VwdCBmb3IgdGhlIFBDSSBkZXZpY2VzDQo+PiBiZWhpbmQgZGV2aWNlLXRyZWUgYmFzZWQgUENJ
-IEhvc3QgY29udHJvbGxlciwgYnV0IHdpdGggb25lIG1vZGlmaWNhdGlvbi4NCj4+IFVubGlrZSBm
-b3IgcGxhdGZvcm0gZGV2aWNlcywgd2UgY2Fubm90IHVzZSBnZW5lcmljIElPTU1VIGJpbmRpbmdz
-DQo+PiAoaW9tbXVzIHByb3BlcnR5KSwgYXMgd2UgbmVlZCB0byBzdXBwb3J0IG1vcmUgZmxleGli
-bGUgY29uZmlndXJhdGlvbi4NCj4+IFRoZSBwcm9ibGVtIGlzIHRoYXQgUENJIGRldmljZXMgdW5k
-ZXIgdGhlIHNpbmdsZSBQQ0kgSG9zdCBjb250cm9sbGVyDQo+PiBtYXkgaGF2ZSB0aGUgYmFja2Vu
-ZHMgcnVubmluZyBpbiBkaWZmZXJlbnQgWGVuIGRvbWFpbnMgYW5kIHRodXMgaGF2ZQ0KPj4gZGlm
-ZmVyZW50IGVuZHBvaW50cyBJRCAoYmFja2VuZCBkb21haW5zIElEKS4NCj4+DQo+PiBTbyB1c2Ug
-Z2VuZXJpYyBQQ0ktSU9NTVUgYmluZGluZ3MgaW5zdGVhZCAoaW9tbXUtbWFwL2lvbW11LW1hcC1t
-YXNrDQo+PiBwcm9wZXJ0aWVzKSB3aGljaCBhbGxvd3MgdXMgdG8gZGVzY3JpYmUgcmVsYXRpb25z
-aGlwIGJldHdlZW4gUENJDQo+PiBkZXZpY2VzIGFuZCBiYWNrZW5kIGRvbWFpbnMgSUQgcHJvcGVy
-bHkuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogT2xla3NhbmRyIFR5c2hjaGVua28gPG9sZWtzYW5k
-cl90eXNoY2hlbmtvQGVwYW0uY29tPg0KPiBOb3cgdGhhdCBJIHVuZGVyc3Rvb2QgdGhlIGFwcHJv
-YWNoIGFuZCB0aGUgcmVhc29ucyBmb3IgaXQsIEkgY2FuIHJldmlldw0KPiB0aGUgcGF0Y2ggOi0p
-DQoNCnBlcmZlY3QsIHRoYW5rcy4NCg0KDQo+DQo+IFBsZWFzZSBhZGQgYW4gZXhhbXBsZSBvZiB0
-aGUgYmluZGluZ3MgaW4gdGhlIGNvbW1pdCBtZXNzYWdlLg0KDQpvaywgd2lsbCBkbw0KDQoNCj4N
-Cj4NCj4+IC0tLQ0KPj4gU2xpZ2h0bHkgUkZDLiBUaGlzIGlzIG5lZWRlZCB0byBzdXBwb3J0IFhl
-biBncmFudCBtYXBwaW5ncyBmb3IgdmlydGlvLXBjaSBkZXZpY2VzDQo+PiBvbiBBcm0gYXQgc29t
-ZSBwb2ludCBpbiB0aGUgZnV0dXJlLiBUaGUgWGVuIHRvb2xzdGFjayBzaWRlIGlzIG5vdCBjb21w
-bGV0ZWx5IHJlYWR5IHlldC4NCj4+IEhlcmUsIGZvciBQQ0kgZGV2aWNlcyB3ZSB1c2UgbW9yZSBm
-bGV4aWJsZSB3YXkgdG8gcGFzcyBiYWNrZW5kIGRvbWlkIHRvIHRoZSBndWVzdA0KPj4gdGhhbiBm
-b3IgcGxhdGZvcm0gZGV2aWNlcy4NCj4+DQo+PiBDaGFuZ2VzIFYxIC0+IFYyOg0KPj4gICAgIC0g
-dXBkYXRlIGNvbW1pdCBkZXNjcmlwdGlvbg0KPj4gICAgIC0gcmViYXNlDQo+PiAgICAgLSByZXdv
-cmsgdG8gdXNlIGdlbmVyaWMgUENJLUlPTU1VIGJpbmRpbmdzIGluc3RlYWQgb2YgZ2VuZXJpYyBJ
-T01NVSBiaW5kaW5ncw0KPj4NCj4+IFByZXZpb3VzIGRpc2N1c3Npb24gaXMgYXQ6DQo+PiBodHRw
-czovL3VybGRlZmVuc2UuY29tL3YzL19faHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcveGVuLWRldmVs
-LzIwMjIxMDA2MTc0ODA0LjIwMDMwMjktMS1vbGVrc3R5c2hAZ21haWwuY29tL19fOyEhR0ZfMjlk
-YmNRSVVCUEEheEpQZFpPMy0zV21nb183OUh1RHNENTNSa0hfZUFOOTZObXd1d0ZFN2RBcnRfeE5Z
-R2RENkxlTHNxNEJfUVBycnZYLXgyM3RKbDZqUWxOcWd5TmpnelQyTkUzUHFqZyQgIFtsb3JlWy5d
-a2VybmVsWy5db3JnXQ0KPj4NCj4+IEJhc2VkIG9uOg0KPj4gaHR0cHM6Ly91cmxkZWZlbnNlLmNv
-bS92My9fX2h0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3hl
-bi90aXAuZ2l0L2xvZy8/aD1mb3ItbGludXMtNi4xX187ISFHRl8yOWRiY1FJVUJQQSF4SlBkWk8z
-LTNXbWdvXzc5SHVEc0Q1M1JrSF9lQU45Nk5td3V3RkU3ZEFydF94TllHZEQ2TGVMc3E0Ql9RUHJy
-dlgteDIzdEpsNmpRbE5xZ3lOamd6VDJKNDBMT3hnJCAgW2dpdFsuXWtlcm5lbFsuXW9yZ10NCj4+
-IC0tLQ0KPj4gICBkcml2ZXJzL3hlbi9ncmFudC1kbWEtb3BzLmMgfCA4NyArKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKy0tLS0tDQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA3NiBpbnNlcnRp
-b25zKCspLCAxMSBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy94ZW4v
-Z3JhbnQtZG1hLW9wcy5jIGIvZHJpdmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jDQo+PiBpbmRleCBk
-YWE1MjVkZjdiZGMuLmI3OWQ5ZDZjZTE1NCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMveGVuL2dy
-YW50LWRtYS1vcHMuYw0KPj4gKysrIGIvZHJpdmVycy94ZW4vZ3JhbnQtZG1hLW9wcy5jDQo+PiBA
-QCAtMTAsNiArMTAsNyBAQA0KPj4gICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+DQo+PiAgICNp
-bmNsdWRlIDxsaW51eC9kbWEtbWFwLW9wcy5oPg0KPj4gICAjaW5jbHVkZSA8bGludXgvb2YuaD4N
-Cj4+ICsjaW5jbHVkZSA8bGludXgvcGNpLmg+DQo+PiAgICNpbmNsdWRlIDxsaW51eC9wZm4uaD4N
-Cj4+ICAgI2luY2x1ZGUgPGxpbnV4L3hhcnJheS5oPg0KPj4gICAjaW5jbHVkZSA8bGludXgvdmly
-dGlvX2FuY2hvci5oPg0KPj4gQEAgLTI5MiwxMiArMjkzLDU1IEBAIHN0YXRpYyBjb25zdCBzdHJ1
-Y3QgZG1hX21hcF9vcHMgeGVuX2dyYW50X2RtYV9vcHMgPSB7DQo+PiAgIAkuZG1hX3N1cHBvcnRl
-ZCA9IHhlbl9ncmFudF9kbWFfc3VwcG9ydGVkLA0KPj4gICB9Ow0KPj4gICANCj4+ICtzdGF0aWMg
-c3RydWN0IGRldmljZV9ub2RlICp4ZW5fZHRfZ2V0X3BjaV9ob3N0X25vZGUoc3RydWN0IGRldmlj
-ZSAqZGV2KQ0KPj4gK3sNCj4+ICsJc3RydWN0IHBjaV9kZXYgKnBkZXYgPSB0b19wY2lfZGV2KGRl
-dik7DQo+PiArCXN0cnVjdCBwY2lfYnVzICpidXMgPSBwZGV2LT5idXM7DQo+PiArDQo+PiArCS8q
-IFdhbGsgdXAgdG8gdGhlIHJvb3QgYnVzIHRvIGxvb2sgZm9yIFBDSSBIb3N0IGNvbnRyb2xsZXIg
-Ki8NCj4+ICsJd2hpbGUgKCFwY2lfaXNfcm9vdF9idXMoYnVzKSkNCj4+ICsJCWJ1cyA9IGJ1cy0+
-cGFyZW50Ow0KPj4gKw0KPj4gKwlyZXR1cm4gb2Zfbm9kZV9nZXQoYnVzLT5icmlkZ2UtPnBhcmVu
-dC0+b2Zfbm9kZSk7DQo+PiArfQ0KPiBJdCBzZWVtcyBzaWxseSB0aGF0IHdlIG5lZWQgdG8gd2Fs
-ayB0aGUgaGllcmFjaHkgdGhhdCB3YXksIGJ1dCBJDQo+IGNvdWxkbid0IGZpbmQgYW5vdGhlciB3
-YXkgdG8gZG8gaXQNCg0KSSBhbHNvIGNvdWxkbid0LCBidXQgaXMgaXQgYSByZWFsbHkgcHJvYmxl
-bT8gVGhpcyBjb2RlIGlzIG9ubHkgZ2V0cyANCmNhbGxlZCBkdXJpbmcgaW5pdGlhbGl6YXRpb24u
-DQoNCg0KPg0KPg0KPj4gK3N0YXRpYyBzdHJ1Y3QgZGV2aWNlX25vZGUgKnhlbl9kdF9nZXRfbm9k
-ZShzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+PiArew0KPj4gKwlpZiAoZGV2X2lzX3BjaShkZXYpKQ0K
-Pj4gKwkJcmV0dXJuIHhlbl9kdF9nZXRfcGNpX2hvc3Rfbm9kZShkZXYpOw0KPj4gKw0KPj4gKwly
-ZXR1cm4gb2Zfbm9kZV9nZXQoZGV2LT5vZl9ub2RlKTsNCj4+ICt9DQo+PiArDQo+PiArc3RhdGlj
-IGludCB4ZW5fZHRfbWFwX2lkKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZV9ub2Rl
-ICoqaW9tbXVfbnAsDQo+PiArCQkJIHUzMiAqc2lkKQ0KPj4gK3sNCj4+ICsJc3RydWN0IHBjaV9k
-ZXYgKnBkZXYgPSB0b19wY2lfZGV2KGRldik7DQo+PiArCXUzMiByaWQgPSBQQ0lfREVWSUQocGRl
-di0+YnVzLT5udW1iZXIsIHBkZXYtPmRldmZuKTsNCj4+ICsJc3RydWN0IGRldmljZV9ub2RlICpo
-b3N0X25wOw0KPj4gKwlpbnQgcmV0Ow0KPj4gKw0KPj4gKwlob3N0X25wID0geGVuX2R0X2dldF9w
-Y2lfaG9zdF9ub2RlKGRldik7DQo+PiArCWlmICghaG9zdF9ucCkNCj4+ICsJCXJldHVybiAtRU5P
-REVWOw0KPj4gKw0KPj4gKwlyZXQgPSBvZl9tYXBfaWQoaG9zdF9ucCwgcmlkLCAiaW9tbXUtbWFw
-IiwgImlvbW11LW1hcC1tYXNrIiwgaW9tbXVfbnAsIHNpZCk7DQo+PiArCW9mX25vZGVfcHV0KGhv
-c3RfbnApOw0KPj4gKwlyZXR1cm4gcmV0Ow0KPj4gK30NCj4+ICsNCj4+ICAgc3RhdGljIGJvb2wg
-eGVuX2lzX2R0X2dyYW50X2RtYV9kZXZpY2Uoc3RydWN0IGRldmljZSAqZGV2KQ0KPj4gICB7DQo+
-PiAtCXN0cnVjdCBkZXZpY2Vfbm9kZSAqaW9tbXVfbnA7DQo+PiArCXN0cnVjdCBkZXZpY2Vfbm9k
-ZSAqaW9tbXVfbnAgPSBOVUxMOw0KPj4gICAJYm9vbCBoYXNfaW9tbXU7DQo+PiAgIA0KPj4gLQlp
-b21tdV9ucCA9IG9mX3BhcnNlX3BoYW5kbGUoZGV2LT5vZl9ub2RlLCAiaW9tbXVzIiwgMCk7DQo+
-PiArCWlmIChkZXZfaXNfcGNpKGRldikpIHsNCj4+ICsJCWlmICh4ZW5fZHRfbWFwX2lkKGRldiwg
-JmlvbW11X25wLCBOVUxMKSkNCj4+ICsJCQlyZXR1cm4gZmFsc2U7DQo+PiArCX0gZWxzZQ0KPj4g
-KwkJaW9tbXVfbnAgPSBvZl9wYXJzZV9waGFuZGxlKGRldi0+b2Zfbm9kZSwgImlvbW11cyIsIDAp
-Ow0KPj4gKw0KPj4gICAJaGFzX2lvbW11ID0gaW9tbXVfbnAgJiYNCj4+ICAgCQkgICAgb2ZfZGV2
-aWNlX2lzX2NvbXBhdGlibGUoaW9tbXVfbnAsICJ4ZW4sZ3JhbnQtZG1hIik7DQo+PiAgIAlvZl9u
-b2RlX3B1dChpb21tdV9ucCk7DQo+PiBAQCAtMzA3LDkgKzM1MSwxNyBAQCBzdGF0aWMgYm9vbCB4
-ZW5faXNfZHRfZ3JhbnRfZG1hX2RldmljZShzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+PiAgIA0KPj4g
-ICBib29sIHhlbl9pc19ncmFudF9kbWFfZGV2aWNlKHN0cnVjdCBkZXZpY2UgKmRldikNCj4+ICAg
-ew0KPj4gKwlzdHJ1Y3QgZGV2aWNlX25vZGUgKm5wOw0KPj4gKw0KPj4gICAJLyogWFhYIEhhbmRs
-ZSBvbmx5IERUIGRldmljZXMgZm9yIG5vdyAqLw0KPj4gLQlpZiAoZGV2LT5vZl9ub2RlKQ0KPj4g
-LQkJcmV0dXJuIHhlbl9pc19kdF9ncmFudF9kbWFfZGV2aWNlKGRldik7DQo+PiArCW5wID0geGVu
-X2R0X2dldF9ub2RlKGRldik7DQo+PiArCWlmIChucCkgew0KPj4gKwkJYm9vbCByZXQ7DQo+PiAr
-DQo+PiArCQlyZXQgPSB4ZW5faXNfZHRfZ3JhbnRfZG1hX2RldmljZShkZXYpOw0KPj4gKwkJb2Zf
-bm9kZV9wdXQobnApOw0KPj4gKwkJcmV0dXJuIHJldDsNCj4+ICsJfQ0KPiBXZSBkb24ndCBuZWVk
-IHRvIHdhbGsgdGhlIFBDSSBoaWVyYWNoeSB0d2ljZS4gTWF5YmUgd2UgY2FuIGFkZCB0aGUNCj4g
-b2Zfbm9kZSBjaGVjayBkaXJlY3RseSB0byB4ZW5faXNfZHRfZ3JhbnRfZG1hX2RldmljZT8NCg0K
-DQpHb29kIHBvaW50LiBJIHdhcyB0aGlua2luZyB0aGF0IHdlIHdvdWxkIGxpa2VseSBuZWVkIHRo
-ZSBmb2xsb3dpbmcgDQpjb25zdHJ1Y3QgaXMgdGhlIGZ1dHVyZToNCg0KDQppZiAobnApIC8qIERU
-IGRldmljZSAqLw0KIMKgwqAgcmV0dXJuIHhlbl9pc19kdF9ncmFudF9kbWFfZGV2aWNlKGRldik7
-DQplbHNlIC8qIEFDUEkgZGV2aWNlICovDQogwqDCoCByZXR1cm4geGVuX2lzX2FjcGlfZ3JhbnRf
-ZG1hX2RldmljZShkZXYpOw0KDQoNClNvLCBpZiB3ZSB1c2UgdGhlIGNoZWNrIGRpcmVjdGx5IGlu
-IHhlbl9pc19kdF9ncmFudF9kbWFfZGV2aWNlKCkgYW5kIGl0IA0KcmV0dXJucyBmYWxzZSB3ZSB3
-b24ndCBiZSBhYmxlIHRvIHJlY29nbml6ZSBhIHJlYXNvbiB0aGVuDQood2hldGhlciBkZXYgaXMg
-bm90IHJlbGF0ZWQgdG8gRFQsIG9yIGl0IGlzIHJlbGF0ZWQgdG8gRFQgYnV0IGl0IGlzIG5vdCAN
-CmEgInhlbixncmFudC1kbWEiIGRldmljZSkuDQpCdXQsIEkgYW0gb2sgdG8gZWxpbWluYXRlIG9u
-ZSB3YWxrIHJpZ2h0IG5vdywgdGhlbiB3ZSB3aWxsIHNlZS4NCg0KeGVuX2lzX2dyYW50X2RtYV9k
-ZXZpY2UoKSB3aWxsIGJlY2FtZSB0aGUgZm9sbG93aW5nOg0KDQpib29sIHhlbl9pc19ncmFudF9k
-bWFfZGV2aWNlKHN0cnVjdCBkZXZpY2UgKmRldikNCnsNCiDCoMKgIMKgcmV0dXJuIHhlbl9pc19k
-dF9ncmFudF9kbWFfZGV2aWNlKGRldik7DQp9DQoNCnhlbl9pc19kdF9ncmFudF9kbWFfZGV2aWNl
-KCkgd2lsbCBuZWVkIHRvIGdhaW4gYSBjaGVjayB0aGF0IGRldi0+b2Zfbm9kZSANCmlzIG5vdCBh
-IE5VTEwuDQoNCg0KU2hhbGwgST8NCg0KDQoNCj4NCj4NCj4+ICAgCXJldHVybiBmYWxzZTsNCj4+
-ICAgfQ0KPj4gQEAgLTMyNSwxMiArMzc3LDE5IEBAIGJvb2wgeGVuX3ZpcnRpb19tZW1fYWNjKHN0
-cnVjdCB2aXJ0aW9fZGV2aWNlICpkZXYpDQo+PiAgIHN0YXRpYyBpbnQgeGVuX2R0X2dyYW50X2lu
-aXRfYmFja2VuZF9kb21pZChzdHJ1Y3QgZGV2aWNlICpkZXYsDQo+PiAgIAkJCQkJICAgc3RydWN0
-IHhlbl9ncmFudF9kbWFfZGF0YSAqZGF0YSkNCj4+ICAgew0KPj4gLQlzdHJ1Y3Qgb2ZfcGhhbmRs
-ZV9hcmdzIGlvbW11X3NwZWM7DQo+PiArCXN0cnVjdCBvZl9waGFuZGxlX2FyZ3MgaW9tbXVfc3Bl
-YyA9IHsgLmFyZ3NfY291bnQgPSAxIH07DQo+PiAgIA0KPj4gLQlpZiAob2ZfcGFyc2VfcGhhbmRs
-ZV93aXRoX2FyZ3MoZGV2LT5vZl9ub2RlLCAiaW9tbXVzIiwgIiNpb21tdS1jZWxscyIsDQo+PiAt
-CQkJMCwgJmlvbW11X3NwZWMpKSB7DQo+PiAtCQlkZXZfZXJyKGRldiwgIkNhbm5vdCBwYXJzZSBp
-b21tdXMgcHJvcGVydHlcbiIpOw0KPj4gLQkJcmV0dXJuIC1FU1JDSDsNCj4+ICsJaWYgKGRldl9p
-c19wY2koZGV2KSkgew0KPj4gKwkJaWYgKHhlbl9kdF9tYXBfaWQoZGV2LCAmaW9tbXVfc3BlYy5u
-cCwgaW9tbXVfc3BlYy5hcmdzKSkgew0KPj4gKwkJCWRldl9lcnIoZGV2LCAiQ2Fubm90IHRyYW5z
-bGF0ZSBJRFxuIik7DQo+PiArCQkJcmV0dXJuIC1FU1JDSDsNCj4+ICsJCX0NCj4+ICsJfSBlbHNl
-IHsNCj4+ICsJCWlmIChvZl9wYXJzZV9waGFuZGxlX3dpdGhfYXJncyhkZXYtPm9mX25vZGUsICJp
-b21tdXMiLCAiI2lvbW11LWNlbGxzIiwNCj4+ICsJCQkJMCwgJmlvbW11X3NwZWMpKSB7DQo+PiAr
-CQkJZGV2X2VycihkZXYsICJDYW5ub3QgcGFyc2UgaW9tbXVzIHByb3BlcnR5XG4iKTsNCj4+ICsJ
-CQlyZXR1cm4gLUVTUkNIOw0KPj4gKwkJfQ0KPj4gICAJfQ0KPj4gICANCj4+ICAgCWlmICghb2Zf
-ZGV2aWNlX2lzX2NvbXBhdGlibGUoaW9tbXVfc3BlYy5ucCwgInhlbixncmFudC1kbWEiKSB8fA0K
-Pj4gQEAgLTM1NCw2ICs0MTMsNyBAQCBzdGF0aWMgaW50IHhlbl9kdF9ncmFudF9pbml0X2JhY2tl
-bmRfZG9taWQoc3RydWN0IGRldmljZSAqZGV2LA0KPj4gICB2b2lkIHhlbl9ncmFudF9zZXR1cF9k
-bWFfb3BzKHN0cnVjdCBkZXZpY2UgKmRldikNCj4+ICAgew0KPj4gICAJc3RydWN0IHhlbl9ncmFu
-dF9kbWFfZGF0YSAqZGF0YTsNCj4+ICsJc3RydWN0IGRldmljZV9ub2RlICpucDsNCj4+ICAgDQo+
-PiAgIAlkYXRhID0gZmluZF94ZW5fZ3JhbnRfZG1hX2RhdGEoZGV2KTsNCj4+ICAgCWlmIChkYXRh
-KSB7DQo+PiBAQCAtMzY1LDggKzQyNSwxMyBAQCB2b2lkIHhlbl9ncmFudF9zZXR1cF9kbWFfb3Bz
-KHN0cnVjdCBkZXZpY2UgKmRldikNCj4+ICAgCWlmICghZGF0YSkNCj4+ICAgCQlnb3RvIGVycjsN
-Cj4+ICAgDQo+PiAtCWlmIChkZXYtPm9mX25vZGUpIHsNCj4+IC0JCWlmICh4ZW5fZHRfZ3JhbnRf
-aW5pdF9iYWNrZW5kX2RvbWlkKGRldiwgZGF0YSkpDQo+PiArCW5wID0geGVuX2R0X2dldF9ub2Rl
-KGRldik7DQo+PiArCWlmIChucCkgew0KPj4gKwkJaW50IHJldDsNCj4+ICsNCj4+ICsJCXJldCA9
-IHhlbl9kdF9ncmFudF9pbml0X2JhY2tlbmRfZG9taWQoZGV2LCBkYXRhKTsNCj4+ICsJCW9mX25v
-ZGVfcHV0KG5wKTsNCj4+ICsJCWlmIChyZXQpDQo+PiAgIAkJCWdvdG8gZXJyOw0KPj4gICAJfSBl
-bHNlIGlmIChJU19FTkFCTEVEKENPTkZJR19YRU5fVklSVElPX0ZPUkNFX0dSQU5UKSkgew0KPj4g
-ICAJCWRldl9pbmZvKGRldiwgIlVzaW5nIGRvbTAgYXMgYmFja2VuZFxuIik7DQo+PiAtLSANCj4+
-IDIuMjUuMQ0KPj4NCi0tIA0KUmVnYXJkcywNCg0KT2xla3NhbmRyIFR5c2hjaGVua28NCg==
+--000000000000942cc805eb666b30
+Content-Type: multipart/alternative; boundary="000000000000942cc405eb666b2e"
+
+--000000000000942cc405eb666b2e
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Stefano,
+
+Thanks for the response!
+
+I am following the same link you shared from the beginning. Tried the
+command "vncviewer localhost:0" in DOM0 but same issue "Can't open
+display", below are the logs:
+
+
+
+
+
+
+
+*root@raspberrypi4-64:~# vncviewer localhost:0TigerVNC Viewer 64-bit
+v1.11.0Built on: 2020-09-08 12:16Copyright (C) 1999-2020 TigerVNC Team and
+many others (see README.rst)See https://www.tigervnc.org
+<https://www.tigervnc.org> for information on TigerVNC.Can't open display:*
+
+Below are the netstat logs, i couldn't see anything running at port 5900 or
+5901:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*root@raspberrypi4-64:~# netstat -tuwx Active Internet connections (w/o
+servers)Proto Recv-Q Send-Q Local Address           Foreign Address
+State       tcp        0    164 192.168.1.39:ssh        192.168.1.38:37472
+<http://192.168.1.38:37472>      ESTABLISHED Active UNIX domain sockets
+(w/o servers)Proto RefCnt Flags       Type       State         I-Node
+Pathunix  8      [ ]         DGRAM      CONNECTED      10565 /dev/logunix
+ 3      [ ]         STREAM     CONNECTED      10891
+/var/run/xenstored/socketunix  3      [ ]         STREAM     CONNECTED
+ 13791 unix  3      [ ]         STREAM     CONNECTED      10843
+/var/run/xenstored/socketunix  3      [ ]         STREAM     CONNECTED
+ 10573 /var/run/xenstored/socketunix  2      [ ]         DGRAM
+ CONNECTED      14510 unix  3      [ ]         STREAM     CONNECTED
+ 13249 unix  2      [ ]         DGRAM      CONNECTED      13887 unix  2
+ [ ]         DGRAM      CONNECTED      10599 unix  3      [ ]
+STREAM     CONNECTED      14005 unix  3      [ ]         STREAM
+CONNECTED      13258 unix  3      [ ]         STREAM     CONNECTED
+ 13248 unix  3      [ ]         STREAM     CONNECTED      14003 unix  3
+ [ ]         STREAM     CONNECTED      10572 /var/run/xenstored/socketunix
+ 3      [ ]         STREAM     CONNECTED      10786
+/var/run/xenstored/socketunix  3      [ ]         DGRAM      CONNECTED
+ 13186 unix  3      [ ]         STREAM     CONNECTED      10864
+/var/run/xenstored/socketunix  3      [ ]         STREAM     CONNECTED
+ 10812 /var/run/xenstored/socketunix  2      [ ]         DGRAM
+ CONNECTED      14083 unix  3      [ ]         STREAM     CONNECTED
+ 10813 /var/run/xenstored/socket*
+
+
+
+
+
+
+
+
+
+*unix  3      [ ]         STREAM     CONNECTED      14068 unix  3      [ ]
+        STREAM     CONNECTED      13256 unix  3      [ ]         STREAM
+CONNECTED      10571 /var/run/xenstored/socketunix  3      [ ]
+STREAM     CONNECTED      10842 unix  3      [ ]         STREAM
+CONNECTED      13985 unix  3      [ ]         DGRAM      CONNECTED
+ 13185 unix  2      [ ]         STREAM     CONNECTED      13884 unix  2
+ [ ]         DGRAM      CONNECTED      14528 unix  2      [ ]         DGRAM
+     CONNECTED      13785 unix  3      [ ]         STREAM     CONNECTED
+ 14034 *
+
+Attaching xen log files of /var/log/xen.
+I didn't get the role of QEMU here because as mentioned earlier, I am
+porting in raspberrypi 4B.
+
+Regards,
+Vipul Kumar
+
+On Wed, Oct 19, 2022 at 12:43 AM Stefano Stabellini <sstabellini@kernel.org>
+wrote:
+
+> It usually works the way it is described in the guide:
+>
+>
+> https://www.virtuatopia.com/index.php?title=Configuring_a_VNC_based_Graphical_Console_for_a_Xen_Paravirtualized_domainU_Guest
+>
+> You don't need to install any VNC-related server software because it is
+> already provided by Xen (to be precise it is provided by QEMU working
+> together with Xen.)
+>
+> You only need the vnc client in dom0 so that you can connect, but you
+> could also run the vnc client outside from another host. So basically
+> the following should work when executed in Dom0 after creating DomU:
+>
+>   vncviewer localhost:0
+>
+> Can you attach the Xen and QEMU logs (/var/log/xen/*)? And also use
+> netstat -taunp to check if there is anything running at port 5900 or
+> 5901?
+>
+> Cheers,
+>
+> Stefano
+>
+>
+> On Tue, 18 Oct 2022, Vipul Suneja wrote:
+> > Hi Stefano,
+> >
+> > Thanks for the response!
+> >
+> > I could install tigerVNC, x11vnc & libvncserver in Dom0
+> xen-image-minimal but only manage to install libvncserver(couldn't install
+> tigervnc
+> > & x11vnc because of x11
+> > support missing, it's wayland) in DOMU custom graphical image. I tried
+> running vncviewer with IP address & port in dom0 to access the domu
+> > graphical image display as per below commands.
+> >
+> >  vncviewer 192.168.1.42:5901
+> >
+> >  But it showing can't open display, below are the logs:
+> >
+> > root@raspberrypi4-64:~/guest1# vncviewer 192.168.1.42:5901
+> >
+> > TigerVNC Viewer 64-bit v1.11.0
+> > Built on: 2020-09-08 12:16
+> > Copyright (C) 1999-2020 TigerVNC Team and many others (see README.rst)
+> > See https://www.tigervnc.org for information on TigerVNC.
+> > Can't open display:
+> > root@raspberrypi4-64:~/guest1#
+> >
+> > I am not exactly sure what the issue is but I thought only libvncserver
+> in DOMU could work to get access but it did not work.
+> > If TigerVNC is the issue here then is there any other VNC source which
+> could be installed for both x11 & wayland supported images?
+> >
+> > Regards,
+> > Vipul Kumar
+> >
+> > On Tue, Oct 18, 2022 at 2:40 AM Stefano Stabellini <
+> sstabellini@kernel.org> wrote:
+> >       VNC is typically easier to setup, because SDL needs extra
+> libraries at
+> >       build time and runtime. If QEMU is built without SDL support it
+> won't
+> >       start when you ask for SDL.
+> >
+> >       VNC should work with both x11 and wayland in your domU. It doesn't
+> work
+> >       at the x11 level, it exposes a special fbdev device in your domU
+> that
+> >       should work with:
+> >       - a graphical console in Linux domU
+> >       - x11
+> >       - wayland (but I haven't tested this so I am not 100% sure about
+> it)
+> >
+> >       When you say "it doesn't work", what do you mean? Do you get a
+> black
+> >       window?
+> >
+> >       You need CONFIG_XEN_FBDEV_FRONTEND in Linux domU
+> >       (drivers/video/fbdev/xen-fbfront.c). I would try to get a
+> graphical text
+> >       console up and running in your domU before attempting x11/wayland.
+> >
+> >       Cheers,
+> >
+> >       Stefano
+> >
+> >       On Mon, 17 Oct 2022, Vipul Suneja wrote:
+> >       > Hi,
+> >       > Thanks!
+> >       >
+> >       > I have ported xen minimal image as DOM0 & custom wayland GUI
+> based image as DOMU in raspberry pi4B. I am trying to make GUI
+> >       display up
+> >       > for guest machine. I tried using sdl, included below line in
+> guest.conf file
+> >       > vfb= [ 'sdl=1' ]
+> >       >
+> >       > But it is throwing below error:
+> >       >
+> >       > root@raspberrypi4-64:~/guest1# xl create -c guest1.cfg
+> >       > Parsing config from guest1.cfg
+> >       > libxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback: Domain
+> 3:error on QMP socket: Connection reset by peer
+> >       > libxl: error: libxl_qmp.c:1439:qmp_ev_fd_callback: Domain
+> 3:Error happened with the QMP connection to QEMU
+> >       > libxl: error: libxl_dm.c:3351:device_model_postconfig_done:
+> Domain 3:Post DM startup configs failed, rc=-26
+> >       > libxl: error: libxl_create.c:1867:domcreate_devmodel_started:
+> Domain 3:device model did not start: -26
+> >       > libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device
+> Model already exited
+> >       > libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain
+> 3:Non-existant domain
+> >       > libxl: error: libxl_domain.c:1137:domain_destroy_callback:
+> Domain 3:Unable to destroy guest
+> >       > libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain
+> 3:Destruction of domain failed
+> >       >
+> >       > Another way is VNC, i could install tigervnc in DOM0 but same i
+> couldn't in guest machine because it doesn't support
+> >       x11(supports wayland
+> >       > only). I am completely blocked here, Need your support to enable
+> the display up.
+> >       > Any alternative of VNC which could work in both x11 & wayland
+> supported images?
+> >       >
+> >       > Any input on VNC, SDL or any other way to proceed on this?
+> Looking forward to hearing from you.
+> >       >
+> >       > Regards,
+> >       > Vipul Kumar
+> >
+> >
+> >
+
+--000000000000942cc405eb666b2e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Stefano,<br><br>Thanks for the response!<br><br>I am fo=
+llowing the same link you shared from the beginning. Tried the command &quo=
+t;vncviewer localhost:0&quot; in DOM0 but same issue &quot;Can&#39;t open d=
+isplay&quot;, below are the logs:<br><br><b>root@raspberrypi4-64:~# vncview=
+er localhost:0<br><br>TigerVNC Viewer 64-bit v1.11.0<br>Built on: 2020-09-0=
+8 12:16<br>Copyright (C) 1999-2020 TigerVNC Team and many others (see READM=
+E.rst)<br>See <a href=3D"https://www.tigervnc.org">https://www.tigervnc.org=
+</a> for information on TigerVNC.<br>Can&#39;t open display:</b><br><br>Bel=
+ow are the netstat logs, i couldn&#39;t see anything running at port 5900 o=
+r 5901:<br><br><b>root@raspberrypi4-64:~# netstat -tuwx <br>Active Internet=
+ connections (w/o servers)<br>Proto Recv-Q Send-Q Local Address =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 Foreign Address =C2=A0 =C2=A0 =C2=A0 =C2=A0 State =
+=C2=A0 =C2=A0 =C2=A0 <br>tcp =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=A0 =C2=A0164 =
+192.168.1.39:ssh =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"http://192.168.1.38:=
+37472">192.168.1.38:37472</a> =C2=A0 =C2=A0 =C2=A0ESTABLISHED <br>Active UN=
+IX domain sockets (w/o servers)<br>Proto RefCnt Flags =C2=A0 =C2=A0 =C2=A0 =
+Type =C2=A0 =C2=A0 =C2=A0 State =C2=A0 =C2=A0 =C2=A0 =C2=A0 I-Node Path<br>=
+unix =C2=A08 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=
+=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A010565 /dev/log<br>unix =C2=
+=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=
+=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010891 /var/run/xenstored/socket<br>unix =
+=C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =
+=C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A013791 <br>unix =C2=A03 =C2=A0 =C2=A0 =
+=C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0=
+ =C2=A0 =C2=A010843 /var/run/xenstored/socket<br>unix =C2=A03 =C2=A0 =C2=A0=
+ =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=
+=A0 =C2=A0 =C2=A010573 /var/run/xenstored/socket<br>unix =C2=A02 =C2=A0 =C2=
+=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECT=
+ED =C2=A0 =C2=A0 =C2=A014510 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=
+=A013249 <br>unix =C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A013887 <br>unix =
+=C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =
+=C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A010599 <br>unix =C2=A03 =C2=A0 =
+=C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED=
+ =C2=A0 =C2=A0 =C2=A014005 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A0132=
+58 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STR=
+EAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A013248 <br>unix =C2=A03 =C2=
+=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNE=
+CTED =C2=A0 =C2=A0 =C2=A014003 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=
+=A010572 /var/run/xenstored/socket<br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =
+=C2=A010786 /var/run/xenstored/socket<br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[=
+ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =
+=C2=A0 =C2=A013186 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010864 /var=
+/run/xenstored/socket<br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010812 /va=
+r/run/xenstored/socket<br>unix =C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A01=
+4083 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 S=
+TREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010813 /var/run/xenstored/=
+socket</b><br><b>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A014068 <br>unix =
+=C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =
+=C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A013256 <br>unix =C2=A03 =C2=A0 =C2=A0 =
+=C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0=
+ =C2=A0 =C2=A010571 /var/run/xenstored/socket<br>unix =C2=A03 =C2=A0 =C2=A0=
+ =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=
+=A0 =C2=A0 =C2=A010842 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A013985 =
+<br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =
+=C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A013185 <br>unix =C2=A02 =
+=C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CO=
+NNECTED =C2=A0 =C2=A0 =C2=A013884 <br>unix =C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=
+=A0 =C2=A014528 <br>unix =C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A013785 <b=
+r>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =
+=C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A014034 </b><br><br>Attaching xen=
+ log files of /var/log/xen.<br>I didn&#39;t get the role of QEMU here becau=
+se as mentioned earlier, I am porting in raspberrypi 4B.<br><div><br></div>=
+<div>Regards,</div><div>Vipul Kumar</div></div><br><div class=3D"gmail_quot=
+e"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Oct 19, 2022 at 12:43 AM S=
+tefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini=
+@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">It usually works the way it is described in the guide:<br>
+<br>
+<a href=3D"https://www.virtuatopia.com/index.php?title=3DConfiguring_a_VNC_=
+based_Graphical_Console_for_a_Xen_Paravirtualized_domainU_Guest" rel=3D"nor=
+eferrer" target=3D"_blank">https://www.virtuatopia.com/index.php?title=3DCo=
+nfiguring_a_VNC_based_Graphical_Console_for_a_Xen_Paravirtualized_domainU_G=
+uest</a><br>
+<br>
+You don&#39;t need to install any VNC-related server software because it is=
+<br>
+already provided by Xen (to be precise it is provided by QEMU working<br>
+together with Xen.)<br>
+<br>
+You only need the vnc client in dom0 so that you can connect, but you<br>
+could also run the vnc client outside from another host. So basically<br>
+the following should work when executed in Dom0 after creating DomU:<br>
+<br>
+=C2=A0 vncviewer localhost:0<br>
+<br>
+Can you attach the Xen and QEMU logs (/var/log/xen/*)? And also use<br>
+netstat -taunp to check if there is anything running at port 5900 or<br>
+5901?<br>
+<br>
+Cheers,<br>
+<br>
+Stefano<br>
+<br>
+<br>
+On Tue, 18 Oct 2022, Vipul Suneja wrote:<br>
+&gt; Hi Stefano,<br>
+&gt; <br>
+&gt; Thanks for the response!<br>
+&gt; <br>
+&gt; I could install tigerVNC, x11vnc &amp; libvncserver in Dom0 xen-image-=
+minimal but only manage to install libvncserver(couldn&#39;t install tigerv=
+nc<br>
+&gt; &amp; x11vnc because of x11<br>
+&gt; support missing, it&#39;s wayland) in DOMU custom graphical image. I t=
+ried running vncviewer with IP address &amp; port in dom0 to access the dom=
+u<br>
+&gt; graphical image display as per below commands.<br>
+&gt; =C2=A0<br>
+&gt; =C2=A0vncviewer <a href=3D"http://192.168.1.42:5901" rel=3D"noreferrer=
+" target=3D"_blank">192.168.1.42:5901</a><br>
+&gt; =C2=A0<br>
+&gt; =C2=A0But it showing can&#39;t open display, below are the logs:<br>
+&gt; =C2=A0<br>
+&gt; root@raspberrypi4-64:~/guest1# vncviewer <a href=3D"http://192.168.1.4=
+2:5901" rel=3D"noreferrer" target=3D"_blank">192.168.1.42:5901</a><br>
+&gt; <br>
+&gt; TigerVNC Viewer 64-bit v1.11.0<br>
+&gt; Built on: 2020-09-08 12:16<br>
+&gt; Copyright (C) 1999-2020 TigerVNC Team and many others (see README.rst)=
+<br>
+&gt; See <a href=3D"https://www.tigervnc.org" rel=3D"noreferrer" target=3D"=
+_blank">https://www.tigervnc.org</a> for information on TigerVNC.<br>
+&gt; Can&#39;t open display:<br>
+&gt; root@raspberrypi4-64:~/guest1#<br>
+&gt; <br>
+&gt; I am not exactly=C2=A0sure what the issue is but I thought only libvnc=
+server in DOMU could work to get access but it did not work.=C2=A0<br>
+&gt; If TigerVNC is the issue here then is there any other VNC source which=
+ could be installed for both x11 &amp; wayland supported images?<br>
+&gt; <br>
+&gt; Regards,<br>
+&gt; Vipul Kumar<br>
+&gt; <br>
+&gt; On Tue, Oct 18, 2022 at 2:40 AM Stefano Stabellini &lt;<a href=3D"mail=
+to:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a>&gt;=
+ wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0VNC is typically easier to setup, because SD=
+L needs extra libraries at<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0build time and runtime. If QEMU is built wit=
+hout SDL support it won&#39;t<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0start when you ask for SDL.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0VNC should work with both x11 and wayland in=
+ your domU. It doesn&#39;t work<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0at the x11 level, it exposes a special fbdev=
+ device in your domU that<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0should work with:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- a graphical console in Linux domU<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- x11<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- wayland (but I haven&#39;t tested this so =
+I am not 100% sure about it)<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0When you say &quot;it doesn&#39;t work&quot;=
+, what do you mean? Do you get a black<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0window?<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0You need CONFIG_XEN_FBDEV_FRONTEND in Linux =
+domU<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0(drivers/video/fbdev/xen-fbfront.c). I would=
+ try to get a graphical text<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0console up and running in your domU before a=
+ttempting x11/wayland.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Cheers,<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Stefano<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On Mon, 17 Oct 2022, Vipul Suneja wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Hi,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Thanks!<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; I have ported xen minimal image as DOM0=
+ &amp; custom wayland GUI based image as DOMU in raspberry pi4B. I am tryin=
+g to make GUI<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0display up<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; for=C2=A0guest machine. I tried using=
+=C2=A0sdl, included below line in guest.conf file<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; vfb=3D [ &#39;sdl=3D1&#39; ]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; But it is throwing below error:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; root@raspberrypi4-64:~/guest1# xl creat=
+e -c guest1.cfg<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Parsing config from guest1.cfg<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_qmp.c:1400:qmp_ev_f=
+d_callback: Domain 3:error on QMP socket: Connection reset by peer<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_qmp.c:1439:qmp_ev_f=
+d_callback: Domain 3:Error happened with the QMP connection to QEMU<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_dm.c:3351:device_mo=
+del_postconfig_done: Domain 3:Post DM startup configs failed, rc=3D-26<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_create.c:1867:domcr=
+eate_devmodel_started: Domain 3:device model did not start: -26<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_aoutils.c:646:libxl=
+__kill_xs_path: Device Model already exited<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_domain.c:1183:libxl=
+__destroy_domid: Domain 3:Non-existant domain<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_domain.c:1137:domai=
+n_destroy_callback: Domain 3:Unable to destroy guest<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_domain.c:1064:domai=
+n_destroy_cb: Domain 3:Destruction of domain failed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Another way is VNC, i could install tig=
+ervnc in DOM0 but same i couldn&#39;t in guest machine because it doesn&#39=
+;t support<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0x11(supports wayland<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; only). I am completely blocked here, Ne=
+ed your support to enable the display up.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Any alternative of VNC which could work=
+ in both x11 &amp; wayland supported images?<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Any input on VNC, SDL or any other way =
+to proceed on this? Looking forward to hearing from you.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Regards,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Vipul Kumar<br>
+&gt; <br>
+&gt; <br>
+&gt; </blockquote></div>
+
+--000000000000942cc405eb666b2e--
+--000000000000942cc805eb666b30
+Content-Type: application/octet-stream; name="qemu-dm-guest1.log"
+Content-Disposition: attachment; filename="qemu-dm-guest1.log"
+Content-Transfer-Encoding: base64
+Content-ID: <f_l9fvyqy40>
+X-Attachment-Id: f_l9fvyqy40
+
+Vk5DIHNlcnZlciBydW5uaW5nIG9uIDEyNy4wLjAuMTo1OTAwCnFlbXUtc3lzdGVtLWkzODY6IHRl
+cm1pbmF0aW5nIG9uIHNpZ25hbCAxIGZyb20gcGlkIDY5OCAoeGwpCg==
+--000000000000942cc805eb666b30
+Content-Type: application/octet-stream; name="xl-guest1.log"
+Content-Disposition: attachment; filename="xl-guest1.log"
+Content-Transfer-Encoding: base64
+Content-ID: <f_l9fvyqyk1>
+X-Attachment-Id: f_l9fvyqyk1
+
+V2FpdGluZyBmb3IgZG9tYWluIGd1ZXN0MSAoZG9taWQgMSkgdG8gZGllIFtwaWQgNjY1XQpEb21h
+aW4gMSBoYXMgYmVlbiBkZXN0cm95ZWQuCg==
+--000000000000942cc805eb666b30--
 
