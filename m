@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1812C6052D9
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 00:12:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.426049.674255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14459605336
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 00:34:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.426056.674266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olHIN-0000KA-5u; Wed, 19 Oct 2022 22:12:15 +0000
+	id 1olHcY-0002qD-Rq; Wed, 19 Oct 2022 22:33:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 426049.674255; Wed, 19 Oct 2022 22:12:15 +0000
+Received: by outflank-mailman (output) from mailman id 426056.674266; Wed, 19 Oct 2022 22:33:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olHIN-0000H3-23; Wed, 19 Oct 2022 22:12:15 +0000
-Received: by outflank-mailman (input) for mailman id 426049;
- Wed, 19 Oct 2022 22:12:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PkOC=2U=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1olHIK-0000EC-Sr
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 22:12:13 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1443f764-4ffb-11ed-91b4-6bf2151ebd3b;
- Thu, 20 Oct 2022 00:12:11 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D4817B825C4;
- Wed, 19 Oct 2022 22:12:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7180C433C1;
- Wed, 19 Oct 2022 22:12:08 +0000 (UTC)
+	id 1olHcY-0002nW-P3; Wed, 19 Oct 2022 22:33:06 +0000
+Received: by outflank-mailman (input) for mailman id 426056;
+ Wed, 19 Oct 2022 22:33:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1olHcY-0002nN-1o
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 22:33:06 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1olHcX-0006gL-H4; Wed, 19 Oct 2022 22:33:05 +0000
+Received: from 54-240-197-225.amazon.com ([54.240.197.225] helo=[10.85.39.71])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1olHcX-0005GN-76; Wed, 19 Oct 2022 22:33:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,215 +39,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1443f764-4ffb-11ed-91b4-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1666217529;
-	bh=GiCDD+yazSW/EflQT8JGbHTRXOwFuJcsOdaLcFeOPmM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VmlNlQoTNDZLygd+1D0FU55cQoJoIt8t0u8l+ytM/VK3n/m7n6Mcmb5H/wSMWuJ+F
-	 l8nIItmRcnCahf1dcJPNhAA1RZG3X5B8QyHG9Ezlg3+QRFAQaUndKhZaoXUxv201Ez
-	 qBQ7CzZxFMUYZMK9wVcQu20W4DgjFB9ogcnYaoLcu1GM8tRCWy9AG10NdA2qUcSHdB
-	 OiUCvDgcgOL1OPBhIsZsGaIGMO1LES/jDhos6+NwhiH4LvgswikakqV71fwwQi+mIN
-	 Jr2lQKyW1pvMQlwzP6EAAJqOjWNU18KR4ucwhZN4fBY/1QfhZjecNbBjhF3VmVucVc
-	 YUCXN6q9ff+kQ==
-Date: Wed, 19 Oct 2022 15:12:07 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v2 0/3] Yocto Gitlab CI
-In-Reply-To: <a1d2ab41-0d30-5d34-5a42-fb74b68d30f4@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2210191511260.3873@ubuntu-linux-20-04-desktop>
-References: <cover.1665561024.git.bertrand.marquis@arm.com> <alpine.DEB.2.22.394.2210141325240.3690179@ubuntu-linux-20-04-desktop> <7DE7B34C-F6BD-42D9-83A3-AAA3A6A35B62@arm.com> <alpine.DEB.2.22.394.2210171651250.4587@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2210181654170.4587@ubuntu-linux-20-04-desktop> <56155bff-6229-05a4-7221-cd6aa5a1de8b@amd.com> <0070D1D1-F579-4E11-8A27-62D3D92DE896@arm.com> <a1d2ab41-0d30-5d34-5a42-fb74b68d30f4@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=+qkh3NNEHHOFAhi9bBrRrQ3He8Cc/WI9wSQ4QXa58yw=; b=hjByN9Qn47BWDkoVQmrV7v29Z5
+	pdMHmYihEHeQYTwTYmMarErnEKXPlKKEQLJB5p6vjRCeLHNVDBjnZHf5P4xrBYPfJMQbUX5iT4a8J
+	ur/pi3kGQxnpZcM3h8u+Q35lN+4+RmLgPnGMW332mJnjoRYT6hnXLRekiyvddjK5M1FU=;
+Message-ID: <f200534c-c001-3ec0-7e05-cdbb76f456e3@xen.org>
+Date: Wed, 19 Oct 2022 23:33:01 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.3
+Subject: Re: [PATCH 2/2] xen/arm: p2m: Populate pages for GICv2 mapping in
+ arch_domain_create()
+Content-Language: en-US
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Henry Wang <Henry.Wang@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20221017191237.11079-1-andrew.cooper3@citrix.com>
+ <20221017191237.11079-3-andrew.cooper3@citrix.com>
+ <0456d318-731f-8df7-297c-19ecde06ed96@xen.org>
+ <cadcee69-e51b-99af-78c3-ab4a0e2e42d9@citrix.com>
+ <5587f5bd-1694-a843-9e80-ad477527a576@xen.org>
+ <dffdc951-91fd-2659-ec7f-5c213138d785@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <dffdc951-91fd-2659-ec7f-5c213138d785@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 19 Oct 2022, Michal Orzel wrote:
-> Hi Bertrand,
+Hi Andrew,
+
+On 19/10/2022 22:30, Andrew Cooper wrote:
+> On 18/10/2022 00:01, Julien Grall wrote:
+>>>> ... you are hardcoding both p2m_teardown() and p2m_set_allocation().
+>>>> IMO this is not an improvement at all. It is just making the code more
+>>>> complex than necessary and lack all the explanation on the assumptions.
+>>>>
+>>>> So while I am fine with your patch #1 (already reviewed it), there is
+>>>> a better patch from Henry on the ML. So we should take his (rebased)
+>>>> instead of yours.
+>>>
+>>> If by better, you mean something that still has errors, then sure.
+>>>
+>>> There's a really good reason why you cannot safely repurpose
+>>> p2m_teardown().  It's written expecting a fully constructed domain -
+>>> which is fine because that's how it is used.  It doesn't cope safely
+>>> with an partially constructed domain.
+>>
+>> It is not 100% clear what is the issue you are referring to as the
+>> VMID is valid at this point. So what part would be wrong?
 > 
-> On 19/10/2022 12:40, Bertrand Marquis wrote:
-> > 
-> > 
-> > Hi Michal,
-> > 
-> >> On 19 Oct 2022, at 10:06, Michal Orzel <michal.orzel@amd.com> wrote:
-> >>
-> >> Hi Stefano,
-> >>
-> >> On 19/10/2022 02:02, Stefano Stabellini wrote:
-> >>>
-> >>>
-> >>> On Mon, 17 Oct 2022, Stefano Stabellini wrote:
-> >>>> It should be
-> >>>>
-> >>>> BB_NUMBER_THREADS="2"
-> >>>>
-> >>>> but that worked! Let me a couple of more tests.
-> >>>
-> >>> I could run successfully a Yocto build test with qemuarm64 as target in
-> >>> gitlab-ci, hurray! No size issues, no build time issues, everything was
-> >>> fine. See:
-> >>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.com%2Fxen-project%2Fpeople%2Fsstabellini%2Fxen%2F-%2Fjobs%2F3193051236&amp;data=05%7C01%7Cmichal.orzel%40amd.com%7C5f7fc3a161fe44b5954808dab1be5c3a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638017728406088513%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=2mb3N26wiz39RJNSA4KoIOt%2BG9X7EMDOWIpfKc2ZZOc%3D&amp;reserved=0
-> >>> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.com%2Fxen-project%2Fpeople%2Fsstabellini%2Fxen%2F-%2Fjobs%2F3193083119&amp;data=05%7C01%7Cmichal.orzel%40amd.com%7C5f7fc3a161fe44b5954808dab1be5c3a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638017728406088513%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=QhTFefS8NU1f7oLemB0Vtn%2BDCD%2BCnq1v1gEmlKCJt84%3D&amp;reserved=0
-> >>>
-> >>> I made the appended changes in top of this series.
-> >>>
-> >>> - I pushed registry.gitlab.com/xen-project/xen/yocto:kirkstone and
-> >>>  registry.gitlab.com/xen-project/xen/yocto:kirkstone-qemuarm64
-> >>> - for the gitlab-ci runs, we need to run build-yocto.sh from the copy in
-> >>>  xen.git, not from a copy stored inside a container
-> >>> - when building the kirkstone-qemuarm64 container the first time
-> >>>  (outside of gitlab-ci) I used COPY and took the script from the local
-> >>>  xen.git tree
-> >>> - after a number of tests, I settled on: BB_NUMBER_THREADS="8" more than
-> >>>  this and it breaks on some workstations, please add it
-> >>> - I am running the yocto build on arm64 so that we can use the arm64
-> >>>  hardware to do it in gitlab-ci
-> >>>
-> >>> Please feel free to incorporate these changes in your series, and add
-> >>> corresponding changes for the qemuarm32 and qemux86 targets.
-> >>>
-> >>> I am looking forward to it! Almost there!
-> >>>
-> >>> Cheers,
-> >>>
-> >>> Stefano
-> >>>
-> >>>
-> >>> diff --git a/automation/build/yocto/build-yocto.sh b/automation/build/yocto/build-yocto.sh
-> >>> index 0d31dad607..16f1dcc0a5 100755
-> >>> --- a/automation/build/yocto/build-yocto.sh
-> >>> +++ b/automation/build/yocto/build-yocto.sh
-> >>> @@ -107,6 +107,9 @@ IMAGE_INSTALL:append:pn-xen-image-minimal = " ssh-pregen-hostkeys"
-> >>> # Save some disk space
-> >>> INHERIT += "rm_work"
-> >>>
-> >>> +# Reduce number of jobs
-> >>> +BB_NUMBER_THREADS="8"
-> >>> +
-> >>> EOF
-> >>>
-> >>>     if [ "${do_localsrc}" = "y" ]; then
-> >>> diff --git a/automation/build/yocto/kirkstone-qemuarm64.dockerfile b/automation/build/yocto/kirkstone-qemuarm64.dockerfile
-> >>> index f279a7af92..aea3fc1f3e 100644
-> >>> --- a/automation/build/yocto/kirkstone-qemuarm64.dockerfile
-> >>> +++ b/automation/build/yocto/kirkstone-qemuarm64.dockerfile
-> >>> @@ -16,7 +16,8 @@ ARG target=qemuarm64
-> >>>
-> >>> # This step can take one to several hours depending on your download bandwith
-> >>> # and the speed of your computer
-> >>> -RUN /home/$USER_NAME/bin/build-yocto.sh --dump-log $target
-> >>> +COPY ./build-yocto.sh /
-> >>> +RUN /build-yocto.sh --dump-log $target
-> >>>
-> >>> FROM $from_image
-> >>>
-> >>> diff --git a/automation/build/yocto/kirkstone.dockerfile b/automation/build/yocto/kirkstone.dockerfile
-> >>> index 367a7863b6..ffbd91aa90 100644
-> >>> --- a/automation/build/yocto/kirkstone.dockerfile
-> >>> +++ b/automation/build/yocto/kirkstone.dockerfile
-> >>> @@ -84,9 +84,6 @@ RUN mkdir -p /home/$USER_NAME/yocto-layers \
-> >>>              /home/$USER_NAME/xen && \
-> >>>     chown $USER_NAME.$USER_NAME /home/$USER_NAME/*
-> >>>
-> >>> -# Copy the build script
-> >>> -COPY build-yocto.sh /home/$USER_NAME/bin/
-> >>> -
-> >>> # clone yocto repositories we need
-> >>> ARG yocto_version="kirkstone"
-> >>> RUN for rep in \
-> >>> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> >>> index ddc2234faf..4b8bcde252 100644
-> >>> --- a/automation/gitlab-ci/build.yaml
-> >>> +++ b/automation/gitlab-ci/build.yaml
-> >>> @@ -584,6 +584,22 @@ alpine-3.12-gcc-arm64-boot-cpupools:
-> >>>     EXTRA_XEN_CONFIG: |
-> >>>       CONFIG_BOOT_TIME_CPUPOOLS=y
-> >>>
-> >>> +yocto-kirkstone-qemuarm64:
-> >>> +  stage: build
-> >>> +  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> >>> +  script:
-> >>> +    - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` qemuarm64
-> >>> +  variables:
-> >>> +    CONTAINER: yocto:kirkstone-qemuarm64
-> >>> +  artifacts:
-> >>> +    paths:
-> >>> +      - '*.log'
-> >>> +      - '*/*.log'
-> >> The above lines are not needed as the logs/* below will handle them all (logs are only stored in logs/).
-> > 
-> > Ack
-> > 
-> >>
-> >>> +      - 'logs/*'
-> >>> +    when: always
-> >>> +  tags:
-> >>> +    - arm64
-> >>> +
-> >> build-yocto.sh performs both build and run actions. I think it'd be better to move this into test.yaml in that case.
-> >> The best would be to create one build job (specifying --no-run) in build.yaml and one test job (specifying --no-build) in test.yaml.
-> >> This however would probably require marking path build/tmp/deploy/***/qemuarm64 as an build artifact. The question then is
-> >> whether having this path would be enough for runqemu (Bertrand's opinion needed).
-> > 
-> > This will not be enough to run qemu as the qemu binary and its dependencies are in the build artifacts and not in deploy.
-> > Splitting the build and run is not a good idea because the size of the artifact between the 2 will be huge.
-> > 
-> >>
-> >> Apart from that there is an aspect of Yocto releases and the containers/tests names.
-> >> Yocto needs to be up-to-date in order to properly build Xen+tools.
-> >> This basically means that we will need to update the containers once
-> >> per Yocto release. The old containers would still need to be stored in our CI container registry
-> >> so that we can use CI for older versions of Xen. However, updating the containers would also require
-> >> modifying the existing tests (for now we have e.g. yocto-kirkstone-qemuarm64 but in a month we will have
-> >> to change them to yocto-langdale-qemuarm64). In a few years time this will result in several CI jobs
-> >> that are the same but differ only in name/container. I would thus suggest to name the CI jobs like this:
-> >> yocto-qemuarm64 (without yocto release name) and define the top-level YOCTO_CONTAINER variable to store
-> >> the current yocto release container. This will solve the issue I described above.
-> > 
-> > I think we have no other way around this and we will need to have one Yocto release supported by Xen officially so
-> > we will have to keep old docker images for old releases of Xen and move to newer versions of Yocto in staging when
-> > it is needed.
-> > 
-> > We have to find a way for gitlab-ci to use the build.yaml contained inside the tree that is to be tested somehow so that gitlab would automatically take the right one.
-> > Which means that build.yaml will be different between branches and contain the right version for the current branch.
-> > 
+> Falling over a bad root pointer from an early construction exit.
+
+You have been mentioning that several time now but I can't see how this
+can happen. If you look at Henry's second patch, p2m_teardown() starts
+with the following check:
+if ( page_list_empty(&p2m->pages) )
+    return;
+
+Per the logic in p2m_init(), the root pages have to be allocated (note 
+they are *not* allocated from the P2M pool) and the VMID as well before 
+any pages could be added in the list.
+
 > 
-> What I suggest is that with each new yocto release, we add new docker container files and push them to registry.
-> So we will end up in a registry having e.g. (arm64 as an example):
-> - kirkstone-qemuarm64
-> - langdale-qemuarm64
-> We maintain only the one group of CI jobs whose names are generic (yocto-qemuarm64).
-> After adding new containers for a new Yocto release, we modify the YOCTO_RELEASE variable
-> to point to the latest yocto release containers.
+>> But if there are part of p2m_teardown() that are not safe for
+>> partially constructed domain, then we should split the code. This
+>> would be much better that the duplication you are proposing.
 > 
-> test.yaml:
-> ...
-> # Yocto test jobs
-> variables:
->   YOCTO_RELEASE: "kirkstone"
+> You have two totally different contexts with different safety
+> requirements.  c/s 55914f7fc9 is a reasonably good and clean separation
+> between preemptible and non-preemptible cleanup[1].
+
+The part you mention in [1] was decided to be delayed post 4.17 for 
+development cycle reasons.
+
 > 
-> yocto-qemuarm64:
->   extends: .test-jobs-common
->   script:
->     - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` qemuarm64
->   variables:
->     CONTAINER: yocto:${YOCTO_RELEASE}-qemuarm64
->   artifacts:
->     paths:
->       - 'logs/*'
->     when: always
->   tags:
->     - arm64
+> You've agreed that the introduction of the non-preemptible path to the
+> preemptible path is a hack and layering violation, and will need undoing
+> later.  Others have raised this concern too.
+
+[...]
+
 > 
-> This means that:
-> - on the current staging branch the YOCTO_RELEASE points to the latest containers (for the latest yocto release)
-> - on the old stable branches the YOCTO_RELEASE points to the old containers (for the old yocto release).
- 
-I think that's a good idea
+> Also realise that you've now split the helper between regular hypercall
+> context, and RCU context, and recall what happened when we finally
+> started asserting that memory couldn't be allocated in stop-machine context.
+> 
+> How certain are you that the safety is the same on earlier versions of
+> Xen?
+I am pretty confident because the P2M code has not changed a lot.
+
+> What is the likelihood that all of these actions will remain safe
+> given future development?
+Code always evolve and neither you (nor I) can claim that any work will 
+stay safe forever. In your patch proposal, then the risk is a bug could 
+be duplicated.
+
+> 
+> 
+> Despite what is being claimed, the attempt to share cleanup logic is
+> introducing fragility and risk, not removing it.
+
+I find interesting you are saying that... If we were going to move 
+p2m_teardown() in domain_teardown() then we would end up to share the code.
+
+To me, this is not very different here because in one context it would 
+be preemptible while the other it won't. At which point...
+
+>  This is a bugfix for
+> to a security fix issue which is totally dead on arrival; net safety,
+> especially in older versions of the Xen, is *the highest priority*.
+> 
+> These two different contexts don't share any common properties of how to
+> clean up the pool, save freeing the frames back to the memory
+> allocator.  In a proper design, this is the hint that they shouldn't
+> share logic either
+... why is your design better than what Henry's proposed?
+
+> 
+> Given that you do expect someone to spend yet-more time&effort to undo
+> the short term hack currently being proposed, how do you envisage the
+> end result looking?
+
+The end result will be p2m_teardown() & co to be called from 
+domain_teardown().
+
+Anyway, this discussion doesn't make us closer to come to an agreement 
+on the correct approach. We have both very diverging opinion and so far 
+I haven't seen any strong reasons that is showing yours is better.
+
+So unless Bertrand or Stefano agree with you, then I will go ahead and 
+merge Henry's patch tomorrow after a final review.
+
+Cheers,
+
+-- 
+Julien Grall
 
