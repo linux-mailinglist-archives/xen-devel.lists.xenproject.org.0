@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ACF06049A4
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 16:47:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.425835.673904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8BA56049B0
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 16:50:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.425841.673915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olALR-0006nb-Ql; Wed, 19 Oct 2022 14:46:57 +0000
+	id 1olAO6-0007OP-8J; Wed, 19 Oct 2022 14:49:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 425835.673904; Wed, 19 Oct 2022 14:46:57 +0000
+Received: by outflank-mailman (output) from mailman id 425841.673915; Wed, 19 Oct 2022 14:49:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olALR-0006kz-Nt; Wed, 19 Oct 2022 14:46:57 +0000
-Received: by outflank-mailman (input) for mailman id 425835;
- Wed, 19 Oct 2022 14:46:56 +0000
+	id 1olAO6-0007MF-5R; Wed, 19 Oct 2022 14:49:42 +0000
+Received: by outflank-mailman (input) for mailman id 425841;
+ Wed, 19 Oct 2022 14:49:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V6HZ=2U=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1olALQ-0006kr-9l
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 14:46:56 +0000
+ <SRS0=prF/=2U=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1olAO4-0007M7-P0
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 14:49:40 +0000
 Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
  [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0283b60-4fbc-11ed-8fd0-01056ac49cbb;
- Wed, 19 Oct 2022 16:46:55 +0200 (CEST)
+ id 4236aa01-4fbd-11ed-8fd0-01056ac49cbb;
+ Wed, 19 Oct 2022 16:49:39 +0200 (CEST)
 Received: by mail-wm1-x32e.google.com with SMTP id
- m29-20020a05600c3b1d00b003c6bf423c71so198678wms.0
- for <xen-devel@lists.xenproject.org>; Wed, 19 Oct 2022 07:46:55 -0700 (PDT)
-Received: from [192.168.16.131] (54-240-197-224.amazon.com. [54.240.197.224])
- by smtp.gmail.com with ESMTPSA id
- a15-20020adfeecf000000b00228692033dcsm13430511wrp.91.2022.10.19.07.46.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Oct 2022 07:46:54 -0700 (PDT)
+ bh7-20020a05600c3d0700b003c6fb3b2052so178817wmb.2
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Oct 2022 07:49:39 -0700 (PDT)
+Received: from uni.router.wind (adsl-166.109.242.226.tellas.gr.
+ [109.242.226.166]) by smtp.googlemail.com with ESMTPSA id
+ u11-20020a05600c210b00b003c6d0f8c377sm161260wml.7.2022.10.19.07.49.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Oct 2022 07:49:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0283b60-4fbc-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 4236aa01-4fbd-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=e3CNJR4QS88HvnwtBSl41wTR/zmG/zG9xm1dKy2hdG0=;
-        b=RLaFX/Dp3vnHi7EJHhSX5b0GIwsMg1yBfJYKUnwXS1cwlDmgjvqMKlg74E60lsiytg
-         asoB9dkZbge9csMKtXHnImgeTbKEblrhN6dCjW09KPDjEiWEjZyxsul2DnJiaQxcrEsD
-         r381NrzshWlQHwKsJyCQL+X6C+jXyBUrUrcbX4LPeA+tobEE0L6b3mMcNePasU/qGhW8
-         xC8DrRSYHSQM43Shmy4Uvz6NL/jr6kw+svjQJWt68FwiAlZyY94cU1JENTq+muMASOzY
-         azh2EL/KQ3Nrn5j7jkLmpR0LN5OBD6Le1aDNNr5MQMKl4qVk2L05rS2WedHAdxBx1zBE
-         FRJg==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=iLhcGxMHCoOK9aYxPCTx907ASeijniOgclzPKssdW5E=;
+        b=BdfSJTVWwlsKlhzxuESrSKcnelMbZdUiwTmeLYYSrInaKjK4bGdcr9ZNkwQnvO0aPT
+         XbPlfxSSQRJZdWIYMVMYNqdToXfw7XtWntUmGmKbwrErb6h1Wapskejr+8ClpmPyqG3N
+         cFFyi07wlYZFBgUeexPo7x3gZQqY7GQMuEZE7mf08uL7d05WLJgGNY3hYj/b0pdS2ldm
+         oykPnTjahU/PR9TCfPrWXp8eb6Oi/f6Cs+uDF2SxgFjXN4IJKKuu3IoQJMVlVePRQDGF
+         dskZFAJmsxta31sMSEIuMHBfoOOIh7dC8egE8NJrlz1pjIiW3OfLR+xBvowV2nR8Rsdu
+         6yEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=e3CNJR4QS88HvnwtBSl41wTR/zmG/zG9xm1dKy2hdG0=;
-        b=6r6BFOvmWl2/SveAkEnv7+qG6sckvqf2dx/fu7tSfSXqzkuLz+GKUUOzF2Tw9NnDgq
-         tEyNtRckvPLEHi6tzqOfcw0/MK1+vvXaBIzQKtOfuLwVKoVTlXYS01llCYcSXFVOKsUL
-         6g5sYcuShWWHyRX5VDbmDTKT84rFT+9xYjkcHXXCqZJgpR+zssc0In8gAqzsHVZ1B40/
-         +WKY9EPdJeccZw2lxQbdw2U9CB9Py1dR17eQrzXIdqb8+bkpbFLtgFX0bE63mJtP5v3T
-         7tdPe6AEPTjjk0rhqpJiXS41kvpHNk/edlEE/jpJoMwBW6dS9iT5562ebBaJcFA2FZhM
-         r5PQ==
-X-Gm-Message-State: ACrzQf3bSQYoqwU+jpe/S+Nf4tF1eUQi6Dt6cT7r1JLFh88gL+o1q1pg
-	z7wp0mSLAJWp+Iy0ki4HUQ0=
-X-Google-Smtp-Source: AMsMyM60hDMlihxQXeLTz6qUTDrTpSHzW00hsuj5yzeuBTXayoatL+q6lxxLGEJhzi1YDWR2UimQIw==
-X-Received: by 2002:a05:600c:230d:b0:3c4:2975:321a with SMTP id 13-20020a05600c230d00b003c42975321amr26929174wmo.155.1666190814830;
-        Wed, 19 Oct 2022 07:46:54 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <66161258-9b2b-400b-4ed5-e980394f905e@xen.org>
-Date: Wed, 19 Oct 2022 15:46:52 +0100
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=iLhcGxMHCoOK9aYxPCTx907ASeijniOgclzPKssdW5E=;
+        b=wl2WxSDndxJjdKXhxCB+wTJkn3bEu4d9bNst86+AWRejq8oZqOqnRdtrtFtnvfkW8o
+         uN26rx8f0zGluQUEhKkOKvN3la6YhyTi2MrlpiGfzfPEoLYyVMTMfLe2YpyXIn22gVaA
+         RdVpfsYCeyhs5Gzpjxl2L3b30Kq5IyqP5Vl06rG5NdTCGM+RkqCaL7YO7S1a13YwwKrJ
+         b7+CNItLykR4q25PbQzO7JWbSksbhfOptKjYauNfpYESra+w5IE4ORAOiTQ/FRGpUiFh
+         +qOqQdn2zHvY8rqcMc2NxeqwSrBzjJy8I/fgSKbNjxdtwcmq41WmtKMEuJbIN1cgSJwd
+         idbw==
+X-Gm-Message-State: ACrzQf3lpNsnpuyaFrjFlV33P9QsZ0DpKDfHvKfdT5IlXDzW+dNYAKhU
+	LUaPsaDiVKGmXlTv0KLlPmBAh2lDjEA=
+X-Google-Smtp-Source: AMsMyM6QERr7j5qDETkwwChgOvJNcEkwecREg4eGj2PGAR1CKin+Kt3OGADWk83T9gq1ij2V5ovJZg==
+X-Received: by 2002:a05:600c:3d15:b0:3b4:8bd9:3905 with SMTP id bh21-20020a05600c3d1500b003b48bd93905mr26482553wmb.173.1666190979046;
+        Wed, 19 Oct 2022 07:49:39 -0700 (PDT)
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2] xen/arm: p2m: fix pa_range_info for 52-bit pa range
+Date: Wed, 19 Oct 2022 17:49:13 +0300
+Message-Id: <20221019144913.291677-1-burzalodowa@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH v1 01/12] hw/xen: Correct build config for xen_pt_stub
-To: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org
-Cc: stefano.stabellini@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-References: <20221015050750.4185-1-vikram.garhwal@amd.com>
- <20221015050750.4185-2-vikram.garhwal@amd.com>
-Content-Language: en-US
-Organization: Xen Project
-In-Reply-To: <20221015050750.4185-2-vikram.garhwal@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/10/2022 06:07, Vikram Garhwal wrote:
-> Build fails when have_xen_pci_passthrough is disabled. This is because of
-> incorrect build configuration for xen_pt_stub.c.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+Currently, the fields 'root_order' and 'sl0' of the pa_range_info for
+the 52-bit pa range have the values 3 and 3, respectively.
+This configuration does not match any of the valid root table configurations
+for 4KB granule and t0sz 12, described in ARM DDI 0487I.a D8.2.7.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+More specifically, according to ARM DDI 0487I.a D8.2.7, in order to support
+the 52-bit pa size with 4KB granule, the p2m root table needs to be configured
+either as a single table at level -1 or as 16 concatenated tables at level 0.
+Since, currently there is not support for level -1, set the 'root_order' and
+'sl0' fields of the 52-bit pa_range_info according to the second approach.
+
+Note that the values of those fields are not used so far. This patch updates
+their values only for the sake of correctness.
+
+Fixes: 407b13a71e32 ("xen/arm: p2m don't fall over on FEAT_LPA enabled hw")
+Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+---
+
+Changes in v2:
+- add Fixes tag
+- provide a reference to the Arm Arm (paragraph + version)
+- change wording in the commit log to not make assumptions on value
+  interpretations that may lead to confusion
+- state clearly that these values are not used so far
+
+ xen/arch/arm/p2m.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index f17500ddf3..c824d62806 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -2251,7 +2251,7 @@ void __init setup_virt_paging(void)
+         [3] = { 42,      22/*22*/,  3,          1 },
+         [4] = { 44,      20/*20*/,  0,          2 },
+         [5] = { 48,      16/*16*/,  0,          2 },
+-        [6] = { 52,      12/*12*/,  3,          3 },
++        [6] = { 52,      12/*12*/,  4,          2 },
+         [7] = { 0 }  /* Invalid */
+     };
+ 
+-- 
+2.34.1
 
 
