@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8BA56049B0
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 16:50:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.425841.673915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A55EC6049F3
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 16:54:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.425847.673926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olAO6-0007OP-8J; Wed, 19 Oct 2022 14:49:42 +0000
+	id 1olASK-0000NC-Qm; Wed, 19 Oct 2022 14:54:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 425841.673915; Wed, 19 Oct 2022 14:49:42 +0000
+Received: by outflank-mailman (output) from mailman id 425847.673926; Wed, 19 Oct 2022 14:54:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olAO6-0007MF-5R; Wed, 19 Oct 2022 14:49:42 +0000
-Received: by outflank-mailman (input) for mailman id 425841;
- Wed, 19 Oct 2022 14:49:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1olASK-0000Kx-Ma; Wed, 19 Oct 2022 14:54:04 +0000
+Received: by outflank-mailman (input) for mailman id 425847;
+ Wed, 19 Oct 2022 14:54:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=prF/=2U=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1olAO4-0007M7-P0
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 14:49:40 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4236aa01-4fbd-11ed-8fd0-01056ac49cbb;
- Wed, 19 Oct 2022 16:49:39 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- bh7-20020a05600c3d0700b003c6fb3b2052so178817wmb.2
- for <xen-devel@lists.xenproject.org>; Wed, 19 Oct 2022 07:49:39 -0700 (PDT)
-Received: from uni.router.wind (adsl-166.109.242.226.tellas.gr.
- [109.242.226.166]) by smtp.googlemail.com with ESMTPSA id
- u11-20020a05600c210b00b003c6d0f8c377sm161260wml.7.2022.10.19.07.49.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Oct 2022 07:49:38 -0700 (PDT)
+ <SRS0=V6HZ=2U=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1olASJ-0000Kr-0g
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 14:54:03 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de3cd9f7-4fbd-11ed-91b4-6bf2151ebd3b;
+ Wed, 19 Oct 2022 16:54:01 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id bp11so29551537wrb.9
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Oct 2022 07:54:01 -0700 (PDT)
+Received: from [192.168.16.131] (54-240-197-232.amazon.com. [54.240.197.232])
+ by smtp.gmail.com with ESMTPSA id
+ x19-20020a1c7c13000000b003b4868eb6bbsm174007wmc.23.2022.10.19.07.53.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Oct 2022 07:54:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +44,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4236aa01-4fbd-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: de3cd9f7-4fbd-11ed-91b4-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=iLhcGxMHCoOK9aYxPCTx907ASeijniOgclzPKssdW5E=;
-        b=BdfSJTVWwlsKlhzxuESrSKcnelMbZdUiwTmeLYYSrInaKjK4bGdcr9ZNkwQnvO0aPT
-         XbPlfxSSQRJZdWIYMVMYNqdToXfw7XtWntUmGmKbwrErb6h1Wapskejr+8ClpmPyqG3N
-         cFFyi07wlYZFBgUeexPo7x3gZQqY7GQMuEZE7mf08uL7d05WLJgGNY3hYj/b0pdS2ldm
-         oykPnTjahU/PR9TCfPrWXp8eb6Oi/f6Cs+uDF2SxgFjXN4IJKKuu3IoQJMVlVePRQDGF
-         dskZFAJmsxta31sMSEIuMHBfoOOIh7dC8egE8NJrlz1pjIiW3OfLR+xBvowV2nR8Rsdu
-         6yEw==
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0yRTTVBNbj3XA+3EDNVvotZrJvbU0BGaEmHb8InPfG0=;
+        b=E2vxbpUHwX77sZFJL6PBKUbeVbBH7WAAubW+1wsp/BXJgK5iWz2YRxogovWe2aDr0S
+         IJFe1A5MdZ1vn1D3jQHVTfyVXPiY1Mx+pxFrno/Q6e27CWXL/O1oCxAnzcnpxfB0hEKX
+         GlTQrM4S6Y0MT03oQ8ap3MU/oCZD6jsempzvHA69yS81Y2xaF1+nMdjeOACtnmIQyUR2
+         I0ZrXwKrukpYCXzV93rFZkILor8/hDHDBv17SAMW66LXf+tGx0broRsoSqEISdsMuFTU
+         Kpg9P+3yFGGQx0o8JxIyoGA/TFIUeoEkp38e/BA5VhKz0zN+txCDQJj4CjBJwsbsqN1e
+         G8Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=iLhcGxMHCoOK9aYxPCTx907ASeijniOgclzPKssdW5E=;
-        b=wl2WxSDndxJjdKXhxCB+wTJkn3bEu4d9bNst86+AWRejq8oZqOqnRdtrtFtnvfkW8o
-         uN26rx8f0zGluQUEhKkOKvN3la6YhyTi2MrlpiGfzfPEoLYyVMTMfLe2YpyXIn22gVaA
-         RdVpfsYCeyhs5Gzpjxl2L3b30Kq5IyqP5Vl06rG5NdTCGM+RkqCaL7YO7S1a13YwwKrJ
-         b7+CNItLykR4q25PbQzO7JWbSksbhfOptKjYauNfpYESra+w5IE4ORAOiTQ/FRGpUiFh
-         +qOqQdn2zHvY8rqcMc2NxeqwSrBzjJy8I/fgSKbNjxdtwcmq41WmtKMEuJbIN1cgSJwd
-         idbw==
-X-Gm-Message-State: ACrzQf3lpNsnpuyaFrjFlV33P9QsZ0DpKDfHvKfdT5IlXDzW+dNYAKhU
-	LUaPsaDiVKGmXlTv0KLlPmBAh2lDjEA=
-X-Google-Smtp-Source: AMsMyM6QERr7j5qDETkwwChgOvJNcEkwecREg4eGj2PGAR1CKin+Kt3OGADWk83T9gq1ij2V5ovJZg==
-X-Received: by 2002:a05:600c:3d15:b0:3b4:8bd9:3905 with SMTP id bh21-20020a05600c3d1500b003b48bd93905mr26482553wmb.173.1666190979046;
-        Wed, 19 Oct 2022 07:49:39 -0700 (PDT)
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2] xen/arm: p2m: fix pa_range_info for 52-bit pa range
-Date: Wed, 19 Oct 2022 17:49:13 +0300
-Message-Id: <20221019144913.291677-1-burzalodowa@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0yRTTVBNbj3XA+3EDNVvotZrJvbU0BGaEmHb8InPfG0=;
+        b=3YbjAw2wuVEps6PX7YX/6qDRJINlvI2Alrz1RgcvO+g9+52hL9NoFIbOj18deck/mz
+         FzBX/nET+Ui/DF0+wRiXAjIjfTFlxGjCxhBG7l7rhqqK2Hr/U6yythMegqyNSqq5ayu7
+         62/f01BIrMGBI72RLOvcObDv4leT4P4+WfmK5RKuB+Pla8ugO2axnlkU1G67JDxnWZka
+         fTOsaDWBOwjrLy0ZQeFEj90bQFY3EOEeU10cLaW0BHbBX22sJnvgsLlGm2jxNcdf8DT2
+         s5m2sbiRp5Xy1NK54DQq7i650FBNNhuwXCzLWzYy6HQUMl4RkT5UIbf8sAyPArHgz0SW
+         u+vQ==
+X-Gm-Message-State: ACrzQf1h9MOdlRPgDel84DEt6qIfkmDNl8RPcAXyChH0lVBqEZ2suOxG
+	FK3BouAkm+eCYB9aSj+hOTE=
+X-Google-Smtp-Source: AMsMyM6cYbnQ89uH4UoJ1T55BKD6zyEHstSbXhd0DL+SznmT6uERxps5bwjTk3dmvYSuT212RMynQw==
+X-Received: by 2002:a5d:5850:0:b0:234:27c9:8fd8 with SMTP id i16-20020a5d5850000000b0023427c98fd8mr2107984wrf.548.1666191240976;
+        Wed, 19 Oct 2022 07:54:00 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <f12d712c-dc47-7778-8cf5-cfd621fdb9ad@xen.org>
+Date: Wed, 19 Oct 2022 15:53:58 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH v1 02/12] hw/i386/xen/: move xen-mapcache.c to hw/xen/
+Content-Language: en-US
+To: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org
+Cc: stefano.stabellini@amd.com, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+References: <20221015050750.4185-1-vikram.garhwal@amd.com>
+ <20221015050750.4185-3-vikram.garhwal@amd.com>
+Organization: Xen Project
+In-Reply-To: <20221015050750.4185-3-vikram.garhwal@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Currently, the fields 'root_order' and 'sl0' of the pa_range_info for
-the 52-bit pa range have the values 3 and 3, respectively.
-This configuration does not match any of the valid root table configurations
-for 4KB granule and t0sz 12, described in ARM DDI 0487I.a D8.2.7.
+On 15/10/2022 06:07, Vikram Garhwal wrote:
+> xen-mapcache.c contains common functions which can be used for enabling Xen on
+> aarch64 with IOREQ handling. Moving it out from hw/i386/xen to hw/xen to make it
+> accessible for both aarch64 and x86.
+> 
+> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+>   hw/i386/meson.build              | 1 +
+>   hw/i386/xen/meson.build          | 1 -
+>   hw/i386/xen/trace-events         | 5 -----
+>   hw/xen/meson.build               | 4 ++++
+>   hw/xen/trace-events              | 5 +++++
+>   hw/{i386 => }/xen/xen-mapcache.c | 0
+>   6 files changed, 10 insertions(+), 6 deletions(-)
+>   rename hw/{i386 => }/xen/xen-mapcache.c (100%)
+> 
+> diff --git a/hw/i386/meson.build b/hw/i386/meson.build
+> index 213e2e82b3..cfdbfdcbcb 100644
+> --- a/hw/i386/meson.build
+> +++ b/hw/i386/meson.build
+> @@ -33,5 +33,6 @@ subdir('kvm')
+>   subdir('xen')
+>   
+>   i386_ss.add_all(xenpv_ss)
+> +i386_ss.add_all(xen_ss)
+>   
+>   hw_arch += {'i386': i386_ss}
+> diff --git a/hw/i386/xen/meson.build b/hw/i386/xen/meson.build
+> index be84130300..2fcc46e6ca 100644
+> --- a/hw/i386/xen/meson.build
+> +++ b/hw/i386/xen/meson.build
+> @@ -1,6 +1,5 @@
+>   i386_ss.add(when: 'CONFIG_XEN', if_true: files(
+>     'xen-hvm.c',
+> -  'xen-mapcache.c',
+>     'xen_apic.c',
+>     'xen_platform.c',
+>     'xen_pvdevice.c',
+> diff --git a/hw/i386/xen/trace-events b/hw/i386/xen/trace-events
+> index 5d6be61090..a0c89d91c4 100644
+> --- a/hw/i386/xen/trace-events
+> +++ b/hw/i386/xen/trace-events
+> @@ -21,8 +21,3 @@ xen_map_resource_ioreq(uint32_t id, void *addr) "id: %u addr: %p"
+>   cpu_ioreq_config_read(void *req, uint32_t sbdf, uint32_t reg, uint32_t size, uint32_t data) "I/O=%p sbdf=0x%x reg=%u size=%u data=0x%x"
+>   cpu_ioreq_config_write(void *req, uint32_t sbdf, uint32_t reg, uint32_t size, uint32_t data) "I/O=%p sbdf=0x%x reg=%u size=%u data=0x%x"
+>   
+> -# xen-mapcache.c
+> -xen_map_cache(uint64_t phys_addr) "want 0x%"PRIx64
+> -xen_remap_bucket(uint64_t index) "index 0x%"PRIx64
+> -xen_map_cache_return(void* ptr) "%p"
+> -
+> diff --git a/hw/xen/meson.build b/hw/xen/meson.build
+> index ae0ace3046..19d0637c46 100644
+> --- a/hw/xen/meson.build
+> +++ b/hw/xen/meson.build
+> @@ -22,3 +22,7 @@ else
+>   endif
+>   
+>   specific_ss.add_all(when: ['CONFIG_XEN', xen], if_true: xen_specific_ss)
+> +
+> +xen_ss = ss.source_set()
+> +
+> +xen_ss.add(when: 'CONFIG_XEN', if_true: files('xen-mapcache.c'))
 
-More specifically, according to ARM DDI 0487I.a D8.2.7, in order to support
-the 52-bit pa size with 4KB granule, the p2m root table needs to be configured
-either as a single table at level -1 or as 16 concatenated tables at level 0.
-Since, currently there is not support for level -1, set the 'root_order' and
-'sl0' fields of the 52-bit pa_range_info according to the second approach.
+Curious as to why you couldn't just add this to the softmmu_ss list above?
 
-Note that the values of those fields are not used so far. This patch updates
-their values only for the sake of correctness.
+   Paul
 
-Fixes: 407b13a71e32 ("xen/arm: p2m don't fall over on FEAT_LPA enabled hw")
-Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
----
-
-Changes in v2:
-- add Fixes tag
-- provide a reference to the Arm Arm (paragraph + version)
-- change wording in the commit log to not make assumptions on value
-  interpretations that may lead to confusion
-- state clearly that these values are not used so far
-
- xen/arch/arm/p2m.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index f17500ddf3..c824d62806 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -2251,7 +2251,7 @@ void __init setup_virt_paging(void)
-         [3] = { 42,      22/*22*/,  3,          1 },
-         [4] = { 44,      20/*20*/,  0,          2 },
-         [5] = { 48,      16/*16*/,  0,          2 },
--        [6] = { 52,      12/*12*/,  3,          3 },
-+        [6] = { 52,      12/*12*/,  4,          2 },
-         [7] = { 0 }  /* Invalid */
-     };
- 
--- 
-2.34.1
+> diff --git a/hw/xen/trace-events b/hw/xen/trace-events
+> index 3da3fd8348..2c8f238f42 100644
+> --- a/hw/xen/trace-events
+> +++ b/hw/xen/trace-events
+> @@ -41,3 +41,8 @@ xs_node_vprintf(char *path, char *value) "%s %s"
+>   xs_node_vscanf(char *path, char *value) "%s %s"
+>   xs_node_watch(char *path) "%s"
+>   xs_node_unwatch(char *path) "%s"
+> +
+> +# xen-mapcache.c
+> +xen_map_cache(uint64_t phys_addr) "want 0x%"PRIx64
+> +xen_remap_bucket(uint64_t index) "index 0x%"PRIx64
+> +xen_map_cache_return(void* ptr) "%p"
+> diff --git a/hw/i386/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+> similarity index 100%
+> rename from hw/i386/xen/xen-mapcache.c
+> rename to hw/xen/xen-mapcache.c
 
 
