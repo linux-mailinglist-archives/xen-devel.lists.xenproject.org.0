@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF7D604F52
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 20:05:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.425984.674138 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF221605012
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 21:03:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.425990.674148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olDQC-0004jp-6x; Wed, 19 Oct 2022 18:04:04 +0000
+	id 1olEKf-0002WH-EM; Wed, 19 Oct 2022 19:02:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 425984.674138; Wed, 19 Oct 2022 18:04:04 +0000
+Received: by outflank-mailman (output) from mailman id 425990.674148; Wed, 19 Oct 2022 19:02:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olDQC-0004gd-3R; Wed, 19 Oct 2022 18:04:04 +0000
-Received: by outflank-mailman (input) for mailman id 425984;
- Wed, 19 Oct 2022 18:04:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Se4D=2U=virtuozzo.com=alexander.atanasov@srs-se1.protection.inumbo.net>)
- id 1olDQ9-0004gX-TX
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 18:04:02 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60134.outbound.protection.outlook.com [40.107.6.134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 678b2a13-4fd8-11ed-8fd0-01056ac49cbb;
- Wed, 19 Oct 2022 20:03:59 +0200 (CEST)
-Received: from VE1PR08MB4765.eurprd08.prod.outlook.com (2603:10a6:802:a5::16)
- by GVXPR08MB8235.eurprd08.prod.outlook.com (2603:10a6:150:16::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32; Wed, 19 Oct
- 2022 18:03:53 +0000
-Received: from VE1PR08MB4765.eurprd08.prod.outlook.com
- ([fe80::6809:fef7:a205:b08a]) by VE1PR08MB4765.eurprd08.prod.outlook.com
- ([fe80::6809:fef7:a205:b08a%7]) with mapi id 15.20.5723.034; Wed, 19 Oct 2022
- 18:03:52 +0000
+	id 1olEKf-0002TX-BK; Wed, 19 Oct 2022 19:02:25 +0000
+Received: by outflank-mailman (input) for mailman id 425990;
+ Wed, 19 Oct 2022 19:02:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1olEKd-0002TN-Dv; Wed, 19 Oct 2022 19:02:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1olEKd-0002rD-BD; Wed, 19 Oct 2022 19:02:23 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1olEKc-000432-TI; Wed, 19 Oct 2022 19:02:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1olEKc-0006BB-Ss; Wed, 19 Oct 2022 19:02:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,193 +42,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 678b2a13-4fd8-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AqwuEVImSTpQhPDLQMmxbw0yeXTUuqVJ0E2WAwjMtaVqZa0aUl+UFapy5XTbbspT8OYNMPhRvn6jOwVuE+QSuorlqv1bMV79ofAZzGt2rZO0sVD9aarlyZgOcLF05Rkct/d4ms6pneA75ipoJRFxfh/wOPxHSy1tViOxgUuMkJGBL/WcBgKskteL6hBDOtB0OigckNuqLSDBhLdCkmUGnptLrLGPrnsztUkXAitIaTbrOpYjjFcG4uiRsAg2Zs+4/Pb/zaS5dVMl95pdUGky4EIwKX4KzUwNwpV1D4IDHoH19Opsv3oYlit8RVOP0xhMNXTOwshCypVz8raee4XvmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vs+FhT6DfVlbo1rRgiKciFrQ4G+cKMyMKx+ZTDrqppg=;
- b=EXgBZ8QSBM4tIhZUYw8dCY1055q4vilkFG9EXugt4ErK4P+b+9Wzbk+2apb4L6dmagk/ak/4eUPzny+IvxbkEwYNPtCK/OTuP/il9GPE0L0+X5c2/VCoxnwbdX0gZce+KAn7LPYtjz3pceL9LTJ/2ZMtAP/SCfd091/AZL9AbjAxTb6ICK8dCcT8GrlnneP/SsmxqJt7DnUw5t1jZ5xFExzy87Xd/DL2AiogZ1PhxHW64cWVzbRuoTW4+y878CNDOEV5VkrN1d6NCrMc5kR0JUNsNBq0LIHBrmLx1KJLp0u8MKY0kkpLU7l1tQAuoAMpfwIPH8Dsc90MXQAdAaNRqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vs+FhT6DfVlbo1rRgiKciFrQ4G+cKMyMKx+ZTDrqppg=;
- b=BuSEmh9nGARu45P88rDRbFsSp1/B1Qpd9h3vdG9AqBsE+JfFsvSG8KsAilXzjJwtCnmE7naIXPYIlkESJFTy59Er2MCDvu07u9h8bERFrf/YtTGRsGV8z7sbrxZFCjvLLHg1dvEEr+UlD6v1xxOv9b7rBhJt0WW4o7X3Lry8ssH1i4csZMa+ZbrpuFG8hIfJ+E4AZibd+8dr77hv8jeLYz6uJQ0kvi3AjQUdTjEcff9hBy/qjuW7SqnbvPky7BZfpVPppTBCaOm+0cJmuw6btju6nf1Z6SDf4zLHTdOhA1zUPoyJ4qM+LP0RTSxX6HQuagXmaXF6HJSdQhcudPBsBw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Message-ID: <022ee579-9347-cf82-d31c-c40d2f5efe12@virtuozzo.com>
-Date: Wed, 19 Oct 2022 21:03:50 +0300
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-Subject: Re: [RFC PATCH v5 0/8] Make balloon drivers' memory changes known to
- the rest of the kernel
-To: Konstantin Khlebnikov <koct9i@gmail.com>,
- "Denis V. Lunev" <den@virtuozzo.com>
-Cc: kernel@openvz.org, kernel test robot <lkp@intel.com>,
- "Michael S . Tsirkin" <mst@redhat.com>, David Hildenbrand
- <david@redhat.com>, Wei Liu <wei.liu@kernel.org>,
- Nadav Amit <namit@vmware.com>, pv-drivers@vmware.com,
- Jason Wang <jasowang@redhat.com>, virtualization@lists.linux-foundation.org,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, Dexuan Cui
- <decui@microsoft.com>, linux-hyperv@vger.kernel.org,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20221019095620.124909-1-alexander.atanasov@virtuozzo.com>
- <CALYGNiONv3au6hbAva60jWurwkU5ancWo-o2v7tpSzwguqzD9g@mail.gmail.com>
- <1c69ff97-831d-ece3-7a52-bb7659fc8dd4@virtuozzo.com>
- <CALYGNiMMo7aqgQrcHBWaoU7O9Lpk1qCD2CmRJ5mw+-pFJwFajQ@mail.gmail.com>
-From: Alexander Atanasov <alexander.atanasov@virtuozzo.com>
-In-Reply-To: <CALYGNiMMo7aqgQrcHBWaoU7O9Lpk1qCD2CmRJ5mw+-pFJwFajQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=CgRyzFyKTqd5Bd0/qQWx1P4aQGwNOk32fD7Jt/iLwa4=; b=EEhAEHVMJ/bUqwwk3ql5aX1fnv
+	eJ9P4hicj9eWQPlDXpI4dq6hZTKx02QsIepQFrMqU7p+wTirq9O9I0JN8+/cL4kzYSsG/QIpttifU
+	ZNx5JaU4p+X8/ONRG/X6gkwYayOdD6UnhO/rQAe8+ayr1+bZSLQootjl92QSQdbu5CFI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174096-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VE1PR08CA0003.eurprd08.prod.outlook.com
- (2603:10a6:803:104::16) To VE1PR08MB4765.eurprd08.prod.outlook.com
- (2603:10a6:802:a5::16)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR08MB4765:EE_|GVXPR08MB8235:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f097a35-2691-40bd-505b-08dab1fc4819
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0+88ox2ErcbzznNIKVqOa2QnVyKVOk3NafSDrj7NY8217n8Ki7u9WaZ8mzUxotnLUkN0yAvnLkehA0LIr9G6WQ5pHMB500J0EBi5yJaBfPe6j6DO0WbF5eDBwvLb8oKXEHrQ0aKiReJmnvoUPNIbHfNpGYED6l52vwUvWqB9pWv//3uAEFB0o+sL9WWYLjVEqyJDz2me0XMvruXEyCCG34BMFJeXky0OdwKpTwv9mqAAdwXa5r/ZMmq6w2/PjonvXGeBl43ckHUK2jU213B+3uL9yrZ4x9nXrztr7QJuwwn98sUE/k/zdtZImBkG59BblQ3Dr0Uw/N5JE/QZooxYApD8+M6vHP3fBWgfPTvIq6XgCEPH38yCIDw7LrnUNiyTcqbUSoarMeiHt+ZZbYQ+pWPWX8gbBdN1+wGprcGXWY+zWMqyqSnsxGSJpmC1v7LZdxJbpoYEky8wuPy9A7lTfRAp1scPv8XVf6B3S32CCT0GmaCVYszkZdpMWXp6o67rTh7/qkyKcmakTpptKBNfJzbcJzD1VIoJMuSNflNCotVC878rtehhAtUlLmseCPCtF4/2LD7hobiBHGxtN+WzHyl//jbKXDSD7qnzHpTf67q8Kas5NY/fX5ioKI70Vx0vgmP2IHpzub1rYtHYfQuXxX/fvLzZXKiNsUzKUdH1Z2VawZx8bnPpp2PIWKDEwnX84Y2xHFGOCdTJsXPqahuJKz696IsjCfhV+UMPBgDi4g3e8Watq73NYkW8fYuENXJ7pLxjlGA0m1lBZt3dBCSrdsKXpkYSQyY8KbjAu2kGRXs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB4765.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(396003)(366004)(39850400004)(376002)(451199015)(41300700001)(6506007)(54906003)(6636002)(110136005)(316002)(5660300002)(8936002)(86362001)(36756003)(186003)(7416002)(2616005)(44832011)(31696002)(8676002)(4326008)(66556008)(6512007)(66946007)(26005)(66476007)(2906002)(53546011)(31686004)(38100700002)(478600001)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cGNINHZrZU10ajZPVHF2Vm5XVkJuNXozdmRvNjVrUXdidHZqTmxrS3A4WWdh?=
- =?utf-8?B?OTdQM3RLajBJNTRObGh2bkJoNnNRS0d0N2ppVWJKRmZrZU9RUjk2NndnYi8w?=
- =?utf-8?B?SGRydDdEYVU5OG1xVk5WbGZNendYejlMdFJjcmxoR0dZVXZRbUdVdDhKWEg3?=
- =?utf-8?B?UHhNZ2FIYmRTWC81enJ6N3JBbkpxTERVaUhJRUcrblhiOVIyNkxKdUl0Zlpi?=
- =?utf-8?B?T3U1K0R0WmZYZHhNbFVtcjN6K0lweUMvemROQnd4UWdEU2xIY3pNNXgvaHYx?=
- =?utf-8?B?cWlXT2s5ZHlCeVVOelpNRXdMT2FaQXFGM1NZRUF3VHJZOXZvZjUrbG0yRmdO?=
- =?utf-8?B?RmszMlNlTnYxQ1NicSs5WUFvMmJBNnZ1cXR5aDQ2TWNkaGNhWnZaeVhrS29P?=
- =?utf-8?B?ZWYxb3lBd3lsVWpoVG1rTHlkTGxpMkdyWk05akI0dmtFLzVCcGxBTnJUYXg0?=
- =?utf-8?B?NGZ5Y1BqZG1tYU5lVlU1ajdnVnlYUEMxZ3Z3Qi9vVWZ0Ujd2Q2ROLzczZE9U?=
- =?utf-8?B?RlFKam9rUldwbTBhakxyRHZPUlJhUzZYSVpBT1RzOWVpWHBwWVBqWFZuV2w3?=
- =?utf-8?B?WnpFemVUY05kdlZoOFpVcXVxT0daTUtYTE11bHpyYWMvRENwUEhwNXFPWmdS?=
- =?utf-8?B?Yi9CSzJLb1FoQlNMeTR2MFA5UVloVlEvWWxmNWx0ZVdlbTZNUFdqRDl4aUpW?=
- =?utf-8?B?SXVQZElESEx4MC9VRVUvbXhQMXZUeFRMbEJyTkVFQUgvYXFuK0JDa2dZL1FV?=
- =?utf-8?B?czV4OURGUDVzU1lyL2dNQXJTR2pZNXVuT0pZckwyMVFrdTBaSEdkL2RGV0hO?=
- =?utf-8?B?eWlUeWp2SnRJbElQWHBOOURzOUxnNk82U2NzR1ZlU2FOcjJoaVQ2TmZ3NGpP?=
- =?utf-8?B?SWdibjFjMStvUGdObnREUzJMcEZSSVVoaERGSGNkQjY5NWNESzhVNjc4VXAy?=
- =?utf-8?B?SmIvV1gzaDh1VkZvUW92dVkzWE5Fb1BIMW1Ya0w2a3YweDNqR2t3Y1NHV1Vr?=
- =?utf-8?B?b1l6T0huSTFVRVh1eDhqb2Jqdm5pZm9uVWwvUG5ZZVJIZFhzU0hyMEVWZjFN?=
- =?utf-8?B?WHJDSFJtL2VDK0JqUG5oSFFKRHdsakx2d0JjUzF5eG9FcDZSNjhySHVNTVps?=
- =?utf-8?B?dzVwZFUyRHFtaXlma0lReWk1ZnA4UkRVWlpUcVZ0aVZ6VFhUbkszQnRrdUh2?=
- =?utf-8?B?S01tR2I0ZXdQNXcwakZQd2kvZ1lLd1RiL2lrZ0NHVGcrcUMxU05jVFF4cWZq?=
- =?utf-8?B?WUhRUlhTenpEeUluZjVqR2xsL0V5UXAwczBHZE56SS9VSkk4L2xPcnlPak9z?=
- =?utf-8?B?dlFtakhFNDRFSVVLTG43TU5HcXJJMHVBK1R2VTNlVDdCdldPbDRycEVqSHRn?=
- =?utf-8?B?cVBxTFdIWGV2akhVMXdNNUxGRFBzbWZRU2h1Q21XQmVpYVZPVjZVVzlFUk1w?=
- =?utf-8?B?cUN0K3p6MVhZUzVrLzYySVlrZkJsQ29oVElIK1RmZjVDUCtIbHVBUXhQSVB0?=
- =?utf-8?B?ZnEyOWhsSS9oWC9EMnlWeWdYRG8ydUJTZEFzd044Q0d6ZTJENk9VNmFFU21Y?=
- =?utf-8?B?SDl1dDhWbDRZN2JXWkpqc2IwRWdaU3NiR1pTSGNLVVZoWFc3N2RMVVR2ZEJM?=
- =?utf-8?B?WThYUUVtYWRGdUFEQ1NCMm8wTFFEYTE0aGtkK2NnZVg3WGxnSDgrdGg2ZnpF?=
- =?utf-8?B?SXdaZ0hqSG1vSEw5aUV5K1NPV1hOZkxIMGhlOGY2VmFOWFg4NWZwd3I5blIy?=
- =?utf-8?B?eVJETWd0K0FsVEpKTUJQenA4Rmd4a2MwcytYNlpPSGloVUxUUnF3M0RyVUhF?=
- =?utf-8?B?VWNSaHZGQXd4SjkrZDR2L3lmSmhINmZiejBCNlBTZ0xuT2UyTStXV3hkWVB3?=
- =?utf-8?B?azcrdGdpbmZGUkJJVDArc3BvQ0tFN1A0ZGN6L0dmZFdpbEY2UUtLSnB5ZkVE?=
- =?utf-8?B?QVg4cVlNSGxnVUYwcUVtcVRSeDV0SkZRbUNhSExrZXhiR2NVd09vQ1JxbExJ?=
- =?utf-8?B?aXo1VTMrTmd1S2lOSFFIelI3elJtaTA0YVJmMmJYZFVtT3gyRlF2UC80YVlx?=
- =?utf-8?B?Zm8zYmtNOXNRQ2lpc0xqSFVWb0loNDYwSmlycEtwWk0wSFFQK3Y5RVVra0hD?=
- =?utf-8?B?cXR6YUxhWDZ0MTB0NDRRMWdIY2tjbjZTaVRDNmMvSVBzb3BZbzFxUVN1V0Qz?=
- =?utf-8?B?Tmc9PQ==?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f097a35-2691-40bd-505b-08dab1fc4819
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR08MB4765.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 18:03:52.7246
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BXLACakV7ixiNk09rriJ2OUBOckTu8+icagmOL+fDmZraY1odd+7KKtLrgwaK76yqU3xHj+4C607pinQeAYCfvh2cTtBZXh1+u0fiZYPBSHnoxfLSWmMQLzPgRGE5FmI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB8235
+Subject: [xen-unstable-smoke test] 174096: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=cc4747be8ba157a3b310921e9ee07fb8545aa206
+X-Osstest-Versions-That:
+    xen=9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 19 Oct 2022 19:02:22 +0000
 
-On 19.10.22 18:39, Konstantin Khlebnikov wrote:
-> 
-> 
-> On Wed, 19 Oct 2022 at 14:06, Denis V. Lunev <den@virtuozzo.com 
-> <mailto:den@virtuozzo.com>> wrote:
-> 
->     On 10/19/22 12:53, Konstantin Khlebnikov wrote:
->      > On Wed, 19 Oct 2022 at 12:57, Alexander Atanasov
->      > <alexander.atanasov@virtuozzo.com
->     <mailto:alexander.atanasov@virtuozzo.com>> wrote:
->      >
->      >     Currently balloon drivers (Virtio,XEN, HyperV, VMWare, ...)
->      >     inflate and deflate the guest memory size but there is no
->      >     way to know how much the memory size is changed by them.
->      >
->      >     Make it possible for the drivers to report the values to mm core.
->      >
->      >     Display reported InflatedTotal and InflatedFree in /proc/meminfo
->      >     and print these values on OOM and sysrq from show_mem().
->      >
->      >     The two values are the result of the two modes the drivers work
->      >     with using adjust_managed_page_count or without.
->      >
->      >     In earlier versions, there was a notifier for these changes
->      >     but after discussion - it is better to implement it in separate
->      >     patch series. Since it came out as larger work than initially
->      >     expected.
->      >
->      >     Amount of inflated memory can be used:
->      >      - totalram_pages() users working with drivers not using
->      >         adjust_managed_page_count
->      >      - si_meminfo(..) users can improve calculations
->      >      - by userspace software that monitors memory pressure
->      >
->      >
->      > Sorry, I see no reason for that series.
->      > Balloon inflation adjusts totalram_pages. That's enough.
->      >
->     no, they are not at least under some circumstances, f.e.
->     virtio balloon does not do that with VIRTIO_BALLOON_F_DEFLATE_ON_OOM
->     set
-> 
-> 
->      > There is no reason to know the amount of non-existent ballooned
->     memory
->      > inside.
->      > Management software which works outside should care about that.
->      >
->     The problem comes at the moment when we are running
->     our Linux server inside virtual machine and the customer
->     comes with crazy questions "where our memory?".
-> 
-> 
-> Ok. In this case balloon management is partially inside VM.
-> I.e. we could report portion of balloon as potentially available memory.
-> 
-> I guess memory pressure could deflate balloon till some threshold set by 
-> external hypervisor.
-> So, without knowledge about this threshold there is no correct answer 
-> about size of available memory.
-> Showing just size of balloon doesn't gives much.
+flight 174096 xen-unstable-smoke real [real]
+flight 174100 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174096/
+http://logs.test-lab.xenproject.org/osstest/logs/174100/
 
-You need the current and the adjustment to get the absolute top.
-If you check only totalram_pages() it is the current. To get the 
-absolute maximum you need to know how much the balloon adjusted it.
+Regressions :-(
 
-The drivers that do not adjust totalram_pages() and leave the inflated 
-memory as used assume that this memory can be reclaimed at anytime.
-But that assumption is not completely true and provides the system with 
-false totalram value. Why - VMWare does not have oom_notifier at all (it 
-is possible to have sone other mechanism, i do not know), Virtio balloon 
-reclaims 1MB on OOM _if_ it can.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 173457
 
--- 
-Regards,
-Alexander Atanasov
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
+version targeted for testing:
+ xen                  cc4747be8ba157a3b310921e9ee07fb8545aa206
+baseline version:
+ xen                  9029bc265cdf2bd63376dde9fdd91db4ce9c0586
+
+Last test of basis   173457  2022-10-07 14:03:14 Z   12 days
+Failing since        173492  2022-10-11 13:01:50 Z    8 days   53 attempts
+Testing same since   174001  2022-10-17 15:00:30 Z    2 days   15 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+  Borislav Petkov <bp@suse.de>
+  Christian Lindig <christian.lindig@citrix.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Julien Grall <jgrall@amazon.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Peter Zijlstra <peterz@infradead.org>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
+  Zhang Rui <rui.zhang@intel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 961 lines long.)
 
