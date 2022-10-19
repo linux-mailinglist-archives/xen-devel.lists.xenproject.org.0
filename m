@@ -2,39 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E125603AE5
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 09:46:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.425591.673517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97905603AF9
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 09:53:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.425599.673527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ol3m4-00087C-4k; Wed, 19 Oct 2022 07:46:00 +0000
+	id 1ol3tC-0001L9-VJ; Wed, 19 Oct 2022 07:53:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 425591.673517; Wed, 19 Oct 2022 07:46:00 +0000
+Received: by outflank-mailman (output) from mailman id 425599.673527; Wed, 19 Oct 2022 07:53:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ol3m4-00085O-0h; Wed, 19 Oct 2022 07:46:00 +0000
-Received: by outflank-mailman (input) for mailman id 425591;
- Wed, 19 Oct 2022 07:45:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=illN=2U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ol3m1-0007wU-Ml
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 07:45:58 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60071.outbound.protection.outlook.com [40.107.6.71])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1089ad06-4f82-11ed-8fd0-01056ac49cbb;
- Wed, 19 Oct 2022 09:45:56 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM8PR04MB8018.eurprd04.prod.outlook.com (2603:10a6:20b:236::8)
+	id 1ol3tC-0001IR-SY; Wed, 19 Oct 2022 07:53:22 +0000
+Received: by outflank-mailman (input) for mailman id 425599;
+ Wed, 19 Oct 2022 07:53:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GAs9=2U=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1ol3tB-0001IL-Nl
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 07:53:22 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr140089.outbound.protection.outlook.com [40.107.14.89])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18f19c70-4f83-11ed-91b4-6bf2151ebd3b;
+ Wed, 19 Oct 2022 09:53:20 +0200 (CEST)
+Received: from DB7PR05CA0072.eurprd05.prod.outlook.com (2603:10a6:10:2e::49)
+ by AM8PR08MB6514.eurprd08.prod.outlook.com (2603:10a6:20b:36b::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32; Wed, 19 Oct
+ 2022 07:53:13 +0000
+Received: from DBAEUR03FT013.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:2e:cafe::3a) by DB7PR05CA0072.outlook.office365.com
+ (2603:10a6:10:2e::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.26 via Frontend
+ Transport; Wed, 19 Oct 2022 07:53:13 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT013.mail.protection.outlook.com (100.127.142.222) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5709.10 via Frontend Transport; Wed, 19 Oct 2022 07:53:13 +0000
+Received: ("Tessian outbound b4aebcc5bc64:v130");
+ Wed, 19 Oct 2022 07:53:13 +0000
+Received: from 965e70817973.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ A429C01F-9FB7-4683-AA5C-201E611D03C0.1; 
+ Wed, 19 Oct 2022 07:53:02 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 965e70817973.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 19 Oct 2022 07:53:02 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by PR3PR08MB5673.eurprd08.prod.outlook.com (2603:10a6:102:86::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29; Wed, 19 Oct
- 2022 07:45:54 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2459:15ae:e6cb:218a%7]) with mapi id 15.20.5723.034; Wed, 19 Oct 2022
- 07:45:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Wed, 19 Oct
+ 2022 07:52:59 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::a8c6:cf12:7155:de53]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::a8c6:cf12:7155:de53%7]) with mapi id 15.20.5723.034; Wed, 19 Oct 2022
+ 07:52:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,598 +71,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1089ad06-4f82-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 18f19c70-4f83-11ed-91b4-6bf2151ebd3b
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=Ui2/BiiROAJ1XfpEj7orFj2Q9ygfUfLihGpb1izAfc1X9NArK65GJq7KIKXgd26AVn3qMdSlSrKwEA1B8m0gosnnkAbGLam9+2cdwNWEJo5TNgQI+iD0MI+G88cy3uW9VZf7pqtIo+a92Gh8Ilq76oAHNSVonUsi1BMIiHi0UnUlzANkbWngNkJMoZuXONK+uoCJHQAUdNSAWP9eprQjg/hT2F/lMrsCQlIvATOEXGlHGbHxtJeDIGpU2HPbPZ6WF4wXApcck7d9L5mPiBA/4ajCDNxqa912PJgX2tW2ZogOalu33MNC/PKfA0eVSuzm/Xa8Z9y7/U+2oUTkB1PEMQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7Zg7ZG6Wf7lkUiNk7DKWDDPlFday/yqNF7zo/Bwp0p8=;
+ b=aZJt0qG1JMQVNXSKGXALOCLJlVys6P9ihEaKoD+i6rTAlJdHxcIgYNEZ17UA6m7RMlnPBLuAYs9h9pFRoBIeOMDd2kMWkHsUVg7V+zuH7GJuTmfLDEdXgNk+JVYKNZyylQE1JCywwM4fkAj+eaf66+e4EVWTFwcBde4UxalSB6W+VePPNHaZ7ZhKGXt8LTuThu/551BAJaZrWB5YsAgfUEzlkCzCZdaCth8Vzbs/CQ1hk/S6myNoeUg+oeIayoGAK5ZtzVMwKxxFW2SaUAARnI7kEfXqZbURTrlhfxBa6Vd0ncQ/chhC8reAXJlrKhtZcW0f4o1c6ubJoeBbkxcq9w==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Zg7ZG6Wf7lkUiNk7DKWDDPlFday/yqNF7zo/Bwp0p8=;
+ b=QOCUiXQvSmUO8/5iopsT0BXUBE5JK8Ne03AQ1blXawWS+m2/nnPHdBDGO8T5gPQHmw+DPIXWGjqsnwTZDJReQrjLjUfw60SUym5muFWJWA/1zgq01rdETTTuhOwY7X4KE1AlxuI1TGLyi/HLOPSrwVIeSwH+EbE8vrXkEKORM4A=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 543e1c6cec28e726
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HmShmaqQykFqvmtCcfCQ1GOW4Os2WvVSex46DrA1W/IA2XONfWPJZk5ErWkmBSOyIQcFanUMApAoyfk0ZDxh8FzhVIO7CA6rfV2hDgbW+t1/zAhL8XLnTdcvwJRX0QgKHiQzkYP/8jNhm8wJEPoHxHZxJtkRwKhRkQeJkKAvdwL93aLXZ+zVYLRrFAeBjjXDLh5i0TD4nJI6gX3Flbs6aBKlg+mFcQmIDgFhXtFxqKvZE7wZJiC6JQZyY63TPGbLH9TW06OCdQ2q+38G75SjDet/Px5X+ONIiwoh9mGmaUXwD3yjz2HWvpy7uucLO/pTsvbHSUWGGgYXVNAUe/MaLw==
+ b=LC5ZhMjjz+ZMsCPUqV32siZH3deBmO0dIDp4NiZYcNccLdGempFVTGiJ39gT2oNTZKLWSgY/w6evWBjI33LP8sCnWvGwdKxOBLVdH7Fx88LVtw8KwqfTK+n/xy8pwwXiTbhBzdb4C3f6Y7x9YxXi9o134WrfchwEh7Bk1OEgW0upxueSyApmDZIZFKoXaLaPxrTDP9JD3XhLcMNIJZQ/3IrCcGlDXVSPPXPr1RAlIdlkZkJqDlDGuCNH7Rrjjdx/a/2el4i5UEzU1+nOfugNctMeJNMKBCMo2Rp1xbBHKJFgOk/7Rpd3UsD3oXHyneEYqicFkvK+0JNy74Mzzq2xRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DgBhR75TKXzhjJAKk8igA43OaQRf/s9CHiXdfaBkBfE=;
- b=iz25YbwMEI8ZEwfiXIX1isd7+QjHbDI+Qenlwqd9kfuEWxhyFlnFnfkNjwJk+zJC7NwCMvfM2rE2b3n3/g5pC+T6E6H3s46UAWZF6dHOKxRy0gLJy/Z2DTSBKebYZf20WNYpq4kNVFtTMO+5Uf+7tnu5g0q0eyIYCt32M2CVo2RMYKGFu3vaXrdd4uEmUdDRR0WGMGuNR5JWpRcJbZo65/gc1VQDWdSXc/GYk4UAlLwKRP0LNzBjSoWFohyn2ycG0G0MEyg1+a021jYjFSsBLE45BCftmEilv+yUh2qVszJ0je4jXgWmaCgL3MBmaCIaOO7SLlq66cbWLzs/JtAH/Q==
+ bh=7Zg7ZG6Wf7lkUiNk7DKWDDPlFday/yqNF7zo/Bwp0p8=;
+ b=DmTrloEK1etz6Y5elOchM6Kg/i2RUrC3l9qk7u8AC4CnIZw2at97yFi2ps4RuY3zH0SNRmZyVhZm4nbj7AmcUDUNpZyYpgkO+QwMiZEJwAFJ0Eo4TYj5D/mzNnaqYFZOBk2FAiLmAv0Iu19IskHhgm/NFFRcoN+0y1rqnn8Qxa9LRDr+WIikypVzRVhN1GU7jzrlmwMbeT69wXhO2zCZqT6oNFbE+TywXCkczV/lMeFNAg4fUJQyOYkuyyVR7FtOF2T0oYN4AM3QRQJmkIZrebVCUlPGSJYH8ruaZ9XFKDCT0FW5LNU8f5pzDQko6FX4DQJsP7hDvGeqlWCrA4Tjsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DgBhR75TKXzhjJAKk8igA43OaQRf/s9CHiXdfaBkBfE=;
- b=WiPwRwz/yM48cBypGN2NvO1SJMJmqMJFJ9laL+qptGd36jswR3IjjY0vPTweTf0D8slKscE/lIwMRgm2L94IXyePTnpc8FMVE51PiaehwApJKMdUG/HhnOMUP59DFLDWQSWrX0/0yhQz0/IniIPwHIm9/FFzowW/M6yoRFxYQOACuoM9YCbDU21cDx1nTuG5lhinDDA1NxnfB21IQvNEjMV8xssOfS1jFMWqqLmwDwkSvKnOswRtjUoY9kRDzYqY4cZY1bV/gkeaqMydEXUh8lDa8jimiFS4caDW56m984f+GcrJFevW5DDT+BwgrKhEW4XQBd/aCwABX2CWaJZYLA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f1745e62-8a46-e9af-6a79-592a5402a5f4@suse.com>
-Date: Wed, 19 Oct 2022 09:45:52 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: [PATCH RFC 10/10] common: convert vCPU info area registration
+ bh=7Zg7ZG6Wf7lkUiNk7DKWDDPlFday/yqNF7zo/Bwp0p8=;
+ b=QOCUiXQvSmUO8/5iopsT0BXUBE5JK8Ne03AQ1blXawWS+m2/nnPHdBDGO8T5gPQHmw+DPIXWGjqsnwTZDJReQrjLjUfw60SUym5muFWJWA/1zgq01rdETTTuhOwY7X4KE1AlxuI1TGLyi/HLOPSrwVIeSwH+EbE8vrXkEKORM4A=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Luca Fancellu <Luca.Fancellu@arm.com>, Wei Chen <Wei.Chen@arm.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
+	<roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+Subject: Re: Proposal for deviations in static analyser findings
+Thread-Topic: Proposal for deviations in static analyser findings
+Thread-Index:
+ AQHY3lPHM2Tyba3hCkeKMW07GDOb2a4L9DeAgAAnewCAABdGAIAIGdUAgAADdICAAAu3gIAA8h6AgAAU34A=
+Date: Wed, 19 Oct 2022 07:52:59 +0000
+Message-ID: <A3CC086E-7B11-4D6A-BF01-565BB8C3A846@arm.com>
+References: <EBCDE6CE-A84A-48C7-B3C2-7856E5D2392B@arm.com>
+ <ddc5039d-e312-326a-b71c-8d08d04100e0@suse.com>
+ <186C83D7-6C7A-4319-86E4-69F7FDA7FDA5@arm.com>
+ <559a3d4c-08ea-ef8c-9a56-2b53db3d51e4@suse.com>
+ <E00E3AE4-7863-4231-9DB7-A7B66C8F6791@arm.com>
+ <233a9356-b64f-37f7-d7ee-3d6223224497@suse.com>
+ <A906FDB6-7DA5-4900-A6DE-1140231E69AE@arm.com>
+ <9b113db9-4dce-d300-9393-a8572ee4fdcd@suse.com>
+In-Reply-To: <9b113db9-4dce-d300-9393-a8572ee4fdcd@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
-References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
-In-Reply-To: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM5PR0601CA0047.eurprd06.prod.outlook.com
- (2603:10a6:203:68::33) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM8PR04MB8018:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2dcfca35-a02f-4ce7-ae75-08dab1a5f3d9
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3784:EE_|PR3PR08MB5673:EE_|DBAEUR03FT013:EE_|AM8PR08MB6514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c5c6106-1fb0-4f33-3a6e-08dab1a6f986
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ sVlzXgZ3SdhQlFoo2mTUIEzT1RPVpkiUv4NoFNpPMy6Cca2LDE8REsBUIJFvgXMCkxD2j2UFI+lS6j+OyxHxxdSCFJLpXOa2GMPxTBo0EZyqvdtP8y4KDJ5BtLS4EJ1/RLV9yuCcG33+exAAXkRa2+nYjP9BRkIGStdg0b1XE4HV+rih/qQvovGT9yzyzxGBZZukuf2Y4Gt7x4iVuXL0EGFVklwEmAPAytBCo+KnKhBmVZg7U2t7m0ptGP6sXoEfQH7jqw21OvFNHL7JWwd6J8qyv2CgNIvasnBOTv7sx6vT3keZylCKpHcFzH5Gug44FnbJ2LKN42KB9x/cNaQP1883GRuLRn6gvSRvdS9IGuD/w1MUYza+EGdYT3OHvuLnXSnqANSoefvLF4xGWiCnQvsy0Dnjok0cbPOyoFj2h31KlwFU6KvNeJOMCtgTedAFATdGwb+C9FVX7//R1pkvYUF7VVZjIS06NxgRKRAEwWUNnPHW7e7iUKPFAo9J+H7vNHP32C1RjCM54Uzvj3O+YViqgi6msvZSDzm4LPWTSebBxpBrm623xrnBqgaUMMS6K7GOTPum7QeTYxl1RYDxnySKQJAViNsBhb8kiAjC3XHAzrTmpbwqHLycflrCfVqzOrW43XkvI7727waKYBuKbVz7PP70rPSH8IKEboE0Bui0LSirFmqa0eMR+31RlgJT3mie9ZilkHmb97kellP7j15AO6U0GTsnub54I9aGZ6x95to6LO9UWpdqeXdFfqfPnfHdTN8ZHk97Isdfr4wQgn9zc963LtFNc/JHfuxNXf0=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(376002)(366004)(136003)(346002)(451199015)(6916009)(54906003)(4326008)(66556008)(8676002)(64756008)(66946007)(66476007)(66446008)(86362001)(83380400001)(41300700001)(53546011)(36756003)(6512007)(6506007)(26005)(5660300002)(316002)(91956017)(8936002)(76116006)(38100700002)(6486002)(2616005)(33656002)(71200400001)(2906002)(186003)(122000001)(478600001)(38070700005)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <68288A746D6FA34E916239D26D5389FF@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5673
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT013.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	9967d6ef-0906-438f-8a76-08dab1a6f10b
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	2T65b7R6Aal8xTNpLsZA6Y7pIPoufXUXsCieyNMeOAV2reGiv0yma6tRbOwmzYhH5DrYW/HT/scx6UVlkfFkdoXKbnYcDwMrbzPKAI2JDDle5u4y5nI1g1bUW+EiQFZjxzzqicyP2HJtzF+QLnSBwOlWoFUxTitmz+ETchAcRMXaAnN6v1FR17uZhF22XIIyMLOysb0i4gfQCfHu+wAoS3SAU8snYxb/t4Gd57Kck0CYwHGxbOkL2FKV3b+69uHvy+miEhZh5oXLrfH7gmcj2Z+8Oy6ujAVXdpK7er3nIJeETIEASlIykqPZ+IurHICF8yD1koUPC3rFwPAIj8YrpN1QPFU0LDPSZaWj9CJP4PT5XxJo4ndhjzntTD6qIuYS+aRRhTDtNaHkudWcUUuE+NlWDGPYl5h8pIUBaJB/li0vKRBlF/M7Q1fXHDrloj/nAatLvzDcOiS+5JcNjCa7Sc6SYFQnLB7PJf6GUzCtayhZKfPO7jQcXjpLv+toKQl8rWXA8z6Y6PDriduKc9HJRP4bqYavER+OU0SlFlJeUKJKTbupX8VDfIPCb7WyCzJLpHj62zR2CcSfS3/hPQQIlemylO3CJ9TL6aXlcolVvWeFyas5ew97Hh81EMlZq1ZECXGLzBsGP/IRDP5uk/JLOi7NYKgwfAwkpwsJMgYpd79LM4ioWPBqdnx9XEekz8WM2WgNFUZYdus5JyBSI7/Rz1XY+aNS4HkMvHRMWfMV831KLqLM5rqqJeQa0Wa2uQT45uBmj/pUGwhUqSKJDrOq4iUOygoN9veXGr28YNcZ7Zy64W48VTuYQ0bcX9RHk9Vp
+	v1Al8e8zNMZ25NqcaplSrJ/cAvJdq7LR/Xwx7iaP8iAuaTLPriP/1pL90s+1mkyWA12Ye3vShREdTWvwjI1FivseTKDDLDUUHJh/zEgs3voTMu4DXd3j4AHGCSk2KDas57Ag6WnCgPiT+IGyRYvZ61Dp2iNjnAu/ueHLt2+K4biDo6yj4usVnFigP/KBby+g04Q6KTVQp3hCcgSiXVEsCZ/EQk87H1OsFdvpueHO1QBUOilovNW3PkcZA9vwY8MM4aY9lpkBH3wMJ6HqVSEHNdaVwNxVak84cETBsCKXvaOThHMs3hXRMryAK5ttLlBXe4t9p/huptdcHfIUL09Kg2D1/td0fR1tZOTbWs/Xx8o0AM8Ww0Eg7AmdyLpHPBtJCesXeukK6ADvBu+ssfVm7Vdsh+M6zZ/hwR4MulyZ1TQ3Tbcgq90heP0jE/yWV2LvkFnUC9eZ9n+BRc1V6D5+Tn9buC0KvrwNAc9uIDDTuXlFYvhiI7Nx1+SP7mNHAZOqKzmpxRHI12t5ANYkfhcMpi+8W1PY8lmF2PcJgc8ZEs3Yc6ZgpDy2Y5nP6F00rsQZft7YaR+cI3YsDittnVBnjoO4Bcu9VQ8//cw1JkPCLHT9e78TwS8A0Xbyt7feH8l9cR/+MxtRyDf3WbYQcQP9uNOjXAduCd/viIOrPU9dugT1hfKEw39tcfNrBnotTC+n3VGXSpbciit++RDBoG7uU+68uo2VY0XNhCYFwnK64nKCj1v8A0X+YZrAdp3LfQV74ruJjGLdpcybXgp7pWaekQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(376002)(136003)(366004)(39860400002)(396003)(451199015)(316002)(186003)(2906002)(83380400001)(31696002)(36756003)(86362001)(38100700002)(31686004)(6486002)(478600001)(6916009)(54906003)(2616005)(41300700001)(6506007)(5660300002)(8936002)(30864003)(26005)(6512007)(4326008)(66476007)(66946007)(8676002)(66556008)(45980500001)(43740500002)(309714004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UmY3SGhPOGp3UmtoZjhGSFBETWQ5clNSWG5IQkMzSUJQdG5Da2lObzRhd0Jh?=
- =?utf-8?B?QTJoaGVkMUpnUjhwTlRWdTJaR3hHdy8xZEhwWndKTWVsdTJMT2Y3cnhMUVM3?=
- =?utf-8?B?QVZ6SE5ISHMzbkJBbGJ3UXZNZEN2elVDeFVmWWptVjEyN1AwT0VPVmdpUklJ?=
- =?utf-8?B?cXVxVlpyTWZQQWt2MlNJZHB2dS9wdHdpK3ozNUhTTFNrT2ExNy85dDJhdWRT?=
- =?utf-8?B?NVhiU0ZydlMyY3N3WW9VaU0vRkpUemFyTDJQMVV0MDFxQUNJZ3JYWTd3RmZN?=
- =?utf-8?B?QktvbnRDQjR5K1BpUmJxQm5wUjNrdHJCTitKRllZa3loRXJGdEg2VUsrckZ3?=
- =?utf-8?B?dFEzb2NoSWdZNVJMYitEc0xnMTZpczd1eDRSRzljMEtwaDY5bUFqdERROE1H?=
- =?utf-8?B?NllKZHF0VmxBek5EK1ZzT052ZWc3dW01UmNVOU5BUnluQUpZYWdtRElrUHRm?=
- =?utf-8?B?aWt2R0JzOVZuU1grM2FHMHdmUTIvR3UyMkg2Yk5GY05SSjZBQTlvVDVhT3Nr?=
- =?utf-8?B?ZE01OFNEY0R2ZDFMbStrakVUR08wMnFGZlcwWlVRR1d2UlVvcU1pUTdpaHgr?=
- =?utf-8?B?Tk5zY1JDNWZoeEcwMWtsSDlRQ0JhSmZXbWVUbkt0a2FDRGdyNE1veUlyNTFZ?=
- =?utf-8?B?WDNxQ1duQVRwME11VXRHNjViUUFXSFZLTmNFY0ZNbjl0T2t4VlVjNWN6K2RT?=
- =?utf-8?B?aGY4ZUNxRWh0M00vS21VenZUZ0hsTzRLVW1xanNHNWRBbU5oaHdQdkZjT2hu?=
- =?utf-8?B?TDl0TWR5ak9RNkJFb3FCQzY4UjhUNW95b0gvN1lPREpNa01yUnl0M2pkdEJQ?=
- =?utf-8?B?THVxby9FRnhYUktzSU91WXl3V05Fclc1NldZQ1Z2Q2E2MFBabmZ3d2J4cisr?=
- =?utf-8?B?UEpjL09DU0N4enk4RFBXUVlJWmpVUXNwL1N4NWZ6RHFHL1BGd09TZlU5VTV2?=
- =?utf-8?B?SXZRQ082QnZ5aCtxNUJyY0YzRjVVRCt1a0JMZ2tHSDJ1VW5yS1crcC9EZnNt?=
- =?utf-8?B?ODhSVWNGYzJMVHhtQThFWjdEdTFiTEZTZ2tET0xrT2pYZlJ6TkQzNzhqT0JE?=
- =?utf-8?B?VzVyY29Gb05zODBWbWFVOXBReURnTml3dWZ3MHREOXhVWWtsVmJtZ2R1UlR0?=
- =?utf-8?B?U0txam5sUWpmMHF2cWNDZUNSM0pxTmRxcTJmQjJNRzFjTndQVmR1bXNDU2hL?=
- =?utf-8?B?ZE9VcFo1dkJZYXZ2SkgvZElYRE9OY3k5ZFEvVGlJN1JrWUdKbnlsbXEySnpn?=
- =?utf-8?B?T0wrb3JxMng4UkRJM29OcTFvRC90UnJCbjBPSm5iSHNEQnBaWnJuRHNyMDNn?=
- =?utf-8?B?YlFDUkU1U2VJWHd1TnB4cFhKTmxqTFNlRTY0VEdWUGJJcFpKQ1RSd09FWHIz?=
- =?utf-8?B?TGVZVC9DV0hoYWVJUHpNeGNoWUhuVHlFOTFUVmJkZFIwTGd2TTk1YWloZHBL?=
- =?utf-8?B?dFRvOHRYRVd0cnBvMVFEeVRGMlF6VThucGp1eVNsVGQvdEVUNVhkMTV4L2Ry?=
- =?utf-8?B?djVqRTJGZGRrck9mY3JVWGJOTE41bVBONWsrRnRNcmsvYVlQNytRdFlHaEcz?=
- =?utf-8?B?VnVHZ3RmTGlwQ0cwWE9HaFVDRU5RYkVCVllJWHVuRXdGczhaNVBLaHF1UVYr?=
- =?utf-8?B?S2Y5RGYzWGRmb1pHUDIraG0yR1VXV1ExenRiUjBwUVozUk81cWtUUjNib2VS?=
- =?utf-8?B?WXBicWlQajBJTVRPSzl2bkFFNSsrWWlzWHpMcUp2MUNRcDhZekJCcEJXdHhZ?=
- =?utf-8?B?SUphbjZyN1N4WGxyb0o4KzRNRng5eStWMEo5ckpGaVhKRkhEV2l5T0dNRUVy?=
- =?utf-8?B?RlFIcWRXeDhZQk5ELytOSFdtcS9rRjBMbXdWajZWOFdEY01JdlVCSlZQWENI?=
- =?utf-8?B?MXUxdGZNS3J4NThoYkFvOXVyZUo5OVBDR216Z2EyMVpDbk96U2swNXAzVmdJ?=
- =?utf-8?B?RDBMcjVjQWFOd1RLVWxCaCtOYXVITWpvd2lQb1FMdU4wZTFrQlFuNkgwbEtF?=
- =?utf-8?B?QTBpQzc5WitXVzF0bkRoNlkvdTNJRURtZDk5VitHYlF6bDFzblBjcEpZY0VG?=
- =?utf-8?B?NGYzSStET0trWXFVaW5OTkcyMWlWYWZ0eHFEMHpVY2w0Z0xTN3YrSFBMcGtL?=
- =?utf-8?Q?qmJnh+8sP2n6iG0pnW7oOlmCR?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2dcfca35-a02f-4ce7-ae75-08dab1a5f3d9
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 07:45:54.6446
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(186003)(47076005)(336012)(36860700001)(2906002)(2616005)(6506007)(82310400005)(54906003)(26005)(5660300002)(53546011)(316002)(6512007)(86362001)(41300700001)(82740400003)(8676002)(70586007)(33656002)(70206006)(83380400001)(81166007)(8936002)(4326008)(356005)(6862004)(40460700003)(40480700001)(478600001)(36756003)(6486002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 07:53:13.5357
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HIxhdHhpl8su2QnFekvrpJ10UDoYmLUcgdVaDKrmkZLPIde2EjEbvwB92JvDLaUxr1Pr7dBkAd30niVc4nRVxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB8018
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c5c6106-1fb0-4f33-3a6e-08dab1a6f986
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT013.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6514
 
-Switch to using map_guest_area(). Noteworthy differences from
-map_vcpu_info():
-- remote vCPU-s are paused rather than checked for being down (which in
-  principle can change right after the check),
-- the domain lock is taken for a much smaller region,
-- areas could now be registered more than once, if we want this,
-- as a corner case registering the area at GFN 0 offset 0 is no longer
-  possible (this is considered an invalid de-registration request).
-
-Note that this eliminates a bug in copy_vcpu_settings(): The function
-did allocate a new page regardless of the GFN already having a mapping,
-thus in particular breaking the case of two vCPU-s having their info
-areas on the same page.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-RFC: While the "no re-registration" check is retained, it is now racy.
-     If we really think it needs retaining _and_ properly enforcing,
-     then locking will be needed, but I don't think we can hold the
-     domain lock around a call to map_guest_area(), first and foremost
-     because of its use of vcpu_pause().
-
-RFC: Is the GFN 0 offset 0 behavioral change deemed acceptable?
-
-RFC: To have just a single instance of casts to vcpu_info_t *,
-     introducing a macro (or inline function if header dependencies
-     permit) might be nice. However, the only sensible identifier for it
-     would imo be vcpu_info(). Yet we already have a macro of that name.
-     With some trickery it might be possible to overload the macro
-     (making the "field" argument optional), but this may not be
-     desirable for other reasons (it could e.g. be deemed confusing).
-
---- a/xen/arch/x86/include/asm/shared.h
-+++ b/xen/arch/x86/include/asm/shared.h
-@@ -27,16 +27,16 @@ static inline void arch_set_##field(stru
- static inline type arch_get_##field(const struct vcpu *v)       \
- {                                                               \
-     return !has_32bit_shinfo(v->domain) ?                       \
--           v->vcpu_info->native.arch.field :                    \
--           v->vcpu_info->compat.arch.field;                     \
-+           ((const vcpu_info_t *)v->vcpu_info_area.map)->native.arch.field : \
-+           ((const vcpu_info_t *)v->vcpu_info_area.map)->compat.arch.field;  \
- }                                                               \
- static inline void arch_set_##field(struct vcpu *v,             \
-                                     type val)                   \
- {                                                               \
-     if ( !has_32bit_shinfo(v->domain) )                         \
--        v->vcpu_info->native.arch.field = val;                  \
-+        ((vcpu_info_t *)v->vcpu_info_area.map)->native.arch.field = val; \
-     else                                                        \
--        v->vcpu_info->compat.arch.field = val;                  \
-+        ((vcpu_info_t *)v->vcpu_info_area.map)->compat.arch.field = val; \
- }
- 
- #else
-@@ -57,12 +57,12 @@ static inline void arch_set_##field(stru
- #define GET_SET_VCPU(type, field)                           \
- static inline type arch_get_##field(const struct vcpu *v)   \
- {                                                           \
--    return v->vcpu_info->arch.field;                        \
-+    return ((const vcpu_info_t *)v->vcpu_info_area.map)->arch.field; \
- }                                                           \
- static inline void arch_set_##field(struct vcpu *v,         \
-                                     type val)               \
- {                                                           \
--    v->vcpu_info->arch.field = val;                         \
-+    ((vcpu_info_t *)v->vcpu_info_area.map)->arch.field = val; \
- }
- 
- #endif
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -1758,53 +1758,24 @@ static int copy_vpmu(struct vcpu *d_vcpu
- static int copy_vcpu_settings(struct domain *cd, const struct domain *d)
- {
-     unsigned int i;
--    struct p2m_domain *p2m = p2m_get_hostp2m(cd);
-     int ret = -EINVAL;
- 
-     for ( i = 0; i < cd->max_vcpus; i++ )
-     {
-         struct vcpu *d_vcpu = d->vcpu[i];
-         struct vcpu *cd_vcpu = cd->vcpu[i];
--        mfn_t vcpu_info_mfn;
- 
-         if ( !d_vcpu || !cd_vcpu )
-             continue;
- 
--        /* Copy & map in the vcpu_info page if the guest uses one */
--        vcpu_info_mfn = d_vcpu->vcpu_info_mfn;
--        if ( !mfn_eq(vcpu_info_mfn, INVALID_MFN) )
--        {
--            mfn_t new_vcpu_info_mfn = cd_vcpu->vcpu_info_mfn;
--
--            /* Allocate & map the page for it if it hasn't been already */
--            if ( mfn_eq(new_vcpu_info_mfn, INVALID_MFN) )
--            {
--                gfn_t gfn = mfn_to_gfn(d, vcpu_info_mfn);
--                unsigned long gfn_l = gfn_x(gfn);
--                struct page_info *page;
--
--                if ( !(page = alloc_domheap_page(cd, 0)) )
--                    return -ENOMEM;
--
--                new_vcpu_info_mfn = page_to_mfn(page);
--                set_gpfn_from_mfn(mfn_x(new_vcpu_info_mfn), gfn_l);
--
--                ret = p2m->set_entry(p2m, gfn, new_vcpu_info_mfn,
--                                     PAGE_ORDER_4K, p2m_ram_rw,
--                                     p2m->default_access, -1);
--                if ( ret )
--                    return ret;
--
--                ret = map_vcpu_info(cd_vcpu, gfn_l,
--                                    PAGE_OFFSET(d_vcpu->vcpu_info));
--                if ( ret )
--                    return ret;
--            }
--
--            copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);
--        }
--
--        /* Same for the (physically registered) runstate and time info areas. */
-+        /*
-+         * Copy and map the vcpu_info page and the (physically registered)
-+         * runstate and time info areas.
-+         */
-+        ret = copy_guest_area(&cd_vcpu->vcpu_info_area,
-+                              &d_vcpu->vcpu_info_area, cd_vcpu, d);
-+        if ( ret )
-+            return ret;
-         ret = copy_guest_area(&cd_vcpu->runstate_guest_area,
-                               &d_vcpu->runstate_guest_area, cd_vcpu, d);
-         if ( ret )
---- a/xen/arch/x86/pv/shim.c
-+++ b/xen/arch/x86/pv/shim.c
-@@ -395,7 +395,7 @@ int pv_shim_shutdown(uint8_t reason)
-     for_each_vcpu ( d, v )
-     {
-         /* Unmap guest vcpu_info page and runstate/time areas. */
--        unmap_vcpu_info(v);
-+        unmap_guest_area(v, &v->vcpu_info_area);
-         unmap_guest_area(v, &v->runstate_guest_area);
-         unmap_guest_area(v, &v->arch.time_guest_area);
- 
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -1438,7 +1438,7 @@ static void __update_vcpu_system_time(st
-     struct vcpu_time_info *u = &vcpu_info(v, time), _u;
-     const struct domain *d = v->domain;
- 
--    if ( v->vcpu_info == NULL )
-+    if ( !v->vcpu_info_area.map )
-         return;
- 
-     collect_time_info(v, &_u);
---- a/xen/arch/x86/x86_64/asm-offsets.c
-+++ b/xen/arch/x86/x86_64/asm-offsets.c
-@@ -53,7 +53,7 @@ void __dummy__(void)
- 
-     OFFSET(VCPU_processor, struct vcpu, processor);
-     OFFSET(VCPU_domain, struct vcpu, domain);
--    OFFSET(VCPU_vcpu_info, struct vcpu, vcpu_info);
-+    OFFSET(VCPU_vcpu_info, struct vcpu, vcpu_info_area.map);
-     OFFSET(VCPU_trap_bounce, struct vcpu, arch.pv.trap_bounce);
-     OFFSET(VCPU_thread_flags, struct vcpu, arch.flags);
-     OFFSET(VCPU_event_addr, struct vcpu, arch.pv.event_callback_eip);
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -97,7 +97,7 @@ static void _show_registers(
-     if ( context == CTXT_hypervisor )
-         printk(" %pS", _p(regs->rip));
-     printk("\nRFLAGS: %016lx   ", regs->rflags);
--    if ( (context == CTXT_pv_guest) && v && v->vcpu_info )
-+    if ( (context == CTXT_pv_guest) && v && v->vcpu_info_area.map )
-         printk("EM: %d   ", !!vcpu_info(v, evtchn_upcall_mask));
-     printk("CONTEXT: %s", context_names[context]);
-     if ( v && !is_idle_vcpu(v) )
---- a/xen/common/compat/domain.c
-+++ b/xen/common/compat/domain.c
-@@ -49,7 +49,7 @@ int compat_common_vcpu_op(int cmd, struc
-     {
-     case VCPUOP_initialise:
-     {
--        if ( v->vcpu_info == &dummy_vcpu_info )
-+        if ( v->vcpu_info_area.map == &dummy_vcpu_info )
-             return -EINVAL;
- 
- #ifdef CONFIG_HVM
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -127,10 +127,10 @@ static void vcpu_info_reset(struct vcpu
- {
-     struct domain *d = v->domain;
- 
--    v->vcpu_info = ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS)
--                    ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
--                    : &dummy_vcpu_info);
--    v->vcpu_info_mfn = INVALID_MFN;
-+    v->vcpu_info_area.map =
-+        ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS)
-+         ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
-+         : &dummy_vcpu_info);
- }
- 
- static void vmtrace_free_buffer(struct vcpu *v)
-@@ -951,7 +951,7 @@ int domain_kill(struct domain *d)
-             return -ERESTART;
-         for_each_vcpu ( d, v )
-         {
--            unmap_vcpu_info(v);
-+            unmap_guest_area(v, &v->vcpu_info_area);
-             unmap_guest_area(v, &v->runstate_guest_area);
-         }
-         d->is_dying = DOMDYING_dead;
-@@ -1406,7 +1406,7 @@ int domain_soft_reset(struct domain *d,
-     for_each_vcpu ( d, v )
-     {
-         set_xen_guest_handle(runstate_guest(v), NULL);
--        unmap_vcpu_info(v);
-+        unmap_guest_area(v, &v->vcpu_info_area);
-         unmap_guest_area(v, &v->runstate_guest_area);
-     }
- 
-@@ -1454,111 +1454,6 @@ int vcpu_reset(struct vcpu *v)
-     return rc;
- }
- 
--/*
-- * Map a guest page in and point the vcpu_info pointer at it.  This
-- * makes sure that the vcpu_info is always pointing at a valid piece
-- * of memory, and it sets a pending event to make sure that a pending
-- * event doesn't get missed.
-- */
--int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned int offset)
--{
--    struct domain *d = v->domain;
--    void *mapping;
--    vcpu_info_t *new_info;
--    struct page_info *page;
--    unsigned int align;
--
--    if ( offset > (PAGE_SIZE - sizeof(*new_info)) )
--        return -ENXIO;
--
--#ifdef CONFIG_COMPAT
--    BUILD_BUG_ON(sizeof(*new_info) != sizeof(new_info->compat));
--    if ( has_32bit_shinfo(d) )
--        align = alignof(new_info->compat);
--    else
--#endif
--        align = alignof(*new_info);
--    if ( offset & (align - 1) )
--        return -ENXIO;
--
--    if ( !mfn_eq(v->vcpu_info_mfn, INVALID_MFN) )
--        return -EINVAL;
--
--    /* Run this command on yourself or on other offline VCPUS. */
--    if ( (v != current) && !(v->pause_flags & VPF_down) )
--        return -EINVAL;
--
--    page = get_page_from_gfn(d, gfn, NULL, P2M_UNSHARE);
--    if ( !page )
--        return -EINVAL;
--
--    if ( !get_page_type(page, PGT_writable_page) )
--    {
--        put_page(page);
--        return -EINVAL;
--    }
--
--    mapping = __map_domain_page_global(page);
--    if ( mapping == NULL )
--    {
--        put_page_and_type(page);
--        return -ENOMEM;
--    }
--
--    new_info = (vcpu_info_t *)(mapping + offset);
--
--    if ( v->vcpu_info == &dummy_vcpu_info )
--    {
--        memset(new_info, 0, sizeof(*new_info));
--#ifdef XEN_HAVE_PV_UPCALL_MASK
--        __vcpu_info(v, new_info, evtchn_upcall_mask) = 1;
--#endif
--    }
--    else
--    {
--        memcpy(new_info, v->vcpu_info, sizeof(*new_info));
--    }
--
--    v->vcpu_info = new_info;
--    v->vcpu_info_mfn = page_to_mfn(page);
--
--    /* Set new vcpu_info pointer /before/ setting pending flags. */
--    smp_wmb();
--
--    /*
--     * Mark everything as being pending just to make sure nothing gets
--     * lost.  The domain will get a spurious event, but it can cope.
--     */
--#ifdef CONFIG_COMPAT
--    if ( !has_32bit_shinfo(d) )
--        write_atomic(&new_info->native.evtchn_pending_sel, ~0);
--    else
--#endif
--        write_atomic(&vcpu_info(v, evtchn_pending_sel), ~0);
--    vcpu_mark_events_pending(v);
--
--    return 0;
--}
--
--/*
-- * Unmap the vcpu info page if the guest decided to place it somewhere
-- * else. This is used from domain_kill() and domain_soft_reset().
-- */
--void unmap_vcpu_info(struct vcpu *v)
--{
--    mfn_t mfn = v->vcpu_info_mfn;
--
--    if ( mfn_eq(mfn, INVALID_MFN) )
--        return;
--
--    unmap_domain_page_global((void *)
--                             ((unsigned long)v->vcpu_info & PAGE_MASK));
--
--    vcpu_info_reset(v); /* NB: Clobbers v->vcpu_info_mfn */
--
--    put_page_and_type(mfn_to_page(mfn));
--}
--
- int map_guest_area(struct vcpu *v, paddr_t gaddr, unsigned int size,
-                    struct guest_area *area,
-                    void (*populate)(void *dst, struct vcpu *v))
-@@ -1628,6 +1523,30 @@ int map_guest_area(struct vcpu *v, paddr
- 
-     domain_unlock(currd);
- 
-+    /* Set pending flags /after/ new vcpu_info pointer was set. */
-+    if ( area == &v->vcpu_info_area )
-+    {
-+        /*
-+         * Mark everything as being pending just to make sure nothing gets
-+         * lost.  The domain will get a spurious event, but it can cope.
-+         */
-+#ifdef CONFIG_COMPAT
-+        if ( !has_32bit_shinfo(currd) )
-+        {
-+            vcpu_info_t *info = area->map;
-+
-+            /* For VCPUOP_register_vcpu_info handling in common_vcpu_op(). */
-+            BUILD_BUG_ON(sizeof(*info) != sizeof(info->compat));
-+            write_atomic(&info->native.evtchn_pending_sel, ~0);
-+        }
-+        else
-+#endif
-+            write_atomic(&vcpu_info(v, evtchn_pending_sel), ~0);
-+        vcpu_mark_events_pending(v);
-+
-+        force_update_vcpu_system_time(v);
-+    }
-+
-     if ( v != current )
-         vcpu_unpause(v);
- 
-@@ -1654,7 +1573,10 @@ void unmap_guest_area(struct vcpu *v, st
- 
-     domain_lock(d);
-     map = area->map;
--    area->map = NULL;
-+    if ( area == &v->vcpu_info_area )
-+        vcpu_info_reset(v);
-+    else
-+        area->map = NULL;
-     pg = area->pg;
-     area->pg = NULL;
-     domain_unlock(d);
-@@ -1789,6 +1711,27 @@ bool update_runstate_area(struct vcpu *v
-     return rc;
- }
- 
-+/*
-+ * This makes sure that the vcpu_info is always pointing at a valid piece of
-+ * memory, and it sets a pending event to make sure that a pending event
-+ * doesn't get missed.
-+ */
-+static void cf_check
-+vcpu_info_populate(void *map, struct vcpu *v)
-+{
-+    vcpu_info_t *info = map;
-+
-+    if ( v->vcpu_info_area.map == &dummy_vcpu_info )
-+    {
-+        memset(info, 0, sizeof(*info));
-+#ifdef XEN_HAVE_PV_UPCALL_MASK
-+        __vcpu_info(v, info, evtchn_upcall_mask) = 1;
-+#endif
-+    }
-+    else
-+        memcpy(info, v->vcpu_info_area.map, sizeof(*info));
-+}
-+
- static void cf_check
- runstate_area_populate(void *map, struct vcpu *v)
- {
-@@ -1818,7 +1761,7 @@ long common_vcpu_op(int cmd, struct vcpu
-     switch ( cmd )
-     {
-     case VCPUOP_initialise:
--        if ( v->vcpu_info == &dummy_vcpu_info )
-+        if ( v->vcpu_info_area.map == &dummy_vcpu_info )
-             return -EINVAL;
- 
-         rc = arch_initialise_vcpu(v, arg);
-@@ -1942,16 +1885,30 @@ long common_vcpu_op(int cmd, struct vcpu
-     case VCPUOP_register_vcpu_info:
-     {
-         struct vcpu_register_vcpu_info info;
-+        paddr_t gaddr;
- 
-         rc = -EFAULT;
-         if ( copy_from_guest(&info, arg, 1) )
-             break;
- 
--        domain_lock(d);
--        rc = map_vcpu_info(v, info.mfn, info.offset);
--        domain_unlock(d);
-+        rc = -EINVAL;
-+        gaddr = gfn_to_gaddr(_gfn(info.mfn)) + info.offset;
-+        if ( !gaddr ||
-+             gfn_x(gaddr_to_gfn(gaddr)) != info.mfn ||
-+             /*
-+              * Technically re-registration is okay, but it wasn't allowed
-+              * originally.  By trying to win a race, a guest might be able
-+              * to bypass this restriction.
-+              */
-+             v->vcpu_info_area.pg )
-+            break;
- 
--        force_update_vcpu_system_time(v);
-+        /* See the BUILD_BUG_ON() in vcpu_info_populate(). */
-+        rc = map_guest_area(v, gaddr, sizeof(vcpu_info_t),
-+                            &v->vcpu_info_area, vcpu_info_populate);
-+        if ( rc == -ERESTART )
-+            rc = hypercall_create_continuation(__HYPERVISOR_vcpu_op, "iih",
-+                                               cmd, vcpuid, arg);
- 
-         break;
-     }
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -79,9 +79,6 @@ void cf_check free_pirq_struct(void *);
- int  arch_vcpu_create(struct vcpu *v);
- void arch_vcpu_destroy(struct vcpu *v);
- 
--int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned int offset);
--void unmap_vcpu_info(struct vcpu *v);
--
- int map_guest_area(struct vcpu *v, paddr_t gaddr, unsigned int size,
-                    struct guest_area *area,
-                    void (*populate)(void *dst, struct vcpu *v));
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -175,7 +175,7 @@ struct vcpu
- 
-     int              processor;
- 
--    vcpu_info_t     *vcpu_info;
-+    struct guest_area vcpu_info_area;
- 
-     struct domain   *domain;
- 
-@@ -288,9 +288,6 @@ struct vcpu
- 
-     struct waitqueue_vcpu *waitqueue_vcpu;
- 
--    /* Guest-specified relocation of vcpu_info. */
--    mfn_t            vcpu_info_mfn;
--
-     struct evtchn_fifo_vcpu *evtchn_fifo;
- 
-     /* vPCI per-vCPU area, used to store data for long running operations. */
---- a/xen/include/xen/shared.h
-+++ b/xen/include/xen/shared.h
-@@ -44,6 +44,7 @@ typedef struct vcpu_info vcpu_info_t;
- extern vcpu_info_t dummy_vcpu_info;
- 
- #define shared_info(d, field)      __shared_info(d, (d)->shared_info, field)
--#define vcpu_info(v, field)        __vcpu_info(v, (v)->vcpu_info, field)
-+#define vcpu_info(v, field)        \
-+        __vcpu_info(v, (vcpu_info_t *)(v)->vcpu_info_area.map, field)
- 
- #endif /* __XEN_SHARED_H__ */
-
+SGkgSmFuLA0KDQo+IE9uIDE5IE9jdCAyMDIyLCBhdCAwNzozOCwgSmFuIEJldWxpY2ggPGpiZXVs
+aWNoQHN1c2UuY29tPiB3cm90ZToNCj4gDQo+IE9uIDE4LjEwLjIwMjIgMTg6MTEsIEJlcnRyYW5k
+IE1hcnF1aXMgd3JvdGU6DQo+Pj4gT24gMTggT2N0IDIwMjIsIGF0IDE2OjI5LCBKYW4gQmV1bGlj
+aCA8amJldWxpY2hAc3VzZS5jb20+IHdyb3RlOg0KPj4+IE9uIDE4LjEwLjIwMjIgMTc6MTcsIEx1
+Y2EgRmFuY2VsbHUgd3JvdGU6DQo+Pj4+PiBPbiAxMyBPY3QgMjAyMiwgYXQgMTI6MzQsIEphbiBC
+ZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4gd3JvdGU6DQo+Pj4+PiBPbiAxMy4xMC4yMDIyIDEy
+OjExLCBMdWNhIEZhbmNlbGx1IHdyb3RlOg0KPj4+Pj4+PiBPbiAxMyBPY3QgMjAyMiwgYXQgMDg6
+NTAsIEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4gd3JvdGU6DQo+Pj4+Pj4+IE9uIDEy
+LjEwLjIwMjIgMTg6MDAsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+Pj4+Pj4+PiBFbnRyaWVzIGlu
+IHRoZSBkYXRhYmFzZSBzaG91bGQgbmV2ZXIgYmUgcmVtb3ZlZCwgZXZlbiBpZiB0aGV5IGFyZSBu
+b3QgdXNlZA0KPj4+Pj4+Pj4gYW55bW9yZSBpbiB0aGUgY29kZSAoaWYgYSBwYXRjaCBpcyByZW1v
+dmluZyBvciBtb2RpZnlpbmcgdGhlIGZhdWx0eSBsaW5lKS4NCj4+Pj4+Pj4+IFRoaXMgaXMgdG8g
+bWFrZSBzdXJlIHRoYXQgbnVtYmVycyBhcmUgbm90IHJldXNlZCB3aGljaCBjb3VsZCBsZWFkIHRv
+IGNvbmZsaWN0cw0KPj4+Pj4+Pj4gd2l0aCBvbGQgYnJhbmNoZXMgb3IgbWlzbGVhZGluZyBqdXN0
+aWZpY2F0aW9ucy4NCj4+Pj4+Pj4gDQo+Pj4+Pj4+IENhbiB3ZSBhZGQgcHJvdmlzaW9ucyBmb3Ig
+c2hyaW5raW5nIHN1Y2ggZW50cmllcyB0byBlLmcuIGp1c3QgdGhlaXIgImlkIg0KPj4+Pj4+PiBs
+aW5lPyBPciBpcyB0aGUgaW50ZW50aW9uIHRvIGJlIGFibGUgdG8gcmUtdXNlIHN1Y2ggYW4gZW50
+cnkgaWYgYSBtYXRjaGluZw0KPj4+Pj4+PiBpbnN0YW5jZSBhcHBlYXJzIGFnYWluIGxhdGVyPw0K
+Pj4+Pj4+IA0KPj4+Pj4+IEkgcHJlZmVyIHRvIGRvbuKAmXQgc2hyaW5rIGl0LCB0aGUgbmFtZSBp
+dHNlbGYgaXMgbm90IHZlcnkgbG9uZywgZXZlbiB1c2luZyBtYW55IGRpZ2l0cyBvZiB0aGUgaW5j
+cmVtZW50YWwNCj4+Pj4+PiBudW1iZXIsIGl0IHJlbW92ZXMgYWxzbyB0aGUgZGVwZW5kZW5jeSBv
+biB0aGUgZmlsZSBuYW1lLg0KPj4+Pj4gDQo+Pj4+PiBOYW1lIGxlbmd0aCBpc24ndCByZWxldmFu
+dCBoZXJlLCBhbmQgSSBoYXZlIG5vIGlkZWEgd2hhdCBkZXBlbmRlbmN5IG9uIGENCj4+Pj4+IGZp
+bGUgbmFtZSB5b3UncmUgdGhpbmtpbmcgb2YuIE15IHF1ZXN0aW9uIGlzIGEgc2NhbGFiaWxpdHkg
+b25lOiBPdmVyIHRpbWUNCj4+Pj4+IHRoZSB0YWJsZSB3aWxsIGdyb3cgbGFyZ2UuIElmIGFsbCBl
+bnRyaWVzIHJlbWFpbiB0aGVyZSBpbiBmdWxsIGZvcmV2ZXIsDQo+Pj4+PiB0YWJsZSBzaXplIG1h
+eSBiZWNvbWUgdW53aWVsZHkuDQo+Pj4+IA0KPj4+PiBPayBJIG1pc3VuZGVyc3Rvb2QgeW91ciBx
+dWVzdGlvbiwgbm93IEkgdW5kZXJzdGFuZCB3aGF0IHlvdSBhcmUgYXNraW5nLCB3ZSBjb3VsZCBy
+ZW1vdmUgdGhlIGNvbnRlbnQNCj4+Pj4gb2YgdGhlIOKAnGFuYWx5c2Vy4oCdIGRpY3Rpb25hcnkg
+Zm9yIHN1cmUsIGJlY2F1c2UgaWYgdGhlcmUgaXMgbm90IGFueW1vcmUgYSBsaW5rIHdpdGggdGhl
+IGN1cnJlbnQgY29kZS4NCj4+Pj4gDQo+Pj4+IFJlZ2FyZGluZyByZW1vdmluZyB0aGUg4oCcbmFt
+ZeKAnSBhbmQg4oCcdGV4dOKAnSwgY291bGQgaXQgYmUgdGhhdCBhdCBzb21lIHBvaW50IHdlIGNh
+biBpbnRyb2R1Y2UgaW4gdGhlIGNvZGUNCj4+Pj4gYSB2aW9sYXRpb24gdGhhdCByZXF1aXJlcyB0
+aGUgc2FtZSBqdXN0aWZpY2F0aW9uIHByb3ZpZGVkIGJ5IHRoZSDigJxvcnBoYW7igJ0gZW50cnk/
+DQo+Pj4+IEluIHRoYXQgY2FzZSB3ZSBjb3VsZCByZXVzZSB0aGF0IGVudHJ5IHdpdGhvdXQgY3Jl
+YXRpbmcgYSBuZXcgb25lIHRoYXQgd2lsbCBvbmx5IHdhc3RlIHNwYWNlLg0KPj4+PiBXaGF0IGlz
+IHRoZSBvcGluaW9uIG9uIHRoaXM/DQo+Pj4gDQo+Pj4gV2VsbCwgeWVzLCB0aGlzIGlzIHRoZSBv
+bmUgY2FzZSB0aGF0IEksIHRvbywgd2FzIHdvbmRlcmluZyBhYm91dC4gSXQncyBub3QNCj4+PiBj
+bGVhciB0byBtZSB3aGV0aGVyIGl0IHdvdWxkbid0IGJlIGJldHRlciB0byBhbGxvY2F0ZSBhIGZy
+ZXNoIElEIGluIHN1Y2ggYQ0KPj4+IGNhc2UuDQo+PiANCj4+IEZvciB0cmFjZWFiaWxpdHkgYW5k
+IHJlbGVhc2UgaGFuZGxpbmcgSSB0aGluayBpdCBpcyBpbXBvcnRhbnQgdGhhdDoNCj4+IC0gd2Ug
+bmV2ZXIgcmV1c2UgdGhlIHNhbWUgSUQgaW4gYW55IGNhc2UNCj4+IC0gd2Uga2VlcCBJRHMgaW4g
+dGhlIGRhdGFiYXNlIGV2ZW4gaWYgdGhlcmUgaXMgbm8gb2NjdXJyZW5jZSBpbiB4ZW4gY29kZSBh
+cyB0aGlzIHdpbGwgcHJldmVudCBhZGRpbmcgYSBuZXcgSUQgaWYgYW4gZXhpc3Rpbmcgb25lIGNh
+biBiZSByZXVzZWQNCj4+IA0KPj4gSW4gYSBjZXJ0aWZpY2F0aW9uIGNvbnRleHQsIHdoZW4gYSBq
+dXN0aWZpY2F0aW9uIGhhcyBiZWVuIHZhbGlkYXRlZCBhbmQgYWdyZWVkIGl0IHdpbGwgbWFrZSBs
+aWZlIGEgbG90IGVhc2llciB0byBub3QgbW9kaWZ5IGl0IGFuZCByZXVzZSBpdCBpbiB0aGUgZnV0
+dXJlIGlmIGl0IGlzIG5lZWRlZC4NCj4+IEZyb20gb3VyIHBvaW50IG9mIHZpZXcsIGhhdmluZyBh
+IGNsZWFyIGFuZCBzaW1wbGUgd2F5IG9mIGhhbmRsaW5nIHRob3NlIHdpbGwgbWFrZSBiYWNrcG9y
+dHMgYSBsb3QgZWFzaWVyLg0KPiANCj4gSXNuJ3QgdmFsaWRhdGlvbiBvZiBhIGp1c3RpZmljYXRp
+b24gY29ubmVjdGVkIHRvIHRoZSBhZmZlY3RlZCBjb2RlPyBJZiBzbywNCj4gZXZlcnkgbmV3IGlu
+c3RhbmNlIHdpbGwgbmVlZCB2YWxpZGF0aW9uLCB3aGlsZSBhbiBvcnBoYW4gZW50cnkgaXMgZW50
+aXJlbHkNCj4gbWVhbmluZ2xlc3MuDQoNCkhvcGVmdWxseSBtb3N0IG91ciBqdXN0aWZpY2F0aW9u
+cyBzaG91bGQgYmUgZm9yIHNvbWUg4oCcY29tbW9u4oCdIGRldmlhdGlvbnMNCndlIGFsbG93IGFu
+ZCBhcyBhIGNvbnNlcXVlbmNlIGJlIHJldXNlZCBzZXZlcmFsIHRpbWVzLg0KQW4gb3JwaGFuIG1p
+Z2h0IGJlIG1lYW5pbmdsZXNzIGJ1dCBjb3VsZCBzdGlsbCBoYXZlIGEgbWVhbmluZyBpbiBhIHN0
+YWJsZQ0KYnJhbmNoLCB0YWtpbmcgdGhvc2Ugb3V0IG1pZ2h0IG1ha2UgdGhlIHdvcmsgb2YgcGVv
+cGxlIGRvaW5nIGNlcnRpZmljYXRpb24NCm1vcmUgY29tcGxleC4NCkFueXdheSBJIHRoaW5rIHRo
+aXMgaXMgYSBjb3JuZXIgY2FzZSB0aGF0IHdlIGNvdWxkIHJlY29uc2lkZXIgZGVwZW5kaW5nIG9u
+DQpob3cgb2Z0ZW4gaXQgaXMgaGFwcGVuaW5nIGJ1dCBmb3IgYSBzdGFydCBpdCB3b3VsZCBtYWtl
+IGxpZmUgZWFzaWVyIHRvIG5vdCByZW1vdmUNCnNvIHRoYXQgbnVtYmVycyBhcmUgbm90IHJldXNl
+ZC4NCg0KPiANCj4+Pj4+PiBBZnRlciB0aGUgYW5hbHlzaXMsIHRoZSBzb3VyY2UgY29kZSB3aWxs
+IHJldHVybiBhcyB0aGUgb3JpZ2luYWwgKHdpdGggdGhlIFNBRi0qIHRhZykuDQo+Pj4+PiANCj4+
+Pj4+IFdoaWxlIHlvdSBtZW50aW9uIHNvbWV0aGluZyBzaW1pbGFyIGFsc28gYXMgc3RlcCAzIGlu
+IHRoZSBvcmlnaW5hbCBkb2N1bWVudA0KPj4+Pj4gbmVhciB0aGUgdG9wLCBJJ20gYWZyYWlkIEkg
+ZG9uJ3QgdW5kZXJzdGFuZCB3aGF0IHRoaXMgInJldHVybiBhcyB0aGUgb3JpZ2luYWwiDQo+Pj4+
+PiBtZWFucy4gSWYgeW91IHdhbnQgdG8gcnVuIHRoZSB0b29sIG9uIGFuIGFsdGVyZWQgKGNvbW1l
+bnRzIG1vZGlmaWVkKSBzb3VyY2UNCj4+Pj4+IHRyZWUsIHdoYXQgSSdkIGV4cGVjdCB5b3UgdG8g
+ZG8gaXMgY2xvbmUgdGhlIHNvdXJjZXMgaW50byBhIHRocm93LWF3YXkgdHJlZSwNCj4+Pj4+IG1h
+c3NhZ2UgdGhlIGNvbW1lbnRzLCBydW4gdGhlIHRvb2wsIGFuZCBkZWxldGUgdGhlIG1hc3NhZ2Vk
+IHRyZWUuDQo+Pj4+Pj4+PiBpZiB0aGUgb2JqZWN0IGRvZXNuJ3QgaGF2ZSBhIGtleS12YWx1ZSwg
+dGhlbiB0aGUgY29ycmVzcG9uZGluZyBpbi1jb2RlDQo+Pj4+Pj4+PiBjb21tZW50IHdvbid0IGJl
+IHRyYW5zbGF0ZWQuDQo+Pj4+Pj4+IA0KPj4+Pj4+PiBJaXJjIGF0IGxlYXN0IENvdmVyaXR5IGln
+bm9yZXMgY2VydGFpbiBpbnN0YW5jZXMgb2Ygd2hhdCBpdCBtaWdodCBjb25zaWRlcg0KPj4+Pj4+
+PiB2aW9sYXRpb25zIChmYWxsLXRocm91Z2ggaW4gc3dpdGNoKCkgc3RhdGVtZW50cyBpbiBwYXJ0
+aWN1bGFyKSBpbiBjYXNlDQo+Pj4+Pj4+IF9hbnlfIGNvbW1lbnQgaXMgcHJlc2VudC4gVGhlcmVm
+b3JlIG1heSBJIHN1Z2dlc3QgdGhhdCBzdWNoIGNvbW1lbnRzIGJlDQo+Pj4+Pj4+IGRlbGV0ZWQg
+KHJlYWxseTogcmVwbGFjZWQgYnkgYSBibGFuayBsaW5lLCB0byBtYWludGFpbiBjb3JyZWN0IGxp
+bmUNCj4+Pj4+Pj4gbnVtYmVyaW5nKSBpZiB0aGVyZSdzIG5vIG1hdGNoaW5nIGtleS12YWx1ZSBw
+YWlyPw0KPj4+Pj4+IA0KPj4+Pj4+IFllcyB0aGUgbGluZSB3b27igJl0IGJlIGFsdGVyZWQgaWYg
+dGhlcmUgaXMgbm8gbWF0Y2guIFRoaXMgdG8gZW5zdXJlIHRoZSBjb3JyZWN0IGxpbmUNCj4+Pj4+
+PiBudW1iZXJpbmcgaXMgbm90IGFmZmVjdGVkLg0KPj4+Pj4gDQo+Pj4+PiAid29uJ3QgYmUgYWx0
+ZXJlZCIgaXMgdGhlIG9wcG9zaXRlIG9mIHdoYXQgSSd2ZSBiZWVuIGFza2luZyB0byBjb25zaWRl
+cjoNCj4+Pj4+IE9ic2VydmluZyB0aGF0IGNvbW1lbnRzIF9yZWdhcmRsZXNzXyBvZiB0aGVpciBj
+b250ZW50cyBtYXkgc2lsZW5jZSBmaW5kaW5ncywNCj4+Pj4+IHRoZSBzdWdnZXN0aW9uIGlzIHRv
+IHJlbW92ZSBjb21tZW50cyAobGVhdmluZyBhIGJsYW5rIGxpbmUpIHdoZW4gdGhlcmUncyBubw0K
+Pj4+Pj4gZW50cnkgZm9yIHRoZSB0YXJnZXRlZCB0b29sIGluIHRoZSB0YWJsZSBlbnRyeS4NCj4+
+Pj4gDQo+Pj4+IFdoeT8gVGhlIHRhZyBjb21tZW50IHdvbuKAmXQgZG8gYW55dGhpbmcsIGl0IHdv
+dWxkIGFjdCBhcyBhIGJsYW5rIGxpbmUgZnJvbSB0aGUgYW5hbHlzZXINCj4+Pj4gcGVyc3BlY3Rp
+dmUuDQo+Pj4gDQo+Pj4gVGhlIF90YWdfIHdvbid0IGRvIGFueXRoaW5nLCBidXQgYXMgc2FpZCBh
+bnkgX2NvbW1lbnRfIG1heSBoYXZlIGFuIGVmZmVjdC4NCj4+IA0KPj4gSSBhbSBub3Qgc3VyZSBJ
+IGZvbGxvdyB0aGlzIG9uZSBidXQgaW4gYW55IGNhc2Ugd2UgY2FuIGNob29zZSB0byBhbnl3YXkg
+c3Vic3RpdHV0ZSB0aGUgdGFnIHdpdGggc29tZXRoaW5nIGxpa2UgLyogTm90IGFwcGxpY2FibGUg
+Ki8uDQo+IA0KPiBUaGF0J3Mgc3RpbGwgYSBjb21tZW50LCB3aGljaCBoZW5jZSBtYXkgc3RpbGwg
+c2lsZW5jZSBhIHRvb2w6DQo+IA0KPiAgICBzd2l0Y2ggKCB4ICkNCj4gICAgew0KPiAgICBjYXNl
+IGE6DQo+ICAgICAgICAuLi4NCj4gICAgICAgIC8qIFNBRi08Tj4tc2FmZSAqLw0KPiAgICBjYXNl
+IGI6DQo+ICAgICAgICAuLi4NCj4gICAgICAgIGJyZWFrOw0KPiAgICB9DQo+IA0KPiBpcyBubyBk
+aWZmZXJlbnQgZnJvbQ0KPiANCj4gICAgc3dpdGNoICggeCApDQo+ICAgIHsNCj4gICAgY2FzZSBh
+Og0KPiAgICAgICAgLi4uDQo+ICAgICAgICAvKiBmYWxsLXRocm91Z2ggKi8NCj4gICAgY2FzZSBi
+Og0KPiAgICAgICAgLi4uDQo+ICAgICAgICBicmVhazsNCj4gICAgfQ0KPiANCj4gbm9yDQo+IA0K
+PiAgICBzd2l0Y2ggKCB4ICkNCj4gICAgew0KPiAgICBjYXNlIGE6DQo+ICAgICAgICAuLi4NCj4g
+ICAgICAgIC8qIE5vdCBhcHBsaWNhYmxlICovDQo+ICAgIGNhc2UgYjoNCj4gICAgICAgIC4uLg0K
+PiAgICAgICAgYnJlYWs7DQo+ICAgIH0NCj4gDQo+IE9ubHkNCj4gDQo+ICAgIHN3aXRjaCAoIHgg
+KQ0KPiAgICB7DQo+ICAgIGNhc2UgYToNCj4gICAgICAgIC4uLg0KPiANCj4gICAgY2FzZSBiOg0K
+PiAgICAgICAgLi4uDQo+ICAgICAgICBicmVhazsNCj4gICAgfQ0KPiANCj4gd2lsbCBtYWtlIGUu
+Zy4gQ292ZXJpdHkgYWN0dWFsbHkgcG9pbnQgb3V0IHRoZSBwb3RlbnRpYWxseSB1bmludGVuZGVk
+DQo+IGZhbGwgdGhyb3VnaCAoYmFzZWQgb24gcGFzdCBvYnNlcnZhdGlvbnMpLiBXaGV0aGVyIHRo
+YXQgYmVoYXZpb3IgaXMNCj4gZmFsbC10aHJvdWdoLXNwZWNpZmljIEkgZG9uJ3Qga25vdy4gSWYg
+aXQgaW5kZWVkIGlzLCB0aGVuIG1heWJlIG15DQo+IGNvbmNlcm4gaXMgdm9pZCAtIGluIHRoZSBs
+b25nIHJ1biBJIHRoaW5rIHdlIHdhbnQgdG8gdXNlIHRoZSBwc2V1ZG8tDQo+IGtleXdvcmQgdGhl
+cmUgaW4gYWxsIGNhc2VzIGFueXdheS4NCg0KV2UgY2FuIGNob29zZSB0aGUgcmVwbGFjZW1lbnQg
+Y29tbWVudCB0byBiZSBzb21ldGhpbmcgbm90DQpjb25zaWRlcmVkIGJ5IHRoZSB0b29scyAob3Ig
+ZXZlbiBwdXQgYW4gZW1wdHkgLyogKi8pLg0KV2hhdCB3ZSBjYW5ub3QgZG8gaXMgcmVtb3ZlIHRo
+ZSBsaW5lIGFzIGl0IHdvdWxkIGNoYW5nZSBsaW5lIG51bWJlcnMuDQpCdXQgYXBhcnQgZnJvbSBm
+YWxsdGhyb3VnaCBJIGRvIG5vdCB0aGluayBhbnkgY29tbWVudCBpcyBjb25zaWRlcmVkIGJ5DQph
+bnkgdG9vbHMgc28gdGhpcyBzaG91bGQgbm90IGJlIGFuIGlzc3VlLg0KDQpCZXJ0cmFuZA0KDQo+
+IA0KPiBKYW4NCg0K
 
