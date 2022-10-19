@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D379C604216
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 12:54:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.425730.673758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106EC604344
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Oct 2022 13:33:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.425742.673787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ol6ht-000343-Ul; Wed, 19 Oct 2022 10:53:53 +0000
+	id 1ol7Je-0008Oz-E5; Wed, 19 Oct 2022 11:32:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 425730.673758; Wed, 19 Oct 2022 10:53:53 +0000
+Received: by outflank-mailman (output) from mailman id 425742.673787; Wed, 19 Oct 2022 11:32:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ol6ht-00031Q-Ri; Wed, 19 Oct 2022 10:53:53 +0000
-Received: by outflank-mailman (input) for mailman id 425730;
- Wed, 19 Oct 2022 10:53:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ol7Je-0008Me-AP; Wed, 19 Oct 2022 11:32:54 +0000
+Received: by outflank-mailman (input) for mailman id 425742;
+ Wed, 19 Oct 2022 11:06:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CpyO=2U=gmail.com=koct9i@srs-se1.protection.inumbo.net>)
- id 1ol6hs-00030S-7k
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 10:53:52 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50863696-4f9c-11ed-8fd0-01056ac49cbb;
- Wed, 19 Oct 2022 12:53:50 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id i21so18706852ljh.12
- for <xen-devel@lists.xenproject.org>; Wed, 19 Oct 2022 03:53:50 -0700 (PDT)
+ (envelope-from <SRS0=Bifj=2U=virtuozzo.com=den@srs-se1.protection.inumbo.net>)
+ id 1ol6to-0004w3-Tf
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 11:06:13 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr140095.outbound.protection.outlook.com [40.107.14.95])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 07a58c88-4f9e-11ed-91b4-6bf2151ebd3b;
+ Wed, 19 Oct 2022 13:06:07 +0200 (CEST)
+Received: from PAXPR08MB6956.eurprd08.prod.outlook.com (2603:10a6:102:1db::9)
+ by AS2PR08MB9473.eurprd08.prod.outlook.com (2603:10a6:20b:5ea::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Wed, 19 Oct
+ 2022 11:06:05 +0000
+Received: from PAXPR08MB6956.eurprd08.prod.outlook.com
+ ([fe80::c82b:333d:9400:dbc9]) by PAXPR08MB6956.eurprd08.prod.outlook.com
+ ([fe80::c82b:333d:9400:dbc9%5]) with mapi id 15.20.5723.034; Wed, 19 Oct 2022
+ 11:06:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,317 +46,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50863696-4f9c-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=SLJhYMtLXgKI7Y17ZUIiMFD3J1dSMKzi0bGsbw5e7go=;
-        b=BIopzC1/zEhmwdduNBVA6swDAiJ/PaY8ch4dJ2rG5XuPIEphc4HpFIwENy/oXgcF77
-         g26f5vpGaEszcK++cCcUTKXnXewQJhMolM/QKzyYXNbX9xSmjD/h8CuNjZnIiz7Pow8u
-         9oViyTjYtEDviMMGlKH85v/Ws+BdAJzTCaIXgEvN2cQC8OYtO73LOuvgzZLgMf+F+rIG
-         mtckB/MCVPgD2rV3KUTEV82YQSZME3UNkpjhzr5nvBMLdEHKNnoKLk44gbindiuqP3++
-         9IOegW4jhF+LV2Vq5vqvc4+NLv43nVgJjixrVLu9Nl+mWgLbiiG+y5EemQvr99KzMTYQ
-         tpgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SLJhYMtLXgKI7Y17ZUIiMFD3J1dSMKzi0bGsbw5e7go=;
-        b=xV0S/2yb8Zn01SCLrXGGRr3ljRXG3XGf7zg3ZQN51G8XWbQOw205PS73GMh875T+mB
-         2UqIFaSDQHIWzl3nyw/MXA5mZtTuveyR7rLY9oopfmYQDOlyXXy3HGR5c5+DTYag5Yp2
-         da8YKF2ujTIgUimkcra6lOB0CW9ARom1cqJ1zAsqfHIf43FiKsfLlR9v0/Ctrgw/wxx8
-         Tg/+6yjovJU4LXW3X7BGa3zu609DZ1/fLRwosxOQhDkmdTGvQ3PDN0MMKb4ubwQcG1cn
-         jJ/MSwpWfUq34iCibM9nkbOX4G4jaEEZqjL2LtWQcpUGQFg1G5PmkpR79cDB/0qzm5Na
-         rcRw==
-X-Gm-Message-State: ACrzQf3qSUITs8nguRUCUGoMXLxZ8lMKuPfQztrlzMqwv4XsXw6WL3Q4
-	J8lPSLMRqFkmqVMW8fbKgOk+tzcZLRHt5VfLmvk=
-X-Google-Smtp-Source: AMsMyM56LTTzTKGc4F++LzICGIh8ple7Tae6Xn81CIYsoHyoaHlCwHgx+9D2SKe1qtnypzSnzS56crQyLn1GyeQTpJg=
-X-Received: by 2002:a05:651c:194c:b0:26f:ec78:6172 with SMTP id
- bs12-20020a05651c194c00b0026fec786172mr2697844ljb.479.1666176829774; Wed, 19
- Oct 2022 03:53:49 -0700 (PDT)
-MIME-Version: 1.0
-References: <20221019095620.124909-1-alexander.atanasov@virtuozzo.com>
-In-Reply-To: <20221019095620.124909-1-alexander.atanasov@virtuozzo.com>
-From: Konstantin Khlebnikov <koct9i@gmail.com>
-Date: Wed, 19 Oct 2022 13:53:38 +0300
-Message-ID: <CALYGNiONv3au6hbAva60jWurwkU5ancWo-o2v7tpSzwguqzD9g@mail.gmail.com>
+X-Inumbo-ID: 07a58c88-4f9e-11ed-91b4-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oJhmopj2H7hFOJsYd2E+z4cIaukNLQ4DxPfDcQAR2UXZoEOUG73446xgNGFOxKIlJzQ3PZ+m/FvVtIWDrAJteGmXcp6eH2Q5lbKRcl+AWp839w5mY78LvLUwZFn68mI9l6AfA7uFnb1yx5oXqEHaIh1tJbEL4lMRy6NfHnEVmrDb2pdVyDI+JZuera0YyCjr3XceysDz7dl5fQ6FI7/1yA6EPoIzbSJgk8bEicd8adBb4ZNgLlZ6buyG/zzPMemor49JXko7+UlFYZK5PbA+sY+ZLewSLTWQJRNygobqord+2m8VJfTGpVpAIQgqW7IwgjzPVbDiQdI3rH15nJPcuw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xhltnm+rSwr6w0Xbd8xf08MBurU4Rs3LaoB4CsMhb5M=;
+ b=nRmS2xIpIIWWRBpQIvHAC/VNTeREoEdX5EOHR5G/zB76KMiBuXDlJSSsUF2HHgFA6j+gnl9JX1ks+cElwwyePFwW9hU6nYWJLUaGv6P/DpJxTsr1OI4UBeYQ7UyKsgMjbFLcgzHjen38JjwSCjhgYlc7fzuDpIRcDg62kO/PuJ7xYnIxD/3KwViFaTFsPGswv/NWDtuS7tqf+PFKGEc4hqBG36lej44XBmsZXYktZiER6XPR4bZhG9k7ccshOS1xI02BOQEsB+wcvMP7YljXteyq42ZXBzOyV73/SdhENNjPEwJGqNr19DHuhFoFn+hD4IBJZzlgZSJPE1iNQ0HElw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
+ header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xhltnm+rSwr6w0Xbd8xf08MBurU4Rs3LaoB4CsMhb5M=;
+ b=qw1mMQurUqW4KCJL803lSNYsN6kH9ln8D439d/qZTWUjX9MzE0EjSXzpw46m/ZeiQMCqYrg9s+ieJJAB/62m/7nRqnxw2uLdiAsa+hx5P+LZWOfLlU0KXEDG2kSGPnC05b7SqjI1/5rDLOdzIzmpoOxEhYsoUam1jkk3KZZvQSDsZ/rQdaFxhwlF2dHKpU51CEIoHQo7f+wQRMyPIse1ehcyxIXXlpZ43y1kh1qtxn6t500ocP6+vtuLM7Qx4Z8qUKRJlMHCrh7Y0o8++rf5G5Z8tYcSq9S9nx5CeUC9zYamIfA0MSu3VQC8xKwBI3u00fzvVxsbDhvve7ZN0SAtZg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=virtuozzo.com;
+Message-ID: <1c69ff97-831d-ece3-7a52-bb7659fc8dd4@virtuozzo.com>
+Date: Wed, 19 Oct 2022 13:06:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
 Subject: Re: [RFC PATCH v5 0/8] Make balloon drivers' memory changes known to
  the rest of the kernel
-To: Alexander Atanasov <alexander.atanasov@virtuozzo.com>
-Cc: kernel@openvz.org, kernel test robot <lkp@intel.com>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, David Hildenbrand <david@redhat.com>, Wei Liu <wei.liu@kernel.org>, 
-	Nadav Amit <namit@vmware.com>, pv-drivers@vmware.com, Jason Wang <jasowang@redhat.com>, 
-	virtualization@lists.linux-foundation.org, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
-	Stephen Hemminger <sthemmin@microsoft.com>, Dexuan Cui <decui@microsoft.com>, 
-	linux-hyperv@vger.kernel.org, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="00000000000012626105eb6106d0"
+Content-Language: en-US
+To: Konstantin Khlebnikov <koct9i@gmail.com>,
+ Alexander Atanasov <alexander.atanasov@virtuozzo.com>
+Cc: kernel@openvz.org, kernel test robot <lkp@intel.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>, David Hildenbrand
+ <david@redhat.com>, Wei Liu <wei.liu@kernel.org>,
+ Nadav Amit <namit@vmware.com>, pv-drivers@vmware.com,
+ Jason Wang <jasowang@redhat.com>, virtualization@lists.linux-foundation.org,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Stephen Hemminger <sthemmin@microsoft.com>, Dexuan Cui
+ <decui@microsoft.com>, linux-hyperv@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20221019095620.124909-1-alexander.atanasov@virtuozzo.com>
+ <CALYGNiONv3au6hbAva60jWurwkU5ancWo-o2v7tpSzwguqzD9g@mail.gmail.com>
+From: "Denis V. Lunev" <den@virtuozzo.com>
+In-Reply-To: <CALYGNiONv3au6hbAva60jWurwkU5ancWo-o2v7tpSzwguqzD9g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: VI1PR09CA0112.eurprd09.prod.outlook.com
+ (2603:10a6:803:78::35) To PAXPR08MB6956.eurprd08.prod.outlook.com
+ (2603:10a6:102:1db::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR08MB6956:EE_|AS2PR08MB9473:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb3f68f1-5ba8-475c-7d93-08dab1c1ea21
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	QGf7Hq+IzikwzXW1di0MGYMno4UujJoHWEWKAy8hqrAGi+dLfqOTkwwSGSYwRbKNi2daon24CGDvg8qUwXVcwxCksIYGnu3G4dckVm75hpkbBuCU+BXSXzw8ZJSqL0VCjdiP7y6EsszNlLfghLB1aXsQlr3Rirj1/ju5y/tOUdn5Hao8ogBNUhEZOC92CUJU4Ljnlvi/PeBJRTeuG7R1AsTu9cAj4MLov4MvfuYIX0tGDkfCJL955TghoLXhyXnncC8upO9XmOqyWvo7x20F1nPFoxnks+5ZmcVxW6zBW2rVeAZDl9fwI2/wz4zT3s7+4U26YIIil0sPf9QEpzU8i3U1w24ddabKAS6L7BAD/MwpFtps1/lClYKN4sy2+VsrmuZ4sozExGfE2Pi0OdKBQI4arEOdeydknHSSDbj5uoNrDfS8V46jR1Qv1neTWd6ILriiNy/KFp5+jEze2R2F1LYGautSTW/mESqqbUZAQ2A0R6QKeStaXMP2JfInEaR/DvNaK0q0s4QN93bNqnj6GDfpl+ZW/rN9VtYXDq1EbDSX9qA9ONLS5L9iDj8fJQMJNJgTTYZhIfykhkM2H9+/n0pMy2qFx6g3q0ek0p12hNEXnkhk28/+qwAlhH+e3PJqqChbBdA0iH7XXAMZA0zBKh43GlVWwwWOsvbmQnGIIbBEKd3az0sMtoGdGTk8MSBtBrd73ji8s1sDnBUcBFWE731BwauCmeDVCYWpUZ3IqWrMTrq2itVB7DJoyg09jQ2XOUJNFr6Z0VbyiZUoLn6cqVUD6EKJbCnRoNT9UeLYbdY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6956.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39850400004)(346002)(136003)(376002)(366004)(396003)(451199015)(2906002)(186003)(38100700002)(2616005)(6486002)(478600001)(45080400002)(54906003)(6636002)(86362001)(66476007)(66946007)(8676002)(66556008)(4326008)(110136005)(8936002)(31686004)(6512007)(6506007)(26005)(36756003)(53546011)(31696002)(83380400001)(41300700001)(7416002)(316002)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bDJxd243Ymd2czA3Qy9pYnVhUlNRbWthL1hNaG5rb2oyZFRvNTNlK2xCUkZM?=
+ =?utf-8?B?OU1UYTZ3a2w1cU5yM2tOOC9jdmw0SkpVa04remRZK1dWc3lGdWorcGloaWVv?=
+ =?utf-8?B?SUdLeVZzQVNib2NYSmVkdkJYbExlY3RQcGdHR0V4S1pSVmZVcEZnVHNaRDR5?=
+ =?utf-8?B?dGs1Mktpb3VlR1VGdllrQlVlZmoxZkNjL2oydU13UFRUU1VQZGhpTlF1Q2pC?=
+ =?utf-8?B?d1ZhdVpaS2ppdFFRbnRjQTJLZFNTWkhtSU9zNkxzOUt1UXhOc25WWXU4eS9I?=
+ =?utf-8?B?TnJrd1BaMWg0SjR2UlIvTVRVYTZ1djFUaU5TTlVIbTlTMXFOSXFyUmpMOFk0?=
+ =?utf-8?B?YUFnZGUzd0szRnBVRTVjMmNVZUl0Z3NPRUdGaUNwOWx5RnF0aUg3OG9TVjVi?=
+ =?utf-8?B?ZEwxRG4reWV4YThLb2o4SzNlN2VyaHJqQW5GTVRDd1VpS2FJZWlzUlBXWnNL?=
+ =?utf-8?B?bUZYdHluZWpmV3dqZFVqZ0Vid2ExYkxNcnhXcE84Nk13UXRKVWJVL1E4eUc4?=
+ =?utf-8?B?V3dKQWZERzZzY1RNTjd6L2VKeVk5NGsrRzIrSFRHS2hhSm9BVVJUTEpIMW43?=
+ =?utf-8?B?QWxPcE1jVjREVkNnYXJ5Qkh0eFVod2J3TDJqaGQ4TUNOeHdPYVJoR0t1Y2JG?=
+ =?utf-8?B?QVlqMDczRXNyekRyUmhsQUlYbkxIOXkxTnQ3YkJBYUoyTk5xWC9BZlNJU1Iw?=
+ =?utf-8?B?eENUM2RKbzZzK3RBU2xCYWV5N0E3K3hVd1RFSzdoNE4xNDJWKzducGlNbUFa?=
+ =?utf-8?B?TFU5bktnS3owQ2dBUXAwMHRmVGVaRVptL3g5SVBwVGI3U1BORHpYT0lNZS9D?=
+ =?utf-8?B?c3hrK1N3YlpwcHk5ZzJYUVNaZkZBcHJxVXRuNFJIaWFWR05lNS9PQ0FjMENP?=
+ =?utf-8?B?VjZkNjR2TW1zZzFGRytZMjRLT2RLZW05UTZrS08yUWszZXNVWE1USHFlUXo1?=
+ =?utf-8?B?a0hQb2dFbmhPTkZaZFdqUG1XczVsdFZsSHZ0RllJVS9MK1FjSENaa0JOSkJl?=
+ =?utf-8?B?QVJWNkE1WmZkUlhqWmxxby9iYmFRelB0R29SUXlySDNhc2ZkUnRFOXhnMysr?=
+ =?utf-8?B?STVwT2NyUWMweXNJdFpGS2xJRFUrcnhmaU9HbURMaG1wOWZUWkp4T2piWE1Z?=
+ =?utf-8?B?K1ZPZFp6YTVnTEY4V3dscmlQenFnZGpra0hUdkFDTnVXb3pYeldnOU5xWjN5?=
+ =?utf-8?B?MkVBVXZtdWx3ZzJNeGFFcmtmNkdpMVUwZXFVaGpzbFBDZUhuZnN3N3VoSndT?=
+ =?utf-8?B?dS90VW4vUXUrTzBWZUtiOTcwZ3hoNWtRYXJwazdNR1hGV2ZzaEs4SWNFa3RS?=
+ =?utf-8?B?cGFyVjlwQXZxbndFaE1IU2t1ZHBES1UzYklHTFl6bm40U3FIQmlNRU91V1hM?=
+ =?utf-8?B?ZEsyTFRNR00zQzVNSFdmRTRCU2RsQW5yUkNLU0U2NXI4T29IWWg0S2VSdFdS?=
+ =?utf-8?B?a1c2Q3pUeFhTT1BsWEZNVmpMM1I3Q3llV0xKVUo3WFVuRE9XT2VOMkFyZTNh?=
+ =?utf-8?B?UEMvL0xnUXArSWpteUpPYi9DVnZpL1RhRG40Y0tRdHE2Mi9sbmNBNEx2YmVY?=
+ =?utf-8?B?Y0Jhbml3TW80dWdnMnF4VjlsNUVrVVVJUEF6ZmpaTzJITUFuWUpxSFFMSTN6?=
+ =?utf-8?B?dzgxTmxHWHhYVTVWM1V0S3VhdEdINENqUVVRTm9reDlSaEZkbWJsTTJaQVFk?=
+ =?utf-8?B?Nnc3MHpOckVacWJCUXRXeVFpYTV3OS91djVDMU1iZHZMb1FadHlwdFBvNFkv?=
+ =?utf-8?B?WklwMFFaM25tanVVZUdtb1l5dmw1aFRoTEpFVkVhMmRSWEdGcGsxWHNVSkMw?=
+ =?utf-8?B?bko1ams0ZUhoL0NBendJMzdvd0d3Z2lwWGlRQ0VsdHZGTnNWeGVxUmtxVEtL?=
+ =?utf-8?B?RFZ2SllnM3F3UnJrVWVRTjlyc2xOMUZVM2M5TFdpVDZna2xBczFMcjlZUE1Q?=
+ =?utf-8?B?RlFIcUdhYzcxMkYrd2FkZGNVT2dxbDMva1lJbXNQeWtJT0xSVHZzelQ0Qk8z?=
+ =?utf-8?B?TWtZcUVzaSt5SVR4eHMzSVJWeW5wNFY5dkZLTnhNU0syWmZxL2V3YlRSVElE?=
+ =?utf-8?B?T3B5MjFCYXVMYVl4SWNBNlJORGNOTDlMKzRhZ3BzZWozVjJ5NHY0QXgzL1lD?=
+ =?utf-8?Q?+VLJ13tbOqXPNqLUgFkIqL9q0?=
+X-OriginatorOrg: virtuozzo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb3f68f1-5ba8-475c-7d93-08dab1c1ea21
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR08MB6956.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2022 11:06:04.2621
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NNpPyzKz/pYmBgwzYw4U3PGQIpQE6wKhel0T6Wy+mzKGqdVOLvkFM0rFkradIuyPKNd782iMdkj1xYn11KZEvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9473
 
---00000000000012626105eb6106d0
-Content-Type: text/plain; charset="UTF-8"
+On 10/19/22 12:53, Konstantin Khlebnikov wrote:
+> On Wed, 19 Oct 2022 at 12:57, Alexander Atanasov 
+> <alexander.atanasov@virtuozzo.com> wrote:
+>
+>     Currently balloon drivers (Virtio,XEN, HyperV, VMWare, ...)
+>     inflate and deflate the guest memory size but there is no
+>     way to know how much the memory size is changed by them.
+>
+>     Make it possible for the drivers to report the values to mm core.
+>
+>     Display reported InflatedTotal and InflatedFree in /proc/meminfo
+>     and print these values on OOM and sysrq from show_mem().
+>
+>     The two values are the result of the two modes the drivers work
+>     with using adjust_managed_page_count or without.
+>
+>     In earlier versions, there was a notifier for these changes
+>     but after discussion - it is better to implement it in separate
+>     patch series. Since it came out as larger work than initially
+>     expected.
+>
+>     Amount of inflated memory can be used:
+>      - totalram_pages() users working with drivers not using
+>         adjust_managed_page_count
+>      - si_meminfo(..) users can improve calculations
+>      - by userspace software that monitors memory pressure
+>
+>
+> Sorry, I see no reason for that series.
+> Balloon inflation adjusts totalram_pages. That's enough.
+>
+no, they are not at least under some circumstances, f.e.
+virtio balloon does not do that with VIRTIO_BALLOON_F_DEFLATE_ON_OOM
+set
 
-On Wed, 19 Oct 2022 at 12:57, Alexander Atanasov <
-alexander.atanasov@virtuozzo.com> wrote:
-
-> Currently balloon drivers (Virtio,XEN, HyperV, VMWare, ...)
-> inflate and deflate the guest memory size but there is no
-> way to know how much the memory size is changed by them.
+> There is no reason to know the amount of non-existent ballooned memory 
+> inside.
+> Management software which works outside should care about that.
 >
-> Make it possible for the drivers to report the values to mm core.
->
-> Display reported InflatedTotal and InflatedFree in /proc/meminfo
-> and print these values on OOM and sysrq from show_mem().
->
-> The two values are the result of the two modes the drivers work
-> with using adjust_managed_page_count or without.
->
-> In earlier versions, there was a notifier for these changes
-> but after discussion - it is better to implement it in separate
-> patch series. Since it came out as larger work than initially expected.
->
-> Amount of inflated memory can be used:
->  - totalram_pages() users working with drivers not using
->     adjust_managed_page_count
->  - si_meminfo(..) users can improve calculations
->  - by userspace software that monitors memory pressure
->
+The problem comes at the moment when we are running
+our Linux server inside virtual machine and the customer
+comes with crazy questions "where our memory?".
 
-Sorry, I see no reason for that series.
-Balloon inflation adjusts totalram_pages. That's enough.
-
-There is no reason to know the amount of non-existent ballooned memory
-inside.
-Management software which works outside should care about that.
-
-For debugging you could get current balloon size from /proc/vmstat
-(balloon_inflate - balloon_deflate).
-Also (I guess) /proc/kpageflags has a bit for that.
-
-Anyway it's easy to monitor balloon inflation by seeing changes of total
-memory size.
-
+> For debugging you could get current balloon size from /proc/vmstat 
+> (balloon_inflate - balloon_deflate).
+> Also (I guess) /proc/kpageflags has a bit for that.
+>
+> Anyway it's easy to monitor balloon inflation by seeing changes of 
+> total memory size.
+for monitoring - may be. But in order to report total amount
+there is no interface so far.
 
 >
-> Alexander Atanasov (8):
->   mm: Make a place for a common balloon code
->   mm: Enable balloon drivers to report inflated memory
->   mm: Display inflated memory to users
->   mm: Display inflated memory in logs
->   drivers: virtio: balloon - report inflated memory
->   drivers: vmware: balloon - report inflated memory
->   drivers: hyperv: balloon - report inflated memory
->   documentation: create a document about how balloon drivers operate
+>     Alexander Atanasov (8):
+>       mm: Make a place for a common balloon code
+>       mm: Enable balloon drivers to report inflated memory
+>       mm: Display inflated memory to users
+>       mm: Display inflated memory in logs
+>       drivers: virtio: balloon - report inflated memory
+>       drivers: vmware: balloon - report inflated memory
+>       drivers: hyperv: balloon - report inflated memory
+>       documentation: create a document about how balloon drivers operate
 >
->  Documentation/filesystems/proc.rst            |   6 +
->  Documentation/mm/balloon.rst                  | 138 ++++++++++++++++++
->  MAINTAINERS                                   |   4 +-
->  arch/powerpc/platforms/pseries/cmm.c          |   2 +-
->  drivers/hv/hv_balloon.c                       |  12 ++
->  drivers/misc/vmw_balloon.c                    |   3 +-
->  drivers/virtio/virtio_balloon.c               |   7 +-
->  fs/proc/meminfo.c                             |  10 ++
->  .../linux/{balloon_compaction.h => balloon.h} |  18 ++-
->  lib/show_mem.c                                |   8 +
->  mm/Makefile                                   |   2 +-
->  mm/{balloon_compaction.c => balloon.c}        |  19 ++-
->  mm/migrate.c                                  |   1 -
->  mm/vmscan.c                                   |   1 -
->  14 files changed, 213 insertions(+), 18 deletions(-)
->  create mode 100644 Documentation/mm/balloon.rst
->  rename include/linux/{balloon_compaction.h => balloon.h} (91%)
->  rename mm/{balloon_compaction.c => balloon.c} (94%)
+>      Documentation/filesystems/proc.rst            |   6 +
+>      Documentation/mm/balloon.rst                  | 138
+>     ++++++++++++++++++
+>      MAINTAINERS                                   |   4 +-
+>      arch/powerpc/platforms/pseries/cmm.c          |   2 +-
+>      drivers/hv/hv_balloon.c                       |  12 ++
+>      drivers/misc/vmw_balloon.c                    |   3 +-
+>      drivers/virtio/virtio_balloon.c               |   7 +-
+>      fs/proc/meminfo.c                             |  10 ++
+>      .../linux/{balloon_compaction.h => balloon.h} |  18 ++-
+>      lib/show_mem.c                                |   8 +
+>      mm/Makefile                                   |   2 +-
+>      mm/{balloon_compaction.c => balloon.c}        |  19 ++-
+>      mm/migrate.c                                  |   1 -
+>      mm/vmscan.c                                   |   1 -
+>      14 files changed, 213 insertions(+), 18 deletions(-)
+>      create mode 100644 Documentation/mm/balloon.rst
+>      rename include/linux/{balloon_compaction.h => balloon.h} (91%)
+>      rename mm/{balloon_compaction.c => balloon.c} (94%)
 >
-> v4->v5:
->  - removed notifier
->  - added documentation
->  - vmware update after op is done , outside of the mutex
-> v3->v4:
->  - add support in hyperV and vmware balloon drivers
->  - display balloon memory in show_mem so it is logged on OOM and on sysrq
-> v2->v3:
->  - added missed EXPORT_SYMBOLS
-> Reported-by: kernel test robot <lkp@intel.com>
->  - instead of balloon_common.h just use balloon.h (yes, naming is hard)
->  - cleaned up balloon.h - remove from files that do not use it and
->    remove externs from function declarations
-> v1->v2:
->  - reworked from simple /proc/meminfo addition
+>     v4->v5:
+>      - removed notifier
+>      - added documentation
+>      - vmware update after op is done , outside of the mutex
+>     v3->v4:
+>      - add support in hyperV and vmware balloon drivers
+>      - display balloon memory in show_mem so it is logged on OOM and
+>     on sysrq
+>     v2->v3:
+>      - added missed EXPORT_SYMBOLS
+>     Reported-by: kernel test robot <lkp@intel.com>
+>      - instead of balloon_common.h just use balloon.h (yes, naming is
+>     hard)
+>      - cleaned up balloon.h - remove from files that do not use it and
+>        remove externs from function declarations
+>     v1->v2:
+>      - reworked from simple /proc/meminfo addition
 >
-> Cc: Michael S. Tsirkin <mst@redhat.com>
-> Cc: David Hildenbrand <david@redhat.com>
-> Cc: Wei Liu <wei.liu@kernel.org>
-> Cc: Nadav Amit <namit@vmware.com>
-> Cc: pv-drivers@vmware.com
-> Cc: Jason Wang <jasowang@redhat.com>
-> Cc: virtualization@lists.linux-foundation.org
-> Cc: "K. Y. Srinivasan" <kys@microsoft.com>
-> Cc: Haiyang Zhang <haiyangz@microsoft.com>
-> Cc: Stephen Hemminger <sthemmin@microsoft.com>
-> Cc: Dexuan Cui <decui@microsoft.com>
-> Cc: linux-hyperv@vger.kernel.org
-> Cc: Juergen Gross <jgross@suse.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Cc: xen-devel@lists.xenproject.org
+>     Cc: Michael S. Tsirkin <mst@redhat.com>
+>     Cc: David Hildenbrand <david@redhat.com>
+>     Cc: Wei Liu <wei.liu@kernel.org>
+>     Cc: Nadav Amit <namit@vmware.com>
+>     Cc: pv-drivers@vmware.com
+>     Cc: Jason Wang <jasowang@redhat.com>
+>     Cc: virtualization@lists.linux-foundation.org
+>     Cc: "K. Y. Srinivasan" <kys@microsoft.com>
+>     Cc: Haiyang Zhang <haiyangz@microsoft.com>
+>     Cc: Stephen Hemminger <sthemmin@microsoft.com>
+>     Cc: Dexuan Cui <decui@microsoft.com>
+>     Cc: linux-hyperv@vger.kernel.org
+>     Cc: Juergen Gross <jgross@suse.com>
+>     Cc: Stefano Stabellini <sstabellini@kernel.org>
+>     Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>     Cc: xen-devel@lists.xenproject.org
 >
-> base-commit: 9abf2313adc1ca1b6180c508c25f22f9395cc780
-> --
-> 2.31.1
->
+>     base-commit: 9abf2313adc1ca1b6180c508c25f22f9395cc780
+>     -- 
+>     2.31.1
 >
 
---00000000000012626105eb6106d0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Wed, 19 Oct 2022 at 12:57, Alexander A=
-tanasov &lt;<a href=3D"mailto:alexander.atanasov@virtuozzo.com">alexander.a=
-tanasov@virtuozzo.com</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">Currently balloon drivers (=
-Virtio,XEN, HyperV, VMWare, ...)<br>
-inflate and deflate the guest memory size but there is no<br>
-way to know how much the memory size is changed by them.<br>
-<br>
-Make it possible for the drivers to report the values to mm core.<br>
-<br>
-Display reported InflatedTotal and InflatedFree in /proc/meminfo<br>
-and print these values on OOM and sysrq from show_mem().<br>
-<br>
-The two values are the result of the two modes the drivers work<br>
-with using adjust_managed_page_count or without.<br>
-<br>
-In earlier versions, there was a notifier for these changes<br>
-but after discussion - it is better to implement it in separate<br>
-patch series. Since it came out as larger work than initially expected.<br>
-<br>
-Amount of inflated memory can be used:<br>
-=C2=A0- totalram_pages() users working with drivers not using<br>
-=C2=A0 =C2=A0 adjust_managed_page_count<br>
-=C2=A0- si_meminfo(..) users can improve calculations<br>
-=C2=A0- by userspace software that monitors memory pressure<br></blockquote=
-><div><br></div><div>Sorry, I see no reason for that series.</div><div>Ball=
-oon inflation adjusts totalram_pages. That&#39;s enough.</div><div><br></di=
-v><div>There is no reason to know the amount of non-existent ballooned memo=
-ry inside.<br></div><div>Management software which works outside should car=
-e about that.</div><div><br></div><div>For debugging you could get current=
-=C2=A0balloon=C2=A0size from /proc/vmstat (balloon_inflate -=C2=A0balloon_d=
-eflate).</div><div>Also (I guess) /proc/kpageflags has a bit for that.</div=
-><div><br></div><div>Anyway it&#39;s easy to monitor balloon=C2=A0inflation=
- by seeing changes of total memory size.</div><div>=C2=A0</div><blockquote =
-class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
-id rgb(204,204,204);padding-left:1ex">
-<br>
-Alexander Atanasov (8):<br>
-=C2=A0 mm: Make a place for a common balloon code<br>
-=C2=A0 mm: Enable balloon drivers to report inflated memory<br>
-=C2=A0 mm: Display inflated memory to users<br>
-=C2=A0 mm: Display inflated memory in logs<br>
-=C2=A0 drivers: virtio: balloon - report inflated memory<br>
-=C2=A0 drivers: vmware: balloon - report inflated memory<br>
-=C2=A0 drivers: hyperv: balloon - report inflated memory<br>
-=C2=A0 documentation: create a document about how balloon drivers operate<b=
-r>
-<br>
-=C2=A0Documentation/filesystems/proc.rst=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 |=C2=A0 =C2=A06 +<br>
-=C2=A0Documentation/mm/balloon.rst=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 | 138 ++++++++++++++++++<br>
-=C2=A0MAINTAINERS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
-=A0 =C2=A04 +-<br>
-=C2=A0arch/powerpc/platforms/pseries/cmm.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 |=C2=A0 =C2=A02 +-<br>
-=C2=A0drivers/hv/hv_balloon.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 12 ++<br>
-=C2=A0drivers/misc/vmw_balloon.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A03 +-<br>
-=C2=A0drivers/virtio/virtio_balloon.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A07 +-<br>
-=C2=A0fs/proc/meminfo.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 10 ++<br>
-=C2=A0.../linux/{balloon_compaction.h =3D&gt; balloon.h} |=C2=A0 18 ++-<br>
-=C2=A0lib/show_mem.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A08 +<=
-br>
-=C2=A0mm/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
-=A0 =C2=A02 +-<br>
-=C2=A0mm/{balloon_compaction.c =3D&gt; balloon.c}=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 |=C2=A0 19 ++-<br>
-=C2=A0mm/migrate.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=
-=A01 -<br>
-=C2=A0mm/vmscan.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=
-=A0 =C2=A01 -<br>
-=C2=A014 files changed, 213 insertions(+), 18 deletions(-)<br>
-=C2=A0create mode 100644 Documentation/mm/balloon.rst<br>
-=C2=A0rename include/linux/{balloon_compaction.h =3D&gt; balloon.h} (91%)<b=
-r>
-=C2=A0rename mm/{balloon_compaction.c =3D&gt; balloon.c} (94%)<br>
-<br>
-v4-&gt;v5:<br>
-=C2=A0- removed notifier<br>
-=C2=A0- added documentation<br>
-=C2=A0- vmware update after op is done , outside of the mutex<br>
-v3-&gt;v4:<br>
-=C2=A0- add support in hyperV and vmware balloon drivers<br>
-=C2=A0- display balloon memory in show_mem so it is logged on OOM and on sy=
-srq<br>
-v2-&gt;v3:<br>
-=C2=A0- added missed EXPORT_SYMBOLS<br>
-Reported-by: kernel test robot &lt;<a href=3D"mailto:lkp@intel.com" target=
-=3D"_blank">lkp@intel.com</a>&gt;<br>
-=C2=A0- instead of balloon_common.h just use balloon.h (yes, naming is hard=
-)<br>
-=C2=A0- cleaned up balloon.h - remove from files that do not use it and<br>
-=C2=A0 =C2=A0remove externs from function declarations<br>
-v1-&gt;v2:<br>
-=C2=A0- reworked from simple /proc/meminfo addition<br>
-<br>
-Cc: Michael S. Tsirkin &lt;<a href=3D"mailto:mst@redhat.com" target=3D"_bla=
-nk">mst@redhat.com</a>&gt;<br>
-Cc: David Hildenbrand &lt;<a href=3D"mailto:david@redhat.com" target=3D"_bl=
-ank">david@redhat.com</a>&gt;<br>
-Cc: Wei Liu &lt;<a href=3D"mailto:wei.liu@kernel.org" target=3D"_blank">wei=
-.liu@kernel.org</a>&gt;<br>
-Cc: Nadav Amit &lt;<a href=3D"mailto:namit@vmware.com" target=3D"_blank">na=
-mit@vmware.com</a>&gt;<br>
-Cc: <a href=3D"mailto:pv-drivers@vmware.com" target=3D"_blank">pv-drivers@v=
-mware.com</a><br>
-Cc: Jason Wang &lt;<a href=3D"mailto:jasowang@redhat.com" target=3D"_blank"=
->jasowang@redhat.com</a>&gt;<br>
-Cc: <a href=3D"mailto:virtualization@lists.linux-foundation.org" target=3D"=
-_blank">virtualization@lists.linux-foundation.org</a><br>
-Cc: &quot;K. Y. Srinivasan&quot; &lt;<a href=3D"mailto:kys@microsoft.com" t=
-arget=3D"_blank">kys@microsoft.com</a>&gt;<br>
-Cc: Haiyang Zhang &lt;<a href=3D"mailto:haiyangz@microsoft.com" target=3D"_=
-blank">haiyangz@microsoft.com</a>&gt;<br>
-Cc: Stephen Hemminger &lt;<a href=3D"mailto:sthemmin@microsoft.com" target=
-=3D"_blank">sthemmin@microsoft.com</a>&gt;<br>
-Cc: Dexuan Cui &lt;<a href=3D"mailto:decui@microsoft.com" target=3D"_blank"=
->decui@microsoft.com</a>&gt;<br>
-Cc: <a href=3D"mailto:linux-hyperv@vger.kernel.org" target=3D"_blank">linux=
--hyperv@vger.kernel.org</a><br>
-Cc: Juergen Gross &lt;<a href=3D"mailto:jgross@suse.com" target=3D"_blank">=
-jgross@suse.com</a>&gt;<br>
-Cc: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" target=
-=3D"_blank">sstabellini@kernel.org</a>&gt;<br>
-Cc: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksandr_tyshchenko@epam.co=
-m" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;<br>
-Cc: <a href=3D"mailto:xen-devel@lists.xenproject.org" target=3D"_blank">xen=
--devel@lists.xenproject.org</a><br>
-<br>
-base-commit: 9abf2313adc1ca1b6180c508c25f22f9395cc780<br>
--- <br>
-2.31.1<br>
-<br>
-</blockquote></div></div>
-
---00000000000012626105eb6106d0--
 
