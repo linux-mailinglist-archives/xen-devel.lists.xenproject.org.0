@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14459605336
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 00:34:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.426056.674266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 609516053CE
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 01:13:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.426062.674277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olHcY-0002qD-Rq; Wed, 19 Oct 2022 22:33:06 +0000
+	id 1olIEn-0007fj-T4; Wed, 19 Oct 2022 23:12:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 426056.674266; Wed, 19 Oct 2022 22:33:06 +0000
+Received: by outflank-mailman (output) from mailman id 426062.674277; Wed, 19 Oct 2022 23:12:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olHcY-0002nW-P3; Wed, 19 Oct 2022 22:33:06 +0000
-Received: by outflank-mailman (input) for mailman id 426056;
- Wed, 19 Oct 2022 22:33:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1olHcY-0002nN-1o
- for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 22:33:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1olHcX-0006gL-H4; Wed, 19 Oct 2022 22:33:05 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225] helo=[10.85.39.71])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1olHcX-0005GN-76; Wed, 19 Oct 2022 22:33:05 +0000
+	id 1olIEn-0007dm-PS; Wed, 19 Oct 2022 23:12:37 +0000
+Received: by outflank-mailman (input) for mailman id 426062;
+ Wed, 19 Oct 2022 23:12:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hoZG=2U=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
+ id 1olIEm-0007dg-MI
+ for xen-devel@lists.xenproject.org; Wed, 19 Oct 2022 23:12:36 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 82fe4db0-5003-11ed-91b5-6bf2151ebd3b;
+ Thu, 20 Oct 2022 01:12:34 +0200 (CEST)
+Received: from MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
+ by BY5PR12MB4226.namprd12.prod.outlook.com (2603:10b6:a03:203::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32; Wed, 19 Oct
+ 2022 23:12:30 +0000
+Received: from MW3PR12MB4409.namprd12.prod.outlook.com
+ ([fe80::45b:5f00:6991:c7e]) by MW3PR12MB4409.namprd12.prod.outlook.com
+ ([fe80::45b:5f00:6991:c7e%3]) with mapi id 15.20.5723.034; Wed, 19 Oct 2022
+ 23:12:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,143 +46,255 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=+qkh3NNEHHOFAhi9bBrRrQ3He8Cc/WI9wSQ4QXa58yw=; b=hjByN9Qn47BWDkoVQmrV7v29Z5
-	pdMHmYihEHeQYTwTYmMarErnEKXPlKKEQLJB5p6vjRCeLHNVDBjnZHf5P4xrBYPfJMQbUX5iT4a8J
-	ur/pi3kGQxnpZcM3h8u+Q35lN+4+RmLgPnGMW332mJnjoRYT6hnXLRekiyvddjK5M1FU=;
-Message-ID: <f200534c-c001-3ec0-7e05-cdbb76f456e3@xen.org>
-Date: Wed, 19 Oct 2022 23:33:01 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-Subject: Re: [PATCH 2/2] xen/arm: p2m: Populate pages for GICv2 mapping in
- arch_domain_create()
+X-Inumbo-ID: 82fe4db0-5003-11ed-91b5-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LBxDirxmDG4gKiq0WWvE3/4tM7PDw7emonIHCjGHPwXy7uIvq4nTd2bmMhKHxAndiBwO6QXGLrRcmEPDYyFj13AWT/A5kLOoMglmx+iyF0pwwljbN4B4nJ2YpqgJrn9pKh6F85+G9XECZgDkxB+K+fA36t7RGsi1MKzDS4Hspw10krQUNNTE1pY0PC5P0k+talFI+TzuD68KTEPtC3xIWVMaleduM2QChEVHAE4o45xMES76tR21EEHhyXa7ouzaitxEPQq4wV+MCzLVesbccUSX4BSHpn02OCdko9a1uJZDZL3j1KulIPjwmlZjJWLNS1WlbfDMeQAGX5ErVm/Tng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cge5Yb2CzSD5Bu0WVHIFKjdDadxJS6eZRxLuDht1xKU=;
+ b=iJqACC5pZUEgL3+sngHYNKvoUL5B0OZqbQdMiggKbWyq045yKZJ7kYYO1GUvjVFFhbY+58z1HzyzMD5q/M2wBkhVJZaMEud8m0SXXxf5dKBbAgVc/ZnMS4uv4AQvBQPBpF72zwrxgjnmy4D4j25AfyJyvIFF/54NsiI+WbVi7HocJe7pKDpv35pLZs1/ApLitpuVQ3q3u0XFTIHrATziyAmRkGTq29ktHMbSumXA29uIy+xARiAVOXnMrRNwQuPsWQbuVY6P3ETzxlYHsrUoGjKDIKDScg59dJhb0xAdb3Q5VDEdoz+0xZyg6A1OK6fQeR30cBLrkFjKXNLohGetmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cge5Yb2CzSD5Bu0WVHIFKjdDadxJS6eZRxLuDht1xKU=;
+ b=DvDJfnkSMpqFxIzM9EZnjkQxW7H615G5tIIvoBY/cekTC53YWSYtHsEX9hawxadJSu4+GRuQ1HSGhsfJeJG8Pyv3zeMCRShd5k0mP9ooK39XmUMads/1x5IiVwWGboMmHEO9lsVGGunf2DcJTniA61rbwhcOZDHSIKBcki7OF9E=
+From: "Garhwal, Vikram" <vikram.garhwal@amd.com>
+To: Paul Durrant <xadimgnik@gmail.com>, "qemu-devel@nongnu.org"
+	<qemu-devel@nongnu.org>
+CC: "Stabellini, Stefano" <stefano.stabellini@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum
+	<marcel.apfelbaum@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, Richard
+ Henderson <richard.henderson@linaro.org>, Eduardo Habkost
+	<eduardo@habkost.net>, "open list:X86 Xen CPUs"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v1 06/12] xen-hvm: move common functions to
+ hw/xen/xen-hvm-common.c
+Thread-Topic: [PATCH v1 06/12] xen-hvm: move common functions to
+ hw/xen/xen-hvm-common.c
+Thread-Index: AQHY4FQ0tVypMawM1ke4uV2W+2m2Q64V66+AgAB0FBU=
+Date: Wed, 19 Oct 2022 23:12:30 +0000
+Message-ID:
+ <MW3PR12MB4409CDD81742B163D0DD11769F2B9@MW3PR12MB4409.namprd12.prod.outlook.com>
+References: <20221015050750.4185-1-vikram.garhwal@amd.com>
+ <20221015050750.4185-7-vikram.garhwal@amd.com>
+ <7b8e645c-90c7-a4ff-4405-51df6df2e508@xen.org>
+In-Reply-To: <7b8e645c-90c7-a4ff-4405-51df6df2e508@xen.org>
+Accept-Language: en-US
 Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Henry Wang <Henry.Wang@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20221017191237.11079-1-andrew.cooper3@citrix.com>
- <20221017191237.11079-3-andrew.cooper3@citrix.com>
- <0456d318-731f-8df7-297c-19ecde06ed96@xen.org>
- <cadcee69-e51b-99af-78c3-ab4a0e2e42d9@citrix.com>
- <5587f5bd-1694-a843-9e80-ad477527a576@xen.org>
- <dffdc951-91fd-2659-ec7f-5c213138d785@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <dffdc951-91fd-2659-ec7f-5c213138d785@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW3PR12MB4409:EE_|BY5PR12MB4226:EE_
+x-ms-office365-filtering-correlation-id: 23df9e2d-1ba9-4906-e536-08dab2276581
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ pN5e24PcLSQ1cCvv38jyTr9A+zOgTE06H8eTvo7xUPz6Eb2U6TPH7glts8dQihw6dh411TJdErO9WwN62n38liv6zcLgHVBNVownh9opqEstGywg939mNYIxYMSQEK5YQN6dpTJySZJzYvWfyunS2R9M5rzPX6sz6lUzB9dPqJWjJ5BXVSO7uSxH0gF2shfLFFAV1S20OY4OdAo7ivlD4vUxYJYZp2SQHfy1sOfKgX/a/06GsaBQWeEmvKkXzat9liZiR+vNx/8EVoJeC86Ba63XPuaW4kTEU9RyqXyeg7cnppg02MdT+7w6OWbD2qdTZSC5Ddr2OKWznYf3WXAHEWopNN60FTykkEzToKAuPTfaI2iuE9zEWKlXSfjcjadGivck7tmC3GejRCS0pAIdI1ohWKIfA7wMMV14+WCLy5DocBPTuk9o9ZIm/euRmQj+3yp2ofaK81CELyjuPcDFtk/j0UvdXbXckQTlHcjMlAT9xGlvErJH8i27l0pAxkyrJ7krKdTbKcL5pPWuhPN34sGlXXjXrz2/T+Vqa/Sx/sDasJel4DvTqy7ySeEHzNSLgbO3pE3QtXjlYtoDxMzHnQM4ekh4W+K63Kj3WBa0hbhTIC37kCth9Nj5RRyBTmigQCj2xSOFEQy9pRqIoplAtALWP9x5wsI0w/pQEpUOPFPH8AMISRUNuY1HnNIzjWLb3rT6dnKT/MiITEel7VdFcrbbYAgRYTDkZFVBZXT/01XB84EXiO6J9x2++g+lUkTHCb0JTU4hrNV+1vKpGbGfwA==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(366004)(376002)(39860400002)(396003)(346002)(451199015)(41300700001)(186003)(26005)(478600001)(64756008)(38070700005)(86362001)(2906002)(6506007)(53546011)(8936002)(33656002)(52536014)(9686003)(5660300002)(4326008)(7416002)(54906003)(38100700002)(7696005)(91956017)(110136005)(122000001)(316002)(76116006)(55016003)(71200400001)(8676002)(66446008)(66556008)(66476007)(83380400001)(66946007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?7+NCEbcC+tFqf3LmBoXY8ba0iAf7md7PnaQ5vbJxfvT/UWwCICC+mEEGnC29?=
+ =?us-ascii?Q?yV7HyH0oB5VOuXxApqOyC30wAuEMz2xnNWrPk8aAYjBJ/9wH7pohDwtyZ9Eq?=
+ =?us-ascii?Q?n1c5IqQYPCBGQOFqxgAtJldGQR2MfYd+cgIbD5J2VYBxYVC+jYDwDJMiowhB?=
+ =?us-ascii?Q?gaxMz7RLvawNbNikc1Q6F3h5aFR73g4xavl4cnLCnoATeQjQHTOvFg0O/Ug/?=
+ =?us-ascii?Q?Wr+/3Y6s7RIj9Rcvd3oAK8vIEu9YTIxDxtZfpnoAT/jbySYO7OZtUVasZo4N?=
+ =?us-ascii?Q?GNbM83UAeY0u2wyfl0UDpHY7pBTxXxxa3RxbkEX/lsKzQYMicVqoIK5ikccB?=
+ =?us-ascii?Q?w8Lpe0/zeEoiHiE/3X478njUBP1b6q/DZeaqr6PztQ00rTDUQCRLTn+WSOkW?=
+ =?us-ascii?Q?32wxTchWCDCI09KfdUEIvC+1Psm8qgm34l/I2OGKqqgHIKjH9aGJ+/l90QUA?=
+ =?us-ascii?Q?1JNJpZZLqbi17fyZ3u9kTt4xAPajXTiMSsxFhQTkrk8spvtztTO5WEPp9oqU?=
+ =?us-ascii?Q?dfY0X/vobj8QuKHqnU8JUg32wh9Qgy+WPXWJYBwlh+DmyeTvUHwmjn73EDUA?=
+ =?us-ascii?Q?g6vlvK2tI/fFzUAuufC/dC/5gLnREThm1YMXSQu8H8PkQP9Q2ndhEiQfw5ZC?=
+ =?us-ascii?Q?uRiODjlFPHwUWTFFNm/oNTH752qin2y8Agb1mUCPB8SWHwiCDWEfB3Qsr/Sg?=
+ =?us-ascii?Q?gzne0gO90kmjKzGVzOX4SbCg/yDu+cYdNHxAX7RdcI/CwWRqWhIEBNzIU6J7?=
+ =?us-ascii?Q?fVLrBW6EDPznfkR0JFbrN5h0yHBrafRB1z8ORAClvmGFicMlQJ6EyPaxkXDh?=
+ =?us-ascii?Q?UUmtoTWbCdyYNEUBIGjQxUvAx8L9jPzuCgCAlGfHq71UdOrNWM0S2HtTOoyt?=
+ =?us-ascii?Q?U9F3kS/yAVTXECHI5pwOiL0spq2+/Pfsql77z7lIGVVAJNiEgwGq8WXGr+bC?=
+ =?us-ascii?Q?U7zocUBqRO2bpuy1j4y7GoDMMlQ517Px0C7DAu1RkCMPlIwE+8JFn7Tm/JKV?=
+ =?us-ascii?Q?5m4NzDcHy8EaadsevzXJle4kUUZuBAIO38tyvYYLEMaOco6HYuqijA7m0N4E?=
+ =?us-ascii?Q?qgCGQpkVKbFThjxq8EfJxFouIWbAfStjgN/lJiY66g1sc0nj6H9SwPpw9GGA?=
+ =?us-ascii?Q?QLij892ronN+R5pQ0Jne+BlPJUAp/bOZywqNw3wLk0QXmlLIKQH/ZEe8AZu2?=
+ =?us-ascii?Q?HqlrhH4IQUv9npY8FZZAnr/wXxEwY4ZQESwCsZL2D9Z0vcN64+Lxy7No3DnR?=
+ =?us-ascii?Q?upXIP9g+6Sso7hkPvBdrNP27cwePAWicQxzRCnoxTG838tQiNuZPVXTDUDoi?=
+ =?us-ascii?Q?UPDLKtaZICAMZa9BQ8xJXg9LndeYI+nrHQQcOZiJEd+9CoeCIGGRYebEdPah?=
+ =?us-ascii?Q?q9jgvX4X3NVWe2UDHStilfSUjG4WUtHhZLXVGYCUMU6ihHvqT5NUhVqWDsav?=
+ =?us-ascii?Q?SCb4fxHpLt7ovoEYE2EdKk8A9Hc3MMhP8Elsx6WOszMCbwDzRvpdTLAkWJiq?=
+ =?us-ascii?Q?ov3mYNXTurlGl3mpf6foibGS4nxbJfKbYVFLIgnwSDoSv1liTH7az27vFFTc?=
+ =?us-ascii?Q?PNCne5Z0UKT7ZS5Zkp4K051BqTAd2J7hVr/xWtoZustkqBIwR2I6ADUoa7hp?=
+ =?us-ascii?Q?Ng=3D=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_MW3PR12MB4409CDD81742B163D0DD11769F2B9MW3PR12MB4409namp_"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4409.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23df9e2d-1ba9-4906-e536-08dab2276581
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Oct 2022 23:12:30.2354
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8wLlyxRIG/7emrOSKcnd6OOAgQ79Ob1EdVKjAQVkEie357t2PX0klx7q76kfoWpfXvihaukOvP6E4vcSWVm1Hg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4226
 
-Hi Andrew,
+--_000_MW3PR12MB4409CDD81742B163D0DD11769F2B9MW3PR12MB4409namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-On 19/10/2022 22:30, Andrew Cooper wrote:
-> On 18/10/2022 00:01, Julien Grall wrote:
->>>> ... you are hardcoding both p2m_teardown() and p2m_set_allocation().
->>>> IMO this is not an improvement at all. It is just making the code more
->>>> complex than necessary and lack all the explanation on the assumptions.
->>>>
->>>> So while I am fine with your patch #1 (already reviewed it), there is
->>>> a better patch from Henry on the ML. So we should take his (rebased)
->>>> instead of yours.
->>>
->>> If by better, you mean something that still has errors, then sure.
->>>
->>> There's a really good reason why you cannot safely repurpose
->>> p2m_teardown().  It's written expecting a fully constructed domain -
->>> which is fine because that's how it is used.  It doesn't cope safely
->>> with an partially constructed domain.
->>
->> It is not 100% clear what is the issue you are referring to as the
->> VMID is valid at this point. So what part would be wrong?
-> 
-> Falling over a bad root pointer from an early construction exit.
+Thanks Paul & Julien for reviewing. I will update this in v2.
 
-You have been mentioning that several time now but I can't see how this
-can happen. If you look at Henry's second patch, p2m_teardown() starts
-with the following check:
-if ( page_list_empty(&p2m->pages) )
-    return;
+Regards,
+Vikram
 
-Per the logic in p2m_init(), the root pages have to be allocated (note 
-they are *not* allocated from the P2M pool) and the VMID as well before 
-any pages could be added in the list.
+From: Paul Durrant <xadimgnik@gmail.com>
+Date: Wednesday, October 19, 2022 at 9:16 AM
+To: Garhwal, Vikram <vikram.garhwal@amd.com>, qemu-devel@nongnu.org <qemu-d=
+evel@nongnu.org>
+Cc: Stabellini, Stefano <stefano.stabellini@amd.com>, Stefano Stabellini <s=
+stabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, Michael=
+ S. Tsirkin <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>=
+, Paolo Bonzini <pbonzini@redhat.com>, Richard Henderson <richard.henderson=
+@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, open list:X86 Xen CPUs=
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v1 06/12] xen-hvm: move common functions to hw/xen/xen-=
+hvm-common.c
+On 15/10/2022 06:07, Vikram Garhwal wrote:
+[snip]
+> +    qemu_add_vm_change_state_handler(xen_hvm_change_state_handler, state=
+);
+> +
+> +    state->memory_listener =3D xen_memory_listener;
+> +    memory_listener_register(&state->memory_listener, &address_space_mem=
+ory);
+> +
+> +    state->io_listener =3D xen_io_listener;
+> +    memory_listener_register(&state->io_listener, &address_space_io);
+> +
+> +    state->device_listener =3D xen_device_listener;
+> +    QLIST_INIT(&state->dev_list);
+> +    device_listener_register(&state->device_listener);
+> +
 
-> 
->> But if there are part of p2m_teardown() that are not safe for
->> partially constructed domain, then we should split the code. This
->> would be much better that the duplication you are proposing.
-> 
-> You have two totally different contexts with different safety
-> requirements.  c/s 55914f7fc9 is a reasonably good and clean separation
-> between preemptible and non-preemptible cleanup[1].
+As Julien said, these do not belong here. These are the (current and
+legacy) PV backend setup functions; they most certainly have nothing to
+do with device emulation.
 
-The part you mention in [1] was decided to be delayed post 4.17 for 
-development cycle reasons.
+   Paul
 
-> 
-> You've agreed that the introduction of the non-preemptible path to the
-> preemptible path is a hack and layering violation, and will need undoing
-> later.  Others have raised this concern too.
+--_000_MW3PR12MB4409CDD81742B163D0DD11769F2B9MW3PR12MB4409namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-[...]
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style>
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Thanks Paul &amp; J=
+ulien for reviewing. I will update this in v2.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Regards,<o:p></o:p>=
+</span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Vikram<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:0in;margin-right:0in;mar=
+gin-bottom:12.0pt;margin-left:.5in">
+<b><span style=3D"font-size:12.0pt;color:black">From: </span></b><span styl=
+e=3D"font-size:12.0pt;color:black">Paul Durrant &lt;xadimgnik@gmail.com&gt;=
+<br>
+<b>Date: </b>Wednesday, October 19, 2022 at 9:16 AM<br>
+<b>To: </b>Garhwal, Vikram &lt;vikram.garhwal@amd.com&gt;, qemu-devel@nongn=
+u.org &lt;qemu-devel@nongnu.org&gt;<br>
+<b>Cc: </b>Stabellini, Stefano &lt;stefano.stabellini@amd.com&gt;, Stefano =
+Stabellini &lt;sstabellini@kernel.org&gt;, Anthony Perard &lt;anthony.perar=
+d@citrix.com&gt;, Michael S. Tsirkin &lt;mst@redhat.com&gt;, Marcel Apfelba=
+um &lt;marcel.apfelbaum@gmail.com&gt;, Paolo Bonzini &lt;pbonzini@redhat.co=
+m&gt;,
+ Richard Henderson &lt;richard.henderson@linaro.org&gt;, Eduardo Habkost &l=
+t;eduardo@habkost.net&gt;, open list:X86 Xen CPUs &lt;xen-devel@lists.xenpr=
+oject.org&gt;<br>
+<b>Subject: </b>Re: [PATCH v1 06/12] xen-hvm: move common functions to hw/x=
+en/xen-hvm-common.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:0in;margin-right:0in;mar=
+gin-bottom:12.0pt;margin-left:.5in">
+<span style=3D"font-size:11.0pt">On 15/10/2022 06:07, Vikram Garhwal wrote:=
+<br>
+[snip]<br>
+&gt; +&nbsp;&nbsp;&nbsp; qemu_add_vm_change_state_handler(xen_hvm_change_st=
+ate_handler, state);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp; state-&gt;memory_listener =3D xen_memory_listener;=
+<br>
+&gt; +&nbsp;&nbsp;&nbsp; memory_listener_register(&amp;state-&gt;memory_lis=
+tener, &amp;address_space_memory);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp; state-&gt;io_listener =3D xen_io_listener;<br>
+&gt; +&nbsp;&nbsp;&nbsp; memory_listener_register(&amp;state-&gt;io_listene=
+r, &amp;address_space_io);<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp; state-&gt;device_listener =3D xen_device_listener;=
+<br>
+&gt; +&nbsp;&nbsp;&nbsp; QLIST_INIT(&amp;state-&gt;dev_list);<br>
+&gt; +&nbsp;&nbsp;&nbsp; device_listener_register(&amp;state-&gt;device_lis=
+tener);<br>
+&gt; +<br>
+<br>
+As Julien said, these do not belong here. These are the (current and <br>
+legacy) PV backend setup functions; they most certainly have nothing to <br=
+>
+do with device emulation.<br>
+<br>
+&nbsp;&nbsp; Paul<o:p></o:p></span></p>
+</div>
+</div>
+</body>
+</html>
 
-> 
-> Also realise that you've now split the helper between regular hypercall
-> context, and RCU context, and recall what happened when we finally
-> started asserting that memory couldn't be allocated in stop-machine context.
-> 
-> How certain are you that the safety is the same on earlier versions of
-> Xen?
-I am pretty confident because the P2M code has not changed a lot.
-
-> What is the likelihood that all of these actions will remain safe
-> given future development?
-Code always evolve and neither you (nor I) can claim that any work will 
-stay safe forever. In your patch proposal, then the risk is a bug could 
-be duplicated.
-
-> 
-> 
-> Despite what is being claimed, the attempt to share cleanup logic is
-> introducing fragility and risk, not removing it.
-
-I find interesting you are saying that... If we were going to move 
-p2m_teardown() in domain_teardown() then we would end up to share the code.
-
-To me, this is not very different here because in one context it would 
-be preemptible while the other it won't. At which point...
-
->  This is a bugfix for
-> to a security fix issue which is totally dead on arrival; net safety,
-> especially in older versions of the Xen, is *the highest priority*.
-> 
-> These two different contexts don't share any common properties of how to
-> clean up the pool, save freeing the frames back to the memory
-> allocator.  In a proper design, this is the hint that they shouldn't
-> share logic either
-... why is your design better than what Henry's proposed?
-
-> 
-> Given that you do expect someone to spend yet-more time&effort to undo
-> the short term hack currently being proposed, how do you envisage the
-> end result looking?
-
-The end result will be p2m_teardown() & co to be called from 
-domain_teardown().
-
-Anyway, this discussion doesn't make us closer to come to an agreement 
-on the correct approach. We have both very diverging opinion and so far 
-I haven't seen any strong reasons that is showing yours is better.
-
-So unless Bertrand or Stefano agree with you, then I will go ahead and 
-merge Henry's patch tomorrow after a final review.
-
-Cheers,
-
--- 
-Julien Grall
+--_000_MW3PR12MB4409CDD81742B163D0DD11769F2B9MW3PR12MB4409namp_--
 
