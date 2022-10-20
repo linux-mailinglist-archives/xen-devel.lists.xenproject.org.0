@@ -2,64 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD40C6058F5
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 09:47:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.426251.674569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32609605908
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 09:52:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.426257.674580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olQHA-0001BL-Ef; Thu, 20 Oct 2022 07:47:36 +0000
+	id 1olQLO-0002Zy-10; Thu, 20 Oct 2022 07:51:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 426251.674569; Thu, 20 Oct 2022 07:47:36 +0000
+Received: by outflank-mailman (output) from mailman id 426257.674580; Thu, 20 Oct 2022 07:51:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olQHA-00017s-BW; Thu, 20 Oct 2022 07:47:36 +0000
-Received: by outflank-mailman (input) for mailman id 426251;
- Thu, 20 Oct 2022 07:47:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1olQLN-0002WV-TT; Thu, 20 Oct 2022 07:51:57 +0000
+Received: by outflank-mailman (input) for mailman id 426257;
+ Thu, 20 Oct 2022 07:51:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tvbq=2V=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1olQH8-00017T-WB
- for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 07:47:35 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2042.outbound.protection.outlook.com [40.107.247.42])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7544f823-504b-11ed-8fd0-01056ac49cbb;
- Thu, 20 Oct 2022 09:47:34 +0200 (CEST)
-Received: from DB6PR07CA0163.eurprd07.prod.outlook.com (2603:10a6:6:43::17) by
- PA4PR08MB5934.eurprd08.prod.outlook.com (2603:10a6:102:e8::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5723.35; Thu, 20 Oct 2022 07:47:29 +0000
-Received: from DBAEUR03FT010.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:6:43:cafe::5) by DB6PR07CA0163.outlook.office365.com
- (2603:10a6:6:43::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.17 via Frontend
- Transport; Thu, 20 Oct 2022 07:47:29 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT010.mail.protection.outlook.com (100.127.142.78) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5709.10 via Frontend Transport; Thu, 20 Oct 2022 07:47:29 +0000
-Received: ("Tessian outbound 2ff13c8f2c05:v130");
- Thu, 20 Oct 2022 07:47:29 +0000
-Received: from 96a632a00542.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- D3D51E56-07EC-425A-B14E-D63DFA3B8583.1; 
- Thu, 20 Oct 2022 07:47:22 +0000
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 96a632a00542.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 20 Oct 2022 07:47:22 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by AM8PR08MB5665.eurprd08.prod.outlook.com (2603:10a6:20b:1da::21)
+ <SRS0=t2Es=2V=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1olQLM-0002WN-50
+ for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 07:51:56 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2081.outbound.protection.outlook.com [40.107.101.81])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0f6e34fe-504c-11ed-91b5-6bf2151ebd3b;
+ Thu, 20 Oct 2022 09:51:54 +0200 (CEST)
+Received: from MW4PR04CA0041.namprd04.prod.outlook.com (2603:10b6:303:6a::16)
+ by IA1PR12MB6137.namprd12.prod.outlook.com (2603:10b6:208:3eb::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Thu, 20 Oct
- 2022 07:47:21 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::a8c6:cf12:7155:de53]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::a8c6:cf12:7155:de53%7]) with mapi id 15.20.5723.035; Thu, 20 Oct 2022
- 07:47:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.33; Thu, 20 Oct
+ 2022 07:51:50 +0000
+Received: from CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6a:cafe::be) by MW4PR04CA0041.outlook.office365.com
+ (2603:10b6:303:6a::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34 via Frontend
+ Transport; Thu, 20 Oct 2022 07:51:49 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT021.mail.protection.outlook.com (10.13.175.51) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5746.16 via Frontend Transport; Thu, 20 Oct 2022 07:51:49 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 20 Oct
+ 2022 02:51:48 -0500
+Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
+ Transport; Thu, 20 Oct 2022 02:51:48 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,328 +58,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7544f823-504b-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=G2tPXq+ez6njSrreOuvIuhspYO7G8cTmHHRKzG5uRrdu4Zb4TuWqOfBmPkyloCAANtVhqZBPcExCrdBmMqOMqox0SHA+CY3IHhAZzg3WqoxrRxTFxzYwmcwzD1Mih4BzV61wS+pP3i0iySzUxJNAIIPcXfTCprnhntWsJxIdcLss/K1dlzyq1yqvsDjmFtSubudwJBkKsnio0YSIpFPG/TKZtElr7knO2RIwai2fzWGNv7c/plOUM5OePZF185Q1vMIlz1H0aLkRAxjGew18cLqx6O114OPmR1Rqsp4lAlz6W9mLK3NXarRsCY2KnltkWgTkpeJh3HeCZwLqj2O2RQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d/9fjoKKQESXKbjfAlAqcf2n3pNx0eJda1SPUTQJUFk=;
- b=PrKNS9TMKkjOstRPkVjxzkGMoVsrtWbFNK63VSrXuzyf3mFyh3fgHgRAukbTaIeP/tJlfzvlG7hPkfW2OZCV+Q1P7MRdZjV59ps88lsiRvDVzAA3XyXwqwAyXI0jEmX+gOhy6JScmbekcMM7JxjUMMOlI1s6ym1C9teutDtlnkoCR5II8baEysLioCIFUc1RgpsUwaVO4HvjA5C5vnuDpGQ26jtAIMIeMRKCCfjFyvK5ObbI696pYX7URw0dAu8SeZWu9ehx6Qn0D3QMWaITJiYInDKDplyHZkXk/zCfWu++3k7LM+xdm0IRLBLgLrJUb0bk2yJLV8v0+iFf0JF2Ag==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d/9fjoKKQESXKbjfAlAqcf2n3pNx0eJda1SPUTQJUFk=;
- b=o6iJNDHft2wEbLP+dXOtRNcRwq2GENsHCnGEoEXhU2dXWsgsP8K+m9HM6HPN0xpr6NeL/WGjBiSR2M002ss9O2qo6uPvr/v7YLtYh5UQKGcdQhrSN9+KxtGrB2IZnCRAXrsuwdjMJJed+TUlj40uQs/nsmOPHFtIBxEdRWgJjZk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 51d1f9afc0eecefc
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 0f6e34fe-504c-11ed-91b5-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l+vNj4jqGgpefreX3r/dP6rYSoPUlFMpM6p4DTgZ4RVy7Vh43Q14/pcZjHF16LgKZiorp+SpGvTtAGXckEmDo7oEm5z9P2vj6AROsN2Z/HwFUP8KG7syAw4io5uUBLngJsBp32iOyQAAp2s/T35q1HYsk/eHRFzbQNsemxs2zkH34rJqgABzSORkMQGj8lOdZvl/wGh5kRUyfCj1SBrYhKb5QG7s+DZAcYoTZdz2mtyN9s1c1GusGc+p4hyPwvF+z5OjsOvUKjQdvLECCAj+IM0xnIqzuEDZA4ht3w4Gczl3SnyU2NpMVh6GFoCfLfVxYr9h6uH7NE+MAnBlek17ig==
+ b=RdNyf8bBvYQgst2ng7WtrJuC+aZkgMSF5S+ahbGfEZG7uXCQaPmFaQ3dzLMvPJFVBM6zz2aFa9xB+tzUoClAbZ0BiWeRZwrh4vidieOcztlHf9BGsbDFk7kj9fuGWN+3ZfNaATRR6zNlErNnIBByyT1Fpu+cbwxDhjeZf95Y4Udl4qaz8xRUKMar8OFPfM+lU43XxPfGSnALuxjgrNh6hK4PqrUikGiTOfBZueDeMPYPQENOQCEChSjFxYhku2XcZB/ZExcXCFtJkn7RmnQILrNkp+DoEovH+h8fsgPUGPWTQ1aTm4od6luk3bkfbRY0EaKonn2dRJLFYqZLnzy19g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d/9fjoKKQESXKbjfAlAqcf2n3pNx0eJda1SPUTQJUFk=;
- b=mBVoe+zV+UYQdCuj8qC8WL76FzwffxBW9ZlE2OOftF/XMcYRwOzINYizQXVH8+SCEYwOZ7zaLj8QOwzx7R7F9obzdsIugB5x0QKK/mPGJzI2jctybj/bJmqM81iO7ybnPyaw2ET5WW5c/AO6PKiq9UMRXSoXUqpbCyMWZYEpeQ8sXnOV/KJxb1xe8Oodmyk6CsfLGVNfQ3D3RD3vBy0HH77wxnVhW3Pu7zerbATyGs+qsjSdhHwz/+H8y7lFUjV3DQEWilg2uCsLCzHibIAGWclKyNFwg+jXUnxc1JCB673t2W0bPOl9MrJsW/whyhP3KKj24H/0IN3/evOQA4SJHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ bh=fM8zzqzuMoh1+GP100enU+ugyyRDaAt84n9V5tfnmv4=;
+ b=fhTN5oySvtn5Ehxb113aTusF/mU2Qydw8z9C7uoG+e5EFyVWpd9LCKaSp+mupc2Ur2xsNzMhQaDlHNqsHVhlSD/9IwbHIUpLa7Omrr2m5/3I3ZMGWXOXS44MgaKoMk8YCoWRd4M3iupM1v77f38HIjK9/qU7Ec33PwQg5BRbCmM34iuADvHmxwJWYHLX9WYwt6iw3IhvkYPFmJnGTEAZm0Ws6K5ABho/Wfp3WhWanrcHn+QKe7achUnh+TlDYBw2rakzUHMHQJl/IEVLVHRxV7utvEdAMy4oLOy1iJMax0qN294bdlJroqlbUJ6bD43KfAjM2/EXCkwMwKUItUk7kA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d/9fjoKKQESXKbjfAlAqcf2n3pNx0eJda1SPUTQJUFk=;
- b=o6iJNDHft2wEbLP+dXOtRNcRwq2GENsHCnGEoEXhU2dXWsgsP8K+m9HM6HPN0xpr6NeL/WGjBiSR2M002ss9O2qo6uPvr/v7YLtYh5UQKGcdQhrSN9+KxtGrB2IZnCRAXrsuwdjMJJed+TUlj40uQs/nsmOPHFtIBxEdRWgJjZk=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Henry Wang <Henry.Wang@arm.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v5 2/2] xen/arm: p2m: Populate pages for GICv2 mapping in
- p2m_init()
-Thread-Topic: [PATCH v5 2/2] xen/arm: p2m: Populate pages for GICv2 mapping in
- p2m_init()
-Thread-Index: AQHY4v1UNTDexmHkFU+TbVAEitUu+q4W6mIA
-Date: Thu, 20 Oct 2022 07:47:20 +0000
-Message-ID: <DD601A86-C7C6-42AF-965F-A9759245E241@arm.com>
-References: <20221018142346.52272-1-Henry.Wang@arm.com>
- <20221018142346.52272-3-Henry.Wang@arm.com>
-In-Reply-To: <20221018142346.52272-3-Henry.Wang@arm.com>
-Accept-Language: en-GB, en-US
+ bh=fM8zzqzuMoh1+GP100enU+ugyyRDaAt84n9V5tfnmv4=;
+ b=TdBnW66aFH3SBebKo79RzSLONpP3HEqvguyUdN73amhJN+S5nATzGeseR84Fkd9bqgREFTOA5S6kkeimwBXMZm/7rqbexYlE1GOvsJ2rlZF6vqTiEQEZglcrAEoa+ZYqp+jnUqEuVM67WvtUSWH6pUGA21prn/NTIq442t5lJBc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <e0e0d4af-54e0-6dee-2f01-99bb5d31d346@amd.com>
+Date: Thu, 20 Oct 2022 09:51:47 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.3
+Subject: Re: [PATCH v3 05/10] automation: Add Arm containers to containerize
+ script
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.120.41.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|AM8PR08MB5665:EE_|DBAEUR03FT010:EE_|PA4PR08MB5934:EE_
-X-MS-Office365-Filtering-Correlation-Id: 071f54ec-7999-4b25-0d3d-08dab26f56b0
-x-checkrecipientrouted: true
-nodisclaimer: true
+To: Jiamei Xie <Jiamei.Xie@arm.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
+	<sstabellini@kernel.org>
+References: <20220927094727.12762-1-michal.orzel@amd.com>
+ <20220927094727.12762-6-michal.orzel@amd.com>
+ <AS8PR08MB7696D8C9D2239CC9ED2FE08F922A9@AS8PR08MB7696.eurprd08.prod.outlook.com>
+ <bc41f3a0-27ec-8bbe-a087-125acc20df2f@amd.com>
+ <AS8PR08MB769676050B41BCEDCA3F2891922A9@AS8PR08MB7696.eurprd08.prod.outlook.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <AS8PR08MB769676050B41BCEDCA3F2891922A9@AS8PR08MB7696.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT021:EE_|IA1PR12MB6137:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3cede87-7aed-4521-9a3a-08dab26ff218
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- FUSgC85CRKgZuLzyztp7J/LPPeT0XZgbS6KwtTeq2cXj5lD723/8ebuV93d9gyBXKLxHdE6iYlrsbv6KHsdu/OSzf8qDFNf1Oxu9A46sb5lWoVkp/VvkWeAXMVh0IuuWeaof3bz2d9ZGTA9n/FUBaIXcTK1zQqFcB7L7g/6QyNszQ0lg68x7UwV7l5p6OR2qpHLmUCA/XpkQCIyR0RPS19e9CD+SyxhiXJBWL+lBLRJubdD8suxAqwkvy+PCnmKBTVs5dRfL8v4K8o5IVaN9SIyaQqCAHo+DjZAnrjUFs8v5Ia/GNILtze3e0POCCenqBbCGx6F84yBUbgHV5+wHX9+BvPrMTztMlEGr3zqgGG/GDFcmn37CutoPWAl+mNRqi4ff5jYevS6NrwO/qnbcTzYKQeqa53hQCzINBBhvd85sF1i3XtI2Xb5LddLb78ZWOBLx1/fjIzJfZyf+oMdKc5ZGqZD0hw5nH6ISTLzIEel8xnE6Oy6AJtBOvVGOdsTzCKx5+iF4Ev4AOWabDKKlt2jQdxjEeFyTxazus3BpWV6mTMjITlbZivbsbYYClC4dzA3bwPTJYxLGPmDOePgcv0vmg1R3McYFBW5E0yl+Lqkedk9nia1NV1UeLTYTZYAdIY3DqmR0DbpGW2/qBr3VViPSOOfaomQ6R4YMbqOQLg/JTkmglziUsPJ5qBLfVmymz8yXsDNxVyUjWcxjH7Xn0fLRPPw2FL0QZSnFsghmTHxwT+YhnVds3k3l+Q+GQqqtpotFqydhSxvqVLjOgVOdgUMmvQKi948oMecSQbeLvkw=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(39860400002)(136003)(366004)(396003)(346002)(451199015)(36756003)(86362001)(33656002)(122000001)(66476007)(37006003)(41300700001)(66556008)(38100700002)(66446008)(66946007)(2616005)(38070700005)(83380400001)(64756008)(6506007)(186003)(478600001)(5660300002)(53546011)(2906002)(316002)(76116006)(6636002)(6862004)(91956017)(8676002)(4326008)(8936002)(6486002)(26005)(71200400001)(54906003)(6512007)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <35185F8B985F714BBB43DDAC8740045F@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5665
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT010.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	0246be49-fe8e-4d20-26aa-08dab26f51cb
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	KaTaWP8CN0XbafEofCVXcqXFKqKlV9MS7zvM7iQvLIr0rf4nJNuro9dlO7tKY8fFaOb2j4xOl+ZkbhPGYZ4Stsr1DklxDgd1XTihymEOYYtAiG/MUypNehLEYr/4Qe0y3ZaRDL3Ef0tp2sLp9+oP/jYIDr8a2karUSYp30/hMHkoC4NT/uRWmdEvcKax0noA4vcZb8UIWLzv6BI8olZQRtkr8IdV8iYNNmK4V/dNyOt4bu9ZPcUig+F/WlijskRYHFmOGRPjljKeUFRa888OsqQDawrMwzekr39yMd0G8Apu09+Z6nG229/CiMZTpyH9+xzpigZoBm671Wai+qU59hWG51ztpC6E1dUsncYIx1V2bCEMEhrkp6ELrwoGY+nbX1TawR0UWcoMujRtczMErbHJgTO9AY8UNFeU1IbiIUfM4G4d9H7qNENCHVztaW6ulapA0v/jq8MyMt7TXz7syt4iF0vZ+r3Mcy135oEUCikd/hiJJsd62MNea/Up2cf937323m49sw2/sBbFZJde1PQkMZ6grvLKNeBcTALP9qlQXwqt71+EW3YQJrXW/tciTyj221/wzdEX6Z7DNquZc3G3c0ki7otK1FyB1rjO90uTFdk/xCKhu2vnrB+gVc1dR5r5xRVbKA49kGdSM2NfXS3A92RB+Xc3L4uClK/dPEWdfpuMUzqsFD6fNdFJZZg14zpFSn6XZH06AP4hM2Fm2xsBexpvRdGulj2CyRTCGxxJspfiOAGThKdqHBGQxTJH9FCZaX0937EGQl4DBciUcA==
+	zod3hDDzlgEAp50k0iyvCoWa0uEovbDm7TXvnCe2zmlL4r7BUnpm8jnZH9yzsJLH2tkYBT3cfxJxXz9kQxOnOfxcHLgEU2KDMRtDj4Sqk2zKzyHYHeLitYqHK/Gdi0c5f1IFqxL0qAMKCk8uhiQZR/mMXuyVv9aodhWL+Ab1uG9FFCfkxtiNMk2xgh3nXnKl77h6VixE4VHVVJBOycKOw9c/KbXQI5ozCr37Og3iI/5T5kKg/Oy4pi1PAfwwUhnRlwmhHV0T44qjD3zSiHtvpi0PsqeMPcmJNLjappwM5wuhXycOok3KbMaQ6SdaxGhi06tAkJ3RNrhIHwdE4XU8ZwFu7BvxT7Z7k76A0B9FKmg71UMUa5MNjfbRzGeE7kBbY3mUTXVCkGYyXD3N3Cex7qLqbUrLMech6shZQnqAtdHdbzW769ypmXvpjECVTLNjXdSkfmCpuhSvJAEtuHesA7fEGFtcBxwLIfRmH0LBiwtQq8tXOmEA3OBJtpO9WVUBZtDXGph/NdBVFzSKzRDlGZRz9wYoic2U4BkVv48paxQkeBHF05ZDhdO9Bbtq5ih+fAEkI8LMBW/2EvfCb1Q50tikBkP9AnYRbVHlhGutG5dvxrHeqlFhsOCfCZFR0NndasnxyfAOVA3IMjFzwET4/la6/c1whbTDqy0cLYWK67jB6IJBwNmUrW2xwtoN4EueALUzBkzI4zEAfCDpdSXbIjdw3IQK/RjNKp35a7+izzlIF9WMCnrCAeAyGpUwgfYdHWXQHF4QxadFYm+G4pQFlDWTiB5qfe/AFNLySYbk1swRThUe/KxRcNX02OYauKohYQ+F2+piHPOQsw0cZooiatSw7Y06leie6tJTT6Y+dbA=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(376002)(136003)(39860400002)(346002)(396003)(451199015)(36840700001)(40470700004)(46966006)(2616005)(336012)(107886003)(186003)(6512007)(53546011)(26005)(6506007)(36860700001)(83380400001)(2906002)(40460700003)(40480700001)(5660300002)(47076005)(6862004)(82310400005)(316002)(478600001)(6486002)(70206006)(8936002)(41300700001)(37006003)(70586007)(4326008)(8676002)(6636002)(54906003)(33656002)(36756003)(86362001)(82740400003)(81166007)(356005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2022 07:47:29.1838
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199015)(46966006)(40470700004)(36840700001)(478600001)(53546011)(336012)(36756003)(83380400001)(426003)(26005)(47076005)(2906002)(5660300002)(186003)(8936002)(41300700001)(356005)(2616005)(81166007)(82310400005)(40460700003)(86362001)(40480700001)(82740400003)(31696002)(36860700001)(31686004)(316002)(110136005)(16576012)(84970400001)(44832011)(54906003)(70586007)(8676002)(4326008)(70206006)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2022 07:51:49.7596
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 071f54ec-7999-4b25-0d3d-08dab26f56b0
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3cede87-7aed-4521-9a3a-08dab26ff218
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT010.eop-EUR03.prod.protection.outlook.com
+	CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB5934
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6137
 
-Hi Henry,
+Hi Jiamei,
 
-> On 18 Oct 2022, at 15:23, Henry Wang <Henry.Wang@arm.com> wrote:
->=20
-> Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
-> when the domain is created. Considering the worst case of page tables
-> which requires 6 P2M pages as the two pages will be consecutive but not
-> necessarily in the same L3 page table and keep a buffer, populate 16
-> pages as the default value to the P2M pages pool in p2m_init() at the
-> domain creation stage to satisfy the GICv2 requirement. For GICv3, the
-> above-mentioned P2M mapping is not necessary, but since the allocated
-> 16 pages here would not be lost, hence populate these pages
-> unconditionally.
->=20
-> With the default 16 P2M pages populated, there would be a case that
-> failures would happen in the domain creation with P2M pages already in
-> use. To properly free the P2M for this case, firstly support the
-> optionally preemption of p2m_teardown(), then call p2m_teardown() and
-> p2m_set_allocation(d, 0, NULL) non-preemptively in p2m_final_teardown().
-> As non-preemptive p2m_teardown() should only return 0, use a
-> BUG_ON to confirm that.
->=20
-> Since p2m_final_teardown() is called either after
-> domain_relinquish_resources() where relinquish_p2m_mapping() has been
-> called, or from failure path of domain_create()/arch_domain_create()
-> where mappings that require p2m_put_l3_page() should never be created,
-> relinquish_p2m_mapping() is not added in p2m_final_teardown(), add
-> in-code comments to refer this.
->=20
-> Fixes: cbea5a1149ca ("xen/arm: Allocate and free P2M pages from the P2M p=
-ool")
-> Suggested-by: Julien Grall <jgrall@amazon.com>
-> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+On 20/10/2022 09:13, Jiamei Xie wrote:
+> 
+> 
+> Hi Michal,
+> 
+>> -----Original Message-----
+>> From: Michal Orzel <michal.orzel@amd.com>
+>> Sent: Thursday, October 20, 2022 2:59 PM
+>> To: Jiamei Xie <Jiamei.Xie@arm.com>; xen-devel@lists.xenproject.org
+>> Cc: Doug Goldstein <cardoe@cardoe.com>; Stefano Stabellini
+>> <sstabellini@kernel.org>
+>> Subject: Re: [PATCH v3 05/10] automation: Add Arm containers to
+>> containerize script
+>>
+>> Hi Jiamei,
+>>
+>> On 20/10/2022 05:00, Jiamei Xie wrote:
+>>>
+>>>
+>>> Hi Michal,
+>>>
+>>>> -----Original Message-----
+>>>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
+>>>> Michal Orzel
+>>>> Sent: Tuesday, September 27, 2022 5:47 PM
+>>>> To: xen-devel@lists.xenproject.org
+>>>> Cc: Michal Orzel <michal.orzel@amd.com>; Doug Goldstein
+>>>> <cardoe@cardoe.com>; Stefano Stabellini <sstabellini@kernel.org>
+>>>> Subject: [PATCH v3 05/10] automation: Add Arm containers to
+>> containerize
+>>>> script
+>>>>
+>>>> Script automation/scripts/containerize makes it easy to build Xen within
+>>>> predefined containers from gitlab container registry. This script is
+>>>> currently missing the helpers to select Arm containers, so populate the
+>>>> necessary entries.
+>>>>
+>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>>> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+>>>> ---
+>>
+>>>
+>>> [Jiamei Xie]
+>>> I wonder if an default container for arm can be added. For example,  if
+>>>  "CONTAINER=arm64 automation/scripts/containerize bash",
+>>>  set the default CONTAINER as "registry.gitlab.com/xen-
+>> project/xen/alpine:3.12-arm64v8"
+>>>
+>>
+>> It can be added doing the following:
+>>
+>> diff --git a/automation/scripts/containerize
+>> b/automation/scripts/containerize
+>> index 0f4645c4cccb..b395bd359ecf 100755
+>> --- a/automation/scripts/containerize
+>> +++ b/automation/scripts/containerize
+>> @@ -25,7 +25,7 @@ die() {
+>>  BASE="registry.gitlab.com/xen-project/xen"
+>>  case "_${CONTAINER}" in
+>>      _alpine) CONTAINER="${BASE}/alpine:3.12" ;;
+>> -    _alpine-arm64v8) CONTAINER="${BASE}/alpine:3.12-arm64v8" ;;
+>> +    _alpine-arm64v8|_arm64) CONTAINER="${BASE}/alpine:3.12-arm64v8" ;;
+>>      _archlinux|_arch) CONTAINER="${BASE}/archlinux:current" ;;
+>>      _riscv64) CONTAINER="${BASE}/archlinux:riscv64" ;;
+>>      _centos7) CONTAINER="${BASE}/centos:7" ;;
+>>
+>> The question is whether it would be beneficial. After all you would still need
+>> to
+>> type CONTAINER=arm64, whereas at the moment, you need to type
+>> CONTAINER=alpine-arm64v8.
+>> TBH I'm not sure it is improving anything (?).
+>>
+>> ~Michal
+> [Jiamei Xie]
+> I am not sure about this either.  I added something like below f to run it on arm64 machine.   But it  didn't take "running container for a different architecture" into consideration.
+> 
+So your question is not about adding default container when selecting CONTAINER=arm64, but adding
+a default one when running on arm64 platform. Right now, the default one is debian:stretch
+(if you don't type CONTAINER= at all). Do I understand it right that you would like the same
+behavior when running on arm64 platform (currently, it would also select debian:stretch)?
+So that when executing:
+./automation/scripts/containerize ...
+it would automatically select alpine-arm64v8?
 
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Cheers
-Bertrand
+> --- a/automation/scripts/containerize
+> +++ b/automation/scripts/containerize
+> @@ -18,6 +18,12 @@ die() {
+>      exit 1
+>  }
+> 
+> +# There are two containers that can run on aarch64, unstable and alpine.
+> +# Set the default container to alpine for aarch64
+> +if [[ $(uname -m) = "aarch64" && -z ${CONTAINER} ]]; then
+The output from `uname -m` for arm64 can be aarch64 and arm64.
 
-> ---
-> This should also be backported to 4.13, 4.14, 4.15 and 4.16.
-> v5 changes:
-> - Rebase on top of Andrew's patch, update commit message accordingly.
-> v4 changes:
-> - Move the initial population of 16 default pages to the end of
->  p2m_init(), add if(rc) return rc; after p2m_alloc_table()
-> v3 changes:
-> - Move the population of default pages to p2m_init().
-> - Use a loop over p2m_teardown_allocation() to implement the
->  non-preemptive p2m_teardown_allocation() and avoid open-coding.
-> - Reorder assertions in p2m_final_teardown().
-> - Add p2m_teardown() will always return 0 if called non-preemptively in
->  doc, move the page_list_empty(&p2m->pages) check to p2m_teardown()
->  and use a BUG_ON to confirm p2m_teardown() will return 0 in
->  p2m_final_teardown().
-> - Add a comment in p2m_final_teardown() to mention relinquish_p2m_mapping=
-()
->  does not need to be called, also update commit message.
-> v2 changes:
-> - Move the p2m_set_allocation(d, 0, NULL); to p2m_final_teardown().
-> - Support optionally preemption of p2m_teardown(), and make the calling o=
-f
->  p2m_teardown() preemptively when relinquish the resources, non-preemptiv=
-ely
->  in p2m_final_teardown().
-> - Refactor the error handling to make the code use less spin_unlock.
-> - Explain the worst case of page tables and the unconditional population
->  of pages in commit message.
-> - Mention the unconditional population of pages in in-code comment.
-> ---
-> xen/arch/arm/domain.c          |  2 +-
-> xen/arch/arm/include/asm/p2m.h | 14 ++++++++++----
-> xen/arch/arm/p2m.c             | 34 ++++++++++++++++++++++++++++++++--
-> 3 files changed, 43 insertions(+), 7 deletions(-)
->=20
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 2c84e6dbbb..38e22f12af 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -1064,7 +1064,7 @@ int domain_relinquish_resources(struct domain *d)
->             return ret;
->=20
->     PROGRESS(p2m):
-> -        ret =3D p2m_teardown(d);
-> +        ret =3D p2m_teardown(d, true);
->         if ( ret )
->             return ret;
->=20
-> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2=
-m.h
-> index 42bfd548c4..c8f14d13c2 100644
-> --- a/xen/arch/arm/include/asm/p2m.h
-> +++ b/xen/arch/arm/include/asm/p2m.h
-> @@ -194,14 +194,18 @@ int p2m_init(struct domain *d);
->=20
-> /*
->  * The P2M resources are freed in two parts:
-> - *  - p2m_teardown() will be called when relinquish the resources. It
-> - *    will free large resources (e.g. intermediate page-tables) that
-> - *    requires preemption.
-> + *  - p2m_teardown() will be called preemptively when relinquish the
-> + *    resources, in which case it will free large resources (e.g. interm=
-ediate
-> + *    page-tables) that requires preemption.
->  *  - p2m_final_teardown() will be called when domain struct is been
->  *    freed. This *cannot* be preempted and therefore one small
->  *    resources should be freed here.
-> + *  Note that p2m_final_teardown() will also call p2m_teardown(), to pro=
-perly
-> + *  free the P2M when failures happen in the domain creation with P2M pa=
-ges
-> + *  already in use. In this case p2m_teardown() is called non-preemptive=
-ly and
-> + *  p2m_teardown() will always return 0.
->  */
-> -int p2m_teardown(struct domain *d);
-> +int p2m_teardown(struct domain *d, bool allow_preemption);
-> void p2m_final_teardown(struct domain *d);
->=20
-> /*
-> @@ -266,6 +270,8 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn=
-,
-> /*
->  * Direct set a p2m entry: only for use by the P2M code.
->  * The P2M write lock should be taken.
-> + * TODO: Add a check in __p2m_set_entry() to avoid creating a mapping in
-> + * arch_domain_create() that requires p2m_put_l3_page() to be called.
->  */
-> int p2m_set_entry(struct p2m_domain *p2m,
->                   gfn_t sgfn,
-> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-> index 6826f63150..00d05bb708 100644
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -1685,7 +1685,7 @@ static void p2m_free_vmid(struct domain *d)
->     spin_unlock(&vmid_alloc_lock);
-> }
->=20
-> -int p2m_teardown(struct domain *d)
-> +int p2m_teardown(struct domain *d, bool allow_preemption)
-> {
->     struct p2m_domain *p2m =3D p2m_get_hostp2m(d);
->     unsigned long count =3D 0;
-> @@ -1693,6 +1693,9 @@ int p2m_teardown(struct domain *d)
->     unsigned int i;
->     int rc =3D 0;
->=20
-> +    if ( page_list_empty(&p2m->pages) )
-> +        return 0;
+> +    CONTAINER="alpine"
+> +fi
 > +
->     p2m_write_lock(p2m);
->=20
->     /*
-> @@ -1716,7 +1719,7 @@ int p2m_teardown(struct domain *d)
->         p2m_free_page(p2m->domain, pg);
->         count++;
->         /* Arbitrarily preempt every 512 iterations */
-> -        if ( !(count % 512) && hypercall_preempt_check() )
-> +        if ( allow_preemption && !(count % 512) && hypercall_preempt_che=
-ck() )
->         {
->             rc =3D -ERESTART;
->             break;
-> @@ -1736,7 +1739,20 @@ void p2m_final_teardown(struct domain *d)
->     if ( !p2m->domain )
->         return;
->=20
-> +    /*
-> +     * No need to call relinquish_p2m_mapping() here because
-> +     * p2m_final_teardown() is called either after domain_relinquish_res=
-ources()
-> +     * where relinquish_p2m_mapping() has been called, or from failure p=
-ath of
-> +     * domain_create()/arch_domain_create() where mappings that require
-> +     * p2m_put_l3_page() should never be created. For the latter case, a=
-lso see
-> +     * comment on top of the p2m_set_entry() for more info.
-> +     */
-> +
-> +    BUG_ON(p2m_teardown(d, false));
->     ASSERT(page_list_empty(&p2m->pages));
-> +
-> +    while ( p2m_teardown_allocation(d) =3D=3D -ERESTART )
-> +        continue; /* No preemption support here */
->     ASSERT(page_list_empty(&d->arch.paging.p2m_freelist));
->=20
->     if ( p2m->root )
-> @@ -1803,6 +1819,20 @@ int p2m_init(struct domain *d)
->     if ( rc )
->         return rc;
->=20
-> +    /*
-> +     * Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 a=
-rea
-> +     * when the domain is created. Considering the worst case for page
-> +     * tables and keep a buffer, populate 16 pages to the P2M pages pool=
- here.
-> +     * For GICv3, the above-mentioned P2M mapping is not necessary, but =
-since
-> +     * the allocated 16 pages here would not be lost, hence populate the=
-se
-> +     * pages unconditionally.
-> +     */
-> +    spin_lock(&d->arch.paging.lock);
-> +    rc =3D p2m_set_allocation(d, 16, NULL);
-> +    spin_unlock(&d->arch.paging.lock);
-> +    if ( rc )
-> +        return rc;
-> +
->     return 0;
-> }
->=20
-> --=20
-> 2.17.1
->=20
+>  #
+>  # The caller is expected to override the CONTAINER environment
+>  # variable with the container they wish to launch.
+> @@ -41,6 +47,11 @@ case "_${CONTAINER}" in
+>      _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/suse:opensuse-tumbleweed" ;;
+>  esac
+> 
+> +# Containers for aarch64 have a sufix "-arm64v8"
+> +if [[ $(uname -m) = "aarch64" ]]; then
+> +    CONTAINER="${CONTAINER}-arm64v8"
+> +fi
+This is not needed. CONTAINER can be selected on the first check and let case/esac block
+to determine the full path to container.
 
+> +
+>  # Use this variable to control whether root should be used
+>  case "_${CONTAINER_UID0}" in
+>      _1)   userarg= ;;
+> 
+> 
+> Best wishes
+> Jiamei Xie
+> 
+> 
+
+What you are asking for can be done in a simpler way. The following is enough:
+
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index 0f4645c4cccb..4e7e8bb48e3a 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -18,6 +18,11 @@ die() {
+     exit 1
+ }
+ 
++# Select default container when running on arm64 machine.
++if [ -z "${CONTAINER}" ] && uname -m | grep -qE 'aarch64|arm64'; then
++    CONTAINER="alpine-arm64v8"
++fi
++
+ #
+ # The caller is expected to override the CONTAINER environment
+ # variable with the container they wish to launch.
+
+~Michal
 
