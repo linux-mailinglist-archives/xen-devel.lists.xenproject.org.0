@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF981606165
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 15:20:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.426772.675439 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 681D2606170
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 15:21:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.426777.675450 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olVTF-0002nd-6H; Thu, 20 Oct 2022 13:20:25 +0000
+	id 1olVUP-0003Lr-GL; Thu, 20 Oct 2022 13:21:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 426772.675439; Thu, 20 Oct 2022 13:20:25 +0000
+Received: by outflank-mailman (output) from mailman id 426777.675450; Thu, 20 Oct 2022 13:21:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olVTF-0002kv-2f; Thu, 20 Oct 2022 13:20:25 +0000
-Received: by outflank-mailman (input) for mailman id 426772;
- Thu, 20 Oct 2022 13:20:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1olVUP-0003Ix-Cy; Thu, 20 Oct 2022 13:21:37 +0000
+Received: by outflank-mailman (input) for mailman id 426777;
+ Thu, 20 Oct 2022 13:21:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Iaqk=2V=citrix.com=prvs=285ecbe66=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1olVTD-0002kp-KM
- for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 13:20:23 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f2956282-5079-11ed-8fd0-01056ac49cbb;
- Thu, 20 Oct 2022 15:20:22 +0200 (CEST)
+ id 1olVUO-0003Ip-C8
+ for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 13:21:36 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1d1b9f73-507a-11ed-91b5-6bf2151ebd3b;
+ Thu, 20 Oct 2022 15:21:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2956282-5079-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 1d1b9f73-507a-11ed-91b5-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1666272022;
+  d=citrix.com; s=securemail; t=1666272094;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:content-transfer-encoding:in-reply-to;
-  bh=CyqtvLuCo9vPcS4ykOKHNf/TdY6KVRL/lttb5kuxJeM=;
-  b=aF6ZCztJF3UfqwYXqTHj+ojMkLNjF6J+J0ybd9JF6l9A42PSmO/ApCMg
-   NN2nnZvzNVazthHGD5sxElvXfe/dWgaUwzuqEF9yyrCR+o2o5A7z1Xvpi
-   GonWnmmkTyOiLj+p4HfssY69eUBk4Gjn20qjjoW28//M1sRERZy2TCeVu
-   M=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=m8Z/x3pSZNAayr0xIBnBZnORN5AFqYVFRDW6DYQ/zYY=;
+  b=dN/LW9WQdOfIV3yOTFSQlvWREWogE8cUJgVLZ1IGOiWlAuN52Gzt6M7E
+   lzqEiuUn/5tvp1+fykGGYpyaySrerbyiCiUNe+ZPCbVglrMtykI4A1z/O
+   ClTmEVLB2ctqOj+hVjAHbOdJt1C4Rx83EKmWUDmRRenjZXapu8pXtTM1j
+   0=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 85684026
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 82266334
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:VYI8G62Si8+ZMlKIm/bD5axxkn2cJEfYwER7XKvMYLTBsI5bpzIPm
- 2NOUG+Eb6uLa2Pwf4tyPIqwpEMHupXUnd4yTgtupC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliefSAOKU5NfsYkhZXRVjRDoqlSVtkus4hp8AqdWiCkaGt
- MiaT/f3YTdJ4BYpdDNJg06/gEk35q6r4GlA5gVWic1j5zcyqVFEVPrzGonpR5fIatE8NvK3Q
- e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkEqShgJ+rQ6LJIhhXJ/0F1lqTzTJ
- OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXWV+ACQqflO1q8iCAn3aMqUV68s0BVBh/
- McGF2gtNAyRoMiXz/G0H7wEasQLdKEHPasas3BkizrYEewnUdbIRKCiCd1whWlqwJoURLCHO
- pRfOWEHgBfoOnWjPn8eDo4+m+G5wGHyaTRCpHqepLYt4niVxwt0uFToGIqIJIzWHZ8L9qqej
- mj0wFumOQ4wDdrF1D28q0yAuO7ovgquDer+E5Xnr6U30TV/3Fc7Fxk+RVa95/6jhSaWS99Zb
- kAZ5Ccqhawz71CwCMnwWQWip3yJtQJaXMBfe9DW8ynUlPCSuVzAQDFZEHgRM7TKqfPaWxQnx
- 3LKm+LGDAdxj+W1E26P0Z21onC9bH19wXA5WQcISg4M4t/GqY41jw7SQtsLLJNZnuEZChmrn
- WnU8XFWa6E7yJdSiv7lpQyvbyeE/MChc+Ij2unAsotJBCtdbZXtWYGn4EOzAR1ofNfAFQnpU
- JTpdqGjAAEy4XOlznHlrAYlRuvBCxO53Nr02AcHInXZ327xk0NPhKgJiN2EGG9nM9wfZRjia
- 1LJtAVa6fd7ZSX0M/YuM97tVZ93l8AM8OgJsdiNNLJzjmVZLlfbrEmCm2bKt4wSrKTcuf5mY
- srKGSpdJX0bFb5m3FKLegvp6pdynnpW7TqKHfjTlk37uYdykVbIEN/pxnPVNbtnhE5FyS2Im
- +ti2zyikUwOAbygPXWLrOb+7zkidBAGOHw/kOQPHsbrH+asMDtJ5yP5qV/5R7FYog==
-IronPort-HdrOrdr: A9a23:P+peJKrDsh/LIit1r72qW78aV5oTeYIsimQD101hICG8cqSj9v
- xGuM5rsiMc7wxhPk3I+OrwXJVoLkmxyXcY2+Ys1PKZLXDbUQiTXeRfBOnZsl7d8kTFn4Y3v8
- pdmupFeb/N5DBB/L7HCWKDc+rIruPozJyV
+IronPort-Data: A9a23:IQziNqLipZ8SPZODFE+RrpUlxSXFcZb7ZxGr2PjKsXjdYENS12NSy
+ zAbW2CCPPuCMTb9e413Oo+z9k0Cv5bdm981HAdlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/vOHtIQMcacUghpXwhoVSw9vhxqnu89k+ZAjMOwRgiAo
+ rsemeWGULOe82MyYz98B56r8ks15q2q4mtA5zTSWNgQ1LPgvyhNZH4gDfnZw0vQGuF8AuO8T
+ uDf+7C1lkuxE8AFU47Nfh7TKyXmc5aKVeS8oiM+t5uK23CukhcawKcjXMfwXG8M49m/c3Kd/
+ /0W3XC4YV9B0qQhA43xWTEAe811FfUuFLMqvRFTGCFcpqHLWyKE/hlgMK05FaoV+sF+J0Ncz
+ 80dLTEfYiqDv7mYwIvuH4GAhux7RCXqFIYWu3UmxjDFF/c2B5vERs0m5/cBgm123JoXW6+DO
+ YxJMlKDbzyZC/FLEl4RFJI5mvbunnTleidUgFmUubA28y7YywkZPL3FYICPJILRHpk9ckCwl
+ Fv9oHj2QUsmDNmY+CKptSz827LIgnauMG4VPOLhraM76LGJ/UQMDDUGWF39puO24mauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4LgEhwFjTkOyOuV/fXzVaCG4aADA7iCMobRsn1
+ niAufH7Pw1qtbyHRUidzuy6rQrnbED5MlQ+TSMDSAIE5fzqr4cykg/DQ75fLUKlsjHmMWqum
+ m7X9UDSk51W1JdWjPvjoTgrlhr2/vD0ohgJChI7t45Pxidwf8abaoOh8jA3Bt4Qfd/CHjFtU
+ JXp8vVyDdzi77nXyURho81XRtlFAspp1xWF2DZS82EJrWjFxpJaVdk4DMtCDEloKN0YXjTif
+ VXevwhcjLcKYiX0NPYnP97vUJlwpUQFKTgCfqmOBuein7ArLFPXlM2QTRT4M5/RfLgEzvhkZ
+ MbznTeEBncGE6V3pAeLqxMm+eZznEgWnDqLLbiilkjP7FZrTCPMIVvzGADVNb5RAWLtiFi9z
+ uuzwOPQkkQOAbOhPnWKmWPRRHhTRUUG6VnNg5Q/Xoa+zsBOQgnN19e5LWsdRrFY
+IronPort-HdrOrdr: A9a23:dkyGYaw5se5hVAIdXhmWKrPwKr1zdoMgy1knxilNoRw8SKKlfu
+ SV7ZAmPHjP+VEssRAb6LW90ca7LE80maQY3WBVB8bFYOCEghrLEGgB1+vfKlTbckWUnNK1l5
+ 0QEJSWYOeAdGSS5vya3ODXKbkd/OU=
 X-IronPort-AV: E=Sophos;i="5.95,198,1661832000"; 
-   d="scan'208";a="85684026"
-Date: Thu, 20 Oct 2022 14:20:09 +0100
+   d="scan'208";a="82266334"
+Date: Thu, 20 Oct 2022 14:21:22 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Roger Pau Monne <roger.pau@citrix.com>
 CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH for-4.17 1/6] test/vpci: add dummy cfcheck define
-Message-ID: <Y1FLCaAwscvJ3Lj3@perard.uk.xensource.com>
+Subject: Re: [PATCH for-4.17 2/6] test/vpci: fix vPCI test harness to provide
+ pci_get_pdev()
+Message-ID: <Y1FLUsSUJv799QsO@perard.uk.xensource.com>
 References: <20221020094649.28667-1-roger.pau@citrix.com>
- <20221020094649.28667-2-roger.pau@citrix.com>
+ <20221020094649.28667-3-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20221020094649.28667-2-roger.pau@citrix.com>
+In-Reply-To: <20221020094649.28667-3-roger.pau@citrix.com>
 
-On Thu, Oct 20, 2022 at 11:46:44AM +0200, Roger Pau Monne wrote:
-> Some vpci functions got the cfcheck attribute added, but that's not
-> defined in the user-space test harness, so add a dummy define in order
-> for the harness to build.
+On Thu, Oct 20, 2022 at 11:46:45AM +0200, Roger Pau Monne wrote:
+> Instead of pci_get_pdev_by_domain(), which is no longer present in the
+> hypervisor.
 > 
-> Fixes: 4ed7d5525f ('xen/vpci: CFI hardening')
+> While there add parentheses around the define value.
+> 
+> Fixes: a37f9ea7a6 ('PCI: fold pci_get_pdev{,_by_domain}()')
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Acked-by: Anthony PERARD <anthony.perard@citrix.com>
