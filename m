@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D1CC606325
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 16:33:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.426850.675575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ECE2606334
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 16:35:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.426856.675586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olWbY-0008BS-Mx; Thu, 20 Oct 2022 14:33:04 +0000
+	id 1olWdV-0000Jk-2Y; Thu, 20 Oct 2022 14:35:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 426850.675575; Thu, 20 Oct 2022 14:33:04 +0000
+Received: by outflank-mailman (output) from mailman id 426856.675586; Thu, 20 Oct 2022 14:35:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olWbY-00088W-Ix; Thu, 20 Oct 2022 14:33:04 +0000
-Received: by outflank-mailman (input) for mailman id 426850;
- Thu, 20 Oct 2022 14:33:03 +0000
+	id 1olWdU-0000H0-Uy; Thu, 20 Oct 2022 14:35:04 +0000
+Received: by outflank-mailman (input) for mailman id 426856;
+ Thu, 20 Oct 2022 14:35:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tgfI=2V=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1olWbX-00088Q-DS
- for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 14:33:03 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 197e39cd-5084-11ed-8fd0-01056ac49cbb;
- Thu, 20 Oct 2022 16:33:01 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B2DC01FB15;
- Thu, 20 Oct 2022 14:33:01 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 60DC813494;
- Thu, 20 Oct 2022 14:33:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id DenjFR1cUWPAZwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 20 Oct 2022 14:33:01 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pNAa=2V=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1olWdT-0000GP-5k
+ for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 14:35:03 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5fbaf5b9-5084-11ed-8fd0-01056ac49cbb;
+ Thu, 20 Oct 2022 16:35:00 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 96C495C010A;
+ Thu, 20 Oct 2022 10:34:59 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 20 Oct 2022 10:34:59 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 20 Oct 2022 10:34:58 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,173 +43,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 197e39cd-5084-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1666276381; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FVJfmgnGQuxRuEnHw66oXT6YXcIqyTpdZDa7LzHLN5w=;
-	b=kgxlmMZcwUcsuGEZrkDxM4t+oB3F1WwaoBTAn13ODCiBzKcnFMxsXNPPIXU4ngCtCLhQ6j
-	iJEAow2rSoR/1zSt9RcXlv1BvMTMqMMf5ILBYcWc8Jds5Z+/yk1hp6kelGxTpiCx1WZQMu
-	6gwzfhJ8A1E6xp+rngTyS/qDENLzqnQ=
-Message-ID: <69f4f7dd-e630-709d-5aa9-334e349109d9@suse.com>
-Date: Thu, 20 Oct 2022 16:33:00 +0200
+X-Inumbo-ID: 5fbaf5b9-5084-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm3; t=1666276499; x=
+	1666362899; bh=M2YOLwha2ja59yQIzvd0K5jAGGswBOvDyJHTaUljHQI=; b=M
+	7/B9NNjyZ3Rz1VP0841yh1xB2YXKT+3cyRuAbccRLy5oNSaE0s+ZsKkwZ/j5EEs7
+	Ik8z2G0jacShs6k9gVPPGJ5hbHtbBHa56dZOor+UpaKXgBV0fHCS1neEN7H8sers
+	qeEAC1/hxhrufxBHb60034ESnVX/gy/R9EnJx2ecEFDsKyOruC0VpuGhLZunJTvq
+	MWSjvZ9imsHRhnW09c7bPYuH14gXQLHH1UjidXIGkWahJSOdpmoAWgC75RIcvGu6
+	FkLQ0fhFJmQ+ADlw9ec/t+acthCJsFtMEdIWd2WG2G/s7vYQkXN7c4lCICh50ehR
+	4SFISb68ZDEj0blS1OoZA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1666276499; x=1666362899; bh=M2YOLwha2ja59yQIzvd0K5jAGGsw
+	BOvDyJHTaUljHQI=; b=jglGp3C0yfaC//P6LfC2dVUf1bzqZZ92nUsvG22VFJSj
+	NDTqqJqJU5RiXaffRL5AUHcR9sQC9ug1VeYRM7rgMIBopsTP93ZYmfCaeyyGFBge
+	rLtfO/pXLO005tTK7hMEaxQQhUIt87boFryghX1dW5WPJ+AunhmpZn0QAClhiYpe
+	iFjZcf7GhCbbZc3AvsJ/cJqPIQTDzpGFJzwTDsnfF/xVIWx6w4wiHNHbKjNHXGoy
+	uhGohsMJLRXJApDieYm51Yyh9B4X3jjAHUZpVM0/nYc2CZcNps/GsFaM8DBiqTRl
+	qk17xdkd/aGd45Th/eFjrzQ0u29WcIlZrSTo0AoBag==
+X-ME-Sender: <xms:k1xRY8TLCrKaTshqimzoYkDKpL9u2pwHHCvQ3DIVlS10z-OdR85h6Q>
+    <xme:k1xRY5z2UJq3k8yhdlITJ7UuV-zqlI1f72yWTbdDgO986c76T_yfURqPGMc5Ph0aN
+    wYpIBPCZ053aQ>
+X-ME-Received: <xmr:k1xRY52AOQnH_X0_SqbnnImUrWqESC-hhbfogrD3LxxrKRloTS8mMPjwGrkJZ3UJQ14pLrqklMfEDg9kkjEQWs8wxiNHStvzDUAv>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfeeliedgjeekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueek
+    teetgefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomh
+    grihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
+    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhm
+X-ME-Proxy: <xmx:k1xRYwA9qJJkbm32dYzYia42ZLZT96bp3gnMoSa4qAipdpbUQGGZ-A>
+    <xmx:k1xRY1i9sxDSiRfo9RI8MoXiei5r0SLM-oDniehL3L-PNXxD5XLWiw>
+    <xmx:k1xRY8pKq_YXkzIhLzhjv0FhTmDZJeXLYWYGup-blOzqTDtqvX2akA>
+    <xmx:k1xRY1bo6VHGkTZIyprqqcAumz9m2Xg6z1Xmyd9bzCoQSP1i_IjLgQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 20 Oct 2022 16:34:56 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] Use direct I/O for loop devices
+Message-ID: <Y1FckIT6OHJ/x0Ri@mail-itl>
+References: <20220817204634.1886-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH] x86/xen: silence smatch warning in pmu_msr_chk_emulated()
-Content-Language: en-US
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
- Dan Carpenter <dan.carpenter@oracle.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org
-References: <20221020113759.17402-1-jgross@suse.com>
- <47668d94-6b55-2894-fa6d-82b1f17312bf@suse.com>
- <26bae6db-0e17-2b54-4046-0e85b26f6401@suse.com>
- <7fad3782-daf5-654c-f89d-e4dfb92bbf8f@oracle.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <7fad3782-daf5-654c-f89d-e4dfb92bbf8f@oracle.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------zcyfHE0S2ceMK3XoHgwlW6GL"
+	protocol="application/pgp-signature"; boundary="3GrwXgwMqQJNlss4"
+Content-Disposition: inline
+In-Reply-To: <20220817204634.1886-1-demi@invisiblethingslab.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------zcyfHE0S2ceMK3XoHgwlW6GL
-Content-Type: multipart/mixed; boundary="------------vR7EN6oD0YjsOeoyfv6823Cr";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
- Dan Carpenter <dan.carpenter@oracle.com>, linux-kernel@vger.kernel.org,
- x86@kernel.org
-Message-ID: <69f4f7dd-e630-709d-5aa9-334e349109d9@suse.com>
-Subject: Re: [PATCH] x86/xen: silence smatch warning in pmu_msr_chk_emulated()
-References: <20221020113759.17402-1-jgross@suse.com>
- <47668d94-6b55-2894-fa6d-82b1f17312bf@suse.com>
- <26bae6db-0e17-2b54-4046-0e85b26f6401@suse.com>
- <7fad3782-daf5-654c-f89d-e4dfb92bbf8f@oracle.com>
-In-Reply-To: <7fad3782-daf5-654c-f89d-e4dfb92bbf8f@oracle.com>
 
---------------vR7EN6oD0YjsOeoyfv6823Cr
-Content-Type: multipart/mixed; boundary="------------TNcG0JL7CRY7VAUwTgdr1NZC"
-
---------------TNcG0JL7CRY7VAUwTgdr1NZC
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMjAuMTAuMjIgMTY6MjIsIEJvcmlzIE9zdHJvdnNreSB3cm90ZToNCj4gDQo+IE9uIDEw
-LzIwLzIyIDk6MzQgQU0sIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBPbiAyMC4xMC4yMiAx
-NToxNiwgSmFuIEJldWxpY2ggd3JvdGU6DQo+Pj4gT24gMjAuMTAuMjAyMiAxMzozNywgSnVl
-cmdlbiBHcm9zcyB3cm90ZToNCj4+Pj4gQ29tbWl0IDg3MTRmN2JjZDNjMiAoInhlbi9wdjog
-YWRkIGZhdWx0IHJlY292ZXJ5IGNvbnRyb2wgdG8gcG11IG1zcg0KPj4+PiBhY2Nlc3NlcyIp
-IGludHJvZHVjZWQgY29kZSByZXN1bHRpbmcgaW4gYSB3YXJuaW5nIGlzc3VlZCBieSB0aGUg
-c21hdGNoDQo+Pj4+IHN0YXRpYyBjaGVja2VyLCBjbGFpbWluZyB0byB1c2UgYW4gdW5pbml0
-aWFsaXplZCB2YXJpYWJsZS4NCj4+Pj4NCj4+Pj4gVGhpcyBpcyBhIGZhbHNlIHBvc2l0aXZl
-LCBidXQgd29yayBhcm91bmQgdGhlIHdhcm5pbmcgbmV2ZXJ0aGVsZXNzLg0KPj4+DQo+Pj4g
-VGhlIHJpc2sgb2YgaW50cm9kdWNpbmcgYSBwcm9ibGVtIG1pZ2h0IGJlIHF1aXRlIGxvdyBo
-ZXJlLCBidXQgaW4gZ2VuZXJhbA0KPj4+IGl0IGV4aXN0czogV2l0aCB0aGUgYWRqdXN0bWVu
-dCB5b3UgcmVtb3ZlIGFueSBjaGFuY2Ugb2YgdGhlIGNvbXBpbGVyDQo+Pj4gc3BvdHRpbmcg
-YSBtaXNzaW5nIGluaXRpYWxpemF0aW9uIGJlZm9yZSB1c2UuIEFuZCBJJ20gbm90IGNvbnZp
-bmNlZCB1c2luZw0KPj4+IDAgaW4gc3VjaCBhIGNhc2Ugd291bGQgYWN0dWFsbHkgYmUgZW5k
-aW5nIHVwIHN1ZmZpY2llbnRseSBiZW5pZ24uDQo+Pg0KPj4gSG1tLCBhbiBhbHRlcm5hdGl2
-ZSB3b3VsZCBiZSB0byBpbml0aWFsaXplIGl0IHRvIC0xIGFuZCBhZGQgYSB0ZXN0IGZvciB0
-aGUNCj4+IGluZGV4IHRvIGJlID49IDAgYmVmb3JlIHVzaW5nIGl0Lg0KPj4NCj4+IE9yIHRv
-IGxpdmUgd2l0aCB0aGUgc21hc2ggd2FybmluZyB3aXRoIHRoZSBjaGFuY2UsIHRoYXQgYSBj
-b21waWxlciBtaWdodCBiZQ0KPj4gd2FybmluZyBmb3IgdGhlIHNhbWUgcmVhc29uIGluIHRo
-ZSBmdXR1cmUuDQo+IA0KPiANCj4gSXMgc21hdGNoIGNvbXBsYWluaW5nIGFib3V0IGJvdGgg
-dmFyaWFibGVzIG9yIGp1c3QgaW5kZXg/IFRoZXJlIGFyZSB0d28gY2FzZXMgaW4gDQo+IGlz
-X2ludGVsX3BtdV9tc3IoKSB3aGVyZSBpdCByZXR1cm5zIHRydWUgYnV0IGluZGV4IGlzIG5v
-dCBzZXQgc28gcGVyaGFwcyB0aGF0J3MgDQo+IHdoYXQgYm90aGVycyBzbWF0Y2g/IEl0IHNo
-b2xkIG5vdCBjb21wbGFpbiBpZiBpc19pbnRlbF9wbXVfbXNyKCkgcmV0dXJucyBmYWxzZS4N
-Cg0KSSBkaWRuJ3QgdGVzdCBpdCBteXNlbGYsIHNvIEkgY2FuIG9ubHkgc3BlY3VsYXRlLg0K
-DQpJIGd1ZXNzIHRoZSBwcm9ibGVtIGlzIHdoZW4gaXNfaW50ZWxfcG11X21zcigpIHJldHVy
-bnMgdHJ1ZS4NCg0KSW4gdGhlIGVuZCBJIGRvbid0IHRoaW5rIHdlIGV4cGVjdCBtdWNoIGNv
-ZGUgY2h1cm4gaW4gdGhpcyBhcmVhIGluIHRoZSBmdXR1cmUuDQpJdHMgbm90IGFzIGlmIHRo
-ZSBwbXUgaGFuZGxpbmcgZm9yIFBWIGd1ZXN0cyBpcyBleHBlY3RlZCB0byBiZSBleHRlbmRl
-ZC4NCg0KDQpKdWVyZ2VuDQo=
---------------TNcG0JL7CRY7VAUwTgdr1NZC
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+--3GrwXgwMqQJNlss4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Thu, 20 Oct 2022 16:34:56 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] Use direct I/O for loop devices
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Wed, Aug 17, 2022 at 04:46:34PM -0400, Demi Marie Obenour wrote:
+> This is a huge performance improvement for two reasons:
+>=20
+> 1. It uses the filesystem=E2=80=99s asynchronous I/O support, rather than=
+ using
+>    synchronous I/O.
+> 2. It bypasses the page cache, removing a redundant layer of caching and
+>    associated overhead.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Cross-posting here just in case: this patch breaks block script on
+devices with 4k block size, at least with some util-linux versions.
+More details at https://github.com/QubesOS/qubes-issues/issues/7828
 
---------------TNcG0JL7CRY7VAUwTgdr1NZC--
+> ---
+>  tools/hotplug/Linux/block | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/tools/hotplug/Linux/block b/tools/hotplug/Linux/block
+> index 2691b56951c9b82094471a141b9e0bed04abb929..75785f3a5422c4a5f962a4cd4=
+f6acae5080d036d 100644
+> --- a/tools/hotplug/Linux/block
+> +++ b/tools/hotplug/Linux/block
+> @@ -330,7 +330,7 @@ mount it read-write in a guest domain."
+>          else
+>            roflag=3D''
+>          fi
+> -        do_or_die losetup $roflag "$loopdev" "$file"
+> +        do_or_die losetup --direct-io=3Don $roflag "$loopdev" "$file"
+>          xenstore_write "$XENBUS_PATH/node" "$loopdev"
+>          write_dev "$loopdev"
+>          release_lock "block"
+> --=20
+> Sincerely,
+> Demi Marie Obenour (she/her/hers)
+> Invisible Things Lab
+>=20
 
---------------vR7EN6oD0YjsOeoyfv6823Cr--
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
---------------zcyfHE0S2ceMK3XoHgwlW6GL
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--3GrwXgwMqQJNlss4
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNRXBwFAwAAAAAACgkQsN6d1ii/Ey94
-2Af9FTsQmeKB0W9tHVkHTh2hlh8WkHYaXHtUZtzC6+PfP1bbQ6A+0zEMFnb34/49RqtBRbOxysPw
-EeHMstV6Iki/418N6leZY6ed0MW649g/IxXZMO2W2zL7qk0D6J5j61c8DW5VqtYwXbBbvJUCZ9oF
-4bRtoarCqNnL3hWHoaTZpN6Hat6MG9f9K5Gs53sTc/1kjFEhVZF28K6kiubmq/iOxQGLsOEJFiyj
-tKa4Xe/AkVVfIRT6vYtUGWV6NIsXShndmYPzH1RAV+2YHxi5uLaVEpqUd+Ph8fLVztLFYBoybGmR
-19fBzhNre321KgmIsApMnHEaF0gYkE1amNmbF0qprw==
-=/pVF
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmNRXJAACgkQ24/THMrX
+1yzTSwf+NrQBIPlt+6CU7Yr751HmGxyzYb19e1YB5oQUk2UgKMuVYhAJK3m4uZEH
+kchcO+83pB4p2/s8cSoxs6Fet8eG+lzYcjQI7oHU0giV9KJODbQJoBQv127CWeQs
+rKgm5PudpyKPcaKFexF7dnPa01FubL0kp4qIJkPZUP0uXwrtZLwHGeMOJlf1St7M
+2l8EKBAROkp/gydRidhTWfiP3zEtq3dfx5hjRqpbWHsl9/JKq/C71ULTAv7i9mAB
+iEWGrflN2dqGTtXE37zaYNQLrsO/xg0V3459V+67vVce1GoL5W/y76jpQ4zIdImA
+ccx408YNTwoOsRsO3LlyWieoU3QdPA==
+=xFc5
 -----END PGP SIGNATURE-----
 
---------------zcyfHE0S2ceMK3XoHgwlW6GL--
+--3GrwXgwMqQJNlss4--
 
