@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3336605CF2
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 12:38:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.426427.674892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7BBA605CFD
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 12:38:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.426432.674939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olSwA-0006cz-En; Thu, 20 Oct 2022 10:38:06 +0000
+	id 1olSwG-0007xi-Md; Thu, 20 Oct 2022 10:38:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 426427.674892; Thu, 20 Oct 2022 10:38:06 +0000
+Received: by outflank-mailman (output) from mailman id 426432.674939; Thu, 20 Oct 2022 10:38:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olSw9-0006UF-VX; Thu, 20 Oct 2022 10:38:05 +0000
-Received: by outflank-mailman (input) for mailman id 426427;
- Thu, 20 Oct 2022 10:38:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1olSwF-0007gh-KR; Thu, 20 Oct 2022 10:38:11 +0000
+Received: by outflank-mailman (input) for mailman id 426432;
+ Thu, 20 Oct 2022 10:38:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vz6S=2V=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1olSw6-0005Jb-BD
- for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 10:38:02 +0000
+ id 1olSw8-0005Jc-AT
+ for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 10:38:04 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 45607161-5063-11ed-91b5-6bf2151ebd3b;
- Thu, 20 Oct 2022 12:38:01 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 45b78ea5-5063-11ed-8fd0-01056ac49cbb;
+ Thu, 20 Oct 2022 12:38:02 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5A5941FA44;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DE84D1FA48;
  Thu, 20 Oct 2022 10:38:01 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D649613B72;
- Thu, 20 Oct 2022 10:38:00 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5DB0613AF5;
+ Thu, 20 Oct 2022 10:38:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eOpuMwglUWPPYwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:38:00 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id YBkHFgklUWPPYwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Oct 2022 10:38:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,25 +51,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45607161-5063-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 45b78ea5-5063-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
 	t=1666262281; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4LfKpOswsnembvGTw5A10DEjilDnUQNy6bx3ya4350M=;
-	b=tXd3IWYpE+AANm0xpi3Q23Tyutj9Sdq9yA9FR/7DcSNXy96WtXWQGzMt9IwfCYTCBAQamd
-	THr8pj7rjAn9jU+HaO5SQiMq017TXsYjJcjNLQX83/LJmys2bmCNMCVnK78mXNtDMQ+1z2
-	WEXzB3SfIEWpTepTzbB9H+x+1MnkEYc=
+	bh=TEgpl55AepC361EexBBEYuHLTFWdn6vIDOCsAIRAdbs=;
+	b=AJq1HDi4mThCywNbsDoinhziCOvhwOWDf/KaqbLD9BIxZWF3RJc8Q6yjFbAYUctj7cT5ab
+	ILadHlCgqINQgo4eRiMLMe6NNhv5ATaD+RplwNroGQ8btG2hXvSpioeoFAgK/zzzrH6ohw
+	0J+C55W94IIN5heAULo+EEO3yzDk4tI=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
 	s=susede2_ed25519; t=1666262281;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4LfKpOswsnembvGTw5A10DEjilDnUQNy6bx3ya4350M=;
-	b=hfPPG9Hoyh//3cunThx+JTGWBet+d79xGzcyxY6nrUqT7snss1g85BmKsTMqO7P/1BTPnG
-	RJfDSRgygYZyKVBw==
+	bh=TEgpl55AepC361EexBBEYuHLTFWdn6vIDOCsAIRAdbs=;
+	b=AQCoFHh+2wQhVT9GDAYJbWIYQLcMCP63/l5NM1FsXeL6KZxteKRzRGp//IUiBz30//HCHF
+	VtwNVvPmLxS4YkBw==
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
@@ -100,38 +100,34 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-tegra@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 08/21] drm/vboxvideo: Don't set struct drm_driver.lastclose
-Date: Thu, 20 Oct 2022 12:37:42 +0200
-Message-Id: <20221020103755.24058-9-tzimmermann@suse.de>
+Subject: [PATCH 09/21] drm/panel-ili9341: Include <linux/backlight.h>
+Date: Thu, 20 Oct 2022 12:37:43 +0200
+Message-Id: <20221020103755.24058-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221020103755.24058-1-tzimmermann@suse.de>
 References: <20221020103755.24058-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Don't set struct drm_driver.lastclose. It's used to restore the
-fbdev console. But as vboxvideo uses generic fbdev emulation, the
-console is being restored by the DRM client helpers already. See
-the call to drm_client_dev_restore() in drm_lastclose().
+Include <linux/backlight.h> for devm_of_find_backlight().
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/vboxvideo/vbox_drv.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/panel/panel-ilitek-ili9341.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-index f4f2bd79a7cb6..1cd716eb17a1c 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-@@ -178,8 +178,6 @@ static const struct drm_driver driver = {
- 	.driver_features =
- 	    DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+index 39dc40cf681f0..b59472c29a40d 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9341.c
+@@ -18,6 +18,7 @@
+  * Copyright 2018 David Lechner <david@lechnology.com>
+  */
  
--	.lastclose = drm_fb_helper_lastclose,
--
- 	.fops = &vbox_fops,
- 	.name = DRIVER_NAME,
- 	.desc = DRIVER_DESC,
++#include <linux/backlight.h>
+ #include <linux/bitops.h>
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
 -- 
 2.38.0
 
