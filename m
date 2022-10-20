@@ -2,29 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D75306063CC
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 17:07:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.426885.675644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B2366063D7
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Oct 2022 17:09:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.426892.675655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olX7y-0005DL-Bj; Thu, 20 Oct 2022 15:06:34 +0000
+	id 1olXAD-0005v9-Sr; Thu, 20 Oct 2022 15:08:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 426885.675644; Thu, 20 Oct 2022 15:06:34 +0000
+Received: by outflank-mailman (output) from mailman id 426892.675655; Thu, 20 Oct 2022 15:08:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olX7y-0005BV-8o; Thu, 20 Oct 2022 15:06:34 +0000
-Received: by outflank-mailman (input) for mailman id 426885;
- Thu, 20 Oct 2022 15:06:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1olXAD-0005rp-Pm; Thu, 20 Oct 2022 15:08:53 +0000
+Received: by outflank-mailman (input) for mailman id 426892;
+ Thu, 20 Oct 2022 15:08:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Iaqk=2V=citrix.com=prvs=285ecbe66=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1olX7w-0005BP-JR
- for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 15:06:32 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6c640ed-5088-11ed-8fd0-01056ac49cbb;
- Thu, 20 Oct 2022 17:06:31 +0200 (CEST)
+ <SRS0=2BcH=2V=redhat.com=lvivier@srs-se1.protection.inumbo.net>)
+ id 1olXAD-0005rh-Bs
+ for xen-devel@lists.xenproject.org; Thu, 20 Oct 2022 15:08:53 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1b03c673-5089-11ed-91b5-6bf2151ebd3b;
+ Thu, 20 Oct 2022 17:08:52 +0200 (CEST)
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-218-D4QfYWbMN1mdSupDFAUTCg-1; Thu, 20 Oct 2022 11:08:50 -0400
+Received: by mail-qv1-f71.google.com with SMTP id
+ h3-20020a0ceec3000000b004b17a25f8bcso13202887qvs.23
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Oct 2022 08:08:49 -0700 (PDT)
+Received: from [192.168.100.30] ([82.142.8.70])
+ by smtp.gmail.com with ESMTPSA id
+ q28-20020a05620a2a5c00b006eed14045f4sm7916260qkp.48.2022.10.20.08.08.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Oct 2022 08:08:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,96 +49,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6c640ed-5088-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1666278391;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bVN7ZWAH5fn95rabhI2OjoclmsTOib16zT0YVRWBEjM=;
-  b=fABZkyAKPN1JkI2n3hnN86QgR//xIOkf4kz7hR/GeOf/9zUJJyndLkRa
-   4Hrr6DslNNyJ2ijig9X/yGoT/fJFOqn8CiP5AwUkXXBmhJ3zQ43TBvn+u
-   ZYQarcU8SXDJ+W2GjftBZJ4TsNMQ3RsTUoTLJjLJM9J7FfBT3uhlk5ZHY
-   4=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 85696420
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:L5+ZQqz7YJOneQ45mYF6t+fVxirEfRIJ4+MujC+fZmUNrF6WrkVSx
- 2caWjvSOPaMYmvyLdEgPNuxpEtSuJXQyYJqSwpkpSAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHPykYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbyRFtspvlDs15K6o4WtC5gRnDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw/dgoKGBK8
- aMjOGoIVDbf29ronqOmY7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
- pdHL2o0BPjDS0Qn1lM/AZQinOCulz/nfidRsl69rqsr+WnDigd21dABNfKFJ4LbG5kPxi50o
- Erc1WShISMdF+fG0Bnb0FaRqKzxjBzSDdd6+LqQqacx3Qz7KnYoIBwJV3OrrP+hkEm8VtlDb
- UsO9UIGsqwa5EGtCN7nUHWQgHOCpA9aZNNWHMUz8gTLwa3Riy61B2ULSXh6ddEnrsgeTCYvk
- FSOmrvBLzF1rKecT37b076OtC6zIgAcN2pEbigBJSM97sXuuscTiQPCVf5qCqvzhdrwcRngz
- jbPoCUgirE7ic8Qy7797V3BmyirpJXCUkgy/Aq/Y46+xlonPsj/PdXusAWFq6YbRGqEcrWfl
- H86xOGf6ORRNoHXkRarHLk1Qu+4+t/QZVUwnmVTN5Um8j2s/VuqcoZR/CxyKS9VDyoURdP6S
- BSN4F0Mvfe/KFPvNPYqONzpV6zG2IC6TbzYuubogs2ii3SbXCuO52lQaEGZxAgBe2B8wPhka
- f93nStBZEv26JiLLhLsGo/xMpdxnEjSIF8/oriilnyaPUK2PiL9dFv8GALmghoFxK2Fuh7J1
- N1UKtGHzR5SOMWnPHeJqNdDcQxUdiVhbXwTlyCwXrfZSjeK5Ul7U6OBqV/fU9YNc1tpehfgo
- SjmBx4wJKvXjnzbMwSaAk1ehEfUdc8n9xoTZHV0VX7xgiRLXGpaxPpGH3fBVeJ8r7ILID8dZ
- 6RtRvhs9dwTEGiYqmtAMsSmxGGgHTzy7T+z0+OeSGBXV/Zdq8bhoLcIoiOHGPEyMxeK
-IronPort-HdrOrdr: A9a23:12FmS6FihngCJ35tpLqE6seALOsnbusQ8zAXP0AYc31om+ij5q
- eTdZUgpHvJYVkqNE3I9eruBEDEewK7yXcX2/h1AV7BZniEhILAFugLhuGO/9SjIVydygc079
- YYT0EUMr3N5DZB4/rH3A==
-X-IronPort-AV: E=Sophos;i="5.95,198,1661832000"; 
-   d="scan'208";a="85696420"
-Date: Thu, 20 Oct 2022 16:06:16 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-CC: Peter Hoyes <Peter.Hoyes@arm.com>, Xen developer discussion
-	<xen-devel@lists.xenproject.org>, Diego Sueiro <Diego.Sueiro@arm.com>, "Ian
- Jackson" <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Henry Wang
-	<Henry.Wang@arm.com>
-Subject: Re: [PATCH] tools/xendomains: Restrict domid pattern in LIST_GREP
-Message-ID: <Y1Fj6J/iWYJ4fx8J@perard.uk.xensource.com>
-References: <20221003144216.2297632-1-peter.hoyes@arm.com>
- <E63CD72F-9C98-4EB2-840C-56C46BFD7BA1@arm.com>
+X-Inumbo-ID: 1b03c673-5089-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1666278531;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GQ3dyElTQZpuiNzY8qlpiaTnLAs808Grj4avBqSktKw=;
+	b=TzDAJM7I8a3R1DWXOnFlIuAuKF2T7fuUYHrEsGJlIb8m3BaAxLxk/EE8lgsXatB26EP1tu
+	3zjtI5ggWdFbLEDPmrYJ7mRczqBGF3bGh3wBK3+k45404WIFM11aJqhoY39cFudcb5mGA4
+	TEcR8FeM/XHeKknC3HIg9wb9FaHNzIY=
+X-MC-Unique: D4QfYWbMN1mdSupDFAUTCg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GQ3dyElTQZpuiNzY8qlpiaTnLAs808Grj4avBqSktKw=;
+        b=kiG8HJhq3uTo3OPKb0UPrjLkCsFxoC0GCh0GwLXLKPc3GQpgfmI3ZD2B/YgIbMfPq2
+         dx6yz4WhZJrdbNBRPjGWNalXfI3VAjpz3jhwpHulneHqJ4NNa37oe9Lij7FS/vYW3w4A
+         EWn815ZxAvoP6Qyz7syKr4J3fQTdk1VOne+xk5rxZbicxrVL5Yb3IPo8+b18d8Nxis1n
+         hsog95RMKKqYS6aXqifiE/xfDAUVmRtwq4BQrhivS+B0E3xe468rCLYZICaDaR834hm9
+         Cz80e7GNwkCM0n/1ZGlIP9gNw8h/fLa/bvhpat3row8UNgfdutMM3b+xr045pMkyU+K5
+         s2+A==
+X-Gm-Message-State: ACrzQf3TYVeORaWOYG1TEHvkHeDR1XIPUT0akBy2Yxe5nbmzGMMbwBN8
+	VqV1ItM+joSBqSfM/0O1UTwA7WyB2ukkBmppYJwY9cDZZZSbl3u2mn/0w9tmQtTthIOjVEsdsg7
+	k9xm7UXKKJfefjODQqyj8VCClqEM=
+X-Received: by 2002:a05:620a:4244:b0:6cf:8a7b:3224 with SMTP id w4-20020a05620a424400b006cf8a7b3224mr9668003qko.32.1666278529481;
+        Thu, 20 Oct 2022 08:08:49 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM7Mk82y1w4IUblOwX4CtN0grxQ3paXzht3z6wWUQ6Z2aEgvGzoxxatl5GNWIuPDLGRd5a9rHQ==
+X-Received: by 2002:a05:620a:4244:b0:6cf:8a7b:3224 with SMTP id w4-20020a05620a424400b006cf8a7b3224mr9667958qko.32.1666278529228;
+        Thu, 20 Oct 2022 08:08:49 -0700 (PDT)
+Message-ID: <71247f91-a74e-e497-8376-488e399c8c43@redhat.com>
+Date: Thu, 20 Oct 2022 17:08:44 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <E63CD72F-9C98-4EB2-840C-56C46BFD7BA1@arm.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.3.1
+Subject: Re: [PATCH v12 10/17] net: dgram: make dgram_dst generic
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+ xen-devel@lists.xenproject.org, Eric Blake <eblake@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Greg Kurz <groug@kaod.org>,
+ Jason Wang <jasowang@redhat.com>, Anthony Perard
+ <anthony.perard@citrix.com>, Thomas Huth <thuth@redhat.com>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>, Paul Durrant <paul@xen.org>,
+ Stefan Weil <sw@weilnetz.de>, Markus Armbruster <armbru@redhat.com>,
+ Stefano Brivio <sbrivio@redhat.com>
+References: <20221020091624.48368-1-lvivier@redhat.com>
+ <20221020091624.48368-11-lvivier@redhat.com>
+ <15217f04-d689-7579-1501-320761b2f6e7@linaro.org>
+From: Laurent Vivier <lvivier@redhat.com>
+In-Reply-To: <15217f04-d689-7579-1501-320761b2f6e7@linaro.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 18, 2022 at 08:13:57AM +0000, Bertrand Marquis wrote:
-> Hi,
+On 10/20/22 13:17, Philippe Mathieu-Daudé wrote:
+> On 20/10/22 11:16, Laurent Vivier wrote:
+>> dgram_dst is a sockaddr_in structure. To be able to use it with
+>> unix socket, use a pointer to a generic sockaddr structure.
+>>
+>> Rename it dest_addr, and store socket length in dest_len.
+>>
+>> Signed-off-by: Laurent Vivier <lvivier@redhat.com>
+>> Reviewed-by: Stefano Brivio <sbrivio@redhat.com>
+>> Acked-by: Michael S. Tsirkin <mst@redhat.com>
+>> ---
+>>   net/dgram.c | 82 ++++++++++++++++++++++++++++++++++-------------------
+>>   1 file changed, 53 insertions(+), 29 deletions(-)
 > 
-> Gentil ping on this one as it might be a suitable one for 4.17
+>>   static NetClientInfo net_dgram_socket_info = {
+>> @@ -260,7 +263,7 @@ static NetDgramState *net_dgram_fd_init(NetClientState *peer,
+>>                                           SocketAddress *mcast,
+>>                                           Error **errp)
+>>   {
+>> -    struct sockaddr_in saddr;
+>> +    struct sockaddr_in *saddr = NULL;
+> 
+> Preferrably g_autofree.
 
-Yeah, that might be a good bug fix to have.
+No, because saddr pointer is copied to s->dest_addr.
 
-> > On 3 Oct 2022, at 15:42, Peter Hoyes <Peter.Hoyes@arm.com> wrote:
-> > From: Peter Hoyes <Peter.Hoyes@arm.com>
-> > 
-> > The xendomains script uses the output of `xl list -l` to collect the
-> > id and name of each domain, which is used in the shutdown logic, amongst
-> > other purposes.
-> > 
-> > The linked commit added a "domid" field to libxl_domain_create_info.
-> > This causes the output of `xl list -l` to contain two "domid"s per
-> > domain, which may not be equal. This in turn causes `xendomains stop` to
-> > issue two shutdown commands per domain, one of which is to a duplicate
-> > and/or invalid domid.
-> > 
-> > To work around this, make the LIST_GREP pattern more restrictive for
-> > domid, so it only detects the domid at the top level and not the domid
-> > inside c_info.
-> > 
-> > Fixes: 4a3a25678d92 ("libxl: allow creation of domains with a specified
-> > or random domid")
-> > Signed-off-by: Peter Hoyes <Peter.Hoyes@arm.com>
+...
+>> @@ -339,21 +342,24 @@ static int net_dgram_mcast_init(NetClientState *peer,
+>>   {
+>>       NetDgramState *s;
+>>       int fd, ret;
+>> -    struct sockaddr_in saddr;
+>> +    struct sockaddr_in *saddr;
+> 
+> Preferrably:
+> 
+>    g_autofree struct sockaddr_in *saddr = NULL.
 
-Parsing json with bash, grep and sed, what could go wrong :-). Anyway,
-patch looks fine:
-
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+The same here.
 
 Thanks,
+Laurent
 
--- 
-Anthony PERARD
 
