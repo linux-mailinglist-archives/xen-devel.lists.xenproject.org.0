@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0410607D73
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 19:24:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427915.677530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBDB1607D7A
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 19:26:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.427920.677541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olvkl-0001vu-UP; Fri, 21 Oct 2022 17:24:15 +0000
+	id 1olvmV-0002c4-9d; Fri, 21 Oct 2022 17:26:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427915.677530; Fri, 21 Oct 2022 17:24:15 +0000
+Received: by outflank-mailman (output) from mailman id 427920.677541; Fri, 21 Oct 2022 17:26:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olvkl-0001sm-RG; Fri, 21 Oct 2022 17:24:15 +0000
-Received: by outflank-mailman (input) for mailman id 427915;
- Fri, 21 Oct 2022 17:24:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JRa2=2W=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1olvkl-0001se-4a
- for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 17:24:15 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ede1399-5165-11ed-8fd0-01056ac49cbb;
- Fri, 21 Oct 2022 19:24:14 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id w18so6024283wro.7
- for <xen-devel@lists.xenproject.org>; Fri, 21 Oct 2022 10:24:14 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- k2-20020a5d6e82000000b0022ccae2fa62sm19434778wrz.22.2022.10.21.10.24.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Oct 2022 10:24:12 -0700 (PDT)
+	id 1olvmV-0002Zb-5f; Fri, 21 Oct 2022 17:26:03 +0000
+Received: by outflank-mailman (input) for mailman id 427920;
+ Fri, 21 Oct 2022 17:26:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1olvmT-0002ZT-Py
+ for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 17:26:01 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1olvmS-00085s-JC; Fri, 21 Oct 2022 17:26:00 +0000
+Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ helo=[192.168.29.168]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1olvmS-0003qB-By; Fri, 21 Oct 2022 17:26:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,249 +39,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ede1399-5165-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TUDQoD3HFruzS+T2pXmbko4NFchZqtcIPSOZUX4d550=;
-        b=ITMQlOUOpKIaUb753f69rhurvrbbWWrVSvFktbbmPh7tmWLRF3eR/90Ui4xQ3sf6lg
-         T3UjNTi4gbpv3zs0ziHMJJeyBWb9EX3bXKB51VtEwdWQDA21roxTplZ1zU5VylENRoGv
-         WXiq7x9aKTkqpEvuhsK82qZb0LuoD0/ge38Sm1QQd4hX7zYe7oShFlwyjTGEP07ZAaiK
-         /n5U6w2CZ7/qShG4kFFFTgiBGK+2BRJfn94qsmg84ASr97i1cuY+0llqZmRwQ+skjjfk
-         bIZGPME2oS53l46ziNYQ8BsuWyX9mzAALAb2X99LkS0ku++bKL0cZptXG+deegNOQWr6
-         oXCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TUDQoD3HFruzS+T2pXmbko4NFchZqtcIPSOZUX4d550=;
-        b=vZFeywvpT2I0k0liTmfQLaZCQnXbbJEJSll0JCEJONXXJ8BA9J7DfuzWX76O2pV3oP
-         6+P0IS2PIbAtf9RwYfUW02x/gnEK3WkTstYGllP+8xOXRLZ2Itztk8sxZ3pZwg+yYLKO
-         FfxsopLoIOejirRCXCWKWpzor2cFOIZPMnCC2BPJPnEZ0JQryc+OYVVBQQovuuoKmgAe
-         ilX+qbEbYh4CRWesbjWgAG/dmZbbgzCO12zQ2YsbifUqGJlbu/recs1rvHkmX/oCgShO
-         QtdN1cDLR6gRx0c5t7n4c9aEvhLwlRUUYAh4me/l6MVBqF7+V4HR39vzaeIO7KfsA+X9
-         1QPw==
-X-Gm-Message-State: ACrzQf2QtmnQsSRooxR2FPJsq+SdyEy5icl2BF3c3ZF2OTy1pj/pSscd
-	29vxAa/lLanOi0qvmLcr18iZXgD043U=
-X-Google-Smtp-Source: AMsMyM7cpK0FOcQrHC09rUmFCtFtUK6wzLIOLlA1V3/FyhaQt9J57gGebYe6YylFQ+DmvNp+rMG5eg==
-X-Received: by 2002:adf:cf06:0:b0:236:4c12:47a7 with SMTP id o6-20020adfcf06000000b002364c1247a7mr4878514wrj.543.1666373052898;
-        Fri, 21 Oct 2022 10:24:12 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>
-Subject: [PATCH V3] xen/virtio: Handle PCI devices which Host controller is described in DT
-Date: Fri, 21 Oct 2022 20:24:08 +0300
-Message-Id: <20221021172408.77397-1-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.25.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=AsxB9Sl6mZH8WBJEcs4TjcSIZKpYwIPbeEV1vL6bZKQ=; b=x7vlH/fbpH/cFM++IGY/hpv0Nb
+	4SL6i3pBqIu6MOS0qpLArGO4r4vSSZ0vZ9PL6Cm/6gCgmLa6VVwote/ibBMveuOPu10vIz6K23GFH
+	AnkgOdeMNCtcxFww8MrUggWnHqzrQgpgT4tYfVbjqXPE3LzCsHeIEHqyesL5jZjRDmU8=;
+Message-ID: <b800a6a8-97da-bfb3-81bb-230592ce19e1@xen.org>
+Date: Fri, 21 Oct 2022 18:25:57 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.3
+Subject: Re: [PATCH 02/12] xen/arm: add cache coloring initialization for
+ domains
+Content-Language: en-US
+To: Wei Chen <Wei.Chen@arm.com>, Carlo Nonato <carlo.nonato@minervasys.tech>,
+ xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it,
+ andrea.bastoni@minervasys.tech, lucmiccio@gmail.com,
+ Marco Solieri <marco.solieri@minervasys.tech>
+References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
+ <20220826125111.152261-3-carlo.nonato@minervasys.tech>
+ <fe58de74-8bf5-50df-eb32-2d479758bfd8@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <fe58de74-8bf5-50df-eb32-2d479758bfd8@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Use the same "xen-grant-dma" device concept for the PCI devices
-behind device-tree based PCI Host controller, but with one modification.
-Unlike for platform devices, we cannot use generic IOMMU bindings
-(iommus property), as we need to support more flexible configuration.
-The problem is that PCI devices under the single PCI Host controller
-may have the backends running in different Xen domains and thus have
-different endpoints ID (backend domains ID).
 
-Add ability to deal with generic PCI-IOMMU bindings (iommu-map/
-iommu-map-mask properties) which allows us to describe relationship
-between PCI devices and backend domains ID properly.
+On 26/09/2022 07:39, Wei Chen wrote:
+> 
+> 
+> On 2022/8/26 20:51, Carlo Nonato wrote:
+>> This commit adds array pointers to domains as well as to the hypercall
+>> and configuration structure employed in domain creation. The latter is 
+>> used
+>> both by the toolstack and by Xen itself to pass configuration data to the
+>> domain creation function, so the XEN_GUEST_HANDLE macro must be 
+>> adopted to be
+>> able to access guest memory in the first case. This implies special 
+>> care for
+>> the copy of the configuration data into the domain data, meaning that a
+>> discrimination variable for the two possible code paths (coming from 
+>> Xen or
+>> from the toolstack) is needed.
+>>
+>> The initialization and free functions for colored domains are also added.
+>> The former is responsible for allocating and populating the color array
+>> of the domain and it also checks for configuration issues. One of those
+>> issues is enabling both coloring and directmap for the domain because 
+>> they
+>> contradicts one another. Since that, Dom0 must not be created with the
+>> directmap flag.
+>> The latter instead frees allocated memory.
+>>
+>> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+>> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+>> ---
+>>   docs/misc/arm/cache-coloring.rst    |  7 ++--
+>>   xen/arch/arm/coloring.c             | 56 +++++++++++++++++++++++++++++
+>>   xen/arch/arm/domain.c               | 11 ++++++
+>>   xen/arch/arm/domain_build.c         | 13 +++++--
+>>   xen/arch/arm/include/asm/coloring.h |  7 ++++
+>>   xen/arch/arm/include/asm/domain.h   |  4 +++
+>>   xen/include/public/arch-arm.h       |  8 +++++
+>>   7 files changed, 102 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/docs/misc/arm/cache-coloring.rst 
+>> b/docs/misc/arm/cache-coloring.rst
+>> index c7adcb0f1f..345d97cb56 100644
+>> --- a/docs/misc/arm/cache-coloring.rst
+>> +++ b/docs/misc/arm/cache-coloring.rst
+>> @@ -13,7 +13,7 @@ In order to enable and use it, few steps are needed.
+>>     (refer to menuconfig help for value meaning and when it should be 
+>> changed).
+>>           CONFIG_MAX_CACHE_COLORS=<n>
+>> -- Assign colors to Dom0 using the `Color selection format`_ (see
+>> +- Assign colors to domains using the `Color selection format`_ (see
+>>     `Coloring parameters`_ for more documentation pointers).
+>>   Background
+>> @@ -109,4 +109,7 @@ Coloring parameters
+>>   LLC way size (as previously discussed) and Dom0 colors can be set 
+>> using the
+>>   appropriate command line parameters. See the relevant documentation in
+>> -"docs/misc/xen-command-line.pandoc".
+>> \ No newline at end of file
+>> +"docs/misc/xen-command-line.pandoc".
+>> +
+>> +Note that if no color configuration is provided for domains, they 
+>> fallback to
+>> +the default one, which corresponds simply to all available colors.
+>> \ No newline at end of file
+>> diff --git a/xen/arch/arm/coloring.c b/xen/arch/arm/coloring.c
+>> index c010ebc01b..2b37cda067 100644
+>> --- a/xen/arch/arm/coloring.c
+>> +++ b/xen/arch/arm/coloring.c
+>> @@ -22,6 +22,7 @@
+>>    * along with this program.  If not, see 
+>> <http://www.gnu.org/licenses/>.
+>>    */
+>>   #include <xen/errno.h>
+>> +#include <xen/guest_access.h>
+>>   #include <xen/keyhandler.h>
+>>   #include <xen/param.h>
+>>   #include <xen/types.h>
+>> @@ -211,6 +212,61 @@ bool __init coloring_init(void)
+>>       return true;
+>>   }
+>> +int domain_coloring_init(struct domain *d,
+>> +                         const struct xen_arch_domainconfig *config)
+>> +{
+>> +    if ( is_domain_direct_mapped(d) )
+>> +    {
+>> +        printk(XENLOG_ERR
+>> +               "Can't enable coloring and directmap at the same time 
+>> for %pd\n",
+>> +               d);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    if ( is_hardware_domain(d) )
+>> +    {
+>> +        d->arch.colors = dom0_colors;
+>> +        d->arch.num_colors = dom0_num_colors;
+>> +    }
+>> +    else if ( config->num_colors == 0 )
+>> +    {
+>> +        printk(XENLOG_WARNING
+>> +               "Color config not found for %pd. Using default\n", d);
+>> +        d->arch.colors = xzalloc_array(unsigned int, max_colors);
+>> +        d->arch.num_colors = set_default_domain_colors(d->arch.colors);
+>> +    }
+>> +    else
+>> +    {
+>> +        d->arch.colors = xzalloc_array(unsigned int, 
+>> config->num_colors);
+>> +        d->arch.num_colors = config->num_colors;
+>> +        if ( config->from_guest )
+>> +            copy_from_guest(d->arch.colors, config->colors, 
+>> config->num_colors);
+>> +        else
+>> +            memcpy(d->arch.colors, config->colors.p,
+>> +                   sizeof(unsigned int) * config->num_colors);
+>> +    }
+>> +
+>> +    if ( !d->arch.colors )
+>> +    {
+>> +        printk(XENLOG_ERR "Colors allocation failed for %pd\n", d);
+>> +        return -ENOMEM;
+>> +    }
+>> +
+>> +    if ( !check_colors(d->arch.colors, d->arch.num_colors) )
+>> +    {
+> 
+> If we add xfree(d->arch.colors) here for non-hw domains, is it possible 
+> to make this function have a complete fallback process? And I know 
+> currently, this is handled in domain_coloring_free.
 
-To avoid having to look up for the PCI Host bridge twice and reduce
-the amount of checks pass an extra struct device_node *np to both
-xen_dt_grant_init_backend_domid() and xen_is_dt_grant_dma_device().
-While at it also pass domid_t *backend_domid instead of
-struct xen_grant_dma_data *data to the former.
+arch_domain_destroy() (and therefore domain_coloring_free()) will always 
+be called by arch_domain_create(). So here you will want to use XFREE() 
+to avoid a double free.
 
-So with current patch the code expects iommus property for the platform
-devices and iommu-map/iommu-map-mask properties for PCI devices.
+However, I would just rely on the free() in domain_coloring_free().
 
-The example of generated by the toolstack iommu-map property
-for two PCI devices 0000:00:01.0 and 0000:00:02.0 whose
-backends are running in different Xen domains with IDs 1 and 2
-respectively:
-iommu-map = <0x08 0xfde9 0x01 0x08 0x10 0xfde9 0x02 0x08>;
+Cheers,
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-Slightly RFC. This is needed to support Xen grant mappings for virtio-pci devices
-on Arm at some point in the future. The Xen toolstack side is not completely ready yet.
-Here, for PCI devices we use more flexible way to pass backend domid to the guest
-than for platform devices.
-
-Changes V1 -> V2:
-   - update commit description
-   - rebase
-   - rework to use generic PCI-IOMMU bindings instead of generic IOMMU bindings
-
-Changes V2 -> V3:
-   - update commit description, add an example
-   - drop xen_dt_map_id() and squash xen_dt_get_pci_host_node() with
-     xen_dt_get_node()
-   - pass struct device_node *np to xen_is_dt_grant_dma_device() and
-     xen_dt_grant_init_backend_domid()
-   - pass domid_t *backend_domid instead of struct xen_grant_dma_data *data
-     to xen_dt_grant_init_backend_domid()
-
-Previous discussion is at:
-https://lore.kernel.org/xen-devel/20221006174804.2003029-1-olekstysh@gmail.com/
-https://lore.kernel.org/xen-devel/20221015153409.918775-1-olekstysh@gmail.com/
-
-Based on:
-https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git/log/?h=for-linus-6.1
----
- drivers/xen/grant-dma-ops.c | 80 ++++++++++++++++++++++++++++++-------
- 1 file changed, 66 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-index daa525df7bdc..76b29d20aeee 100644
---- a/drivers/xen/grant-dma-ops.c
-+++ b/drivers/xen/grant-dma-ops.c
-@@ -10,6 +10,7 @@
- #include <linux/module.h>
- #include <linux/dma-map-ops.h>
- #include <linux/of.h>
-+#include <linux/pci.h>
- #include <linux/pfn.h>
- #include <linux/xarray.h>
- #include <linux/virtio_anchor.h>
-@@ -292,12 +293,37 @@ static const struct dma_map_ops xen_grant_dma_ops = {
- 	.dma_supported = xen_grant_dma_supported,
- };
- 
--static bool xen_is_dt_grant_dma_device(struct device *dev)
-+static struct device_node *xen_dt_get_node(struct device *dev)
- {
--	struct device_node *iommu_np;
-+	if (dev_is_pci(dev)) {
-+		struct pci_dev *pdev = to_pci_dev(dev);
-+		struct pci_bus *bus = pdev->bus;
-+
-+		/* Walk up to the root bus to look for PCI Host controller */
-+		while (!pci_is_root_bus(bus))
-+			bus = bus->parent;
-+
-+		return of_node_get(bus->bridge->parent->of_node);
-+	}
-+
-+	return of_node_get(dev->of_node);
-+}
-+
-+static bool xen_is_dt_grant_dma_device(struct device *dev,
-+					struct device_node *np)
-+{
-+	struct device_node *iommu_np = NULL;
- 	bool has_iommu;
- 
--	iommu_np = of_parse_phandle(dev->of_node, "iommus", 0);
-+	if (dev_is_pci(dev)) {
-+		struct pci_dev *pdev = to_pci_dev(dev);
-+		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
-+
-+		if (of_map_id(np, rid, "iommu-map", "iommu-map-mask", &iommu_np, NULL))
-+			return false;
-+	} else
-+		iommu_np = of_parse_phandle(np, "iommus", 0);
-+
- 	has_iommu = iommu_np &&
- 		    of_device_is_compatible(iommu_np, "xen,grant-dma");
- 	of_node_put(iommu_np);
-@@ -307,9 +333,17 @@ static bool xen_is_dt_grant_dma_device(struct device *dev)
- 
- bool xen_is_grant_dma_device(struct device *dev)
- {
-+	struct device_node *np;
-+
- 	/* XXX Handle only DT devices for now */
--	if (dev->of_node)
--		return xen_is_dt_grant_dma_device(dev);
-+	np = xen_dt_get_node(dev);
-+	if (np) {
-+		bool ret;
-+
-+		ret = xen_is_dt_grant_dma_device(dev, np);
-+		of_node_put(np);
-+		return ret;
-+	}
- 
- 	return false;
- }
-@@ -323,14 +357,26 @@ bool xen_virtio_mem_acc(struct virtio_device *dev)
- }
- 
- static int xen_dt_grant_init_backend_domid(struct device *dev,
--					   struct xen_grant_dma_data *data)
-+					   struct device_node *np,
-+					   domid_t *backend_domid)
- {
--	struct of_phandle_args iommu_spec;
-+	struct of_phandle_args iommu_spec = { .args_count = 1 };
- 
--	if (of_parse_phandle_with_args(dev->of_node, "iommus", "#iommu-cells",
--			0, &iommu_spec)) {
--		dev_err(dev, "Cannot parse iommus property\n");
--		return -ESRCH;
-+	if (dev_is_pci(dev)) {
-+		struct pci_dev *pdev = to_pci_dev(dev);
-+		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
-+
-+		if (of_map_id(np, rid, "iommu-map", "iommu-map-mask", &iommu_spec.np,
-+				iommu_spec.args)) {
-+			dev_err(dev, "Cannot translate ID\n");
-+			return -ESRCH;
-+		}
-+	} else {
-+		if (of_parse_phandle_with_args(np, "iommus", "#iommu-cells",
-+				0, &iommu_spec)) {
-+			dev_err(dev, "Cannot parse iommus property\n");
-+			return -ESRCH;
-+		}
- 	}
- 
- 	if (!of_device_is_compatible(iommu_spec.np, "xen,grant-dma") ||
-@@ -346,7 +392,7 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
- 	 * The endpoint ID here means the ID of the domain where the
- 	 * corresponding backend is running
- 	 */
--	data->backend_domid = iommu_spec.args[0];
-+	*backend_domid = iommu_spec.args[0];
- 
- 	return 0;
- }
-@@ -354,6 +400,7 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
- void xen_grant_setup_dma_ops(struct device *dev)
- {
- 	struct xen_grant_dma_data *data;
-+	struct device_node *np;
- 
- 	data = find_xen_grant_dma_data(dev);
- 	if (data) {
-@@ -365,8 +412,13 @@ void xen_grant_setup_dma_ops(struct device *dev)
- 	if (!data)
- 		goto err;
- 
--	if (dev->of_node) {
--		if (xen_dt_grant_init_backend_domid(dev, data))
-+	np = xen_dt_get_node(dev);
-+	if (np) {
-+		int ret;
-+
-+		ret = xen_dt_grant_init_backend_domid(dev, np, &data->backend_domid);
-+		of_node_put(np);
-+		if (ret)
- 			goto err;
- 	} else if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT)) {
- 		dev_info(dev, "Using dom0 as backend\n");
 -- 
-2.25.1
-
+Julien Grall
 
