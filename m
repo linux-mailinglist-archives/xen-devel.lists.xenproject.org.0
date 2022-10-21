@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB03D607469
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 11:46:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427512.676647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A53660749F
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 12:06:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.427517.676658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olobX-0004uI-RR; Fri, 21 Oct 2022 09:46:15 +0000
+	id 1olouT-0007Zw-E4; Fri, 21 Oct 2022 10:05:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427512.676647; Fri, 21 Oct 2022 09:46:15 +0000
+Received: by outflank-mailman (output) from mailman id 427517.676658; Fri, 21 Oct 2022 10:05:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olobX-0004sB-O7; Fri, 21 Oct 2022 09:46:15 +0000
-Received: by outflank-mailman (input) for mailman id 427512;
- Fri, 21 Oct 2022 09:46:13 +0000
+	id 1olouT-0007Xl-9r; Fri, 21 Oct 2022 10:05:49 +0000
+Received: by outflank-mailman (input) for mailman id 427517;
+ Fri, 21 Oct 2022 10:05:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VH1f=2W=suse.com=dfaggioli@srs-se1.protection.inumbo.net>)
- id 1olobV-0004s5-Rm
- for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 09:46:13 +0000
-Received: from EUR03-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur03on2050.outbound.protection.outlook.com [40.107.103.50])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RYXF=2W=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1olouR-0007Xf-5a
+ for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 10:05:47 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f0c5aeb-5125-11ed-8fd0-01056ac49cbb;
- Fri, 21 Oct 2022 11:45:13 +0200 (CEST)
-Received: from PAXPR04MB8366.eurprd04.prod.outlook.com (2603:10a6:102:1be::12)
- by DU2PR04MB8824.eurprd04.prod.outlook.com (2603:10a6:10:2e3::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29; Fri, 21 Oct
- 2022 09:46:10 +0000
-Received: from PAXPR04MB8366.eurprd04.prod.outlook.com
- ([fe80::64e2:acbd:4d56:fcca]) by PAXPR04MB8366.eurprd04.prod.outlook.com
- ([fe80::64e2:acbd:4d56:fcca%5]) with mapi id 15.20.5723.035; Fri, 21 Oct 2022
- 09:46:10 +0000
+ id ca679280-5127-11ed-8fd0-01056ac49cbb;
+ Fri, 21 Oct 2022 12:04:46 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id bp11so3736287wrb.9
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Oct 2022 03:05:45 -0700 (PDT)
+Received: from [10.50.0.10]
+ (ec2-54-194-108-71.eu-west-1.compute.amazonaws.com. [54.194.108.71])
+ by smtp.gmail.com with ESMTPSA id
+ l24-20020a1c7918000000b003b50428cf66sm2082907wme.33.2022.10.21.03.05.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Oct 2022 03:05:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,159 +45,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f0c5aeb-5125-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FXr0xneFeqF7t5efilawGLaNeFH72IvwwVoPsrpOT0ZTOflJVBz/NDjwNv7G5g2gV4k5aD8v30H5IjW//6OIFMWUrbNKi5g5EOlYrtSnOBtHv0xEHBzuDkpmdy9zpLAARBC2Hw7jK0UFGbijBDn+TXnTp867XDKGjDUQ0EHq5LscoMptkRJKoFd+zagDo/Ys96dw/9Gggrf/2gYQgQaYHkee219PL2PRLaskdMiYcWPr2vFtoSPww3khwcX9RDgfLu4iG4ihFTd+QZWqdheg47HfLVq4iEgwJf1S9CMXL7Jdf7WaFwUAL5DlHxlcwha3p3lCwntUVKAglxktW9pj9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pbaUhrPzOyoQfGzuUbY90ly4Jm7GEJnjoyzzbmaYVYY=;
- b=D84scHj+hcFQ1TaxrIIouHbjtjBBQAWGAyUfsAobBPJtKFewWplBDVFY0khyBJzUacYVv8euJPuYu/sDG9dSGfRgEax88PqJV0wZBUSqpXi/h2eKysowUta8X0Mk2LJms9xocgCjpbbSn6pnHDYg7Mkyyv1NsjBEZRI8fMRzounX9Rb2aHJCw+fTQZ2Q6+C3RuZzQhHBMDMh8uKR/zbpTWDy3kwGt109OSkEYcvtFAhKnvSRHQPLKTftZK3A6yhYBzu9cXe/HDOaJP8s9rOx7YD6IJIt7QoY2G6G8KBdytx/LaGUkCJwjwe1xileLucQk9gWYDhCwlTCgkITIfUGVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pbaUhrPzOyoQfGzuUbY90ly4Jm7GEJnjoyzzbmaYVYY=;
- b=aBHfG1stdPXdgMRFaNTSJsJzbCRw0hgwi+hbCJcZLtgQkWC4ZGjLrIWtI9Kq2c4Dj/AymvATu2aQ5pETMbvsSh12J8WYcM/anMtGsSoncQLACI8tnsQ1mRugVkzxUu6QY/0/3Kh1emJznrHfUqNHZi9VRY4XA/y5VpHtfeoewKeXD1N19ZIxYfY6BQlr7R5Lxh6urCdDtZVDqqvxMyaaLXoeCHEg3k9wJ0RBYjOtEOEbX2A7v6LeyQLyde0CYfJCUNhZQcr/djcQalCkOyup9qIkyxBsWqQKBepiwnQQ8HfGCAJ1R55S2hql+O5+n2WHzFMwjwMgm5L5v7SutdegUw==
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <jgross@suse.com>, "Mykyta_Poturai@epam.com"
-	<Mykyta_Poturai@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"bertrand.marquis@arm.com" <bertrand.marquis@arm.com>,
-	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, "julien@xen.org"
-	<julien@xen.org>
-Subject: Re: [PATCH 17/19] xen: don't free percpu areas during suspend
-Thread-Topic: [PATCH 17/19] xen: don't free percpu areas during suspend
-Thread-Index: AQHY2jgm2f/PHlobT0esfUs820FvA64CyFEAgBXnIgA=
-Date: Fri, 21 Oct 2022 09:46:10 +0000
-Message-ID: <ce5af168d2889aca8e4475da9103f3718213836c.camel@suse.com>
-References: <cover.1665137247.git.mykyta_poturai@epam.com>
-	 <37f0f84cdaf47b1efda59f0368998183dff88a3b.1665137247.git.mykyta_poturai@epam.com>
-	 <87437234-02ce-b18e-8442-c081de259ed9@suse.com>
-In-Reply-To: <87437234-02ce-b18e-8442-c081de259ed9@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.46.0 (by Flathub.org)) 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB8366:EE_|DU2PR04MB8824:EE_
-x-ms-office365-filtering-correlation-id: 3fb7b11c-c8c6-40f4-588c-08dab34915b4
-x-ld-processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- wPgd9+KXZ7FiPGylkM5puNy2hHAUHrj0ELjN0eD/3AyJin4arZ/Cpaf36NfzHGVtTly8xV0tkhyQ9F1XZna/xG5AYCclTqP5/UyfpAI++ARShlKr3gi+Rb06qD3bMTHcQ4TvQvyhBJ08V2p4babhifEyvmKGRl3uBQrmqLDb598CQEHwHA5NOXxTffwLvCTdLpXo8030Vr5ACKrPl0iFs5kacRm8X/g2bL2wxxmUV9b69lV6RYF8DwcAAA5lxeOBK6YFAN0YsLIFoKBsYlffhFlFTyMhs/uwHxT6CUb2P+1Esd8pzWxC1U47Osj8DFWNggXVo8yFtpWys6Yv/HsqPvHwZtU7JuS0Caofiinm04mhbT4YVThnP6ZBWObBM26EvT8GT9dm5uaZlziChtKIhl0v51xKlUq3lQw34DYAVjjjk07/m73dy9TyFCYHMl8rDX/4vhytYDpJlsSxLh41iswNAx1XUAJAaXEEt+vfH8KziJse8OfkEBwmPjvUAnWVZY7WQOcd60DqAf64L1fHXeQNEh9vdM3vg8QOVbr1MPcBtGMYpsUtTGcGx9XFhFwFQxWJX7BZsBnaSqmk/3FrwX94H3JBZBv7gy8S7Kh1HtBL7pvHzYoKFAkt4drqqPKM//13crtYF+EJjIUy6Wa3A7TkfMMVIMh4VSnhcRHpSNSW3wKt9klwYbMjQXBq50RRfFSqttBL9RgwJIxhm6SBpfpp4GfkRnlCH9ENpdl2qzT7iMWPUH6LX+HwSFSaeo544dUnp/lwNhLrxkILrbeqJSl84Czf5Aafyljo+aW8ujuHn4cXj+ryAQS29MsJ5RsqNoedzKwLUN2h7YmPaZPLAw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(396003)(376002)(136003)(366004)(346002)(451199015)(86362001)(54906003)(2906002)(38100700002)(6512007)(26005)(5660300002)(4326008)(66476007)(8936002)(41300700001)(91956017)(53546011)(8676002)(64756008)(66946007)(66446008)(66556008)(76116006)(6506007)(110136005)(4744005)(38070700005)(316002)(186003)(2616005)(71200400001)(36756003)(966005)(6486002)(478600001)(99936003)(122000001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?aFAyMlhzWG5WMjJZU0x2RU5OdTZlanVUN2lucjhmVDVRR2grTldWOWhhVldh?=
- =?utf-8?B?SEpGZkFhNFR5WVZaQW02a0xjSFh5MWpYZFNkZnRFUWl3cWJUZjhkQllhL0Rn?=
- =?utf-8?B?S3cwYm1FM3BJOFhpRUF5TUdvbmtlY3ZPU0ZRQ1hKWDh0Ull5ZnJEZmoxODZn?=
- =?utf-8?B?WVYzRDd1OW1EUzl0OUs0Q0RWZkNpZHE2UWJVUFJ6MVcxSFhmMjRlbWFwRWEv?=
- =?utf-8?B?TkJmTlhXaTJhSlhMcFE2UVhPQ2hGUitkaktKTFo3clA3N0RQT1EyR1FrOEdZ?=
- =?utf-8?B?VVVsR0w3aUFaSHdlNkNvYS9kTEZxSmlPa2hzWjdzUUZ3YS8rRkpRYllzc1li?=
- =?utf-8?B?RlFqRy84bWt2NXIxVXdHQ1N5TXJiUlhCTHFVTFR4cGpHTjFETGk1ckl5OUFk?=
- =?utf-8?B?eEhBZS9jdldDK0l0MVk2UnA1T1d0NUxBVVQzNDhEbGVmejdSeUZhSGF3V3BI?=
- =?utf-8?B?T3BpOTBFZm5zbVpJOUVtWnNzWFoyRUMwaitBRkVEcGJxcktBZERvNGZIL21P?=
- =?utf-8?B?eEh3VFJBbURCOGhmYlRsOXZkczJDVFZUUDhTbk9FblUzd0MvUEZRR2NzZ2ho?=
- =?utf-8?B?NFNpNitBZmtxelY3N3ZQWTRUek12RlU5Q1ZWRy9LR2FZd04xNENRMHpXV2pI?=
- =?utf-8?B?MHVCZjlQZ1g1U2ZQbjNqNm1VNGZjMmZMZVVuM1ZDWnZ4MHRNbWhYYnIzYllX?=
- =?utf-8?B?Q29JblMrZGFxdEo5QjFjM1dBWnpDSUU1V1AzNG9sNk9VeHJycEtHTHBoNzNm?=
- =?utf-8?B?ZXNJeE5UckY1ZTRHQ1FVbFlBT2phQzIvOTBzaE44ZG1iQ1AwRVErUGlwQVhp?=
- =?utf-8?B?VlpCNUI4VG42dWxEbmlPRUdqS1l3NExZS3o2WGFEdmQzY1VWRlNISFBvRERF?=
- =?utf-8?B?UW5kbmc3cXZUaVVNQU5Kcll3RlJWZnFJNG11Vlk2SUpwdGR2eUU0L1pOT0NG?=
- =?utf-8?B?dTd4SWthWUlVL3FmYkErTkRmMC8raDZFU2tYWkloQTB1QjZoVk9HQ1FMMnA0?=
- =?utf-8?B?VkpQcUNwQk0vVnUrc29ONWVUeHpVbGZmekdpUTJTSzRTV2xUZElzVWl2aEJs?=
- =?utf-8?B?ckZQaTBoMzByZVF0SDQzUnBPa3N1YXFWTXB1bzRZbmJGRnQ3V0RTZTY1dUtH?=
- =?utf-8?B?cmM4YW80ZzF5VFpRRnZya2o1c2pQVzdCTXBBR2tjS2RWL3RYQXFtamY3eW5Z?=
- =?utf-8?B?TkM1VU5EbHM5cC81ZlBWMTVMdE9BdU5VODZsTEVlTUltQ1JvS2Z0ci9FV3ow?=
- =?utf-8?B?ZURBb3lLVUlpVklLZyt0MFRrQWJoUG81blNrK1l1aUw1bVdScGxMUGFqODZW?=
- =?utf-8?B?V21URVNwMnc4SmVCcHIvdnI0OXo5S2hmSDNLcVNXWkZrQjVUZ0tYUEM5bWY2?=
- =?utf-8?B?dEJUc0g2bDBaYzBrdWV3cjg4VGpaZWZBYzJSUXpYd24rZGxKOG5yRHBhNFEv?=
- =?utf-8?B?ZkdNamxsQ2tGRXlUK0t2TlRQQUd4R3IxQ3lQZC9icnNWTXVFNjdLOHZDRFVP?=
- =?utf-8?B?T1hlekIzaDRMaDVkRlFDT3gxcmlPQUpwcGR6d3ltcE1ZRTArMTBNcXJiRUti?=
- =?utf-8?B?THdRZDZhSC9UT0JheGFGWFYzRVVtdzQ0eENLYXpQUDR3Yi9tbkRTWnh5LzJK?=
- =?utf-8?B?UXBOVmVIb1EzQ0J6dE80ekVkT3F4OEZVOXJybmlWdDlzY2t4cVNKd0xmeUd6?=
- =?utf-8?B?a2REb1NrQVdmaDQwM3VhRDRlOS9kclZlTlQ4R0pIbUNDT2YwTXNaeVdHTklt?=
- =?utf-8?B?SmRIR0VMeU5yTnMwZlo3NFEwSFhzTXBOTHFJSmV3Wi9selJDSDVnYU5jUlVl?=
- =?utf-8?B?VTU0djRtNitTVk03dmxrZEh0aVY1cW00K1hpOTN1K2dmd2docGozUXRCNVNJ?=
- =?utf-8?B?ZFI2UVQ0TlFETnJrc25QOEZVNSt6MzJLTElieWlYcExrak1JQ2Q0cmhjbEFQ?=
- =?utf-8?B?N3RtTmJpVThLMmhFTlljaVpMT1VKWndscTRCUTZhL1h1dkZ4NWVXVjVycFRE?=
- =?utf-8?B?REJFZGQ2Z1pGR3V0WitkWjUvZ09VbVJSQ3BiVk5vNkNQUENmQmFRY01kZkRT?=
- =?utf-8?B?cWF6bFFBK05aVTJ1ZVk5dWM2NlQ0L3RsMnJtZ2JEZDdFUjY0bEY2ZFh0ZmRM?=
- =?utf-8?Q?D0+MsoCrG347rMQQEGwzgCzoh?=
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Fivi7lOC3uudUZC7hjLu"
+X-Inumbo-ID: ca679280-5127-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GB+pI3kGAuzpQoXTGpIpiRRFsRdWt5+i8pDVrDo5vB4=;
+        b=CzmN+f1TmY8uBHSiAVNQ6zxNfaxGebmiadC1wQAKTZhLYj4FiEtIhMWq0tQPVm0SLK
+         XacWht1NGqaR6Y2jUwfAX6IhcpakVK5I5Ftql2ljjangwJsABF4wCMYf/+1KhfnO8qeN
+         +nXSa8G/ckLYCwIq5ePsKdGZU2tzFcH1uNhkaHxhtFOVnnTCpJMGdOS9MeubZtkYvuAG
+         priGcqXsO1s7WMpoaZIqaQD3k1Rr6tmYW3Cht+70sThqlFsHIdS0KmJ9BG3/PuTq2vzq
+         cTibJzhhXONM9xOhAM6lWBPZb3cKY0M1XDdOM33WnNtrOtlwJBh7x8n6Gg9EpsEBfjbl
+         h33w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GB+pI3kGAuzpQoXTGpIpiRRFsRdWt5+i8pDVrDo5vB4=;
+        b=5uib6/s+mxPWsIQ0MGNAFlPPVXuVorxjGzmhvH7YXALHHHNgqewtM6ojr7NXPeRmgk
+         XdNjcn1+SJQUQ5cU74wlLgqDQ+IF0Pu4ma5+sGVzWzKgHInOu/MRMhoOAMxjoe1FPXwd
+         isL86l0OAzRz7IDeozSyyBLpkTSt9hXOc2PRdR47OEJaYjcn8I2SudpXSaExpRVemj6n
+         1/HwsyMPPI53x4m3Ej7uJvCq5MLCFuxjPMSnLdSOHRuVbVkeShV2c/5dIehWwgqGXA9H
+         mo8eCDvX9sYectpbXOjyrJTxYG+rOWhLypJ69nmEa71MRCBdwbMEsmYf5ITET6FaM7TU
+         oK4Q==
+X-Gm-Message-State: ACrzQf1wMyVpSU0OQnM2wdKM+i1Bpn5qBW1hPE43HzeFnp1mzxH0+pOg
+	j8sNi1TgW/SOPmr4WXxyuC0HYA==
+X-Google-Smtp-Source: AMsMyM56sq1HIy0HWbcR0IYJtQwp46T1S4N7uaKz29DxhotsSlDQw6YPcANPVrmEUULyqMfgiJqRig==
+X-Received: by 2002:adf:ee84:0:b0:22c:d1fd:71d4 with SMTP id b4-20020adfee84000000b0022cd1fd71d4mr11781164wro.350.1666346745235;
+        Fri, 21 Oct 2022 03:05:45 -0700 (PDT)
+Message-ID: <1f769d00-cf50-abaf-f078-f301959156b9@linaro.org>
+Date: Fri, 21 Oct 2022 12:05:42 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fb7b11c-c8c6-40f4-588c-08dab34915b4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2022 09:46:10.4471
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Nf+Czuk2hVn11LJWlDi0p/IL8QdbW55OYC6YGznegsa7Ue7o9d/h070NO2nAzejt/phudGxoy59RtHsncKFK4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8824
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.2
+Subject: Re: [PATCH v14 15/17] net: stream: move to QIO to enable additional
+ parameters
+Content-Language: en-US
+To: Laurent Vivier <lvivier@redhat.com>, qemu-devel@nongnu.org
+Cc: Thomas Huth <thuth@redhat.com>, xen-devel@lists.xenproject.org,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, Stefan Weil <sw@weilnetz.de>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Eric Blake <eblake@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Markus Armbruster <armbru@redhat.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>, Greg Kurz <groug@kaod.org>,
+ =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>
+References: <20221021090922.170074-1-lvivier@redhat.com>
+ <20221021090922.170074-16-lvivier@redhat.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <20221021090922.170074-16-lvivier@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---=-Fivi7lOC3uudUZC7hjLu
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 21/10/22 11:09, Laurent Vivier wrote:
+> Use QIOChannel, QIOChannelSocket and QIONetListener.
+> This allows net/stream to use all the available parameters provided by
+> SocketAddress.
+> 
+> Signed-off-by: Laurent Vivier <lvivier@redhat.com>
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
+>   net/stream.c    | 492 +++++++++++++++++-------------------------------
+>   qemu-options.hx |   4 +-
+>   2 files changed, 178 insertions(+), 318 deletions(-)
 
-On Fri, 2022-10-07 at 13:17 +0200, Juergen Gross wrote:
-> On 07.10.22 12:32, Mykyta Poturai wrote:
-> >=20
-> > Signed-off-by: Juergen Gross <jgross@suse.com>
->=20
-> I can't remember having written this patch. The one I remember was
-> for
-> x86.
->=20
-> > Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
->=20
-> I doubt that, reasoning see above.
->=20
-Right. In fact, I can't find any records of having sent an email with
-such a tag... Or to have ever even replied to any patch sent from this
-email address, for what matters.
+> -static void net_stream_accept(void *opaque)
+> +static void net_stream_server_listening(QIOTask *task, gpointer opaque)
+>   {
+>       NetStreamState *s = opaque;
+> -    struct sockaddr_storage saddr;
+> -    socklen_t len;
+> -    int fd;
+> -
+> -    for (;;) {
+> -        len = sizeof(saddr);
+> -        fd = qemu_accept(s->listen_fd, (struct sockaddr *)&saddr, &len);
+> -        if (fd < 0 && errno != EINTR) {
+> -            return;
+> -        } else if (fd >= 0) {
+> -            qemu_set_fd_handler(s->listen_fd, NULL, NULL, NULL);
+> -            break;
+> -        }
+> -    }
+> +    QIOChannelSocket *listen_sioc = QIO_CHANNEL_SOCKET(s->listen_ioc);
+> +    SocketAddress *addr;
+> +    int ret;
+>   
+> -    s->fd = fd;
+> -    s->nc.link_down = false;
+> -    net_stream_connect(s);
+> -    switch (saddr.ss_family) {
+> -    case AF_INET: {
+> -        struct sockaddr_in *saddr_in = (struct sockaddr_in *)&saddr;
+> -
+> -        qemu_set_info_str(&s->nc, "connection from %s:%d",
+> -                          inet_ntoa(saddr_in->sin_addr),
+> -                          ntohs(saddr_in->sin_port));
+> -        break;
+> +    if (listen_sioc->fd < 0) {
+> +        qemu_set_info_str(&s->nc, "connection error");
+> +        return;
+>       }
+> -    case AF_UNIX: {
+> -        struct sockaddr_un saddr_un;
+>   
+> -        len = sizeof(saddr_un);
+> -        getsockname(s->listen_fd, (struct sockaddr *)&saddr_un, &len);
+> -        qemu_set_info_str(&s->nc, "connect from %s", saddr_un.sun_path);
+> -        break;
+> -    }
+> -    default:
+> -        g_assert_not_reached();
+> +    addr = qio_channel_socket_get_local_address(listen_sioc, NULL);
+> +    g_assert(addr != NULL);
 
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+Missing propagating Error* (observed in v12).
 
---=-Fivi7lOC3uudUZC7hjLu
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+> +    ret = qemu_socket_try_set_nonblock(listen_sioc->fd);
+> +    if (addr->type == SOCKET_ADDRESS_TYPE_FD && ret < 0) {
+> +        qemu_set_info_str(&s->nc, "can't use file descriptor %s (errno %d)",
+> +                          addr->u.fd.str, -ret);
+> +        return;
+>       }
+> +    g_assert(ret == 0);
+> +    qapi_free_SocketAddress(addr);
+> +
+> +    s->nc.link_down = true;
+> +    s->listener = qio_net_listener_new();
+> +
+> +    net_socket_rs_init(&s->rs, net_stream_rs_finalize, false);
+> +    qio_net_listener_set_client_func(s->listener, net_stream_listen, s, NULL);
+> +    qio_net_listener_add(s->listener, listen_sioc);
+>   }
+>   
+>   static int net_stream_server_init(NetClientState *peer,
+> @@ -283,105 +286,61 @@ static int net_stream_server_init(NetClientState *peer,
+>   {
+>       NetClientState *nc;
+>       NetStreamState *s;
+> -    int fd, ret;
+> +    QIOChannelSocket *listen_sioc = qio_channel_socket_new();
+>   
+> -    switch (addr->type) {
+> -    case SOCKET_ADDRESS_TYPE_INET: {
+> -        struct sockaddr_in saddr_in;
+> -
+> -        if (convert_host_port(&saddr_in, addr->u.inet.host, addr->u.inet.port,
+> -                              errp) < 0) {
+> -            return -1;
+> -        }
+> -
+> -        fd = qemu_socket(PF_INET, SOCK_STREAM, 0);
+> -        if (fd < 0) {
+> -            error_setg_errno(errp, errno, "can't create stream socket");
+> -            return -1;
+> -        }
+> -        qemu_socket_set_nonblock(fd);
+> +    nc = qemu_new_net_client(&net_stream_info, peer, model, name);
+> +    s = DO_UPCAST(NetStreamState, nc, nc);
+>   
+> -        socket_set_fast_reuse(fd);
+> +    s->listen_ioc = QIO_CHANNEL(listen_sioc);
+> +    qio_channel_socket_listen_async(listen_sioc, addr, 0,
+> +                                    net_stream_server_listening, s,
+> +                                    NULL, NULL);
+>   
+> -        ret = bind(fd, (struct sockaddr *)&saddr_in, sizeof(saddr_in));
+> -        if (ret < 0) {
+> -            error_setg_errno(errp, errno, "can't bind ip=%s to socket",
+> -                             inet_ntoa(saddr_in.sin_addr));
+> -            closesocket(fd);
+> -            return -1;
+> -        }
+> -        break;
+> -    }
+> -    case SOCKET_ADDRESS_TYPE_UNIX: {
+> -        struct sockaddr_un saddr_un;
+> -
+> -        ret = unlink(addr->u.q_unix.path);
+> -        if (ret < 0 && errno != ENOENT) {
+> -            error_setg_errno(errp, errno, "failed to unlink socket %s",
+> -                             addr->u.q_unix.path);
+> -            return -1;
+> -        }
+> +    return 0;
+> +}
+>   
+> -        saddr_un.sun_family = PF_UNIX;
+> -        ret = snprintf(saddr_un.sun_path, sizeof(saddr_un.sun_path), "%s",
+> -                       addr->u.q_unix.path);
+> -        if (ret < 0 || ret >= sizeof(saddr_un.sun_path)) {
+> -            error_setg(errp, "UNIX socket path '%s' is too long",
+> -                       addr->u.q_unix.path);
+> -            error_append_hint(errp, "Path must be less than %zu bytes\n",
+> -                              sizeof(saddr_un.sun_path));
+> -            return -1;
+> -        }
+> +static void net_stream_client_connected(QIOTask *task, gpointer opaque)
+> +{
+> +    NetStreamState *s = opaque;
+> +    QIOChannelSocket *sioc = QIO_CHANNEL_SOCKET(s->ioc);
+> +    SocketAddress *addr;
+> +    gchar *uri;
+> +    int ret;
+>   
+> -        fd = qemu_socket(PF_UNIX, SOCK_STREAM, 0);
+> -        if (fd < 0) {
+> -            error_setg_errno(errp, errno, "can't create stream socket");
+> -            return -1;
+> -        }
+> -        qemu_socket_set_nonblock(fd);
+> -
+> -        ret = bind(fd, (struct sockaddr *)&saddr_un, sizeof(saddr_un));
+> -        if (ret < 0) {
+> -            error_setg_errno(errp, errno, "can't create socket with path: %s",
+> -                             saddr_un.sun_path);
+> -            closesocket(fd);
+> -            return -1;
+> -        }
+> -        break;
+> -    }
+> -    case SOCKET_ADDRESS_TYPE_FD:
+> -        fd = monitor_fd_param(monitor_cur(), addr->u.fd.str, errp);
+> -        if (fd == -1) {
+> -            return -1;
+> -        }
+> -        ret = qemu_socket_try_set_nonblock(fd);
+> -        if (ret < 0) {
+> -            error_setg_errno(errp, -ret, "%s: Can't use file descriptor %d",
+> -                             name, fd);
+> -            return -1;
+> -        }
+> -        break;
+> -    default:
+> -        error_setg(errp, "only support inet or fd type");
+> -        return -1;
+> +    if (sioc->fd < 0) {
+> +        qemu_set_info_str(&s->nc, "connection error");
+> +        goto error;
+>       }
+>   
+> -    ret = listen(fd, 0);
+> -    if (ret < 0) {
+> -        error_setg_errno(errp, errno, "can't listen on socket");
+> -        closesocket(fd);
+> -        return -1;
+> +    addr = qio_channel_socket_get_remote_address(sioc, NULL);
+> +    g_assert(addr != NULL);
 
------BEGIN PGP SIGNATURE-----
+Ditto (Error*).
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmNSamEACgkQFkJ4iaW4
-c+6wAw/9F+ahc27QyR1p1WBN5DC0eDHukQpPt+zcA11klyZTlrfKWgFEuXTYnGFD
-azjILH486qV5VHHmV5EFG57wavRiGuxp5+Sk62FzGWfkwJWq5nqUC0+PZAzZGMoJ
-5K/4nxaKKawgKEw1FmL3BQaIWjpvAbVTca5Crb2y+u+7q2co1JIOfO7VisEDYIrK
-oRgSEMOEyEu9ShtUB1exZScrNUhgOD9JHaMNMEWW0ZFxtpvE/mxydwZopHmHIcKh
-D8Pz1REhXUFEyiJPlWHgdWIiehdZbgCxYQMsqsMKHsrw27hdmzRQfexDOjsTclYe
-vUs4H4sEyv+lNxP6GP0gc9omcknnEr2li5FvYpB6CFezb3h59B/3r42k8nAzYpy1
-b8dVEsWbrodBr3JhC8mmDV2m/tV8vJ6s9ApUvkCBguca1YS95pH0sV66xBudRvn9
-IWLB7qGx1FCvBDR7Me7gp8mT6hBoAeXpGffYwpusO4L4WPoJR6nfkxmEE8ctt3QB
-8yrUsR46Gi01Qeslu5LtotiGTWHl3gdhkkxA+Xm9vLPNG6188FAQbIdkxaeYOt4q
-OwkJfldxOVWbv7X2+j2GNevFqdTw+w/wnGIpwc5saf/FAc9ui0z/38hzXTqgFk6I
-tELrqBUFsDMskUpu+p9vqO3osjMqkh+ty9I011xyAwoqf6sRkFM=
-=Z8zG
------END PGP SIGNATURE-----
+> +    uri = socket_uri(addr);
+> +    qemu_set_info_str(&s->nc, uri);
+> +    g_free(uri);
+> +
+> +    ret = qemu_socket_try_set_nonblock(sioc->fd);
+> +    if (addr->type == SOCKET_ADDRESS_TYPE_FD && ret < 0) {
+> +        qemu_set_info_str(&s->nc, "can't use file descriptor %s (errno %d)",
+> +                          addr->u.fd.str, -ret);
+> +        qapi_free_SocketAddress(addr);
+> +        goto error;
+>       }
+> +    g_assert(ret == 0);
+>   
+> -    nc = qemu_new_net_client(&net_stream_info, peer, model, name);
+> -    s = DO_UPCAST(NetStreamState, nc, nc);
+> -    s->fd = -1;
+> -    s->listen_fd = fd;
+> -    s->nc.link_down = true;
+>       net_socket_rs_init(&s->rs, net_stream_rs_finalize, false);
+>   
+> -    qemu_set_fd_handler(s->listen_fd, net_stream_accept, NULL, s);
+> -    return 0;
+> +    /* Disable Nagle algorithm on TCP sockets to reduce latency */
+> +    qio_channel_set_delay(s->ioc, false);
+> +
+> +    s->ioc_read_tag = qio_channel_add_watch(s->ioc, G_IO_IN, net_stream_send,
+> +                                            s, NULL);
+> +    s->nc.link_down = false;
+> +    qapi_free_SocketAddress(addr);
+> +
+> +    return;
+> +error:
+> +    object_unref(OBJECT(s->ioc));
+> +    s->ioc = NULL;
+>   }
 
---=-Fivi7lOC3uudUZC7hjLu--
 
