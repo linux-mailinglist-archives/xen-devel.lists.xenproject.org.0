@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B82FB607545
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 12:44:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427581.676798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3664607546
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 12:44:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.427583.676813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olpVX-0000d5-13; Fri, 21 Oct 2022 10:44:07 +0000
+	id 1olpVi-00011p-9b; Fri, 21 Oct 2022 10:44:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427581.676798; Fri, 21 Oct 2022 10:44:07 +0000
+Received: by outflank-mailman (output) from mailman id 427583.676813; Fri, 21 Oct 2022 10:44:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olpVW-0000a6-U8; Fri, 21 Oct 2022 10:44:06 +0000
-Received: by outflank-mailman (input) for mailman id 427581;
- Fri, 21 Oct 2022 10:44:05 +0000
+	id 1olpVi-0000zR-6m; Fri, 21 Oct 2022 10:44:18 +0000
+Received: by outflank-mailman (input) for mailman id 427583;
+ Fri, 21 Oct 2022 10:44:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=opYQ=2W=redhat.com=lvivier@srs-se1.protection.inumbo.net>)
- id 1olpVV-0000Pz-9r
- for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 10:44:05 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ <SRS0=w2wL=2W=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1olpVg-0000Pz-DU
+ for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 10:44:16 +0000
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [2607:f8b0:4864:20::1035])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23ea166c-512d-11ed-8fd0-01056ac49cbb;
- Fri, 21 Oct 2022 12:43:04 +0200 (CEST)
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-647-JvMOhRKmM4KX9qQXO3c1Ag-1; Fri, 21 Oct 2022 06:43:54 -0400
-Received: by mail-qt1-f199.google.com with SMTP id
- 22-20020ac85756000000b0039cf0d41e2cso2199578qtx.13
- for <xen-devel@lists.xenproject.org>; Fri, 21 Oct 2022 03:43:54 -0700 (PDT)
-Received: from [192.168.100.30] ([82.142.8.70])
- by smtp.gmail.com with ESMTPSA id
- bz12-20020a05622a1e8c00b0039a1146e0e1sm7904582qtb.33.2022.10.21.03.43.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 21 Oct 2022 03:43:52 -0700 (PDT)
+ id 2a42b5c8-512d-11ed-8fd0-01056ac49cbb;
+ Fri, 21 Oct 2022 12:43:15 +0200 (CEST)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ f8-20020a17090a664800b00212464cd49fso2470544pjm.4
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Oct 2022 03:44:14 -0700 (PDT)
+Received: from leoy-huanghe.lan (211-75-219-199.hinet-ip.hinet.net.
+ [211.75.219.199]) by smtp.gmail.com with ESMTPSA id
+ m2-20020a1709026bc200b0017fe9b038fdsm14399292plt.14.2022.10.21.03.44.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Oct 2022 03:44:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,138 +45,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23ea166c-512d-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1666349043;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qlhzrGdNNXcUHQesRH8bQ4YpN+DZcGJ2lAA8SoLbHRk=;
-	b=eiL3r1Gxe6pIH1OXM1yFBnUYPyyAiWFPdqAsB5n72RkpnM/QqYXKLe/Tt7xb+++RisvCbb
-	ugqwj9iqIcO0MFzbOQkHQUx1E3kkOubSbsYdyaxGAeIq8IXJMkdZ9VfYgFCI8sZhXmISu0
-	1GGbFhrSH6DBB/6ZKJ834Rmzs2vakr8=
-X-MC-Unique: JvMOhRKmM4KX9qQXO3c1Ag-1
+X-Inumbo-ID: 2a42b5c8-512d-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=AwaPy+d6LI3STQKC7/Jh5UQQU+g4aL+S/nlqVl1s8uU=;
+        b=NDZeKF4LQxZ2fpVGg1ulP3boB/V5ZWXAn7zMLdE5zD6ljc6uE1AvGYyCvj/ETO6gKD
+         mg1Qabwszg7vboaVarzAlrlZC0i7Jf6lsT+XlijLfAs2/FeVlS6IRlGjfZamgdyvcZWl
+         yzYEWQjXS3L43tYlDCRrEefLoUV5FwsJffoAnzIhl/EGuZJfZNE6NavvMUJcEVk+UlZJ
+         20325QiyFIiIjxfNgetarY7xjbwhozYtoY9K39ze07Bf+7Mmk5B4vmjkqEiIN/T5+pgZ
+         /l45B7JXm7i6yPCodFexyO62PXWUvjh2hqV2V6PCEQNVunQHly9St2j+qDL0EXFOFWFq
+         NzfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qlhzrGdNNXcUHQesRH8bQ4YpN+DZcGJ2lAA8SoLbHRk=;
-        b=1xxryqZ9XLEtcBTNIMmoPWZkuBaaZPyOE0wFt7af2qLCBkq5dAsf0JxJ0H+NBVGG2l
-         1Eto+uYpVcpWpWb6C4QQKY9gTgSlgw0NfxvLVWaESj+oY1EI3P+Z/CAoRTVaEcjpK3xg
-         1fLYEsOiRLVtcBv3V++fiAqrKc/j9i37psVEoZ4RdYOT36Akd9PFq9bHNzS4Hl1DOEao
-         o2dokiIaujhLbB742Ef0/Gop3YX8z7svqWjqoB/G3iYNG2gWzFl2ZbLJ3jaz3/QG9Glo
-         7KV+6Ae64BUex8+AD31B3nAKQCTY5JwfX5DXzwVgloUq5mOVH9IKpx3B1Pu/P3U8Z/Q5
-         5iDw==
-X-Gm-Message-State: ACrzQf1klkdlMl5y+r1WzJIs+I8yc1sX8pjRtyjKd0wqnNZAyVqtWC6S
-	ezHIbA7tdKRqpPoLSnxV5h2Trp7sBD1NDpH+ys5sk60Ag2ArotuFDyAngqY3ncSLzIK2sGWCZ+M
-	wEYsyq8mSehA6/3z7QdryzPdhz5M=
-X-Received: by 2002:a05:620a:178b:b0:6ee:e0a3:1f27 with SMTP id ay11-20020a05620a178b00b006eee0a31f27mr13228088qkb.267.1666349033810;
-        Fri, 21 Oct 2022 03:43:53 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM611EjOL522oIGakwDiiXV4Y0dKdy9c7EPJKbB8GjbY87oLC9A+yV2u/dKW1Qlv9YtxTj59wQ==
-X-Received: by 2002:a05:620a:178b:b0:6ee:e0a3:1f27 with SMTP id ay11-20020a05620a178b00b006eee0a31f27mr13228065qkb.267.1666349033545;
-        Fri, 21 Oct 2022 03:43:53 -0700 (PDT)
-Message-ID: <881f1b6d-ac9f-a144-0e13-622981f02130@redhat.com>
-Date: Fri, 21 Oct 2022 12:43:49 +0200
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AwaPy+d6LI3STQKC7/Jh5UQQU+g4aL+S/nlqVl1s8uU=;
+        b=o+1T4yNdaosYWjGsUFGmc1i8g9bVNn7rckB8ZLHaAX3Qs829fvSDJswyIYpn1ali3A
+         IwbXkiEAsHc7S8cHcLS+Hv6Yk7KAjk/0WcF6Dj+qxPcQImRNJ8AenEWHbWSA5fzI4+ig
+         Ag7Yc+xm3HHyUayUb8s+LdESCqdzx74U1t5okbxbYMTtQ9te9D8xc/3j0GrZZhVVSW7f
+         MqXfzPawiWrOPonNqBWupT8nZ/Xgk4mD1XAH06eICsirqV4GwOpFwaZ8KSefB11RGj6Q
+         6cX67e1vh1HlfD0MrjvPjomqEzx58nnCOORJZaLxQiRxPuvL7e664ZfTZcy/OfCr2eZd
+         RqTw==
+X-Gm-Message-State: ACrzQf38QFtA7cizpojpgzWpvmBf9ihAANJnj6nmSYwo1QAwCvYSl0vr
+	tnPWOr6hBja25fFS2d8nmvzKjA==
+X-Google-Smtp-Source: AMsMyM4V5GmxNTnHDNQrQIOVowh4fLCtBJlHOjVmTAA7uegaHFff/FAmiMFfcLgR5yxOGcjFVxNUUw==
+X-Received: by 2002:a17:90a:990d:b0:212:d772:1ab4 with SMTP id b13-20020a17090a990d00b00212d7721ab4mr665069pjp.184.1666349053168;
+        Fri, 21 Oct 2022 03:44:13 -0700 (PDT)
+Date: Fri, 21 Oct 2022 18:44:05 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen Develop <xen-devel@lists.xenproject.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>,
+	jgross@suse.com, oleksandr_tyshchenko@epam.com,
+	boris.ostrovsky@oracle.com, wei.liu@kernel.org, paul@xen.org
+Subject: Re: Issue: Networking performance in Xen VM on Arm64
+Message-ID: <Y1J39UsPlM8htxFx@leoy-huanghe.lan>
+References: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop>
+ <Y0VbQ3esM8gucmqQ@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210111434240.3690179@ubuntu-linux-20-04-desktop>
+ <Y00/SW5Ro+SlhoBU@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v14 15/17] net: stream: move to QIO to enable additional
- parameters
-To: Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Thomas Huth <thuth@redhat.com>,
- xen-devel@lists.xenproject.org, "Dr. David Alan Gilbert"
- <dgilbert@redhat.com>, Anthony Perard <anthony.perard@citrix.com>,
- Stefan Weil <sw@weilnetz.de>, David Gibson <david@gibson.dropbear.id.au>,
- Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
- Eric Blake <eblake@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>, Greg Kurz <groug@kaod.org>,
- =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>
-References: <20221021090922.170074-1-lvivier@redhat.com>
- <20221021090922.170074-16-lvivier@redhat.com>
- <1f769d00-cf50-abaf-f078-f301959156b9@linaro.org>
- <87tu3x1n2m.fsf@pond.sub.org>
-From: Laurent Vivier <lvivier@redhat.com>
-In-Reply-To: <87tu3x1n2m.fsf@pond.sub.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop>
 
-On 10/21/22 12:35, Markus Armbruster wrote:
-> Philippe Mathieu-Daudé <philmd@linaro.org> writes:
-> 
->> On 21/10/22 11:09, Laurent Vivier wrote:
->>> Use QIOChannel, QIOChannelSocket and QIONetListener.
->>> This allows net/stream to use all the available parameters provided by
->>> SocketAddress.
->>> Signed-off-by: Laurent Vivier <lvivier@redhat.com>
->>> Acked-by: Michael S. Tsirkin <mst@redhat.com>
->>> ---
->>>    net/stream.c    | 492 +++++++++++++++++-------------------------------
->>>    qemu-options.hx |   4 +-
->>>    2 files changed, 178 insertions(+), 318 deletions(-)
->>
->>> -static void net_stream_accept(void *opaque)
->>> +static void net_stream_server_listening(QIOTask *task, gpointer opaque)
->>>    {
->>>        NetStreamState *s = opaque;
->>> -    struct sockaddr_storage saddr;
->>> -    socklen_t len;
->>> -    int fd;
->>> -
->>> -    for (;;) {
->>> -        len = sizeof(saddr);
->>> -        fd = qemu_accept(s->listen_fd, (struct sockaddr *)&saddr, &len);
->>> -        if (fd < 0 && errno != EINTR) {
->>> -            return;
->>> -        } else if (fd >= 0) {
->>> -            qemu_set_fd_handler(s->listen_fd, NULL, NULL, NULL);
->>> -            break;
->>> -        }
->>> -    }
->>> +    QIOChannelSocket *listen_sioc = QIO_CHANNEL_SOCKET(s->listen_ioc);
->>> +    SocketAddress *addr;
->>> +    int ret;
->>>    -    s->fd = fd;
->>> -    s->nc.link_down = false;
->>> -    net_stream_connect(s);
->>> -    switch (saddr.ss_family) {
->>> -    case AF_INET: {
->>> -        struct sockaddr_in *saddr_in = (struct sockaddr_in *)&saddr;
->>> -
->>> -        qemu_set_info_str(&s->nc, "connection from %s:%d",
->>> -                          inet_ntoa(saddr_in->sin_addr),
->>> -                          ntohs(saddr_in->sin_port));
->>> -        break;
->>> +    if (listen_sioc->fd < 0) {
->>> +        qemu_set_info_str(&s->nc, "connection error");
->>> +        return;
->>>        }
->>> -    case AF_UNIX: {
->>> -        struct sockaddr_un saddr_un;
->>>    -        len = sizeof(saddr_un);
->>> -        getsockname(s->listen_fd, (struct sockaddr *)&saddr_un, &len);
->>> -        qemu_set_info_str(&s->nc, "connect from %s", saddr_un.sun_path);
->>> -        break;
->>> -    }
->>> -    default:
->>> -        g_assert_not_reached();
->>> +    addr = qio_channel_socket_get_local_address(listen_sioc, NULL);
->>> +    g_assert(addr != NULL);
->>
->> Missing propagating Error* (observed in v12).
-> 
-> *If* this is really a programming error: what about &error_abort?
+Hi Stefano and all,
 
-assert() informs the compiler that following code will not use addr with a NULL value, I 
-don't think &error_abort does that. This could avoid an error report in code static analyzer.
+On Mon, Oct 17, 2022 at 04:50:05PM -0700, Stefano Stabellini wrote:
+
+[...]
+
+> > We can see DomU sends notification with timestamp (raw counter) is
+> > 4989078592 and Dom0 receives the interrupt with timestamp 4989092169.
+> > Since Dom0 and DomU use the same time counter and the counter
+> > frequency is 25MHz, so we can get the delta value (in macroseconds):
+> > 
+> >     (4989092169 - 4989078592) / 25000000 * 1000 * 1000
+> >   = 543us
+> > 
+> > Which means it takes 543us to let Dom0 to receive the notification.
+> > You could see DomU runs in CPU3 and Dom0 runs on CPU13, there should
+> > not have contention for CPU resources.  Seems to me, it's likely Xen
+> > hypervisor takes long time to deliver the interrupt, note, it's not
+> > take so long time for every skb transferring, sometimes the time for
+> > response a notification is short (about ~10us).
+> 
+> Good find. I think this is worth investigating further. Do you have
+> vwfi=native in your Xen command line as well?
+> 
+> After that, I would add printk also in Xen with the timestamp. The event
+> channel notification code path is the following:
+> 
+> # domU side
+> xen/arch/arm/vgic-v2.c:vgic_v2_to_sgi
+> xen/arch/arm/vgic.c:vgic_to_sgi
+> xen/arch/arm/vgic.c:vgic_inject_irq
+> xen/arch/arm/vgic.c:vcpu_kick
+> xen/arch/arm/gic-v2.c:gicv2_send_SGI
+> 
+> # dom0 side
+> xen/arch/arm/gic.c:do_sgi
+> xen/arch/arm/traps.c:leave_hypervisor_to_guest
+> 
+> It would be good to understand why sometimes it takes ~10us and some
+> other times it takes ~540us
+
+Some updates for why it takes several hundreds us for Xen backend driver
+to respond interrupt.  The short answer is the vcpu running Xen backend
+driver needs to switch context, even I have set options "sched=null
+vwfi=native" in Xen command line.
+
+So please see below detailed logs for how the things happen.
+
+Let's take the timestamp 3842008681 as the start point, it's the time
+for Xen backend driver sending out notification (xennet_notify_tx_irq);
+at the timestamp 3842008885 the Xen hypervisor injects the interrupt
+(it's about ~8us duration from the start point).
+
+And then at the timestamp 3842008935 it invokes vcpu_kick() to kick the
+virtual CPU for running Xen forend driver, you could see
+VCPU_PROCESSOR is 11 and VCPU_ID is 9 for dom0, the duration is
+10.16us from the start point.
+
+The key point is at this point the vcpu's is_running is 0, this is
+different from the case without long latency which vcpu's is_running
+is 1.  IIUC, Xen hypervisor needs to take time to restore the vcpu's
+context, thus we can see the virtual CPU 9 in Dom0 starts to run at
+the timestamp 3842016505.
+
+3842008548              pub-310   [001]    67.352980: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842008548
+3842008652              pub-310   [001]    67.352984: bprint:               xennet_tx_setup_grant: id=52 ref=820 offset=2 len=1514 TSC: 3842008652
+3842008681              pub-310   [001]    67.352985: bprint:               xennet_start_xmit: xennet_notify_tx_irq: TSC: 3842008681
+3842008689 (XEN) leave_hypervisor_to_guest: CPU_ID: 0 TSC: 3842008689
+3842008766 (XEN) EVTCHNOP_send: CPU_ID: 2 TSC: 3842008766
+3842008885 (XEN) vgic_inject_irq: CPU_ID: 2 TSC: 3842008885
+3842008929 (XEN) leave_hypervisor_to_guest: CPU_ID: 14 TSC: 3842008929
+3842008935 (XEN) vcpu_kick: VCPU_PROCESSOR: 11 VCPU_ID: 9 is_running 0 TSC: 3842008935
+3842009049 (XEN) leave_hypervisor_to_guest: CPU_ID: 2 TSC: 3842009049
+3842009322              pub-310   [001]    67.353011: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842009322
+3842009374              pub-310   [001]    67.353013: bprint:               xennet_tx_setup_grant: id=12 ref=780 offset=2050 len=1514 TSC: 3842009374
+3842009584              pub-310   [001]    67.353021: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842009584
+3842009625 (XEN) leave_hypervisor_to_guest: CPU_ID: 15 TSC: 3842009625
+3842009633              pub-310   [001]    67.353023: bprint:               xennet_tx_setup_grant: id=83 ref=851 offset=2 len=1514 TSC: 3842009633
+3842009853              pub-310   [001]    67.353032: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842009853
+3842009899              pub-310   [001]    67.353034: bprint:               xennet_tx_setup_grant: id=5 ref=773 offset=2050 len=1514 TSC: 3842009899
+3842010080              pub-310   [001]    67.353041: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842010080
+3842010121              pub-310   [001]    67.353043: bprint:               xennet_tx_setup_grant: id=85 ref=853 offset=2 len=1514 TSC: 3842010121
+3842010316              pub-310   [001]    67.353050: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842010316
+3842010359              pub-310   [001]    67.353052: bprint:               xennet_tx_setup_grant: id=9 ref=777 offset=2050 len=1514 TSC: 3842010359
+3842010553              pub-310   [001]    67.353060: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842010553
+3842010599              pub-310   [001]    67.353062: bprint:               xennet_tx_setup_grant: id=35 ref=803 offset=2 len=1514 TSC: 3842010599
+3842010792              pub-310   [001]    67.353069: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842010792
+3842010838              pub-310   [001]    67.353071: bprint:               xennet_tx_setup_grant: id=17 ref=785 offset=2 len=1514 TSC: 3842010838
+3842011032              pub-310   [001]    67.353079: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842011032
+3842011072              pub-310   [001]    67.353081: bprint:               xennet_tx_setup_grant: id=18 ref=786 offset=2 len=1514 TSC: 3842011072
+3842011124 (XEN) leave_hypervisor_to_guest: CPU_ID: 12 TSC: 3842011124
+3842011265              pub-310   [001]    67.353088: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842011265
+3842011309              pub-310   [001]    67.353090: bprint:               xennet_tx_setup_grant: id=86 ref=854 offset=3074 len=606 TSC: 3842011309
+3842012807 (XEN) leave_hypervisor_to_guest: CPU_ID: 6 TSC: 3842012807
+3842013038 (XEN) leave_hypervisor_to_guest: CPU_ID: 10 TSC: 3842013038
+3842013568 (XEN) vgic_inject_irq: CPU_ID: 23 TSC: 3842013568
+3842013639 (XEN) vcpu_kick: VCPU_PROCESSOR: 23 VCPU_ID: 10 is_running 1 TSC: 3842013639
+3842013769 (XEN) leave_hypervisor_to_guest: CPU_ID: 4 TSC: 3842013769
+3842013955 (XEN) leave_hypervisor_to_guest: CPU_ID: 8 TSC: 3842013955
+3842014327 (XEN) leave_hypervisor_to_guest: CPU_ID: 5 TSC: 3842014327
+3842014381              pub-310   [001]    67.353213: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842014381
+3842014433              pub-310   [001]    67.353215: bprint:               xennet_tx_setup_grant: id=89 ref=857 offset=2050 len=1514 TSC: 3842014433
+3842014621              pub-310   [001]    67.353223: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842014621
+3842014663              pub-310   [001]    67.353224: bprint:               xennet_tx_setup_grant: id=38 ref=806 offset=2 len=1514 TSC: 3842014663
+3842014852              pub-310   [001]    67.353232: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842014852
+3842014909              pub-310   [001]    67.353234: bprint:               xennet_tx_setup_grant: id=4 ref=772 offset=2 len=1422 TSC: 3842014909
+3842015153 (XEN) leave_hypervisor_to_guest: CPU_ID: 1 TSC: 3842015153
+3842015345 (XEN) leave_hypervisor_to_guest: CPU_ID: 3 TSC: 3842015345
+3842015823 (XEN) leave_hypervisor_to_guest: CPU_ID: 13 TSC: 3842015823
+3842016505           <idle>-0     [009]    95.098859: bprint:               xenvif_tx_interrupt: xenvif_tx_interrupt: TSC: 3842016505
+3842016635           <idle>-0     [009]    95.098863: bprint:               xenvif_tx_build_gops.constprop.0: id=52 ref=820 offset=2 len=1514 TSC: 3842016635
+3842016648 (XEN) leave_hypervisor_to_guest: CPU_ID: 9 TSC: 3842016648
+3842016671           <idle>-0     [009]    95.098865: bprint:               xenvif_tx_build_gops.constprop.0: id=12 ref=780 offset=2050 len=1514 TSC: 3842016671
+3842016700           <idle>-0     [009]    95.098866: bprint:               xenvif_tx_build_gops.constprop.0: id=83 ref=851 offset=2 len=1514 TSC: 3842016700
+3842016725           <idle>-0     [009]    95.098867: bprint:               xenvif_tx_build_gops.constprop.0: id=5 ref=773 offset=2050 len=1514 TSC: 3842016725
+
+I did another two experiments.
+
+One experiment is I tried to append option "dom0_max_vcpus=16" into Xen
+command line, the purpose is I want to allocate 16 virtual CPUs for dom0
+and 4 virtual CPUs for domU, and my system has 32 physical CPUs, in
+theory the physical CPUs are sufficient for dom0 and domU, but I
+didn't see any performance improvement with option
+"dom0_max_vcpus=16".
+
+Another experiment is to append option "dom0_vcpus_pin" in Xen command
+line, this can allow the virtual CPU pins on physical CPU so can avoid
+context switching.  With this option, I can see the throughput is
+improved from 128.26 Mbits/s to 180.3 Mbits/s.  But this result is far
+from the ideal throughput (800+Mbits/s).
+
+One thing I need to explore is to measure the duration for copying
+data via grant table (based on the log we can see xennet driver setup
+grant table and then xenvif driver fetches data from grant table).  I
+will compare the duration for two directions (from dom0 to domU and
+from domU to dom0).  This part might impact the performance heavily.
 
 Thanks,
-Laurent
-
+Leo
 
