@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E68896074CA
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 12:15:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427534.676700 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C634A6074E3
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 12:19:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.427544.676717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olp3Z-0001t9-WF; Fri, 21 Oct 2022 10:15:14 +0000
+	id 1olp76-0002an-Fw; Fri, 21 Oct 2022 10:18:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427534.676700; Fri, 21 Oct 2022 10:15:13 +0000
+Received: by outflank-mailman (output) from mailman id 427544.676717; Fri, 21 Oct 2022 10:18:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olp3Z-0001q5-TD; Fri, 21 Oct 2022 10:15:13 +0000
-Received: by outflank-mailman (input) for mailman id 427534;
- Fri, 21 Oct 2022 10:15:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1olp76-0002YT-CP; Fri, 21 Oct 2022 10:18:52 +0000
+Received: by outflank-mailman (input) for mailman id 427544;
+ Fri, 21 Oct 2022 10:18:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1olp3Y-0001oX-9d
- for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 10:15:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1olp3Y-0007re-2T; Fri, 21 Oct 2022 10:15:12 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
- helo=[192.168.29.168]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1olp3X-0003PI-RT; Fri, 21 Oct 2022 10:15:12 +0000
+ (envelope-from <SRS0=RYXF=2W=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1olp74-0002YN-Ly
+ for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 10:18:50 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9da8e5e2-5129-11ed-8fd0-01056ac49cbb;
+ Fri, 21 Oct 2022 12:17:50 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id a14so1264204wru.5
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Oct 2022 03:18:49 -0700 (PDT)
+Received: from [10.50.0.10]
+ (ec2-54-194-108-71.eu-west-1.compute.amazonaws.com. [54.194.108.71])
+ by smtp.gmail.com with ESMTPSA id
+ e9-20020a5d5009000000b0022e3d7c9887sm18427284wrt.101.2022.10.21.03.18.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Oct 2022 03:18:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,108 +45,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=/8u8+zco2y9CslAFeSm9UDDuJ8qWMDuBULNqBkJNWrY=; b=Kzdwyx9tWLI4t2MD375DrT5IVF
-	Z/caO9V0+FY+Cd08cIniEaKauC/GMqcXvyrul3gq6z8eCt2+lrC9gT99ryjQVdAJKTI0xChPENs4J
-	Kpme7ZcpgN6JNlDJuNsoqy+m0hN5j3RI8mRY844IkmVgTAXOwp/ty439dk5QqwpUjaOI=;
-Message-ID: <89639d8e-b2a4-a191-0d59-9bd8c5bbb7c0@xen.org>
-Date: Fri, 21 Oct 2022 11:15:10 +0100
+X-Inumbo-ID: 9da8e5e2-5129-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gSvLyqT2me3HwSX6zm/t5Hpc98ZaHpehQTZBKXuZF2o=;
+        b=PZWl2AiJok3eJRD/+48hjCoQcX8/5ZIhFwo9HyNB94SJ3qoTnTU7D94wGDxEomBxAB
+         CIVlCjw3ftJm7h/3+aQzjFjaOGwphovUFlccAvvjHlDXcZhfg8rn14C8brEVfbvIOLST
+         PG74pnUZhk/Mrv+cZjt+6lXXncFe/CZnwmoMusJLFZID2ih23+3zpJj2lg7ivQB6nSuP
+         WukR7G7o7x5o/BMyrR06XfSuSfgGp15g+hFZlmSACSOIv4PNYk54i3C8YUu9nZM0j6Mf
+         H2KG4Br8hZatH7gFjPEbszjid8RIH6RPzEwRJjAsWGzNVFZ5/YOlxKRBS+67kCcDFmlU
+         4p8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=gSvLyqT2me3HwSX6zm/t5Hpc98ZaHpehQTZBKXuZF2o=;
+        b=dsvx94UNOidVtPbDNiCMyY+qx7ISW6AP5E2xSF4mXjiXgqD5/tBznbUF6ZWuQfgV/t
+         UeVm6rXmy6MvlsrAHF2h0LpjMfDellr8cWCcoc1XyIoVt3oNZt8YF6zGQgA7Y5QNPpO4
+         6nbt6z422/ZQFzZB/t0Z+B8UuXF0WTyt7VRyC/DJ5+A6OxPUB9RPiG2uNkRHEIVHUzV5
+         yOGOsK7HhAxwM8gKkzCYRrXCZ7lGsFzTrAOgia6gNhtTHUstUdrBP5/p5FFdc97OeWqr
+         tNEBZmr7WnvRrEY/IJuL4muApyiyF5uBxTv7mf+FObkJpJAJ4KPFUkl2ChiBV+DJKUpb
+         IQrA==
+X-Gm-Message-State: ACrzQf3y+ND6AspMSY/1GHQRDzemC47PUx1OBvAruZBxqCsd5W3mloL8
+	WR5fmmbuSizS1qFZWi08teOT6Q==
+X-Google-Smtp-Source: AMsMyM4J2oFrG2ayVaLyVj/gKPYm/vOmdGpMXDgE2bXapnVZsvvxjFKhOy/05+vEq1gluYAIazV3rg==
+X-Received: by 2002:a5d:65d0:0:b0:236:580e:c3f9 with SMTP id e16-20020a5d65d0000000b00236580ec3f9mr384228wrw.101.1666347529225;
+        Fri, 21 Oct 2022 03:18:49 -0700 (PDT)
+Message-ID: <e6470da4-41a9-b625-1298-3d92532aa61d@linaro.org>
+Date: Fri, 21 Oct 2022 12:18:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-Subject: Re: [4.17] RE: [PATCH v2] xen/arm: p2m: fix pa_range_info for 52-bit
- pa range
+ Gecko/20100101 Thunderbird/102.3.2
+Subject: Re: [PATCH v14 13/17] qemu-sockets: move and rename
+ SocketAddress_to_str()
 Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>, Xenia Ragiadakou
- <burzalodowa@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20221019144913.291677-1-burzalodowa@gmail.com>
- <c3ecb453-ac2e-fd0d-d5ca-3f485d7f53a3@xen.org>
- <AS8PR08MB7991AE87BC1FF9E47A3F9F9D922D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS8PR08MB7991AE87BC1FF9E47A3F9F9D922D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+To: Laurent Vivier <lvivier@redhat.com>, qemu-devel@nongnu.org
+Cc: Thomas Huth <thuth@redhat.com>, xen-devel@lists.xenproject.org,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, Stefan Weil <sw@weilnetz.de>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Eric Blake <eblake@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Markus Armbruster <armbru@redhat.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>, Greg Kurz <groug@kaod.org>,
+ =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>
+References: <20221021090922.170074-1-lvivier@redhat.com>
+ <20221021090922.170074-14-lvivier@redhat.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <20221021090922.170074-14-lvivier@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-
-
-On 21/10/2022 02:42, Henry Wang wrote:
-> Hi Julien and Xenia,
-
-Hi Henry,
-
-
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> <Volodymyr_Babchuk@epam.com>; Henry Wang <Henry.Wang@arm.com>
->> Subject: Re: [PATCH v2] xen/arm: p2m: fix pa_range_info for 52-bit pa range
->>
->> (+ Henry)
->>
->> Hi Xenia,
->>
->> On 19/10/2022 15:49, Xenia Ragiadakou wrote:
->>> Currently, the fields 'root_order' and 'sl0' of the pa_range_info for
->>> the 52-bit pa range have the values 3 and 3, respectively.
->>> This configuration does not match any of the valid root table configurations
->>> for 4KB granule and t0sz 12, described in ARM DDI 0487I.a D8.2.7.
->>>
->>> More specifically, according to ARM DDI 0487I.a D8.2.7, in order to support
->>> the 52-bit pa size with 4KB granule, the p2m root table needs to be
->> configured
->>> either as a single table at level -1 or as 16 concatenated tables at level 0.
->>> Since, currently there is not support for level -1, set the 'root_order' an
->>
->> Typo: s/not/no/ (I can fix it while committing)
->>
->>> 'sl0' fields of the 52-bit pa_range_info according to the second approach.
->>>
->>> Note that the values of those fields are not used so far. This patch updates
->>> their values only for the sake of correctness.
->>>
->>> Fixes: 407b13a71e32 ("xen/arm: p2m don't fall over on FEAT_LPA enabled
->> hw")
->>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
->>
->> Reviewed-by: Julien Grall <jgrall@amazon.com>
->>
->> Regarding 4.17, I am a bit split whether this should be included. On one
->> hand, it would be good to have the value correct (not that I expect
->> anymore to try using 52-bit on 4.17...). On the other hand, this is not
->> used so there is no bug (this could also be an argument to add it
->> because it is nearly risk free).
->>
->> If we don't include it, I will definitely add in my list of potential
->> backports.
->>
->> Henry, any thoughts?
+On 21/10/22 11:09, Laurent Vivier wrote:
+> Rename SocketAddress_to_str() to socket_uri() and move it to
+> util/qemu-sockets.c close to socket_parse().
 > 
-> I am actually monitoring this patch for the same question that if
-> we need this patch for 4.17.
+> socket_uri() generates a string from a SocketAddress while
+> socket_parse() generates a SocketAddress from a string.
 > 
-> I see no reason to exclude this patch since (1) we want to make sure
-> our code is correct (2) I am pretty sure we are not using 52 bit PA so
-> as indicated by commit message this patch is just for correctness and
-> no potential harm to include this patch in the release (probably even
-> backporting this patch till the 52 bit PA was introduced?).
-> 
-> So if you wouldn't mind committing this patch, you can of course have
-> my:
+> Signed-off-by: Laurent Vivier <lvivier@redhat.com>
+> Reviewed-by: David Gibson <david@gibson.dropbear.id.au>
+> Reviewed-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
+>   include/qemu/sockets.h |  2 +-
+>   monitor/hmp-cmds.c     | 23 +----------------------
+>   util/qemu-sockets.c    | 20 ++++++++++++++++++++
+>   3 files changed, 22 insertions(+), 23 deletions(-)
 
-Thanks for the feedback. I am happy to commit it. So...
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
-> 
-> Release-acked-by: Henry Wang <Henry.Wang@arm.com>
-
-I have now done it with your tag added.
-
-Cheers,
-
--- 
-Julien Grall
 
