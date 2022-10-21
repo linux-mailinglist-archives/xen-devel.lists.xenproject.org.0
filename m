@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F395608083
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 23:07:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427979.677657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FA3560809C
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 23:14:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.427988.677672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olzDj-0005LC-15; Fri, 21 Oct 2022 21:06:23 +0000
+	id 1olzLM-0006si-0m; Fri, 21 Oct 2022 21:14:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427979.677657; Fri, 21 Oct 2022 21:06:23 +0000
+Received: by outflank-mailman (output) from mailman id 427988.677672; Fri, 21 Oct 2022 21:14:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olzDi-0005Ix-UA; Fri, 21 Oct 2022 21:06:22 +0000
-Received: by outflank-mailman (input) for mailman id 427979;
- Fri, 21 Oct 2022 21:06:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1olzDh-0005Im-EA; Fri, 21 Oct 2022 21:06:21 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1olzDh-0003ln-Aw; Fri, 21 Oct 2022 21:06:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1olzDg-0006T2-T9; Fri, 21 Oct 2022 21:06:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1olzDg-0003uM-SY; Fri, 21 Oct 2022 21:06:20 +0000
+	id 1olzLL-0006qC-TK; Fri, 21 Oct 2022 21:14:15 +0000
+Received: by outflank-mailman (input) for mailman id 427988;
+ Fri, 21 Oct 2022 21:14:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QljK=2W=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1olzLJ-0006q6-Nj
+ for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 21:14:13 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4d647046-5185-11ed-8fd0-01056ac49cbb;
+ Fri, 21 Oct 2022 23:14:09 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 6284861F8A;
+ Fri, 21 Oct 2022 21:14:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0FBC433C1;
+ Fri, 21 Oct 2022 21:14:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,320 +43,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0vrnN8aaatCMeAbocLoDdR/LhU5gXPEnd7QdZMQxvTg=; b=SgmUBhznHbyYwjQ+TAX/gdIDdD
-	YY4hD2srNUIA4FUknkMIQcKOoSQgzKaKd0ml8pnyg7DRyJ5KlNlS191CdIX+RmxpQtXJfBQ38cIdK
-	dCg+PY8RasVrxd73HV6fTMH+lkfmVJ0Ec1vdv588dQ5gni1T21lNYeA26taPeJVuLN74=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-174152-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4d647046-5185-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1666386847;
+	bh=x8ql3IN6/9IyGm/rSegdtnRtnypTJTXH9eN/KGLgEn4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=eNaaQJFfixVCNl6Jw+R4ozoyqk0zb0qkiTF1nXxeEbuTMn2avHwNfhoWFTD7Qdnjk
+	 Mn2LqD2Sg8BSQWoY2b5284sijZchTJNoBcqQdyt8lsYt6pY1p+5ME8eAAl3bMmcnXZ
+	 tv5XJOc1ZmjmPFk1OAnLnR5gpJ3VKvx5IziVBmroOCW9NF59QveRqNuEdVkeAtpvP7
+	 mMPlLu4+9quzaaRnbecy+12Z8Tn7TMMDIHFfxXGhfNRud7RkkvkN3ISFMt34b4NGhN
+	 owY4uePZRIdIrm1Q0yW6Z0gqPhxZ0bf50EwNvmiHVLaOPP9EgxkVHbuOu8DEmDrmM2
+	 7ZlY47v4rx/oQ==
+Date: Fri, 21 Oct 2022 14:14:04 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Leo Yan <leo.yan@linaro.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen Develop <xen-devel@lists.xenproject.org>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Mathieu Poirier <mathieu.poirier@linaro.org>, 
+    Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>, 
+    jgross@suse.com, oleksandr_tyshchenko@epam.com, boris.ostrovsky@oracle.com, 
+    wei.liu@kernel.org, paul@xen.org
+Subject: Re: Issue: Networking performance in Xen VM on Arm64
+In-Reply-To: <Y1J39UsPlM8htxFx@leoy-huanghe.lan>
+Message-ID: <alpine.DEB.2.22.394.2210211341440.3873@ubuntu-linux-20-04-desktop>
+References: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan> <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop> <Y0VbQ3esM8gucmqQ@leoy-yangtze.lan> <alpine.DEB.2.22.394.2210111434240.3690179@ubuntu-linux-20-04-desktop> <Y00/SW5Ro+SlhoBU@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop> <Y1J39UsPlM8htxFx@leoy-huanghe.lan>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-4.13-testing test] 174152: regressions - FAIL
-X-Osstest-Failures:
-    xen-4.13-testing:test-arm64-arm64-xl-xsm:guest-start:fail:regression
-    xen-4.13-testing:test-arm64-arm64-xl-credit1:guest-start:fail:regression
-    xen-4.13-testing:test-arm64-arm64-xl-seattle:guest-start:fail:regression
-    xen-4.13-testing:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
-    xen-4.13-testing:test-armhf-armhf-xl-arndale:guest-start:fail:regression
-    xen-4.13-testing:test-armhf-armhf-xl-credit1:guest-start:fail:regression
-    xen-4.13-testing:test-armhf-armhf-xl-credit2:guest-start:fail:regression
-    xen-4.13-testing:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
-    xen-4.13-testing:test-armhf-armhf-libvirt:guest-start:fail:regression
-    xen-4.13-testing:test-armhf-armhf-libvirt-qcow2:debian-di-install:fail:regression
-    xen-4.13-testing:test-armhf-armhf-xl:guest-start:fail:regression
-    xen-4.13-testing:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
-    xen-4.13-testing:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
-    xen-4.13-testing:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:heisenbug
-    xen-4.13-testing:test-arm64-arm64-libvirt-xsm:guest-start:fail:heisenbug
-    xen-4.13-testing:test-arm64-arm64-libvirt-raw:debian-di-install:fail:heisenbug
-    xen-4.13-testing:test-arm64-arm64-xl:guest-start:fail:heisenbug
-    xen-4.13-testing:test-arm64-arm64-xl-credit2:guest-start:fail:heisenbug
-    xen-4.13-testing:test-arm64-arm64-xl-vhd:debian-di-install:fail:heisenbug
-    xen-4.13-testing:test-amd64-i386-libvirt-xsm:xen-install:fail:heisenbug
-    xen-4.13-testing:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
-    xen-4.13-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.13-testing:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-arndale:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
-    xen-4.13-testing:build-armhf-libvirt:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
-    xen-4.13-testing:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
-    xen-4.13-testing:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    xen=0be63c2615b268001f7cc9b72ce25eed952737dc
-X-Osstest-Versions-That:
-    xen=bde3b13043e31fd757c44bcec182b0ff1fe36d22
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 21 Oct 2022 21:06:20 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 174152 xen-4.13-testing real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/174152/
+On Fri, 21 Oct 2022, Leo Yan wrote:
+> Hi Stefano and all,
+> 
+> On Mon, Oct 17, 2022 at 04:50:05PM -0700, Stefano Stabellini wrote:
+> 
+> [...]
+> 
+> > > We can see DomU sends notification with timestamp (raw counter) is
+> > > 4989078592 and Dom0 receives the interrupt with timestamp 4989092169.
+> > > Since Dom0 and DomU use the same time counter and the counter
+> > > frequency is 25MHz, so we can get the delta value (in macroseconds):
+> > > 
+> > >     (4989092169 - 4989078592) / 25000000 * 1000 * 1000
+> > >   = 543us
+> > > 
+> > > Which means it takes 543us to let Dom0 to receive the notification.
+> > > You could see DomU runs in CPU3 and Dom0 runs on CPU13, there should
+> > > not have contention for CPU resources.  Seems to me, it's likely Xen
+> > > hypervisor takes long time to deliver the interrupt, note, it's not
+> > > take so long time for every skb transferring, sometimes the time for
+> > > response a notification is short (about ~10us).
+> > 
+> > Good find. I think this is worth investigating further. Do you have
+> > vwfi=native in your Xen command line as well?
+> > 
+> > After that, I would add printk also in Xen with the timestamp. The event
+> > channel notification code path is the following:
+> > 
+> > # domU side
+> > xen/arch/arm/vgic-v2.c:vgic_v2_to_sgi
+> > xen/arch/arm/vgic.c:vgic_to_sgi
+> > xen/arch/arm/vgic.c:vgic_inject_irq
+> > xen/arch/arm/vgic.c:vcpu_kick
+> > xen/arch/arm/gic-v2.c:gicv2_send_SGI
+> > 
+> > # dom0 side
+> > xen/arch/arm/gic.c:do_sgi
+> > xen/arch/arm/traps.c:leave_hypervisor_to_guest
+> > 
+> > It would be good to understand why sometimes it takes ~10us and some
+> > other times it takes ~540us
+> 
+> Some updates for why it takes several hundreds us for Xen backend driver
+> to respond interrupt.  The short answer is the vcpu running Xen backend
+> driver needs to switch context, even I have set options "sched=null
+> vwfi=native" in Xen command line.
+> 
+> So please see below detailed logs for how the things happen.
+> 
+> Let's take the timestamp 3842008681 as the start point, it's the time
+> for Xen backend driver sending out notification (xennet_notify_tx_irq);
+> at the timestamp 3842008885 the Xen hypervisor injects the interrupt
+> (it's about ~8us duration from the start point).
+> 
+> And then at the timestamp 3842008935 it invokes vcpu_kick() to kick the
+> virtual CPU for running Xen forend driver, you could see
+> VCPU_PROCESSOR is 11 and VCPU_ID is 9 for dom0, the duration is
+> 10.16us from the start point.
+> 
+> The key point is at this point the vcpu's is_running is 0, this is
+> different from the case without long latency which vcpu's is_running
+> is 1.  IIUC, Xen hypervisor needs to take time to restore the vcpu's
+> context, thus we can see the virtual CPU 9 in Dom0 starts to run at
+> the timestamp 3842016505.
 
-Regressions :-(
+is_running should be always 1 with the NULL scheduler and vwfi=native.
+That is because VMs are never descheduled. Please double-check.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 172549
- test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 172549
- test-arm64-arm64-xl-seattle  14 guest-start              fail REGR. vs. 172549
- test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 172549
- test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 172549
- test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 172549
- test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 172549
- test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 172549
- test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 172549
- test-armhf-armhf-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 172549
- test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 172549
- test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 172549
- test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 172549
-
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot    fail in 173935 pass in 174152
- test-arm64-arm64-libvirt-xsm 14 guest-start                fail pass in 173735
- test-arm64-arm64-libvirt-raw 12 debian-di-install          fail pass in 173735
- test-arm64-arm64-xl          14 guest-start                fail pass in 173935
- test-arm64-arm64-xl-credit2  14 guest-start                fail pass in 173935
- test-arm64-arm64-xl-vhd      12 debian-di-install          fail pass in 173935
- test-amd64-i386-libvirt-xsm   7 xen-install                fail pass in 174126
-
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 172549
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check fail in 173735 never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check fail in 173735 never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check fail in 173735 never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check fail in 173735 never pass
- test-arm64-arm64-xl         15 migrate-support-check fail in 173935 never pass
- test-arm64-arm64-xl     16 saverestore-support-check fail in 173935 never pass
- test-arm64-arm64-xl-credit2 15 migrate-support-check fail in 173935 never pass
- test-arm64-arm64-xl-credit2 16 saverestore-support-check fail in 173935 never pass
- test-arm64-arm64-xl-vhd     14 migrate-support-check fail in 173935 never pass
- test-arm64-arm64-xl-vhd 15 saverestore-support-check fail in 173935 never pass
- test-amd64-i386-libvirt-xsm 15 migrate-support-check fail in 174126 never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172549
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 172549
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 172549
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 172549
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172549
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 172549
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172549
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172549
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172549
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt-raw  1 build-check(1)           starved in 174126 n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)         starved in 174126 n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)          starved in 174126 n/a
- test-armhf-armhf-xl           1 build-check(1)           starved in 174126 n/a
- test-armhf-armhf-libvirt      1 build-check(1)           starved in 174126 n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)           starved in 174126 n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)         starved in 174126 n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)           starved in 174126 n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)           starved in 174126 n/a
- build-armhf-libvirt           1 build-check(1)           starved in 174126 n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)           starved in 174126 n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)           starved in 174126 n/a
- build-armhf                   2 hosts-allocate           starved in 174126 n/a
-
-version targeted for testing:
- xen                  0be63c2615b268001f7cc9b72ce25eed952737dc
-baseline version:
- xen                  bde3b13043e31fd757c44bcec182b0ff1fe36d22
-
-Last test of basis   172549  2022-08-15 14:37:33 Z   67 days
-Failing since        173495  2022-10-11 14:08:01 Z   10 days   11 attempts
-Testing same since   173657  2022-10-13 01:09:08 Z    8 days    8 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Henry Wang <Henry.Wang@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Tim Deegan <tim@xen.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
- test-amd64-i386-xl-vhd                                       pass    
+If you are really running with the NULL scheduler, then I would
+investigate why the vCPU has is_running == 0 because it should not
+happen.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Now regarding the results, I can see the timestamp 3842008681 for
+xennet_notify_tx_irq, 3842008885 for vgic_inject_irq, and 3842008935 for
+vcpu_kick. Where is the corresponding TSC for the domain receiving the
+notification?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Also for the other case, starting at 3842016505, can you please
+highlight the timestamp for vgic_inject_irq, vcpu_kick, and also the one
+for the domain receiving the notification?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+The most interesting timestamps would be the timestamp for vcpu_kick in
+"notification sending domain" [a], the timestamp for receiving the
+interrupt in the Xen on pCPU for the "notification receiving domain"
+[b], and the timestamp for the "notification receiving domain" getting
+the notification [c].
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+If really context switch is the issue, then the interesting latency
+would be between [a] and [b].
 
 
-Not pushing.
 
-(No revision log; it would be 450 lines long.)
+> 3842008548              pub-310   [001]    67.352980: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842008548
+> 3842008652              pub-310   [001]    67.352984: bprint:               xennet_tx_setup_grant: id=52 ref=820 offset=2 len=1514 TSC: 3842008652
+> 3842008681              pub-310   [001]    67.352985: bprint:               xennet_start_xmit: xennet_notify_tx_irq: TSC: 3842008681
+> 3842008689 (XEN) leave_hypervisor_to_guest: CPU_ID: 0 TSC: 3842008689
+> 3842008766 (XEN) EVTCHNOP_send: CPU_ID: 2 TSC: 3842008766
+> 3842008885 (XEN) vgic_inject_irq: CPU_ID: 2 TSC: 3842008885
+> 3842008929 (XEN) leave_hypervisor_to_guest: CPU_ID: 14 TSC: 3842008929
+> 3842008935 (XEN) vcpu_kick: VCPU_PROCESSOR: 11 VCPU_ID: 9 is_running 0 TSC: 3842008935
+> 3842009049 (XEN) leave_hypervisor_to_guest: CPU_ID: 2 TSC: 3842009049
+> 3842009322              pub-310   [001]    67.353011: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842009322
+> 3842009374              pub-310   [001]    67.353013: bprint:               xennet_tx_setup_grant: id=12 ref=780 offset=2050 len=1514 TSC: 3842009374
+> 3842009584              pub-310   [001]    67.353021: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842009584
+> 3842009625 (XEN) leave_hypervisor_to_guest: CPU_ID: 15 TSC: 3842009625
+> 3842009633              pub-310   [001]    67.353023: bprint:               xennet_tx_setup_grant: id=83 ref=851 offset=2 len=1514 TSC: 3842009633
+> 3842009853              pub-310   [001]    67.353032: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842009853
+> 3842009899              pub-310   [001]    67.353034: bprint:               xennet_tx_setup_grant: id=5 ref=773 offset=2050 len=1514 TSC: 3842009899
+> 3842010080              pub-310   [001]    67.353041: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842010080
+> 3842010121              pub-310   [001]    67.353043: bprint:               xennet_tx_setup_grant: id=85 ref=853 offset=2 len=1514 TSC: 3842010121
+> 3842010316              pub-310   [001]    67.353050: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842010316
+> 3842010359              pub-310   [001]    67.353052: bprint:               xennet_tx_setup_grant: id=9 ref=777 offset=2050 len=1514 TSC: 3842010359
+> 3842010553              pub-310   [001]    67.353060: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842010553
+> 3842010599              pub-310   [001]    67.353062: bprint:               xennet_tx_setup_grant: id=35 ref=803 offset=2 len=1514 TSC: 3842010599
+> 3842010792              pub-310   [001]    67.353069: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842010792
+> 3842010838              pub-310   [001]    67.353071: bprint:               xennet_tx_setup_grant: id=17 ref=785 offset=2 len=1514 TSC: 3842010838
+> 3842011032              pub-310   [001]    67.353079: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842011032
+> 3842011072              pub-310   [001]    67.353081: bprint:               xennet_tx_setup_grant: id=18 ref=786 offset=2 len=1514 TSC: 3842011072
+> 3842011124 (XEN) leave_hypervisor_to_guest: CPU_ID: 12 TSC: 3842011124
+> 3842011265              pub-310   [001]    67.353088: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842011265
+> 3842011309              pub-310   [001]    67.353090: bprint:               xennet_tx_setup_grant: id=86 ref=854 offset=3074 len=606 TSC: 3842011309
+> 3842012807 (XEN) leave_hypervisor_to_guest: CPU_ID: 6 TSC: 3842012807
+> 3842013038 (XEN) leave_hypervisor_to_guest: CPU_ID: 10 TSC: 3842013038
+> 3842013568 (XEN) vgic_inject_irq: CPU_ID: 23 TSC: 3842013568
+> 3842013639 (XEN) vcpu_kick: VCPU_PROCESSOR: 23 VCPU_ID: 10 is_running 1 TSC: 3842013639
+> 3842013769 (XEN) leave_hypervisor_to_guest: CPU_ID: 4 TSC: 3842013769
+> 3842013955 (XEN) leave_hypervisor_to_guest: CPU_ID: 8 TSC: 3842013955
+> 3842014327 (XEN) leave_hypervisor_to_guest: CPU_ID: 5 TSC: 3842014327
+> 3842014381              pub-310   [001]    67.353213: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842014381
+> 3842014433              pub-310   [001]    67.353215: bprint:               xennet_tx_setup_grant: id=89 ref=857 offset=2050 len=1514 TSC: 3842014433
+> 3842014621              pub-310   [001]    67.353223: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842014621
+> 3842014663              pub-310   [001]    67.353224: bprint:               xennet_tx_setup_grant: id=38 ref=806 offset=2 len=1514 TSC: 3842014663
+> 3842014852              pub-310   [001]    67.353232: bprint:               xennet_start_xmit: xennet_start_xmit: TSC: 3842014852
+> 3842014909              pub-310   [001]    67.353234: bprint:               xennet_tx_setup_grant: id=4 ref=772 offset=2 len=1422 TSC: 3842014909
+> 3842015153 (XEN) leave_hypervisor_to_guest: CPU_ID: 1 TSC: 3842015153
+> 3842015345 (XEN) leave_hypervisor_to_guest: CPU_ID: 3 TSC: 3842015345
+> 3842015823 (XEN) leave_hypervisor_to_guest: CPU_ID: 13 TSC: 3842015823
+> 3842016505           <idle>-0     [009]    95.098859: bprint:               xenvif_tx_interrupt: xenvif_tx_interrupt: TSC: 3842016505
+> 3842016635           <idle>-0     [009]    95.098863: bprint:               xenvif_tx_build_gops.constprop.0: id=52 ref=820 offset=2 len=1514 TSC: 3842016635
+> 3842016648 (XEN) leave_hypervisor_to_guest: CPU_ID: 9 TSC: 3842016648
+> 3842016671           <idle>-0     [009]    95.098865: bprint:               xenvif_tx_build_gops.constprop.0: id=12 ref=780 offset=2050 len=1514 TSC: 3842016671
+> 3842016700           <idle>-0     [009]    95.098866: bprint:               xenvif_tx_build_gops.constprop.0: id=83 ref=851 offset=2 len=1514 TSC: 3842016700
+> 3842016725           <idle>-0     [009]    95.098867: bprint:               xenvif_tx_build_gops.constprop.0: id=5 ref=773 offset=2050 len=1514 TSC: 3842016725
+> 
+> I did another two experiments.
+> 
+> One experiment is I tried to append option "dom0_max_vcpus=16" into Xen
+> command line, the purpose is I want to allocate 16 virtual CPUs for dom0
+> and 4 virtual CPUs for domU, and my system has 32 physical CPUs, in
+> theory the physical CPUs are sufficient for dom0 and domU, but I
+> didn't see any performance improvement with option
+> "dom0_max_vcpus=16".
+>
+> Another experiment is to append option "dom0_vcpus_pin" in Xen command
+> line, this can allow the virtual CPU pins on physical CPU so can avoid
+> context switching.  With this option, I can see the throughput is
+> improved from 128.26 Mbits/s to 180.3 Mbits/s.  But this result is far
+> from the ideal throughput (800+Mbits/s).
+
+Actually this should not happen: like before, dom0_vcpus_pin does
+nothing with the NULL scheduler and only changes things for credit. Are
+you really sure you are running the tests with sched=null vwfi=native?
+
+
+> One thing I need to explore is to measure the duration for copying
+> data via grant table (based on the log we can see xennet driver setup
+> grant table and then xenvif driver fetches data from grant table).  I
+> will compare the duration for two directions (from dom0 to domU and
+> from domU to dom0).  This part might impact the performance heavily.
+
 
