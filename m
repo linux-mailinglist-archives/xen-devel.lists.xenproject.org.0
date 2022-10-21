@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 137BF606F9A
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 07:50:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427294.676211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66843606F9C
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 07:50:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.427299.676223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olkuJ-0003vu-4U; Fri, 21 Oct 2022 05:49:23 +0000
+	id 1olkuy-0004vs-GV; Fri, 21 Oct 2022 05:50:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427294.676211; Fri, 21 Oct 2022 05:49:23 +0000
+Received: by outflank-mailman (output) from mailman id 427299.676223; Fri, 21 Oct 2022 05:50:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olkuJ-0003tS-1V; Fri, 21 Oct 2022 05:49:23 +0000
-Received: by outflank-mailman (input) for mailman id 427294;
- Fri, 21 Oct 2022 05:49:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yPHp=2W=redhat.com=jasowang@srs-se1.protection.inumbo.net>)
- id 1olkuI-0003bt-7V
- for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 05:49:22 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b9c7038-5104-11ed-91b5-6bf2151ebd3b;
- Fri, 21 Oct 2022 07:49:21 +0200 (CEST)
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-549-gr2T5VvvN5OYPXqbO25PBA-1; Fri, 21 Oct 2022 01:49:18 -0400
-Received: by mail-oa1-f70.google.com with SMTP id
- 586e51a60fabf-1329a5d3272so1164516fac.17
- for <xen-devel@lists.xenproject.org>; Thu, 20 Oct 2022 22:49:18 -0700 (PDT)
+	id 1olkuy-0004tt-Bw; Fri, 21 Oct 2022 05:50:04 +0000
+Received: by outflank-mailman (input) for mailman id 427299;
+ Fri, 21 Oct 2022 05:50:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1olkuw-0004kL-RK; Fri, 21 Oct 2022 05:50:02 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1olkuw-0002LU-O4; Fri, 21 Oct 2022 05:50:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1olkuw-0007sw-FK; Fri, 21 Oct 2022 05:50:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1olkuw-00019U-Eq; Fri, 21 Oct 2022 05:50:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,274 +42,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b9c7038-5104-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1666331360;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vnJgyxJi0WUdobvp11tF9QEmwGMEfQeuu353PWho6+4=;
-	b=MU0JeONIs+bD0r1BW1NrCrAhQRLgid7G9G9V9zY7Jv0w1Pps/zuxj48sJT2vKIaPHwun+Z
-	2OeQNTg147M9QvN7zLXOrz7ctcYe/kE2OVtWi2EyWsaGyadvANX49kyx++OjvAZFhxJXmA
-	xqnWUESjdls5bLc3dyCDV9PpZpuG3hg=
-X-MC-Unique: gr2T5VvvN5OYPXqbO25PBA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vnJgyxJi0WUdobvp11tF9QEmwGMEfQeuu353PWho6+4=;
-        b=dtlz6rQyV/0KJ2lV6AfwZ/0BqltxtsAWvrSRg4mROGUNrRL6zOkQjg8cucfhoazDre
-         8t0BJmg7TgZ3YSbmvwiufYJW0nTgy2Uie+C61ZiNcDOD5QnWTrVX8WxJWEj8ZKSy2P7g
-         Hgb0g8u6PiYsRgvsEK9TfXZQH+vbxgfDiWjUhIvdwali1PUxOKWRnBdwvM20u5ZJo2Bj
-         TPYfJ4WoGy1+l1kkWYIKE0V3JuTooh7IaaWnf1unuyQH/pcXo0Ps1q2XbK788fAQHNIe
-         aEPnjN/kkFX8wAR9/wfOXE9hk2knfpNROKoygUOoFTVIqjPP9VyEGo5PfaQOnJp84FfS
-         CcWA==
-X-Gm-Message-State: ACrzQf1YtBoo4iEj4xmAv5HrCWrOuK+s98XtDOXFJrUfbkyuS5ix5wLd
-	5IMzCLWh8yKYHFvoV4YIbavNzJATk1tcWUqyJdp78EdVuuLXgM8FtDPUQkR98aAazS4lGwDKOKg
-	QiGRWU1cuAEauDymTHyvZ8ytyYf5h1QSJqUoE1E2eVvU=
-X-Received: by 2002:a05:6871:54e:b0:13b:29b7:e2e8 with SMTP id t14-20020a056871054e00b0013b29b7e2e8mr1080447oal.35.1666331358172;
-        Thu, 20 Oct 2022 22:49:18 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM5OxvlAr/sRYRZ4/SWbuH4Yd8f+24dXScokHZS5516ZdOe56EquuERpXrSwO5NnOuPdkC330Zx3Mu1qjw7Szcg=
-X-Received: by 2002:a05:6871:54e:b0:13b:29b7:e2e8 with SMTP id
- t14-20020a056871054e00b0013b29b7e2e8mr1080435oal.35.1666331357894; Thu, 20
- Oct 2022 22:49:17 -0700 (PDT)
-MIME-Version: 1.0
-References: <20221020162558.123284-1-lvivier@redhat.com>
-In-Reply-To: <20221020162558.123284-1-lvivier@redhat.com>
-From: Jason Wang <jasowang@redhat.com>
-Date: Fri, 21 Oct 2022 13:49:05 +0800
-Message-ID: <CACGkMEt9Hoo=GAuCUqMcBjqNvs94fEPA_GU9Z7TOh8c7Wam55Q@mail.gmail.com>
-Subject: Re: [PATCH v13 00/17] qapi: net: add unix socket type support to
- netdev backend
-To: Laurent Vivier <lvivier@redhat.com>
-Cc: qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>, 
-	Markus Armbruster <armbru@redhat.com>, Thomas Huth <thuth@redhat.com>, 
-	=?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>, Greg Kurz <groug@kaod.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, David Gibson <david@gibson.dropbear.id.au>, 
-	Eric Blake <eblake@redhat.com>, xen-devel@lists.xenproject.org, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Stefan Weil <sw@weilnetz.de>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Samuel Thibault <samuel.thibault@ens-lyon.org>, Anthony Perard <anthony.perard@citrix.com>, 
-	Ralph Schmieder <ralph.schmieder@gmail.com>, Stefano Brivio <sbrivio@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Jj4Mj5GqWnR7sRJrB6veFYvJ37yPRz3UZe4Ruo1Hp8g=; b=F+SXbOX5npSloc4qFOLr+yQwvJ
+	TK7j36fvF0vVBy5WfUNC6IyrH84Jy7d0M+9Xskh3Bh6HFmtRBCHx2KPuL5GKZR+DAZdaCNiCcm+JY
+	TWbNaEF8qZqOtKs6gnAnvKyDbt6QnIWQEXC9bgdy95lyavVzWBZTaPvIcpRWW1XnN+0k=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174111-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 174111: regressions - trouble: broken/fail/pass
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-libvirt-raw:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:host-install(5):broken:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=aae703b02f92bde9264366c545e87cec451de471
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 21 Oct 2022 05:50:02 +0000
 
-On Fri, Oct 21, 2022 at 12:26 AM Laurent Vivier <lvivier@redhat.com> wrote:
->
-> "-netdev socket" only supports inet sockets.
->
-> It's not a complex task to add support for unix sockets, but
-> the socket netdev parameters are not defined to manage well unix
-> socket parameters.
->
-> As discussed in:
->
->   "socket.c added support for unix domain socket datagram transport"
->   https://lore.kernel.org/qemu-devel/1C0E1BC5-904F-46B0-8044-68E43E67BE60=
-@gmail.com/
->
-> This series adds support of unix socket type using SocketAddress QAPI str=
-ucture.
->
-> Two new netdev backends, "stream" and "dgram" are added, that are barely =
-a copy of "socket"
-> backend but they use the SocketAddress QAPI to provide socket parameters.
-> And then they also implement unix sockets (TCP and UDP).
->
-> Some examples of CLI syntax:
->
->   for TCP:
->
->   -netdev stream,id=3Dsocket0,addr.type=3Dinet,addr.host=3Dlocalhost,addr=
-.port=3D1234
->   -netdev stream,id=3Dsocket0,server=3Doff,addr.type=3Dinet,addr.host=3Dl=
-ocalhost,addr.port=3D1234
->
->   -netdev dgram,id=3Dsocket0,\
->           local.type=3Dinet,local.host=3Dlocalhost,local.port=3D1234,\
->           remote.type=3Dinet,remote.host=3Dlocalhost,remote.port=3D1235
->
->   for UNIX:
->
->   -netdev stream,id=3Dsocket0,addr.type=3Dunix,addr.path=3D/tmp/qemu0
->   -netdev stream,id=3Dsocket0,server=3Doff,addr.type=3Dunix,addr.path=3D/=
-tmp/qemu0
->
->   -netdev dgram,id=3Dsocket0,\
->           local.type=3Dunix,local.path=3D/tmp/qemu0,\
->           remote.type=3Dunix,remote.path=3D/tmp/qemu1
->
->   for FD:
->
->   -netdev stream,id=3Dsocket0,addr.type=3Dfd,addr.str=3D4
->   -netdev stream,id=3Dsocket0,server=3Doff,addr.type=3Dfd,addr.str=3D5
->
->   -netdev dgram,id=3Dsocket0,local.type=3Dfd,addr.str=3D4
->
-> v13:
->   - fix server default in qtest
->   - use SocketAddress in event
->   - remove unwanted meson update
->   - update error message in net_init_dgram()
+flight 174111 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174111/
 
-I've queued this version and will send pull requests shortly.
+Regressions :-(
 
-Any future comment we can do patches on top.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-libvirt-raw    <job status>                 broken
+ test-armhf-armhf-libvirt-raw  5 host-install(5)        broken REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
 
-Thanks
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
->
-> v12:
->   - replace NETDEV_STREAM_EOC by NETDEV_STREAM_DISCONNECTED
->   - set server=3Doff by default
->
-> v11:
->   - use qemu_set_info_str() in hw/net/xen_nic.c
->   - fix link_down state in stream client mode
->   - cleanup error case in net_stream_receive()
->   - update qapi version to 7.2
->
-> v10:
->   - add Red Hat copyright
->   - initialize dgram_dst to NULL in SOCKET_ADDRESS_TYPE_FD
->   - remove redundente _stream / _dgram in functions name
->   - move net_dgram_init() into net_init_dgram()
->   - address Thomas' comments on qtest
->   - add a function qemu_set_info_str() to set info string
->   - tested stream netdev with fd type using qrap/passt and
->     "-netdev stream,addr.type=3Dfd,server=3Doff,addr.str=3D5,id=3Dnetdev0=
-"
->
-> v9:
->   - add events to report stream connection/disconnection
->   - remove from net/dgram.c send_fn, listen_fd, net_dgram_accept()
->     net_dgram_connect() and net_dgram_send() that are only
->     needed by net/stream.c
->   - remove from net/stream.c send_fn
->   - add Red Hat copyright
->   - add original net/socket.c Stefano's patch (EINVAL)
->
-> v8:
->   - test ipv4 and ipv6 parameters (stream inet)
->   - test abstract parameter (stream unix)
->   - add SocketAddressInet supported parameters in qemu-options.hx
->     (only stream, supported by the move to QIO)
->   - with qio_channel_writev() replace (ret =3D=3D -1 && errno =3D=3D EAGA=
-IN)
->     by (ret =3D=3D QIO_CHANNEL_ERR_BLOCK)
->
-> v7:
->   - add qtests
->   - update parameters table in net.json
->   - update socket_uri() and socket_parse()
->
-> v6:
->   - s/netdev option/-netdev option/ PATCH 4
->   - s/ / /
->   - update @NetdevStreamOptions and @NetdevDgramOptions comments
->   - update PATCH 4 description message
->   - add missing return in error case for unix stream socket
->   - split socket_uri() patch: move and rename, then change content
->
-> v5:
->   - remove RFC prefix
->   - put the change of net_client_parse() into its own patch (exit() in th=
-e
->     function)
->   - update comments regarding netdev_is_modern() and netdev_parse_modern(=
-)
->   - update error case in net_stream_server_init()
->   - update qemu-options.hx with unix type
->   - fix HMP "info network" with unix protocol/server side.
->
-> v4:
->   - net_client_parse() fails with exit() rather than with return.
->   - keep "{ 'name': 'vmnet-host', 'if': 'CONFIG_VMNET' }" on its
->     own line in qapi/net.json
->   - add a comment in qapi/net.json about parameters usage
->   - move netdev_is_modern() check to qemu_init()
->   - in netdev_is_modern(), check for JSON and use qemu_opts_do_parse()
->     to parse parameters and detect type value.
->   - add a blank line after copyright comment
->
-> v3:
->   - remove support of "-net" for dgram and stream. They are only
->     supported with "-netdev" option.
->   - use &error_fatal directly in net_client_inits()
->   - update qemu-options.hx
->   - move to QIO for stream socket
->
-> v2:
->   - use "stream" and "dgram" rather than "socket-ng,mode=3Dstream"
->     and ""socket-ng,mode=3Ddgram"
->   - extract code to bypass qemu_opts_parse_noisily() to
->     a new patch
->   - do not ignore EINVAL (Stefano)
->   - fix "-net" option
->
-> CC: Ralph Schmieder <ralph.schmieder@gmail.com>
-> CC: Stefano Brivio <sbrivio@redhat.com>
-> CC: Daniel P. Berrang=C3=A9 <berrange@redhat.com>
-> CC: Markus Armbruster <armbru@redhat.com>
->
-> Laurent Vivier (15):
->   net: introduce convert_host_port()
->   net: remove the @errp argument of net_client_inits()
->   net: simplify net_client_parse() error management
->   qapi: net: introduce a way to bypass qemu_opts_parse_noisily()
->   net: introduce qemu_set_info_str() function
->   qapi: net: add stream and dgram netdevs
->   net: stream: add unix socket
->   net: dgram: make dgram_dst generic
->   net: dgram: move mcast specific code from net_socket_fd_init_dgram()
->   net: dgram: add unix socket
->   qemu-sockets: move and rename SocketAddress_to_str()
->   qemu-sockets: update socket_uri() and socket_parse()  to be consistent
->   net: stream: move to QIO to enable additional parameters
->   tests/qtest: netdev: test stream and dgram backends
->   net: stream: add QAPI events to report connection state
->
-> Stefano Brivio (2):
->   net: socket: Don't ignore EINVAL on netdev socket connection
->   net: stream: Don't ignore EINVAL on netdev socket connection
->
->  hmp-commands.hx             |   2 +-
->  hw/net/xen_nic.c            |   5 +-
->  include/net/net.h           |   7 +-
->  include/qemu/sockets.h      |   4 +-
->  monitor/hmp-cmds.c          |  23 +-
->  net/clients.h               |   6 +
->  net/dgram.c                 | 623 ++++++++++++++++++++++++++++++++++++
->  net/hub.c                   |   2 +
->  net/l2tpv3.c                |   3 +-
->  net/meson.build             |   2 +
->  net/net.c                   | 186 ++++++++---
->  net/slirp.c                 |   5 +-
->  net/socket.c                |  36 +--
->  net/stream.c                | 387 ++++++++++++++++++++++
->  net/tap-win32.c             |   3 +-
->  net/tap.c                   |  13 +-
->  net/vde.c                   |   3 +-
->  net/vhost-user.c            |   3 +-
->  net/vhost-vdpa.c            |   2 +-
->  qapi/net.json               | 115 ++++++-
->  qemu-options.hx             |  14 +
->  softmmu/vl.c                |  16 +-
->  tests/qtest/meson.build     |   1 +
->  tests/qtest/netdev-socket.c | 420 ++++++++++++++++++++++++
->  util/qemu-sockets.c         |  25 ++
->  25 files changed, 1775 insertions(+), 131 deletions(-)
->  create mode 100644 net/dgram.c
->  create mode 100644 net/stream.c
->  create mode 100644 tests/qtest/netdev-socket.c
->
-> --
-> 2.37.3
->
->
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
+version targeted for testing:
+ linux                aae703b02f92bde9264366c545e87cec451de471
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z   13 days
+Failing since        173470  2022-10-08 06:21:34 Z   12 days   21 attempts
+Testing same since   174111  2022-10-20 01:26:57 Z    1 days    1 attempts
+
+------------------------------------------------------------
+1282 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 broken  
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job test-armhf-armhf-libvirt-raw broken
+broken-step test-armhf-armhf-libvirt-raw host-install(5)
+
+Not pushing.
+
+(No revision log; it would be 121075 lines long.)
 
