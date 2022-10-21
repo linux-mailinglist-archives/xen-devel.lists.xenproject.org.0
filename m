@@ -2,55 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E71CD607CDD
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 18:54:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427895.677491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDD1C607D40
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 19:15:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.427904.677508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olvHN-0005KA-Q8; Fri, 21 Oct 2022 16:53:53 +0000
+	id 1olvbi-00087h-JZ; Fri, 21 Oct 2022 17:14:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427895.677491; Fri, 21 Oct 2022 16:53:53 +0000
+Received: by outflank-mailman (output) from mailman id 427904.677508; Fri, 21 Oct 2022 17:14:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1olvHN-0005HH-N0; Fri, 21 Oct 2022 16:53:53 +0000
-Received: by outflank-mailman (input) for mailman id 427895;
- Fri, 21 Oct 2022 16:53:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KNjg=2W=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1olvHM-0005H9-Ft
- for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 16:53:52 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id efb13a76-5160-11ed-8fd0-01056ac49cbb;
- Fri, 21 Oct 2022 18:53:50 +0200 (CEST)
-Received: from BN9PR03CA0612.namprd03.prod.outlook.com (2603:10b6:408:106::17)
- by BY5PR12MB4935.namprd12.prod.outlook.com (2603:10b6:a03:1d9::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.30; Fri, 21 Oct
- 2022 16:53:45 +0000
-Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:106:cafe::ba) by BN9PR03CA0612.outlook.office365.com
- (2603:10b6:408:106::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.21 via Frontend
- Transport; Fri, 21 Oct 2022 16:53:45 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Fri, 21 Oct 2022 16:53:44 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 21 Oct
- 2022 11:53:44 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 21 Oct
- 2022 11:53:43 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31
- via Frontend Transport; Fri, 21 Oct 2022 11:53:42 -0500
+	id 1olvbi-00085B-Ga; Fri, 21 Oct 2022 17:14:54 +0000
+Received: by outflank-mailman (input) for mailman id 427904;
+ Fri, 21 Oct 2022 17:14:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1olvbg-000853-J2
+ for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 17:14:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1olvbf-0007s3-Vd; Fri, 21 Oct 2022 17:14:51 +0000
+Received: from 54-240-197-228.amazon.com ([54.240.197.228]
+ helo=[192.168.29.168]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1olvbf-0003OK-JC; Fri, 21 Oct 2022 17:14:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,105 +39,630 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efb13a76-5160-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S4Skq+tL9ZrTeaWtwvK2Wai7pV/XJXb2ufOYnA7caGBL2jpP7N/79CRpVGF7alycepzvP1KF1vgDTrMY+8x0nRUwMx6y9GNSXqAkhI7lE6tWlByJlOBfwh1ZBR8Nf0gYWEtNKlfpKFazkOHu/JNI5bStxV7X7ytT8YqQCG6ZI/MGKo78Y5iHt4/TK2uvAh4cJ4gxdUeji6c32vlN+dNaqFlKSU58gZ+wwNIgEwC+sjM7ZEYipaONaGu/0C4/mFPDR7pa3qpvJ1mdbGb1n/yvV9my6E2erd8XxNKKpItgxJRvQBbOVEPqmCtdTLlBg7iYGzCOeYtqrcFp+O0PkKGwag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fIPnwdLEH/hxki/6fg7zi/AAYz+XnzsGm7q1VuCQFho=;
- b=iKn4sEtXE8sPWK5+cYJ73xBAb5LMG9k+c6kR9qKop6t26KJKpva25USEuGnZ2bD2aIZc6f6AqKLmdx0d4CJOf4Ac7zJZabqyHccgB5B5gHZFWvY45oU2tjQZ03P0pnkj7yXNiPEGUpbXq5KuTSJrJ9AW58ir8HYJ7DGlDogJKy5ginjR98FpgE/kZGodj9j4edAyq8w5yIVHplePy8ZVwqm+VS46OuU3DT1pTzTX/b1k7xyDt3Jagz80AyzjUHt4iYnJ02Scb/ryJJzKUCI5H0PKw/4JBtzKA+Vn5LUUKNPxLnT62/2HAMpFC+mvuqz6EXXhAzJUX3fiq7HN+Etpew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fIPnwdLEH/hxki/6fg7zi/AAYz+XnzsGm7q1VuCQFho=;
- b=JXl8sFEAfPiF2TjsvmbgYrytwXEp3tbdJJNK1aHJ5e9nmnnd2+VUB463LWDCgsWYf/Xsf/5lucFn69BE0NTA6F8WWJs3MMwLDhCwRLaNNwB8xAnJdSqbyK3GnxSJGaQmfAjOHPL6UaI8N7e2GxOxdYWv8JSHlfdkGI0HTNnbBug=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Henry Wang <Henry.Wang@arm.com>
-Subject: [for-4.17] automation: Do not use null scheduler for boot cpupools test
-Date: Fri, 21 Oct 2022 18:53:41 +0200
-Message-ID: <20221021165341.7905-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=0uAdr35mhRY7TqWTg9FZFmGhMRUKSR6/4j/lfC7n9AE=; b=ohPfqAgUMhLyMb/KFpZXOx590Q
+	URuW3VpiH2mMdaRO+la/oQPLC2GKXx/xDr01a40lKmxqMOJNP0jmQwNXQAV8rs/DkatEksFMpbZTJ
+	CLIqRGeSn6B1zf/aQ/mioKuh57DQes9c83aKdEsiDGpvXIZ6Ifhr3LyD8MCn3EIY9WGU=;
+Message-ID: <08956082-c194-8bae-cb25-44e4e3227689@xen.org>
+Date: Fri, 21 Oct 2022 18:14:48 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT012:EE_|BY5PR12MB4935:EE_
-X-MS-Office365-Filtering-Correlation-Id: b312ccd4-e500-4d9e-2dd2-08dab384d0f8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	jCDW35/ggetLjIewtb6FOnPBKLHv+73HSvSJ5cTzjuuqgnbSgXZ8u8R39OjELcy69dnHCGJG8cY6AiaKT6kPVAlTyU8vAcgwzhVQkRjSYyaBYZXSMMlGkH5slgxr3Ev3QZpmGov0yBzhKST6d7lOZzVcBgnp2lnMDC+lzv/Xlpcby2JY6FfRlhtvIQJVm1H3LHPyLO332fzSyj8SkVrmvFB2PCE15PUbYjToIkzhn251w503aLbkz0zgSknnVp4KpaIpkDYZSVt0s47QQ58mQr0cxEhbBAIxqGI0FNXkp89/V9+DR8L4d4AMWZy7rAJXoAEIJ0Mbup/UPvTbE+6tvmYx9C96+3C7vUJh7XjU1ryBgq1yT50bMpLsTS7JjEAfyBRP8/65WfNoTgTjHhmVCeFYofZLhIwz5Q2Y3/8G0EWAn3KRuXz5ZN3GuM3+edTkMVwQEa/2n9exh76itb9+dsGzAUIKBzrRjv9JLMcF5fLEFUTZVYZRKndmoAjFbMc+w3OJqPeXG1yKeAp1zZRH7oFNYfyOZ/FwjVJuNk+uwY4ajzc/qJgn/T5WGFhZXqxR0XcxWz5zLB4xaLn/Qwd6w9wDifAVqJ90M+eVXj95mWfYqGlfPMqesnbPxN/nf6bRc4hCp+eB8FLaaZZI7AOZrgPu8WEFB63gb7igFnIPZQe5DCk2L70qxGYaqTH1IYkZpR1vqEwetPD1r0BQn9l7yIAWrEPpLImQHMrxlkAaLWT+bz9HlBO2ECmoxObZfXcOPVvKc00/dTqOvjqYrSqwOK1PhSeM9P/ypxkZfWkE8yh3AXctqxR4Sjth1+3S5oCGLiChOKmli4ZHZ0Io/kdthQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(39860400002)(376002)(136003)(451199015)(36840700001)(46966006)(40470700004)(5660300002)(478600001)(54906003)(316002)(44832011)(8676002)(6916009)(4326008)(26005)(186003)(336012)(1076003)(2906002)(966005)(2616005)(41300700001)(8936002)(82310400005)(356005)(82740400003)(426003)(47076005)(40460700003)(36756003)(36860700001)(70586007)(83380400001)(70206006)(81166007)(86362001)(40480700001)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 16:53:44.8858
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b312ccd4-e500-4d9e-2dd2-08dab384d0f8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4935
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.3
+Subject: Re: [PATCH 01/12] xen/arm: add cache coloring initialization
+Content-Language: en-US
+To: Carlo Nonato <carlo.nonato@minervasys.tech>,
+ xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it,
+ andrea.bastoni@minervasys.tech, lucmiccio@gmail.com,
+ Marco Solieri <marco.solieri@minervasys.tech>
+References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
+ <20220826125111.152261-2-carlo.nonato@minervasys.tech>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220826125111.152261-2-carlo.nonato@minervasys.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Null scheduler is not enabled on non-debug Xen builds so the current
-test can lead to a failure on such jobs. We still want to test that we
-can assign the cpupool to a domU with a different scheduler than default
-one (credit2). Switch to credit as it is enabled by default.
+Hi Carlo,
 
-Fixes: 36e3f4158778 ("automation: Add a new job for testing boot time cpupools on arm64")
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-This patch acts as a prerequisite before merging the following patch:
-https://lore.kernel.org/xen-devel/20221021132238.16056-1-michal.orzel@amd.com/
-(to which Henry already gave RAB), that helped to find the issue described
-in the comment.
----
- automation/scripts/qemu-smoke-arm64.sh | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+On 26/08/2022 13:51, Carlo Nonato wrote:
+> This commit adds the cache coloring support initialization, Kconfig options,
+> command line parameters and the initial documentation.
+> The initialization consists of an auto probing of the cache layout
+> necessary to retrieve the LLC way size which is used to compute the
+> number of available colors. The Dom0 colors are then initialized with default
+> colors (all available ones) if not provided from the command line, and
+> they are checked for bad configuration.
+> 
+> It also adds a debug-key to dump general cache coloring info.
+> This includes LLC way size, total available colors and the mask used to
+> extract colors from physical addresses.
+> 
+> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+> ---
+>   docs/misc/arm/cache-coloring.rst     | 112 ++++++++++++++
+>   docs/misc/xen-command-line.pandoc    |  22 +++
+>   xen/arch/arm/Kconfig                 |  16 ++
+>   xen/arch/arm/Makefile                |   1 +
+>   xen/arch/arm/coloring.c              | 222 +++++++++++++++++++++++++++
+>   xen/arch/arm/include/asm/coloring.h  |  31 ++++
+>   xen/arch/arm/include/asm/processor.h |  16 ++
+>   xen/arch/arm/setup.c                 |   8 +
+>   8 files changed, 428 insertions(+)
+>   create mode 100644 docs/misc/arm/cache-coloring.rst
+>   create mode 100644 xen/arch/arm/coloring.c
+>   create mode 100644 xen/arch/arm/include/asm/coloring.h
+> 
+> diff --git a/docs/misc/arm/cache-coloring.rst b/docs/misc/arm/cache-coloring.rst
+> new file mode 100644
+> index 0000000000..c7adcb0f1f
+> --- /dev/null
+> +++ b/docs/misc/arm/cache-coloring.rst
+> @@ -0,0 +1,112 @@
+> +Xen cache coloring user guide
+> +=============================
+> +
+> +The cache coloring support in Xen allows to reserve Last Level Cache (LLC)
+> +partition for Dom0, DomUs and Xen itself. Currently only ARM64 is supported.
+> +
+> +In order to enable and use it, few steps are needed.
+> +
+> +- Enable cache coloring in Xen configuration file.
+> +
+> +        CONFIG_CACHE_COLORING=y
+> +- If needed, change the maximum number of colors in Xen configuration file
+> +  (refer to menuconfig help for value meaning and when it should be changed).
+> +
+> +        CONFIG_MAX_CACHE_COLORS=<n>
+> +- Assign colors to Dom0 using the `Color selection format`_ (see
+> +  `Coloring parameters`_ for more documentation pointers).
+> +
+> +Background
+> +**********
+> +
+> +Cache hierarchy of a modern multi-core CPU typically has first levels dedicated
+> +to each core (hence using multiple cache units), while the last level is shared
+> +among all of them. Such configuration implies that memory operations on one
+> +core (e.g. running a DomU) are able to generate interference on another core
+> +(e.g .hosting another DomU). Cache coloring allows eliminating this
+> +mutual interference, and thus guaranteeing higher and more predictable
+> +performances for memory accesses.
+> +The key concept underlying cache coloring is a fragmentation of the memory
+> +space into a set of sub-spaces called colors that are mapped to disjoint cache
+> +partitions. Technically, the whole memory space is first divided into a number
+> +of subsequent regions. Then each region is in turn divided into a number of
+> +subsequent sub-colors. The generic i-th color is then obtained by all the
+> +i-th sub-colors in each region.
+> +
+> +.. raw:: html
+> +
+> +    <pre>
+> +                            Region j            Region j+1
+> +                .....................   ............
+> +                .                     . .
+> +                .                       .
+> +            _ _ _______________ _ _____________________ _ _
+> +                |     |     |     |     |     |     |
+> +                | c_0 | c_1 |     | c_n | c_0 | c_1 |
+> +           _ _ _|_____|_____|_ _ _|_____|_____|_____|_ _ _
+> +                    :                       :
+> +                    :                       :...         ... .
+> +                    :                            color 0
+> +                    :...........................         ... .
+> +                                                :
+> +          . . ..................................:
+> +    </pre>
+> +
+> +There are two pragmatic lesson to be learnt.
+> +
+> +1. If one wants to avoid cache interference between two domains, different
+> +   colors needs to be used for their memory.
+> +
+> +2. Color assignment must privilege contiguity in the partitioning. E.g.,
+> +   assigning colors (0,1) to domain I  and (2,3) to domain  J is better than
+> +   assigning colors (0,2) to I and (1,3) to J.
+> +
+> +How to compute the number of colors
+> +***********************************
+> +
+> +To compute the number of available colors for a specific platform, the size of
+> +a LLC way and the page size used by Xen must be known. The first parameter can
+> +be found in the processor manual or can be also computed dividing the total
+> +cache size by the number of its ways. The second parameter is the minimum amount
+> +of memory that can be mapped by the hypervisor, thus dividing the way size by
+> +the page size, the number of total cache partitions is found. So for example,
+> +an Arm Cortex-A53 with a 16-ways associative 1 MiB LLC, can isolate up to 16
+> +colors when pages are 4 KiB in size.
+> +
+> +Cache layout is probed automatically by Xen itself, but a possibility to
+> +manually set the way size it's left to the user to overcome failing situations
+> +or for debugging/testing purposes. See `Coloring parameters`_ section for more
+> +information on that.
+> +
+> +Colors selection format
+> +***********************
+> +
+> +Regardless of the memory pool that has to be colored (Xen, Dom0/DomUs),
+> +the color selection can be expressed using the same syntax. In particular a
+> +comma-separated list of colors or ranges of colors is used.
+> +Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive on both
+> +sides.
+> +
+> +Note that:
+> + - no spaces are allowed between values.
+> + - no overlapping ranges or duplicated colors are allowed.
+> + - values must be written in ascending order.
+> +
+> +Examples:
+> +
+> ++---------------------+-----------------------------------+
+> +|**Configuration**    |**Actual selection**               |
+> ++---------------------+-----------------------------------+
+> +|  1-2,5-8            | [1, 2, 5, 6, 7, 8]                |
+> ++---------------------+-----------------------------------+
+> +|  4-8,10,11,12       | [4, 5, 6, 7, 8, 10, 11, 12]       |
+> ++---------------------+-----------------------------------+
+> +|  0                  | [0]                               |
+> ++---------------------+-----------------------------------+
+> +
+> +Coloring parameters
+> +*******************
+> +
+> +LLC way size (as previously discussed) and Dom0 colors can be set using the
+> +appropriate command line parameters. See the relevant documentation in
+> +"docs/misc/xen-command-line.pandoc".
+> \ No newline at end of file
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 9a79385a37..910ebeb2eb 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -889,6 +889,14 @@ Controls for the dom0 IOMMU setup.
+>   
+>       Incorrect use of this option may result in a malfunctioning system.
+>   
+> +### dom0-colors (arm64)
+> +> `= List of [ <integer> | <integer>-<integer> ]`
+> +
+> +> Default: `All available colors`
+> +
+> +Specify dom0 color configuration. If the parameter is not set, all available
+> +colors are chosen and the user is warned on Xen's serial console.
+> +
+>   ### dom0_ioports_disable (x86)
+>   > `= List of <hex>-<hex>`
+>   
+> @@ -1631,6 +1639,20 @@ This option is intended for debugging purposes only.  Enable MSR_DEBUGCTL.LBR
+>   in hypervisor context to be able to dump the Last Interrupt/Exception To/From
+>   record with other registers.
+>   
+> +### llc-way-size (arm64)
+> +> `= <size>`
+> +
+> +> Default: `Obtained from the hardware`
+> +
+> +Specify the way size of the Last Level Cache. This parameter is only useful with
+> +cache coloring support enabled. It is an optional, expert-only parameter and it
+> +is used to calculate the number of available colors on the platform. It can be
+> +obtained by dividing the total LLC size by the number of its associative ways.
+> +By default, the value is automatically computed by probing the hardware, but in
+> +case of specific needs, it can be manually set. Those include failing probing
+> +and debugging/testing purposes so that it's possibile to emulate platforms with
+> +different number of supported colors.
+> +
+>   ### loglvl
+>   > `= <level>[/<rate-limited level>]` where level is `none | error | warning | info | debug | all`
+>   
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index 33e004d702..8acff9682c 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -131,6 +131,22 @@ config ARM64_BTI
+>   	  Branch Target Identification support.
+>   	  This feature is not supported in Xen.
+>   
+> +config CACHE_COLORING
+> +	bool "Last Level Cache (LLC) coloring" if EXPERT
+> +	default n
+> +	depends on ARM_64
+> +
+> +config MAX_CACHE_COLORS
+> +	int "Maximum number of cache colors"
+> +	default 128
+> +	range 0 65536
+> +	depends on CACHE_COLORING
+> +	help
+> +	  This config value is an upper bound for the actual number of cache colors
+> +	  supported by the architecture. Xen preallocates this amount of cache
+> +	  colors at boot. Note that if, at any time, a color configuration with more
+> +	  colors than the maximum will be employed an error will be produced.
+> +
+>   config TEE
+>   	bool "Enable TEE mediators support (UNSUPPORTED)" if UNSUPPORTED
+>   	default n
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 4d076b278b..12940ba761 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -67,6 +67,7 @@ obj-$(CONFIG_SBSA_VUART_CONSOLE) += vpl011.o
+>   obj-y += vsmc.o
+>   obj-y += vpsci.o
+>   obj-y += vuart.o
+> +obj-$(CONFIG_CACHE_COLORING) += coloring.o
 
-diff --git a/automation/scripts/qemu-smoke-arm64.sh b/automation/scripts/qemu-smoke-arm64.sh
-index 5b566072f72a..a5d8d135b659 100755
---- a/automation/scripts/qemu-smoke-arm64.sh
-+++ b/automation/scripts/qemu-smoke-arm64.sh
-@@ -29,10 +29,10 @@ fi
- fi
- 
- if [[ "${test_variant}" == "boot-cpupools" ]]; then
--    # Check if domU0 (id=1) is assigned to Pool-1 with null scheduler
-+    # Check if domU0 (id=1) is assigned to Pool-1 with credit scheduler
-     passed="${test_variant} test passed"
-     dom0_check="
--if xl list -c 1 | grep -q Pool-1 && xl cpupool-list Pool-1 | grep -q Pool-1; then
-+if xl list -c 1 | grep -q Pool-1 && xl cpupool-list Pool-1 | grep -q credit; then
-     echo ${passed}
- fi
- "
-@@ -140,7 +140,7 @@ fi
- 
- if [[ "${test_variant}" == "boot-cpupools" ]]; then
-     echo '
--CPUPOOL[0]="cpu@1 null"
-+CPUPOOL[0]="cpu@1 credit"
- DOMU_CPUPOOL[0]=0
- NUM_CPUPOOLS=1' >> binaries/config
- fi
+The Makefile should be ordered alphabetically based on the filename. So 
+please move this to correct position.
+
+>   
+>   extra-y += xen.lds
+>   
+> diff --git a/xen/arch/arm/coloring.c b/xen/arch/arm/coloring.c
+> new file mode 100644
+> index 0000000000..c010ebc01b
+> --- /dev/null
+> +++ b/xen/arch/arm/coloring.c
+> @@ -0,0 +1,222 @@
+> +/*
+> + * xen/arch/arm/coloring.c
+> + *
+> + * Coloring support for ARM
+> + *
+> + * Copyright (C) 2019 Xilinx Inc.
+> + *
+> + * Authors:
+> + *    Luca Miccio <lucmiccio@gmail.com>
+> + *    Carlo Nonato <carlo.nonato@minervasys.tech>
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +#include <xen/errno.h>
+> +#include <xen/keyhandler.h>
+> +#include <xen/param.h>
+> +#include <xen/types.h>
+> +
+> +#include <asm/coloring.h>
+> +#include <asm/processor.h>
+> +#include <asm/sysregs.h>
+> +
+> +/* Size of a LLC way */
+> +static unsigned int llc_way_size;
+> +/* Number of colors available in the LLC */
+> +static unsigned int max_colors;
+> +/* Mask to retrieve coloring relevant bits */
+> +static uint64_t addr_col_mask;
+
+IIUC, this is meant to be applied on a host physical address. If so, 
+please use 'paddr_t' rather than uint64_t. Same below.
+
+> +
+> +#define addr_to_color(addr) (((addr) & addr_col_mask) >> PAGE_SHIFT)
+> +#define addr_set_color(addr, color) (((addr) & ~addr_col_mask) \
+> +                                     | ((color) << PAGE_SHIFT))
+
+I don't see any use of addr_to_color() and addr_set_color() below. So it 
+is not clear to me what is the type of 'color'. This may need to be 
+casted to (paddr_t).
+
+But as the helpers are quite small, it would be better to introduce the 
+macros where they are used.
+
+> +
+> +static unsigned int dom0_colors[CONFIG_MAX_CACHE_COLORS];
+> +static unsigned int dom0_num_colors;
+> +
+> +/*
+> + * Parse the coloring configuration given in the buf string, following the
+> + * syntax below.
+> + *
+> + * COLOR_CONFIGURATION ::= COLOR | RANGE,...,COLOR | RANGE
+> + * RANGE               ::= COLOR-COLOR
+> + *
+> + * Example: "0,2-6,15-16" represents the set of colors: 0,2,3,4,5,6,15,16.
+> + */
+> +static int parse_color_config(const char *buf, unsigned int *colors,
+> +                              unsigned int *num_colors)
+> +{
+> +    const char *s = buf;
+> +
+> +    if ( !colors || !num_colors )
+> +        return -EINVAL;
+> +
+> +    while ( *s != '\0' )
+> +    {
+> +        if ( *s != ',' )
+> +        {
+> +            unsigned int color, start, end;
+> +
+> +            start = simple_strtoul(s, &s, 0);
+> +
+> +            if ( *s == '-' )    /* Range */
+> +            {
+> +                s++;
+> +                end = simple_strtoul(s, &s, 0);
+> +            }
+> +            else                /* Single value */
+> +                end = start;
+> +
+> +            if ( start > end ||
+> +                 *num_colors + end - start >= CONFIG_MAX_CACHE_COLORS )
+
+In theory, *num_colors + end - start could overflow. I would also check 
+that given you are sanity checking the values.
+
+Lastly, may I ask to surround *num_colors + end - start with ()? This 
+would make easier to read.
+
+> +                return -EINVAL;
+> +            for ( color = start; color <= end; color++ )
+> +                colors[(*num_colors)++] = color;
+> +        }
+> +        else
+> +            s++;
+> +    }
+> +
+> +    return *s ? -EINVAL : 0;
+> +}
+> +
+> +size_param("llc-way-size", llc_way_size);
+> +
+> +static int __init parse_dom0_colors(const char *s)
+> +{
+> +    return parse_color_config(s, dom0_colors, &dom0_num_colors);
+> +}
+> +custom_param("dom0-colors", parse_dom0_colors);
+> +
+> +/* Return the LLC way size by probing the hardware */
+> +static unsigned int get_llc_way_size(void)
+> +{
+> +    register_t ccsidr_el1;
+> +    register_t clidr_el1 = READ_SYSREG(CLIDR_EL1);
+> +    register_t csselr_el1 = READ_SYSREG(CSSELR_EL1);
+> +    register_t id_aa64mmfr2_el1 = READ_SYSREG(ID_AA64MMFR2_EL1);
+> +    uint32_t ccsidr_numsets_shift = CCSIDR_NUMSETS_SHIFT;
+> +    uint32_t ccsidr_numsets_mask = CCSIDR_NUMSETS_MASK;
+> +    unsigned int n, line_size, num_sets;
+> +
+> +    for ( n = CLIDR_CTYPEn_LEVELS;
+> +          n != 0 && !((clidr_el1 >> CLIDR_CTYPEn_SHIFT(n)) & CLIDR_CTYPEn_MASK);
+> +          n-- );
+> +
+> +    if ( n == 0 )
+> +        return 0;
+> +
+> +    WRITE_SYSREG(((n - 1) & CCSELR_LEVEL_MASK) << CCSELR_LEVEL_SHIFT,
+> +                 CSSELR_EL1);
+> +    isb();
+> +
+> +    ccsidr_el1 = READ_SYSREG(CCSIDR_EL1);
+> +
+> +    /* Arm ARM: (Log2(Number of bytes in cache line)) - 4 */
+> +    line_size = 1 << ((ccsidr_el1 & CCSIDR_LINESIZE_MASK) + 4);
+> +
+> +    /* If FEAT_CCIDX is enabled, CCSIDR_EL1 has a different bit layout */
+> +    if ( (id_aa64mmfr2_el1 >> ID_AA64MMFR2_CCIDX_SHIFT) & 0x7 )
+> +    {
+> +        ccsidr_numsets_shift = CCSIDR_NUMSETS_SHIFT_FEAT_CCIDX;
+> +        ccsidr_numsets_mask = CCSIDR_NUMSETS_MASK_FEAT_CCIDX;
+> +    }
+> +    /* Arm ARM: (Number of sets in cache) - 1 */
+> +    num_sets = ((ccsidr_el1 >> ccsidr_numsets_shift) & ccsidr_numsets_mask) + 1;
+> +
+> +    printk(XENLOG_INFO "LLC found: L%u (line size: %u bytes, sets num: %u)\n",
+> +           n, line_size, num_sets);
+> +
+> +    /* Restore value in CSSELR_EL1 */
+> +    WRITE_SYSREG(csselr_el1, CSSELR_EL1);
+> +    isb();
+> +
+> +    return line_size * num_sets;
+> +}
+> +
+> +static bool check_colors(unsigned int *colors, unsigned int num_colors)
+> +{
+> +    int i;
+
+i should not be signed. So please use "unsigned int".
+
+> +
+> +    if ( num_colors > max_colors )
+> +        return false;
+> +
+> +    for ( i = 0; i < num_colors; i++ )
+> +        if ( colors[i] >= max_colors )
+> +            return false;
+> +
+> +    return true;
+> +}
+> +
+> +static unsigned int set_default_domain_colors(unsigned int *colors)
+> +{
+> +    unsigned int i;
+> +
+> +    if ( !colors )
+> +        return 0;
+I find a bit odd that we return 0 if 'colors' is NULL. In what situation 
+do you expect 'colors' to be NULL? Is this a programming error?
+
+> + > +    for ( i = 0; i < max_colors; i++ )
+> +        colors[i] = i;
+
+Coding style: Newline please.
+
+> +    return max_colors;
+> +}
+> +
+> +static void dump_coloring_info(unsigned char key)
+> +{
+> +    printk("'%c' pressed -> dumping coloring general info\n", key);
+> +    printk("LLC way size: %u KiB\n", llc_way_size >> 10);
+> +    printk("Number of LLC colors supported: %u\n", max_colors);
+> +    printk("Address color mask: 0x%lx\n", addr_col_mask);
+> +}
+> +
+> +bool __init coloring_init(void)
+> +{
+> +    if ( !llc_way_size && !(llc_way_size = get_llc_way_size()) )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "Probed LLC way size is 0 and no custom value provided\n");
+> +        return false;
+> +    }
+> +
+> +    max_colors = llc_way_size / PAGE_SIZE;
+> +    /* The maximum number of colors must be a power of 2 in order to correctly
+> +       map colors to bits of an address. */
+> +    ASSERT((max_colors & (max_colors - 1)) == 0);
+> +    addr_col_mask = (max_colors - 1) << PAGE_SHIFT;
+> +
+> +    if ( !dom0_num_colors )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "Dom0 color config not found. Using default (all colors)\n");
+> +        dom0_num_colors = set_default_domain_colors(dom0_colors);
+> +    }
+> +
+> +    if ( !check_colors(dom0_colors, dom0_num_colors) )
+> +    {
+> +        printk(XENLOG_ERR "Bad color config for Dom0\n");
+> +        return false;
+> +    }
+> +
+> +    register_keyhandler('K', dump_coloring_info, "dump coloring info", 1);
+> +
+> +    return true;
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/include/asm/coloring.h b/xen/arch/arm/include/asm/coloring.h
+> new file mode 100644
+> index 0000000000..dd7eff5f07
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/coloring.h
+> @@ -0,0 +1,31 @@
+> +/*
+> + * xen/arm/include/asm/coloring.h
+> + *
+> + * Coloring support for ARM
+> + *
+> + * Copyright (C) 2019 Xilinx Inc.
+> + *
+> + * Authors:
+> + *    Luca Miccio <lucmiccio@gmail.com>
+> + *    Carlo Nonato <carlo.nonato@minervasys.tech>
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +#ifndef __ASM_ARM_COLORING_H__
+> +#define __ASM_ARM_COLORING_H__
+> +
+> +#include <xen/init.h>
+> +
+> +bool __init coloring_init(void);
+> +
+> +#endif /* !__ASM_ARM_COLORING_H__ */
+
+Missing emags magic as you added in coloring.c.
+
+> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+> index 1dd81d7d52..85ff0caf1e 100644
+> --- a/xen/arch/arm/include/asm/processor.h
+> +++ b/xen/arch/arm/include/asm/processor.h
+> @@ -18,6 +18,22 @@
+>   #define CTR_IDC_SHIFT       28
+>   #define CTR_DIC_SHIFT       29
+>   
+> +/* CCSIDR Current Cache Size ID Register */
+> +#define CCSIDR_LINESIZE_MASK            0x7
+> +#define CCSIDR_NUMSETS_SHIFT            13
+> +#define CCSIDR_NUMSETS_MASK             0x3FFF
+> +#define CCSIDR_NUMSETS_SHIFT_FEAT_CCIDX 32
+> +#define CCSIDR_NUMSETS_MASK_FEAT_CCIDX  0xFFFFFF
+
+Please use ULL here otherwise someone using MASK << SHIFT will have the 
+expected result.
+
+My preference would be that all the MASK should have the same type. So 
+this is easier to spot any mistake.
+
+> +
+> +/* CCSELR Cache Size Selection Register */
+> +#define CCSELR_LEVEL_MASK  0x7
+> +#define CCSELR_LEVEL_SHIFT 1
+> +
+> +/* CLIDR Cache Level ID Register */
+> +#define CLIDR_CTYPEn_SHIFT(n) (3 * (n - 1))
+> +#define CLIDR_CTYPEn_MASK     0x7
+> +#define CLIDR_CTYPEn_LEVELS   7
+> +
+>   #define ICACHE_POLICY_VPIPT  0
+>   #define ICACHE_POLICY_AIVIVT 1
+>   #define ICACHE_POLICY_VIPT   2
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 500307edc0..c02f21c0e6 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -53,6 +53,9 @@
+>   #include <asm/setup.h>
+>   #include <xsm/xsm.h>
+>   #include <asm/acpi.h>
+> +#ifdef CONFIG_CACHE_COLORING
+> +#include <asm/coloring.h>
+> +#endif
+
+I would rather prefer if the #ifdef are moved in the header. So...
+
+>   
+>   struct bootinfo __initdata bootinfo;
+>   
+> @@ -930,6 +933,11 @@ void __init start_xen(unsigned long boot_phys_offset,
+>       printk("Command line: %s\n", cmdline);
+>       cmdline_parse(cmdline);
+>   
+> +#ifdef CONFIG_CACHE_COLORING
+> +    if ( !coloring_init() )
+
+... a stub for coloring_init() is provided and we avoid sprinkling the 
+common code with #ifdef.
+
+> +        panic("Xen Coloring support: setup failed\n");
+> +#endif
+> +
+>       setup_mm();
+>   
+>       /* Parse the ACPI tables for possible boot-time configuration */
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
