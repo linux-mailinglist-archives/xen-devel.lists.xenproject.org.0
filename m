@@ -2,64 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA9A36079CE
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 16:41:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.427717.677046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 978D06079F8
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Oct 2022 16:54:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.427723.677057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oltCU-0001sE-HW; Fri, 21 Oct 2022 14:40:42 +0000
+	id 1oltPP-0003XS-QK; Fri, 21 Oct 2022 14:54:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 427717.677046; Fri, 21 Oct 2022 14:40:42 +0000
+Received: by outflank-mailman (output) from mailman id 427723.677057; Fri, 21 Oct 2022 14:54:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oltCU-0001qM-Di; Fri, 21 Oct 2022 14:40:42 +0000
-Received: by outflank-mailman (input) for mailman id 427717;
- Fri, 21 Oct 2022 14:40:41 +0000
+	id 1oltPP-0003VD-ML; Fri, 21 Oct 2022 14:54:03 +0000
+Received: by outflank-mailman (input) for mailman id 427723;
+ Fri, 21 Oct 2022 14:54:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gujA=2W=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1oltCS-0001qG-Uf
- for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 14:40:41 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2060.outbound.protection.outlook.com [40.107.104.60])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MvAv=2W=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oltPN-0003V4-MD
+ for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 14:54:01 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4bc7289e-514e-11ed-8fd0-01056ac49cbb;
- Fri, 21 Oct 2022 16:40:24 +0200 (CEST)
-Received: from AS9PR06CA0123.eurprd06.prod.outlook.com (2603:10a6:20b:467::14)
- by AM0PR08MB5347.eurprd08.prod.outlook.com (2603:10a6:208:17f::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32; Fri, 21 Oct
- 2022 14:40:35 +0000
-Received: from VI1EUR03FT062.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:467:cafe::8) by AS9PR06CA0123.outlook.office365.com
- (2603:10a6:20b:467::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.36 via Frontend
- Transport; Fri, 21 Oct 2022 14:40:35 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VI1EUR03FT062.mail.protection.outlook.com (100.127.145.26) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5723.32 via Frontend Transport; Fri, 21 Oct 2022 14:40:35 +0000
-Received: ("Tessian outbound b4aebcc5bc64:v130");
- Fri, 21 Oct 2022 14:40:34 +0000
-Received: from f8afb7375ed1.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- ADB9B166-C4A2-421F-915F-8315FF6B510D.1; 
- Fri, 21 Oct 2022 14:40:24 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f8afb7375ed1.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 21 Oct 2022 14:40:24 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by DU0PR08MB8304.eurprd08.prod.outlook.com (2603:10a6:10:40c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.32; Fri, 21 Oct
- 2022 14:40:20 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::5cdc:31ff:2d2d:339]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::5cdc:31ff:2d2d:339%9]) with mapi id 15.20.5723.034; Fri, 21 Oct 2022
- 14:40:19 +0000
+ id 29604d4e-5150-11ed-8fd0-01056ac49cbb;
+ Fri, 21 Oct 2022 16:53:45 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 450FF1F8E1;
+ Fri, 21 Oct 2022 14:53:59 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0B7DF13A0E;
+ Fri, 21 Oct 2022 14:53:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id jue5AIeyUmPpLwAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 21 Oct 2022 14:53:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,149 +51,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bc7289e-514e-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=f/NbYJsJ2COhpMjsdce9OdOr8mhBFN/+YhKFkYRSJDUbxuGgT+0vjOO461i6I7/mythHre8DVPXb4VntQr4mfxybXJLsIDsDR2BFQpqWWre7rVMWhowriITLjkniGh7uGDlA4B/6Bs8VDT5NFDZclGrQjmWyleGoV7idoSIlSklhcVgPv63bZLTxH3BMlzhKFKW1cQfN9301JwDKsecq+KdWzf+64XIhWqfA/ZZX8OOi6tB4uKF/uwlO1MsPgAJq9j4dBMeDavCONOglmy8s2l1Uv+glKbSP5M3THsnh8QN1x5KxCJ6gaU5O8LympH+U0nUiCEc9OerFJBqk1zWrEg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4DhfaRwzrj7R7Idn7agp7jd2sNNMTdVmTJhcXH2ttPE=;
- b=CbcNj9c8ArRo7gVXzg4U0v8xQ3qijF9VK61RH+ZgOn80XUGccj6clM8DX9zVhqN5yFMF2jqkYeUSH0CErFXQyyh/mhgn7E6gAkzi5QRlr2hy79w7QlHgbOz6gm/fKq/gciONX2cZMThxuAVG3//fqFhkBRyPhfFsLLldW5QwPPOzRRQ3sbJX0uj5a9ALUP/FwDkaC5SyO6CD6tjCLrGo0sXCSh1r+B823x/IkFyo+NHJxAjakXJdjBGmy8SfbyZtKw67du5tmpVt7rUoJlaYnR8j6XqnO8YYB2uyuX4pbG4d2V7awxLGTRbGnq7nOZ4I+/jx00HQMosv4kNT41HOxg==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4DhfaRwzrj7R7Idn7agp7jd2sNNMTdVmTJhcXH2ttPE=;
- b=ESrqdY7cOpuHC4g3Cq5rwM0TfjJrpBEw5abDFgp+84YuB+ixki+PDqF9qgO7U9P7oIfzpj3G+RlCEQBwNztvawHpi+FjLE3otRf98SCnkUlXx/HW/tGdGVB3gDdQKH3JbhLBpvFFLt3Cd/vUgkwITyWk5aellIGDEaJI2n/mlvc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kh84EcLqflwr+t9203NG7zwCpfVrDUGfmX45RTxj0CGee/FOCevGYX4sI2jDmzAotwDtYiKIoVBnd0qA4fuoMeFDJvH/tyYDqyLhUlBo2GodwxitXmrjtlwsK0/MPg3jAQqSOAQY8kQQaLTT8HxiVBga/nQZeKnOVUXcwRkUY9O2tNx8aNQEq63vEIi2i5n5wVltEGAqg1w/lCnk79PET681ogTLDCFEm9bTwL40CbDYiS2RhFAFWjFU3nuo+8rwUkUvmpx5BTbxp6jlPBgoDD8vZm8GjEBPJpoWa54xBGtWYoKG89g8EHpaYe/UNtpEVcMoeBT4S0AsgLDYsixQqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4DhfaRwzrj7R7Idn7agp7jd2sNNMTdVmTJhcXH2ttPE=;
- b=Dg4+TJUl9/nWFgAqStYmpRVcMC4hwii/kQSZGLH008hx03jmKDjftnta+REuEUtJ48KSgGtaCv+1sdr2uQiCMcPSWQupOmiQWT69UY7NJWtQTIiQ+rDHVkzu/L6P5ff7kMEE2T66eAHFSv02O6Sg7Qp/X5/nESq8vlIyqSif9eeURUE0QvIUeXVfVrPoWOeyabD7LMfJ+jQahPf0GiYobkQbpas435QJDwmOvGH8HsbL6jVtakF8Yo+nprT9sMD3OZ6HDtdvVlzITagzQ+m0wAAaPhz/d8u61TiYa2OV94UiG5sMykXAUf0BEmz4hMd+ieMT+YEoYysKX6HHSFfbAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4DhfaRwzrj7R7Idn7agp7jd2sNNMTdVmTJhcXH2ttPE=;
- b=ESrqdY7cOpuHC4g3Cq5rwM0TfjJrpBEw5abDFgp+84YuB+ixki+PDqF9qgO7U9P7oIfzpj3G+RlCEQBwNztvawHpi+FjLE3otRf98SCnkUlXx/HW/tGdGVB3gDdQKH3JbhLBpvFFLt3Cd/vUgkwITyWk5aellIGDEaJI2n/mlvc=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Oleksandr <olekstysh@gmail.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Jan Beulich
-	<jbeulich@suse.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>
-Subject: RE: [PATCH v2 4/4] vpci: include xen/vmap.h to fix build on ARM
-Thread-Topic: [PATCH v2 4/4] vpci: include xen/vmap.h to fix build on ARM
-Thread-Index: AQHYmuuJ09LC1x/2uEWs942YY/fNVK2FNeCAgABJdQCAAALGgICT+/QAgAAA3ZA=
-Date: Fri, 21 Oct 2022 14:40:19 +0000
-Message-ID:
- <AS8PR08MB7991C3933F253BE49BA61B76922D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
-References: <20220718211521.664729-1-volodymyr_babchuk@epam.com>
- <20220718211521.664729-5-volodymyr_babchuk@epam.com>
- <b4554a1f-73ab-7a46-591b-ccb5bb34ea1f@suse.com> <87ilntgzpj.fsf@epam.com>
- <3aa941de-3dab-0265-02af-38ad1cc3a4f3@suse.com>
- <e9120354-e72e-2774-c382-45ab0cb76220@gmail.com>
-In-Reply-To: <e9120354-e72e-2774-c382-45ab0cb76220@gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: ED7BD6521A943E47A6C3B30FF2FFF8EF.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|DU0PR08MB8304:EE_|VI1EUR03FT062:EE_|AM0PR08MB5347:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84dc4cfb-3d9b-456d-2843-08dab37236d4
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- Zf8EGicFl9X2qbk/inrmsLQjw6mAfKl2eY0N8mP1sW5dcXc15Ffe6kD6r7TCB5ullL2zAHYjDaIFSrGXctAU59TL5b0J8huMTs8eFzrgwPKUaSQ1bY1oSDqFRb/xH8kLuIX8r3MBnV932SRdtXFGxgWG122MTs5ezhIsFVd4fopWHSF1liaxdNDTJvExmoGH3K4n+rGj+Pqk49IbCngRgnNAQKWSTzroN+B6yg6eGBJYnochFLGahH8SRQ3u9WMCeo+jQm9m46GnvGtOo6MoK198pE3s6enhByjZKPbm4WgfknzOoq4/XVdqbt9ZPuAi5EMJo15QiQD6Jo1Sg00eJGp0ThHsLMUlB9NO5tMonRZMRiQtyK89edweYWlqRMmoxGhmvv37DIlU73LbA1wuxJoy66L0DhjWjXqIF6p1t7scKB+JnrAi0NnvcUvYBTepKLQai87ynEINZxGyKP3yYnvDmuNz7Ik3iDFnyamVch7cbqHt3Ol/9QVWs3WDOZnz/7iP4laf9v/0jS9EZhEuu3+gThyDsQ8kkPPDb6Q8J84B9KsLfyGSq76Zj6nOpKyIbnFNSX5v7pxdIJfWSpNTqdnOl6+FzTlhOJw2diSRYjVbQXq11dfFCqw/hjCjlwv+uFQe1RKMRwhdI5nRcd06IwfqJo7huGCeMZ1A0VfYBQIzgQqYgrjj2FdWKGZwT1jIHIGB4RGIO3TxP0OT12j+dhgnFyswsWUZ6wUWyKaSjClm+68AF0Ce+HUi0WtFQZ0esgo/fOlEcNWmj+VD18/5lA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(376002)(39860400002)(136003)(346002)(396003)(451199015)(8676002)(186003)(38070700005)(83380400001)(38100700002)(86362001)(122000001)(7696005)(2906002)(41300700001)(5660300002)(52536014)(71200400001)(55016003)(8936002)(64756008)(26005)(316002)(6506007)(9686003)(53546011)(76116006)(66556008)(66476007)(66446008)(4326008)(6916009)(66946007)(478600001)(54906003)(33656002);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 29604d4e-5150-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1666364039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=ypwwZtddv/zbC+omssU6L3ECl6BXc92riOBC2cN9wvM=;
+	b=PFV1mf5IhuJxOyLsor7uWtWecOb6oD/v1vV7NF2IBaNSbndlVmIsjkqjRU/w8IyHSrQMR+
+	OmDYemgNNUSI+p/ZDFTOaF5ynFk8eVECHkogq8oBxG9tcpYk8PRt33PUaBR8bksv2TOmQ8
+	NA2jtzCXURlIfklWtJfd6iemBGcJTLY=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Meng Xu <mengxu@cis.upenn.edu>,
+	Henry Wang <Henry.Wang@arm.com>
+Subject: [PATCH-for-4.17] xen/sched: migrate timers to correct cpus after suspend
+Date: Fri, 21 Oct 2022 16:53:57 +0200
+Message-Id: <20221021145357.17931-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8304
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VI1EUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	ba0b3a81-02af-4ea0-108c-08dab3722d29
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	/XrhTC1WibxMS9Mtb8J9YScwy18hFUzz8qMOBwyNAgCSXlA3uABy19NaHoYqv2LMHJlNHUchPVDEd3ecQRV21Mqyw6lYm+DuP2rrp4hp7YhZCDDxS6gsMtS4fxhuv1K900q+Ad0ZiOin7ng0ZiYhXxSUY5Ri72pOfU6t+3TzkoeDHQVZerkIdBq8P0q3u00APUfJ2HWYggWH3eS9m75H5epTXQ6tEjRvZgU0kflL72UnthwbviXKZsuP/ZtdHKY2Ax4c8Y+nAF+TsQYoP4HsdJ4shZAm5y5NtqPfM8efOsHobNQBkIJ4tvnRQONIh28VkDASSaBU1jP8nqRBU+xphz+Vf/lAjT7oUrhqhC6+fgHbq79vcvWHFvIv59kw6mxbJj7h/EWG18m9sVPXMm/+SSiymKg+d+bO2Hk/FJuOULgQLCxy5G/hKZFzHXXnrczCiWhYprMigR/+NWzC1R7XKPo015vftZouhw4xhPfWUNlnKLv6mLLXVTvvHsOuwonc1ogNbqPtoXtaCbCl26ZUZgOsgpcrTAJOHWBTzU669ZGfoRkXtajDm5QpaM3vACXrWdtlytLbmC9AAJZGSh5zgpCEQQnBOSdzpJ7HLfMP0/XmA81ZPe0XFd0LUSC7UdNe5q1Y4u4H+S4K0zUm6M20PHG/XMGI2j65uN8MFpIyG3eE0R2A9fihThLCXflPtLX4ObAKYiC2loHoGnDifOKmm9Cbpyk6D0K7hdKWeqWsr2/Y870bwsvO8A09279Zj9InmOa7i9AW4GyIMY50sWwFDQ==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(396003)(346002)(39860400002)(136003)(376002)(451199015)(40470700004)(46966006)(36840700001)(33656002)(2906002)(36860700001)(6862004)(47076005)(356005)(82740400003)(5660300002)(8676002)(81166007)(54906003)(186003)(336012)(4326008)(83380400001)(7696005)(53546011)(478600001)(6506007)(9686003)(82310400005)(86362001)(70206006)(70586007)(26005)(55016003)(41300700001)(52536014)(316002)(8936002)(40480700001)(40460700003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2022 14:40:35.2770
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84dc4cfb-3d9b-456d-2843-08dab37236d4
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VI1EUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5347
+Content-Transfer-Encoding: 8bit
 
-KCsgQXJtIG1haW50YWluZXJzKQ0KDQpIaSBPbGVrc2FuZHIsDQoNCj4gLS0tLS1PcmlnaW5hbCBN
-ZXNzYWdlLS0tLS0NCj4gRnJvbTogT2xla3NhbmRyIDxvbGVrc3R5c2hAZ21haWwuY29tPg0KPiBT
-dWJqZWN0OiBSZTogW1BBVENIIHYyIDQvNF0gdnBjaTogaW5jbHVkZSB4ZW4vdm1hcC5oIHRvIGZp
-eCBidWlsZCBvbiBBUk0NCj4gSGVsbG8gYWxsLg0KPiBPbiAxOS4wNy4yMiAxMzo0MCwgSmFuIEJl
-dWxpY2ggd3JvdGU6DQo+ID4gT24gMTkuMDcuMjAyMiAxMjozMiwgVm9sb2R5bXlyIEJhYmNodWsg
-d3JvdGU6DQo+ID4+IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4gd3JpdGVzOg0KPiA+
-Pg0KPiA+Pj4gT24gMTguMDcuMjAyMiAyMzoxNSwgVm9sb2R5bXlyIEJhYmNodWsgd3JvdGU6DQo+
-ID4+Pj4gUGF0Y2ggYjRmMjExNjA2MDExICgidnBjaS9tc2l4OiBmaXggUEJBIGFjY2Vzc2VzIikg
-aW50cm9kdWNlZCBjYWxsIHRvDQo+ID4+Pj4gaW91bm1hcCgpLCBidXQgbm90IGFkZGVkIGNvcnJl
-c3BvbmRpbmcgaW5jbHVkZS4NCj4gPj4+Pg0KPiA+Pj4+IEZpeGVzOiBiNGYyMTE2MDYwMTEgKCJ2
-cGNpL21zaXg6IGZpeCBQQkEgYWNjZXNzZXMiKQ0KPiA+Pj4gSSBkb24ndCB0aGluayB0aGVyZSdz
-IGFueSBhY3RpdmUgaXNzdWUgd2l0aCB0aGUgIm1pc3NpbmciIGluY2x1ZGU6DQo+ID4+PiBUaGF0
-J3Mgb25seSBhIHByb2JsZW0gb25jZSBBcm0gaGFzIHZQQ0kgY29kZSBlbmFibGVkPyBJbiB3aGlj
-aA0KPiA+Pj4gY2FzZSBJIGRvbid0IHRoaW5rIGEgRml4ZXM6IHRhZyBpcyB3YXJyYW50ZWQuDQo+
-ID4+IEZhaXIgZW5vdWdoLiBNYXkgSSBhc2sgY29tbWl0dGVyIHRvIGRyb3AgdGhpcyB0YWc/DQo+
-ID4gSSBoYWQgdGFrZW4gcmVzcGVjdGl2ZSBub3RlIGFscmVhZHksIGluIGNhc2UgSSBlbmQgdXAg
-Y29tbWl0dGluZyB0aGlzLg0KPiA+IEJ1dCB0aGlzIGlzIHRoZSBsYXN0IHBhdGNoIG9mIHRoZSBz
-ZXJpZXMsIHNvIEkgY2FuIG9ubHkgZ3Vlc3Mgd2hldGhlcg0KPiA+IGl0IG1pZ2h0IGJlIG9rYXkg
-dG8gZ28gaW4gYWhlYWQgb2YgdGhlIG90aGVyIHRocmVlIHBhdGNoZXMuDQo+ID4NCj4gPiBKYW4N
-Cj4gDQo+IA0KPiBJIGFtIHdvbmRlcmluZywgd2hlcmUgdGhpcyBwYXRjaCBjb3VsZCBiZSA0LjE3
-IG1hdGVyaWFsPw0KPiANCj4gVGhlIHBhdGNoIHNlcmllcyBzZWVtIHRvIGdldCBzdHVjaywgYnV0
-IHRoZSBjdXJyZW50IHBhdGNoIGp1c3QgYWRkcyBhDQo+IG1pc3NpbmcgaW5jbHVkZSB0byBmaXgg
-YSBidWlsZCBvbiBBcm0sIHNvIGl0IGlzIGNvbXBsZXRlbHkgaW5kZXBlbmRlbnQuDQo+IEkgYWdy
-ZWUsIHRoZXJlIGlzIG5vIGlzc3VlIHdpdGggdGhlIGN1cnJlbnQgY29kZSBiYXNlIGFzIHZQQ0kg
-aXMNCj4gZGlzYWJsZWQgb24gQXJtLCBzbyBub3RoaW5nIHRvIGZpeCByaWdodCBub3cuIEJ1dCBh
-cyBQQ0kNCj4gcGFzc3Rocm91Z2gvdlBDSSBvbiBBcm0gaXMgaW4gdGhlIGRldmVsb3BtZW50IHN0
-YWdlLCB0aGUgZGV2ZWxvcGVycw0KPiBlbmFibGUgdGhhdCBzdXBwb3J0IGluIHRoZWlyIGJ1aWxk
-cy4gSSB0aGluayB0aGUgcmlzayBpcyByYXRoZXIgbG93IHRoYW4NCj4gaGlnaC4NCg0KSXQgc2Vl
-bXMgcmVhc29uYWJsZSB0byBtZSwgYnV0IEkgYW0gY3VyaW91cyBhYm91dCB3aGF0IEFybSBtYWlu
-dGFpbmVycw0KYW5kIFBDSSBtYWludGFpbmVycyB0aGluay4gRnJvbSB0aGUgaGlzdG9yeSBkaXNj
-dXNzaW9uIGluIHRoaXMgdGhyZWFkIEkNCnRoaW5rIGl0IGlzIHByZXR0eSBzYWZlIHRvIGluY2x1
-ZGUgdGhpcyBpbiA0LjE3LiBUaGFua3MgZm9yIHRoZSBwaW5nLg0KDQpLaW5kIHJlZ2FyZHMsDQpI
-ZW5yeQ0KDQoNCj4gDQo+IA0KPiANCj4gLS0NCj4gUmVnYXJkcywNCj4gDQo+IE9sZWtzYW5kciBU
-eXNoY2hlbmtvDQoNCg==
+Today all timers are migrated to cpu 0 when the system is being
+suspended. They are not migrated back after resuming the system again.
+
+This results (at least) to problems with the credit scheduler, as the
+timer isn't handled on the cpu it was expected to occur.
+
+Add migrating the scheduling related timers of a specific cpu from cpu
+0 back to its original cpu when that cpu has gone up when resuming the
+system.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+This is an alternative approach to this one:
+https://lists.xen.org/archives/html/xen-devel/2022-09/msg00510.html
+---
+ xen/common/sched/core.c    | 23 +++++++++++++++
+ xen/common/sched/cpupool.c |  2 ++
+ xen/common/sched/credit.c  | 13 +++++++++
+ xen/common/sched/private.h | 10 +++++++
+ xen/common/sched/rt.c      | 58 ++++++++++++++++++++++++++------------
+ 5 files changed, 88 insertions(+), 18 deletions(-)
+
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 23fa6845a8..142d03ade5 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -1284,6 +1284,29 @@ static int cpu_disable_scheduler_check(unsigned int cpu)
+     return 0;
+ }
+ 
++/*
++ * Called after a cpu has come up again in a suspend/resume cycle.
++ * Migrate all timers for this cpu (they have been migrated to cpu 0 when the
++ * cpu was going down).
++ * Note that only timers related to a physical cpu are migrated, not the ones
++ * related to a vcpu or domain.
++ */
++void sched_migrate_timers(unsigned int cpu)
++{
++    struct sched_resource *sr;
++
++    rcu_read_lock(&sched_res_rculock);
++
++    sr = get_sched_res(cpu);
++    if ( sr->master_cpu == cpu )
++    {
++        migrate_timer(&sr->s_timer, cpu);
++        sched_move_timers(sr->scheduler, sr);
++    }
++
++    rcu_read_unlock(&sched_res_rculock);
++}
++
+ /*
+  * In general, this must be called with the scheduler lock held, because the
+  * adjust_affinity hook may want to modify the vCPU state. However, when the
+diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
+index b2c6f520c3..bdf6030ab0 100644
+--- a/xen/common/sched/cpupool.c
++++ b/xen/common/sched/cpupool.c
+@@ -1035,6 +1035,8 @@ static int cf_check cpu_callback(
+     case CPU_ONLINE:
+         if ( system_state <= SYS_STATE_active )
+             rc = cpupool_cpu_add(cpu);
++        else
++            sched_migrate_timers(cpu);
+         break;
+     case CPU_DOWN_PREPARE:
+         /* Suspend/Resume don't change assignments of cpus to cpupools. */
+diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
+index 47945c2834..f2cd3d9da3 100644
+--- a/xen/common/sched/credit.c
++++ b/xen/common/sched/credit.c
+@@ -614,6 +614,18 @@ init_pdata(struct csched_private *prv, struct csched_pcpu *spc, int cpu)
+     spc->nr_runnable = 0;
+ }
+ 
++static void cf_check
++csched_move_timers(const struct scheduler *ops, struct sched_resource *sr)
++{
++    struct csched_private *prv = CSCHED_PRIV(ops);
++    struct csched_pcpu *spc = sr->sched_priv;
++
++    if ( sr->master_cpu == prv->master )
++        migrate_timer(&prv->master_ticker, prv->master);
++
++    migrate_timer(&spc->ticker, sr->master_cpu);
++}
++
+ /* Change the scheduler of cpu to us (Credit). */
+ static spinlock_t *cf_check
+ csched_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+@@ -2264,6 +2276,7 @@ static const struct scheduler sched_credit_def = {
+     .switch_sched   = csched_switch_sched,
+     .alloc_domdata  = csched_alloc_domdata,
+     .free_domdata   = csched_free_domdata,
++    .move_timers    = csched_move_timers,
+ };
+ 
+ REGISTER_SCHEDULER(sched_credit_def);
+diff --git a/xen/common/sched/private.h b/xen/common/sched/private.h
+index 0126a4bb9e..0527a8c70d 100644
+--- a/xen/common/sched/private.h
++++ b/xen/common/sched/private.h
+@@ -331,6 +331,8 @@ struct scheduler {
+                                     struct xen_sysctl_scheduler_op *);
+     void         (*dump_settings)  (const struct scheduler *);
+     void         (*dump_cpu_state) (const struct scheduler *, int);
++    void         (*move_timers)    (const struct scheduler *,
++                                    struct sched_resource *);
+ };
+ 
+ static inline int sched_init(struct scheduler *s)
+@@ -485,6 +487,13 @@ static inline int sched_adjust_cpupool(const struct scheduler *s,
+     return s->adjust_global ? s->adjust_global(s, op) : 0;
+ }
+ 
++static inline void sched_move_timers(const struct scheduler *s,
++                                     struct sched_resource *sr)
++{
++    if ( s->move_timers )
++        s->move_timers(s, sr);
++}
++
+ static inline void sched_unit_pause_nosync(const struct sched_unit *unit)
+ {
+     struct vcpu *v;
+@@ -622,6 +631,7 @@ struct cpu_rm_data *alloc_cpu_rm_data(unsigned int cpu, bool aff_alloc);
+ void free_cpu_rm_data(struct cpu_rm_data *mem, unsigned int cpu);
+ int schedule_cpu_rm(unsigned int cpu, struct cpu_rm_data *mem);
+ int sched_move_domain(struct domain *d, struct cpupool *c);
++void sched_migrate_timers(unsigned int cpu);
+ struct cpupool *cpupool_get_by_id(unsigned int poolid);
+ void cpupool_put(struct cpupool *pool);
+ int cpupool_add_domain(struct domain *d, unsigned int poolid);
+diff --git a/xen/common/sched/rt.c b/xen/common/sched/rt.c
+index 1f8d074884..d443cd5831 100644
+--- a/xen/common/sched/rt.c
++++ b/xen/common/sched/rt.c
+@@ -750,6 +750,27 @@ rt_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+     return &prv->lock;
+ }
+ 
++static void move_repl_timer(struct rt_private *prv, unsigned int old_cpu)
++{
++    cpumask_t *online = get_sched_res(old_cpu)->cpupool->res_valid;
++    unsigned int new_cpu = cpumask_cycle(old_cpu, online);
++
++    /*
++     * Make sure the timer run on one of the cpus that are still available
++     * to this scheduler. If there aren't any left, it means it's the time
++     * to just kill it.
++     */
++    if ( new_cpu >= nr_cpu_ids )
++    {
++        kill_timer(&prv->repl_timer);
++        dprintk(XENLOG_DEBUG, "RTDS: timer killed on cpu %d\n", old_cpu);
++    }
++    else
++    {
++        migrate_timer(&prv->repl_timer, new_cpu);
++    }
++}
++
+ static void cf_check
+ rt_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+ {
+@@ -759,25 +780,25 @@ rt_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+     spin_lock_irqsave(&prv->lock, flags);
+ 
+     if ( prv->repl_timer.cpu == cpu )
+-    {
+-        cpumask_t *online = get_sched_res(cpu)->cpupool->res_valid;
+-        unsigned int new_cpu = cpumask_cycle(cpu, online);
++        move_repl_timer(prv, cpu);
+ 
+-        /*
+-         * Make sure the timer run on one of the cpus that are still available
+-         * to this scheduler. If there aren't any left, it means it's the time
+-         * to just kill it.
+-         */
+-        if ( new_cpu >= nr_cpu_ids )
+-        {
+-            kill_timer(&prv->repl_timer);
+-            dprintk(XENLOG_DEBUG, "RTDS: timer killed on cpu %d\n", cpu);
+-        }
+-        else
+-        {
+-            migrate_timer(&prv->repl_timer, new_cpu);
+-        }
+-    }
++    spin_unlock_irqrestore(&prv->lock, flags);
++}
++
++static void cf_check
++rt_move_timers(const struct scheduler *ops, struct sched_resource *sr)
++{
++    unsigned long flags;
++    struct rt_private *prv = rt_priv(ops);
++    unsigned int old_cpu;
++
++    spin_lock_irqsave(&prv->lock, flags);
++
++    old_cpu = prv->repl_timer.cpu;
++    if ( prv->repl_timer.status != TIMER_STATUS_invalid &&
++         prv->repl_timer.status != TIMER_STATUS_killed &&
++         !cpumask_test_cpu(old_cpu, sr->cpupool->res_valid) )
++        move_repl_timer(prv, old_cpu);
+ 
+     spin_unlock_irqrestore(&prv->lock, flags);
+ }
+@@ -1561,6 +1582,7 @@ static const struct scheduler sched_rtds_def = {
+     .sleep          = rt_unit_sleep,
+     .wake           = rt_unit_wake,
+     .context_saved  = rt_context_saved,
++    .move_timers    = rt_move_timers,
+ };
+ 
+ REGISTER_SCHEDULER(sched_rtds_def);
+-- 
+2.35.3
+
 
