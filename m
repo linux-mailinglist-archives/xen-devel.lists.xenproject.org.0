@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3767360814D
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Oct 2022 00:03:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.428021.677748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CDCB608153
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Oct 2022 00:07:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.428026.677758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1om06D-0006GQ-Td; Fri, 21 Oct 2022 22:02:41 +0000
+	id 1om0Ap-0006vz-E6; Fri, 21 Oct 2022 22:07:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 428021.677748; Fri, 21 Oct 2022 22:02:41 +0000
+Received: by outflank-mailman (output) from mailman id 428026.677758; Fri, 21 Oct 2022 22:07:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1om06D-0006Dy-Qj; Fri, 21 Oct 2022 22:02:41 +0000
-Received: by outflank-mailman (input) for mailman id 428021;
- Fri, 21 Oct 2022 22:02:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1om06B-0006Ds-I8
- for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 22:02:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1om068-0004mc-Hb; Fri, 21 Oct 2022 22:02:36 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1om068-0008Il-9x; Fri, 21 Oct 2022 22:02:36 +0000
+	id 1om0Ap-0006u0-BJ; Fri, 21 Oct 2022 22:07:27 +0000
+Received: by outflank-mailman (input) for mailman id 428026;
+ Fri, 21 Oct 2022 22:07:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Jmp5=2W=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1om0Ao-0006tu-4K
+ for xen-devel@lists.xenproject.org; Fri, 21 Oct 2022 22:07:26 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id be0d59ee-518c-11ed-91b5-6bf2151ebd3b;
+ Sat, 22 Oct 2022 00:07:24 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id j7so7086835wrr.3
+ for <xen-devel@lists.xenproject.org>; Fri, 21 Oct 2022 15:07:24 -0700 (PDT)
+Received: from [192.168.1.93] (adsl-70.109.242.225.tellas.gr. [109.242.225.70])
+ by smtp.gmail.com with ESMTPSA id
+ l34-20020a05600c1d2200b003c6edc05159sm792761wms.1.2022.10.21.15.07.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Oct 2022 15:07:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,53 +44,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RfGouTLT2U5jEb0lWbfH1vE7DwS/WvTls4YB2mlYxEU=; b=C3euaVH3287MExPCYVyB4aBww5
-	awo7hW8jdc27UjrzxzlPM4dU1Udqv4kSCfC/W8L4/nPbCdjHpgWfx0FLqziKynJpF6Pwzgbg+yqKu
-	O0Hg91Wi9RQIqdTB/5gUFjUG+w6LnTVtfQBctwT2YpLSKPnc3gthZ7QasLvE30tpetBA=;
-Message-ID: <58c2c77a-c61c-fa14-9d92-0dabac814a15@xen.org>
-Date: Fri, 21 Oct 2022 23:02:34 +0100
+X-Inumbo-ID: be0d59ee-518c-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0fWkAaj/64/KGu+nvR8DXTnwG0ewY89q8R5CdE5ZIdU=;
+        b=IZh3S4JOy0AKzGnUnUZM/ZtQR48BvqSNa8bXbB00CceY2K1DlMuow+QRn33upujkz5
+         RAv34Ti0tduCKv8hEasnZ7w4fywmKv31Om7tTgn1A7k42roO+bbxgajPhd5TyfFZuR8g
+         Y/gWSo0oXDUwl8G4sGyc3tqqKHI+NwWrNOoDUACJcRZtu6z7T0d9eMeWmuGoLt5dLmfl
+         SXPR03sO1UJChyYpcxdVKb+RvExnsQibrqHYucvAT5IrZSGu+OFO852gEDPplHAZKosv
+         +dhzuSDyK6f4WPRoc6CgzEMXnuJnhwWpES2X3QJEN8idaJLreqr2l3+Kndmy6kFhWU1R
+         DJ1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0fWkAaj/64/KGu+nvR8DXTnwG0ewY89q8R5CdE5ZIdU=;
+        b=dZlOja77RCaOTYzRBI4R8jHgl/ZeABgZZs6EyVHtBIfwgxXBdiQxMf2FDEObkXXkby
+         y+vBxPhb9ZtZ/W52hoCCOBSh7BxkSayq/UotVX/OSqplyKmRQ2V2ALjjryPQojZjXOML
+         InCh5Ix2LQfV7LsJLUiu6XQ1Wug8U9sIsefTpHt7SGT8BGTatIRYcJxU0SKpN/KWvSu1
+         EHMsgqPonsr7aS4QPM1E/0WAE6RTIv5tYUUIjLCh2TuAFSvF84dBmsVgMRZGwe54bsrJ
+         T4EWzWmcMtKE9US88CYHwCNUO3HPaauoAEs3ibTNedLUrcgA2t4PIPMU8V7VwTAirYLE
+         FGcQ==
+X-Gm-Message-State: ACrzQf3yfa5+qsx+NC64tDcjWGlVTG0n3lD9aoLS4y9aM6pUCacdDQfr
+	wvwehcFSrh7p/qczczEfJt4=
+X-Google-Smtp-Source: AMsMyM4R4UY+On0MBm7AFMnZs3L12yFoJsWKlMS9Ojr90JLNCD+ori15UrkX00Rryx8rSmzr5PyASQ==
+X-Received: by 2002:a05:6000:170b:b0:22e:44d0:6bae with SMTP id n11-20020a056000170b00b0022e44d06baemr13452403wrc.99.1666390044100;
+        Fri, 21 Oct 2022 15:07:24 -0700 (PDT)
+Message-ID: <24feccd2-c90e-2abd-ebc3-4219bd15e380@gmail.com>
+Date: Sat, 22 Oct 2022 01:07:22 +0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-Subject: Re: [for-4.17] automation: Do not use null scheduler for boot
- cpupools test
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Michal Orzel <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Doug Goldstein <cardoe@cardoe.com>, Henry Wang <Henry.Wang@arm.com>
-References: <20221021165341.7905-1-michal.orzel@amd.com>
- <b1f7c77b-6e39-85e9-074e-0e31ed9648db@citrix.com>
- <alpine.DEB.2.22.394.2210211211090.3873@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2210211211090.3873@ubuntu-linux-20-04-desktop>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [RFC PATCH v1 04/12] Arm: GICv3: Emulate GICR_TYPER on AArch32
+Content-Language: en-US
+To: Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, julien@xen.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+References: <20221021153128.44226-1-ayankuma@amd.com>
+ <20221021153128.44226-5-ayankuma@amd.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <20221021153128.44226-5-ayankuma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+On 10/21/22 18:31, Ayan Kumar Halder wrote:
+Hi Ayan
 
-On 21/10/2022 20:36, Stefano Stabellini wrote:
-> For the NULL scheduler, it is clearly important to many users so it
-> would be valuable to move it to "supported, non security supported" and
-> enabling it by default in the build. I don't recall if we still have any
-> known outstanding issues with it. I think we need a separate email
-> thread for that discussion and I would understand if the decision is not
-> to change NULL support status for the 4.17 release (maybe for the 4.18
-> release?).
+> Refer Arm IHI 0069H ID020922,
+> The upper 32 bits of GICR_TYPER represent the affinity
+> whereas the lower 32 bits represent the other bits (eg processor
+> number, etc).
+> MPIDR_AFFINITY_LEVEL() returns a 32 bit number on aarch32. Thus, this
+> is appended to return GICR_TYPER register.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+> ---
+>   xen/arch/arm/vgic-v3.c | 14 +++++++++-----
+>   1 file changed, 9 insertions(+), 5 deletions(-)
+> 
+> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+> index c31140eb20..d86b41a39f 100644
+> --- a/xen/arch/arm/vgic-v3.c
+> +++ b/xen/arch/arm/vgic-v3.c
+> @@ -190,14 +190,18 @@ static int __vgic_v3_rdistr_rd_mmio_read(struct vcpu *v, mmio_info_t *info,
+>   
+>       case VREG64(GICR_TYPER):
+>       {
+> -        uint64_t typer, aff;
+> +        uint64_t typer;
+> +        uint32_t aff;
+>   
+>           if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
+> -        aff = (MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 3) << 56 |
+> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 2) << 48 |
+> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 1) << 40 |
+> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 0) << 32);
+> +        aff = (MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 3) << 24 |
+> +               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 2) << 16 |
+> +               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 1) << 8 |
+> +               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 0));
+>           typer = aff;
+> +
+> +        typer = typer << 32;
+> +
+>           /* We use the VCPU ID as the redistributor ID in bits[23:8] */
+>           typer |= v->vcpu_id << GICR_TYPER_PROC_NUM_SHIFT;
+>   
 
-At the moment, I am tracking two major issues for NULL scheduler:
-  - ED25BE5E-D695-4763-B97A-78D6040E2341@amazon.com
-  - alpine.DEB.2.22.394.2201051615060.2060010@ubuntu-linux-20-04-desktop 
-(reported by you)
-
-Have they been fixed? If not, then I don't think can be moved to 
-"supported, not security supported" because it would fall over basic setup.
-
-Cheers,
+I don't see an issue I just want to propose alternatives that I think 
+would reduce the changes, hopefully without breaking it.
+So, other ways would be either to assign v->arch.vmpidr to a new 
+variable uint64_t vmpidr and operate on this (without changing the 
+shifts), or to leave the type of aff uint64_t, adjust the shifts and do 
+typer = aff << 32.
 
 -- 
-Julien Grall
+Xenia
 
