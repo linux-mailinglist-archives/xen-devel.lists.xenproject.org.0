@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D91C6608E0B
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Oct 2022 17:19:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.428370.678425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA5B3608DEF
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Oct 2022 17:13:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.428349.678414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omGH1-0004Vo-UJ; Sat, 22 Oct 2022 15:18:55 +0000
+	id 1omGBd-0003nA-A6; Sat, 22 Oct 2022 15:13:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 428370.678425; Sat, 22 Oct 2022 15:18:55 +0000
+Received: by outflank-mailman (output) from mailman id 428349.678414; Sat, 22 Oct 2022 15:13:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omGH1-0004T8-QT; Sat, 22 Oct 2022 15:18:55 +0000
-Received: by outflank-mailman (input) for mailman id 428370;
- Sat, 22 Oct 2022 15:18:55 +0000
+	id 1omGBd-0003kd-74; Sat, 22 Oct 2022 15:13:21 +0000
+Received: by outflank-mailman (input) for mailman id 428349;
+ Sat, 22 Oct 2022 15:13:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1omGH1-0004Sq-9R
- for xen-devel@lists.xenproject.org; Sat, 22 Oct 2022 15:18:55 +0000
+ (envelope-from <julien@xen.org>) id 1omGBb-0003kX-Oa
+ for xen-devel@lists.xenproject.org; Sat, 22 Oct 2022 15:13:19 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1omGH0-0005Z5-TT; Sat, 22 Oct 2022 15:18:54 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ id 1omGBb-0005Rg-2a; Sat, 22 Oct 2022 15:13:19 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=[192.168.29.245]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1omG3I-00023n-1G; Sat, 22 Oct 2022 15:04:44 +0000
+ id 1omGBa-0002Xn-RD; Sat, 22 Oct 2022 15:13:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,190 +40,79 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=QrKVoHX4qf0LlBAWONoW3KGm6ybNg9XRNoyqYYBQsCU=; b=yeT5y7CLP3XFkDni1Tr9DIuf6D
-	qm91moVcg3R/j7l+jg7D6etvgIhU8U5cBv6Wb9JhEmFmkfc73yAbs1nFEDqm1OvHkkwd6Ji1zs5NP
-	EeT7VFaoSy5eU0hMQDzCXJtgXRoPDHKtCjWurCMwa1io1yPQOb/c//MCfirq07hfpksk=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: marco.solieri@minervasys.tech,
-	lucmiccio@gmail.com,
-	carlo.nonato@minervasys.tech,
-	Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [RFC v2 12/12] xen/arm64: smpboot: Directly switch to the runtime page-tables
-Date: Sat, 22 Oct 2022 16:04:22 +0100
-Message-Id: <20221022150422.17707-13-julien@xen.org>
-X-Mailer: git-send-email 2.37.1
-In-Reply-To: <20221022150422.17707-1-julien@xen.org>
-References: <20221022150422.17707-1-julien@xen.org>
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=PV8B+E1FVx9nndajCYva9nue8rk5+yNytWjbDo84q0c=; b=DVpMcAwF1aoRIWyl8u0cLaSwSt
+	ctBnPxETgiPgLcQZWlJoRG/r/Sexc3S6Jhqyyzkvugs6gX0Ffr9bcpY5wItDW7m4SMk2ekcYnyQBL
+	CRdkK1/am+WZWIoH+cIqsNk/038uAliQF/a4P0rqWFAkY85hJ9pU2TIAJfuho91o763g=;
+Message-ID: <e1b35ac1-d413-6a08-d5c0-9b2ce43aea17@xen.org>
+Date: Sat, 22 Oct 2022 16:13:16 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.3
+Subject: Re: [PATCH 00/12] Arm cache coloring
+Content-Language: en-US
+To: Carlo Nonato <carlo.nonato@minervasys.tech>,
+ xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ stefano.stabellini@amd.com, wl@xen.org, marco.solieri@unimore.it,
+ andrea.bastoni@minervasys.tech, lucmiccio@gmail.com
+References: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220826125111.152261-1-carlo.nonato@minervasys.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Julien Grall <jgrall@amazon.com>
+Hi Carlo,
 
-Switching TTBR while the MMU is on is not safe. Now that the identity
-mapping will not clash with the rest of the memory layout, we can avoid
-creating temporary page-tables every time a CPU is brought up.
+On 26/08/2022 13:50, Carlo Nonato wrote:
+> - The way xl passes user space memory to Xen it's adapted from various
+>    points of the xl code itself (e.g. xc_domain_node_setaffinity) and it
+>    works, but it really needs attention from expert maintainers since
+>    I'm not completely sure this is the correct way of doing things.
+> - We still need to bring back the relocation feature (part of) in order
+>    to move Xen memory to a colored space where the hypervisor could be
+>    isolated from VMs interference (see the revert commit #10 and the
+>    get_xen_paddr function in #12).
+> - Revert commits #8 and #9 are needed because coloring has the command
+>    line parsing as a prerequisite for its initialization and
+>    setup_pagetables must be called after it in order to color the Xen
+>    mapping. The DTB mapping is then added to the boot page tables instead
+>    of the Xen ones. Probably the way this is done is a bit simplistic.
+>    Looking forward for comments on the subject.
+> - A temporary mapping of the old Xen code (old here means non-colored)
+>    is used to reach variables in the old physical space so that secondary
+>    CPUs can boot. There were some comments in the previous version on that
+>    because the mapping is available for all the CPUs while only CPU0 is
+>    the one supposed to access it. I'm not sure how to temporarily mapping
+>    things only for the master CPU.
 
-The arm32 code will use a different approach. So this issue is for now
-only resolved on arm64.
+On Arm64, Xen will only use one set of page-tables for all the CPUs. So 
+it will not be possible to have a temporary mapping for a single CPU. 
+But what you can do is mapping the region and unmapping it when you are 
+done.
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-----
+That said, I would rather prefer if we can get rid of the old copy of 
+Xen. This would means secondary CPUs will directly jump to the new Xen.
 
-    Changes in v2:
-        - Remove arm32 code
----
- xen/arch/arm/arm32/smpboot.c   |  4 ++++
- xen/arch/arm/arm64/head.S      | 29 +++++++++--------------------
- xen/arch/arm/arm64/smpboot.c   | 15 ++++++++++++++-
- xen/arch/arm/include/asm/smp.h |  1 +
- xen/arch/arm/smpboot.c         |  1 +
- 5 files changed, 29 insertions(+), 21 deletions(-)
+> - A lot of #ifdef for cache coloring are introduced because I prefer to
+>    define functions only if they are actually needed. Let me know if you
+>    prefer a different approach.
 
-diff --git a/xen/arch/arm/arm32/smpboot.c b/xen/arch/arm/arm32/smpboot.c
-index e7368665d50d..518e9f9c7e70 100644
---- a/xen/arch/arm/arm32/smpboot.c
-+++ b/xen/arch/arm/arm32/smpboot.c
-@@ -21,6 +21,10 @@ int arch_cpu_up(int cpu)
-     return platform_cpu_up(cpu);
- }
- 
-+void arch_cpu_up_finish(void)
-+{
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-index 223cc7631d3b..8765a1570839 100644
---- a/xen/arch/arm/arm64/head.S
-+++ b/xen/arch/arm/arm64/head.S
-@@ -308,6 +308,7 @@ real_start_efi:
-         bl    check_cpu_mode
-         bl    cpu_init
-         bl    create_page_tables
-+        load_paddr x0, boot_pgtable
-         bl    enable_mmu
- 
-         /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
-@@ -365,29 +366,14 @@ GLOBAL(init_secondary)
- #endif
-         bl    check_cpu_mode
-         bl    cpu_init
--        bl    create_page_tables
-+        load_paddr x0, init_ttbr
-+        ldr   x0, [x0]
-         bl    enable_mmu
- 
-         /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
-         ldr   x0, =secondary_switched
-         br    x0
- secondary_switched:
--        /*
--         * Non-boot CPUs need to move on to the proper pagetables, which were
--         * setup in init_secondary_pagetables.
--         *
--         * XXX: This is not compliant with the Arm Arm.
--         */
--        ldr   x4, =init_ttbr         /* VA of TTBR0_EL2 stashed by CPU 0 */
--        ldr   x4, [x4]               /* Actual value */
--        dsb   sy
--        msr   TTBR0_EL2, x4
--        dsb   sy
--        isb
--        tlbi  alle2
--        dsb   sy                     /* Ensure completion of TLB flush */
--        isb
--
- #ifdef CONFIG_EARLY_PRINTK
-         /* Use a virtual address to access the UART. */
-         ldr   x23, =EARLY_UART_VIRTUAL_ADDRESS
-@@ -672,9 +658,13 @@ ENDPROC(create_page_tables)
-  * mapping. In other word, the caller is responsible to switch to the runtime
-  * mapping.
-  *
-- * Clobbers x0 - x3
-+ * Inputs:
-+ *   x0 : Physical address of the page tables.
-+ *
-+ * Clobbers x0 - x4
-  */
- enable_mmu:
-+        mov   x4, x0
-         PRINT("- Turning on paging -\r\n")
- 
-         /*
-@@ -685,8 +675,7 @@ enable_mmu:
-         dsb   nsh
- 
-         /* Write Xen's PT's paddr into TTBR0_EL2 */
--        load_paddr x0, boot_pgtable
--        msr   TTBR0_EL2, x0
-+        msr   TTBR0_EL2, x4
-         isb
- 
-         mrs   x0, SCTLR_EL2
-diff --git a/xen/arch/arm/arm64/smpboot.c b/xen/arch/arm/arm64/smpboot.c
-index 694fbf67e62a..9637f424699e 100644
---- a/xen/arch/arm/arm64/smpboot.c
-+++ b/xen/arch/arm/arm64/smpboot.c
-@@ -106,10 +106,23 @@ int __init arch_cpu_init(int cpu, struct dt_device_node *dn)
- 
- int arch_cpu_up(int cpu)
- {
-+    int rc;
-+
-     if ( !smp_enable_ops[cpu].prepare_cpu )
-         return -ENODEV;
- 
--    return smp_enable_ops[cpu].prepare_cpu(cpu);
-+    update_identity_mapping(true);
-+
-+    rc = smp_enable_ops[cpu].prepare_cpu(cpu);
-+    if ( rc )
-+        update_identity_mapping(false);
-+
-+    return rc;
-+}
-+
-+void arch_cpu_up_finish(void)
-+{
-+    update_identity_mapping(false);
- }
- 
- /*
-diff --git a/xen/arch/arm/include/asm/smp.h b/xen/arch/arm/include/asm/smp.h
-index 8133d5c29572..a37ca55bff2c 100644
---- a/xen/arch/arm/include/asm/smp.h
-+++ b/xen/arch/arm/include/asm/smp.h
-@@ -25,6 +25,7 @@ extern void noreturn stop_cpu(void);
- extern int arch_smp_init(void);
- extern int arch_cpu_init(int cpu, struct dt_device_node *dn);
- extern int arch_cpu_up(int cpu);
-+extern void arch_cpu_up_finish(void);
- 
- int cpu_up_send_sgi(int cpu);
- 
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index f7bda3a18b48..32e1d30e087e 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -509,6 +509,7 @@ int __cpu_up(unsigned int cpu)
-     init_data.cpuid = ~0;
-     smp_up_cpu = MPIDR_INVALID;
-     clean_dcache(smp_up_cpu);
-+    arch_cpu_up_finish();
- 
-     if ( !cpu_online(cpu) )
-     {
+The preferred approach in Xen is to provide stub helpers in the #else part.
+
+> - Julien posted an RFC to address a problem with the switch_ttbr function.
+>    For the moment I haven't considered it since it's still a work in progress.
+
+I have posted a new version for this:
+
+https://lore.kernel.org/xen-devel/20221022150422.17707-1-julien@xen.org/
+
+There are a couple of open questions about the interaction with cache 
+coloring. Please have a look there.
+
+Cheers,
+
 -- 
-2.37.1
-
+Julien Grall
 
