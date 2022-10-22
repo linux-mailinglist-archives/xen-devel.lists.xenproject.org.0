@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79EF8608C65
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Oct 2022 13:15:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.428228.678184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43581608C8A
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Oct 2022 13:26:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.428237.678201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omCT7-0004lC-72; Sat, 22 Oct 2022 11:15:09 +0000
+	id 1omCd7-0006Mo-7Y; Sat, 22 Oct 2022 11:25:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 428228.678184; Sat, 22 Oct 2022 11:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 428237.678201; Sat, 22 Oct 2022 11:25:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omCT7-0004jV-3E; Sat, 22 Oct 2022 11:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 428228;
- Sat, 22 Oct 2022 11:15:07 +0000
+	id 1omCd7-0006KO-4X; Sat, 22 Oct 2022 11:25:29 +0000
+Received: by outflank-mailman (input) for mailman id 428237;
+ Sat, 22 Oct 2022 11:25:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1omCT5-0004jL-Au; Sat, 22 Oct 2022 11:15:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1omCd6-0006KI-Kq
+ for xen-devel@lists.xenproject.org; Sat, 22 Oct 2022 11:25:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1omCT5-0001Rr-A2; Sat, 22 Oct 2022 11:15:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1omCT4-0007YS-Sc; Sat, 22 Oct 2022 11:15:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1omCT4-0005WI-SB; Sat, 22 Oct 2022 11:15:06 +0000
+ (envelope-from <julien@xen.org>)
+ id 1omCd6-0001c2-A2; Sat, 22 Oct 2022 11:25:28 +0000
+Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1omCd6-0000pZ-2K; Sat, 22 Oct 2022 11:25:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +39,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=jduODl6c+z/pi0jmjU6vsh8qUetCg78uTst0Y8/O2K4=; b=5wMDFFOFiZQS43AibopCtbkhma
-	+t1f2SE/PeivCobJ4CX9pMMXUoqJMdeDPUxsgMBhlKCrlOQMPII9Hr8iihgnn+38D0RZQcKZv6ap8
-	LUY1kWc7RFoC822FdLo46/n6wU51ZGQYk+YPFqFauTllpClRVvQS1DkNJeDaVOpnPZ5M=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-174250-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=z+cwlXg6MdquqcivDRdP5k0NvZOBUUXiyGR0buOOG9Y=; b=XXP4T6cH2CACxJADmoAQUM0d1L
+	C7Jk0IAAZARghEZuVkRWV0MMyA2MiYV8CXxhl7P4NOEzbfhpAmaKhJR2KCGL4N/VrmNKWLvBTM+Wz
+	XQ4ngGM/NAkbqJc3uKSYYNR/afFNjz9FaLr1aJWe+PnDFRt+7oXOL2MTKUtvMWbDrwzU=;
+Message-ID: <4fef02bd-80e7-f24a-5496-4f35d1e5060c@xen.org>
+Date: Sat, 22 Oct 2022 12:25:25 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 174250: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=2355f0c09c52d6979f9f471b23816f3081cc946b
-X-Osstest-Versions-That:
-    ovmf=913a308df934952bcbedacb6baa8bd023a25b978
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 22 Oct 2022 11:15:06 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.3.3
+To: Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com
+References: <20221021153128.44226-1-ayankuma@amd.com>
+ <20221021153128.44226-12-ayankuma@amd.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [RFC PATCH v1 11/12] Arm: GICv3: Define macros to read/write 64
+ bit
+In-Reply-To: <20221021153128.44226-12-ayankuma@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 174250 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/174250/
+Hi Ayan,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 2355f0c09c52d6979f9f471b23816f3081cc946b
-baseline version:
- ovmf                 913a308df934952bcbedacb6baa8bd023a25b978
+On 21/10/2022 16:31, Ayan Kumar Halder wrote:
+> Defined readq_relaxed()/writeq_relaxed() to read and write 64 bit regs.
+> This in turn calls readl_relaxed()/writel_relaxed() twice for the lower
+> and upper 32 bits.
 
-Last test of basis   174243  2022-10-22 07:10:26 Z    0 days
-Testing same since   174250  2022-10-22 09:41:23 Z    0 days    1 attempts
+This needs an explanation why we can't use "strd/ldrd". And the same 
+would have to be duplicated in the code below.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Rebecca Cran <rebecca@bsdio.com>
+> 
+> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+> ---
+>   xen/arch/arm/include/asm/arm32/io.h | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/arm32/io.h b/xen/arch/arm/include/asm/arm32/io.h
+> index 73a879e9fb..6a5f563fbc 100644
+> --- a/xen/arch/arm/include/asm/arm32/io.h
+> +++ b/xen/arch/arm/include/asm/arm32/io.h
+> @@ -80,10 +80,14 @@ static inline u32 __raw_readl(const volatile void __iomem *addr)
+>                                           __raw_readw(c)); __r; })
+>   #define readl_relaxed(c) ({ u32 __r = le32_to_cpu((__force __le32) \
+>                                           __raw_readl(c)); __r; })
+> +#define readq_relaxed(c) ({ u64 __r = (le64_to_cpu(readl_relaxed(c+4)) << 32) | \
+> +                                        readl_relaxed(c); __r; })
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+All the read*_relaxed are provide atomic read. This is not guaranteed by 
+your new helper. The name should be different (maybe 
+readq_relaxed_non_atomic()) to make clear of the difference.
 
+I also don't quite understand the implementation. The value returned by 
+readl_relaxed() is already in the CPU endianess. So why do you call 
+le64_to_cpu() on top?
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>   
+>   #define writeb_relaxed(v,c)     __raw_writeb(v,c)
+>   #define writew_relaxed(v,c)     __raw_writew((__force u16) cpu_to_le16(v),c)
+>   #define writel_relaxed(v,c)     __raw_writel((__force u32) cpu_to_le32(v),c)
+> +#define writeq_relaxed(v,c)     writel_relaxed(((uint64_t)v&0xffffffff), c); \
+> +                                    writel_relaxed((((uint64_t)v)>>32), (c+4));
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+This needs to be surrounded with do { } while (0), otherwise the 
+following would not properly work:
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+if ( foo )
+   writeq_relaxed(v, c);
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Similarly, if 'v' is a call, then it will end up to be called twice.
 
+>   
+>   #define readb(c)                ({ u8  __v = readb_relaxed(c); __iormb(); __v; })
+>   #define readw(c)                ({ u16 __v = readw_relaxed(c); __iormb(); __v; })
 
-Pushing revision :
+Cheers,
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   913a308df9..2355f0c09c  2355f0c09c52d6979f9f471b23816f3081cc946b -> xen-tested-master
+-- 
+Julien Grall
 
