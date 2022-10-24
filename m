@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D139B60A707
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:46:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429080.679880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CCB260A767
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:49:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429085.679891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omwpn-00074K-Kr; Mon, 24 Oct 2022 12:45:39 +0000
+	id 1omwtg-0007gc-59; Mon, 24 Oct 2022 12:49:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429080.679880; Mon, 24 Oct 2022 12:45:39 +0000
+Received: by outflank-mailman (output) from mailman id 429085.679891; Mon, 24 Oct 2022 12:49:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omwpn-00072U-H0; Mon, 24 Oct 2022 12:45:39 +0000
-Received: by outflank-mailman (input) for mailman id 429080;
- Mon, 24 Oct 2022 12:45:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1omwtg-0007ee-1Q; Mon, 24 Oct 2022 12:49:40 +0000
+Received: by outflank-mailman (input) for mailman id 429085;
+ Mon, 24 Oct 2022 12:49:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kmwR=2Z=citrix.com=prvs=289ef416b=roger.pau@srs-se1.protection.inumbo.net>)
- id 1omwpl-00072O-Op
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:45:37 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c02521da-5399-11ed-91b5-6bf2151ebd3b;
- Mon, 24 Oct 2022 14:45:35 +0200 (CEST)
-Received: from mail-co1nam11lp2169.outbound.protection.outlook.com (HELO
- NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.169])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 24 Oct 2022 08:45:32 -0400
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by SJ0PR03MB5552.namprd03.prod.outlook.com (2603:10b6:a03:288::18)
- with Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=ZViS=2Z=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1omwte-0007eW-6J
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:49:38 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4fba2e48-539a-11ed-8fd0-01056ac49cbb;
+ Mon, 24 Oct 2022 14:49:36 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by CH2PR12MB4921.namprd12.prod.outlook.com (2603:10b6:610:62::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Mon, 24 Oct
- 2022 12:45:30 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::9f90:6ba5:5b44:c254]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::9f90:6ba5:5b44:c254%3]) with mapi id 15.20.5746.028; Mon, 24 Oct 2022
- 12:45:30 +0000
+ 2022 12:49:31 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5746.026; Mon, 24 Oct 2022
+ 12:49:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,242 +46,422 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c02521da-5399-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1666615535;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=khTCeKKg3igYrCwYZzMCfblErcIm6btX80pM2C+fKIk=;
-  b=KJQgf70nz7l73SEWomdjvFhRHotZX31riXqqqk+dRvSBhVjxU3EG1lVd
-   +Jji1yXNZMlb4oPKGOlIrsPvHVzlsEiRI/AXYdgXUSLKegzkTSmRbMFM/
-   AgHkr0vLLrOWdpCCf3Yruforsp/nh5m/JbjoVaKCrr0JBaOuE8CJT0YZf
-   o=;
-X-IronPort-RemoteIP: 104.47.56.169
-X-IronPort-MID: 83389069
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: =?us-ascii?q?A9a23=3Asmh7AK8oFmMhnYH0pnArDrVtTnXEyJsLBUUsX?=
- =?us-ascii?q?f1Ep+oz8vayuhV8yJ73PPB8VjkiIqRVR6oqiDZNU05uCsLcQJaoguFu7eu1O?=
- =?us-ascii?q?NQhlI7w+waK85O8q+NT/4WP7pEhYAjnV2bCfSXkiylgmDPm+2Y7KJM0r73KU?=
- =?us-ascii?q?i3KZJgNjtvuiXfYxy441lej3EJ15mIn16KO7VXj8+59pjM87V2gwJxGxF0lK?=
- =?us-ascii?q?AS5kVS794+w+eJc581nPipOJ5oK0+E0VEPUuhv+1ohrqcrXbVu0muLFT8xM3?=
- =?us-ascii?q?jGowWoT/kXwteLcmL+7zA/kY81UNyYc8lhEV0AYc6rOOWvjehqex6WhlISmm?=
- =?us-ascii?q?SwnffiXELOEl7ec3OM3pdIdEmVByxJNwnPrSIH6u4bvUYIY12eIrEoZHMCg4?=
- =?us-ascii?q?MoVfBQYct9W1aGL7geBEqr49F0awPuz8w96n9UlTnyAHHo04Q/q0Q5OyD7I7?=
- =?us-ascii?q?BrETpXFQWDSOZDzHFz2JLXFMHqIDV89Wuns79D7Ta+ZAVudmEHfslmZ4NfTe?=
- =?us-ascii?q?bDuvprJ79FPy+fjf0TEzWhqdKQ4UcTjZzED2Lq3YHHpIdnvHi/H4K9xFs/rg?=
- =?us-ascii?q?/DJLzhtjOBkBW3LPqhMMO3KjXrYwXGLz0T2SAuUFN7SteQ/RkLn62py9xS53?=
- =?us-ascii?q?i2Q2sIeMxvitATNNYVl0linTsYQYV3g1lePMxVtHEGuVFMTn3/ttXa0rcynI?=
- =?us-ascii?q?/F+dlX5Cuj86kwwe6dokI81BOCtc7ZP8QHJHeju/cWauJ6VIL11tpan9pBb0?=
- =?us-ascii?q?EsgDNGXgh9/p/kYY/QR11BRvvTO6ICyXSxGBel85Gh2S+wCWuOwpVw5BbEGj?=
- =?us-ascii?q?wXdGZ5BA/B3hkKiqoYvMw04Un1P9VrBKUxA9SDErGwrwl5J3y+jGrzyIW0TQ?=
- =?us-ascii?q?wLpSrgp+u5Quoj4fWMjWKvQ64P7wSd8hILRFCzcdZmsbImFdJbta6Sduok80?=
- =?us-ascii?q?Ia4WZlYD5o/z6v7alLg5phOiqqWwgYORbvh3g6hpZdbv6k9IHiglohFRzBOt?=
- =?us-ascii?q?t2TlPH/+s2p0mSGeiFu1yWIPwbFIiPMFIVRoA9EmctDWKWYvu5RjxZ2wX7MU?=
- =?us-ascii?q?wdMUjNhM3aMfLF8ZUG3G47JYpwFfcRaeEbf52vWhoGV+hW+AahmmXgauVX+l?=
- =?us-ascii?q?YBbBctCe+oG75CVDdTo9rl4t2hb/9ZNkQ46Wcgu4mJezTeeXOgHhZZG2vMjk?=
- =?us-ascii?q?OJu1F4Z8EkiFpZ2LiM3xbV0zI55Wo/6dDx+f2swND+IV2nSxZKz3h0C7uMx+?=
- =?us-ascii?q?RIEh6R+zJu0XMho8mX+XWWJ91d+iFSUn47cIzmRbhgfEqFQoIWikLQfV8Y3/?=
- =?us-ascii?q?ZS4NhWsNOjvaurnvuRAKPvbc6mdTgB9RjqM1XVovwD0nvcTfT+PWnHRHAGxq?=
- =?us-ascii?q?u7ZQBL+WwVmlAjC6/A158Ct5MJOJFFTCvk+Rt+uaMBUiumpad4IqLtgH/NTm?=
- =?us-ascii?q?TVXSKG92JAqq6/ggfvvafCaBJKNiYcsGJxwfqnPTobvzefTJAiIiciDWYpJP?=
- =?us-ascii?q?QpDGZddjIov113Yyk0snEqJc6tZ3xz1qC1h/P0V7vGtg1RUI/m98GUBFNFz/?=
- =?us-ascii?q?4VGl40POHJ7lyYXOYbUN6kCxPVPUValAZwAxogrBoY73uE2uOz3AlRHWH8eX?=
- =?us-ascii?q?6sGpkO2lOUdgqIcwCfRbv/ccQURmoUio7LQKts4clgJbfwbma070771Kq03b?=
- =?us-ascii?q?P94TDsKMv3ZS5fCk19Y/vL+IkWdcohUU5IzZSM8GdRVsT7gv/0fqMXHiibn2?=
- =?us-ascii?q?uASJIMMFr9zTf1zfBbkinseU824dTjGa16O+778K/HVGy2l9SYK+MaN5hLES?=
- =?us-ascii?q?aX7d8OqqySLRjW1e/RkT+PFiilDzHXW2BHr1dspK0cz91a6T3ZEx21mLi6Bo?=
- =?us-ascii?q?ngLjfzB9ljZa7Nh0rTkSfMjDTIIi7AClHnYHS99X2z5v+UT9Nddz21CmnMuY?=
- =?us-ascii?q?PVQ/qrDL0oaHnwqj1iXvK8cuphaUF3JaKfXsjXeBDIAiVeE1F8P2sn3+bteN?=
- =?us-ascii?q?C32yyBn/qawhOzLwF+8KG2xtfZoUvpWlC3phj0oIwVT8JWttsW3h2HkX5Qiy?=
- =?us-ascii?q?XTs9YGvxdMzoOevKD3PaQamKWSQpiQyLRW7xSRmrSWtQsIeANSLJbfW9YBWN?=
- =?us-ascii?q?vy6FejbkvXzD3wJEiz7u0DI5T0VetSSXkI4Sk1FsF6q/ppMu5oQiIAo8Zhh0?=
- =?us-ascii?q?kiQhNfuy0DzYcYnIDvqAldGNN52fScKs8KrnbXH8qorxUCIaqpI9qA1HTxoc?=
- =?us-ascii?q?jPpyO5/GzJ9YAMAbZWK8VHDw5wPW5lr2IHoS4iLr6HBCXfpitd1JlgorBBC4?=
- =?us-ascii?q?7d4Y+tRwurYkxijXKheejK3Hz1GzyFAQbTxClCqZkvZ00mEcfEbNZ+6PprRe?=
- =?us-ascii?q?TSQDo78b9qQfAwWYecp0F4nuIGF/64RpbooDYBlOzkLkGuy6l5mUK2DsFZrP?=
- =?us-ascii?q?3Xl09mcJPkO4oFY?=
-X-IronPort-AV: E=Sophos;i="5.95,209,1661832000"; 
-   d="scan'208";a="83389069"
+X-Inumbo-ID: 4fba2e48-539a-11ed-8fd0-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NC97ugPIuJvhxIb6aGnp2HloaMCv2yIc39WVOwaZpEwsFocnWjDeXnRzaMdwTwBSbw+G6Yij2HOY8DZQ9CQhlfBpuAsAIeoOdxBhPh0XtJOHTiW05Q4ltMFH7ez2e4/aRo+2jccFd5BVwNgc5s/Bn4QRTvj44V+l3GnnhoTXxMyA1oWID7GyJJfcK228xYBgbTyIyonxqFSsnf9DfATahS/skxBFJ/80DywcG4wkcDvze2BERBTRmGkNZqBRvyVs8xfZVirBaqnFZPJClQImUalKF9iySBo7BqOzaXojv+cq63IrukTXrAYlxS40/bFY01WXOkKxBfj0W2+4pVXHyQ==
+ b=Wg7ULXFWVksvPXrzSgdQXRUfAFQBsBHO+nJhdGfRSsQ6wE5066UqPtdvmSMuZ1K+8hfIuwlS+Cbz82XMXtA42pFCRnzLUePebgd5OqHGCLqsjYclmjRimRgLiYlcl0zMZ3QZj1meq28q55AihaHrj13boO6aIT1OeFUvlXOuGPhNjKZkxyCyjk6PjXhQsNgL7alf7ExbGJqg/puFDH3+Q7x9KLFuDDgzUD5UzKRF9zK28nSZhsmfUQQ0w1wVgsvZzCuOxkjDaRfiaFPuGOkOfP+iNblslEA3s2bSCO2ep84czqdALppM+OLN4r7DD1O3lsPYbBFBallzUggqzlLCzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CYglnLr7u2WVkJnTDNyIpIYcFDZjiMFM9S28GAh3mTI=;
- b=AxliQlc85rkJNtQQTfDYVSwB81zzsrzgF/FexS3waWlwho0XhIDXGUMPIt1+yTZuIg+reEYu3oh+7QzWNQIwFbaImcHAx3rkV1GjctvJj4w5McSjrR5wQdprFHazPDFVYwPhcbZpf11oKFx5KTyehhm6AeXTiT63vmWMnnhF4nRpakkevhoGoA9272MbSWqhD2C+KeQv/I/I/2SvvvYVJitkY5KtpZ7ciL6I4ZmchKXwP74UX1pSkup5lGslMLNVBtIfUrj+FKdc45kjHzXx+aBHR7lUR5aitUqC672td1MIq7okeh0ogdR1UwY/4RXIrbMbMuJHNgUv1vByeSZ5vA==
+ bh=U2E6jJtujNJaUdC56zk3jKCTfbugn5oe+esTUanRLHw=;
+ b=aPAlGCTspb/WzLuY1AWYEn/lVUq0gWH4+WKFjsT+roIZIuah5TPeECAbmTakaA1xrkQDN+GHVegB5twzao3N3AkD/EaO/0l9YSsE5/g6emY2wLScYeG6pmRzvK9g6jfeICusIs2+xoIL8JJ/fObMk+V0PtbNSxND5Kltyr4f3gjehHPJZIyKzDcqfwsvPDfqyoq0HNHeltotRsZM2z8zRjyjqZAtPAWykNXdklmUyyn2GCY3dOdIclxGDH9hhfAh/Qpg/IjKSjk3GxgLvTjKPevNznCdZxgZFAcSqErXD2iWCDyvcAUgEmwFWJi8WedNmdcAzW3PMP1Yi3pjTNJrzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CYglnLr7u2WVkJnTDNyIpIYcFDZjiMFM9S28GAh3mTI=;
- b=Nzi8levRgUtFuqkQ0eunSXAZxC0rgpNtkonLoRA/UiNfner2wFf6N9ipNieoGUPsxlUIGRw1/aky6jvzb88Rs2D16wTgX4nhyHzDyfBEUgvXFP2ofnWNHTsGnTh209U36knveTVE/bM4gW2TLYxJCCuEMNUlrZ2CjLRIqNlxGsc=
+ bh=U2E6jJtujNJaUdC56zk3jKCTfbugn5oe+esTUanRLHw=;
+ b=J0ckd3m26xP26tMt3Jdnj1zkGkzl7uaohjcZawowrMR+UGQohxQiZ8AWqtzAro/bNkQgbU0UyjRHXH+HiK7/HPD+enrR4REaf2PvOmJc/rlbCEtRCnpeqE2Gy65t4R+sKdbHC/jOmF8oba64s8eIuGUdjYiSeUBkK/4Bsv3Rz4E=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 24 Oct 2022 14:45:24 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH for-4.17 5/6] pci: do not disable memory decoding for
- devices
-Message-ID: <Y1aI5Lbi3sysIZVv@Air-de-Roger>
-References: <20221020094649.28667-1-roger.pau@citrix.com>
- <20221020094649.28667-6-roger.pau@citrix.com>
- <4c960f12-6561-d8e9-c1bf-8da18243ca6b@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <a27873a3-3697-9a67-16aa-f4340dc622aa@amd.com>
+Date: Mon, 24 Oct 2022 13:49:26 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.0
+Subject: Re: [RFC PATCH v1 03/12] Arm: GICv3: Enable vreg_reg64_* macros for
+ AArch32
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com
+References: <20221021153128.44226-1-ayankuma@amd.com>
+ <20221021153128.44226-4-ayankuma@amd.com>
+ <19fc76cf-cdf2-0321-8336-7c5a7fb09406@xen.org>
+ <e952fcd7-bab6-68ed-d884-6505e529a073@amd.com>
+ <b0b4fc69-3da3-3229-77d9-9fe0f4bf1ec3@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <b0b4fc69-3da3-3229-77d9-9fe0f4bf1ec3@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4c960f12-6561-d8e9-c1bf-8da18243ca6b@suse.com>
-X-ClientProxiedBy: LNXP265CA0073.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:76::13) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+X-ClientProxiedBy: LO4P123CA0411.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:189::20) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SJ0PR03MB5552:EE_
-X-MS-Office365-Filtering-Correlation-Id: 26605783-f963-41ba-af9f-08dab5bda214
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|CH2PR12MB4921:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c943a36-8dd6-48d7-91c8-08dab5be31c5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	o3smJg+9ilzTLkMf7Bvrs2WHpca1CFIONYGJfs0JBuOI2me9Igo1yF8EEIRW13rXgokqKCTOl8Ql7tEwHl0FEEVukh8Xa/mj2QJRIdi/SWiBtgVzk1tQx4PwATQo2R2/IJ62ozO055P8FcKUqjXkynu81yXNlmqksKWuj9jVxF+ip+YExLyJcATHhTP69pbMhxJmqFeh65Fooj0OMvMhS2y+MoIXSSX7MWnmmcb1a9/PBnHkTEIMMSzlsgdUf7oLbcKGDleRPE6SFDeNEUtVITW0czkgB9JTY/A7ZE2rLyiYj6sxrO/VE/SFE2rZr2ipRTH+Ux466GAviY2c3rwDi6jykMOk69iyEFVsp2tzF9y33p7G2rVfyHAs6emcVQrWB4NkUB141nvxpyaWa6qGyKUqbSycO78bH4tJhjqB4+84zC0d0AV+neuUY2M0dTn/2bPu8y2uAkpFIvw0wrPiCk1sjkKpWHT7x1bH8q0ikc+0xnx2/N6QzUa1XYRQ9d+kOMuvWUfEYfXL84FYC7CtMd/FDYo2WNE/M1B8XztJSvf+zckvZsQ2jnLB9E0Em1G959FbpcirUJ3f6xgg7TKbSpasi3iJjaegUI48u4xuyx/A7sZ40PHUsc2rCxSJyq7tukMrDqnwkP1k9Wpi9F3JlkjtascrpMlj49CDsl4ZWs1vTn9QMVjWrl8TZxqSJmXTPQgwnEcrnEbObhPnFV0nVw==
+	5AtKRWquLlixidaK7TW7290PIsqqwpZIAqHecIIj/h6JdXLh6jA18Mh6nXs6rE0L1Y2cj64P9313GkwMxzgcUGIL/EfYQJlXZN9OmyJyhNKfgeEwHK49XX5ZxKdYhIQm6HG667IvEGjlSxi2vhkAiITogpwqLPZuf2t2dlREbFLO6dAqFFD2lGilL5MEGxGWeZjymjJqjlRRvRf7Yo8nHb66dHHnZc/S5xV+sZxnP6U8hsMIGtTavI5MLtCB7bQZgPNqPNqyo0HFGGZVDDsyAzw0UIkbl3dtQdIlNiWN57XEISZKhq7up505gm6Erf7NT8X2iOMlQ8NKbytUs7191DGPJSDMcJFJrXI4ViNs6xVbbPZt4nKwwrMHfTorkQfiT2iW5RqdnxRcmChcUPg35F90UwQ4JxKbLznGuszBKP6b1Tc19hIWDOZvD1ITdL4uY6hywCRlft108JU4Qzuz35ZyGXAzo8Ds+1K2xBfqt9rXeFucFwIxFZmGaRTBbb57SegqfGje0gA8NOrAHiP1FrFEv+VIJ5/Wja/wxHDWtZ+V5ddAsxwt2654+G4Y0Ehk8B5hx2z/kLReZs4riCtvkp+5tOFu9PkGxOfZni4ktPkCXUhndkl2acRriVtRpuQgUJIUzmWcI8fYRcd3Vzhai+C1yWm5Wa2gwdeApaSOzYNNo/bvmzEXNTLHzRmmAl/zMhuqyzo1i/jY2NH0Nx7QuAlF2QgrELaZ+pIj1YCLJPz/hABrWA6i0vrlOHDEe6/Ae6Q4FtvsOar2tMXKMkHUJ1Vj2JuCL+rqVIeIGJBhEPY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(7916004)(39860400002)(136003)(366004)(346002)(376002)(396003)(451199015)(26005)(41300700001)(8936002)(6666004)(6916009)(5660300002)(9686003)(6512007)(66556008)(66946007)(66476007)(53546011)(85182001)(4326008)(8676002)(6506007)(2906002)(316002)(33716001)(82960400001)(38100700002)(186003)(86362001)(83380400001)(6486002)(478600001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(366004)(396003)(39860400002)(376002)(136003)(451199015)(31696002)(83380400001)(6486002)(31686004)(478600001)(53546011)(66946007)(66556008)(6666004)(4326008)(36756003)(6506007)(8676002)(6512007)(41300700001)(26005)(8936002)(5660300002)(38100700002)(2906002)(2616005)(186003)(66476007)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MzhDb1IzMGl3bk5VTVVCZFNoUVdaZHlTeHpzak5Hd0RvcmJFcHBFTE5GaXdw?=
- =?utf-8?B?d3lDaGE4YWV4TVBIeFpVdGFpK2FWYUFkNm13N1dOdE5PNXdOWmpTQ3pGdUZT?=
- =?utf-8?B?Y3VweCtZRmo5K1M2VWFHREdvSndaSGtzTlVBdVZBMXl4dzhvUGxLenUyb0xw?=
- =?utf-8?B?cmQ0NHF2TSt4eWRCeGtURllQdzdCY0ZucmkrVUtwWDlkdHFvaGNMb1krck1G?=
- =?utf-8?B?VTE1YndIQ3Jac2w1emE4L2Z1SWUraWcvdmg4Q244cU5OdHdicTUydjZBbVE2?=
- =?utf-8?B?WlFqVEtuZzMyeEVDeWNOZDhYY2lFemF4RzZzbmhKaFZvTEN2NXZESlVHb0NH?=
- =?utf-8?B?cEh6RTQrb3QxbnY3alQ5c080WG4yNzJZSmZrbFZYZnpXN3dzMHFqVDRwY0VR?=
- =?utf-8?B?TFhGSGdBR3JKaEZhRUpHcGhWTEdqL3dCNkZjRlVVU1ZuNmNldFJGZzBsdk95?=
- =?utf-8?B?bnkxQWllaEtKOEkrYlY0dFRyaDFaTTVYb3hUVEhHVGNyTWUzeXhpbEF3c2lE?=
- =?utf-8?B?RG1rc0wyQkxCTC85c0lRaktpUXdMQ0M4SU54eFQ2WGRjdStva0ZIZFlONjgx?=
- =?utf-8?B?c1g3TVI4WGhvNkhwdnBSLzJ3d0NCQUxvQ2ZJUDZtMkhWS0E3dHF3NTE1WEpC?=
- =?utf-8?B?N2hkN0tjUmlqeFY3ODR4TksrejlLVEtUSDhXUFczSVZWczFnWE5uNkdEME4r?=
- =?utf-8?B?anR3Nkg4YnYrUVZIRkFJQUdzTkpGbWpJeGR5WEU0dndVbEdrRzVuRW5BbldZ?=
- =?utf-8?B?SG10Wmd4VFVUTlp2Tm15c3dFdzBaZlp5a09JMEtoakd2aUdCY0RYc090cmdk?=
- =?utf-8?B?azZhNzlpNnV6MTVvY1huOFk5Qy9UTzA3eS95N0hLV3pSYW5QVWNjYTlGTmE4?=
- =?utf-8?B?bG9Xd2hJVXZzaFEzV3Zvb01vSkZTck1SNVZFazRCWkE0aTh1aHNNaHRuM0RM?=
- =?utf-8?B?UC9zRWIxZFowUnBvblRJejE0Y2taMkdJYWxUVi8xWFhGK2VnMFlXK1dWa3Z5?=
- =?utf-8?B?RDRXZ2VYQ21kVlBkYVJNQ0RONFNid0ZWSFFTTnhCdFpRTzQzYi9DUjNGS0hI?=
- =?utf-8?B?TVp3eWx1cEdqa0tnRm1aRU1wUjNFdndXUzMwMXgveDdMb0QxK0Z2Tks3bDI1?=
- =?utf-8?B?RVZnZXB6ZDlRV0Mwb3RFeFRnTVNhMlRjd2FBNXVxeWl1VzlUNVY4OEljdmZY?=
- =?utf-8?B?dVVyVGI2MnErOVhNYjN3SEpkNUM0ZHlReTkxR0x2cVNZVVE5b2dDLzQvUjFM?=
- =?utf-8?B?QW80QjhKaExHUHFYUDhNeFMyUVJUWHhhT0xjdTJuR2V3YkVWRnA0c25LZ0p2?=
- =?utf-8?B?S0lGNzYxRkRNaEpibVpidlNjMVBudVRuS3FCcXRjRlAyTVRhQmoyaXJtR05S?=
- =?utf-8?B?SzlGZ2VxWTE1UEpRYThPcFQyd1NFdDYrQVNWZkwxWkp1aUNhaXEwR1Y0YzBO?=
- =?utf-8?B?TkdIUUVKZXlUN3g1dVQyTGxXdE5MTUQzRUFuN0paNGVVeGlmWmpuaGY0L1RY?=
- =?utf-8?B?elBzbU5mRzlLQmRSdjFmTU9lVnVoL2VUL3psZ25KSWFiRWxNSVhlM1pVa1lH?=
- =?utf-8?B?b1d1anVKMUJjNnc4QVNudWgydGFSK3QrMWVudEV4OHMvT0I4V0RXdHdmNy9H?=
- =?utf-8?B?UWZERDNsZDhZVXZvMGN2ZUlHVnQ1T1F3MXlTWWFQL2pUTW5nUXFJcXB0ZS9s?=
- =?utf-8?B?cDd4RXlhLzVtMGZvRmlQblhSbHVhcy9jWTZlVUxaaDVrNit1Y3B6SExEM2hH?=
- =?utf-8?B?T1IvRmpRekowMzkwOE4wUEFmeDQ2dEF4bE9jaVRGM3h0R0JqWU5SVVdSVXJa?=
- =?utf-8?B?YS95NnlENzJSbmlzeWRIWUt3aFhWNW04R3pOaFltcHJvcVZLU0svWG9Qc1E2?=
- =?utf-8?B?UUQxTnhsOWgwcmJmNDgwUkZ6N2xnK1ZzTWdCMjNlc3hkMXBTbng1aXh2c0Ja?=
- =?utf-8?B?RGFQSTdBcnluenhGVkc5RnVzL2kxRWREVzk0MmNmVHk2SkJjY1VtZUxBRW5v?=
- =?utf-8?B?NkZDOCtpWmhEakZMYWtaQTFVczQ0ZGxMU01XNmtZOTIvTHIzclVmZUtJcnVz?=
- =?utf-8?B?OGkyaWx4OG9qWGkyRDZWWElXVnFzRVZnREF0bEpJcEhKNHFxMFpsVXJXMnEr?=
- =?utf-8?Q?bljOjXeHKNEdi5MGXRgqj9m0c?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26605783-f963-41ba-af9f-08dab5bda214
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+	=?utf-8?B?Sm5TTU14NWVWOUNvaVpReFVmaXhZVXdnbXAyL2t1UTEyR3BybitSR2Q3WVlL?=
+ =?utf-8?B?eDJqTDVUbXkzV0gxWFBOQ2liR3ZjeUlvckwxQzgzMGNVRktMSU1WY2djOGZ3?=
+ =?utf-8?B?cFN4aVIwQnFFMG5taFArbHA5YkZIMlZWUnBOWWh4NE5LcEJkNm0zMVh0a2Vh?=
+ =?utf-8?B?dUdtSjZ5SXRDT0ZnR1Y1dUloSW1aVkVPTFFPUFNGWGRpcXM5SjB3SmxqRDZG?=
+ =?utf-8?B?MFZpTlBTQS9JSzhwN1NYT2hua2FoLzkrT2tLMm1BNGFZSGN4RlZ2Njl4WlRG?=
+ =?utf-8?B?MVFKY1l2Sm9qaWxrSGlsamF0eWpMUGFEbDRSSWpKNE1TOXJta1I5Nm1CU0xS?=
+ =?utf-8?B?RldZbEw2aEtURzk5dVBoaXBEeGs2TldKQnFidmlzRzZhUGQ4VUZPajF3NVFz?=
+ =?utf-8?B?YnUxaG1kLzhFOVYrUnpoMlZVT0Z6dVEvNzZWb1hmWDBxRGkybnd4Ykh1SVhN?=
+ =?utf-8?B?eVR3N3pqVW5GSTE5dVlGN2F3MkhFelhBWTdlZWI0OElhZGRBUlN4VTMwOFY1?=
+ =?utf-8?B?N2ZnZjdTYjVjNjYxRzZqbTRudGtuUGxLUHFSRWhFaWh0RzcrWmp4V2Rkd3Zw?=
+ =?utf-8?B?MU9nRThjMzdoQUJ6VEdhK0szVVJwYVIzdVlqVGpOeWIydGlpTGFaZUpJWlB2?=
+ =?utf-8?B?SXFOWStDVnphVVFqMUJ6N1lYcmRIR2g4Mis1aVB0RFgxM2RQa0N1eW92WFNG?=
+ =?utf-8?B?aUZUTVZUVm96azVBVzQxZU5ubjZSSm15VjdxVEFYZFQwc0dlbWsvKzM4bUhs?=
+ =?utf-8?B?a0ZoNWlSbHkySUhNL0x3QUJqY0pJTDkwZFZrVzJVdmJYY2RxVkgxVnZsZ20v?=
+ =?utf-8?B?UCsxaWNIelFtRFVMc1RhR080VFpxTzBINktoZnBkRUlwVjR0UlN3eXNXSE9p?=
+ =?utf-8?B?QnRCREo4ZUhDaWlDUVJiZll3QVRpenJ2dnBWTHhQbUduUXZuWXJrUDZkRGVk?=
+ =?utf-8?B?cGViM1AyVDhESlFXbGFjcHZSMDRaREZIN0pQTVY4UzBSSkREMzRkOU1PWFpF?=
+ =?utf-8?B?dS94bEtnZ3prdzUxNGo2b0tHM3dVK2dwQXIwc2VuMVNiUmtmamJjc1JSS0Fi?=
+ =?utf-8?B?Q05sbkRCY20zV0p4OUhkTVVLd1A3bUIxd0hSaGoxKzNjb1gwYTJvRm1xN1Zx?=
+ =?utf-8?B?OXFpTXRnNFZSWS9abHRqZkxMSno2SWw3VG1pcysxUUJOWUxwMWUyS1d1K1Bt?=
+ =?utf-8?B?ZzJCeENOd0Z2NmZVL0V0Z1lHQVRiYU8vRmdHbG9ZR1N6Y2lKcC9IRTYrelhK?=
+ =?utf-8?B?cHAyaHBtOW1KamM5c2JLUUNCT1k2ZmNLVWhmT1pvTi9QcEt4YWd3Ui84UVNk?=
+ =?utf-8?B?UnA3M2kwRnBicERUWU9EQWdOMWZzNWtmdnFZWjdpOEN1UytWaGdyYkg5aUg1?=
+ =?utf-8?B?MkZvc1dDKzYrYVhFRnA5T3Rpb2pJdFp4WlQ5RHpMZThlTlBZZkowMCtDSlNJ?=
+ =?utf-8?B?S2Nnb1NhVnFraVlFSWpiWDhNUjY2cTJhOWtmUStaWFdjanpmd3RKbHQzRk1r?=
+ =?utf-8?B?NWF5WkVRRDhTV2htSGtaK0dha2hkZkJZbVZIa0VtWEh3TENGMm5CN2JGQWJX?=
+ =?utf-8?B?QUhYSFBxc2ozQWJWb1lxV1BwWDliV2ZSZTFhaU1CS3JHUHBidFdPeTg0WWZv?=
+ =?utf-8?B?R3N1ckdYSjFiWUFzVjI4Y1hVeEJjZUNCekF6OU1qbVpRNFV2dHZZWmxWVVQ3?=
+ =?utf-8?B?b1F5VC9BaUxwSnRTWEEweW1wRFl1bzNHZ1A4dlYwWFNxT2h6Z1BDVXgzYXhF?=
+ =?utf-8?B?dGsvQzJJV0hRNFVJVkZjUlBleWZCZk1xTE53S2FZbUN0U2h5VUFOTUhscE1r?=
+ =?utf-8?B?R3RlUHVZTTBERlVwSnZtb1ZweVZVcmRFQkp4RjZmSzI2VFlWakxQWWdIWW1Q?=
+ =?utf-8?B?WEFSdG1XTC9EYThZa3NCZGVHdFNXQlFNYng0aXFKTDloWFlnb3VFTkNFWmpy?=
+ =?utf-8?B?aWlmanNXQTdpWjFQZ2ZaTGJHaW9PMXBiWkZwUnZTbGQzOVVLZldqUm5HbGJr?=
+ =?utf-8?B?Yy90c2FScmtjaUU3VTVoZkNheWRuYlEvQW5nU1B0VTRsNFhzd1BZdnlCTUVx?=
+ =?utf-8?B?amx6U2xvTjNzVUdxTmI0N3BGT0tKNnFOd3gwemphbEpzSFpoRWt1Ly9CbWJK?=
+ =?utf-8?Q?JU0tA5/4c7J332oyvZt2qWAPn?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c943a36-8dd6-48d7-91c8-08dab5be31c5
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 12:45:30.1726
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 12:49:31.1510
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nWCotFrGyAc3uTWovyDcYdgYPUMdzdzMW8bunqT1NJm1vdIxnRjxrmUQ79ZP1SXwJHq039GlNLM1yhsSSG/0jg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5552
+X-MS-Exchange-CrossTenant-UserPrincipalName: QtLqxbpBBLtyMnWm0nQOV8D5OH8HPxKaFgTrS+p0I0YAfcfsdYjPI6Wd/tMYy2QY0oYp5Plmt05ny62iAf8Q0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4921
 
-On Mon, Oct 24, 2022 at 01:19:22PM +0200, Jan Beulich wrote:
-> On 20.10.2022 11:46, Roger Pau Monne wrote:
-> > Commit 75cc460a1b added checks to ensure the position of the BARs from
-> > PCI devices don't overlap with regions defined on the memory map.
-> > When there's a collision memory decoding is left disabled for the
-> > device, assuming that dom0 will reposition the BAR if necessary and
-> > enable memory decoding.
-> > 
-> > While this would be the case for devices being used by dom0, devices
-> > being used by the firmware itself that have no driver would usually be
-> > left with memory decoding disabled by dom0 if that's the state dom0
-> > found them in, and thus firmware trying to make use of them will not
-> > function correctly.
-> > 
-> > The initial intent of 75cc460a1b was to prevent vPCI from creating
-> > MMIO mappings on the dom0 p2m over regions that would otherwise
-> > already have mappings established.  It's my view now that we likely
-> > went too far with 75cc460a1b, and Xen disabling memory decoding of
-> > devices (as buggy as they might be) is harmful, and reduces the set of
-> > hardware on which Xen works.
-> > 
-> > This commits reverts most of 75cc460a1b, and instead adds checks to
-> > vPCI in order to prevent misplaced BARs from being added to the
-> > hardware domain p2m.
-> 
-> Which makes me wonder: How do things work then? Dom0 then still can't
-> access the BAR address range, can it?
 
-It does allow access on some situations where the previous arrangement
-didn't work because it wholesale disabled memory decoding for the
-device.
+On 24/10/2022 12:01, Julien Grall wrote:
+>
+>
+> On 24/10/2022 11:47, Ayan Kumar Halder wrote:
+>>
+>> On 22/10/2022 11:13, Julien Grall wrote:
+>>> Hi Ayan,
+>>
+>> Hi Julien,
+>>
+>> I need some clarification.
+>>
+>>>
+>>> Title: The code you are modifying below is not GICv3 specific. I 
+>>> would suggest the following title:
+>>>
+>>> xen/arm: vreg: Support vreg_reg64_* helpers on Aarch32
+>>>
+>>> On 21/10/2022 16:31, Ayan Kumar Halder wrote:
+>>>> In some situations (eg GICR_TYPER), the hypervior may need to emulate
+>>>> 64bit registers in aarch32 mode. In such situations, the hypervisor 
+>>>> may
+>>>> need to read/modify the lower or upper 32 bits of the 64 bit register.
+>>>>
+>>>> In aarch32, 64 bit is represented by unsigned long long. Thus, we need
+>>>> to change the prototype accordingly.
+>>>>
+>>>> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+>>>> ---
+>>>>   xen/arch/arm/include/asm/vreg.h | 23 ++++++++---------------
+>>>>   1 file changed, 8 insertions(+), 15 deletions(-)
+>>>>
+>>>> diff --git a/xen/arch/arm/include/asm/vreg.h 
+>>>> b/xen/arch/arm/include/asm/vreg.h
+>>>> index f26a70d024..ac6e702c5c 100644
+>>>> --- a/xen/arch/arm/include/asm/vreg.h
+>>>> +++ b/xen/arch/arm/include/asm/vreg.h
+>>>> @@ -95,7 +95,7 @@ static inline bool vreg_emulate_sysreg(struct 
+>>>> cpu_user_regs *regs, union hsr hsr
+>>>>    * Note that the alignment fault will always be taken in the guest
+>>>>    * (see B3.12.7 DDI0406.b).
+>>>>    */
+>>>> -static inline register_t vreg_reg_extract(unsigned long reg,
+>>>> +static inline register_t vreg_reg_extract(unsigned long long reg,
+>>>>                                             unsigned int offset,
+>>>>                                             enum dabt_size size)
+>>>>   {
+>>>> @@ -105,7 +105,7 @@ static inline register_t 
+>>>> vreg_reg_extract(unsigned long reg,
+>>>>       return reg;
+>>>>   }
+>>>>   -static inline void vreg_reg_update(unsigned long *reg, 
+>>>> register_t val,
+>>>> +static inline void vreg_reg_update(unsigned long long *reg, 
+>>>> register_t val,
+>>>>                                      unsigned int offset,
+>>>>                                      enum dabt_size size)
+>>>>   {
+>>>> @@ -116,7 +116,7 @@ static inline void vreg_reg_update(unsigned 
+>>>> long *reg, register_t val,
+>>>>       *reg |= ((unsigned long)val & mask) << shift;
+>>>>   }
+>>>>   -static inline void vreg_reg_setbits(unsigned long *reg, 
+>>>> register_t bits,
+>>>> +static inline void vreg_reg_setbits(unsigned long long *reg, 
+>>>> register_t bits,
+>>>>                                       unsigned int offset,
+>>>>                                       enum dabt_size size)
+>>>>   {
+>>>> @@ -126,7 +126,7 @@ static inline void vreg_reg_setbits(unsigned 
+>>>> long *reg, register_t bits,
+>>>>       *reg |= ((unsigned long)bits & mask) << shift;
+>>>>   }
+>>>>   -static inline void vreg_reg_clearbits(unsigned long *reg, 
+>>>> register_t bits,
+>>>> +static inline void vreg_reg_clearbits(unsigned long long *reg, 
+>>>> register_t bits,
+>>>>                                         unsigned int offset,
+>>>>                                         enum dabt_size size)
+>>>>   {
+>>>> @@ -149,7 +149,7 @@ static inline void 
+>>>> vreg_reg##sz##_update(uint##sz##_t *reg,             \
+>>>>                                            register_t 
+>>>> val,                \
+>>>>                                            const mmio_info_t 
+>>>> *info)       \
+>>>> { \
+>>>> -    unsigned long tmp = 
+>>>> *reg;                                           \
+>>>> +    unsigned long long tmp = 
+>>>> *reg;                                      \
+>>>> \
+>>>>       vreg_reg_update(&tmp, val, info->gpa & 
+>>>> (offmask),                   \
+>>>> info->dabt.size);                                   \
+>>>> @@ -161,7 +161,7 @@ static inline void 
+>>>> vreg_reg##sz##_setbits(uint##sz##_t *reg,            \
+>>>>                                             register_t 
+>>>> bits,              \
+>>>>                                             const mmio_info_t 
+>>>> *info)      \
+>>>> { \
+>>>> -    unsigned long tmp = 
+>>>> *reg;                                           \
+>>>> +    unsigned long long tmp = 
+>>>> *reg;                                      \
+>>>> \
+>>>>       vreg_reg_setbits(&tmp, bits, info->gpa & 
+>>>> (offmask),                 \
+>>>> info->dabt.size);                                  \
+>>>> @@ -173,7 +173,7 @@ static inline void 
+>>>> vreg_reg##sz##_clearbits(uint##sz##_t *reg,          \
+>>>>                                               register_t 
+>>>> bits,            \
+>>>>                                               const mmio_info_t 
+>>>> *info)    \
+>>>> { \
+>>>> -    unsigned long tmp = 
+>>>> *reg;                                           \
+>>>> +    unsigned long long tmp = 
+>>>> *reg;                                      \
+>>>> \
+>>>>       vreg_reg_clearbits(&tmp, bits, info->gpa & 
+>>>> (offmask),               \
+>>>> info->dabt.size);                                \
+>>>> @@ -181,15 +181,8 @@ static inline void 
+>>>> vreg_reg##sz##_clearbits(uint##sz##_t *reg,          \
+>>>>       *reg = tmp; \
+>>>>   }
+>>>>   -/*
+>>>> - * 64 bits registers are only supported on platform with 64-bit long.
+>>>> - * This is also allow us to optimize the 32 bit case by using
+>>>> - * unsigned long rather than uint64_t
+>>>> - */
+>>>
+>>> The comment above explain why we never use uint64_t in the helpers 
+>>> above. IIRC, the compiler would end up to use 2 registers on AArch32 
+>>> even for the vreg_reg32_* helpers. I wanted to avoid that and would 
+>>> like like to today. Can you check the code generated?
+>>
+>> I am not sure I understood the comment very well.
+>>
+>> With this patch, the disassembly is as follows :-
+>>
+>>          vreg_reg32_update(&v->domain->arch.vgic.ctlr, r, info);
+>>    28124c:   e597000c    ldr r0, [r7, #12]
+>> VREG_REG_HELPERS(32, 0x3);
+>>    281250:   e5d52002    ldrb    r2, [r5, #2]
+>>    281254:   e1a02322    lsr r2, r2, #6
+>>      unsigned long mask = VREG_REG_MASK(size);
+>
+> Hmmm... Shouldn't this be "unsigned long long"?
 
-So if it's only one BAR that's misplaced the rest will still get added
-to the dom0 p2m and be accessible, because memory decoding won't be
-turned off for the device.
+The function looks like
 
-> Plus with this adjustment, is
-> ...
-> 
-> >  Signaling on whether BARs are mapped is tracked
-> > in the vpci structure, so that misplaced BARs are not mapped, and thus
-> > Xen won't attempt to unmap them when memory decoding is disabled.
-> > 
-> > This restores the behavior of Xen for PV dom0 to the state it was
-> > previous to 75cc460a1b, while also introducing a more contained fix
-> > for the vPCI BAR mapping issues.
-> 
-> ... this (in particular "restores the behavior") a valid description
-> of this change?
+static inline void vreg_reg_update(unsigned long long *reg, register_t val,
+                                    unsigned int offset,
+                                    enum dabt_size size)
+{
+     unsigned long mask = VREG_REG_MASK(size);
+     int shift = offset * 8;
 
-Yes, it restores the previous behavior for PV dom0, as memory decoding
-is no longer turned off for any devices regardless of where the BARs
-are positioned.
+     *reg &= ~(mask << shift);
+     *reg |= ((unsigned long)val & mask) << shift;
+}
 
-> > Fixes: 75cc460a1b ('xen/pci: detect when BARs are not suitably positioned')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > AT Citrix we have a system with a device with the following BARs:
-> > 
-> > BAR [0xfe010, 0xfe010] -> in a EfiMemoryMappedIO region
-> > BAR [0, 0x1fff] -> not positioned, outside host bridge window
-> > 
-> > And memory decoding enabled by the firmware.  With the current code
-> > (or any of the previous fix proposals), Xen would still disable memory
-> > decoding for the device, and the system will freeze when attempting to
-> > set EFI vars.
-> 
-> Isn't the latter (BAR at address 0) yet another problem?
+>
+>>    281258:   e3a03008    mov r3, #8
+>>    28125c:   e1a03213    lsl r3, r3, r2
+>>    281260:   e2633020    rsb r3, r3, #32
+>>    281264:   e3e02000    mvn r2, #0
+>>    281268:   e1a02332    lsr r2, r2, r3
+>> VREG_REG_HELPERS(32, 0x3);
+>>    28126c:   e5953010    ldr r3, [r5, #16]
+>>    281270:   e2033003    and r3, r3, #3
+>>      int shift = offset * 8;
+>>    281274:   e1a03183    lsl r3, r3, #3
+>> VREG_REG_HELPERS(32, 0x3);
+>>    281278:   e59013f0    ldr r1, [r0, #1008] ; 0x3f0
+>>    28127c:   e1c11312    bic r1, r1, r2, lsl r3
+>>      *reg |= ((unsigned long)val & mask) << shift;
+>>    281280:   e0022009    and r2, r2, r9
+>> VREG_REG_HELPERS(32, 0x3);
+>>    281284:   e1813312    orr r3, r1, r2, lsl r3
+>>    281288:   e58033f0    str r3, [r0, #1008] ; 0x3f0
+>>          v->domain->arch.vgic.ctlr &= GICD_CTL_ENABLE;
+>>    28128c:   e597200c    ldr r2, [r7, #12]
+>>    281290:   e59233f0    ldr r3, [r2, #1008] ; 0x3f0
+>>    281294:   e2033001    and r3, r3, #1
+>>    281298:   e58233f0    str r3, [r2, #1008] ; 0x3f0
+>>
+>> Without the patch (ie original code) , the disassembly is :-
+>>
+>>          vreg_reg32_update(&v->domain->arch.vgic.ctlr, r, info);
+>>    27f8f4:   e597000c    ldr r0, [r7, #12]
+>> VREG_REG_HELPERS(32, 0x3);
+>>    27f8f8:   e5d52002    ldrb    r2, [r5, #2]
+>>    27f8fc:   e1a02322    lsr r2, r2, #6
+>>      unsigned long mask = VREG_REG_MASK(size);
+>>    27f900:   e3a03008    mov r3, #8
+>>    27f904:   e1a03213    lsl r3, r3, r2
+>>    27f908:   e2633020    rsb r3, r3, #32
+>>    27f90c:   e3e02000    mvn r2, #0
+>>    27f910:   e1a02332    lsr r2, r2, r3
+>> VREG_REG_HELPERS(32, 0x3);
+>>    27f914:   e5953010    ldr r3, [r5, #16]
+>>    27f918:   e2033003    and r3, r3, #3
+>>      int shift = offset * 8;
+>>    27f91c:   e1a03183    lsl r3, r3, #3
+>>      *reg &= ~(mask << shift);
+>>    27f920:   e5901400    ldr r1, [r0, #1024] ; 0x400
+>>    27f924:   e1c11312    bic r1, r1, r2, lsl r3
+>>      *reg |= ((unsigned long)val & mask) << shift;
+>>    27f928:   e0022009    and r2, r2, r9
+>>    27f92c:   e1813312    orr r3, r1, r2, lsl r3
+>> VREG_REG_HELPERS(32, 0x3);
+>>    27f930:   e5803400    str r3, [r0, #1024] ; 0x400
+>>          v->domain->arch.vgic.ctlr &= GICD_CTL_ENABLE;
+>>    27f934:   e597200c    ldr r2, [r7, #12]
+>>    27f938:   e5923400    ldr r3, [r2, #1024] ; 0x400
+>>    27f93c:   e2033001    and r3, r3, #1
+>>    27f940:   e5823400    str r3, [r2, #1024] ; 0x400
+>>
+>> Sorry, I can't spot the difference. :(
+>
+> If there is no difference, then it is a good sign. I was worried that 
+> the compiler would end up to use "strd/ldrd" which would result to 
+> more register allocations and therefore inefficient code.
+>
+> But see above.
+>
+>>
+>> I had a look at commit 423e9ecdc26c4b40c8db1fcc63b3655463c29976 which 
+>> introduced this. But I could not make out the reason from the commit 
+>> message.
+>
+> The reasoning would be to show that the assembly is either the same or 
+> no worse that then existing one with a few compilers.
+>
+>>
+>>>
+>>> For other options, I would consider to either:
+>>>   1) Fold vreg_reg_* in the macros.
+>>
+>> Can you explain this option a bit ?
+>
+> At the moment, we have generic helpers for vreg_reg_*. They are only 
+> called within the helper generated by VREG_REG_HELPERS().
+>
+> If we make those helpers size specific, then the only the 64-bit 
+> helpers would use uint64_t local variables.
+>
+> As they are only called in one place, we could fold them in the 
+> existing helpers.
 
-It's a BAR that hasn't been positioned by the firmware AFAICT.  Which
-is a bug in the firmware but shouldn't prevent Xen from booting.
+Just to make sure, I understand this. The code would look like below
 
-In the above system address 0 is outside of the PCI host bridge
-window, so even if we mapped the BAR and memory decoding for the
-device was enabled accessing such BAR wouldn't work.
 
-> I have to admit
-> that I'm uncertain in how far it is a good idea to try to make Xen look
-> to work on such a system ...
+#define VREG_REG_HELPERS(type, offmask)                         \
 
-PV dom0 works on a system like the above prior to c/s 75cc460a1b, so I
-would consider 75cc460a1b to be a regression for PV dom0 setups.
+static inline void vreg_reg_##type##_update(type *reg, register_t val, 
+        \
 
-Thanks, Roger.
+     const mmio_info_t *info)        \
+
+{                                                  \
+
+unsigned long mask = VREG_REG_MASK(size);                     \
+
+unsigned int offset = info->gpa & (offmask);                             
+       \
+
+int shift = offset * 8;                                            \
+
+*reg &= ~(mask << shift);                                            \
+*reg |= ((unsigned long)val & mask) << shift;                         
+           \
+
+}
+
+
+#define vreg_reg_update(reg, val, info)     \
+
+do {                        \
+
+     if (sizeof(reg) == 4)                 \
+
+           vreg_reg_uint32_t_update(reg, val, info);                \
+
+     else if (sizeof(reg) == 8)               \
+
+         vreg_reg_uint64_t_update(reg, val, info);              \
+
+     else                           \
+
+         BUG();                        \
+
+} while(0);                           \
+
+
+Similar implementation will be for vreg_reg_clearbits(), 
+vreg_reg_setbits() and vreg_reg_extract()
+
+
+VREG_REG_HELPERS(uint32_t, 0x3);
+
+VREG_REG_HELPERS(uint64_t, 0x7);
+
+
+And the functions would be invoked as follows :-
+
+vreg_update(&priority, r, info);
+
+Is this the correct understanding ?
+
+>
+> Cheers,
+>
 
