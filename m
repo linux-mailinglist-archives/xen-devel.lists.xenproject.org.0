@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 249DA60A7BB
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:56:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429098.679913 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B64FA60A828
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 15:02:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429107.679935 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omwzj-0001ND-8a; Mon, 24 Oct 2022 12:55:55 +0000
+	id 1omx5P-0003O5-49; Mon, 24 Oct 2022 13:01:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429098.679913; Mon, 24 Oct 2022 12:55:55 +0000
+Received: by outflank-mailman (output) from mailman id 429107.679935; Mon, 24 Oct 2022 13:01:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omwzj-0001Ku-5A; Mon, 24 Oct 2022 12:55:55 +0000
-Received: by outflank-mailman (input) for mailman id 429098;
- Mon, 24 Oct 2022 12:55:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Czee=2Z=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1omwzi-0001Kl-2R
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:55:54 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3114cc96-539b-11ed-8fd0-01056ac49cbb;
- Mon, 24 Oct 2022 14:55:53 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6B2691FD8E;
- Mon, 24 Oct 2022 12:55:52 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1898813A79;
- Mon, 24 Oct 2022 12:55:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EEmOBFiLVmOeagAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 24 Oct 2022 12:55:52 +0000
+	id 1omx5P-0003LJ-01; Mon, 24 Oct 2022 13:01:47 +0000
+Received: by outflank-mailman (input) for mailman id 429107;
+ Mon, 24 Oct 2022 13:01:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZViS=2Z=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1omx5N-0003LD-8G
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 13:01:45 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2046.outbound.protection.outlook.com [40.107.102.46])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 018512d4-539c-11ed-91b5-6bf2151ebd3b;
+ Mon, 24 Oct 2022 15:01:43 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by DM6PR12MB4861.namprd12.prod.outlook.com (2603:10b6:5:1bd::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.25; Mon, 24 Oct
+ 2022 13:01:39 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5746.026; Mon, 24 Oct 2022
+ 13:01:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,202 +46,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3114cc96-539b-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1666616152; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=doG6HZnZCoVKaGw+wo/WVrDGL+eOY9VhqR01LjBiG/k=;
-	b=HfxIHM2+JmZUl9g4XsZz67Ez89BG4CQew93Ibamd0l2IDF3ydJyH43+tX8csurg9RxBGFc
-	IW+os+DmG7gY+T3mqa/3GQt87PE+wZNr91AROX7E2pGrtKnJ0uM8O/GxEeRoCDGGolffcV
-	/5+K+/KQ9Vigv6UUppntuZaQGg/imcI=
-Message-ID: <016732f4-d129-69bb-4b5f-82198407ee5e@suse.com>
-Date: Mon, 24 Oct 2022 14:55:51 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: Report in downstream Debian: mpt3sas broken with xen dom0 with
- update to 5.10.149 in 5.10.y.
-Content-Language: en-US
-To: Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
- Bart Van Assche <bvanassche@acm.org>
-Cc: Salvatore Bonaccorso <carnil@debian.org>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, sathya.prakash@broadcom.com,
- suganath-prabu.subramani@broadcom.com,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
- adi@kriegisch.at
-References: <Y1JkuKTjVYrOWbvm@eldamar.lan>
- <85ad4508-b979-c792-e92b-01bc16260dec@acm.org>
- <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------S7L73GZ7QwBj4qRYR6bALgT0"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------S7L73GZ7QwBj4qRYR6bALgT0
-Content-Type: multipart/mixed; boundary="------------8nAfY0HuTJjjgFAPh5D6KU35";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
- Bart Van Assche <bvanassche@acm.org>
-Cc: Salvatore Bonaccorso <carnil@debian.org>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, sathya.prakash@broadcom.com,
- suganath-prabu.subramani@broadcom.com,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
- adi@kriegisch.at
-Message-ID: <016732f4-d129-69bb-4b5f-82198407ee5e@suse.com>
-Subject: Re: Report in downstream Debian: mpt3sas broken with xen dom0 with
- update to 5.10.149 in 5.10.y.
-References: <Y1JkuKTjVYrOWbvm@eldamar.lan>
- <85ad4508-b979-c792-e92b-01bc16260dec@acm.org>
- <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
-In-Reply-To: <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
-
---------------8nAfY0HuTJjjgFAPh5D6KU35
-Content-Type: multipart/mixed; boundary="------------cFpTspK8fz03bLJT6EfskpoB"
-
---------------cFpTspK8fz03bLJT6EfskpoB
+X-Inumbo-ID: 018512d4-539c-11ed-91b5-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AhO2evAsDXrD1fO/sq3QQRjYmR7NfAe9bGuZsNY2FHtIADsVA51JN+vwYxygd9Ko8FRZUtzc+/+HoIijbkNsKZ5jbV2cF0uugLtiA4zuOcHFF6Em0Qm4nEHtRv02zAraeApXYJA8vcO/8jJZMCLfd0do3cQ0hdA2M4kDsFlmG7G5hBGoTQhmop6zs4zwHlnUR7nI6J7bBzovagcK2erujHHA0h+WMT+hTdhplq6JmycLgQlV7gbSuMupWnE7A/O/CDEyyo8E3myAYJncczE5l75dS9hb23njzM74ZVRVfv9S7wBOJmF30v9k1XHFADibdwrNx35lF8bsPiZthRWQNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5C0oVIfsrAO3fcfHdXqKiEqM1E5j+OU0Oi3+W3RM3Pg=;
+ b=IFdYHqKm1UnJR7SRMekCwidNmMCZF6CHInUZdPI74GufGynr7/QvoPPjLfQI3dewiC+kASverC2QrlEhpuKp9lsRDsHGmWddNFm3UyeEgCSDEQeH2GM8qTDjmW9kWdL5w+0cvcoVan4WZjcwPQt3kveY01ohb3+Ms8Jm0XMTKfUpDr2y7y5mFg0A44uS4pajzHAlxTVAJb+g8SHkqwop8zsOD4fpmcOuJIJ58K7ZzCxXgVJdic25FM5Z7nPcEzncBViSVmTBLXOva7PC7UJjCP0mN/3JlXrgZlp/JlNL5WiX88thWkJ0SXmtoyyT53CDWLLdKd/l/syypogd6a1hUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5C0oVIfsrAO3fcfHdXqKiEqM1E5j+OU0Oi3+W3RM3Pg=;
+ b=b0jdF6wJ0AD3FYv4rsTn59n/HwdNdLOb/pAA1KQVYAuAyMC8MLIkG+utKn8uiRCSwlvpgHxj/p0JozYRJdq7zXXi6ywHoOL7Ocbf+IWfqwJUmFe9Efy0LjWGOxV3/7JrUMKIpuNYTc4OprZC5nNR/qO32ztlcC3EI1cMm4QzGW8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <76f1b4fc-90bd-f55f-5624-f5d011bdaa9f@amd.com>
+Date: Mon, 24 Oct 2022 14:01:33 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.0
+Subject: Re: [RFC PATCH v1 02/12] Arm: GICv3: Move the macros to compute the
+ affnity level to arm64/arm32
+To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, julien@xen.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+References: <20221021153128.44226-1-ayankuma@amd.com>
+ <20221021153128.44226-3-ayankuma@amd.com>
+ <cb67c768-1a05-e5d5-efed-9a282c6a8c2a@gmail.com>
+ <e0183387-8556-5fcc-2f18-003832d5cd70@amd.com>
+ <78306c56-7cdd-a705-f8af-0cae4e359336@gmail.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <78306c56-7cdd-a705-f8af-0cae4e359336@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0437.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a9::10) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DM6PR12MB4861:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d2e5bd3-31d4-4224-0b2d-08dab5bfe3de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	cUTBDiE0800y5MtTtONZat2q0G3fuhoro5P1iqVMCWaw8hwkIaXEI7TuOH4KmN5I+aErPdzB8UGPy2ZkqIAcvAxQJKtvUzVzn3do4LB2eEY2NTerUULO5UVzhqqo9C/fcu1lLT+A/ymP7TEWBQ0TIpVmEH8YIjDO6EADGKZi+vV840ecn4Qdb+9LC3kQBdNxXaIkQ0+PYFYQkNHB6ZG8iC86j+9zAzYrrXJ4pKofTGgiuokDwV+b10GQftWOquH+hIDJqwQlZOsyG7hkhNsj6fd/p2JudTFYTH+u9TX8240BVPNJJdoRaW1VhOyfa+PZHvnFBpinlWDL+TRhb4z9TiX/hr+bHSWcAU09ZPmTurrCFGF1OjHOJTF9IY+/FqNZ/qeOiGwtCehUYNsl/oX3Zbs/EQLYiOxPDl4hqt/D95R9gb0Z7h31tmROL+O5I/M9gwBiA+odFgORWzZQLI7Znj2JX7vL0268tdJCCWtQ4Da/qugVsYXnkYDqujw017fa2wgowZAbZbX45oxe+/3yapTNlkV4nXWwC+sXqjK4k6xgZdaUBAUsVfcODg5SFeNLT7JUwbiw5X5XcdkwT6G2clcWPlTLpTcoCDBdpEYCV+vJaAZh6v/Snid78RZA/EBKkPpdTVLBKKLZ3nRnP4KyKMZikz40Kb8+UGFufAK6tpJeiarZlhvcfUAkdo2nGNe/vh/xbeTBIHK8ZBzXz7O0sTaWtQUS/6a7UdO1URk8E0lQvNyYhz1LK/47ynOC81ggPHb4Em1uT0LVznhZpsAfy7XX9sHN9bKjmiUKPA//LjBMfIkJgDeZkYBJpmpCuKn27Ez2or5dfFseVLlzglwcrKYWyrzODSlGHzic6vzSiuE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(366004)(39860400002)(376002)(451199015)(2616005)(2906002)(36756003)(316002)(41300700001)(6506007)(6666004)(8936002)(31696002)(66476007)(66556008)(966005)(31686004)(6486002)(5660300002)(8676002)(4326008)(53546011)(26005)(478600001)(38100700002)(186003)(6512007)(83380400001)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VU9wVVZKRS9rV3dQS29LR1F6YUhoVi8yWnZkOXhHWm1TZXV3dmpmNmhmZXdU?=
+ =?utf-8?B?UmVYZGk2NXQvaW9LUzBudXFGMzd2VjBKTEViMS9ZcUwvTTBMdk50eW50Z0ZQ?=
+ =?utf-8?B?L2x4RDdCY3VWMS84c1pML3ZpNVlDMHFTZk9QNmZaVFUvTWQ1K3hBM0piUktK?=
+ =?utf-8?B?SWoveEJ0cEJ0TG1zek5LK2JVOVFPaThHL2pHSXdYaFQ1NVVGRjlMRkJtalhX?=
+ =?utf-8?B?Zk9KOTRzMkloUlRrQ3BIYWYzalV6SWRKRnNpUmlGdmlhTU5XYWwrRytEb1Vz?=
+ =?utf-8?B?VklhOFhSYTZ6RE1pREdXeHkvMFpwQzcwMVZwSHQyb2x0WTV0cUJWNkh0Q3lG?=
+ =?utf-8?B?aDNsOWNkNjFMTTVRa0tMYkpyQ1I4ck9xdE9uaWhWWVgwT0hKQ04wbGwrMGUy?=
+ =?utf-8?B?aGJWNXJ4MG9adlFidzYzWDBOVFM5aXVFVlFQdGgrVnA3cDRPb0FTNHVVMGtt?=
+ =?utf-8?B?cFJ1YkErQTdGdjYyVkFoWlorcCt2c3V5TzAySDBwd2IySW1kZWY3VHVlM1No?=
+ =?utf-8?B?TG1PcUdvNFN1SVBLdVp2VUtPc0NLb1ZxYVJCVmJqTnhFTXV1NG1MSjlaTHdu?=
+ =?utf-8?B?aHk5TTBXajZrS043OUF4QnlOUUFtRzlyVm13NjVQL2hpdlA2bzBTQTdKTm5Y?=
+ =?utf-8?B?KzN2MlFDeU43TDBWaXNIZ2xsejhkWW9LbSt0UzBEYUt1clJ5c2ozZ3E3L3Z3?=
+ =?utf-8?B?MTJXS3VhelZHZ3ZTOG5VVUFRWTREai9hcWZFN1BrL0N5MkhoMFJLZGsvanc5?=
+ =?utf-8?B?NlF5c2ZhdktiT0ZjUkVSalo5NFVYanlOVzdaRmxMUU9WODl2MWs5TXhyWGdw?=
+ =?utf-8?B?TndTWVBkajAyWHNnZ2hySHg4RVlQdGdpMGZBZUtBR2kzS3Bmb0l3RHpncmFM?=
+ =?utf-8?B?MXRsMm0wQWxqQ1lnbm1WUjg0NGYwanFlTkV3eXNGbFJFbTZNcklBSUJqS055?=
+ =?utf-8?B?Z2ovWTQrM2lkd0R6SHhWNGVQc3o1UTFDOTJWN1ZUU2lyRkVvNjJZYWpYTFlM?=
+ =?utf-8?B?YngyMVkzeVpqRmtCNnMwN21QR2JaMUUzTVd6ZFcycFZJNExRR2FtWTFzSm8v?=
+ =?utf-8?B?RGpsdk9QTlRQbXlrSlJ2SWdwNnRZUzl2clVTeThWTGQxSVRTZDVzY0NpVXk1?=
+ =?utf-8?B?eDl5TUNtbDMwVWZmVWZKU3FDc3FBNWczWDNOYnBVQ1Z0OUxtM2xpb08wRUwv?=
+ =?utf-8?B?dElKbFJnYkxtVmcwQ3NNakxRVXJWZ3VLRlBrNjNSVTN4VlZlc2pPZ1RET2FN?=
+ =?utf-8?B?bGNqMnljNHZYbnMyMmNpMEQ2OVZhTEZuTERMZUNDZ3ppaGVpS1RVbkxTenJn?=
+ =?utf-8?B?WDlhanZjSjZQYmh2dTliQ0ZCWnBFNHBpaTNwYkY4SUlLRXE0Y1pjMWx4Uys1?=
+ =?utf-8?B?c2VKNmlEZm5PSDRvZlN3N2FXWnhYWjR2Vkp6a0VlNE9DNHR6bEVSMHdNcHlP?=
+ =?utf-8?B?R00vSmw5UHNKS0VMS1FWaHNCSjYxV2w3Qm1Zc2YvTi80RUtXTnpGbHRlcFV6?=
+ =?utf-8?B?cG5tc3l3dE9RRzgrSHVMZnRaOWJxR3h1YWtLZm80SVcxR1V5VWwrUUZ1VXp2?=
+ =?utf-8?B?RVZKZDlac3k2dE9KRzRWK0h2S3F6eHp4eTFrSUFZcE1zM0lybG9XT0x0TEpq?=
+ =?utf-8?B?RHhZTzhxQm5hZnRFQnNHN0lEU1hEY0Y5TzdlM28zYzEwWjBkTDVMTVRlaThC?=
+ =?utf-8?B?REpYWi9sYks5K1VjTUV6RkVPbHJaZmtzbHZLTGVHaXdDT0dnZDl5bnBJVFVU?=
+ =?utf-8?B?R1RRcWVPWFJBM0lCK2hmc2VMbU0rR01xN0FWbzdpODlTSzZDU3ZlYUo0SkFD?=
+ =?utf-8?B?WHA3ZFhiNktuK1BoeVlrWFdIdG41R1hSRHZIalF5QW5RWWJjZFhLK1RNN1Ax?=
+ =?utf-8?B?S1RSR2hoekdnSEN2a0ZYVTAxK2k0a09VaGpwTTlrdkRKRVRsdnRqL2dDLzZz?=
+ =?utf-8?B?RG1xYmxpR0p2RFBNS2N6ZzZRYkpwUUpqcjNKL0Z5bXkyVGRKSGMrY1lOUW5T?=
+ =?utf-8?B?SHcvRDBqeFZwZmd6ZzR3RDFQRE9QSXB0MUlFd1JsSDRWU3BvMFdCcWhwbTNP?=
+ =?utf-8?B?WTJyeGw1QVl0WlRGdk9ZckYwVzdzN3RIVUVNU0xVTTdlYnI4RG9FVnVNbU1S?=
+ =?utf-8?Q?vkyU2R/Q+UdZE4HoHP75TpUYU?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d2e5bd3-31d4-4224-0b2d-08dab5bfe3de
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 13:01:39.5050
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vKa0li4QqAOXZq4VKyIlN/KDij8gNAHus+vlPYlkf0xitQlBGcnuhJJYQwgvSfZ9M6fVMpJdHS+RAhDgDWdzXw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4861
 
-T24gMjQuMTAuMjIgMTM6NTYsIFNyZWVrYW50aCBSZWRkeSB3cm90ZToNCj4gT24gU3VuLCBP
-Y3QgMjMsIDIwMjIgYXQgNjo1NyBBTSBCYXJ0IFZhbiBBc3NjaGUgPGJ2YW5hc3NjaGVAYWNt
-Lm9yZz4gd3JvdGU6DQo+Pg0KPj4gT24gMTAvMjEvMjIgMDI6MjIsIFNhbHZhdG9yZSBCb25h
-Y2NvcnNvIHdyb3RlOg0KPj4+IFdlIGdvdCB0aGUgZm9sbG93aW5nIHJlcG9ydCBpbiBEZWJp
-YW4gYWZ0ZXIgYW4gdXBkYXRlIGZyb20gNS4xMC4xNDAgdG8NCj4+PiB0aGUgY3VycmVudCA1
-LjEwLjE0OS4gRnVsbCBxdW90aW5nIGJlbG93IChmcm9tDQo+Pj4gaHR0cHM6Ly9idWdzLmRl
-Ymlhbi5vcmcvMTAyMjEyNikuIERvZXMgdGhpcyByaW5nIHNvbWUgYmVsbCBhYm91dCBrbm93
-bg0KPj4+IHJlZ3Jlc3Npb25zPw0KPj4NCj4+IE9ubHkgdGhyZWUgbXB0M3NhcyBjaGFuZ2Vz
-IGFyZSBuZXcgaW4gdjUuMTAuMTQ5IGNvbXBhcmVkIHRvIHY1LjEwLjE0MDoNCj4+ICQgZ2l0
-IGxvZyAtLWZvcm1hdD1vbmVsaW5lIHY1LjEwLjE0MC4udjUuMTAuMTQ5DQo+PiAyYjlhYmEw
-YzVkNThlMTQxZTMyYmIxYmI0YzdjZDkxZDE5ZjA3NWI4IHNjc2k6IG1wdDNzYXM6IEZpeCBy
-ZXR1cm4gdmFsdWUgY2hlY2sgb2YgZG1hX2dldF9yZXF1aXJlZF9tYXNrKCkNCj4+IGU3ZmFm
-ZWY5ODMwYzRhMDFlNjBmNzZlMzg2MGE5YmVmMDI2MjM3OGQgc2NzaTogbXB0M3NhczogRm9y
-Y2UgUENJZSBzY2F0dGVybGlzdCBhbGxvY2F0aW9ucyB0byBiZSB3aXRoaW4gc2FtZSA0IEdC
-IHJlZ2lvbg0KPj4gZWExMGE2NTJhZDJhZTJjZjNlY2VkNmY2MzJhNWM5OGYyNjcyNzA1NyBz
-Y3NpOiBtcHQzc2FzOiBGaXggdXNlLWFmdGVyLWZyZWUgd2FybmluZw0KPj4NCj4+IFNyZWVr
-YW50aCBhbmQgU3VnYW5hdGgsIGNhbiB5b3UgaGVscCB3aXRoIGJpc2VjdGluZyB0aGlzIGlz
-c3VlPyBGb3IgdGhlDQo+PiBmdWxsIHJlcG9ydCwgc2VlIGFsc28gaHR0cHM6Ly9sb3JlLmtl
-cm5lbC5vcmcvbGludXgtc2NzaS9ZMUprdUtUalZZck9XYnZtQGVsZGFtYXIubGFuLy4NCj4g
-DQo+IFRoaXMgaXNzdWUgaXMgZ2V0dGluZyBvYnNlcnZlZCBhZnRlciBoYXZpbmcgdGhlIGJl
-bG93IHBhdGNoIGNoYW5nZXMsDQo+IDJiOWFiYTBjNWQ1OGUxNDFlMzJiYjFiYjRjN2NkOTFk
-MTlmMDc1Yjggc2NzaTogbXB0M3NhczogRml4IHJldHVybg0KPiB2YWx1ZSBjaGVjayBvZiBk
-bWFfZ2V0X3JlcXVpcmVkX21hc2soKQ0KPiANCj4gV2hhdCBpcyBoYXBwZW5pbmcgaXMgdGhh
-dCBvbiBYZW4gaHlwZXJ2aXNvciwgdGhpcw0KPiBkbWFfZ2V0X3JlcXVpcmVkX21hc2soKSBB
-UEkgYWx3YXlzIHJldHVybnMgYSAzMiBiaXQgRE1BIG1hc2suIEkuZS4gSXQNCj4gc2F5cyB0
-aGF0IHRoZSBtaW5pbXVtIERNQSBtYXNrIHJlcXVpcmVkIHRvIGFjY2VzcyB0aGUgaG9zdCBt
-ZW1vcnkgaXMNCj4gMzIgYml0IGFuZCBoZW5jZSBtcHQzc2FzIGRyaXZlciBpcyBzZXR0aW5n
-IHRoZSBETUEgbWFzayB0byAzMmJpdC4gU28sDQo+IG9uIGEgNjQgYml0IG1hY2hpbmUsIGlm
-IHRoZSBkcml2ZXIgc2V0J3MgdGhlIERNQSBtYXNrIHRvIDMyIGJpdCB0aGVuDQo+IFNXSU9U
-TEIncyBib3VuY2UgYnVmZmVyIGNvbWVzIGludG8gcGljdHVyZSBkdXJpbmcgSU9zLiBTaW5j
-ZSB0aGVzZQ0KPiBib3VuY2UgYnVmZmVycyBhcmUgbGltaXRlZCBpbiBzaXplIGFuZCBoZW5j
-ZSB3ZSBvYnNlcnZlIHRoZSBJTyBoYW5nIGlmDQo+IHRoZSBsYXJnZSBJT3MgYXJlIGlzc3Vl
-ZC4NCj4gDQo+IEkgYW0gbm90IHN1cmUgd2hldGhlciB0aGlzIEFQSSdzIHJldHVybiB2YWx1
-ZSBpcyBjb3JyZWN0IG9yIG5vdCBpbiB0aGUNCj4gWGVuIGVudmlyb25tZW50LiBJZiBpdCBp
-cyBjb3JyZWN0IHRoZW4gSSBoYXZlIHRvIG1vZGlmeSB0aGUgZHJpdmVyIHRvDQo+IG5vdCB1
-c2UgdGhpcyBBUEkgYW5kIGRpcmVjdGx5IHNldCB0aGUgRE1BIG1hc2sgdG8gNjQgYml0IGlm
-IHRoZSBzeXN0ZW0NCj4gaXMgYSA2NGJpdCBtYWNoaW5lLg0KDQpQbGVhc2UgcmVjaGVjayB0
-aGUgYmFja3BvcnRlZCBwYXRjaCBpbiA1LjEwLnkuIEl0IGlzIF93cm9uZ18uIFRoZSBiYWNr
-cG9ydA0KaGFzOg0KDQotLS0gYS9kcml2ZXJzL3Njc2kvbXB0M3Nhcy9tcHQzc2FzX2Jhc2Uu
-Yw0KKysrIGIvZHJpdmVycy9zY3NpL21wdDNzYXMvbXB0M3Nhc19iYXNlLmMNCkBAIC0yOTkz
-LDcgKzI5OTMsNyBAQCBfYmFzZV9jb25maWdfZG1hX2FkZHJlc3Npbmcoc3RydWN0IE1QVDNT
-QVNfQURBUFRFUiAqaW9jLCANCnN0cnVjdCBwY2lfZGV2ICpwZGV2KQ0KDQogICAgICAgICBp
-ZiAoaW9jLT5pc19tY3B1X2VuZHBvaW50IHx8DQogICAgICAgICAgICAgc2l6ZW9mKGRtYV9h
-ZGRyX3QpID09IDQgfHwgaW9jLT51c2VfMzJiaXRfZG1hIHx8DQotICAgICAgICAgICBkbWFf
-Z2V0X3JlcXVpcmVkX21hc2soJnBkZXYtPmRldikgPD0gMzIpDQorICAgICAgICAgICBkbWFf
-Z2V0X3JlcXVpcmVkX21hc2soJnBkZXYtPmRldikgPD0gRE1BX0JJVF9NQVNLKDMyKSkNCiAg
-ICAgICAgICAgICAgICAgaW9jLT5kbWFfbWFzayA9IDMyOw0KICAgICAgICAgLyogU2V0IDYz
-IGJpdCBETUEgbWFzayBmb3IgYWxsIFNBUzMgYW5kIFNBUzM1IGNvbnRyb2xsZXJzICovDQog
-ICAgICAgICBlbHNlIGlmIChpb2MtPmhiYV9tcGlfdmVyc2lvbl9iZWxvbmdlZCA+IE1QSTJf
-VkVSU0lPTikNCg0KV2hpbGUgdGhlIHVwc3RyZWFtIHBhdGNoIGhhczoNCg0KKyAgICAgICBp
-ZiAoaW9jLT5pc19tY3B1X2VuZHBvaW50IHx8IHNpemVvZihkbWFfYWRkcl90KSA9PSA0IHx8
-DQorICAgICAgICAgICBkbWFfZ2V0X3JlcXVpcmVkX21hc2soJnBkZXYtPmRldikgPD0gMzIp
-IHsNCiAgICAgICAgICAgICAgICAgaW9jLT5kbWFfbWFzayA9IDMyOw0KKyAgICAgICAgICAg
-ICAgIGNvaGVyZW50X2RtYV9tYXNrID0gZG1hX21hc2sgPSBETUFfQklUX01BU0soMzIpOw0K
-DQoNCkp1ZXJnZW4NCg0K
---------------cFpTspK8fz03bLJT6EfskpoB
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 24/10/2022 12:35, Xenia Ragiadakou wrote:
+> Hi Ayan,
+Hi Xenia,
+>
+> On 10/24/22 14:00, Ayan Kumar Halder wrote:
+>>
+>> On 21/10/2022 22:18, Xenia Ragiadakou wrote:
+>>> On 10/21/22 18:31, Ayan Kumar Halder wrote:
+>>> Hi Ayan
+>> Hi Xenia,
+>>>
+>>>> Refer https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm64/ \
+>>>> include/asm/cputype.h#L14 , these macros are specific for arm64.
+>>>>
+>>>> When one computes MPIDR_LEVEL_SHIFT(3), it crosses the width of a 32
+>>>> bit register.
+>>>>
+>>>> Refer 
+>>>> https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm/include/ \
+>>>> asm/cputype.h#L54  , these macros are specific for arm32.
+>>>>
+>>>> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+>>>> ---
+>>>>   xen/arch/arm/include/asm/arm32/processor.h | 10 ++++++++++
+>>>>   xen/arch/arm/include/asm/arm64/processor.h | 13 +++++++++++++
+>>>>   xen/arch/arm/include/asm/processor.h       | 14 --------------
+>>>>   3 files changed, 23 insertions(+), 14 deletions(-)
+>>>>
+>>>> diff --git a/xen/arch/arm/include/asm/arm32/processor.h 
+>>>> b/xen/arch/arm/include/asm/arm32/processor.h
+>>>> index 4e679f3273..3e03ce78dc 100644
+>>>> --- a/xen/arch/arm/include/asm/arm32/processor.h
+>>>> +++ b/xen/arch/arm/include/asm/arm32/processor.h
+>>>> @@ -56,6 +56,16 @@ struct cpu_user_regs
+>>>>       uint32_t pad1; /* Doubleword-align the user half of the frame */
+>>>>   };
+>>>>   +/*
+>>>> + * Macros to extract affinity level. Picked from kernel
+>>>> + */
+>>>> +
+>>>> +#define MPIDR_LEVEL_MASK ((1 << MPIDR_LEVEL_BITS) - 1)
+>>>> +#define MPIDR_LEVEL_SHIFT(level) (MPIDR_LEVEL_BITS * level)
+>>>> +
+>>>> +#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+>>>> +    ((mpidr >> (MPIDR_LEVEL_BITS * level)) & MPIDR_LEVEL_MASK)
+>>>> +
+>
+> Above, since
+> #define MPIDR_LEVEL_SHIFT(level) (MPIDR_LEVEL_BITS * level)
+> you can replace (MPIDR_LEVEL_BITS * level) with 
+> MPIDR_LEVEL_SHIFT(level) in the definition of MPIDR_AFFINITY_LEVEL.
+> You will see that it is identical to the arm64 definition
+> #define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+>         ((mpidr >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Currently, MPIDR_AFFINITY_LEVEL(mpidr, 3) differs between arm32 and arm64:-
 
---------------cFpTspK8fz03bLJT6EfskpoB--
+In arm32 :- (mpidr >> 24) & 0xff
 
---------------8nAfY0HuTJjjgFAPh5D6KU35--
+In arm64 :- (mpidr >> 32) & 0xff
 
---------------S7L73GZ7QwBj4qRYR6bALgT0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+I think this is what is expected. See xen/arch/arm/gic-v3.c ,
 
------BEGIN PGP SIGNATURE-----
+static inline uint64_t gicv3_mpidr_to_affinity(int cpu)
+{
+      uint64_t mpidr = cpu_logical_map(cpu);
+      return (MPIDR_AFFINITY_LEVEL(mpidr, 3) << 32 |
+              MPIDR_AFFINITY_LEVEL(mpidr, 2) << 16 |
+              MPIDR_AFFINITY_LEVEL(mpidr, 1) << 8  |
+              MPIDR_AFFINITY_LEVEL(mpidr, 0));
+}
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNWi1cFAwAAAAAACgkQsN6d1ii/Ey9+
-lwf/Yha8xaMGxH8Q4ckxdIAJvEQrji9rS53M62NlunVEMWVsKeUqsrmPASDUET/YhTByyi7+moWO
-DDioRZgOVuaMudP+cIwEtQ8eYvUv30uFaIOvKlFwsO2li5l50mVCAT0/5dax0+H5vXWpKsVPlZ4z
-SgcnpWUamA5goQNHUA0EoyFQpxucuiC1w7u7yBEIEVm2VmzyNrayou76j+GLEBGD+I/A9PzWHju/
-8UOSLt3jYmY6t/RXCar2Rk5qaMQqoTCPM6rynWO1Lpy30dH+hMl4+tXW2o2p5EdJBpj/maCB02KB
-W4KDn2wxmur5vSpRqI4Ha/OdjqmHe55PW1h5Mv/IFw==
-=CPv9
------END PGP SIGNATURE-----
+>
+>>>>   #endif
+>>>>     #endif /* __ASM_ARM_ARM32_PROCESSOR_H */
+>>>> diff --git a/xen/arch/arm/include/asm/arm64/processor.h 
+>>>> b/xen/arch/arm/include/asm/arm64/processor.h
+>>>> index c749f80ad9..c026334eec 100644
+>>>> --- a/xen/arch/arm/include/asm/arm64/processor.h
+>>>> +++ b/xen/arch/arm/include/asm/arm64/processor.h
+>>>> @@ -84,6 +84,19 @@ struct cpu_user_regs
+>>>>       uint64_t sp_el1, elr_el1;
+>>>>   };
+>>>>   +/*
+>>>> + * Macros to extract affinity level. picked from kernel
+>>>> + */
+>>>> +
+>>>> +#define MPIDR_LEVEL_BITS_SHIFT  3
+>>>> +#define MPIDR_LEVEL_MASK        ((1 << MPIDR_LEVEL_BITS) - 1)
+>>>> +
+>>>> +#define MPIDR_LEVEL_SHIFT(level) \
+>>>> +         (((1 << level) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
+>>>> +
+>>>> +#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+>>>> +         ((mpidr >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
+>>>> +
+>>>>   #undef __DECL_REG
+>>>>     #endif /* __ASSEMBLY__ */
+>>>> diff --git a/xen/arch/arm/include/asm/processor.h 
+>>>> b/xen/arch/arm/include/asm/processor.h
+>>>> index 1dd81d7d52..7d90c3b5f2 100644
+>>>> --- a/xen/arch/arm/include/asm/processor.h
+>>>> +++ b/xen/arch/arm/include/asm/processor.h
+>>>> @@ -118,20 +118,6 @@
+>>>>   #define MPIDR_INVALID       (~MPIDR_HWID_MASK)
+>>>>   #define MPIDR_LEVEL_BITS    (8)
+>>>>   -
+>>>> -/*
+>>>> - * Macros to extract affinity level. picked from kernel
+>>>> - */
+>>>> -
+>>>> -#define MPIDR_LEVEL_BITS_SHIFT  3
+>>>> -#define MPIDR_LEVEL_MASK        ((1 << MPIDR_LEVEL_BITS) - 1)
+>>>> -
+>>>> -#define MPIDR_LEVEL_SHIFT(level) \
+>>>> -         (((1 << (level)) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
+>>>> -
+>>>> -#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+>>>> -         (((mpidr) >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
+>>>> -
+>>>>   #define AFFINITY_MASK(level)    ~((_AC(0x1,UL) << 
+>>>> MPIDR_LEVEL_SHIFT(level)) - 1)
+>>>>     /* TTBCR Translation Table Base Control Register */
+>>>
+>>> Since only the definition of the MPIDR_AFFINITY_LEVEL() differs, 
+>>> maybe you could add only this one to the arch specific headers e.g
+>>> for arm64:
+>>> #define MPIDR_LEVEL_SHIFT(level) \
+>>>     (((1 << (level)) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
+>>> for arm32:
+>>> #define MPIDR_LEVEL_SHIFT(level) \
+>>>     ((level) << MPIDR_LEVEL_BITS_SHIFT)
+>>
+>> Also, MPIDR_AFFINITY_LEVEL needs to be defined in arch specific 
+>> headers as it differs between arm32 and arm64.
+>
+> As I point out above, there is no difference between arm32 and arm64 
+> regarding the definition of MPIDR_AFFINITY_LEVEL(level).
 
---------------S7L73GZ7QwBj4qRYR6bALgT0--
+Please see above and let me know if it makes sense.
+
+- Ayan
+
+>
+>>
+>> However, MPIDR_LEVEL_MASK can be defined in the common header (as it 
+>> is same for arm32 and arm64).
+>>
+>> Please let me know if it makes sense.
+>>
+>>>
+>>> But in any case don't forget to add parentheses around the macro 
+>>> parameters when an operator acts on them to avoid trouble with 
+>>> operator precedence (MISRA-C Rule 20.7 :))
+>>
+>> Thanks for pointing it out. Yes, this is a mistake in my patches.
+>>
+>> - Ayan
+>>
+>
 
