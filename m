@@ -2,36 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CFC960A77A
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:51:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429090.679902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA8FC60A400
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:05:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429050.679825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omwv7-0000eg-KD; Mon, 24 Oct 2022 12:51:09 +0000
+	id 1omwCV-0008Pp-FG; Mon, 24 Oct 2022 12:05:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429090.679902; Mon, 24 Oct 2022 12:51:09 +0000
+Received: by outflank-mailman (output) from mailman id 429050.679825; Mon, 24 Oct 2022 12:05:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omwv7-0000co-HD; Mon, 24 Oct 2022 12:51:09 +0000
-Received: by outflank-mailman (input) for mailman id 429090;
- Mon, 24 Oct 2022 12:51:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1omwCV-0008NI-BB; Mon, 24 Oct 2022 12:05:03 +0000
+Received: by outflank-mailman (input) for mailman id 429050;
+ Mon, 24 Oct 2022 12:05:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DVco=2Z=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1omwv5-0000ch-Nv
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:51:07 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85b69ed6-539a-11ed-8fd0-01056ac49cbb;
- Mon, 24 Oct 2022 14:51:06 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ <SRS0=diCp=2Z=redhat.com=sbrivio@srs-se1.protection.inumbo.net>)
+ id 1omwCU-0008Ms-4w
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:05:02 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 14f86b15-5394-11ed-91b5-6bf2151ebd3b;
+ Mon, 24 Oct 2022 14:05:00 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-260-5LUlF93eMRuhxrfgfGRSFA-1; Mon, 24 Oct 2022 08:04:55 -0400
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C93D361257;
- Mon, 24 Oct 2022 12:51:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6FA0C433D7;
- Mon, 24 Oct 2022 12:51:03 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FA3E8065E8;
+ Mon, 24 Oct 2022 12:04:54 +0000 (UTC)
+Received: from maya.cloud.tilaa.com (ovpn-208-31.brq.redhat.com [10.40.208.31])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E2E5E200C0DA;
+ Mon, 24 Oct 2022 12:04:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,101 +50,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85b69ed6-539a-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1666615864;
-	bh=Ni3aGGiJlZu9KJ4N6LRidb1HrO9afGdBuz4Hc+sk+7o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XkDDpBvk3m6XzfDi6bZn8+6Pz04RhH12WWAc6LwqhLRNinUdBjaqdg8tiFhrJ9a3f
-	 E5XZbUC9lphaAO2nd0x8RD2hG/026m5/rkI1PYmkbuTnebRPDA1cqFoo0KGmv3+ols
-	 0N1vBndWfaGcH8yunl4dh0iJ6Eujs/JiSQUR4o8o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	xen-devel@lists.xenproject.org,
-	Kees Cook <keescook@chromium.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 412/530] x86/entry: Work around Clang __bdos() bug
-Date: Mon, 24 Oct 2022 13:32:36 +0200
-Message-Id: <20221024113103.742966550@linuxfoundation.org>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221024113044.976326639@linuxfoundation.org>
-References: <20221024113044.976326639@linuxfoundation.org>
-User-Agent: quilt/0.67
+X-Inumbo-ID: 14f86b15-5394-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1666613098;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TN68KVpvR7XKYr0YdRyHBatb1VXNIh4kpbgamAYS4Zw=;
+	b=hyZe1oIm3GjMDbconZbQuNvnE7S3VewWsWXE8LPa1aMmc7HhV6BY86waaT7IuTbbI7d4o0
+	HiGDli3zlqjBck0QUGOCNis1vU8CQmMOabKNkdnwdwqoGiQA5CqI6OAjutvBxcAZ0JzU1/
+	5Om6uNMwEIqkmLRNU06lhFvIAgInOFE=
+X-MC-Unique: 5LUlF93eMRuhxrfgfGRSFA-1
+Date: Mon, 24 Oct 2022 14:04:31 +0200
+From: Stefano Brivio <sbrivio@redhat.com>
+To: Markus Armbruster <armbru@redhat.com>
+Cc: Laurent Vivier <lvivier@redhat.com>, qemu-devel@nongnu.org, Paul Durrant
+ <paul@xen.org>, Thomas Huth <thuth@redhat.com>, "Daniel P. =?UTF-8?B?QmVy?=
+ =?UTF-8?B?cmFuZ8Op?=" <berrange@redhat.com>, "Dr. David Alan Gilbert"
+ <dgilbert@redhat.com>, Greg Kurz <groug@kaod.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, David Gibson <david@gibson.dropbear.id.au>, Eric
+ Blake <eblake@redhat.com>, xen-devel@lists.xenproject.org, "Michael S.
+ Tsirkin" <mst@redhat.com>, Stefan Weil <sw@weilnetz.de>, Paolo Bonzini
+ <pbonzini@redhat.com>, Jason Wang <jasowang@redhat.com>, Samuel Thibault
+ <samuel.thibault@ens-lyon.org>, Anthony Perard <anthony.perard@citrix.com>,
+ Laine Stump <laine@redhat.com>
+Subject: Re: [PATCH v13 17/17] net: stream: add QAPI events to report
+ connection state
+Message-ID: <20221024140431.2e93dd2b@elisabeth>
+In-Reply-To: <87tu3tsczq.fsf@pond.sub.org>
+References: <20221020162558.123284-1-lvivier@redhat.com>
+	<20221020162558.123284-18-lvivier@redhat.com>
+	<87pmel4th4.fsf@pond.sub.org>
+	<52e989b9-6f8d-99c6-ef04-3ce32006b002@redhat.com>
+	<87lep935hn.fsf@pond.sub.org>
+	<87tu3tsczq.fsf@pond.sub.org>
+Organization: Red Hat
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 
-From: Kees Cook <keescook@chromium.org>
+On Mon, 24 Oct 2022 13:00:09 +0200
+Markus Armbruster <armbru@redhat.com> wrote:
 
-[ Upstream commit 3e1730842f142add55dc658929221521a9ea62b6 ]
+> Markus Armbruster <armbru@redhat.com> writes:
+> 
+> > Cc: Stefano Brivio
+> >
+> > Laurent Vivier <lvivier@redhat.com> writes:
+> >  
+> >> On 10/21/22 07:48, Markus Armbruster wrote:  
+> >>> Laurent Vivier <lvivier@redhat.com> writes:
+> >>>   
+> >>>> The netdev reports NETDEV_STREAM_CONNECTED event when the backend
+> >>>> is connected, and NETDEV_STREAM_DISCONNECTED when it is disconnected.  
+> >>>
+> >>> Use cases?  
+> >>
+> >> This is asked by Stefano Brivio to allow libvirt to detect if connection to passt is lost and to restart passt.  
+> 
+> [...]
+> 
+> >>> Could similar event signalling be useful for other kinds of netdev
+> >>> backends?  
+> >>
+> >> I was wondering, but it becomes more complicated to be generic.  
+> >
+> > Making something complicated and generic where a simpler special
+> > solution would do is the worst.
+> >
+> > Not quite as bad (but still plenty bad) is making a few special
+> > solutions first, then replace them all with a generic solution.
+> >
+> > I believe we should have a good, hard think on possible applications of
+> > a generic solution now.
+> >
+> > There is no need to hold back this series for that.
+> >
+> > If we conclude a generic solution is called for, we better replace this
+> > special solution before it becomes ABI.  Either by replacing it before
+> > we release it, or by keeping it unstable until we replace it.  
+> 
+> Stefano, any thoughts on this?
 
-Clang produces a false positive when building with CONFIG_FORTIFY_SOURCE=y
-and CONFIG_UBSAN_BOUNDS=y when operating on an array with a dynamic
-offset. Work around this by using a direct assignment of an empty
-instance. Avoids this warning:
+Actually, to me, it already looks as generic as it can be: stream
+back-ends are the only ones connecting and disconnecting.
 
-../include/linux/fortify-string.h:309:4: warning: call to __write_overflow_field declared with 'warn
-ing' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wat
-tribute-warning]
-                        __write_overflow_field(p_size_field, size);
-                        ^
+I quickly tried to think about possible, similar events for other
+back-ends:
 
-which was isolated to the memset() call in xen_load_idt().
+- user: handled by libslirp, there's no connection, and probably not
+  much we can or want to export from libslirp itself
 
-Note that this looks very much like another bug that was worked around:
-https://github.com/ClangBuiltLinux/linux/issues/1592
+- tap, bridge: the closest equivalent would be interfaces changing
+  states, but that's something that's also externally observable with a
+  netlink socket, in case one needs to know. And in any case, it's
+  logically very different from a connection or disconnection. If we
+  want events for that, they should have different names
 
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Link: https://lore.kernel.org/lkml/41527d69-e8ab-3f86-ff37-6b298c01d5bc@oracle.com
-Signed-off-by: Kees Cook <keescook@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/xen/enlighten_pv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+- vhost-user, vde: we could implement something similar if the need
+  arises, but it should logically have a different name
 
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 133ef31639df..561aad13412f 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -759,6 +759,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
- {
- 	static DEFINE_SPINLOCK(lock);
- 	static struct trap_info traps[257];
-+	static const struct trap_info zero = { };
- 	unsigned out;
- 
- 	trace_xen_cpu_load_idt(desc);
-@@ -768,7 +769,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
- 	memcpy(this_cpu_ptr(&idt_desc), desc, sizeof(idt_desc));
- 
- 	out = xen_convert_trap_info(desc, traps, false);
--	memset(&traps[out], 0, sizeof(traps[0]));
-+	traps[out] = zero;
- 
- 	xen_mc_flush();
- 	if (HYPERVISOR_set_trap_table(traps))
+- l2tpv3: stateless, same as datagram-oriented socket. No states, no
+  events to report, I guess.
+
+All in all, to me, NETDEV_STREAM_{,DIS}CONNECTED events here don't look
+very "special" or hackish.
+
 -- 
-2.35.1
-
-
+Stefano
 
 
