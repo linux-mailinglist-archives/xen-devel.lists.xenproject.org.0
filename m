@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1385A60A4A6
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:14:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429059.679835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EDBE60A5B2
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:29:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429070.679858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omwLN-0001oe-9w; Mon, 24 Oct 2022 12:14:13 +0000
+	id 1omwZt-000444-0w; Mon, 24 Oct 2022 12:29:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429059.679835; Mon, 24 Oct 2022 12:14:13 +0000
+Received: by outflank-mailman (output) from mailman id 429070.679858; Mon, 24 Oct 2022 12:29:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omwLN-0001lm-7I; Mon, 24 Oct 2022 12:14:13 +0000
-Received: by outflank-mailman (input) for mailman id 429059;
- Mon, 24 Oct 2022 12:14:12 +0000
+	id 1omwZs-00042D-UO; Mon, 24 Oct 2022 12:29:12 +0000
+Received: by outflank-mailman (input) for mailman id 429070;
+ Mon, 24 Oct 2022 12:29:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DVco=2Z=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1omwLM-0001lg-2K
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:14:12 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1omwZq-000427-QT
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:29:10 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d0263bb-5395-11ed-91b5-6bf2151ebd3b;
- Mon, 24 Oct 2022 14:14:10 +0200 (CEST)
+ id 7532eeeb-5397-11ed-91b5-6bf2151ebd3b;
+ Mon, 24 Oct 2022 14:29:09 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CE1E5612FE;
- Mon, 24 Oct 2022 12:14:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B814EC433D6;
- Mon, 24 Oct 2022 12:14:07 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 54871B8169E;
+ Mon, 24 Oct 2022 12:29:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5BCC433D6;
+ Mon, 24 Oct 2022 12:29:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,14 +44,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d0263bb-5395-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 7532eeeb-5397-11ed-91b5-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1666613648;
-	bh=q35u9k51iKg4WFnPv2+Jft9j9x8EK3aRtf5Pa+iGBKU=;
+	s=korg; t=1666614547;
+	bh=aW+O/Bep5E72Knf9F5KLUligbpxqba0bCHR1Uql63Oo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=N3lJStRMIfM1xWFYqREc3zv03PcsQNTZREFDYQk+pT9yVx9WozZGOrOlVilhzF22/
-	 Wr5AjCofsHKgneEeFUqozvy/Km3bGtfIXKZH2yz+iNPksyqfK+Wqd9juu4GNyC7bVk
-	 kuLnDNBQIeOKtz3FztqY9EbZUVna89qVxZT0rJbA=
+	b=cQtyDm7tvpANV4AlaDyclQKUJhPvkh6ix3TEF/Pmh/UHGFZ0K62W+PbDuPCK1TCwq
+	 gLqfRAKygujAdEWgsogkoaxob480dvaiC6ZKlQCPN4bBzOSfbRwq+QAK+cF94ZrYO7
+	 m2rmpZ/eLuonEkxUyNpu0DUjvi4+ZyEHPwupMz3w=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -67,12 +67,12 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	xen-devel@lists.xenproject.org,
 	Kees Cook <keescook@chromium.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.4 189/255] x86/entry: Work around Clang __bdos() bug
+Subject: [PATCH 5.10 302/390] x86/entry: Work around Clang __bdos() bug
 Date: Mon, 24 Oct 2022 13:31:39 +0200
-Message-Id: <20221024113009.238496303@linuxfoundation.org>
+Message-Id: <20221024113035.871644092@linuxfoundation.org>
 X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221024113002.471093005@linuxfoundation.org>
-References: <20221024113002.471093005@linuxfoundation.org>
+In-Reply-To: <20221024113022.510008560@linuxfoundation.org>
+References: <20221024113022.510008560@linuxfoundation.org>
 User-Agent: quilt/0.67
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -116,10 +116,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 65cf405cd975..26b35e75b701 100644
+index 804c65d2b95f..815030b7f6fa 100644
 --- a/arch/x86/xen/enlighten_pv.c
 +++ b/arch/x86/xen/enlighten_pv.c
-@@ -759,6 +759,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
+@@ -768,6 +768,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
  {
  	static DEFINE_SPINLOCK(lock);
  	static struct trap_info traps[257];
@@ -127,7 +127,7 @@ index 65cf405cd975..26b35e75b701 100644
  	unsigned out;
  
  	trace_xen_cpu_load_idt(desc);
-@@ -768,7 +769,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
+@@ -777,7 +778,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
  	memcpy(this_cpu_ptr(&idt_desc), desc, sizeof(idt_desc));
  
  	out = xen_convert_trap_info(desc, traps, false);
