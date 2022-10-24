@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4964560A049
+	by mail.lfdr.de (Postfix) with ESMTPS id 9493C60A04C
 	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 13:20:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.428903.679570 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.428905.679584 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omvV2-0005Jy-S9; Mon, 24 Oct 2022 11:20:08 +0000
+	id 1omvV4-0005Yi-FQ; Mon, 24 Oct 2022 11:20:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 428903.679570; Mon, 24 Oct 2022 11:20:08 +0000
+Received: by outflank-mailman (output) from mailman id 428905.679584; Mon, 24 Oct 2022 11:20:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omvV2-000581-A0; Mon, 24 Oct 2022 11:20:08 +0000
-Received: by outflank-mailman (input) for mailman id 428903;
- Mon, 24 Oct 2022 11:20:04 +0000
+	id 1omvV3-0005KN-CV; Mon, 24 Oct 2022 11:20:09 +0000
+Received: by outflank-mailman (input) for mailman id 428905;
+ Mon, 24 Oct 2022 11:20:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fxyk=2Z=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1omvUy-0003Yp-Fy
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 11:20:04 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1omvUz-0003Yp-0d
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 11:20:05 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce289cad-538d-11ed-91b5-6bf2151ebd3b;
+ id ce7a9d98-538d-11ed-91b5-6bf2151ebd3b;
  Mon, 24 Oct 2022 13:20:03 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9FA5D1FD8D;
- Mon, 24 Oct 2022 11:20:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2A99A21E9E;
+ Mon, 24 Oct 2022 11:20:04 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1F03F13357;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A51C113357;
  Mon, 24 Oct 2022 11:20:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oF3JBuN0VmOYMgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id MClwJ+N0VmOYMgAAMHmgww
  (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:20:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,25 +51,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce289cad-538d-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: ce7a9d98-538d-11ed-91b5-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1666610403; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1666610404; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mu2A6Ru6vvqSAa8anfcgwfFu/Q/j4bw+8GKC1w2HMmA=;
-	b=1Ddfi5oF53IDn/dEor6K/T+V/aCfrL/W6sW/tT545sWp30MAprfNOr9MyridKrSqfDtAZI
-	ebbFI2M4pL1Z1uiVsH42V8grf97raXsRpVCfa5MeJaU1caiW23JgP+zW63fKCJV9agaiU5
-	xY0Ai+IoQvbFvTjNyZfPs19wDgn/fJM=
+	bh=YkMHENyFsh6/3SjkSTuYRYMbHc7R5XzWBBCbrwJgYhc=;
+	b=UL0Xm/SZ/boCID7H9JNHrmtRrt3jufekwWgojpJwcDZDOUJLVFxOogJl2v0+1qP4CEAeGU
+	fRM0GF4CApRdd83X31cW2Rzd2aSdlQtJf4S4YZtJ5sXZLrj58aqT6Gv8ztwFTV2hZcAoSy
+	t9VQtHXjrBPan1liZ0sZc/2fCWmDYDA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1666610403;
+	s=susede2_ed25519; t=1666610404;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mu2A6Ru6vvqSAa8anfcgwfFu/Q/j4bw+8GKC1w2HMmA=;
-	b=JTRituGpMHUmE6YbaHBmk24BldH2XWaEQXgBvVXUh7zUGL5jFPvQ4ywPocisVX5tACqbjK
-	as4LMfFKnyo2z+CA==
+	bh=YkMHENyFsh6/3SjkSTuYRYMbHc7R5XzWBBCbrwJgYhc=;
+	b=vDfrFs9N/fTxnSB8q3qlPxjXKDXlJR8QXIEAG/fSF+rYVJqcaIrdG6KxsnY74D6kAk8scf
+	1FIUDLCuQMoaGJDg==
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
@@ -100,34 +100,40 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-tegra@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 10/21] drm/tve200: Include <linux/of.h>
-Date: Mon, 24 Oct 2022 13:19:42 +0200
-Message-Id: <20221024111953.24307-11-tzimmermann@suse.de>
+Subject: [PATCH v2 11/21] drm/fb-helper: Cleanup include statements in header file
+Date: Mon, 24 Oct 2022 13:19:43 +0200
+Message-Id: <20221024111953.24307-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20221024111953.24307-1-tzimmermann@suse.de>
 References: <20221024111953.24307-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Include <linux/of.h> for of_match_ptr().
+Only include what we have to.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/tve200/tve200_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/drm/drm_fb_helper.h | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tve200/tve200_drv.c b/drivers/gpu/drm/tve200/tve200_drv.c
-index 04db72e3fa9c2..611785e097576 100644
---- a/drivers/gpu/drm/tve200/tve200_drv.c
-+++ b/drivers/gpu/drm/tve200/tve200_drv.c
-@@ -32,6 +32,7 @@
- #include <linux/irq.h>
- #include <linux/io.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/shmem_fs.h>
- #include <linux/slab.h>
+diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
+index fddd0d1af6891..e923089522896 100644
+--- a/include/drm/drm_fb_helper.h
++++ b/include/drm/drm_fb_helper.h
+@@ -32,11 +32,9 @@
+ 
+ struct drm_fb_helper;
+ 
+-#include <drm/drm_client.h>
+-#include <drm/drm_crtc.h>
+-#include <drm/drm_device.h>
+ #include <linux/fb.h>
+-#include <linux/kgdb.h>
++
++#include <drm/drm_client.h>
+ 
+ enum mode_set_atomic {
+ 	LEAVE_ATOMIC_MODE_SET,
 -- 
 2.38.0
 
