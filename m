@@ -2,61 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8960660A7BE
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:56:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429095.679924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249DA60A7BB
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:56:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429098.679913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omx0G-0001qw-Fk; Mon, 24 Oct 2022 12:56:28 +0000
+	id 1omwzj-0001ND-8a; Mon, 24 Oct 2022 12:55:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429095.679924; Mon, 24 Oct 2022 12:56:28 +0000
+Received: by outflank-mailman (output) from mailman id 429098.679913; Mon, 24 Oct 2022 12:55:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omx0G-0001ot-D2; Mon, 24 Oct 2022 12:56:28 +0000
-Received: by outflank-mailman (input) for mailman id 429095;
- Mon, 24 Oct 2022 12:51:53 +0000
+	id 1omwzj-0001Ku-5A; Mon, 24 Oct 2022 12:55:55 +0000
+Received: by outflank-mailman (input) for mailman id 429098;
+ Mon, 24 Oct 2022 12:55:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Bvlc=2Z=linux.ibm.com=jejb@srs-se1.protection.inumbo.net>)
- id 1omwvp-000187-3K
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:51:53 +0000
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a09ba47d-539a-11ed-8fd0-01056ac49cbb;
- Mon, 24 Oct 2022 14:51:51 +0200 (CEST)
-Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 29OCERSb023714;
- Mon, 24 Oct 2022 12:51:31 GMT
-Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
- [169.53.41.122])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3kdthg12fh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Oct 2022 12:51:30 +0000
-Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
- by ppma04dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 29OCZbsn008186;
- Mon, 24 Oct 2022 12:51:30 GMT
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by ppma04dal.us.ibm.com with ESMTP id 3kc859pu97-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 24 Oct 2022 12:51:29 +0000
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 29OCpUoi8651402
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 24 Oct 2022 12:51:30 GMT
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 434BA7805E;
- Mon, 24 Oct 2022 13:34:16 +0000 (GMT)
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 72A6E7805C;
- Mon, 24 Oct 2022 13:34:14 +0000 (GMT)
-Received: from [IPv6:2601:5c4:4300:c551:a71:90ff:fec2:f05b] (unknown
- [9.163.14.162])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 24 Oct 2022 13:34:14 +0000 (GMT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Czee=2Z=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1omwzi-0001Kl-2R
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:55:54 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3114cc96-539b-11ed-8fd0-01056ac49cbb;
+ Mon, 24 Oct 2022 14:55:53 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6B2691FD8E;
+ Mon, 24 Oct 2022 12:55:52 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1898813A79;
+ Mon, 24 Oct 2022 12:55:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id EEmOBFiLVmOeagAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 24 Oct 2022 12:55:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,121 +51,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a09ba47d-539a-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=message-id : subject :
- from : reply-to : to : cc : date : in-reply-to : references : content-type
- : content-transfer-encoding : mime-version; s=pp1;
- bh=oXDo6OOAGRuOx2/tHyuwWdEtQtQZtp/beyJbpXTtQo4=;
- b=koxkd2YZZzRZMplg4caN1FtHR1Q0XA5I+p8f2rdYg9ihhsA14PzT4ltccH92+cxpqlsx
- 5SqzFOEtiN+XMmSJK7MLubY02QztDq2WVmEzGKfrdyLcWtV1Wj3xC0Vl3p1l9a/VBKk9
- 5tZ25nCzmJjk5ZOBC7Sq1Ji5f5VaQn68hxk0T4uJGj3PFUIkk1uL1zkJ1pmgpxmUTvaL
- rvOt7RAsrsT0fWolYucTyXwMEZe9qLbStdP6jYNiA66qHNiZutRAiXdgq42/jgEFunz8
- BOvxZODTyLVyT47aizWlW+J1fQxz5bSZZEXvN7agYONaoiaoYrD7V2/OqhBXUeiSGjwp aA== 
-Message-ID: <2fd505a07bd26d76f1166761fa50905414edb7ef.camel@linux.ibm.com>
+X-Inumbo-ID: 3114cc96-539b-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1666616152; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=doG6HZnZCoVKaGw+wo/WVrDGL+eOY9VhqR01LjBiG/k=;
+	b=HfxIHM2+JmZUl9g4XsZz67Ez89BG4CQew93Ibamd0l2IDF3ydJyH43+tX8csurg9RxBGFc
+	IW+os+DmG7gY+T3mqa/3GQt87PE+wZNr91AROX7E2pGrtKnJ0uM8O/GxEeRoCDGGolffcV
+	/5+K+/KQ9Vigv6UUppntuZaQGg/imcI=
+Message-ID: <016732f4-d129-69bb-4b5f-82198407ee5e@suse.com>
+Date: Mon, 24 Oct 2022 14:55:51 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
 Subject: Re: Report in downstream Debian: mpt3sas broken with xen dom0 with
  update to 5.10.149 in 5.10.y.
-From: James Bottomley <jejb@linux.ibm.com>
-Reply-To: jejb@linux.ibm.com
+Content-Language: en-US
 To: Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-        Bart Van Assche
-	 <bvanassche@acm.org>
-Cc: Salvatore Bonaccorso <carnil@debian.org>, sathya.prakash@broadcom.com,
-        suganath-prabu.subramani@broadcom.com,
-        "Martin K. Petersen"
-	 <martin.petersen@oracle.com>,
-        MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
-        linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-        adi@kriegisch.at
-Date: Mon, 24 Oct 2022 08:51:25 -0400
-In-Reply-To: <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
+ Bart Van Assche <bvanassche@acm.org>
+Cc: Salvatore Bonaccorso <carnil@debian.org>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, sathya.prakash@broadcom.com,
+ suganath-prabu.subramani@broadcom.com,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ adi@kriegisch.at
 References: <Y1JkuKTjVYrOWbvm@eldamar.lan>
-	 <85ad4508-b979-c792-e92b-01bc16260dec@acm.org>
-	 <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.34.4 
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: rf1s4aY2JsG8kj3ndnjkEqcdP00oZW8p
-X-Proofpoint-ORIG-GUID: rf1s4aY2JsG8kj3ndnjkEqcdP00oZW8p
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
-MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-10-24_03,2022-10-21_01,2022-06-22_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0
- impostorscore=0 bulkscore=0 clxscore=1011 spamscore=0 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 phishscore=0 mlxscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2209130000 definitions=main-2210240077
+ <85ad4508-b979-c792-e92b-01bc16260dec@acm.org>
+ <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------S7L73GZ7QwBj4qRYR6bALgT0"
 
-On Mon, 2022-10-24 at 17:26 +0530, Sreekanth Reddy wrote:
-> On Sun, Oct 23, 2022 at 6:57 AM Bart Van Assche <bvanassche@acm.org>
-> wrote:
-> > On 10/21/22 02:22, Salvatore Bonaccorso wrote:
-> > > We got the following report in Debian after an update from
-> > > 5.10.140 to
-> > > the current 5.10.149. Full quoting below (from
-> > > https://bugs.debian.org/1022126). Does this ring some bell about
-> > > known
-> > > regressions?
-> > 
-> > Only three mpt3sas changes are new in v5.10.149 compared to
-> > v5.10.140:
-> > $ git log --format=oneline v5.10.140..v5.10.149
-> > 2b9aba0c5d58e141e32bb1bb4c7cd91d19f075b8 scsi: mpt3sas: Fix return
-> > value check of dma_get_required_mask()
-> > e7fafef9830c4a01e60f76e3860a9bef0262378d scsi: mpt3sas: Force PCIe
-> > scatterlist allocations to be within same 4 GB region
-> > ea10a652ad2ae2cf3eced6f632a5c98f26727057 scsi: mpt3sas: Fix use-
-> > after-free warning
-> > 
-> > Sreekanth and Suganath, can you help with bisecting this issue? For
-> > the
-> > full report, see also 
-> > https://lore.kernel.org/linux-scsi/Y1JkuKTjVYrOWbvm@eldamar.lan/.
-> 
-> This issue is getting observed after having the below patch changes,
-> 2b9aba0c5d58e141e32bb1bb4c7cd91d19f075b8 scsi: mpt3sas: Fix return
-> value check of dma_get_required_mask()
-> 
-> What is happening is that on Xen hypervisor, this
-> dma_get_required_mask() API always returns a 32 bit DMA mask. I.e. It
-> says that the minimum DMA mask required to access the host memory is
-> 32 bit and hence mpt3sas driver is setting the DMA mask to 32bit.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------S7L73GZ7QwBj4qRYR6bALgT0
+Content-Type: multipart/mixed; boundary="------------8nAfY0HuTJjjgFAPh5D6KU35";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+ Bart Van Assche <bvanassche@acm.org>
+Cc: Salvatore Bonaccorso <carnil@debian.org>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, sathya.prakash@broadcom.com,
+ suganath-prabu.subramani@broadcom.com,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ adi@kriegisch.at
+Message-ID: <016732f4-d129-69bb-4b5f-82198407ee5e@suse.com>
+Subject: Re: Report in downstream Debian: mpt3sas broken with xen dom0 with
+ update to 5.10.149 in 5.10.y.
+References: <Y1JkuKTjVYrOWbvm@eldamar.lan>
+ <85ad4508-b979-c792-e92b-01bc16260dec@acm.org>
+ <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
+In-Reply-To: <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
 
-This sounds entirely correct because the VM is booted with (from the
-original debian bug report):
+--------------8nAfY0HuTJjjgFAPh5D6KU35
+Content-Type: multipart/mixed; boundary="------------cFpTspK8fz03bLJT6EfskpoB"
 
-dom0_mem=4096M,max:4096M dom0_max_vcpus=4 dom0_vcpus_pin
-  ucode=scan xpti=dom0=false,domu=true gnttab_max_frames=128
+--------------cFpTspK8fz03bLJT6EfskpoB
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-So it has no memory above 4GB and thus 32 bit addressing is the minimum
-required.  If you boot a machine with >4GB and Xen still returns a 32
-bit mask here, then we have a Xen problem.
+T24gMjQuMTAuMjIgMTM6NTYsIFNyZWVrYW50aCBSZWRkeSB3cm90ZToNCj4gT24gU3VuLCBP
+Y3QgMjMsIDIwMjIgYXQgNjo1NyBBTSBCYXJ0IFZhbiBBc3NjaGUgPGJ2YW5hc3NjaGVAYWNt
+Lm9yZz4gd3JvdGU6DQo+Pg0KPj4gT24gMTAvMjEvMjIgMDI6MjIsIFNhbHZhdG9yZSBCb25h
+Y2NvcnNvIHdyb3RlOg0KPj4+IFdlIGdvdCB0aGUgZm9sbG93aW5nIHJlcG9ydCBpbiBEZWJp
+YW4gYWZ0ZXIgYW4gdXBkYXRlIGZyb20gNS4xMC4xNDAgdG8NCj4+PiB0aGUgY3VycmVudCA1
+LjEwLjE0OS4gRnVsbCBxdW90aW5nIGJlbG93IChmcm9tDQo+Pj4gaHR0cHM6Ly9idWdzLmRl
+Ymlhbi5vcmcvMTAyMjEyNikuIERvZXMgdGhpcyByaW5nIHNvbWUgYmVsbCBhYm91dCBrbm93
+bg0KPj4+IHJlZ3Jlc3Npb25zPw0KPj4NCj4+IE9ubHkgdGhyZWUgbXB0M3NhcyBjaGFuZ2Vz
+IGFyZSBuZXcgaW4gdjUuMTAuMTQ5IGNvbXBhcmVkIHRvIHY1LjEwLjE0MDoNCj4+ICQgZ2l0
+IGxvZyAtLWZvcm1hdD1vbmVsaW5lIHY1LjEwLjE0MC4udjUuMTAuMTQ5DQo+PiAyYjlhYmEw
+YzVkNThlMTQxZTMyYmIxYmI0YzdjZDkxZDE5ZjA3NWI4IHNjc2k6IG1wdDNzYXM6IEZpeCBy
+ZXR1cm4gdmFsdWUgY2hlY2sgb2YgZG1hX2dldF9yZXF1aXJlZF9tYXNrKCkNCj4+IGU3ZmFm
+ZWY5ODMwYzRhMDFlNjBmNzZlMzg2MGE5YmVmMDI2MjM3OGQgc2NzaTogbXB0M3NhczogRm9y
+Y2UgUENJZSBzY2F0dGVybGlzdCBhbGxvY2F0aW9ucyB0byBiZSB3aXRoaW4gc2FtZSA0IEdC
+IHJlZ2lvbg0KPj4gZWExMGE2NTJhZDJhZTJjZjNlY2VkNmY2MzJhNWM5OGYyNjcyNzA1NyBz
+Y3NpOiBtcHQzc2FzOiBGaXggdXNlLWFmdGVyLWZyZWUgd2FybmluZw0KPj4NCj4+IFNyZWVr
+YW50aCBhbmQgU3VnYW5hdGgsIGNhbiB5b3UgaGVscCB3aXRoIGJpc2VjdGluZyB0aGlzIGlz
+c3VlPyBGb3IgdGhlDQo+PiBmdWxsIHJlcG9ydCwgc2VlIGFsc28gaHR0cHM6Ly9sb3JlLmtl
+cm5lbC5vcmcvbGludXgtc2NzaS9ZMUprdUtUalZZck9XYnZtQGVsZGFtYXIubGFuLy4NCj4g
+DQo+IFRoaXMgaXNzdWUgaXMgZ2V0dGluZyBvYnNlcnZlZCBhZnRlciBoYXZpbmcgdGhlIGJl
+bG93IHBhdGNoIGNoYW5nZXMsDQo+IDJiOWFiYTBjNWQ1OGUxNDFlMzJiYjFiYjRjN2NkOTFk
+MTlmMDc1Yjggc2NzaTogbXB0M3NhczogRml4IHJldHVybg0KPiB2YWx1ZSBjaGVjayBvZiBk
+bWFfZ2V0X3JlcXVpcmVkX21hc2soKQ0KPiANCj4gV2hhdCBpcyBoYXBwZW5pbmcgaXMgdGhh
+dCBvbiBYZW4gaHlwZXJ2aXNvciwgdGhpcw0KPiBkbWFfZ2V0X3JlcXVpcmVkX21hc2soKSBB
+UEkgYWx3YXlzIHJldHVybnMgYSAzMiBiaXQgRE1BIG1hc2suIEkuZS4gSXQNCj4gc2F5cyB0
+aGF0IHRoZSBtaW5pbXVtIERNQSBtYXNrIHJlcXVpcmVkIHRvIGFjY2VzcyB0aGUgaG9zdCBt
+ZW1vcnkgaXMNCj4gMzIgYml0IGFuZCBoZW5jZSBtcHQzc2FzIGRyaXZlciBpcyBzZXR0aW5n
+IHRoZSBETUEgbWFzayB0byAzMmJpdC4gU28sDQo+IG9uIGEgNjQgYml0IG1hY2hpbmUsIGlm
+IHRoZSBkcml2ZXIgc2V0J3MgdGhlIERNQSBtYXNrIHRvIDMyIGJpdCB0aGVuDQo+IFNXSU9U
+TEIncyBib3VuY2UgYnVmZmVyIGNvbWVzIGludG8gcGljdHVyZSBkdXJpbmcgSU9zLiBTaW5j
+ZSB0aGVzZQ0KPiBib3VuY2UgYnVmZmVycyBhcmUgbGltaXRlZCBpbiBzaXplIGFuZCBoZW5j
+ZSB3ZSBvYnNlcnZlIHRoZSBJTyBoYW5nIGlmDQo+IHRoZSBsYXJnZSBJT3MgYXJlIGlzc3Vl
+ZC4NCj4gDQo+IEkgYW0gbm90IHN1cmUgd2hldGhlciB0aGlzIEFQSSdzIHJldHVybiB2YWx1
+ZSBpcyBjb3JyZWN0IG9yIG5vdCBpbiB0aGUNCj4gWGVuIGVudmlyb25tZW50LiBJZiBpdCBp
+cyBjb3JyZWN0IHRoZW4gSSBoYXZlIHRvIG1vZGlmeSB0aGUgZHJpdmVyIHRvDQo+IG5vdCB1
+c2UgdGhpcyBBUEkgYW5kIGRpcmVjdGx5IHNldCB0aGUgRE1BIG1hc2sgdG8gNjQgYml0IGlm
+IHRoZSBzeXN0ZW0NCj4gaXMgYSA2NGJpdCBtYWNoaW5lLg0KDQpQbGVhc2UgcmVjaGVjayB0
+aGUgYmFja3BvcnRlZCBwYXRjaCBpbiA1LjEwLnkuIEl0IGlzIF93cm9uZ18uIFRoZSBiYWNr
+cG9ydA0KaGFzOg0KDQotLS0gYS9kcml2ZXJzL3Njc2kvbXB0M3Nhcy9tcHQzc2FzX2Jhc2Uu
+Yw0KKysrIGIvZHJpdmVycy9zY3NpL21wdDNzYXMvbXB0M3Nhc19iYXNlLmMNCkBAIC0yOTkz
+LDcgKzI5OTMsNyBAQCBfYmFzZV9jb25maWdfZG1hX2FkZHJlc3Npbmcoc3RydWN0IE1QVDNT
+QVNfQURBUFRFUiAqaW9jLCANCnN0cnVjdCBwY2lfZGV2ICpwZGV2KQ0KDQogICAgICAgICBp
+ZiAoaW9jLT5pc19tY3B1X2VuZHBvaW50IHx8DQogICAgICAgICAgICAgc2l6ZW9mKGRtYV9h
+ZGRyX3QpID09IDQgfHwgaW9jLT51c2VfMzJiaXRfZG1hIHx8DQotICAgICAgICAgICBkbWFf
+Z2V0X3JlcXVpcmVkX21hc2soJnBkZXYtPmRldikgPD0gMzIpDQorICAgICAgICAgICBkbWFf
+Z2V0X3JlcXVpcmVkX21hc2soJnBkZXYtPmRldikgPD0gRE1BX0JJVF9NQVNLKDMyKSkNCiAg
+ICAgICAgICAgICAgICAgaW9jLT5kbWFfbWFzayA9IDMyOw0KICAgICAgICAgLyogU2V0IDYz
+IGJpdCBETUEgbWFzayBmb3IgYWxsIFNBUzMgYW5kIFNBUzM1IGNvbnRyb2xsZXJzICovDQog
+ICAgICAgICBlbHNlIGlmIChpb2MtPmhiYV9tcGlfdmVyc2lvbl9iZWxvbmdlZCA+IE1QSTJf
+VkVSU0lPTikNCg0KV2hpbGUgdGhlIHVwc3RyZWFtIHBhdGNoIGhhczoNCg0KKyAgICAgICBp
+ZiAoaW9jLT5pc19tY3B1X2VuZHBvaW50IHx8IHNpemVvZihkbWFfYWRkcl90KSA9PSA0IHx8
+DQorICAgICAgICAgICBkbWFfZ2V0X3JlcXVpcmVkX21hc2soJnBkZXYtPmRldikgPD0gMzIp
+IHsNCiAgICAgICAgICAgICAgICAgaW9jLT5kbWFfbWFzayA9IDMyOw0KKyAgICAgICAgICAg
+ICAgIGNvaGVyZW50X2RtYV9tYXNrID0gZG1hX21hc2sgPSBETUFfQklUX01BU0soMzIpOw0K
+DQoNCkp1ZXJnZW4NCg0K
+--------------cFpTspK8fz03bLJT6EfskpoB
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
->  So, on a 64 bit machine, if the driver set's the DMA mask to 32 bit
-> then SWIOTLB's bounce buffer comes into picture during IOs. Since
-> these bounce buffers are limited in size and hence we observe the IO
-> hang if the large IOs are issued.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Why is the SWIOTLB active if all the physical memory in the VM is
-within the range of the DMA mask?  If this is really happening, it
-sounds like a SWIOTLB bug.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> I am not sure whether this API's return value is correct or not in
-> the Xen environment. If it is correct then I have to modify the
-> driver to not use this API and directly set the DMA mask to 64 bit if
-> the system is a 64bit machine.
+--------------cFpTspK8fz03bLJT6EfskpoB--
 
-The original design of the API is to describe exactly the minimum
-direct DMA requirements.  There are a large number of cards with
-multiple DMA register formats, the most common being to use either a
-compact 32 bit or an expanded 64 bit register to describe a page
-location.  The former gives 39 bits of addressing and the latter 64. 
-If the DMA mask is 39 bits or below as described by this API, then the
-card can use the compact address form.
+--------------8nAfY0HuTJjjgFAPh5D6KU35--
 
-James
+--------------S7L73GZ7QwBj4qRYR6bALgT0
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
+-----BEGIN PGP SIGNATURE-----
 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNWi1cFAwAAAAAACgkQsN6d1ii/Ey9+
+lwf/Yha8xaMGxH8Q4ckxdIAJvEQrji9rS53M62NlunVEMWVsKeUqsrmPASDUET/YhTByyi7+moWO
+DDioRZgOVuaMudP+cIwEtQ8eYvUv30uFaIOvKlFwsO2li5l50mVCAT0/5dax0+H5vXWpKsVPlZ4z
+SgcnpWUamA5goQNHUA0EoyFQpxucuiC1w7u7yBEIEVm2VmzyNrayou76j+GLEBGD+I/A9PzWHju/
+8UOSLt3jYmY6t/RXCar2Rk5qaMQqoTCPM6rynWO1Lpy30dH+hMl4+tXW2o2p5EdJBpj/maCB02KB
+W4KDn2wxmur5vSpRqI4Ha/OdjqmHe55PW1h5Mv/IFw==
+=CPv9
+-----END PGP SIGNATURE-----
+
+--------------S7L73GZ7QwBj4qRYR6bALgT0--
 
